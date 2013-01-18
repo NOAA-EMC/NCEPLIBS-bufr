@@ -1567,3 +1567,15 @@ GETBMISS was also added which returns the current "missing" value in use.
 
 1) A bug was fixed in the embedded C-language I/O to account for the
 difference in index numbering between Fortran and C arrays.
+
+##############################################################################
+##############################################################################
+##############################################################################
+
+          Changes to BUFR Archive Library, Version 10.2.2
+
+1) Subroutine OPENBF was modified to fix a bug which caused a segfault in
+certain cases when appending to a BUFR file using the embedded C-language I/O.
+
+2) Subroutines READLC and WRITLC were modified to allow the input mnemonic
+string to be up to 14 characters when it contains a '#' condition code.

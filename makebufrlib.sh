@@ -170,7 +170,7 @@ cpp $CPPFLAGS -DBUILD=NORMAL bufrlib.PRM bufrlib.prm
 #   Update libbufr_4_64.a (4-byte REAL, 4-byte INT, 64-bit compilation,
 #                          Fortran optimization level 3, C optimization level 3)
  
-export LIB="../../libbufr_v10.2.1_4_64.a"
+export LIB="../../libbufr_v10.2.2_4_64.a"
 if [ $OS = "AIX" ]
 then
     export FFLAGS=" -O4 -q64 -qsource -qstrict -qnosave -qintsize=4 -qrealsize=4 -qxlf77=leadzero"
@@ -190,7 +190,7 @@ err_make=$?
 #   Update libbufr_8_64.a (8-byte REAL, 8-byte INT, 64-bit compilation,
 #                          Fortran optimization level 3, C optimization level 3)
  
-export LIB="../../libbufr_v10.2.1_8_64.a"
+export LIB="../../libbufr_v10.2.2_8_64.a"
 if [ $OS = "AIX" ]
 then
     export FFLAGS=" -O4 -q64 -qsource -qstrict -qnosave -qintsize=8 -qrealsize=8 -qxlf77=leadzero"
@@ -210,7 +210,7 @@ err_make=$?
 #   Update libbufr_d_64.a (8-byte REAL, 4-byte INT, 64-bit compilation,
 #                          Fortran optimization level 3, C optimization level 3)
 
-export LIB="../../libbufr_v10.2.1_d_64.a"
+export LIB="../../libbufr_v10.2.2_d_64.a"
 if [ $OS = "AIX" ]
 then
     export FFLAGS=" -O4 -q64 -qsource -qstrict -qnosave -qintsize=4 -qrealsize=8 -qxlf77=leadzero"
@@ -235,7 +235,7 @@ cpp $CPPFLAGS -DBUILD=SUPERSIZE bufrlib.PRM bufrlib.prm
 #   Update libbufr_s_64.a (4-byte REAL, 4-byte INT, 64-bit compilation, extra-large array sizes,
 #                          Fortran optimization level 3, C optimization level 3)
  
-export LIB="../../libbufr_v10.2.1_s_64.a"
+export LIB="../../libbufr_v10.2.2_s_64.a"
 if [ $OS = "AIX" ]
 then
     export FFLAGS=" -O4 -q64 -qsource -qstrict -qnosave -qintsize=4 -qrealsize=4 -qxlf77=leadzero"
@@ -257,7 +257,7 @@ err_make=$?
 
 rm -f make.libbufr bufrlib.prm $BNFS
 
-if [ -s ../../libbufr_v10.2.1_s_64.a ] ; then
+if [ -s ../../libbufr_v10.2.2_s_64.a ] ; then
    echo
    echo "SUCCESS: The script updated all BUFR archive libraries"
    echo

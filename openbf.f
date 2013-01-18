@@ -245,6 +245,11 @@ C  ----------------------------------------------------
          CALL READDX(LUNIT,LUN,LUNDX)
       ELSE IF(IO.EQ.'INUL') THEN
          CALL WTSTAT(LUNIT,LUN,-1,0)
+         IF(LUNIT.NE.LUNDX) CALL READDX(LUNIT,LUN,LUNDX)
+         NULL(LUN) = 1
+      ELSE IF(IO.EQ.'NUL') THEN
+         CALL WTSTAT(LUNIT,LUN, 1,0)
+         IF(LUNIT.NE.LUNDX) CALL READDX(LUNIT,LUN,LUNDX)
          NULL(LUN) = 1
       ELSE IF(IO.EQ.'INX') THEN
          call openrb(lun,filename)
@@ -261,18 +266,15 @@ C  ----------------------------------------------------
          call openwb(lun,filename)
          CALL WTSTAT(LUNIT,LUN, 1,0)
          CALL WRITDX(LUNIT,LUN,LUNDX)
-      ELSE IF(IO.EQ.'APN' .OR. IO.EQ.'APX'
-     .   .OR. IO.EQ.'NODX'.OR. IO.EQ.'NUL') THEN
+      ELSE IF(IO.EQ.'NODX') THEN
+         call openwb(lun,filename)
          CALL WTSTAT(LUNIT,LUN, 1,0)
          CALL READDX(LUNIT,LUN,LUNDX)
-         IF(IO.EQ.'NODX') THEN
-           call openwb(lun,filename)
-         ELSE IF(IO.EQ.'APN' .OR. IO.EQ.'APX') THEN
-           call openab(lun,filename)
-           CALL POSAPX(LUNIT)
-         ELSE IF(IO.EQ.'NUL') THEN
-           NULL(LUN) = 1
-         ENDIF
+      ELSE IF(IO.EQ.'APN' .OR. IO.EQ.'APX') THEN
+         call openab(lun,filename)
+         CALL WTSTAT(LUNIT,LUN, 1,0)
+         IF(LUNIT.NE.LUNDX) CALL READDX(LUNIT,LUN,LUNDX)
+         CALL POSAPX(LUNIT)
       ELSE
          GOTO 904
       ENDIF

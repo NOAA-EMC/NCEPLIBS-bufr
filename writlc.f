@@ -27,6 +27,8 @@ C 2009-03-23  J. ATOR    -- ADDED '#' OPTION FOR MORE THAN ONE
 C                           OCCURRENCE OF STR 
 c 2009-08-11  J. WOOLLEN -- ADDED COMMON COMPRS ALONG WITH LOGIC TO 
 c                           WRITE LONG STRINGS INTO COMPRESSED SUBSETS
+C 2012-12-07  J. ATOR    -- ALLOW STR MNEMONIC LENGTH OF UP TO 14 CHARS
+C                           WHEN USED WITH '#' OCCURRENCE CODE
 C
 C USAGE:    CALL WRITLC (LUNIT, CHR, STR)
 C   INPUT ARGUMENT LIST:
@@ -66,11 +68,12 @@ C$$$
       CHARACTER*(*) CHR,STR
       CHARACTER*128 BORT_STR
       CHARACTER*(MXLCC)  CATX        
-      CHARACTER*10  TAG,TGS(100),CTAG
+      CHARACTER*10  TAG,CTAG
+      CHARACTER*14  TGS(10)
       CHARACTER*3   TYP
       REAL*8        VAL
 
-      DATA MAXTG /100/
+      DATA MAXTG /10/
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
@@ -104,7 +107,7 @@ C     if not, then the default is to write the first occurrence.
          ENDDO
       ELSE
          IOID = 1
-         CTAG = TGS(1)
+         CTAG = TGS(1)(1:10)
       ENDIF
 
 C  USE THIS LEG FOR STRINGING COMPRESSED DATA (UP TO MXLCC CHARACTERS)

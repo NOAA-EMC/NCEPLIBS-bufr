@@ -24,6 +24,8 @@ C 2009-03-23  J. ATOR    -- ADDED CAPABILITY FOR COMPRESSED MESSAGES;
 C                           ADDED CHECK FOR OVERFLOW OF CHR; ADDED '#'
 C                           OPTION FOR MORE THAN ONE OCCURRENCE OF STR
 C 2009-04-21  J. ATOR    -- USE ERRWRT
+C 2012-12-07  J. ATOR    -- ALLOW STR MNEMONIC LENGTH OF UP TO 14 CHARS
+C                           WHEN USED WITH '#' OCCURRENCE CODE
 C
 C USAGE:    CALL READLC (LUNIT, CHR, STR)
 C   INPUT ARGUMENT LIST:
@@ -63,11 +65,12 @@ C$$$
 
       CHARACTER*(*) CHR,STR
       CHARACTER*128 BORT_STR,ERRSTR
-      CHARACTER*10  TAG,TGS(100),CTAG,CRTAG
+      CHARACTER*10  TAG,CTAG,CRTAG
+      CHARACTER*14  TGS(10)
       CHARACTER*3   TYP
       REAL*8        VAL
 
-      DATA MAXTG /100/
+      DATA MAXTG /10/
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
@@ -103,7 +106,7 @@ C     if not, then the default is to return the first occurrence.
          ENDDO
       ELSE
          IOID = 1
-         CTAG = TGS(1)
+         CTAG = TGS(1)(1:10)
       ENDIF
 
 C  LOCATE AND DECODE THE LONG CHARACTER STRING
