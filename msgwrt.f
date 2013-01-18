@@ -50,6 +50,10 @@ C 2009-03-23  J. ATOR    -- USE IDXMSG AND ERRWRT; ADD CALL TO ATRCPT;
 C                           ALLOW STANDARDIZING VIA COMMON /MSGSTD/
 C                           EVEN IF DATA IS COMPRESSED; WORK ON LOCAL
 C                           COPY OF INPUT MESSAGE
+C 2012-09-15  J. WOOLLEN -- MODIFIED FOR C/I/O/BUFR INTERFACE;
+C                           CALL NEW ROUTINE BLOCKS FOR FILE BLOCKING
+C                           AND NEW C ROUTINE CWRBUFR TO WRITE BUFR
+C                           MESSAGE TO DISK FILE
 C
 C USAGE:    CALL MSGWRT (LUNIT, MESG, MGBYT)
 C   INPUT ARGUMENT LIST:
@@ -65,9 +69,10 @@ C REMARKS:
 C    THIS ROUTINE CALLS:        ATRCPT   BORT     CNVED4   ERRWRT
 C                               GETLENS  IDXMSG   IUPB     IUPBS01
 C                               NMWRD    PADMSG   PKB      PKBS1
-C                               PKC      STATUS   STNDRD
-C    THIS ROUTINE IS CALLED BY: CLOSMG   COPYMG   CPYMEM   CPYUPD
-C                               MSGUPD   SUBUPD   WRCMPS   WRDXTB
+C                               PKC      STATUS   STNDRD   BLOCKS
+C                               CWRBUFR
+C    THIS ROUTINE IS CALLED BY: CLOSMG   COPYBF   COPYMG   CPYMEM
+C                               CPYUPD   MSGUPD   WRCMPS   WRDXTB
 C                               Normally not called by any application
 C                               programs.
 C
@@ -260,7 +265,10 @@ C  ------------------------------------------------------------------
 
       MWRD = NMWRD(MBAY)
       CALL STATUS(LUNIT,LUN,IL,IM)
-      IF(NULL(LUN).EQ.0) WRITE(LUNIT) (MBAY(I),I=1,MWRD)
+      IF(NULL(LUN).EQ.0) then
+         CALL BLOCKS(MBAY,MWRD)
+         call cwrbufr(lun,mbay,mwrd)            
+      ENDIF
 
       IF(IPRT.GE.2) THEN
       CALL ERRWRT('++++++++++++++BUFR ARCHIVE LIBRARY+++++++++++++++++')

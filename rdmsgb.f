@@ -31,7 +31,7 @@ C     UNIT "LUNIT" - BUFR FILE
 C
 C REMARKS:
 C    THIS ROUTINE CALLS:        BORT     ICHKSTR  IUPBS01  LMSG
-C    THIS ROUTINE IS CALLED BY: READMG
+C    THIS ROUTINE IS CALLED BY: None
 C                               Normally not called by any application
 C                               programs.
 C

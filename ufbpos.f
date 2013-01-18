@@ -45,7 +45,7 @@ C                MESSAGE BEING READ, IN FORMAT OF EITHER YYMMDDHH OR
 C                YYYYMMDDHH, DEPENDING ON DATELEN() VALUE
 C
 C REMARKS:
-C    THIS ROUTINE CALLS:        BORT     IUPBS01  NMSUB    READMG
+C    THIS ROUTINE CALLS:        BORT     CEWIND   NMSUB    READMG
 C                               READSB   STATUS   UFBCNT   UPB
 C    THIS ROUTINE IS CALLED BY: None
 C                               Normally called only by application
@@ -89,7 +89,7 @@ C  REWIND FILE IF REQUESTED POINTERS ARE BEHIND CURRENT POINTERS
 C  -------------------------------------------------------------
  
       IF(IREC.LT.JREC .OR. (IREC.EQ.JREC.AND.ISUB.LT.JSUB)) THEN
-         REWIND LUNIT
+         CALL CEWIND(LUN)
          NMSG(LUN) = 0
          NSUB(LUN) = 0
          CALL UFBCNT(LUNIT,JREC,JSUB)

@@ -24,8 +24,8 @@ C     NMWRD    - INTEGER: BUFR MESSAGE LENGTH (IN MACHINE WORDS)
 C
 C REMARKS:
 C    THIS ROUTINE CALLS:        IUPBS01
-C    THIS ROUTINE IS CALLED BY: CNVED4   COPYBF   CPDXMM   LMSG
-C                               MSGWRT   PADMSG   STBFDX   UFBMEM
+C    THIS ROUTINE IS CALLED BY: CNVED4   CPDXMM   LMSG     MSGWRT
+C                               PADMSG   STBFDX   UFBMEM   UFBMEX
 C                               Also called by application programs.
 C
 C ATTRIBUTES:

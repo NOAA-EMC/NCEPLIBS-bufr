@@ -29,13 +29,18 @@ C                           MAXIMUM MESSAGE LENGTH INCREASED FROM
 C                           20,000 TO 50,000 BYTES
 C 2009-03-23  J. ATOR    -- PREVENT OVERFLOW OF CVAL AND CREF FOR
 C                           STRINGS LONGER THAN 8 CHARACTERS
+C 2012-03-02  J. ATOR    -- USE FUNCTION UPS
+C 2012-06-04  J. ATOR    -- SET DECODED REAL*8 VALUE TO "MISSING" WHEN
+C                           CORRESPONDING CHARACTER FIELD HAS ALL BITS
+C                           SET TO 1
 C
 C USAGE:    CALL RDCMPS (LUN)
 C   INPUT ARGUMENT LIST:
 C     LUN      - INTEGER: I/O STREAM INDEX INTO INTERNAL MEMORY ARRAYS
 C
 C REMARKS:
-C    THIS ROUTINE CALLS:        BORT     UPB      UPC      USRTPL
+C    THIS ROUTINE CALLS:        BORT     ICBFMS   UPB      UPC
+C                               UPS      USRTPL
 C    THIS ROUTINE IS CALLED BY: READSB
 C                               Normally not called by any application
 C                               programs.
@@ -65,21 +70,13 @@ C$$$
       CHARACTER*8   CREF,CVAL
       CHARACTER*3   TYP
       EQUIVALENCE   (CVAL,RVAL)
-      REAL*8        VAL,RVAL,UPS,TEN
-
-      DATA TEN /10/
+      REAL*8        VAL,RVAL,UPS
 
 C-----------------------------------------------------------------------
 C     Statement function to compute BUFR "missing value" for field
 C     of length LBIT bits (all bits "on"):
 
       LPS(LBIT) = MAX(2**(LBIT)-1,1)
-
-C     Statement function to decode the encoded BUFR value IVAL according
-C     to the scale and reference values that are stored within index NODE
-C     of the internal arrays ISC(*) and IRF(*):
-
-      UPS(NODE) = (IVAL+IRF(NODE))*TEN**(-ISC(NODE))
 C-----------------------------------------------------------------------
 
 C  SETUP THE SUBSET TEMPLATE
@@ -139,7 +136,7 @@ C        This is a numeric element.
             CALL USRTPL(LUN,N,IVAL)
             GOTO 1
          ENDIF
-         IF(IVAL.LT.LPS(NBIT)) VAL(N,LUN) = UPS(NODE)
+         IF(IVAL.LT.LPS(NBIT)) VAL(N,LUN) = UPS(IVAL,NODE)
          IBIT = IBIT + LINC*MSUB(LUN)
       ELSEIF(ITYP.EQ.3) THEN
 
@@ -184,7 +181,11 @@ C        this length is in bytes rather than bits.
             CVAL = ' '
             CALL UPC(CVAL,NCHR,MBAY(1,LUN),JBIT)
          ENDIF
-         VAL(N,LUN) = RVAL
+         IF (LELM.LE.8 .AND. ICBFMS(CVAL,NCHR).NE.0) THEN
+            VAL(N,LUN) = BMISS
+         ELSE
+            VAL(N,LUN) = RVAL
+         ENDIF
          IBIT = IBIT + 8*LINC*MSUB(LUN)
       ENDIF
       ENDDO

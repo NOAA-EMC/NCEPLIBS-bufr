@@ -14,7 +14,7 @@ C   THIS SUBROUTINE READS SPECIFIED VALUES FROM ALL DATA SUBSETS IN THE
 C   BUFR FILE INTO INTERNAL ARRAYS AND RETURNS THESE VALUES ALONG WITH
 C   A COUNT OF THE SUBSETS.  IF LUNIN IS LESS THAN ZERO, THIS
 C   SUBROUTINE RETURNS THE BUFR ARCHIVE LIBRARY'S GLOBAL VALUE FOR
-C   MISSING (10E10) (REGARDLESS OF THE MNEMONICS SPECIFIED IN STR)
+C   MISSING (REGARDLESS OF THE MNEMONICS SPECIFIED IN STR)
 C   ALONG WITH A COUNT OF THE SUBSETS (SEE REMARKS 2).  FINALLY, THIS
 C   SUBROUTINE EITHER CLOSES THE BUFR FILE IN ABS(LUNIN) (IF IT WAS
 C   OPENED HERE) OR RESTORES IT TO ITS PREVIOUS READ/WRITE STATUS AND
@@ -78,6 +78,10 @@ C                           WHICH ARE IDENTICAL ACROSS ALL SUBSETS IN
 C                           A SINGLE MESSAGE
 C 2010-05-07  J. ATOR    -- WHEN CALLING IREADMG, TREAT READ ERROR AS
 C                           END-OF-FILE CONDITION
+C 2012-03-02  J. ATOR    -- USE FUNCTION UPS
+C 2012-09-15  J. WOOLLEN -- MODIFIED FOR C/I/O/BUFR INTERFACE;
+C                           USE NEW OPENBF TYPE 'INX' TO OPEN AND CLOSE
+C                           THE C FILE WITHOUT CLOSING THE FORTRAN FILE
 C
 C USAGE:    CALL UFBTAB (LUNIN, TAB, I1, I2, IRET, STR)
 C   INPUT ARGUMENT LIST:
@@ -106,7 +110,7 @@ C                    LARGER THAN I1)
 C                      - THERE ARE THREE "GENERIC" MNEMONICS NOT
 C                        RELATED TO TABLE B, THESE RETURN THE FOLLOWING
 C                        INFORMATION IN CORRESPONDING TAB LOCATION:
-C                         'NUL'  WHICH ALWAYS RETURNS MISSING (10E10)
+C                         'NUL'  WHICH ALWAYS RETURNS BMISS ("MISSING")
 C                         'IREC' WHICH ALWAYS RETURNS THE CURRENT BUFR
 C                                MESSAGE (RECORD) NUMBER IN WHICH THIS
 C                                SUBSET RESIDES
@@ -124,7 +128,7 @@ C                  - IF LUNIN IS GREATER THAN ZERO: STARTING ADDRESS OF
 C                    DATA VALUES READ FROM BUFR FILE
 C                  - IF LUNIN IS LESS THAN ZERO: STARTING ADDRESS OF
 C                    ARRAY OF VALUES ALL RETURNED WITH THE BUFRLIB'S
-C                    GLOBAL VALUE FOR MISSING (10E10)
+C                    GLOBAL VALUE FOR MISSING (BMISS)
 C     IRET     - INTEGER: NUMBER OF DATA SUBSETS IN BUFR FILE
 C                  - IF LUNIN IS GREATER THAN ZERO: MUST BE NO LARGER
 C                    THAN I2, OTHERWISE ONLY FIRST I2 SUBSETS ARE
@@ -153,7 +157,7 @@ C                 ....
 C
 C          HERE IRET WILL RETURN THE COUNT OF SUBSETS IN THE BUFR FILE
 C          AND TAB WILL RETURN THE BUFRLIB'S GLOBAL VALUE FOR "MISSING"
-C          (10E10).
+C          (BMISS).
 C
 C       EXAMPLE 2) I1 IS SET TO 4 AND I2 IS SET TO 8 SUCH THAT TAB IS A
 C          32-WORD ARRAY, AND STR IS SET TO A NONSENSICAL STRING.
@@ -170,7 +174,7 @@ C                 ....
 C
 C          HERE IRET WILL AGAIN RETURN THE COUNT OF SUBSETS IN THE BUFR
 C          FILE AND ALL 32 VALUES OF ARRAY TAB WILL RETURN THE
-C          BUFRLIB'S GLOBAL VALUE FOR "MISSING" (10E10).
+C          BUFRLIB'S GLOBAL VALUE FOR "MISSING" (BMISS).
 C
 C       THE SIXTH ARGUMENT STR IS A DUMMY VALUE AND CAN BE SET TO
 C       ANY CHARACTER STRING (AGAIN, A 1-CHARACTER BLANK ' ' IS
@@ -185,7 +189,8 @@ C
 C    THIS ROUTINE CALLS:        BORT     CLOSBF   ERRWRT   IREADMG
 C                               IREADSB  MESGBC   NMSUB    OPENBF
 C                               PARSTR   REWNBF   STATUS   STRING
-C                               UPB      UPBB     UPC      USRTPL
+C                               UPB      UPBB     UPC      UPS
+C                               USRTPL
 C    THIS ROUTINE IS CALLED BY: None
 C                               Normally called only by application
 C                               programs.
@@ -220,15 +225,13 @@ C$$$
       CHARACTER*3   TYP
       EQUIVALENCE   (CVAL,RVAL)
       LOGICAL       OPENIT,JUST_COUNT
-      REAL*8        VAL,TAB(I1,I2),RVAL,UPS,TEN
+      REAL*8        VAL,TAB(I1,I2),RVAL,UPS
 
       DATA MAXTG /100/
-      DATA TEN   /10/
 
 C-----------------------------------------------------------------------
       MPS(NODE) = 2**(IBT(NODE))-1
       LPS(LBIT) = MAX(2**(LBIT)-1,1)
-      UPS(NODE) = (IVAL+IRF(NODE))*TEN**(-ISC(NODE))
 C-----------------------------------------------------------------------
 
 C  SET COUNTERS TO ZERO
@@ -254,19 +257,19 @@ C  ------------------------------------------------------------------
 C  OPEN BUFR FILE CONNECTED TO UNIT LUNIT IF IT IS NOT ALREADY OPEN
 C  ----------------------------------------------------------------
 
-         CALL OPENBF(LUNIT,'IN',LUNIT)
+         CALL OPENBF(LUNIT,'INX',LUNIT)
       ELSE
 
 C  IF BUFR FILE ALREADY OPENED, SAVE POSITION & REWIND TO FIRST DATA MSG
 C  ---------------------------------------------------------------------
 
-         CALL REWNBF(LUNIT,0)
+         CALL REWNBF(LUNIT,0)        
       ENDIF
 
       IAC = 1
 
 C  SET THE OUTPUT ARRAY VALUES TO THE BUFRLIB'S GLOBAL VALUE FOR
-C   MISSING (10E10)
+C   MISSING (BMISS)
 C  -------------------------------------------------------------
 
       DO J=1,I2
@@ -352,7 +355,7 @@ C  ------------------------------------
                TAB(I,IRET) = IVAL
             ELSEIF(ITP(NODE).EQ.2) THEN
                CALL UPBB(IVAL,NBIT,MBIT,MBAY(1,LUN))
-               IF(IVAL.LT.MPS(NODE)) TAB(I,IRET) = UPS(NODE)
+               IF(IVAL.LT.MPS(NODE)) TAB(I,IRET) = UPS(IVAL,NODE)
             ELSEIF(ITP(NODE).EQ.3) THEN
                CVAL = ' '
                KBIT = MBIT
@@ -469,7 +472,7 @@ C  -----------------------------
          CALL UPB(NINC,LINC,MBAY(1,LUN),JBIT)
          IVAL = LREF+NINC
          LRET = LRET+1
-         IF(NINC.LT.LPS(LINC)) TAB(I,LRET) = UPS(NODE)
+         IF(NINC.LT.LPS(LINC)) TAB(I,LRET) = UPS(IVAL,NODE)
          ENDDO
       ELSEIF(ITYP.EQ.3) THEN
          DO NSB=1,MSUB(LUN)

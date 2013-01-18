@@ -137,8 +137,8 @@ C  -----------------------------------
 c  .... INV is positional index in internal jump/link table for packed
 c       subset element KNVN in MBAY
       INV(KNVN,LUN) = NODE
-c  .... Actual unpacked subset values (VAL) are init. here (numbers as
-c      10E10, msg)
+c  .... Actual unpacked subset values (VAL) are initialized here
+c       (numbers as BMISS)
       VAL(KNVN,LUN) = VTMP(J,NR)
 c  .... MBIT is the bit in MBAY pointing to where the packed subset
 c       element KNVN begins

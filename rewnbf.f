@@ -38,6 +38,10 @@ C 2004-08-09  J. ATOR    -- MAXIMUM MESSAGE LENGTH INCREASED FROM
 C                           20,000 TO 50,000 BYTES
 C 2009-03-23  J. ATOR    -- MODIFIED TO HANDLE EMBEDDED BUFR TABLE
 C                           (DICTIONARY) MESSAGES
+C 2011-09-26  J. WOOLLEN -- FIXED BUG TO PREVENT SKIP OF FIRST DATA
+C                           MESSAGE AFTER REWIND
+C 2012-09-15  J. WOOLLEN -- MODIFIED FOR C/I/O/BUFR INTERFACE;
+C                           REPLACE FORTRAN REWIND WITH C CEWIND
 C
 C USAGE:    CALL REWNBF (LUNIT, ISR)
 C   INPUT ARGUMENT LIST:
@@ -56,7 +60,7 @@ C     UNIT "LUNIT" - BUFR FILE
 C
 C REMARKS:
 C    THIS ROUTINE CALLS:        BORT     I4DY     READMG   STATUS
-C                               WTSTAT
+C                               WTSTAT   CEWIND
 C    THIS ROUTINE IS CALLED BY: UFBINX   UFBTAB
 C                               Also called by application programs.
 C
@@ -118,12 +122,10 @@ C  -----------------------------------------
          CALL WTSTAT(LUNIT,LUN,-1,0)
       ENDIF
 
-C  REWIND THE FILE AND POSITION AFTER THE DICTIONARY
-C  -------------------------------------------------
+C  REWIND THE FILE
+C  ---------------
 
-      REWIND LUNIT
-      CALL READMG(LUNIT,SUBSET,KDATE,IER)
-      IF(IER.LT.0) GOTO 904
+      call cewind(lun)  
 
 C  RESTORE FILE PARAMETERS AND POSITION IT TO WHERE IT WAS SAVED
 C  -------------------------------------------------------------
@@ -170,9 +172,6 @@ C  -----
 903   WRITE(BORT_STR,'("BUFRLIB: REWNBF - SAVE/RESTORE SWITCH (INPUT '//
      . 'ARGUMENT ISR) IS NOT ZERO OR ONE (HERE =",I4,") (UNIT",I3,")")')
      . ISR,LUNIT
-      CALL BORT(BORT_STR)
-904   WRITE(BORT_STR,'("BUFRLIB: REWNBF - ERROR READING DICTIONARY '//
-     . 'MESSAGES AFTER REWIND OF BUFR FILE IN UNIT",I4,")")')  LUNIT
       CALL BORT(BORT_STR)
 905   WRITE(BORT_STR,'("BUFRLIB: REWNBF - HIT END OF FILE BEFORE '//
      . 'REPOSITIONING BUFR FILE IN UNIT",I3," TO ORIGINAL MESSAGE '//

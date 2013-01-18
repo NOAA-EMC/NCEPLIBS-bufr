@@ -34,6 +34,8 @@ C                           20,000 TO 50,000 BYTES
 C 2009-03-23  J. ATOR    -- MODIFY LOGIC TO HANDLE BUFR TABLE MESSAGES
 C                           ENCOUNTERED ANYWHERE IN THE FILE (AND NOT
 C                           JUST AT THE BEGINNING!)
+C 2012-09-15  J. WOOLLEN -- MODIFIED FOR C/I/O/BUFR INTERFACE
+C                           USE 'INX' ARGUMENT TO OPENBF
 C
 C USAGE:    CALL UFBINX (LUNIT, IMSG, ISUB, USR, I1, I2, IRET, STR)
 C   INPUT ARGUMENT LIST:
@@ -99,7 +101,7 @@ C-----------------------------------------------------------------------
 C  OPEN BUFR FILE CONNECTED TO UNIT LUNIT IF IT IS NOT ALREADY OPEN
 C  ----------------------------------------------------------------
 
-         CALL OPENBF(LUNIT,'IN',LUNIT)
+         CALL OPENBF(LUNIT,'INX',LUNIT)
       ELSE
 
 C  IF BUFR FILE ALREADY OPENED, SAVE POSITION & REWIND TO FIRST DATA MSG

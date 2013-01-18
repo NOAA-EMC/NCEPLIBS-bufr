@@ -23,8 +23,7 @@ C     MSGFULL  - LOGICAL: FALSE IF SUBSET WILL FIT; TRUE OTHERWISE
 C
 C REMARKS:
 C    THIS ROUTINE CALLS:        None
-C    THIS ROUTINE IS CALLED BY: CPYUPD   MSGUPD   SUBUPD   WRCMPS
-C                               WRDXTB
+C    THIS ROUTINE IS CALLED BY: CPYUPD   MSGUPD   WRCMPS   WRDXTB
 C                               Normally not called by any application
 C                               programs.
 C

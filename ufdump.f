@@ -45,6 +45,8 @@ C 2007-01-19  J. ATOR    -- USE FUNCTION IBFMS
 C 2009-03-23  J. ATOR    -- ADD LEVEL MARKERS TO OUTPUT FOR SEQUENCES
 C                           WHERE THE REPLICATION COUNT IS > 1; OUTPUT
 C                           ALL OCCURRENCES OF LONG CHARACTER STRINGS
+C 2012-02-24  J. ATOR    -- FIX MISSING CHECK FOR LONG CHARACTER STRINGS
+C 2012-03-02  J. ATOR    -- LABEL REDEFINED REFERENCE VALUES
 C
 C USAGE:    CALL UFDUMP (LUNIT, LUPRT)
 C   INPUT ARGUMENT LIST:
@@ -72,9 +74,9 @@ C    ENTERS "q" FOLLOWED BY "<enter>" AFTER THE PROMPT, IN WHICH CASE
 C    THIS SUBROUTINE STOPS THE SCROLL AND RETURNS TO THE CALLING
 C    PROGRAM (PRESUMABLY TO READ IN THE NEXT SUBSET IN THE BUFR FILE).
 C
-C    THIS ROUTINE CALLS:        BORT     IBFMS    ISIZE    NEMTAB
-C                               READLC   RJUST    STATUS   STRSUC
-C                               UPFTBV
+C    THIS ROUTINE CALLS:        BORT     ICBFMS   IBFMS    ISIZE
+C                               NEMTAB   READLC   RJUST    STATUS
+C                               STRSUC   UPFTBV
 C    THIS ROUTINE IS CALLED BY: None
 C                               Normally called only by application
 C                               programs.
@@ -100,6 +102,9 @@ C$$$
      .                IDNB(MAXTBB,NFILES),IDND(MAXTBD,NFILES),
      .                TABA(MAXTBA,NFILES),TABB(MAXTBB,NFILES),
      .                TABD(MAXTBD,NFILES)
+      COMMON /NRV203/ NNRV,INODNRV(MXNRV),NRV(MXNRV),TAGNRV(MXNRV),
+     .                ISNRV(MXNRV),IENRV(MXNRV),IBTNRV,IPFNRV
+
 
       CHARACTER*600 TABD
       CHARACTER*128 TABB
@@ -109,17 +114,17 @@ C$$$
       CHARACTER*64 DESC
       CHARACTER*24 UNIT
       CHARACTER*120 LCHR2
-      CHARACTER*20  LCHR
+      CHARACTER*20  LCHR,PMISS
       CHARACTER*15 NEMO3
       CHARACTER*10 TAG,NEMO,NEMO2
       CHARACTER*6  NUMB
       CHARACTER*7  FMTF
-      CHARACTER*8  CVAL,PMISS
+      CHARACTER*8  CVAL,TAGNRV
       CHARACTER*3  TYP,TYPE
       CHARACTER*1  TAB,YOU
       EQUIVALENCE  (RVAL,CVAL)
       REAL*8       VAL,RVAL
-      LOGICAL      TRACK,FOUND
+      LOGICAL      TRACK,FOUND,RDRV
 
       PARAMETER (MXFV=31)
       INTEGER	IFV(MXFV)
@@ -133,7 +138,7 @@ C$$$
       CHARACTER*10 LSNEMO(MXLS)
       INTEGER   LSCT(MXLS)
 
-      DATA PMISS /' MISSING'/
+      DATA PMISS /'             MISSING'/
       DATA YOU /'Y'/
 
 C----------------------------------------------------------------------
@@ -270,6 +275,23 @@ C                tracking it
 
 C        Other numeric value
 
+C        First check if this node contains a redefined reference
+C        value.  If so, modify the DESC field to label it as such.
+
+         JJ = 1
+         RDRV = .FALSE.
+         DO WHILE ((JJ.LE.NNRV).AND.(.NOT.RDRV))
+            IF (NODE.EQ.INODNRV(JJ)) THEN
+               RDRV = .TRUE.
+               DESC = 'NEW REFERENCE VALUE FOR ' // NUMB
+               UNIT = ' '
+            ELSE
+               JJ = JJ+1
+            ENDIF
+         ENDDO
+
+C        Now print the value
+
          IF(IBFMS(RVAL).NE.0) THEN
 
 C           The value is "missing".
@@ -314,12 +336,10 @@ C        Character (CCITT IA5) value
 
          NCHR = IBT(NODE)/8
 
-         IF(NCHR.LE.8) THEN
-            IF(IBFMS(RVAL).NE.0) THEN
-               LCHR = PMISS
-            ELSE
-               LCHR = CVAL
-            ENDIF
+         IF(IBFMS(RVAL).NE.0) THEN
+            LCHR = PMISS
+         ELSE IF(NCHR.LE.8) THEN
+            LCHR = CVAL
          ELSE
 
 C           Track the number of occurrences of this long character string, so
@@ -348,14 +368,15 @@ C           that we can properly output each one.
                WRITE(NEMO3,FMTF) NEMO(1:LNM3), '#', LSCT(II)
             ENDIF
 
-            IF(NCHR.LE.20) THEN
-               CALL READLC(LUNIT,LCHR,NEMO3)
+            CALL READLC(LUNIT,LCHR2,NEMO3)
+            IF (ICBFMS(LCHR2,NCHR).NE.0) THEN
+               LCHR = PMISS
             ELSE
-               CALL READLC(LUNIT,LCHR2,NEMO3)
+               LCHR = LCHR2(1:20)
             ENDIF
          ENDIF
 
-         IF(NCHR.LE.20) THEN
+         IF ( NCHR.LE.20 .OR. LCHR.EQ.PMISS ) THEN
             IRET = RJUST(LCHR)
             FMT = '(A6,2X,A10,2X,A20,2X,"(",I2,")",A24,2X,A48)'
             WRITE(LUOUT,FMT) NUMB,NEMO,LCHR,NCHR,UNIT,DESC

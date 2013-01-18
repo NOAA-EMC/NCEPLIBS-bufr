@@ -40,6 +40,7 @@ C                           FOR TAB='C')
 C 2005-11-29  J. ATOR    -- ADDED SUPPORT FOR 207 AND 208 OPERATORS
 C 2009-04-21  J. ATOR    -- USE NUMTBD
 C 2010-03-19  J. ATOR    -- ADDED SUPPORT FOR 204 AND 205 OPERATORS
+C 2012-03-02  J. ATOR    -- ADDED SUPPORT FOR 203 OPERATOR
 C
 C USAGE:    CALL NUMTAB (LUN, IDN, NEMO, TAB, IRET)
 C   INPUT ARGUMENT LIST:
@@ -167,10 +168,8 @@ C  LOOK FOR IDN IN TABLE C
 C  -----------------------
 
       CID = ADN30(IDN,6)
-      IF(CID(1:3).EQ.'201' .OR. CID(1:3).EQ.'202' .OR.
-     .   CID(1:3).EQ.'204' .OR. CID(1:3).EQ.'205' .OR.
-     .   CID(1:3).EQ.'206' .OR. CID(1:3).EQ.'207' .OR.
-     .   CID(1:3).EQ.'208') THEN
+      IF ( (CID(1:2).EQ.'20') .AND.
+     .    ( LGE(CID(3:3),'1') .AND. LLE(CID(3:3),'8') ) ) THEN
          NEMO = CID(1:6)
          READ(NEMO,'(1X,I2)') IRET
          TAB  = 'C'

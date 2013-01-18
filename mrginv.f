@@ -44,17 +44,17 @@ C-----------------------------------------------------------------------
       CALL ERRWRT('---------------------------------------------------')
       CALL ERRWRT('INVENTORY FROM MERGE PROCESS IN SUBROUTINE INVMRG:')
       CALL ERRWRT('---------------------------------------------------')
-      WRITE ( UNIT=ERRSTR, FMT='(A,I6)' )
+      WRITE ( UNIT=ERRSTR, FMT='(A,I8)' )
      .  'NUMBER OF DRB EXPANSIONS  = ', NRPL
       CALL ERRWRT(ERRSTR)
-      WRITE ( UNIT=ERRSTR, FMT='(A,I6)' )
+      WRITE ( UNIT=ERRSTR, FMT='(A,I8)' )
      .  'NUMBER OF MERGES          = ', NMRG
       CALL ERRWRT(ERRSTR)
-      WRITE ( UNIT=ERRSTR, FMT='(A,I6)' )
+      WRITE ( UNIT=ERRSTR, FMT='(A,I8)' )
      .  'NUMBER THAT ARE AMBIGUOUS = ', NAMB
       CALL ERRWRT(ERRSTR)
       CALL ERRWRT('---------------------------------------------------')
-      WRITE ( UNIT=ERRSTR, FMT='(A,I7)' )
+      WRITE ( UNIT=ERRSTR, FMT='(A,I9)' )
      .  'TOTAL NUMBER OF VISITS    = ', NTOT
       CALL ERRWRT(ERRSTR)
       CALL ERRWRT('---------------------------------------------------')

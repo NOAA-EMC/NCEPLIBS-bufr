@@ -48,6 +48,10 @@ C                           MBYTES TO 50 MBYTES
 C 2005-11-29  J. ATOR    -- USE RDMSGW AND NMWRD
 C 2009-03-23  J. ATOR    -- MODIFIED TO HANDLE EMBEDDED BUFR TABLE
 C                           (DICTIONARY) MESSAGES
+C 2012-09-15  J. WOOLLEN -- MODIFIED FOR C/I/O/BUFR INTERFACE;
+C                           CALL STATUS TO GET LUN; REPLACE FORTRAN
+C                           REWIND AND BACKSPACE WITH C ROUTINES CEWIND
+C                           AND BACKBUFR
 C
 C USAGE:    CALL UFBMEM (LUNIT, INEW, IRET, IUNIT)
 C   INPUT ARGUMENT LIST:
@@ -78,6 +82,7 @@ C    FROM INTERNAL MEMORY.
 C
 C    THIS ROUTINE CALLS:        BORT     CLOSBF   CPDXMM   ERRWRT
 C                               IDXMSG   NMWRD    OPENBF   RDMSGW
+C                               STATUS   CEWIND   BACKBUFR 
 C    THIS ROUTINE IS CALLED BY: None
 C                               Normally called only by application
 C                               programs.
@@ -128,7 +133,8 @@ C     automatically called subroutines READDX, RDBFDX and MAKESTAB
 C     for this table.
 
       ITEMP = NDXTS
-      REWIND LUNIT
+      CALL STATUS(LUNIT,LUN,IL,IM)
+      CALL CEWIND(LUN)   
       CALL CPDXMM(LUNIT)
 
 C     If a table was indeed present at the beginning of the file,
@@ -148,7 +154,7 @@ C  ------------------------------------------------------------
 C	New "embedded" BUFR dictionary table messages have been found in
 C	this file.  Copy them into COMMON /MSGMEM/ for later use.
 
-	BACKSPACE LUNIT
+	call backbufr(lun) !BACKSPACE LUNIT
 	CALL CPDXMM(LUNIT)
 	GOTO 1
       ENDIF
@@ -210,7 +216,7 @@ C  --------------------------------------------------
       CALL ERRWRT('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
       WRITE ( UNIT=ERRSTR, FMT='(A,A,I8,A)' )
      . 'BUFRLIB: UFBMEM - THE NO. OF BYTES REQUIRED TO STORE ',
-     . 'ALL MESSAGES INTERNALLY EXCEEDS MAXIMUM (', MAXMSG, 
+     . 'ALL MESSAGES INTERNALLY EXCEEDS MAXIMUM (', MAXMEM, 
      . ') - INCOMPLETE READ'
       CALL ERRWRT(ERRSTR)
       WRITE ( UNIT=ERRSTR, FMT='(A,I8,A,I8,A)' )

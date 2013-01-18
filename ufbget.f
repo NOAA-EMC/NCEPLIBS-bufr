@@ -34,6 +34,7 @@ C                           HISTORY); OUTPUTS MORE COMPLETE DIAGNOSTIC
 C                           INFO WHEN ROUTINE TERMINATES ABNORMALLY
 C 2004-08-09  J. ATOR    -- MAXIMUM MESSAGE LENGTH INCREASED FROM
 C                           20,000 TO 50,000 BYTES
+C 2012-03-02  J. ATOR    -- USE FUNCTION UPS
 C
 C USAGE:    CALL UFBGET (LUNIT, TAB, I1, IRET, STR)
 C   INPUT ARGUMENT LIST:
@@ -45,7 +46,7 @@ C                IN THE ARRAY TAB
 C                  - THERE ARE THREE "GENERIC" MNEMONICS NOT RELATED
 C                     TO TABLE B, THESE RETURN THE FOLLOWING
 C                     INFORMATION IN CORRESPONDING TAB LOCATION:
-C                     'NUL'  WHICH ALWAYS RETURNS MISSING (10E10)
+C                     'NUL'  WHICH ALWAYS RETURNS BMISS ("MISSING")
 C                     'IREC' WHICH ALWAYS RETURNS THE CURRENT BUFR
 C                            MESSAGE (RECORD) NUMBER IN WHICH THIS
 C                            SUBSET RESIDES
@@ -63,7 +64,7 @@ C                           message
 C
 C REMARKS:
 C    THIS ROUTINE CALLS:        BORT     INVWIN   STATUS   STRING
-C                               UPBB     UPC      USRTPL
+C                               UPBB     UPC      UPS      USRTPL
 C    THIS ROUTINE IS CALLED BY: None
 C                               Normally called only by application
 C                               programs.
@@ -94,13 +95,10 @@ C$$$
       CHARACTER*8   CVAL
       CHARACTER*3   TYP
       EQUIVALENCE   (CVAL,RVAL)
-      REAL*8        VAL,RVAL,TAB(I1),UPS,TEN
-
-      DATA TEN   /10/
+      REAL*8        VAL,RVAL,TAB(I1),UPS
 
 C-----------------------------------------------------------------------
       MPS(NODE) = 2**(IBT(NODE))-1
-      UPS(NODE) = (IVAL+IRF(NODE))*TEN**(-ISC(NODE))
 C-----------------------------------------------------------------------
 
       IRET = 0
@@ -164,7 +162,7 @@ C  -----------------------------------------
          IF(ITP(NODE).EQ.1) THEN
             TAB(I) = IVAL
          ELSEIF(ITP(NODE).EQ.2) THEN
-            IF(IVAL.LT.MPS(NODE)) TAB(I) = UPS(NODE)
+            IF(IVAL.LT.MPS(NODE)) TAB(I) = UPS(IVAL,NODE)
          ELSEIF(ITP(NODE).EQ.3) THEN
             CVAL = ' '
             KBIT = MBIT(INVN)

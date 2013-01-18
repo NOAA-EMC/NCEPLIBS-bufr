@@ -14,6 +14,7 @@ C   ORDER TO DEFINE AN ALTERNATE DESTINATION FOR SUCH MESSAGES.
 C
 C PROGRAM HISTORY LOG:
 C 2009-04-21  J. ATOR    -- ORIGINAL AUTHOR
+C 2012-11-15  D. KEYSER  -- USE FORMATTED PRINT
 C
 C USAGE:    CALL ERRWRT (STR)
 C   INPUT ARGUMENT LIST:
@@ -27,17 +28,15 @@ C     UNIT 06  - STANDARD OUTPUT PRINT
 C
 C REMARKS:
 C    THIS ROUTINE CALLS:        None
-C    THIS ROUTINE IS CALLED BY: ADDATE   BORT     BORT2    CKTABA
-C                               CPDXMM   DATEBF   DUMPBF   INVCON
-C                               INVTAG   INVWIN   IUPBS1   IUPVS1
-C                               JSTNUM   LJUST    LSTRPC   LSTRPS
-C                               MAKESTAB MAXOUT   MRGINV   MSGUPD
-C                               MSGWRT   NVNWIN   OPENBF   OPENBT
-C                               PARSEQ   PKTDD    POSAPN   RDBFDX
+C    THIS ROUTINE IS CALLED BY: BORT     BORT2    CKTABA   CPDXMM
+C                               DATEBF   DUMPBF   INVCON   INVTAG
+C                               INVWIN   JSTNUM   MAKESTAB MAXOUT
+C                               MRGINV   MSGUPD   MSGWRT   NVNWIN
+C                               OPENBF   OPENBT   PKTDD    RDBFDX
 C                               RDMEMM   RDMEMS   READDX   READERME
 C                               READLC   READMG   READMT   READS3
-C                               STRNUM   STRSUC   SUBUPD   UFBEVN
-C                               UFBIN3   UFBINT   UFBMEM   UFBOVR
+C                               STRNUM   STRSUC   UFBEVN   UFBIN3
+C                               UFBINT   UFBMEM   UFBMEX   UFBOVR
 C                               UFBREP   UFBRMS   UFBRW    UFBSEQ
 C                               UFBSTP   UFBTAB   UFBTAM   USRTPL
 C                               VALX     WRDLEN
@@ -52,7 +51,7 @@ C$$$
 
       CHARACTER*(*) STR
 
-      PRINT*,STR
+      PRINT'(1X,A)',STR
 
       RETURN
       END

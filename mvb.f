@@ -38,7 +38,7 @@ C
 C REMARKS:
 C    THIS ROUTINE CALLS:        BORT     PKB      UPB
 C    THIS ROUTINE IS CALLED BY: ATRCPT   CNVED4   CPYUPD   MSGUPD
-C                               STNDRD   SUBUPD
+C                               STNDRD
 C                               Normally not called by any application
 C                               programs.
 C

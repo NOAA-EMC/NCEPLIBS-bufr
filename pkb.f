@@ -43,8 +43,7 @@ C    THIS ROUTINE CALLS:        IREV
 C    THIS ROUTINE IS CALLED BY: ATRCPT   CMSGINI  CNVED4   CPYUPD
 C                               DXMINI   MSGINI   MSGUPD   MSGWRT
 C                               MVB      PAD      PADMSG   PKBS1
-C                               STNDRD   SUBUPD   WRCMPS   WRDXTB
-C                               WRTREE
+C                               STNDRD   WRCMPS   WRDXTB   WRTREE
 C                               Normally not called by any application
 C                               programs.
 C

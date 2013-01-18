@@ -63,6 +63,7 @@ C 2009-10-21  D. KEYSER  -- ADDED OPTION TO INPUT NEW MNEMONIC "ITBL"
 C                           IN ARGUMENT STR, RETURNS THE BUFR
 C                           DICTIONARY TABLE NUMBER ASSOCIATED WITH
 C                           EACH SUBSET IN INTERNAL MEMORY
+C 2012-03-02  J. ATOR    -- USE FUNCTION UPS
 C
 C USAGE:    CALL UFBTAM (TAB, I1, I2, IRET, STR)
 C   INPUT ARGUMENT LIST:
@@ -76,7 +77,7 @@ C                DIMENSION OF TAB
 C                  - THERE ARE THREE "GENERIC" MNEMONICS NOT RELATED
 C                     TO TABLE B, THESE RETURN THE FOLLOWING
 C                     INFORMATION IN CORRESPONDING TAB LOCATION:
-C                     'NUL'  WHICH ALWAYS RETURNS MISSING (10E10)
+C                     'NUL'  WHICH ALWAYS RETURNS BMISS ("MISSING")
 C                     'IREC' WHICH ALWAYS RETURNS THE BUFR MESSAGE
 C                            (RECORD) NUMBER IN WHICH EACH SUBSET IN
 C                            INTERNAL MEMORY RESIDES
@@ -99,7 +100,7 @@ C    MESSAGES INTO INTERNAL MEMORY.
 C
 C    THIS ROUTINE CALLS:        BORT     ERRWRT   NMSUB    PARSTR
 C                               RDMEMM   STATUS   STRING   UPB
-C                               UPBB     UPC      USRTPL
+C                               UPBB     UPC      UPS      USRTPL
 C    THIS ROUTINE IS CALLED BY: None
 C                               Normally called only by application
 C                               programs.
@@ -134,14 +135,12 @@ C$$$
       CHARACTER*8   SUBSET,CVAL
       CHARACTER*3   TYP
       EQUIVALENCE   (CVAL,RVAL)
-      REAL*8        TAB(I1,I2),VAL,RVAL,UPS,TEN
+      REAL*8        TAB(I1,I2),VAL,RVAL,UPS
 
       DATA MAXTG /100/
-      DATA TEN   /10/
 
 C-----------------------------------------------------------------------
       MPS(NODE) = 2**(IBT(NODE))-1
-      UPS(NODE) = (IVAL+IRF(NODE))*TEN**(-ISC(NODE))
 C-----------------------------------------------------------------------
 
       IRET = 0
@@ -213,7 +212,7 @@ C  ---------------------------------------------
                   TAB(I,IRET) = IVAL
                ELSEIF(ITP(NODE).EQ.2) THEN
                   CALL UPBB(IVAL,NBIT,MBIT,MBAY(1,LUN))
-                  IF(IVAL.LT.MPS(NODE)) TAB(I,IRET) = UPS(NODE)
+                  IF(IVAL.LT.MPS(NODE)) TAB(I,IRET) = UPS(IVAL,NODE)
                ELSEIF(ITP(NODE).EQ.3) THEN
                   CVAL = ' '
                   KBIT = MBIT

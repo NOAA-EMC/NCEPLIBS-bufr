@@ -52,7 +52,6 @@ C REMARKS:
 C    THIS ROUTINE CALLS:        BORT     NEMTAB   NEMTBA   PKB
 C                               PKC
 C    THIS ROUTINE IS CALLED BY: CPYUPD   MSGUPD   OPENMB   OPENMG
-C                               SUBUPD
 C                               Normally not called by any application
 C                               programs.
 C

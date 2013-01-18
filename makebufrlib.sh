@@ -21,17 +21,25 @@
 ###############################################################
 
 #-------------------------------------------------------------------------------
+#     Determine the OS of the local machine.
+
+OS=`uname`
+if [ $OS = "AIX" ]
+then
+    export FC=ncepxlf
+    export CC=ncepxlc
+    CPPFLAGS=" -P"
+elif [ $OS = "Linux" ]
+then
+    export FC=ifort
+    export CC=icc
+    CPPFLAGS=" -P -traditional-cpp -C"
+fi
+
+#-------------------------------------------------------------------------------
 #     Determine the byte-ordering scheme used by the local machine.
 
 cat > endiantest.c << ENDIANTEST
-
-#define Order(x)\
-	fill((char *)&x, sizeof(x)); \
-	for (i=1; i<=sizeof(x); i++) { \
-	    c=((x>>(byte_size*(sizeof(x)-i)))&mask); \
-	    putchar(c==0 ? '?' : (char)c); \
-	} \
-	printf("\n");
 
 void fill(p, size) char *p; int size; {
 	char *ab= "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -46,7 +54,12 @@ void endian(byte_size) int byte_size; {
 
 	mask=0;
 	for (i=1; i<=(unsigned)byte_size; i++) mask= (mask<<1)|1;
-	Order(j);
+	fill((char *)&j, (int) sizeof(j));
+	for (i=1; i<=sizeof(j); i++) {
+	    c=((j>>(byte_size*(sizeof(j)-i)))&mask);
+	    putchar(c==0 ? '?' : (char)c);
+	}
+	printf("\n");
 }
 
 int cprop() {
@@ -69,7 +82,7 @@ main()
 }
 ENDIANTEST
 
-ncepxlc -o endiantest endiantest.c
+$CC -o endiantest endiantest.c
 
 if [ `./endiantest | cut -c1` = "A" ]
 then
@@ -77,6 +90,9 @@ then
 else
     byte_order=LITTLE_ENDIAN
 fi
+echo
+echo "byte_order is $byte_order"
+echo
 
 rm -f endiantest.c endiantest
 
@@ -91,7 +107,7 @@ do
   bn=`basename $i .F`
   bnf=${bn}.f
   BNFS="$BNFS $bnf"
-  /usr/lib/cpp -P -D$byte_order $i $bnf
+  cpp $CPPFLAGS -D$byte_order $i $bnf
 done
 
 #-------------------------------------------------------------------------------
@@ -135,12 +151,12 @@ SHELL=/bin/sh
 \$(LIB):	\$(LIB)( ${OBJS} )
 
 .f.a:
-	ncepxlf -c \$(FFLAGS) \$<
+	\$(FC) -c \$(FFLAGS) \$<
 	ar -ruv \$(AFLAGS) \$@ \$*.o
 	rm -f \$*.o
 
 .c.a:
-	ncepxlc -c \$(CFLAGS) \$<
+	\$(CC) -c \$(CFLAGS) \$<
 	ar -ruv \$(AFLAGS) \$@ \$*.o
 	rm -f \$*.o
 EOF
@@ -148,57 +164,64 @@ EOF
 #-------------------------------------------------------------------------------
 #     Generate the bufrlib.prm header file.
 
-/usr/lib/cpp -P -DBUILD=NORMAL bufrlib.PRM bufrlib.prm
+cpp $CPPFLAGS -DBUILD=NORMAL bufrlib.PRM bufrlib.prm
 
 #-------------------------------------------------------------------------------
 #   Update libbufr_4_64.a (4-byte REAL, 4-byte INT, 64-bit compilation,
-#                          Fortran optimization level 4, C optimization level 3)
+#                          Fortran optimization level 3, C optimization level 3)
  
-export LIB="../../libbufr_4_64.a"
-export FFLAGS=" -O4 -q64 -qsource -qstrict -qnosave -qintsize=4 -qrealsize=4 -qxlf77=leadzero"
-export CFLAGS=" -O3 -q64"
-export AFLAGS=" -X64"
+export LIB="../../libbufr_v10.2.1_4_64.a"
+if [ $OS = "AIX" ]
+then
+    export FFLAGS=" -O4 -q64 -qsource -qstrict -qnosave -qintsize=4 -qrealsize=4 -qxlf77=leadzero"
+    export CFLAGS=" -O3 -q64"
+    export AFLAGS=" -X64"
+elif [ $OS = "Linux" ]
+then
+    export FFLAGS=" -O3"
+    export CFLAGS=" -O3 -DUNDERSCORE"
+    export AFLAGS=" "
+fi
 make -f make.libbufr
 err_make=$?
 [ $err_make -ne 0 ]  && exit 99
  
 #-------------------------------------------------------------------------------
 #   Update libbufr_8_64.a (8-byte REAL, 8-byte INT, 64-bit compilation,
-#                          Fortran optimization level 4, C optimization level 3)
+#                          Fortran optimization level 3, C optimization level 3)
  
-export LIB="../../libbufr_8_64.a"
-export FFLAGS=" -O4 -q64 -qsource -qstrict -qnosave -qintsize=8 -qrealsize=8 -qxlf77=leadzero"
-export CFLAGS=" -O3 -q64 -DF77_INTSIZE_8"
-export AFLAGS=" -X64"
+export LIB="../../libbufr_v10.2.1_8_64.a"
+if [ $OS = "AIX" ]
+then
+    export FFLAGS=" -O4 -q64 -qsource -qstrict -qnosave -qintsize=8 -qrealsize=8 -qxlf77=leadzero"
+    export CFLAGS=" -O3 -q64 -DF77_INTSIZE_8"
+    export AFLAGS=" -X64"
+elif [ $OS = "Linux" ]
+then
+    export FFLAGS=" -O3 -r8 -i8"
+    export CFLAGS=" -O3 -DUNDERSCORE -DF77_INTSIZE_8"
+    export AFLAGS=" "
+fi
 make -f make.libbufr
 err_make=$?
 [ $err_make -ne 0 ]  && exit 99
 
 #-------------------------------------------------------------------------------
 #   Update libbufr_d_64.a (8-byte REAL, 4-byte INT, 64-bit compilation,
-#                          Fortran optimization level 4, C optimization level 3)
-
-export LIB="../../libbufr_d_64.a"
-export FFLAGS=" -O4 -q64 -qsource -qstrict -qnosave -qintsize=4 -qrealsize=8 -qxlf77=leadzero"
-export CFLAGS=" -O3 -q64"
-export AFLAGS=" -X64"
-make -f make.libbufr
-err_make=$?
-[ $err_make -ne 0 ]  && exit 99
-
-#-------------------------------------------------------------------------------
-#     Generate a new bufrlib.prm header file.
-
-/usr/lib/cpp -P -DBUILD=C32BITS bufrlib.PRM bufrlib.prm
-
-#-------------------------------------------------------------------------------
-#   Update libbufr_4_32.a (4-byte REAL, 4-byte INT, 32-bit compilation,
 #                          Fortran optimization level 3, C optimization level 3)
 
-export LIB="../../libbufr_4_32.a"
-export FFLAGS=" -O3 -q32 -qsource -qnosave -qintsize=4 -qrealsize=4 -qxlf77=leadzero"
-export CFLAGS=" -O3 -q32"
-export AFLAGS=" -X32"
+export LIB="../../libbufr_v10.2.1_d_64.a"
+if [ $OS = "AIX" ]
+then
+    export FFLAGS=" -O4 -q64 -qsource -qstrict -qnosave -qintsize=4 -qrealsize=8 -qxlf77=leadzero"
+    export CFLAGS=" -O3 -q64"
+    export AFLAGS=" -X64"
+elif [ $OS = "Linux" ]
+then
+    export FFLAGS=" -O3 -r8"
+    export CFLAGS=" -O3 -DUNDERSCORE"
+    export AFLAGS=" "
+fi
 make -f make.libbufr
 err_make=$?
 [ $err_make -ne 0 ]  && exit 99
@@ -206,34 +229,24 @@ err_make=$?
 #-------------------------------------------------------------------------------
 #     Generate a new bufrlib.prm header file.
 
-/usr/lib/cpp -P -DBUILD=MAXMTBL bufrlib.PRM bufrlib.prm
-
-#-------------------------------------------------------------------------------
-#   Update libbufr_m_64.a (8-byte REAL, 8-byte INT, 64-bit compilation,
-#                          maximum number of DX tables for use with internal memory messages,
-#                          Fortran optimization level 4, C optimization level 3)
-
-export LIB="../../libbufr_m_64.a"
-export FFLAGS=" -O4 -q64 -qsource -qstrict -qnosave -qintsize=8 -qrealsize=8 -qxlf77=leadzero"
-export CFLAGS=" -O3 -q64 -DF77_INTSIZE_8"
-export AFLAGS=" -X64"
-make -f make.libbufr
-err_make=$?
-[ $err_make -ne 0 ]  && exit 99
-
-#-------------------------------------------------------------------------------
-#     Generate a new bufrlib.prm header file.
-
-/usr/lib/cpp -P -DBUILD=SUPERSIZE bufrlib.PRM bufrlib.prm
+cpp $CPPFLAGS -DBUILD=SUPERSIZE bufrlib.PRM bufrlib.prm
 
 #-------------------------------------------------------------------------------
 #   Update libbufr_s_64.a (4-byte REAL, 4-byte INT, 64-bit compilation, extra-large array sizes,
-#                          Fortran optimization level 4, C optimization level 3)
+#                          Fortran optimization level 3, C optimization level 3)
  
-export LIB="../../libbufr_s_64.a"
-export FFLAGS=" -O4 -q64 -qsource -qstrict -qnosave -qintsize=4 -qrealsize=4 -qxlf77=leadzero"
-export CFLAGS=" -O3 -q64"
-export AFLAGS=" -X64"
+export LIB="../../libbufr_v10.2.1_s_64.a"
+if [ $OS = "AIX" ]
+then
+    export FFLAGS=" -O4 -q64 -qsource -qstrict -qnosave -qintsize=4 -qrealsize=4 -qxlf77=leadzero"
+    export CFLAGS=" -O3 -q64"
+    export AFLAGS=" -X64"
+elif [ $OS = "Linux" ]
+then
+    export FFLAGS=" -O3 -mcmodel=medium -shared-intel"
+    export CFLAGS=" -O3 -DUNDERSCORE"
+    export AFLAGS=" "
+fi
 make -f make.libbufr
 err_make=$?
 [ $err_make -ne 0 ]  && exit 99
@@ -244,11 +257,10 @@ err_make=$?
 
 rm -f make.libbufr bufrlib.prm $BNFS
 
-if [ -s ../../libbufr_s_64.a ] ; then
+if [ -s ../../libbufr_v10.2.1_s_64.a ] ; then
    echo
    echo "SUCCESS: The script updated all BUFR archive libraries"
    echo
-   rm *.lst
 else
    echo
    echo "FAILURE: The script did NOT update all BUFR archive libraries"

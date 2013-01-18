@@ -37,6 +37,8 @@ C 2005-11-29  J. ATOR    -- USE GETLENS, IUPBS01 AND RDMSGW
 C 2009-03-23  J. ATOR    -- USE STNTBIA; MODIFY LOGIC TO HANDLE BUFR
 C                           TABLE MESSAGES ENCOUNTERED ANYWHERE IN THE
 C                           FILE (AND NOT JUST AT THE BEGINNING!)
+C 2012-09-15  J. WOOLLEN -- MODIFIED FOR C/I/O/BUFR INTERFACE;
+C                           REPLACE FORTRAN BACKSPACE WITH C BACKBUFR
 C
 C USAGE:    CALL RDBFDX (LUNIT, LUN)
 C   INPUT ARGUMENT LIST:
@@ -63,6 +65,7 @@ C   BUFR ARCHIVE LIBRARY SUBROUTINE UFBMEM.
 C
 C    THIS ROUTINE CALLS:        BORT     DXINIT   ERRWRT   IDXMSG
 C                               IUPBS3   MAKESTAB RDMSGW   STBFDX
+C                               BACKBUFR
 C    THIS ROUTINE IS CALLED BY: POSAPX   READDX   READMG
 C                               Normally not called by any application
 C                               programs.
@@ -104,7 +107,7 @@ C	    Instead, backspace the file pointer and let the calling
 C	    routine diagnose the end-of-file condition and deal with
 C	    it as it sees fit.
 
-	    BACKSPACE LUNIT
+	    call backbufr(lun)  
 	    DONE = .TRUE.
           ELSE IF ( IER .EQ. -2 ) THEN
 	    GOTO 900
@@ -115,7 +118,7 @@ C	    the end of the dictionary table, and backspace LUNIT so that
 C	    the next read (e.g. in the calling routine) will get this
 C	    same message.
 
-	    BACKSPACE LUNIT
+	    call backbufr(lun) 
 	    DONE = .TRUE.
 	  ELSE IF ( IUPBS3(MBAY,'NSUB') .EQ. 0 ) THEN
 

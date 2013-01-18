@@ -52,6 +52,17 @@ C 2005-11-29  J. ATOR    -- ADDED COMMON /MSGFMT/ AND ICHKSTR CALL
 C 2009-03-23  J. ATOR    -- ADDED IO='SEC3' OPTION; REMOVED CALL TO
 C                           POSAPN; CLARIFIED COMMENTS; USE ERRWRT
 C 2010-05-11  J. ATOR    -- ADDED COMMON /STCODE/
+C 2012-06-18  J. ATOR    -- ADDED IO='INUL' OPTION
+C 2012-09-15  J. WOOLLEN -- MODIFIED FOR C/I/O/BUFR INTERFACE;
+C                           USE INQUIRE TO OBTAIN THE FILENAME;
+C                           CALL C ROUTINES OPENRB, OPENWB, AND 
+C                           OPENAB TO CONNECT BUFR FILES TO C;
+C                           ADDED IO TYPE 'INX' TO ENABLE OPEN AND
+C                           CLOSE FOR C FILE WITHOUT CLOSING FORTRAN
+C                           FILE; ADD IO TYPE 'FIRST' TO SUPPORT CALLS   
+C                           TO BFRINI AND WRDLEN PRIOR TO USER RESET
+C                           OF BUFRLIB PARAMETERS FOUND IN NEW ROUTINES 
+C                           SETBMISS AND SETBLOCK
 C
 C USAGE:    CALL OPENBF (LUNIT, IO, LUNDX)
 C   INPUT ARGUMENT LIST:
@@ -59,8 +70,10 @@ C     LUNIT    - INTEGER: FORTRAN LOGICAL UNIT NUMBER FOR BUFR FILE
 C                (UNLESS IO IS 'QUIET', THEN A DUMMY)
 C     IO       - CHARACTER*(*): FLAG INDICATING HOW LUNIT IS TO BE
 C                USED BY THE SOFTWARE:
-C                    'IN' = input operations
-C                   'OUT' = output operations
+C                    'IN' = input operations with table processing
+C                   'INX' = input  operations w/o table processing
+C                   'OUX' = output operations w/o table processing
+C                   'OUT' = output operations with table processing
 C                  'SEC3' = same as 'IN', except use Section 3 of input 
 C                           messages for decoding rather than dictionary
 C                           table information from LUNDX; in this case
@@ -77,9 +90,15 @@ C                           appending
 C                   'NUL' = same as 'OUT', except don't write any
 C                           messages whatsoever to LUNIT (e.g. when
 C                           subroutine WRITSA is to be used)
+C                  'INUL' = same as 'IN', except don't read any
+C                           messages whatsoever from LUNIT (e.g. when
+C                           subroutine READERME is to be used)
 C                 'QUIET' = LUNIT is ignored, this is an indicator
 C                           that the value for IPRT in COMMON block
 C                           /QUIET/ is being reset (see LUNDX)
+C                 'FIRST' = calls bfrini and wrdlen as a prelude to user 
+c                           resetting of bufrlib parameters such as
+c                           missing value or output block type
 C     LUNDX    - INTEGER: IF IO IS NOT 'QUIET':
 C                            FORTRAN logical unit number containing 
 C                            dictionary table information to be used in
@@ -105,9 +124,12 @@ C     UNIT "LUNIT" - BUFR FILE
 C
 C REMARKS:
 C    THIS ROUTINE CALLS:        BFRINI   BORT     DXINIT   ERRWRT
-C                               ICHKSTR  POSAPX   READDX   STATUS
-C                               WRDLEN   WRITDX   WTSTAT
-C    THIS ROUTINE IS CALLED BY: RDMGSB   UFBINX   UFBMEM   UFBTAB
+C                               POSAPX   READDX   STATUS   WRDLEN
+C                               WRITDX   WTSTAT   OPENRB   OPENWB
+C                               OPENAB
+C    THIS ROUTINE IS CALLED BY: COPYBF   GETBMISS MESGBC   MESGBF
+C                               RDMGSB   UFBINX   UFBMEM   UFBMEX
+C                               UFBTAB   SETBMISS SETBLOCK
 C                               Also called by application programs.
 C
 C ATTRIBUTES:
@@ -123,12 +145,12 @@ C$$$
       COMMON /STBFR / IOLUN(NFILES),IOMSG(NFILES)
       COMMON /NULBFR/ NULL(NFILES)
       COMMON /SC3BFR/ ISC3(NFILES),TAMNEM(NFILES)
-      COMMON /MSGFMT/ MGWRDS(NFILES)
       COMMON /LUSHR/  LUS(NFILES)
       COMMON /STCODE/ ISCODES(NFILES)
       COMMON /QUIET / IPRT
 
       CHARACTER*(*) IO
+      CHARACTER*255 filename,fileacc   
       CHARACTER*128 BORT_STR,ERRSTR
       CHARACTER*28  CPRINT(0:3)
       CHARACTER*8   TAMNEM
@@ -181,6 +203,7 @@ C        NOTE: WRDLEN must be called prior to calling BFRINI!
          IFIRST = 1
       ENDIF
 
+      IF(IO.EQ.'FIRST') GOTO 100
       IF(IO.EQ.'QUIET') GOTO 100
 
 C  SEE IF A FILE CAN BE OPENED
@@ -191,60 +214,61 @@ C  ---------------------------
       IF(IL .NE.0) GOTO 901
       NULL(LUN) = 0
       ISC3(LUN) = 0
-      MGWRDS(LUN) = 0
       ISCODES(LUN) = 0
       LUS(LUN) = 0
 
-C  CHECK FOR NO BUFR DATA OR NO DATA AT ALL IN AN "IN" FILE
-C  --------------------------------------------------------
+C  USE INQUIRE TO OBTAIN THE FILENAME ASSOCIATED WITH UNIT LUNIT
+C  -------------------------------------------------------------
 
-C  Note that we only want to do this check if LUNIT=LUNDX, in order
-C  to allow for the possibility that input BUFR messages may be passed
-C  to the BUFR ARCHIVE LIBRARY software via an alternative method (e.g.
-C  a future call to subroutine READERME) rather than read directly from
-C  LUNIT, which is the usual method.
-
-      IF(IO.EQ.'IN' .AND. LUNIT.EQ.LUNDX) THEN
-         REWIND LUNIT
-         READ(LUNIT,END=200,ERR=902) (BSTR(I),I=1,4)
-
-C        Confirm that the BSTR array contains 'BUFR' encoded in
-C        CCITT IA5 (i.e. ASCII).
-
-         IF(ICHKSTR('BUFR',BSTR,4).NE.0) GOTO 903
+      IF (IO.NE.'NUL' .AND. IO.NE.'INUL') THEN
+         inquire(lunit,access=fileacc)
+         if(fileacc=='UNDEFINED') open(lunit)
+         inquire(lunit,name=filename)
+         filename=trim(filename)//char(0)
       ENDIF
 
 C  SET INITIAL OPEN DEFAULTS (CLEAR OUT A MSG CONTROL WORD PARTITION)
 C  ------------------------------------------------------------------
 
-      IF(IO.NE.'NUL') THEN
-        REWIND LUNIT
-      ENDIF
       NMSG (LUN) = 0
       NSUB (LUN) = 0
       MSUB (LUN) = 0
       INODE(LUN) = 0
       IDATE(LUN) = 0
 
-C  DECIDE HOW TO SETUP THE DICTIONARY
-C  ----------------------------------
+C  DECIDE HOW TO OPEN THE FILE AND SETUP THE DICTIONARY
+C  ----------------------------------------------------
 
       IF(IO.EQ.'IN') THEN
+         call openrb(lun,filename)
          CALL WTSTAT(LUNIT,LUN,-1,0)
          CALL READDX(LUNIT,LUN,LUNDX)
+      ELSE IF(IO.EQ.'INUL') THEN
+         CALL WTSTAT(LUNIT,LUN,-1,0)
+         NULL(LUN) = 1
+      ELSE IF(IO.EQ.'INX') THEN
+         call openrb(lun,filename)
+         CALL WTSTAT(LUNIT,LUN,-1,0)
+         NULL(LUN) = 1
+      ELSE IF(IO.EQ.'OUX') THEN
+         call openwb(lun,filename)
+         CALL WTSTAT(LUNIT,LUN, 1,0)
       ELSE IF(IO.EQ.'SEC3') THEN
+         call openrb(lun,filename)
          CALL WTSTAT(LUNIT,LUN,-1,0)
          ISC3(LUN) = 1
       ELSE IF(IO.EQ.'OUT') THEN
+         call openwb(lun,filename)
          CALL WTSTAT(LUNIT,LUN, 1,0)
          CALL WRITDX(LUNIT,LUN,LUNDX)
       ELSE IF(IO.EQ.'APN' .OR. IO.EQ.'APX'
      .   .OR. IO.EQ.'NODX'.OR. IO.EQ.'NUL') THEN
          CALL WTSTAT(LUNIT,LUN, 1,0)
          CALL READDX(LUNIT,LUN,LUNDX)
-         IF(IO.EQ.'APN') THEN
-           CALL POSAPX(-LUNIT)
-         ELSE IF(IO.EQ.'APX') THEN
+         IF(IO.EQ.'NODX') THEN
+           call openwb(lun,filename)
+         ELSE IF(IO.EQ.'APN' .OR. IO.EQ.'APX') THEN
+           call openab(lun,filename)
            CALL POSAPX(LUNIT)
          ELSE IF(IO.EQ.'NUL') THEN
            NULL(LUN) = 1
@@ -285,14 +309,6 @@ C  -----
       CALL BORT(BORT_STR)
 901   WRITE(BORT_STR,'("BUFRLIB: OPENBF - THE FILE CONNECTED TO UNIT"'//
      . ',I5," IS ALREADY OPEN")') LUNIT
-      CALL BORT(BORT_STR)
-902   WRITE(BORT_STR,'("BUFRLIB: OPENBF - ERROR READING INPUT FILE '//
-     . 'CONNECTED TO UNIT",I4," WHEN CHECKING FOR ''BUFR'' IN FIRST 4'//
-     . ' BYTES OF RECORD")') LUNIT
-      CALL BORT(BORT_STR)
-903   WRITE(BORT_STR,'("BUFRLIB: OPENBF - FIRST 4 BYTES READ FROM '//
-     . 'RECORD IN INPUT FILE CONNECTED TO UNIT",I4," NOT ''BUFR'', '//
-     . 'DOES NOT CONTAIN BUFR DATA")') LUNIT
       CALL BORT(BORT_STR)
 904   CALL BORT('BUFRLIB: OPENBF - SECOND (INPUT) ARGUMENT MUST BE'//
      . ' "IN", "OUT", "NODX", "NUL", "APN", "APX", "SEC3"'//

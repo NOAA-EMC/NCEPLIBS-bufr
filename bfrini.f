@@ -38,6 +38,9 @@ C 2005-11-29  J. ATOR    -- ADDED INITIALIZATION OF COMMON /MSGCMP/
 C			    AND CALLS TO PKVS1 AND PKVS01
 C 2009-03-23  J. ATOR    -- ADDED INITIALIZATION OF COMMON /DSCACH/,
 C                           COMMON /MSTINF/ AND COMMON /TNKRCP/
+C 2012-09-15  J. WOOLLEN -- MODIFIED FOR C/I/O/BUFR INTERFACE
+C                        -- ADDED INITIALIZATION OF COMMON BLOCKS
+C                        -- /ENDORD/ AND /BUFRBMISS/
 C
 C USAGE:    CALL BFRINI
 C
@@ -85,6 +88,7 @@ C$$$
       COMMON /MSGCMP/ CCMF
       COMMON /TNKRCP/ ITRYR,ITRMO,ITRDY,ITRHR,ITRMI,CTRT
       COMMON /MSTINF/ LUN1,LUN2,LMTD,MTDIR
+      COMMON /ENDORD/ IBLOCK,IORDBE(4),IORDLE(4)
 
 
       CHARACTER*600 TABD
@@ -131,6 +135,16 @@ C$$$
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
+
+C  INITIALIZE /ENDORD/ TO CONTROL OUTPUT BLOCKING -1=LE 0=NONE +1=BE
+C  -----------------------------------------------------------------
+
+      IBLOCK = 0
+
+C  INITIALIZE /BUFRBMISS/
+C  ----------------------
+
+      BMISS = 10E10
 
 C  INITIALIZE /BITBUF/
 C  -------------------

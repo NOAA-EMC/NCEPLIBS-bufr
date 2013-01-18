@@ -32,6 +32,9 @@ C 2004-08-09  J. ATOR    -- MAXIMUM MESSAGE LENGTH INCREASED FROM
 C                           20,000 TO 50,000 BYTES
 C 2005-11-29  J. ATOR    -- USE IUPBS01 AND RDMSGW
 C 2009-03-23  J. ATOR    -- USE IDXMSG
+C 2012-09-15  J. WOOLLEN -- MODIFIED FOR C/I/O/BUFR INTERFACE;
+C                           USE NEW OPENBF TYPE 'INX' TO OPEN AND CLOSE
+C                           THE C FILE WITHOUT CLOSING THE FORTRAN FILE
 C
 C USAGE:    CALL MESGBF (LUNIT, MESGTYP)
 C   INPUT ARGUMENT LIST:
@@ -47,7 +50,8 @@ C   INPUT FILES:
 C     UNIT "LUNIT" - BUFR FILE
 C
 C REMARKS:
-C    THIS ROUTINE CALLS:        IDXMSG   IUPBS01  RDMSGW   WRDLEN
+C    THIS ROUTINE CALLS:        CLOSBF   IDXMSG   IUPBS01  OPENBF
+C                               RDMSGW
 C    THIS ROUTINE IS CALLED BY: None
 C                               Normally called only by application
 C                               programs.
@@ -67,16 +71,13 @@ C-----------------------------------------------------------------------
 
       MESGTYP = -1
 
-C  SINCE OPENBF HAS NOT YET BEEN CALLED, MUST CALL WRDLEN TO GET 
-C  MACHINE INFO NEEDED LATER
-C  -------------------------------------------------------------
+C  SINCE OPENBF HAS NOT YET BEEN CALLED, CALL IT 
+C  ---------------------------------------------
 
-      CALL WRDLEN
+      CALL OPENBF(LUNIT,'INX',LUNIT)
 
 C  READ PAST ANY BUFR TABLES AND RETURN THE FIRST MESSAGE TYPE FOUND
 C  -----------------------------------------------------------------
-
-      REWIND LUNIT
 
 1     CALL RDMSGW(LUNIT,MBAY,IER)
       IF(IER.LT.0) GOTO 100
@@ -84,7 +85,7 @@ C  -----------------------------------------------------------------
       MESGTYP = IUPBS01(MBAY,'MTYP')
       IF(IDXMSG(MBAY).EQ.1) GOTO 1
 
-      REWIND LUNIT
+      CALL CLOSBF(LUNIT)
 
 C  EXIT
 C  ----

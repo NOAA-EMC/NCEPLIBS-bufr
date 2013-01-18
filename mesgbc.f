@@ -44,6 +44,9 @@ C 2004-08-09  J. ATOR    -- MAXIMUM MESSAGE LENGTH INCREASED FROM
 C                           20,000 TO 50,000 BYTES
 C 2005-11-29  J. ATOR    -- USE IUPBS01, GETLENS AND RDMSGW
 C 2009-03-23  J. ATOR    -- USE IUPBS3 AND IDXMSG
+C 2012-09-15  J. WOOLLEN -- CONVERT TO C LANGUAGE I/O INTERFACE
+C                           ADD OPENBF AND CLOSBF FOR THE CASE
+C                           WHEN LUNIN GT 0
 C
 C USAGE:    CALL MESGBC (LUNIN, MESGTYP, ICOMP)
 C   INPUT ARGUMENT LIST:
@@ -88,8 +91,8 @@ C   INPUT FILES:
 C     UNIT ABS(LUNIN) - BUFR FILE
 C
 C REMARKS:
-C    THIS ROUTINE CALLS:        IDXMSG   IUPB     IUPBS01  IUPBS3
-C                               RDMSGW   STATUS   WRDLEN
+C    THIS ROUTINE CALLS:        CLOSBF   IDXMSG   IUPBS01  IUPBS3
+C                               OPENBF   RDMSGW   STATUS
 C    THIS ROUTINE IS CALLED BY: COPYSB   UFBTAB
 C                               Also called by application programs.
 C
@@ -126,16 +129,13 @@ C  ---------------------------------------------------------------
 
          IREC    =    0
 
-C  SINCE OPENBF HAS NOT YET BEEN CALLED, MUST CALL WRDLEN TO GET
-C  MACHINE INFO NEEDED LATER
-C  -------------------------------------------------------------
+C  CALL OPENBF SINCE FILE IS NOT OPEN TO THE C INTERFACE YET 
+C  ---------------------------------------------------------
 
-         CALL WRDLEN
+         CALL OPENBF(LUNIT,'INX',LUNIT)
 
 C  READ PAST ANY BUFR TABLES AND RETURN THE FIRST MESSAGE TYPE FOUND
 C  -----------------------------------------------------------------
-
-         REWIND LUNIT
 
 1        CALL RDMSGW(LUNIT,MSGS,IER)
          IF(IER.EQ.-1) GOTO 900
@@ -167,7 +167,6 @@ C  --------------------------
 
       ICOMP = IUPBS3(MSGS,'ICMP')
 
-      IF(ITYPE.EQ.0)  REWIND LUNIT
       GOTO 100
 
 C  CAN ONLY GET TO STATEMENTS 900 OR 901 WHEN ITYPE = 0
@@ -179,16 +178,15 @@ C  ----------------------------------------------------
       ELSE
          IF(MESGTYP.GE.0) MESGTYP = -MESGTYP
          ICOMP  = -2
-         REWIND LUNIT
       ENDIF
       GOTO 100
 
 901   MESGTYP = -256
       ICOMP =     -1
-      REWIND LUNIT
 
 C  EXIT
 C  ----
 
-100   RETURN
+100   IF(ITYPE.EQ.0) CALL CLOSBF(LUNIT)
+      RETURN
       END

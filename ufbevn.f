@@ -104,7 +104,7 @@ C                DIMENSION OF USR
 C                  - THERE ARE THREE "GENERIC" MNEMONICS NOT RELATED
 C                     TO TABLE B, THESE RETURN THE FOLLOWING
 C                     INFORMATION IN CORRESPONDING USR LOCATION:
-C                     'NUL'  WHICH ALWAYS RETURNS MISSING (10E10)
+C                     'NUL'  WHICH ALWAYS RETURNS BMISS ("MISSING")
 C                     'IREC' WHICH ALWAYS RETURNS THE CURRENT BUFR
 C                            MESSAGE (RECORD) NUMBER IN WHICH THIS
 C                            SUBSET RESIDES
@@ -220,7 +220,7 @@ C  ----------------------
       INC1 = 1
       INC2 = 1
 
-1     CALL CONWIN(LUN,INC1,INC2,I2)
+1     CALL CONWIN(LUN,INC1,INC2)
       IF(NNOD.EQ.0) THEN
          IRET = I2
          GOTO 100

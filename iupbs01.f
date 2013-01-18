@@ -79,12 +79,13 @@ C                       THE EDITION OF BUFR MESSAGE IN MBAY
 C
 C REMARKS:
 C    THIS ROUTINE CALLS:        GETS1LOC I4DY     IUPB     WRDLEN
-C    THIS ROUTINE IS CALLED BY: ATRCPT   CKTABA   CNVED4   COPYMG
-C                               CPYMEM   CRBMG    DUMPBF   GETLENS
-C                               IDXMSG   IGETDATE IUPVS01  MESGBC
-C                               MESGBF   MSGWRT   NMWRD    PADMSG
-C                               PKBS1    RDMSGB   READS3   RTRCPT
-C                               STBFDX   STNDRD   UFBPOS   WRCMPS
+C    THIS ROUTINE IS CALLED BY: ATRCPT   CKTABA   CNVED4   COPYBF
+C                               COPYMG   CPYMEM   CRBMG    CRDBUFR
+C                               DUMPBF   GETLENS  IDXMSG   IGETDATE
+C                               IUPVS01  MESGBC   MESGBF   MSGWRT
+C                               NMWRD    PADMSG   PKBS1    RDMSGB
+C                               READS3   RTRCPT   STBFDX   STNDRD
+C                               UFBMEX   WRCMPS
 C                               Also called by application programs.
 C
 C ATTRIBUTES:

@@ -51,9 +51,8 @@ C    EXPLANATION OF THE VARIOUS NODE TYPES PRESENT WITHIN AN INTERNAL
 C    JUMP/LINK TABLE 
 C
 C    THIS ROUTINE CALLS:        BORT
-C    THIS ROUTINE IS CALLED BY: GETWIN   LSTRPC   LSTRPS   NEVN
-C                               NEWWIN   NXTWIN   PARUSR   TRYBUMP
-C                               UFBRW
+C    THIS ROUTINE IS CALLED BY: GETWIN   NEVN    NEWWIN   NXTWIN
+C                               PARUSR   TRYBUMP UFBRW
 C                               Normally not called by any application
 C                               programs.
 C

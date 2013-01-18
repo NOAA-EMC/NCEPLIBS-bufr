@@ -52,6 +52,10 @@ C                           BUT 2004-08-18 CHANGE CALLS OTHER ROUTINES
 C                           THAT DO REQUIRE IT
 C 2005-11-29  J. ATOR    -- USE IGETDATE, IUPBS01 AND RDMSGW
 C 2009-03-23  J. ATOR    -- USE IDXMSG AND ERRWRT
+C 2012-09-15  J. WOOLLEN -- MODIFIED FOR C/I/O/BUFR INTERFACE;
+C                           USE NEW OPENBF TYPE 'INX' TO OPEN AND CLOSE
+C                           THE C FILE WITHOUT CLOSING THE FORTRAN FILE
+C                           
 C
 C USAGE:    CALL  DATEBF (LUNIT, MEAR, MMON, MDAY, MOUR, IDATE)
 C   INPUT ARGUMENT LIST:
@@ -108,11 +112,10 @@ C  -----------------------------------------------------------
 
       CALL STATUS(LUNIT,LUN,JL,JM)
       IF(JL.NE.0) GOTO 900
+      CALL OPENBF(LUNIT,'INX',LUNIT)
 
 C  READ TO A DATA MESSAGE AND PICK OUT THE DATE
 C  --------------------------------------------
-
-      REWIND LUNIT
 
 1     CALL RDMSGW(LUNIT,MBAY,IER)
       IF(IER.LT.0) GOTO 100
@@ -132,6 +135,7 @@ C  --------------------------------------------
 C  EXITS
 C  -----
 
+      CALL CLOSBF(LUNIT)
       RETURN
 900   CALL BORT
      . ('BUFRLIB: DATEBF - INPUT BUFR FILE IS OPEN, IT MUST BE CLOSED')

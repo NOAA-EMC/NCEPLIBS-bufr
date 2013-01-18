@@ -11,6 +11,8 @@ C   ADJACENT BUFR DX (DICTIONARY) MESSAGES) INTO COMMON /MSGMEM/.
 C
 C PROGRAM HISTORY LOG:
 C 2009-03-23  J. ATOR    -- ORIGINAL AUTHOR
+C 2012-09-15  J. WOOLLEN -- MODIFIED FOR C/I/O/BUFR INTERFACE;
+C                           REPLACED FORTRAN BACKSPACE WITH C BACKBUFR
 C
 C USAGE:    CALL CPDXMM (LUNIT)
 C   INPUT ARGUMENT LIST:
@@ -82,6 +84,7 @@ C-----------------------------------------------------------------------
 
 	ICT = 0
 	DONE = .FALSE.
+        call status(lunit,lun,il,im)
 
 C	Read a complete dictionary table from LUNIT, as a set of one or
 C	more DX dictionary messages.
@@ -96,7 +99,7 @@ C	    Instead, backspace the file pointer and let the calling
 C	    routine diagnose the end-of-file condition and deal with
 C	    it as it sees fit.
 
-	    BACKSPACE LUNIT
+	    call backbufr(lun) 
 	    DONE = .TRUE.
           ELSE IF ( IER .EQ. -2 ) THEN
 	    GOTO 901
@@ -107,7 +110,7 @@ C	    the end of the dictionary table, and backspace LUNIT so that
 C	    the next read (e.g. in the calling routine) will get this
 C	    same message.
 
-	    BACKSPACE LUNIT
+	    call backbufr(lun) 
 	    DONE = .TRUE.
 	  ELSE IF ( IUPBS3(MBAY,'NSUB') .EQ. 0 ) THEN
 

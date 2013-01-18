@@ -31,9 +31,9 @@ C
 C REMARKS:
 C    THIS ROUTINE CALLS:        UPB
 C    THIS ROUTINE IS CALLED BY: CKTABA   CPYUPD   GETLENS  IUPBS01
-C                               IUPBS1   IUPBS3   MSGUPD   MSGWRT
-C                               RDMEMS   STNDRD   STRCPT   SUBUPD
-C                               UPDS3    WRITLC
+C                               IUPBS3   MSGUPD   MSGWRT   RDMEMS
+C                               STNDRD   STRCPT   SUBUPD   UPDS3
+C                               WRITLC
 C                               Normally not called by any application
 C                               programs.
 C

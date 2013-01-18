@@ -54,6 +54,14 @@
 #define uptdd	   uptdd_
 #define wrdesc	   wrdesc_
 #define wrdlen	   wrdlen_
+#define openrb     openrb_
+#define openwb     openwb_
+#define openab     openab_
+#define backbufr   backbufr_
+#define cewind     cewind_
+#define closfb     closfb_
+#define crdbufr    crdbufr_
+#define cwrbufr    cwrbufr_
 #endif
 
 /*
@@ -116,6 +124,7 @@ void wrdlen( void );
 #define MXMTBD	1000
 #define MAXCD	250
 #define MXNAF	3
+#define NFILES	32
 
 /*
 ** Enable access to FORTRAN COMMON block /MSTABS/ from within C.

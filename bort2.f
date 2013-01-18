@@ -24,11 +24,11 @@ C                SUBROUTINE ERRWRT
 C
 C REMARKS:
 C    THIS ROUTINE CALLS:        BORT_EXIT ERRWRT
-C    THIS ROUTINE IS CALLED BY: ELEMDX   GETNTBE  MTINFO   PARSEQ
-C                               PARSTR   PARUSR   PARUTG   RDUSDX
-C                               READMT   SEQSDX   SNTBBE   SNTBDE
-C                               STRING   UFBINT   UFBOVR   UFBREP
-C                               UFBSTP   VALX
+C    THIS ROUTINE IS CALLED BY: ELEMDX   GETNTBE  MTINFO   PARSTR
+C                               PARUSR   PARUTG   RDUSDX   READMT
+C                               SEQSDX   SNTBBE   SNTBDE   STRING
+C                               UFBINT   UFBOVR   UFBREP   UFBSTP
+C                               VALX
 C                               Normally not called by any application
 C                               programs but it could be.
 C

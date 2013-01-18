@@ -48,7 +48,7 @@ C
 C REMARKS:
 C    THIS ROUTINE CALLS:        BORT     IOK2CPY  IUPBS01  MSGWRT
 C                               NEMTBA   STATUS
-C    THIS ROUTINE IS CALLED BY: None.
+C    THIS ROUTINE IS CALLED BY: None
 C                               Normally called only by application
 C                               programs.
 C

@@ -48,8 +48,8 @@ C
 C REMARKS:
 C    THIS ROUTINE CALLS:        BORT     BVERS    ERRWRT   IUPM
 C    THIS ROUTINE IS CALLED BY: COBFL    COPYBF   DATEBF   DATELEN
-C                               DUMPBF   IUPBS01  IUPBS1   MESGBC
-C                               MESGBF   OPENBF   RDMTBB   UPDS3
+C                               DUMPBF   IUPBS01  MESGBC   MESGBF
+C                               OPENBF   RDMTBB   UPDS3
 C                               Normally not called by any application
 C                               programs.
 C

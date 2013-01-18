@@ -47,6 +47,9 @@ C                           BUT 2004-08-18 CHANGE CALLS OTHER ROUTINES
 C                           THAT DO REQUIRE IT
 C 2005-11-29  J. ATOR    -- USE IUPBS01, IGETDATE, GETLENS AND RDMSGW
 C 2009-03-23  J. ATOR    -- USE IDXMSG, IUPBS3 AND ERRWRT
+C 2012-09-15  J. WOOLLEN -- MODIFIED FOR C/I/O/BUFR INTERFACE;
+C                           USE NEW OPENBF TYPE 'INX' TO OPEN AND CLOSE
+C                           THE C FILE WITHOUT CLOSING THE FORTRAN FILE
 C
 C USAGE:    CALL DUMPBF (LUNIT, JDATE, JDUMP)
 C   INPUT ARGUMENT LIST:
@@ -111,11 +114,10 @@ C  -----------------------------------------------------------
 
       CALL STATUS(LUNIT,LUN,JL,JM)
       IF(JL.NE.0) GOTO 900
+      call openbf(lunit,'INX',lunit)
 
 C  READ PAST ANY DICTIONARY MESSAGES
 C  ---------------------------------
-
-      REWIND LUNIT
 
 1     CALL RDMSGW(LUNIT,MBAY,IER)
       IF(IER.LT.0) GOTO 200
@@ -142,6 +144,7 @@ C  i.e. the second message containing zero subsets
       IGD = IGETDATE(MBAY,JDUMP(1),JDUMP(2),JDUMP(3),JDUMP(4))
       JDUMP(5) = IUPBS01(MBAY,'MINU')
 
+      call closbf(lunit)
       GOTO 100
 
 200   IF(IPRT.GE.1 .AND. (JDATE(1).EQ.-1.OR.JDUMP(1).EQ.-1)) THEN

@@ -93,6 +93,8 @@ C$$$
      .                IBT(MAXJL),IRF(MAXJL),ISC(MAXJL),
      .                ITP(MAXJL),VALI(MAXJL),KNTI(MAXJL),
      .                ISEQ(MAXJL,2),JSEQ(MAXJL)
+      COMMON /NRV203/ NNRV,INODNRV(MXNRV),NRV(MXNRV),TAGNRV(MXNRV),
+     .                ISNRV(MXNRV),IENRV(MXNRV),IBTNRV,IPFNRV
       COMMON /LUSHR/  LUS(NFILES)
 
       CHARACTER*600 TABD
@@ -100,7 +102,7 @@ C$$$
       CHARACTER*128 TABA
       CHARACTER*128 BORT_STR,ERRSTR
       CHARACTER*10  TAG
-      CHARACTER*8   NEMO
+      CHARACTER*8   NEMO,TAGNRV
       CHARACTER*3   TYP
       LOGICAL       EXPAND,XTAB(NFILES)
       REAL*8        VAL
@@ -112,6 +114,7 @@ C  RESET POINTER TABLE AND STRING CACHE
 C  ------------------------------------
 
       NTAB = 0
+      NNRV = 0
       CALL STRCLN
 
 C  FIGURE OUT WHICH UNITS SHARE TABLES
@@ -151,7 +154,7 @@ C          unit IOLUN(LUN) since the last call to this subroutine.
 
            XTAB(LUN) = .TRUE.
            IF(LUS(LUN).NE.0) THEN
-             IF(IOLUN(LUS(LUN)).EQ.0) THEN
+             IF(IOLUN(ABS(LUS(LUN))).EQ.0) THEN
                LUS(LUN) = 0
              ELSE IF(LUS(LUN).GT.0) THEN
 
