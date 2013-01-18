@@ -43,6 +43,7 @@ C                           TYPE "011" BUT SUCH MESSAGES WOULD BE
 C                           SKIPPED OVER WHEN READ)
 C 2007-01-19  J. ATOR    -- MODIFIED IN RESPONSE TO NUMBCK CHANGES
 C 2009-03-23  J. ATOR    -- INCREASE SIZE OF BORT_STR2; USE STNTBIA
+C 2013-01-08  J. WHITING -- ADD ERR= OPTION TO READ STATEMENT
 C
 C USAGE:    CALL RDUSDX (LUNDX, LUN)
 C   INPUT ARGUMENT LIST:
@@ -130,7 +131,7 @@ C  --------------------------------------------------------------
 C  READ USER CARDS UNTIL THERE ARE NO MORE
 C  ---------------------------------------
 
-1     READ(LUNDX,'(A80)',END=200) CARD
+1     READ(LUNDX,'(A80)',END=200,ERR=200) CARD
 
 C  REREAD IF NOT A DEFINITION CARD
 C  -------------------------------

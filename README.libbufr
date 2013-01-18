@@ -1579,3 +1579,12 @@ certain cases when appending to a BUFR file using the embedded C-language I/O.
 
 2) Subroutines READLC and WRITLC were modified to allow the input mnemonic
 string to be up to 14 characters when it contains a '#' condition code.
+
+##############################################################################
+##############################################################################
+##############################################################################
+
+          Changes to BUFR Archive Library, Version 10.2.3
+
+1) Subroutine RDUSDX was modified to prevent a segfault when trying to read
+DX dictionary information from an empty file.
