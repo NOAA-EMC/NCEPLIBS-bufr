@@ -1588,3 +1588,30 @@ string to be up to 14 characters when it contains a '#' condition code.
 
 1) Subroutine RDUSDX was modified to prevent a segfault when trying to read
 DX dictionary information from an empty file.
+
+##############################################################################
+##############################################################################
+##############################################################################
+
+          Changes to BUFR Archive Library, Version 10.2.4
+
+1) Configuration files bufrlib.PRM and makebufrlib.sh were updated to
+generate a 4_32 build (4-byte REAL, 4-byte INT, 32-bit compilation) on
+the IBM CCS for version 10.2.3 of the BUFRLIB.
+
+##############################################################################
+##############################################################################
+##############################################################################
+
+          Changes to BUFR Archive Library, Version 10.2.5
+
+1) Subroutine MESGBF was modified to ensure that the input BUFR file is
+always closed before exiting the subroutine.
+
+2) Function COBFL was modified to allow up to 500 characters in the path of
+the filename being opened.
+
+3) A declaration typo was fixed in subroutine BLOCKS.
+
+4) Global parameter MAXNC (the maximum number of FXY descriptors that can be
+written into Section 3 of a BUFR message) was increased from 300 to 600.

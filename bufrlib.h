@@ -119,7 +119,7 @@ void wrdlen( void );
 ** "bufrlib.PRM" for use by several FORTRAN routines.  See "bufrlib.PRM"
 ** for a description of these parameters.
 */
-#define MAXNC	300
+#define MAXNC	600
 #define MXMTBB	4000
 #define MXMTBD	1000
 #define MAXCD	250

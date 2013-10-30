@@ -40,7 +40,7 @@ C$$$*/
 #define BUFRLIB_GLOBAL
 #include "bufrlib.h"
 
-#define MXFNLEN 120
+#define MXFNLEN 500
 
 void cobfl( char *bfl, char *io )
 {

@@ -170,7 +170,7 @@ cpp $CPPFLAGS -DBUILD=NORMAL bufrlib.PRM bufrlib.prm
 #   Update libbufr_4_64.a (4-byte REAL, 4-byte INT, 64-bit compilation,
 #                          Fortran optimization level 3, C optimization level 3)
  
-export LIB="../../libbufr_v10.2.3_4_64.a"
+export LIB="../../libbufr_v10.2.5_4_64.a"
 if [ $OS = "AIX" ]
 then
     export FFLAGS=" -O4 -q64 -qsource -qstrict -qnosave -qintsize=4 -qrealsize=4 -qxlf77=leadzero"
@@ -190,7 +190,7 @@ err_make=$?
 #   Update libbufr_8_64.a (8-byte REAL, 8-byte INT, 64-bit compilation,
 #                          Fortran optimization level 3, C optimization level 3)
  
-export LIB="../../libbufr_v10.2.3_8_64.a"
+export LIB="../../libbufr_v10.2.5_8_64.a"
 if [ $OS = "AIX" ]
 then
     export FFLAGS=" -O4 -q64 -qsource -qstrict -qnosave -qintsize=8 -qrealsize=8 -qxlf77=leadzero"
@@ -210,7 +210,7 @@ err_make=$?
 #   Update libbufr_d_64.a (8-byte REAL, 4-byte INT, 64-bit compilation,
 #                          Fortran optimization level 3, C optimization level 3)
 
-export LIB="../../libbufr_v10.2.3_d_64.a"
+export LIB="../../libbufr_v10.2.5_d_64.a"
 if [ $OS = "AIX" ]
 then
     export FFLAGS=" -O4 -q64 -qsource -qstrict -qnosave -qintsize=4 -qrealsize=8 -qxlf77=leadzero"
@@ -226,6 +226,26 @@ make -f make.libbufr
 err_make=$?
 [ $err_make -ne 0 ]  && exit 99
 
+if [ $OS = "AIX" ]
+then
+   #-------------------------------------------------------------------------------
+   #     Generate a new bufrlib.prm header file.
+
+   /usr/lib/cpp -P -DBUILD=C32BITS bufrlib.PRM bufrlib.prm
+
+   #-------------------------------------------------------------------------------
+   #   Update libbufr_4_32.a (4-byte REAL, 4-byte INT, 32-bit compilation,
+   #                          Fortran optimization level 3, C optimization level 3)
+
+   export LIB="../../libbufr_v10.2.5_4_32.a"
+   export FFLAGS=" -O3 -q32 -qsource -qnosave -qintsize=4 -qrealsize=4 -qxlf77=leadzero"
+   export CFLAGS=" -O3 -q32"
+   export AFLAGS=" -X32"
+   make -f make.libbufr
+   err_make=$?
+   [ $err_make -ne 0 ]  && exit 99
+fi
+
 #-------------------------------------------------------------------------------
 #     Generate a new bufrlib.prm header file.
 
@@ -235,7 +255,7 @@ cpp $CPPFLAGS -DBUILD=SUPERSIZE bufrlib.PRM bufrlib.prm
 #   Update libbufr_s_64.a (4-byte REAL, 4-byte INT, 64-bit compilation, extra-large array sizes,
 #                          Fortran optimization level 3, C optimization level 3)
  
-export LIB="../../libbufr_v10.2.3_s_64.a"
+export LIB="../../libbufr_v10.2.5_s_64.a"
 if [ $OS = "AIX" ]
 then
     export FFLAGS=" -O4 -q64 -qsource -qstrict -qnosave -qintsize=4 -qrealsize=4 -qxlf77=leadzero"
@@ -244,7 +264,7 @@ then
 elif [ $OS = "Linux" ]
 then
     export FFLAGS=" -O3 -mcmodel=medium -shared-intel"
-    export CFLAGS=" -O3 -DUNDERSCORE"
+    export CFLAGS=" -O3 -mcmodel=medium -shared-intel -DUNDERSCORE"
     export AFLAGS=" "
 fi
 make -f make.libbufr
@@ -257,10 +277,11 @@ err_make=$?
 
 rm -f make.libbufr bufrlib.prm $BNFS
 
-if [ -s ../../libbufr_v10.2.3_s_64.a ] ; then
+if [ -s ../../libbufr_v10.2.5_s_64.a ] ; then
    echo
    echo "SUCCESS: The script updated all BUFR archive libraries"
    echo
+   [ $OS = "AIX" ] && rm *.lst
 else
    echo
    echo "FAILURE: The script did NOT update all BUFR archive libraries"

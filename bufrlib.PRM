@@ -3,13 +3,18 @@ C	Define the BUFRLIB build types.
 
 #define NORMAL		1
 #define SUPERSIZE	2
+#define C32BITS		3
 C-----------------------------------------------------------------------
 C	Maximum number of BUFR files that can be connected to the
 C	BUFRLIB software (for reading or writing) at any one time.
 C	(NOTE: This parameter must also be identically defined 
 C	       within "bufrlib.h" for use by several C routines!)
 
+#if BUILD == C32BITS
+	PARAMETER ( NFILES = 10 )
+#else
 	PARAMETER ( NFILES = 32 )
+#endif
 C-----------------------------------------------------------------------
 C	Maximum length (in bytes) of a BUFR message that can be
 C	read or written by the BUFRLIB software.
@@ -26,7 +31,7 @@ C	written into a BUFR message by the BUFRLIB software.
 C	(NOTE: This parameter must also be identically defined 
 C	       within "bufrlib.h" for use by several C routines!)
 
-	PARAMETER ( MAXNC = 300 )
+	PARAMETER ( MAXNC = 600 )
 C-----------------------------------------------------------------------
 C	Maximum number of default Section 0 or Section 1 values
 C	that can be overwritten within a BUFR message by the
@@ -48,6 +53,8 @@ C	of a compressed BUFR message by the BUFRLIB software.
 
 #if BUILD == SUPERSIZE
 	PARAMETER ( MXCDV = 50000 )
+#elif BUILD == C32BITS
+        PARAMETER ( MXCDV = 1000 )
 #else
 	PARAMETER ( MXCDV = 3000 )
 #endif
@@ -55,13 +62,19 @@ C-----------------------------------------------------------------------
 C	Maximum number of subsets that can be written into a compressed
 C	BUFR message by the BUFRLIB software.
 
+#if BUILD == C32BITS
+        PARAMETER ( MXCSB = 2000 )
+#else
 	PARAMETER ( MXCSB = 4000 )
+#endif
 C-----------------------------------------------------------------------
 C	Maximum length of a character string that can be written into a
 C	compressed BUFR message by the BUFRLIB software.
 
 #if BUILD == SUPERSIZE
 	PARAMETER ( MXLCC = 12 )
+#elif BUILD == C32BITS
+        PARAMETER ( MXLCC = 24 )
 #else
 	PARAMETER ( MXLCC = 32 )
 #endif
@@ -132,13 +145,19 @@ C-----------------------------------------------------------------------
 C	Maximum number of BUFR messages that can be stored within
 C	internal memory.
 
+#if BUILD == C32BITS
+        PARAMETER ( MAXMSG = 20000 )
+#else
 	PARAMETER ( MAXMSG = 200000 )
+#endif
 C-----------------------------------------------------------------------
 C	Maximum number of bytes that can be used to store BUFR
 C	messages within internal memory.
 
 #if BUILD == SUPERSIZE
 	PARAMETER ( MAXMEM = 75000000 )
+#elif BUILD == C32BITS
+        PARAMETER ( MAXMEM = 400000 )
 #else
 	PARAMETER ( MAXMEM = 50000000 )
 #endif
