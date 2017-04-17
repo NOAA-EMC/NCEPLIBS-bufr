@@ -33,6 +33,7 @@ C
 C$$$*/
 
 #include "bufrlib.h"
+#include "cobfl.h"
 
 void cwbmg( char *bmg, f77int *nmb, f77int *iret )
 {

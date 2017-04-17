@@ -8,7 +8,7 @@ C
 C ABSTRACT: BEGINNING AT THE CURRENT FILE POINTER LOCATION WITHIN LUNIT,
 C   THIS SUBROUTINE READS A COMPLETE DICTIONARY TABLE (I.E. ONE OR MORE
 C   ADJACENT BUFR DX (DICTIONARY) MESSAGES) INTO INTERNAL MEMORY ARRAYS
-C   IN COMMON /TABABD/.
+C   IN MODULE TABABD.
 C
 C PROGRAM HISTORY LOG:
 C 1994-01-06  J. WOOLLEN -- ORIGINAL AUTHOR
@@ -39,6 +39,7 @@ C                           TABLE MESSAGES ENCOUNTERED ANYWHERE IN THE
 C                           FILE (AND NOT JUST AT THE BEGINNING!)
 C 2012-09-15  J. WOOLLEN -- MODIFIED FOR C/I/O/BUFR INTERFACE;
 C                           REPLACE FORTRAN BACKSPACE WITH C BACKBUFR
+C 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
 C
 C USAGE:    CALL RDBFDX (LUNIT, LUN)
 C   INPUT ARGUMENT LIST:
@@ -55,13 +56,13 @@ C   THIS SUBROUTINE PERFORMS A FUNCTION SIMILAR TO BUFR ARCHIVE LIBRARY
 C   SUBROUTINE RDUSDX, EXCEPT THAT RDUSDX READS FROM A FILE CONTAINING
 C   A USER-SUPPLIED BUFR DICTIONARY TABLE IN CHARACTER FORMAT.  SEE THE
 C   DOCBLOCK IN RDUSDX FOR A DESCRIPTION OF THE ARRAYS THAT ARE FILLED
-C   IN COMMON BLOCK /TABABD/.
+C   IN MODULE TABABD.
 C
 C   THIS SUBROUTINE PERFORMS A FUNCTION SIMILAR TO BUFR ARCHIVE LIBRARY
 C   SUBROUTINE CPDXMM, EXCEPT THAT CPDXMM WRITES TO THE INTERNAL MEMORY
-C   ARRAYS IN COMMON BLOCK /MSGMEM/, FOR USE WITH A FILE OF BUFR
-C   MESSAGES THAT IS BEING READ AND STORED INTO INTERNAL MEMORY BY
-C   BUFR ARCHIVE LIBRARY SUBROUTINE UFBMEM.
+C   ARRAYS IN MODULE MSGMEM, FOR USE WITH A FILE OF BUFR MESSAGES THAT
+C   IS BEING READ AND STORED INTO INTERNAL MEMORY BY BUFR ARCHIVE
+C   LIBRARY SUBROUTINE UFBMEM.
 C
 C    THIS ROUTINE CALLS:        BORT     DXINIT   ERRWRT   IDXMSG
 C                               IUPBS3   MAKESTAB RDMSGW   STBFDX
@@ -76,11 +77,11 @@ C   MACHINE:  PORTABLE TO ALL PLATFORMS
 C
 C$$$
 
+	USE MODA_MGWA
+
 	INCLUDE 'bufrlib.prm'
 
 	COMMON /QUIET/  IPRT
-
-	DIMENSION MBAY(MXMSGLD4)
 
 	CHARACTER*128 ERRSTR
 
@@ -98,7 +99,7 @@ C	Read a complete dictionary table from LUNIT, as a set of one or
 C	more DX dictionary messages.
 
 	DO WHILE ( .NOT. DONE )
-          CALL RDMSGW ( LUNIT, MBAY, IER )
+          CALL RDMSGW ( LUNIT, MGWA, IER )
           IF ( IER .EQ. -1 ) THEN
 
 C	    Don't abort for an end-of-file condition, since it may be
@@ -107,20 +108,20 @@ C	    Instead, backspace the file pointer and let the calling
 C	    routine diagnose the end-of-file condition and deal with
 C	    it as it sees fit.
 
-	    call backbufr(lun)  
+	    CALL BACKBUFR(LUN)
 	    DONE = .TRUE.
           ELSE IF ( IER .EQ. -2 ) THEN
 	    GOTO 900
-	  ELSE IF ( IDXMSG(MBAY) .NE. 1 ) THEN
+	  ELSE IF ( IDXMSG(MGWA) .NE. 1 ) THEN
 
 C	    This is a non-DX dictionary message.  Assume we've reached
 C	    the end of the dictionary table, and backspace LUNIT so that
 C	    the next read (e.g. in the calling routine) will get this
 C	    same message.
 
-	    call backbufr(lun) 
+	    CALL BACKBUFR(LUN)
 	    DONE = .TRUE.
-	  ELSE IF ( IUPBS3(MBAY,'NSUB') .EQ. 0 ) THEN
+	  ELSE IF ( IUPBS3(MGWA,'NSUB') .EQ. 0 ) THEN
 
 C	    This is a DX dictionary message, but it doesn't contain any
 C	    actual dictionary information.  Assume we've reached the end
@@ -129,10 +130,10 @@ C	    of the dictionary table.
 	    DONE = .TRUE.
 	  ELSE
 
-C	    Store this message into COMMON /TABABD/.
+C	    Store this message into MODULE TABABD.
 
             ICT = ICT + 1
-	    CALL STBFDX(LUN,MBAY)
+	    CALL STBFDX(LUN,MGWA)
 	  ENDIF
 	ENDDO
 

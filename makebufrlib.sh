@@ -1,43 +1,64 @@
 #!/bin/sh
-###############################################################
+##########################################################################################
 #
-#   PURPOSE:   This script uses the make utility to update the BUFR
-#              archive libraries (libbufr*.a).
-#              It first reads a list of source files in the library and
-#              then generates a makefile used to update the archive
-#              libraries.  The make command is then executed for each
-#              archive library, where the archive library name and
-#              compilation flags are passed to the makefile through
-#              environment variables.
+#   PURPOSE:   This script uses the make utility to update the BUFR archive libraries
+#              (libbufr*.a).  It reads a list of source files in the library and then
+#              automatically generates a makefile that will be used to update the archive
+#              libraries.  The make command is then executed for each build of the archive
+#              library, where the archive library name and compilation flags are passed to
+#              the makefile through environment variables.
 #
-#   REMARKS:   Only source files that have been modified since the last
-#              library update are recompiled and replaced in the object
-#              archive libraries.  The make utility determines this
-#              from the file modification times.
+#   REMARKS:   Only source files that have been modified since the last library update are
+#              recompiled and replaced in the object archive libraries.  The make utility
+#              determines this from the file modification times.  New source files are
+#              also compiled and added to the object archive libraries.
 #
-#              New source files are also compiled and added to the object
-#              archive libraries.
-#
-###############################################################
+##########################################################################################
 
 #-------------------------------------------------------------------------------
-#     Determine the OS of the local machine.
+# To compile with debugging flags, export DEBUG=YES before calling this script
+
+[ -z "$DEBUG" ] && DEBUG=NO
+
+#-------------------------------------------------------------------------------
+# Determine the OS of the local machine.
 
 OS=`uname`
 if [ $OS = "AIX" ]
 then
     export FC=ncepxlf
     export CC=ncepxlc
-    CPPFLAGS=" -P"
+    export AFLAGS="-X64"
+    cppflags="-P"
+    if [ $DEBUG = "YES" ]
+    then
+        fflags_base="-g -qnoopt"
+        cflags_base="-g -qnoopt"
+    else
+        fflags_base="-O4"
+        cflags_base="-O3"
+    fi
+    fflags_base="${fflags_base} -qsource -qnosave -qxlf77=leadzero"
 elif [ $OS = "Linux" ]
 then
     export FC=ifort
     export CC=icc
-    CPPFLAGS=" -P -traditional-cpp -C"
+    export AFLAGS=""
+    cppflags="-P -traditional-cpp -C"
+    fflags_base="-g -traceback"
+    cflags_base="-g -traceback -DUNDERSCORE"
+    if [ $DEBUG != "YES" ]
+    then
+        fflags_base="${fflags_base} -O3"
+        cflags_base="${cflags_base} -O3"
+    fi
+else
+    echo "Don't know how to build BUFRLIB for OS = $OS"
+    exit
 fi
 
 #-------------------------------------------------------------------------------
-#     Determine the byte-ordering scheme used by the local machine.
+# Determine the byte-ordering scheme used by the local machine.
 
 cat > endiantest.c << ENDIANTEST
 
@@ -96,54 +117,124 @@ echo
 
 rm -f endiantest.c endiantest
 
-    
 #-------------------------------------------------------------------------------
-#     Preprocess any Fortran *.F files into corresponding *.f files.
+# Get the version number for this build from the bvers.f source file.
 
-BNFS=""
+version=v`grep CVERSTR bvers.f | grep '=' | cut -f2 -d\'` 
 
-for i in `ls *.F`
-do
-  bn=`basename $i .F`
-  bnf=${bn}.f
-  BNFS="$BNFS $bnf"
-  cpp $CPPFLAGS -D$byte_order $i $bnf
-done
+echo "version is $version"
+echo
 
 #-------------------------------------------------------------------------------
-#     Generate a list of object files that correspond to the
-#     list of Fortran ( *.f ) files in the current directory.
+# Figure out which builds to make for this OS
 
-OBJS=""
-
-for i in `ls *.f`
-do
-  obj=`basename $i .f`
-  OBJS="$OBJS ${obj}.o"
-done
- 
-#-------------------------------------------------------------------------------
-#     Generate a list of object files that corresponds to the
-#     list of C ( .c ) files in the current directory.
- 
-for i in `ls *.c`
-do
-  obj=`basename $i .c`
-  OBJS="$OBJS ${obj}.o"
-done
- 
-#-------------------------------------------------------------------------------
-#     Remove make file, if it exists.  May need a new make file
-#     with an updated object file list.
- 
-if [ -f make.libbufr ] 
+builds="NORMAL SUPERSIZE"
+if [ $OS = "AIX" ]
 then
-  rm -f make.libbufr
+    builds="${builds} C32BITS"
 fi
 
 #-------------------------------------------------------------------------------
-#     Generate a new make file ( make.libbufr), with the updated object list,
-#     from this HERE file.
+#  Cycle through each type of array configuration 
+
+for array_type in DYNAMIC STATIC
+do
+
+    if [ ${array_type} = "DYNAMIC" ]
+    then
+        xtag="_DA"
+    else
+        xtag=""
+    fi
+
+    # -------------------------------------------------------------------------------
+    # Cycle through each type of build
+
+    for build in ${builds}
+    do
+
+        # -------------------------------------------------------------------------------
+        # Preprocess any Fortran *.F files into corresponding *.f files.
+
+        BNFS=""
+
+        for i in `ls *.F`
+        do
+            bn=`basename $i .F`
+            bnf=${bn}.f
+            BNFS="$BNFS $bnf"
+            cpp $cppflags -D${byte_order} -D${build}_BUILD -D${array_type}_ALLOCATION $i $bnf
+        done
+
+        # -------------------------------------------------------------------------------
+        # Use some of the preprocessed Fortran global variable modules to generate
+        # corresponding define flags for the C compiler.
+
+        cflags_defs="-D${array_type}_ALLOCATION"
+        for gvar in NFILES MAXCD
+        do
+            gvarval=`grep " ${gvar} = " modv_${gvar}.f | cut -f2 -d= | cut -f2 -d" "`
+            cflags_defs="${cflags_defs} -D${gvar}=${gvarval}"
+        done
+
+        # -------------------------------------------------------------------------------
+        # Generate the bufrlib.prm header file.
+
+        cpp $cppflags -D${build}_BUILD -D${array_type}_ALLOCATION bufrlib.PRM bufrlib.prm
+
+        # -------------------------------------------------------------------------------
+        # Use the bufrlib.prm header file to generate a few additional corresponding
+        # define flags for the C compiler.
+
+        for bprm in MAXNC MXNAF
+        do
+            bprmval=`grep " ${bprm} = " bufrlib.prm | cut -f2 -d= | cut -f2 -d" "`
+            cflags_defs="${cflags_defs} -D${bprm}=${bprmval}"
+        done
+
+        # -------------------------------------------------------------------------------
+        # Generate a list of object files that correspond to the
+        # list of Fortran ( *.f ) files in the current directory.
+
+        # During compilation, we need to ensure that the *.f files are compiled in this order:
+        #   1. any modv_*.f files (modules containing variables)
+        #   2. any moda_*.f files (modules containing array declarations)
+        #   3. all remaining *.f files
+
+        OBJS=""
+
+        modvlist="`ls -1 modv_*.f`"
+        modalist="`ls -1 moda_*.f`"
+        allrem="`ls -1 *.f | grep -v mod[av]_`"
+
+        for i in $modvlist $modalist $allrem
+        do
+            obj=`basename $i .f`
+            OBJS="$OBJS ${obj}.o"
+        done
+
+        # -------------------------------------------------------------------------------
+        # Generate a list of object files that corresponds to the
+        # list of C ( .c ) files in the current directory.
+
+        for i in `ls *.c`
+        do
+            obj=`basename $i .c`
+            OBJS="$OBJS ${obj}.o"
+        done
+
+        # -------------------------------------------------------------------------------
+        # If a makefile exists, remove it because we're going to generate a new one (below)
+        # in case the object file list has changed since the last time we compiled.
+
+        if [ -f make.libbufr ] 
+        then
+            rm -f make.libbufr
+        fi
+
+        # -------------------------------------------------------------------------------
+        # Generate a new makefile (make.libbufr), with the updated object list,
+        # from this herefile.
 
 cat > make.libbufr << EOF
 SHELL=/bin/sh
@@ -161,123 +252,133 @@ SHELL=/bin/sh
 	rm -f \$*.o
 EOF
 
+        # -------------------------------------------------------------------------------
+        # Build/update the library.
+
+        if [ ${build} = "NORMAL" ]
+        then
+
+            # ---------------------------------------------------------------------------
+            # Update libbufr_4_64.a (4-byte REAL, 4-byte INT, 64-bit compilation)
+
+            export LIB="../libbufr_${version}_4_64${xtag}.a"
+            echo
+            echo "Updating ${LIB} with ${build} build and ${array_type} arrays..."
+            echo
+            if [ $OS = "AIX" ]
+            then
+                export FFLAGS="${fflags_base} -q64 -qstrict -qintsize=4 -qrealsize=4"
+                export CFLAGS="${cflags_base} -q64 ${cflags_defs}"
+            elif [ $OS = "Linux" ]
+            then
+                export FFLAGS="${fflags_base}"
+                export CFLAGS="${cflags_base} ${cflags_defs}"
+            fi
+            make -f make.libbufr
+            err_make=$?
+            [ $err_make -ne 0 ]  && exit 99
+
+            # ---------------------------------------------------------------------------
+            # Update libbufr_8_64.a (8-byte REAL, 8-byte INT, 64-bit compilation)
+
+            export LIB="../libbufr_${version}_8_64${xtag}.a"
+            echo
+            echo "Updating ${LIB} with ${build} build and ${array_type} arrays..."
+            echo
+            if [ $OS = "AIX" ]
+            then
+                export FFLAGS="${fflags_base} -q64 -qstrict -qintsize=8 -qrealsize=8"
+                export CFLAGS="${cflags_base} -q64 -DF77_INTSIZE_8 ${cflags_defs}"
+            elif [ $OS = "Linux" ]
+            then
+                export FFLAGS="${fflags_base} -r8 -i8"
+                export CFLAGS="${cflags_base} -DF77_INTSIZE_8 ${cflags_defs}"
+            fi
+            make -f make.libbufr
+            err_make=$?
+            [ $err_make -ne 0 ]  && exit 99
+
+            # ---------------------------------------------------------------------------
+            # Update libbufr_d_64.a (8-byte REAL, 4-byte INT, 64-bit compilation)
+
+            export LIB="../libbufr_${version}_d_64${xtag}.a"
+            echo
+            echo "Updating ${LIB} with ${build} build and ${array_type} arrays..."
+            echo
+            if [ $OS = "AIX" ]
+            then
+                export FFLAGS="${fflags_base} -q64 -qstrict -qintsize=4 -qrealsize=8"
+                export CFLAGS="${cflags_base} -q64 ${cflags_defs}"
+            elif [ $OS = "Linux" ]
+            then
+                export FFLAGS="${fflags_base} -r8"
+                export CFLAGS="${cflags_base} ${cflags_defs}"
+            fi
+            make -f make.libbufr
+            err_make=$?
+            [ $err_make -ne 0 ]  && exit 99
+
+        elif [ ${build} = "SUPERSIZE" ]
+        then
+
+            if [ ${array_type} = "STATIC" ]
+            then
+                # -----------------------------------------------------------------------
+                # Update libbufr_s_64.a (4-byte REAL, 4-byte INT, 64-bit compilation,
+                #                        extra-large array sizes)
+
+                # Note that there's no need to build this version of the library with
+                # dynamically-allocatable arrays, since the resulting library would be
+                # functionally equivalent to libbufr_4_64_DA.a (which we've already built
+                # above!).
+
+                export LIB="../libbufr_${version}_s_64${xtag}.a"
+                echo
+                echo "Updating ${LIB} with ${build} build and ${array_type} arrays..."
+                echo
+                if [ $OS = "AIX" ]
+                then
+                    export FFLAGS="${fflags_base} -q64 -qstrict -qintsize=4 -qrealsize=4"
+                    export CFLAGS="${cflags_base} -q64 ${cflags_defs}"
+                elif [ $OS = "Linux" ]
+                then
+                    export FFLAGS="${fflags_base} -mcmodel=medium -shared-intel"
+                    export CFLAGS="${cflags_base} -mcmodel=medium -shared-intel ${cflags_defs}"
+                fi
+                make -f make.libbufr
+                err_make=$?
+                [ $err_make -ne 0 ]  && exit 99
+            fi
+
+        else
+
+            # ---------------------------------------------------------------------------
+            #  Update libbufr_4_32.a (4-byte REAL, 4-byte INT, 32-bit compilation)
+
+            #  Note that we only build this version on AIX machines.
+
+            export LIB="../libbufr_${version}_4_32${xtag}.a"
+            echo
+            echo "Updating ${LIB} with ${build} build and ${array_type} arrays..."
+            echo
+            export FFLAGS="${fflags_base} -q32 -qintsize=4 -qrealsize=4"
+            export CFLAGS="${cflags_base} -q32 ${cflags_defs}"
+            export AFLAGS="-X32"
+            make -f make.libbufr
+            err_make=$?
+            [ $err_make -ne 0 ]  && exit 99
+        fi
+
+    done
+
+done
+
 #-------------------------------------------------------------------------------
-#     Generate the bufrlib.prm header file.
+# Clean up and check how we did.
 
-cpp $CPPFLAGS -DBUILD=NORMAL bufrlib.PRM bufrlib.prm
+rm -f make.libbufr bufrlib.prm $BNFS *.mod
 
-#-------------------------------------------------------------------------------
-#   Update libbufr_4_64.a (4-byte REAL, 4-byte INT, 64-bit compilation,
-#                          Fortran optimization level 3, C optimization level 3)
- 
-export LIB="../../libbufr_v10.2.5_4_64.a"
-if [ $OS = "AIX" ]
-then
-    export FFLAGS=" -O4 -q64 -qsource -qstrict -qnosave -qintsize=4 -qrealsize=4 -qxlf77=leadzero"
-    export CFLAGS=" -O3 -q64"
-    export AFLAGS=" -X64"
-elif [ $OS = "Linux" ]
-then
-    export FFLAGS=" -O3"
-    export CFLAGS=" -O3 -DUNDERSCORE"
-    export AFLAGS=" "
-fi
-make -f make.libbufr
-err_make=$?
-[ $err_make -ne 0 ]  && exit 99
- 
-#-------------------------------------------------------------------------------
-#   Update libbufr_8_64.a (8-byte REAL, 8-byte INT, 64-bit compilation,
-#                          Fortran optimization level 3, C optimization level 3)
- 
-export LIB="../../libbufr_v10.2.5_8_64.a"
-if [ $OS = "AIX" ]
-then
-    export FFLAGS=" -O4 -q64 -qsource -qstrict -qnosave -qintsize=8 -qrealsize=8 -qxlf77=leadzero"
-    export CFLAGS=" -O3 -q64 -DF77_INTSIZE_8"
-    export AFLAGS=" -X64"
-elif [ $OS = "Linux" ]
-then
-    export FFLAGS=" -O3 -r8 -i8"
-    export CFLAGS=" -O3 -DUNDERSCORE -DF77_INTSIZE_8"
-    export AFLAGS=" "
-fi
-make -f make.libbufr
-err_make=$?
-[ $err_make -ne 0 ]  && exit 99
-
-#-------------------------------------------------------------------------------
-#   Update libbufr_d_64.a (8-byte REAL, 4-byte INT, 64-bit compilation,
-#                          Fortran optimization level 3, C optimization level 3)
-
-export LIB="../../libbufr_v10.2.5_d_64.a"
-if [ $OS = "AIX" ]
-then
-    export FFLAGS=" -O4 -q64 -qsource -qstrict -qnosave -qintsize=4 -qrealsize=8 -qxlf77=leadzero"
-    export CFLAGS=" -O3 -q64"
-    export AFLAGS=" -X64"
-elif [ $OS = "Linux" ]
-then
-    export FFLAGS=" -O3 -r8"
-    export CFLAGS=" -O3 -DUNDERSCORE"
-    export AFLAGS=" "
-fi
-make -f make.libbufr
-err_make=$?
-[ $err_make -ne 0 ]  && exit 99
-
-if [ $OS = "AIX" ]
-then
-   #-------------------------------------------------------------------------------
-   #     Generate a new bufrlib.prm header file.
-
-   /usr/lib/cpp -P -DBUILD=C32BITS bufrlib.PRM bufrlib.prm
-
-   #-------------------------------------------------------------------------------
-   #   Update libbufr_4_32.a (4-byte REAL, 4-byte INT, 32-bit compilation,
-   #                          Fortran optimization level 3, C optimization level 3)
-
-   export LIB="../../libbufr_v10.2.5_4_32.a"
-   export FFLAGS=" -O3 -q32 -qsource -qnosave -qintsize=4 -qrealsize=4 -qxlf77=leadzero"
-   export CFLAGS=" -O3 -q32"
-   export AFLAGS=" -X32"
-   make -f make.libbufr
-   err_make=$?
-   [ $err_make -ne 0 ]  && exit 99
-fi
-
-#-------------------------------------------------------------------------------
-#     Generate a new bufrlib.prm header file.
-
-cpp $CPPFLAGS -DBUILD=SUPERSIZE bufrlib.PRM bufrlib.prm
-
-#-------------------------------------------------------------------------------
-#   Update libbufr_s_64.a (4-byte REAL, 4-byte INT, 64-bit compilation, extra-large array sizes,
-#                          Fortran optimization level 3, C optimization level 3)
- 
-export LIB="../../libbufr_v10.2.5_s_64.a"
-if [ $OS = "AIX" ]
-then
-    export FFLAGS=" -O4 -q64 -qsource -qstrict -qnosave -qintsize=4 -qrealsize=4 -qxlf77=leadzero"
-    export CFLAGS=" -O3 -q64"
-    export AFLAGS=" -X64"
-elif [ $OS = "Linux" ]
-then
-    export FFLAGS=" -O3 -mcmodel=medium -shared-intel"
-    export CFLAGS=" -O3 -mcmodel=medium -shared-intel -DUNDERSCORE"
-    export AFLAGS=" "
-fi
-make -f make.libbufr
-err_make=$?
-[ $err_make -ne 0 ]  && exit 99
- 
-#-------------------------------------------------------------------------------
-
-#     Clean up and check how we did.
-
-rm -f make.libbufr bufrlib.prm $BNFS
-
-if [ -s ../../libbufr_v10.2.5_s_64.a ] ; then
+if [ -s ../libbufr_${version}_s_64.a ] ; then
    echo
    echo "SUCCESS: The script updated all BUFR archive libraries"
    echo

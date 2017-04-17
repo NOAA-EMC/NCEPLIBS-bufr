@@ -12,6 +12,7 @@ C   INFORMATION WITHOUT ACTUALLY SHARING IT.
 C
 C PROGRAM HISTORY LOG:
 C 2009-11-30  J. ATOR    -- ORIGINAL AUTHOR
+C 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
 C
 C USAGE:    ISHRDX (LUD, LUN)
 C   INPUT ARGUMENT LIST:
@@ -38,17 +39,9 @@ C   MACHINE:  PORTABLE TO ALL PLATFORMS
 C
 C$$$
 
+      USE MODA_TABABD
+
       INCLUDE 'bufrlib.prm'
-
-      COMMON /TABABD/ NTBA(0:NFILES),NTBB(0:NFILES),NTBD(0:NFILES),
-     .                MTAB(MAXTBA,NFILES),IDNA(MAXTBA,NFILES,2),
-     .                IDNB(MAXTBB,NFILES),IDND(MAXTBD,NFILES),
-     .                TABA(MAXTBA,NFILES),TABB(MAXTBB,NFILES),
-     .                TABD(MAXTBD,NFILES)
-
-      CHARACTER*600 TABD
-      CHARACTER*128 TABB
-      CHARACTER*128 TABA
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------

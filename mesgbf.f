@@ -36,6 +36,7 @@ C 2012-09-15  J. WOOLLEN -- MODIFIED FOR C/I/O/BUFR INTERFACE;
 C                           USE NEW OPENBF TYPE 'INX' TO OPEN AND CLOSE
 C                           THE C FILE WITHOUT CLOSING THE FORTRAN FILE
 C 2013-01-25  J. WOOLLEN -- ALWAYS CALL CLOSBF BEFORE EXITING
+C 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
 C
 C USAGE:    CALL MESGBF (LUNIT, MESGTYP)
 C   INPUT ARGUMENT LIST:
@@ -63,9 +64,9 @@ C   MACHINE:  PORTABLE TO ALL PLATFORMS
 C
 C$$$
 
-      INCLUDE 'bufrlib.prm'
+      USE MODA_MGWA
 
-      DIMENSION    MBAY(MXMSGLD4)
+      INCLUDE 'bufrlib.prm'
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
@@ -80,10 +81,10 @@ C  ---------------------------------------------
 C  READ PAST ANY BUFR TABLES AND RETURN THE FIRST MESSAGE TYPE FOUND
 C  -----------------------------------------------------------------
 
-1     CALL RDMSGW(LUNIT,MBAY,IER)
+1     CALL RDMSGW(LUNIT,MGWA,IER)
       IF(IER.EQ.0) THEN
-         MESGTYP = IUPBS01(MBAY,'MTYP')
-         IF(IDXMSG(MBAY).EQ.1) GOTO 1
+         MESGTYP = IUPBS01(MGWA,'MTYP')
+         IF(IDXMSG(MGWA).EQ.1) GOTO 1
       ENDIF
 
 C  CLOSE THE FILE

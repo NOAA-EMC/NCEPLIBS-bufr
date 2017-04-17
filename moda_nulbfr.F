@@ -1,0 +1,14 @@
+	MODULE MODA_NULBFR
+
+#ifndef NFILES_H
+#define NFILES_H
+	  USE MODV_NFILES
+#endif
+
+#ifdef DYNAMIC_ALLOCATION
+	  INTEGER, ALLOCATABLE :: NULL(:)
+#else
+	  INTEGER :: NULL(NFILES)
+#endif
+
+	END MODULE
