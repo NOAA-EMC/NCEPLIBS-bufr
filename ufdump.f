@@ -48,6 +48,7 @@ C                           ALL OCCURRENCES OF LONG CHARACTER STRINGS
 C 2012-02-24  J. ATOR    -- FIX MISSING CHECK FOR LONG CHARACTER STRINGS
 C 2012-03-02  J. ATOR    -- LABEL REDEFINED REFERENCE VALUES
 C 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
+C 2015-09-24  J. WOOLLEN -- PRINT LEVEL IDENTIFIERS FOR EVENT STACKS
 C
 C USAGE:    CALL UFDUMP (LUNIT, LUPRT)
 C   INPUT ARGUMENT LIST:
@@ -196,7 +197,8 @@ C  -------------------------------------------------------------------
 
 C        Sequence descriptor or delayed descriptor replication factor
 
-         IF((TYPE.EQ.'REP').OR.(TYPE.EQ.'DRP').OR.(TYPE.EQ.'DRB')) THEN
+         IF((TYPE.EQ.'REP').OR.(TYPE.EQ.'DRP').OR.
+     .	    (TYPE.EQ.'DRB').OR.(TYPE.EQ.'DRS')) THEN
 
 C	   Print the number of replications
 
@@ -225,7 +227,7 @@ C            Don't bother
 
              NSEQ = NSEQ-1
            ENDIF
-         ELSEIF( ((TYPE.EQ.'SEQ').OR.(TYPE.EQ.'RPC'))
+         ELSEIF( ((TYPE.EQ.'SEQ').OR.(TYPE.EQ.'RPC').OR.(TYPE.EQ.'RPS'))
      .             .AND. (NSEQ.GT.0) ) THEN
 
 C          Is this one of the sequences being tracked?

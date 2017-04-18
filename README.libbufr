@@ -1705,3 +1705,20 @@ associated fields to Table D sequence descriptors.
 
 17) Function ICBFMS was modified to improve the logic for identifying "missing"
 strings encoded as REAL*8 10E10 values prior to version 10.2.0 of the library.
+
+##############################################################################
+##############################################################################
+##############################################################################
+
+          Changes to BUFR Archive Library, Version 11.0.1
+
+1) Subroutines CPYUPD, UFBMEM, UFBMEX and UFBOVR were patched to include the
+proper declaration for IPRT, which is a global variable controlling the
+verbosity of diagnostic output.
+
+2) Subroutine UFDUMP was modified to include level identifiers for event
+stacks in the print output.
+
+3) Subroutine WRCMPS was modified to fix a bug involving a variable that was
+not being saved between successive calls to this subroutine and which in rare
+cases could result in the loss of output subsets.

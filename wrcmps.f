@@ -60,6 +60,7 @@ C                           EMBEDDED DICTIONARY MESSAGES
 C 2014-12-03  J. ATOR    -- USE PKX TO PACK LOCAL REFERENCE VALUE FOR
 C                           CHARACTER STRINGS
 C 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
+C 2015-09-24  D. STOKES  -- INCLUDE EDGE4 IN SAVE LIST
 C
 C USAGE:    CALL WRCMPS (LUNIX)
 C   INPUT ARGUMENT LIST:
@@ -113,7 +114,7 @@ C                 TO BE WRITTEN OUT
  
       DATA	FIRST /.TRUE./
 
-      SAVE	FIRST,IBYT,JBIT,SUBSET
+      SAVE	FIRST,IBYT,JBIT,SUBSET,EDGE4
  
 C-----------------------------------------------------------------------
       RLN2 = 1./LOG(2.)
