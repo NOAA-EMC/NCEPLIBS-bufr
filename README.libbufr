@@ -1787,3 +1787,14 @@ needed for compatibility with the Cray programming environment on the s_64
 
 8) A bug was fixed in subroutine UFBTAB which could occasionally lead to array
 maximums being exceeded and corrupted output when reading BUFR files.
+
+##############################################################################
+##############################################################################
+##############################################################################
+
+          Changes to BUFR Archive Library, Version 11.3.0
+
+1) A bug was fixed in the bitmap processing, so that each Table A mnemonic in
+the jump/link table now tracks its own individual set of underlying Table C
+operators.  This involved changes to function IGETRFEL and subroutines TABSUB
+and MAKESTAB.

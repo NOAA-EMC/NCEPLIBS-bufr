@@ -20,7 +20,7 @@ C REMARKS:
 C   -----------------------------------------------------------------
 C
 C    THE FOLLOWING VALUES ARE STORED WITHIN MODULE BITMAPS BY THIS
-C    SUBROUTINE AND BY SUBPROGRAMS IGETRFEL AND TABSUB:
+C    SUBROUTINE AND BY SUBPROGRAMS IGETRFEL, MAKESTAB AND TABSUB:
 C
 C	NBTM = number of stored bitmaps for the current subset (up to
 C	       a maximum of MXBTM)
@@ -48,16 +48,25 @@ C		 type was either numeric or CCITT IA5
 C
 C	LSTNODCT = current count of consecutive occurrences of LSTNOD
 C
-C	NTCO = number of Table C operator locations stored internally;
-C	       only Table C operators with an X value of 21 or greater
-C	       are stored in internal arrays, since all others (e.g.
-C	       2-01, 2-02, 2-07) are automatically processed within
-C	       subroutines TABSUB and TABENT
+C	NTAMC = number of Table A mnemonics in jump/link table (up to a
+C		maximum of MXTAMC) which contain at least one Table C
+C		operator with an X value of 21 or greater in their
+C		definition; only Table C operators with an X value of 21
+C		or greater are tracked in this module, since all others
+C		(e.g. 2-01, 2-02, 2-07) are automatically processed
+C		within subroutines TABSUB and TABENT
 C
-C	CTCO(I=1,NTCO) = Table C operator
+C	INODTAMC(I=1,NTAMC) = location of Table A mnemonic within
+C			      jump/link table
 C
-C	INODTCO(I=1,NTCO) = location of Table C operator within
-C			    jump/link table
+C	NTCO(I=1,NTAMC) = number of Table C operators (with an X value
+C			  of 21 or greater) within the definition of the
+C			  given Table A mnemonic
+C
+C	CTCO(I=1,NTAMC, J=1,NTCO(I)) = Table C operator
+C
+C	INODTCO(I=1,NTAMC, J=1,NTCO(I)) =
+C		location of Table C operator within jump/link table
 C
 C   -----------------------------------------------------------------
 C

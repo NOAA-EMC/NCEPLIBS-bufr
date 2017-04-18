@@ -123,7 +123,17 @@ C-----------------------------------------------------------------------
 	    CALL ERRWRT(ERRSTR)
 	    WRITE ( ERRSTR, '(A,I4)' ) '    MAXCD = ', MAXCD
 	    CALL ERRWRT(ERRSTR)
+	    WRITE ( ERRSTR, '(A,I4)' ) '    MXNRV = ', MXNRV
+	    CALL ERRWRT(ERRSTR)
 	    WRITE ( ERRSTR, '(A,I4)' ) '   MXS01V = ', MXS01V
+	    CALL ERRWRT(ERRSTR)
+	    WRITE ( ERRSTR, '(A,I4)' ) '   MXTAMC = ', MXTAMC
+	    CALL ERRWRT(ERRSTR)
+	    WRITE ( ERRSTR, '(A,I4)' ) '    MXTCO = ', MXTCO
+	    CALL ERRWRT(ERRSTR)
+	    WRITE ( ERRSTR, '(A,I4)' ) '    MXBTM = ', MXBTM
+	    CALL ERRWRT(ERRSTR)
+	    WRITE ( ERRSTR, '(A,I4)' ) '  MXBTMSE = ', MXBTMSE
 	    CALL ERRWRT(ERRSTR)
 	    CALL ERRWRT
      .		('++++++++++++++BUFR ARCHIVE LIBRARY+++++++++++++++++')
@@ -500,10 +510,16 @@ C	MODA_S01CM arrays.
 
 C	MODA_BITMAPS arrays.
 
-	ALLOCATE( CTCO(MXTCO), STAT=iost )
+	ALLOCATE( INODTAMC(MXTAMC), STAT=iost )
+	IF ( iost .ne. 0 ) CALL BORT( BRTSTR // 'INODTAMC' )
+
+	ALLOCATE( NTCO(MXTAMC), STAT=iost )
+	IF ( iost .ne. 0 ) CALL BORT( BRTSTR // 'NTCO' )
+
+	ALLOCATE( CTCO(MXTAMC,MXTCO), STAT=iost )
 	IF ( iost .ne. 0 ) CALL BORT( BRTSTR // 'CTCO' )
 
-	ALLOCATE( INODTCO(MXTCO), STAT=iost )
+	ALLOCATE( INODTCO(MXTAMC,MXTCO), STAT=iost )
 	IF ( iost .ne. 0 ) CALL BORT( BRTSTR // 'INODTCO' )
 
 	ALLOCATE( NBTMSE(MXBTM), STAT=iost )
