@@ -22,11 +22,6 @@ C	message.
 	PARAMETER ( MXRST = 50 )
 #endif
 C-----------------------------------------------------------------------
-C	Maximum number of jump/link table entries which can be used to
-C	store new reference values (as defined using the 2-03 operator).
-
-	PARAMETER ( MXNRV = 12 )
-C-----------------------------------------------------------------------
 C	Maximum number of 2-04 associated fields that can be in effect
 C	at the same time for any given Table B descriptor.
 

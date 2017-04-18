@@ -85,6 +85,7 @@ C                           THE C FILE WITHOUT CLOSING THE FORTRAN FILE
 C 2014-11-20  J. ATOR    -- ENSURE OPENBF HAS BEEN CALLED AT LEAST ONCE
 C                           BEFORE CALLING STATUS
 C 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
+C 2016-12-19  J. WOOLLEN -- FIX BUG TO PREVENT INVENTORY OVERFLOW
 C
 C USAGE:    CALL UFBTAB (LUNIN, TAB, I1, I2, IRET, STR)
 C   INPUT ARGUMENT LIST:
@@ -452,6 +453,17 @@ C  -------------------------------------
          GOTO 120
       ENDIF
 
+C  PROCESS A TYPE1 NODE INTO NVAL
+C  ------------------------------
+
+      IF(ITYP.EQ.1) THEN
+         JBIT = IBIT + LINC
+         CALL UPB(NINC,LINC,MBAY(1,LUN),JBIT)
+         IVAL = LREF+NINC
+         CALL USRTPL(LUN,N,IVAL)
+         GOTO 120
+      ENDIF
+
 C  LOOP OVER STRING NODES
 C  ----------------------
 
@@ -496,7 +508,6 @@ C  -------------------------------------------
 
 130   CONTINUE
       ENDDO
-      IF(ITYP.EQ.1) CALL USRTPL(LUN,N,IVAL)
       IBIT = NIBIT
 
 C  END OF READ ELEMENTS LOOP

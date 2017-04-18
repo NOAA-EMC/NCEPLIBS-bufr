@@ -1746,3 +1746,44 @@ contain delayed replication sequences.
 2) Subroutine MSGUPD was modified to always call subroutine USRTPL, even for
 overlarge subsets which don't get written to the output stream.  This ensures
 that such subsets are properly flushed from internal arrays.
+
+##############################################################################
+##############################################################################
+##############################################################################
+
+          Changes to BUFR Archive Library, Version 11.2.0
+
+1) Support was added for the processing of 2-2X-255, 2-3X-255 and 2-4X-255
+marker operators when reading BUFR messages, including when such operators
+are included in sequences within a BUFR DX table.
+
+2) A new subroutine GETTAGRE was added which, given an element within a
+subset open for reading, determines if the element references another element
+within the same subset via an internal bitmap, and if so returns the
+referenced element along with its location in the subset.
+
+3) A new function IGETMXBY was added which returns the maximum size of a BUFR
+message that can be written to any output stream by the BUFRLIB software.
+This value can then be modified via a subsequent call to subroutine MAXOUT.
+
+4) Subroutine NEMTBD was modified to allow the last mnemonic in a sequence to
+be a "following value" mnemonic, for cases such as when it is being used as
+a coordinate descriptor and set to a value of "missing" to cancel a previous
+instance of the same descriptor.
+
+5) A new subroutine SETVALNB was added which searches for a specified mnemonic
+in a subset definition, then searches forward or backward from that point for
+a different mnemonic and sets the associated value as specified by the user.
+It can be useful in certain application codes which write BUFR output.
+
+6) Subroutines RDTREE and RCSTPL were modified to automatically identify
+certain cases where a decoded subset is corrupt and return this information
+to the application program via READSB or IREADSB, rather than continuing to
+try to decode the message which could in turn lead to a segmentation fault.
+
+7) The build script makebufrlib.sh was updated to add a missing compiler option
+needed for compatibility with the Cray programming environment on the s_64
+("supersize") build.
+
+8) A bug was fixed in subroutine UFBTAB which could occasionally lead to array
+maximums being exceeded and corrupted output when reading BUFR files.

@@ -129,9 +129,10 @@ C    THIS ROUTINE CALLS:        BFRINI   BORT     DXINIT   ERRWRT
 C                               POSAPX   READDX   STATUS   WRDLEN
 C                               WRITDX   WTSTAT   OPENRB   OPENWB
 C                               OPENAB
-C    THIS ROUTINE IS CALLED BY: COPYBF   GETBMISS MESGBC   MESGBF
-C                               PKVS01   RDMGSB   UFBINX   UFBMEM
-C                               UFBMEX   UFBTAB   SETBMISS SETBLOCK
+C    THIS ROUTINE IS CALLED BY: COPYBF   GETBMISS IGETMXBY MESGBC
+C                               MESGBF   PKVS01   RDMGSB   UFBINX
+C                               UFBMEM   UFBMEX   UFBTAB   SETBMISS
+C                               SETBLOCK
 C                               Also called by application programs.
 C
 C ATTRIBUTES:

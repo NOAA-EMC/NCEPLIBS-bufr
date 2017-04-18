@@ -398,13 +398,18 @@ EOF
                 then
                     case ${COMP:?} in
                     intel)
+                      fflags_base="${fflags_base} -mcmodel=medium"
+                      cflags_base="${cflags_base} -mcmodel=medium"
                       if [ ${hncc1} = "t" -o ${hncc1} = "g" ]  # tide or gyre
                       then
-                          fflags_base="${fflags_base} -mcmodel=medium"
-                          cflags_base="${cflags_base} -mcmodel=medium"
+                          fflags_base="${fflags_base} -shared-intel"
+                          cflags_base="${cflags_base} -shared-intel"
+                      else
+                          fflags_base="${fflags_base} -shared"
+                          cflags_base="${cflags_base} -shared"
                       fi
-                      export FFLAGS="${fflags_base} -shared-intel"
-                      export CFLAGS="${cflags_base} -shared-intel ${cflags_defs}"
+                      export FFLAGS="${fflags_base}"
+                      export CFLAGS="${cflags_base} ${cflags_defs}"
                       ;;
                     *)
                       export FFLAGS="${fflags_base}"
