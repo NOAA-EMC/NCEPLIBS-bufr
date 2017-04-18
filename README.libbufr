@@ -1722,3 +1722,13 @@ stacks in the print output.
 3) Subroutine WRCMPS was modified to fix a bug involving a variable that was
 not being saved between successive calls to this subroutine and which in rare
 cases could result in the loss of output subsets.
+
+##############################################################################
+##############################################################################
+##############################################################################
+
+          Changes to BUFR Archive Library, Version 11.0.2
+
+1) The build script makebufrlib.sh was updated for compatibility with the Cray
+programming environment, along with module MODA_MSTABS and functions ICBFMS
+and ISIZE.  All changes remain compatible with other supported environments.
