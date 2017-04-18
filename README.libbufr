@@ -1732,3 +1732,17 @@ cases could result in the loss of output subsets.
 1) The build script makebufrlib.sh was updated for compatibility with the Cray
 programming environment, along with module MODA_MSTABS and functions ICBFMS
 and ISIZE.  All changes remain compatible with other supported environments.
+
+##############################################################################
+##############################################################################
+##############################################################################
+
+          Changes to BUFR Archive Library, Version 11.1.0
+
+1) Subroutine WRCMPS was modified to fix a bug involving the encoding of long
+character strings (via subroutine WRITLC) into compressed messages which also
+contain delayed replication sequences.
+
+2) Subroutine MSGUPD was modified to always call subroutine USRTPL, even for
+overlarge subsets which don't get written to the output stream.  This ensures
+that such subsets are properly flushed from internal arrays.

@@ -21,13 +21,15 @@
 [ -z "$DEBUG" ] && DEBUG=NO
 
 #-------------------------------------------------------------------------------
-# Determine the OS of the local machine.
+# Determine the OS and hostname of the local machine.
 
 OS=`uname`
+hncc1="`hostname | cut -c1`"
 if [ $OS = "AIX" ]
 then
     export FC=ncepxlf
     export CC=ncepxlc
+    export COMP=ncepxl
     export AFLAGS="-X64"
     cppflags="-P"
     if [ $DEBUG = "YES" ]
@@ -41,26 +43,54 @@ then
     fflags_base="${fflags_base} -qsource -qnosave -qxlf77=leadzero"
 elif [ $OS = "Linux" ]
 then
-    export FC=ifort
-    export CC=icc
+    export FC=ftn
+    export CC=cc
     export AFLAGS=""
     cppflags="-P -traditional-cpp -C"
-    fflags_base="-g -traceback"
-    cflags_base="-g -traceback -DUNDERSCORE"
-    if [ $DEBUG != "YES" ]
-    then
-        fflags_base="${fflags_base} -O3"
-        cflags_base="${cflags_base} -O3"
-    fi
+    case ${COMP:?} in
+    intel)
+        fflags_base="-g -traceback"
+        cflags_base="-g -traceback -DUNDERSCORE"
+        flag64int="-i8"
+        flag64flt="-r8"
+        if [ $DEBUG != "YES" ]
+        then
+            fflags_base="${fflags_base} -O3"
+            cflags_base="${cflags_base} -O3"
+        fi
+        if [ ${hncc1} = "l" -o ${hncc1} = "s" ]  # luna or surge
+        then
+            fflags_base="${fflags_base} -axCORE-AVX2"
+            cflags_base="${cflags_base} -axCORE-AVX2"
+        elif [ ${hncc1} = "t" -o ${hncc1} = "g" ]  # tide or gyre
+        then
+            export FC=ifort
+            export CC=icc
+        fi
+        ;;
+    *)
+        fflags_base=""
+        cflags_base="-DUNDERSCORE"
+        flag64int="-s integer64"
+        flag64flt="-s real64"
+        if [ $DEBUG != "YES" ]
+        then
+            fflags_base="${fflags_base} -O2"
+            cflags_base="${cflags_base} -O2"
+        fi
+        ;;
+    esac
 else
-    echo "Don't know how to build BUFRLIB for OS = $OS"
-    exit
+    >&2 echo "Don't know how to build BUFRLIB for OS = $OS"
+    exit 1
 fi
 
 #-------------------------------------------------------------------------------
 # Determine the byte-ordering scheme used by the local machine.
 
 cat > endiantest.c << ENDIANTEST
+
+#include <stdio.h>
 
 void fill(p, size) char *p; int size; {
 	char *ab= "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -261,7 +291,13 @@ EOF
             # ---------------------------------------------------------------------------
             # Update libbufr_4_64.a (4-byte REAL, 4-byte INT, 64-bit compilation)
 
-            export LIB="../libbufr_${version}_4_64${xtag}.a"
+            if [ ${hncc1} = "l" -o ${hncc1} = "s" ]  # luna or surge
+            then
+                export LIB="../${COMP}/libbufr_${version}_4_64${xtag}.a"
+                mkdir -p $(dirname $LIB)
+            else
+                export LIB="../libbufr_${version}_4_64${xtag}.a"
+            fi
             echo
             echo "Updating ${LIB} with ${build} build and ${array_type} arrays..."
             echo
@@ -281,7 +317,13 @@ EOF
             # ---------------------------------------------------------------------------
             # Update libbufr_8_64.a (8-byte REAL, 8-byte INT, 64-bit compilation)
 
-            export LIB="../libbufr_${version}_8_64${xtag}.a"
+            if [ ${hncc1} = "l" -o ${hncc1} = "s" ]  # luna or surge
+            then
+                export LIB="../${COMP}/libbufr_${version}_8_64${xtag}.a"
+                mkdir -p $(dirname $LIB)
+            else
+                export LIB="../libbufr_${version}_8_64${xtag}.a"
+            fi
             echo
             echo "Updating ${LIB} with ${build} build and ${array_type} arrays..."
             echo
@@ -291,7 +333,7 @@ EOF
                 export CFLAGS="${cflags_base} -q64 -DF77_INTSIZE_8 ${cflags_defs}"
             elif [ $OS = "Linux" ]
             then
-                export FFLAGS="${fflags_base} -r8 -i8"
+                export FFLAGS="${fflags_base} ${flag64flt} ${flag64int}"
                 export CFLAGS="${cflags_base} -DF77_INTSIZE_8 ${cflags_defs}"
             fi
             make -f make.libbufr
@@ -301,7 +343,13 @@ EOF
             # ---------------------------------------------------------------------------
             # Update libbufr_d_64.a (8-byte REAL, 4-byte INT, 64-bit compilation)
 
-            export LIB="../libbufr_${version}_d_64${xtag}.a"
+            if [ ${hncc1} = "l" -o ${hncc1} = "s" ]  # luna or surge
+            then
+                export LIB="../${COMP}/libbufr_${version}_d_64${xtag}.a"
+                mkdir -p $(dirname $LIB)
+            else
+                export LIB="../libbufr_${version}_d_64${xtag}.a"
+            fi
             echo
             echo "Updating ${LIB} with ${build} build and ${array_type} arrays..."
             echo
@@ -311,7 +359,7 @@ EOF
                 export CFLAGS="${cflags_base} -q64 ${cflags_defs}"
             elif [ $OS = "Linux" ]
             then
-                export FFLAGS="${fflags_base} -r8"
+                export FFLAGS="${fflags_base} ${flag64flt}"
                 export CFLAGS="${cflags_base} ${cflags_defs}"
             fi
             make -f make.libbufr
@@ -332,7 +380,13 @@ EOF
                 # functionally equivalent to libbufr_4_64_DA.a (which we've already built
                 # above!).
 
-                export LIB="../libbufr_${version}_s_64${xtag}.a"
+                if [ ${hncc1} = "l" -o ${hncc1} = "s" ]  # luna or surge
+                then
+                    export LIB="../${COMP}/libbufr_${version}_s_64${xtag}.a"
+                    mkdir -p $(dirname $LIB)
+                else
+                    export LIB="../libbufr_${version}_s_64${xtag}.a"
+                fi
                 echo
                 echo "Updating ${LIB} with ${build} build and ${array_type} arrays..."
                 echo
@@ -342,8 +396,21 @@ EOF
                     export CFLAGS="${cflags_base} -q64 ${cflags_defs}"
                 elif [ $OS = "Linux" ]
                 then
-                    export FFLAGS="${fflags_base} -mcmodel=medium -shared-intel"
-                    export CFLAGS="${cflags_base} -mcmodel=medium -shared-intel ${cflags_defs}"
+                    case ${COMP:?} in
+                    intel)
+                      if [ ${hncc1} = "t" -o ${hncc1} = "g" ]  # tide or gyre
+                      then
+                          fflags_base="${fflags_base} -mcmodel=medium"
+                          cflags_base="${cflags_base} -mcmodel=medium"
+                      fi
+                      export FFLAGS="${fflags_base} -shared-intel"
+                      export CFLAGS="${cflags_base} -shared-intel ${cflags_defs}"
+                      ;;
+                    *)
+                      export FFLAGS="${fflags_base}"
+                      export CFLAGS="${cflags_base} ${cflags_defs}"
+                      ;;
+		    esac
                 fi
                 make -f make.libbufr
                 err_make=$?
@@ -378,7 +445,9 @@ done
 
 rm -f make.libbufr bufrlib.prm $BNFS *.mod
 
-if [ -s ../libbufr_${version}_s_64.a ] ; then
+if [ \( \( ${hncc1} = "l" -o ${hncc1} = "s" \) -a \( -s ../${COMP}/libbufr_${version}_s_64.a \) \) \
+         -o \
+     \( \( ${hncc1} = "t" -o ${hncc1} = "g" \) -a \( -s ../libbufr_${version}_s_64.a \) \) ]; then
    echo
    echo "SUCCESS: The script updated all BUFR archive libraries"
    echo
