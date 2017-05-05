@@ -1,0 +1,223 @@
+
+Found BUFR message #      1
+  
+        Message length:         210
+      Section 0 length:           8
+          BUFR edition:           3
+  
+      Section 1 length:          18
+          Master table:           0
+    Originating center:           7
+ Originating subcenter:           3
+ Update sequence numbr:           0
+    Section 2 present?: No
+         Data category:           4
+     Local subcategory:          29
+ Internatl subcategory:          -1
+  Master table version:          13
+   Local table version:           0
+                  Year:        2012
+                 Month:           3
+                   Day:          12
+                  Hour:          12
+                Minute:           0
+                Second:          -1
+  
+ Number of data subsets:           3
+     Data are observed?: Yes
+   Data are compressed?: Yes
+  Number of descriptors:          25
+        1: 208010
+        2: 001008
+        3: 208000
+        4: 001023
+        5: 301021
+        6: 007010
+        7: 301011
+        8: 301013
+        9: 008009
+       10: 203012
+       11: 007010
+       12: 203255
+       13: 011001
+       14: 011002
+       15: 007010
+       16: 011031
+       17: 012101
+       18: 033025
+       19: 207002
+       20: 011036
+       21: 207000
+       22: 007010
+       23: 203000
+       24: 007010
+       25: 002064
+
+BUFR message #      1 of type FR004029 and date 2012031212 contains      3 subsets:
+ 
+ MESSAGE TYPE FR004029  
+ 
+001008  ACRN                  TESTUPS008  (10)CCITT IA5                 AIRCRAFT REGISTRATION NUMBER (TAIL NUMBER)      
+001023  OSQN                     MISSING  NUMERIC                       OBSERVATION SEQUENCE NUMBER                     
+005001  CLATH                  -35.77000  DEGREES                       LATITUDE (HIGH ACCURACY)                        
+006001  CLONH                  172.39999  DEGREES                       LONGITUDE (HIGH ACCURACY)                       
+007010  FLVLST                    3500.0  METERS                        FLIGHT LEVEL                                    
+004001  YEAR                      2012.0  YEAR                          YEAR                                            
+004002  MNTH                         3.0  MONTH                         MONTH                                           
+004003  DAYS                        12.0  DAY                           DAY                                             
+004004  HOUR                        13.0  HOUR                          HOUR                                            
+004005  MINU                        45.0  MINUTE                        MINUTE                                          
+004006  SECO                     MISSING  SECOND                        SECOND                                          
+008009  DPOF                         5.0  CODE TABLE                    DETAILED PHASE OF FLIGHT                        
+007010  FLVLST                   -1000.0                                NEW REFERENCE VALUE FOR 007010                  
+011001  WDIR                        35.0  DEGREES TRUE                  WIND DIRECTION                                  
+011002  WSPD                        10.7  METERS/SECOND                 WIND SPEED                                      
+007010  FLVLST                    4000.0  METERS                        FLIGHT LEVEL                                    
+011031  DGOT                         1.0  CODE TABLE                    DEGREE OF TURBULENCE                            
+012101  TMDB                      235.77  DEGREES KELVIN                TEMPERATURE/DRY-BULB TEMPERATURE                
+033025  INTV                         3.0  CODE TABLE                    ACARS INTERPOLATED VALUES                       
+011036  MDEVG                      5.322  METERS/SECOND                 DERIVED EQUIVALENT VERTICAL GUST SPEED          
+007010  FLVLST                    5750.0  METERS                        FLIGHT LEVEL                                    
+007010  FLVLST                   10722.0  METERS                        FLIGHT LEVEL                                    
+002064  ROLQ                         1.0  CODE TABLE                    AIRCRAFT ROLL ANGLE QUALITY                     
+
+ >>> END OF SUBSET <<< 
+
+ 
+ MESSAGE TYPE FR004029  
+ 
+001008  ACRN                  TESTAAL225  (10)CCITT IA5                 AIRCRAFT REGISTRATION NUMBER (TAIL NUMBER)      
+001023  OSQN                     MISSING  NUMERIC                       OBSERVATION SEQUENCE NUMBER                     
+005001  CLATH                  -35.77000  DEGREES                       LATITUDE (HIGH ACCURACY)                        
+006001  CLONH                  172.42000  DEGREES                       LONGITUDE (HIGH ACCURACY)                       
+007010  FLVLST                    3600.0  METERS                        FLIGHT LEVEL                                    
+004001  YEAR                      2012.0  YEAR                          YEAR                                            
+004002  MNTH                         3.0  MONTH                         MONTH                                           
+004003  DAYS                        12.0  DAY                           DAY                                             
+004004  HOUR                        13.0  HOUR                          HOUR                                            
+004005  MINU                        48.0  MINUTE                        MINUTE                                          
+004006  SECO                     MISSING  SECOND                        SECOND                                          
+008009  DPOF                         3.0  CODE TABLE                    DETAILED PHASE OF FLIGHT                        
+007010  FLVLST                   -1000.0                                NEW REFERENCE VALUE FOR 007010                  
+011001  WDIR                        30.0  DEGREES TRUE                  WIND DIRECTION                                  
+011002  WSPD                        12.2  METERS/SECOND                 WIND SPEED                                      
+007010  FLVLST                    4000.0  METERS                        FLIGHT LEVEL                                    
+011031  DGOT                         1.0  CODE TABLE                    DEGREE OF TURBULENCE                            
+012101  TMDB                      234.69  DEGREES KELVIN                TEMPERATURE/DRY-BULB TEMPERATURE                
+033025  INTV                         3.0  CODE TABLE                    ACARS INTERPOLATED VALUES                       
+011036  MDEVG                      5.001  METERS/SECOND                 DERIVED EQUIVALENT VERTICAL GUST SPEED          
+007010  FLVLST                    5760.0  METERS                        FLIGHT LEVEL                                    
+007010  FLVLST                   10730.0  METERS                        FLIGHT LEVEL                                    
+002064  ROLQ                         1.0  CODE TABLE                    AIRCRAFT ROLL ANGLE QUALITY                     
+
+ >>> END OF SUBSET <<< 
+
+ 
+ MESSAGE TYPE FR004029  
+ 
+001008  ACRN                  TESTSWA193  (10)CCITT IA5                 AIRCRAFT REGISTRATION NUMBER (TAIL NUMBER)      
+001023  OSQN                     MISSING  NUMERIC                       OBSERVATION SEQUENCE NUMBER                     
+005001  CLATH                  -35.77000  DEGREES                       LATITUDE (HIGH ACCURACY)                        
+006001  CLONH                  172.44000  DEGREES                       LONGITUDE (HIGH ACCURACY)                       
+007010  FLVLST                    3610.0  METERS                        FLIGHT LEVEL                                    
+004001  YEAR                      2012.0  YEAR                          YEAR                                            
+004002  MNTH                         3.0  MONTH                         MONTH                                           
+004003  DAYS                        12.0  DAY                           DAY                                             
+004004  HOUR                        13.0  HOUR                          HOUR                                            
+004005  MINU                        51.0  MINUTE                        MINUTE                                          
+004006  SECO                     MISSING  SECOND                        SECOND                                          
+008009  DPOF                         6.0  CODE TABLE                    DETAILED PHASE OF FLIGHT                        
+007010  FLVLST                   -1200.0                                NEW REFERENCE VALUE FOR 007010                  
+011001  WDIR                        30.0  DEGREES TRUE                  WIND DIRECTION                                  
+011002  WSPD                        12.1  METERS/SECOND                 WIND SPEED                                      
+007010  FLVLST                    4000.0  METERS                        FLIGHT LEVEL                                    
+011031  DGOT                         1.0  CODE TABLE                    DEGREE OF TURBULENCE                            
+012101  TMDB                      234.11  DEGREES KELVIN                TEMPERATURE/DRY-BULB TEMPERATURE                
+033025  INTV                         3.0  CODE TABLE                    ACARS INTERPOLATED VALUES                       
+011036  MDEVG                      5.012  METERS/SECOND                 DERIVED EQUIVALENT VERTICAL GUST SPEED          
+007010  FLVLST                    5775.0  METERS                        FLIGHT LEVEL                                    
+007010  FLVLST                   10730.0  METERS                        FLIGHT LEVEL                                    
+002064  ROLQ                         1.0  CODE TABLE                    AIRCRAFT ROLL ANGLE QUALITY                     
+
+ >>> END OF SUBSET <<< 
+
+
+End of BUFR message #      1
+
+------------------------------------------------------------------------------------------------------------------------
+
+Reached end of BUFR file; it contained a total of      1 messages and        3 subsets
+
+Here is the DX table that was generated:
+
+.------------------------------------------------------------------------------.
+| ------------   USER DEFINITIONS FOR TABLE-A TABLE-B TABLE D   -------------- |
+|------------------------------------------------------------------------------|
+| MNEMONIC | NUMBER | DESCRIPTION                                              |
+|----------|--------|----------------------------------------------------------|
+|          |        |                                                          |
+| FR004029 | A54029 | MSG TYPE 004-029 -- OUT_1 BUFR MESSAGE                   |
+|          |        |                                                          |
+| YYMMDD   | 301011 | DATE -- YEAR, MONTH, DAY                                 |
+| HHMMSS   | 301013 | TIME -- HOUR, MINUTE, SECOND                             |
+| LTLONH   | 301021 | LOCATION -- LATITUDE, LONGITUDE (HIGH ACCURACY)          |
+|          |        |                                                          |
+| ACRN     | 001008 | AIRCRAFT REGISTRATION NUMBER (TAIL NUMBER)               |
+| OSQN     | 001023 | OBSERVATION SEQUENCE NUMBER                              |
+| ROLQ     | 002064 | AIRCRAFT ROLL ANGLE QUALITY                              |
+| YEAR     | 004001 | YEAR                                                     |
+| MNTH     | 004002 | MONTH                                                    |
+| DAYS     | 004003 | DAY                                                      |
+| HOUR     | 004004 | HOUR                                                     |
+| MINU     | 004005 | MINUTE                                                   |
+| SECO     | 004006 | SECOND                                                   |
+| CLATH    | 005001 | LATITUDE (HIGH ACCURACY)                                 |
+| CLONH    | 006001 | LONGITUDE (HIGH ACCURACY)                                |
+| FLVLST   | 007010 | FLIGHT LEVEL                                             |
+| DPOF     | 008009 | DETAILED PHASE OF FLIGHT                                 |
+| WDIR     | 011001 | WIND DIRECTION                                           |
+| WSPD     | 011002 | WIND SPEED                                               |
+| DGOT     | 011031 | DEGREE OF TURBULENCE                                     |
+| MDEVG    | 011036 | DERIVED EQUIVALENT VERTICAL GUST SPEED                   |
+| TMDB     | 012101 | TEMPERATURE/DRY-BULB TEMPERATURE                         |
+| INTV     | 033025 | ACARS INTERPOLATED VALUES                                |
+|          |        |                                                          |
+|------------------------------------------------------------------------------|
+| MNEMONIC | SEQUENCE                                                          |
+|----------|-------------------------------------------------------------------|
+|          |                                                                   |
+| FR004029 | 208010  ACRN  208000  OSQN  LTLONH  FLVLST  YYMMDD  HHMMSS  DPOF  |
+| FR004029 | 203012  FLVLST  203255  WDIR  WSPD  FLVLST  DGOT  TMDB  INTV      |
+| FR004029 | 207002  MDEVG  207000  FLVLST  203000  FLVLST  ROLQ               |
+|          |                                                                   |
+| YYMMDD   | YEAR  MNTH  DAYS                                                  |
+|          |                                                                   |
+| HHMMSS   | HOUR  MINU  SECO                                                  |
+|          |                                                                   |
+| LTLONH   | CLATH  CLONH                                                      |
+|          |                                                                   |
+|------------------------------------------------------------------------------|
+| MNEMONIC | SCAL | REFERENCE   | BIT | UNITS                    |-------------|
+|----------|------|-------------|-----|--------------------------|-------------|
+|          |      |             |     |                          |-------------|
+| ACRN     |    0 |           0 |  64 | CCITT IA5                |-------------|
+| OSQN     |    0 |           0 |   9 | NUMERIC                  |-------------|
+| ROLQ     |    0 |           0 |   2 | CODE TABLE               |-------------|
+| YEAR     |    0 |           0 |  12 | YEAR                     |-------------|
+| MNTH     |    0 |           0 |   4 | MONTH                    |-------------|
+| DAYS     |    0 |           0 |   6 | DAY                      |-------------|
+| HOUR     |    0 |           0 |   5 | HOUR                     |-------------|
+| MINU     |    0 |           0 |   6 | MINUTE                   |-------------|
+| SECO     |    0 |           0 |   6 | SECOND                   |-------------|
+| CLATH    |    5 |    -9000000 |  25 | DEGREES                  |-------------|
+| CLONH    |    5 |   -18000000 |  26 | DEGREES                  |-------------|
+| FLVLST   |    0 |       -1024 |  16 | METERS                   |-------------|
+| DPOF     |    0 |           0 |   4 | CODE TABLE               |-------------|
+| WDIR     |    0 |           0 |   9 | DEGREES TRUE             |-------------|
+| WSPD     |    1 |           0 |  12 | METERS/SECOND            |-------------|
+| DGOT     |    0 |           0 |   4 | CODE TABLE               |-------------|
+| MDEVG    |    1 |           0 |  10 | METERS/SECOND            |-------------|
+| TMDB     |    2 |           0 |  16 | DEGREES KELVIN           |-------------|
+| INTV     |    0 |           0 |   3 | CODE TABLE               |-------------|
+|          |      |             |     |                          |-------------|
+`------------------------------------------------------------------------------'

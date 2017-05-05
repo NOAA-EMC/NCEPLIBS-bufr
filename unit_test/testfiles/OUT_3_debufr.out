@@ -1,0 +1,1335 @@
+
+Found BUFR message #      1
+  
+        Message length:        5876
+      Section 0 length:           8
+          BUFR edition:           3
+  
+      Section 1 length:          18
+          Master table:           0
+    Originating center:           7
+ Originating subcenter:           3
+ Update sequence numbr:           2
+    Section 2 present?: No
+         Data category:          11
+     Local subcategory:           1
+ Internatl subcategory:          -1
+  Master table version:          18
+   Local table version:           1
+                  Year:        2000
+                 Month:           0
+                   Day:           0
+                  Hour:           0
+                Minute:           0
+                Second:          -1
+  
+ Number of data subsets:           1
+     Data are observed?: Yes
+   Data are compressed?: No
+  Number of descriptors:          15
+        1: 103000
+        2: 031001
+        3: 000001
+        4: 000002
+        5: 000003
+        6: 101000
+        7: 031001
+        8: 300004
+        9: 105000
+       10: 031001
+       11: 300003
+       12: 205064
+       13: 101000
+       14: 031001
+       15: 000030
+
+BUFR message #      1 of type MSTTB001 and date 2000000000 contains      1 subsets:
+ 
+ MESSAGE TYPE MSTTB001  
+ 
+           {RPSEQ001}     2 REPLICATIONS
+    ++++++  RPSEQ001  REPLICATION #     1  ++++++
+000001  TABLAE                       195  ( 3)CCITT IA5                 Table A: entry                                  
+000002  TABLAD1     FN005000 MSG TYPE 005-000  JAPAN  ( 32)CCITT IA5                Table A: data category description, line 1      
+000003  TABLAD2      SATWIND                          ( 32)CCITT IA5                Table A: data category description, line 2      
+    ++++++  RPSEQ001  REPLICATION #     2  ++++++
+000001  TABLAE                       025  ( 3)CCITT IA5                 Table A: entry                                  
+000002  TABLAD1     FN005010 MSG TYPE 005-010  EUMET  ( 32)CCITT IA5                Table A: data category description, line 1      
+000003  TABLAD2     SAT/MSG      SATWIND-AMV          ( 32)CCITT IA5                Table A: data category description, line 2      
+           {ELUNSCRW}    39 REPLICATIONS
+    ++++++  ELUNSCRW  REPLICATION #     1  ++++++
+000010  FDESC                          0  ( 1)CCITT IA5                 F descriptor to be added or defined             
+000011  XDESC                         63  ( 2)CCITT IA5                 X descriptor to be added or defined             
+000012  YDESC                        000  ( 3)CCITT IA5                 Y descriptor to be added or defined             
+000013  ELEMNA1     BYTCNT                            ( 32)CCITT IA5                Element name, line 1                            
+000014  ELEMNA2                                       ( 32)CCITT IA5                Element name, line 2                            
+000015  UNITSNA     BYTES                     ( 24)CCITT IA5                Units name                                      
+000016  SCALESG                        +  ( 1)CCITT IA5                 Units scale sign                                
+000017  SCALEU                         0  ( 3)CCITT IA5                 Units scale                                     
+000018  REFERSG                        +  ( 1)CCITT IA5                 Units reference sign                            
+000019  REFERVA                        0  (10)CCITT IA5                 Units reference value                           
+000020  ELEMDWD                       16  ( 3)CCITT IA5                 Element data width                              
+    ++++++  ELUNSCRW  REPLICATION #     2  ++++++
+000010  FDESC                          0  ( 1)CCITT IA5                 F descriptor to be added or defined             
+000011  XDESC                         63  ( 2)CCITT IA5                 X descriptor to be added or defined             
+000012  YDESC                        255  ( 3)CCITT IA5                 Y descriptor to be added or defined             
+000013  ELEMNA1     BITPAD                            ( 32)CCITT IA5                Element name, line 1                            
+000014  ELEMNA2                                       ( 32)CCITT IA5                Element name, line 2                            
+000015  UNITSNA     NONE                      ( 24)CCITT IA5                Units name                                      
+000016  SCALESG                        +  ( 1)CCITT IA5                 Units scale sign                                
+000017  SCALEU                         0  ( 3)CCITT IA5                 Units scale                                     
+000018  REFERSG                        +  ( 1)CCITT IA5                 Units reference sign                            
+000019  REFERVA                        0  (10)CCITT IA5                 Units reference value                           
+000020  ELEMDWD                        1  ( 3)CCITT IA5                 Element data width                              
+    ++++++  ELUNSCRW  REPLICATION #     3  ++++++
+000010  FDESC                          0  ( 1)CCITT IA5                 F descriptor to be added or defined             
+000011  XDESC                         31  ( 2)CCITT IA5                 X descriptor to be added or defined             
+000012  YDESC                        000  ( 3)CCITT IA5                 Y descriptor to be added or defined             
+000013  ELEMNA1     DRF1BIT                           ( 32)CCITT IA5                Element name, line 1                            
+000014  ELEMNA2                                       ( 32)CCITT IA5                Element name, line 2                            
+000015  UNITSNA     NUMERIC                   ( 24)CCITT IA5                Units name                                      
+000016  SCALESG                        +  ( 1)CCITT IA5                 Units scale sign                                
+000017  SCALEU                         0  ( 3)CCITT IA5                 Units scale                                     
+000018  REFERSG                        +  ( 1)CCITT IA5                 Units reference sign                            
+000019  REFERVA                        0  (10)CCITT IA5                 Units reference value                           
+000020  ELEMDWD                        1  ( 3)CCITT IA5                 Element data width                              
+    ++++++  ELUNSCRW  REPLICATION #     4  ++++++
+000010  FDESC                          0  ( 1)CCITT IA5                 F descriptor to be added or defined             
+000011  XDESC                         31  ( 2)CCITT IA5                 X descriptor to be added or defined             
+000012  YDESC                        001  ( 3)CCITT IA5                 Y descriptor to be added or defined             
+000013  ELEMNA1     DRF8BIT                           ( 32)CCITT IA5                Element name, line 1                            
+000014  ELEMNA2                                       ( 32)CCITT IA5                Element name, line 2                            
+000015  UNITSNA     NUMERIC                   ( 24)CCITT IA5                Units name                                      
+000016  SCALESG                        +  ( 1)CCITT IA5                 Units scale sign                                
+000017  SCALEU                         0  ( 3)CCITT IA5                 Units scale                                     
+000018  REFERSG                        +  ( 1)CCITT IA5                 Units reference sign                            
+000019  REFERVA                        0  (10)CCITT IA5                 Units reference value                           
+000020  ELEMDWD                        8  ( 3)CCITT IA5                 Element data width                              
+    ++++++  ELUNSCRW  REPLICATION #     5  ++++++
+000010  FDESC                          0  ( 1)CCITT IA5                 F descriptor to be added or defined             
+000011  XDESC                         31  ( 2)CCITT IA5                 X descriptor to be added or defined             
+000012  YDESC                        002  ( 3)CCITT IA5                 Y descriptor to be added or defined             
+000013  ELEMNA1     DRF16BIT                          ( 32)CCITT IA5                Element name, line 1                            
+000014  ELEMNA2                                       ( 32)CCITT IA5                Element name, line 2                            
+000015  UNITSNA     NUMERIC                   ( 24)CCITT IA5                Units name                                      
+000016  SCALESG                        +  ( 1)CCITT IA5                 Units scale sign                                
+000017  SCALEU                         0  ( 3)CCITT IA5                 Units scale                                     
+000018  REFERSG                        +  ( 1)CCITT IA5                 Units reference sign                            
+000019  REFERVA                        0  (10)CCITT IA5                 Units reference value                           
+000020  ELEMDWD                       16  ( 3)CCITT IA5                 Element data width                              
+    ++++++  ELUNSCRW  REPLICATION #     6  ++++++
+000010  FDESC                          0  ( 1)CCITT IA5                 F descriptor to be added or defined             
+000011  XDESC                         01  ( 2)CCITT IA5                 X descriptor to be added or defined             
+000012  YDESC                        007  ( 3)CCITT IA5                 Y descriptor to be added or defined             
+000013  ELEMNA1     SAID     SATELLITE IDENTIFIER     ( 32)CCITT IA5                Element name, line 1                            
+000014  ELEMNA2                                       ( 32)CCITT IA5                Element name, line 2                            
+000015  UNITSNA     CODE TABLE                ( 24)CCITT IA5                Units name                                      
+000016  SCALESG                        +  ( 1)CCITT IA5                 Units scale sign                                
+000017  SCALEU                         0  ( 3)CCITT IA5                 Units scale                                     
+000018  REFERSG                        +  ( 1)CCITT IA5                 Units reference sign                            
+000019  REFERVA                        0  (10)CCITT IA5                 Units reference value                           
+000020  ELEMDWD                       10  ( 3)CCITT IA5                 Element data width                              
+    ++++++  ELUNSCRW  REPLICATION #     7  ++++++
+000010  FDESC                          0  ( 1)CCITT IA5                 F descriptor to be added or defined             
+000011  XDESC                         01  ( 2)CCITT IA5                 X descriptor to be added or defined             
+000012  YDESC                        031  ( 3)CCITT IA5                 Y descriptor to be added or defined             
+000013  ELEMNA1     GCLONG   ORIGINATING/GENERATING   ( 32)CCITT IA5                Element name, line 1                            
+000014  ELEMNA2     CENTER                            ( 32)CCITT IA5                Element name, line 2                            
+000015  UNITSNA     CODE TABLE                ( 24)CCITT IA5                Units name                                      
+000016  SCALESG                        +  ( 1)CCITT IA5                 Units scale sign                                
+000017  SCALEU                         0  ( 3)CCITT IA5                 Units scale                                     
+000018  REFERSG                        +  ( 1)CCITT IA5                 Units reference sign                            
+000019  REFERVA                        0  (10)CCITT IA5                 Units reference value                           
+000020  ELEMDWD                       16  ( 3)CCITT IA5                 Element data width                              
+    ++++++  ELUNSCRW  REPLICATION #     8  ++++++
+000010  FDESC                          0  ( 1)CCITT IA5                 F descriptor to be added or defined             
+000011  XDESC                         01  ( 2)CCITT IA5                 X descriptor to be added or defined             
+000012  YDESC                        032  ( 3)CCITT IA5                 Y descriptor to be added or defined             
+000013  ELEMNA1     GNAP     GENERATING APPLICATION   ( 32)CCITT IA5                Element name, line 1                            
+000014  ELEMNA2                                       ( 32)CCITT IA5                Element name, line 2                            
+000015  UNITSNA     CODE TABLE                ( 24)CCITT IA5                Units name                                      
+000016  SCALESG                        +  ( 1)CCITT IA5                 Units scale sign                                
+000017  SCALEU                         0  ( 3)CCITT IA5                 Units scale                                     
+000018  REFERSG                        +  ( 1)CCITT IA5                 Units reference sign                            
+000019  REFERVA                        0  (10)CCITT IA5                 Units reference value                           
+000020  ELEMDWD                        8  ( 3)CCITT IA5                 Element data width                              
+    ++++++  ELUNSCRW  REPLICATION #     9  ++++++
+000010  FDESC                          0  ( 1)CCITT IA5                 F descriptor to be added or defined             
+000011  XDESC                         02  ( 2)CCITT IA5                 X descriptor to be added or defined             
+000012  YDESC                        020  ( 3)CCITT IA5                 Y descriptor to be added or defined             
+000013  ELEMNA1     SCLF     SATELLITE CLASSIFICATIO  ( 32)CCITT IA5                Element name, line 1                            
+000014  ELEMNA2     N                                 ( 32)CCITT IA5                Element name, line 2                            
+000015  UNITSNA     CODE TABLE                ( 24)CCITT IA5                Units name                                      
+000016  SCALESG                        +  ( 1)CCITT IA5                 Units scale sign                                
+000017  SCALEU                         0  ( 3)CCITT IA5                 Units scale                                     
+000018  REFERSG                        +  ( 1)CCITT IA5                 Units reference sign                            
+000019  REFERVA                        0  (10)CCITT IA5                 Units reference value                           
+000020  ELEMDWD                        9  ( 3)CCITT IA5                 Element data width                              
+    ++++++  ELUNSCRW  REPLICATION #    10  ++++++
+000010  FDESC                          0  ( 1)CCITT IA5                 F descriptor to be added or defined             
+000011  XDESC                         02  ( 2)CCITT IA5                 X descriptor to be added or defined             
+000012  YDESC                        023  ( 3)CCITT IA5                 Y descriptor to be added or defined             
+000013  ELEMNA1     SWCM     SATELLITE DERIVED WIND   ( 32)CCITT IA5                Element name, line 1                            
+000014  ELEMNA2     CALCULATION METHOD                ( 32)CCITT IA5                Element name, line 2                            
+000015  UNITSNA     CODE TABLE                ( 24)CCITT IA5                Units name                                      
+000016  SCALESG                        +  ( 1)CCITT IA5                 Units scale sign                                
+000017  SCALEU                         0  ( 3)CCITT IA5                 Units scale                                     
+000018  REFERSG                        +  ( 1)CCITT IA5                 Units reference sign                            
+000019  REFERVA                        0  (10)CCITT IA5                 Units reference value                           
+000020  ELEMDWD                        4  ( 3)CCITT IA5                 Element data width                              
+    ++++++  ELUNSCRW  REPLICATION #    11  ++++++
+000010  FDESC                          0  ( 1)CCITT IA5                 F descriptor to be added or defined             
+000011  XDESC                         02  ( 2)CCITT IA5                 X descriptor to be added or defined             
+000012  YDESC                        028  ( 3)CCITT IA5                 Y descriptor to be added or defined             
+000013  ELEMNA1     SSNX     SEGMENT SIZE AT NADIR I  ( 32)CCITT IA5                Element name, line 1                            
+000014  ELEMNA2     N X DIRECTION                     ( 32)CCITT IA5                Element name, line 2                            
+000015  UNITSNA     M                         ( 24)CCITT IA5                Units name                                      
+000016  SCALESG                        +  ( 1)CCITT IA5                 Units scale sign                                
+000017  SCALEU                         0  ( 3)CCITT IA5                 Units scale                                     
+000018  REFERSG                        +  ( 1)CCITT IA5                 Units reference sign                            
+000019  REFERVA                        0  (10)CCITT IA5                 Units reference value                           
+000020  ELEMDWD                       18  ( 3)CCITT IA5                 Element data width                              
+    ++++++  ELUNSCRW  REPLICATION #    12  ++++++
+000010  FDESC                          0  ( 1)CCITT IA5                 F descriptor to be added or defined             
+000011  XDESC                         02  ( 2)CCITT IA5                 X descriptor to be added or defined             
+000012  YDESC                        029  ( 3)CCITT IA5                 Y descriptor to be added or defined             
+000013  ELEMNA1     SSNY     SEGMENT SIZE AT NADIR I  ( 32)CCITT IA5                Element name, line 1                            
+000014  ELEMNA2     N Y DIRECTION                     ( 32)CCITT IA5                Element name, line 2                            
+000015  UNITSNA     M                         ( 24)CCITT IA5                Units name                                      
+000016  SCALESG                        +  ( 1)CCITT IA5                 Units scale sign                                
+000017  SCALEU                         0  ( 3)CCITT IA5                 Units scale                                     
+000018  REFERSG                        +  ( 1)CCITT IA5                 Units reference sign                            
+000019  REFERVA                        0  (10)CCITT IA5                 Units reference value                           
+000020  ELEMDWD                       18  ( 3)CCITT IA5                 Element data width                              
+    ++++++  ELUNSCRW  REPLICATION #    13  ++++++
+000010  FDESC                          0  ( 1)CCITT IA5                 F descriptor to be added or defined             
+000011  XDESC                         02  ( 2)CCITT IA5                 X descriptor to be added or defined             
+000012  YDESC                        057  ( 3)CCITT IA5                 Y descriptor to be added or defined             
+000013  ELEMNA1     OFGI     ORIGIN OF FIRST GUESS I  ( 32)CCITT IA5                Element name, line 1                            
+000014  ELEMNA2     NFORMATION                        ( 32)CCITT IA5                Element name, line 2                            
+000015  UNITSNA     CODE TABLE                ( 24)CCITT IA5                Units name                                      
+000016  SCALESG                        +  ( 1)CCITT IA5                 Units scale sign                                
+000017  SCALEU                         0  ( 3)CCITT IA5                 Units scale                                     
+000018  REFERSG                        +  ( 1)CCITT IA5                 Units reference sign                            
+000019  REFERVA                        0  (10)CCITT IA5                 Units reference value                           
+000020  ELEMDWD                        4  ( 3)CCITT IA5                 Element data width                              
+    ++++++  ELUNSCRW  REPLICATION #    14  ++++++
+000010  FDESC                          0  ( 1)CCITT IA5                 F descriptor to be added or defined             
+000011  XDESC                         02  ( 2)CCITT IA5                 X descriptor to be added or defined             
+000012  YDESC                        152  ( 3)CCITT IA5                 Y descriptor to be added or defined             
+000013  ELEMNA1     SIDP     SATELLITE INSTRUMENT US  ( 32)CCITT IA5                Element name, line 1                            
+000014  ELEMNA2     ED IN DATA PROCESSING             ( 32)CCITT IA5                Element name, line 2                            
+000015  UNITSNA     FLAG TABLE                ( 24)CCITT IA5                Units name                                      
+000016  SCALESG                        +  ( 1)CCITT IA5                 Units scale sign                                
+000017  SCALEU                         0  ( 3)CCITT IA5                 Units scale                                     
+000018  REFERSG                        +  ( 1)CCITT IA5                 Units reference sign                            
+000019  REFERVA                        0  (10)CCITT IA5                 Units reference value                           
+000020  ELEMDWD                       31  ( 3)CCITT IA5                 Element data width                              
+    ++++++  ELUNSCRW  REPLICATION #    15  ++++++
+000010  FDESC                          0  ( 1)CCITT IA5                 F descriptor to be added or defined             
+000011  XDESC                         02  ( 2)CCITT IA5                 X descriptor to be added or defined             
+000012  YDESC                        153  ( 3)CCITT IA5                 Y descriptor to be added or defined             
+000013  ELEMNA1     SCCF     SATELLITE CHANNEL CENTE  ( 32)CCITT IA5                Element name, line 1                            
+000014  ELEMNA2     R FREQUECY                        ( 32)CCITT IA5                Element name, line 2                            
+000015  UNITSNA     HZ                        ( 24)CCITT IA5                Units name                                      
+000016  SCALESG                        -  ( 1)CCITT IA5                 Units scale sign                                
+000017  SCALEU                         8  ( 3)CCITT IA5                 Units scale                                     
+000018  REFERSG                        +  ( 1)CCITT IA5                 Units reference sign                            
+000019  REFERVA                        0  (10)CCITT IA5                 Units reference value                           
+000020  ELEMDWD                       26  ( 3)CCITT IA5                 Element data width                              
+    ++++++  ELUNSCRW  REPLICATION #    16  ++++++
+000010  FDESC                          0  ( 1)CCITT IA5                 F descriptor to be added or defined             
+000011  XDESC                         02  ( 2)CCITT IA5                 X descriptor to be added or defined             
+000012  YDESC                        154  ( 3)CCITT IA5                 Y descriptor to be added or defined             
+000013  ELEMNA1     SCBW     SATELLITE CHANNEL BAND   ( 32)CCITT IA5                Element name, line 1                            
+000014  ELEMNA2     WIDTH                             ( 32)CCITT IA5                Element name, line 2                            
+000015  UNITSNA     HZ                        ( 24)CCITT IA5                Units name                                      
+000016  SCALESG                        -  ( 1)CCITT IA5                 Units scale sign                                
+000017  SCALEU                         8  ( 3)CCITT IA5                 Units scale                                     
+000018  REFERSG                        +  ( 1)CCITT IA5                 Units reference sign                            
+000019  REFERVA                        0  (10)CCITT IA5                 Units reference value                           
+000020  ELEMDWD                       26  ( 3)CCITT IA5                 Element data width                              
+    ++++++  ELUNSCRW  REPLICATION #    17  ++++++
+000010  FDESC                          0  ( 1)CCITT IA5                 F descriptor to be added or defined             
+000011  XDESC                         02  ( 2)CCITT IA5                 X descriptor to be added or defined             
+000012  YDESC                        163  ( 3)CCITT IA5                 Y descriptor to be added or defined             
+000013  ELEMNA1     HAMD     HEIGHT ASSIGNMENT METHO  ( 32)CCITT IA5                Element name, line 1                            
+000014  ELEMNA2     D                                 ( 32)CCITT IA5                Element name, line 2                            
+000015  UNITSNA     CODE TABLE                ( 24)CCITT IA5                Units name                                      
+000016  SCALESG                        +  ( 1)CCITT IA5                 Units scale sign                                
+000017  SCALEU                         0  ( 3)CCITT IA5                 Units scale                                     
+000018  REFERSG                        +  ( 1)CCITT IA5                 Units reference sign                            
+000019  REFERVA                        0  (10)CCITT IA5                 Units reference value                           
+000020  ELEMDWD                        4  ( 3)CCITT IA5                 Element data width                              
+    ++++++  ELUNSCRW  REPLICATION #    18  ++++++
+000010  FDESC                          0  ( 1)CCITT IA5                 F descriptor to be added or defined             
+000011  XDESC                         02  ( 2)CCITT IA5                 X descriptor to be added or defined             
+000012  YDESC                        164  ( 3)CCITT IA5                 Y descriptor to be added or defined             
+000013  ELEMNA1     TCMD     TRACER CORRELATION METH  ( 32)CCITT IA5                Element name, line 1                            
+000014  ELEMNA2     OD                                ( 32)CCITT IA5                Element name, line 2                            
+000015  UNITSNA     CODE TABLE                ( 24)CCITT IA5                Units name                                      
+000016  SCALESG                        +  ( 1)CCITT IA5                 Units scale sign                                
+000017  SCALEU                         0  ( 3)CCITT IA5                 Units scale                                     
+000018  REFERSG                        +  ( 1)CCITT IA5                 Units reference sign                            
+000019  REFERVA                        0  (10)CCITT IA5                 Units reference value                           
+000020  ELEMDWD                        3  ( 3)CCITT IA5                 Element data width                              
+    ++++++  ELUNSCRW  REPLICATION #    19  ++++++
+000010  FDESC                          0  ( 1)CCITT IA5                 F descriptor to be added or defined             
+000011  XDESC                         04  ( 2)CCITT IA5                 X descriptor to be added or defined             
+000012  YDESC                        001  ( 3)CCITT IA5                 Y descriptor to be added or defined             
+000013  ELEMNA1     YEAR     YEAR                     ( 32)CCITT IA5                Element name, line 1                            
+000014  ELEMNA2                                       ( 32)CCITT IA5                Element name, line 2                            
+000015  UNITSNA     YEAR                      ( 24)CCITT IA5                Units name                                      
+000016  SCALESG                        +  ( 1)CCITT IA5                 Units scale sign                                
+000017  SCALEU                         0  ( 3)CCITT IA5                 Units scale                                     
+000018  REFERSG                        +  ( 1)CCITT IA5                 Units reference sign                            
+000019  REFERVA                        0  (10)CCITT IA5                 Units reference value                           
+000020  ELEMDWD                       12  ( 3)CCITT IA5                 Element data width                              
+    ++++++  ELUNSCRW  REPLICATION #    20  ++++++
+000010  FDESC                          0  ( 1)CCITT IA5                 F descriptor to be added or defined             
+000011  XDESC                         04  ( 2)CCITT IA5                 X descriptor to be added or defined             
+000012  YDESC                        002  ( 3)CCITT IA5                 Y descriptor to be added or defined             
+000013  ELEMNA1     MNTH     MONTH                    ( 32)CCITT IA5                Element name, line 1                            
+000014  ELEMNA2                                       ( 32)CCITT IA5                Element name, line 2                            
+000015  UNITSNA     MONTH                     ( 24)CCITT IA5                Units name                                      
+000016  SCALESG                        +  ( 1)CCITT IA5                 Units scale sign                                
+000017  SCALEU                         0  ( 3)CCITT IA5                 Units scale                                     
+000018  REFERSG                        +  ( 1)CCITT IA5                 Units reference sign                            
+000019  REFERVA                        0  (10)CCITT IA5                 Units reference value                           
+000020  ELEMDWD                        4  ( 3)CCITT IA5                 Element data width                              
+    ++++++  ELUNSCRW  REPLICATION #    21  ++++++
+000010  FDESC                          0  ( 1)CCITT IA5                 F descriptor to be added or defined             
+000011  XDESC                         04  ( 2)CCITT IA5                 X descriptor to be added or defined             
+000012  YDESC                        003  ( 3)CCITT IA5                 Y descriptor to be added or defined             
+000013  ELEMNA1     DAYS     DAY                      ( 32)CCITT IA5                Element name, line 1                            
+000014  ELEMNA2                                       ( 32)CCITT IA5                Element name, line 2                            
+000015  UNITSNA     DAY                       ( 24)CCITT IA5                Units name                                      
+000016  SCALESG                        +  ( 1)CCITT IA5                 Units scale sign                                
+000017  SCALEU                         0  ( 3)CCITT IA5                 Units scale                                     
+000018  REFERSG                        +  ( 1)CCITT IA5                 Units reference sign                            
+000019  REFERVA                        0  (10)CCITT IA5                 Units reference value                           
+000020  ELEMDWD                        6  ( 3)CCITT IA5                 Element data width                              
+    ++++++  ELUNSCRW  REPLICATION #    22  ++++++
+000010  FDESC                          0  ( 1)CCITT IA5                 F descriptor to be added or defined             
+000011  XDESC                         04  ( 2)CCITT IA5                 X descriptor to be added or defined             
+000012  YDESC                        004  ( 3)CCITT IA5                 Y descriptor to be added or defined             
+000013  ELEMNA1     HOUR     HOUR                     ( 32)CCITT IA5                Element name, line 1                            
+000014  ELEMNA2                                       ( 32)CCITT IA5                Element name, line 2                            
+000015  UNITSNA     HOUR                      ( 24)CCITT IA5                Units name                                      
+000016  SCALESG                        +  ( 1)CCITT IA5                 Units scale sign                                
+000017  SCALEU                         0  ( 3)CCITT IA5                 Units scale                                     
+000018  REFERSG                        +  ( 1)CCITT IA5                 Units reference sign                            
+000019  REFERVA                        0  (10)CCITT IA5                 Units reference value                           
+000020  ELEMDWD                        5  ( 3)CCITT IA5                 Element data width                              
+    ++++++  ELUNSCRW  REPLICATION #    23  ++++++
+000010  FDESC                          0  ( 1)CCITT IA5                 F descriptor to be added or defined             
+000011  XDESC                         04  ( 2)CCITT IA5                 X descriptor to be added or defined             
+000012  YDESC                        005  ( 3)CCITT IA5                 Y descriptor to be added or defined             
+000013  ELEMNA1     MINU     MINUTES                  ( 32)CCITT IA5                Element name, line 1                            
+000014  ELEMNA2                                       ( 32)CCITT IA5                Element name, line 2                            
+000015  UNITSNA     MINUTE                    ( 24)CCITT IA5                Units name                                      
+000016  SCALESG                        +  ( 1)CCITT IA5                 Units scale sign                                
+000017  SCALEU                         0  ( 3)CCITT IA5                 Units scale                                     
+000018  REFERSG                        +  ( 1)CCITT IA5                 Units reference sign                            
+000019  REFERVA                        0  (10)CCITT IA5                 Units reference value                           
+000020  ELEMDWD                        6  ( 3)CCITT IA5                 Element data width                              
+    ++++++  ELUNSCRW  REPLICATION #    24  ++++++
+000010  FDESC                          0  ( 1)CCITT IA5                 F descriptor to be added or defined             
+000011  XDESC                         04  ( 2)CCITT IA5                 X descriptor to be added or defined             
+000012  YDESC                        006  ( 3)CCITT IA5                 Y descriptor to be added or defined             
+000013  ELEMNA1     SECO     SECONDS                  ( 32)CCITT IA5                Element name, line 1                            
+000014  ELEMNA2                                       ( 32)CCITT IA5                Element name, line 2                            
+000015  UNITSNA     SECOND                    ( 24)CCITT IA5                Units name                                      
+000016  SCALESG                        +  ( 1)CCITT IA5                 Units scale sign                                
+000017  SCALEU                         0  ( 3)CCITT IA5                 Units scale                                     
+000018  REFERSG                        +  ( 1)CCITT IA5                 Units reference sign                            
+000019  REFERVA                        0  (10)CCITT IA5                 Units reference value                           
+000020  ELEMDWD                        6  ( 3)CCITT IA5                 Element data width                              
+    ++++++  ELUNSCRW  REPLICATION #    25  ++++++
+000010  FDESC                          0  ( 1)CCITT IA5                 F descriptor to be added or defined             
+000011  XDESC                         04  ( 2)CCITT IA5                 X descriptor to be added or defined             
+000012  YDESC                        024  ( 3)CCITT IA5                 Y descriptor to be added or defined             
+000013  ELEMNA1     TPHR     TIME PERIOD OR DISPLACE  ( 32)CCITT IA5                Element name, line 1                            
+000014  ELEMNA2     MENT                              ( 32)CCITT IA5                Element name, line 2                            
+000015  UNITSNA     HOUR                      ( 24)CCITT IA5                Units name                                      
+000016  SCALESG                        +  ( 1)CCITT IA5                 Units scale sign                                
+000017  SCALEU                         0  ( 3)CCITT IA5                 Units scale                                     
+000018  REFERSG                        -  ( 1)CCITT IA5                 Units reference sign                            
+000019  REFERVA                     2048  (10)CCITT IA5                 Units reference value                           
+000020  ELEMDWD                       12  ( 3)CCITT IA5                 Element data width                              
+    ++++++  ELUNSCRW  REPLICATION #    26  ++++++
+000010  FDESC                          0  ( 1)CCITT IA5                 F descriptor to be added or defined             
+000011  XDESC                         05  ( 2)CCITT IA5                 X descriptor to be added or defined             
+000012  YDESC                        001  ( 3)CCITT IA5                 Y descriptor to be added or defined             
+000013  ELEMNA1     CLATH    LATITUDE (HIGH ACCURACY  ( 32)CCITT IA5                Element name, line 1                            
+000014  ELEMNA2     )                                 ( 32)CCITT IA5                Element name, line 2                            
+000015  UNITSNA     DEGREES                   ( 24)CCITT IA5                Units name                                      
+000016  SCALESG                        +  ( 1)CCITT IA5                 Units scale sign                                
+000017  SCALEU                         5  ( 3)CCITT IA5                 Units scale                                     
+000018  REFERSG                        -  ( 1)CCITT IA5                 Units reference sign                            
+000019  REFERVA                  9000000  (10)CCITT IA5                 Units reference value                           
+000020  ELEMDWD                       25  ( 3)CCITT IA5                 Element data width                              
+    ++++++  ELUNSCRW  REPLICATION #    27  ++++++
+000010  FDESC                          0  ( 1)CCITT IA5                 F descriptor to be added or defined             
+000011  XDESC                         06  ( 2)CCITT IA5                 X descriptor to be added or defined             
+000012  YDESC                        001  ( 3)CCITT IA5                 Y descriptor to be added or defined             
+000013  ELEMNA1     CLONH    LONGITUDE (HIGH ACCURAC  ( 32)CCITT IA5                Element name, line 1                            
+000014  ELEMNA2     Y)                                ( 32)CCITT IA5                Element name, line 2                            
+000015  UNITSNA     DEGREES                   ( 24)CCITT IA5                Units name                                      
+000016  SCALESG                        +  ( 1)CCITT IA5                 Units scale sign                                
+000017  SCALEU                         5  ( 3)CCITT IA5                 Units scale                                     
+000018  REFERSG                        -  ( 1)CCITT IA5                 Units reference sign                            
+000019  REFERVA                 18000000  (10)CCITT IA5                 Units reference value                           
+000020  ELEMDWD                       26  ( 3)CCITT IA5                 Element data width                              
+    ++++++  ELUNSCRW  REPLICATION #    28  ++++++
+000010  FDESC                          0  ( 1)CCITT IA5                 F descriptor to be added or defined             
+000011  XDESC                         07  ( 2)CCITT IA5                 X descriptor to be added or defined             
+000012  YDESC                        004  ( 3)CCITT IA5                 Y descriptor to be added or defined             
+000013  ELEMNA1     PRLC     PRESSURE                 ( 32)CCITT IA5                Element name, line 1                            
+000014  ELEMNA2                                       ( 32)CCITT IA5                Element name, line 2                            
+000015  UNITSNA     PASCALS                   ( 24)CCITT IA5                Units name                                      
+000016  SCALESG                        -  ( 1)CCITT IA5                 Units scale sign                                
+000017  SCALEU                         1  ( 3)CCITT IA5                 Units scale                                     
+000018  REFERSG                        +  ( 1)CCITT IA5                 Units reference sign                            
+000019  REFERVA                        0  (10)CCITT IA5                 Units reference value                           
+000020  ELEMDWD                       14  ( 3)CCITT IA5                 Element data width                              
+    ++++++  ELUNSCRW  REPLICATION #    29  ++++++
+000010  FDESC                          0  ( 1)CCITT IA5                 F descriptor to be added or defined             
+000011  XDESC                         07  ( 2)CCITT IA5                 X descriptor to be added or defined             
+000012  YDESC                        024  ( 3)CCITT IA5                 Y descriptor to be added or defined             
+000013  ELEMNA1     SAZA     SATELLITE ZENITH ANGLE   ( 32)CCITT IA5                Element name, line 1                            
+000014  ELEMNA2                                       ( 32)CCITT IA5                Element name, line 2                            
+000015  UNITSNA     DEGREES                   ( 24)CCITT IA5                Units name                                      
+000016  SCALESG                        +  ( 1)CCITT IA5                 Units scale sign                                
+000017  SCALEU                         2  ( 3)CCITT IA5                 Units scale                                     
+000018  REFERSG                        -  ( 1)CCITT IA5                 Units reference sign                            
+000019  REFERVA                     9000  (10)CCITT IA5                 Units reference value                           
+000020  ELEMDWD                       15  ( 3)CCITT IA5                 Element data width                              
+    ++++++  ELUNSCRW  REPLICATION #    30  ++++++
+000010  FDESC                          0  ( 1)CCITT IA5                 F descriptor to be added or defined             
+000011  XDESC                         08  ( 2)CCITT IA5                 X descriptor to be added or defined             
+000012  YDESC                        012  ( 3)CCITT IA5                 Y descriptor to be added or defined             
+000013  ELEMNA1     LSQL     LAND/SEA QUALIFIER       ( 32)CCITT IA5                Element name, line 1                            
+000014  ELEMNA2                                       ( 32)CCITT IA5                Element name, line 2                            
+000015  UNITSNA     CODE TABLE                ( 24)CCITT IA5                Units name                                      
+000016  SCALESG                        +  ( 1)CCITT IA5                 Units scale sign                                
+000017  SCALEU                         0  ( 3)CCITT IA5                 Units scale                                     
+000018  REFERSG                        +  ( 1)CCITT IA5                 Units reference sign                            
+000019  REFERVA                        0  (10)CCITT IA5                 Units reference value                           
+000020  ELEMDWD                        2  ( 3)CCITT IA5                 Element data width                              
+    ++++++  ELUNSCRW  REPLICATION #    31  ++++++
+000010  FDESC                          0  ( 1)CCITT IA5                 F descriptor to be added or defined             
+000011  XDESC                         08  ( 2)CCITT IA5                 X descriptor to be added or defined             
+000012  YDESC                        021  ( 3)CCITT IA5                 Y descriptor to be added or defined             
+000013  ELEMNA1     TSIG     TIME SIGNIFICANCE        ( 32)CCITT IA5                Element name, line 1                            
+000014  ELEMNA2                                       ( 32)CCITT IA5                Element name, line 2                            
+000015  UNITSNA     CODE TABLE                ( 24)CCITT IA5                Units name                                      
+000016  SCALESG                        +  ( 1)CCITT IA5                 Units scale sign                                
+000017  SCALEU                         0  ( 3)CCITT IA5                 Units scale                                     
+000018  REFERSG                        +  ( 1)CCITT IA5                 Units reference sign                            
+000019  REFERVA                        0  (10)CCITT IA5                 Units reference value                           
+000020  ELEMDWD                        5  ( 3)CCITT IA5                 Element data width                              
+    ++++++  ELUNSCRW  REPLICATION #    32  ++++++
+000010  FDESC                          0  ( 1)CCITT IA5                 F descriptor to be added or defined             
+000011  XDESC                         11  ( 2)CCITT IA5                 X descriptor to be added or defined             
+000012  YDESC                        001  ( 3)CCITT IA5                 Y descriptor to be added or defined             
+000013  ELEMNA1     WDIR     WIND DIRECTION           ( 32)CCITT IA5                Element name, line 1                            
+000014  ELEMNA2                                       ( 32)CCITT IA5                Element name, line 2                            
+000015  UNITSNA     DEGREES TRUE              ( 24)CCITT IA5                Units name                                      
+000016  SCALESG                        +  ( 1)CCITT IA5                 Units scale sign                                
+000017  SCALEU                         0  ( 3)CCITT IA5                 Units scale                                     
+000018  REFERSG                        +  ( 1)CCITT IA5                 Units reference sign                            
+000019  REFERVA                        0  (10)CCITT IA5                 Units reference value                           
+000020  ELEMDWD                        9  ( 3)CCITT IA5                 Element data width                              
+    ++++++  ELUNSCRW  REPLICATION #    33  ++++++
+000010  FDESC                          0  ( 1)CCITT IA5                 F descriptor to be added or defined             
+000011  XDESC                         11  ( 2)CCITT IA5                 X descriptor to be added or defined             
+000012  YDESC                        002  ( 3)CCITT IA5                 Y descriptor to be added or defined             
+000013  ELEMNA1     WSPD     WIND SPEED               ( 32)CCITT IA5                Element name, line 1                            
+000014  ELEMNA2                                       ( 32)CCITT IA5                Element name, line 2                            
+000015  UNITSNA     M/SEC                     ( 24)CCITT IA5                Units name                                      
+000016  SCALESG                        +  ( 1)CCITT IA5                 Units scale sign                                
+000017  SCALEU                         1  ( 3)CCITT IA5                 Units scale                                     
+000018  REFERSG                        +  ( 1)CCITT IA5                 Units reference sign                            
+000019  REFERVA                        0  (10)CCITT IA5                 Units reference value                           
+000020  ELEMDWD                       12  ( 3)CCITT IA5                 Element data width                              
+    ++++++  ELUNSCRW  REPLICATION #    34  ++++++
+000010  FDESC                          0  ( 1)CCITT IA5                 F descriptor to be added or defined             
+000011  XDESC                         12  ( 2)CCITT IA5                 X descriptor to be added or defined             
+000012  YDESC                        001  ( 3)CCITT IA5                 Y descriptor to be added or defined             
+000013  ELEMNA1     TMDBST   TEMPERATURE/DRY BULB TE  ( 32)CCITT IA5                Element name, line 1                            
+000014  ELEMNA2     MPERATURE                         ( 32)CCITT IA5                Element name, line 2                            
+000015  UNITSNA     K                         ( 24)CCITT IA5                Units name                                      
+000016  SCALESG                        +  ( 1)CCITT IA5                 Units scale sign                                
+000017  SCALEU                         1  ( 3)CCITT IA5                 Units scale                                     
+000018  REFERSG                        +  ( 1)CCITT IA5                 Units reference sign                            
+000019  REFERVA                        0  (10)CCITT IA5                 Units reference value                           
+000020  ELEMDWD                       12  ( 3)CCITT IA5                 Element data width                              
+    ++++++  ELUNSCRW  REPLICATION #    35  ++++++
+000010  FDESC                          0  ( 1)CCITT IA5                 F descriptor to be added or defined             
+000011  XDESC                         12  ( 2)CCITT IA5                 X descriptor to be added or defined             
+000012  YDESC                        071  ( 3)CCITT IA5                 Y descriptor to be added or defined             
+000013  ELEMNA1     CCST     COLDEST CLUSTER TEMPERA  ( 32)CCITT IA5                Element name, line 1                            
+000014  ELEMNA2     TURE                              ( 32)CCITT IA5                Element name, line 2                            
+000015  UNITSNA     K                         ( 24)CCITT IA5                Units name                                      
+000016  SCALESG                        +  ( 1)CCITT IA5                 Units scale sign                                
+000017  SCALEU                         1  ( 3)CCITT IA5                 Units scale                                     
+000018  REFERSG                        +  ( 1)CCITT IA5                 Units reference sign                            
+000019  REFERVA                        0  (10)CCITT IA5                 Units reference value                           
+000020  ELEMDWD                       12  ( 3)CCITT IA5                 Element data width                              
+    ++++++  ELUNSCRW  REPLICATION #    36  ++++++
+000010  FDESC                          0  ( 1)CCITT IA5                 F descriptor to be added or defined             
+000011  XDESC                         31  ( 2)CCITT IA5                 X descriptor to be added or defined             
+000012  YDESC                        031  ( 3)CCITT IA5                 Y descriptor to be added or defined             
+000013  ELEMNA1     DPRI     DATA PRESENT INDICATOR   ( 32)CCITT IA5                Element name, line 1                            
+000014  ELEMNA2                                       ( 32)CCITT IA5                Element name, line 2                            
+000015  UNITSNA     FLAG TABLE                ( 24)CCITT IA5                Units name                                      
+000016  SCALESG                        +  ( 1)CCITT IA5                 Units scale sign                                
+000017  SCALEU                         0  ( 3)CCITT IA5                 Units scale                                     
+000018  REFERSG                        +  ( 1)CCITT IA5                 Units reference sign                            
+000019  REFERVA                        0  (10)CCITT IA5                 Units reference value                           
+000020  ELEMDWD                        1  ( 3)CCITT IA5                 Element data width                              
+    ++++++  ELUNSCRW  REPLICATION #    37  ++++++
+000010  FDESC                          0  ( 1)CCITT IA5                 F descriptor to be added or defined             
+000011  XDESC                         33  ( 2)CCITT IA5                 X descriptor to be added or defined             
+000012  YDESC                        007  ( 3)CCITT IA5                 Y descriptor to be added or defined             
+000013  ELEMNA1     PCCF     PER CENT CONFIDENCE      ( 32)CCITT IA5                Element name, line 1                            
+000014  ELEMNA2                                       ( 32)CCITT IA5                Element name, line 2                            
+000015  UNITSNA     PERCENT                   ( 24)CCITT IA5                Units name                                      
+000016  SCALESG                        +  ( 1)CCITT IA5                 Units scale sign                                
+000017  SCALEU                         0  ( 3)CCITT IA5                 Units scale                                     
+000018  REFERSG                        +  ( 1)CCITT IA5                 Units reference sign                            
+000019  REFERVA                        0  (10)CCITT IA5                 Units reference value                           
+000020  ELEMDWD                        7  ( 3)CCITT IA5                 Element data width                              
+    ++++++  ELUNSCRW  REPLICATION #    38  ++++++
+000010  FDESC                          0  ( 1)CCITT IA5                 F descriptor to be added or defined             
+000011  XDESC                         33  ( 2)CCITT IA5                 X descriptor to be added or defined             
+000012  YDESC                        035  ( 3)CCITT IA5                 Y descriptor to be added or defined             
+000013  ELEMNA1     MAQC     MANUAL/AUTOMATIC QUALIT  ( 32)CCITT IA5                Element name, line 1                            
+000014  ELEMNA2     Y CONTROL                         ( 32)CCITT IA5                Element name, line 2                            
+000015  UNITSNA     CODE TABLE                ( 24)CCITT IA5                Units name                                      
+000016  SCALESG                        +  ( 1)CCITT IA5                 Units scale sign                                
+000017  SCALEU                         0  ( 3)CCITT IA5                 Units scale                                     
+000018  REFERSG                        +  ( 1)CCITT IA5                 Units reference sign                            
+000019  REFERVA                        0  (10)CCITT IA5                 Units reference value                           
+000020  ELEMDWD                        4  ( 3)CCITT IA5                 Element data width                              
+    ++++++  ELUNSCRW  REPLICATION #    39  ++++++
+000010  FDESC                          0  ( 1)CCITT IA5                 F descriptor to be added or defined             
+000011  XDESC                         33  ( 2)CCITT IA5                 X descriptor to be added or defined             
+000012  YDESC                        036  ( 3)CCITT IA5                 Y descriptor to be added or defined             
+000013  ELEMNA1     NCTH     NOMINAL CONFIDENCE THRE  ( 32)CCITT IA5                Element name, line 1                            
+000014  ELEMNA2     SHHOLD                            ( 32)CCITT IA5                Element name, line 2                            
+000015  UNITSNA     PERCENT                   ( 24)CCITT IA5                Units name                                      
+000016  SCALESG                        +  ( 1)CCITT IA5                 Units scale sign                                
+000017  SCALEU                         0  ( 3)CCITT IA5                 Units scale                                     
+000018  REFERSG                        +  ( 1)CCITT IA5                 Units reference sign                            
+000019  REFERVA                        0  (10)CCITT IA5                 Units reference value                           
+000020  ELEMDWD                        7  ( 3)CCITT IA5                 Element data width                              
+           {RPSEQ002}    10 REPLICATIONS
+    ++++++  RPSEQ002  REPLICATION #     1  ++++++
+000010  FDESC                          3  ( 1)CCITT IA5                 F descriptor to be added or defined             
+000011  XDESC                         60  ( 2)CCITT IA5                 X descriptor to be added or defined             
+000012  YDESC                        001  ( 3)CCITT IA5                 Y descriptor to be added or defined             
+054003  205064      DRP16BIT                                                          ( 64)CCITT IA5                TEXT STRING OF  64 BYTES                        
+           {RPSEQ003}     2 REPLICATIONS
+    ++++++  RPSEQ003  REPLICATION #     1  ++++++
+000030  DDSEQ                     101000  ( 6)CCITT IA5                 Descriptor defining sequence                    
+    ++++++  RPSEQ003  REPLICATION #     2  ++++++
+000030  DDSEQ                     031002  ( 6)CCITT IA5                 Descriptor defining sequence                    
+    ++++++  RPSEQ002  REPLICATION #     2  ++++++
+000010  FDESC                          3  ( 1)CCITT IA5                 F descriptor to be added or defined             
+000011  XDESC                         60  ( 2)CCITT IA5                 X descriptor to be added or defined             
+000012  YDESC                        002  ( 3)CCITT IA5                 Y descriptor to be added or defined             
+054003  205064      DRP8BIT                                                           ( 64)CCITT IA5                TEXT STRING OF  64 BYTES                        
+           {RPSEQ003}     2 REPLICATIONS
+    ++++++  RPSEQ003  REPLICATION #     1  ++++++
+000030  DDSEQ                     101000  ( 6)CCITT IA5                 Descriptor defining sequence                    
+    ++++++  RPSEQ003  REPLICATION #     2  ++++++
+000030  DDSEQ                     031001  ( 6)CCITT IA5                 Descriptor defining sequence                    
+    ++++++  RPSEQ002  REPLICATION #     3  ++++++
+000010  FDESC                          3  ( 1)CCITT IA5                 F descriptor to be added or defined             
+000011  XDESC                         60  ( 2)CCITT IA5                 X descriptor to be added or defined             
+000012  YDESC                        003  ( 3)CCITT IA5                 Y descriptor to be added or defined             
+054003  205064      DRPSTAK                                                           ( 64)CCITT IA5                TEXT STRING OF  64 BYTES                        
+           {RPSEQ003}     2 REPLICATIONS
+    ++++++  RPSEQ003  REPLICATION #     1  ++++++
+000030  DDSEQ                     101000  ( 6)CCITT IA5                 Descriptor defining sequence                    
+    ++++++  RPSEQ003  REPLICATION #     2  ++++++
+000030  DDSEQ                     031001  ( 6)CCITT IA5                 Descriptor defining sequence                    
+    ++++++  RPSEQ002  REPLICATION #     4  ++++++
+000010  FDESC                          3  ( 1)CCITT IA5                 F descriptor to be added or defined             
+000011  XDESC                         60  ( 2)CCITT IA5                 X descriptor to be added or defined             
+000012  YDESC                        004  ( 3)CCITT IA5                 Y descriptor to be added or defined             
+054003  205064      DRP1BIT                                                           ( 64)CCITT IA5                TEXT STRING OF  64 BYTES                        
+           {RPSEQ003}     2 REPLICATIONS
+    ++++++  RPSEQ003  REPLICATION #     1  ++++++
+000030  DDSEQ                     101000  ( 6)CCITT IA5                 Descriptor defining sequence                    
+    ++++++  RPSEQ003  REPLICATION #     2  ++++++
+000030  DDSEQ                     031000  ( 6)CCITT IA5                 Descriptor defining sequence                    
+    ++++++  RPSEQ002  REPLICATION #     5  ++++++
+000010  FDESC                          3  ( 1)CCITT IA5                 F descriptor to be added or defined             
+000011  XDESC                         49  ( 2)CCITT IA5                 X descriptor to be added or defined             
+000012  YDESC                        195  ( 3)CCITT IA5                 Y descriptor to be added or defined             
+054003  205064      FN005000 MSG TYPE 005-000  JAPAN SATWIND                          ( 64)CCITT IA5                TEXT STRING OF  64 BYTES                        
+           {RPSEQ003}    40 REPLICATIONS
+    ++++++  RPSEQ003  REPLICATION #     1  ++++++
+000030  DDSEQ                     001007  ( 6)CCITT IA5                 Descriptor defining sequence                    
+    ++++++  RPSEQ003  REPLICATION #     2  ++++++
+000030  DDSEQ                     002020  ( 6)CCITT IA5                 Descriptor defining sequence                    
+    ++++++  RPSEQ003  REPLICATION #     3  ++++++
+000030  DDSEQ                     002028  ( 6)CCITT IA5                 Descriptor defining sequence                    
+    ++++++  RPSEQ003  REPLICATION #     4  ++++++
+000030  DDSEQ                     002029  ( 6)CCITT IA5                 Descriptor defining sequence                    
+    ++++++  RPSEQ003  REPLICATION #     5  ++++++
+000030  DDSEQ                     004001  ( 6)CCITT IA5                 Descriptor defining sequence                    
+    ++++++  RPSEQ003  REPLICATION #     6  ++++++
+000030  DDSEQ                     004002  ( 6)CCITT IA5                 Descriptor defining sequence                    
+    ++++++  RPSEQ003  REPLICATION #     7  ++++++
+000030  DDSEQ                     004003  ( 6)CCITT IA5                 Descriptor defining sequence                    
+    ++++++  RPSEQ003  REPLICATION #     8  ++++++
+000030  DDSEQ                     004004  ( 6)CCITT IA5                 Descriptor defining sequence                    
+    ++++++  RPSEQ003  REPLICATION #     9  ++++++
+000030  DDSEQ                     004005  ( 6)CCITT IA5                 Descriptor defining sequence                    
+    ++++++  RPSEQ003  REPLICATION #    10  ++++++
+000030  DDSEQ                     004006  ( 6)CCITT IA5                 Descriptor defining sequence                    
+    ++++++  RPSEQ003  REPLICATION #    11  ++++++
+000030  DDSEQ                     004024  ( 6)CCITT IA5                 Descriptor defining sequence                    
+    ++++++  RPSEQ003  REPLICATION #    12  ++++++
+000030  DDSEQ                     005001  ( 6)CCITT IA5                 Descriptor defining sequence                    
+    ++++++  RPSEQ003  REPLICATION #    13  ++++++
+000030  DDSEQ                     006001  ( 6)CCITT IA5                 Descriptor defining sequence                    
+    ++++++  RPSEQ003  REPLICATION #    14  ++++++
+000030  DDSEQ                     002152  ( 6)CCITT IA5                 Descriptor defining sequence                    
+    ++++++  RPSEQ003  REPLICATION #    15  ++++++
+000030  DDSEQ                     002023  ( 6)CCITT IA5                 Descriptor defining sequence                    
+    ++++++  RPSEQ003  REPLICATION #    16  ++++++
+000030  DDSEQ                     007004  ( 6)CCITT IA5                 Descriptor defining sequence                    
+    ++++++  RPSEQ003  REPLICATION #    17  ++++++
+000030  DDSEQ                     011001  ( 6)CCITT IA5                 Descriptor defining sequence                    
+    ++++++  RPSEQ003  REPLICATION #    18  ++++++
+000030  DDSEQ                     011002  ( 6)CCITT IA5                 Descriptor defining sequence                    
+    ++++++  RPSEQ003  REPLICATION #    19  ++++++
+000030  DDSEQ                     002153  ( 6)CCITT IA5                 Descriptor defining sequence                    
+    ++++++  RPSEQ003  REPLICATION #    20  ++++++
+000030  DDSEQ                     002154  ( 6)CCITT IA5                 Descriptor defining sequence                    
+    ++++++  RPSEQ003  REPLICATION #    21  ++++++
+000030  DDSEQ                     012071  ( 6)CCITT IA5                 Descriptor defining sequence                    
+    ++++++  RPSEQ003  REPLICATION #    22  ++++++
+000030  DDSEQ                     002163  ( 6)CCITT IA5                 Descriptor defining sequence                    
+    ++++++  RPSEQ003  REPLICATION #    23  ++++++
+000030  DDSEQ                     002164  ( 6)CCITT IA5                 Descriptor defining sequence                    
+    ++++++  RPSEQ003  REPLICATION #    24  ++++++
+000030  DDSEQ                     008012  ( 6)CCITT IA5                 Descriptor defining sequence                    
+    ++++++  RPSEQ003  REPLICATION #    25  ++++++
+000030  DDSEQ                     007024  ( 6)CCITT IA5                 Descriptor defining sequence                    
+    ++++++  RPSEQ003  REPLICATION #    26  ++++++
+000030  DDSEQ                     002057  ( 6)CCITT IA5                 Descriptor defining sequence                    
+    ++++++  RPSEQ003  REPLICATION #    27  ++++++
+000030  DDSEQ                     101026  ( 6)CCITT IA5                 Descriptor defining sequence                    
+    ++++++  RPSEQ003  REPLICATION #    28  ++++++
+000030  DDSEQ                     362083  ( 6)CCITT IA5                 Descriptor defining sequence                    
+    ++++++  RPSEQ003  REPLICATION #    29  ++++++
+000030  DDSEQ                     001031  ( 6)CCITT IA5                 Descriptor defining sequence                    
+    ++++++  RPSEQ003  REPLICATION #    30  ++++++
+000030  DDSEQ                     001032  ( 6)CCITT IA5                 Descriptor defining sequence                    
+    ++++++  RPSEQ003  REPLICATION #    31  ++++++
+000030  DDSEQ                     101004  ( 6)CCITT IA5                 Descriptor defining sequence                    
+    ++++++  RPSEQ003  REPLICATION #    32  ++++++
+000030  DDSEQ                     362084  ( 6)CCITT IA5                 Descriptor defining sequence                    
+    ++++++  RPSEQ003  REPLICATION #    33  ++++++
+000030  DDSEQ                     001031  ( 6)CCITT IA5                 Descriptor defining sequence                    
+    ++++++  RPSEQ003  REPLICATION #    34  ++++++
+000030  DDSEQ                     001032  ( 6)CCITT IA5                 Descriptor defining sequence                    
+    ++++++  RPSEQ003  REPLICATION #    35  ++++++
+000030  DDSEQ                     101004  ( 6)CCITT IA5                 Descriptor defining sequence                    
+    ++++++  RPSEQ003  REPLICATION #    36  ++++++
+000030  DDSEQ                     362085  ( 6)CCITT IA5                 Descriptor defining sequence                    
+    ++++++  RPSEQ003  REPLICATION #    37  ++++++
+000030  DDSEQ                     001031  ( 6)CCITT IA5                 Descriptor defining sequence                    
+    ++++++  RPSEQ003  REPLICATION #    38  ++++++
+000030  DDSEQ                     001032  ( 6)CCITT IA5                 Descriptor defining sequence                    
+    ++++++  RPSEQ003  REPLICATION #    39  ++++++
+000030  DDSEQ                     101004  ( 6)CCITT IA5                 Descriptor defining sequence                    
+    ++++++  RPSEQ003  REPLICATION #    40  ++++++
+000030  DDSEQ                     362086  ( 6)CCITT IA5                 Descriptor defining sequence                    
+    ++++++  RPSEQ002  REPLICATION #     6  ++++++
+000010  FDESC                          3  ( 1)CCITT IA5                 F descriptor to be added or defined             
+000011  XDESC                         49  ( 2)CCITT IA5                 X descriptor to be added or defined             
+000012  YDESC                        025  ( 3)CCITT IA5                 Y descriptor to be added or defined             
+054003  205064      FN005010 MSG TYPE 005-010  EUMETSAT/MSG      SATWIND-AMV          ( 64)CCITT IA5                TEXT STRING OF  64 BYTES                        
+           {RPSEQ003}    46 REPLICATIONS
+    ++++++  RPSEQ003  REPLICATION #     1  ++++++
+000030  DDSEQ                     001007  ( 6)CCITT IA5                 Descriptor defining sequence                    
+    ++++++  RPSEQ003  REPLICATION #     2  ++++++
+000030  DDSEQ                     002020  ( 6)CCITT IA5                 Descriptor defining sequence                    
+    ++++++  RPSEQ003  REPLICATION #     3  ++++++
+000030  DDSEQ                     002028  ( 6)CCITT IA5                 Descriptor defining sequence                    
+    ++++++  RPSEQ003  REPLICATION #     4  ++++++
+000030  DDSEQ                     002029  ( 6)CCITT IA5                 Descriptor defining sequence                    
+    ++++++  RPSEQ003  REPLICATION #     5  ++++++
+000030  DDSEQ                     004001  ( 6)CCITT IA5                 Descriptor defining sequence                    
+    ++++++  RPSEQ003  REPLICATION #     6  ++++++
+000030  DDSEQ                     004002  ( 6)CCITT IA5                 Descriptor defining sequence                    
+    ++++++  RPSEQ003  REPLICATION #     7  ++++++
+000030  DDSEQ                     004003  ( 6)CCITT IA5                 Descriptor defining sequence                    
+    ++++++  RPSEQ003  REPLICATION #     8  ++++++
+000030  DDSEQ                     004004  ( 6)CCITT IA5                 Descriptor defining sequence                    
+    ++++++  RPSEQ003  REPLICATION #     9  ++++++
+000030  DDSEQ                     004005  ( 6)CCITT IA5                 Descriptor defining sequence                    
+    ++++++  RPSEQ003  REPLICATION #    10  ++++++
+000030  DDSEQ                     004006  ( 6)CCITT IA5                 Descriptor defining sequence                    
+    ++++++  RPSEQ003  REPLICATION #    11  ++++++
+000030  DDSEQ                     004024  ( 6)CCITT IA5                 Descriptor defining sequence                    
+    ++++++  RPSEQ003  REPLICATION #    12  ++++++
+000030  DDSEQ                     005001  ( 6)CCITT IA5                 Descriptor defining sequence                    
+    ++++++  RPSEQ003  REPLICATION #    13  ++++++
+000030  DDSEQ                     006001  ( 6)CCITT IA5                 Descriptor defining sequence                    
+    ++++++  RPSEQ003  REPLICATION #    14  ++++++
+000030  DDSEQ                     002152  ( 6)CCITT IA5                 Descriptor defining sequence                    
+    ++++++  RPSEQ003  REPLICATION #    15  ++++++
+000030  DDSEQ                     002023  ( 6)CCITT IA5                 Descriptor defining sequence                    
+    ++++++  RPSEQ003  REPLICATION #    16  ++++++
+000030  DDSEQ                     007004  ( 6)CCITT IA5                 Descriptor defining sequence                    
+    ++++++  RPSEQ003  REPLICATION #    17  ++++++
+000030  DDSEQ                     011001  ( 6)CCITT IA5                 Descriptor defining sequence                    
+    ++++++  RPSEQ003  REPLICATION #    18  ++++++
+000030  DDSEQ                     011002  ( 6)CCITT IA5                 Descriptor defining sequence                    
+    ++++++  RPSEQ003  REPLICATION #    19  ++++++
+000030  DDSEQ                     002153  ( 6)CCITT IA5                 Descriptor defining sequence                    
+    ++++++  RPSEQ003  REPLICATION #    20  ++++++
+000030  DDSEQ                     002154  ( 6)CCITT IA5                 Descriptor defining sequence                    
+    ++++++  RPSEQ003  REPLICATION #    21  ++++++
+000030  DDSEQ                     002163  ( 6)CCITT IA5                 Descriptor defining sequence                    
+    ++++++  RPSEQ003  REPLICATION #    22  ++++++
+000030  DDSEQ                     002164  ( 6)CCITT IA5                 Descriptor defining sequence                    
+    ++++++  RPSEQ003  REPLICATION #    23  ++++++
+000030  DDSEQ                     008012  ( 6)CCITT IA5                 Descriptor defining sequence                    
+    ++++++  RPSEQ003  REPLICATION #    24  ++++++
+000030  DDSEQ                     007024  ( 6)CCITT IA5                 Descriptor defining sequence                    
+    ++++++  RPSEQ003  REPLICATION #    25  ++++++
+000030  DDSEQ                     002057  ( 6)CCITT IA5                 Descriptor defining sequence                    
+    ++++++  RPSEQ003  REPLICATION #    26  ++++++
+000030  DDSEQ                     012071  ( 6)CCITT IA5                 Descriptor defining sequence                    
+    ++++++  RPSEQ003  REPLICATION #    27  ++++++
+000030  DDSEQ                     222000  ( 6)CCITT IA5                 Descriptor defining sequence                    
+    ++++++  RPSEQ003  REPLICATION #    28  ++++++
+000030  DDSEQ                     236000  ( 6)CCITT IA5                 Descriptor defining sequence                    
+    ++++++  RPSEQ003  REPLICATION #    29  ++++++
+000030  DDSEQ                     101026  ( 6)CCITT IA5                 Descriptor defining sequence                    
+    ++++++  RPSEQ003  REPLICATION #    30  ++++++
+000030  DDSEQ                     362083  ( 6)CCITT IA5                 Descriptor defining sequence                    
+    ++++++  RPSEQ003  REPLICATION #    31  ++++++
+000030  DDSEQ                     001031  ( 6)CCITT IA5                 Descriptor defining sequence                    
+    ++++++  RPSEQ003  REPLICATION #    32  ++++++
+000030  DDSEQ                     001032  ( 6)CCITT IA5                 Descriptor defining sequence                    
+    ++++++  RPSEQ003  REPLICATION #    33  ++++++
+000030  DDSEQ                     101004  ( 6)CCITT IA5                 Descriptor defining sequence                    
+    ++++++  RPSEQ003  REPLICATION #    34  ++++++
+000030  DDSEQ                     362084  ( 6)CCITT IA5                 Descriptor defining sequence                    
+    ++++++  RPSEQ003  REPLICATION #    35  ++++++
+000030  DDSEQ                     222000  ( 6)CCITT IA5                 Descriptor defining sequence                    
+    ++++++  RPSEQ003  REPLICATION #    36  ++++++
+000030  DDSEQ                     237000  ( 6)CCITT IA5                 Descriptor defining sequence                    
+    ++++++  RPSEQ003  REPLICATION #    37  ++++++
+000030  DDSEQ                     001031  ( 6)CCITT IA5                 Descriptor defining sequence                    
+    ++++++  RPSEQ003  REPLICATION #    38  ++++++
+000030  DDSEQ                     001032  ( 6)CCITT IA5                 Descriptor defining sequence                    
+    ++++++  RPSEQ003  REPLICATION #    39  ++++++
+000030  DDSEQ                     101004  ( 6)CCITT IA5                 Descriptor defining sequence                    
+    ++++++  RPSEQ003  REPLICATION #    40  ++++++
+000030  DDSEQ                     362085  ( 6)CCITT IA5                 Descriptor defining sequence                    
+    ++++++  RPSEQ003  REPLICATION #    41  ++++++
+000030  DDSEQ                     222000  ( 6)CCITT IA5                 Descriptor defining sequence                    
+    ++++++  RPSEQ003  REPLICATION #    42  ++++++
+000030  DDSEQ                     237000  ( 6)CCITT IA5                 Descriptor defining sequence                    
+    ++++++  RPSEQ003  REPLICATION #    43  ++++++
+000030  DDSEQ                     001031  ( 6)CCITT IA5                 Descriptor defining sequence                    
+    ++++++  RPSEQ003  REPLICATION #    44  ++++++
+000030  DDSEQ                     001032  ( 6)CCITT IA5                 Descriptor defining sequence                    
+    ++++++  RPSEQ003  REPLICATION #    45  ++++++
+000030  DDSEQ                     101004  ( 6)CCITT IA5                 Descriptor defining sequence                    
+    ++++++  RPSEQ003  REPLICATION #    46  ++++++
+000030  DDSEQ                     362086  ( 6)CCITT IA5                 Descriptor defining sequence                    
+    ++++++  RPSEQ002  REPLICATION #     7  ++++++
+000010  FDESC                          3  ( 1)CCITT IA5                 F descriptor to be added or defined             
+000011  XDESC                         62  ( 2)CCITT IA5                 X descriptor to be added or defined             
+000012  YDESC                        083  ( 3)CCITT IA5                 Y descriptor to be added or defined             
+054003  205064      RPSEQ3   REPLICATION SEQUENCE #3                                  ( 64)CCITT IA5                TEXT STRING OF  64 BYTES                        
+           {RPSEQ003}     1 REPLICATIONS
+000030  DDSEQ                     031031  ( 6)CCITT IA5                 Descriptor defining sequence                    
+    ++++++  RPSEQ002  REPLICATION #     8  ++++++
+000010  FDESC                          3  ( 1)CCITT IA5                 F descriptor to be added or defined             
+000011  XDESC                         62  ( 2)CCITT IA5                 X descriptor to be added or defined             
+000012  YDESC                        084  ( 3)CCITT IA5                 Y descriptor to be added or defined             
+054003  205064      RPSEQ4   REPLICATION SEQUENCE #4                                  ( 64)CCITT IA5                TEXT STRING OF  64 BYTES                        
+           {RPSEQ003}     1 REPLICATIONS
+000030  DDSEQ                     033007  ( 6)CCITT IA5                 Descriptor defining sequence                    
+    ++++++  RPSEQ002  REPLICATION #     9  ++++++
+000010  FDESC                          3  ( 1)CCITT IA5                 F descriptor to be added or defined             
+000011  XDESC                         62  ( 2)CCITT IA5                 X descriptor to be added or defined             
+000012  YDESC                        085  ( 3)CCITT IA5                 Y descriptor to be added or defined             
+054003  205064      RPSEQ5   REPLICATION SEQUENCE #5                                  ( 64)CCITT IA5                TEXT STRING OF  64 BYTES                        
+           {RPSEQ003}     1 REPLICATIONS
+000030  DDSEQ                     033035  ( 6)CCITT IA5                 Descriptor defining sequence                    
+    ++++++  RPSEQ002  REPLICATION #    10  ++++++
+000010  FDESC                          3  ( 1)CCITT IA5                 F descriptor to be added or defined             
+000011  XDESC                         62  ( 2)CCITT IA5                 X descriptor to be added or defined             
+000012  YDESC                        086  ( 3)CCITT IA5                 Y descriptor to be added or defined             
+054003  205064      RPSEQ6   REPLICATION SEQUENCE #6                                  ( 64)CCITT IA5                TEXT STRING OF  64 BYTES                        
+           {RPSEQ003}     1 REPLICATIONS
+000030  DDSEQ                     033036  ( 6)CCITT IA5                 Descriptor defining sequence                    
+
+ >>> END OF SUBSET <<< 
+
+
+End of BUFR message #      1
+
+------------------------------------------------------------------------------------------------------------------------
+
+Found BUFR message #      2
+  
+        Message length:          76
+      Section 0 length:           8
+          BUFR edition:           3
+  
+      Section 1 length:          18
+          Master table:           0
+    Originating center:           7
+ Originating subcenter:           3
+ Update sequence numbr:           2
+    Section 2 present?: No
+         Data category:          11
+     Local subcategory:           1
+ Internatl subcategory:          -1
+  Master table version:          18
+   Local table version:           1
+                  Year:        2000
+                 Month:           0
+                   Day:           0
+                  Hour:           0
+                Minute:           0
+                Second:          -1
+  
+ Number of data subsets:           0
+     Data are observed?: Yes
+   Data are compressed?: No
+  Number of descriptors:          15
+        1: 103000
+        2: 031001
+        3: 000001
+        4: 000002
+        5: 000003
+        6: 101000
+        7: 031001
+        8: 300004
+        9: 105000
+       10: 031001
+       11: 300003
+       12: 205064
+       13: 101000
+       14: 031001
+       15: 000030
+
+BUFR message #      2 of type MSTTB001 and date 2000000000 contains      0 subsets:
+
+End of BUFR message #      2
+
+------------------------------------------------------------------------------------------------------------------------
+
+Found BUFR message #      3
+  
+        Message length:         184
+      Section 0 length:           8
+          BUFR edition:           3
+  
+      Section 1 length:          18
+          Master table:           0
+    Originating center:           7
+ Originating subcenter:           3
+ Update sequence numbr:           2
+    Section 2 present?: No
+         Data category:           5
+     Local subcategory:           0
+ Internatl subcategory:          -1
+  Master table version:          18
+   Local table version:           0
+                  Year:        2015
+                 Month:           3
+                   Day:           2
+                  Hour:          12
+                Minute:           0
+                Second:          -1
+  
+ Number of data subsets:           1
+     Data are observed?: Yes
+   Data are compressed?: No
+  Number of descriptors:          40
+        1: 001007
+        2: 002020
+        3: 002028
+        4: 002029
+        5: 004001
+        6: 004002
+        7: 004003
+        8: 004004
+        9: 004005
+       10: 004006
+       11: 004024
+       12: 005001
+       13: 006001
+       14: 002152
+       15: 002023
+       16: 007004
+       17: 011001
+       18: 011002
+       19: 002153
+       20: 002154
+       21: 012071
+       22: 002163
+       23: 002164
+       24: 008012
+       25: 007024
+       26: 002057
+       27: 101026
+       28: 031031
+       29: 001031
+       30: 001032
+       31: 101004
+       32: 033007
+       33: 001031
+       34: 001032
+       35: 101004
+       36: 033035
+       37: 001031
+       38: 001032
+       39: 101004
+       40: 033036
+
+BUFR message #      3 of type MSTTB002 and date 2015030212 contains      1 subsets:
+ 
+ MESSAGE TYPE MSTTB002  
+ 
+001007  SAID                     MISSING  CODE TABLE                    Satellite identifier                            
+002020  SCLF                     MISSING  CODE TABLE                    Satellite classification                        
+002028  SSNX                     MISSING  M                             Segment size at nadir in x-direction            
+002029  SSNY                     MISSING  M                             Segment size at nadir in y-direction            
+004001  YEAR                      2015.0  YEAR                          Year                                            
+004002  MNTH                         3.0  MONTH                         Month                                           
+004003  DAYS                         2.0  DAY                           Day                                             
+004004  HOUR                        12.0  HOUR                          Hour                                            
+004005  MINU                        57.0  MINUTE                        Minute                                          
+004006  SECO                     MISSING  S                             Second                                          
+004024  TPHR                     MISSING  HOUR                          Time period or displacement                     
+005001  CLATH                  -12.53800  DEGREE                        Latitude (high accuracy)                        
+006001  CLONH                  157.66000  DEGREE                        Longitude (high accuracy)                       
+002152  SIDP                     MISSING  FLAG TABLE                    Satellite instrument used in data processing    
+002023  SWCM                     MISSING  CODE TABLE                    Satellite-derived wind computation method       
+007004  PRLC                     20170.0  PA                            Pressure                                        
+011001  WDIR                        37.0  DEGREE TRUE                   Wind direction                                  
+011002  WSPD                         2.1  M S⁻¹                      Wind speed                                      
+002153  SCCF                     MISSING  HZ                            Satellite channel centre frequency              
+002154  SCBW                     MISSING  HZ                            Satellite channel band width                    
+012071  CCST                       244.5  K                             Coldest cluster temperature                     
+002163  HAMD                     MISSING  CODE TABLE                    Height assignment method                        
+002164  TCMD                     MISSING  CODE TABLE                    Tracer correlation method                       
+008012  LSQL                     MISSING  CODE TABLE                    Land/sea qualifier                              
+007024  SAZA                     MISSING  DEGREE                        Satellite zenith angle                          
+002057  OFGI                     MISSING  CODE TABLE                    Origin of first-guess information for GOES-I/M s
+           "RPSEQ004"    26 REPLICATIONS
+    ++++++  RPSEQ004  REPLICATION #     1  ++++++
+031031  DPRI                         0.0  FLAG TABLE                    Data present indicator                          
+    ++++++  RPSEQ004  REPLICATION #     2  ++++++
+031031  DPRI                         0.0  FLAG TABLE                    Data present indicator                          
+    ++++++  RPSEQ004  REPLICATION #     3  ++++++
+031031  DPRI                         0.0  FLAG TABLE                    Data present indicator                          
+    ++++++  RPSEQ004  REPLICATION #     4  ++++++
+031031  DPRI                         0.0  FLAG TABLE                    Data present indicator                          
+    ++++++  RPSEQ004  REPLICATION #     5  ++++++
+031031  DPRI                         0.0  FLAG TABLE                    Data present indicator                          
+    ++++++  RPSEQ004  REPLICATION #     6  ++++++
+031031  DPRI                         0.0  FLAG TABLE                    Data present indicator                          
+    ++++++  RPSEQ004  REPLICATION #     7  ++++++
+031031  DPRI                         0.0  FLAG TABLE                    Data present indicator                          
+    ++++++  RPSEQ004  REPLICATION #     8  ++++++
+031031  DPRI                         0.0  FLAG TABLE                    Data present indicator                          
+    ++++++  RPSEQ004  REPLICATION #     9  ++++++
+031031  DPRI                         0.0  FLAG TABLE                    Data present indicator                          
+    ++++++  RPSEQ004  REPLICATION #    10  ++++++
+031031  DPRI                         0.0  FLAG TABLE                    Data present indicator                          
+    ++++++  RPSEQ004  REPLICATION #    11  ++++++
+031031  DPRI                         0.0  FLAG TABLE                    Data present indicator                          
+    ++++++  RPSEQ004  REPLICATION #    12  ++++++
+031031  DPRI                         0.0  FLAG TABLE                    Data present indicator                          
+    ++++++  RPSEQ004  REPLICATION #    13  ++++++
+031031  DPRI                         0.0  FLAG TABLE                    Data present indicator                          
+    ++++++  RPSEQ004  REPLICATION #    14  ++++++
+031031  DPRI                         0.0  FLAG TABLE                    Data present indicator                          
+    ++++++  RPSEQ004  REPLICATION #    15  ++++++
+031031  DPRI                         0.0  FLAG TABLE                    Data present indicator                          
+    ++++++  RPSEQ004  REPLICATION #    16  ++++++
+031031  DPRI                     MISSING  FLAG TABLE                    Data present indicator                          
+    ++++++  RPSEQ004  REPLICATION #    17  ++++++
+031031  DPRI                     MISSING  FLAG TABLE                    Data present indicator                          
+    ++++++  RPSEQ004  REPLICATION #    18  ++++++
+031031  DPRI                     MISSING  FLAG TABLE                    Data present indicator                          
+    ++++++  RPSEQ004  REPLICATION #    19  ++++++
+031031  DPRI                         0.0  FLAG TABLE                    Data present indicator                          
+    ++++++  RPSEQ004  REPLICATION #    20  ++++++
+031031  DPRI                         0.0  FLAG TABLE                    Data present indicator                          
+    ++++++  RPSEQ004  REPLICATION #    21  ++++++
+031031  DPRI                     MISSING  FLAG TABLE                    Data present indicator                          
+    ++++++  RPSEQ004  REPLICATION #    22  ++++++
+031031  DPRI                         0.0  FLAG TABLE                    Data present indicator                          
+    ++++++  RPSEQ004  REPLICATION #    23  ++++++
+031031  DPRI                         0.0  FLAG TABLE                    Data present indicator                          
+    ++++++  RPSEQ004  REPLICATION #    24  ++++++
+031031  DPRI                         0.0  FLAG TABLE                    Data present indicator                          
+    ++++++  RPSEQ004  REPLICATION #    25  ++++++
+031031  DPRI                         0.0  FLAG TABLE                    Data present indicator                          
+    ++++++  RPSEQ004  REPLICATION #    26  ++++++
+031031  DPRI                         0.0  FLAG TABLE                    Data present indicator                          
+001031  GCLONG                       7.0  CODE TABLE                    Identification of originating/generating centre 
+001032  GNAP                        51.0  CODE TABLE                    Generating application                          
+           "RPSEQ005"     4 REPLICATIONS
+    ++++++  RPSEQ005  REPLICATION #     1  ++++++
+033007  PCCF                        97.0  %                             Per cent confidence                             
+    ++++++  RPSEQ005  REPLICATION #     2  ++++++
+033007  PCCF                        96.0  %                             Per cent confidence                             
+    ++++++  RPSEQ005  REPLICATION #     3  ++++++
+033007  PCCF                        93.0  %                             Per cent confidence                             
+    ++++++  RPSEQ005  REPLICATION #     4  ++++++
+033007  PCCF                        93.0  %                             Per cent confidence                             
+001031  GCLONG                     254.0  CODE TABLE                    Identification of originating/generating centre 
+001032  GNAP                         1.0  CODE TABLE                    Generating application                          
+           "RPSEQ006"     4 REPLICATIONS
+    ++++++  RPSEQ006  REPLICATION #     1  ++++++
+033035  MAQC                     MISSING  CODE TABLE                    Manual/automatic quality control                
+    ++++++  RPSEQ006  REPLICATION #     2  ++++++
+033035  MAQC                     MISSING  CODE TABLE                    Manual/automatic quality control                
+    ++++++  RPSEQ006  REPLICATION #     3  ++++++
+033035  MAQC                     MISSING  CODE TABLE                    Manual/automatic quality control                
+    ++++++  RPSEQ006  REPLICATION #     4  ++++++
+033035  MAQC                     MISSING  CODE TABLE                    Manual/automatic quality control                
+001031  GCLONG                     254.0  CODE TABLE                    Identification of originating/generating centre 
+001032  GNAP                         3.0  CODE TABLE                    Generating application                          
+           "RPSEQ007"     4 REPLICATIONS
+    ++++++  RPSEQ007  REPLICATION #     1  ++++++
+033036  NCTH                        77.0  %                             Nominal confidence threshold                    
+    ++++++  RPSEQ007  REPLICATION #     2  ++++++
+033036  NCTH                        84.0  %                             Nominal confidence threshold                    
+    ++++++  RPSEQ007  REPLICATION #     3  ++++++
+033036  NCTH                        83.0  %                             Nominal confidence threshold                    
+    ++++++  RPSEQ007  REPLICATION #     4  ++++++
+033036  NCTH                        61.0  %                             Nominal confidence threshold                    
+
+ >>> END OF SUBSET <<< 
+
+
+End of BUFR message #      3
+
+------------------------------------------------------------------------------------------------------------------------
+
+Found BUFR message #      4
+  
+        Message length:         199
+      Section 0 length:           8
+          BUFR edition:           4
+  
+      Section 1 length:          22
+          Master table:           0
+    Originating center:           7
+ Originating subcenter:           3
+ Update sequence numbr:           0
+    Section 2 present?: No
+         Data category:           5
+     Local subcategory:          10
+ Internatl subcategory:          40
+  Master table version:          17
+   Local table version:           0
+                  Year:        2015
+                 Month:           3
+                   Day:           2
+                  Hour:          15
+                Minute:           0
+                Second:           0
+  
+ Number of data subsets:           1
+     Data are observed?: Yes
+   Data are compressed?: No
+  Number of descriptors:          46
+        1: 001007
+        2: 002020
+        3: 002028
+        4: 002029
+        5: 004001
+        6: 004002
+        7: 004003
+        8: 004004
+        9: 004005
+       10: 004006
+       11: 004024
+       12: 005001
+       13: 006001
+       14: 002152
+       15: 002023
+       16: 007004
+       17: 011001
+       18: 011002
+       19: 002153
+       20: 002154
+       21: 002163
+       22: 002164
+       23: 008012
+       24: 007024
+       25: 002057
+       26: 012071
+       27: 222000
+       28: 236000
+       29: 101026
+       30: 031031
+       31: 001031
+       32: 001032
+       33: 101004
+       34: 033007
+       35: 222000
+       36: 237000
+       37: 001031
+       38: 001032
+       39: 101004
+       40: 033035
+       41: 222000
+       42: 237000
+       43: 001031
+       44: 001032
+       45: 101004
+       46: 033036
+
+BUFR message #      4 of type MSTTB001 and date 2015030215 contains      1 subsets:
+ 
+ MESSAGE TYPE MSTTB001  
+ 
+001007  SAID                     MISSING  CODE TABLE                    Satellite identifier                            
+002020  SCLF                     MISSING  CODE TABLE                    Satellite classification                        
+002028  SSNX                     MISSING  M                             Segment size at nadir in x-direction            
+002029  SSNY                     MISSING  M                             Segment size at nadir in y-direction            
+004001  YEAR                      2015.0  YEAR                          Year                                            
+004002  MNTH                         3.0  MONTH                         Month                                           
+004003  DAYS                         2.0  DAY                           Day                                             
+004004  HOUR                        15.0  HOUR                          Hour                                            
+004005  MINU                        44.0  MINUTE                        Minute                                          
+004006  SECO                     MISSING  S                             Second                                          
+004024  TPHR                     MISSING  HOUR                          Time period or displacement                     
+005001  CLATH                  -12.53800  DEGREE                        Latitude (high accuracy)                        
+006001  CLONH                  157.66000  DEGREE                        Longitude (high accuracy)                       
+002152  SIDP                     MISSING  FLAG TABLE                    Satellite instrument used in data processing    
+002023  SWCM                     MISSING  CODE TABLE                    Satellite-derived wind computation method       
+007004  PRLC                     19930.0  PA                            Pressure                                        
+011001  WDIR                       305.0  DEGREE TRUE                   Wind direction                                  
+011002  WSPD                        12.5  M S⁻¹                      Wind speed                                      
+002153  SCCF                     MISSING  HZ                            Satellite channel centre frequency              
+002154  SCBW                     MISSING  HZ                            Satellite channel band width                    
+002163  HAMD                     MISSING  CODE TABLE                    Height assignment method                        
+002164  TCMD                     MISSING  CODE TABLE                    Tracer correlation method                       
+008012  LSQL                     MISSING  CODE TABLE                    Land/sea qualifier                              
+007024  SAZA                     MISSING  DEGREE                        Satellite zenith angle                          
+002057  OFGI                     MISSING  CODE TABLE                    Origin of first-guess information for GOES-I/M s
+012071  CCST                       233.0  K                             Coldest cluster temperature                     
+           "RPSEQ001"    26 REPLICATIONS
+    ++++++  RPSEQ001  REPLICATION #     1  ++++++
+031031  DPRI                         0.0  FLAG TABLE                    Data present indicator                          
+    ++++++  RPSEQ001  REPLICATION #     2  ++++++
+031031  DPRI                         0.0  FLAG TABLE                    Data present indicator                          
+    ++++++  RPSEQ001  REPLICATION #     3  ++++++
+031031  DPRI                         0.0  FLAG TABLE                    Data present indicator                          
+    ++++++  RPSEQ001  REPLICATION #     4  ++++++
+031031  DPRI                         0.0  FLAG TABLE                    Data present indicator                          
+    ++++++  RPSEQ001  REPLICATION #     5  ++++++
+031031  DPRI                         0.0  FLAG TABLE                    Data present indicator                          
+    ++++++  RPSEQ001  REPLICATION #     6  ++++++
+031031  DPRI                         0.0  FLAG TABLE                    Data present indicator                          
+    ++++++  RPSEQ001  REPLICATION #     7  ++++++
+031031  DPRI                         0.0  FLAG TABLE                    Data present indicator                          
+    ++++++  RPSEQ001  REPLICATION #     8  ++++++
+031031  DPRI                         0.0  FLAG TABLE                    Data present indicator                          
+    ++++++  RPSEQ001  REPLICATION #     9  ++++++
+031031  DPRI                         0.0  FLAG TABLE                    Data present indicator                          
+    ++++++  RPSEQ001  REPLICATION #    10  ++++++
+031031  DPRI                         0.0  FLAG TABLE                    Data present indicator                          
+    ++++++  RPSEQ001  REPLICATION #    11  ++++++
+031031  DPRI                         0.0  FLAG TABLE                    Data present indicator                          
+    ++++++  RPSEQ001  REPLICATION #    12  ++++++
+031031  DPRI                         0.0  FLAG TABLE                    Data present indicator                          
+    ++++++  RPSEQ001  REPLICATION #    13  ++++++
+031031  DPRI                         0.0  FLAG TABLE                    Data present indicator                          
+    ++++++  RPSEQ001  REPLICATION #    14  ++++++
+031031  DPRI                         0.0  FLAG TABLE                    Data present indicator                          
+    ++++++  RPSEQ001  REPLICATION #    15  ++++++
+031031  DPRI                         0.0  FLAG TABLE                    Data present indicator                          
+    ++++++  RPSEQ001  REPLICATION #    16  ++++++
+031031  DPRI                     MISSING  FLAG TABLE                    Data present indicator                          
+    ++++++  RPSEQ001  REPLICATION #    17  ++++++
+031031  DPRI                     MISSING  FLAG TABLE                    Data present indicator                          
+    ++++++  RPSEQ001  REPLICATION #    18  ++++++
+031031  DPRI                     MISSING  FLAG TABLE                    Data present indicator                          
+    ++++++  RPSEQ001  REPLICATION #    19  ++++++
+031031  DPRI                         0.0  FLAG TABLE                    Data present indicator                          
+    ++++++  RPSEQ001  REPLICATION #    20  ++++++
+031031  DPRI                         0.0  FLAG TABLE                    Data present indicator                          
+    ++++++  RPSEQ001  REPLICATION #    21  ++++++
+031031  DPRI                         0.0  FLAG TABLE                    Data present indicator                          
+    ++++++  RPSEQ001  REPLICATION #    22  ++++++
+031031  DPRI                         0.0  FLAG TABLE                    Data present indicator                          
+    ++++++  RPSEQ001  REPLICATION #    23  ++++++
+031031  DPRI                         0.0  FLAG TABLE                    Data present indicator                          
+    ++++++  RPSEQ001  REPLICATION #    24  ++++++
+031031  DPRI                         0.0  FLAG TABLE                    Data present indicator                          
+    ++++++  RPSEQ001  REPLICATION #    25  ++++++
+031031  DPRI                         0.0  FLAG TABLE                    Data present indicator                          
+    ++++++  RPSEQ001  REPLICATION #    26  ++++++
+031031  DPRI                     MISSING  FLAG TABLE                    Data present indicator                          
+001031  GCLONG                       7.0  CODE TABLE                    Identification of originating/generating centre 
+001032  GNAP                        51.0  CODE TABLE                    Generating application                          
+           "RPSEQ002"     4 REPLICATIONS
+    ++++++  RPSEQ002  REPLICATION #     1  ++++++
+033007  PCCF                        92.0  %                             Percent confidence                              
+    ++++++  RPSEQ002  REPLICATION #     2  ++++++
+033007  PCCF                        91.0  %                             Percent confidence                              
+    ++++++  RPSEQ002  REPLICATION #     3  ++++++
+033007  PCCF                        91.0  %                             Percent confidence                              
+    ++++++  RPSEQ002  REPLICATION #     4  ++++++
+033007  PCCF                        98.0  %                             Percent confidence                              
+001031  GCLONG                     254.0  CODE TABLE                    Identification of originating/generating centre 
+001032  GNAP                         1.0  CODE TABLE                    Generating application                          
+           "RPSEQ003"     4 REPLICATIONS
+    ++++++  RPSEQ003  REPLICATION #     1  ++++++
+033035  MAQC                         3.0  CODE TABLE                    Manual/automatic quality control                
+    ++++++  RPSEQ003  REPLICATION #     2  ++++++
+033035  MAQC                         4.0  CODE TABLE                    Manual/automatic quality control                
+    ++++++  RPSEQ003  REPLICATION #     3  ++++++
+033035  MAQC                         4.0  CODE TABLE                    Manual/automatic quality control                
+    ++++++  RPSEQ003  REPLICATION #     4  ++++++
+033035  MAQC                         3.0  CODE TABLE                    Manual/automatic quality control                
+001031  GCLONG                     254.0  CODE TABLE                    Identification of originating/generating centre 
+001032  GNAP                         3.0  CODE TABLE                    Generating application                          
+           "RPSEQ004"     4 REPLICATIONS
+    ++++++  RPSEQ004  REPLICATION #     1  ++++++
+033036  NCTH                     MISSING  %                             Nominal confidence threshold                    
+    ++++++  RPSEQ004  REPLICATION #     2  ++++++
+033036  NCTH                     MISSING  %                             Nominal confidence threshold                    
+    ++++++  RPSEQ004  REPLICATION #     3  ++++++
+033036  NCTH                     MISSING  %                             Nominal confidence threshold                    
+    ++++++  RPSEQ004  REPLICATION #     4  ++++++
+033036  NCTH                     MISSING  %                             Nominal confidence threshold                    
+
+ >>> END OF SUBSET <<< 
+
+
+End of BUFR message #      4
+
+------------------------------------------------------------------------------------------------------------------------
+
+Reached end of BUFR file; it contained a total of      4 messages and        3 subsets
+
+Here is the DX table that was generated:
+
+.------------------------------------------------------------------------------.
+| ------------   USER DEFINITIONS FOR TABLE-A TABLE-B TABLE D   -------------- |
+|------------------------------------------------------------------------------|
+| MNEMONIC | NUMBER | DESCRIPTION                                              |
+|----------|--------|----------------------------------------------------------|
+|          |        |                                                          |
+| MSTTB001 | A54000 | TABLE A MNEMONIC MSTTB001                                |
+|          |        |                                                          |
+| RPSEQ001 | 354001 | REPLICATION SEQUENCE 001                                 |
+| RPSEQ002 | 354002 | REPLICATION SEQUENCE 002                                 |
+| RPSEQ003 | 354003 | REPLICATION SEQUENCE 003                                 |
+| RPSEQ004 | 354004 | REPLICATION SEQUENCE 004                                 |
+|          |        |                                                          |
+| SAID     | 001007 | Satellite identifier                                     |
+| SCLF     | 002020 | Satellite classification                                 |
+| SSNX     | 002028 | Segment size at nadir in x-direction                     |
+| SSNY     | 002029 | Segment size at nadir in y-direction                     |
+| YEAR     | 004001 | Year                                                     |
+| MNTH     | 004002 | Month                                                    |
+| DAYS     | 004003 | Day                                                      |
+| HOUR     | 004004 | Hour                                                     |
+| MINU     | 004005 | Minute                                                   |
+| SECO     | 004006 | Second                                                   |
+| TPHR     | 004024 | Time period or displacement                              |
+| CLATH    | 005001 | Latitude (high accuracy)                                 |
+| CLONH    | 006001 | Longitude (high accuracy)                                |
+| SIDP     | 002152 | Satellite instrument used in data processing             |
+| SWCM     | 002023 | Satellite-derived wind computation method                |
+| PRLC     | 007004 | Pressure                                                 |
+| WDIR     | 011001 | Wind direction                                           |
+| WSPD     | 011002 | Wind speed                                               |
+| SCCF     | 002153 | Satellite channel centre frequency                       |
+| SCBW     | 002154 | Satellite channel band width                             |
+| HAMD     | 002163 | Height assignment method                                 |
+| TCMD     | 002164 | Tracer correlation method                                |
+| LSQL     | 008012 | Land/sea qualifier                                       |
+| SAZA     | 007024 | Satellite zenith angle                                   |
+| OFGI     | 002057 | Origin of first-guess information for GOES-I/M sounding  |
+| CCST     | 012071 | Coldest cluster temperature                              |
+| DPRI     | 031031 | Data present indicator                                   |
+| GCLONG   | 001031 | Identification of originating/generating centre          |
+| GNAP     | 001032 | Generating application                                   |
+| PCCF     | 033007 | Percent confidence                                       |
+| MAQC     | 033035 | Manual/automatic quality control                         |
+| NCTH     | 033036 | Nominal confidence threshold                             |
+|          |        |                                                          |
+|------------------------------------------------------------------------------|
+| MNEMONIC | SEQUENCE                                                          |
+|----------|-------------------------------------------------------------------|
+|          |                                                                   |
+| MSTTB001 | SAID  SCLF  SSNX  SSNY  YEAR  MNTH  DAYS  HOUR  MINU  SECO  TPHR  |
+| MSTTB001 | CLATH  CLONH  SIDP  SWCM  PRLC  WDIR  WSPD  SCCF  SCBW  HAMD      |
+| MSTTB001 | TCMD  LSQL  SAZA  OFGI  CCST  "RPSEQ001"26  GCLONG  GNAP          |
+| MSTTB001 | "RPSEQ002"4  GCLONG  GNAP  "RPSEQ003"4  GCLONG  GNAP  "RPSEQ004"4 |
+|          |                                                                   |
+| RPSEQ001 | DPRI                                                              |
+|          |                                                                   |
+| RPSEQ002 | PCCF                                                              |
+|          |                                                                   |
+| RPSEQ003 | MAQC                                                              |
+|          |                                                                   |
+| RPSEQ004 | NCTH                                                              |
+|          |                                                                   |
+|------------------------------------------------------------------------------|
+| MNEMONIC | SCAL | REFERENCE   | BIT | UNITS                    |-------------|
+|----------|------|-------------|-----|--------------------------|-------------|
+|          |      |             |     |                          |-------------|
+| SAID     |    0 |           0 |  10 | CODE TABLE               |-------------|
+| SCLF     |    0 |           0 |   9 | CODE TABLE               |-------------|
+| SSNX     |    0 |           0 |  18 | M                        |-------------|
+| SSNY     |    0 |           0 |  18 | M                        |-------------|
+| YEAR     |    0 |           0 |  12 | YEAR                     |-------------|
+| MNTH     |    0 |           0 |   4 | MONTH                    |-------------|
+| DAYS     |    0 |           0 |   6 | DAY                      |-------------|
+| HOUR     |    0 |           0 |   5 | HOUR                     |-------------|
+| MINU     |    0 |           0 |   6 | MINUTE                   |-------------|
+| SECO     |    0 |           0 |   6 | S                        |-------------|
+| TPHR     |    0 |       -2048 |  12 | HOUR                     |-------------|
+| CLATH    |    5 |    -9000000 |  25 | DEGREE                   |-------------|
+| CLONH    |    5 |   -18000000 |  26 | DEGREE                   |-------------|
+| SIDP     |    0 |           0 |  31 | FLAG TABLE               |-------------|
+| SWCM     |    0 |           0 |   4 | CODE TABLE               |-------------|
+| PRLC     |   -1 |           0 |  14 | PA                       |-------------|
+| WDIR     |    0 |           0 |   9 | DEGREE TRUE              |-------------|
+| WSPD     |    1 |           0 |  12 | M S⁻¹                 |-------------|
+| SCCF     |   -8 |           0 |  26 | HZ                       |-------------|
+| SCBW     |   -8 |           0 |  26 | HZ                       |-------------|
+| HAMD     |    0 |           0 |   4 | CODE TABLE               |-------------|
+| TCMD     |    0 |           0 |   3 | CODE TABLE               |-------------|
+| LSQL     |    0 |           0 |   2 | CODE TABLE               |-------------|
+| SAZA     |    2 |       -9000 |  15 | DEGREE                   |-------------|
+| OFGI     |    0 |           0 |   4 | CODE TABLE               |-------------|
+| CCST     |    1 |           0 |  12 | K                        |-------------|
+| DPRI     |    0 |           0 |   1 | FLAG TABLE               |-------------|
+| GCLONG   |    0 |           0 |  16 | CODE TABLE               |-------------|
+| GNAP     |    0 |           0 |   8 | CODE TABLE               |-------------|
+| PCCF     |    0 |           0 |   7 | %                        |-------------|
+| MAQC     |    0 |           0 |   4 | CODE TABLE               |-------------|
+| NCTH     |    0 |           0 |   7 | %                        |-------------|
+|          |      |             |     |                          |-------------|
+`------------------------------------------------------------------------------'
