@@ -6,7 +6,8 @@
 #BUFRLIB="/gpfs/hps/nco/ops/nwtest/lib/bufr/v11.0.2/cray/libbufr_v11.0.2_4_64.a"
 #BUFRLIB="/nwprod2/lib/bufr/v11.1.0/libbufr_v11.1.0_4_64.a"
 #BUFRLIB="/gpfs/hps/emc/meso/noscrub/Jeff.Ator/bufrlib/cray/libbufr_v11.1.0_4_64_DA.a"
-BUFRLIB=/nwtest2/lib/bufr/v11.2.0/libbufr_v11.2.0_4_64.a
+#BUFRLIB=/gpfs/hps/emc/meso/noscrub/Jeff.Ator/bufrlib/NCEPLIBS-bufr/intel/libbufr_v11.3.0_4_64_DA.a
+BUFRLIB=/gpfs/hps/emc/meso/noscrub/Jeff.Ator/bufrlib/NCEPLIBS-bufr/cray/libbufr_v11.3.0_4_64.a
 #BUFRLIB=/meso/save/Jeff.Ator/sib-bufrlib/trunk/libbufr_v11.2.0_4_64_DA.a
 #BUFRLIB=/ptmpp1/Jeff.Ator/v11.2.0/libbufr_v11.2.0_4_64_DA.a
 
@@ -166,6 +167,7 @@ chmod +x run_progs.sh
 if [ $comp = "cray" ]
 then
     echo "using bsub - see run_progs.stdout and run_progs.stderr for output"
+    unset -v TMPDIR  # bsub will only work properly if $TMPDIR is not set
     /bin/rm -f run_progs.stdout run_progs.stderr  # remove any old versions
     module load xt-lsfhpc
     bsub < run_progs.sh
