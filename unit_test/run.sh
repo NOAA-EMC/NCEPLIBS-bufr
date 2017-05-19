@@ -1,18 +1,7 @@
 #!/bin/bash
 
-#BUFRLIB="/gpfs/hps/nco/ops/nwprod/lib/bufr/v11.0.1/intel/libbufr_v11.0.1_4_64_DA.a"
-#BUFRLIB="/gpfs/hps/nco/ops/nwprod/lib/bufr/v11.0.1/intel/libbufr_v11.0.1_4_64.a"
-#BUFRLIB="/gpfs/hps/emc/meso/noscrub/Jeff.Ator/intel/libbufr_v11.0.2_4_64_DA.a"
-#BUFRLIB="/gpfs/hps/nco/ops/nwtest/lib/bufr/v11.0.2/cray/libbufr_v11.0.2_4_64.a"
-#BUFRLIB="/nwprod2/lib/bufr/v11.1.0/libbufr_v11.1.0_4_64.a"
-#BUFRLIB="/gpfs/hps/emc/meso/noscrub/Jeff.Ator/bufrlib/cray/libbufr_v11.1.0_4_64_DA.a"
-#BUFRLIB=/gpfs/hps/emc/meso/noscrub/Jeff.Ator/bufrlib/NCEPLIBS-bufr/intel/libbufr_v11.3.0_4_64_DA.a
-BUFRLIB=/gpfs/hps/emc/meso/noscrub/Jeff.Ator/bufrlib/NCEPLIBS-bufr/cray/libbufr_v11.3.0_4_64.a
-#BUFRLIB=/meso/save/Jeff.Ator/sib-bufrlib/trunk/libbufr_v11.2.0_4_64_DA.a
-#BUFRLIB=/ptmpp1/Jeff.Ator/v11.2.0/libbufr_v11.2.0_4_64_DA.a
-
 echo
-echo "testing BUFRLIB in $BUFRLIB"
+echo "testing ${BUFRLIB:?ERROR: the library build to be tested must be specified as environment variable \$BUFRLIB}"
 
 comp=intel  # set intel as the default compiler environment
 
