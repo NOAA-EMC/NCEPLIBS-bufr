@@ -112,7 +112,7 @@ cat > run_progs.sh << RUNPROGS
 #BSUB -W 0:05                   # wall clock time of 5 minutes
 #BSUB -P OBSPROC-T2O            # project code
 #BSUB -R rusage[mem=100]        # memory requirement in MB
-#BSUB -q "dev_shared"           # job queue
+#BSUB -q "debug"                # job queue
 #BSUB -o run_progs.stdout       # location of stdout
 #BSUB -e run_progs.stderr       # location of stderr
 
