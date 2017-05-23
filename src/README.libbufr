@@ -1798,3 +1798,21 @@ maximums being exceeded and corrupted output when reading BUFR files.
 the jump/link table now tracks its own individual set of underlying Table C
 operators.  This involved changes to function IGETRFEL and subroutines TABSUB
 and MAKESTAB.
+
+2) The build script makebufrlib.sh was modified to remove calls to cpp (the C
+preprocessor) for all *.F Fortran files.  Preprocessing for these files is now
+done by fpp (the Fortran preprocessor), which is automatically called by the
+Fortran compiler for all *.F files.
+
+3) Global variable MXRST (the maximum number of long character strings that
+can be read from a subset of a compressed BUFR message) has now been added to
+the list of array size limits that can be configured using dynamic allocation.
+
+4) The build script makebufrlib.sh was modified to stop generating the s_64
+("supersize") build.  Such builds are now obsolete, since users can use the
+dynamic allocation builds to flexibly define whatever size limits they need
+for large BUFR datasets.  If users need to recreate the exact specifications
+that were present in the previous s_64 build, they can do so using a dynamic
+allocation build and separate calls to subroutine ISETPRM to set MXLCC=12,
+MAXMEM=75000000, MXCDV=50000, MAXJL=128000, MAXSS=150000, MXMSGL=2500000 and
+MXRST=500 within their application program.

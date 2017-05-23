@@ -74,6 +74,7 @@ C$$$
 	USE MODA_S01CM
 	USE MODA_BITMAPS
 	USE MODA_NRV203
+	USE MODA_RLCCMN
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
@@ -284,6 +285,12 @@ C	MODA_NRV203 arrays.
 	DEALLOCATE( NRV )
 	DEALLOCATE( ISNRV )
 	DEALLOCATE( IENRV )
+
+C	MODA_RLCCMN arrays.
+
+	DEALLOCATE( IRNCH )
+	DEALLOCATE( IRBIT )
+	DEALLOCATE( CRTAG )
 
 C	C language arrays.
 

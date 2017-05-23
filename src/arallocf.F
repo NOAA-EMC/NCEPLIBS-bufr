@@ -25,6 +25,7 @@ C PROGRAM HISTORY LOG:
 C 2014-12-04  J. ATOR    -- ORIGINAL AUTHOR
 C 2016-05-24  J. ATOR    -- ADDED ALLOCATIONS FOR MODA_BITMAPS
 C                           AND MODA_NRV203
+C 2017-05-22  J. ATOR    -- ADDED ALLOCATIONS FOR MODA_RLCCMN
 C
 C USAGE:    CALL ARALLOCF
 C
@@ -74,6 +75,7 @@ C$$$
 	USE MODA_S01CM
 	USE MODA_BITMAPS
 	USE MODA_NRV203
+	USE MODA_RLCCMN
 
 	INCLUDE	'bufrlib.prm'
 
@@ -134,6 +136,8 @@ C-----------------------------------------------------------------------
 	    WRITE ( ERRSTR, '(A,I4)' ) '    MXBTM = ', MXBTM
 	    CALL ERRWRT(ERRSTR)
 	    WRITE ( ERRSTR, '(A,I4)' ) '  MXBTMSE = ', MXBTMSE
+	    CALL ERRWRT(ERRSTR)
+	    WRITE ( ERRSTR, '(A,I4)' ) '    MXRST = ', MXRST
 	    CALL ERRWRT(ERRSTR)
 	    CALL ERRWRT
      .		('++++++++++++++BUFR ARCHIVE LIBRARY+++++++++++++++++')
@@ -550,6 +554,17 @@ C	MODA_NRV203 arrays.
 
 	ALLOCATE( IENRV(MXNRV), STAT=iost )
 	IF ( iost .ne. 0 ) CALL BORT( BRTSTR // 'IENRV' )
+
+C	MODA_RLCCMN arrays.
+
+	ALLOCATE( IRNCH(MXRST), STAT=iost )
+	IF ( iost .ne. 0 ) CALL BORT( BRTSTR // 'IRNCH' )
+
+	ALLOCATE( IRBIT(MXRST), STAT=iost )
+	IF ( iost .ne. 0 ) CALL BORT( BRTSTR // 'IRBIT' )
+
+	ALLOCATE( CRTAG(MXRST), STAT=iost )
+	IF ( iost .ne. 0 ) CALL BORT( BRTSTR // 'CRTAG' )
 
 #endif
 

@@ -63,6 +63,8 @@ C                             X>=21) IN THE SUBSET DEFINITION OF A
 C                             TABLE A MNEMONIC
 C                  'MXNRV'  = MAXIMUM NUMBER OF 2-03 REFERENCE VALUES
 C			      IN THE INTERNAL JUMP/LINK TABLE
+C                  'MXRST'  = MAXIMUM NUMBER OF LONG CHARACTER STRINGS
+C			      THAT CAN BE READ FROM A COMPRESSED SUBSET
 C
 C   OUTPUT ARGUMENT LIST:
 C     IGETPRM  - INTEGER: VALUE ASSOCIATED WITH CPRMNM
@@ -101,6 +103,7 @@ C$$$
 	USE MODV_MXTAMC
 	USE MODV_MXTCO
 	USE MODV_MXNRV
+	USE MODV_MXRST
 
 	INCLUDE	'bufrlib.prm'
 
@@ -154,6 +157,8 @@ C-----------------------------------------------------------------------
 	    IGETPRM = MXTCO
 	ELSE IF ( CPRMNM .EQ. 'MXNRV' ) THEN
 	    IGETPRM = MXNRV
+	ELSE IF ( CPRMNM .EQ. 'MXRST' ) THEN
+	    IGETPRM = MXRST
 	ELSE
 	    IGETPRM = -1
 	    CALL ERRWRT('++++++++++++++++++WARNING+++++++++++++++++++')

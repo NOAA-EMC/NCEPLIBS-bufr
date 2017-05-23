@@ -4,6 +4,26 @@
 #include <ctype.h>
 
 /*
+** The following value must be identically defined in Fortran source
+** file modv_NFILES.F
+*/
+#ifdef DYNAMIC_ALLOCATION
+#    define NFILES 32
+#else
+#    define NFILES 32
+#endif
+
+/*
+** The following value must be identically defined in Fortran source
+** file modv_MAXCD.F
+*/
+#ifdef DYNAMIC_ALLOCATION
+#    define MAXCD 250
+#else
+#    define MAXCD 250
+#endif
+
+/*
 ** On certain operating systems, the FORTRAN compiler appends an underscore
 ** to subprogram names in its object namespace.  Therefore, on such systems,
 ** a matching underscore must be appended to any C language references to

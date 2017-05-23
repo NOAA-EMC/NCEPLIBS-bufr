@@ -11,17 +11,8 @@ C	  unless it is overridden by a subsequent user call to
 C	  function ISETPRM.
 
 	  INTEGER :: MXLCC = 32
-
 #else
-
-#  if defined SUPERSIZE_BUILD
-	  PARAMETER ( MXLCC = 12 )
-#  elif defined C32BITS_BUILD
-	  PARAMETER ( MXLCC = 24 )
-#  else
 	  PARAMETER ( MXLCC = 32 )
-#  endif
-
 #endif
 
 	END MODULE
