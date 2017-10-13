@@ -65,7 +65,7 @@ C                               UFBRMS   UFBSEQ   UFBSTP   UFBTAB
 C                               UFBTAM   UFDUMP   UPDS3    UPFTBV
 C                               UPTDD    USRTPL   WRCMPS   WRDESC
 C                               WRDLEN   WRDXTB   WRITDX   WRITLC
-C                               WRITSA   WRITSB   WTSTAT
+C                               WRITSA   WRITSB   WTSTAT   CODFLG
 C                               Normally not called by any application
 C                               programs but it could be.
 C

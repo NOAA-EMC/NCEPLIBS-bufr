@@ -24,8 +24,8 @@ C                SUBROUTINE ERRWRT
 C
 C REMARKS:
 C    THIS ROUTINE CALLS:        BORT_EXIT ERRWRT
-C    THIS ROUTINE IS CALLED BY: ELEMDX   GETNTBE  MTINFO   PARSTR
-C                               PARUSR   PARUTG   RDUSDX   READMT
+C    THIS ROUTINE IS CALLED BY: ELEMDX   GETNTBE  IREADMT  MTINFO
+C                               PARSTR   PARUSR   PARUTG   RDUSDX
 C                               SEQSDX   SNTBBE   SNTBDE   STRING
 C                               UFBINT   UFBOVR   UFBREP   UFBSTP
 C                               VALX

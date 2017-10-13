@@ -37,7 +37,7 @@ C                  USED BY THE SUBROUTINE WHEN CALLING FUNCTION ICVIDX
 C
 C REMARKS:
 C    THIS ROUTINE CALLS:        ICVIDX
-C    THIS ROUTINE IS CALLED BY: READMT
+C    THIS ROUTINE IS CALLED BY: IREADMT
 C                               Normally not called by any application
 C                               programs.
 C
