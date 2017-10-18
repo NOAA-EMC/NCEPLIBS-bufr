@@ -40,7 +40,7 @@ C                               STRSUC   UFBEVN   UFBIN3   UFBINT
 C                               UFBMEM   UFBMEX   UFBOVR   UFBREP
 C                               UFBRMS   UFBRW    UFBSEQ   UFBSTP
 C                               UFBTAB   UFBTAM   USRTPL   VALX
-C                               WRDLEN
+C                               WRDLEN   MTFNAM
 C                               Can also be called by application
 C                               programs using an in-line version.
 C

@@ -66,8 +66,9 @@ C*	already been read into internal memory for this message.
 
 	IF ( IREADMT ( LUN ) .EQ. 1 ) THEN
 
-C*	  New master table information needed to be read, so reset some
-C*	  corresponding values in other parts of the library.
+C*	  NO (i.e. we just had to read in new master table information
+C*	  for this message), so reset some corresponding values in
+C*	  other parts of the library.
 
 	  CALL DXINIT ( LUN, 0 )
 	  ITMP = IGETTDI ( 0 )

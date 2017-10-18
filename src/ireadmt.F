@@ -2,7 +2,7 @@
 
 C$$$  SUBPROGRAM DOCUMENTATION BLOCK
 C
-C SUBPROGRAM:    READMT
+C SUBPROGRAM:    IREADMT
 C   PRGMMR: ATOR            ORG: NP12       DATE: 2009-03-23
 C
 C ABSTRACT:  THIS FUNCTION CHECKS THE MOST RECENT BUFR MESSAGE THAT
@@ -47,8 +47,8 @@ C                    MOST RECENT CALL TO MTINFO (ARGUMENTS LUNMT1 AND
 C                    LUNMT2) ARE USED INSTEAD.
 C REMARKS:
 C    THIS ROUTINE CALLS:        BORT2    CPMSTABS ERRWRT   ICVIDX
-C                               IFXY     ISTDESC  IUPBS01  RDMTBB
-C                               RDMTBD   UPDS3
+C                               IFXY     ISTDESC  IUPBS01  MTFNAM
+C                               RDMTBB   RDMTBD   UPDS3
 C    THIS ROUTINE IS CALLED BY: READS3
 C                               Normally not called by any application
 C                               programs.
@@ -61,7 +61,6 @@ C$$$
 
 	USE MODA_MSTABS
 	USE MODA_BITBUF
-	USE MODA_SC3BFR
 	USE MODA_RDMTB
 
 	INCLUDE 'bufrlib.prm'
@@ -70,12 +69,12 @@ C$$$
 	COMMON /MSTINF/ LUN1, LUN2, LMTD, MTDIR
 	COMMON /TABLEF/ CDMF
 
-	CHARACTER*6	CSD3(MAXNC)
-	CHARACTER*20	FMTF
+	CHARACTER*1	CDMF
+	CHARACTER*6	CDS3(MAXNC)
 	CHARACTER*100	MTDIR
 	CHARACTER*128	BORT_STR
-	CHARACTER*132	TBLFIL,STDFIL,LOCFIL1,LOCFIL2
-	LOGICAL		FOUND, ALLSTD
+	CHARACTER*132	STDFIL,LOCFIL
+	LOGICAL		ALLSTD
 
 C*      Initializing the following value ensures that new master tables
 C*      are read during the first call to this subroutine.
@@ -86,6 +85,8 @@ C*      are read during the first call to this subroutine.
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
+
+	IREADMT = 0
 
 C*	Unpack some Section 1 information from the message that was
 C*	most recently read.
@@ -159,157 +160,89 @@ C*	  we need to read in new tables.
 	IF ( IPRT .GE. 2 ) THEN
         CALL ERRWRT(' ')
 	CALL ERRWRT('+++++++++++++++++++++++++++++++++++++++++++++++++')
-	CALL ERRWRT('BUFRLIB: READMT - OPENING/READING MASTER TABLES')
+	CALL ERRWRT('BUFRLIB: IREADMT - OPENING/READING MASTER TABLES')
 	ENDIF
 
-	IF ( ISC3(LUN) .NE. 0 ) THEN
+C*	Locate and open the master Table B files.  There should be one
+C*	file of standard descriptors and one file of local descriptors.
 
-C*	  Locate and open the master Table B files.  There should be one
-C*	  file of standard descriptors and one file of local descrptors.
+	CALL MTFNAM ( IMT, IMTV, IOGCE, IMTVL, 'TableB',
+     .		      STDFIL, LOCFIL )
+	OPEN ( UNIT = LUN1, FILE = STDFIL, IOSTAT = IER )
+	IF ( IER .NE. 0 ) GOTO 900
+	OPEN ( UNIT = LUN2, FILE = LOCFIL, IOSTAT = IER )
+	IF ( IER .NE. 0 ) GOTO 901
 
-C*	  First locate and open the file of standard descriptors.
+C*	Read the master Table B files.
 
-	  IF ( ( IMT .EQ. 0 ) .AND. ( IMTV .LE. 13 ) ) THEN
+	CALL RDMTBB ( LUN1, LUN2, MXMTBB,
+     .		      IBMT, IBMTV, IBOGCE, IBLTV,
+     .		      NMTB, IBFXYN, CBSCL, CBSREF, CBBW,
+     .		      CBUNIT, CBMNEM, CMDSCB, CBELEM )
 
-C*	    For master table 0, version 13 is a superset of all earlier
-C*	    versions.
+C*	Close the master Table B files.
 
-	    STDFIL = MTDIR(1:LMTD) // '/' // 'bufrtab.TableB_STD_0_13'
-	  ELSE
-	    WRITE ( FMTF, '(A,I1,A,I1,A)' )
-     .	       '(2A,I', ISIZE(IMT), ',A,I', ISIZE(IMTV), ')'
-	    WRITE ( STDFIL, FMTF ) MTDIR(1:LMTD),
-     .	       '/bufrtab.TableB_STD_', IMT, '_', IMTV
-	  ENDIF
-	  TBLFIL = STDFIL
-	  IF ( IPRT .GE. 2 ) THEN
-	    CALL ERRWRT('Standard Table B:')
-	    CALL ERRWRT(TBLFIL)
-	  ENDIF
-	  INQUIRE ( FILE = TBLFIL, EXIST = FOUND )
-	  IF ( .NOT. FOUND ) GOTO 900
-	  OPEN ( UNIT = LUN1, FILE = TBLFIL, IOSTAT = IER )
-	  IF ( IER .NE. 0 ) GOTO 901
+	CLOSE ( UNIT = LUN1 )
+	CLOSE ( UNIT = LUN2 )
 
-C*	  Now locate and open the file of local Table B descriptors.
+C*	Locate and open the master Table D files.  There should be one
+C*	file of standard descriptors and one file of local descriptors.
 
-C*	  Use the local table corresponding to the originating center
-C*	  and local table version number of the current message, if such
-C*	  a table exists.  Otherwise use the NCEP local table B.
+	CALL MTFNAM ( IMT, IMTV, IOGCE, IMTVL, 'TableD',
+     .		      STDFIL, LOCFIL )
+	OPEN ( UNIT = LUN1, FILE = STDFIL, IOSTAT = IER )
+	IF ( IER .NE. 0 ) GOTO 900
+	OPEN ( UNIT = LUN2, FILE = LOCFIL, IOSTAT = IER )
+	IF ( IER .NE. 0 ) GOTO 901
 
-	  LOCFIL2 = MTDIR(1:LMTD) // '/' // 'bufrtab.TableB_LOC_0_7_1'
-	  WRITE ( FMTF, '(A,I1,A,I1,A,I1,A)' )
-     .	     '(2A,I', ISIZE(IMT), ',A,I', ISIZE(IOGCE),
-     .	     ',A,I',  ISIZE(IMTVL), ')'
-	  WRITE ( LOCFIL1, FMTF ) MTDIR(1:LMTD), '/bufrtab.TableB_LOC_',
-     .	     IMT, '_', IOGCE, '_', IMTVL
-	  TBLFIL = LOCFIL1
-	  IF ( IPRT .GE. 2 ) THEN
-	    CALL ERRWRT('Local Table B:')
-	    CALL ERRWRT(TBLFIL)
-	  ENDIF
-	  INQUIRE ( FILE = TBLFIL, EXIST = FOUND )
-	  IF ( .NOT. FOUND ) THEN
+C*	Read the master Table D files.
 
-C*	    Use the NCEP local table B.
-
-	    TBLFIL = LOCFIL2
-	    IF ( IPRT .GE. 2 ) THEN
-	      CALL ERRWRT('Local Table B not found, so using:')
-	      CALL ERRWRT(TBLFIL)
-	    ENDIF
-	    INQUIRE ( FILE = TBLFIL, EXIST = FOUND )
-	    IF ( .NOT. FOUND ) GOTO 900
-	  ENDIF
-	  OPEN ( UNIT = LUN2, FILE = TBLFIL, IOSTAT = IER )
-	  IF ( IER .NE. 0 ) GOTO 901
-
-C*	  Read the master Table B files.
-
-	  CALL RDMTBB ( LUN1, LUN2, MXMTBB,
-     .		        IBMT, IBMTV, IBOGCE, IBLTV,
-     .		        NMTB, IBFXYN, CBSCL, CBSREF, CBBW,
-     .		        CBUNIT, CBMNEM, CMDSCB, CBELEM )
-
-C*	  Close the master Table B files.
-
-	  CLOSE ( UNIT = LUN1 )
-	  CLOSE ( UNIT = LUN2 )
-
-C*	  Locate and open the master Table D files.  There should be one
-C*	  file of standard descriptors and one file of local descrptors.
-
-C*	  First locate and open the file of standard descriptors.
-
-	  TBLFIL = STDFIL
-	  TBLFIL(LMTD+15:LMTD+15) = 'D'
-	  IF ( IPRT .GE. 2 ) THEN
-	    CALL ERRWRT('Standard Table D:')
-	    CALL ERRWRT(TBLFIL)
-	  ENDIF
-	  INQUIRE ( FILE = TBLFIL, EXIST = FOUND )
-	  IF ( .NOT. FOUND ) GOTO 900
-	  OPEN ( UNIT = LUN1, FILE = TBLFIL, IOSTAT = IER )
-	  IF ( IER .NE. 0 ) GOTO 901
-
-C*	  Now locate and open the file of local Table D descriptors.
-
-C*	  Use the local table corresponding to the originating center
-C*	  and local table version number of the current message, if
-C*	  such a table exists.  Otherwise use the NCEP local table D.
-
-	  TBLFIL = LOCFIL1
-	  TBLFIL(LMTD+15:LMTD+15) = 'D'
-	  IF ( IPRT .GE. 2 ) THEN
-	    CALL ERRWRT('Local Table D:')
-	    CALL ERRWRT(TBLFIL)
-	  ENDIF
-	  INQUIRE ( FILE = TBLFIL, EXIST = FOUND )
-	  IF ( .NOT. FOUND ) THEN
-
-C*	    Use the NCEP local table D.
-
-	    TBLFIL = LOCFIL2
-	    TBLFIL(LMTD+15:LMTD+15) = 'D'
-	    IF ( IPRT .GE. 2 ) THEN
-	      CALL ERRWRT('Local Table D not found, so using:')
-	      CALL ERRWRT(TBLFIL)
-	    ENDIF
-	    INQUIRE ( FILE = TBLFIL, EXIST = FOUND )
-	    IF ( .NOT. FOUND ) GOTO 900
-	  ENDIF
-	  OPEN ( UNIT = LUN2, FILE = TBLFIL, IOSTAT = IER )
-	  IF ( IER .NE. 0 ) GOTO 901
-
-C*	  Read the master Table D files.
-
-	  CALL RDMTBD ( LUN1, LUN2, MXMTBD, MAXCD,
-     .		        IDMT, IDMTV, IDOGCE, IDLTV,
-     .		        NMTD, IDFXYN, CDMNEM, CMDSCD, CDSEQ,
-     .		        NDELEM, IEFXYN, CEELEM )
-	  DO I = 1, NMTD
-	    DO J = 1, NDELEM(I)
-	      IDX = ICVIDX ( I-1, J-1, MAXCD ) + 1
-	      IDEFXY(IDX) = IEFXYN(I,J)
-	    ENDDO
+	CALL RDMTBD ( LUN1, LUN2, MXMTBD, MAXCD,
+     .		      IDMT, IDMTV, IDOGCE, IDLTV,
+     .		      NMTD, IDFXYN, CDMNEM, CMDSCD, CDSEQ,
+     .		      NDELEM, IEFXYN, CEELEM )
+	DO I = 1, NMTD
+	  DO J = 1, NDELEM(I)
+	    IDX = ICVIDX ( I-1, J-1, MAXCD ) + 1
+	    IDEFXY(IDX) = IEFXYN(I,J)
 	  ENDDO
+	ENDDO
 
-C*	  Close the master Table D files.
+C*	Close the master Table D files.
 
-	  CLOSE ( UNIT = LUN1 )
-	  CLOSE ( UNIT = LUN2 )
+	CLOSE ( UNIT = LUN1 )
+	CLOSE ( UNIT = LUN2 )
 
 #ifdef DYNAMIC_ALLOCATION
-C*	  Copy master table B and D information into internal C arrays.
+C*	Copy master table B and D information into internal C arrays.
 
-	  CALL CPMSTABS ( NMTB, IBFXYN, CBSCL, CBSREF, CBBW, CBUNIT,
-     .			  CBMNEM, CBELEM, NMTD, IDFXYN, CDSEQ, CDMNEM,
-     .			  NDELEM, IDEFXY, MAXCD )
+	CALL CPMSTABS ( NMTB, IBFXYN, CBSCL, CBSREF, CBBW, CBUNIT,
+     .			CBMNEM, CBELEM, NMTD, IDFXYN, CDSEQ, CDMNEM,
+     .			NDELEM, IDEFXY, MAXCD )
 #endif
 
-	ENDIF
-
 	IF ( CDMF .EQ. 'Y' ) THEN
+
+C*	  Locate and open the master code and flag table files.  There
+C*	  should be one file corresponding to the standard Table B
+C*	  descriptors, and one file corresponding to the local Table B
+C*	  descriptors.
+
+	  CALL MTFNAM ( IMT, IMTV, IOGCE, IMTVL, 'CodeFlag',
+     .		      STDFIL, LOCFIL )
+	  OPEN ( UNIT = LUN1, FILE = STDFIL, IOSTAT = IER )
+	  IF ( IER .NE. 0 ) GOTO 900
+	  OPEN ( UNIT = LUN2, FILE = LOCFIL, IOSTAT = IER )
+	  IF ( IER .NE. 0 ) GOTO 901
+
+C*	  Read the master code and flag table files.
+
+	  CALL RDMTBF ( LUN1, LUN2, MXMTBF )
+
+C*	  Close the master code and flag table files.
+
+	  CLOSE ( UNIT = LUN1 )
+	  CLOSE ( UNIT = LUN2 )
 
 	ENDIF
 
@@ -319,8 +252,8 @@ C*	  Copy master table B and D information into internal C arrays.
 	ENDIF
 
 	RETURN
-900	BORT_STR = 'BUFRLIB: IREADMT - COULD NOT FIND FILE:'
-	CALL BORT2(BORT_STR,TBLFIL)
-901	BORT_STR = 'BUFRLIB: IREADMT - COULD NOT OPEN FILE:'
-	CALL BORT2(BORT_STR,TBLFIL)
+900	BORT_STR = 'BUFRLIB: IREADMT - COULD NOT OPEN STANDARD FILE:'
+	CALL BORT2(BORT_STR,STDFIL)
+901	BORT_STR = 'BUFRLIB: IREADMT - COULD NOT OPEN LOCAL FILE:'
+	CALL BORT2(BORT_STR,LOCFIL)
 	END
