@@ -37,7 +37,7 @@ C    THIS ROUTINE CALLS:        BORT
 C    THIS ROUTINE IS CALLED BY: CADN30   DXINIT   IGETRFEL ISTDESC
 C                               NEMTBD   NUMTAB   RDMTBB   RDMTBD
 C                               RDMTBF   READS3   SEQSDX   SNTBDE
-C                               UFBQCD   UPDS3    WRDXTB
+C                               SNTBFE   UFBQCD   UPDS3    WRDXTB
 C                               Normally not called by any application
 C                               programs.
 C

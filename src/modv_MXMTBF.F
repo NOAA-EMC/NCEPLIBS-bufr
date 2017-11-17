@@ -16,9 +16,9 @@ C	  Set a default value for MXMTBF.  This value will be used
 C	  unless it is overridden by a subsequent user call to
 C	  function ISETPRM.
 
-	  INTEGER :: MXMTBF = 15000
+	  INTEGER :: MXMTBF = 25000
 #else
-	  PARAMETER ( MXMTBF = 15000 )
+	  PARAMETER ( MXMTBF = 25000 )
 #endif
 
 	END MODULE

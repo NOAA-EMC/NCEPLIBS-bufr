@@ -37,8 +37,8 @@ C                DESCRIPTORS (FIRST NDS3 WORDS FILLED)
 C     NDS3     - INTEGER: NUMBER OF DESCRIPTORS RETURNED
 C
 C REMARKS:
-C    THIS ROUTINE CALLS:        ADN30    BORT     IREADMT  IUPB
-C                               GETLENS  READS3   WRDLEN
+C    THIS ROUTINE CALLS:        ADN30    BORT     IUPB     GETLENS
+C                               WRDLEN
 C    THIS ROUTINE IS CALLED BY: READS3
 C                               Also called by application programs.
 C

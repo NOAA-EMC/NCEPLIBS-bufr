@@ -32,8 +32,9 @@ C
 C REMARKS:
 C    THIS ROUTINE CALLS:        BORT2
 C    THIS ROUTINE IS CALLED BY: FSTAG    GETNTBE  GETTBH   PARUSR
-C                               READLC   SEQSDX   SNTBBE   UFBSEQ
-C                               UFBTAB   UFBTAM   WRITLC
+C                               READLC   SEQSDX   SNTBBE   SNTBDE
+C                               SNTBFE   UFBSEQ   UFBTAB   UFBTAM
+C                               WRITLC
 C                               Normally not called by any application
 C                               programs but it could be.
 C

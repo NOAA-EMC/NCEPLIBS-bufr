@@ -27,8 +27,8 @@ C    THIS ROUTINE CALLS:        BORT_EXIT ERRWRT
 C    THIS ROUTINE IS CALLED BY: ELEMDX   GETNTBE  IREADMT  MTFNAM
 C                               MTINFO   PARSTR   PARUSR   PARUTG
 C                               RDUSDX   SEQSDX   SNTBBE   SNTBDE
-C                               STRING   UFBINT   UFBOVR   UFBREP
-C                               UFBSTP   VALX
+C                               SNTBFE   STRING   UFBINT   UFBOVR
+C                               UFBREP   UFBSTP   VALX
 C                               Normally not called by any application
 C                               programs but it could be.
 C

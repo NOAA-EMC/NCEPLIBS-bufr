@@ -25,7 +25,7 @@ C                      -1 = could not find a valid FXY number in STR
 C
 C REMARKS:
 C    THIS ROUTINE CALLS:        JSTCHR   NUMBCK
-C    THIS ROUTINE IS CALLED BY: GETNTBE  SNTBDE
+C    THIS ROUTINE IS CALLED BY: GETNTBE  SNTBDE   SNTBFE
 C                               Normally not called by any application
 C                               programs.
 C

@@ -73,7 +73,7 @@ C                  -1 = UNKNOWN CPRNMN
 C
 C REMARKS:
 C    THIS ROUTINE CALLS:        ERRWRT
-C    THIS ROUTINE IS CALLED BY: ARALLOCC STSEQ
+C    THIS ROUTINE IS CALLED BY: ARALLOCC INITTBF  STSEQ
 C                               Also called by application programs.
 C
 C ATTRIBUTES:

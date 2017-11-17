@@ -1,4 +1,4 @@
-	SUBROUTINE RDMTBF ( LUNSTF, LUNLTF, MXMTBF )
+	SUBROUTINE RDMTBF ( LUNSTF, LUNLTF )
 
 C$$$  SUBPROGRAM DOCUMENTATION BLOCK
 C
@@ -14,21 +14,17 @@ C
 C PROGRAM HISTORY LOG:
 C 2017-10-17  J. ATOR    -- ORIGINAL AUTHOR
 C
-C USAGE:    CALL RDMTBF ( LUNSTF, LUNLTF, MXMTBF )
+C USAGE:    CALL RDMTBF ( LUNSTF, LUNLTF )
 C
 C   INPUT ARGUMENT LIST:
 C     LUNSTF   - INTEGER: FORTRAN LOGICAL UNIT NUMBER OF ASCII FILE
 C                CONTAINING STANDARD CODE/FLAG TABLE INFORMATION
 C     LUNLTF   - INTEGER: FORTRAN LOGICAL UNIT NUMBER OF ASCII FILE
 C                CONTAINING LOCAL CODE/FLAG TABLE INFORMATION
-C     MXMTBF   - INTEGER: MAXIMUM NUMBER OF CODE/FLAG TABLE ENTRIES
-C                TO BE STORED IN MERGED INTERNAL MEMORY STRUCTURE.
-C
-C   OUTPUT ARGUMENT LIST:
 C
 C REMARKS:
 C    THIS ROUTINE CALLS:        ADN30    BORT     GETNTBE  GETTBH
-C                               SNTBFE   WRDLEN
+C                               INITTBF  SNTBFE   SORTTBF  WRDLEN
 C    THIS ROUTINE IS CALLED BY: IREADMT
 C                               Not normally called by any application
 C                               programs.
@@ -39,7 +35,7 @@ C   MACHINE:  PORTABLE TO ALL PLATFORMS
 C
 C$$$
 
-	CHARACTER*600	STLINE, LTLINE
+	CHARACTER*160	STLINE, LTLINE
 	CHARACTER*128	BORT_STR
 	CHARACTER*6	CMATCH, ADN30
 
@@ -51,6 +47,11 @@ C	local machine, just in case it hasn't already been called.
 
 	CALL WRDLEN
 
+C	Initialize the internal memory structure, including allocating
+C	space for it in case this hasn't already been done.
+
+	CALL INITTBF
+
 C	Read and parse the header lines of both files.
 
 	CALL GETTBH ( LUNSTF, LUNLTF, 'F', IMT, IMTV, IOGCE, ILTV )
@@ -58,7 +59,6 @@ C	Read and parse the header lines of both files.
 C	Read through the remainder of both files, merging the
 C	contents into a unified internal memory structure.
 
-	NMTBF = 0
 	CALL GETNTBE ( LUNSTF, ISFXYN, STLINE, IERS )
 	CALL GETNTBE ( LUNLTF, ILFXYN, LTLINE, IERL )
 	DO WHILE ( ( IERS .EQ. 0 ) .OR. ( IERL .EQ. 0 ) )
@@ -67,20 +67,24 @@ C	contents into a unified internal memory structure.
 	      CMATCH = ADN30 ( ISFXYN, 6 )
 	      GOTO 900
 	    ELSE IF ( ISFXYN .LT. ILFXYN ) THEN
-	      CALL SNTBFE ( ISFXYN, STLINE, MXMTBF )
+	      CALL SNTBFE ( LUNSTF, ISFXYN, STLINE )
 	      CALL GETNTBE ( LUNSTF, ISFXYN, STLINE, IERS )
 	    ELSE
-	      CALL SNTBFE ( ILFXYN, LTLINE, MXMTBF )
+	      CALL SNTBFE ( LUNLTF, ILFXYN, LTLINE )
 	      CALL GETNTBE ( LUNLTF, ILFXYN, LTLINE, IERL )
 	    ENDIF
 	  ELSE IF ( IERS .EQ. 0 ) THEN
-	    CALL SNTBFE ( ISFXYN, STLINE, MXMTBF )
+	    CALL SNTBFE ( LUNSTF, ISFXYN, STLINE )
 	    CALL GETNTBE ( LUNSTF, ISFXYN, STLINE, IERS )
 	  ELSE IF ( IERL .EQ. 0 ) THEN
-	    CALL SNTBFE ( ILFXYN, LTLINE, MXMTBF )
+	    CALL SNTBFE ( LUNLTF, ILFXYN, LTLINE )
 	    CALL GETNTBE ( LUNLTF, ILFXYN, LTLINE, IERL )
 	  ENDIF
 	ENDDO
+
+C	Sort the contents of the internal memory structure.
+
+	CALL SORTTBF
 
 	RETURN
  900	WRITE(BORT_STR,'("BUFRLIB: RDMTBF - STANDARD AND LOCAL'//
