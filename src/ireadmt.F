@@ -48,8 +48,8 @@ C                    LUNMT2) ARE USED INSTEAD.
 C REMARKS:
 C    THIS ROUTINE CALLS:        BORT2    CPMSTABS ERRWRT   ICVIDX
 C                               IFXY     ISTDESC  IUPBS01  MTFNAM
-C                               RDMTBB   RDMTBD   UPDS3
-C    THIS ROUTINE IS CALLED BY: READS3
+C                               RDMTBB   RDMTBD   RDMTBF   UPDS3
+C    THIS ROUTINE IS CALLED BY: GETCFMNG READS3   UFDUMP
 C                               Normally not called by any application
 C                               programs.
 C

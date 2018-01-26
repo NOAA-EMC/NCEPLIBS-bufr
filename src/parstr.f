@@ -31,10 +31,10 @@ C     NTAG     - INTEGER: NUMBER OF SUBSTRINGS RETURNED
 C
 C REMARKS:
 C    THIS ROUTINE CALLS:        BORT2
-C    THIS ROUTINE IS CALLED BY: FSTAG    GETNTBE  GETTBH   PARUSR
-C                               READLC   SEQSDX   SNTBBE   SNTBDE
-C                               SNTBFE   UFBSEQ   UFBTAB   UFBTAM
-C                               WRITLC
+C    THIS ROUTINE IS CALLED BY: FSTAG    GETCFMNG GETNTBE  GETTBH
+C                               PARUSR   READLC   SEQSDX   SNTBBE
+C                               SNTBDE   SNTBFE   UFBSEQ   UFBTAB
+C                               UFBTAM   WRITLC
 C                               Normally not called by any application
 C                               programs but it could be.
 C

@@ -34,7 +34,8 @@ C     LUN      - INTEGER: I/O STREAM INDEX INTO INTERNAL MEMORY ARRAYS
 C
 C REMARKS:
 C    THIS ROUTINE CALLS:        ADN30    BORT2    NEMOCK   NEMTAB
-C                               PARSTR   PKTDD    RSVFVM   STRNUM
+C                               NUMTAB   PARSTR   PKTDD    RSVFVM
+C                               STRNUM
 C    THIS ROUTINE IS CALLED BY: RDUSDX
 C                               Normally not called by any application
 C                               programs.

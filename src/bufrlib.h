@@ -70,6 +70,7 @@
 #define rbytes	   rbytes_
 #define restd	   restd_
 #define sorttbf    sorttbf_
+#define srchtbf    srchtbf_
 #define stntbi	   stntbi_
 #define strnum	   strnum_
 #define strtbfe	   strtbfe_
@@ -147,6 +148,8 @@ void pktdd( f77int *, f77int *, f77int *, f77int * );
 f77int rbytes( char *, f77int *, f77int, f77int );
 void restd( f77int *, f77int *, f77int *, f77int * );
 void sorttbf( void );
+void srchtbf( f77int *, f77int *, f77int *, f77int *, f77int *,
+	char *, f77int *, f77int *, f77int * );
 void stntbi( f77int *, f77int *, char *, char *, char *, f77int, f77int, f77int );
 void strnum( char *, f77int *, f77int );
 void strtbfe( f77int *, f77int *, char *, f77int *, f77int *, f77int * );

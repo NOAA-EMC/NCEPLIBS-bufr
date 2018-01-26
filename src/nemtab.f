@@ -60,10 +60,10 @@ C                           B, C, or D arrays
 C
 C REMARKS:
 C    THIS ROUTINE CALLS:        IFXY     IOKOPER
-C    THIS ROUTINE IS CALLED BY: CHEKSTAB CMSGINI  ELEMDX   IGETRFEL
-C                               MSGINI   NEMDEFS  SEQSDX   STSEQ
-C                               TABSUB   UFBDMP   UFBQCD   UFDUMP
-C                               UPFTBV
+C    THIS ROUTINE IS CALLED BY: CHEKSTAB CMSGINI  ELEMDX   GETCFMNG
+C                               IGETRFEL MSGINI   NEMDEFS  SEQSDX
+C                               STSEQ    TABSUB   UFBDMP   UFBQCD
+C                               UFDUMP   UPFTBV
 C                               Also called by application programs
 C                               (see ABSTRACT).
 C

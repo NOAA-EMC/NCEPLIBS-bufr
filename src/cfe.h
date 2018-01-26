@@ -1,4 +1,4 @@
-#define MAX_MEANING_LEN 120
+#define MAX_MEANING_LEN 150
 
 struct code_flag_entry {
     f77int iffxyn;

@@ -27,7 +27,7 @@ C                       1 = PE1 is greater than PE2
 C
 C REMARKS:
 C    THIS ROUTINE CALLS:        None
-C    THIS ROUTINE IS CALLED BY: 
+C    THIS ROUTINE IS CALLED BY: SRCHTBF
 C                               Normally not called by any application
 C                               programs.
 C

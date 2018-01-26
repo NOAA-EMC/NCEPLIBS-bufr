@@ -13,7 +13,7 @@ C
 C USAGE:    CALL SORTTBF
 C
 C REMARKS:
-C    THIS ROUTINE CALLS:        None
+C    THIS ROUTINE CALLS:        CMPSTIA1
 C    THIS ROUTINE IS CALLED BY: RDMTBF
 C                               Normally not called by any application
 C                               programs.
@@ -31,13 +31,4 @@ void sorttbf( void )
 {
     qsort( &cfe[0], ( size_t ) nmtf, sizeof( struct code_flag_entry ),
 	( int (*) ( const void *, const void * ) ) cmpstia1 );
-
-/* temp stmts */
-    unsigned i;
-    for ( i = 0; i < nmtf; i++ ) {
-	printf( "%5u: %d  %d  %d  %d  >%s<\n",
-		i, cfe[i].iffxyn, cfe[i].ifval, cfe[i].iffxynd,
-		cfe[i].ifvald, cfe[i].ifmeaning );
-    }
-/* end temp stmts */
 }

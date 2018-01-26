@@ -50,7 +50,8 @@ C    END IF
 C
 C
 C    THIS ROUTINE CALLS:        IFXY
-C    THIS ROUTINE IS CALLED BY: NUMTAB   RESTD    STSEQ
+C    THIS ROUTINE IS CALLED BY: GETCFMNG NUMTAB   RESTD    STSEQ
+C                               UFDUMP
 C                               Normally not called by any application
 C                               programs.
 C

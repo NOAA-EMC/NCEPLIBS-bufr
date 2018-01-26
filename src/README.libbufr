@@ -1816,3 +1816,13 @@ that were present in the previous s_64 build, they can do so using a dynamic
 allocation build and separate calls to subroutine ISETPRM to set MXLCC=12,
 MAXMEM=75000000, MXCDV=50000, MAXJL=128000, MAXSS=150000, MXMSGL=2500000 and
 MXRST=500 within their application program.
+
+5) A new capability was added to read and process master code and flag tables.  
+This feature is activated via an initial call to new subroutine CODFLG at any
+time after the first call to subroutine OPENBF.  Once that is done, then for
+any BUFR message read into the library via subroutine READMG, READERME or
+equivalent, and for any mnemonic contained within that message which is defined
+as a code or flag table, the user may call new subroutine GETCFMNG with that
+mnemonic and an associated value (code figure or bit number) as input, and
+the subroutine will return the meaning (as a character string) corresponding
+to that mnemonic and associated value.
