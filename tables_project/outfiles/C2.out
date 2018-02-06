@@ -1,0 +1,438 @@
+Entry #    1     0     Operational  >Reserved<
+Entry #    2     1     Operational  >iMet-1-BB (USA)<
+Entry #    3     2     Operational  >No radiosonde - passive target (e.g. reflector)<
+Entry #    4     3     Operational  >No radiosonde - active target (e.g. transponder)<
+Entry #    5     4     Operational  >No radiosonde - passive temperature-humidity profiler<
+Entry #    6     5     Operational  >No radiosonde - active temperature-humidity profiler<
+Entry #    7     6     Operational  >No radiosonde - radio acoustic sounder<
+Entry #    8     7     Operational  >iMet-1-AB (USA)<
+Entry #    9     8     Operational  >No radiosonde - reserved<
+Entry #   10     9     Operational  >No radiosonde - system unknown or not specified<
+Entry #   11    10     Operational  >VIZ type A pressure-commutated (USA)<
+Entry #   12    11     Operational  >VIZ type B time-commutated (USA)<
+Entry #   13    12     Operational  >RS SDC (Space Data Corporation - USA)<
+Entry #   14    13     Operational  >Astor (no longer made - Australia)<
+Entry #   15    14     Operational  >VIZ MARK I MICROSONDE (USA)<
+Entry #   16    15     Operational  >EEC Company type 23 (USA)<
+Entry #   17    16     Operational  >Elin (Austria)<
+Entry #   18    17     Operational  >Graw G. (Germany)<
+Entry #   19    18     Operational  >Graw DFM-06 (Germany)<
+Entry #   20    19     Operational  >Graw M60 (Germany)<
+Entry #   21    20     Operational  >Indian Meteorological Service MK3 (India)<
+Entry #   22    21     Operational  >VIZ/Jin Yang MARK I MICROSONDE (Republic of Korea)<
+Entry #   23    22     Operational  >Meisei RS2-80 (Japan)<
+Entry #   24    23     Operational  >Mesural FMO 1950A (France)<
+Entry #   25    24     Operational  >Mesural FMO 1945A (France)<
+Entry #   26    25     Operational  >Mesural MH73A (France)<
+Entry #   27    26     Operational  >Meteolabor Basora (Switzerland)<
+Entry #   28    27     Operational  >AVK MRZ (Russian Federation)<
+Entry #   29    28     Operational  >Meteorit MARZ2-1 (Russian Federation)<
+Entry #   30    29     Operational  >Meteorit MARZ2-2 (Russian Federation)<
+Entry #   31    30     Operational  >Oki RS2-80 (Japan)<
+Entry #   32    31     Operational  >VIZ/Valcom type A pressure-commutated (Canada)<
+Entry #   33    32     Operational  >Shanghai Radio (China)<
+Entry #   34    33     Operational  >UK Met Office MK3 (UK)<
+Entry #   35    34     Operational  >Vinohrady (Czech Republic)<
+Entry #   36    35     Operational  >Vaisala RS18 (Finland)<
+Entry #   37    36     Operational  >Vaisala RS21 (Finland)<
+Entry #   38    37     Operational  >Vaisala RS80 (Finland)<
+Entry #   39    38     Operational  >VIZ LOCATE Loran-C (USA)<
+Entry #   40    39     Operational  >Sprenger E076 (Germany)<
+Entry #   41    40     Operational  >Sprenger E084 (Germany)<
+Entry #   42    41     Operational  >Sprenger E085 (Germany<
+Entry #   43    42     Operational  >Sprenger E086 (Germany)<
+Entry #   44    43     Operational  >AIR IS - 4A - 1680 (USA)<
+Entry #   45    44     Operational  >AIR IS - 4A - 1680 X (USA)<
+Entry #   46    45     Operational  >RS MSS (USA)<
+Entry #   47    46     Operational  >Air IS - 4A - 403 (USA)<
+Entry #   48    47     Operational  >Meisei RS2-91 (Japan)<
+Entry #   49    48     Operational  >VALCOM (Canada)<
+Entry #   50    49     Operational  >VIZ MARK II (USA)<
+Entry #   51    50     Operational  >Graw DFM-90 (Germany)<
+Entry #   52    51     Operational  >VIZ-B2 (USA)<
+Entry #   53    52     Operational  >Vaisala RS80-57H<
+Entry #   54    53     Operational  >AVK-RF95 (Russian Federation)<
+Entry #   55    54     Operational  >Graw DFM-97 (Germany)<
+Entry #   56    55     Operational  >Meisei RS-016 (Japan)<
+Entry #   57    56     Operational  >M2K2 (France)<
+Entry #   58    57     Operational  >Modem M2K2-DC (France)<
+Entry #   59    58     Operational  >AVK BAR (Russian Federation)<
+Entry #   60    59     Operational  >Modem M2K2 R 1680 MHz RDF radiosonde with pressure sensor chip (France)<
+Entry #   61    60     Operational  >Vaisala RS80/MicroCora (Finland)<
+Entry #   62    61     Operational  >Vaisala RS80/Loran/Digicora I,II or Marwin (Finland)<
+Entry #   63    62     Operational  >Vaisala RS80/PCCora (Finland)<
+Entry #   64    63     Operational  >Vaisala RS80/Star (Finland)<
+Entry #   65    64     Operational  >Orbital Sciences Corporation, Space Data Division, transponder radiosonde, type 909 11-XX, where XX corresponds to the model of the instrument (USA)<
+Entry #   66    65     Operational  >VIZ transponder radiosonde, model number 1499–520 (USA)<
+Entry #   67    66     Operational  >Vaisala RS80 /Autosonde (Finland)<
+Entry #   68    67     Operational  >Vaisala RS80/Digicora III (Finland)<
+Entry #   69    68     Operational  >AVK RZM-2 (Russian Federation)<
+Entry #   70    69     Operational  >MARL-A or Vektor-M-RZM-2 (Russian Federation)<
+Entry #   71    70     Operational  >Vaisala RS92/Star (Finland)<
+Entry #   72    71     Operational  >Vaisala RS90/Loran/Digicora I,II or Marwin (Finland)<
+Entry #   73    72     Operational  >Vaisala RS90/PC-Cora (Finland)<
+Entry #   74    73     Operational  >Vaisala RS90/Autosonde (Finland)<
+Entry #   75    74     Operational  >Vaisala RS90/Star (Finland)<
+Entry #   76    75     Operational  >AVK-MRZ-ARMA (Russian Federation)<
+Entry #   77    76     Operational  >AVK-RF95-ARMA (Russian Federation)<
+Entry #   78    77     Operational  >GEOLINK GPSonde GL98 (France)<
+Entry #   79    78     Operational  >Vaisala RS90/Digicora III (Finland)<
+Entry #   80    79     Operational  >Vaisala RS92/Digicora I,II or Marwin (Finland)<
+Entry #   81    80     Operational  >Vaisala RS92/Digicora III (Finland)<
+Entry #   82    81     Operational  >Vaisala RS92/Autosonde (Finland)<
+Entry #   83    82     Operational  >Sippican MK2 GPS/STAR (USA) with rod thermistor, carbon element and derived pressure<
+Entry #   84    83     Operational  >Sippican MK2 GPS/W9000 (USA) with rod thermistor, carbon element and derived pressure<
+Entry #   85    84     Operational  >Sippican MARK II with chip thermistor, carbon element and derived pressure from GPS height<
+Entry #   86    85     Operational  >Sippican MARK IIA with chip thermistor, carbon element and derived pressure from GPS height<
+Entry #   87    86     Operational  >Sippican MARK II with chip thermistor, pressure and carbon element<
+Entry #   88    87     Operational  >Sippican MARK IIA with chip thermistor, pressure and carbon element<
+Entry #   89    88     Operational  >MARL-A or Vektor-M-MRZ (Russian Federation)<
+Entry #   90    89     Operational  >MARL-A or Vektor-M-BAR (Russian Federation)<
+Entry #   91    90     Operational  >Radiosonde not specified or unknown<
+Entry #   92    91     Operational  >Pressure only radiosonde<
+Entry #   93    92     Operational  >Pressure only radiosonde plus transponder<
+Entry #   94    93     Operational  >Pressure only radiosonde plus radar reflector<
+Entry #   95    94     Operational  >No pressure radiosonde plus transponder<
+Entry #   96    95     Operational  >No pressure radiosonde plus radar reflector<
+Entry #   97    96     Operational  >Descending radiosonde<
+Entry #   98    97     Operational  >BAT-16P (South Africa)<
+Entry #   99    98     Operational  >BAT-16G (South Africa)<
+Entry #  100    99     Operational  >BAT-4G (South Africa)<
+Entry #  101   100     Operational  >Reserved for BUFR only<
+Entry #  102   101     Operational  >Not used<
+Entry #  103 102-106     Operational  >Reserved for BUFR only<
+Entry #  104   107     Operational  >Not used<
+Entry #  105 108-109     Operational  >Reserved for BUFR only<
+Entry #  106   110     Operational  >Sippican LMS5 w/Chip Thermistor, duct mounted capacitance relative humidity sensor and derived pressure from GPS height<
+Entry #  107   111     Operational  >Sippican LMS6 w/Chip Thermistor, external boom mounted capacitance relative humidity sensor, and derived pressure from GPS height<
+Entry #  108   112     Operational  >Not used<
+Entry #  109 113-116     Operational  >Not used<
+Entry #  110 117-122     Operational  >Not used<
+Entry #  111 123-125     Operational  >Not used<
+Entry #  112 126-129     Operational  >Not used<
+Entry #  113   130     Operational  >Meisei RS06G (Japan)<
+Entry #  114   131     Operational  >Not used<
+Entry #  115   132     Operational  >Not used<
+Entry #  116 133-135     Operational  >Not used<
+Entry #  117 136-137     Operational  >Not used<
+Entry #  118 138-146     Operational  >Not used<
+Entry #  119   147     Operational  >Not used<
+Entry #  120   148     Operational  >Not used<
+Entry #  121 149-163     Operational  >Not used<
+Entry #  122 164-165     Operational  >Not used<
+Entry #  123 166-176     Operational  >Not used<
+Entry #  125   177 Pre-operational  >Modem GPSonde M10 (France)<
+Entry #  126 177-189     Operational  >Not used<
+Entry #  127 190-196     Operational  >Reserved for BUFR only<
+Entry #  128 197-199     Operational  >Not used<
+Entry #  129 200-254     Operational  >Reserved for BUFR only<
+Entry #  130   255     Operational  >Missing value<
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(1, 'iMet-1-BB (USA)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(100, 3645)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1535, 3645)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(2, 'No radiosonde - passive target (e.g. reflector)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(100, 3646)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1535, 3646)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(3, 'No radiosonde - active target (e.g. transponder)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(100, 3647)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1535, 3647)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(4, 'No radiosonde - passive temperature-humidity profiler')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(100, 3648)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1535, 3648)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(5, 'No radiosonde - active temperature-humidity profiler')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(100, 3649)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1535, 3649)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(6, 'No radiosonde - radio acoustic sounder')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(100, 3650)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1535, 3650)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(7, 'iMet-1-AB (USA)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(100, 3651)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1535, 3651)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(8, 'No radiosonde - reserved')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(100, 3652)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1535, 3652)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(9, 'No radiosonde - system unknown or not specified')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(100, 3653)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1535, 3653)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(10, 'VIZ type A pressure-commutated (USA)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(100, 3654)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1535, 3654)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(11, 'VIZ type B time-commutated (USA)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(100, 3655)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1535, 3655)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(12, 'RS SDC (Space Data Corporation - USA)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(100, 3656)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1535, 3656)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(13, 'Astor (no longer made - Australia)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(100, 3657)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1535, 3657)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(14, 'VIZ MARK I MICROSONDE (USA)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(100, 3658)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1535, 3658)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(15, 'EEC Company type 23 (USA)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(100, 3659)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1535, 3659)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(16, 'Elin (Austria)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(100, 3660)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1535, 3660)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(17, 'Graw G. (Germany)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(100, 3661)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1535, 3661)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(18, 'Graw DFM-06 (Germany)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(100, 3662)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1535, 3662)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(19, 'Graw M60 (Germany)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(100, 3663)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1535, 3663)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(20, 'Indian Meteorological Service MK3 (India)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(100, 3664)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1535, 3664)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(21, 'VIZ/Jin Yang MARK I MICROSONDE (Republic of Korea)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(100, 3665)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1535, 3665)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(22, 'Meisei RS2-80 (Japan)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(100, 3666)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1535, 3666)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(23, 'Mesural FMO 1950A (France)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(100, 3667)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1535, 3667)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(24, 'Mesural FMO 1945A (France)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(100, 3668)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1535, 3668)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(25, 'Mesural MH73A (France)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(100, 3669)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1535, 3669)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(26, 'Meteolabor Basora (Switzerland)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(100, 3670)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1535, 3670)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(27, 'AVK MRZ (Russian Federation)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(100, 3671)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1535, 3671)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(28, 'Meteorit MARZ2-1 (Russian Federation)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(100, 3672)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1535, 3672)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(29, 'Meteorit MARZ2-2 (Russian Federation)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(100, 3673)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1535, 3673)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(30, 'Oki RS2-80 (Japan)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(100, 3674)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1535, 3674)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(31, 'VIZ/Valcom type A pressure-commutated (Canada)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(100, 3675)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1535, 3675)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(32, 'Shanghai Radio (China)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(100, 3676)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1535, 3676)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(33, 'UK Met Office MK3 (UK)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(100, 3677)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1535, 3677)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(34, 'Vinohrady (Czech Republic)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(100, 3678)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1535, 3678)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(35, 'Vaisala RS18 (Finland)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(100, 3679)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1535, 3679)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(36, 'Vaisala RS21 (Finland)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(100, 3680)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1535, 3680)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(37, 'Vaisala RS80 (Finland)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(100, 3681)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1535, 3681)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(38, 'VIZ LOCATE Loran-C (USA)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(100, 3682)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1535, 3682)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(39, 'Sprenger E076 (Germany)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(100, 3683)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1535, 3683)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(40, 'Sprenger E084 (Germany)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(100, 3684)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1535, 3684)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(41, 'Sprenger E085 (Germany')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(100, 3685)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1535, 3685)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(42, 'Sprenger E086 (Germany)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(100, 3686)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1535, 3686)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(43, 'AIR IS - 4A - 1680 (USA)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(100, 3687)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1535, 3687)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(44, 'AIR IS - 4A - 1680 X (USA)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(100, 3688)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1535, 3688)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(45, 'RS MSS (USA)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(100, 3689)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1535, 3689)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(46, 'Air IS - 4A - 403 (USA)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(100, 3690)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1535, 3690)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(47, 'Meisei RS2-91 (Japan)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(100, 3691)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1535, 3691)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(48, 'VALCOM (Canada)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(100, 3692)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1535, 3692)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(49, 'VIZ MARK II (USA)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(100, 3693)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1535, 3693)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(50, 'Graw DFM-90 (Germany)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(100, 3694)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1535, 3694)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(51, 'VIZ-B2 (USA)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(100, 3695)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1535, 3695)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(52, 'Vaisala RS80-57H')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(100, 3696)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1535, 3696)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(53, 'AVK-RF95 (Russian Federation)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(100, 3697)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1535, 3697)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(54, 'Graw DFM-97 (Germany)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(100, 3698)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1535, 3698)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(55, 'Meisei RS-016 (Japan)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(100, 3699)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1535, 3699)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(56, 'M2K2 (France)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(100, 3700)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1535, 3700)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(57, 'Modem M2K2-DC (France)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(100, 3701)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1535, 3701)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(58, 'AVK BAR (Russian Federation)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(100, 3702)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1535, 3702)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(59, 'Modem M2K2 R 1680 MHz RDF radiosonde with pressure sensor chip (France)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(100, 3703)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1535, 3703)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(60, 'Vaisala RS80/MicroCora (Finland)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(100, 3704)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1535, 3704)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(61, 'Vaisala RS80/Loran/Digicora I,II or Marwin (Finland)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(100, 3705)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1535, 3705)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(62, 'Vaisala RS80/PCCora (Finland)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(100, 3706)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1535, 3706)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(63, 'Vaisala RS80/Star (Finland)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(100, 3707)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1535, 3707)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(64, 'Orbital Sciences Corporation, Space Data Division, transponder radiosonde, type 909 11-XX, where XX corresponds to the model of the instrument (USA)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(100, 3708)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1535, 3708)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(65, 'VIZ transponder radiosonde, model number 1499–520 (USA)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(100, 3709)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1535, 3709)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(66, 'Vaisala RS80 /Autosonde (Finland)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(100, 3710)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1535, 3710)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(67, 'Vaisala RS80/Digicora III (Finland)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(100, 3711)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1535, 3711)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(68, 'AVK RZM-2 (Russian Federation)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(100, 3712)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1535, 3712)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(69, 'MARL-A or Vektor-M-RZM-2 (Russian Federation)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(100, 3713)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1535, 3713)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(70, 'Vaisala RS92/Star (Finland)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(100, 3714)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1535, 3714)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(71, 'Vaisala RS90/Loran/Digicora I,II or Marwin (Finland)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(100, 3715)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1535, 3715)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(72, 'Vaisala RS90/PC-Cora (Finland)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(100, 3716)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1535, 3716)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(73, 'Vaisala RS90/Autosonde (Finland)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(100, 3717)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1535, 3717)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(74, 'Vaisala RS90/Star (Finland)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(100, 3718)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1535, 3718)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(75, 'AVK-MRZ-ARMA (Russian Federation)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(100, 3719)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1535, 3719)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(76, 'AVK-RF95-ARMA (Russian Federation)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(100, 3720)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1535, 3720)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(77, 'GEOLINK GPSonde GL98 (France)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(100, 3721)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1535, 3721)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(78, 'Vaisala RS90/Digicora III (Finland)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(100, 3722)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1535, 3722)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(79, 'Vaisala RS92/Digicora I,II or Marwin (Finland)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(100, 3723)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1535, 3723)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(80, 'Vaisala RS92/Digicora III (Finland)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(100, 3724)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1535, 3724)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(81, 'Vaisala RS92/Autosonde (Finland)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(100, 3725)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1535, 3725)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(82, 'Sippican MK2 GPS/STAR (USA) with rod thermistor, carbon element and derived pressure')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(100, 3726)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1535, 3726)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(83, 'Sippican MK2 GPS/W9000 (USA) with rod thermistor, carbon element and derived pressure')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(100, 3727)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1535, 3727)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(84, 'Sippican MARK II with chip thermistor, carbon element and derived pressure from GPS height')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(100, 3728)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1535, 3728)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(85, 'Sippican MARK IIA with chip thermistor, carbon element and derived pressure from GPS height')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(100, 3729)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1535, 3729)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(86, 'Sippican MARK II with chip thermistor, pressure and carbon element')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(100, 3730)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1535, 3730)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(87, 'Sippican MARK IIA with chip thermistor, pressure and carbon element')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(100, 3731)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1535, 3731)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(88, 'MARL-A or Vektor-M-MRZ (Russian Federation)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(100, 3732)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1535, 3732)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(89, 'MARL-A or Vektor-M-BAR (Russian Federation)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(100, 3733)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1535, 3733)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(90, 'Radiosonde not specified or unknown')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(100, 3734)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1535, 3734)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(91, 'Pressure only radiosonde')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(100, 3735)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1535, 3735)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(92, 'Pressure only radiosonde plus transponder')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(100, 3736)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1535, 3736)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(93, 'Pressure only radiosonde plus radar reflector')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(100, 3737)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1535, 3737)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(94, 'No pressure radiosonde plus transponder')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(100, 3738)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1535, 3738)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(95, 'No pressure radiosonde plus radar reflector')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(100, 3739)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1535, 3739)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(96, 'Descending radiosonde')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(100, 3740)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1535, 3740)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(97, 'BAT-16P (South Africa)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(100, 3741)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1535, 3741)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(98, 'BAT-16G (South Africa)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(100, 3742)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1535, 3742)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(99, 'BAT-4G (South Africa)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(100, 3743)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1535, 3743)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(110, 'Sippican LMS5 w/Chip Thermistor, duct mounted capacitance relative humidity sensor and derived pressure from GPS height')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(100, 3744)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1535, 3744)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(111, 'Sippican LMS6 w/Chip Thermistor, external boom mounted capacitance relative humidity sensor, and derived pressure from GPS height')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(100, 3745)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1535, 3745)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(130, 'Meisei RS06G (Japan)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(100, 3746)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1535, 3746)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(177, 'Modem GPSonde M10 (France)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(100, 3747)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1535, 3747)

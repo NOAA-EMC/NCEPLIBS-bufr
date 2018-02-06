@@ -1,0 +1,428 @@
+Entry:  Old Units >W m-3 sr-1<    New Units >W m⁻³ sr⁻¹<
+Entry:  Old Units >mol/mol<    New Units >mol mol⁻¹<
+Entry:  Old Units >mol mol-1<    New Units >mol mol⁻¹<
+Entry:  Old Units >kg/kg<    New Units >kg kg⁻¹<
+Entry:  Old Units >kg kg-1<    New Units >kg kg⁻¹<
+Entry:  Old Units >g/kg<    New Units >g kg⁻¹<
+Entry:  Old Units >g kg-1<    New Units >g kg⁻¹<
+Entry:  Old Units >umol kg-1<    New Units >umol kg⁻¹<
+Entry:  Old Units >J m-2<    New Units >J m⁻²<
+Entry:  Old Units >J kg-1<    New Units >J kg⁻¹<
+Entry:  Old Units >mg kg-1<    New Units >mg kg⁻¹<
+Entry:  Old Units >W m-2<    New Units >W m⁻²<
+Entry:  Old Units >Cd m-2<    New Units >Cd m⁻²<
+Entry:  Old Units >m/s<    New Units >m s⁻¹<
+Entry:  Old Units >m s-1<    New Units >m s⁻¹<
+Entry:  Old Units >S/m<    New Units >S m⁻¹<
+Entry:  Old Units >S m-1<    New Units >S m⁻¹<
+Entry:  Old Units >rad/m<    New Units >rad m⁻¹<
+Entry:  Old Units >rad m-1<    New Units >rad m⁻¹<
+Entry:  Old Units >deg/s<    New Units >Degree s⁻¹<
+Entry:  Old Units >Degree s-1<    New Units >Degree s⁻¹<
+Entry:  Old Units >Pa/s<    New Units >Pa s⁻¹<
+Entry:  Old Units >Pa s-1<    New Units >Pa s⁻¹<
+Entry:  Old Units >m2 Hz-1<    New Units >m² Hz⁻¹<
+Entry:  Old Units >m2 rad-1 s<    New Units >m² rad⁻¹ s<
+Entry:  Old Units >dB/deg<    New Units >dB degree⁻¹<
+Entry:  Old Units >dB degree-1<    New Units >dB degree⁻¹<
+Entry:  Old Units >dB/m<    New Units >dB m⁻¹<
+Entry:  Old Units >dB m-1<    New Units >dB m⁻¹<
+Entry:  Old Units >0/00<    New Units >Part per thousand<
+Entry:  Old Units >log (m-2)<    New Units >log (m⁻²)<
+Entry:  Old Units >log (m-1)<    New Units >log (m⁻¹)<
+Entry:  Old Units >Degree2<    New Units >Degree²<
+Entry:  Old Units >m4<    New Units >m⁴<
+Entry:  Old Units >m s-2<    New Units >m s⁻²<
+Entry:  Old Units >Bq/l<    New Units >Bq l⁻¹<
+Entry:  Old Units >Bq l-1<    New Units >Bq l⁻¹<
+Entry:  Old Units >Bq m-3<    New Units >Bq m⁻³<
+Entry:  Old Units >kg m-3<    New Units >kg m⁻³<
+Entry:  Old Units >kg m-2 s-1<    New Units >kg m⁻² s⁻¹<
+Entry:  Old Units >kg m-2 h-1<    New Units >kg m⁻² h⁻¹<
+Entry:  Old Units >kg m-2<    New Units >kg m⁻²<
+Entry:  Old Units >kg/m<    New Units >kg m⁻¹<
+Entry:  Old Units >kg m-1<    New Units >kg m⁻¹<
+Entry:  Old Units >V/m<    New Units >V m⁻¹<
+Entry:  Old Units >V m-1<    New Units >V m⁻¹<
+Entry:  Old Units >km/h<    New Units >km h⁻¹<
+Entry:  Old Units >km h-1<    New Units >km h⁻¹<
+Entry:  Old Units >/s<    New Units >s⁻¹<
+Entry:  Old Units >s-1<    New Units >s⁻¹<
+Entry:  Old Units >m-1<    New Units >m⁻¹<
+Entry:  Old Units >m-2<    New Units >m⁻²<
+Entry:  Old Units >m-3<    New Units >m⁻³<
+Entry:  Old Units >nSv/h<    New Units >nSv h⁻¹<
+Entry:  Old Units >nSv h-1<    New Units >nSv h⁻¹<
+Entry:  Old Units >mm h-1<    New Units >mm h⁻¹<
+Entry:  Old Units >K m s-1<    New Units >K m s⁻¹<
+Entry:  Old Units >K s-1<    New Units >K s⁻¹<
+Entry:  Old Units >m2/3 s-1<    New Units >m⅔ s⁻¹<
+Entry:  Old Units >deg<    New Units >Degree<
+Entry:  Old Units >mon<    New Units >Month<
+Entry:  Old Units >d<    New Units >Day<
+Entry:  Old Units >h<    New Units >Hour<
+Entry:  Old Units >min<    New Units >Minute<
+com.mysql.jdbc.JDBC4PreparedStatement@15e234c: UPDATE bufr_b SET bufr_unit = 'W m?³ sr?¹' WHERE id = 29097
+com.mysql.jdbc.JDBC4PreparedStatement@f593af: UPDATE bufr_b SET bufr_unit = 'mol mol?¹' WHERE id = 29281
+com.mysql.jdbc.JDBC4PreparedStatement@36527f: UPDATE bufr_b SET bufr_unit = 'kg kg?¹' WHERE id = 29150
+com.mysql.jdbc.JDBC4PreparedStatement@6210fb: UPDATE bufr_b SET bufr_unit = 'kg kg?¹' WHERE id = 29151
+com.mysql.jdbc.JDBC4PreparedStatement@1963b3e: UPDATE bufr_b SET bufr_unit = 'g kg?¹' WHERE id = 29214
+com.mysql.jdbc.JDBC4PreparedStatement@9505f: UPDATE bufr_b SET bufr_unit = 'J m?²' WHERE id = 29223
+com.mysql.jdbc.JDBC4PreparedStatement@17ba38f: UPDATE bufr_b SET bufr_unit = 'J m?²' WHERE id = 29224
+com.mysql.jdbc.JDBC4PreparedStatement@2f0d54: UPDATE bufr_b SET bufr_unit = 'J m?²' WHERE id = 29225
+com.mysql.jdbc.JDBC4PreparedStatement@1142196: UPDATE bufr_b SET bufr_unit = 'J m?²' WHERE id = 29226
+com.mysql.jdbc.JDBC4PreparedStatement@a9255c: UPDATE bufr_b SET bufr_unit = 'J m?²' WHERE id = 29227
+com.mysql.jdbc.JDBC4PreparedStatement@d3c6a3: UPDATE bufr_b SET bufr_unit = 'J m?²' WHERE id = 29228
+com.mysql.jdbc.JDBC4PreparedStatement@1961581: UPDATE bufr_b SET bufr_unit = 'J m?²' WHERE id = 29229
+com.mysql.jdbc.JDBC4PreparedStatement@4865ce: UPDATE bufr_b SET bufr_unit = 'J m?²' WHERE id = 29230
+com.mysql.jdbc.JDBC4PreparedStatement@113beb5: UPDATE bufr_b SET bufr_unit = 'J m?²' WHERE id = 29231
+com.mysql.jdbc.JDBC4PreparedStatement@14d7745: UPDATE bufr_b SET bufr_unit = 'J m?²' WHERE id = 29232
+com.mysql.jdbc.JDBC4PreparedStatement@d17ec3: UPDATE bufr_b SET bufr_unit = 'J m?²' WHERE id = 29236
+com.mysql.jdbc.JDBC4PreparedStatement@1d95da8: UPDATE bufr_b SET bufr_unit = 'J m?²' WHERE id = 29237
+com.mysql.jdbc.JDBC4PreparedStatement@193f6e2: UPDATE bufr_b SET bufr_unit = 'J m?²' WHERE id = 29238
+com.mysql.jdbc.JDBC4PreparedStatement@1358f03: UPDATE bufr_b SET bufr_unit = 'J m?²' WHERE id = 29239
+com.mysql.jdbc.JDBC4PreparedStatement@1402d5a: UPDATE bufr_b SET bufr_unit = 'J m?²' WHERE id = 29240
+com.mysql.jdbc.JDBC4PreparedStatement@61736e: UPDATE bufr_b SET bufr_unit = 'J m?²' WHERE id = 29241
+com.mysql.jdbc.JDBC4PreparedStatement@1e13e07: UPDATE bufr_b SET bufr_unit = 'J m?²' WHERE id = 29244
+com.mysql.jdbc.JDBC4PreparedStatement@af72d8: UPDATE bufr_b SET bufr_unit = 'J m?²' WHERE id = 29245
+com.mysql.jdbc.JDBC4PreparedStatement@9cfec1: UPDATE bufr_b SET bufr_unit = 'J m?²' WHERE id = 29246
+com.mysql.jdbc.JDBC4PreparedStatement@11946c2: UPDATE bufr_b SET bufr_unit = 'J m?²' WHERE id = 29260
+com.mysql.jdbc.JDBC4PreparedStatement@747fa2: UPDATE bufr_b SET bufr_unit = 'J m?²' WHERE id = 29261
+com.mysql.jdbc.JDBC4PreparedStatement@6782a9: UPDATE bufr_b SET bufr_unit = 'J m?²' WHERE id = 29262
+com.mysql.jdbc.JDBC4PreparedStatement@1b34126: UPDATE bufr_b SET bufr_unit = 'J m?²' WHERE id = 29263
+com.mysql.jdbc.JDBC4PreparedStatement@17a4989: UPDATE bufr_b SET bufr_unit = 'J m?²' WHERE id = 29266
+com.mysql.jdbc.JDBC4PreparedStatement@17200b4: UPDATE bufr_b SET bufr_unit = 'J m?²' WHERE id = 29267
+com.mysql.jdbc.JDBC4PreparedStatement@174219d: UPDATE bufr_b SET bufr_unit = 'W m?²' WHERE id = 29233
+com.mysql.jdbc.JDBC4PreparedStatement@14ae2c1: UPDATE bufr_b SET bufr_unit = 'W m?²' WHERE id = 29234
+com.mysql.jdbc.JDBC4PreparedStatement@16d2702: UPDATE bufr_b SET bufr_unit = 'W m?²' WHERE id = 29251
+com.mysql.jdbc.JDBC4PreparedStatement@11c2b67: UPDATE bufr_b SET bufr_unit = 'W m?²' WHERE id = 29830
+com.mysql.jdbc.JDBC4PreparedStatement@16be68f: UPDATE bufr_b SET bufr_unit = 'Cd m?²' WHERE id = 29265
+com.mysql.jdbc.JDBC4PreparedStatement@126f827: UPDATE bufr_b SET bufr_unit = 'm s?¹' WHERE id = 28473
+com.mysql.jdbc.JDBC4PreparedStatement@16dfa45: UPDATE bufr_b SET bufr_unit = 'm s?¹' WHERE id = 28474
+com.mysql.jdbc.JDBC4PreparedStatement@149eb9f: UPDATE bufr_b SET bufr_unit = 'm s?¹' WHERE id = 28499
+com.mysql.jdbc.JDBC4PreparedStatement@c3014: UPDATE bufr_b SET bufr_unit = 'm s?¹' WHERE id = 28500
+com.mysql.jdbc.JDBC4PreparedStatement@289d2e: UPDATE bufr_b SET bufr_unit = 'm s?¹' WHERE id = 28501
+com.mysql.jdbc.JDBC4PreparedStatement@6754d6: UPDATE bufr_b SET bufr_unit = 'm s?¹' WHERE id = 28728
+com.mysql.jdbc.JDBC4PreparedStatement@1f2cea2: UPDATE bufr_b SET bufr_unit = 'm s?¹' WHERE id = 28965
+com.mysql.jdbc.JDBC4PreparedStatement@1dc0e7a: UPDATE bufr_b SET bufr_unit = 'm s?¹' WHERE id = 28986
+com.mysql.jdbc.JDBC4PreparedStatement@3a9bba: UPDATE bufr_b SET bufr_unit = 'm s?¹' WHERE id = 28987
+com.mysql.jdbc.JDBC4PreparedStatement@1c5ddc9: UPDATE bufr_b SET bufr_unit = 'm s?¹' WHERE id = 28988
+com.mysql.jdbc.JDBC4PreparedStatement@163f7a1: UPDATE bufr_b SET bufr_unit = 'm s?¹' WHERE id = 28990
+com.mysql.jdbc.JDBC4PreparedStatement@1690ab: UPDATE bufr_b SET bufr_unit = 'm s?¹' WHERE id = 28992
+com.mysql.jdbc.JDBC4PreparedStatement@173ec72: UPDATE bufr_b SET bufr_unit = 'm s?¹' WHERE id = 28995
+com.mysql.jdbc.JDBC4PreparedStatement@1a85d38: UPDATE bufr_b SET bufr_unit = 'm s?¹' WHERE id = 28997
+com.mysql.jdbc.JDBC4PreparedStatement@8046f4: UPDATE bufr_b SET bufr_unit = 'm s?¹' WHERE id = 29008
+com.mysql.jdbc.JDBC4PreparedStatement@1b273cc: UPDATE bufr_b SET bufr_unit = 'm s?¹' WHERE id = 29010
+com.mysql.jdbc.JDBC4PreparedStatement@d05c13: UPDATE bufr_b SET bufr_unit = 'm s?¹' WHERE id = 29014
+com.mysql.jdbc.JDBC4PreparedStatement@14d1d41: UPDATE bufr_b SET bufr_unit = 'm s?¹' WHERE id = 29015
+com.mysql.jdbc.JDBC4PreparedStatement@1bbd7b2: UPDATE bufr_b SET bufr_unit = 'm s?¹' WHERE id = 29016
+com.mysql.jdbc.JDBC4PreparedStatement@14df764: UPDATE bufr_b SET bufr_unit = 'm s?¹' WHERE id = 29019
+com.mysql.jdbc.JDBC4PreparedStatement@1acfa31: UPDATE bufr_b SET bufr_unit = 'm s?¹' WHERE id = 29020
+com.mysql.jdbc.JDBC4PreparedStatement@15dd910: UPDATE bufr_b SET bufr_unit = 'm s?¹' WHERE id = 29021
+com.mysql.jdbc.JDBC4PreparedStatement@55bb93: UPDATE bufr_b SET bufr_unit = 'm s?¹' WHERE id = 29023
+com.mysql.jdbc.JDBC4PreparedStatement@8de462: UPDATE bufr_b SET bufr_unit = 'm s?¹' WHERE id = 29024
+com.mysql.jdbc.JDBC4PreparedStatement@18ce14a: UPDATE bufr_b SET bufr_unit = 'm s?¹' WHERE id = 29025
+com.mysql.jdbc.JDBC4PreparedStatement@1ae90c: UPDATE bufr_b SET bufr_unit = 'm s?¹' WHERE id = 29028
+com.mysql.jdbc.JDBC4PreparedStatement@ba4211: UPDATE bufr_b SET bufr_unit = 'm s?¹' WHERE id = 29029
+com.mysql.jdbc.JDBC4PreparedStatement@47a0d4: UPDATE bufr_b SET bufr_unit = 'm s?¹' WHERE id = 29030
+com.mysql.jdbc.JDBC4PreparedStatement@8ff4cf: UPDATE bufr_b SET bufr_unit = 'm s?¹' WHERE id = 29040
+com.mysql.jdbc.JDBC4PreparedStatement@1114460: UPDATE bufr_b SET bufr_unit = 'm s?¹' WHERE id = 29045
+com.mysql.jdbc.JDBC4PreparedStatement@9ffe3f: UPDATE bufr_b SET bufr_unit = 'm s?¹' WHERE id = 29046
+com.mysql.jdbc.JDBC4PreparedStatement@1ed1b0b: UPDATE bufr_b SET bufr_unit = 'm s?¹' WHERE id = 29047
+com.mysql.jdbc.JDBC4PreparedStatement@18a8ce2: UPDATE bufr_b SET bufr_unit = 'm s?¹' WHERE id = 29048
+com.mysql.jdbc.JDBC4PreparedStatement@12789d2: UPDATE bufr_b SET bufr_unit = 'm s?¹' WHERE id = 29049
+com.mysql.jdbc.JDBC4PreparedStatement@c943d1: UPDATE bufr_b SET bufr_unit = 'm s?¹' WHERE id = 29050
+com.mysql.jdbc.JDBC4PreparedStatement@18352d8: UPDATE bufr_b SET bufr_unit = 'm s?¹' WHERE id = 29051
+com.mysql.jdbc.JDBC4PreparedStatement@b40ec4: UPDATE bufr_b SET bufr_unit = 'm s?¹' WHERE id = 29052
+com.mysql.jdbc.JDBC4PreparedStatement@13576a2: UPDATE bufr_b SET bufr_unit = 'm s?¹' WHERE id = 29059
+com.mysql.jdbc.JDBC4PreparedStatement@ff8c74: UPDATE bufr_b SET bufr_unit = 'm s?¹' WHERE id = 29060
+com.mysql.jdbc.JDBC4PreparedStatement@15e2ccd: UPDATE bufr_b SET bufr_unit = 'm s?¹' WHERE id = 29061
+com.mysql.jdbc.JDBC4PreparedStatement@1cf7491: UPDATE bufr_b SET bufr_unit = 'm s?¹' WHERE id = 29163
+com.mysql.jdbc.JDBC4PreparedStatement@edf730: UPDATE bufr_b SET bufr_unit = 'm s?¹' WHERE id = 29316
+com.mysql.jdbc.JDBC4PreparedStatement@ff94b1: UPDATE bufr_b SET bufr_unit = 'm s?¹' WHERE id = 29319
+com.mysql.jdbc.JDBC4PreparedStatement@17b0998: UPDATE bufr_b SET bufr_unit = 'm s?¹' WHERE id = 29460
+com.mysql.jdbc.JDBC4PreparedStatement@b30913: UPDATE bufr_b SET bufr_unit = 'm s?¹' WHERE id = 29461
+com.mysql.jdbc.JDBC4PreparedStatement@18f51f: UPDATE bufr_b SET bufr_unit = 'm s?¹' WHERE id = 29462
+com.mysql.jdbc.JDBC4PreparedStatement@84ce7a: UPDATE bufr_b SET bufr_unit = 'm s?¹' WHERE id = 29463
+com.mysql.jdbc.JDBC4PreparedStatement@10fd7f6: UPDATE bufr_b SET bufr_unit = 'm s?¹' WHERE id = 29464
+com.mysql.jdbc.JDBC4PreparedStatement@12b6c89: UPDATE bufr_b SET bufr_unit = 'm s?¹' WHERE id = 29465
+com.mysql.jdbc.JDBC4PreparedStatement@1e2befa: UPDATE bufr_b SET bufr_unit = 'm s?¹' WHERE id = 29466
+com.mysql.jdbc.JDBC4PreparedStatement@1682598: UPDATE bufr_b SET bufr_unit = 'm s?¹' WHERE id = 29476
+com.mysql.jdbc.JDBC4PreparedStatement@7c3885: UPDATE bufr_b SET bufr_unit = 'm s?¹' WHERE id = 29601
+com.mysql.jdbc.JDBC4PreparedStatement@162e295: UPDATE bufr_b SET bufr_unit = 'm s?¹' WHERE id = 29602
+com.mysql.jdbc.JDBC4PreparedStatement@109de5b: UPDATE bufr_b SET bufr_unit = 'm s?¹' WHERE id = 29612
+com.mysql.jdbc.JDBC4PreparedStatement@e53220: UPDATE bufr_b SET bufr_unit = 'm s?¹' WHERE id = 29739
+com.mysql.jdbc.JDBC4PreparedStatement@13e0aba: UPDATE bufr_b SET bufr_unit = 'm s?¹' WHERE id = 29740
+com.mysql.jdbc.JDBC4PreparedStatement@3257b8: UPDATE bufr_b SET bufr_unit = 'm s?¹' WHERE id = 29741
+com.mysql.jdbc.JDBC4PreparedStatement@11d2572: UPDATE bufr_b SET bufr_unit = 'm s?¹' WHERE id = 29840
+com.mysql.jdbc.JDBC4PreparedStatement@859a68: UPDATE bufr_b SET bufr_unit = 'm s?¹' WHERE id = 30060
+com.mysql.jdbc.JDBC4PreparedStatement@15c62bc: UPDATE bufr_b SET bufr_unit = 'm s?¹' WHERE id = 30061
+com.mysql.jdbc.JDBC4PreparedStatement@5660d6: UPDATE bufr_b SET bufr_unit = 'm s?¹' WHERE id = 30064
+com.mysql.jdbc.JDBC4PreparedStatement@88df60: UPDATE bufr_b SET bufr_unit = 'S m?¹' WHERE id = 29197
+com.mysql.jdbc.JDBC4PreparedStatement@1318b: UPDATE bufr_b SET bufr_unit = 'S m?¹' WHERE id = 29626
+com.mysql.jdbc.JDBC4PreparedStatement@faa550: UPDATE bufr_b SET bufr_unit = 'rad m?¹' WHERE id = 28825
+com.mysql.jdbc.JDBC4PreparedStatement@17b6643: UPDATE bufr_b SET bufr_unit = 'rad m?¹' WHERE id = 29536
+com.mysql.jdbc.JDBC4PreparedStatement@d66426: UPDATE bufr_b SET bufr_unit = 'Degree s?¹' WHERE id = 28638
+com.mysql.jdbc.JDBC4PreparedStatement@164b09c: UPDATE bufr_b SET bufr_unit = 'Degree s?¹' WHERE id = 28639
+com.mysql.jdbc.JDBC4PreparedStatement@6d0040: UPDATE bufr_b SET bufr_unit = 'Pa s?¹' WHERE id = 28989
+com.mysql.jdbc.JDBC4PreparedStatement@f30494: UPDATE bufr_b SET bufr_unit = 'm² rad?¹ s' WHERE id = 29652
+com.mysql.jdbc.JDBC4PreparedStatement@eaf40c: UPDATE bufr_b SET bufr_unit = 'dB degree?¹' WHERE id = 29553
+com.mysql.jdbc.JDBC4PreparedStatement@13c6641: UPDATE bufr_b SET bufr_unit = 'dB degree?¹' WHERE id = 29554
+com.mysql.jdbc.JDBC4PreparedStatement@d507e9: UPDATE bufr_b SET bufr_unit = 'dB m?¹' WHERE id = 29558
+com.mysql.jdbc.JDBC4PreparedStatement@1fa6d18: UPDATE bufr_b SET bufr_unit = 'dB m?¹' WHERE id = 29777
+com.mysql.jdbc.JDBC4PreparedStatement@14a7a12: UPDATE bufr_b SET bufr_unit = 'Part per thousand' WHERE id = 29619
+com.mysql.jdbc.JDBC4PreparedStatement@9444d1: UPDATE bufr_b SET bufr_unit = 'Part per thousand' WHERE id = 29622
+com.mysql.jdbc.JDBC4PreparedStatement@32060c: UPDATE bufr_b SET bufr_unit = 'Part per thousand' WHERE id = 29624
+com.mysql.jdbc.JDBC4PreparedStatement@1efb4be: UPDATE bufr_b SET bufr_unit = 'log (m?²)' WHERE id = 29274
+com.mysql.jdbc.JDBC4PreparedStatement@1d8c528: UPDATE bufr_b SET bufr_unit = 'log (m?¹)' WHERE id = 29827
+com.mysql.jdbc.JDBC4PreparedStatement@e35bb7: UPDATE bufr_b SET bufr_unit = 'Degree²' WHERE id = 237
+com.mysql.jdbc.JDBC4PreparedStatement@9a8a68: UPDATE bufr_b SET bufr_unit = 'Degree²' WHERE id = 454
+com.mysql.jdbc.JDBC4PreparedStatement@1f4e571: UPDATE bufr_b SET bufr_unit = 'Degree²' WHERE id = 455
+com.mysql.jdbc.JDBC4PreparedStatement@1038de7: UPDATE bufr_b SET bufr_unit = 'Degree²' WHERE id = 1673
+com.mysql.jdbc.JDBC4PreparedStatement@5976c2: UPDATE bufr_b SET bufr_unit = 'Degree²' WHERE id = 1891
+com.mysql.jdbc.JDBC4PreparedStatement@183e7de: UPDATE bufr_b SET bufr_unit = 'Degree²' WHERE id = 1892
+com.mysql.jdbc.JDBC4PreparedStatement@ebcdbb: UPDATE bufr_b SET bufr_unit = 'Degree²' WHERE id = 1908
+com.mysql.jdbc.JDBC4PreparedStatement@10fe2b9: UPDATE bufr_b SET bufr_unit = 'Degree²' WHERE id = 7807
+com.mysql.jdbc.JDBC4PreparedStatement@1ee148b: UPDATE bufr_b SET bufr_unit = 'Degree²' WHERE id = 8016
+com.mysql.jdbc.JDBC4PreparedStatement@186d484: UPDATE bufr_b SET bufr_unit = 'Degree²' WHERE id = 8017
+com.mysql.jdbc.JDBC4PreparedStatement@ea48be: UPDATE bufr_b SET bufr_unit = 'Degree²' WHERE id = 8033
+com.mysql.jdbc.JDBC4PreparedStatement@14dd758: UPDATE bufr_b SET bufr_unit = 'Degree²' WHERE id = 9178
+com.mysql.jdbc.JDBC4PreparedStatement@174d93a: UPDATE bufr_b SET bufr_unit = 'Degree²' WHERE id = 9387
+com.mysql.jdbc.JDBC4PreparedStatement@61a907: UPDATE bufr_b SET bufr_unit = 'Degree²' WHERE id = 9388
+com.mysql.jdbc.JDBC4PreparedStatement@1a0225b: UPDATE bufr_b SET bufr_unit = 'Degree²' WHERE id = 9404
+com.mysql.jdbc.JDBC4PreparedStatement@2f8b5a: UPDATE bufr_b SET bufr_unit = 'Degree²' WHERE id = 10581
+com.mysql.jdbc.JDBC4PreparedStatement@165c7f6: UPDATE bufr_b SET bufr_unit = 'Degree²' WHERE id = 10790
+com.mysql.jdbc.JDBC4PreparedStatement@12aea3e: UPDATE bufr_b SET bufr_unit = 'Degree²' WHERE id = 10791
+com.mysql.jdbc.JDBC4PreparedStatement@78bc3b: UPDATE bufr_b SET bufr_unit = 'Degree²' WHERE id = 10807
+com.mysql.jdbc.JDBC4PreparedStatement@8ddc4c: UPDATE bufr_b SET bufr_unit = 'Degree²' WHERE id = 11962
+com.mysql.jdbc.JDBC4PreparedStatement@17a1767: UPDATE bufr_b SET bufr_unit = 'Degree²' WHERE id = 12173
+com.mysql.jdbc.JDBC4PreparedStatement@968fda: UPDATE bufr_b SET bufr_unit = 'Degree²' WHERE id = 12174
+com.mysql.jdbc.JDBC4PreparedStatement@be41ec: UPDATE bufr_b SET bufr_unit = 'Degree²' WHERE id = 12190
+com.mysql.jdbc.JDBC4PreparedStatement@da2cef: UPDATE bufr_b SET bufr_unit = 'Degree²' WHERE id = 13411
+com.mysql.jdbc.JDBC4PreparedStatement@1bc16f0: UPDATE bufr_b SET bufr_unit = 'Degree²' WHERE id = 13623
+com.mysql.jdbc.JDBC4PreparedStatement@18622f3: UPDATE bufr_b SET bufr_unit = 'Degree²' WHERE id = 13624
+com.mysql.jdbc.JDBC4PreparedStatement@160877b: UPDATE bufr_b SET bufr_unit = 'Degree²' WHERE id = 13640
+com.mysql.jdbc.JDBC4PreparedStatement@5eb489: UPDATE bufr_b SET bufr_unit = 'Degree²' WHERE id = 14879
+com.mysql.jdbc.JDBC4PreparedStatement@19ec4ed: UPDATE bufr_b SET bufr_unit = 'Degree²' WHERE id = 15091
+com.mysql.jdbc.JDBC4PreparedStatement@92dcdb: UPDATE bufr_b SET bufr_unit = 'Degree²' WHERE id = 15092
+com.mysql.jdbc.JDBC4PreparedStatement@1e1be92: UPDATE bufr_b SET bufr_unit = 'Degree²' WHERE id = 15108
+com.mysql.jdbc.JDBC4PreparedStatement@1a6684f: UPDATE bufr_b SET bufr_unit = 'Degree²' WHERE id = 16346
+com.mysql.jdbc.JDBC4PreparedStatement@a3d3b: UPDATE bufr_b SET bufr_unit = 'Degree²' WHERE id = 16559
+com.mysql.jdbc.JDBC4PreparedStatement@3a1ec6: UPDATE bufr_b SET bufr_unit = 'Degree²' WHERE id = 16560
+com.mysql.jdbc.JDBC4PreparedStatement@1ba6076: UPDATE bufr_b SET bufr_unit = 'Degree²' WHERE id = 16576
+com.mysql.jdbc.JDBC4PreparedStatement@112e7f7: UPDATE bufr_b SET bufr_unit = 'Degree²' WHERE id = 17827
+com.mysql.jdbc.JDBC4PreparedStatement@3b1f38: UPDATE bufr_b SET bufr_unit = 'Degree²' WHERE id = 18045
+com.mysql.jdbc.JDBC4PreparedStatement@17ec9f7: UPDATE bufr_b SET bufr_unit = 'Degree²' WHERE id = 18046
+com.mysql.jdbc.JDBC4PreparedStatement@fd918a: UPDATE bufr_b SET bufr_unit = 'Degree²' WHERE id = 18062
+com.mysql.jdbc.JDBC4PreparedStatement@15e2075: UPDATE bufr_b SET bufr_unit = 'Degree²' WHERE id = 19314
+com.mysql.jdbc.JDBC4PreparedStatement@a522a6: UPDATE bufr_b SET bufr_unit = 'Degree²' WHERE id = 19533
+com.mysql.jdbc.JDBC4PreparedStatement@1860038: UPDATE bufr_b SET bufr_unit = 'Degree²' WHERE id = 19534
+com.mysql.jdbc.JDBC4PreparedStatement@787c16: UPDATE bufr_b SET bufr_unit = 'Degree²' WHERE id = 19550
+com.mysql.jdbc.JDBC4PreparedStatement@1a9d1b: UPDATE bufr_b SET bufr_unit = 'Degree²' WHERE id = 20823
+com.mysql.jdbc.JDBC4PreparedStatement@140984b: UPDATE bufr_b SET bufr_unit = 'Degree²' WHERE id = 21042
+com.mysql.jdbc.JDBC4PreparedStatement@1ce669e: UPDATE bufr_b SET bufr_unit = 'Degree²' WHERE id = 21043
+com.mysql.jdbc.JDBC4PreparedStatement@1b33a0e: UPDATE bufr_b SET bufr_unit = 'Degree²' WHERE id = 21059
+com.mysql.jdbc.JDBC4PreparedStatement@1a8773c: UPDATE bufr_b SET bufr_unit = 'Degree²' WHERE id = 22344
+com.mysql.jdbc.JDBC4PreparedStatement@12c3327: UPDATE bufr_b SET bufr_unit = 'Degree²' WHERE id = 22569
+com.mysql.jdbc.JDBC4PreparedStatement@d24e3f: UPDATE bufr_b SET bufr_unit = 'Degree²' WHERE id = 22570
+com.mysql.jdbc.JDBC4PreparedStatement@10f41e9: UPDATE bufr_b SET bufr_unit = 'Degree²' WHERE id = 22586
+com.mysql.jdbc.JDBC4PreparedStatement@b05acd: UPDATE bufr_b SET bufr_unit = 'Degree²' WHERE id = 23875
+com.mysql.jdbc.JDBC4PreparedStatement@1989b5: UPDATE bufr_b SET bufr_unit = 'Degree²' WHERE id = 24108
+com.mysql.jdbc.JDBC4PreparedStatement@a00185: UPDATE bufr_b SET bufr_unit = 'Degree²' WHERE id = 24109
+com.mysql.jdbc.JDBC4PreparedStatement@c3c315: UPDATE bufr_b SET bufr_unit = 'Degree²' WHERE id = 24125
+com.mysql.jdbc.JDBC4PreparedStatement@3c9c31: UPDATE bufr_b SET bufr_unit = 'Degree²' WHERE id = 25438
+com.mysql.jdbc.JDBC4PreparedStatement@1328c7a: UPDATE bufr_b SET bufr_unit = 'Degree²' WHERE id = 25696
+com.mysql.jdbc.JDBC4PreparedStatement@1a4ded3: UPDATE bufr_b SET bufr_unit = 'Degree²' WHERE id = 25697
+com.mysql.jdbc.JDBC4PreparedStatement@121177e: UPDATE bufr_b SET bufr_unit = 'Degree²' WHERE id = 25713
+com.mysql.jdbc.JDBC4PreparedStatement@18d7ace: UPDATE bufr_b SET bufr_unit = 'Degree²' WHERE id = 27058
+com.mysql.jdbc.JDBC4PreparedStatement@179953c: UPDATE bufr_b SET bufr_unit = 'Degree²' WHERE id = 27322
+com.mysql.jdbc.JDBC4PreparedStatement@134ce4a: UPDATE bufr_b SET bufr_unit = 'Degree²' WHERE id = 27323
+com.mysql.jdbc.JDBC4PreparedStatement@1d381d2: UPDATE bufr_b SET bufr_unit = 'Degree²' WHERE id = 27339
+com.mysql.jdbc.JDBC4PreparedStatement@933bcb: UPDATE bufr_b SET bufr_unit = 'm?' WHERE id = 1086
+com.mysql.jdbc.JDBC4PreparedStatement@189c036: UPDATE bufr_b SET bufr_unit = 'm?' WHERE id = 1111
+com.mysql.jdbc.JDBC4PreparedStatement@aa233f: UPDATE bufr_b SET bufr_unit = 'm?' WHERE id = 2532
+com.mysql.jdbc.JDBC4PreparedStatement@1f01a29: UPDATE bufr_b SET bufr_unit = 'm?' WHERE id = 2557
+com.mysql.jdbc.JDBC4PreparedStatement@458f41: UPDATE bufr_b SET bufr_unit = 'm?' WHERE id = 8590
+com.mysql.jdbc.JDBC4PreparedStatement@d75415: UPDATE bufr_b SET bufr_unit = 'm?' WHERE id = 8615
+com.mysql.jdbc.JDBC4PreparedStatement@d16fc1: UPDATE bufr_b SET bufr_unit = 'm?' WHERE id = 9961
+com.mysql.jdbc.JDBC4PreparedStatement@1eb0: UPDATE bufr_b SET bufr_unit = 'm?' WHERE id = 9986
+com.mysql.jdbc.JDBC4PreparedStatement@1dee400: UPDATE bufr_b SET bufr_unit = 'm?' WHERE id = 11382
+com.mysql.jdbc.JDBC4PreparedStatement@4ac216: UPDATE bufr_b SET bufr_unit = 'm?' WHERE id = 11407
+com.mysql.jdbc.JDBC4PreparedStatement@c5e9c: UPDATE bufr_b SET bufr_unit = 'm?' WHERE id = 12811
+com.mysql.jdbc.JDBC4PreparedStatement@1777b1: UPDATE bufr_b SET bufr_unit = 'm?' WHERE id = 12836
+com.mysql.jdbc.JDBC4PreparedStatement@b3319f: UPDATE bufr_b SET bufr_unit = 'm?' WHERE id = 14268
+com.mysql.jdbc.JDBC4PreparedStatement@7ecd78: UPDATE bufr_b SET bufr_unit = 'm?' WHERE id = 14301
+com.mysql.jdbc.JDBC4PreparedStatement@e3849c: UPDATE bufr_b SET bufr_unit = 'm?' WHERE id = 15736
+com.mysql.jdbc.JDBC4PreparedStatement@11756a4: UPDATE bufr_b SET bufr_unit = 'm?' WHERE id = 15769
+com.mysql.jdbc.JDBC4PreparedStatement@13936e1: UPDATE bufr_b SET bufr_unit = 'm?' WHERE id = 17211
+com.mysql.jdbc.JDBC4PreparedStatement@141fab6: UPDATE bufr_b SET bufr_unit = 'm?' WHERE id = 17244
+com.mysql.jdbc.JDBC4PreparedStatement@b301f2: UPDATE bufr_b SET bufr_unit = 'm?' WHERE id = 18697
+com.mysql.jdbc.JDBC4PreparedStatement@44cbbe: UPDATE bufr_b SET bufr_unit = 'm?' WHERE id = 18730
+com.mysql.jdbc.JDBC4PreparedStatement@9c2715: UPDATE bufr_b SET bufr_unit = 'm?' WHERE id = 20193
+com.mysql.jdbc.JDBC4PreparedStatement@1c9e67a: UPDATE bufr_b SET bufr_unit = 'm?' WHERE id = 20231
+com.mysql.jdbc.JDBC4PreparedStatement@3a5794: UPDATE bufr_b SET bufr_unit = 'm?' WHERE id = 21702
+com.mysql.jdbc.JDBC4PreparedStatement@4be2cc: UPDATE bufr_b SET bufr_unit = 'm?' WHERE id = 21740
+com.mysql.jdbc.JDBC4PreparedStatement@16ef71: UPDATE bufr_b SET bufr_unit = 'm?' WHERE id = 23232
+com.mysql.jdbc.JDBC4PreparedStatement@1c208b0: UPDATE bufr_b SET bufr_unit = 'm?' WHERE id = 23270
+com.mysql.jdbc.JDBC4PreparedStatement@1c888d9: UPDATE bufr_b SET bufr_unit = 'm?' WHERE id = 24775
+com.mysql.jdbc.JDBC4PreparedStatement@908881: UPDATE bufr_b SET bufr_unit = 'm?' WHERE id = 24789
+com.mysql.jdbc.JDBC4PreparedStatement@f1f051: UPDATE bufr_b SET bufr_unit = 'm?' WHERE id = 24820
+com.mysql.jdbc.JDBC4PreparedStatement@1d88db7: UPDATE bufr_b SET bufr_unit = 'm?' WHERE id = 26367
+com.mysql.jdbc.JDBC4PreparedStatement@402af3: UPDATE bufr_b SET bufr_unit = 'm?' WHERE id = 26381
+com.mysql.jdbc.JDBC4PreparedStatement@c3e9e9: UPDATE bufr_b SET bufr_unit = 'm?' WHERE id = 26412
+com.mysql.jdbc.JDBC4PreparedStatement@31f2a7: UPDATE bufr_b SET bufr_unit = 'm?' WHERE id = 28007
+com.mysql.jdbc.JDBC4PreparedStatement@131c89c: UPDATE bufr_b SET bufr_unit = 'm?' WHERE id = 28021
+com.mysql.jdbc.JDBC4PreparedStatement@1697b67: UPDATE bufr_b SET bufr_unit = 'm?' WHERE id = 28052
+com.mysql.jdbc.JDBC4PreparedStatement@24c4a3: UPDATE bufr_b SET bufr_unit = 'm?' WHERE id = 29653
+com.mysql.jdbc.JDBC4PreparedStatement@1e9c82e: UPDATE bufr_b SET bufr_unit = 'm?' WHERE id = 29667
+com.mysql.jdbc.JDBC4PreparedStatement@1554d32: UPDATE bufr_b SET bufr_unit = 'm?' WHERE id = 29698
+com.mysql.jdbc.JDBC4PreparedStatement@14a18d: UPDATE bufr_b SET bufr_unit = 'm s?²' WHERE id = 29009
+com.mysql.jdbc.JDBC4PreparedStatement@129b0e1: UPDATE bufr_b SET bufr_unit = 'Bq l?¹' WHERE id = 29759
+com.mysql.jdbc.JDBC4PreparedStatement@14d5bc9: UPDATE bufr_b SET bufr_unit = 'Bq m?³' WHERE id = 29758
+com.mysql.jdbc.JDBC4PreparedStatement@a83a13: UPDATE bufr_b SET bufr_unit = 'kg m?³' WHERE id = 29154
+com.mysql.jdbc.JDBC4PreparedStatement@7cd37a: UPDATE bufr_b SET bufr_unit = 'kg m?³' WHERE id = 29199
+com.mysql.jdbc.JDBC4PreparedStatement@1202d69: UPDATE bufr_b SET bufr_unit = 'kg m?³' WHERE id = 29219
+com.mysql.jdbc.JDBC4PreparedStatement@1855562: UPDATE bufr_b SET bufr_unit = 'kg m?³' WHERE id = 29282
+com.mysql.jdbc.JDBC4PreparedStatement@a89ce3: UPDATE bufr_b SET bufr_unit = 'kg m?³' WHERE id = 29385
+com.mysql.jdbc.JDBC4PreparedStatement@2b7db1: UPDATE bufr_b SET bufr_unit = 'kg m?³' WHERE id = 29386
+com.mysql.jdbc.JDBC4PreparedStatement@148f8c8: UPDATE bufr_b SET bufr_unit = 'kg m?³' WHERE id = 29448
+com.mysql.jdbc.JDBC4PreparedStatement@922804: UPDATE bufr_b SET bufr_unit = 'kg m?² s?¹' WHERE id = 29162
+com.mysql.jdbc.JDBC4PreparedStatement@1815338: UPDATE bufr_b SET bufr_unit = 'kg m?² s?¹' WHERE id = 29186
+com.mysql.jdbc.JDBC4PreparedStatement@17e845a: UPDATE bufr_b SET bufr_unit = 'kg m?² s?¹' WHERE id = 29221
+com.mysql.jdbc.JDBC4PreparedStatement@1ba0f36: UPDATE bufr_b SET bufr_unit = 'kg m?² h?¹' WHERE id = 29216
+com.mysql.jdbc.JDBC4PreparedStatement@d0220c: UPDATE bufr_b SET bufr_unit = 'kg m?²' WHERE id = 29159
+com.mysql.jdbc.JDBC4PreparedStatement@6b496d: UPDATE bufr_b SET bufr_unit = 'kg m?²' WHERE id = 29164
+com.mysql.jdbc.JDBC4PreparedStatement@1a19458: UPDATE bufr_b SET bufr_unit = 'kg m?²' WHERE id = 29165
+com.mysql.jdbc.JDBC4PreparedStatement@1124746: UPDATE bufr_b SET bufr_unit = 'kg m?²' WHERE id = 29166
+com.mysql.jdbc.JDBC4PreparedStatement@105691e: UPDATE bufr_b SET bufr_unit = 'kg m?²' WHERE id = 29167
+com.mysql.jdbc.JDBC4PreparedStatement@383118: UPDATE bufr_b SET bufr_unit = 'kg m?²' WHERE id = 29168
+com.mysql.jdbc.JDBC4PreparedStatement@11f23e5: UPDATE bufr_b SET bufr_unit = 'kg m?²' WHERE id = 29169
+com.mysql.jdbc.JDBC4PreparedStatement@16dc861: UPDATE bufr_b SET bufr_unit = 'kg m?²' WHERE id = 29170
+com.mysql.jdbc.JDBC4PreparedStatement@7e8c4d: UPDATE bufr_b SET bufr_unit = 'kg m?²' WHERE id = 29171
+com.mysql.jdbc.JDBC4PreparedStatement@2d189c: UPDATE bufr_b SET bufr_unit = 'kg m?²' WHERE id = 29172
+com.mysql.jdbc.JDBC4PreparedStatement@aae86e: UPDATE bufr_b SET bufr_unit = 'kg m?²' WHERE id = 29185
+com.mysql.jdbc.JDBC4PreparedStatement@81a197: UPDATE bufr_b SET bufr_unit = 'kg m?²' WHERE id = 29191
+com.mysql.jdbc.JDBC4PreparedStatement@97d026: UPDATE bufr_b SET bufr_unit = 'kg m?²' WHERE id = 29202
+com.mysql.jdbc.JDBC4PreparedStatement@e29820: UPDATE bufr_b SET bufr_unit = 'kg m?²' WHERE id = 29203
+com.mysql.jdbc.JDBC4PreparedStatement@716cb7: UPDATE bufr_b SET bufr_unit = 'kg m?²' WHERE id = 29205
+com.mysql.jdbc.JDBC4PreparedStatement@987a33: UPDATE bufr_b SET bufr_unit = 'kg m?²' WHERE id = 29206
+com.mysql.jdbc.JDBC4PreparedStatement@7eb6e2: UPDATE bufr_b SET bufr_unit = 'kg m?²' WHERE id = 29207
+com.mysql.jdbc.JDBC4PreparedStatement@118d189: UPDATE bufr_b SET bufr_unit = 'kg m?²' WHERE id = 29208
+com.mysql.jdbc.JDBC4PreparedStatement@648016: UPDATE bufr_b SET bufr_unit = 'kg m?²' WHERE id = 29212
+com.mysql.jdbc.JDBC4PreparedStatement@1551b0: UPDATE bufr_b SET bufr_unit = 'kg m?²' WHERE id = 29222
+com.mysql.jdbc.JDBC4PreparedStatement@1a61172: UPDATE bufr_b SET bufr_unit = 'kg m?²' WHERE id = 29277
+com.mysql.jdbc.JDBC4PreparedStatement@1c391c3: UPDATE bufr_b SET bufr_unit = 'kg m?²' WHERE id = 29278
+com.mysql.jdbc.JDBC4PreparedStatement@969c29: UPDATE bufr_b SET bufr_unit = 'kg m?²' WHERE id = 29475
+com.mysql.jdbc.JDBC4PreparedStatement@1758500: UPDATE bufr_b SET bufr_unit = 'kg m?¹' WHERE id = 29450
+com.mysql.jdbc.JDBC4PreparedStatement@bf053f: UPDATE bufr_b SET bufr_unit = 'V m?¹' WHERE id = 29440
+com.mysql.jdbc.JDBC4PreparedStatement@1f54c5f: UPDATE bufr_b SET bufr_unit = 'km h?¹' WHERE id = 29041
+com.mysql.jdbc.JDBC4PreparedStatement@16917ee: UPDATE bufr_b SET bufr_unit = 'km h?¹' WHERE id = 29043
+com.mysql.jdbc.JDBC4PreparedStatement@cf829d: UPDATE bufr_b SET bufr_unit = 's?¹' WHERE id = 29001
+com.mysql.jdbc.JDBC4PreparedStatement@1884a40: UPDATE bufr_b SET bufr_unit = 's?¹' WHERE id = 29002
+com.mysql.jdbc.JDBC4PreparedStatement@c2ee15: UPDATE bufr_b SET bufr_unit = 's?¹' WHERE id = 29656
+com.mysql.jdbc.JDBC4PreparedStatement@19cd75a: UPDATE bufr_b SET bufr_unit = 's?¹' WHERE id = 29760
+com.mysql.jdbc.JDBC4PreparedStatement@1fe8ce8: UPDATE bufr_b SET bufr_unit = 's?¹' WHERE id = 29761
+com.mysql.jdbc.JDBC4PreparedStatement@1d0d45b: UPDATE bufr_b SET bufr_unit = 'm?¹' WHERE id = 29308
+com.mysql.jdbc.JDBC4PreparedStatement@125d06e: UPDATE bufr_b SET bufr_unit = 'm?¹' WHERE id = 29309
+com.mysql.jdbc.JDBC4PreparedStatement@19ba640: UPDATE bufr_b SET bufr_unit = 'm?²' WHERE id = 29275
+com.mysql.jdbc.JDBC4PreparedStatement@1bfc4fc: UPDATE bufr_b SET bufr_unit = 'm?²' WHERE id = 29445
+com.mysql.jdbc.JDBC4PreparedStatement@1fe571f: UPDATE bufr_b SET bufr_unit = 'nSv h?¹' WHERE id = 29757
+com.mysql.jdbc.JDBC4PreparedStatement@157ea4a: UPDATE bufr_b SET bufr_unit = 'K m s?¹' WHERE id = 29033
+com.mysql.jdbc.JDBC4PreparedStatement@1843a75: UPDATE bufr_b SET bufr_unit = 'm? s?¹' WHERE id = 29036
+com.mysql.jdbc.JDBC4PreparedStatement@1a1399: UPDATE bufr_b SET bufr_unit = 'm? s?¹' WHERE id = 29037
+com.mysql.jdbc.JDBC4PreparedStatement@caf6c1: UPDATE bufr_b SET bufr_unit = 'Degree' WHERE id = 28607
+com.mysql.jdbc.JDBC4PreparedStatement@10e35d5: UPDATE bufr_b SET bufr_unit = 'Degree' WHERE id = 28635
+com.mysql.jdbc.JDBC4PreparedStatement@1f03691: UPDATE bufr_b SET bufr_unit = 'Degree' WHERE id = 28640
+com.mysql.jdbc.JDBC4PreparedStatement@18e8541: UPDATE bufr_b SET bufr_unit = 'Degree' WHERE id = 28641
+com.mysql.jdbc.JDBC4PreparedStatement@1ce85c4: UPDATE bufr_b SET bufr_unit = 'Degree' WHERE id = 28661
+com.mysql.jdbc.JDBC4PreparedStatement@1b03c1a: UPDATE bufr_b SET bufr_unit = 'Degree' WHERE id = 28662
+com.mysql.jdbc.JDBC4PreparedStatement@139e351: UPDATE bufr_b SET bufr_unit = 'Degree' WHERE id = 28663
+com.mysql.jdbc.JDBC4PreparedStatement@17aece8: UPDATE bufr_b SET bufr_unit = 'Degree' WHERE id = 28664
+com.mysql.jdbc.JDBC4PreparedStatement@1578aab: UPDATE bufr_b SET bufr_unit = 'Degree' WHERE id = 28669
+com.mysql.jdbc.JDBC4PreparedStatement@51127a: UPDATE bufr_b SET bufr_unit = 'Degree' WHERE id = 28779
+com.mysql.jdbc.JDBC4PreparedStatement@94257f: UPDATE bufr_b SET bufr_unit = 'Degree' WHERE id = 28780
+com.mysql.jdbc.JDBC4PreparedStatement@29c58e: UPDATE bufr_b SET bufr_unit = 'Degree' WHERE id = 28781
+com.mysql.jdbc.JDBC4PreparedStatement@691dee: UPDATE bufr_b SET bufr_unit = 'Degree' WHERE id = 28782
+com.mysql.jdbc.JDBC4PreparedStatement@12bf892: UPDATE bufr_b SET bufr_unit = 'Degree' WHERE id = 28783
+com.mysql.jdbc.JDBC4PreparedStatement@1cc5069: UPDATE bufr_b SET bufr_unit = 'Degree' WHERE id = 28784
+com.mysql.jdbc.JDBC4PreparedStatement@b32ed4: UPDATE bufr_b SET bufr_unit = 'Degree' WHERE id = 28787
+com.mysql.jdbc.JDBC4PreparedStatement@1c7980c: UPDATE bufr_b SET bufr_unit = 'Degree' WHERE id = 28788
+com.mysql.jdbc.JDBC4PreparedStatement@cf710e: UPDATE bufr_b SET bufr_unit = 'Degree' WHERE id = 28803
+com.mysql.jdbc.JDBC4PreparedStatement@1077fc9: UPDATE bufr_b SET bufr_unit = 'Degree' WHERE id = 28804
+com.mysql.jdbc.JDBC4PreparedStatement@1568fb5: UPDATE bufr_b SET bufr_unit = 'Degree' WHERE id = 28805
+com.mysql.jdbc.JDBC4PreparedStatement@1f4bcf7: UPDATE bufr_b SET bufr_unit = 'Degree' WHERE id = 28806
+com.mysql.jdbc.JDBC4PreparedStatement@a2220f: UPDATE bufr_b SET bufr_unit = 'Degree' WHERE id = 28807
+com.mysql.jdbc.JDBC4PreparedStatement@6a3960: UPDATE bufr_b SET bufr_unit = 'Degree' WHERE id = 28817
+com.mysql.jdbc.JDBC4PreparedStatement@1dccedd: UPDATE bufr_b SET bufr_unit = 'Degree' WHERE id = 28818
+com.mysql.jdbc.JDBC4PreparedStatement@1911540: UPDATE bufr_b SET bufr_unit = 'Degree' WHERE id = 28819
+com.mysql.jdbc.JDBC4PreparedStatement@a4488: UPDATE bufr_b SET bufr_unit = 'Degree' WHERE id = 28820
+com.mysql.jdbc.JDBC4PreparedStatement@19762f: UPDATE bufr_b SET bufr_unit = 'Degree' WHERE id = 28821
+com.mysql.jdbc.JDBC4PreparedStatement@19e215b: UPDATE bufr_b SET bufr_unit = 'Degree' WHERE id = 28822
+com.mysql.jdbc.JDBC4PreparedStatement@9ff0a8: UPDATE bufr_b SET bufr_unit = 'Degree' WHERE id = 28843
+com.mysql.jdbc.JDBC4PreparedStatement@70be88: UPDATE bufr_b SET bufr_unit = 'Degree' WHERE id = 28844
+com.mysql.jdbc.JDBC4PreparedStatement@1ecfe07: UPDATE bufr_b SET bufr_unit = 'Degree' WHERE id = 28845
+com.mysql.jdbc.JDBC4PreparedStatement@199939: UPDATE bufr_b SET bufr_unit = 'Degree' WHERE id = 28846
+com.mysql.jdbc.JDBC4PreparedStatement@9a9b65: UPDATE bufr_b SET bufr_unit = 'Degree' WHERE id = 28847
+com.mysql.jdbc.JDBC4PreparedStatement@502819: UPDATE bufr_b SET bufr_unit = 'Degree' WHERE id = 28962
+com.mysql.jdbc.JDBC4PreparedStatement@78aa80: UPDATE bufr_b SET bufr_unit = 'Degree' WHERE id = 28963
+com.mysql.jdbc.JDBC4PreparedStatement@1d98a: UPDATE bufr_b SET bufr_unit = 'Degree' WHERE id = 28991
+com.mysql.jdbc.JDBC4PreparedStatement@1712651: UPDATE bufr_b SET bufr_unit = 'Degree' WHERE id = 29432
+com.mysql.jdbc.JDBC4PreparedStatement@18aab40: UPDATE bufr_b SET bufr_unit = 'Degree' WHERE id = 29433
+com.mysql.jdbc.JDBC4PreparedStatement@f102d3: UPDATE bufr_b SET bufr_unit = 'Degree' WHERE id = 29470
+com.mysql.jdbc.JDBC4PreparedStatement@f07355: UPDATE bufr_b SET bufr_unit = 'Degree' WHERE id = 29471
+com.mysql.jdbc.JDBC4PreparedStatement@23f1bb: UPDATE bufr_b SET bufr_unit = 'Degree' WHERE id = 29472
+com.mysql.jdbc.JDBC4PreparedStatement@1d33a6b: UPDATE bufr_b SET bufr_unit = 'Degree' WHERE id = 29534
+com.mysql.jdbc.JDBC4PreparedStatement@a0864f: UPDATE bufr_b SET bufr_unit = 'Degree' WHERE id = 29637
+com.mysql.jdbc.JDBC4PreparedStatement@d1e233: UPDATE bufr_b SET bufr_unit = 'Degree' WHERE id = 29655
+com.mysql.jdbc.JDBC4PreparedStatement@15983b7: UPDATE bufr_b SET bufr_unit = 'Degree' WHERE id = 29660
+com.mysql.jdbc.JDBC4PreparedStatement@1d6747b: UPDATE bufr_b SET bufr_unit = 'Degree' WHERE id = 29719
+com.mysql.jdbc.JDBC4PreparedStatement@7976c1: UPDATE bufr_b SET bufr_unit = 'Degree' WHERE id = 29819
+com.mysql.jdbc.JDBC4PreparedStatement@6397eb: UPDATE bufr_b SET bufr_unit = 'Degree' WHERE id = 29820
+com.mysql.jdbc.JDBC4PreparedStatement@8aeb74: UPDATE bufr_b SET bufr_unit = 'Degree' WHERE id = 29832
+com.mysql.jdbc.JDBC4PreparedStatement@6835fb: UPDATE bufr_b SET bufr_unit = 'Degree' WHERE id = 29833
+com.mysql.jdbc.JDBC4PreparedStatement@1b01afa: UPDATE bufr_b SET bufr_unit = 'Degree' WHERE id = 29834
+com.mysql.jdbc.JDBC4PreparedStatement@bb494b: UPDATE bufr_b SET bufr_unit = 'Degree' WHERE id = 29835
+com.mysql.jdbc.JDBC4PreparedStatement@1c8efd1: UPDATE bufr_b SET bufr_unit = 'Degree' WHERE id = 29852
+com.mysql.jdbc.JDBC4PreparedStatement@f892a4: UPDATE bufr_b SET bufr_unit = 'Degree' WHERE id = 29853
+com.mysql.jdbc.JDBC4PreparedStatement@1636e4e: UPDATE bufr_b SET bufr_unit = 'Degree' WHERE id = 29918
+com.mysql.jdbc.JDBC4PreparedStatement@df0438: UPDATE bufr_b SET bufr_unit = 'Degree' WHERE id = 29919
+com.mysql.jdbc.JDBC4PreparedStatement@18e261d: UPDATE bufr_b SET bufr_unit = 'Degree' WHERE id = 29920
+com.mysql.jdbc.JDBC4PreparedStatement@1684706: UPDATE bufr_b SET bufr_unit = 'Degree' WHERE id = 29921
+com.mysql.jdbc.JDBC4PreparedStatement@10efd7c: UPDATE bufr_b SET bufr_unit = 'Degree' WHERE id = 29928
+com.mysql.jdbc.JDBC4PreparedStatement@12412e7: UPDATE bufr_b SET bufr_unit = 'Degree' WHERE id = 29929
+com.mysql.jdbc.JDBC4PreparedStatement@1552b76: UPDATE bufr_b SET bufr_unit = 'Degree' WHERE id = 29930
+com.mysql.jdbc.JDBC4PreparedStatement@988707: UPDATE bufr_b SET bufr_unit = 'Degree' WHERE id = 29931
+com.mysql.jdbc.JDBC4PreparedStatement@1c8ef56: UPDATE bufr_b SET bufr_unit = 'Degree' WHERE id = 30057
+com.mysql.jdbc.JDBC4PreparedStatement@d90453: UPDATE bufr_b SET bufr_unit = 'Degree' WHERE id = 30077
+com.mysql.jdbc.JDBC4PreparedStatement@165b7e: UPDATE bufr_b SET bufr_unit = 'Month' WHERE id = 28745
+com.mysql.jdbc.JDBC4PreparedStatement@1d0d124: UPDATE bufr_b SET bufr_unit = 'Month' WHERE id = 28752
+com.mysql.jdbc.JDBC4PreparedStatement@52c6b4: UPDATE bufr_b SET bufr_unit = 'Month' WHERE id = 28759
+com.mysql.jdbc.JDBC4PreparedStatement@738d08: UPDATE bufr_b SET bufr_unit = 'Month' WHERE id = 29915
+com.mysql.jdbc.JDBC4PreparedStatement@136a1a1: UPDATE bufr_b SET bufr_unit = 'Day' WHERE id = 28746
+com.mysql.jdbc.JDBC4PreparedStatement@1ad6b4b: UPDATE bufr_b SET bufr_unit = 'Day' WHERE id = 28753
+com.mysql.jdbc.JDBC4PreparedStatement@5f2db0: UPDATE bufr_b SET bufr_unit = 'Day' WHERE id = 28760
+com.mysql.jdbc.JDBC4PreparedStatement@b0a3f5: UPDATE bufr_b SET bufr_unit = 'Day' WHERE id = 28767
+com.mysql.jdbc.JDBC4PreparedStatement@dc41c5: UPDATE bufr_b SET bufr_unit = 'Day' WHERE id = 28774
+com.mysql.jdbc.JDBC4PreparedStatement@6214f5: UPDATE bufr_b SET bufr_unit = 'Day' WHERE id = 29916
+com.mysql.jdbc.JDBC4PreparedStatement@4d76b4: UPDATE bufr_b SET bufr_unit = 'Hour' WHERE id = 28747
+com.mysql.jdbc.JDBC4PreparedStatement@1ac5f13: UPDATE bufr_b SET bufr_unit = 'Hour' WHERE id = 28754
+com.mysql.jdbc.JDBC4PreparedStatement@195dd5b: UPDATE bufr_b SET bufr_unit = 'Hour' WHERE id = 28761
+com.mysql.jdbc.JDBC4PreparedStatement@1f78b68: UPDATE bufr_b SET bufr_unit = 'Hour' WHERE id = 28764
+com.mysql.jdbc.JDBC4PreparedStatement@e183e9: UPDATE bufr_b SET bufr_unit = 'Hour' WHERE id = 28768
+com.mysql.jdbc.JDBC4PreparedStatement@19b46dc: UPDATE bufr_b SET bufr_unit = 'Hour' WHERE id = 28769
+com.mysql.jdbc.JDBC4PreparedStatement@1493102: UPDATE bufr_b SET bufr_unit = 'Hour' WHERE id = 28775
+com.mysql.jdbc.JDBC4PreparedStatement@30ae41: UPDATE bufr_b SET bufr_unit = 'Hour' WHERE id = 29248
+com.mysql.jdbc.JDBC4PreparedStatement@4204: UPDATE bufr_b SET bufr_unit = 'Hour' WHERE id = 29909
+com.mysql.jdbc.JDBC4PreparedStatement@ee1ede: UPDATE bufr_b SET bufr_unit = 'Hour' WHERE id = 29910
+com.mysql.jdbc.JDBC4PreparedStatement@8b8a47: UPDATE bufr_b SET bufr_unit = 'Minute' WHERE id = 28748
+com.mysql.jdbc.JDBC4PreparedStatement@1236cd5: UPDATE bufr_b SET bufr_unit = 'Minute' WHERE id = 28755
+com.mysql.jdbc.JDBC4PreparedStatement@be49e0: UPDATE bufr_b SET bufr_unit = 'Minute' WHERE id = 28757
+com.mysql.jdbc.JDBC4PreparedStatement@e41bc3: UPDATE bufr_b SET bufr_unit = 'Minute' WHERE id = 28762
+com.mysql.jdbc.JDBC4PreparedStatement@1dacccc: UPDATE bufr_b SET bufr_unit = 'Minute' WHERE id = 28765
+com.mysql.jdbc.JDBC4PreparedStatement@1bb9a58: UPDATE bufr_b SET bufr_unit = 'Minute' WHERE id = 28766
+com.mysql.jdbc.JDBC4PreparedStatement@1922f46: UPDATE bufr_b SET bufr_unit = 'Minute' WHERE id = 28772
+com.mysql.jdbc.JDBC4PreparedStatement@5dc994: UPDATE bufr_b SET bufr_unit = 'Minute' WHERE id = 28776
+com.mysql.jdbc.JDBC4PreparedStatement@15d3388: UPDATE bufr_b SET bufr_unit = 'Minute' WHERE id = 29247
+com.mysql.jdbc.JDBC4PreparedStatement@1e2670b: UPDATE bufr_b SET bufr_unit = 'Minute' WHERE id = 29250
+com.mysql.jdbc.JDBC4PreparedStatement@676e3f: UPDATE bufr_b SET bufr_unit = 'Minute' WHERE id = 29911
+com.mysql.jdbc.JDBC4PreparedStatement@770d2e: UPDATE bufr_b SET bufr_unit = 'Minute' WHERE id = 29913

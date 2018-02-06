@@ -1,0 +1,1053 @@
+Entry #    1     0     Operational  >WMO Secretariat<
+Entry #    2  null     Operational  >00001-00009: WMCs<
+Entry #    3     1     Operational  >Melbourne<
+Entry #    4     2     Operational  >Melbourne<
+Entry #    5     3     Operational  >Melbourne<
+Entry #    6     4     Operational  >Moscow<
+Entry #    7     5     Operational  >Moscow<
+Entry #    8     6     Operational  >Moscow<
+Entry #    9     7     Operational  >US National Weather Service, National Centres for Environmental Prediction (NCEP)<
+Entry #   10     8     Operational  >US National Weather Service Telecommunications Gateway (NWSTG)<
+Entry #   11     9     Operational  >US National Weather Service - Other<
+Entry #   12  null     Operational  >00010-00025: Centres in Region I<
+Entry #   13    10     Operational  >Cairo (RSMC)<
+Entry #   14    11     Operational  >Cairo (RSMC)<
+Entry #   15    12     Operational  >Dakar (RSMC)<
+Entry #   16    13     Operational  >Dakar (RSMC)<
+Entry #   17    14     Operational  >Nairobi (RSMC)<
+Entry #   18    15     Operational  >Nairobi (RSMC)<
+Entry #   19    16     Operational  >Casablanca (RSMC)<
+Entry #   20    17     Operational  >Tunis (RSMC)<
+Entry #   21    18     Operational  >Tunis Casablanca (RSMC)<
+Entry #   22    19     Operational  >Tunis Casablanca (RSMC)<
+Entry #   23    20     Operational  >Las Palmas<
+Entry #   24    21     Operational  >Algiers (RSMC)<
+Entry #   25    22     Operational  >ACMAD<
+Entry #   26    23     Operational  >Mozambique (NMC)<
+Entry #   27    24     Operational  >Pretoria (RSMC)<
+Entry #   28    25     Operational  >La Réunion (RSMC)<
+Entry #   29  null     Operational  >00026-00040: Centres in Region II<
+Entry #   30    26     Operational  >Khabarovsk (RSMC)<
+Entry #   31    27     Operational  >Khabarovsk (RSMC)<
+Entry #   32    28     Operational  >New Delhi (RSMC)<
+Entry #   33    29     Operational  >New Delhi (RSMC)<
+Entry #   34    30     Operational  >Novosibirsk (RSMC)<
+Entry #   35    31     Operational  >Novosibirsk (RSMC)<
+Entry #   36    32     Operational  >Tashkent (RSMC)<
+Entry #   37    33     Operational  >Jeddah (RSMC)<
+Entry #   38    34     Operational  >Tokyo (RSMC), Japan Meteorological Agency<
+Entry #   39    35     Operational  >Tokyo (RSMC), Japan Meteorological Agency<
+Entry #   40    36     Operational  >Bangkok<
+Entry #   41    37     Operational  >Ulan Bator<
+Entry #   42    38     Operational  >Beijing (RSMC)<
+Entry #   43    39     Operational  >Beijing (RSMC)<
+Entry #   44    40     Operational  >Seoul<
+Entry #   45  null     Operational  >00041-00050: Centres in Region III<
+Entry #   46    41     Operational  >Buenos Aires (RSMC)<
+Entry #   47    42     Operational  >Buenos Aires (RSMC)<
+Entry #   48    43     Operational  >Brasilia (RSMC)<
+Entry #   49    44     Operational  >Brasilia (RSMC)<
+Entry #   50    45     Operational  >Santiago<
+Entry #   51    46     Operational  >Brazilian Space Agency ­ INPE<
+Entry #   52    47     Operational  >Colombia (NMC)<
+Entry #   53    48     Operational  >Ecuador (NMC)<
+Entry #   54    49     Operational  >Peru (NMC)<
+Entry #   55    50     Operational  >Venezuela (NMC)<
+Entry #   56  null     Operational  >00051-00063: Centres in Region IV<
+Entry #   57    51     Operational  >Miami (RSMC)<
+Entry #   58    52     Operational  >Miami RSMC, National Hurricane Center<
+Entry #   59    53     Operational  >Montreal (RSMC)<
+Entry #   60    54     Operational  >Montreal (RSMC)<
+Entry #   61    55     Operational  >San Francisco<
+Entry #   62    56     Operational  >ARINC Centre<
+Entry #   63    57     Operational  >U.S. Air Force Air Force Global Weather Central<
+Entry #   64    58     Operational  >Fleet Numerical Meteorology and Oceanography Center, Monterey, CA, USA<
+Entry #   65    59     Operational  >The NOAA Forecast Systems Laboratory, Boulder, CO, USA<
+Entry #   66    60     Operational  >United States National Centre for Atmospheric Research (NCAR)<
+Entry #   67    61     Operational  >Service ARGOS - Landover<
+Entry #   68    62     Operational  >U.S. Naval Oceanographic Office<
+Entry #   69    63     Operational  >International Research Institute for Climate and Society (IRI)<
+Entry #   70  null     Operational  >00064-00073: Centres in Region V<
+Entry #   71    64     Operational  >Honolulu (RSMC)<
+Entry #   72    65     Operational  >Darwin (RSMC)<
+Entry #   73    66     Operational  >Darwin (RSMC)<
+Entry #   74    67     Operational  >Melbourne (RSMC)<
+Entry #   75    68     Operational  >Reserved<
+Entry #   76    69     Operational  >Wellington (RSMC)<
+Entry #   77    70     Operational  >Wellington (RSMC)<
+Entry #   78    71     Operational  >Nadi (RSMC)<
+Entry #   79    72     Operational  >Singapore<
+Entry #   80    73     Operational  >Malaysia (NMC)<
+Entry #   81  null     Operational  >00074-00099: Centres in Region VI<
+Entry #   82    74     Operational  >UK Meteorological Office ­ Exeter (RSMC)<
+Entry #   83    75     Operational  >UK Meteorological Office ­ Exeter (RSMC)<
+Entry #   84    76     Operational  >Moscow (RSMC)<
+Entry #   85    77     Operational  >Reserved<
+Entry #   86    78     Operational  >Offenbach (RSMC)<
+Entry #   87    79     Operational  >Offenbach (RSMC)<
+Entry #   88    80     Operational  >Rome (RSMC)<
+Entry #   89    81     Operational  >Rome (RSMC)<
+Entry #   90    82     Operational  >Norrköping<
+Entry #   91    83     Operational  >Norrköping<
+Entry #   92    84     Operational  >Toulouse (RSMC)<
+Entry #   93    85     Operational  >Toulouse (RSMC)<
+Entry #   94    86     Operational  >Helsinki<
+Entry #   95    87     Operational  >Belgrade<
+Entry #   96    88     Operational  >Oslo<
+Entry #   97    89     Operational  >Prague<
+Entry #   98    90     Operational  >Episkopi<
+Entry #   99    91     Operational  >Ankara<
+Entry #  100    92     Operational  >Frankfurt/Main<
+Entry #  101    93     Operational  >London (WAFC)<
+Entry #  102    94     Operational  >Copenhagen<
+Entry #  103    95     Operational  >Rota<
+Entry #  104    96     Operational  >Athens<
+Entry #  105    97     Operational  >European Space Agency (ESA)<
+Entry #  106    98     Operational  >European Centre for Medium Range Weather Centre (ECMWF) (RSMC)<
+Entry #  107    99     Operational  >De Bilt<
+Entry #  108  null     Operational  >Additional Centres<
+Entry #  109   100     Operational  >Brazzaville<
+Entry #  110   101     Operational  >Abidjan<
+Entry #  111   102     Operational  >Libyan Arab Jamahiriya (NMC)<
+Entry #  112   103     Operational  >Madagascar (NMC)<
+Entry #  113   104     Operational  >Mauritius (NMC)<
+Entry #  114   105     Operational  >Niger (NMC)<
+Entry #  115   106     Operational  >Seychelles (NMC)<
+Entry #  116   107     Operational  >Uganda (NMC)<
+Entry #  117   108     Operational  >Tanzania (NMC)<
+Entry #  118   109     Operational  >Zimbabwe (NMC)<
+Entry #  119   110     Operational  >Hong-Kong, China<
+Entry #  120   111     Operational  >Afghanistan (NMC)<
+Entry #  121   112     Operational  >Bahrain (NMC)<
+Entry #  122   113     Operational  >Bangladesh (NMC)<
+Entry #  123   114     Operational  >Bhutan (NMC)<
+Entry #  124   115     Operational  >Cambodia (NMC)<
+Entry #  125   116     Operational  >Democratic People's Republic of Korea (NMC)<
+Entry #  126   117     Operational  >Islamic Republic of Iran (NMC)<
+Entry #  127   118     Operational  >Iraq (NMC)<
+Entry #  128   119     Operational  >Kazakhstan (NMC)<
+Entry #  129   120     Operational  >Kuwait (NMC)<
+Entry #  130   121     Operational  >Kyrgyzstan (NMC)<
+Entry #  131   122     Operational  >Lao People's Democratic Republic (NMC)<
+Entry #  132   123     Operational  >Macao, China<
+Entry #  133   124     Operational  >Maldives (NMC)<
+Entry #  134   125     Operational  >Myanmar (NMC)<
+Entry #  135   126     Operational  >Nepal (NMC)<
+Entry #  136   127     Operational  >Oman (NMC)<
+Entry #  137   128     Operational  >Pakistan (NMC)<
+Entry #  138   129     Operational  >Qatar (NMC)<
+Entry #  139   130     Operational  >Republic of Yemen (NMC)<
+Entry #  140   131     Operational  >Sri Lanka (NMC)<
+Entry #  141   132     Operational  >Tajikistan (NMC)<
+Entry #  142   133     Operational  >Turkmenistan (NMC)<
+Entry #  143   134     Operational  >United Arab Emirates (NMC)<
+Entry #  144   135     Operational  >Uzbekistan (NMC)<
+Entry #  145   136     Operational  >Socialist Republic of Viet Nam (NMC)<
+Entry #  146 137-139     Operational  >Reserved for other centres<
+Entry #  147   140     Operational  >Bolivia (NMC)<
+Entry #  148   141     Operational  >Guyana (NMC)<
+Entry #  149   142     Operational  >Paraguay (NMC)<
+Entry #  150   143     Operational  >Suriname (NMC)<
+Entry #  151   144     Operational  >Uruguay (NMC)<
+Entry #  152   145     Operational  >French Guyana<
+Entry #  153   146     Operational  >Brazilian Navy Hydrographic Centre<
+Entry #  154   147     Operational  >COmision Nacional de Actividades Espaciales (CONAE) - Argentina<
+Entry #  155 148-149     Operational  >Reserved for other centres<
+Entry #  156   150     Operational  >Antigua and Barbuda (NMC)<
+Entry #  157   151     Operational  >Bahamas (NMC)<
+Entry #  158   152     Operational  >Barbados (NMC)<
+Entry #  159   153     Operational  >Belize (NMC)<
+Entry #  160   154     Operational  >British Caribbean Territories Centre<
+Entry #  161   155     Operational  >San Jose<
+Entry #  162   156     Operational  >Cuba (NMC)<
+Entry #  163   157     Operational  >Dominica (NMC)<
+Entry #  164   158     Operational  >Dominican Republic (NMC)<
+Entry #  165   159     Operational  >El Salvador (NMC)<
+Entry #  166   160     Operational  >US NOAA/NESDIS<
+Entry #  167   161     Operational  >US NOAA Office of Oceanic and Atmospheric Research<
+Entry #  168   162     Operational  >Guatemala (NMC)<
+Entry #  169   163     Operational  >Haiti (NMC)<
+Entry #  170   164     Operational  >Honduras (NMC)<
+Entry #  171   165     Operational  >Jamaica (NMC)<
+Entry #  172   166     Operational  >Mexico<
+Entry #  173   167     Operational  >Netherlands Antilles and Aruba (NMC)<
+Entry #  174   168     Operational  >Nicaragua (NMC)<
+Entry #  175   169     Operational  >Panama (NMC)<
+Entry #  176   170     Operational  >Saint Lucia (NMC)<
+Entry #  177   171     Operational  >Trinidad and Tobago (NMC)<
+Entry #  178   172     Operational  >French Departments in RA IV<
+Entry #  179   173     Operational  >US National Aeronautics and Space Administration (NASA)<
+Entry #  180   174     Operational  >Integrated System Data Management/Marine Environmental Data Service (ISDM/MEDS - Canada)<
+Entry #  182   175 Pre-operational  >Reserved for other centres<
+Entry #  183   176 Pre-operational  >U.S. Cooperative Institute for Meteorological Satellite Studies (CIMSS)<
+Entry #  184 177-189 Pre-operational  >Reserved for other centres<
+Entry #  185   190     Operational  >Cook Islands (NMC)<
+Entry #  186   191     Operational  >French Polynesia (NMC)<
+Entry #  187   192     Operational  >Tonga (NMC)<
+Entry #  188   193     Operational  >Vanuatu (NMC)<
+Entry #  189   194     Operational  >Brunei (NMC)<
+Entry #  190   195     Operational  >Indonesia (NMC)<
+Entry #  191   196     Operational  >Kiribati (NMC)<
+Entry #  192   197     Operational  >Federated States of Micronesia (NMC)<
+Entry #  193   198     Operational  >New Caledonia (NMC)<
+Entry #  194   199     Operational  >Niue<
+Entry #  195   200     Operational  >Papua New Guinea (NMC)<
+Entry #  196   201     Operational  >Philippines (NMC)<
+Entry #  197   202     Operational  >Samoa (NMC)<
+Entry #  198   203     Operational  >Solomon Islands (NMC)<
+Entry #  199   204     Operational  >National Institute of Water and Atmospheric Research  (NIWA – New Zealand)<
+Entry #  200 205-209     Operational  >Reserved for other centres<
+Entry #  201   210     Operational  >Frascati (ESA/ESRIN)<
+Entry #  202   211     Operational  >Lannion<
+Entry #  203   212     Operational  >Lisboa<
+Entry #  204   213     Operational  >Reykiavik<
+Entry #  205   214     Operational  >Madrid<
+Entry #  206   215     Operational  >Zürich<
+Entry #  207   216     Operational  >Service ARGOS Toulouse<
+Entry #  208   217     Operational  >Bratislava<
+Entry #  209   218     Operational  >Budapest<
+Entry #  210   219     Operational  >Ljubljana<
+Entry #  211   220     Operational  >Warsaw<
+Entry #  212   221     Operational  >Zagreb<
+Entry #  213   222     Operational  >Albania (NMC)<
+Entry #  214   223     Operational  >Armenia (NMC)<
+Entry #  215   224     Operational  >Austria (NMC)<
+Entry #  216   225     Operational  >Azerbaijan (NMC)<
+Entry #  217   226     Operational  >Belarus (NMC)<
+Entry #  218   227     Operational  >Belgium (NMC)<
+Entry #  219   228     Operational  >Bosnia and Herzegovina (NMC)<
+Entry #  220   229     Operational  >Bulgaria (NMC)<
+Entry #  221   230     Operational  >Cyprus (NMC)<
+Entry #  222   231     Operational  >Estonia (NMC)<
+Entry #  223   232     Operational  >Georgia (NMC)<
+Entry #  224   233     Operational  >Dublin<
+Entry #  225   234     Operational  >Israel (NMC)<
+Entry #  226   235     Operational  >Jordan (NMC)<
+Entry #  227   236     Operational  >Latvia (NMC)<
+Entry #  228   237     Operational  >Lebanon (NMC)<
+Entry #  229   238     Operational  >Lithuania (NMC)<
+Entry #  230   239     Operational  >Luxembourg<
+Entry #  231   240     Operational  >Malta (NMC)<
+Entry #  232   241     Operational  >Monaco<
+Entry #  233   242     Operational  >Romania (NMC)<
+Entry #  234   243     Operational  >Syrian Arab Republic (NMC)<
+Entry #  235   244     Operational  >The former Yugoslav Republic of Macedonia (NMC)<
+Entry #  236   245     Operational  >Ukraine (NMC)<
+Entry #  237   246     Operational  >Republic of Moldova (NMC)<
+Entry #  238   247     Operational  >Operational Programme for the Exchange of weather RAdar information (OPERA) - EUMETNET<
+Entry #  240 248-249 Pre-operational  >Reserved for other centres<
+Entry #  241   250 Pre-operational  >COnsortium for Small scale MOdelling  (COSMO)<
+Entry #  242 251-253 Pre-operational  >Reserved for other centres<
+Entry #  243   254     Operational  >EUMETSAT Operation Centre<
+Entry #  244   255     Operational  >Not used<
+Entry #  245   256     Operational  >Angola (NMC)<
+Entry #  246   257     Operational  >Benin (NMC)<
+Entry #  247   258     Operational  >Botswana (NMC)<
+Entry #  248   259     Operational  >Burkina Faso (NMC)<
+Entry #  249   260     Operational  >Burundi (NMC)<
+Entry #  250   261     Operational  >Cameroon (NMC)<
+Entry #  251   262     Operational  >Cape Verde (NMC)<
+Entry #  252   263     Operational  >Central African Republic (NMC)<
+Entry #  253   264     Operational  >Chad (NMC)<
+Entry #  254   265     Operational  >Comoros (NMC)<
+Entry #  255   266     Operational  >Democratic Republic of the Congo (NMC)<
+Entry #  256   267     Operational  >Djibouti (NMC)<
+Entry #  257   268     Operational  >Eritrea (NMC)<
+Entry #  258   269     Operational  >Ethiopia (NMC)<
+Entry #  259   270     Operational  >Gabon (NMC)<
+Entry #  260   271     Operational  >Gambia (NMC)<
+Entry #  261   272     Operational  >Ghana (NMC)<
+Entry #  262   273     Operational  >Guinea (NMC)<
+Entry #  263   274     Operational  >Guinea Bissau (NMC)<
+Entry #  264   275     Operational  >Lesotho (NMC)<
+Entry #  265   276     Operational  >Liberia (NMC)<
+Entry #  266   277     Operational  >Malawi (NMC)<
+Entry #  267   278     Operational  >Mali (NMC)<
+Entry #  268   279     Operational  >Mauritania (NMC)<
+Entry #  269   280     Operational  >Namibia (NMC)<
+Entry #  270   281     Operational  >Nigeria (NMC)<
+Entry #  271   282     Operational  >Rwanda (NMC)<
+Entry #  272   283     Operational  >Sao Tome and Principe (NMC)<
+Entry #  273   284     Operational  >Sierra Leone (NMC)<
+Entry #  274   285     Operational  >Somalia (NMC)<
+Entry #  275   286     Operational  >Sudan (NMC)<
+Entry #  276   287     Operational  >Swaziland (NMC)<
+Entry #  277   288     Operational  >Togo (NMC)<
+Entry #  278   289     Operational  >Zambia (NMC)<
+Entry #  279 290-65534     Operational  >Reserved for other centres<
+Entry #  280 65535     Operational  >Missing value<
+Entry #  281  n.a.     Operational  >Not used<
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(0, 'WMO Secretariat')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3387)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3387)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(1, 'Melbourne')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3388)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3388)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(2, 'Melbourne')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3389)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3389)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(3, 'Melbourne')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3390)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3390)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(4, 'Moscow')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3391)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3391)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(5, 'Moscow')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3392)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3392)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(6, 'Moscow')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3393)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3393)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(7, 'US National Weather Service, National Centres for Environmental Prediction (NCEP)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3394)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3394)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(8, 'US National Weather Service Telecommunications Gateway (NWSTG)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3395)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3395)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(9, 'US National Weather Service - Other')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3396)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3396)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(10, 'Cairo (RSMC)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3397)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3397)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(11, 'Cairo (RSMC)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3398)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3398)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(12, 'Dakar (RSMC)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3399)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3399)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(13, 'Dakar (RSMC)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3400)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3400)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(14, 'Nairobi (RSMC)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3401)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3401)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(15, 'Nairobi (RSMC)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3402)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3402)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(16, 'Casablanca (RSMC)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3403)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3403)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(17, 'Tunis (RSMC)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3404)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3404)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(18, 'Tunis Casablanca (RSMC)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3405)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3405)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(19, 'Tunis Casablanca (RSMC)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3406)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3406)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(20, 'Las Palmas')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3407)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3407)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(21, 'Algiers (RSMC)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3408)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3408)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(22, 'ACMAD')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3409)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3409)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(23, 'Mozambique (NMC)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3410)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3410)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(24, 'Pretoria (RSMC)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3411)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3411)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(25, 'La Réunion (RSMC)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3412)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3412)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(26, 'Khabarovsk (RSMC)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3413)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3413)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(27, 'Khabarovsk (RSMC)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3414)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3414)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(28, 'New Delhi (RSMC)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3415)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3415)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(29, 'New Delhi (RSMC)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3416)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3416)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(30, 'Novosibirsk (RSMC)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3417)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3417)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(31, 'Novosibirsk (RSMC)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3418)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3418)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(32, 'Tashkent (RSMC)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3419)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3419)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(33, 'Jeddah (RSMC)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3420)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3420)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(34, 'Tokyo (RSMC), Japan Meteorological Agency')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3421)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3421)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(35, 'Tokyo (RSMC), Japan Meteorological Agency')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3422)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3422)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(36, 'Bangkok')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3423)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3423)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(37, 'Ulan Bator')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3424)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3424)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(38, 'Beijing (RSMC)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3425)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3425)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(39, 'Beijing (RSMC)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3426)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3426)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(40, 'Seoul')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3427)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3427)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(41, 'Buenos Aires (RSMC)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3428)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3428)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(42, 'Buenos Aires (RSMC)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3429)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3429)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(43, 'Brasilia (RSMC)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3430)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3430)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(44, 'Brasilia (RSMC)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3431)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3431)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(45, 'Santiago')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3432)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3432)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(46, 'Brazilian Space Agency ­ INPE')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3433)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3433)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(47, 'Colombia (NMC)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3434)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3434)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(48, 'Ecuador (NMC)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3435)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3435)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(49, 'Peru (NMC)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3436)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3436)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(50, 'Venezuela (NMC)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3437)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3437)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(51, 'Miami (RSMC)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3438)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3438)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(52, 'Miami RSMC, National Hurricane Center')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3439)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3439)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(53, 'Montreal (RSMC)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3440)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3440)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(54, 'Montreal (RSMC)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3441)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3441)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(55, 'San Francisco')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3442)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3442)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(56, 'ARINC Centre')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3443)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3443)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(57, 'U.S. Air Force Air Force Global Weather Central')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3444)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3444)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(58, 'Fleet Numerical Meteorology and Oceanography Center, Monterey, CA, USA')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3445)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3445)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(59, 'The NOAA Forecast Systems Laboratory, Boulder, CO, USA')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3446)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3446)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(60, 'United States National Centre for Atmospheric Research (NCAR)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3447)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3447)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(61, 'Service ARGOS - Landover')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3448)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3448)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(62, 'U.S. Naval Oceanographic Office')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3449)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3449)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(63, 'International Research Institute for Climate and Society (IRI)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3450)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3450)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(64, 'Honolulu (RSMC)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3451)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3451)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(65, 'Darwin (RSMC)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3452)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3452)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(66, 'Darwin (RSMC)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3453)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3453)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(67, 'Melbourne (RSMC)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3454)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3454)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(69, 'Wellington (RSMC)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3455)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3455)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(70, 'Wellington (RSMC)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3456)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3456)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(71, 'Nadi (RSMC)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3457)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3457)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(72, 'Singapore')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3458)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3458)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(73, 'Malaysia (NMC)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3459)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3459)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(74, 'UK Meteorological Office ­ Exeter (RSMC)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3460)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3460)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(75, 'UK Meteorological Office ­ Exeter (RSMC)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3461)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3461)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(76, 'Moscow (RSMC)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3462)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3462)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(78, 'Offenbach (RSMC)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3463)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3463)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(79, 'Offenbach (RSMC)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3464)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3464)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(80, 'Rome (RSMC)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3465)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3465)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(81, 'Rome (RSMC)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3466)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3466)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(82, 'Norrköping')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3467)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3467)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(83, 'Norrköping')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3468)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3468)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(84, 'Toulouse (RSMC)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3469)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3469)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(85, 'Toulouse (RSMC)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3470)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3470)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(86, 'Helsinki')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3471)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3471)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(87, 'Belgrade')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3472)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3472)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(88, 'Oslo')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3473)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3473)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(89, 'Prague')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3474)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3474)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(90, 'Episkopi')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3475)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3475)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(91, 'Ankara')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3476)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3476)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(92, 'Frankfurt/Main')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3477)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3477)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(93, 'London (WAFC)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3478)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3478)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(94, 'Copenhagen')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3479)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3479)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(95, 'Rota')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3480)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3480)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(96, 'Athens')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3481)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3481)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(97, 'European Space Agency (ESA)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3482)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3482)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(98, 'European Centre for Medium Range Weather Centre (ECMWF) (RSMC)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3483)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3483)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(99, 'De Bilt')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3484)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3484)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(100, 'Brazzaville')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3485)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3485)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(101, 'Abidjan')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3486)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3486)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(102, 'Libyan Arab Jamahiriya (NMC)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3487)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3487)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(103, 'Madagascar (NMC)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3488)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3488)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(104, 'Mauritius (NMC)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3489)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3489)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(105, 'Niger (NMC)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3490)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3490)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(106, 'Seychelles (NMC)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3491)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3491)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(107, 'Uganda (NMC)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3492)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3492)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(108, 'Tanzania (NMC)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3493)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3493)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(109, 'Zimbabwe (NMC)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3494)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3494)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(110, 'Hong-Kong, China')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3495)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3495)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(111, 'Afghanistan (NMC)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3496)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3496)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(112, 'Bahrain (NMC)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3497)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3497)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(113, 'Bangladesh (NMC)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3498)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3498)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(114, 'Bhutan (NMC)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3499)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3499)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(115, 'Cambodia (NMC)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3500)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3500)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(116, 'Democratic People\'s Republic of Korea (NMC)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3501)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3501)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(117, 'Islamic Republic of Iran (NMC)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3502)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3502)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(118, 'Iraq (NMC)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3503)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3503)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(119, 'Kazakhstan (NMC)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3504)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3504)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(120, 'Kuwait (NMC)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3505)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3505)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(121, 'Kyrgyzstan (NMC)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3506)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3506)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(122, 'Lao People\'s Democratic Republic (NMC)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3507)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3507)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(123, 'Macao, China')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3508)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3508)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(124, 'Maldives (NMC)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3509)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3509)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(125, 'Myanmar (NMC)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3510)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3510)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(126, 'Nepal (NMC)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3511)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3511)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(127, 'Oman (NMC)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3512)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3512)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(128, 'Pakistan (NMC)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3513)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3513)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(129, 'Qatar (NMC)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3514)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3514)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(130, 'Republic of Yemen (NMC)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3515)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3515)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(131, 'Sri Lanka (NMC)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3516)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3516)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(132, 'Tajikistan (NMC)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3517)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3517)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(133, 'Turkmenistan (NMC)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3518)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3518)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(134, 'United Arab Emirates (NMC)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3519)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3519)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(135, 'Uzbekistan (NMC)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3520)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3520)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(136, 'Socialist Republic of Viet Nam (NMC)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3521)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3521)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(140, 'Bolivia (NMC)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3522)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3522)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(141, 'Guyana (NMC)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3523)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3523)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(142, 'Paraguay (NMC)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3524)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3524)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(143, 'Suriname (NMC)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3525)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3525)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(144, 'Uruguay (NMC)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3526)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3526)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(145, 'French Guyana')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3527)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3527)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(146, 'Brazilian Navy Hydrographic Centre')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3528)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3528)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(147, 'COmision Nacional de Actividades Espaciales (CONAE) - Argentina')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3529)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3529)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(150, 'Antigua and Barbuda (NMC)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3530)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3530)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(151, 'Bahamas (NMC)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3531)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3531)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(152, 'Barbados (NMC)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3532)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3532)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(153, 'Belize (NMC)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3533)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3533)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(154, 'British Caribbean Territories Centre')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3534)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3534)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(155, 'San Jose')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3535)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3535)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(156, 'Cuba (NMC)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3536)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3536)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(157, 'Dominica (NMC)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3537)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3537)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(158, 'Dominican Republic (NMC)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3538)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3538)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(159, 'El Salvador (NMC)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3539)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3539)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(160, 'US NOAA/NESDIS')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3540)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3540)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(161, 'US NOAA Office of Oceanic and Atmospheric Research')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3541)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3541)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(162, 'Guatemala (NMC)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3542)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3542)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(163, 'Haiti (NMC)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3543)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3543)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(164, 'Honduras (NMC)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3544)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3544)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(165, 'Jamaica (NMC)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3545)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3545)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(166, 'Mexico')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3546)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3546)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(167, 'Netherlands Antilles and Aruba (NMC)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3547)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3547)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(168, 'Nicaragua (NMC)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3548)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3548)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(169, 'Panama (NMC)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3549)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3549)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(170, 'Saint Lucia (NMC)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3550)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3550)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(171, 'Trinidad and Tobago (NMC)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3551)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3551)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(172, 'French Departments in RA IV')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3552)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3552)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(173, 'US National Aeronautics and Space Administration (NASA)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3553)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3553)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(174, 'Integrated System Data Management/Marine Environmental Data Service (ISDM/MEDS - Canada)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3554)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3554)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(176, 'U.S. Cooperative Institute for Meteorological Satellite Studies (CIMSS)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3555)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3555)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(190, 'Cook Islands (NMC)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3556)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3556)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(191, 'French Polynesia (NMC)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3557)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3557)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(192, 'Tonga (NMC)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3558)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3558)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(193, 'Vanuatu (NMC)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3559)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3559)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(194, 'Brunei (NMC)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3560)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3560)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(195, 'Indonesia (NMC)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3561)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3561)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(196, 'Kiribati (NMC)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3562)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3562)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(197, 'Federated States of Micronesia (NMC)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3563)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3563)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(198, 'New Caledonia (NMC)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3564)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3564)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(199, 'Niue')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3565)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3565)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(200, 'Papua New Guinea (NMC)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3566)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3566)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(201, 'Philippines (NMC)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3567)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3567)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(202, 'Samoa (NMC)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3568)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3568)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(203, 'Solomon Islands (NMC)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3569)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3569)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(204, 'National Institute of Water and Atmospheric Research  (NIWA – New Zealand)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3570)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3570)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(210, 'Frascati (ESA/ESRIN)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3571)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3571)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(211, 'Lannion')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3572)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3572)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(212, 'Lisboa')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3573)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3573)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(213, 'Reykiavik')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3574)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3574)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(214, 'Madrid')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3575)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3575)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(215, 'Zürich')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3576)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3576)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(216, 'Service ARGOS Toulouse')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3577)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3577)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(217, 'Bratislava')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3578)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3578)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(218, 'Budapest')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3579)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3579)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(219, 'Ljubljana')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3580)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3580)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(220, 'Warsaw')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3581)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3581)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(221, 'Zagreb')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3582)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3582)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(222, 'Albania (NMC)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3583)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3583)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(223, 'Armenia (NMC)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3584)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3584)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(224, 'Austria (NMC)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3585)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3585)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(225, 'Azerbaijan (NMC)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3586)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3586)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(226, 'Belarus (NMC)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3587)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3587)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(227, 'Belgium (NMC)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3588)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3588)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(228, 'Bosnia and Herzegovina (NMC)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3589)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3589)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(229, 'Bulgaria (NMC)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3590)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3590)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(230, 'Cyprus (NMC)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3591)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3591)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(231, 'Estonia (NMC)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3592)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3592)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(232, 'Georgia (NMC)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3593)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3593)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(233, 'Dublin')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3594)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3594)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(234, 'Israel (NMC)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3595)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3595)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(235, 'Jordan (NMC)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3596)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3596)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(236, 'Latvia (NMC)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3597)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3597)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(237, 'Lebanon (NMC)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3598)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3598)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(238, 'Lithuania (NMC)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3599)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3599)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(239, 'Luxembourg')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3600)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3600)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(240, 'Malta (NMC)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3601)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3601)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(241, 'Monaco')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3602)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3602)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(242, 'Romania (NMC)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3603)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3603)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(243, 'Syrian Arab Republic (NMC)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3604)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3604)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(244, 'The former Yugoslav Republic of Macedonia (NMC)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3605)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3605)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(245, 'Ukraine (NMC)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3606)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3606)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(246, 'Republic of Moldova (NMC)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3607)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3607)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(247, 'Operational Programme for the Exchange of weather RAdar information (OPERA) - EUMETNET')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3608)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3608)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(250, 'COnsortium for Small scale MOdelling  (COSMO)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3609)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3609)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(254, 'EUMETSAT Operation Centre')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3610)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3610)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(256, 'Angola (NMC)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3611)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3611)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(257, 'Benin (NMC)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3612)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3612)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(258, 'Botswana (NMC)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3613)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3613)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(259, 'Burkina Faso (NMC)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3614)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3614)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(260, 'Burundi (NMC)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3615)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3615)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(261, 'Cameroon (NMC)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3616)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3616)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(262, 'Cape Verde (NMC)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3617)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3617)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(263, 'Central African Republic (NMC)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3618)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3618)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(264, 'Chad (NMC)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3619)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3619)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(265, 'Comoros (NMC)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3620)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3620)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(266, 'Democratic Republic of the Congo (NMC)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3621)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3621)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(267, 'Djibouti (NMC)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3622)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3622)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(268, 'Eritrea (NMC)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3623)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3623)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(269, 'Ethiopia (NMC)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3624)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3624)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(270, 'Gabon (NMC)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3625)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3625)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(271, 'Gambia (NMC)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3626)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3626)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(272, 'Ghana (NMC)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3627)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3627)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(273, 'Guinea (NMC)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3628)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3628)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(274, 'Guinea Bissau (NMC)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3629)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3629)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(275, 'Lesotho (NMC)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3630)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3630)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(276, 'Liberia (NMC)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3631)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3631)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(277, 'Malawi (NMC)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3632)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3632)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(278, 'Mali (NMC)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3633)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3633)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(279, 'Mauritania (NMC)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3634)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3634)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(280, 'Namibia (NMC)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3635)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3635)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(281, 'Nigeria (NMC)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3636)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3636)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(282, 'Rwanda (NMC)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3637)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3637)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(283, 'Sao Tome and Principe (NMC)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3638)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3638)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(284, 'Sierra Leone (NMC)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3639)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3639)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(285, 'Somalia (NMC)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3640)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3640)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(286, 'Sudan (NMC)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3641)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3641)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(287, 'Swaziland (NMC)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3642)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3642)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(288, 'Togo (NMC)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3643)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3643)
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(289, 'Zambia (NMC)')
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(53, 3644)
+INSERT INTO B_TO_CT_RELATIONSHIPS (B_EntryNumber, CodeTable_EntryNumber) VALUES(1486, 3644)

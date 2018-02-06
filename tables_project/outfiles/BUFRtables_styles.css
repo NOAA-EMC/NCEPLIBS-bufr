@@ -1,0 +1,31 @@
+h1, h2, h3, h4, h5, h6 { text-align: center; }
+
+body { background-color: white; }
+
+th, td { padding: 5px; }  /* cellpadding */
+
+hr { width: 75%; height: 3px; color: black; background-color: black; }
+
+.center { text-align: center; }
+.right { text-align: right; }
+.left { text-align: left; }
+
+.local { font-style: italic; }  /* used to denote NCEP local descriptors */
+
+.underline { text-decoration: underline; }
+.bold { font-weight: bold; }
+
+.indent { margin-left: 20px; }
+.indentX2 { margin-left: 40px; }
+
+/*
+.defaultfont {font-family: Helvetica; font-weight: 400}
+
+em.emphasis {font-style: normal; font-weight: 600}
+em.subpname {font-style: italic; font-family: monospace; font-weight: 600}
+em.mnemname {font-style: normal; font-family: monospace; font-weight: 500}
+em.varname {font-style: italic; font-family: monospace; font-weight: 500}
+
+pre.subp {font-style: italic; font-family: monospace; font-weight: 500}
+pre.mnem {font-style: normal; font-family: monospace; font-weight: 500}
+*/

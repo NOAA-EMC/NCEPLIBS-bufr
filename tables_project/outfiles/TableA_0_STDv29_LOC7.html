@@ -1,0 +1,4683 @@
+<html>
+<head>
+  <title>BUFR TABLE A - WMO AND LOCAL (NCEP) DESCRIPTORS</title>
+  <meta name="author" content="Jeff Ator">
+  <meta http-equiv=Content-Type content="text/html" charset="UTF-8">
+  <link href="BUFRtables_styles.css" type="text/css" rel="stylesheet">
+</head>
+<body>
+  <h2>BUFR TABLE A - DATA TYPES AND SUBTYPES USED IN THE NCEP OBSERVATIONAL DATABASE AND PREPBUFR AND PREPFITS FILES</h2>
+  <h2>BASED ON BUFR MASTER TABLE 0 (WMO), VERSION 29 IMPLEMENTED ON November 08, 2017  </h2>
+  <br />
+  <h3>LINKS TO OTHER VERSION 29 TABLES:&nbsp;&nbsp;<a href="TableB_0_STDv29_LOC7.html">B</a>&nbsp;&nbsp;<a href="TableD_0_STDv29_LOC7.html">D</a>&nbsp;&nbsp;<a href="CodeFlag_0_STDv29_LOC7.html">CODE/FLAG</a></h3>
+  <h3>LINKS TO OTHER TABLE A VERSIONS:&nbsp;<a href="TableA_0_STDv13_LOC7.html">13</a>&nbsp;<a href="TableA_0_STDv14_LOC7.html">14</a>&nbsp;<a href="TableA_0_STDv15_LOC7.html">15</a>&nbsp;<a href="TableA_0_STDv16_LOC7.html">16</a>&nbsp;<a href="TableA_0_STDv17_LOC7.html">17</a>&nbsp;<a href="TableA_0_STDv18_LOC7.html">18</a>&nbsp;<a href="TableA_0_STDv19_LOC7.html">19</a>&nbsp;<a href="TableA_0_STDv20_LOC7.html">20</a>&nbsp;<a href="TableA_0_STDv21_LOC7.html">21</a>&nbsp;<a href="TableA_0_STDv22_LOC7.html">22</a>&nbsp;<a href="TableA_0_STDv23_LOC7.html">23</a>&nbsp;<a href="TableA_0_STDv24_LOC7.html">24</a>&nbsp;<a href="TableA_0_STDv25_LOC7.html">25</a>&nbsp;<a href="TableA_0_STDv26_LOC7.html">26</a>&nbsp;<a href="TableA_0_STDv27_LOC7.html">27</a>&nbsp;<a href="TableA_0_STDv28_LOC7.html">28</a>&nbsp;29</h3>
+<br />
+  <h5>(This webpage was generated: 2017/12/04 16:08:25)</h5>
+  <br />
+  <hr />
+<p class="indent">
+  <span class="bold underline">IMPORTANT NOTE CONCERNING BUFR TABLE A:</span><br /><br />
+WMO standard data subtypes were introduced in BUFR edition 4 to provide a mechanism for better understanding of the overall nature and content of BUFR messages exchanged between NWP centers.  In contrast, local data subtypes have existed since the advent of BUFR (i.e. since edition 0) and remain available in editions 4+ for backwards-compatibility, since many NWP centers including NCEP have made extensive use of them in the past.<br /><br />
+What is important to understand is that both values (i.e. the standard subtype and the local subtype) are intended by WMO to be supplementary to one another, and therefore both may be present in any given BUFR message when using BUFR edition 4 or later.
+<br /><br />
+All local types and subtypes are shown in italics below.</p><br />
+<hr />
+<h3>Data types</h3>
+<h5 class="local">(local types in italics)</h5>
+<table rules=groups>
+ <thead>
+  <tr>
+    <th>Code figure</th>
+    <th class="left">Meaning</th>
+  </tr>
+ </thead>
+ <tbody>
+ <tr>
+  <td class="center"><a href="#type0">0</a></td>
+  <td><a href="#type0">Surface data - land</a></td>
+ </tr>
+ <tr>
+  <td class="center"><a href="#type1">1</a></td>
+  <td><a href="#type1">Surface data - sea</a></td>
+ </tr>
+ <tr>
+  <td class="center"><a href="#type2">2</a></td>
+  <td><a href="#type2">Vertical soundings (other than satellite)</a></td>
+ </tr>
+ <tr>
+  <td class="center"><a href="#type3">3</a></td>
+  <td><a href="#type3">Vertical soundings (satellite)</a></td>
+ </tr>
+ <tr>
+  <td class="center"><a href="#type4">4</a></td>
+  <td><a href="#type4">Single level upper-air data (other than satellite)</a></td>
+ </tr>
+ <tr>
+  <td class="center"><a href="#type5">5</a></td>
+  <td><a href="#type5">Single level upper-air data (satellite)</a></td>
+ </tr>
+ <tr>
+  <td class="center"><a href="#type6">6</a></td>
+  <td><a href="#type6">Radar data</a></td>
+ </tr>
+ <tr>
+  <td class="center"><a href="#type7">7</a></td>
+  <td><a href="#type7">Synoptic features</a></td>
+ </tr>
+ <tr>
+  <td class="center"><a href="#type8">8</a></td>
+  <td><a href="#type8">Physical/chemical constituents</a></td>
+ </tr>
+ <tr>
+  <td class="center"><a href="#type9">9</a></td>
+  <td><a href="#type9">Dispersal and transport</a></td>
+ </tr>
+ <tr>
+  <td class="center"><a href="#type10">10</a></td>
+  <td><a href="#type10">Radiological data</a></td>
+ </tr>
+ <tr>
+  <td class="center"><a href="#type11">11</a></td>
+  <td><a href="#type11">BUFR tables, complete replacement or update</a></td>
+ </tr>
+ <tr>
+  <td class="center"><a href="#type12">12</a></td>
+  <td><a href="#type12">Surface data (satellite)</a></td>
+ </tr>
+ <tr>
+  <td class="center"><a href="#type13">13</a></td>
+  <td><a href="#type13">Forecasts</a></td>
+ </tr>
+ <tr>
+  <td class="center"><a href="#type14">14</a></td>
+  <td><a href="#type14">Warnings</a></td>
+ </tr>
+ <tr>
+  <td class="center"><a href="#type20">20</a></td>
+  <td><a href="#type20">Status information</a></td>
+ </tr>
+ <tr>
+  <td class="center"><a href="#type21">21</a></td>
+  <td><a href="#type21">Radiances (satellite)</a></td>
+ </tr>
+ <tr>
+  <td class="center"><a href="#type22">22</a></td>
+  <td><a href="#type22">Radar (satellite) but not altimeter nor scatterometer</a></td>
+ </tr>
+ <tr>
+  <td class="center"><a href="#type23">23</a></td>
+  <td><a href="#type23">Lidar (satellite)</a></td>
+ </tr>
+ <tr>
+  <td class="center"><a href="#type24">24</a></td>
+  <td><a href="#type24">Scatterometry (satellite)</a></td>
+ </tr>
+ <tr>
+  <td class="center"><a href="#type25">25</a></td>
+  <td><a href="#type25">Altimetry (satellite)</a></td>
+ </tr>
+ <tr>
+  <td class="center"><a href="#type26">26</a></td>
+  <td><a href="#type26">Spectrometry (satellite)</a></td>
+ </tr>
+ <tr>
+  <td class="center"><a href="#type27">27</a></td>
+  <td><a href="#type27">Gravity measurement (satellite)</a></td>
+ </tr>
+ <tr>
+  <td class="center"><a href="#type28">28</a></td>
+  <td><a href="#type28">Precision orbit (satellite)</a></td>
+ </tr>
+ <tr>
+  <td class="center"><a href="#type29">29</a></td>
+  <td><a href="#type29">Space environment (satellite)</a></td>
+ </tr>
+ <tr>
+  <td class="center"><a href="#type30">30</a></td>
+  <td><a href="#type30">Calibration dataset (satellite)</a></td>
+ </tr>
+ <tr>
+  <td class="center"><a href="#type31">31</a></td>
+  <td><a href="#type31">Oceanographic data</a></td>
+ </tr>
+ <tr>
+  <td class="center"><a href="#type101">101</a></td>
+  <td><a href="#type101">Image data</a></td>
+ </tr>
+ <tr class="local">
+  <td class="center"><a href="#type102">102</a></td>
+  <td><a href="#type102">Upper-air (RAOB, PIBAL, RECCO, DROPS) reports</a></td>
+ </tr>
+ <tr class="local">
+  <td class="center"><a href="#type103">103</a></td>
+  <td><a href="#type103">MDCRS ACARS aircraft reports</a></td>
+ </tr>
+ <tr class="local">
+  <td class="center"><a href="#type104">104</a></td>
+  <td><a href="#type104">AIREP, PIREP, AMDAR and TAMDAR aircraft reports</a></td>
+ </tr>
+ <tr class="local">
+  <td class="center"><a href="#type105">105</a></td>
+  <td><a href="#type105">Satellite-derived wind reports</a></td>
+ </tr>
+ <tr class="local">
+  <td class="center"><a href="#type106">106</a></td>
+  <td><a href="#type106">Wind profiler reports</a></td>
+ </tr>
+ <tr class="local">
+  <td class="center"><a href="#type107">107</a></td>
+  <td><a href="#type107">Vertical Azimuth Display (VAD) wind reports (from WSR88D radars)</a></td>
+ </tr>
+ <tr class="local">
+  <td class="center"><a href="#type108">108</a></td>
+  <td><a href="#type108">POES satellite sounding reports (retrievals, processed radiances)</a></td>
+ </tr>
+ <tr class="local">
+  <td class="center"><a href="#type109">109</a></td>
+  <td><a href="#type109">Surface land (synoptic, METAR) reports</a></td>
+ </tr>
+ <tr class="local">
+  <td class="center"><a href="#type110">110</a></td>
+  <td><a href="#type110">Surface marine (ship, buoy, C-MAN platform) reports</a></td>
+ </tr>
+ <tr class="local">
+  <td class="center"><a href="#type111">111</a></td>
+  <td><a href="#type111">Mean sea-level pressure bogus reports</a></td>
+ </tr>
+ <tr class="local">
+  <td class="center"><a href="#type112">112</a></td>
+  <td><a href="#type112">SSM/I retrieval product reports (reprocessed wind speed, total precipitable water, rainfall rate)</a></td>
+ </tr>
+ <tr class="local">
+  <td class="center"><a href="#type113">113</a></td>
+  <td><a href="#type113">Synthetic tropical cyclone bogus reports</a></td>
+ </tr>
+ <tr class="local">
+  <td class="center"><a href="#type114">114</a></td>
+  <td><a href="#type114">ERS scatterometer wind reports (reprocessed wind speed)</a></td>
+ </tr>
+ <tr class="local">
+  <td class="center"><a href="#type115">115</a></td>
+  <td><a href="#type115">GOES satellite sounding reports (retrievals, processed radiances)</a></td>
+ </tr>
+ <tr class="local">
+  <td class="center"><a href="#type116">116</a></td>
+  <td><a href="#type116">QuikSCAT scatterometer wind reports (reprocessed)</a></td>
+ </tr>
+ <tr class="local">
+  <td class="center"><a href="#type117">117</a></td>
+  <td><a href="#type117">Mesonet surface reports</a></td>
+ </tr>
+ <tr class="local">
+  <td class="center"><a href="#type118">118</a></td>
+  <td><a href="#type118">Global Positioning Satellite-integrated Precipitable Water (GPS-IPW) reports</a></td>
+ </tr>
+ <tr class="local">
+  <td class="center"><a href="#type119">119</a></td>
+  <td><a href="#type119">Radio Acoustic Sounding System (RASS) temperature profile reports</a></td>
+ </tr>
+ <tr class="local">
+  <td class="center"><a href="#type120">120</a></td>
+  <td><a href="#type120">WINDSAT scatterometer wind reports (reprocessed)</a></td>
+ </tr>
+ <tr class="local">
+  <td class="center"><a href="#type121">121</a></td>
+  <td><a href="#type121">ASCAT scatterometer wind reports (reprocessed)</a></td>
+ </tr>
+ <tr class="local">
+  <td class="center"><a href="#type206">206</a></td>
+  <td><a href="#type206">AIRNOW ozone concentration reports</a></td>
+ </tr>
+ <tr class="local">
+  <td class="center"><a href="#type241">241</a></td>
+  <td><a href="#type241">ETA/NAM model soundings, RUC model soundings</a></td>
+ </tr>
+ <tr class="local">
+  <td class="center"><a href="#type242">242</a></td>
+  <td><a href="#type242">NGM model soundings</a></td>
+ </tr>
+ <tr class="local">
+  <td class="center"><a href="#type243">243</a></td>
+  <td><a href="#type243">GFS model soundings</a></td>
+ </tr>
+ <tr>
+  <td class="center"><a href="#type255">255</a></td>
+  <td><a href="#type255">Other category</a></td>
+ </tr>
+ </tbody>
+</table>
+<br />
+<hr id="type0"/>
+<h3>DATA TYPE 0 - Surface data - land</h3>
+<table style="width:100%"rules=groups>
+ <thead>
+  <tr>
+    <th style="width:50%">Standard subtypes</th>
+    <th class="local" style="width:50%">Local subtypes</th>
+  </tr>
+ </thead>
+ <tbody>
+  <tr>
+    <td style="vertical-align:top">
+     <table>
+      <thead>
+       <tr>
+        <th style="width:10%">Code</th>
+        <th style="width:90%">Meaning</th>
+       </tr>
+      </thead>
+      <tbody>
+        <tr>
+        <td class="center">0</td>
+        <td>Hourly synoptic observations from fixed-land stations (SYNOP)</td>
+        </tr>
+        <tr>
+        <td class="center">1</td>
+        <td>Intermediate synoptic observations from fixed-land stations (SYNOP)</td>
+        </tr>
+        <tr>
+        <td class="center">2</td>
+        <td>Main synoptic observations from fixed-land stations (SYNOP)</td>
+        </tr>
+        <tr>
+        <td class="center">3</td>
+        <td>Hourly synoptic observations from mobile-land stations (SYNOP MOBIL)</td>
+        </tr>
+        <tr>
+        <td class="center">4</td>
+        <td>Intermediate synoptic observations from mobile-land stations (SYNOP MOBIL)</td>
+        </tr>
+        <tr>
+        <td class="center">5</td>
+        <td>Main synoptic observations from mobile land stations (SYNOP MOBIL)</td>
+        </tr>
+        <tr>
+        <td class="center">6</td>
+        <td>One-hour observations from automated stations</td>
+        </tr>
+        <tr>
+        <td class="center">7</td>
+        <td>n-minute observations from AWS stations</td>
+        </tr>
+        <tr>
+        <td class="center">8</td>
+        <td>Radiation observations from one-hour period</td>
+        </tr>
+        <tr>
+        <td class="center">9</td>
+        <td>Radiation observations from n-minute period</td>
+        </tr>
+        <tr>
+        <td class="center">10</td>
+        <td>Routine aeronautical observations (METAR)</td>
+        </tr>
+        <tr>
+        <td class="center">11</td>
+        <td>Special aeronautical observations (SPECI)</td>
+        </tr>
+        <tr>
+        <td class="center">14</td>
+        <td>Ground-based GPS humidity observations (GPSIWV)</td>
+        </tr>
+        <tr>
+        <td class="center">20</td>
+        <td>Climatological observations (CLIMAT)</td>
+        </tr>
+        <tr>
+        <td class="center">30</td>
+        <td>Sferics locations</td>
+        </tr>
+        <tr>
+        <td class="center">40</td>
+        <td>Hydrologic reports</td>
+        </tr>
+        <tr>
+        <td class="center">50</td>
+        <td>Hourly synoptic observations with supplementary one-hour data</td>
+        </tr>
+        <tr>
+        <td class="center">51</td>
+        <td>Intermediate synoptic observations with supplementary one-hour data</td>
+        </tr>
+        <tr>
+        <td class="center">52</td>
+        <td>Main synoptic observations with supplementary one-hour data</td>
+        </tr>
+      </tbody>
+     </table>
+    </td>
+    <td style="vertical-align:top">
+     <table>
+      <thead>
+       <tr>
+        <th style="width:10%" class="local">Code</th>
+        <th style="width:90%" class="local">Meaning</th>
+       </tr>
+      </thead>
+      <tbody>
+        <tr>
+        <td class="local center">0</td>
+        <td class="local">Synoptic land - restricted (WMO Resolution 40)</td>
+        </tr>
+        <tr>
+        <td class="local center">1</td>
+        <td class="local">Synoptic land - fixed</td>
+        </tr>
+        <tr>
+        <td class="local center">2</td>
+        <td class="local">Synoptic land - mobil</td>
+        </tr>
+        <tr>
+        <td class="local center">7</td>
+        <td class="local">Aviation - METAR/SPECI</td>
+        </tr>
+        <tr>
+        <td class="local center">8</td>
+        <td class="local">NOAA Profiler Network (NPN) and Multi-Agency Profiler (MAP) surface data</td>
+        </tr>
+        <tr>
+        <td class="local center">10</td>
+        <td class="local">SHEF products - not included within any other subtype</td>
+        </tr>
+        <tr>
+        <td class="local center">11</td>
+        <td class="local">SHEF products - AFOS (precipitation)</td>
+        </tr>
+        <tr>
+        <td class="local center">12</td>
+        <td class="local">Supplementary climatological data</td>
+        </tr>
+        <tr>
+        <td class="local center">20</td>
+        <td class="local">Wind energy Nacelle - restricted</td>
+        </tr>
+        <tr>
+        <td class="local center">100</td>
+        <td class="local">Synoptic land - restricted (WMO Resolution 40) (BUFR)</td>
+        </tr>
+        <tr>
+        <td class="local center">101</td>
+        <td class="local">Synoptic land - fixed (BUFR)</td>
+        </tr>
+        <tr>
+        <td class="local center">102</td>
+        <td class="local">Synoptic land - mobil (BUFR)</td>
+        </tr>
+      </tbody>
+     </table>
+    </td>
+  </tr>
+ </tbody>
+ </table>
+<br />
+<div class="center"><a href="#">Back to Top</a></div>
+<br />
+<hr id="type1"/>
+<h3>DATA TYPE 1 - Surface data - sea</h3>
+<table style="width:100%"rules=groups>
+ <thead>
+  <tr>
+    <th style="width:50%">Standard subtypes</th>
+    <th class="local" style="width:50%">Local subtypes</th>
+  </tr>
+ </thead>
+ <tbody>
+  <tr>
+    <td style="vertical-align:top">
+     <table>
+      <thead>
+       <tr>
+        <th style="width:10%">Code</th>
+        <th style="width:90%">Meaning</th>
+       </tr>
+      </thead>
+      <tbody>
+        <tr>
+        <td class="center">0</td>
+        <td>Synoptic observations (SHIP)</td>
+        </tr>
+        <tr>
+        <td class="center">6</td>
+        <td>One-hour observations from automated stations</td>
+        </tr>
+        <tr>
+        <td class="center">7</td>
+        <td>n-minute observations from AWS stations</td>
+        </tr>
+        <tr>
+        <td class="center">20</td>
+        <td>Climatological observations (CLIMAT SHIP)</td>
+        </tr>
+        <tr>
+        <td class="center">25</td>
+        <td>Buoy observation (BUOY)</td>
+        </tr>
+        <tr>
+        <td class="center">30</td>
+        <td>Tide gauge</td>
+        </tr>
+        <tr>
+        <td class="center">31</td>
+        <td>Observed water level time series</td>
+        </tr>
+      </tbody>
+     </table>
+    </td>
+    <td style="vertical-align:top">
+     <table>
+      <thead>
+       <tr>
+        <th style="width:10%" class="local">Code</th>
+        <th style="width:90%" class="local">Meaning</th>
+       </tr>
+      </thead>
+      <tbody>
+        <tr>
+        <td class="local center">1</td>
+        <td class="local">Surface marine ship - restricted</td>
+        </tr>
+        <tr>
+        <td class="local center">2</td>
+        <td class="local">Surface marine buoy (FM 18)</td>
+        </tr>
+        <tr>
+        <td class="local center">3</td>
+        <td class="local">Surface marine buoy (FM 13)</td>
+        </tr>
+        <tr>
+        <td class="local center">4</td>
+        <td class="local">Surface marine CMAN</td>
+        </tr>
+        <tr>
+        <td class="local center">5</td>
+        <td class="local">Surface tide gauge (CREX)</td>
+        </tr>
+        <tr>
+        <td class="local center">6</td>
+        <td class="local">Mean sea level pressure bogus</td>
+        </tr>
+        <tr>
+        <td class="local center">7</td>
+        <td class="local">Surface marine Coast Guard</td>
+        </tr>
+        <tr>
+        <td class="local center">8</td>
+        <td class="local">Surface tide gauge (CMAN)</td>
+        </tr>
+        <tr>
+        <td class="local center">9</td>
+        <td class="local">USGS river/stream</td>
+        </tr>
+        <tr>
+        <td class="local center">10</td>
+        <td class="local">Surface marine CMAN (SHEF)</td>
+        </tr>
+        <tr>
+        <td class="local center">11</td>
+        <td class="local">Surface marine buoy (SHEF)</td>
+        </tr>
+        <tr>
+        <td class="local center">12</td>
+        <td class="local">Surface tide gauge (SHEF)</td>
+        </tr>
+        <tr>
+        <td class="local center">13</td>
+        <td class="local">Surface marine ship</td>
+        </tr>
+        <tr>
+        <td class="local center">14</td>
+        <td class="local">RVF river forecast</td>
+        </tr>
+        <tr>
+        <td class="local center">101</td>
+        <td class="local">Surface marine ship - restricted (BUFR)</td>
+        </tr>
+        <tr>
+        <td class="local center">102</td>
+        <td class="local">Surface marine drifting buoy (BUFR)</td>
+        </tr>
+        <tr>
+        <td class="local center">103</td>
+        <td class="local">Surface marine moored buoy (BUFR)</td>
+        </tr>
+        <tr>
+        <td class="local center">113</td>
+        <td class="local">Surface marine ship (BUFR)</td>
+        </tr>
+      </tbody>
+     </table>
+    </td>
+  </tr>
+ </tbody>
+ </table>
+<br />
+<div class="center"><a href="#">Back to Top</a></div>
+<br />
+<hr id="type2"/>
+<h3>DATA TYPE 2 - Vertical soundings (other than satellite)</h3>
+<table style="width:100%"rules=groups>
+ <thead>
+  <tr>
+    <th style="width:50%">Standard subtypes</th>
+    <th class="local" style="width:50%">Local subtypes</th>
+  </tr>
+ </thead>
+ <tbody>
+  <tr>
+    <td style="vertical-align:top">
+     <table>
+      <thead>
+       <tr>
+        <th style="width:10%">Code</th>
+        <th style="width:90%">Meaning</th>
+       </tr>
+      </thead>
+      <tbody>
+        <tr>
+        <td class="center">1</td>
+        <td>Upper-wind reports from fixed-land stations (PILOT)</td>
+        </tr>
+        <tr>
+        <td class="center">2</td>
+        <td>Upper-wind reports from ships (PILOT SHIP)</td>
+        </tr>
+        <tr>
+        <td class="center">3</td>
+        <td>Upper-wind reports from mobile-land stations (PILOT MOBIL)</td>
+        </tr>
+        <tr>
+        <td class="center">4</td>
+        <td>Upper-level temperature/humidity/wind reports from fixed-land stations (TEMP)</td>
+        </tr>
+        <tr>
+        <td class="center">5</td>
+        <td>Upper-level temperature/humidity/wind reports from ships (TEMP SHIP)</td>
+        </tr>
+        <tr>
+        <td class="center">6</td>
+        <td>Upper-level temperature/humidity/wind report from mobile-land stations (TEMP MOBIL)</td>
+        </tr>
+        <tr>
+        <td class="center">7</td>
+        <td>Upper-level temperature/humidity/wind reports from dropwinsondes (TEMP DROP)</td>
+        </tr>
+        <tr>
+        <td class="center">10</td>
+        <td>Wind profiler reports</td>
+        </tr>
+        <tr>
+        <td class="center">11</td>
+        <td>RASS temperature profiles</td>
+        </tr>
+        <tr>
+        <td class="center">14</td>
+        <td>Upper-level temperature/humidity/wind reports from descent radiosondes originally launched from fixed land stations</td>
+        </tr>
+        <tr>
+        <td class="center">15</td>
+        <td>Upper-level temperature/humidity/wind reports from descent radiosondes originally launched from ships</td>
+        </tr>
+        <tr>
+        <td class="center">16</td>
+        <td>Upper-level temperature/humidity/wind reports from descent radiosondes originally launched from mobile land stations</td>
+        </tr>
+        <tr>
+        <td class="center">20</td>
+        <td>ASDAR/ACARS profiles (AMDAR)</td>
+        </tr>
+        <tr>
+        <td class="center">21</td>
+        <td>Profiles of atmospheric constituents concentrations</td>
+        </tr>
+        <tr>
+        <td class="center">25</td>
+        <td>Climatological observations from fixed-land stations (CLIMAT TEMP)</td>
+        </tr>
+        <tr>
+        <td class="center">26</td>
+        <td>Climatological observations from ships (CLIMAT TEMP SHIP)</td>
+        </tr>
+      </tbody>
+     </table>
+    </td>
+    <td style="vertical-align:top">
+     <table>
+      <thead>
+       <tr>
+        <th style="width:10%" class="local">Code</th>
+        <th style="width:90%" class="local">Meaning</th>
+       </tr>
+      </thead>
+      <tbody>
+        <tr>
+        <td class="local center">1</td>
+        <td class="local">Rawinsonde - fixed land</td>
+        </tr>
+        <tr>
+        <td class="local center">2</td>
+        <td class="local">Rawinsonde - mobil land</td>
+        </tr>
+        <tr>
+        <td class="local center">3</td>
+        <td class="local">Rawinsonde - ship</td>
+        </tr>
+        <tr>
+        <td class="local center">4</td>
+        <td class="local">Dropwinsonde</td>
+        </tr>
+        <tr>
+        <td class="local center">5</td>
+        <td class="local">PIBAL</td>
+        </tr>
+        <tr>
+        <td class="local center">7</td>
+        <td class="local">NOAA Profiler Network (NPN) winds</td>
+        </tr>
+        <tr>
+        <td class="local center">8</td>
+        <td class="local">NeXRaD Velocity Azimuth Display (VAD) winds (Radar Coded Message)</td>
+        </tr>
+        <tr>
+        <td class="local center">9</td>
+        <td class="local">Profiler winds (PIBAL)</td>
+        </tr>
+        <tr>
+        <td class="local center">10</td>
+        <td class="local">NOAA Profiler Network (NPN) and Multi-Agency Profiler (MAP) spectral moments</td>
+        </tr>
+        <tr>
+        <td class="local center">11</td>
+        <td class="local">Multi-Agency Profiler (MAP) winds</td>
+        </tr>
+        <tr>
+        <td class="local center">12</td>
+        <td class="local">NOAA Profiler Network (NPN) and Multi-Agency Profiler (MAP) RASS temperatures</td>
+        </tr>
+        <tr>
+        <td class="local center">13</td>
+        <td class="local">Japan profiler winds</td>
+        </tr>
+        <tr>
+        <td class="local center">14</td>
+        <td class="local">Other profiler winds</td>
+        </tr>
+        <tr>
+        <td class="local center">16</td>
+        <td class="local">Europe profiler winds</td>
+        </tr>
+        <tr>
+        <td class="local center">17</td>
+        <td class="local">NeXRaD Velocity Azimuth Display (VAD) winds (Level 2)</td>
+        </tr>
+        <tr>
+        <td class="local center">18</td>
+        <td class="local">Other Velocity Azimuth Display (VAD) winds (BUFR)</td>
+        </tr>
+        <tr>
+        <td class="local center">20</td>
+        <td class="local">Wind energy tower - restricted</td>
+        </tr>
+        <tr>
+        <td class="local center">21</td>
+        <td class="local">Wind energy tower</td>
+        </tr>
+        <tr>
+        <td class="local center">101</td>
+        <td class="local">Rawinsonde - fixed land (BUFR)</td>
+        </tr>
+        <tr>
+        <td class="local center">102</td>
+        <td class="local">Rawinsonde - mobil land (BUFR)</td>
+        </tr>
+        <tr>
+        <td class="local center">103</td>
+        <td class="local">Rawinsonde - ship (BUFR)</td>
+        </tr>
+        <tr>
+        <td class="local center">104</td>
+        <td class="local">Dropwinsonde (BUFR)</td>
+        </tr>
+        <tr>
+        <td class="local center">105</td>
+        <td class="local">PIBAL (BUFR)</td>
+        </tr>
+      </tbody>
+     </table>
+    </td>
+  </tr>
+ </tbody>
+ </table>
+<br />
+<div class="center"><a href="#">Back to Top</a></div>
+<br />
+<hr id="type3"/>
+<h3>DATA TYPE 3 - Vertical soundings (satellite)</h3>
+<table style="width:100%"rules=groups>
+ <thead>
+  <tr>
+    <th style="width:50%">Standard subtypes</th>
+    <th class="local" style="width:50%">Local subtypes</th>
+  </tr>
+ </thead>
+ <tbody>
+  <tr>
+    <td style="vertical-align:top">
+     <table>
+      <thead>
+       <tr>
+        <th style="width:10%">Code</th>
+        <th style="width:90%">Meaning</th>
+       </tr>
+      </thead>
+      <tbody>
+        <tr>
+        <td class="center">0</td>
+        <td>Temperature (SATEM)</td>
+        </tr>
+        <tr>
+        <td class="center">1</td>
+        <td>TIROS (TOVS)</td>
+        </tr>
+        <tr>
+        <td class="center">2</td>
+        <td>ATOVS</td>
+        </tr>
+        <tr>
+        <td class="center">3</td>
+        <td>AMSU-A</td>
+        </tr>
+        <tr>
+        <td class="center">4</td>
+        <td>AMSU-B</td>
+        </tr>
+        <tr>
+        <td class="center">5</td>
+        <td>HIRS</td>
+        </tr>
+        <tr>
+        <td class="center">6</td>
+        <td>MHS</td>
+        </tr>
+        <tr>
+        <td class="center">7</td>
+        <td>IASI</td>
+        </tr>
+        <tr>
+        <td class="center">8</td>
+        <td>VASS (Vertical atmospheric sounding system)</td>
+        </tr>
+        <tr>
+        <td class="center">20</td>
+        <td>IR temperature/humidity sounding</td>
+        </tr>
+        <tr>
+        <td class="center">30</td>
+        <td>Hyperspectral temperature/humidity sounding</td>
+        </tr>
+        <tr>
+        <td class="center">40</td>
+        <td>MW temperature/humidity sounding</td>
+        </tr>
+        <tr>
+        <td class="center">50</td>
+        <td>Radio occultation sounding</td>
+        </tr>
+      </tbody>
+     </table>
+    </td>
+    <td style="vertical-align:top">
+     <table>
+      <thead>
+       <tr>
+        <th style="width:10%" class="local">Code</th>
+        <th style="width:90%" class="local">Meaning</th>
+       </tr>
+      </thead>
+      <tbody>
+        <tr>
+        <td class="local center">1</td>
+        <td class="local">GOES 5x5 FOV cloud and sounder radiances</td>
+        </tr>
+        <tr>
+        <td class="local center">2</td>
+        <td class="local">GOES 1x1 FOV cloud</td>
+        </tr>
+        <tr>
+        <td class="local center">3</td>
+        <td class="local">GOES 1x1 FOV sounder radiances</td>
+        </tr>
+        <tr>
+        <td class="local center">10</td>
+        <td class="local">Radio occultation</td>
+        </tr>
+        <tr>
+        <td class="local center">101</td>
+        <td class="local">Polar orbiting - TOVS</td>
+        </tr>
+        <tr>
+        <td class="local center">102</td>
+        <td class="local">Polar orbiting - RTOVS</td>
+        </tr>
+        <tr>
+        <td class="local center">104</td>
+        <td class="local">Polar orbiting - ATOVS</td>
+        </tr>
+      </tbody>
+     </table>
+    </td>
+  </tr>
+ </tbody>
+ </table>
+<br />
+<div class="center"><a href="#">Back to Top</a></div>
+<br />
+<hr id="type4"/>
+<h3>DATA TYPE 4 - Single level upper-air data (other than satellite)</h3>
+<table style="width:100%"rules=groups>
+ <thead>
+  <tr>
+    <th style="width:50%">Standard subtypes</th>
+    <th class="local" style="width:50%">Local subtypes</th>
+  </tr>
+ </thead>
+ <tbody>
+  <tr>
+    <td style="vertical-align:top">
+     <table>
+      <thead>
+       <tr>
+        <th style="width:10%">Code</th>
+        <th style="width:90%">Meaning</th>
+       </tr>
+      </thead>
+      <tbody>
+        <tr>
+        <td class="center">0</td>
+        <td>ASDAR/ACARS (AMDAR)</td>
+        </tr>
+        <tr>
+        <td class="center">1</td>
+        <td>Manual (AIREP, PIREP)</td>
+        </tr>
+      </tbody>
+     </table>
+    </td>
+    <td style="vertical-align:top">
+     <table>
+      <thead>
+       <tr>
+        <th style="width:10%" class="local">Code</th>
+        <th style="width:90%" class="local">Meaning</th>
+       </tr>
+      </thead>
+      <tbody>
+        <tr>
+        <td class="local center">1</td>
+        <td class="local">AIREP</td>
+        </tr>
+        <tr>
+        <td class="local center">2</td>
+        <td class="local">PIREP</td>
+        </tr>
+        <tr>
+        <td class="local center">3</td>
+        <td class="local">ASDAR/ACARS (AMDAR)</td>
+        </tr>
+        <tr>
+        <td class="local center">4</td>
+        <td class="local">U.S. ASDAR/ACARS (ARINC to NCEP)</td>
+        </tr>
+        <tr>
+        <td class="local center">5</td>
+        <td class="local">Flight level reconnaisance (RECCO)</td>
+        </tr>
+        <tr>
+        <td class="local center">6</td>
+        <td class="local">Europe ASDAR/ACARS</td>
+        </tr>
+        <tr>
+        <td class="local center">7</td>
+        <td class="local">U.S. ASDAR/ACARS (ARINC to AFWA to NCEP)</td>
+        </tr>
+        <tr>
+        <td class="local center">8</td>
+        <td class="local">TAMDAR (MADIS Mesaba)</td>
+        </tr>
+        <tr>
+        <td class="local center">9</td>
+        <td class="local">Canada ASDAR/ACARS</td>
+        </tr>
+        <tr>
+        <td class="local center">10</td>
+        <td class="local">TAMDAR (BUFR)</td>
+        </tr>
+        <tr>
+        <td class="local center">11</td>
+        <td class="local">Korea ASDAR/ACARS</td>
+        </tr>
+        <tr>
+        <td class="local center">12</td>
+        <td class="local">TAMDAR (MADIS PenAir)</td>
+        </tr>
+        <tr>
+        <td class="local center">13</td>
+        <td class="local">TAMDAR (MADIS Chautauqua)</td>
+        </tr>
+        <tr>
+        <td class="local center">14</td>
+        <td class="local">France ASDAR/ACARS</td>
+        </tr>
+        <tr>
+        <td class="local center">15</td>
+        <td class="local">Flight level reconnaisance (High Density Observations)</td>
+        </tr>
+        <tr>
+        <td class="local center">103</td>
+        <td class="local">ASDAR/ACARS (BUFR)</td>
+        </tr>
+      </tbody>
+     </table>
+    </td>
+  </tr>
+ </tbody>
+ </table>
+<br />
+<div class="center"><a href="#">Back to Top</a></div>
+<br />
+<hr id="type5"/>
+<h3>DATA TYPE 5 - Single level upper-air data (satellite)</h3>
+<table style="width:100%"rules=groups>
+ <thead>
+  <tr>
+    <th style="width:50%">Standard subtypes</th>
+    <th class="local" style="width:50%">Local subtypes</th>
+  </tr>
+ </thead>
+ <tbody>
+  <tr>
+    <td style="vertical-align:top">
+     <table>
+      <thead>
+       <tr>
+        <th style="width:10%">Code</th>
+        <th style="width:90%">Meaning</th>
+       </tr>
+      </thead>
+      <tbody>
+        <tr>
+        <td class="center">0</td>
+        <td>Cloud wind data (SATOB)</td>
+        </tr>
+        <tr>
+        <td class="center">1</td>
+        <td>Cloud properties</td>
+        </tr>
+      </tbody>
+     </table>
+    </td>
+    <td style="vertical-align:top">
+     <table>
+      <thead>
+       <tr>
+        <th style="width:10%" class="local">Code</th>
+        <th style="width:90%" class="local">Meaning</th>
+       </tr>
+      </thead>
+      <tbody>
+        <tr>
+        <td class="local center">1</td>
+        <td class="local">GOES low-density winds - infrared (long-wave) (NESDIS binary format)</td>
+        </tr>
+        <tr>
+        <td class="local center">2</td>
+        <td class="local">GOES low-density winds - visible (NESDIS binary format)</td>
+        </tr>
+        <tr>
+        <td class="local center">3</td>
+        <td class="local">GOES low-density winds - water vapor imager (NESDIS binary format)</td>
+        </tr>
+        <tr>
+        <td class="local center">4</td>
+        <td class="local">GOES low-density winds - picture triplet (NESDIS binary format)</td>
+        </tr>
+        <tr>
+        <td class="local center">5</td>
+        <td class="local">GOES high-density winds - infrared (long-wave) (NESDIS binary format)</td>
+        </tr>
+        <tr>
+        <td class="local center">6</td>
+        <td class="local">GOES high-density winds - water vapor imager (NESDIS binary format)</td>
+        </tr>
+        <tr>
+        <td class="local center">8</td>
+        <td class="local">GOES high-density winds - visible (NESDIS binary format)</td>
+        </tr>
+        <tr>
+        <td class="local center">9</td>
+        <td class="local">GOES high-density winds - picture triplet (NESDIS binary format)</td>
+        </tr>
+        <tr>
+        <td class="local center">10</td>
+        <td class="local">GOES high-density winds - infrared (long-wave) (BUFR)</td>
+        </tr>
+        <tr>
+        <td class="local center">11</td>
+        <td class="local">GOES high-density winds - water vapor imager (BUFR)</td>
+        </tr>
+        <tr>
+        <td class="local center">12</td>
+        <td class="local">GOES high-density winds - visible (BUFR)</td>
+        </tr>
+        <tr>
+        <td class="local center">12</td>
+        <td class="local">GOES high-density winds - picture triplet (BUFR)</td>
+        </tr>
+        <tr>
+        <td class="local center">14</td>
+        <td class="local">GOES high-density winds - water vapor sounder (BUFR)</td>
+        </tr>
+        <tr>
+        <td class="local center">15</td>
+        <td class="local">GOES high-density winds - infrared (long-wave) (BUFR via GTS)</td>
+        </tr>
+        <tr>
+        <td class="local center">16</td>
+        <td class="local">GOES high-density winds - water vapor imager (BUFR via GTS)</td>
+        </tr>
+        <tr>
+        <td class="local center">17</td>
+        <td class="local">GOES high-density winds - visible (BUFR via GTS)</td>
+        </tr>
+        <tr>
+        <td class="local center">18</td>
+        <td class="local">GOES high-density winds - water vapor sounder (BUFR via GTS)</td>
+        </tr>
+        <tr>
+        <td class="local center">19</td>
+        <td class="local">GOES high-density winds - infrared (short-wave) (BUFR)</td>
+        </tr>
+        <tr>
+        <td class="local center">20</td>
+        <td class="local">NESDIS GOES Satellite Cloud Product (SCP)</td>
+        </tr>
+        <tr>
+        <td class="local center">21</td>
+        <td class="local">India low-density winds - infrared (long-wave) (SATOB)</td>
+        </tr>
+        <tr>
+        <td class="local center">22</td>
+        <td class="local">India low-density winds - visible (SATOB)</td>
+        </tr>
+        <tr>
+        <td class="local center">23</td>
+        <td class="local">India low-density winds - water vapor imager (SATOB)</td>
+        </tr>
+        <tr>
+        <td class="local center">41</td>
+        <td class="local">Japan low-density winds - infrared (long-wave) (SATOB)</td>
+        </tr>
+        <tr>
+        <td class="local center">42</td>
+        <td class="local">Japan low-density winds - visible (SATOB)</td>
+        </tr>
+        <tr>
+        <td class="local center">43</td>
+        <td class="local">Japan low-density winds - water vapor imager (SATOB)</td>
+        </tr>
+        <tr>
+        <td class="local center">50</td>
+        <td class="local">GMS high-density winds - infrared (long-wave) (BUFR)</td>
+        </tr>
+        <tr>
+        <td class="local center">51</td>
+        <td class="local">GMS high-density winds - water vapor imager (BUFR)</td>
+        </tr>
+        <tr>
+        <td class="local center">61</td>
+        <td class="local">Europe low-density winds - infrared (long-wave) (SATOB)</td>
+        </tr>
+        <tr>
+        <td class="local center">62</td>
+        <td class="local">Europe low-density winds - visible (SATOB)</td>
+        </tr>
+        <tr>
+        <td class="local center">63</td>
+        <td class="local">Europe low-density winds - water vapor imager (SATOB)</td>
+        </tr>
+        <tr>
+        <td class="local center">64</td>
+        <td class="local">Europe high-density winds - infrared (long-wave) (BUFR)</td>
+        </tr>
+        <tr>
+        <td class="local center">65</td>
+        <td class="local">Europe high-density winds - visible (BUFR)</td>
+        </tr>
+        <tr>
+        <td class="local center">66</td>
+        <td class="local">Europe high-density winds - water vapor imager (BUFR)</td>
+        </tr>
+        <tr>
+        <td class="local center">70</td>
+        <td class="local">MODIS AQUA/TERRA winds - infrared (long-wave) (BUFR)</td>
+        </tr>
+        <tr>
+        <td class="local center">71</td>
+        <td class="local">MODIS AQUA/TERRA winds - water vapor imager (BUFR)</td>
+        </tr>
+        <tr>
+        <td class="local center">80</td>
+        <td class="local">METOP AVHRR winds - infrared (long-wave) (BUFR)</td>
+        </tr>
+        <tr>
+        <td class="local center">90</td>
+        <td class="local">NPP VIIRS winds - infrared (long-wave) (BUFR)</td>
+        </tr>
+      </tbody>
+     </table>
+    </td>
+  </tr>
+ </tbody>
+ </table>
+<br />
+<div class="center"><a href="#">Back to Top</a></div>
+<br />
+<hr id="type6"/>
+<h3>DATA TYPE 6 - Radar data</h3>
+<table style="width:100%"rules=groups>
+ <thead>
+  <tr>
+    <th style="width:50%">Standard subtypes</th>
+    <th class="local" style="width:50%">Local subtypes</th>
+  </tr>
+ </thead>
+ <tbody>
+  <tr>
+    <td style="vertical-align:top">
+     <table>
+      <thead>
+       <tr>
+        <th style="width:10%">Code</th>
+        <th style="width:90%">Meaning</th>
+       </tr>
+      </thead>
+      <tbody>
+        <tr>
+        <td class="center">0</td>
+        <td>Reflectivity data</td>
+        </tr>
+        <tr>
+        <td class="center">1</td>
+        <td>Doppler wind profiles</td>
+        </tr>
+        <tr>
+        <td class="center">2</td>
+        <td>Derived products</td>
+        </tr>
+        <tr>
+        <td class="center">3</td>
+        <td>Ground radar weather (RADOB)</td>
+        </tr>
+      </tbody>
+     </table>
+    </td>
+    <td style="vertical-align:top">
+     <table>
+      <thead>
+       <tr>
+        <th style="width:10%" class="local">Code</th>
+        <th style="width:90%" class="local">Meaning</th>
+       </tr>
+      </thead>
+      <tbody>
+        <tr>
+        <td class="local center">1</td>
+        <td class="local">NeXRaD level 3 radial wind superob</td>
+        </tr>
+        <tr>
+        <td class="local center">2</td>
+        <td class="local">NeXRaD level 2.5 radial wind superob</td>
+        </tr>
+        <tr>
+        <td class="local center">10</td>
+        <td class="local">NeXRaD level 2 radial wind (00z)</td>
+        </tr>
+        <tr>
+        <td class="local center">11</td>
+        <td class="local">NeXRaD level 2 radial wind (01z)</td>
+        </tr>
+        <tr>
+        <td class="local center">12</td>
+        <td class="local">NeXRaD level 2 radial wind (02z)</td>
+        </tr>
+        <tr>
+        <td class="local center">13</td>
+        <td class="local">NeXRaD level 2 radial wind (03z)</td>
+        </tr>
+        <tr>
+        <td class="local center">14</td>
+        <td class="local">NeXRaD level 2 radial wind (04z)</td>
+        </tr>
+        <tr>
+        <td class="local center">15</td>
+        <td class="local">NeXRaD level 2 radial wind (05z)</td>
+        </tr>
+        <tr>
+        <td class="local center">16</td>
+        <td class="local">NeXRaD level 2 radial wind (06z)</td>
+        </tr>
+        <tr>
+        <td class="local center">17</td>
+        <td class="local">NeXRaD level 2 radial wind (07z)</td>
+        </tr>
+        <tr>
+        <td class="local center">18</td>
+        <td class="local">NeXRaD level 2 radial wind (08z)</td>
+        </tr>
+        <tr>
+        <td class="local center">19</td>
+        <td class="local">NeXRaD level 2 radial wind (09z)</td>
+        </tr>
+        <tr>
+        <td class="local center">20</td>
+        <td class="local">NeXRaD level 2 radial wind (10z)</td>
+        </tr>
+        <tr>
+        <td class="local center">21</td>
+        <td class="local">NeXRaD level 2 radial wind (11z)</td>
+        </tr>
+        <tr>
+        <td class="local center">22</td>
+        <td class="local">NeXRaD level 2 radial wind (12z)</td>
+        </tr>
+        <tr>
+        <td class="local center">23</td>
+        <td class="local">NeXRaD level 2 radial wind (13z)</td>
+        </tr>
+        <tr>
+        <td class="local center">24</td>
+        <td class="local">NeXRaD level 2 radial wind (14z)</td>
+        </tr>
+        <tr>
+        <td class="local center">25</td>
+        <td class="local">NeXRaD level 2 radial wind (15z)</td>
+        </tr>
+        <tr>
+        <td class="local center">26</td>
+        <td class="local">NeXRaD level 2 radial wind (16z)</td>
+        </tr>
+        <tr>
+        <td class="local center">27</td>
+        <td class="local">NeXRaD level 2 radial wind (17z)</td>
+        </tr>
+        <tr>
+        <td class="local center">28</td>
+        <td class="local">NeXRaD level 2 radial wind (18z)</td>
+        </tr>
+        <tr>
+        <td class="local center">29</td>
+        <td class="local">NeXRaD level 2 radial wind (19z)</td>
+        </tr>
+        <tr>
+        <td class="local center">30</td>
+        <td class="local">NeXRaD level 2 radial wind (20z)</td>
+        </tr>
+        <tr>
+        <td class="local center">31</td>
+        <td class="local">NeXRaD level 2 radial wind (21z)</td>
+        </tr>
+        <tr>
+        <td class="local center">32</td>
+        <td class="local">NeXRaD level 2 radial wind (22z)</td>
+        </tr>
+        <tr>
+        <td class="local center">33</td>
+        <td class="local">NeXRaD level 2 radial wind (23z)</td>
+        </tr>
+        <tr>
+        <td class="local center">40</td>
+        <td class="local">NeXRaD level 2 reflectivity (00z)</td>
+        </tr>
+        <tr>
+        <td class="local center">41</td>
+        <td class="local">NeXRaD level 2 reflectivity (01z)</td>
+        </tr>
+        <tr>
+        <td class="local center">42</td>
+        <td class="local">NeXRaD level 2 reflectivity (02z)</td>
+        </tr>
+        <tr>
+        <td class="local center">43</td>
+        <td class="local">NeXRaD level 2 reflectivity (03z)</td>
+        </tr>
+        <tr>
+        <td class="local center">44</td>
+        <td class="local">NeXRaD level 2 reflectivity (04z)</td>
+        </tr>
+        <tr>
+        <td class="local center">45</td>
+        <td class="local">NeXRaD level 2 reflectivity (05z)</td>
+        </tr>
+        <tr>
+        <td class="local center">46</td>
+        <td class="local">NeXRaD level 2 reflectivity (06z)</td>
+        </tr>
+        <tr>
+        <td class="local center">47</td>
+        <td class="local">NeXRaD level 2 reflectivity (07z)</td>
+        </tr>
+        <tr>
+        <td class="local center">48</td>
+        <td class="local">NeXRaD level 2 reflectivity (08z)</td>
+        </tr>
+        <tr>
+        <td class="local center">49</td>
+        <td class="local">NeXRaD level 2 reflectivity (09z)</td>
+        </tr>
+        <tr>
+        <td class="local center">50</td>
+        <td class="local">NeXRaD level 2 reflectivity (10z)</td>
+        </tr>
+        <tr>
+        <td class="local center">51</td>
+        <td class="local">NeXRaD level 2 reflectivity (11z)</td>
+        </tr>
+        <tr>
+        <td class="local center">52</td>
+        <td class="local">NeXRaD level 2 reflectivity (12z)</td>
+        </tr>
+        <tr>
+        <td class="local center">53</td>
+        <td class="local">NeXRaD level 2 reflectivity (13z)</td>
+        </tr>
+        <tr>
+        <td class="local center">54</td>
+        <td class="local">NeXRaD level 2 reflectivity (14z)</td>
+        </tr>
+        <tr>
+        <td class="local center">55</td>
+        <td class="local">NeXRaD level 2 reflectivity (15z)</td>
+        </tr>
+        <tr>
+        <td class="local center">56</td>
+        <td class="local">NeXRaD level 2 reflectivity (16z)</td>
+        </tr>
+        <tr>
+        <td class="local center">57</td>
+        <td class="local">NeXRaD level 2 reflectivity (17z)</td>
+        </tr>
+        <tr>
+        <td class="local center">58</td>
+        <td class="local">NeXRaD level 2 reflectivity (18z)</td>
+        </tr>
+        <tr>
+        <td class="local center">59</td>
+        <td class="local">NeXRaD level 2 reflectivity (19z)</td>
+        </tr>
+        <tr>
+        <td class="local center">60</td>
+        <td class="local">NeXRaD level 2 reflectivity (20z)</td>
+        </tr>
+        <tr>
+        <td class="local center">61</td>
+        <td class="local">NeXRaD level 2 reflectivity (21z)</td>
+        </tr>
+        <tr>
+        <td class="local center">62</td>
+        <td class="local">NeXRaD level 2 reflectivity (22z)</td>
+        </tr>
+        <tr>
+        <td class="local center">63</td>
+        <td class="local">NeXRaD level 2 reflectivity (23z)</td>
+        </tr>
+        <tr>
+        <td class="local center">70</td>
+        <td class="local">Aircraft tail doppler radial wind</td>
+        </tr>
+        <tr>
+        <td class="local center">80</td>
+        <td class="local">Canada reflectivity (00z)</td>
+        </tr>
+        <tr>
+        <td class="local center">81</td>
+        <td class="local">Canada reflectivity (01z)</td>
+        </tr>
+        <tr>
+        <td class="local center">82</td>
+        <td class="local">Canada reflectivity (02z)</td>
+        </tr>
+        <tr>
+        <td class="local center">83</td>
+        <td class="local">Canada reflectivity (03z)</td>
+        </tr>
+        <tr>
+        <td class="local center">84</td>
+        <td class="local">Canada reflectivity (04z)</td>
+        </tr>
+        <tr>
+        <td class="local center">85</td>
+        <td class="local">Canada reflectivity (05z)</td>
+        </tr>
+        <tr>
+        <td class="local center">86</td>
+        <td class="local">Canada reflectivity (06z)</td>
+        </tr>
+        <tr>
+        <td class="local center">87</td>
+        <td class="local">Canada reflectivity (07z)</td>
+        </tr>
+        <tr>
+        <td class="local center">88</td>
+        <td class="local">Canada reflectivity (08z)</td>
+        </tr>
+        <tr>
+        <td class="local center">89</td>
+        <td class="local">Canada reflectivity (09z)</td>
+        </tr>
+        <tr>
+        <td class="local center">90</td>
+        <td class="local">Canada reflectivity (10z)</td>
+        </tr>
+        <tr>
+        <td class="local center">91</td>
+        <td class="local">Canada reflectivity (11z)</td>
+        </tr>
+        <tr>
+        <td class="local center">92</td>
+        <td class="local">Canada reflectivity (12z)</td>
+        </tr>
+        <tr>
+        <td class="local center">93</td>
+        <td class="local">Canada reflectivity (13z)</td>
+        </tr>
+        <tr>
+        <td class="local center">94</td>
+        <td class="local">Canada reflectivity (14z)</td>
+        </tr>
+        <tr>
+        <td class="local center">95</td>
+        <td class="local">Canada reflectivity (15z)</td>
+        </tr>
+        <tr>
+        <td class="local center">96</td>
+        <td class="local">Canada reflectivity (16z)</td>
+        </tr>
+        <tr>
+        <td class="local center">97</td>
+        <td class="local">Canada reflectivity (17z)</td>
+        </tr>
+        <tr>
+        <td class="local center">98</td>
+        <td class="local">Canada reflectivity (18z)</td>
+        </tr>
+        <tr>
+        <td class="local center">99</td>
+        <td class="local">Canada reflectivity (19z)</td>
+        </tr>
+        <tr>
+        <td class="local center">100</td>
+        <td class="local">Canada reflectivity (20z)</td>
+        </tr>
+        <tr>
+        <td class="local center">101</td>
+        <td class="local">Canada reflectivity (21z)</td>
+        </tr>
+        <tr>
+        <td class="local center">102</td>
+        <td class="local">Canada reflectivity (22z)</td>
+        </tr>
+        <tr>
+        <td class="local center">103</td>
+        <td class="local">Canada reflectivity (23z)</td>
+        </tr>
+        <tr>
+        <td class="local center">110</td>
+        <td class="local">Canada radial wind (00z)</td>
+        </tr>
+        <tr>
+        <td class="local center">111</td>
+        <td class="local">Canada radial wind (01z)</td>
+        </tr>
+        <tr>
+        <td class="local center">112</td>
+        <td class="local">Canada radial wind (02z)</td>
+        </tr>
+        <tr>
+        <td class="local center">113</td>
+        <td class="local">Canada radial wind (03z)</td>
+        </tr>
+        <tr>
+        <td class="local center">114</td>
+        <td class="local">Canada radial wind (04z)</td>
+        </tr>
+        <tr>
+        <td class="local center">115</td>
+        <td class="local">Canada radial wind (05z)</td>
+        </tr>
+        <tr>
+        <td class="local center">116</td>
+        <td class="local">Canada radial wind (06z)</td>
+        </tr>
+        <tr>
+        <td class="local center">117</td>
+        <td class="local">Canada radial wind (07z)</td>
+        </tr>
+        <tr>
+        <td class="local center">118</td>
+        <td class="local">Canada radial wind (08z)</td>
+        </tr>
+        <tr>
+        <td class="local center">119</td>
+        <td class="local">Canada radial wind (09z)</td>
+        </tr>
+        <tr>
+        <td class="local center">120</td>
+        <td class="local">Canada radial wind (10z)</td>
+        </tr>
+        <tr>
+        <td class="local center">121</td>
+        <td class="local">Canada radial wind (11z)</td>
+        </tr>
+        <tr>
+        <td class="local center">122</td>
+        <td class="local">Canada radial wind (12z)</td>
+        </tr>
+        <tr>
+        <td class="local center">123</td>
+        <td class="local">Canada radial wind (13z)</td>
+        </tr>
+        <tr>
+        <td class="local center">124</td>
+        <td class="local">Canada radial wind (14z)</td>
+        </tr>
+        <tr>
+        <td class="local center">125</td>
+        <td class="local">Canada radial wind (15z)</td>
+        </tr>
+        <tr>
+        <td class="local center">126</td>
+        <td class="local">Canada radial wind (16z)</td>
+        </tr>
+        <tr>
+        <td class="local center">127</td>
+        <td class="local">Canada radial wind (17z)</td>
+        </tr>
+        <tr>
+        <td class="local center">128</td>
+        <td class="local">Canada radial wind (18z)</td>
+        </tr>
+        <tr>
+        <td class="local center">129</td>
+        <td class="local">Canada radial wind (19z)</td>
+        </tr>
+        <tr>
+        <td class="local center">130</td>
+        <td class="local">Canada radial wind (20z)</td>
+        </tr>
+        <tr>
+        <td class="local center">131</td>
+        <td class="local">Canada radial wind (21z)</td>
+        </tr>
+        <tr>
+        <td class="local center">132</td>
+        <td class="local">Canada radial wind (22z)</td>
+        </tr>
+        <tr>
+        <td class="local center">133</td>
+        <td class="local">Canada radial wind (23z)</td>
+        </tr>
+      </tbody>
+     </table>
+    </td>
+  </tr>
+ </tbody>
+ </table>
+<br />
+<div class="center"><a href="#">Back to Top</a></div>
+<br />
+<hr id="type7"/>
+<h3>DATA TYPE 7 - Synoptic features</h3>
+<table style="width:100%"rules=groups>
+ <thead>
+  <tr>
+    <th style="width:50%">Standard subtypes</th>
+    <th class="local" style="width:50%">Local subtypes</th>
+  </tr>
+ </thead>
+ <tbody>
+  <tr>
+    <td style="vertical-align:top">
+     <table>
+      <thead>
+       <tr>
+        <th style="width:10%">Code</th>
+        <th style="width:90%">Meaning</th>
+       </tr>
+      </thead>
+      <tbody>
+        <tr>
+        <td class="center">0</td>
+        <td>Forecast Tropical cyclone tracks from EPS</td>
+        </tr>
+        <tr>
+        <td class="center">1</td>
+        <td>Squall Line</td>
+        </tr>
+      </tbody>
+     </table>
+    </td>
+    <td style="vertical-align:top">
+     <table>
+      <thead>
+       <tr>
+        <th style="width:10%" class="local">Code</th>
+        <th style="width:90%" class="local">Meaning</th>
+       </tr>
+      </thead>
+      <tbody>
+        <tr>
+        <td class="local center">0</td>
+        <td class="local">Tropical storm</td>
+        </tr>
+        <tr>
+        <td class="local center">1</td>
+        <td class="local">Vaisala lightning (NLDN short-range)</td>
+        </tr>
+        <tr>
+        <td class="local center">2</td>
+        <td class="local">Vaisala lightning (LLDN long-range)</td>
+        </tr>
+        <tr>
+        <td class="local center">3</td>
+        <td class="local">Earth Networks lightning</td>
+        </tr>
+        <tr>
+        <td class="local center">21</td>
+        <td class="local">NeXRaD level 2 boundary layer heights</td>
+        </tr>
+      </tbody>
+     </table>
+    </td>
+  </tr>
+ </tbody>
+ </table>
+<br />
+<div class="center"><a href="#">Back to Top</a></div>
+<br />
+<hr id="type8"/>
+<h3>DATA TYPE 8 - Physical/chemical constituents</h3>
+<table style="width:100%"rules=groups>
+ <thead>
+  <tr>
+    <th style="width:50%">Standard subtypes</th>
+    <th class="local" style="width:50%">Local subtypes</th>
+  </tr>
+ </thead>
+ <tbody>
+  <tr>
+    <td style="vertical-align:top">
+     <table>
+      <thead>
+       <tr>
+        <th style="width:10%">Code</th>
+        <th style="width:90%">Meaning</th>
+       </tr>
+      </thead>
+      <tbody>
+        <tr>
+        <td class="center">0</td>
+        <td>Surface ozone</td>
+        </tr>
+        <tr>
+        <td class="center">1</td>
+        <td>Ozone vertical sounding</td>
+        </tr>
+        <tr>
+        <td class="center">2</td>
+        <td>Total ozone</td>
+        </tr>
+        <tr>
+        <td class="center">3</td>
+        <td>Acid rain</td>
+        </tr>
+      </tbody>
+     </table>
+    </td>
+    <td style="vertical-align:top">
+     <table>
+      <thead>
+       <tr>
+        <th style="width:10%" class="local">Code</th>
+        <th style="width:90%" class="local">Meaning</th>
+       </tr>
+      </thead>
+      <tbody>
+        <tr>
+        <td class="local center">10</td>
+        <td class="local">ATOVS SBUV-2 ozone</td>
+        </tr>
+        <tr>
+        <td class="local center">11</td>
+        <td class="local">ATOVS SBUV-2 ozone</td>
+        </tr>
+        <tr>
+        <td class="local center">12</td>
+        <td class="local">Global ozone monitoring experiment (GOME)</td>
+        </tr>
+        <tr>
+        <td class="local center">13</td>
+        <td class="local">Aura ozone monitoring instrument (OMI)</td>
+        </tr>
+        <tr>
+        <td class="local center">14</td>
+        <td class="local">NPP OMPS ozone - nadir profile</td>
+        </tr>
+        <tr>
+        <td class="local center">15</td>
+        <td class="local">Aura ozone microwave limb sounder (MLS)</td>
+        </tr>
+        <tr>
+        <td class="local center">16</td>
+        <td class="local">NPP OMPS ozone - total column</td>
+        </tr>
+        <tr>
+        <td class="local center">20</td>
+        <td class="local">AIRNOW ozone - 1-hr and 8-hr forward averaged, daily ingest</td>
+        </tr>
+        <tr>
+        <td class="local center">21</td>
+        <td class="local">AIRNOW ozone - 1-hr backward averaged, daily ingest</td>
+        </tr>
+        <tr>
+        <td class="local center">22</td>
+        <td class="local">AIRNOW ozone - 8-hr backward averaged, daily ingest</td>
+        </tr>
+        <tr>
+        <td class="local center">23</td>
+        <td class="local">AIRNOW ozone - 1-hr backward averaged, hourly ingest</td>
+        </tr>
+        <tr>
+        <td class="local center">31</td>
+        <td class="local">AIRNOW particulate matter - 1-hr backward averaged, daily ingest</td>
+        </tr>
+        <tr>
+        <td class="local center">32</td>
+        <td class="local">AIRNOW particulate matter - 1-hr backward averaged, hourly ingest</td>
+        </tr>
+        <tr>
+        <td class="local center">41</td>
+        <td class="local">MODIS aerosol optical depth</td>
+        </tr>
+        <tr>
+        <td class="local center">42</td>
+        <td class="local">NPP aerosol optical depth</td>
+        </tr>
+        <tr>
+        <td class="local center">45</td>
+        <td class="local">AERONET aerosol optical depths and thicknesses</td>
+        </tr>
+      </tbody>
+     </table>
+    </td>
+  </tr>
+ </tbody>
+ </table>
+<br />
+<div class="center"><a href="#">Back to Top</a></div>
+<br />
+<hr id="type9"/>
+<h3>DATA TYPE 9 - Dispersal and transport</h3>
+<table style="width:100%"rules=groups>
+ <thead>
+  <tr>
+    <th style="width:50%">Standard subtypes</th>
+    <th class="local" style="width:50%">Local subtypes</th>
+  </tr>
+ </thead>
+ <tbody>
+  <tr>
+    <td style="vertical-align:top">
+     <table>
+      <thead>
+       <tr>
+        <th style="width:10%">Code</th>
+        <th style="width:90%">Meaning</th>
+       </tr>
+      </thead>
+      <tbody>
+        <tr>
+        <td class="center">0</td>
+        <td>Trajectories, analysis or forecast</td>
+        </tr>
+      </tbody>
+     </table>
+    </td>
+    <td style="vertical-align:top">
+     <table>
+      <thead>
+       <tr>
+        <th style="width:10%" class="local">Code</th>
+        <th style="width:90%" class="local">Meaning</th>
+       </tr>
+      </thead>
+      <tbody>
+        <tr>
+         <td></td>
+        <td></td>
+        <tr>
+      </tbody>
+     </table>
+    </td>
+  </tr>
+ </tbody>
+ </table>
+<br />
+<div class="center"><a href="#">Back to Top</a></div>
+<br />
+<hr id="type10"/>
+<h3>DATA TYPE 10 - Radiological data</h3>
+<table style="width:100%"rules=groups>
+ <thead>
+  <tr>
+    <th style="width:50%">Standard subtypes</th>
+    <th class="local" style="width:50%">Local subtypes</th>
+  </tr>
+ </thead>
+ <tbody>
+  <tr>
+    <td style="vertical-align:top">
+     <table>
+      <thead>
+       <tr>
+        <th style="width:10%">Code</th>
+        <th style="width:90%">Meaning</th>
+       </tr>
+      </thead>
+      <tbody>
+        <tr>
+        <td class="center">1</td>
+        <td>Observation (RADREP)</td>
+        </tr>
+        <tr>
+        <td class="center">2</td>
+        <td>Forecast (RADOF)</td>
+        </tr>
+      </tbody>
+     </table>
+    </td>
+    <td style="vertical-align:top">
+     <table>
+      <thead>
+       <tr>
+        <th style="width:10%" class="local">Code</th>
+        <th style="width:90%" class="local">Meaning</th>
+       </tr>
+      </thead>
+      <tbody>
+        <tr>
+         <td></td>
+        <td></td>
+        <tr>
+      </tbody>
+     </table>
+    </td>
+  </tr>
+ </tbody>
+ </table>
+<br />
+<div class="center"><a href="#">Back to Top</a></div>
+<br />
+<hr id="type11"/>
+<h3>DATA TYPE 11 - BUFR tables, complete replacement or update</h3>
+<table style="width:100%"rules=groups>
+ <thead>
+  <tr>
+    <th style="width:50%">Standard subtypes</th>
+    <th class="local" style="width:50%">Local subtypes</th>
+  </tr>
+ </thead>
+ <tbody>
+  <tr>
+    <td style="vertical-align:top">
+     <table>
+      <thead>
+       <tr>
+        <th style="width:10%">Code</th>
+        <th style="width:90%">Meaning</th>
+       </tr>
+      </thead>
+      <tbody>
+        <tr>
+         <td></td>
+         <td></td>
+        </tr>
+      </tbody>
+     </table>
+    </td>
+    <td style="vertical-align:top">
+     <table>
+      <thead>
+       <tr>
+        <th style="width:10%" class="local">Code</th>
+        <th style="width:90%" class="local">Meaning</th>
+       </tr>
+      </thead>
+      <tbody>
+        <tr>
+         <td></td>
+        <td></td>
+        <tr>
+      </tbody>
+     </table>
+    </td>
+  </tr>
+ </tbody>
+ </table>
+<br />
+<div class="center"><a href="#">Back to Top</a></div>
+<br />
+<hr id="type12"/>
+<h3>DATA TYPE 12 - Surface data (satellite)</h3>
+<table style="width:100%"rules=groups>
+ <thead>
+  <tr>
+    <th style="width:50%">Standard subtypes</th>
+    <th class="local" style="width:50%">Local subtypes</th>
+  </tr>
+ </thead>
+ <tbody>
+  <tr>
+    <td style="vertical-align:top">
+     <table>
+      <thead>
+       <tr>
+        <th style="width:10%">Code</th>
+        <th style="width:90%">Meaning</th>
+       </tr>
+      </thead>
+      <tbody>
+        <tr>
+        <td class="center">0</td>
+        <td>ERS-uwa</td>
+        </tr>
+        <tr>
+        <td class="center">1</td>
+        <td>ERS-uwi</td>
+        </tr>
+        <tr>
+        <td class="center">2</td>
+        <td>ERS-ura</td>
+        </tr>
+        <tr>
+        <td class="center">3</td>
+        <td>ERS-uat</td>
+        </tr>
+        <tr>
+        <td class="center">4</td>
+        <td>SSM/I radiometer</td>
+        </tr>
+        <tr>
+        <td class="center">5</td>
+        <td>Quickscat</td>
+        </tr>
+        <tr>
+        <td class="center">6</td>
+        <td>Surface temp./radiation (SATOB)</td>
+        </tr>
+        <tr>
+        <td class="center">7</td>
+        <td>ASCAT data</td>
+        </tr>
+        <tr>
+        <td class="center">8</td>
+        <td>Soil moisture</td>
+        </tr>
+        <tr>
+        <td class="center">9</td>
+        <td>Normalised differential vegetation index (NDVI)</td>
+        </tr>
+        <tr>
+        <td class="center">10</td>
+        <td>Normalised radar backscatter</td>
+        </tr>
+        <tr>
+        <td class="center">11</td>
+        <td>Surface emissivity</td>
+        </tr>
+        <tr>
+        <td class="center">12</td>
+        <td>Sea surface temperature</td>
+        </tr>
+        <tr>
+        <td class="center">13</td>
+        <td>Precipitation</td>
+        </tr>
+      </tbody>
+     </table>
+    </td>
+    <td style="vertical-align:top">
+     <table>
+      <thead>
+       <tr>
+        <th style="width:10%" class="local">Code</th>
+        <th style="width:90%" class="local">Meaning</th>
+       </tr>
+      </thead>
+      <tbody>
+        <tr>
+        <td class="local center">1</td>
+        <td class="local">DMSP SSM/I brightness temperatures</td>
+        </tr>
+        <tr>
+        <td class="local center">2</td>
+        <td class="local">DMSP SSM/I derived products</td>
+        </tr>
+        <tr>
+        <td class="local center">3</td>
+        <td class="local">GPS integrated precipitable water</td>
+        </tr>
+        <tr>
+        <td class="local center">4</td>
+        <td class="local">GNSS ground-based</td>
+        </tr>
+        <tr>
+        <td class="local center">5</td>
+        <td class="local">ERS SAR</td>
+        </tr>
+        <tr>
+        <td class="local center">8</td>
+        <td class="local">ERS scatterometer</td>
+        </tr>
+        <tr>
+        <td class="local center">9</td>
+        <td class="local">ERS radar altimeter</td>
+        </tr>
+        <tr>
+        <td class="local center">10</td>
+        <td class="local">NAVOCEANO POES - low-resolution sea-surface temperatures</td>
+        </tr>
+        <tr>
+        <td class="local center">11</td>
+        <td class="local">NESDIS POES - high-resolution sea-surface temperatures, brightness temperatures and albedo</td>
+        </tr>
+        <tr>
+        <td class="local center">12</td>
+        <td class="local">NAVOCEANO POES - high-resolution sea-surface temperatures, brightness temperatures and albedo</td>
+        </tr>
+        <tr>
+        <td class="local center">13</td>
+        <td class="local">NASA TRMM microwave imager</td>
+        </tr>
+        <tr>
+        <td class="local center">17</td>
+        <td class="local">NAVOCEANO POES - sea-surface temperatures</td>
+        </tr>
+        <tr>
+        <td class="local center">18</td>
+        <td class="local">NESDIS POES - sea-surface temperatures</td>
+        </tr>
+        <tr>
+        <td class="local center">22</td>
+        <td class="local">NESDIS GOES - sea-surface temperatures</td>
+        </tr>
+        <tr>
+        <td class="local center">23</td>
+        <td class="local">NPP VIIRS - sea-surface temperatures</td>
+        </tr>
+        <tr>
+        <td class="local center">31</td>
+        <td class="local">AQUA AMSR-E ocean surface products - level 2</td>
+        </tr>
+        <tr>
+        <td class="local center">34</td>
+        <td class="local">AQUA AMSR-E ocean surface products - MISST</td>
+        </tr>
+        <tr>
+        <td class="local center">103</td>
+        <td class="local">DMSP SSM/I neural net 3 products</td>
+        </tr>
+        <tr>
+        <td class="local center">122</td>
+        <td class="local">METOP 50-km ASCAT scatterometer</td>
+        </tr>
+        <tr>
+        <td class="local center">123</td>
+        <td class="local">METOP 25-km ASCAT scatterometer</td>
+        </tr>
+        <tr>
+        <td class="local center">137</td>
+        <td class="local">Quickscat scatterometer</td>
+        </tr>
+        <tr>
+        <td class="local center">138</td>
+        <td class="local">WindSat scatterometer (FNMOC)</td>
+        </tr>
+        <tr>
+        <td class="local center">139</td>
+        <td class="local">WindSat scatterometer (NESDIS)</td>
+        </tr>
+        <tr>
+        <td class="local center">150</td>
+        <td class="local">NASA Langley - GOES 1x1 FOV cloud</td>
+        </tr>
+        <tr>
+        <td class="local center">160</td>
+        <td class="local">University of Wisconsin GOES imager-effective cloud</td>
+        </tr>
+        <tr>
+        <td class="local center">255</td>
+        <td class="local">OCEANSAT 50-km OSCAT scatterometer</td>
+        </tr>
+      </tbody>
+     </table>
+    </td>
+  </tr>
+ </tbody>
+ </table>
+<br />
+<div class="center"><a href="#">Back to Top</a></div>
+<br />
+<hr id="type13"/>
+<h3>DATA TYPE 13 - Forecasts</h3>
+<table style="width:100%"rules=groups>
+ <thead>
+  <tr>
+    <th style="width:50%">Standard subtypes</th>
+    <th class="local" style="width:50%">Local subtypes</th>
+  </tr>
+ </thead>
+ <tbody>
+  <tr>
+    <td style="vertical-align:top">
+     <table>
+      <thead>
+       <tr>
+        <th style="width:10%">Code</th>
+        <th style="width:90%">Meaning</th>
+       </tr>
+      </thead>
+      <tbody>
+        <tr>
+         <td></td>
+         <td></td>
+        </tr>
+      </tbody>
+     </table>
+    </td>
+    <td style="vertical-align:top">
+     <table>
+      <thead>
+       <tr>
+        <th style="width:10%" class="local">Code</th>
+        <th style="width:90%" class="local">Meaning</th>
+       </tr>
+      </thead>
+      <tbody>
+        <tr>
+         <td></td>
+        <td></td>
+        <tr>
+      </tbody>
+     </table>
+    </td>
+  </tr>
+ </tbody>
+ </table>
+<br />
+<div class="center"><a href="#">Back to Top</a></div>
+<br />
+<hr id="type14"/>
+<h3>DATA TYPE 14 - Warnings</h3>
+<table style="width:100%"rules=groups>
+ <thead>
+  <tr>
+    <th style="width:50%">Standard subtypes</th>
+    <th class="local" style="width:50%">Local subtypes</th>
+  </tr>
+ </thead>
+ <tbody>
+  <tr>
+    <td style="vertical-align:top">
+     <table>
+      <thead>
+       <tr>
+        <th style="width:10%">Code</th>
+        <th style="width:90%">Meaning</th>
+       </tr>
+      </thead>
+      <tbody>
+        <tr>
+         <td></td>
+         <td></td>
+        </tr>
+      </tbody>
+     </table>
+    </td>
+    <td style="vertical-align:top">
+     <table>
+      <thead>
+       <tr>
+        <th style="width:10%" class="local">Code</th>
+        <th style="width:90%" class="local">Meaning</th>
+       </tr>
+      </thead>
+      <tbody>
+        <tr>
+         <td></td>
+        <td></td>
+        <tr>
+      </tbody>
+     </table>
+    </td>
+  </tr>
+ </tbody>
+ </table>
+<br />
+<div class="center"><a href="#">Back to Top</a></div>
+<br />
+<hr id="type20"/>
+<h3>DATA TYPE 20 - Status information</h3>
+<table style="width:100%"rules=groups>
+ <thead>
+  <tr>
+    <th style="width:50%">Standard subtypes</th>
+    <th class="local" style="width:50%">Local subtypes</th>
+  </tr>
+ </thead>
+ <tbody>
+  <tr>
+    <td style="vertical-align:top">
+     <table>
+      <thead>
+       <tr>
+        <th style="width:10%">Code</th>
+        <th style="width:90%">Meaning</th>
+       </tr>
+      </thead>
+      <tbody>
+        <tr>
+         <td></td>
+         <td></td>
+        </tr>
+      </tbody>
+     </table>
+    </td>
+    <td style="vertical-align:top">
+     <table>
+      <thead>
+       <tr>
+        <th style="width:10%" class="local">Code</th>
+        <th style="width:90%" class="local">Meaning</th>
+       </tr>
+      </thead>
+      <tbody>
+        <tr>
+         <td></td>
+        <td></td>
+        <tr>
+      </tbody>
+     </table>
+    </td>
+  </tr>
+ </tbody>
+ </table>
+<br />
+<div class="center"><a href="#">Back to Top</a></div>
+<br />
+<hr id="type21"/>
+<h3>DATA TYPE 21 - Radiances (satellite)</h3>
+<table style="width:100%"rules=groups>
+ <thead>
+  <tr>
+    <th style="width:50%">Standard subtypes</th>
+    <th class="local" style="width:50%">Local subtypes</th>
+  </tr>
+ </thead>
+ <tbody>
+  <tr>
+    <td style="vertical-align:top">
+     <table>
+      <thead>
+       <tr>
+        <th style="width:10%">Code</th>
+        <th style="width:90%">Meaning</th>
+       </tr>
+      </thead>
+      <tbody>
+        <tr>
+        <td class="center">0</td>
+        <td>Earth radiation budget</td>
+        </tr>
+        <tr>
+        <td class="center">5</td>
+        <td>Cross-track Infrared Sounder</td>
+        </tr>
+        <tr>
+        <td class="center">6</td>
+        <td>Advanced Technology Microwave Sounder</td>
+        </tr>
+        <tr>
+        <td class="center">7</td>
+        <td>Visible/Infrared Imager Radiometer Suite</td>
+        </tr>
+      </tbody>
+     </table>
+    </td>
+    <td style="vertical-align:top">
+     <table>
+      <thead>
+       <tr>
+        <th style="width:10%" class="local">Code</th>
+        <th style="width:90%" class="local">Meaning</th>
+       </tr>
+      </thead>
+      <tbody>
+        <tr>
+        <td class="local center">21</td>
+        <td class="local">NOAA RTOVS brightness temperatures - HIRS-2</td>
+        </tr>
+        <tr>
+        <td class="local center">22</td>
+        <td class="local">NOAA RTOVS brightness temperatures - MSU</td>
+        </tr>
+        <tr>
+        <td class="local center">23</td>
+        <td class="local">NOAA ATOVS brightness temperatures - AMSU-A</td>
+        </tr>
+        <tr>
+        <td class="local center">24</td>
+        <td class="local">NOAA ATOVS brightness temperatures - AMSU-B</td>
+        </tr>
+        <tr>
+        <td class="local center">25</td>
+        <td class="local">NOAA ATOVS brightness temperatures - HIRS-3</td>
+        </tr>
+        <tr>
+        <td class="local center">27</td>
+        <td class="local">NOAA ATOVS brightness temperatures - MHS</td>
+        </tr>
+        <tr>
+        <td class="local center">28</td>
+        <td class="local">NOAA ATOVS brightness temperatures - HIRS-4</td>
+        </tr>
+        <tr>
+        <td class="local center">33</td>
+        <td class="local">RARS ATOVS brightness temperatures - AMSU-A</td>
+        </tr>
+        <tr>
+        <td class="local center">34</td>
+        <td class="local">RARS ATOVS brightness temperatures - AMSU-B</td>
+        </tr>
+        <tr>
+        <td class="local center">35</td>
+        <td class="local">RARS ATOVS brightness temperatures - HIRS-3</td>
+        </tr>
+        <tr>
+        <td class="local center">36</td>
+        <td class="local">RARS ATOVS brightness temperatures - MHS</td>
+        </tr>
+        <tr>
+        <td class="local center">37</td>
+        <td class="local">RARS ATOVS radiances - CrIS</td>
+        </tr>
+        <tr>
+        <td class="local center">38</td>
+        <td class="local">RARS ATOVS brightness temperatures - ATMS</td>
+        </tr>
+        <tr>
+        <td class="local center">39</td>
+        <td class="local">RARS ATOVS radiances - IASI</td>
+        </tr>
+        <tr>
+        <td class="local center">41</td>
+        <td class="local">NESDIS GOES imager brightness temperatures</td>
+        </tr>
+        <tr>
+        <td class="local center">42</td>
+        <td class="local">SEVIRI all-sky radiances</td>
+        </tr>
+        <tr>
+        <td class="local center">43</td>
+        <td class="local">SEVIRI clear-sky radiances</td>
+        </tr>
+        <tr>
+        <td class="local center">44</td>
+        <td class="local">Himawari-8 clear-sky radiances</td>
+        </tr>
+        <tr>
+        <td class="local center">51</td>
+        <td class="local">NOAA-17 and METOP-2 AVHRR brightness temperatures (clear and over ocean)</td>
+        </tr>
+        <tr>
+        <td class="local center">52</td>
+        <td class="local">NOAA-17 and METOP-2 AVHRR brightness temperatures (cloudy or over land)</td>
+        </tr>
+        <tr>
+        <td class="local center">53</td>
+        <td class="local">NOAA-18 AVHRR brightness temperatures (clear and over ocean)</td>
+        </tr>
+        <tr>
+        <td class="local center">54</td>
+        <td class="local">NOAA-18 AVHRR brightness temperatures (cloudy or over land)</td>
+        </tr>
+        <tr>
+        <td class="local center">123</td>
+        <td class="local">Antenna temperatures - AMSU-A</td>
+        </tr>
+        <tr>
+        <td class="local center">201</td>
+        <td class="local">DMSP SSMI/S brightness temperatures</td>
+        </tr>
+        <tr>
+        <td class="local center">202</td>
+        <td class="local">NPP CrIS radiances</td>
+        </tr>
+        <tr>
+        <td class="local center">203</td>
+        <td class="local">NPP ATMS radiances</td>
+        </tr>
+        <tr>
+        <td class="local center">204</td>
+        <td class="local">NPP VIIRS radiances</td>
+        </tr>
+        <tr>
+        <td class="local center">241</td>
+        <td class="local">IASI radiances</td>
+        </tr>
+        <tr>
+        <td class="local center">242</td>
+        <td class="local">Megha-Tropiques SAPHIR L1A2 brightness temperatures</td>
+        </tr>
+        <tr>
+        <td class="local center">249</td>
+        <td class="local">AQUA/AIRS AMSU-A brightness temperatures - every field-of-view</td>
+        </tr>
+        <tr>
+        <td class="local center">250</td>
+        <td class="local">AQUA/AIRS AMSU-A brightness temperatures - central field-of-view</td>
+        </tr>
+        <tr>
+        <td class="local center">254</td>
+        <td class="local">AQUA/AMSR-E brightness temperatures</td>
+        </tr>
+        <tr>
+        <td class="local center">255</td>
+        <td class="local">AQUA/AIRS AMSU-A brightness temperatures - warmest field-of-view</td>
+        </tr>
+      </tbody>
+     </table>
+    </td>
+  </tr>
+ </tbody>
+ </table>
+<br />
+<div class="center"><a href="#">Back to Top</a></div>
+<br />
+<hr id="type22"/>
+<h3>DATA TYPE 22 - Radar (satellite) but not altimeter nor scatterometer</h3>
+<table style="width:100%"rules=groups>
+ <thead>
+  <tr>
+    <th style="width:50%">Standard subtypes</th>
+    <th class="local" style="width:50%">Local subtypes</th>
+  </tr>
+ </thead>
+ <tbody>
+  <tr>
+    <td style="vertical-align:top">
+     <table>
+      <thead>
+       <tr>
+        <th style="width:10%">Code</th>
+        <th style="width:90%">Meaning</th>
+       </tr>
+      </thead>
+      <tbody>
+        <tr>
+        <td class="center">0</td>
+        <td>Cloud and precipitation radar</td>
+        </tr>
+        <tr>
+        <td class="center">1</td>
+        <td>Synthetic Aperture Radar</td>
+        </tr>
+      </tbody>
+     </table>
+    </td>
+    <td style="vertical-align:top">
+     <table>
+      <thead>
+       <tr>
+        <th style="width:10%" class="local">Code</th>
+        <th style="width:90%" class="local">Meaning</th>
+       </tr>
+      </thead>
+      <tbody>
+        <tr>
+         <td></td>
+        <td></td>
+        <tr>
+      </tbody>
+     </table>
+    </td>
+  </tr>
+ </tbody>
+ </table>
+<br />
+<div class="center"><a href="#">Back to Top</a></div>
+<br />
+<hr id="type23"/>
+<h3>DATA TYPE 23 - Lidar (satellite)</h3>
+<table style="width:100%"rules=groups>
+ <thead>
+  <tr>
+    <th style="width:50%">Standard subtypes</th>
+    <th class="local" style="width:50%">Local subtypes</th>
+  </tr>
+ </thead>
+ <tbody>
+  <tr>
+    <td style="vertical-align:top">
+     <table>
+      <thead>
+       <tr>
+        <th style="width:10%">Code</th>
+        <th style="width:90%">Meaning</th>
+       </tr>
+      </thead>
+      <tbody>
+        <tr>
+        <td class="center">0</td>
+        <td>Lidar based missions (for wind, for cloud/aerosol, for water vapour, for altimetry)</td>
+        </tr>
+      </tbody>
+     </table>
+    </td>
+    <td style="vertical-align:top">
+     <table>
+      <thead>
+       <tr>
+        <th style="width:10%" class="local">Code</th>
+        <th style="width:90%" class="local">Meaning</th>
+       </tr>
+      </thead>
+      <tbody>
+        <tr>
+         <td></td>
+        <td></td>
+        <tr>
+      </tbody>
+     </table>
+    </td>
+  </tr>
+ </tbody>
+ </table>
+<br />
+<div class="center"><a href="#">Back to Top</a></div>
+<br />
+<hr id="type24"/>
+<h3>DATA TYPE 24 - Scatterometry (satellite)</h3>
+<table style="width:100%"rules=groups>
+ <thead>
+  <tr>
+    <th style="width:50%">Standard subtypes</th>
+    <th class="local" style="width:50%">Local subtypes</th>
+  </tr>
+ </thead>
+ <tbody>
+  <tr>
+    <td style="vertical-align:top">
+     <table>
+      <thead>
+       <tr>
+        <th style="width:10%">Code</th>
+        <th style="width:90%">Meaning</th>
+       </tr>
+      </thead>
+      <tbody>
+        <tr>
+        <td class="center">0</td>
+        <td>Wind scatterometry</td>
+        </tr>
+      </tbody>
+     </table>
+    </td>
+    <td style="vertical-align:top">
+     <table>
+      <thead>
+       <tr>
+        <th style="width:10%" class="local">Code</th>
+        <th style="width:90%" class="local">Meaning</th>
+       </tr>
+      </thead>
+      <tbody>
+        <tr>
+         <td></td>
+        <td></td>
+        <tr>
+      </tbody>
+     </table>
+    </td>
+  </tr>
+ </tbody>
+ </table>
+<br />
+<div class="center"><a href="#">Back to Top</a></div>
+<br />
+<hr id="type25"/>
+<h3>DATA TYPE 25 - Altimetry (satellite)</h3>
+<table style="width:100%"rules=groups>
+ <thead>
+  <tr>
+    <th style="width:50%">Standard subtypes</th>
+    <th class="local" style="width:50%">Local subtypes</th>
+  </tr>
+ </thead>
+ <tbody>
+  <tr>
+    <td style="vertical-align:top">
+     <table>
+      <thead>
+       <tr>
+        <th style="width:10%">Code</th>
+        <th style="width:90%">Meaning</th>
+       </tr>
+      </thead>
+      <tbody>
+        <tr>
+        <td class="center">0</td>
+        <td>Radar altimetry</td>
+        </tr>
+      </tbody>
+     </table>
+    </td>
+    <td style="vertical-align:top">
+     <table>
+      <thead>
+       <tr>
+        <th style="width:10%" class="local">Code</th>
+        <th style="width:90%" class="local">Meaning</th>
+       </tr>
+      </thead>
+      <tbody>
+        <tr>
+         <td></td>
+        <td></td>
+        <tr>
+      </tbody>
+     </table>
+    </td>
+  </tr>
+ </tbody>
+ </table>
+<br />
+<div class="center"><a href="#">Back to Top</a></div>
+<br />
+<hr id="type26"/>
+<h3>DATA TYPE 26 - Spectrometry (satellite)</h3>
+<table style="width:100%"rules=groups>
+ <thead>
+  <tr>
+    <th style="width:50%">Standard subtypes</th>
+    <th class="local" style="width:50%">Local subtypes</th>
+  </tr>
+ </thead>
+ <tbody>
+  <tr>
+    <td style="vertical-align:top">
+     <table>
+      <thead>
+       <tr>
+        <th style="width:10%">Code</th>
+        <th style="width:90%">Meaning</th>
+       </tr>
+      </thead>
+      <tbody>
+        <tr>
+        <td class="center">0</td>
+        <td>Cross nadir shortwave spectrometry (for chemistry)</td>
+        </tr>
+        <tr>
+        <td class="center">1</td>
+        <td>Cross nadir IR spectrometry (for chemistry)</td>
+        </tr>
+        <tr>
+        <td class="center">2</td>
+        <td>Limb sounding shortwave spectrometry</td>
+        </tr>
+        <tr>
+        <td class="center">3</td>
+        <td>Limb sounding IR spectrometry</td>
+        </tr>
+        <tr>
+        <td class="center">4</td>
+        <td>Limb sounding sub-millimetre wave spectrometry</td>
+        </tr>
+      </tbody>
+     </table>
+    </td>
+    <td style="vertical-align:top">
+     <table>
+      <thead>
+       <tr>
+        <th style="width:10%" class="local">Code</th>
+        <th style="width:90%" class="local">Meaning</th>
+       </tr>
+      </thead>
+      <tbody>
+        <tr>
+         <td></td>
+        <td></td>
+        <tr>
+      </tbody>
+     </table>
+    </td>
+  </tr>
+ </tbody>
+ </table>
+<br />
+<div class="center"><a href="#">Back to Top</a></div>
+<br />
+<hr id="type27"/>
+<h3>DATA TYPE 27 - Gravity measurement (satellite)</h3>
+<table style="width:100%"rules=groups>
+ <thead>
+  <tr>
+    <th style="width:50%">Standard subtypes</th>
+    <th class="local" style="width:50%">Local subtypes</th>
+  </tr>
+ </thead>
+ <tbody>
+  <tr>
+    <td style="vertical-align:top">
+     <table>
+      <thead>
+       <tr>
+        <th style="width:10%">Code</th>
+        <th style="width:90%">Meaning</th>
+       </tr>
+      </thead>
+      <tbody>
+        <tr>
+         <td></td>
+         <td></td>
+        </tr>
+      </tbody>
+     </table>
+    </td>
+    <td style="vertical-align:top">
+     <table>
+      <thead>
+       <tr>
+        <th style="width:10%" class="local">Code</th>
+        <th style="width:90%" class="local">Meaning</th>
+       </tr>
+      </thead>
+      <tbody>
+        <tr>
+         <td></td>
+        <td></td>
+        <tr>
+      </tbody>
+     </table>
+    </td>
+  </tr>
+ </tbody>
+ </table>
+<br />
+<div class="center"><a href="#">Back to Top</a></div>
+<br />
+<hr id="type28"/>
+<h3>DATA TYPE 28 - Precision orbit (satellite)</h3>
+<table style="width:100%"rules=groups>
+ <thead>
+  <tr>
+    <th style="width:50%">Standard subtypes</th>
+    <th class="local" style="width:50%">Local subtypes</th>
+  </tr>
+ </thead>
+ <tbody>
+  <tr>
+    <td style="vertical-align:top">
+     <table>
+      <thead>
+       <tr>
+        <th style="width:10%">Code</th>
+        <th style="width:90%">Meaning</th>
+       </tr>
+      </thead>
+      <tbody>
+        <tr>
+         <td></td>
+         <td></td>
+        </tr>
+      </tbody>
+     </table>
+    </td>
+    <td style="vertical-align:top">
+     <table>
+      <thead>
+       <tr>
+        <th style="width:10%" class="local">Code</th>
+        <th style="width:90%" class="local">Meaning</th>
+       </tr>
+      </thead>
+      <tbody>
+        <tr>
+         <td></td>
+        <td></td>
+        <tr>
+      </tbody>
+     </table>
+    </td>
+  </tr>
+ </tbody>
+ </table>
+<br />
+<div class="center"><a href="#">Back to Top</a></div>
+<br />
+<hr id="type29"/>
+<h3>DATA TYPE 29 - Space environment (satellite)</h3>
+<table style="width:100%"rules=groups>
+ <thead>
+  <tr>
+    <th style="width:50%">Standard subtypes</th>
+    <th class="local" style="width:50%">Local subtypes</th>
+  </tr>
+ </thead>
+ <tbody>
+  <tr>
+    <td style="vertical-align:top">
+     <table>
+      <thead>
+       <tr>
+        <th style="width:10%">Code</th>
+        <th style="width:90%">Meaning</th>
+       </tr>
+      </thead>
+      <tbody>
+        <tr>
+         <td></td>
+         <td></td>
+        </tr>
+      </tbody>
+     </table>
+    </td>
+    <td style="vertical-align:top">
+     <table>
+      <thead>
+       <tr>
+        <th style="width:10%" class="local">Code</th>
+        <th style="width:90%" class="local">Meaning</th>
+       </tr>
+      </thead>
+      <tbody>
+        <tr>
+         <td></td>
+        <td></td>
+        <tr>
+      </tbody>
+     </table>
+    </td>
+  </tr>
+ </tbody>
+ </table>
+<br />
+<div class="center"><a href="#">Back to Top</a></div>
+<br />
+<hr id="type30"/>
+<h3>DATA TYPE 30 - Calibration dataset (satellite)</h3>
+<table style="width:100%"rules=groups>
+ <thead>
+  <tr>
+    <th style="width:50%">Standard subtypes</th>
+    <th class="local" style="width:50%">Local subtypes</th>
+  </tr>
+ </thead>
+ <tbody>
+  <tr>
+    <td style="vertical-align:top">
+     <table>
+      <thead>
+       <tr>
+        <th style="width:10%">Code</th>
+        <th style="width:90%">Meaning</th>
+       </tr>
+      </thead>
+      <tbody>
+        <tr>
+        <td class="center">0</td>
+        <td>Subsetted data</td>
+        </tr>
+        <tr>
+        <td class="center">1</td>
+        <td>Collocated data</td>
+        </tr>
+        <tr>
+        <td class="center">2</td>
+        <td>On-board calibration data</td>
+        </tr>
+        <tr>
+        <td class="center">3</td>
+        <td>Bias monitoring</td>
+        </tr>
+        <tr>
+        <td class="center">4</td>
+        <td>Near real-time correction</td>
+        </tr>
+        <tr>
+        <td class="center">5</td>
+        <td>Re-analysis correction</td>
+        </tr>
+      </tbody>
+     </table>
+    </td>
+    <td style="vertical-align:top">
+     <table>
+      <thead>
+       <tr>
+        <th style="width:10%" class="local">Code</th>
+        <th style="width:90%" class="local">Meaning</th>
+       </tr>
+      </thead>
+      <tbody>
+        <tr>
+         <td></td>
+        <td></td>
+        <tr>
+      </tbody>
+     </table>
+    </td>
+  </tr>
+ </tbody>
+ </table>
+<br />
+<div class="center"><a href="#">Back to Top</a></div>
+<br />
+<hr id="type31"/>
+<h3>DATA TYPE 31 - Oceanographic data</h3>
+<table style="width:100%"rules=groups>
+ <thead>
+  <tr>
+    <th style="width:50%">Standard subtypes</th>
+    <th class="local" style="width:50%">Local subtypes</th>
+  </tr>
+ </thead>
+ <tbody>
+  <tr>
+    <td style="vertical-align:top">
+     <table>
+      <thead>
+       <tr>
+        <th style="width:10%">Code</th>
+        <th style="width:90%">Meaning</th>
+       </tr>
+      </thead>
+      <tbody>
+        <tr>
+        <td class="center">0</td>
+        <td>Surface observation</td>
+        </tr>
+        <tr>
+        <td class="center">1</td>
+        <td>Surface observation along track (TRACKOB)</td>
+        </tr>
+        <tr>
+        <td class="center">2</td>
+        <td>Spectral wave observation (WAVEOB)</td>
+        </tr>
+        <tr>
+        <td class="center">3</td>
+        <td>Bathythermal observation (BATHY)</td>
+        </tr>
+        <tr>
+        <td class="center">4</td>
+        <td>Sub-surface floats (profile)</td>
+        </tr>
+        <tr>
+        <td class="center">5</td>
+        <td>XBT/XCTD profiles (TESAC)</td>
+        </tr>
+        <tr>
+        <td class="center">6</td>
+        <td>Waves reports</td>
+        </tr>
+        <tr>
+        <td class="center">7</td>
+        <td>Tsunameter data</td>
+        </tr>
+      </tbody>
+     </table>
+    </td>
+    <td style="vertical-align:top">
+     <table>
+      <thead>
+       <tr>
+        <th style="width:10%" class="local">Code</th>
+        <th style="width:90%" class="local">Meaning</th>
+       </tr>
+      </thead>
+      <tbody>
+        <tr>
+        <td class="local center">1</td>
+        <td class="local">BATHY</td>
+        </tr>
+        <tr>
+        <td class="local center">2</td>
+        <td class="local">TESAC</td>
+        </tr>
+        <tr>
+        <td class="local center">3</td>
+        <td class="local">TRACKOB</td>
+        </tr>
+        <tr>
+        <td class="local center">4</td>
+        <td class="local">Airborne Expendable Bathythermograph (AXBT)</td>
+        </tr>
+        <tr>
+        <td class="local center">5</td>
+        <td class="local">Subsurface float profiles (BUFR)</td>
+        </tr>
+        <tr>
+        <td class="local center">6</td>
+        <td class="local">XBT/XCTD (TESAC) profiles (BUFR)</td>
+        </tr>
+        <tr>
+        <td class="local center">7</td>
+        <td class="local">Along track (TRACKOB) observations (BUFR)</td>
+        </tr>
+        <tr>
+        <td class="local center">11</td>
+        <td class="local">NLSA ERS-2 sea-surface height anomaly (high-resolution regional)</td>
+        </tr>
+        <tr>
+        <td class="local center">12</td>
+        <td class="local">NLSA TOPEX sea-surface height anomaly (high-resolution regional)</td>
+        </tr>
+        <tr>
+        <td class="local center">13</td>
+        <td class="local">NLSA TOPEX sea-surface height anomaly (low-resolution global)</td>
+        </tr>
+        <tr>
+        <td class="local center">14</td>
+        <td class="local">NLSA GFO sea-surface height anomaly (high-resolution regional)</td>
+        </tr>
+        <tr>
+        <td class="local center">101</td>
+        <td class="local">NAVOCEANO ERS-2 sea-surface height anomaly (high-resolution global)</td>
+        </tr>
+        <tr>
+        <td class="local center">102</td>
+        <td class="local">NAVOCEANO GFO sea-surface height anomaly (high-resolution global)</td>
+        </tr>
+        <tr>
+        <td class="local center">103</td>
+        <td class="local">NAVOCEANO TOPEX sea-surface height anomaly (high-resolution global)</td>
+        </tr>
+        <tr>
+        <td class="local center">104</td>
+        <td class="local">NAVOCEANO JASON-1 sea-surface height anomaly (high-resolution global)</td>
+        </tr>
+        <tr>
+        <td class="local center">105</td>
+        <td class="local">NAVOCEANO GFO altimeter wind/wave (IGDR)</td>
+        </tr>
+        <tr>
+        <td class="local center">106</td>
+        <td class="local">CNES JASON-1 altimeter wind/wave (IGDR)</td>
+        </tr>
+        <tr>
+        <td class="local center">107</td>
+        <td class="local">NAVOCEANO GFO altimeter wind/wave (fast delivery)</td>
+        </tr>
+        <tr>
+        <td class="local center">108</td>
+        <td class="local">NAVOCEANO ENVISAT altimeter wind/wave (fast delivery)</td>
+        </tr>
+        <tr>
+        <td class="local center">109</td>
+        <td class="local">NAVOCEANO ENVISAT sea-surface height anomaly (high-resolution global)</td>
+        </tr>
+        <tr>
+        <td class="local center">110</td>
+        <td class="local">NAVOCEANO JASON-1 altimeter wind/wave (fast delivery)</td>
+        </tr>
+        <tr>
+        <td class="local center">111</td>
+        <td class="local">CNES JASON-2 altimeter wind/wave (OGDR)</td>
+        </tr>
+        <tr>
+        <td class="local center">112</td>
+        <td class="local">NAVOCEANO JASON-2 sea-surface height anomaly (high-resolution global) (OGDR)</td>
+        </tr>
+        <tr>
+        <td class="local center">113</td>
+        <td class="local">NAVOCEANO JASON-2 sea-surface height anomaly (high-resolution global) (IGDR)</td>
+        </tr>
+        <tr>
+        <td class="local center">114</td>
+        <td class="local">NAVOCEANO JASON-2 altimeter wind/wave (fast delivery)</td>
+        </tr>
+        <tr>
+        <td class="local center">115</td>
+        <td class="local">CNES JASON-2 altimeter wind/wave (OGDR)</td>
+        </tr>
+        <tr>
+        <td class="local center">116</td>
+        <td class="local">SSALTO/DUACS ENVISAT sea-surface height anomaly (high-resolution global)</td>
+        </tr>
+        <tr>
+        <td class="local center">117</td>
+        <td class="local">NAVOCEANO CRYOSAT-2 sea-surface height anomaly (high-resolution global)</td>
+        </tr>
+        <tr>
+        <td class="local center">118</td>
+        <td class="local">NAVOCEANO SARAL sea-surface height anomaly (high-resolution global) (OGDR)</td>
+        </tr>
+        <tr>
+        <td class="local center">119</td>
+        <td class="local">NAVOCEANO SARAL sea-surface height anomaly (high-resolution global) (IGDR)</td>
+        </tr>
+        <tr>
+        <td class="local center">120</td>
+        <td class="local">NAVOCEANO CRYOSAT-2 altimeter wind/wave (fast delivery)</td>
+        </tr>
+        <tr>
+        <td class="local center">121</td>
+        <td class="local">NAVOCEANO SARAL altimeter wind/wave (fast delivery)</td>
+        </tr>
+        <tr>
+        <td class="local center">122</td>
+        <td class="local">CNES SARAL altimeter wind/wave (OGDR)</td>
+        </tr>
+        <tr>
+        <td class="local center">123</td>
+        <td class="local">CNES CRYOSAT-2 altimeter wind/wave (OGDR)</td>
+        </tr>
+        <tr>
+        <td class="local center">124</td>
+        <td class="local">CNES JASON-3 altimeter wind/wave (OGDR)</td>
+        </tr>
+        <tr>
+        <td class="local center">125</td>
+        <td class="local">NAVOCEANO JASON-3 sea-surface height anomaly (high-resolution global) (OGDR)</td>
+        </tr>
+        <tr>
+        <td class="local center">126</td>
+        <td class="local">NAVOCEANO JASON-3 sea-surface height anomaly (high-resolution global) (IGDR)</td>
+        </tr>
+        <tr>
+        <td class="local center">127</td>
+        <td class="local">NAVOCEANO JASON-3 altimeter wind/wave (fast delivery)</td>
+        </tr>
+        <tr>
+        <td class="local center">128</td>
+        <td class="local">NAVOCEANO Sentinel 3A sea-surface height anomaly (high-resolution global) (NRT)</td>
+        </tr>
+        <tr>
+        <td class="local center">129</td>
+        <td class="local">NAVOCEANO Sentinel 3A sea-surface height anomaly (high-resolution global) (STC)</td>
+        </tr>
+        <tr>
+        <td class="local center">130</td>
+        <td class="local">NAVOCEANO Sentinel 3A altimeter wind/wave (fast delivery)</td>
+        </tr>
+      </tbody>
+     </table>
+    </td>
+  </tr>
+ </tbody>
+ </table>
+<br />
+<div class="center"><a href="#">Back to Top</a></div>
+<br />
+<hr id="type101"/>
+<h3>DATA TYPE 101 - Image data</h3>
+<table style="width:100%"rules=groups>
+ <thead>
+  <tr>
+    <th style="width:50%">Standard subtypes</th>
+    <th class="local" style="width:50%">Local subtypes</th>
+  </tr>
+ </thead>
+ <tbody>
+  <tr>
+    <td style="vertical-align:top">
+     <table>
+      <thead>
+       <tr>
+        <th style="width:10%">Code</th>
+        <th style="width:90%">Meaning</th>
+       </tr>
+      </thead>
+      <tbody>
+        <tr>
+        <td class="center">0</td>
+        <td>Multi-purpose VIS/IR imagery</td>
+        </tr>
+        <tr>
+        <td class="center">1</td>
+        <td>Conical scanning MW imagery (intermediate frequencies)</td>
+        </tr>
+        <tr>
+        <td class="center">2</td>
+        <td>Low frequency MW imagery</td>
+        </tr>
+        <tr>
+        <td class="center">3</td>
+        <td>Ocean colour imagery</td>
+        </tr>
+        <tr>
+        <td class="center">4</td>
+        <td>Imagery with special viewing geometry</td>
+        </tr>
+        <tr>
+        <td class="center">5</td>
+        <td>Lightning imagery</td>
+        </tr>
+        <tr>
+        <td class="center">6</td>
+        <td>High resolution shortwave imagery for land observation</td>
+        </tr>
+        <tr>
+        <td class="center">7</td>
+        <td>SMOS data</td>
+        </tr>
+      </tbody>
+     </table>
+    </td>
+    <td style="vertical-align:top">
+     <table>
+      <thead>
+       <tr>
+        <th style="width:10%" class="local">Code</th>
+        <th style="width:90%" class="local">Meaning</th>
+       </tr>
+      </thead>
+      <tbody>
+        <tr>
+         <td></td>
+        <td></td>
+        <tr>
+      </tbody>
+     </table>
+    </td>
+  </tr>
+ </tbody>
+ </table>
+<br />
+<div class="center"><a href="#">Back to Top</a></div>
+<br />
+<hr id="type102"/>
+<h3 class="local">DATA TYPE 102 - Upper-air (RAOB, PIBAL, RECCO, DROPS) reports</h3>
+<table style="width:100%"rules=groups>
+ <thead>
+  <tr>
+    <th style="width:50%">Standard subtypes</th>
+    <th class="local" style="width:50%">Local subtypes</th>
+  </tr>
+ </thead>
+ <tbody>
+  <tr>
+    <td style="vertical-align:top">
+     <table>
+      <thead>
+       <tr>
+        <th style="width:10%">Code</th>
+        <th style="width:90%">Meaning</th>
+       </tr>
+      </thead>
+      <tbody>
+        <tr>
+         <td></td>
+         <td></td>
+        <tr>
+      </tbody>
+     </table>
+    </td>
+    <td style="vertical-align:top">
+     <table>
+      <thead>
+       <tr>
+        <th style="width:10%" class="local">Code</th>
+        <th style="width:90%" class="local">Meaning</th>
+       </tr>
+      </thead>
+      <tbody>
+        <tr>
+         <td></td>
+         <td></td>
+        </tr>
+      </tbody>
+     </table>
+    </td>
+  </tr>
+ </tbody>
+ </table>
+<br />
+<div class="center"><a href="#">Back to Top</a></div>
+<br />
+<hr id="type103"/>
+<h3 class="local">DATA TYPE 103 - MDCRS ACARS aircraft reports</h3>
+<table style="width:100%"rules=groups>
+ <thead>
+  <tr>
+    <th style="width:50%">Standard subtypes</th>
+    <th class="local" style="width:50%">Local subtypes</th>
+  </tr>
+ </thead>
+ <tbody>
+  <tr>
+    <td style="vertical-align:top">
+     <table>
+      <thead>
+       <tr>
+        <th style="width:10%">Code</th>
+        <th style="width:90%">Meaning</th>
+       </tr>
+      </thead>
+      <tbody>
+        <tr>
+         <td></td>
+         <td></td>
+        <tr>
+      </tbody>
+     </table>
+    </td>
+    <td style="vertical-align:top">
+     <table>
+      <thead>
+       <tr>
+        <th style="width:10%" class="local">Code</th>
+        <th style="width:90%" class="local">Meaning</th>
+       </tr>
+      </thead>
+      <tbody>
+        <tr>
+         <td></td>
+         <td></td>
+        </tr>
+      </tbody>
+     </table>
+    </td>
+  </tr>
+ </tbody>
+ </table>
+<br />
+<div class="center"><a href="#">Back to Top</a></div>
+<br />
+<hr id="type104"/>
+<h3 class="local">DATA TYPE 104 - AIREP, PIREP, AMDAR and TAMDAR aircraft reports</h3>
+<table style="width:100%"rules=groups>
+ <thead>
+  <tr>
+    <th style="width:50%">Standard subtypes</th>
+    <th class="local" style="width:50%">Local subtypes</th>
+  </tr>
+ </thead>
+ <tbody>
+  <tr>
+    <td style="vertical-align:top">
+     <table>
+      <thead>
+       <tr>
+        <th style="width:10%">Code</th>
+        <th style="width:90%">Meaning</th>
+       </tr>
+      </thead>
+      <tbody>
+        <tr>
+         <td></td>
+         <td></td>
+        <tr>
+      </tbody>
+     </table>
+    </td>
+    <td style="vertical-align:top">
+     <table>
+      <thead>
+       <tr>
+        <th style="width:10%" class="local">Code</th>
+        <th style="width:90%" class="local">Meaning</th>
+       </tr>
+      </thead>
+      <tbody>
+        <tr>
+         <td></td>
+         <td></td>
+        </tr>
+      </tbody>
+     </table>
+    </td>
+  </tr>
+ </tbody>
+ </table>
+<br />
+<div class="center"><a href="#">Back to Top</a></div>
+<br />
+<hr id="type105"/>
+<h3 class="local">DATA TYPE 105 - Satellite-derived wind reports</h3>
+<table style="width:100%"rules=groups>
+ <thead>
+  <tr>
+    <th style="width:50%">Standard subtypes</th>
+    <th class="local" style="width:50%">Local subtypes</th>
+  </tr>
+ </thead>
+ <tbody>
+  <tr>
+    <td style="vertical-align:top">
+     <table>
+      <thead>
+       <tr>
+        <th style="width:10%">Code</th>
+        <th style="width:90%">Meaning</th>
+       </tr>
+      </thead>
+      <tbody>
+        <tr>
+         <td></td>
+         <td></td>
+        <tr>
+      </tbody>
+     </table>
+    </td>
+    <td style="vertical-align:top">
+     <table>
+      <thead>
+       <tr>
+        <th style="width:10%" class="local">Code</th>
+        <th style="width:90%" class="local">Meaning</th>
+       </tr>
+      </thead>
+      <tbody>
+        <tr>
+         <td></td>
+         <td></td>
+        </tr>
+      </tbody>
+     </table>
+    </td>
+  </tr>
+ </tbody>
+ </table>
+<br />
+<div class="center"><a href="#">Back to Top</a></div>
+<br />
+<hr id="type106"/>
+<h3 class="local">DATA TYPE 106 - Wind profiler reports</h3>
+<table style="width:100%"rules=groups>
+ <thead>
+  <tr>
+    <th style="width:50%">Standard subtypes</th>
+    <th class="local" style="width:50%">Local subtypes</th>
+  </tr>
+ </thead>
+ <tbody>
+  <tr>
+    <td style="vertical-align:top">
+     <table>
+      <thead>
+       <tr>
+        <th style="width:10%">Code</th>
+        <th style="width:90%">Meaning</th>
+       </tr>
+      </thead>
+      <tbody>
+        <tr>
+         <td></td>
+         <td></td>
+        <tr>
+      </tbody>
+     </table>
+    </td>
+    <td style="vertical-align:top">
+     <table>
+      <thead>
+       <tr>
+        <th style="width:10%" class="local">Code</th>
+        <th style="width:90%" class="local">Meaning</th>
+       </tr>
+      </thead>
+      <tbody>
+        <tr>
+         <td></td>
+         <td></td>
+        </tr>
+      </tbody>
+     </table>
+    </td>
+  </tr>
+ </tbody>
+ </table>
+<br />
+<div class="center"><a href="#">Back to Top</a></div>
+<br />
+<hr id="type107"/>
+<h3 class="local">DATA TYPE 107 - Vertical Azimuth Display (VAD) wind reports (from WSR88D radars)</h3>
+<table style="width:100%"rules=groups>
+ <thead>
+  <tr>
+    <th style="width:50%">Standard subtypes</th>
+    <th class="local" style="width:50%">Local subtypes</th>
+  </tr>
+ </thead>
+ <tbody>
+  <tr>
+    <td style="vertical-align:top">
+     <table>
+      <thead>
+       <tr>
+        <th style="width:10%">Code</th>
+        <th style="width:90%">Meaning</th>
+       </tr>
+      </thead>
+      <tbody>
+        <tr>
+         <td></td>
+         <td></td>
+        <tr>
+      </tbody>
+     </table>
+    </td>
+    <td style="vertical-align:top">
+     <table>
+      <thead>
+       <tr>
+        <th style="width:10%" class="local">Code</th>
+        <th style="width:90%" class="local">Meaning</th>
+       </tr>
+      </thead>
+      <tbody>
+        <tr>
+         <td></td>
+         <td></td>
+        </tr>
+      </tbody>
+     </table>
+    </td>
+  </tr>
+ </tbody>
+ </table>
+<br />
+<div class="center"><a href="#">Back to Top</a></div>
+<br />
+<hr id="type108"/>
+<h3 class="local">DATA TYPE 108 - POES satellite sounding reports (retrievals, processed radiances)</h3>
+<table style="width:100%"rules=groups>
+ <thead>
+  <tr>
+    <th style="width:50%">Standard subtypes</th>
+    <th class="local" style="width:50%">Local subtypes</th>
+  </tr>
+ </thead>
+ <tbody>
+  <tr>
+    <td style="vertical-align:top">
+     <table>
+      <thead>
+       <tr>
+        <th style="width:10%">Code</th>
+        <th style="width:90%">Meaning</th>
+       </tr>
+      </thead>
+      <tbody>
+        <tr>
+         <td></td>
+         <td></td>
+        <tr>
+      </tbody>
+     </table>
+    </td>
+    <td style="vertical-align:top">
+     <table>
+      <thead>
+       <tr>
+        <th style="width:10%" class="local">Code</th>
+        <th style="width:90%" class="local">Meaning</th>
+       </tr>
+      </thead>
+      <tbody>
+        <tr>
+         <td></td>
+         <td></td>
+        </tr>
+      </tbody>
+     </table>
+    </td>
+  </tr>
+ </tbody>
+ </table>
+<br />
+<div class="center"><a href="#">Back to Top</a></div>
+<br />
+<hr id="type109"/>
+<h3 class="local">DATA TYPE 109 - Surface land (synoptic, METAR) reports</h3>
+<table style="width:100%"rules=groups>
+ <thead>
+  <tr>
+    <th style="width:50%">Standard subtypes</th>
+    <th class="local" style="width:50%">Local subtypes</th>
+  </tr>
+ </thead>
+ <tbody>
+  <tr>
+    <td style="vertical-align:top">
+     <table>
+      <thead>
+       <tr>
+        <th style="width:10%">Code</th>
+        <th style="width:90%">Meaning</th>
+       </tr>
+      </thead>
+      <tbody>
+        <tr>
+         <td></td>
+         <td></td>
+        <tr>
+      </tbody>
+     </table>
+    </td>
+    <td style="vertical-align:top">
+     <table>
+      <thead>
+       <tr>
+        <th style="width:10%" class="local">Code</th>
+        <th style="width:90%" class="local">Meaning</th>
+       </tr>
+      </thead>
+      <tbody>
+        <tr>
+         <td></td>
+         <td></td>
+        </tr>
+      </tbody>
+     </table>
+    </td>
+  </tr>
+ </tbody>
+ </table>
+<br />
+<div class="center"><a href="#">Back to Top</a></div>
+<br />
+<hr id="type110"/>
+<h3 class="local">DATA TYPE 110 - Surface marine (ship, buoy, C-MAN platform) reports</h3>
+<table style="width:100%"rules=groups>
+ <thead>
+  <tr>
+    <th style="width:50%">Standard subtypes</th>
+    <th class="local" style="width:50%">Local subtypes</th>
+  </tr>
+ </thead>
+ <tbody>
+  <tr>
+    <td style="vertical-align:top">
+     <table>
+      <thead>
+       <tr>
+        <th style="width:10%">Code</th>
+        <th style="width:90%">Meaning</th>
+       </tr>
+      </thead>
+      <tbody>
+        <tr>
+         <td></td>
+         <td></td>
+        <tr>
+      </tbody>
+     </table>
+    </td>
+    <td style="vertical-align:top">
+     <table>
+      <thead>
+       <tr>
+        <th style="width:10%" class="local">Code</th>
+        <th style="width:90%" class="local">Meaning</th>
+       </tr>
+      </thead>
+      <tbody>
+        <tr>
+         <td></td>
+         <td></td>
+        </tr>
+      </tbody>
+     </table>
+    </td>
+  </tr>
+ </tbody>
+ </table>
+<br />
+<div class="center"><a href="#">Back to Top</a></div>
+<br />
+<hr id="type111"/>
+<h3 class="local">DATA TYPE 111 - Mean sea-level pressure bogus reports</h3>
+<table style="width:100%"rules=groups>
+ <thead>
+  <tr>
+    <th style="width:50%">Standard subtypes</th>
+    <th class="local" style="width:50%">Local subtypes</th>
+  </tr>
+ </thead>
+ <tbody>
+  <tr>
+    <td style="vertical-align:top">
+     <table>
+      <thead>
+       <tr>
+        <th style="width:10%">Code</th>
+        <th style="width:90%">Meaning</th>
+       </tr>
+      </thead>
+      <tbody>
+        <tr>
+         <td></td>
+         <td></td>
+        <tr>
+      </tbody>
+     </table>
+    </td>
+    <td style="vertical-align:top">
+     <table>
+      <thead>
+       <tr>
+        <th style="width:10%" class="local">Code</th>
+        <th style="width:90%" class="local">Meaning</th>
+       </tr>
+      </thead>
+      <tbody>
+        <tr>
+         <td></td>
+         <td></td>
+        </tr>
+      </tbody>
+     </table>
+    </td>
+  </tr>
+ </tbody>
+ </table>
+<br />
+<div class="center"><a href="#">Back to Top</a></div>
+<br />
+<hr id="type112"/>
+<h3 class="local">DATA TYPE 112 - SSM/I retrieval product reports (reprocessed wind speed, total precipitable water, rainfall rate)</h3>
+<table style="width:100%"rules=groups>
+ <thead>
+  <tr>
+    <th style="width:50%">Standard subtypes</th>
+    <th class="local" style="width:50%">Local subtypes</th>
+  </tr>
+ </thead>
+ <tbody>
+  <tr>
+    <td style="vertical-align:top">
+     <table>
+      <thead>
+       <tr>
+        <th style="width:10%">Code</th>
+        <th style="width:90%">Meaning</th>
+       </tr>
+      </thead>
+      <tbody>
+        <tr>
+         <td></td>
+         <td></td>
+        <tr>
+      </tbody>
+     </table>
+    </td>
+    <td style="vertical-align:top">
+     <table>
+      <thead>
+       <tr>
+        <th style="width:10%" class="local">Code</th>
+        <th style="width:90%" class="local">Meaning</th>
+       </tr>
+      </thead>
+      <tbody>
+        <tr>
+         <td></td>
+         <td></td>
+        </tr>
+      </tbody>
+     </table>
+    </td>
+  </tr>
+ </tbody>
+ </table>
+<br />
+<div class="center"><a href="#">Back to Top</a></div>
+<br />
+<hr id="type113"/>
+<h3 class="local">DATA TYPE 113 - Synthetic tropical cyclone bogus reports</h3>
+<table style="width:100%"rules=groups>
+ <thead>
+  <tr>
+    <th style="width:50%">Standard subtypes</th>
+    <th class="local" style="width:50%">Local subtypes</th>
+  </tr>
+ </thead>
+ <tbody>
+  <tr>
+    <td style="vertical-align:top">
+     <table>
+      <thead>
+       <tr>
+        <th style="width:10%">Code</th>
+        <th style="width:90%">Meaning</th>
+       </tr>
+      </thead>
+      <tbody>
+        <tr>
+         <td></td>
+         <td></td>
+        <tr>
+      </tbody>
+     </table>
+    </td>
+    <td style="vertical-align:top">
+     <table>
+      <thead>
+       <tr>
+        <th style="width:10%" class="local">Code</th>
+        <th style="width:90%" class="local">Meaning</th>
+       </tr>
+      </thead>
+      <tbody>
+        <tr>
+         <td></td>
+         <td></td>
+        </tr>
+      </tbody>
+     </table>
+    </td>
+  </tr>
+ </tbody>
+ </table>
+<br />
+<div class="center"><a href="#">Back to Top</a></div>
+<br />
+<hr id="type114"/>
+<h3 class="local">DATA TYPE 114 - ERS scatterometer wind reports (reprocessed wind speed)</h3>
+<table style="width:100%"rules=groups>
+ <thead>
+  <tr>
+    <th style="width:50%">Standard subtypes</th>
+    <th class="local" style="width:50%">Local subtypes</th>
+  </tr>
+ </thead>
+ <tbody>
+  <tr>
+    <td style="vertical-align:top">
+     <table>
+      <thead>
+       <tr>
+        <th style="width:10%">Code</th>
+        <th style="width:90%">Meaning</th>
+       </tr>
+      </thead>
+      <tbody>
+        <tr>
+         <td></td>
+         <td></td>
+        <tr>
+      </tbody>
+     </table>
+    </td>
+    <td style="vertical-align:top">
+     <table>
+      <thead>
+       <tr>
+        <th style="width:10%" class="local">Code</th>
+        <th style="width:90%" class="local">Meaning</th>
+       </tr>
+      </thead>
+      <tbody>
+        <tr>
+         <td></td>
+         <td></td>
+        </tr>
+      </tbody>
+     </table>
+    </td>
+  </tr>
+ </tbody>
+ </table>
+<br />
+<div class="center"><a href="#">Back to Top</a></div>
+<br />
+<hr id="type115"/>
+<h3 class="local">DATA TYPE 115 - GOES satellite sounding reports (retrievals, processed radiances)</h3>
+<table style="width:100%"rules=groups>
+ <thead>
+  <tr>
+    <th style="width:50%">Standard subtypes</th>
+    <th class="local" style="width:50%">Local subtypes</th>
+  </tr>
+ </thead>
+ <tbody>
+  <tr>
+    <td style="vertical-align:top">
+     <table>
+      <thead>
+       <tr>
+        <th style="width:10%">Code</th>
+        <th style="width:90%">Meaning</th>
+       </tr>
+      </thead>
+      <tbody>
+        <tr>
+         <td></td>
+         <td></td>
+        <tr>
+      </tbody>
+     </table>
+    </td>
+    <td style="vertical-align:top">
+     <table>
+      <thead>
+       <tr>
+        <th style="width:10%" class="local">Code</th>
+        <th style="width:90%" class="local">Meaning</th>
+       </tr>
+      </thead>
+      <tbody>
+        <tr>
+         <td></td>
+         <td></td>
+        </tr>
+      </tbody>
+     </table>
+    </td>
+  </tr>
+ </tbody>
+ </table>
+<br />
+<div class="center"><a href="#">Back to Top</a></div>
+<br />
+<hr id="type116"/>
+<h3 class="local">DATA TYPE 116 - QuikSCAT scatterometer wind reports (reprocessed)</h3>
+<table style="width:100%"rules=groups>
+ <thead>
+  <tr>
+    <th style="width:50%">Standard subtypes</th>
+    <th class="local" style="width:50%">Local subtypes</th>
+  </tr>
+ </thead>
+ <tbody>
+  <tr>
+    <td style="vertical-align:top">
+     <table>
+      <thead>
+       <tr>
+        <th style="width:10%">Code</th>
+        <th style="width:90%">Meaning</th>
+       </tr>
+      </thead>
+      <tbody>
+        <tr>
+         <td></td>
+         <td></td>
+        <tr>
+      </tbody>
+     </table>
+    </td>
+    <td style="vertical-align:top">
+     <table>
+      <thead>
+       <tr>
+        <th style="width:10%" class="local">Code</th>
+        <th style="width:90%" class="local">Meaning</th>
+       </tr>
+      </thead>
+      <tbody>
+        <tr>
+         <td></td>
+         <td></td>
+        </tr>
+      </tbody>
+     </table>
+    </td>
+  </tr>
+ </tbody>
+ </table>
+<br />
+<div class="center"><a href="#">Back to Top</a></div>
+<br />
+<hr id="type117"/>
+<h3 class="local">DATA TYPE 117 - Mesonet surface reports</h3>
+<table style="width:100%"rules=groups>
+ <thead>
+  <tr>
+    <th style="width:50%">Standard subtypes</th>
+    <th class="local" style="width:50%">Local subtypes</th>
+  </tr>
+ </thead>
+ <tbody>
+  <tr>
+    <td style="vertical-align:top">
+     <table>
+      <thead>
+       <tr>
+        <th style="width:10%">Code</th>
+        <th style="width:90%">Meaning</th>
+       </tr>
+      </thead>
+      <tbody>
+        <tr>
+         <td></td>
+         <td></td>
+        <tr>
+      </tbody>
+     </table>
+    </td>
+    <td style="vertical-align:top">
+     <table>
+      <thead>
+       <tr>
+        <th style="width:10%" class="local">Code</th>
+        <th style="width:90%" class="local">Meaning</th>
+       </tr>
+      </thead>
+      <tbody>
+        <tr>
+         <td></td>
+         <td></td>
+        </tr>
+      </tbody>
+     </table>
+    </td>
+  </tr>
+ </tbody>
+ </table>
+<br />
+<div class="center"><a href="#">Back to Top</a></div>
+<br />
+<hr id="type118"/>
+<h3 class="local">DATA TYPE 118 - Global Positioning Satellite-integrated Precipitable Water (GPS-IPW) reports</h3>
+<table style="width:100%"rules=groups>
+ <thead>
+  <tr>
+    <th style="width:50%">Standard subtypes</th>
+    <th class="local" style="width:50%">Local subtypes</th>
+  </tr>
+ </thead>
+ <tbody>
+  <tr>
+    <td style="vertical-align:top">
+     <table>
+      <thead>
+       <tr>
+        <th style="width:10%">Code</th>
+        <th style="width:90%">Meaning</th>
+       </tr>
+      </thead>
+      <tbody>
+        <tr>
+         <td></td>
+         <td></td>
+        <tr>
+      </tbody>
+     </table>
+    </td>
+    <td style="vertical-align:top">
+     <table>
+      <thead>
+       <tr>
+        <th style="width:10%" class="local">Code</th>
+        <th style="width:90%" class="local">Meaning</th>
+       </tr>
+      </thead>
+      <tbody>
+        <tr>
+         <td></td>
+         <td></td>
+        </tr>
+      </tbody>
+     </table>
+    </td>
+  </tr>
+ </tbody>
+ </table>
+<br />
+<div class="center"><a href="#">Back to Top</a></div>
+<br />
+<hr id="type119"/>
+<h3 class="local">DATA TYPE 119 - Radio Acoustic Sounding System (RASS) temperature profile reports</h3>
+<table style="width:100%"rules=groups>
+ <thead>
+  <tr>
+    <th style="width:50%">Standard subtypes</th>
+    <th class="local" style="width:50%">Local subtypes</th>
+  </tr>
+ </thead>
+ <tbody>
+  <tr>
+    <td style="vertical-align:top">
+     <table>
+      <thead>
+       <tr>
+        <th style="width:10%">Code</th>
+        <th style="width:90%">Meaning</th>
+       </tr>
+      </thead>
+      <tbody>
+        <tr>
+         <td></td>
+         <td></td>
+        <tr>
+      </tbody>
+     </table>
+    </td>
+    <td style="vertical-align:top">
+     <table>
+      <thead>
+       <tr>
+        <th style="width:10%" class="local">Code</th>
+        <th style="width:90%" class="local">Meaning</th>
+       </tr>
+      </thead>
+      <tbody>
+        <tr>
+         <td></td>
+         <td></td>
+        </tr>
+      </tbody>
+     </table>
+    </td>
+  </tr>
+ </tbody>
+ </table>
+<br />
+<div class="center"><a href="#">Back to Top</a></div>
+<br />
+<hr id="type120"/>
+<h3 class="local">DATA TYPE 120 - WINDSAT scatterometer wind reports (reprocessed)</h3>
+<table style="width:100%"rules=groups>
+ <thead>
+  <tr>
+    <th style="width:50%">Standard subtypes</th>
+    <th class="local" style="width:50%">Local subtypes</th>
+  </tr>
+ </thead>
+ <tbody>
+  <tr>
+    <td style="vertical-align:top">
+     <table>
+      <thead>
+       <tr>
+        <th style="width:10%">Code</th>
+        <th style="width:90%">Meaning</th>
+       </tr>
+      </thead>
+      <tbody>
+        <tr>
+         <td></td>
+         <td></td>
+        <tr>
+      </tbody>
+     </table>
+    </td>
+    <td style="vertical-align:top">
+     <table>
+      <thead>
+       <tr>
+        <th style="width:10%" class="local">Code</th>
+        <th style="width:90%" class="local">Meaning</th>
+       </tr>
+      </thead>
+      <tbody>
+        <tr>
+         <td></td>
+         <td></td>
+        </tr>
+      </tbody>
+     </table>
+    </td>
+  </tr>
+ </tbody>
+ </table>
+<br />
+<div class="center"><a href="#">Back to Top</a></div>
+<br />
+<hr id="type121"/>
+<h3 class="local">DATA TYPE 121 - ASCAT scatterometer wind reports (reprocessed)</h3>
+<table style="width:100%"rules=groups>
+ <thead>
+  <tr>
+    <th style="width:50%">Standard subtypes</th>
+    <th class="local" style="width:50%">Local subtypes</th>
+  </tr>
+ </thead>
+ <tbody>
+  <tr>
+    <td style="vertical-align:top">
+     <table>
+      <thead>
+       <tr>
+        <th style="width:10%">Code</th>
+        <th style="width:90%">Meaning</th>
+       </tr>
+      </thead>
+      <tbody>
+        <tr>
+         <td></td>
+         <td></td>
+        <tr>
+      </tbody>
+     </table>
+    </td>
+    <td style="vertical-align:top">
+     <table>
+      <thead>
+       <tr>
+        <th style="width:10%" class="local">Code</th>
+        <th style="width:90%" class="local">Meaning</th>
+       </tr>
+      </thead>
+      <tbody>
+        <tr>
+         <td></td>
+         <td></td>
+        </tr>
+      </tbody>
+     </table>
+    </td>
+  </tr>
+ </tbody>
+ </table>
+<br />
+<div class="center"><a href="#">Back to Top</a></div>
+<br />
+<hr id="type206"/>
+<h3 class="local">DATA TYPE 206 - AIRNOW ozone concentration reports</h3>
+<table style="width:100%"rules=groups>
+ <thead>
+  <tr>
+    <th style="width:50%">Standard subtypes</th>
+    <th class="local" style="width:50%">Local subtypes</th>
+  </tr>
+ </thead>
+ <tbody>
+  <tr>
+    <td style="vertical-align:top">
+     <table>
+      <thead>
+       <tr>
+        <th style="width:10%">Code</th>
+        <th style="width:90%">Meaning</th>
+       </tr>
+      </thead>
+      <tbody>
+        <tr>
+         <td></td>
+         <td></td>
+        <tr>
+      </tbody>
+     </table>
+    </td>
+    <td style="vertical-align:top">
+     <table>
+      <thead>
+       <tr>
+        <th style="width:10%" class="local">Code</th>
+        <th style="width:90%" class="local">Meaning</th>
+       </tr>
+      </thead>
+      <tbody>
+        <tr>
+         <td></td>
+         <td></td>
+        </tr>
+      </tbody>
+     </table>
+    </td>
+  </tr>
+ </tbody>
+ </table>
+<br />
+<div class="center"><a href="#">Back to Top</a></div>
+<br />
+<hr id="type241"/>
+<h3 class="local">DATA TYPE 241 - ETA/NAM model soundings, RUC model soundings</h3>
+<table style="width:100%"rules=groups>
+ <thead>
+  <tr>
+    <th style="width:50%">Standard subtypes</th>
+    <th class="local" style="width:50%">Local subtypes</th>
+  </tr>
+ </thead>
+ <tbody>
+  <tr>
+    <td style="vertical-align:top">
+     <table>
+      <thead>
+       <tr>
+        <th style="width:10%">Code</th>
+        <th style="width:90%">Meaning</th>
+       </tr>
+      </thead>
+      <tbody>
+        <tr>
+         <td></td>
+         <td></td>
+        <tr>
+      </tbody>
+     </table>
+    </td>
+    <td style="vertical-align:top">
+     <table>
+      <thead>
+       <tr>
+        <th style="width:10%" class="local">Code</th>
+        <th style="width:90%" class="local">Meaning</th>
+       </tr>
+      </thead>
+      <tbody>
+        <tr>
+         <td></td>
+         <td></td>
+        </tr>
+      </tbody>
+     </table>
+    </td>
+  </tr>
+ </tbody>
+ </table>
+<br />
+<div class="center"><a href="#">Back to Top</a></div>
+<br />
+<hr id="type242"/>
+<h3 class="local">DATA TYPE 242 - NGM model soundings</h3>
+<table style="width:100%"rules=groups>
+ <thead>
+  <tr>
+    <th style="width:50%">Standard subtypes</th>
+    <th class="local" style="width:50%">Local subtypes</th>
+  </tr>
+ </thead>
+ <tbody>
+  <tr>
+    <td style="vertical-align:top">
+     <table>
+      <thead>
+       <tr>
+        <th style="width:10%">Code</th>
+        <th style="width:90%">Meaning</th>
+       </tr>
+      </thead>
+      <tbody>
+        <tr>
+         <td></td>
+         <td></td>
+        <tr>
+      </tbody>
+     </table>
+    </td>
+    <td style="vertical-align:top">
+     <table>
+      <thead>
+       <tr>
+        <th style="width:10%" class="local">Code</th>
+        <th style="width:90%" class="local">Meaning</th>
+       </tr>
+      </thead>
+      <tbody>
+        <tr>
+         <td></td>
+         <td></td>
+        </tr>
+      </tbody>
+     </table>
+    </td>
+  </tr>
+ </tbody>
+ </table>
+<br />
+<div class="center"><a href="#">Back to Top</a></div>
+<br />
+<hr id="type243"/>
+<h3 class="local">DATA TYPE 243 - GFS model soundings</h3>
+<table style="width:100%"rules=groups>
+ <thead>
+  <tr>
+    <th style="width:50%">Standard subtypes</th>
+    <th class="local" style="width:50%">Local subtypes</th>
+  </tr>
+ </thead>
+ <tbody>
+  <tr>
+    <td style="vertical-align:top">
+     <table>
+      <thead>
+       <tr>
+        <th style="width:10%">Code</th>
+        <th style="width:90%">Meaning</th>
+       </tr>
+      </thead>
+      <tbody>
+        <tr>
+         <td></td>
+         <td></td>
+        <tr>
+      </tbody>
+     </table>
+    </td>
+    <td style="vertical-align:top">
+     <table>
+      <thead>
+       <tr>
+        <th style="width:10%" class="local">Code</th>
+        <th style="width:90%" class="local">Meaning</th>
+       </tr>
+      </thead>
+      <tbody>
+        <tr>
+         <td></td>
+         <td></td>
+        </tr>
+      </tbody>
+     </table>
+    </td>
+  </tr>
+ </tbody>
+ </table>
+<br />
+<div class="center"><a href="#">Back to Top</a></div>
+<br />
+<hr id="type255"/>
+<h3>DATA TYPE 255 - Other category</h3>
+<table style="width:100%"rules=groups>
+ <thead>
+  <tr>
+    <th style="width:50%">Standard subtypes</th>
+    <th class="local" style="width:50%">Local subtypes</th>
+  </tr>
+ </thead>
+ <tbody>
+  <tr>
+    <td style="vertical-align:top">
+     <table>
+      <thead>
+       <tr>
+        <th style="width:10%">Code</th>
+        <th style="width:90%">Meaning</th>
+       </tr>
+      </thead>
+      <tbody>
+        <tr>
+         <td></td>
+         <td></td>
+        <tr>
+      </tbody>
+     </table>
+    </td>
+    <td style="vertical-align:top">
+     <table>
+      <thead>
+       <tr>
+        <th style="width:10%" class="local">Code</th>
+        <th style="width:90%" class="local">Meaning</th>
+       </tr>
+      </thead>
+      <tbody>
+        <tr>
+        <td class="local center">1</td>
+        <td class="local">Mesonet - Denver Urban Drainage (MADIS)</td>
+        </tr>
+        <tr>
+        <td class="local center">2</td>
+        <td class="local">Mesonet - RAWS National Interagency Fire Center (MADIS)</td>
+        </tr>
+        <tr>
+        <td class="local center">3</td>
+        <td class="local">Mesonet - MesoWest (MADIS)</td>
+        </tr>
+        <tr>
+        <td class="local center">4</td>
+        <td class="local">Mesonet - APRS WeatherNet (MADIS)</td>
+        </tr>
+        <tr>
+        <td class="local center">5</td>
+        <td class="local">Mesonet - Kansas Department of Transportation (MADIS)</td>
+        </tr>
+        <tr>
+        <td class="local center">6</td>
+        <td class="local">Mesonet - Florida (MADIS)</td>
+        </tr>
+        <tr>
+        <td class="local center">7</td>
+        <td class="local">Mesonet - Iowa Department of Transportation (MADIS)</td>
+        </tr>
+        <tr>
+        <td class="local center">8</td>
+        <td class="local">Mesonet - Minnesota Department of Transportation (MADIS)</td>
+        </tr>
+        <tr>
+        <td class="local center">9</td>
+        <td class="local">Mesonet - Anything Weather (MADIS)</td>
+        </tr>
+        <tr>
+        <td class="local center">10</td>
+        <td class="local">Mesonet - National Ocean Service PORTS (MADIS)</td>
+        </tr>
+        <tr>
+        <td class="local center">11</td>
+        <td class="local">Mesonet - Aberdeen Proving Grounds (MADIS)</td>
+        </tr>
+        <tr>
+        <td class="local center">12</td>
+        <td class="local">Mesonet - Weather for You (MADIS)</td>
+        </tr>
+        <tr>
+        <td class="local center">13</td>
+        <td class="local">Mesonet - NWS Cooperative Observers (MADIS)</td>
+        </tr>
+        <tr>
+        <td class="local center">14</td>
+        <td class="local">Mesonet - NWS HADS (MADIS)</td>
+        </tr>
+        <tr>
+        <td class="local center">15</td>
+        <td class="local">Mesonet - AWS (MADIS)</td>
+        </tr>
+        <tr>
+        <td class="local center">16</td>
+        <td class="local">Mesonet - Iowa Environmental (MADIS)</td>
+        </tr>
+        <tr>
+        <td class="local center">17</td>
+        <td class="local">Mesonet - Oklahoma (MADIS)</td>
+        </tr>
+        <tr>
+        <td class="local center">18</td>
+        <td class="local">Mesonet - Colorado Department of Transportation (MADIS)</td>
+        </tr>
+        <tr>
+        <td class="local center">19</td>
+        <td class="local">Mesonet - West Texas (MADIS)</td>
+        </tr>
+        <tr>
+        <td class="local center">20</td>
+        <td class="local">Mesonet - Wisconsin Department of Transportation (MADIS)</td>
+        </tr>
+        <tr>
+        <td class="local center">21</td>
+        <td class="local">Mesonet - LSU-JSU (MADIS)</td>
+        </tr>
+        <tr>
+        <td class="local center">22</td>
+        <td class="local">Mesonet - Colorado E-470 (MADIS)</td>
+        </tr>
+        <tr>
+        <td class="local center">23</td>
+        <td class="local">Mesonet - DC Net (MADIS)</td>
+        </tr>
+        <tr>
+        <td class="local center">24</td>
+        <td class="local">Mesonet - Indiana Department of Transportation (MADIS)</td>
+        </tr>
+        <tr>
+        <td class="local center">25</td>
+        <td class="local">Mesonet - Florida Department of Transportation (MADIS)</td>
+        </tr>
+        <tr>
+        <td class="local center">26</td>
+        <td class="local">Mesonet - Alaska Department of Transportation (MADIS)</td>
+        </tr>
+        <tr>
+        <td class="local center">27</td>
+        <td class="local">Mesonet - Georgia Department of Transportation (MADIS)</td>
+        </tr>
+        <tr>
+        <td class="local center">28</td>
+        <td class="local">Mesonet - Virginia Department of Transportation (MADIS)</td>
+        </tr>
+        <tr>
+        <td class="local center">29</td>
+        <td class="local">Mesonet - Missouri Commercial Agriculture Weather Net (MADIS)</td>
+        </tr>
+        <tr>
+        <td class="local center">30</td>
+        <td class="local">Mesonet - Miscellaneous (MADIS)</td>
+        </tr>
+        <tr>
+        <td class="local center">31</td>
+        <td class="local">Urbanet - Miscellaneous (MADIS)</td>
+        </tr>
+        <tr>
+        <td class="local center">32</td>
+        <td class="local">Urbanet - University of South Alabama (MADIS)</td>
+        </tr>
+        <tr>
+        <td class="local center">101</td>
+        <td class="local">Cooperative observer surface - New England Pilot Project (NEPP) and Historical Climatology Network (HCN) (MADIS)</td>
+        </tr>
+        <tr>
+        <td class="local center">102</td>
+        <td class="local">Cooperative observer surface - NWS Cooperative Observers (SHEF)</td>
+        </tr>
+        <tr>
+        <td class="local center">111</td>
+        <td class="local">Mesonet - Climate Reference Network (MADIS)</td>
+        </tr>
+        <tr>
+        <td class="local center">131</td>
+        <td class="local">Hydrological surface - Denver Urban Drainage (MADIS)</td>
+        </tr>
+        <tr>
+        <td class="local center">160</td>
+        <td class="local">Hydrological surface - Miscellaneous (MADIS)</td>
+        </tr>
+        <tr>
+        <td class="local center">161</td>
+        <td class="local">Snow (MADIS)</td>
+        </tr>
+      </tbody>
+     </table>
+    </td>
+  </tr>
+ </tbody>
+ </table>
+<br />
+<div class="center"><a href="#">Back to Top</a></div>
+</body>
+</html>

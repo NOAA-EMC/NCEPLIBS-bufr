@@ -1,0 +1,235 @@
+Entry #     1      0     Operational  >Ozone<  >O₃<
+Entry #     2      1     Operational  >Water vapour<  >H₂O<
+Entry #     3      2     Operational  >Methane<  >CH₄<
+Entry #     4      3     Operational  >Carbon dioxide<  >CO₂<
+Entry #     5      4     Operational  >Carbon monoxide<  >CO<
+Entry #     6      5     Operational  >Nitrogen dioxide<  >NO₂<
+Entry #     7      6     Operational  >Nitrous oxide<  >N₂O<
+Entry #     8      7     Operational  >Formaldehyde<  >HCHO<
+Entry #     9      8     Operational  >Sulphur dioxide<  >SO₂<
+Entry #    10      9     Operational  >Ammonia<  >NH₃<
+Entry #    11     10     Operational  >Ammonium<  >NH₄⁺<
+Entry #    12     11     Operational  >Nitrogen monoxide<  >NO<
+Entry #    13     12     Operational  >Atomic oxygen<  >O<
+Entry #    14     13     Operational  >Nitrate radical<  >NO₃<
+Entry #    15     14     Operational  >Hydroperoxyl radical<  >HO₂<
+Entry #    16     15     Operational  >Dinitrogen pentoxide<  >N₂O₅<
+Entry #    17     16     Operational  >Nitrous acid<  >HONO<
+Entry #    18     17     Operational  >Nitric acid<  >HNO₃<
+Entry #    19     18     Operational  >Peroxynitric acid<  >HO₂NO₂<
+Entry #    20     19     Operational  >Hydrogen peroxide<  >H₂O₂<
+Entry #    21     20     Operational  >Molecular hydrogen<  >H<
+Entry #    22     21     Operational  >Atomic nitrogen<  >N<
+Entry #    23     22     Operational  >Sulphate<  >SO₄⁻⁻<
+Entry #    24     23     Operational  >Radon<  >Rn<
+Entry #    25     24     Operational  >Elemental mercury<  >Hg<
+Entry #    26     25     Operational  >Divalent mercury<  >Hg₂⁺<
+Entry #    27     26     Operational  >Atomic chlorine<  >Cl<
+Entry #    28     27     Operational  >Chlorine monoxide<  >ClO<
+Entry #    29     28     Operational  >Dichlorine peroxide<  >Cl₂O₂<
+Entry #    30     29     Operational  >Hypochlorous acid<  >HClO<
+Entry #    31     30     Operational  >Chlorine nitrate<  >ClONO₂<
+Entry #    32     31     Operational  >Chlorine dioxide<  >ClO₂<
+Entry #    33     32     Operational  >Atomic bromine<  >Br<
+Entry #    34     33     Operational  >Bromine monoxide<  >BrO<
+Entry #    35     34     Operational  >Bromine chloride<  >BrCl<
+Entry #    36     35     Operational  >Hydrogen bromide<  >HBr<
+Entry #    37     36     Operational  >Hypobromous acid<  >HBrO<
+Entry #    38     37     Operational  >Bromine nitrate<  >BrONO₂<
+Entry #    39 38-9999     Operational  >Reserved<  >null<
+Entry #    40  10000     Operational  >Hydroxyl radical<  >OH<
+Entry #    41  10001     Operational  >Methyl peroxy radical<  >CH₃O₂<
+Entry #    42  10002     Operational  >Methyl hydroperoxide<  >CH₃O₂H<
+Entry #    43  10004     Operational  >Methanol<  >CH₃OH<
+Entry #    44  10005     Operational  >Formic acid<  >CH₃OOH<
+Entry #    45  10006     Operational  >Hydrogen Cyanide<  >HCN<
+Entry #    46  10007     Operational  >Aceto nitrile<  >CH₃CN<
+Entry #    47  10008     Operational  >Ethane<  >C₂H₆<
+Entry #    48  10009     Operational  >Ethene (= Ethylene)<  >C₂H₄<
+Entry #    49  10010     Operational  >Ethyne (= Acetylene)<  >C₂H₂<
+Entry #    50  10011     Operational  >Ethanol<  >C₂H₅OH<
+Entry #    51  10012     Operational  >Acetic acid<  >C₂H₅OOH<
+Entry #    52  10013     Operational  >Peroxyacetyl nitrate<  >CH₃C(O)OONO₂<
+Entry #    53  10014     Operational  >Propane<  >C₃H₈<
+Entry #    54  10015     Operational  >Propene<  >C₃H₆<
+Entry #    55  10016     Operational  >Butanes<  >C₄H₁₀<
+Entry #    56  10017     Operational  >Isoprene<  >C₅H₁₀<
+Entry #    57  10018     Operational  >Alpha pinene<  >C₁₀H₁₆<
+Entry #    58  10019     Operational  >Beta pinene<  >C₁₀H₁₆<
+Entry #    59  10020     Operational  >Limonene<  >C₁₀H₁₆<
+Entry #    60  10021     Operational  >Benzene<  >C₆H₆<
+Entry #    61  10022     Operational  >Toluene<  >C₇H₈<
+Entry #    62  10023     Operational  >Xylene<  >C₈H₁₀<
+Entry #    63 10024-10499     Operational  >reserved for other simple organic molecules (e.g. higher aldehydes, alcohols, peroxides,…)<  >null<
+Entry #    64  10500     Operational  >Dimethyl sulphide<  >CH₃SCH₃ (DMS)<
+Entry #    65 10501-20000     Operational  >Reserved<  >null<
+Entry #    66  20001     Operational  >Hydrogen chloride<  >null<
+Entry #    67  20002     Operational  >CFC-11<  >null<
+Entry #    68  20003     Operational  >CFC-12<  >null<
+Entry #    69  20004     Operational  >CFC-113<  >null<
+Entry #    70  20005     Operational  >CFC-113a<  >null<
+Entry #    71  20006     Operational  >CFC-114<  >null<
+Entry #    72  20007     Operational  >CFC-115<  >null<
+Entry #    73  20008     Operational  >HCFC-22<  >null<
+Entry #    74  20009     Operational  >HCFC-141b<  >null<
+Entry #    75  20010     Operational  >HCFC-142b<  >null<
+Entry #    76  20011     Operational  >Halon-1202<  >null<
+Entry #    77  20012     Operational  >Halon-1211<  >null<
+Entry #    78  20013     Operational  >Halon-1301<  >null<
+Entry #    79  20014     Operational  >Halon-2402<  >null<
+Entry #    80  20015     Operational  >Methyl chloride (HCC-40)<  >null<
+Entry #    81  20016     Operational  >Carbon tetrachloride (HCC-10)<  >null<
+Entry #    82  20017     Operational  >HCC-140a<  >CH₃CCl₃<
+Entry #    83  20018     Operational  >Methyl bromide (HBC-40B1)<  >null<
+Entry #    84  20019     Operational  >Hexachlorocyclohexane (HCH)<  >null<
+Entry #    85  20020     Operational  >Alpha hexachlorocyclohexane<  >null<
+Entry #    86  20021     Operational  >Hexachlorobiphenyl (PCB-153)<  >null<
+Entry #    87 20022-29999     Operational  >Reserved<  >null<
+Entry #    88 30000-59999     Operational  >Reserved<  >null<
+Entry #    89  60000     Operational  >HOx radical (OH+HO₂)<  >null<
+Entry #    90  60001     Operational  >Total inorganic and organic peroxy radicals (HO₂ + RO₂)<  >RO₂<
+Entry #    91  60002     Operational  >Passive Ozone<  >null<
+Entry #    92  60003     Operational  >NOx expressed as nitrogen<  >NOx<
+Entry #    93  60004     Operational  >All nitrogen oxides (NOx) expressed as nitrogen<  >NOx<
+Entry #    94  60005     Operational  >Total inorganic chlorine<  >Clx<
+Entry #    95  60006     Operational  >Total inorganic bromine<  >Brx<
+Entry #    96  60007     Operational  >Total inorganic chlorine except HCl, ClONO₂: ClOx<  >null<
+Entry #    97  60008     Operational  >Total inorganic bromine except HBr, BrONO₂: BrOx<  >null<
+Entry #    98  60009     Operational  >Lumped Alkanes<  >null<
+Entry #    99  60010     Operational  >Lumped Alkenes<  >null<
+Entry #   100  60011     Operational  >Lumped Aromatic Compounds<  >null<
+Entry #   101  60012     Operational  >Lumped Terpenes<  >null<
+Entry #   102  60013     Operational  >Non-methane volatile organic compounds expressed as carbon<  >NMVOC<
+Entry #   103  60014     Operational  >Anthropogenic non-methane volatile organic compounds expressed as carbon<  >aNMVOC<
+Entry #   104  60015     Operational  >Biogenic non-methane volatile organic compounds expressed as carbon<  >bNMVOC<
+Entry #   105  60016     Operational  >Lumped oxygenated hydrocarbons<  >OVOC<
+Entry #   106 60017-61999     Operational  >Reserved<  >null<
+Entry #   107  62000     Operational  >Total aerosol<  >null<
+Entry #   108  62001     Operational  >Dust dry<  >null<
+Entry #   109  62002     Operational  >Water in ambient<  >null<
+Entry #   110  62003     Operational  >Ammonium dry<  >null<
+Entry #   111  62004     Operational  >Nitrate dry<  >null<
+Entry #   112  62005     Operational  >Nitric acid trihydrate<  >null<
+Entry #   113  62006     Operational  >Sulphate dry<  >null<
+Entry #   114  62007     Operational  >Mercury dry<  >null<
+Entry #   115  62008     Operational  >Sea salt dry<  >null<
+Entry #   116  62009     Operational  >Black carbon dry<  >null<
+Entry #   117  62010     Operational  >Particulate organic matter dry<  >null<
+Entry #   118  62011     Operational  >Primary particulate organic matter dry<  >null<
+Entry #   119  62012     Operational  >Secondary particulate organic matter dry<  >null<
+Entry #   120 62013-65534     Operational  >Reserved<  >null<
+Entry #   121  65535     Operational  >Missing<  >null<
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(0, 'Ozone (O₃)')
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(1, 'Water vapour (H₂O)')
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(2, 'Methane (CH₄)')
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(3, 'Carbon dioxide (CO₂)')
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(4, 'Carbon monoxide (CO)')
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(5, 'Nitrogen dioxide (NO₂)')
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(6, 'Nitrous oxide (N₂O)')
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(7, 'Formaldehyde (HCHO)')
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(8, 'Sulphur dioxide (SO₂)')
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(9, 'Ammonia (NH₃)')
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(10, 'Ammonium (NH₄⁺)')
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(11, 'Nitrogen monoxide (NO)')
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(12, 'Atomic oxygen (O)')
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(13, 'Nitrate radical (NO₃)')
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(14, 'Hydroperoxyl radical (HO₂)')
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(15, 'Dinitrogen pentoxide (N₂O₅)')
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(16, 'Nitrous acid (HONO)')
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(17, 'Nitric acid (HNO₃)')
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(18, 'Peroxynitric acid (HO₂NO₂)')
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(19, 'Hydrogen peroxide (H₂O₂)')
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(20, 'Molecular hydrogen (H)')
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(21, 'Atomic nitrogen (N)')
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(22, 'Sulphate (SO₄⁻⁻)')
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(23, 'Radon (Rn)')
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(24, 'Elemental mercury (Hg)')
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(25, 'Divalent mercury (Hg₂⁺)')
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(26, 'Atomic chlorine (Cl)')
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(27, 'Chlorine monoxide (ClO)')
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(28, 'Dichlorine peroxide (Cl₂O₂)')
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(29, 'Hypochlorous acid (HClO)')
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(30, 'Chlorine nitrate (ClONO₂)')
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(31, 'Chlorine dioxide (ClO₂)')
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(32, 'Atomic bromine (Br)')
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(33, 'Bromine monoxide (BrO)')
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(34, 'Bromine chloride (BrCl)')
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(35, 'Hydrogen bromide (HBr)')
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(36, 'Hypobromous acid (HBrO)')
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(37, 'Bromine nitrate (BrONO₂)')
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(10000, 'Hydroxyl radical (OH)')
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(10001, 'Methyl peroxy radical (CH₃O₂)')
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(10002, 'Methyl hydroperoxide (CH₃O₂H)')
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(10004, 'Methanol (CH₃OH)')
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(10005, 'Formic acid (CH₃OOH)')
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(10006, 'Hydrogen Cyanide (HCN)')
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(10007, 'Aceto nitrile (CH₃CN)')
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(10008, 'Ethane (C₂H₆)')
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(10009, 'Ethene (= Ethylene) (C₂H₄)')
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(10010, 'Ethyne (= Acetylene) (C₂H₂)')
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(10011, 'Ethanol (C₂H₅OH)')
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(10012, 'Acetic acid (C₂H₅OOH)')
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(10013, 'Peroxyacetyl nitrate (CH₃C(O)OONO₂)')
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(10014, 'Propane (C₃H₈)')
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(10015, 'Propene (C₃H₆)')
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(10016, 'Butanes (C₄H₁₀)')
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(10017, 'Isoprene (C₅H₁₀)')
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(10018, 'Alpha pinene (C₁₀H₁₆)')
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(10019, 'Beta pinene (C₁₀H₁₆)')
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(10020, 'Limonene (C₁₀H₁₆)')
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(10021, 'Benzene (C₆H₆)')
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(10022, 'Toluene (C₇H₈)')
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(10023, 'Xylene (C₈H₁₀)')
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(10500, 'Dimethyl sulphide (CH₃SCH₃ (DMS))')
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(20001, 'Hydrogen chloride')
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(20002, 'CFC-11')
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(20003, 'CFC-12')
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(20004, 'CFC-113')
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(20005, 'CFC-113a')
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(20006, 'CFC-114')
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(20007, 'CFC-115')
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(20008, 'HCFC-22')
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(20009, 'HCFC-141b')
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(20010, 'HCFC-142b')
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(20011, 'Halon-1202')
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(20012, 'Halon-1211')
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(20013, 'Halon-1301')
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(20014, 'Halon-2402')
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(20015, 'Methyl chloride (HCC-40)')
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(20016, 'Carbon tetrachloride (HCC-10)')
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(20017, 'HCC-140a (CH₃CCl₃)')
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(20018, 'Methyl bromide (HBC-40B1)')
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(20019, 'Hexachlorocyclohexane (HCH)')
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(20020, 'Alpha hexachlorocyclohexane')
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(20021, 'Hexachlorobiphenyl (PCB-153)')
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(60000, 'HOx radical (OH+HO₂)')
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(60001, 'Total inorganic and organic peroxy radicals (HO₂ + RO₂) (RO₂)')
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(60002, 'Passive Ozone')
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(60003, 'NOx expressed as nitrogen (NOx)')
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(60004, 'All nitrogen oxides (NOx) expressed as nitrogen (NOx)')
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(60005, 'Total inorganic chlorine (Clx)')
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(60006, 'Total inorganic bromine (Brx)')
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(60007, 'Total inorganic chlorine except HCl, ClONO₂: ClOx')
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(60008, 'Total inorganic bromine except HBr, BrONO₂: BrOx')
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(60009, 'Lumped Alkanes')
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(60010, 'Lumped Alkenes')
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(60011, 'Lumped Aromatic Compounds')
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(60012, 'Lumped Terpenes')
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(60013, 'Non-methane volatile organic compounds expressed as carbon (NMVOC)')
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(60014, 'Anthropogenic non-methane volatile organic compounds expressed as carbon (aNMVOC)')
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(60015, 'Biogenic non-methane volatile organic compounds expressed as carbon (bNMVOC)')
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(60016, 'Lumped oxygenated hydrocarbons (OVOC)')
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(62000, 'Total aerosol')
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(62001, 'Dust dry')
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(62002, 'Water in ambient')
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(62003, 'Ammonium dry')
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(62004, 'Nitrate dry')
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(62005, 'Nitric acid trihydrate')
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(62006, 'Sulphate dry')
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(62007, 'Mercury dry')
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(62008, 'Sea salt dry')
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(62009, 'Black carbon dry')
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(62010, 'Particulate organic matter dry')
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(62011, 'Primary particulate organic matter dry')
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(62012, 'Secondary particulate organic matter dry')
+INSERT INTO CODETABLE_ENTRIES (Value, Meaning) VALUES(65535, 'Missing')
