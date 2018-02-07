@@ -9,7 +9,8 @@
 C*	  Get the station information.  Note that HEIT is the height
 C*	  of the release point above mean sea level.
 
-	  CALL UFBINT ( iunrrs, rinfo, 14, 1, nwrk, STINFO )
+	  CALL UFBINT ( iunrrs, rinfo,  14, 1, nwrk, STINFO )
+	  CALL UFBINT ( iunrrs, rinfo2, 11, 1, nwrk, STINFO2 )
 
 C*	  Get the launch date-time.  This information is in the 4th
 C*	  replication of the below mnemonic string, corresponding

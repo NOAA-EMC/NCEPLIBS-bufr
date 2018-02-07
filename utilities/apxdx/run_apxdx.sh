@@ -345,9 +345,9 @@ ${dir}/${tank} - this large tank is too old"
 #         DX table.
 #         ---------------------------------------------------------------
 
-                echo "Using ${utilush}/apxdx to append DX table messages to \
+                echo "Using ${utilush}/apxdx.sh to append DX table messages to \
  ${dir}/${tank}"
-                ${utilush}/apxdx ${dir}/${tank} ${DXtable}
+                ${utilush}/apxdx.sh ${dir}/${tank} ${DXtable}
             fi
         else
             if [ $excludes_orig = xx999 ]; then

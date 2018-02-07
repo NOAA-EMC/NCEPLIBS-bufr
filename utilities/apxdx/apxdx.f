@@ -11,6 +11,7 @@ C   DATABASE.
 C
 C PROGRAM HISTORY LOG:
 C 2009-07-01  J. ATOR     ORIGINAL VERSION FOR IMPLEMENTATION
+C 2012-12-04  J. ATOR     USE OPENBF WITH INUL OPTION FOR WCOSS
 C
 C USAGE:
 C   ./APXDX  CBFFIL  CDXTBL
@@ -56,10 +57,9 @@ C*	Read the input arguments.
 
 C*	Read the user DX table into the BUFRLIB.
 
-	OPEN ( UNIT = lunin, FILE = '/dev/null' )
 	OPEN ( UNIT = lundx, FILE = cdxtbl )
 
-	CALL OPENBF ( lunin, 'IN', lundx )
+	CALL OPENBF ( lunin, 'INUL', lundx )
 
 C*	Open the BUFR file for append.
 

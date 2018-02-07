@@ -4,18 +4,24 @@ a unique filename.
 
 Example:
 
-xbfmg <inputfile>
+	xbfmg [options] <inputfile>
 
 will extract all of the BUFR messages from <inputfile> into the following
 filenames:
 
-xbfmg.out.(pid).000001
-xbfmg.out.(pid).000002
-xbfmg.out.(pid).000003
-.
-.
-xbfmg.out.(pid).(last#)
+	xbfmg.out.(pid).000001
+	xbfmg.out.(pid).000002
+	xbfmg.out.(pid).000003
+	.
+	.
+	xbfmg.out.(pid).(last#)
 
 where:
-(pid) = pid of xbfmg process
-(last#) = total number of BUFR messages in file
+	(pid) = pid of xbfmg process
+	(last#) = total number of BUFR messages in file
+
+and possible options are:
+
+	-v	prints version information and exits
+	-g	retains any GTS bulletin information associated with the
+		BUFR message in each output file

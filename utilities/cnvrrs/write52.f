@@ -17,7 +17,7 @@ C*	Open the output BUFR message and begin a new BUFR subset.
 	CALL PKVS01 ( 'MTYP', 2 )
 	CALL PKVS01 ( 'MSBT', 255 )
 	CALL PKVS01 ( 'MSBTI', 4 )
-	CALL PKVS01 ( 'MTV', 18 )
+	CALL PKVS01 ( 'MTV', 25 )
 
 C*	Store the launch date-time
 
@@ -28,7 +28,8 @@ C*	Store the launch date-time
 
 C*	Store the station information.
 
-	CALL UFBINT ( iunout, rinfo, 14, 1, nlv, STINFO )
+	CALL UFBINT ( iunout, rinfo,  14, 1, nlv, STINFO )
+	CALL UFBINT ( iunout, rinfo2, 11, 1, nlv, STINFO2 )
 
 C*	Store the cloud data.
 

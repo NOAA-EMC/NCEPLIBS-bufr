@@ -2,12 +2,20 @@
 ** MAIN PROGRAM DOCUMENTATION BLOCK
 **
 ** MAIN PROGRAM:  cnvrrs
-**   PRGMMR: J. Ator          ORG: NCEP        DATE: 2015-XX-XX
+**   PRGMMR: J. Ator          ORG: NCEP        DATE: 2015-07-31
 **
-** ABSTRACT: This program ...(TBD)...
+** ABSTRACT: This program reads a Bxxx file containing BUFR messages
+**   from an RRS site encoded using BUFR Table D sequences 3-09-YYY,
+**   where YYY = 060, 061, 062, ..., 066.  It then merges and reformats
+**   the data from those sequences into a single new output BUFR message
+**   encoded using BUFR Table D sequence 3-09-052 according to WMO B/C
+**   25 regulations.
 **
 ** PROGRAM HISTORY LOG:
-** 2015-XX-XX  J. Ator     Original author
+** 2015-05-01  J. Ator     Original author
+** 2015-07-31  J. Ator     Modified to prepend new 3-01-128 metadata
+**                         sequence within output BUFR message, per
+**                         revised WMO B/C 25 regulations
 **
 ** USAGE:
 **   cnvrrs [-v] [-h] [-t mtbldir] [-o outfile] RRSfile tablefil
@@ -75,11 +83,16 @@ int main( int argc, char *argv[ ] ) {
 			  break;
 			}
 		    }
-		    printf( "This is cnvrrs v1.0.0, built with BUFRLIB v%s\n", bvstr );
+		    printf( "This is cnvrrs v1.1.0, built with BUFRLIB v%s\n", bvstr );
 		    return 0;
 		case 'h':
 		    printf( "\nPROGRAM %s\n", argv[0] );
-		    printf( "\nABSTRACT: This program ...(TBD)...\n" );
+		    printf( "\nABSTRACT: This program reads a Bxxx file containing BUFR messages" );
+		    printf( "\n  from an RRS site encoded using BUFR Table D sequences 3-09-YYY," );
+		    printf( "\n  where YYY = 060, 061, 062, ..., 066.  It then merges and reformats" );
+		    printf( "\n  the data from those sequences into a single new output BUFR message" );
+		    printf( "\n  encoded using BUFR Table D sequence 3-09-052 according to WMO B/C" );
+		    printf( "\n  25 regulations.\n" );
 		    prtusage( argv[0] );
 		    return 0;
 		case 't':

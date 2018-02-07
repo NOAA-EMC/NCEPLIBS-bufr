@@ -10,6 +10,7 @@
 | IDLSIPTM | 301111 | Identification of launch site and instrumentation for P  |
 | WMOBLKST | 301001 |                                                          |
 | DATETMLN | 301113 | Date/time of launch                                      |
+| INFORDAS | 301128 | Additional information on radiosonde ascent              |
 | YYMMDD   | 301011 |                                                          |
 | HHMMSS   | 301013 |                                                          |
 | HAVCOLS  | 301114 | Horizontal and vertical coordinates of launch site       |
@@ -21,54 +22,73 @@
 | WMOB     | 001001 | WMO block number                                         |
 | WMOS     | 001002 | WMO station number                                       |
 | SMID     | 001011 | Ship or mobile land station identifier                   |
+| RSERL    | 001081 | Radiosonde serial number                                 |
+| RASCN    | 001082 | Radiosonde ascension number                              |
+| RRLSE    | 001083 | Radiosonde release number                                |
+| OBSVR    | 001095 | Observer identification                                  |
+| A4ME     | 002003 | Type of measuring equipment used                         |
 | RATP     | 002011 | Radiosonde type                                          |
 | SIRC     | 002013 | Solar and infrared radiation correction                  |
 | TTSS     | 002014 | Tracking technique/status of system used                 |
-| A4ME     | 002003 | Type of measuring equipment used                         |
-| TSIG     | 008021 | Time significance                                        |
+| RACP     | 002015 | Radiosonde completeness                                  |
+| RCONF    | 002016 | Radiosonde configuration                                 |
+| CAHM     | 002017 | Correction algorithms for humidity measurements          |
+| RGRSY    | 002066 | Radiosonde ground receiving system                       |
+| RFREQ    | 002067 | Radiosonde operating frequency                           |
+| BMFGR    | 002080 | Balloon manufacturer                                     |
+| BTYPE    | 002081 | Type of balloon                                          |
+| BWGHT    | 002082 | Weight of balloon                                        |
+| BSHEL    | 002083 | Type of balloon shelter                                  |
+| BGTYP    | 002084 | Type of gas used in balloon                              |
+| BGAMT    | 002085 | Amount of gas used in balloon                            |
+| BFTLN    | 002086 | Balloon flight train length                              |
+| PSENS    | 002095 | Type of pressure sensor                                  |
+| TSENS    | 002096 | Type of temperature sensor                               |
+| RHSENS   | 002097 | Type of humidity sensor                                  |
+| RADO     | 002103 | Radome                                                   |
+| GHTC     | 002191 | Geopotential height calculation                          |
 | YEAR     | 004001 | Year                                                     |
 | MNTH     | 004002 | Month                                                    |
 | DAYS     | 004003 | Day                                                      |
 | HOUR     | 004004 | Hour                                                     |
 | MINU     | 004005 | Minute                                                   |
 | SECO     | 004006 | Second                                                   |
+| LTDS     | 004086 | Long time period or displacement                         |
 | CLATH    | 005001 | Latitude (high accuracy)                                 |
+| LATDH    | 005015 | Latitude displacement (high accuracy)                    |
 | CLONH    | 006001 | Longitude (high accuracy)                                |
+| LONDH    | 006015 | Longitude displacement (high accuracy)                   |
+| PRLC     | 007004 | Pressure                                                 |
+| HEIT     | 007007 | Height                                                   |
 | HSMSL    | 007030 | Height of station ground above mean sea level            |
 | HBMSL    | 007031 | Height of barometer above mean sea level                 |
-| HEIT     | 007007 | Height                                                   |
-| QCEVR    | 033024 | Station elevation quality mark (for mobile stations)     |
 | VSSO     | 008002 | Vertical significance (surface observations)             |
-| CLAM     | 020011 | Cloud amount                                             |
-| HOCB     | 020013 | Height of base of cloud                                  |
-| CLTP     | 020012 | Cloud type                                               |
-| SST1     | 022043 | Sea/water temperature                                    |
-| LTDS     | 004086 | Long time period or displacement                         |
+| TSIG     | 008021 | Time significance                                        |
 | VSIGX    | 008042 | Extended vertical sounding significance                  |
-| PRLC     | 007004 | Pressure                                                 |
 | GPH10    | 010009 | Geopotential height                                      |
-| LATDH    | 005015 | Latitude displacement (high accuracy)                    |
-| LONDH    | 006015 | Longitude displacement (high accuracy)                   |
-| TMDB     | 012101 | Temperature/air temperature                              |
-| TMDP     | 012103 | Dew-point temperature                                    |
 | WDIR     | 011001 | Wind direction                                           |
 | WSPD     | 011002 | Wind speed                                               |
 | AWSB     | 011061 | Absolute wind shear in 1 km layer below                  |
 | AWSA     | 011062 | Absolute wind shear in 1 km layer above                  |
-| RSERL    | 001081 | Radiosonde serial number                                 |
-| RASCN    | 001082 | Radiosonde ascension number                              |
-| RFREQ    | 002067 | Radiosonde operating frequency                           |
-| PSENS    | 002095 | Type of pressure sensor                                  |
-| TSENS    | 002096 | Type of temperature sensor                               |
-| RHSENS   | 002097 | Type of humidity sensor                                  |
+| TMDB     | 012101 | Temperature/air temperature                              |
+| TMDP     | 012103 | Dew-point temperature                                    |
+| CLAM     | 020011 | Cloud amount                                             |
+| CLTP     | 020012 | Cloud type                                               |
+| HOCB     | 020013 | Height of base of cloud                                  |
+| SST1     | 022043 | Sea/water temperature                                    |
 | SOFTV    | 025061 | Software identification and version number               |
+| QCEVR    | 033024 | Station elevation quality mark (for mobile stations)     |
 | RTERM    | 035035 | Reason for termination                                   |
 |          |        |                                                          |
 |------------------------------------------------------------------------------|
 | MNEMONIC | SEQUENCE                                                          |
 |----------|-------------------------------------------------------------------|
 |          |                                                                   |
-| USMIGRSN | TEMPSHMO  RSERL  RASCN  RFREQ  PSENS  TSENS  RHSENS  SOFTV  RTERM |
+| USMIGRSN | INFORDAS  TEMPSHMO                                                |
+|          |                                                                   |
+| INFORDAS | RSERL  RASCN  RRLSE  OBSVR  RACP  RCONF  CAHM  RGRSY  RFREQ       |
+| INFORDAS | BMFGR  BTYPE  BWGHT  BSHEL  BGTYP  BGAMT  BFTLN                   |
+| INFORDAS | PSENS  TSENS  RHSENS  RADO  GHTC  SOFTV  RTERM                    |
 |          |                                                                   |
 | TEMPSHMO | IDLSIPTM  DATETMLN  HAVCOLS  CLINRVSD  SST1  (TDWPRAOB)           |
 | TEMPSHMO | {WSPLRAOB}                                                        |
@@ -142,5 +162,20 @@
 | RHSENS   |    0 |           0 |   5 | CODE TABLE               |-------------|
 | SOFTV    |    0 |           0 |  96 | CCITT IA5                |-------------|
 | RTERM    |    0 |           0 |   5 | CODE TABLE               |-------------|
+| RGRSY    |    0 |           0 |   6 | CODE TABLE               |-------------|
+| RCONF    |    0 |           0 |   5 | FLAG TABLE               |-------------|
+| RRLSE    |    0 |           0 |   3 | NUMERIC                  |-------------|
+| BSHEL    |    0 |           0 |   4 | CODE TABLE               |-------------|
+| BMFGR    |    0 |           0 |   6 | CODE TABLE               |-------------|
+| BTYPE    |    0 |           0 |   5 | CODE TABLE               |-------------|
+| BGTYP    |    0 |           0 |   4 | CODE TABLE               |-------------|
+| BGAMT    |    3 |           0 |  13 | KG                       |-------------|
+| BFTLN    |    1 |           0 |  10 | M                        |-------------|
+| BWGHT    |    3 |           0 |  12 | KG                       |-------------|
+| OBSVR    |    0 |           0 |  32 | CCITT IA5                |-------------|
+| RACP     |    0 |           0 |   4 | CODE TABLE               |-------------|
+| CAHM     |    0 |           0 |   5 | CODE TABLE               |-------------|
+| RADO     |    0 |           0 |   2 | FLAG TABLE               |-------------|
+| GHTC     |    0 |           0 |   4 | CODE TABLE               |-------------|
 |          |      |             |     |                          |-------------|
 `------------------------------------------------------------------------------'
