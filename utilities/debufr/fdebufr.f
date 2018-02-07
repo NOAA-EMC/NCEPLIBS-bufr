@@ -1,4 +1,5 @@
-	SUBROUTINE FDEBUFR ( ofile, tbldir, tblfil, basic )
+	SUBROUTINE FDEBUFR ( ofile, tbldir, lentd, tblfil,
+     +			     basic, forcemt )
 
 C$$$  SUBPROGRAM DOCUMENTATION BLOCK
 C
@@ -13,13 +14,16 @@ C PROGRAM HISTORY LOG:
 C 2009-07-01  J. Ator     Original author
 C 2012-06-18  J. Ator     Added tblfil argument and options to decode
 C                         files according to DX dictionary information 
+C 2012-12-07  J. Ator     Added forcemt and lentd arguments
 C
-C USAGE:    call fdebufr ( ofile, tbldir, tblfil, basic )
+C USAGE:    call fdebufr ( ofile, tbldir, lentd, tblfil,
+C			   basic, forcemt )
 C   INPUT ARGUMENT LIST:
 C     ofile    - character*(*): file to contain verbose output
 C                listing for each decoded BUFR message
 C     tbldir   - character*(*): directory containing BUFR tables
 C                to be used for decoding
+C     lentd    - integer: length of tbldir string
 C     tblfil   - character*(*): file containing BUFR DX dictionary
 C                information to be used for decoding.  If set to
 C                'NULLFILE', then no such file will be used.
@@ -27,10 +31,14 @@ C     basic    - character: indicator as to whether the "basic"
 C                option was specified on the command line:
 C                  'Y' = yes
 C                  'N' = no
+C     forcemt  - character: indicator as to whether the forced use
+C                of master tables was specified on the command line:
+C                  'Y' = yes
+C                  'N' = no
 C
 C REMARKS:
-C   FORTRAN logical unit numbers 51, 60, 90 and 91 are reserved for
-C   use within this subroutine.
+C   FORTRAN logical unit numbers 51, 90, 91, 92 and 93 are reserved
+C   for use within this subroutine.
 C
 C ATTRIBUTES:
 C   LANGUAGE: FORTRAN 77
@@ -38,12 +46,14 @@ C   MACHINE:  Portable to all platforms
 C
 C$$$
 
+	USE Share_Table_Info
+
 	PARAMETER ( MXBF = 2500000 )
 	PARAMETER ( MXBFD4 = MXBF/4 )
 	PARAMETER ( MXDS3 = 500 )
 
 	CHARACTER*(*)	ofile, tbldir, tblfil
-	CHARACTER	basic, opened, usemt
+	CHARACTER	basic, forcemt, opened, usemt
 
 	CHARACTER*8	cmgtag
 	CHARACTER*6	cds3 ( MXDS3 )
@@ -64,10 +74,18 @@ C	Open the output file.
 C	Note that in the below OPEN statement we just need to specify
 C	a dummy placeholder file.
 
-	lunit = 60
+	lunit = 92
 	OPEN ( UNIT = lunit, FILE = '/dev/null' )
 
 	CALL DATELEN ( 10 )
+
+C	Initialize the values in the Share_Table_Info module.
+
+	ludx = 93
+	ltbd = lentd
+	ctbldir = tbldir(1:lentd)
+
+C	Initialize some other values.
 
 	nmsg = 0
 	nsubt = 0
@@ -109,14 +127,16 @@ C		Close the output file and return.
 
 C		Decide how to process the file.
 
-		IF ( IDXMSG ( ibfmg ) .eq. 1 ) THEN
+		IF ( ( IDXMSG ( ibfmg ) .eq. 1 ) .and.
+     +			( forcemt .eq. 'N' ) ) THEN
 
 C		    The first message in the file is a DX dictionary
 C		    message, so assume there's an embedded table at the
 C		    front of the file and use this table to decode it.
 
 		    CALL OPENBF ( lunit, 'INUL', lunit )
-		ELSE IF ( tblfil(1:8) .ne. 'NULLFILE' ) THEN
+		ELSE IF ( ( tblfil(1:8) .ne. 'NULLFILE' ) .and.
+     +			    ( forcemt .eq. 'N' ) ) THEN
 
 C		    A DX dictionary tables file was specified on the
 C		    command line, so use it to decode the BUFR file.

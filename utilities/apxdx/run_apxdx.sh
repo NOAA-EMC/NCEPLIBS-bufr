@@ -214,8 +214,7 @@ xx046,xx064,xx065,xx066
 #    xx023 (AIRNOW ozone - 1 hour backward averaged, hourly ingest)
 #    xx031 (AIRNOW PM - 1 hour backward averaged, daily ingest)
 #    xx032 (AIRNOW PM - 1 hour backward averaged, hourly ingest)
-#    xx041 (MODIS Aerosol Optical Depth data)
-        excludes=xx021,xx022,xx023,xx031,xx032,xx041
+        excludes=xx021,xx022,xx023,xx031,xx032
 
     elif [ $bufrtab = bufrtab.012 ]
     then
@@ -247,7 +246,7 @@ fi
 
 dirname=b`basename ${DXtable} | cut -f2 -d.`
 
-dirs="`ls -1d ${BUFRdbroot}/20*/${dirname}`"
+dirs="`ls -1d ${BUFRdbroot}/20*[0-9]/${dirname}`"
 
 for dir in ${dirs}
 do
