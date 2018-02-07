@@ -1,0 +1,21 @@
+This utility locates and extracts all of the BUFR messages from within a
+specified input file, writing each into its own separate output file with
+a unique filename.
+
+Example:
+
+xbfmg <inputfile>
+
+will extract all of the BUFR messages from <inputfile> into the following
+filenames:
+
+xbfmg.out.(pid).000001
+xbfmg.out.(pid).000002
+xbfmg.out.(pid).000003
+.
+.
+xbfmg.out.(pid).(last#)
+
+where:
+(pid) = pid of xbfmg process
+(last#) = total number of BUFR messages in file
