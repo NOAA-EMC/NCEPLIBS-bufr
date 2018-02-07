@@ -1,0 +1,13 @@
+#%Module######################################################################
+##
+proc ModulesHelp { } {
+        puts stderr "This module initializes the environment to build"
+        puts stderr "v2.2.0 of the NCEP debufr utility."
+}
+
+set sys         [uname sysname]
+set ver v2.2.0
+set COMP intel
+
+#Loading NCEP library modules
+module load bufr/11.0.0
