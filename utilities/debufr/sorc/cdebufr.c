@@ -27,6 +27,7 @@
 ** 2013-11-15  J. Ator     Add -h option and check for non-existent tablefil
 ** 2014-09-15  J. Ator     Change default path for tabledir, change default
 **                         name for outfile, and confirm outfile is writeable
+** 2018-01-19  J. Ator	   Add print of code and flag table meanings.
 **
 ** USAGE:
 **   debufr [-v] [-h] [-b] [-m] [-o outfile] [-t tabledir] [-f tablefil] bufrfile
@@ -63,10 +64,10 @@
 ** REMARKS:
 **   SUBPROGRAMS CALLED:
 **     LOCAL      - fdebufr  openbt   prtusage
-**     BUFRLIB    - ccbfl    cobfl    crbmg    datelen  dxdump
-**                  idxmsg   ireadsb  iupbs01  iupbs3   mtinfo
-**                  openbf   readerme ufdump   upds3    bvers
-**                  rtrcptb
+**     BUFRLIB    - ccbfl    cobfl    codflg   crbmg    datelen
+**                  dxdump   getcfmng idxmsg   ireadsb  iupbs01
+**                  iupbs3   mtinfo   openbf   readerme ufdump
+**                  upds3    bvers    rtrcptb
 **
 **   FORTRAN logical unit numbers 51, 90, 91, 92 and 93 are reserved
 **   for use within the fdebufr subroutine.
@@ -132,7 +133,7 @@ int main( int argc, char *argv[ ] ) {
 			  break;
 			}
 		    }
-		    printf( "This is debufr v2.2.0, built with BUFRLIB v%s\n",
+		    printf( "This is debufr v2.3.0, built with BUFRLIB v%s\n",
 			    bvstr );
 		    return 0;
 		case 'h':

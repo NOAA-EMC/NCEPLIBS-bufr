@@ -21,6 +21,7 @@ C 2013-11-15  J. Ator     Added check for missing or unreadable tblfil
 C 2014-09-15  J. Ator     Confirm BUFR file was opened (i.e. at least
 C                         one good return from CRBMG) before calling
 C                         DXDUMP.
+C 2018-01-19  J. Ator     Added print of code and flag table meanings.
 C
 C USAGE:    call fdebufr ( ofile, tbldir, lentd, tblfil,
 C			   basic, forcemt )
@@ -62,6 +63,7 @@ C$$$
 
 	LOGICAL		exists
 
+	CHARACTER*120	cmorgc, cmgses
 	CHARACTER*8	cmgtag
 	CHARACTER*6	cds3 ( MXDS3 )
 	CHARACTER*1	basic, forcemt, opened, usemt,
@@ -134,7 +136,7 @@ C		Close the output file and return.
 
 		CALL ISETPRM ( 'MAXCD', MXDS3 )
 		CALL ISETPRM ( 'MXMSGL', MXBF )
-		CALL ISETPRM ( 'MAXSS', 160000 )
+		CALL ISETPRM ( 'MAXSS', 300000 )
 		CALL ISETPRM ( 'NFILES', 2 )
 
 C		Decide how to process the file.
@@ -170,10 +172,12 @@ C		    Decode the file using the master tables in tbldir.
 
 		    usemt = 'Y'
 		    CALL OPENBF ( lunit, 'SEC3', lunit )
-		    CALL MTINFO ( tbldir, 90, 91 )
 		ENDIF
 
 		opened = 'Y'
+
+		CALL MTINFO ( tbldir, 90, 91 )
+		CALL CODFLG ( 'Y' )
 	    ENDIF
 
 	    IF ( basic .eq. 'N' ) THEN
@@ -207,10 +211,33 @@ C	    output unless master tables are being used for decoding.
      +					IUPBS01 ( ibfmg, 'LEN1' )
 		WRITE (51,*) '         Master table:',
      +					IUPBS01 ( ibfmg, 'BMT' )
-		WRITE (51,*) '   Originating center:',
-     +					IUPBS01 ( ibfmg, 'OGCE' )
-		WRITE (51,*) 'Originating subcenter:',
-     +					IUPBS01 ( ibfmg, 'GSES' )
+
+		iogce = IUPBS01 ( ibfmg, 'OGCE' )
+		igses = IUPBS01 ( ibfmg, 'GSES' )
+		IF ( basic .eq. 'Y' ) THEN
+		    WRITE (51,*) '   Originating center:', iogce
+		    WRITE (51,*) 'Originating subcenter:', igses
+		ELSE
+		    CALL GETCFMNG ( lunit, 'ORIGC', iogce, ' ', -1,
+     +				    cmorgc, lcmorgc, ierorgc )
+		    IF ( ierorgc .eq. 0 ) THEN
+		        WRITE ( 51, FMT= '( A, I4, 3A )' )
+     +			   '    Originating center:        ', iogce,
+     +			   ' (= ', cmorgc(1:lcmorgc), ')'
+		    ELSE
+		        WRITE (51,*) '   Originating center:', iogce
+		    ENDIF
+		    CALL GETCFMNG ( lunit, 'GSES', igses, 'ORIGC',iogce,
+     +				    cmgses, lcmgses, iergses )
+		    IF ( iergses .eq. 0 ) THEN
+		        WRITE ( 51, FMT= '( A, I4, 3A )' )
+     +			   ' Originating subcenter:        ', igses,
+     +				' (= ', cmgses(1:lcmgses), ')'
+		    ELSE
+		        WRITE (51,*) 'Originating subcenter:', igses
+		    ENDIF
+		ENDIF
+
 		WRITE (51,*) 'Update sequence numbr:',
      +					IUPBS01 ( ibfmg, 'USN' )
  
