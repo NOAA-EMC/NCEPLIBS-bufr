@@ -1,0 +1,31 @@
+<html>
+<head>
+  <title>Encoding rawinsonde BUFR messages - Printable Version</title>
+  <meta name="author" content="NCO Web Team">
+  <meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+  <link href="/cwi/main.css" type="text/css" rel="stylesheet">
+  <link href="bufrlib_styles.css" type="text/css" rel="stylesheet">
+  <link rel="icon" type="image/ico" href="/cwi/favicon.ico">
+</head>
+<body background="#ffffff" bgcolor="#ffffff" text="#000000"
+      leftmargin="0" topMargin="0" rightMargin="0"
+      marginheight="0" marginwidth="0">
+  <!-- Begin Content Body-->
+  <table align="center" cellSpacing="0" cellPadding="4" border="0" width="600"
+         summary="Table is for layout only.">
+    <tbody>
+      <tr valign="top">
+        <td valign="top" width="540">
+          <a name="contents">
+          <!--#include virtual="/common/icon_printer.html" -->
+          <small>
+          <a href="javascript:window.print();">Send To Printer</a></small>
+          <hr>
+          <!--#include file="writeraob_body.shtml" -->
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <!-- End Content Body -->
+</body>
+</html>

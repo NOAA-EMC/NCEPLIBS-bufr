@@ -1,0 +1,251 @@
+<table cellpadding="0" cellspacing="0" border="0" width="100%"
+       summary="Table is for layout only.">
+  <tbody>
+<!-- Begin Body Content -->
+  <tr valign="top">
+  <td>
+    <a href="http://www.ncep.noaa.gov/">NCEP Home</a> &gt; <a href="/">NCO Home</a> &gt; <a href="/sib/">Systems Integration Branch</a> &gt; <a href="/sib/decoders/">Decoders</a> &gt; <a href="/sib/decoders/BUFRLIB/">BUFRLIB</a> &gt; <a href="/sib/decoders/BUFRLIB/toc/">BUFRLIB Table of Contents</a> &gt; Decoding wind profiler BUFR messages<br>
+    <!--#include virtual="/common/icon_printer.html"-->
+    <small><a href="printable.shtml" target="print">Printer Friendly Version</a></small>
+   <h2><center>Example Program:  Decoding wind profiler BUFR messages</center></h2>
+<p>
+In this example, we will be decoding (i.e. reading) BUFR messages
+that were encoded according to the &quot;WIND PROFILER&quot; format
+listed within our <a href="../bftab/" target=_new>sample DX BUFR tables file</a>.  In effect, this
+means that we will be reading data subsets that are described by
+the Table A mnemonic &quot;<em class="mnemname">NC002007</em>&quot;.  In doing so,
+we will pass each BUFR message directly from the application program
+to the BUFRLIB software via an array in memory, since this will allow
+us to demonstrate the use of subroutine <em class="subpname">READERME</em> in lieu
+of subroutine <em class="subpname">READMG</em>:
+</p>
+<pre class="mnem">
+        PARAMETER       ( MXMN = 7 )
+        PARAMETER       ( MXLV = 86 )
+
+        REAL*8          r8arr ( MXMN, MXLV )
+
+        PARAMETER       ( MXBF = 16000 )
+
+	CHARACTER	cbfmsg*(MXBF),
+     +			csubset*8
+
+	INTEGER		ibfmsg ( MXBF / 4 )
+
+	EQUIVALENCE	( cbfmsg (1), ibfmsg (1) )
+C*-----------------------------------------------------------------------
+
+C*	Open the BUFR messages file.
+
+	OPEN  ( UNIT = 11, FILE = 'dummy' )
+
+C*	Open the BUFR tables file.
+
+	OPEN  ( UNIT = 12, FILE = 'bufrtab.example' )
+
+C*	Associate the tables file with the messages file, and identify
+C*	the latter to the BUFRLIB software.
+
+	CALL OPENBF  ( 11, 'IN', 12 )
+
+C*	Specify that we would like IDATE values returned using 10 digits
+C*	(i.e. YYYYMMDDHH ).
+
+	CALL DATELEN  ( 10 )
+
+	DO WHILE  ( .true. )
+
+C*	    Read the next BUFR message.
+
+            ( assume that there is code here to read the next BUFR message
+	    from the local system into the character array cbfmsg )
+
+	    IF  ( there are no more messages )  THEN
+		CALL CLOSBF  ( 11 )
+		( perform any other necessary local shutdown tasks )
+	        STOP
+	    END IF
+
+	    msgok = .true.
+
+C*	    Pass the BUFR message into the BUFRLIB software.
+
+	    CALL READERME  ( ibfmsg, 11, csubset, idate, ierrme )
+
+	    IF  ( ierrme .ne. 0 )  THEN
+		PRINT *, 'Error reading BUFR message within READERME'
+		msgok = .false.
+	    ELSE IF  ( csubset .ne. 'NC002007' )  THEN
+		PRINT *, 'BUFR message is not of type WIND PROFILER'
+		msgok = .false.
+	    END IF
+
+	    DO WHILE  ( msgok )
+
+C*		Read the next data subset from the BUFR message.
+
+		IF  ( IREADSB ( 11 ) .ne. 0 )  THEN
+
+		    msgok = .false.
+
+		ELSE
+
+C*		    At this point, we have a data subset within the
+C*		    internal arrays of BUFRLIB, and we can now begin
+C*		    reading actual data values:
+
+C*		    Report identification.
+
+		    CALL UFBINT  ( 11, r8arr, MXMN, MXLV, nlv,
+     +				   'WMOB WMOS CLAT CLON SELV' )
+
+		    PRINT *, '      WMO Block # = ', r8arr (1,1)
+		    PRINT *, '    WMO Station # = ', r8arr (2,1)
+		    PRINT *, '         Latitude = ', r8arr (3,1)
+		    PRINT *, '        Longitude = ', r8arr (4,1)
+		    PRINT *, 'Station Elevation = ', r8arr (5,1)
+
+C*		    Report valid time.
+
+		    CALL UFBINT  ( 11, r8arr, MXMN, MXLV, nlv,
+     +			           'YEAR MNTH DAYS HOUR MINU' )
+
+		    PRINT *, '             Year = ', r8arr (1,1)
+		    PRINT *, '            Month = ', r8arr (2,1)
+		    PRINT *, '              Day = ', r8arr (3,1)
+		    PRINT *, '             Hour = ', r8arr (4,1)
+		    PRINT *, '           Minute = ', r8arr (5,1)
+
+C*		    Surface wind, temperature, humidity, etc.
+
+		    CALL UFBINT  ( 11, r8arr, MXMN, MXLV, nlv,
+     +		  		   'WDIR WSPD TMDBST REHU' )
+
+		    PRINT *, '   Wind direction = ', r8arr (1,1)
+		    PRINT *, '       Wind speed = ', r8arr (2,1)
+		    PRINT *, '  Temperature (K) = ', r8arr (3,1)
+		    PRINT *, 'Relative Humidity = ', r8arr (4,1)
+
+C*		    Height increments.
+
+		    CALL UFBREP  ( 11, r8arr, MXMN, MXLV, nlv,
+     +			           'HINC' )
+		    DO ii = 1, 3
+		        PRINT *, ' Height increment #', ii, ' = ',
+     +				     r8arr ( 1, ii )
+		    END DO
+
+C*		    Observation sequence (i.e. "OBSEQ" data).
+
+		    CALL UFBREP  ( 11, r8arr, MXMN, MXLV, nlv,
+     +				  'NPHL NPQC UCMP VCMP SDHS WCMP SDVS' )
+		    DO ii = 1, 43 
+		        PRINT *, '    Profiler mode #', ii, ' = ',
+     +				     r8arr ( 1, ii )
+		        PRINT *, '      Profiler QC #', ii, ' = ',
+     +				     r8arr ( 2, ii )
+		        PRINT *, '      U Component #', ii, ' = ',
+     +				     r8arr ( 3, ii )
+		        PRINT *, '      V Component #', ii, ' = ',
+     +		  		     r8arr ( 4, ii )
+			PRINT *, 'Stddev of Horiz wind #', ii, ' = ',
+     +				     r8arr ( 5, ii )
+			PRINT *, '      W Component #', ii, ' = ',
+     +				     r8arr ( 6, ii )
+			PRINT *, ' Stddev of Vert wind #', ii, ' = ',
+     +				     r8arr ( 7, ii )
+		    END DO
+
+		    CALL UFBREP  ( 11, r8arr, MXMN, MXLV, nlv,
+     +				       'ACAV' )
+
+C*		    Total number of values
+C*		    (with respect to accumulation or average)
+
+		    DO ii = 1, 86
+		        PRINT *, '          ACAV value #', ii, ' = ',
+     +				     r8arr ( 1, ii )
+		    END DO
+
+		END IF
+
+	    END DO
+
+	END DO
+
+	END
+</pre>
+<p>
+In the above program example, the first thing that is done is to
+associate logical unit numbers with our BUFR messages and tables
+files via the FORTRAN OPEN statement.  Note that the messages file
+is an empty &quot;dummy&quot; file for this program, since we will be
+using subroutine <em class="subpname">READERME</em> (instead of <em class="subpname">READMG</em>), and, therefore,
+the BUFRLIB software will never actually try to read BUFR messages
+(or, for that matter, anything else) from logical unit #11.
+However, the call to <em class="subpname">OPENBF</em> is still necessary in order
+to associate our <a href="../bftab/" target=_new>sample DX BUFR tables file</a> (as local file
+&quot;bufrtab.example&quot;) with this logical unit #11, which will itself
+then be passed as the second (i.e. <em class="varname">LUBFR</em>) argument to <em class="subpname">READERME</em>.
+Then, following the call to <em class="subpname">OPENBF</em>, a looping mechanism
+is set up to continuously read each new BUFR message (in some
+unspecified manner from the local system) into the character array
+<em class="varname">cbfmsg</em>, until there are no more messages to read, at which
+time subroutine <em class="subpname">CLOSBF</em> is called and the program stops.
+Otherwise, the message is passed into subroutine <em class="subpname">READERME</em>
+via the integer array <em class="varname">ibfmsg</em>, which is EQUIVALENCED to
+<em class="varname">cbfmsg</em>.  Upon return from each call to <em class="subpname">READERME</em>,
+we check that the read was successful and also that the message
+contains the type of data subset (i.e. &quot;<em class="mnemname">NC002007</em>&quot;) that we
+are interested in.  In fact, this latter check could actually be
+accomplished prior to even calling <em class="subpname">READERME</em>, as in:
+</p>
+<pre class="mnem">
+	IF  ( ( IUPBS01 ( ibfmsg, 'MTYP' ) .eq. '2' ) .and.
+     +	      ( IUPBS01 ( ibfmsg, 'MSBT' ) .eq. '7' ) )  THEN
+	    msgok = .true.
+	ELSE
+	    msgok = .false.
+	END IF
+</pre>
+<p>
+Or, alternatively, we could even call <em class="subpname">UPDS3</em> in order to
+confirm that the sequence of FXY numbers in Section 3 of the BUFR
+message matches what was defined for &quot;<em class="mnemname">NC002007</em>&quot; within our
+&quot;bufrtab.example&quot; tables file!  At any rate, once we have an actual &quot;<em class="mnemname">NC002007</em>&quot;
+message internally within BUFRLIB, a second (i.e. inner) loop reads
+each data subset from that message via successive calls to function
+<em class="subpname">IREADSB</em>, until a non-zero return code indicates that there
+are no more data subsets and that, therefore, we need to go back to
+the first (i.e. outer) loop to read and pass the next BUFR message into
+<em class="subpname">READERME</em>.  Otherwise, successive calls to <em class="subpname">UFBINT</em>, <em class="subpname">UFBREP</em>,
+etc. return the desired actual data values, in the units listed for
+the respective mnemonics within the associated BUFR tables file.
+In particular, note how the order in which the mnemonics are listed
+within the final (i.e. <em class="varname">CMNSTR</em>) call argument defines the
+order in which their respective values are stored within the output
+array <em class="varname">r8arr</em>, and note that any such values which are
+&quot;missing&quot; for a particular data subset will be returned as 10.0E10.
+Note also that the use of <em class="subpname">UFBREP</em> is required for reading
+the levels of observation sequence data, since that data was replicated
+via regular (i.e. non-delayed) replication with a fixed replication
+factor of ( 36 + 7 = 43 ).  In fact, the use of <em class="subpname">UFBREP</em> is also
+required for the repeated mnemonics &quot;<em class="mnemname">HINC</em>&quot; and &quot;<em class="mnemname">ACAV</em>&quot;, the latter
+of which occurs twice within each observation sequence level and which
+therefore is replicated ( 43 * 2 = 86 ) total times within each data
+subset.  This, it is worth noting, is why we set the parameter <em class="varname">MXLV</em> = 86,
+recalling that is the responsibility of the application program to
+ensure that the <em class="varname">r8arr</em> array is dimensioned at least as
+large enough to hold all of the possible data values that could be
+returned by any call of <em class="subpname">UFBINT</em>, <em class="subpname">UFBREP</em> , etc. in which it is used!
+Further, and for that very same reason, if the observation sequence
+data had been, say, 8-bit delayed replicated instead of regularly
+replicated with a fixed (i.e. previously known) replication factor of 43,
+then we would have been wise to set <em class="varname">MXLV</em> = 510 ( = 255 * 2 ),
+since 255 is the maximum number of levels that could possibly be returned
+by <em class="subpname">UFBINT</em> when using 8-bit delayed replication, and, in such
+a case, we would have to inspect the output value <em class="varname">nlv</em> in order
+to know how many levels were actually returned for each data subset!
+</p>
+</body>
+</html>

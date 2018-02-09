@@ -1,0 +1,250 @@
+<table cellpadding="0" cellspacing="0" border="0" width="100%"
+       summary="Table is for layout only.">
+  <tbody>
+<!-- Begin Body Content -->
+  <tr valign="top">
+  <td>
+    <a href="http://www.ncep.noaa.gov/">NCEP Home</a> &gt; <a href="/">NCO Home</a> &gt; <a href="/sib/">Systems Integration Branch</a> &gt; <a href="/sib/decoders/">Decoders</a> &gt; <a href="/sib/decoders/BUFRLIB/">BUFRLIB</a> &gt; <a href="/sib/decoders/BUFRLIB/toc/">BUFRLIB Table of Contents</a> &gt; Encoding rawinsonde BUFR messages<br>
+    <!--#include virtual="/common/icon_printer.html"-->
+    <small><a href="printable.shtml" target="print">Printer Friendly Version</a></small>
+   <h2 align="center">Example Program:  Encoding rawinsonde BUFR messages</h2>
+<p>
+In this example, we will be encoding (i.e. writing) BUFR messages according
+to the &quot;RAWINSONDE - FIXED LAND&quot; format listed within our
+<a href="../bftab/" target=_new>sample DX BUFR tables file</a>.
+In effect, this means that we will be writing data subsets that are
+described by the Table A mnemonic &quot;<em class="mnemname">NC002001</em>&quot;.
+However, rather than getting
+bogged down in the details of actual rawinsonde data values from actual
+past archive cases, we will
+instead provide a rough &quot;framework&quot; for how such an encoding program might
+be structured and, in turn, provide comments and other clarification where
+such particulars would likely prove most useful.
+Further, we will also use subroutine <em class="subpname">WRITSA</em>
+in order to demonstrate the interfacing of the BUFRLIB software with
+an array in memory, whereby encoded BUFR messages are passed back to the
+application program for specialized output or other purposes:
+</p>
+<pre class="mnem">
+        PARAMETER       ( MXMN = 15 )
+        PARAMETER       ( MXLV = 255 )
+
+        REAL*8          r8arr ( MXMN, MXLV ),
+     +			rval
+
+        PARAMETER       ( MXBF = 16000 )
+
+	INTEGER		ibfmsg ( MXBF / 4 )
+
+	CHARACTER	cval*8
+
+	EQUIVALENCE	( cval, rval )
+C*-----------------------------------------------------------------------
+
+C*	Open the BUFR messages file.
+
+	OPEN  ( UNIT = 11, FILE = 'bufrmsgs.out' )
+
+C*	Open the BUFR tables file.
+
+	OPEN  ( UNIT = 12, FILE = 'bufrtab.example' )
+
+C*	Associate the tables file with the messages file, and identify
+C*	the latter to the BUFRLIB software.
+
+	CALL OPENBF  ( 11, 'OUT', 12 )
+
+	DO WHILE  ( there are rawinsonde reports to be encoded )
+
+	    idate = ( ( year of report ) * 1000000 ) +
+     +		    ( ( month of report ) * 10000 )  +
+     +              ( ( day of report ) * 100 ) +
+     +		    ( hour of report ) 
+
+C*	    Open a rawinsonde BUFR message in order to store the new
+C*	    data subset (i.e. report).
+
+	    CALL OPENMB  ( 11, 'NC002001', idate )
+
+C*	    Store the report date-time within the data subset.
+
+	    r8arr (1,1) = ( year of report )
+	    r8arr (2,1) = ( month of report )
+	    r8arr (3,1) = ( day of report )
+	    r8arr (4,1) = ( hour of report )
+
+	    CALL UFBSEQ  ( 11, r8arr, MXMN, 1, nlv, 'UARTM' )
+
+C*	    Store the station identification information within the
+C*	    data subset.
+
+	    cval = ( station ID, e.g. '72403', 'DBBH', etc.)
+	    r8arr (1,1) = rval
+	    r8arr (2,1) = ( station latitude )
+	    r8arr (3,1) = ( station longitude )
+	    r8arr (4,1) = ( station elevation )
+
+	    CALL UFBINT  ( 11, r8arr, MXMN, 1, nlv,
+     +			    'RPID CLAT CLON SELV' )
+
+C*	    Store the level data within the data subset.
+
+	    nlvst = ( number of data levels to be stored)
+
+	    DO jj = 1, nlvst
+
+		r8arr (1,jj) = ( vertical significance for level jj )
+		r8arr (2,jj) = ( pressure, in Pascals, for level jj )
+		r8arr (3,jj) = ( geopotential for level jj )
+		r8arr (4,jj) = ( temperature, in K, for level jj )
+		r8arr (5,jj) = ( dew point, in K, for level jj )
+		r8arr (6,jj) = ( wind direction for level jj )
+		r8arr (7,jj) = ( wind speed, in m/s, for level jj )
+
+	    END DO
+
+	    CALL UFBINT  ( 11, r8arr, MXMN, nlvst, nlv,
+     +			    'VSIG PRLC GP10 TMDB TMDP WDIR WSPD' )
+
+	    ( store any other available values in a similar manner )
+
+C*	    Once all data values have been stored for this data subset,
+C*	    we are now ready to store the data subset into the message.
+
+	    CALL WRITSA  ( 11, ibfmsg, libf )
+	    IF  ( libf .gt. 0 )  THEN
+		( write BUFR message ibfmsg (1,2,...,libf) to local system )
+	    END IF
+
+	END DO
+	    
+C*	Forcibly flush the last BUFR message, if any, from the
+C*	BUFRLIB software.
+
+	CALL WRITSA  ( -11, ibfmsg, libf )
+	IF  ( libf .gt. 0 )  THEN
+	    ( write BUFR message ibfmsg (1,2,...,libf) to local system )
+	END IF
+
+	CALL CLOSBF  ( 11 )
+
+	( perform any other necessary local shutdown tasks )
+
+	STOP
+	END
+</pre>
+<p>
+In the above program example, the first thing that is done is to associate
+logical unit numbers with our BUFR messages and tables files via the FORTRAN
+OPEN statement, and then a call is made to subroutine
+<em class="subpname">OPENBF</em> in order to
+associate these two files.  The argument 'OUT' to 
+<em class="subpname">OPENBF</em> designates the
+messages file (i.e. logical unit #11) as an output file, and, even though we
+will be using subroutine 
+<em class="subpname">WRITSA</em> to return the encoded BUFR messages back to
+the application program, copies of these same messages will nonetheless still
+be written to this file!  If, on the other hand, we had wanted for the file
+associated with logical unit #11 to truly be a placeholder &quot;dummy&quot; file, we
+could have used the argument 'NUL' in place of 'OUT'.  But, in either case, the
+next step is to set up a looping mechanism to continuously encode each new
+rawinsonde report into BUFR, until there are no more reports to encode.
+For each report, the first step within this loop is to, using the date-time
+associated with the report, compute the <em class="varname">idate</em> value
+that will be stored by subroutine 
+<em class="subpname">OPENMB</em> within Section 1 of the BUFR message containing
+this report (i.e. BUFR data subset).  Since 
+<em class="subpname">OPENMB</em> will only open a new BUFR message when
+the current subset has a different <em class="varname">csubset</em> or
+<em class="varname">idate</em> value than the previous one,
+and since <em class="varname">csubset</em> is always fixed as
+&quot;<em class="mnemname">NC002001</em>&quot; in this case,
+then the variability of the <em class="varname">idate</em> value between subsequent
+data subsets will entirely determine how many data subsets are packed into each
+individual BUFR message.  Further, whenever a new
+BUFR message is opened, the previous one will be closed and made available to
+the application program upon the next subsequent call to subroutine 
+<em class="subpname">WRITSA</em>.
+</p>
+<p>
+At any rate, once 
+<em class="subpname">OPENMB</em> has been called for the data subset, the next step is
+to begin storing all of the available data values that are to be encoded.
+First, the report date-time information is stored directly into the subset via
+a call to subroutine 
+<em class="subpname">UFBSEQ</em>, and then the station identification information
+is stored using subroutine 
+<em class="subpname">UFBINT</em>.  In either case, the order with which the
+corresponding data values are stored within array <em class="varname">r8arr</em>
+must match the order in which the respective mnemonics are listed within the final
+(i.e. <em class="varname">CMNSTR</em>) call argument to these routines.
+Further, data values must be stored in
+<em class="varname">r8arr</em> using the units that were defined for that
+corresponding mnemonic within the BUFR tables file &quot;bufrtab.example&quot;, and, for any data
+values which are desired
+to be encoded as &quot;missing&quot; within BUFR, the value of 10.0E10 should be stored.
+In particular, note that the storing of the station ID itself, which has units
+&quot;CCITT IA5&quot; (i.e. ASCII), is done via an EQUIVALENCE to the REAL*8 value <em class="varname">rval</em>.
+</p>
+<p>
+Moving on, the example then shows how the multi-level data within a rawinsonde
+report might be encoded, by using a second looping mechanism to store the
+pertinent data for each level
+<em class="varname">jj</em> of the report within row
+<em class="varname">jj</em> of <em class="varname">r8arr</em>.
+Again, the
+value 10.0E10 should be stored for any value that is to be designated as
+&quot;missing&quot; within any level of BUFR; however, note that the subsequent call to subroutine 
+<em class="subpname">UFBINT</em> will only read and store the first <em class="varname">nlvst</em> rows of the <em class="varname">r8arr</em>
+array (as indicated by passing in this value <em class="varname">nlvst</em>
+as the fourth call argument!),
+and, therefore, it is not necessary to pre-initialize the entire <em class="varname">r8arr</em>
+array to the 10.0E10 &quot;missing&quot; value before beginning to store actual values!
+At any rate, at this point more data values can be stored, if desired, for this
+particular report, using similar calls to 
+<em class="subpname">UFBINT</em>, 
+<em class="subpname">UFBSEQ</em>, 
+<em class="subpname">UFBREP</em>, etc.; however,
+it is important to note that, if a data value for a particular mnemonic is
+never stored using one of these routines, the BUFRLIB software will
+automatically encode the corresponding value as &quot;missing&quot; in BUFR.
+Therefore, it is not necessary to store a data value for every possible
+mnemonic within a data subset; rather, the application program only ever needs
+to call one of the above subroutines for mnemonics which have actual,
+non-&quot;missing&quot; corresponding data values.
+</p>
+<p>
+Finally, once all desired data values have been stored for a particular
+data subset, a call to 
+<em class="subpname">WRITSA</em> tells the BUFRLIB software that this subset is
+ready to be encoded and packed into the current BUFR message within the
+internal arrays, and, if a previous BUFR message is waiting to be returned
+to the application program, this will be done as well when 
+<em class="subpname">WRITSA</em> returns.
+In either case, we then go back to the top of the main loop and repeat the
+process all over again for the next rawinsonde report, until there are no more
+rawinsonde reports to be encoded, and in which case we then do a final call to
+<em class="subpname">WRITSA</em> to flush out the last BUFR message from the
+BUFRLIB software (note the use of -11 as the first call argument!) before calling 
+<em class="subpname">CLOSBF</em> and otherwise
+ending the application program.  Note that it would also be a good idea to make
+an additional call to subroutine 
+<em class="subpname">STNDRD</em> for each encoded BUFR message returned by 
+<em class="subpname">WRITSA</em>,
+especially if such messages were to be later shared or exchanged with
+persons and/or organizations not using the NCEP BUFRLIB software!
+However, an even easier way to accomplish the same result would be to
+instead add the following line of code:
+</p>
+<pre class="mnem">
+        CALL STDMSG  ( 'Y' )
+</pre>
+<p>
+immediately following the call to <em class="subpname">OPENBF</em> in the
+above example program, and then subroutine <em class="subpname">STNDRD</em>
+would be called internally within the BUFRLIB software, meaning that the
+BUFR messages subsequently output via calls to
+subroutine <em class="subpname">WRITSA</em> would already be standardized!
+</p>
+</body>
+</html>

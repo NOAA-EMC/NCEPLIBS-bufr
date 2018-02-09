@@ -1,0 +1,453 @@
+<table cellpadding="0" cellspacing="0" border="0" width="100%"
+       summary="Table is for layout only.">
+  <tbody>
+<!-- Begin Body Content -->
+  <tr valign="top">
+  <td>
+    <a href="http://www.ncep.noaa.gov/">NCEP Home</a> &gt; <a href="/">NCO Home</a> &gt; <a href="/sib/">Systems Integration Branch</a> &gt; <a href="/sib/decoders/">Decoders</a> &gt; <a href="/sib/decoders/BUFRLIB/">BUFRLIB</a> &gt; <a href="/sib/decoders/BUFRLIB/toc/">BUFRLIB Table of Contents</a> &gt; Sample BUFR Table<br>
+    <!--#include virtual="/common/icon_printer.html"-->
+    <small><a href="printable.shtml" target="print">Printer Friendly Version</a></small>
+<h2 align="center">Sample DX BUFR Table</h2>
+<pre class="mnem">
+.------------------------------------------------------------------------------.
+| ------------   USER DEFINITIONS FOR TABLE-A TABLE-B TABLE D   -------------- |
+|------------------------------------------------------------------------------|
+| MNEMONIC | NUMBER | DESCRIPTION                                              |
+|----------|--------|----------------------------------------------------------|
+|          |        |                                                          |
+| NC001003 | A63212 | MESSAGE TYPE 001-003  SURFACE MARINE FIXED BUOY          |
+|          |        |                                                          |
+| NC002001 | A63218 | MESSAGE TYPE 002-001  RAWINSONDE - FIXED LAND            |
+|          |        |                                                          |
+| NC002007 | A63223 | MESSAGE TYPE 002-007  WIND PROFILER                      |
+|          |        |                                                          |
+| RPSEC1   | 361036 | SYNOPTIC REPORT WMO FM 12/13 SECTION 1 DATA              |
+| TMPSQ1   | 361037 | SYNOPTIC REPORT TEMPERATURE DATA                         |
+| TMPSQ2   | 361038 | SYNOPTIC REPORT WET BULB TEMPERATURE DATA                |
+| TMPSQ3   | 361039 | SYNOPTIC REPORT MAXIMUM AND MINIMUM TEMPERATURE DATA     |
+| WNDSQ1   | 361042 | SYNOPTIC REPORT WIND DATA                                |
+| WNDSQ2   | 361043 | SYNOPTIC REPORT HIGHEST WIND GUST DATA                   |
+| WNDSQ3   | 361044 | SYNOPTIC REPORT PEAK WIND DATA                           |
+| PRSSQ1   | 361045 | SYNOPTIC REPORT PRESSURE DATA                            |
+| PCPSQ2   | 361049 | SYNOPTIC REPORT PRECIPITATION DATA 2                     |
+| PCPSQ3   | 361050 | SYNOPTIC REPORT PRECIPITATION DATA 3                     |
+| WAVSQ1   | 361051 | SYNOPTIC REPORT INSTRUMENT WAVE DATA                     |
+| WAVSQ2   | 361052 | SYNOPTIC REPORT WIND WAVE DATA                           |
+| WAVSQ3   | 361053 | SYNOPTIC REPORT SWELL WAVE DATA                          |
+| PPWSQ1   | 361054 | SYNOPTIC REPORT PRESENT AND PAST WEATHER DATA            |
+| MRPSC0   | 361076 | MARINE REPORT WMO FM 13 SECTION 0 DATA                   |
+| MRPIDS   | 361077 | MARINE REPORT IDS                                        |
+| ID1SQ    | 361078 | SHIP'S CALL SIGN SEQUENCE                                |
+| ID2SQ    | 361079 | NUMERIC BUOY PLATFORM ID                                 |
+| ID3SQ    | 361080 | CMAN / FIXED BUOY PLATFORM ID                            |
+| CTWNDS   | 361083 | CONTINUOUS WIND DATA                                     |
+| MPCPSQ   | 361085 | MARINE REPORT PRECIPITATION DATA                         |
+|          |        |                                                          |
+| UASID    | 361121 | RADIOSONDE STATION ID DATA                               |
+| UARID    | 361122 | RADIOSONDE REPORT ID DATA                                |
+| UARLV    | 361123 | RADIOSONDE REPORT LEVEL DATA                             |
+| UATMP    | 361125 | RADIOSONDE TEMPERATURE DATA                              |
+| UAWND    | 361126 | RADIOSONDE WIND DATA                                     |
+| UAWSH    | 361127 | RADIOSONDE WIND SHEAR DATA                               |
+| UACLD    | 361128 | RADIOSONDE CLOUD DATA                                    |
+| UASDG    | 361129 | RADIOSONDE SOUNDING SYSTEM DATA                          |
+| UAADF    | 361130 | RADIOSONDE 101AA "ADDITIONAL DATA" DATA                  |
+| UARDCS   | 361131 | RADIOSONDE REPORT DIAGNOSTIC DATA                        |
+| UARTM    | 361132 | RADIOSONDE REPORT TIME DATA                              |
+| UAGP07   | 361133 | RADIOSONDE CLASS 7 GEOPOTENTIAL DATA                     |
+| UAGP10   | 361134 | RADIOSONDE CLASS 10 GEOPOTENTIAL DATA                    |
+|          |        |                                                          |
+| OBSEQ    | 361161 | PROFILER OBSERVATION SEQUENCE                            |
+|          |        |                                                          |
+| BID      | 363001 | BULLETIN ID DATA                                         |
+| RAWRPT   | 363002 | RAW REPORT                                               |
+| RCPTIM   | 363003 | REPORT RECEIPT TIME DATA                                 |
+|          |        |                                                          |
+| WMOB     | 001001 | WMO BLOCK NUMBER                                         |
+| WMOS     | 001002 | WMO STATION NUMBER                                       |
+| WMOR     | 001003 | WMO REGION NUMBER                                        |
+| BPID     | 001005 | BUOY/PLATFORM IDENTIFIER                                 |
+| SBPI     | 001010 | STATIONARY BUOY PLATFORM ID                              |
+| ICLI     | 001063 | ICAO LOCATION IDENTIFIER                                 |
+| SHPC8    | 001166 | SHIP CALL SIGN (8 CHARACTERS)                            |
+| UAPART   | 001192 | RADIOSONDE PART NAME                                     |
+| BUHD     | 001194 | BULLETIN HEADER                                          |
+| RSML     | 001197 | RADIOSONDE SHIP, DROP, OR MOBIL STATION ID               |
+| RPID     | 001198 | REPORT IDENTIFIER                                        |
+|          |        |                                                          |
+| TOST     | 002001 | TYPE OF STATION                                          |
+| A4ME     | 002003 | TYPE OF MEASURING EQUIPMENT USED                         |
+| RATP     | 002011 | RADIOSONDE TYPE                                          |
+| SIRC     | 002013 | SOLAR AND INFRARED RADIATION CORRECTION                  |
+| TTSS     | 002014 | TRACKING TECHNIQUE/STATUS OF SYSTEM USED                 |
+| MSST     | 002038 | METHOD OF SEA SURFACE TEMPERATURE MEASUREMENT            |
+| MWBT     | 002039 | METHOD OF WET BULB TEMPERATURE MEASUREMENT               |
+| ITSO     | 002193 | IND TYPE OF STATION OPERATION PAST/PRESENT WEATHER       |
+| SEQNUM   | 002195 | LDM CHANNEL SEQUENCE NUMBER                              |
+|          |        |                                                          |
+| YEAR     | 004001 | YEAR                                                     |
+| MNTH     | 004002 | MONTH                                                    |
+| DAYS     | 004003 | DAY                                                      |
+| HOUR     | 004004 | HOUR                                                     |
+| MINU     | 004005 | MINUTE                                                   |
+| TPMI     | 004025 | TIME PERIOD OR DISPLACEMENT                              |
+| .DTH.... | 004031 | DURATION OF TIME IN HOURS RELATING TO FOLLOWING VALUE    |
+| .DTM.... | 004032 | DURATION OF TIME IN MINUTES RELATING TO FOLLOWING VALUE  |
+| RCYR     | 004200 | YEAR   - TIME OF RECEIPT                                 |
+| RCMO     | 004201 | MONTH  - TIME OF RECEIPT                                 |
+| RCDY     | 004202 | DAY    - TIME OF RECEIPT                                 |
+| RCHR     | 004203 | HOUR   - TIME OF RECEIPT                                 |
+| RCMI     | 004204 | MINUTE - TIME OF RECEIPT                                 |
+| UALNHR   | 004210 | RADIOSONDE LAUNCH HOUR                                   |
+| UALNMN   | 004211 | RADIOSONDE LAUNCH MINUTE                                 |
+|          |        |                                                          |
+| CLAT     | 005002 | LATITUDE (COARSE ACCURACY)                               |
+|          |        |                                                          |
+| CLON     | 006002 | LONGITUDE (COARSE ACCURACY)                              |
+|          |        |                                                          |
+| SELV     | 007001 | HEIGHT OF STATION                                        |
+| PRLC     | 007004 | PRESSURE                                                 |
+| HINC     | 007005 | HEIGHT INCREMENT                                         |
+| HEIT     | 007007 | HEIGHT                                                   |
+| GP07     | 007008 | GEOPOTENTIAL                                             |
+| XMPRLC   | 007195 | EXTRAPOLATED MANDATORY LEVEL PRESSURE                    |
+|          |        |                                                          |
+| VSIG     | 008001 | VERTICAL SOUNDING SIGNIFICANCE                           |
+| TSIG     | 008021 | TIME SIGNIFICANCE                                        |
+| ACAV     | 008022 | TOTAL NUMBER (WITH RESPECT TO ACCUMULATION OR AVERAGE)   |
+| SUWS     | 008199 | SOURCE UNITS OF WIND SPEED                               |
+| RCTS     | 008202 | RECEIPT TIME SIGNIFICANCE                                |
+|          |        |                                                          |
+| PRES     | 010004 | PRESSURE                                                 |
+| GP10     | 010008 | GEOPOTENTIAL                                             |
+| PMSL     | 010051 | PRESSURE REDUCED TO MSL                                  |
+| 3HPC     | 010061 | 3 HOUR PRESSURE CHANGE                                   |
+| CHPT     | 010063 | CHARACTERISTIC OF PRESSURE TENDENCY                      |
+| XMGP10   | 010196 | EXTRAPOLATED MANDATORY LEVEL GEOPOTENTIAL                |
+|          |        |                                                          |
+| WDIR     | 011001 | WIND DIRECTION                                           |
+| WSPD     | 011002 | WIND SPEED                                               |
+| UCMP     | 011003 | U-COMPONENT                                              |
+| VCMP     | 011004 | V-COMPONENT                                              |
+| WCMP     | 011006 | W-COMPONENT                                              |
+| MXGS     | 011041 | MAXIMUM WIND SPEED (GUSTS)                               |
+| MWDL     | 011044 | MEAN WIND DIRECTION FOR SURFACE-1500M LAYER              |
+| MWSL     | 011045 | MEAN WIND SPEED FOR SURFACE-1500M LAYER                  |
+| SDHS     | 011050 | STANDARD DEVIATION OF HORIZONTAL WIND SPEED              |
+| SDVS     | 011051 | STANDARD DEVIATION OF VERTICAL WIND SPEED                |
+| AWSB     | 011061 | ABSOLUTE WIND SHEAR IN 1 KM LAYER BELOW                  |
+| AWSA     | 011062 | ABSOLUTE WIND SHEAR IN 1 KM LAYER ABOVE                  |
+| PKWDDR   | 011202 | PEAK WIND DIRECTION                                      |
+| PKWDSP   | 011203 | PEAK WIND SPEED                                          |
+| XS10     | 011223 | 10 METER EXTRAPOLATED WIND SPEED                         |
+| XS20     | 011224 | 20 METER EXTRAPOLATED WIND SPEED                         |
+| MWDH     | 011221 | MEAN WIND DIRECTION FOR 1500M-3000M LAYER                |
+| MWSH     | 011222 | MEAN WIND SPEED FOR 1500M-3000M LAYER                    |
+| WDRC     | 011227 | CONTINUOUS WIND DIRECTION IN DEGREES                     |
+| WDSC     | 011228 | CONTINUOUS WIND SPEED IN M/SEC                           |
+|          |        |                                                          |
+| TMDBST   | 012001 | TEMPERATURE/DRY BULB TEMPERATURE (SCALE 1)               |
+| TMDB     | 012101 | TEMPERATURE/DRY BULB TEMPERATURE                         |
+| TMWB     | 012102 | WET BULB TEMPERATURE                                     |
+| TMDP     | 012103 | DEW POINT TEMPERATURE                                    |
+| MXTM     | 012228 | MAXIMUM TEMPERATURE                                      |
+| MITM     | 012229 | MINIMUM TEMPERATURE                                      |
+|          |        |                                                          |
+| REHU     | 013003 | RELATIVE HUMIDITY                                        |
+| TOPC     | 013011 | TOTAL PRECIPITATION/TOTAL WATER EQUIVALENT               |
+| REQV     | 013014 | RAINFALL/WATER EQUIVALENT OF SNOW (AVERAGE RATE)         |
+| TP01     | 013019 | TOTAL PRECIPITATION PAST 1 HOUR                          |
+| TP03     | 013020 | TOTAL PRECIPITATION PAST 3 HOURS                         |
+| TP06     | 013021 | TOTAL PRECIPITATION PAST 6 HOURS                         |
+| TP12     | 013022 | TOTAL PRECIPITATION PAST 12 HOURS                        |
+| TP24     | 013023 | TOTAL PRECIPITATION PAST 24 HOURS                        |
+| INPC     | 013194 | INDIC INCLUSION/OMISSION OF PREC                         |
+| STBS5    | 013195 | MODIFIED SHOWALTER STABILITY INDEX                       |
+|          |        |                                                          |
+| HOVI     | 020001 | HORIZONTAL VISIBILITY                                    |
+| PRWE     | 020003 | PRESENT WEATHER                                          |
+| PSW1     | 020004 | PAST WEATHER (1)                                         |
+| PSW2     | 020005 | PAST WEATHER (2)                                         |
+| CLAM     | 020011 | CLOUD AMOUNT                                             |
+| CLTP     | 020012 | CLOUD TYPE                                               |
+| HOCB     | 020013 | HEIGHT OF BASE OF CLOUD                                  |
+|          |        |                                                          |
+| SPP01    | 021193 | SPECTRAL PEAK POWER 0TH MOMENT                           |
+|          |        |                                                          |
+| DOSW     | 022003 | DIRECTION OF SWELL WAVES                                 |
+| POWV     | 022011 | PERIOD OF WAVES                                          |
+| POWW     | 022012 | PERIOD OF WIND WAVES                                     |
+| POSW     | 022013 | PERIOD OF SWELL WAVES                                    |
+| HOWV     | 022021 | HEIGHT OF WAVES                                          |
+| HOWW     | 022022 | HEIGHT OF WIND WAVES                                     |
+| HOSW     | 022023 | HEIGHT OF SWELL WAVES                                    |
+| SST1     | 022043 | SEA TEMPERATURE                                          |
+|          |        |                                                          |
+| NPHL     | 025032 | WIND PROFILER MODE INFORMATION                           |
+| NPSM     | 025033 | WIND PROFILER SUBMODE INFORMATION                        |
+| NPQC     | 025034 | WIND PROFILER QUALITY CONTROL TEST RESULTS               |
+|          |        |                                                          |
+| QCEVR    | 033024 | STATION ELEVATION QUALITY MARK (FOR MOBIL STATIONS)      |
+| QMGP     | 033192 | ON29 QUALITY MARK FOR GEOPOTENTIAL                       |
+| QMAT     | 033193 | ON29 QUALITY MARK FOR TEMPERATURE                        |
+| QMDD     | 033194 | ON29 QUALITY MARK FOR DEWPOINT DEPRESSION                |
+| QMWN     | 033195 | ON29 QUALITY MARK FOR WIND                               |
+| QMCA     | 033197 | ON29 QUALITY MARK FOR CLOUD AMOUNT                       |
+| UARDC    | 033202 | RADIOSONDE REPORT DIAGNOSTIC CODE                        |
+| QMPR     | 033207 | ON29 QUALITY MARK FOR PRESSURE                           |
+| CORN     | 033215 | CORRECTED REPORT INDICATOR                               |
+| QMST     | 033218 | ON29 QUALITY MARK FOR SEA SURFACE TEMPERATURE            |
+|          |        |                                                          |
+| BULTIM   | 058006 | BULLETIN TIME (DDHHMM)                                   |
+| BBB      | 058007 | WMO BBB INDICATOR                                        |
+| RRSTG    | 058008 | RAW REPORT STRING                                        |
+|          |        |                                                          |
+|------------------------------------------------------------------------------|
+| MNEMONIC | SEQUENCE                                                          |
+|----------|-------------------------------------------------------------------|
+|          |                                                                   |
+| NC001003 | MRPSC0  BID    {RCPTIM} RPSEC1  WNDSQ1  XS10    XS20     TMPSQ1   |
+| NC001003 | PRSSQ1  MPCPSQ                                                    |
+| NC001003 | &lt;PPWSQ1&gt;   &lt;WAVSQ1&gt;   &lt;WAVSQ2&gt;  {WAVSQ3}    WNDSQ3   {CTWNDS}     |
+| NC001003 | {RAWRPT}                                                          |
+|          |                                                                   |
+| NC002001 | UARTM  {RCPTIM}  {BID}  UASID  {UARID}                            |
+| NC002001 | {UARLV}  &lt;UASDG&gt;  {UARDCS}  {RAWRPT}                              |
+| NC002001 | {UACLD}  &lt;UAADF&gt;                                                  |
+| NC002001 | WMOB  WMOS  WMOR                                                  |
+|          |                                                                   |
+| NC002007 | WMOB     WMOS     CLAT     CLON     SELV     YEAR     MNTH        |
+| NC002007 | DAYS     HOUR     MINU     TSIG     TPMI     WSPD     WDIR        |
+| NC002007 | PMSL     TMDBST   REQV     REHU                                   |
+| NC002007 | 201127   HINC     201000   NPSM                                   |
+| NC002007 | 201132   HINC     201000   "OBSEQ"36                              |
+| NC002007 | 201132   HINC     201000   "OBSEQ"7                               |
+|          |                                                                   |
+| RPSEC1   | ITSO    TOST    INPC    HOVI                                      |
+|          |                                                                   |
+| TMPSQ1   | QMAT    TMDB    QMDD    TMDP    MSST   QMST  SST1                 |
+| TMPSQ1   | &lt;TMPSQ2&gt;   &lt;TMPSQ3&gt;                                               |
+|          |                                                                   |
+| TMPSQ2   | MWBT    TMWB    REHU                                              |
+|          |                                                                   |
+| TMPSQ3   | .DTHMXTM   MXTM   .DTHMITM   MITM                                 |
+|          |                                                                   |
+| WNDSQ1   | SUWS    QMWN    WDIR    WSPD    &lt;WNDSQ2&gt;                          |
+|          |                                                                   |
+| WNDSQ2   | .DTMMXGS  MXGS                                                    |
+|          |                                                                   |
+| WNDSQ3   | YEAR    MNTH    DAYS    HOUR    MINU    PKWDDR    PKWDSP          |
+|          |                                                                   |
+| WAVSQ1   | POWV    HOWV                                                      |
+|          |                                                                   |
+| WAVSQ2   | POWW    HOWW                                                      |
+|          |                                                                   |
+| WAVSQ3   | DOSW    POSW    HOSW                                              |
+|          |                                                                   |
+| PRSSQ1   | QMPR  PRES  PMSL  CHPT  3HPC                                      |
+|          |                                                                   |
+| PCPSQ2   | TP01    TP03    TP12    TP24                                      |
+|          |                                                                   |
+| PCPSQ3   | .DTHTOPC   TOPC                                                   |
+|          |                                                                   |
+| PPWSQ1   | PRWE    PSW1    PSW2                                              |
+|          |                                                                   |
+| MRPSC0   | YEAR    MNTH    DAYS    HOUR    MINU    RPID   MRPIDS CLON        |
+| MRPSC0   | CLAT    SELV    CORN                                              |
+|          |                                                                   |
+| MRPIDS   | &lt;ID1SQ&gt; &lt;ID2SQ&gt; &lt;ID3SQ&gt;                                           |
+|          |                                                                   |
+| ID1SQ    | SHPC8                                                             |
+|          |                                                                   |
+| ID2SQ    | BPID                                                              |
+|          |                                                                   |
+| ID3SQ    | SBPI                                                              |
+|          |                                                                   |
+| CTWNDS   | TPMI    WDRC    WDSC                                              |
+|          |                                                                   |
+| MPCPSQ   | TP06    &lt;PCPSQ2&gt;   &lt;PCPSQ3&gt;                                       |
+|          |                                                                   |
+| BID      | SEQNUM  BUHD  ICLI  BULTIM  BBB                                   |
+|          |                                                                   |
+| RAWRPT   | RRSTG                                                             |
+|          |                                                                   |
+| RCPTIM   | RCTS  RCYR  RCMO  RCDY  RCHR  RCMI                                |
+|          |                                                                   |
+| UASID    | RPID  CLAT  CLON  SELV                                            |
+|          |                                                                   |
+| UARID    | RATP  A4ME  CORN  UAPART                                          |
+|          |                                                                   |
+| UARTM    | YEAR  MNTH  DAYS  HOUR                                            |
+|          |                                                                   |
+| UARLV    | VSIG  QMPR  PRLC  QMGP  &lt;UAGP07&gt;  &lt;UAGP10&gt;                        |
+| UARLV    | &lt;UATMP&gt;  &lt;UAWND&gt;  &lt;UAWSH&gt;                                         |
+|          |                                                                   |
+| UAGP07   | GP07                                                              |
+|          |                                                                   |
+| UAGP10   | GP10                                                              |
+|          |                                                                   |
+| UATMP    | QMAT  TMDB  QMDD  TMDP                                            |
+|          |                                                                   |
+| UAWND    | QMWN  WDIR  WSPD                                                  |
+|          |                                                                   |
+| UAWSH    | AWSB  AWSA                                                        |
+|          |                                                                   |
+| UACLD    | CLTP  QMCA  CLAM  HOCB                                            |
+|          |                                                                   |
+| UASDG    | QMST  SST1  SIRC  TTSS  UALNHR  UALNMN                            |
+|          |                                                                   |
+| UAADF    | MWDL  MWSL  MWDH  MWSH  STBS5  XMPRLC  XMGP10                     |
+|          |                                                                   |
+| UARDCS   | UARDC                                                             |
+|          |                                                                   |
+| OBSEQ    | NPHL     NPQC                                                     |
+| OBSEQ    | 201116   ACAV   201000   UCMP    VCMP   201127   SDHS  201000     |
+| OBSEQ    | 201116   ACAV   201000   SPP01   WCMP   SDVS                      |
+|          |                                                                   |
+|------------------------------------------------------------------------------|
+| MNEMONIC | SCAL | REFERENCE   | BIT | UNITS                    |-------------|
+|----------|------|-------------|-----|--------------------------|-------------|
+|          |      |             |     |                          |-------------|
+| WMOB     |    0 |           0 |   7 | NUMERIC                  |-------------|
+| WMOS     |    0 |           0 |  10 | NUMERIC                  |-------------|
+| WMOR     |    0 |           0 |   3 | CODE TABLE               |-------------|
+| BPID     |    0 |           0 |  17 | NUMERIC                  |-------------|
+| SBPI     |    0 |           0 |  64 | CCITT IA5                |-------------|
+| ICLI     |    0 |           0 |  64 | CCITT IA5                |-------------|
+| SHPC8    |    0 |           0 |  64 | CCITT IA5                |-------------|
+| UAPART   |    0 |           0 |  32 | CCITT IA5                |-------------|
+| BUHD     |    0 |           0 |  64 | CCITT IA5                |-------------|
+| RSML     |    0 |           0 |  64 | CCITT IA5                |-------------|
+| RPID     |    0 |           0 |  64 | CCITT IA5                |-------------|
+|          |      |             |     |                          |-------------|
+| TOST     |    0 |           0 |   2 | CODE TABLE               |-------------|
+| A4ME     |    0 |           0 |   4 | CODE TABLE               |-------------|
+| RATP     |    0 |           0 |   8 | CODE TABLE               |-------------|
+| SIRC     |    0 |           0 |   4 | CODE TABLE               |-------------|
+| TTSS     |    0 |           0 |   7 | CODE TABLE               |-------------|
+| MSST     |    0 |           0 |   3 | CODE TABLE               |-------------|
+| MWBT     |    0 |           0 |   3 | CODE TABLE               |-------------|
+| ITSO     |    0 |           0 |   3 | CODE TABLE               |-------------|
+| SEQNUM   |    0 |           0 |  32 | CCITT IA5                |-------------|
+|          |      |             |     |                          |-------------|
+| YEAR     |    0 |           0 |  12 | YEAR                     |-------------|
+| MNTH     |    0 |           0 |   4 | MONTH                    |-------------|
+| DAYS     |    0 |           0 |   6 | DAY                      |-------------|
+| HOUR     |    0 |           0 |   5 | HOUR                     |-------------|
+| MINU     |    0 |           0 |   6 | MINUTE                   |-------------|
+| TPMI     |    0 |       -2048 |  12 | MINUTES                  |-------------|
+| .DTH.... |    0 |           0 |   8 | HOURS                    |-------------|
+| .DTM.... |    0 |           0 |   6 | MINUTES                  |-------------|
+| RCYR     |    0 |           0 |  12 | YEAR                     |-------------|
+| RCMO     |    0 |           0 |   4 | MONTH                    |-------------|
+| RCDY     |    0 |           0 |   6 | DAY                      |-------------|
+| RCHR     |    0 |           0 |   5 | HOUR                     |-------------|
+| RCMI     |    0 |           0 |   6 | MINUTE                   |-------------|
+| UALNHR   |    0 |           0 |   5 | HOUR                     |-------------|
+| UALNMN   |    0 |           0 |   6 | MINUTE                   |-------------|
+|          |      |             |     |                          |-------------|
+| CLAT     |    2 |       -9000 |  15 | DEGREES                  |-------------|
+|          |      |             |     |                          |-------------|
+| CLON     |    2 |      -18000 |  16 | DEGREES                  |-------------|
+|          |      |             |     |                          |-------------|
+| SELV     |    0 |        -400 |  15 | METERS                   |-------------|
+| PRLC     |   -1 |           0 |  14 | PASCALS                  |-------------|
+| HEIT     |    0 |       -1000 |  17 | METERS                   |-------------|
+| GP07     |    0 |      -10000 |  20 | (METERS/SECOND)**2       |-------------|
+| HINC     |    0 |        -400 |  12 | METERS                   |-------------|
+| XMPRLC   |   -1 |           0 |  14 | PASCALS                  |-------------|
+|          |      |             |     |                          |-------------|
+| VSIG     |    0 |           0 |   7 | FLAG TABLE               |-------------|
+| TSIG     |    0 |           0 |   5 | CODE TABLE               |-------------|
+| SUWS     |    0 |           0 |   3 | CODE TABLE               |-------------|
+| RCTS     |    0 |           0 |   6 | CODE TABLE               |-------------|
+| ACAV     |    0 |           0 |  16 | NUMERIC                  |-------------|
+|          |      |             |     |                          |-------------|
+| PRES     |   -1 |           0 |  14 | PASCALS                  |-------------|
+| GP10     |    0 |      -10000 |  20 | (METERS/SECOND)**2       |-------------|
+| PMSL     |   -1 |           0 |  14 | PASCALS                  |-------------|
+| CHPT     |    0 |           0 |   4 | CODE TABLE               |-------------|
+| 3HPC     |   -1 |        -500 |  10 | PASCALS                  |-------------|
+| XMGP10   |    0 |      -10000 |  20 | (METERS/SECOND)**2       |-------------|
+|          |      |             |     |                          |-------------|
+| WDIR     |    0 |           0 |   9 | DEGREES TRUE             |-------------|
+| WSPD     |    1 |           0 |  12 | METERS/SECOND            |-------------|
+| UCMP     |    1 |       -4096 |  13 | METERS/SECOND            |-------------|
+| VCMP     |    1 |       -4096 |  13 | METERS/SECOND            |-------------|
+| WCMP     |    2 |       -4096 |  13 | METERS/SECOND            |-------------|
+| MXGS     |    1 |           0 |  12 | METERS/SECOND            |-------------|
+| MWDL     |    0 |           0 |   9 | DEGREES TRUE             |-------------|
+| MWSL     |    1 |           0 |  12 | METERS/SECOND            |-------------|
+| SDHS     |    1 |           0 |  12 | METERS/SECOND            |-------------|
+| SDVS     |    1 |           0 |   8 | METERS/SECOND            |-------------|
+| AWSB     |    1 |           0 |  12 | METERS/SECOND            |-------------|
+| AWSA     |    1 |           0 |  12 | METERS/SECOND            |-------------|
+| PKWDDR   |    0 |           0 |   9 | DEGREES TRUE             |-------------|
+| PKWDSP   |    1 |           0 |  12 | METERS/SECOND            |-------------|
+| XS10     |    1 |           0 |  12 | METERS/SECOND            |-------------|
+| XS20     |    1 |           0 |  12 | METERS/SECOND            |-------------|
+| MWDH     |    0 |           0 |   9 | DEGREES TRUE             |-------------|
+| MWSH     |    1 |           0 |  12 | METERS/SECOND            |-------------|
+| WDRC     |    0 |           0 |   9 | DEGREES TRUE             |-------------|
+| WDSC     |    1 |           0 |  12 | METERS/SECOND            |-------------|
+|          |      |             |     |                          |-------------|
+| TMDBST   |    1 |           0 |  12 | DEGREES KELVIN           |-------------|
+| TMDB     |    2 |           0 |  16 | DEGREES KELVIN           |-------------|
+| TMWB     |    2 |           0 |  16 | DEGREES KELVIN           |-------------|
+| TMDP     |    2 |           0 |  16 | DEGREES KELVIN           |-------------|
+| MXTM     |    2 |           0 |  16 | DEGREES KELVIN           |-------------|
+| MITM     |    2 |           0 |  16 | DEGREES KELVIN           |-------------|
+|          |      |             |     |                          |-------------|
+| REHU     |    0 |           0 |   7 | %                        |-------------|
+| TOPC     |    1 |          -1 |  14 | KG/METER**2              |-------------|
+| REQV     |    4 |           0 |  12 | KG/((METERS**2)*SECONDS) |-------------|
+| TP01     |    1 |          -1 |  14 | KG/METER**2              |-------------|
+| TP03     |    1 |          -1 |  14 | KG/METER**2              |-------------|
+| TP06     |    1 |          -1 |  14 | KG/METER**2              |-------------|
+| TP12     |    1 |          -1 |  14 | KG/METER**2              |-------------|
+| TP24     |    1 |          -1 |  14 | KG/METER**2              |-------------|
+| INPC     |    0 |           0 |   3 | CODE TABLE               |-------------|
+| STBS5    |    0 |         -40 |   8 | NUMERIC                  |-------------|
+|          |      |             |     |                          |-------------|
+| HOVI     |   -1 |           0 |  13 | METERS                   |-------------|
+| PRWE     |    0 |           0 |   9 | CODE TABLE               |-------------|
+| PSW1     |    0 |           0 |   5 | CODE TABLE               |-------------|
+| PSW2     |    0 |           0 |   5 | CODE TABLE               |-------------|
+| CLAM     |    0 |           0 |   4 | CODE TABLE               |-------------|
+| CLTP     |    0 |           0 |   6 | CODE TABLE               |-------------|
+| HOCB     |   -1 |         -40 |  11 | METERS                   |-------------|
+|          |      |             |     |                          |-------------|
+| SPP01    |    0 |           0 |   8 | DB                       |-------------|
+|          |      |             |     |                          |-------------|
+| DOSW     |    0 |           0 |   9 | DEGREES TRUE             |-------------|
+| POWV     |    0 |           0 |   6 | SECONDS                  |-------------|
+| POWW     |    0 |           0 |   6 | SECONDS                  |-------------|
+| POSW     |    0 |           0 |   6 | SECONDS                  |-------------|
+| HOWV     |    1 |           0 |  10 | METERS                   |-------------|
+| HOWW     |    1 |           0 |  10 | METERS                   |-------------|
+| HOSW     |    1 |           0 |  10 | METERS                   |-------------|
+| SST1     |    2 |           0 |  15 | DEGREES KELVIN           |-------------|
+|          |      |             |     |                          |-------------|
+| NPHL     |    0 |           0 |   2 | CODE TABLE               |-------------|
+| NPSM     |    0 |           0 |   2 | CODE TABLE               |-------------|
+| NPQC     |    0 |           0 |   4 | FLAG TABLE               |-------------|
+|          |      |             |     |                          |-------------|
+| QCEVR    |    0 |           0 |   4 | CODE TABLE               |-------------|
+| QMGP     |    0 |           0 |   4 | CODE TABLE               |-------------|
+| QMAT     |    0 |           0 |   4 | CODE TABLE               |-------------|
+| QMDD     |    0 |           0 |   4 | CODE TABLE               |-------------|
+| QMWN     |    0 |           0 |   4 | CODE TABLE               |-------------|
+| QMCA     |    0 |           0 |   1 | CODE TABLE               |-------------|
+| UARDC    |    0 |           0 |   8 | CODE TABLE               |-------------|
+| QMPR     |    0 |           0 |   4 | CODE TABLE               |-------------|
+| CORN     |    0 |           0 |   3 | CODE TABLE               |-------------|
+| QMST     |    0 |           0 |   4 | CODE TABLE               |-------------|
+|          |      |             |     |                          |-------------|
+| BULTIM   |    0 |           0 |  64 | CCITT IA5                |-------------|
+| BBB      |    0 |           0 |  64 | CCITT IA5                |-------------|
+| RRSTG    |    0 |           0 |  64 | CCITT IA5                |-------------|
+|          |      |             |     |                          |-------------|
+`------------------------------------------------------------------------------'
+</pre>
+</body>
+</html>

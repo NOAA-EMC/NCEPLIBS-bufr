@@ -1,0 +1,16 @@
+body {background-color: white}
+
+.defaultfont {font-family: Helvetica; font-weight: 400}
+
+.center {text-align: center}
+
+h1, h2, h3, h4, h5, h6 {text-align: center}
+
+em.emphasis {font-style: normal; font-weight: 600}
+em.definition {font-style: italic}
+em.subpname {font-style: italic; font-family: monospace; font-weight: 600}
+em.mnemname {font-style: normal; font-family: monospace; font-weight: 500}
+em.varname {font-style: italic; font-family: monospace; font-weight: 500}
+
+pre.subp {font-style: italic; font-family: monospace; font-weight: 500}
+pre.mnem {font-style: normal; font-family: monospace; font-weight: 500}

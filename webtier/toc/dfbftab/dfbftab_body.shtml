@@ -1,0 +1,420 @@
+<table cellpadding="0" cellspacing="0" border="0" width="100%"
+       summary="Table is for layout only.">
+  <tbody>
+<!-- Begin Body Content -->
+  <tr valign="top">
+  <td>
+    <a href="http://www.ncep.noaa.gov/">NCEP Home</a> &gt; <a href="/">NCO Home</a> &gt; <a href="/sib/">Systems Integration Branch</a> &gt; <a href="/sib/decoders/">Decoders</a> &gt; <a href="/sib/decoders/BUFRLIB/">BUFRLIB</a> &gt; <a href="/sib/decoders/BUFRLIB/toc/">BUFRLIB Table of Contents</a> &gt; Description and Format of DX BUFR Tables<br>
+    <!--#include virtual="/common/icon_printer.html"-->
+    <small><a href="printable.shtml" target="print">Printer Friendly Version</a></small>
+   <h2 align="center">Description and Format of DX BUFR Tables</h2>
+   <h3>(<span style="font-style: italic">NOTE</span>:  this document is intended to be
+read in tandem with a sample BUFR tables file, which can itself be viewed within a
+separate window by clicking <a href="../bftab/" target=_new>here</a>.)</h3>
+<p>
+As noted during the discussion of subroutine <em class="subpname">OPENBF</em>,
+every BUFR file that is presented to the BUFRLIB software, either for input
+(reading/decoding) or output (writing/encoding) purposes, must have DX BUFR
+tables associated with it, unless the 'SEC3' decoding option is specified
+during the call to <em class="subpname">OPENBF</em>.  For all other cases, DX
+table information must be pre-defined and made available to the software via
+call argument <em class="varname">LUNDX</em> during the call to
+<em class="subpname">OPENBF</em>.  In the case of an existing BUFR file,
+the DX tables information may be embedded within the first few BUFR messages of the
+file itself.  Otherwise, a separate ASCII text file containing the necessary
+DX tables information must be supplied, and this document describes the required
+format and content for such a file.  It is extremely important that any such
+file not only be syntactically correct but also complete, in the sense that
+all necessary &quot;mnemonics&quot; must exist and be fully-defined.
+</p>
+<p>
+First, let's define what we mean by a <em class="definition">mnemonic</em>.  In short,
+a mnemonic is simply a descriptive, alphanumeric name for an data value.  In
+the context of the BUFRLIB software, there are &quot;Table A mnemonics&quot;, which
+refer to particular data subset (i.e. report ) types, &quot;Table B mnemonics&quot;,
+which refer directly to basic data values, and &quot;Table D mnemonics&quot;, which
+are sequences composed of one or more Table B (or other Table D!) mnemonics
+and which are themselves normally direct constituents of a particular Table A
+mnemonic.  In other words, at the highest level, we have a Table A mnemonic
+which completely describes a type of data subset (e.g. rawinsonde, wind profiler,
+etc.), and this Table A mnemonic is defined as a sequence of one or more Table B
+or Table D mnemonics, where each Table D mnemonic is likewise itself defined as
+a sequence of one or more Table B or Table D mnemonics, and so on until the entire
+data subset can be equivalently described as a sequence of one or more Table B
+mnemonics which, again, themselves correspond to basic data values (e.g. pressure,
+temperature, humidity, etc.).  In this way, the entire sequence of data values that
+constitute a particular type of data subset is fully and unambiguously defined,
+both for purposes of input (reading/decoding) or output (writing/encoding) of
+reports corresponding to that particular type of data subset.
+</p>
+<p>
+However, it is also important to understand what mnemonics are not.  Specifically,
+mnemonics never themselves appear within actual BUFR messages that are read or
+written by the BUFRLIB software; rather, their only purpose in life is to make it
+easier for users to interact with the software by providing descriptive names to
+represent individual data values, as opposed to having to keep track of the
+corresponding <em class="definition">FXY numbers</em> (described below), which are much less
+intuitive but which nevertheless are the prescribed method within the BUFR code
+form for referencing of individual data values (and which therefore are what is
+actually read and written by the software!).
+</p>
+<p>
+As we begin our actual discussion of BUFR tables files, let's start with an
+overview, by noting that a BUFR tables file consists of three distinct sections,
+each of which contains one or more lines of 80 characters in length, and where a
+&quot;<em class="mnemname">*</em>&quot; as the first character of a line indicates that that
+entire line is a comment.  In the first section, all Table A, B and D mnemonics
+that are to be defined within the file are initially declared, assigned a unique
+FXY number, and given a short, free-form text description.  Then, in the second
+section, all previously-declared Table A and Table D mnemonics are actually
+defined as a sequence of one or more Table B (or other Table D!) mnemonics.
+Finally, in the third section, all previously-declared Table B mnemonics are
+defined in terms of their scale factor, reference value, bit width, and units.
+</p>
+<p>
+Now, as we delve into the details of each of the three sections, we will
+constantly refer back to our <a href="../bftab/" target=_new>sample BUFR tables file</a> in order to
+better illustrate the concepts that are discussed.
+</p>
+<h2 id="dfsec1">Section 1</h2>
+<p>
+As previously mentioned, the first section of a BUFR tables file is where all
+Table A, B and D mnemonics are initially declared, assigned a unique FXY number,
+and given a short free-form text description.  Mnemonics may contain any
+combination of uppercase letters and numbers (or, in certain special cases, a
+&quot;<em class="mnemname">.</em>&quot; character!), up to a maximum total of 8 characters
+in length.  A mnemonic may be declared only once, and each one must correspond
+to a unique FXY number, which itself consists of 6 characters, and where the
+first character (i.e. the &quot;F&quot; component) is an &quot;A&quot; if the mnemonic is being
+declared as a Table A mnemonic, &quot;3&quot; if the mnemonic is being declared as
+a Table D mnemonic, and &quot;0&quot; if the mnemonic is being declared as a Table B
+mnemonic.  Otherwise, the remainder of the FXY number must be all digits, with
+the next 2 characters (i.e. the &quot;X&quot; component) as a number between 00 and 63,
+and the final 3 characters (i.e. the &quot;Y&quot; component) as a number between 001
+and 255.  Readers who are more familiar with BUFR will immediately recognize
+these F, X, and Y values as those that are defined within the official
+documentation of the BUFR code form; therefore, by international convention,
+a mnemonic should not be given an X value between 00 and 47 along with a Y value
+between 001 and 191 unless that mnemonic, when subsequently defined, corresponds
+<em class="emphasis">exactly</em> to the BUFR descriptor having that same FXY number within the
+<a href="http://www.nws.noaa.gov/cgi-bin/nwsexit.pl?url=http://www.wmo.int/pages/prog/www/WMOCodes/TDCFtables.html">official, internationally-coordinated WMO BUFR tables</a>.  For example, in our
+<a href="../bftab/" target=_new>sample BUFR tables file</a>, mnemonic &quot;WMOB&quot; is declared with an FXY
+number of 001001; therefore, it has the exact same text description
+(i.e. &quot;WMO BLOCK NUMBER&quot;) and, when later defined within the last
+section of the file, the exact same scale factor, reference value, bit width,
+and units as for FXY number 001001 within the official BUFR tables.  This
+concept should be somewhat intuitive, but it is obviously very important
+when the BUFRLIB software is to be used to write BUFR messages that may
+potentially be read by other users in other organizations around the world.
+</p>
+<p>
+In looking further at our <a href="../bftab/" target=_new>sample BUFR tables file</a>, we see that the
+lines within the first section each contain a &quot;<em class="mnemname">|</em>&quot; character in
+columns 1, 12, 21, and 80.  Mnemonics are declared, and are left-justified,
+in columns 3-10, corresponding FXY numbers are assigned in columns 14-19,
+and the corresponding text description begins in column 23.  All of the
+Table A mnemonics are declared first, followed by all of the Table D mnemonics,
+followed by all of the Table B mnemonics.  Within each set, it is generally a
+good idea for human-readability purposes to list the mnemonics in ascending
+order with respect to their FXY number, although this is by no means a
+requirement within the BUFRLIB software itself.  Likewise, human-readability
+can usually also be improved by the judicious use of one or more &quot;separator&quot;
+lines containing the required &quot;<em class="mnemname">|</em>&quot; character in
+columns 1, 12, 21, and 80 but without any actual mnemonic declaration;
+however, again, the use of such &quot;separator&quot; lines is not required
+by the software.  In fact, the software will simply continue reading lines
+of the file, one at a time, and looking for new mnemonic declarations, until
+it reaches a line which does not contain a &quot;<em class="mnemname">|</em>&quot; character
+in each of columns 1, 12, 21, and 80, at which point it then knows that the
+first section of the tables file has ended.
+</p>
+<p>
+We mentioned earlier that mnemonics only exist in order to facilitate user
+interaction with the BUFRLIB software and that, therefore, mnemonics should
+be as intuitive as possible.  We now need to amend that statement slightly,
+because certain Table A mnemonics do have a special additional function.
+Specifically, if a Table A mnemonic consists of 8 characters (i.e. the maximum)
+<em class="emphasis">and</em> if characters 3 through 8 are all digits, then the mnemonic
+is also used by the software to set the data category and local subcategory
+within Section 1 of each BUFR message when writing/encoding data subsets
+corresponding to that mnemonic.  In such cases, characters 3 through 5
+define the category, and characters 6 through 8 define the subcategory.
+Therefore, in referring again to our <a href="../bftab/" target=_new>sample BUFR table</a> where we
+have defined three different Table A mnemonics, we have also indicated that,
+e.g. when we use the software to write/encode data subsets according to
+the Table A mnemonic &quot;<em class="mnemname">NC002007</em>&quot; (i.e. wind profiler), we want
+all BUFR messages which contain such data subsets to be encoded as category 2
+and local subcategory 7 within Section 1 of the message!
+</p>
+<p>
+Incidentally, even if a Table A mnemonic does not meet the above criteria,
+BUFR message category and local subcategory values will still be set by the
+software when writing/encoding BUFR data subsets corresponding to that Table A
+mnemonic.  However, in such cases, the category value will be set to the
+&quot;Y&quot; component (i.e. last 3 digits) of the FXY number corresponding to
+the mnemonic, and the subcategory value will simply be set to 0.  Therefore, it
+is recommended to use the previous, more-explicit approach when assigning a
+Table A mnemonic for a data subset to be output, since this approach provides
+for greater control over the category and subcategory values that will be
+encoded into Section 1 of the resultant BUFR message.  We should also take
+this opportunity to point out that, when the FXY number corresponding to a
+Table A mnemonic is actually encoded into a BUFR message, a &quot;3&quot; is actually
+encoded in place of the &quot;A&quot; which is used in the tables file.  Put another
+way, the &quot;A&quot; that appears within the FXY number corresponding to each Table A
+mnemonic within the tables file is only there so that such mnemonics can be
+easily distinguished from Table D mnemonics by the software.
+</p>
+<h2 id="dfsec2">Section 2</h2>
+<p>
+Now, let's move on to the second section of a BUFR tables file.  As already
+stated, this section is used to define, for each Table A and Table D mnemonic
+that was previously declared in the first section, the sequence of Table B
+(and possibly other Table D!) mnemonics which constitutes that mnemonic.
+The format for this section is a &quot;<em class="mnemname">|</em>&quot; character in
+columns 1, 12, and 80, with the mnemonic that is being defined listed in
+columns 3-10 (left-justified), and the sequence of constituent mnemonics
+beginning in column 14, each one separated from the others by one or more
+blank characters.  For longer sequences, multiple successive lines may be
+used in a continuation fashion by repeating, within columns 3-10 of each
+continuation line, the mnemonic being defined.  For example, in our
+<a href="../bftab/" target=_new>sample BUFR tables file</a>, the Table D mnemonic &quot;<em class="mnemname">MRPSC0</em>&quot; is defined as
+consisting of the sequence &quot;<em class="mnemname">YEAR</em>&quot;, &quot;<em class="mnemname">MNTH</em>&quot;, &quot;<em class="mnemname">DAYS</em>&quot;, &quot;<em class="mnemname">HOUR</em>&quot;,
+&quot;<em class="mnemname">MINU</em>&quot;, &quot;<em class="mnemname">RPID</em>&quot;, &quot;<em class="mnemname">MRPIDS</em>&quot;, &quot;<em class="mnemname">CLON</em>&quot;, &quot;<em class="mnemname">CLAT</em>&quot;, &quot;<em class="mnemname">SELV</em>&quot;, and &quot;<em class="mnemname">CORN</em>&quot;, where
+&quot;<em class="mnemname">MRPIDS</em>&quot; is itself a Table D mnemonic which is therefore
+itself defined in a similar manner elsewhere within the section.  As was the
+case with the first section, &quot;separator&quot; lines may be employed within this
+section in order to improve human-readability, as long as they contain the &quot;<em class="mnemname">|</em>&quot; character
+that is required to be in columns 1, 12, and 80 for all non-comment lines
+within this section, and the BUFRLIB software will continue reading lines of
+the file as though they are part of the second section until it encounters one
+that does not adhere to this format.
+</p>
+<p>
+At this point, most readers who have taken at least a cursory glance at the
+sample BUFR tables file will have no doubt begun to wonder about
+all of the additional punctuation characters and symbols included within the
+sequence definitions of the second section.  It is now time to address these
+concerns by stating that these are replication indicators for the mnemonic(s)
+in question:
+</p>
+<table cellpadding="5"> 
+  <tr>
+    <td width="10%"><em class="mnemname">&lt; &gt;</em></td>
+    <td>indicates that the enclosed mnemonic is replicated using 1-bit delayed
+replication (either 0 or 1 replications)</td>
+  </tr>
+  <tr>
+    <td><em class="mnemname">{ }</em></td>
+    <td>indicates that the enclosed mnemonic is replicated using 8-bit delayed
+replication (between 0 and 255 replications)</td>
+  </tr>
+  <tr>
+    <td><em class="mnemname">( )</em></td>
+    <td>indicates that the enclosed mnemonic is replicated using 16-bit delayed
+replication (between 0 and 65535 replications)</td>
+  </tr>
+  <tr>
+    <td><em class="mnemname">&quot; &quot;n</em></td>
+    <td>indicates that the enclosed mnemonic is replicated using regular
+(non-delayed) replication, with a fixed replication factor of
+<em class="mnemname">n</em></td>
+  </tr>
+</table>
+<p>
+Examples of most of these cases are shown within the sample BUFR tables file,
+and, through successive application, can lead to the definition of some rather
+interesting data structures!  For example, the Table A mnemonic &quot;<em class="mnemname">NC002001</em>&quot;,
+which defines the layout of a data subset of the type &quot;rawinsonde - fixed land&quot;,
+consists of the following sequence:
+</p>
+<ol>
+  <li>&quot;<em class="mnemname">UARTM</em>&quot;, followed by</li>
+  <li>between 0 and 255 replications of &quot;<em class="mnemname">RCPTIM</em>&quot;, followed by</li>
+  <li>between 0 and 255 replications of &quot;<em class="mnemname">BID</em>&quot;, followed by</li>
+  <li>&quot;<em class="mnemname">UASID</em>&quot;, followed by</li>
+  <li>between 0 and 255 replications of &quot;<em class="mnemname">UARID</em>&quot;, followed by</li>
+  <li>between 0 and 255 replications of &quot;<em class="mnemname">UARLV</em>&quot;, followed by</li>
+  <li>either 0 or 1 replications of &quot;<em class="mnemname">UASDG</em>&quot;, followed by</li>
+  <li>between 0 and 255 replications of &quot;<em class="mnemname">UARDCS</em>&quot;, followed by</li>
+  <li>between 0 and 255 replications of &quot;<em class="mnemname">RAWRPT</em>&quot;, followed by</li>
+  <li>between 0 and 255 replications of &quot;<em class="mnemname">UACLD</em>&quot;, followed by</li>
+  <li>either 0 or 1 replications of &quot;<em class="mnemname">UAADF</em>&quot;, followed by</li>
+  <li>&quot;<em class="mnemname">WMOB</em>&quot;, followed by</li>
+  <li>&quot;<em class="mnemname">WMOS</em>&quot;, followed by</li>
+  <li>&quot;<em class="mnemname">WMOR</em>&quot;</li>
+</ol>
+<p>
+where, e.g., the constitutent Table D mnemonic &quot;<em class="mnemname">UARLV</em>&quot; itself
+consists of the following sequence:
+</p>
+<ol>
+  <li>&quot;<em class="mnemname">VSIG</em>&quot;, followed by</li>
+  <li>&quot;<em class="mnemname">QMPR</em>&quot;, followed by</li>
+  <li>&quot;<em class="mnemname">PRLC</em>&quot;, followed by</li>
+  <li>&quot;<em class="mnemname">QMGP</em>&quot;, followed by</li>
+  <li>either 0 or 1 replications of &quot;<em class="mnemname">UAGP07</em>&quot;, followed by</li>
+  <li>either 0 or 1 replications of &quot;<em class="mnemname">UAGP10</em>&quot;, followed by</li>
+  <li>either 0 or 1 replications of &quot;<em class="mnemname">UATMP</em>&quot;, followed by</li>
+  <li>either 0 or 1 replications of &quot;<em class="mnemname">UAWND</em>&quot;, followed by</li>
+  <li>either 0 or 1 replications of &quot;<em class="mnemname">UAWSH</em>&quot;</li>
+</ol>
+<p>
+and where, in turn, &quot;<em class="mnemname">UAGP07</em>&quot;, &quot;<em class="mnemname">UAGP10</em>&quot;, &quot;<em class="mnemname">UATMP</em>&quot;, etc. are also Table D
+mnemonics which can themselves be further resolved.  So we can even nest
+certain replication sequences inside of other replication sequences, and,
+further, via the judicious use of the <em class="mnemname">&lt; &gt;</em> indicator,
+even turn on/off entire sequences of data values simply and efficiently.
+An example of this is the &quot;<em class="mnemname">UAWSH</em>&quot; (i.e. &quot;RADIOSONDE WIND SHEAR DATA&quot;)
+sequence, whose constituent data values are only ever present in a
+rawinsonde report when a level of maximum wind is being reported (and,
+even then, not always!).  In this case, enclosing the entire sequence
+within a <em class="mnemname">&lt; &gt;</em> indicator allows the lack of such data
+within a report level to be noted by the use of a single bit set to &quot;0&quot;
+(i.e. 0 replications), rather than having to store the appropriate &quot;missing&quot;
+value for each constituent data value.  Over the course of many data levels
+within many data subsets within a single BUFR message, this can add up to
+significant encoding efficiency, and, in turn, the use of less required
+storage space per BUFR message.  So, in summary, the judicious use of
+replication can even lead to more efficient data storage for certain types
+of data.
+</p>
+<p>
+Going back to the <a href="../bftab/" target=_new>sample BUFR tables file</a>, notice how several
+of the Table D mnemonics such as &quot;<em class="mnemname">RCPTIM</em>&quot; and &quot;<em class="mnemname">BID</em>&quot; are used within
+both the &quot;<em class="mnemname">NC001003</em>&quot; and &quot;<em class="mnemname">NC002001</em>&quot; data subset types.
+This brings up a good point; namely, that by logically grouping certain
+Table B mnemonics together within carefully-constructed Table D sequence
+mnemonics, such mnemonics can be easily and efficiently re-used within
+different Table A mnemonic definitions within the same BUFR tables file.
+In fact, this would be a good time to also point out that, when using the
+BUFRLIB software, Table D sequence mnemonics are the only types of mnemonics
+upon which any type of replication may be directly performed.  Thus, in
+particular, if we wish to effect the replication of a single, particular
+Table B mnemonic, then we must do so by defining a Table D sequence mnemonic
+whose only constituent is that particular Table B mnemonic and then
+replicating the sequence mnemonic.  For a specific example of such a
+situation, take a look at the definition of &quot;<em class="mnemname">RAWRPT</em>&quot; within the
+sample BUFR tables file.
+</p>
+<p>
+Before we end our discussion on the second section of our sample BUFR tables file,
+there are a couple of other special situations that we need to explain in
+further detail!
+</p>
+<p>
+First, notice how a <em class="mnemname">201YYY</em> indicator precedes each occurrence
+of &quot;<em class="mnemname">ACAV</em>&quot; within the definition of the Table D
+sequence mnemonic &quot;<em class="mnemname">OBSEQ</em>&quot; as well as each occurrence
+of &quot;<em class="mnemname">HINC</em>&quot; within the definition of the Table A
+mnemonic &quot;<em class="mnemname">NC002007</em>&quot;.  This indicator is called an
+<em class="definition">operator</em>, and readers more familiar with the details of
+the BUFR code form will no doubt recognize it from Table C of the
+<a href="http://www.nws.noaa.gov/cgi-bin/nwsexit.pl?url=http://www.wmo.int/pages/prog/www/WMOCodes/TDCFtables.html">official, internationally-coordinated BUFR tables</a>.  In short,
+the effect of this operator is that, for each Table B mnemonic which follows
+it within the current sequence, and continuing up until the point in the
+sequence where a corresponding <em class="mnemname">201000</em> operator is reached (and
+which turns off the effect), ( <em class="mnemname">YYY</em> - 128 ) bits should be added
+to the bit width that is otherwise defined for that Table B mnemonic within
+the third section of the BUFR tables file, so that the net effect is to change
+the number of bits occupied by the data value corresponding to that mnemonic
+within the overall data subset.  Thus, for example, the sequence:
+</p>
+<pre class="mnem">
+201132  HINC  201000
+</pre>
+<p>
+indicates that ( 132 - 128 ) = 4 bits should be added to the data width that was
+defined for mnemonic HINC within the third section of the BUFR tables file,
+and, therefore, that for this occurrence of that mnemonic within the overall
+data subset, the corresponding data value will occupy ( 12 + 4 ) = 16 bits.
+</p>
+<p>
+Other than <em class="mnemname">201YYY</em>, the BUFRLIB software also supports the similar
+use of the <em class="mnemname">202YYY</em> (change scale),
+<em class="mnemname">204YYY</em> (add associated field),
+<em class="mnemname">205YYY</em> (add character data),
+<em class="mnemname">206YYY</em> (define data
+width for local descriptor), <em class="mnemname">207YYY</em> (increase scale, reference
+value and data width) and <em class="mnemname">208YYY</em> (change data width for
+CCITT IA5 descriptor) operators from BUFR Table C.
+</p>
+<p>
+Finally, take a look at the definitions of the Table D sequence mnemonics
+&quot;<em class="mnemname">TMPSQ3</em>&quot;, &quot;<em class="mnemname">WNDSQ2</em>&quot;, and &quot;<em class="mnemname">PCPSQ3</em>&quot;; in particular,
+notice that, within these definitions, there are references to several
+mnemonics such as &quot;<em class="mnemname">.DTHMITM</em>&quot; and &quot;<em class="mnemname">.DTHMXGS</em>&quot; which were not
+previously-declared within the first section of the table.  At first
+glance, this seems to contradict everything that we previously said about
+the need to initially declare all mnemonics within the first section;
+however, upon closer inspection, the reader will notice that there do exist,
+within the first section, declarations for mnemonics &quot;<em class="mnemname">.DTH....</em>&quot; and
+&quot;<em class="mnemname">.DTH....</em>&quot;.  So, what exactly is going on here?
+The answer is that each of these is a special mnemonic known as a
+<em class="definition">following-value mnemonic</em>, meaning that, when it is
+used within a sequence definition, it implies a special relationship with
+the mnemonic that immediately follows it within the sequence.  In fact, this
+relationship is so special that, when a following-value mnemonic is used
+within a sequence definition, the &quot;<em class="mnemname">....</em>&quot; portion
+of the mnemonic is replaced with the mnemonic that immediately follows it!
+For example, when &quot;<em class="mnemname">.DTH....</em>&quot; is used within the
+definition of the Table D sequence mnemonic &quot;<em class="mnemname">TMPSQ3</em>&quot;,
+it appears as &quot;<em class="mnemname">.DTHMXTM</em>&quot; and &quot;<em class="mnemname">.DTHMITM</em>&quot; because it appears
+immediately before, respectively, the mnemonics &quot;<em class="mnemname">MXTM</em>&quot;
+and &quot;<em class="mnemname">MITM</em>&quot;.
+However, when it appears within the definition of &quot;<em class="mnemname">PCPSQ3</em>&quot;, it appears
+as &quot;<em class="mnemname">.DTHTOPC</em>&quot; since it immediately precedes &quot;<em class="mnemname">TOPC</em>&quot;
+within that sequence!  To be precise, a following-value mnemonic is declared
+with a &quot;<em class="mnemname">.</em>&quot; as the first character, followed by no more
+than 3 alphanumeric characters as an identifier, followed by 4 more &quot;<em class="mnemname">.</em>&quot;
+characters which must then be replaced with the mnemonic that immediately
+follows it whenever and wherever it is used within a sequence definition.
+This is important, because the BUFRLIB software will actually check that
+the immediately-following mnemonic matches the last 4 characters of the
+following-value mnemonic and will diagnose an error if it does not.
+</p>
+<p>
+In general, the &quot;following-value&quot; attribute is useful because it allows
+the same mnemonic to be used repeatedly within the same overall Table A data
+subset definition in a very intuitive fashion and yet, since each occurrence
+retains its own unique identification (e.g. &quot;<em class="mnemname">.DTHMXTM</em>&quot;,
+&quot;<em class="mnemname">.DTHTOPC</em>&quot;, etc.),
+then each one can still be individually accessed independent of the others
+via subroutine <em class="subpname">UFBINT</em>.  An alternative would be to declare
+a regular mnemonic such as &quot;<em class="mnemname">DTHRFV</em>&quot; instead of &quot;<em class="mnemname">.DTH....</em>&quot;
+within the first section of the tables file and then use that mnemonic in
+all of the same places within the same Table A data subset definition, but
+then we would have to use subroutine <em class="subpname">UFBREP</em> to access all such
+values simultaneously (even if we weren't interested in all of them!),
+and we would also lose the intuitiveness provided by having available,
+within the mnemonic itself, the name of the mnemonic to which the
+corresponding value applies.
+</p>
+<h2 id="dfsec3">Section 3</h2>
+<p>
+It is now time to move on to the third and final section of a BUFR tables
+file.  As we mentioned earlier, this section is used to define the scale factor,
+reference value, data width, and units for all of the Table B mnemonics that
+were previously declared in the first section.  In particular, the reader may
+recall that the units definition for each Table B mnemonic in turn determines
+how data values corresponding to that mnemonic are read/written from/to the
+REAL*8 array <em class="varname">R8ARR</em> within the BUFRLIB subroutines <em class="subpname">UFBINT</em>,
+<em class="subpname">UFBREP</em> and <em class="subpname">UFBSEQ</em>.
+</p>
+<p>
+In looking again at our <a href="../bftab/" target=_new>sample BUFR tables file</a>, we see that the
+format for the third section of such a file is to have our same old, familiar
+&quot;<em class="mnemname">|</em>&quot; delimiter in columns 1, 12, 19, 33, 39, 66, and 80
+of each line.  These delimiters, in turn, form the columns for the mnemonic
+(listed exactly as it was previously within the first section), the scale factor
+(right-justified from column 17), the reference value (right-justified from column
+31), the bit width (right-justified from column 37), and the units (left-justified
+from column 41).  As with the previous two sections, blank &quot;separator&quot; lines
+may be employed in order to improve human-readability, and, for the same reason,
+it is also recommended to list the mnemonics in the same order in which they were
+declared within the first section, although this is by no means a requirement of
+the software.  However, do note that any mnemonic whose corresponding data values
+are to be treated as character data must have its units listed as &quot;CCITT IA5&quot;,
+which, again, is basically just a formal synonym for ASCII.
+</p>
+</body>
+</html>

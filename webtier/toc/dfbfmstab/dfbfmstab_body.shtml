@@ -1,0 +1,269 @@
+<table cellpadding="0" cellspacing="0" border="0" width="100%"
+       summary="Table is for layout only.">
+  <tbody>
+<!-- Begin Body Content -->
+  <tr valign="top">
+  <td>
+    <a href="http://www.ncep.noaa.gov/">NCEP Home</a> &gt; <a href="/">NCO Home</a> &gt; <a href="/sib/">Systems Integration Branch</a> &gt; <a href="/sib/decoders/">Decoders</a> &gt; <a href="/sib/decoders/BUFRLIB/">BUFRLIB</a> &gt; <a href="/sib/decoders/BUFRLIB/toc/">BUFRLIB Table of Contents</a> &gt; Description and Format of Master BUFR Tables<br>
+    <!--#include virtual="/common/icon_printer.html"-->
+    <small><a href="printable.shtml" target="print">Printer Friendly Version</a></small>
+   <h2 align="center">Description and Format of Master BUFR Tables</h2>
+<p>
+This document describes the format and concept of master BUFR tables.  As
+explained in the introduction, these are required by the BUFRLIB software
+whenever the <em class="varname">CIO</em>='SEC3' option is specified
+during a call to subroutine <em class="subpname">OPENBF</em> for the
+reading/decoding of a given file of BUFR messages.  Otherwise, if a
+different value of <em class="varname">CIO</em> is specified, then only a
+<a href="../dfbftab/">DX BUFR tables file</a> is required,
+and master BUFR tables are not needed.
+<h3 id="mtinfo">Subroutine MTINFO</h3>
+<p>
+Whenever master BUFR tables are required, they are provided to the BUFRLIB
+software as a set of four system files.  The actual format, content and naming
+conventions of these files will be described later, but first we'll show
+how to specify the location of these master table files.
+</p>
+<pre class="subp">
+        CALL <em class="subpname">MTINFO</em>  ( CMTDIR, LUNMT1, LUNMT2 )
+
+        Input argument:
+            CMTDIR      CHAR*           Directory location of BUFR master tables
+                                        on local file system
+            LUNMT1      INTEGER         First logical unit number to use when
+                                        reading BUFR master tables on system
+            LUNMT2      INTEGER         Second logical unit number to use when
+                                        reading BUFR master tables on system
+</pre>
+<p>
+This subroutine should be called immediately after the corresponding call to
+subroutine <em class="subpname">OPENBF</em> for the BUFR file in question,
+but at any rate it <em class="emphasis">must</em> be called before any 
+subsequent calls to subroutine <em class="subpname">READMG, READNS</em> or 
+<em class="subpname">READERME</em> are attempted on the file.  The subroutine
+takes three input arguments, the first of which is a string defining the
+directory path on the local filesystem where the BUFR master tables are
+located.  Any full or relative pathname that is legal on the local filesystem
+is allowed, up to a total length of 100 characters, and the BUFRLIB software
+will automatically
+search within this directory for the necessary master table files when it is
+time for them to be opened and read.  The last two arguments are logical unit
+numbers for the software to use when opening and reading these files.  These
+can be any legal FORTRAN logical unit numbers on the local filesystem, but
+they must be distinct from each other and cannot already be assigned to any
+other system files within the application program.
+</p>
+<p>
+Note that no actual master table file names are provided to this subroutine;
+rather, only the directory path where all of the master table files reside
+on the local filesystem is input to this routine.  The names of the table files
+themselves are determined automatically by the software as described below.
+Whenever master tables need to be read, they are read as a corresponding set
+of four system files:
+  <ul>
+    <li><em class="emphasis">Standard Table B</em> - an ordered listing of
+all descriptors corresponding to an official release (i.e. version number) of the
+standard, international BUFR Table B
+    <li><em class="emphasis">Local Table B</em> - an ordered listing of all
+local Table B descriptors supplementing the standard BUFR Table B, as
+defined for use within a particular local originating center
+    <li><em class="emphasis">Standard Table D</em> - an ordered listing of
+all descriptors corresponding to an official release (i.e. version number) of the
+standard, international BUFR Table D
+    <li><em class="emphasis">Local Table D</em> - an ordered listing of all
+local Table D descriptors supplementing the standard BUFR Table D, as
+defined for use within a particular local originating center
+  </ul>
+Actual filenames follow the following convention:
+<pre class="mnem">
+	<em class="emphasis">Standard tables:</em>     bufrtab.Table<em class="varname">X</em>_STD_<em class="varname">M</em>_<em class="varname">V</em>
+	<em class="emphasis">Local tables:</em>        bufrtab.Table<em class="varname">X</em>_LOC_<em class="varname">M</em>_<em class="varname">C</em>_<em class="varname">L</em>
+
+		where:       <em class="varname">X</em> = Table type ('B' or 'D')
+                             <em class="varname">M</em> = Master Table number ('0' for WMO, '10' for IOC, etc.)
+                             <em class="varname">V</em> = Version number of Master Table used
+		             <em class="varname">C</em> = Originating Center number ('7' for NCEP, etc.)
+		             <em class="varname">L</em> = Version number of local tables used
+</pre>
+<p>
+Whenever a new BUFR message is read from a logical unit that was previously opened using
+subroutine <em class="subpname">OPENBF</em>
+with <em class="varname">CIO</em>='SEC3', the identification section (Section 1) of the message is automatically
+scanned to determine the above values for that message, then the software generates the four
+necessary filenames using those values and attempts to open and read each of those files from the directory
+that was specified by <em class="varname">CMTDIR</em> during the previous call to subroutine
+<em class="subpname">MTINFO</em>.   This table information is then retained and re-used in memory until a
+subsequent message is read which has a different value for any one of the above values, and at which point
+a new set of tables is then read in from the same directory in order to be applied to the new message.
+With this approach, the user can have multiple master table files stored within the same directory, and the
+BUFRLIB software will always locate and read the appropriate ones depending on the corresponding
+values stored within Section 1 of each new message
+to be decoded.  For more details about the above values, see the discussion on Section 1 within the official
+<a href="http://www.nws.noaa.gov/cgi-bin/nwsexit.pl?url=http://www.wmo.int/pages/prog/www/WMOCodes/Operational/BUFR/FM94REG-11-2007.pdf">WMO Manual #306</a>.
+</p>
+<p>
+Now that we've discussed the content and naming conventions for master BUFR table files, let's turn our attention
+to the actual format of these files:
+</p>
+<h3 id="tableb">Table B</h3>
+<p>
+As described above, two master Table B files (one standard and one local) are required for each BUFR
+message that is to be read and decoded.  The BUFRLIB will scan the identification section (Section 1) of
+each new message and then open and read the appropriate Table B files from within the directory specified by
+<em class="varname">CMTDIR</em> during the previous call to subroutine
+<em class="subpname">MTINFO</em>.  In particular, a standard Table B file must be available corresponding
+to the version number of each BUFR message to be decoded, and the filename must follow the naming
+convention described above.  In addition, if there are any local descriptors contained within the
+messages, then a local Table B file must also be available corresponding to the originating center and
+local version numbers encoded within Section 1 of these messages.  Otherwise, if the messages to be
+decoded contain only standard descriptors (which is normally the case for data exchanged between centers),
+then <a target=_new href="bufrtab.TableB_LOC_0_7_1">the default local Table B file from NCEP</a>
+(originating center 7) can be used as a placeholder since the software will not need
+to actually read any information from this table.  In this way, users are relieved from having to provide
+a local Table B file for every originating center whose messages they wish to decode, and such a table
+only becomes necessary when the messages themselves actually contain one or more local descriptors defined
+by that particular center.
+</p>
+<p>
+Here now is the format for each master Table B:
+</p>
+<p>
+The first line of the file is as follows, where the symbols correspond to those used in the file naming
+convention described above.  In this way, the software can perform internal consistency checks where
+needed.  Note that the separator for each field is a '|' character, but otherwise the free use of white
+space is allowed within each field:
+</p>
+<pre class="mnem">
+	<em class="emphasis">Standard table:</em>     Table B STD | <em class="varname">M</em> | <em class="varname">V</em>
+	<em class="emphasis">Local table:</em>        Table B LOC | <em class="varname">M</em> | <em class="varname">C</em> | <em class="varname">L</em>
+
+		where:       <em class="varname">M</em> = Master Table number ('0' for WMO, '10' for IOC, etc.)
+                             <em class="varname">V</em> = Version number of Master Table used
+		             <em class="varname">C</em> = Originating Center number ('7' for NCEP, etc.)
+		             <em class="varname">L</em> = Version number of local tables used
+</pre>
+<p>
+Following this first header line, the remainder of the file contains a listing of all possible Table B
+descriptors corresponding to the specified version number of the table, ordered in ascending order with
+respect to the FXY number as shown below.  Blank lines as well as comments (i.e. any line beginning with
+the character '#') are permitted throughout the file and will be ignored by the software, up until a line
+is reached which contains the string 'END' in the first three characters, and which is a signal to the
+software to stop looking for any new Table B descriptor definitions in the table.   Each definition line
+has the following format, where the '|' and ';' characters are required separators as shown, but
+otherwise the additional use of white space is allowed within each field.
+<pre class="varname">
+ F-XX-YYY | SCALE | REFERENCE | BITS | UNITS  | MNEMONIC ; CODES ; ELEMENT NAME
+</pre>
+The <em class="varname">CODES</em> field can be used for any annotations the user may wish to add for
+a particular definition line, or it can be left blank.  All other fields should be self-explanatory
+based on earlier discussions and should contain a value.  Here are some examples:
+<pre class="varname">
+  0-01-018 |   0 |  0 |  40 | CCITT IA5   | SSTN    ; ; Short station or site name
+  0-01-041 |   5 | -1073741824 |  31 | m/s | PS00   ;  ; Absolute platform velocity - first component
+  0-05-002 |   2 |       -9000 |  15 | Degree(N+,S-)  | CLAT     ;     ; Latitude (coarse accuracy)
+  0-07-002 |  -1 |         -40 |  16 | m              | HMSL     ;     ; Height or altitude
+</pre>
+The above examples show how additional white space can vary from line to line and can be used
+according to individual preferences, but of course for overall readability it's usually best to pick
+one format and stick to it within a given table file.  Here are some sample master Table B files
+that can be downloaded and used:
+</p>
+<h3 align=center id="tableb_samples">Sample master Table B files</h3>
+<ul>
+<li><a target=_new href="bufrtab.TableB_STD_0_13">Standard Table B for Master Table 0 (WMO), Version 13</a></li>
+<li><a target=_new href="bufrtab.TableB_STD_0_14">Standard Table B for Master Table 0 (WMO), Version 14</a></li>
+<li><a target=_new href="bufrtab.TableB_LOC_0_7_1">Local Table B for Master Table 0 (WMO), Originating Center 7 (NCEP), Version 1</a></li>
+</ul>
+<h3 id="tabled">Table D</h3>
+<p>
+As was the case for Table B, two master Table D files (one standard and one local) are also required for
+each BUFR message that is to be read and decoded, and these files must exist within the directory
+specified by <em class="varname">CMTDIR</em> during the previous call to subroutine
+<em class="subpname">MTINFO</em>.  The BUFRLIB software will scan the identification section (Section 1)
+of each BUFR message in order to determine the exact master table files to open and read for that
+message, and a local Table D file is necessary whenever local descriptors from the originating center
+in question are included within a message; otherwise,
+<a target=_new href="bufrtab.TableD_LOC_0_7_1">the default local Table D from NCEP</a>
+(originating center 7) can be used as a placeholder.
+</p>
+<p>
+The format of the first line of each master Table D file is the same as for Table B:
+<pre class="mnem">
+	<em class="emphasis">Standard table:</em>     Table D STD | <em class="varname">M</em> | <em class="varname">V</em>
+	<em class="emphasis">Local table:</em>        Table D LOC | <em class="varname">M</em> | <em class="varname">C</em> | <em class="varname">L</em>
+
+		where:       <em class="varname">M</em> = Master Table number ('0' for WMO, '10' for IOC, etc.)
+                             <em class="varname">V</em> = Version number of Master Table used
+		             <em class="varname">C</em> = Originating Center number ('7' for NCEP, etc.)
+		             <em class="varname">L</em> = Version number of local tables used
+</pre>
+and blank lines and comment lines (beginning with a '#' in column 1) are likewise allowed, but
+otherwise the format for a master Table D file differs from that of a master Table B file since
+entries now span multiple file lines as shown:
+<pre class="varname">
+ F-XX-YYY | MNEMONIC  ; CODES ; SEQUENCE_NAME
+          | F-XX-YYY > | ELEMENT_NAME  
+          | F-XX-YYY   | ELEMENT_NAME 
+</pre>
+As shown, the first line of each entry contains the FXY number of the Table D sequence, along with
+the corresponding sequence name, mnemonic and annotation codes (if any), and then each successive
+line contains a single element of that sequence.  Each successive element is listed one per line,
+and note the '>' character after the FXY number within each element line up to, but not including,
+the last element of the sequence.  The BUFRLIB software uses the lack of a '>' character to know
+when it has reached the last element of the sequence.  Here are some examples:
+</p>
+<pre class="varname">
+
+  3-01-004 | SFCSTNID   ;  ; Surface station identification
+           | 0-01-001 > | WMO block number
+           | 0-01-002 > | WMO station number
+           | 0-01-015 > | Station or site name
+           | 0-02-001   | Type of station
+
+  3-01-012 | HHMM       ; ;
+           | 0-04-004 >  | Hour
+           | 0-04-005    | Minute
+
+  3-01-023 | LTLONC   ;   ;
+           | 0-05-002 > | Latitude (coarse accuracy)
+           | 0-06-002   | Longitude (coarse accuracy)
+
+  3-01-025 | LTLONCDT   ;  ;
+           | 3-01-023 > | Latitude and longitude (coarse accuracy)
+           | 0-04-003 > | Day
+           | 3-01-012   | Time
+
+  3-01-045 | SATLOVEL   ;     ; Satellite location and velocity
+           | 3-01-011 > | Year, month, day
+           | 3-01-012 > | Time (hour, minute)
+           | 2-01-138 > | Change width to 16 bits
+           | 2-02-131 > | Change scale to 3
+           | 0-04-006 > | Second
+           | 2-01-000 > | Change width back to Table B
+           | 2-02-000 > | Change scale back to Table B
+           | 3-04-030 > | Location relative to the Earth's centre
+           | 3-04-031   | Velocity relative to the Earth's centre
+
+  3-03-050 | WDPLRAOB   ; ; Wind data at a pressure level with radiosonde position
+           | 0-04-086 > | Long time period or displacement (since launch time)
+           | 0-08-042 > | Extended vertical sounding significance
+           | 0-07-004 > | Pressure
+           | 0-05-015 > | Latitude displacement since launch site (high accuracy)
+           | 0-06-015 > | Longitude displacement since launch site (high accuracy)
+           | 0-11-001 > | Wind direction
+           | 0-11-002   | Wind speed
+</pre>
+<p>
+As with master Table B files, the entries within a master Table D must all be sorted in ascending
+order with respect to the FXY number, and the software will continue reading from the file until
+it reaches a line with the string 'END' in the first three characters.
+Here are some sample master Table D files that can be downloaded and used:
+</p>
+<h3 align=center id="tabled_samples">Sample master Table D files</h3>
+<ul>
+<li><a target=_new href="bufrtab.TableD_STD_0_13">Standard Table D for Master Table 0 (WMO), Version 13</a></li>
+<li><a target=_new href="bufrtab.TableD_STD_0_14">Standard Table D for Master Table 0 (WMO), Version 14</a></li>
+<li><a target=_new href="bufrtab.TableD_LOC_0_7_1">Local Table D for Master Table 0 (WMO), Originating Center 7 (NCEP), Version 1</a></li>
+</ul>
+</body>
+</html>
