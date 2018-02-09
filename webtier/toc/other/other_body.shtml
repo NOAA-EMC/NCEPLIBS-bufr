@@ -673,6 +673,60 @@ must be passed in as input, in order to prevent the subroutine from possibly
 overflowing this array.
 </p>
 <hr class="center" width="80%" />
+<pre class="subp" id="nemdefs">
+	CALL <em class="subpname">NEMDEFS</em>  ( LUBFR, NEMO, CELEM, CUNIT, IRET )
+
+	Input argument:
+	    LUBFR	INTEGER		Logical unit for BUFR file
+            NEMO        CHAR*(*)        Table B mnemonic
+
+	Output arguments:
+	    CELEM	CHARACTER*55	Element name associated with NEMO
+	    CUNIT	CHARACTER*24	Units associated with NEMO
+            IRET        INTEGER         Return code:
+                                          0 = Normal return
+                                         -1 = NEMO could not be found, or some
+					      other error occurred
+</pre>
+<p>
+Given a Table B mnemonic defined in the table information associated with logical
+unit <em class="varname">LUBFR</em>, this subroutine returns the element name and
+units associated with that mnemonic.  It can be called at any time in the application
+program following the first call to BUFRLIB subroutine <em class="subpname">OPENBF</em>.
+</p>
+<hr class="center" width="80%" />
+<pre class="subp" id="nemspecs">
+	CALL <em class="subpname">NEMSPECS</em>  ( LUBFR, NEMO, NNEMO, NSCL, NREF, NBTS, IRET )
+
+	Input argument:
+	    LUBFR	INTEGER		Logical unit for BUFR file
+            NEMO        CHAR*(*)        Table B mnemonic
+	    NNEMO	INTEGER		Ordinal ocurrence of NEMO for which
+					information is to be returned, counting
+					from the beginning of the overall subset
+					definition
+
+	Output arguments:
+	    NSCL	INTEGER		Scale factor associated with NEMO
+	    NREF	INTEGER		Reference value associated with NEMO
+	    NBTS	INTEGER		Bit width associated with NEMO
+            IRET        INTEGER         Return code:
+                                          0 = Normal return
+                                         -1 = NEMO could not be found, or some
+					      other error occurred
+</pre>
+<p>
+Given a Table B mnemonic defined in the table information associated with logical
+unit <em class="varname">LUBFR</em>, this subroutine returns the scale factor, reference value
+and bit width corresponding to the (NNEMO)th occurrence of that mnemonic within a subset
+definition (counting from the beginning of the overall subset definition), and including
+accounting for any Table C operators (e.g. 201YYY, 202YYY, 203YYY, 207YYY, 208YYY) which may be in
+effect for that particular occurrence of the mnemonic.  A subset definition must already be in
+scope, either via a previous call to subroutine <em class="subpname">READSB</em> or equivalent
+(for reading/decoding BUFR data) or to subroutine <em class="subpname">OPENMB</em> or equivalent
+(for writing/encoding BUFR data).
+</p>
+<hr class="center" width="80%" />
 <pre class="subp" id="getlens">
 	CALL <em class="subpname">GETLENS</em>  ( IBFMSG, LL, LEN0, LEN1, LEN2, LEN3, LEN4, LEN5 )
 
@@ -701,6 +755,85 @@ work correctly on any BUFR message encoded using BUFR edition 2, 3
 or 4, and any section lengths that are not requested to be decoded
 are returned with a default value of -1 for the corresponding output
 argument.
+</p>
+<hr class="center" width="80%" />
+<pre class="subp" id="gettagpr">
+In the main discussion, we described the use of subroutines
+<em class="subpname">UFBINT, UFBREP</em> and <em class="subpname">UFBSEQ</em>
+to read or write data values from a subset once a subset is in scope.  We now describe
+a couple of additional BUFRLIB subprograms which can be useful in certain
+circumstances for extracting particular data values from a subset.
+	CALL <em class="subpname">GETTAGPR</em>  ( LUBFR, TAGCH, NTAGCH, TAGPR, IRET )
+
+        Input arguments:
+	    LUBFR	INTEGER		Logical unit for BUFR file
+            TAGCH       CHAR*(*)        Mnemonic
+	    NTAGCH	INTEGER		Ordinal occurrence of TAGCH for which TAGPR is
+                                        to be returned, counting from the beginning of
+                                        the overall subset definition
+
+        Output arguments:
+            TAGPR       CHAR*(*)        Mnemonic corresponding to Table D parent sequence
+					of (NTAGCH)th occurrence of TAGCH
+            IRET        INTEGER         Return code:
+                                          0 = Normal return
+                                         -1 = Parent mnemonic could not be found, or some
+					      other error occurred
+</pre>
+<p>
+This subroutine can be used to determine the Table D parent sequence of a specified 
+mnemonic within an overall subset definition.  A subset must already be in
+scope via a call to <em class="subpname">READSB</em> or equivalent (for reading/decoding
+BUFR data) or <em class="subpname">OPENMB</em> or equivalent (for writing/encoding
+BUFR data).  If there is more than one occurrence of <em class="varname">TAGCH</em>
+within the overall subset definition, the argument
+<em class="varname">NTAGCH</em> can be used to specify which ordinal occurrence
+of <em class="varname">TAGCH</em> we are interested in, counting from the beginning
+of the overall subset definition.
+</p>
+<hr class="center" width="80%" />
+<pre class="subp" id="getvalnb">
+	(real*8 value) = <em class="subpname">GETVALNB</em>  ( LUBFR, TAGPV, NTAGPV, TAGNB, NTAGNB )
+
+        Input arguments:
+	    LUBFR	INTEGER		Logical unit for BUFR file
+            TAGPV       CHAR*(*)        Pivot mnemonic; the function will first search
+                                        for the (NTAGPV)th occurrence of TAGPV within
+					the subset, counting from the beginning of the
+					overall subset definition
+	    NTAGPV	INTEGER		Ordinal occurrence of TAGPV within the subset
+            TAGNB       CHAR*(*)        Nearby mnemonic; assuming TAGPV is successfully
+					found, the function will then search nearby for
+					the (NTAGNB)th occurrence of TAGNB and return
+					the corresponding value
+	    NTAGNB	INTEGER		Ordinal occurrence of TAGNB within the subset,
+					counting from the location of TAGPV.  If NTAGNB is
+					positive, the function will search in a forward
+					direction from the location of TAGPV, or else if
+					NTAGNB is negative it will search in a backwards
+					direction.
+
+        Output arguments:
+            GETVALNB    REAL*8          Data value corresponding to (NTAGNB)th occurrence
+					of TAGNB; if for any reason this value cannot be
+					found, then the current BUFRLIB &quot;missing&quot; value
+					is returned
+</pre>
+<p>
+This function also extracts specified data values from a given subset in scope;
+however, unlike <em class="subpname">GETTAGPR</em>, this particular function should only
+be called for a subset that is in scope
+for reading/decoding via a previous call to subroutine <em class="subpname">READSB</em>
+or equivalent.  Furthermore, this function returns the data value corresponding to a
+mnemonic, rather than the mnemonic itself.  The function is called with two input
+mnemonics.  The first mnemonic (<em class="varname">TAGPV</em>) is used as a pivot to establish
+a specific point within the overall subset definition in case there is more than one
+occurrence of <em class="varname">TAGPV</em> within the definition.  The second mnemonic
+(<em class="varname">TAGNB</em>) is the actual mnemonic whose corresponding value is to be
+returned by the function and which can be specified as an ordinal occurrence searching
+forward (if <em class="varname">NTAGNB</em> is positive) or backward
+(if <em class="varname">NTAGNB</em> is negative) from the pivot location specified by
+<em class="varname">TAGPV</em>.
 </p>
 <hr class="center" width="80%" />
 <pre class="subp" id="cnved4">
@@ -1113,5 +1246,125 @@ currently in use via a call to the following new function:
         Output arguments:
             XMISS       REAL*8          BUFRLIB &quot;missing&quot; value
 </pre>
+<hr class="center" width="80%" />
+<p id="isetprm">
+Prior to version 11.0.0 of BUFRLIB, limits for values such as the maximum size of
+a BUFR message, the maximum number of data values that could be written into a subset,
+the maximum number of separate BUFR files that could be accessed for reading or
+writing BUFR data at any one time by an application program, etc. were all set as parameters
+within the source code and fixed at compile time, so the only way to adjust these
+values was to manually edit the source code and then recompile the entire library.
+Beginning with
+version 11.0.0, many of these same values are now configurable at run time, with the
+corresponding internal arrays dynamically allocated to allow much greater flexibility
+for a variety of application program needs.  This is done via the following function:
+</p>
+<pre class="subp">
+        IRET = <em class="subpname">ISETPRM</em>  ( CPRMNM, IPVAL )
+
+        Input arguments:
+            CPRMNM      CHAR*(*)        BUFRLIB parameter to be modified from
+                                        default value:
+                                         'MXMSGL' = Maximum length (in bytes) of a BUFR
+                                                    message
+                                         'MAXSS'  = Maximum number of data values in an
+                                                    uncompressed BUFR subset
+                                         'MXCDV'  = Maximum number of data values that can
+                                                    be written into a compressed BUFR subset
+                                         'MXLCC'  = Maximum length (in bytes) of a character
+                                                    string that can be written into a
+                                                    compressed BUFR subset
+                                         'MXCSB'  = Maximum number of subsets that can be
+                                                    written into a compressed BUFR message
+                                         'NFILES' = Maximum number of BUFR files that can be
+                                                    accessed for reading or writing at any
+                                                    one time
+                                         'MAXTBA' = Maximum number of entries in internal BUFR
+                                                    table A per BUFR file
+                                         'MAXTBB' = Maximum number of entries in internal BUFR
+                                                    table B per BUFR file
+                                         'MAXTBD' = Maximum number of entries in internal BUFR
+                                                    table D per BUFR file
+                                         'MAXMEM' = Maximum number of bytes that can be used
+                                                    to store BUFR messages in internal memory
+                                         'MAXMSG' = Maximum number of BUFR messages that can
+                                                    be stored in internal memory
+                                         'MXDXTS' = Maximum number of dictionary tables that
+                                                    can be stored for use with BUFR messages
+                                                    in internal memory
+                                         'MXMTBB' = Maximum number of master table B entries
+                                         'MXMTBD' = Maximum number of master table D entries
+                                         'MAXCD'  = Maximum number of child descriptors in a
+                                                    table D descriptor sequence definition
+                                         'MAXJL'  = Maximum number of entries in the internal
+                                                    jump/link table
+                                         'MXS01V' = Maximum number of default Section 0 or
+                                                    Section 1 values that can be overwritten
+                                                    within an output BUFR message
+            IPVAL       INTEGER         New value for CPRMNM
+
+        Output arguments:
+            IRET        INTEGER         Return code:
+                                          0 = Normal return
+                                         -1 = Invalid or unknown CPRNMN parameter
+</pre>
+<p>
+A separate call to this function must be made for each parameter that is desired to
+be changed from its default value, and all such calls must be made prior to the first
+call to subroutine <em class="subpname">OPENBF</em> within the application program,
+because that is when all internal
+arrays will be dynamically allocated based on the parameter values in effect at the
+time.  If the <em class="subpname">ISETPRM</em> function is not called for a particular
+parameter, then a default value for that parameter (as defined within an internal
+FORTRAN module file) is used instead.  To determine the value currently in effect for
+any such parameter at run time, the following function can be used:
+</p>
+<pre class="subp">
+        (integer value) = <em class="subpname">IGETPRM</em>  ( CPRMNM )
+
+        Input arguments:
+            CPRMNM      CHAR*(*)        BUFRLIB parameter from above list
+
+        Output arguments:
+            IGETPRM     INTEGER         Value assocated with CPRMNM
+                                         -1 = Invalid or unknown CPRNMN parameter
+</pre>
+<p>
+As mentioned above, all calls to function <em class="subpname">ISETPRM</em> must be
+made prior to the first call to subroutine <em class="subpname">OPENBF</em> within the
+application program, because that is when all internal arrays are dynamically allocated
+based on the parameter values in effect at the time, and those sizes then remain in
+effect for the remainder of the life of the application program.  That said, if it is
+later determined within the application program that one or more such values do need to be
+changed, there is a way to do this via the use of the following subroutine call:
+</p>
+<pre class="subp">
+        CALL <em class="subpname">EXITBUFR</em>
+</pre>
+<p>
+This subroutine takes no input arguments and returns no output arguments.  What it does
+is to free all dynamically-allocated internal memory, close all logical units that are
+currently open to the BUFRLIB, and reset the library to all of its original default
+settings as though it had never been called.  This allows an application program to
+potentially reallocate memory all over again within the library via a new subsequent set
+of one or more calls to function <em class="subpname">ISETPRM</em>, followed by a new
+call to subroutine <em class="subpname">OPENBF</em> which will then be treated as though
+it was the first call to this subroutine and allocate internal memory accordingly based
+on the new settings.
+</p>
+<p>
+Please note that, if and when subroutine <em class="subpname">EXITBUFR</em>
+is ever called, then there is no internal memory available within the BUFRLIB (and the entire
+library is essentially unusable within the application program!), unless and until
+subroutine <em class="subpname">OPENBF</em> is once again called to reallocate memory
+with the new settings.  This may be a useful capability for application programs that
+are finished with all calls to BUFRLIB and wish to move on to other unrelated tasks without
+continuing to tie up all of the allocated memory space within the BUFRLIB.  Otherwise, and
+unless there's a need to change parameter sizes following the first call to
+<em class="subpname">OPENBF</em>, then there's no need to ever call
+<em class="subpname">EXITBUFR</em> within an application program, since all allocated
+memory will automatically get freed anyway by the operating system once the application
+program terminates!
+</p>
 </body>
 </html>

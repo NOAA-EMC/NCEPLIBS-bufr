@@ -5,6 +5,8 @@
 
 cat > endiantest.c << ENDIANTEST
 
+#include <stdio.h>
+
 #define Order(x)\
 	fill((char *)&x, sizeof(x)); \
 	for (i=1; i<=sizeof(x); i++) { \
@@ -59,7 +61,6 @@ else
 fi
 
 rm -f endiantest.c endiantest
-
     
 #-------------------------------------------------------------------------------
 #     Preprocess any Fortran *.F files into corresponding *.f files.
@@ -71,7 +72,35 @@ do
   bn=`basename $i .F`
   bnf=${bn}.f
   BNFS="$BNFS $bnf"
-  cpp -P -D$byte_order $i $bnf
+  cpp -P -C -D$byte_order -DNORMAL_BUILD -DDYNAMIC_ALLOCATION $i $bnf
 done
 
 #-------------------------------------------------------------------------------
+#     Use some of the preprocessed Fortran global variable modules to generate
+#     corresponding define flags for the C compiler.
+
+cflags_defs="-DDYNAMIC_ALLOCATION"
+for gvar in NFILES MAXCD
+do
+  gvarval=`grep " ${gvar} = " modv_${gvar}.f | cut -f2 -d= | cut -f2 -d" "`
+  cflags_defs="${cflags_defs} -D${gvar}=${gvarval}"
+done
+
+#-------------------------------------------------------------------------------
+#     Generate the bufrlib.prm header file.
+
+cpp -P -C -DNORMAL_BUILD -DDYNAMIC_ALLOCATION bufrlib.PRM bufrlib.prm
+
+#-------------------------------------------------------------------------------
+#     Use the bufrlib.prm header file to generate a few additional corresponding
+#     define flags for the C compiler.
+
+for bprm in MAXNC MXNAF
+do
+  bprmval=`grep " ${bprm} = " bufrlib.prm | cut -f2 -d= | cut -f2 -d" "`
+  cflags_defs="${cflags_defs} -D${bprm}=${bprmval}"
+done
+
+#-------------------------------------------------------------------------------
+#     Print (to standard output) the define flags for the C compiler.
+echo ${cflags_defs}

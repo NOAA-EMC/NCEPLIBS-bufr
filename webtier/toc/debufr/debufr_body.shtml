@@ -24,6 +24,7 @@ FORTRAN subroutine "fdebufr.f" as shown below.
 </p>
 <pre class="mnem"> 
 --------------------------- main program "debufr.c" --------------------------
+
 /*
 ** MAIN PROGRAM DOCUMENTATION BLOCK
 **
@@ -48,12 +49,18 @@ FORTRAN subroutine "fdebufr.f" as shown below.
 **                         of ckbufr.
 ** 2012-12-07  J. Ator     Modified to add -m and -v options and inline
 **                         version of OPENBT subroutine for mixed BUFR files
+** 2013-10-07  J. Ator     Print Section 1 tank receipt time information
+**                         for NCEP/NCO BUFR messages if available
+** 2013-11-15  J. Ator     Add -h option and check for non-existent tablefil
+** 2014-09-15  J. Ator     Change default path for tabledir, change default
+**                         name for outfile, and confirm outfile is writeable
 **
 ** USAGE:
-**   debufr [-v] [-b] [-m] [-o outfile] [-t tabledir] [-f tablefil] bufrfile
+**   debufr [-v] [-h] [-b] [-m] [-o outfile] [-t tabledir] [-f tablefil] bufrfile
 **
 **   WHERE:
 **     -v        prints version information and exits
+**     -h        prints program help and usage information and exits
 **     -b        specifies the "basic" option, meaning that only the
 **               information in Sections 0-3 will be decoded from each
 **               BUFR message in the bufrfile, and no attempt will be
@@ -65,23 +72,28 @@ FORTRAN subroutine "fdebufr.f" as shown below.
 **               contents of dictionary messages, which otherwise would
 **               not be printed in the output listing.
 **     outfile   [path/]name of file to contain verbose output listing.
-**               The default is "debufr.out" in the local run directory.
+**               The default is "bufrfilename.debufr.out" in the current
+**               working directory, where bufrfilename is the basename of
+**               the bufrfile (i.e. bufrfile with any preceding [path/]
+**               removed).
 **     tabledir  [path/]name of directory containing tables to be used
 **               for decoding.  This directory contains the NCEP DX
 **               dictionary tables file to be used (if one was specified
 **               via the -f option), or it may contain all of the BUFR
 **               master tables when these are being used to decode a
-**               file.  The default is "/nwprod/fix" if unspecified.
+**               file. The default is "/nwprod/decoders/decod_shared/fix"
+**               if unspecified.
 **     tablefil  file within tabledir containing DX dictionary tables
 **               file to be used for decoding.
 **     bufrfile  [path/]name of BUFR file to be decoded
 **
 ** REMARKS:
 **   SUBPROGRAMS CALLED:
-**     LOCAL      - fdebufr  openbt
+**     LOCAL      - fdebufr  openbt   prtusage
 **     BUFRLIB    - ccbfl    cobfl    crbmg    datelen  dxdump
 **                  idxmsg   ireadsb  iupbs01  iupbs3   mtinfo
 **                  openbf   readerme ufdump   upds3    bvers
+**                  rtrcptb
 **
 **   FORTRAN logical unit numbers 51, 90, 91, 92 and 93 are reserved
 **   for use within the fdebufr subroutine.
@@ -91,15 +103,19 @@ FORTRAN subroutine "fdebufr.f" as shown below.
 **   MACHINE: Portable to all platforms
 */
 
-#include <stdio.h>
-#include <unistd.h>
+#include &lt;stdio.h&gt;
+#include &lt;libgen.h&gt;
+#include &lt;unistd.h&gt;
 
 #ifdef UNDERSCORE
 #define cobfl cobfl_
 #define ccbfl ccbfl_
 #define fdebufr fdebufr_
 #define bvers bvers_
+#define prtusage prtusage_
 #endif
+
+#define MXFLEN 300
 
 #ifdef F77_INTSIZE_8
     typedef long f77int;
@@ -115,10 +131,11 @@ int main( int argc, char *argv[ ] ) {
 	char basic = 'N';
 	char forcemt = 'N';
 	char io = 'r';
-	char outfile[120] = "debufr.out";
-	char tbldir[120] = "/nwprod/fix";
-	char tblfil[240];
-	char wkstr[120];
+	char tbldir[MXFLEN] = "/nwprod/decoders/decod_shared/fix";
+	char tblfil[MXFLEN];
+	char outfile[MXFLEN];
+	char wkstr[MXFLEN];
+	char wkstr2[MXFLEN];
 	char bvstr[9] = "        ";
 
 	unsigned short ii;
@@ -126,18 +143,12 @@ int main( int argc, char *argv[ ] ) {
 	f77int lentd;
 	
 	/*
-	**  Get the valid options from the command line:
-	**	-v	prints version information and exits
-	**	-b	only decodes information from Sections 0-3 of each input
-	**		message, with no decoding of Section 4 data
-	**	-m	forces the use of master tables for decoding
-	**	-o	defines the output filename (default is "debufr.out")
-	**	-t	defines the tables directory (default is "/nwprod/fix")
-	**	-f	defines the DX tables file
+	**  Get and process the valid options from the command line:
 	*/
 	errflg = 0;
 	wkstr[0] = '\0';  /* initialize to empty string */
-	while ( ( ch = getopt ( argc, argv, "vbmo:t:f:" ) ) != EOF ) {
+	outfile[0] = '\0';  /* initialize to empty string */
+	while ( ( ch = getopt ( argc, argv, "vhbmo:t:f:" ) ) != EOF ) {
 	    switch ( ch ) {
 		case 'v':
 		    bvers ( bvstr, sizeof(bvstr) );
@@ -148,9 +159,22 @@ int main( int argc, char *argv[ ] ) {
 			  break;
 			}
 		    }
-		    printf( "This is debufr v2.1.0, built with BUFRLIB v%s\n",
+		    printf( "This is debufr v2.2.0, built with BUFRLIB v%s\n",
 			    bvstr );
 		    return 0;
+		case 'h':
+		    printf( "\nPROGRAM %s\n", argv[0] );
+		    printf( "\nABSTRACT: This program decodes a BUFR file and generates a verbose\n" );
+		    printf( "  listing of the contents.  If an NCEP DX dictionary tables file is\n" );
+		    printf( "  specified (using the -f option) or if the specified BUFR file\n" );
+		    printf( "  contains an embedded NCEP DX dictionary message as the first\n" );
+		    printf( "  message in the file, then this DX information is used to decode\n" );
+		    printf( "  the data messages in the file.  Otherwise, or whenever the -m option\n" );
+		    printf( "  is specified, BUFR master tables are read and used to decode the\n" );
+		    printf( "  data messages in the file.\n" );
+		    prtusage( argv[0] );
+		    return 0;
+		    break;
 		case 'b':
 		    basic = 'Y';
 		    break;
@@ -174,15 +198,8 @@ int main( int argc, char *argv[ ] ) {
 	**  input BUFR file.
 	*/
 	if ( (optind+1) != argc ) {
-	    printf( "\nUsage:  %s [options] BUFRfile\n\n", argv[0] );
-	    printf( "  where possible options are:\n" );
-	    printf( "    -v\n" );
-	    printf( "    -b\n" );
-	    printf( "    -m\n" );
-	    printf( "    -o [path/]filename of output file\n" );
-	    printf( "    -t [path/]filename of tables directory\n" );
-	    printf( "    -f filename of DX tables file in tables directory\n\n" );
-	    printf( "  and BUFRfile is [path/]filename of BUFR input file\n\n" );
+	    printf( "\nERROR: You must specify an input BUFR file to be decoded!\n" );
+	    prtusage( argv[0] );
 	    return -1;
         }
 
@@ -202,6 +219,29 @@ int main( int argc, char *argv[ ] ) {
 	}
 
 	/*
+	**  Check whether an output file was specified.  If not, make a default
+	**  filename in the current working directory using the basename of the
+	**  input BUFR file.
+	*/
+	if ( strlen( outfile ) == 0 ) {
+	    strcpy( wkstr2, argv[optind] );
+	    strcpy( outfile, basename( wkstr2 ) );
+	    strcat( outfile, ".debufr.out" );
+	}
+
+	/*
+	**  Confirm that the output directory is writeable.
+	*/
+	strcpy( wkstr2, outfile );
+	strcpy( wkstr, dirname( wkstr2 ) );
+	if ( access( wkstr, W_OK ) != 0 ) {
+	    printf( "\nERROR: Cannot write output file to directory %s\n",
+		( strcmp( wkstr, "." ) == 0 ? getcwd( wkstr2, MXFLEN ) : wkstr ) );
+	    prtusage( argv[0] );
+	    return -1;
+	}
+
+	/*
 	**  Read and decode each message from the input BUFR file.
 	*/
 	lentd = (f77int) strlen(tbldir);
@@ -215,6 +255,43 @@ int main( int argc, char *argv[ ] ) {
 
 	return 0;
 }
+
+void prtusage( char *prgnam ) {
+/*
+**	Prints program usage information to stdout.
+*/
+	printf( "\nUSAGE:\n" );
+	printf( "  %s [-v] [-h] [-b] [-m] [-o outfile] [-t tabledir] [-f tablefil] bufrfile\n\n", prgnam );
+	printf( "WHERE:\n" );
+	printf( "    -v        prints program version information and exits\n" );
+	printf( "    -h        prints program help and usage information and exits\n" );
+	printf( "    -b        specifies the \"basic\" option, meaning that only the\n" );
+	printf( "              information in Sections 0-3 will be decoded from each\n" );
+	printf( "              BUFR message in the bufrfile, and no attempt will be\n" );
+	printf( "              made to decode the data in Section 4\n" );
+	printf( "    -m        specifies that BUFR master tables will be used to\n" );
+	printf( "              decode the data messages in the file, regardless of\n" );
+	printf( "              whether they contain any embedded NCEP DX dictionary\n" );
+	printf( "              messages.  This option can be used to view the actual\n" );
+	printf( "              contents of dictionary messages, which otherwise would\n" );
+	printf( "              not be printed in the output listing.\n" );
+	printf( "    outfile   [path/]name of file to contain verbose output listing.\n" );
+	printf( "              The default is \"bufrfilename.debufr.out\" in the current\n" );
+	printf( "              working directory, where bufrfilename is the basename of\n" );
+	printf( "              the bufrfile (i.e. bufrfile with any preceding [path/]\n" );
+	printf( "              removed).\n" );
+	printf( "    tabledir  [path/]name of directory containing tables to be used\n" );
+	printf( "              for decoding.  This directory contains the NCEP DX\n" );
+	printf( "              dictionary tables file to be used (if one was specified\n" );
+	printf( "              via the -f option), or it may contain all of the BUFR\n" );
+	printf( "              master tables when these are being used to decode a\n" );
+	printf( "              file.  The default is \"/nwprod/decoders/decod_shared/fix\"\n" );
+	printf( "              if unspecified.\n" );
+	printf( "    tablefil  file within tabledir containing DX dictionary tables\n" );
+	printf( "              file to be used for decoding.\n" );
+	printf( "    bufrfile  [path/]name of BUFR file to be decoded\n" );
+}
+
 ------------------------------------------------------------------------------
 
 
@@ -222,6 +299,7 @@ int main( int argc, char *argv[ ] ) {
 
 	SUBROUTINE FDEBUFR ( ofile, tbldir, lentd, tblfil,
      +			     basic, forcemt )
+
 C$$$  SUBPROGRAM DOCUMENTATION BLOCK
 C
 C SUBPROGRAM:    fdebufr
@@ -236,6 +314,12 @@ C 2009-07-01  J. Ator     Original author
 C 2012-06-18  J. Ator     Added tblfil argument and options to decode
 C                         files according to DX dictionary information 
 C 2012-12-07  J. Ator     Added forcemt and lentd arguments
+C 2013-10-07  J. Ator     Print Section 1 tank receipt time information
+C                         for NCEP/NCO BUFR messages if available
+C 2013-11-15  J. Ator     Added check for missing or unreadable tblfil
+C 2014-09-15  J. Ator     Confirm BUFR file was opened (i.e. at least
+C                         one good return from CRBMG) before calling
+C                         DXDUMP.
 C
 C USAGE:    call fdebufr ( ofile, tbldir, lentd, tblfil,
 C			   basic, forcemt )
@@ -274,12 +358,13 @@ C$$$
 	PARAMETER ( MXDS3 = 500 )
 
 	CHARACTER*(*)	ofile, tbldir, tblfil
-	CHARACTER	basic, forcemt, opened, usemt
+
+	LOGICAL		exists
 
 	CHARACTER*8	cmgtag
 	CHARACTER*6	cds3 ( MXDS3 )
-
-	CHARACTER*1	bfmg ( MXBF )
+	CHARACTER*1	basic, forcemt, opened, usemt,
+     +			bfmg ( MXBF )
 
 	INTEGER		ibfmg ( MXBFD4 )
 
@@ -332,7 +417,7 @@ C	    Get the next message from the input BUFR file.
      +		      'from CRBMG = ', IERR
 		ENDIF
 
-		IF ( basic .eq. 'N' ) THEN
+		IF ( ( basic .eq. 'N' ) .and. ( opened .eq. 'Y' ) ) THEN
 		    WRITE (51, FMT = '( /, A, / )' )
      +			'Here is the DX table that was generated:'
 		    CALL DXDUMP ( lunit, 51 )
@@ -345,6 +430,11 @@ C		Close the output file and return.
 	    ENDIF
 
 	    IF ( opened .eq. 'N' ) THEN
+
+		CALL ISETPRM ( 'MAXCD', MXDS3 )
+		CALL ISETPRM ( 'MXMSGL', MXBF )
+		CALL ISETPRM ( 'MAXSS', 160000 )
+		CALL ISETPRM ( 'NFILES', 2 )
 
 C		Decide how to process the file.
 
@@ -362,7 +452,16 @@ C		    front of the file and use this table to decode it.
 C		    A DX dictionary tables file was specified on the
 C		    command line, so use it to decode the BUFR file.
 
-		    OPEN ( UNIT = 91, FILE = tblfil )
+		    INQUIRE ( FILE = tblfil, EXIST = exists )
+		    IF ( .not. exists ) THEN
+			PRINT *, 'ERROR: COULD NOT FIND FILE ', tblfil
+			RETURN
+		    ENDIF
+		    OPEN ( UNIT = 91, FILE = tblfil, IOSTAT = ier )
+		    IF ( ier .ne. 0 ) THEN
+			PRINT *, 'ERROR: COULD NOT OPEN FILE ', tblfil
+			RETURN
+		    ENDIF
 		    CALL OPENBF ( lunit, 'IN', 91 )
 		ELSE
 
@@ -442,6 +541,18 @@ C	    output unless master tables are being used for decoding.
      +					IUPBS01 ( ibfmg, 'MINU' )
 		WRITE (51,*) '               Second:',
      +					IUPBS01 ( ibfmg, 'SECO' )
+		IF ( ( IUPBS01 ( ibfmg, 'OGCE' ) .eq. 7 ) .and.
+     +		     ( IUPBS01 ( ibfmg, 'GSES' ) .eq. 3 ) ) THEN
+		    CALL RTRCPTB ( ibfmg, iryr, irmo, irdy, irhr,
+     +				   irmi, irtret )
+		    IF ( irtret .eq. 0 ) THEN
+			WRITE (51,*) '  NCEP tank rcpt year:', iryr
+			WRITE (51,*) ' NCEP tank rcpt month:', irmo
+			WRITE (51,*) '   NCEP tank rcpt day:', irdy
+			WRITE (51,*) '  NCEP tank rcpt hour:', irhr
+			WRITE (51,*) 'NCEP tank rcpt minute:', irmi
+		    END IF
+		END IF
 		WRITE (51,*) ' ' 
 
 		nsub = IUPBS3 ( ibfmg, 'NSUB' )
@@ -493,6 +604,7 @@ C		    Decode and output the data from Section 4.
 	END
 
 	SUBROUTINE OPENBT ( lundx, mtyp )
+
 C$$$  SUBPROGRAM DOCUMENTATION BLOCK
 C
 C SUBPROGRAM:    OPENBT
@@ -562,8 +674,9 @@ C	from within the NCEP BUFRLIB.
 As shown above, this particular application program is designed to be run
 as a UNIX shell command, with the BUFR file to be decoded as the lone argument.
 The output file where decoded information is to be printed can be specified via
-the option <em class="varname">-o</em>; otherwise the file "debufr.out" is
-created in the same directory.  Similarly, and since the program will need
+the option <em class="varname">-o</em>; otherwise the file "bfbn.debufr.out" is
+created in the same directory, where "bfbn" is the basename of the BUFR file
+to be decoded.  Similarly, and since the program will need
 access to master BUFR tables, an option <em class="varname">-t</em> is also
 provided where the directory containing these master tables is located.  Note
 that this same directory name is eventually passed in as an argument to subroutine
@@ -589,9 +702,12 @@ FORTRAN logical unit number that can later be passed into subroutine
 (via the use of <em class="varname">IO</em>='SEC3') that we want messages
 decoded according to their Section 3 data description section once we pass
 them in via <em class="subpname">READERME</em> later on in the code.
+Note also that there are several calls to <em class="subpname">ISETPRM</em>
+prior to the first call to <em class="subpname">OPENBF</em>, in order to
+modify several internal BUFRLIB array size limits from their default values.
 </p>
 <p>
-At this point, and after the aforementioned required call to subroutine
+After the aforementioned required call to subroutine
 <em class="subpname">MTINFO</em> is made, the main loop is entered to read
 each BUFR message in turn from the specified file using
 <em class="subpname">CRBMG</em>,

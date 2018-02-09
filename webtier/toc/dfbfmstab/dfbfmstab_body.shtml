@@ -177,6 +177,10 @@ that can be downloaded and used:
 <li><a target=_new href="bufrtab.TableB_STD_0_17">Standard Table B for Master Table 0 (WMO), Version 17</a></li>
 <li><a target=_new href="bufrtab.TableB_STD_0_18">Standard Table B for Master Table 0 (WMO), Version 18</a></li>
 <li><a target=_new href="bufrtab.TableB_STD_0_19">Standard Table B for Master Table 0 (WMO), Version 19</a></li>
+<li><a target=_new href="bufrtab.TableB_STD_0_20">Standard Table B for Master Table 0 (WMO), Version 20</a></li>
+<li><a target=_new href="bufrtab.TableB_STD_0_21">Standard Table B for Master Table 0 (WMO), Version 21</a></li>
+<li><a target=_new href="bufrtab.TableB_STD_0_22">Standard Table B for Master Table 0 (WMO), Version 22</a></li>
+<li><a target=_new href="bufrtab.TableB_STD_0_23">Standard Table B for Master Table 0 (WMO), Version 23</a></li>
 <li><a target=_new href="bufrtab.TableB_LOC_0_7_1">Local Table B for Master Table 0 (WMO), Originating Center 7 (NCEP), Version 1</a></li>
 </ul>
 <h3 id="tabled">Table D</h3>
@@ -273,6 +277,10 @@ Here are some sample master Table D files that can be downloaded and used:
 <li><a target=_new href="bufrtab.TableD_STD_0_17">Standard Table D for Master Table 0 (WMO), Version 17</a></li>
 <li><a target=_new href="bufrtab.TableD_STD_0_18">Standard Table D for Master Table 0 (WMO), Version 18</a></li>
 <li><a target=_new href="bufrtab.TableD_STD_0_19">Standard Table D for Master Table 0 (WMO), Version 19</a></li>
+<li><a target=_new href="bufrtab.TableD_STD_0_20">Standard Table D for Master Table 0 (WMO), Version 20</a></li>
+<li><a target=_new href="bufrtab.TableD_STD_0_21">Standard Table D for Master Table 0 (WMO), Version 21</a></li>
+<li><a target=_new href="bufrtab.TableD_STD_0_22">Standard Table D for Master Table 0 (WMO), Version 22</a></li>
+<li><a target=_new href="bufrtab.TableD_STD_0_23">Standard Table D for Master Table 0 (WMO), Version 23</a></li>
 <li><a target=_new href="bufrtab.TableD_LOC_0_7_1">Local Table D for Master Table 0 (WMO), Originating Center 7 (NCEP), Version 1</a></li>
 </ul>
 </body>

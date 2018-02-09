@@ -1,7 +1,7 @@
 Table D STD |  0 | 14
 #
 # Standard BUFR Table D, Master Table 0, Version 14
-# Generated: 2012/08/21 10:45:02
+# Generated: 2013/09/16 14:52:45
 #
 #========================================================================================================
 # F-XX-YYY | MNEMONIC   ;DCOD ; NAME           <-- sequence definition
@@ -1554,6 +1554,15 @@ Table D STD |  0 | 14
            | 0-04-015 > | Time increment 
            | 0-04-065   | Short time increment 
 
+  3-06-021 | METPTIDE   ;     ; Meteorological parameters in tide station
+           | 0-01-075 > | Tide station identification
+           | 3-01-011 > | Year, month, day
+           | 3-01-012 > | Hour, minute
+           | 0-22-122 > | Tide station automated meteorological data check
+           | 0-22-123 > | Tide station manual meteorological data check
+           | 0-12-001 > | Temperature/air temperature
+           | 3-03-002   | Wind at pressure level
+
   3-06-023 | NLALODTP   ;     ; 
            | 0-01-015 > | Station or site name 
            | 3-01-023 > | 
@@ -1563,6 +1572,12 @@ Table D STD |  0 | 14
            | 0-22-039 > | Meteorological residual tidal elevation (surge or offset)
            | 0-22-120 > | Tide station automated water level check 
            | 0-22-121   | Tide station manual water level check 
+
+  3-06-025 | TIDELEV3   ;     ; Tide elevation series
+           | 3-06-019 > | Tide report identification, water level checks, time increments
+           | 1-02-006 > | Replicate 2 descriptors 6 times
+           | 0-22-038 > | Tidal elevation with respect to local chart datum
+           | 0-22-039   | Meteorological residual tidal elevation (surge or offset)
 
   3-06-027 | RDBITTTG   ;     ; Sequence for representation of DART buoy identification, transmitter ID, type of tsunameter and the time the message is transmitted to the ground system
            | 0-01-005 > | Buoy/platform identifier 

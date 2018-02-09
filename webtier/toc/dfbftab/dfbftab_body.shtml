@@ -331,6 +331,7 @@ data subset, the corresponding data value will occupy ( 12 + 4 ) = 16 bits.
 <p>
 Other than <em class="mnemname">201YYY</em>, the BUFRLIB software also supports the similar
 use of the <em class="mnemname">202YYY</em> (change scale),
+<em class="mnemname">203YYY</em> (change reference value),
 <em class="mnemname">204YYY</em> (add associated field),
 <em class="mnemname">205YYY</em> (add character data),
 <em class="mnemname">206YYY</em> (define data

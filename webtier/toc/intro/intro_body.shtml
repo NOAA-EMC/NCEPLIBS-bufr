@@ -33,7 +33,7 @@ it is worth keeping in mind.
 So, without further ado, let's dive in!
 </p>
 <p>
-As a whole, the BUFRLIB software is a library containing close to 250 different
+As a whole, the BUFRLIB software is a library containing more than 250 different
 subprograms and functions; however, a typical user will never directly call more
 than 10-20 of them, and the rest are lower-level routines that the software uses
 to accomplish various underlying tasks and which can therefore be safely treated
