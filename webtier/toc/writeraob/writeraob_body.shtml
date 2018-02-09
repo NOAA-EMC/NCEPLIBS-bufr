@@ -33,8 +33,9 @@ application program for specialized output or other purposes:
      +			rval
 
         PARAMETER       ( MXBF = 16000 )
+        PARAMETER       ( MXBFD4 = MXBF / 4 )
 
-	INTEGER		ibfmsg ( MXBF / 4 )
+	INTEGER		ibfmsg ( MXBFD4 )
 
 	CHARACTER	cval*8
 
@@ -111,7 +112,7 @@ C*	    Store the level data within the data subset.
 C*	    Once all data values have been stored for this data subset,
 C*	    we are now ready to store the data subset into the message.
 
-	    CALL WRITSA  ( 11, ibfmsg, libf )
+	    CALL WRITSA  ( 11, MXBFD4, ibfmsg, libf )
 	    IF  ( libf .gt. 0 )  THEN
 		( write BUFR message ibfmsg (1,2,...,libf) to local system )
 	    END IF
@@ -121,7 +122,7 @@ C*	    we are now ready to store the data subset into the message.
 C*	Forcibly flush the last BUFR message, if any, from the
 C*	BUFRLIB software.
 
-	CALL WRITSA  ( -11, ibfmsg, libf )
+	CALL WRITSA  ( -11, MXBFD4, ibfmsg, libf )
 	IF  ( libf .gt. 0 )  THEN
 	    ( write BUFR message ibfmsg (1,2,...,libf) to local system )
 	END IF

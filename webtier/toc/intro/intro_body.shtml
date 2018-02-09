@@ -337,7 +337,7 @@ effort or worry on the part of the user's application program!
 BUFRLIB software is a practical one based upon the current specifications of
 certain meteorological telecommunications networks and is <em class="emphasis">not</em> a limit
 imposed by the BUFR code form itself.  Theoretically, at least according to the official
-<a href="http://www.nws.noaa.gov/cgi-bin/nwsexit.pl?url=http://www.wmo.int/pages/prog/www/WMOCodes/Operational/BUFR/FM94REG-11-2007.pdf">WMO Manual #306</a>,
+<a href="http://www.nws.noaa.gov/cgi-bin/nwsexit.pl?url=ftp://ftp.wmo.int/Documents/MediaPublic/Publications/CodesManual_WMO_No_306/WMO306_Vol_I.2_2012_en.pdf">WMO Manual #306</a>,
 the only limit to the size of a BUFR
 message is the constraint that such a size (in bytes) must be representable as an
 integer of 24 bits or less so that it can be encoded within bytes 5-7 of Section 0

@@ -8,6 +8,93 @@
     <!--#include virtual="/common/icon_printer.html"-->
     <small><a href="printable.shtml" target="print">Printer Friendly Version</a></small>
 <h2 align="center">NCEP BUFRLIB Change History</h2>
+<pre id=v10.2.3>
+##############################################################################
+
+          Changes to BUFR Archive Library, Version 10.2.3
+
+1) Subroutine RDUSDX was modified to prevent a segfault when trying to read
+DX dictionary information from an empty file.
+
+##############################################################################
+
+          Changes to BUFR Archive Library, Version 10.2.2
+
+1) Subroutine OPENBF was modified to fix a bug which caused a segfault in
+certain cases when appending to a BUFR file using the embedded C-language I/O.
+
+2) Subroutines READLC and WRITLC were modified to allow the input mnemonic
+string to be up to 14 characters when it contains a '#' condition code.
+
+##############################################################################
+
+          Changes to BUFR Archive Library, Version 10.2.1
+
+1) A bug was fixed in the embedded C-language I/O to account for the
+difference in index numbering between Fortran and C arrays.
+
+##############################################################################
+
+          Changes to BUFR Archive Library, Version 10.2.0
+
+1) The makebufrlib.sh script was modified to streamline the endianness check
+and make it more portable.
+
+2) Subroutine WRTREE was modified to ensure that "missing" character strings
+are properly encoded with all bits set to 1.
+
+3) A new function ICBFMS was added which tests whether decoded character
+strings are "missing" by checking if all of the equivalent bits are set to 1.
+This was done because, on certain platforms, the BUFRLIB REAL*8 "missing" value
+BMISS is not always equivalent to all bits set to 1 when viewed as a character
+string, and thus the existing BUFRLIB function IBFMS did not always work
+properly in such cases.  However, users can continue to use the existing IBFMS
+function in application programs, because the new ICBFMS function has now been
+incorporated internally within the logic of many BUFRLIB subroutines, in
+addition to also being available for direct calling by application programs.
+
+4) Subroutines READMG and READERME were modified to prevent the BUFRLIB from
+internally adjusting to DX (dictionary) table messages when Section 3 decoding
+is being used.  Otherwise, contention can occur between the table information
+in the DX messages and the table information specified within the Section 3
+descriptors.  From now on, whenever Section 3 decoding is used (as specified
+by setting IO="SEC3" when opening a file via OPENBF), the BUFRLIB will now
+treat any DX (dictionary) table message the same as any other message and
+decode the actual data (i.e. table) values according to Section 3.
+
+5) Subroutine OPENBF was modified to allow a new option for input call
+argument IO.  If this argument is set to 'INUL', then the BUFRLIB will behave
+the same as when IO='IN', except that it will never try to actually read
+anything from the file attached to input call argument LUNIT.  This can be
+useful for some special cases, such as when the user plans to pass input
+messages to the BUFRLIB using subsequent calls to subroutine READERME.
+
+6) A new subroutine GETTAGPR was added which returns the mnemonic corresponding
+to a parent sequence in a subset definition, given the mnemonic corresponding
+to a child descriptor within that sequence.  This can be useful in certain
+application codes, especially when Section 3 decoding is being used.
+
+7) A new function GETVALNB was added which searches for a specified mnemonic
+in a subset definition, then searches forward or backward from that point for
+a different mnemonic and returns the associated value.  This can be useful in
+certain application codes, especially when Section 3 decoding is being used.
+
+8) Functionality was added to improve the portability of reading and writing
+BUFR messages across different platforms.  All calls to existing FORTRAN
+subroutines which read or write BUFR messages from disk (e.g. READMG, UFBMEM,
+UFBTAB, WRITSB, WRCMPS, COPYMG, etc.) now use embedded C-language I/O to
+perform these tasks.  Among other things, this means that any BUFR file can
+now be read regardless of whether it has been pre-blocked with FORTRAN
+control words using the cwordsh utility.  For writing BUFR files, a new
+subroutine SETBLOCK was added which allows users to specify whether output
+BUFR messages are to be unblocked (which is the new default), big-endian
+blocked, or little-endian blocked.
+
+9) A new subroutine SETBMISS was added which allows users to specify a custom
+"missing" value for writing to and reading from BUFR files, rather than using
+the BUFRLIB default "missing" value of 10E10.  A corresponding function
+GETBMISS was also added which returns the current "missing" value in use.
+</pre>
 <pre id=v10.1.0>
 ##############################################################################
 

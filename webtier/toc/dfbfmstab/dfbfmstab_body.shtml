@@ -99,7 +99,7 @@ With this approach, the user can have multiple master table files stored within 
 BUFRLIB software will always locate and read the appropriate ones depending on the corresponding
 values stored within Section 1 of each new message
 to be decoded.  For more details about the above values, see the discussion on Section 1 within the official
-<a href="http://www.nws.noaa.gov/cgi-bin/nwsexit.pl?url=http://www.wmo.int/pages/prog/www/WMOCodes/Operational/BUFR/FM94REG-11-2007.pdf">WMO Manual #306</a>.
+<a href="http://www.nws.noaa.gov/cgi-bin/nwsexit.pl?url=ftp://ftp.wmo.int/Documents/MediaPublic/Publications/CodesManual_WMO_No_306/WMO306_Vol_I.2_2012_en.pdf">WMO Manual #306</a>.
 </p>
 <p>
 Now that we've discussed the content and naming conventions for master BUFR table files, let's turn our attention
@@ -172,6 +172,11 @@ that can be downloaded and used:
 <ul>
 <li><a target=_new href="bufrtab.TableB_STD_0_13">Standard Table B for Master Table 0 (WMO), Version 13</a></li>
 <li><a target=_new href="bufrtab.TableB_STD_0_14">Standard Table B for Master Table 0 (WMO), Version 14</a></li>
+<li><a target=_new href="bufrtab.TableB_STD_0_15">Standard Table B for Master Table 0 (WMO), Version 15</a></li>
+<li><a target=_new href="bufrtab.TableB_STD_0_16">Standard Table B for Master Table 0 (WMO), Version 16</a></li>
+<li><a target=_new href="bufrtab.TableB_STD_0_17">Standard Table B for Master Table 0 (WMO), Version 17</a></li>
+<li><a target=_new href="bufrtab.TableB_STD_0_18">Standard Table B for Master Table 0 (WMO), Version 18</a></li>
+<li><a target=_new href="bufrtab.TableB_STD_0_19">Standard Table B for Master Table 0 (WMO), Version 19</a></li>
 <li><a target=_new href="bufrtab.TableB_LOC_0_7_1">Local Table B for Master Table 0 (WMO), Originating Center 7 (NCEP), Version 1</a></li>
 </ul>
 <h3 id="tabled">Table D</h3>
@@ -263,6 +268,11 @@ Here are some sample master Table D files that can be downloaded and used:
 <ul>
 <li><a target=_new href="bufrtab.TableD_STD_0_13">Standard Table D for Master Table 0 (WMO), Version 13</a></li>
 <li><a target=_new href="bufrtab.TableD_STD_0_14">Standard Table D for Master Table 0 (WMO), Version 14</a></li>
+<li><a target=_new href="bufrtab.TableD_STD_0_15">Standard Table D for Master Table 0 (WMO), Version 15</a></li>
+<li><a target=_new href="bufrtab.TableD_STD_0_16">Standard Table D for Master Table 0 (WMO), Version 16</a></li>
+<li><a target=_new href="bufrtab.TableD_STD_0_17">Standard Table D for Master Table 0 (WMO), Version 17</a></li>
+<li><a target=_new href="bufrtab.TableD_STD_0_18">Standard Table D for Master Table 0 (WMO), Version 18</a></li>
+<li><a target=_new href="bufrtab.TableD_STD_0_19">Standard Table D for Master Table 0 (WMO), Version 19</a></li>
 <li><a target=_new href="bufrtab.TableD_LOC_0_7_1">Local Table D for Master Table 0 (WMO), Originating Center 7 (NCEP), Version 1</a></li>
 </ul>
 </body>

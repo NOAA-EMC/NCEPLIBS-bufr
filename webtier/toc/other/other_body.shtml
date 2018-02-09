@@ -938,10 +938,7 @@ underlying system file is handled at the application level where the
 file is also associated with a FORTRAN logical unit number before issuing the
 call to <em class="subpname">OPENBF</em>.  Having said that, it is possible to
 read and write BUFR messages to or from system files using an alternative C
-language interface, and in particular this avoids the FORTRAN-blocking problem
-noted during the discussion of the
-<a href="../cwordsh/">cwordsh utility</a>.  In fact, the cwordsh utility
-itself uses this same C language interface to do its own work!  Each of the
+language interface.  Each of the
 following functions can be called from application programs written in either
 FORTRAN or C, but for demonstration purposes we will use the FORTRAN syntax during
 the remainder of the discussion.
@@ -1041,5 +1038,80 @@ program using subroutine <em class="subpname">WRITSA</em>, so that each such mes
 could then be written out to a local system file using
 <em class="subpname">CWBMG</em> as shown above.
 </p>
+<hr class="center" width="80%" />
+<p id="setblock">
+In version 10.1.0 and earlier versions of BUFRLIB, the writing out of BUFR messages
+using subroutine <em class="subpname">WRITSB</em> often meant that the messages were
+written to disk with FORTRAN-blocking information surrounding them.  This occurred
+because the subroutine was using a FORTRAN "WRITE" command, and standard FORTRAN,
+unlike certain other programming languages such as C and C++, does not have the
+capability to read or write data to or from a system file as a pure binary stream of
+bits.  Some compilers did provide their own non-standard extensions to allow this,
+but this was by no means standard across the many available UNIX platforms in
+existence at the time.  So for most users, the best available option was to use the
+standard FORM='UNFORMATTED' access mode when opening an output file within their
+application program, and then later
+use the separate NCEP program cwordsh to remove the extraneous FORTRAN-blocking
+information and thereby obtain a "pure" BUFR file.
+</p>
+<p>
+Now however, with versions 10.2.x and later of BUFRLIB, the logic within
+<em class="subpname">WRITSB</em> has been internally rewritten to do a C-language
+write of each BUFR message, so the resulting output file is now pure BUFR by default,
+without the need to subsequently run cwordsh or use any special non-standard
+extensions when opening the file within the application program!  Likewise, the
+subroutines <em class="subpname">READMG, IREADMG, READNS</em> etc. have also been
+updated to be able to read <em class="emphasis">any</em> type of BUFR file
+(whether FORTRAN-blocked or not!) without any additional effort on the part of
+the user!  So there is no longer a need for the cwordsh program; however, any
+users who wish to continue writing FORTRAN-blocked BUFR output files (e.g. for
+consistency with historical archives) can continue to do so via the following new
+subroutine:
+</p>
+<pre class="subp">
+        CALL <em class="subpname">SETBLOCK</em>  ( IBLK )
+
+        Input arguments:
+            IBLK        INTEGER         Blocking indicator
+                                         -1 = little-endian blocking
+                                          0 = no blocking (i.e. "pure" BUFR)
+                                          1 = big-endian blocking 
+</pre>
+<p>
+This new subroutine should be called immediately prior to the first call to
+subroutine <em class="subpname">OPENBF</em>, and then all writes to output files will
+be done in accordance with the selected indicator, so
+that users now have full control over the content of their resulting BUFR files and
+can even specify output that is blocked with reverse-endianness to the native
+platform.  Note however that the default style is now "pure" BUFR for all output
+files, so users who wish to retain any sort of FORTRAN-blocking must now call
+subroutine <em class="subpname">SETBLOCK</em> to specify it.
+</p>
+<hr class="center" width="80%" />
+<p id="setbmiss">
+With versions 10.2.x and later of BUFRLIB, it is now also possible to specify a
+custom  &quot;missing&quot; value for writing and reading from BUFR files, rather
+than using the BUFRLIB default value of 10.0E10:
+</p>
+<pre class="subp">
+        CALL <em class="subpname">SETBMISS</em>  ( XMISS )
+
+        Input arguments:
+            XMISS       REAL*8          Value to be used for &quot;missing&quot;
+</pre>
+<p>
+This new subroutine should be called immediately prior to the first call to
+subroutine <em class="subpname">OPENBF</em>, and the supplied value will then be
+treated as &quot;missing&quot; for all future calls to subroutines 
+<em class="subpname">IBFMS, UFBINT, UFBREP, UFBSEQ, UFBTAB</em> etc.
+Correspondingly, a user can always check the value of &quot;missing&quot; that is
+currently in use via a call to the following new function:
+</p>
+<pre class="subp">
+        XMISS = <em class="subpname">GETBMISS</em>()
+
+        Output arguments:
+            XMISS       REAL*8          BUFRLIB &quot;missing&quot; value
+</pre>
 </body>
 </html>

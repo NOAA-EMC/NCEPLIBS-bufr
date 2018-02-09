@@ -30,35 +30,61 @@ FORTRAN subroutine "fdebufr.f" as shown below.
 ** MAIN PROGRAM:  debufr
 **   PRGMMR: J. Ator          ORG: NP12        DATE: 2009-07-01
 **
-** ABSTRACT: This program decodes a specified BUFR file and generates a
-**   verbose listing of the contents.
+** ABSTRACT: This program decodes a BUFR file and generates a verbose
+**   listing of the contents.  If an NCEP DX dictionary tables file is
+**   specified (using the -f option) or if the specified BUFR file
+**   contains an embedded NCEP DX dictionary message as the first
+**   message in the file, then this DX information is used to decode
+**   the data messages in the file.  Otherwise, or whenever the -m option
+**   is specified, BUFR master tables are read and used to decode the
+**   data messages in the file.
 **
 ** PROGRAM HISTORY LOG:
 ** 2009-07-01  J. Ator     Original author
+** 2012-06-18  J. Ator     Modified to allow decoding of BUFR files
+**                         based on NCEP DX dictionary table
+**                         information.  The program can now process
+**                         any files that previously required the use
+**                         of ckbufr.
+** 2012-12-07  J. Ator     Modified to add -m and -v options and inline
+**                         version of OPENBT subroutine for mixed BUFR files
 **
 ** USAGE:
-**   ./debufr [-b] [-o outfile] [-t tabledir] bufrfile
+**   debufr [-v] [-b] [-m] [-o outfile] [-t tabledir] [-f tablefil] bufrfile
 **
 **   WHERE:
-**     -b        specifies the "basic" option, whereby only information
-**               from Sections 0-3 of each BUFR message in the bufrfile
-**               is decoded, and no attempt is made to decode the data
-**               in Section 4
-**     outfile   [path/]name of file to contain verbose output listing;
-**               the default is "debufr.out" in the local run directory
-**     tabledir  directory containing BUFR master tables to be used for
-**               decoding; the default is "/nwprod/fix"
+**     -v        prints version information and exits
+**     -b        specifies the "basic" option, meaning that only the
+**               information in Sections 0-3 will be decoded from each
+**               BUFR message in the bufrfile, and no attempt will be
+**               made to decode the data in Section 4
+**     -m        specifies that BUFR master tables will be used to
+**               decode the data messages in the file, regardless of
+**               whether they contain any embedded NCEP DX dictionary
+**               messages.  This option can be used to view the actual
+**               contents of dictionary messages, which otherwise would
+**               not be printed in the output listing.
+**     outfile   [path/]name of file to contain verbose output listing.
+**               The default is "debufr.out" in the local run directory.
+**     tabledir  [path/]name of directory containing tables to be used
+**               for decoding.  This directory contains the NCEP DX
+**               dictionary tables file to be used (if one was specified
+**               via the -f option), or it may contain all of the BUFR
+**               master tables when these are being used to decode a
+**               file.  The default is "/nwprod/fix" if unspecified.
+**     tablefil  file within tabledir containing DX dictionary tables
+**               file to be used for decoding.
 **     bufrfile  [path/]name of BUFR file to be decoded
 **
 ** REMARKS:
 **   SUBPROGRAMS CALLED:
-**     LOCAL      - fdebufr
+**     LOCAL      - fdebufr  openbt
 **     BUFRLIB    - ccbfl    cobfl    crbmg    datelen  dxdump
-**                  ireadsb  iupbs01  iupbs3   mtinfo   openbf
-**                  readerme ufdump   upds3
+**                  idxmsg   ireadsb  iupbs01  iupbs3   mtinfo
+**                  openbf   readerme ufdump   upds3    bvers
 **
-**   FORTRAN logical unit numbers 51, 60, 90 and 91 are reserved for
-**   use within the fdebufr subroutine.
+**   FORTRAN logical unit numbers 51, 90, 91, 92 and 93 are reserved
+**   for use within the fdebufr subroutine.
 **
 ** ATTRIBUTES:
 **   LANGUAGE: C
@@ -72,79 +98,130 @@ FORTRAN subroutine "fdebufr.f" as shown below.
 #define cobfl cobfl_
 #define ccbfl ccbfl_
 #define fdebufr fdebufr_
+#define bvers bvers_
+#endif
+
+#ifdef F77_INTSIZE_8
+    typedef long f77int;
+#else
+    typedef int f77int;
 #endif
 
 int main( int argc, char *argv[ ] ) {
 
-        int ch;
-        int errflg;
+	int ch;
+	int errflg;
 
-        char basic = 'F';
-        char io = 'r';
-        char outfile[120] = "debufr.out";
-        char tbldir[120] = "/nwprod/fix";
+	char basic = 'N';
+	char forcemt = 'N';
+	char io = 'r';
+	char outfile[120] = "debufr.out";
+	char tbldir[120] = "/nwprod/fix";
+	char tblfil[240];
+	char wkstr[120];
+	char bvstr[9] = "        ";
 
-        /*
-        **  Get the valid options from the command line:
-        **      -b      "basic" option - only decodes information from Sections 0-3
-        **              of each input message, with no decoding of Section 4 data
-        **      -o      defines the output filename (default is "debufr.out")
-        **      -t      defines the master table directory (default is "/nwprod/fix")
-        */
-        errflg = 0;
-        while ( ( ch = getopt ( argc, argv, "bo:t:" ) ) != EOF ) {
-            switch ( ch ) {
-                case 'b':
-                    basic = 'T';
-                    break;
-                case 'o':
-                    strcpy ( outfile, optarg );
-                    break;
-                case 't':
-                    strcpy ( tbldir, optarg );
-                    break;
-            }
+	unsigned short ii;
+
+	f77int lentd;
+	
+	/*
+	**  Get the valid options from the command line:
+	**	-v	prints version information and exits
+	**	-b	only decodes information from Sections 0-3 of each input
+	**		message, with no decoding of Section 4 data
+	**	-m	forces the use of master tables for decoding
+	**	-o	defines the output filename (default is "debufr.out")
+	**	-t	defines the tables directory (default is "/nwprod/fix")
+	**	-f	defines the DX tables file
+	*/
+	errflg = 0;
+	wkstr[0] = '\0';  /* initialize to empty string */
+	while ( ( ch = getopt ( argc, argv, "vbmo:t:f:" ) ) != EOF ) {
+	    switch ( ch ) {
+		case 'v':
+		    bvers ( bvstr, sizeof(bvstr) );
+		    /* append a trailing NULL to bvstr for printf */
+		    for ( ii = 0; ii < sizeof(bvstr); ii++ ) {
+			if ( ( bvstr[ii] != '.' ) && ( !isdigit(bvstr[ii]) ) ) {
+			  bvstr[ii] = '\0';
+			  break;
+			}
+		    }
+		    printf( "This is debufr v2.1.0, built with BUFRLIB v%s\n",
+			    bvstr );
+		    return 0;
+		case 'b':
+		    basic = 'Y';
+		    break;
+		case 'm':
+		    forcemt = 'Y';
+		    break;
+		case 'o':
+		    strcpy ( outfile, optarg );
+		    break;
+		case 't':
+		    strcpy ( tbldir, optarg );
+		    break;
+		case 'f':
+		    strcpy ( wkstr, optarg );
+		    break;
+	    }
+	}
+
+	/*
+	**  There should be one remaining command line argument specifying the
+	**  input BUFR file.
+	*/
+	if ( (optind+1) != argc ) {
+	    printf( "\nUsage:  %s [options] BUFRfile\n\n", argv[0] );
+	    printf( "  where possible options are:\n" );
+	    printf( "    -v\n" );
+	    printf( "    -b\n" );
+	    printf( "    -m\n" );
+	    printf( "    -o [path/]filename of output file\n" );
+	    printf( "    -t [path/]filename of tables directory\n" );
+	    printf( "    -f filename of DX tables file in tables directory\n\n" );
+	    printf( "  and BUFRfile is [path/]filename of BUFR input file\n\n" );
+	    return -1;
         }
 
-        /*
-        **  There should be one remaining command line argument specifying the
-        **  input BUFR file.
-        */
-        if ( (optind+1) != argc ) {
-            printf( "\nUsage:  %s [options] BUFRfile\n\n", argv[0] );
-            printf( "  where possible options are:\n" );
-            printf( "    -b\n" );
-            printf( "    -o [path/]filename of output file\n" );
-            printf( "    -t [path/]filename of master table directory\n\n" );
-            printf( "  and BUFRfile is [path/]filename of BUFR input file\n\n" );
-            return -1;
-        }
+	/*
+	**  Open the input BUFR file.
+	*/
+	cobfl( argv[optind], &io );
 
-        /*
-        **  Open the input BUFR file.
-        */
-        cobfl( argv[optind], &io );
+	/*
+	**  Check whether a DX tables file was specified.
+	*/
+	if ( strlen( wkstr ) > 0 ) {
+	    sprintf( tblfil, "%s%c%s", tbldir, '/', wkstr );
+	}
+	else {
+	    strcpy( tblfil, "NULLFILE" );
+	}
 
-        /*
-        **  Read and decode each message from the input BUFR file.
-        */
-        fdebufr( outfile, tbldir, &basic,
-                 strlen(outfile), strlen(tbldir) );
+	/*
+	**  Read and decode each message from the input BUFR file.
+	*/
+	lentd = (f77int) strlen(tbldir);
+	fdebufr( outfile, tbldir, &lentd, tblfil, &basic, &forcemt,
+		 strlen(outfile), strlen(tbldir), strlen(tblfil) );
 
-        /*
-        **  Close the input BUFR file.
-        */
-        ccbfl( );
+	/*
+	**  Close the input BUFR file.
+	*/
+	ccbfl( );
 
-        return 0;
+	return 0;
 }
 ------------------------------------------------------------------------------
 
 
 ---------------------- FORTRAN subroutine "fdebufr.f" ------------------------
 
-        SUBROUTINE FDEBUFR ( ofile, tbldir, basic )
-
+	SUBROUTINE FDEBUFR ( ofile, tbldir, lentd, tblfil,
+     +			     basic, forcemt )
 C$$$  SUBPROGRAM DOCUMENTATION BLOCK
 C
 C SUBPROGRAM:    fdebufr
@@ -153,27 +230,36 @@ C
 C ABSTRACT: This subroutine reads every BUFR message from within the
 C   input file that was specified on the command line.  Each such
 C   message is decoded and the results are written as output to ofile.
-C   No DX dictionary files or messages are necessary; rather, only
-C   BUFR master tables are required and must exist in the directory
-C   specified by tbldir.
 C
 C PROGRAM HISTORY LOG:
 C 2009-07-01  J. Ator     Original author
+C 2012-06-18  J. Ator     Added tblfil argument and options to decode
+C                         files according to DX dictionary information 
+C 2012-12-07  J. Ator     Added forcemt and lentd arguments
 C
-C USAGE:    call fdebufr ( ofile, tbldir, basic )
+C USAGE:    call fdebufr ( ofile, tbldir, lentd, tblfil,
+C			   basic, forcemt )
 C   INPUT ARGUMENT LIST:
 C     ofile    - character*(*): file to contain verbose output
 C                listing for each decoded BUFR message
-C     tbldir   - character*(*): directory containing BUFR master
-C                tables to be used for decoding
+C     tbldir   - character*(*): directory containing BUFR tables
+C                to be used for decoding
+C     lentd    - integer: length of tbldir string
+C     tblfil   - character*(*): file containing BUFR DX dictionary
+C                information to be used for decoding.  If set to
+C                'NULLFILE', then no such file will be used.
 C     basic    - character: indicator as to whether the "basic"
 C                option was specified on the command line:
 C                  'Y' = yes
 C                  'N' = no
+C     forcemt  - character: indicator as to whether the forced use
+C                of master tables was specified on the command line:
+C                  'Y' = yes
+C                  'N' = no
 C
 C REMARKS:
-C   FORTRAN logical unit numbers 51, 60, 90 and 91 are reserved for
-C   use within this subroutine.
+C   FORTRAN logical unit numbers 51, 90, 91, 92 and 93 are reserved
+C   for use within this subroutine.
 C
 C ATTRIBUTES:
 C   LANGUAGE: FORTRAN 77
@@ -181,159 +267,295 @@ C   MACHINE:  Portable to all platforms
 C
 C$$$
 
-        PARAMETER ( MXBF = 950000 )
-        PARAMETER ( MXBFD4 = MXBF/4 )
-        PARAMETER ( MXDS3 = 500 )
+	USE Share_Table_Info
 
-        CHARACTER*(*)   ofile, tbldir
-        CHARACTER       basic
+	PARAMETER ( MXBF = 2500000 )
+	PARAMETER ( MXBFD4 = MXBF/4 )
+	PARAMETER ( MXDS3 = 500 )
 
-        CHARACTER*8     cmgtag
-        CHARACTER*6     cds3 ( MXDS3 )
+	CHARACTER*(*)	ofile, tbldir, tblfil
+	CHARACTER	basic, forcemt, opened, usemt
 
-        CHARACTER*1     bfmg ( MXBF )
+	CHARACTER*8	cmgtag
+	CHARACTER*6	cds3 ( MXDS3 )
 
-        INTEGER         ibfmg ( MXBFD4 )
+	CHARACTER*1	bfmg ( MXBF )
 
-        EQUIVALENCE     ( bfmg (1), ibfmg (1) )
+	INTEGER		ibfmg ( MXBFD4 )
 
-C----------- End of declarations --------------
+	EQUIVALENCE	( bfmg (1), ibfmg (1) )
+ 
+C-----------------------------------------------------------------------
+C-----------------------------------------------------------------------
 
-C       Open the output file.
+C	Open the output file.
 
-        OPEN ( UNIT = 51, FILE = ofile )
+	OPEN ( UNIT = 51, FILE = ofile )
 
-C       Note that in the below OPEN statement we just need to specify
-C       a dummy placeholder file.
+C	Note that in the below OPEN statement we just need to specify
+C	a dummy placeholder file.
 
-        lunit = 60
-        OPEN ( UNIT = lunit, FILE = '/dev/null' )
-        CALL OPENBF ( lunit, 'SEC3', lunit )
+	lunit = 92
+	OPEN ( UNIT = lunit, FILE = '/dev/null' )
 
-        CALL MTINFO ( tbldir, 90, 91 )
+	CALL DATELEN ( 10 )
 
-        CALL DATELEN ( 10 )
+C	Initialize the values in the Share_Table_Info module.
 
-        nmsg = 0
+	ludx = 93
+	ltbd = lentd
+	ctbldir = tbldir(1:lentd)
 
-        nsubt = 0
+C	Initialize some other values.
 
-        DO WHILE ( .true. )
+	nmsg = 0
+	nsubt = 0
 
-C           Get the next message from the input BUFR file.
+	opened = 'N'
+	usemt = 'N'
 
-            CALL CRBMG ( bfmg, MXBF, nbyt, ierr )
-            IF ( ierr .ne. 0 )  THEN
-                IF ( ierr .eq. -1 ) THEN
-                    WRITE  ( UNIT = 51, FMT = '( /, 2A, I7, A, I9, A )')
-     +                'Reached end of BUFR file; it contained a total ',
-     +                'of', nmsg, ' messages and', nsubt, ' subsets'
-                ELSE
-                    WRITE  ( UNIT = 51, FMT = '( /, 2A, I4 )' )
-     +                'Error while reading BUFR file; the return code ',
-     +                'from CRBMG = ', IERR
-                ENDIF
-                IF ( basic .eq. 'F' ) THEN
-                    WRITE (51, FMT = '( /, A, / )' )
-     +                  'Here is the DX table that was generated:'
-                    CALL DXDUMP ( lunit, 51 )
-                ENDIF
+	DO WHILE ( .true. )
 
-C               Close the output file.
+C	    Get the next message from the input BUFR file.
 
-                CLOSE ( 51 )
+	    CALL CRBMG ( bfmg, MXBF, nbyt, ierr )
 
-                RETURN
-            ENDIF
+	    IF ( ierr .ne. 0 )  THEN
 
-            nmsg = nmsg + 1
+		IF ( ierr .eq. -1 ) THEN
+		    WRITE  ( UNIT = 51, FMT = '( /, 2A, I7, A, I9, A )')
+     +		      'Reached end of BUFR file; it contained a total ',
+     +		      'of', nmsg, ' messages and', nsubt, ' subsets'
+		ELSE
+		    WRITE  ( UNIT = 51, FMT = '( /, 2A, I4 )' )
+     +		      'Error while reading BUFR file; the return code ',
+     +		      'from CRBMG = ', IERR
+		ENDIF
 
-            WRITE  ( UNIT = 51, FMT = '( /, A, I7 )' )
-     +          'Found BUFR message #', nmsg
+		IF ( basic .eq. 'N' ) THEN
+		    WRITE (51, FMT = '( /, A, / )' )
+     +			'Here is the DX table that was generated:'
+		    CALL DXDUMP ( lunit, 51 )
+		ENDIF
 
-            WRITE (51,*) ' '
+C		Close the output file and return.
 
-            WRITE (51,*) '       Message length:', IUPBS01(ibfmg,'LENM')
-            WRITE (51,*) '     Section 0 length:', IUPBS01(ibfmg,'LEN0')
-            WRITE (51,*) '         BUFR edition:', IUPBS01(ibfmg,'BEN')
+		CLOSE ( 51 )
+		RETURN
+	    ENDIF
 
-            WRITE (51,*) ' '
+	    IF ( opened .eq. 'N' ) THEN
 
-            WRITE (51,*) '     Section 1 length:', IUPBS01(ibfmg,'LEN1')
-            WRITE (51,*) '         Master table:', IUPBS01(ibfmg,'BMT')
-            WRITE (51,*) '   Originating center:', IUPBS01(ibfmg,'OGCE')
-            WRITE (51,*) 'Originating subcenter:', IUPBS01(ibfmg,'GSES')
-            WRITE (51,*) 'Update sequence numbr:', IUPBS01(ibfmg,'USN')
+C		Decide how to process the file.
 
-            IF ( IUPBS01(ibfmg,'ISC2') .eq. 1 ) THEN
-                WRITE (51,*) '   Section 2 present?: Yes'
-            ELSE
-                WRITE (51,*) '   Section 2 present?: No'
-            ENDIF
+		IF ( ( IDXMSG ( ibfmg ) .eq. 1 ) .and.
+     +			( forcemt .eq. 'N' ) ) THEN
 
-            WRITE (51,*) '        Data category:', IUPBS01(ibfmg,'MTYP')
-            WRITE (51,*) '    Local subcategory:', IUPBS01(ibfmg,'MSBT')
-            WRITE (51,*) 'Internatl subcategory:',
-     +                                  IUPBS01(ibfmg,'MSBTI')
-            WRITE (51,*) ' Master table version:', IUPBS01(ibfmg,'MTV')
-            WRITE (51,*) '  Local table version:', IUPBS01(ibfmg,'MTVL')
-            WRITE (51,*) '                 Year:', IUPBS01(ibfmg,'YEAR')
-            WRITE (51,*) '                Month:', IUPBS01(ibfmg,'MNTH')
-            WRITE (51,*) '                  Day:', IUPBS01(ibfmg,'DAYS')
-            WRITE (51,*) '                 Hour:', IUPBS01(ibfmg,'HOUR')
-            WRITE (51,*) '               Minute:', IUPBS01(ibfmg,'MINU')
-            WRITE (51,*) '               Second:', IUPBS01(ibfmg,'SECO')
+C		    The first message in the file is a DX dictionary
+C		    message, so assume there's an embedded table at the
+C		    front of the file and use this table to decode it.
 
-            WRITE (51,*) ' '
+		    CALL OPENBF ( lunit, 'INUL', lunit )
+		ELSE IF ( ( tblfil(1:8) .ne. 'NULLFILE' ) .and.
+     +			    ( forcemt .eq. 'N' ) ) THEN
 
-            nsub = IUPBS3(ibfmg,'NSUB')
-            WRITE (51,*) 'Number of data subsets:', nsub
-            nsubt = nsubt + nsub
+C		    A DX dictionary tables file was specified on the
+C		    command line, so use it to decode the BUFR file.
 
-            IF ( IUPBS3(ibfmg,'IOBS') .eq. 1 ) THEN
-                WRITE (51,*) '    Data are observed?: Yes'
-            ELSE
-                WRITE (51,*) '    Data are observed?: No'
-            ENDIF
+		    OPEN ( UNIT = 91, FILE = tblfil )
+		    CALL OPENBF ( lunit, 'IN', 91 )
+		ELSE
 
-            IF ( IUPBS3(ibfmg,'ICMP') .eq. 1 ) THEN
-                WRITE (51,*) '  Data are compressed?: Yes'
-            ELSE
-                WRITE (51,*) '  Data are compressed?: No'
-            ENDIF
+C		    Decode the file using the master tables in tbldir.
 
-            CALL UPDS3 ( ibfmg, MXDS3, cds3, nds3 )
-            WRITE (51,*) ' Number of descriptors:', nds3
-            DO jj = 1, nds3
-                WRITE ( 51, FMT = '( 5X, I4, A, A6)' )
-     +              jj, ": ", cds3 ( jj )
-            END DO
+		    usemt = 'Y'
+		    CALL OPENBF ( lunit, 'SEC3', lunit )
+		    CALL MTINFO ( tbldir, 90, 91 )
+		ENDIF
 
-            IF ( basic .eq. 'F' ) THEN
+		opened = 'Y'
+	    ENDIF
 
-C               Decode and output the data from Section 4.
+	    IF ( basic .eq. 'N' ) THEN
 
-                CALL READERME ( ibfmg, lunit, cmgtag, imgdt, ierme )
-                IF ( ierme .ge. 0 ) THEN
-                    WRITE  ( UNIT = 51,
-     +                       FMT = '( /, A, I7, 3A, I10, A, I6, A )' )
-     +                  'BUFR message #', nmsg, ' of type ', cmgtag,
-     +                  ' and date ', imgdt, ' contains ', nsub,
-     +                  ' subsets:'
-                    DO WHILE ( IREADSB ( lunit ) .eq. 0 )
-                        CALL UFDUMP ( lunit, 51 )
-                    ENDDO
-                ENDIF
-            ENDIF
+C	        Pass the message to the decoder.
 
-            WRITE  ( UNIT = 51, FMT = '( /, A, I7 )' )
-     +          'End of BUFR message #', nmsg
-            WRITE  ( UNIT = 51, FMT = '( /, 120("-"))' )
+		CALL READERME ( ibfmg, lunit, cmgtag, imgdt, ierme )
+	    ENDIF
 
-        ENDDO
+C	    If this is a DX dictionary message, then don't generate any
+C	    output unless master tables are being used for decoding.
 
-        RETURN
-        END
+	    IF (  ( IDXMSG ( ibfmg ) .ne. 1 ) .or.
+     +		    ( usemt .eq. 'Y' )  ) THEN
+
+		nmsg = nmsg + 1
+
+		WRITE  ( UNIT = 51, FMT = '( /, A, I7 )' )
+     +		    'Found BUFR message #', nmsg
+
+		WRITE (51,*) ' ' 
+		WRITE (51,*) '       Message length:',
+     +					IUPBS01 ( ibfmg, 'LENM' )
+		WRITE (51,*) '     Section 0 length:',
+     +					IUPBS01 ( ibfmg, 'LEN0' )
+		WRITE (51,*) '         BUFR edition:',
+     +					IUPBS01 ( ibfmg, 'BEN' )
+
+		WRITE (51,*) ' ' 
+		WRITE (51,*) '     Section 1 length:',
+     +					IUPBS01 ( ibfmg, 'LEN1' )
+		WRITE (51,*) '         Master table:',
+     +					IUPBS01 ( ibfmg, 'BMT' )
+		WRITE (51,*) '   Originating center:',
+     +					IUPBS01 ( ibfmg, 'OGCE' )
+		WRITE (51,*) 'Originating subcenter:',
+     +					IUPBS01 ( ibfmg, 'GSES' )
+		WRITE (51,*) 'Update sequence numbr:',
+     +					IUPBS01 ( ibfmg, 'USN' )
+ 
+		IF ( IUPBS01 ( ibfmg, 'ISC2' ) .eq. 1 ) THEN
+		    WRITE (51,*) '   Section 2 present?: Yes'
+		ELSE
+		    WRITE (51,*) '   Section 2 present?: No'
+		ENDIF
+ 
+		WRITE (51,*) '        Data category:',
+     +					IUPBS01 ( ibfmg, 'MTYP' )
+		WRITE (51,*) '    Local subcategory:',
+     +					IUPBS01 ( ibfmg, 'MSBT' )
+		WRITE (51,*) 'Internatl subcategory:',
+     +					IUPBS01 ( ibfmg, 'MSBTI' )
+		WRITE (51,*) ' Master table version:', 
+     +					IUPBS01 ( ibfmg, 'MTV' )
+		WRITE (51,*) '  Local table version:',
+     +					IUPBS01 ( ibfmg, 'MTVL' )
+		WRITE (51,*) '                 Year:',
+     +					IUPBS01 ( ibfmg, 'YEAR' )
+		WRITE (51,*) '                Month:',
+     +					IUPBS01 ( ibfmg, 'MNTH' )
+		WRITE (51,*) '                  Day:',
+     +					IUPBS01 ( ibfmg, 'DAYS' )
+		WRITE (51,*) '                 Hour:',
+     +					IUPBS01 ( ibfmg, 'HOUR' )
+		WRITE (51,*) '               Minute:',
+     +					IUPBS01 ( ibfmg, 'MINU' )
+		WRITE (51,*) '               Second:',
+     +					IUPBS01 ( ibfmg, 'SECO' )
+		WRITE (51,*) ' ' 
+
+		nsub = IUPBS3 ( ibfmg, 'NSUB' )
+		WRITE (51,*) 'Number of data subsets:', nsub
+		nsubt = nsubt + nsub
+ 
+		IF ( IUPBS3 ( ibfmg, 'IOBS' ) .eq. 1 ) THEN
+		    WRITE (51,*) '    Data are observed?: Yes'
+		ELSE
+		    WRITE (51,*) '    Data are observed?: No'
+		ENDIF
+ 
+		IF ( IUPBS3 ( ibfmg, 'ICMP' ) .eq. 1 ) THEN
+		    WRITE (51,*) '  Data are compressed?: Yes'
+		ELSE
+		    WRITE (51,*) '  Data are compressed?: No'
+		ENDIF
+ 
+		CALL UPDS3 ( ibfmg, MXDS3, cds3, nds3 )
+		WRITE (51,*) ' Number of descriptors:', nds3
+		DO jj = 1, nds3
+		    WRITE ( 51, FMT = '( 5X, I4, A, A6)' )
+     +			jj, ": ", cds3 ( jj )
+		END DO
+
+		IF (  ( basic .eq. 'N' ) .and.
+     +		     ( ierme .ge. 0 )  ) THEN
+
+C		    Decode and output the data from Section 4.
+
+		    WRITE ( UNIT = 51,
+     +			    FMT = '( /, A, I7, 3A, I10, A, I6, A )' )
+     +			'BUFR message #', nmsg, ' of type ', cmgtag,
+     +			' and date ', imgdt, ' contains ', nsub,
+     +			' subsets:'
+		    DO WHILE ( IREADSB ( lunit ) .eq. 0 )
+			CALL UFDUMP ( lunit, 51 )
+		    ENDDO
+		ENDIF
+
+		WRITE  ( UNIT = 51, FMT = '( /, A, I7 )' )
+     +		    'End of BUFR message #', nmsg
+		WRITE  ( UNIT = 51, FMT = '( /, 120("-"))' )
+	    ENDIF
+
+	ENDDO
+
+	RETURN
+	END
+
+	SUBROUTINE OPENBT ( lundx, mtyp )
+C$$$  SUBPROGRAM DOCUMENTATION BLOCK
+C
+C SUBPROGRAM:    OPENBT
+C   PRGMMR: J. ATOR          ORG: NP12        DATE: 2012-12-07
+C
+C ABSTRACT: Given a BUFR message type, this subroutine opens the
+C   appropriate DX dictionary table in the specified table directory
+C   as Fortran logical unit "lundx".  This subroutine overrides the
+C   default subroutine of the same name in the NCEP BUFRLIB.
+C
+C PROGRAM HISTORY LOG:
+C 2012-12-07  J. ATOR -- ORIGINAL AUTHOR
+C
+C USAGE:    CALL OPENBT ( lundx, mtyp )
+C   INPUT ARGUMENT LIST:
+C     mtyp     - integer: message type of input BUFR file
+C
+C   OUTPUT ARGUMENT LIST:
+C     lundx    - integer: unit number of BUFR mnemonic table
+C		   0 = unable to open table
+C
+C ATTRIBUTES:
+C   LANGUAGE: FORTRAN 90
+C   MACHINE:  Portable to all platforms
+C
+C$$$
+
+	USE Share_Table_Info
+
+	CHARACTER*11	bftab
+
+	CHARACTER*240	bftabfil
+
+	LOGICAL		exists
+
+C-----------------------------------------------------------------------
+C-----------------------------------------------------------------------
+
+	WRITE ( bftab, '("bufrtab.",i3.3)' ) mtyp
+	bftabfil = ctbldir(1:ltbd) // '/' // bftab
+
+	INQUIRE ( FILE = bftabfil, EXIST = exists )
+	IF ( exists ) THEN
+	    lundx = ludx
+	    CLOSE ( lundx )
+	    OPEN ( UNIT = lundx, FILE = bftabfil )
+	ELSE
+	    lundx = 0
+	END IF
+
+	RETURN
+	END
+
+C	The following module is used to share information between
+C	subroutine FDEBUFR and subroutine OPENBT, since the latter
+C	is not called by the former but rather is called directly
+C	from within the NCEP BUFRLIB.
+
+	MODULE Share_Table_Info
+	    CHARACTER*120	ctbldir
+	    INTEGER		ltbd, ludx
+	END MODULE
+
 ------------------------------------------------------------------------------
 </pre>
 <p>
