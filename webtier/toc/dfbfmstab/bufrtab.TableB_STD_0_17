@@ -1,7 +1,7 @@
 Table B STD |  0 | 17
 #
 # Standard BUFR Table B, Master Table 0, Version 17
-# Generated: 2012/08/16 14:17:45
+# This file was generated: 2016/10/28 15:41:13
 #
 #========================================================================================================
 # F-XX-YYY |SCALE| REFERENCE   | BIT |      UNIT         | MNEMONIC ;DESC ;  ELEMENT NAME
@@ -480,7 +480,7 @@ Table B STD |  0 | 17
   0-11-019 |   0 |           0 |   7 | %                 | STOW     ;     ; Steadiness of wind
   0-11-021 |   9 |      -65536 |  17 | s⁻¹               | RVORT    ;     ; Relative vorticity
   0-11-022 |   9 |      -65536 |  17 | s⁻¹               | DIVG     ;     ; Divergence
-  0-11-023 |  -2 |      -65536 |  17 | m² s              | VPOT     ;     ; Velocity potential
+  0-11-023 |  -2 |      -65536 |  17 | m² s⁻¹            | VPOT     ;     ; Velocity potential
   0-11-030 |   0 |           0 |   6 | Code table        | DGOTX    ;     ; Extended degree of turbulence
   0-11-031 |   0 |           0 |   4 | Code table        | DGOT     ;     ; Degree of turbulence
   0-11-032 |  -1 |         -40 |  16 | m                 | HBOT     ;     ; Height of base of turbulence
@@ -717,8 +717,8 @@ Table B STD |  0 | 17
   0-15-021 |  11 |           0 |  31 | kg m⁻²            | IMDENS   ;     ; Integrated mass density
   0-15-024 |   4 |           0 |  24 | Numeric           | OPTD     ;     ; Optical depth
   0-15-025 |   0 |           0 |   4 | Code table        | TYPO     ;     ; Type of pollutant
-  0-15-026 |   9 |           0 |   9 | mol mol⁻¹         | COPO     ;     ; Concentration of pollutant (mol mol-1)
-  0-15-027 |   9 |           0 |  10 | kg m⁻³            | COPOPM   ;     ; Concentration of pollutant (kg m-3)
+  0-15-026 |   9 |           0 |   9 | mol mol⁻¹         | COPO     ;     ; Concentration of pollutant
+  0-15-027 |   9 |           0 |  10 | kg m⁻³            | COPOPM   ;     ; Concentration of pollutant
   0-15-030 |   2 |       -1000 |  12 | Numeric           | ACIDX    ;     ; Aerosol contamination index
   0-15-031 |   4 |       10000 |  15 | m                 | APDS     ;     ; Atmospheric path delay in satellite signal
   0-15-032 |   4 |           0 |  10 | m                 | APDE     ;     ; Estimated error in atmospheric path delay
@@ -1151,7 +1151,7 @@ Table B STD |  0 | 17
   0-25-036 |   0 |           0 |   4 | Code table        | ALME     ;     ; Atmospherics location method
   0-25-037 |   2 |        -127 |   8 | K                 | SSTB     ;     ; SST bias
   0-25-038 |   1 |        -127 |   8 | K                 | DIFSA    ;     ; Difference between SST and analysis
-  0-25-040 |   0 |           0 |   4 | Code table        | CO2W     ;     ; CO2 wind product derivation
+  0-25-040 |   0 |           0 |   4 | Code table        | CO2W     ;     ; CO₂ wind product derivation
   0-25-041 |   0 |           0 |   2 | Code table        | MPDR     ;     ; Moving platform direction reporting method
   0-25-042 |   0 |           0 |   2 | Code table        | MPSR     ;     ; Moving platform speed reporting method
   0-25-043 |   4 |           0 |  15 | s                 | WSIT     ;     ; Wave sampling interval (time)
@@ -1369,8 +1369,8 @@ Table B STD |  0 | 17
   0-40-015 |   2 |        -100 |   8 | Numeric           | QFAC     ;     ; Normalised differential vegetation index (NDVI)
   0-40-016 |   3 |           0 |  14 | Numeric           | RRIB     ;     ; Residual RMS in band
   0-40-017 |   0 | -1073741824 |  31 | Numeric           | NNPCS    ;     ; Non-normalised principal component score
-  0-40-018 |   6 |           0 |  24 | W m⁻²             | AOIM     ;     ; GIacAvgImagIIS - average of imager measurements
-  0-40-019 |   6 |           0 |  24 | W m⁻²             | VOIM     ;     ; GIacVarImagIIS - variance of imager measurements
+  0-40-018 |   6 |           0 |  24 | W m⁻² sr⁻¹ m      | AOIM     ;     ; GIacAvgImagIIS - average of imager measurements
+  0-40-019 |   6 |           0 |  24 | W m⁻² sr⁻¹ m      | VOIM     ;     ; GIacVarImagIIS - variance of imager measurements
   0-40-020 |   0 |           0 |  17 | Flag table        | QFFS     ;     ; GqisFlagQualDetailed - quality flag for the system
   0-40-021 |   0 |           0 |   7 | %                 | FICSI    ;     ; Fraction of weighted AVHRR pixel in IASI FOV covered with snow/ice
   0-40-022 |   0 |           0 |   7 | Numeric           | NMBFA    ;     ; Number of missing, bad or failed AVHRR pixels

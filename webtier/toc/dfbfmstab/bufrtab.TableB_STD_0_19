@@ -1,7 +1,7 @@
 Table B STD |  0 | 19
 #
 # Standard BUFR Table B, Master Table 0, Version 19
-# Generated: 2013/02/12 16:34:07
+# This file was generated: 2016/10/28 15:40:55
 #
 #========================================================================================================
 # F-XX-YYY |SCALE| REFERENCE   | BIT |      UNIT         | MNEMONIC ;DESC ;  ELEMENT NAME
@@ -766,8 +766,8 @@ Table B STD |  0 | 19
   0-15-021 |  11 |           0 |  31 | kg m⁻²            | IMDENS   ;     ; Integrated mass density
   0-15-024 |   4 |           0 |  24 | Numeric           | OPTD     ;     ; Optical depth
   0-15-025 |   0 |           0 |   4 | Code table        | TYPO     ;     ; Type of pollutant
-  0-15-026 |   9 |           0 |   9 | mol mol⁻¹         | COPO     ;     ; Concentration of pollutant (mol mol-1)
-  0-15-027 |   9 |           0 |  10 | kg m⁻³            | COPOPM   ;     ; Concentration of pollutant (kg m-3)
+  0-15-026 |   9 |           0 |   9 | mol mol⁻¹         | COPO     ;     ; Concentration of pollutant
+  0-15-027 |   9 |           0 |  10 | kg m⁻³            | COPOPM   ;     ; Concentration of pollutant
   0-15-029 |   9 |           0 |  30 | m⁻¹               | EXCF     ;     ; Extinction coefficient
   0-15-030 |   2 |       -1000 |  12 | Numeric           | ACIDX    ;     ; Aerosol contamination index
   0-15-031 |   4 |       10000 |  15 | m                 | APDS     ;     ; Atmospheric path delay in satellite signal
@@ -1185,8 +1185,8 @@ Table B STD |  0 | 19
   0-23-029 |   0 |           0 |   9 | Degree true       | MTDG     ;     ; Main transport direction in ground water
   0-23-031 |   0 |           0 |   2 | Code table        | PEPS     ;     ; Possibility that plume will encounter precipitation in State in which incident occurred
   0-23-032 |   0 |           0 |   2 | Code table        | PECW     ;     ; Plume will encounter change in wind direction and/or speed flag
-  0-23-040 |   1 |           0 |  22 | m³                | FLWR     ;     ; Flow discharge - river
-  0-23-041 |   3 |           0 |  16 | m³                | FLWW     ;     ; Flow discharge - well
+  0-23-040 |   1 |           0 |  22 | m³ s⁻¹            | FLWR     ;     ; Flow discharge - river
+  0-23-041 |   3 |           0 |  16 | m³ s⁻¹            | FLWW     ;     ; Flow discharge - well
   0-24-001 | -11 |           0 |  28 | Bq                | EARR     ;     ; Estimate of amount of radioactivity released up to specified time
   0-24-002 | -11 |           0 |  28 | Bq                | EMXPR    ;     ; Estimated maximum potential release
   0-24-003 |   0 |           0 |   5 | Code table        | CORE     ;     ; Composition of release
@@ -1237,7 +1237,7 @@ Table B STD |  0 | 19
   0-25-036 |   0 |           0 |   4 | Code table        | ALME     ;     ; Atmospherics location method
   0-25-037 |   2 |        -127 |   8 | K                 | SSTB     ;     ; SST bias
   0-25-038 |   1 |        -127 |   8 | K                 | DIFSA    ;     ; Difference between SST and analysis
-  0-25-040 |   0 |           0 |   4 | Code table        | CO2W     ;     ; CO2 wind product derivation
+  0-25-040 |   0 |           0 |   4 | Code table        | CO2W     ;     ; CO₂ wind product derivation
   0-25-041 |   0 |           0 |   2 | Code table        | MPDR     ;     ; Moving platform direction reporting method
   0-25-042 |   0 |           0 |   2 | Code table        | MPSR     ;     ; Moving platform speed reporting method
   0-25-043 |   4 |           0 |  15 | s                 | WSIT     ;     ; Wave sampling interval (time)
@@ -1465,8 +1465,8 @@ Table B STD |  0 | 19
   0-40-015 |   2 |        -100 |   8 | Numeric           | QFAC     ;     ; Normalized differential vegetation index (NDVI)
   0-40-016 |   3 |           0 |  14 | Numeric           | RRIB     ;     ; Residual RMS in band
   0-40-017 |   0 | -1073741824 |  31 | Numeric           | NNPCS    ;     ; Non-normalized principal component score
-  0-40-018 |   6 |           0 |  24 | W m⁻²             | AOIM     ;     ; GIacAvgImagIIS - average of imager measurements
-  0-40-019 |   6 |           0 |  24 | W m⁻²             | VOIM     ;     ; GIacVarImagIIS - variance of imager measurements
+  0-40-018 |   6 |           0 |  24 | W m⁻² sr⁻¹ m      | AOIM     ;     ; GIacAvgImagIIS - average of imager measurements
+  0-40-019 |   6 |           0 |  24 | W m⁻² sr⁻¹ m      | VOIM     ;     ; GIacVarImagIIS - variance of imager measurements
   0-40-020 |   0 |           0 |  17 | Flag table        | QFFS     ;     ; GqisFlagQualDetailed - quality flag for the system
   0-40-021 |   0 |           0 |   7 | %                 | FICSI    ;     ; Fraction of weighted AVHRR pixel in IASI FOV covered with snow/ice
   0-40-022 |   0 |           0 |   7 | Numeric           | NMBFA    ;     ; Number of missing, bad or failed AVHRR pixels

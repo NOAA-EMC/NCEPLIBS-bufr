@@ -1,7 +1,7 @@
 Table D STD |  0 | 20
 #
 # Standard BUFR Table D, Master Table 0, Version 20
-# Generated: 2013/10/08 13:11:14
+# This file was generated: 2016/10/28 15:43:29
 #
 #========================================================================================================
 # F-XX-YYY | MNEMONIC   ;DCOD ; NAME           <-- sequence definition
@@ -2011,7 +2011,7 @@ Table D STD |  0 | 20
            | 3-01-074 > | Ozone instrumentation - Dobson spectrophotometer
            | 3-07-031   | Ozone data - averaged observations
 
-  3-07-045 | METARSPM   ;     ; Main part of METAR/SPECI), replacing 3 07 01
+  3-07-045 | METARSPM   ;     ; Main part of METAR/SPECI, replacing 3-07-011
            | 0-01-063 > | ICAO location indicator
            | 0-08-079 > | Product status
            | 0-02-001 > | Type of station
@@ -2047,7 +2047,7 @@ Table D STD |  0 | 20
            | 0-05-021 > | Bearing or azimuth
            | 0-20-059   | Minimum horizontal visibility
 
-  3-07-047 | METARSPC   ;     ; METAR/SPECI/TAF clouds), replacing 3 07 01
+  3-07-047 | METARSPC   ;     ; METAR/SPECI/TAF clouds, replacing 3-07-015
            | 1-05-000 > | Delayed replication of 5 descriptors
            | 0-31-001 > | Delayed descriptor replication factor
            | 0-08-002 > | Vertical significance (surface observations)
@@ -2058,7 +2058,7 @@ Table D STD |  0 | 20
            | 0-20-002 > | Vertical visibility
            | 0-20-091   | Vertical visibility
 
-  3-07-048 | TRENDFST   ;     ; Trend type forecast), replacing 3 07 01
+  3-07-048 | TRENDFST   ;     ; Trend type forecast, replacing 3-07-018
            | 0-08-016 > | Change qualifier of a trend-type forecast or an aerodrome forecast
            | 1-02-000 > | Delayed replication of 2 descriptors
            | 0-31-001 > | Delayed descriptor replication factor
@@ -2083,7 +2083,7 @@ Table D STD |  0 | 20
            | 0-31-000 > | Short delayed descriptor replication factor
            | 0-20-060 > | Prevailing horizontal visibility
            | 3-07-014 > | Significant present or forecast weather
-           | 3-07-047   | METAR/SPECI/TAF clouds), replacing 3 07 01
+           | 3-07-047   | METAR/SPECI/TAF clouds, replacing 3-07-015
 
   3-07-049 | SEACONDT   ;     ; Sea conditions
            | 1-02-000 > | Delayed replication of 2 descriptors
@@ -2107,19 +2107,19 @@ Table D STD |  0 | 20
            | 0-20-088 > | Depth of runway deposits
            | 0-20-089   | Runway friction coefficient
 
-  3-07-051 | METARSPI   ;     ; Full METAR/SPECI), replacing 3 07 02
-           | 3-07-045 > | Main part of METAR/SPECI), replacing 3 07 01
+  3-07-051 | METARSPI   ;     ; Full METAR/SPECI, replacing 3-07-021
+           | 3-07-045 > | Main part of METAR/SPECI, replacing 3-07-011
            | 3-07-046 > | METAR/SPECI visibility
            | 3-07-013 > | Runway visual range
            | 3-07-014 > | Significant present or forecast weather
-           | 3-07-047 > | METAR/SPECI/TAF clouds), replacing 3 07 01
+           | 3-07-047 > | METAR/SPECI/TAF clouds, replacing 3-07-015
            | 3-07-016 > | Significant recent weather phenomena
            | 3-07-017 > | Wind shear on runway(s)
            | 3-07-049 > | Sea conditions
            | 3-07-050 > | Runway state
            | 1-01-000 > | Delayed replication of 1 descriptor
            | 0-31-001 > | Delayed descriptor replication factor
-           | 3-07-048   | Trend type forecast), replacing 3 07 01
+           | 3-07-048   | Trend type forecast, replacing 3-07-018
 
   3-07-052 | AEROFSTI   ;     ; Aerodrome forecast identification and time interval
            | 0-01-063 > | ICAO location indicator
@@ -2153,7 +2153,7 @@ Table D STD |  0 | 20
            | 0-20-009 > | General weather indicator (TAF/METAR)
            | 0-20-060 > | Prevailing horizontal visibility
            | 3-07-014 > | Significant present or forecast weather
-           | 3-07-047   | METAR/SPECI/TAF clouds), replacing 3 07 01
+           | 3-07-047   | METAR/SPECI/TAF clouds, replacing 3-07-015
 
   3-07-054 | FSTEXTMP   ;     ; Forecast of extreme temperatures
            | 0-07-032 > | Height of sensor above local ground (or deck of marine platform)
@@ -4252,7 +4252,7 @@ Table D STD |  0 | 20
            | 0-11-084 > | Wind speed
            | 2-01-000   | Cancel change data width
 
-  3-11-011 | IAGOSSOB   ;     ; IAGOS template for a single observation), version 
+  3-11-011 | IAGOSSOB   ;     ; IAGOS template for a single observation, version 2
            | 0-01-023 > | Observation sequence number
            | 0-08-004 > | Phase of aircraft flight
            | 3-01-011 > | Year, month, day
@@ -4268,7 +4268,7 @@ Table D STD |  0 | 20
            | 0-08-046 > | Atmospheric chemical or physical constituent type
            | 2-01-139 > | Change data width
            | 2-02-126 > | Change scale
-           | 0-15-026 > | Concentration of pollutant (mol mol-1)
+           | 0-15-026 > | Concentration of pollutant
            | 2-02-000 > | Cancel change scale
            | 2-01-000 > | Cancel change data width
            | 1-06-000 > | Delayed replication of 6 descriptors
@@ -4276,7 +4276,7 @@ Table D STD |  0 | 20
            | 0-08-046 > | Atmospheric chemical or physical constituent type
            | 2-01-138 > | Change data width
            | 2-02-130 > | Change scale
-           | 0-15-026 > | Concentration of pollutant (mol mol-1)
+           | 0-15-026 > | Concentration of pollutant
            | 2-02-000 > | Cancel change scale
            | 2-01-000 > | Cancel change data width
            | 0-15-052 > | Log10 of number density of aerosol particles with diameter greater than 5 nm

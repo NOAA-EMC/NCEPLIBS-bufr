@@ -1,7 +1,7 @@
 Table B STD |  0 | 13
 #
 # Standard BUFR Table B, Master Table 0, Version 13
-# Generated: 2012/08/16 14:17:08
+# This file was generated: 2016/10/28 15:41:45
 #
 #========================================================================================================
 # F-XX-YYY |SCALE| REFERENCE   | BIT |      UNIT         | MNEMONIC ;DESC ;  ELEMENT NAME
@@ -240,7 +240,7 @@ Table B STD |  0 | 13
   0-04-002 |   0 |           0 |   4 | Month             | MNTH     ;     ; Month
   0-04-003 |   0 |           0 |   6 | Day               | DAYS     ;     ; Day
   0-04-004 |   0 |           0 |   5 | Hour              | HOUR     ;     ; Hour
-  0-04-005 |   0 |           0 |   6 | Minite            | MINU     ;     ; Minute
+  0-04-005 |   0 |           0 |   6 | Minute            | MINU     ;     ; Minute
   0-04-006 |   0 |           0 |   6 | s                 | SECO     ;     ; Second
   0-04-007 |   6 |           0 |  26 | s                 | SECW     ;     ; Seconds within a minute (microsecond accuracy)
   0-04-011 |   0 |       -1024 |  11 | Year              | TIYR     ;     ; Time increment
@@ -441,7 +441,7 @@ Table B STD |  0 | 13
   0-11-019 |   0 |           0 |   7 | %                 | STOW     ;     ; Steadiness of wind
   0-11-021 |   9 |      -65536 |  17 | s⁻¹               | RVORT    ;     ; Relative vorticity
   0-11-022 |   9 |      -65536 |  17 | s⁻¹               | DIVG     ;     ; Divergence
-  0-11-023 |  -2 |      -65536 |  17 | m² s              | VPOT     ;     ; Velocity potential
+  0-11-023 |  -2 |      -65536 |  17 | m² s⁻¹            | VPOT     ;     ; Velocity potential
   0-11-030 |   0 |           0 |   6 | Code table        | DGOTX    ;     ; Extended degree of turbulence
   0-11-031 |   0 |           0 |   4 | Code table        | DGOT     ;     ; Degree of turbulence
   0-11-032 |  -1 |         -40 |  16 | m                 | HBOT     ;     ; Height of base of turbulence
@@ -635,7 +635,7 @@ Table B STD |  0 | 13
   0-14-033 |   0 |           0 |   9 | %                 | TOSP     ;     ; Total sunshine
   0-14-034 |   0 |           0 |  11 | Minute            | SOPS     ;     ; Sunshine over period specified
   0-14-042 |   0 |           0 |   7 | %                 | BDRF     ;     ; Bidirectional reflectance
-  0-14-045 |   0 |           0 |  11 | W m⁻² sr⁻¹ cm⁻¹   | CHRAD    ;     ; Channel radiance
+  0-14-045 |   0 |           0 |  11 | W m⁻² sr⁻¹ cm     | CHRAD    ;     ; Channel radiance
   0-14-046 |   0 |       -5000 |  16 | W m⁻² sr⁻¹ m      | SCRA     ;     ; Scaled IASI radiance
   0-14-047 |   0 |           0 |  31 | W m⁻² sr⁻¹ m      | SMRA     ;     ; Scaled mean AVHRR radiance
   0-14-048 |   0 |           0 |  31 | W m⁻² sr⁻¹ m      | SSDR     ;     ; Scaled standard deviation AVHRR radiance
@@ -651,8 +651,8 @@ Table B STD |  0 | 13
   0-15-015 |   0 |           0 |  31 | Numeric           | MSCN     ;     ; Maximum image spectral component before normalization
   0-15-020 |   8 |           0 |  21 | kg m⁻²            | IOZD     ;     ; Integrated ozone density
   0-15-025 |   0 |           0 |   4 | Code table        | TYPO     ;     ; Type of pollutant
-  0-15-026 |   9 |           0 |   9 | mol mol⁻¹         | COPO     ;     ; Concentration of pollutant (mol mol-1)
-  0-15-027 |   9 |           0 |  10 | kg m⁻³            | COPOPM   ;     ; Concentration of pollutant (kg m-3)
+  0-15-026 |   9 |           0 |   9 | mol mol⁻¹         | COPO     ;     ; Concentration of pollutant
+  0-15-027 |   9 |           0 |  10 | kg m⁻³            | COPOPM   ;     ; Concentration of pollutant
   0-15-031 |   4 |       10000 |  15 | m                 | APDS     ;     ; Atmospheric path delay in satellite signal
   0-15-032 |   4 |           0 |  10 | m                 | APDE     ;     ; Estimated error in atmospheric path delay
   0-15-033 |   5 |      -10000 |  15 | m                 | PDDX     ;     ; Difference in path delays for limb views at extremes of scan
@@ -1019,7 +1019,7 @@ Table B STD |  0 | 13
   0-25-033 |   0 |           0 |   2 | Code table        | NPSM     ;     ; Wind profiler submode information
   0-25-034 |   0 |           0 |   4 | Flag table        | NPQC     ;     ; Wind profiler quality control test results
   0-25-036 |   0 |           0 |   4 | Code table        | ALME     ;     ; Atmospherics location method
-  0-25-040 |   0 |           0 |   4 | Code table        | CO2W     ;     ; CO2 wind product derivation
+  0-25-040 |   0 |           0 |   4 | Code table        | CO2W     ;     ; CO₂ wind product derivation
   0-25-041 |   0 |           0 |   2 | Code table        | MPDR     ;     ; Moving platform direction reporting method
   0-25-042 |   0 |           0 |   2 | Code table        | MPSR     ;     ; Moving platform speed reporting method
   0-25-043 |   4 |           0 |  15 | s                 | WSIT     ;     ; Wave sampling interval (time)

@@ -1,7 +1,7 @@
 Table B STD |  0 | 21
 #
 # Standard BUFR Table B, Master Table 0, Version 21
-# Generated: 2013/12/04 13:00:28
+# This file was generated: 2016/10/28 15:40:38
 #
 #========================================================================================================
 # F-XX-YYY |SCALE| REFERENCE   | BIT |      UNIT         | MNEMONIC ;DESC ;  ELEMENT NAME
@@ -767,8 +767,8 @@ Table B STD |  0 | 21
   0-15-021 |  11 |           0 |  31 | kg m⁻²            | IMDENS   ;     ; Integrated mass density
   0-15-024 |   4 |           0 |  24 | Numeric           | OPTD     ;     ; Optical depth
   0-15-025 |   0 |           0 |   4 | Code table        | TYPO     ;     ; Type of pollutant
-  0-15-026 |   9 |           0 |   9 | mol mol⁻¹         | COPO     ;     ; Concentration of pollutant (mol mol-1)
-  0-15-027 |   9 |           0 |  10 | kg m⁻³            | COPOPM   ;     ; Concentration of pollutant (kg m-3)
+  0-15-026 |   9 |           0 |   9 | mol mol⁻¹         | COPO     ;     ; Concentration of pollutant
+  0-15-027 |   9 |           0 |  10 | kg m⁻³            | COPOPM   ;     ; Concentration of pollutant
   0-15-029 |   9 |           0 |  30 | m⁻¹               | EXCF     ;     ; Extinction coefficient
   0-15-030 |   2 |       -1000 |  12 | Numeric           | ACIDX    ;     ; Aerosol contamination index
   0-15-031 |   4 |       10000 |  15 | m                 | APDS     ;     ; Atmospheric path delay in satellite signal
@@ -1244,7 +1244,7 @@ Table B STD |  0 | 21
   0-25-036 |   0 |           0 |   4 | Code table        | ALME     ;     ; Atmospherics location method
   0-25-037 |   2 |        -127 |   8 | K                 | SSTB     ;     ; SST bias
   0-25-038 |   1 |        -127 |   8 | K                 | DIFSA    ;     ; Difference between SST and analysis
-  0-25-040 |   0 |           0 |   4 | Code table        | CO2W     ;     ; CO2 wind product derivation
+  0-25-040 |   0 |           0 |   4 | Code table        | CO2W     ;     ; CO₂ wind product derivation
   0-25-041 |   0 |           0 |   2 | Code table        | MPDR     ;     ; Moving platform direction reporting method
   0-25-042 |   0 |           0 |   2 | Code table        | MPSR     ;     ; Moving platform speed reporting method
   0-25-043 |   4 |           0 |  15 | s                 | WSIT     ;     ; Wave sampling interval (time)

@@ -1,7 +1,7 @@
 Table B LOC |  0 | 7 |  1
 #
 # Local BUFR Table B, Master Table 0, Originating Center 7, Version 1
-# Generated: 2012/08/30 11:58:57
+# This file was generated: 2016/10/31 11:09:29
 #
 #========================================================================================================
 # F-XX-YYY |SCALE| REFERENCE   | BIT |      UNIT         | MNEMONIC ;DESC ;  ELEMENT NAME
@@ -24,21 +24,21 @@ Table B LOC |  0 | 7 |  1
   0-01-211 |   0 |           0 |  20 | Numeric           | STNM6    ;     ; Station number (holds up to 6 digits)
   0-01-212 |   0 |           0 |  19 | Numeric           | VOID     ;     ; Radar volume id (in the form DDHHMM)
   0-01-213 |   0 |           0 |   5 | Numeric           | SCID     ;     ; Radar scan id (range 1-21)
+  0-01-220 |   0 |           0 | 128 | CCITT IA5         | WEPRV    ;     ; Wind energy provider
   0-02-192 |   0 |           0 |   6 | Numeric           | DINU     ;     ; Detector instrument number
   0-02-193 |   0 |           0 |   3 | Code table        | ITSO     ;     ; Indicator for type of station operation and past/present weather
   0-02-194 |   0 |           0 |   4 | Code table        | AUTO     ;     ; Automated station type
   0-02-195 |   0 |           0 |   8 | Code table        | ITP      ;     ; PREPBUFR: Instrument type
-  0-02-196 |   0 |           0 |   2 | Code table        | CLSS     ;     ; Class of profile output
   0-02-197 |   0 |           0 |   8 | Flag table        | GSPC     ;     ; GOES-I/M soundings parameter characteristics
   0-02-198 |   0 |           0 |   8 | Flag table        | GBTC     ;     ; GOES-I/M brightness temperature characteristics
   0-02-199 |   0 |           0 |   3 | Code table        | ROLF     ;     ; FSL aircraft roll angle flag
   0-02-200 |   0 |           0 |   6 | Flag table        | AVHC     ;     ; TOVS AVHRR channel combination
   0-02-201 |   0 |           0 |   8 | Code table        | SWTP     ;     ; NESDIS satellite wind type
-  0-02-202 |   0 |           0 |   7 | Numeric           | DDWD     ;     ; USGS wind direction sensor type
-  0-02-203 |   0 |           0 |   7 | Numeric           | DDWS     ;     ; USGS wind speed sensor type
-  0-02-204 |   0 |           0 |   7 | Numeric           | DDRS     ;     ; USGS river stage height sensor type
-  0-02-205 |   0 |           0 |   7 | Numeric           | DDDC     ;     ; USGS river stage discharge sensor type
-  0-02-206 |   0 |           0 |   7 | Numeric           | DDPC     ;     ; USGS river stage precipitation sensor type
+  0-02-202 |   0 |           0 |  20 | Numeric           | DDWD     ;     ; USGS wind direction sensor type
+  0-02-203 |   0 |           0 |  20 | Numeric           | DDWS     ;     ; USGS wind speed sensor type
+  0-02-204 |   0 |           0 |  20 | Numeric           | DDRS     ;     ; USGS river stage height sensor type
+  0-02-205 |   0 |           0 |  20 | Numeric           | DDDC     ;     ; USGS river stage discharge sensor type
+  0-02-206 |   0 |           0 |  20 | Numeric           | DDPC     ;     ; USGS river stage precipitation sensor type
   0-02-207 |   0 |           0 |   3 | Code table        | PLTTYP   ;     ; Platform type for NWS Cooperative Observer sites
   0-02-223 |   0 |           0 |   8 | Code table        | CMCM     ;     ; Satellite derived wind computation method
   0-02-226 |  -2 |           0 |  12 | m                 | CTREC    ;     ; Cross track resolution (coarse)
@@ -107,17 +107,17 @@ Table B LOC |  0 | 7 |  1
   0-07-254 |   2 |           0 |  14 | mb                | POETU    ;     ; PREPBUFR: Analysis-tuned pressure observation error
   0-07-255 |   1 |           0 |  14 | mb                | PFCMOD   ;     ; PREPBUFR: Model forecast (background) pressure value
   0-08-193 |   0 |           0 |   6 | Code table        | CAT      ;     ; PREPBUFR: Data level category
-  0-08-199 |   0 |           0 |   3 | Code table        | SUWS     ;     ; Indicator for source and units of wind speed
   0-08-201 |   0 |           0 |   3 | Code table        | .RE....  ;     ; Relationship to following value
   0-08-202 |   0 |           0 |   6 | Code table        | RCTS     ;     ; Receipt time significance
   0-08-220 |   0 |           0 |   2 | Code table        | QFGU     ;     ; Qualifier as to whether first guess information was used in calculation of quality information for EUMETSAT winds
-  0-08-222 |   0 |           0 |   6 | Code table        | CCODE    ;     ; Type of NESDIS cloud detection
+  0-08-225 |   0 |           0 |   5 | Code table        | HGTSIG   ;     ; Height significance
+  0-08-226 |   0 |           0 |   5 | Code table        | DCHSIG   ;     ; Discharge significance
+  0-08-227 |   0 |           0 |   5 | Code table        | FCTSIG   ;     ; Forecast significance
   0-10-192 |   1 |           0 |  14 | mb                | PMO      ;     ; PREPFITS: Mean sea-level pressure observation
   0-10-194 |   0 |       -1000 |  17 | m                 | ELV      ;     ; PREPFITS: Station elevation
   0-10-195 |   0 |       -1000 |  17 | m                 | ZOB      ;     ; PREPFITS: Height
   0-10-196 |   0 |      -10000 |  20 | m² s⁻²            | XMGP10   ;     ; Extrapolated mandatory level geopotential
   0-10-197 |   0 |           0 |  13 | m                 | HPBL     ;     ; Height of the planetary boundary layer
-  0-10-198 |   0 |           0 |   5 | Code table        | PQM      ;     ; PREPFITS: Pressure (quality) marker
   0-10-199 |   0 |       -1000 |  17 | m                 | ELV      ;     ; PREPBUFR: Station elevation
   0-10-243 |   1 |           0 |  14 | mb                | PMO      ;     ; PREPBUFR: Mean sea-level pressure observation
   0-10-244 |   0 |           0 |   5 | Code table        | PMQ      ;     ; PREPBUFR: Mean sea-level pressure (quality) marker
@@ -130,8 +130,7 @@ Table B LOC |  0 | 7 |  1
   0-10-252 |   0 |       -1000 |  17 | m                 | ZCL      ;     ; PREPBUFR: Climatological height value
   0-10-253 |   0 |           0 |  10 | m                 | ZCS      ;     ; PREPBUFR: Standard deviation of climatological height value
   0-10-255 |   0 |       -1000 |  17 | m                 | ZFCMOD   ;     ; PREPBUFR: Model forecast (background) height value
-  0-11-192 |   0 |           0 |   5 | Code table        | WQM      ;     ; PREPBUFR: u-, v-component wind (UOB/VOB) (quality) marker
-  0-11-193 |   2 |       -1024 |  13 | m² s              | TKEL     ;     ; Turbulent kinetic energy in a layer
+  0-11-193 |   2 |       -1024 |  13 | m² s⁻²            | TKEL     ;     ; Turbulent kinetic energy in a layer
   0-11-196 |   1 |       -4096 |  13 | m s⁻¹             | U10M     ;     ; u-component at 10 m
   0-11-197 |   1 |       -4096 |  13 | m s⁻¹             | V10M     ;     ; v-component at 10 m
   0-11-200 |   0 |           0 |   9 | Degree true       | WDIR1    ;     ; Surface wind direction
@@ -159,7 +158,7 @@ Table B LOC |  0 | 7 |  1
   0-11-230 |   1 |           0 |  12 | m s⁻¹             | WSOS     ;     ; Ocean surface wind speed
   0-11-231 |   1 |       -4096 |  13 | m s⁻¹             | USTM     ;     ; u-component of storm motion
   0-11-232 |   1 |       -4096 |  13 | m s⁻¹             | VSTM     ;     ; v-component of storm motion
-  0-11-233 |   1 |      -10000 |  15 | m² s              | HLCY     ;     ; Storm relative helicity
+  0-11-233 |   1 |      -10000 |  15 | m² s⁻²            | HLCY     ;     ; Storm relative helicity
   0-11-235 |   0 |           0 |   6 | Code table        | TRBX     ;     ; Turbulence index
   0-11-236 |   0 |           0 |   6 | Code table        | TRBX10   ;     ; Turbulence index for period from 1 minute prior to observation time to observation time
   0-11-237 |   0 |           0 |   6 | Code table        | TRBX21   ;     ; Turbulence index for period from 2 minutes prior to observation time to 1 minute prior to observation time
@@ -237,7 +236,7 @@ Table B LOC |  0 | 7 |  1
   0-13-210 |   2 |           0 |  18 | kg m⁻²            | SWEM     ;     ; Snow water equivalent
   0-13-212 |   3 |           0 |  11 | kg m⁻²            | CNPW     ;     ; Canopy water
   0-13-213 |   2 |        -500 |  10 | m s⁻¹             | STRV     ;     ; Stream velocity
-  0-13-214 |   2 |    -8450000 |  25 | m³                | DCHG     ;     ; Discharge
+  0-13-214 |   2 |    -8450000 |  25 | m³ s⁻¹            | DCHG     ;     ; Discharge
   0-13-215 |   2 |           0 |  12 | mm h⁻¹            | CRRT     ;     ; Convective rain rate
   0-13-216 |   1 |          -1 |  14 | kg m⁻²            | SNFL     ;     ; 1-hour accumulated snowfall
   0-13-217 |   1 |          -1 |  14 | kg m⁻²            | C01M     ;     ; Convective precipitation in past 1 hour
@@ -296,8 +295,10 @@ Table B LOC |  0 | 7 |  1
   0-20-196 |  -1 |         -40 |  16 | m                 | HBWX     ;     ; Height of base of present weather
   0-20-197 |  -1 |         -40 |  16 | m                 | HTWX     ;     ; Height of top of present weather
   0-20-198 |   0 |           0 |   7 | %                 | CFRL     ;     ; Cloud cover in a layer
-  0-20-199 |   0 |           0 |   3 | Code table        | CLAVR    ;     ; Clouds from AVHRR (CLAVR) cloud mask
+  0-20-199 |   0 |           0 |   3 | Code table        | CLAVR    ;     ; Clouds from AVHRR cloud mask
   0-20-201 |   0 |           0 |   4 | Code table        | HBLCS    ;     ; Height above surface of the base of the lowest cloud seen
+  0-20-202 |   0 |           0 |   7 | %                 | ECAS     ;     ; Satellite-measured effective cloud amount at a single, center field-of-view
+  0-20-203 |   0 |           0 |   7 | %                 | ECAM     ;     ; Satellite-measured effective cloud amount averaged over multiple fields-of-view about a single, center field-of-view
   0-20-208 |   0 |           0 |   7 | %                 | ICON     ;     ; Ice concentration
   0-20-209 |   0 |           0 |   2 | Code table        | ICAG     ;     ; SSM/I ice age
   0-20-210 |   0 |           0 |   2 | Code table        | ICED     ;     ; SSM/I ice edge
@@ -363,6 +364,7 @@ Table B LOC |  0 | 7 |  1
   0-25-193 |   0 |           0 |   2 | Code table        | SSTA     ;     ; NMC 15 day sea-surface temperature availability
   0-25-194 |   0 |           0 |   2 | Code table        | H8ST     ;     ; HIRS channel 8/surface air temperature difference
   0-25-195 |   0 |           0 |   2 | Code table        | GDRFLG   ;     ; Geophysical Data Record (GDR) origin flag
+  0-25-196 |   3 |           0 |  18 | Degree            | SANG     ;     ; Scan angle
   0-25-201 |   0 |           0 |   2 | Code table        | SWDL     ;     ; Satellite wind deep layer moisture flag
   0-25-203 |   0 |           0 |   4 | Flag table        | TCSF     ;     ; GOES I/M temperature (skin) channel selection flag
   0-25-204 |   3 |       -5000 |  14 | Numeric           | NSAV     ;     ; NSTAR average value
@@ -437,6 +439,9 @@ Table B LOC |  0 | 7 |  1
   0-35-195 |   0 |           0 |  32 | CCITT IA5         | SEQNUM   ;     ; Channel sequence number
   0-35-200 |   0 |           0 |   9 | Flag table        | RSRD     ;     ; Restrictions on redistribution
   0-35-201 |   0 |           0 |   8 | Hour              | EXPRSRD  ;     ; Expiration of restrictions on redistribution
+  0-49-023 |   0 |           0 |   5 | Code table        | OERR     ;     ; Ozone error flag for TOVS total ozone
+  0-49-037 |   0 |           0 |   5 | Code table        | OEBO     ;     ; Ozone error flag for best ozone
+  0-49-154 |   0 |           0 |   5 | Code table        | OPEF     ;     ; Ozone error flag for profile
   0-50-001 |   0 |           0 |  19 | Numeric           | SQN      ;     ; PREPBUFR: Report sequence number
   0-50-002 |   0 |           0 |  64 | CCITT IA5         | FNSTG    ;     ; File name string
   0-50-003 |   0 |           0 |   7 | Numeric           | PROCN    ;     ; PREPBUFR: Process number for this MPI run
@@ -451,6 +456,11 @@ Table B LOC |  0 | 7 |  1
   0-50-198 |  -1 |         -40 |  16 | m                 | TKEPBL   ;     ; PREPFITS: Turbulence kinetic energy based planetary boundary layer height
   0-50-199 |  -1 |         -40 |  16 | m                 | RIPBL    ;     ; PREPFITS: Richardson number planetary boundary layer height
   0-50-200 |  -1 |         -40 |  16 | m                 | MIXHT    ;     ; PREPFITS: Mixed layer height
+  0-50-210 |   0 |           0 |  10 | Flag table        | SLQFS    ;     ; Scan line quality flags for SAPHIR/MADRAS
+  0-50-211 |   0 |           0 |   3 | Code table        | PLMD     ;     ; Payload mode for SAPHIR
+  0-50-213 |   0 |           0 |   4 | Code table        | SMODE    ;     ; Satellite mode for SAPHIR/MADRAS
+  0-50-214 |   0 |           0 |  11 | Flag table        | CHQF     ;     ; Channel quality flags for SAPHIR/MADRAS
+  0-50-215 |   0 |           0 |   3 | Code table        | CLFG     ;     ; Calibration flags for SAPHIR/MADRAS
   0-51-001 |   0 |           0 |   5 | Code table        | RRTQM    ;     ; PREPBUFR: Rainfall (average rate) (quality) marker
   0-51-002 |   0 |           0 |   5 | Code table        | RRTPC    ;     ; PREPBUFR: Rainfall (average rate) event program code
   0-51-003 |   0 |           0 |  10 | Code table        | RRTRC    ;     ; PREPBUFR: Rainfall (average rate) event reason code
