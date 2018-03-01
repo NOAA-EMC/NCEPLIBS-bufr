@@ -1033,7 +1033,8 @@ public class DBextract {
 		*/
 		Integer missingValue;
 		try {
-			if ( ( x != 31 ) || ( y != 31 ) ) {  // don't need this logic for 0-31-031 table
+			if (  ( ( x != 31 ) || ( y != 31 ) ) &&
+					( ( x != 55 ) || ( y < 20 ) || ( y > 22 ) )  ) {  // for all tables other than 0-31-031, 0-55-020, 0-55-021 and 0-55-022
 				missingValue = ( isCodeTable ? ( 1 << bitwidth ) - 1 : bitwidth );
 				fillReserved( fw, lastval, missingValue );  // check for any "Reserved" entries prior to the missingValue
 				fw.write("  <tr>\n");

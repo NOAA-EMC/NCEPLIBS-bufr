@@ -2543,6 +2543,9 @@ v14 0-40-025    Interpolation flag for mean diurnal tide            Code table  
     0-55-008    PREPBUFR: Data dump report type                     Code table                  0            0         10  T29
     0-55-009    PREPBUFR: Report subtype                            Code table                  0            0         10  TSB
                                                                                                                                    
+    0-55-020                                                                                                               TABLAT
+    0-55-021                                                                                                               TABLASS
+    0-55-022                                                                                                               TABLASL
     0-58-008    Raw report string                                   CCITT IA5                   0            0         64  RRSTG
     0-58-009    MESONET provider id string                          CCITT IA5                   0            0         64  PRVSTG
     0-58-010    MESONET subprovider id string                       CCITT IA5                   0            0         64  SPRVSTG

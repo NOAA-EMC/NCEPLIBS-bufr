@@ -1,7 +1,7 @@
 Table F LOC |  0 | 7 |  1
 #
 # Local BUFR Table CODE/FLAG, Master Table 0, Originating Center 7, Version 1
-# This file was generated: 2018/01/16 15:32:07
+# This file was generated: 2018/02/28 13:43:23
 #
 #========================================================================================================
 # F-XX-YYY | MNEMONIC ; CODE               <-- code table definition
@@ -4081,4 +4081,572 @@ Table F LOC |  0 | 7 |  1
            | 0-55-007=131,135,231,235
               | 0 > | Aircraft is not banking
               | 2   | Aircraft is banking
+
+  0-55-020 | TABLAT ; CODE
+              | 0 > | Surface data - land
+              | 1 > | Surface data - sea
+              | 2 > | Vertical soundings (other than satellite)
+              | 3 > | Vertical soundings (satellite)
+              | 4 > | Single level upper-air data (other than satellite)
+              | 5 > | Single level upper-air data (satellite)
+              | 6 > | Radar data
+              | 7 > | Synoptic features
+              | 8 > | Physical/chemical constituents
+              | 9 > | Dispersal and transport
+              | 10 > | Radiological data
+              | 11 > | BUFR tables, complete replacement or update
+              | 12 > | Surface data (satellite)
+              | 13 > | Forecasts
+              | 14 > | Warnings
+              | 20 > | Status information
+              | 21 > | Radiances (satellite)
+              | 22 > | Radar (satellite) but not altimeter nor scatterometer
+              | 23 > | Lidar (satellite)
+              | 24 > | Scatterometry (satellite)
+              | 25 > | Altimetry (satellite)
+              | 26 > | Spectrometry (satellite)
+              | 27 > | Gravity measurement (satellite)
+              | 28 > | Precision orbit (satellite)
+              | 29 > | Space environment (satellite)
+              | 30 > | Calibration dataset (satellite)
+              | 31 > | Oceanographic data
+              | 101 > | Image data
+              | 255   | Other category
+
+  0-55-021 | TABLASS ; CODE
+           | 0-55-020=0
+              | 0 > | Hourly synoptic observations from fixed-land stations (SYNOP)
+              | 1 > | Intermediate synoptic observations from fixed-land stations (SYNOP)
+              | 2 > | Main synoptic observations from fixed-land stations (SYNOP)
+              | 3 > | Hourly synoptic observations from mobile-land stations (SYNOP MOBIL)
+              | 4 > | Intermediate synoptic observations from mobile-land stations (SYNOP MOBIL)
+              | 5 > | Main synoptic observations from mobile land stations (SYNOP MOBIL)
+              | 6 > | One-hour observations from automated stations
+              | 7 > | n-minute observations from AWS stations
+              | 8 > | Radiation observations from one-hour period
+              | 9 > | Radiation observations from n-minute period
+              | 10 > | Routine aeronautical observations (METAR)
+              | 11 > | Special aeronautical observations (SPECI)
+              | 14 > | Ground-based GPS humidity observations (GPSIWV)
+              | 20 > | Climatological observations (CLIMAT)
+              | 30 > | Sferics locations
+              | 40 > | Hydrologic reports
+              | 50 > | Hourly synoptic observations with supplementary one-hour data
+              | 51 > | Intermediate synoptic observations with supplementary one-hour data
+              | 52 > | Main synoptic observations with supplementary one-hour data
+           | 0-55-020=1
+              | 0 > | Synoptic observations (SHIP)
+              | 6 > | One-hour observations from automated stations
+              | 7 > | n-minute observations from AWS stations
+              | 20 > | Climatological observations (CLIMAT SHIP)
+              | 25 > | Buoy observation (BUOY)
+              | 30 > | Tide gauge
+              | 31 > | Observed water level time series
+           | 0-55-020=2
+              | 1 > | Upper-wind reports from fixed-land stations (PILOT)
+              | 2 > | Upper-wind reports from ships (PILOT SHIP)
+              | 3 > | Upper-wind reports from mobile-land stations (PILOT MOBIL)
+              | 4 > | Upper-level temperature/humidity/wind reports from fixed-land stations (TEMP)
+              | 5 > | Upper-level temperature/humidity/wind reports from ships (TEMP SHIP)
+              | 6 > | Upper-level temperature/humidity/wind report from mobile-land stations (TEMP MOBIL)
+              | 7 > | Upper-level temperature/humidity/wind reports from dropwinsondes (TEMP DROP)
+              | 10 > | Wind profiler reports
+              | 11 > | RASS temperature profiles
+              | 14 > | Upper-level temperature/humidity/wind reports from descent radiosondes originally launched from fixed land stations
+              | 15 > | Upper-level temperature/humidity/wind reports from descent radiosondes originally launched from ships
+              | 16 > | Upper-level temperature/humidity/wind reports from descent radiosondes originally launched from mobile land stations
+              | 20 > | ASDAR/ACARS profiles (AMDAR)
+              | 21 > | Profiles of atmospheric constituents concentrations
+              | 25 > | Climatological observations from fixed-land stations (CLIMAT TEMP)
+              | 26 > | Climatological observations from ships (CLIMAT TEMP SHIP)
+           | 0-55-020=3
+              | 0 > | Temperature (SATEM)
+              | 1 > | TIROS (TOVS)
+              | 2 > | ATOVS
+              | 3 > | AMSU-A
+              | 4 > | AMSU-B
+              | 5 > | HIRS
+              | 6 > | MHS
+              | 7 > | IASI
+              | 8 > | VASS (Vertical atmospheric sounding system)
+              | 20 > | IR temperature/humidity sounding
+              | 30 > | Hyperspectral temperature/humidity sounding
+              | 40 > | MW temperature/humidity sounding
+              | 50 > | Radio occultation sounding
+           | 0-55-020=4
+              | 0 > | ASDAR/ACARS (AMDAR)
+              | 1 > | Manual (AIREP,PIREP)
+           | 0-55-020=5
+              | 0 > | Cloud wind data (SATOB)
+              | 1 > | Cloud properties
+           | 0-55-020=6
+              | 0 > | Reflectivity data
+              | 1 > | Doppler wind profiles
+              | 2 > | Derived products
+              | 3 > | Ground radar weather (RADOB)
+           | 0-55-020=7
+              | 0 > | Forecast Tropical cyclone tracks from EPS
+              | 1 > | Squall Line
+           | 0-55-020=8
+              | 0 > | Surface ozone
+              | 1 > | Ozone vertical sounding
+              | 2 > | Total ozone
+              | 3 > | Acid rain
+           | 0-55-020=9
+              | 0 > | Trajectories, analysis or forecast
+           | 0-55-020=10
+              | 1 > | Observation (RADREP)
+              | 2 > | Forecast (RADOF)
+           | 0-55-020=12
+              | 0 > | ERS-uwa
+              | 1 > | ERS-uwi
+              | 2 > | ERS-ura
+              | 3 > | ERS-uat
+              | 4 > | SSM/I radiometer
+              | 5 > | Quickscat
+              | 6 > | Surface temp./radiation (SATOB)
+              | 7 > | ASCAT data
+              | 8 > | Soil moisture
+              | 9 > | Normalised differential vegetation index (NDVI)
+              | 10 > | Normalised radar backscatter
+              | 11 > | Surface emissivity
+              | 12 > | Sea surface temperature
+              | 13 > | Precipitation
+           | 0-55-020=21
+              | 0 > | Earth radiation budget
+              | 5 > | Cross-track Infrared Sounder
+              | 6 > | Advanced Technology Microwave Sounder
+              | 7 > | Visible/Infrared Imager Radiometer Suite
+           | 0-55-020=22
+              | 0 > | Cloud and precipitation radar
+              | 1 > | Synthetic Aperture Radar
+           | 0-55-020=23
+              | 0 > | Lidar based missions (for wind, for cloud/aerosol, for water vapour, for altimetry)
+           | 0-55-020=24
+              | 0 > | Wind scatterometry
+           | 0-55-020=25
+              | 0 > | Radar altimetry
+           | 0-55-020=26
+              | 0 > | Cross nadir shortwave spectrometry (for chemistry)
+              | 1 > | Cross nadir IR spectrometry (for chemistry)
+              | 2 > | Limb sounding shortwave spectrometry
+              | 3 > | Limb sounding IR spectrometry
+              | 4 > | Limb sounding sub-millimetre wave spectrometry
+           | 0-55-020=30
+              | 0 > | Subsetted data
+              | 1 > | Collocated data
+              | 2 > | On-board calibration data
+              | 3 > | Bias monitoring
+              | 4 > | Near real-time correction
+              | 5 > | Re-analysis correction
+           | 0-55-020=31
+              | 0 > | Surface observation
+              | 1 > | Surface observation along track (TRACKOB)
+              | 2 > | Spectral wave observation (WAVEOB)
+              | 3 > | Bathythermal observation (BATHY)
+              | 4 > | Sub-surface floats (profile)
+              | 5 > | XBT/XCTD profiles (TESAC)
+              | 6 > | Waves reports
+              | 7 > | Tsunameter data
+           | 0-55-020=101
+              | 0 > | Multi-purpose VIS/IR imagery
+              | 1 > | Conical scanning MW imagery (intermediate frequencies)
+              | 2 > | Low frequency MW imagery
+              | 3 > | Ocean colour imagery
+              | 4 > | Imagery with special viewing geometry
+              | 5 > | Lightning imagery
+              | 6 > | High resolution shortwave imagery for land observation
+              | 7   | SMOS data
+
+  0-55-022 | TABLASL ; CODE
+           | 0-55-020=0
+              | 0 > | Synoptic land - restricted (WMO Resolution 40)
+              | 1 > | Synoptic land - fixed
+              | 2 > | Synoptic land - mobil
+              | 7 > | Aviation - METAR/SPECI
+              | 8 > | NOAA Profiler Network (NPN) and Multi-Agency Profiler (MAP) surface data
+              | 10 > | SHEF products - not included within any other subtype
+              | 11 > | SHEF products - AFOS (precipitation)
+              | 12 > | Supplementary climatological data
+              | 20 > | Wind energy Nacelle - restricted
+              | 100 > | Synoptic land - restricted (WMO Resolution 40) (BUFR)
+              | 101 > | Synoptic land - fixed (BUFR)
+              | 102 > | Synoptic land - mobil (BUFR)
+           | 0-55-020=1
+              | 1 > | Surface marine ship - restricted
+              | 2 > | Surface marine buoy (FM 18)
+              | 3 > | Surface marine buoy (FM 13)
+              | 4 > | Surface marine CMAN
+              | 5 > | Surface tide gauge (CREX)
+              | 6 > | Mean sea level pressure bogus
+              | 7 > | Surface marine Coast Guard
+              | 8 > | Surface tide gauge (CMAN)
+              | 9 > | USGS river/stream
+              | 10 > | Surface marine CMAN (SHEF)
+              | 11 > | Surface marine buoy (SHEF)
+              | 12 > | Surface tide gauge (SHEF)
+              | 13 > | Surface marine ship
+              | 14 > | RVF river forecast
+              | 101 > | Surface marine ship - restricted (BUFR)
+              | 102 > | Surface marine drifting buoy (BUFR)
+              | 103 > | Surface marine moored buoy (BUFR)
+              | 113 > | Surface marine ship (BUFR)
+           | 0-55-020=2
+              | 1 > | Rawinsonde - fixed land
+              | 2 > | Rawinsonde - mobil land
+              | 3 > | Rawinsonde - ship
+              | 4 > | Dropwinsonde
+              | 5 > | PIBAL
+              | 7 > | NOAA Profiler Network (NPN) winds
+              | 8 > | NeXRaD Velocity Azimuth Display (VAD) winds (Radar Coded Message)
+              | 9 > | Profiler winds (PIBAL)
+              | 10 > | NOAA Profiler Network (NPN) and Multi-Agency Profiler (MAP) spectral moments
+              | 11 > | Multi-Agency Profiler (MAP) winds
+              | 12 > | NOAA Profiler Network (NPN) and Multi-Agency Profiler (MAP) RASS temperatures
+              | 13 > | Japan profiler winds
+              | 14 > | Other profiler winds
+              | 16 > | Europe profiler winds
+              | 17 > | NeXRaD Velocity Azimuth Display (VAD) winds (Level 2)
+              | 18 > | Other Velocity Azimuth Display (VAD) winds (BUFR)
+              | 20 > | Wind energy tower - restricted
+              | 21 > | Wind energy tower
+              | 101 > | Rawinsonde - fixed land (BUFR)
+              | 102 > | Rawinsonde - mobil land (BUFR)
+              | 103 > | Rawinsonde - ship (BUFR)
+              | 104 > | Dropwinsonde (BUFR)
+              | 105 > | PIBAL (BUFR)
+           | 0-55-020=3
+              | 1 > | GOES 5x5 FOV cloud and sounder radiances
+              | 2 > | GOES 1x1 FOV cloud
+              | 3 > | GOES 1x1 FOV sounder radiances
+              | 10 > | Radio occultation
+              | 101 > | Polar orbiting - TOVS
+              | 102 > | Polar orbiting - RTOVS
+              | 104 > | Polar orbiting - ATOVS
+           | 0-55-020=4
+              | 1 > | AIREP
+              | 2 > | PIREP
+              | 3 > | ASDAR/ACARS (AMDAR)
+              | 4 > | U.S. ASDAR/ACARS (ARINC to NCEP)
+              | 5 > | Flight level reconnaisance (RECCO)
+              | 6 > | Europe ASDAR/ACARS
+              | 7 > | U.S. ASDAR/ACARS (ARINC to AFWA to NCEP)
+              | 8 > | TAMDAR (MADIS Mesaba)
+              | 9 > | Canada ASDAR/ACARS
+              | 10 > | TAMDAR (BUFR)
+              | 11 > | Korea ASDAR/ACARS
+              | 12 > | TAMDAR (MADIS PenAir)
+              | 13 > | TAMDAR (MADIS Chautauqua)
+              | 14 > | France ASDAR/ACARS
+              | 15 > | Flight level reconnaisance (High Density Observations)
+              | 103 > | ASDAR/ACARS (BUFR)
+           | 0-55-020=5
+              | 1 > | GOES low-density winds - infrared (long-wave) (NESDIS binary format)
+              | 2 > | GOES low-density winds - visible (NESDIS binary format)
+              | 3 > | GOES low-density winds - water vapor imager (NESDIS binary format)
+              | 4 > | GOES low-density winds - picture triplet (NESDIS binary format)
+              | 5 > | GOES high-density winds - infrared (long-wave) (NESDIS binary format)
+              | 6 > | GOES high-density winds - water vapor imager (NESDIS binary format)
+              | 8 > | GOES high-density winds - visible (NESDIS binary format)
+              | 9 > | GOES high-density winds - picture triplet (NESDIS binary format)
+              | 10 > | GOES high-density winds - infrared (long-wave) (BUFR)
+              | 11 > | GOES high-density winds - water vapor imager (BUFR)
+              | 12 > | GOES high-density winds - visible (BUFR)
+              | 13 > | GOES high-density winds - picture triplet (BUFR)
+              | 14 > | GOES high-density winds - water vapor sounder (BUFR)
+              | 15 > | GOES high-density winds - infrared (long-wave) (BUFR via GTS)
+              | 16 > | GOES high-density winds - water vapor imager (BUFR via GTS)
+              | 17 > | GOES high-density winds - visible (BUFR via GTS)
+              | 18 > | GOES high-density winds - water vapor sounder (BUFR via GTS)
+              | 19 > | GOES high-density winds - infrared (short-wave) (BUFR)
+              | 20 > | NESDIS GOES Satellite Cloud Product (SCP)
+              | 21 > | India low-density winds - infrared (long-wave) (SATOB)
+              | 22 > | India low-density winds - visible (SATOB)
+              | 23 > | India low-density winds - water vapor imager (SATOB)
+              | 24 > | India high-density winds - infrared (long-wave) (BUFR)
+              | 25 > | India high-density winds - visible (BUFR)
+              | 26 > | India high-density winds - water vapor imager (BUFR)
+              | 41 > | Japan low-density winds - infrared (long-wave) (SATOB)
+              | 42 > | Japan low-density winds - visible (SATOB)
+              | 43 > | Japan low-density winds - water vapor imager (SATOB)
+              | 44 > | Japan high-density winds - infrared (long-wave) (BUFR)
+              | 45 > | Japan high-density winds - visible (BUFR)
+              | 46 > | Japan high-density winds - water vapor imager (BUFR)
+              | 50 > | GMS high-density winds - infrared (long-wave) (BUFR)
+              | 51 > | GMS high-density winds - water vapor imager (BUFR)
+              | 61 > | Europe low-density winds - infrared (long-wave) (SATOB)
+              | 62 > | Europe low-density winds - visible (SATOB)
+              | 63 > | Europe low-density winds - water vapor imager (SATOB)
+              | 64 > | Europe high-density winds - infrared (long-wave) (BUFR)
+              | 65 > | Europe high-density winds - visible (BUFR)
+              | 66 > | Europe high-density winds - water vapor imager (BUFR)
+              | 70 > | MODIS AQUA/TERRA winds - infrared (long-wave) (BUFR)
+              | 71 > | MODIS AQUA/TERRA winds - water vapor imager (BUFR)
+              | 80 > | METOP AVHRR winds - infrared (long-wave) (BUFR)
+              | 90 > | NPP VIIRS winds - infrared (long-wave) (BUFR)
+           | 0-55-020=6
+              | 1 > | NeXRaD level 3 radial wind superob
+              | 2 > | NeXRaD level 2.5 radial wind superob
+              | 10 > | NeXRaD level 2 radial wind (00z)
+              | 11 > | NeXRaD level 2 radial wind (01z)
+              | 12 > | NeXRaD level 2 radial wind (02z)
+              | 13 > | NeXRaD level 2 radial wind (03z)
+              | 14 > | NeXRaD level 2 radial wind (04z)
+              | 15 > | NeXRaD level 2 radial wind (05z)
+              | 16 > | NeXRaD level 2 radial wind (06z)
+              | 17 > | NeXRaD level 2 radial wind (07z)
+              | 18 > | NeXRaD level 2 radial wind (08z)
+              | 19 > | NeXRaD level 2 radial wind (09z)
+              | 20 > | NeXRaD level 2 radial wind (10z)
+              | 21 > | NeXRaD level 2 radial wind (11z)
+              | 22 > | NeXRaD level 2 radial wind (12z)
+              | 23 > | NeXRaD level 2 radial wind (13z)
+              | 24 > | NeXRaD level 2 radial wind (14z)
+              | 25 > | NeXRaD level 2 radial wind (15z)
+              | 26 > | NeXRaD level 2 radial wind (16z)
+              | 27 > | NeXRaD level 2 radial wind (17z)
+              | 28 > | NeXRaD level 2 radial wind (18z)
+              | 29 > | NeXRaD level 2 radial wind (19z)
+              | 30 > | NeXRaD level 2 radial wind (20z)
+              | 31 > | NeXRaD level 2 radial wind (21z)
+              | 32 > | NeXRaD level 2 radial wind (22z)
+              | 33 > | NeXRaD level 2 radial wind (23z)
+              | 40 > | NeXRaD level 2 reflectivity (00z)
+              | 41 > | NeXRaD level 2 reflectivity (01z)
+              | 42 > | NeXRaD level 2 reflectivity (02z)
+              | 43 > | NeXRaD level 2 reflectivity (03z)
+              | 44 > | NeXRaD level 2 reflectivity (04z)
+              | 45 > | NeXRaD level 2 reflectivity (05z)
+              | 46 > | NeXRaD level 2 reflectivity (06z)
+              | 47 > | NeXRaD level 2 reflectivity (07z)
+              | 48 > | NeXRaD level 2 reflectivity (08z)
+              | 49 > | NeXRaD level 2 reflectivity (09z)
+              | 50 > | NeXRaD level 2 reflectivity (10z)
+              | 51 > | NeXRaD level 2 reflectivity (11z)
+              | 52 > | NeXRaD level 2 reflectivity (12z)
+              | 53 > | NeXRaD level 2 reflectivity (13z)
+              | 54 > | NeXRaD level 2 reflectivity (14z)
+              | 55 > | NeXRaD level 2 reflectivity (15z)
+              | 56 > | NeXRaD level 2 reflectivity (16z)
+              | 57 > | NeXRaD level 2 reflectivity (17z)
+              | 58 > | NeXRaD level 2 reflectivity (18z)
+              | 59 > | NeXRaD level 2 reflectivity (19z)
+              | 60 > | NeXRaD level 2 reflectivity (20z)
+              | 61 > | NeXRaD level 2 reflectivity (21z)
+              | 62 > | NeXRaD level 2 reflectivity (22z)
+              | 63 > | NeXRaD level 2 reflectivity (23z)
+              | 70 > | Aircraft tail doppler radial wind
+              | 80 > | Canada reflectivity (00z)
+              | 81 > | Canada reflectivity (01z)
+              | 82 > | Canada reflectivity (02z)
+              | 83 > | Canada reflectivity (03z)
+              | 84 > | Canada reflectivity (04z)
+              | 85 > | Canada reflectivity (05z)
+              | 86 > | Canada reflectivity (06z)
+              | 87 > | Canada reflectivity (07z)
+              | 88 > | Canada reflectivity (08z)
+              | 89 > | Canada reflectivity (09z)
+              | 90 > | Canada reflectivity (10z)
+              | 91 > | Canada reflectivity (11z)
+              | 92 > | Canada reflectivity (12z)
+              | 93 > | Canada reflectivity (13z)
+              | 94 > | Canada reflectivity (14z)
+              | 95 > | Canada reflectivity (15z)
+              | 96 > | Canada reflectivity (16z)
+              | 97 > | Canada reflectivity (17z)
+              | 98 > | Canada reflectivity (18z)
+              | 99 > | Canada reflectivity (19z)
+              | 100 > | Canada reflectivity (20z)
+              | 101 > | Canada reflectivity (21z)
+              | 102 > | Canada reflectivity (22z)
+              | 103 > | Canada reflectivity (23z)
+              | 110 > | Canada radial wind (00z)
+              | 111 > | Canada radial wind (01z)
+              | 112 > | Canada radial wind (02z)
+              | 113 > | Canada radial wind (03z)
+              | 114 > | Canada radial wind (04z)
+              | 115 > | Canada radial wind (05z)
+              | 116 > | Canada radial wind (06z)
+              | 117 > | Canada radial wind (07z)
+              | 118 > | Canada radial wind (08z)
+              | 119 > | Canada radial wind (09z)
+              | 120 > | Canada radial wind (10z)
+              | 121 > | Canada radial wind (11z)
+              | 122 > | Canada radial wind (12z)
+              | 123 > | Canada radial wind (13z)
+              | 124 > | Canada radial wind (14z)
+              | 125 > | Canada radial wind (l5z)
+              | 126 > | Canada radial wind (16z)
+              | 127 > | Canada radial wind (17z)
+              | 128 > | Canada radial wind (18z)
+              | 129 > | Canada radial wind (19z)
+              | 130 > | Canada radial wind (20z)
+              | 131 > | Canada radial wind (21z)
+              | 132 > | Canada radial wind (22z)
+              | 133 > | Canada radial wind (23z)
+           | 0-55-020=7
+              | 0 > | Tropical storm
+              | 1 > | Vaisala lightning (NLDN short-range)
+              | 2 > | Vaisala lightning (LLDN long-range)
+              | 3 > | Earth Networks lightning
+              | 21 > | NeXRaD level 2 boundary layer heights
+           | 0-55-020=8
+              | 10 > | ATOVS SBUV-2 ozone
+              | 11 > | ATOVS SBUV-2 ozone
+              | 12 > | Global ozone monitoring experiment (GOME)
+              | 13 > | Aura ozone monitoring instrument (OMI)
+              | 14 > | NPP OMPS ozone - nadir profile
+              | 15 > | Aura ozone microwave limb sounder (MLS)
+              | 16 > | NPP OMPS ozone - total column
+              | 20 > | AIRNOW ozone - 1-hr backward averaged, daily ingest
+              | 21 > | AIRNOW ozone - 1-hr backward averaged, daily ingest
+              | 22 > | AIRNOW ozone - 8-hr backward averaged, daily ingest
+              | 23 > | AIRNOW ozone - 1-hr backward averaged, hourly ingest
+              | 31 > | AIRNOW particulate matter - 1-hr backward averaged, daily ingest
+              | 32 > | AIRNOW particulate matter - 1-hr backward averaged, hourly ingest
+              | 41 > | MODIS aerosol optical depth
+              | 42 > | NPP aerosol optical depth
+              | 45 > | AERONET aerosol optical depths and thicknesses
+           | 0-55-020=12
+              | 1 > | DMSP SSM/I brightness temperatures
+              | 2 > | DMSP SSM/I derived products
+              | 3 > | GPS integrated precipitable water
+              | 4 > | GNSS ground-based
+              | 5 > | ERS SAR
+              | 8 > | ERS scatterometer
+              | 9 > | ERS radar altimeter
+              | 10 > | NAVOCEANO POES - low-resolution sea-surface temperatures
+              | 11 > | NESDIS POES - high-resolution sea-surface temperatures, brightness temperatures and albedo
+              | 12 > | NAVOCEANO POES - high-resolution sea-surface temperatures, brightness temperatures and albedo
+              | 13 > | NASA TRMM microwave imager
+              | 17 > | NAVOCEANO POES - sea-surface temperatures
+              | 18 > | NESDIS POES - sea-surface temperatures
+              | 22 > | NESDIS GOES - sea-surface temperatures
+              | 23 > | NPP VIIRS - sea-surface temperatures
+              | 31 > | AQUA AMSR-E ocean surface products - level 2
+              | 34 > | AQUA AMSR-E ocean surface products - MISST
+              | 103 > | DMSP SSM/I neural net 3 products
+              | 122 > | METOP 50-km ASCAT scatterometer
+              | 123 > | METOP 25-km ASCAT scatterometer
+              | 137 > | Quickscat scatterometer
+              | 138 > | WindSat scatterometer (FNMOC)
+              | 139 > | WindSat scatterometer (NESDIS)
+              | 150 > | NASA Langley - GOES 1x1 FOV cloud
+              | 160 > | University of Wisconsin GOES imager-effective cloud
+              | 255 > | OCEANSAT 50-km OSCAT scatterometer
+           | 0-55-020=21
+              | 21 > | NOAA RTOVS brightness temperatures - HIRS-2
+              | 22 > | NOAA RTOVS brightness temperatures - MSU
+              | 23 > | NOAA ATOVS brightness temperatures - AMSU-A
+              | 24 > | NOAA ATOVS brightness temperatures - AMSU-B
+              | 25 > | NOAA ATOVS brightness temperatures - HIRS-3
+              | 27 > | NOAA ATOVS brightness temperatures - MHS
+              | 28 > | NOAA ATOVS brightness temperatures - MHS
+              | 33 > | RARS ATOVS brightness temperatures - AMSU-A
+              | 34 > | RARS ATOVS brightness temperatures - AMSU-B
+              | 35 > | RARS ATOVS brightness temperatures - HIRS-3
+              | 36 > | RARS ATOVS brightness temperatures - MHS
+              | 37 > | RARS ATOVS radiances - CrIS
+              | 38 > | RARS ATOVS brightness temperatures - ATMS
+              | 39 > | RARS ATOVS radiances - IASI
+              | 41 > | NESDIS GOES imager brightness temperatures
+              | 42 > | SEVIRI all-sky radiances
+              | 43 > | SEVIRI clear-sky radiances
+              | 44 > | Himawari-8 clear-sky radiances
+              | 51 > | NOAA-17 and METOP-2 AVHRR brightness temperatures (clear and over ocean)
+              | 52 > | NOAA-17 and METOP-2 AVHRR brightness temperatures (cloudy or over land)
+              | 53 > | NOAA-18 AVHRR brightness temperatures (clear and over ocean)
+              | 54 > | NOAA-18 AVHRR brightness temperatures (cloudy or over land)
+              | 123 > | Antenna temperatures - AMSU-A
+              | 201 > | DMSP SSMI/S brightness temperatures
+              | 202 > | NPP CrIS radiances
+              | 203 > | NPP ATMS radiances
+              | 204 > | NPP VIIRS radiances
+              | 241 > | IASI radiances
+              | 242 > | Megha-Tropiques SAPHIR L1A2 brightness temperatures
+              | 249 > | AQUA/AIRS AMSU-A brightness temperatures - every field-of-view
+              | 250 > | AQUA/AIRS AMSU-A brightness temperatures - central field-of-view
+              | 254 > | AQUA/AMSR-E brightness temperatures
+              | 255 > | AQUA/AIRS AMSU-A brightness temperatures - warmest field-of-view
+           | 0-55-020=31
+              | 1 > | BATHY
+              | 2 > | TESAC
+              | 3 > | TRACKOB
+              | 4 > | Airborne Expendable Bathythermograph (AXBT)
+              | 5 > | Subsurface float profiles (BUFR)
+              | 6 > | XBT/XCTD (TESAC) profiles (BUFR)
+              | 7 > | Along track (TRACKOB) observations (BUFR)
+              | 11 > | NLSA ERS-2 sea-surface height anomaly (high-resolution regional)
+              | 12 > | NLSA TOPEX sea-surface height anomaly (high-resolution regional)
+              | 13 > | NLSA TOPEX sea-surface height anomaly (high-resolution regional)
+              | 14 > | NLSA GFO sea-surface height anomaly (high-resolution regional)
+              | 101 > | NAVOCEANO ERS-2 sea-surface height anomaly (high-resolution global)
+              | 102 > | NAVOCEANO GFO sea-surface height anomaly (high-resolution global)
+              | 103 > | NAVOCEANO TOPEX sea-surface height anomaly (high-resolution global)
+              | 104 > | NAVOCEANO JASON-1 sea-surface height anomaly (high-resolution global)
+              | 105 > | NAVOCEANO GFO altimeter wind/wave (IGDR)
+              | 106 > | CNES JASON-1 altimeter wind/wave (IGDR)
+              | 107 > | NAVOCEANO GFO altimeter wind/wave (fast delivery)
+              | 108 > | NAVOCEANO ENVISAT altimeter wind/wave (fast delivery)
+              | 109 > | NAVOCEANO ENVISAT sea-surface height anomaly (high-resolution global)
+              | 110 > | NAVOCEANO JASON-1 altimeter wind/wave (fast delivery)
+              | 111 > | CNES JASON-2 altimeter wind/wave (OGDR)
+              | 112 > | NAVOCEANO JASON-2 sea-surface height anomaly (high-resolution global) (OGDR)
+              | 113 > | NAVOCEANO JASON-2 sea-surface height anomaly (high-resolution global) (IGDR)
+              | 114 > | NAVOCEANO JASON-2 altimeter wind/wave (fast delivery)
+              | 115 > | CNES JASON-2 altimeter wind/wave (OGDR)
+              | 116 > | SSALTO/DUACS ENVISAT sea-surface height anomaly (high-resolution global)
+              | 117 > | NAVOCEANO CRYOSAT-2 sea-surface height anomaly (high-resolution global)
+              | 118 > | NAVOCEANO SARAL sea-surface height anomaly (high-resolution global) (OGDR)
+              | 119 > | NAVOCEANO SARAL sea-surface height anomaly (high-resolution global) (IGDR)
+              | 120 > | NAVOCEANO CRYOSAT-2 altimeter wind/wave (fast delivery)
+              | 121 > | NAVOCEANO SARAL altimeter wind/wave (fast delivery)
+              | 122 > | CNES SARAL altimeter wind/wave (OGDR)
+              | 123 > | CNES CRYOSAT-2 altimeter wind/wave (OGDR)
+              | 124 > | CNES JASON-3 altimeter wind/wave (OGDR)
+              | 125 > | NAVOCEANO JASON-3 sea-surface height anomaly (high-resolution global) (OGDR)
+              | 126 > | NAVOCEANO JASON-3 sea-surface height anomaly (high-resolution global) (IGDR)
+              | 127 > | NAVOCEANO JASON-3 altimeter wind/wave (fast delivery)
+              | 128 > | NAVOCEANO Sentinel 3A sea-surface height anomaly (high-resolution global) (NRT)
+              | 129 > | NAVOCEANO Sentinel 3A sea-surface height anomaly (high-resolution global) (STC)
+              | 130 > | NAVOCEANO Sentinel 3A altimeter wind/wave (fast delivery)
+           | 0-55-020=255
+              | 1 > | Mesonet - Denver Urban Drainage (MADIS)
+              | 2 > | Mesonet - RAWS National Interagency Fire Center (MADIS)
+              | 3 > | Mesonet - MesoWest (MADIS)
+              | 4 > | Mesonet - APRS WeatherNet (MADIS)
+              | 5 > | Mesonet - Kansas Department of Transportation (MADIS)
+              | 6 > | Mesonet - Florida (MADIS)
+              | 7 > | Mesonet - Iowa Department of Transportation (MADIS)
+              | 8 > | Mesonet - Minnesota Department of Transportation (MADIS)
+              | 9 > | Mesonet - Anything Weather (MADIS)
+              | 10 > | Mesonet - National Ocean Service PORTS (MADIS)
+              | 11 > | Mesonet - Aberdeen Proving Grounds (MADIS)
+              | 12 > | Mesonet - Weather for You (MADIS)
+              | 13 > | Mesonet - NWS Cooperative Observers (MADIS)
+              | 14 > | Mesonet - NWS HADS (MADIS)
+              | 15 > | Mesonet - AWS (MADIS)
+              | 16 > | Mesonet - Iowa Environmental (MADIS)
+              | 17 > | Mesonet - Oklahoma (MADIS)
+              | 18 > | Mesonet - Colorado Department of Transportation (MADIS)
+              | 19 > | Mesonet - West Texas (MADIS)
+              | 20 > | Mesonet - Wisconsin Department of Transportation (MADIS)
+              | 21 > | Mesonet - LSU-JSU (MADIS)
+              | 22 > | Mesonet - Colorado E-470 (MADIS)
+              | 23 > | Mesonet - DC Net (MADIS)
+              | 24 > | Mesonet - Indiana Department of Transportation (MADIS)
+              | 25 > | Mesonet - Florida Department of Transportation (MADIS)
+              | 26 > | Mesonet - Alaska Department of Transportation (MADIS)
+              | 27 > | Mesonet - Georgia Department of Transportation (MADIS)
+              | 28 > | Mesonet - Virginia Department of Transportation (MADIS)
+              | 29 > | Mesonet - Missouri Commercial Agriculture Weather Net (MADIS)
+              | 30 > | Mesonet - Miscellaneous (MADIS)
+              | 31 > | Urbanet - Miscellaneous (MADIS)
+              | 32 > | Urbanet - University of South Alabama (MADIS)
+              | 101 > | Cooperative observer surface - New England Pilot Project (NEPP) and Historical Climatology Network (HCN) (MADIS)
+              | 102 > | Cooperative observer surface - NWS Cooperative Observers (SHEF)
+              | 111 > | Mesonet - Climate Reference Network (MADIS)
+              | 131 > | Hydrological surface - Denver Urban Drainage (MADIS)
+              | 160 > | Hydrological surface - Miscellaneous (MADIS)
+              | 161   | Snow (MADIS)
 END
