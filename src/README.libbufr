@@ -1826,3 +1826,6 @@ as a code or flag table, the user may call new subroutine GETCFMNG with that
 mnemonic and an associated value (code figure or bit number) as input, and
 the subroutine will return the meaning (as a character string) corresponding
 to that mnemonic and associated value.
+
+6) The default BUFR master table version number was changed from "13" to "29"
+within subroutines CMSGINI, DXMINI and MSGINI.

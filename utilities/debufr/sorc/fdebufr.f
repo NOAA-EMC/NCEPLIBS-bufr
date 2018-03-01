@@ -22,6 +22,8 @@ C 2014-09-15  J. Ator     Confirm BUFR file was opened (i.e. at least
 C                         one good return from CRBMG) before calling
 C                         DXDUMP.
 C 2018-01-19  J. Ator     Added print of code and flag table meanings.
+C 2018-03-01  J. Ator     Added print of data types and subtypes from
+C                         code and flag tables.
 C
 C USAGE:    call fdebufr ( ofile, tbldir, lentd, tblfil,
 C			   basic, forcemt )
@@ -63,7 +65,7 @@ C$$$
 
 	LOGICAL		exists
 
-	CHARACTER*120	cmorgc, cmgses
+	CHARACTER*120	cmorgc, cmgses, cmmtyp, cmmsbt, cmmsbti
 	CHARACTER*8	cmgtag
 	CHARACTER*6	cds3 ( MXDS3 )
 	CHARACTER*1	basic, forcemt, opened, usemt,
@@ -227,7 +229,8 @@ C	    output unless master tables are being used for decoding.
 		    ELSE
 		        WRITE (51,*) '   Originating center:', iogce
 		    ENDIF
-		    CALL GETCFMNG ( lunit, 'GSES', igses, 'ORIGC',iogce,
+		    CALL GETCFMNG ( lunit, 'GSES', igses,
+     +				    'ORIGC', iogce,
      +				    cmgses, lcmgses, iergses )
 		    IF ( iergses .eq. 0 ) THEN
 		        WRITE ( 51, FMT= '( A, I4, 3A )' )
@@ -247,12 +250,46 @@ C	    output unless master tables are being used for decoding.
 		    WRITE (51,*) '   Section 2 present?: No'
 		ENDIF
  
-		WRITE (51,*) '        Data category:',
-     +					IUPBS01 ( ibfmg, 'MTYP' )
-		WRITE (51,*) '    Local subcategory:',
-     +					IUPBS01 ( ibfmg, 'MSBT' )
-		WRITE (51,*) 'Internatl subcategory:',
-     +					IUPBS01 ( ibfmg, 'MSBTI' )
+		mtyp = IUPBS01 ( ibfmg, 'MTYP' )
+		msbt = IUPBS01 ( ibfmg, 'MSBT' )
+		msbti = IUPBS01 ( ibfmg, 'MSBTI' )
+		IF ( basic .eq. 'Y' ) THEN
+		    WRITE (51,*) '        Data category:', mtyp
+		    WRITE (51,*) '    Local subcategory:', msbt
+		    WRITE (51,*) 'Internatl subcategory:', msbti
+		ELSE
+		    CALL GETCFMNG ( lunit, 'TABLAT', mtyp, ' ', -1,
+     +				    cmmtyp, lcmmtyp, iermtyp )
+		    IF ( iermtyp .eq. 0 ) THEN
+		        WRITE ( 51, FMT= '( A, I4, 3A )' )
+     +			   '         Data category:        ', mtyp,
+     +			   ' (= ', cmmtyp(1:lcmmtyp), ')'
+		    ELSE
+			WRITE (51,*) '        Data category:', mtyp
+		    ENDIF
+		    CALL GETCFMNG ( lunit, 'TABLASL', msbt,
+     +				    'TABLAT', mtyp,
+     +				    cmmsbt, lcmmsbt, iermsbt )
+		    IF ( ( iermsbt .eq. 0 ) .and.
+     +			 ( iogce .eq. 7 ) ) THEN
+		        WRITE ( 51, FMT= '( A, I4, 3A )' )
+     +			   '     Local subcategory:        ', msbt,
+     +				' (= ', cmmsbt(1:lcmmsbt), ')'
+		    ELSE
+			WRITE (51,*) '    Local subcategory:', msbt
+		    ENDIF
+		    CALL GETCFMNG ( lunit, 'TABLASS', msbti,
+     +				    'TABLAT', mtyp,
+     +				    cmmsbti, lcmmsbti, iermsbti )
+		    IF ( iermsbti .eq. 0 ) THEN
+		        WRITE ( 51, FMT= '( A, I4, 3A )' )
+     +			   ' Internatl subcategory:        ', msbti,
+     +				' (= ', cmmsbti(1:lcmmsbti), ')'
+		    ELSE
+			WRITE (51,*) 'Internatl subcategory:', msbti
+		    ENDIF
+		ENDIF
+
 		WRITE (51,*) ' Master table version:', 
      +					IUPBS01 ( ibfmg, 'MTV' )
 		WRITE (51,*) '  Local table version:',
@@ -269,8 +306,7 @@ C	    output unless master tables are being used for decoding.
      +					IUPBS01 ( ibfmg, 'MINU' )
 		WRITE (51,*) '               Second:',
      +					IUPBS01 ( ibfmg, 'SECO' )
-		IF ( ( IUPBS01 ( ibfmg, 'OGCE' ) .eq. 7 ) .and.
-     +		     ( IUPBS01 ( ibfmg, 'GSES' ) .eq. 3 ) ) THEN
+		IF ( ( iogce .eq. 7 ) .and. ( igses .eq. 3 ) ) THEN
 		    CALL RTRCPTB ( ibfmg, iryr, irmo, irdy, irhr,
      +				   irmi, irtret )
 		    IF ( irtret .eq. 0 ) THEN

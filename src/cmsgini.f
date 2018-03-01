@@ -132,7 +132,7 @@ C  ---------
       CALL PKB(   0 ,  8 , MESG,MBIT)
       CALL PKB(MTYP ,  8 , MESG,MBIT)
       CALL PKB(MSBT ,  8 , MESG,MBIT)
-      CALL PKB(  13 ,  8 , MESG,MBIT)
+      CALL PKB(  29 ,  8 , MESG,MBIT)
       CALL PKB(   0 ,  8 , MESG,MBIT)
       CALL PKB(MEAR ,  8 , MESG,MBIT)
       CALL PKB(MMON ,  8 , MESG,MBIT)
