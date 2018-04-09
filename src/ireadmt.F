@@ -25,6 +25,8 @@ C 2017-10-13  J. ATOR    -- ADD FUNCTIONALITY TO CHECK WHETHER NEW
 C                           MASTER TABLES NEED TO BE READ (THIS
 C                           FUNCTIONALITY WAS PREVIOUSLY PART OF
 C                           SUBROUTINE READS3)
+C 2018-04-09  J. ATOR    -- ONLY READ MASTER B AND D TABLES WHEN
+C                           SECTION 3 IS BEING USED FOR DECODING
 C
 C USAGE:    IREADMT ( LUN )
 C   INPUT ARGUMENT LIST:
@@ -62,6 +64,7 @@ C$$$
 	USE MODA_MSTABS
 	USE MODA_BITBUF
 	USE MODA_RDMTB
+	USE MODA_SC3BFR
 
 	INCLUDE 'bufrlib.prm'
 
@@ -163,63 +166,66 @@ C*	  we need to read in new tables.
 	CALL ERRWRT('BUFRLIB: IREADMT - OPENING/READING MASTER TABLES')
 	ENDIF
 
-C*	Locate and open the master Table B files.  There should be one
-C*	file of standard descriptors and one file of local descriptors.
+	IF ( ISC3(LUN) .NE. 0 ) THEN
 
-	CALL MTFNAM ( IMT, IMTV, IOGCE, IMTVL, 'TableB',
-     .		      STDFIL, LOCFIL )
-	OPEN ( UNIT = LUN1, FILE = STDFIL, IOSTAT = IER )
-	IF ( IER .NE. 0 ) GOTO 900
-	OPEN ( UNIT = LUN2, FILE = LOCFIL, IOSTAT = IER )
-	IF ( IER .NE. 0 ) GOTO 901
+C*	  Locate and open the master Table B files.  There should be one
+C*	  file of standard descriptors and one file of local descriptors.
 
-C*	Read the master Table B files.
+	  CALL MTFNAM ( IMT, IMTV, IOGCE, IMTVL, 'TableB',
+     .			STDFIL, LOCFIL )
+	  OPEN ( UNIT = LUN1, FILE = STDFIL, IOSTAT = IER )
+	  IF ( IER .NE. 0 ) GOTO 900
+	  OPEN ( UNIT = LUN2, FILE = LOCFIL, IOSTAT = IER )
+	  IF ( IER .NE. 0 ) GOTO 901
 
-	CALL RDMTBB ( LUN1, LUN2, MXMTBB,
-     .		      IBMT, IBMTV, IBOGCE, IBLTV,
-     .		      NMTB, IBFXYN, CBSCL, CBSREF, CBBW,
-     .		      CBUNIT, CBMNEM, CMDSCB, CBELEM )
+C*	  Read the master Table B files.
 
-C*	Close the master Table B files.
+	  CALL RDMTBB ( LUN1, LUN2, MXMTBB,
+     .			IBMT, IBMTV, IBOGCE, IBLTV,
+     .			NMTB, IBFXYN, CBSCL, CBSREF, CBBW,
+     .			CBUNIT, CBMNEM, CMDSCB, CBELEM )
 
-	CLOSE ( UNIT = LUN1 )
-	CLOSE ( UNIT = LUN2 )
+C*	  Close the master Table B files.
 
-C*	Locate and open the master Table D files.  There should be one
-C*	file of standard descriptors and one file of local descriptors.
+	  CLOSE ( UNIT = LUN1 )
+	  CLOSE ( UNIT = LUN2 )
 
-	CALL MTFNAM ( IMT, IMTV, IOGCE, IMTVL, 'TableD',
-     .		      STDFIL, LOCFIL )
-	OPEN ( UNIT = LUN1, FILE = STDFIL, IOSTAT = IER )
-	IF ( IER .NE. 0 ) GOTO 900
-	OPEN ( UNIT = LUN2, FILE = LOCFIL, IOSTAT = IER )
-	IF ( IER .NE. 0 ) GOTO 901
+C*	  Locate and open the master Table D files.  There should be one
+C*	  file of standard descriptors and one file of local descriptors.
 
-C*	Read the master Table D files.
+	  CALL MTFNAM ( IMT, IMTV, IOGCE, IMTVL, 'TableD',
+     .			STDFIL, LOCFIL )
+	  OPEN ( UNIT = LUN1, FILE = STDFIL, IOSTAT = IER )
+	  IF ( IER .NE. 0 ) GOTO 900
+	  OPEN ( UNIT = LUN2, FILE = LOCFIL, IOSTAT = IER )
+	  IF ( IER .NE. 0 ) GOTO 901
 
-	CALL RDMTBD ( LUN1, LUN2, MXMTBD, MAXCD,
-     .		      IDMT, IDMTV, IDOGCE, IDLTV,
-     .		      NMTD, IDFXYN, CDMNEM, CMDSCD, CDSEQ,
-     .		      NDELEM, IEFXYN, CEELEM )
-	DO I = 1, NMTD
-	  DO J = 1, NDELEM(I)
-	    IDX = ICVIDX ( I-1, J-1, MAXCD ) + 1
-	    IDEFXY(IDX) = IEFXYN(I,J)
+C*	  Read the master Table D files.
+
+	  CALL RDMTBD ( LUN1, LUN2, MXMTBD, MAXCD,
+     .			IDMT, IDMTV, IDOGCE, IDLTV,
+     .			NMTD, IDFXYN, CDMNEM, CMDSCD, CDSEQ,
+     .			NDELEM, IEFXYN, CEELEM )
+	  DO I = 1, NMTD
+	    DO J = 1, NDELEM(I)
+	      IDX = ICVIDX ( I-1, J-1, MAXCD ) + 1
+	      IDEFXY(IDX) = IEFXYN(I,J)
+	    ENDDO
 	  ENDDO
-	ENDDO
 
-C*	Close the master Table D files.
+C*	  Close the master Table D files.
 
-	CLOSE ( UNIT = LUN1 )
-	CLOSE ( UNIT = LUN2 )
+	  CLOSE ( UNIT = LUN1 )
+	  CLOSE ( UNIT = LUN2 )
 
 #ifdef DYNAMIC_ALLOCATION
-C*	Copy master table B and D information into internal C arrays.
+C*	  Copy master table B and D information into internal C arrays.
 
-	CALL CPMSTABS ( NMTB, IBFXYN, CBSCL, CBSREF, CBBW, CBUNIT,
-     .			CBMNEM, CBELEM, NMTD, IDFXYN, CDSEQ, CDMNEM,
-     .			NDELEM, IDEFXY, MAXCD )
+	  CALL CPMSTABS ( NMTB, IBFXYN, CBSCL, CBSREF, CBBW, CBUNIT,
+     .			  CBMNEM, CBELEM, NMTD, IDFXYN, CDSEQ, CDMNEM,
+     .			  NDELEM, IDEFXY, MAXCD )
 #endif
+	ENDIF
 
 	IF ( CDMF .EQ. 'Y' ) THEN
 
