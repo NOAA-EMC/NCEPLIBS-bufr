@@ -1,5 +1,5 @@
 	SUBROUTINE FDEBUFR ( ofile, tbldir, lentd, tblfil,
-     +			     basic, forcemt )
+     +			     basic, forcemt, cfms )
 
 C$$$  SUBPROGRAM DOCUMENTATION BLOCK
 C
@@ -26,7 +26,7 @@ C 2018-03-01  J. Ator     Added print of data types and subtypes from
 C                         code and flag tables.
 C
 C USAGE:    call fdebufr ( ofile, tbldir, lentd, tblfil,
-C			   basic, forcemt )
+C			   basic, forcemt, cfms )
 C   INPUT ARGUMENT LIST:
 C     ofile    - character*(*): file to contain verbose output
 C                listing for each decoded BUFR message
@@ -42,6 +42,11 @@ C                  'Y' = yes
 C                  'N' = no
 C     forcemt  - character: indicator as to whether the forced use
 C                of master tables was specified on the command line:
+C                  'Y' = yes
+C                  'N' = no
+C     cfms     - character: indicator as to whether code and flag
+C                table meanings should be read from master tables
+C                and included in the print output:
 C                  'Y' = yes
 C                  'N' = no
 C
@@ -68,7 +73,7 @@ C$$$
 	CHARACTER*120	cmorgc, cmgses, cmmtyp, cmmsbt, cmmsbti
 	CHARACTER*8	cmgtag
 	CHARACTER*6	cds3 ( MXDS3 )
-	CHARACTER*1	basic, forcemt, opened, usemt,
+	CHARACTER*1	basic, forcemt, opened, usemt, cfms,
      +			bfmg ( MXBF )
 
 	INTEGER		ibfmg ( MXBFD4 )
@@ -179,7 +184,7 @@ C		    Decode the file using the master tables in tbldir.
 		opened = 'Y'
 
 		CALL MTINFO ( tbldir, 90, 91 )
-		CALL CODFLG ( 'Y' )
+		IF ( cfms .eq. 'Y' ) CALL CODFLG ( 'Y' )
 	    ENDIF
 
 	    IF ( basic .eq. 'N' ) THEN
@@ -216,7 +221,8 @@ C	    output unless master tables are being used for decoding.
 
 		iogce = IUPBS01 ( ibfmg, 'OGCE' )
 		igses = IUPBS01 ( ibfmg, 'GSES' )
-		IF ( basic .eq. 'Y' ) THEN
+		IF ( ( basic .eq. 'Y' ) .or.
+     +		     ( cfms .eq. 'N' ) ) THEN
 		    WRITE (51,*) '   Originating center:', iogce
 		    WRITE (51,*) 'Originating subcenter:', igses
 		ELSE
@@ -253,7 +259,8 @@ C	    output unless master tables are being used for decoding.
 		mtyp = IUPBS01 ( ibfmg, 'MTYP' )
 		msbt = IUPBS01 ( ibfmg, 'MSBT' )
 		msbti = IUPBS01 ( ibfmg, 'MSBTI' )
-		IF ( basic .eq. 'Y' ) THEN
+		IF ( ( basic .eq. 'Y' ) .or.
+     +		     ( cfms .eq. 'N' ) ) THEN
 		    WRITE (51,*) '        Data category:', mtyp
 		    WRITE (51,*) '    Local subcategory:', msbt
 		    WRITE (51,*) 'Internatl subcategory:', msbti

@@ -15,6 +15,9 @@ void prtusage( char *prgnam ) {
 	printf( "              information in Sections 0-3 will be decoded from each\n" );
 	printf( "              BUFR message in the bufrfile, and no attempt will be\n" );
 	printf( "              made to decode the data in Section 4\n" );
+	printf( "    -c        specifies that code and flag table meanings should not\n" );
+	printf( "              be read from master tables and included in the output;\n" );
+	printf( "              otherwise this feature is enabled by default\n" );
 	printf( "    -m        specifies that BUFR master tables will be used to\n" );
 	printf( "              decode the data messages in the file, regardless of\n" );
 	printf( "              whether they contain any embedded NCEP DX dictionary\n" );

@@ -27,10 +27,13 @@
 ** 2013-11-15  J. Ator     Add -h option and check for non-existent tablefil
 ** 2014-09-15  J. Ator     Change default path for tabledir, change default
 **                         name for outfile, and confirm outfile is writeable
-** 2018-01-19  J. Ator	   Add print of code and flag table meanings.
+** 2018-01-19  J. Ator     Add print of code and flag table meanings.
+** 2018-04-09  J. Ator     Add -c option to turn off print of code and flag
+**                         table meanings (default is "on").
 **
 ** USAGE:
-**   debufr [-v] [-h] [-b] [-m] [-o outfile] [-t tabledir] [-f tablefil] bufrfile
+**   debufr [-v] [-h] [-b] [-c] [-m] [-o outfile] [-t tabledir]
+**          [-f tablefil] bufrfile
 **
 **   WHERE:
 **     -v        prints version information and exits
@@ -39,6 +42,9 @@
 **               information in Sections 0-3 will be decoded from each
 **               BUFR message in the bufrfile, and no attempt will be
 **               made to decode the data in Section 4
+**     -c        specifies that code and flag table meanings should not
+**               be read from master tables and included in the output;
+**               otherwise this feature is enabled by default
 **     -m        specifies that BUFR master tables will be used to
 **               decode the data messages in the file, regardless of
 **               whether they contain any embedded NCEP DX dictionary
@@ -104,6 +110,7 @@ int main( int argc, char *argv[ ] ) {
 
 	char basic = 'N';
 	char forcemt = 'N';
+	char cfms = 'Y';
 	char io = 'r';
 	char tbldir[MXFLEN] = "/nwprod/decoders/decod_shared/fix";
 	char tblfil[MXFLEN];
@@ -122,7 +129,7 @@ int main( int argc, char *argv[ ] ) {
 	errflg = 0;
 	wkstr[0] = '\0';  /* initialize to empty string */
 	outfile[0] = '\0';  /* initialize to empty string */
-	while ( ( ch = getopt ( argc, argv, "vhbmo:t:f:" ) ) != EOF ) {
+	while ( ( ch = getopt ( argc, argv, "vhbcmo:t:f:" ) ) != EOF ) {
 	    switch ( ch ) {
 		case 'v':
 		    bvers ( bvstr, sizeof(bvstr) );
@@ -154,6 +161,9 @@ int main( int argc, char *argv[ ] ) {
 		    break;
 		case 'm':
 		    forcemt = 'Y';
+		    break;
+		case 'c':
+		    cfms = 'N';
 		    break;
 		case 'o':
 		    strcpy ( outfile, optarg );
@@ -219,7 +229,7 @@ int main( int argc, char *argv[ ] ) {
 	**  Read and decode each message from the input BUFR file.
 	*/
 	lentd = (f77int) strlen(tbldir);
-	fdebufr( outfile, tbldir, &lentd, tblfil, &basic, &forcemt,
+	fdebufr( outfile, tbldir, &lentd, tblfil, &basic, &forcemt, &cfms,
 		 strlen(outfile), strlen(tbldir), strlen(tblfil) );
 
 	/*
