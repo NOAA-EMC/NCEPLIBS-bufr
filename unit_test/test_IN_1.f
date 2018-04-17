@@ -11,7 +11,7 @@
 	INTEGER		ibfmg ( MXBFD4 )
 
 	CHARACTER	smidstg*9, softvstg*12, cmgtag*8,
-     +			bfmg(MXBF), cds3(20)*6, tagpr*8,
+     +			bfmg(MXBF), cds3(MXDS3)*6, tagpr*8,
      +			celem(2)*60, cunit(2)*22
 
 	CHARACTER*20	filnam / 'testfiles/IN_1' /
