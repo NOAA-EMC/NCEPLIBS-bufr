@@ -1829,3 +1829,6 @@ to that mnemonic and associated value.
 
 6) The default BUFR master table version number was changed from "13" to "29"
 within subroutines CMSGINI, DXMINI and MSGINI.
+
+7) The maximum number of delayed replication factors that can be passed in as
+input to subroutine DRFINI was increased from 200 to 2000.
