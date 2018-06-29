@@ -1832,3 +1832,13 @@ within subroutines CMSGINI, DXMINI and MSGINI.
 
 7) The maximum number of delayed replication factors that can be passed in as
 input to subroutine DRFINI was increased from 200 to 2000.
+
+8) Subroutines MSGUPD and CPYUPD were modified so that the IPRT verbosity must
+be greater than or equal to 1 in order for diagnostic alerts to be printed
+whenever BUFR subsets greater than 65535 bytes are written to their own output
+messages.
+
+9) Function I4DY was modified to change the window for converting 2-digit years
+to 4-digit years.  The old window was 1921-2020, i.e. add 1900 to any 2-digit
+year greater than 20; otherwise add 2000.  The new window will be 1941-2040,
+i.e. add 1900 to any 2-digit year greater than 40; otherwise add 2000.
