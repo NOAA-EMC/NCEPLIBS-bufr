@@ -118,6 +118,7 @@ public class DBingest {
 		    			case 27:
 		    			case 28:
 		    			case 29:
+		    			case 30:
 		    				TableB18processor tb18p = new TableB18processor(ob);
 		    				tb18p.writeList(fw);
 		    				tb18p.ingest(fw,ven,conn);
@@ -151,6 +152,7 @@ public class DBingest {
 	    			case 27:
 	    			case 28:
 	    			case 29:
+	    			case 30:
 		    	    	TableD18processor td18p = new TableD18processor(ob);
 		    	    	td18p.writeList(fw);
 		    	    	//td18p.ingest(fw, ven, conn);
@@ -231,7 +233,7 @@ public class DBingest {
     			
 	    		if ( tbtype.equals("LOCALTableB") ) {
 	    			String sqlstg_std = "UPDATE bufr_b SET mnemonic = ? " +
-	    						"WHERE X = ? AND Y = ? AND version_idx = 18";
+	    						"WHERE X = ? AND Y = ? AND version_idx = 19";
 	    			String sqlstg_loc = "INSERT INTO bufr_b" +
 			         			"(f, x, y, version_idx, element_name, bufr_unit," +
 			         			" bufr_scale, bufr_reference_value, bufr_data_width, mnemonic, fxy)" +
@@ -277,7 +279,7 @@ public class DBingest {
 	    			}
 	    		}
 	    		else if ( tbtype.equals("LOCALTableD") ) {
-	    			String sqlstg_std = "UPDATE bufr_d SET mnemonic = ? WHERE X = ? AND Y = ? AND version_idx = 18";
+	    			String sqlstg_std = "UPDATE bufr_d SET mnemonic = ? WHERE X = ? AND Y = ? AND version_idx = 19";
 	    			String sqlstg_loc = "INSERT INTO bufr_d (fxy, f, x, y, version_idx, mnemonic, cat_seq, ref_fxy, " +
 	    					"ref_tb_f, ref_tb_x, ref_tb_y, order_idx) VALUES (?, 3, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 	    			while ( ( inline = br.readLine() ) != null ) {

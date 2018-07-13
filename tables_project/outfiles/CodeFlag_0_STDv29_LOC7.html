@@ -10,9 +10,9 @@
   <h2>BASED ON BUFR MASTER TABLE 0 (WMO), VERSION 29 IMPLEMENTED ON November 08, 2017  </h2>
   <br />
   <h3>LINKS TO OTHER VERSION 29 TABLES:&nbsp;&nbsp;<a href="TableA_0_STDv29_LOC7.html">A</a>&nbsp;&nbsp;<a href="TableB_0_STDv29_LOC7.html">B</a>&nbsp;&nbsp;<a href="TableD_0_STDv29_LOC7.html">D</a></h3>
-  <h3>LINKS TO OTHER CODE/FLAG TABLE VERSIONS:&nbsp;<a href="CodeFlag_0_STDv13_LOC7.html">13</a>&nbsp;<a href="CodeFlag_0_STDv14_LOC7.html">14</a>&nbsp;<a href="CodeFlag_0_STDv15_LOC7.html">15</a>&nbsp;<a href="CodeFlag_0_STDv16_LOC7.html">16</a>&nbsp;<a href="CodeFlag_0_STDv17_LOC7.html">17</a>&nbsp;<a href="CodeFlag_0_STDv18_LOC7.html">18</a>&nbsp;<a href="CodeFlag_0_STDv19_LOC7.html">19</a>&nbsp;<a href="CodeFlag_0_STDv20_LOC7.html">20</a>&nbsp;<a href="CodeFlag_0_STDv21_LOC7.html">21</a>&nbsp;<a href="CodeFlag_0_STDv22_LOC7.html">22</a>&nbsp;<a href="CodeFlag_0_STDv23_LOC7.html">23</a>&nbsp;<a href="CodeFlag_0_STDv24_LOC7.html">24</a>&nbsp;<a href="CodeFlag_0_STDv25_LOC7.html">25</a>&nbsp;<a href="CodeFlag_0_STDv26_LOC7.html">26</a>&nbsp;<a href="CodeFlag_0_STDv27_LOC7.html">27</a>&nbsp;<a href="CodeFlag_0_STDv28_LOC7.html">28</a>&nbsp;29</h3>
+  <h3>LINKS TO OTHER CODE/FLAG TABLE VERSIONS:&nbsp;<a href="CodeFlag_0_STDv13_LOC7.html">13</a>&nbsp;<a href="CodeFlag_0_STDv14_LOC7.html">14</a>&nbsp;<a href="CodeFlag_0_STDv15_LOC7.html">15</a>&nbsp;<a href="CodeFlag_0_STDv16_LOC7.html">16</a>&nbsp;<a href="CodeFlag_0_STDv17_LOC7.html">17</a>&nbsp;<a href="CodeFlag_0_STDv18_LOC7.html">18</a>&nbsp;<a href="CodeFlag_0_STDv19_LOC7.html">19</a>&nbsp;<a href="CodeFlag_0_STDv20_LOC7.html">20</a>&nbsp;<a href="CodeFlag_0_STDv21_LOC7.html">21</a>&nbsp;<a href="CodeFlag_0_STDv22_LOC7.html">22</a>&nbsp;<a href="CodeFlag_0_STDv23_LOC7.html">23</a>&nbsp;<a href="CodeFlag_0_STDv24_LOC7.html">24</a>&nbsp;<a href="CodeFlag_0_STDv25_LOC7.html">25</a>&nbsp;<a href="CodeFlag_0_STDv26_LOC7.html">26</a>&nbsp;<a href="CodeFlag_0_STDv27_LOC7.html">27</a>&nbsp;<a href="CodeFlag_0_STDv28_LOC7.html">28</a>&nbsp;29&nbsp;<a href="CodeFlag_0_STDv30_LOC7.html">30</a></h3>
 <br />
-  <h5>(This webpage was generated: 2018/03/01 10:46:01)</h5>
+  <h5>(This webpage was generated: 2018/07/13 15:17:32)</h5>
 <br />
 <hr id="001003">
 <h4>0-01-003 - WMOR</h4>
@@ -2367,11 +2367,11 @@
  <tbody>
   <tr>
     <td class="center">0</td>
-    <td>Reserved</td>
+    <td>First guess</td>
   </tr>
   <tr>
     <td class="center">1</td>
-    <td>Quality values derived from the EUMETSAT QI (Quality Indicator) method, excluding the forecast consistency test</td>
+    <td>Quality values derived from the EUMETSAT QI (Quality Indicator) method, excluding the forecast consistency test, but with slight differences between the different satellite operators</td>
   </tr>
   <tr>
     <td class="center">2</td>
@@ -2386,7 +2386,11 @@
     <td>Quality values derived from the NESDIS EE (Expected Error) method</td>
   </tr>
   <tr>
-    <td class="center">5-254</td>
+    <td class="center">5</td>
+    <td>Quality values derived from the EUMETSAT QI (Quality Indicator) method, excluding the forecast consistency test, and common to all satellite operators (computed exactly the same way)</td>
+  </tr>
+  <tr>
+    <td class="center">6-254</td>
     <td>Reserved</td>
   </tr>
   <tr>
@@ -54997,6 +55001,88 @@
  </tbody>
 </table>
 <br />
+<hr id="033237">
+<h4>0-33-237 - QCSS</h4>
+<h4>FSL "QC applied" flag for surface sensor status</h4>
+<table rules=groups>
+ <thead>
+  <tr>
+    <th>Code figure</th>
+    <th class="left">Meaning</th>
+  </tr>
+ </thead>
+ <tbody>
+  <tr>
+    <td class="center">0</td>
+    <td>Sensor operating/data available</td>
+  </tr>
+  <tr>
+    <td class="center">1</td>
+    <td>Reserved</td>
+  </tr>
+  <tr>
+    <td class="center">2</td>
+    <td>Sensor not installed</td>
+  </tr>
+  <tr>
+    <td class="center">3</td>
+    <td>Sensor out of service</td>
+  </tr>
+  <tr>
+    <td class="center">4</td>
+    <td>Reserved</td>
+  </tr>
+  <tr>
+    <td class="center">5</td>
+    <td>Sensors output in conflict</td>
+  </tr>
+  <tr>
+    <td class="center">6</td>
+    <td>Invalidated: Auto range check</td>
+  </tr>
+  <tr>
+    <td class="center">7</td>
+    <td>Invalidated: Auto rate of change</td>
+  </tr>
+  <tr>
+    <td class="center">8</td>
+    <td>Invalidated: Auto insufficient count</td>
+  </tr>
+  <tr>
+    <td class="center">9</td>
+    <td>Invalidated: By operator</td>
+  </tr>
+  <tr>
+    <td class="center">10</td>
+    <td>Data source offsite: Link failure</td>
+  </tr>
+  <tr>
+    <td class="center">11</td>
+    <td>Reserved</td>
+  </tr>
+  <tr>
+    <td class="center">12</td>
+    <td>Dew point sensor invalidated</td>
+  </tr>
+  <tr>
+    <td class="center">13-15</td>
+    <td>Reserved</td>
+  </tr>
+  <tr>
+    <td class="center">16</td>
+    <td>Operator manual data entry</td>
+  </tr>
+  <tr>
+    <td class="center">17-30</td>
+    <td>Reserved</td>
+  </tr>
+  <tr>
+    <td class="center">31</td>
+    <td>Missing value</td>
+  </tr>
+ </tbody>
+</table>
+<br />
 <hr id="033241">
 <h4>0-33-241 - QHDOP</h4>
 <h4>Quality for observed position</h4>
@@ -66247,7 +66333,11 @@
     <td>Urbanet - University of South Alabama (MADIS)</td>
   </tr>
   <tr>
-    <td class="center">33-100</td>
+    <td class="center">33</td>
+    <td>HF-METAR - one-minute ASOS</td>
+  </tr>
+  <tr>
+    <td class="center">34-100</td>
     <td>Reserved</td>
   </tr>
   <tr>

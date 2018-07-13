@@ -1133,6 +1133,12 @@ v14 0-13-044    K index                                             Celsius     
     0-13-118                                                                                                               DOFSH
     0-13-155                                                                                                               PRATH
     0-13-160                                                                                                               RDLC
+    0-13-162                                                                                                               CLWA
+    0-13-192    Cloud water                                         kg m-2                      2            0         12  CH2O
+    0-13-193    Total column precipitable water                     kg m-2                      1            0         11  PH2O
+                                                                                                                PREPBUFR:  PWO
+    0-13-194    Indicator for inclusion/omission of precipitation   Code table                  0            0          3  INPC
+                data
     0-13-192    Cloud water                                         kg m-2                      2            0         12  CH2O
     0-13-193    Total column precipitable water                     kg m-2                      1            0         11  PH2O
                                                                                                                 PREPBUFR:  PWO
