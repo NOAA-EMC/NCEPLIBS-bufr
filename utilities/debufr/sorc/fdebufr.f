@@ -1,4 +1,4 @@
-	SUBROUTINE FDEBUFR ( ofile, tbldir, lentd, tblfil,
+	SUBROUTINE FDEBUFR ( ofile, tbldir, lentd, tblfil, prmstg,
      +			     basic, forcemt, cfms )
 
 C$$$  SUBPROGRAM DOCUMENTATION BLOCK
@@ -24,8 +24,9 @@ C                         DXDUMP.
 C 2018-01-19  J. Ator     Added print of code and flag table meanings.
 C 2018-03-01  J. Ator     Added print of data types and subtypes from
 C                         code and flag tables.
+C 2018-09-05  J. Ator     Added prmstg argument
 C
-C USAGE:    call fdebufr ( ofile, tbldir, lentd, tblfil,
+C USAGE:    call fdebufr ( ofile, tbldir, lentd, tblfil, prmstg,
 C			   basic, forcemt, cfms )
 C   INPUT ARGUMENT LIST:
 C     ofile    - character*(*): file to contain verbose output
@@ -49,6 +50,13 @@ C                table meanings should be read from master tables
 C                and included in the print output:
 C                  'Y' = yes
 C                  'N' = no
+C     prmstg   - character*(*):string of comma-separated PARAMETER=VALUE
+C                pairs to be used to dynamically allocate memory within
+C                the BUFRLIB, overriding default values that would
+C                otherwise be used.  The string can be a maximum of 80
+C                characters in length, since BUFRLIB subroutine PARSTR
+C                will be used to parse it.  If set to 'NULLPSTG', then
+C                no such string was specified on the command line.
 C
 C REMARKS:
 C   FORTRAN logical unit numbers 51, 90, 91, 92 and 93 are reserved
@@ -66,11 +74,12 @@ C$$$
 	PARAMETER ( MXBFD4 = MXBF/4 )
 	PARAMETER ( MXDS3 = 500 )
 
-	CHARACTER*(*)	ofile, tbldir, tblfil
+	CHARACTER*(*)	ofile, tbldir, tblfil, prmstg
 
 	LOGICAL		exists
 
 	CHARACTER*120	cmorgc, cmgses, cmmtyp, cmmsbt, cmmsbti
+	CHARACTER*20	ptag(10), pvtag(2), cprmnm
 	CHARACTER*8	cmgtag
 	CHARACTER*6	cds3 ( MXDS3 )
 	CHARACTER*1	basic, forcemt, opened, usemt, cfms,
@@ -145,6 +154,26 @@ C		Close the output file and return.
 		CALL ISETPRM ( 'MXMSGL', MXBF )
 		CALL ISETPRM ( 'MAXSS', 300000 )
 		CALL ISETPRM ( 'NFILES', 2 )
+
+C		Process any dynamic allocation parameters that were
+C		passed in on the command line.
+
+		IF ( prmstg(1:8) .ne. 'NULLPSTG' ) THEN
+		   CALL PARSTR ( prmstg, ptag, 10, nptag, ',', .true. ) 
+		   IF ( nptag .gt. 0 ) THEN
+			DO ii = 1, nptag
+			  CALL PARSTR ( ptag(ii), pvtag, 2, npvtag, '=',
+     +					.true. )
+			  IF ( npvtag .eq. 2 ) THEN
+			    CALL STRSUC ( pvtag(1), cprmnm, lcprmnm )
+			    CALL STRNUM ( pvtag(2), ipval )
+			    IF ( ( lcprmnm .gt. 0 ) .and.
+     +				 ( ipval .ne. -1 ) )
+     +			      CALL ISETPRM ( cprmnm(1:lcprmnm), ipval )
+			  ENDIF
+			ENDDO
+		   ENDIF
+		ENDIF
 
 C		Decide how to process the file.
 

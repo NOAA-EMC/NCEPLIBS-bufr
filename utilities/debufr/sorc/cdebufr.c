@@ -30,10 +30,13 @@
 ** 2018-01-19  J. Ator     Add print of code and flag table meanings.
 ** 2018-04-09  J. Ator     Add -c option to turn off print of code and flag
 **                         table meanings (default is "on").
+** 2018-09-05  J. Ator     Add -p option to pass in one or more BUFRLIB
+**                         dynamic allocation parameters to override default
+**                         settings
 **
 ** USAGE:
 **   debufr [-v] [-h] [-b] [-c] [-m] [-o outfile] [-t tabledir]
-**          [-f tablefil] bufrfile
+**          [-f tablefil] [-p prmstg] bufrfile
 **
 **   WHERE:
 **     -v        prints version information and exits
@@ -65,6 +68,13 @@
 **               if unspecified.
 **     tablefil  file within tabledir containing DX dictionary tables
 **               file to be used for decoding.
+**     prmstg    string of comma-separated PARAMETER=VALUE pairs, up to a
+**               maximum of 80 characters in length.  For each pair, the
+**               dynamic allocation PARAMETER will be set to VALUE within
+**               the underlying BUFRLIB software, overriding the default
+**               value that would otherwise be used.  A complete list of
+**               parameters that can be dynamically sized is included
+**               within the BUFRLIB documentation for function ISETPRM.
 **     bufrfile  [path/]name of BUFR file to be decoded
 **
 ** REMARKS:
@@ -72,8 +82,9 @@
 **     LOCAL      - fdebufr  openbt   prtusage
 **     BUFRLIB    - ccbfl    cobfl    codflg   crbmg    datelen
 **                  dxdump   getcfmng idxmsg   ireadsb  iupbs01
-**                  iupbs3   mtinfo   openbf   readerme ufdump
-**                  upds3    bvers    rtrcptb
+**                  iupbs3   mtinfo   openbf   parstr   readerme
+**                  ufdump   upds3    bvers    rtrcptb  strsuc
+**                  strnum   isetprm
 **
 **   FORTRAN logical unit numbers 51, 90, 91, 92 and 93 are reserved
 **   for use within the fdebufr subroutine.
@@ -115,6 +126,7 @@ int main( int argc, char *argv[ ] ) {
 	char tbldir[MXFLEN] = "/nwprod/decoders/decod_shared/fix";
 	char tblfil[MXFLEN];
 	char outfile[MXFLEN];
+	char prmstg[MXFLEN] = "NULLPSTG";
 	char wkstr[MXFLEN];
 	char wkstr2[MXFLEN];
 	char bvstr[9] = "        ";
@@ -129,7 +141,7 @@ int main( int argc, char *argv[ ] ) {
 	errflg = 0;
 	wkstr[0] = '\0';  /* initialize to empty string */
 	outfile[0] = '\0';  /* initialize to empty string */
-	while ( ( ch = getopt ( argc, argv, "vhbcmo:t:f:" ) ) != EOF ) {
+	while ( ( ch = getopt ( argc, argv, "vhbcmo:t:f:p:" ) ) != EOF ) {
 	    switch ( ch ) {
 		case 'v':
 		    bvers ( bvstr, sizeof(bvstr) );
@@ -140,7 +152,7 @@ int main( int argc, char *argv[ ] ) {
 			  break;
 			}
 		    }
-		    printf( "This is debufr v2.3.0, built with BUFRLIB v%s\n",
+		    printf( "This is debufr v3.0.0, built with BUFRLIB v%s\n",
 			    bvstr );
 		    return 0;
 		case 'h':
@@ -173,6 +185,9 @@ int main( int argc, char *argv[ ] ) {
 		    break;
 		case 'f':
 		    strcpy ( wkstr, optarg );
+		    break;
+		case 'p':
+		    strcpy ( prmstg, optarg );
 		    break;
 	    }
 	}
@@ -229,8 +244,8 @@ int main( int argc, char *argv[ ] ) {
 	**  Read and decode each message from the input BUFR file.
 	*/
 	lentd = (f77int) strlen(tbldir);
-	fdebufr( outfile, tbldir, &lentd, tblfil, &basic, &forcemt, &cfms,
-		 strlen(outfile), strlen(tbldir), strlen(tblfil) );
+	fdebufr( outfile, tbldir, &lentd, tblfil, prmstg, &basic, &forcemt, &cfms,
+		 strlen(outfile), strlen(tbldir), strlen(tblfil), strlen(prmstg) );
 
 	/*
 	**  Close the input BUFR file.

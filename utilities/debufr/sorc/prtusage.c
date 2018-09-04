@@ -7,7 +7,7 @@ void prtusage( char *prgnam ) {
 **	Prints program usage information to stdout.
 */
 	printf( "\nUSAGE:\n" );
-	printf( "  %s [-v] [-h] [-b] [-m] [-o outfile] [-t tabledir] [-f tablefil] bufrfile\n\n", prgnam );
+	printf( "  %s [-v] [-h] [-b] [-m] [-o outfile] [-t tabledir] [-f tablefil] [-p prmstg] bufrfile\n\n", prgnam );
 	printf( "WHERE:\n" );
 	printf( "    -v        prints program version information and exits\n" );
 	printf( "    -h        prints program help and usage information and exits\n" );
@@ -38,5 +38,12 @@ void prtusage( char *prgnam ) {
 	printf( "              if unspecified.\n" );
 	printf( "    tablefil  file within tabledir containing DX dictionary tables\n" );
 	printf( "              file to be used for decoding.\n" );
+	printf( "     prmstg   string of comma-separated PARAMETER=VALUE pairs, up to a\n" );
+	printf( "              maximum of 80 characters in length.  For each pair, the\n" );
+  	printf( "              dynamic allocation PARAMETER will be set to VALUE within\n" );
+	printf( "              the underlying BUFRLIB software, overriding the default\n" );
+	printf( "              value that would otherwise be used.  A complete list of\n" );
+	printf( "              parameters that can be dynamically sized is included\n" );
+	printf( "              within the BUFRLIB documentation for function ISETPRM.\n" );
 	printf( "    bufrfile  [path/]name of BUFR file to be decoded\n" );
 }
