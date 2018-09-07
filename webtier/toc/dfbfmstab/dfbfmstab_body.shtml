@@ -185,6 +185,9 @@ that can be downloaded and used:
 <li><a target=_new href="bufrtab.TableB_STD_0_25">Standard Table B for Master Table 0 (WMO), Version 25</a></li>
 <li><a target=_new href="bufrtab.TableB_STD_0_26">Standard Table B for Master Table 0 (WMO), Version 26</a></li>
 <li><a target=_new href="bufrtab.TableB_STD_0_27">Standard Table B for Master Table 0 (WMO), Version 27</a></li>
+<li><a target=_new href="bufrtab.TableB_STD_0_28">Standard Table B for Master Table 0 (WMO), Version 28</a></li>
+<li><a target=_new href="bufrtab.TableB_STD_0_29">Standard Table B for Master Table 0 (WMO), Version 29</a></li>
+<li><a target=_new href="bufrtab.TableB_STD_0_30">Standard Table B for Master Table 0 (WMO), Version 30</a></li>
 <li><a target=_new href="bufrtab.TableB_LOC_0_7_1">Local Table B for Master Table 0 (WMO), Originating Center 7 (NCEP), Version 1</a></li>
 </ul>
 <h3 id="tabled">Table D</h3>
@@ -267,7 +270,7 @@ when it has reached the last element of the sequence.  Here are some examples:
            | 0-11-002   | Wind speed
 </pre>
 <p>
-As with master Table B files, the entries within a master Table D must all be sorted in ascending
+As with master Table B files, the entries within a master Table D file must all be sorted in ascending
 order with respect to the FXY number, and the software will continue reading from the file until
 it reaches a line with the string 'END' in the first three characters.
 Here are some sample master Table D files that can be downloaded and used:
@@ -289,7 +292,292 @@ Here are some sample master Table D files that can be downloaded and used:
 <li><a target=_new href="bufrtab.TableD_STD_0_25">Standard Table D for Master Table 0 (WMO), Version 25</a></li>
 <li><a target=_new href="bufrtab.TableD_STD_0_26">Standard Table D for Master Table 0 (WMO), Version 26</a></li>
 <li><a target=_new href="bufrtab.TableD_STD_0_27">Standard Table D for Master Table 0 (WMO), Version 27</a></li>
+<li><a target=_new href="bufrtab.TableD_STD_0_28">Standard Table D for Master Table 0 (WMO), Version 28</a></li>
+<li><a target=_new href="bufrtab.TableD_STD_0_29">Standard Table D for Master Table 0 (WMO), Version 29</a></li>
+<li><a target=_new href="bufrtab.TableD_STD_0_30">Standard Table D for Master Table 0 (WMO), Version 30</a></li>
 <li><a target=_new href="bufrtab.TableD_LOC_0_7_1">Local Table D for Master Table 0 (WMO), Originating Center 7 (NCEP), Version 1</a></li>
+</ul>
+<h3 id="codflg">Subroutines CODFLG and GETCFMNG</h3>
+<p>
+As noted above, master table B and D files are required whenever Section 3 is used (i.e. whenever the
+<em class="varname">CIO</em>='SEC3' option is specified during a call to subroutine <em class="subpname">OPENBF</em>)
+for the reading/decoding of a given file of BUFR messages.  But in
+addition to these required files, there are optional code/flag table files which may also be read in and used to provide
+even more information about the decoded data.  Doing so allows an application code to decode not only the numerical value
+stored for any table B descriptor that is a code or flag table, but also the corresponding meaning as a variable-length
+character string.
+</p>
+<p>
+Again, this capability is fully optional as an add-on to the provision of the required master table B and D files, and
+it should only be employed if the application code intends to retrieve and make use of the underlying meaning strings,
+since it does require the use of additional memory and other system resources.  To enable this capability, the following
+subroutine is used and may be called at any time after the initial call to <em class="subpname">OPENBF</em> within
+the application program:
+<pre class="subp">
+        CALL <em class="subpname">CODFLG</em>  ( CF )
+
+        Input argument:
+            CF          CHARACTER       Flag indicating whether code/flag table
+                                        information should be included when reading
+                                        master tables B and D into internal memory:
+                                         'N' = no (the default)
+                                         'Y' = yes
+</pre>
+Then, once this capability has been enabled, the application code can then search for and retrieve the meaning
+associated with any numerical code or flag table value decoded from the corresponding BUFR messages, as follows:
+<pre class="subp">
+        CALL <em class="subpname">GETCFMNG</em>  ( LUBFR, NEMOI, IVALI, NEMOD, IVALD, CMEANG, LNMNG, IRET )
+
+        Input argument:
+            LUBFR       INTEGER         Logical unit for BUFR file
+            NEMOI       CHAR*(*)        Mnemonic to search for
+            IVALI       INTEGER         Value (code figure or bit number) associated with NEMOI
+            NEMOD       CHAR*(*)        Optional second mnemonic upon which the values NEMOI
+                                        and IVALI depend; set to all blank characters if the
+                                        meanings of NEMOI and IVALI do not depend on the value
+                                        of any other mnemonic 
+            IVALD       INTEGER         Value (code figure or bit number) associated with NEMOD;
+                                        set to (-1) whenever NEMOD is set to all blank characters
+
+        Output arguments:
+            CMEANG      CHAR*(*)        If the initial search of the master code/flag tables was
+                                        successful, then this string contains the meaning
+                                        corresponding to NEMOI and IVALI (and to NEMOD and IVALD,
+                                        if specified).  However, if the initial search was
+                                        unsuccessful, and if NEMOD and IVALD were not specified,
+                                        and if a second search of the tables determined that
+                                        NEMOI and IVALI do indeed depend on one or more possible
+                                        NEMOD mnemonics, then those possible mnemonics are
+                                        returned within this string, as a series of IRET
+                                        successive 8-byte substrings.
+            LNMNG       INTEGER         Length of string returned in CMEANG
+            IRET        INTEGER         Return code:
+                                          0 = initial search was successful, and CMEANG contains
+                                              meaning corresponding to NEMOI and IVALI (and to
+                                              NEMOD and IVALD, if specified)
+                                         -1 = initial search was unsuccessul, and no second
+                                              search was attempted or possible
+                                         >0 = initial search was unsuccessful, but second search
+                                              was successful, and CMEANG contains one or more
+                                              possible NEMOD mnemonics as a series of IRET
+                                              successive 8-byte substrings
+</pre>
+As noted above, this subroutine first does an initial search of the master code/flag tables based on
+the mnemonics and values provided.  The input parameters <em class="varname">NEMOI</em> and
+<em class="varname">IVALI</em> specify the mnemonic and corresponding numerical code or flag table
+value for which the meaning is sought, and the optional secondary parameters <em class="varname">NEMOD</em>
+and <em class="varname">IVALD</em> are specified when needed to differentiate between multiple possible
+results.  An example would be when a user is searching for the meaning of a numerical code table value
+for an originating sub-center (i.e. mnemonic <em class="mnemname">GSES</em>).  The meaning of any
+originating sub-center value depends on the identity of the originating center for which the sub-center
+in question is a member, so in order for the subroutine to locate and return the proper one, information
+about the originating center must also be provided.  So in this case the user would input
+<em class="mnemname">GSES</em> and the associated numerical value as <em class="varname">NEMOI</em>
+and <em class="varname">IVALI</em>, respectively, but the user would also need to specify an
+appropriate originating center mnemonic (e.g. <em class="mnemname">GCLONG</em>, <em class="mnemname">OGCE</em>
+or <em class="mnemname">ORIGC</em>) and associated value from the same BUFR message as input parameters
+<em class="varname">NEMOD</em> and <em class="varname">IVALD</em>, respectively, and then the subroutine
+will be able to locate and return the appropriate meaning string.  Otherwise, if this information was not
+provided, the subroutine would return with an <em class="varname">IRET</em> value of 3, and with each of
+the mnemonics <em class="mnemname">GCLONG</em>, <em class="mnemname">OGCE</em> and
+<em class="mnemname">ORIGC</em> contained in successive 8-byte substrings of <em class="varname">CMEANG</em>
+(and with a corresponding value of 24 returned for <em class="varname">LNMNG</em>), as a hint to the user
+that more information needs to be input to the subroutine in order to achieve the desired result.
+</p>
+<p>
+Note that, in cases where the meaning of a numerical code or flag table value associated with a
+mnemonic does not depend on the value associated with any other mnemonic, the input parameter
+<em class="varname">NEMOD</em>
+should be set to a field of all blank characters, and the input parameter <em class="varname">IVALD</em>
+should be set to a value of (-1).  But also note that, in any and all cases where this subroutine is called,
+it is the user's responsibility to provide sufficient allocated space in parameter
+<em class="varname">CMEANG</em> for the returned meaning string; otherwise, the returned string will be
+truncated.
+</p>
+<h3 id="cftables">Code/Flag Tables</h3>
+<p>
+Whenever optional master code/flag tables are read in to supplement the required master table B and table D
+files, they must exist within the same local filesystem directory specified by <em class="varname">CMTDIR</em>
+during the
+previous call to subroutine <em class="subpname">MTINFO</em>.  And just like for table B and table D, they must
+exist as a set of two master code/flag tables, one containing all of the standard entries and one containing
+all of the local entries, and where the <a target=_new href="bufrtab.CodeFlag_LOC_0_7_1">default local
+code/flag tables from NCEP</a> can be used as a placeholder for the local file whenever the BUFR messages
+to be decoded contain only standard descriptors.
+</p>
+<p>
+The format of the first line of each master code/flag table file is the same as for tables B and D:
+<pre class="mnem">
+	<em class="emphasis">Standard table:</em>     Table F STD | <em class="varname">M</em> | <em class="varname">V</em>
+	<em class="emphasis">Local table:</em>        Table F LOC | <em class="varname">M</em> | <em class="varname">C</em> | <em class="varname">L</em>
+
+		where:       <em class="varname">M</em> = Master Table number ('0' for WMO, '10' for IOC, etc.)
+                             <em class="varname">V</em> = Version number of Master Table used
+		             <em class="varname">C</em> = Originating Center number ('7' for NCEP, etc.)
+		             <em class="varname">L</em> = Version number of local tables used
+</pre>
+and blank lines and comment lines (beginning with a '#' in column 1) are likewise allowed throughout each
+table for readability.  Entries span multiple lines and follow the format:
+<pre class="varname">
+ F-XX-YYY | MNEMONIC ; CODE
+          | F-XX-YYY=VAL
+            | VAL > | MEANING
+            | VAL   | MEANING
+</pre>
+for code tables, and:
+<pre>
+ F-XX-YYY | MNEMONIC ; FLAG
+          | F-XX-YYY=BIT
+            | BIT > | MEANING
+            | BIT   | MEANING
+</pre>
+for flag tables.  As shown, the first line of each entry contains the FXY number and mnemonic of the associated
+Table B descriptor, along with the identifier "CODE" or "FLAG" depending on the table type.  Successive lines
+contain individual entries within the associated table, grouped by dependency where applicable.  For example,
+for mnemonic <em class="mnemname">GSES</em> (originating sub-center), whose meanings depend on that of
+the associated originating center as noted above, the entry would look something like the following, and where
+0-01-031, 0-01-033 and 0-01-035 are the respective FXY numbers for mnemonics <em class="mnemname">GCLONG</em>,
+<em class="mnemname">OGCE</em> and <em class="mnemname">ORIGC</em>:
+<pre>
+  0-01-034 | GSES ; CODE
+           | 0-01-031,0-01-033,0-01-035=39
+              | 0 > | No sub-centre
+              | 225 > | Beijing
+              | 226 > | Guangzhou
+              | 228 > | Urumuqi
+           | 0-01-031,0-01-033,0-01-035=80
+              | 0 > | No sub-centre
+              | 101 > | Albania (NMC)
+              | 102 > | National Research Council/Institute of Atmospheric Sciences and Climate (CNR-ISAC)
+           | 0-01-031,0-01-033,0-01-035=7
+              | 0 > | No sub-centre
+              | 1 > | NCEP Reanalysis Project
+              | 2 > | NCEP Ensemble Products
+              | 3 > | NCEP Central Operations
+              | 4 > | Environmental Modeling Center
+              | 5 > | Weather Prediction Center
+              | 6 > | Ocean Prediction Center
+              | 7 > | Climate Prediction Center
+              | 8 > | Aviation Weather Center
+              | 9 > | Storm Prediction Center
+              | 10 > | National Hurricane Center
+              | 11 > | NWS Techniques Development Laboratory
+              | 12 > | NESDIS Office of Research and Applications
+              | 13 > | Federal Aviation Administration
+              | 14 > | NWS Meteorological Development Laboratory
+              | 15 > | North American Regional Reanalysis Project
+              | 16 > | Space Weather Prediction Center
+              | 17 > | ESRL Global Systems Division
+           | 0-01-031,0-01-033,0-01-035=46
+              | 0 > | No sub-centre
+              | 10 > | Cachoeira Paulista (INPE)
+              | 11 > | Cuiaba (INPE)
+              | 12 > | Brasilia (INMET)
+              | 13 > | Fortaleza (FUNCEME)
+              | 14 > | Natal (Navy Hygrog. Centre)
+              | 15 > | Manaus (SIVAM)
+              | 16 > | Natal (INPE)
+              | 17 > | Boa Vista
+              | 25 > | São Paulo University - USP
+           | 0-01-031,0-01-033,0-01-035=254
+              | 0 > | No sub-centre
+              | 10 > | Tromso (Norway)
+              | 20 > | Maspalomas (Spain)
+              | 30 > | Kangerlussuaq (Greenland)
+              | 40 > | Edmonton (Canada)
+              | 50 > | Bedford (Canada)
+              | 60 > | Gander (Canada)
+              | 70 > | Monterey (USA)
+              | 80 > | Wallops Island (USA)
+              | 90 > | Gilmor Creek (USA)
+              | 100 > | Athens (Greece)
+              | 120 > | Ewa Beach, Hawaii
+              | 125 > | Ford Island, Hawaii
+              | 130 > | Miami, Florida
+              | 140 > | Lannion (France)
+              | 150 > | Svalbard (Norway)
+              | 170 > | St Denis (La Réunion)
+              | 180 > | Moscow
+              | 190 > | Muscat
+              | 200 > | Khabarovsk
+              | 210   | Novosibirsk
+</pre>
+However, if the meanings of the code or flag table values for a particular mnemonic do not depend on
+those of any other mnemonic, then the dependency lines
+can be omitted from the above format, as shown in the following additional examples:
+<pre>
+  0-02-003 | A4ME ; CODE
+              | 0 > | Pressure Instrument associated with wind measuring equipment
+              | 1 > | Optical theodolite
+              | 2 > | Radio theodolite
+              | 3 > | Radar
+              | 4 > | VLF-Omega
+              | 5 > | Loran C
+              | 6 > | Wind profiler
+              | 7 > | Satellite navigation
+              | 8 > | Radio-acoustic Sounding System (RASS)
+              | 9 > | Sodar
+              | 10 > | LIDAR
+              | 14   | Pressure instrument associated with wind measuring equipment but pressure element failed during ascent
+
+  0-02-008 | TOFSP ; CODE
+              | 0 > | Fixed platform
+              | 1 > | Mobile offshore drill ship
+              | 2 > | Jack-up rig
+              | 3 > | Semi-submersible platform
+              | 4 > | FPSO (floating production storage and offloading unit)
+              | 5   | Light vessel
+
+  0-02-016 | RCONF ; FLAG
+              | 1 > | Train regulator
+              | 2 > | Light unit
+              | 3 > | Parachute
+              | 4   | Rooftop release
+
+  0-02-017 | CAHM ; CODE
+              | 0 > | No corrections
+              | 1 > | Time lag correction provided by the manufacturer
+              | 2 > | Solar radiation correction provided by the manufacturer
+              | 3 > | Solar radiation and time lag correction provided by the manufacturer
+              | 7   | GRUAN solar radiation and time lag correction
+
+  0-02-022 | SDPT ; FLAG
+              | 1 > | Processing technique not defined
+              | 2 > | Automated statistical regression
+              | 3 > | Clear path
+              | 4 > | Partly cloudy path
+              | 5   | Cloudy path
+</pre>
+In any case, note that the values for any entry are always listed one per line, and note the '>'
+character after the value within each line up to, but not including, the last defined
+value/meaning pair for that entry.  The BUFRLIB software uses this lack of a '>' character to know when it
+has reached the last value/meaning pair for the associated entry.  And as was also the case for master
+table B and table D files, all entries in a master code/flag table file must be in sorted ascending order
+with respect to the FXY number, and the BUFRLIB software will continue reading from the file until
+it reaches a line with the string 'END' in the first three characters.  Here are some sample master
+code/flag table files that can be downloaded and used: 
+</p>
+<h3 align=center id="cftables_samples">Sample master Code/Flag Table files</h3>
+<ul>
+<li><a target=_new href="bufrtab.CodeFlag_STD_0_13">Standard Code/Flag Tables for Master Table 0 (WMO), Version 13</a></li>
+<li><a target=_new href="bufrtab.CodeFlag_STD_0_14">Standard Code/Flag Tables for Master Table 0 (WMO), Version 14</a></li>
+<li><a target=_new href="bufrtab.CodeFlag_STD_0_15">Standard Code/Flag Tables for Master Table 0 (WMO), Version 15</a></li>
+<li><a target=_new href="bufrtab.CodeFlag_STD_0_16">Standard Code/Flag Tables for Master Table 0 (WMO), Version 16</a></li>
+<li><a target=_new href="bufrtab.CodeFlag_STD_0_17">Standard Code/Flag Tables for Master Table 0 (WMO), Version 17</a></li>
+<li><a target=_new href="bufrtab.CodeFlag_STD_0_18">Standard Code/Flag Tables for Master Table 0 (WMO), Version 18</a></li>
+<li><a target=_new href="bufrtab.CodeFlag_STD_0_19">Standard Code/Flag Tables for Master Table 0 (WMO), Version 19</a></li>
+<li><a target=_new href="bufrtab.CodeFlag_STD_0_20">Standard Code/Flag Tables for Master Table 0 (WMO), Version 20</a></li>
+<li><a target=_new href="bufrtab.CodeFlag_STD_0_21">Standard Code/Flag Tables for Master Table 0 (WMO), Version 21</a></li>
+<li><a target=_new href="bufrtab.CodeFlag_STD_0_22">Standard Code/Flag Tables for Master Table 0 (WMO), Version 22</a></li>
+<li><a target=_new href="bufrtab.CodeFlag_STD_0_23">Standard Code/Flag Tables for Master Table 0 (WMO), Version 23</a></li>
+<li><a target=_new href="bufrtab.CodeFlag_STD_0_24">Standard Code/Flag Tables for Master Table 0 (WMO), Version 24</a></li>
+<li><a target=_new href="bufrtab.CodeFlag_STD_0_25">Standard Code/Flag Tables for Master Table 0 (WMO), Version 25</a></li>
+<li><a target=_new href="bufrtab.CodeFlag_STD_0_26">Standard Code/Flag Tables for Master Table 0 (WMO), Version 26</a></li>
+<li><a target=_new href="bufrtab.CodeFlag_STD_0_27">Standard Code/Flag Tables for Master Table 0 (WMO), Version 27</a></li>
+<li><a target=_new href="bufrtab.CodeFlag_STD_0_28">Standard Code/Flag Tables for Master Table 0 (WMO), Version 28</a></li>
+<li><a target=_new href="bufrtab.CodeFlag_STD_0_29">Standard Code/Flag Tables for Master Table 0 (WMO), Version 29</a></li>
+<li><a target=_new href="bufrtab.CodeFlag_STD_0_30">Standard Code/Flag Tables for Master Table 0 (WMO), Version 30</a></li>
+<li><a target=_new href="bufrtab.CodeFlag_LOC_0_7_1">Local Code/Flag Tables for Master Table 0 (WMO), Originating Center 7 (NCEP), Version 1</a></li>
 </ul>
 </body>
 </html>

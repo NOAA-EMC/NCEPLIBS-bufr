@@ -1,7 +1,7 @@
-Table D STD |  0 | 26
+Table D STD |  0 | 28
 #
-# Standard BUFR Table D, Master Table 0, Version 26
-# This file was generated: 2017/05/16 11:15:05
+# Standard BUFR Table D, Master Table 0, Version 28
+# This file was generated: 2017/05/16 11:14:46
 #
 #========================================================================================================
 # F-XX-YYY | MNEMONIC   ;DCOD ; NAME           <-- sequence definition
@@ -91,6 +91,11 @@ Table D STD |  0 | 26
            | 1-02-002 > | Replicate 2 descriptors 2 times
            | 3-01-011 > | Year, month, day
            | 3-01-012   | Hour, minute
+
+  3-01-018 | ENCSHPID   ;     ; Encrypted ship's call sign and encryption method
+           | 0-01-114 > | Encrypted ship or mobile land station identifier (base64 encoding)
+           | 0-25-185 > | Encryption method
+           | 0-25-186   | Encryption key version
 
   3-01-021 | LTLONH     ;     ; Latitude/longitude (high accuracy)
            | 0-05-001 > | Latitude (high accuracy)
@@ -609,6 +614,12 @@ Table D STD |  0 | 26
            | 0-25-061 > | Software identification and version number
            | 0-35-035   | Reason for termination
 
+  3-01-150 | WIGOSID    ;     ; WIGOS identifier
+           | 0-01-125 > | WIGOS identifier series
+           | 0-01-126 > | WIGOS issuer of identifier
+           | 0-01-127 > | WIGOS issue number
+           | 0-01-128   | WIGOS local identifier (character)
+
   3-02-001 | PRESSQ03   ;     ; Pressure and 3-hour pressure change
            | 0-10-004 > | Pressure
            | 0-10-051 > | Pressure reduced to mean sea level
@@ -944,6 +955,51 @@ Table D STD |  0 | 26
            | 3-02-040 > | Precipitation measurement
            | 3-02-058 > | Ship extreme temperature data
            | 3-02-059   | Ship wind data
+
+  3-02-062 | SHIPINSV   ;     ; Ship "instantaneous" data
+           | 0-25-188 > | Method for reducing pressure to sea level
+           | 3-02-001 > | Pressure and 3-hour pressure change
+           | 3-02-093 > | Extended ship temperature and humidity data
+           | 1-01-000 > | Delayed replication of 1 descriptor
+           | 0-31-000 > | Short delayed descriptor replication factor
+           | 3-02-053 > | Ship visibility data
+           | 0-07-032 > | Height of sensor above local ground (or deck of marine platform)
+           | 0-07-033 > | Height of sensor above water surface
+           | 1-01-000 > | Delayed replication of 1 descriptor
+           | 0-31-000 > | Short delayed descriptor replication factor
+           | 3-02-004 > | General cloud information
+           | 1-01-000 > | Delayed replication of 1 descriptor
+           | 0-31-001 > | Delayed descriptor replication factor
+           | 3-02-005 > | Cloud layer
+           | 0-08-002 > | Vertical significance (surface observations)
+           | 1-01-000 > | Delayed replication of 1 descriptor
+           | 0-31-000 > | Short delayed descriptor replication factor
+           | 3-02-055 > | Icing and ice
+           | 1-01-000 > | Delayed replication of 1 descriptor
+           | 0-31-000 > | Short delayed descriptor replication factor
+           | 3-02-056 > | Sea/water temperature
+           | 1-01-000 > | Delayed replication of 1 descriptor
+           | 0-31-000 > | Short delayed descriptor replication factor
+           | 3-02-021 > | Waves
+           | 1-01-000 > | Delayed replication of 1 descriptor
+           | 0-31-000 > | Short delayed descriptor replication factor
+           | 3-02-024   | Wind and swell waves
+
+  3-02-063 | SHIPPRDV   ;     ; Ship "period" data
+           | 3-02-038 > | Present and past weather
+           | 1-01-000 > | Delayed replication of 1 descriptor
+           | 0-31-000 > | Short delayed descriptor replication factor
+           | 3-02-040 > | Precipitation measurement
+           | 1-01-000 > | Delayed replication of 1 descriptor
+           | 0-31-000 > | Short delayed descriptor replication factor
+           | 3-02-034 > | Precipitation past 24 hours
+           | 0-07-032 > | Height of sensor above local ground (or deck of marine platform)
+           | 1-01-000 > | Delayed replication of 1 descriptor
+           | 0-31-000 > | Short delayed descriptor replication factor
+           | 3-02-058 > | Ship extreme temperature data
+           | 1-01-000 > | Delayed replication of 1 descriptor
+           | 0-31-000 > | Short delayed descriptor replication factor
+           | 3-02-064   | Ship or other marine platform wind data
 
   3-02-064 | WINDDATV   ;     ; Ship or other marine platform wind data
            | 0-07-032 > | Height of sensor above local ground (or deck of marine platform)
@@ -1309,6 +1365,40 @@ Table D STD |  0 | 26
            | 0-04-024 > | Time period or displacement
            | 0-13-011   | Total precipitation/total water equivalent
 
+  3-02-092 | VOSCLIM    ;     ; VOSClim data elements
+           | 0-11-104 > | True heading of aircraft, ship or other mobile platform
+           | 0-01-012 > | Direction of motion of moving observing platform
+           | 0-01-013 > | Speed of motion of moving observing platform
+           | 0-10-038 > | Maximum height of deck cargo above summer load line
+           | 0-10-039 > | Departure of reference level (summer maximum load line) from actual sea level
+           | 0-11-007 > | Relative wind direction (in degrees off bow)
+           | 0-11-008   | Relative wind speed
+
+  3-02-093 | TEMHUMDX   ;     ; Extended ship temperature and humidity data
+           | 0-07-032 > | Height of sensor above local ground (or deck of marine platform)
+           | 0-07-033 > | Height of sensor above water surface
+           | 3-03-099 > | Metadata common to temperature/humidity sensors
+           | 0-12-101 > | Temperature/air temperature
+           | 1-03-000 > | Delayed replication of 3 descriptors
+           | 0-31-000 > | Short delayed descriptor replication factor
+           | 0-07-032 > | Height of sensor above local ground (or deck of marine platform)
+           | 0-07-033 > | Height of sensor above water surface
+           | 3-03-099 > | Metadata common to temperature/humidity sensors
+           | 0-02-039 > | Method of wet-bulb temperature measurement
+           | 0-02-097 > | Type of humidity sensor
+           | 0-03-024 > | Psychrometric coefficient
+           | 0-03-021 > | Hygrometer heating
+           | 0-12-102 > | Wet-bulb temperature
+           | 0-12-103 > | Dewpoint temperature
+           | 0-13-003 > | Relative humidity
+           | 0-07-032 > | Height of sensor above local ground (or deck of marine platform)
+           | 0-07-033 > | Height of sensor above water surface
+           | 3-03-099 > | Metadata common to temperature/humidity sensors
+           | 0-02-039 > | Method of wet-bulb temperature measurement
+           | 0-02-097 > | Type of humidity sensor
+           | 0-03-021 > | Hygrometer heating
+           | 0-03-024   | Psychrometric coefficient
+
   3-02-175 | IPHSPREL   ;     ; Intensity of precipitation, size of precipitation element
            | 0-08-021 > | Time significance
            | 0-04-025 > | Time period or displacement
@@ -1518,6 +1608,19 @@ Table D STD |  0 | 26
            | 0-12-103 > | Dewpoint temperature
            | 0-11-001 > | Wind direction
            | 0-11-002   | Wind speed
+
+  3-03-099 | MTEMHUMS   ;     ; Metadata common to temperature/humidity sensors
+           | 0-03-005 > | Horizontal width of screen or shield (x)
+           | 0-03-006 > | Horizontal depth of screen or shield (y)
+           | 0-03-007 > | Vertical height of screen or shield (z)
+           | 0-02-096 > | Type of temperature sensor
+           | 0-03-022 > | Instrument owner
+           | 0-03-003 > | Thermometer/hygrometer housing
+           | 0-03-020 > | Material for thermometer/hygrometer housing
+           | 0-03-004 > | Type of screen/shelter/radiation shield
+           | 0-03-023 > | Configuration of louvers for thermometer/hygrometer screen
+           | 0-03-008 > | Artificially ventilated screen or shield
+           | 0-03-009   | Amount of forced ventilation at time of reading
 
   3-04-001 | VSPTWDWS   ;     ; Cloud top pressure, temperature, wind
            | 0-08-003 > | Vertical significance (satellite observations)
@@ -2126,6 +2229,25 @@ Table D STD |  0 | 26
            | 0-04-025 > | Time period or displacement
            | 0-11-001 > | Wind direction
            | 0-11-002   | Wind speed
+
+  3-06-043 | MRBGROBS   ;     ; Marine biogeochemical and radiation observations
+           | 0-41-001 > | pCO₂
+           | 0-08-043 > | Atmospheric chemical or physical constituent type
+           | 0-15-028 > | Mole fraction of atmospheric constituent/pollutant in dry air
+           | 0-08-043 > | Atmospheric chemical or physical constituent type
+           | 0-13-080 > | Water pH
+           | 0-41-005 > | Turbidity
+           | 0-41-003 > | Dissolved nitrates
+           | 0-22-188 > | Dissolved oxygen
+           | 0-41-002 > | Fluorescence
+           | 1-06-000 > | Delayed replication of 6 descriptors
+           | 0-31-000 > | Short delayed descriptor replication factor
+           | 0-04-024 > | Time period or displacement
+           | 0-14-002 > | Long-wave radiation, integrated over period specified
+           | 0-14-002 > | Long-wave radiation, integrated over period specified
+           | 0-14-012 > | Net long-wave radiation, integrated over period specified
+           | 0-14-004 > | Short-wave radiation, integrated over period specified
+           | 0-04-024   | Time period or displacement
 
   3-07-001 | LOALSTNH   ;     ; Low altitude station
            | 3-01-031 > | Identification and type of station, date/time, location (high accuracy), height of station
@@ -3118,7 +3240,7 @@ Table D STD |  0 | 26
            | 1-02-000 > | Delayed replication of 2 descriptors
            | 0-31-001 > | Delayed descriptor replication factor
            | 0-07-061 > | Depth below land surface
-           | 0-12-129 > | Road sub-surface temperature
+           | 0-12-129 > | Road subsurface temperature
            | 0-07-061 > | Depth below land surface
            | 0-13-116 > | Water film thickness
            | 0-20-138 > | Road surface condition
@@ -3285,6 +3407,30 @@ Table D STD |  0 | 26
            | 3-08-011 > | Monthly values from an ocean weather station - CLIMAT SHIP
            | 3-08-012   | Monthly normals from an ocean weather station
 
+  3-08-014 | SYNPSVOS   ;     ; Synoptic reports from sea stations suitable for VOS observation data
+           | 1-01-000 > | Delayed replication of 1 descriptor
+           | 0-31-000 > | Short delayed descriptor replication factor
+           | 3-01-018 > | Encrypted ship's call sign and encryption method
+           | 0-03-001 > | Surface station type
+           | 3-01-093 > | Ship identification, movement, date/time, horizontal and vertical coordinates
+           | 2-08-032 > | Change width of CCITT IA5 field
+           | 0-01-079 > | Unique identifier for the profile
+           | 2-08-000 > | Cancel change width of CCITT IA5 field
+           | 3-02-062 > | Ship "instantaneous" data
+           | 3-02-063 > | Ship "period" data
+           | 1-01-000 > | Delayed replication of 1 descriptor
+           | 0-31-000 > | Short delayed descriptor replication factor
+           | 3-02-092 > | VOSClim data elements
+           | 1-01-000 > | Delayed replication of 1 descriptor
+           | 0-31-000 > | Short delayed descriptor replication factor
+           | 3-06-033 > | Surface salinity
+           | 1-01-000 > | Delayed replication of 1 descriptor
+           | 0-31-000 > | Short delayed descriptor replication factor
+           | 3-06-034 > | Surface current
+           | 1-01-000 > | Delayed replication of 1 descriptor
+           | 0-31-000 > | Short delayed descriptor replication factor
+           | 3-06-043   | Marine biogeochemical and radiation observations
+
   3-08-015 | TFWDEAFQ   ;     ; Template for WAVEOB data expressed as frequency
            | 0-01-003 > | WMO Region number/geographical area
            | 0-01-020 > | WMO Region sub-area
@@ -3369,7 +3515,7 @@ Table D STD |  0 | 26
            | 0-31-001 > | Delayed descriptor replication factor
            | 0-02-046 > | Wave measurement instrumentation
            | 0-08-090 > | Decimal scale of following significands
-           | 0-22-103 > | Scaled maximum non-directional spectral wave density by wavenumber
+           | 0-22-103 > | Scaled maximum non-directional spectral wave density by wave number
            | 0-08-090 > | Decimal scale of following significands
            | 0-22-084 > | Band containing maximum non-directional spectral wave density
            | 1-20-000 > | Delayed replication of 20 descriptors
@@ -3383,14 +3529,14 @@ Table D STD |  0 | 26
            | 1-05-000 > | Delayed replication of 5 descriptors
            | 0-31-001 > | Delayed descriptor replication factor
            | 0-08-090 > | Decimal scale of following significands
-           | 0-22-105 > | Scaled non-directional spectral wave density by wavenumber
+           | 0-22-105 > | Scaled non-directional spectral wave density by wave number
            | 0-08-090 > | Decimal scale of following significands
            | 0-22-186 > | Direction from which waves are coming
            | 0-22-187 > | Directional spread of wave
            | 1-05-000 > | Delayed replication of 5 descriptors
            | 0-31-001 > | Delayed descriptor replication factor
            | 0-08-090 > | Decimal scale of following significands
-           | 0-22-107 > | Scaled directional spectral wave density by wavenumber
+           | 0-22-107 > | Scaled directional spectral wave density by wave number
            | 0-08-090 > | Decimal scale of following significands
            | 0-22-186 > | Direction from which waves are coming
            | 0-22-187   | Directional spread of wave
@@ -3580,6 +3726,80 @@ Table D STD |  0 | 26
            | 0-11-003 > | u-component
            | 0-11-004 > | v-component
            | 0-11-005   | w-component
+
+  3-09-021 | RWPWND     ;     ; RWP wind data (product data)
+           | 3-01-001 > | WMO block and station numbers
+           | 0-05-001 > | Latitude (high accuracy)
+           | 0-06-001 > | Longitude (high accuracy)
+           | 0-07-030 > | Height of station ground above mean sea level
+           | 3-01-014 > | Time period
+           | 0-02-003 > | Type of measuring equipment used
+           | 0-02-121 > | Mean frequency
+           | 1-12-000 > | Delayed replication of 12 descriptors
+           | 0-31-001 > | Delayed descriptor replication factor
+           | 0-07-007 > | Height
+           | 3-01-021 > | Latitude/longitude (high accuracy)
+           | 0-11-003 > | u-component
+           | 0-11-110 > | Uncertainty in u-component
+           | 0-11-004 > | v-component
+           | 0-11-111 > | Uncertainty in v-component
+           | 0-33-002 > | Quality information
+           | 0-11-006 > | w-component
+           | 0-11-112 > | Uncertainty in w-component
+           | 0-33-002 > | Quality information
+           | 0-10-071 > | Vertical resolution
+           | 0-27-079   | Horizontal width of sampled volume
+
+  3-09-022 | RASSTMVR   ;     ; RASS virtual temperature (product data)
+           | 3-01-001 > | WMO block and station numbers
+           | 0-05-001 > | Latitude (high accuracy)
+           | 0-06-001 > | Longitude (high accuracy)
+           | 0-07-030 > | Height of station ground above mean sea level
+           | 3-01-014 > | Time period
+           | 0-02-003 > | Type of measuring equipment used
+           | 0-02-121 > | Mean frequency
+           | 1-10-000 > | Delayed replication of 10 descriptors
+           | 0-31-001 > | Delayed descriptor replication factor
+           | 0-07-007 > | Height
+           | 3-01-021 > | Latitude/longitude (high accuracy)
+           | 0-12-007 > | Virtual temperature
+           | 0-12-008 > | Uncertainty in virtual temperature
+           | 0-33-002 > | Quality information
+           | 0-11-006 > | w-component
+           | 0-11-112 > | Uncertainty in w-component
+           | 0-33-002 > | Quality information
+           | 0-10-071 > | Vertical resolution
+           | 0-27-079   | Horizontal width of sampled volume
+
+  3-09-023 | LIDARSEQ   ;     ; LIDAR Sequence
+           | 3-01-001 > | WMO block and station numbers
+           | 0-05-001 > | Latitude (high accuracy)
+           | 0-06-001 > | Longitude (high accuracy)
+           | 0-07-030 > | Height of station ground above mean sea level
+           | 3-01-014 > | Time period
+           | 0-02-003 > | Type of measuring equipment used
+           | 3-02-004 > | General cloud information
+           | 3-02-005 > | Cloud layer
+           | 1-14-000 > | Delayed replication of 14 descriptors
+           | 0-31-001 > | Delayed descriptor replication factor
+           | 0-07-007 > | Height
+           | 3-01-021 > | Latitude/longitude (high accuracy)
+           | 1-01-000 > | Delayed replication of 1 descriptor
+           | 0-31-001 > | Delayed descriptor replication factor
+           | 0-02-121 > | Mean frequency
+           | 0-15-063 > | Attenuated backscatter
+           | 0-15-064 > | Uncertainty in attenuated backscatter
+           | 0-15-065 > | Particle backscatter coefficient
+           | 0-15-066 > | Uncertainty in particle backscatter coefficient
+           | 0-15-067 > | Particle extinction coefficient
+           | 0-15-068 > | Uncertainty in particle extinction coefficient
+           | 0-15-069 > | Particle LIDAR ratio
+           | 0-15-070 > | Uncertainty in LIDAR ratio
+           | 0-15-071 > | Particle depolarization ratio
+           | 0-15-072 > | Uncertainty in depolarization ratio
+           | 0-33-002 > | Quality information
+           | 0-10-071 > | Vertical resolution
+           | 0-27-079   | Horizontal width of sampled volume
 
   3-09-030 | OZSNDFLT   ;     ; Ozone sonde flight data
            | 0-15-004 > | Ozone sounding correction factor (CF)
@@ -5081,7 +5301,7 @@ Table D STD |  0 | 26
            | 0-11-101 > | Aircraft ground speed u-component
            | 0-11-102 > | Aircraft ground speed v-component
            | 0-11-103 > | Aircraft ground speed w-component
-           | 0-11-104 > | Aircraft true heading
+           | 0-11-104 > | True heading of aircraft, ship or other mobile platform
            | 0-12-101 > | Temperature/air temperature
            | 0-02-170 > | Aircraft humidity sensors
            | 2-01-144 > | Change data width
@@ -6157,9 +6377,9 @@ Table D STD |  0 | 26
            | 3-01-011 > | Year, month, day
            | 3-01-012 > | Hour, minute
            | 3-01-021 > | Latitude/longitude (high accuracy)
-           | 2-08-016 > | Table C operator unknown to TableD18processor.java code
+           | 2-08-016 > | Change width of CCITT IA5 field
            | 0-01-051 > | Platform transmitter ID number
-           | 2-08-000 > | Table C operator unknown to TableD18processor.java code
+           | 2-08-000 > | Cancel change width of CCITT IA5 field
            | 0-02-148 > | Data collection and/or location system
            | 0-01-012 > | Direction of motion of moving observing platform
            | 0-01-014 > | Platform drift speed (high precision)
@@ -7619,7 +7839,7 @@ Table D STD |  0 | 26
            | 0-40-027 > | Sun glint angle
            | 0-12-063   | Brightness temperature
 
-  3-40-013 | ALADIN2B   ;     ; Atmospheric Laser Doppler Instrument (ALADIN) L2b Data
+  3-40-013 | ALADIN2B   ;     ; Atmospheric Laser Doppler Instrument (ALADIN) L2b data
            | 0-01-007 > | Satellite identifier
            | 0-02-019 > | Satellite instruments
            | 0-01-033 > | Identification of originating/generating centre

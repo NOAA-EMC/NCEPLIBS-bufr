@@ -1,7 +1,7 @@
 Table D STD |  0 | 27
 #
 # Standard BUFR Table D, Master Table 0, Version 27
-# This file was generated: 2016/10/28 15:44:28
+# This file was generated: 2017/05/16 11:14:55
 #
 #========================================================================================================
 # F-XX-YYY | MNEMONIC   ;DCOD ; NAME           <-- sequence definition
@@ -3425,7 +3425,7 @@ Table D STD |  0 | 27
            | 0-31-000 > | Short delayed descriptor replication factor
            | 3-06-043   | Marine bio-geochemical and radiation observations
 
-  3-08-015 | TFWDEAFQ   ;     ; Template for WAVEOB data expressed as frequency (Ia=0 in FM-65 WAVEOB
+  3-08-015 | TFWDEAFQ   ;     ; Template for WAVEOB data expressed as frequency
            | 0-01-003 > | WMO Region number/geographical area
            | 0-01-020 > | WMO Region sub-area
            | 0-01-005 > | Buoy/platform identifier
@@ -3480,7 +3480,7 @@ Table D STD |  0 | 27
            | 0-22-186 > | Direction from which waves are coming
            | 0-22-187   | Directional spread of wave
 
-  3-08-016 | BTWDEAWV   ;     ; Template for WAVEOB data expressed as the wave number (Ia=1 in FM-65 WAVEOB
+  3-08-016 | BTWDEAWV   ;     ; Template for WAVEOB data expressed as the wave number
            | 0-01-003 > | WMO Region number/geographical area
            | 0-01-020 > | WMO Region sub-area
            | 0-01-005 > | Buoy/platform identifier

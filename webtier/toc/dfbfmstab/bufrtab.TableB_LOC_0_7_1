@@ -1,7 +1,7 @@
 Table B LOC |  0 | 7 |  1
 #
 # Local BUFR Table B, Master Table 0, Originating Center 7, Version 1
-# This file was generated: 2016/10/31 11:09:29
+# This file was generated: 2018/03/01 10:40:17
 #
 #========================================================================================================
 # F-XX-YYY |SCALE| REFERENCE   | BIT |      UNIT         | MNEMONIC ;DESC ;  ELEMENT NAME
@@ -508,6 +508,9 @@ Table B LOC |  0 | 7 |  1
   0-55-007 |   0 |           0 |  10 | Code table        | TYP      ;     ; PREPBUFR: Report type
   0-55-008 |   0 |           0 |  10 | Code table        | T29      ;     ; PREPBUFR: Data dump report type
   0-55-009 |   0 |           0 |  14 | Code table        | TSB      ;     ; PREPBUFR: Report subtype
+  0-55-020 |   0 |           0 |   8 | Code table        | TABLAT   ;     ; Table A data type
+  0-55-021 |   0 |           0 |   8 | Code table        | TABLASS  ;     ; Table A data subtype (WMO standard)
+  0-55-022 |   0 |           0 |   8 | Code table        | TABLASL  ;     ; Table A data subtype (NCEP local)
   0-58-008 |   0 |           0 |  64 | CCITT IA5         | RRSTG    ;     ; Raw report string
   0-58-009 |   0 |           0 |  64 | CCITT IA5         | PRVSTG   ;     ; MESONET provider id string
   0-58-010 |   0 |           0 |  64 | CCITT IA5         | SPRVSTG  ;     ; MESONET subprovider id string
