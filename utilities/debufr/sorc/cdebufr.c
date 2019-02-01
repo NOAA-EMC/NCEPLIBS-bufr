@@ -2,7 +2,7 @@
 ** MAIN PROGRAM DOCUMENTATION BLOCK
 **
 ** MAIN PROGRAM:  debufr
-**   PRGMMR: J. Ator          ORG: NP12        DATE: 2009-07-01
+**   PRGMMR: J. Ator          ORG: NCEP        DATE: 2019-02-01
 **
 ** ABSTRACT: This program decodes a BUFR file and generates a verbose
 **   listing of the contents.  If an NCEP DX dictionary tables file is
@@ -33,6 +33,8 @@
 ** 2018-09-05  J. Ator     Add -p option to pass in one or more BUFRLIB
 **                         dynamic allocation parameters to override default
 **                         settings
+** 2019-02-01  J. Ator     Remove limit on length of prmstg, and allow up to
+**                         20 PARAMETER=VALUE pairs
 **
 ** USAGE:
 **   debufr [-v] [-h] [-b] [-c] [-m] [-o outfile] [-t tabledir]
@@ -69,12 +71,12 @@
 **     tablefil  file within tabledir containing DX dictionary tables
 **               file to be used for decoding.
 **     prmstg    string of comma-separated PARAMETER=VALUE pairs, up to a
-**               maximum of 80 characters in length.  For each pair, the
-**               dynamic allocation PARAMETER will be set to VALUE within
-**               the underlying BUFRLIB software, overriding the default
-**               value that would otherwise be used.  A complete list of
-**               parameters that can be dynamically sized is included
-**               within the BUFRLIB documentation for function ISETPRM.
+**               maximum of 20.  For each pair, the dynamic allocation
+**               PARAMETER will be set to VALUE within the underlying
+**               BUFRLIB software, overriding the default value that
+**               would otherwise be used.  A complete list of parameters
+**               that can be dynamically sized is included within the
+**               BUFRLIB documentation for function ISETPRM.
 **     bufrfile  [path/]name of BUFR file to be decoded
 **
 ** REMARKS:

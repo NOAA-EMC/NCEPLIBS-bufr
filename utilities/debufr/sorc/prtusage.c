@@ -39,11 +39,11 @@ void prtusage( char *prgnam ) {
 	printf( "    tablefil  file within tabledir containing DX dictionary tables\n" );
 	printf( "              file to be used for decoding.\n" );
 	printf( "     prmstg   string of comma-separated PARAMETER=VALUE pairs, up to a\n" );
-	printf( "              maximum of 80 characters in length.  For each pair, the\n" );
-  	printf( "              dynamic allocation PARAMETER will be set to VALUE within\n" );
-	printf( "              the underlying BUFRLIB software, overriding the default\n" );
-	printf( "              value that would otherwise be used.  A complete list of\n" );
-	printf( "              parameters that can be dynamically sized is included\n" );
-	printf( "              within the BUFRLIB documentation for function ISETPRM.\n" );
+	printf( "              maximum of 20.  For each pair, the dynamic allocation\n" );
+  	printf( "              PARAMETER will be set to VALUE within the underlying\n" );
+	printf( "              BUFRLIB software, overriding the default value that would\n" );
+	printf( "              otherwise be used.  A complete list of parameters that can\n" );
+	printf( "              be dynamically sized is included within the BUFRLIB\n" );
+	printf( "              documentation for function ISETPRM.\n" );
 	printf( "    bufrfile  [path/]name of BUFR file to be decoded\n" );
 }
