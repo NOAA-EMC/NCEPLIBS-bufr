@@ -1,0 +1,27 @@
+This utility locates and extracts all of the GRIB2 messages from within a
+specified input file, writing each into its own separate output file with
+a unique filename.
+
+Example:
+
+	xg2mg [options] <inputfile>
+
+will extract all of the GRIB2 messages from <inputfile> into the following
+filenames:
+
+	xg2mg.out.(pid).000001
+	xg2mg.out.(pid).000002
+	xg2mg.out.(pid).000003
+	.
+	.
+	xg2mg.out.(pid).(last#)
+
+where:
+	(pid) = pid of xg2mg process
+	(last#) = total number of GRIB2 messages in file
+
+and possible options are:
+
+	-v	prints version information and exits
+	-g	retains any GTS bulletin information associated with the
+		GRIB2 message in each output file
