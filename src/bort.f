@@ -39,33 +39,33 @@ C                               COPYSB   CPDXMM   CPYMEM   CPYUPD
 C                               CRBMG    CWBMG    DATEBF   DATELEN
 C                               DRFINI   DRSTPL   DUMPBF   DXDUMP
 C                               DXMINI   GETWIN   GETTBH   IDN30
-C                               IFBGET   IGETNTBI IGETSC   IGETTDI
-C                               INCTAB   INVMRG   IPKM     ISIZE
-C                               IUPVS01  IUPM     JSTNUM   LCMGDF
-C                               LSTJPB   MAKESTAB MINIMG   MSGINI
-C                               MSGWRT   NEMTBA   NEMTBAX  NEMTBB
-C                               NEMTBD   NENUBD   NEVN     NEWWIN
-C                               NMSUB    NUMMTB   NVNWIN   NXTWIN
-C                               OPENBF   OPENMB   OPENMG   PAD
-C                               PADMSG   PARUTG   PKB      PKBS1
-C                               PKVS01   POSAPX   RCSTPL   RDBFDX
-C                               RDCMPS   RDMEMM   RDMEMS   RDMGSB
-C                               RDMSGW   RDMTBB   RDMTBD   READDX
-C                               READERME READLC   READMG   READNS
-C                               READSB   READS3   REWNBF   RTRCPT
-C                               SNTBBE   SNTBDE   STATUS   STBFDX
-C                               STDMSG   STNDRD   STNTBIA  STRCPT
-C                               STSEQ    TABENT   TABSUB   TRYBUMP
-C                               UFBCNT   UFBCPY   UFBCUP   UFBDMP
-C                               UFBEVN   UFBGET   UFBIN3   UFBINT
-C                               UFBINX   UFBMEM   UFBMEX   UFBMMS
-C                               UFBMNS   UFBOVR   UFBPOS   UFBQCD
-C                               UFBQCP   UFBREP   UFBRMS   UFBSEQ
-C                               UFBSTP   UFBTAB   UFBTAM   UFDUMP
-C                               UPDS3    UPFTBV   UPTDD    USRTPL
-C                               WRCMPS   WRDESC   WRDLEN   WRDXTB
-C                               WRITDX   WRITLC   WRITSA   WRITSB
-C                               WTSTAT
+C                               IFBGET   IGETNTBI IGETRFEL IGETSC
+C                               IGETTDI  INCTAB   INVMRG   IPKM
+C                               ISIZE    IUPVS01  IUPM     JSTNUM
+C                               LCMGDF   LSTJPB   MAKESTAB MINIMG
+C                               MSGINI   MSGWRT   NEMTBA   NEMTBAX
+C                               NEMTBB   NEMTBD   NENUBD   NEVN
+C                               NEWWIN   NMSUB    NUMMTB   NVNWIN
+C                               NXTWIN   OPENBF   OPENMB   OPENMG
+C                               PAD      PADMSG   PARUTG   PKB
+C                               PKBS1    PKVS01   POSAPX   RCSTPL
+C                               RDBFDX   RDCMPS   RDMEMM   RDMEMS
+C                               RDMGSB   RDMSGW   RDMTBB   RDMTBD
+C                               READDX   READERME READLC   READMG
+C                               READNS   READSB   READS3   REWNBF
+C                               RTRCPT   SNTBBE   SNTBDE   STATUS
+C                               STBFDX   STDMSG   STNDRD   STNTBIA
+C                               STRBTM   STRCPT   STSEQ    TABENT
+C                               TABSUB   TRYBUMP  UFBCNT   UFBCPY
+C                               UFBCUP   UFBDMP   UFBEVN   UFBGET
+C                               UFBIN3   UFBINT   UFBINX   UFBMEM
+C                               UFBMEX   UFBMMS   UFBMNS   UFBOVR
+C                               UFBPOS   UFBQCD   UFBQCP   UFBREP
+C                               UFBRMS   UFBSEQ   UFBSTP   UFBTAB
+C                               UFBTAM   UFDUMP   UPDS3    UPFTBV
+C                               UPTDD    USRTPL   WRCMPS   WRDESC
+C                               WRDLEN   WRDXTB   WRITDX   WRITLC
+C                               WRITSA   WRITSB   WTSTAT
 C                               Normally not called by any application
 C                               programs but it could be.
 C

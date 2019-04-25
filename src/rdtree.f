@@ -1,4 +1,4 @@
-      SUBROUTINE RDTREE(LUN)
+      SUBROUTINE RDTREE(LUN,IRET)
 
 C$$$  SUBPROGRAM DOCUMENTATION BLOCK
 C
@@ -38,10 +38,18 @@ C 2012-06-04  J. ATOR    -- SET DECODED REAL*8 VALUE TO "MISSING" WHEN
 C                           CORRESPONDING CHARACTER FIELD HAS ALL BITS
 C                           SET TO 1
 C 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
+C 2016-11-09  J. ATOR    -- ADDED IRET ARGUMENT AND CHECK FOR POSSIBLY
+C                           CORRUPT SUBSETS
 C
-C USAGE:    CALL RDTREE (LUN)
+C USAGE:    CALL RDTREE (LUN,IRET)
 C   INPUT ARGUMENT LIST:
 C     LUN      - INTEGER: I/O STREAM INDEX INTO INTERNAL MEMORY ARRAYS
+C
+C   OUTPUT ARGUMENT LIST:
+C     IRET     - INTEGER: RETURN CODE:
+C                       0 = NORMAL RETURN
+C                      -1 = AN ERROR OCCURRED, POSSIBLY DUE TO A
+C                           CORRUPT SUBSET IN THE INPUT MESSAGE
 C
 C REMARKS:
 C    THIS ROUTINE CALLS:        RCSTPL   ICBFMS   UPBB     UPC
@@ -75,12 +83,18 @@ C     of length IBT(NODE)) bits (all bits "on"):
       MPS(NODE) = 2**(IBT(NODE))-1
 C-----------------------------------------------------------------------
 
+      IRET = 0
+
 C  CYCLE THROUGH A SUBSET SETTING UP THE TEMPLATE
 C  ----------------------------------------------
 
       MBIT(1) = IBIT
       NBIT(1) = 0
-      CALL RCSTPL(LUN)
+      CALL RCSTPL(LUN,IER)
+      IF(IER.NE.0) THEN
+        IRET = -1
+        RETURN
+      ENDIF
 
 C  UNPACK A SUBSET INTO THE USER ARRAY IVAL
 C  ----------------------------------------

@@ -1,7 +1,7 @@
 # *** for WCOSS Dell (intel) ***
  module load EnvVars/1.0.2
  module load ips/18.0.1.163
- module load bufr/11.0.1
+ module load bufr/11.2.0
 
  export CC=icc
  export FC=ifort

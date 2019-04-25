@@ -10,11 +10,7 @@
 
 #ifdef STATIC_ALLOCATION
 
-#   ifdef UNDERSCORE
-#	define MSTABS_BASE(var) moda_mstabs_mp_ ## var ## _
-#   else
-#	define MSTABS_BASE(var) moda_mstabs_mp_ ## var ##
-#   endif
+#   define MSTABS_BASE(var) var
 
     extern f77int MSTABS_BASE(nmtb);
     extern f77int MSTABS_BASE(ibfxyn)[];

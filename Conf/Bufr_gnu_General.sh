@@ -5,7 +5,7 @@
 
  ANCHORDIR=..
  export COMP=gnu
- export BUFR_VER=v11.0.1
+ export BUFR_VER=v11.2.0
  export BUFR_SRC=
  export BUFR_LIB4_DA=$ANCHORDIR/libbufr_${BUFR_VER}_4_64_DA.a
  export BUFR_LIBd_DA=$ANCHORDIR/libbufr_${BUFR_VER}_d_64_DA.a

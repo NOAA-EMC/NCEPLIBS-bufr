@@ -1,6 +1,6 @@
 # *** for Theia (intel) ***
  module load intel/18.1.163
- module load dev/bufr/v11.0.1
+ module load dev/bufr/v11.2.0
 
  export CC=icc
  export FC=ifort
