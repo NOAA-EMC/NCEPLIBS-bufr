@@ -6,9 +6,9 @@ C SUBPROGRAM:    RDCMPS
 C   PRGMMR: WOOLLEN          ORG: NP20       DATE: 2000-09-19
 C
 C ABSTRACT: THIS SUBROUTINE UNCOMPRESSES AND UNPACKS THE NEXT SUBSET
-C   FROM THE INTERNAL COMPRESSED MESSAGE BUFFER (ARRAY MBAY IN MODULE
-C   BITBUF) AND STORES THE UNPACKED SUBSET WITHIN THE INTERNAL
-C   ARRAY VAL(*,LUN) IN MODULE USRINT.
+C   FROM THE INTERNAL COMPRESSED MESSAGE BUFFER (ARRAY MBAY IN COMMON
+C   BLOCK /BITBUF/) AND STORES THE UNPACKED SUBSET WITHIN THE INTERNAL
+C   ARRAY VAL(*,LUN) IN COMMON BLOCK /USRINT/.
 C
 C PROGRAM HISTORY LOG:
 C 2000-09-19  J. WOOLLEN -- ORIGINAL AUTHOR
@@ -33,15 +33,14 @@ C 2012-03-02  J. ATOR    -- USE FUNCTION UPS
 C 2012-06-04  J. ATOR    -- SET DECODED REAL*8 VALUE TO "MISSING" WHEN
 C                           CORRESPONDING CHARACTER FIELD HAS ALL BITS
 C                           SET TO 1
-C 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
 C
 C USAGE:    CALL RDCMPS (LUN)
 C   INPUT ARGUMENT LIST:
 C     LUN      - INTEGER: I/O STREAM INDEX INTO INTERNAL MEMORY ARRAYS
 C
 C REMARKS:
-C    THIS ROUTINE CALLS:        BORT     ICBFMS   IGETRFEL STRBTM
-C                               UPB      UPC      UPS      USRTPL
+C    THIS ROUTINE CALLS:        BORT     ICBFMS   UPB      UPC
+C                               UPS      USRTPL
 C    THIS ROUTINE IS CALLED BY: READSB
 C                               Normally not called by any application
 C                               programs.
@@ -52,18 +51,26 @@ C   MACHINE:  PORTABLE TO ALL PLATFORMS
 C
 C$$$
 
-      USE MODA_USRINT
-      USE MODA_MSGCWD
-      USE MODA_BITBUF
-      USE MODA_TABLES
-      USE MODA_RLCCMN
-
       INCLUDE 'bufrlib.prm'
 
+      COMMON /BITBUF/ MAXBYT,IBIT,IBAY(MXMSGLD4),MBYT(NFILES),
+     .                MBAY(MXMSGLD4,NFILES)
+      COMMON /MSGCWD/ NMSG(NFILES),NSUB(NFILES),MSUB(NFILES),
+     .                INODE(NFILES),IDATE(NFILES)
+      COMMON /TABLES/ MAXTAB,NTAB,TAG(MAXJL),TYP(MAXJL),KNT(MAXJL),
+     .                JUMP(MAXJL),LINK(MAXJL),JMPB(MAXJL),
+     .                IBT(MAXJL),IRF(MAXJL),ISC(MAXJL),
+     .                ITP(MAXJL),VALI(MAXJL),KNTI(MAXJL),
+     .                ISEQ(MAXJL,2),JSEQ(MAXJL)
+      COMMON /USRINT/ NVAL(NFILES),INV(MAXSS,NFILES),VAL(MAXSS,NFILES)
+      COMMON /RLCCMN/ NRST,IRNCH(MXRST),IRBIT(MXRST),CRTAG(MXRST)
+
       CHARACTER*128 BORT_STR
+      CHARACTER*10  TAG,CRTAG
       CHARACTER*8   CREF,CVAL
+      CHARACTER*3   TYP
       EQUIVALENCE   (CVAL,RVAL)
-      REAL*8        RVAL,UPS
+      REAL*8        VAL,RVAL,UPS
 
 C-----------------------------------------------------------------------
 C     Statement function to compute BUFR "missing value" for field
@@ -94,7 +101,6 @@ C     Loop through each element of the subset.
 
 1     DO N=N+1,NVAL(LUN)
       NODE = INV(N,LUN)
-      NRFELM(N,LUN) = IGETRFEL(N,LUN)
       NBIT = IBT(NODE)
       ITYP = ITP(NODE)
 
@@ -131,7 +137,6 @@ C        This is a numeric element.
             GOTO 1
          ENDIF
          IF(IVAL.LT.LPS(NBIT)) VAL(N,LUN) = UPS(IVAL,NODE)
-         CALL STRBTM(N,LUN)
          IBIT = IBIT + LINC*MSUB(LUN)
       ELSEIF(ITYP.EQ.3) THEN
 
@@ -148,7 +153,7 @@ C        Unpack the local reference value.
          NCHR = MIN(8,LELM)
          IBSV = IBIT
          CREF = ' '
-         CALL UPC(CREF,NCHR,MBAY(1,LUN),IBIT,.TRUE.)
+         CALL UPC(CREF,NCHR,MBAY(1,LUN),IBIT)
          IF(LELM.GT.8) THEN
             IBIT = IBIT + (LELM-8)*8
             NRST = NRST + 1
@@ -174,7 +179,7 @@ C        this length is in bytes rather than bits.
             ENDIF
             NCHR = MIN(8,LINC)
             CVAL = ' '
-            CALL UPC(CVAL,NCHR,MBAY(1,LUN),JBIT,.TRUE.)
+            CALL UPC(CVAL,NCHR,MBAY(1,LUN),JBIT)
          ENDIF
          IF (LELM.LE.8 .AND. ICBFMS(CVAL,NCHR).NE.0) THEN
             VAL(N,LUN) = BMISS

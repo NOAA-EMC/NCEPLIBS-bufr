@@ -12,7 +12,6 @@ C   SIZE.  NUM MUST BE AN INTEGER IN THE RANGE OF 0 TO 99999.
 C
 C PROGRAM HISTORY LOG:
 C 2009-03-23  J. ATOR    -- ORIGINAL AUTHOR
-C 2016-02-12  J. ATOR    -- MODIFIED FOR CRAYFTN COMPATIBILITY
 C
 C USAGE:    CALL ISIZE ( NUM )
 C   INPUT ARGUMENT LIST:
@@ -24,7 +23,7 @@ C                AS A STRING
 C
 C REMARKS:
 C    THIS ROUTINE CALLS:        BORT
-C    THIS ROUTINE IS CALLED BY: MTFNAM   UFBDMP   UFDUMP
+C    THIS ROUTINE IS CALLED BY: READMT   UFBDMP   UFDUMP
 C                               Normally not called by any application
 C                               programs but it could be.
 C
@@ -39,14 +38,14 @@ C$$$
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
 
-	IF ( NUM .GE. 0 ) THEN
-	  DO ISIZE = 1, 5
-	    IF ( NUM .LT. 10**ISIZE ) RETURN
-	  ENDDO
-	ENDIF
-	WRITE(BORT_STR,'("BUFRLIB: ISIZE - INPUT NUMBER (",I7,'//
-     .	  '") IS OUT OF RANGE")') NUM
-	CALL BORT(BORT_STR)
+	IF ( NUM .LT. 0 ) GOTO 900
+	DO ISIZE = 1, 5
+	  IF ( NUM .LT. 10**ISIZE ) RETURN
+	ENDDO
+	GOTO 900
 
 	RETURN
+900	WRITE(BORT_STR,'("BUFRLIB: ISIZE - INPUT NUMBER (",I7,'//
+     .	  '") IS OUT OF RANGE")') NUM
+	CALL BORT(BORT_STR)
 	END

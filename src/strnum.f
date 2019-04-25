@@ -29,8 +29,7 @@ C                      -1 = decode was unsuccessful
 C
 C REMARKS:
 C    THIS ROUTINE CALLS:        ERRWRT   STRSUC
-C    THIS ROUTINE IS CALLED BY: JSTNUM   PARUTG   SEQSDX   SNTBFE
-C                               STSEQ
+C    THIS ROUTINE IS CALLED BY: JSTNUM   PARUTG   SEQSDX   STSEQ
 C                               Normally not called by any application
 C                               programs but it could be.
 C

@@ -39,8 +39,7 @@ C                      -1 = input string was empty (i.e. all blanks)
 C
 C REMARKS:
 C    THIS ROUTINE CALLS:        None
-C    THIS ROUTINE IS CALLED BY: ELEMDX   IGETFXY  SNTBBE   SNTBDE
-C                               SNTBFE
+C    THIS ROUTINE IS CALLED BY: ELEMDX   IGETFXY  SNTBBE
 C                               Normally not called by any application
 C                               programs but it could be.
 C

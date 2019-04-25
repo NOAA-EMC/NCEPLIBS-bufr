@@ -31,7 +31,6 @@ C                           WRF; ADDED DOCUMENTATION (INCLUDING
 C                           HISTORY); OUTPUTS MORE COMPLETE DIAGNOSTIC
 C                           INFO WHEN ROUTINE TERMINATES ABNORMALLY
 C 2009-03-31  J. WOOLLEN -- ADDED ADDITIONAL DOCUMENTATION
-C 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
 C
 C USAGE:    LSTJPB (NODE, LUN, JBTYP)
 C   INPUT ARGUMENT LIST:
@@ -52,8 +51,8 @@ C    EXPLANATION OF THE VARIOUS NODE TYPES PRESENT WITHIN AN INTERNAL
 C    JUMP/LINK TABLE 
 C
 C    THIS ROUTINE CALLS:        BORT
-C    THIS ROUTINE IS CALLED BY: GETWIN   IGETRFEL NEVN     NEWWIN
-C                               NXTWIN   PARUSR   TRYBUMP  UFBRW
+C    THIS ROUTINE IS CALLED BY: GETWIN   NEVN    NEWWIN   NXTWIN
+C                               PARUSR   TRYBUMP UFBRW
 C                               Normally not called by any application
 C                               programs.
 C
@@ -63,13 +62,20 @@ C   MACHINE:  PORTABLE TO ALL PLATFORMS
 C
 C$$$
 
-      USE MODA_MSGCWD
-      USE MODA_TABLES
-
       INCLUDE 'bufrlib.prm'
+
+      COMMON /MSGCWD/ NMSG(NFILES),NSUB(NFILES),MSUB(NFILES),
+     .                INODE(NFILES),IDATE(NFILES)
+      COMMON /TABLES/ MAXTAB,NTAB,TAG(MAXJL),TYP(MAXJL),KNT(MAXJL),
+     .                JUMP(MAXJL),LINK(MAXJL),JMPB(MAXJL),
+     .                IBT(MAXJL),IRF(MAXJL),ISC(MAXJL),
+     .                ITP(MAXJL),VALI(MAXJL),KNTI(MAXJL),
+     .                ISEQ(MAXJL,2),JSEQ(MAXJL)
 
       CHARACTER*(*) JBTYP
       CHARACTER*128 BORT_STR
+      CHARACTER*10  TAG
+      CHARACTER*3   TYP
 
 C----------------------------------------------------------------------
 C----------------------------------------------------------------------

@@ -38,19 +38,14 @@ C 2005-11-29  J. ATOR    -- ADDED INITIALIZATION OF COMMON /MSGCMP/
 C			    AND CALLS TO PKVS1 AND PKVS01
 C 2009-03-23  J. ATOR    -- ADDED INITIALIZATION OF COMMON /DSCACH/,
 C                           COMMON /MSTINF/ AND COMMON /TNKRCP/
-C 2012-09-15  J. WOOLLEN -- MODIFIED FOR C/I/O/BUFR INTERFACE,
-C                           ADDED INITIALIZATION OF COMMON BLOCKS
-C                           /ENDORD/ AND /BUFRBMISS/
-C 2014-09-15  J. ATOR    -- CHANGE DEFAULT LOCATION OF MTDIR
-C 2014-11-18  J. ATOR    -- ADDED INITIALIZATION OF MODULES MSGLIM
-C                           AND USRINT; REMOVE S01CM INITIALIZATION
-C 2016-11-29  J. ATOR    -- EXPLICITLY INITIALIZE BMISS AS 10E10_8
-C 2017-10-13  J. ATOR    -- ADDED INITIALIZATION OF COMMON /TABLEF/
+C 2012-09-15  J. WOOLLEN -- MODIFIED FOR C/I/O/BUFR INTERFACE
+C                        -- ADDED INITIALIZATION OF COMMON BLOCKS
+C                        -- /ENDORD/ AND /BUFRBMISS/
 C
 C USAGE:    CALL BFRINI
 C
 C REMARKS:
-C    THIS ROUTINE CALLS:        IFXY     IPKM
+C    THIS ROUTINE CALLS:        IFXY     IPKM     PKVS01
 C    THIS ROUTINE IS CALLED BY: OPENBF
 C                               Normally not called by any application
 C                               programs.
@@ -61,45 +56,53 @@ C   MACHINE:  PORTABLE TO ALL PLATFORMS
 C
 C$$$
 
-      USE MODA_STBFR
-      USE MODA_IDRDM
-      USE MODA_MSGLIM
-      USE MODA_BITBUF
-      USE MODA_BUFRMG
-      USE MODA_BUFRSR
-      USE MODA_TABABD
-      USE MODA_USRINT
-      USE MODA_TABLES
-      USE MODA_H4WLC
-
       INCLUDE 'bufrlib.prm'
 
+      COMMON /BITBUF/ MAXBYT,IBIT,IBAY(MXMSGLD4),MBYT(NFILES),
+     .                MBAY(MXMSGLD4,NFILES)
       COMMON /MAXCMP/ MAXCMB,MAXROW,MAXCOL,NCMSGS,NCSUBS,NCBYTS
       COMMON /PADESC/ IBCT,IPD1,IPD2,IPD3,IPD4
       COMMON /REPTAB/ IDNR(5,2),TYPS(5,2),REPS(5,2),LENS(5)
+      COMMON /STBFR / IOLUN(NFILES),IOMSG(NFILES)
+      COMMON /TABABD/ NTBA(0:NFILES),NTBB(0:NFILES),NTBD(0:NFILES),
+     .                MTAB(MAXTBA,NFILES),IDNA(MAXTBA,NFILES,2),
+     .                IDNB(MAXTBB,NFILES),IDND(MAXTBD,NFILES),
+     .                TABA(MAXTBA,NFILES),TABB(MAXTBB,NFILES),
+     .                TABD(MAXTBD,NFILES)
       COMMON /DXTAB / MAXDX,IDXV,NXSTR(10),LDXA(10),LDXB(10),LDXD(10),
      .                LD30(10),DXSTR(10)
+      COMMON /TABLES/ MAXTAB,NTAB,TAG(MAXJL),TYP(MAXJL),KNT(MAXJL),
+     .                JUMP(MAXJL),LINK(MAXJL),JMPB(MAXJL),
+     .                IBT(MAXJL),IRF(MAXJL),ISC(MAXJL),
+     .                ITP(MAXJL),VALI(MAXJL),KNTI(MAXJL),
+     .                ISEQ(MAXJL,2),JSEQ(MAXJL)
       COMMON /DSCACH/ NCNEM,CNEM(MXCNEM),NDC(MXCNEM),
      .                IDCACH(MXCNEM,MAXNC)
+      COMMON /BUFRMG/ MSGLEN,MSGTXT(MXMSGLD4)
       COMMON /MRGCOM/ NRPL,NMRG,NAMB,NTOT
       COMMON /DATELN/ LENDAT
       COMMON /ACMODE/ IAC
+      COMMON /BUFRSR/ JUNN,JILL,JIMM,JBIT,JBYT,JMSG,JSUB,KSUB,JNOD,JDAT,
+     .                JSR(NFILES),JBAY(MXMSGLD4)
       COMMON /MSGSTD/ CSMF
       COMMON /MSGCMP/ CCMF
-      COMMON /TABLEF/ CDMF
       COMMON /TNKRCP/ ITRYR,ITRMO,ITRDY,ITRHR,ITRMI,CTRT
       COMMON /MSTINF/ LUN1,LUN2,LMTD,MTDIR
       COMMON /ENDORD/ IBLOCK,IORDBE(4),IORDLE(4)
 
+
+      CHARACTER*600 TABD
+      CHARACTER*128 TABB
+      CHARACTER*128 TABA
       CHARACTER*100 MTDIR
       CHARACTER*56  DXSTR
+      CHARACTER*10  TAG
       CHARACTER*8   CNEM
       CHARACTER*6   ADSN(5,2),DNDX(25,10)
-      CHARACTER*3   TYPX(5,2),TYPS
+      CHARACTER*3   TYPX(5,2),TYPS,TYP
       CHARACTER*1   REPX(5,2),REPS
       CHARACTER*1   CSMF
       CHARACTER*1   CCMF
-      CHARACTER*1   CDMF
       CHARACTER*1   CTRT
       DIMENSION     NDNDX(10),NLDXA(10),NLDXB(10),NLDXD(10),NLD30(10)
       DIMENSION     LENX(5)
@@ -141,17 +144,12 @@ C  -----------------------------------------------------------------
 C  INITIALIZE /BUFRBMISS/
 C  ----------------------
 
-      BMISS = 10E10_8
+      BMISS = 10E10
 
-C  INITIALIZE MODULE BITBUF
-C  ------------------------
+C  INITIALIZE /BITBUF/
+C  -------------------
 
-      MAXBYT = MIN(10000,MXMSGL)
-
-C  INITIALIZE MODULE H4WLC
-C  -----------------------
-
-      NH4WLC = 0
+      MAXBYT = 10000
 
 C  INITIALIZE /MAXCMP/
 C  -------------------
@@ -172,33 +170,12 @@ C  -------------------
       IPD3 = IFXY('206001')
       IPD4 = IFXY('063255')
 
-C  INITIALIZE MODULE STBFR
-C  -----------------------
+C  INITIALIZE /STBFR/
+C  ------------------
 
       DO I=1,NFILES
       IOLUN(I) = 0
       IOMSG(I) = 0
-      ENDDO
-
-C  INITIALIZE MODULE IDRDM
-C  -----------------------
-
-      DO I=1,NFILES
-      IDRDM(I) = 0
-      ENDDO
-
-C  INITIALIZE MODULE MSGLIM
-C  ------------------------
-
-      DO I=1,NFILES
-      MSGLIM(I) = 3
-      ENDDO
-
-C  INITIALIZE MODULE USRINT
-C  ------------------------
-
-      DO I=1,NFILES
-      NVAL(I) = 0
       ENDDO
 
 C  INITIALIZE /REPTAB/
@@ -213,8 +190,8 @@ C  -------------------
       ENDDO
       ENDDO
 
-C  INITIALIZE TABABD (INTERNAL ARRAYS HOLDING DICTIONARY TABLE)
-C  ------------------------------------------------------------
+C  INITIALIZE /TABABD/ (INTERNAL ARRAYS HOLDING DICTIONARY TABLE)
+C  --------------------------------------------------------------
 
 C    NTBA(0) is the maximum number of entries w/i internal BUFR table A
 
@@ -248,13 +225,13 @@ c  .... IDXV is the version number of the local tables
       ENDDO
       ENDDO
 
-C  INITIALIZE MODULE TABLES
-C  ------------------------
+C  INITIALIZE /TABLES/
+C  -------------------
 
       MAXTAB = MAXJL
 
-C  INITIALIZE MODULE BUFRMG
-C  ------------------------
+C  INITIALIZE /BUFRMG/
+C  -------------------
 
       MSGLEN = 0
 
@@ -277,8 +254,8 @@ C  ------------------_
 c  .... DK: What does this control??
       IAC = 0
 
-C  INITIALIZE MODULE BUFRSR
-C  ------------------------
+C  INITIALIZE /BUFRSR/
+C  -------------------
 
       DO I=1,NFILES
       JSR(I) = 0
@@ -299,11 +276,6 @@ C  -------------------
 
       CCMF = 'N'
 
-C  INITIALIZE /TABLEF/
-C  -------------------
-
-      CDMF = 'N'
-
 C  INITIALIZE /TNKRCP/
 C  -------------------
 
@@ -312,11 +284,16 @@ C  -------------------
 C  INITIALIZE /MSTINF/
 C  -------------------
 
-      MTDIR = '/nwprod/decoders/decod_shared/fix'
-      LMTD = 33
+      MTDIR = '/nwprod/fix'
+      LMTD = 11
 
       LUN1 = 98
       LUN2 = 99
+
+C  INITIALIZE /S01CM/
+C  -------------------
+
+      CALL PKVS01('INIT',-99)
 
       RETURN
       END

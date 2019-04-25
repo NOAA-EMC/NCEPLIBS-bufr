@@ -6,16 +6,13 @@ C SUBPROGRAM:    MSGUPD
 C   PRGMMR: WOOLLEN          ORG: NP20       DATE: 1994-01-06
 C
 C ABSTRACT: THIS SUBROUTINE PACKS UP THE CURRENT SUBSET WITHIN MEMORY
-C  (ARRAY IBAY IN MODULE BITBUF) AND THEN TRIES TO ADD IT TO
+C  (ARRAY IBAY IN COMMON BLOCK /BITBUF/) AND THEN TRIES TO ADD IT TO
 C  THE BUFR MESSAGE THAT IS CURRENTLY OPEN WITHIN MEMORY FOR LUNIT
-C  (ARRAY MBAY IN MODULE BITBUF).  IF THE SUBSET WILL NOT FIT
-C  INTO THE CURRENTLY OPEN MESSAGE, OR IF THE SUBSET BYTE COUNT EXCEEDS
-C  65530 (SUFFICIENTLY CLOSE TO THE 16-BIT BYTE COUNTER UPPER LIMIT OF
-C  65535), THEN THAT MESSAGE IS FLUSHED TO LUNIT AND A NEW ONE IS
-C  CREATED IN ORDER TO HOLD THE CURRENT SUBSET.  ANY SUBSET WITH BYTE
-C  COUNT > 65530 WILL BE WRITTEN INTO ITS OWN ONE-SUBSET MESSAGE.
-C  IF THE CURRENT SUBSET IS LARGER THAN THE MAXIMUM MESSAGE LENGTH,
-C  THEN THE SUBSET IS DISCARDED AND A DIAGNOSTIC IS PRINTED.
+C  (ARRAY MBAY IN COMMON BLOCK /BITBUF/).  IF THE SUBSET WILL NOT FIT
+C  INTO THE CURRENTLY OPEN MESSAGE, THEN THAT MESSAGE IS FLUSHED TO
+C  LUNIT AND A NEW ONE IS CREATED IN ORDER TO HOLD THE CURRENT SUBSET.
+C  IF THE SUBSET IS LARGER THAN AN EMPTY MESSAGE, THE SUBSET IS
+C  DISCARDED AND A DIAGNOSTIC IS PRINTED.
 C
 C PROGRAM HISTORY LOG:
 C 1994-01-06  J. WOOLLEN -- ORIGINAL AUTHOR
@@ -38,13 +35,6 @@ C                           DOCUMENTATION
 C 2004-08-09  J. ATOR    -- MAXIMUM MESSAGE LENGTH INCREASED FROM
 C                           20,000 TO 50,000 BYTES
 C 2009-03-23  J. ATOR    -- USE MSGFULL AND ERRWRT
-C 2014-10-20  J. WOOLLEN -- ACCOUNT FOR SUBSETS WITH BYTE COUNT > 65530
-C                           (THESE MUST BE WRITTEN INTO THEIR OWN
-C                           ONE-SUBSET MESSAGE)
-C 2014-10-20  D. KEYSER  -- FOR CASE ABOVE, DO NOT WRITE "CURRENT"
-C                           MESSAGE IF IT CONTAINS ZERO SUBSETS
-C 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
-C 2016-03-21  D. STOKES  -- CALL USRTPL FOR OVERLARGE SUBSETS
 C
 C USAGE:    CALL MSGUPD (LUNIT, LUN)
 C   INPUT ARGUMENT LIST:
@@ -55,7 +45,7 @@ C
 C REMARKS:
 C    THIS ROUTINE CALLS:        ERRWRT   IUPB     MSGFULL  MSGINI
 C                               MSGWRT   MVB      PAD      PKB
-C                               USRTPL   WRITLC
+C                               USRTPL
 C    THIS ROUTINE IS CALLED BY: WRITSA   WRITSB
 C                               Normally not called by any application
 C                               programs.
@@ -66,13 +56,13 @@ C   MACHINE:  PORTABLE TO ALL PLATFORMS
 C
 C$$$
 
-      USE MODA_MSGCWD
-      USE MODA_BITBUF
-      USE MODA_H4WLC
-
       INCLUDE 'bufrlib.prm'
 
       COMMON /MSGPTR/ NBY0,NBY1,NBY2,NBY3,NBY4,NBY5
+      COMMON /MSGCWD/ NMSG(NFILES),NSUB(NFILES),MSUB(NFILES),
+     .                INODE(NFILES),IDATE(NFILES)
+      COMMON /BITBUF/ MAXBYT,IBIT,IBAY(MXMSGLD4),MBYT(NFILES),
+     .                MBAY(MXMSGLD4,NFILES)
       COMMON /QUIET / IPRT
 
       LOGICAL MSGFULL
@@ -87,42 +77,16 @@ C  ---------------------
 
       CALL PAD(IBAY,IBIT,IBYT,8)
 
-C  CHECK WHETHER THE NEW SUBSET SHOULD BE WRITTEN INTO THE CURRENTLY
-C  OPEN MESSAGE
-C  -----------------------------------------------------------------
+C  SEE IF THE NEW SUBSET FITS
+C  --------------------------
 
-      IF(MSGFULL(MBYT(LUN),IBYT,MAXBYT)
-     .      .OR.
-     .  ((IBYT.GT.65530).AND.(NSUB(LUN).GT.0))) THEN
-c       NO it should not, either because:
-c        1) it doesn't fit,
-c                -- OR --
-c        2) it has byte count > 65530 (sufficiently close to the
-c           upper limit for the 16 bit byte counter placed at the
-c           beginning of each subset), AND the current message has
-c           at least one subset in it,
-c       SO write the current message out and create a new one to
-c       hold the current subset
+      IF(MSGFULL(MBYT(LUN),IBYT,MAXBYT)) THEN
+c  .... NO it does not fit
          CALL MSGWRT(LUNIT,MBAY(1,LUN),MBYT(LUN))
          CALL MSGINI(LUN)
       ENDIF
 
-      IF(MSGFULL(MBYT(LUN),IBYT,MAXBYT)) THEN
-c       This is an overlarge subset that won't fit in any message
-c       given the current value of MAXBYT, so discard the subset
-c       and exit gracefully.
-        IF(IPRT.GE.0) THEN
-      CALL ERRWRT('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
-        WRITE ( UNIT=ERRSTR, FMT='(A,A,I7,A)')
-     .   'BUFRLIB: MSGUPD - SUBSET LONGER THAN ANY POSSIBLE MESSAGE ',
-     .   '{MAXIMUM MESSAGE LENGTH = ', MAXBYT, '}'
-      CALL ERRWRT(ERRSTR)
-      CALL ERRWRT('>>>>>>>OVERLARGE SUBSET DISCARDED FROM FILE<<<<<<<<')
-      CALL ERRWRT('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
-      CALL ERRWRT(' ')
-        ENDIF
-        GOTO 100
-      ENDIF
+      IF(MSGFULL(MBYT(LUN),IBYT,MAXBYT)) GOTO 900
 
 C  SET A BYTE COUNT AND TRANSFER THE SUBSET BUFFER INTO THE MESSAGE
 C  ----------------------------------------------------------------
@@ -152,45 +116,28 @@ C  --------------------------------------
       LBIT = LBYT*8
       CALL PKB(NBYT+IBYT,24,MBAY(1,LUN),LBIT)
 
-C  IF ANY LONG CHARACTER STRINGS ARE BEING HELD INTERNALLY FOR STORAGE
-C  INTO THIS SUBSET, STORE THEM NOW.
-C  -------------------------------------------------------------------
-
-      IF(NH4WLC.GT.0) THEN
-        DO II = 1, NH4WLC
-          CALL WRITLC(LUH4WLC(II),CHH4WLC(II),STH4WLC(II))
-        ENDDO
-        NH4WLC = 0
-      ENDIF
-
-C  IF THE SUBSET BYTE COUNT IS > 65530, THEN GIVE IT ITS OWN ONE-SUBSET
-C  MESSAGE (CANNOT HAVE ANY OTHER SUBSETS IN THIS MESSAGE BECAUSE THEIR
-C  BEGINNING WOULD BE BEYOND THE UPPER LIMIT OF 65535 IN THE 16-BIT
-C  BYTE COUNTER, MEANING THEY COULD NOT BE LOCATED!)
-C  --------------------------------------------------------------------
-
-      IF(IBYT.GT.65530) THEN
-         IF(IPRT.GE.1) THEN
-      CALL ERRWRT('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
-      WRITE ( UNIT=ERRSTR, FMT='(A,I7,A,A)')
-     . 'BUFRLIB: MSGUPD - SUBSET HAS BYTE COUNT = ',IBYT,' > UPPER ',
-     . 'LIMIT OF 65535'
-      CALL ERRWRT(ERRSTR)
-      CALL ERRWRT('>>>>>>>WILL BE WRITTEN INTO ITS OWN MESSAGE<<<<<<<<')
-      CALL ERRWRT('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
-      CALL ERRWRT(' ')
-         ENDIF
-         CALL MSGWRT(LUNIT,MBAY(1,LUN),MBYT(LUN))
-         CALL MSGINI(LUN)
-      ENDIF
-
 C  RESET THE USER ARRAYS AND EXIT NORMALLY
 C  ---------------------------------------
 
-100   CALL USRTPL(LUN,1,1)
+      CALL USRTPL(LUN,1,1)
+      GOTO 100
+
+C  ON ENCOUTERING OVERLARGE SUBSETS, EXIT GRACEFULLY (SUBSET DISCARDED)
+C  --------------------------------------------------------------------
+
+900   IF(IPRT.GE.0) THEN
+      CALL ERRWRT('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
+      WRITE ( UNIT=ERRSTR, FMT='(A,A,I7,A)')
+     . 'BUFRLIB: MSGUPD - SUBSET LONGER THAN ANY POSSIBLE MESSAGE ',
+     . '{MAXIMUM MESSAGE LENGTH = ', MAXBYT, '}'
+      CALL ERRWRT(ERRSTR)
+      CALL ERRWRT('>>>>>>>OVERLARGE SUBSET DISCARDED FROM FILE<<<<<<<<')
+      CALL ERRWRT('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
+      CALL ERRWRT(' ')
+      ENDIF
 
 C  EXIT
 C  ----
 
-      RETURN
+100   RETURN
       END
