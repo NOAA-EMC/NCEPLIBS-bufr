@@ -36,6 +36,7 @@ C                           HISTORY) (INCOMPLETE); OUTPUTS MORE
 C                           COMPLETE DIAGNOSTIC INFO WHEN ROUTINE
 C                           TERMINATES ABNORMALLY
 C 2009-03-31  J. WOOLLEN -- ADDED DOCUMENTATION
+C 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
 C
 C USAGE:    CALL TRYBUMP (LUNIT, LUN, USR, I1, I2, IO, IRET)
 C   INPUT ARGUMENT LIST:
@@ -76,12 +77,13 @@ C   MACHINE:  PORTABLE TO ALL PLATFORMS
 C
 C$$$
 
+      USE MODA_USRINT
+
       INCLUDE 'bufrlib.prm'
 
-      COMMON /USRINT/ NVAL(NFILES),INV(MAXSS,NFILES),VAL(MAXSS,NFILES)
       COMMON /USRSTR/ NNOD,NCON,NODS(20),NODC(10),IVLS(10),KONS(10)
 
-      REAL*8 USR(I1,I2),VAL
+      REAL*8 USR(I1,I2)
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------

@@ -35,9 +35,9 @@ C     LEN5     - LENGTH OF SECTION 5 (= -1 IF NOT UNPACKED)
 C
 C REMARKS:
 C    THIS ROUTINE CALLS:        IUPB     IUPBS01
-C    THIS ROUTINE IS CALLED BY: ATRCPT   CKTABA   CNVED4   IUPBS3
-C                               MSGWRT   STBFDX   STNDRD   UPDS3
-C                               WRDXTB   WRITLC
+C    THIS ROUTINE IS CALLED BY: ATRCPT   CKTABA   CNVED4   COPYSB
+C                               IUPBS3   MSGWRT   STBFDX   STNDRD
+C                               UPDS3    WRDXTB   WRITLC
 C                               Also called by application programs.
 C
 C ATTRIBUTES:

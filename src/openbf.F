@@ -63,6 +63,8 @@ C                           FILE; ADD IO TYPE 'FIRST' TO SUPPORT CALLS
 C                           TO BFRINI AND WRDLEN PRIOR TO USER RESET
 C                           OF BUFRLIB PARAMETERS FOUND IN NEW ROUTINES 
 C                           SETBMISS AND SETBLOCK
+C 2014-11-07  J. ATOR    -- ALLOW DYNAMIC ALLOCATION OF CERTAIN ARRAYS
+C 2015-03-03  J. ATOR    -- USE MODA_IFOPBF INSTEAD OF IFIRST
 C
 C USAGE:    CALL OPENBF (LUNIT, IO, LUNDX)
 C   INPUT ARGUMENT LIST:
@@ -128,8 +130,8 @@ C                               POSAPX   READDX   STATUS   WRDLEN
 C                               WRITDX   WTSTAT   OPENRB   OPENWB
 C                               OPENAB
 C    THIS ROUTINE IS CALLED BY: COPYBF   GETBMISS MESGBC   MESGBF
-C                               RDMGSB   UFBINX   UFBMEM   UFBMEX
-C                               UFBTAB   SETBMISS SETBLOCK
+C                               PKVS01   RDMGSB   UFBINX   UFBMEM
+C                               UFBMEX   UFBTAB   SETBMISS SETBLOCK
 C                               Also called by application programs.
 C
 C ATTRIBUTES:
@@ -138,32 +140,29 @@ C   MACHINE:  PORTABLE TO ALL PLATFORMS
 C
 C$$$
 
+      USE MODA_MSGCWD
+      USE MODA_STBFR
+      USE MODA_SC3BFR
+      USE MODA_LUSHR
+      USE MODA_NULBFR
+      USE MODA_STCODE
+      USE MODA_IFOPBF
+
       INCLUDE 'bufrlib.prm'
 
-      COMMON /MSGCWD/ NMSG(NFILES),NSUB(NFILES),MSUB(NFILES),
-     .                INODE(NFILES),IDATE(NFILES)
-      COMMON /STBFR / IOLUN(NFILES),IOMSG(NFILES)
-      COMMON /NULBFR/ NULL(NFILES)
-      COMMON /SC3BFR/ ISC3(NFILES),TAMNEM(NFILES)
-      COMMON /LUSHR/  LUS(NFILES)
-      COMMON /STCODE/ ISCODES(NFILES)
       COMMON /QUIET / IPRT
 
       CHARACTER*(*) IO
       CHARACTER*255 filename,fileacc   
       CHARACTER*128 BORT_STR,ERRSTR
       CHARACTER*28  CPRINT(0:3)
-      CHARACTER*8   TAMNEM
       CHARACTER*1   BSTR(4)
 
-      DATA IFIRST/0/
       DATA          CPRINT/
      . ' (only ABORTs)              ',
      . ' (limited - default)        ',
      . ' (all warnings)             ',
      . ' (all warning+informational)'/
-
-      SAVE IFIRST
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
@@ -172,7 +171,7 @@ C     If this is the first call to this subroutine, initialize
 C     IPRT in /QUIET/ as 0 (limited printout - except for abort
 C     messages)
 
-      IF(IFIRST.EQ.0) IPRT = 0
+      IF(IFOPBF.EQ.0) IPRT = 0
 
       IF(IO.EQ.'QUIET') THEN
 c  .... override previous IPRT value (printout indicator)
@@ -190,17 +189,25 @@ c  .... override previous IPRT value (printout indicator)
          IPRT = LUNDX
       ENDIF
 
-      IF(IFIRST.EQ.0) THEN
+      IF(IFOPBF.EQ.0) THEN
 
-C        If this is the first call to this subroutine, then call WRDLEN
-C        to figure out some important information about the local
-C        machine and call BFRINI to initialize some global variables.
+C        This is the first call to this subroutine, so take care of some
+C        initial housekeeping tasks.  Note that ARALLOCF, ARALLOCC, and
+C        WRDLEN must all be called prior to calling BFRINI.
 
-C        NOTE: WRDLEN must be called prior to calling BFRINI!  
+#ifdef DYNAMIC_ALLOCATION
+C        Allocate any arrays which are being dynamically sized.
+         CALL ARALLOCF
+         CALL ARALLOCC
+#endif
 
+C        Figure out some important information about the local machine.
          CALL WRDLEN
+       
+C        Initialize some global variables.
          CALL BFRINI
-         IFIRST = 1
+
+         IFOPBF = 1
       ENDIF
 
       IF(IO.EQ.'FIRST') GOTO 100
@@ -221,10 +228,10 @@ C  USE INQUIRE TO OBTAIN THE FILENAME ASSOCIATED WITH UNIT LUNIT
 C  -------------------------------------------------------------
 
       IF (IO.NE.'NUL' .AND. IO.NE.'INUL') THEN
-         inquire(lunit,access=fileacc)
-         if(fileacc=='UNDEFINED') open(lunit)
-         inquire(lunit,name=filename)
-         filename=trim(filename)//char(0)
+         INQUIRE(LUNIT,ACCESS=FILEACC)
+         IF(FILEACC=='UNDEFINED') OPEN(LUNIT)
+         INQUIRE(LUNIT,NAME=FILENAME)
+         FILENAME=TRIM(FILENAME)//CHAR(0)
       ENDIF
 
 C  SET INITIAL OPEN DEFAULTS (CLEAR OUT A MSG CONTROL WORD PARTITION)
@@ -240,7 +247,7 @@ C  DECIDE HOW TO OPEN THE FILE AND SETUP THE DICTIONARY
 C  ----------------------------------------------------
 
       IF(IO.EQ.'IN') THEN
-         call openrb(lun,filename)
+         CALL OPENRB(LUN,FILENAME)
          CALL WTSTAT(LUNIT,LUN,-1,0)
          CALL READDX(LUNIT,LUN,LUNDX)
       ELSE IF(IO.EQ.'INUL') THEN
@@ -252,26 +259,26 @@ C  ----------------------------------------------------
          IF(LUNIT.NE.LUNDX) CALL READDX(LUNIT,LUN,LUNDX)
          NULL(LUN) = 1
       ELSE IF(IO.EQ.'INX') THEN
-         call openrb(lun,filename)
+         CALL OPENRB(LUN,FILENAME)
          CALL WTSTAT(LUNIT,LUN,-1,0)
          NULL(LUN) = 1
       ELSE IF(IO.EQ.'OUX') THEN
-         call openwb(lun,filename)
+         CALL OPENWB(LUN,FILENAME)
          CALL WTSTAT(LUNIT,LUN, 1,0)
       ELSE IF(IO.EQ.'SEC3') THEN
-         call openrb(lun,filename)
+         CALL OPENRB(LUN,FILENAME)
          CALL WTSTAT(LUNIT,LUN,-1,0)
          ISC3(LUN) = 1
       ELSE IF(IO.EQ.'OUT') THEN
-         call openwb(lun,filename)
+         CALL OPENWB(LUN,FILENAME)
          CALL WTSTAT(LUNIT,LUN, 1,0)
          CALL WRITDX(LUNIT,LUN,LUNDX)
       ELSE IF(IO.EQ.'NODX') THEN
-         call openwb(lun,filename)
+         CALL OPENWB(LUN,FILENAME)
          CALL WTSTAT(LUNIT,LUN, 1,0)
          CALL READDX(LUNIT,LUN,LUNDX)
       ELSE IF(IO.EQ.'APN' .OR. IO.EQ.'APX') THEN
-         call openab(lun,filename)
+         CALL OPENAB(LUN,FILENAME)
          CALL WTSTAT(LUNIT,LUN, 1,0)
          IF(LUNIT.NE.LUNDX) CALL READDX(LUNIT,LUN,LUNDX)
          CALL POSAPX(LUNIT)

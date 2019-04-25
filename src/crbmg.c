@@ -41,6 +41,7 @@ C
 C$$$*/
 
 #include "bufrlib.h"
+#include "cobfl.h"
 
 void crbmg( char *bmg, f77int *mxmb, f77int *nmb, f77int *iret )
 {

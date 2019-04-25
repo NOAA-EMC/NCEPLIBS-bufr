@@ -54,6 +54,11 @@ C                           UNUSUAL THINGS HAPPEN
 C 2004-08-18  J. ATOR    -- ADDED SAVE FOR IFIRST1 AND IFIRST2 FLAGS
 C 2007-01-19  J. ATOR    -- REPLACED CALL TO PARSEQ WITH CALL TO PARSTR
 C 2009-04-21  J. ATOR    -- USE ERRWRT
+C 2014-09-10  J. ATOR    -- FIX BUG INVOLVING NESTED DELAYED REPLICATION
+C                           WHERE FIRST REPLICATION OF OUTER SEQUENCE
+C                           DOES NOT CONTAIN A REPLICATION OF THE INNER
+C                           SEQUENCE
+C 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
 C
 C USAGE:    CALL UFBSEQ (LUNIN, USR, I1, I2, IRET, STR)
 C   INPUT ARGUMENT LIST:
@@ -117,25 +122,21 @@ C   MACHINE:  PORTABLE TO ALL PLATFORMS
 C
 C$$$
 
+      USE MODA_USRINT
+      USE MODA_MSGCWD
+      USE MODA_TABLES
+
       INCLUDE 'bufrlib.prm'
 
       PARAMETER (MTAG=10)
 
-      COMMON /MSGCWD/ NMSG(NFILES),NSUB(NFILES),MSUB(NFILES),
-     .                INODE(NFILES),IDATE(NFILES)
-      COMMON /TABLES/ MAXTAB,NTAB,TAG(MAXJL),TYP(MAXJL),KNT(MAXJL),
-     .                JUMP(MAXJL),LINK(MAXJL),JMPB(MAXJL),
-     .                IBT(MAXJL),IRF(MAXJL),ISC(MAXJL),
-     .                ITP(MAXJL),VALI(MAXJL),KNTI(MAXJL),
-     .                ISEQ(MAXJL,2),JSEQ(MAXJL)
-      COMMON /USRINT/ NVAL(NFILES),INV(MAXSS,NFILES),VAL(MAXSS,NFILES)
       COMMON /QUIET / IPRT
 
       CHARACTER*(*) STR
-      CHARACTER*128 BORT_STR,ERRSTR
-      CHARACTER*10  TAG,TAGS(MTAG)
-      CHARACTER*3   TYP
-      REAL*8        USR(I1,I2),VAL
+      CHARACTER*156 BORT_STR
+      CHARACTER*128 ERRSTR
+      CHARACTER*10  TAGS(MTAG)
+      REAL*8        USR(I1,I2)
 
       DATA IFIRST1/0/,IFIRST2/0/
 
@@ -215,15 +216,21 @@ C  --------------------------------------------------
          ENDDO
       ENDIF
 
+
 C  FIND THE PARAMETERS OF THE SPECIFIED SEQUENCE
 C  ---------------------------------------------
 
       DO NODE=INODE(LUN),ISC(INODE(LUN))
       IF(STR.EQ.TAG(NODE)) THEN
          IF(TYP(NODE).EQ.'SEQ'.OR.TYP(NODE).EQ.'RPC') THEN
-            INS1 = INVTAG(NODE,LUN,     1,NVAL(LUN))
-            INS2 = INVTAG(NODE,LUN,INS1+1,NVAL(LUN))
+            INS1 = 1
+5           INS1 = INVTAG(NODE,LUN,INS1,NVAL(LUN))
             IF(INS1.EQ.0) GOTO 200
+            IF(TYP(NODE).EQ.'RPC'.AND.VAL(INS1,LUN).EQ.0.) THEN
+               INS1 = INS1+1
+               GOTO 5
+            ENDIF
+            INS2 = INVTAG(NODE,LUN,INS1+1,NVAL(LUN))
             IF(INS2.EQ.0) INS2 = 10E5
             NODS = NODE
             DO WHILE(LINK(NODS).EQ.0.AND.JMPB(NODS).GT.0)
@@ -257,13 +264,8 @@ C  FRAME A SECTION OF THE BUFFER - RETURN WHEN NO FRAME
 C  ----------------------------------------------------
 
 1     INS1 = INVTAG(NODE,LUN,INS1,NVAL(LUN))
-c  .... previous SP version of BUFR ARCHIVE LIBRARY has line below
-c       (note ".gt.")
       IF(INS1.GT.NVAL(LUN)) GOTO 200
       IF(INS1.GT.0) THEN
-c  .... previous decoder version of BUFR ARCHIVE LIBRARY has line below
-c       (note ".ge.")
-ccccc    IF(INS1.GE.NVAL(LUN)) GOTO 200
          IF(TYP(NODE).EQ.'RPC'.AND.VAL(INS1,LUN).EQ.0.) THEN
             INS1 = INS1+1
             GOTO 1
@@ -373,11 +375,11 @@ C  -----
      . ' (INPUT) ARGUMENT 3 (",I3,")")') TAGS(1),NSEQ,I1
       CALL BORT(BORT_STR)
 909   WRITE(BORT_STR,'("BUFRLIB: UFBSEQ - NO. OF ''LEVELS'' READ > '//
-     . 'LIMIT OF",I4," IN THE 4-TH ARG. (INPUT) - INCOMPLETE READ '//
+     . 'LIMIT OF",I5," IN THE 4-TH ARG. (INPUT) - INCOMPLETE READ '//
      . '(INPUT MNEMONIC IS ",A,")")') I2,TAGS(1)
       CALL BORT(BORT_STR)
 910   WRITE(BORT_STR,'("BUFRLIB: UFBSEQ - NO. OF ''LEVELS'' WRITTEN '//
-     . '(",I3,") .LT. NO. REQUESTED (",I3,") - INCOMPLETE WRITE '//
+     . '(",I5,") .LT. NO. REQUESTED (",I5,") - INCOMPLETE WRITE '//
      . '(INPUT MNEMONIC IS ",A,")")')  IRET,I2,TAGS(1)
       CALL BORT(BORT_STR)
 911   WRITE(BORT_STR,'("BUFRLIB: UFBSEQ - VARIABLE INS1 MUST BE .GE. '//

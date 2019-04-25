@@ -30,6 +30,7 @@ C                           COMPLETE DIAGNOSTIC INFO WHEN UNUSUAL
 C                           THINGS HAPPEN
 C 2009-04-21  J. ATOR    -- USE ERRWRT
 C 2010-04-27  J. WOOLLEN -- ADD DOCUMENTATION
+C 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
 C
 C USAGE:    INVCON (NC, LUN, INV1, INV2)
 C   INPUT ARGUMENT LIST:
@@ -63,13 +64,12 @@ C   MACHINE:  PORTABLE TO ALL PLATFORMS
 C
 C$$$
 
+      USE MODA_USRINT
+
       INCLUDE 'bufrlib.prm'
 
-      COMMON /USRINT/ NVAL(NFILES),INV(MAXSS,NFILES),VAL(MAXSS,NFILES)
       COMMON /USRSTR/ NNOD,NCON,NODS(20),NODC(10),IVLS(10),KONS(10)
       COMMON /QUIET / IPRT
-
-      REAL*8 VAL
 
 C----------------------------------------------------------------------
 C----------------------------------------------------------------------
