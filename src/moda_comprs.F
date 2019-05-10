@@ -1,0 +1,27 @@
+	MODULE MODA_COMPRS
+
+#ifndef MXCSB_H
+#define MXCSB_H
+	  USE MODV_MXCSB
+#endif
+
+#ifndef MXCDV_H
+#define MXCDV_H
+	  USE MODV_MXCDV
+#endif
+
+#ifndef MXLCC_H
+#define MXLCC_H
+	  USE MODV_MXLCC
+#endif
+
+	  INTEGER :: NCOL
+#ifdef DYNAMIC_ALLOCATION
+	  INTEGER, ALLOCATABLE :: MATX(:,:) 
+	  CHARACTER*(:), ALLOCATABLE :: CATX(:,:)
+#else
+	  INTEGER :: MATX(MXCDV,MXCSB) 
+	  CHARACTER*(MXLCC) :: CATX(MXCDV,MXCSB)
+#endif
+
+	END MODULE
