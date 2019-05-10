@@ -44,8 +44,6 @@ C   MACHINE:  PORTABLE TO ALL PLATFORMS
 C
 C$$$
 
-      USE MODV_MXMSGL
-
       INCLUDE 'bufrlib.prm'
 
       COMMON /HRDWRD/ NBYTW,NBITW,IORD(8)
@@ -53,7 +51,7 @@ C$$$
       DIMENSION   MESG(*)
 
       CHARACTER*128 BORT_STR
-      INTEGER CRDBUFR
+      integer crdbufr
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
@@ -64,7 +62,7 @@ C-----------------------------------------------------------------------
      +   CALL ERRWRT('BUFRLIB: RDMSGW - SKIPPING OVERLARGE MESSAGE')
       IF(IRET.eq.-2)
      +   CALL ERRWRT('BUFRLIB: RDMSGW - SKIPPING CORRUPTED MESSAGE')
-      IF(IRET.LT.-1) GOTO 1
+      if(iret.lt.-1) goto 1
       RETURN
       END
 

@@ -26,7 +26,6 @@ C                           20,000 TO 50,000 BYTES
 C 2005-11-29  J. ATOR    -- USE RDMSGW AND NMWRD
 C 2012-09-15  J. WOOLLEN -- CONVERT TO C LANGUAGE I/O INTERFACE
 C                           USE READMG AND COPYMG TO COPY FILE
-C 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
 C
 C USAGE:    CALL COPYBF (LUNIN, LUNOT)
 C   INPUT ARGUMENT LIST:
@@ -54,9 +53,9 @@ C   MACHINE:  PORTABLE TO ALL PLATFORMS
 C
 C$$$
 
-      USE MODA_MGWA
-
       INCLUDE 'bufrlib.prm'
+
+      DIMENSION   MBAY(MXMSGLD4)
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
@@ -84,9 +83,9 @@ C  ------------------------------------------------------------
 C  READ AND COPY A BUFR FILE ON UNIT LUNIN TO UNIT LUNOT
 C  -----------------------------------------------------
 
-1     CALL RDMSGW(LUNIN,MGWA,IER)
+1     CALL RDMSGW(LUNIN,MBAY,IER)
       IF(IER.EQ.0) THEN      
-         CALL MSGWRT(LUNOT,MGWA,IUPBS01(MGWA,'LENM'))
+         CALL MSGWRT(LUNOT,MBAY,IUPBS01(MBAY,'LENM'))
          GOTO 1
       ENDIF
 

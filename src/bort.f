@@ -39,33 +39,33 @@ C                               COPYSB   CPDXMM   CPYMEM   CPYUPD
 C                               CRBMG    CWBMG    DATEBF   DATELEN
 C                               DRFINI   DRSTPL   DUMPBF   DXDUMP
 C                               DXMINI   GETWIN   GETTBH   IDN30
-C                               IFBGET   IGETNTBI IGETRFEL IGETSC
-C                               IGETTDI  INCTAB   INVMRG   IPKM
-C                               ISIZE    IUPVS01  IUPM     JSTNUM
-C                               LCMGDF   LSTJPB   MAKESTAB MINIMG
-C                               MSGINI   MSGWRT   NEMTBA   NEMTBAX
+C                               IFBGET   IGETNTBI IGETSC   IGETTDI
+C                               INCTAB   INVMRG   IPKM     ISIZE
+C                               IUPVS01  IUPM     JSTNUM   LCMGDF
+C                               LSTJPB   MAKESTAB MINIMG   MSGINI
+C                               MSGWRT   MVB      NEMTBA   NEMTBAX
 C                               NEMTBB   NEMTBD   NENUBD   NEVN
 C                               NEWWIN   NMSUB    NUMMTB   NVNWIN
 C                               NXTWIN   OPENBF   OPENMB   OPENMG
-C                               PAD      PADMSG   PARUTG   PKB
-C                               PKBS1    PKVS01   POSAPX   RCSTPL
-C                               RDBFDX   RDCMPS   RDMEMM   RDMEMS
-C                               RDMGSB   RDMSGW   RDMTBB   RDMTBD
+C                               PAD      PADMSG   PARUTG   PKBS1
+C                               PKVS01   POSAPX   RCSTPL   RDBFDX
+C                               RDCMPS   RDMEMM   RDMEMS   RDMGSB
+C                               RDMSGB   RDMSGW   RDMTBB   RDMTBD
 C                               READDX   READERME READLC   READMG
 C                               READNS   READSB   READS3   REWNBF
 C                               RTRCPT   SNTBBE   SNTBDE   STATUS
 C                               STBFDX   STDMSG   STNDRD   STNTBIA
-C                               STRBTM   STRCPT   STSEQ    TABENT
-C                               TABSUB   TRYBUMP  UFBCNT   UFBCPY
-C                               UFBCUP   UFBDMP   UFBEVN   UFBGET
-C                               UFBIN3   UFBINT   UFBINX   UFBMEM
-C                               UFBMEX   UFBMMS   UFBMNS   UFBOVR
-C                               UFBPOS   UFBQCD   UFBQCP   UFBREP
-C                               UFBRMS   UFBSEQ   UFBSTP   UFBTAB
-C                               UFBTAM   UFDUMP   UPDS3    UPFTBV
-C                               UPTDD    USRTPL   WRCMPS   WRDESC
-C                               WRDLEN   WRDXTB   WRITDX   WRITLC
-C                               WRITSA   WRITSB   WTSTAT
+C                               STRCPT   STSEQ    TABENT   TABSUB
+C                               TRYBUMP  UFBCNT   UFBCPY   UFBCUP
+C                               UFBDMP   UFBEVN   UFBGET   UFBIN3
+C                               UFBINT   UFBINX   UFBMEM   UFBMEX
+C                               UFBMMS   UFBMNS   UFBOVR   UFBPOS
+C                               UFBQCD   UFBQCP   UFBREP   UFBRMS
+C                               UFBSEQ   UFBSTP   UFBTAB   UFBTAM
+C                               UFDUMP   UPDS3    UPFTBV   UPTDD
+C                               USRTPL   WRCMPS   WRDESC   WRDLEN
+C                               WRDXTB   WRITDX   WRITLC   WRITSA
+C                               WRITSB   WTSTAT
 C                               Normally not called by any application
 C                               programs but it could be.
 C

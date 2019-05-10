@@ -21,6 +21,7 @@
     NCLIBVER="${lname,,} (${lname~~}) ${!libver}"
   } || {
     cflg=CFLAGS${precsn%/*}
+    [[ -z "${!cflg}" ]] && cflg=CFLAGS
     fflg=FFLAGS${precsn%/*}
     libfile=${lname}Lib${precsn#*/}
     NCLIBVER="${lname,,} (${lname~~} _${precsn%/*}) ${!libver}"

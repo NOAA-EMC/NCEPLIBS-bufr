@@ -62,8 +62,6 @@ C   MACHINE:  PORTABLE TO ALL PLATFORMS
 C
 C$$$
 
-      USE MODV_MXMSGL
-
       INCLUDE 'bufrlib.prm'
 
       COMMON /DXTAB / MAXDX,IDXV,NXSTR(10),LDXA(10),LDXB(10),LDXD(10),
@@ -71,7 +69,7 @@ C$$$
 
       CHARACTER*128 BORT_STR
       CHARACTER*56  DXSTR
-      DIMENSION     MBAY(*)
+      DIMENSION     MBAY(MXMSGLD4)
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
