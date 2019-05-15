@@ -48,8 +48,6 @@ C                           COULD ONLY WRITE OUT UNCOMPRESSED SUBSET/
 C                           MESSAGE REGARDLESS OF COMPRESSION STATUS OF
 C                           INPUT SUBSET/MESSAGE)
 C 2009-06-26  J. ATOR    -- USE IOK2CPY
-C 2014-11-03  J. ATOR    -- HANDLE OVERSIZED (>65530 BYTE) SUBSETS
-C 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
 C
 C USAGE:    CALL COPYSB  ( LUNIN, LUNOT, IRET )
 C   INPUT ARGUMENT LIST:
@@ -65,9 +63,9 @@ C                      -1 = there are no more subsets in the input
 C                           BUFR message
 C
 C REMARKS:
-C    THIS ROUTINE CALLS:        BORT     CMPMSG   CPYUPD   GETLENS
-C                               IOK2CPY  MESGBC   READSB   STATUS
-C                               UFBCPY   UPB      WRITSB
+C    THIS ROUTINE CALLS:        BORT     CMPMSG   CPYUPD   IOK2CPY
+C                               MESGBC   READSB   STATUS   UFBCPY
+C                               UPB      WRITSB
 C    THIS ROUTINE IS CALLED BY: ICOPYSB
 C                               Also called by application programs.
 C
@@ -77,11 +75,20 @@ C   MACHINE:  PORTABLE TO ALL PLATFORMS
 C
 C$$$
 
-      USE MODA_MSGCWD
-      USE MODA_BITBUF
-      USE MODA_TABLES
-
       INCLUDE 'bufrlib.prm'
+
+      COMMON /MSGCWD/ NMSG(NFILES),NSUB(NFILES),MSUB(NFILES),
+     .                INODE(NFILES),IDATE(NFILES)
+      COMMON /BITBUF/ MAXBYT,IBIT,IBAY(MXMSGLD4),MBYT(NFILES),
+     .                MBAY(MXMSGLD4,NFILES)
+      COMMON /TABLES/ MAXTAB,NTAB,TAG(MAXJL),TYP(MAXJL),KNT(MAXJL),
+     .                JUMP(MAXJL),LINK(MAXJL),JMPB(MAXJL),
+     .                IBT(MAXJL),IRF(MAXJL),ISC(MAXJL),
+     .                ITP(MAXJL),VALI(MAXJL),KNTI(MAXJL),
+     .                ISEQ(MAXJL,2),JSEQ(MAXJL)
+
+      CHARACTER*10 TAG
+      CHARACTER*3  TYP
 
       CHARACTER*128 BORT_STR
 
@@ -148,27 +155,6 @@ C  ---------------------------------------------------------------
 
          IBIT = (MBYT(LIN))*8
          CALL UPB(NBYT,16,MBAY(1,LIN),IBIT)
-         IF (NBYT.GT.65530) THEN
-
-C          This is an oversized subset, so we can't rely on the value
-C          of NBYT as being the true size (in bytes) of the subset.
-
-           IF ( (NSUB(LIN).EQ.0) .AND. (MSUB(LIN).EQ.1) )  THEN
-
-C            But it's also the first and only subset in the message,
-C            so we can determine its true size in a different way.
-
-             CALL GETLENS(MBAY(1,LIN),4,LEN0,LEN1,LEN2,LEN3,LEN4,L5)
-             NBYT = LEN4 - 4
-           ELSE
-
-C            We have no way to easily determine the true size of this
-C            oversized subset.
-
-             IRET = -1
-             GOTO 100
-           ENDIF
-         ENDIF
          IF(LUNOT.GT.0) CALL CPYUPD(LUNOT,LIN,LOT,NBYT)
          MBYT(LIN) = MBYT(LIN) + NBYT
          NSUB(LIN) = NSUB(LIN) + 1

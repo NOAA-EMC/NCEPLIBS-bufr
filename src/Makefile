@@ -50,7 +50,7 @@ message: $(MSGSRC)
 
 install:
 	[[ -z "$(LIB)" || -z "$(LIB_DIR)" ]] || mv $(LIB) $(LIB_DIR)
-	[[ -z "$(SRC_DIR)" ]] || mv ./* $(SRC_DIR)
+	[[ -z "$(SRC_DIR)" ]] || cp ./* $(SRC_DIR)
 
 test:
 	@echo "*** unit test unavailable currently ***"

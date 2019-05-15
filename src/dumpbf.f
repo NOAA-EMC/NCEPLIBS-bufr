@@ -50,7 +50,6 @@ C 2009-03-23  J. ATOR    -- USE IDXMSG, IUPBS3 AND ERRWRT
 C 2012-09-15  J. WOOLLEN -- MODIFIED FOR C/I/O/BUFR INTERFACE;
 C                           USE NEW OPENBF TYPE 'INX' TO OPEN AND CLOSE
 C                           THE C FILE WITHOUT CLOSING THE FORTRAN FILE
-C 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
 C
 C USAGE:    CALL DUMPBF (LUNIT, JDATE, JDUMP)
 C   INPUT ARGUMENT LIST:
@@ -87,12 +86,11 @@ C   MACHINE:  PORTABLE TO ALL PLATFORMS
 C
 C$$$
 
-      USE MODA_MGWA
-
       INCLUDE 'bufrlib.prm'
 
       COMMON /QUIET / IPRT
 
+      DIMENSION     MBAY(MXMSGLD4)
       DIMENSION     JDATE(5),JDUMP(5)
 
       CHARACTER*128 ERRSTR
@@ -121,30 +119,30 @@ C  -----------------------------------------------------------
 C  READ PAST ANY DICTIONARY MESSAGES
 C  ---------------------------------
 
-1     CALL RDMSGW(LUNIT,MGWA,IER)
+1     CALL RDMSGW(LUNIT,MBAY,IER)
       IF(IER.LT.0) GOTO 200
-      IF(IDXMSG(MGWA).EQ.1) GOTO 1
+      IF(IDXMSG(MBAY).EQ.1) GOTO 1
 
 C  DUMP CENTER YY,MM,DD,HH,MM IS IN THE FIRST EMPTY MESSAGE
 C  --------------------------------------------------------
 C  i.e. the first message containing zero subsets
      
-      IF(IUPBS3(MGWA,'NSUB').NE.0) GOTO 200
+      IF(IUPBS3(MBAY,'NSUB').NE.0) GOTO 200
 
-      IGD = IGETDATE(MGWA,JDATE(1),JDATE(2),JDATE(3),JDATE(4))
-      JDATE(5) = IUPBS01(MGWA,'MINU')
+      IGD = IGETDATE(MBAY,JDATE(1),JDATE(2),JDATE(3),JDATE(4))
+      JDATE(5) = IUPBS01(MBAY,'MINU')
 
 C  DUMP CLOCK YY,MM,DD,HH,MM IS IN THE SECOND EMPTY MESSAGE
 C  --------------------------------------------------------
 C  i.e. the second message containing zero subsets
 
-      CALL RDMSGW(LUNIT,MGWA,IER)
+      CALL RDMSGW(LUNIT,MBAY,IER)
       IF(IER.LT.0) GOTO 200
      
-      IF(IUPBS3(MGWA,'NSUB').NE.0) GOTO 200
+      IF(IUPBS3(MBAY,'NSUB').NE.0) GOTO 200
 
-      IGD = IGETDATE(MGWA,JDUMP(1),JDUMP(2),JDUMP(3),JDUMP(4))
-      JDUMP(5) = IUPBS01(MGWA,'MINU')
+      IGD = IGETDATE(MBAY,JDUMP(1),JDUMP(2),JDUMP(3),JDUMP(4))
+      JDUMP(5) = IUPBS01(MBAY,'MINU')
 
       call closbf(lunit)
       GOTO 100

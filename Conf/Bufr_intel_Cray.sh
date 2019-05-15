@@ -1,6 +1,10 @@
 # *** for WCOSS Cray (intel) ***
+ module purge
  module load intel/18.1.163
- module load bufr/v11.2.0
+
+ module load bufr-intel/11.0.1
+ new_ver=10.2.5
+ reset_version bufr $new_ver
 
  export CC=icc
  export FC=ifort

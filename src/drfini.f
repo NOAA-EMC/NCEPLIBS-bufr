@@ -29,8 +29,6 @@ C                           WRF; ADDED DOCUMENTATION (INCLUDING
 C                           HISTORY); OUTPUTS MORE COMPLETE DIAGNOSTIC
 C                           INFO WHEN ROUTINE TERMINATES ABNORMALLY
 C 2005-03-04  J. ATOR    -- UPDATED DOCUMENTATION
-C 2014-09-08  J. ATOR    -- INCREASE NDRF LIMIT FROM 100 TO 200
-C 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
 C
 C USAGE:    CALL DRFINI (LUNIT, MDRF, NDRF, DRFTAG)
 C   INPUT ARGUMENT LIST:
@@ -59,19 +57,26 @@ C   MACHINE:  PORTABLE TO ALL PLATFORMS
 C
 C$$$
 
-      USE MODA_USRINT
-      USE MODA_TABLES
-
       INCLUDE 'bufrlib.prm'
+
+      COMMON /TABLES/ MAXTAB,NTAB,TAG(MAXJL),TYP(MAXJL),KNT(MAXJL),
+     .                JUMP(MAXJL),LINK(MAXJL),JMPB(MAXJL),
+     .                IBT(MAXJL),IRF(MAXJL),ISC(MAXJL),
+     .                ITP(MAXJL),VALI(MAXJL),KNTI(MAXJL),
+     .                ISEQ(MAXJL,2),JSEQ(MAXJL)
+      COMMON /USRINT/ NVAL(NFILES),INV(MAXSS,NFILES),VAL(MAXSS,NFILES)
 
       CHARACTER*(*) DRFTAG
       CHARACTER*128 BORT_STR
+      CHARACTER*10  TAG
+      CHARACTER*3   TYP
+      REAL*8        VAL
       DIMENSION     MDRF(NDRF)
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
 
-      IF(NDRF.GT.200) GOTO 900
+      IF(NDRF.GT.100) GOTO 900
 
       CALL STATUS(LUNIT,LUN,IL,IM)
 
@@ -95,6 +100,6 @@ C  -----
 
       RETURN
  900  WRITE(BORT_STR,'("BUFRLIB: DRFINI - THE NUMBER OF DELAYED '//
-     . 'REPLICATION FACTORS (",I5,") EXCEEDS THE LIMIT (200)")') NDRF
+     . 'REPLICATION FACTORS (",I5,") EXCEEDS THE LIMIT (100)")') NDRF
       CALL BORT(BORT_STR)
       END

@@ -31,6 +31,11 @@
    [[ ${3,,} == installonly ]] && { inst=true; skip=true; }
    [[ ${3,,} == localinstallonly ]] && { local=true; inst=true; skip=true; }
  }
+
+ source ./Conf/Collect_info.sh
+ source ./Conf/Gen_cfunction.sh
+ source ./Conf/Reset_version.sh
+
  if [[ ${sys} == "intel_general" ]]; then
    sys6=${sys:6}
    source ./Conf/Bufr_${sys:0:5}_${sys6^}.sh
@@ -44,10 +49,6 @@
    echo "??? BUFR: module/environment not set."
    exit 1
  }
- echo "*info* BUFR Version from module file: $BUFR_VER"
-
- source ./Conf/Collect_info.sh
- source ./Conf/Gen_cfunction.sh
 
 set -x
  bufrLib4=$(basename ${BUFR_LIB4})
@@ -225,18 +226,42 @@ set -x
 #
 #     Install libraries and source files 
 #
- LIB_DIR=$(dirname ${BUFR_LIB4})
-   [ -d $LIB_DIR ] && rm -f $LIB_DIR/* || mkdir -p $LIB_DIR
-   SRC_DIR=$BUFR_SRC
-   [ -d $SRC_DIR ] && rm -f $SRC_DIR/* || mkdir -p $SRC_DIR
+   $local && {
+              LIB_DIR4=..
+              LIB_DIRs=..
+              LIB_DIR8=..
+              LIB_DIRd=..
+              LIB_DIR4da=..
+              LIB_DIR8da=..
+              LIB_DIRdda=..
+              SRC_DIR=
+             } || {
+              LIB_DIR4=$(dirname $BUFR_LIB4)
+              LIB_DIRs=$(dirname $BUFR_LIBs)
+              LIB_DIR8=$(dirname $BUFR_LIB8)
+              LIB_DIRd=$(dirname $BUFR_LIBd)
+              LIB_DIR4da=$(dirname $BUFR_LIB4_DA)
+              LIB_DIR8da=$(dirname $BUFR_LIB8_DA)
+              LIB_DIRdda=$(dirname $BUFR_LIBd_DA)
+              SRC_DIR=$BUFR_SRC
+              [ -d $LIB_DIR4 ] || mkdir -p $LIB_DIR4
+              [ -d $LIB_DIRs ] || mkdir -p $LIB_DIRs
+              [ -d $LIB_DIR8 ] || mkdir -p $LIB_DIR8
+              [ -d $LIB_DIRd ] || mkdir -p $LIB_DIRd
+              [ -d $LIB_DIR4da ] || mkdir -p $LIB_DIR4_DA
+              [ -d $LIB_DIR8da ] || mkdir -p $LIB_DIR8_DA
+              [ -d $LIB_DIRdda ] || mkdir -p $LIB_DIRd_DA
+              [ -z $SRC_DIR ] || { [ -d $SRC_DIR ] || mkdir -p $SRC_DIR; }
+             }
+
    make cleancpp
    make clean LIB=
-   make install LIB=$bufrLib4da LIB_DIR=$LIB_DIR SRC_DIR=
-   make install LIB=$bufrLib8da LIB_DIR=$LIB_DIR SRC_DIR=
-   make install LIB=$bufrLibdda LIB_DIR=$LIB_DIR SRC_DIR=
-   make install LIB=$bufrLib4   LIB_DIR=$LIB_DIR SRC_DIR=
-   make install LIB=$bufrLibs   LIB_DIR=$LIB_DIR SRC_DIR=
-   make install LIB=$bufrLib8   LIB_DIR=$LIB_DIR SRC_DIR=
-   make install LIB=$bufrLibd   LIB_DIR=$LIB_DIR SRC_DIR=$SRC_DIR
+   make install LIB=$bufrLib4da LIB_DIR=$LIB_DIR4da SRC_DIR=
+   make install LIB=$bufrLib8da LIB_DIR=$LIB_DIR8da SRC_DIR=
+   make install LIB=$bufrLibdda LIB_DIR=$LIB_DIRdda SRC_DIR=
+   make install LIB=$bufrLib4   LIB_DIR=$LIB_DIR4   SRC_DIR=
+   make install LIB=$bufrLibs   LIB_DIR=$LIB_DIRs   SRC_DIR=
+   make install LIB=$bufrLib8   LIB_DIR=$LIB_DIR8   SRC_DIR=
+   make install LIB=$bufrLibd   LIB_DIR=$LIB_DIRd   SRC_DIR=$SRC_DIR
  }
 
