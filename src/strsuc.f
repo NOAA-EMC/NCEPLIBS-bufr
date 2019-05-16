@@ -30,8 +30,8 @@ C                      -1 = STR1 contained embedded blanks
 C
 C REMARKS:
 C    THIS ROUTINE CALLS:        None
-C    THIS ROUTINE IS CALLED BY: DXDUMP   ERRWRT   GETTAGRE HOLD4WLC
-C                               MTINFO   NEMSPECS STRNUM   UFDUMP
+C    THIS ROUTINE IS CALLED BY: DXDUMP   ERRWRT   MTINFO   STRNUM
+C                               UFDUMP
 C                               Normally not called by any application
 C                               programs but it could be.
 C

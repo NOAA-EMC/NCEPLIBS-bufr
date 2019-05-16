@@ -30,8 +30,6 @@ C 2005-11-29  J. ATOR    -- ADDED SUPPORT FOR 207 AND 208 OPERATORS
 C 2012-03-02  J. ATOR    -- ADDED SUPPORT FOR 203 OPERATOR
 C 2012-04-19  J. ATOR    -- FIXED BUG FOR CASES WHERE A TABLE C OPERATOR
 C                           IMMEDIATELY FOLLOWS A TABLE D SEQUENCE
-C 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
-C 2016-05-24  J. ATOR    -- STORE TABLE C OPERATORS IN MODULE BITMAPS
 C
 C USAGE:    CALL TABSUB (LUN, NEMO)
 C   INPUT ARGUMENT LIST:
@@ -41,7 +39,7 @@ C
 C REMARKS:
 C   -----------------------------------------------------------------
 C    EXAMPLE SHOWING CONTENTS OF INTERNAL JUMP/LINK TABLE (WITHIN
-C    MODULE TABLES):
+C    COMMON /TABLES/):
 C
 C      INTEGER MAXTAB = maximum number of jump/link table entries
 C
@@ -176,7 +174,7 @@ C       END IF
 C
 C   -----------------------------------------------------------------
 C
-C    THE FOLLOWING VALUES ARE STORED WITHIN MODULE NRV203 BY THIS
+C    THE FOLLOWING VALUES ARE STORED WITHIN COMMON /NRV203/ BY THIS
 C    SUBROUTINE, FOR USE WITH ANY 2-03-YYY (CHANGE REFERENCE VALUE)
 C    OPERATORS PRESENT WITHIN THE ENTIRE JUMP/LINK TABLE:
 C
@@ -213,8 +211,8 @@ C               operators have been applied to NEMO)
 C
 C   -----------------------------------------------------------------
 C
-C    THIS ROUTINE CALLS:        BORT     INCTAB   IOKOPER   NEMTAB
-C                               NEMTBD   TABENT
+C    THIS ROUTINE CALLS:        BORT     INCTAB   NEMTAB   NEMTBD
+C                               TABENT
 C    THIS ROUTINE IS CALLED BY: MAKESTAB
 C                               Normally not called by any application
 C                               programs.
@@ -225,18 +223,23 @@ C   MACHINE:  PORTABLE TO ALL PLATFORMS
 C
 C$$$
 
-      USE MODA_TABLES
-      USE MODA_NMIKRP
-      USE MODA_NRV203
-      USE MODA_BITMAPS
-
       INCLUDE 'bufrlib.prm'
 
+      COMMON /TABLES/ MAXTAB,NTAB,TAG(MAXJL),TYP(MAXJL),KNT(MAXJL),
+     .                JUMP(MAXJL),LINK(MAXJL),JMPB(MAXJL),
+     .                IBT(MAXJL),IRF(MAXJL),ISC(MAXJL),
+     .                ITP(MAXJL),VALI(MAXJL),KNTI(MAXJL),
+     .                ISEQ(MAXJL,2),JSEQ(MAXJL)
       COMMON /TABCCC/ ICDW,ICSC,ICRV,INCW
+      COMMON /NRV203/ NNRV,INODNRV(MXNRV),NRV(MXNRV),TAGNRV(MXNRV),
+     .                ISNRV(MXNRV),IENRV(MXNRV),IBTNRV,IPFNRV
 
       CHARACTER*128 BORT_STR
-      CHARACTER*8   NEMO,NEMS
+      CHARACTER*10  TAG
+      CHARACTER*8   NEMO,NEMS,NEM,TAGNRV
+      CHARACTER*3   TYP
       CHARACTER*1   TAB
+      DIMENSION     NEM(MAXCD,10),IRP(MAXCD,10),KRP(MAXCD,10)
       DIMENSION     DROP(10),JMP0(10),NODL(10),NTAG(10,2)
       LOGICAL       DROP
 
@@ -281,8 +284,6 @@ C  ------------------------------------------
 
       IBTNRV = 0
       IPFNRV = 0
-
-      NTCO = 0
 
 C  THIS LOOP RESOLVES ENTITIES IN A SUBSET BY EMULATING RECURSION
 C  --------------------------------------------------------------
@@ -351,15 +352,6 @@ C             Begin the definition of new reference values.
             ENDIF
          ELSEIF(ITAB.EQ.8) THEN
             INCW = IYYY
-         ELSEIF((ITAB.GE.21).AND.(IOKOPER(NEMS).EQ.1)) THEN
-
-C           Save the location of this operator within the
-C           jump/link table, for possible later use.
-
-            IF(NTCO+1.GT.MXTCO) GOTO 912
-            NTCO = NTCO+1
-            CTCO(NTCO) = NEMS(1:6)
-            INODTCO(NTCO) = NTAB
          ENDIF
       ELSE
          NODL(LIMB) = NTAB+1
@@ -465,5 +457,4 @@ C  -----
      . 'ENCOUNTERED WITHOUT ANY PRIOR 2-03-YYY OPERATOR FOR '//
      . 'INPUT MNEMONIC ",A)') NEMO
       CALL BORT(BORT_STR)
-912   CALL BORT('BUFRLIB: TABSUB - MXTCO OVERFLOW')
       END

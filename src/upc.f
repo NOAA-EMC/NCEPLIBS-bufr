@@ -1,4 +1,4 @@
-      SUBROUTINE UPC(CHR,NCHR,IBAY,IBIT,CNVNULL)
+      SUBROUTINE UPC(CHR,NCHR,IBAY,IBIT)
 
 C$$$  SUBPROGRAM DOCUMENTATION BLOCK
 C
@@ -20,9 +20,8 @@ C 2003-11-04  D. KEYSER  -- UNIFIED/PORTABLE FOR WRF; ADDED HISTORY
 C                           DOCUMENTATION
 C 2009-03-23  J. ATOR    -- TREAT NULL CHARACTERS AS BLANKS;
 C                           PREVENT OVERFLOW OF CHR
-C 2014-11-19  J. ATOR    -- ADD CNVNULL ARGUMENT
 C
-C USAGE:    CALL UPC (CHR, NCHR, IBAY, IBIT, CNVNULL)
+C USAGE:    CALL UPC (CHR, NCHR, IBAY, IBIT)
 C   INPUT ARGUMENT LIST:
 C     NCHR     - INTEGER: NUMBER OF BYTES OF IBAY WITHIN WHICH TO
 C                UNPACK CHR (I,E, THE NUMBER OF CHARACTERS IN CHR)
@@ -30,8 +29,6 @@ C     IBAY     - INTEGER: *-WORD PACKED BINARY ARRAY CONTAINING PACKED
 C                CHR
 C     IBIT     - INTEGER: BIT POINTER WITHIN IBAY INDICATING BIT AFTER
 C                WHICH TO START UNPACKING
-C     CNVNULL  - LOGICAL: .TRUE. IF NULL CHARACTERS SHOULD BE
-C                CONVERTED TO BLANKS
 C
 C   OUTPUT ARGUMENT LIST:
 C     CHR      - CHARACTER*(*): UNPACKED CHARACTER STRING OF LENGTH
@@ -44,9 +41,8 @@ C    THIS SUBROUTINE IS THE INVERSE OF BUFR ARCHIVE LIBRARY ROUTINE
 C    PKC.
 C
 C    THIS ROUTINE CALLS:        IPKM     IUPM     UPB
-C    THIS ROUTINE IS CALLED BY: RDCMPS   RDTREE   READLC   STBFDX
-C                               STNDRD   UFBGET   UFBTAB   UFBTAM
-C                               WRCMPS   
+C    THIS ROUTINE IS CALLED BY: RDCMPS   RDTREE   READLC   STNDRD
+C                               UFBGET   UFBTAB   UFBTAM   WRCMPS   
 C                               Normally not called by any application
 C                               programs.
 C
@@ -64,8 +60,6 @@ C$$$
       DIMENSION     IBAY(*),IVAL(2)
       EQUIVALENCE   (CVAL,IVAL)
 
-      LOGICAL CNVNULL
-
 C----------------------------------------------------------------------
 C----------------------------------------------------------------------
 
@@ -75,7 +69,7 @@ C----------------------------------------------------------------------
       NUMCHR = MIN(NCHR,LEN(CHR))
       DO I=1,NUMCHR
         CALL UPB(IVAL(1),8,IBAY,IBIT)
-        IF((IVAL(1).EQ.0).AND.(CNVNULL)) THEN
+        IF(IVAL(1).EQ.0) THEN
           CHR(I:I) = ' '
         ELSE 
           CHR(I:I) = CVAL(LB:LB)

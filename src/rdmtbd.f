@@ -63,9 +63,9 @@ C
 C REMARKS:
 C    THIS ROUTINE CALLS:        ADN30    BORT     GETNTBE  GETTBH
 C                               SNTBDE   WRDLEN
-C    THIS ROUTINE IS CALLED BY: READMT
-C                               Not normally called by any application
-C                               programs but it could be.
+C    THIS ROUTINE IS CALLED BY: None
+C                               Normally called only by application
+C                               programs.
 C
 C ATTRIBUTES:
 C   LANGUAGE: FORTRAN 77

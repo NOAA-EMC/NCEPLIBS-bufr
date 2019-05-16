@@ -32,7 +32,6 @@ C                           WRF; ADDED DOCUMENTATION (INCLUDING
 C                           HISTORY); OUTPUTS MORE COMPLETE DIAGNOSTIC
 C                           INFO WHEN ROUTINE TERMINATES ABNORMALLY
 C 2007-01-19  J. ATOR    -- USE FUNCTION IBFMS AND SIMPLIFY LOGIC
-C 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
 C
 C USAGE:    CALL INVMRG (LUBFI, LUBFJ)
 C   INPUT ARGUMENT LIST:
@@ -53,15 +52,21 @@ C   MACHINE:  PORTABLE TO ALL PLATFORMS
 C
 C$$$
 
-      USE MODA_USRINT
-      USE MODA_TABLES
-
       INCLUDE 'bufrlib.prm'
 
       COMMON /MRGCOM/ NRPL,NMRG,NAMB,NTOT
+      COMMON /USRINT/ NVAL(NFILES),INV(MAXSS,NFILES),VAL(MAXSS,NFILES)
+      COMMON /TABLES/ MAXTAB,NTAB,TAG(MAXJL),TYP(MAXJL),KNT(MAXJL),
+     .                JUMP(MAXJL),LINK(MAXJL),JMPB(MAXJL),
+     .                IBT(MAXJL),IRF(MAXJL),ISC(MAXJL),
+     .                ITP(MAXJL),VALI(MAXJL),KNTI(MAXJL),
+     .                ISEQ(MAXJL,2),JSEQ(MAXJL)
 
       CHARACTER*128 BORT_STR
+      CHARACTER*10  TAG
+      CHARACTER*3   TYP
       LOGICAL       HEREI,HEREJ,MISSI,MISSJ,SAMEI
+      REAL*8        VAL
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------

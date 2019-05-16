@@ -6,15 +6,8 @@ C SUBPROGRAM:    CPYUPD
 C   PRGMMR: WOOLLEN          ORG: NP20       DATE: 1994-01-06
 C
 C ABSTRACT: THIS SUBROUTINE COPIES A SUBSET FROM ONE MESSAGE BUFFER
-C   (ARRAY MBAY IN MODULE BITBUF) TO ANOTHER AND/OR RESETS THE
-C   POINTERS.  IF THE SUBSET WILL NOT FIT INTO THE OUTPUT MESSAGE, OR
-C   IF THE SUBSET BYTE COUNT EXCEEDS 65530 (SUFFICIENTLY CLOSE TO THE
-C   16-BIT BYTE COUNTER UPPER LIMIT OF 65535), THEN THAT MESSAGE IS
-C   FLUSHED TO LUNIT AND A NEW ONE IS CREATED IN ORDER TO HOLD THE
-C   COPIED SUBSET.  ANY SUBSET WITH BYTE COUNT > 65530 WILL BE WRITTEN
-C   INTO ITS OWN ONE-SUBSET MESSAGE.  IF THE SUBSET TO BE COPIED IS
-C   LARGER THAN THE MAXIMUM MESSAGE LENGTH, THEN A CALL IS ISSUED TO
-C   BUFR ARCHIVE LIBRARY SUBROUTINE BORT.
+C   (ARRAY MBAY IN COMMON BLOCK /BITBUF/) TO ANOTHER AND/OR RESETS THE
+C   POINTERS.
 C
 C PROGRAM HISTORY LOG:
 C 1994-01-06  J. WOOLLEN -- ORIGINAL AUTHOR
@@ -37,13 +30,6 @@ C                           TERMINATES ABNORMALLY
 C 2004-08-09  J. ATOR    -- MAXIMUM MESSAGE LENGTH INCREASED FROM
 C                           20,000 TO 50,000 BYTES
 C 2009-03-23  J. ATOR    -- USE MSGFULL
-C 2014-10-27  J. WOOLLEN -- ACCOUNT FOR SUBSETS WITH BYTE COUNT > 65530
-C                           (THESE MUST BE WRITTEN INTO THEIR OWN
-C                           ONE-SUBSET MESSAGE)
-C 2014-10-27  D. KEYSER  -- FOR CASE ABOVE, DO NOT WRITE "CURRENT"
-C                           MESSAGE IF IT CONTAINS ZERO SUBSETS
-C 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
-C 2015-09-24  D. STOKES  -- FIX MISSING DECLARATION OF COMMON /QUIET/
 C
 C USAGE:    CALL CPYUPD (LUNIT, LIN, LUN, IBYT)
 C   INPUT ARGUMENT LIST:
@@ -55,8 +41,8 @@ C                FOR OUTPUT MESSAGE LOCATION
 C     IBYT     - INTEGER: NUMBER OF BYTES OCCUPIED BY THIS SUBSET
 C
 C REMARKS:
-C    THIS ROUTINE CALLS:        BORT     ERRWRT   IUPB     MSGFULL
-C                               MSGINI   MSGWRT   MVB      PKB
+C    THIS ROUTINE CALLS:        BORT     IUPB     MSGFULL  MSGINI
+C                               MSGWRT   MVB      PKB
 C    THIS ROUTINE IS CALLED BY: COPYSB
 C                               Normally not called by any application
 C                               programs.
@@ -67,38 +53,25 @@ C   MACHINE:  PORTABLE TO ALL PLATFORMS
 C
 C$$$
 
-      USE MODA_MSGCWD
-      USE MODA_BITBUF
-
       INCLUDE 'bufrlib.prm'
 
       COMMON /MSGPTR/ NBY0,NBY1,NBY2,NBY3,NBY4,NBY5
+      COMMON /MSGCWD/ NMSG(NFILES),NSUB(NFILES),MSUB(NFILES),
+     .                INODE(NFILES),IDATE(NFILES)
+      COMMON /BITBUF/ MAXBYT,IBIT,IBAY(MXMSGLD4),MBYT(NFILES),
+     .                MBAY(MXMSGLD4,NFILES)
 
-      COMMON /QUIET / IPRT
-
-      CHARACTER*128 BORT_STR, ERRSTR
+      CHARACTER*128 BORT_STR
 
       LOGICAL MSGFULL
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
 
-C  CHECK WHETHER THE NEW SUBSET SHOULD BE WRITTEN INTO THE CURRENTLY
-C  OPEN MESSAGE
-C  -----------------------------------------------------------------
+C  SEE IF THE NEW SUBSET FITS
+C  --------------------------
 
-      IF(MSGFULL(MBYT(LUN),IBYT,MAXBYT)
-     .      .OR.
-     .  ((IBYT.GT.65530).AND.(NSUB(LUN).GT.0))) THEN
-c       NO it should not, either because:
-c        1) it doesn't fit,
-c                -- OR --
-c        2) it has byte count > 65530 (sufficiently close to the
-c           upper limit for the 16 bit byte counter placed at the
-c           beginning of each subset), AND the current message has
-c           at least one subset in it,
-c       SO write the current message out and create a new one to
-c       hold the current subset
+      IF(MSGFULL(MBYT(LUN),IBYT,MAXBYT)) THEN
          CALL MSGWRT(LUNIT,MBAY(1,LUN),MBYT(LUN))
          CALL MSGINI(LUN)
       ENDIF
@@ -129,27 +102,6 @@ C  --------------------------------------
       NBYT = IUPB(MBAY(1,LUN),LBYT+1,24)
       LBIT = LBYT*8
       CALL PKB(NBYT+IBYT,24,MBAY(1,LUN),LBIT)
-
-C  IF THE SUBSET BYTE COUNT IS > 65530, THEN GIVE IT ITS OWN ONE-SUBSET
-C  MESSAGE (CANNOT HAVE ANY OTHER SUBSETS IN THIS MESSAGE BECAUSE THEIR
-C  BEGINNING WOULD BE BEYOND THE UPPER LIMIT OF 65535 IN THE 16-BIT
-C  BYTE COUNTER, MEANING THEY COULD NOT BE LOCATED!)
-C  --------------------------------------------------------------------
-
-      IF(IBYT.GT.65530) THEN
-         IF(IPRT.GE.0) THEN
-      CALL ERRWRT('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
-      WRITE ( UNIT=ERRSTR, FMT='(A,I7,A,A)')
-     . 'BUFRLIB: CPYUPD - SUBSET HAS BYTE COUNT = ',IBYT,' > UPPER ',
-     . 'LIMIT OF 65535'
-      CALL ERRWRT(ERRSTR)
-      CALL ERRWRT('>>>>>>>WILL BE COPIED INTO ITS OWN MESSAGE<<<<<<<<')
-      CALL ERRWRT('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
-      CALL ERRWRT(' ')
-         ENDIF
-         CALL MSGWRT(LUNIT,MBAY(1,LUN),MBYT(LUN))
-         CALL MSGINI(LUN)
-      ENDIF
 
 C  EXITS
 C  -----

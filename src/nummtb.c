@@ -33,8 +33,8 @@ C   MACHINE:  PORTABLE TO ALL PLATFORMS
 C
 C$$$*/
 
+#define COMMON_MSTABS
 #include "bufrlib.h"
-#include "mstabs.h"
 
 void nummtb( f77int *idn, char *tab, f77int *ipt )
 {
@@ -44,13 +44,13 @@ void nummtb( f77int *idn, char *tab, f77int *ipt )
 
 	if ( *idn >= ifxy( "300000", 6 ) ) {
 	    *tab = 'D';
-	    pifxyn = &MSTABS_BASE(idfxyn)[0];
-	    nmt = MSTABS_BASE(nmtd);
+	    pifxyn = &mstabs.idfxyn[0];
+	    nmt = mstabs.nmtd;
 	}
 	else {
 	    *tab = 'B';
-	    pifxyn = &MSTABS_BASE(ibfxyn)[0];
-	    nmt = MSTABS_BASE(nmtb);
+	    pifxyn = &mstabs.ibfxyn[0];
+	    nmt = mstabs.nmtb;
 	}
 
         pbs = ( f77int * ) bsearch( idn, pifxyn, ( size_t ) nmt, sizeof( f77int ),
