@@ -1,0 +1,14 @@
+	MODULE MODA_LUSHR
+
+#ifndef NFILES_H
+#define NFILES_H
+	  USE MODV_NFILES
+#endif
+
+#ifdef DYNAMIC_ALLOCATION
+	  INTEGER, ALLOCATABLE :: LUS(:)
+#else
+	  INTEGER :: LUS(NFILES)
+#endif
+
+	END MODULE
