@@ -31,7 +31,6 @@ C                           UNUSUAL THINGS HAPPEN
 C 2009-03-23  J. ATOR    -- USE 1E9 TO PREVENT OVERFLOW WHEN
 C                           INITIALIZING INVN; USE ERRWRT
 C 2009-03-31  J. WOOLLEN -- ADDED DOCUMENTATION
-C 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
 C
 C USAGE:    NVNWIN (NODE, LUN, INV1, INV2, INVN, NMAX)
 C   INPUT ARGUMENT LIST:
@@ -61,14 +60,14 @@ C   MACHINE:  PORTABLE TO ALL PLATFORMS
 C
 C$$$
 
-      USE MODA_USRINT
-
       INCLUDE 'bufrlib.prm'
 
+      COMMON /USRINT/ NVAL(NFILES),INV(MAXSS,NFILES),VAL(MAXSS,NFILES)
       COMMON /QUIET / IPRT
 
       CHARACTER*128 BORT_STR
       DIMENSION     INVN(NMAX)
+      REAL*8        VAL
 
 C----------------------------------------------------------------------
 C----------------------------------------------------------------------

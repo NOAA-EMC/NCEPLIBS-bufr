@@ -2,7 +2,10 @@
  module purge
  module load EnvVars/1.0.2
  module load ips/18.0.1.163
+
  module load bufr/11.2.0
+ new_ver=v10.2.5
+ reset_version bufr $new_ver
 
  export CC=icc
  export FC=ifort

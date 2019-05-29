@@ -11,7 +11,6 @@ C   DICTIONARY DEFINITION FOR THE TABLE A MESSAGE TYPE GIVEN BY SUBSET.
 C
 C PROGRAM HISTORY LOG:
 C 2009-07-09  J. ATOR    -- ORIGINAL AUTHOR
-C 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
 C
 C USAGE:    LCMGDF (LUNIT, SUBSET)
 C   INPUT ARGUMENT LIST:
@@ -37,11 +36,17 @@ C   MACHINE:  PORTABLE TO ALL PLATFORMS
 C
 C$$$
 
-      USE MODA_TABLES
-
       INCLUDE 'bufrlib.prm'
 
+      COMMON /TABLES/ MAXTAB,NTAB,TAG(MAXJL),TYP(MAXJL),KNT(MAXJL),
+     .                JUMP(MAXJL),LINK(MAXJL),JMPB(MAXJL),
+     .                IBT(MAXJL),IRF(MAXJL),ISC(MAXJL),
+     .                ITP(MAXJL),VALI(MAXJL),KNTI(MAXJL),
+     .                ISEQ(MAXJL,2),JSEQ(MAXJL)
+
+      CHARACTER*10 TAG
       CHARACTER*8  SUBSET
+      CHARACTER*3  TYP
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
