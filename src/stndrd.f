@@ -41,6 +41,7 @@ C                           PADDING TO AN EVEN BYTE COUNT
 C 2009-03-23  J. ATOR    -- USE IUPBS3 AND NEMTBAX; DON'T ASSUME THAT
 C                           COMPRESSED MESSAGES ARE ALREADY FULLY
 C                           STANDARDIZED WITHIN SECTION 3
+C 2014-02-04  J. ATOR    -- ACCOUNT FOR SUBSETS WITH BYTE COUNT > 65530
 C
 C USAGE:    CALL STNDRD (LUNIT, MSGIN, LMSGOT, MSGOT)
 C   INPUT ARGUMENT LIST:
@@ -110,7 +111,7 @@ C  ---------------------------------------------------
       IF(LENN.NE.LENM) GOTO 901
 
       MBIT = (LENN-4)*8
-      CALL UPC(SEVN,4,MSGIN,MBIT)
+      CALL UPC(SEVN,4,MSGIN,MBIT,.TRUE.)
       IF(SEVN.NE.'7777') GOTO 902
 
 C  COPY SECTIONS 0 THROUGH PART OF SECTION 3 INTO MSGOT
@@ -216,7 +217,21 @@ C         THE NEW SECTION 4
 
           DO 10 I=1,NSUB
               CALL UPB(LSUB,16,MSGIN,IBIT)
-              DO L=1,LSUB-2
+              IF(NSUB.GT.1) THEN
+
+C                 USE THE BYTE COUNTER TO COPY THIS SUBSET
+
+                  ISLEN = LSUB-2
+              ELSE
+
+C                 THIS IS THE ONLY SUBSET IN THE MESSAGE, AND IT COULD
+C                 POSSIBLY BE AN OVERLARGE (> 65530 BYTES) SUBSET, IN
+C                 WHICH CASE WE CAN'T RELY ON THE VALUE STORED IN THE
+C                 BYTE COUNTER.  EITHER WAY, WE DON'T REALLY NEED IT.
+
+                  ISLEN = IAD4+LEN4-(IBIT/8)
+              ENDIF
+              DO L=1,ISLEN
                   CALL UPB(NVAL,8,MSGIN,IBIT)
                   LBYTO = LBYTO + 1
                   IF(LBYTO.GT.MXBYTO) GOTO 905

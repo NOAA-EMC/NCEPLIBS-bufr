@@ -6,7 +6,7 @@ C SUBPROGRAM:    RCSTPL
 C   PRGMMR: WOOLLEN          ORG: NP20       DATE: 1994-01-06
 C
 C ABSTRACT: THIS SUBROUTINE STORES THE SUBSET TEMPLATE INTO INTERNAL
-C   SUBSET ARRAYS IN COMMON BLOCKS /USRINT/ AND /USRBIT/.  THIS IS IN
+C   SUBSET ARRAYS IN MODULES USRINT AND USRBIT.  THIS IS IN
 C   PREPARATION FOR THE ACTUAL UNPACKING OF THE SUBSET IN BUFR ARCHIVE
 C   LIBRARY SUBROUTINE RDTREE.
 C
@@ -40,6 +40,7 @@ C                           IS > 10E9 (CAUSED PROBLEMS ON SOME FOREIGN
 C                           MACHINES)
 C 2004-08-09  J. ATOR    -- MAXIMUM MESSAGE LENGTH INCREASED FROM
 C                           20,000 TO 50,000 BYTES
+C 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
 C
 C USAGE:    CALL RCSTPL (LUN)
 C   INPUT ARGUMENT LIST:
@@ -57,29 +58,18 @@ C   MACHINE:  PORTABLE TO ALL PLATFORMS
 C
 C$$$
 
+      USE MODA_USRINT
+      USE MODA_USRBIT
+      USE MODA_MSGCWD
+      USE MODA_BITBUF
+      USE MODA_TABLES
+      USE MODA_USRTMP
+
       INCLUDE 'bufrlib.prm'
 
-      PARAMETER (MAXRCR=100)
-
-      COMMON /BITBUF/ MAXBYT,IBIT,IBAY(MXMSGLD4),MBYT(NFILES),
-     .                MBAY(MXMSGLD4,NFILES)
-      COMMON /MSGCWD/ NMSG(NFILES),NSUB(NFILES),MSUB(NFILES),
-     .                INODE(NFILES),IDATE(NFILES)
-      COMMON /TABLES/ MAXTAB,NTAB,TAG(MAXJL),TYP(MAXJL),KNT(MAXJL),
-     .                JUMP(MAXJL),LINK(MAXJL),JMPB(MAXJL),
-     .                IBT(MAXJL),IRF(MAXJL),ISC(MAXJL),
-     .                ITP(MAXJL),VALI(MAXJL),KNTI(MAXJL),
-     .                ISEQ(MAXJL,2),JSEQ(MAXJL)
-      COMMON /USRINT/ NVAL(NFILES),INV(MAXSS,NFILES),VAL(MAXSS,NFILES)
-      COMMON /USRBIT/ NBIT(MAXSS),MBIT(MAXSS)
-      COMMON /USRTMP/ ITMP(MAXJL,MAXRCR),VTMP(MAXJL,MAXRCR)
-
       CHARACTER*128 BORT_STR
-      CHARACTER*10  TAG
-      CHARACTER*3   TYP
       DIMENSION     NBMP(2,MAXRCR),NEWN(2,MAXRCR)
       DIMENSION     KNX(MAXRCR)
-      REAL*8        VAL,VTMP
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
@@ -121,8 +111,8 @@ C  ----------------------------------------------
 
       DO N=1,NEWN(2,NR)
       NN = JSEQ(N+N1-1)
-      ITMP(N,NR) = NN
-      VTMP(N,NR) = VALI(NN)
+      IUTMP(N,NR) = NN
+      VUTMP(N,NR) = VALI(NN)
       ENDDO
 
 C  STORE NODES AT SOME RECURSION LEVEL
@@ -133,13 +123,13 @@ C  -----------------------------------
       IF(I.GT.NBMP(1,NR)) NEWN(1,NR) = 1
       DO J=NEWN(1,NR),NEWN(2,NR)
       KNVN = KNVN+1
-      NODE = ITMP(J,NR)
+      NODE = IUTMP(J,NR)
 c  .... INV is positional index in internal jump/link table for packed
 c       subset element KNVN in MBAY
       INV(KNVN,LUN) = NODE
 c  .... Actual unpacked subset values (VAL) are initialized here
 c       (numbers as BMISS)
-      VAL(KNVN,LUN) = VTMP(J,NR)
+      VAL(KNVN,LUN) = VUTMP(J,NR)
 c  .... MBIT is the bit in MBAY pointing to where the packed subset
 c       element KNVN begins
       MBIT(KNVN) = MBIT(KNVN-1)+NBIT(KNVN-1)

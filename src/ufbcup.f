@@ -26,6 +26,7 @@ C                           VERIFICATION VERSION); UNIFIED/PORTABLE FOR
 C                           WRF; ADDED DOCUMENTATION (INCLUDING
 C                           HISTORY); OUTPUTS MORE COMPLETE DIAGNOSTIC
 C                           INFO WHEN ROUTINE TERMINATES ABNORMALLY
+C 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
 C
 C USAGE:    CALL UFBCUP (LUBIN, LUBOT)
 C   INPUT ARGUMENT LIST:
@@ -46,22 +47,14 @@ C   MACHINE:  PORTABLE TO ALL PLATFORMS
 C
 C$$$
 
+      USE MODA_USRINT
+      USE MODA_MSGCWD
+      USE MODA_TABLES
+      USE MODA_IVTTMP
+
       INCLUDE 'bufrlib.prm'
 
-      COMMON /TABLES/ MAXTAB,NTAB,TAG(MAXJL),TYP(MAXJL),KNT(MAXJL),
-     .                JUMP(MAXJL),LINK(MAXJL),JMPB(MAXJL),
-     .                IBT(MAXJL),IRF(MAXJL),ISC(MAXJL),
-     .                ITP(MAXJL),VALI(MAXJL),KNTI(MAXJL),
-     .                ISEQ(MAXJL,2),JSEQ(MAXJL)
-
-      COMMON /MSGCWD/ NMSG(NFILES),NSUB(NFILES),MSUB(NFILES),
-     .                INODE(NFILES),IDATE(NFILES)
-      COMMON /USRINT/ NVAL(NFILES),INV(MAXSS,NFILES),VAL(MAXSS,NFILES)
-
-      CHARACTER*10 TAG,TAGI(MAXJL),TAGO
-      CHARACTER*3  TYP
-      DIMENSION    NINI(MAXJL)
-      REAL*8       VAL
+      CHARACTER*10 TAGO
 
 C----------------------------------------------------------------------
 C----------------------------------------------------------------------
@@ -89,11 +82,11 @@ C  ------------------------------------------
       NIN = INV(NI,LUI)
       IF(ITP(NIN).GE.2) THEN
          DO NV=1,NTAG
-         IF(TAGI(NV).EQ.TAG(NIN)) GOTO 5
+         IF(TTMP(NV).EQ.TAG(NIN)) GOTO 5
          ENDDO
          NTAG = NTAG+1
-         NINI(NTAG) = NI
-         TAGI(NTAG) = TAG(NIN)
+         ITMP(NTAG) = NI
+         TTMP(NTAG) = TAG(NIN)
       ENDIF
 5     ENDDO
 
@@ -103,10 +96,10 @@ C  GIVEN A LIST MAKE ONE COPY OF COMMON ELEMENTS TO OUTPUT BUFFER
 C  --------------------------------------------------------------
 
       DO 10 NV=1,NTAG
-      NI = NINI(NV)
+      NI = ITMP(NV)
       DO NO=1,NVAL(LUO)
       TAGO = TAG(INV(NO,LUO))
-      IF(TAGI(NV).EQ.TAGO) THEN
+      IF(TTMP(NV).EQ.TAGO) THEN
          VAL(NO,LUO) = VAL(NI,LUI)
          GOTO 10
       ENDIF

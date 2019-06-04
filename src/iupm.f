@@ -36,8 +36,8 @@ C
 C REMARKS:
 C    THIS ROUTINE CALLS:        BORT     IREV
 C    THIS ROUTINE IS CALLED BY: CHRTRNA  CRBMG    DXMINI   ICBFMS
-C                               PKC      PKTDD    STBFDX   UPC
-C                               UPTDD    WRDLEN   WRDXTB
+C                               PKC      PKTDD    UPC      UPTDD
+C                               WRDLEN   WRDXTB
 C                               Normally not called by any application
 C                               programs.
 C

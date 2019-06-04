@@ -57,6 +57,7 @@ C                           DOCUMENTATION; OUTPUTS MORE COMPLETE
 C                           DIAGNOSTIC INFO WHEN ROUTINE TERMINATES
 C                           ABNORMALLY OR UNUSUAL THINGS HAPPEN
 C 2009-04-21  J. ATOR    -- USE ERRWRT
+C 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
 C
 C USAGE:    CALL UFBIN3 (LUNIT, USR, I1, I2, I3, IRET, JRET, STR)
 C   INPUT ARGUMENT LIST:
@@ -110,17 +111,17 @@ C   MACHINE:  PORTABLE TO ALL PLATFORMS
 C
 C$$$
 
+      USE MODA_USRINT
+      USE MODA_MSGCWD
+
       INCLUDE 'bufrlib.prm'
 
-      COMMON /MSGCWD/ NMSG(NFILES),NSUB(NFILES),MSUB(NFILES),
-     .                INODE(NFILES),IDATE(NFILES)
-      COMMON /USRINT/ NVAL(NFILES),INV(MAXSS,NFILES),VAL(MAXSS,NFILES)
       COMMON /USRSTR/ NNOD,NCON,NODS(20),NODC(10),IVLS(10),KONS(10)
       COMMON /QUIET / IPRT
 
       CHARACTER*(*) STR
       CHARACTER*128 ERRSTR
-      REAL*8        VAL,USR(I1,I2,I3)
+      REAL*8        USR(I1,I2,I3)
 
 C----------------------------------------------------------------------
 C----------------------------------------------------------------------

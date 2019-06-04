@@ -42,6 +42,7 @@ C 2011-09-26  J. WOOLLEN -- FIXED BUG TO PREVENT SKIP OF FIRST DATA
 C                           MESSAGE AFTER REWIND
 C 2012-09-15  J. WOOLLEN -- MODIFIED FOR C/I/O/BUFR INTERFACE;
 C                           REPLACE FORTRAN REWIND WITH C CEWIND
+C 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
 C
 C USAGE:    CALL REWNBF (LUNIT, ISR)
 C   INPUT ARGUMENT LIST:
@@ -70,20 +71,15 @@ C   MACHINE:  PORTABLE TO ALL PLATFORMS
 C
 C$$$
 
-      INCLUDE 'bufrlib.prm'
+      USE MODA_MSGCWD
+      USE MODA_BITBUF
+      USE MODA_BUFRSR
 
-      COMMON /MSGCWD/ NMSG(NFILES),NSUB(NFILES),MSUB(NFILES),
-     .                INODE(NFILES),IDATE(NFILES)
-      COMMON /BITBUF/ MAXBYT,IBIT,IBAY(MXMSGLD4),MBYT(NFILES),
-     .                MBAY(MXMSGLD4,NFILES)
-      COMMON /BUFRSR/ JUNN,JILL,JIMM,JBIT,JBYT,JMSG,JSUB,KSUB,JNOD,JDAT,
-     .                JSR(NFILES),JBAY(MXMSGLD4)
+      INCLUDE 'bufrlib.prm'
 
       CHARACTER*128 BORT_STR
 
       CHARACTER*8   SUBSET
-
-      DIMENSION     MESG(MXMSGLD4)
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
@@ -125,7 +121,7 @@ C  -----------------------------------------
 C  REWIND THE FILE
 C  ---------------
 
-      call cewind(lun)  
+      CALL CEWIND(LUN)
 
 C  RESTORE FILE PARAMETERS AND POSITION IT TO WHERE IT WAS SAVED
 C  -------------------------------------------------------------
