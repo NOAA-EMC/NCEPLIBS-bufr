@@ -6,7 +6,7 @@ C SUBPROGRAM:    USRTPL
 C   PRGMMR: WOOLLEN          ORG: NP20       DATE: 1994-01-06
 C
 C ABSTRACT: THIS SUBROUTINE STORES THE SUBSET TEMPLATE INTO INTERNAL
-C   SUBSET ARRAYS IN MODULE USRINT FOR CASES OF NODE EXPANSION
+C   SUBSET ARRAYS IN COMMON BLOCK /USRINT/ FOR CASES OF NODE EXPANSION
 C   (I.E. WHEN THE NODE IS EITHER A TABLE A MNEMONIC OR A DELAYED
 C   REPLICATION FACTOR).
 C
@@ -34,7 +34,6 @@ C                           "BMISS" (10E10) WHEN IT IS > 10E9 (CAUSED
 C                           PROBLEMS ON SOME FOREIGN MACHINES)
 C 2009-03-31  J. WOOLLEN -- ADD DOCUMENTATION
 C 2009-04-21  J. ATOR    -- USE ERRWRT
-C 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
 C
 C USAGE:    CALL USRTPL (LUN, INVN, NBMP)
 C   INPUT ARGUMENT LIST:
@@ -58,24 +57,31 @@ C   MACHINE:  PORTABLE TO ALL PLATFORMS
 C
 C$$$
 
-      USE MODA_USRINT
-      USE MODA_MSGCWD
-      USE MODA_TABLES
-      USE MODA_IVTTMP
-
       INCLUDE 'bufrlib.prm'
 
+      COMMON /MSGCWD/ NMSG(NFILES),NSUB(NFILES),MSUB(NFILES),
+     .                INODE(NFILES),IDATE(NFILES)
+      COMMON /TABLES/ MAXTAB,NTAB,TAG(MAXJL),TYP(MAXJL),KNT(MAXJL),
+     .                JUMP(MAXJL),LINK(MAXJL),JMPB(MAXJL),
+     .                IBT(MAXJL),IRF(MAXJL),ISC(MAXJL),
+     .                ITP(MAXJL),VALI(MAXJL),KNTI(MAXJL),
+     .                ISEQ(MAXJL,2),JSEQ(MAXJL)
+      COMMON /USRINT/ NVAL(NFILES),INV(MAXSS,NFILES),VAL(MAXSS,NFILES)
       COMMON /QUIET / IPRT
 
       CHARACTER*128 BORT_STR,ERRSTR
+      CHARACTER*10  TAG
+      CHARACTER*3   TYP
+      DIMENSION     ITMP(MAXJL)
       LOGICAL       DRP,DRS,DRB,DRX
+      REAL*8        VAL,VTMP(MAXJL)
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
 
       IF(IPRT.GE.2)  THEN
       CALL ERRWRT('++++++++++++++BUFR ARCHIVE LIBRARY+++++++++++++++++')
-         WRITE ( UNIT=ERRSTR, FMT='(A,I3,A,I7,A,I5,A,A10)' )
+         WRITE ( UNIT=ERRSTR, FMT='(A,I3,A,I5,A,I5,A,A10)' )
      .      'BUFRLIB: USRTPL - LUN:INVN:NBMP:TAG(INODE(LUN)) = ',
      .      LUN, ':', INVN, ':', NBMP, ':', TAG(INODE(LUN))
          CALL ERRWRT(ERRSTR)
@@ -168,7 +174,7 @@ C  ---------------------------
 
       IF(IPRT.GE.2)  THEN
       CALL ERRWRT('++++++++++++++BUFR ARCHIVE LIBRARY+++++++++++++++++')
-         WRITE ( UNIT=ERRSTR, FMT='(A,A,A10,2(A,I5),A,I7)' )
+         WRITE ( UNIT=ERRSTR, FMT='(A,A,A10,3(A,I5))' )
      .      'BUFRLIB: USRTPL - TAG(INV(INVN,LUN)):NEWN:NBMP:',
      .      'NVAL(LUN) = ', TAG(INV(INVN,LUN)), ':', NEWN, ':',
      .      NBMP, ':', NVAL(LUN)

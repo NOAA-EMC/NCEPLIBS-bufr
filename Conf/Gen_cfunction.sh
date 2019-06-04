@@ -12,7 +12,8 @@
      echo "??? gen_cfunction: unknown library name ($LIB) ???" >&2
      exit -1
    }
-   libNAME=$(echo ${LIB:3} | sed -e 's/^\(.*\)_v.*/\1/')
+   libNAME=$(echo ${LIB:3} | \
+     sed -e 's/^\(.*\)_v[[:digit:]]\+\.[[:digit:]]\+\.[[:digit:]]\+.*$/\1/')
    cFunFILE=$(basename ${logFILE} .txt).c
    oFunFILE=${cFunFILE/%.c/.o}
    libFunct=${libNAME}_library_info

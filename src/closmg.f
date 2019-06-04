@@ -59,7 +59,6 @@ C                           ALWAYS CALL CLOSMG WITH A NEGATIVE UNIT
 C                           NUMBER IMMEDIATELY AFTER CALLING OPENBF FOR
 C                           THIS OUTPUT FILE IF THE INTENTION IS TO
 C                           NOT WRITE ANY EMPTY MESSAGES)
-C 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
 C
 C USAGE:    CALL CLOSMG (LUNIN)
 C   INPUT ARGUMENT LIST:
@@ -91,11 +90,18 @@ C   MACHINE:  PORTABLE TO ALL PLATFORMS
 C
 C$$$
 
-      USE MODA_MSGCWD
-      USE MODA_MSGLIM
-      USE MODA_BITBUF
-
       INCLUDE 'bufrlib.prm'
+
+      COMMON /BITBUF/ MAXBYT,IBIT,IBAY(MXMSGLD4),MBYT(NFILES),
+     .                MBAY(MXMSGLD4,NFILES)
+      COMMON /MSGCWD/ NMSG(NFILES),NSUB(NFILES),MSUB(NFILES),
+     .                INODE(NFILES),IDATE(NFILES)
+
+      DIMENSION MSGLIM(NFILES)
+
+      DATA MSGLIM/NFILES*3/
+
+      SAVE MSGLIM
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------

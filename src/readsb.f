@@ -36,7 +36,6 @@ C                           MORE COMPLETE DIAGNOSTIC INFO WHEN ROUTINE
 C                           TERMINATES ABNORMALLY
 C 2004-08-09  J. ATOR    -- MAXIMUM MESSAGE LENGTH INCREASED FROM
 C                           20,000 TO 50,000 BYTES
-C 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
 C
 C USAGE:    CALL READSB (LUNIT, IRET)
 C   INPUT ARGUMENT LIST:
@@ -61,12 +60,13 @@ C   MACHINE:  PORTABLE TO ALL PLATFORMS
 C
 C$$$
 
-      USE MODA_MSGCWD
-      USE MODA_UNPTYP
-      USE MODA_BITBUF
-      USE MODA_BITMAPS
-
       INCLUDE 'bufrlib.prm'
+
+      COMMON /MSGCWD/ NMSG(NFILES),NSUB(NFILES),MSUB(NFILES),
+     .                INODE(NFILES),IDATE(NFILES)
+      COMMON /BITBUF/ MAXBYT,IBIT,IBAY(MXMSGLD4),MBYT(NFILES),
+     .                MBAY(MXMSGLD4,NFILES)
+      COMMON /UNPTYP/ MSGUNP(NFILES)
 
       CHARACTER*128 BORT_STR
 
@@ -99,28 +99,15 @@ C  ---------------------------------------------
 C  READ THE NEXT SUBSET AND RESET THE POINTERS
 C  -------------------------------------------
 
-      NBTM = 0
-      LSTNOD = 0
-      LSTNODCT = 0
-      LINBTM = .FALSE.
-
       IF(MSGUNP(LUN).EQ.0) THEN
          IBIT = MBYT(LUN)*8
          CALL UPB(NBYT,16,MBAY(1,LUN),IBIT)
-         CALL RDTREE(LUN,IER)
-         IF(IER.NE.0) THEN
-           IRET = -1
-           GOTO 100
-         ENDIF
+         CALL RDTREE(LUN)
          MBYT(LUN) = MBYT(LUN) + NBYT
       ELSEIF(MSGUNP(LUN).EQ.1) THEN
 c  .... message with "standard" Section 3
          IBIT = MBYT(LUN)
-         CALL RDTREE(LUN,IER)
-         IF(IER.NE.0) THEN
-           IRET = -1
-           GOTO 100
-         ENDIF
+         CALL RDTREE(LUN)
          MBYT(LUN) = IBIT
       ELSEIF(MSGUNP(LUN).EQ.2) THEN
 c  .... compressed message
