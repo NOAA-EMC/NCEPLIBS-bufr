@@ -171,7 +171,7 @@ C            Replication factor.
       ELSEIF(TAB.EQ.'B') THEN
          REP = .FALSE.
          NSEQ = NSEQ+1
-         IF(NEMT(1:1).EQ.'.') THEN
+         IF((NEMT(1:1).EQ.'.').AND.(J.LT.NDSC)) THEN
 
 C            This is a "following value" mnemonic.
 

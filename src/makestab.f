@@ -85,15 +85,14 @@ C$$$
       USE MODA_XTAB
       USE MODA_TABABD
       USE MODA_TABLES
+      USE MODA_NRV203
 
       INCLUDE 'bufrlib.prm'
 
       COMMON /QUIET/  IPRT
-      COMMON /NRV203/ NNRV,INODNRV(MXNRV),NRV(MXNRV),TAGNRV(MXNRV),
-     .                ISNRV(MXNRV),IENRV(MXNRV),IBTNRV,IPFNRV
 
       CHARACTER*128 BORT_STR,ERRSTR
-      CHARACTER*8   NEMO,TAGNRV
+      CHARACTER*8   NEMO
       LOGICAL       EXPAND
 
 C-----------------------------------------------------------------------

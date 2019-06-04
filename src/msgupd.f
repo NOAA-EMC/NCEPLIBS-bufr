@@ -44,6 +44,7 @@ C                           ONE-SUBSET MESSAGE)
 C 2014-10-20  D. KEYSER  -- FOR CASE ABOVE, DO NOT WRITE "CURRENT"
 C                           MESSAGE IF IT CONTAINS ZERO SUBSETS
 C 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
+C 2016-03-21  D. STOKES  -- CALL USRTPL FOR OVERLARGE SUBSETS
 C
 C USAGE:    CALL MSGUPD (LUNIT, LUN)
 C   INPUT ARGUMENT LIST:
@@ -106,7 +107,22 @@ c       hold the current subset
          CALL MSGINI(LUN)
       ENDIF
 
-      IF(MSGFULL(MBYT(LUN),IBYT,MAXBYT)) GOTO 900
+      IF(MSGFULL(MBYT(LUN),IBYT,MAXBYT)) THEN
+c       This is an overlarge subset that won't fit in any message
+c       given the current value of MAXBYT, so discard the subset
+c       and exit gracefully.
+        IF(IPRT.GE.0) THEN
+      CALL ERRWRT('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
+        WRITE ( UNIT=ERRSTR, FMT='(A,A,I7,A)')
+     .   'BUFRLIB: MSGUPD - SUBSET LONGER THAN ANY POSSIBLE MESSAGE ',
+     .   '{MAXIMUM MESSAGE LENGTH = ', MAXBYT, '}'
+      CALL ERRWRT(ERRSTR)
+      CALL ERRWRT('>>>>>>>OVERLARGE SUBSET DISCARDED FROM FILE<<<<<<<<')
+      CALL ERRWRT('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
+      CALL ERRWRT(' ')
+        ENDIF
+        GOTO 100
+      ENDIF
 
 C  SET A BYTE COUNT AND TRANSFER THE SUBSET BUFFER INTO THE MESSAGE
 C  ----------------------------------------------------------------
@@ -171,25 +187,10 @@ C  --------------------------------------------------------------------
 C  RESET THE USER ARRAYS AND EXIT NORMALLY
 C  ---------------------------------------
 
-      CALL USRTPL(LUN,1,1)
-      GOTO 100
-
-C  ON ENCOUTERING OVERLARGE SUBSETS, EXIT GRACEFULLY (SUBSET DISCARDED)
-C  --------------------------------------------------------------------
-
-900   IF(IPRT.GE.0) THEN
-      CALL ERRWRT('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
-      WRITE ( UNIT=ERRSTR, FMT='(A,A,I7,A)')
-     . 'BUFRLIB: MSGUPD - SUBSET LONGER THAN ANY POSSIBLE MESSAGE ',
-     . '{MAXIMUM MESSAGE LENGTH = ', MAXBYT, '}'
-      CALL ERRWRT(ERRSTR)
-      CALL ERRWRT('>>>>>>>OVERLARGE SUBSET DISCARDED FROM FILE<<<<<<<<')
-      CALL ERRWRT('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
-      CALL ERRWRT(' ')
-      ENDIF
+100   CALL USRTPL(LUN,1,1)
 
 C  EXIT
 C  ----
 
-100   RETURN
+      RETURN
       END

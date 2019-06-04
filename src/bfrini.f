@@ -44,6 +44,7 @@ C                           /ENDORD/ AND /BUFRBMISS/
 C 2014-09-15  J. ATOR    -- CHANGE DEFAULT LOCATION OF MTDIR
 C 2014-11-18  J. ATOR    -- ADDED INITIALIZATION OF MODULES MSGLIM
 C                           AND USRINT; REMOVE S01CM INITIALIZATION
+C 2016-11-29  J. ATOR    -- EXPLICITLY INITIALIZE BMISS AS 10E10_8
 C
 C USAGE:    CALL BFRINI
 C
@@ -137,7 +138,7 @@ C  -----------------------------------------------------------------
 C  INITIALIZE /BUFRBMISS/
 C  ----------------------
 
-      BMISS = 10E10
+      BMISS = 10E10_8
 
 C  INITIALIZE MODULE BITBUF
 C  ------------------------
