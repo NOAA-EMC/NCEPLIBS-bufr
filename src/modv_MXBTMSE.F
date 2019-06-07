@@ -10,9 +10,9 @@ C	  Set a default value for MXBTMSE.  This value will be used
 C	  unless it is overridden by a subsequent user call to
 C	  function ISETPRM.
 
-	  INTEGER :: MXBTMSE = 100 
+	  INTEGER :: MXBTMSE = 500 
 #else
-	  PARAMETER ( MXBTMSE = 100 )
+	  PARAMETER ( MXBTMSE = 500 )
 #endif
 
 	END MODULE

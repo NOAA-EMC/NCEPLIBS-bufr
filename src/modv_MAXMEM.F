@@ -10,17 +10,8 @@ C	  unless it is overridden by a subsequent user call to
 C	  function ISETPRM.
 
 	  INTEGER :: MAXMEM = 50000000
-
 #else
-
-#  if defined SUPERSIZE_BUILD
-	  PARAMETER ( MAXMEM = 75000000 )
-#  elif defined C32BITS_BUILD
-	  PARAMETER ( MAXMEM = 400000 )
-#  else
 	  PARAMETER ( MAXMEM = 50000000 )
-#  endif
-
 #endif
 
 	END MODULE

@@ -27,17 +27,14 @@ dbg_build: $(LIB)
 
 preproc: $(SRCS_Ff)
 
-$(BUFRLIB).prm: $(BUFRLIB).PRM
-	$(CPP) $(CPPFLAGS) $(CPPDEFS) $< $@
-
 %.o: %.c
 	$(CC) -c $(CFLAGS) $(CFLAGSDEFS) $<
 
-%.o: %.f
+%.o: %.F
 	$(FC) -c $(FFLAGS) $(FFLAGSDEFS) $<
 
-%.f: %.F
-	$(CPP) $(CPPFLAGS) $(CPPDEFS) $< $@
+%.o: %.f
+	$(FC) -c $(FFLAGS) $(FFLAGSDEFS) $<
 
 message: $(MSGSRC)
 	$(CC) -c $(firstword $(MSGSRC))

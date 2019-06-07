@@ -10,15 +10,8 @@ C	  unless it is overridden by a subsequent user call to
 C	  function ISETPRM.
 
 	  INTEGER :: MXCSB = 4000
-
 #else
-
-#  ifdef C32BITS_BUILD
-	  PARAMETER ( MXCSB = 2000 )
-#  else
 	  PARAMETER ( MXCSB = 4000 )
-#  endif
-
 #endif
 
 	END MODULE

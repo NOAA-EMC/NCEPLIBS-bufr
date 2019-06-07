@@ -84,7 +84,7 @@ C                               UFBOVR   UFBPOS   UFBQCD   UFBQCP
 C                               UFBREP   UFBRMS   UFBSEQ   UFBSTP
 C                               UFBTAB   UFBTAM   UFDUMP   UPFTBV
 C                               WRCMPS   WRDXTB   WRITLC   WRITSA
-C                               WRITSB
+C                               WRITSB   GETCFMNG
 C                               Also called by application programs.
 C
 C ATTRIBUTES:

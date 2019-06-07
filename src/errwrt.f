@@ -31,16 +31,16 @@ C    THIS ROUTINE CALLS:        None
 C    THIS ROUTINE IS CALLED BY: BORT     BORT2    CKTABA   CPDXMM
 C                               CPYUPD   DATEBF   DUMPBF   HOLD4WLC
 C                               IGETPRM  INVCON   INVTAG   INVWIN
-C                               JSTNUM   MAKESTAB MAXOUT   MRGINV
-C                               MSGUPD   MSGWRT   NVNWIN   OPENBF
-C                               OPENBT   PKTDD    RDBFDX   RDMEMM
-C                               RDMEMS   READDX   READERME READLC
-C                               READMG   READMT   READS3   STRNUM
+C                               IREADMT  JSTNUM   MAKESTAB MAXOUT
+C                               MRGINV   MSGUPD   MSGWRT   NVNWIN
+C                               OPENBF   OPENBT   PKTDD    RDBFDX
+C                               RDMEMM   RDMEMS   READDX   READERME
+C                               READLC   READMG   READS3   STRNUM
 C                               STRSUC   UFBEVN   UFBIN3   UFBINT
 C                               UFBMEM   UFBMEX   UFBOVR   UFBREP
 C                               UFBRMS   UFBRW    UFBSEQ   UFBSTP
 C                               UFBTAB   UFBTAM   USRTPL   VALX
-C                               WRDLEN
+C                               WRDLEN   MTFNAM
 C                               Can also be called by application
 C                               programs using an in-line version.
 C

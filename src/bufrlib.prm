@@ -12,16 +12,6 @@ C	Maximum number of entries in the internal descriptor list cache.
 
 	PARAMETER ( MXCNEM = 450 )
 C-----------------------------------------------------------------------
-C	Maximum number of "long" character strings (i.e. greater than
-C       8 bytes) which can be read from a subset of a compressed BUFR
-C	message.
-
-#ifdef SUPERSIZE_BUILD
-	PARAMETER ( MXRST = 500 )
-#else
-	PARAMETER ( MXRST = 50 )
-#endif
-C-----------------------------------------------------------------------
 C	Maximum number of 2-04 associated fields that can be in effect
 C	at the same time for any given Table B descriptor.
 

@@ -22,7 +22,7 @@ C     ICVIDX   - INTEGER: 1-DIMENSIONAL INDEX
 C
 C REMARKS:
 C    THIS ROUTINE CALLS:        None
-C    THIS ROUTINE IS CALLED BY: CPMSTABS READMT   STSEQ
+C    THIS ROUTINE IS CALLED BY: CPMSTABS IREADMT  STSEQ
 C                               Normally not called by any application
 C                               programs.
 C

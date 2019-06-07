@@ -34,9 +34,12 @@ C$$$*/
 
 #include "bufrlib.h"
 
-int cmpia( const f77int *pf1, const f77int *pf2 )
+int cmpia( const void *pf1, const void *pf2 )
 {
-	if ( *pf1 == *pf2 ) return 0;
+	f77int *mypf1 = ( f77int * ) pf1;
+	f77int *mypf2 = ( f77int * ) pf2;
 
-	return ( *pf1 < *pf2 ? -1 : 1 );
+	if ( *mypf1 == *mypf2 ) return 0;
+
+	return ( *mypf1 < *mypf2 ? -1 : 1 );
 }

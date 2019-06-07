@@ -63,7 +63,7 @@ C
 C REMARKS:
 C    THIS ROUTINE CALLS:        ADN30    BORT     GETNTBE  GETTBH
 C                               SNTBDE   WRDLEN
-C    THIS ROUTINE IS CALLED BY: READMT
+C    THIS ROUTINE IS CALLED BY: IREADMT
 C                               Not normally called by any application
 C                               programs but it could be.
 C

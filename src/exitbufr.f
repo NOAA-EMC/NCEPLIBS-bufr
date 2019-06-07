@@ -24,7 +24,7 @@ C
 C USAGE:    CALL EXITBUFR
 C
 C REMARKS:
-C    THIS ROUTINE CALLS:        ARDLLOCF
+C    THIS ROUTINE CALLS:        ARDLLOCF  CLOSBF  DLLOCTBF
 C    THIS ROUTINE IS CALLED BY: None
 C                               Normally called only by application
 C                               programs.
@@ -35,13 +35,15 @@ C   MACHINE:  PORTABLE TO ALL PLATFORMS
 C
 C$$$
 
-#ifdef DYNAMIC_ALLOCATION
-
 	USE MODA_STBFR
 	USE MODA_IFOPBF
 	USE MODA_S01CM
 	
 	INCLUDE 'bufrlib.prm'
+
+	COMMON /TABLEF/ CDMF
+
+	CHARACTER*1 CDMF
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
@@ -56,12 +58,12 @@ C	Deallocate all allocated memory.
 
 	CALL ARDLLOCF
 
+	IF ( CDMF .EQ. 'Y' ) CALL DLLOCTBF
+
 C	Reset the library.
 
 	NS01V = 0
 	IFOPBF = 0
-
-#endif
 
 	RETURN
 	END

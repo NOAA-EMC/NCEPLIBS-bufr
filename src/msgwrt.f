@@ -55,6 +55,7 @@ C                           CALL NEW ROUTINE BLOCKS FOR FILE BLOCKING
 C                           AND NEW C ROUTINE CWRBUFR TO WRITE BUFR
 C                           MESSAGE TO DISK FILE
 C 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
+C 2019-05-09  J. ATOR    -- ADDED DIMENSIONS FOR MSGLEN AND MSGTXT
 C
 C USAGE:    CALL MSGWRT (LUNIT, MESG, MGBYT)
 C   INPUT ARGUMENT LIST:
@@ -267,7 +268,7 @@ C  ------------------------------------------------------------------
 
       MWRD = NMWRD(MGWA)
       CALL STATUS(LUNIT,LUN,IL,IM)
-      IF(NULL(LUN).EQ.0) then
+      IF(NULL(LUN).EQ.0) THEN
          CALL BLOCKS(MGWA,MWRD)
          CALL CWRBUFR(LUN,MGWA,MWRD)
       ENDIF
@@ -287,12 +288,12 @@ C  ------------------------------------------------------------
       IF(IDXMSG(MGWA).NE.1) THEN
 
 C        STORE A COPY OF THIS MESSAGE WITHIN MODULE BUFRMG,
-C        FOR POSSIBLE LATER RETRIEVAL DURING THE NEXT CALL TO
+C        FOR POSSIBLE LATER RETRIEVAL DURING A FUTURE CALL TO
 C        SUBROUTINE WRITSA.
 
-         MSGLEN = MWRD
-         DO I=1,MSGLEN
-           MSGTXT(I) = MGWA(I)
+         MSGLEN(LUN) = MWRD
+         DO I=1,MSGLEN(LUN)
+           MSGTXT(I,LUN) = MGWA(I)
          ENDDO
       ENDIF
 

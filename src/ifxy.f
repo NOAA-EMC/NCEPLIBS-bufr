@@ -42,9 +42,10 @@ C              2**9 + 2**8 + 2**4 + 2**2 + 2**1 )  = 16150
 C
 C
 C    THIS ROUTINE CALLS:        None
-C    THIS ROUTINE IS CALLED BY: BFRINI   DXINIT   GETNTBE  IDN30
-C                               NEMTAB   NEMTBB   NEMTBD   NUMTBD
-C                               RESTD    SNTBDE   STBFDX   STNTBI
+C    THIS ROUTINE IS CALLED BY: BFRINI   DXINIT   GETNTBE  GETCFMNG
+C                               IDN30    IREADMT  NEMTAB   NEMTBB
+C                               NEMTBD   NUMTBD   READS3   RESTD
+C                               SNTBDE   SNTBFE   STBFDX   STNTBI
 C                               STSEQ    UFBQCP
 C                               Normally not called by any application
 C                               programs but it could be.

@@ -131,7 +131,7 @@ C  ---------
       CALL PKB(     0 ,  8 , MBAY,MBIT)
       CALL PKB(  MTYP ,  8 , MBAY,MBIT)
       CALL PKB(  MSBT ,  8 , MBAY,MBIT)
-      CALL PKB(    13 ,  8 , MBAY,MBIT)
+      CALL PKB(    29 ,  8 , MBAY,MBIT)
       CALL PKB(  IDXV ,  8 , MBAY,MBIT)
       CALL PKB(    IY ,  8 , MBAY,MBIT)
       CALL PKB(    IM ,  8 , MBAY,MBIT)

@@ -14,8 +14,11 @@ C   OF THE REFERENCED ELEMENT.
 C
 C PROGRAM HISTORY LOG:
 C 2016-05-27  J. ATOR    -- ORIGINAL AUTHOR
+C 2017-04-03  J. ATOR    -- ADD A DIMENSION TO ALL TCO ARRAYS SO THAT
+C                           EACH SUBSET DEFINITION IN THE JUMP/LINK
+C                           TABLE HAS ITS OWN SET OF TABLE C OPERATORS
 C
-C USAGE:    CALL STRBTM ( N, LUN )
+C USAGE:    CALL IGETRFEL ( N, LUN )
 C   INPUT ARGUMENT LIST:
 C     N        - INTEGER: SUBSET ELEMENT
 C     LUN      - INTEGER: I/O STREAM INDEX INTO INTERNAL MEMORY ARRAYS
@@ -28,7 +31,7 @@ C                      ELEMENT, OR REFERENCED ELEMENT NOT FOUND
 C
 C REMARKS:
 C    THIS ROUTINE CALLS:        ADN30    BORT     IBFMS    IMRKOPR
-C                               NEMTAB
+C                               LSTJPB   NEMTAB
 C    THIS ROUTINE IS CALLED BY: RCSTPL   RDCMPS
 C                               Normally not called by any application
 C                               programs.
@@ -65,7 +68,21 @@ C-----------------------------------------------------------------------
 		LSTNOD = NODE
 		LSTNODCT = 1
 	    END IF
-	    IF ( ( NTCO .GT. 0 ) .AND. ( NBTM .GT. 0 ) ) THEN
+C
+C	    Does this subset definition contain any Table C operators
+C	    with an X value of 21 or greater?
+C
+	    IDXTA = 0
+	    IF ( NTAMC .GT. 0 ) THEN
+		NODTAM = LSTJPB( NODE, LUN, 'SUB' )
+		DO II = 1, NTAMC
+		  IF ( NODTAM .EQ. INODTAMC(II) ) THEN
+		    IDXTA = II
+		    NTC = NTCO(II)
+		  END IF
+		END DO
+	    END IF
+	    IF ( ( IDXTA .GT. 0 ) .AND. ( NBTM .GT. 0 ) ) THEN
 
 C		Check whether this element references a previous element
 C		in the same subset via an internal bitmap.  To do this,
@@ -93,11 +110,12 @@ C		occurrences, we want the one that most recently precedes
 C		the element in question.
 
 		NODFLW = 0
-		DO II = 1, NTCO
-		  IF ( ( CTCO(II) .EQ. CFLWOPR ) .AND.
-     .		      ( INODTCO(II) .GE. INODE(LUN) ) .AND.
-     .		      ( INODTCO(II) .LE. ISC(INODE(LUN)) ) .AND.
-     .		      ( INODTCO(II) .LT. NODE ) ) NODFLW = INODTCO(II)
+		DO JJ = 1, NTC
+		  IF ( ( CTCO(IDXTA,JJ) .EQ. CFLWOPR ) .AND.
+     .		      ( INODTCO(IDXTA,JJ) .GE. INODE(LUN) ) .AND.
+     .		      ( INODTCO(IDXTA,JJ) .LE. ISC(INODE(LUN)) ) .AND.
+     .		      ( INODTCO(IDXTA,JJ) .LT. NODE ) )
+     .		    NODFLW = INODTCO(IDXTA,JJ)
 		ENDDO
 		IF ( NODFLW .EQ. 0 ) THEN
 		  IF ( IMRKOPR(TAG(NODE)) .EQ. 1 ) GOTO 901
@@ -110,23 +128,25 @@ C		this operator.  First, look for a bitmap indicator.
 
 		NODL236 = 0
 		NODBMAP = 0
-		II = 1
-		DO WHILE ( ( II .LE. NTCO ) .AND.
-     .		      ( INODTCO(II) .GE. INODE(LUN) ) .AND.
-     .		      ( INODTCO(II) .LE. ISC(INODE(LUN)) ) .AND.
+		JJ = 1
+		DO WHILE ( ( JJ .LE. NTC ) .AND.
+     .		      ( INODTCO(IDXTA,JJ) .GE. INODE(LUN) ) .AND.
+     .		      ( INODTCO(IDXTA,JJ) .LE. ISC(INODE(LUN)) ) .AND.
      .			( NODBMAP .EQ. 0 ) )
-		  IF ( CTCO(II) .EQ. '236000' ) THEN
-		    NODL236 = INODTCO(II)
-		    IF ( INODTCO(II) .EQ. NODFLW ) NODBMAP = NODFLW
-		  ELSE IF ( ( CTCO(II) .EQ. '235000' ) .OR.
-     .			    ( CTCO(II) .EQ. '237255' ) ) THEN
+		  IF ( CTCO(IDXTA,JJ) .EQ. '236000' ) THEN
+		    NODL236 = INODTCO(IDXTA,JJ)
+		    IF ( INODTCO(IDXTA,JJ) .EQ. NODFLW ) THEN
+		      NODBMAP = NODFLW
+		    END IF
+		  ELSE IF ( ( CTCO(IDXTA,JJ) .EQ. '235000' ) .OR.
+     .			    ( CTCO(IDXTA,JJ) .EQ. '237255' ) ) THEN
 		    NODL236 = 0
-		  ELSE IF ( ( CTCO(II) .EQ. '237000' ) .AND.
-     .			   ( INODTCO(II) .EQ. NODFLW ) .AND.
+		  ELSE IF ( ( CTCO(IDXTA,JJ) .EQ. '237000' ) .AND.
+     .			   ( INODTCO(IDXTA,JJ) .EQ. NODFLW ) .AND.
      .			    ( NODL236 .NE. 0 ) ) THEN
 		    NODBMAP = NODL236
 		  END IF
-		  II = II + 1
+		  JJ = JJ + 1
 		END DO
 		IF ( NODBMAP .EQ. 0 ) THEN
 
@@ -174,9 +194,9 @@ C		make sure not to cross a 2-35-000 operator.
 		DO WHILE ( ( NN .GE. 1 ) .AND. ( IGETRFEL .EQ. 0 ) )
 		  NODNN = INV( NN, LUN )
 		  IF ( NODNN .LE. NODBMAP ) THEN
-		    DO II = 1, NTCO
-		      IF ( ( NODNN .EQ. INODTCO(II) ) .AND.
-     .			  ( CTCO(II) .EQ. '235000' ) ) THEN
+		    DO JJ = 1, NTC
+		      IF ( ( NODNN .EQ. INODTCO(IDXTA,JJ) ) .AND.
+     .			  ( CTCO(IDXTA,JJ) .EQ. '235000' ) ) THEN
 			IF ( IMRKOPR(TAG(NODE)) .EQ. 1 ) GOTO 903
 			RETURN
 		      END IF

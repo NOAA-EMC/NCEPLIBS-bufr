@@ -28,7 +28,7 @@ C                      -2 = I/O error encountered while reading
 C                           from LUNT
 C REMARKS:
 C    THIS ROUTINE CALLS:        None
-C    THIS ROUTINE IS CALLED BY: GETNTBE  GETTBH   SNTBDE
+C    THIS ROUTINE IS CALLED BY: GETNTBE  GETTBH   SNTBDE   SNTBFE
 C                               Normally not called by any application
 C                               programs.
 C

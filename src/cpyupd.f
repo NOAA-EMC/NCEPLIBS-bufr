@@ -137,7 +137,7 @@ C  BYTE COUNTER, MEANING THEY COULD NOT BE LOCATED!)
 C  --------------------------------------------------------------------
 
       IF(IBYT.GT.65530) THEN
-         IF(IPRT.GE.0) THEN
+         IF(IPRT.GE.1) THEN
       CALL ERRWRT('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
       WRITE ( UNIT=ERRSTR, FMT='(A,I7,A,A)')
      . 'BUFRLIB: CPYUPD - SUBSET HAS BYTE COUNT = ',IBYT,' > UPPER ',

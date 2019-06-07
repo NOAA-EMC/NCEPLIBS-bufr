@@ -45,6 +45,9 @@ C 2014-09-15  J. ATOR    -- CHANGE DEFAULT LOCATION OF MTDIR
 C 2014-11-18  J. ATOR    -- ADDED INITIALIZATION OF MODULES MSGLIM
 C                           AND USRINT; REMOVE S01CM INITIALIZATION
 C 2016-11-29  J. ATOR    -- EXPLICITLY INITIALIZE BMISS AS 10E10_8
+C 2017-10-13  J. ATOR    -- ADDED INITIALIZATION OF COMMON /TABLEF/
+C 2019-05-03  J. ATOR    -- CHANGE DEFAULT LOCATION OF MTDIR
+C 2019-05-09  J. ATOR    -- ADDED DIMENSIONS FOR MSGLEN
 C
 C USAGE:    CALL BFRINI
 C
@@ -85,6 +88,7 @@ C$$$
       COMMON /ACMODE/ IAC
       COMMON /MSGSTD/ CSMF
       COMMON /MSGCMP/ CCMF
+      COMMON /TABLEF/ CDMF
       COMMON /TNKRCP/ ITRYR,ITRMO,ITRDY,ITRHR,ITRMI,CTRT
       COMMON /MSTINF/ LUN1,LUN2,LMTD,MTDIR
       COMMON /ENDORD/ IBLOCK,IORDBE(4),IORDLE(4)
@@ -97,6 +101,7 @@ C$$$
       CHARACTER*1   REPX(5,2),REPS
       CHARACTER*1   CSMF
       CHARACTER*1   CCMF
+      CHARACTER*1   CDMF
       CHARACTER*1   CTRT
       DIMENSION     NDNDX(10),NLDXA(10),NLDXB(10),NLDXD(10),NLD30(10)
       DIMENSION     LENX(5)
@@ -253,7 +258,9 @@ C  ------------------------
 C  INITIALIZE MODULE BUFRMG
 C  ------------------------
 
-      MSGLEN = 0
+      DO I=1,NFILES
+      MSGLEN(I) = 0
+      ENDDO
 
 C  INITIALIZE /MRGCOM/
 C  -------------------
@@ -296,6 +303,11 @@ C  -------------------
 
       CCMF = 'N'
 
+C  INITIALIZE /TABLEF/
+C  -------------------
+
+      CDMF = 'N'
+
 C  INITIALIZE /TNKRCP/
 C  -------------------
 
@@ -304,7 +316,7 @@ C  -------------------
 C  INITIALIZE /MSTINF/
 C  -------------------
 
-      MTDIR = '/nwprod/decoders/decod_shared/fix'
+      MTDIR = '/gpfs/dell1/nco/ops/nwprod/decoders/decod_shared/fix'
       LMTD = 33
 
       LUN1 = 98
