@@ -1,36 +1,35 @@
 #!/bin/sh
 
  (( $# == 0 )) && {
-   echo "*** Usage: $0 wcoss|dell|cray|theia|intel_general|gnu_general [debug|build] [[local]install[only]]" >&2
+   echo "*** Usage: $0 wcoss|dell|cray|theia|intel_general|gnu_general [debug|build] [prefix=<installpath>] [[local]install[only]]" >&2
    exit 1
  }
 
  sys=${1,,}
  [[ $sys == wcoss || $sys == dell || $sys == cray ||\
     $sys == theia || $sys == intel_general || $sys == gnu_general ]] || {
-   echo "*** Usage: $0 wcoss|dell|cray|theia|intel_general|gnu_general [debug|build] [[local]install[only]]" >&2
+   echo "*** Usage: $0 wcoss|dell|cray|theia|intel_general|gnu_general [debug|build] [prefix=<installpath>] [[local]install[only]]" >&2
    exit 1
  }
  debg=false
  inst=false
  skip=false
  local=false
- (( $# > 1 )) && {
-   [[ ${2,,} == build ]] && debg=false
-   [[ ${2,,} == debug ]] && debg=true
-   [[ ${2,,} == install ]] && inst=true
-   [[ ${2,,} == localinstall ]] && { local=true; inst=true; }
-   [[ ${2,,} == installonly ]] && { inst=true; skip=true; }
-   [[ ${2,,} == localinstallonly ]] && { local=true; inst=true; skip=true; }
- }
- (( $# > 2 )) && {
-   [[ ${3,,} == build ]] && debg=false
-   [[ ${3,,} == debug ]] && debg=true
-   [[ ${3,,} == install ]] && inst=true
-   [[ ${3,,} == localinstall ]] && { local=true; inst=true; }
-   [[ ${3,,} == installonly ]] && { inst=true; skip=true; }
-   [[ ${3,,} == localinstallonly ]] && { local=true; inst=true; skip=true; }
- }
+ instloc="---"
+ for n in 2 3 4; do
+   (( $# > (n-1) )) && {
+     [[ ${!n,,} == build ]] && debg=false
+     [[ ${!n,,} == debug ]] && debg=true
+     [[ ${!n,,} == install ]] && inst=true
+     [[ ${!n,,} == localinstall ]] && { local=true; inst=true; }
+     [[ ${!n,,} == installonly ]] && { inst=true; skip=true; }
+     [[ ${!n,,} == localinstallonly ]] && { local=true; inst=true; skip=true; }
+     [[ ${!n,,} == prefix=* ]] && {
+       local=false
+       instloc=${!n:$(expr length "prefix=")}
+     }
+   }
+ done
 
  source ./Conf/Collect_info.sh
  source ./Conf/Gen_cfunction.sh
@@ -95,28 +94,8 @@ set -x
 # Start building libraries
 #
    for array_type in DYNAMIC STATIC; do
-      make cleancpp
-      CPPDEFS="-D${byte_order} -D${array_type}_ALLOCATION"
-      bufrInfo0=$(make preproc)
+      FPPCPP="-D${byte_order} -D${array_type}_ALLOCATION"
       CFLAGSDEFS="-D${array_type}_ALLOCATION"
-      for gvar in NFILES MAXCD; do
-         GVARdef=$(grep " $gvar = " modv_$gvar.f | \
-                   sed 's/INTEGER//;s/PARAMETER//' | tr -d "\t :()")
-         CFLAGSDEFS=$CFLAGSDEFS" -D$GVARdef"
-      done
-      CPPDEFS="-D${array_type}_ALLOCATION"
-      bufrInfo1=$(make bufrlib.prm)
-      setx_status=${-//[^x]/}
-      [[ -n $setx_status ]] && set +x
-      bufrInfo0="$bufrInfo0"$'\n'$bufrInfo1
-      [[ -n $setx_status ]] && set -x
-      for bprm in MAXNC MXNAF; do
-         BPRMdef=$(grep " $bprm = " bufrlib.prm | \
-                   sed 's/PARAMETER//' | tr -d "\t ()")
-         CFLAGSDEFS=$CFLAGSDEFS" -D$BPRMdef"
-      done
-
-      export CFLAGSDEFS
 #
 #     Update 4-byte version of libbufr_4.a
 #
@@ -203,21 +182,33 @@ set -x
 #     Install libraries and source files 
 #
    $local && {
-              LIB_DIR4=..
-              LIB_DIR8=..
-              LIB_DIRd=..
-              LIB_DIR4da=..
-              LIB_DIR8da=..
-              LIB_DIRdda=..
+              instloc=..
+              LIB_DIR4=$instloc
+              LIB_DIR8=$instloc
+              LIB_DIRd=$instloc
+              LIB_DIR4da=$instloc
+              LIB_DIR8da=$instloc
+              LIB_DIRdda=$instloc
               SRC_DIR=
              } || {
-              LIB_DIR4=$(dirname $BUFR_LIB4)
-              LIB_DIR8=$(dirname $BUFR_LIB8)
-              LIB_DIRd=$(dirname $BUFR_LIBd)
-              LIB_DIR4da=$(dirname $BUFR_LIB4_DA)
-              LIB_DIR8da=$(dirname $BUFR_LIB8_DA)
-              LIB_DIRdda=$(dirname $BUFR_LIBd_DA)
-              SRC_DIR=$BUFR_SRC
+              [[ $instloc == --- ]] && {
+                LIB_DIR4=$(dirname $BUFR_LIB4)
+                LIB_DIR8=$(dirname $BUFR_LIB8)
+                LIB_DIRd=$(dirname $BUFR_LIBd)
+                LIB_DIR4da=$(dirname $BUFR_LIB4_DA)
+                LIB_DIR8da=$(dirname $BUFR_LIB8_DA)
+                LIB_DIRdda=$(dirname $BUFR_LIBd_DA)
+                SRC_DIR=$BUFR_SRC
+              } || {
+                LIB_DIR4=$instloc
+                LIB_DIR8=$instloc
+                LIB_DIRd=$instloc
+                LIB_DIR4da=$instloc
+                LIB_DIR8da=$instloc
+                LIB_DIRdda=$instloc
+                SRC_DIR=$instloc/src
+                [[ $instloc == .. ]] && SRC_DIR=
+              }
               [ -d $LIB_DIR4 ] || mkdir -p $LIB_DIR4
               [ -d $LIB_DIR8 ] || mkdir -p $LIB_DIR8
               [ -d $LIB_DIRd ] || mkdir -p $LIB_DIRd
@@ -227,7 +218,6 @@ set -x
               [ -z $SRC_DIR ] || { [ -d $SRC_DIR ] || mkdir -p $SRC_DIR; }
              }
 
-   make cleancpp
    make clean LIB=
    make install LIB=$bufrLib4da LIB_DIR=$LIB_DIR4da SRC_DIR=
    make install LIB=$bufrLib8da LIB_DIR=$LIB_DIR8da SRC_DIR=

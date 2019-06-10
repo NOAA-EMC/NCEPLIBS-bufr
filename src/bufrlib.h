@@ -24,6 +24,13 @@
 #endif
 
 /*
+** The following values must be identically defined in source file
+** bufrlib.prm
+*/
+#define MAXNC 600
+#define MXNAF 3
+
+/*
 ** On certain operating systems, the FORTRAN compiler appends an underscore
 ** to subprogram names in its object namespace.  Therefore, on such systems,
 ** a matching underscore must be appended to any C language references to
