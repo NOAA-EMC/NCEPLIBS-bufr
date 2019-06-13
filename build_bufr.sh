@@ -53,6 +53,15 @@
    exit 1
  }
 
+#-------------------------------------------------------------------
+# Get the version number for this build from the bvers.f source file
+#
+ new_ver=v$(grep "CVERSTR =" bvers.f | tr -d "\t CVERSTR='")
+ echo "version is $new_ver"
+ echo
+ reset_version ip $new_ver
+ 
+
 set -x
  bufrLib4=$(basename ${BUFR_LIB4})
  bufrLib8=$(basename ${BUFR_LIB8})
@@ -64,13 +73,6 @@ set -x
 #################
  cd src
 #################
-
-#-------------------------------------------------------------------
-# Get the version number for this build from the bvers.f source file
-#
- version=v$(grep "CVERSTR =" bvers.f | tr -d "\t CVERSTR='")
- echo "version is $version"
- echo
 
  $skip || {
 #-------------------------------------------------------------------
@@ -95,7 +97,7 @@ set -x
 #
    for array_type in DYNAMIC STATIC; do
       FPPCPP="-D${byte_order} -D${array_type}_ALLOCATION"
-      CFLAGSDEFS="-D${array_type}_ALLOCATION"
+      CFLAGSDEFS="${CFLAGSDEFS} -D${array_type}_ALLOCATION"
 #
 #     Update 4-byte version of libbufr_4.a
 #
@@ -129,6 +131,7 @@ set -x
  echo "   ... build i8/r8 bufr library ..."
  echo
       FFLAGS8="$I8R8 $FFLAGS"
+      CFLAGSDEFS8="$CFLAGSDEFS $CF77INTSIZE"
       [[ $array_type == "DYNAMIC"  ]] && {
         export LIB=$bufrLib8da
         bufrInfo8=bufr_info_and_log8da.txt
@@ -144,8 +147,8 @@ set -x
       [[ -n $setx_status ]] && set +x
       echo "$bufrInfo0" > $bufrInfo8
       [[ -n $setx_status ]] && set -x
-      $debg && make debug FFLAGS="$FFLAGS8" &>> $bufrInfo8 \
-            || make build FFLAGS="$FFLAGS8" &>> $bufrInfo8
+      $debg && make debug FFLAGS="$FFLAGS8" CFLAGSDEFS="$CFLAGSDEFS8" &>> $bufrInfo8 \
+            || make build FFLAGS="$FFLAGS8" CFLAGSDEFS="$CFLAGSDEFS8" &>> $bufrInfo8
       make message MSGSRC="$(gen_cfunction $bufrInfo8 OneLine8 LibInfo8)"
 
 #

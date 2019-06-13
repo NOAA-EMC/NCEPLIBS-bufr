@@ -1,18 +1,19 @@
 # *** for WCOSS Cray (intel) ***
  module purge
- module load intel/18.1.163
+ module load PrgEnv-intel
+ module load craype-sandybridge
  module load bufr-intel/11.2.0
 
- export CC=icc
- export FC=ifort
+ export CC=cc
+ export FC=ftn
  export OMPCC="$CC -qopenmp"
  export OMPFC="$FC -qopenmp"
  export MPICC=mpiicc
  export MPIFC=mpiifort
 
- export DEBUG="-g -O0"
- export CFLAGS="-O3 -fPIC"
- export FFLAGS="-O3 -fPIC"
+ export DEBUG="-g -traceback -O0"
+ export CFLAGS="-g -traceback -O3 -axCORE-AVX2 -fPIC"
+ export FFLAGS="-g -traceback -O3 -axCORE-AVX2 -fPIC"
  export FPPCPP="-cpp"
  export FREEFORM="-free"
  export MPICFLAGS="-O3 -fPIC"
@@ -22,7 +23,8 @@
  export I4R8="-integer-size 32 -real-size 64"
  export I8R8="-integer-size 64 -real-size 64"
 
- export CFLAGSDEFS="-DUNDERSCORE -DLINUX"
+ export CFLAGSDEFS="-DUNDERSCORE"
+ export CF77INTSIZE="-DF77_INTSIZE_8"
  export FFLAGSDEFS=""
 
  export USECC="YES"
