@@ -1,4 +1,4 @@
-      SUBROUTINE RDTREE(LUN,IRET)
+      SUBROUTINE RDTREE(LUN)
 
 C$$$  SUBPROGRAM DOCUMENTATION BLOCK
 C
@@ -6,9 +6,9 @@ C SUBPROGRAM:    RDTREE
 C   PRGMMR: WOOLLEN          ORG: NP20       DATE: 1994-01-06
 C
 C ABSTRACT: THIS SUBROUTINE UNPACKS THE NEXT SUBSET FROM THE INTERNAL
-C   UNCOMPRESSED MESSAGE BUFFER (ARRAY MBAY IN MODULE BITBUF) AND
-C   STORES THE UNPACKED SUBSET WITHIN THE INTERNAL ARRAY VAL(*,LUN)
-C   IN MODULE USRINT.
+C   UNCOMPRESSED MESSAGE BUFFER (ARRAY MBAY IN COMMON BLOCK /BITBUF/)
+C   AND STORES THE UNPACKED SUBSET WITHIN THE INTERNAL ARRAY VAL(*,LUN)
+C   IN COMMON BLOCK /USRINT/.
 C
 C PROGRAM HISTORY LOG:
 C 1994-01-06  J. WOOLLEN -- ORIGINAL AUTHOR
@@ -37,19 +37,10 @@ C 2012-03-02  J. ATOR    -- USE FUNCTION UPS
 C 2012-06-04  J. ATOR    -- SET DECODED REAL*8 VALUE TO "MISSING" WHEN
 C                           CORRESPONDING CHARACTER FIELD HAS ALL BITS
 C                           SET TO 1
-C 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
-C 2016-11-09  J. ATOR    -- ADDED IRET ARGUMENT AND CHECK FOR POSSIBLY
-C                           CORRUPT SUBSETS
 C
-C USAGE:    CALL RDTREE (LUN,IRET)
+C USAGE:    CALL RDTREE (LUN)
 C   INPUT ARGUMENT LIST:
 C     LUN      - INTEGER: I/O STREAM INDEX INTO INTERNAL MEMORY ARRAYS
-C
-C   OUTPUT ARGUMENT LIST:
-C     IRET     - INTEGER: RETURN CODE:
-C                       0 = NORMAL RETURN
-C                      -1 = AN ERROR OCCURRED, POSSIBLY DUE TO A
-C                           CORRUPT SUBSET IN THE INPUT MESSAGE
 C
 C REMARKS:
 C    THIS ROUTINE CALLS:        RCSTPL   ICBFMS   UPBB     UPC
@@ -64,17 +55,24 @@ C   MACHINE:  PORTABLE TO ALL PLATFORMS
 C
 C$$$
 
-      USE MODA_USRINT
-      USE MODA_USRBIT
-      USE MODA_IVAL
-      USE MODA_BITBUF
-      USE MODA_TABLES
-
       INCLUDE 'bufrlib.prm'
 
+      COMMON /BITBUF/ MAXBYT,IBIT,IBAY(MXMSGLD4),MBYT(NFILES),
+     .                MBAY(MXMSGLD4,NFILES)
+      COMMON /TABLES/ MAXTAB,NTAB,TAG(MAXJL),TYP(MAXJL),KNT(MAXJL),
+     .                JUMP(MAXJL),LINK(MAXJL),JMPB(MAXJL),
+     .                IBT(MAXJL),IRF(MAXJL),ISC(MAXJL),
+     .                ITP(MAXJL),VALI(MAXJL),KNTI(MAXJL),
+     .                ISEQ(MAXJL,2),JSEQ(MAXJL)
+      COMMON /USRINT/ NVAL(NFILES),INV(MAXSS,NFILES),VAL(MAXSS,NFILES)
+      COMMON /USRBIT/ NBIT(MAXSS),MBIT(MAXSS)
+
+      CHARACTER*10 TAG
       CHARACTER*8  CVAL
+      CHARACTER*3  TYP
+      DIMENSION    IVAL(MAXSS)
       EQUIVALENCE  (CVAL,RVAL)
-      REAL*8       RVAL,UPS
+      REAL*8       VAL,RVAL,UPS
 
 C-----------------------------------------------------------------------
 C     Statement function to compute BUFR "missing value" for field
@@ -83,18 +81,12 @@ C     of length IBT(NODE)) bits (all bits "on"):
       MPS(NODE) = 2**(IBT(NODE))-1
 C-----------------------------------------------------------------------
 
-      IRET = 0
-
 C  CYCLE THROUGH A SUBSET SETTING UP THE TEMPLATE
 C  ----------------------------------------------
 
       MBIT(1) = IBIT
       NBIT(1) = 0
-      CALL RCSTPL(LUN,IER)
-      IF(IER.NE.0) THEN
-        IRET = -1
-        RETURN
-      ENDIF
+      CALL RCSTPL(LUN)
 
 C  UNPACK A SUBSET INTO THE USER ARRAY IVAL
 C  ----------------------------------------
@@ -118,11 +110,7 @@ C	 The unpacked value is a delayed descriptor replication factor.
 
 C	 The unpacked value is a real.
 
-         IF (IVAL(N).LT.MPS(NODE)) THEN
-            VAL(N,LUN) = UPS(IVAL(N),NODE)
-         ELSE
-            VAL(N,LUN) = BMISS
-         ENDIF
+         IF(IVAL(N).LT.MPS(NODE)) VAL(N,LUN) = UPS(IVAL(N),NODE)
       ELSEIF(ITP(NODE).EQ.3) THEN
 
 C        The value is a character string, so unpack it using an
@@ -134,7 +122,7 @@ C        unpack any string longer than 8 characters.
          CVAL = ' '
          KBIT = MBIT(N)
          NBT = MIN(8,NBIT(N)/8)
-         CALL UPC(CVAL,NBT,MBAY(1,LUN),KBIT,.TRUE.)
+         CALL UPC(CVAL,NBT,MBAY(1,LUN),KBIT)
          IF (NBIT(N).LE.64 .AND. ICBFMS(CVAL,NBT).NE.0) THEN
             VAL(N,LUN) = BMISS
          ELSE

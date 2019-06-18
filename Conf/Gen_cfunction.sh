@@ -16,30 +16,25 @@
      sed -e 's/^\(.*\)_v[[:digit:]]\+\.[[:digit:]]\+\.[[:digit:]]\+.*$/\1/')
    cFunFILE=$(basename ${logFILE} .txt).c
    oFunFILE=${cFunFILE/%.c/.o}
+   brfFunct=${libNAME}_brief_info
    libFunct=${libNAME}_library_info
    logFunct=${libNAME}_building_log
-   libSubrt=${libNAME}_brief_info
-   fSubFILE=$libSubrt${cFunFILE: -3:1}.f
-   oSubFILE=${fSubFILE/%.f/.o}
-
-   cat << EOI > $fSubFILE
-      subroutine ${libNAME}_brief_info(cc)
-       character(len=*) :: cc
-       character(len=*), parameter ::
-$(sed -e '1,$ s/^/     \&  /g; $ s/$/,/' <<< "${!oneLINE}")
-     &  infoline = nclibver // compiled // compiler // datetime
-       cc = infoline(:min(len(cc),len(infoline)))
-       return
-      end
-EOI
 
    cat << EOI > $cFunFILE
 #include <stdio.h>
 #include <unistd.h>
 #include <string.h>
+#include <stdlib.h>
+ char *${brfFunct}(char *infoline);
  int ${libFunct}(void);
  int ${logFunct}(void);
  static void tprintf(const char *str);
+ void ${brfFunct}_(char *oneline, size_t n) {
+  char infoline[256];
+  ${brfFunct}(infoline);
+  strncpy(oneline, infoline, n);
+  return;
+ }
  void ${libFunct}_(void) {
   ${libFunct}();
   return;
@@ -47,6 +42,15 @@ EOI
  void ${logFunct}_(void) {
   ${logFunct}();
   return;
+ }
+ char *${brfFunct}(char *infoline) {
+ $(sed -e '1,$ s/^\(.*\) = '\''\(.*\)'\'',\?$/  const char \1[] = "\2";/g' <<< "${!oneLINE}")
+  infoline[0] = '\0';
+  strcat(infoline, nclibver);
+  strcat(infoline, compiled);
+  strcat(infoline, compiler);
+  strcat(infoline, datetime);
+  return infoline;
  }
  int ${libFunct}(void) {
 $(sed -e 's/^/  tprintf("/g; 1,$ s/$/");/g' <<< "${!libINFO}")
@@ -68,16 +72,20 @@ $(sed -e 's/"/\\"/g; 1,$ s/%/%%/g; 1,$ s/^/  printf("/g; 1,$ s/$/\\n");/g' $logF
     *temp = '\0';
     if (isatty(STDOUT_FILENO)) {
       printf("%s%s%s%s\n", boldon, str1, boldoff, str2);
+      free(str2);
+      free(str1);
       return;
     }
+    free(str2);
   }
+  free(str1);
   printf("%s\n", str);
   return;
  }
 EOI
 
    rm $logFILE
-   echo $cFunFILE $fSubFILE
+   echo $cFunFILE
 
  [[ -n $setx_status ]] && set -x
  }

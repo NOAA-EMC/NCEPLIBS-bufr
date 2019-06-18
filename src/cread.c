@@ -19,7 +19,6 @@ C           DESCRIPTOR AND POINTER ARRAYS.
 C
 C PROGRAM HISTORY LOG:
 C 2012-09-15  J. WOOLLEN -- ORIGINAL AUTHOR
-C 2014-11-07  J. ATOR -- ALLOW DYNAMIC ALLOCATION OF CERTAIN ARRAYS
 C
 C USAGE: CALL openrb(nfile,ufile)        - open ufile for binary reading
 C        CALL openwb(nfile,ufile)        - open ufile for binary writing
@@ -57,7 +56,12 @@ C
 C$$$*/
 
 #include "bufrlib.h"
-#include "cread.h"
+
+/* The following arrays are dimensioned one larger than NFILES because of the difference in array
+   indexing between Fortran and C.  In each of the following C functions, the value passed in for
+   nfile will a be Fortran index ranging from 1 to NFILES, so we need to allow for this same range
+   of values in C, which would otherwise expect the array indices to range from 0 to NFILES-1. */
+FILE *pb[NFILES+1]; fpos_t lstpos[NFILES+1]; 
 
 void openrb   (nfile,ufile) f77int *nfile; char *ufile; { pb[*nfile] = fopen( ufile , "rb " ); }
 void openwb   (nfile,ufile) f77int *nfile; char *ufile; { pb[*nfile] = fopen( ufile , "wb " ); }

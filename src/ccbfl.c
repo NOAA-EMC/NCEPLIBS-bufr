@@ -25,7 +25,6 @@ C
 C$$$*/
 
 #include "bufrlib.h"
-#include "cobfl.h"
 
 void ccbfl( void )
 {

@@ -1,14 +1,16 @@
 SHELL=/bin/sh
 
 # sources, headers, objects, library and etc.
-SRCS_F  = $(wildcard modv_*.F) $(wildcard moda_*.F)
-SRCS_f  = $(wildcard *.f)
+SRCS_Ff = $(patsubst %.F, %.f, $(wildcard *.F))
+SRCS_f  = $(wildcard modv_*.f) $(wildcard moda_*.f) \
+          $(filter-out mod[av]_*.f, $(wildcard *.f))
 SRCS_C  = $(wildcard *.c)
 DEPS    = $(wildcard *.h)
 OBJS    = $(patsubst %.c, %.o, $(SRCS_C)) \
-          $(patsubst %.F, %.o, $(SRCS_F)) \
           $(patsubst %.f, %.o, $(SRCS_f))
+OBJS_Ff = $(patsubst %.f, %.o, $(SRCS_Ff))
 MODS    = $(wildcard *.mod)
+BUFRLIB = bufrlib
 
 all: build
 
@@ -23,23 +25,24 @@ dbg_build: override CFLAGS += $(DEBUG)
 dbg_build: override FFLAGS += $(DEBUG)
 dbg_build: $(LIB)
 
+preproc: $(SRCS_Ff)
+
+$(BUFRLIB).prm: $(BUFRLIB).PRM
+	$(CPP) $(CPPFLAGS) $(CPPDEFS) $< $@
+
 %.o: %.c
 	$(CC) -c $(CFLAGS) $(CFLAGSDEFS) $<
-
-%.o: %.F
-	$(FC) -c $(FPPCPP) $(FFLAGS) $(FFLAGSDEFS) $<
 
 %.o: %.f
 	$(FC) -c $(FFLAGS) $(FFLAGSDEFS) $<
 
+%.f: %.F
+	$(CPP) $(CPPFLAGS) $(CPPDEFS) $< $@
+
 message: $(MSGSRC)
-	$(CC) -c $(firstword $(MSGSRC))
-	$(FC) -c $(lastword $(MSGSRC))
-	$(AR) $(ARFLAGS) $(LIB) $(patsubst %.c, %.o, $(firstword $(MSGSRC)))
-	$(AR) $(ARFLAGS) $(LIB) $(patsubst %.f, %.o, $(lastword $(MSGSRC)))
-	$(RM) $(patsubst %.c, %.o, $(firstword $(MSGSRC)))
-	$(RM) $(patsubst %.f, %.o, $(lastword $(MSGSRC)))
-	$(RM) $(MSGSRC)
+	$(CC) -c $(MSGSRC)
+	$(AR) $(ARFLAGS) $(LIB) $(patsubst %.c, %.o, $(MSGSRC))
+	$(RM) $(MSGSRC) $(patsubst %.c, %.o, $(MSGSRC))
 
 install:
 	[[ -z "$(LIB)" || -z "$(LIB_DIR)" ]] || mv $(LIB) $(LIB_DIR)
@@ -48,11 +51,14 @@ install:
 test:
 	@echo "*** unit test unavailable currently ***"
 
+cleancpp:
+	$(RM) $(SRCS_Ff) $(OBJS_Ff) $(BUFRLIB).prm
+
 clean:
 	$(RM) $(OBJS) $(MODS) $(LIB)
 
 .SUFFIXES: .c .h .F .f .mod .o
 
 # Specify targets that do not generate filesystem objects
-.PHONY: all build install debug dbg_build message test clean
+.PHONY: all build preproc install debug dbg_build message test clean cleancpp
 

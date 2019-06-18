@@ -32,7 +32,7 @@ C
 C REMARKS:
 C    THIS ROUTINE CALLS:        BORT2    IGETNTBL IGETFXY  IFXY
 C                               PARSTR
-C    THIS ROUTINE IS CALLED BY: RDMTBB   RDMTBD   RDMTBF
+C    THIS ROUTINE IS CALLED BY: RDMTBB   RDMTBD
 C                               Normally not called by any application
 C                               programs.
 C

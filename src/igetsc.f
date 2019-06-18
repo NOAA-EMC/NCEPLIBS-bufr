@@ -11,7 +11,6 @@ C   UNIT NUMBER
 C
 C PROGRAM HISTORY LOG:
 C 2010-05-11  J. ATOR    -- ORIGINAL AUTHOR
-C 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
 C
 C USAGE:    IGETSC (LUNIT)
 C   INPUT ARGUMENT LIST:
@@ -36,9 +35,9 @@ C   MACHINE:  PORTABLE TO ALL PLATFORMS
 C
 C$$$
 
-      USE MODA_STCODE
-
       INCLUDE 'bufrlib.prm'
+
+      COMMON /STCODE/ ISCODES(NFILES)
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------

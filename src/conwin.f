@@ -40,7 +40,6 @@ C                           VERIFICATION VERSION); UNIFIED/PORTABLE FOR
 C                           WRF; ADDED DOCUMENTATION (INCLUDING
 C                           HISTORY) 
 C 2010-04-27  J. WOOLLEN -- CORRECT LOGICAL FLAW AND ADD DOCUMENTATION
-C 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
 C
 C USAGE:    CALL CONWIN (LUN, INC1, INC2)
 C   INPUT ARGUMENT LIST:
@@ -71,11 +70,12 @@ C   MACHINE:  PORTABLE TO ALL PLATFORMS
 C
 C$$$
 
-      USE MODA_USRINT
-
       INCLUDE 'bufrlib.prm'
 
+      COMMON /USRINT/ NVAL(NFILES),INV(MAXSS,NFILES),VAL(MAXSS,NFILES)
       COMMON /USRSTR/ NNOD,NCON,NODS(20),NODC(10),IVLS(10),KONS(10)
+
+      REAL*8 VAL
 
 C----------------------------------------------------------------------
 C----------------------------------------------------------------------
