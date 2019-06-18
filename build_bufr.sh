@@ -1,5 +1,8 @@
 #!/bin/sh
 
+ : ${THISDIR:=$(dirname $(readlink -f -n ${BASH_SOURCE[0]}))}
+ CDIR=$PWD; cd $THISDIR
+
  source ./Conf/Analyse_args.sh
  source ./Conf/Collect_info.sh
  source ./Conf/Gen_cfunction.sh

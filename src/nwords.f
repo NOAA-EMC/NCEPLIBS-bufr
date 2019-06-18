@@ -22,7 +22,6 @@ C                           VERIFICATION VERSION); UNIFIED/PORTABLE FOR
 C                           WRF; ADDED DOCUMENTATION (INCLUDING
 C                           HISTORY) (INCOMPLETE)
 C 2009-03-31  J. WOOLLEN -- ADDED DOCUMENTATION
-C 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
 C
 C USAGE:    NWORDS (N, LUN)
 C   INPUT ARGUMENT LIST:
@@ -45,9 +44,11 @@ C   MACHINE:  PORTABLE TO ALL PLATFORMS
 C
 C$$$
 
-      USE MODA_USRINT
-
       INCLUDE 'bufrlib.prm'
+
+      COMMON /USRINT/ NVAL(NFILES),INV(MAXSS,NFILES),VAL(MAXSS,NFILES)
+
+      REAL*8 VAL
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------

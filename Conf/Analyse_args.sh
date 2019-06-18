@@ -25,6 +25,7 @@
      [[ ${!n,,} == prefix=* ]] && {
        local=false
        instloc=${!n:$(expr length "prefix=")}
+       [[ $instloc == /* ]] || { [[ -n $CDIR ]] && instloc=$CDIR/$instloc; }
      }
    fi
  done

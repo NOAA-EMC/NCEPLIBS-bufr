@@ -43,7 +43,6 @@ C
 C$$$*/
 
 #include "bufrlib.h"
-#include "cobfl.h"
 
 f77int rbytes( char *bmg, f77int *mxmb, f77int isloc, f77int newbytes )
 {
