@@ -72,6 +72,8 @@ C$$$
 	USE MODA_RDMTB
 	USE MODA_NMIKRP
 	USE MODA_S01CM
+	USE MODA_BITMAPS
+	USE MODA_NRV203
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
@@ -80,6 +82,7 @@ C	MODA_USRINT arrays.
 
 	DEALLOCATE( NVAL )
 	DEALLOCATE( INV )
+	DEALLOCATE( NRFELM )
 	DEALLOCATE( VAL )
 
 C	MODA_USRBIT arrays.
@@ -262,6 +265,23 @@ C	MODA_S01CM arrays.
 
 	DEALLOCATE( IVMNEM )
 	DEALLOCATE( CMNEM )
+
+C	MODA_BITMAPS arrays.
+
+	DEALLOCATE( CTCO )
+	DEALLOCATE( INODTCO )
+	DEALLOCATE( NBTMSE )
+	DEALLOCATE( ISTBTM )
+	DEALLOCATE( ISZBTM )
+	DEALLOCATE( IBTMSE )
+
+C	MODA_NRV203 arrays.
+
+	DEALLOCATE( TAGNRV )
+	DEALLOCATE( INODNRV )
+	DEALLOCATE( NRV )
+	DEALLOCATE( ISNRV )
+	DEALLOCATE( IENRV )
 
 C	C language arrays.
 

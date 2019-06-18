@@ -64,6 +64,7 @@ C$$$
       USE MODA_MSGCWD
       USE MODA_UNPTYP
       USE MODA_BITBUF
+      USE MODA_BITMAPS
 
       INCLUDE 'bufrlib.prm'
 
@@ -98,15 +99,28 @@ C  ---------------------------------------------
 C  READ THE NEXT SUBSET AND RESET THE POINTERS
 C  -------------------------------------------
 
+      NBTM = 0
+      LSTNOD = 0
+      LSTNODCT = 0
+      LINBTM = .FALSE.
+
       IF(MSGUNP(LUN).EQ.0) THEN
          IBIT = MBYT(LUN)*8
          CALL UPB(NBYT,16,MBAY(1,LUN),IBIT)
-         CALL RDTREE(LUN)
+         CALL RDTREE(LUN,IER)
+         IF(IER.NE.0) THEN
+           IRET = -1
+           GOTO 100
+         ENDIF
          MBYT(LUN) = MBYT(LUN) + NBYT
       ELSEIF(MSGUNP(LUN).EQ.1) THEN
 c  .... message with "standard" Section 3
          IBIT = MBYT(LUN)
-         CALL RDTREE(LUN)
+         CALL RDTREE(LUN,IER)
+         IF(IER.NE.0) THEN
+           IRET = -1
+           GOTO 100
+         ENDIF
          MBYT(LUN) = IBIT
       ELSEIF(MSGUNP(LUN).EQ.2) THEN
 c  .... compressed message

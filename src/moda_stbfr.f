@@ -1,0 +1,15 @@
+# 1 "moda_stbfr.F"
+	MODULE MODA_STBFR
+
+
+
+	  USE MODV_NFILES
+
+
+# 11
+
+	  INTEGER :: IOLUN(NFILES)
+	  INTEGER :: IOMSG(NFILES)
+
+
+	END MODULE

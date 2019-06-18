@@ -93,11 +93,9 @@ C$$$
       USE MODA_MSGCWD
       USE MODA_TABABD
       USE MODA_TABLES
+      USE MODA_NRV203
 
       INCLUDE 'bufrlib.prm'
-
-      COMMON /NRV203/ NNRV,INODNRV(MXNRV),NRV(MXNRV),TAGNRV(MXNRV),
-     .                ISNRV(MXNRV),IENRV(MXNRV),IBTNRV,IPFNRV
 
       CHARACTER*80 FMT
       CHARACTER*64 DESC
@@ -105,10 +103,10 @@ C$$$
       CHARACTER*120 LCHR2
       CHARACTER*20  LCHR,PMISS
       CHARACTER*15 NEMO3
-      CHARACTER*10 NEMO,NEMO2
+      CHARACTER*10 NEMO,NEMO2,TAGRFE
       CHARACTER*6  NUMB
       CHARACTER*7  FMTF
-      CHARACTER*8  CVAL,TAGNRV
+      CHARACTER*8  CVAL
       CHARACTER*3  TYPE
       CHARACTER*1  TAB,YOU
       EQUIVALENCE  (RVAL,CVAL)
@@ -273,12 +271,25 @@ C        value.  If so, modify the DESC field to label it as such.
          DO WHILE ((JJ.LE.NNRV).AND.(.NOT.RDRV))
             IF (NODE.EQ.INODNRV(JJ)) THEN
                RDRV = .TRUE.
-               DESC = 'NEW REFERENCE VALUE FOR ' // NUMB
+               DESC = 'New reference value for ' // NEMO
                UNIT = ' '
             ELSE
                JJ = JJ+1
             ENDIF
          ENDDO
+
+C        Check if this element refers to another element via a bitmap.
+C        If so, modify the DESC field to identify the referred element.
+
+         NRFE = NRFELM(NV,LUN)
+         IF(NRFE.GT.0) THEN
+            TAGRFE = TAG(INV(NRFE,LUN))
+            JJ = 48
+            DO WHILE((JJ.GE.1).AND.(DESC(JJ:JJ).EQ.' '))
+               JJ = JJ - 1
+            ENDDO
+            IF(JJ.LE.33) DESC(JJ+1:JJ+15) = ' for ' // TAGRFE
+         ENDIF
 
 C        Now print the value
 

@@ -33,6 +33,7 @@
 #define igetntbi   igetntbi_
 #define igetprm    igetprm_
 #define igettdi	   igettdi_
+#define imrkopr	   imrkopr_
 #define ipkm	   ipkm_
 #define istdesc	   istdesc_
 #define iupbs01	   iupbs01_
@@ -103,6 +104,7 @@ f77int ifxy( char *, f77int );
 f77int igetntbi( f77int *, char *, f77int );
 f77int igetprm( char *, f77int );
 f77int igettdi( f77int * );
+f77int imrkopr( char *, f77int );
 void ipkm( char *, f77int *, f77int *, f77int );
 f77int istdesc( f77int * );
 f77int iupbs01 ( f77int *, char *, f77int );

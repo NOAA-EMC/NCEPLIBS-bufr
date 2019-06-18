@@ -40,8 +40,8 @@ C   INPUT ARGUMENT LIST:
 C     LUN      - INTEGER: I/O STREAM INDEX INTO INTERNAL MEMORY ARRAYS
 C
 C REMARKS:
-C    THIS ROUTINE CALLS:        BORT     ICBFMS   UPB      UPC
-C                               UPS      USRTPL
+C    THIS ROUTINE CALLS:        BORT     ICBFMS   IGETRFEL STRBTM
+C                               UPB      UPC      UPS      USRTPL
 C    THIS ROUTINE IS CALLED BY: READSB
 C                               Normally not called by any application
 C                               programs.
@@ -96,6 +96,7 @@ C     Loop through each element of the subset.
 
 1     DO N=N+1,NVAL(LUN)
       NODE = INV(N,LUN)
+      NRFELM(N,LUN) = IGETRFEL(N,LUN)
       NBIT = IBT(NODE)
       ITYP = ITP(NODE)
 
@@ -132,6 +133,7 @@ C        This is a numeric element.
             GOTO 1
          ENDIF
          IF(IVAL.LT.LPS(NBIT)) VAL(N,LUN) = UPS(IVAL,NODE)
+         CALL STRBTM(N,LUN)
          IBIT = IBIT + LINC*MSUB(LUN)
       ELSEIF(ITYP.EQ.3) THEN
 

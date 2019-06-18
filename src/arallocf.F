@@ -23,6 +23,8 @@ C   TERMINATES.
 C
 C PROGRAM HISTORY LOG:
 C 2014-12-04  J. ATOR    -- ORIGINAL AUTHOR
+C 2016-05-24  J. ATOR    -- ADDED ALLOCATIONS FOR MODA_BITMAPS
+C                           AND MODA_NRV203
 C
 C USAGE:    CALL ARALLOCF
 C
@@ -70,6 +72,8 @@ C$$$
 	USE MODA_RDMTB
 	USE MODA_NMIKRP
 	USE MODA_S01CM
+	USE MODA_BITMAPS
+	USE MODA_NRV203
 
 	INCLUDE	'bufrlib.prm'
 
@@ -134,6 +138,9 @@ C	MODA_USRINT arrays.
 
 	ALLOCATE( INV(MAXSS,NFILES), STAT=iost )
 	IF ( iost .ne. 0 ) CALL BORT( BRTSTR // 'INV' )
+
+	ALLOCATE( NRFELM(MAXSS,NFILES), STAT=iost )
+	IF ( iost .ne. 0 ) CALL BORT( BRTSTR // 'NRFELM' )
 
 	ALLOCATE( VAL(MAXSS,NFILES), STAT=iost )
 	IF ( iost .ne. 0 ) CALL BORT( BRTSTR // 'VAL' )
@@ -490,6 +497,43 @@ C	MODA_S01CM arrays.
 
 	ALLOCATE( CMNEM(MXS01V), STAT=iost )
 	IF ( iost .ne. 0 ) CALL BORT( BRTSTR // 'CMNEM' )
+
+C	MODA_BITMAPS arrays.
+
+	ALLOCATE( CTCO(MXTCO), STAT=iost )
+	IF ( iost .ne. 0 ) CALL BORT( BRTSTR // 'CTCO' )
+
+	ALLOCATE( INODTCO(MXTCO), STAT=iost )
+	IF ( iost .ne. 0 ) CALL BORT( BRTSTR // 'INODTCO' )
+
+	ALLOCATE( NBTMSE(MXBTM), STAT=iost )
+	IF ( iost .ne. 0 ) CALL BORT( BRTSTR // 'NBTMSE' )
+
+	ALLOCATE( ISTBTM(MXBTM), STAT=iost )
+	IF ( iost .ne. 0 ) CALL BORT( BRTSTR // 'ISTBTM' )
+
+	ALLOCATE( ISZBTM(MXBTM), STAT=iost )
+	IF ( iost .ne. 0 ) CALL BORT( BRTSTR // 'ISZBTM' )
+
+	ALLOCATE( IBTMSE(MXBTM,MXBTMSE), STAT=iost )
+	IF ( iost .ne. 0 ) CALL BORT( BRTSTR // 'IBTMSE' )
+
+C	MODA_NRV203 arrays.
+
+	ALLOCATE( TAGNRV(MXNRV), STAT=iost )
+	IF ( iost .ne. 0 ) CALL BORT( BRTSTR // 'TAGNRV' )
+
+	ALLOCATE( INODNRV(MXNRV), STAT=iost )
+	IF ( iost .ne. 0 ) CALL BORT( BRTSTR // 'INODNRV' )
+
+	ALLOCATE( NRV(MXNRV), STAT=iost )
+	IF ( iost .ne. 0 ) CALL BORT( BRTSTR // 'NRV' )
+
+	ALLOCATE( ISNRV(MXNRV), STAT=iost )
+	IF ( iost .ne. 0 ) CALL BORT( BRTSTR // 'ISNRV' )
+
+	ALLOCATE( IENRV(MXNRV), STAT=iost )
+	IF ( iost .ne. 0 ) CALL BORT( BRTSTR // 'IENRV' )
 
 #endif
 

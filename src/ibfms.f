@@ -30,8 +30,8 @@ C                1 - R8VAL IS EQUIVALENT TO "MISSING"
 C
 C REMARKS:
 C    THIS ROUTINE CALLS:        None
-C    THIS ROUTINE IS CALLED BY: INVMRG   UFBDMP   UFBRW    UFDUMP
-C                               WRTREE
+C    THIS ROUTINE IS CALLED BY: INVMRG   STRBTM   UFBDMP   UFBRW
+C                               UFDUMP   WRTREE
 C                               Also called by application programs.
 C
 C ATTRIBUTES:
