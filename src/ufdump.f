@@ -47,6 +47,8 @@ C                           WHERE THE REPLICATION COUNT IS > 1; OUTPUT
 C                           ALL OCCURRENCES OF LONG CHARACTER STRINGS
 C 2012-02-24  J. ATOR    -- FIX MISSING CHECK FOR LONG CHARACTER STRINGS
 C 2012-03-02  J. ATOR    -- LABEL REDEFINED REFERENCE VALUES
+C 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
+C 2015-09-24  J. WOOLLEN -- PRINT LEVEL IDENTIFIERS FOR EVENT STACKS
 C
 C USAGE:    CALL UFDUMP (LUNIT, LUPRT)
 C   INPUT ARGUMENT LIST:
@@ -87,28 +89,15 @@ C   MACHINE:  PORTABLE TO ALL PLATFORMS
 C
 C$$$
 
+      USE MODA_USRINT
+      USE MODA_MSGCWD
+      USE MODA_TABABD
+      USE MODA_TABLES
+
       INCLUDE 'bufrlib.prm'
 
-      COMMON /MSGCWD/ NMSG(NFILES),NSUB(NFILES),MSUB(NFILES),
-     .                INODE(NFILES),IDATE(NFILES)
-      COMMON /TABLES/ MAXTAB,NTAB,TAG(MAXJL),TYP(MAXJL),KNT(MAXJL),
-     .                JUMP(MAXJL),LINK(MAXJL),JMPB(MAXJL),
-     .                IBT(MAXJL),IRF(MAXJL),ISC(MAXJL),
-     .                ITP(MAXJL),VALI(MAXJL),KNTI(MAXJL),
-     .                ISEQ(MAXJL,2),JSEQ(MAXJL)
-      COMMON /USRINT/ NVAL(NFILES),INV(MAXSS,NFILES),VAL(MAXSS,NFILES)
-      COMMON /TABABD/ NTBA(0:NFILES),NTBB(0:NFILES),NTBD(0:NFILES),
-     .                MTAB(MAXTBA,NFILES),IDNA(MAXTBA,NFILES,2),
-     .                IDNB(MAXTBB,NFILES),IDND(MAXTBD,NFILES),
-     .                TABA(MAXTBA,NFILES),TABB(MAXTBB,NFILES),
-     .                TABD(MAXTBD,NFILES)
       COMMON /NRV203/ NNRV,INODNRV(MXNRV),NRV(MXNRV),TAGNRV(MXNRV),
      .                ISNRV(MXNRV),IENRV(MXNRV),IBTNRV,IPFNRV
-
-
-      CHARACTER*600 TABD
-      CHARACTER*128 TABB
-      CHARACTER*128 TABA
 
       CHARACTER*80 FMT
       CHARACTER*64 DESC
@@ -116,14 +105,14 @@ C$$$
       CHARACTER*120 LCHR2
       CHARACTER*20  LCHR,PMISS
       CHARACTER*15 NEMO3
-      CHARACTER*10 TAG,NEMO,NEMO2
+      CHARACTER*10 NEMO,NEMO2
       CHARACTER*6  NUMB
       CHARACTER*7  FMTF
       CHARACTER*8  CVAL,TAGNRV
-      CHARACTER*3  TYP,TYPE
+      CHARACTER*3  TYPE
       CHARACTER*1  TAB,YOU
       EQUIVALENCE  (RVAL,CVAL)
-      REAL*8       VAL,RVAL
+      REAL*8       RVAL
       LOGICAL      TRACK,FOUND,RDRV
 
       PARAMETER (MXFV=31)
@@ -166,8 +155,8 @@ C  --------------------------------
       WRITE(LUOUT,*) 'MESSAGE TYPE ',TAG(INODE(LUN))
       WRITE(LUOUT,*)
 
-C  DUMP THE CONTENTS OF COMMON /USRINT/ FOR UNIT LUNIT
-C  ---------------------------------------------------
+C  DUMP THE CONTENTS OF MODULE USRINT FOR UNIT LUNIT
+C  -------------------------------------------------
 
       DO NV=1,NVAL(LUN)
       IF(LUPRT.EQ.0 .AND. MOD(NV,20).EQ.0) THEN
@@ -208,7 +197,8 @@ C  -------------------------------------------------------------------
 
 C        Sequence descriptor or delayed descriptor replication factor
 
-         IF((TYPE.EQ.'REP').OR.(TYPE.EQ.'DRP').OR.(TYPE.EQ.'DRB')) THEN
+         IF((TYPE.EQ.'REP').OR.(TYPE.EQ.'DRP').OR.
+     .	    (TYPE.EQ.'DRB').OR.(TYPE.EQ.'DRS')) THEN
 
 C	   Print the number of replications
 
@@ -237,7 +227,7 @@ C            Don't bother
 
              NSEQ = NSEQ-1
            ENDIF
-         ELSEIF( ((TYPE.EQ.'SEQ').OR.(TYPE.EQ.'RPC'))
+         ELSEIF( ((TYPE.EQ.'SEQ').OR.(TYPE.EQ.'RPC').OR.(TYPE.EQ.'RPS'))
      .             .AND. (NSEQ.GT.0) ) THEN
 
 C          Is this one of the sequences being tracked?

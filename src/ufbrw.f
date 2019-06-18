@@ -41,6 +41,7 @@ C                           HISTORY)
 C 2007-01-19  J. ATOR    -- USE FUNCTION IBFMS
 C 2009-03-31  J. WOOLLEN -- ADD DOCUMENTATION
 C 2009-04-21  J. ATOR    -- USE ERRWRT; USE LSTJPB INSTEAD OF LSTRPS
+C 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
 C
 C USAGE:    CALL UFBRW (LUN, USR, I1, I2, IO, IRET)
 C   INPUT ARGUMENT LIST:
@@ -85,21 +86,16 @@ C   MACHINE:  PORTABLE TO ALL PLATFORMS
 C
 C$$$
 
+      USE MODA_USRINT
+      USE MODA_TABLES
+
       INCLUDE 'bufrlib.prm'
 
-      COMMON /TABLES/ MAXTAB,NTAB,TAG(MAXJL),TYP(MAXJL),KNT(MAXJL),
-     .                JUMP(MAXJL),LINK(MAXJL),JMPB(MAXJL),
-     .                IBT(MAXJL),IRF(MAXJL),ISC(MAXJL),
-     .                ITP(MAXJL),VALI(MAXJL),KNTI(MAXJL),
-     .                ISEQ(MAXJL,2),JSEQ(MAXJL)
-      COMMON /USRINT/ NVAL(NFILES),INV(MAXSS,NFILES),VAL(MAXSS,NFILES)
       COMMON /USRSTR/ NNOD,NCON,NODS(20),NODC(10),IVLS(10),KONS(10)
       COMMON /QUIET / IPRT
 
       CHARACTER*128 ERRSTR
-      CHARACTER*10 TAG
-      CHARACTER*3  TYP
-      REAL*8       USR(I1,I2),VAL
+      REAL*8       USR(I1,I2)
 
 C----------------------------------------------------------------------
 C----------------------------------------------------------------------
@@ -138,7 +134,7 @@ C  ---------------------
 
       IF(IPRT.GE.2)  THEN
       CALL ERRWRT('++++++++++++++BUFR ARCHIVE LIBRARY+++++++++++++++++')
-         WRITE ( UNIT=ERRSTR, FMT='(5(A,I4))' )
+         WRITE ( UNIT=ERRSTR, FMT='(5(A,I7))' )
      .      'BUFRLIB: UFBRW - IRET:INS1:INS2:INC1:INC2 = ',
      .      IRET, ':', INS1, ':', INS2, ':', INC1, ':', INC2
          CALL ERRWRT(ERRSTR)

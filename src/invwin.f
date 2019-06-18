@@ -26,6 +26,7 @@ C                           HISTORY); OUTPUTS MORE  COMPLETE DIAGNOSTIC
 C                           INFO WHEN UNUSUAL THINGS HAPPEN
 C 2009-03-31  J. WOOLLEN -- ADDED DOCUMENTATION
 C 2009-04-21  J. ATOR    -- USE ERRWRT
+C 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
 C
 C USAGE:    INVWIN (NODE, LUN, INV1, INV2)
 C   INPUT ARGUMENT LIST:
@@ -54,12 +55,11 @@ C   MACHINE:  PORTABLE TO ALL PLATFORMS
 C
 C$$$
 
+      USE MODA_USRINT
+
       INCLUDE 'bufrlib.prm'
 
-      COMMON /USRINT/ NVAL(NFILES),INV(MAXSS,NFILES),VAL(MAXSS,NFILES)
       COMMON /QUIET/  IPRT
-
-      REAL*8 VAL
 
 C----------------------------------------------------------------------
 C----------------------------------------------------------------------

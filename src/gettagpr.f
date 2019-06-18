@@ -18,6 +18,8 @@ C   COUNTING FROM THE BEGINNING OF THE OVERALL SUBSET DEFINITION.
 C
 C PROGRAM HISTORY LOG:
 C 2012-09-12  J. ATOR    -- ORIGINAL AUTHOR
+C 2014-10-02  J. ATOR    -- MODIFIED TO USE FSTAG
+C 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
 C
 C USAGE:    CALL GETTAGPR (LUNIT, TAGCH, NTAGCH, TAGPR, IRET)
 C   INPUT ARGUMENT LIST:
@@ -37,7 +39,7 @@ C                  -1 = PARENT MNEMONIC COULD NOT BE FOUND, OR SOME
 C                       OTHER ERROR OCCURRED
 C
 C REMARKS:
-C    THIS ROUTINE CALLS:        PARSTR   STATUS
+C    THIS ROUTINE CALLS:        FSTAG    STATUS
 C    THIS ROUTINE IS CALLED BY: None
 C                               Normally called only by application
 C                               programs
@@ -48,25 +50,13 @@ C   MACHINE:  PORTABLE TO ALL PLATFORMS
 C
 C$$$
 
+	USE MODA_USRINT
+	USE MODA_MSGCWD
+	USE MODA_TABLES
+
 	INCLUDE 'bufrlib.prm'
 
-	COMMON /MSGCWD/ NMSG(NFILES),NSUB(NFILES),MSUB(NFILES),
-     .                  INODE(NFILES),IDATE(NFILES)
-	COMMON /TABLES/ MAXTAB,NTAB,TAG(MAXJL),TYP(MAXJL),KNT(MAXJL),
-     .                  JUMP(MAXJL),LINK(MAXJL),JMPB(MAXJL),
-     .                  IBT(MAXJL),IRF(MAXJL),ISC(MAXJL),
-     .                  ITP(MAXJL),VALI(MAXJL),KNTI(MAXJL),
-     .                  ISEQ(MAXJL,2),JSEQ(MAXJL)
-	COMMON /USRINT/ NVAL(NFILES),INV(MAXSS,NFILES),VAL(MAXSS,NFILES)
-
-	CHARACTER*10  TAG,TGS(15)
-	CHARACTER*3   TYP
-
 	CHARACTER*(*) TAGCH, TAGPR
-
-	REAL*8 VAL
-
-	DATA MAXTG  /15/
 
 C----------------------------------------------------------------------
 C----------------------------------------------------------------------
@@ -75,27 +65,16 @@ C----------------------------------------------------------------------
 
 C	Get LUN from LUNIT.
 
-	CALL STATUS(LUNIT,LUN,IL,IM)
-	IF (IL.EQ.0) RETURN
-	IF (INODE(LUN).NE.INV(1,LUN)) RETURN
+	CALL STATUS( LUNIT, LUN, IL, IM )
+	IF ( IL .EQ. 0 ) RETURN
+	IF ( INODE(LUN) .NE. INV(1,LUN) ) RETURN
 
 C	Get TAGPR from the (NTAGCH)th occurrence of TAGCH.
 
-	CALL PARSTR(TAGCH,TGS,MAXTG,NTG,' ',.TRUE.)
-	IF (NTG.NE.1) RETURN
+	CALL FSTAG( LUN, TAGCH, NTAGCH, 1, NCH, IRET )
+	IF ( IRET .NE. 0 ) RETURN
 
-	ITAGCT = 0
-	DO N=1,NVAL(LUN)
-	    NOD = INV(N,LUN)
-	    IF(TGS(1).EQ.TAG(NOD)) THEN
-		ITAGCT = ITAGCT + 1
-		IF(ITAGCT.EQ.NTAGCH) THEN
-		    TAGPR = TAG(JMPB(NOD))
-		    IRET = 0
-		    RETURN
-		ENDIF
-	    ENDIF
-	ENDDO
+	TAGPR = TAG(JMPB(INV(NCH,LUN)))
 
 	RETURN
 	END

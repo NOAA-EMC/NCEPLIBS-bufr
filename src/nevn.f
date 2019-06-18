@@ -20,6 +20,7 @@ C                           DOCUMENTATION (INCLUDING HISTORY); OUTPUTS
 C                           MORE COMPLETE DIAGNOSTIC INFO WHEN ROUTINE
 C                           TERMINATES ABNORMALLY
 C 2009-03-31  J. WOOLLEN -- ADDED ADDITIONAL DOCUMENTATION
+C 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
 C
 C USAGE:    NEVN (NODE, LUN, INV1, INV2, I1, I2, I3, USR)
 C   INPUT ARGUMENT LIST:
@@ -60,13 +61,13 @@ C   MACHINE:  PORTABLE TO ALL PLATFORMS
 C
 C$$$
 
-      INCLUDE 'bufrlib.prm'
+      USE MODA_USRINT
 
-      COMMON /USRINT/ NVAL(NFILES),INV(MAXSS,NFILES),VAL(MAXSS,NFILES)
+      INCLUDE 'bufrlib.prm'
 
       CHARACTER*128 BORT_STR
       DIMENSION     USR(I1,I2,I3)
-      REAL*8        VAL,USR
+      REAL*8        USR
 
 C----------------------------------------------------------------------
 C----------------------------------------------------------------------

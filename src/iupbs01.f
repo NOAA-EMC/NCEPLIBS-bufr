@@ -83,9 +83,9 @@ C    THIS ROUTINE IS CALLED BY: ATRCPT   CKTABA   CNVED4   COPYBF
 C                               COPYMG   CPYMEM   CRBMG    CRDBUFR
 C                               DUMPBF   GETLENS  IDXMSG   IGETDATE
 C                               IUPVS01  MESGBC   MESGBF   MSGWRT
-C                               NMWRD    PADMSG   PKBS1    RDMSGB
-C                               READS3   RTRCPT   STBFDX   STNDRD
-C                               UFBMEX   WRCMPS
+C                               NMWRD    PADMSG   PKBS1    READS3
+C                               RTRCPTB  STBFDX   STNDRD   UFBMEX
+C                               WRCMPS
 C                               Also called by application programs.
 C
 C ATTRIBUTES:

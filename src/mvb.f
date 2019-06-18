@@ -24,6 +24,8 @@ C                           MORE COMPLETE DIAGNOSTIC INFO WHEN ROUTINE
 C                           TERMINATES ABNORMALLY
 C 2005-11-29  J. ATOR    -- MAXIMUM NUMBER OF BYTES TO COPY INCREASED
 C                           FROM 24000 TO MXIMB
+C 2014-10-22  J. ATOR    -- MERGE TWO DO LOOPS INTO ONE, AND REMOVE
+C                           MXIMB PARAMETER AND DIMENSIONING OF NVAL
 C
 C USAGE:    CALL MVB (IB1, NB1, IB2, NB2, NBM)
 C   INPUT ARGUMENT LIST:
@@ -36,7 +38,7 @@ C   OUTPUT ARGUMENT LIST:
 C     IB2      - INTEGER: *-WORD PACKED OUTPUT BINARY ARRAY
 C
 C REMARKS:
-C    THIS ROUTINE CALLS:        BORT     PKB      UPB
+C    THIS ROUTINE CALLS:        PKB      UPB
 C    THIS ROUTINE IS CALLED BY: ATRCPT   CNVED4   CPYUPD   MSGUPD
 C                               STNDRD
 C                               Normally not called by any application
@@ -51,29 +53,21 @@ C$$$
       INCLUDE 'bufrlib.prm'
 
       CHARACTER*128 BORT_STR
-      DIMENSION     IB1(*),IB2(*),NVAL(MXIMB)
+      DIMENSION     IB1(*),IB2(*)
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
 
-      IF(NBM.GT.MXIMB) GOTO 900
       JB1 = 8*(NB1-1)
       JB2 = 8*(NB2-1)
 
       DO N=1,NBM
-      CALL UPB(NVAL(N),8,IB1,JB1)
-      ENDDO
-
-      DO N=1,NBM
-      CALL PKB(NVAL(N),8,IB2,JB2)
+        CALL UPB(NVAL,8,IB1,JB1)
+        CALL PKB(NVAL,8,IB2,JB2)
       ENDDO
 
 C  EXITS
 C  -----
 
       RETURN
-900   WRITE(BORT_STR,'("BUFRLIB: MVB - THE NUMBER OF BYTES BEING '//
-     . 'REQUESTED TO COPY (",I7,") EXCEEDS THE LIMIT (",I7,")")')
-     . NBM, MXIMB
-      CALL BORT(BORT_STR)
       END
