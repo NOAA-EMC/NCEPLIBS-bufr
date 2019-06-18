@@ -25,7 +25,7 @@ C
 C REMARKS:
 C    THIS ROUTINE CALLS:        IUPBS01
 C    THIS ROUTINE IS CALLED BY: CNVED4   CPDXMM   LMSG     MSGWRT
-C                               PADMSG   STBFDX   UFBMEM   UFBMEX
+C                               PADMSG   UFBMEM   UFBMEX
 C                               Also called by application programs.
 C
 C ATTRIBUTES:

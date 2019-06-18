@@ -30,6 +30,7 @@ C                           VERIFICATION VERSION); UNIFIED/PORTABLE FOR
 C                           WRF; ADDED DOCUMENTATION (INCLUDING
 C                           HISTORY) 
 C 2009-03-31  J. WOOLLEN -- ADDED ADDITIONAL DOCUMENTATION
+C 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
 C
 C USAGE:    CALL DRSTPL (INOD, LUN, INV1, INV2, INVN)
 C
@@ -63,16 +64,9 @@ C   MACHINE:  PORTABLE TO ALL PLATFORMS
 C
 C$$$
 
+      USE MODA_TABLES
+
       INCLUDE 'bufrlib.prm'
-
-      COMMON /TABLES/ MAXTAB,NTAB,TAG(MAXJL),TYP(MAXJL),KNT(MAXJL),
-     .                JUMP(MAXJL),LINK(MAXJL),JMPB(MAXJL),
-     .                IBT(MAXJL),IRF(MAXJL),ISC(MAXJL),
-     .                ITP(MAXJL),VALI(MAXJL),KNTI(MAXJL),
-     .                ISEQ(MAXJL,2),JSEQ(MAXJL)
-
-      CHARACTER*10 TAG
-      CHARACTER*3  TYP
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------

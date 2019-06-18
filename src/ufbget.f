@@ -35,6 +35,7 @@ C                           INFO WHEN ROUTINE TERMINATES ABNORMALLY
 C 2004-08-09  J. ATOR    -- MAXIMUM MESSAGE LENGTH INCREASED FROM
 C                           20,000 TO 50,000 BYTES
 C 2012-03-02  J. ATOR    -- USE FUNCTION UPS
+C 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
 C
 C USAGE:    CALL UFBGET (LUNIT, TAB, I1, IRET, STR)
 C   INPUT ARGUMENT LIST:
@@ -75,27 +76,20 @@ C   MACHINE:  PORTABLE TO ALL PLATFORMS
 C
 C$$$
 
+      USE MODA_USRINT
+      USE MODA_USRBIT
+      USE MODA_MSGCWD
+      USE MODA_BITBUF
+      USE MODA_TABLES
+
       INCLUDE 'bufrlib.prm'
 
-      COMMON /MSGCWD/ NMSG(NFILES),NSUB(NFILES),MSUB(NFILES),
-     .                INODE(NFILES),IDATE(NFILES)
-      COMMON /BITBUF/ MAXBYT,IBIT,IBAY(MXMSGLD4),MBYT(NFILES),
-     .                MBAY(MXMSGLD4,NFILES)
-      COMMON /USRINT/ NVAL(NFILES),INV(MAXSS,NFILES),VAL(MAXSS,NFILES)
       COMMON /USRSTR/ NNOD,NCON,NODS(20),NODC(10),IVLS(10),KONS(10)
-      COMMON /TABLES/ MAXTAB,NTAB,TAG(MAXJL),TYP(MAXJL),KNT(MAXJL),
-     .                JUMP(MAXJL),LINK(MAXJL),JMPB(MAXJL),
-     .                IBT(MAXJL),IRF(MAXJL),ISC(MAXJL),
-     .                ITP(MAXJL),VALI(MAXJL),KNTI(MAXJL),
-     .                ISEQ(MAXJL,2),JSEQ(MAXJL)
-      COMMON /USRBIT/ NBIT(MAXSS),MBIT(MAXSS)
 
       CHARACTER*(*) STR
-      CHARACTER*10  TAG
       CHARACTER*8   CVAL
-      CHARACTER*3   TYP
       EQUIVALENCE   (CVAL,RVAL)
-      REAL*8        VAL,RVAL,TAB(I1),UPS
+      REAL*8        RVAL,TAB(I1),UPS
 
 C-----------------------------------------------------------------------
       MPS(NODE) = 2**(IBT(NODE))-1
@@ -166,7 +160,7 @@ C  -----------------------------------------
          ELSEIF(ITP(NODE).EQ.3) THEN
             CVAL = ' '
             KBIT = MBIT(INVN)
-            CALL UPC(CVAL,NBIT(INVN)/8,MBAY(1,LUN),KBIT)
+            CALL UPC(CVAL,NBIT(INVN)/8,MBAY(1,LUN),KBIT,.TRUE.)
             TAB(I) = RVAL
          ENDIF
       ELSE

@@ -28,6 +28,7 @@ C                           HISTORY); OUTPUTS MORE COMPLETE DIAGNOSTIC
 C                           INFO WHEN UNUSUAL THINGS HAPPEN
 C 2009-03-31  J. WOOLLEN -- ADDED DOCUMENTATION
 C 2009-04-21  J. ATOR    -- USE ERRWRT
+C 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
 C
 C USAGE:    INVTAG (NODE, LUN, INV1, INV2)
 C   INPUT ARGUMENT LIST:
@@ -55,19 +56,14 @@ C   MACHINE:  PORTABLE TO ALL PLATFORMS
 C
 C$$$
 
+      USE MODA_USRINT
+      USE MODA_TABLES
+
       INCLUDE 'bufrlib.prm'
 
-      COMMON /TABLES/ MAXTAB,NTAB,TAG(MAXJL),TYP(MAXJL),KNT(MAXJL),
-     .                JUMP(MAXJL),LINK(MAXJL),JMPB(MAXJL),
-     .                IBT(MAXJL),IRF(MAXJL),ISC(MAXJL),
-     .                ITP(MAXJL),VALI(MAXJL),KNTI(MAXJL),
-     .                ISEQ(MAXJL,2),JSEQ(MAXJL)
-      COMMON /USRINT/ NVAL(NFILES),INV(MAXSS,NFILES),VAL(MAXSS,NFILES)
       COMMON /QUIET/  IPRT
 
-      CHARACTER*10 TAG,TAGN
-      CHARACTER*3  TYP
-      REAL*8       VAL
+      CHARACTER*10 TAGN
 
 C----------------------------------------------------------------------
 C----------------------------------------------------------------------

@@ -16,6 +16,7 @@ C   THE EXACT SAME FULL SET OF DICTIONARY TABLES.
 C
 C PROGRAM HISTORY LOG:
 C 2009-06-26  J. ATOR    -- ORIGINAL AUTHOR
+C 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
 C
 C USAGE:    IOK2CPY (LUI, LUO)
 C   INPUT ARGUMENT LIST:
@@ -42,19 +43,12 @@ C   MACHINE:  PORTABLE TO ALL PLATFORMS
 C
 C$$$
 
+      USE MODA_MSGCWD
+      USE MODA_TABLES
+
       INCLUDE 'bufrlib.prm'
 
-      COMMON /MSGCWD/ NMSG(NFILES),NSUB(NFILES),MSUB(NFILES),
-     .                INODE(NFILES),IDATE(NFILES)
-      COMMON /TABLES/ MAXTAB,NTAB,TAG(MAXJL),TYP(MAXJL),KNT(MAXJL),
-     .                JUMP(MAXJL),LINK(MAXJL),JMPB(MAXJL),
-     .                IBT(MAXJL),IRF(MAXJL),ISC(MAXJL),
-     .                ITP(MAXJL),VALI(MAXJL),KNTI(MAXJL),
-     .                ISEQ(MAXJL,2),JSEQ(MAXJL)
-
-      CHARACTER*10 TAG
       CHARACTER*8  SUBSET
-      CHARACTER*3  TYP
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
