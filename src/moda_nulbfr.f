@@ -1,0 +1,14 @@
+# 1 "moda_nulbfr.F"
+	MODULE MODA_NULBFR
+
+
+
+	  USE MODV_NFILES
+
+
+# 10
+
+	  INTEGER :: NULL(NFILES)
+
+
+	END MODULE

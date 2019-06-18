@@ -1,0 +1,14 @@
+# 1 "moda_stcode.F"
+	MODULE MODA_STCODE
+
+
+
+	  USE MODV_NFILES
+
+
+# 10
+
+	  INTEGER :: ISCODES(NFILES)
+
+
+	END MODULE

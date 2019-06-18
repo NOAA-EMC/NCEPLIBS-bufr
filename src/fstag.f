@@ -36,7 +36,8 @@ C                       OTHER ERROR OCCURRED
 C
 C REMARKS:
 C    THIS ROUTINE CALLS:        PARSTR
-C    THIS ROUTINE IS CALLED BY: GETTAGPR GETVALNB NEMSPECS
+C    THIS ROUTINE IS CALLED BY: GETTAGPR GETTAGRE GETVALNB NEMSPECS
+C                               SETVALNB
 C                               Normally not called by any application
 C                               programs.
 C

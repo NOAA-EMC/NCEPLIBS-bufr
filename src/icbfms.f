@@ -17,6 +17,7 @@ C PROGRAM HISTORY LOG:
 C 2012-06-07  J. ATOR    -- ORIGINAL AUTHOR
 C 2015-03-10  J. WOOLLEN -- IMPROVED LOGIC FOR TESTING LEGACY CASES
 C                           PRIOR TO BUFRLIB V10.2.0
+C 2016-02-12  J. ATOR    -- MODIFIED FOR CRAYFTN COMPATIBILITY
 C
 C USAGE:    ICBFMS ( STR, LSTR )
 C   INPUT ARGUMENT LIST:
@@ -43,6 +44,9 @@ C$$$
 
 	CHARACTER*(*)	STR
 
+	CHARACTER*8	STRZ
+	REAL*8		RL8Z
+
 	CHARACTER*16	ZZ
 
 	CHARACTER*16	ZM_BE
@@ -52,6 +56,8 @@ C*		10E10 stored as hexadecimal on a big-endian system.
 	CHARACTER*16	ZM_LE
 	PARAMETER	( ZM_LE = '42374876E8000000' )
 C*		10E10 stored as hexadecimal on a little-endian system.
+
+	EQUIVALENCE(STRZ,RL8Z)
 
 C-----------------------------------------------------------------------
 
@@ -67,16 +73,17 @@ C*	encoding the REAL*8 value of 10E10 into the string, so the
 C*	following logic attempts to identify some of these earlier
 C	cases, at least for strings between 4 and 8 bytes in length.
 
-        WRITE (ZZ,'(Z16.16)') STR(1:NUMCHR)
-
-	I = 2*(8-NUMCHR)+1
-	N = 16
-
-        IF ( NUMCHR.GE.4 .AND. NUMCHR.LE.8
-     .           .AND.
-     .    ( ZZ(I:N).EQ.ZM_BE(I:N) .OR. ZZ(I:N).EQ.ZM_LE(I:N) ) ) THEN
-	    ICBFMS = 1
-	    RETURN
+	IF ( NUMCHR.GE.4 .AND. NUMCHR.LE.8 ) THEN
+	    DO II = 1, NUMCHR
+		STRZ(II:II) = STR(II:II)
+	    END DO
+	    WRITE (ZZ,'(Z16.16)') RL8Z
+	    I = 2*(8-NUMCHR)+1
+	    N = 16
+	    IF ( ZZ(I:N).EQ.ZM_BE(I:N) .OR. ZZ(I:N).EQ.ZM_LE(I:N) ) THEN
+		ICBFMS = 1
+		RETURN
+	    END IF
 	END IF
 
 C*	Otherwise, the logic below will check for "missing" strings of

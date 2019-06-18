@@ -42,8 +42,8 @@ C
 C REMARKS:
 C    THIS ROUTINE CALLS:        BORT     CADN30   ELEMDX   ICVIDX
 C                               IFXY     IGETNTBI IGETPRM  IGETTDI
-C                               NEMTAB   NUMMTB   NUMTBD   PKTDD
-C                               STNTBI   STRNUM   STSEQ
+C                               IMRKOPR  NEMTAB   NUMMTB   NUMTBD
+C                               PKTDD    STNTBI   STRNUM   STSEQ
 C    THIS ROUTINE IS CALLED BY: READS3   STSEQ
 C                               Normally not called by any application
 C                               programs.
@@ -61,7 +61,7 @@ void stseq( f77int *lun, f77int *irepct, f77int *idn, char nemo[8],
 	    char cseq[55], f77int cdesc[], f77int *ncdesc )
 {
     f77int i, j, nb, nd, ipt, ix, iy, iret, nbits;
-    f77int i0 = 0, imxcd, rpidn, pkint;
+    f77int i0 = 0, imxcd, rpidn, pkint, ilen;
 
     char tab, adn[7], adn2[7], nemo2[9], units[10], errstr[129];
     char rpseq[56], card[80], cblk = ' ';
@@ -148,21 +148,19 @@ void stseq( f77int *lun, f77int *irepct, f77int *idn, char nemo[8],
 /*
 **	    cdesc[i] is an operator descriptor.
 */
+	    strnum( &adn[1], &ix, 2 );
 	    strnum( &adn[3], &iy, 3 );
 
-	    if ( ( adn[1] == '0' ) &&
-		   ( ( adn[2] >= '4' ) && ( adn[2] <= '6' ) ) ) {
+	    if ( ( ( ix >= 4 ) && ( ix <= 6 ) ) || ( imrkopr( adn, 6 ) ) ) {
 /*
-**		This is a 204YYY, 205YYY or 206YYY operator.  Using the YYY
-**		value, generate a Table B mnemonic to hold the corresponding
-**		data.
+**		This is a 204YYY, 205YYY, 206YYY operator, or else a 223255,
+**		224255, 225255 or 232255 marker operator.  In any case,
+**		generate a Table B mnemonic to hold the corresponding data.
 */
-		strncpy( nemo2, "20", 2 );
-		strncpy( &nemo2[2], &adn[2], 1 );
-		strncpy( &nemo2[3], &adn[3], 3 );
+		strncpy( nemo2, adn, 6 );
 		memset( &nemo2[6], (int) cblk, 2 );
 
-		if ( ( adn[2] == '4' ) && ( iy == 0 ) ) {
+		if ( ( ix == 4 ) && ( iy == 0 ) ) {
 /*
 **		    Cancel the most-recently added associated field.
 */
@@ -185,24 +183,21 @@ void stseq( f77int *lun, f77int *irepct, f77int *idn, char nemo[8],
 		    tab = 'B';
 		    nb = igetntbi( lun, &tab, sizeof( tab ) );
 
-		    if ( adn[2] == '4' ) {
-			sprintf( rpseq, "ASSOCIATED FIELD OF %3lu BITS",
+		    if ( ix == 4 ) {
+			sprintf( rpseq, "Associated field of %3lu bits",
 			     ( unsigned long ) iy );
-			memset( &rpseq[28], (int) cblk, 27 );
 			nbits = iy;
 			strcpy( units, "NUMERIC" );
 		    }
-		    else if ( adn[2] == '5' ) {
-			sprintf( rpseq, "TEXT STRING OF %3lu BYTES",
+		    else if ( ix == 5 ) {
+			sprintf( rpseq, "Text string of %3lu bytes",
 			     ( unsigned long ) iy );
-			memset( &rpseq[24], (int) cblk, 31 );
 			nbits = iy*8;
 			strcpy( units, "CCITT IA5" );
 		    }
-		    else {
-			sprintf( rpseq, "LOCAL DESCRIPTOR OF %3lu BITS",
+		    else if ( ix == 6 ) {
+			sprintf( rpseq, "Local descriptor of %3lu bits",
 			     ( unsigned long ) iy );
-			memset( &rpseq[28], (int) cblk, 27 );
 			nbits = iy;
 			if ( nbits > 32 ) {
 			    strcpy( units, "CCITT IA5" );
@@ -211,6 +206,26 @@ void stseq( f77int *lun, f77int *irepct, f77int *idn, char nemo[8],
 			    strcpy( units, "NUMERIC" );
 			}
 		    }
+		    else {   // 2-XX-255 marker operator
+			adn[6] = '\0';
+			if ( ix == 23 ) {
+			    sprintf( rpseq, "Substituted value" );
+			}
+			else if ( ix == 24 ) {
+			    sprintf( rpseq, "First-order statistical value" );
+			}
+			else if ( ix == 25 ) {
+			    sprintf( rpseq, "Difference statistical value" );
+			}
+			else if ( ix == 32 ) {
+			    sprintf( rpseq, "Replaced/retained value" );
+			}
+			/* For now, set a default bit width and units. */
+			nbits = 8;
+			strcpy( units, "NUMERIC" );
+		    }
+		    ilen = ( f77int ) strlen( rpseq );
+		    memset( &rpseq[ilen], (int) cblk, 55 - ilen );
 /*
 **		    Note that 49152 = 3*(2**14), so subtracting 49152 in the
 **		    following statement changes a Table D bitwise FXY value into 
@@ -232,7 +247,7 @@ void stseq( f77int *lun, f77int *irepct, f77int *idn, char nemo[8],
 		    strncpy( &card[40], units, strlen( units ) );
 		    elemdx( card, lun, sizeof( card ) );
 		  }
-		  if ( adn[2] == '4' )  {
+		  if ( ix == 4 )  {
 /*
 **		    Add an associated field.
 */
@@ -244,7 +259,7 @@ void stseq( f77int *lun, f77int *irepct, f77int *idn, char nemo[8],
 		    iafpk[naf++] = pkint;
 		  }
 		}
-		if ( adn[2] == '6' ) {
+		if ( ix == 6 ) {
 /*
 **		    Skip over the local descriptor placeholder.
 */
@@ -255,24 +270,7 @@ void stseq( f77int *lun, f77int *irepct, f77int *idn, char nemo[8],
 		    }
 		}
 	    }
-	    else if ( ( adn[1] >= '2' ) && ( adn[1] <= '4' ) ) {
-/*
-**		This is a 22XYYY, 23XYYY or 24XYYY operator.
-*/
-		strnum( &adn[1], &ix, 2 );
-		if ( ( iy == 255 ) &&
-			( ( ix == 23 ) || ( ix == 24 ) ||
-			  ( ix == 25 ) || ( ix == 32 ) ) ) {
-		    sprintf( errstr, "BUFRLIB: STSEQ - UNKNOWN OPERATOR"
-			" DESCRIPTOR %s", adn );
-		    bort( errstr, ( f77int ) strlen( errstr ) );
-		}
-		else {
-		    continue; /* skip to next child descriptor for *idn */
-		}
-	    }
-	    else { /* for any operator descriptor other than 204YYY, 205YYY,
-		      206YYY, 22XYYY, 23XYYY or 24XYYY */
+	    else {
 		pkint = cdesc[i];
 	    }
         }

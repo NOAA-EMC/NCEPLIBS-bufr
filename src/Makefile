@@ -36,8 +36,11 @@ $(BUFRLIB).prm: $(BUFRLIB).PRM
 %.o: %.f
 	$(FC) -c $(FFLAGS) $(FFLAGSDEFS) $<
 
-%.f: %.F
-	$(CPP) $(CPPFLAGS) $(CPPDEFS) $< $@
+#%.f: %.F
+#	$(CPP) $(CPPFLAGS) $(CPPDEFS) $< $@
+
+%.o: %.F
+	$(FC) -c $(CPPDEFS) $(FFLAGS) $(FFLAGSDEFS) $<
 
 message: $(MSGSRC)
 	$(CC) -c $(MSGSRC)
