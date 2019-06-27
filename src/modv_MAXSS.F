@@ -10,15 +10,8 @@ C	  unless it is overridden by a subsequent user call to
 C	  function ISETPRM.
 
 	  INTEGER :: MAXSS = 80000
-
 #else
-
-#  ifdef SUPERSIZE_BUILD
-	  PARAMETER ( MAXSS = 150000 )
-#  else
 	  PARAMETER ( MAXSS = 120000 )
-#  endif
-
 #endif
 
 	END MODULE

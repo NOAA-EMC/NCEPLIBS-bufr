@@ -32,7 +32,7 @@ C                LOCAL ASCII FILE
 C
 C REMARKS:
 C    THIS ROUTINE CALLS:        BORT     IGETNTBL PARSTR   VALX
-C    THIS ROUTINE IS CALLED BY: RDMTBB   RDMTBD
+C    THIS ROUTINE IS CALLED BY: RDMTBB   RDMTBD   RDMTBF
 C                               Also called by application programs.
 C
 C ATTRIBUTES:

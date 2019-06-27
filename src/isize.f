@@ -24,7 +24,7 @@ C                AS A STRING
 C
 C REMARKS:
 C    THIS ROUTINE CALLS:        BORT
-C    THIS ROUTINE IS CALLED BY: READMT   UFBDMP   UFDUMP
+C    THIS ROUTINE IS CALLED BY: MTFNAM   UFBDMP   UFDUMP
 C                               Normally not called by any application
 C                               programs but it could be.
 C

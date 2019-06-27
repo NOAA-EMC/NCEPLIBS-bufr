@@ -139,7 +139,7 @@ C  ---------
       CALL PKB(   0 ,  8 , MBAY(1,LUN),MBIT)
       CALL PKB(MTYP ,  8 , MBAY(1,LUN),MBIT)
       CALL PKB(MSBT ,  8 , MBAY(1,LUN),MBIT)
-      CALL PKB(  13 ,  8 , MBAY(1,LUN),MBIT)
+      CALL PKB(  29 ,  8 , MBAY(1,LUN),MBIT)
       CALL PKB(   0 ,  8 , MBAY(1,LUN),MBIT)
       CALL PKB(MEAR ,  8 , MBAY(1,LUN),MBIT)
       CALL PKB(MMON ,  8 , MBAY(1,LUN),MBIT)

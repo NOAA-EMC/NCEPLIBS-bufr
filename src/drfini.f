@@ -31,6 +31,7 @@ C                           INFO WHEN ROUTINE TERMINATES ABNORMALLY
 C 2005-03-04  J. ATOR    -- UPDATED DOCUMENTATION
 C 2014-09-08  J. ATOR    -- INCREASE NDRF LIMIT FROM 100 TO 200
 C 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
+C 2018-06-07  J. ATOR    -- INCREASE NDRF LIMIT FROM 200 TO 2000
 C
 C USAGE:    CALL DRFINI (LUNIT, MDRF, NDRF, DRFTAG)
 C   INPUT ARGUMENT LIST:
@@ -71,7 +72,7 @@ C$$$
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
 
-      IF(NDRF.GT.200) GOTO 900
+      IF(NDRF.GT.2000) GOTO 900
 
       CALL STATUS(LUNIT,LUN,IL,IM)
 
@@ -95,6 +96,6 @@ C  -----
 
       RETURN
  900  WRITE(BORT_STR,'("BUFRLIB: DRFINI - THE NUMBER OF DELAYED '//
-     . 'REPLICATION FACTORS (",I5,") EXCEEDS THE LIMIT (200)")') NDRF
+     . 'REPLICATION FACTORS (",I5,") EXCEEDS THE LIMIT (2000)")') NDRF
       CALL BORT(BORT_STR)
       END

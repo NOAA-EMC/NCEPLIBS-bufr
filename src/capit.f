@@ -35,8 +35,8 @@ C                ALL UPPER-CASE CHARACTERS
 C
 C REMARKS:
 C    THIS ROUTINE CALLS:        None
-C    THIS ROUTINE IS CALLED BY: CMPMSG   ELEMDX   STBFDX   STDMSG
-C                               STRCPT
+C    THIS ROUTINE IS CALLED BY: CMPMSG   CODFLG   ELEMDX   STBFDX
+C                               STDMSG   STRCPT
 C                               Normally not called by any application
 C                               programs but it could be.
 C

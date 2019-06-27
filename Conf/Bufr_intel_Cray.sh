@@ -6,7 +6,6 @@
 
  export CC=cc
  export FC=ftn
- export CPP=cpp
  export OMPCC="$CC -qopenmp"
  export OMPFC="$FC -qopenmp"
  export MPICC=mpiicc
@@ -17,7 +16,6 @@
  export FFLAGS="-g -traceback -O3 -axCORE-AVX2 -fPIC"
  export FPPCPP="-cpp"
  export FREEFORM="-free"
- export CPPFLAGS="-P -traditional-cpp"
  export MPICFLAGS="-g -traceback -O3 -axCORE-AVX2 -fPIC"
  export MPIFFLAGS="-g -traceback -O3 -axCORE-AVX2 -fPIC"
  export MODPATH="-module "
@@ -25,8 +23,8 @@
  export I4R8="-integer-size 32 -real-size 64"
  export I8R8="-integer-size 64 -real-size 64"
 
- export CPPDEFS=""
- export CFLAGSDEFS="-DUNDERSCORE -DLINUX"
+ export CFLAGSDEFS="-DUNDERSCORE"
+ export CF77INTSIZE="-DF77_INTSIZE_8"
  export FFLAGSDEFS=""
 
  export USECC="YES"

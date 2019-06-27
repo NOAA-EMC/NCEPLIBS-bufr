@@ -11,17 +11,8 @@ C	  unless it is overridden by a subsequent user call to
 C	  function ISETPRM.
 
 	  INTEGER :: MXCDV = 3000
-
 #else
-
-#  if defined SUPERSIZE_BUILD
-	  PARAMETER ( MXCDV = 50000 )
-#  elif defined C32BITS_BUILD
-	  PARAMETER ( MXCDV = 1000 )
-#  else
 	  PARAMETER ( MXCDV = 3000 )
-#  endif
-
 #endif
 
 	END MODULE

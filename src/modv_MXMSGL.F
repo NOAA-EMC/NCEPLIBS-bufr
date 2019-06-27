@@ -11,16 +11,9 @@ C	  function ISETPRM.
 
 	  INTEGER :: MXMSGL = 200000
 	  INTEGER :: MXMSGLD4
-
 #else
-
-#  ifdef SUPERSIZE_BUILD
-	  PARAMETER ( MXMSGL = 2500000 )
-#  else
 	  PARAMETER ( MXMSGL = 600000 )
-#  endif
 	  PARAMETER ( MXMSGLD4 = MXMSGL/4 )
-
 #endif
 
 	END MODULE

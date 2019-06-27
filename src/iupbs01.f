@@ -82,8 +82,8 @@ C    THIS ROUTINE CALLS:        GETS1LOC I4DY     IUPB     WRDLEN
 C    THIS ROUTINE IS CALLED BY: ATRCPT   CKTABA   CNVED4   COPYBF
 C                               COPYMG   CPYMEM   CRBMG    CRDBUFR
 C                               DUMPBF   GETLENS  IDXMSG   IGETDATE
-C                               IUPVS01  MESGBC   MESGBF   MSGWRT
-C                               NMWRD    PADMSG   PKBS1    READS3
+C                               IREADMT  IUPVS01  MESGBC   MESGBF
+C                               MSGWRT   NMWRD    PADMSG   PKBS1
 C                               RTRCPTB  STBFDX   STNDRD   UFBMEX
 C                               WRCMPS
 C                               Also called by application programs.

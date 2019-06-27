@@ -13,16 +13,20 @@ C
 C PROGRAM HISTORY LOG:
 C 2009-03-23  J. ATOR    -- ORIGINAL AUTHOR
 C 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
+C 2017-10-13  J. ATOR    -- REMOVE FUNCTIONALITY TO CHECK WHETHER NEW
+C                           MASTER TABLES NEED TO BE READ (THIS
+C                           FUNCTIONALITY IS NOW PART OF FUNCTION
+C                           IREADMT)
+
 C
-C USAGE:    CALL READS3 (LUN)
+C USAGE:    CALL READS3 ( LUN )
 C   INPUT ARGUMENT LIST:
 C     LUN      - INTEGER: I/O STREAM INDEX INTO INTERNAL MEMORY ARRAYS
 C
 C REMARKS:
 C    THIS ROUTINE CALLS:        ADN30    BORT     DXINIT   ERRWRT
-C                               IGETNTBI IGETTDI  ISTDESC  IUPBS01
-C                               MAKESTAB READMT   STNTBIA  STSEQ
-C                               UPDS3
+C                               IFXY     IGETNTBI IGETTDI  IREADMT
+C                               MAKESTAB STNTBIA  STSEQ    UPDS3
 C    THIS ROUTINE IS CALLED BY: READERME READMG
 C                               Normally not called by any application
 C                               programs.
@@ -50,24 +54,27 @@ C$$$
 
 	CHARACTER*128	ERRSTR
 
-	LOGICAL		INCACH, ALLSTD
+	LOGICAL		INCACH
 
-C*	Initializing the following value ensures that new master tables
-C*	are read during the first call to this subroutine.
-
-	DATA	LMT /-99/
-
-	SAVE	LMT, LMTV, LOGCE, LMTVL, IREPCT
+	SAVE	IREPCT
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
 
-C*	Unpack some Section 1 information from the message.
+C*	Check whether the appropriate BUFR master table information has
+C*	already been read into internal memory for this message.
 
-	IMT  = IUPBS01 ( MBAY(1,LUN), 'BMT' )
-	IMTV = IUPBS01 ( MBAY(1,LUN), 'MTV' )
-	IOGCE = IUPBS01 ( MBAY(1,LUN), 'OGCE' )
-	IMTVL = IUPBS01 ( MBAY(1,LUN), 'MTVL' )
+	IF ( IREADMT ( LUN ) .EQ. 1 ) THEN
+
+C*	  NO (i.e. we just had to read in new master table information
+C*	  for this message), so reset some corresponding values in
+C*	  other parts of the library.
+
+	  CALL DXINIT ( LUN, 0 )
+	  ITMP = IGETTDI ( 0 )
+	  IREPCT = 0
+	  NCNEM = 0
+	ENDIF
 
 C*	Unpack the list of Section 3 descriptors from the message.
 
@@ -75,80 +82,6 @@ C*	Unpack the list of Section 3 descriptors from the message.
 	DO II = 1, NCDS3
 	  IDS3(II) = IFXY( CDS3(II) )
 	ENDDO
-
-C*	Compare the master table and master table version numbers from
-C*	this message to those from the message that was processed during
-C*	the previous call to this subroutine.
-
-	IF (  ( IMT .NE. LMT )
-     .		.OR.
-     .	    ( ( IMT .NE. 0 ) .AND. ( IMTV .NE. LMTV ) )
-     .		.OR.
-     .	    ( ( IMT .EQ. 0 ) .AND. ( IMTV .NE. LMTV ) .AND.
-     .	      ( ( IMTV .GT. 13 ) .OR. ( LMTV .GT. 13 ) ) )  )
-     .	  THEN
-
-C*	  Either the master table number has changed
-C*	        .OR.
-C*	  The master table number hasn't changed, but it isn't 0, and
-C*	  the table version number has changed
-C*	        .OR.
-C*	  The master table number hasn't changed and is 0, but the table
-C*	  version number has changed, and at least one of the table
-C*	  version numbers (i.e. the current or the previous) is greater
-C*	  than 13 (which is the last version that was a superset of all
-C*	  earlier versions of master table 0!)
-
-C*	  In any of these cases, we need to read in new tables and reset
-C*	  the internal tables and local descriptor cache, since the
-C*	  meanings of one or more Section 3 descriptors may have changed.
-
-	  CALL READMT ( IMT, IMTV, IOGCE, IMTVL )
-	  LMT  = IMT
-	  LMTV = IMTV
-	  LOGCE = IOGCE
-	  LMTVL = IMTVL
-	  CALL DXINIT ( LUN, 0 )
-	  IREPCT = 0
-	  NCNEM = 0
-	ELSE
-
-C*	  Check whether all of the Section 3 descriptors are standard.
-C*	  If so, then the originating center and local table version
-C*	  numbers are irrelevant as far as Section 3 is concerned.
-
-	  II = 1
-	  ALLSTD = .TRUE.
-	  DO WHILE ( (ALLSTD) .AND. (II.LE.NCDS3) )
-	    IF ( ISTDESC(IDS3(II)) .EQ. 0 ) THEN
-	      ALLSTD = .FALSE.
-	    ELSE
-	      II = II + 1
-	    ENDIF
-	  ENDDO
-	  IF ( .NOT. ALLSTD ) THEN
-
-C*	    There was at least one local (i.e. non-standard) descriptor,
-C*	    so check whether the originating center and/or local table
-C*	    version number are different than those from the message
-C*	    that was processed during the previous call to this
-C*	    subroutine.  If so, then read in new tables and reset the
-C*	    internal tables and local descriptor cache, since the
-C*	    meanings of one or more local descriptors in Section 3 may
-C*	    have changed.
-
-	    IF ( ( IOGCE .NE. LOGCE ) .OR. ( IMTVL .NE. LMTVL ) )  THEN
-	      CALL READMT ( IMT, IMTV, IOGCE, IMTVL )
-	      LMT  = IMT
-	      LMTV = IMTV
-	      LOGCE = IOGCE
-	      LMTVL = IMTVL
-	      CALL DXINIT ( LUN, 0 )
-	      IREPCT = 0
-	      NCNEM = 0
-	    ENDIF
-	  ENDIF
-	ENDIF
 
 C*	Is the list of Section 3 descriptors already in the cache?
 

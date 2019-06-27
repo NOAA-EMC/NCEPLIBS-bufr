@@ -76,8 +76,9 @@ C    ENTERS "q" FOLLOWED BY "<enter>" AFTER THE PROMPT, IN WHICH CASE
 C    THIS SUBROUTINE STOPS THE SCROLL AND RETURNS TO THE CALLING
 C    PROGRAM (PRESUMABLY TO READ IN THE NEXT SUBSET IN THE BUFR FILE).
 C
-C    THIS ROUTINE CALLS:        BORT     ICBFMS   IBFMS    ISIZE
-C                               NEMTAB   READLC   RJUST    STATUS
+C    THIS ROUTINE CALLS:        BORT     FSTAG    ICBFMS   IBFMS
+C                               IREADMT  ISIZE    NEMTAB   NUMTBD
+C                               READLC   RJUST    SRCHTBF  STATUS
 C                               STRSUC   UPFTBV
 C    THIS ROUTINE IS CALLED BY: None
 C                               Normally called only by application
@@ -97,6 +98,9 @@ C$$$
 
       INCLUDE 'bufrlib.prm'
 
+      COMMON /TABLEF/ CDMF
+
+      CHARACTER*120 CFMEANG
       CHARACTER*80 FMT
       CHARACTER*64 DESC
       CHARACTER*24 UNIT
@@ -104,14 +108,18 @@ C$$$
       CHARACTER*20  LCHR,PMISS
       CHARACTER*15 NEMO3
       CHARACTER*10 NEMO,NEMO2,TAGRFE
+      CHARACTER*8  NEMOD
       CHARACTER*6  NUMB
       CHARACTER*7  FMTF
       CHARACTER*8  CVAL
       CHARACTER*3  TYPE
-      CHARACTER*1  TAB,YOU
+      CHARACTER*1  CDMF,TAB,YOU
       EQUIVALENCE  (RVAL,CVAL)
       REAL*8       RVAL
       LOGICAL      TRACK,FOUND,RDRV
+
+      PARAMETER (MXCFDP=5)
+      INTEGER   ICFDP(MXCFDP)
 
       PARAMETER (MXFV=31)
       INTEGER	IFV(MXFV)
@@ -133,6 +141,7 @@ C----------------------------------------------------------------------
 
       NSEQ = 0
       NLS = 0
+      LCFMEANG = LEN(CFMEANG)
 
       IF(LUPRT.EQ.0) THEN
          LUOUT = 6
@@ -155,6 +164,12 @@ C  --------------------------------
 
 C  DUMP THE CONTENTS OF MODULE USRINT FOR UNIT LUNIT
 C  -------------------------------------------------
+
+C     If code/flag table details are being printed, and if this is the
+C     first subset of a new message, then make sure the appropriate
+C     master tables have been read in to memory for this message.
+
+      IF(CDMF.EQ.'Y' .AND. NSUB(LUN).EQ.1) ITMP = IREADMT(LUN)
 
       DO NV=1,NVAL(LUN)
       IF(LUPRT.EQ.0 .AND. MOD(NV,20).EQ.0) THEN
@@ -274,7 +289,7 @@ C        value.  If so, modify the DESC field to label it as such.
                DESC = 'New reference value for ' // NEMO
                UNIT = ' '
             ELSE
-               JJ = JJ+1
+               JJ = JJ + 1
             ENDIF
          ENDDO
 
@@ -329,7 +344,59 @@ C              this value.
                   UNIT(IPT-1:IPT-1) = ')'
                ENDIF
             ENDIF         
+
             WRITE(LUOUT,FMT) NUMB,NEMO,RVAL,UNIT,DESC
+
+            IF( (UNIT(1:4).EQ.'FLAG' .OR. UNIT(1:4).EQ.'CODE') .AND.
+     .            (CDMF.EQ.'Y') ) THEN
+
+C              Print the meanings of the code and flag values.
+
+               FMT = '(35X,I4,A,A)'
+               IF(UNIT(1:4).EQ.'CODE') THEN
+                  NIFV = 1
+                  IFV(NIFV) = NINT(RVAL)
+               ENDIF
+               DO II=1,NIFV
+                  ICFDP(1) = (-1)
+		  IFVD = (-1)
+                  CALL SRCHTBF(IDN,IFV(II),ICFDP,MXCFDP,IFVD,
+     .                         CFMEANG,LCFMEANG,LCFMG,IERSF)
+                  IF(IERSF.EQ.0) THEN
+                     WRITE(LUOUT,FMT) IFV(II),' = ',CFMEANG(1:LCFMG)
+                  ELSEIF(IERSF.LT.0) THEN
+                     WRITE(LUOUT,FMT) IFV(II),' = ',
+     .                   '***THIS IS AN ILLEGAL/UNDEFINED VALUE***'
+                  ELSE
+
+C                    The meaning of this value is dependent on the
+C                    value of another mnemonic in the report.  Look for
+C                    that other mnemonic within the report and then use
+C                    it and its associated value to retrieve and print
+C                    the proper meaning from the code/flag tables.
+
+                     IERFT = (-1)
+                     JJ = 0
+                     DO WHILE((JJ.LT.IERSF).AND.(IERFT.LT.0))
+                        JJ = JJ + 1
+                        CALL NUMTBD(LUN,ICFDP(JJ),NEMOD,TAB,IERBD)
+                        IF((IERBD.GT.0).AND.(TAB.EQ.'B')) THEN
+                           CALL FSTAG(LUN,NEMOD,-1,NV,NOUT,IERFT)
+                        ENDIF
+                     ENDDO
+                     IF(IERFT.EQ.0) THEN
+                        IFVD = NINT(VAL(NOUT,LUN)) 
+                        IF(JJ.GT.1) ICFDP(1) = ICFDP(JJ)
+                        CALL SRCHTBF(IDN,IFV(II),ICFDP,MXCFDP,IFVD,
+     .                               CFMEANG,LCFMEANG,LCFMG,IERSF)
+                        IF(IERSF.EQ.0) THEN
+                           WRITE(LUOUT,FMT) IFV(II),' = ',
+     .                            CFMEANG(1:LCFMG)
+                        ENDIF
+                     ENDIF
+                  ENDIF
+               ENDDO
+            ENDIF
          ENDIF
       ELSEIF(ITYP.EQ.3) THEN
 

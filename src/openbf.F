@@ -125,10 +125,10 @@ C   INPUT FILES:
 C     UNIT "LUNIT" - BUFR FILE
 C
 C REMARKS:
-C    THIS ROUTINE CALLS:        BFRINI   BORT     DXINIT   ERRWRT
-C                               POSAPX   READDX   STATUS   WRDLEN
-C                               WRITDX   WTSTAT   OPENRB   OPENWB
-C                               OPENAB
+C    THIS ROUTINE CALLS:        ARALLOCC ARALLOCF BFRINI   BORT
+C                               DXINIT   ERRWRT   POSAPX   READDX
+C                               STATUS   WRDLEN   WRITDX   WTSTAT
+C                               OPENRB   OPENWB   OPENAB
 C    THIS ROUTINE IS CALLED BY: COPYBF   GETBMISS IGETMXBY MESGBC
 C                               MESGBF   PKVS01   RDMGSB   UFBINX
 C                               UFBMEM   UFBMEX   UFBTAB   SETBMISS
