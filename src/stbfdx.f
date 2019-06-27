@@ -7,13 +7,11 @@ C   PRGMMR: J. ATOR          ORG: NP12       DATE: 2009-03-23
 C
 C ABSTRACT: THIS SUBROUTINE COPIES A BUFR TABLE (DICTIONARY) MESSAGE
 C   FROM THE INPUT ARRAY MESG INTO THE INTERNAL MEMORY ARRAYS IN
-C   MODULE TABABD.
+C   COMMON BLOCK /TABABD/.
 C
 C PROGRAM HISTORY LOG:
 C 2009-03-23  J. ATOR    -- ORIGINAL AUTHOR, USING LOGIC COPIED
 C                           FROM PREVIOUS VERSION OF RDBFDX
-C 2014-11-14  J. ATOR    -- REPLACE CHRTRNA CALLS WITH UPC CALLS
-C 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
 C
 C USAGE:    CALL STBFDX (LUN,MESG)
 C   INPUT ARGUMENT LIST:
@@ -22,9 +20,10 @@ C     MESG     - INTEGER: *-WORD PACKED BINARY ARRAY CONTAINING
 C                BUFR TABLE (DICTIONARY) MESSAGE
 C
 C REMARKS:
-C    THIS ROUTINE CALLS:        BORT     CAPIT    GETLENS  IGETNTBI
-C                               IDN30    IFXY     IUPB     IUPBS01
-C                               NENUBD   PKTDD    STNTBIA  UPC
+C    THIS ROUTINE CALLS:        BORT     CAPIT    CHRTRN   CHRTRNA
+C                               GETLENS  IGETNTBI IDN30    IFXY
+C                               IUPBS01  IUPM     NENUBD   NMWRD
+C                               PKTDD    STNTBIA
 C    THIS ROUTINE IS CALLED BY: RDBFDX   RDMEMM   READERME
 C                               Normally not called by any application
 C                               programs.
@@ -35,25 +34,32 @@ C   MACHINE:  PORTABLE TO ALL PLATFORMS
 C
 C$$$
 
-      USE MODV_MAXCD
-      USE MODA_TABABD
-
       INCLUDE 'bufrlib.prm'
 
+      COMMON /TABABD/ NTBA(0:NFILES),NTBB(0:NFILES),NTBD(0:NFILES),
+     .                MTAB(MAXTBA,NFILES),IDNA(MAXTBA,NFILES,2),
+     .                IDNB(MAXTBB,NFILES),IDND(MAXTBD,NFILES),
+     .                TABA(MAXTBA,NFILES),TABB(MAXTBB,NFILES),
+     .                TABD(MAXTBD,NFILES)
       COMMON /DXTAB / MAXDX,IDXV,NXSTR(10),LDXA(10),LDXB(10),LDXD(10),
      .                LD30(10),DXSTR(10)
 
+      CHARACTER*600 TABD
       CHARACTER*128 BORT_STR
-      CHARACTER*128 TABB1,TABB2
+      CHARACTER*128 TABB,TABB1,TABB2
+      CHARACTER*128 TABA
       CHARACTER*56  DXSTR
       CHARACTER*55  CSEQ
       CHARACTER*50  DXCMP
       CHARACTER*24  UNIT
       CHARACTER*8   NEMO
       CHARACTER*6   NUMB,CIDN
-      DIMENSION     LDXBD(10),LDXBE(10)
+      CHARACTER*1   MOCT(MXMSGL)
+      DIMENSION     MBAY(MXMSGLD4),LDXBD(10),LDXBE(10)
 
       DIMENSION     MESG(*)
+
+      EQUIVALENCE   (MBAY(1),MOCT(1))
 
       DATA LDXBD /38,70,8*0/
       DATA LDXBE /42,42,8*0/
@@ -63,20 +69,26 @@ C-----------------------------------------------------------------------
       JB(I) = IB+1+LDB*(I-1)
 C-----------------------------------------------------------------------
 
+C  MAKE A LOCAL COPY OF THE MESSAGE (SO IT CAN BE EQUIVALENCED!)
+C  -------------------------------------------------------------
+
+      DO II = 1,NMWRD(MESG)
+	MBAY(II) = MESG(II)
+      ENDDO
+
 C  GET SOME PRELIMINARY INFORMATION FROM THE MESSAGE
 C  -------------------------------------------------
 
-      IDXS = IUPBS01(MESG,'MSBT')+1
-      IF(IDXS.GT.IDXV+1) IDXS = IUPBS01(MESG,'MTVL')+1
+      IDXS = IUPBS01(MBAY,'MSBT')+1
+      IF(IDXS.GT.IDXV+1) IDXS = IUPBS01(MBAY,'MTVL')+1
       IF(LDXA(IDXS).EQ.0) GOTO 901
       IF(LDXB(IDXS).EQ.0) GOTO 901
       IF(LDXD(IDXS).EQ.0) GOTO 901
 
-      CALL GETLENS(MESG,3,LEN0,LEN1,LEN2,LEN3,L4,L5)
+      CALL GETLENS(MBAY,3,LEN0,LEN1,LEN2,LEN3,L4,L5)
       I3 = LEN0+LEN1+LEN2
       DXCMP = ' '
-      JBIT = 8*(I3+7)
-      CALL UPC(DXCMP,NXSTR(IDXS),MESG,JBIT,.FALSE.)
+      CALL CHRTRN(DXCMP,MOCT(I3+8),NXSTR(IDXS))
       IF(DXCMP.NE.DXSTR(IDXS)) GOTO 902
 
 C  SECTION 4 - READ DEFINITIONS FOR TABLES A, B AND D
@@ -90,19 +102,18 @@ C  --------------------------------------------------
       L30  = LD30 (IDXS)
 
       IA = I3+LEN3+5
-      LA = IUPB(MESG,IA,8)
+      LA = IUPM(MOCT(IA),8)
       IB = JA(LA+1)
-      LB = IUPB(MESG,IB,8)
+      LB = IUPM(MOCT(IB),8)
       ID = JB(LB+1)
-      LD = IUPB(MESG,ID,8)
+      LD = IUPM(MOCT(ID),8)
 
 C  TABLE A
 C  -------
 
       DO I=1,LA
         N = IGETNTBI(LUN,'A')
-        JBIT = 8*(JA(I)-1)
-        CALL UPC(TABA(N,LUN),LDA,MESG,JBIT,.TRUE.)
+        CALL CHRTRNA(TABA(N,LUN),MOCT(JA(I)),LDA)
         NUMB = '   '//TABA(N,LUN)(1:3)
         NEMO = TABA(N,LUN)(4:11)
         CSEQ = TABA(N,LUN)(13:67)
@@ -114,10 +125,8 @@ C  -------
 
       DO I=1,LB
         N = IGETNTBI(LUN,'B')
-        JBIT = 8*(JB(I)-1)
-        CALL UPC(TABB1,LDBD,MESG,JBIT,.TRUE.)
-        JBIT = 8*(JB(I)+LDBD-1)
-        CALL UPC(TABB2,LDBE,MESG,JBIT,.TRUE.)
+        CALL CHRTRNA(TABB1,MOCT(JB(I)     ),LDBD)
+        CALL CHRTRNA(TABB2,MOCT(JB(I)+LDBD),LDBE)
         TABB(N,LUN) = TABB1(1:LDXBD(IDXV+1))//TABB2(1:LDXBE(IDXV+1))
         NUMB = TABB(N,LUN)(1:6)
         NEMO = TABB(N,LUN)(7:14)
@@ -134,24 +143,22 @@ C  -------
 
       DO I=1,LD
         N = IGETNTBI(LUN,'D')
-        JBIT = 8*ID
-        CALL UPC(TABD(N,LUN),LDD,MESG,JBIT,.TRUE.)
+        CALL CHRTRNA(TABD(N,LUN),MOCT(ID+1),LDD)
         NUMB = TABD(N,LUN)(1:6)
         NEMO = TABD(N,LUN)(7:14)
         CALL NENUBD(NEMO,NUMB,LUN)
         IDND(N,LUN) = IFXY(NUMB)
-        ND = IUPB(MESG,ID+LDD+1,8)
+        ND = IUPM(MOCT(ID+LDD+1),8)
         IF(ND.GT.MAXCD) GOTO 903
         DO J=1,ND
           NDD = ID+LDD+2 + (J-1)*L30
-          JBIT = 8*(NDD-1)
-          CALL UPC(CIDN,L30,MESG,JBIT,.TRUE.)
+          CALL CHRTRNA(CIDN,MOCT(NDD),L30)
           IDN = IDN30(CIDN,L30)
           CALL PKTDD(N,LUN,IDN,IRET)
           IF(IRET.LT.0) GOTO 904
         ENDDO
         ID = ID+LDD+1 + ND*L30
-        IF(IUPB(MESG,ID+1,8).EQ.0) ID = ID+1
+        IF(IUPM(MOCT(ID+1),8).EQ.0) ID = ID+1
         NTBD(LUN) = N
       ENDDO
 

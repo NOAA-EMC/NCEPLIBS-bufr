@@ -14,8 +14,6 @@ C 2009-03-23  J. ATOR    -- ORIGINAL AUTHOR
 C 2010-03-19  J. ATOR    -- ADDED PROCESSING FOR 2-04 ASSOCIATED FIELDS
 C 2010-04-05  J. ATOR    -- ADDED PROCESSING FOR 2-2X, 2-3X AND 2-4X
 C                           NON-MARKER OPERATORS
-C 2015-03-04  J. ATOR    -- HANDLE SPECIAL CASE WHEN ASSOCIATED FIELDS
-C                           ARE IN EFFECT FOR A TABLE D DESCRIPTOR
 C
 C USAGE:    CALL STSEQ( LUN, IREPCT, IDN, NEMO, CSEQ, CDESC, NCDESC )
 C   INPUT ARGUMENT LIST:
@@ -41,9 +39,9 @@ C                AVOID CONTENTION WITHIN THE INTERNAL BUFR TABLE D
 C
 C REMARKS:
 C    THIS ROUTINE CALLS:        BORT     CADN30   ELEMDX   ICVIDX
-C                               IFXY     IGETNTBI IGETPRM  IGETTDI
-C                               IMRKOPR  NEMTAB   NUMMTB   NUMTBD
-C                               PKTDD    STNTBI   STRNUM   STSEQ
+C                               IFXY     IGETNTBI IGETTDI  NEMTAB
+C                               NUMMTB   NUMTBD   PKTDD    STNTBI
+C                               STRNUM   STSEQ
 C    THIS ROUTINE IS CALLED BY: READS3   STSEQ
 C                               Normally not called by any application
 C                               programs.
@@ -54,28 +52,18 @@ C   MACHINE:  PORTABLE TO ALL PLATFORMS
 C
 C$$$*/
 
+#define COMMON_MSTABS
 #include "bufrlib.h"
-#include "mstabs.h"
 
 void stseq( f77int *lun, f77int *irepct, f77int *idn, char nemo[8],
 	    char cseq[55], f77int cdesc[], f77int *ncdesc )
 {
     f77int i, j, nb, nd, ipt, ix, iy, iret, nbits;
-    f77int i0 = 0, imxcd, rpidn, pkint, ilen;
+    f77int i0 = 0, imxcd = MAXCD;
+    f77int rpdesc[MAXCD], rpidn, pkint;
 
     char tab, adn[7], adn2[7], nemo2[9], units[10], errstr[129];
     char rpseq[56], card[80], cblk = ' ';
-
-/*
-**  The following variable is declared as automatic so that a local
-**  private copy is created (and, if necessary, dynamically allocated)
-**  during each recursive call to this subroutine.
-*/
-#ifdef DYNAMIC_ALLOCATION
-    f77int *rpdesc;
-#else
-    f77int rpdesc[MAXCD];
-#endif
 
 /*
 **  The following variables are declared as static so that they
@@ -102,65 +90,40 @@ void stseq( f77int *lun, f77int *irepct, f77int *idn, char nemo[8],
 /*    
 **  Now, go through the list of child descriptors corresponding to *idn.
 */
-    imxcd = igetprm( "MAXCD", 5 );
-
     for ( i = 0; i < *ncdesc; i++ ) {
 	cadn30( &cdesc[i], adn, sizeof( adn ) ); 
 	if ( adn[0] == '3' ) {
 /*
-**	    cdesc[i] is itself a Table D descriptor, so locate it within the
-**	    master table D and then store the contents within the internal
-**	    Table D via a recursive call to this same routine.
+**	    cdesc[i] is itself a Table D descriptor, so search for it within the
+**	    master table D and then, if found, immediately store it within the
+**	    internal Table D via a recursive call to this same routine.
 */
 	    nummtb( &cdesc[i], &tab, &ipt );
-	    if ( naf > 0 ) {
-/*
-**		There are associated fields in effect which will modify this
-**		descriptor when storing it within the internal Table D.  So 
-**		create a new sequence to store the contents of this descriptor
-**		along with its associated fields.
-*/
-		rpidn = igettdi( lun );
-
-		sprintf( rpseq, "REPLICATION SEQUENCE %.3lu",
-			 ( unsigned long ) ++(*irepct) );
-		memset( &rpseq[24], (int) cblk, 31 );
-		sprintf( nemo2, "RPSEQ%.3lu", ( unsigned long ) *irepct );
-
-		stseq( lun, irepct, &rpidn, nemo2, rpseq,
-		    &MSTABS_BASE(idefxy)[icvidx(&ipt,&i0,&imxcd)],
-		    &MSTABS_BASE(ndelem)[ipt] );
-		pkint = rpidn;
-
-	    }
-	    else {
-/*
-**		Store cdesc[i] as is directly within the internal Table D.
-*/
-		stseq( lun, irepct, &cdesc[i], &MSTABS_BASE(cdmnem)[ipt][0],
-		    &MSTABS_BASE(cdseq)[ipt][0],
-		    &MSTABS_BASE(idefxy)[icvidx(&ipt,&i0,&imxcd)],
-		    &MSTABS_BASE(ndelem)[ipt] );
-		pkint = cdesc[i];
-	    }
+	    stseq( lun, irepct, &cdesc[i], &mstabs.cdmnem[ipt][0],
+		   &mstabs.cdseq[ipt][0],
+		   &mstabs.idefxy[icvidx(&ipt,&i0,&imxcd)],
+		   &mstabs.ndelem[ipt] );
+	    pkint = cdesc[i];
         }
 	else if ( adn[0] == '2' ) {
 /*
 **	    cdesc[i] is an operator descriptor.
 */
-	    strnum( &adn[1], &ix, 2 );
 	    strnum( &adn[3], &iy, 3 );
 
-	    if ( ( ( ix >= 4 ) && ( ix <= 6 ) ) || ( imrkopr( adn, 6 ) ) ) {
+	    if ( ( adn[1] == '0' ) &&
+		   ( ( adn[2] >= '4' ) && ( adn[2] <= '6' ) ) ) {
 /*
-**		This is a 204YYY, 205YYY, 206YYY operator, or else a 223255,
-**		224255, 225255 or 232255 marker operator.  In any case,
-**		generate a Table B mnemonic to hold the corresponding data.
+**		This is a 204YYY, 205YYY or 206YYY operator.  Using the YYY
+**		value, generate a Table B mnemonic to hold the corresponding
+**		data.
 */
-		strncpy( nemo2, adn, 6 );
+		strncpy( nemo2, "20", 2 );
+		strncpy( &nemo2[2], &adn[2], 1 );
+		strncpy( &nemo2[3], &adn[3], 3 );
 		memset( &nemo2[6], (int) cblk, 2 );
 
-		if ( ( ix == 4 ) && ( iy == 0 ) ) {
+		if ( ( adn[2] == '4' ) && ( iy == 0 ) ) {
 /*
 **		    Cancel the most-recently added associated field.
 */
@@ -183,21 +146,24 @@ void stseq( f77int *lun, f77int *irepct, f77int *idn, char nemo[8],
 		    tab = 'B';
 		    nb = igetntbi( lun, &tab, sizeof( tab ) );
 
-		    if ( ix == 4 ) {
-			sprintf( rpseq, "Associated field of %3lu bits",
+		    if ( adn[2] == '4' ) {
+			sprintf( rpseq, "ASSOCIATED FIELD OF %3lu BITS",
 			     ( unsigned long ) iy );
+			memset( &rpseq[28], (int) cblk, 27 );
 			nbits = iy;
 			strcpy( units, "NUMERIC" );
 		    }
-		    else if ( ix == 5 ) {
-			sprintf( rpseq, "Text string of %3lu bytes",
+		    else if ( adn[2] == '5' ) {
+			sprintf( rpseq, "TEXT STRING OF %3lu BYTES",
 			     ( unsigned long ) iy );
+			memset( &rpseq[24], (int) cblk, 31 );
 			nbits = iy*8;
 			strcpy( units, "CCITT IA5" );
 		    }
-		    else if ( ix == 6 ) {
-			sprintf( rpseq, "Local descriptor of %3lu bits",
+		    else {
+			sprintf( rpseq, "LOCAL DESCRIPTOR OF %3lu BITS",
 			     ( unsigned long ) iy );
+			memset( &rpseq[28], (int) cblk, 27 );
 			nbits = iy;
 			if ( nbits > 32 ) {
 			    strcpy( units, "CCITT IA5" );
@@ -206,26 +172,6 @@ void stseq( f77int *lun, f77int *irepct, f77int *idn, char nemo[8],
 			    strcpy( units, "NUMERIC" );
 			}
 		    }
-		    else {   // 2-XX-255 marker operator
-			adn[6] = '\0';
-			if ( ix == 23 ) {
-			    sprintf( rpseq, "Substituted value" );
-			}
-			else if ( ix == 24 ) {
-			    sprintf( rpseq, "First-order statistical value" );
-			}
-			else if ( ix == 25 ) {
-			    sprintf( rpseq, "Difference statistical value" );
-			}
-			else if ( ix == 32 ) {
-			    sprintf( rpseq, "Replaced/retained value" );
-			}
-			/* For now, set a default bit width and units. */
-			nbits = 8;
-			strcpy( units, "NUMERIC" );
-		    }
-		    ilen = ( f77int ) strlen( rpseq );
-		    memset( &rpseq[ilen], (int) cblk, 55 - ilen );
 /*
 **		    Note that 49152 = 3*(2**14), so subtracting 49152 in the
 **		    following statement changes a Table D bitwise FXY value into 
@@ -247,7 +193,7 @@ void stseq( f77int *lun, f77int *irepct, f77int *idn, char nemo[8],
 		    strncpy( &card[40], units, strlen( units ) );
 		    elemdx( card, lun, sizeof( card ) );
 		  }
-		  if ( ix == 4 )  {
+		  if ( adn[2] == '4' )  {
 /*
 **		    Add an associated field.
 */
@@ -259,7 +205,7 @@ void stseq( f77int *lun, f77int *irepct, f77int *idn, char nemo[8],
 		    iafpk[naf++] = pkint;
 		  }
 		}
-		if ( ix == 6 ) {
+		if ( adn[2] == '6' ) {
 /*
 **		    Skip over the local descriptor placeholder.
 */
@@ -270,7 +216,24 @@ void stseq( f77int *lun, f77int *irepct, f77int *idn, char nemo[8],
 		    }
 		}
 	    }
-	    else {
+	    else if ( ( adn[1] >= '2' ) && ( adn[1] <= '4' ) ) {
+/*
+**		This is a 22XYYY, 23XYYY or 24XYYY operator.
+*/
+		strnum( &adn[1], &ix, 2 );
+		if ( ( iy == 255 ) &&
+			( ( ix == 23 ) || ( ix == 24 ) ||
+			  ( ix == 25 ) || ( ix == 32 ) ) ) {
+		    sprintf( errstr, "BUFRLIB: STSEQ - UNKNOWN OPERATOR"
+			" DESCRIPTOR %s", adn );
+		    bort( errstr, ( f77int ) strlen( errstr ) );
+		}
+		else {
+		    continue; /* skip to next child descriptor for *idn */
+		}
+	    }
+	    else { /* for any operator descriptor other than 204YYY, 205YYY,
+		      206YYY, 22XYYY, 23XYYY or 24XYYY */
 		pkint = cdesc[i];
 	    }
         }
@@ -345,10 +308,10 @@ void stseq( f77int *lun, f77int *irepct, f77int *idn, char nemo[8],
 **		(this is a special case!)
 */
 		nummtb( &cdesc[i], &tab, &ipt );
-	    	stseq( lun, irepct, &cdesc[i], &MSTABS_BASE(cdmnem)[ipt][0],
-		       &MSTABS_BASE(cdseq)[ipt][0],
-		       &MSTABS_BASE(idefxy)[icvidx(&ipt,&i0,&imxcd)],
-		       &MSTABS_BASE(ndelem)[ipt] );
+	    	stseq( lun, irepct, &cdesc[i], &mstabs.cdmnem[ipt][0],
+		       &mstabs.cdseq[ipt][0],
+		       &mstabs.idefxy[icvidx(&ipt,&i0,&imxcd)],
+		       &mstabs.ndelem[ipt] );
 		pkint = cdesc[i];
 	    }
 	    else {
@@ -357,14 +320,6 @@ void stseq( f77int *lun, f77int *irepct, f77int *idn, char nemo[8],
 **		get an FXY value to use with this list and generate a unique
 **		mnemonic and description as well.
 */
-
-#ifdef DYNAMIC_ALLOCATION
-		if ( ( rpdesc = malloc( imxcd * sizeof(f77int) ) ) == NULL ) {
-		    sprintf( errstr, "BUFRLIB: STSEQ - UNABLE TO ALLOCATE SPACE"
-			    " FOR RPDESC" );
-		    bort( errstr, ( f77int ) strlen( errstr ) );
-		}
-#endif
 		for ( j = 0; j < ix; j++ ) {
 		    rpdesc[j] = cdesc[i+j];
 		}
@@ -378,9 +333,6 @@ void stseq( f77int *lun, f77int *irepct, f77int *idn, char nemo[8],
 
 		stseq( lun, irepct, &rpidn, nemo2, rpseq, rpdesc, &ix );
 
-#ifdef DYNAMIC_ALLOCATION
-		free( rpdesc );
-#endif
 		pkint = rpidn;
 		i += ix - 1; 
 	    }
@@ -403,17 +355,17 @@ void stseq( f77int *lun, f77int *irepct, f77int *idn, char nemo[8],
 */
 		nb = igetntbi( lun, &tab, sizeof( tab ) );
 		cadn30( &cdesc[i], adn2, sizeof( adn2 ) ); 
-		stntbi( &nb, lun, adn2, &MSTABS_BASE(cbmnem)[ipt][0],
-			&MSTABS_BASE(cbelem)[ipt][0], sizeof( adn2 ), 8, 55 );
+		stntbi( &nb, lun, adn2, &mstabs.cbmnem[ipt][0],
+			&mstabs.cbelem[ipt][0], sizeof( adn2 ), 8, 55 );
 
 		/* Initialize card to all blanks. */
 		memset( card, (int) cblk, sizeof( card ) );
 
-		strncpy( &card[2], &MSTABS_BASE(cbmnem)[ipt][0], 8 );
-		strncpy( &card[13], &MSTABS_BASE(cbscl)[ipt][0], 4 );
-		strncpy( &card[19], &MSTABS_BASE(cbsref)[ipt][0], 12 );
-		strncpy( &card[33], &MSTABS_BASE(cbbw)[ipt][0], 4 );
-		strncpy( &card[40], &MSTABS_BASE(cbunit)[ipt][0], 14 );
+		strncpy( &card[2], &mstabs.cbmnem[ipt][0], 8 );
+		strncpy( &card[13], &mstabs.cbscl[ipt][0], 4 );
+		strncpy( &card[19], &mstabs.cbsref[ipt][0], 12 );
+		strncpy( &card[33], &mstabs.cbbw[ipt][0], 4 );
+		strncpy( &card[40], &mstabs.cbunit[ipt][0], 14 );
 		elemdx( card, lun, sizeof( card ) );
 	    }
 	    pkint = cdesc[i];

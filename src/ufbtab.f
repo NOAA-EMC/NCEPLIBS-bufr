@@ -82,10 +82,6 @@ C 2012-03-02  J. ATOR    -- USE FUNCTION UPS
 C 2012-09-15  J. WOOLLEN -- MODIFIED FOR C/I/O/BUFR INTERFACE;
 C                           USE NEW OPENBF TYPE 'INX' TO OPEN AND CLOSE
 C                           THE C FILE WITHOUT CLOSING THE FORTRAN FILE
-C 2014-11-20  J. ATOR    -- ENSURE OPENBF HAS BEEN CALLED AT LEAST ONCE
-C                           BEFORE CALLING STATUS
-C 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
-C 2016-12-19  J. WOOLLEN -- FIX BUG TO PREVENT INVENTORY OVERFLOW
 C
 C USAGE:    CALL UFBTAB (LUNIN, TAB, I1, I2, IRET, STR)
 C   INPUT ARGUMENT LIST:
@@ -93,8 +89,9 @@ C     LUNIN    - INTEGER: ABSOLUTE VALUE IS FORTRAN LOGICAL UNIT NUMBER
 C                FOR BUFR FILE
 C     I1       - INTEGER:
 C                  - IF LUNIN IS GREATER THAN ZERO: LENGTH OF FIRST
-C                    DIMENSION OF TAB (MUST BE AT LEAST AS LARGE AS THE
-C                    NUMBER OF BLANK-SEPARATED MNEMONICS IN STR)
+C                    DIMENSION OF TAB OR THE NUMBER OF BLANK-SEPARATED
+C                    MNEMONICS IN STR, (FORMER MUST BE AT LEAST AS
+C                    LARGE AS LATTER)
 C                  - IF LUNIN IS LESS THAN ZERO: LENGTH OF FIRST
 C                    DIMENSION OF TAB (RECOMMEND PASSING IN WITH VALUE
 C                    OF 1 - SEE REMARKS 2)
@@ -204,25 +201,31 @@ C   MACHINE:  PORTABLE TO ALL PLATFORMS
 C
 C$$$
 
-      USE MODA_USRINT
-      USE MODA_MSGCWD
-      USE MODA_BITBUF
-      USE MODA_TABLES
-
       INCLUDE 'bufrlib.prm'
 
+      COMMON /MSGCWD/ NMSG(NFILES),NSUB(NFILES),MSUB(NFILES),
+     .                INODE(NFILES),IDATE(NFILES)
+      COMMON /BITBUF/ MAXBYT,IBIT,IBAY(MXMSGLD4),MBYT(NFILES),
+     .                MBAY(MXMSGLD4,NFILES)
+      COMMON /USRINT/ NVAL(NFILES),INV(MAXSS,NFILES),VAL(MAXSS,NFILES)
       COMMON /USRSTR/ NNOD,NCON,NODS(20),NODC(10),IVLS(10),KONS(10)
+      COMMON /TABLES/ MAXTAB,NTAB,TAG(MAXJL),TYP(MAXJL),KNT(MAXJL),
+     .                JUMP(MAXJL),LINK(MAXJL),JMPB(MAXJL),
+     .                IBT(MAXJL),IRF(MAXJL),ISC(MAXJL),
+     .                ITP(MAXJL),VALI(MAXJL),KNTI(MAXJL),
+     .                ISEQ(MAXJL,2),JSEQ(MAXJL)
       COMMON /ACMODE/ IAC
       COMMON /QUIET / IPRT
 
       CHARACTER*(*) STR
       CHARACTER*128 BORT_STR,ERRSTR
       CHARACTER*40  CREF
-      CHARACTER*10  TGS(100)
+      CHARACTER*10  TAG,TGS(100)
       CHARACTER*8   SUBSET,CVAL
+      CHARACTER*3   TYP
       EQUIVALENCE   (CVAL,RVAL)
       LOGICAL       OPENIT,JUST_COUNT
-      REAL*8        TAB(I1,I2),RVAL,UPS
+      REAL*8        VAL,TAB(I1,I2),RVAL,UPS
 
       DATA MAXTG /100/
 
@@ -245,11 +248,6 @@ C  ------------------------------------------------------------------
 
       LUNIT = ABS(LUNIN)
       JUST_COUNT = LUNIN.LT.LUNIT
-
-C     Make sure OPENBF has been called at least once before trying to
-C     call STATUS; otherwise, STATUS might try to access array space
-C     that hasn't yet been dynamically allocated.
-      CALL OPENBF(0,'FIRST',0)
 
       CALL STATUS(LUNIT,LUN,IL,IM)
       OPENIT = IL.EQ.0
@@ -361,7 +359,7 @@ C  ------------------------------------
             ELSEIF(ITP(NODE).EQ.3) THEN
                CVAL = ' '
                KBIT = MBIT
-               CALL UPC(CVAL,NBIT/8,MBAY(1,LUN),KBIT,.TRUE.)
+               CALL UPC(CVAL,NBIT/8,MBAY(1,LUN),KBIT)
                TAB(I,IRET) = RVAL
             ENDIF
             NODS(I) = -NODS(I)
@@ -446,21 +444,10 @@ C  -------------------------------------
          NIBIT = IBIT + LINC*MSUB(LUN)
       ELSEIF(ITYP.EQ.3) THEN
          CREF=' '
-         CALL UPC(CREF,NBIT/8,MBAY(1,LUN),IBIT,.TRUE.)
+         CALL UPC(CREF,NBIT/8,MBAY(1,LUN),IBIT)
          CALL UPB(LINC,   6,MBAY(1,LUN),IBIT)
          NIBIT = IBIT + 8*LINC*MSUB(LUN)
       ELSE
-         GOTO 120
-      ENDIF
-
-C  PROCESS A TYPE1 NODE INTO NVAL
-C  ------------------------------
-
-      IF(ITYP.EQ.1) THEN
-         JBIT = IBIT + LINC
-         CALL UPB(NINC,LINC,MBAY(1,LUN),JBIT)
-         IVAL = LREF+NINC
-         CALL USRTPL(LUN,N,IVAL)
          GOTO 120
       ENDIF
 
@@ -494,7 +481,7 @@ C  -----------------------------
          ELSE
            JBIT = IBIT + LINC*(NSB-1)*8
            CVAL = ' '
-           CALL UPC(CVAL,LINC,MBAY(1,LUN),JBIT,.TRUE.)
+           CALL UPC(CVAL,LINC,MBAY(1,LUN),JBIT)
          ENDIF
          LRET = LRET+1
          TAB(I,LRET) = RVAL
@@ -508,6 +495,7 @@ C  -------------------------------------------
 
 130   CONTINUE
       ENDDO
+      IF(ITYP.EQ.1) CALL USRTPL(LUN,N,IVAL)
       IBIT = NIBIT
 
 C  END OF READ ELEMENTS LOOP

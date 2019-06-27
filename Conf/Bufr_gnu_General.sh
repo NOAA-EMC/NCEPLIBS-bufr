@@ -18,7 +18,7 @@
 
  ANCHORDIR=..
  export COMP=gnu
- export BUFR_VER=v11.2.0
+ export BUFR_VER=v10.2.5
  export BUFR_SRC=
  export BUFR_LIB4_DA=$ANCHORDIR/libbufr_${BUFR_VER}_4_64_DA.a
  export BUFR_LIBd_DA=$ANCHORDIR/libbufr_${BUFR_VER}_d_64_DA.a
@@ -36,14 +36,14 @@
  export MPICC=mpigcc
  export MPIFC=mpigfortran
 
- export DEBUG="-g -O0"
- export CFLAGS="-O3 -fPIC"
- export FFLAGS="-O3 -fPIC"
+ export DEBUG="-g -fbacktrace -O0"
+ export CFLAGS="-g -O3 -fPIC"
+ export FFLAGS="-g -fbacktrace -O3 -fPIC"
  export FREEFORM="-ffree-form"
  export FPPCPP="-cpp"
  export CPPFLAGS="-P -traditional-cpp"
- export MPICFLAGS="-O3 -fPIC"
- export MPIFFLAGS="-O3 -fPIC"
+ export MPICFLAGS="-g -O3 -fPIC"
+ export MPIFFLAGS="-g -fbacktrace -O3 -fPIC"
  export MODPATH="-J"
  export I4R4=""
  export I4R8="-fdefault-real-8"

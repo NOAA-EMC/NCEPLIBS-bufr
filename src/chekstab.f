@@ -28,7 +28,6 @@ C 2003-11-04  D. KEYSER  -- UNIFIED/PORTABLE FOR WRF; ADDED HISTORY
 C                           DOCUMENTATION; OUTPUTS MORE COMPLETE
 C                           DIAGNOSTIC INFO WHEN ROUTINE TERMINATES
 C                           ABNORMALLY
-C 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
 C
 C USAGE:    CALL CHEKSTAB (LUN)
 C   INPUT ARGUMENT LIST:
@@ -46,15 +45,22 @@ C   MACHINE:  PORTABLE TO ALL PLATFORMS
 C
 C$$$
 
-      USE MODA_TABABD
-      USE MODA_NMIKRP
-
       INCLUDE 'bufrlib.prm'
 
+      COMMON /TABABD/ NTBA(0:NFILES),NTBB(0:NFILES),NTBD(0:NFILES),
+     .                MTAB(MAXTBA,NFILES),IDNA(MAXTBA,NFILES,2),
+     .                IDNB(MAXTBB,NFILES),IDND(MAXTBD,NFILES),
+     .                TABA(MAXTBA,NFILES),TABB(MAXTBB,NFILES),
+     .                TABD(MAXTBD,NFILES)
+
+      CHARACTER*600 TABD
+      CHARACTER*128 TABB
+      CHARACTER*128 TABA
       CHARACTER*128 BORT_STR
       CHARACTER*24  UNIT
-      CHARACTER*8   NEMO
+      CHARACTER*8   NEMO,NEMS(MAXCD)
       CHARACTER*1   TAB
+      DIMENSION     IRPS(MAXCD),KNTS(MAXCD)
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
@@ -86,7 +92,7 @@ C  CHECK TABLE D CONTNETS
 C  ----------------------
 
       DO ITAB=1,NTBD(LUN)
-      CALL NEMTBD(LUN,ITAB,NSEQ,NEM(1,1),IRP(1,1),KRP(1,1))
+      CALL NEMTBD(LUN,ITAB,NSEQ,NEMS,IRPS,KNTS)
       ENDDO
 
 C  EXITS
