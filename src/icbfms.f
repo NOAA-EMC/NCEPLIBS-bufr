@@ -15,6 +15,8 @@ C   STRINGS.
 C
 C PROGRAM HISTORY LOG:
 C 2012-06-07  J. ATOR    -- ORIGINAL AUTHOR
+C 2015-03-10  J. WOOLLEN -- IMPROVED LOGIC FOR TESTING LEGACY CASES
+C                           PRIOR TO BUFRLIB V10.2.0
 C
 C USAGE:    ICBFMS ( STR, LSTR )
 C   INPUT ARGUMENT LIST:
@@ -37,9 +39,19 @@ C   MACHINE:  PORTABLE TO ALL PLATFORMS
 C
 C$$$
 
-        INCLUDE 'bufrlib.prm'
+	INCLUDE	'bufrlib.prm'
 
 	CHARACTER*(*)	STR
+
+	CHARACTER*16	ZZ
+
+	CHARACTER*16	ZM_BE
+	PARAMETER	( ZM_BE = '202020E076483742' )
+C*		10E10 stored as hexadecimal on a big-endian system.
+
+	CHARACTER*16	ZM_LE
+	PARAMETER	( ZM_LE = '42374876E8000000' )
+C*		10E10 stored as hexadecimal on a little-endian system.
 
 C-----------------------------------------------------------------------
 
@@ -48,18 +60,28 @@ C-----------------------------------------------------------------------
 	NUMCHR = MIN(LSTR,LEN(STR))
 
 C*	Beginning with version 10.2.0 of the BUFRLIB, "missing" strings
-C*	are explicitly encoded with all bits set to 1.  However, this
-C*	wasn't the case for strings encoded with earlier versions of
-C*	BUFRLIB, so the following block can help identify "missing"
-C*	strings encoded with these earlier versions.
+C*	have always been explicitly encoded with all bits set to 1,
+C*	which is the correct encoding per WMO regulations.  However,
+C*	prior to version 10.2.0, the BUFRLIB stored "missing" strings by
+C*	encoding the REAL*8 value of 10E10 into the string, so the
+C*	following logic attempts to identify some of these earlier
+C	cases, at least for strings between 4 and 8 bytes in length.
 
-	IF ( (NUMCHR.GE.4) .AND. ( STR(1:4).EQ.'B7Hv')) THEN
+        WRITE (ZZ,'(Z16.16)') STR(1:NUMCHR)
+
+	I = 2*(8-NUMCHR)+1
+	N = 16
+
+        IF ( NUMCHR.GE.4 .AND. NUMCHR.LE.8
+     .           .AND.
+     .    ( ZZ(I:N).EQ.ZM_BE(I:N) .OR. ZZ(I:N).EQ.ZM_LE(I:N) ) ) THEN
 	    ICBFMS = 1
 	    RETURN
 	END IF
 
-C*	Otherwise, the logic below will handle cases encoded using
-C*	BUFRLIB version 10.2.0 or later.
+C*	Otherwise, the logic below will check for "missing" strings of
+C*	any length which are correctly encoded with all bits set to 1,
+C*	including those encoded by BUFRLIB version 10.2.0 or later.
 
 	DO I=1,NUMCHR
 	   IF ( IUPM(STR(I:I),8).NE.255 ) RETURN

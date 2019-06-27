@@ -38,6 +38,7 @@ C                           COMPLETE DIAGNOSTIC INFO WHEN ROUTINE
 C                           TERMINATES ABNORMALLY
 C 2009-03-31  J. WOOLLEN -- ADDED ADDITIONAL DOCUMENTATION
 C 2009-05-07  J. ATOR    -- USE LSTJPB INSTEAD OF LSTRPC
+C 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
 C
 C USAGE:    CALL GETWIN (NODE, LUN, IWIN, JWIN)
 C   INPUT ARGUMENT LIST:
@@ -87,12 +88,11 @@ C   MACHINE:  PORTABLE TO ALL PLATFORMS
 C
 C$$$
 
+      USE MODA_USRINT
+
       INCLUDE 'bufrlib.prm'
 
-      COMMON /USRINT/ NVAL(NFILES),INV(MAXSS,NFILES),VAL(MAXSS,NFILES)
-
       CHARACTER*128 BORT_STR
-      REAL*8        VAL
 
 C----------------------------------------------------------------------
 C----------------------------------------------------------------------

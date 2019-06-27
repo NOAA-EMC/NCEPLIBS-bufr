@@ -2,10 +2,7 @@
  module purge
  module load PrgEnv-intel
  module load craype-sandybridge
-
  module load bufr-intel/11.0.1
- new_ver=v10.2.5
- reset_version bufr $new_ver
 
  export CC=cc
  export FC=ftn

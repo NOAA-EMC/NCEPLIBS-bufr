@@ -7,8 +7,8 @@ C   PRGMMR: WOOLLEN          ORG: NP20       DATE: 1994-01-06
 C
 C ABSTRACT: THIS SUBROUTINE OPENS A BUFR FILE FOR INPUT, READS EACH
 C   MESSAGE AND TRANSFERS THEM ONE-BY-ONE TO INTERNAL MEMORY (ARRAY
-C   MSGS IN COMMON BLOCK /MSGMEM/).  IF MESSAGES ARE APPENDED TO
-C   EXISTING MESSAGES IN INTERNAL MEMORY, THE BUFR FILE READ HERE IS
+C   MSGS IN MODULE MSGMEM).  IF MESSAGES ARE APPENDED TO EXISTING
+C   MESSAGES IN INTERNAL MEMORY, THE BUFR FILE READ HERE IS
 C   CLOSED PRIOR TO RETURNING TO THE CALLING PROGRAM.
 C
 C PROGRAM HISTORY LOG:
@@ -52,6 +52,8 @@ C 2012-09-15  J. WOOLLEN -- MODIFIED FOR C/I/O/BUFR INTERFACE;
 C                           CALL STATUS TO GET LUN; REPLACE FORTRAN
 C                           REWIND AND BACKSPACE WITH C ROUTINES CEWIND
 C                           AND BACKBUFR
+C 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
+C 2015-09-24  D. STOKES  -- FIX MISSING DECLARATION OF COMMON /QUIET/
 C
 C USAGE:    CALL UFBMEM (LUNIT, INEW, IRET, IUNIT)
 C   INPUT ARGUMENT LIST:
@@ -93,14 +95,14 @@ C   MACHINE:  PORTABLE TO ALL PLATFORMS
 C
 C$$$
 
+      USE MODA_MGWA
+      USE MODA_MSGMEM
+
       INCLUDE 'bufrlib.prm'
 
-      COMMON /MSGMEM/ MUNIT,MLAST,MSGP(0:MAXMSG),MSGS(MAXMEM),
-     .                MDX(MXDXW),IPDXM(MXDXM),LDXM,NDXM,LDXTS,NDXTS,
-     .                IFDXTS(MXDXTS),ICDXTS(MXDXTS),IPMSGS(MXDXTS)
+      COMMON /QUIET / IPRT
 
       CHARACTER*128 BORT_STR,ERRSTR
-      DIMENSION     MBAY(MXMSGLD4)
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
@@ -126,7 +128,7 @@ C  ----------------------------------------------------------
       ITIM = 0
 
 C     Copy any BUFR dictionary table messages from the beginning of
-C     LUNIT into COMMON /MSGMEM/ for possible later use.  Note that
+C     LUNIT into MODULE MSGMEM for possible later use.  Note that
 C     such a table (if one exists) is already now in scope due to the
 C     prior call to subroutine OPENBF, which in turn would have
 C     automatically called subroutines READDX, RDBFDX and MAKESTAB
@@ -145,29 +147,29 @@ C     then set the flag to indicate that this table is now in scope.
 C  TRANSFER MESSAGES FROM FILE TO MEMORY - SET MESSAGE POINTERS
 C  ------------------------------------------------------------
 
-1     CALL RDMSGW(LUNIT,MBAY,IER)
+1     CALL RDMSGW(LUNIT,MGWA,IER)
       IF(IER.EQ.-1) GOTO 100
       IF(IER.EQ.-2) GOTO 900
 
-      IF(IDXMSG(MBAY).EQ.1) THEN
+      IF(IDXMSG(MGWA).EQ.1) THEN
 
 C	New "embedded" BUFR dictionary table messages have been found in
-C	this file.  Copy them into COMMON /MSGMEM/ for later use.
+C	this file.  Copy them into MODULE MSGMEM for later use.
 
-	call backbufr(lun) !BACKSPACE LUNIT
+	CALL BACKBUFR(LUN) !BACKSPACE LUNIT
 	CALL CPDXMM(LUNIT)
 	GOTO 1
       ENDIF
 
       NMSG = NMSG+1
       IF(NMSG      .GT.MAXMSG) IFLG = 1
-      LMEM = NMWRD(MBAY)
+      LMEM = NMWRD(MGWA)
       IF(LMEM+MLAST.GT.MAXMEM) IFLG = 2
 
       IF(IFLG.EQ.0) THEN
          IRET = IRET+1
          DO I=1,LMEM
-            MSGS(MLAST+I) = MBAY(I)
+            MSGS(MLAST+I) = MGWA(I)
          ENDDO
          MSGP(0)    = NMSG
          MSGP(NMSG) = MLAST+1

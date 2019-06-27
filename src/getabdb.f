@@ -11,6 +11,7 @@ C
 C PROGRAM HISTORY LOG:
 C 2005-11-29  J. ATOR    -- ADDED TO BUFR ARCHIVE LIBRARY (WAS IN-LINED
 C                           IN PROGRAM NAMSND)
+C 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
 C
 C USAGE:    CALL GETABDB( LUNIT, TABDB, ITAB, JTAB )
 C   INPUT ARGUMENT LIST:
@@ -34,20 +35,13 @@ C   MACHINE:  PORTABLE TO ALL PLATFORMS
 C
 C$$$
 
+      USE MODA_TABABD
+      USE MODA_NMIKRP
+
       INCLUDE 'bufrlib.prm'
 
-      COMMON /TABABD/ NTBA(0:NFILES),NTBB(0:NFILES),NTBD(0:NFILES),
-     .                MTAB(MAXTBA,NFILES),IDNA(MAXTBA,NFILES,2),
-     .                IDNB(MAXTBB,NFILES),IDND(MAXTBD,NFILES),
-     .                TABA(MAXTBA,NFILES),TABB(MAXTBB,NFILES),
-     .                TABD(MAXTBD,NFILES)
-
-      CHARACTER*600 TABD
-      CHARACTER*128 TABB
-      CHARACTER*128 TABA
       CHARACTER*128 TABDB(*)
-      CHARACTER*8   NEMO,NEMS(MAXCD)
-      DIMENSION     IRPS(MAXCD),KNTS(MAXCD)
+      CHARACTER*8   NEMO
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
@@ -65,11 +59,11 @@ C  -------------------------------------------
 
       DO I=1,NTBD(LUN)
       NEMO = TABD(I,LUN)(7:14)
-      CALL NEMTBD(LUN,I,NSEQ,NEMS,IRPS,KNTS)
+      CALL NEMTBD(LUN,I,NSEQ,NEM(1,1),IRP(1,1),KRP(1,1))
       DO J=1,NSEQ,10
       JTAB = JTAB+1
       IF(JTAB.LE.ITAB) THEN
-         WRITE(TABDB(JTAB),1) NEMO,(NEMS(K),K=J,MIN(J+9,NSEQ))
+         WRITE(TABDB(JTAB),1) NEMO,(NEM(K,1),K=J,MIN(J+9,NSEQ))
 1        FORMAT('D ',A8,10(1X,A10))
       ENDIF
       ENDDO

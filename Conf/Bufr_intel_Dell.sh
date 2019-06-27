@@ -4,7 +4,7 @@
  module load ips/18.0.1.163
 
  module load bufr/11.2.0
- new_ver=v10.2.5
+ new_ver=v11.0.1
  reset_version bufr $new_ver
 
  export CC=icc

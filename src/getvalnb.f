@@ -18,6 +18,8 @@ C   TO THAT MNEMONIC.
 C
 C PROGRAM HISTORY LOG:
 C 2012-09-12  J. ATOR    -- ORIGINAL AUTHOR
+C 2014-10-02  J. ATOR    -- MODIFIED TO USE FSTAG
+C 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
 C
 C USAGE:    CALL GETVALNB (LUNIT, TAGPV, NTAGPV, TAGNB, NTAGNB)
 C   INPUT ARGUMENT LIST:
@@ -33,9 +35,9 @@ C                NEARBY FOR THE (NTAGNB)th OCCURRENCE OF TAGNB AND
 C                RETURN THE CORRESPONDING VALUE
 C     NTAGNB   - INTEGER: ORDINAL OCCURRENCE OF TAGNB TO SEARCH FOR,
 C                COUNTING FROM THE LOCATION OF TAGPV WITHIN THE OVERALL
-C                SUBSET DEFINITION.  IF TAGNB IS POSITIVE, THE FUNCTION
+C                SUBSET DEFINITION.  IF NTAGNB IS POSITIVE, THE FUNCTION
 C                WILL SEARCH IN A FORWARD DIRECTION FROM THE LOCATION OF
-C                TAGPV, OR IF TAGNB IS NEGATIVE IT WILL INSTEAD SEARCH
+C                TAGPV, OR IF NTAGNB IS NEGATIVE IT WILL INSTEAD SEARCH
 C                IN A BACKWARDS DIRECTION.
 C
 C   OUTPUT ARGUMENT LIST:
@@ -45,7 +47,7 @@ C                LOCATED, THEN THE BUFR ARCHIVE LIBRARY MISSING VALUE
 C                BMISS WILL BE RETURNED.
 C
 C REMARKS:
-C    THIS ROUTINE CALLS:        PARSTR   STATUS
+C    THIS ROUTINE CALLS:        FSTAG    STATUS
 C    THIS ROUTINE IS CALLED BY: None
 C                               Normally called only by application
 C                               programs
@@ -56,27 +58,13 @@ C   MACHINE:  PORTABLE TO ALL PLATFORMS
 C
 C$$$
 
+	USE MODA_USRINT
+	USE MODA_MSGCWD
+	USE MODA_TABLES
+
 	INCLUDE 'bufrlib.prm'
 
-	COMMON /MSGCWD/ NMSG(NFILES),NSUB(NFILES),MSUB(NFILES),
-     .                  INODE(NFILES),IDATE(NFILES)
-	COMMON /TABLES/ MAXTAB,NTAB,TAG(MAXJL),TYP(MAXJL),KNT(MAXJL),
-     .                  JUMP(MAXJL),LINK(MAXJL),JMPB(MAXJL),
-     .                  IBT(MAXJL),IRF(MAXJL),ISC(MAXJL),
-     .                  ITP(MAXJL),VALI(MAXJL),KNTI(MAXJL),
-     .                  ISEQ(MAXJL,2),JSEQ(MAXJL)
-	COMMON /USRINT/ NVAL(NFILES),INV(MAXSS,NFILES),VAL(MAXSS,NFILES)
-
-	CHARACTER*10  TAG,TGS(15)
-	CHARACTER*3   TYP
-
 	CHARACTER*(*) TAGPV, TAGNB
-
-	REAL*8 VAL
-
-	LOGICAL GOTNODPV
-
-	DATA MAXTG  /15/
 
 C----------------------------------------------------------------------
 C----------------------------------------------------------------------
@@ -85,56 +73,23 @@ C----------------------------------------------------------------------
 
 C	Get LUN from LUNIT.
 
-	CALL STATUS(LUNIT,LUN,IL,IM)
-	IF (IL.EQ.0) RETURN
-	IF (INODE(LUN).NE.INV(1,LUN)) RETURN
+	CALL STATUS (LUNIT, LUN, IL, IM )
+	IF ( IL .GE. 0 ) RETURN
+	IF ( INODE(LUN) .NE. INV(1,LUN) ) RETURN
 
-C	Locate the (NTAGPV)th occurrence of TAGPV.
+C	Starting from the beginning of the subset, locate the (NTAGPV)th
+C	occurrence of TAGPV.
 
-	CALL PARSTR(TAGPV,TGS,MAXTG,NTG,' ',.TRUE.)
-	IF (NTG.NE.1) RETURN
+	CALL FSTAG( LUN, TAGPV, NTAGPV, 1, NPV, IRET )
+	IF ( IRET .NE. 0 ) RETURN
 
-	GOTNODPV = .FALSE.
-	ITAGCT = 0
-	N = 1
-	DO WHILE ((.NOT.GOTNODPV).AND.(N.LE.NVAL(LUN)))
-	    NOD = INV(N,LUN)
-	    IF(TGS(1).EQ.TAG(NOD)) THEN
-		ITAGCT = ITAGCT + 1
-		IF(ITAGCT.EQ.NTAGPV) THEN
-		    GOTNODPV = .TRUE.
-		ELSE
-	            N = N+1
-		ENDIF
-	    ELSE
-	        N = N+1
-	    ENDIF
-	ENDDO
-	IF (.NOT.GOTNODPV) RETURN
+C	Now, starting from the (NTAGPV)th occurrence of TAGPV, search
+C	forward or backward for the (NTAGNB)th occurrence of TAGNB.
 
-C	Starting from TAGPV, search nearby for the
-C       +/-(NTAGNB)th occurrence of TAGNB.
+	CALL FSTAG( LUN, TAGNB, NTAGNB, NPV, NNB, IRET )
+	IF ( IRET .NE. 0 ) RETURN
 
-	CALL PARSTR(TAGNB,TGS,MAXTG,NTG,' ',.TRUE.)
-	IF (NTG.NE.1) RETURN
-
-	ISTEP = ISIGN(1,NTAGNB)
-	ITAGCT = 0
-	N = N+ISTEP
-	DO WHILE ((N.GE.1).AND.(N.LE.NVAL(LUN)))
-	    NOD = INV(N,LUN)
-	    IF(TGS(1).EQ.TAG(NOD)) THEN
-		ITAGCT = ITAGCT + 1
-		IF(ITAGCT.EQ.IABS(NTAGNB)) THEN
-		    GETVALNB = VAL(N,LUN)
-		    RETURN 
-		ELSE
-		    N = N+ISTEP
-		ENDIF
-	    ELSE
-		N = N+ISTEP
-	    ENDIF
-	ENDDO
+	GETVALNB = VAL(NNB,LUN)
 	    
 	RETURN
 	END

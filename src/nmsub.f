@@ -25,6 +25,7 @@ C 2003-11-04  D. KEYSER  -- UNIFIED/PORTABLE FOR WRF; ADDED
 C                           DOCUMENTATION (INCLUDING HISTORY); OUTPUTS
 C                           MORE COMPLETE DIAGNOSTIC INFO WHEN ROUTINE
 C                           TERMINATES ABNORMALLY
+C 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
 C
 C USAGE:    NMSUB (LUNIT)
 C   INPUT ARGUMENT LIST:
@@ -44,10 +45,9 @@ C   MACHINE:  PORTABLE TO ALL PLATFORMS
 C
 C$$$
 
-      INCLUDE 'bufrlib.prm'
+      USE MODA_MSGCWD
 
-      COMMON /MSGCWD/ NMSG(NFILES),NSUB(NFILES),MSUB(NFILES),
-     .                INODE(NFILES),IDATE(NFILES)
+      INCLUDE 'bufrlib.prm'
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
