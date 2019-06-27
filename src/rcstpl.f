@@ -1,4 +1,4 @@
-      SUBROUTINE RCSTPL(LUN)
+      SUBROUTINE RCSTPL(LUN,IRET)
 
 C$$$  SUBPROGRAM DOCUMENTATION BLOCK
 C
@@ -41,13 +41,21 @@ C                           MACHINES)
 C 2004-08-09  J. ATOR    -- MAXIMUM MESSAGE LENGTH INCREASED FROM
 C                           20,000 TO 50,000 BYTES
 C 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
+C 2016-11-09  J. ATOR    -- ADDED IRET ARGUMENT AND CHECK FOR POSSIBLY
+C                           CORRUPT SUBSETS
 C
-C USAGE:    CALL RCSTPL (LUN)
+C USAGE:    CALL RCSTPL (LUN,IRET)
 C   INPUT ARGUMENT LIST:
 C     LUN      - INTEGER: I/O STREAM INDEX INTO INTERNAL MEMORY ARRAYS
 C
+C   OUTPUT ARGUMENT LIST:
+C     IRET     - INTEGER: RETURN CODE:
+C                       0 = NORMAL RETURN
+C                      -1 = AN ERROR OCCURRED, POSSIBLY DUE TO A
+C                           CORRUPT SUBSET IN THE INPUT MESSAGE
+C
 C REMARKS:
-C    THIS ROUTINE CALLS:        BORT     UPBB
+C    THIS ROUTINE CALLS:        BORT     IGETRFEL STRBTM   UPBB
 C    THIS ROUTINE IS CALLED BY: RDTREE
 C                               Normally not called by any application
 C                               programs.
@@ -67,12 +75,16 @@ C$$$
 
       INCLUDE 'bufrlib.prm'
 
+      COMMON /QUIET / IPRT
+
       CHARACTER*128 BORT_STR
       DIMENSION     NBMP(2,MAXRCR),NEWN(2,MAXRCR)
       DIMENSION     KNX(MAXRCR)
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
+
+      IRET = 0
 
 C  SET THE INITIAL VALUES FOR THE TEMPLATE
 C  ---------------------------------------
@@ -105,7 +117,15 @@ C  ----------------------------------------------
       N1 = ISEQ(NODE,1)
       N2 = ISEQ(NODE,2)
       IF(N1.EQ.0         ) GOTO 901
-      IF(N2-N1+1.GT.MAXJL) GOTO 902
+      IF(N2-N1+1.GT.MAXJL) THEN
+        IF(IPRT.GE.0) THEN
+      CALL ERRWRT('++++++++++++++BUFR ARCHIVE LIBRARY+++++++++++++++++')
+      CALL ERRWRT('BUFRLIB: RCSTPL - MAXJL OVERFLOW; SUBSET SKIPPED')
+      CALL ERRWRT('++++++++++++++BUFR ARCHIVE LIBRARY+++++++++++++++++')
+        ENDIF
+        IRET = -1
+        RETURN
+      ENDIF
       NEWN(1,NR) = 1
       NEWN(2,NR) = N2-N1+1
 
@@ -122,20 +142,40 @@ C  -----------------------------------
       IF(KNX(NR).EQ.0000) KNX(NR) = KNVN
       IF(I.GT.NBMP(1,NR)) NEWN(1,NR) = 1
       DO J=NEWN(1,NR),NEWN(2,NR)
+      IF(KNVN+1.GT.MAXSS) THEN
+        IF(IPRT.GE.0) THEN
+      CALL ERRWRT('++++++++++++++BUFR ARCHIVE LIBRARY+++++++++++++++++')
+      CALL ERRWRT('BUFRLIB: RCSTPL - MAXSS OVERFLOW; SUBSET SKIPPED')
+      CALL ERRWRT('++++++++++++++BUFR ARCHIVE LIBRARY+++++++++++++++++')
+        ENDIF
+        IRET = -1
+        RETURN
+      ENDIF
       KNVN = KNVN+1
       NODE = IUTMP(J,NR)
 c  .... INV is positional index in internal jump/link table for packed
 c       subset element KNVN in MBAY
       INV(KNVN,LUN) = NODE
-c  .... Actual unpacked subset values (VAL) are initialized here
-c       (numbers as BMISS)
-      VAL(KNVN,LUN) = VUTMP(J,NR)
 c  .... MBIT is the bit in MBAY pointing to where the packed subset
 c       element KNVN begins
       MBIT(KNVN) = MBIT(KNVN-1)+NBIT(KNVN-1)
 c  .... NBIT is the number of bits in MBAY occupied by packed subset
 c       element KNVN
+      NRFELM(KNVN,LUN) = IGETRFEL(KNVN,LUN)
       NBIT(KNVN) = IBT(NODE)
+      IF(TAG(NODE)(1:5).EQ.'DPRI ') THEN
+c  .... This is a bitmap entry, so get and store the corresponding value
+        CALL UPBB(IDPRI,NBIT(KNVN),MBIT(KNVN),MBAY(1,LUN))
+        IF(IDPRI.EQ.0) THEN
+          VAL(KNVN,LUN) = 0.0
+        ELSE
+          VAL(KNVN,LUN) = BMISS
+        ENDIF
+        CALL STRBTM(KNVN,LUN)
+      ENDIF
+c  .... Actual unpacked subset values (VAL) are initialized here
+c       (numbers as BMISS)
+      VAL(KNVN,LUN) = VUTMP(J,NR)
       IF(ITP(NODE).EQ.1) THEN
          CALL UPBB(MBMP,NBIT(KNVN),MBIT(KNVN),MBAY(1,LUN))
          NEWN(1,NR) = J+1
@@ -170,8 +210,5 @@ C  -----
       CALL BORT(BORT_STR)
 901   WRITE(BORT_STR,'("BUFRLIB: RCSTPL - UNSET EXPANSION SEGMENT ",A)')
      . TAG(NODI)
-      CALL BORT(BORT_STR)
-902   WRITE(BORT_STR,'("BUFRLIB: RCSTPL - TEMPLATE ARRAY OVERFLOW, '//
-     . 'EXCEEDS THE LIMIT (",I6,") (",A,")")') MAXJL,TAG(NODI)
       CALL BORT(BORT_STR)
       END

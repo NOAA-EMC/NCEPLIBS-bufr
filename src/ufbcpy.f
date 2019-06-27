@@ -91,6 +91,7 @@ C  -----------------------------------------------
 
       DO N=1,NVAL(LUI)
       INV(N,LUO) = INV(N,LUI)
+      NRFELM(N,LUO) = NRFELM(N,LUI)
       VAL(N,LUO) = VAL(N,LUI)
       ENDDO
 

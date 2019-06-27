@@ -1,0 +1,14 @@
+# 1 "moda_mgwa.F"
+	MODULE MODA_MGWA
+
+
+
+	  USE MODV_MXMSGL
+
+
+# 10
+
+	  INTEGER MGWA(MXMSGLD4)
+
+
+	END MODULE

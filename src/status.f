@@ -70,20 +70,21 @@ C    THIS ROUTINE CALLS:        BORT
 C    THIS ROUTINE IS CALLED BY: CLOSBF   CLOSMG   COPYBF   COPYMG
 C                               COPYSB   CPYMEM   DATEBF   DRFINI
 C                               DUMPBF   DXDUMP   GETABDB  GETTAGPR
-C                               GETVALNB IFBGET   IGETSC   INVMRG
-C                               IUPVS01  LCMGDF   MESGBC   MINIMG
-C                               MSGWRT   NEMDEFS  NEMSPECS NMSUB
-C                               OPENBF   OPENMB   OPENMG   POSAPX
-C                               RDMEMM   RDMEMS   RDMGSB   READDX
-C                               READERME READLC   READMG   READNS
-C                               READSB   REWNBF   RTRCPT   STNDRD
-C                               UFBCNT   UFBCPY   UFBCUP   UFBDMP
-C                               UFBEVN   UFBGET   UFBIN3   UFBINT
-C                               UFBINX   UFBMMS   UFBOVR   UFBPOS
-C                               UFBQCD   UFBQCP   UFBREP   UFBRMS
-C                               UFBSEQ   UFBSTP   UFBTAB   UFBTAM
-C                               UFDUMP   UPFTBV   WRCMPS   WRDXTB
-C                               WRITLC   WRITSA   WRITSB
+C                               GETTAGRE GETVALNB IFBGET   IGETSC
+C                               INVMRG   IUPVS01  LCMGDF   MESGBC
+C                               MINIMG   MSGWRT   NEMDEFS  NEMSPECS
+C                               NMSUB    OPENBF   OPENMB   OPENMG
+C                               POSAPX   RDMEMM   RDMEMS   RDMGSB
+C                               READDX   READERME READLC   READMG
+C                               READNS   READSB   REWNBF   RTRCPT
+C                               SETVALNB STNDRD   UFBCNT   UFBCPY
+C                               UFBCUP   UFBDMP   UFBEVN   UFBGET
+C                               UFBIN3   UFBINT   UFBINX   UFBMMS
+C                               UFBOVR   UFBPOS   UFBQCD   UFBQCP
+C                               UFBREP   UFBRMS   UFBSEQ   UFBSTP
+C                               UFBTAB   UFBTAM   UFDUMP   UPFTBV
+C                               WRCMPS   WRDXTB   WRITLC   WRITSA
+C                               WRITSB
 C                               Also called by application programs.
 C
 C ATTRIBUTES:
