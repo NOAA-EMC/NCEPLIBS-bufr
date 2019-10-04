@@ -1,7 +1,4 @@
-# *** for WCOSS IBM phase1/phase2 (intel) ***
- module purge
- module load ics/17.0.3
- module load bufr/v11.3.0
+# *** for WCOSS IBM phase1 (intel) ***
 
  export CC=icc
  export FC=ifort

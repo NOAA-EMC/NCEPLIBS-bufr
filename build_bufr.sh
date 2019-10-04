@@ -11,9 +11,11 @@
  if [[ ${sys} == "intel_general" ]]; then
    sys6=${sys:6}
    source ./Conf/Bufr_${sys:0:5}_${sys6^}.sh
+   rinst=false
  elif [[ ${sys} == "gnu_general" ]]; then
    sys4=${sys:4}
    source ./Conf/Bufr_${sys:0:3}_${sys4^}.sh
+   rinst=false
  else
    source ./Conf/Bufr_intel_${sys^}.sh
  fi
@@ -21,9 +23,18 @@
    echo "??? BUFR: compilers not set." >&2
    exit 1
  }
- [[ -z $BUFR_VER || -z $BUFR_LIB4 ]] && {
-   echo "??? BUFR: module/environment not set." >&2
-   exit 1
+ [[ -z ${BUFR_VER+x} || -z ${BUFR_LIB4+x} ]] && {
+   [[ -z ${libver+x} || -z ${libver} ]] && {
+     echo "??? BUFR: \"libver\" not set." >&2
+     exit
+   }
+   BUFR_LIB4=lib${libver}_4_64.a
+   BUFR_LIB8=lib${libver}_8_64.a
+   BUFR_LIBd=lib${libver}_d_64.a
+   BUFR_LIB4_DA=lib${libver}_4_64_DA.a
+   BUFR_LIB8_DA=lib${libver}_8_64_DA.a
+   BUFR_LIBd_DA=lib${libver}_d_64_DA.a
+   BUFR_VER=v${libver##*_v}
  }
 
 #-------------------------------------------------------------------
@@ -46,7 +57,6 @@ set -x
  cd src
 #################
 
- $skip || {
 #-------------------------------------------------------------------
 # Get byte order from cpu information
 #
@@ -158,7 +168,6 @@ set -x
       make message MSGSRC="$(gen_cfunction $bufrInfod OneLined LibInfod)"
 
    done
- }
 
  $inst && {
 #
@@ -166,38 +175,41 @@ set -x
 #
    $local && {
      instloc=..
-     LIB_DIR4=$instloc
-     LIB_DIR8=$instloc
-     LIB_DIRd=$instloc
-     LIB_DIR4da=$instloc
-     LIB_DIR8da=$instloc
-     LIB_DIRdda=$instloc
+     LIB_DIR=$instloc/lib
+     [ -d $LIB_DIR ] || { mkdir -p $LIB_DIR; }
+     LIB_DIR4=$LIB_DIR
+     LIB_DIR8=$LIB_DIR
+     LIB_DIRd=$LIB_DIR
+     LIB_DIR4da=$LIB_DIR
+     LIB_DIR8da=$LIB_DIR
+     LIB_DIRdda=$LIB_DIR
      SRC_DIR=
    } || {
-     [[ $instloc == --- ]] && {
-       LIB_DIR4=$(dirname $BUFR_LIB4)
-       LIB_DIR8=$(dirname $BUFR_LIB8)
-       LIB_DIRd=$(dirname $BUFR_LIBd)
+     $rinst && {
+       LIB_DIR4=$(dirname ${BUFR_LIB4})
+       LIB_DIR8=$(dirname ${BUFR_LIB8})
+       LIB_DIRd=$(dirname ${BUFR_LIBd})
        LIB_DIR4da=$(dirname $BUFR_LIB4_DA)
        LIB_DIR8da=$(dirname $BUFR_LIB8_DA)
        LIB_DIRdda=$(dirname $BUFR_LIBd_DA)
        SRC_DIR=$BUFR_SRC
      } || {
-       LIB_DIR4=$instloc
-       LIB_DIR8=$instloc
-       LIB_DIRd=$instloc
-       LIB_DIR4da=$instloc
-       LIB_DIR8da=$instloc
-       LIB_DIRdda=$instloc
+       LIB_DIR=$instloc/lib
+       LIB_DIR4=$LIB_DIR
+       LIB_DIR8=$LIB_DIR
+       LIB_DIRd=$LIB_DIR
+       LIB_DIR4da=$LIB_DIR
+       LIB_DIR8da=$LIB_DIR
+       LIB_DIRdda=$LIB_DIR
        SRC_DIR=$instloc/src
        [[ $instloc == .. ]] && SRC_DIR=
      }
      [ -d $LIB_DIR4 ] || mkdir -p $LIB_DIR4
      [ -d $LIB_DIR8 ] || mkdir -p $LIB_DIR8
      [ -d $LIB_DIRd ] || mkdir -p $LIB_DIRd
-     [ -d $LIB_DIR4da ] || mkdir -p $LIB_DIR4_DA
-     [ -d $LIB_DIR8da ] || mkdir -p $LIB_DIR8_DA
-     [ -d $LIB_DIRdda ] || mkdir -p $LIB_DIRd_DA
+     [ -d $LIB_DIR4da ] || mkdir -p $LIB_DIR4da
+     [ -d $LIB_DIR8da ] || mkdir -p $LIB_DIR8da
+     [ -d $LIB_DIRdda ] || mkdir -p $LIB_DIRdda
      [ -z $SRC_DIR ] || { [ -d $SRC_DIR ] || mkdir -p $SRC_DIR; }
    }
 
