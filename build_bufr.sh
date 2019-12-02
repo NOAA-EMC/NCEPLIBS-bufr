@@ -201,7 +201,7 @@ set -x
        LIB_DIR4da=$LIB_DIR
        LIB_DIR8da=$LIB_DIR
        LIB_DIRdda=$LIB_DIR
-       SRC_DIR=$instloc/src
+       SRC_DIR=$instloc/src/${libver}
        [[ $instloc == .. ]] && SRC_DIR=
      }
      [ -d $LIB_DIR4 ] || mkdir -p $LIB_DIR4
