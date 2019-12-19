@@ -1,7 +1,12 @@
-# *** for Theia (intel) ***
+# *** for Hera (intel) ***
+ $rinst && {
+   grep -E "(^|:|/)bufr/" <<< "$LOADEDMODULES" &> /dev/null \
+    || module load bufr/11.3.0
+ }
 
  export CC=icc
  export FC=ifort
+ export CPP=cpp
  export OMPCC="$CC -qopenmp"
  export OMPFC="$FC -qopenmp"
  export MPICC=mpiicc
@@ -12,6 +17,7 @@
  export FFLAGS="-g -O3 -ftz -traceback -fpe0 -xHOST -axcore-avx512 -fPIC"
  export FPPCPP="-cpp"
  export FREEFORM="-free"
+ export CPPFLAGS="-P -traditional-cpp"
  export MPICFLAGS="-g -O3 -ftz -traceback -xHOST -axcore-avx512 -fPIC"
  export MPIFFLAGS="-g -O3 -ftz -traceback -fpe0 -xHOST -axcore-avx512 -fPIC"
  export MODPATH="-module "

@@ -13,7 +13,7 @@
   USEMPI=false
   grep -i mpi <<< "$COMP" &> /dev/null && USEMPI=true
 
-  libver=${lname~~}_VER
+#  libver=${lname~~}_VER
   [[ $precsn == "-" ]] && {
     cflg=CFLAGS
     fflg=FFLAGS
