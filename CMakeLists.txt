@@ -48,7 +48,7 @@ if( (BUILD_RELEASE) OR (BUILD_PRODUCTION) )
     set(c_SS_flags "-mcmodel=medium" "-shared")
 
     set(fortran_4_flags)
-    set(fortran_8_flags "-r8 -i8 ")
+    set(fortran_8_flags "-r8" "-i8")
     set(fortran_d_flags "-r8")
     set(fortran_SS_flags "-mcmodel=medium" "-shared")
 
