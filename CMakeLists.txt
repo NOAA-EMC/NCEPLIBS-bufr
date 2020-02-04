@@ -119,7 +119,6 @@ foreach(kind ${kinds})
 
   set(module_dir "${CMAKE_CURRENT_BINARY_DIR}/include_${kind}")
   set_target_properties(${lib_name}_f PROPERTIES Fortran_MODULE_DIRECTORY "${module_dir}")
-  set_target_properties(${lib_name}_c PROPERTIES Fortran_MODULE_DIRECTORY "${module_dir}")
 
   add_library(${lib_name} STATIC $<TARGET_OBJECTS:${lib_name}_f> $<TARGET_OBJECTS:${lib_name}_c>)
 
