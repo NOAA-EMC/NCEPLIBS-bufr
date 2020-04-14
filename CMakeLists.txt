@@ -115,7 +115,7 @@ foreach(kind ${kinds})
   set_target_properties(${lib_name}_c PROPERTIES
     COMPILE_OPTIONS "${shared_flags};${c_${kind}_flags}")
   set_target_properties(${lib_name}_c PROPERTIES
-    COMPILE_DEFINITIONS "${c_${kind}_definitions};${allocation_def}")
+    COMPILE_DEFINITIONS "${definitions};${c_${kind}_definitions};${allocation_def}")
 
   set(module_dir "${CMAKE_CURRENT_BINARY_DIR}/include_${kind}")
   set_target_properties(${lib_name}_f PROPERTIES Fortran_MODULE_DIRECTORY "${module_dir}")
