@@ -1,21 +1,54 @@
 cmake_minimum_required(VERSION 3.15)
-project(bufr VERSION 11.3.0)
+
+project(
+    bufr 
+    VERSION ${pVersion}
+    LANGUAGES C Fortran)
+
 set(${PROJECT_NAME}_VERSION ${PROJECT_VERSION} CACHE INTERNAL "${PROJECT_NAME} version number")
-enable_language (Fortran)
 
-if (NOT CMAKE_BUILD_TYPE)
-  set (CMAKE_BUILD_TYPE RELEASE CACHE STRING
-    "Choose the type of build, options are: PRODUCTION Debug Release."
-    FORCE)
+if(NOT CMAKE_BUILD_TYPE MATCHES "^(Debug|Release|RelWithDebInfo|MinSizeRel)$")
+  message(STATUS "Setting build type to 'Release' as none was specified.")
+  set(CMAKE_BUILD_TYPE
+      "Release"
+      CACHE STRING "Choose the type of build." FORCE)
+  set_property(CACHE CMAKE_BUILD_TYPE PROPERTY STRINGS "Debug" "Release"
+                                               "MinSizeRel" "RelWithDebInfo")
 endif()
 
-if(CMAKE_CXX_COMPILER_ID STREQUAL "Intel")
+if(NOT CMAKE_C_COMPILER_ID MATCHES "^(Intel|GNU|Clang|AppleClang)$")
+  message(WARNING "Compiler not officially supported: ${CMAKE_C_COMPILER_ID}")
+endif()
+
+add_compile_definitions(UNDERSCORE)
+if(APPLE)
+  add_compile_definitions(APPLE)
+elseif(UNIX)
+  add_compile_definitions(LINUX)
+endif()
+
+if(CMAKE_C_COMPILER_ID MATCHES "^(Intel)$")
+  include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/Intel.cmake)
   set(IntelComp true )
-elseif(CMAKE_CXX_COMPILER_ID MATCHES "GNU*" OR CMAKE_CXX_COMPILER_ID MATCHES "Clang*")
+# set(CMAKE_Fortran_FLAGS "-g -fpp -free -xHOST -traceback -FR")
+# set(fortran_8_flags "-i8 -r8")
+elseif(CMAKE_C_COMPILER_ID MATCHES "^(GNU|Clang|AppleClang)$")
   set(GNUComp true )
-elseif(CMAKE_CXX_COMPILER_ID MATCHES "pgc*")
-  set(PGIComp true )
+  include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/GNU.cmake)
+# set(CMAKE_C_FLAGS_DEBUG "-ggdb -Wall")
+# set(CMAKE_Fortran_FLAGS_DEBUG "-ggdb -Wall")
+# set(CMAKE_Fortran_FLAGS "-g -ffree-form -fbacktrace -funroll-loops")
 endif()
+#set(CMAKE_Fortran_FLAGS "${DEBINFO} ${PP} ${FREEFORM} ${XHOST} ${TRACEBACK}")
+#set(CMAKE_Fortran_FLAGS_DEBUG "${DEBFULL} ${WARNALL}")
+#set(fortran_8_flags ${FINT8} ${frl8} ${fdbl8})
+set(fortran_8_flags ${FREAL8} ${FINT8})
+set(shared_flags  ${DEBINFO} ${FOPT3} ${TRACEBACK} ${AVX2})
+#set(shared_flags )
+set(fortran_8_DA_flags ${FREAL8} ${FINT8})
+#set(fortran_d_DA_flags "${frl8} ${fdbl8}")
+set(fortran_d_DA_flags ${FREAL8})
+set(c_SS_flags ${MMMED} ${SHARED})
 
 STRING(COMPARE EQUAL ${CMAKE_BUILD_TYPE} "RelWithDebInfo" BUILD_RELEASE)
 STRING(COMPARE EQUAL ${CMAKE_BUILD_TYPE} "RELEASE" BUILD_RELEASE)
@@ -25,55 +58,31 @@ STRING(COMPARE EQUAL ${CMAKE_BUILD_TYPE} "DEBUG" BUILD_DEBUG)
 option(GSIBUILD "Build only libs for GSI" ON)
 
 set(definitions "UNDERSCORE" "NFILES=32" "MAXCD=250" "MAXNC=600" "MXNAF=3")
+set(c_DA_allocation_def "DYNAMIC_ALLOCATION")
+set(c_nonDA_allocation_def "STATIC_ALLOCATION")
 
-if( (BUILD_RELEASE) OR (BUILD_PRODUCTION) )
-  if(IntelComp)
-    #shared with C and Fortran
-    set(shared_flags "-g" "-traceback" "-O3" "-axCORE-AVX2")
-
-    set(c_DA_allocation_def "DYNAMIC_ALLOCATION")
-    set(c_4_DA_flags)
-    set(c_8_DA_definitions "F77_INTSIZE_8")
-    set(c_d_DA_flags)
-
-    set(fortran_4_DA_flags)
-    set(fortran_8_DA_flags "-r8" "-i8")
-    set(fortran_d_DA_flags "-r8")
-
-    set(c_nonDA_allocation_def "STATIC_ALLOCATION")
-    set(c_4_flags)
-    set(c_8_flags)
-    set(c_8_definitions "F77_INTSIZE_8")
-    set(c_d_flags)
-    set(c_SS_flags "-mcmodel=medium" "-shared")
-
-    set(fortran_4_flags)
-    set(fortran_8_flags "-r8" "-i8")
-    set(fortran_d_flags "-r8")
-    set(fortran_SS_flags "-mcmodel=medium" "-shared")
-
-  elseif(GNUComp)
-    if(NOT GSIBUILD)
-      message(FATAL_ERROR, GNU compiler not configured for non-GSIBUILD)
-    endif()
+set(c_4_DA_flags)
+set(c_8_DA_definitions "F77_INTSIZE_8")
+set(c_d_DA_flags)
+set(fortran_4_DA_flags)
+set(c_4_flags "")
+set(c_8_flags "")
+set(c_8_definitions "F77_INTSIZE_8")
+set(c_d_flags "")
+set(fortran_4_flags)
+if(IntelComp)
+      set(c_DA_allocation_def "DYNAMIC_ALLOCATION")
+      set(c_nonDA_allocation_def "STATIC_ALLOCATION")
+      message("Intel Compiler flags set")
+elseif(GNUComp)
+    message("GNU Compiler flags set")
+#   if(NOT GSIBUILD)
+#     message(FATAL_ERROR, GNU compiler not configured for non-GSIBUILD)
+#   endif()
     set(allocation_def "DYNAMIC_ALLOCATION")
-    set(shared_flags "-O3" "-ggdb" "-Wall")
-
-    set(c_d_definitions)
-    set(c_4_definitions)
-    set(c_8_definitions "F77_INTSIZE_8")
-    set(c_d_flags)
-    set(c_4_flags)
-    set(c_8_flags)
-
-    set(shared_fortran_flags "-funroll-loops" "-Wno-tabs")
-    set(fortran_4_flags)
-    set(fortran_d_flags "-fdefault-real-8")
-    set(fortran_8_flags "-fdefault-integer-8" "-fdefault-real-8")
-  else()
+    set(shared_fortran_flags ${UNROLL} ${NOTAB})
+else()
     message("unknown compiler!")
-    exit()
-  endif()
 endif()
 
 
@@ -113,6 +122,7 @@ foreach(kind ${kinds})
   add_library(${lib_name}_c OBJECT ${c_src})
   set_target_properties(${lib_name}_c PROPERTIES POSITION_INDEPENDENT_CODE ON)
   set_target_properties(${lib_name}_c PROPERTIES
+#   COMPILE_OPTIONS "${shared_flags}")
     COMPILE_OPTIONS "${shared_flags};${c_${kind}_flags}")
   set_target_properties(${lib_name}_c PROPERTIES
     COMPILE_DEFINITIONS "${c_${kind}_definitions};${allocation_def}")
