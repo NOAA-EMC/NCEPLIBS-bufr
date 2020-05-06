@@ -136,7 +136,7 @@ foreach(kind ${kinds})
 
   target_include_directories(${lib_name} PUBLIC
     $<BUILD_INTERFACE:${module_dir}>
-    $<INSTALL_INTERFACE:${CMAKE_INSTALL_PREFIX}/include_${kind}}>)
+    $<INSTALL_INTERFACE:${CMAKE_INSTALL_PREFIX}/include_${kind}>)
 
   install(TARGETS ${lib_name}
     EXPORT ${PROJECT_NAME}-config
