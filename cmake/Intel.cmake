@@ -64,20 +64,3 @@ set (NO_RANGE_CHECK "")
 set (common_Fortran_flags "${TRACEBACK} ${REALLOC_LHS}")
 set (common_Fortran_fpe_flags "${FPE0} ${FP_MODEL_SOURCE} ${HEAPARRAYS} ${NOOLD_MAXMINLOC}")
 
-# GEOS Debug
-# ----------
-set (GEOS_Fortran_Debug_Flags "${DEBINFO} ${FOPT0} ${FTZ} ${ALIGN_ALL} ${NO_ALIAS} -debug -nolib-inline -fno-inline-functions -assume protect_parens,minus0 -prec-div -prec-sqrt -check bounds -check uninit -fp-stack-check -warn unused -init=snan,arrays -save-temps")
-set (GEOS_Fortran_Debug_FPE_Flags "${common_Fortran_fpe_flags}")
-
-# GEOS Release
-# ------------
-set (GEOS_Fortran_Release_Flags "${FOPT3} ${DEBINFO} ${OPTREPORT0} ${FTZ} ${ALIGN_ALL} ${NO_ALIAS}")
-set (GEOS_Fortran_Release_FPE_Flags "${common_Fortran_fpe_flags} ${ARCH_CONSISTENCY}")
-
-# GEOS Vectorize
-# --------------
-set (GEOS_Fortran_Vect_Flags "${FOPT3} ${DEBINFO} -xCORE-AVX2 -fma -qopt-report0 ${FTZ} ${ALIGN_ALL} ${NO_ALIAS} -align array32byte")
-set (GEOS_Fortran_Vect_FPE_Flags "${FPE3} ${FP_MODEL_CONSISTENT} ${NOOLD_MAXMINLOC}")
-
-# Common variables for every compiler
-#include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/GenericCompiler.cmake)
