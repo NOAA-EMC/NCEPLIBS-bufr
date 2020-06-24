@@ -115,8 +115,8 @@ foreach(kind ${kinds})
   add_library(${lib_name}_c OBJECT ${c_src})
   set_target_properties(${lib_name}_c PROPERTIES POSITION_INDEPENDENT_CODE ON)
   set_target_properties(${lib_name}_c PROPERTIES
-#   COMPILE_OPTIONS "${shared_flags}")
     COMPILE_OPTIONS "${shared_flags};${c_${kind}_flags}")
+
   set_target_properties(${lib_name}_c PROPERTIES
     COMPILE_DEFINITIONS "${c_${kind}_definitions};${allocation_def}")
 
@@ -127,18 +127,59 @@ foreach(kind ${kinds})
 
   set_target_properties(${lib_name} PROPERTIES OUTPUT_NAME "${versioned_lib_name}")
 
-  target_include_directories(${lib_name} PUBLIC
-    $<BUILD_INTERFACE:${module_dir}>
-    $<INSTALL_INTERFACE:${CMAKE_INSTALL_PREFIX}/include_${kind}>)
+# target_include_directories(${lib_name} PUBLIC
+#   $<BUILD_INTERFACE:${module_dir}>
+#   $<INSTALL_INTERFACE:${CMAKE_INSTALL_PREFIX}/include_${kind}>)
 
-  install(TARGETS ${lib_name}
-    EXPORT ${PROJECT_NAME}-config
-    RUNTIME DESTINATION ${CMAKE_INSTALL_PREFIX}/bin
-    LIBRARY DESTINATION ${CMAKE_INSTALL_PREFIX}/lib
-    ARCHIVE DESTINATION ${CMAKE_INSTALL_PREFIX}/lib)
+  target_include_directories(${lib_name} INTERFACE
+    $<BUILD_INTERFACE:${module_dir}>
+    $<INSTALL_INTERFACE:include_${kind}>)
+
+  list(APPEND LIB_TARGETS ${lib_name})
   install(DIRECTORY ${module_dir} DESTINATION ${CMAKE_INSTALL_PREFIX})
+
+# install(TARGETS ${lib_name}
+#   EXPORT ${PROJECT_NAME}-config
+#   RUNTIME DESTINATION ${CMAKE_INSTALL_PREFIX}/bin
+#   LIBRARY DESTINATION ${CMAKE_INSTALL_PREFIX}/lib
+#   ARCHIVE DESTINATION ${CMAKE_INSTALL_PREFIX}/lib)
 endforeach()
 
-install(EXPORT ${PROJECT_NAME}-config 
-        DESTINATION ${CMAKE_INSTALL_PREFIX}/lib/cmake/${PROJECT_NAME})
+#install(EXPORT ${PROJECT_NAME}-config 
+#        DESTINATION ${CMAKE_INSTALL_PREFIX}/lib/cmake/${PROJECT_NAME})
 
+install(
+  TARGETS ${LIB_TARGETS}
+  EXPORT ${PROJECT_NAME}Exports
+  RUNTIME DESTINATION bin
+  LIBRARY DESTINATION lib
+  ARCHIVE DESTINATION lib)
+
+### Package config
+include(CMakePackageConfigHelpers)
+set(CONFIG_INSTALL_DESTINATION lib/cmake/${PROJECT_NAME})
+
+export(EXPORT ${PROJECT_NAME}Exports
+  NAMESPACE ${PROJECT_NAME}::
+  FILE ${PROJECT_NAME}-targets.cmake)
+
+# bacio-config.cmake
+configure_package_config_file(
+  ${CMAKE_SOURCE_DIR}/cmake/PackageConfig.cmake.in ${CMAKE_BINARY_DIR}/${PROJECT_NAME}-config.cmake
+  INSTALL_DESTINATION ${CONFIG_INSTALL_DESTINATION})
+install(FILES ${CMAKE_BINARY_DIR}/${PROJECT_NAME}-config.cmake
+  DESTINATION ${CONFIG_INSTALL_DESTINATION})
+
+# bacio-config-version.cmake
+write_basic_package_version_file(
+  ${CMAKE_BINARY_DIR}/${PROJECT_NAME}-config-version.cmake
+  VERSION ${PROJECT_VERSION}
+  COMPATIBILITY AnyNewerVersion)
+install(FILES ${CMAKE_BINARY_DIR}/${PROJECT_NAME}-config-version.cmake
+  DESTINATION ${CONFIG_INSTALL_DESTINATION})
+
+# bacio-targets.cmake and bacio-targets-<build-type>.cmake
+install(EXPORT ${PROJECT_NAME}Exports
+  NAMESPACE ${PROJECT_NAME}::
+  FILE ${PROJECT_NAME}-targets.cmake
+  DESTINATION ${CONFIG_INSTALL_DESTINATION})
