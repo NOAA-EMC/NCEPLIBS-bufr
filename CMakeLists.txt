@@ -1,5 +1,7 @@
 cmake_minimum_required(VERSION 3.15)
 
+file(STRINGS "VERSION" pVersion)
+
 project(
     bufr 
     VERSION ${pVersion}
@@ -30,23 +32,14 @@ endif()
 if(CMAKE_C_COMPILER_ID MATCHES "^(Intel)$")
   include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/Intel.cmake)
   set(IntelComp true )
-# set(CMAKE_Fortran_FLAGS "-g -fpp -free -xHOST -traceback -FR")
-# set(fortran_8_flags "-i8 -r8")
 elseif(CMAKE_C_COMPILER_ID MATCHES "^(GNU|Clang|AppleClang)$")
   set(GNUComp true )
   include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/GNU.cmake)
-# set(CMAKE_C_FLAGS_DEBUG "-ggdb -Wall")
-# set(CMAKE_Fortran_FLAGS_DEBUG "-ggdb -Wall")
-# set(CMAKE_Fortran_FLAGS "-g -ffree-form -fbacktrace -funroll-loops")
 endif()
-#set(CMAKE_Fortran_FLAGS "${DEBINFO} ${PP} ${FREEFORM} ${XHOST} ${TRACEBACK}")
-#set(CMAKE_Fortran_FLAGS_DEBUG "${DEBFULL} ${WARNALL}")
-#set(fortran_8_flags ${FINT8} ${frl8} ${fdbl8})
+
 set(fortran_8_flags ${FREAL8} ${FINT8})
 set(shared_flags  ${DEBINFO} ${FOPT3} ${TRACEBACK} ${AVX2})
-#set(shared_flags )
 set(fortran_8_DA_flags ${FREAL8} ${FINT8})
-#set(fortran_d_DA_flags "${frl8} ${fdbl8}")
 set(fortran_d_DA_flags ${FREAL8})
 set(c_SS_flags ${MMMED} ${SHARED})
 
