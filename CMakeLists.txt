@@ -96,14 +96,14 @@ foreach(kind ${kinds})
   # -DDYNAMIC_ALLOCATION when compiled with DA and -DSTATIC_ALLOCATION
   # check current kind and if it has 'DA' in it then set compiler def
 
-# if(IntelComp)
+  if(IntelComp)
     string(FIND ${kind} "DA" isDA)
     if(isDA GREATER_EQUAL 0)
       set(allocation_def ${c_DA_allocation_def})
     else()
       set(allocation_def ${c_nonDA_allocation_def})
     endif()
-# endif()
+  endif()
 
   add_library(${lib_name}_f OBJECT ${fortran_src})
   set_target_properties(${lib_name}_f PROPERTIES POSITION_INDEPENDENT_CODE ON)
