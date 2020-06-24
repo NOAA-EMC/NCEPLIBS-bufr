@@ -139,5 +139,6 @@ foreach(kind ${kinds})
   install(DIRECTORY ${module_dir} DESTINATION ${CMAKE_INSTALL_PREFIX})
 endforeach()
 
-install(EXPORT ${PROJECT_NAME}-config DESTINATION ${CMAKE_INSTALL_PREFIX})
+install(EXPORT ${PROJECT_NAME}-config 
+        DESTINATION ${CMAKE_INSTALL_PREFIX}/lib/cmake/${PROJECT_NAME})
 
