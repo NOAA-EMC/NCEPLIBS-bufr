@@ -1,34 +1,32 @@
-set(definitions "UNDERSCORE" "NFILES=32" "MAXCD=250" "MAXNC=600" "MXNAF=3")
-add_compile_definitions(definitions)
 
 if(CMAKE_C_COMPILER_ID MATCHES "^(Intel)$")
+  set(definitions "UNDERSCORE" "NFILES=32" "MAXCD=250" "MAXNC=600" "MXNAF=3")
   set (FREAL8 "-r8")
   set (FINT8 "-i8")
   set (TRACEBACK "-traceback")
   set (MMMED "-mcmodel=medium")
-  set (IntelComp TRUE)
+  set (AVX2 "-axCORE-AVX2")
+  set(c_DA_allocation_def "DYNAMIC_ALLOCATION")
+  set(c_nonDA_allocation_def "STATIC_ALLOCATION")
 elseif(CMAKE_C_COMPILER_ID MATCHES "^(GNU|Clang|AppleClang)$")
+  set(definitions "UNDERSCORE" "DYNAMIC_ALLOCATION")
   set (FREAL8 "-fdefault-double-8" "-fdefault-real-8")
   set (FINT8 "-fdefault-integer-8")
   set (TRACEBACK "-fbacktrace")
   set (MMMED "")
+  set (AVX2 "-mavx2")
 endif()
+set (FOPT3 "-O3")
+set (DEBINFO "-g")
+add_compile_definitions(${definitions})
 
 
 set(fortran_8_flags ${FREAL8} ${FINT8} ${TRACEBACK})
 set(shared_flags  ${DEBINFO} ${FOPT3} ${AVX2})
 set(fortran_8_DA_flags ${FREAL8} ${FINT8} ${TRACEBACK})
 set(fortran_d_DA_flags ${FREAL8} ${TRACEBACK})
-set(c_SS_flags ${MMMED} ${SHARED})
-
-
-set(c_DA_allocation_def "DYNAMIC_ALLOCATION")
-set(c_nonDA_allocation_def "STATIC_ALLOCATION")
-
 set(c_8_DA_definitions "F77_INTSIZE_8")
-set(fortran_4_DA_flags)
 set(c_8_definitions "F77_INTSIZE_8")
-set(fortran_4_flags)
 
 include("list_of_files.cmake")
 set(kinds "4" "d" "8" "4_DA" "8_DA" "d_DA")
@@ -40,7 +38,7 @@ foreach(kind ${kinds})
   # -DDYNAMIC_ALLOCATION when compiled with DA and -DSTATIC_ALLOCATION
   # check current kind and if it has 'DA' in it then set compiler def
 
-  if(IntelComp)
+  if(CMAKE_C_COMPILER_ID MATCHES "^(Intel)$")
     string(FIND ${kind} "DA" isDA)
     if(isDA GREATER_EQUAL 0)
       set(allocation_def ${c_DA_allocation_def})
