@@ -21,11 +21,9 @@ if(NOT CMAKE_C_COMPILER_ID MATCHES "^(Intel|GNU|Clang|AppleClang)$")
 endif()
 
 if(CMAKE_C_COMPILER_ID MATCHES "^(Intel)$")
-  include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/Intel.cmake)
   set(IntelComp true )
 elseif(CMAKE_C_COMPILER_ID MATCHES "^(GNU|Clang|AppleClang)$")
   set(GNUComp true )
-  include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/GNU.cmake)
   set(allocation_def "DYNAMIC_ALLOCATION")
 endif()
 

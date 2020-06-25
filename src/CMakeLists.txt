@@ -3,6 +3,18 @@ cmake_minimum_required(VERSION 3.15)
 set(definitions "UNDERSCORE" "NFILES=32" "MAXCD=250" "MAXNC=600" "MXNAF=3")
 add_compile_definitions(definitions)
 
+if(InteComp)
+  set (FREAL8 "-r8")
+  set (FINT8 "-i8")
+  set (TRACEBACK "-traceback")
+  set (MMMED "-mcmodel=medium")
+elseif(GNUComp)
+  set (FREAL8 "-fdefault-double-8" "-fdefault-real-8")
+  set (FINT8 "-fdefault-integer-8")
+  set (TRACEBACK "-fbacktrace")
+  set (MMMED "")
+endif()
+
 set(fortran_8_flags ${FREAL8} ${FINT8} ${TRACEBACK})
 set(shared_flags  ${DEBINFO} ${FOPT3} ${AVX2})
 set(fortran_8_DA_flags ${FREAL8} ${FINT8} ${TRACEBACK})
@@ -37,14 +49,13 @@ foreach(kind ${kinds})
     endif()
   endif()
 
-  add_library(${lib_name}_f OBJECT ${fortran_src})
+  add_library(${lib_name}_f STATIC OBJECT ${fortran_src})
   set_target_properties(${lib_name}_f PROPERTIES
     COMPILE_OPTIONS "${shared_flags};${shared_fortran_flags};${fortran_${kind}_flags}")
   set_target_properties(${lib_name}_f PROPERTIES
     COMPILE_DEFINITIONS "${allocation_def}")
 
-  add_library(${lib_name}_c OBJECT ${c_src})
-  set_target_properties(${lib_name}_c PROPERTIES POSITION_INDEPENDENT_CODE ON)
+  add_library(${lib_name}_c STATIC OBJECT ${c_src})
   set_target_properties(${lib_name}_c PROPERTIES
     COMPILE_OPTIONS "${shared_flags};${c_${kind}_flags}")
 
