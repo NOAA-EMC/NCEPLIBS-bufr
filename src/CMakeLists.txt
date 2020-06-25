@@ -1,6 +1,6 @@
 
 if(CMAKE_C_COMPILER_ID MATCHES "^(Intel)$")
-  set(definitions "UNDERSCORE" "NFILES=32" "MAXCD=250" "MAXNC=600" "MXNAF=3")
+  set(definitions "UNDERSCORE")
   set (FREAL8 "-r8")
   set (FINT8 "-i8")
   set (TRACEBACK "-traceback")
