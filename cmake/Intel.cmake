@@ -1,7 +1,3 @@
-if (CMAKE_Fortran_COMPILER_VERSION VERSION_LESS 15.1)
-  message(FATAL_ERROR "${CMAKE_Fortran_COMPILER_ID} version must be at least 15.1!")
-endif()
-
 set (FOPT0 "-O0")
 set (FOPT1 "-O1")
 set (FOPT2 "-O2")

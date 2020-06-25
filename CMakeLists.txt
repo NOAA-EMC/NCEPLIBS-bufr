@@ -7,8 +7,6 @@ project(
     VERSION ${pVersion}
     LANGUAGES C Fortran)
 
-set(${PROJECT_NAME}_VERSION ${PROJECT_VERSION} CACHE INTERNAL "${PROJECT_NAME} version number")
-
 if(NOT CMAKE_BUILD_TYPE MATCHES "^(Debug|Release|RelWithDebInfo|MinSizeRel)$")
   message(STATUS "Setting build type to 'Release' as none was specified.")
   set(CMAKE_BUILD_TYPE
@@ -23,11 +21,6 @@ if(NOT CMAKE_C_COMPILER_ID MATCHES "^(Intel|GNU|Clang|AppleClang)$")
 endif()
 
 add_compile_definitions(UNDERSCORE)
-if(APPLE)
-  add_compile_definitions(APPLE)
-elseif(UNIX)
-  add_compile_definitions(LINUX)
-endif()
 
 if(CMAKE_C_COMPILER_ID MATCHES "^(Intel)$")
   include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/Intel.cmake)
@@ -35,12 +28,13 @@ if(CMAKE_C_COMPILER_ID MATCHES "^(Intel)$")
 elseif(CMAKE_C_COMPILER_ID MATCHES "^(GNU|Clang|AppleClang)$")
   set(GNUComp true )
   include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/GNU.cmake)
+  set(allocation_def "DYNAMIC_ALLOCATION")
 endif()
 
-set(fortran_8_flags ${FREAL8} ${FINT8})
-set(shared_flags  ${DEBINFO} ${FOPT3} ${TRACEBACK} ${AVX2})
-set(fortran_8_DA_flags ${FREAL8} ${FINT8})
-set(fortran_d_DA_flags ${FREAL8})
+set(fortran_8_flags ${FREAL8} ${FINT8} ${TRACEBACK})
+set(shared_flags  ${DEBINFO} ${FOPT3} ${AVX2})
+set(fortran_8_DA_flags ${FREAL8} ${FINT8} ${TRACEBACK})
+set(fortran_d_DA_flags ${FREAL8} ${TRACEBACK})
 set(c_SS_flags ${MMMED} ${SHARED})
 
 STRING(COMPARE EQUAL ${CMAKE_BUILD_TYPE} "RelWithDebInfo" BUILD_RELEASE)
@@ -63,34 +57,14 @@ set(c_8_flags  "-DUNDERSCORE")
 set(c_8_definitions "F77_INTSIZE_8")
 set(c_d_flags "-DUNDERSCORE")
 set(fortran_4_flags)
-if(IntelComp)
-      set(c_DA_allocation_def "DYNAMIC_ALLOCATION")
-      set(c_nonDA_allocation_def "STATIC_ALLOCATION")
-      message("Intel Compiler flags set")
-elseif(GNUComp)
-    message("GNU Compiler flags set")
-#   if(NOT GSIBUILD)
-#     message(FATAL_ERROR, GNU compiler not configured for non-GSIBUILD)
-#   endif()
-    set(allocation_def "DYNAMIC_ALLOCATION")
-    set(shared_fortran_flags ${UNROLL} ${NOTAB})
-else()
-    message("unknown compiler!")
-endif()
-
 
 file(GLOB fortran_src ${CMAKE_CURRENT_SOURCE_DIR}/src/*.f ${CMAKE_CURRENT_SOURCE_DIR}/src/*.F)
 file(GLOB c_src ${CMAKE_CURRENT_SOURCE_DIR}/src/*.c)
 
-if(GSIBUILD)
-  set(kinds "4" "d" "8")
-else()
-  set(kinds "4" "d" "8" "SS" "4_DA" "8_DA" "d_DA")
-endif()
+set(kinds "4" "d" "8" "4_DA" "8_DA" "d_DA")
 
 foreach(kind ${kinds})
   set(lib_name ${PROJECT_NAME}_${kind})
-  set(versioned_lib_name ${PROJECT_NAME}_v${PROJECT_VERSION}_${kind})
 
   # different compiler definitions for Intel in DA vs non-DA
   # -DDYNAMIC_ALLOCATION when compiled with DA and -DSTATIC_ALLOCATION
@@ -106,7 +80,6 @@ foreach(kind ${kinds})
   endif()
 
   add_library(${lib_name}_f OBJECT ${fortran_src})
-  set_target_properties(${lib_name}_f PROPERTIES POSITION_INDEPENDENT_CODE ON)
   set_target_properties(${lib_name}_f PROPERTIES
     COMPILE_OPTIONS "${shared_flags};${shared_fortran_flags};${fortran_${kind}_flags}")
   set_target_properties(${lib_name}_f PROPERTIES
@@ -125,12 +98,6 @@ foreach(kind ${kinds})
 
   add_library(${lib_name} STATIC $<TARGET_OBJECTS:${lib_name}_f> $<TARGET_OBJECTS:${lib_name}_c>)
 
-  set_target_properties(${lib_name} PROPERTIES OUTPUT_NAME "${versioned_lib_name}")
-
-# target_include_directories(${lib_name} PUBLIC
-#   $<BUILD_INTERFACE:${module_dir}>
-#   $<INSTALL_INTERFACE:${CMAKE_INSTALL_PREFIX}/include_${kind}>)
-
   target_include_directories(${lib_name} INTERFACE
     $<BUILD_INTERFACE:${module_dir}>
     $<INSTALL_INTERFACE:include_${kind}>)
@@ -138,15 +105,7 @@ foreach(kind ${kinds})
   list(APPEND LIB_TARGETS ${lib_name})
   install(DIRECTORY ${module_dir} DESTINATION ${CMAKE_INSTALL_PREFIX})
 
-# install(TARGETS ${lib_name}
-#   EXPORT ${PROJECT_NAME}-config
-#   RUNTIME DESTINATION ${CMAKE_INSTALL_PREFIX}/bin
-#   LIBRARY DESTINATION ${CMAKE_INSTALL_PREFIX}/lib
-#   ARCHIVE DESTINATION ${CMAKE_INSTALL_PREFIX}/lib)
 endforeach()
-
-#install(EXPORT ${PROJECT_NAME}-config 
-#        DESTINATION ${CMAKE_INSTALL_PREFIX}/lib/cmake/${PROJECT_NAME})
 
 install(
   TARGETS ${LIB_TARGETS}
@@ -163,14 +122,12 @@ export(EXPORT ${PROJECT_NAME}Exports
   NAMESPACE ${PROJECT_NAME}::
   FILE ${PROJECT_NAME}-targets.cmake)
 
-# bacio-config.cmake
 configure_package_config_file(
   ${CMAKE_SOURCE_DIR}/cmake/PackageConfig.cmake.in ${CMAKE_BINARY_DIR}/${PROJECT_NAME}-config.cmake
   INSTALL_DESTINATION ${CONFIG_INSTALL_DESTINATION})
 install(FILES ${CMAKE_BINARY_DIR}/${PROJECT_NAME}-config.cmake
   DESTINATION ${CONFIG_INSTALL_DESTINATION})
 
-# bacio-config-version.cmake
 write_basic_package_version_file(
   ${CMAKE_BINARY_DIR}/${PROJECT_NAME}-config-version.cmake
   VERSION ${PROJECT_VERSION}
@@ -178,7 +135,6 @@ write_basic_package_version_file(
 install(FILES ${CMAKE_BINARY_DIR}/${PROJECT_NAME}-config-version.cmake
   DESTINATION ${CONFIG_INSTALL_DESTINATION})
 
-# bacio-targets.cmake and bacio-targets-<build-type>.cmake
 install(EXPORT ${PROJECT_NAME}Exports
   NAMESPACE ${PROJECT_NAME}::
   FILE ${PROJECT_NAME}-targets.cmake
