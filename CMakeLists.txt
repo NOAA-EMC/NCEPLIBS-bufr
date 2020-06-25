@@ -20,7 +20,8 @@ if(NOT CMAKE_C_COMPILER_ID MATCHES "^(Intel|GNU|Clang|AppleClang)$")
   message(WARNING "Compiler not officially supported: ${CMAKE_C_COMPILER_ID}")
 endif()
 
-add_compile_definitions(UNDERSCORE)
+set(definitions "UNDERSCORE" "NFILES=32" "MAXCD=250" "MAXNC=600" "MXNAF=3")
+add_compile_definitions(definitions)
 
 if(CMAKE_C_COMPILER_ID MATCHES "^(Intel)$")
   include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/Intel.cmake)
@@ -44,7 +45,6 @@ STRING(COMPARE EQUAL ${CMAKE_BUILD_TYPE} "DEBUG" BUILD_DEBUG)
 
 option(GSIBUILD "Build only libs for GSI" ON)
 
-set(definitions "UNDERSCORE" "NFILES=32" "MAXCD=250" "MAXNC=600" "MXNAF=3")
 set(c_DA_allocation_def "DYNAMIC_ALLOCATION")
 set(c_nonDA_allocation_def "STATIC_ALLOCATION")
 
