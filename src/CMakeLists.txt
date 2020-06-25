@@ -1,19 +1,19 @@
-cmake_minimum_required(VERSION 3.15)
-
 set(definitions "UNDERSCORE" "NFILES=32" "MAXCD=250" "MAXNC=600" "MXNAF=3")
 add_compile_definitions(definitions)
 
-if(InteComp)
+if(CMAKE_C_COMPILER_ID MATCHES "^(Intel)$")
   set (FREAL8 "-r8")
   set (FINT8 "-i8")
   set (TRACEBACK "-traceback")
   set (MMMED "-mcmodel=medium")
-elseif(GNUComp)
+  set (IntelComp TRUE)
+elseif(CMAKE_C_COMPILER_ID MATCHES "^(GNU|Clang|AppleClang)$")
   set (FREAL8 "-fdefault-double-8" "-fdefault-real-8")
   set (FINT8 "-fdefault-integer-8")
   set (TRACEBACK "-fbacktrace")
   set (MMMED "")
 endif()
+
 
 set(fortran_8_flags ${FREAL8} ${FINT8} ${TRACEBACK})
 set(shared_flags  ${DEBINFO} ${FOPT3} ${AVX2})
