@@ -1,4 +1,4 @@
-set(fortran_src 
+set(fortran_src
   adn30.f
   atrcpt.f
   bfrini.f
@@ -304,7 +304,7 @@ set(fortran_src
   openbf.F
   pkvs01.F
   wrdlen.F )
-set(c_src 
+set(c_src
   arallocc.c
   ardllocc.c
   bort_exit.c
