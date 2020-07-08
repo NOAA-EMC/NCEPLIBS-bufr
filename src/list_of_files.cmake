@@ -1,4 +1,64 @@
 set(fortran_src
+  modv_MAXCD.F
+  modv_MAXJL.F
+  modv_MAXMEM.F
+  modv_MAXMSG.F
+  modv_MAXSS.F
+  modv_MAXTBA.F
+  modv_MAXTBB.F
+  modv_MAXTBD.F
+  modv_MXBTM.F
+  modv_MXBTMSE.F
+  modv_MXCDV.F
+  modv_MXCSB.F
+  modv_MXDXTS.F
+  modv_MXH4WLC.F
+  modv_MXLCC.F
+  modv_MXMSGL.F
+  modv_MXMTBB.F
+  modv_MXMTBD.F
+  modv_MXMTBF.F
+  modv_MXNRV.F
+  modv_MXRST.F
+  modv_MXS01V.F
+  modv_MXTAMC.F
+  modv_MXTCO.F
+  modv_NFILES.F
+  moda_bitbuf.F
+  moda_bitmaps.F
+  moda_bufrmg.F
+  moda_bufrsr.F
+  moda_comprs.F
+  moda_comprx.F
+  moda_h4wlc.F
+  moda_idrdm.F
+  moda_ifopbf.F
+  moda_ival.F
+  moda_ivttmp.F
+  moda_lushr.F
+  moda_mgwa.F
+  moda_mgwb.F
+  moda_msgcwd.F
+  moda_msglim.F
+  moda_msgmem.F
+  moda_mstabs.F
+  moda_nmikrp.F
+  moda_nrv203.F
+  moda_nulbfr.F
+  moda_rdmtb.F
+  moda_rlccmn.F
+  moda_s01cm.F
+  moda_sc3bfr.F
+  moda_stbfr.F
+  moda_stcode.F
+  moda_tababd.F
+  moda_tables.F
+  moda_ufbcpl.F
+  moda_unptyp.F
+  moda_usrbit.F
+  moda_usrint.F
+  moda_usrtmp.F
+  moda_xtab.F
   adn30.f
   atrcpt.f
   bfrini.f
@@ -241,69 +301,10 @@ set(fortran_src
   ireadmt.F
   irev.F
   isetprm.F
-  moda_bitbuf.F
-  moda_bitmaps.F
-  moda_bufrmg.F
-  moda_bufrsr.F
-  moda_comprs.F
-  moda_comprx.F
-  moda_h4wlc.F
-  moda_idrdm.F
-  moda_ifopbf.F
-  moda_ival.F
-  moda_ivttmp.F
-  moda_lushr.F
-  moda_mgwa.F
-  moda_mgwb.F
-  moda_msgcwd.F
-  moda_msglim.F
-  moda_msgmem.F
-  moda_mstabs.F
-  moda_nmikrp.F
-  moda_nrv203.F
-  moda_nulbfr.F
-  moda_rdmtb.F
-  moda_rlccmn.F
-  moda_s01cm.F
-  moda_sc3bfr.F
-  moda_stbfr.F
-  moda_stcode.F
-  moda_tababd.F
-  moda_tables.F
-  moda_ufbcpl.F
-  moda_unptyp.F
-  moda_usrbit.F
-  moda_usrint.F
-  moda_usrtmp.F
-  moda_xtab.F
-  modv_MAXCD.F
-  modv_MAXJL.F
-  modv_MAXMEM.F
-  modv_MAXMSG.F
-  modv_MAXSS.F
-  modv_MAXTBA.F
-  modv_MAXTBB.F
-  modv_MAXTBD.F
-  modv_MXBTM.F
-  modv_MXBTMSE.F
-  modv_MXCDV.F
-  modv_MXCSB.F
-  modv_MXDXTS.F
-  modv_MXH4WLC.F
-  modv_MXLCC.F
-  modv_MXMSGL.F
-  modv_MXMTBB.F
-  modv_MXMTBD.F
-  modv_MXMTBF.F
-  modv_MXNRV.F
-  modv_MXRST.F
-  modv_MXS01V.F
-  modv_MXTAMC.F
-  modv_MXTCO.F
-  modv_NFILES.F
   openbf.F
   pkvs01.F
-  wrdlen.F )
+  wrdlen.F)
+
 set(c_src
   arallocc.c
   ardllocc.c
@@ -327,4 +328,11 @@ set(c_src
   srchtbf.c
   strtbfe.c
   stseq.c
-  wrdesc.c )
+  wrdesc.c)
+
+set(c_hdr
+  bufrlib.h
+  cfe.h
+  cobfl.h
+  cread.h
+  mstabs.h)
