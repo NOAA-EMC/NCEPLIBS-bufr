@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 3.15)
 file(STRINGS "VERSION" pVersion)
 
 project(
-    bufr 
+    bufr
     VERSION ${pVersion}
     LANGUAGES C Fortran)
 

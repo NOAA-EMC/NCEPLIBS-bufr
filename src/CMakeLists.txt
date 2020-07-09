@@ -1,78 +1,103 @@
-
 if(CMAKE_C_COMPILER_ID MATCHES "^(Intel)$")
-  set(definitions "UNDERSCORE")
-  set (FREAL8 "-r8")
-  set (FINT8 "-i8")
-  set (TRACEBACK "-traceback")
-  set (MMMED "-mcmodel=medium")
-  set (AVX2 "-axCORE-AVX2")
-  set(c_DA_allocation_def "DYNAMIC_ALLOCATION")
-  set(c_nonDA_allocation_def "STATIC_ALLOCATION")
+
+  set(c_8_defs "F77_INTSIZE_8")
+  set(c_8_DA_defs ${c_8_defs})
+
+  set(CMAKE_Fortran_FLAGS "-g -traceback")
+  set(CMAKE_Fortran_FLAGS_DEBUG "-O0")
+  set(CMAKE_Fortran_FLAGS_RELEASE "-O3")
+
+  set(fortran_8_flags "-r8 -i8")
+  set(fortran_d_flags "-r8")
+  set(fortran_8_DA_flags ${fortran_8_flags})
+  set(fortran_d_DA_flags ${fortran_d_flags})
+
 elseif(CMAKE_C_COMPILER_ID MATCHES "^(GNU|Clang|AppleClang)$")
-  set(definitions "UNDERSCORE" "DYNAMIC_ALLOCATION")
-  set (FREAL8 "-fdefault-double-8" "-fdefault-real-8")
-  set (FINT8 "-fdefault-integer-8")
-  set (TRACEBACK "-fbacktrace")
-  set (MMMED "")
-  set (AVX2 "-mavx2")
+
+  set(CMAKE_C_FLAGS_DEBUG "-ggdb -Wall -O0")
+
+  set(CMAKE_Fortran_FLAGS "-g -fbacktrace")
+  set(CMAKE_Fortran_FLAGS_DEBUG "-ggdb -Wall -O0")
+  set(CMAKE_Fortran_FLAGS_RELEASE "-O3")
+
+  set(fortran_8_flags "-fdefault-real-8 -fdefault-integer-8")
+  set(fortran_d_flags "-fdefault-real-8")
+
 endif()
-set (FOPT3 "-O3")
-set (DEBINFO "-g")
-add_compile_definitions(${definitions})
 
+# Extract BUFRLIB parameters
+file(READ bufrlib.prm _bufrlib_prm_str)
+foreach(_var IN ITEMS MAXNC MXNAF)
+    if(_bufrlib_prm_str MATCHES "${_var} = ([0-9]+)")
+      list(APPEND c_defs ${_var}=${CMAKE_MATCH_1})
+    else()
+      message(FATAL_ERROR "Unable to parse variable ${_var} value from file: src/bufrlib.prm")
+    endif()
+endforeach()
 
-set(fortran_8_flags ${FREAL8} ${FINT8} ${TRACEBACK})
-set(shared_flags  ${DEBINFO} ${FOPT3} ${AVX2})
-set(fortran_8_DA_flags ${FREAL8} ${FINT8} ${TRACEBACK})
-set(fortran_d_DA_flags ${FREAL8} ${TRACEBACK})
-set(c_8_DA_definitions "F77_INTSIZE_8")
-set(c_8_definitions "F77_INTSIZE_8")
+list(APPEND underscore_def UNDERSCORE)
+
+include(TestBigEndian)
+test_big_endian(IS_BIG_ENDIAN)
+if(IS_BIG_ENDIAN)
+  list(APPEND endian_def BIG_ENDIAN)
+else()
+  list(APPEND endian_def LITTLE_ENDIAN)
+endif()
 
 include("list_of_files.cmake")
-set(kinds "4" "d" "8" "4_DA" "8_DA" "d_DA")
+
+# Both GNU and Intel support DYNAMIC_ALLOCATION
+list(APPEND kinds "4_DA" "8_DA" "d_DA")
+
+# Only Intel supports STATIC_ALLOCATION
+if(CMAKE_C_COMPILER_ID MATCHES "^(Intel)$")
+  list(APPEND kinds "4" "8" "d")
+endif()
 
 foreach(kind ${kinds})
   set(lib_name ${PROJECT_NAME}_${kind})
+  set(module_dir "${CMAKE_CURRENT_BINARY_DIR}/include_${kind}")
 
-  # different compiler definitions for Intel in DA vs non-DA
-  # -DDYNAMIC_ALLOCATION when compiled with DA and -DSTATIC_ALLOCATION
-  # check current kind and if it has 'DA' in it then set compiler def
-
-  if(CMAKE_C_COMPILER_ID MATCHES "^(Intel)$")
-    string(FIND ${kind} "DA" isDA)
-    if(isDA GREATER_EQUAL 0)
-      set(allocation_def ${c_DA_allocation_def})
-    else()
-      set(allocation_def ${c_nonDA_allocation_def})
-    endif()
+  # determine ALLOCATION based on kind
+  if(${kind} MATCHES "^([4|8|d]_DA)$")
+    set(allocation_def "DYNAMIC_ALLOCATION")
+  else()
+    set(allocation_def "STATIC_ALLOCATION")
   endif()
 
   add_library(${lib_name}_f STATIC OBJECT ${fortran_src})
-  set_target_properties(${lib_name}_f PROPERTIES
-    COMPILE_OPTIONS "${shared_flags};${shared_fortran_flags};${fortran_${kind}_flags}")
-  set_target_properties(${lib_name}_f PROPERTIES
-    COMPILE_DEFINITIONS "${allocation_def}")
+  set_target_properties(${lib_name}_f PROPERTIES COMPILE_FLAGS
+                                                 "${fortran_${kind}_flags}")
+  target_compile_definitions(${lib_name}_f PUBLIC "${allocation_def}")
+  target_compile_definitions(${lib_name}_f PUBLIC "${underscore_def}")
+  target_compile_definitions(${lib_name}_f PRIVATE "${endian_def}")
 
   add_library(${lib_name}_c STATIC OBJECT ${c_src})
-  set_target_properties(${lib_name}_c PROPERTIES
-    COMPILE_OPTIONS "${shared_flags};${c_${kind}_flags}")
+  set_target_properties(${lib_name}_c PROPERTIES COMPILE_FLAGS
+                                                 "${c_${kind}_flags}")
+  target_compile_definitions(${lib_name}_c PUBLIC "${allocation_def}")
+  target_compile_definitions(${lib_name}_c PUBLIC "${underscore_def}")
+  target_compile_definitions(${lib_name}_c PRIVATE "${endian_def}")
+  target_compile_definitions(${lib_name}_c PRIVATE "${c_defs}")
+  target_compile_definitions(${lib_name}_c PRIVATE "${c_${kind}_defs}")
 
-  set_target_properties(${lib_name}_c PROPERTIES
-    COMPILE_DEFINITIONS "${c_${kind}_definitions};${allocation_def}")
-
-  set(module_dir "${CMAKE_CURRENT_BINARY_DIR}/include_${kind}")
   set_target_properties(${lib_name}_f PROPERTIES Fortran_MODULE_DIRECTORY "${module_dir}")
 
-  add_library(${lib_name} STATIC $<TARGET_OBJECTS:${lib_name}_f> $<TARGET_OBJECTS:${lib_name}_c>)
+  add_library(${lib_name} STATIC $<TARGET_OBJECTS:${lib_name}_f>
+                                 $<TARGET_OBJECTS:${lib_name}_c>)
   add_library(${PROJECT_NAME}::${lib_name} ALIAS ${lib_name})
 
   target_include_directories(${lib_name} INTERFACE
     $<BUILD_INTERFACE:${module_dir}>
     $<INSTALL_INTERFACE:include_${kind}>)
 
+  target_compile_definitions(${lib_name} PUBLIC "${underscore_def}")
+  target_compile_definitions(${lib_name} PUBLIC "${allocation_def}")
+
   list(APPEND LIB_TARGETS ${lib_name})
   install(DIRECTORY ${module_dir} DESTINATION ${CMAKE_INSTALL_PREFIX})
-
+  install(FILES ${c_hdr} DESTINATION ${CMAKE_INSTALL_PREFIX}/include_${kind})
 endforeach()
 
 install(
