@@ -57,7 +57,12 @@ C$$$
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
-
+#ifdef DYNAMIC_ALLOCATION   
+      if(.not. allocated(NULL) ) then
+        write(6,*) 'WARNING calling closbf without having called openbf'
+        return
+      endif
+#endif
       CALL STATUS(LUNIT,LUN,IL,IM)
       IF(IL.GT.0 .AND. IM.NE.0) CALL CLOSMG(LUNIT)
       IF(IL.NE.0 .AND. NULL(LUN).EQ.0) CALL CLOSFB(LUN)

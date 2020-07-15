@@ -72,7 +72,7 @@ set(fortran_src
   chrtrn.f
   chrtrna.f
   cktaba.f
-  closbf.f
+  closbf.F
   closmg.f
   cmpmsg.f
   cmsgini.f
