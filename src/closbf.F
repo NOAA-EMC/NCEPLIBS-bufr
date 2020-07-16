@@ -54,10 +54,19 @@ C$$$
       USE MODA_NULBFR
 
       INCLUDE 'bufrlib.prm'
+      CHARACTER*128 ERRSTR
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
-
+#ifdef DYNAMIC_ALLOCATION   
+      IF ( .NOT. ALLOCATED(NULL) ) THEN
+        CALL ERRWRT('++++++++++++++++++++WARNING++++++++++++++++++++++')
+        ERRSTR = 'BUFRLIB: CLOSBF CALLED BEFORE OPENBF'
+        CALL ERRWRT(ERRSTR)
+        CALL ERRWRT('++++++++++++++++++++WARNING++++++++++++++++++++++')
+        RETURN
+      ENDIF
+#endif
       CALL STATUS(LUNIT,LUN,IL,IM)
       IF(IL.GT.0 .AND. IM.NE.0) CALL CLOSMG(LUNIT)
       IF(IL.NE.0 .AND. NULL(LUN).EQ.0) CALL CLOSFB(LUN)
