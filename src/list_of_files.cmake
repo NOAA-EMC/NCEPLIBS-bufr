@@ -72,7 +72,6 @@ set(fortran_src
   chrtrn.f
   chrtrna.f
   cktaba.f
-  closbf.F
   closmg.f
   cmpmsg.f
   cmsgini.f
@@ -298,6 +297,7 @@ set(fortran_src
   wtstat.f
   arallocf.F
   ardllocf.F
+  closbf.F
   ireadmt.F
   irev.F
   isetprm.F
