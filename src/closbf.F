@@ -58,10 +58,13 @@ C$$$
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
 #ifdef DYNAMIC_ALLOCATION   
-      if(.not. allocated(NULL) ) then
-        write(6,*) 'WARNING calling closbf without having called openbf'
-        return
-      endif
+      IF ( .NOT. ALLOCATED(NULL) ) THEN
+        CALL ERRWRT('++++++++++++++++++++WARNING++++++++++++++++++++++')
+        ERRSTR = 'BUFRLIB: CLOSBF WAS CALLED BEFORE CALLING OPENBF' 
+        CALL ERRWRT(ERRSTR)
+        CALL ERRWRT('++++++++++++++++++++WARNING++++++++++++++++++++++')
+        RETURN
+      ENDIF
 #endif
       CALL STATUS(LUNIT,LUN,IL,IM)
       IF(IL.GT.0 .AND. IM.NE.0) CALL CLOSMG(LUNIT)
