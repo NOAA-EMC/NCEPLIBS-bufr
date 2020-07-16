@@ -54,13 +54,14 @@ C$$$
       USE MODA_NULBFR
 
       INCLUDE 'bufrlib.prm'
+      CHARACTER*128 ERRSTR
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
 #ifdef DYNAMIC_ALLOCATION   
       IF ( .NOT. ALLOCATED(NULL) ) THEN
         CALL ERRWRT('++++++++++++++++++++WARNING++++++++++++++++++++++')
-        ERRSTR = 'BUFRLIB: CLOSBF WAS CALLED BEFORE CALLING OPENBF' 
+        ERRSTR = 'BUFRLIB: CLOSBF CALLED BEFORE OPENBF'
         CALL ERRWRT(ERRSTR)
         CALL ERRWRT('++++++++++++++++++++WARNING++++++++++++++++++++++')
         RETURN
