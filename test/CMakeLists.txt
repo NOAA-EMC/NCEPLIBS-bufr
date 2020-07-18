@@ -11,7 +11,7 @@ list(APPEND test_OUT_srcs
   test_OUT_2.f
   )
 
-list(APPEND test_OUT_srcs_DA_only
+list(APPEND test_OUT_srcs_DA_ONLY
   test_OUT_3.f
 )
 
@@ -81,16 +81,16 @@ foreach(test_src ${test_OUT_srcs})
   endforeach()
 endforeach()
 
-foreach(test_src ${test_OUT_srcs_DA_ONLY})
-  string(REPLACE ".f" "" testPref ${test_src})
-  foreach(kind ${kinds})
-    if(${kind} MATCHES "^([4|8|d]_DA)$")
-      set(test     ${testPref}_${kind})
-      set(test_exe ${test}.x)
-      add_executable(${test_exe} ${test_src})
-      add_dependencies(${test_exe} bufr_${kind})
-      target_link_libraries(${test_exe} PUBLIC bufr_${kind})
-      bufr_add_test(${test} ${test_exe})
-    endif()
-  endforeach()
-endforeach()
+#foreach(test_src ${test_OUT_srcs_DA_ONLY})
+#  string(REPLACE ".f" "" testPref ${test_src})
+#  foreach(kind ${kinds})
+#    if(${kind} MATCHES "^([4|8|d]_DA)$")
+#      set(test     ${testPref}_${kind})
+#      set(test_exe ${test}.x)
+#      add_executable(${test_exe} ${test_src})
+#      add_dependencies(${test_exe} bufr_${kind})
+#      target_link_libraries(${test_exe} PUBLIC bufr_${kind})
+#      bufr_add_test(${test} ${test_exe})
+#    endif()
+#  endforeach()
+#endforeach()
