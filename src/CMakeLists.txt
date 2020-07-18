@@ -47,14 +47,6 @@ endif()
 
 include("list_of_files.cmake")
 
-# Both GNU and Intel support DYNAMIC_ALLOCATION
-list(APPEND kinds "4_DA" "8_DA" "d_DA")
-
-# Only Intel supports STATIC_ALLOCATION
-if(CMAKE_C_COMPILER_ID MATCHES "^(Intel)$")
-  list(APPEND kinds "4" "8" "d")
-endif()
-
 foreach(kind ${kinds})
   set(lib_name ${PROJECT_NAME}_${kind})
   set(module_dir "${CMAKE_CURRENT_BINARY_DIR}/include_${kind}")
