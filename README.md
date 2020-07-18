@@ -1,11 +1,9 @@
+## BUFR library
 
-Code manager: Jeff Ator
-=============================================================================
-libver=bufr_v11.3.0
+**Code manager:** Jeff Ator
+**VERSION:** 11.3.1.1
 
-
-#############################################################################
-     Original Implementation of BUFR Archive Library - 12Z 6 January 1994
+### Original Implementation of BUFR Archive Library - 12Z 6 January 1994
 
 Implemented on Cray-YMP as a single monolithic source bufr.f.  Only the AVN
 and FNL PREPBUFR processing and q.c. codes used the BUFR Archive Library
@@ -13,56 +11,32 @@ initially.  These were: PREPDATA, SYNDATA, CQCBUFR, OIQCBUFR, and SSIANL.
 These had actually been implemented with a non-production version of the
 library in Jack Woollen's directory on 12Z 21 September 1993.
 
-
-##############################################################################
-##############################################################################
-##############################################################################
-
-           Changes to BUFR Archive Library, 12Z 10 January 1995
+### Changes to BUFR Archive Library, 12Z 10 January 1995
 
 The BUFR Archive Library was modified slightly to allow for changes in the AVN
 and FNL PREPBUFR and Q.C. Processing codes (PREPDATA, CQCBUFR, OIQCBUFR,
 SSIANL).
 
-
-##############################################################################
-##############################################################################
-##############################################################################
-
-            Changes to BUFR Archive Library, 12Z 28 June 1995
+### Changes to BUFR Archive Library, 12Z 28 June 1995
 
 The BUFR Archive Library was modified to increase the size of internal arrays
 in order to handle bigger files.  Coding was also added in order to process
 ERS scatterometer data which is input from compressed BUFR messages (new
 subroutine READERME).
 
-##############################################################################
-##############################################################################
-##############################################################################
-
-          Changes to BUFR Archive Library, 12Z 09 September 1996
+### Changes to BUFR Archive Library, 12Z 09 September 1996
 
 The BUFR Archive Library was separated into 121 BUFR interface routines,
 which include upgrades and devices for operating the BUFR database.
 
-
-##############################################################################
-##############################################################################
-##############################################################################
-
-          Changes to BUFR Archive Library, 21Z 09 October 1996
+### Changes to BUFR Archive Library, 21Z 09 October 1996
 
 The BUFR Archive Library was modified to include 9 additional routines to
 process ERS scatterometer data (IREADERS, RDTRER, READERS, UNCMPS), perform
 fault tolerant reading (IREADFT, READFT), and support report part merging
 (INVMRG, MRGINV, NWORDS).
 
-
-##############################################################################
-##############################################################################
-##############################################################################
-
-          Changes to BUFR Archive Library, 12Z 25 November 1996
+### Changes to BUFR Archive Library, 12Z 25 November 1996
 
 Several routines in the BUFR Archive Library are being modified to provide
 more machine independence.  The data merging routine is being modified
@@ -70,12 +44,7 @@ for radiosonde call signs, a return code is being added to UFBINT when
 mnemonics are not found, and READMG is being modified to exit gracefully when
 the file is positioned after an end of file
 
-
-##############################################################################
-##############################################################################
-##############################################################################
-
-          Changes to BUFR Archive Library, 12Z 11 December 1996
+### Changes to BUFR Archive Library, 12Z 11 December 1996
 
 The following subroutines were modified in the BUFR Archive Library:
 
@@ -88,7 +57,7 @@ The following subroutines were modified in the BUFR Archive Library:
   UFBRW  - Removed a hard abort for users who try to write non-existing
            mnemonics.
 
-  ADDATE - New date arithmetic subroutine added to the library. 
+  ADDATE - New date arithmetic subroutine added to the library.
 
   DUMPBF - New dump date reader added to the library.
 
@@ -100,12 +69,7 @@ The following subroutines were modified in the BUFR Archive Library:
            recognized in the current ones.  Works with a user subroutine
            called OPENBT which specifies the location(s) of different tables.
 
-
-##############################################################################
-##############################################################################
-##############################################################################
-
-          Changes to BUFR Archive Library, 21Z 17 December 1996
+### Changes to BUFR Archive Library, 21Z 17 December 1996
 
 The BUFR Archive Library was modified to make the following changes:
 
@@ -118,11 +82,7 @@ The BUFR Archive Library was modified to make the following changes:
   UFBINT - Modified to always initialize "USR" array to missing (10E10) when
            BUFR file is being read.
 
-##############################################################################
-##############################################################################
-##############################################################################
-
-             Changes to BUFR Archive Library, 12Z 29 July 1997
+### Changes to BUFR Archive Library, 12Z 29 July 1997
 
 Three BUFR Archive Library subroutines were modified to update the current
 BUFR version information written into Section 0 of each message:  DXMINI,
@@ -131,12 +91,7 @@ MSGINI and MSGWRT.  Version 3 replaces version 2.
 Three additional subroutines were modified to enable them to process GOES
 soundings from NESDIS: IRDERM, RDTRER and READERME.
 
-
-##############################################################################
-##############################################################################
-##############################################################################
-
-           Changes to BUFR Archive Library, 12Z 03 September 1997
+### Changes to BUFR Archive Library, 12Z 03 September 1997
 
 Changes are being made to the BUFR Archive Library to recompile all routines
 without the -ez compiler option.  The removal of this debugging option should
@@ -147,12 +102,7 @@ In addition, a new subroutine, STANDARD, is being added to the library.  This
 subroutine "standardizes" NCEP BUFR messages for transmission.  It was
 requested to process hurricane location data.
 
-
-##############################################################################
-##############################################################################
-##############################################################################
-
-             Changes to BUFR Archive Library, 12Z 02 April 1998
+### Changes to BUFR Archive Library, 12Z 02 April 1998
 
 BUFR Archive Library subroutine STRCLN, which initializes the mnemonic string
 cache in the BUFR interface, is being modified to enlarge the cache from 50
@@ -165,11 +115,7 @@ user program, over and over again (the typical scenario).  It is being
 modified to operate a bigger cache, and some optimization of the cache search
 algorithm is being made in support of a bigger cache.
 
-##############################################################################
-##############################################################################
-##############################################################################
-
-              Changes to BUFR Archive Library, 20Z 08 July 1998
+### Changes to BUFR Archive Library, 20Z 08 July 1998
 
 The new version of the BUFR Archive Library is Y2K compliant, with additional
 changes to support expanded machine independence of the code, and to refine,
@@ -237,12 +183,7 @@ LJUST     a character left justify function
 OPENBT    A dummy entry point which is relevant to users of the READTJ
           subroutine
 
-
-##############################################################################
-##############################################################################
-##############################################################################
-
-           Changes to BUFR Archive Library, 12Z 31 August 1998
+### Changes to BUFR Archive Library, 12Z 31 August 1998
 
 BUFR Archive Library subroutine DATEBF, which returns the center date-time for
 a BUFR data dump file, is being modified to correct an error which lead to the
@@ -251,24 +192,14 @@ was requested via a prior call to subroutine DATELEN.  The center date
 returned in the sixth argument, in the form YYYYMMDDHH, was correct in the
 previous version of this subroutine.
 
-
-##############################################################################
-##############################################################################
-##############################################################################
-
-           Changes to BUFR Archive Library, 12Z 27 October 1998
+### Changes to BUFR Archive Library, 12Z 27 October 1998
 
 The BUFR Archive Library is being modified to correct problems caused by
 in-lining code with fpp directives.  The following subroutines are being
 changed: DATEBF, MVB, RCSTPL, RDMEMS, RDTREE, RDTRER, UFBGET, UFBRW, UFBTAB,
 UFBTAM and UPBB.
 
-
-##############################################################################
-##############################################################################
-##############################################################################
-
-          Changes to BUFR Archive Library, 12Z 24 November 1998
+### Changes to BUFR Archive Library, 12Z 24 November 1998
 
 Fuction I4DY and subroutine MSGWRT were changed as a result of final Y2K
 testing of the decoder/ingest system.
@@ -278,12 +209,7 @@ I4DY was changed to conform to the NCEP 2-digit year time-window of 1921-2020.
 MSGWRT was changed to zero out the padding bytes written at the end of
 Section 4.
 
-
-##############################################################################
-##############################################################################
-##############################################################################
-
-          Changes to BUFR Archive Library, 12Z 14 December 1998
+### Changes to BUFR Archive Library, 12Z 14 December 1998
 
 Subroutine MSGUPD was updated to bybass the processing of reports that are
 longer than the length of a BUFR message.  Prior to this change, the BUFR
@@ -295,19 +221,13 @@ windowing to a 4-digit year (00-20 ==> add 2000; 21-99 ==> add 1900).  This
 windowing technique was inadvertently changed to 10 in the previous
 implementation of the BUFR Archive Library.
 
-
-##############################################################################
-##############################################################################
-##############################################################################
-
-           Changes to BUFR Archive Library, 12Z 18 November 1999
+### Changes to BUFR Archive Library, 12Z 18 November 1999
 
 The BUFR Archive Library on the IBM-SP was implemented into productuction when
 this machine became operational (replacing the Cray-YMP/J-90's).
 
 The following changes were actually implemented on the IBM-SP on 18Z 13 July
 1999 prior to it's operational status):
-
 
 1)  A number of routines in the BUFR Archive Library have been modified to
 increase the number of BUFR files which can be opened at one time from 10 to
@@ -323,7 +243,7 @@ UFBINT, UFBOVR, UFBREP, UFBRP, UFBRW, UFBTAB, UFBTAM, UNCMPS, UPTDD, USRTPL,
 WRITDX, WRTREE, WTSTAT.
 
 2) Subroutines READFT, READMG, and READTJ have been modified with semantic
-adjustments to ameliorate compiler complaints from LINUX boxes. 
+adjustments to ameliorate compiler complaints from LINUX boxes.
 
 3) Added the new subroutine READIBM in order to process "foreign" (non-NCEP)
 BUFR files which may not be padded.  Unlike the subroutine READERM, which
@@ -339,7 +259,7 @@ READIBM (see 3).
 5) Added the new subroutine READMM.  It is like subroutine RDMEMM except it
 advances the value of the message (record) number by one prior to returning
 to the calling program.  This adds another option for application programs
-which read BUFR files in random access mode (e.g., PREPOBS_OIQCBUFR). 
+which read BUFR files in random access mode (e.g., PREPOBS_OIQCBUFR).
 
 6) Function IREADMG has been modified to contain two new function entries
 called IREADMM and IREADIBM.  The IREADIBM function calls the new library
@@ -360,12 +280,7 @@ subroutine NEMTBB has been modified to call function VALX rather than VAL$.
 10) New subroutines UFBSTP and UFBSP added (UFBSP is called by UFBSTP).
     N O T   S U R E   W H A T   T H E S E   D O  ! ! !
 
-
-##############################################################################
-##############################################################################
-##############################################################################
-
-           Changes to BUFR Archive Library, 12Z 19 September 2000
+### Changes to BUFR Archive Library, 12Z 19 September 2000
 
 A number of routines in the BUFR Archive Library have been modified.  These
 changes include:
@@ -397,14 +312,13 @@ were: NEMTAB, NEMTBD, NUMTAB and TABSUB
 modified were: BFRINI, CLOSMG, COPYBF, COPYMG, COPYSB, CPYMEM, CPYUPD, IRDERM,
 MESGBF, MINIMG, MSGINI, MSGUPD, MSGWRT, POSAPN, POSAPX, RCSTPL, RDBFDX, RDMEMM,
 RDMEMS, RDTREE, READERM, READERME, READFT, READIBM, READMG, READMM, READSB,
-READTJ, UFBGET, UFBMEM, UFBTAB, UFBTAM, WRITDX, WRITSA and WRTREE. 
+READTJ, UFBGET, UFBMEM, UFBTAB, UFBTAM, WRITDX, WRITSA and WRTREE.
 
 7) Added subroutine UFBSEQ, like UFBINT except processes specific sequences
 instead of specific elements.
 
 8) Added function NMBYT, returns the number of bytes in a message opened for
 input.
-
 
 The BUFR Archive Library is now compiled using both optimization level 3 (-O3)
 and optimization level 4 (-O4).  The previous BUFR Archive Library had used
@@ -417,13 +331,7 @@ filename.
 Any program that must link to the -O4 BUFR Archive Library when compiled will
 have to modify its makefile.
 
-
-##############################################################################
-##############################################################################
-##############################################################################
-
-          Changes to BUFR Archive Library, 19Z 15 August 2001
-
+### Changes to BUFR Archive Library, 19Z 15 August 2001
 
 Parameter MAXMEM (the maximum number of bytes required to store all messages
 internally) was increased from 8 MBYTES TO 16 MBYTES in the following
@@ -434,11 +342,7 @@ Subroutine UFBTAM modified to not abort when there are too many subsets coming
 in (i.e., .gt. array limit passed in), but rather to just process the limiting
 number of reports and print a diagnostic.
 
-##############################################################################
-##############################################################################
-##############################################################################
-
-              Changes to BUFR Archive Library, 12Z 14 May 2002
+### Changes to BUFR Archive Library, 12Z 14 May 2002
 
 A number of routines in the BUFR Archive Library have been modified.  These
 changes include:
@@ -513,12 +417,7 @@ number 1 above.
 entry points for checking the BUFR mnemonic table.  Part of conversion of
 entry points to separate subroutines or functions. See number 1 above.
 
-
-##############################################################################
-##############################################################################
-##############################################################################
-
-             Changes to BUFR Archive Library, 12Z 27 May 2003
+### Changes to BUFR Archive Library, 12Z 27 May 2003
    (Actually implemented into productuction 12Z 19 May 2003 when the IBM
              Frost and Snow machines became operational at NCEP)
 
@@ -567,12 +466,7 @@ libbufr_4.a -- 4-byte reals, 4-byte integers, 64-bit executable compilation
 libbufr_8.a -- 8-byte reals, 8-byte integers, 64-bit executable compilation
 libbufr_d.a -- 8-byte reals, 4-byte integers, 64-bit executable compilation
 
-
-##############################################################################
-##############################################################################
-##############################################################################
-
-          Changes to BUFR Archive Library, 12Z 04 November 2003
+### Changes to BUFR Archive Library, 12Z 04 November 2003
 
 This is the first "unified" BUFR Archive Library including components from the
 regular NCEP production machine version (whose implementation history is
@@ -635,7 +529,7 @@ any) and returns the message type for the first report data message found.
 It also determines whether or not this first report data message is
 compressed BUFR.  This subroutine is identical to MESGBF except MESGBF
 only reads past dictionary messages and MESGBF does not return any
-information about compression. 
+information about compression.
 
 7) C subroutine BORT_EXIT terminates the application program calling the
 BUFR software and returns an implementation-defined non-zero status code to
@@ -665,7 +559,7 @@ associated with a particular subset from a particular BUFR message in a message
 buffer.  The particular subset and BUFR message are based based on the subset
 number in the message and the message number in the BUFR file.  Finally, this
 subroutine either closes the BUFR file (if is was opened here) or restores it
-to its previous read/write status and position (if is was not opened here).  
+to its previous read/write status and position (if is was not opened here).
 This was present in the original verification-specific version of the library.
 
 11) Subroutine REWNBF which will either: 1) store the current parameters
@@ -709,11 +603,11 @@ bytes.
 
 16) Subroutine WRITST generates a standardized version of the current BUFR
 message in internal memory and writes it to the output file (not sure if
-it works properly). 
+it works properly).
 
 17) Subroutine COPYST generates a standardized version of the current BUFR
 message read using READMG and writes it intact as a record to the output
-file. 
+file.
 
 18) Subroutine COMPRES compresses subsets in BUFR messages previously read
 using BUFR Archive Library subroutine READMG or equivalent.  It then
@@ -860,12 +754,7 @@ missing value (rather than true equality as before) because some missing values
 "F15.6" if input argument LUNIN is < zero.  If LUNIN is > zero edit descriptor
 expanded from "G10.3" to "G15.6".  (See also 29 for UFBDMP.)
 
-
-##############################################################################
-##############################################################################
-##############################################################################
-
-          Changes to BUFR Archive Library, 18Z 21 December 2004
+### Changes to BUFR Archive Library, 18Z 21 December 2004
                            (Blue/White only)
 
 1) New subroutines ISTDESC, RESTD, WRDESC, CADN30, STDMSG and STNDRD have been
@@ -991,12 +880,7 @@ subroutine WRDLEN to initialize local machine information (in case it has
 not already been called).  These routines do not require this information
 but they may now or someday call other routines that do require it.
 
-
-##############################################################################
-##############################################################################
-##############################################################################
-
-          Changes to BUFR Archive Library, 31 January 2006
+### Changes to BUFR Archive Library, 31 January 2006
 
 1) Documentation was improved and/or clarified within many existing routines
 throughout BUFRLIB.
@@ -1166,12 +1050,7 @@ if the input subset/message is compressed (before this subroutine could only
 write out an uncompressed subset/message regardless of the compression status
 of the input subset/message).
 
-
-##############################################################################
-##############################################################################
-##############################################################################
-
-          Changes to BUFR Archive Library, 06 February 2007
+### Changes to BUFR Archive Library, 06 February 2007
 
 1) Several global parameters were increased in "bufrlib.PRM".  Specifically,
 MAXTBA, MAXTBB and MAXTBD (the maximum numbers of internal Table A, B and D
@@ -1213,12 +1092,7 @@ but was a portability issue for other compilers.
 BUFR message whose message type is set to 11.  This value is reserved for
 internal dictionary messages.
 
-
-##############################################################################
-##############################################################################
-##############################################################################
-
-          Changes to BUFR Archive Library, 28 May 2008
+### Changes to BUFR Archive Library, 28 May 2008
 
 1) Subroutine BORT_EXIT was modified to fix a faulty ANSI-C declaration.
 This had been silently ignored by the IBM CCS compiler but was a portability
@@ -1275,12 +1149,7 @@ maximum number of bytes that can be used to store BUFR messages within
 internal memory) was increased from 50Mb to 75Mb within the "supersized"
 BUFRLIB.
 
-
-##############################################################################
-##############################################################################
-##############################################################################
-
-          Changes to BUFR Archive Library, Version 10.0.0
+### Changes to BUFR Archive Library, Version 10.0.0
 
 1) Subroutines PKVS1, OVRBS1, NMBYT, READIBM, IREADIBM, READFT, IREADFT and
 MOVA2I, which had been marked as obsolete within a previous version of
@@ -1297,7 +1166,7 @@ number of internal jump/link table entries.
 4) Subroutine READLC was modified to enable the extraction of "long" (i.e.
 greater than 8 bytes) character strings from compressed messages.  In
 addition, it is now possible to access all occurrences of such a string
-from within a given data subset, via the use of the new mnemonic condition 
+from within a given data subset, via the use of the new mnemonic condition
 character '#'.  Previously, READLC could only ever access the first
 occurrence of any "long" character string from within a data subset.
 
@@ -1361,7 +1230,7 @@ duplicating all of the code logic in UPBB.
 
 18) Subroutine POSAPN has been marked as obsolete (for future removal from
 BUFRLIB).  The same functionality can now be obtained via the use of
-subroutine POSAPX.  
+subroutine POSAPX.
 
 19) Subroutine WRCMPS was modified to fix a bug involving the writing of
 compressed subsets which contain delayed replication.  In certain situations,
@@ -1405,7 +1274,7 @@ compliant with the WMO BUFR regulations.  This new capability is activated via
 an initial call to new subroutine STRCPT, specifying the time to be appended
 to Section 1 within all future BUFR messages written to output.  This same
 information can then be read back from an input BUFR message via a call to new
-subroutine RTRCPT. 
+subroutine RTRCPT.
 
 25) Subroutine NUMTAB was re-written to directly call subroutine NUMTBD
 instead of duplicating all of the code logic in NUMTBD.
@@ -1437,28 +1306,18 @@ STNDRD, independent of whether or not the data in Section 4 are compressed.
 
 31) Functions LSTRPC and LSTRPS have been marked as obsolete (for future removal
 from BUFRLIB).  The same functionality can now be obtained via the use of
-function LSTJPB.  
+function LSTJPB.
 
 32) Subroutine UFBTAB was modified to fix a bug involving the unpacking of
 character strings which are identical within each subset of a single
 compressed BUFR message.
 
-
-##############################################################################
-##############################################################################
-##############################################################################
-
-          Changes to BUFR Archive Library, Version 10.0.1
+### Changes to BUFR Archive Library, Version 10.0.1
 
 1) Subroutine REWNBF was modified to fix a bug which skipped the first data
 message after a file rewind.
 
-
-##############################################################################
-##############################################################################
-##############################################################################
-
-          Changes to BUFR Archive Library, Version 10.1.0
+### Changes to BUFR Archive Library, Version 10.1.0
 
 1) Subroutine UFDUMP was modified to fix a bug when checking for the "missing"
 value in long character strings (i.e. longer than 8 bytes).
@@ -1500,12 +1359,7 @@ replication is used to store descriptor information in these messages.
 11) Subroutine TABSUB was modified to correctly generate the jump/link table
 for subsets where a Table C operator immediately follows a Table D sequence.
 
-
-##############################################################################
-##############################################################################
-##############################################################################
-
-          Changes to BUFR Archive Library, Version 10.2.0
+### Changes to BUFR Archive Library, Version 10.2.0
 
 1) The makebufrlib.sh script was modified to streamline the endianness check
 and make it more portable.
@@ -1565,20 +1419,12 @@ blocked, or little-endian blocked.
 the BUFRLIB default "missing" value of 10E10.  A corresponding function
 GETBMISS was also added which returns the current "missing" value in use.
 
-##############################################################################
-##############################################################################
-##############################################################################
-
-          Changes to BUFR Archive Library, Version 10.2.1
+### Changes to BUFR Archive Library, Version 10.2.1
 
 1) A bug was fixed in the embedded C-language I/O to account for the
 difference in index numbering between Fortran and C arrays.
 
-##############################################################################
-##############################################################################
-##############################################################################
-
-          Changes to BUFR Archive Library, Version 10.2.2
+### Changes to BUFR Archive Library, Version 10.2.2
 
 1) Subroutine OPENBF was modified to fix a bug which caused a segfault in
 certain cases when appending to a BUFR file using the embedded C-language I/O.
@@ -1586,30 +1432,18 @@ certain cases when appending to a BUFR file using the embedded C-language I/O.
 2) Subroutines READLC and WRITLC were modified to allow the input mnemonic
 string to be up to 14 characters when it contains a '#' condition code.
 
-##############################################################################
-##############################################################################
-##############################################################################
-
-          Changes to BUFR Archive Library, Version 10.2.3
+### Changes to BUFR Archive Library, Version 10.2.3
 
 1) Subroutine RDUSDX was modified to prevent a segfault when trying to read
 DX dictionary information from an empty file.
 
-##############################################################################
-##############################################################################
-##############################################################################
-
-          Changes to BUFR Archive Library, Version 10.2.4
+### Changes to BUFR Archive Library, Version 10.2.4
 
 1) Configuration files bufrlib.PRM and makebufrlib.sh were updated to
 generate a 4_32 build (4-byte REAL, 4-byte INT, 32-bit compilation) on
 the IBM CCS for version 10.2.3 of the BUFRLIB.
 
-##############################################################################
-##############################################################################
-##############################################################################
-
-          Changes to BUFR Archive Library, Version 10.2.5
+### Changes to BUFR Archive Library, Version 10.2.5
 
 1) Subroutine MESGBF was modified to ensure that the input BUFR file is
 always closed before exiting the subroutine.
@@ -1622,11 +1456,7 @@ the filename being opened.
 4) Global parameter MAXNC (the maximum number of FXY descriptors that can be
 written into Section 3 of a BUFR message) was increased from 300 to 600.
 
-##############################################################################
-##############################################################################
-##############################################################################
-
-          Changes to BUFR Archive Library, Version 11.0.0
+### Changes to BUFR Archive Library, Version 11.0.0
 
 1) A new subroutine RTRCPTB was added which works just like subroutine RTRCPT,
 except that it operates on a BUFR message passed directly to it by a call
@@ -1712,11 +1542,7 @@ associated fields to Table D sequence descriptors.
 17) Function ICBFMS was modified to improve the logic for identifying "missing"
 strings encoded as REAL*8 10E10 values prior to version 10.2.0 of the library.
 
-##############################################################################
-##############################################################################
-##############################################################################
-
-          Changes to BUFR Archive Library, Version 11.0.1
+### Changes to BUFR Archive Library, Version 11.0.1
 
 1) Subroutines CPYUPD, UFBMEM, UFBMEX and UFBOVR were patched to include the
 proper declaration for IPRT, which is a global variable controlling the
@@ -1729,21 +1555,13 @@ stacks in the print output.
 not being saved between successive calls to this subroutine and which in rare
 cases could result in the loss of output subsets.
 
-##############################################################################
-##############################################################################
-##############################################################################
-
-          Changes to BUFR Archive Library, Version 11.0.2
+### Changes to BUFR Archive Library, Version 11.0.2
 
 1) The build script makebufrlib.sh was updated for compatibility with the Cray
 programming environment, along with module MODA_MSTABS and functions ICBFMS
 and ISIZE.  All changes remain compatible with other supported environments.
 
-##############################################################################
-##############################################################################
-##############################################################################
-
-          Changes to BUFR Archive Library, Version 11.1.0
+### Changes to BUFR Archive Library, Version 11.1.0
 
 1) Subroutine WRCMPS was modified to fix a bug involving the encoding of long
 character strings (via subroutine WRITLC) into compressed messages which also
@@ -1753,11 +1571,7 @@ contain delayed replication sequences.
 overlarge subsets which don't get written to the output stream.  This ensures
 that such subsets are properly flushed from internal arrays.
 
-##############################################################################
-##############################################################################
-##############################################################################
-
-          Changes to BUFR Archive Library, Version 11.2.0
+### Changes to BUFR Archive Library, Version 11.2.0
 
 1) Support was added for the processing of 2-2X-255, 2-3X-255 and 2-4X-255
 marker operators when reading BUFR messages, including when such operators
@@ -1794,11 +1608,7 @@ needed for compatibility with the Cray programming environment on the s_64
 8) A bug was fixed in subroutine UFBTAB which could occasionally lead to array
 maximums being exceeded and corrupted output when reading BUFR files.
 
-##############################################################################
-##############################################################################
-##############################################################################
-
-          Changes to BUFR Archive Library, Version 11.3.0
+### Changes to BUFR Archive Library, Version 11.3.0
 
 1) A bug was fixed in the bitmap processing, so that each Table A mnemonic in
 the jump/link table now tracks its own individual set of underlying Table C
@@ -1823,7 +1633,7 @@ allocation build and separate calls to subroutine ISETPRM to set MXLCC=12,
 MAXMEM=75000000, MXCDV=50000, MAXJL=128000, MAXSS=150000, MXMSGL=2500000 and
 MXRST=500 within their application program.
 
-5) A new capability was added to read and process master code and flag tables.  
+5) A new capability was added to read and process master code and flag tables.
 This feature is activated via an initial call to new subroutine CODFLG at any
 time after the first call to subroutine OPENBF.  Once that is done, then for
 any BUFR message read into the library via subroutine READMG, READERME or

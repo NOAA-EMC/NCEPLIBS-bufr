@@ -1,3 +1,18 @@
+# Set compiler flags for the tests
+if(CMAKE_Fortran_COMPILER_ID MATCHES "^(Intel)$")
+
+  set(CMAKE_Fortran_FLAGS "-g -traceback")
+  set(CMAKE_Fortran_FLAGS_DEBUG "-O0")
+  set(CMAKE_Fortran_FLAGS_RELEASE "-O3")
+
+elseif(CMAKE_Fortran_COMPILER_ID MATCHES "^(GNU)$")
+
+  set(CMAKE_Fortran_FLAGS "-g -fbacktrace")
+  set(CMAKE_Fortran_FLAGS_DEBUG "-ggdb -Wall -O0")
+  set(CMAKE_Fortran_FLAGS_RELEASE "-O3")
+
+endif()
+
 list(APPEND test_IN_srcs
   test_IN_1.f
   test_IN_2.f
@@ -18,6 +33,7 @@ list(APPEND test_OUT_3_srcs
   test_OUT_3.f
 )
 
+# IN tests data
 list(APPEND test_IN_bufr_data
   IN_1 IN_2 IN_3 IN_4 IN_5
   bufrtab.CodeFlag_LOC_0_7_1
@@ -30,6 +46,7 @@ list(APPEND test_IN_bufr_data
   bufrtab.TableD_STD_0_14
   )
 
+# OUT tests data
 list(APPEND test_OUT_bufr_data
   OUT_1 OUT_2 OUT_3
   OUT_1_bufrtab OUT_2_bufrtab OUT_3_bufrtab
