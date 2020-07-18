@@ -5,13 +5,22 @@ if(CMAKE_Fortran_COMPILER_ID MATCHES "^(Intel)$")
   set(CMAKE_Fortran_FLAGS_DEBUG "-O0")
   set(CMAKE_Fortran_FLAGS_RELEASE "-O3")
 
+  set(fortran_8_flags "-r8 -i8")
+  set(fortran_d_flags "-r8")
+
 elseif(CMAKE_Fortran_COMPILER_ID MATCHES "^(GNU)$")
 
   set(CMAKE_Fortran_FLAGS "-g -fbacktrace")
   set(CMAKE_Fortran_FLAGS_DEBUG "-ggdb -Wall -O0")
   set(CMAKE_Fortran_FLAGS_RELEASE "-O3")
 
+  set(fortran_8_flags "-fdefault-real-8 -fdefault-integer-8")
+  set(fortran_d_flags "-fdefault-real-8")
+
 endif()
+
+set(fortran_8_DA_flags ${fortran_8_flags})
+set(fortran_d_DA_flags ${fortran_d_flags})
 
 list(APPEND test_IN_srcs
   test_IN_1.f
@@ -92,6 +101,8 @@ foreach(test_src ${test_IN_srcs})
     add_executable(${test_exe} ${test_src})
     add_dependencies(${test_exe} bufr_${kind})
     target_link_libraries(${test_exe} PUBLIC bufr_${kind})
+    set_target_properties(${test_exe} PROPERTIES COMPILE_FLAGS
+                                                 "${fortran_${kind}_flags}")
     add_test(NAME ${test} COMMAND ${test_exe})
   endforeach()
 endforeach()
@@ -105,6 +116,8 @@ foreach(test_src ${test_OUT_1_srcs})
     add_executable(${test_exe} ${test_src})
     add_dependencies(${test_exe} bufr_${kind})
     target_link_libraries(${test_exe} PRIVATE bufr::bufr_${kind})
+    set_target_properties(${test_exe} PROPERTIES COMPILE_FLAGS
+                                                 "${fortran_${kind}_flags}")
     bufr_add_test(${test} ${test_exe})
   endforeach()
 endforeach()
@@ -118,6 +131,8 @@ foreach(test_src ${test_OUT_2_srcs})
     add_executable(${test_exe} ${test_src})
     add_dependencies(${test_exe} bufr_${kind})
     target_link_libraries(${test_exe} PRIVATE bufr::bufr_${kind})
+    set_target_properties(${test_exe} PROPERTIES COMPILE_FLAGS
+                                                 "${fortran_${kind}_flags}")
     bufr_add_test_preAPX(${test} ${test_exe})
   endforeach()
 endforeach()
@@ -132,6 +147,8 @@ endforeach()
 #      add_executable(${test_exe} ${test_src})
 #      add_dependencies(${test_exe} bufr_${kind})
 #      target_link_libraries(${test_exe} PRIVATE bufr::bufr_${kind})
+#      set_target_properties(${test_exe} PROPERTIES COMPILE_FLAGS
+#                                                   "${fortran_${kind}_flags}")
 #      bufr_add_test(${test} ${test_exe})
 #    endif()
 #  endforeach()

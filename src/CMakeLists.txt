@@ -1,7 +1,6 @@
 if(CMAKE_C_COMPILER_ID MATCHES "^(Intel)$")
 
   set(c_8_defs "F77_INTSIZE_8")
-  set(c_8_DA_defs ${c_8_defs})
 
   set(CMAKE_Fortran_FLAGS "-g -traceback")
   set(CMAKE_Fortran_FLAGS_DEBUG "-O0")
@@ -9,8 +8,6 @@ if(CMAKE_C_COMPILER_ID MATCHES "^(Intel)$")
 
   set(fortran_8_flags "-r8 -i8")
   set(fortran_d_flags "-r8")
-  set(fortran_8_DA_flags ${fortran_8_flags})
-  set(fortran_d_DA_flags ${fortran_d_flags})
 
 elseif(CMAKE_C_COMPILER_ID MATCHES "^(GNU|Clang|AppleClang)$")
 
@@ -24,6 +21,10 @@ elseif(CMAKE_C_COMPILER_ID MATCHES "^(GNU|Clang|AppleClang)$")
   set(fortran_d_flags "-fdefault-real-8")
 
 endif()
+
+set(c_8_DA_defs ${c_8_defs})
+set(fortran_8_DA_flags ${fortran_8_flags})
+set(fortran_d_DA_flags ${fortran_d_flags})
 
 # Extract BUFRLIB parameters
 file(READ bufrlib.prm _bufrlib_prm_str)
