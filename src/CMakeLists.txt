@@ -73,12 +73,16 @@ foreach(kind ${kinds})
   target_compile_definitions(${lib_name}_c PRIVATE "${endian_def}")
   target_compile_definitions(${lib_name}_c PRIVATE "${c_defs}")
   target_compile_definitions(${lib_name}_c PRIVATE "${c_${kind}_defs}")
+  target_include_directories(${lib_name}_c PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
 
   set_target_properties(${lib_name}_f PROPERTIES Fortran_MODULE_DIRECTORY "${module_dir}")
 
   add_library(${lib_name} STATIC $<TARGET_OBJECTS:${lib_name}_f>
                                  $<TARGET_OBJECTS:${lib_name}_c>)
   add_library(${PROJECT_NAME}::${lib_name} ALIAS ${lib_name})
+
+  target_include_directories(${lib_name} PUBLIC
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>)
 
   target_include_directories(${lib_name} INTERFACE
     $<BUILD_INTERFACE:${module_dir}>
