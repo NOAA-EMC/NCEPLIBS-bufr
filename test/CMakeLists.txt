@@ -6,12 +6,15 @@ list(APPEND test_IN_srcs
   test_IN_5.f
   )
 
-list(APPEND test_OUT_srcs
+list(APPEND test_OUT_1_srcs
   test_OUT_1.f
+  )
+
+list(APPEND test_OUT_2_srcs
   test_OUT_2.f
   )
 
-list(APPEND test_OUT_srcs_DA_ONLY
+list(APPEND test_OUT_3_srcs
   test_OUT_3.f
 )
 
@@ -30,6 +33,7 @@ list(APPEND test_IN_bufr_data
 list(APPEND test_OUT_bufr_data
   OUT_1 OUT_2 OUT_3
   OUT_1_bufrtab OUT_2_bufrtab OUT_3_bufrtab
+  OUT_2_preAPX
   )
 
 list(APPEND test_bufr_data
@@ -57,6 +61,12 @@ function(bufr_add_test TESTNAME EXENAME)
            COMMAND ${CMAKE_BINARY_DIR}/bin/test_wrapper.sh ${EXENAME})
 endfunction()
 
+function(bufr_add_test_preAPX TESTNAME EXENAME)
+  add_test(NAME ${TESTNAME}
+           COMMAND ${CMAKE_BINARY_DIR}/bin/test_wrapper.sh ${EXENAME} "Y")
+endfunction()
+
+# IN tests
 foreach(test_src ${test_IN_srcs})
   string(REPLACE ".f" "" testPref ${test_src})
   foreach(kind ${kinds})
@@ -69,7 +79,8 @@ foreach(test_src ${test_IN_srcs})
   endforeach()
 endforeach()
 
-foreach(test_src ${test_OUT_srcs})
+# OUT_1 tests
+foreach(test_src ${test_OUT_1_srcs})
   string(REPLACE ".f" "" testPref ${test_src})
   foreach(kind ${kinds})
     set(test     ${testPref}_${kind})
@@ -81,7 +92,21 @@ foreach(test_src ${test_OUT_srcs})
   endforeach()
 endforeach()
 
-#foreach(test_src ${test_OUT_srcs_DA_ONLY})
+# OUT_2 tests
+foreach(test_src ${test_OUT_2_srcs})
+  string(REPLACE ".f" "" testPref ${test_src})
+  foreach(kind ${kinds})
+    set(test     ${testPref}_${kind})
+    set(test_exe ${test}.x)
+    add_executable(${test_exe} ${test_src})
+    add_dependencies(${test_exe} bufr_${kind})
+    target_link_libraries(${test_exe} PUBLIC bufr_${kind})
+    bufr_add_test_preAPX(${test} ${test_exe})
+  endforeach()
+endforeach()
+
+# OUT_3 tests only run with DA library
+#foreach(test_src ${test_OUT_3_srcs})
 #  string(REPLACE ".f" "" testPref ${test_src})
 #  foreach(kind ${kinds})
 #    if(${kind} MATCHES "^([4|8|d]_DA)$")

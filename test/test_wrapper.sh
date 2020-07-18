@@ -1,6 +1,23 @@
 #!/bin/bash
 
 exename=$1
+preAPX=${2:-"NO"}
+
+testname=$(echo $exename | cut -d. -f1)
+refname=$(echo $testname | cut -c6-10)
+outname=$(echo ${refname//_} | tr '[:upper:]' '[:lower:]')
+
+# preAPX
+if [[ ${preAPX} =~ [YyTt] ]]; then
+  echo ""
+  echo "==============================================================================="
+  echo "Copying test data"
+  echo "==============================================================================="
+
+  cmd="cp testfiles/${refname}_preAPX ./${outname}.bufr"
+  echo ${cmd}
+  eval ${cmd}
+fi
 
 # run the executable
 echo ""
@@ -24,10 +41,6 @@ echo ""
 echo "==============================================================================="
 echo "Running comparison"
 echo "==============================================================================="
-
-testname=$(echo $exename | cut -d. -f1)
-refname=$(echo $testname | cut -c6-10)
-outname=$(echo ${refname//_} | tr '[:upper:]' '[:lower:]')
 
 cmd="cmp -s ${outname}.bufr testfiles/${refname}"
 echo ${cmd}
