@@ -1,25 +1,14 @@
+# Set library specific flags
 if(CMAKE_C_COMPILER_ID MATCHES "^(Intel)$")
-
   set(c_8_defs "F77_INTSIZE_8")
+endif()
 
-  set(CMAKE_Fortran_FLAGS "-g -traceback")
-  set(CMAKE_Fortran_FLAGS_DEBUG "-O0")
-  set(CMAKE_Fortran_FLAGS_RELEASE "-O3")
-
+if(CMAKE_Fortran_COMPILER_ID MATCHES "^(Intel)$")
   set(fortran_8_flags "-r8 -i8")
   set(fortran_d_flags "-r8")
-
-elseif(CMAKE_C_COMPILER_ID MATCHES "^(GNU|Clang|AppleClang)$")
-
-  set(CMAKE_C_FLAGS_DEBUG "-ggdb -Wall -O0")
-
-  set(CMAKE_Fortran_FLAGS "-g -fbacktrace")
-  set(CMAKE_Fortran_FLAGS_DEBUG "-ggdb -Wall -O0")
-  set(CMAKE_Fortran_FLAGS_RELEASE "-O3")
-
+elseif(CMAKE_Fortran_COMPILER_ID MATCHES "^(GNU)$")
   set(fortran_8_flags "-fdefault-real-8 -fdefault-integer-8")
   set(fortran_d_flags "-fdefault-real-8")
-
 endif()
 
 set(c_8_DA_defs ${c_8_defs})

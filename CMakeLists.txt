@@ -32,6 +32,21 @@ if(CMAKE_C_COMPILER_ID MATCHES "^(Intel)$")
   list(APPEND kinds "4" "8" "d")
 endif()
 
+# Set common to the package compiler flags
+if(CMAKE_C_COMPILER_ID MATCHES "^(GNU)$")
+  set(CMAKE_C_FLAGS_DEBUG "-ggdb -Wall -O0")
+endif()
+
+if(CMAKE_Fortran_COMPILER_ID MATCHES "^(Intel)$")
+  set(CMAKE_Fortran_FLAGS "-g -traceback")
+  set(CMAKE_Fortran_FLAGS_DEBUG "-O0")
+  set(CMAKE_Fortran_FLAGS_RELEASE "-O3")
+elseif(CMAKE_Fortran_COMPILER_ID MATCHES "^(GNU)$")
+  set(CMAKE_Fortran_FLAGS "-g -fbacktrace")
+  set(CMAKE_Fortran_FLAGS_DEBUG "-ggdb -Wall -O0")
+  set(CMAKE_Fortran_FLAGS_RELEASE "-O3")
+endif()
+
 add_subdirectory(src)
 
 if(ENABLE_TESTS)
