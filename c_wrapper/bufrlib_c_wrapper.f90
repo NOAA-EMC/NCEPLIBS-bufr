@@ -95,13 +95,11 @@ contains
     character(len=25), target :: f_subset
     ires = IREADMG(bufr_unit, f_subset, iddate)
 
-    !convert fortran string to c string
-    subset_ptr => f_subset
-    subset_len = len_trim(subset_ptr)
-    subset_ptr(subset_len+1:subset_len+1) = c_null_char
-    subset = c_loc(subset_ptr)
-
-    print *, subset_len
+    ! !convert fortran string to c string
+    ! subset_ptr => f_subset
+    ! subset_len = len_trim(subset_ptr)
+    ! subset_ptr(subset_len+1:subset_len+1) = c_null_char
+    ! subset = c_loc(subset_ptr)
     
   end function c_readmg
 
@@ -130,7 +128,7 @@ contains
 
     real, pointer :: f_data
     call c_f_pointer(c_data, f_data)
-
+    
     call UFBINT(bufr_unit, f_data, dim_1, dim_2, iret, c_to_f_string(table_b_mnemonic))
 
   end subroutine c_ufbint
@@ -140,7 +138,7 @@ contains
     implicit none
 
     integer(c_int), value, intent(in) :: bufr_unit
-    type(c_ptr), intent(out) :: c_data
+    type(c_ptr), intent(inout) :: c_data
     integer(c_int), intent(inout) :: dim_1, dim_2
     integer(c_int), intent(out) :: iret
     character(kind=c_char, len=1), intent(in) :: table_b_mnemonic
