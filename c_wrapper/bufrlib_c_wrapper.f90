@@ -95,7 +95,7 @@ contains
     character(len=25), target :: f_subset
     ires = IREADMG(bufr_unit, f_subset, iddate)
 
-    !add the null character
+    !convert fortran string to c string
     subset_ptr => f_subset
     subset_len = len_trim(subset_ptr)
     subset_ptr(subset_len+1:subset_len+1) = c_null_char
