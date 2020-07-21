@@ -5,7 +5,7 @@ file(STRINGS "VERSION" pVersion)
 project(
     bufr
     VERSION ${pVersion}
-    LANGUAGES C Fortran)
+    LANGUAGES C CXX Fortran)
 
 if(NOT CMAKE_BUILD_TYPE MATCHES "^(Debug|Release|RelWithDebInfo|MinSizeRel)$")
   message(STATUS "Setting build type to 'Release' as none was specified.")
@@ -23,3 +23,4 @@ endif()
 include(GNUInstallDirs)
 
 add_subdirectory(src)
+add_subdirectory(c_wrapper)
