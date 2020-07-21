@@ -10,6 +10,8 @@ elseif(CMAKE_C_COMPILER_ID MATCHES "^(GNU|Clang|AppleClang)$")
   set(CMAKE_Fortran_FLAGS_RELEASE "-O3")
 endif()
 
+set ( CMAKE_CXX_STANDARD 14 )
+
 add_library("bufrlib_c" STATIC bufrlib_c_wrapper.f90)
 target_link_libraries("bufrlib_c" bufr_4_DA)
 
