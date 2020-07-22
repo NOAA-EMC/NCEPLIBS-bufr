@@ -122,7 +122,7 @@ contains
 
     integer(c_int), value, intent(in) :: bufr_unit
     type(c_ptr), intent(inout) ::  c_data
-    integer(c_int), intent(inout) :: dim_1, dim_2
+    integer(c_int), value, intent(in) :: dim_1, dim_2
     integer(c_int), intent(out) :: iret
     character(kind=c_char, len=1), intent(in) :: table_b_mnemonic
 
@@ -139,7 +139,7 @@ contains
 
     integer(c_int), value, intent(in) :: bufr_unit
     type(c_ptr), intent(inout) :: c_data
-    integer(c_int), intent(inout) :: dim_1, dim_2
+    integer(c_int), value, intent(in) :: dim_1, dim_2
     integer(c_int), intent(out) :: iret
     character(kind=c_char, len=1), intent(in) :: table_b_mnemonic
 
