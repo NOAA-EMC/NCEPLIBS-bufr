@@ -38,14 +38,21 @@ if(CMAKE_C_COMPILER_ID MATCHES "^(GNU)$")
 endif()
 
 if(CMAKE_Fortran_COMPILER_ID MATCHES "^(Intel)$")
+  set(fortran_8_flags "-r8 -i8")
+  set(fortran_d_flags "-r8")
   set(CMAKE_Fortran_FLAGS "-g -traceback")
   set(CMAKE_Fortran_FLAGS_DEBUG "-O0")
   set(CMAKE_Fortran_FLAGS_RELEASE "-O3")
 elseif(CMAKE_Fortran_COMPILER_ID MATCHES "^(GNU)$")
+  set(fortran_8_flags "-fdefault-real-8 -fdefault-integer-8")
+  set(fortran_d_flags "-fdefault-real-8")
   set(CMAKE_Fortran_FLAGS "-g -fbacktrace")
   set(CMAKE_Fortran_FLAGS_DEBUG "-ggdb -Wall -O0")
   set(CMAKE_Fortran_FLAGS_RELEASE "-O3")
 endif()
+
+set(fortran_8_DA_flags ${fortran_8_flags})
+set(fortran_d_DA_flags ${fortran_d_flags})
 
 add_subdirectory(src)
 
