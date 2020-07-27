@@ -22,7 +22,7 @@ endif()
 
 include(GNUInstallDirs)
 
-option(ENABLE_TESTS "Enable Tests" ON)
+option(ENABLE_TESTS "Enable Tests" OFF)
 
 # Determine the kinds upfront (both src/ and test/ need them).
 # Both GNU and Intel support DYNAMIC_ALLOCATION

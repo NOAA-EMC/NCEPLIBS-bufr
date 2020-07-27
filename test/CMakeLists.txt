@@ -1,3 +1,56 @@
+# Fetch test data from: https://ftp.emc.ncep.noaa.gov/public/bufr.tar
+set(BUFR_URL "https://ftp.emc.ncep.noaa.gov/public")
+set(BUFR_TAR "bufr.tar")
+
+find_program(CURL_pgm curl)
+mark_as_advanced(CURL_pgm)
+
+if(CURL_pgm)
+
+  add_custom_command(
+    OUTPUT ${BUFR_TAR}
+    COMMENT "(curl) downloading ${BUFR_URL}/${BUFR_TAR}"
+    COMMAND ${CURL_pgm}
+            --silent --show-error --fail
+            --retry 0
+            --connect-timeout 30
+            --output ${BUFR_TAR}
+            ${BUFR_URL}/${BUFR_TAR} )
+
+else()
+
+  find_program(WGET_pgm wget)
+  mark_as_advanced(WGET_pgm)
+
+  if(WGET_pgm)
+
+    add_custom_command(
+      OUTPUT ${BUFR_TAR}
+      COMMENT "(wget) downloading ${BUFR_URL}/${BUFR_TAR}"
+      COMMAND ${WGET_pgm}
+              -nv
+              -t 0
+              -T 30
+              -O ${BUFR_TAR}
+              ${BUFR_URL}/${BUFR_TAR} )
+
+  else()
+
+    message(SEND_ERROR "Could not find curl or wget.\nCannot download test data from server.\nPlease obtain the test data by other means and place it in the build directory!")
+    return()
+
+  endif()
+endif()
+
+add_custom_target(get_bufr_test_data DEPENDS ${BUFR_TAR})
+add_custom_command(
+  TARGET get_bufr_test_data
+  POST_BUILD
+  COMMAND ${CMAKE_COMMAND} -E chdir ${CMAKE_CURRENT_BINARY_DIR} tar xvf ${BUFR_TAR}
+  COMMAND ${CMAKE_COMMAND} -E chdir ${CMAKE_CURRENT_BINARY_DIR} rm -rf testfiles
+  COMMAND ${CMAKE_COMMAND} -E chdir ${CMAKE_CURRENT_BINARY_DIR} mv bufr/testfiles testfiles
+  COMMAND ${CMAKE_COMMAND} -E chdir ${CMAKE_CURRENT_BINARY_DIR} rm -rf bufr)
+
 list(APPEND test_IN_srcs
   test_IN_1.f
   test_IN_2.f
@@ -37,21 +90,6 @@ list(APPEND test_OUT_bufr_data
   OUT_1_bufrtab OUT_2_bufrtab OUT_3_bufrtab
   OUT_2_preAPX
   )
-
-list(APPEND test_bufr_data
-  ${test_IN_bufr_data}
-  ${test_OUT_bufr_data}
-  )
-
-# Create local testfiles directory
-file(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/testfiles)
-
-# Soft-link test_bufr_data to local testfiles directory
-foreach(FILENAME ${test_bufr_data})
-  execute_process( COMMAND ${CMAKE_COMMAND} -E create_symlink
-    ${CMAKE_CURRENT_SOURCE_DIR}/testfiles/${FILENAME}
-    ${CMAKE_CURRENT_BINARY_DIR}/testfiles/${FILENAME} )
-endforeach(FILENAME)
 
 # Install test_wrapper.sh
 execute_process( COMMAND ${CMAKE_COMMAND} -E copy
