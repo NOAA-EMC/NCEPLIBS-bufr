@@ -3,7 +3,7 @@
 #include <iostream>
 #include <iomanip>
 #include <vector>
-#include "bufrlib_c_wrapper.h"
+#include "NCEPLIB-bufr.interface.h"
 
 using namespace std;
 
@@ -53,26 +53,26 @@ typedef vector<BufrData> BufrDataList;
 
 int count_messages(const string filepath)
 {
-  open_fortran_file(FORTRAN_FILE_UNIT, filepath.c_str());
-  open_bufr(FORTRAN_FILE_UNIT, "IN", FORTRAN_FILE_UNIT);
+  open_f90(FORTRAN_FILE_UNIT, filepath.c_str());
+  openbf_f90(FORTRAN_FILE_UNIT, "IN", FORTRAN_FILE_UNIT);
 
   int num_msgs = 0;
   int num_reports = 0;
 
   char* subset;
   int iddate, result;
-  while (read_next_msg(FORTRAN_FILE_UNIT, subset, &iddate) == 0)
+  while (ireadmg_f90(FORTRAN_FILE_UNIT, subset, &iddate) == 0)
   {
       num_msgs++;
 
-      while (read_next_subset(FORTRAN_FILE_UNIT) == 0)
+      while (ireadsb_f90(FORTRAN_FILE_UNIT) == 0)
       {
           num_reports++;
       }
   } 
 
-  close_bufr(FORTRAN_FILE_UNIT);
-  close_fortran_file(FORTRAN_FILE_UNIT);
+  closbf_f90(FORTRAN_FILE_UNIT);
+  close_f90(FORTRAN_FILE_UNIT);
 
   cout << filepath << endl;
   cout << "contains " << num_msgs << " messages and " << num_reports << " reports." << endl;
@@ -87,22 +87,22 @@ BufrDataList read_bufrdata(const string filepath, int num_channels)
   const int HEADER_1_SIZE = sizeof(Header_1)/sizeof(double);
   const int HEADER_2_SIZE = sizeof(Header_2)/sizeof(double);
 
-  open_fortran_file(FORTRAN_FILE_UNIT, filepath.c_str());
-  open_bufr(FORTRAN_FILE_UNIT, "IN", FORTRAN_FILE_UNIT);
+  open_f90(FORTRAN_FILE_UNIT, filepath.c_str());
+  openbf_f90(FORTRAN_FILE_UNIT, "IN", FORTRAN_FILE_UNIT);
 
   char* subset;
   int iddate;
   int result;
 
-  while (read_next_msg(FORTRAN_FILE_UNIT, subset, &iddate) == 0)
+  while (ireadmg_f90(FORTRAN_FILE_UNIT, subset, &iddate) == 0)
   {
-    while (read_next_subset(FORTRAN_FILE_UNIT) == 0)
+    while (ireadsb_f90(FORTRAN_FILE_UNIT) == 0)
     {
       BufrData bufrData;
 
       //Read header 1 data
       Header_1* header1 = new Header_1;
-      ufbint(FORTRAN_FILE_UNIT, (void**)&header1, HEADER_1_SIZE, 1, &result, HEADER_1_MNEMONIC);
+      ufbint_f90(FORTRAN_FILE_UNIT, (void**)&header1, HEADER_1_SIZE, 1, &result, HEADER_1_MNEMONIC);
 
       bufrData.nchanl = num_channels;
       bufrData.satid = header1->satid;
@@ -140,7 +140,7 @@ BufrDataList read_bufrdata(const string filepath, int num_channels)
 
       //Read header 2 data
       Header_2* header2 = new Header_2;
-      ufbint(FORTRAN_FILE_UNIT, (void**)&header2, HEADER_2_SIZE, 1, &result, HEADER_2_MNEMONIC);
+      ufbint_f90(FORTRAN_FILE_UNIT, (void**)&header2, HEADER_2_SIZE, 1, &result, HEADER_2_MNEMONIC);
 
       bufrData.lza = header2->lza;
       bufrData.sza = header2->sza;
@@ -151,7 +151,7 @@ BufrDataList read_bufrdata(const string filepath, int num_channels)
 
       //Read bufr data
       double* tmbr_data = new double[num_channels];
-      ufbrep(FORTRAN_FILE_UNIT, (void**)&tmbr_data, 1, num_channels, &result, "TMBR");
+      ufbrep_f90(FORTRAN_FILE_UNIT, (void**)&tmbr_data, 1, num_channels, &result, "TMBR");
       bufrData.bufr_data.reset(tmbr_data);
 
       //Store the result
@@ -159,8 +159,8 @@ BufrDataList read_bufrdata(const string filepath, int num_channels)
     }
   } 
 
-  close_bufr(FORTRAN_FILE_UNIT);
-  close_fortran_file(FORTRAN_FILE_UNIT);
+  closbf_f90(FORTRAN_FILE_UNIT);
+  close_f90(FORTRAN_FILE_UNIT);
 
   return bufrDataList;
 }
@@ -186,7 +186,7 @@ int main(int argc, const char** argv)
 {
   clock_t tStart = clock();
 
-  const string filepath = "/Users/rmclaren/Work/sample-bufr-data/gdas/gdas.20200704/12/gdas.t12z.1bhrs4.tm00.bufr_d";
+  const string filepath = "/Users/rmclaren/Work/sample-bufr-data/gdas/gdas.20200704/12/gdas.t12z.1bmhs.tm00.bufr_d";
 
   int num_channels = 15;
 
