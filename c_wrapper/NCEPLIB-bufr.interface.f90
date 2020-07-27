@@ -39,26 +39,26 @@ contains
   ! end function
 
 
-  subroutine open_fortran_file(unit, filepath) bind(C, name='open_fortran_file')
+  subroutine open_c(unit, filepath) bind(C, name='open_f90')
     implicit none
 
     integer(c_int), value, intent(in) :: unit
     character(kind=c_char, len=1) :: filepath
 
     open(unit, FILE=c_to_f_string(filepath))
-  end subroutine open_fortran_file
+  end subroutine open_c
 
 
-  subroutine close_fortran_file(unit) bind(C, name='close_fortran_file')
+  subroutine close_c(unit) bind(C, name='close_f90')
     implicit none
 
     integer(c_int), value, intent(in) :: unit
 
     close(UNIT=unit)
-  end SUBROUTINE close_fortran_file
+  end SUBROUTINE close_c
 
 
-  subroutine c_openbf(bufr_unit, cio, table_file_id) bind(C, name='open_bufr') 
+  subroutine openbf_c(bufr_unit, cio, table_file_id) bind(C, name='openbf_f90') 
     implicit none
 
     integer(c_int), value, intent(in) :: bufr_unit
@@ -67,20 +67,20 @@ contains
 
     call OPENBF(bufr_unit, c_to_f_string(cio), table_file_id)
 
-  end subroutine c_openbf
+  end subroutine openbf_c
 
 
-  subroutine c_closebf(bufr_unit) bind(C, name='close_bufr') 
+  subroutine closbf_c(bufr_unit) bind(C, name='closbf_f90') 
     implicit none
 
     integer(c_int), value, intent(in) :: bufr_unit
 
     call CLOSBF(bufr_unit)
 
-  end subroutine c_closebf
+  end subroutine closbf_c
 
 
-  function c_readmg(bufr_unit, subset, iddate) result(ires) bind(C, name='read_next_msg')
+  function ireadmg_c(bufr_unit, subset, iddate) result(ires) bind(C, name='ireadmg_f90')
     implicit none
 
     integer(c_int), value, intent(in) :: bufr_unit
@@ -101,10 +101,10 @@ contains
     ! subset_ptr(subset_len+1:subset_len+1) = c_null_char
     ! subset = c_loc(subset_ptr)
     
-  end function c_readmg
+  end function ireadmg_c
 
 
-  function c_readsb(bufr_unit) result(ires) bind(C, name='read_next_subset')
+  function ireadsb_c(bufr_unit) result(ires) bind(C, name='ireadsb_f90')
     implicit none
 
     integer(c_int), value, intent(in) :: bufr_unit
@@ -114,10 +114,10 @@ contains
     
     ires = IREADSB(bufr_unit)
 
-  end function c_readsb
+  end function ireadsb_c
 
 
-  subroutine c_ufbint(bufr_unit, c_data, dim_1, dim_2, iret, table_b_mnemonic) bind(C, name='ufbint')
+  subroutine ufbint_c(bufr_unit, c_data, dim_1, dim_2, iret, table_b_mnemonic) bind(C, name='ufbint_f90')
     implicit none
 
     integer(c_int), value, intent(in) :: bufr_unit
@@ -131,10 +131,10 @@ contains
     
     call UFBINT(bufr_unit, f_data, dim_1, dim_2, iret, c_to_f_string(table_b_mnemonic))
 
-  end subroutine c_ufbint
+  end subroutine ufbint_c
 
 
-  subroutine c_ufbrep(bufr_unit, c_data, dim_1, dim_2, iret, table_b_mnemonic) bind(C, name='ufbrep')
+  subroutine ufbrep_c(bufr_unit, c_data, dim_1, dim_2, iret, table_b_mnemonic) bind(C, name='ufbrep_f90')
     implicit none
 
     integer(c_int), value, intent(in) :: bufr_unit
@@ -148,6 +148,6 @@ contains
 
     call UFBREP(bufr_unit, f_data, dim_1, dim_2, iret, c_to_f_string(table_b_mnemonic))
 
-  end subroutine c_ufbrep
+  end subroutine ufbrep_c
 
 end module

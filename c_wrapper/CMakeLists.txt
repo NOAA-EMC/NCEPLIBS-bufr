@@ -12,10 +12,10 @@ endif()
 
 set ( CMAKE_CXX_STANDARD 14 )
 
-add_library("bufrlib_c" STATIC bufrlib_c_wrapper.f90)
+add_library("bufrlib_c" STATIC NCEPLIB-bufr.interface.f90)
 target_link_libraries("bufrlib_c" bufr_4_DA)
 
 include_directories(c_wrapper)
 
-add_executable("bufrlib_c_test" main.cpp bufrlib_c_wrapper.f90)
+add_executable("bufrlib_c_test" main.cpp NCEPLIB-bufr.interface.f90)
 target_link_libraries("bufrlib_c_test" bufr_4_DA)
