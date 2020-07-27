@@ -42,7 +42,7 @@ else()
   endif()
 endif()
 
-add_custom_target(get_bufr_test_data DEPENDS ${BUFR_TAR})
+add_custom_target(get_bufr_test_data ALL DEPENDS ${BUFR_TAR})
 add_custom_command(
   TARGET get_bufr_test_data
   POST_BUILD
