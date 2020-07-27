@@ -1,5 +1,5 @@
-#ifndef bufrlib_c_wrapper_h
-#define bufrlib_c_wrapper_h
+#ifndef nceplib_bufr_h
+#define nceplib_bufr_h
 
 #ifdef __cplusplus
 extern "C" {
@@ -18,4 +18,4 @@ extern "C" {
 }
 #endif
 
-#endif /* bufrlib_c_wrapper_h */
+#endif /* nceplib_bufr_h */
