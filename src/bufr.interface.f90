@@ -11,6 +11,7 @@ module bufr_c_interface_mod
   public :: ireadsb_c
   public :: ufbint_c
   public :: ufbrep_c
+  public :: dxdump_c
 
 contains
 
@@ -141,5 +142,14 @@ contains
     call ufbrep(bufr_unit, f_data, dim_1, dim_2, iret, c_to_f_string(table_b_mnemonic))
 
   end subroutine ufbrep_c
+
+
+  subroutine dxdump_c(bufr_unit, table_unit) bind(C, name='dxdump_f')
+    integer(c_int), value, intent(in) :: bufr_unit
+    integer(c_int), value, intent(in) :: table_unit
+
+    call dxdump(bufr_unit, table_unit)
+    
+  end subroutine dxdump_c
 
 end module bufr_c_interface_mod
