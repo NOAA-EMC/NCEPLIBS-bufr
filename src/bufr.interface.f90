@@ -37,12 +37,10 @@ contains
     character(len=*), target, intent(in) :: f_str
     character(kind=c_char, len=1), intent(inout) :: c_str(*)
     integer, intent(in) :: c_str_len
-
     integer :: max_str_len
 
     if (c_str_len .ne. 0) then
       max_str_len = min(c_str_len - 1, len_trim(f_str))
-
       c_str(1)(1:max_str_len) = f_str(1:max_str_len)
       c_str(1)(max_str_len:max_str_len) = c_null_char
     end if
@@ -88,11 +86,9 @@ contains
     character(kind=c_char, len=1), intent(inout) :: c_subset(*)
     integer(c_int), intent(out) :: iddate
     integer(c_int), value, intent(in) :: subset_str_len
-    
     integer(c_int) :: ires
     integer :: subset_len
     character(len=25) :: f_subset
-
     integer :: ireadmg
 
     ires = ireadmg(bufr_unit, f_subset, iddate)
@@ -104,7 +100,6 @@ contains
 
   function ireadsb_c(bufr_unit) result(ires) bind(C, name='ireadsb_f')
     integer(c_int), value, intent(in) :: bufr_unit
-
     integer(c_int) :: ires
     integer :: ireadsb
     
@@ -119,12 +114,10 @@ contains
     integer(c_int), value, intent(in) :: dim_1, dim_2
     integer(c_int), intent(out) :: iret
     character(kind=c_char, len=1), intent(in) :: table_b_mnemonic
-
     real, pointer :: f_data
-    call c_f_pointer(c_data, f_data)
-    
-    call ufbint(bufr_unit, f_data, dim_1, dim_2, iret, c_f_string(table_b_mnemonic))
 
+    call c_f_pointer(c_data, f_data)
+    call ufbint(bufr_unit, f_data, dim_1, dim_2, iret, c_f_string(table_b_mnemonic))
   end subroutine ufbint_c
 
 
@@ -134,12 +127,10 @@ contains
     integer(c_int), value, intent(in) :: dim_1, dim_2
     integer(c_int), intent(out) :: iret
     character(kind=c_char, len=1), intent(in) :: table_b_mnemonic
-
     real, pointer :: f_data
+
     call c_f_pointer(c_data, f_data)
-
     call ufbrep(bufr_unit, f_data, dim_1, dim_2, iret, c_f_string(table_b_mnemonic))
-
   end subroutine ufbrep_c
 
 
@@ -148,7 +139,6 @@ contains
     integer(c_int), value, intent(in) :: table_unit
 
     call dxdump(bufr_unit, table_unit)
-    
   end subroutine dxdump_c
 
 end module bufr_c_interface_mod
