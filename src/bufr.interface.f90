@@ -88,7 +88,7 @@ contains
     integer :: ireadmg
 
     ires = ireadmg(bufr_unit, f_subset, iddate)
-    call copy_f_c_str(f_subset, c_subset, subset_str_len)
+    call copy_f_c_str(f_subset, c_subset, int(subset_str_len))
   end function ireadmg_c
 
 
