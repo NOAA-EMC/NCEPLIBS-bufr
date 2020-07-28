@@ -15,9 +15,10 @@ module bufr_c_interface_mod
 
 contains
 
-  function c_to_f_string(c_str) result(str)
+  !Private
+  function c_f_string(c_str) result(f_str)
     character(kind=c_char,len=1), intent(in) :: c_str(*)
-    character(len=:), allocatable :: str
+    character(len=:), allocatable :: f_str
     integer nchars
 
     nchars = 1
@@ -26,33 +27,34 @@ contains
     end do
 
     nchars = nchars - 1
-    allocate(character(len=nchars) :: str)
-    str = transfer(c_str(1:nchars), str)
+    allocate(character(len=nchars) :: f_str)
+    f_str = transfer(c_str(1:nchars), f_str)
 
-  end function c_to_f_string
-
-
-  ! function f_to_c_string(f_str) result(c_str)
-  !   implicit none
-
-  !   character(len=*), target, intent(in) :: f_str(*)
-
-  !   character(len=len(f_str)), pointer :: f_str_ptr(:)
-  !   type(c_ptr) :: c_str
-  !   integer :: str_len
-
-  !   f_str_ptr => f_str(1)
-  !   str_len = len_trim(f_str_ptr)
-  !   f_str_ptr(str_len+1:str_len+1) = c_null_char
-  !   c_str = c_loc(f_str_ptr)
-  ! end function
+  end function c_f_string
 
 
+  subroutine copy_f_c_str(f_str, c_str, c_str_len)
+    character(len=*), target, intent(in) :: f_str
+    character(kind=c_char, len=1), intent(inout) :: c_str(*)
+    integer, intent(in) :: c_str_len
+
+    integer :: max_str_len
+
+    if (c_str_len .ne. 0) then
+      max_str_len = min(c_str_len - 1, len_trim(f_str))
+
+      c_str(1)(1:max_str_len) = f_str(1:max_str_len)
+      c_str(1)(max_str_len:max_str_len) = c_null_char
+    end if
+
+  end subroutine copy_f_c_str
+
+  !Public
   subroutine open_c(unit, filepath) bind(C, name='open_f')
     integer(c_int), value, intent(in) :: unit
     character(kind=c_char, len=1) :: filepath
 
-    open(unit, file=c_to_f_string(filepath))
+    open(unit, file=c_f_string(filepath))
   end subroutine open_c
 
 
@@ -68,7 +70,7 @@ contains
     character(kind=c_char, len=1), intent(in) :: cio
     integer(c_int), value, intent(in) :: table_file_id
 
-    call openbf(bufr_unit, c_to_f_string(cio), table_file_id)
+    call openbf(bufr_unit, c_f_string(cio), table_file_id)
 
   end subroutine openbf_c
 
@@ -81,25 +83,22 @@ contains
   end subroutine closbf_c
 
 
-  function ireadmg_c(bufr_unit, subset, iddate) result(ires) bind(C, name='ireadmg_f')
+  function ireadmg_c(bufr_unit, c_subset, iddate, subset_str_len) result(ires) bind(C, name='ireadmg_f')
     integer(c_int), value, intent(in) :: bufr_unit
-    type(c_ptr), intent(out) :: subset
+    character(kind=c_char, len=1), intent(inout) :: c_subset(*)
     integer(c_int), intent(out) :: iddate
+    integer(c_int), value, intent(in) :: subset_str_len
     
     integer(c_int) :: ires
     integer :: subset_len
+    character(len=25) :: f_subset
+
     integer :: ireadmg
 
-    character(len=25), pointer :: subset_ptr
-    character(len=25), target :: f_subset
     ires = ireadmg(bufr_unit, f_subset, iddate)
 
-    ! !convert fortran string to c string
-    ! subset_ptr => f_subset
-    ! subset_len = len_trim(subset_ptr)
-    ! subset_ptr(subset_len+1:subset_len+1) = c_null_char
-    ! subset = c_loc(subset_ptr)
-    
+    call copy_f_c_str(f_subset, c_subset, subset_str_len)
+
   end function ireadmg_c
 
 
@@ -124,7 +123,7 @@ contains
     real, pointer :: f_data
     call c_f_pointer(c_data, f_data)
     
-    call ufbint(bufr_unit, f_data, dim_1, dim_2, iret, c_to_f_string(table_b_mnemonic))
+    call ufbint(bufr_unit, f_data, dim_1, dim_2, iret, c_f_string(table_b_mnemonic))
 
   end subroutine ufbint_c
 
@@ -139,7 +138,7 @@ contains
     real, pointer :: f_data
     call c_f_pointer(c_data, f_data)
 
-    call ufbrep(bufr_unit, f_data, dim_1, dim_2, iret, c_to_f_string(table_b_mnemonic))
+    call ufbrep(bufr_unit, f_data, dim_1, dim_2, iret, c_f_string(table_b_mnemonic))
 
   end subroutine ufbrep_c
 
