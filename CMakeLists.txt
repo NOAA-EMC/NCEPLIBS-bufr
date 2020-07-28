@@ -22,4 +22,41 @@ endif()
 
 include(GNUInstallDirs)
 
+option(ENABLE_TESTS "Enable Tests" OFF)
+
+# Determine the kinds upfront (both src/ and test/ need them).
+# Both GNU and Intel support DYNAMIC_ALLOCATION
+list(APPEND kinds "4_DA" "8_DA" "d_DA")
+# Only Intel supports STATIC_ALLOCATION
+if(CMAKE_C_COMPILER_ID MATCHES "^(Intel)$")
+  list(APPEND kinds "4" "8" "d")
+endif()
+
+# Set common to the package compiler flags
+if(CMAKE_C_COMPILER_ID MATCHES "^(GNU)$")
+  set(CMAKE_C_FLAGS_DEBUG "-ggdb -Wall -O0")
+endif()
+
+if(CMAKE_Fortran_COMPILER_ID MATCHES "^(Intel)$")
+  set(fortran_8_flags "-r8 -i8")
+  set(fortran_d_flags "-r8")
+  set(CMAKE_Fortran_FLAGS "-g -traceback")
+  set(CMAKE_Fortran_FLAGS_DEBUG "-O0")
+  set(CMAKE_Fortran_FLAGS_RELEASE "-O3")
+elseif(CMAKE_Fortran_COMPILER_ID MATCHES "^(GNU)$")
+  set(fortran_8_flags "-fdefault-real-8 -fdefault-integer-8")
+  set(fortran_d_flags "-fdefault-real-8")
+  set(CMAKE_Fortran_FLAGS "-g -fbacktrace")
+  set(CMAKE_Fortran_FLAGS_DEBUG "-ggdb -Wall -O0")
+  set(CMAKE_Fortran_FLAGS_RELEASE "-O3")
+endif()
+
+set(fortran_8_DA_flags ${fortran_8_flags})
+set(fortran_d_DA_flags ${fortran_d_flags})
+
 add_subdirectory(src)
+
+if(ENABLE_TESTS)
+  enable_testing()
+  add_subdirectory(test)
+endif()

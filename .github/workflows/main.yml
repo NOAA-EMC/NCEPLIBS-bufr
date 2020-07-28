@@ -1,0 +1,30 @@
+name: Build and Test
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-20.04
+    env:
+      FC: gfortran-9
+      CC: gcc-9
+
+    steps:
+
+    - name: checkout
+      uses: actions/checkout@v2
+      with:
+        path: bufr
+        submodules: true
+
+    - name: build
+      run: |
+        cd bufr
+        mkdir build
+        cd build
+        cmake .. -DENABLE_TESTS=ON
+        make -j2
+
+    - name: test
+      run: |
+        cd $GITHUB_WORKSPACE/bufr/build
+        ctest
