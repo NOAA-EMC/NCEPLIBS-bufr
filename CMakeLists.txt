@@ -5,7 +5,7 @@ file(STRINGS "VERSION" pVersion)
 project(
     bufr
     VERSION ${pVersion}
-    LANGUAGES C Fortran)
+    LANGUAGES C CXX Fortran)
 
 if(NOT CMAKE_BUILD_TYPE MATCHES "^(Debug|Release|RelWithDebInfo|MinSizeRel)$")
   message(STATUS "Setting build type to 'Release' as none was specified.")
@@ -18,6 +18,14 @@ endif()
 
 if(NOT CMAKE_C_COMPILER_ID MATCHES "^(Intel|GNU|Clang|AppleClang)$")
   message(WARNING "Compiler not officially supported: ${CMAKE_C_COMPILER_ID}")
+endif()
+
+if(NOT CMAKE_CXX_COMPILER_ID MATCHES "^(Intel|GNU|Clang|AppleClang)$")
+  message(WARNING "Compiler not officially supported: ${CMAKE_CXX_COMPILER_ID}")
+endif()
+
+if(NOT CMAKE_Fortran_COMPILER_ID MATCHES "^(Intel|GNU)$")
+  message(WARNING "Compiler not officially supported: ${CMAKE_Fortran_COMPILER_ID}")
 endif()
 
 include(GNUInstallDirs)
@@ -60,4 +68,3 @@ if(ENABLE_TESTS)
   enable_testing()
   add_subdirectory(test)
 endif()
-
