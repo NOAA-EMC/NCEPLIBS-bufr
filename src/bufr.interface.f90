@@ -25,11 +25,10 @@ contains
     do while (c_str(nchars) .ne. c_null_char)
        nchars = nchars + 1
     end do
-
     nchars = nchars - 1
+
     allocate(character(len=nchars) :: f_str)
     f_str = transfer(c_str(1:nchars), f_str)
-
   end function c_f_string
 
 
@@ -44,7 +43,6 @@ contains
       c_str(1)(1:max_str_len) = f_str(1:max_str_len)
       c_str(1)(max_str_len:max_str_len) = c_null_char
     end if
-
   end subroutine copy_f_c_str
 
   !Public
@@ -69,7 +67,6 @@ contains
     integer(c_int), value, intent(in) :: table_file_id
 
     call openbf(bufr_unit, c_f_string(cio), table_file_id)
-
   end subroutine openbf_c
 
 
@@ -77,7 +74,6 @@ contains
     integer(c_int), value, intent(in) :: bufr_unit
 
     call closbf(bufr_unit)
-
   end subroutine closbf_c
 
 
@@ -92,9 +88,7 @@ contains
     integer :: ireadmg
 
     ires = ireadmg(bufr_unit, f_subset, iddate)
-
     call copy_f_c_str(f_subset, c_subset, subset_str_len)
-
   end function ireadmg_c
 
 
@@ -104,7 +98,6 @@ contains
     integer :: ireadsb
     
     ires = ireadsb(bufr_unit)
-
   end function ireadsb_c
 
 
