@@ -12,6 +12,7 @@ extern "C" {
   int ireadsb_f(int bufr_unit);
   void ufbint_f(int bufr_unit, void** c_data, int dim_1, int dim_2, int* iret, const char* table_b_mnemonic);
   void ufbrep_f(int bufr_unit, void** c_data, int dim_1, int dim_2, int* iret, const char* table_b_mnemonic);
+  void dxdump_f(int bufr_unit, int output_unit);
 
 #ifdef __cplusplus
 }
