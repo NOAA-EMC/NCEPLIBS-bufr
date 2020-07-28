@@ -303,7 +303,8 @@ set(fortran_src
   isetprm.F
   openbf.F
   pkvs01.F
-  wrdlen.F)
+  wrdlen.F
+  bufr.interface.f90)
 
 set(c_src
   arallocc.c
@@ -335,4 +336,5 @@ set(c_hdr
   cfe.h
   cobfl.h
   cread.h
-  mstabs.h)
+  mstabs.h
+  bufr.interface.h)

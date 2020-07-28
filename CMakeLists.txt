@@ -5,7 +5,7 @@ file(STRINGS "VERSION" pVersion)
 project(
     bufr
     VERSION ${pVersion}
-    LANGUAGES C CXX Fortran)
+    LANGUAGES C Fortran)
 
 if(NOT CMAKE_BUILD_TYPE MATCHES "^(Debug|Release|RelWithDebInfo|MinSizeRel)$")
   message(STATUS "Setting build type to 'Release' as none was specified.")
