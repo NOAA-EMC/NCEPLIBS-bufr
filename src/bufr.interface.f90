@@ -48,7 +48,7 @@ end subroutine copy_f_c_str
 
 !Public
 subroutine open_c(lunit, filepath) bind(C, name='open_f')
-  integer(c_int), intent(in) :: lunit
+  integer(c_int), value, intent(in) :: lunit
   character(kind=c_char, len=1) :: filepath
 
   open(lunit, file=c_f_string(filepath))
@@ -56,33 +56,33 @@ end subroutine open_c
 
 
 subroutine close_c(lunit) bind(C, name='close_f')
-  integer(c_int), intent(in) :: lunit
+  integer(c_int), value, intent(in) :: lunit
 
   close(unit=lunit)
 end subroutine close_c
 
 
 subroutine openbf_c(bufr_unit, cio, table_file_id) bind(C, name='openbf_f')
-  integer(c_int), intent(in) :: bufr_unit
+  integer(c_int), value, intent(in) :: bufr_unit
   character(kind=c_char, len=1), intent(in) :: cio
-  integer(c_int), intent(in) :: table_file_id
+  integer(c_int), value, intent(in) :: table_file_id
 
   call openbf(bufr_unit, c_f_string(cio), table_file_id)
 end subroutine openbf_c
 
 
 subroutine closbf_c(bufr_unit) bind(C, name='closbf_f')
-  integer(c_int), intent(in) :: bufr_unit
+  integer(c_int), value, intent(in) :: bufr_unit
 
   call closbf(bufr_unit)
 end subroutine closbf_c
 
 
 function ireadmg_c(bufr_unit, c_subset, iddate, subset_str_len) result(ires) bind(C, name='ireadmg_f')
-  integer(c_int), intent(in) :: bufr_unit
+  integer(c_int), value, intent(in) :: bufr_unit
   character(kind=c_char, len=1), intent(inout) :: c_subset(*)
   integer(c_int), intent(out) :: iddate
-  integer(c_int), intent(in) :: subset_str_len
+  integer(c_int), value, intent(in) :: subset_str_len
   integer(c_int) :: ires
   integer(c_int) :: subset_len
   character(len=25) :: f_subset
@@ -94,7 +94,7 @@ end function ireadmg_c
 
 
 function ireadsb_c(bufr_unit) result(ires) bind(C, name='ireadsb_f')
-  integer(c_int), intent(in) :: bufr_unit
+  integer(c_int), value, intent(in) :: bufr_unit
   integer(c_int) :: ires
   integer :: ireadsb
 
@@ -103,9 +103,9 @@ end function ireadsb_c
 
 
 subroutine ufbint_c(bufr_unit, c_data, dim_1, dim_2, iret, table_b_mnemonic) bind(C, name='ufbint_f')
-  integer(c_int), intent(in) :: bufr_unit
+  integer(c_int), value, intent(in) :: bufr_unit
   type(c_ptr), intent(inout) ::  c_data
-  integer(c_int), intent(in) :: dim_1, dim_2
+  integer(c_int), value, intent(in) :: dim_1, dim_2
   integer(c_int), intent(out) :: iret
   character(kind=c_char, len=1), intent(in) :: table_b_mnemonic
   real, pointer :: f_data
@@ -116,9 +116,9 @@ end subroutine ufbint_c
 
 
 subroutine ufbrep_c(bufr_unit, c_data, dim_1, dim_2, iret, table_b_mnemonic) bind(C, name='ufbrep_f')
-  integer(c_int), intent(in) :: bufr_unit
+  integer(c_int), value, intent(in) :: bufr_unit
   type(c_ptr), intent(inout) :: c_data
-  integer(c_int), intent(in) :: dim_1, dim_2
+  integer(c_int), value, intent(in) :: dim_1, dim_2
   integer(c_int), intent(out) :: iret
   character(kind=c_char, len=1), intent(in) :: table_b_mnemonic
   real, pointer :: f_data
@@ -129,8 +129,8 @@ end subroutine ufbrep_c
 
 
 subroutine dxdump_c(bufr_unit, table_unit) bind(C, name='dxdump_f')
-  integer(c_int), intent(in) :: bufr_unit
-  integer(c_int), intent(in) :: table_unit
+  integer(c_int), value, intent(in) :: bufr_unit
+  integer(c_int), value, intent(in) :: table_unit
 
   call dxdump(bufr_unit, table_unit)
 end subroutine dxdump_c
