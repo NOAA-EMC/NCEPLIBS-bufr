@@ -5,9 +5,8 @@ module bufr_c_interface_mod
   implicit none
 
   private
-  public :: open_c
-  public :: close_c
-  public :: openbf_c
+  public :: open_c, close_c
+  public :: openbf_c, closbf_c
   public :: ireadmg_c
   public :: ireadsb_c
   public :: ufbint_c
@@ -20,7 +19,7 @@ contains
 function c_f_string(c_str) result(f_str)
   character(kind=c_char,len=1), intent(in) :: c_str(*)
   character(len=:), allocatable :: f_str
-  integer nchars
+  integer :: nchars
 
   nchars = 1
   do while (c_str(nchars) /= c_null_char)
