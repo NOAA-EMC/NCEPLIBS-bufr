@@ -20,6 +20,10 @@ if(NOT CMAKE_C_COMPILER_ID MATCHES "^(Intel|GNU|Clang|AppleClang)$")
   message(WARNING "Compiler not officially supported: ${CMAKE_C_COMPILER_ID}")
 endif()
 
+if(NOT CMAKE_Fortran_COMPILER_ID MATCHES "^(Intel|GNU)$")
+  message(WARNING "Compiler not officially supported: ${CMAKE_Fortran_COMPILER_ID}")
+endif()
+
 include(GNUInstallDirs)
 
 option(ENABLE_TESTS "Enable Tests" OFF)
@@ -60,4 +64,3 @@ if(ENABLE_TESTS)
   enable_testing()
   add_subdirectory(test)
 endif()
-
