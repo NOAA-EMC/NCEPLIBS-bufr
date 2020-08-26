@@ -26,6 +26,8 @@ endif()
 
 include(GNUInstallDirs)
 
+set(CMAKE_POSITION_INDEPENDENT_CODE ON)
+
 option(ENABLE_TESTS "Enable Tests" OFF)
 
 # Determine the kinds upfront (both src/ and test/ need them).
@@ -44,21 +46,27 @@ endif()
 if(CMAKE_Fortran_COMPILER_ID MATCHES "^(Intel)$")
   set(fortran_8_flags "-r8 -i8")
   set(fortran_d_flags "-r8")
-  set(CMAKE_Fortran_FLAGS "-g -traceback")
+  set(CMAKE_Fortran_FLAGS "${CMAKE_Fortran_FLAGS} -g -traceback")
   set(CMAKE_Fortran_FLAGS_DEBUG "-O0")
   set(CMAKE_Fortran_FLAGS_RELEASE "-O3")
 elseif(CMAKE_Fortran_COMPILER_ID MATCHES "^(GNU)$")
   set(fortran_8_flags "-fdefault-real-8 -fdefault-integer-8")
   set(fortran_d_flags "-fdefault-real-8")
-  set(CMAKE_Fortran_FLAGS "-g -fbacktrace")
+  set(CMAKE_Fortran_FLAGS "${CMAKE_Fortran_FLAGS} -g -fbacktrace")
   set(CMAKE_Fortran_FLAGS_DEBUG "-ggdb -Wall -O0")
   set(CMAKE_Fortran_FLAGS_RELEASE "-O3")
+endif()
+
+# For gfortran-10+ backward compatibility
+if(${CMAKE_Fortran_COMPILER_ID} MATCHES "^(GNU)$" AND ${CMAKE_Fortran_COMPILER_VERSION} VERSION_GREATER_EQUAL 10)
+  set(CMAKE_Fortran_FLAGS "${CMAKE_Fortran_FLAGS} -w -fallow-argument-mismatch -fallow-invalid-boz")
 endif()
 
 set(fortran_8_DA_flags ${fortran_8_flags})
 set(fortran_d_DA_flags ${fortran_d_flags})
 
 add_subdirectory(src)
+add_subdirectory(utils)
 
 if(ENABLE_TESTS)
   enable_testing()
