@@ -1,7 +1,7 @@
 build/
 install/
 
-*.[ao]
+*.[aox]
 *.mod
 *.so
 .DS_Store
