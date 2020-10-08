@@ -6,11 +6,24 @@ The BUFR library contains Fortran programs and command line utilites
 for working with the BUFR format. This is part of the
 [NCEPLIBS](https://github.com/NOAA-EMC/NCEPLIBS) project.
 
-### Authors
+## Authors
 
 NCEP/EMC developers.
 
 Code manager: Jeff Ator
+
+## Installation
+
+<pre>
+git clone https://github.com/noaa-emc/nceplibs-bufr
+mkdir build && cd build
+cmake -DCMAKE_INSTALL_PREFIX=./install -DENABLE_TESTS=ON nceplibs-bufr
+make -j4
+ctest
+make install
+</pre>
+
+Installation of the library and utilities will be under ./install
 
 ## Disclaimer
 
