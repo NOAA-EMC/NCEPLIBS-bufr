@@ -19,18 +19,19 @@ C>   "PREPBUFR" TYPE FILES!!).  PREPFITS FILES HAVE THE FOLLOWING BUFR
 C>   TABLE EVENT STRUCTURE (NOTE SIXTEEN CHARACTERS HAVE BEEN REMOVED
 C>   FROM THE LAST COLUMN TO ALLOW THE TABLE TO FIT IN THIS DOCBLOCK):
 C>
-C>   | ADPUPA   | HEADR  {PLEVL}                                    |
-C>   | HEADR    | SID XOB YOB DHR ELV TYP T29 ITP                   |
-C>   | PLEVL    | CAT PRC PQM QQM TQM ZQM WQM CDTP_QM [OBLVL]       |
-C>   | OBLVL    | SRC FHR <PEVN> <QEVN> <TEVN> <ZEVN> <WEVN> <CEVN> |
-C>   | OBLVL    | <CTPEVN>                                          |
-C>   | PEVN     | POB  PMO                                          |
-C>   | QEVN     | QOB                                               |
-C>   | TEVN     | TOB                                               |
-C>   | ZEVN     | ZOB                                               |
-C>   | WEVN     | UOB  VOB                                          |
-C>   | CEVN     | CAPE CINH LI                                      |
-C>   | CTPEVN   | CDTP GCDTT TOCC                                   |
+C>   | ADPUPA   | HEADR  {PLEVL}
+C>   |----------|----------------   
+C>   | HEADR    | SID XOB YOB DHR ELV TYP T29 ITP                   
+C>   | PLEVL    | CAT PRC PQM QQM TQM ZQM WQM CDTP_QM [OBLVL]       
+C>   | OBLVL    | SRC FHR \<PEVN> \<QEVN> \<TEVN> \<ZEVN> \<WEVN> \<CEVN> 
+C>   | OBLVL    | \<CTPEVN>                                          
+C>   | PEVN     | POB  PMO                                          
+C>   | QEVN     | QOB                                               
+C>   | TEVN     | TOB                                               
+C>   | ZEVN     | ZOB                                               
+C>   | WEVN     | UOB  VOB                                          
+C>   | CEVN     | CAPE CINH LI                                      
+C>   | CTPEVN   | CDTP GCDTT TOCC                                   
 C>
 C>   NOTE THAT THE ONE-BIT DELAYED REPLICATED SEQUENCES "<xxxx>" ARE
 C>   NESTED INSIDE THE EIGHT-BIT DELAYED REPLIATION EVENT SEQUENCES

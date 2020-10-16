@@ -22,29 +22,30 @@ C>   HAVE THE FOLLOWING BUFR TABLE EVENT STRUCTURE (NOTE SIXTEEN
 C>   CHARACTERS HAVE BEEN REMOVED FROM THE LAST COLUMN TO ALLOW THE
 C>   TABLE TO FIT IN THIS DOCBLOCK):
 C>
-C>   | ADPUPA   | HEADR  {PLEVL}                                    |
-C>   | HEADR    | SID  XOB  YOB  DHR  ELV  TYP  T29  TSB  ITP  SQN  |
-C>   | PLEVL    | CAT <PINFO> <QINFO> <TINFO> <ZINFO> <WINFO>       |
-C>   | PINFO    | [PEVN]             <PBACKG>  <PPOSTP>             |
-C>   | QINFO    | [QEVN]    TDO      <QBACKG>  <QPOSTP>             |
-C>   | TINFO    | [TEVN]    TVO      <TBACKG>  <TPOSTP>             |
-C>   | ZINFO    | [ZEVN]             <ZBACKG>  <ZPOSTP>             |
-C>   | WINFO    | [WEVN]             <WBACKG>  <WPOSTP>             |
-C>   | PEVN     | POB  PQM  PPC  PRC                                |
-C>   | QEVN     | QOB  QQM  QPC  QRC                                |
-C>   | TEVN     | TOB  TQM  TPC  TRC                                |
-C>   | ZEVN     | ZOB  ZQM  ZPC  ZRC                                |
-C>   | WEVN     | UOB  WQM  WPC  WRC  VOB                           |
-C>   | PBACKG   | POE  PFC                                          |
-C>   | QBACKG   | QOE  QFC                                          |
-C>   | TBACKG   | TOE  TFC                                          |
-C>   | ZBACKG   | ZOE  ZFC                                          |
-C>   | WBACKG   | WOE  UFC  VFC                                     |
-C>   | PPOSTP   | PAN                                               |
-C>   | QPOSTP   | QAN                                               |
-C>   | TPOSTP   | TAN                                               |
-C>   | ZPOSTP   | ZAN                                               |
-C>   | WPOSTP   | UAN  VAN                                          |
+C>   | ADPUPA   | HEADR  {PLEVL}
+C>   |----------|---------------      
+C>   | HEADR    | SID  XOB  YOB  DHR  ELV  TYP  T29  TSB  ITP  SQN  
+C>   | PLEVL    | CAT \<PINFO> \<QINFO> \<TINFO> \<ZINFO> \<WINFO>      
+C>   | PINFO    | [PEVN]             \<PBACKG>  \<PPOSTP>             
+C>   | QINFO    | [QEVN]    TDO      \<QBACKG>  \<QPOSTP>             
+C>   | TINFO    | [TEVN]    TVO      \<TBACKG>  \<TPOSTP>             
+C>   | ZINFO    | [ZEVN]             \<ZBACKG>  \<ZPOSTP>             
+C>   | WINFO    | [WEVN]             \<WBACKG>  \<WPOSTP>             
+C>   | PEVN     | POB  PQM  PPC  PRC                                
+C>   | QEVN     | QOB  QQM  QPC  QRC                                
+C>   | TEVN     | TOB  TQM  TPC  TRC                                
+C>   | ZEVN     | ZOB  ZQM  ZPC  ZRC                                
+C>   | WEVN     | UOB  WQM  WPC  WRC  VOB                           
+C>   | PBACKG   | POE  PFC                                          
+C>   | QBACKG   | QOE  QFC                                          
+C>   | TBACKG   | TOE  TFC                                          
+C>   | ZBACKG   | ZOE  ZFC                                          
+C>   | WBACKG   | WOE  UFC  VFC                                     
+C>   | PPOSTP   | PAN                                               
+C>   | QPOSTP   | QAN                                               
+C>   | TPOSTP   | TAN                                               
+C>   | ZPOSTP   | ZAN                                               
+C>   | WPOSTP   | UAN  VAN                                          
 C>
 C>   NOTE THAT THE EIGHT-BIT DELAYED REPLIATION EVENT SEQUENCES "[xxxx]"
 C>   ARE NESTED INSIDE ONE-BIT DELAYED REPLICATED SEQUENCES "<yyyy>".
