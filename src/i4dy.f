@@ -1,3 +1,6 @@
+C> @file
+C> @author WOOLLEN @date 1998-07-08
+      
       FUNCTION I4DY(IDATE)
 
 C$$$  SUBPROGRAM DOCUMENTATION BLOCK

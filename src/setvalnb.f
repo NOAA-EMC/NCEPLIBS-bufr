@@ -1,3 +1,6 @@
+C> @file
+C> @author J @date 2016-07-29
+	
 	SUBROUTINE SETVALNB ( LUNIT, TAGPV, NTAGPV, TAGNB, NTAGNB,
      .                        R8VAL, IRET )
 

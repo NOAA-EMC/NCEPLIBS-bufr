@@ -1,3 +1,6 @@
+C> @file
+C> @author J @date 2009-06-18
+      
       INTEGER FUNCTION ICMPDX(LUD,LUN)
 
 C$$$  SUBPROGRAM DOCUMENTATION BLOCK

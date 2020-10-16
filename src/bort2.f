@@ -1,3 +1,6 @@
+C> @file
+C> @author KEYSER @date 2003-11-04
+      
       SUBROUTINE BORT2(STR1,STR2)
 
 C$$$  SUBPROGRAM DOCUMENTATION BLOCK

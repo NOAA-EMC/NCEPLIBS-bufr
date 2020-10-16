@@ -1,3 +1,6 @@
+C> @file
+C> @author J @date 2009-03-23
+      
       SUBROUTINE STBFDX(LUN,MESG)
 
 C$$$  SUBPROGRAM DOCUMENTATION BLOCK

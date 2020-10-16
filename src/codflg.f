@@ -1,3 +1,6 @@
+C> @file
+C> @author ATOR @date 2017-10-13
+      
       SUBROUTINE CODFLG(CF)
 
 C$$$  SUBPROGRAM DOCUMENTATION BLOCK

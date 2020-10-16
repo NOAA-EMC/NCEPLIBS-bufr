@@ -1,3 +1,6 @@
+C> @file
+C> @author ATOR @date 2004-08-18
+      
       SUBROUTINE STDMSG(CF)
 
 C$$$  SUBPROGRAM DOCUMENTATION BLOCK

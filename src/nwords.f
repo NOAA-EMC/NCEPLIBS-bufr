@@ -1,3 +1,6 @@
+C> @file
+C> @author WOOLLEN @date 1996-10-09
+      
       FUNCTION NWORDS(N,LUN)
 
 C$$$  SUBPROGRAM DOCUMENTATION BLOCK

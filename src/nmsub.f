@@ -1,3 +1,6 @@
+C> @file
+C> @author WOOLLEN @date 1994-01-06
+      
       FUNCTION NMSUB(LUNIT)
 
 C$$$  SUBPROGRAM DOCUMENTATION BLOCK

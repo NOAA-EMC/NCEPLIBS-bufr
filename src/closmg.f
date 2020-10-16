@@ -1,3 +1,6 @@
+C> @file
+C> @author WOOLLEN @date 1994-01-06
+      
       SUBROUTINE CLOSMG(LUNIN)
 
 C$$$  SUBPROGRAM DOCUMENTATION BLOCK

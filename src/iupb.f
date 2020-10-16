@@ -1,3 +1,6 @@
+C> @file
+C> @author WOOLLEN @date 1994-01-06
+      
       FUNCTION IUPB(MBAY,NBYT,NBIT)
 
 C$$$  SUBPROGRAM DOCUMENTATION BLOCK

@@ -1,3 +1,6 @@
+C> @file
+C> @author J @date 2009-04-21
+      
       SUBROUTINE ERRWRT(STR)
 
 C$$$  SUBPROGRAM DOCUMENTATION BLOCK

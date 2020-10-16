@@ -1,3 +1,6 @@
+C> @file
+C> @author J @date 2009-06-26
+      
       INTEGER FUNCTION IOK2CPY(LUI,LUO)
 
 C$$$  SUBPROGRAM DOCUMENTATION BLOCK

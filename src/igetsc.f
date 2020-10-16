@@ -1,3 +1,6 @@
+C> @file
+C> @author J @date 2010-05-11
+      
       FUNCTION IGETSC(LUNIT)
 
 C$$$  SUBPROGRAM DOCUMENTATION BLOCK

@@ -1,3 +1,6 @@
+C> @file
+C> @author ATOR @date 2007-01-19
+	
 	SUBROUTINE RDMTBB ( LUNSTB, LUNLTB, MXMTBB,
      .			    IMT, IMTV, IOGCE, ILTV,
      .			    NMTBB, IMFXYN, CMSCL, CMSREF, CMBW,

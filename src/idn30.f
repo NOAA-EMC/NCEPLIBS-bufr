@@ -1,3 +1,6 @@
+C> @file
+C> @author WOOLLEN @date 1994-01-06
+      
       FUNCTION IDN30(ADN30,L30)
 
 C$$$  SUBPROGRAM DOCUMENTATION BLOCK

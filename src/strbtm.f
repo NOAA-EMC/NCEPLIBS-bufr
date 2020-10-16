@@ -1,3 +1,6 @@
+C> @file
+C> @author J @date 2016-05-27
+	
 	SUBROUTINE STRBTM ( N, LUN )
 
 C$$$  SUBPROGRAM DOCUMENTATION BLOCK

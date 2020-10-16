@@ -1,3 +1,6 @@
+C> @file
+C> @author ATOR @date 2007-01-19
+	
 	SUBROUTINE SNTBDE ( LUNT, IFXYN, LINE, MXMTBD, MXELEM,
      .			    NMTBD, IMFXYN, CMMNEM, CMDSC, CMSEQ,
      .			    NMELEM, IEFXYN, CEELEM )

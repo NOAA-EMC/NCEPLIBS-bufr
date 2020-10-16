@@ -1,3 +1,6 @@
+C> @file
+C> @author WOOLLEN @date 2000-09-19
+      
       SUBROUTINE RDCMPS(LUN)
 
 C$$$  SUBPROGRAM DOCUMENTATION BLOCK

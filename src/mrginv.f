@@ -1,3 +1,6 @@
+C> @file
+C> @author WOOLLEN @date 1996-10-09
+      
       SUBROUTINE MRGINV
 
 C$$$  SUBPROGRAM DOCUMENTATION BLOCK

@@ -1,3 +1,6 @@
+C> @file
+C> @author ATOR @date 2005-11-29
+      
       FUNCTION IUPBS01(MBAY,S01MNEM)
 
 C$$$  SUBPROGRAM DOCUMENTATION BLOCK

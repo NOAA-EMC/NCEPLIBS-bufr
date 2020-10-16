@@ -1,3 +1,6 @@
+C> @file
+C> @author ATOR @date 2009-03-23
+      
       FUNCTION IUPBS3(MBAY,S3MNEM)
 
 C$$$  SUBPROGRAM DOCUMENTATION BLOCK

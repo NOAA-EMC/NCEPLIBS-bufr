@@ -1,3 +1,6 @@
+C> @file
+C> @author WOOLLEN @date 2016-06-27
+      
       INTEGER FUNCTION IGETMXBY()
 
 C$$$  SUBPROGRAM DOCUMENTATION BLOCK

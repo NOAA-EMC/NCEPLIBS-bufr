@@ -1,3 +1,6 @@
+C> @file
+C> @author J @date 2009-03-23
+      
       SUBROUTINE WRDXTB(LUNDX,LUNOT)
 
 C$$$  SUBPROGRAM DOCUMENTATION BLOCK

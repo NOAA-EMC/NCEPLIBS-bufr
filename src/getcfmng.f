@@ -1,3 +1,6 @@
+C> @file
+C> @author ATOR @date 2018-01-11
+	
 	SUBROUTINE GETCFMNG ( LUNIT, NEMOI, IVALI, NEMOD, IVALD,
      .			      CMEANG, LNMNG, IRET )
 

@@ -1,3 +1,6 @@
+# This is the main CMake file for NCEPLIBS-bufr.
+#
+# Mark Potts, Kyle Gerheiser, Rahul Mahajan, Ed Hartnett
 cmake_minimum_required(VERSION 3.15)
 
 file(STRINGS "VERSION" pVersion)
@@ -72,3 +75,10 @@ if(ENABLE_TESTS)
   enable_testing()
   add_subdirectory(test)
 endif()
+
+# Determine whether or not to generate documentation.
+option(ENABLE_DOCS "Enable generation of doxygen-based documentation." OFF)
+if(ENABLE_DOCS)
+  find_package(Doxygen REQUIRED)
+endif()
+add_subdirectory(docs)  

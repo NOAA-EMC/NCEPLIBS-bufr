@@ -1,3 +1,6 @@
+C> @file
+C> @author ATOR @date 2007-01-19
+	
 	SUBROUTINE RDMTBD ( LUNSTD, LUNLTD, MXMTBD, MXELEM,
      .			    IMT, IMTV, IOGCE, ILTV,
      .			    NMTBD, IMFXYN, CMMNEM, CMDSC, CMSEQ,

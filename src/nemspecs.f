@@ -1,3 +1,6 @@
+C> @file
+C> @author J @date 2014-10-02
+	
 	SUBROUTINE NEMSPECS ( LUNIT, NEMO, NNEMO,
      .			      NSCL, NREF, NBTS, IRET )
 

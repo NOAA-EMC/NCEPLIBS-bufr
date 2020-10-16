@@ -1,3 +1,6 @@
+C> @file
+C> @author ATOR @date 2017-10-16
+	
 	SUBROUTINE MTFNAM ( IMT, IMTV, IOGCE, IMTVL, TBLTYP,
      .                      STDFIL, LOCFIL )
 

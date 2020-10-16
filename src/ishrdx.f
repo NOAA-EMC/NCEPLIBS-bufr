@@ -1,3 +1,6 @@
+C> @file
+C> @author J @date 2009-11-30
+      
       INTEGER FUNCTION ISHRDX(LUD,LUN)
 
 C$$$  SUBPROGRAM DOCUMENTATION BLOCK

@@ -1,3 +1,6 @@
+C> @file
+C> @author ATOR @date 2007-01-19
+	
 	SUBROUTINE SNTBBE ( IFXYN, LINE, MXMTBB,
      .			    NMTBB, IMFXYN, CMSCL, CMSREF, CMBW,
      .			    CMUNIT, CMMNEM, CMDSC, CMELEM )

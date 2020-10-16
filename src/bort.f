@@ -1,3 +1,6 @@
+C> @file
+C> @author WOOLLEN @date 1998-07-08
+      
       SUBROUTINE BORT(STR)
 
 C$$$  SUBPROGRAM DOCUMENTATION BLOCK
