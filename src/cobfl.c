@@ -2,7 +2,14 @@
     @author ATOR @date 2005-11-29
 */
 
-/*$$$  SUBPROGRAM DOCUMENTATION BLOCK
+
+#include "bufrlib.h"
+#define IN_COBFL
+#include "cobfl.h"
+
+#define MXFNLEN 500
+
+/**
 C
 C SUBPROGRAM:    COBFL
 C   PRGMMR: ATOR             ORG: NP12       DATE: 2005-11-29
@@ -40,13 +47,6 @@ C   LANGUAGE: C
 C   MACHINE:  PORTABLE TO ALL PLATFORMS
 C
 C$$$*/
-
-#include "bufrlib.h"
-#define IN_COBFL
-#include "cobfl.h"
-
-#define MXFNLEN 500
-
 void cobfl( char *bfl, char *io )
 {
     char lbf[MXFNLEN+1];

@@ -2,7 +2,14 @@
     @author ATOR @date 2014-12-04
 */
 
-/*$$$  SUBPROGRAM DOCUMENTATION BLOCK
+#ifdef DYNAMIC_ALLOCATION
+
+#include "bufrlib.h"
+#define IN_ARALLOCC
+#include "cread.h"
+#include "mstabs.h"
+
+/**
 C
 C SUBPROGRAM:    ARALLOCC
 C   PRGMMR: ATOR             ORG: NP12       DATE: 2014-12-04
@@ -38,14 +45,6 @@ C   LANGUAGE: C
 C   MACHINE:  PORTABLE TO ALL PLATFORMS
 C
 C$$$*/
-
-#ifdef DYNAMIC_ALLOCATION
-
-#include "bufrlib.h"
-#define IN_ARALLOCC
-#include "cread.h"
-#include "mstabs.h"
-
 void arallocc( void )
 {
 

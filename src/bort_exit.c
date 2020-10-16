@@ -2,7 +2,10 @@
     @author ATOR @date 2003-11-04
 */
 
-/*$$$  SUBPROGRAM DOCUMENTATION BLOCK
+
+#include "bufrlib.h"
+
+/**
 C
 C SUBPROGRAM:    BORT_EXIT
 C   PRGMMR: ATOR             ORG: NP12       DATE: 2003-11-04
@@ -30,9 +33,6 @@ C   LANGUAGE: C
 C   MACHINE:  PORTABLE TO ALL PLATFORMS
 C
 C$$$*/
-
-#include "bufrlib.h"
-
 void bort_exit( void )
 {
     exit( EXIT_FAILURE );

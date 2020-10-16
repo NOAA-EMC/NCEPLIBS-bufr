@@ -2,7 +2,10 @@
     @author ATOR @date 2004-08-18
 */
 
-/*$$$  SUBPROGRAM DOCUMENTATION BLOCK
+
+#include "bufrlib.h"
+
+/**
 C
 C SUBPROGRAM:    RESTD
 C   PRGMMR: ATOR             ORG: NP12       DATE: 2004-08-18
@@ -49,9 +52,6 @@ C   LANGUAGE: C
 C   MACHINE:  PORTABLE TO ALL PLATFORMS
 C
 C$$$*/
-
-#include "bufrlib.h"
-
 void restd( f77int *lun, f77int *tddesc, f77int *nctddesc, f77int ctddesc[] )
 {
     f77int i0 = 0;

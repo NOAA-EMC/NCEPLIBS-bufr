@@ -2,7 +2,14 @@
     @author ATOR @date 2014-12-04
 */
 
-/*$$$  SUBPROGRAM DOCUMENTATION BLOCK
+
+#ifdef DYNAMIC_ALLOCATION
+
+#include "bufrlib.h"
+#include "cread.h"
+#include "mstabs.h"
+
+/**
 C
 C SUBPROGRAM:    ARDLLOCC
 C   PRGMMR: ATOR             ORG: NP12       DATE: 2014-12-04
@@ -27,13 +34,6 @@ C   LANGUAGE: C
 C   MACHINE:  PORTABLE TO ALL PLATFORMS
 C
 C$$$*/
-
-#ifdef DYNAMIC_ALLOCATION
-
-#include "bufrlib.h"
-#include "cread.h"
-#include "mstabs.h"
-
 void ardllocc( void )
 {
 

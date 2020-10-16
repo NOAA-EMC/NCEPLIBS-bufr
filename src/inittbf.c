@@ -2,7 +2,12 @@
     @author ATOR @date 2017-11-03
 */
 
-/*$$$  SUBPROGRAM DOCUMENTATION BLOCK
+
+#include "bufrlib.h"
+#define IN_INITTBF
+#include "cfe.h"
+
+/**
 C
 C SUBPROGRAM:    INITTBF
 C   PRGMMR: ATOR             ORG: NCEP       DATE: 2017-11-03
@@ -27,11 +32,6 @@ C   LANGUAGE: C
 C   MACHINE:  PORTABLE TO ALL PLATFORMS
 C
 C$$$*/
-
-#include "bufrlib.h"
-#define IN_INITTBF
-#include "cfe.h"
-
 void inittbf( void )
 {
     char brtstr[50] = "BUFRLIB: INITTBF FAILED ALLOCATING CFE";

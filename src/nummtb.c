@@ -2,7 +2,11 @@
     @author ATOR @date 2009-03-23
 */
 
-/*$$$  SUBPROGRAM DOCUMENTATION BLOCK
+
+#include "bufrlib.h"
+#include "mstabs.h"
+
+/**
 C
 C SUBPROGRAM:   NUMMTB
 C   PRGMMR: ATOR             ORG: NP12       DATE: 2009-03-23
@@ -36,10 +40,6 @@ C   LANGUAGE: C
 C   MACHINE:  PORTABLE TO ALL PLATFORMS
 C
 C$$$*/
-
-#include "bufrlib.h"
-#include "mstabs.h"
-
 void nummtb( f77int *idn, char *tab, f77int *ipt )
 {
 	f77int *pifxyn, *pbs,  nmt;

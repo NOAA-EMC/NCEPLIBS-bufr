@@ -1,3 +1,4 @@
+/** @file */
 /*
 ** If array sizes are statically allocated, then we can directly access the
 ** arrays in FORTRAN MODULE MSTABS from within C.  However, if these arrays

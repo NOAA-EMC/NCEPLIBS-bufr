@@ -2,7 +2,11 @@
     @author ATOR @date 2018-01-11
 */
 
-/*$$$  SUBPROGRAM DOCUMENTATION BLOCK
+
+#include "bufrlib.h"
+#include "cfe.h"
+
+/**
 C
 C SUBPROGRAM:    SRCHTBF
 C   PRGMMR: ATOR             ORG: NCEP       DATE: 2018-01-11
@@ -88,10 +92,6 @@ C   LANGUAGE: C
 C   MACHINE:  PORTABLE TO ALL PLATFORMS
 C
 C$$$*/
-
-#include "bufrlib.h"
-#include "cfe.h"
-
 void srchtbf( f77int *ifxyi, f77int *ivali, f77int *ifxyd, f77int *mxfxyd, f77int *ivald,
 	      char *meaning, f77int *mxmng, f77int *lnmng, f77int *iret )
 {

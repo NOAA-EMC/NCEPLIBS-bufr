@@ -2,7 +2,11 @@
     @author ATOR @date 2017-11-03
 */
 
-/*$$$  SUBPROGRAM DOCUMENTATION BLOCK
+
+#include "bufrlib.h"
+#include "cfe.h"
+
+/**
 C
 C SUBPROGRAM:    DLLOCTBF
 C   PRGMMR: ATOR             ORG: NCEP       DATE: 2017-11-03
@@ -28,10 +32,6 @@ C   LANGUAGE: C
 C   MACHINE:  PORTABLE TO ALL PLATFORMS
 C
 C$$$*/
-
-#include "bufrlib.h"
-#include "cfe.h"
-
 void dlloctbf( void )
 {
     free ( cfe );

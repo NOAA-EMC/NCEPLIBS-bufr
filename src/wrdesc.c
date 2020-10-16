@@ -2,7 +2,10 @@
     @author ATOR @date 2004-08-18
 */
 
-/*$$$  SUBPROGRAM DOCUMENTATION BLOCK
+
+#include "bufrlib.h"
+
+/**
 C
 C SUBPROGRAM:    WRDESC
 C   PRGMMR: ATOR             ORG: NP12       DATE: 2004-08-18
@@ -40,9 +43,6 @@ C   LANGUAGE: C
 C   MACHINE:  PORTABLE TO ALL PLATFORMS
 C
 C$$$*/
-
-#include "bufrlib.h"
-
 void wrdesc( f77int desc, f77int descary[], f77int *ndescary )
 {
     char errstr[129];
