@@ -1,100 +1,91 @@
 C> @file
 C> @author WOOLLEN @date 1994-01-06
       
+C> THIS SUBROUTINE RETURNS A LIST OF THE MNEMONICS (I.E.,
+C>   "CHILD" MNEMONICS) CONTAINED WITHIN A TABLE D SEQUENCE MNEMONIC
+C>   (I.E., A "PARENT MNEMONIC").  THIS INFORMATION SHOULD HAVE BEEN
+C>   PACKED INTO THE INTERNAL BUFR TABLE D ENTRY FOR THE PARENT
+C>   MNEMONIC (IN MODULE TABABD) VIA PREVIOUS CALLS TO BUFR ARCHIVE
+C>   LIBRARY SUBROUTINE PKTDD.  NOTE THAT NEMTBD DOES NOT RECURSIVELY
+C>   RESOLVE CHILD MNEMONICS WHICH ARE THEMSELVES TABLE D SEQUENCE
+C>   MNEMONICS; RATHER, SUCH RESOLUTION MUST BE DONE VIA SEPARATE
+C>   SUBSEQUENT CALLS TO THIS SUBROUTINE.
+C>
+C> PROGRAM HISTORY LOG:
+C> 1994-01-06  J. WOOLLEN -- ORIGINAL AUTHOR
+C> 1995-06-28  J. WOOLLEN -- INCREASED THE SIZE OF INTERNAL BUFR TABLE
+C>                           ARRAYS IN ORDER TO HANDLE BIGGER FILES
+C> 1998-07-08  J. WOOLLEN -- REPLACED CALL TO CRAY LIBRARY ROUTINE
+C>                           "ABORT" WITH CALL TO NEW INTERNAL BUFRLIB
+C>                           ROUTINE "BORT"
+C> 1999-11-18  J. WOOLLEN -- THE NUMBER OF BUFR FILES WHICH CAN BE
+C>                           OPENED AT ONE TIME INCREASED FROM 10 TO 32
+C>                           (NECESSARY IN ORDER TO PROCESS MULTIPLE
+C>                           BUFR FILES UNDER THE MPI)
+C> 2000-09-19  J. WOOLLEN -- MUST NOW CHECK FOR TABLE C (OPERATOR
+C>                           DESCRIPTOR) MNEMONICS SINCE THE CAPABILITY
+C>                           HAS NOW BEEN ADDED TO ENCODE AND DECODE
+C>                           THESE
+C> 2003-11-04  J. ATOR    -- ADDED DOCUMENTATION
+C> 2003-11-04  S. BENDER  -- ADDED REMARKS/BUFRLIB ROUTINE
+C>                           INTERDEPENDENCIES
+C> 2003-11-04  D. KEYSER  -- UNIFIED/PORTABLE FOR WRF; ADDED HISTORY
+C>                           DOCUMENTATION; OUTPUTS MORE COMPLETE
+C>                           DIAGNOSTIC INFO WHEN ROUTINE TERMINATES
+C>                           ABNORMALLY
+C> 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
+C>
+C> USAGE:    CALL NEMTBD (LUN, ITAB, NSEQ, NEMS, IRPS, KNTS)
+C>   INPUT ARGUMENT LIST:
+C>     LUN      - INTEGER: I/O STREAM INDEX INTO INTERNAL MEMORY ARRAYS
+C>     ITAB     - INTEGER: POSITIONAL INDEX OF PARENT MNEMONIC WITHIN
+C>                INTERNAL BUFR TABLE D ARRAY TABD(*,*)
+C>
+C>   OUTPUT ARGUMENT LIST:
+C>     NSEQ     - INTEGER: TOTAL NUMBER OF CHILD MNEMONICS FOR THE
+C>                PARENT MNEMONIC GIVEN BY TABD(ITAB,LUN)
+C>     NEMS     - CHARACTER*8: (NSEQ)-WORD ARRAY OF CHILD MNEMONICS
+C>     IRPS     - INTEGER: (NSEQ)-WORD RETURN VALUE ARRAY (SEE REMARKS)
+C>     KNTS     - INTEGER: (NSEQ)-WORD RETURN VALUE ARRAY (SEE REMARKS)
+C>
+C> REMARKS:
+C>    VALUE FOR OUTPUT ARGUMENT IRPS:
+C>       The interpretation of the return value IRPS(I) depends upon the
+C>       type of descriptor corresponding to NEMS(I), as follows:
+C>
+C>       IF ( NEMS(I) corresponds to an F=1 regular (i.e. non-delayed)
+C>            replication descriptor ) THEN
+C>          IRPS(I) = 1
+C>       ELSE IF ( NEMS(I) corresponds to a delayed replicator or
+C>                 replication factor descriptor )  THEN
+C>          IRPS(I) = positional index of corresponding descriptor
+C>                    within internal replication array IDNR(*,*)
+C>       ELSE
+C>          IRPS(I) = 0
+C>       END IF
+C>
+C>
+C>    VALUE FOR OUTPUT ARGUMENT KNTS:
+C>       The interpretation of the return value KNTS(I) depends upon the
+C>       type of descriptor corresponding to NEMS(I), as follows:
+C>
+C>       IF ( NEMS(I) corresponds to an F=1 regular (i.e. non-delayed)
+C>            replication descriptor ) THEN
+C>          KNTS(I) = number of replications
+C>       ELSE
+C>          KNTS(I) = 0
+C>       END IF
+C>
+C>
+C>    THIS ROUTINE CALLS:        ADN30    BORT     IFXY     NUMTAB
+C>                               RSVFVM   UPTDD
+C>    THIS ROUTINE IS CALLED BY: CHEKSTAB DXDUMP   GETABDB  TABSUB
+C>                               Normally not called by any application
+C>                               programs.
+C>
       SUBROUTINE NEMTBD(LUN,ITAB,NSEQ,NEMS,IRPS,KNTS)
 
-C$$$  SUBPROGRAM DOCUMENTATION BLOCK
-C
-C SUBPROGRAM:    NEMTBD
-C   PRGMMR: WOOLLEN          ORG: NP20       DATE: 1994-01-06
-C
-C ABSTRACT: THIS SUBROUTINE RETURNS A LIST OF THE MNEMONICS (I.E.,
-C   "CHILD" MNEMONICS) CONTAINED WITHIN A TABLE D SEQUENCE MNEMONIC
-C   (I.E., A "PARENT MNEMONIC").  THIS INFORMATION SHOULD HAVE BEEN
-C   PACKED INTO THE INTERNAL BUFR TABLE D ENTRY FOR THE PARENT
-C   MNEMONIC (IN MODULE TABABD) VIA PREVIOUS CALLS TO BUFR ARCHIVE
-C   LIBRARY SUBROUTINE PKTDD.  NOTE THAT NEMTBD DOES NOT RECURSIVELY
-C   RESOLVE CHILD MNEMONICS WHICH ARE THEMSELVES TABLE D SEQUENCE
-C   MNEMONICS; RATHER, SUCH RESOLUTION MUST BE DONE VIA SEPARATE
-C   SUBSEQUENT CALLS TO THIS SUBROUTINE.
-C
-C PROGRAM HISTORY LOG:
-C 1994-01-06  J. WOOLLEN -- ORIGINAL AUTHOR
-C 1995-06-28  J. WOOLLEN -- INCREASED THE SIZE OF INTERNAL BUFR TABLE
-C                           ARRAYS IN ORDER TO HANDLE BIGGER FILES
-C 1998-07-08  J. WOOLLEN -- REPLACED CALL TO CRAY LIBRARY ROUTINE
-C                           "ABORT" WITH CALL TO NEW INTERNAL BUFRLIB
-C                           ROUTINE "BORT"
-C 1999-11-18  J. WOOLLEN -- THE NUMBER OF BUFR FILES WHICH CAN BE
-C                           OPENED AT ONE TIME INCREASED FROM 10 TO 32
-C                           (NECESSARY IN ORDER TO PROCESS MULTIPLE
-C                           BUFR FILES UNDER THE MPI)
-C 2000-09-19  J. WOOLLEN -- MUST NOW CHECK FOR TABLE C (OPERATOR
-C                           DESCRIPTOR) MNEMONICS SINCE THE CAPABILITY
-C                           HAS NOW BEEN ADDED TO ENCODE AND DECODE
-C                           THESE
-C 2003-11-04  J. ATOR    -- ADDED DOCUMENTATION
-C 2003-11-04  S. BENDER  -- ADDED REMARKS/BUFRLIB ROUTINE
-C                           INTERDEPENDENCIES
-C 2003-11-04  D. KEYSER  -- UNIFIED/PORTABLE FOR WRF; ADDED HISTORY
-C                           DOCUMENTATION; OUTPUTS MORE COMPLETE
-C                           DIAGNOSTIC INFO WHEN ROUTINE TERMINATES
-C                           ABNORMALLY
-C 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
-C
-C USAGE:    CALL NEMTBD (LUN, ITAB, NSEQ, NEMS, IRPS, KNTS)
-C   INPUT ARGUMENT LIST:
-C     LUN      - INTEGER: I/O STREAM INDEX INTO INTERNAL MEMORY ARRAYS
-C     ITAB     - INTEGER: POSITIONAL INDEX OF PARENT MNEMONIC WITHIN
-C                INTERNAL BUFR TABLE D ARRAY TABD(*,*)
-C
-C   OUTPUT ARGUMENT LIST:
-C     NSEQ     - INTEGER: TOTAL NUMBER OF CHILD MNEMONICS FOR THE
-C                PARENT MNEMONIC GIVEN BY TABD(ITAB,LUN)
-C     NEMS     - CHARACTER*8: (NSEQ)-WORD ARRAY OF CHILD MNEMONICS
-C     IRPS     - INTEGER: (NSEQ)-WORD RETURN VALUE ARRAY (SEE REMARKS)
-C     KNTS     - INTEGER: (NSEQ)-WORD RETURN VALUE ARRAY (SEE REMARKS)
-C
-C REMARKS:
-C    VALUE FOR OUTPUT ARGUMENT IRPS:
-C       The interpretation of the return value IRPS(I) depends upon the
-C       type of descriptor corresponding to NEMS(I), as follows:
-C
-C       IF ( NEMS(I) corresponds to an F=1 regular (i.e. non-delayed)
-C            replication descriptor ) THEN
-C          IRPS(I) = 1
-C       ELSE IF ( NEMS(I) corresponds to a delayed replicator or
-C                 replication factor descriptor )  THEN
-C          IRPS(I) = positional index of corresponding descriptor
-C                    within internal replication array IDNR(*,*)
-C       ELSE
-C          IRPS(I) = 0
-C       END IF
-C
-C
-C    VALUE FOR OUTPUT ARGUMENT KNTS:
-C       The interpretation of the return value KNTS(I) depends upon the
-C       type of descriptor corresponding to NEMS(I), as follows:
-C
-C       IF ( NEMS(I) corresponds to an F=1 regular (i.e. non-delayed)
-C            replication descriptor ) THEN
-C          KNTS(I) = number of replications
-C       ELSE
-C          KNTS(I) = 0
-C       END IF
-C
-C
-C    THIS ROUTINE CALLS:        ADN30    BORT     IFXY     NUMTAB
-C                               RSVFVM   UPTDD
-C    THIS ROUTINE IS CALLED BY: CHEKSTAB DXDUMP   GETABDB  TABSUB
-C                               Normally not called by any application
-C                               programs.
-C
-C ATTRIBUTES:
-C   LANGUAGE: FORTRAN 77
-C   MACHINE:  PORTABLE TO ALL PLATFORMS
-C
-C$$$
+
 
       USE MODV_MAXCD
       USE MODA_TABABD

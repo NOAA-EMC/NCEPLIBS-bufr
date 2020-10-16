@@ -1,54 +1,45 @@
 C> @file
 C> @author WOOLLEN @date 1994-01-06
       
+C> THIS SUBROUTINE INITIALIZES THE INTERNAL ARRAYS
+C>   (IN MODULE TABABD) HOLDING THE DICTIONARY TABLE.  IT THEN
+C>   INITIALIZES THE TABLE WITH APRIORI TABLE B AND D ENTRIES
+C>   (OPTIONAL).
+C>
+C> PROGRAM HISTORY LOG:
+C> 1994-01-06  J. WOOLLEN -- ORIGINAL AUTHOR
+C> 1995-06-28  J. WOOLLEN -- INCREASED THE SIZE OF INTERNAL BUFR TABLE
+C>                           ARRAYS IN ORDER TO HANDLE BIGGER FILES
+C> 1999-11-18  J. WOOLLEN -- THE NUMBER OF BUFR FILES WHICH CAN BE
+C>                           OPENED AT ONE TIME INCREASED FROM 10 TO 32
+C>                           (NECESSARY IN ORDER TO PROCESS MULTIPLE
+C>                           BUFR FILES UNDER THE MPI)
+C> 2003-11-04  S. BENDER  -- ADDED REMARKS/BUFRLIB ROUTINE
+C>                           INTERDEPENDENCIES
+C> 2003-11-04  D. KEYSER  -- UNIFIED/PORTABLE FOR WRF; ADDED
+C>                           DOCUMENTATION (INCLUDING HISTORY)
+C> 2009-03-23  J. ATOR    -- REMOVE INITIALIZATION OF COMMON /MSGCWD/
+C> 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
+C>
+C> USAGE:    CALL DXINIT (LUN, IOI)
+C>   INPUT ARGUMENT LIST:
+C>     LUN      - INTEGER: I/O STREAM INDEX INTO INTERNAL MEMORY ARRAYS
+C>     IOI      - INTEGER: SWITCH:
+C>                       0 = do not initialize the table with apriori
+C>                           Table B and D entries
+C>                    else = initialize the table with apriori Table B
+C>                           and D entries
+C>
+C> REMARKS:
+C>    THIS ROUTINE CALLS:        ADN30    IFXY     PKTDD
+C>    THIS ROUTINE IS CALLED BY: CPBFDX   OPENBF   RDBFDX   RDUSDX
+C>                               READERME READS3
+C>                               Normally not called by any application
+C>                               programs.
+C>
       SUBROUTINE DXINIT(LUN,IOI)
 
-C$$$  SUBPROGRAM DOCUMENTATION BLOCK
-C
-C SUBPROGRAM:    DXINIT
-C   PRGMMR: WOOLLEN          ORG: NP20       DATE: 1994-01-06
-C
-C ABSTRACT: THIS SUBROUTINE INITIALIZES THE INTERNAL ARRAYS
-C   (IN MODULE TABABD) HOLDING THE DICTIONARY TABLE.  IT THEN
-C   INITIALIZES THE TABLE WITH APRIORI TABLE B AND D ENTRIES
-C   (OPTIONAL).
-C
-C PROGRAM HISTORY LOG:
-C 1994-01-06  J. WOOLLEN -- ORIGINAL AUTHOR
-C 1995-06-28  J. WOOLLEN -- INCREASED THE SIZE OF INTERNAL BUFR TABLE
-C                           ARRAYS IN ORDER TO HANDLE BIGGER FILES
-C 1999-11-18  J. WOOLLEN -- THE NUMBER OF BUFR FILES WHICH CAN BE
-C                           OPENED AT ONE TIME INCREASED FROM 10 TO 32
-C                           (NECESSARY IN ORDER TO PROCESS MULTIPLE
-C                           BUFR FILES UNDER THE MPI)
-C 2003-11-04  S. BENDER  -- ADDED REMARKS/BUFRLIB ROUTINE
-C                           INTERDEPENDENCIES
-C 2003-11-04  D. KEYSER  -- UNIFIED/PORTABLE FOR WRF; ADDED
-C                           DOCUMENTATION (INCLUDING HISTORY)
-C 2009-03-23  J. ATOR    -- REMOVE INITIALIZATION OF COMMON /MSGCWD/
-C 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
-C
-C USAGE:    CALL DXINIT (LUN, IOI)
-C   INPUT ARGUMENT LIST:
-C     LUN      - INTEGER: I/O STREAM INDEX INTO INTERNAL MEMORY ARRAYS
-C     IOI      - INTEGER: SWITCH:
-C                       0 = do not initialize the table with apriori
-C                           Table B and D entries
-C                    else = initialize the table with apriori Table B
-C                           and D entries
-C
-C REMARKS:
-C    THIS ROUTINE CALLS:        ADN30    IFXY     PKTDD
-C    THIS ROUTINE IS CALLED BY: CPBFDX   OPENBF   RDBFDX   RDUSDX
-C                               READERME READS3
-C                               Normally not called by any application
-C                               programs.
-C
-C ATTRIBUTES:
-C   LANGUAGE: FORTRAN 77
-C   MACHINE:  PORTABLE TO ALL PLATFORMS
-C
-C$$$
+
 
       USE MODA_TABABD
 

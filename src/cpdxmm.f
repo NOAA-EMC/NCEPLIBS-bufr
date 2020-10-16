@@ -1,72 +1,63 @@
 C> @file
 C> @author J @date 2009-03-23
 	
+C> BEGINNING AT THE CURRENT FILE POINTER LOCATION WITHIN LUNIT,
+C>   THIS SUBROUTINE READS A COMPLETE DICTIONARY TABLE (I.E. ONE OR MORE
+C>   ADJACENT BUFR DX (DICTIONARY) MESSAGES) INTO MODULE MSGMEM.
+C>
+C> PROGRAM HISTORY LOG:
+C> 2009-03-23  J. ATOR    -- ORIGINAL AUTHOR
+C> 2012-09-15  J. WOOLLEN -- MODIFIED FOR C/I/O/BUFR INTERFACE;
+C>                           REPLACED FORTRAN BACKSPACE WITH C BACKBUFR
+C> 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
+C>
+C> USAGE:    CALL CPDXMM (LUNIT)
+C>   INPUT ARGUMENT LIST:
+C>     LUNIT    - INTEGER: FORTRAN LOGICAL UNIT NUMBER FOR BUFR FILE
+C>
+C> REMARKS:
+C>
+C>    THE FOLLOWING VALUES ARE STORED WITHIN MODULE MSGMEM BY THIS
+C>    SUBROUTINE:
+C>
+C>      LDXM = number of array words filled within MDX
+C>
+C>      MDX(I=1,LDXM) = DX dictionary messages for use in decoding
+C>                      data messages stored within MSGS array (in
+C>                      MODULE MSGMEM)
+C>
+C>      NDXM = number of DX dictionary messages within MDX
+C>
+C>      IPDXM(I=1,NDXM) = pointer to first word of (I)th message
+C>                        within MDX
+C>
+C>      NDXTS = number of DX dictionary tables represented by
+C>              messages within MDX
+C>
+C>      IFDXTS(J=1,NDXTS) = sequential number of first message 
+C>                          within MDX which is part of (J)th
+C>                          dictionary table
+C>
+C>      ICDXTS(J=1,NDXTS) = count of consecutive messages within MDX
+C>                          (beginning with IFDXTS(J)) which
+C>                          constitute (J)th dictionary table
+C>
+C>      IPMSGS(J=1,NDXTS) = sequential number of first data message
+C>                          within MSGS array (in MODULE MSGMEM)
+C>                          to which (J)th dictionary table applies
+C>
+C>      LDXTS = current dictionary table that is in scope
+C>              (i.e. a number between 1 and NDXTS)
+C>
+C>    THIS ROUTINE CALLS:        BORT     ERRWRT   IDXMSG   IUPBS3
+C>                               NMWRD    RDMSGW
+C>    THIS ROUTINE IS CALLED BY: UFBMEM
+C>                               Not normally called by application
+C>                               programs.
+C>
 	SUBROUTINE CPDXMM( LUNIT )
 
-C$$$  SUBPROGRAM DOCUMENTATION BLOCK
-C
-C SUBPROGRAM:    CPDXMM
-C   PRGMMR: J. ATOR          ORG: NP12       DATE: 2009-03-23
-C
-C ABSTRACT: BEGINNING AT THE CURRENT FILE POINTER LOCATION WITHIN LUNIT,
-C   THIS SUBROUTINE READS A COMPLETE DICTIONARY TABLE (I.E. ONE OR MORE
-C   ADJACENT BUFR DX (DICTIONARY) MESSAGES) INTO MODULE MSGMEM.
-C
-C PROGRAM HISTORY LOG:
-C 2009-03-23  J. ATOR    -- ORIGINAL AUTHOR
-C 2012-09-15  J. WOOLLEN -- MODIFIED FOR C/I/O/BUFR INTERFACE;
-C                           REPLACED FORTRAN BACKSPACE WITH C BACKBUFR
-C 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
-C
-C USAGE:    CALL CPDXMM (LUNIT)
-C   INPUT ARGUMENT LIST:
-C     LUNIT    - INTEGER: FORTRAN LOGICAL UNIT NUMBER FOR BUFR FILE
-C
-C REMARKS:
-C
-C    THE FOLLOWING VALUES ARE STORED WITHIN MODULE MSGMEM BY THIS
-C    SUBROUTINE:
-C
-C      LDXM = number of array words filled within MDX
-C
-C      MDX(I=1,LDXM) = DX dictionary messages for use in decoding
-C                      data messages stored within MSGS array (in
-C                      MODULE MSGMEM)
-C
-C      NDXM = number of DX dictionary messages within MDX
-C
-C      IPDXM(I=1,NDXM) = pointer to first word of (I)th message
-C                        within MDX
-C
-C      NDXTS = number of DX dictionary tables represented by
-C              messages within MDX
-C
-C      IFDXTS(J=1,NDXTS) = sequential number of first message 
-C                          within MDX which is part of (J)th
-C                          dictionary table
-C
-C      ICDXTS(J=1,NDXTS) = count of consecutive messages within MDX
-C                          (beginning with IFDXTS(J)) which
-C                          constitute (J)th dictionary table
-C
-C      IPMSGS(J=1,NDXTS) = sequential number of first data message
-C                          within MSGS array (in MODULE MSGMEM)
-C                          to which (J)th dictionary table applies
-C
-C      LDXTS = current dictionary table that is in scope
-C              (i.e. a number between 1 and NDXTS)
-C
-C    THIS ROUTINE CALLS:        BORT     ERRWRT   IDXMSG   IUPBS3
-C                               NMWRD    RDMSGW
-C    THIS ROUTINE IS CALLED BY: UFBMEM
-C                               Not normally called by application
-C                               programs.
-C
-C ATTRIBUTES:
-C   LANGUAGE: FORTRAN 77
-C   MACHINE:  PORTABLE TO ALL PLATFORMS
-C
-C$$$
+
 
 	USE MODA_MGWA
 	USE MODA_MSGMEM

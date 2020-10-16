@@ -1,49 +1,40 @@
 C> @file
 C> @author ATOR @date 2007-01-19
 	
+C> THIS SUBROUTINE GETS THE FIRST LINE OF THE NEXT ENTRY IN
+C>   THE SPECIFIED ASCII MASTER TABLE B OR MASTER TABLE D FILE.  THIS
+C>   LINE CONTAINS, AMONG OTHER THINGS, THE FXY NUMBER CORRESPONDING TO
+C>   THIS ENTRY.
+C>
+C> PROGRAM HISTORY LOG:
+C> 2007-01-19  J. ATOR    -- ORIGINAL AUTHOR
+C>
+C> USAGE:    CALL GETNTBE ( LUNT, IFXYN, LINE, IRET )
+C>   INPUT ARGUMENT LIST:
+C>     LUNT     - INTEGER: FORTRAN LOGICAL UNIT NUMBER OF ASCII FILE
+C>                CONTAINING MASTER TABLE B OR MASTER TABLE D INFORMATION
+C>
+C>   OUTPUT ARGUMENT LIST:
+C>     IFXYN    - INTEGER: BIT-WISE REPRESENTATION OF FXY NUMBER FOR
+C>                NEXT TABLE ENTRY
+C>     LINE     - CHARACTER*(*): FIRST LINE OF NEXT TABLE ENTRY
+C>     IRET     - INTEGER: RETURN CODE:
+C>                       0 = normal return
+C>                      -1 = end-of-file encountered while reading
+C>                           from LUNT
+C>                      -2 = I/O error encountered while reading
+C>                           from LUNT
+C>
+C> REMARKS:
+C>    THIS ROUTINE CALLS:        BORT2    IGETNTBL IGETFXY  IFXY
+C>                               PARSTR
+C>    THIS ROUTINE IS CALLED BY: RDMTBB   RDMTBD   RDMTBF
+C>                               Normally not called by any application
+C>                               programs.
+C>
 	SUBROUTINE GETNTBE ( LUNT, IFXYN, LINE, IRET )
 
-C$$$  SUBPROGRAM DOCUMENTATION BLOCK
-C
-C SUBPROGRAM:    GETNTBE
-C   PRGMMR: ATOR            ORG: NP12       DATE: 2007-01-19
-C
-C ABSTRACT:  THIS SUBROUTINE GETS THE FIRST LINE OF THE NEXT ENTRY IN
-C   THE SPECIFIED ASCII MASTER TABLE B OR MASTER TABLE D FILE.  THIS
-C   LINE CONTAINS, AMONG OTHER THINGS, THE FXY NUMBER CORRESPONDING TO
-C   THIS ENTRY.
-C
-C PROGRAM HISTORY LOG:
-C 2007-01-19  J. ATOR    -- ORIGINAL AUTHOR
-C
-C USAGE:    CALL GETNTBE ( LUNT, IFXYN, LINE, IRET )
-C   INPUT ARGUMENT LIST:
-C     LUNT     - INTEGER: FORTRAN LOGICAL UNIT NUMBER OF ASCII FILE
-C                CONTAINING MASTER TABLE B OR MASTER TABLE D INFORMATION
-C
-C   OUTPUT ARGUMENT LIST:
-C     IFXYN    - INTEGER: BIT-WISE REPRESENTATION OF FXY NUMBER FOR
-C                NEXT TABLE ENTRY
-C     LINE     - CHARACTER*(*): FIRST LINE OF NEXT TABLE ENTRY
-C     IRET     - INTEGER: RETURN CODE:
-C                       0 = normal return
-C                      -1 = end-of-file encountered while reading
-C                           from LUNT
-C                      -2 = I/O error encountered while reading
-C                           from LUNT
-C
-C REMARKS:
-C    THIS ROUTINE CALLS:        BORT2    IGETNTBL IGETFXY  IFXY
-C                               PARSTR
-C    THIS ROUTINE IS CALLED BY: RDMTBB   RDMTBD   RDMTBF
-C                               Normally not called by any application
-C                               programs.
-C
-C ATTRIBUTES:
-C   LANGUAGE: FORTRAN 77
-C   MACHINE:  PORTABLE TO ALL PLATFORMS
-C
-C$$$
+
 
 	CHARACTER*(*)	LINE
 	CHARACTER*128	BORT_STR1, BORT_STR2
