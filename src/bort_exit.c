@@ -1,3 +1,7 @@
+/** @file
+    @author ATOR @date 2003-11-04
+*/
+
 /*$$$  SUBPROGRAM DOCUMENTATION BLOCK
 C
 C SUBPROGRAM:    BORT_EXIT

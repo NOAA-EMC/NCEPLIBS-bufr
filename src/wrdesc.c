@@ -1,3 +1,7 @@
+/** @file
+    @author ATOR @date 2004-08-18
+*/
+
 /*$$$  SUBPROGRAM DOCUMENTATION BLOCK
 C
 C SUBPROGRAM:    WRDESC

@@ -1,3 +1,7 @@
+/** @file
+    @author ATOR @date 2005-11-29
+*/
+
 /*$$$  SUBPROGRAM DOCUMENTATION BLOCK
 C
 C SUBPROGRAM:    CWBMG

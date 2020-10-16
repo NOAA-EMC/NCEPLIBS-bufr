@@ -1,3 +1,7 @@
+/** @file
+    @author ATOR @date 2017-11-03
+*/
+
 /*$$$  SUBPROGRAM DOCUMENTATION BLOCK
 C
 C SUBPROGRAM:    INITTBF

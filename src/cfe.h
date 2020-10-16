@@ -1,3 +1,6 @@
+/** @file
+ */
+
 #define MAX_MEANING_LEN 150
 
 struct code_flag_entry {

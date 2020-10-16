@@ -1,3 +1,7 @@
+/** @file
+    @author ATOR @date 2009-03-23
+*/
+
 /*$$$  SUBPROGRAM DOCUMENTATION BLOCK
 C
 C SUBPROGRAM:   STSEQ 

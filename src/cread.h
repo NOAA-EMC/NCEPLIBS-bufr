@@ -1,3 +1,5 @@
+/** @file */
+
 /*
 **  The arrays in this header are dimensioned one larger than NFILES because
 **  of the difference in array indexing between Fortran and C.  In each of the

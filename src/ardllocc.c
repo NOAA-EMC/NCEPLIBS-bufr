@@ -1,3 +1,7 @@
+/** @file
+    @author ATOR @date 2014-12-04
+*/
+
 /*$$$  SUBPROGRAM DOCUMENTATION BLOCK
 C
 C SUBPROGRAM:    ARDLLOCC
