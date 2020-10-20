@@ -1,3 +1,5 @@
+C> @file
+
 	MODULE MODA_BITBUF
 
 #ifndef MXMSGL_H

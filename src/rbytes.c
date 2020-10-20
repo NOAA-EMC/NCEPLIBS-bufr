@@ -1,4 +1,9 @@
-/*$$$  SUBPROGRAM DOCUMENTATION BLOCK
+/** @file */
+
+#include "bufrlib.h"
+#include "cobfl.h"
+
+/**
 C
 C SUBPROGRAM:    RBYTES
 C   PRGMMR: ATOR             ORG: NP12       DATE: 2005-11-29
@@ -41,10 +46,6 @@ C   LANGUAGE: C
 C   MACHINE:  PORTABLE TO ALL PLATFORMS
 C
 C$$$*/
-
-#include "bufrlib.h"
-#include "cobfl.h"
-
 f77int rbytes( char *bmg, f77int *mxmb, f77int isloc, f77int newbytes )
 {
     short iret;

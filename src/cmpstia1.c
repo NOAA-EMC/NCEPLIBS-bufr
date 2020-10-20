@@ -1,4 +1,12 @@
-/*$$$  SUBPROGRAM DOCUMENTATION BLOCK
+/** @file
+    @author ATOR @date 2017-11-13
+*/
+
+
+#include "bufrlib.h"
+#include "cfe.h"
+
+/**
 C
 C SUBPROGRAM:   CMPSTIA1 
 C   PRGMMR: ATOR             ORG: NCEP       DATE: 2017-11-13
@@ -36,10 +44,6 @@ C   LANGUAGE: C
 C   MACHINE:  PORTABLE TO ALL PLATFORMS
 C
 C$$$*/
-
-#include "bufrlib.h"
-#include "cfe.h"
-
 int cmpstia1( const void *pe1, const void *pe2 )
 {
 	struct code_flag_entry *mype1 = ( struct code_flag_entry * ) pe1;

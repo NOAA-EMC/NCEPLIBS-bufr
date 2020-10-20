@@ -1,69 +1,63 @@
+C> @file
+C> @author WOOLLEN @date 1994-01-06
+      
+C> THIS SUBROUTINE EITHER DISCONNECTS THE INPUT LOGICAL UNIT
+C>   NUMBER LUNIT (AND ITS ASSOCIATED BUFR FILE) FROM THE BUFR ARCHIVE
+C>   LIBRARY SOFTWARE OR IT CONNECTS IT AS EITHER AN INPUT OR OUPUT FILE
+C>   AND DEFINES A BUFR MESSAGE AS BEING EITHER OPENED OR CLOSED IN
+C>   MEMORY FOR THE BUFR FILE IN LUNIT.  THIS INFORMATION IS STORED IN
+C>   THE INTERNAL ARRAYS IOLUN AND IOMSG IN MODULE STBFR.
+C>
+C> PROGRAM HISTORY LOG:
+C> 1994-01-06  J. WOOLLEN -- ORIGINAL AUTHOR
+C> 1998-07-08  J. WOOLLEN -- REPLACED CALL TO CRAY LIBRARY ROUTINE
+C>                           "ABORT" WITH CALL TO NEW INTERNAL BUFRLIB
+C>                           ROUTINE "BORT"
+C> 1999-11-18  J. WOOLLEN -- THE NUMBER OF BUFR FILES WHICH CAN BE
+C>                           OPENED AT ONE TIME INCREASED FROM 10 TO 32
+C>                           (NECESSARY IN ORDER TO PROCESS MULTIPLE
+C>                           BUFR FILES UNDER THE MPI)
+C> 2003-11-04  J. ATOR    -- CORRECTED A "TYPO" IN TEST FOR VALID VALUE
+C>                           FOR "IM"; ADDED DOCUMENTATION
+C> 2003-11-04  S. BENDER  -- ADDED REMARKS/BUFRLIB ROUTINE
+C>                           INTERDEPENDENCIES
+C> 2003-11-04  D. KEYSER  -- UNIFIED/PORTABLE FOR WRF; ADDED HISTORY
+C>                           DOCUMENTATION; OUTPUTS MORE COMPLETE
+C>                           DIAGNOSTIC INFO WHEN ROUTINE TERMINATES
+C>                           ABNORMALLY
+C> 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
+C>
+C> USAGE:    CALL WTSTAT (LUNIT, LUN, IL, IM)
+C>   INPUT ARGUMENT LIST:
+C>     LUNIT    - INTEGER: FORTRAN LOGICAL UNIT NUMBER FOR BUFR FILE
+C>     LUN      - INTEGER: I/O STREAM INDEX ASSOCIATED WITH LOGICAL UNIT
+C>                LUNIT
+C>     IL       - INTEGER: LOGICAL UNIT STATUS INDICATOR:
+C>                       0 = disconnect LUNIT w.r.t. BUFR Archive
+C>                           Library software (all information
+C>                           associated with LUNIT is deleted from
+C>                           within internal arrays)
+C>                       1 = connect LUNIT as an output file w.r.t. to
+C>                           BUFR Archive Library software
+C>                      -1 = connect LUNIT as an input file w.r.t. to 
+C>                           BUFR Archive Library software
+C>     IM       - INTEGER: DEFINES WHETHER THERE IS A BUFR MESSAGE
+C>                CURRENTLY OPEN WITHIN MEMORY FOR THIS LUNIT (IF IT IS
+C>                CONNECTED, I.E., IL .NE. ZERO):
+C>                       0 = no
+C>                       1 = yes
+C>
+C> REMARKS:
+C>    THIS ROUTINE CALLS:        BORT
+C>    THIS ROUTINE IS CALLED BY: CLOSBF   CLOSMG   OPENBF   OPENMB
+C>                               OPENMG   RDMEMM   READERME REWNBF
+C>                               READMG
+C>                               Normally not called by any application
+C>                               programs.
+C>
       SUBROUTINE WTSTAT(LUNIT,LUN,IL,IM)
 
-C$$$  SUBPROGRAM DOCUMENTATION BLOCK
-C
-C SUBPROGRAM:    WTSTAT
-C   PRGMMR: WOOLLEN          ORG: NP20       DATE: 1994-01-06
-C
-C ABSTRACT: THIS SUBROUTINE EITHER DISCONNECTS THE INPUT LOGICAL UNIT
-C   NUMBER LUNIT (AND ITS ASSOCIATED BUFR FILE) FROM THE BUFR ARCHIVE
-C   LIBRARY SOFTWARE OR IT CONNECTS IT AS EITHER AN INPUT OR OUPUT FILE
-C   AND DEFINES A BUFR MESSAGE AS BEING EITHER OPENED OR CLOSED IN
-C   MEMORY FOR THE BUFR FILE IN LUNIT.  THIS INFORMATION IS STORED IN
-C   THE INTERNAL ARRAYS IOLUN AND IOMSG IN MODULE STBFR.
-C
-C PROGRAM HISTORY LOG:
-C 1994-01-06  J. WOOLLEN -- ORIGINAL AUTHOR
-C 1998-07-08  J. WOOLLEN -- REPLACED CALL TO CRAY LIBRARY ROUTINE
-C                           "ABORT" WITH CALL TO NEW INTERNAL BUFRLIB
-C                           ROUTINE "BORT"
-C 1999-11-18  J. WOOLLEN -- THE NUMBER OF BUFR FILES WHICH CAN BE
-C                           OPENED AT ONE TIME INCREASED FROM 10 TO 32
-C                           (NECESSARY IN ORDER TO PROCESS MULTIPLE
-C                           BUFR FILES UNDER THE MPI)
-C 2003-11-04  J. ATOR    -- CORRECTED A "TYPO" IN TEST FOR VALID VALUE
-C                           FOR "IM"; ADDED DOCUMENTATION
-C 2003-11-04  S. BENDER  -- ADDED REMARKS/BUFRLIB ROUTINE
-C                           INTERDEPENDENCIES
-C 2003-11-04  D. KEYSER  -- UNIFIED/PORTABLE FOR WRF; ADDED HISTORY
-C                           DOCUMENTATION; OUTPUTS MORE COMPLETE
-C                           DIAGNOSTIC INFO WHEN ROUTINE TERMINATES
-C                           ABNORMALLY
-C 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
-C
-C USAGE:    CALL WTSTAT (LUNIT, LUN, IL, IM)
-C   INPUT ARGUMENT LIST:
-C     LUNIT    - INTEGER: FORTRAN LOGICAL UNIT NUMBER FOR BUFR FILE
-C     LUN      - INTEGER: I/O STREAM INDEX ASSOCIATED WITH LOGICAL UNIT
-C                LUNIT
-C     IL       - INTEGER: LOGICAL UNIT STATUS INDICATOR:
-C                       0 = disconnect LUNIT w.r.t. BUFR Archive
-C                           Library software (all information
-C                           associated with LUNIT is deleted from
-C                           within internal arrays)
-C                       1 = connect LUNIT as an output file w.r.t. to
-C                           BUFR Archive Library software
-C                      -1 = connect LUNIT as an input file w.r.t. to 
-C                           BUFR Archive Library software
-C     IM       - INTEGER: DEFINES WHETHER THERE IS A BUFR MESSAGE
-C                CURRENTLY OPEN WITHIN MEMORY FOR THIS LUNIT (IF IT IS
-C                CONNECTED, I.E., IL .NE. ZERO):
-C                       0 = no
-C                       1 = yes
-C
-C REMARKS:
-C    THIS ROUTINE CALLS:        BORT
-C    THIS ROUTINE IS CALLED BY: CLOSBF   CLOSMG   OPENBF   OPENMB
-C                               OPENMG   RDMEMM   READERME REWNBF
-C                               READMG
-C                               Normally not called by any application
-C                               programs.
-C
-C ATTRIBUTES:
-C   LANGUAGE: FORTRAN 77
-C   MACHINE:  PORTABLE TO ALL PLATFORMS
-C
-C$$$
+
 
       USE MODA_STBFR
 

@@ -1,3 +1,5 @@
+C> @file
+
 	MODULE MODA_BITMAPS
 
 #ifndef MXBTM_H

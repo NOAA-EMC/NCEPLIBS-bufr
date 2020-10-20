@@ -1,4 +1,22 @@
-/*$$$  SUBPROGRAM DOCUMENTATION BLOCK
+/** @file
+    @author ATOR @date 2014-12-04
+*/
+
+
+#ifdef DYNAMIC_ALLOCATION
+
+#include "bufrlib.h"
+#include "mstabs.h"
+
+void cpmstabs(  f77int *pnmtb,
+		f77int *pibfxyn, char (*pcbscl)[4],
+		char (*pcbsref)[12], char (*pcbbw)[4],
+		char (*pcbunit)[14], char (*pcbmnem)[8],
+		char (*pcbelem)[120],
+		f77int *pnmtd,
+		f77int *pidfxyn, char (*pcdseq)[120],
+		char (*pcdmnem)[8], f77int *pndelem,
+/**
 C
 C SUBPROGRAM:    CPMSTABS
 C   PRGMMR: ATOR             ORG: NP12       DATE: 2014-12-04
@@ -46,20 +64,6 @@ C   LANGUAGE: C
 C   MACHINE:  PORTABLE TO ALL PLATFORMS
 C
 C$$$*/
-
-#ifdef DYNAMIC_ALLOCATION
-
-#include "bufrlib.h"
-#include "mstabs.h"
-
-void cpmstabs(  f77int *pnmtb,
-		f77int *pibfxyn, char (*pcbscl)[4],
-		char (*pcbsref)[12], char (*pcbbw)[4],
-		char (*pcbunit)[14], char (*pcbmnem)[8],
-		char (*pcbelem)[120],
-		f77int *pnmtd,
-		f77int *pidfxyn, char (*pcdseq)[120],
-		char (*pcdmnem)[8], f77int *pndelem,
 		f77int *pidefxy, f77int *maxcd )
 {
 

@@ -1,145 +1,139 @@
-      SUBROUTINE OPENBF(LUNIT,IO,LUNDX)
-
-C$$$  SUBPROGRAM DOCUMENTATION BLOCK
-C
-C SUBPROGRAM:    OPENBF
-C   PRGMMR: WOOLLEN          ORG: NP20       DATE: 1994-01-06
-C
-C ABSTRACT: THIS SUBROUTINE NORMALLY (I.E. EXCEPT WHEN INPUT ARGUMENT
-C   IO IS 'QUIET') IDENTIFIES A NEW LOGICAL UNIT TO THE BUFR ARCHIVE
-C   LIBRARY SOFTWARE FOR INPUT OR OUTPUT OPERATIONS.  HOWEVER, THE
-C   FIRST TIME IT IS CALLED, IT ALSO FIGURES OUT SOME IMPORTANT
-C   INFORMATION ABOUT THE LOCAL MACHINE ON WHICH THE SOFTWARE IS BEING
-C   RUN (VIA A CALL TO BUFR ARCHIVE LIBRARY SUBROUTINE WRDLEN), AND IT
-C   ALSO INITIALIZES ARRAYS IN MANY BUFR ARCHIVE LIBRARY COMMON BLOCKS
-C   (VIA A CALL TO BUFR ARCHIVE LIBRARY SUBROUTINE BFRINI). UP TO 32
-C   LOGICAL UNITS CAN BE CONNECTED TO THE BUFR ARCHIVE LIBRARY SOFTWARE
-C   AT ANY ONE TIME.
-C
-C   NOTE: IF IO IS PASSED IN AS 'QUIET', THEN OPENBF PERFORMS ONLY ONE
-C   FUNCTION - IT SIMPLY SETS THE "DEGREE OF PRINTOUT" SWITCH IPRT (IN
-C   COMMON BLOCK /QUIET/) TO THE VALUE OF INPUT ARGUMENT LUNDX,
-C   OVERRIDING ITS PREVIOUS VALUE.  A DEFAULT IPRT VALUE OF 0 (I.E.
-C   "LIMITED PRINTOUT") IS SET DURING THE FIRST CALL TO THIS ROUTINE,
-C   BUT THIS OR ANY OTHER IPRT VALUE MAY BE SET AND RESET AS OFTEN AS
-C   DESIRED VIA SUCCESSIVE CALLS TO OPENBF WITH IO = 'QUIET'.
-C   IN ALL SUCH CASES, OPENBF SIMPLY (RE)SETS IPRT AND THEN RETURNS
-C   WITHOUT ACTUALLY OPENING ANY FILES.  THE DEGREE OF PRINTOUT
-C   INCREASES AS IPRT INCREASES FROM "-1" TO "0" TO "1" TO "2".
-C
-C PROGRAM HISTORY LOG:
-C 1994-01-06  J. WOOLLEN -- ORIGINAL AUTHOR
-C 1998-07-08  J. WOOLLEN -- REPLACED CALL TO CRAY LIBRARY ROUTINE
-C                           "ABORT" WITH CALL TO NEW INTERNAL BUFRLIB
-C                           ROUTINE "BORT"
-C 1999-11-18  J. WOOLLEN -- THE NUMBER OF BUFR FILES WHICH CAN BE
-C                           OPENED AT ONE TIME INCREASED FROM 10 TO 32
-C                           (NECESSARY IN ORDER TO PROCESS MULTIPLE
-C                           BUFR FILES UNDER THE MPI)
-C 2003-11-04  J. ATOR    -- ADDED IO='NUL' OPTION IN ORDER TO PREVENT
-C                           LATER WRITING TO BUFR FILE IN LUNIT (WAS IN
-C                           DECODER VERSION); ADDED DOCUMENTATION
-C 2003-11-04  S. BENDER  -- ADDED REMARKS/BUFRLIB ROUTINE
-C                           INTERDEPENDENCIES
-C 2003-11-04  D. KEYSER  -- UNIFIED/PORTABLE FOR WRF; ADDED HISTORY
-C                           DOCUMENTATION; OUTPUTS MORE COMPLETE
-C                           DIAGNOSTIC INFO WHEN ROUTINE TERMINATES
-C                           ABNORMALLY, UNUSUAL THINGS HAPPEN OR FOR
-C                           INFORMATIONAL PURPOSES
-C 2004-08-18  J. ATOR    -- ADDED SAVE FOR IFIRST FLAG AND IO="NODX"
-C                           OPTION 
-C 2005-11-29  J. ATOR    -- ADDED COMMON /MSGFMT/ AND ICHKSTR CALL
-C 2009-03-23  J. ATOR    -- ADDED IO='SEC3' OPTION; REMOVED CALL TO
-C                           POSAPN; CLARIFIED COMMENTS; USE ERRWRT
-C 2010-05-11  J. ATOR    -- ADDED COMMON /STCODE/
-C 2012-06-18  J. ATOR    -- ADDED IO='INUL' OPTION
-C 2012-09-15  J. WOOLLEN -- MODIFIED FOR C/I/O/BUFR INTERFACE;
-C                           USE INQUIRE TO OBTAIN THE FILENAME;
-C                           CALL C ROUTINES OPENRB, OPENWB, AND 
-C                           OPENAB TO CONNECT BUFR FILES TO C;
-C                           ADDED IO TYPE 'INX' TO ENABLE OPEN AND
-C                           CLOSE FOR C FILE WITHOUT CLOSING FORTRAN
-C                           FILE; ADD IO TYPE 'FIRST' TO SUPPORT CALLS   
-C                           TO BFRINI AND WRDLEN PRIOR TO USER RESET
-C                           OF BUFRLIB PARAMETERS FOUND IN NEW ROUTINES 
-C                           SETBMISS AND SETBLOCK
-C 2014-11-07  J. ATOR    -- ALLOW DYNAMIC ALLOCATION OF CERTAIN ARRAYS
-C 2015-03-03  J. ATOR    -- USE MODA_IFOPBF INSTEAD OF IFIRST
-C
-C USAGE:    CALL OPENBF (LUNIT, IO, LUNDX)
-C   INPUT ARGUMENT LIST:
-C     LUNIT    - INTEGER: FORTRAN LOGICAL UNIT NUMBER FOR BUFR FILE
-C                (UNLESS IO IS 'QUIET', THEN A DUMMY)
-C     IO       - CHARACTER*(*): FLAG INDICATING HOW LUNIT IS TO BE
-C                USED BY THE SOFTWARE:
-C                    'IN' = input operations with table processing
-C                   'INX' = input  operations w/o table processing
-C                   'OUX' = output operations w/o table processing
-C                   'OUT' = output operations with table processing
-C                  'SEC3' = same as 'IN', except use Section 3 of input 
-C                           messages for decoding rather than dictionary
-C                           table information from LUNDX; in this case
-C                           LUNDX is ignored, and user must provide 
-C                           appropriate BUFR master tables within
-C                           directory specified by a subsequent call
-C                           to subroutine MTINFO
-C                  'NODX' = same as 'OUT', except don't write dictionary
-C                           (i.e. DX) table messages to LUNIT
-C                   'APN' = same as 'NODX', except begin writing at end
-C                           of file ("append")
-C                   'APX' = same as 'APN', except backspace before
-C                           appending
-C                   'NUL' = same as 'OUT', except don't write any
-C                           messages whatsoever to LUNIT (e.g. when
-C                           subroutine WRITSA is to be used)
-C                  'INUL' = same as 'IN', except don't read any
-C                           messages whatsoever from LUNIT (e.g. when
-C                           subroutine READERME is to be used)
-C                 'QUIET' = LUNIT is ignored, this is an indicator
-C                           that the value for IPRT in COMMON block
-C                           /QUIET/ is being reset (see LUNDX)
-C                 'FIRST' = calls bfrini and wrdlen as a prelude to user 
+C> @file
+C> @author WOOLLEN @date 1994-01-06
+      
+C> THIS SUBROUTINE NORMALLY (I.E. EXCEPT WHEN INPUT ARGUMENT
+C>   IO IS 'QUIET') IDENTIFIES A NEW LOGICAL UNIT TO THE BUFR ARCHIVE
+C>   LIBRARY SOFTWARE FOR INPUT OR OUTPUT OPERATIONS.  HOWEVER, THE
+C>   FIRST TIME IT IS CALLED, IT ALSO FIGURES OUT SOME IMPORTANT
+C>   INFORMATION ABOUT THE LOCAL MACHINE ON WHICH THE SOFTWARE IS BEING
+C>   RUN (VIA A CALL TO BUFR ARCHIVE LIBRARY SUBROUTINE WRDLEN), AND IT
+C>   ALSO INITIALIZES ARRAYS IN MANY BUFR ARCHIVE LIBRARY COMMON BLOCKS
+C>   (VIA A CALL TO BUFR ARCHIVE LIBRARY SUBROUTINE BFRINI). UP TO 32
+C>   LOGICAL UNITS CAN BE CONNECTED TO THE BUFR ARCHIVE LIBRARY SOFTWARE
+C>   AT ANY ONE TIME.
+C>
+C>   NOTE: IF IO IS PASSED IN AS 'QUIET', THEN OPENBF PERFORMS ONLY ONE
+C>   FUNCTION - IT SIMPLY SETS THE "DEGREE OF PRINTOUT" SWITCH IPRT (IN
+C>   COMMON BLOCK /QUIET/) TO THE VALUE OF INPUT ARGUMENT LUNDX,
+C>   OVERRIDING ITS PREVIOUS VALUE.  A DEFAULT IPRT VALUE OF 0 (I.E.
+C>   "LIMITED PRINTOUT") IS SET DURING THE FIRST CALL TO THIS ROUTINE,
+C>   BUT THIS OR ANY OTHER IPRT VALUE MAY BE SET AND RESET AS OFTEN AS
+C>   DESIRED VIA SUCCESSIVE CALLS TO OPENBF WITH IO = 'QUIET'.
+C>   IN ALL SUCH CASES, OPENBF SIMPLY (RE)SETS IPRT AND THEN RETURNS
+C>   WITHOUT ACTUALLY OPENING ANY FILES.  THE DEGREE OF PRINTOUT
+C>   INCREASES AS IPRT INCREASES FROM "-1" TO "0" TO "1" TO "2".
+C>
+C> PROGRAM HISTORY LOG:
+C> 1994-01-06  J. WOOLLEN -- ORIGINAL AUTHOR
+C> 1998-07-08  J. WOOLLEN -- REPLACED CALL TO CRAY LIBRARY ROUTINE
+C>                           "ABORT" WITH CALL TO NEW INTERNAL BUFRLIB
+C>                           ROUTINE "BORT"
+C> 1999-11-18  J. WOOLLEN -- THE NUMBER OF BUFR FILES WHICH CAN BE
+C>                           OPENED AT ONE TIME INCREASED FROM 10 TO 32
+C>                           (NECESSARY IN ORDER TO PROCESS MULTIPLE
+C>                           BUFR FILES UNDER THE MPI)
+C> 2003-11-04  J. ATOR    -- ADDED IO='NUL' OPTION IN ORDER TO PREVENT
+C>                           LATER WRITING TO BUFR FILE IN LUNIT (WAS IN
+C>                           DECODER VERSION); ADDED DOCUMENTATION
+C> 2003-11-04  S. BENDER  -- ADDED REMARKS/BUFRLIB ROUTINE
+C>                           INTERDEPENDENCIES
+C> 2003-11-04  D. KEYSER  -- UNIFIED/PORTABLE FOR WRF; ADDED HISTORY
+C>                           DOCUMENTATION; OUTPUTS MORE COMPLETE
+C>                           DIAGNOSTIC INFO WHEN ROUTINE TERMINATES
+C>                           ABNORMALLY, UNUSUAL THINGS HAPPEN OR FOR
+C>                           INFORMATIONAL PURPOSES
+C> 2004-08-18  J. ATOR    -- ADDED SAVE FOR IFIRST FLAG AND IO="NODX"
+C>                           OPTION 
+C> 2005-11-29  J. ATOR    -- ADDED COMMON /MSGFMT/ AND ICHKSTR CALL
+C> 2009-03-23  J. ATOR    -- ADDED IO='SEC3' OPTION; REMOVED CALL TO
+C>                           POSAPN; CLARIFIED COMMENTS; USE ERRWRT
+C> 2010-05-11  J. ATOR    -- ADDED COMMON /STCODE/
+C> 2012-06-18  J. ATOR    -- ADDED IO='INUL' OPTION
+C> 2012-09-15  J. WOOLLEN -- MODIFIED FOR C/I/O/BUFR INTERFACE;
+C>                           USE INQUIRE TO OBTAIN THE FILENAME;
+C>                           CALL C ROUTINES OPENRB, OPENWB, AND 
+C>                           OPENAB TO CONNECT BUFR FILES TO C;
+C>                           ADDED IO TYPE 'INX' TO ENABLE OPEN AND
+C>                           CLOSE FOR C FILE WITHOUT CLOSING FORTRAN
+C>                           FILE; ADD IO TYPE 'FIRST' TO SUPPORT CALLS   
+C>                           TO BFRINI AND WRDLEN PRIOR TO USER RESET
+C>                           OF BUFRLIB PARAMETERS FOUND IN NEW ROUTINES 
+C>                           SETBMISS AND SETBLOCK
+C> 2014-11-07  J. ATOR    -- ALLOW DYNAMIC ALLOCATION OF CERTAIN ARRAYS
+C> 2015-03-03  J. ATOR    -- USE MODA_IFOPBF INSTEAD OF IFIRST
+C>
+C> USAGE:    CALL OPENBF (LUNIT, IO, LUNDX)
+C>   INPUT ARGUMENT LIST:
+C>     LUNIT    - INTEGER: FORTRAN LOGICAL UNIT NUMBER FOR BUFR FILE
+C>                (UNLESS IO IS 'QUIET', THEN A DUMMY)
+C>     IO       - CHARACTER*(*): FLAG INDICATING HOW LUNIT IS TO BE
+C>                USED BY THE SOFTWARE:
+C>                    'IN' = input operations with table processing
+C>                   'INX' = input  operations w/o table processing
+C>                   'OUX' = output operations w/o table processing
+C>                   'OUT' = output operations with table processing
+C>                  'SEC3' = same as 'IN', except use Section 3 of input 
+C>                           messages for decoding rather than dictionary
+C>                           table information from LUNDX; in this case
+C>                           LUNDX is ignored, and user must provide 
+C>                           appropriate BUFR master tables within
+C>                           directory specified by a subsequent call
+C>                           to subroutine MTINFO
+C>                  'NODX' = same as 'OUT', except don't write dictionary
+C>                           (i.e. DX) table messages to LUNIT
+C>                   'APN' = same as 'NODX', except begin writing at end
+C>                           of file ("append")
+C>                   'APX' = same as 'APN', except backspace before
+C>                           appending
+C>                   'NUL' = same as 'OUT', except don't write any
+C>                           messages whatsoever to LUNIT (e.g. when
+C>                           subroutine WRITSA is to be used)
+C>                  'INUL' = same as 'IN', except don't read any
+C>                           messages whatsoever from LUNIT (e.g. when
+C>                           subroutine READERME is to be used)
+C>                 'QUIET' = LUNIT is ignored, this is an indicator
+C>                           that the value for IPRT in COMMON block
+C>                           /QUIET/ is being reset (see LUNDX)
+C>                 'FIRST' = calls bfrini and wrdlen as a prelude to user 
 c                           resetting of bufrlib parameters such as
 c                           missing value or output block type
-C     LUNDX    - INTEGER: IF IO IS NOT 'QUIET':
-C                            FORTRAN logical unit number containing 
-C                            dictionary table information to be used in
-C                            reading/writing from/to LUNIT (depending
-C                            on the case); may be set equal to LUNIT if
-C                            dictionary table information is already
-C                            embedded in LUNIT
-C                         IF IO IS 'QUIET':
-C                            Indicator for degree of printout:
-C                              -1 = NO printout except for ABORT
-C                                   messages
-C                               0 = LIMITED printout (default)
-C                               1 = ALL warning messages are printed
-C                                   out
-C                               2 = ALL warning AND informational
-C                                   messages are printed out
-C                            (Note: this does not change until OPENBF
-C                                   is again called with IO equal to
-C                                   'QUIET')
-C
-C   INPUT FILES:
-C     UNIT "LUNIT" - BUFR FILE
-C
-C REMARKS:
-C    THIS ROUTINE CALLS:        ARALLOCC ARALLOCF BFRINI   BORT
-C                               DXINIT   ERRWRT   POSAPX   READDX
-C                               STATUS   WRDLEN   WRITDX   WTSTAT
-C                               OPENRB   OPENWB   OPENAB
-C    THIS ROUTINE IS CALLED BY: COPYBF   GETBMISS IGETMXBY MESGBC
-C                               MESGBF   PKVS01   RDMGSB   UFBINX
-C                               UFBMEM   UFBMEX   UFBTAB   SETBMISS
-C                               SETBLOCK
-C                               Also called by application programs.
-C
-C ATTRIBUTES:
-C   LANGUAGE: FORTRAN 77
-C   MACHINE:  PORTABLE TO ALL PLATFORMS
-C
-C$$$
+C>     LUNDX    - INTEGER: IF IO IS NOT 'QUIET':
+C>                            FORTRAN logical unit number containing 
+C>                            dictionary table information to be used in
+C>                            reading/writing from/to LUNIT (depending
+C>                            on the case); may be set equal to LUNIT if
+C>                            dictionary table information is already
+C>                            embedded in LUNIT
+C>                         IF IO IS 'QUIET':
+C>                            Indicator for degree of printout:
+C>                              -1 = NO printout except for ABORT
+C>                                   messages
+C>                               0 = LIMITED printout (default)
+C>                               1 = ALL warning messages are printed
+C>                                   out
+C>                               2 = ALL warning AND informational
+C>                                   messages are printed out
+C>                            (Note: this does not change until OPENBF
+C>                                   is again called with IO equal to
+C>                                   'QUIET')
+C>
+C>   INPUT FILES:
+C>     UNIT "LUNIT" - BUFR FILE
+C>
+C> REMARKS:
+C>    THIS ROUTINE CALLS:        ARALLOCC ARALLOCF BFRINI   BORT
+C>                               DXINIT   ERRWRT   POSAPX   READDX
+C>                               STATUS   WRDLEN   WRITDX   WTSTAT
+C>                               OPENRB   OPENWB   OPENAB
+C>    THIS ROUTINE IS CALLED BY: COPYBF   GETBMISS IGETMXBY MESGBC
+C>                               MESGBF   PKVS01   RDMGSB   UFBINX
+C>                               UFBMEM   UFBMEX   UFBTAB   SETBMISS
+C>                               SETBLOCK
+C>                               Also called by application programs.
+C>
+      SUBROUTINE OPENBF(LUNIT,IO,LUNDX)
+
+
 
       USE MODA_MSGCWD
       USE MODA_STBFR

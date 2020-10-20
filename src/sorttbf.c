@@ -1,4 +1,12 @@
-/*$$$  SUBPROGRAM DOCUMENTATION BLOCK
+/** @file
+    @author ATOR @date 2017-11-16
+*/
+
+
+#include "bufrlib.h"
+#include "cfe.h"
+
+/**
 C
 C SUBPROGRAM:    SORTTBF
 C   PRGMMR: ATOR             ORG: NCEP       DATE: 2017-11-16
@@ -23,10 +31,6 @@ C   LANGUAGE: C
 C   MACHINE:  PORTABLE TO ALL PLATFORMS
 C
 C$$$*/
-
-#include "bufrlib.h"
-#include "cfe.h"
-
 void sorttbf( void )
 {
     qsort( &cfe[0], ( size_t ) nmtf, sizeof( struct code_flag_entry ),

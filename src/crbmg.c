@@ -1,4 +1,12 @@
-/*$$$  SUBPROGRAM DOCUMENTATION BLOCK
+/** @file
+    @author ATOR @date 2005-11-29
+*/
+
+
+#include "bufrlib.h"
+#include "cobfl.h"
+
+/**
 C
 C SUBPROGRAM:    CRBMG
 C   PRGMMR: ATOR             ORG: NP12       DATE: 2005-11-29
@@ -39,10 +47,6 @@ C   LANGUAGE: C
 C   MACHINE:  PORTABLE TO ALL PLATFORMS
 C
 C$$$*/
-
-#include "bufrlib.h"
-#include "cobfl.h"
-
 void crbmg( char *bmg, f77int *mxmb, f77int *nmb, f77int *iret )
 {
     f77int i1 = 1, i2 = 2, i3 = 3, i4 = 4, i24 = 24;

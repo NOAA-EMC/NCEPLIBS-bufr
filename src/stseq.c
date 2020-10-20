@@ -1,4 +1,12 @@
-/*$$$  SUBPROGRAM DOCUMENTATION BLOCK
+/** @file
+    @author ATOR @date 2009-03-23
+*/
+
+
+#include "bufrlib.h"
+#include "mstabs.h"
+
+/**
 C
 C SUBPROGRAM:   STSEQ 
 C   PRGMMR: ATOR             ORG: NP12       DATE: 2009-03-23
@@ -53,10 +61,6 @@ C   LANGUAGE: C
 C   MACHINE:  PORTABLE TO ALL PLATFORMS
 C
 C$$$*/
-
-#include "bufrlib.h"
-#include "mstabs.h"
-
 void stseq( f77int *lun, f77int *irepct, f77int *idn, char nemo[8],
 	    char cseq[55], f77int cdesc[], f77int *ncdesc )
 {

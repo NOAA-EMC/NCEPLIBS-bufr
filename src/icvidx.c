@@ -1,4 +1,11 @@
-/*$$$  SUBPROGRAM DOCUMENTATION BLOCK
+/** @file
+    @author ATOR @date 2009-03-23
+*/
+
+
+#include "bufrlib.h"
+
+/**
 C
 C SUBPROGRAM:   ICVIDX
 C   PRGMMR: ATOR             ORG: NP12       DATE: 2009-03-23
@@ -31,9 +38,6 @@ C   LANGUAGE: C
 C   MACHINE:  PORTABLE TO ALL PLATFORMS
 C
 C$$$*/
-
-#include "bufrlib.h"
-
 f77int icvidx( f77int *ii, f77int *jj, f77int *numjj )
 {
 	return ( *numjj * (*ii) ) + *jj;

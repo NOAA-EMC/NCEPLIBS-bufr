@@ -1,4 +1,11 @@
-/*$$$  SUBPROGRAM DOCUMENTATION BLOCK
+/** @file
+    @author ATOR @date 2017-11-13
+*/
+
+#include "bufrlib.h"
+#include "cfe.h"
+
+/**
 C
 C SUBPROGRAM:    STRTBFE
 C   PRGMMR: ATOR             ORG: NCEP       DATE: 2017-11-13
@@ -37,10 +44,6 @@ C   LANGUAGE: C
 C   MACHINE:  PORTABLE TO ALL PLATFORMS
 C
 C$$$*/
-
-#include "bufrlib.h"
-#include "cfe.h"
-
 void strtbfe( f77int *ifxyn, f77int *ival, char *meaning, f77int *lmeaning,
 	      f77int *idfxy, f77int *idval )
 {

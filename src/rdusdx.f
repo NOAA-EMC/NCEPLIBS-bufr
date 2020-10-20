@@ -1,106 +1,100 @@
+C> @file
+C> @author WOOLLEN @date 1994-01-06
+      
+C> THIS SUBROUTINE READS AND PARSES A FILE CONTAINING A USER-
+C>   SUPPLIED BUFR DICTIONARY TABLE IN CHARACTER FORMAT, AND THEN STORES
+C>   THIS INFORMATION INTO INTERNAL ARRAYS IN MODULE TABABD (SEE REMARKS
+C>   FOR CONTENTS OF INTERNAL ARRAYS).  THIS SUBROUTINE PERFORMS
+C>   A FUNCTION SIMILAR TO BUFR ARCHIVE LIBRARY SUBROUTINE RDBFDX,
+C>   EXECPT THAT RDBFDX READS THE BUFR TABLE DIRECTLY FROM MESSAGES AT
+C>   BEGINNING OF AN INPUT BUFR FILE.
+C>
+C> PROGRAM HISTORY LOG:
+C> 1994-01-06  J. WOOLLEN -- ORIGINAL AUTHOR
+C> 1995-06-28  J. WOOLLEN -- INCREASED THE SIZE OF INTERNAL BUFR TABLE
+C>                           ARRAYS IN ORDER TO HANDLE BIGGER FILES
+C> 1996-12-17  J. WOOLLEN -- FIXED FOR SOME MVS COMPILER'S TREATMENT OF
+C>                           INTERNAL READS (INCREASES PORTABILITY)
+C> 1998-07-08  J. WOOLLEN -- REPLACED CALL TO CRAY LIBRARY ROUTINE
+C>                           "ABORT" WITH CALL TO NEW INTERNAL BUFRLIB
+C>                           ROUTINE "BORT"; CORRECTED SOME MINOR ERRORS
+C> 1999-11-18  J. WOOLLEN -- THE NUMBER OF BUFR FILES WHICH CAN BE
+C>                           OPENED AT ONE TIME INCREASED FROM 10 TO 32
+C>                           (NECESSARY IN ORDER TO PROCESS MULTIPLE
+C>                           BUFR FILES UNDER THE MPI)
+C> 2003-11-04  J. ATOR    -- ADDED DOCUMENTATION
+C> 2003-11-04  S. BENDER  -- ADDED REMARKS/BUFRLIB ROUTINE
+C>                           INTERDEPENDENCIES
+C> 2003-11-04  D. KEYSER  -- UNIFIED/PORTABLE FOR WRF; ADDED HISTORY
+C>                           DOCUMENTATION; OUTPUTS MORE COMPLETE
+C>                           DIAGNOSTIC INFO WHEN ROUTINE TERMINATES
+C>                           ABNORMALLY; CHANGED CALL FROM BORT TO BORT2
+C> 2006-04-14  D. KEYSER  -- ABORTS IF A USER-DEFINED MESSAGE TYPE "011"
+C>                           IS READ (EITHER DIRECTLY FROM A TABLE A
+C>                           MNEMONIC OR FROM THE "Y" VALUE OF A TABLE A
+C>                           FXY SEQUENCE DESCRIPTOR), MESSAGE TYPE
+C>                           "011" IS RESERVED FOR DICTIONARY MESSAGES
+C>                           (PREVIOUSLY WOULD STORE DATA WITH MESSAGE
+C>                           TYPE "011" BUT SUCH MESSAGES WOULD BE
+C>                           SKIPPED OVER WHEN READ)
+C> 2007-01-19  J. ATOR    -- MODIFIED IN RESPONSE TO NUMBCK CHANGES
+C> 2009-03-23  J. ATOR    -- INCREASE SIZE OF BORT_STR2; USE STNTBIA
+C> 2013-01-08  J. WHITING -- ADD ERR= OPTION TO READ STATEMENT
+C> 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
+C>
+C> USAGE:    CALL RDUSDX (LUNDX, LUN)
+C>   INPUT ARGUMENT LIST:
+C>     LUNDX    - INTEGER: FORTRAN LOGICAL UNIT NUMBER FOR USER-
+C>                SUPPLIED BUFR DICTIONARY TABLE IN CHARACTER FORMAT
+C>     LUN      - INTEGER: I/O STREAM INDEX INTO INTERNAL MEMORY ARRAYS
+C>
+C>   INPUT FILES:
+C>     UNIT "LUNDX" - USER-SUPPLIED BUFR DICTIONARY TABLE IN CHARACTER
+C>                    FORMAT
+C>
+C> REMARKS:
+C>    CONTENTS OF INTERNAL ARRAYS WRITTEN INTO MODULE TABABD:
+C>
+C>     For Table A entries:
+C>        NTBA(LUN)     - INTEGER: Number of Table A entries (note that
+C>                        NTBA(0) contains the maximum number of such
+C>                        entries as set within subroutine BFRINI)
+C>        TABA(N,LUN)   - CHARACTER*128: Table A entries, where
+C>                        N=1,2,3,...,NTBA(LUN)
+C>        IDNA(N,LUN,1) - INTEGER: Message type corresponding to
+C>                        TABA(N,LUN)
+C>        IDNA(N,LUN,2) - INTEGER: Message subtype corresponding to
+C>                        TABA(N,LUN)
+C>
+C>     For Table B entries:
+C>        NTBB(LUN)     - INTEGER: Number of Table B entries (note that
+C>                        NTBB(0) contains the maximum number of such
+C>                        entries as set within subroutine BFRINI)
+C>        TABB(N,LUN)   - CHARACTER*128: Table B entries, where
+C>                        N=1,2,3,...,NTBB(LUN)
+C>        IDNB(N,LUN)   - INTEGER: Bit-wise representation of the FXY
+C>                        value corresponding to TABB(N,LUN)
+C>
+C>     For Table D entries:
+C>        NTBD(LUN)     - INTEGER: Number of Table D entries (note that
+C>                        NTBD(0) contains the maximum number of such
+C>                        entries as set within subroutine BFRINI)
+C>        TABD(N,LUN)   - CHARACTER*600: Table D entries, where
+C>                        N=1,2,3,...,NTBD(LUN)
+C>        IDND(N,LUN)   - INTEGER: Bit-wise representation of the FXY
+C>                        value corresponding to TABD(N,LUN)
+C>
+C>
+C>    THIS ROUTINE CALLS:        BORT2    DXINIT   ELEMDX   IGETNTBI
+C>                               MAKESTAB NEMOCK   NUMBCK   SEQSDX
+C>                               STNTBI   STNTBIA
+C>    THIS ROUTINE IS CALLED BY: CKTABA   READDX
+C>                               Normally not called by any application
+C>                               programs.
+C>
       SUBROUTINE RDUSDX(LUNDX,LUN)
 
-C$$$  SUBPROGRAM DOCUMENTATION BLOCK
-C
-C SUBPROGRAM:    RDUSDX
-C   PRGMMR: WOOLLEN          ORG: NP20       DATE: 1994-01-06
-C
-C ABSTRACT: THIS SUBROUTINE READS AND PARSES A FILE CONTAINING A USER-
-C   SUPPLIED BUFR DICTIONARY TABLE IN CHARACTER FORMAT, AND THEN STORES
-C   THIS INFORMATION INTO INTERNAL ARRAYS IN MODULE TABABD (SEE REMARKS
-C   FOR CONTENTS OF INTERNAL ARRAYS).  THIS SUBROUTINE PERFORMS
-C   A FUNCTION SIMILAR TO BUFR ARCHIVE LIBRARY SUBROUTINE RDBFDX,
-C   EXECPT THAT RDBFDX READS THE BUFR TABLE DIRECTLY FROM MESSAGES AT
-C   BEGINNING OF AN INPUT BUFR FILE.
-C
-C PROGRAM HISTORY LOG:
-C 1994-01-06  J. WOOLLEN -- ORIGINAL AUTHOR
-C 1995-06-28  J. WOOLLEN -- INCREASED THE SIZE OF INTERNAL BUFR TABLE
-C                           ARRAYS IN ORDER TO HANDLE BIGGER FILES
-C 1996-12-17  J. WOOLLEN -- FIXED FOR SOME MVS COMPILER'S TREATMENT OF
-C                           INTERNAL READS (INCREASES PORTABILITY)
-C 1998-07-08  J. WOOLLEN -- REPLACED CALL TO CRAY LIBRARY ROUTINE
-C                           "ABORT" WITH CALL TO NEW INTERNAL BUFRLIB
-C                           ROUTINE "BORT"; CORRECTED SOME MINOR ERRORS
-C 1999-11-18  J. WOOLLEN -- THE NUMBER OF BUFR FILES WHICH CAN BE
-C                           OPENED AT ONE TIME INCREASED FROM 10 TO 32
-C                           (NECESSARY IN ORDER TO PROCESS MULTIPLE
-C                           BUFR FILES UNDER THE MPI)
-C 2003-11-04  J. ATOR    -- ADDED DOCUMENTATION
-C 2003-11-04  S. BENDER  -- ADDED REMARKS/BUFRLIB ROUTINE
-C                           INTERDEPENDENCIES
-C 2003-11-04  D. KEYSER  -- UNIFIED/PORTABLE FOR WRF; ADDED HISTORY
-C                           DOCUMENTATION; OUTPUTS MORE COMPLETE
-C                           DIAGNOSTIC INFO WHEN ROUTINE TERMINATES
-C                           ABNORMALLY; CHANGED CALL FROM BORT TO BORT2
-C 2006-04-14  D. KEYSER  -- ABORTS IF A USER-DEFINED MESSAGE TYPE "011"
-C                           IS READ (EITHER DIRECTLY FROM A TABLE A
-C                           MNEMONIC OR FROM THE "Y" VALUE OF A TABLE A
-C                           FXY SEQUENCE DESCRIPTOR), MESSAGE TYPE
-C                           "011" IS RESERVED FOR DICTIONARY MESSAGES
-C                           (PREVIOUSLY WOULD STORE DATA WITH MESSAGE
-C                           TYPE "011" BUT SUCH MESSAGES WOULD BE
-C                           SKIPPED OVER WHEN READ)
-C 2007-01-19  J. ATOR    -- MODIFIED IN RESPONSE TO NUMBCK CHANGES
-C 2009-03-23  J. ATOR    -- INCREASE SIZE OF BORT_STR2; USE STNTBIA
-C 2013-01-08  J. WHITING -- ADD ERR= OPTION TO READ STATEMENT
-C 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
-C
-C USAGE:    CALL RDUSDX (LUNDX, LUN)
-C   INPUT ARGUMENT LIST:
-C     LUNDX    - INTEGER: FORTRAN LOGICAL UNIT NUMBER FOR USER-
-C                SUPPLIED BUFR DICTIONARY TABLE IN CHARACTER FORMAT
-C     LUN      - INTEGER: I/O STREAM INDEX INTO INTERNAL MEMORY ARRAYS
-C
-C   INPUT FILES:
-C     UNIT "LUNDX" - USER-SUPPLIED BUFR DICTIONARY TABLE IN CHARACTER
-C                    FORMAT
-C
-C REMARKS:
-C    CONTENTS OF INTERNAL ARRAYS WRITTEN INTO MODULE TABABD:
-C
-C     For Table A entries:
-C        NTBA(LUN)     - INTEGER: Number of Table A entries (note that
-C                        NTBA(0) contains the maximum number of such
-C                        entries as set within subroutine BFRINI)
-C        TABA(N,LUN)   - CHARACTER*128: Table A entries, where
-C                        N=1,2,3,...,NTBA(LUN)
-C        IDNA(N,LUN,1) - INTEGER: Message type corresponding to
-C                        TABA(N,LUN)
-C        IDNA(N,LUN,2) - INTEGER: Message subtype corresponding to
-C                        TABA(N,LUN)
-C
-C     For Table B entries:
-C        NTBB(LUN)     - INTEGER: Number of Table B entries (note that
-C                        NTBB(0) contains the maximum number of such
-C                        entries as set within subroutine BFRINI)
-C        TABB(N,LUN)   - CHARACTER*128: Table B entries, where
-C                        N=1,2,3,...,NTBB(LUN)
-C        IDNB(N,LUN)   - INTEGER: Bit-wise representation of the FXY
-C                        value corresponding to TABB(N,LUN)
-C
-C     For Table D entries:
-C        NTBD(LUN)     - INTEGER: Number of Table D entries (note that
-C                        NTBD(0) contains the maximum number of such
-C                        entries as set within subroutine BFRINI)
-C        TABD(N,LUN)   - CHARACTER*600: Table D entries, where
-C                        N=1,2,3,...,NTBD(LUN)
-C        IDND(N,LUN)   - INTEGER: Bit-wise representation of the FXY
-C                        value corresponding to TABD(N,LUN)
-C
-C
-C    THIS ROUTINE CALLS:        BORT2    DXINIT   ELEMDX   IGETNTBI
-C                               MAKESTAB NEMOCK   NUMBCK   SEQSDX
-C                               STNTBI   STNTBIA
-C    THIS ROUTINE IS CALLED BY: CKTABA   READDX
-C                               Normally not called by any application
-C                               programs.
-C
-C ATTRIBUTES:
-C   LANGUAGE: FORTRAN 77
-C   MACHINE:  PORTABLE TO ALL PLATFORMS
-C
-C$$$
+
 
       USE MODA_TABABD
 

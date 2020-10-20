@@ -1,232 +1,226 @@
+C> @file
+C> @author WOOLLEN @date 1994-01-06
+      
+C> THIS SUBROUTINE BUILDS THE ENTIRE JUMP/LINK TREE (I.E.,
+C>   INCLUDING RECURSIVELY RESOLVING ALL "CHILD" MNEMONICS) FOR A TABLE
+C>   A MNEMONIC (NEMO) WITHIN THE INTERNAL JUMP/LINK TABLE.
+C>
+C> PROGRAM HISTORY LOG:
+C> 1994-01-06  J. WOOLLEN -- ORIGINAL AUTHOR
+C> 1998-07-08  J. WOOLLEN -- REPLACED CALL TO CRAY LIBRARY ROUTINE
+C>                           "ABORT" WITH CALL TO NEW INTERNAL BUFRLIB
+C>                           ROUTINE "BORT"
+C> 2000-09-19  J. WOOLLEN -- ADDED CAPABILITY TO ENCODE AND DECODE DATA
+C>                           USING THE OPERATOR DESCRIPTORS (BUFR TABLE
+C>                           C) FOR CHANGING WIDTH AND CHANGING SCALE
+C> 2003-11-04  J. ATOR    -- ADDED DOCUMENTATION
+C> 2003-11-04  S. BENDER  -- ADDED REMARKS/BUFRLIB ROUTINE
+C>                           INTERDEPENDENCIES
+C> 2003-11-04  D. KEYSER  -- MAXJL (MAXIMUM NUMBER OF JUMP/LINK ENTRIES)
+C>                           INCREASED FROM 15000 TO 16000 (WAS IN
+C>                           VERIFICATION VERSION); UNIFIED/PORTABLE FOR
+C>                           WRF; ADDED HISTORY DOCUMENTATION; OUTPUTS
+C>                           MORE COMPLETE DIAGNOSTIC INFO WHEN ROUTINE
+C>                           TERMINATES ABNORMALLY
+C> 2005-11-29  J. ATOR    -- ADDED SUPPORT FOR 207 AND 208 OPERATORS
+C> 2012-03-02  J. ATOR    -- ADDED SUPPORT FOR 203 OPERATOR
+C> 2012-04-19  J. ATOR    -- FIXED BUG FOR CASES WHERE A TABLE C OPERATOR
+C>                           IMMEDIATELY FOLLOWS A TABLE D SEQUENCE
+C> 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
+C> 2016-05-24  J. ATOR    -- STORE TABLE C OPERATORS IN MODULE BITMAPS
+C> 2017-04-03  J. ATOR    -- ADD A DIMENSION TO ALL TCO ARRAYS SO THAT
+C>                           EACH SUBSET DEFINITION IN THE JUMP/LINK
+C>                           TABLE HAS ITS OWN SET OF TABLE C OPERATORS
+C>
+C> USAGE:    CALL TABSUB (LUN, NEMO)
+C>   INPUT ARGUMENT LIST:
+C>     LUN      - INTEGER: I/O STREAM INDEX INTO INTERNAL MEMORY ARRAYS
+C>     NEMO     - CHARACTER*8: TABLE A MNEMONIC
+C>
+C> REMARKS:
+C>   -----------------------------------------------------------------
+C>    EXAMPLE SHOWING CONTENTS OF INTERNAL JUMP/LINK TABLE (WITHIN
+C>    MODULE TABLES):
+C>
+C>      INTEGER MAXTAB = maximum number of jump/link table entries
+C>
+C>      INTEGER NTAB = actual number of jump/link table entries
+C>                     currently in use
+C>
+C>      For I = 1, NTAB:
+C>
+C>      CHARACTER*10 TAG(I) = mnemonic
+C>
+C>      CHARACTER*3 TYP(I) = mnemonic type indicator:
+C>         "SUB" if TAG(I) is a Table A mnemonic
+C>         "SEQ" if TAG(I) is a Table D mnemonic using either short
+C>               (i.e. 1-bit) delayed replication, F=1 regular (i.e.
+C>               non-delayed) replication, or no replication at all
+C>         "RPC" if TAG(I) is a Table D mnemonic using either medium
+C>               (i.e. 8-bit) delayed replication or long (i.e. 16-bit)
+C>               delayed replication
+C>         "RPS" if TAG(I) is a Table D mnemonic using medium
+C>               (i.e. 8-bit) delayed replication in a stack context
+C>         "DRB" if TAG(I) denotes the short (i.e. 1-bit) delayed
+C>               replication of a Table D mnemonic (which would then
+C>               itself have its own separate entry in the jump/link
+C>               table with a corresponding TAG value of "SEQ")
+C>         "DRP" if TAG(I) denotes either the medium (i.e. 8-bit) or
+C>               long (i.e. 16-bit) delayed replication of a Table D
+C>               mnemonic (which would then itself have its own separate
+C>               entry in the jump/link table with a corresponding TAG
+C>               value of "RPC")
+C>         "DRS" if TAG(I) denotes the medium (i.e. 8-bit) delayed
+C>               replication, in a stack context, of a Table D mnemonic
+C>               (which would then itself have its own separate entry
+C>               in the jump/link table with a corresponding TAG value
+C>               of "RPS")
+C>         "REP" if TAG(I) denotes the F=1 regular (i.e. non-delayed)
+C>               replication of a Table D mnemonic (which would then
+C>               itself have its own separate entry in the jump/link
+C>               table with a corresponding TAG value of "SEQ")
+C>         "CHR" if TAG(I) is a Table B mnemonic with units "CCITT IA5"
+C>         "NUM" if TAG(I) is a Table B mnemonic with any units other
+C>               than "CCITT IA5"
+C>
+C>       INTEGER JMPB(I):
+C>
+C>       IF ( TYP(I) = "SUB" ) THEN
+C>          JMPB(I) = 0
+C>       ELSE IF ( ( TYP(I) = "SEQ" and TAG(I) uses either short (i.e.
+C>                   1-bit) delayed replication or F=1 regular (i.e.
+C>                   non-delayed) replication )
+C>                OR
+C>                 ( TYP(I) = "RPC" )  ) THEN
+C>          JMPB(I) = the index of the jump/link table entry denoting
+C>                    the replication of TAG(I)
+C>       ELSE
+C>          JMPB(I) = the index of the jump/link table entry for the
+C>                    Table A or Table D mnemonic of which TAG(I) is a
+C>                    child
+C>       END IF
+C>
+C>       INTEGER JUMP(I):
+C>
+C>       IF ( ( TYP(I) = "CHR" )  OR  ( TYP(I) = "NUM" ) ) THEN
+C>          JUMP(I) = 0
+C>       ELSE IF ( ( TYP(I) = "DRB" ) OR
+C>                 ( TYP(I) = "DRP" ) OR
+C>                 ( TYP(I) = "REP" ) ) THEN
+C>          JUMP(I) = the index of the jump/link table entry for the
+C>                    Table D mnemonic whose replication is denoted by
+C>                    TAG(I)
+C>       ELSE
+C>          JUMP(I) = the index of the jump/link table entry for the
+C>                    Table B or Table D mnemonic which, sequentially,
+C>                    is the first child of TAG(I)
+C>       END IF
+C>
+C>       INTEGER LINK(I):
+C>
+C>       IF ( ( TYP(I) = "SEQ" and TAG(I) uses either short (i.e.
+C>              1-bit) delayed replication or F=1 regular (i.e. non-
+C>              delayed) replication )
+C>           OR
+C>            ( TYP(I) = "SUB" )
+C>           OR
+C>            ( TYP(I) = "RPC" ) ) THEN
+C>              LINK(I) = 0
+C>       ELSE IF ( TAG(I) is, sequentially, the last child Table B or
+C>                 Table D mnemonic of the parent Table A or Table D
+C>                 mnemonic indexed by JMPB(I) ) THEN
+C>          LINK(I) = 0
+C>       ELSE
+C>          LINK(I) = the index of the jump/link table entry for the
+C>                    Table B or Table D mnemonic which, sequentially,
+C>                    is the next (i.e. following TAG(I)) child mnemonic
+C>                    of the parent Table A or Table D mnemonic indexed
+C>                    by JMPB(I)
+C>       END IF
+C>
+C>       INTEGER IBT(I):
+C>
+C>       IF ( ( TYP(I) = "CHR" )  OR  ( TYP(I) = "NUM" ) ) THEN
+C>          IBT(I) = bit width of Table B mnemonic TAG(I)
+C>       ELSE IF ( ( TYP(I) = "DRB" )  OR  ( TYP(I) = "DRP" ) ) THEN
+C>          IBT(I) = bit width of delayed descriptor replication factor
+C>                   (i.e. 1, 8, or 16, depending on the replication
+C>                   scheme denoted by TAG(I))
+C>       ELSE
+C>          IBT(I) = 0
+C>       END IF
+C>
+C>       INTEGER IRF(I):
+C>
+C>       IF ( TYP(I) = "NUM" ) THEN
+C>          IRF(I) = reference value of Table B mnemonic TAG(I)
+C>       ELSE IF ( TYP(I) = "REP" ) THEN
+C>          IRF(I) = number of F=1 regular (i.e. non-delayed)
+C>                   replications of Table D mnemonic TAG(JUMP(I))
+C>       ELSE
+C>          IRF(I) = 0
+C>       END IF
+C>
+C>       INTEGER ISC(I):
+C>
+C>       IF ( TYP(I) = "NUM" ) THEN
+C>          ISC(I) = scale factor of Table B mnemonic TAG(I)
+C>       ELSE IF ( TYP(I) = "SUB" ) THEN
+C>          ISC(I) = the index of the jump/link table entry which,
+C>                   sequentially, constitutes the last element of the
+C>                   jump/link tree for Table A mnemonic TAG(I)
+C>       ELSE
+C>          ISC(I) = 0
+C>       END IF
+C>
+C>   -----------------------------------------------------------------
+C>
+C>    THE FOLLOWING VALUES ARE STORED WITHIN MODULE NRV203 BY THIS
+C>    SUBROUTINE, FOR USE WITH ANY 2-03-YYY (CHANGE REFERENCE VALUE)
+C>    OPERATORS PRESENT WITHIN THE ENTIRE JUMP/LINK TABLE:
+C>
+C>      NNRV = number of nodes in the jump/link table which contain new
+C>             reference values (as defined using the 2-03 operator)
+C>
+C>      INODNRV(I=1,NNRV) = nodes within jump/link table which contain
+C>                          new reference values
+C>
+C>      NRV(I=1,NNRV) = new reference value corresponding to INODNRV(I)
+C>
+C>      TAGNRV(I=1,NNRV) = Table B mnemonic to which the new reference
+C>                         value in NRV(I) applies
+C>
+C>      ISNRV(I=1,NNRV) = start of node range in jump/link table,
+C>                        within which the new reference value defined
+C>                        by NRV(I) will be applied to all occurrences
+C>                        of TAGNRV(I)
+C>
+C>      IENRV(I=1,NNRV) = end of node range in jump/link table,
+C>                        within which the new reference value defined
+C>                        by NRV(I) will be applied to all occurrences
+C>                        of TAGNRV(I)
+C>
+C>      IBTNRV = number of bits in Section 4 occupied by each new
+C>               reference value for the current 2-03 operator
+C>               (if IBTNRV = 0, then no 2-03 operator is currently
+C>               in scope)
+C>
+C>      IPFNRV = a number between 1 and NNRV, denoting the first entry
+C>               within the above arrays which applies to the current
+C>               Table A mnemonic NEMO (if IPFNRV = 0, then no 2-03
+C>               operators have been applied to NEMO)
+C>
+C>   -----------------------------------------------------------------
+C>
+C>    THIS ROUTINE CALLS:        BORT     INCTAB   IOKOPER   NEMTAB
+C>                               NEMTBD   TABENT
+C>    THIS ROUTINE IS CALLED BY: MAKESTAB
+C>                               Normally not called by any application
+C>                               programs.
+C>
       SUBROUTINE TABSUB(LUN,NEMO)
 
-C$$$  SUBPROGRAM DOCUMENTATION BLOCK
-C
-C SUBPROGRAM:    TABSUB
-C   PRGMMR: WOOLLEN          ORG: NP20       DATE: 1994-01-06
-C
-C ABSTRACT: THIS SUBROUTINE BUILDS THE ENTIRE JUMP/LINK TREE (I.E.,
-C   INCLUDING RECURSIVELY RESOLVING ALL "CHILD" MNEMONICS) FOR A TABLE
-C   A MNEMONIC (NEMO) WITHIN THE INTERNAL JUMP/LINK TABLE.
-C
-C PROGRAM HISTORY LOG:
-C 1994-01-06  J. WOOLLEN -- ORIGINAL AUTHOR
-C 1998-07-08  J. WOOLLEN -- REPLACED CALL TO CRAY LIBRARY ROUTINE
-C                           "ABORT" WITH CALL TO NEW INTERNAL BUFRLIB
-C                           ROUTINE "BORT"
-C 2000-09-19  J. WOOLLEN -- ADDED CAPABILITY TO ENCODE AND DECODE DATA
-C                           USING THE OPERATOR DESCRIPTORS (BUFR TABLE
-C                           C) FOR CHANGING WIDTH AND CHANGING SCALE
-C 2003-11-04  J. ATOR    -- ADDED DOCUMENTATION
-C 2003-11-04  S. BENDER  -- ADDED REMARKS/BUFRLIB ROUTINE
-C                           INTERDEPENDENCIES
-C 2003-11-04  D. KEYSER  -- MAXJL (MAXIMUM NUMBER OF JUMP/LINK ENTRIES)
-C                           INCREASED FROM 15000 TO 16000 (WAS IN
-C                           VERIFICATION VERSION); UNIFIED/PORTABLE FOR
-C                           WRF; ADDED HISTORY DOCUMENTATION; OUTPUTS
-C                           MORE COMPLETE DIAGNOSTIC INFO WHEN ROUTINE
-C                           TERMINATES ABNORMALLY
-C 2005-11-29  J. ATOR    -- ADDED SUPPORT FOR 207 AND 208 OPERATORS
-C 2012-03-02  J. ATOR    -- ADDED SUPPORT FOR 203 OPERATOR
-C 2012-04-19  J. ATOR    -- FIXED BUG FOR CASES WHERE A TABLE C OPERATOR
-C                           IMMEDIATELY FOLLOWS A TABLE D SEQUENCE
-C 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
-C 2016-05-24  J. ATOR    -- STORE TABLE C OPERATORS IN MODULE BITMAPS
-C 2017-04-03  J. ATOR    -- ADD A DIMENSION TO ALL TCO ARRAYS SO THAT
-C                           EACH SUBSET DEFINITION IN THE JUMP/LINK
-C                           TABLE HAS ITS OWN SET OF TABLE C OPERATORS
-C
-C USAGE:    CALL TABSUB (LUN, NEMO)
-C   INPUT ARGUMENT LIST:
-C     LUN      - INTEGER: I/O STREAM INDEX INTO INTERNAL MEMORY ARRAYS
-C     NEMO     - CHARACTER*8: TABLE A MNEMONIC
-C
-C REMARKS:
-C   -----------------------------------------------------------------
-C    EXAMPLE SHOWING CONTENTS OF INTERNAL JUMP/LINK TABLE (WITHIN
-C    MODULE TABLES):
-C
-C      INTEGER MAXTAB = maximum number of jump/link table entries
-C
-C      INTEGER NTAB = actual number of jump/link table entries
-C                     currently in use
-C
-C      For I = 1, NTAB:
-C
-C      CHARACTER*10 TAG(I) = mnemonic
-C
-C      CHARACTER*3 TYP(I) = mnemonic type indicator:
-C         "SUB" if TAG(I) is a Table A mnemonic
-C         "SEQ" if TAG(I) is a Table D mnemonic using either short
-C               (i.e. 1-bit) delayed replication, F=1 regular (i.e.
-C               non-delayed) replication, or no replication at all
-C         "RPC" if TAG(I) is a Table D mnemonic using either medium
-C               (i.e. 8-bit) delayed replication or long (i.e. 16-bit)
-C               delayed replication
-C         "RPS" if TAG(I) is a Table D mnemonic using medium
-C               (i.e. 8-bit) delayed replication in a stack context
-C         "DRB" if TAG(I) denotes the short (i.e. 1-bit) delayed
-C               replication of a Table D mnemonic (which would then
-C               itself have its own separate entry in the jump/link
-C               table with a corresponding TAG value of "SEQ")
-C         "DRP" if TAG(I) denotes either the medium (i.e. 8-bit) or
-C               long (i.e. 16-bit) delayed replication of a Table D
-C               mnemonic (which would then itself have its own separate
-C               entry in the jump/link table with a corresponding TAG
-C               value of "RPC")
-C         "DRS" if TAG(I) denotes the medium (i.e. 8-bit) delayed
-C               replication, in a stack context, of a Table D mnemonic
-C               (which would then itself have its own separate entry
-C               in the jump/link table with a corresponding TAG value
-C               of "RPS")
-C         "REP" if TAG(I) denotes the F=1 regular (i.e. non-delayed)
-C               replication of a Table D mnemonic (which would then
-C               itself have its own separate entry in the jump/link
-C               table with a corresponding TAG value of "SEQ")
-C         "CHR" if TAG(I) is a Table B mnemonic with units "CCITT IA5"
-C         "NUM" if TAG(I) is a Table B mnemonic with any units other
-C               than "CCITT IA5"
-C
-C       INTEGER JMPB(I):
-C
-C       IF ( TYP(I) = "SUB" ) THEN
-C          JMPB(I) = 0
-C       ELSE IF ( ( TYP(I) = "SEQ" and TAG(I) uses either short (i.e.
-C                   1-bit) delayed replication or F=1 regular (i.e.
-C                   non-delayed) replication )
-C                OR
-C                 ( TYP(I) = "RPC" )  ) THEN
-C          JMPB(I) = the index of the jump/link table entry denoting
-C                    the replication of TAG(I)
-C       ELSE
-C          JMPB(I) = the index of the jump/link table entry for the
-C                    Table A or Table D mnemonic of which TAG(I) is a
-C                    child
-C       END IF
-C
-C       INTEGER JUMP(I):
-C
-C       IF ( ( TYP(I) = "CHR" )  OR  ( TYP(I) = "NUM" ) ) THEN
-C          JUMP(I) = 0
-C       ELSE IF ( ( TYP(I) = "DRB" ) OR
-C                 ( TYP(I) = "DRP" ) OR
-C                 ( TYP(I) = "REP" ) ) THEN
-C          JUMP(I) = the index of the jump/link table entry for the
-C                    Table D mnemonic whose replication is denoted by
-C                    TAG(I)
-C       ELSE
-C          JUMP(I) = the index of the jump/link table entry for the
-C                    Table B or Table D mnemonic which, sequentially,
-C                    is the first child of TAG(I)
-C       END IF
-C
-C       INTEGER LINK(I):
-C
-C       IF ( ( TYP(I) = "SEQ" and TAG(I) uses either short (i.e.
-C              1-bit) delayed replication or F=1 regular (i.e. non-
-C              delayed) replication )
-C           OR
-C            ( TYP(I) = "SUB" )
-C           OR
-C            ( TYP(I) = "RPC" ) ) THEN
-C              LINK(I) = 0
-C       ELSE IF ( TAG(I) is, sequentially, the last child Table B or
-C                 Table D mnemonic of the parent Table A or Table D
-C                 mnemonic indexed by JMPB(I) ) THEN
-C          LINK(I) = 0
-C       ELSE
-C          LINK(I) = the index of the jump/link table entry for the
-C                    Table B or Table D mnemonic which, sequentially,
-C                    is the next (i.e. following TAG(I)) child mnemonic
-C                    of the parent Table A or Table D mnemonic indexed
-C                    by JMPB(I)
-C       END IF
-C
-C       INTEGER IBT(I):
-C
-C       IF ( ( TYP(I) = "CHR" )  OR  ( TYP(I) = "NUM" ) ) THEN
-C          IBT(I) = bit width of Table B mnemonic TAG(I)
-C       ELSE IF ( ( TYP(I) = "DRB" )  OR  ( TYP(I) = "DRP" ) ) THEN
-C          IBT(I) = bit width of delayed descriptor replication factor
-C                   (i.e. 1, 8, or 16, depending on the replication
-C                   scheme denoted by TAG(I))
-C       ELSE
-C          IBT(I) = 0
-C       END IF
-C
-C       INTEGER IRF(I):
-C
-C       IF ( TYP(I) = "NUM" ) THEN
-C          IRF(I) = reference value of Table B mnemonic TAG(I)
-C       ELSE IF ( TYP(I) = "REP" ) THEN
-C          IRF(I) = number of F=1 regular (i.e. non-delayed)
-C                   replications of Table D mnemonic TAG(JUMP(I))
-C       ELSE
-C          IRF(I) = 0
-C       END IF
-C
-C       INTEGER ISC(I):
-C
-C       IF ( TYP(I) = "NUM" ) THEN
-C          ISC(I) = scale factor of Table B mnemonic TAG(I)
-C       ELSE IF ( TYP(I) = "SUB" ) THEN
-C          ISC(I) = the index of the jump/link table entry which,
-C                   sequentially, constitutes the last element of the
-C                   jump/link tree for Table A mnemonic TAG(I)
-C       ELSE
-C          ISC(I) = 0
-C       END IF
-C
-C   -----------------------------------------------------------------
-C
-C    THE FOLLOWING VALUES ARE STORED WITHIN MODULE NRV203 BY THIS
-C    SUBROUTINE, FOR USE WITH ANY 2-03-YYY (CHANGE REFERENCE VALUE)
-C    OPERATORS PRESENT WITHIN THE ENTIRE JUMP/LINK TABLE:
-C
-C      NNRV = number of nodes in the jump/link table which contain new
-C             reference values (as defined using the 2-03 operator)
-C
-C      INODNRV(I=1,NNRV) = nodes within jump/link table which contain
-C                          new reference values
-C
-C      NRV(I=1,NNRV) = new reference value corresponding to INODNRV(I)
-C
-C      TAGNRV(I=1,NNRV) = Table B mnemonic to which the new reference
-C                         value in NRV(I) applies
-C
-C      ISNRV(I=1,NNRV) = start of node range in jump/link table,
-C                        within which the new reference value defined
-C                        by NRV(I) will be applied to all occurrences
-C                        of TAGNRV(I)
-C
-C      IENRV(I=1,NNRV) = end of node range in jump/link table,
-C                        within which the new reference value defined
-C                        by NRV(I) will be applied to all occurrences
-C                        of TAGNRV(I)
-C
-C      IBTNRV = number of bits in Section 4 occupied by each new
-C               reference value for the current 2-03 operator
-C               (if IBTNRV = 0, then no 2-03 operator is currently
-C               in scope)
-C
-C      IPFNRV = a number between 1 and NNRV, denoting the first entry
-C               within the above arrays which applies to the current
-C               Table A mnemonic NEMO (if IPFNRV = 0, then no 2-03
-C               operators have been applied to NEMO)
-C
-C   -----------------------------------------------------------------
-C
-C    THIS ROUTINE CALLS:        BORT     INCTAB   IOKOPER   NEMTAB
-C                               NEMTBD   TABENT
-C    THIS ROUTINE IS CALLED BY: MAKESTAB
-C                               Normally not called by any application
-C                               programs.
-C
-C ATTRIBUTES:
-C   LANGUAGE: FORTRAN 77
-C   MACHINE:  PORTABLE TO ALL PLATFORMS
-C
-C$$$
+
 
       USE MODA_TABLES
       USE MODA_NMIKRP

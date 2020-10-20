@@ -1,99 +1,93 @@
+C> @file
+C> @author WOOLLEN @date 1994-01-06
+      
+C> THIS SUBROUTINE OPENS A BUFR FILE FOR INPUT, READS EACH
+C>   MESSAGE AND TRANSFERS THEM ONE-BY-ONE TO INTERNAL MEMORY (ARRAY
+C>   MSGS IN MODULE MSGMEM).  IF MESSAGES ARE APPENDED TO EXISTING
+C>   MESSAGES IN INTERNAL MEMORY, THE BUFR FILE READ HERE IS
+C>   CLOSED PRIOR TO RETURNING TO THE CALLING PROGRAM.
+C>
+C> PROGRAM HISTORY LOG:
+C> 1994-01-06  J. WOOLLEN -- ORIGINAL AUTHOR
+C> 1998-07-08  J. WOOLLEN -- REPLACED CALL TO CRAY LIBRARY ROUTINE
+C>                           "ABORT" WITH CALL TO NEW INTERNAL BUFRLIB
+C>                           ROUTINE "BORT"
+C> 1999-11-18  J. WOOLLEN -- THE MAXIMUM NUMBER OF BYTES REQUIRED TO
+C>                           STORE ALL MESSAGES INTERNALLY WAS INCREASED
+C>                           FROM 4 MBYTES TO 8 MBYTES
+C> 2000-09-19  J. WOOLLEN -- MAXIMUM MESSAGE LENGTH INCREASED FROM
+C>                           10,000 TO 20,000 BYTES
+C> 2001-08-15  D. KEYSER  -- PARAMETER MAXMEM (THE MAXIMUM NUMBER OF
+C>                           BYTES REQUIRED TO STORE ALL MESSAGES
+C>                           INTERNALLY) WAS INCREASED FROM 8 MBYTES TO
+C>                           16 MBYTES
+C> 2003-11-04  S. BENDER  -- ADDED REMARKS/BUFRLIB ROUTINE
+C>                           INTERDEPENDENCIES
+C> 2003-11-04  D. KEYSER  -- PARAMETER MAXMSG (THE MAXIMUM NUMBER OF
+C>                           BUFR MESSAGES WHICH CAN BE STORED
+C>                           INTERNALLY) INCREASED FROM 50000 TO 200000;
+C>                           UNIFIED/PORTABLE FOR WRF; ADDED
+C>                           DOCUMENTATION (INCLUDING HISTORY); OUTPUTS
+C>                           MORE COMPLETE DIAGNOSTIC INFO WHEN ROUTINE
+C>                           TERMINATES ABNORMALLY
+C> 2004-08-09  J. ATOR    -- MAXIMUM MESSAGE LENGTH INCREASED FROM
+C>                           20,000 TO 50,000 BYTES
+C> 2004-11-15  D. KEYSER  -- MODIFIED TO NOT ABORT WHEN THERE ARE EITHER
+C>                           TOO MANY MESSAGES READ IN (I.E., .GT.
+C>                           MAXMSG) OR TOO MANY BYTES READ IN (I.E.,
+C>                           .GT. MAXMEM), BUT RATHER JUST STORE MAXMSG
+C>                           MESSAGES OR MAXMEM BYTES AND PRINT A
+C>                           DIAGNOSTIC; PARAMETER MAXMEM (THE MAXIMUM
+C>                           NUMBER OF BYTES REQUIRED TO STORE ALL
+C>                           MESSAGES INTERNALLY) WAS INCREASED FROM 16
+C>                           MBYTES TO 50 MBYTES
+C> 2005-11-29  J. ATOR    -- USE RDMSGW AND NMWRD
+C> 2009-03-23  J. ATOR    -- MODIFIED TO HANDLE EMBEDDED BUFR TABLE
+C>                           (DICTIONARY) MESSAGES
+C> 2012-09-15  J. WOOLLEN -- MODIFIED FOR C/I/O/BUFR INTERFACE;
+C>                           CALL STATUS TO GET LUN; REPLACE FORTRAN
+C>                           REWIND AND BACKSPACE WITH C ROUTINES CEWIND
+C>                           AND BACKBUFR
+C> 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
+C> 2015-09-24  D. STOKES  -- FIX MISSING DECLARATION OF COMMON /QUIET/
+C>
+C> USAGE:    CALL UFBMEM (LUNIT, INEW, IRET, IUNIT)
+C>   INPUT ARGUMENT LIST:
+C>     LUNIT    - INTEGER: FORTRAN LOGICAL UNIT NUMBER FOR BUFR FILE
+C>     INEW     - INTEGER: SWITCH:
+C>                       0 = initialize internal arrays prior to
+C>                           transferring messages here
+C>                    else = append the messages transferred here to
+C>                           internal memory arrays
+C>
+C>   OUTPUT ARGUMENT LIST:
+C>     IRET     - INTEGER: NUMBER OF MESSAGES TRANSFERRED
+C>     IUNIT    - INTEGER: RETURN CODE:
+C>                       0 = no messages were read from LUNIT, file is
+C>                           empty
+C>                   LUNIT = INEW input as 0
+C>                    else = FORTRAN logical unit for BUFR file
+C>                           associated with initial message transferred
+C>                           to internal memory
+C>
+C>   INPUT FILES:
+C>     UNIT "LUNIT" - BUFR FILE
+C>
+C> REMARKS:
+C>    NOTE THAT IREADMM, RDMEMM, READMM, UFBMMS, UFBMNS, UFBRMS, UFBTAB
+C>    OR UFBTAM CAN BE CALLED AFTER THIS TO READ SPECIFIC BUFR MESSAGES
+C>    FROM INTERNAL MEMORY.
+C>
+C>    THIS ROUTINE CALLS:        BORT     CLOSBF   CPDXMM   ERRWRT
+C>                               IDXMSG   NMWRD    OPENBF   RDMSGW
+C>                               STATUS   CEWIND   BACKBUFR 
+C>    THIS ROUTINE IS CALLED BY: None
+C>                               Normally called only by application
+C>                               programs.
+C>
       SUBROUTINE UFBMEM(LUNIT,INEW,IRET,IUNIT)
 
-C$$$  SUBPROGRAM DOCUMENTATION BLOCK
-C
-C SUBPROGRAM:    UFBMEM
-C   PRGMMR: WOOLLEN          ORG: NP20       DATE: 1994-01-06
-C
-C ABSTRACT: THIS SUBROUTINE OPENS A BUFR FILE FOR INPUT, READS EACH
-C   MESSAGE AND TRANSFERS THEM ONE-BY-ONE TO INTERNAL MEMORY (ARRAY
-C   MSGS IN MODULE MSGMEM).  IF MESSAGES ARE APPENDED TO EXISTING
-C   MESSAGES IN INTERNAL MEMORY, THE BUFR FILE READ HERE IS
-C   CLOSED PRIOR TO RETURNING TO THE CALLING PROGRAM.
-C
-C PROGRAM HISTORY LOG:
-C 1994-01-06  J. WOOLLEN -- ORIGINAL AUTHOR
-C 1998-07-08  J. WOOLLEN -- REPLACED CALL TO CRAY LIBRARY ROUTINE
-C                           "ABORT" WITH CALL TO NEW INTERNAL BUFRLIB
-C                           ROUTINE "BORT"
-C 1999-11-18  J. WOOLLEN -- THE MAXIMUM NUMBER OF BYTES REQUIRED TO
-C                           STORE ALL MESSAGES INTERNALLY WAS INCREASED
-C                           FROM 4 MBYTES TO 8 MBYTES
-C 2000-09-19  J. WOOLLEN -- MAXIMUM MESSAGE LENGTH INCREASED FROM
-C                           10,000 TO 20,000 BYTES
-C 2001-08-15  D. KEYSER  -- PARAMETER MAXMEM (THE MAXIMUM NUMBER OF
-C                           BYTES REQUIRED TO STORE ALL MESSAGES
-C                           INTERNALLY) WAS INCREASED FROM 8 MBYTES TO
-C                           16 MBYTES
-C 2003-11-04  S. BENDER  -- ADDED REMARKS/BUFRLIB ROUTINE
-C                           INTERDEPENDENCIES
-C 2003-11-04  D. KEYSER  -- PARAMETER MAXMSG (THE MAXIMUM NUMBER OF
-C                           BUFR MESSAGES WHICH CAN BE STORED
-C                           INTERNALLY) INCREASED FROM 50000 TO 200000;
-C                           UNIFIED/PORTABLE FOR WRF; ADDED
-C                           DOCUMENTATION (INCLUDING HISTORY); OUTPUTS
-C                           MORE COMPLETE DIAGNOSTIC INFO WHEN ROUTINE
-C                           TERMINATES ABNORMALLY
-C 2004-08-09  J. ATOR    -- MAXIMUM MESSAGE LENGTH INCREASED FROM
-C                           20,000 TO 50,000 BYTES
-C 2004-11-15  D. KEYSER  -- MODIFIED TO NOT ABORT WHEN THERE ARE EITHER
-C                           TOO MANY MESSAGES READ IN (I.E., .GT.
-C                           MAXMSG) OR TOO MANY BYTES READ IN (I.E.,
-C                           .GT. MAXMEM), BUT RATHER JUST STORE MAXMSG
-C                           MESSAGES OR MAXMEM BYTES AND PRINT A
-C                           DIAGNOSTIC; PARAMETER MAXMEM (THE MAXIMUM
-C                           NUMBER OF BYTES REQUIRED TO STORE ALL
-C                           MESSAGES INTERNALLY) WAS INCREASED FROM 16
-C                           MBYTES TO 50 MBYTES
-C 2005-11-29  J. ATOR    -- USE RDMSGW AND NMWRD
-C 2009-03-23  J. ATOR    -- MODIFIED TO HANDLE EMBEDDED BUFR TABLE
-C                           (DICTIONARY) MESSAGES
-C 2012-09-15  J. WOOLLEN -- MODIFIED FOR C/I/O/BUFR INTERFACE;
-C                           CALL STATUS TO GET LUN; REPLACE FORTRAN
-C                           REWIND AND BACKSPACE WITH C ROUTINES CEWIND
-C                           AND BACKBUFR
-C 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
-C 2015-09-24  D. STOKES  -- FIX MISSING DECLARATION OF COMMON /QUIET/
-C
-C USAGE:    CALL UFBMEM (LUNIT, INEW, IRET, IUNIT)
-C   INPUT ARGUMENT LIST:
-C     LUNIT    - INTEGER: FORTRAN LOGICAL UNIT NUMBER FOR BUFR FILE
-C     INEW     - INTEGER: SWITCH:
-C                       0 = initialize internal arrays prior to
-C                           transferring messages here
-C                    else = append the messages transferred here to
-C                           internal memory arrays
-C
-C   OUTPUT ARGUMENT LIST:
-C     IRET     - INTEGER: NUMBER OF MESSAGES TRANSFERRED
-C     IUNIT    - INTEGER: RETURN CODE:
-C                       0 = no messages were read from LUNIT, file is
-C                           empty
-C                   LUNIT = INEW input as 0
-C                    else = FORTRAN logical unit for BUFR file
-C                           associated with initial message transferred
-C                           to internal memory
-C
-C   INPUT FILES:
-C     UNIT "LUNIT" - BUFR FILE
-C
-C REMARKS:
-C    NOTE THAT IREADMM, RDMEMM, READMM, UFBMMS, UFBMNS, UFBRMS, UFBTAB
-C    OR UFBTAM CAN BE CALLED AFTER THIS TO READ SPECIFIC BUFR MESSAGES
-C    FROM INTERNAL MEMORY.
-C
-C    THIS ROUTINE CALLS:        BORT     CLOSBF   CPDXMM   ERRWRT
-C                               IDXMSG   NMWRD    OPENBF   RDMSGW
-C                               STATUS   CEWIND   BACKBUFR 
-C    THIS ROUTINE IS CALLED BY: None
-C                               Normally called only by application
-C                               programs.
-C
-C ATTRIBUTES:
-C   LANGUAGE: FORTRAN 77
-C   MACHINE:  PORTABLE TO ALL PLATFORMS
-C
-C$$$
+
 
       USE MODA_MGWA
       USE MODA_MSGMEM
