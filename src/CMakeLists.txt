@@ -5,6 +5,8 @@ endif()
 
 set(c_8_DA_defs ${c_8_defs})
 
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/bvers.f.in ${CMAKE_CURRENT_BINARY_DIR}/bvers.f @ONLY)
+
 # Extract BUFRLIB parameters
 file(READ bufrlib.prm _bufrlib_prm_str)
 foreach(_var IN ITEMS MAXNC MXNAF)
@@ -37,6 +39,8 @@ foreach(kind ${kinds})
   else()
     set(allocation_def "STATIC_ALLOCATION")
   endif()
+
+  list(APPEND ${fortran_src} ${CMAKE_CURRENT_BINARY_DIR}/bvers.f)
 
   add_library(${lib_name}_f STATIC OBJECT ${fortran_src})
   set_target_properties(${lib_name}_f PROPERTIES COMPILE_FLAGS

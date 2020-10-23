@@ -65,7 +65,6 @@ set(fortran_src
   blocks.f
   bort.f
   bort2.f
-  bvers.f
   cadn30.f
   capit.f
   chekstab.f
