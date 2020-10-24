@@ -1,4 +1,5 @@
 set(fortran_src
+  ${CMAKE_CURRENT_BINARY_DIR}/bvers.f
   modv_MAXCD.F
   modv_MAXJL.F
   modv_MAXMEM.F
