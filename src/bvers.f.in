@@ -42,7 +42,7 @@ C-----------------------------------------------------------------------
 
 	IF (LEN(CVERSTR).LT.8) GOTO 900
 
-	CVERSTR = '11.3.0'
+	CVERSTR = '@PROJECT_VERSION@'
 
 	RETURN
 900	CALL BORT('BUFRLIB: BVERS - INPUT STRING MUST CONTAIN SPACE '//
