@@ -19,7 +19,7 @@ Code manager: Jeff Ator
 <pre>
 git clone https://github.com/noaa-emc/nceplibs-bufr
 mkdir build && cd build
-cmake -DCMAKE_INSTALL_PREFIX=./install -DENABLE_TESTS=ON nceplibs-bufr
+cmake -DCMAKE_INSTALL_PREFIX=./install -DENABLE_TESTS=ON ../nceplibs-bufr
 make -j4
 ctest
 make install
