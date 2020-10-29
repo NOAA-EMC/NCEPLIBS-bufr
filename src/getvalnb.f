@@ -56,7 +56,7 @@ C>
 	USE MODA_MSGCWD
 	USE MODA_TABLES
 
-	INCLUDE 'bufrlib.prm'
+	INCLUDE 'bufrlib.inc'
 
 	CHARACTER*(*) TAGPV, TAGNB
 

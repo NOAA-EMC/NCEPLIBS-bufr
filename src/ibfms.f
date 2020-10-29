@@ -34,7 +34,7 @@ C>
 
 
 
-	INCLUDE	'bufrlib.prm'
+	INCLUDE	'bufrlib.inc'
 
 	REAL*8		R8VAL
 

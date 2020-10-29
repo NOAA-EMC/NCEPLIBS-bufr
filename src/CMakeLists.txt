@@ -8,15 +8,28 @@ set(c_8_DA_defs ${c_8_defs})
 # Create the bvers.f file with the version from VERSION file.
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/bvers.f.in ${CMAKE_CURRENT_BINARY_DIR}/bvers.f @ONLY)
 
-# Extract BUFRLIB parameters
-file(READ bufrlib.prm _bufrlib_prm_str)
+# Extract BUFRLIB parameters from Fortran source files and propogate them into bufrlib.h for C
+file(READ bufrlib.inc _bufrlib_inc_str)
 foreach(_var IN ITEMS MAXNC MXNAF)
-    if(_bufrlib_prm_str MATCHES "${_var} = ([0-9]+)")
-      list(APPEND c_defs ${_var}=${CMAKE_MATCH_1})
-    else()
-      message(FATAL_ERROR "Unable to parse variable ${_var} value from file: src/bufrlib.prm")
-    endif()
+  if(_bufrlib_inc_str MATCHES "${_var} = ([0-9]+)")
+    set(${_var} ${CMAKE_MATCH_1})
+  else()
+    message(FATAL_ERROR "Unable to parse variable ${_var} value from file: src/bufrlib.inc")
+  endif()
 endforeach()
+set(VAR_REGEX_DYNAMIC "INTEGER ::")
+set(VAR_REGEX_STATIC "PARAMETER ")
+foreach(_var IN ITEMS NFILES MAXCD)
+  foreach(_alloc IN ITEMS DYNAMIC STATIC)
+    file(STRINGS modv_${_var}.F _${_var}_tempstr REGEX ${VAR_REGEX_${_alloc}})
+    if(_${_var}_tempstr MATCHES "${_var} = ([0-9]+)")
+      set(${_var}_${_alloc} ${CMAKE_MATCH_1})
+    else()
+      message(FATAL_ERROR "Unable to parse variable ${_var}_${_alloc} value from file: modv_${_var}.F")
+    endif()
+  endforeach()
+endforeach()
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/bufrlib.h.in ${CMAKE_CURRENT_BINARY_DIR}/bufrlib.h @ONLY)
 
 list(APPEND underscore_def UNDERSCORE)
 
@@ -54,9 +67,9 @@ foreach(kind ${kinds})
   target_compile_definitions(${lib_name}_c PUBLIC "${allocation_def}")
   target_compile_definitions(${lib_name}_c PUBLIC "${underscore_def}")
   target_compile_definitions(${lib_name}_c PRIVATE "${endian_def}")
-  target_compile_definitions(${lib_name}_c PRIVATE "${c_defs}")
   target_compile_definitions(${lib_name}_c PRIVATE "${c_${kind}_defs}")
   target_include_directories(${lib_name}_c PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
+  target_include_directories(${lib_name}_c PRIVATE ${CMAKE_CURRENT_BINARY_DIR})  # for bufrlib.h
 
   set_target_properties(${lib_name}_f PROPERTIES Fortran_MODULE_DIRECTORY "${module_dir}")
 

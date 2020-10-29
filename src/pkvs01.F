@@ -77,7 +77,7 @@ C>
 
       USE MODA_S01CM
 
-      INCLUDE 'bufrlib.prm'
+      INCLUDE 'bufrlib.inc'
 
       CHARACTER*(*) S01MNEM
 

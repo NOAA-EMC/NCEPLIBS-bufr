@@ -49,7 +49,7 @@ C>
       USE MODA_MSGCWD
       USE MODA_BITBUF
 
-      INCLUDE 'bufrlib.prm'
+      INCLUDE 'bufrlib.inc'
 
       CHARACTER*128 BORT_STR
       CHARACTER*8   SUBSET

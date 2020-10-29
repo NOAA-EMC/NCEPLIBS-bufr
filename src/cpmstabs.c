@@ -16,6 +16,7 @@ void cpmstabs(  f77int *pnmtb,
 		f77int *pnmtd,
 		f77int *pidfxyn, char (*pcdseq)[120],
 		char (*pcdmnem)[8], f77int *pndelem,
+		f77int *pidefxy, f77int *maxcd )
 /**
 C
 C SUBPROGRAM:    CPMSTABS
@@ -64,7 +65,6 @@ C   LANGUAGE: C
 C   MACHINE:  PORTABLE TO ALL PLATFORMS
 C
 C$$$*/
-		f77int *pidefxy, f77int *maxcd )
 {
 
     f77int ii, jj, idx;

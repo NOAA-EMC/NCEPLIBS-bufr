@@ -32,7 +32,7 @@ C>
       USE MODA_TABABD
       USE MODA_NMIKRP
 
-      INCLUDE 'bufrlib.prm'
+      INCLUDE 'bufrlib.inc'
 
       CHARACTER*128 TABDB(*)
       CHARACTER*8   NEMO

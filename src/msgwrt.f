@@ -84,7 +84,7 @@ C>
       USE MODA_MGWB
       USE MODA_S01CM
 
-      INCLUDE 'bufrlib.prm'
+      INCLUDE 'bufrlib.inc'
 
       PARAMETER (MXCOD=15)
 

@@ -31,7 +31,7 @@ include(GNUInstallDirs)
 
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
-option(ENABLE_TESTS "Enable Tests" OFF)
+option(ENABLE_TESTS "Enable Tests" ON)
 
 # Determine the kinds upfront (both src/ and test/ need them).
 # Both GNU and Intel support DYNAMIC_ALLOCATION

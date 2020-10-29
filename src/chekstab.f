@@ -43,7 +43,7 @@ C>
       USE MODA_TABABD
       USE MODA_NMIKRP
 
-      INCLUDE 'bufrlib.prm'
+      INCLUDE 'bufrlib.inc'
 
       CHARACTER*128 BORT_STR
       CHARACTER*24  UNIT

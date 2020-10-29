@@ -57,7 +57,7 @@ C>
       USE MODA_USRINT
       USE MODA_TABLES
 
-      INCLUDE 'bufrlib.prm'
+      INCLUDE 'bufrlib.inc'
 
       CHARACTER*(*) DRFTAG
       CHARACTER*128 BORT_STR

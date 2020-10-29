@@ -52,7 +52,7 @@ C>
       USE MODA_TABLES
       USE MODA_RLCCMN
 
-      INCLUDE 'bufrlib.prm'
+      INCLUDE 'bufrlib.inc'
 
       CHARACTER*128 BORT_STR
       CHARACTER*8   CREF,CVAL

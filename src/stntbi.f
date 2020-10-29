@@ -30,7 +30,7 @@ C>
 
 	USE MODA_TABABD
 
-	INCLUDE 'bufrlib.prm'
+	INCLUDE 'bufrlib.inc'
 
 	CHARACTER*(*) NUMB, NEMO, CELSQ
 
