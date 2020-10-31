@@ -22,23 +22,23 @@ to new arrays for use within c.
 - 2014-12-04  J. ATOR    -- ORIGINAL AUTHOR
 
    INPUT ARGUMENT LIST:
-@param[in] PMTBB      - INTEGER: NUMBER OF ENTRIES IN MASTER TABLE B ARRAYS
-@param[in] PIBFXYN(*) - INTEGER: BIT-WISE REPRESENTATIONS OF FXY NUMBERS
-@param[in] PCBSCL(*)  - CHARACTER*4: SCALE FACTORS
-@param[in] PCBCSREF(*)- CHARACTER*12: REFERENCE VALUES
-@param[in] PCBBW(*)   - CHARACTER*4: BIT WIDTHS
-@param[in] PCBUNIT(*) - CHARACTER*14: UNITS
-@param[in] PCBMNEM(*) - CHARACTER*8: MNEMONICS
-@param[in] PCBELEM(*) - CHARACTER*120: ELEMENT NAMES
-@param[in] PMTBD      - INTEGER: NUMBER OF ENTRIES IN MASTER TABLE D ARRAYS
-@param[in] PIDFXYN(*) - INTEGER: BIT-WISE REPRESENTATIONS OF FXY NUMBERS
-@param[in] PCDSEQ(*)  - CHARACTER*120: SEQUENCE NAMES
-@param[in] PCDMNEM(*) - CHARACTER*8: MNEMONICS
-@param[in] PNDELEM(*) - INTEGER: NUMBER OF ELEMENTS STORED FOR PCDSEQ
-@param[in] PIDEFXY(*,*)- INTEGER: BIT-WISE REPRESENTATIONS OF FXY NUMBERS
-                  FOR ELEMENTS IN PNDELEM
-@param[in] MAXCD      - INTEGER: MAXIMUM NUMBER OF ELEMENTS PER PCDSEQ;
-                  USED BY THE SUBROUTINE WHEN CALLING FUNCTION ICVIDX
+@param[in] pmtbb number of entries in master table b arrays
+@param[in] pibfxyn bit-wise representations of fxy numbers
+@param[in] pcbscl scale factors
+@param[in] pcbcsref reference values
+@param[in] pcbbw bit widths
+@param[in] pcbunit units
+@param[in] pcbmnem mnemonics
+@param[in] pcbelem element names
+@param[in] pmtbd number of entries in master table d arrays
+@param[in] pidfxyn bit-wise representations of fxy numbers
+@param[in] pcdseq sequence names
+@param[in] pcdmnem mnemonics
+@param[in] pndelem number of elements stored for pcdseq
+@param[in] pidefxy bit-wise representations of fxy numbers for
+elements in pndelem
+@param[in] maxcd maximum number of elements per pcdseq; used by the
+subroutine when calling function icvidx
 
  REMARKS:
     THIS ROUTINE CALLS:        icvidx()
