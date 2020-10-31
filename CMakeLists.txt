@@ -19,19 +19,9 @@ if(NOT CMAKE_BUILD_TYPE MATCHES "^(Debug|Release|RelWithDebInfo|MinSizeRel)$")
                                                "MinSizeRel" "RelWithDebInfo")
 endif()
 
-if(NOT CMAKE_C_COMPILER_ID MATCHES "^(Intel|GNU|Clang|AppleClang)$")
-  message(WARNING "Compiler not officially supported: ${CMAKE_C_COMPILER_ID}")
-endif()
-
-if(NOT CMAKE_Fortran_COMPILER_ID MATCHES "^(Intel|GNU)$")
-  message(WARNING "Compiler not officially supported: ${CMAKE_Fortran_COMPILER_ID}")
-endif()
-
 include(GNUInstallDirs)
 
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
-
-option(ENABLE_TESTS "Enable Tests" OFF)
 
 # Determine the kinds upfront (both src/ and test/ need them).
 # Both GNU and Intel support DYNAMIC_ALLOCATION
@@ -71,10 +61,8 @@ set(fortran_d_DA_flags ${fortran_d_flags})
 add_subdirectory(src)
 add_subdirectory(utils)
 
-if(ENABLE_TESTS)
-  enable_testing()
-  add_subdirectory(test)
-endif()
+enable_testing()
+add_subdirectory(test)
 
 # Determine whether or not to generate documentation.
 option(ENABLE_DOCS "Enable generation of doxygen-based documentation." OFF)
