@@ -8,6 +8,42 @@
 #include "bufrlib.h"
 #include "mstabs.h"
 
+/**
+
+If dynamic memory allocation is being used, then we can't
+directly access the fortran module mstabs arrays from within c, so
+this routine is called within bufr archive library subroutine
+ireadmt to copy the relevant information from these fortran arrays
+to new arrays for use within c.
+
+@author ATOR #date 2014-12-04
+
+ PROGRAM HISTORY LOG:
+- 2014-12-04  J. ATOR    -- ORIGINAL AUTHOR
+
+   INPUT ARGUMENT LIST:
+@param[in] pmtbb number of entries in master table b arrays
+@param[in] pibfxyn bit-wise representations of fxy numbers
+@param[in] pcbscl scale factors
+@param[in] pcbcsref reference values
+@param[in] pcbbw bit widths
+@param[in] pcbunit units
+@param[in] pcbmnem mnemonics
+@param[in] pcbelem element names
+@param[in] pmtbd number of entries in master table d arrays
+@param[in] pidfxyn bit-wise representations of fxy numbers
+@param[in] pcdseq sequence names
+@param[in] pcdmnem mnemonics
+@param[in] pndelem number of elements stored for pcdseq
+@param[in] pidefxy bit-wise representations of fxy numbers for
+elements in pndelem
+@param[in] maxcd maximum number of elements per pcdseq; used by the
+subroutine when calling function icvidx
+
+ REMARKS:
+    THIS ROUTINE CALLS:        icvidx()
+    THIS ROUTINE IS CALLED BY: ireadmt()
+*/
 void cpmstabs(  f77int *pnmtb,
 		f77int *pibfxyn, char (*pcbscl)[4],
 		char (*pcbsref)[12], char (*pcbbw)[4],
@@ -16,54 +52,6 @@ void cpmstabs(  f77int *pnmtb,
 		f77int *pnmtd,
 		f77int *pidfxyn, char (*pcdseq)[120],
 		char (*pcdmnem)[8], f77int *pndelem,
-/**
-C
-C SUBPROGRAM:    CPMSTABS
-C   PRGMMR: ATOR             ORG: NP12       DATE: 2014-12-04
-C
-C ABSTRACT:  IF DYNAMIC MEMORY ALLOCATION IS BEING USED, THEN WE CAN'T
-C   DIRECTLY ACCESS THE FORTRAN MODULE MSTABS ARRAYS FROM WITHIN C, SO
-C   THIS ROUTINE IS CALLED WITHIN BUFR ARCHIVE LIBRARY SUBROUTINE
-C   IREADMT TO COPY THE RELEVANT INFORMATION FROM THESE FORTRAN ARRAYS
-C   TO NEW ARRAYS FOR USE WITHIN C.
-C
-C PROGRAM HISTORY LOG:
-C 2014-12-04  J. ATOR    -- ORIGINAL AUTHOR
-C
-C USAGE:    CALL CPMSTABS ( PNMTB, PIBFXYN, PCBSCL, PCBSREF, PCBBW,
-C                           PCBUNIT, PCBMNEM, PCBELEM,
-C                           PNMTD, PIDFXYN, PCDSEQ, PCDMNEM, PNDELEM,
-C                           PIDEFXY, MAXCD)
-C   INPUT ARGUMENT LIST:
-C     PMTBB      - INTEGER: NUMBER OF ENTRIES IN MASTER TABLE B ARRAYS
-C     PIBFXYN(*) - INTEGER: BIT-WISE REPRESENTATIONS OF FXY NUMBERS
-C     PCBSCL(*)  - CHARACTER*4: SCALE FACTORS
-C     PCBCSREF(*)- CHARACTER*12: REFERENCE VALUES
-C     PCBBW(*)   - CHARACTER*4: BIT WIDTHS
-C     PCBUNIT(*) - CHARACTER*14: UNITS
-C     PCBMNEM(*) - CHARACTER*8: MNEMONICS
-C     PCBELEM(*) - CHARACTER*120: ELEMENT NAMES
-C     PMTBD      - INTEGER: NUMBER OF ENTRIES IN MASTER TABLE D ARRAYS
-C     PIDFXYN(*) - INTEGER: BIT-WISE REPRESENTATIONS OF FXY NUMBERS
-C     PCDSEQ(*)  - CHARACTER*120: SEQUENCE NAMES
-C     PCDMNEM(*) - CHARACTER*8: MNEMONICS
-C     PNDELEM(*) - INTEGER: NUMBER OF ELEMENTS STORED FOR PCDSEQ
-C    PIDEFXY(*,*)- INTEGER: BIT-WISE REPRESENTATIONS OF FXY NUMBERS
-C                  FOR ELEMENTS IN PNDELEM
-C     MAXCD      - INTEGER: MAXIMUM NUMBER OF ELEMENTS PER PCDSEQ;
-C                  USED BY THE SUBROUTINE WHEN CALLING FUNCTION ICVIDX
-C
-C REMARKS:
-C    THIS ROUTINE CALLS:        ICVIDX
-C    THIS ROUTINE IS CALLED BY: IREADMT
-C                               Normally not called by any application
-C                               programs.
-C
-C ATTRIBUTES:
-C   LANGUAGE: C
-C   MACHINE:  PORTABLE TO ALL PLATFORMS
-C
-C$$$*/
 		f77int *pidefxy, f77int *maxcd )
 {
 
