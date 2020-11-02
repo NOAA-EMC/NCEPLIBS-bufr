@@ -52,7 +52,7 @@ C>
 
       USE MODA_BITBUF
 
-      INCLUDE 'bufrlib.prm'
+      INCLUDE 'burflib.inc'
 
       CALL STATUS(LUNIT,LUN,IL,IM)
       IF(IL.EQ.0) GOTO 900
