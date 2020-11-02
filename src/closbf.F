@@ -47,7 +47,7 @@ C>
 
       USE MODA_NULBFR
 
-      INCLUDE 'bufrlib.prm'
+      INCLUDE 'bufrlib.inc'
       CHARACTER*128 ERRSTR
 
 C-----------------------------------------------------------------------

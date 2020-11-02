@@ -129,7 +129,7 @@ C>
       USE MODA_STCODE
       USE MODA_IFOPBF
 
-      INCLUDE 'bufrlib.prm'
+      INCLUDE 'bufrlib.inc'
 
       COMMON /QUIET / IPRT
 
