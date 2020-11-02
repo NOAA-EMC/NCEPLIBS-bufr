@@ -45,7 +45,7 @@ C>
       USE MODA_TABABD
       USE MODA_NMIKRP
 
-      INCLUDE 'burflib.inc'
+      INCLUDE 'bufrlib.inc'
 
       COMMON /REPTAB/ IDNR(5,2),TYPS(5,2),REPS(5,2),LENS(5)
 

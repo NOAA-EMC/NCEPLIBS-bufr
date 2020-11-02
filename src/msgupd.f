@@ -64,7 +64,7 @@ C>
       USE MODA_BITBUF
       USE MODA_H4WLC
 
-      INCLUDE 'burflib.inc'
+      INCLUDE 'bufrlib.inc'
 
       COMMON /MSGPTR/ NBY0,NBY1,NBY2,NBY3,NBY4,NBY5
       COMMON /QUIET / IPRT

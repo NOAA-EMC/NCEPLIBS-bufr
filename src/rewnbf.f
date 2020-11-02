@@ -69,7 +69,7 @@ C>
       USE MODA_BITBUF
       USE MODA_BUFRSR
 
-      INCLUDE 'burflib.inc'
+      INCLUDE 'bufrlib.inc'
 
       CHARACTER*128 BORT_STR
 

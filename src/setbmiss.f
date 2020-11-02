@@ -27,7 +27,7 @@ C>
 
 
 
-      INCLUDE 'burflib.inc'
+      INCLUDE 'bufrlib.inc'
 
       REAL*8 XMISS
 

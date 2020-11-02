@@ -89,7 +89,7 @@ C>
 
 	USE MODA_TABABD
 
-	INCLUDE 'burflib.inc'
+	INCLUDE 'bufrlib.inc'
 
 	COMMON /TABLEF/ CDMF
 

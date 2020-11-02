@@ -35,7 +35,7 @@ C>
 	USE MODA_TABLES
 	USE MODA_NRV203
 
-	INCLUDE 'burflib.inc'
+	INCLUDE 'bufrlib.inc'
 
 	REAL*8	TEN
 

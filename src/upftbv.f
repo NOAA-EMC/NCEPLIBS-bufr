@@ -33,7 +33,7 @@ C>
 
       USE MODA_TABABD
 
-      INCLUDE 'burflib.inc'
+      INCLUDE 'bufrlib.inc'
 
       REAL*8  VAL,R8VAL,R82I
 

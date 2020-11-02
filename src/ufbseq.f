@@ -120,7 +120,7 @@ C>
       USE MODA_MSGCWD
       USE MODA_TABLES
 
-      INCLUDE 'burflib.inc'
+      INCLUDE 'bufrlib.inc'
 
       PARAMETER (MTAG=10)
 

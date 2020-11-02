@@ -61,7 +61,7 @@ C>
 
       USE MODA_STBFR
 
-      INCLUDE 'burflib.inc'
+      INCLUDE 'bufrlib.inc'
 
       CHARACTER*128 BORT_STR
 

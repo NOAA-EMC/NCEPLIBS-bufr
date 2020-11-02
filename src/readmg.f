@@ -92,7 +92,7 @@ C>
       USE MODA_SC3BFR
       USE MODA_BITBUF
 
-      INCLUDE 'burflib.inc'
+      INCLUDE 'bufrlib.inc'
 
       COMMON /QUIET / IPRT
 

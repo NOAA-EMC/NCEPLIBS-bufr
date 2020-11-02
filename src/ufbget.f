@@ -76,7 +76,7 @@ C>
       USE MODA_BITBUF
       USE MODA_TABLES
 
-      INCLUDE 'burflib.inc'
+      INCLUDE 'bufrlib.inc'
 
       COMMON /USRSTR/ NNOD,NCON,NODS(20),NODC(10),IVLS(10),KONS(10)
 

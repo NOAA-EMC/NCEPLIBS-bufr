@@ -40,7 +40,7 @@ C>
 
       USE MODV_MXMSGL
 
-      INCLUDE 'burflib.inc'
+      INCLUDE 'bufrlib.inc'
 
       COMMON /HRDWRD/ NBYTW,NBITW,IORD(8)
 

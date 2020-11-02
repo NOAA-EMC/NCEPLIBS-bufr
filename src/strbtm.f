@@ -81,7 +81,7 @@ C>
 	USE MODA_TABLES
 	USE MODA_BITMAPS
 
-	INCLUDE 'burflib.inc'
+	INCLUDE 'bufrlib.inc'
 
         LOGICAL ISBTME
 

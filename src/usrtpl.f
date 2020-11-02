@@ -57,7 +57,7 @@ C>
       USE MODA_TABLES
       USE MODA_IVTTMP
 
-      INCLUDE 'burflib.inc'
+      INCLUDE 'bufrlib.inc'
 
       COMMON /QUIET / IPRT
 

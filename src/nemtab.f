@@ -69,7 +69,7 @@ C>
 
       USE MODA_TABABD
 
-      INCLUDE 'burflib.inc'
+      INCLUDE 'bufrlib.inc'
 
       CHARACTER*(*) NEMO
       CHARACTER*8   NEMT

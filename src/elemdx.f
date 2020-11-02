@@ -49,7 +49,7 @@ C>
 
       USE MODA_TABABD
 
-      INCLUDE 'burflib.inc'
+      INCLUDE 'bufrlib.inc'
 
       CHARACTER*128 BORT_STR1,BORT_STR2
       CHARACTER*80  CARD

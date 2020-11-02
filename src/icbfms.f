@@ -34,7 +34,7 @@ C>
 
 
 
-	INCLUDE	'burflib.inc'
+	INCLUDE	'bufrlib.inc'
 
 	CHARACTER*(*)	STR
 

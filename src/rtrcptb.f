@@ -31,7 +31,7 @@ C>
 
 
 
-      INCLUDE 'burflib.inc'
+      INCLUDE 'bufrlib.inc'
 
       DIMENSION	MBAY (*)
 

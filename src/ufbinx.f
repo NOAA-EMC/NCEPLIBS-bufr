@@ -75,7 +75,7 @@ C>
       USE MODA_MSGCWD
       USE MODA_BITBUF
 
-      INCLUDE 'burflib.inc'
+      INCLUDE 'bufrlib.inc'
 
       CHARACTER*(*) STR
       CHARACTER*128 BORT_STR

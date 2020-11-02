@@ -71,7 +71,7 @@ C>
       USE MODA_MSGMEM
       USE MODA_TABLES
 
-      INCLUDE 'burflib.inc'
+      INCLUDE 'bufrlib.inc'
 
       CHARACTER*8  SUBSET
 

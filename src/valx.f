@@ -40,7 +40,7 @@ C>
 
 
 
-      INCLUDE 'burflib.inc'
+      INCLUDE 'bufrlib.inc'
 
       CHARACTER*(*) STR
       CHARACTER*128 BORT_STR1,BORT_STR2

@@ -84,7 +84,7 @@ C>
 
       USE MODA_MGWA
 
-      INCLUDE 'burflib.inc'
+      INCLUDE 'bufrlib.inc'
 
       COMMON /QUIET / IPRT
 

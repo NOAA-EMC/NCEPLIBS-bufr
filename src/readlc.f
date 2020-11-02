@@ -49,7 +49,7 @@ C>
       USE MODA_TABLES
       USE MODA_RLCCMN
 
-      INCLUDE 'burflib.inc'
+      INCLUDE 'bufrlib.inc'
 
       COMMON /QUIET / IPRT
 

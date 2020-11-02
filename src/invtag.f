@@ -53,7 +53,7 @@ C>
       USE MODA_USRINT
       USE MODA_TABLES
 
-      INCLUDE 'burflib.inc'
+      INCLUDE 'bufrlib.inc'
 
       COMMON /QUIET/  IPRT
 

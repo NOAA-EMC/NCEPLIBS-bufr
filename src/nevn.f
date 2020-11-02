@@ -57,7 +57,7 @@ C>
 
       USE MODA_USRINT
 
-      INCLUDE 'burflib.inc'
+      INCLUDE 'bufrlib.inc'
 
       CHARACTER*128 BORT_STR
       DIMENSION     USR(I1,I2,I3)
