@@ -44,7 +44,7 @@ C>
 
 
 
-      INCLUDE 'bufrlib.prm'
+      INCLUDE 'burflib.inc'
 
       CHARACTER*128 BORT_STR
       DIMENSION     IB1(*),IB2(*)

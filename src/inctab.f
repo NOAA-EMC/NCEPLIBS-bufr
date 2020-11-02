@@ -46,7 +46,7 @@ C>
 
       USE MODA_TABLES
 
-      INCLUDE 'bufrlib.prm'
+      INCLUDE 'burflib.inc'
 
       CHARACTER*(*) ATAG,ATYP
       CHARACTER*128 BORT_STR

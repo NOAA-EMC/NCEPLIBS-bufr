@@ -64,7 +64,7 @@ C>
       USE MODA_MSGCWD
       USE MODA_BITBUF
 
-      INCLUDE 'bufrlib.prm'
+      INCLUDE 'burflib.inc'
 
       COMMON /MSGPTR/ NBY0,NBY1,NBY2,NBY3,NBY4,NBY5
 

@@ -40,7 +40,7 @@ C>
       USE MODA_MSGCWD
       USE MODA_TABLES
 
-      INCLUDE 'bufrlib.prm'
+      INCLUDE 'burflib.inc'
 
       CHARACTER*8  SUBSET
 

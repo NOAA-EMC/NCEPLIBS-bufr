@@ -66,7 +66,7 @@ C>
 
       USE MODA_MSGMEM
 
-      INCLUDE 'bufrlib.prm'
+      INCLUDE 'burflib.inc'
 
       CHARACTER*128 BORT_STR
       CHARACTER*8   SUBSET

@@ -61,7 +61,7 @@ C>
 
       USE MODA_MSGCWD
 
-      INCLUDE 'bufrlib.prm'
+      INCLUDE 'burflib.inc'
 
       PARAMETER (JCONS=52)
 

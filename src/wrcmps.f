@@ -88,7 +88,7 @@ C>
       USE MODA_COMPRS
       USE MODA_S01CM
  
-      INCLUDE 'bufrlib.prm'
+      INCLUDE 'burflib.inc'
  
       COMMON /MAXCMP/ MAXCMB,MAXROW,MAXCOL,NCMSGS,NCSUBS,NCBYTS
  

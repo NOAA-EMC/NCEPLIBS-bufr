@@ -81,7 +81,7 @@ C>
       USE MODA_UNPTYP
       USE MODA_BITBUF
 
-      INCLUDE 'bufrlib.prm'
+      INCLUDE 'burflib.inc'
 
       COMMON /PADESC/ IBCT,IPD1,IPD2,IPD3,IPD4
       COMMON /QUIET / IPRT

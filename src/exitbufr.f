@@ -33,7 +33,7 @@ C>
 	USE MODA_IFOPBF
 	USE MODA_S01CM
 	
-	INCLUDE 'bufrlib.prm'
+	INCLUDE 'burflib.inc'
 
 	COMMON /TABLEF/ CDMF
 

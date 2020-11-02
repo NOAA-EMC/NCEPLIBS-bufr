@@ -46,7 +46,7 @@ C>
       USE MODA_TABLES
       USE MODA_IVTTMP
 
-      INCLUDE 'bufrlib.prm'
+      INCLUDE 'burflib.inc'
 
       CHARACTER*10 TAGO
 

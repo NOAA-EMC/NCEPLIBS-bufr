@@ -64,7 +64,7 @@ C>
       USE MODA_BITBUF
       USE MODA_TABLES
 
-      INCLUDE 'bufrlib.prm'
+      INCLUDE 'burflib.inc'
 
       CHARACTER*8  CVAL
       EQUIVALENCE  (CVAL,RVAL)

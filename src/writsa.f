@@ -82,7 +82,7 @@ C>
 
       USE MODA_BUFRMG
 
-      INCLUDE 'bufrlib.prm'
+      INCLUDE 'burflib.inc'
 
       COMMON /MSGCMP/ CCMF
 

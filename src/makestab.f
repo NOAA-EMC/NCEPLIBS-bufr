@@ -84,7 +84,7 @@ C>
       USE MODA_NRV203
       USE MODA_BITMAPS
 
-      INCLUDE 'bufrlib.prm'
+      INCLUDE 'burflib.inc'
 
       COMMON /QUIET/  IPRT
 

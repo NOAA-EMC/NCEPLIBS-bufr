@@ -40,7 +40,7 @@ C>
       USE MODA_TABABD
       USE MODA_MGWA
 
-      INCLUDE 'bufrlib.prm'
+      INCLUDE 'burflib.inc'
 
       COMMON /DXTAB / MAXDX,IDXV,NXSTR(10),LDXA(10),LDXB(10),LDXD(10),
      .                LD30(10),DXSTR(10)

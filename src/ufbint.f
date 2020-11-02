@@ -295,7 +295,7 @@ C>
       USE MODA_USRINT
       USE MODA_MSGCWD
 
-      INCLUDE 'bufrlib.prm'
+      INCLUDE 'burflib.inc'
 
       COMMON /USRSTR/ NNOD,NCON,NODS(20),NODC(10),IVLS(10),KONS(10)
       COMMON /QUIET / IPRT

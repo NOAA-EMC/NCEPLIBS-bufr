@@ -63,7 +63,7 @@ C>
       USE MODA_MGWA
       USE MODA_MSGMEM
 
-      INCLUDE 'bufrlib.prm'
+      INCLUDE 'burflib.inc'
 
       COMMON /QUIET / IPRT
 

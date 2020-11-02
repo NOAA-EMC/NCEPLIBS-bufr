@@ -67,7 +67,7 @@ C>
       USE MODA_TABLES
       USE MODA_USRTMP
 
-      INCLUDE 'bufrlib.prm'
+      INCLUDE 'burflib.inc'
 
       COMMON /QUIET / IPRT
 

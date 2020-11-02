@@ -38,7 +38,7 @@ C>
 
 
 
-	INCLUDE 'bufrlib.prm'
+	INCLUDE 'burflib.inc'
 
 	COMMON /QUIET/  IPRT
 	COMMON /MSTINF/ LUN1, LUN2, LMTD, MTDIR

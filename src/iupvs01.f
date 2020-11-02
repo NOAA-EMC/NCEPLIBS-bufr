@@ -43,7 +43,7 @@ C>
 
       USE MODA_BITBUF
 
-      INCLUDE 'bufrlib.prm'
+      INCLUDE 'burflib.inc'
 
       CHARACTER*(*)   S01MNEM
 

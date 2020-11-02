@@ -51,7 +51,7 @@ C>
 
       USE MODA_USRINT
 
-      INCLUDE 'bufrlib.prm'
+      INCLUDE 'burflib.inc'
 
       COMMON /QUIET/  IPRT
 

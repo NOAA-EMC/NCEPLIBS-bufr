@@ -57,7 +57,7 @@ C>
 
       USE MODA_TABABD
 
-      INCLUDE 'bufrlib.prm'
+      INCLUDE 'burflib.inc'
 
       CHARACTER*(*) NEMO
       CHARACTER*1   TAB

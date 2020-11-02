@@ -29,7 +29,7 @@ C>
 
 	USE MODA_TABABD
 
-	INCLUDE 'bufrlib.prm'
+	INCLUDE 'burflib.inc'
 
 	CHARACTER*128 BORT_STR
 	CHARACTER*1   CTB
