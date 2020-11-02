@@ -123,7 +123,7 @@ C>
       USE MODA_TABABD
       USE MODA_TABLES
 
-      INCLUDE 'bufrlib.prm'
+      INCLUDE 'bufrlib.inc'
 
       CHARACTER*20 LCHR
       CHARACTER*14 BITS

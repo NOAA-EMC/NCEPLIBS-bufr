@@ -54,7 +54,7 @@ C>
 
       USE MODA_MSGCWD
 
-      INCLUDE 'bufrlib.prm'
+      INCLUDE 'bufrlib.inc'
 
       CHARACTER*(*) SUBSET
       LOGICAL       OPEN

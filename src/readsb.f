@@ -60,7 +60,7 @@ C>
       USE MODA_BITBUF
       USE MODA_BITMAPS
 
-      INCLUDE 'bufrlib.prm'
+      INCLUDE 'bufrlib.inc'
 
       CHARACTER*128 BORT_STR
 

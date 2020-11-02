@@ -28,7 +28,7 @@ C>
 
 
 
-      INCLUDE 'bufrlib.prm'
+      INCLUDE 'bufrlib.inc'
 
       CHARACTER*(*)  NEMO
 

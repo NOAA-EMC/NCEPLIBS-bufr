@@ -79,7 +79,7 @@ C>
       USE MODA_MSGCWD
       USE MODA_MSGMEM
 
-      INCLUDE 'bufrlib.prm'
+      INCLUDE 'bufrlib.inc'
 
       COMMON /QUIET / IPRT
 

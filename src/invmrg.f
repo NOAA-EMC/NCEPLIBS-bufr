@@ -50,7 +50,7 @@ C>
       USE MODA_USRINT
       USE MODA_TABLES
 
-      INCLUDE 'bufrlib.prm'
+      INCLUDE 'bufrlib.inc'
 
       COMMON /MRGCOM/ NRPL,NMRG,NAMB,NTOT
 

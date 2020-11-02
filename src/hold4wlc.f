@@ -43,7 +43,7 @@ C>
 
       USE MODA_H4WLC
 
-      INCLUDE 'bufrlib.prm'
+      INCLUDE 'bufrlib.inc'
 
       COMMON /QUIET/ IPRT
 

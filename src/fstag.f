@@ -44,7 +44,7 @@ C>
 	USE MODA_USRINT
 	USE MODA_TABLES
 
-	INCLUDE 'bufrlib.prm'
+	INCLUDE 'bufrlib.inc'
 
 	CHARACTER*10  TGS(15)
 

@@ -43,7 +43,7 @@ C>
 
       USE MODA_TABABD
 
-      INCLUDE 'bufrlib.prm'
+      INCLUDE 'bufrlib.inc'
 
       CHARACTER*(*) NEMO
       CHARACTER*128 BORT_STR

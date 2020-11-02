@@ -112,7 +112,7 @@ C>
       USE MODA_MSGMEM
       USE MODA_TABLES
 
-      INCLUDE 'bufrlib.prm'
+      INCLUDE 'bufrlib.inc'
 
       COMMON /USRSTR/ NNOD,NCON,NODS(20),NODC(10),VALS(10),KONS(10)
       COMMON /QUIET / IPRT

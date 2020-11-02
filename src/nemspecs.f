@@ -49,7 +49,7 @@ C>
 	USE MODA_TABLES
 	USE MODA_NRV203
 
-	INCLUDE 'bufrlib.prm'
+	INCLUDE 'bufrlib.inc'
 
 	CHARACTER*10  TAGN
 
