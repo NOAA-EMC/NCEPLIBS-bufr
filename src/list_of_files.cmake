@@ -332,7 +332,7 @@ set(c_src
   wrdesc.c)
 
 set(c_hdr
-  bufrlib.h
+  ${CMAKE_CURRENT_BINARY_DIR}/bufrlib.h
   cfe.h
   cobfl.h
   cread.h
