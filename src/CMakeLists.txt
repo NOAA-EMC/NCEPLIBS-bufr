@@ -5,18 +5,22 @@ endif()
 
 set(c_8_DA_defs ${c_8_defs})
 
+set(CMAKE_INCLUDE_CURRENT_DIR ON)
+
 # Create the bvers.f file with the version from VERSION file.
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/bvers.f.in ${CMAKE_CURRENT_BINARY_DIR}/bvers.f @ONLY)
 
-# Extract BUFRLIB parameters from Fortran source files and propogate them into bufrlib.h for C
-file(READ bufrlib.inc _bufrlib_inc_str)
+# Create the bufrlib.h and bufrlib.inc files
+file(READ bufrlib.h.in _bufrlib_h_in_str)
 foreach(_var IN ITEMS MAXNC MXNAF)
-  if(_bufrlib_inc_str MATCHES "${_var} = ([0-9]+)")
+  if(_bufrlib_h_in_str MATCHES "#define ${_var} ([0-9]+)")
     set(${_var} ${CMAKE_MATCH_1})
   else()
-    message(FATAL_ERROR "Unable to parse variable ${_var} value from file: src/bufrlib.inc")
+    message(FATAL_ERROR "Unable to parse variable ${_var} value from file: src/bufrlib.h.in")
   endif()
 endforeach()
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/bufrlib.inc.in ${CMAKE_CURRENT_BINARY_DIR}/bufrlib.inc @ONLY)
+
 set(VAR_REGEX_DYNAMIC "INTEGER ::")
 set(VAR_REGEX_STATIC "PARAMETER ")
 foreach(_var IN ITEMS NFILES MAXCD)
@@ -68,8 +72,6 @@ foreach(kind ${kinds})
   target_compile_definitions(${lib_name}_c PUBLIC "${underscore_def}")
   target_compile_definitions(${lib_name}_c PRIVATE "${endian_def}")
   target_compile_definitions(${lib_name}_c PRIVATE "${c_${kind}_defs}")
-  target_include_directories(${lib_name}_c PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
-  target_include_directories(${lib_name}_c PRIVATE ${CMAKE_CURRENT_BINARY_DIR})  # for bufrlib.h
 
   set_target_properties(${lib_name}_f PROPERTIES Fortran_MODULE_DIRECTORY "${module_dir}")
 
@@ -90,6 +92,7 @@ foreach(kind ${kinds})
   list(APPEND LIB_TARGETS ${lib_name})
   install(DIRECTORY ${module_dir} DESTINATION ${CMAKE_INSTALL_PREFIX})
   install(FILES ${c_hdr} DESTINATION ${CMAKE_INSTALL_PREFIX}/include_${kind})
+  install(FILES ${f_hdr} DESTINATION ${CMAKE_INSTALL_PREFIX}/include_${kind})
 endforeach()
 
 install(
