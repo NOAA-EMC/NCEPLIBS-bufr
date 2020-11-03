@@ -2,7 +2,7 @@
 
 **Code manager:** Jeff Ator
 
-**VERSION:** 11.3.1.1
+**VERSION:** 11.4.0
 
 ### Original Implementation of BUFR Archive Library - 12Z 6 January 1994
 
