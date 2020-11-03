@@ -1,51 +1,47 @@
 C> @file
 C> @author WOOLLEN @date 1994-01-06
       
-C> THIS SUBROUTINE COPIES A BUFR MESSAGE, INTACT, FROM LOGICAL
-C>   UNIT LUNIN, OPENED FOR INPUT VIA A PREVIOUS CALL TO BUFR ARCHIVE
-C>   LIBRARY SUBROUTINE OPENBF, TO LOGICAL UNIT LUNOT, OPENED FOR OUTPUT
-C>   VIA A PREVIOUS CALL TO OPENBF.  THE MESSAGE COPIED FROM LOGICAL
-C>   UNIT LUNIN WILL BE THE ONE MOST RECENTLY READ USING BUFR ARCHIVE
-C>   LIBRARY SUBROUTINE READMG.  THE OUTPUT FILE MUST HAVE NO CURRENTLY
-C>   OPEN MESSAGES.  ALSO, BOTH FILES MUST HAVE BEEN OPENED TO THE BUFR
-C>   INTERFACE WITH IDENTICAL BUFR TABLES.
+C> This subroutine copies a bufr message, intact, from logical
+C> unit lunin, opened for input via a previous call to bufr archive
+C> library subroutine openbf, to logical unit lunot, opened for output
+C> via a previous call to openbf. The message copied from logical
+C> unit lunin will be the one most recently read using bufr archive
+C> library subroutine readmg. The output file must have no currently
+C> open messages. Also, both files must have been opened to the bufr
+C> interface with identical bufr tables.
 C>
 C> PROGRAM HISTORY LOG:
-C> 1994-01-06  J. WOOLLEN -- ORIGINAL AUTHOR
-C> 1998-07-08  J. WOOLLEN -- REPLACED CALL TO CRAY LIBRARY ROUTINE
+C> - 1994-01-06  J. WOOLLEN -- ORIGINAL AUTHOR
+C> - 1998-07-08  J. WOOLLEN -- REPLACED CALL TO CRAY LIBRARY ROUTINE
 C>                           "ABORT" WITH CALL TO NEW INTERNAL BUFRLIB
 C>                           ROUTINE "BORT"
-C> 1999-11-18  J. WOOLLEN -- THE NUMBER OF BUFR FILES WHICH CAN BE
+C> - 1999-11-18  J. WOOLLEN -- THE NUMBER OF BUFR FILES WHICH CAN BE
 C>                           OPENED AT ONE TIME INCREASED FROM 10 TO 32
 C>                           (NECESSARY IN ORDER TO PROCESS MULTIPLE
 C>                           BUFR FILES UNDER THE MPI)
-C> 2000-09-19  J. WOOLLEN -- MAXIMUM MESSAGE LENGTH INCREASED FROM
+C> - 2000-09-19  J. WOOLLEN -- MAXIMUM MESSAGE LENGTH INCREASED FROM
 C>                           10,000 TO 20,000 BYTES
-C> 2003-11-04  S. BENDER  -- ADDED REMARKS/BUFRLIB ROUTINE
+C> - 2003-11-04  S. BENDER  -- ADDED REMARKS/BUFRLIB ROUTINE
 C>                           INTERDEPENDENCIES
-C> 2003-11-04  D. KEYSER  -- MAXJL (MAXIMUM NUMBER OF JUMP/LINK ENTRIES)
+C> - 2003-11-04  D. KEYSER  -- MAXJL (MAXIMUM NUMBER OF JUMP/LINK ENTRIES)
 C>                           INCREASED FROM 15000 TO 16000 (WAS IN
 C>                           VERIFICATION VERSION); UNIFIED/PORTABLE FOR
 C>                           WRF; ADDED DOCUMENTATION (INCLUDING
 C>                           HISTORY); OUTPUTS MORE COMPLETE DIAGNOSTIC
 C>                           INFO WHEN ROUTINE TERMINATES ABNORMALLY
-C> 2004-08-09  J. ATOR    -- MAXIMUM MESSAGE LENGTH INCREASED FROM
+C> - 2004-08-09  J. ATOR    -- MAXIMUM MESSAGE LENGTH INCREASED FROM
 C>                           20,000 TO 50,000 BYTES
-C> 2005-11-29  J. ATOR    -- USE IUPBS01
-C> 2009-06-26  J. ATOR    -- USE IOK2CPY
-C> 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
+C> - 2005-11-29  J. ATOR    -- USE IUPBS01
+C> - 2009-06-26  J. ATOR    -- USE IOK2CPY
+C> - 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
 C>
-C> USAGE:    CALL COPYMG (LUNIN, LUNOT)
-C>   INPUT ARGUMENT LIST:
-C>     LUNIN    - INTEGER: FORTRAN LOGICAL UNIT NUMBER FOR INPUT BUFR
-C>                FILE
-C>     LUNOT    - INTEGER: FORTRAN LOGICAL UNIT NUMBER FOR OUTPUT BUFR
-C>                FILE
+C> @param[in] LUNIN Fortran logical unit number for input bufr file.
+C> @param[in] LUNOT Fortran logical unit number for output bufr file.
 C>
 C> REMARKS:
-C>    THIS ROUTINE CALLS:        BORT     IOK2CPY  IUPBS01  MSGWRT
-C>                               NEMTBA   STATUS
-C>    THIS ROUTINE IS CALLED BY: None
+C> - THIS ROUTINE CALLS:
+C>      bort() iok2cpy() iupbs01() msgwrt() nemtba() status()
+C> - THIS ROUTINE IS CALLED BY: None
 C>                               Normally called only by application
 C>                               programs.
 C>
