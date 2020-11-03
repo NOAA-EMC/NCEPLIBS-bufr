@@ -1,70 +1,62 @@
 C> @file
 C> @author WOOLLEN @date 1994-01-06
       
-C> THIS SUBROUTINE COPIES A PACKED DATA SUBSET, INTACT, FROM
-C>   LOGICAL UNIT LUNIN, OPENED FOR INPUT VIA A PREVIOUS CALL TO BUFR
-C>   ARCHIVE LIBRARY SUBROUTINE OPENBF, TO LOGICAL UNIT LUNOT, OPENED
-C>   FOR OUTPUT VIA A PREVIOUS CALL TO OPENBF.  THE BUFR MESSAGE MUST
-C>   HAVE BEEN PREVIOUSLY READ FROM UNIT LUNIT USING BUFR ARCHIVE
-C>   LIBRARY SUBROUTINE READMG OR READERME AND MAY BE EITHER COMPRESSED
-C>   OR UNCOMPRESSED.  ALSO, BUFR ARCHIVE LIBRARY SUBROUTINE OPENMG OR
-C>   OPENMB MUST HAVE BEEN PREVIOUSLY CALLED TO OPEN AND INITIALIZE A
-C>   BUFR MESSAGE WITHIN MEMORY FOR UNIT LUNOT.  EACH CALL TO COPYSB
-C>   ADVANCES THE POINTER TO THE BEGINNING OF THE NEXT SUBSET IN BOTH
-C>   THE INPUT AND OUTPUT FILES, UNLESS INPUT PARAMETER LUNOT IS .LE.
-C>   ZERO, IN WHICH CASE THE OUTPUT POINTER IS NOT ADVANCED. THE
-C>   COMPRESSION STATUS OF THE OUTPUT SUBSET/BUFR MESSAGE WILL ALWAYS
-C>   MATCH THAT OF THE INPUT SUBSET/BUFR MESSAGE {I.E., IF INPUT MESSAGE
-C>   IS UNCOMPRESSED(COMPRESSED) OUTPUT MESSAGE WILL BE UNCOMPRESSED
-C>   (COMPRESSED)}.
+C> This subroutine copies a packed data subset, intact, from
+c>   logical unit lunin, opened for input via a previous call to bufr
+c>   archive library subroutine openbf, to logical unit lunot, opened
+c>   for output via a previous call to openbf. The bufr message must
+c>   have been previously read from unit lunit using bufr archive
+c>   library subroutine readmg or readerme and may be either compressed
+c>   or uncompressed. Also, bufr archive library subroutine openmg or
+c>   openmb must have been previously called to open and initialize a
+c>   bufr message within memory for unit lunot. Each call to copysb
+c>   advances the pointer to the beginning of the next subset in both
+c>   the input and output files, unless input parameter lunot is .le.
+c>   zero, in which case the output pointer is not advanced. The
+c>   compression status of the output subset/bufr message will always
+c>   match that of the input subset/bufr message {i.e., if input message
+c>   is uncompressed(compressed) output message will be uncompressed
+c>   (compressed)}.
 C>
 C> PROGRAM HISTORY LOG:
-C> 1994-01-06  J. WOOLLEN -- ORIGINAL AUTHOR
-C> 1998-07-08  J. WOOLLEN -- REPLACED CALL TO CRAY LIBRARY ROUTINE
+C> -1994-01-06  J. WOOLLEN -- ORIGINAL AUTHOR
+C> -1998-07-08  J. WOOLLEN -- REPLACED CALL TO CRAY LIBRARY ROUTINE
 C>                           "ABORT" WITH CALL TO NEW INTERNAL BUFRLIB
 C>                           ROUTINE "BORT"
-C> 1999-11-18  J. WOOLLEN -- THE NUMBER OF BUFR FILES WHICH CAN BE
+C> -1999-11-18  J. WOOLLEN -- THE NUMBER OF BUFR FILES WHICH CAN BE
 C>                           OPENED AT ONE TIME INCREASED FROM 10 TO 32
 C>                           (NECESSARY IN ORDER TO PROCESS MULTIPLE
 C>                           BUFR FILES UNDER THE MPI)
-C> 2000-09-19  J. WOOLLEN -- MAXIMUM MESSAGE LENGTH INCREASED FROM
+C> -2000-09-19  J. WOOLLEN -- MAXIMUM MESSAGE LENGTH INCREASED FROM
 C>                           10,000 TO 20,000 BYTES
-C> 2002-05-14  J. WOOLLEN -- REMOVED OLD CRAY COMPILER DIRECTIVES
-C> 2003-11-04  S. BENDER  -- ADDED REMARKS/BUFRLIB ROUTINE
+C> -2002-05-14  J. WOOLLEN -- REMOVED OLD CRAY COMPILER DIRECTIVES
+C> -2003-11-04  S. BENDER  -- ADDED REMARKS/BUFRLIB ROUTINE
 C>                           INTERDEPENDENCIES
-C> 2003-11-04  D. KEYSER  -- UNIFIED/PORTABLE FOR WRF; ADDED
+C> -2003-11-04  D. KEYSER  -- UNIFIED/PORTABLE FOR WRF; ADDED
 C>                           DOCUMENTATION (INCLUDING HISTORY); OUTPUTS
 C>                           MORE COMPLETE DIAGNOSTIC INFO WHEN ROUTINE
 C>                           TERMINATES ABNORMALLY
-C> 2004-08-09  J. ATOR    -- MAXIMUM MESSAGE LENGTH INCREASED FROM
+C> -2004-08-09  J. ATOR    -- MAXIMUM MESSAGE LENGTH INCREASED FROM
 C>                           20,000 TO 50,000 BYTES
-C> 2005-09-16  J. WOOLLEN -- NOW WRITES OUT COMPRESSED SUBSET/MESSAGE IF
+C> -2005-09-16  J. WOOLLEN -- NOW WRITES OUT COMPRESSED SUBSET/MESSAGE IF
 C>                           INPUT SUBSET/MESSAGE IS COMPRESSED (BEFORE
 C>                           COULD ONLY WRITE OUT UNCOMPRESSED SUBSET/
 C>                           MESSAGE REGARDLESS OF COMPRESSION STATUS OF
 C>                           INPUT SUBSET/MESSAGE)
-C> 2009-06-26  J. ATOR    -- USE IOK2CPY
-C> 2014-11-03  J. ATOR    -- HANDLE OVERSIZED (>65530 BYTE) SUBSETS
-C> 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
+C> -2009-06-26  J. ATOR    -- USE IOK2CPY
+C> -2014-11-03  J. ATOR    -- HANDLE OVERSIZED (>65530 BYTE) SUBSETS
+C> -2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
 C>
-C> USAGE:    CALL COPYSB  ( LUNIN, LUNOT, IRET )
-C>   INPUT ARGUMENT LIST:
-C>     LUNIN    - INTEGER: FORTRAN LOGICAL UNIT NUMBER FOR INPUT BUFR
-C>                FILE
-C>     LUNOT    - INTEGER: FORTRAN LOGICAL UNIT NUMBER FOR OUTPUT BUFR
-C>                FILE
-C>
-C>   OUTPUT ARGUMENT LIST:
-C>     IRET     - INTEGER: RETURN CODE:
-C>                       0 = normal return
-C>                      -1 = there are no more subsets in the input
-C>                           BUFR message
+C> @param[in] LUNIN Fortran logical unit number for input bufr file.
+C> @param[in] LUNOT Fortran logical unit number for output bufr file.
+C> @param[out] IRET RETURN CODE:
+C> -     0 = normal return
+C> -    -1 = there are no more subsets in the input BUFR message
 C>
 C> REMARKS:
-C>    THIS ROUTINE CALLS:        BORT     CMPMSG   CPYUPD   GETLENS
-C>                               IOK2CPY  MESGBC   READSB   STATUS
-C>                               UFBCPY   UPB      WRITSB
-C>    THIS ROUTINE IS CALLED BY: ICOPYSB
+C> THIS ROUTINE CALLS: bort() cmpmsg() cpyupd() getlens()
+C> iok2cpy() mesgbc() readsb() status() ufbcpy() upb() writsb()
+C>    THIS ROUTINE IS CALLED BY: icopysb()
 C>                               Also called by application programs.
 C>
       SUBROUTINE COPYSB(LUNIN,LUNOT,IRET)
