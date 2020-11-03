@@ -1,92 +1,108 @@
 C> @file
-C> @author WOOLLEN @date 1994-01-06
-      
-C> THIS SUBROUTINE READS THE NEXT BUFR MESSAGE FROM LOGICAL
-C>   UNIT NUMBER ABS(LUNXX) INTO AN INTERNAL MESSAGE BUFFER (I.E. ARRAY
-C>   MBAY IN MODULE BITBUF).  ABS(LUNXX) SHOULD ALREADY BE OPENED
-C>   FOR INPUT OPERATIONS.  IF LUNXX < 0, THEN A READ ERROR FROM
-C>   ABS(LUNXX) IS TREATED THE SAME AS THE END-OF-FILE (EOF) CONDITION;
-C>   OTHERWISE, BUFR ARCHIVE LIBRARY SUBROUTINE BORT IS NORMALLY CALLED
-C>   IN SUCH SITUATIONS.  ANY DX DICTIONARY MESSAGES ENCOUNTERED WITHIN
-C>   ABS(LUNXX) ARE AUTOMATICALLY PROCESSED AND STORED INTERNALLY, SO A
-C>   SUCCESSFUL RETURN FROM THIS SUBROUTINE WILL ALWAYS RESULT IN A BUFR
-C>   MESSAGE CONTAINING ACTUAL DATA VALUES.
+C> @authors Jack Woollen
+C> @authors Jeff Ator
+C> @date 2020-07-16
+C>
+C> @brief This subroutine reads the next BUFR message from logical unit
+C> ABS(LUNXX) into internal arrays.
+C>
+C> @param[in] LUNXX    - integer: absolute value is Fortran logical unit
+C>                       number for BUFR file
+C> @param[out] SUBSET   - character*8: Table A mnemonic for type of BUFR
+C>                        message that was read (see Description and Format
+C>                        of DX BUFR Tables for further information about
+C>                        Table A mnemonics)
+C> @param[out] JDATE    - integer: date-time stored within Section 1 of
+C>                        BUFR message that was read, in format of either
+C>                        YYMMDDHH or YYYYMMDDHH, depending on the most
+C>                        recent call to subroutine datelen()
+C> @param[out] IRET     - integer:
+C>                           - 0 = new BUFR message was successfully
+C>                                 read into internal arrays
+C>                           - -1 = there are no more BUFR messages in
+C>                                 the file connected to logical unit
+C>                                 ABS(LUNXX)
+C>
+C> <p>Logical unit ABS(LUNXX) should have already been opened for
+C> input operations via a previous call to subroutine openbf().
+C>
+C> <p>Whenever this subroutine returns with IRET = 0, this indicates
+C> that a new BUFR message of type SUBSET and date-time JDATE was
+C> successfully read into internal arrays within the BUFRLIB
+C> software, and from where it can then be easily manipulated or further
+C> parsed via a call to subroutine readsb() or equivalent.  Otherwise,
+C> if the subroutine returns with IRET = -1, then this indicates that
+C> there are no more BUFR messages (i.e. end-of-file) within the file
+C> connected to logical unit ABS(LUNXX).
+C>
+C> @remarks
+C> - Any DX dictionary messages encountered within ABS(LUNXX) will be
+C> automatically processed and stored internally, so a successful return
+C> from this subroutine will always result in a BUFR message containing
+C> actual data values within the internal arrays.
+C> - In prior versions of the BUFRLIB software, an input value of
+C> LUNXX < 0 was an indicator to the subroutine to treat any read error
+C> from ABS(LUNXX) the same as an end-of-file condition.  This option is
+C> no longer supported, but the capability to call this subroutine with
+C> LUNXX < 0 is itself still supported for backwards-compatibiity with
+C> certain legacy application programs. 
 C>
 C> PROGRAM HISTORY LOG:
-C> 1994-01-06  J. WOOLLEN -- ORIGINAL AUTHOR
-C> 1996-11-25  J. WOOLLEN -- MODIFIED TO EXIT GRACEFULLY WHEN THE BUFR
-C>                           FILE IS POSITIONED AFTER AN "END-OF-FILE"
-C> 1998-07-08  J. WOOLLEN -- REPLACED CALL TO CRAY LIBRARY ROUTINE
-C>                           "ABORT" WITH CALL TO NEW INTERNAL BUFRLIB
-C>                           ROUTINE "BORT"; MODIFIED TO MAKE Y2K
-C>                           COMPLIANT
-C> 1999-11-18  J. WOOLLEN -- THE NUMBER OF BUFR FILES WHICH CAN BE
-C>                           OPENED AT ONE TIME INCREASED FROM 10 TO 32
-C>                           (NECESSARY IN ORDER TO PROCESS MULTIPLE
-C>                           BUFR FILES UNDER THE MPI); MODIFIED WITH
-C>                           SEMANTIC ADJUSTMENTS TO AMELIORATE COMPILER
-C>                           COMPLAINTS FROM LINUX BOXES (INCREASES
-C>                           PORTABILITY)
-C> 2000-09-19  J. WOOLLEN -- REMOVED MESSAGE DECODING LOGIC THAT HAD
-C>                           BEEN REPLICATED IN THIS AND OTHER READ
-C>                           ROUTINES AND CONSOLIDATED IT INTO A NEW
-C>                           ROUTINE CKTABA, CALLED HERE, WHICH IS
-C>                           ENHANCED TO ALLOW COMPRESSED AND STANDARD
-C>                           BUFR MESSAGES TO BE READ; MAXIMUM MESSAGE
-C>                           LENGTH INCREASED FROM 10,000 TO 20,000
-C>                           BYTES
-C> 2002-05-14  J. WOOLLEN -- REMOVED ENTRY POINT DATELEN (IT BECAME A
-C>                           SEPARATE ROUTINE IN THE BUFRLIB TO INCREASE
-C>                           PORTABILITY TO OTHER PLATFORMS)
-C> 2003-11-04  J. ATOR    -- ADDED DOCUMENTATION
-C> 2003-11-04  S. BENDER  -- ADDED REMARKS/BUFRLIB ROUTINE
-C>                           INTERDEPENDENCIES
-C> 2003-11-04  D. KEYSER  -- UNIFIED/PORTABLE FOR WRF; ADDED HISTORY
-C>                           DOCUMENTATION; OUTPUTS MORE COMPLETE
-C>                           DIAGNOSTIC INFO WHEN ROUTINE TERMINATES
-C>                           ABNORMALLY
-C> 2004-08-09  J. ATOR    -- MAXIMUM MESSAGE LENGTH INCREASED FROM
-C>                           20,000 TO 50,000 BYTES
-C> 2005-11-29  J. ATOR    -- ADDED RDMSGW AND RDMSGB CALLS TO SIMULATE
-C>                           READIBM; ADDED LUNXX < 0 OPTION TO SIMULATE
-C>                           READFT
-C> 2009-03-23  J. ATOR    -- ADD LOGIC TO ALLOW SECTION 3 DECODING;
-C>                           ADD LOGIC TO PROCESS INTERNAL DICTIONARY
-C>                           MESSAGES 
-C> 2012-06-07  J. ATOR    -- DON'T RESPOND TO INTERNAL DICTIONARY
-C>                           MESSAGES IF SECTION 3 DECODING IS BEING USED
-C> 2012-09-15  J. WOOLLEN -- CONVERT TO C LANGUAGE I/O INTERFACE;
-C>                           REMOVE CODE TO REREAD MESSAGE AS BYTES;
-C>                           REPLACE FORTRAN BACKSPACE WITH C BACKBUFR
-C> 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
+C> - 1994-01-06  J. Woollen -- Original author
+C> - 1996-11-25  J. Woollen -- Modified to exit gracefully when the BUFR
+C>                           file is positioned after an "end-of-file"
+C> - 1998-07-08  J. Woollen -- Replaced call to Cray library routine
+C>                           "ABORT" with call to new internal BUFRLIB
+C>                           routine "BORT"; modified to make Y2K
+C>                           compliant
+C> - 1999-11-18  J. Woollen -- The number of BUFR files which can be
+C>                           opened at one time increased from 10 to 32
+C>                           (necessary in order to process multiple
+C>                           BUFR files under the MPI); modified with
+C>                           semantic adjustments to ameliorate compiler
+C>                           complaints from Linux boxes (increases
+C>                           portability)
+C> - 2000-09-19  J. Woollen -- Removed message decoding logic that had
+C>                           been replicated in this and other read
+C>                           routines and consolidated it into a new
+C>                           routine cktaba(), cALLED HERE, WHICH IS
+C>                           enhanced to allow compressed and standard
+C>                           BUFR messages to be read; maximum message
+C>                           length increased from 10,000 to 20,000
+C>                           bytes
+C> - 2002-05-14  J. Woollen -- Removed entry point datelen() (it became a
+C>                           separate routine in the BUFRLIB to increase
+C>                           portability to other platforms)
+C> - 2003-11-04  J. Ator    -- Added documentation
+C> - 2003-11-04  S. Bender  -- Added remarks and routine interdependencies
+C> - 2003-11-04  D. Keyser  -- Unified/portable for WRF; added history
+C>                           documentation; outputs more complete
+C>                           diagnostic info when routine terminates
+C>                           abnormally
+C> - 2004-08-09  J. Ator    -- Maximum message length increased from
+C>                           20,000 to 50,000 bytes
+C> - 2005-11-29  J. Ator    -- Added rdmsgw() and rdmsgb calls to simulate
+C>                           readibm; added LUNXX < 0 option to simulatE
+C>                           readft
+C> - 2009-03-23  J. Ator    -- Add logic to allow Section 3 decoding;
+C>                           add logic to process internal dictionary
+C>                           messages 
+C> - 2012-06-07  J. Ator    -- Don't respond to internal dictionary
+C>                           messages if Section 3 decoding is being used
+C> - 2012-09-15  J. Woollen -- Convert to C language I/O interface;
+C>                           remove code to reread message as bytes;
+C>                           replace Fortran BACKSPACE with C backbufr()
+C> - 2014-12-10  J. Ator    -- Use modules instead of COMMON blocks
 C>
-C> USAGE:    CALL READMG (LUNXX, SUBSET, JDATE, IRET)
-C>   INPUT ARGUMENT LIST:
-C>     LUNXX    - INTEGER: ABSOLUTE VALUE IS FORTRAN LOGICAL UNIT NUMBER
-C>                FOR BUFR FILE (IF LUNXX IS LESS THAN ZERO, THEN READ
-C>                ERRORS FROM ABS(LUNXX) ARE TREATED THE SAME AS EOF)
-C>
-C>   OUTPUT ARGUMENT LIST:
-C>     SUBSET   - CHARACTER*8: TABLE A MNEMONIC FOR TYPE OF BUFR MESSAGE
-C>                BEING READ
-C>     JDATE    - INTEGER: DATE-TIME STORED WITHIN SECTION 1 OF BUFR
-C>                MESSAGE BEING READ, IN FORMAT OF EITHER YYMMDDHH OR
-C>                YYYYMMDDHH, DEPENDING ON DATELEN() VALUE
-C>     IRET     - INTEGER: RETURN CODE:
-C>                       0 = normal return
-C>                      -1 = there are no more BUFR mesages in ABS(LUNXX)
-C>
-C> REMARKS:
-C>    THIS ROUTINE CALLS:        BORT     CKTABA   ERRWRT   IDXMSG
-C>                               RDBFDX   RDMSGW   READS3   STATUS
-C>                               WTSTAT   BACKBUFR 
-C>    THIS ROUTINE IS CALLED BY: IREADMG  READNS   RDMGSB   REWNBF
-C>                               UFBINX   UFBPOS
-C>                               Also called by application programs.
+C> THIS ROUTINE CALLS:        backbufr() bort()     cktaba()   errwrt()
+C>                            idxmsg()   rdbfdx()   rdmsgw()   reads3()
+C>                            status()   wtstat()
+C> 
+C> THIS ROUTINE IS CALLED BY: ireadmg()  readns()   rdmgsb()   rewnbf()
+C>                            ufbinx()   ufbpos()
+C>                            <br>Also called by application programs.
 C>
       SUBROUTINE READMG(LUNXX,SUBSET,JDATE,IRET)
-
-
 
       USE MODA_MSGCWD
       USE MODA_SC3BFR
@@ -174,5 +190,4 @@ C  -----
      . ' BE OPEN FOR INPUT')
 901   CALL BORT('BUFRLIB: READMG - INPUT BUFR FILE IS OPEN FOR OUTPUT'//
      . ', IT MUST BE OPEN FOR INPUT')
-902   CALL BORT('BUFRLIB: READMG - ERROR READING A BUFR MESSAGE')
       END

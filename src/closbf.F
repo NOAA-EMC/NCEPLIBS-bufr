@@ -1,49 +1,42 @@
 C> @file
-C> @author WOOLLEN @date 1994-01-06
-      
-C> THIS SUBROUTINE IS CALLED IN ORDER TO TERMINATE BUFR
-C>   ARCHIVE LIBRARY SOFTWARE ACCESS TO A LOGICAL UNIT LUNIT FOR INPUT
-C>   OR OUTPUT OPERATIONS (PREVIOUSLY OPENED BY A FORTRAN "OPEN" ON THE
-C>   LOGICAL UNIT AND BY BUFR ARCHIVE LIBRARY SUBROUTINE OPENBF).
-C>   CLOSBF MUST BE CALLED WHEN LUNIT IS CONNECTED TO A BUFR FILE OPEN
-C>   FOR OUTPUT IN ORDER TO PROPERLY CLOSE AND WRITE ANY CURRENT BUFR
-C>   MESSAGE WHICH MAY STILL EXIST IN INTERNAL MEMORY (AND MOST LIKELY
-C>   NOT BE FULL).  IT IS NOT MANDATORY THAT CLOSBF BE CALLED WHEN LUNIT
-C>   IS CONNECTED TO A BUFR FILE OPEN FOR INPUT, BUT IT IS STILL A GOOD
-C>   IDEA TO DO SO.
+C> @authors Jack Woollen
+C> @authors Jeff Ator
+C> @date 2020-07-16
+C>      
+C> @brief This subroutine closes the connection between logical unit
+C> LUNIT and the BUFRLIB software.
+C>
+C> @param[in] LUNIT    - integer: Fortran logical unit number for BUFR file
+C>
+C> @remarks
+C> - This subroutine will execute a Fortran "CLOSE" on logical unit LUNIT,
+C> even though subroutine openbf() didn't previously handle the corresponding
+C> Fortran "OPEN" of the same file.
+C> - It's a good idea to call this subroutine for every LUNIT that was
+C> opened to the software via openbf(); however, it's especially
+C> important to do so when writing/encoding a BUFR file, in order to
+C> ensure that all output is properly flushed to LUNIT.
 C>
 C> PROGRAM HISTORY LOG:
-C> 1994-01-06  J. WOOLLEN -- ORIGINAL AUTHOR
-C> 2003-11-04  J. ATOR    -- DON'T CLOSE LUNIT IF OPENED AS A NULL FILE
-C>                           BY OPENBF {NULL(LUN) = 1 IN NEW COMMON
-C>                           BLOCK /NULBFR/} (WAS IN DECODER VERSION)
-C> 2003-11-04  S. BENDER  -- ADDED REMARKS/BUFRLIB ROUTINE
-C>                           INTERDEPENDENCIES
-C> 2003-11-04  D. KEYSER  -- UNIFIED/PORTABLE FOR WRF; ADDED
-C>                           DOCUMENTATION (INCLUDING HISTORY)
-C> 2012-09-15  J. WOOLLEN -- MODIFIED FOR C/I/O/BUFR INTERFACE;
-C>                        -- ADDED CALL TO CLOSFB TO CLOSE C FILES
-C> 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
-C>
-C> USAGE:    CALL CLOSBF (LUNIT)
-C>   INPUT ARGUMENT LIST:
-C>     LUNIT    - INTEGER: FORTRAN LOGICAL UNIT NUMBER FOR BUFR FILE
-C>
-C>   INPUT FILES:
-C>     UNIT "LUNIT"  - BUFR FILE
-C>
-C>   OUTPUT FILES:
-C>     UNIT "LUNIT"  - BUFR FILE
-C>
-C> REMARKS:
-C>    THIS ROUTINE CALLS:        CLOSFB   CLOSMG   STATUS   WTSTAT
-C>    THIS ROUTINE IS CALLED BY: COPYBF   EXITBUFR MESGBF   UFBINX
-C>                               UFBMEM   UFBMEX   UFBTAB
-C>                               Also called by application programs.
+C> - 1994-01-06  J. Woollen -- ORIGINAL AUTHOR
+C> - 2003-11-04  J. Ator    -- Don't close lunit if opened as a NULL file
+C>                             by openbf()
+C> - 2003-11-04  S. Bender  -- Added remarks and routine interdependencies
+C> - 2003-11-04  D. Keyser  -- Unified/portable for WRF; added history
+C>                             documentation
+C> - 2012-09-15  J. Woollen -- Modified for C/I/O/BUFR interface;
+C>                             added call to closfb() to close C files
+C> - 2014-12-10  J. Ator    -- Use modules instead of COMMON blocks
+C> - 2020-07-16  J. Ator    -- Add sanity check to ensure that openbf()
+C>                             was previously called (needed for GSI)
+C> 
+C> THIS ROUTINE CALLS:        closfb() closmg() status() wtstat()
+C> 
+C> THIS ROUTINE IS CALLED BY: copybf() exitbufr() mesgbf() ufbinx()
+C>                            ufbmem() ufbmex()   ufbtab()
+C>                            <br>Also called by application programs.
 C>
       SUBROUTINE CLOSBF(LUNIT)
-
-
 
       USE MODA_NULBFR
 
@@ -52,15 +45,18 @@ C>
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
-#ifdef DYNAMIC_ALLOCATION   
+
+#ifdef DYNAMIC_ALLOCATION
       IF ( .NOT. ALLOCATED(NULL) ) THEN
         CALL ERRWRT('++++++++++++++++++++WARNING++++++++++++++++++++++')
-        ERRSTR = 'BUFRLIB: CLOSBF CALLED BEFORE OPENBF'
+        ERRSTR = 'BUFRLIB: CLOSBF WAS CALLED WITHOUT HAVING ' //
+     .           'PREVIOUSLY CALLED OPENBF'
         CALL ERRWRT(ERRSTR)
         CALL ERRWRT('++++++++++++++++++++WARNING++++++++++++++++++++++')
         RETURN
       ENDIF
 #endif
+
       CALL STATUS(LUNIT,LUN,IL,IM)
       IF(IL.GT.0 .AND. IM.NE.0) CALL CLOSMG(LUNIT)
       IF(IL.NE.0 .AND. NULL(LUN).EQ.0) CALL CLOSFB(LUN)
