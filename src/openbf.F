@@ -3,26 +3,11 @@ C> @authors Jack Woollen
 C> @authors Jeff Ator
 C> @authors Dennis Keyser
 C> @date 2015-03-03
-
-C> @brief This subroutine identifies a new logical unit to the BUFR archive
-C>   library software for input or output operations.
-
-C> However, the first time it is called, it also figures out some important
-C> information about the local machine on which the software is being run,
-C> and it also initializes arrays in many BUFR archive library COMMON blocks.
-C> Multiple logical units can be connected to the software at any one time.
 C>
-C> If IO is passed in as 'QUIET', then this subroutine performs only one
-C> function - it simply sets the "degree of printout" switch IPRT (in
-C> COMMON block /QUIET/) to the value of input argument LUNDX, overriding
-C> its previous value.  A default IPRT value of 0 (i.e. limited printout) is
-C> set during the first call to this subroutine, but this or any other IPRT
-C> value may be set and reset as often as desired via successive calls with
-C> IO = 'QUIET'.  In all such cases, the subroutine will simply (re)set IPRT
-C> and then return without actually opening any files.  The degree of
-C> printout increases as IPRT increases from "-1" to "0" to "1" to "2".
+C> @brief This subroutine identifies a new file to the BUFRLIB software for
+C> input or output operations.
 C>
-C> @param[in] LUNIT    - integer: FORTRAN logical unit number for BUFR
+C> @param[in] LUNIT    - integer: Fortran logical unit number for BUFR
 C>                       file (unless IO is set to 'QUIET', in which
 C>                       case this is then a dummy argument)
 C> @param[in] IO       - character*(*): flag indicating how LUNIT is to be
@@ -55,19 +40,72 @@ C>                             that the value for IPRT in COMMON block
 C>                             /QUIET/ is being reset (see LUNDX)
 C>                 - 'FIRST' = calls bfrini() and wrdlen() as a prelude to
 C>                             user resetting of global parameters such as
-c                              missing value or output block type
+C>                             missing value or output block type
 C> @param[in] LUNDX    - integer:
-C>                 - If IO is not 'QUIET' = FORTRAN logical unit number
+C>                 - If IO is not 'QUIET' = Fortran logical unit number
 C>                   containing dictionary table information to be used in
 C>                   reading/writing from/to LUNIT (depending on the case).
 C>                   This value may be set equal to LUNIT if dictionary table
 C>                   information is already embedded in LUNIT
-C>                 - IF IO IS 'QUIET' = indicator for degree of printout:
+C>                 - If IO is 'QUIET' = indicator for degree of printout:
 C>                      - -1 = no printout except for ABORT messages
 C>                      -  0 = limited printout (default)
 C>                      -  1 = all warning messages are printed out
 C>                      -  2 = all warning and informational messages are
 C>                             printed out
+C>
+C> <p>The logical unit numbers LUNIT and LUNDX must already be associated
+C> with actual filenames on the local system, typically via a Fortran "OPEN"
+C> statement. Multiple logical units can be connected to the software at any
+C> one time.
+C>
+C> <p>The argument IO is a character string describing how the file connected to
+C> LUNIT will be used, e.g. 'IN' is used to access an existing file of BUFR
+C> messages for input (i.e. reading/decoding BUFR), and 'OUT' is used to access
+C> a new file for output (i.e. writing/encoding BUFR). An option 'APX' is also
+C> available which behaves like 'OUT', except that output is then appended to
+C> an existing BUFR file rather than creating a new one from scratch, and there
+C> are also some additional options 'NUL' and 'NODX' which can likewise be used
+C> instead of 'OUT' for some very special cases as needed. There's also an
+C> option 'SEC3' which can be used in place of 'IN' for certain cases when the
+C> user is attempting to read BUFR messages whose content and descriptor layout
+C> are unknown in advance. However, all of these additional options are
+C> basically just variations of 'IN' or 'OUT', again depending on whether the
+C> intent is to read or write BUFR messages from the file connected to LUNIT.
+C> The only exception is when IO = 'QUIET', and in this case the subroutine
+C> performs only one function - it simply sets or resets the print verbosity
+C> switch to the value of input argument LUNDX, overriding its previous value.
+C> A default verbosity value of 0 (i.e. limited printout) is set during the first
+C> call to this subroutine, but other options are also available as shown below.
+C>
+C> <p>The third and final call argument LUNDX identifies the logical unit which
+C> contains the definition of the DX BUFR tables to be associated with unit
+C> LUNIT.  Except when IO = 'SEC3', every BUFR file that is linked to the BUFRLIB
+C> software must have a DX BUFR tables file associated with it, and these tables
+C> may be defined within a separate ASCII text file (see Description and Format
+C> of DX BUFR Tables for more info.) or, in the case of an existing BUFR file,
+C> may be embedded within the first few BUFR messages of the file itself, and in
+C> which case the user can denote this to the subroutine by setting LUNDX to the
+C> same value as LUBFR.
+C>
+C> @remarks
+C> - When an existing BUFR file is accessed for input (i.e. reading/decoding BUFR),
+C> the associated DX BUFR tables defined by LUNDX are stored internally within
+C> the BUFRLIB software and are referenced during all subsequent processing of
+C> the file. Likewise, when a file is accessed for output (i.e. writing/encoding
+C> BUFR), the associated DX BUFR tables are still stored internally for subsequent
+C> reference; however, the output file itself is also initialized by writing the
+C> BUFR table information (as one or more BUFR messages) to the beginning of the
+C> file, except when IO = 'NODX', and in which case the writing of these
+C> additional messages is suppressed.
+C> - As noted above, 'SEC3' is the only value of IO (other than 'QUIET') where it's
+C> not necessary to provide pre-defined DX BUFR tables via LUNDX.  Instead, this
+C> option instructs the BUFRLIB software to unpack the data description section
+C> (Section 3) from each BUFR message it reads and then decode the contents
+C> accordingly. In this case, it's necessary to provide a set of BUFR master
+C> tables containing listings of all possible BUFR descriptors (see Description
+C> and Format of BUFR Master Tables for more info.), but otherwise no prior
+C> knowledge is required of the contents of the messages to be decoded.
 C>
 C> PROGRAM HISTORY LOG:
 C> - 1994-01-06  J. Woollen -- Original author
@@ -118,8 +156,6 @@ C>                            setblock()
 C>                            <br>Also called by application programs.
 C>
       SUBROUTINE OPENBF(LUNIT,IO,LUNDX)
-
-
 
       USE MODA_MSGCWD
       USE MODA_STBFR

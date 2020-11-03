@@ -1,45 +1,48 @@
 C> @file
-C> @author WOOLLEN @date 1994-01-06
-      
-C> THIS FUNCTION CALLS BUFR ARCHIVE LIBRARY SUBROUTINE READMG
-C>   AND PASSES BACK ITS RETURN CODE.  SEE READMG FOR MORE DETAILS.
+C> @author Jack Woollen
+C> @date 2003-11-04
+C>      
+C> @brief This function calls BUFRLIB subroutine readmg() and passes
+C> back its return code as the function value.
+C>
+C> @param[in] LUNIT  - integer: Fortran logical unit number for BUFR file
+C> @param[out] SUBSET   - character*8: Table A mnemonic for type of BUFR
+C>                        message that was read (see Description and Format
+C>                        of DX BUFR Tables for further information about
+C>                        Table A mnemonics)
+C> @param[out] JDATE    - integer: date-time stored within Section 1 of
+C>                        BUFR message that was read, in format of either
+C>                        YYMMDDHH or YYYYMMDDHH, depending on the most
+C>                        recent call to subroutine datelen()
+C> @returns ireadmg - integer:
+C>                        - 0 = new BUFR message was successfully
+C>                              read into internal arrays
+C>                        - -1 = there are no more BUFR messages in the
+C>                               file connected to logical unit LUNIT
+C>
+C> @remarks
+C> - The use of this function allows the return code from readmg() to be
+C> used as the target variable within an iterative program loop.
 C>
 C> PROGRAM HISTORY LOG:
-C> 1994-01-06  J. WOOLLEN -- ORIGINAL AUTHOR
-C> 1999-11-18  J. WOOLLEN -- ADDED NEW FUNCTION ENTRY POINTS IREADMM AND
-C>                           IREADIBM
-C> 2002-05-14  J. WOOLLEN -- REMOVED ENTRY POINTS ICOPYSB, IREADFT,
-C>                           IREADIBM, IREADMM, IREADNS AND IREADSB
-C>                           (THEY BECAME SEPARATE ROUTINES IN THE
-C>                           BUFRLIB TO INCREASE PORTABILITY TO OTHER
-C>                           PLATFORMS)
-C> 2003-11-04  S. BENDER  -- ADDED REMARKS/BUFRLIB ROUTINE
-C>                           INTERDEPENDENCIES
-C> 2003-11-04  D. KEYSER  -- UNIFIED/PORTABLE FOR WRF; ADDED
-C>                           DOCUMENTATION (INCLUDING HISTORY)
+C> - 1994-01-06  J. Woollen -- Original author
+C> - 1999-11-18  J. Woollen -- Added new function entry points ireadmm and
+C>                             ireadibm
+C> - 2002-05-14  J. Woollen -- Removed entry points icopysb, ireadft,
+C>                             ireadibm, ireadmm, ireadns and ireadsb
+C>                             (they became separate routines in the
+C>                             BUFRLIB to increase portability to other
+C>                             platforms)
+C> - 2003-11-04  S. Bender  -- Added remarks and routine interdependencies
+C> - 2003-11-04  D. Keyser  -- Unified/portable for WRF; added history
+C>                             documentation
 C>
-C> USAGE:    IREADMG (LUNIT, SUBSET, IDATE)
-C>   INPUT ARGUMENT LIST:
-C>     LUNIT    - INTEGER: FORTRAN LOGICAL UNIT NUMBER FOR BUFR FILE
+C> THIS ROUTINE CALLS:        readmg()
 C>
-C>   OUTPUT ARGUMENT LIST:
-C>     SUBSET   - CHARACTER*8: TABLE A MNEMONIC FOR TYPE OF BUFR MESSAGE
-C>                BEING READ
-C>     IDATE    - INTEGER: DATE-TIME STORED WITHIN SECTION 1 OF BUFR
-C>                MESSAGE BEING READ, IN FORMAT OF EITHER YYMMDDHH OR
-C>                YYYYMMDDHH, DEPENDING ON DATELEN() VALUE
-C>     IREADMG  - INTEGER: RETURN CODE:
-C>                       0 = normal return
-C>                      -1 = there are no more BUFR messages in LUNIT
-C>
-C> REMARKS:
-C>    THIS ROUTINE CALLS:        READMG
-C>    THIS ROUTINE IS CALLED BY: UFBTAB
-C>                               Also called by application programs.
+C> THIS ROUTINE IS CALLED BY: ufbtab()
+C>                            <br>Also called by application programs.
 C>
       FUNCTION IREADMG(LUNIT,SUBSET,IDATE)
-
-
 
       CHARACTER*8 SUBSET
       CALL READMG(LUNIT,SUBSET,IDATE,IRET)
