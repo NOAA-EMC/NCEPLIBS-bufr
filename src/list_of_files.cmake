@@ -306,6 +306,9 @@ set(fortran_src
   wrdlen.F
   bufr.interface.f90)
 
+set(f_hdr
+  ${CMAKE_CURRENT_BINARY_DIR}/bufrlib.inc)
+
 set(c_src
   arallocc.c
   ardllocc.c
