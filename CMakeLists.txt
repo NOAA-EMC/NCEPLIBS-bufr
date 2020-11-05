@@ -10,6 +10,9 @@ project(
     VERSION ${pVersion}
     LANGUAGES C Fortran)
 
+# Handle user options.  
+option(ENABLE_DOCS "Enable generation of doxygen-based documentation." OFF)
+
 if(NOT CMAKE_BUILD_TYPE MATCHES "^(Debug|Release|RelWithDebInfo|MinSizeRel)$")
   message(STATUS "Setting build type to 'Release' as none was specified.")
   set(CMAKE_BUILD_TYPE
@@ -64,9 +67,8 @@ add_subdirectory(utils)
 enable_testing()
 add_subdirectory(test)
 
-# Determine whether or not to generate documentation.
-option(ENABLE_DOCS "Enable generation of doxygen-based documentation." OFF)
+# Generate doxygen documentation if desired.
 if(ENABLE_DOCS)
   find_package(Doxygen REQUIRED)
+  add_subdirectory(docs)  
 endif()
-add_subdirectory(docs)  
