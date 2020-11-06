@@ -55,6 +55,10 @@ C>                           WHERE FIRST REPLICATION OF OUTER SEQUENCE
 C>                           DOES NOT CONTAIN A REPLICATION OF THE INNER
 C>                           SEQUENCE
 C> 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
+C> 2020-03-06  J. ATOR    -- NO LONGER ABORT WHEN READING DATA AND NUMBER
+C>                           OF AVAILABLE LEVELS IS GREATER THAN I2;
+C>                           INSTEAD JUST RETURN FIRST I2 LEVELS AND
+C>                           PRINT A DIAGNOSTIC MESSAGE
 C>
 C> USAGE:    CALL UFBSEQ (LUNIN, USR, I1, I2, IRET, STR)
 C>   INPUT ARGUMENT LIST:
@@ -264,7 +268,17 @@ C  ----------------------------------------------------
             INS1 = INS1+1
             GOTO 1
          ELSEIF(IO.EQ.0.AND.IRET+1.GT.I2) THEN
-            GOTO 909
+            IF(IPRT.GE.0)  THEN
+      CALL ERRWRT('++++++++++++BUFR ARCHIVE LIBRARY+++++++++++++++')
+      WRITE ( UNIT=ERRSTR, FMT='(A,I5,A,A,A)' )
+     . 'BUFRLIB: UFBSEQ - INCOMPLETE READ; ONLY THE FIRST ', I2,
+     . ' (=4TH INPUT ARG.) ''LEVELS'' OF INPUT MNEMONIC ', TAGS(1),
+     . ' WERE READ'
+      CALL ERRWRT(ERRSTR)
+      CALL ERRWRT('++++++++++++BUFR ARCHIVE LIBRARY+++++++++++++++')
+      CALL ERRWRT(' ')
+            ENDIF
+            GOTO 200
          ENDIF
       ELSEIF(INS1.EQ.0) THEN
          IF(IO.EQ.1.AND.IRET.LT.I2) GOTO 910
@@ -367,10 +381,6 @@ C  -----
 908   WRITE(BORT_STR,'("BUFRLIB: UFBSEQ - INPUT SEQ. MNEM. ",A,'//
      . '" CONSISTS OF",I4," TABLE B MNEM., .GT. THE MAX. SPECIFIED IN'//
      . ' (INPUT) ARGUMENT 3 (",I3,")")') TAGS(1),NSEQ,I1
-      CALL BORT(BORT_STR)
-909   WRITE(BORT_STR,'("BUFRLIB: UFBSEQ - NO. OF ''LEVELS'' READ > '//
-     . 'LIMIT OF",I5," IN THE 4-TH ARG. (INPUT) - INCOMPLETE READ '//
-     . '(INPUT MNEMONIC IS ",A,")")') I2,TAGS(1)
       CALL BORT(BORT_STR)
 910   WRITE(BORT_STR,'("BUFRLIB: UFBSEQ - NO. OF ''LEVELS'' WRITTEN '//
      . '(",I5,") .LT. NO. REQUESTED (",I5,") - INCOMPLETE WRITE '//

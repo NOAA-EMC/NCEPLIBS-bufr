@@ -1,6 +1,6 @@
 C> @file
 C> @author WOOLLEN @date 2003-11-04
-      
+C>      
 C> THIS SUBROUTINE RETURNS A CHARACTER DATA ELEMENT ASSOCIATED
 C>   WITH A PARTICULAR SUBSET MNEMONIC FROM THE INTERNAL MESSAGE BUFFER
 C>   (ARRAY MBAY IN MODULE BITBUF).  IT IS DESIGNED TO BE USED TO RETURN
@@ -22,6 +22,8 @@ C> 2009-04-21  J. ATOR    -- USE ERRWRT
 C> 2012-12-07  J. ATOR    -- ALLOW STR MNEMONIC LENGTH OF UP TO 14 CHARS
 C>                           WHEN USED WITH '#' OCCURRENCE CODE
 C> 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
+C> 2020-09-09  J. ATOR    -- SET CHR TO MISSING INSTEAD OF ALL BLANKS
+C>                           IF STR ISN'T FOUND IN SUBSET
 C>
 C> USAGE:    CALL READLC (LUNIT, CHR, STR)
 C>   INPUT ARGUMENT LIST:
@@ -33,14 +35,12 @@ C>     CHR      - CHARACTER*(*): UNPACKED CHARACTER STRING (I.E.,
 C>                CHARACTER DATA ELEMENT GREATER THAN EIGHT BYTES)
 C>
 C> REMARKS:
-C>    THIS ROUTINE CALLS:        BORT     ERRWRT   PARSTR   PARUTG
-C>                               STATUS   UPC
+C>    THIS ROUTINE CALLS:        BORT     ERRWRT   IPKM     PARSTR
+C>                               PARUTG   STATUS   UPC
 C>    THIS ROUTINE IS CALLED BY: UFBDMP   UFDUMP   WRTREE
 C>                               Also called by application programs.
 C>
       SUBROUTINE READLC(LUNIT,CHR,STR)
-
-
 
       USE MODA_USRINT
       USE MODA_USRBIT
@@ -64,6 +64,7 @@ C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
 
       CHR = ' '
+      LCHR=LEN(CHR)
 
 C  CHECK THE FILE STATUS
 C  ---------------------
@@ -112,7 +113,7 @@ C        The message is uncompressed
              IF(ITAGCT.EQ.IOID) THEN
                IF(ITP(NOD).NE.3) GOTO 904
                NCHR = NBIT(N)/8
-               IF(NCHR.GT.LEN(CHR)) GOTO 905
+               IF(NCHR.GT.LCHR) GOTO 905
                KBIT = MBIT(N)
                CALL UPC(CHR,NCHR,MBAY(1,LUN),KBIT,.TRUE.)
                GOTO 100
@@ -130,7 +131,7 @@ C        The message is compressed
                ITAGCT = ITAGCT + 1
                IF(ITAGCT.EQ.IOID) THEN
                  NCHR = IRNCH(II)
-                 IF(NCHR.GT.LEN(CHR)) GOTO 905
+                 IF(NCHR.GT.LCHR) GOTO 905
                  KBIT = IRBIT(II)
                  CALL UPC(CHR,NCHR,MBAY(1,LUN),KBIT,.TRUE.)
                  GOTO 100
@@ -147,12 +148,15 @@ C     If we made it here, then we couldn't find the requested string.
       IF(IPRT.GE.0) THEN
       CALL ERRWRT('++++++++++++++BUFR ARCHIVE LIBRARY+++++++++++++++++')
       ERRSTR = 'BUFRLIB: READLC - MNEMONIC ' // TGS(1) //
-     .   ' NOT LOCATED IN REPORT SUBSET - RETURN WITH BLANK' //
+     .   ' NOT LOCATED IN REPORT SUBSET - RETURN WITH MISSING' //
      .   ' STRING FOR CHARACTER DATA ELEMENT'
       CALL ERRWRT(ERRSTR)
       CALL ERRWRT('++++++++++++++BUFR ARCHIVE LIBRARY+++++++++++++++++')
       CALL ERRWRT(' ')
       ENDIF
+      DO II=1,LCHR
+        CALL IPKM(CHR(II:II),1,255)
+      ENDDO
 
 C  EXITS
 C  -----
@@ -173,7 +177,7 @@ C  -----
       CALL BORT(BORT_STR)
 905   WRITE(BORT_STR,'("BUFRLIB: READLC - MNEMONIC ",A," IS A '//
      . 'CHARACTER STRING OF LENGTH",I4," BUT SPACE WAS PROVIDED '//
-     . 'FOR ONLY",I4, " CHARACTERS")') TGS(1),NCHR,LEN(CHR)
+     . 'FOR ONLY",I4, " CHARACTERS")') TGS(1),NCHR,LCHR
       CALL BORT(BORT_STR)
 906   WRITE(BORT_STR,'("BUFRLIB: READLC - MESSAGE UNPACK TYPE",I3,'//
      . '" IS NOT RECOGNIZED")') MSGUNP
