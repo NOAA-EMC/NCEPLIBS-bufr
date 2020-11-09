@@ -152,9 +152,7 @@ C  --------------------------------
       IF(IM.EQ.0) GOTO 902
       IF(INODE(LUN).NE.INV(1,LUN)) GOTO 903
 
-      WRITE(LUOUT,*)
-      WRITE(LUOUT,*) 'MESSAGE TYPE ',TAG(INODE(LUN))
-      WRITE(LUOUT,*)
+      WRITE(LUOUT,FMT='(/,2A,/)') 'MESSAGE TYPE ',TAG(INODE(LUN))
 
 C  DUMP THE CONTENTS OF MODULE USRINT FOR UNIT LUNIT
 C  -------------------------------------------------
