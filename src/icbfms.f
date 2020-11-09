@@ -27,7 +27,7 @@ C>                1 - STR IS "MISSING"
 C>
 C> REMARKS:
 C>    THIS ROUTINE CALLS:        IUPM
-C>    THIS ROUTINE IS CALLED BY: RDCMPS   RDTREE   UFDUMP
+C>    THIS ROUTINE IS CALLED BY: RDCMPS   RDTREE   UFBDMP   UFDUMP
 C>                               Also called by application programs.
 C>
 	INTEGER FUNCTION ICBFMS ( STR, LSTR )

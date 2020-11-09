@@ -1,6 +1,6 @@
 C> @file
 C> @author WOOLLEN @date 1994-01-06
-      
+C>      
 C> THIS SUBROUTINE DUMPS A DETAILED PRINT LISTING OF THE
 C>   CONTENTS OF THE UNPACKED DATA SUBSET CURRENTLY RESIDING IN THE
 C>   INTERNAL ARRAYS ASSOCIATED WITH THE BUFR FILE IN LOGICAL UNIT
@@ -62,6 +62,7 @@ C> 2006-04-14  D. KEYSER  -- ADD CALL TO UPFTBV FOR FLAG TABLES TO GET
 C>                           ACTUAL BITS THAT WERE SET TO GENERATE VALUE
 C> 2007-01-19  J. ATOR    -- USE FUNCTION IBFMS
 C> 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
+C> 2020-09-09  J. ATOR    -- FIX MISSING CHECK FOR LONG CHARACTER STRINGS
 C>
 C> USAGE:    CALL UFBDMP (LUNIN, LUPRT)
 C>   INPUT ARGUMENT LIST:
@@ -108,15 +109,13 @@ C>    ENTERS "q" FOLLOWED BY "<enter>" AFTER THE PROMPT, IN WHICH CASE
 C>    THIS SUBROUTINE STOPS THE SCROLL AND RETURNS TO THE CALLING
 C>    PROGRAM (PRESUMABLY TO READ IN THE NEXT SUBSET IN THE BUFR FILE).
 C>
-C>    THIS ROUTINE CALLS:        BORT     IBFMS    ISIZE    READLC
-C>                               RJUST    STATUS   UPFTBV
+C>    THIS ROUTINE CALLS:        BORT     IBFMS    ICBFMS   ISIZE
+C>                               READLC   RJUST    STATUS   UPFTBV
 C>    THIS ROUTINE IS CALLED BY: None
 C>                               Normally called only by application
 C>                               programs.
 C>
       SUBROUTINE UFBDMP(LUNIN,LUPRT)
-
-
 
       USE MODA_USRINT
       USE MODA_MSGCWD
@@ -125,7 +124,8 @@ C>
 
       INCLUDE 'bufrlib.inc'
 
-      CHARACTER*20 LCHR
+      CHARACTER*120 LCHR2
+      CHARACTER*20 LCHR,PMISS
       CHARACTER*14 BITS
       CHARACTER*10 TG,TG_RJ
       CHARACTER*8  VC
@@ -138,6 +138,7 @@ C>
       PARAMETER (MXFV=31)
       INTEGER	IFV(MXFV)
 
+      DATA PMISS /'             MISSING'/
       DATA YOU /'Y'/
 
 C----------------------------------------------------------------------
@@ -225,9 +226,7 @@ C              this value.
             ENDIF
          ENDIF
          IF(IBFMS(VL).NE.0) THEN
-            LCHR = 'MISSING'
-            RJ = RJUST(LCHR)
-            WRITE(LUOUT,2) NV,TP,IT,TG_RJ,LCHR,IB,IS,IR,ND,JP,LK,JB
+            WRITE(LUOUT,2) NV,TP,IT,TG_RJ,PMISS,IB,IS,IR,ND,JP,LK,JB
          ELSE
             IF(LUNIT.EQ.LUNIN) THEN
                WRITE(LUOUT,1) NV,TP,IT,TG_RJ,VL,BITS,IB,IS,IR,ND,JP,LK,
@@ -238,14 +237,28 @@ C              this value.
             ENDIF
          ENDIF
       ELSE
-         IF(IB.GT.64) THEN
-            CALL READLC(LUNIT,LCHR,TG_RJ)
+         NCHR=IB/8
+         IF(NCHR.GT.8) THEN
+            CALL READLC(LUNIT,LCHR2,TG_RJ)
+            IF (ICBFMS(LCHR2,NCHR).NE.0) THEN
+               LCHR = PMISS
+            ELSE
+               LCHR = LCHR2(1:20)
+            ENDIF
          ELSE
-            LCHR = VC
+            IF(IBFMS(VL).NE.0) THEN
+               LCHR = PMISS
+            ELSE
+               LCHR = VC
+            ENDIF
          ENDIF
-         IF(IBFMS(VL).NE.0) LCHR = 'MISSING'
-         RJ = RJUST(LCHR)
-         WRITE(LUOUT,2) NV,TP,IT,TG_RJ,LCHR,IB,IS,IR,ND,JP,LK,JB
+         IF ( NCHR.LE.20 .OR. LCHR.EQ.PMISS ) THEN
+            RJ = RJUST(LCHR)
+            WRITE(LUOUT,2) NV,TP,IT,TG_RJ,LCHR,IB,IS,IR,ND,JP,LK,JB
+         ELSE
+            WRITE(LUOUT,4) NV,TP,IT,TG_RJ,LCHR2(1:NCHR),IB,IS,IR,ND,JP,
+     .       LK,JB
+         ENDIF
       ENDIF
       ENDDO
 
@@ -253,8 +266,9 @@ C              this value.
 
 1     FORMAT(I5,1X,A3,'-',I1,1X,A10,5X,G15.6,1X,A14,7(1X,I5))
 10    FORMAT(I5,1X,A3,'-',I1,1X,A10,5X,F15.6,1X,A14,7(1X,I5))
-2     FORMAT(I5,1X,A3,'-',I1,1X,A10,   A20,  15X,   7(1X,I5))
+2     FORMAT(I5,1X,A3,'-',I1,1X,A10,1X,   A20,  14X,7(1X,I5))
 3     FORMAT(/' >>> END OF SUBSET <<< '/)
+4     FORMAT(I5,1X,A3,'-',I1,1X,A10,1X,      A,     7(1X,I5))
 
 C  EXITS
 C  -----
