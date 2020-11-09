@@ -60,7 +60,7 @@ C*	reference values that will be modified with the 2-03 operator.
 	r8ymd(3,1) = 12
 	CALL UFBSEQ ( 11, r8ymd, 3, 1, nlv, 'YYMMDD' )
 	r8ltl(1,1) = -35.77
-	r8ltl(2,1) = 172.40
+	r8ltl(2,1) = 172.38
 	CALL UFBSEQ ( 11, r8ltl, 2, 1, nlv, 'LTLONH' )
 	print *, '        UFBSEQ'
 

@@ -38,6 +38,7 @@ C> 2009-03-23  J. ATOR    -- USE IUPBS3 AND NEMTBAX; DON'T ASSUME THAT
 C>                           COMPRESSED MESSAGES ARE ALREADY FULLY
 C>                           STANDARDIZED WITHIN SECTION 3
 C> 2014-02-04  J. ATOR    -- ACCOUNT FOR SUBSETS WITH BYTE COUNT > 65530
+C> 2020-07-16  J. ATOR    -- FIX BUG IN ISLEN COMPUTATION WHEN NSUB = 1
 C>
 C> USAGE:    CALL STNDRD (LUNIT, MSGIN, LMSGOT, MSGOT)
 C>   INPUT ARGUMENT LIST:
@@ -63,8 +64,6 @@ C>    THIS ROUTINE IS CALLED BY: MSGWRT
 C>                               Also called by application programs.
 C>
       SUBROUTINE STNDRD(LUNIT,MSGIN,LMSGOT,MSGOT)
-
-
 
       INCLUDE 'bufrlib.inc'
 
@@ -224,6 +223,7 @@ C                 WHICH CASE WE CAN'T RELY ON THE VALUE STORED IN THE
 C                 BYTE COUNTER.  EITHER WAY, WE DON'T REALLY NEED IT.
 
                   ISLEN = IAD4+LEN4-(IBIT/8)
+                  IF (MOD(LEN4,2).EQ.0) ISLEN = ISLEN - 1
               ENDIF
               DO L=1,ISLEN
                   CALL UPB(NVAL,8,MSGIN,IBIT)

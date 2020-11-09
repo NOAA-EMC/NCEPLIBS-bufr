@@ -71,25 +71,9 @@ list(APPEND test_OUT_3_srcs
   test_OUT_3.f
 )
 
-# IN tests data
-list(APPEND test_IN_bufr_data
-  IN_1 IN_2 IN_3 IN_4 IN_5
-  bufrtab.CodeFlag_LOC_0_7_1
-  bufrtab.CodeFlag_STD_0_13
-  bufrtab.TableB_LOC_0_7_1
-  bufrtab.TableB_STD_0_13
-  bufrtab.TableB_STD_0_14
-  bufrtab.TableD_LOC_0_7_1
-  bufrtab.TableD_STD_0_13
-  bufrtab.TableD_STD_0_14
-  )
-
-# OUT tests data
-list(APPEND test_OUT_bufr_data
-  OUT_1 OUT_2 OUT_3
-  OUT_1_bufrtab OUT_2_bufrtab OUT_3_bufrtab
-  OUT_2_preAPX
-  )
+list(APPEND test_OUT_4_srcs
+  test_OUT_4.f
+)
 
 # Install test_wrapper.sh
 execute_process( COMMAND ${CMAKE_COMMAND} -E copy
@@ -159,9 +143,9 @@ foreach(test_src ${test_OUT_2_srcs})
   endforeach()
 endforeach()
 
-# OUT_3 tests only run with DA library and Intel
+# OUT_3 and OUT_4 tests only run with DA library and Intel
 if(CMAKE_C_COMPILER_ID MATCHES "^(Intel)$")
-foreach(test_src ${test_OUT_3_srcs})
+foreach(test_src IN ITEMS ${test_OUT_3_srcs} ${test_OUT_4_srcs})
   string(REPLACE ".f" "" testPref ${test_src})
   foreach(kind ${test_kinds})
     if(${kind} MATCHES "^([4|8|d]_DA)$")
