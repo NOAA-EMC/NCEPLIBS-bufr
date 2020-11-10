@@ -1,11 +1,12 @@
 configure_file(setup.py.in setup.py @ONLY)
 
-add_custom_target(pyncepbufr_build ALL
-                  COMMAND ${Python3_EXECUTABLE} setup.py build_ext --inplace
-                  WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
-                  DEPENDS setup.py.in bufr_4_DA)
-
 file( COPY ncepbufr utils DESTINATION . )
+
+# Build the extension module for use in install tree with RPATH pointing to install tree
+install(CODE "message(\"Building Python extension modules:
+${Python3_EXECUTABLE} setup.py build_ext --rpath ${CMAKE_INSTALL_PREFIX}/${INSTALL_LIB_DIR}\")
+              execute_process(COMMAND ${Python3_EXECUTABLE} setup.py build_ext --rpath ${CMAKE_INSTALL_PREFIX}/${INSTALL_LIB_DIR}
+                              WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR})")
 
 # Library installation directory
 execute_process(COMMAND ${Python3_EXECUTABLE} -c "from __future__ import print_function; import sys; print(sys.version[:3], end='')"
@@ -28,8 +29,13 @@ ${Python3_EXECUTABLE} setup.py install \${__root}
                                         --record=${CMAKE_BINARY_DIR}/extra_install.txt
                               WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR})")
 
-#if(ENABLE_DOCS)
-#   # Uses pdoc (https://github.com/BurntSushi/pdoc)
-#   # to create html docs from docstrings in python source.
-#   pdoc --html --html-no-source --overwrite --html-dir 'docs' ncepbufr
-#endif()
+if(ENABLE_DOCS)
+  find_program(PDOC_EXECUTABLE pdoc)
+  # Uses pdoc (https://github.com/BurntSushi/pdoc)
+  if (PDOC_EXECUTABLE)
+    add_custom_target( pydoc ALL
+                      COMMAND ${PDOC_EXECUTABLE} --html --html-no-source --overwrite --html-dir 'py-docs' ncepbufr
+                      WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+                      COMMENT "Generating Python API Documentation with pdoc" VERBATIM)
+  endif()
+endif()
