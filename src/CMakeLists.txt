@@ -49,7 +49,7 @@ include("list_of_files.cmake")
 
 foreach(kind ${kinds})
   set(lib_name ${PROJECT_NAME}_${kind})
-  set(module_dir "${CMAKE_CURRENT_BINARY_DIR}/include_${kind}")
+  set(module_dir "${CMAKE_CURRENT_BINARY_DIR}/include/bufr_${kind}")
 
   # determine ALLOCATION based on kind
   if(${kind} MATCHES "^([4|8|d]_DA)$")
@@ -58,14 +58,14 @@ foreach(kind ${kinds})
     set(allocation_def "STATIC_ALLOCATION")
   endif()
 
-  add_library(${lib_name}_f STATIC OBJECT ${fortran_src})
+  add_library(${lib_name}_f OBJECT ${fortran_src})
   set_target_properties(${lib_name}_f PROPERTIES COMPILE_FLAGS
                                                  "${fortran_${kind}_flags}")
   target_compile_definitions(${lib_name}_f PUBLIC "${allocation_def}")
   target_compile_definitions(${lib_name}_f PUBLIC "${underscore_def}")
   target_compile_definitions(${lib_name}_f PRIVATE "${endian_def}")
 
-  add_library(${lib_name}_c STATIC OBJECT ${c_src})
+  add_library(${lib_name}_c OBJECT ${c_src})
   set_target_properties(${lib_name}_c PROPERTIES COMPILE_FLAGS
                                                  "${c_${kind}_flags}")
   target_compile_definitions(${lib_name}_c PUBLIC "${allocation_def}")
@@ -75,8 +75,8 @@ foreach(kind ${kinds})
 
   set_target_properties(${lib_name}_f PROPERTIES Fortran_MODULE_DIRECTORY "${module_dir}")
 
-  add_library(${lib_name} STATIC $<TARGET_OBJECTS:${lib_name}_f>
-                                 $<TARGET_OBJECTS:${lib_name}_c>)
+  add_library(${lib_name} $<TARGET_OBJECTS:${lib_name}_f>
+                          $<TARGET_OBJECTS:${lib_name}_c>)
   add_library(${PROJECT_NAME}::${lib_name} ALIAS ${lib_name})
 
   target_include_directories(${lib_name} PUBLIC
@@ -84,27 +84,27 @@ foreach(kind ${kinds})
 
   target_include_directories(${lib_name} INTERFACE
     $<BUILD_INTERFACE:${module_dir}>
-    $<INSTALL_INTERFACE:include_${kind}>)
+    $<INSTALL_INTERFACE:include/bufr_${kind}>)
 
   target_compile_definitions(${lib_name} PUBLIC "${underscore_def}")
   target_compile_definitions(${lib_name} PUBLIC "${allocation_def}")
 
   list(APPEND LIB_TARGETS ${lib_name})
-  install(DIRECTORY ${module_dir} DESTINATION ${CMAKE_INSTALL_PREFIX})
-  install(FILES ${c_hdr} DESTINATION ${CMAKE_INSTALL_PREFIX}/include_${kind})
-  install(FILES ${f_hdr} DESTINATION ${CMAKE_INSTALL_PREFIX}/include_${kind})
+  install(DIRECTORY ${module_dir} DESTINATION ${CMAKE_INSTALL_PREFIX}/include)
+  install(FILES ${c_hdr} DESTINATION ${CMAKE_INSTALL_PREFIX}/include/bufr_${kind})
+  install(FILES ${f_hdr} DESTINATION ${CMAKE_INSTALL_PREFIX}/include/bufr_${kind})
 endforeach()
 
 install(
   TARGETS ${LIB_TARGETS}
   EXPORT ${PROJECT_NAME}Exports
-  RUNTIME DESTINATION bin
-  LIBRARY DESTINATION lib
-  ARCHIVE DESTINATION lib)
+  RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+  LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+  ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR})
 
 ### Package config
 include(CMakePackageConfigHelpers)
-set(CONFIG_INSTALL_DESTINATION lib/cmake/${PROJECT_NAME})
+set(CONFIG_INSTALL_DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/${PROJECT_NAME})
 
 export(EXPORT ${PROJECT_NAME}Exports
   NAMESPACE ${PROJECT_NAME}::

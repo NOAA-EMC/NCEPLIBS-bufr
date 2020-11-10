@@ -26,6 +26,8 @@ include(GNUInstallDirs)
 
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
+option(BUILD_SHARED_LIBS "Enable building shared libraries" OFF)
+
 # Determine the kinds upfront (both src/ and test/ need them).
 # Both GNU and Intel support DYNAMIC_ALLOCATION
 list(APPEND kinds "4_DA" "8_DA" "d_DA")
