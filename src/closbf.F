@@ -2,7 +2,7 @@ C> @file
 C> @authors Jack Woollen
 C> @authors Jeff Ator
 C> @date 2020-07-16
-C>      
+
 C> @brief This subroutine closes the connection between logical unit
 C> LUNIT and the BUFRLIB software.
 C>

@@ -1,6 +1,6 @@
 C> @file
 C> @author WOOLLEN @date 1994-01-06
-C>      
+
 C> THIS SUBROUTINE DUMPS A DETAILED PRINT LISTING OF THE
 C>   CONTENTS OF THE UNPACKED DATA SUBSET CURRENTLY RESIDING IN THE
 C>   INTERNAL ARRAYS ASSOCIATED WITH THE BUFR FILE IN LOGICAL UNIT
@@ -109,8 +109,8 @@ C>    ENTERS "q" FOLLOWED BY "<enter>" AFTER THE PROMPT, IN WHICH CASE
 C>    THIS SUBROUTINE STOPS THE SCROLL AND RETURNS TO THE CALLING
 C>    PROGRAM (PRESUMABLY TO READ IN THE NEXT SUBSET IN THE BUFR FILE).
 C>
-C>    THIS ROUTINE CALLS:        BORT     IBFMS    ICBFMS   ISIZE
-C>                               READLC   RJUST    STATUS   UPFTBV
+C>    THIS ROUTINE CALLS:   bort()   ibfms()   icbfms()  isize()
+C>                         readlc() rjust()  status()  upftbv()
 C>    THIS ROUTINE IS CALLED BY: None
 C>                               Normally called only by application
 C>                               programs.
