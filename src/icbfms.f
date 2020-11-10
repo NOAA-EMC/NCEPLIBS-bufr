@@ -26,13 +26,11 @@ C>                0 - STR IS NOT "MISSING"
 C>                1 - STR IS "MISSING"
 C>
 C> REMARKS:
-C>    THIS ROUTINE CALLS:        IUPM
-C>    THIS ROUTINE IS CALLED BY: RDCMPS   RDTREE   UFBDMP   UFDUMP
+C>    THIS ROUTINE CALLS:        iupm()
+C>    THIS ROUTINE IS CALLED BY: rdcmps()  rdtree()  ufbdmp()  ufdump()
 C>                               Also called by application programs.
 C>
 	INTEGER FUNCTION ICBFMS ( STR, LSTR )
-
-
 
 	INCLUDE	'bufrlib.inc'
 
