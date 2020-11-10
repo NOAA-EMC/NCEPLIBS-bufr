@@ -143,8 +143,7 @@ foreach(test_src ${test_OUT_2_srcs})
   endforeach()
 endforeach()
 
-# OUT_3 and OUT_4 tests only run with DA library and Intel
-if(CMAKE_C_COMPILER_ID MATCHES "^(Intel)$")
+# OUT_3 and OUT_4 tests
 foreach(test_src IN ITEMS ${test_OUT_3_srcs} ${test_OUT_4_srcs})
   string(REPLACE ".f" "" testPref ${test_src})
   foreach(kind ${test_kinds})
@@ -160,4 +159,3 @@ foreach(test_src IN ITEMS ${test_OUT_3_srcs} ${test_OUT_4_srcs})
     endif()
   endforeach()
 endforeach()
-endif()
