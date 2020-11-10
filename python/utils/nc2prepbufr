@@ -1,0 +1,78 @@
+#!/usr/bin/env python
+"""inverse of prepbufr2nc - convert netCDF back to prepbufr"""
+from __future__ import print_function
+import ncepbufr, sys
+import numpy as np
+from netCDF4 import Dataset
+
+if len(sys.argv) < 4:
+    raise SystemExit('nc2prepbufr <input netcdf> <input prepbufr> <prepbufr table>')
+
+# input and output file names, plus bufr table from command line args.
+netcdf_filename = sys.argv[1]
+prepbufr_filename = sys.argv[2]
+# a bufr table can be extracted from an existing prepbufr file like this:
+#>>> bufr = ncepbufr.open('prepbufr')
+#>>> bufr.dump_table('prepbufr.table')
+prepbufr_table = sys.argv[3]
+if prepbufr_filename == netcdf_filename:
+    raise IOError('cannot overwrite input netcdf file')
+
+# mnemonics to write data to  prepbufr file.
+hdstr='SID XOB YOB DHR TYP ELV SAID T29'
+obstr='POB QOB TOB ZOB UOB VOB PWO CAT PRSS TDO PMO XDR YDR HRDR'
+qcstr='PQM QQM TQM ZQM WQM PWQ PMQ'
+oestr='POE QOE TOE ZOE WOE PWE'
+
+# open netcdf file
+nc = Dataset(netcdf_filename)
+
+msgdates = nc['msgdate'][:]
+msgtypes = nc['msgtype'][:]
+subsets = nc['subsetnum'][:]
+msgnums = nc['msgnum'][:]
+
+nmessages = nc.dimensions['nmsgs'].size
+numobs = nc.dimensions['nobs'].size
+nhdrinfo = nc.dimensions['hdrinfo'].size
+nobinfo = nc.dimensions['obinfo'].size
+nerrinfo = nc.dimensions['oeinfo'].size
+nqcinfo = nc.dimensions['qcinfo'].size
+obdata = nc.variables['obdata']
+oberr = nc.variables['oberr']
+qcdata = nc.variables['qcdata']
+header = nc.variables['header']
+
+# open prepbufr file
+bufr = ncepbufr.open(prepbufr_filename,'w',table=prepbufr_table)
+
+# loop over bufr messages
+for nmsg in range(1,nmessages+1):
+    analdate = msgdates[nmsg-1]
+    msgtype = msgtypes[nmsg-1]
+    # analdate or msgtype missing, skip
+    if not analdate or not msgtype: continue
+    bufr.open_message(msgtype, analdate) # open message
+    # indices obs associated with this message in nc file 
+    nobsmsg = np.nonzero(msgnums == nmsg)[0]
+    # subset number within bufr message for each of these obs
+    subsetsmsg = subsets[nobsmsg]
+    print('writing message %s' % nmsg)
+    # loop over all subsets
+    for nsub in range(1,subsetsmsg.max()+1):
+        subset_match = np.nonzero(subsetsmsg == nsub)[0]
+        # if this subset is not in nc file, skip
+        if not subset_match.size: continue
+        nobs_subset = nobsmsg[subset_match]
+        obdat = obdata[nobs_subset]
+        oberrdat = oberr[nobs_subset]
+        qcdat = qcdata[nobs_subset]
+        hdrdat = header[nobs_subset]
+        bufr.write_subset(hdrdat[0,:].T,hdstr)
+        bufr.write_subset(obdat.T,obstr)
+        bufr.write_subset(oberrdat.T,oestr)
+        bufr.write_subset(qcdat.T,qcstr,end=True) # end subset
+    bufr.close_message() # close message
+
+nc.close()
+bufr.close()

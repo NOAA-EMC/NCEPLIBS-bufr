@@ -5,8 +5,8 @@
 extern "C" {
 #endif
 
-  void open_f(int unit, const char* filepath);
-  void close_f(int unit);
+  void open_f(int unit, const char* filepath, const char* fformat, const char* fposition, int* iret);
+  void close_f(int unit, int* iret);
   void openbf_f(int bufr_unit, const char* cio, int table_file_d);
   void closbf_f(int bufr_unit);
   int ireadmg_f(int bufr_unit, char* subset, int* iddate, int subset_len);

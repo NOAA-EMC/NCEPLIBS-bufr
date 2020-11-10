@@ -304,6 +304,8 @@ set(fortran_src
   openbf.F
   pkvs01.F
   wrdlen.F
+  fortran_open.f90
+  fortran_close.f90
   bufr.interface.f90)
 
 set(f_hdr
