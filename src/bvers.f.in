@@ -1,7 +1,7 @@
 C> @file
 C> @author J. Ator
 C> @date 2020-10-21
-C>	
+
 C> @brief This subroutine returns a character string containing
 C> the version number of the BUFR archive library software.
 C>

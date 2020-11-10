@@ -3,7 +3,7 @@ C> @authors Jack Woollen
 C> @authors Jeff Ator
 C> @authors Dennis Keyser
 C> @date 2015-03-03
-C>
+
 C> @brief This subroutine identifies a new file to the BUFRLIB software for
 C> input or output operations.
 C>
