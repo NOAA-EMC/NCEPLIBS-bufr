@@ -39,3 +39,13 @@ if(ENABLE_DOCS)
                       COMMENT "Generating Python API Documentation with pdoc" VERBATIM)
   endif()
 endif()
+
+add_test(
+  NAME    test_checkpoint
+  COMMAND ${Python3_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/test/test_checkpoint.py ${CMAKE_BINARY_DIR}/test/testfiles/prepbufr)
+list(APPEND _python_tests test_checkpoint)
+
+foreach(_test ${_python_tests})
+  set_tests_properties(${_test}
+    PROPERTIES ENVIRONMENT "PYTHONPATH=${CMAKE_CURRENT_BINARY_DIR}/build/lib.macosx-10.15-x86_64-3.8:$ENV{PYTHONPATH}")
+endforeach()
