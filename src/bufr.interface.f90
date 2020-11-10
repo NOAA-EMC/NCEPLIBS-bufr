@@ -46,23 +46,27 @@ subroutine copy_f_c_str(f_str, c_str, c_str_len)
 end subroutine copy_f_c_str
 
 !Public
-subroutine open_c(lunit, filepath, fformat, fposition, iret) bind(C, name='open_f')
+!subroutine open_c(lunit, filepath, fformat, fposition, iret) bind(C, name='open_f')
+subroutine open_c(lunit, filepath) bind(C, name='open_f')
   integer(c_int), value, intent(in) :: lunit
   character(kind=c_char, len=1) :: filepath
-  character(kind=c_char, len=1) :: fformat
-  character(kind=c_char, len=1) :: fposition
-  integer(c_int), intent(out) :: iret
+  !character(kind=c_char, len=1) :: fformat
+  !character(kind=c_char, len=1) :: fposition
+  !integer(c_int), intent(out) :: iret
 
-  call fortran_open(c_f_string(filepath), lunit, &
-                    c_f_string(fformat), c_f_string(fposition), iret)
+  !call fortran_open(c_f_string(filepath), lunit, &
+  !                  c_f_string(fformat), c_f_string(fposition), iret)
+  open(lunit, file=c_f_string(filepath))
 end subroutine open_c
 
 
-subroutine close_c(lunit, iret) bind(C, name='close_f')
+!subroutine close_c(lunit, iret) bind(C, name='close_f')
+subroutine close_c(lunit) bind(C, name='close_f')
   integer(c_int), value, intent(in)  :: lunit
-  integer(c_int), intent(out) :: iret
+  !integer(c_int), intent(out) :: iret
 
-  call fortran_close(lunit, iret)
+  !call fortran_close(lunit, iret)
+  close(unit=lunit)
 end subroutine close_c
 
 
