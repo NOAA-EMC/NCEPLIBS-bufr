@@ -1,36 +1,24 @@
 C> @file
 C> @author ATOR @date 2007-01-19
 	
-C> THIS SUBROUTINE GETS THE FIRST LINE OF THE NEXT ENTRY IN
-C>   THE SPECIFIED ASCII MASTER TABLE B OR MASTER TABLE D FILE.  THIS
-C>   LINE CONTAINS, AMONG OTHER THINGS, THE FXY NUMBER CORRESPONDING TO
-C>   THIS ENTRY.
+C> This subroutine gets the first line of the next entry in
+C> the specified ascii master table b or master table d file. This
+C> line contains, among other things, the fxy number corresponding to
+C> this entry.
 C>
-C> PROGRAM HISTORY LOG:
-C> 2007-01-19  J. ATOR    -- ORIGINAL AUTHOR
+C> @param[in] LUNT integer: fortran logical unit number of ascii file
+C> containing master table b or master table d information
+C> @param[out] IFXYN integer: bit-wise representation of fxy number for
+C> next table entry
+C> @param[out] LINE character*(*): first line of next table entry
+C> @param[out] IRET integer: return code:
+C> -  0 = normal return
+C> -  -1 = end-of-file encountered while reading from LUNT
+C> -  -2 = I/O error encountered while reading from LUNT
 C>
-C> USAGE:    CALL GETNTBE ( LUNT, IFXYN, LINE, IRET )
-C>   INPUT ARGUMENT LIST:
-C>     LUNT     - INTEGER: FORTRAN LOGICAL UNIT NUMBER OF ASCII FILE
-C>                CONTAINING MASTER TABLE B OR MASTER TABLE D INFORMATION
-C>
-C>   OUTPUT ARGUMENT LIST:
-C>     IFXYN    - INTEGER: BIT-WISE REPRESENTATION OF FXY NUMBER FOR
-C>                NEXT TABLE ENTRY
-C>     LINE     - CHARACTER*(*): FIRST LINE OF NEXT TABLE ENTRY
-C>     IRET     - INTEGER: RETURN CODE:
-C>                       0 = normal return
-C>                      -1 = end-of-file encountered while reading
-C>                           from LUNT
-C>                      -2 = I/O error encountered while reading
-C>                           from LUNT
-C>
-C> REMARKS:
-C>    THIS ROUTINE CALLS:        BORT2    IGETNTBL IGETFXY  IFXY
-C>                               PARSTR
-C>    THIS ROUTINE IS CALLED BY: RDMTBB   RDMTBD   RDMTBF
-C>                               Normally not called by any application
-C>                               programs.
+C> This routine calls: bort2() igetntbl() igetfxy() ifxy parstr()
+C> This routine is called by: rdmtbb() rdmtbd() rdmtbf()
+C> Normally not called by any application programs.
 C>
 	SUBROUTINE GETNTBE ( LUNT, IFXYN, LINE, IRET )
 
