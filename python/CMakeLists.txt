@@ -41,39 +41,39 @@ endif()
 
 # Add tests
 add_test(NAME test_pyncepbufr_checkpoint
-         COMMAND ${Python3_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/test/test_pyncepbufr_checkpoint.py
+         COMMAND ${Python3_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/test/test_checkpoint.py
          WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/test/testfiles)
 list(APPEND _python_tests test_pyncepbufr_checkpoint)
 
 add_test(NAME test_pyncepbufr_gps
-         COMMAND ${Python3_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/test/test_pyncepbufr_gps.py
+         COMMAND ${Python3_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/test/test_gps.py
          WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/test/testfiles)
 list(APPEND _python_tests test_pyncepbufr_gps)
 
 add_test(NAME test_pyncepbufr_prepbufr
-         COMMAND ${Python3_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/test/test_pyncepbufr_prepbufr.py
+         COMMAND ${Python3_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/test/test_prepbufr.py
          WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/test/testfiles)
 list(APPEND _python_tests test_pyncepbufr_prepbufr)
 
 add_test(NAME test_pyncepbufr_rad
-         COMMAND ${Python3_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/test/test_pyncepbufr_rad.py
+         COMMAND ${Python3_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/test/test_rad.py
          WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/test/testfiles)
 list(APPEND _python_tests test_pyncepbufr_rad)
 
 add_test(NAME test_pyncepbufr_satwnd
-         COMMAND ${Python3_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/test/test_pyncepbufr_satwnd.py
+         COMMAND ${Python3_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/test/test_satwnd.py
          WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/test/testfiles)
 list(APPEND _python_tests test_pyncepbufr_satwnd)
 
 add_test(NAME test_pyncepbufr_write
-         COMMAND ${Python3_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/test/test_pyncepbufr_write.py
+         COMMAND ${Python3_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/test/test_write.py
          WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/test/testfiles)
 list(APPEND _python_tests test_pyncepbufr_write)
 
-add_test(NAME test_pyncepbufr
+add_test(NAME test_pyncepbufr_test
          COMMAND ${Python3_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/test/test.py
          WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/test/testfiles)
-list(APPEND _python_tests test_pyncepbufr)
+list(APPEND _python_tests test_pyncepbufr_test)
 
 foreach(_test ${_python_tests})
   set_tests_properties(${_test}
