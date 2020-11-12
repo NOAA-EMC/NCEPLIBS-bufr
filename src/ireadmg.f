@@ -1,7 +1,7 @@
 C> @file
 C> @author Jack Woollen
 C> @date 2003-11-04
-C>      
+
 C> @brief This function calls BUFRLIB subroutine readmg() and passes
 C> back its return code as the function value.
 C>

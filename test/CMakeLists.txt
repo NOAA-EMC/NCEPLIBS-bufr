@@ -75,6 +75,10 @@ list(APPEND test_OUT_4_srcs
   test_OUT_4.f
 )
 
+list(APPEND test_OUT_5_srcs
+  test_OUT_5.f
+)
+
 # Install test_wrapper.sh
 execute_process( COMMAND ${CMAKE_COMMAND} -E copy
   ${CMAKE_CURRENT_SOURCE_DIR}/test_wrapper.sh
@@ -90,7 +94,6 @@ function(bufr_add_test_preAPX TESTNAME EXENAME)
            COMMAND ${CMAKE_BINARY_DIR}/bin/test_wrapper.sh ${EXENAME} "Y")
 endfunction()
 
-# Tests are only guarenteed to work for _4 libraries.
 # Both GNU and Intel support DYNAMIC_ALLOCATION
 list(APPEND test_kinds "4_DA")
 # Only Intel supports STATIC_ALLOCATION
@@ -113,8 +116,8 @@ foreach(test_src ${test_IN_srcs})
   endforeach()
 endforeach()
 
-# OUT_1 tests
-foreach(test_src ${test_OUT_1_srcs})
+# OUT_1 and OUT_5 tests
+foreach(test_src IN ITEMS ${test_OUT_1_srcs} ${test_OUT_5_srcs})
   string(REPLACE ".f" "" testPref ${test_src})
   foreach(kind ${test_kinds})
     set(test     ${testPref}_${kind})
@@ -143,8 +146,7 @@ foreach(test_src ${test_OUT_2_srcs})
   endforeach()
 endforeach()
 
-# OUT_3 and OUT_4 tests only run with DA library and Intel
-if(CMAKE_C_COMPILER_ID MATCHES "^(Intel)$")
+# OUT_3 and OUT_4 tests
 foreach(test_src IN ITEMS ${test_OUT_3_srcs} ${test_OUT_4_srcs})
   string(REPLACE ".f" "" testPref ${test_src})
   foreach(kind ${test_kinds})
@@ -160,4 +162,3 @@ foreach(test_src IN ITEMS ${test_OUT_3_srcs} ${test_OUT_4_srcs})
     endif()
   endforeach()
 endforeach()
-endif()

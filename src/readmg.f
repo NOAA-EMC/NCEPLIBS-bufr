@@ -2,7 +2,7 @@ C> @file
 C> @authors Jack Woollen
 C> @authors Jeff Ator
 C> @date 2020-07-16
-C>
+
 C> @brief This subroutine reads the next BUFR message from logical unit
 C> ABS(LUNXX) into internal arrays.
 C>

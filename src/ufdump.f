@@ -1,6 +1,6 @@
 C> @file
 C> @author WOOLLEN @date 2002-05-14
-      
+
 C> THIS SUBROUTINE DUMPS A DETAILED PRINT LISTING OF THE
 C>   CONTENTS OF THE UNPACKED DATA SUBSET CURRENTLY RESIDING IN THE
 C>   INTERNAL ARRAYS ASSOCIATED WITH THE BUFR FILE IN LOGICAL UNIT LUNIT.
@@ -45,6 +45,7 @@ C> 2012-02-24  J. ATOR    -- FIX MISSING CHECK FOR LONG CHARACTER STRINGS
 C> 2012-03-02  J. ATOR    -- LABEL REDEFINED REFERENCE VALUES
 C> 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
 C> 2015-09-24  J. WOOLLEN -- PRINT LEVEL IDENTIFIERS FOR EVENT STACKS
+C> 2020-08-18  J. ATOR    -- IMPROVE LOGIC FOR SEQUENCE TRACKING
 C>
 C> USAGE:    CALL UFDUMP (LUNIT, LUPRT)
 C>   INPUT ARGUMENT LIST:
@@ -72,17 +73,15 @@ C>    ENTERS "q" FOLLOWED BY "<enter>" AFTER THE PROMPT, IN WHICH CASE
 C>    THIS SUBROUTINE STOPS THE SCROLL AND RETURNS TO THE CALLING
 C>    PROGRAM (PRESUMABLY TO READ IN THE NEXT SUBSET IN THE BUFR FILE).
 C>
-C>    THIS ROUTINE CALLS:        BORT     FSTAG    ICBFMS   IBFMS
-C>                               IREADMT  ISIZE    NEMTAB   NUMTBD
-C>                               READLC   RJUST    SRCHTBF  STATUS
-C>                               STRSUC   UPFTBV
+C>    THIS ROUTINE CALLS:   bort()    fstag()   icbfms()   ibfms()
+C>                          ireadmt() isize()   nemtab()   numtbd()
+C>                          readlc()   rjust()   srchtbf()  status()
+C>                          strsuc()   upftbv()
 C>    THIS ROUTINE IS CALLED BY: None
 C>                               Normally called only by application
 C>                               programs.
 C>
       SUBROUTINE UFDUMP(LUNIT,LUPRT)
-
-
 
       USE MODA_USRINT
       USE MODA_MSGCWD
@@ -122,6 +121,7 @@ C>
       INTEGER   IDXREP(MXSEQ)
       INTEGER   NUMREP(MXSEQ)
       CHARACTER*10 SEQNAM(MXSEQ)
+      INTEGER   LSQNAM(MXSEQ)
 
       PARAMETER (MXLS=10)
       CHARACTER*10 LSNEMO(MXLS)
@@ -152,9 +152,7 @@ C  --------------------------------
       IF(IM.EQ.0) GOTO 902
       IF(INODE(LUN).NE.INV(1,LUN)) GOTO 903
 
-      WRITE(LUOUT,*)
-      WRITE(LUOUT,*) 'MESSAGE TYPE ',TAG(INODE(LUN))
-      WRITE(LUOUT,*)
+      WRITE(LUOUT,FMT='(/,2A,/)') 'MESSAGE TYPE ',TAG(INODE(LUN))
 
 C  DUMP THE CONTENTS OF MODULE USRINT FOR UNIT LUNIT
 C  -------------------------------------------------
@@ -226,7 +224,8 @@ C          How many times is this sequence replicated?
 
 C            Track the sequence
 
-             SEQNAM(NSEQ) = NEMO
+             SEQNAM(NSEQ) = NEMO2
+             LSQNAM(NSEQ) = LNM2
              IDXREP(NSEQ) = 1
            ELSE
 
@@ -243,7 +242,7 @@ C          Is this one of the sequences being tracked?
            TRACK = .FALSE.
            CALL STRSUC(NEMO,NEMO2,LNM2)
            DO WHILE ((II.GE.1).AND.(.NOT.TRACK))
-             IF(INDEX(SEQNAM(II),NEMO2(1:LNM2)).GT.0) THEN
+             IF(NEMO2(1:LNM2).EQ.SEQNAM(II)(2:LSQNAM(II)-1)) THEN
                TRACK = .TRUE.
 
 C              Mark this level in the output
@@ -346,7 +345,7 @@ C              this value.
 
 C              Print the meanings of the code and flag values.
 
-               FMT = '(35X,I4,A,A)'
+               FMT = '(31X,I8,A,A)'
                IF(UNIT(1:4).EQ.'CODE') THEN
                   NIFV = 1
                   IFV(NIFV) = NINT(RVAL)
