@@ -1,5 +1,4 @@
 from __future__ import print_function
-import sys
 import ncepbufr
 
 hdstr='SID XOB YOB DHR TYP ELV SAID T29'
@@ -10,7 +9,7 @@ oestr='POE QOE TOE NUL WOE NUL PWE     '
 # read prepbufr file.
 
 print('the following lines should be the same')
-bufr = ncepbufr.open(sys.argv[1])
+bufr = ncepbufr.open('data/prepbufr')
 nmsg = 0
 while bufr.advance() == 0:
     #print(nmsg, bufr.msg_counter, bufr.msg_type, bufr.msg_date)

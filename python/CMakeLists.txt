@@ -2,16 +2,16 @@ configure_file(setup.py.in setup.py @ONLY)
 
 file( COPY ncepbufr utils DESTINATION . )
 
-# Build the extension module for use in install tree with RPATH pointing to install tree
-install(CODE "message(\"Building Python extension modules:
-${Python3_EXECUTABLE} setup.py build_ext --rpath ${CMAKE_INSTALL_PREFIX}/${INSTALL_LIB_DIR}\")
-              execute_process(COMMAND ${Python3_EXECUTABLE} setup.py build_ext --rpath ${CMAKE_INSTALL_PREFIX}/${INSTALL_LIB_DIR}
-                              WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR})")
-
 # Library installation directory
 execute_process(COMMAND ${Python3_EXECUTABLE} -c "from __future__ import print_function; import sys; print(sys.version[:3], end='')"
                   OUTPUT_VARIABLE _PYVER)
-set( __install_lib "--install-lib=${CMAKE_INSTALL_FULL_LIBDIR}/python${_PYVER}/site-packages" )
+set(_install_dir "${CMAKE_INSTALL_FULL_LIBDIR}/python${_PYVER}/site-packages")
+
+# Build the extension module for use in install tree with RPATH pointing to install tree
+install(CODE "message(\"Building Python extension modules:
+${Python3_EXECUTABLE} setup.py build --rpath ${CMAKE_INSTALL_PREFIX}/${INSTALL_LIB_DIR}\")
+              execute_process(COMMAND ${Python3_EXECUTABLE} setup.py build --rpath ${CMAKE_INSTALL_PREFIX}/${INSTALL_LIB_DIR}
+                              WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR})")
 
 # Call distutils for installation
 install(CODE "if( NOT \$ENV{DESTDIR} STREQUAL \"\" )
@@ -19,33 +19,63 @@ install(CODE "if( NOT \$ENV{DESTDIR} STREQUAL \"\" )
               endif()
               message(\"Installing Python modules:
 ${Python3_EXECUTABLE} setup.py install \${__root}
-                                       ${__install_lib}
+                                       --install-lib=${_install_dir}
                                        --prefix=${CMAKE_INSTALL_PREFIX}
                                        --record=${CMAKE_BINARY_DIR}/extra_install.txt\")
               execute_process(COMMAND ${Python3_EXECUTABLE} setup.py install
                                         \${__root}
                                         --prefix=${CMAKE_INSTALL_PREFIX}
-                                        ${__install_lib}
+                                       --install-lib=${_install_dir}
                                         --record=${CMAKE_BINARY_DIR}/extra_install.txt
                               WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR})")
 
 if(ENABLE_DOCS)
-  find_program(PDOC_EXECUTABLE pdoc)
   # Uses pdoc (https://github.com/BurntSushi/pdoc)
-  if (PDOC_EXECUTABLE)
-    add_custom_target( pydoc ALL
-                      COMMAND ${PDOC_EXECUTABLE} --html --html-no-source --overwrite --html-dir 'py-docs' ncepbufr
-                      WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
-                      COMMENT "Generating Python API Documentation with pdoc" VERBATIM)
-  endif()
+  find_program(PDOC_EXECUTABLE pdoc REQUIRED)
+  install(CODE "message(\"Building Python API documentation:
+  ${PDOC_EXECUTABLE} --html --html-no-source --overwrite --html-dir ../docs/python' ncepbufr\")
+                set(ENV{PYTHONPATH} ${_install_dir})
+                execute_process(COMMAND ${PDOC_EXECUTABLE} --html --html-no-source --overwrite --html-dir ../docs/python ncepbufr
+                                WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR})")
 endif()
 
-add_test(
-  NAME    test_checkpoint
-  COMMAND ${Python3_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/test/test_checkpoint.py ${CMAKE_BINARY_DIR}/test/testfiles/prepbufr)
-list(APPEND _python_tests test_checkpoint)
+# Add tests
+add_test(NAME test_pyncepbufr_checkpoint
+         COMMAND ${Python3_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/test/test_pyncepbufr_checkpoint.py
+         WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/test/testfiles)
+list(APPEND _python_tests test_pyncepbufr_checkpoint)
+
+add_test(NAME test_pyncepbufr_gps
+         COMMAND ${Python3_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/test/test_pyncepbufr_gps.py
+         WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/test/testfiles)
+list(APPEND _python_tests test_pyncepbufr_gps)
+
+add_test(NAME test_pyncepbufr_prepbufr
+         COMMAND ${Python3_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/test/test_pyncepbufr_prepbufr.py
+         WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/test/testfiles)
+list(APPEND _python_tests test_pyncepbufr_prepbufr)
+
+add_test(NAME test_pyncepbufr_rad
+         COMMAND ${Python3_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/test/test_pyncepbufr_rad.py
+         WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/test/testfiles)
+list(APPEND _python_tests test_pyncepbufr_rad)
+
+add_test(NAME test_pyncepbufr_satwnd
+         COMMAND ${Python3_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/test/test_pyncepbufr_satwnd.py
+         WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/test/testfiles)
+list(APPEND _python_tests test_pyncepbufr_satwnd)
+
+add_test(NAME test_pyncepbufr_write
+         COMMAND ${Python3_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/test/test_pyncepbufr_write.py
+         WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/test/testfiles)
+list(APPEND _python_tests test_pyncepbufr_write)
+
+add_test(NAME test_pyncepbufr
+         COMMAND ${Python3_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/test/test.py
+         WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/test/testfiles)
+list(APPEND _python_tests test_pyncepbufr)
 
 foreach(_test ${_python_tests})
   set_tests_properties(${_test}
-    PROPERTIES ENVIRONMENT "PYTHONPATH=${CMAKE_CURRENT_BINARY_DIR}/build/lib.macosx-10.15-x86_64-3.8:$ENV{PYTHONPATH}")
+    PROPERTIES ENVIRONMENT "PYTHONPATH=${_install_dir}:$ENV{PYTHONPATH}")
 endforeach()

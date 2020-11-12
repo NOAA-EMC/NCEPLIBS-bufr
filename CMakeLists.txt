@@ -12,6 +12,7 @@ project(
 
 # Handle user options.
 option(ENABLE_DOCS "Enable generation of doxygen-based documentation." OFF)
+option(ENABLE_PYTHON "Enable building python module 'ncepbufr'" OFF)
 option(BUILD_SHARED_LIBS "Enable building shared libraries" OFF)
 
 if(NOT CMAKE_BUILD_TYPE MATCHES "^(Debug|Release|RelWithDebInfo|MinSizeRel)$")
@@ -24,10 +25,13 @@ if(NOT CMAKE_BUILD_TYPE MATCHES "^(Debug|Release|RelWithDebInfo|MinSizeRel)$")
 endif()
 
 include(GNUInstallDirs)
+enable_testing()
 
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
-find_package(Python3 COMPONENTS Interpreter)
+if(ENABLE_PYTHON)
+  find_package(Python3 REQUIRED COMPONENTS Interpreter)
+endif()
 
 # Determine the kinds upfront (both src/ and test/ need them).
 # Both GNU and Intel support DYNAMIC_ALLOCATION
@@ -67,11 +71,10 @@ set(fortran_d_DA_flags ${fortran_d_flags})
 add_subdirectory(src)
 add_subdirectory(utils)
 
-if(Python3_Interpreter_FOUND)
+if(ENABLE_PYTHON)
   add_subdirectory(python)
 endif()
 
-enable_testing()
 add_subdirectory(test)
 
 # Generate doxygen documentation if desired.
