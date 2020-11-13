@@ -7,10 +7,10 @@ execute_process(COMMAND ${Python3_EXECUTABLE} -c "from __future__ import print_f
                   OUTPUT_VARIABLE _PYVER)
 set(_install_dir "${CMAKE_INSTALL_FULL_LIBDIR}/python${_PYVER}/site-packages")
 
-# Build the extension module for use in install tree with RPATH pointing to install tree
+# Build the extension module for use in install tree
 install(CODE "message(\"Building Python extension modules:
-${Python3_EXECUTABLE} setup.py build --rpath ${CMAKE_INSTALL_PREFIX}/${INSTALL_LIB_DIR}\")
-              execute_process(COMMAND ${Python3_EXECUTABLE} setup.py build --rpath ${CMAKE_INSTALL_PREFIX}/${INSTALL_LIB_DIR}
+${Python3_EXECUTABLE} setup.py build\")
+              execute_process(COMMAND ${Python3_EXECUTABLE} setup.py build
                               WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR})")
 
 # Call distutils for installation
@@ -25,7 +25,7 @@ ${Python3_EXECUTABLE} setup.py install \${__root}
               execute_process(COMMAND ${Python3_EXECUTABLE} setup.py install
                                         \${__root}
                                         --prefix=${CMAKE_INSTALL_PREFIX}
-                                       --install-lib=${_install_dir}
+                                        --install-lib=${_install_dir}
                                         --record=${CMAKE_BINARY_DIR}/extra_install.txt
                               WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR})")
 
