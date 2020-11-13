@@ -1,54 +1,40 @@
 C> @file
+C> @brief Converts a descriptor from its bit-wise (integer) representation to
+C> its five or six character ascii representation.
 C> @author WOOLLEN @date 1994-01-06
+
+C> @author WOOLLEN @date 1994-01-06
+C>
+C> This function converts a descriptor from its bit-wise
+c> (integer) representation to its five or six character ascii
+C> representation.
+C>
+C> Program History Log:
+C> - 1994-01-06  J. WOOLLEN -- ORIGINAL AUTHOR
+C> - 1998-07-08  J. WOOLLEN -- REPLACED CALL TO CRAY LIBRARY ROUTINE
+C>                           "ABORT" WITH CALL TO NEW INTERNAL BUFRLIB
+C>                           ROUTINE "BORT"
+C> - 2003-11-04  S. BENDER  -- ADDED REMARKS/BUFRLIB ROUTINE
+C>                           INTERDEPENDENCIES
+C> - 2003-11-04  D. KEYSER  -- UNIFIED/PORTABLE FOR WRF; ADDED
+C>                           DOCUMENTATION (INCLUDING HISTORY); OUTPUTS
+C>                           MORE COMPLETE DIAGNOSTIC INFO WHEN ROUTINE
+C>                           TERMINATES ABNORMALLY
+C>
+C> @param[in] IDN - INTEGER: BIT-WISE REPRESENTATION OF DESCRIPTOR (FXY)
+C>                VALUE
+C> @param[in] L30 - INTEGER: LENGTH OF ADN30 (NUMBER OF CHARACTERS, 5 OR
+C>                6)
+C> @return CHARACTER*(*): CHARACTER FORM OF DESCRIPTOR (FXY VALUE)
+C>
+C> This routine calls: bort()
+C> this routine is called by: cadn30() dxinit() igetrfel() istdesc()
+C> nemtbd() numtab() rdmtbb() rdmtbd() rdmtbf() reads3() seqsdx() sntbde()
+C> sntbfe() ufbqcd() upds3() wrdxtb()
+C> Normally not called by any application programs.
+C>
       
       FUNCTION ADN30(IDN,L30)
-
-C$$$  SUBPROGRAM DOCUMENTATION BLOCK
-C
-C SUBPROGRAM:    ADN30
-C   PRGMMR: WOOLLEN          ORG: NP20       DATE: 1994-01-06
-C
-C ABSTRACT: THIS FUNCTION CONVERTS A DESCRIPTOR FROM ITS BIT-WISE
-C   (INTEGER) REPRESENTATION TO ITS FIVE OR SIX CHARACTER ASCII
-C   REPRESENTATION.
-C
-C PROGRAM HISTORY LOG:
-C 1994-01-06  J. WOOLLEN -- ORIGINAL AUTHOR
-C 1998-07-08  J. WOOLLEN -- REPLACED CALL TO CRAY LIBRARY ROUTINE
-C                           "ABORT" WITH CALL TO NEW INTERNAL BUFRLIB
-C                           ROUTINE "BORT"
-C 2003-11-04  S. BENDER  -- ADDED REMARKS/BUFRLIB ROUTINE
-C                           INTERDEPENDENCIES
-C 2003-11-04  D. KEYSER  -- UNIFIED/PORTABLE FOR WRF; ADDED
-C                           DOCUMENTATION (INCLUDING HISTORY); OUTPUTS
-C                           MORE COMPLETE DIAGNOSTIC INFO WHEN ROUTINE
-C                           TERMINATES ABNORMALLY
-C
-C USAGE:    ADN30 (IDN, L30)
-C   INPUT ARGUMENT LIST:
-C     IDN      - INTEGER: BIT-WISE REPRESENTATION OF DESCRIPTOR (FXY)
-C                VALUE
-C     L30      - INTEGER: LENGTH OF ADN30 (NUMBER OF CHARACTERS, 5 OR
-C                6)
-C
-C   OUTPUT ARGUMENT LIST:
-C     ADN30    - CHARACTER*(*): CHARACTER FORM OF DESCRIPTOR (FXY
-C                VALUE)
-C
-C REMARKS:
-C    THIS ROUTINE CALLS:        BORT
-C    THIS ROUTINE IS CALLED BY: CADN30   DXINIT   IGETRFEL ISTDESC
-C                               NEMTBD   NUMTAB   RDMTBB   RDMTBD
-C                               RDMTBF   READS3   SEQSDX   SNTBDE
-C                               SNTBFE   UFBQCD   UPDS3    WRDXTB
-C                               Normally not called by any application
-C                               programs.
-C
-C ATTRIBUTES:
-C   LANGUAGE: FORTRAN 77
-C   MACHINE:  PORTABLE TO ALL PLATFORMS
-C
-C$$$
 
       COMMON /HRDWRD/ NBYTW,NBITW,IORD(8)
 
