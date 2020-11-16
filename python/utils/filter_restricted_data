@@ -1,0 +1,73 @@
+#!/usr/bin/env python
+"""
+rewrite bufr file, skipping message subsets with restricted data
+that have no expiration period specified.
+
+see https://www.nco.ncep.noaa.gov/pmb/docs/restricted_data
+and https://www.nco.ncep.noaa.gov/pmb/docs/restricted_data/mesonet
+
+filter_restricted_data <input bufr> <output bufr>
+"""
+from __future__ import print_function
+import ncepbufr, argparse, os
+
+# Parse command line args
+ap = argparse.ArgumentParser()
+ap.add_argument("bufr_in", help="input BUFR file")
+ap.add_argument("bufr_out", help="output BUFR file without restricted data")
+ap.add_argument('--verbose', '-v', action='store_true')
+MyArgs = ap.parse_args()
+
+# input and output file names from command line args.
+if MyArgs.bufr_in == MyArgs.bufr_out:
+    raise IOError('cannot overwrite input bufr file')
+
+# open bufr input file.
+bufrin = ncepbufr.open(MyArgs.bufr_in)
+
+# open output bufr file using same bufr table.
+bufrout = ncepbufr.open(MyArgs.bufr_out,'w',bufrin)
+
+# mnemonic to extract data from subset headers.
+hdstr='RSRD EXPRSRD TYP'
+
+nmsg = 0; nsubs = 0; nskip = 0; nout=0
+while bufrin.advance() == 0: # loop over messages.
+    nmsg += 1
+    bufrout.open_message(bufrin.msg_type,bufrin.msg_date) # open message
+    #print(nmsg,bufrin.msg_type,bufrin.msg_date)
+    while bufrin.load_subset() == 0: # loop over subsets in message.
+        nsubs += 1
+        # read subset header from bufrin
+        hdr = (bufrin.read_subset(hdstr).squeeze()).filled(0)
+        try:
+            rsrd = int(hdr[0]); exprsrd = int(hdr[1]); typ = int(hdr[2])
+        except:
+            rsrd = 0; exprsrd = 0
+# rs_bitstring - see https://www.nco.ncep.noaa.gov/pmb/docs/restricted_data/mesonet/
+# if the first bit is 1 - no redistribution
+# 2nd bit: can redistribute to any US govt agency
+# 3rd bit: can redistribute to any US research group
+# 4th bit: can redistribute to any US educational institution
+# 5th bit: can redistribute within NOAA
+# exprsrd - expiration of restriction (hours)
+        rs_bitstring =  "{:09b}".format(rsrd)
+        # skip restricted data with no expiration time
+        if rsrd != 0 and exprsrd == 0 : 
+            nskip += 1
+            if MyArgs.verbose:
+                if typ !=0: # bufr has ob type code (prepbufr)
+                   print('skipping subset of type %s with restricted data flags %s' % (typ,rs_bitstring[0:5]))
+                else:
+                   print('skipping subset with restricted data flags %s' % rs_bitstring[0:5])
+            continue
+        # copy entire subset from bufrin to bufrout and write to message.
+        nout+=1
+        bufrout.copy_subset(bufrin)
+    bufrout.close_message() # close message
+
+if nskip > 0: print('skipped %s subsets out of %s, %s subsets written' % (nskip,nsubs,nout))
+bufrin.close(); bufrout.close() # close files.
+if not nout: # remove file if no data written to it.
+    os.remove(MyArgs.bufr_out)
+    print('no output written!')

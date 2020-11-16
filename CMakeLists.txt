@@ -10,8 +10,10 @@ project(
     VERSION ${pVersion}
     LANGUAGES C Fortran)
 
-# Handle user options.  
+# Handle user options.
 option(ENABLE_DOCS "Enable generation of doxygen-based documentation." OFF)
+option(ENABLE_PYTHON "Enable building python module 'ncepbufr'" OFF)
+option(BUILD_SHARED_LIBS "Enable building shared libraries" OFF)
 
 if(NOT CMAKE_BUILD_TYPE MATCHES "^(Debug|Release|RelWithDebInfo|MinSizeRel)$")
   message(STATUS "Setting build type to 'Release' as none was specified.")
@@ -23,10 +25,13 @@ if(NOT CMAKE_BUILD_TYPE MATCHES "^(Debug|Release|RelWithDebInfo|MinSizeRel)$")
 endif()
 
 include(GNUInstallDirs)
+enable_testing()
 
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
-option(BUILD_SHARED_LIBS "Enable building shared libraries" OFF)
+if(ENABLE_PYTHON)
+  find_package(Python3 REQUIRED COMPONENTS Interpreter)
+endif()
 
 if(APPLE)
   # The linker on macOS does not include `common symbols` by default
@@ -72,11 +77,14 @@ set(fortran_d_DA_flags ${fortran_d_flags})
 add_subdirectory(src)
 add_subdirectory(utils)
 
-enable_testing()
+if(ENABLE_PYTHON)
+  add_subdirectory(python)
+endif()
+
 add_subdirectory(test)
 
 # Generate doxygen documentation if desired.
 if(ENABLE_DOCS)
   find_package(Doxygen REQUIRED)
-  add_subdirectory(docs)  
+  add_subdirectory(docs)
 endif()

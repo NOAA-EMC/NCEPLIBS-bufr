@@ -1,0 +1,64 @@
+#!/usr/bin/env python
+
+"""
+rewrite prepbufr file, skipping message subsets that meet certain criteria
+
+(used to create a prepbufr file for a data denial experiment that excludes
+data from the El Nino Rapid Response field program in 2016)
+"""
+
+from __future__ import print_function
+import ncepbufr
+import numpy as np
+import sys
+
+
+if len(sys.argv) < 3:
+    raise SystemExit('prepbufr_rewrite <input prepbufr> <output prepbufr>')
+
+# input and output file names from command line args.
+prepbufr_in = sys.argv[1]
+prepbufr_out = sys.argv[2]
+if prepbufr_in == prepbufr_out:
+    raise IOError('cannot overwrite input prepbufr file')
+
+# open prepbufr file input file.
+bufrin = ncepbufr.open(prepbufr_in)
+
+# dump prepbufr table from input file.
+bufrin.dump_table('prepbufr.table') 
+
+# open output bufr file using same prepbufr table.
+bufrout = ncepbufr.open(prepbufr_out,'w','prepbufr.table')
+
+# mnemonic to extract data from subset headers.
+hdstr='SID XOB YOB TYP'
+
+nmsg = 0
+nskip = 0
+while bufrin.advance() == 0: # loop over messages.
+    nmsg += 1
+    bufrout.open_message(bufrin.msg_type,bufrin.msg_date) # open message
+    #print(nmsg,bufrin.msg_type,bufrin.msg_date)
+    while bufrin.load_subset() == 0: # loop over subsets in message.
+        # read subset header from bufrin
+        hdr = bufrin.read_subset(hdstr).squeeze()
+        stid = hdr[0].tostring()
+        lon = hdr[1]; lat = hdr[2]; obcode = int(hdr[3])
+        # skip ENRR obs (drops from GIV,Global Hawk and C130s) and sondes (from
+        # Christmas Island and Ron Brown))
+        if ((stid.startswith('AA9') or stid.startswith('872') or\
+            stid.startswith('302') or stid.startswith('309')) and\
+            obcode in [132,232] and (lon > 120 and lon < 240)) or\
+           ((stid.startswith('WTEC') or stid.startswith('CXENRR')) and\
+            obcode in [120,220]):
+            print('%s %s skip ENRR sonde %s %s %s %s' % (nmsg,bufrin.msg_date,stid,obcode,lat,lon))
+            nskip += 1
+            continue
+        # copy entire subset from bufrin to bufrout and write to message.
+        bufrout.copy_subset(bufrin)
+    bufrout.close_message() # close message
+
+# close files.
+if nskip > 0: print('%s skipped %s subsets' % (bufrin.msg_date,nskip))
+bufrin.close(); bufrout.close()
