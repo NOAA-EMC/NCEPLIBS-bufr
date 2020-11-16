@@ -1,10 +1,13 @@
 C> @file
-C> @authors Jack Woollen
-C> @authors Jeff Ator
-C> @authors Dennis Keyser
-C> @date 2015-03-03
+C> @brief Identify a new system file to the BUFRLIB software for
+C> reading or writing BUFR messages.
 
-C> @brief This subroutine identifies a new file to the BUFRLIB software for
+C> @authors J. Woollen
+C> @authors J. Ator
+C> @authors D. Keyser
+C> @date 1994-01-06
+C>
+C> This subroutine identifies a new file to the BUFRLIB software for
 C> input or output operations.
 C>
 C> @param[in] LUNIT    - integer: Fortran logical unit number for BUFR
@@ -56,8 +59,8 @@ C>                             printed out
 C>
 C> <p>The logical unit numbers LUNIT and LUNDX must already be associated
 C> with actual filenames on the local system, typically via a Fortran "OPEN"
-C> statement. Multiple logical units can be connected to the software at any
-C> one time.
+C> statement. Multiple logical units can be connected to the BUFRLIB software
+C> at any one time.
 C>
 C> <p>The argument IO is a character string describing how the file connected to
 C> LUNIT will be used, e.g. 'IN' is used to access an existing file of BUFR
@@ -107,7 +110,7 @@ C> tables containing listings of all possible BUFR descriptors (see Description
 C> and Format of BUFR Master Tables for more info.), but otherwise no prior
 C> knowledge is required of the contents of the messages to be decoded.
 C>
-C> PROGRAM HISTORY LOG:
+C> <b>Program history log:</b>
 C> - 1994-01-06  J. Woollen -- Original author
 C> - 1998-07-08  J. Woollen -- Replaced call to Cray library routine ABORT
 C>                             with call to new internal routine bort()
@@ -144,12 +147,13 @@ C>                             setbmiss() and setblock()
 C> - 2014-11-07  J. Ator    -- allow dynamic allocation of certain arrays
 C> - 2015-03-03  J. Ator    -- use MODA_IFOPBF instead of IFIRST
 C>
-C> THIS ROUTINE CALLS:        arallocc() arallocf() bfrini()   bort()
+C> <b>This routine calls:</b> arallocc() arallocf() bfrini()   bort()
 C>                            dxinit()   errwrt()   posapx()   readdx()
 C>                            status()   wrdlen()   writdx()   wtstat()
 C>                            openrb()   openwb()   openab()
 C>
-C> THIS ROUTINE IS CALLED BY: copybf()   getbmiss() igetmxby() mesgbc()
+C> <b>This routine is called by:</b>
+C>                            copybf()   getbmiss() igetmxby() mesgbc()
 C>                            mesgbf()   pkvs01()   rdmgsb()   ufbinx()
 C>                            ufbmem()   ufbmex()   ufbtab() setbmiss()
 C>                            setblock()

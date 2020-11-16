@@ -1,14 +1,18 @@
 C> @file
-C> @author ATOR @date 2007-01-19
+C> @brief Read the first line of the next entry from an ASCII master
+C> table B, table D or Code/Flag file.
 	
-C> This subroutine gets the first line of the next entry in
-C> the specified ascii master table b or master table d file. This
-C> line contains, among other things, the fxy number corresponding to
-C> this entry.
+C> @author J. Ator
+C> @date 2007-01-19
 C>
-C> @param[in] LUNT integer: fortran logical unit number of ascii file
-C> containing master table b or master table d information
-C> @param[out] IFXYN integer: bit-wise representation of fxy number for
+C> This subroutine gets the first line of the next entry in
+C> the specified ASCII master table B, table D or table F (Code/Flag)
+C> file. This line contains, among other things, the FXY number
+C> corresponding to this entry.
+C>
+C> @param[in] LUNT integer: Fortran logical unit number of ASCII file
+C> containing master table B, table D or table F (Code/Flag) information
+C> @param[out] IFXYN integer: bit-wise representation of FXY number for
 C> next table entry
 C> @param[out] LINE character*(*): first line of next table entry
 C> @param[out] IRET integer: return code:
@@ -16,13 +20,13 @@ C> -  0 = normal return
 C> -  -1 = end-of-file encountered while reading from LUNT
 C> -  -2 = I/O error encountered while reading from LUNT
 C>
-C> This routine calls: bort2() igetntbl() igetfxy() ifxy parstr()
-C> This routine is called by: rdmtbb() rdmtbd() rdmtbf()
-C> Normally not called by any application programs.
+C> <b>This routine calls:</b> bort2() igetntbl() igetfxy() ifxy()
+C>                      parstr()
+C>
+C> <b>This routine is called by:</b> rdmtbb() rdmtbd() rdmtbf()
+C> <br>Normally not called by any application programs.
 C>
 	SUBROUTINE GETNTBE ( LUNT, IFXYN, LINE, IRET )
-
-
 
 	CHARACTER*(*)	LINE
 	CHARACTER*128	BORT_STR1, BORT_STR2

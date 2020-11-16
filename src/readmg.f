@@ -1,9 +1,12 @@
 C> @file
-C> @authors Jack Woollen
-C> @authors Jeff Ator
-C> @date 2020-07-16
+C> @brief Read the next message from a BUFR file that was previously
+C> opened for reading.
 
-C> @brief This subroutine reads the next BUFR message from logical unit
+C> @authors J. Woollen
+C> @authors J. Ator
+C> @date 1994-01-06
+C>
+C> This subroutine reads the next BUFR message from logical unit
 C> ABS(LUNXX) into internal arrays.
 C>
 C> @param[in] LUNXX    - integer: absolute value is Fortran logical unit
@@ -47,7 +50,7 @@ C> no longer supported, but the capability to call this subroutine with
 C> LUNXX < 0 is itself still supported for backwards-compatibiity with
 C> certain legacy application programs. 
 C>
-C> PROGRAM HISTORY LOG:
+C> <b>Program history log:</b>
 C> - 1994-01-06  J. Woollen -- Original author
 C> - 1996-11-25  J. Woollen -- Modified to exit gracefully when the BUFR
 C>                           file is positioned after an "end-of-file"
@@ -82,7 +85,7 @@ C>                           abnormally
 C> - 2004-08-09  J. Ator    -- Maximum message length increased from
 C>                           20,000 to 50,000 bytes
 C> - 2005-11-29  J. Ator    -- Added rdmsgw() and rdmsgb calls to simulate
-C>                           readibm; added LUNXX < 0 option to simulatE
+C>                           readibm; added LUNXX < 0 option to simulate
 C>                           readft
 C> - 2009-03-23  J. Ator    -- Add logic to allow Section 3 decoding;
 C>                           add logic to process internal dictionary
@@ -94,11 +97,12 @@ C>                           remove code to reread message as bytes;
 C>                           replace Fortran BACKSPACE with C backbufr()
 C> - 2014-12-10  J. Ator    -- Use modules instead of COMMON blocks
 C>
-C> THIS ROUTINE CALLS:        backbufr() bort()     cktaba()   errwrt()
+C> <b>This routine calls:</b> backbufr() bort()     cktaba()   errwrt()
 C>                            idxmsg()   rdbfdx()   rdmsgw()   reads3()
 C>                            status()   wtstat()
 C> 
-C> THIS ROUTINE IS CALLED BY: ireadmg()  readns()   rdmgsb()   rewnbf()
+C> <b>This routine is called by:</b>
+C>                            ireadmg()  readns()   rdmgsb()   rewnbf()
 C>                            ufbinx()   ufbpos()
 C>                            <br>Also called by application programs.
 C>
