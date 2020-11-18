@@ -2,12 +2,12 @@ C> @file
 C> @brief Read the next message from a BUFR file that was previously
 C> opened for reading.
 
+C> This subroutine reads the next BUFR message from logical unit
+C> ABS(LUNXX) into internal arrays.
+C>
 C> @authors J. Woollen
 C> @authors J. Ator
 C> @date 1994-01-06
-C>
-C> This subroutine reads the next BUFR message from logical unit
-C> ABS(LUNXX) into internal arrays.
 C>
 C> @param[in] LUNXX    - integer: absolute value is Fortran logical unit
 C>                       number for BUFR file

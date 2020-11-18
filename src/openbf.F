@@ -2,13 +2,13 @@ C> @file
 C> @brief Identify a new system file to the BUFRLIB software for
 C> reading or writing BUFR messages.
 
+C> This subroutine identifies a new file to the BUFRLIB software for
+C> input or output operations.
+C>
 C> @authors J. Woollen
 C> @authors J. Ator
 C> @authors D. Keyser
 C> @date 1994-01-06
-C>
-C> This subroutine identifies a new file to the BUFRLIB software for
-C> input or output operations.
 C>
 C> @param[in] LUNIT    - integer: Fortran logical unit number for BUFR
 C>                       file (unless IO is set to 'QUIET', in which

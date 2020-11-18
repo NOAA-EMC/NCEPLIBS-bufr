@@ -2,12 +2,12 @@ C> @file
 C> @brief Convert an FXY descriptor from its bit-wise (integer)
 C> representation to its five or six character ASCII representation.
 
+C> This function converts a descriptor from its bit-wise
+C> (integer) representation to its 5 or 6 character ASCII
+C> representation.
+C>
 C> @author J. Woollen
 C> @date 1994-01-06
-C>
-C> This function converts a descriptor from its bit-wise
-c> (integer) representation to its 5 or 6 character ASCII
-C> representation.
 C>
 C> @param[in] IDN - integer: bit-wise representation of descriptor (FXY)
 C>                value
@@ -26,7 +26,7 @@ C>                           history documentation
 C>
 C> <b>This routine calls:</b> bort()
 C>
-C> <b>this routine is called by:</b> cadn30() dxinit() igetrfel() istdesc()
+C> <b>This routine is called by:</b> cadn30() dxinit() igetrfel() istdesc()
 C> nemtbd() numtab() rdmtbb() rdmtbd() rdmtbf() reads3() seqsdx() sntbde()
 C> sntbfe() ufbqcd() upds3() wrdxtb()
 C> <br>Normally not called by any application programs.

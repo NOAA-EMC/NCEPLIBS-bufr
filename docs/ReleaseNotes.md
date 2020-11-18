@@ -1,51 +1,67 @@
 
 #### Release Notes
+@brief Detailed description of changes included within each new release.
 
 
-### Version 11.5.0
+### Version 11.4.0 - TBD
 
-* Subroutine STNDRD was patched to fix an internal calculation for messages
-containing only one subset.
-
-* Subroutine UFBSEQ was modified for cases where the number of available
+* Subroutine ufbseq() was modified for cases where the number of available
 levels exceeds the amount of user-provided array space when reading from an
 input file.  Previously, the software would abort in such cases without
 returning any data whatsoever, but with the change it will now print a
 diagnostic and return with the number of levels equal to the amount of array
-space that was provided.
+space that was provided. [[Issue #52](https://github.com/NOAA-EMC/NCEPLIBS-bufr/issues/52)]
 
-* Subroutine UFDUMP was modified to improve the logic for sequence tracking,
+* Subroutine ufdump() was modified to improve the logic for sequence tracking,
 and to increase the format width for integer code figure and bit number values
 when printing associated meaning strings.
+[[Issue #55](https://github.com/NOAA-EMC/NCEPLIBS-bufr/issues/55)]
 
-* A user-friendly sanity check was added to subroutine CLOSBF, in case an
-application program is using a dynamic-allocation build of the library and
-calls this subroutine prior to calling subroutine OPENBF.  The library would
-previously abort in such cases, but it will now just print a warning message.
-
-* Subroutine UFBDMP was modified to fix a bug when checking for the "missing"
+* Subroutine ufbdmp() was modified to fix a bug when checking for the "missing"
 value in long character strings (i.e. longer than 8 bytes) and to enable
 printing of up to 120 characters for such strings.
+[[Issue #55](https://github.com/NOAA-EMC/NCEPLIBS-bufr/issues/55)]
 
-* Subroutine READLC was modified to return a "missing" character string if
-the requested mnemonic isn't found in the subset.  Previously, the subroutine
+* Subroutine readlc() was modified to return a "missing" character string if
+the requested mnemonic isn''t found in the subset.  Previously, the subroutine
 would return a string of all blank characters in such cases.
+[[Issue #53](https://github.com/NOAA-EMC/NCEPLIBS-bufr/issues/53)]
 
-* Subroutine WRITLC was modified to print a warning message if the requested
-mnemonic isn't found in the subset definition.  The library would previously
-abort in such cases.
+* Subroutine writlc() was modified to print a warning message if the requested
+mnemonic isn''t found in the subset definition.  The library would previously
+abort in such cases. [[Issue #53](https://github.com/NOAA-EMC/NCEPLIBS-bufr/issues/53)]
 
-* Subroutine WRITSA was modified to allow the return of up to two BUFR
+* The Fortran include file "bufrlib.prm" was renamed to "bufrlib.inc" to better
+conform with modern software engineering standards.
+[[Issue #22](https://github.com/NOAA-EMC/NCEPLIBS-bufr/issues/22)]
+
+* Subroutine writsa() was modified to allow the return of up to two BUFR
 messages during the same call to the subroutine, in the rare instances where
 more than one BUFR message could become available during such a call.
+[[Issue #54](https://github.com/NOAA-EMC/NCEPLIBS-bufr/issues/54)]
+
+
+### Version 11.3.2 - July 16, 2020
+
+* A user-friendly sanity check was added to subroutine closbf(), in case an
+application program is using a dynamic-allocation build of the library and
+calls this subroutine prior to calling subroutine openbf().  The library would
+previously abort in such cases, but it will now just print a warning message.
+[[Issue #9](https://github.com/NOAA-EMC/NCEPLIBS-bufr/issues/9)]
+
+
+### Version 11.3.1 - March 3, 2020
+
+* Subroutine stndrd() was patched to fix an internal calculation for messages
+containing only one subset. [[Issue #51](https://github.com/NOAA-EMC/NCEPLIBS-bufr/issues/51)]
 
 
 ### Version 11.3.0 - May 21, 2019
 
 * A bug was fixed in the bitmap processing, so that each Table A mnemonic in
 the jump/link table now tracks its own individual set of underlying Table C
-operators.  This involved changes to function IGETRFEL and subroutines TABSUB
-and MAKESTAB.
+operators.  This involved changes to function igetrfel() and subroutines tabsub()
+and makestab().
 
 * The build script makebufrlib.sh was modified to remove calls to cpp (the C
 preprocessor) for all *.F Fortran files.  Preprocessing for these files is now
@@ -61,32 +77,32 @@ the list of array size limits that can be configured using dynamic allocation.
 dynamic allocation builds to flexibly define whatever size limits they need
 for large BUFR datasets.  If users need to recreate the exact specifications
 that were present in the previous s_64 build, they can do so using a dynamic
-allocation build and separate calls to subroutine ISETPRM to set MXLCC=12,
+allocation build and separate calls to subroutine isetprm() to set MXLCC=12,
 MAXMEM=75000000, MXCDV=50000, MAXJL=128000, MAXSS=150000, MXMSGL=2500000 and
 MXRST=500 within their application program.
 
 * A new capability was added to read and process master code and flag tables.
-This feature is activated via an initial call to new subroutine CODFLG at any
-time after the first call to subroutine OPENBF.  Once that is done, then for
-any BUFR message read into the library via subroutine READMG, READERME or
+This feature is activated via an initial call to new subroutine codflg() at any
+time after the first call to subroutine openbf().  Once that is done, then for
+any BUFR message read into the library via subroutine readmg(), readerme() or
 equivalent, and for any mnemonic contained within that message which is defined
-as a code or flag table, the user may call new subroutine GETCFMNG with that
+as a code or flag table, the user may call new subroutine getcfmng() with that
 mnemonic and an associated value (code figure or bit number) as input, and
 the subroutine will return the meaning (as a character string) corresponding
 to that mnemonic and associated value.
 
 * The default BUFR master table version number was changed from "13" to "29"
-within subroutines CMSGINI, DXMINI and MSGINI.
+within subroutines cmsgini(), dxmini() and msgini().
 
 * The maximum number of delayed replication factors that can be passed in as
-input to subroutine DRFINI was increased from 200 to 2000.
+input to subroutine drfini() was increased from 200 to 2000.
 
-* Subroutines MSGUPD and CPYUPD were modified so that the IPRT verbosity must
+* Subroutines msgupd() and cpyupd() were modified so that the IPRT verbosity must
 be greater than or equal to 1 in order for diagnostic alerts to be printed
 whenever BUFR subsets greater than 65535 bytes are written to their own output
 messages.
 
-* Function I4DY was modified to change the window for converting 2-digit years
+* Function i4dy() was modified to change the window for converting 2-digit years
 to 4-digit years.  The old window was 1921-2020, i.e. add 1900 to any 2-digit
 year greater than 20; otherwise add 2000.  The new window will be 1941-2040,
 i.e. add 1900 to any 2-digit year greater than 40; otherwise add 2000.
@@ -98,45 +114,45 @@ i.e. add 1900 to any 2-digit year greater than 40; otherwise add 2000.
 marker operators when reading BUFR messages, including when such operators
 are included in sequences within a BUFR DX table.
 
-* A new subroutine GETTAGRE was added which, given an element within a
+* A new subroutine gettagre() was added which, given an element within a
 subset open for reading, determines if the element references another element
 within the same subset via an internal bitmap, and if so returns the
 referenced element along with its location in the subset.
 
-* A new function IGETMXBY was added which returns the maximum size of a BUFR
+* A new function igetmxby() was added which returns the maximum size of a BUFR
 message that can be written to any output stream by the BUFRLIB software.
-This value can then be modified via a subsequent call to subroutine MAXOUT.
+This value can then be modified via a subsequent call to subroutine maxout().
 
-* Subroutine NEMTBD was modified to allow the last mnemonic in a sequence to
+* Subroutine nemtbd() was modified to allow the last mnemonic in a sequence to
 be a "following value" mnemonic, for cases such as when it is being used as
 a coordinate descriptor and set to a value of "missing" to cancel a previous
 instance of the same descriptor.
 
-* A new subroutine SETVALNB was added which searches for a specified mnemonic
+* A new subroutine setvalnb() was added which searches for a specified mnemonic
 in a subset definition, then searches forward or backward from that point for
 a different mnemonic and sets the associated value as specified by the user.
 It can be useful in certain application codes which write BUFR output.
 
-* Subroutines RDTREE and RCSTPL were modified to automatically identify
+* Subroutines rdtree() and rcstpl() were modified to automatically identify
 certain cases where a decoded subset is corrupt and return this information
-to the application program via READSB or IREADSB, rather than continuing to
+to the application program via readsb() or ireadsb(), rather than continuing to
 try to decode the message which could in turn lead to a segmentation fault.
 
 * The build script makebufrlib.sh was updated to add a missing compiler option
 needed for compatibility with the Cray programming environment on the s_64
 ("supersize") build.
 
-* A bug was fixed in subroutine UFBTAB which could occasionally lead to array
+* A bug was fixed in subroutine ufbtab() which could occasionally lead to array
 maximums being exceeded and corrupted output when reading BUFR files.
 
 
 ### Version 11.1.0 - April 27, 2016
 
-* Subroutine WRCMPS was modified to fix a bug involving the encoding of long
-character strings (via subroutine WRITLC) into compressed messages which also
+* Subroutine wrcmps() was modified to fix a bug involving the encoding of long
+character strings (via subroutine writlc()) into compressed messages which also
 contain delayed replication sequences.
 
-* Subroutine MSGUPD was modified to always call subroutine USRTPL, even for
+* Subroutine msgupd() was modified to always call subroutine usrtpl(), even for
 overlarge subsets which don''t get written to the output stream.  This ensures
 that such subsets are properly flushed from internal arrays.
 
@@ -144,61 +160,61 @@ that such subsets are properly flushed from internal arrays.
 ### Version 11.0.2
 
 * The build script makebufrlib.sh was updated for compatibility with the Cray
-programming environment, along with module MODA_MSTABS and functions ICBFMS
-and ISIZE.  All changes remain compatible with other supported environments.
+programming environment, along with module MODA_MSTABS and functions icbfms()
+and isize().  All changes remain compatible with other supported environments.
 
 
 ### Version 11.0.1
 
-* Subroutines CPYUPD, UFBMEM, UFBMEX and UFBOVR were patched to include the
+* Subroutines cpyupd(), ufbmem(), ufbmex() and ufbovr() were patched to include the
 proper declaration for IPRT, which is a global variable controlling the
 verbosity of diagnostic output.
 
-* Subroutine UFDUMP was modified to include level identifiers for event
+* Subroutine ufdump() was modified to include level identifiers for event
 stacks in the print output.
 
-* Subroutine WRCMPS was modified to fix a bug involving a variable that was
+* Subroutine wrcmps() was modified to fix a bug involving a variable that was
 not being saved between successive calls to this subroutine and which in rare
 cases could result in the loss of output subsets.
 
 
 ### Version 11.0.0 - April 27, 2015
 
-* A new subroutine RTRCPTB was added which works just like subroutine RTRCPT,
+* A new subroutine rtrcptb() was added which works just like subroutine rtrcpt(),
 except that it operates on a BUFR message passed directly to it by a call
 argument, rather than on the last BUFR message that was indirectly read during
-the previous call to subroutine READMG, READMM, READERME or equivalent.
-Subroutine RTRCPT was correspondingly modified to now directly call RTRCPTB,
+the previous call to subroutine readmg(), readmm(), readerme() or equivalent.
+Subroutine rtrcpt() was correspondingly modified to now directly call rtrcptb(),
 to avoid maintaining the same program logic within two different subroutines.
 
 * The maximum number of delayed replication factors that can be passed in as
-input to subroutine DRFINI was increased from 100 to 200.
+input to subroutine drfini() was increased from 100 to 200.
 
-* Subroutine UFBSEQ was modified to fix a bug involving nesting of delayed
+* Subroutine ufbseq() was modified to fix a bug involving nesting of delayed
 replication sequences.  The subroutine would fail to store data properly in
 cases where the inner-nested sequence was not present (i.e. zero replications)
 within the first replication of the outer sequence.
 
 * The makebufrlib.sh build script was modified to automatically extract the
-version number for the current build from the source of subroutine BVERS.
+version number for the current build from the source of subroutine bvers().
 Previously this information had been hardcoded in multiple lines of the script.
 
-* The default directory location of the BUFR master tables in subroutine BFRINI
+* The default directory location of the BUFR master tables in subroutine bfrini()
 was changed from "/nwprod/fix" to "/nwprod/decoders/decod_shared/fix".
 
-* A new subroutine NEMSPECS was added which returns the scale factor, reference
+* A new subroutine nemspecs() was added which returns the scale factor, reference
 value and bit width corresponding to a specified occurrence of a given mnemonic
 within a subset definition, including accounting for any Table C operators such
 as 2-01-YYY, 2-02-YYY, 2-03-YYY, 2-07-YYY, 2-08-YYY, etc. which may be in effect
 for that particular occurrence of the mnemonic.
 
-* A new subroutine NEMDEFS was added which returns the element definition and
+* A new subroutine nemdefs() was added which returns the element definition and
 units associated with a given mnemonic.
 
 * Global parameter MXIMB was removed from the BUFRLIB, and the corresponding
-logic within subroutine MVB was simplified to mitigate the need for it.
+logic within subroutine mvb() was simplified to mitigate the need for it.
 
-* Subroutines MSGUPD, CPYUPD and COPYSB were modified to ensure that any subset
+* Subroutines msgupd(), cpyupd() and copysb() were modified to ensure that any subset
 larger than 65530 bytes is written to its own message in the output stream. This
 ensures that the subset byte count indicator, which is an NCEP local descriptor
 packed into 16 bits prior to each subset in a message, will not need to be
@@ -211,7 +227,7 @@ from or written into a subset by the BUFRLIB software) was increased from
 * Subroutine RDMSGB, which was rendered obsolete with the addition of the
 embedded C-language I/O upgrade in version 10.2.0, has been removed.
 
-* A logical call argument was added to subroutine UPC to let the calling
+* A logical call argument was added to subroutine upc() to let the calling
 subprogram specify whether null characters should be converted to blanks.
 Previously, all null characters were converted to blanks by default.
 
@@ -221,10 +237,10 @@ corresponding arrays dynamically allocated at run time rather than statically
 allocated at compile time.  The new builds contain the suffix "_DA" and can
 be used by application programs which need flexibility in defining size limits
 for certain outlier BUFR datasets.  The size limits that can be modified are
-defined within new subroutine ISETPRM, which must itself be called prior to the
-first call to subroutine OPENBF for each new size limit that is to be modified
+defined within new subroutine isetprm(), which must itself be called prior to the
+first call to subroutine openbf() for each new size limit that is to be modified
 from its default value.  The corresponding arrays are then dynamically allocated
-during the subsequent first call to OPENBF.  As part of this enhancement,
+during the subsequent first call to openbf().  As part of this enhancement,
 numerous subprograms within BUFRLIB have been rewritten to share memory using
 FORTRAN modules rather than common blocks, and new conditional compilation flags
 have been incorporated into these subprograms as well as to the makebufrlib.sh
@@ -234,7 +250,7 @@ programs which don't have a need to redefine any default array size limits
 may continue to use the existing static allocation builds for maximum runtime
 efficiency.
 
-* A new subroutine PKX was added which works just like subroutine PKB, except
+* A new subroutine pkx() was added which works just like subroutine pkb(), except
 that it properly handles cases where the input value NBITS is greater than the
 number of bits in a machine word.
 
@@ -242,22 +258,22 @@ number of bits in a machine word.
 operators when reading or writing BUFR messages, including when these operators
 are included in sequences within a BUFR DX table.
 
-* Subroutine STSEQ was modified to fix a bug involving the application of
+* Subroutine stseq() was modified to fix a bug involving the application of
 associated fields to Table D sequence descriptors.
 
-* Function ICBFMS was modified to improve the logic for identifying "missing"
+* Function icbfms() was modified to improve the logic for identifying "missing"
 strings encoded as REAL*8 10E10 values prior to version 10.2.0 of the library.
 
 
 ### Version 10.2.5
 
-* Subroutine MESGBF was modified to ensure that the input BUFR file is
+* Subroutine mesgbf() was modified to ensure that the input BUFR file is
 always closed before exiting the subroutine.
 
-* Function COBFL was modified to allow up to 500 characters in the path of
+* Function cobfl() was modified to allow up to 500 characters in the path of
 the filename being opened.
 
-* A declaration typo was fixed in subroutine BLOCKS.
+* A declaration typo was fixed in subroutine blocks().
 
 * Global parameter MAXNC (the maximum number of FXY descriptors that can be
 written into Section 3 of a BUFR message) was increased from 300 to 600.
@@ -272,16 +288,16 @@ the IBM CCS for version 10.2.3 of the BUFRLIB.
 
 ### Version 10.2.3 - June 21, 2013
 
-* Subroutine RDUSDX was modified to prevent a segfault when trying to read
+* Subroutine rdusdx() was modified to prevent a segfault when trying to read
 DX dictionary information from an empty file.
 
 
 ### Version 10.2.2
 
-* Subroutine OPENBF was modified to fix a bug which caused a segfault in
+* Subroutine openbf() was modified to fix a bug which caused a segfault in
 certain cases when appending to a BUFR file using the embedded C-language I/O.
 
-* Subroutines READLC and WRITLC were modified to allow the input mnemonic
+* Subroutines readlc() and writlc() were modified to allow the input mnemonic
 string to be up to 14 characters when it contains a '#' condition code.
 
 
@@ -296,69 +312,69 @@ difference in index numbering between Fortran and C arrays.
 * The makebufrlib.sh script was modified to streamline the endianness check
 and make it more portable.
 
-* Subroutine WRTREE was modified to ensure that "missing" character strings
+* Subroutine wrtree() was modified to ensure that "missing" character strings
 are properly encoded with all bits set to 1.
 
-* A new function ICBFMS was added which tests whether decoded character
+* A new function icbfms() was added which tests whether decoded character
 strings are "missing" by checking if all of the equivalent bits are set to 1.
 This was done because, on certain platforms, the BUFRLIB REAL*8 "missing" value
 BMISS is not always equivalent to all bits set to 1 when viewed as a character
-string, and thus the existing BUFRLIB function IBFMS did not always work
+string, and thus the existing BUFRLIB function ibfms() did not always work
 properly in such cases.  However, users can continue to use the existing IBFMS
-function in application programs, because the new ICBFMS function has now been
+function in application programs, because the new icbfms() function has now been
 incorporated internally within the logic of many BUFRLIB subroutines, in
 addition to also being available for direct calling by application programs.
 
-* Subroutines READMG and READERME were modified to prevent the BUFRLIB from
+* Subroutines readmg() and readerme() were modified to prevent the BUFRLIB from
 internally adjusting to DX (dictionary) table messages when Section 3 decoding
 is being used.  Otherwise, contention can occur between the table information
 in the DX messages and the table information specified within the Section 3
 descriptors.  From now on, whenever Section 3 decoding is used (as specified
-by setting IO="SEC3" when opening a file via OPENBF), the BUFRLIB will now
+by setting IO="SEC3" when opening a file via openbf()), the BUFRLIB will now
 treat any DX (dictionary) table message the same as any other message and
 decode the actual data (i.e. table) values according to Section 3.
 
-* Subroutine OPENBF was modified to allow a new option for input call
+* Subroutine openbf() was modified to allow a new option for input call
 argument IO.  If this argument is set to 'INUL', then the BUFRLIB will behave
 the same as when IO='IN', except that it will never try to actually read
 anything from the file attached to input call argument LUNIT.  This can be
 useful for some special cases, such as when the user plans to pass input
-messages to the BUFRLIB using subsequent calls to subroutine READERME.
+messages to the BUFRLIB using subsequent calls to subroutine readerme().
 
-* A new subroutine GETTAGPR was added which returns the mnemonic corresponding
+* A new subroutine gettagpr() was added which returns the mnemonic corresponding
 to a parent sequence in a subset definition, given the mnemonic corresponding
 to a child descriptor within that sequence.  This can be useful in certain
 application codes, especially when Section 3 decoding is being used.
 
-* A new function GETVALNB was added which searches for a specified mnemonic
+* A new function getvalnb() was added which searches for a specified mnemonic
 in a subset definition, then searches forward or backward from that point for
 a different mnemonic and returns the associated value.  This can be useful in
 certain application codes, especially when Section 3 decoding is being used.
 
 * Functionality was added to improve the portability of reading and writing
 BUFR messages across different platforms.  All calls to existing FORTRAN
-subroutines which read or write BUFR messages from disk (e.g. READMG, UFBMEM,
-UFBTAB, WRITSB, WRCMPS, COPYMG, etc.) now use embedded C-language I/O to
+subroutines which read or write BUFR messages from disk (e.g. readmg(), ufbmem(),
+ufbtab(), writsb(), wrcmps(), copymg(), etc.) now use embedded C-language I/O to
 perform these tasks.  Among other things, this means that any BUFR file can
 now be read regardless of whether it has been pre-blocked with FORTRAN
 control words using the cwordsh utility.  For writing BUFR files, a new
-subroutine SETBLOCK was added which allows users to specify whether output
+subroutine setblock() was added which allows users to specify whether output
 BUFR messages are to be unblocked (which is the new default), big-endian
 blocked, or little-endian blocked.
 
-* A new subroutine SETBMISS was added which allows users to specify a custom
+* A new subroutine setbmiss() was added which allows users to specify a custom
 "missing" value for writing to and reading from BUFR files, rather than using
 the BUFRLIB default "missing" value of 10E10.  A corresponding function
-GETBMISS was also added which returns the current "missing" value in use.
+getbmiss() was also added which returns the current "missing" value in use.
 
 
 ### Version 10.1.0 - June 11, 2012
 
-* Subroutine UFDUMP was modified to fix a bug when checking for the "missing"
+* Subroutine ufdump() was modified to fix a bug when checking for the "missing"
 value in long character strings (i.e. longer than 8 bytes).
 
-* A new subroutine UFBMEX was added for use with certain application
-programs.  UFBMEX functions similarly to UFBMEM, but has an additional return
+* A new subroutine ufbmex() was added for use with certain application
+programs.  ufbmex() functions similarly to ufbmem(), but has an additional return
 argument containing an array of message types corresponding to the array of
 messages that were read into internal memory.
 
@@ -372,32 +388,32 @@ was increased from 120 to 150, and MXDXTS (the maximum number of dictionary
 tables that can be stored for use with BUFR messages in internal memory) was
 increased from 10 to 200.
 
-* Subroutine CONWIN was modified to fix a bug and remove an obsolete call
+* Subroutine conwin() was modified to fix a bug and remove an obsolete call
 argument.
 
-* Subroutine WRCMPS was modified to fix a bug involving embedded tables
+* Subroutine wrcmps() was modified to fix a bug involving embedded tables
 within a file of compressed BUFR messages.
 
 * Documentation was improved in many subroutines throughout the library.
 
 * Support has been added for the 2-03-YYY "change reference values" operator.
 
-* Subroutine USRTPL was modified to fix a bug that was incorrectly using
+* Subroutine usrtpl() was modified to fix a bug that was incorrectly using
 parameter MAXJL instead of parameter MAXSS when checking for overflow of an
 internal template array.
 
-* Subroutine WRDXTB was modified to prevent it from trying to store more
+* Subroutine wrdxtb() was modified to prevent it from trying to store more
 than 255 Table A, Table B or Table D descriptors in a single DX dictionary
 message.  The maximum value was set to 255 since regular 8-bit delayed
 replication is used to store descriptor information in these messages.
 
-* Subroutine TABSUB was modified to correctly generate the jump/link table
+* Subroutine tabsub() was modified to correctly generate the jump/link table
 for subsets where a Table C operator immediately follows a Table D sequence.
 
 
 ### Version 10.0.1
 
-* Subroutine REWNBF was modified to fix a bug which skipped the first data
+* Subroutine rewnbf() was modified to fix a bug which skipped the first data
 message after a file rewind.
 
 
@@ -413,78 +429,78 @@ BUFRLIB software.  Previously, the separate global parameter MAXJL was used
 to define this limit.  MAXJL will now be used solely to define the maximum
 number of internal jump/link table entries.
 
-* The size of a string declaration was increased within subroutine RDUSDX.
+* The size of a string declaration was increased within subroutine rdusdx().
 
-* Subroutine READLC was modified to enable the extraction of "long" (i.e.
+* Subroutine readlc() was modified to enable the extraction of "long" (i.e.
 greater than 8 bytes) character strings from compressed messages.  In
 addition, it is now possible to access all occurrences of such a string
 from within a given data subset, via the use of the new mnemonic condition
-character '#'.  Previously, READLC could only ever access the first
+character '#'.  Previously, readlc() could only ever access the first
 occurrence of any "long" character string from within a data subset.
 
-* Subroutine WRITLC was modified to allow the writing of "long" (i.e.
+* Subroutine writlc() was modified to allow the writing of "long" (i.e.
 greater than 8 bytes) character strings within compressed messages.  In
 addition, it is now possible to write all occurrences of such a string into
 a given data subset, via the use of the new mnemonic condition character '#'.
-Previously, WRITLC could only ever locate and write the first occurrence of
+Previously, writlc() could only ever locate and write the first occurrence of
 any "long" character string within a data subset.
 
-* Subroutine UFDUMP was modified to label each output level for sequences
+* Subroutine ufdump() was modified to label each output level for sequences
 where the replication count is greater than 1.  In addition, it will now
 output all occurrences of "long" (i.e. greater than 8 bytes) character
 strings from within a given data subset.
 
-* Subroutine RDCMPS was modified to fix a bug which could cause the overflow
+* Subroutine rdcmps() was modified to fix a bug which could cause the overflow
 of internal arrays when working with long character strings (i.e. longer
 than 8 bytes).
 
-* Subroutine NVNWIN was modified to fix a bug which could cause the overflow
+* Subroutine nvnwin() was modified to fix a bug which could cause the overflow
 of an internal array during initialization on certain operating systems.
 
-* A new subroutine BVERS was added as a resource for managing and reporting
+* A new subroutine bvers() was added as a resource for managing and reporting
 library version numbers.
 
-* The fuzziness threshold in function IBFMS was increased for improved
+* The fuzziness threshold in function ibfms() was increased for improved
 accuracy when testing for the BUFRLIB "missing" value.
 
-* A new subroutine IUPBS3 was added which unpacks specified values from
+* A new subroutine iupbs3() was added which unpacks specified values from
 Section 3, including subset counts and compression indicators.  The same
 logic had been repeated within numerous existing subroutines throughout
 BUFRLIB and has now been consolidated into this single subroutine that can
 itself be called from wherever it is needed.
 
-* Subroutines READERME, RDMSGW and RDMSGB were modified to prevent the
+* Subroutines readerme(), rdmsgw() and RDMSGB were modified to prevent the
 overflow of an internal array for extremely large BUFR messages.
 
-* Subroutine UPDS3 was modified to pass in a new input argument containing
+* Subroutine upds3() was modified to pass in a new input argument containing
 the dimensioned size of the output array, in order to prevent the subroutine
 from possibly overflowing the array.
 
-* Subroutine WRITSA was modified to pass in a new input argument containing
+* Subroutine writsa() was modified to pass in a new input argument containing
 the dimensioned size of the output array, in order to prevent the subroutine
 from possibly overflowing the array.
 
 * A new capability was added to BUFRLIB to enable the decoding of a BUFR
 message according to its data description section (Section 3).  This is
-activated by setting IO="SEC3" when opening the file via subroutine OPENBF.
+activated by setting IO="SEC3" when opening the file via subroutine openbf().
 Master tables containing all possible BUFR descriptors are also required, and
-these may be specified via a call to new subroutine MTINFO or by using default
-values specified within subroutine BFRINI.  If the default values are used,
+these may be specified via a call to new subroutine mtinfo() or by using default
+values specified within subroutine bfrini().  If the default values are used,
 then FORTRAN logical unit numbers 98 and 99 will be allocated by the BUFRLIB
 for opening and reading the master tables.  This new capability allows BUFR
 messages to be decoded without pre-defined DX dictionary files.
 
-* Subroutine READMM was re-written to directly call subroutine RDMEMM
-instead of duplicating all of the code logic in RDMEMM.
+* Subroutine readmm() was re-written to directly call subroutine rdmemm()
+instead of duplicating all of the code logic in rdmemm().
 
-* Subroutine UPB was re-written to directly call subroutine UPBB instead of
-duplicating all of the code logic in UPBB.
+* Subroutine upb() was re-written to directly call subroutine upbb() instead of
+duplicating all of the code logic in upbb().
 
 * Subroutine POSAPN has been marked as obsolete (for future removal from
 BUFRLIB).  The same functionality can now be obtained via the use of
-subroutine POSAPX.
+subroutine posapx().
 
-* Subroutine WRCMPS was modified to fix a bug involving the writing of
+* Subroutine wrcmps() was modified to fix a bug involving the writing of
 compressed subsets which contain delayed replication.  In certain situations,
 the values of two internal variables were not being properly saved between
 successive calls to the subroutine.
@@ -499,8 +515,8 @@ will cause the BUFRLIB to adjust its internal processing tables and treat all
 subsequent data messages as conforming to these new dictionary messages, up
 through the end of the file or until yet another set of dictionary messages
 is encountered.  These changes affect all BUFRLIB subroutines which read BUFR
-messages from a file, including READMG, IREADMG, READMM, IREADMM, RDMEMM,
-READNS and IREADNS.
+messages from a file, including readmg(), ireadmg(), readmm(), ireadmm(), rdmemm(),
+readns() and ireadns().
 
 * Subroutine ADDATE has been marked as obsolete (for future removal from
 BUFRLIB) since it is no longer called by any BUFRLIB routines.  The same
@@ -509,10 +525,10 @@ NCEP W3 library.
 
 * Subroutine SUBUPD has been marked as obsolete (for future removal from
 BUFRLIB) since it is no longer called by any BUFRLIB routines and is almost
-an exact replica of subroutine MSGUPD.  The same functionality can now be
-obtained via the use of subroutine MSGUPD.
+an exact replica of subroutine msgupd().  The same functionality can now be
+obtained via the use of subroutine msgupd().
 
-* A new logical function MSGFULL was added which determines whether there is
+* A new logical function msgfull() was added which determines whether there is
 enough room to store the current data subset within the current BUFR message
 for output.  The same logic had been repeated within numerous existing
 subroutines throughout BUFRLIB and has now been consolidated into this single
@@ -520,47 +536,47 @@ subroutine that can itself be called from wherever it is needed.
 
 * A new capability was added to BUFRLIB to allow it to append a tank receipt
 time to Section 1 within all future BUFR messages written to output by
-subroutines WRITSB, COPYMG or equivalent.  The tank receipt time is a local
+subroutines writsb(), copymg() or equivalent.  The tank receipt time is a local
 extension to Section 1; however, its inclusion in a message is still fully
 compliant with the WMO BUFR regulations.  This new capability is activated via
-an initial call to new subroutine STRCPT, specifying the time to be appended
+an initial call to new subroutine strcpt(), specifying the time to be appended
 to Section 1 within all future BUFR messages written to output.  This same
 information can then be read back from an input BUFR message via a call to new
-subroutine RTRCPT.
+subroutine rtrcpt().
 
-* Subroutine NUMTAB was re-written to directly call subroutine NUMTBD
-instead of duplicating all of the code logic in NUMTBD.
+* Subroutine numtab() was re-written to directly call subroutine numtbd()
+instead of duplicating all of the code logic in numtbd().
 
-* Subroutine NEMTBA was re-written to directly call subroutine NEMTBAX
-instead of duplicating all of the code logic in NEMTBAX.
+* Subroutine nemtba() was re-written to directly call subroutine nemtbax()
+instead of duplicating all of the code logic in nemtbax().
 
 * Documentation was improved within numerous subroutines throughout BUFRLIB,
 including the addition of docblocks where none previously existed.
 
 * The default BUFR master table version number was changed from "12" to "13"
-within subroutines CMSGINI, DXMINI and MSGINI.
+within subroutines cmsgini(), dxmini() and msgini().
 
 * A new capability was added to allow BUFRLIB print diagnostics and other
 runtime messages to be redirected somewhere other than the default FORTRAN
 logical unit #6 (i.e. standard output).  This is enabled within an application
-program by supplying an in-line version of subroutine ERRWRT to override the
+program by supplying an in-line version of subroutine errwrt() to override the
 new default version of this subroutine provided within the BUFRLIB.  The
 default version will continue to write to standard output when included within
 a compilation.
 
-* Subroutines CMSGINI, STNDRD and MSGWRT were modified to remove a logical
+* Subroutines cmsgini(), stndrd() and msgwrt() were modified to remove a logical
 error which assumed that any message whose data section (Section 4) was
 compressed was also fully standard.  In reality, the use of compression only
 implies that the data section is fully standard and does not necessarily imply
 that the data description section (Section 3) is also fully standard.  BUFRLIB
 will now address the standardization of Section 3 solely within subroutine
-STNDRD, independent of whether or not the data in Section 4 are compressed.
+stndrd(), independent of whether or not the data in Section 4 are compressed.
 
 * Functions LSTRPC and LSTRPS have been marked as obsolete (for future removal
 from BUFRLIB).  The same functionality can now be obtained via the use of
-function LSTJPB.
+function lstjpb().
 
-* Subroutine UFBTAB was modified to fix a bug involving the unpacking of
+* Subroutine ufbtab() was modified to fix a bug involving the unpacking of
 character strings which are identical within each subset of a single
 compressed BUFR message.
 

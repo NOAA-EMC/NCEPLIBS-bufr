@@ -2,12 +2,12 @@ C> @file
 C> @brief Close a previously opened system file and disconnect it from
 C> the BUFRLIB software.
 
+C> This subroutine closes the connection between logical unit
+C> LUNIT and the BUFRLIB software.
+C>
 C> @authors J. Woollen
 C> @authors J. Ator
 C> @date 1994-01-06
-C>
-C> This subroutine closes the connection between logical unit
-C> LUNIT and the BUFRLIB software.
 C>
 C> @param[in] LUNIT    - integer: Fortran logical unit number for BUFR file
 C>

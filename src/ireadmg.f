@@ -2,11 +2,11 @@ C> @file
 C> @brief Read the next message from a BUFR file that was previously
 C> opened for reading.
 
-C> @author J. Woollen
-C> @date 1994-01-06
-C>
 C> This function calls BUFRLIB subroutine readmg() and passes
 C> back its return code as the function value.
+C>
+C> @author J. Woollen
+C> @date 1994-01-06
 C>
 C> @param[in] LUNIT  - integer: Fortran logical unit number for BUFR file
 C> @param[out] SUBSET   - character*8: Table A mnemonic for type of BUFR

@@ -2,13 +2,13 @@ C> @file
 C> @brief Read the first line of the next entry from an ASCII master
 C> table B, table D or Code/Flag file.
 	
-C> @author J. Ator
-C> @date 2007-01-19
-C>
 C> This subroutine gets the first line of the next entry in
 C> the specified ASCII master table B, table D or table F (Code/Flag)
 C> file. This line contains, among other things, the FXY number
 C> corresponding to this entry.
+C>
+C> @author J. Ator
+C> @date 2007-01-19
 C>
 C> @param[in] LUNT integer: Fortran logical unit number of ASCII file
 C> containing master table B, table D or table F (Code/Flag) information
