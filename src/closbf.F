@@ -1,10 +1,13 @@
 C> @file
-C> @authors Jack Woollen
-C> @authors Jeff Ator
-C> @date 2020-07-16
+C> @brief Close a previously opened system file and disconnect it from
+C> the BUFRLIB software.
 
-C> @brief This subroutine closes the connection between logical unit
+C> This subroutine closes the connection between logical unit
 C> LUNIT and the BUFRLIB software.
+C>
+C> @authors J. Woollen
+C> @authors J. Ator
+C> @date 1994-01-06
 C>
 C> @param[in] LUNIT    - integer: Fortran logical unit number for BUFR file
 C>
@@ -17,7 +20,7 @@ C> opened to the software via openbf(); however, it's especially
 C> important to do so when writing/encoding a BUFR file, in order to
 C> ensure that all output is properly flushed to LUNIT.
 C>
-C> PROGRAM HISTORY LOG:
+C> <b>Program history log:</b>
 C> - 1994-01-06  J. Woollen -- ORIGINAL AUTHOR
 C> - 2003-11-04  J. Ator    -- Don't close lunit if opened as a NULL file
 C>                             by openbf()
@@ -30,9 +33,9 @@ C> - 2014-12-10  J. Ator    -- Use modules instead of COMMON blocks
 C> - 2020-07-16  J. Ator    -- Add sanity check to ensure that openbf()
 C>                             was previously called (needed for GSI)
 C> 
-C> THIS ROUTINE CALLS:        closfb() closmg() status() wtstat()
+C> <b>This routine calls:</b>        closfb() closmg() status() wtstat()
 C> 
-C> THIS ROUTINE IS CALLED BY: copybf() exitbufr() mesgbf() ufbinx()
+C> <b>This routine is called by:</b> copybf() exitbufr() mesgbf() ufbinx()
 C>                            ufbmem() ufbmex()   ufbtab()
 C>                            <br>Also called by application programs.
 C>

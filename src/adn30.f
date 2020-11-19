@@ -1,37 +1,35 @@
 C> @file
-C> @brief Converts a descriptor from its bit-wise (integer) representation to
-C> its five or six character ascii representation.
-C> @author WOOLLEN @date 1994-01-06
+C> @brief Convert an FXY descriptor from its bit-wise (integer)
+C> representation to its five or six character ASCII representation.
 
-C> @author WOOLLEN @date 1994-01-06
-C>
 C> This function converts a descriptor from its bit-wise
-c> (integer) representation to its five or six character ascii
+C> (integer) representation to its 5 or 6 character ASCII
 C> representation.
 C>
-C> Program History Log:
-C> - 1994-01-06  J. WOOLLEN -- ORIGINAL AUTHOR
-C> - 1998-07-08  J. WOOLLEN -- REPLACED CALL TO CRAY LIBRARY ROUTINE
-C>                           "ABORT" WITH CALL TO NEW INTERNAL BUFRLIB
-C>                           ROUTINE "BORT"
-C> - 2003-11-04  S. BENDER  -- ADDED REMARKS/BUFRLIB ROUTINE
-C>                           INTERDEPENDENCIES
-C> - 2003-11-04  D. KEYSER  -- UNIFIED/PORTABLE FOR WRF; ADDED
-C>                           DOCUMENTATION (INCLUDING HISTORY); OUTPUTS
-C>                           MORE COMPLETE DIAGNOSTIC INFO WHEN ROUTINE
-C>                           TERMINATES ABNORMALLY
+C> @author J. Woollen
+C> @date 1994-01-06
 C>
-C> @param[in] IDN - INTEGER: BIT-WISE REPRESENTATION OF DESCRIPTOR (FXY)
-C>                VALUE
-C> @param[in] L30 - INTEGER: LENGTH OF ADN30 (NUMBER OF CHARACTERS, 5 OR
-C>                6)
-C> @return CHARACTER*(*): CHARACTER FORM OF DESCRIPTOR (FXY VALUE)
+C> @param[in] IDN - integer: bit-wise representation of descriptor (FXY)
+C>                value
+C> @param[in] L30 - integer: length of string to be returned; can be
+C>                either 5 or 6 characters
+C> @returns adn30 - character*(*): ASCII form of descriptor (FXY) value
 C>
-C> This routine calls: bort()
-C> this routine is called by: cadn30() dxinit() igetrfel() istdesc()
+C> <b>Program History Log:</b>
+C> - 1994-01-06  J. Woollen -- Original author
+C> - 1998-07-08  J. Woollen -- Replaced call to CRAY library routine
+C>                           "ABORT" with call to new internal BUFRLIB
+C>                           routine "BORT"
+C> - 2003-11-04  S. Bender  -- Added remarks and routine interdependencies
+C> - 2003-11-04  D. Keyser  -- Unified/portable for WRF; added
+C>                           history documentation
+C>
+C> <b>This routine calls:</b> bort()
+C>
+C> <b>This routine is called by:</b> cadn30() dxinit() igetrfel() istdesc()
 C> nemtbd() numtab() rdmtbb() rdmtbd() rdmtbf() reads3() seqsdx() sntbde()
 C> sntbfe() ufbqcd() upds3() wrdxtb()
-C> Normally not called by any application programs.
+C> <br>Normally not called by any application programs.
 C>
       
       FUNCTION ADN30(IDN,L30)

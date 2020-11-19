@@ -1,16 +1,19 @@
 C> @file
-C> @author Jack Woollen
-C> @date 2003-11-04
+C> @brief Read the next message from a BUFR file that was previously
+C> opened for reading.
 
-C> @brief This function calls BUFRLIB subroutine readmg() and passes
+C> This function calls BUFRLIB subroutine readmg() and passes
 C> back its return code as the function value.
+C>
+C> @author J. Woollen
+C> @date 1994-01-06
 C>
 C> @param[in] LUNIT  - integer: Fortran logical unit number for BUFR file
 C> @param[out] SUBSET   - character*8: Table A mnemonic for type of BUFR
 C>                        message that was read (see Description and Format
 C>                        of DX BUFR Tables for further information about
 C>                        Table A mnemonics)
-C> @param[out] JDATE    - integer: date-time stored within Section 1 of
+C> @param[out] IDATE    - integer: date-time stored within Section 1 of
 C>                        BUFR message that was read, in format of either
 C>                        YYMMDDHH or YYYYMMDDHH, depending on the most
 C>                        recent call to subroutine datelen()
@@ -24,7 +27,7 @@ C> @remarks
 C> - The use of this function allows the return code from readmg() to be
 C> used as the target variable within an iterative program loop.
 C>
-C> PROGRAM HISTORY LOG:
+C> <b>Program history log:</b>
 C> - 1994-01-06  J. Woollen -- Original author
 C> - 1999-11-18  J. Woollen -- Added new function entry points ireadmm and
 C>                             ireadibm
@@ -37,9 +40,9 @@ C> - 2003-11-04  S. Bender  -- Added remarks and routine interdependencies
 C> - 2003-11-04  D. Keyser  -- Unified/portable for WRF; added history
 C>                             documentation
 C>
-C> THIS ROUTINE CALLS:        readmg()
+C> <b>This routine calls:</b>        readmg()
 C>
-C> THIS ROUTINE IS CALLED BY: ufbtab()
+C> <b>This routine is called by:</b> ufbtab()
 C>                            <br>Also called by application programs.
 C>
       FUNCTION IREADMG(LUNIT,SUBSET,IDATE)
