@@ -1,5 +1,5 @@
 
-#### Sample Utilities
+## Sample Utilities
 @brief Collection of commonly-used utilities based on the library
 
 | Utility | Description   |
