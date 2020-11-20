@@ -15,6 +15,7 @@
 ---
 
 <div id="readbp"/>
+
 ### readbp
 
 A utility to read prepbufr files which prints each report one at a time, or jumps to a report with characteristics defined by various keys such as report type, subset type, xy locagtion, station id, etc. Keys can be entered as arguments to the script or entered while the program is running. Basic operation is to print one report at a time with the default being starting at the beginning and continuing until the end or the user enters 'q'. Summary of keys follows. A key is entered after a report is output. Most keys require an additional input after entering the key. The 'd' key dumps the BUFR contents of the report without further input.
@@ -67,6 +68,7 @@ DATA:
 ---
 
 <div id="readmp"/>
+
 ### readmp
 
 A utility to read any BUFR file with embedded DX tables, and print the contents of each subset one at a time.
@@ -155,6 +157,7 @@ Sample output for: `./readmp gdas.20200812/00/gdas.t00z.sfcshp.tm00.bufr_d`
 ---
 
 <div id="binv"/>
+
 ### binv
 
 A utility to print a BUFR file inventory by message type.
@@ -186,6 +189,7 @@ TOTAL           6823        774888      67232740
 ---
 
 <div id="sinv"/>
+
 ### sinv
 
 Utility to print an inventory of satellite data by platform and instrument type.
@@ -215,6 +219,7 @@ Sample output for: `./sinv gdas.20200812/00/gdas.t00z.satwnd.tm00.bufr_d`
 ---
 
 <div id="cmpbqm"/>
+
 ### cmpbqm
 
 An inventory of prepbufr observations by variable, report type, and quality mark made from a prepbufr file. The ob type,total count,and quality marks are listed by column. The cka and ckb columns are counts of observed values with missing qm, or qms with missing observations. The cka and ckb should be zero but sometimes they're not. The qm values are found in [bufr code tables](https://www.emc.ncep.noaa.gov/mmb/data_processing/prepbufr.doc/table_7.htm), but below a quick summary. The GSI qms are added by a program run by the `fit2obs` system which copies that information from the convstat files. The sample output prepbufr was after prep but pre-analysis.
