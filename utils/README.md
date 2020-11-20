@@ -1,15 +1,21 @@
-# BUFR Utilities
 
-This is a collection of commonly used BUFR utilities:
-[readbp](#readbp) - Read prepbufr file and print reports
-[readmp](#readmp) - Read any BUFR file and dump contents of each subset one at a time
-[binv](#binv) - Print BUFR file inventory by message type
-[sinv](#sinv) - Print inventory of satellite data by platform and instrument type
-[cmpbqm](#cmpbqm) - Print inventory of prepbufr observations by variable, report type and quality marks
+#### Sample Utilities
+@brief Collection of commonly-used utilities based on the library
+
+| Utility | Description   |
+|---------|--------------------------------------------------------------------------|
+| [readbp](#readbp) | Read prepbufr file and print each report one at a time |
+| [readmp](#readmp) | Read BUFR file containing embedded DX tables, and print each report one at a time |
+| [binv](#binv) | Print inventory of BUFR file by message type |
+| [sinv](#sinv) | Print inventory of BUFR satellite data file by platform and instrument type |
+| [cmpbqm](#cmpbqm) | Print inventory of observations from prepbufr file by variable, report type and quality mark |
+
+<br>
 
 ---
 
-## readbp
+<div id="readbp"/>
+### readbp
 
 A utility to read prepbufr files which prints each report one at a time, or jumps to a report with characteristics defined by various keys such as report type, subset type, xy locagtion, station id, etc. Keys can be entered as arguments to the script or entered while the program is running. Basic operation is to print one report at a time with the default being starting at the beginning and continuing until the end or the user enters 'q'. Summary of keys follows. A key is entered after a report is output. Most keys require an additional input after entering the key. The 'd' key dumps the BUFR contents of the report without further input.
 
@@ -22,9 +28,11 @@ A utility to read prepbufr files which prints each report one at a time, or jump
 |  s  | station id                              |      72016       |
 |  d  | dump                                    | BUFR contents    |
 
+See the source code at readbp.f
+
 Sample output for:  `./readbp gdas.20200812/00/gdas.t00z.prepbufr'`
-```
---------------------------------------------------------------------------------
+
+~~~
 MESSAGE: ADPUPA       1     2    20081200
 STATION: 89642      140.02   -66.67
 TIME:      20081200      0.00
@@ -52,17 +60,22 @@ DATA:
   15   1    50.0(2) *******(*) *******(*) *******(*)    57.1(2)    26.6(2)
   16   1    30.0(2) *******(*) *******(*) *******(*)    70.5(2)    18.9(2)
   17   1    20.0(2) *******(*) *******(*) *******(*)    83.1(2)    22.3(2)
---------------------------------------------------------------------------------
-```
+~~~
+
+<br>
+
 ---
 
-## readmp
+<div id="readmp"/>
+### readmp
 
-A utility to read any bufr file and dump the entire contents of each subset one at a time.
+A utility to read any BUFR file with embedded DX tables, and print the contents of each subset one at a time.
+
+See the source code at readmp.f
 
 Sample output for: `./readmp gdas.20200812/00/gdas.t00z.sfcshp.tm00.bufr_d`
 
-```
+~~~
  MESSAGE TYPE NC001001
 
 004001  YEAR                      2020.0  YEAR                          YEAR
@@ -135,16 +148,22 @@ Sample output for: `./readmp gdas.20200812/00/gdas.t00z.sfcshp.tm00.bufr_d`
            <RPSEC3>     0 REPLICATIONS
            {RAWRPT}     0 REPLICATIONS
 
- >>> END OF SUBSET <<<
-```
+~~~
+
+<br>
+
 ---
 
-## binv
+<div id="binv"/>
+### binv
 
 A utility to print a BUFR file inventory by message type.
 
+See the source code at binv.f
+
 Sample output for: `./binv gdas.20200812/00/gdas.t00z.prepbufr`
-```
+
+~~~
 type        messages       subsets         bytes
 
 ADPUPA           363          1427       3091984        3.93
@@ -160,15 +179,21 @@ RASSDA            10           200         90976       20.00
 ASCATW          1390        225151      13809272      161.98
 SYNDAT             2           102         13234       51.00
 TOTAL           6823        774888      67232740
-```
+~~~
+
+<br>
+
 ---
 
-## sinv
+<div id="sinv"/>
+### sinv
 
 Utility to print an inventory of satellite data by platform and instrument type.
 
+See the source code at sinv.f
+
 Sample output for: `./sinv gdas.20200812/00/gdas.t00z.satwnd.tm00.bufr_d`
-```
+~~~
 003  METOP-1           7220
 004  METOP-2           8911
 055  METEOSAT-8      172430
@@ -183,10 +208,14 @@ Sample output for: `./sinv gdas.20200812/00/gdas.t00z.satwnd.tm00.bufr_d`
 471  INSAT-3D         24108
 473  INSAT-3DR        79427
 784  AQUA              2850
-```
+~~~
+
+<br>
+
 ---
 
-## cmpbqm
+<div id="cmpbqm"/>
+### cmpbqm
 
 An inventory of prepbufr observations by variable, report type, and quality mark made from a prepbufr file. The ob type,total count,and quality marks are listed by column. The cka and ckb columns are counts of observed values with missing qm, or qms with missing observations. The cka and ckb should be zero but sometimes they're not. The qm values are found in [bufr code tables](https://www.emc.ncep.noaa.gov/mmb/data_processing/prepbufr.doc/table_7.htm), but below a quick summary. The GSI qms are added by a program run by the `fit2obs` system which copies that information from the convstat files. The sample output prepbufr was after prep but pre-analysis.
 |Quality Marker| Description|
@@ -205,8 +234,10 @@ An inventory of prepbufr observations by variable, report type, and quality mark
 |14  |  sdm reject (manual purge)|
 |15  |  rejected by prepdata code (ie failed various sanity checks)|
 
+See the source code at cmpbqm.f
+
 Sample output for: `./cmpbqm gdas.20200811/00/gdas.t00z.prepbufr`
-```
+~~~
 DATA  VALID AT  2020081100
 
  PRESSURE
@@ -340,5 +371,4 @@ typ   tot    0-3    4-7      8      9    10     11    12    13    14    15    ck
 
 
  ******CMPBQM PROCESSED         7066  BUFR RECORDS******
-```
----
+~~~
