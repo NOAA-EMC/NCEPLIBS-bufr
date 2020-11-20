@@ -44,7 +44,7 @@ jobs:
         cd bufr
         mkdir build
         cd build
-        cmake -DCMAKE_INSTALL_PREFIX=./install -DENABLE_PYTHON=ON -DENABLE_DOCS=ON ..
+        cmake -DCMAKE_INSTALL_PREFIX=./install -DENABLE_PYTHON=ON ..
         make -j2
         make install
 
