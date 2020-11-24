@@ -27,6 +27,22 @@ make install
 
 Installation of the library and utilities will be under ./install
 
+## What is Built and Installed
+
+The NCEPLIBS-bufr library is built in several different ways. All are
+installed.
+
+Three different type size combinations are supported, set with
+compiler flags in the CMake build, for Intel and GNU compilers:
+
+- "4" = 4-byte integers and 4-byte reals
+- "8" = 8-byte integers and 8-byte reals
+- "d" = 4-byte integers and 8-byte reals (sort of a hybrid)
+
+In addition, NCEPLIBS-bufr can build with internally static or
+internally dynamic array allocation. The build of the library which
+internally uses dynamic allocations has a _DA suffix.
+
 ## Disclaimer
 
 The United States Department of Commerce (DOC) GitHub project code is
