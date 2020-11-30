@@ -1,3 +1,7 @@
+C> @file
+C> @brief Print inventory of BUFR satellite data file by platform and
+C> instrument type
+
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
       PROGRAM SINV

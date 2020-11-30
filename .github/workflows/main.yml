@@ -29,7 +29,6 @@ jobs:
           pip3 install setuptools
           pip3 install numpy
           pip3 install netCDF4
-          pip3 install pdoc
           sudo ln -sf /usr/local/bin/gfortran-9 /usr/local/bin/gfortran
         fi
 
@@ -44,7 +43,7 @@ jobs:
         cd bufr
         mkdir build
         cd build
-        cmake -DCMAKE_INSTALL_PREFIX=./install -DENABLE_PYTHON=ON -DENABLE_DOCS=ON ..
+        cmake -DCMAKE_INSTALL_PREFIX=./install -DENABLE_PYTHON=ON ..
         make -j2
         make install
 

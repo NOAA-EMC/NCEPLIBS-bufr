@@ -1,3 +1,6 @@
+C> @file
+C> @brief Read prepbufr file and print each report one at a time
+
 C-----------------------------------------------------------------------
 C READ AND DISPLAY AN ON29BUFR FILE ONE REPORT AT A TIME
 C-----------------------------------------------------------------------
