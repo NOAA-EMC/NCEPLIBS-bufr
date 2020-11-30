@@ -1,3 +1,7 @@
+C> @file
+C> @brief Print inventory of observations from prepbufr file by
+C> variable, report type and quality mark
+
 C-----------------------------------------------------------------------
 C  MAIN PROGRAM CMPBQM
 C-----------------------------------------------------------------------

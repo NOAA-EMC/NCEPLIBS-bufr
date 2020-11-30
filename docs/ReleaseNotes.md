@@ -1,5 +1,5 @@
 
-#### Release Notes
+## Release Notes
 @brief Detailed description of changes included within each new release.
 
 

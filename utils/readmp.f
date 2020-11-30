@@ -1,3 +1,7 @@
+C> @file
+C> @brief Read BUFR file containing embedded DX tables, and print
+C> each report one at a time
+
       program readmp
       character*8 subset
       character*1 go     
