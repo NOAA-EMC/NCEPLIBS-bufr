@@ -30,6 +30,9 @@ enable_testing()
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
 if(ENABLE_PYTHON)
+  if(APPLE)
+    set(Python3_FIND_FRAMEWORK "LAST")
+  endif()
   find_package(Python3 REQUIRED COMPONENTS Interpreter)
 endif()
 
