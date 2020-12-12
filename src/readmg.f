@@ -12,9 +12,9 @@ C>
 C> @param[in] LUNXX    - integer: absolute value is Fortran logical unit
 C>                       number for BUFR file
 C> @param[out] SUBSET   - character*8: Table A mnemonic for type of BUFR
-C>                        message that was read (see Description and Format
-C>                        of DX BUFR Tables for further information about
-C>                        Table A mnemonics)
+C>                        message that was read
+C>                        (see [DX BUFR Tables](@ref dfbftab)
+C>                        for further information about Table A mnemonics)
 C> @param[out] JDATE    - integer: date-time stored within Section 1 of
 C>                        BUFR message that was read, in format of either
 C>                        YYMMDDHH or YYYYMMDDHH, depending on the most
@@ -68,9 +68,7 @@ C>                           portability)
 C> - 2000-09-19  J. Woollen -- Removed message decoding logic that had
 C>                           been replicated in this and other read
 C>                           routines and consolidated it into a new
-C>                           routine cktaba(), cALLED HERE, WHICH IS
-C>                           enhanced to allow compressed and standard
-C>                           BUFR messages to be read; maximum message
+C>                           routine cktaba(); maximum message
 C>                           length increased from 10,000 to 20,000
 C>                           bytes
 C> - 2002-05-14  J. Woollen -- Removed entry point datelen() (it became a

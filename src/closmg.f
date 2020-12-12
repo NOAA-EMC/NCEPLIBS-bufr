@@ -1,89 +1,63 @@
 C> @file
-C> @author WOOLLEN @date 1994-01-06
+C> @brief Close and write the current message to a BUFR file that was
+C> previously opened for writing.
       
-C> THIS SUBROUTINE SHOULD ONLY BE CALLED WHEN LOGICAL UNIT
-C>   ABS(LUNIN) HAS BEEN OPENED FOR OUTPUT OPERATIONS.  IT CLOSES A BUFR
-C>   MESSAGE PREVIOUSLY OPENED BY EITHER BUFR ARCHIVE LIBRARY
-C>   SUBROUTINES OPENMG OR OPENMB AND WRITES IT TO THE UNIT ABS(LUNIN).
-C>   SINCE OPENMG AND OPENMB NORMALLY CALL THIS INTERNALLY, IT IS NOT
-C>   CALLED TOO OFTEN FROM AN APPLICATION PROGRAM.
+C> This subroutine closes the BUFR message that is currently open for
+C> writing within internal arrays associated with logical unit
+C> ABS(LUNIN), and it then writes the message to that logical unit.
 C>
-C> PROGRAM HISTORY LOG:
-C> 1994-01-06  J. WOOLLEN -- ORIGINAL AUTHOR
-C> 1998-07-08  J. WOOLLEN -- REPLACED CALL TO CRAY LIBRARY ROUTINE
-C>                           "ABORT" WITH CALL TO NEW INTERNAL BUFRLIB
-C>                           ROUTINE "BORT"
-C> 1999-11-18  J. WOOLLEN -- THE NUMBER OF BUFR FILES WHICH CAN BE
-C>                           OPENED AT ONE TIME INCREASED FROM 10 TO 32
-C>                           (NECESSARY IN ORDER TO PROCESS MULTIPLE
-C>                           BUFR FILES UNDER THE MPI)
-C> 2000-09-19  J. WOOLLEN -- MAXIMUM MESSAGE LENGTH INCREASED FROM
-C>                           10,000 TO 20,000 BYTES
-C> 2003-05-19  J. WOOLLEN -- CORRECTED A PROBLEM INTRODUCED IN A
-C>                           PREVIOUS (MAY 2002) IMPLEMENTATION WHICH
-C>                           PREVENTED THE DUMP CENTER TIME AND
-C>                           INTITIATION TIME MESSAGES FROM BEING
-C>                           WRITTEN OUT (THIS AFFECTED APPLICATION
-C>                           PROGRAM BUFR_DUMPMD, IF IT WERE RECOMPILED,
-C>                           IN THE DATA DUMPING PROCESS)
-C> 2003-11-04  S. BENDER  -- ADDED REMARKS/BUFRLIB ROUTINE
-C>                           INTERDEPENDENCIES
-C> 2003-11-04  D. KEYSER  -- UNIFIED/PORTABLE FOR WRF; ADDED
-C>                           DOCUMENTATION (INCLUDING HISTORY); OUTPUTS
-C>                           MORE COMPLETE DIAGNOSTIC INFO WHEN ROUTINE
-C>                           TERMINATES ABNORMALLY
-C> 2004-08-09  J. ATOR    -- MAXIMUM MESSAGE LENGTH INCREASED FROM
-C>                           20,000 TO 50,000 BYTES
-C> 2005-05-26  D. KEYSER  -- ALLOWS OVERRIDE OF PREVIOUS LOGIC THAT HAD
-C>                           ALWAYS WRITTEN OUT MESSAGE NUMBERS 1 AND 2
-C>                           EVEN WHEN THEY CONTAINED ZERO SUBSETS
-C>                           (ASSUMED THESE ARE DUMMIES, CONTAINING ONLY
-C>                           CENTER AND DUMP TIME) (NO OTHER EMPTY
-C>                           MESSAGES WERE WRITTEN OUT), DONE BY PASSING
-C>                           IN A NEGATIVE UNIT NUMBER ARGUMENT THE
-C>                           FIRST TIME THIS ROUTINE IS CALLED BY AN
-C>                           APPLICATION PROGRAM (ALL EMPTY MESSAGES ARE
-C>                           SKIPPED) (ASSUMES DUMMY MESSAGES ARE NOT IN
-C>                           INPUT FILE), NOTE: THIS REMAINS SET FOR THE
-C>                           PARTICULAR FILE BEING WRITTEN TO EACH TIME
-C>                           CLOSMG IS CALLED, REGARDLESS OF THE SIGN OF
-C>                           THE UNIT NUMBER - THIS IS NECESSARY BECAUSE
-C>                           THIS ROUTINE IS CALLED BY OTHER BUFRLIB
-C>                           ROUTINES WHICH ALWAYS PASS IN A POSITIVE
-C>                           UNIT NUMBER (THE APPLICATION PROGRAM SHOULD
-C>                           ALWAYS CALL CLOSMG WITH A NEGATIVE UNIT
-C>                           NUMBER IMMEDIATELY AFTER CALLING OPENBF FOR
-C>                           THIS OUTPUT FILE IF THE INTENTION IS TO
-C>                           NOT WRITE ANY EMPTY MESSAGES)
-C> 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
+C> @authors J. Woollen
+C> @authors D. Keyser
+C> @date 1994-01-06
 C>
-C> USAGE:    CALL CLOSMG (LUNIN)
-C>   INPUT ARGUMENT LIST:
-C>     LUNIN    - INTEGER: ABSOLUTE VALUE IS FORTRAN LOGICAL UNIT NUMBER
-C>                FOR BUFR FILE
-C>                  - IF LUNIN IS GREATER THAN ZERO, THEN MESSAGE NUMBER
-C>                    1 OR 2 IS WRITTEN OUT EVEN IF THE NUMBER OF
-C>                    SUBSETS WRITTEN INTO THE MESSAGE IS ZERO (THIS
-C>                    ALLOWS "DUMMY" MESSAGES CONTAINING DUMP CENTER AND
-C>                    INITIATION TIME TO BE COPIED), MESSAGE NUMBERS 3
-C>                    AND HIGHER ARE NOT WRITTEN OUT IF THEY CONTAIN
-C>                    ZERO SUBSETS
-C>                  - IF LUNIN IS LESS THAN ZERO, THEN NO MESSAGES WITH
-C>                    ZERO SUBSETS WRITTEN INTO THEM ARE WRITTEN OUT
-C>                    FOR A PARTICULAR FILE BOTH IN THIS CALL AND IN ALL
-C>                    SUBSEQUENT CALLS TO THIS ROUTINE BY AN APPLICATION
-C>                    PROGRAM
+C> @param[in] LUNIN  - integer: absolute value is Fortran logical unit
+C>                     number for BUFR file
 C>
-C> REMARKS:
-C>    THIS ROUTINE CALLS:        BORT     MSGWRT   STATUS   WRCMPS
-C>                               WTSTAT
-C>    THIS ROUTINE IS CALLED BY: CLOSBF   MAKESTAB OPENMB   OPENMG
-C>                               WRITSA
-C>                               Also called by application programs.
+C> <p>Logical unit ABS(LUNIN) should have already been opened for output
+C> operations via a previous call to subroutine openbf().
+C>
+C> <p>If LUNIN < 0, then any message containing zero data subsets will
+C> not be written to logical unit ABS(LUNIN) for the remainder of the
+C> life of the application program.  This includes suppressing the
+C> writing of any dummy messages containing dump center and initiation
+C> times that normally appear in the first 2 messages of NCEP dump files.
+C>
+C> <b>Program history log:</b>
+C> - 1994-01-06  J. Woollen -- Original author
+C> - 1998-07-08  J. Woollen -- Replaced call to Cray library routine
+C>                           "ABORT" with call to new internal BUFRLIB
+C>                           routine "BORT"; modified to make Y2K
+C>                           compliant
+C> - 1999-11-18  J. Woollen -- The number of BUFR files which can be
+C>                           opened at one time increased from 10 to 32
+C>                           (necessary in order to process multiple
+C>                           BUFR files under the MPI)
+C> - 2000-09-19  J. Woollen -- Maximum message length increased from
+C>                           10,000 to 20,000 bytes
+C> - 2003-05-19  J. Woollen -- Corrected a bug which prevented the dump
+C>                           center and initiatiion time messages from
+C>                           being written out
+C> - 2003-11-04  J. Ator    -- Added documentation
+C> - 2003-11-04  S. Bender  -- Added remarks and routine interdependencies
+C> - 2003-11-04  D. Keyser  -- Unified/portable for WRF; added history
+C>                           documentation; outputs more complete
+C>                           diagnostic info when routine terminates
+C>                           abnormally
+C> - 2004-08-09  J. Ator -- Maximum message length increased from
+C>                           20,000 to 50,000 bytes
+C> - 2005-05-26  D. Keyser -- Add LUNIN < 0 option to suppress writing
+C>                          of all future zero-subset messsages to
+C>                          ABS(LUNIN)
+C> - 2014-12-10  J. Ator  -- Use modules instead of COMMON blocks
+C>
+C> <b>This routine calls:</b> bort()   msgwrt()   status()   wrcmps()
+C>                            wtstat()
+C>
+C> <b>This routine is called by:</b> closbf()   makestab() openmb()
+C>                               openmg() writsa()
+C>                           <br>Also called by application programs.
 C>
       SUBROUTINE CLOSMG(LUNIN)
-
-
 
       USE MODA_MSGCWD
       USE MODA_MSGLIM

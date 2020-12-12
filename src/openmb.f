@@ -1,56 +1,69 @@
 C> @file
-C> @author WOOLLEN @date 1994-01-06
-      
-C> THIS SUBROUTINE OPENS AND INITIALIZES A NEW BUFR MESSAGE
-C>   WITHIN MEMORY.  IT SHOULD ONLY BE CALLED WHEN LOGICAL UNIT LUNIT
-C>   HAS BEEN OPENED FOR OUTPUT OPERATIONS.  IT IS SIMILAR TO BUFR
-C>   ARCHIVE LIBRARY SUBROUTINE OPENMG, HOWEVER UNLIKE OPENMG, IT WILL
-C>   NOT OPEN A NEW MESSAGE IF THERE IS ALREADY A BUFR MESSAGE OPEN
-C>   WITHIN MEMORY FOR THIS LUNIT WHICH HAS THE SAME SUBSET AND JDATE
-C>   VALUES (IN WHICH CASE IT DOES NOTHING AND RETURNS TO THE CALLING
-C>   ROUTINE/PROGRAM).  OTHERWISE, IF THERE IS ALREADY A BUFR MESSAGE
-C>   OPEN WITHIN MEMORY FOR THIS LUNIT BUT WHICH HAS A DIFFERENT SUBSET
-C>   OR JDATE VALUE, THEN THAT MESSAGE WILL BE CLOSED AND FLUSHED TO
-C>   LUNIT BEFORE OPENING THE NEW ONE.
+C> @brief Open a new message for output in a BUFR file that was
+C> previously opened for writing.
+
+C> This subroutine opens and initializes a new BUFR message within
+C> internal arrays, for eventual output to logical unit LUNIT.
 C>
-C> PROGRAM HISTORY LOG:
-C> 1994-01-06  J. WOOLLEN -- ORIGINAL AUTHOR
-C> 1998-07-08  J. WOOLLEN -- REPLACED CALL TO CRAY LIBRARY ROUTINE
-C>                           "ABORT" WITH CALL TO NEW INTERNAL BUFRLIB
-C>                           ROUTINE "BORT"; MODIFIED TO MAKE Y2K
-C>                           COMPLIANT
-C> 1999-11-18  J. WOOLLEN -- THE NUMBER OF BUFR FILES WHICH CAN BE
-C>                           OPENED AT ONE TIME INCREASED FROM 10 TO 32
-C>                           (NECESSARY IN ORDER TO PROCESS MULTIPLE
-C>                           BUFR FILES UNDER THE MPI)
-C> 2003-11-04  J. ATOR    -- ADDED DOCUMENTATION
-C> 2003-11-04  S. BENDER  -- ADDED REMARKS/BUFRLIB ROUTINE
-C>                           INTERDEPENDENCIES
-C> 2003-11-04  D. KEYSER  -- UNIFIED/PORTABLE FOR WRF; ADDED HISTORY
-C>                           DOCUMENTATION; OUTPUTS MORE COMPLETE
-C>                           DIAGNOSTIC INFO WHEN ROUTINE TERMINATES
-C>                           ABNORMALLY
-C> 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
+C> @author J. Woollen
+C> @date 1994-01-06
 C>
-C> USAGE:    CALL OPENMB (LUNIT, SUBSET, JDATE)
-C>   INPUT ARGUMENT LIST:
-C>     LUNIT    - INTEGER: FORTRAN LOGICAL UNIT NUMBER FOR BUFR FILE
-C>     SUBSET   - CHARACTER*(*): TABLE A MNEMONIC FOR TYPE OF BUFR MESSAGE
-C>                BEING OPENED
-C>     JDATE    - INTEGER: DATE-TIME STORED WITHIN SECTION 1 OF BUFR
-C>                MESSAGE BEING OPENED, IN FORMAT OF EITHER YYMMDDHH OR
-C>                YYYYMMDDHH, DEPENDING ON DATELEN() VALUE
+C> @param[in] LUNIT  - integer: Fortran logical unit number for BUFR
+C>                     file
+C> @param[in] SUBSET  - character*(*): Table A mnemonic for type of
+C>                      BUFR message to be opened
+C>                      (see [DX BUFR Tables](@ref dfbftab) for
+C>                      further information about Table A mnemonics)
+C> @param[in] JDATE  - integer: date-time to be stored within Section 1
+C>                of BUFR message being opened, in format of either
+C>                YYMMDDHH or YYYYMMDDHH, depending on the most recent
+C>                call to subroutine datelen()
 C>
-C> REMARKS:
-C>    THIS ROUTINE CALLS:        BORT     CLOSMG   I4DY     MSGINI
-C>                               NEMTBA   STATUS   USRTPL   WTSTAT
-C>    THIS ROUTINE IS CALLED BY: None
-C>                               Normally called only by application
-C>                               programs.
+C> <p>Logical unit LUNIT should have already been opened for output
+C> operations via a previous call to subroutine openbf().
+C>
+C> <p>This subroutine is similar to subroutine openmg(), except that it
+C> will only open a new message if either SUBSET or JDATE has changed
+C> since the previous call to this subroutine.  Otherwise, it will
+C> leave the existing internal message unchanged so that the next data
+C> subset can be written into the same internal message, thereby
+C> improving overall storage efficiency by allowing the maximum number
+C> of data subsets to be stored within each output BUFR message.  For
+C> this reason, openmb() is much more widely used than openmg().
+C>
+C> <p>If this subroutine does need to open and initialize a new BUFR
+C> message for output (e.g. if the value of SUBSET or JDATE has changed
+C> since the previous call to this subroutine), then any existing
+C> message within the internal arrays will be automatically flushed and
+C> written to logical unit LUNIT via an internal call to subroutine
+C> closmg().  In this case, the behavior of this subroutine then
+C> becomes exactly like that of subroutine openmg().
+C>
+C> <b>Program history log:</b>
+C> - 1994-01-06  J. Woollen -- Original author
+C> - 1998-07-08  J. Woollen -- Replaced call to Cray library routine
+C>                           "ABORT" with call to new internal BUFRLIB
+C>                           routine "BORT"; modified to make Y2K
+C>                           compliant
+C> - 1999-11-18  J. Woollen -- The number of BUFR files which can be
+C>                           opened at one time increased from 10 to 32
+C>                           (necessary in order to process multiple
+C>                           BUFR files under the MPI)
+C> - 2003-11-04  J. Ator    -- Added documentation
+C> - 2003-11-04  S. Bender  -- Added remarks and routine interdependencies
+C> - 2003-11-04  D. Keyser  -- Unified/portable for WRF; added history
+C>                           documentation; outputs more complete
+C>                           diagnostic info when routine terminates
+C>                           abnormally
+C> - 2014-12-10  J. Ator    -- Use modules instead of COMMON blocks
+C>
+C> <b>This routine calls</b>: bort()     closmg()   i4dy()     msgini()
+C>                            nemtba()   status()   usrtpl()   wtstat()
+C>
+C> <b>This routine is called by:</b> None
+C>                 <br>Normally called only by application programs.
 C>
       SUBROUTINE OPENMB(LUNIT,SUBSET,JDATE)
-
-
 
       USE MODA_MSGCWD
 

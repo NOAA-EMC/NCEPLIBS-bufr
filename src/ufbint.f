@@ -1,296 +1,169 @@
 C> @file
-C> @author WOOLLEN @date 1994-01-06
-      
-C> THIS SUBROUTINE WRITES OR READS SPECIFIED VALUES TO OR FROM
-C>   THE CURRENT BUFR DATA SUBSET WITHIN INTERNAL ARRAYS, WITH THE
-C>   DIRECTION OF THE DATA TRANSFER DETERMINED BY THE CONTEXT OF
-C>   ABS(LUNIN) (I.E., IF ABS(LUNIN) POINTS TO A BUFR FILE THAT IS OPEN
-C>   FOR INPUT, THEN DATA VALUES ARE READ FROM THE INTERNAL DATA SUBSET;
-C>   OTHERWISE, DATA VALUES ARE WRITTEN TO THE INTERNAL DATA SUBSET).
-C>   THE DATA VALUES CORRESPOND TO MNEMONICS WHICH ARE PART OF A
-C>   DELAYED-REPLICATION SEQUENCE, OR FOR WHICH THERE IS NO REPLICATION
-C>   AT ALL. IF UFBINT IS READING VALUES, THEN EITHER BUFR ARCHIVE
-C>   LIBRARY SUBROUTINE READSB OR READNS MUST HAVE BEEN PREVIOUSLY
-C>   CALLED TO READ THE SUBSET FROM UNIT ABS(LUNIN) INTO
-C>   INTERNAL MEMORY.  IF IT IS WRITING VALUES, THEN EITHER BUFR ARCHIVE
-C>   LIBRARY SUBROUTINE OPENMG OR OPENMB MUST HAVE BEEN PREVIOUSLY
-C>   CALLED TO OPEN AND INITIALIZE A BUFR MESSAGE WITHIN MEMORY FOR THIS
-C>   ABS(LUNIN).
+C> @brief Read/write one or more data values from/to a data subset.
+
+C> This subroutine reads or writes one or more data values from or to
+C> the BUFR data subset that is currently open within the BUFRLIB
+C> internal arrays.  The direction of the data transfer is determined
+C> by the context of ABS(LUNIN):
+C> - If ABS(LUNIN) points to a file that was previously opened for
+C>   input using subroutine openbf(), then data values are read from
+C>   the current data subset.
+C> - If ABS(LUNIN) points to a file that was previously opened for
+C>   output using subroutine openbf(), then data values are written to
+C>   the current data subset.
 C>
-C> PROGRAM HISTORY LOG:
-C> 1994-01-06  J. WOOLLEN -- ORIGINAL AUTHOR
-C> 1996-11-25  J. WOOLLEN -- MODIFIED TO ADD A RETURN CODE WHEN
-C>                           MNEMONICS ARE NOT FOUND WHEN READING
-C> 1996-12-11  J. WOOLLEN -- REMOVED A HARD ABORT FOR USERS WHO TRY TO
-C>                           WRITE NON-EXISTING MNEMONICS
-C> 1996-12-17  J. WOOLLEN -- MODIFIED TO ALWAYS INITIALIZE "USR" ARRAY
-C>                           TO MISSING (10E10) WHEN BUFR FILE IS BEING
-C>                           READ
-C> 1998-07-08  J. WOOLLEN -- REPLACED CALL TO CRAY LIBRARY ROUTINE
-C>                           "ABORT" WITH CALL TO NEW INTERNAL BUFRLIB
-C>                           ROUTINE "BORT"; IMPROVED MACHINE
-C>                           PORTABILITY
-C> 1999-11-18  J. WOOLLEN -- THE NUMBER OF BUFR FILES WHICH CAN BE
-C>                           OPENED AT ONE TIME INCREASED FROM 10 TO 32
-C>                           (NECESSARY IN ORDER TO PROCESS MULTIPLE
-C>                           BUFR FILES UNDER THE MPI)
-C> 2002-05-14  J. WOOLLEN -- REMOVED OLD CRAY COMPILER DIRECTIVES
-C> 2003-11-04  S. BENDER  -- ADDED REMARKS/BUFRLIB ROUTINE
-C>                           INTERDEPENDENCIES
-C> 2003-11-04  D. KEYSER  -- MAXJL (MAXIMUM NUMBER OF JUMP/LINK ENTRIES)
-C>                           INCREASED FROM 15000 TO 16000 (WAS IN
-C>                           VERIFICATION VERSION); UNIFIED/PORTABLE FOR
-C>                           WRF; ADDED DOCUMENTATION (INCLUDING
-C>                           HISTORY); OUTPUTS MORE COMPLETE DIAGNOSTIC
-C>                           INFO WHEN ROUTINE TERMINATES ABNORMALLY OR
-C>                           UNUSUAL THINGS HAPPEN; CHANGED CALL FROM
-C>                           BORT TO BORT2 IN SOME CASES
-C> 2004-08-18  J. ATOR    -- ADDED SAVE FOR IFIRST1 AND IFIRST2 FLAGS
-C> 2009-04-21  J. ATOR    -- USE ERRWRT
-C> 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
+C> <p>This subroutine is specifically designed for use with Table B
+C> mnemonics which are part of a delayed-replication sequence, or for
+C> which there is no replication at all.  See also subroutines ufbrep(),
+C> ufbseq() and ufbstp(), which can also be used to read/write one or
+C> more data values from/to a data subset but are designed for
+C> different use cases.  A more detailed discussion of
+C> these different use cases, including examples, is available in
+C> [DX BUFR Tables](@ref ufbsubs).
 C>
-C> USAGE:    CALL UFBINT (LUNIN, USR, I1, I2, IRET, STR)
-C>   INPUT ARGUMENT LIST:
-C>     LUNIN    - INTEGER: ABSOLUTE VALUE IS FORTRAN LOGICAL UNIT NUMBER
-C>                FOR BUFR FILE
-C>                  - IF BUFR FILE OPEN FOR OUTPUT AND LUNIN IS LESS
-C>                    THAN ZERO, UFBINT TREATS THE BUFR FILE AS THOUGH
-C>                    IT WERE OPEN FOR INPUT
-C>     USR      - ONLY IF BUFR FILE OPEN FOR OUTPUT:
-C>                   REAL*8: (I1,I2) STARTING ADDRESS OF DATA VALUES
-C>                   WRITTEN TO DATA SUBSET
-C>     I1       - INTEGER: LENGTH OF FIRST DIMENSION OF USR (MUST BE AT
-C>                LEAST AS LARGE AS THE NUMBER OF BLANK-SEPARATED
-C>                MNEMONICS IN STR)
-C>     I2       - INTEGER:
-C>                  - IF BUFR FILE OPEN FOR INPUT:  LENGTH OF SECOND
-C>                    DIMENSION OF USR
-C>                  - IF BUFR FILE OPEN FOR OUTPUT: NUMBER OF "LEVELS"
-C>                    OF DATA VALUES TO BE WRITTEN TO DATA SUBSET
-C>     STR      - CHARACTER*(*): STRING OF BLANK-SEPARATED TABLE B
-C>                MNEMONICS IN ONE-TO-ONE CORRESPONDENCE WITH FIRST
-C>                DIMENSION OF USR
-C>                  - IF BUFR FILE OPEN FOR INPUT: THIS CAN ALSO BE A
-C>                    SINGLE TABLE D (SEQUENCE) MNEMONIC WITH EITHER 8-
-C>                    OR 16-BIT DELAYED REPLICATION (SEE REMARKS 1)
-C>                  - IF BUFR FILE OPEN FOR INPUT: THERE ARE THREE
-C>                     "GENERIC" MNEMONICS NOT RELATED TO TABLE B OR D,
-C>                     THESE RETURN THE FOLLOWING INFORMATION IN
-C>                     CORRESPONDING USR LOCATION:
-C>                     'NUL'  WHICH ALWAYS RETURNS BMISS ("MISSING")
-C>                     'IREC' WHICH ALWAYS RETURNS THE CURRENT BUFR
-C>                            MESSAGE (RECORD) NUMBER IN WHICH THIS
-C>                            SUBSET RESIDES
-C>                     'ISUB' WHICH ALWAYS RETURNS THE CURRENT SUBSET
-C>                            NUMBER OF THIS SUBSET WITHIN THE BUFR
-C>                            MESSAGE (RECORD) NUMBER 'IREC'
+C> @author J. Woollen
+C> @date 1994-01-06
 C>
-C>   OUTPUT ARGUMENT LIST:
-C>     USR      - ONLY IF BUFR FILE OPEN FOR INPUT:
-C>                   REAL*8: (I1,I2) STARTING ADDRESS OF DATA VALUES
-C>                   READ FROM DATA SUBSET
-C>     IRET     - INTEGER:
-C>                  - IF BUFR FILE OPEN FOR INPUT: NUMBER OF "LEVELS" OF
-C>                    DATA VALUES READ FROM DATA SUBSET (MUST BE NO
-C>                    LARGER THAN I2)
-C>                  - IF BUFR FILE OPEN FOR OUTPUT: NUMBER OF "LEVELS"
-C>                    OF DATA VALUES WRITTEN TO DATA SUBSET (SHOULD BE
-C>                    SAME AS I2)
+C> @param[in] LUNIN    - integer: absolute value is Fortran logical
+C>                       unit number for BUFR file 
+C> @param[in,out] USR  - real*8(*,*): data values
+C>                         - If ABS(LUNIN) was opened for input, then
+C>                           USR is output from this subroutine and
+C>                           contains data values that were read
+C>                           from the current data subset.
+C>                         - If ABS(LUNIN) was opened for output, then
+C>                           USR is input to this subroutine and
+C>                           contains data values that are to be
+C>                           written to the current data subset.
+C> @param[in] I1 - integer: actual first dimension of USR as allocated
+C>                 within the calling program
+C> @param[in] I2 - integer:
+C>                    - If ABS(LUNIN) was opened for input, then I2
+C>                      must be set equal to the actual second dimension
+C>                      of USR as allocated within the calling program
+C>                    - If ABS(LUNIN) was opened for output, then I2
+C>                      must be set equal to the number of replications
+C>                      of STR that are to be written to the data subset
+C> @param[out] IRET - integer: number of replications of STR that were
+C>                    actually read/written from/to the data subset
+C> @param[in] STR - character*(*): string of blank-separated
+C>                  Table B mnemonics
+C>                  in one-to-one correspondence with the number of data
+C>                  values that will be read/written from/to the data
+C>                  subset within the first dimension of USR (see
+C>                  [DX BUFR Tables](@ref dfbftab) for further
+C>                  information about Table B mnemonics)
 C>
-C> REMARKS:
-C>    1) UFBINT CAN ALSO BE CALLED TO PROVIDE INFORMATION ABOUT A SINGLE
-C>       TABLE D (SEQUENCE) MNEMONIC WITH EITHER 8- OR 16-BIT DELAYED
-C>       REPLICATION IN A SUBSET WHEN THE BUFR FILE IS OPEN FOR INPUT.
-C>       THE MNEMONIC IN STR MUST APPEAR AS IT DOES IN THE BUFR TABLE,
-C>       I.E., BRACKETED BY "{" AND "}" OR "[" AND "]" FOR 8-BIT DELAYED
-C>       REPLICATION, OR BRACKETED BY "(" AND ")" FOR 16-BIT DELAYED
-C>       REPLICATION.  {NOTE: THIS WILL NOT WORK FOR SEQUENCES WITH
-C>       1-BIT DELAYED REPLICATION (BRACKETED BY "<" AND ">"), STANDARD
-C>       REPLICATION (BRACKETED BY "'s), OR NO REPLICATION (NO
-C>       BRACKETING SYMBOLS).}
-C>       
-C>       FOR EXAMPLE:
+C> <p>It is the user's responsibility to ensure that USR is dimensioned
+C> sufficiently large enough to accommodate the number of data values
+C> that are to be read from or written to the data subset.  Note also
+C> that USR is an array of real*8 values; therefore, any data that are
+C> to be written out as character (i.e. CCITT IA5) values in
+C> BUFR must be converted from character into real*8 format within the
+C> application program before calling this subroutine.  Conversely,
+C> when this subroutine is being used to read character values from a
+C> data subset, the value that is returned will be in real*8 format
+C> and must be converted back into character format by the application
+C> program before it can be used as such.  Alternatively, there are
+C> different subroutines such as readlc() and writlc() which can be
+C> used to read/write character data directly from/to a data subset
+C> without the need to convert from/to real*8 format as an intermediate
+C> step.
 C>
-C>       CALL UFBINT(LUNIN,PLEVL,1, 50,IRET,'{PLEVL}')
+C> <p>Numeric (i.e. non-character) data values within USR are always in
+C> the exact units specified for the corresponding mnemonic within the
+C> relevant DX or master BUFR table, without any scale or reference
+C> values applied.  Specifically, this means that, when writing
+C> data values into an output subset, the user only needs to store each
+C> respective value into USR using the units specified within the table,
+C> and the BUFRLIB software will take care of any necessary scaling or
+C> referencing of the value before it is actually encoded into BUFR.
+C> Conversely, when reading data values from an input subset, the
+C> values returned in USR are already de-scaled and de-referenced and,
+C> thus, are already in the exact units that were defined for the
+C> corresponding mnemonics within the table.
 C>
-C>       WILL RETURN WITH IRET EQUAL TO THE NUMBER OF OCCURRENCES OF THE
-C>       8-BIT DELAYED REPLICATION SEQUENCE PLEVL IN THE SUBSET AND WITH
-C>       (PLEVL(I),I=1,IRET) EQUAL TO THE NUMBER OF REPLICATIONS IN EACH
-C>       OCCURRENCE OF PLEVL IN THE SUBSET.  IF THERE ARE NO OCCURRENCES
-C>       OF PLEVL IN THE SUBSET, IRET IS RETURNED AS ZERO.
+C> <p>"Missing" values in USR are always denoted by a unique
+C> placeholder value.  This placeholder value is initially set
+C> internally to a default value of 10E10, but it can be reset to
+C> any substitute value of the user's choice via a separate
+C> call to subroutine setbmiss().  In any case, and whenever this
+C> subroutine is used to read data values from an input subset, any
+C> returned value in USR can be easily checked for equivalence to the
+C> current placeholder value via a call to subroutine ibfms(), and a
+C> positive result means that the value for the corresponding mnemonic
+C> was encoded as "missing" in BUFR (i.e. all bits set to 1) within the
+C> original data subset.  Conversely, whenever this subroutine
+C> is used to write data values to an output subset, the current
+C> placeholder value can be obtained via a separate call to function
+C> getbmiss(), and the resulting value can then be stored into the
+C> USR array whereever the user desires a BUFR "missing" value (i.e.
+C> all bits set to 1) to be encoded for the corresponding mnemonic
+C> within the output subset.
 C>
-C>    2) WHEN THE BUFR FILE IS OPEN FOR OUTPUT, UFBINT CAN BE USED TO
-C>       PRE-ALLOCATE SPACE FOR SOME OR ALL MNEMONICS WITHIN DELAYED
-C>       REPLICATION SEQUENCES.  A SUBSEQUENT CALL TO BUFR ARCHIVE
-C>       LIBRARY ROUTINE UFBREP OR UFBSEQ THEN ACTUALLY STORES THE
-C>       VALUES INTO THE BUFR FILES.  HERE ARE TWO EXAMPLES OF THIS:
+C> @remarks
+C> - If LUNIN < 0, and if ABS(LUNIN) points to a file that is open
+C> for output (writing BUFR), then the subroutine will treat the file
+C> pointed to by ABS(LUNIN) as though it was open for input (reading
+C> BUFR).  This is a special capability for use by some applications
+C> that need to read certain values back out from a BUFR file during
+C> the same time that it is in the process of being written to.
+C> - If ABS(LUNIN) points to a file that is open for input (reading
+C> BUFR), STR may contain a Table D mnemonic that is replicated using
+C> either 8-bit or 16-bit delayed replication (as noted using
+C> replication indicators {} or (), respectively, within the
+C> assocated DX BUFR table), and the corresponding location in USR
+C> will contain the total number of replications of that mnemonic
+C> within the data subset.  Note that, when using this option, the
+C> applicable replication indicators must be included in STR 
+C> along with the mnemonic itself, as shown in an example in the
+C> discussion of [DX BUFR Tables](@ref ufbsubs).
+C> - If ABS(LUNIN) points to a file that is open for input (reading
+C> BUFR), there are a few additional special mnemonics that can be
+C> included within STR when calling this subroutine, and which in turn
+C> will result in special information being returned within the
+C> corresponding location in USR.  These special mnemonics are not
+C> considered to be part of Table B or Table D and therefore do not
+C> need to be definied within the DX or master table file associated
+C> with ABS(LUNIN):
+C>      - NUL - returns the "missing" value
+C>      - IREC - returns the number of the BUFR message within the
+C>               file pointed to by ABS(LUNIN) (counting from the
+C>               beginning of the file) in which the current data
+C>               subset resides
+C>      - ISUB - returns the number of the current data subset within
+C>               the BUFR message pointed to by IREC, counting from
+C>               the beginning of the message
 C>
-C>       EXAMPLE 1) PROBLEM: AN OUTPUT SUBSET "SEQNCE" IS LAID OUT AS
-C>          FOLLOWS IN A BUFR TABLE (NOTE 16 CHARACTERS HAVE BEEN
-C>          REMOVED FROM THE LAST COLUMN TO ALLOW THE TABLE TO FIT IN
-C>          THIS DOCBLOCK):
+C> <b>Program history log:</b>
+C> - 1994-01-06  J. Woollen -- Original author
+C> - 1996-11-25  J. Woollen -- Modified to add a return code when
+C>                            mnemonics are not found when reading
+C> - 1996-12-17  J. Woollen -- Modified to always initialize USR array
+C>                           to "missing" when BUFR file is being read
+C> - 1998-07-08  J. Woollen -- Replaced call to Cray library routine ABORT
+C>                             with call to new internal routine bort()
+C> - 1999-11-18  J. Woollen -- The number of BUFR files which can be
+C>                             opened at one time increased from 10 to 32
+C>                             (necessary in order to process multiple
+C>                             BUFR files under the MPI)
+C> - 2003-11-04  S. Bender  -- Added remarks and routine interdependencies
+C> - 2003-11-04  D. Keyser  -- Unified/portable for WRF; added history
+C>                             documentation; outputs more complete
+C>                             diagnostic info when routine terminates
+C>                             abnormally, unusual things happen or for
+C>                             informational purposes
+C> - 2004-08-18  J. Ator    -- Added SAVE for IFIRST1 and IFIRST2 flags
+C> - 2009-04-21  J. Ator    -- Use errwrt()
+C> - 2014-12-10  J. Ator    -- Use modules instead of COMMON blocks
 C>
-C>       | SEQNCE   | {PLEVL}                                           |
-C>       | PLEVL    | WSPD WDIR TSIG PRLC TSIG PRLC TSIG PRLC           |
+C> <b>This routine calls:</b> bort()     bort2()    errwrt()  status()
+C>                           string()   trybump()  ufbrw()
 C>
-C>              -- OR --
-C>
-C>       | SEQNCE   | {PLEVL}                                           |
-C>       | PLEVL    | WSPD WDIR "PSEQ"3                                 |
-C>       | PSEQ     | TSIG PRLC                                         |
-C>
-C>         IN THIS CASE THE APPLICATION PROGRAM MUST STORE VALUES WHICH
-C>         HAVE STANDARD REPLICATION NESTED INSIDE OF A DELAYED
-C>         REPLICATION SEQUENCE. FOR EXAMPLE,  ASSUME 50 LEVELS OF WIND
-C>         SPEED, WIND DIRECTION, OBSERVED PRESSURE, FIRST GUESS
-c         PRESSURE AND ANALYZED PRESSURE ARE TO BE WRITTEN TO "SEQNCE".
-C>
-C>       THE FOLLOWING LOGIC WOULD ENCODE VALUES PROPERLY:
-C>.....................................................................
-C>              ....
-C>       REAL*8 DROBS(2,50)
-C>       REAL*8 SROBS(2,150)
-C>              ....
-C>       DO I=1,50
-C>         DROBS(1,I)     = Value of wind speed on level "I"
-C>         DROBS(2,I)     = Value of wind direction on level "I"
-C>         SROBS(1,I*3-2) = Value of observed pressure on level "I"
-C>         SROBS(2,I*3-2) = 25. ! Value in Code Table 0-08-021 (TSIG)
-C>                              !  for time sigificance (Nominal
-C>                              !  reporting time) for observed
-C>                              !  pressure on level "I"
-C>         SROBS(1,I*3-1) = Value of first guess pressure on level "I"
-C>         SROBS(2,I*3-1) = 27. ! Value in Code Table 0-08-021 (TSIG)
-C>                              !  for time sigificance (First guess)
-C>                              !  for first guess pressure on level "I"
-C>         SROBS(1,I*3) = Value of analyzed pressure on level "I"
-C>         SROBS(2,I*3) = 16.   ! Value in Code Table 0-08-021 (TSIG)
-C>                              !  for time sigificance (Analysis) for
-C>                              !  analyzed pressure on level "I"
-C>       ENDDO
-C>
-C>              ! The call to UFBINT here will not only store the 50
-C>              !  values of WSPD and WDIR into the BUFR subset, it
-C>              !  will also allocate the space to store three
-C>              !  replications of TSIG and PRLC on each of the 50
-C>              !  delayed-replication "levels"
-C>       CALL UFBINT(LUNIN,DROBS,2, 50,IRET,'WSPD WDIR')
-C>
-C>              ! The call to UFBREP here will actually store the 150
-C>              !  values of both TSIG and PRLC (three values for each
-C>              !  on 50 delayed-replication "levels")
-C>       CALL UFBREP(LUNIN,SROBS,2,150,IRET,'TSIG PRLC')
-C>              ....
-C>       STOP
-C>       END
-C>.....................................................................
-C>
-C>       A SIMILAR EXAMPLE COULD BE PROVIDED FOR READING VALUES WHICH
-C>       HAVE STANDARD REPLICATION NESTED WITHIN DELAYED REPLICATION,
-C>       FROM BUFR FILES OPEN FOR INPUT.  (NOT SHOWN HERE.)
-C>
-C>
-C>       EXAMPLE 2) PROBLEM: AN INPUT SUBSET, "REPT_IN", AND AN OUTPUT
-C>          SUBSET "REPT_OUT", ARE LAID OUT AS FOLLOWS IN A BUFR TABLE
-C>          (NOTE 16 CHARACTERS HAVE BEEN REMOVED FROM THE LAST COLUMN
-C>          TO ALLOW THE TABLE TO FIT IN THIS DOCBLOCK):
-C>
-C>       | REPT_IN  | YEAR MNTH DAYS HOUR MINU {PLEVL} CLAT CLON        |
-C>       | REPT_OUT | YEAR DOYR HOUR MINU {PLEVL} CLAT CLON             |
-C>       | PLEVL    | PRLC TMBD REHU WDIR WSPD
-C>
-C>         IN THIS CASE THE APPLICATION PROGRAM IS READING IN VALUES
-C>         FROM A BUFR FILE CONTAINING SUBSET "REPT_IN", CONVERTING
-C>         MONTH AND DAY TO DAY OF YEAR, AND THEN WRITING VALUES TO
-C>         SUBSET "REPT_OUT" IN ANOTHER BUFR FILE.  A CONVENIENT WAY TO
-C>         DO THIS IS TO CALL UFBSEQ TO READ IN AND WRITE OUT THE
-C>         VALUES, HOWEVER THIS IS COMPLICATED BY THE PRESENCE OF THE
-C>         DELAYED-RELICATION SEQUENCE "PLEVL" BECAUSE THE OUTPUT CALL
-C>         TO UFBSEQ DOES NOT KNOW A-PRIORI HOW MANY REPLICATIONS ARE
-C>         NEEDED TO STORE THE CONTENTS OF "PLEVL" (IT SETS THE NUMBER
-C>         TO ZERO BY DEFUALT).  A CALL TO UFBINT IS FIRST NEEDED TO
-C>         ALLOCATE THE SPACE AND DETERMINE THE NUMBER OF LEVELS NEEDED
-C>         TO STORE ALL VALUES IN "PLEVL".
-C>
-C>       THE FOLLOWING LOGIC WOULD PEFORM THE READ/WRITE PROPERLY:
-C>.....................................................................
-C>              ....
-C>       REAL*8 OBSI(2000),OBSO(1999),PLEVL(5,255),REPS_8
-C>       CHARACTER*8 SUBSET
-C>              ....
-C>
-C>       CALL DATELEN(10)
-C>
-C>         ! Open input BUFR file in LUBFI and open output BUFR file in
-C>         !  LUBFJ, both use the BUFR table in LINDX
-C>       CALL OPENBF(LUBFI,'IN', LINDX)
-C>       CALL OPENBF(LUBFJ,'OUT',LINDX)
-C>
-C>         ! Read through the BUFR messages in the input file
-C>       DO WHILE(IREADMG(LUBFI,SUBSET,IDATE).GE.0)
-C>
-C>         ! Open message (for writing) in output file
-C>          CALL OPENMB(LUBFJ,'REPT_OUT',IDATE)
-C>
-C>         ! Read through the subsets in this input BUFR messages
-C>          DO WHILE(IREADSB(LUBFI).EQ.0)
-C>
-C>              ! This call to UFBSEQ will read in the entire contents
-C>              !  of subset "REPT_IN", storing them into array OBSI
-C>              !  (Note: On input, UFBSEQ knows how many replications
-C>                        of "PLEV" are present)
-C>             CALL UFBSEQ(LUBFI,OBSI,2000,1,IRET,'REPT_IN')
-C>
-C>              ! This call to UFBINT will return the number of
-C>              !  replications ("levels") in "PLEVL" for subset
-C>              !  "REPT_IN"" !  {see 1) above in REMARKS}
-C>             CALL UFBINT(LUBFI,REPS_8,1,1,IRET,'{PLEVL}')
-C>             IREPS = REPS_8
-C>
-C>             IYR = OBSI(1)
-C>             IMO = OBSI(2)
-C>             IDA = OBSI(3)
-C>             CALL xxxx(IYR, IMO, IDA, JDY) ! convert month and day
-C>                                           !  to day of year (JDY)
-C>             OBSO(1) = OBSI(1)
-C>             OBSO(2) = JDY
-C>             DO I = 3,1999
-C>                OBSO(I) = OBSI(1+1)
-C>             ENDDO
-C>
-C>             PLEVL = GETBMISS()
-C>
-C>              ! The call to UFBINT here will allocate the space to
-C>              !  later allow UFBSEQ to store IREPS replications of
-C>              !  "PLEVL" into the output BUFR subset "REPT_OUT" (note
-C>              !  here it is simply storing missing values)
-C>             CALL UFBINT(LUBFJ,PLEVL,5,IREPS,IRET,
-C>     $        'PRLC TMBD REHU WDIR WSPD')
-C>
-C>              ! The call to UFBSEQ here will write out the entire
-C>              !  contents of subset "REPT_OUT", reading them from
-C>              !  array OBSO
-C>             CALL UFBSEQ(LUBFJ,OBSO,1999,1,IRET,'REPT_OUT')
-C>
-C>              ! Write the subset into the output BUFR message
-C>             CALL WRITSB(LUBFJ)
-C>          ENDDO
-C>
-C>              ! All done
-C>
-C>          STOP
-C>          END
-C>.....................................................................
-C>
-C>
-C>    THIS ROUTINE CALLS:        BORT     BORT2    ERRWRT   STATUS
-C>                               STRING   TRYBUMP  UFBRW
-C>    THIS ROUTINE IS CALLED BY: UFBINX   UFBRMS
-C>                               Also called by application programs.
+C> <b>This routine is called by:</b> ufbinx()   ufbrms()
+C>                             <br>Also called by application programs.
 C>
       SUBROUTINE UFBINT(LUNIN,USR,I1,I2,IRET,STR)
-
-
 
       USE MODA_USRINT
       USE MODA_MSGCWD

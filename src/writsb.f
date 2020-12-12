@@ -1,45 +1,62 @@
 C> @file
-C> @author WOOLLEN @date 1994-01-06
+C> @brief Write a data subset into a BUFR message.
       
-C> THIS SUBROUTINE SHOULD ONLY BE CALLED WHEN LOGICAL UNIT
-C>   LUNIT HAS BEEN OPENED FOR OUTPUT OPERATIONS.  IT PACKS UP THE
-C>   CURRENT SUBSET WITHIN MEMORY AND THEN TRIES TO ADD IT TO THE 
-C>   BUFR MESSAGE THAT IS CURRENTLY OPEN WITHIN MEMORY FOR THIS LUNIT.
-C>   THE DETERMINATION AS TO WHETHER OR NOT THE SUBSET CAN BE ADDED TO
-C>   THE MESSAGE IS MADE VIA AN INTERNAL CALL TO ONE OF THE BUFR ARCHIVE
-C>   LIBRARY SUBROUTINES WRCMPS OR MSGUPD, DEPENDING UPON WHETHER OR NOT 
-C>   THE MESSAGE IS COMPRESSED.  IF IT TURNS OUT THAT THE SUBSET CANNOT
-C>   BE ADDED TO THE CURRENTLY OPEN MESSAGE, THEN THAT MESSAGE IS
-C>   FLUSHED TO LUNIT AND A NEW ONE IS CREATED IN ORDER TO HOLD THE
-C>   SUBSET.
+C> This subroutine writes a complete data subset (i.e. report)
+C> into a BUFR message, for eventual output to logical unit LUNIT.
 C>
-C> PROGRAM HISTORY LOG:
-C> 1994-01-06  J. WOOLLEN -- ORIGINAL AUTHOR
-C> 1998-07-08  J. WOOLLEN -- REPLACED CALL TO CRAY LIBRARY ROUTINE
-C>                           "ABORT" WITH CALL TO NEW INTERNAL BUFRLIB
-C>                           ROUTINE "BORT"
-C> 2003-11-04  J. ATOR    -- ADDED DOCUMENTATION
-C> 2003-11-04  S. BENDER  -- ADDED REMARKS/BUFRLIB ROUTINE
-C>                           INTERDEPENDENCIES
-C> 2003-11-04  D. KEYSER  -- UNIFIED/PORTABLE FOR WRF; ADDED HISTORY
-C>                           DOCUMENTATION; OUTPUTS MORE COMPLETE
-C>                           DIAGNOSTIC INFO WHEN ROUTINE TERMINATES
-C>                           ABNORMALLY
-C> 2005-03-09  J. ATOR    -- ADDED CAPABILITY FOR COMPRESSED MESSAGES
+C> @author J. Woollen
+C> @date 1994-01-06
 C>
-C> USAGE:    CALL WRITSB (LUNIT)
-C>   INPUT ARGUMENT LIST:
-C>     LUNIT    - INTEGER: FORTRAN LOGICAL UNIT NUMBER FOR BUFR FILE
+C> @param[in] LUNIT  - integer: Fortran logical unit number for BUFR file
 C>
-C> REMARKS:
-C>    THIS ROUTINE CALLS:        BORT     MSGUPD   STATUS   WRCMPS
-C>                               WRTREE
-C>    THIS ROUTINE IS CALLED BY: COPYSB   WRITCP
-C>                               Also called by application programs.
+C> <p>This subroutine is called to indicate to the BUFRLIB software that
+C> all necessary values for a data subset (i.e. report) have been written,
+C> and thus that the subset is ready to be encoded and packed into the
+C> current message for the BUFR file associated with logical unit LUNIT.
+C> Logical unit LUNIT should have already been opened for output
+C> operations via a previous call to subroutine openbf(), and
+C> a BUFR message should already be open for output within internal
+C> arrays via a previous call to subroutine openmg() or openmb().
+C> Furthermore, all of the values for the data subset should have
+C> already been written into internal arrays via calls to subroutines
+C> ufbint(), ufbrep(), ufbseq(), etc.
+C>
+C> @remarks:
+C> - There is a maximum size for any BUFR message that can be written
+C> by the BUFRLIB software.  This maximum message size is initially set
+C> to an internal default value, but it can be changed to a different
+C> value via a separate prior call to subroutine maxout().  
+C> - This subroutine will always check to ensure that the data subset,
+C> when encoded and packed, will fit into the current BUFR message that
+C> is already open within the internal arrays associated with logical
+C> unit LUNIT.  If adding the data subset to the current message would
+C> cause the maximum message size to be exceeded, then the subroutine will
+C> automatically flush the current messsage to logical unit LUNIT, then
+C> open and initialize a new internal message using the same SUBSET and
+C> JDATE values that were specified in the most recent call to
+C> openmg() or openmb() for LUNIT, then encode and pack the data
+C> subset into that new messsage.
+C>
+C> <b>Program history log:</b>
+C> - 1994-01-06  J. Woollen -- Original author
+C> - 1998-07-08  J. Woollen -- Replaced call to Cray library routine
+C>                           "ABORT" with call to new internal BUFRLIB
+C>                           routine "BORT"
+C> - 2003-11-04  J. Ator -- Added documentation
+C> - 2003-11-04  S. Bender  -- Added remarks and routine interdependencies
+C> - 2003-11-04  D. Keyser  -- Unified/portable for WRF; added history
+C>                           documentation; outputs more complete
+C>                           diagnostic info when routine terminates
+C>                           abnormally
+C> - 2005-03-09  J. Ator -- Added capability for compressed messages
+C>
+C> <b>This routine calls:</b> bort()  msgupd()   status()   wrcmps()
+C>                            wrtree()
+C>
+C> <b>This routine is called by:</b> copysb()   writcp()
+C>                          <br>Also called by application programs.
 C>
       SUBROUTINE WRITSB(LUNIT)
-
-
 
       COMMON /MSGCMP/ CCMF
 

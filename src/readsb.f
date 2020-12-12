@@ -1,59 +1,69 @@
 C> @file
-C> @author WOOLLEN @date 1994-01-06
+C> @brief Read the next data subset from a BUFR message.
       
-C> THIS SUBROUTINE SHOULD ONLY BE CALLED WHEN LOGICAL UNIT
-C>   LUNIT HAS BEEN OPENED FOR INPUT OPERATIONS.  IT READS A SUBSET FROM
-C>   A BUFR MESSAGE INTO INTERNAL SUBSET ARRAYS.  THE BUFR MESSAGE MUST
-C>   HAVE BEEN PREVIOUSLY READ FROM UNIT LUNIT USING BUFR ARCHIVE
-C>   LIBRARY SUBROUTINE READMG OR READERME AND MAY BE EITHER COMPRESSED
-C>   OR UNCOMPRESSED.
+C> This subroutine reads the next data subset (i.e. report) from a BUFR
+C> message into internal arrays.
 C>
-C> PROGRAM HISTORY LOG:
-C> 1994-01-06  J. WOOLLEN -- ORIGINAL AUTHOR
-C> 1998-07-08  J. WOOLLEN -- REPLACED CALL TO CRAY LIBRARY ROUTINE
-C>                           "ABORT" WITH CALL TO NEW INTERNAL BUFRLIB
-C>                           ROUTINE "BORT"
-C> 1999-11-18  J. WOOLLEN -- THE NUMBER OF BUFR FILES WHICH CAN BE
-C>                           OPENED AT ONE TIME INCREASED FROM 10 TO 32
-C>                           (NECESSARY IN ORDER TO PROCESS MULTIPLE
-C>                           BUFR FILES UNDER THE MPI)
-C> 2000-09-19  J. WOOLLEN -- ADDED CALL TO NEW ROUTINE RDCMPS ALLOWING
-C>                           SUBSETS TO NOW BE DECODED FROM COMPRESSED
-C>                           BUFR MESSAGES; MAXIMUM MESSAGE LENGTH
-C>                           INCREASED FROM 10,000 TO 20,000 BYTES
-C> 2002-05-14  J. WOOLLEN -- CORRECTED ERROR RELATING TO CERTAIN
-C>                           FOREIGN FILE TYPES; REMOVED OLD CRAY
-C>                           COMPILER DIRECTIVES
-C> 2003-11-04  S. BENDER  -- ADDED REMARKS/BUFRLIB ROUTINE
-C>                           INTERDEPENDENCIES
-C> 2003-11-04  D. KEYSER  -- UNIFIED/PORTABLE FOR WRF; ADDED
-C>                           DOCUMENTATION (INCLUDING HISTORY); OUTPUTS
-C>                           MORE COMPLETE DIAGNOSTIC INFO WHEN ROUTINE
-C>                           TERMINATES ABNORMALLY
-C> 2004-08-09  J. ATOR    -- MAXIMUM MESSAGE LENGTH INCREASED FROM
-C>                           20,000 TO 50,000 BYTES
-C> 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
+C> @author J. Woollen
+C> @date 1994-01-06
 C>
-C> USAGE:    CALL READSB (LUNIT, IRET)
-C>   INPUT ARGUMENT LIST:
-C>     LUNIT    - INTEGER: FORTRAN LOGICAL UNIT NUMBER FOR BUFR FILE
+C> @param[in] LUNIT    - integer: Fortran logical unit number for BUFR file
+C> @param[out] IRET    - integer:
+C>                           - 0 = new BUFR data subset was successfully
+C>                                 read into internal arrays
+C>                           - -1 = there are no more BUFR data subsets in
+C>                                 the BUFR message
 C>
-C>   OUTPUT ARGUMENT LIST:
-C>     IRET     - INTEGER: RETURN CODE:
-C>                       0 = normal return
-C>                      -1 = there are no more subsets in the BUFR
-C>                           message
+C> <p>Logical unit LUNIT should have already been opened for
+C> input operations via a previous call to subroutine openbf(), and a
+C> BUFR message should have already been read into internal arrays via
+C> a previous call to subroutine readmg(), readerme() or equivalent. 
 C>
-C> REMARKS:
-C>    THIS ROUTINE CALLS:        BORT     RDCMPS   RDTREE   STATUS
-C>                               UPB
-C>    THIS ROUTINE IS CALLED BY: COPYSB   IREADSB  RDMEMS   READNS
-C>                               RDMSGB   UFBINX   UFBPOS
-C>                               Also called by application programs.
+C> <p>Whenever this subroutine returns with IRET = 0, this indicates
+C> that a new BUFR data subset (i.e. report) was successfully read into
+C> internal arrays within the BUFRLIB software, and from where it can
+C> then be easily manipulated or further parsed via calls to subroutines
+C> ufbint(), ufbrep(), ufbseq(), etc.  Otherwise, if the subroutine
+C> returns with IRET = -1, then this indicates that there are no more
+C> data subsets available within the current message, and therefore that
+C> a new call needs to be made to subroutine readmg(), readerme() or
+C> equivalent in order to read in the next message from logical unit
+C> LUNIT.
+C>
+C> <b>Program history log:</b>
+C> - 1994-01-06  J. Woollen -- Original author
+C> - 1998-07-08  J. Woollen -- Replaced call to Cray library routine
+C>                           "ABORT" with call to new internal BUFRLIB
+C>                           routine "BORT"
+C> - 1999-11-18  J. Woollen -- The number of BUFR files which can be
+C>                           opened at one time increased from 10 to 32
+C>                           (necessary in order to process multiple
+C>                           BUFR files under the MPI)
+C> - 2000-09-19  J. Woollen -- Added call to new routine rdcmps() allowing
+C>                           subsets to also be decoded from compressed
+C>                           BUFR messages; maximum length increased
+C>                           from 10,000 to 20,000 bytes
+C> - 2002-05-14  J. Woollen -- Corrected error relating to certain
+C>                          foreign file types; removed old Cray
+C>                          compiler directives
+C> - 2003-11-04  S. Bender  -- Added remarks and routine interdependencies
+C> - 2003-11-04  D. Keyser  -- Unified/portable for WRF; added history
+C>                           documentation; outputs more complete
+C>                           diagnostic info when routine terminates
+C>                           abnormally
+C> - 2004-08-09  J. Ator    -- Maximum message length increased from
+C>                           20,000 to 50,000 bytes
+C> - 2014-12-10  J. Ator    -- Use modules instead of COMMON blocks
+C>
+C> <b>This routine calls:</b>  bort()   rdcmps() rdtree()  status()
+C>                             upb()
+C>
+C> <b>This routine is called by:</b>
+C>                     copysb()   ireadsb()  rdmems()   readns()
+C>                     rdmsgb()   ufbinx()   ufbpos()
+C>                     <br>Also called by application programs.
 C>
       SUBROUTINE READSB(LUNIT,IRET)
-
-
 
       USE MODA_MSGCWD
       USE MODA_UNPTYP
