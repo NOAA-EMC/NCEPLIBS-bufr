@@ -1,143 +1,162 @@
 C> @file
-C> @author WOOLLEN @date 1994-01-06
-      
-C> THIS SUBROUTINE WRITES OR READS SPECIFIED VALUES TO OR
-C>   FROM THE CURRENT BUFR DATA SUBSET WITHIN INTERNAL ARRAYS, WITH THE
-C>   DIRECTION OF THE DATA TRANSFER DETERMINED BY THE CONTEXT OF
-C>   ABS(LUNIO) (I.E., IF ABS(LUNIO) POINTS TO A BUFR FILE THAT IS OPEN
-C>   FOR INPUT, THEN DATA VALUES ARE READ FROM THE INTERNAL DATA SUBSET;
-C>   OTHERWISE, DATA VALUES ARE WRITTEN TO THE INTERNAL DATA SUBSET).
-C>   THE DATA VALUES CORRESPOND TO MNEMONICS WHICH ARE EITHER:
-C>       1) PART OF A REGULAR (I.E., NON-DELAYED) REPLICATION SEQUENCE
-C>                OR
-C>       2) REPLICATED BY BEING DIRECTLY LISTED MORE THAN ONCE WITHIN AN
-C>          OVERALL SUBSET DEFINITION
+C> @brief Read/write one or more data values from/to a data subset.
+
+C> This subroutine reads or writes one or more data values from or to
+C> the BUFR data subset that is currently open within the BUFRLIB
+C> internal arrays.  The direction of the data transfer is determined
+C> by the context of ABS(LUNIN):
+C> - If ABS(LUNIN) points to a file that was previously opened for
+C>   input using subroutine openbf(), then data values are read from
+C>   the current data subset.
+C> - If ABS(LUNIN) points to a file that was previously opened for
+C>   output using subroutine openbf(), then data values are written to
+C>   the current data subset.
 C>
-C>   THE DIFFERENCE IN THE WAY UFBREP WORKS AS COMPARED TO UFBINT IS IN
-C>   THE WAY THE MNEMONIC STRING IS INTERPRETED TO DEFINE WHICH ELEMENTS
-C>   ARE PROCESSED AND IN WHAT ORDER.  UFBREP INTERPRETS THE FIRST
-C>   MNEMONIC IN THE STRING AS A "PIVOT".  THIS MEANS THE 2ND DIMENSION
-C>   OF THE DATA RETURNED (AS INDICATED BY ARGUMENT I2) IS DEFINED BY
-C>   OCCURRENCES OF THE PIVOT ELEMENT FOUND WITHIN THE OVERALL SUBSET
-C>   DEFINITION.  FOR EXAMPLE, IF THE SUBSET DEFINITION CONTAINS THE
-C>   FOLLOWING SEQUENCE OF MNEMONICS:
-C>   {..,A,..,B,..,C,..,D,..,A,..,C,..,D,..,B,..
-C>         A,..,B,..,D,..,C,..,A,..,C,..,B,..,D,..},
-C>   THEN READING A SUBSET VIA UFBREP WITH STR = "A B C D" RETURNS THE
-C>   FOLLOWING 4X4 MATRIX OF VALUES IN USR, USING A AS THE "PIVOT"
-C>   MNEMONIC SINCE IT WAS THE FIRST MNEMONIC IN THE STRING:
-C>       ( A1, B1, C1, D1,
-C>         A2, B2, C2, D2,
-C>         A3, B3, C3, D3,
-C>         A4, B4, C4, D4 )
-C>   NOTE THAT, WHEN USING UFBREP, THE ORDER OF THE NON-PIVOT MNEMONICS
-C>   BETWEEN EACH PIVOT IS IMMATERIAL, I.E., IN THE ABOVE EXAMPLE, UFBREP
-C>   FINDS ALL OF THE OCCURRENCES OF MNEMONICS B, C AND D BETWEEN EACH
-C>   PIVOT BECAUSE IT SEARCHES INDEPENDENTLY FOR EACH ONE BETWEEN
-C>   SUCCESSIVE PIVOTS.
+C> <p>This subroutine is specifically designed for use with Table B
+C> mnemonics which are part of a fixed (i.e. non-delayed) replication
+C> sequence, or for mnemonics which are replicated by being directly
+C> listed more than once within an overall subset definition.
+C> See also subroutines ufbint(),
+C> ufbseq() and ufbstp(), which can also be used to read/write one or
+C> more data values from/to a data subset but are designed for
+C> different use cases.  A more detailed discussion of
+C> these different use cases, including examples, is available in
+C> [DX BUFR Tables](@ref ufbsubs).
 C>
-C>   IN CONTRAST, NOTE THERE IS ALSO A SEPARATE SUBROUTINE UFBSTP WHICH
-C>   IS SIMILAR TO UFBREP, EXCEPT THAT UFBSTP ALWAYS STEPS FORWARD WHEN
-C>   SEARCHING FOR EACH SUCCESSIVE NON-PIVOT MNEMONIC, RATHER THAN
-C>   SEARCHING INDEPENDENTLY FOR EACH ONE BETWEEN SUCCESSIVE PIVOTS.
-C>   SO IN THE ABOVE EXAMPLE WITH STR="A B C D" AND STARTING FROM EACH
-C>   SUCCESSIVE PIVOT MNEMONIC A, UFBSTP WOULD SEARCH FORWARD FOR THE
-C>   NEXT OCCURRENCE OF MNEMONIC B, THEN IF FOUND SEARCH FORWARD FROM
-C>   THERE FOR THE NEXT OCCURRENCE OF C, THEN IF FOUND SEARCH FORWARD
-C>   FROM THERE FOR THE NEXT OCCURRENCE OF D, ETC. UP UNTIL REACHING
-C>   THE NEXT OCCURRENCE OF THE PIVOT MNEMONIC A (OR THE END OF THE DATA
-C>   SUBSET), WITHOUT EVER DOING ANY BACKTRACKING.  SO IN THE ABOVE
-C>   EXAMPLE UFBSTP WOULD RETURN THE FOLLOWING 4x4 MATRIX OF VALUES IN
-C>   ARRAY USR, WHERE XX DENOTES A "MISSING" VALUE:
-C>       ( A1, B1, C1, D1,
-C>         A2, B2, XX, XX,
-C>         A3, B3, C3, XX,
-C>         A4, B4, XX, XX )
+C> @author J. Woollen
+C> @date 1994-01-06
 C>
-C> PROGRAM HISTORY LOG:
-C> 1994-01-06  J. WOOLLEN -- ORIGINAL AUTHOR
-C> 1998-07-08  J. WOOLLEN -- REPLACED CALL TO CRAY LIBRARY ROUTINE
-C>                           "ABORT" WITH CALL TO NEW INTERNAL BUFRLIB
-C>                           ROUTINE "BORT"
-C> 1999-11-18  J. WOOLLEN -- THE NUMBER OF BUFR FILES WHICH CAN BE
-C>                           OPENED AT ONE TIME INCREASED FROM 10 TO 32
-C>                           (NECESSARY IN ORDER TO PROCESS MULTIPLE
-C>                           BUFR FILES UNDER THE MPI)
-C> 2003-05-19  J. WOOLLEN -- DISABLED THE PARSING SWITCH WHICH CONTROLS
-C>                           CHECKING FOR IN THE SAME REPLICATION GROUP,
-C>                           UFBREP DOES NOT NEED THIS CHECK, AND IT
-C>                           INTERFERES WITH WHAT UFBREP CAN DO
-C>                           OTHERWISE
-C> 2003-11-04  S. BENDER  -- ADDED REMARKS/BUFRLIB ROUTINE
-C>                           INTERDEPENDENCIES
-C> 2003-11-04  D. KEYSER  -- MAXJL (MAXIMUM NUMBER OF JUMP/LINK ENTRIES)
-C>                           INCREASED FROM 15000 TO 16000 (WAS IN
-C>                           VERIFICATION VERSION); UNIFIED/PORTABLE FOR
-C>                           WRF; ADDED DOCUMENTATION (INCLUDING
-C>                           HISTORY); OUTPUTS MORE COMPLETE DIAGNOSTIC
-C>                           INFO WHEN ROUTINE TERMINATES ABNORMALLY OR
-C>                           UNUSUAL THINGS HAPPEN; CHANGED CALL FROM
-C>                           BORT TO BORT2 IN SOME CASES
-C> 2004-08-18  J. ATOR    -- ADDED SAVE FOR IFIRST1 AND IFIRST2 FLAGS
-C> 2009-03-31  J. WOOLLEN -- ADD DOCUMENTATION
-C> 2009-04-21  J. ATOR    -- USE ERRWRT
-C> 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
+C> @param[in] LUNIN    - integer: absolute value is Fortran logical
+C>                       unit number for BUFR file
+C> @param[in,out] USR  - real*8(*,*): data values
+C>                         - If ABS(LUNIN) was opened for input, then
+C>                           USR is output from this subroutine and
+C>                           contains data values that were read
+C>                           from the current data subset.
+C>                         - If ABS(LUNIN) was opened for output, then
+C>                           USR is input to this subroutine and
+C>                           contains data values that are to be
+C>                           written to the current data subset.
+C> @param[in] I1 - integer: actual first dimension of USR as allocated
+C>                 within the calling program
+C> @param[in] I2 - integer:
+C>                    - If ABS(LUNIN) was opened for input, then I2
+C>                      must be set equal to the actual second dimension
+C>                      of USR as allocated within the calling program
+C>                    - If ABS(LUNIN) was opened for output, then I2
+C>                      must be set equal to the number of replications
+C>                      of STR that are to be written to the data subset
+C> @param[out] IRET - integer: number of replications of STR that were
+C>                    actually read/written from/to the data subset
+C> @param[in] STR - character*(*): string of blank-separated
+C>                  Table B mnemonics
+C>                  in one-to-one correspondence with the number of data
+C>                  values that will be read/written from/to the data
+C>                  subset within the first dimension of USR (see
+C>                  [DX BUFR Tables](@ref dfbftab) for further
+C>                  information about Table B mnemonics)
 C>
-C> USAGE:    CALL UFBREP (LUNIO, USR, I1, I2, IRET, STR)
-C>   INPUT ARGUMENT LIST:
-C>     LUNIO    - INTEGER: ABSOLUTE VALUE IS FORTRAN LOGICAL UNIT NUMBER
-C>                FOR BUFR FILE
-C>                  - IF BUFR FILE OPEN FOR OUTPUT AND LUNIO IS LESS
-C>                    THAN ZERO, UFBREP TREATS THE BUFR FILE AS THOUGH
-C>                    IT WERE OPEN FOR INPUT
-C>     USR      - ONLY IF BUFR FILE OPEN FOR OUTPUT:
-C>                   REAL*8: (I1,I2) STARTING ADDRESS OF DATA VALUES
-C>                   WRITTEN TO DATA SUBSET
-C>     I1       - INTEGER: LENGTH OF FIRST DIMENSION OF USR (MUST BE AT
-C>                LEAST AS LARGE AS THE NUMBER OF BLANK-SEPARATED
-C>                MNEMONICS IN STR)
-C>     I2       - INTEGER:
-C>                  - IF BUFR FILE OPEN FOR INPUT:  LENGTH OF SECOND
-C>                    DIMENSION OF USR
-C>                  - IF BUFR FILE OPEN FOR OUTPUT: NUMBER OF "LEVELS"
-C>                    OF DATA VALUES TO BE WRITTEN TO DATA SUBSET
-C>     STR      - CHARACTER*(*): STRING OF BLANK-SEPARATED TABLE B
-C>                MNEMONICS IN ONE-TO-ONE CORRESPONDENCE WITH FIRST
-C>                DIMENSION OF USR
-C>                  - IF BUFR FILE OPEN FOR INPUT: THERE ARE THREE
-C>                     "GENERIC" MNEMONICS NOT RELATED TO TABLE B,
-C>                     THESE RETURN THE FOLLOWING INFORMATION IN
-C>                     CORRESPONDING USR LOCATION:
-C>                     'NUL'  WHICH ALWAYS RETURNS BMISS ("MISSING")
-C>                     'IREC' WHICH ALWAYS RETURNS THE CURRENT BUFR
-C>                            MESSAGE (RECORD) NUMBER IN WHICH THIS
-C>                            SUBSET RESIDES
-C>                     'ISUB' WHICH ALWAYS RETURNS THE CURRENT SUBSET
-C>                            NUMBER OF THIS SUBSET WITHIN THE BUFR
-C>                            MESSAGE (RECORD) NUMBER 'IREC'
+C> <p>It is the user's responsibility to ensure that USR is dimensioned
+C> sufficiently large enough to accommodate the number of data values
+C> that are to be read from or written to the data subset.  Note also
+C> that USR is an array of real*8 values; therefore, any data that are
+C> to be written out as character (i.e. CCITT IA5) values in
+C> BUFR must be converted from character into real*8 format within the
+C> application program before calling this subroutine.  Conversely,
+C> when this subroutine is being used to read character values from a
+C> data subset, the value that is returned will be in real*8 format
+C> and must be converted back into character format by the application
+C> program before it can be used as such.  Alternatively, there are
+C> different subroutines such as readlc() and writlc() which can be
+C> used to read/write character data directly from/to a data subset
+C> without the need to convert from/to real*8 format as an intermediate
+C> step.
 C>
-C>   OUTPUT ARGUMENT LIST:
-C>     USR      - ONLY IF BUFR FILE OPEN FOR INPUT:
-C>                   REAL*8: (I1,I2) STARTING ADDRESS OF DATA VALUES
-C>                   READ FROM DATA SUBSET
-C>     IRET     - INTEGER:
-C>                  - IF BUFR FILE OPEN FOR INPUT: NUMBER OF "LEVELS" OF
-C>                    DATA VALUES READ FROM DATA SUBSET (MUST BE NO
-C>                    LARGER THAN I2)
-C>                  - IF BUFR FILE OPEN FOR OUTPUT: NUMBER OF "LEVELS"
-C>                    OF DATA VALUES WRITTEN TO DATA SUBSET (SHOULD BE
-C>                    SAME AS I2)
+C> <p>Numeric (i.e. non-character) data values within USR are always in
+C> the exact units specified for the corresponding mnemonic within the
+C> relevant DX or master BUFR table, without any scale or reference
+C> values applied.  Specifically, this means that, when writing
+C> data values into an output subset, the user only needs to store each
+C> respective value into USR using the units specified within the table,
+C> and the BUFRLIB software will take care of any necessary scaling or
+C> referencing of the value before it is actually encoded into BUFR.
+C> Conversely, when reading data values from an input subset, the
+C> values returned in USR are already de-scaled and de-referenced and,
+C> thus, are already in the exact units that were defined for the
+C> corresponding mnemonics within the table.
 C>
-C> REMARKS:
-C>    THIS ROUTINE CALLS:        BORT     BORT2    ERRWRT   STATUS
-C>                               STRING   UFBRP
-C>    THIS ROUTINE IS CALLED BY: None
-C>                               Normally called only by application
-C>                               programs.
+C> <p>"Missing" values in USR are always denoted by a unique
+C> placeholder value.  This placeholder value is initially set
+C> internally to a default value of 10E10, but it can be reset to
+C> any substitute value of the user's choice via a separate
+C> call to subroutine setbmiss().  In any case, and whenever this
+C> subroutine is used to read data values from an input subset, any
+C> returned value in USR can be easily checked for equivalence to the
+C> current placeholder value via a call to subroutine ibfms(), and a
+C> positive result means that the value for the corresponding mnemonic
+C> was encoded as "missing" in BUFR (i.e. all bits set to 1) within the
+C> original data subset.  Conversely, whenever this subroutine
+C> is used to write data values to an output subset, the current
+C> placeholder value can be obtained via a separate call to function
+C> getbmiss(), and the resulting value can then be stored into the
+C> USR array whereever the user desires a BUFR "missing" value (i.e.
+C> all bits set to 1) to be encoded for the corresponding mnemonic
+C> within the output subset.
+C>
+C> @remarks
+C> - If LUNIN < 0, and if ABS(LUNIN) points to a file that is open
+C> for output (writing BUFR), then the subroutine will treat the file
+C> pointed to by ABS(LUNIN) as though it was open for input (reading
+C> BUFR).  This is a special capability for use by some applications
+C> that need to read certain values back out from a BUFR file during
+C> the same time that it is in the process of being written to.
+C> - If ABS(LUNIN) points to a file that is open for input (reading
+C> BUFR), there are a few additional special mnemonics that can be
+C> included within STR when calling this subroutine, and which in turn
+C> will result in special information being returned within the
+C> corresponding location in USR.  These special mnemonics are not
+C> considered to be part of Table B or Table D and therefore do not
+C> need to be definied within the DX or master table file associated
+C> with ABS(LUNIN):
+C>      - NUL - returns the "missing" value
+C>      - IREC - returns the number of the BUFR message within the
+C>               file pointed to by ABS(LUNIN) (counting from the
+C>               beginning of the file) in which the current data
+C>               subset resides
+C>      - ISUB - returns the number of the current data subset within
+C>               the BUFR message pointed to by IREC, counting from
+C>               the beginning of the message
+C>
+C> <b>Program history log:</b>
+C> - 1994-01-06  J. Woollen -- Original author
+C> - 1998-07-08  J. Woollen -- Replaced call to Cray library routine ABORT
+C>                             with call to new internal routine bort()
+C> - 1999-11-18  J. Woollen -- The number of BUFR files which can be
+C>                             opened at one time increased from 10 to C32
+C>                             (necessary in order to process multiple
+C>                             BUFR files under the MPI)
+C> - 2003-05-19  J. Woollen -- Disabled the parsing switch which controls
+C>                           checking for in the same replication group,
+C>                           ufbrep does not need this check, and it
+C>                           interferes with what ufbrep can do otherwise
+C> - 2003-11-04  S. Bender  -- Added remarks and routine interdependencies
+C> - 2003-11-04  D. Keyser  -- Unified/portable for WRF; added history
+C>                             documentation; outputs more complete
+C>                             diagnostic info when routine terminates
+C>                             abnormally, unusual things happen or for
+C>                             informational purposes
+C> - 2004-08-18  J. Ator    -- Added SAVE for IFIRST1 and IFIRST2 flags
+C> - 2009-03-31  J. Woollen -- Add documentation
+C> - 2009-04-21  J. Ator    -- Use errwrt()
+C> - 2014-12-10  J. Ator    -- Use modules instead of COMMON blocks
+C>
+C> <b>This routine calls:</b> bort()     bort2()    errwrt()  status()
+C>                           string()    ufbrp()
+C>
+C> <b>This routine is called by:</b>None
+C>                     <br>Normally called only by application programs.
 C>
       SUBROUTINE UFBREP(LUNIO,USR,I1,I2,IRET,STR)
-
-
 
       USE MODA_USRINT
       USE MODA_MSGCWD

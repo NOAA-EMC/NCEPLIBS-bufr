@@ -10,9 +10,9 @@ C> @date 1994-01-06
 C>
 C> @param[in] LUNIT  - integer: Fortran logical unit number for BUFR file
 C> @param[out] SUBSET   - character*8: Table A mnemonic for type of BUFR
-C>                        message that was read (see Description and Format
-C>                        of DX BUFR Tables for further information about
-C>                        Table A mnemonics)
+C>                        message that was read
+C>                       (see [DX BUFR Tables](@ref dfbftab)
+C>                        for further information about Table A mnemonics)
 C> @param[out] IDATE    - integer: date-time stored within Section 1 of
 C>                        BUFR message that was read, in format of either
 C>                        YYMMDDHH or YYYYMMDDHH, depending on the most
