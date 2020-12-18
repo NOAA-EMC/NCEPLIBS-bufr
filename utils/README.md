@@ -73,9 +73,9 @@ DATA:
 
 A utility to read any BUFR file with embedded DX tables, and print the contents of each subset one at a time.
 
-See the source code at readmp.f
+See the source code at readmp.f90
 
-Sample output for: `./readmp gdas.20200812/00/gdas.t00z.sfcshp.tm00.bufr_d`
+Sample output for: `./readmp.x gdas.20200812/00/gdas.t00z.sfcshp.tm00.bufr_d`
 
 ~~~
  MESSAGE TYPE NC001001
@@ -376,4 +376,61 @@ typ   tot    0-3    4-7      8      9    10     11    12    13    14    15    ck
 
 
  ******CMPBQM PROCESSED         7066  BUFR RECORDS******
+~~~
+
+---
+
+<div id="gettab"/>
+
+### gettab
+
+A utility to read any BUFR file with embedded DX tables, and print the table.
+
+See the source code at gettab.f90
+
+Sample output for: `./gettab.x gdas.20200812/00/gdas.t00z.adpsfc.tm00.bufr_d`
+
+~~~
+.------------------------------------------------------------------------------.
+| ------------   USER DEFINITIONS FOR TABLE-A TABLE-B TABLE D   -------------- |
+|------------------------------------------------------------------------------|
+| MNEMONIC | NUMBER | DESCRIPTION                                              |
+|----------|--------|----------------------------------------------------------|
+|          |        |                                                          |
+| NC000000 | A51001 | MTYP 000-000 SYNOPTIC-LAND, RESTRICTED (WMO RES 40)      |
+| NC000001 | A63200 | MTYP 000-001 SYNOPTIC - FIXED LAND                       |
+| NC000002 | A61192 | MTYP 000-002 SYNOPTIC - MOBIL LAND                       |
+| NC000007 | A63206 | MTYP 000-007 AVIATION - METAR / SPECI                    |
+| NC000008 | A63247 | MTYP 000-008 NPN AND MAP PROFILER SURFACE                |
+| NC000010 | A56100 | MTYP 000-010 PRODUCTS (SHEF) NOT IN ANY OTHER TANK       |
+| NC000011 | A63214 | MTYP 000-011 AFOS PRODUCTS (PRECIP) (SHEF)               |
+| NC000012 | A63215 | MTYP 000-012 SUPPLEMENTARY CLIMATOLOGICAL DATA           |
+| NC000020 | A56250 | MTYP 000-020 WIND ENERGY NACELLE, RESTRICTED             |
+| NC000100 | A51050 | MTYP 000-100 SYNOPTIC - FIXED LAND (BUFR) (WMO RES 40)   |
+| NC000101 | A51051 | MTYP 000-101 SYNOPTIC - FIXED LAND (BUFR)                |
+| NC000102 | A51052 | MTYP 000-102 SYNOPTIC - MOBIL LAND (BUFR)                |
+|          |        |                                                          |
+| SFCSTNID | 301004 | SURFACE STATION IDENTIFICATION                           |
+| YYMMDD   | 301011 | DATE -- YEAR, MONTH, DAY                                 |
+| HHMM     | 301012 | TIME -- HOUR, MINUTE                                     |
+| HHMMSS   | 301013 | TIME -- HOUR, MINUTE, SECOND                             |
+| LTLONH   | 301021 | LOCATION -- LATITUDE, LONGITUDE (HIGH ACCURACY)          |
+| LALOLV   | 301024 | LOCATION -- LATITUDE, LONGITUDE, ELEVATION               |
+| SFIDTIME | 301090 | SURFACE STATION IDENTIFICATION, TIME AND LOCATION        |
+| MOBIDENT | 301092 | MOBILE SURFACE STATION IDENTIFICATION, DATE/TIME, HORIZ  |
+| WIGOSID  | 301150 | WIGOS IDENTIFIER                                         |
+| PRESSQ03 | 302001 |                                                          |
+| GENCLOUD | 302004 | GENERAL CLOUD INFORMATION                                |
+| PRESDATA | 302031 | PRESSURE INFORMATION                                     |
+| PWEATHER | 302038 | PRESENT AND PAST WEATHER                                 |
+| DIRCLDFT | 302047 | DIRECTION OF CLOUD DRIFT                                 |
+| VISBSEQN | 302069 | VISIBILITY DATA                                          |
+| TEMHUMDA | 302072 | TEMPERATURE AND HUMIDITY DATA                            |
+| STGDSNDM | 302078 | STATE OF GROUND AND SNOW DEPTH MEASUREMENT               |
+| FILENAME | 352004 | FILE NAME SEQUENCE                                       |
+| SHTPMOSQ | 356101 | SHEF TIME PERIOD SEQUENCE (MONTHS)                       |
+| SHTPHRSQ | 356102 | SHEF TIME PERIOD SEQUENCE (HOURS)                        |
+| SHTPMISQ | 356103 | SHEF TIME PERIOD SEQUENCE (MINUTES)                      |
+| SHPRESSQ | 356104 | SHEF PRESSURE SEQUENCE                                   |
+| SHPMSLSQ | 356105 | SHEF PRESSURE (MSL) SEQUENCE                             |
 ~~~
