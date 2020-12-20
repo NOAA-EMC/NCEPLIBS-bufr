@@ -1,4 +1,7 @@
 #!/bin/bash
+#> @file
+#> @brief Test script to test gettab.x utility
+#> @author aerorahul @date 2020-12-20
 
 set -eu
 
@@ -11,3 +14,4 @@ $cmd > $outfile && cmp $outfile $reffile
 rc=${?}
 
 exit $rc
+
