@@ -73,7 +73,7 @@ DATA:
 
 A utility to read any BUFR file with embedded DX tables, and print the contents of each subset one at a time.
 
-See the source code at readmp.f90
+See the source code at readmp.f
 
 Sample output for: `./readmp.x gdas.20200812/00/gdas.t00z.sfcshp.tm00.bufr_d`
 

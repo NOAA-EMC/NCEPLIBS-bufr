@@ -2,8 +2,8 @@ list(APPEND _utils_srcs
   binv.f
   cmpbqm.f
   readbp.f
+  readmp.f
   sinv.f
-  readmp.f90
   gettab.f90
 )
 
