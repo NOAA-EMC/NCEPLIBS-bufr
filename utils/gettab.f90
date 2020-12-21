@@ -16,7 +16,6 @@ program gettab
   !> if no input argument, 'fort.20' is the default filename
   if (trim(adjustl(finput)) == '') finput = 'fort.20'
   !> ensure file exists; if not abort
-  if (trim(adjustl(finput)) == '') finput = 'fort.20'
   inquire(file=trim(adjustl(finput)), exist=file_exists)
   if (.not. file_exists) then
     write(6,'(3(A,X))') "File", trim(adjustl(finput)), 'does not exist, ABORT!'
