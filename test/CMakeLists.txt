@@ -88,11 +88,13 @@ list(APPEND test_OUT_5_srcs
 # Install testing scripts
 list(APPEND test_scripts
   test_wrapper.sh
-  test_gettab.sh)
+  test_gettab.sh
+  test_split_by_subset.sh
+)
 
 foreach(test_script ${test_scripts})
   execute_process( COMMAND ${CMAKE_COMMAND} -E copy
-    ${CMAKE_CURRENT_SOURCE_DIR}/${test_script}
+    ${CMAKE_CURRENT_SOURCE_DIR}/test_scripts/${test_script}
     ${CMAKE_BINARY_DIR}/bin/${test_script} )
 endforeach()
 
@@ -186,5 +188,10 @@ endforeach()
 # Test gettab.x utility
 add_test(NAME test_gettab
   COMMAND ${CMAKE_BINARY_DIR}/bin/test_gettab.sh "${CMAKE_BINARY_DIR}/utils/gettab.x testfiles/data/1bamua" "testrun/1bamua.table.run" "testoutput/1bamua.table.out"
+  )
+
+# Test split_by_subset.x utility
+add_test(NAME test_split_by_subset
+  COMMAND ${CMAKE_BINARY_DIR}/bin/test_split_by_subset.sh "${CMAKE_BINARY_DIR}/utils/split_by_subset.x testfiles/data/satwndbufr" "testfiles/testoutput/satwndbufr_split"
   )
 
