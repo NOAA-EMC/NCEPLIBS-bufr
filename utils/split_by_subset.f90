@@ -1,6 +1,6 @@
 !> @file
-!> @brief Read BUFR file with subsets and write subsets in their own subset specific BUFR files
-!> This is the opposite of combfr.f that concatenates tank bufr files for use in the dump
+!> @brief Read BUFR file messages, collating them into output files by message type/subtype (eg NC001002, aka subset type)
+!> This is like the opposite of combfr.f which concatenates BUFR messages from listed input files
 !> @author WOOLLEN
 
 program split_by_subset
@@ -41,7 +41,7 @@ program split_by_subset
   !> loop over the messages in the bufr file one-by-one
   ireadmg_loop: do while(ireadmg(lunit, subset, idate) == 0)
 
-    !> if already encountered a subset, re-use index
+    !> if already encountered a subset type, re-use index
     isub = 0
     do ii = 1, nsub
       if (subset == sub(ii)) then
@@ -50,15 +50,15 @@ program split_by_subset
       endif
     enddo
 
-    !> If new subset is found, register it
+    !> If new subset type is found, register it
     new_subset: if (isub == 0) then
-      !> if too many subsets in a file, abort
+      !> if too many subset types in a file, abort
       if (nsub+1 > maxsub) call bort('nsub too big')
       sub(nsub+1) = subset
       isub = nsub+1
       lsubunit(isub) = 50+isub  !> Store lunits of output subset files
 
-      !> open an output file for this message type
+      !> open an output file for this subset type
       open(lsubunit(isub), file=trim(adjustl(subset)), form='unformatted')
       call openbf(lsubunit(isub), 'OUT', lunit)
       if (nsub == 0) call maxout(20000)
@@ -70,15 +70,14 @@ program split_by_subset
     ninv(2, isub) = ninv(2, isub) + nmsub(lunit)
     ninv(3, isub) = ninv(3, isub) + iupvs01(lunit, 'LENM')
 
-    !> copy the message into the output file for this subset
-    call copymg(lunit, 50+isub)
+    !> copy the subset type message into the output file for this type
+    call copymg(lunit, lsubunit(isub))
 
   enddo ireadmg_loop
 
   !> close the output files and flush the buffers
   do ii = 1,nsub
     call closbf(lsubunit(ii))
-    close(lsubunit(ii))
   enddo
 
   !> print the inventory
