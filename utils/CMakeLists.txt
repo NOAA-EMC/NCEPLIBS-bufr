@@ -3,7 +3,9 @@ list(APPEND _utils_srcs
   cmpbqm.f
   readbp.f
   readmp.f
-  sinv.f)
+  sinv.f
+  gettab.f90
+)
 
 foreach(_src ${_utils_srcs})
   get_filename_component(_name "${_src}" NAME_WE)
