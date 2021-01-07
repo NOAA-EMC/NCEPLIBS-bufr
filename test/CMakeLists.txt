@@ -1,5 +1,6 @@
 # Fetch test data from: https://ftp.emc.ncep.noaa.gov/static_files/public/bufr.tar
 set(BUFR_URL "https://ftp.emc.ncep.noaa.gov/static_files/public")
+set(BUFR_URL "file:///Users/rmahajan/scratch/bufrWork/bufrtest")
 set(BUFR_TAR "bufr.tar")
 
 find_program(CURL_pgm curl)
@@ -52,10 +53,6 @@ add_custom_command(
   COMMAND ${CMAKE_COMMAND} -E chdir ${CMAKE_CURRENT_BINARY_DIR} rm -rf bufr)
 
 file(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/testrun)
-file(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/testoutput)
-
-list(APPEND test_output
-  testoutput/1bamua.table.out)
 
 list(APPEND test_IN_srcs
   test_IN_1.f
@@ -97,13 +94,6 @@ foreach(test_script ${test_scripts})
     ${CMAKE_CURRENT_SOURCE_DIR}/test_scripts/${test_script}
     ${CMAKE_BINARY_DIR}/bin/${test_script} )
 endforeach()
-
-# Link testoutput files
-foreach(FILENAME ${test_output})
-    execute_process( COMMAND ${CMAKE_COMMAND} -E create_symlink
-           ${CMAKE_CURRENT_SOURCE_DIR}/${FILENAME}
-           ${CMAKE_CURRENT_BINARY_DIR}/${FILENAME} )
-endforeach(FILENAME)
 
 function(bufr_add_test TESTNAME EXENAME)
   add_test(NAME ${TESTNAME}
@@ -187,7 +177,7 @@ endforeach()
 # Test utilities
 # Test gettab.x utility
 add_test(NAME test_gettab
-  COMMAND ${CMAKE_BINARY_DIR}/bin/test_gettab.sh "${CMAKE_BINARY_DIR}/utils/gettab.x testfiles/data/1bamua" "testrun/1bamua.table.run" "testoutput/1bamua.table.out"
+  COMMAND ${CMAKE_BINARY_DIR}/bin/test_gettab.sh "${CMAKE_BINARY_DIR}/utils/gettab.x testfiles/data/1bamua" "testrun/1bamua.table.run" "testfiles/testoutput/1bamua.table.out"
   )
 
 # Test split_by_subset.x utility
