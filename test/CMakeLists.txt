@@ -1,6 +1,5 @@
 # Fetch test data from: https://ftp.emc.ncep.noaa.gov/static_files/public/bufr.tar
 set(BUFR_URL "https://ftp.emc.ncep.noaa.gov/static_files/public")
-set(BUFR_URL "file:///Users/rmahajan/scratch/bufrWork/bufrtest")
 set(BUFR_TAR "bufr.tar")
 
 find_program(CURL_pgm curl)
