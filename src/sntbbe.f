@@ -7,6 +7,8 @@ C>   THE MERGED ARRAYS.
 C>
 C> PROGRAM HISTORY LOG:
 C> 2007-01-19  J. ATOR    -- ORIGINAL AUTHOR
+C> 2021-01-08  J. ATOR    -- MODIFIED MSTABS ARRAY DECLARATIONS
+C>                           FOR GNUv10 PORTABILITY
 C>
 C> USAGE:    CALL SNTBBE ( IFXYN, LINE, MXMTBB,
 C>                         NMTBB, IMFXYN, CMSCL, CMSREF, CMBW,
@@ -51,11 +53,12 @@ C>
 	CHARACTER*(*)	LINE
 	CHARACTER*200	TAGS(10), WKTAG
 	CHARACTER*128	BORT_STR1, BORT_STR2
-	CHARACTER*120	CMELEM(*)
-	CHARACTER*14	CMUNIT(*)
-	CHARACTER*12	CMSREF(*)
-	CHARACTER*8	CMMNEM(*)
-	CHARACTER*4	CMSCL(*), CMBW(*), CMDSC(*)
+	CHARACTER*4	CMDSC(*)
+	CHARACTER	CMELEM(120,*)
+	CHARACTER	CMUNIT(14,*)
+	CHARACTER	CMSREF(12,*)
+	CHARACTER	CMMNEM(8,*)
+	CHARACTER	CMSCL(4,*), CMBW(4,*)
 
 	INTEGER		IMFXYN(*)
 
@@ -84,8 +87,10 @@ C	Scale factor.
 	    BORT_STR2 = '                  HAS MISSING SCALE FACTOR'
 	    GOTO 901
 	ENDIF
-	CMSCL ( NMTBB ) = TAGS(2)(1:4)
-	RJ = RJUST ( CMSCL ( NMTBB ) )
+	RJ = RJUST ( TAGS(2)(1:4) )
+        DO II = 1, 4
+	    CMSCL ( II, NMTBB ) = TAGS(2)(II:II)
+        ENDDO
 
 C	Reference value.
 
@@ -94,8 +99,10 @@ C	Reference value.
 	    BORT_STR2 = '                  HAS MISSING REFERENCE VALUE'
 	    GOTO 901
 	ENDIF
-	CMSREF ( NMTBB ) = TAGS(3)(1:12)
-	RJ = RJUST ( CMSREF ( NMTBB ) )
+	RJ = RJUST ( TAGS(3)(1:12) )
+        DO II = 1, 12
+	    CMSREF ( II, NMTBB ) = TAGS(3)(II:II)
+        ENDDO
 
 C	Bit width.
 
@@ -104,23 +111,33 @@ C	Bit width.
 	    BORT_STR2 = '                  HAS MISSING BIT WIDTH'
 	    GOTO 901
 	ENDIF
-	CMBW ( NMTBB ) = TAGS(4)(1:4)
-	RJ = RJUST ( CMBW ( NMTBB ) )
+	RJ = RJUST ( TAGS(4)(1:4) )
+        DO II = 1, 4
+	    CMBW ( II, NMTBB ) = TAGS(4)(II:II)
+        END DO
 
 C	Units.  Note that this field is allowed to be blank.
 
 	IF ( NTAG .GT. 4 ) THEN
 	    CALL JSTCHR ( TAGS(5), IRET )
-	    CMUNIT ( NMTBB ) = TAGS(5)(1:14)
+            DO II = 1, 14
+	        CMUNIT ( II, NMTBB ) = TAGS(5)(II:II)
+            ENDDO
 	ELSE
-	    CMUNIT ( NMTBB ) = ' '
+            DO II = 1, 14
+	        CMUNIT ( II, NMTBB ) = ' '
+            ENDDO
 	ENDIF
 
 C	Comment (additional) fields.  Any of these fields may be blank.
 
-	CMMNEM ( NMTBB ) = ' '
 	CMDSC ( NMTBB ) = ' '
-	CMELEM ( NMTBB ) = ' '
+        DO II = 1, 8
+	    CMMNEM ( II, NMTBB ) = ' '
+        ENDDO
+        DO II = 1, 120 
+	    CMELEM ( II, NMTBB ) = ' '
+        ENDDO
 	IF ( NTAG .GT. 5 ) THEN
 	    WKTAG = TAGS(6)
 	    CALL PARSTR ( WKTAG, TAGS, 10, NTAG, ';', .FALSE. )
@@ -133,7 +150,9 @@ C		If there is a mnemonic, then make sure it's legal.
 		    BORT_STR2 = '                  HAS ILLEGAL MNEMONIC'
 		    GOTO 901
 		ENDIF
-		CMMNEM ( NMTBB ) = TAGS(1)(1:8)
+                DO II = 1, 8
+		    CMMNEM ( II, NMTBB ) = TAGS(1)(II:II)
+                ENDDO
 	    ENDIF
 	    IF ( NTAG .GT. 1 ) THEN
 C		The second additional field contains descriptor codes.
@@ -143,7 +162,9 @@ C		The second additional field contains descriptor codes.
 	    IF ( NTAG .GT. 2 ) THEN
 C		The third additional field contains the element name.
 		CALL JSTCHR ( TAGS(3), IRET )
-		CMELEM ( NMTBB ) = TAGS(3)(1:120)
+                DO II = 1, 120 
+		    CMELEM ( II, NMTBB ) = TAGS(3)(II:II)
+                ENDDO
 	    ENDIF
 	ENDIF
 
