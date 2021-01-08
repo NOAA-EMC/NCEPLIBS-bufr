@@ -9,6 +9,7 @@
 | [binv](#binv) | Print inventory of BUFR file by message type |
 | [sinv](#sinv) | Print inventory of BUFR satellite data file by platform and instrument type |
 | [cmpbqm](#cmpbqm) | Print inventory of observations from prepbufr file by variable, report type and quality mark |
+| [split_by_subset](#split) | Split a bufr file by subset |
 
 <br>
 
@@ -433,4 +434,17 @@ Sample output for: `./gettab.x gdas.20200812/00/gdas.t00z.adpsfc.tm00.bufr_d`
 | SHTPMISQ | 356103 | SHEF TIME PERIOD SEQUENCE (MINUTES)                      |
 | SHPRESSQ | 356104 | SHEF PRESSURE SEQUENCE                                   |
 | SHPMSLSQ | 356105 | SHEF PRESSURE (MSL) SEQUENCE                             |
+
+~~~
+
+
+<div id="split"/>
+
+### split_by_subset
+
+A utility to read any BUFR file and split it based on the subsets in the bufr file
+
+See the source code at split_by_subset.f90
+
+Usage: `./split_by_subset.x gdas.20200812/00/gdas.t00z.satwnd.tm00.bufr_d`
 ~~~
