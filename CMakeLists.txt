@@ -43,12 +43,8 @@ if(APPLE)
 endif()
 
 # Determine the kinds upfront (both src/ and test/ need them).
-# Both GNU and Intel support DYNAMIC_ALLOCATION
 list(APPEND kinds "4_DA" "8_DA" "d_DA")
-# Only Intel supports STATIC_ALLOCATION
-if(CMAKE_C_COMPILER_ID MATCHES "^(Intel)$")
-  list(APPEND kinds "4" "8" "d")
-endif()
+list(APPEND kinds "4" "8" "d")
 
 # Set common to the package compiler flags
 if(CMAKE_C_COMPILER_ID MATCHES "^(GNU)$")
