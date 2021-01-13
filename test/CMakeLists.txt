@@ -104,12 +104,10 @@ function(bufr_add_test_preAPX TESTNAME EXENAME)
            COMMAND ${CMAKE_BINARY_DIR}/bin/test_wrapper.sh ${EXENAME} "Y")
 endfunction()
 
-# Both GNU and Intel support DYNAMIC_ALLOCATION
+# test all "4" (4 byte real, 4 byte int) DYNAMIC_ALLOCATION builds
 list(APPEND test_kinds "4_DA")
-# Only Intel supports STATIC_ALLOCATION
-if(CMAKE_C_COMPILER_ID MATCHES "^(Intel)$")
-  list(APPEND test_kinds "4")
-endif()
+# test all "4" (4 byte real, 4 byte int) STATIC_ALLOCATION builds, except OUT_3 and OUT_4 as noted below
+list(APPEND test_kinds "4")
 
 # IN tests
 foreach(test_src ${test_IN_srcs})

@@ -40,6 +40,10 @@ messages during the same call to the subroutine, in the rare instances where
 more than one BUFR message could become available during such a call.
 [[Issue #54](https://github.com/NOAA-EMC/NCEPLIBS-bufr/issues/54)]
 
+* Several internal Fortran variable declarations were modified for
+compatibility with GNU v10+ compilers.
+[[Issue #81](https://github.com/NOAA-EMC/NCEPLIBS-bufr/issues/81)]
+
 
 ### Version 11.3.2 - July 16, 2020
 
