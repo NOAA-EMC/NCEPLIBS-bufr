@@ -23,9 +23,9 @@ C>                 -  'SEC3' = same as 'IN', except use Section 3 of input
 C>                              messages for decoding rather than dictionary
 C>                              table information from LUNDX; in this case
 C>                              LUNDX is ignored, and user must provide 
-C>                              appropriate BUFR master tables within
-C>                              directory specified by a subsequent call
-C>                              to subroutine mtinfo()
+C>                              appropriate [master BUFR tables](@ref dfbfmstab)
+C>                              within the directory specified by a subsequent
+C>                              call to subroutine mtinfo()
 C>                 -  'NODX' = same as 'OUT', except don't write dictionary
 C>                             (i.e. DX) table messages to LUNIT
 C>                 -   'APN' = same as 'NODX', except begin writing at end
@@ -85,11 +85,11 @@ C> <p>The third and final call argument LUNDX identifies the logical unit which
 C> contains the definition of the DX BUFR tables to be associated with unit
 C> LUNIT.  Except when IO = 'SEC3', every BUFR file that is linked to the BUFRLIB
 C> software must have a DX BUFR tables file associated with it, and these tables
-C> may be defined within a separate ASCII text file (see Description and Format
-C> of DX BUFR Tables for more info.) or, in the case of an existing BUFR file,
-C> may be embedded within the first few BUFR messages of the file itself, and in
-C> which case the user can denote this to the subroutine by setting LUNDX to the
-C> same value as LUBFR.
+C> may be defined within a separate ASCII text file
+C> (see [Description and Format of DX BUFR Tables](@ref dfbftab) for more info.)
+C> or, in the case of an existing BUFR file, may be embedded within the first few
+C> BUFR messages of the file itself, and in which case the user can denote this
+C> to the subroutine by setting LUNDX to the same value as LUBFR.
 C>
 C> @remarks
 C> - When an existing BUFR file is accessed for input (i.e. reading/decoding BUFR),
@@ -106,9 +106,10 @@ C> not necessary to provide pre-defined DX BUFR tables via LUNDX.  Instead, this
 C> option instructs the BUFRLIB software to unpack the data description section
 C> (Section 3) from each BUFR message it reads and then decode the contents
 C> accordingly. In this case, it's necessary to provide a set of BUFR master
-C> tables containing listings of all possible BUFR descriptors (see Description
-C> and Format of BUFR Master Tables for more info.), but otherwise no prior
-C> knowledge is required of the contents of the messages to be decoded.
+C> tables containing listings of all possible BUFR descriptors
+C> (see [Description and Format of master BUFR Tables](@ref dfbfmstab) for more
+C> info.), but otherwise no prior knowledge is required of the contents of the
+C> messages to be decoded.
 C>
 C> <b>Program history log:</b>
 C> - 1994-01-06  J. Woollen -- Original author

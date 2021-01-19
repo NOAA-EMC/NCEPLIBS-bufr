@@ -21,7 +21,7 @@ C> Furthermore, all of the values for the data subset should have
 C> already been written into internal arrays via calls to subroutines
 C> ufbint(), ufbrep(), ufbseq(), etc.
 C>
-C> @remarks:
+C> @remarks
 C> - There is a maximum size for any BUFR message that can be written
 C> by the BUFRLIB software.  This maximum message size is initially set
 C> to an internal default value, but it can be changed to a different
