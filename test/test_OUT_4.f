@@ -42,7 +42,7 @@ C*	Open the BUFR input and output files.
 	CALL OPENBF ( 13, 'QUIET', -1 )
 	print *, '        OPENBF'
 
-        CALL MTINFO ( 'testfiles', 90, 91 )
+        CALL MTINFO ( '../install/tables', 90, 91 )
 	print *, '        MTINFO'
 
         CALL MAXOUT ( MXBFMG*4 )

@@ -38,7 +38,7 @@ C*	Open the test file.
 
 	print *, '        OPENBF -> OK'
 
-	CALL MTINFO ( 'testfiles', 90, 91 )
+	CALL MTINFO ( '../install/tables', 90, 91 )
 	print *, '        MTINFO -> OK'
 
 C*	Read the BUFR message from the BUFR file.
