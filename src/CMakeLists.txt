@@ -102,13 +102,6 @@ install(
   LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
   ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR})
 
-# Copy the tables directory to the install area if the library builds are successful
-add_custom_command(
-  TARGET ${LIB_TARGETS}
-  POST_BUILD
-  COMMENT "Copying tables directory to install area"
-  COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_SOURCE_DIR}/tables ${CMAKE_INSTALL_PREFIX}/tables)
-
 # Package config
 include(CMakePackageConfigHelpers)
 set(CONFIG_INSTALL_DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/${PROJECT_NAME})

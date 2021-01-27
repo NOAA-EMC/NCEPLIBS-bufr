@@ -19,7 +19,7 @@ C*----------------------------------------------------------------------
 
 	print *, '        OPENBF -> OK'
 
-        CALL MTINFO ( '../install/tables', 90, 91 )
+        CALL MTINFO ( '../tables', 90, 91 )
         print *, '        MTINFO -> OK'
 
         CALL CODFLG ( 'Y' )
