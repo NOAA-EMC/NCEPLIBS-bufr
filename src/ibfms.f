@@ -1,38 +1,48 @@
 C> @file
-C> @author J @date 2007-01-19
-	
-C> THIS FUNCTION TESTS WHETHER THE INPUT VALUE IS EQUIVALENT
-C>   TO THE BUFR ARCHIVE LIBRARY "MISSING" VALUE.  THE USE OF INTEGER
-C>   RETURN CODES ALLOWS THIS FUNCTION TO BE CALLED IN A LOGICAL
-C>   CONTEXT FROM A CALLING PROGRAM WRITTEN IN C.
+C> @brief Test whether a real*8 data value is "missing"
+
+C> This function provides a handy way to check whether a real*8
+C> data value returned from a previous call to any of the
+C> subroutines ufbint(), ufbrep(), ufbseq(), ufbtab(), etc
+C> contains the current placeholder value for "missing" data.
 C>
-C> PROGRAM HISTORY LOG:
-C> 2007-01-19  J. ATOR    -- ORIGINAL AUTHOR
-C> 2009-03-23  J. ATOR    -- INCREASED VALUE OF BDIFD FOR BETTER 
-C>                           TEST ACCURACY
-C> 2012-10-05  J. ATOR    -- MODIFIED TO REFLECT THE FACT THAT THE
-C>                           "MISSING" VALUE IS NOW CONFIGURABLE BY
-C>                           USERS (MAY BE SOMETHING OTHER THAN 10E10)
+C> @author J. Ator
+C> @date 2007-01-19
 C>
-C> USAGE:    IBFMS ( R8VAL )
-C>   INPUT ARGUMENT LIST:
-C>     R8VAL    - REAL*8: VALUE TO BE TESTED FOR EQUIVALENCE TO 
-C>                BUFR ARCHIVE LIBRARY "MISSING" VALUE
+C> @param[in] R8VAL - real*8: Data value to be tested
 C>
-C>   OUTPUT ARGUMENT LIST:
-C>     IBFMS    - INTEGER: RETURN CODE:
-C>                0 - R8VAL IS NOT EQUIVALENT TO "MISSING"
-C>                1 - R8VAL IS EQUIVALENT TO "MISSING"
+C> @returns ibfms  -  integer:
+C>                    - 0 = R8VAL is not "missing"
+C>                    - 1 = R8VAL is "missing"
 C>
-C> REMARKS:
-C>    THIS ROUTINE CALLS:        None
-C>    THIS ROUTINE IS CALLED BY: INVMRG   STRBTM   UFBDMP   UFBRW
-C>                               UFDUMP   WRTREE
-C>                               Also called by application programs.
+C> <p>The current placeholder value for "missing" data
+C> is always equal to the value XMISS as specified during the
+C> most recent call to subroutine setbmiss(), or to a default
+C> value of 10E10 if setbmiss() was never called.  In either
+C> case, a return value of 1 means that the corresponding
+C> value was encoded as "missing" (all bits set to 1)
+C> within the actual BUFR data subset.
+C>
+C> @remarks
+C> - The use of an integer return code allows this function
+C> to be called in a logical context from application programs
+C> written in C as well as in Fortran.
+C>
+C> <b>Program history log:</b>
+C> - 2007-01-19  J. Ator    -- Original author
+C> - 2009-03-23  J. Ator    -- Increased value of BDIFD for better 
+C>                           test accuracy
+C> - 2012-10-05  J. Ator    -- Modified to reflect the fact that the
+C>                           "missing" value is now configurable by
+C>                           users (may be something other than 10E10)
+C>
+C> <b>This routine calls:</b> None 
+C>
+C> <b>This routine is called by:</b> invmrg()  strbtm()  ufbdmp() ufbrw()
+C>                                   ufdump()  wrtree()
+C>                     <br>Also called by application programs.
 C>
 	INTEGER FUNCTION IBFMS ( R8VAL )
-
-
 
 	INCLUDE	'bufrlib.inc'
 

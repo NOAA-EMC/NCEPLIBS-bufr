@@ -19,7 +19,7 @@ C> @param[out] JDATE    - integer: date-time stored within Section 1 of
 C>                        BUFR message that was read, in format of either
 C>                        YYMMDDHH or YYYYMMDDHH, depending on the most
 C>                        recent call to subroutine datelen()
-C> @param[out] IRET     - integer:
+C> @param[out] IRET     - integer: return code
 C>                           - 0 = new BUFR message was successfully
 C>                                 read into internal arrays
 C>                           - -1 = there are no more BUFR messages in

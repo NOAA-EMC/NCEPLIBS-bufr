@@ -23,12 +23,12 @@ printing of up to 120 characters for such strings.
 [[Issue #55](https://github.com/NOAA-EMC/NCEPLIBS-bufr/issues/55)]
 
 * Subroutine readlc() was modified to return a "missing" character string if
-the requested mnemonic isn''t found in the subset.  Previously, the subroutine
+the requested mnemonic isn't found in the subset.  Previously, the subroutine
 would return a string of all blank characters in such cases.
 [[Issue #53](https://github.com/NOAA-EMC/NCEPLIBS-bufr/issues/53)]
 
 * Subroutine writlc() was modified to print a warning message if the requested
-mnemonic isn''t found in the subset definition.  The library would previously
+mnemonic isn't found in the subset definition.  The library would previously
 abort in such cases. [[Issue #53](https://github.com/NOAA-EMC/NCEPLIBS-bufr/issues/53)]
 
 * The Fortran include file "bufrlib.prm" was renamed to "bufrlib.inc" to better

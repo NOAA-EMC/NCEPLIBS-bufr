@@ -18,8 +18,8 @@ C	at the same time for any given Table B descriptor.
 	PARAMETER ( MXNAF = @MXNAF@ )
 C-----------------------------------------------------------------------
 C	BUFRLIB "missing" value.  The default value for BMISS is set
-C	within subroutine BFRINI, but it can be modified by the user via
-C	a subsequent call to subroutine SETBMISS.
+C	within subroutine bfrini(), but it can be modified by the user
+C	via a subsequent call to subroutine setbmiss().
 
 	COMMON /BUFRBMISS/ BMISS
 	REAL*8  BMISS
