@@ -8,7 +8,7 @@ C> @author J. Woollen
 C> @date 1994-01-06
 C>
 C> @param[in] LUNIT    - integer: Fortran logical unit number for BUFR file
-C> @param[out] IRET    - integer:
+C> @param[out] IRET    - integer: return code
 C>                           - 0 = new BUFR data subset was successfully
 C>                                 read into internal arrays
 C>                           - -1 = there are no more BUFR data subsets in

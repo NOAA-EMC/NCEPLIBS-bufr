@@ -37,7 +37,7 @@ C>                        series of IRET successive 8-byte substrings.
 C>                        An example of this scenario is included below
 C>                        within the Remarks.
 C> @param[out] LNMNG    - integer: Length of string returned in CMEANG
-C> @param[out] IRET     - Return code:
+C> @param[out] IRET     - integer: return code
 C>                       -  0 = meaning found and stored in CMEANG string
 C>                       - -1 = meaning not found
 C>                       - >0 = meaning not found, <b>and</b> NEMOD and

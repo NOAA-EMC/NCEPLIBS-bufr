@@ -1,7 +1,7 @@
 Table D STD |  0 | 35
 #
 # Standard BUFR Table D, Master Table 0, Version 35
-# This file was generated: 2020/12/01 17:38:02
+# This file was generated: 2021/01/28 20:07:12
 #
 #========================================================================================================
 # F-XX-YYY | MNEMONIC   ;DCOD ; NAME           <-- sequence definition
@@ -2081,7 +2081,6 @@ Table D STD |  0 | 35
            | 0-04-065   | Short time increment
 
   3-06-020 | TIDECKT3   ;     ; Tide report identification, water level checks, time period or displacement, time increment
-
            | 0-01-075 > | Tide station identification
            | 3-01-011 > | Year, month, day
            | 3-01-012 > | Hour, minute

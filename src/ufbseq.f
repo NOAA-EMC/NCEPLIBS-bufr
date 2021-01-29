@@ -94,12 +94,13 @@ C> corresponding mnemonics within the table.
 C>
 C> <p>"Missing" values in USR are always denoted by a unique
 C> placeholder value.  This placeholder value is initially set
-C> internally to a default value of 10E10, but it can be reset to
+C> to a default value of 10E10 via an internal call to subroutine
+C> bfrini(), but it can be reset to
 C> any substitute value of the user's choice via a separate
 C> call to subroutine setbmiss().  In any case, and whenever this
 C> subroutine is used to read data values from an input subset, any
 C> returned value in USR can be easily checked for equivalence to the
-C> current placeholder value via a call to subroutine ibfms(), and a
+C> current placeholder value via a call to function ibfms(), and a
 C> positive result means that the value for the corresponding mnemonic
 C> was encoded as "missing" in BUFR (i.e. all bits set to 1) within the
 C> original data subset.  Conversely, whenever this subroutine
