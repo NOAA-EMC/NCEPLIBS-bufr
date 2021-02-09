@@ -15,11 +15,11 @@
  *  @author J. Ator
  *  @date 2005-11-29
  *
- *  @param[in] bfl   - character*(*): System file to be opened.
+ *  @param[in] bfl   - char*: System file to be opened.
  *                     Inclusion of directory prefixes or other
  *                     local filesystem notation is allowed, up
  *                     to 500 total characters.
- *  @param[in]  io   - character*1: Flag indicating how bfl is to
+ *  @param[in]  io   - char: Flag indicating how bfl is to
  *                     be opened:
  *                      - 'r' = input (for reading BUFR messages) 
  *                      - 'w' = output (for writing BUFR messages)

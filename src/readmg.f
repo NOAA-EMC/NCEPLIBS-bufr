@@ -9,13 +9,13 @@ C> @authors J. Woollen
 C> @authors J. Ator
 C> @date 1994-01-06
 C>
-C> @param[in] LUNXX    - integer: absolute value is Fortran logical unit
+C> @param[in] LUNXX    - integer: Absolute value is Fortran logical unit
 C>                       number for BUFR file
 C> @param[out] SUBSET   - character*8: Table A mnemonic for type of BUFR
 C>                        message that was read
 C>                        (see [DX BUFR Tables](@ref dfbftab)
 C>                        for further information about Table A mnemonics)
-C> @param[out] JDATE    - integer: date-time stored within Section 1 of
+C> @param[out] JDATE    - integer: Date-time stored within Section 1 of
 C>                        BUFR message that was read, in format of either
 C>                        YYMMDDHH or YYYYMMDDHH, depending on the most
 C>                        recent call to subroutine datelen()

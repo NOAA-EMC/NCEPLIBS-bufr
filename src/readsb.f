@@ -1,7 +1,7 @@
 C> @file
 C> @brief Read the next data subset from a BUFR message.
       
-C> This subroutine reads the next data subset (i.e. report) from a BUFR
+C> This subroutine reads the next data subset from a BUFR
 C> message into internal arrays.
 C>
 C> @author J. Woollen
@@ -60,7 +60,7 @@ C>                             upb()
 C>
 C> <b>This routine is called by:</b>
 C>                     copysb()   ireadsb()  rdmems()   readns()
-C>                     rdmsgb()   ufbinx()   ufbpos()
+C>                     ufbinx()   ufbpos()
 C>                     <br>Also called by application programs.
 C>
       SUBROUTINE READSB(LUNIT,IRET)

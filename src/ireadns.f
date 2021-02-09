@@ -1,42 +1,45 @@
 C> @file
-C> @author WOOLLEN @date 1994-01-06
-      
-C> THIS FUNCTION CALLS BUFR ARCHIVE LIBRARY SUBROUTINE READNS
-C>   AND PASSES BACK ITS RETURN CODE.  SEE READNS FOR MORE DETAILS.
+C> @brief Read the next data subset from a BUFR file that was
+C> previously opened for reading.
+
+C> This function calls BUFRLIB subroutine readns() and passes
+C> back its return code as the function value.
 C>
-C> PROGRAM HISTORY LOG:
-C> 1994-01-06  J. WOOLLEN -- ORIGINAL AUTHOR (ENTRY POINT IN IREADMG)
-C> 2002-05-14  J. WOOLLEN -- CHANGED FROM AN ENTRY POINT TO INCREASE
-C>                           PORTABILITY TO OTHER PLATFORMS
-C> 2003-11-04  S. BENDER  -- ADDED REMARKS/BUFRLIB ROUTINE
-C>                           INTERDEPENDENCIES
-C> 2003-11-04  D. KEYSER  -- UNIFIED/PORTABLE FOR WRF; ADDED
-C>                           DOCUMENTATION (INCLUDING HISTORY)
+C> @author J. Woollen
+C> @date 1994-01-06
 C>
-C> USAGE:    IREADNS (LUNIT, SUBSET, IDATE)
-C>   INPUT ARGUMENT LIST:
-C>     LUNIT    - INTEGER: FORTRAN LOGICAL UNIT NUMBER FOR BUFR FILE
+C> @param[in] LUNIT    - integer: Fortran logical unit number for
+C>                       BUFR file
+C> @param[out] SUBSET   - character*8: Table A mnemonic for type of
+C>                        data subset that was read
+C>                        (see [DX BUFR Tables](@ref dfbftab)
+C>                        for further information about Table A mnemonics)
+C> @param[out] IDATE    - integer: Date-time stored within Section 1 of
+C>                        BUFR message containing data subset that
+C>                        was read, in format of either
+C>                        YYMMDDHH or YYYYMMDDHH, depending on the most
+C>                        recent call to subroutine datelen()      
+C> @returns ireadns - integer:
+C>                    - 0 = new BUFR data subset was successfully
+C>                          read into internal arrays
+C>                    - -1 = there are no more BUFR data subsets in
+C>                          the file connected to logical unit LUNIT
 C>
-C>   OUTPUT ARGUMENT LIST:
-C>     SUBSET   - CHARACTER*8: TABLE A MNEMONIC FOR BUFR MESSAGE
-C>                CONTAINING SUBSET BEING READ
-C>     IDATE    - INTEGER: DATE-TIME STORED WITHIN SECTION 1 OF BUFR
-C>                MESSAGE CONTAINING SUBSET BEING READ, IN FORMAT OF
-C>                EITHER YYMMDDHH OR YYYYMMDDHH, DEPENDING ON DATELEN()
-C>                VALUE
-C>     IREADNS  - INTEGER: RETURN CODE:
-C>                       0 = normal return
-C>                      -1 = there are no more subsets in the BUFR file
+C> @remarks
+C> - The use of this function allows the return code from readns() to be
+C> used as the target variable within an iterative program loop.
 C>
-C> REMARKS:
-C>    THIS ROUTINE CALLS:        READNS
-C>    THIS ROUTINE IS CALLED BY: None
-C>                               Normally called only by application
-C>                               programs.
+C> <b>Program history log:</b>
+C> - 1994-01-06  J. Woollen -- Original author
+C> - 2002-05-14 J. Woollen -- Changed from an entry point to increase
+C>                           portability to other platforms
+C>
+C> <b>This routine calls:</b> readns()
+C>
+C> <b>This routine is called by:</b> None
+C>                 <br>Normally called only by application programs.
 C>
       FUNCTION IREADNS(LUNIT,SUBSET,IDATE)
-
-
 
       CHARACTER*8 SUBSET
       CALL READNS(LUNIT,SUBSET,IDATE,IRET)

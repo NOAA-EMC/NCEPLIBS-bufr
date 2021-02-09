@@ -1,89 +1,103 @@
 C> @file
-C> @author WOOLLEN @date 1995-06-28
-      
-C> THIS SUBROUTINE READS INFORMATION FROM A BUFR DATA MESSAGE
-C>   ALREADY IN MEMORY, PASSED IN AS AN INPUT ARGUMENT.  IT IS SIMILAR
-C>   TO BUFR ARCHIVE LIBRARY SUBROUTINE READMG EXCEPT, INSTEAD OF
-C>   READING BUFR MESSAGES DIRECTLY FROM A BUFR FILE THAT IS PHYSICALLY
-C>   STORED ON THE LOCAL SYSTEM AND INTERFACED TO THE SOFTWARE VIA A
-C>   LOGICAL UNIT NUMBER, IT READS BUFR MESSAGES DIRECTLY FROM A MEMORY
-C>   ARRAY WITHIN THE APPLICATION PROGRAM ITSELF.  THIS PROVIDES USERS
-C>   WITH GREATER FLEXIBILITY FROM AN INPUT/OUTPUT PERSPECTIVE.
-C>   READERME CAN BE USED IN ANY CONTEXT IN WHICH READMG MIGHT OTHERWISE
-C>   BE USED.  IF THIS MESSAGE IS NOT A BUFR MESSAGE, THEN AN
-C>   APPROPRIATE CALL IS MADE TO BUFR ARCHIVE LIBRARY SUBROUTINE BORT.
+C> @brief Read a BUFR message from a memory array.
+
+C> This subroutine is similar to subroutine readmg(), except that it
+C> reads a BUFR message from an array already in memory, whereas
+C> readmg() reads a BUFR message from a file on the local system.
 C>
-C> PROGRAM HISTORY LOG:
-C> 1995-06-28  J. WOOLLEN -- ORIGINAL AUTHOR (FOR ERS DATA)
-C> 1997-07-29  J. WOOLLEN -- MODIFIED TO PROCESS GOES SOUNDINGS FROM
-C>                           NESDIS
-C> 1998-07-08  J. WOOLLEN -- REPLACED CALL TO CRAY LIBRARY ROUTINE
-C>                           "ABORT" WITH CALL TO NEW INTERNAL BUFRLIB
-C>                           ROUTINE "BORT"; MODIFIED TO MAKE Y2K
-C>                           COMPLIANT; IMPROVED MACHINE PORTABILITY
-C> 1999-11-18  J. WOOLLEN -- THE NUMBER OF BUFR FILES WHICH CAN BE
-C>                           OPENED AT ONE TIME INCREASED FROM 10 TO 32
-C>                           (NECESSARY IN ORDER TO PROCESS MULTIPLE
-C>                           BUFR FILES UNDER THE MPI); INCREASED THE
-C>                           MAXIMUM NUMBER OF POSSIBLE DESCRIPTORS IN A
-C>                           SUBSET FROM 1000 TO 3000
-C> 2000-09-19  J. WOOLLEN -- REMOVED MESSAGE DECODING LOGIC THAT HAD
-C>                           BEEN REPLICATED IN THIS AND OTHER READ
-C>                           ROUTINES AND CONSOLIDATED IT INTO A NEW
-C>                           ROUTINE CKTABA, CALLED HERE, WHICH IS
-C>                           ENHANCED TO ALLOW COMPRESSED AND STANDARD
-C>                           BUFR MESSAGES TO BE READ (ROUTINE UNCMPS,
-C>                           WHICH HAD BEEN CALLED BY THIS AND OTHER
-C>                           ROUTINES IS NOW OBSOLETE AND HAS BEEN
-C>                           REMOVED FROM THE BUFRLIB; MAXIMUM MESSAGE
-C>                           LENGTH INCREASED FROM 10,000 TO 20,000
-C>                           BYTES
-C> 2003-11-04  S. BENDER  -- ADDED REMARKS/BUFRLIB ROUTINE
-C>                           INTERDEPENDENCIES
-C> 2003-11-04  D. KEYSER  -- UNIFIED/PORTABLE FOR WRF; ADDED
-C>                           DOCUMENTATION (INCLUDING HISTORY); OUTPUTS
-C>                           MORE COMPLETE DIAGNOSTIC INFO WHEN ROUTINE
-C>                           TERMINATES ABNORMALLY
-C> 2004-08-18  J. ATOR    -- MODIFIED 'BUFR' STRING TEST FOR PORTABILITY
-C>                           TO EBCDIC MACHINES; MAXIMUM MESSAGE LENGTH
-C>                           INCREASED FROM 20,000 TO 50,000 BYTES
-C> 2005-11-29  J. ATOR    -- USE ICHKSTR
-C> 2009-03-23  D. KEYSER  -- CALL BORT IN CASE OF MBAY OVERFLOW
-C> 2009-03-23  J. ATOR    -- ADD LOGIC TO ALLOW SECTION 3 DECODING;
-C>                           ADD LOGIC TO PROCESS DICTIONARY MESSAGES
-C> 2012-06-07  J. ATOR    -- DON'T RESPOND TO DX TABLE MESSAGES IF
-C>                           SECTION 3 DECODING IS BEING USED
-C> 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
+C> @authors J. Woollen
+C> @authors J. Ator
+C> @date 1995-06-28
 C>
-C> USAGE:    CALL READERME (MESG, LUNIT, SUBSET, JDATE, IRET)
-C>   INPUT ARGUMENT LIST:
-C>     MESG     - INTEGER: *-WORD PACKED BINARY ARRAY CONTAINING BUFR
-C>                MESSAGE
-C>     LUNIT    - INTEGER: FORTRAN LOGICAL UNIT NUMBER FOR BUFR FILE
+C> @param[in] MESG     - integer(*): BUFR message
+C> @param[in] LUNIT    - integer: Fortran logical unit number for
+C>                       BUFR file
+C> @param[out] SUBSET   - character*8: Table A mnemonic for type of BUFR
+C>                        message that was read
+C>                        (see [DX BUFR Tables](@ref dfbftab)
+C>                        for further information about Table A mnemonics)
+C> @param[out] JDATE    - integer: Date-time stored within Section 1 of
+C>                        BUFR message that was read, in format of either
+C>                        YYMMDDHH or YYYYMMDDHH, depending on the most
+C>                        recent call to subroutine datelen()
+C> @param[out] IRET     - integer: return code
+C>                           - 0 = MESG was successfully read
+C>                           - 11 = MESG contained a DX dictionary message
+C>                           - -1 = MESG contained an unrecognized
+C>                                  Table A message type
 C>
-C>   OUTPUT ARGUMENT LIST:
-C>     SUBSET   - CHARACTER*8: TABLE A MNEMONIC FOR TYPE OF BUFR MESSAGE
-C>                BEING READ
-C>     JDATE    - INTEGER: DATE-TIME STORED WITHIN SECTION 1 OF BUFR
-C>                MESSAGE BEING READ, IN FORMAT OF EITHER YYMMDDHH OR
-C>                YYYYMMDDHH, DEPENDING ON DATELEN() VALUE
-C>     IRET     - INTEGER: RETURN CODE:
-C>                       0 = normal return
-C>                      -1 = unrecognized Table A message type
-C>                      11 = this is a BUFR table (dictionary) message
+C> <p>This subroutine looks and behaves a lot like subroutine readmg() 
+C> except that here we have one additional input argument MESG which
+C> contains the BUFR message to be read by the BUFRLIB software.
+C> As such, this subroutine can be used in any context in which readmg()
+C> might otherwise be used, and from that point on, the application
+C> program can proceed with calls to subroutine readsb() (and,
+C> subsequently, subroutines ufbint(), ufbrep(), ufbseq(), etc.), just
+C> like if readmg() had been called instead.
 C>
-C> REMARKS:
-C>    THIS ROUTINE CALLS:        BORT     CKTABA   DXINIT   ERRWRT
-C>                               ICHKSTR  IDXMSG   IUPBS3   LMSG
-C>                               MAKESTAB READS3   STATUS   STBFDX
-C>                               WTSTAT
-C>    THIS ROUTINE IS CALLED BY: None
-C>                               Normally called only by application
-C>                               programs.
+C> <p>When using this subroutine, it's still necessary for the
+C> application program to have previously called subroutine openbf() in
+C> order to associate a DX BUFR tables file with the messages that are
+C> being input via MESG, and it's still also necessary to pass in the
+C> relevant LUNIT value as a call argument, even though in this case
+C> the subroutine will not actually try to read from the associated
+C> Fortran logical unit.
+C>
+C> <p>If MESG contains a DX dictionary message, the subroutine will
+C> store the contents internally and use them to process any
+C> future BUFR messages associated with LUNIT.  In this case, the
+C> subroutine will return with IRET = 11, and any number of
+C> DX dictionary messages passed in via consecutive calls to this
+C> subroutine will accumulate internally and be treated as a single DX
+C> BUFR table, up until a call is made where MESG no longer contains a
+C> DX dictionary message.
+C>
+C> <b>Program history log:</b>
+C> - 1995-06-28  J. Woollen -- Original author
+C> - 1997-07-29  J. Woollen -- Modified to process GOES soundings
+C>                             from NESDIS
+C> - 1998-07-08  J. Woollen -- Replaced call to Cray library routine
+C>                           "ABORT" with call to new internal BUFRLIB
+C>                           routine "BORT"; modified to make Y2K
+C>                           compliant; improved machine portability
+C> - 1999-11-18  J. Woollen -- The number of BUFR files which can be
+C>                           opened at one time increased from 10 to 32
+C>                           (necessary in order to process multiple
+C>                           BUFR files under the MPI); increased the
+C>                           maximum number of possible descriptors in
+C>                           a subset from 1000 to 3000
+C> - 2000-09-19  J. Woollen -- Removed message decoding logic that had
+C>                           been replicated in this and other read
+C>                           routines and consolidated it into a new
+C>                           routine cktaba(); maximum message
+C>                           length increased from 10,000 to 20,000
+C>                           bytes
+C> - 2003-11-04  S. Bender  -- Added remarks and routine interdependencies
+C> - 2003-11-04  D. Keyser  -- Unified/portable for WRF; added history
+C>                           documentation; outputs more complete
+C>                           diagnostic info when routine terminates
+C>                           abnormally
+C> - 2004-08-18  J. Ator    -- Modified 'BUFR' string test for portability
+C>                           to EBCDIC machines; maximum message length
+C>                           increased from 20,000 to 50,000 bytes
+C> - 2005-11-29  J. Ator    -- Use ichkstr()
+C> - 2009-03-23  D. Keyser  -- Call bort() in case of MBAY overflow
+C> - 2009-03-23  J. Ator    -- Add logic to allow Section 3 decoding;
+C>                           add logic to process dictionary messages
+C> - 2012-06-07  J. Ator    -- Don't respond to DX table messages if
+C>                           Section 3 decoding is being used
+C> - 2014-12-10  J. Ator    -- Use modules instead of COMMON blocks
+C>
+C> <b>This routine calls:</b>
+C>                         bort()     cktaba()   dxinit()   errwrt()
+C>                         ichkstr()  idxmsg()   iupbs3()   lmsg()
+C>                         makestab() reads3()   status()   stbfdx()
+C>                         wtstat()
+C>
+C> <b>This routine is called by:</b> None
+C>                 <br>Normally called only by application programs.
 C>
       SUBROUTINE READERME(MESG,LUNIT,SUBSET,JDATE,IRET)
-
-
 
       USE MODA_SC3BFR
       USE MODA_IDRDM

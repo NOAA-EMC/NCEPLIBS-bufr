@@ -21,7 +21,7 @@ C> used as the target variable within an iterative program loop.
 C>
 C> <b>Program history log:</b>
 C> - 1994-01-06  J. Woollen -- Original author
-C> - 2002-05-014 J. Woollen -- Changed from an entry point to increase
+C> - 2002-05-14 J. Woollen -- Changed from an entry point to increase
 C>                           portability to other platforms
 C> - 2003-11-04  S. Bender  -- Added remarks and routine interdependencies
 C> - 2003-11-04  D. Keyser  -- Unified/portable for WRF; added history
