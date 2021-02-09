@@ -99,15 +99,9 @@ C> that more information needs to be input to the subroutine in order to
 C> achieve the desired result.
 C>
 C> <b>Program history log:</b>
-C> 2018-01-11  J. Ator    -- Original author
-C> 2018-02-08  J. Ator    -- Add special handling for data types and
+C> - 2018-01-11  J. Ator    -- Original author
+C> - 2018-02-08  J. Ator    -- Add special handling for data types and
 C>                           subtypes in Section 1
-C>
-C> <b>This routine calls</b>: bort()   ifxy()   ireadmt()  nemtab()
-C>                            numtbd() parstr() srchtbf()  status()
-C>
-C> <b>This routine is called by:</b> None
-C>                 <br>Normally called only by application programs.
 C>
 	SUBROUTINE GETCFMNG ( LUNIT, NEMOI, IVALI, NEMOD, IVALD,
      .			      CMEANG, LNMNG, IRET )

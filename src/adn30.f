@@ -23,14 +23,6 @@ C>                           routine "BORT"
 C> - 2003-11-04  S. Bender  -- Added remarks and routine interdependencies
 C> - 2003-11-04  D. Keyser  -- Unified/portable for WRF; added
 C>                           history documentation
-C>
-C> <b>This routine calls:</b> bort()
-C>
-C> <b>This routine is called by:</b> cadn30() dxinit() igetrfel() istdesc()
-C> nemtbd() numtab() rdmtbb() rdmtbd() rdmtbf() reads3() seqsdx() sntbde()
-C> sntbfe() ufbqcd() upds3() wrdxtb()
-C> <br>Normally not called by any application programs.
-C>
       
       FUNCTION ADN30(IDN,L30)
 

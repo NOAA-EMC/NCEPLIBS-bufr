@@ -34,11 +34,6 @@ C> - 1994-01-06  J. Woollen -- Original author
 C> - 2002-05-14 J. Woollen -- Changed from an entry point to increase
 C>                           portability to other platforms
 C>
-C> <b>This routine calls:</b> readns()
-C>
-C> <b>This routine is called by:</b> None
-C>                 <br>Normally called only by application programs.
-C>
       FUNCTION IREADNS(LUNIT,SUBSET,IDATE)
 
       CHARACTER*8 SUBSET

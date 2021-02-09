@@ -37,11 +37,6 @@ C>                           called), this routine does not require it
 C>                           but it may someday call other routines that
 C>                           do require it
 C>
-C> <b>This routine calls</b>: bort()   wrdlen()
-C>
-C> <b>This routine is called by:</b> None
-C>                 <br>Normally called only by application programs.
-C>
       SUBROUTINE DATELEN(LEN)
 
       COMMON /DATELN/ LENDAT

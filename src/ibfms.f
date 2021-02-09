@@ -36,12 +36,6 @@ C> - 2012-10-05  J. Ator    -- Modified to reflect the fact that the
 C>                           "missing" value is now configurable by
 C>                           users (may be something other than 10E10)
 C>
-C> <b>This routine calls:</b> None 
-C>
-C> <b>This routine is called by:</b> invmrg()  strbtm()  ufbdmp() ufbrw()
-C>                                   ufdump()  wrtree()
-C>                     <br>Also called by application programs.
-C>
 	INTEGER FUNCTION IBFMS ( R8VAL )
 
 	INCLUDE	'bufrlib.inc'

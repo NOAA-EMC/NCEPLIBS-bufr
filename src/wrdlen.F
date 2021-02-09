@@ -40,15 +40,6 @@ C>                           within BUFRLIB via conditional compilation
 C>                           directives
 C> - 2009-03-23  J. Ator    -- Call bvers() to get version number
 C>
-C> <b>This routine calls:</b> bort()    bvers()   errwrt()  iupm()
-C>
-C> <b>This routine is called by:</b>
-C>                            cobfl()   copybf()   datebf()  datelen()
-C>                            dumpbf()  iupbs01()  mesgbc()  mesgbf()
-C>                            openbf()  rdmtbb()   rdmtbd()  rdmtbf()
-C>                            upds3()
-C>                <br>Normally not called by any application programs.
-C>
       SUBROUTINE WRDLEN
 
       COMMON /HRDWRD/ NBYTW,NBITW,IORD(8)

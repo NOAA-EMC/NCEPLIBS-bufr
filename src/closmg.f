@@ -50,13 +50,6 @@ C>                          of all future zero-subset messsages to
 C>                          ABS(LUNIN)
 C> - 2014-12-10  J. Ator  -- Use modules instead of COMMON blocks
 C>
-C> <b>This routine calls:</b> bort()   msgwrt()   status()   wrcmps()
-C>                            wtstat()
-C>
-C> <b>This routine is called by:</b> closbf()   makestab() openmb()
-C>                               openmg() writsa()
-C>                           <br>Also called by application programs.
-C>
       SUBROUTINE CLOSMG(LUNIN)
 
       USE MODA_MSGCWD

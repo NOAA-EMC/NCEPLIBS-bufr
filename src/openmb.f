@@ -56,12 +56,6 @@ C>                           diagnostic info when routine terminates
 C>                           abnormally
 C> - 2014-12-10  J. Ator    -- Use modules instead of COMMON blocks
 C>
-C> <b>This routine calls</b>: bort()     closmg()   i4dy()     msgini()
-C>                            nemtba()   status()   usrtpl()   wtstat()
-C>
-C> <b>This routine is called by:</b> None
-C>                 <br>Normally called only by application programs.
-C>
       SUBROUTINE OPENMB(LUNIT,SUBSET,JDATE)
 
       USE MODA_MSGCWD

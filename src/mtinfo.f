@@ -41,11 +41,6 @@ C>
 C> <b>Program history log:</b>
 C> - 2009-03-23  J. Ator    -- Original author
 C>
-C> <b>This routine calls</b>: bort2()   strsuc()
-C>
-C> <b>This routine is called by:</b> None
-C>                 <br>Normally called only by application programs.
-C>
       SUBROUTINE MTINFO ( CMTDIR, LUNMT1, LUNMT2 )
 
       COMMON /MSTINF/ LUN1, LUN2, LMTD, MTDIR

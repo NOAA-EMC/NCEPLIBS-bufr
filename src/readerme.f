@@ -88,15 +88,6 @@ C> - 2012-06-07  J. Ator    -- Don't respond to DX table messages if
 C>                           Section 3 decoding is being used
 C> - 2014-12-10  J. Ator    -- Use modules instead of COMMON blocks
 C>
-C> <b>This routine calls:</b>
-C>                         bort()     cktaba()   dxinit()   errwrt()
-C>                         ichkstr()  idxmsg()   iupbs3()   lmsg()
-C>                         makestab() reads3()   status()   stbfdx()
-C>                         wtstat()
-C>
-C> <b>This routine is called by:</b> None
-C>                 <br>Normally called only by application programs.
-C>
       SUBROUTINE READERME(MESG,LUNIT,SUBSET,JDATE,IRET)
 
       USE MODA_SC3BFR

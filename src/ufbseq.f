@@ -155,12 +155,6 @@ C>                           of available levels is greater than I2;
 C>                           instead just return first I2 levels and
 C>                           print a diagnostic message
 C>
-C> <b>This routine calls:</b> bort()     errwrt()  invtag() invwin()
-C>                            parstr()   status()
-C>
-C> <b>This routine is called by:</b>None
-C>                     <br>Normally called only by application programs.
-C>
       SUBROUTINE UFBSEQ(LUNIN,USR,I1,I2,IRET,STR)
 
       USE MODA_USRINT

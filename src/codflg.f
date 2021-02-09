@@ -40,11 +40,6 @@ C>
 C> <b>Program history log:</b>
 C> - 2017-10-13  J. Ator    -- Original author
 C>
-C> <b>This routine calls</b>: bort()   capit()
-C>
-C> <b>This routine is called by:</b> None
-C>                 <br>Normally called only by application programs.
-C>
       SUBROUTINE CODFLG(CF)
 
       COMMON /TABLEF/ CDMF

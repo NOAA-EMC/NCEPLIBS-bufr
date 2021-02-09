@@ -125,12 +125,6 @@ C> - 2004-08-18  J. Ator    -- Added SAVE for IFIRST1 and IFIRST2 flags
 C> - 2009-04-21  J. Ator    -- Use errwrt()
 C> - 2014-12-10  J. Ator    -- Use modules instead of COMMON blocks
 C>
-C> <b>This routine calls:</b> bort()     bort2()    errwrt()  status()
-C>                           string()    ufbsp()
-C>
-C> <b>This routine is called by:</b>None
-C>                     <br>Normally called only by application programs.
-C>
       SUBROUTINE UFBSTP(LUNIO,USR,I1,I2,IRET,STR)
 
       USE MODA_USRINT

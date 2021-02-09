@@ -148,18 +148,6 @@ C>                             setbmiss() and setblock()
 C> - 2014-11-07  J. Ator    -- allow dynamic allocation of certain arrays
 C> - 2015-03-03  J. Ator    -- use MODA_IFOPBF instead of IFIRST
 C>
-C> <b>This routine calls:</b> arallocc() arallocf() bfrini()   bort()
-C>                            dxinit()   errwrt()   posapx()   readdx()
-C>                            status()   wrdlen()   writdx()   wtstat()
-C>                            openrb()   openwb()   openab()
-C>
-C> <b>This routine is called by:</b>
-C>                            copybf()   getbmiss() igetmxby() mesgbc()
-C>                            mesgbf()   pkvs01()   rdmgsb()   ufbinx()
-C>                            ufbmem()   ufbmex()   ufbtab() setbmiss()
-C>                            setblock()
-C>                            <br>Also called by application programs.
-C>
       SUBROUTINE OPENBF(LUNIT,IO,LUNDX)
 
       USE MODA_MSGCWD

@@ -33,12 +33,6 @@ C> - 2014-12-10  J. Ator    -- Use modules instead of COMMON blocks
 C> - 2020-07-16  J. Ator    -- Add sanity check to ensure that openbf()
 C>                             was previously called (needed for GSI)
 C> 
-C> <b>This routine calls:</b>        closfb() closmg() status() wtstat()
-C> 
-C> <b>This routine is called by:</b> copybf() exitbufr() mesgbf() ufbinx()
-C>                            ufbmem() ufbmex()   ufbtab()
-C>                            <br>Also called by application programs.
-C>
       SUBROUTINE CLOSBF(LUNIT)
 
       USE MODA_NULBFR

@@ -27,11 +27,6 @@ C> - 2003-11-04  S. Bender  -- Added remarks and routine interdependencies
 C> - 2003-11-04  D. Keyser  -- Unified/portable for WRF; added history
 C>                           documentation
 C>
-C> <b>This routine calls:</b>  readsb()
-C>
-C> <b>This routine is called by:</b> ufbtab()
-C>                     <br>Also called by application programs.
-C>
       FUNCTION IREADSB(LUNIT)
 
       CALL READSB(LUNIT,IRET)
