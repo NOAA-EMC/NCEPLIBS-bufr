@@ -10,7 +10,7 @@ C> @authors J. Woollen
 C> @authors D. Keyser
 C> @date 1994-01-06
 C>
-C> @param[in] LUNIN  - integer: absolute value is Fortran logical unit
+C> @param[in] LUNIN  - integer: Absolute value is Fortran logical unit
 C>                     number for BUFR file
 C>
 C> <p>Logical unit ABS(LUNIN) should have already been opened for output

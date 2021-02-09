@@ -16,7 +16,7 @@ C>                    master BUFR tables
 C>                     - 'N' = 'No' (the default)
 C>                     - 'Y' = 'Yes'
 C>
-C> <p>See [Description and Format of Master BUFR Tables](@ref dfbfmstab)
+C> <p>See [Master BUFR Tables](@ref dfbfmstab)
 C> for more information about master BUFR tables.  In particlar, note
 C> that Table B and Table D files are always read whenever master BUFR
 C> tables are being used, but the reading of Code/Flag table files is

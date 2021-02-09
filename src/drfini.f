@@ -1,58 +1,70 @@
 C> @file
-C> @author WOOLLEN @date 2002-05-14
-      
-C> THIS SUBROUTINE INITIALIZES DELAYED REPLICATION FACTORS
-C>   AND EXPLICITLY ALLOCATES A CORRESPONDING AMOUNT OF SPACE IN THE
-C>   INTERNAL SUBSET ARRAYS, THEREBY ALLOWING THE SUBSEQUENT USE OF BUFR
-C>   ARCHIVE LIBRARY SUBROUTINE UFBSEQ TO WRITE DATA DIRECTLY INTO
-C>   DELAYED REPLICATION SEQUENCES.  NOTE THAT THIS SAME TYPE OF
-C>   INITIALIZATION IS DONE IMPLICTLY WITHIN BUFR ARCHIVE LIBRARY
-C>   SUBROUTINE UFBINT FOR DELAYED REPLICATION SEQUENCES WHICH APPEAR
-C>   ONLY ONE TIME WITHIN AN OVERALL SUBSET DEFINITION.  HOWEVER, BY
-C>   USING SUBROUTINE DRFINI ALONG WITH A SUBSEQUENT CALL TO SUBROUTINE
-C>   UFBSEQ, IT IS ACTUALLY POSSIBLE TO HAVE MULTIPLE OCCURRENCES OF A
-C>   PARTICULAR DELAYED REPLICATION SEQUENCE WITHIN A SINGLE OVERALL
-C>   SUBSET DEFINITION.
+C> @brief Initialize replication factors for delayed replication
+C> sequences.
+
+C> This subroutine explicitly initializes delayed replication factors
+C> and allocates a corresponding amount of space within internal arrays,
+C> thereby allowing the subsequent use of subroutine ufbseq() to write
+C> data into delayed replication sequences.
 C>
-C> PROGRAM HISTORY LOG:
-C> 2002-05-14  J. WOOLLEN -- ORIGINAL AUTHOR
-C> 2003-11-04  S. BENDER  -- ADDED REMARKS/BUFRLIB ROUTINE
-C>                           INTERDEPENDENCIES
-C> 2003-11-04  D. KEYSER  -- MAXJL (MAXIMUM NUMBER OF JUMP/LINK ENTRIES)
-C>                           INCREASED FROM 15000 TO 16000 (WAS IN
-C>                           VERIFICATION VERSION); UNIFIED/PORTABLE FOR
-C>                           WRF; ADDED DOCUMENTATION (INCLUDING
-C>                           HISTORY); OUTPUTS MORE COMPLETE DIAGNOSTIC
-C>                           INFO WHEN ROUTINE TERMINATES ABNORMALLY
-C> 2005-03-04  J. ATOR    -- UPDATED DOCUMENTATION
-C> 2014-09-08  J. ATOR    -- INCREASE NDRF LIMIT FROM 100 TO 200
-C> 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
-C> 2018-06-07  J. ATOR    -- INCREASE NDRF LIMIT FROM 200 TO 2000
+C> @author J. Woollen
+C> @date 2002-05-14
 C>
-C> USAGE:    CALL DRFINI (LUNIT, MDRF, NDRF, DRFTAG)
-C>   INPUT ARGUMENT LIST:
-C>     LUNIT    - INTEGER: FORTRAN LOGICAL UNIT NUMBER FOR BUFR FILE
-C>     MDRF     - INTEGER: ARRAY OF DELAYED REPLICATION FACTORS,
-C>                IN ONE-TO-ONE CORRESPONDENCE WITH THE NUMBER OF
-C>                OCCURRENCES OF DRFTAG WITHIN THE OVERALL SUBSET
-C>                DEFINITION, AND EXPLICITLY DEFINING HOW MUCH SPACE
-C>                (I.E. HOW MANY REPLICATIONS) TO ALLOCATE WITHIN
-C>                EACH SUCCESSIVE OCCURRENCE
-C>     NDRF     - INTEGER: NUMBER OF DELAYED REPLICATION FACTORS
-C>                WITHIN MDRF
-C>     DRFTAG   - CHARACTER*(*): SEQUENCE MNEMONIC, BRACKETED BY 
-C>                APPROPRIATE DELAYED REPLICATION NOTATION
-C>                (E.G. {}, () OR <>) 
+C> @param[in] LUNIT  - integer: Fortran logical unit number for BUFR
+C>                     file
+C> @param[in] MDRF   - integer(*): Array of delayed replication factors,
+C>                     in one-to-one correspondence with the number
+C>                     of occurrences of DRFTAG within the overall
+C>                     subset definition, and explicitly defining
+C>                     how much space (i.e. how many replications)
+C>                     to allocate within each successive occurrence
+C> @param[in] NDRF   - integer: Number of delayed replication factors
+C>                     within MDRF
+C> @param[in] DRFTAG - character*(*): Table D sequence mnemonic,
+C>                     bracketed by appropriate delayed replication
+C>                     notation (e.g. {}, () OR <>)
 C>
-C> REMARKS:
-C>    THIS ROUTINE CALLS:        BORT     STATUS   USRTPL
-C>    THIS ROUTINE IS CALLED BY: None
-C>                               Normally called only by application
-C>                               programs
+C> <p>Logical unit LUNIT should have already been opened for output
+C> operations (i.e. writing/encoding BUFR) via a previous call to
+C> subroutine openbf(), and a message for output should have already
+C> been opened via a previous call to subroutine openmg() or openmb().
+C>
+C> <p>The use of this subroutine is only required when writing data
+C> into delayed replication sequences using ufbseq(), or for cases
+C> where ufbint() or ufbrep() are being used to write data into
+C> delayed replication sequences which occur more than once within
+C> an overall subset definition.  In such cases, the use of this
+C> subroutine allows the application code to explicitly specify how
+C> many replications of the sequence are to be allocated to each
+C> occurrence of the delayed replication sequence within the overall
+C> subset definition, prior to storing all of the actual data values
+C> themselves via a single subsequent call to ufbint() or ufbrep().
+C> In contrast, the use of this subroutine is not required when
+C> ufbint() or ufbrep() are to be called to store data values
+C> for a delayed replication sequence which only occurs one time
+C> within an overall subset definition, because in that case the
+C> same type of initialization and space allocation functionality 
+C> will be automatically handled internally within subroutine
+C> ufbint() or ufbrep().
+C>
+C> <b>Program history log:</b>
+C> - 2002-05-14  J. Woollen -- Original author
+C> - 2003-11-04  S. Bender  -- Added remarks and routine interdependencies
+C> - 2003-11-04  D. Keyser  -- Unified/portable for WRF; added history
+C>                           documentation; outputs more complete
+C>                           diagnostic info when routine terminates
+C>                           abnormally
+C> - 2005-03-04  J. Ator    -- Updated documentation
+C> - 2014-09-08  J. Ator    -- Increase NDRF limit from 100 to 200
+C> - 2014-12-10  J. Ator    -- Use modules instead of COMMON blocks
+C> - 2018-06-07  J. Ator    -- Increase NDRF limit from 200 to 2000
+C>
+C> <b>This routine calls:</b>  bort()     status()   usrtpl()
+C>
+C> <b>This routine is called by:</b> None
+C>                 <br>Normally called only by application programs.
 C>
       SUBROUTINE DRFINI(LUNIT,MDRF,NDRF,DRFTAG)
-
-
 
       USE MODA_USRINT
       USE MODA_TABLES

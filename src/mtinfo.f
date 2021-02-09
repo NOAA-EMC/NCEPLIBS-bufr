@@ -18,10 +18,10 @@ C> @param[in] LUNMT2   - integer: Second Fortran logical unit number
 C>                          to use when reading master BUFR tables on
 C>                          local file system
 C>
-C> <p>See [Description and Format of Master BUFR Tables](@ref dfbfmstab)
+C> <p>See [Master BUFR Tables](@ref dfbfmstab)
 C> for more information about master BUFR tables.  In particular, note
 C> that this subroutine is normally only ever called after a prior call
-C> has been made to subroutine openbf() with IO='SEC3'.  But in such
+C> has been made to subroutine openbf() with IO = 'SEC3'.  But in such
 C> cases, any call to this subroutine must be made prior to any
 C> subsequent calls to any of the BUFR message-reading subroutines
 C> (e.g. readmg(), readns(), readerme() ) for the associated BUFR file;

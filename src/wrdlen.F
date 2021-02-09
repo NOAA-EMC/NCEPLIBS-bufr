@@ -1,5 +1,5 @@
 C> @file
-C> @brief Determine important information about the local machine
+C> @brief Determine important information about the local machine.
 
 C> This subroutine figures out some important information about the
 C> local machine on which the BUFRLIB software is being run, including
