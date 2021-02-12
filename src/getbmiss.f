@@ -21,11 +21,6 @@ C>
 C> <b>Program history log:</b>
 C> - 2012-09-15  J. Woollen -- Original author
 C>
-C> <b>This routine calls:</b> openbf()
-C>
-C> <b>This routine is called by:</b>None
-C>                     <br>Normally called only by application programs.
-C>
       REAL*8 FUNCTION GETBMISS()
 
       INCLUDE 'bufrlib.inc'

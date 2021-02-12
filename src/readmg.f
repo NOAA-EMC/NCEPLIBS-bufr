@@ -95,15 +95,6 @@ C>                           remove code to reread message as bytes;
 C>                           replace Fortran BACKSPACE with C backbufr()
 C> - 2014-12-10  J. Ator    -- Use modules instead of COMMON blocks
 C>
-C> <b>This routine calls:</b> backbufr() bort()     cktaba()   errwrt()
-C>                            idxmsg()   rdbfdx()   rdmsgw()   reads3()
-C>                            status()   wtstat()
-C> 
-C> <b>This routine is called by:</b>
-C>                            ireadmg()  readns()   rdmgsb()   rewnbf()
-C>                            ufbinx()   ufbpos()
-C>                            <br>Also called by application programs.
-C>
       SUBROUTINE READMG(LUNXX,SUBSET,JDATE,IRET)
 
       USE MODA_MSGCWD

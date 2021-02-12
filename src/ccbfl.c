@@ -14,11 +14,6 @@
  *
  *  <b>Program history log:</b>
  *  - 2005-11-29  J. Ator    -- Original author
- *  
- *  <b>This routine calls</b>: None
- *  
- *  <b>This routine is called by:</b> None
- *                   <br>Normally called only by application programs.
  */
 void ccbfl( void )
 {

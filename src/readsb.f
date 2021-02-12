@@ -55,14 +55,6 @@ C> - 2004-08-09  J. Ator    -- Maximum message length increased from
 C>                           20,000 to 50,000 bytes
 C> - 2014-12-10  J. Ator    -- Use modules instead of COMMON blocks
 C>
-C> <b>This routine calls:</b>  bort()   rdcmps() rdtree()  status()
-C>                             upb()
-C>
-C> <b>This routine is called by:</b>
-C>                     copysb()   ireadsb()  rdmems()   readns()
-C>                     ufbinx()   ufbpos()
-C>                     <br>Also called by application programs.
-C>
       SUBROUTINE READSB(LUNIT,IRET)
 
       USE MODA_MSGCWD

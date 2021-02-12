@@ -151,12 +151,6 @@ C> - 2009-03-31  J. Woollen -- Add documentation
 C> - 2009-04-21  J. Ator    -- Use errwrt()
 C> - 2014-12-10  J. Ator    -- Use modules instead of COMMON blocks
 C>
-C> <b>This routine calls:</b> bort()     bort2()    errwrt()  status()
-C>                           string()    ufbrp()
-C>
-C> <b>This routine is called by:</b>None
-C>                     <br>Normally called only by application programs.
-C>
       SUBROUTINE UFBREP(LUNIO,USR,I1,I2,IRET,STR)
 
       USE MODA_USRINT

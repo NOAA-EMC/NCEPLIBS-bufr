@@ -114,12 +114,6 @@ C>                           messages within MSGT during the same call
 C>                           to this routine, in the rare instances
 C>                           where this can occur
 C>
-C> <b>This routine calls:</b> bort()   closmg() msgupd() status()
-C>                            wrcmps() wrtree()
-C>
-C> <b>This routine is called by:</b> None
-C>                 <br>Normally called only by application programs.
-C>
       SUBROUTINE WRITSA(LUNXX,LMSGT,MSGT,MSGL)
 
       USE MODA_BUFRMG

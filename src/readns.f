@@ -51,11 +51,6 @@ C>                           increased from 15000 to 16000 (was in
 C>                           verification version)
 C> - 2014-12-10  J. Ator    -- Use modules instead of COMMON blocks
 C>
-C> <b>This routine calls:</b> bort()   readmg() readsb() status()
-C>
-C> <b>This routine is called by:</b> ireadns()
-C>                            <br>Also called by application programs.
-C>
       SUBROUTINE READNS(LUNIT,SUBSET,JDATE,IRET)
 
       USE MODA_MSGCWD

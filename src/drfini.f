@@ -59,11 +59,6 @@ C> - 2014-09-08  J. Ator    -- Increase NDRF limit from 100 to 200
 C> - 2014-12-10  J. Ator    -- Use modules instead of COMMON blocks
 C> - 2018-06-07  J. Ator    -- Increase NDRF limit from 200 to 2000
 C>
-C> <b>This routine calls:</b>  bort()     status()   usrtpl()
-C>
-C> <b>This routine is called by:</b> None
-C>                 <br>Normally called only by application programs.
-C>
       SUBROUTINE DRFINI(LUNIT,MDRF,NDRF,DRFTAG)
 
       USE MODA_USRINT

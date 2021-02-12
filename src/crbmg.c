@@ -41,12 +41,6 @@
  *
  *  <b>Program history log:</b>
  *  - 2005-11-29  J. Ator    -- Original author
- *  
- *  <b>This routine calls</b>: bort()  gets1loc()  ichkstr()   ipkm() 
- *                           iupbs01()   iupm()    rbytes() 
- *  
- *  <b>This routine is called by:</b> None
- *                   <br>Normally called only by application programs.
  *
  */
 void crbmg( char *bmg, f77int *mxmb, f77int *nmb, f77int *iret )

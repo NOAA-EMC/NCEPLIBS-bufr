@@ -28,12 +28,6 @@ C> - 2015-03-10  J. Woollen -- Improved logic for testing legacy cases
 C>                           prior to BUFRLIB V10.2.0
 C> - 2016-02-12  J. Ator    -- Modified for CRAYFTN compatibility
 C>
-C> <b>This routine calls:</b> iupm()
-C>
-C> <b>This routine is called by:</b>
-C>                            rdcmps()  rdtree()  ufbdmp()  ufdump()
-C>                     <br>Also called by application programs.
-C>
 	INTEGER FUNCTION ICBFMS ( STR, LSTR )
 
 	INCLUDE	'bufrlib.inc'

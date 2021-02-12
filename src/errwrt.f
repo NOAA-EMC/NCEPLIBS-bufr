@@ -36,24 +36,6 @@ C> <b>Program history log:</b>
 C> - 2009-04-21  J. Ator    -- Original author
 C> - 2012-11-15  D. Keyser  -- Use formatted print
 C>
-C> <b>This routine calls:</b> None
-C>
-C> <b>This routine is called by:</b>
-C>                   bort()     bort2()    cktaba()   cpdxmm()
-C>                   cpyupd()   datebf()   dumpbf()   hold4wlc()
-C>                   igetprm()  invcon()   invtag()   invwin()
-C>                   ireadmt()  jstnum()   makestab() maxout()
-C>                   mrginv()   msgupd()   msgwrt()   nvnwin()
-C>                   openbf()   openbt()   pktdd()    rdbfdx()
-C>                   rdmemm()   rdmems()   readdx()   readerme()
-C>                   readlc()   readmg()   reads3()   strnum()
-C>                   strsuc()   ufbevn()   ufbin3()   ufbint()
-C>                   ufbmem()   ufbmex()   ufbovr()   ufbrep()
-C>                   ufbrms()   ufbrw()    ufbseq()   ufbstp()
-C>                   ufbtab()   ufbtam()   usrtpl()   valx()
-C>                   wrdlen()   mtfnam()
-C>              <br>Normally not called by any application programs.
-C>
       SUBROUTINE ERRWRT(STR)
 
       CHARACTER*(*) STR

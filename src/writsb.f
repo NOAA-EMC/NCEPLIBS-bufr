@@ -51,12 +51,6 @@ C>                           diagnostic info when routine terminates
 C>                           abnormally
 C> - 2005-03-09  J. Ator -- Added capability for compressed messages
 C>
-C> <b>This routine calls:</b> bort()  msgupd()   status()   wrcmps()
-C>                            wrtree()
-C>
-C> <b>This routine is called by:</b> copysb()   writcp()
-C>                          <br>Also called by application programs.
-C>
       SUBROUTINE WRITSB(LUNIT)
 
       COMMON /MSGCMP/ CCMF

@@ -52,11 +52,6 @@ C> - 2017-10-13  J. Ator    -- Added initialization of COMMON /TABLEF/
 C> - 2019-05-03  J. Ator    -- Change default location of MTDIR
 C> - 2019-05-09  J. Ator    -- Added dimensions for MSGLEN
 C>
-C> <b>This routine calls:</b> ifxy()  ipkm()
-C>
-C> <b>This routine is called by:</b> openbf()
-C>                <br>Normally not called by any application programs.
-C>
       SUBROUTINE BFRINI
 
       USE MODA_STBFR
