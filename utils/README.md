@@ -4,6 +4,7 @@
 
 | Utility | Description   |
 |---------|--------------------------------------------------------------------------|
+| [debufr](#debufr) | Read BUFR file and write verbose listing of contents |
 | [readbp](#readbp) | Read prepbufr file and print each report one at a time |
 | [readmp](#readmp) | Read BUFR file containing embedded DX tables, and print each report one at a time |
 | [binv](#binv) | Print inventory of BUFR file by message type |
@@ -11,6 +12,77 @@
 | [cmpbqm](#cmpbqm) | Print inventory of observations from prepbufr file by variable, report type and quality mark |
 | [gettab](#gettab) | Print embedded DX tables from within a BUFR file |
 | [split_by_subset](#split) | Split a BUFR file into separate BUFR files for each subset type |
+
+<br>
+
+---
+
+<div id="debufr"/>
+
+### debufr
+
+This program decodes a BUFR file and writes a verbose listing of the contents to the file specified
+via the -o option.
+If a [DX BUFR Tables](@ref dfbftab) file is specified (using the -f option) or if the specified BUFR file
+contains an embedded DX BUFR tables message as the first message in the file, then this information is
+used to decode the data messages in the file.  Otherwise, or whenever the -m option is specified,
+[master BUFR tables](@ref dfbfmstab) are read and used to decode the data messages in the file.
+
+<pre>
+Usage:
+
+   debufr.x [-v] [-h] [-b] [-c] [-m] [-o outfile] [-t tabledir] [-f tablefil] [-p prmstg] bufrfile
+
+     where:
+       -v        prints version information and exits
+
+       -h        prints program help and usage information and exits
+
+       -b        specifies the "basic" option, meaning that only the
+                 information in Sections 0-3 will be decoded from each
+                 BUFR message in the bufrfile, and no attempt will be
+                 made to decode the data in Section 4
+
+       -c        specifies that code and flag table meanings should not
+                 be read from master BUFR tables and included in the
+                 output; otherwise this feature is enabled by default
+
+       -m        specifies that master BUFR tables will be used to
+                 decode the data messages in the file, regardless of
+                 whether it contains any embedded DX BUFR table
+                 messages.  This option can be used to view the actual
+                 contents of DX BUFR table messages, which otherwise
+                 would not be printed in the output listing.
+
+       outfile   [path/]name of file to contain verbose output listing.
+                 The default is "bufrfilename.debufr.out" in the current
+                 working directory, where bufrfilename is the basename of
+                 the bufrfile (i.e. bufrfile with any preceding [path/]
+                 removed).
+
+       tabledir  [path/]name of directory containing tables to be used
+                 for decoding.  This directory contains the DX BUFR
+                 tables file to be used (if one was specified
+                 via the -f option), or it may contain all of the master
+                 BUFR tables when these are being used to decode a
+                 file.  If unspecified, the default directory location is
+                 "/gpfs/dell1/nco/ops/nwprod/decoders/decod_shared/fix"
+
+       tablefil  file within tabledir containing DX BUFR tables
+                 to be used for decoding.
+
+       prmstg    string of comma-separated PARAMETER=VALUE pairs, up to a
+                 maximum of 20.  For each pair, the dynamic allocation
+                 PARAMETER will be set to VALUE within the underlying
+                 BUFRLIB software, overriding the default value that
+                 would otherwise be used.  A complete list of parameters
+                 that can be dynamically sized is included within the
+                 documentation for BUFRLIB function isetprm().
+
+       bufrfile  [path/]name of BUFR file to be decoded
+</pre>
+
+See the source code at debufr.c and debufr.f
 
 <br>
 
@@ -166,7 +238,7 @@ A utility to print a BUFR file inventory by message type.
 
 See the source code at binv.f
 
-Sample output for: `./binv gdas.20200812/00/gdas.t00z.prepbufr`
+Sample output for: `./binv.x gdas.20200812/00/gdas.t00z.prepbufr`
 
 ~~~
 type        messages       subsets         bytes
@@ -198,7 +270,7 @@ Utility to print an inventory of satellite data by platform and instrument type.
 
 See the source code at sinv.f
 
-Sample output for: `./sinv gdas.20200812/00/gdas.t00z.satwnd.tm00.bufr_d`
+Sample output for: `./sinv.x gdas.20200812/00/gdas.t00z.satwnd.tm00.bufr_d`
 ~~~
 003  METOP-1           7220
 004  METOP-2           8911
@@ -243,7 +315,7 @@ An inventory of prepbufr observations by variable, report type, and quality mark
 
 See the source code at cmpbqm.f
 
-Sample output for: `./cmpbqm gdas.20200811/00/gdas.t00z.prepbufr`
+Sample output for: `./cmpbqm.x gdas.20200811/00/gdas.t00z.prepbufr`
 ~~~
 DATA  VALID AT  2020081100
 

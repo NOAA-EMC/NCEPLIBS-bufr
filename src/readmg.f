@@ -39,7 +39,7 @@ C> there are no more BUFR messages (i.e. end-of-file) within the file
 C> connected to logical unit ABS(LUNXX).
 C>
 C> @remarks
-C> - Any DX dictionary messages encountered within ABS(LUNXX) will be
+C> - Any DX BUFR table messages encountered within ABS(LUNXX) will be
 C> automatically processed and stored internally, so a successful return
 C> from this subroutine will always result in a BUFR message containing
 C> actual data values within the internal arrays.

@@ -20,14 +20,14 @@ C>                 -   'INX' = input operations w/o table processing
 C>                 -   'OUX' = output operations w/o table processing
 C>                 -   'OUT' = output operations with table processing
 C>                 -  'SEC3' = same as 'IN', except use Section 3 of input 
-C>                              messages for decoding rather than dictionary
+C>                              messages for decoding rather than DX BUFR
 C>                              table information from LUNDX; in this case
 C>                              LUNDX is ignored, and user must provide 
 C>                              appropriate [master BUFR tables](@ref dfbfmstab)
 C>                              within the directory specified by a subsequent
 C>                              call to subroutine mtinfo()
-C>                 -  'NODX' = same as 'OUT', except don't write dictionary
-C>                             (i.e. DX) table messages to LUNIT
+C>                 -  'NODX' = same as 'OUT', except don't write DX BUFR
+C>                             table messages to LUNIT
 C>                 -   'APN' = same as 'NODX', except begin writing at end
 C>                             of file ("append")
 C>                 -   'APX' = same as 'APN', except backspace before
@@ -46,10 +46,10 @@ C>                             user resetting of global parameters such as
 C>                             missing value or output block type
 C> @param[in] LUNDX    - integer:
 C>                 - If IO is not 'QUIET' = Fortran logical unit number
-C>                   containing dictionary table information to be used in
+C>                   containing DX BUFR table information to be used in
 C>                   reading/writing from/to LUNIT (depending on the case).
-C>                   This value may be set equal to LUNIT if dictionary table
-C>                   information is already embedded in LUNIT
+C>                   This value may be set equal to LUNIT if DX BUFR table
+C>                   information is already embedded in LUNIT.
 C>                 - If IO is 'QUIET' = indicator for degree of printout:
 C>                      - -1 = no printout except for ABORT messages
 C>                      -  0 = limited printout (default)
