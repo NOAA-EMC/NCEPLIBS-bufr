@@ -1,6 +1,6 @@
 C> @file
 C> @brief Specify inclusion of code and flag tables when reading
-C> master BUFR tables
+C> master BUFR tables.
 
 C> This subroutine is used to specify whether or not code and flag
 C> table information should be included during all future reads of
