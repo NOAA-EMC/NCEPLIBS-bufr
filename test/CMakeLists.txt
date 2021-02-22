@@ -86,6 +86,7 @@ list(APPEND test_scripts
   test_wrapper.sh
   test_gettab.sh
   test_split_by_subset.sh
+  test_debufr.sh
 )
 
 foreach(test_script ${test_scripts})
@@ -172,6 +173,15 @@ foreach(test_src IN ITEMS ${test_OUT_3_srcs} ${test_OUT_4_srcs})
 endforeach()
 
 # Test utilities
+
+# Test debufr.x utility
+add_test(NAME test_debufr_1
+  COMMAND ${CMAKE_BINARY_DIR}/bin/test_debufr.sh "${CMAKE_BINARY_DIR}/utils/debufr.x -t ../tables" "testfiles/data/debufr_1" "testrun/debufr_1.run" "testfiles/testoutput/debufr_1.out"
+  )
+add_test(NAME test_debufr_2
+  COMMAND ${CMAKE_BINARY_DIR}/bin/test_debufr.sh "${CMAKE_BINARY_DIR}/utils/debufr.x -t testfiles/data -f bufrtab.031 -c" "testfiles/data/debufr_2" "testrun/debufr_2.run" "testfiles/testoutput/debufr_2.out"
+  )
+
 # Test gettab.x utility
 add_test(NAME test_gettab
   COMMAND ${CMAKE_BINARY_DIR}/bin/test_gettab.sh "${CMAKE_BINARY_DIR}/utils/gettab.x testfiles/data/1bamua" "testrun/1bamua.table.run" "testfiles/testoutput/1bamua.table.out"
@@ -181,4 +191,3 @@ add_test(NAME test_gettab
 add_test(NAME test_split_by_subset
   COMMAND ${CMAKE_BINARY_DIR}/bin/test_split_by_subset.sh "${CMAKE_BINARY_DIR}/utils/split_by_subset.x testfiles/data/satwndbufr" "testfiles/testoutput/satwndbufr_split"
   )
-

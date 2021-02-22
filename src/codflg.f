@@ -1,6 +1,6 @@
 C> @file
 C> @brief Specify inclusion of code and flag tables when reading
-C> master BUFR tables
+C> master BUFR tables.
 
 C> This subroutine is used to specify whether or not code and flag
 C> table information should be included during all future reads of
@@ -13,8 +13,8 @@ C> @param[in] CF    - character*1: Flag indicating whether
 C>                    or not to include code and flag table
 C>                    information during all future reads of
 C>                    master BUFR tables
-C>                     - 'N' = 'No' (the default)
-C>                     - 'Y' = 'Yes'
+C>                     - 'N' = No (the default)
+C>                     - 'Y' = Yes
 C>
 C> <p>See [Master BUFR Tables](@ref dfbfmstab)
 C> for more information about master BUFR tables.  In particlar, note

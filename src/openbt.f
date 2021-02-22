@@ -1,51 +1,42 @@
 C> @file
-C> @author WOOLLEN @date 1998-07-08
-      
-C> THIS IS A DUMMY SUBROUTINE WHICH ALWAYS RETURNS LUNDX = 0.
-C>   OPENBT MUST BE PRESENT BECAUSE IT IS CALLED BY BUFR ARCHIVE LIBRARY
-C>   SUBROUTINE CKTABA AS A LAST RESORT TO TRY AND FIND AN EXTERNAL
-C>   USER-SUPPLIED BUFR DICTIONARY TABLE FILE IN CHARACTER FORMAT FROM
-C>   WHICH A TABLE A MNEMONIC CAN BE LOCATED.  IF THE APPLICATION
-C>   PROGRAM DOES NOT HAVE AN IN-LINE VERSION OF OPENBT (OVERRIDING THIS
-C>   ONE), THEN THE RETURNED LUNDX = 0 WILL RESULT IN CKTABA RETURNING
-C>   WITHOUT FINDING A TABLE A MNEMONIC BECAUSE THERE IS NO LINK TO ANY
-C>   EXTERNAL BUFR TABLES.  NORMALLY, IT IS EXPECTED THAT AN IN-LINE
-C>   VERSION OF THIS SUBROUTINE WILL ACTUALLY FIND THE APPROPRIATE
-C>   EXTERNAL BUFR TABLE.
+C> @brief Specify DX table file of last resort.
+
+C> This subroutine is called as a last resort from within subroutine
+C> cktaba(), in the event the latter subroutine is unable to locate
+C> a DX BUFR table for use in reading/decoding a given BUFR message.
 C>
-C> PROGRAM HISTORY LOG:
-C> 1998-07-08  J. WOOLLEN -- ORIGINAL AUTHOR
-C> 2003-11-04  S. BENDER  -- ADDED REMARKS/BUFRLIB ROUTINE
-C>                           INTERDEPENDENCIES
-C> 2003-11-04  D. KEYSER  -- UNIFIED/PORTABLE FOR WRF; ADDED
-C>                           DOCUMENTATION (INCLUDING HISTORY); ADDED
-C>                           MORE COMPLETE DIAGNOSTIC INFO WHEN UNUSUAL
-C>                           THINGS HAPPEN
-C> 2009-04-21  J. ATOR    -- USE ERRWRT
+C> <p>Within the BUFRLIB distribution package, this subroutine
+C> is a default placeholder which always returns LUNDX = 0
+C> and is only included to allow application programs to compile
+C> without generating a link error for an unresolved external
+C> reference.  However, users are free to define their own inline
+C> version of this subroutine with the same name and calling sequence
+C> and include it within the compilation of their application program
+C> in order to override the default placeholder version of this
+C> subroutine.  In such cases, subroutine cktaba() will then use
+C> the inline version of this subroutine as a last resort when
+C> attempting to locate the required DX BUFR table file.
 C>
-C> USAGE:    CALL OPENBT (LUNDX, MTYP)
-C>   INPUT ARGUMENT LIST:
-C>     MTYP     - INTEGER: DUMMY {IN AN APPLICATION PROGRAM (IN-LINE)
-C>                THIS WOULD BE THE BUFR MESSAGE TYPE}
+C> @author J. Woollen
+C> @date 1998-07-08
 C>
-C>   OUTPUT ARGUMENT LIST:
-C>     LUNDX    - INTEGER: DUMMY, ALWAYS RETURNED AS ZERO {IN AN
-C>                APPLICATION PROGRAM (IN-LINE) THIS WOULD BE THE
-C>                FORTRAN LOGICAL UNIT NUMBER CONNECTED TO THE FILE
-C>                CONTAINING THE EXTERNAL BUFR TABLE}
+C> @param[in] MTYP - integer: Data category of BUFR message for which
+C>                   subroutine cktaba() was unable to locate a
+C>                   DX BUFR table file
+C> @param[out] LUNDX - integer: Fortran logical unit number for file
+C>                   containing DX BUFR table information to be
+C>                   used in decoding message
+C>                     - 0 = No such file is available
 C>
-C> REMARKS:
-C>    THIS ROUTINE CALLS:        ERRWRT
-C>    THIS ROUTINE (IN BUFR
-C>    ARCHIVE LIBRARY):          Called by CKTABA only to allow the
-C>                               BUFR ARCHIVE LIBRARY to compile, CKTABA
-C>                               and any application programs should
-C>                               always call a version of OPENBT in-line
-C>                               in the application program.
+C> @remarks
+C> - See [DX BUFR Tables](@ref dfbftab) for more information about
+C> the format and contents of DX BUFR table files.
+C>
+C> <b>Program history log:</b>
+C> - 1998-07-08  J. Woollen -- Original author
+C> - 2009-04-21  J. Ator    -- Use errwrt()
 C>
       SUBROUTINE OPENBT(LUNDX,MTYP)
-
-
 
       COMMON /QUIET / IPRT
 

@@ -22,7 +22,7 @@ C>                        YYMMDDHH or YYYYMMDDHH, depending on the most
 C>                        recent call to subroutine datelen()
 C> @param[out] IRET     - integer: return code
 C>                           - 0 = MESG was successfully read
-C>                           - 11 = MESG contained a DX dictionary message
+C>                           - 11 = MESG contained a DX BUFR table message
 C>                           - -1 = MESG contained an unrecognized
 C>                                  Table A message type
 C>
@@ -43,14 +43,14 @@ C> relevant LUNIT value as a call argument, even though in this case
 C> the subroutine will not actually try to read from the associated
 C> Fortran logical unit.
 C>
-C> <p>If MESG contains a DX dictionary message, the subroutine will
+C> <p>If MESG contains a DX BUFR table message, the subroutine will
 C> store the contents internally and use them to process any
 C> future BUFR messages associated with LUNIT.  In this case, the
 C> subroutine will return with IRET = 11, and any number of
-C> DX dictionary messages passed in via consecutive calls to this
+C> DX BUFR table messages passed in via consecutive calls to this
 C> subroutine will accumulate internally and be treated as a single DX
 C> BUFR table, up until a call is made where MESG no longer contains a
-C> DX dictionary message.
+C> DX BUFR table message.
 C>
 C> <b>Program history log:</b>
 C> - 1995-06-28  J. Woollen -- Original author
