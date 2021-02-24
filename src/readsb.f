@@ -1,14 +1,14 @@
 C> @file
 C> @brief Read the next data subset from a BUFR message.
       
-C> This subroutine reads the next data subset (i.e. report) from a BUFR
+C> This subroutine reads the next data subset from a BUFR
 C> message into internal arrays.
 C>
 C> @author J. Woollen
 C> @date 1994-01-06
 C>
 C> @param[in] LUNIT    - integer: Fortran logical unit number for BUFR file
-C> @param[out] IRET    - integer:
+C> @param[out] IRET    - integer: return code
 C>                           - 0 = new BUFR data subset was successfully
 C>                                 read into internal arrays
 C>                           - -1 = there are no more BUFR data subsets in
@@ -54,14 +54,6 @@ C>                           abnormally
 C> - 2004-08-09  J. Ator    -- Maximum message length increased from
 C>                           20,000 to 50,000 bytes
 C> - 2014-12-10  J. Ator    -- Use modules instead of COMMON blocks
-C>
-C> <b>This routine calls:</b>  bort()   rdcmps() rdtree()  status()
-C>                             upb()
-C>
-C> <b>This routine is called by:</b>
-C>                     copysb()   ireadsb()  rdmems()   readns()
-C>                     rdmsgb()   ufbinx()   ufbpos()
-C>                     <br>Also called by application programs.
 C>
       SUBROUTINE READSB(LUNIT,IRET)
 

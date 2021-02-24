@@ -14,10 +14,9 @@ C> @param[in] SUBSET  - character*(*): Table A mnemonic for type of
 C>                      BUFR message to be opened
 C>                      (see [DX BUFR Tables](@ref dfbftab) for
 C>                      further information about Table A mnemonics)
-C> @param[in] JDATE  - integer: date-time to be stored within Section 1
+C> @param[in] JDATE  - integer: Date-time to be stored within Section 1
 C>                of BUFR message being opened, in format of either
-C>                YYMMDDHH or YYYYMMDDHH, depending on the most recent
-C>                call to subroutine datelen()
+C>                YYMMDDHH or YYYYMMDDHH
 C>
 C> <p>Logical unit LUNIT should have already been opened for output
 C> operations via a previous call to subroutine openbf().
@@ -56,12 +55,6 @@ C>                           documentation; outputs more complete
 C>                           diagnostic info when routine terminates
 C>                           abnormally
 C> - 2014-12-10  J. Ator    -- Use modules instead of COMMON blocks
-C>
-C> <b>This routine calls</b>: bort()     closmg()   i4dy()     msgini()
-C>                            nemtba()   status()   usrtpl()   wtstat()
-C>
-C> <b>This routine is called by:</b> None
-C>                 <br>Normally called only by application programs.
 C>
       SUBROUTINE OPENMB(LUNIT,SUBSET,JDATE)
 

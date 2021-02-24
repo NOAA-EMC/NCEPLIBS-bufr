@@ -783,7 +783,7 @@ Alternatively, we could use subroutine ufbseq() with STR='PRGPTMDP', which would
 thing.  Or, if we only wanted to know the total number of replications without
 actually reading out all of the respective PRLC, GEOP, TMDB and TMDP values, we could also call
 subroutine ufbint() with STR='{PRGPTMDP}', and the corresponding array location in USR would contain the
-same value that would have been returned in IRET during our earlier call to ubfint() with 
+same value that would have been returned in IRET during our earlier call to ufbint() with 
 STR='PRLC GEOP TMDB TMDP', or during our earlier call to ufbseq() with STR='PRGPTMDP'.
 
 <br>

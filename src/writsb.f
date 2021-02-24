@@ -1,7 +1,7 @@
 C> @file
 C> @brief Write a data subset into a BUFR message.
       
-C> This subroutine writes a complete data subset (i.e. report)
+C> This subroutine writes a complete data subset
 C> into a BUFR message, for eventual output to logical unit LUNIT.
 C>
 C> @author J. Woollen
@@ -21,21 +21,22 @@ C> Furthermore, all of the values for the data subset should have
 C> already been written into internal arrays via calls to subroutines
 C> ufbint(), ufbrep(), ufbseq(), etc.
 C>
-C> @remarks:
+C> @remarks
 C> - There is a maximum size for any BUFR message that can be written
 C> by the BUFRLIB software.  This maximum message size is initially set
-C> to an internal default value, but it can be changed to a different
-C> value via a separate prior call to subroutine maxout().  
+C> to an internal default value within subroutine bfrini(), but it can
+C> be changed to a different value via a separate prior call to
+C> subroutine maxout().  
 C> - This subroutine will always check to ensure that the data subset,
 C> when encoded and packed, will fit into the current BUFR message that
 C> is already open within the internal arrays associated with logical
 C> unit LUNIT.  If adding the data subset to the current message would
 C> cause the maximum message size to be exceeded, then the subroutine will
-C> automatically flush the current messsage to logical unit LUNIT, then
+C> automatically flush the current message to logical unit LUNIT, then
 C> open and initialize a new internal message using the same SUBSET and
 C> JDATE values that were specified in the most recent call to
 C> openmg() or openmb() for LUNIT, then encode and pack the data
-C> subset into that new messsage.
+C> subset into that new message.
 C>
 C> <b>Program history log:</b>
 C> - 1994-01-06  J. Woollen -- Original author
@@ -49,12 +50,6 @@ C>                           documentation; outputs more complete
 C>                           diagnostic info when routine terminates
 C>                           abnormally
 C> - 2005-03-09  J. Ator -- Added capability for compressed messages
-C>
-C> <b>This routine calls:</b> bort()  msgupd()   status()   wrcmps()
-C>                            wrtree()
-C>
-C> <b>This routine is called by:</b> copysb()   writcp()
-C>                          <br>Also called by application programs.
 C>
       SUBROUTINE WRITSB(LUNIT)
 

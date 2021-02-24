@@ -42,7 +42,7 @@ C*	Open the BUFR input and output files.
 	CALL OPENBF ( 13, 'QUIET', -1 )
 	print *, '        OPENBF'
 
-        CALL MTINFO ( 'testfiles', 90, 91 )
+        CALL MTINFO ( '../tables', 90, 91 )
 	print *, '        MTINFO'
 
         CALL MAXOUT ( MXBFMG*4 )
@@ -90,7 +90,7 @@ C*	Process 1 message with 4 subset from infile2.
 C*      Turn off output message standardization.
 
         CALL STDMSG ('N')
-        
+
 C*      Write DX table information for this message into the
 C*      output file.
 
@@ -134,7 +134,7 @@ C*      output file.
             IF ( nsub .eq. 1 ) THEN
               CALL WRITLC ( 13, dummystr, 'DUMMYSTR' )
             END IF
-           
+
           END DO
 
           CALL WRITSA ( -13, MXBFMG, mgbf, lmgbf )
@@ -145,7 +145,7 @@ C*      output file.
           print *, '        WRITSA'
 
         END IF
- 
+
         CALL CLOSBF ( 13 )
         print *, '        CLOSBF'
 

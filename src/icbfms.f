@@ -1,34 +1,32 @@
 C> @file
-C> @author J @date 2012-06-07
-	
-C> THIS FUNCTION TESTS WHETHER THE INPUT CHARACTER STRING
-C>   IS "MISSING" BY CHECKING IF ALL OF THE EQUIVALENT BITS ARE SET TO 1.
-C>   IT IS SIMILAR TO BUFR ARCHIVE LIBRARY FUNCTION IBFMS, EXCEPT THAT
-C>   IBFMS TESTS REAL*8 VALUES FOR EQUIVALENCE TO THE PARAMETER BMISS,
-C>   WHEREAS ICBFMS CHECKS THAT ALL EQUIVALENT BITS ARE SET TO 1 AND IS
-C>   THEREFORE A MORE PORTABLE AND RELIABLE TEST FOR USE WITH CHARACTER
-C>   STRINGS.
+C> @brief Test whether a character string is "missing"
+
+C> This function provides a handy way to check whether a
+C> character string returned from a previous call to subroutine
+C> readlc() was encoded as "missing" (all bits set to 1)
+C> within the actual BUFR data subset.
 C>
-C> PROGRAM HISTORY LOG:
-C> 2012-06-07  J. ATOR    -- ORIGINAL AUTHOR
-C> 2015-03-10  J. WOOLLEN -- IMPROVED LOGIC FOR TESTING LEGACY CASES
-C>                           PRIOR TO BUFRLIB V10.2.0
-C> 2016-02-12  J. ATOR    -- MODIFIED FOR CRAYFTN COMPATIBILITY
+C> @author J. Ator
+C> @date 2012-06-07
 C>
-C> USAGE:    ICBFMS ( STR, LSTR )
-C>   INPUT ARGUMENT LIST:
-C>     STR      - CHARACTER*(*): STRING TO BE TESTED
-C>     LSTR     - INTEGER: NUMBER OF CHARACTERS TO BE TESTED WITHIN STR
+C> @param[in] STR - character*(*): String
+C> @param[in] LSTR - integer: Length of string, i.e. number of
+C>                   characters within STR to be tested
 C>
-C>   OUTPUT ARGUMENT LIST:
-C>     ICBFMS   - INTEGER: RETURN CODE:
-C>                0 - STR IS NOT "MISSING"
-C>                1 - STR IS "MISSING"
+C> @returns icbfms  -  integer:
+C>                    - 0 = STR is not "missing"
+C>                    - 1 = STR is "missing"
 C>
-C> REMARKS:
-C>    THIS ROUTINE CALLS:        iupm()
-C>    THIS ROUTINE IS CALLED BY: rdcmps()  rdtree()  ufbdmp()  ufdump()
-C>                               Also called by application programs.
+C> @remarks
+C> - The use of an integer return code allows this function
+C> to be called in a logical context from application programs
+C> written in C as well as in Fortran.
+C>
+C> <b>Program history log:</b>
+C> - 2012-06-07  J. Ator    -- Original author
+C> - 2015-03-10  J. Woollen -- Improved logic for testing legacy cases
+C>                           prior to BUFRLIB V10.2.0
+C> - 2016-02-12  J. Ator    -- Modified for CRAYFTN compatibility
 C>
 	INTEGER FUNCTION ICBFMS ( STR, LSTR )
 

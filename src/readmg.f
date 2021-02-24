@@ -9,17 +9,17 @@ C> @authors J. Woollen
 C> @authors J. Ator
 C> @date 1994-01-06
 C>
-C> @param[in] LUNXX    - integer: absolute value is Fortran logical unit
+C> @param[in] LUNXX    - integer: Absolute value is Fortran logical unit
 C>                       number for BUFR file
 C> @param[out] SUBSET   - character*8: Table A mnemonic for type of BUFR
 C>                        message that was read
 C>                        (see [DX BUFR Tables](@ref dfbftab)
 C>                        for further information about Table A mnemonics)
-C> @param[out] JDATE    - integer: date-time stored within Section 1 of
+C> @param[out] JDATE    - integer: Date-time stored within Section 1 of
 C>                        BUFR message that was read, in format of either
 C>                        YYMMDDHH or YYYYMMDDHH, depending on the most
 C>                        recent call to subroutine datelen()
-C> @param[out] IRET     - integer:
+C> @param[out] IRET     - integer: return code
 C>                           - 0 = new BUFR message was successfully
 C>                                 read into internal arrays
 C>                           - -1 = there are no more BUFR messages in
@@ -39,7 +39,7 @@ C> there are no more BUFR messages (i.e. end-of-file) within the file
 C> connected to logical unit ABS(LUNXX).
 C>
 C> @remarks
-C> - Any DX dictionary messages encountered within ABS(LUNXX) will be
+C> - Any DX BUFR table messages encountered within ABS(LUNXX) will be
 C> automatically processed and stored internally, so a successful return
 C> from this subroutine will always result in a BUFR message containing
 C> actual data values within the internal arrays.
@@ -94,15 +94,6 @@ C> - 2012-09-15  J. Woollen -- Convert to C language I/O interface;
 C>                           remove code to reread message as bytes;
 C>                           replace Fortran BACKSPACE with C backbufr()
 C> - 2014-12-10  J. Ator    -- Use modules instead of COMMON blocks
-C>
-C> <b>This routine calls:</b> backbufr() bort()     cktaba()   errwrt()
-C>                            idxmsg()   rdbfdx()   rdmsgw()   reads3()
-C>                            status()   wtstat()
-C> 
-C> <b>This routine is called by:</b>
-C>                            ireadmg()  readns()   rdmgsb()   rewnbf()
-C>                            ufbinx()   ufbpos()
-C>                            <br>Also called by application programs.
 C>
       SUBROUTINE READMG(LUNXX,SUBSET,JDATE,IRET)
 

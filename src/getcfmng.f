@@ -1,91 +1,110 @@
 C> @file
-C> @author ATOR @date 2018-01-11
-	
-C> THIS ROUTINE CAN BE CALLED AT ANY TIME AFTER A BUFR MESSAGE
-C>   HAS BEEN READ INTO MEMORY VIA SUBROUTINE READMG, READERME OR
-C>   EQUIVALENT, AND IT CAN BE CALLED FOR ANY CODE OR FLAG TABLE MNEMONIC
-C>   DEFINED WITHIN THAT MESSAGE.  IT SEARCHES FOR THE SPECIFIED MNEMONIC
-C>   AND ASSOCIATED VALUE (CODE FIGURE OR BIT NUMBER) WITHIN THE INTERNAL
-C>   MEMORY STRUCTURE FOR STORING CODE/FLAG TABLE INFORMATION, AND IF
-C>   FOUND RETURNS THE ASSOCIATED MEANING AS A CHARACTER STRING.  THE
-C>   SEARCH MAY ALSO OPTIONALLY INCLUDE A SPECIFIED SECOND MNEMONIC
-C>   AND ASSOCIATED VALUE UPON WHICH THE FIRST MNEMONIC AND ITS
-C>   ASSOCIATED VALUE DEPEND, FOR CASES SUCH AS, E.G. WHEN THE MEANING
-C>   OF AN ORIGINATING SUBCENTER VALUE DEPENDS ON THE IDENTITY OF THE
-C>   ORIGINATING CENTER.
+C> @brief Decode the meaning of a numerical value from a code or flag table
+
+C> This subroutine searches for a specified Table B mnemonic and associated
+C> value (code figure or bit number) within the master Code/Flag tables,
+C> and if found returns the assocated meaning as a character string.
 C>
-C>   NOTE THAT THIS ROUTINE CAN ONLY BE CALLED FOR MNEMONICS WHICH ARE
-C>   DEFINED WITHIN THE MESSAGE THAT WAS MOST RECENTLY READ INTO MEMORY.
-C>   IN MOST CASES THIS MEANS THAT THE MNEMONIC MUST BE CONTAINED WITHIN
-C>   THE SUBSET DEFINITION (SECTION 3) OF THAT MESSAGE.  THE ONLY
-C>   EXCEPTIONS TO THIS RULE ARE FOR ORIGINATING CENTERS, ORIGINATING
-C>   SUBCENTERS, DATA TYPES AND DATA SUBTYPES, SINCE THOSE CAN ALSO BE
-C>   CONTAINED WITHIN THE IDENTIFICATION SECTION (SECTION 1) OF A BUFR
-C>   MESSAGE.  IN ANY CASE, IF THE SEARCH IS UNSUCCESSFUL, AND IF THERE
-C>   WAS NO OPTIONAL SECOND MNEMONIC AND ASSOCIATED VALUE SPECIFIED ON
-C>   INPUT, THE ROUTINE WILL RE-SEARCH THE TABLE TO CHECK WHETHER THE
-C>   MEANING OF THE FIRST MNEMONIC AND ASSOCIATED VALUE MAY INDEED DEPEND
-C>   ON THE VALUE OF ONE OR MORE OTHER POSSIBLE SECOND MNEMONICS.  IF SO,
-C>   THOSE POSSIBLE MNEMONICS ARE RETURNED ALONG WITH A SPECIAL RETURN
-C>   CODE SO THAT THE CALLING ROUTINE MAY EXAMINE THEM AND POSSIBLY ISSUE
-C>   ANOTHER SUBSEQUENT CALL TO THIS SAME ROUTINE WITH SPECIFIED VALUES
-C>   FOR THE SECOND MNEMONIC AND ASSOCIATED VALUE.
+C> @author J. Ator
+C> @date 2018-01-11
 C>
-C> PROGRAM HISTORY LOG:
-C> 2018-01-11  J. ATOR    -- ORIGINAL AUTHOR
-C> 2018-01-11  J. ATOR    -- ADD SPECIAL HANDLING FOR DATA TYPES AND
-C>                           SUBTYPES IN SECTION 1
+C> @param[in]  LUNIT    - integer: Fortran logical unit number for
+C>                        BUFR file
+C> @param[in]  NEMOI    - character*(*): Mnemonic to search for
+C> @param[in]  IVALI    - integer: Value (code figure or bit number)
+C>                        associated with NEMOI
+C> @param[in]  NEMOD    - character*(*): Optional second mnemonic upon
+C>                        which the values NEMOI and IVALI depend; set to
+C>                        all blank characters if the meanings of NEMOI and
+C>                        IVALI do not depend on the value of any other
+C>                        mnemonic
+C> @param[in]  IVALD    - integer: Value (code figure or bit number)
+C>                        associated with NEMOD; set to (-1) whenever
+C>                        NEMOD is set to all blank characters
+C> @param[out] CMEANG   - character*(*): If the initial search of the
+C>                        master Code/Flag tables was successful, then this
+C>                        string contains the meaning corresponding to NEMOI
+C>                        and IVALI (and to NEMOD and IVALD, if specified).
+C>                        However, if the initial search was unsuccessful,
+C>                        <b>and</b> if no optional second mnemonic and
+C>                        associated value were specified on input,
+C>                        <b>and</b> if a second search of the table
+C>                        determines that the meaning of NEMOI and IVALI
+C>                        indeed depends on one or more other possible
+C>                        second mnemonics, then those possible second
+C.                        mnemonics are returned within this string, as a
+C>                        series of IRET successive 8-byte substrings. 
+C>                        An example of this scenario is included below
+C>                        within the Remarks.
+C> @param[out] LNMNG    - integer: Length of string returned in CMEANG
+C> @param[out] IRET     - integer: return code
+C>                       -  0 = meaning found and stored in CMEANG string
+C>                       - -1 = meaning not found
+C>                       - >0 = meaning not found, <b>and</b> NEMOD and
+C>                              IVALD were not specified on input,
+C>                              <b>and</b> the meaning of NEMOI and IVALI
+C>                              depends on the value of one of the
+C>                              mnemonics stored in the first IRET 8-byte
+C>                              substrings of CMEANG
 C>
-C> USAGE:   CALL GETCFMNG ( LUNIT, NEMOI, IVALI, NEMOD, IVALD,
-C>                          CMEANG, LNMNG, IRET )
+C> <p>As noted above, this subroutine first does an initial search of
+C> the master Code/Flag tables based on the mnemonics and values provided.
+C> The input parameters NEMOI and IVALI specify the mnemonic and
+C> corresponding numerical code or flag table value for which the meaning
+C> is sought, and the optional secondary parameters NEMOD and IVALD are
+C> specified when needed to differentiate between multiple possible
+C> results. An example of this particular scenario is included below
+C> within the Remarks.  Otherwise, if the meaning of NEMOD and IVALD
+C> does not depend on the value associated with any other mnemonic, then
+C> NEMOD should be set to a field of all blank characters, and IVALD
+C> should be set to a value of (-1).
 C>
-C>   INPUT ARGUMENT LIST:
-C>     LUNIT    - INTEGER: FORTRAN LOGICAL UNIT NUMBER FOR BUFR FILE
-C>     NEMOI    - CHARACTER*(*): MNEMONIC TO SEARCH FOR
-C>     IVALI    - INTEGER: VALUE (CODE FIGURE OR BIT NUMBER) ASSOCIATED
-C>                WITH NEMOI
-C>     NEMOD    - CHARACTER*(*): OPTIONAL SECOND MNEMONIC UPON WHICH THE
-C>                VALUES NEMOI AND IVALI DEPEND; SET TO ALL BLANK
-C>                CHARACTERS IF THE MEANINGS OF NEMOI AND IVALI DO NOT
-C>                DEPEND ON THE VALUE OF ANY OTHER MNEMONIC
-C>     IVALD    - INTEGER: VALUE (CODE FIGURE OR BIT NUMBER) ASSOCIATED
-C>                WITH NEMOD; SET TO (-1) WHENEVER NEMOD IS SET TO ALL
-C>                BLANK CHARACTERS
+C> <p>Subroutine codflg() must be called with a CF value of 'Y' prior to
+C> calling this subroutine, in order to ensure that master Code/Flag
+C> tables have been read into internal memory.
 C>
-C>   OUTPUT ARGUMENT LIST:
-C>     CMEANG   - CHARACTER*(*): IF THE INITIAL SEARCH OF THE TABLE WAS
-C>                SUCCESSFUL, THEN THIS STRING CONTAINS THE MEANING
-C>                CORRESPONDING TO NEMOI AND IVALI (AND TO NEMOD AND
-C>                IVALD, IF SPECIFIED).  HOWEVER, IF THE INITIAL SEARCH
-C>                WAS UNSUCCESSFUL, *AND* IF NO OPTIONAL SECOND MNEMONIC
-C>                AND ASSOCIATED VALUE WERE SPECIFIED ON INPUT, *AND* IF
-C>                THE SECOND SEARCH OF THE TABLE DETERMINED THAT THE
-C>                MEANING OF THE FIRST MNEMONIC AND ASSOCIATED VALUE
-C>                INDEED DEPENDS ON ONE OR MORE OTHER POSSIBLE SECOND
-C>                MNEMONICS, THEN THOSE POSSIBLE SECOND MNEMONICS
-C>                ARE RETURNED WITHIN THIS STRING, AS A SERIES OF IRET
-C>                SUCCESSIVE 8-BYTE SUBSTRINGS 
-C>     LNMNG    - INTEGER: LENGTH OF STRING RETURNED IN MEANING
-C>     IRET     - RETURN CODE:
-C>                   0 = MEANING FOUND AND STORED IN CMEANG STRING
-C>                  -1 = MEANING NOT FOUND
-C>                  >0 = MEANING NOT FOUND, *AND* NEMOD AND IVALD WERE
-C>                       NOT SPECIFIED ON INPUT, *AND* THE MEANING OF
-C>                       NEMOI AND IVALI DEPENDS ON THE VALUE OF ONE OF
-C>                       THE MNEMONICS STORED IN THE FIRST IRET 8-BYTE
-C>                       SUBSTRINGS OF THE CMEANG STRING 
+C> <p>This subroutine can be called at any time after a BUFR message
+C> has been read via subroutine readmg(), readerme() or equivalent, and it
+C> can be called for any code or flag table mnemonic defined within that
+C> particular message.  In most cases, this means that the mnemonic must
+C> be contained within the subset definition (Section 3) of that message.
+C> The only exceptions to this rule are for originating centers,
+C> originating subcenters, data types and data subtypes, since those can
+C> also be contained within the identification section (Section 1) of a
+C> BUFR message.
 C>
-C> REMARKS:
-C>    THIS ROUTINE CALLS:        BORT     IFXY     IREADMT  NEMTAB
-C>                               NUMTBD   PARSTR   SRCHTBF  STATUS
-C>    THIS ROUTINE IS CALLED BY: None
-C>                               Normally called only by application
-C>                               programs.
+C> <p>It is the user's responsibility to provide sufficient allocated
+C> space in CMEANG for the returned meaning string; otherwise, the
+C> returned string will be truncated.
+C>
+C> @remarks
+C> - An example of when secondary mnemonics NEMOD and IVALD would be
+C> required is when a user is searching for the meaning of a numerical
+C> code table value for an originating sub-center (i.e. mnemonic GSES).
+C> The meaning of any originating sub-center value depends on the identity
+C> of the originating center for which the sub-center in question is a
+C> member, so in order for the subroutine to locate and return the proper
+C> one, information about the originating center must also be provided. So
+C> in this case the user would input GSES and the associated numerical
+C> value as NEMOI and IVALI, respectively, but the user would also need to
+C> specify an appropriate originating center mnemonic (e.g. GCLONG, OGCE
+C> or ORIGC) and associated value from the same BUFR message as input
+C> parameters NEMOD and IVALD, respectively, and then the subroutine will
+C> be able to locate and return the appropriate meaning string. Otherwise,
+C> if this information was not provided, the subroutine would return with
+C> an IRET value of 3, and with each of the mnemonics GCLONG, OGCE and
+C> ORIGC contained in successive 8-byte substrings of CMEANG (and with a
+C> corresponding value of 24 returned for LNMNG), as a hint to the user
+C> that more information needs to be input to the subroutine in order to
+C> achieve the desired result.
+C>
+C> <b>Program history log:</b>
+C> - 2018-01-11  J. Ator    -- Original author
+C> - 2018-02-08  J. Ator    -- Add special handling for data types and
+C>                           subtypes in Section 1
 C>
 	SUBROUTINE GETCFMNG ( LUNIT, NEMOI, IVALI, NEMOD, IVALD,
      .			      CMEANG, LNMNG, IRET )
-
-
 
 	USE MODA_TABABD
 
