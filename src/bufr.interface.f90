@@ -1,3 +1,12 @@
+!> @file
+!> @authors Ronald Mclaren
+!> @date 2020-07-29
+!>
+!> @brief This module contains functions which map relevant fortran library
+!>        functions so they can be called from c and c++. The signatures of
+!>        the public functions match their fortran equivalents (please see
+!>        their documentation if you have questions).
+!>
 module bufr_c_interface_mod
 
   use iso_c_binding
@@ -7,15 +16,23 @@ module bufr_c_interface_mod
   private
   public :: open_c, close_c
   public :: openbf_c, closbf_c
+  public :: exitbufr_c
   public :: ireadmg_c
   public :: ireadsb_c
   public :: ufbint_c
   public :: ufbrep_c
   public :: dxdump_c
+  public :: mtinfo_c
 
 contains
 
 !Private
+
+!> @brief This function turns a c string into a fortran string.
+!>
+!> @param[in] c_str - c_char: pointer to a \0 (null) terminated c string
+!> @param[out] f_str - character(:): fortran string
+!>
 function c_f_string(c_str) result(f_str)
   character(kind=c_char,len=1), intent(in) :: c_str(*)
   character(len=:), allocatable :: f_str
@@ -32,6 +49,12 @@ function c_f_string(c_str) result(f_str)
 end function c_f_string
 
 
+!> @brief This subroutine copies a fortran string into a c string buffer.
+!>
+!> @param[in] f_str - character(*): fortran string to be copied
+!> @param[inout] c_str - c_char: c pointer to the target buffer
+!> @param[in] c_str_len - integer: length of the c target buffer
+!>
 subroutine copy_f_c_str(f_str, c_str, c_str_len)
   character(len=*), target, intent(in) :: f_str
   character(kind=c_char, len=1), intent(inout) :: c_str(*)
@@ -77,13 +100,17 @@ subroutine closbf_c(bufr_unit) bind(C, name='closbf_f')
 end subroutine closbf_c
 
 
+subroutine exitbufr_c() bind(C, name='exitbufr_f')
+  call exitbufr()
+end subroutine exitbufr_c
+
+
 function ireadmg_c(bufr_unit, c_subset, iddate, subset_str_len) result(ires) bind(C, name='ireadmg_f')
   integer(c_int), value, intent(in) :: bufr_unit
   character(kind=c_char, len=1), intent(inout) :: c_subset(*)
   integer(c_int), intent(out) :: iddate
   integer(c_int), value, intent(in) :: subset_str_len
   integer(c_int) :: ires
-  integer(c_int) :: subset_len
   character(len=25) :: f_subset
   integer :: ireadmg
 
@@ -133,5 +160,14 @@ subroutine dxdump_c(bufr_unit, table_unit) bind(C, name='dxdump_f')
 
   call dxdump(bufr_unit, table_unit)
 end subroutine dxdump_c
+
+
+subroutine mtinfo_c(path, file_unit_1, file_unit_2) bind(C, name='mtinfo_f')
+  character(kind=c_char, len=1) :: path
+  integer(c_int), value, intent(in) :: file_unit_1
+  integer(c_int), value, intent(in) :: file_unit_2
+
+  call mtinfo(c_f_string(path), file_unit_1, file_unit_2)
+end subroutine mtinfo_c
 
 end module bufr_c_interface_mod
