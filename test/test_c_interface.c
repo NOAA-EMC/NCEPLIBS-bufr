@@ -2,7 +2,7 @@
     @author Ronald Mclaren
     @date 2021-02-26
 
-    @brief This file is a quick test of the c interface of NCEPLIB-bufr.
+    @brief This file is a quick test of bufr_c_interface_mod.
 */
 
 #include <math.h>
