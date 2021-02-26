@@ -1,36 +1,20 @@
 /** @file
-    @author ATOR @date 2005-11-29
-*/
-
-
+ *  @brief Close all system files previously opened via a C language
+ *  interface.
+ */
 #include "bufrlib.h"
 #include "cobfl.h"
 
 /**
-C
-C SUBPROGRAM:    CCBFL
-C   PRGMMR: ATOR             ORG: NP12       DATE: 2005-11-29
-C
-C ABSTRACT:  THIS ROUTINE CLOSES (AND FLUSHES ANY REMAINING OUTPUT TO!)
-C   ANY SYSTEM FILES THAT ARE STILL OPEN FROM ANY PREVIOUS CALLS TO BUFR
-C   ARCHIVE LIBRARY SUBROUTINE COBFL.
-C
-C PROGRAM HISTORY LOG:
-C 2005-11-29  J. ATOR    -- ORIGINAL AUTHOR
-C
-C USAGE:    CALL CCBFL
-C
-C REMARKS:
-C    THIS ROUTINE CALLS:        None
-C    THIS ROUTINE IS CALLED BY: None
-C                               Normally called only by application
-C                               programs.
-C
-C ATTRIBUTES:
-C   LANGUAGE: C
-C   MACHINE:  PORTABLE TO ALL PLATFORMS
-C
-C$$$*/
+ *  This subroutine closes all system files that were opened via
+ *  previous calls to subroutine cobfl(). 
+ *
+ *  @author J. Ator
+ *  @date 2005-11-29
+ *
+ *  <b>Program history log:</b>
+ *  - 2005-11-29  J. Ator    -- Original author
+ */
 void ccbfl( void )
 {
     unsigned short i;

@@ -26,9 +26,9 @@ C>
 C> @author J. Woollen
 C> @date 1994-01-06
 C>
-C> @param[in] LUNIN    - integer: absolute value is Fortran logical
+C> @param[in] LUNIN    - integer: Absolute value is Fortran logical
 C>                       unit number for BUFR file
-C> @param[in,out] USR  - real*8(*,*): data values
+C> @param[in,out] USR  - real*8(*,*): Data values
 C>                         - If ABS(LUNIN) was opened for input, then
 C>                           USR is output from this subroutine and
 C>                           contains data values that were read
@@ -37,7 +37,7 @@ C>                         - If ABS(LUNIN) was opened for output, then
 C>                           USR is input to this subroutine and
 C>                           contains data values that are to be
 C>                           written to the current data subset.
-C> @param[in] I1 - integer: actual first dimension of USR as allocated
+C> @param[in] I1 - integer: Actual first dimension of USR as allocated
 C>                 within the calling program
 C> @param[in] I2 - integer:
 C>                    - If ABS(LUNIN) was opened for input, then I2
@@ -46,9 +46,9 @@ C>                      of USR as allocated within the calling program
 C>                    - If ABS(LUNIN) was opened for output, then I2
 C>                      must be set equal to the number of replications
 C>                      of STR that are to be written to the data subset
-C> @param[out] IRET - integer: number of replications of STR that were
+C> @param[out] IRET - integer: Number of replications of STR that were
 C>                    actually read/written from/to the data subset
-C> @param[in] STR - character*(*): string of blank-separated
+C> @param[in] STR - character*(*): String of blank-separated
 C>                  Table B mnemonics
 C>                  in one-to-one correspondence with the number of data
 C>                  values that will be read/written from/to the data
@@ -87,12 +87,13 @@ C> corresponding mnemonics within the table.
 C>
 C> <p>"Missing" values in USR are always denoted by a unique
 C> placeholder value.  This placeholder value is initially set
-C> internally to a default value of 10E10, but it can be reset to
+C> to a default value of 10E10 via an internal call to subroutine
+C> bfrini(), but it can be reset to
 C> any substitute value of the user's choice via a separate
 C> call to subroutine setbmiss().  In any case, and whenever this
 C> subroutine is used to read data values from an input subset, any
 C> returned value in USR can be easily checked for equivalence to the
-C> current placeholder value via a call to subroutine ibfms(), and a
+C> current placeholder value via a call to function ibfms(), and a
 C> positive result means that the value for the corresponding mnemonic
 C> was encoded as "missing" in BUFR (i.e. all bits set to 1) within the
 C> original data subset.  Conversely, whenever this subroutine
@@ -149,12 +150,6 @@ C> - 2004-08-18  J. Ator    -- Added SAVE for IFIRST1 and IFIRST2 flags
 C> - 2009-03-31  J. Woollen -- Add documentation
 C> - 2009-04-21  J. Ator    -- Use errwrt()
 C> - 2014-12-10  J. Ator    -- Use modules instead of COMMON blocks
-C>
-C> <b>This routine calls:</b> bort()     bort2()    errwrt()  status()
-C>                           string()    ufbrp()
-C>
-C> <b>This routine is called by:</b>None
-C>                     <br>Normally called only by application programs.
 C>
       SUBROUTINE UFBREP(LUNIO,USR,I1,I2,IRET,STR)
 

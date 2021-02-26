@@ -20,11 +20,8 @@ C> -  0 = normal return
 C> -  -1 = end-of-file encountered while reading from LUNT
 C> -  -2 = I/O error encountered while reading from LUNT
 C>
-C> <b>This routine calls:</b> bort2() igetntbl() igetfxy() ifxy()
-C>                      parstr()
-C>
-C> <b>This routine is called by:</b> rdmtbb() rdmtbd() rdmtbf()
-C> <br>Normally not called by any application programs.
+C> <b>Program history log:</b>
+C> - 2007-01-19  J. Ator    -- Original author
 C>
 	SUBROUTINE GETNTBE ( LUNT, IFXYN, LINE, IRET )
 

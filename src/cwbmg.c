@@ -1,44 +1,35 @@
 /** @file
-    @author ATOR @date 2005-11-29
-*/
-
-
+ *  @brief Write a message to a BUFR file that was
+ *  previously opened for writing via a C language interface.
+ */
 #include "bufrlib.h"
 #include "cobfl.h"
 
-/**
-C
-C SUBPROGRAM:    CWBMG
-C   PRGMMR: ATOR             ORG: NP12       DATE: 2005-11-29
-C
-C ABSTRACT:  THIS ROUTINE WRITES A SPECIFIED NUMBER OF BYTES TO THE
-C   SYSTEM FILE MOST RECENTLY OPENED FOR WRITING/OUTPUT VIA BUFR
-C   ARCHIVE LIBRARY ROUTINE COBFL.
-C
-C PROGRAM HISTORY LOG:
-C 2005-11-29  J. ATOR    -- ORIGINAL AUTHOR
-C
-C USAGE:    CALL CWBMG( BMG, NMB, IRET )
-C   INPUT ARGUMENT LIST:
-C     BMG      - CHARACTER*1: ARRAY CONTAINING BYTES TO BE WRITTEN
-C     NMB      - INTEGER: NUMBER OF BYTES WITHIN BMG TO BE WRITTEN
-C
-C   OUTPUT ARGUMENT LIST:
-C     IRET     - INTEGER: RETURN CODE:
-C                  0 = normal return
-C                 -1 = I/O error occurred while writing
-C
-C REMARKS:
-C    THIS ROUTINE CALLS:        BORT
-C    THIS ROUTINE IS CALLED BY: None
-C                               Normally called only by application
-C                               programs.
-C
-C ATTRIBUTES:
-C   LANGUAGE: C
-C   MACHINE:  PORTABLE TO ALL PLATFORMS
-C
-C$$$*/
+/** 
+ *  This subroutine writes a BUFR message to the system
+ *  file that was opened via the most recent call to subroutine
+ *  cobfl() with io = 'w'.
+ *  
+ *  @author J. Ator
+ *  @date 2005-11-29
+ *
+ *  @param[in] bmg     - char*: BUFR message to be written
+ *  @param[in] nmb     - f77int: Size (in bytes) of BUFR message
+ *                        in bmg
+ *  @param[out] iret    - f77int: return code
+ *                         - 0 = normal return
+ *                         - -1 = I/O error encountered while writing
+ *
+ * <p>This subroutine is designed to be easily callable from
+ * application program written in either C or Fortran.
+ *
+ * <p>The file to which the message is to be written must have already
+ * been opened for writing via a previous call to subroutine cobfl()
+ * with io = 'w'.
+ *
+ *  <b>Program history log:</b>
+ *  - 2005-11-29  J. Ator    -- Original author
+ */
 void cwbmg( char *bmg, f77int *nmb, f77int *iret )
 {
     char errstr[129];

@@ -1,58 +1,46 @@
 C> @file
-C> @author WOOLLEN @date 1994-01-06
-      
-C> THIS SUBROUTINE FIGURES OUT SOME IMPORTANT INFORMATION
-C>   ABOUT THE LOCAL MACHINE ON WHICH THE BUFR ARCHIVE LIBRARY SOFTWARE
-C>   IS BEING RUN AND STORES THIS INTO COMMON BLOCK /HRDWRD/.  SUCH
-C>   INFORMATION INCLUDES DETERMINING THE NUMBER OF BITS AND THE NUMBER
-C>   OF BYTES IN A MACHINE WORD AS WELL AS DETERMINING WHETHER THE
-C>   MACHINE USES THE ASCII OR EBCDIC CHARACTER SET.
+C> @brief Determine important information about the local machine.
+
+C> This subroutine figures out some important information about the
+C> local machine on which the BUFRLIB software is being run, including
+C> the native endianness, the number of bytes in a machine word, and
+C> whether the machine uses the ASCII or EBCDIC character set.
 C>
-C>   NOTE: IT IS ONLY NECESSARY FOR THIS SUBROUTINE TO BE CALLED ONCE,
-C>   AND THIS IS NORMALLY DONE DURING THE FIRST CALL TO BUFR ARCHIVE
-C>   LIBRARY SUBROUTINE OPENBF.  HOWEVER, THE SUBROUTINE DOES KEEP TRACK
-C>   OF WHETHER IT HAS ALREADY BEEN CALLED; THUS, IF IT IS CALLED AGAIN
-C>   LATER BY A DIFFERENT BUFR ARCHIVE LIBRARY SUBROUTINE, IT WILL JUST
-C>   QUIETLY RETURN WITHOUT (RE)COMPUTING ALL OF THE INFORMATION WITHIN
-C>   COMMON BLOCK /HRDWRD/.
+C> <p>This subroutine isn't normally called directly by any
+C> application program, because it's automatically called internally
+C> from within subroutine openbf() during the first time that subroutine
+C> is called by any application program.  It's also called as needed
+C> from within several other subroutines, but it always keeps track of
+C> its results as well as whether it has already been called during
+C> the life of an application program, and that way if it does end
+C> up being called more than once, it will just quietly return without
+C> having to recompute all of its results from the first call.
 C>
-C> PROGRAM HISTORY LOG:
-C> 1994-01-06  J. WOOLLEN -- ORIGINAL AUTHOR
-C> 1998-07-08  J. WOOLLEN -- REPLACED CALL TO CRAY LIBRARY ROUTINE
-C>                           "ABORT" WITH CALL TO NEW INTERNAL BUFRLIB
-C>                           ROUTINE "BORT"
-C> 2003-11-04  J. ATOR    -- ADDED DOCUMENTATION
-C> 2003-11-04  S. BENDER  -- ADDED REMARKS/BUFRLIB ROUTINE
-C>                           INTERDEPENDENCIES
-C> 2003-11-04  D. KEYSER  -- UNIFIED/PORTABLE FOR WRF; ADDED HISTORY
-C>                           DOCUMENTATION; OUTPUTS MORE COMPLETE
-C>                           DIAGNOSTIC INFO WHEN ROUTINE TERMINATES
-C>                           ABNORMALLY OR FOR INFORMATIONAL PURPOSES;
-C>                           NBYTW INITIALIZED AS ZERO THE FIRST TIME
-C>                           THIS ROUTINE IS CALLED (BEFORE WAS
-C>                           UNDEFINED WHEN FIRST REFERENCED)
-C> 2004-08-18  J. ATOR    -- ADDED SAVE FOR IFIRST FLAG AND IMMEDIATE
-C>                           RETURN IF IFIRST=1
-C> 2007-01-19  J. ATOR    -- BIG-ENDIAN VS. LITTLE-ENDIAN IS NOW
-C>                           DETERMINED AT COMPILE TIME AND CONFIGURED
-C>                           WITHIN BUFRLIB VIA CONDITIONAL COMPILATION
-C>                           DIRECTIVES
-C> 2009-03-23  J. ATOR    -- CALL BVERS TO GET VERSION NUMBER
+C> @authors J. Woollen
+C> @authors J. Ator
+C> @date 1994-01-06
 C>
-C> USAGE:    CALL WRDLEN
-C>
-C> REMARKS:
-C>    THIS ROUTINE CALLS:        BORT     BVERS    ERRWRT   IUPM
-C>    THIS ROUTINE IS CALLED BY: COBFL    COPYBF   DATEBF   DATELEN
-C>                               DUMPBF   IUPBS01  MESGBC   MESGBF
-C>                               OPENBF   RDMTBB   RDMTBD   RDMTBF
-C>                               UPDS3
-C>                               Normally not called by any application
-C>                               programs.
+C> <b>Program history log:</b>
+C> - 1994-01-06  J. Woollen -- Original author
+C> - 1998-07-08  J. Woollen -- Replaced call to Cray library routine ABORT
+C>                             with call to new internal routine bort()
+C> - 2003-11-04  J. Ator    -- Added documentation
+C> - 2003-11-04  S. Bender  -- Added remarks and routine interdependencies
+C> - 2003-11-04  D. Keyser  -- Unified/portable for WRF; added history
+C>                             documentation; outputs more complete
+C>                             diagnostic info when routine terminates
+C>                             abnormally, unusual things happen or for
+C>                             informational purposes; initialized NBYTW
+C>                             to zero during the first call
+C> - 2004-08-18  J. Ator    -- Added SAVE For IFIRST flag and immediate
+C>                           return if IFIRST=1
+C> - 2007-01-19  J. Ator    -- Big-endian vs. little-endian is now
+C>                           determined at compile time and configured
+C>                           within BUFRLIB via conditional compilation
+C>                           directives
+C> - 2009-03-23  J. Ator    -- Call bvers() to get version number
 C>
       SUBROUTINE WRDLEN
-
-
 
       COMMON /HRDWRD/ NBYTW,NBITW,IORD(8)
       COMMON /CHARAC/ IASCII,IATOE(0:255),IETOA(0:255)

@@ -29,11 +29,6 @@ C> - 2017-04-03  J. Ator    -- Updated to version 11.3.0
 C> - 2020-10-21  J. Ator    -- Updated to use PROJECT_VERSION
 C>                           macro from CMake
 C>
-C> <b>This routine calls:</b> bort()
-C>
-C> <b>This routine is called by:</b> wrdlen()
-C>      <br>Also called by application programs.
-C>
 	SUBROUTINE BVERS (CVERSTR)
 
 	CHARACTER*(*)	CVERSTR

@@ -83,9 +83,11 @@ list(APPEND test_OUT_5_srcs
 
 # Install testing scripts
 list(APPEND test_scripts
-  test_wrapper.sh
+  test_wrapper_IN.sh
+  test_wrapper_OUT.sh
   test_gettab.sh
   test_split_by_subset.sh
+  test_debufr.sh
 )
 
 foreach(test_script ${test_scripts})
@@ -96,12 +98,12 @@ endforeach()
 
 function(bufr_add_test TESTNAME EXENAME)
   add_test(NAME ${TESTNAME}
-           COMMAND ${CMAKE_BINARY_DIR}/bin/test_wrapper.sh ${EXENAME})
+           COMMAND ${CMAKE_BINARY_DIR}/bin/test_wrapper_OUT.sh ${EXENAME})
 endfunction()
 
 function(bufr_add_test_preAPX TESTNAME EXENAME)
   add_test(NAME ${TESTNAME}
-           COMMAND ${CMAKE_BINARY_DIR}/bin/test_wrapper.sh ${EXENAME} "Y")
+           COMMAND ${CMAKE_BINARY_DIR}/bin/test_wrapper_OUT.sh ${EXENAME} "Y")
 endfunction()
 
 # test all "4" (4 byte real, 4 byte int) DYNAMIC_ALLOCATION builds
@@ -120,7 +122,7 @@ foreach(test_src ${test_IN_srcs})
                                                  "${fortran_${kind}_flags}")
     add_dependencies(${test_exe} bufr_${kind})
     target_link_libraries(${test_exe} PUBLIC bufr::bufr_${kind})
-    add_test(NAME ${test} COMMAND ${test_exe})
+    add_test(NAME ${test} COMMAND ${CMAKE_BINARY_DIR}/bin/test_wrapper_IN.sh ${test_exe})
   endforeach()
 endforeach()
 
@@ -185,6 +187,15 @@ endforeach()
 
 
 # Test utilities
+
+# Test debufr.x utility
+add_test(NAME test_debufr_1
+  COMMAND ${CMAKE_BINARY_DIR}/bin/test_debufr.sh "${CMAKE_BINARY_DIR}/utils/debufr.x -t ../tables" "testfiles/data/debufr_1" "testrun/debufr_1.run" "testfiles/testoutput/debufr_1.out"
+  )
+add_test(NAME test_debufr_2
+  COMMAND ${CMAKE_BINARY_DIR}/bin/test_debufr.sh "${CMAKE_BINARY_DIR}/utils/debufr.x -t testfiles/data -f bufrtab.031 -c" "testfiles/data/debufr_2" "testrun/debufr_2.run" "testfiles/testoutput/debufr_2.out"
+  )
+
 # Test gettab.x utility
 add_test(NAME test_gettab
   COMMAND ${CMAKE_BINARY_DIR}/bin/test_gettab.sh "${CMAKE_BINARY_DIR}/utils/gettab.x testfiles/data/1bamua" "testrun/1bamua.table.run" "testfiles/testoutput/1bamua.table.out"

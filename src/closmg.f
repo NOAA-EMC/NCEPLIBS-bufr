@@ -10,7 +10,7 @@ C> @authors J. Woollen
 C> @authors D. Keyser
 C> @date 1994-01-06
 C>
-C> @param[in] LUNIN  - integer: absolute value is Fortran logical unit
+C> @param[in] LUNIN  - integer: Absolute value is Fortran logical unit
 C>                     number for BUFR file
 C>
 C> <p>Logical unit ABS(LUNIN) should have already been opened for output
@@ -49,13 +49,6 @@ C> - 2005-05-26  D. Keyser -- Add LUNIN < 0 option to suppress writing
 C>                          of all future zero-subset messsages to
 C>                          ABS(LUNIN)
 C> - 2014-12-10  J. Ator  -- Use modules instead of COMMON blocks
-C>
-C> <b>This routine calls:</b> bort()   msgwrt()   status()   wrcmps()
-C>                            wtstat()
-C>
-C> <b>This routine is called by:</b> closbf()   makestab() openmb()
-C>                               openmg() writsa()
-C>                           <br>Also called by application programs.
 C>
       SUBROUTINE CLOSMG(LUNIN)
 

@@ -1,61 +1,58 @@
 C> @file
-C> @author WOOLLEN @date 1994-01-06
-      
-C> THIS SUBROUTINE IS CALLED ONLY ONE TIME (DURING THE FIRST
-C>   CALL TO BUFR ARCHIVE LIBRARY SUBROUTINE OPENBF) IN ORDER TO
-C>   INITIALIZE SOME GLOBAL VARIABLES AND ARRAYS WITHIN SEVERAL COMMON
-C>   BLOCKS.
+C> @brief Initialize global variables and arrays within internal memory.
+
+C> This subroutine initializes numerous global variables and arrays
+C> within internal modules and COMMON blocks throughout the BUFRLIB
+C> software.
 C>
-C> PROGRAM HISTORY LOG:
-C> 1994-01-06  J. WOOLLEN -- ORIGINAL AUTHOR
-C> 1995-06-28  J. WOOLLEN -- INCREASED THE SIZE OF INTERNAL BUFR TABLE
-C>                           ARRAYS IN ORDER TO HANDLE BIGGER FILES
-C> 1998-07-08  J. WOOLLEN -- MODIFIED TO MAKE Y2K COMPLIANT
-C> 1999-11-18  J. WOOLLEN -- THE NUMBER OF BUFR FILES WHICH CAN BE
-C>                           OPENED AT ONE TIME INCREASED FROM 10 TO 32
-C>                           (NECESSARY IN ORDER TO PROCESS MULTIPLE
-C>                           BUFR FILES UNDER THE MPI)
-C> 2000-09-19  J. WOOLLEN -- MAXIMUM MESSAGE LENGTH INCREASED FROM
-C>                           10,000 TO 20,000 BYTES
-C> 2003-11-04  J. ATOR    -- ADDED DOCUMENTATION
-C> 2003-11-04  S. BENDER  -- ADDED REMARKS/BUFRLIB ROUTINE
-C>                           INTERDEPENDENCIES
-C> 2003-11-04  D. KEYSER  -- MAXJL (MAXIMUM NUMBER OF JUMP/LINK ENTRIES)
-C>                           INCREASED FROM 15000 TO 16000 (WAS IN
-C>                           VERIFICATION VERSION); INITIALIZES
-C>                           VARIABLE JSR AS ZERO IN NEW COMMON BLOCK
-C>                           /BUFRSR/ (WAS IN VERIFICATION VERSION);
-C>                           UNIFIED/PORTABLE FOR WRF; ADDED HISTORY
-C>                           DOCUMENTATION
-C> 2004-08-18  J. ATOR    -- ADDED INITIALIZATION OF COMMON /MSGSTD/;
-C>                           MAXIMUM MESSAGE LENGTH INCREASED FROM
-C>                           20,000 TO 50,000 BYTES
-C> 2005-11-29  J. ATOR    -- ADDED INITIALIZATION OF COMMON /MSGCMP/
-C>			    AND CALLS TO PKVS1 AND PKVS01
-C> 2009-03-23  J. ATOR    -- ADDED INITIALIZATION OF COMMON /DSCACH/,
-C>                           COMMON /MSTINF/ AND COMMON /TNKRCP/
-C> 2012-09-15  J. WOOLLEN -- MODIFIED FOR C/I/O/BUFR INTERFACE,
-C>                           ADDED INITIALIZATION OF COMMON BLOCKS
-C>                           /ENDORD/ AND /BUFRBMISS/
-C> 2014-09-15  J. ATOR    -- CHANGE DEFAULT LOCATION OF MTDIR
-C> 2014-11-18  J. ATOR    -- ADDED INITIALIZATION OF MODULES MSGLIM
-C>                           AND USRINT; REMOVE S01CM INITIALIZATION
-C> 2016-11-29  J. ATOR    -- EXPLICITLY INITIALIZE BMISS AS 10E10_8
-C> 2017-10-13  J. ATOR    -- ADDED INITIALIZATION OF COMMON /TABLEF/
-C> 2019-05-03  J. ATOR    -- CHANGE DEFAULT LOCATION OF MTDIR
-C> 2019-05-09  J. ATOR    -- ADDED DIMENSIONS FOR MSGLEN
+C> <p>This subroutine isn't normally called directly by any
+C> application program, because it's automatically called internally
+C> from within subroutine openbf() during the first time that subroutine
+C> is called by any application program.
 C>
-C> USAGE:    CALL BFRINI
+C> @authors J. Woollen
+C> @authors J. Ator
+C> @date 1994-01-06
 C>
-C> REMARKS:
-C>    THIS ROUTINE CALLS:        IFXY     IPKM
-C>    THIS ROUTINE IS CALLED BY: OPENBF
-C>                               Normally not called by any application
-C>                               programs.
+C> <b>Program history log:</b>
+C> - 1994-01-06  J. Woollen -- Original author
+C> - 1995-06-28  J. Woollen -- Increased the size of internal BUFR table
+C>                           arrays in order to handle bigger files
+C> - 1998-07-08  J. Woollen -- Modified to make Y2K-compliant
+C> - 1999-11-18  J. Woollen -- The number of BUFR files which can be
+C>                             opened at one time increased from 10 to 32
+C>                             (necessary in order to process multiple
+C>                             BUFR files under the MPI)
+C> - 2000-09-19  J. Woollen -- Maximum message length increased from
+C>                           10,000 to 20,000 bytes
+C> - 2003-11-04  J. Ator    -- Added documentation
+C> - 2003-11-04  S. Bender  -- Added remarks and routine interdependencies
+C> - 2003-11-04  D. Keyser  -- MAXJL (maximum number of jump/link entries)
+C>                           increased from 15000 to 16000 (was in
+C>                           verification version); initialize
+C>                           variable JSR to zero in new COMMON block
+C>                           /BUFRSR/ (was in verification version);
+C>                           unified/portable for WRF; added history
+C>                           documentation
+C> - 2004-08-18  J. Ator    -- Added initialization of COMMON /MSGSTD/;
+C>                           maximum message length increased from
+C>                           20,000 to 50,000 bytes
+C> - 2005-11-29  J. Ator    -- Added initialization of COMMON /MSGCMP/
+C>			    and calls to pkvs1 and pkvs01()
+C> - 2009-03-23  J. Ator    -- Added initialization of COMMON /DSCACH/,
+C>                           COMMON /MSTINF/ and COMMON /TNKRCP/
+C> - 2012-09-15  J. Woollen -- Modified for C/I/O/BUFR interface,
+C>                           added initialization of COMMON blocks
+C>                           /ENDORD/ and /BUFRBMISS/
+C> - 2014-09-15  J. Ator    -- Change default location of MTDIR
+C> - 2014-11-18  J. Ator    -- Added initialization of modules MSGLIM
+C>                           and USRINT; remove S01CM initialization
+C> - 2016-11-29  J. Ator    -- Explicitly initialize BMISS as 10E10_8
+C> - 2017-10-13  J. Ator    -- Added initialization of COMMON /TABLEF/
+C> - 2019-05-03  J. Ator    -- Change default location of MTDIR
+C> - 2019-05-09  J. Ator    -- Added dimensions for MSGLEN
 C>
       SUBROUTINE BFRINI
-
-
 
       USE MODA_STBFR
       USE MODA_IDRDM

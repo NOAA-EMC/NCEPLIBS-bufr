@@ -1,8 +1,7 @@
 /** @file
-    @author ATOR @date 2005-11-29
-*/
-
-
+ *  @brief Open a new system file for reading or writing BUFR
+ *  messages via a C language interface.
+ */
 #include "bufrlib.h"
 #define IN_COBFL
 #include "cobfl.h"
@@ -10,43 +9,70 @@
 #define MXFNLEN 500
 
 /**
-C
-C SUBPROGRAM:    COBFL
-C   PRGMMR: ATOR             ORG: NP12       DATE: 2005-11-29
-C
-C ABSTRACT:  THIS ROUTINE OPENS A SPECIFIED SYSTEM FILE FOR READING
-C   OR WRITING VIA THE BUFR ARCHIVE LIBRARY C I/O INTERFACE.  THERE
-C   CAN BE AT MOST TWO SYSTEM FILES OPEN AT ANY GIVEN TIME (ONE FOR
-C   READING/INPUT AND ONE FOR WRITING/OUTPUT).  IF A CALL TO THIS
-C   ROUTINE IS MADE FOR EITHER READING/INPUT OR WRITING/OUTPUT AND
-C   SUCH A FILE IS ALREADY OPEN TO THE BUFR ARCHIVE LIBRARY C I/O
-C   INTERFACE, THEN THAT FILE WILL BE CLOSED BEFORE OPENING THE
-C   NEW ONE.
-C
-C PROGRAM HISTORY LOG:
-C 2005-11-29  J. ATOR    -- ORIGINAL AUTHOR
-C
-C USAGE:    CALL COBFL( BFL, IO )
-C   INPUT ARGUMENT LIST:
-C     BFL      - CHARACTER*(*): SYSTEM FILE TO BE OPENED. INCLUSION
-C                OF DIRECTORY PREFIXES OR OTHER LOCAL FILESYSTEM
-C                NOTATION IS ALLOWED UP TO 500 TOTAL CHARACTERS.
-C     IO       - CHARACTER: FLAG INDICATING HOW BFL IS TO BE OPENED
-C                FOR USE WITH THE C I/O INTERFACE:
-C                   'r' = READING (INPUT)
-C                   'w' = WRITING (OUTPUT)
-C
-C REMARKS:
-C    THIS ROUTINE CALLS:        BORT     WRDLEN
-C    THIS ROUTINE IS CALLED BY: None
-C                               Normally called only by application
-C                               programs.
-C
-C ATTRIBUTES:
-C   LANGUAGE: C
-C   MACHINE:  PORTABLE TO ALL PLATFORMS
-C
-C$$$*/
+ *  This subroutine opens a new file for reading or writing BUFR
+ *  messages via a C language interface.
+ *
+ *  @author J. Ator
+ *  @date 2005-11-29
+ *
+ *  @param[in] bfl   - char*: System file to be opened.
+ *                     Inclusion of directory prefixes or other
+ *                     local filesystem notation is allowed, up
+ *                     to 500 total characters.
+ *  @param[in]  io   - char: Flag indicating how bfl is to
+ *                     be opened:
+ *                      - 'r' = input (for reading BUFR messages) 
+ *                      - 'w' = output (for writing BUFR messages)
+ *
+ *  <p>This subroutine is designed to be easily callable from
+ *  application program written in either C or Fortran. 
+ *  It is functionally equivalent to subroutine
+ *  openbf(); however, there are some important differences:
+ *  - When using openbf(), the underlying file must already be
+ *    associated with a Fortran logical unit number on the local
+ *    system, typicially via a prior Fortran "OPEN" statement.
+ *    This is not required when using this subroutine.
+ *  - When using this subroutine, it is only possible to have at most
+ *    one input (io = 'r') file and one output (io = 'w') file open
+ *    at a time. If a successive call to this subroutine is made in
+ *    either case where a file of that type is already open, then
+ *    the subroutine will automatically close the previous file of
+ *    that type before opening the new one.
+ *  - When opening a file for input/reading using openbf(), the
+ *    user can make subsequent calls to readmg() or readns() to read
+ *    individual BUFR messages from that file into internal arrays,
+ *    followed by subsequent calls to readsb() to read individual
+ *    subsets from each such message.  However, when opening a
+ *    file for input/reading using
+ *    this subroutine, the user must instead make subsequent calls
+ *    to crbmg() to read individual BUFR messages from that file, and
+ *    each such message will be returned directly to the user within
+ *    an allocated memory array.  The user may then, if desired,
+ *    make subsequent calls to readerme() to store each such
+ *    message into the same internal arrays, followed by subsequent
+ *    calls to readsb() to read individual subsets from each such
+ *    message.
+ *  - When opening a file for output/writing using openbf(), the
+ *    user can make subsequent successive calls to writsb() to
+ *    pack each completed data subset into the BUFR message that
+ *    is currently open within the internal arrays, for eventual
+ *    output to that file.  However, when opening a file for
+ *    output/writing using this subroutine, the user can instead,
+ *    if desired, make subsequent successive calls to writsa() to
+ *    pack each completed data subset into the BUFR message that
+ *    is currently open within the internal arrays. The use of
+ *    writsa() will cause each completed BUFR message to be
+ *    returned directly to the user within an allocated memory
+ *    array, which in turn can then be written directly to the file
+ *    via a subsequent call to cwbmg().
+ *
+ *  <p>Any errors encountered when using this subroutine are
+ *  automatically logged to standard output, or to an alternate
+ *  location previously specified via a call to subroutine errwrt().
+ *  
+ *  <b>Program history log:</b>
+ *  - 2005-11-29  J. Ator    -- Original author
+ */
 void cobfl( char *bfl, char *io )
 {
     char lbf[MXFNLEN+1];

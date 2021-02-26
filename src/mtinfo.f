@@ -1,35 +1,47 @@
 C> @file
-C> @author ATOR @date 2009-03-23
-      
-C> THIS SUBROUTINE IS USED TO SPECIFY THE DIRECTORY LOCATION
-C>   AND FORTRAN LOGICAL UNIT NUMBERS TO USE WHEN READING BUFR MASTER
-C>   TABLES ON THE LOCAL FILE SYSTEM.  THE INPUT LOGICAL UNIT NUMBERS
-C>   SHOULD BE UNIQUE BUT SHOULD NOT ALREADY BE ASSIGNED TO ANY ACTUAL
-C>   BUFR MASTER TABLE FILES.  IF THIS SUBROUTINE IS NOT CALLED, THEN
-C>   DEFAULT VALUES ARE USED AS DEFINED WITHIN BUFR ARCHIVE LIBRARY
-C>   SUBROUTINE BFRINI.
+C> @brief Specify location of master BUFR tables on local file system
+
+C> This subroutine allows the specification of the directory location
+C> and Fortran logical unit numbers to be used when reading master
+C> BUFR tables on the local file system.
 C>
-C> PROGRAM HISTORY LOG:
-C> 2009-03-23  J. ATOR    -- ORIGINAL AUTHOR
+C> @author J. Ator
+C> @date 2009-03-23
 C>
-C> USAGE:    CALL MTINFO ( CMTDIR, LUNMT1, LUNMT2 )
-C>   INPUT ARGUMENT LIST:
-C>     CMTDIR   - CHARACTER*(*): DIRECTORY LOCATION OF BUFR MASTER TABLES
-C>                ON LOCAL FILE SYSTEM (UP TO 100 CHARACTERS)
-C>     LUNMT1   - INTEGER: FIRST FORTRAN LOGICAL UNIT NUMBER TO USE WHEN
-C>                READING BUFR MASTER TABLES ON LOCAL FILE SYSTEM
-C>     LUNMT2   - INTEGER: SECOND FORTRAN LOGICAL UNIT NUMBER TO USE WHEN
-C>                READING BUFR MASTER TABLES ON LOCAL FILE SYSTEM
+C> @param[in] CMTDIR   - character*(*): Directory location of master
+C>                          BUFR tables on local file system
+C>                          (up to 100 characters)
+C> @param[in] LUNMT1   - integer: First Fortran logical unit number
+C>                          to use when reading master BUFR tables on
+C>                          local file system
+C> @param[in] LUNMT2   - integer: Second Fortran logical unit number
+C>                          to use when reading master BUFR tables on
+C>                          local file system
 C>
-C> REMARKS:
-C>    THIS ROUTINE CALLS:        BORT2    STRSUC
-C>    THIS ROUTINE IS CALLED BY: None
-C>                               Normally called only by application
-C>                               programs.
+C> <p>See [Master BUFR Tables](@ref dfbfmstab)
+C> for more information about master BUFR tables.  In particular, note
+C> that this subroutine is normally only ever called after a prior call
+C> has been made to subroutine openbf() with IO = 'SEC3'.  But in such
+C> cases, any call to this subroutine must be made prior to any
+C> subsequent calls to any of the BUFR message-reading subroutines
+C> (e.g. readmg(), readns(), readerme() ) for the associated BUFR file;
+C> otherwise, default values for CMTDIR, LUNMT1 and LUNMT2 will be used
+C> as defined within subroutine bfrini().  
+C>
+C> <p>For CMTDIR, any full or relative directory pathname that is legal
+C> on the local filesystem is permissible, up to a total maximum length
+C> of 100 characters.  The BUFRLIB software will then automatically search
+C> within this directory for any necessary master table files and open and
+C> read them as needed.
+C> 
+C> <p>The logical unit numbers LUNMT1 and LUNMT2 should be distinct from
+C> each other but should not already be assigned to any files on the
+C> local system.
+C>
+C> <b>Program history log:</b>
+C> - 2009-03-23  J. Ator    -- Original author
 C>
       SUBROUTINE MTINFO ( CMTDIR, LUNMT1, LUNMT2 )
-
-
 
       COMMON /MSTINF/ LUN1, LUN2, LMTD, MTDIR
 

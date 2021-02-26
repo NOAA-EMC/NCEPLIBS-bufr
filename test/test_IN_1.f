@@ -5,7 +5,7 @@
 
 	PARAMETER	( MXR8PM = 10 )
 	PARAMETER	( MXR8LV = 255 )
-	
+
 	REAL*8		r8arr ( MXR8PM, MXR8LV )
 
 	INTEGER		ibfmg ( MXBFD4 )
@@ -38,7 +38,7 @@ C*	Open the test file.
 
 	print *, '        OPENBF -> OK'
 
-	CALL MTINFO ( 'testfiles', 90, 91 )
+	CALL MTINFO ( '../tables', 90, 91 )
 	print *, '        MTINFO -> OK'
 
 C*	Read the BUFR message from the BUFR file.

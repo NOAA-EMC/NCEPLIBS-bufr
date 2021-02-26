@@ -1,45 +1,43 @@
 C> @file
-C> @author WOOLLEN @date 1998-07-08
-      
-C> THIS SUBROUTINE IS USED TO SPECIFY THE LENGTH OF DATE-TIME
-C>   VALUES THAT WILL BE OUTPUT BY FUTURE CALLS TO ANY OF THE BUFR
-C>   ARCHIVE LIBRARY SUBROUTINES WHICH READ BUFR MESSAGES (E.G. READMG,
-C>   READERME, ETC.).  POSSIBLE VALUES ARE "8" (WHICH IS THE DEFAULT)
-C>   AND "10".
+C> @brief Specify format of Section 1 date-time when reading
+C> BUFR messages.
+
+C> This subroutine is used to specify the format of Section 1
+C> date-time values that will be output by future calls to
+C> any of the BUFRLIB subroutines which read BUFR messages,
+C> such as readmg() or readerme().
+C> 
+C> @author J. Woollen
+C> @date 1998-07-08
 C>
-C> PROGRAM HISTORY LOG:
-C> 1998-07-08  J. WOOLLEN -- ORIGINAL AUTHOR (ENTRY POINT IN READMG)
-C> 2002-05-14  J. WOOLLEN -- CHANGED FROM AN ENTRY POINT TO INCREASE
-C>                           PORTABILITY TO OTHER PLATFORMS
-C> 2003-11-04  J. ATOR    -- ADDED DOCUMENTATION
-C> 2003-11-04  S. BENDER  -- ADDED REMARKS/BUFRLIB ROUTINE
-C>                           INTERDEPENDENCIES
-C> 2003-11-04  D. KEYSER  -- UNIFIED/PORTABLE FOR WRF; ADDED HISTORY
-C>                           DOCUMENTATION; OUTPUTS MORE COMPLETE
-C>                           DIAGNOSTIC INFO WHEN ROUTINE TERMINATES
-C>                           ABNORMALLY
-C> 2004-12-20  D. KEYSER  -- CALLS WRDLEN TO INITIALIZE LOCAL MACHINE
-C>                           INFORMATION (IN CASE IT HAS NOT YET BEEN
-C>                           CALLED), THIS ROUTINE DOES NOT REQUIRE IT
-C>                           BUT IT MAY SOMEDAY CALL OTHER ROUTINES THAT
-C>                           DO REQUIRE IT
+C> @param[in] LEN -   integer: Length of Section 1 date-time
+C>                    values to be output by all future calls
+C>                    to readmg(), readerme(), etc.
+C>                    -  8 = YYMMDDHH format with 2-digit year
+C>                           (the default)
+C>                    - 10 = YYYYMMDDHH format with 4-digit year
 C>
-C> USAGE:    CALL DATELEN (LEN)
-C>   INPUT ARGUMENT LIST:
-C>     LEN      - INTEGER: LENGTH OF DATE-TIME VALUES TO BE OUTPUT BY
-C>                READ SUBROUTINES:  *
-C>                       8 =   YYMMDDHH (2-digit year)
-C>                      10 = YYYYMMDDHH (4-digit year)
+C> <p>This subroutine can be called at any time from within the
+C> application program, and the specified value for LEN will remain
+C> in effect for all future calls to any of the BUFRLIB subroutines
+C> which read BUFR messages, unless a subsequent call is made to this
+C> subroutine to reset the value of LEN again.  If this subroutine is
+C> never called, a default value of 8 is used for LEN, as set within
+C> subroutine bfrini().
 C>
-C> REMARKS:
-C>    THIS ROUTINE CALLS:        BORT     WRDLEN
-C>    THIS ROUTINE IS CALLED BY: None
-C>                               Normally called only by application
-C>                               programs.
+C> <b>Program history log:</b>
+C> - 1998-07-08  J. Woollen -- Original author
+C> - 2002-05-14  J. Woollen -- Changed from an entry point in readmg()
+C>                           to stand-alone subroutine, to increase
+C>                           portability to other platforms
+C> - 2003-11-04  J. Ator    -- Added documentation
+C> - 2004-12-20  D. Keyser  -- Calls wrdlen() to initialize local machine
+C>                           information (in case it has not yet been
+C>                           called), this routine does not require it
+C>                           but it may someday call other routines that
+C>                           do require it
 C>
       SUBROUTINE DATELEN(LEN)
-
-
 
       COMMON /DATELN/ LENDAT
 

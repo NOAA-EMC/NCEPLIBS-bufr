@@ -1,31 +1,39 @@
 C> @file
-C> @author WOOLLEN @date 2012-09-15
-      
-C> SETBMISS WILL ALLOW AN APPLICATION TO DEFINE THE SPECIAL
-C>           VALUE "BMISS" WHICH DENOTES MISSING VALUES BOTH FOR READING
-C>           FROM BUFR FILES AND FOR WRITING TO BUFR FILES. THE DEFAULT
-C>           BUFRLIB MISSING VALUE IS SET TO 10E10 IN SUBROUTINE BFRINI.
+C> @brief Define a customized placeholder value for "missing" data
+
+C> This subroutine allows the user to specify a customized value to
+C> represent "missing" data when reading from or writing to BUFR files.
 C>
-C> PROGRAM HISTORY LOG:
-C> 2012-09-15  J. WOOLLEN -- ORIGINAL AUTHOR
+C> @author J. Woollen
+C> @date 2012-09-15
 C>
-C> USAGE:    CALL SETBMISS(XMISS)
+C> @param[in] XMISS - real*8: new placeholder value to represent
+C>                    "missing" data
 C>
-C>   INPUT ARGUMENTS:
-C>     XMISS - REAL*8 MISSING VALUE TO BE USED
+C> <p>This subroutine can be called at any time from within an
+C> application program, and the value XMISS will then be treated as
+C> "missing" when reading or writing BUFR data during all future
+C> calls to subroutines ufbint(), ufbrep(), ufbseq(), etc.
+C> Otherwise, if this subroutine is never called, a default
+C> placeholder value of 10E10 is used for "missing", as set via
+C> an initial internal call to subroutine bfrini().
 C>
-C>   OUTPUT ARGUMENTS:
+C> <p>Any data value can always be checked for equivalence to the
+C> current "missing" value via a call to function ibfms().  See also
+C> function getbmiss().
 C>
-C> REMARKS:
-C>    THIS ROUTINE CALLS: OPENBF
-C>
-C>    THIS ROUTINE IS CALLED BY: None
-C>                               (Normally called only by application
-C>                               programs)
+C> @remarks
+C> - The value XMISS is never actually encoded within a BUFR data
+C> subset; rather, XMISS is a user-friendly placeholder value to
+C> represent "missing" data values within the scope of the
+C> application program.  In any actual BUFR data subset, "missing"
+C> values are always encoded as all bits set to 1, per WMO
+C> regulations.
+C> 
+C> <b>Program history log:</b>
+C> - 2012-09-15  J. Woollen -- Original author
 C>
       SUBROUTINE SETBMISS(XMISS)
-
-
 
       INCLUDE 'bufrlib.inc'
 

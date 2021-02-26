@@ -1,52 +1,48 @@
 /** @file
-    @author ATOR @date 2005-11-29
-*/
-
-
+ *  @brief Read the next message from a BUFR file that was
+ *  previously opened for reading via a C language interface.
+ */
 #include "bufrlib.h"
 #include "cobfl.h"
 
-/**
-C
-C SUBPROGRAM:    CRBMG
-C   PRGMMR: ATOR             ORG: NP12       DATE: 2005-11-29
-C
-C ABSTRACT:  THIS ROUTINE READS THE NEXT BUFR MESSAGE FROM THE SYSTEM
-C   FILE MOST RECENTLY OPENED FOR READING/INPUT VIA BUFR ARCHIVE LIBRARY
-C   ROUTINE COBFL.  ANY BUFR EDITION 0 OR EDITION 1 MESSAGES THAT ARE
-C   READ ARE AUTOMATICALLY CONVERTED TO BUFR EDITION 2.
-C
-C PROGRAM HISTORY LOG:
-C 2005-11-29  J. ATOR    -- ORIGINAL AUTHOR
-C
-C USAGE:    CALL CRBMG( BMG, MXMB, NMB, IRET )
-C   INPUT ARGUMENT LIST:
-C     MXMB     - INTEGER: DIMENSIONED SIZE (IN BYTES) OF BMG; USED
-C                BY THE ROUTINE TO ENSURE THAT IT DOES NOT OVERFLOW
-C                THE BMG ARRAY
-C
-C   OUTPUT ARGUMENT LIST:
-C     BMG      - CHARACTER*1: ARRAY CONTAINING BUFR MESSAGE
-C     NMB      - INTEGER: SIZE (IN BYTES) OF BUFR MESSAGE IN BMG
-C     IRET     - INTEGER: RETURN CODE:
-C                  0 = normal return
-C                  1 = overflow of BMG array
-C                  2 = "7777" indicator not found in expected location 
-C                 -1 = end-of-file encountered while reading
-C                 -2 = I/O error encountered while reading
-C
-C REMARKS:
-C    THIS ROUTINE CALLS:        BORT     GETS1LOC ICHKSTR  IPKM
-C                               IUPBS01  IUPM     RBYTES
-C    THIS ROUTINE IS CALLED BY: None
-C                               Normally called only by application
-C                               programs.
-C
-C ATTRIBUTES:
-C   LANGUAGE: C
-C   MACHINE:  PORTABLE TO ALL PLATFORMS
-C
-C$$$*/
+/** 
+ *  This subroutine reads the next BUFR message from the system
+ *  file that was opened via the most recent call to subroutine
+ *  cobfl() with io = 'r'.
+ *  
+ *  @author J. Ator
+ *  @date 2005-11-29
+ *
+ *  @param[in] mxmb     - f77int: Dimensioned size (in bytes) of
+ *                        bmg; used by the subroutine to ensure that
+ *                        it doesn't overflow the bmg array
+ *  @param[out] bmg     - char*: BUFR message
+ *  @param[out] nmb     - f77int: Size (in bytes) of BUFR message
+ *                        in bmg
+ *  @param[out] iret    - f77int: return code
+ *                         - 0 = normal return
+ *                         - 1 = overflow of bmg array
+ *                         - 2 = "7777" indicator not found in
+ *                               expected location 
+ *                         - -1 = end-of-file encountered while
+ *                               reading
+ *                         - -2 = I/O error encountered while reading
+ *
+ * <p>This subroutine is designed to be easily callable from
+ * application program written in either C or Fortran.
+ *
+ * <p>The file from which messages are to be read must have already
+ * been opened for reading via a previous call to subroutine cobfl()
+ * with io = 'r'.
+ *
+ * <p>Any messages read that were encoded according to BUFR edition 0
+ * or BUFR edition 1 are automatically converted to BUFR edition 2
+ * before being returned by this subroutine.
+ *
+ *  <b>Program history log:</b>
+ *  - 2005-11-29  J. Ator    -- Original author
+ *
+ */
 void crbmg( char *bmg, f77int *mxmb, f77int *nmb, f77int *iret )
 {
     f77int i1 = 1, i2 = 2, i3 = 3, i4 = 4, i24 = 24;

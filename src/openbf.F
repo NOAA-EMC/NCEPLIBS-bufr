@@ -20,14 +20,14 @@ C>                 -   'INX' = input operations w/o table processing
 C>                 -   'OUX' = output operations w/o table processing
 C>                 -   'OUT' = output operations with table processing
 C>                 -  'SEC3' = same as 'IN', except use Section 3 of input 
-C>                              messages for decoding rather than dictionary
+C>                              messages for decoding rather than DX BUFR
 C>                              table information from LUNDX; in this case
 C>                              LUNDX is ignored, and user must provide 
-C>                              appropriate BUFR master tables within
-C>                              directory specified by a subsequent call
-C>                              to subroutine mtinfo()
-C>                 -  'NODX' = same as 'OUT', except don't write dictionary
-C>                             (i.e. DX) table messages to LUNIT
+C>                              appropriate [master BUFR tables](@ref dfbfmstab)
+C>                              within the directory specified by a subsequent
+C>                              call to subroutine mtinfo()
+C>                 -  'NODX' = same as 'OUT', except don't write DX BUFR
+C>                             table messages to LUNIT
 C>                 -   'APN' = same as 'NODX', except begin writing at end
 C>                             of file ("append")
 C>                 -   'APX' = same as 'APN', except backspace before
@@ -46,10 +46,10 @@ C>                             user resetting of global parameters such as
 C>                             missing value or output block type
 C> @param[in] LUNDX    - integer:
 C>                 - If IO is not 'QUIET' = Fortran logical unit number
-C>                   containing dictionary table information to be used in
+C>                   containing DX BUFR table information to be used in
 C>                   reading/writing from/to LUNIT (depending on the case).
-C>                   This value may be set equal to LUNIT if dictionary table
-C>                   information is already embedded in LUNIT
+C>                   This value may be set equal to LUNIT if DX BUFR table
+C>                   information is already embedded in LUNIT.
 C>                 - If IO is 'QUIET' = indicator for degree of printout:
 C>                      - -1 = no printout except for ABORT messages
 C>                      -  0 = limited printout (default)
@@ -85,11 +85,11 @@ C> <p>The third and final call argument LUNDX identifies the logical unit which
 C> contains the definition of the DX BUFR tables to be associated with unit
 C> LUNIT.  Except when IO = 'SEC3', every BUFR file that is linked to the BUFRLIB
 C> software must have a DX BUFR tables file associated with it, and these tables
-C> may be defined within a separate ASCII text file (see Description and Format
-C> of DX BUFR Tables for more info.) or, in the case of an existing BUFR file,
-C> may be embedded within the first few BUFR messages of the file itself, and in
-C> which case the user can denote this to the subroutine by setting LUNDX to the
-C> same value as LUBFR.
+C> may be defined within a separate ASCII text file
+C> (see [Description and Format of DX BUFR Tables](@ref dfbftab) for more info.)
+C> or, in the case of an existing BUFR file, may be embedded within the first few
+C> BUFR messages of the file itself, and in which case the user can denote this
+C> to the subroutine by setting LUNDX to the same value as LUBFR.
 C>
 C> @remarks
 C> - When an existing BUFR file is accessed for input (i.e. reading/decoding BUFR),
@@ -106,9 +106,10 @@ C> not necessary to provide pre-defined DX BUFR tables via LUNDX.  Instead, this
 C> option instructs the BUFRLIB software to unpack the data description section
 C> (Section 3) from each BUFR message it reads and then decode the contents
 C> accordingly. In this case, it's necessary to provide a set of BUFR master
-C> tables containing listings of all possible BUFR descriptors (see Description
-C> and Format of BUFR Master Tables for more info.), but otherwise no prior
-C> knowledge is required of the contents of the messages to be decoded.
+C> tables containing listings of all possible BUFR descriptors
+C> (see [Description and Format of master BUFR Tables](@ref dfbfmstab) for more
+C> info.), but otherwise no prior knowledge is required of the contents of the
+C> messages to be decoded.
 C>
 C> <b>Program history log:</b>
 C> - 1994-01-06  J. Woollen -- Original author
@@ -147,18 +148,6 @@ C>                             setbmiss() and setblock()
 C> - 2014-11-07  J. Ator    -- allow dynamic allocation of certain arrays
 C> - 2015-03-03  J. Ator    -- use MODA_IFOPBF instead of IFIRST
 C>
-C> <b>This routine calls:</b> arallocc() arallocf() bfrini()   bort()
-C>                            dxinit()   errwrt()   posapx()   readdx()
-C>                            status()   wrdlen()   writdx()   wtstat()
-C>                            openrb()   openwb()   openab()
-C>
-C> <b>This routine is called by:</b>
-C>                            copybf()   getbmiss() igetmxby() mesgbc()
-C>                            mesgbf()   pkvs01()   rdmgsb()   ufbinx()
-C>                            ufbmem()   ufbmex()   ufbtab() setbmiss()
-C>                            setblock()
-C>                            <br>Also called by application programs.
-C>
       SUBROUTINE OPENBF(LUNIT,IO,LUNDX)
 
       USE MODA_MSGCWD
@@ -174,7 +163,7 @@ C>
       COMMON /QUIET / IPRT
 
       CHARACTER*(*) IO
-      CHARACTER*255 filename,fileacc   
+      CHARACTER*255 FILENAME,FILEACC   
       CHARACTER*128 BORT_STR,ERRSTR
       CHARACTER*28  CPRINT(0:3)
       CHARACTER*1   BSTR(4)

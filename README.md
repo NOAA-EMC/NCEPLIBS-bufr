@@ -37,11 +37,11 @@ compiler flags in the CMake build, for Intel and GNU compilers:
 
 - "4" = 4-byte integers and 4-byte reals
 - "8" = 8-byte integers and 8-byte reals
-- "d" = 4-byte integers and 8-byte reals (sort of a hybrid)
+- "d" = 4-byte integers and 8-byte reals
 
 In addition, NCEPLIBS-bufr can build with internally static or
-internally dynamic array allocation. The build of the library which
-internally uses dynamic allocations has a _DA suffix.
+internally dynamic array allocation. The builds of the library which
+internally use dynamic allocation have a "_DA" suffix.
 
 ## Disclaimer
 

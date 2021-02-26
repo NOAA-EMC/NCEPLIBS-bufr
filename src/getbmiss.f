@@ -1,34 +1,27 @@
 C> @file
-C> @author WOOLLEN @date 2012-09-15
-      
-C> GETBMISS RETURNS THE CURRENT VALUE OF "BMISS" WHICH DENOTES
-C>           MISSING VALUES BOTH FOR READING FROM BUFR FILES AND FOR
-C>           WRITING TO BUFR FILES.  THIS MISSING VALUE IS SET TO A
-C>           DEFAULT VALUE OF 10E10 IN SUBROUTINE BFRINI, BUT APPLICATION
-C>           PROGRAMS MAY SET IT TO A DIFFERENT VALUE VIA A CALL TO
-C>           SUBROUTINE SETBMISS.
+C> @brief Get the current placeholder value for "missing" data
+
+C> This function returns the current placeholder value which
+C> represents "missing" data when reading from or writing to
+C> BUFR files.
 C>
-C> PROGRAM HISTORY LOG:
-C> 2012-10-05  J. ATOR -- ORIGINAL AUTHOR
+C> @author J. Woollen
+C> @date 2012-09-15
 C>
-C> USAGE:    GETBMISS()
+C> @returns getbmiss - real*8: current placeholder value for
+C>                     "missing" data
 C>
-C>   INPUT ARGUMENTS:
+C> <p>This subroutine can be called at any time from within an
+C> application program, and the returned value can then be
+C> used to represent "missing" data within the context of
+C> future calls to subroutines ufbint(), ufbrep(), ufbseq(),
+C> etc.  This placeholder value can also be changed at any
+C> time via a separate call to subroutine setbmiss().
 C>
-C>   OUTPUT ARGUMENTS:
-C>     GETBMISS - REAL*8: CURRENT VALUE OF BUFR ARCHIVE LIBRARY MISSING
-C>                VALUE "BMISS"
-C>
-C> REMARKS:
-C>    THIS ROUTINE CALLS: 	OPENBF
-C>
-C>    THIS ROUTINE IS CALLED BY: None
-C>                               Normally called only by application
-C>                               programs.
+C> <b>Program history log:</b>
+C> - 2012-09-15  J. Woollen -- Original author
 C>
       REAL*8 FUNCTION GETBMISS()
-
-
 
       INCLUDE 'bufrlib.inc'
 
