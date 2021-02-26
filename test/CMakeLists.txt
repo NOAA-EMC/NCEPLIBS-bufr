@@ -171,6 +171,19 @@ foreach(test_src IN ITEMS ${test_OUT_3_srcs} ${test_OUT_4_srcs})
   endforeach()
 endforeach()
 
+# Test the c interface
+foreach(kind ${test_kinds})
+  if(${kind} MATCHES "^([4|8|d]_DA)$")
+    set(test test_c_interface_${kind})
+    set(test_exe test_c_interface_${kind}.x)
+    add_executable(${test_exe} test_c_interface.c)
+    add_dependencies(${test_exe}  bufr_${kind})
+    target_link_libraries(${test_exe}  PRIVATE bufr::bufr_${kind})
+    add_test(NAME ${test} COMMAND ${CMAKE_BINARY_DIR}/test/${test_exe})
+  endif()
+endforeach()
+
+
 # Test utilities
 # Test gettab.x utility
 add_test(NAME test_gettab
@@ -181,4 +194,3 @@ add_test(NAME test_gettab
 add_test(NAME test_split_by_subset
   COMMAND ${CMAKE_BINARY_DIR}/bin/test_split_by_subset.sh "${CMAKE_BINARY_DIR}/utils/split_by_subset.x testfiles/data/satwndbufr" "testfiles/testoutput/satwndbufr_split"
   )
-
