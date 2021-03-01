@@ -15,13 +15,9 @@
 
 static const int MAX_SUBSETS = 100;
 static const int BUFR_FILE_UNIT = 12;
-static const int DUMP_FILE_UNIT = 13;
-static const int TABLE_1_FILE_UNIT = 14;
-static const int TABLE_2_FILE_UNIT = 15;
 static const int SUBSET_STRING_LEN = 8;
 
 static const char* INPUT_FILE = "testfiles/data/1bamua";
-static const char* TABLE_DUMP_FILE = "testrun/1bamua.c.table";
 
 
 // Supporting functions
@@ -118,36 +114,9 @@ void test_readBufrFile()
 }
 
 
-void test_dxDump()
-{
-    open_f(BUFR_FILE_UNIT, INPUT_FILE);
-    open_f(DUMP_FILE_UNIT, TABLE_DUMP_FILE);
-    openbf_f(BUFR_FILE_UNIT, "IN", BUFR_FILE_UNIT);
-
-    dxdump_f(BUFR_FILE_UNIT, DUMP_FILE_UNIT);
-
-    closbf_f(BUFR_FILE_UNIT);
-    close_f(DUMP_FILE_UNIT);
-    close_f(BUFR_FILE_UNIT);
-}
-
-
-void test_mtInfo()
-{
-    open_f(BUFR_FILE_UNIT, INPUT_FILE);
-    openbf_f(BUFR_FILE_UNIT, "IN", BUFR_FILE_UNIT);
-
-    mtinfo_f("testfiles", TABLE_1_FILE_UNIT, TABLE_2_FILE_UNIT);
-
-    exitbufr_f();
-}
-
-
 int main()
 {
     test_readBufrFile();
-    test_dxDump();
-    test_mtInfo();
 
     return 0;
 }
