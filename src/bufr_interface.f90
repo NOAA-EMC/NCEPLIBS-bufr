@@ -21,13 +21,15 @@ module bufr_c_interface_mod
   public :: ireadsb_c
   public :: ufbint_c
   public :: ufbrep_c
-  public :: dxdump_c
   public :: mtinfo_c
 
 contains
 
 !Private
 
+!> @author Ronald McLaren
+!> @date 2020-07-29
+!>
 !> @brief This function turns a c string into a fortran string.
 !>
 !> @param[in] c_str - c_char: pointer to a \0 (null) terminated c string
@@ -49,6 +51,9 @@ function c_f_string(c_str) result(f_str)
 end function c_f_string
 
 
+!> @author Ronald McLaren
+!> @date 2020-07-29
+!>
 !> @brief This subroutine copies a fortran string into a c string buffer.
 !>
 !> @param[in] f_str - character(*): fortran string to be copied
@@ -69,6 +74,16 @@ subroutine copy_f_c_str(f_str, c_str, c_str_len)
 end subroutine copy_f_c_str
 
 !Public
+
+!> @author Ronald McLaren
+!> @date 2020-07-29
+!>
+!> @brief Wraps fortran "open" statement so we can open a Fortran file
+!>.       from a C program.
+!>
+!> @param[in] lunit - c_int: the integer to use as the fortran file unit
+!> @param[in] filepath - c_char: path to the file we want to open.
+!>
 subroutine open_c(lunit, filepath) bind(C, name='open_f')
   integer(c_int), value, intent(in) :: lunit
   character(kind=c_char, len=1) :: filepath
@@ -77,6 +92,14 @@ subroutine open_c(lunit, filepath) bind(C, name='open_f')
 end subroutine open_c
 
 
+!> @author Ronald McLaren
+!> @date 2020-07-29
+!>
+!> @brief Wraps fortran "close" statement so we can close a Fortran file
+!>.       from a C program.
+!>
+!> @param[in] lunit - c_int: the integer to use as the fortran file unit
+!>
 subroutine close_c(lunit) bind(C, name='close_f')
   integer(c_int), value, intent(in) :: lunit
 
@@ -84,6 +107,15 @@ subroutine close_c(lunit) bind(C, name='close_f')
 end subroutine close_c
 
 
+!> @author Ronald McLaren
+!> @date 2020-07-29
+!>
+!> @brief Wraps NCEPLIB-bufr "openbf" subroutine.
+!>
+!> @param[in] bufr_unit - c_int: the fortran file unit number
+!> @param[in] cio - c_char: cio string
+!> @param[in] table_file_id - c_int: table_file unit number
+!>
 subroutine openbf_c(bufr_unit, cio, table_file_id) bind(C, name='openbf_f')
   integer(c_int), value, intent(in) :: bufr_unit
   character(kind=c_char, len=1), intent(in) :: cio
@@ -93,6 +125,13 @@ subroutine openbf_c(bufr_unit, cio, table_file_id) bind(C, name='openbf_f')
 end subroutine openbf_c
 
 
+!> @author Ronald McLaren
+!> @date 2020-07-29
+!>
+!> @brief Wraps NCEPLIB-bufr "closbf" subroutine.
+!>
+!> @param[in] bufr_unit - c_int: the fortran file unit number to close
+!>
 subroutine closbf_c(bufr_unit) bind(C, name='closbf_f')
   integer(c_int), value, intent(in) :: bufr_unit
 
@@ -100,11 +139,27 @@ subroutine closbf_c(bufr_unit) bind(C, name='closbf_f')
 end subroutine closbf_c
 
 
+!> @author Ronald McLaren
+!> @date 2020-07-29
+!>
+!> @brief Wraps NCEPLIB-bufr "exitbufr" subroutine. Closes
+!>        all open file units used by NCEPLIB-bufr.
+!>
 subroutine exitbufr_c() bind(C, name='exitbufr_f')
   call exitbufr()
 end subroutine exitbufr_c
 
 
+!> @author Ronald McLaren
+!> @date 2020-07-29
+!>
+!> @brief Wraps NCEPLIB-bufr "ireadmg" subroutine.
+!>
+!> @param[in] bufr_unit - c_int: the fortran file unit number to read from
+!> @param[inout] c_subset - c_char: the subset string
+!> @param[out] iddate - c_int: datetime of message
+!> @param[in] subset_str_len - c_int: length of the subset string
+!>
 function ireadmg_c(bufr_unit, c_subset, iddate, subset_str_len) result(ires) bind(C, name='ireadmg_f')
   integer(c_int), value, intent(in) :: bufr_unit
   character(kind=c_char, len=1), intent(inout) :: c_subset(*)
@@ -119,6 +174,13 @@ function ireadmg_c(bufr_unit, c_subset, iddate, subset_str_len) result(ires) bin
 end function ireadmg_c
 
 
+!> @author Ronald McLaren
+!> @date 2020-07-29
+!>
+!> @brief Wraps NCEPLIB-bufr "ireadsb" function.
+!>
+!> @param[in] bufr_unit - c_int: the fortran file unit number to read from
+!>
 function ireadsb_c(bufr_unit) result(ires) bind(C, name='ireadsb_f')
   integer(c_int), value, intent(in) :: bufr_unit
   integer(c_int) :: ires
@@ -128,6 +190,17 @@ function ireadsb_c(bufr_unit) result(ires) bind(C, name='ireadsb_f')
 end function ireadsb_c
 
 
+!> @author Ronald McLaren
+!> @date 2020-07-29
+!>
+!> @brief Wraps NCEPLIB-bufr "ufbint" function.
+!>
+!> @param[in] bufr_unit - c_int: the fortran file unit number to read from
+!> @param[inout] c_data - c_ptr: c style pointer to a pre-allocated buffer
+!> @param[in] dim_1, dim_2 - c_int: dimensionality of data to read or write
+!> @param[out] iret - c_int: return value, length of data read
+!> @param[in] table_b_mnemonic - c_char: string of mnemonics
+!>
 subroutine ufbint_c(bufr_unit, c_data, dim_1, dim_2, iret, table_b_mnemonic) bind(C, name='ufbint_f')
   integer(c_int), value, intent(in) :: bufr_unit
   type(c_ptr), intent(inout) ::  c_data
@@ -141,6 +214,17 @@ subroutine ufbint_c(bufr_unit, c_data, dim_1, dim_2, iret, table_b_mnemonic) bin
 end subroutine ufbint_c
 
 
+!> @author Ronald McLaren
+!> @date 2020-07-29
+!>
+!> @brief Wraps NCEPLIB-bufr "ufbrep" function.
+!>
+!> @param[in] bufr_unit - c_int: the fortran file unit number to read from
+!> @param[inout] c_data - c_ptr: c style pointer to a pre-allocated buffer
+!> @param[in] dim_1, dim_2 - c_int: dimensionality of data to read or write
+!> @param[out] iret - c_int: return value, length of data read
+!> @param[in] table_b_mnemonic - c_char: string of mnemonics
+!>
 subroutine ufbrep_c(bufr_unit, c_data, dim_1, dim_2, iret, table_b_mnemonic) bind(C, name='ufbrep_f')
   integer(c_int), value, intent(in) :: bufr_unit
   type(c_ptr), intent(inout) :: c_data
@@ -154,16 +238,17 @@ subroutine ufbrep_c(bufr_unit, c_data, dim_1, dim_2, iret, table_b_mnemonic) bin
 end subroutine ufbrep_c
 
 
-subroutine dxdump_c(bufr_unit, table_unit) bind(C, name='dxdump_f')
-  integer(c_int), value, intent(in) :: bufr_unit
-  integer(c_int), value, intent(in) :: table_unit
-
-  call dxdump(bufr_unit, table_unit)
-end subroutine dxdump_c
-
-
+!> @author Ronald McLaren
+!> @date 2021-02-24
+!>
+!> @brief Wraps NCEPLIB-bufr "mtinfo" function.
+!>
+!> @param[in] path - c_char: the path where the WMO tables are stored
+!> @param[in] file_unit_1 - c_int: number to use for first file unit
+!> @param[in] file_unit_2 - c_int: number to use for second file unit
+!>
 subroutine mtinfo_c(path, file_unit_1, file_unit_2) bind(C, name='mtinfo_f')
-  character(kind=c_char, len=1) :: path
+  character(kind=c_char, len=1), intent(in) :: path
   integer(c_int), value, intent(in) :: file_unit_1
   integer(c_int), value, intent(in) :: file_unit_2
 
