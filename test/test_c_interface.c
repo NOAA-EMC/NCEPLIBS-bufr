@@ -10,7 +10,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "bufr.interface.h"
+#include "bufr_interface.h"
 
 
 static const int MAX_SUBSETS = 100;
@@ -64,6 +64,7 @@ void test_readBufrFile()
     int iddate;
     char msg_subset[SUBSET_STRING_LEN];
     unsigned int subset_cnt = countSubsets(subset);
+    unsigned int idx;
 
     open_f(BUFR_FILE_UNIT, INPUT_FILE);
     openbf_f(BUFR_FILE_UNIT, "IN", BUFR_FILE_UNIT);
@@ -93,7 +94,7 @@ void test_readBufrFile()
 
     // Check a few values, and make sure they are good.
     double check_vals[] = {45.818, 45.935, 46.046, 46.152};
-    for (unsigned int idx = 0; idx < 4; idx++)
+    for (idx = 0; idx < 4; idx++)
     {
         if (fabs(data_int_buf[idx] - check_vals[idx]) > 0.001)
         {
@@ -103,7 +104,7 @@ void test_readBufrFile()
     }
 
     // Check consistency between data read from ufbint and ufbrep
-    for (unsigned int idx = 0; idx < subset_cnt; idx++)
+    for (idx = 0; idx < subset_cnt; idx++)
     {
         if (data_int_buf[idx] != data_rep_buf[idx])
         {

@@ -306,7 +306,7 @@ set(fortran_src
   wrdlen.F
   fortran_open.f90
   fortran_close.f90
-  bufr.interface.f90)
+  bufr_interface.f90)
 
 set(f_hdr
   ${CMAKE_CURRENT_BINARY_DIR}/bufrlib.inc)
@@ -342,4 +342,4 @@ set(c_hdr
   cobfl.h
   cread.h
   mstabs.h
-  bufr.interface.h)
+  bufr_interface.h)
