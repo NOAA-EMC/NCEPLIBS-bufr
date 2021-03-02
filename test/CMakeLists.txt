@@ -81,6 +81,11 @@ list(APPEND test_OUT_5_srcs
   test_OUT_5.f
 )
 
+list(APPEND test_c_interface_srcs
+  test_c_interface.c
+  test_c_interface_2.c
+)
+
 # Install testing scripts
 list(APPEND test_scripts
   test_wrapper_IN.sh
@@ -170,6 +175,19 @@ foreach(test_src IN ITEMS ${test_OUT_3_srcs} ${test_OUT_4_srcs})
       target_link_libraries(${test_exe} PRIVATE bufr::bufr_${kind})
       bufr_add_test(${test} ${test_exe})
     endif()
+  endforeach()
+endforeach()
+
+# c_interface tests
+foreach(test_src IN ITEMS ${test_c_interface_srcs}) 
+  string(REPLACE ".c" "" testPref ${test_src})
+  foreach(kind ${test_kinds})
+    set(test     ${testPref}_${kind})
+    set(test_exe ${test}.x)
+    add_executable(${test_exe} ${test_src})
+    add_dependencies(${test_exe} bufr_${kind})
+    target_link_libraries(${test_exe} PRIVATE bufr::bufr_${kind})
+    add_test(NAME ${test} COMMAND ${CMAKE_BINARY_DIR}/test/${test_exe})
   endforeach()
 endforeach()
 
