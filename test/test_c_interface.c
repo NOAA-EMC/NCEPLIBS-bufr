@@ -15,7 +15,7 @@
 
 static const int MAX_SUBSETS = 100;
 static const int BUFR_FILE_UNIT = 12;
-static const int SUBSET_STRING_LEN = 8;
+static const int SUBSET_STRING_LEN = 12;
 
 static const char* INPUT_FILE = "testfiles/data/1bamua";
 
@@ -33,7 +33,7 @@ unsigned int countSubsets(const char* subset)
 
     while (ireadmg_f(BUFR_FILE_UNIT, msg_subset, &iddate, SUBSET_STRING_LEN) == 0)
     {
-        if (strcmp(subset, msg_subset))
+        if (strncmp(subset, msg_subset,8))
         {
             while (ireadsb_f(BUFR_FILE_UNIT) == 0 && (subset_cnt < MAX_SUBSETS))
             {
@@ -75,7 +75,7 @@ void test_readBufrFile()
     int subset_idx = 0;
     while (ireadmg_f(BUFR_FILE_UNIT, msg_subset, &iddate, SUBSET_STRING_LEN) == 0)
     {
-        if (strcmp(subset, msg_subset))
+        if (strncmp(subset, msg_subset, 8))
         {
             while ((ireadsb_f(BUFR_FILE_UNIT) == 0) && (subset_idx < MAX_SUBSETS))
             {

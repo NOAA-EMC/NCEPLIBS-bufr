@@ -14,7 +14,7 @@
 static const int BUFR_FILE_UNIT = 11;
 static const int TABLE_1_FILE_UNIT = 90;
 static const int TABLE_2_FILE_UNIT = 91;
-static const int SUBSET_STRING_LEN = 8;
+static const int SUBSET_STRING_LEN = 12;
 
 static const char* INPUT_FILE = "testfiles/IN_4";
 
@@ -34,7 +34,7 @@ int main() {
     mtinfo_f( "../tables", TABLE_1_FILE_UNIT, TABLE_2_FILE_UNIT );
 
     if ( ( ireadmg_f( BUFR_FILE_UNIT, msg_subset, &iddate, SUBSET_STRING_LEN ) != 0 ) ||
-	 ( strcmp( msg_subset, "MSTTB001" ) != 0 ) || ( iddate != 16041815 ) ) {
+	 ( strncmp( msg_subset, "MSTTB001", 8) != 0 ) || ( iddate != 16041815 ) ) {
 	printf( "%s\n", "ireadmg check FAILED!" );
 	exit(1);
     }
