@@ -14,7 +14,7 @@
 static const int BUFR_FILE_UNIT = 11;
 static const int TABLE_1_FILE_UNIT = 90;
 static const int TABLE_2_FILE_UNIT = 91;
-static const int SUBSET_STRING_LEN = 12;
+static const int SUBSET_STRING_LEN = 8;
 
 static const char* INPUT_FILE = "testfiles/IN_4";
 
