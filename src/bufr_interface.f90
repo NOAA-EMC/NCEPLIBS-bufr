@@ -67,7 +67,7 @@ subroutine copy_f_c_str(f_str, c_str, c_str_len)
   integer :: max_str_len
 
   if (c_str_len /= 0) then
-    max_str_len = min(c_str_len, len_trim(f_str))
+    max_str_len = min(c_str_len, len_trim(f_str) + 1)
     c_str(1)(1:max_str_len) = f_str(1:max_str_len)
     c_str(1)(max_str_len:max_str_len) = c_null_char
   end if
