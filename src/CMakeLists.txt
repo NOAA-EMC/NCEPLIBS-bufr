@@ -1,10 +1,3 @@
-# Set library specific flags
-if(CMAKE_C_COMPILER_ID MATCHES "^(Intel)$")
-  set(c_8_defs "F77_INTSIZE_8")
-endif()
-
-set(c_8_DA_defs ${c_8_defs})
-
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
 # Create the bvers.f file with the version from VERSION file.
@@ -35,8 +28,6 @@ foreach(_var IN ITEMS NFILES MAXCD)
 endforeach()
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/bufrlib.h.in ${CMAKE_CURRENT_BINARY_DIR}/bufrlib.h @ONLY)
 
-list(APPEND underscore_def UNDERSCORE)
-
 include(TestBigEndian)
 test_big_endian(IS_BIG_ENDIAN)
 if(IS_BIG_ENDIAN)
@@ -62,7 +53,6 @@ foreach(kind ${kinds})
   set_target_properties(${lib_name}_f PROPERTIES COMPILE_FLAGS
                                                  "${fortran_${kind}_flags}")
   target_compile_definitions(${lib_name}_f PUBLIC "${allocation_def}")
-  target_compile_definitions(${lib_name}_f PUBLIC "${underscore_def}")
   target_compile_definitions(${lib_name}_f PRIVATE "${endian_def}")
 
   add_library(${lib_name}_c OBJECT ${c_src})
@@ -70,7 +60,6 @@ foreach(kind ${kinds})
                                                  "${c_${kind}_flags}")
   target_compile_definitions(${lib_name}_c PUBLIC "${allocation_def}")
   target_compile_definitions(${lib_name}_c PUBLIC "${underscore_def}")
-  target_compile_definitions(${lib_name}_c PRIVATE "${endian_def}")
   target_compile_definitions(${lib_name}_c PRIVATE "${c_${kind}_defs}")
 
   set_target_properties(${lib_name}_f PROPERTIES Fortran_MODULE_DIRECTORY "${module_dir}")

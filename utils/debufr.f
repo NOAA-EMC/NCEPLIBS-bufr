@@ -72,6 +72,9 @@ C> - 2018-03-01  J. Ator     Added print of data types and subtypes from
 C>                          code and flag tables.
 C> - 2018-09-05  J. Ator     Added prmstg argument
 C> - 2019-02-01  J. Ator     Remove limit on length of prmstg
+C> - 2021-02-24  J. Ator     Use all formatted writes, for consistent
+C>                          output between builds using 4-byte vs. 8-byte
+C>                          integers
 C>
 	SUBROUTINE FDEBUFR ( ofile, tbldir, lentd, tblfil, prmstg,
      +			     basic, forcemt, cfms )
@@ -142,7 +145,7 @@ C	    Get the next message from the input BUFR file.
 		ELSE
 		    WRITE  ( UNIT = 51, FMT = '( /, 2A, I4 )' )
      +		      'Error while reading BUFR file; the return code ',
-     +		      'from CRBMG = ', IERR
+     +		      'from CRBMG = ', ierr
 		ENDIF
 
 		IF ( ( basic .eq. 'N' ) .and. ( opened .eq. 'Y' ) ) THEN
@@ -244,35 +247,45 @@ C	    output unless master tables are being used for decoding.
 		WRITE  ( UNIT = 51, FMT = '( /, A, I7 )' )
      +		    'Found BUFR message #', nmsg
 
-		WRITE (51,*) ' ' 
-		WRITE (51,*) '       Message length:',
-     +					IUPBS01 ( ibfmg, 'LENM' )
-		WRITE (51,*) '     Section 0 length:',
-     +					IUPBS01 ( ibfmg, 'LEN0' )
-		WRITE (51,*) '         BUFR edition:',
-     +					IUPBS01 ( ibfmg, 'BEN' )
+C               Decode and output the data from Section 0.
 
-		WRITE (51,*) ' ' 
-		WRITE (51,*) '     Section 1 length:',
-     +					IUPBS01 ( ibfmg, 'LEN1' )
-		WRITE (51,*) '         Master table:',
-     +					IUPBS01 ( ibfmg, 'BMT' )
+		WRITE ( 51, FMT= '( /, A, I9 )' )
+     +		       '        Message length:   ',
+     +                  IUPBS01 ( ibfmg, 'LENM' )
+		WRITE ( 51, FMT= '( A, I4 )' )
+     +		       '      Section 0 length:        ',
+     +			IUPBS01 ( ibfmg, 'LEN0' )
+		WRITE ( 51, FMT= '( A, I4 )' )
+     +		       '          BUFR edition:        ',
+     +			IUPBS01 ( ibfmg, 'BEN' )
+
+C               Decode and output the data from Section 1.
+
+		WRITE ( 51, FMT= '( /, A, I4 )' )
+     +		       '      Section 1 length:        ',
+     +			IUPBS01 ( ibfmg, 'LEN1' )
+		WRITE ( 51, FMT= '( A, I4 )' )
+     +		       '          Master table:        ',
+     +			IUPBS01 ( ibfmg, 'BMT' )
 
 		iogce = IUPBS01 ( ibfmg, 'OGCE' )
 		igses = IUPBS01 ( ibfmg, 'GSES' )
 		IF ( ( basic .eq. 'Y' ) .or.
      +		     ( cfms .eq. 'N' ) ) THEN
-		    WRITE (51,*) '   Originating center:', iogce
-		    WRITE (51,*) 'Originating subcenter:', igses
+		    WRITE ( 51, FMT= '( A, I5 )' )
+     +		       '    Originating center:       ', iogce
+		    WRITE ( 51, FMT= '( A, I4 )' )
+     +		       ' Originating subcenter:        ', igses
 		ELSE
 		    CALL GETCFMNG ( lunit, 'ORIGC', iogce, ' ', -1,
      +				    cmorgc, lcmorgc, ierorgc )
 		    IF ( ierorgc .eq. 0 ) THEN
-		        WRITE ( 51, FMT= '( A, I4, 3A )' )
-     +			   '    Originating center:        ', iogce,
+		        WRITE ( 51, FMT= '( A, I5, 3A )' )
+     +			   '    Originating center:       ', iogce,
      +			   ' (= ', cmorgc(1:lcmorgc), ')'
 		    ELSE
-		        WRITE (51,*) '   Originating center:', iogce
+		        WRITE ( 51, FMT= '( A, I5 )' )
+     +			   '    Originating center:       ', iogce
 		    ENDIF
 		    CALL GETCFMNG ( lunit, 'GSES', igses,
      +				    'ORIGC', iogce,
@@ -282,17 +295,21 @@ C	    output unless master tables are being used for decoding.
      +			   ' Originating subcenter:        ', igses,
      +				' (= ', cmgses(1:lcmgses), ')'
 		    ELSE
-		        WRITE (51,*) 'Originating subcenter:', igses
+		        WRITE ( 51, FMT= '( A, I4 )' )
+     +		           ' Originating subcenter:        ', igses
 		    ENDIF
 		ENDIF
 
-		WRITE (51,*) 'Update sequence numbr:',
-     +					IUPBS01 ( ibfmg, 'USN' )
+		WRITE ( 51, FMT= '( A, I4 )' )
+     +		       ' Update sequence numbr:        ',
+     +			IUPBS01 ( ibfmg, 'USN' )
  
 		IF ( IUPBS01 ( ibfmg, 'ISC2' ) .eq. 1 ) THEN
-		    WRITE (51,*) '   Section 2 present?: Yes'
+		    WRITE ( 51, FMT = '( A )')
+     +		       '    Section 2 present?: Yes'
 		ELSE
-		    WRITE (51,*) '   Section 2 present?: No'
+		    WRITE ( 51, FMT = '( A )')
+     +		       '    Section 2 present?: No'
 		ENDIF
  
 		mtyp = IUPBS01 ( ibfmg, 'MTYP' )
@@ -300,9 +317,12 @@ C	    output unless master tables are being used for decoding.
 		msbti = IUPBS01 ( ibfmg, 'MSBTI' )
 		IF ( ( basic .eq. 'Y' ) .or.
      +		     ( cfms .eq. 'N' ) ) THEN
-		    WRITE (51,*) '        Data category:', mtyp
-		    WRITE (51,*) '    Local subcategory:', msbt
-		    WRITE (51,*) 'Internatl subcategory:', msbti
+		    WRITE ( 51, FMT= '( A, I4 )' )
+     +		       '         Data category:        ', mtyp
+		    WRITE ( 51, FMT= '( A, I4 )' )
+     +		       '     Local subcategory:        ', msbt
+		    WRITE ( 51, FMT= '( A, I4 )' )
+     +		       ' Internatl subcategory:        ', msbti
 		ELSE
 		    CALL GETCFMNG ( lunit, 'TABLAT', mtyp, ' ', -1,
      +				    cmmtyp, lcmmtyp, iermtyp )
@@ -311,7 +331,8 @@ C	    output unless master tables are being used for decoding.
      +			   '         Data category:        ', mtyp,
      +			   ' (= ', cmmtyp(1:lcmmtyp), ')'
 		    ELSE
-			WRITE (51,*) '        Data category:', mtyp
+		        WRITE ( 51, FMT= '( A, I4 )' )
+     +		           '         Data category:        ', mtyp
 		    ENDIF
 		    CALL GETCFMNG ( lunit, 'TABLASL', msbt,
      +				    'TABLAT', mtyp,
@@ -322,7 +343,8 @@ C	    output unless master tables are being used for decoding.
      +			   '     Local subcategory:        ', msbt,
      +				' (= ', cmmsbt(1:lcmmsbt), ')'
 		    ELSE
-			WRITE (51,*) '    Local subcategory:', msbt
+		        WRITE ( 51, FMT= '( A, I4 )' )
+     +		           '     Local subcategory:        ', msbt
 		    ENDIF
 		    CALL GETCFMNG ( lunit, 'TABLASS', msbti,
      +				    'TABLAT', mtyp,
@@ -332,57 +354,78 @@ C	    output unless master tables are being used for decoding.
      +			   ' Internatl subcategory:        ', msbti,
      +				' (= ', cmmsbti(1:lcmmsbti), ')'
 		    ELSE
-			WRITE (51,*) 'Internatl subcategory:', msbti
+		        WRITE ( 51, FMT= '( A, I4 )' )
+     +		           ' Internatl subcategory:        ', msbti
 		    ENDIF
 		ENDIF
 
-		WRITE (51,*) ' Master table version:', 
-     +					IUPBS01 ( ibfmg, 'MTV' )
-		WRITE (51,*) '  Local table version:',
-     +					IUPBS01 ( ibfmg, 'MTVL' )
-		WRITE (51,*) '                 Year:',
-     +					IUPBS01 ( ibfmg, 'YEAR' )
-		WRITE (51,*) '                Month:',
-     +					IUPBS01 ( ibfmg, 'MNTH' )
-		WRITE (51,*) '                  Day:',
-     +					IUPBS01 ( ibfmg, 'DAYS' )
-		WRITE (51,*) '                 Hour:',
-     +					IUPBS01 ( ibfmg, 'HOUR' )
-		WRITE (51,*) '               Minute:',
-     +					IUPBS01 ( ibfmg, 'MINU' )
-		WRITE (51,*) '               Second:',
-     +					IUPBS01 ( ibfmg, 'SECO' )
+		WRITE ( 51, FMT= '( A, I4 )' )
+     +		       '  Master table version:        ',
+     +			IUPBS01 ( ibfmg, 'MTV' )
+		WRITE ( 51, FMT= '( A, I4 )' )
+     +		       '   Local table version:        ',
+     +			IUPBS01 ( ibfmg, 'MTVL' )
+		WRITE ( 51, FMT= '( A, I4 )' )
+     +		       '                  Year:        ',
+     +			IUPBS01 ( ibfmg, 'YEAR' )
+		WRITE ( 51, FMT= '( A, I4 )' )
+     +		       '                 Month:        ',
+     +			IUPBS01 ( ibfmg, 'MNTH' )
+		WRITE ( 51, FMT= '( A, I4 )' )
+     +		       '                   Day:        ',
+     +			IUPBS01 ( ibfmg, 'DAYS' )
+		WRITE ( 51, FMT= '( A, I4 )' )
+     +		       '                  Hour:        ',
+     +			IUPBS01 ( ibfmg, 'HOUR' )
+		WRITE ( 51, FMT= '( A, I4 )' )
+     +		       '                Minute:        ',
+     +			IUPBS01 ( ibfmg, 'MINU' )
+		WRITE ( 51, FMT= '( A, I4 )' )
+     +		       '                Second:        ',
+     +			IUPBS01 ( ibfmg, 'SECO' )
 		IF ( ( iogce .eq. 7 ) .and. ( igses .eq. 3 ) ) THEN
 		    CALL RTRCPTB ( ibfmg, iryr, irmo, irdy, irhr,
      +				   irmi, irtret )
 		    IF ( irtret .eq. 0 ) THEN
-			WRITE (51,*) '  NCEP tank rcpt year:', iryr
-			WRITE (51,*) ' NCEP tank rcpt month:', irmo
-			WRITE (51,*) '   NCEP tank rcpt day:', irdy
-			WRITE (51,*) '  NCEP tank rcpt hour:', irhr
-			WRITE (51,*) 'NCEP tank rcpt minute:', irmi
+		        WRITE ( 51, FMT= '( A, I4 )' )
+     +			       '   NCEP tank rcpt year:        ', iryr
+		        WRITE ( 51, FMT= '( A, I4 )' )
+     +			       '  NCEP tank rcpt month:        ', irmo
+		        WRITE ( 51, FMT= '( A, I4 )' )
+     +			       '    NCEP tank rcpt day:        ', irdy
+		        WRITE ( 51, FMT= '( A, I4 )' )
+     +			       '   NCEP tank rcpt hour:        ', irhr
+		        WRITE ( 51, FMT= '( A, I4 )' )
+     +			       ' NCEP tank rcpt minute:        ', irmi
 		    END IF
 		END IF
-		WRITE (51,*) ' ' 
+
+C               Decode and output the data from Section 3.
 
 		nsub = IUPBS3 ( ibfmg, 'NSUB' )
-		WRITE (51,*) 'Number of data subsets:', nsub
+		WRITE ( 51, FMT= '( /, A, I4 )' )
+     +		       ' Number of data subsets:        ', nsub
 		nsubt = nsubt + nsub
  
 		IF ( IUPBS3 ( ibfmg, 'IOBS' ) .eq. 1 ) THEN
-		    WRITE (51,*) '    Data are observed?: Yes'
+		    WRITE ( 51, FMT = '( A )')
+     +		       '     Data are observed?: Yes'
 		ELSE
-		    WRITE (51,*) '    Data are observed?: No'
+		    WRITE ( 51, FMT = '( A )')
+     +		       '     Data are observed?: No'
 		ENDIF
  
 		IF ( IUPBS3 ( ibfmg, 'ICMP' ) .eq. 1 ) THEN
-		    WRITE (51,*) '  Data are compressed?: Yes'
+		    WRITE ( 51, FMT = '( A )')
+     +		       '   Data are compressed?: Yes'
 		ELSE
-		    WRITE (51,*) '  Data are compressed?: No'
+		    WRITE ( 51, FMT = '( A )')
+     +		       '   Data are compressed?: No'
 		ENDIF
  
 		CALL UPDS3 ( ibfmg, MXDS3, cds3, nds3 )
-		WRITE (51,*) ' Number of descriptors:', nds3
+		WRITE ( 51, FMT= '( A, I5 )' )
+     +		       '  Number of descriptors:       ', nds3
 		DO jj = 1, nds3
 		    WRITE ( 51, FMT = '( 5X, I4, A, A6)' )
      +			jj, ": ", cds3 ( jj )
@@ -426,7 +469,7 @@ C>
 C> @param[in] mtyp - integer: Data category of BUFR message
 C> @param[out] lundx - integer: Fortran logical unit number for
 C>                   DX BUFR tables file to use in
-C>                   reading/decoing the message
+C>                   reading/decoding the message
 C>                     - 0 = No such file is available
 C>
 C> <b>Program history log:</b>
