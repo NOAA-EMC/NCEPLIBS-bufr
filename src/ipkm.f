@@ -1,44 +1,32 @@
 C> @file
-C> @author WOOLLEN @date 1994-01-06
-      
-C> THIS SUBROUTINE PACKS AN INTEGER N INTO A CHARACTER STRING
-C>   CBAY OF LENGTH NBYT BYTES.
+C> @brief Encode an integer value within a character string.
+
+C> This subroutine encodes an integer value within a specified
+C> number of bytes of a character string, up to a maximum of 8
+C> bytes.
 C>
-C> PROGRAM HISTORY LOG:
-C> 1994-01-06  J. WOOLLEN -- ORIGINAL AUTHOR
-C> 1998-07-08  J. WOOLLEN -- REPLACED CALL TO CRAY LIBRARY ROUTINE
-C>                           "ABORT" WITH CALL TO NEW INTERNAL BUFRLIB
-C>                           ROUTINE "BORT"
-C> 2003-11-04  J. ATOR    -- ADDED DOCUMENTATION
-C> 2003-11-04  J. WOOLLEN -- BIG-ENDIAN/LITTLE-ENDIAN INDEPENDENT (WAS
-C>                           IN DECODER VERSION)
-C> 2003-11-04  S. BENDER  -- ADDED REMARKS/BUFRLIB ROUTINE
-C>                           INTERDEPENDENCIES
-C> 2003-11-04  D. KEYSER  -- UNIFIED/PORTABLE FOR WRF; ADDED HISTORY
-C>                           DOCUMENTATION; OUTPUTS MORE COMPLETE
-C>                           DIAGNOSTIC INFO WHEN ROUTINE TERMINATES
-C>                           ABNORMALLY
+C> @author J. Woollen
+C> @date 1994-01-06
 C>
-C> USAGE:    CALL IPKM (CBAY, NBYT, N)
-C>   INPUT ARGUMENT LIST:
-C>     NBYT     - INTEGER: NUMBER OF BYTES INTO WHICH TO PACK N (LENGTH
-C>                OF STRING)
-C>     N        - INTEGER: INTEGER TO BE PACKED
+C> @param[in] N       - integer: Value to be encoded
+C> @param[in] NBYT    - integer: Number of bytes of CBAY (up to a
+C>                      maximum of 8) within which to encode N
+C> @param[out] CBAY   - character*(*): String of length NBYT bytes
+C>                      containing encoded integer N
 C>
-C>   OUTPUT ARGUMENT LIST:
-C>     CBAY     - CHARACTER*8: STRING OF LENGTH NBYT BYTES CONTAINING
-C>                PACKED INTEGER N 
-C>
-C> REMARKS:
-C>    THIS ROUTINE CALLS:        BORT     IREV
-C>    THIS ROUTINE IS CALLED BY: BFRINI   CHRTRNA  CRBMG    PKC
-C>                               PKTDD    UPC      WRTREE
-C>                               Normally not called by any application
-C>                               programs.
+C> <b>Program history log:</b>
+C> - 1994-01-06  J. Woollen -- Original author
+C> - 1998-07-08  J. Woollen -- Replaced call to Cray library routine ABORT
+C>                             with call to new internal routine bort()
+C> - 2003-11-04  J. Woollen -- Modified to be endian-independent
+C> - 2003-11-04  J. Ator    -- Added documentation
+C> - 2003-11-04  S. Bender  -- Added remarks and routine interdependencies
+C> - 2003-11-04  D. Keyser  -- Unified/portable for WRF; added history
+C>                             documentation; outputs more complete
+C>                             diagnostic info when routine terminates
+C>                             abnormally
 C>
       SUBROUTINE IPKM(CBAY,NBYT,N)
-
-
 
       COMMON /HRDWRD/ NBYTW,NBITW,IORD(8)
 

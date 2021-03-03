@@ -2,6 +2,8 @@
  *  @brief C-language code for debufr utility.
  */
 
+#include <ctype.h>
+#include <string.h>
 #include <stdio.h>
 #include <libgen.h>
 #include <unistd.h>
@@ -14,7 +16,7 @@
 #define prtusage prtusage_
 #endif
 
-#define MXFLEN 300
+#define MXFLEN 125
 
 #ifdef F77_INTSIZE_8
     typedef long f77int;
@@ -172,23 +174,24 @@ void prtusage( char *prgnam ) {
  *                           settings
  * - 2019-02-01  J. Ator     Remove limit on length of prmstg, and allow up
  *                           to 20 PARAMETER=VALUE pairs
+ * - 2021-03-02  J. Ator     Add missing #include files, remove unused errflg
+ *                           variable, and other general cleanup.
  */
 
 int main( int argc, char *argv[ ] ) {
 
 	int ch;
-	int errflg;
 
 	char basic = 'N';
 	char forcemt = 'N';
 	char cfms = 'Y';
 	char io = 'r';
 	char tbldir[MXFLEN] = "/gpfs/dell1/nco/ops/nwprod/decoders/decod_shared/fix";
-	char tblfil[MXFLEN];
 	char outfile[MXFLEN];
-	char prmstg[MXFLEN] = "NULLPSTG";
 	char wkstr[MXFLEN];
 	char wkstr2[MXFLEN];
+	char tblfil[(MXFLEN*2)+5];
+	char prmstg[300] = "NULLPSTG";
 	char bvstr[9] = "        ";
 
 	unsigned short ii;
@@ -198,7 +201,6 @@ int main( int argc, char *argv[ ] ) {
 	/*
 	**  Get and process the valid options from the command line:
 	*/
-	errflg = 0;
 	wkstr[0] = '\0';  /* initialize to empty string */
 	outfile[0] = '\0';  /* initialize to empty string */
 	while ( ( ch = getopt ( argc, argv, "vhbcmo:t:f:p:" ) ) != EOF ) {
