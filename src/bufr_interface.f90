@@ -4,11 +4,14 @@
 !>
 !> @author Ronald Mclaren
 !> @date 2020-07-29
+
+!> This module contains functions which map certain Fortran BUFRLIB
+!> functions so they can be called from C and C++. The signatures of
+!> the public functions match their Fortran equivalents, as shown within
+!> the documentation for each of the individual functions.
 !>
-!> <p>This module contains functions which map certain Fortran BUFRLIB
-!>    functions so they can be called from C and C++. The signatures of
-!>    the public functions match their Fortran equivalents, as shown within
-!>    the documentation for each of the individual functions.
+!> @author Ronald Mclaren
+!> @date 2020-07-29
 !>
 module bufr_c_interface_mod
 
