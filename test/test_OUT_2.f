@@ -37,6 +37,12 @@ C*	Open the BUFR table and output file.
 	print *, '        OPENBF'
 	print *, '        POSAPX'
 
+	IF ( IGETSC ( 11 ) .eq. 0 ) THEN
+	    print *, '        IGETSC'
+        ELSE
+            CALL BORT ( 'IGETSC FAILURE!' )
+	ENDIF
+
 	CALL PKVS01 ( 'OGCE', 160 )
 	print *, '        PKVS01'
 
@@ -54,6 +60,8 @@ C*	First subset.
 	IF ( ( ierns .eq. 0 ) .and.
      +		( nsc .eq. 3 ) .and. ( nbt .eq. 19 ) ) THEN
 	    print *, '        NEMSPECS'
+        ELSE
+            CALL BORT ( 'NEMSPECS FAILURE!' )
 	END IF
 
 	r8ymd(1,1) = 2012
@@ -99,6 +107,8 @@ C*	Second subset.
 
 	IF ( IDNINT(xmiss) .eq. IDNINT(GETBMISS()) ) THEN
 	    print *, '        GETBMISS'
+        ELSE
+            CALL BORT ( 'GETBMISS FAILURE!' )
 	ENDIF
 
 	CALL WRITSB ( 11 )

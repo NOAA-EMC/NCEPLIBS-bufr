@@ -1,39 +1,32 @@
 C> @file
-C> @author WOOLLEN @date 2002-05-14
-      
-C> THIS SUBROUTINE SHOULD ONLY BE CALLED WHEN LOGICAL UNIT
-C>   LUNIT HAS BEEN OPENED FOR OUTPUT OPERATIONS.  IT NOW SIMPLY CALLS
-C>   BUFR ARCHIVE LIBRARY SUBROUTINE CMPMSG TO TOGGLE ON MESSAGE
-C>   COMPRESSION, FOLLOWED BY A CALL TO WRITSB TO PACK UP THE CURRENT
-C>   SUBSET WITHIN MEMORY AND TRY TO ADD IT TO THE COMPRESSED BUFR
-C>   MESSAGE THAT IS CURRENTLY OPEN WITHIN MEMORY FOR THIS LUNIT,
-C>   FOLLOWED BY ANOTHER CALL TO CMPMSG TO TOGGLE OFF MESSAGE
-C>   COMPRESSION.  THIS SUBROUTINE USES THE SAME INPUT AND OUTPUT
-C>   PARAMETERS AS WRITSB.
+C> @brief Write a data subset into a BUFR message using compression
+
+C> This subroutine is similar to subroutine writsb(), except that 
+C> when the subset is encoded and packed into the current message
+C> for the BUFR file associated with logical unit LUNIT, it is 
+C> packed using compression as prescribed within the
+C> [official WMO BUFR regulations](https://library.wmo.int/index.php?lvl=notice_display&id=10684#.X68yu8hKiUn).
 C>
-C> PROGRAM HISTORY LOG:
-C> 2002-05-14  J. WOOLLEN -- ORIGINAL AUTHOR
-C> 2003-11-04  S. BENDER  -- ADDED REMARKS/BUFRLIB ROUTINE
-C>                           INTERDEPENDENCIES
-C> 2003-11-04  D. KEYSER  -- UNIFIED/PORTABLE FOR WRF; ADDED
-C>                           DOCUMENTATION (INCLUDING HISTORY); OUTPUTS
-C>                           MORE COMPLETE DIAGNOSTIC INFO WHEN ROUTINE
-C>                           TERMINATES ABNORMALLY
-C> 2005-03-09  J. ATOR    -- MODIFIED TO USE CMPMSG AND WRITSB
+C> @author J. Woollen
+C> @date 2002-05-14
 C>
-C> USAGE:    CALL WRITCP (LUNIT)
-C>   INPUT ARGUMENT LIST:
-C>     LUNIT    - INTEGER: FORTRAN LOGICAL UNIT NUMBER FOR BUFR FILE
+C> @param[in] LUNIT  - integer: Fortran logical unit number for BUFR file
 C>
-C> REMARKS:
-C>    THIS ROUTINE CALLS:        CMPMSG   WRITSB
-C>    THIS ROUTINE IS CALLED BY: None
-C>                               Normally called only by application
-C>                               programs.
+C> @remarks
+C> - This subroutine activates compression via an internal call to
+C> subroutine cmpmsg(), followed by an internal call to subroutine
+C> writsb(), followed by a second internal call to subroutine
+C> cmpmsg() to deactivate compression.  For this reason, most
+C> application programs which write compressed BUFR messages now
+C> call subroutines cmpmsg() and writsb() directly; however, this
+C> subroutine is still supported within the BUFRLIB software for
+C> backwards-compatibility with certain legacy application programs.
+C>
+C> <b>Program history log:</b>
+C> - 2002-05-14  J. Woollen -- Original author
+C> - 2005-03-09  J. Ator    -- Modified to use cmpmsg() and writsb()
 C>
       SUBROUTINE WRITCP(LUNIT)
-
-
 
       CALL CMPMSG('Y')
 

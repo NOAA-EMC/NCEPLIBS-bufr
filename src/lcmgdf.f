@@ -1,35 +1,45 @@
 C> @file
-C> @author J @date 2009-07-09
-      
-C> THIS FUNCTION CHECKS WHETHER AT LEAST ONE "LONG" (I.E.
-C>   GREATER THAN 8 BYTES) CHARACTER STRING EXISTS WITHIN THE INTERNAL
-C>   DICTIONARY DEFINITION FOR THE TABLE A MESSAGE TYPE GIVEN BY SUBSET.
+C> @brief Check for the existence of any long character strings
+C> (greater than 8 bytes) within a data subset definition.
+
+C> This function checks whether the subset definition for a given
+C> message type contains any long character strings (greater
+C> than 8 bytes).
 C>
-C> PROGRAM HISTORY LOG:
-C> 2009-07-09  J. ATOR    -- ORIGINAL AUTHOR
-C> 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
+C> @author J. Ator
+C> @date 2009-07-09
 C>
-C> USAGE:    LCMGDF (LUNIT, SUBSET)
-C>   INPUT ARGUMENT LIST:
-C>     LUNIT    - INTEGER: FORTRAN LOGICAL UNIT NUMBER ASSOCIATED WITH
-C>                SUBSET DEFINITION
-C>     SUBSET   - CHARACTER*8: TABLE A MNEMONIC FOR MESSAGE TYPE
+C> @param[in] LUNIT  - integer: Fortran logical unit number for
+C>                     BUFR file
+C> @param[in] SUBSET - character*8: Table A mnemonic of message
+C>                     type to be checked
+C> @returns lcmgdf - integer: 
+C>                    -  0 = SUBSET does not contain any long
+C>                           character strings
+C>                    -  1 = SUBSET contains at least one long
+C>                           character string
 C>
-C>   OUTPUT ARGUMENT LIST:
-C>     LCMGDF   - INTEGER: RETURN CODE INDICATING WHETHER SUBSET CONTAINS
-C>                AT LEAST ONE "LONG" CHARACTER STRING IN ITS DEFINITION
-C>                  0 - NO
-C>                  1 - YES
+C> @remarks
+C> - LUNIT may be open for either input or output operations via a
+C> previous call to subroutine openbf().  However, in either case,
+C> SUBSET must already be defined within the BUFR tables that are
+C> associated with LUNIT, typically as [DX BUFR tables](@ref dfbftab)
+C> information supplied via argument LUNDX when openbf() was called,
+C> or, if openbf() was called with IO = 'SEC3', then as
+C> [master BUFR table](@ref dfbfmstab) information during a previous
+C> call to subroutine readmg(), readerme() or equivalent.
+C> - Note that this function does not return mnemonic(s) associated
+C> with any long character string(s) found within SUBSET; rather,
+C> it only checks whether at least one such mnemonic exists.  If any
+C> are found, the application program can process them via a
+C> separate call to subroutine readlc() (when reading BUFR data
+C> subsets) or subroutine writlc() (when writing BUFR data subsets).
 C>
-C> REMARKS:
-C>    THIS ROUTINE CALLS:        BORT     NEMTBA   STATUS
-C>    THIS ROUTINE IS CALLED BY: None
-C>                               Normally called only by application
-C>                               programs.
+C> <b>Program history log:</b>
+C> - 2009-07-09  J. Ator    -- Original author
+C> - 2014-12-10  J. Ator    -- Use modules instead of COMMON blocks
 C>
       INTEGER FUNCTION LCMGDF(LUNIT,SUBSET)
-
-
 
       USE MODA_TABLES
 
