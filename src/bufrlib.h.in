@@ -1,4 +1,15 @@
-/** @file */
+/** @file
+ *  @brief Define signatures for C functions which are native C
+ *  BUFRLIB functions.
+ *
+ *  <p>This header file defines the C function signatures for all
+ *  BUFRLIB functions written in C.  It also contains other macros
+ *  used throughout the C portion of the library.
+ *
+ *  @author J.Ator
+ *  @date 2003-11-04
+ */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>

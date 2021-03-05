@@ -1,11 +1,14 @@
 !> @file
-!> @authors Ronald Mclaren
+!> @brief Enable a number of Fortran BUFRLIB functions to be called
+!>        from C and C++ application programs.
+!>
+!> @author Ronald Mclaren
 !> @date 2020-07-29
 !>
-!> @brief This module contains functions which map relevant fortran library
-!>        functions so they can be called from c and c++. The signatures of
-!>        the public functions match their fortran equivalents (please see
-!>        their documentation if you have questions).
+!> <p>This module contains functions which map certain Fortran BUFRLIB
+!>    functions so they can be called from C and C++. The signatures of
+!>    the public functions match their Fortran equivalents, as shown within
+!>    the documentation for each of the individual functions.
 !>
 module bufr_c_interface_mod
 
@@ -79,7 +82,7 @@ end subroutine copy_f_c_str
 !> @date 2020-07-29
 !>
 !> @brief Wraps fortran "open" statement so we can open a Fortran file
-!>.       from a C program.
+!>        from a C program.
 !>
 !> @param[in] lunit - c_int: the integer to use as the fortran file unit
 !> @param[in] filepath - c_char: path to the file we want to open.
@@ -96,7 +99,7 @@ end subroutine open_c
 !> @date 2020-07-29
 !>
 !> @brief Wraps fortran "close" statement so we can close a Fortran file
-!>.       from a C program.
+!>        from a C program.
 !>
 !> @param[in] lunit - c_int: the integer to use as the fortran file unit
 !>
@@ -110,7 +113,7 @@ end subroutine close_c
 !> @author Ronald McLaren
 !> @date 2020-07-29
 !>
-!> @brief Wraps NCEPLIB-bufr "openbf" subroutine.
+!> @brief Wraps BUFRLIB "openbf" subroutine.
 !>
 !> @param[in] bufr_unit - c_int: the fortran file unit number
 !> @param[in] cio - c_char: cio string
@@ -128,7 +131,7 @@ end subroutine openbf_c
 !> @author Ronald McLaren
 !> @date 2020-07-29
 !>
-!> @brief Wraps NCEPLIB-bufr "closbf" subroutine.
+!> @brief Wraps BUFRLIB "closbf" subroutine.
 !>
 !> @param[in] bufr_unit - c_int: the fortran file unit number to close
 !>
@@ -142,8 +145,8 @@ end subroutine closbf_c
 !> @author Ronald McLaren
 !> @date 2020-07-29
 !>
-!> @brief Wraps NCEPLIB-bufr "exitbufr" subroutine. Closes
-!>        all open file units used by NCEPLIB-bufr.
+!> @brief Wraps BUFRLIB "exitbufr" subroutine. Closes
+!>        all open file units used by BUFRLIB.
 !>
 subroutine exitbufr_c() bind(C, name='exitbufr_f')
   call exitbufr()
@@ -153,7 +156,7 @@ end subroutine exitbufr_c
 !> @author Ronald McLaren
 !> @date 2020-07-29
 !>
-!> @brief Wraps NCEPLIB-bufr "ireadmg" subroutine.
+!> @brief Wraps BUFRLIB "ireadmg" subroutine.
 !>
 !> @param[in] bufr_unit - c_int: the fortran file unit number to read from
 !> @param[inout] c_subset - c_char: the subset string
@@ -177,7 +180,7 @@ end function ireadmg_c
 !> @author Ronald McLaren
 !> @date 2020-07-29
 !>
-!> @brief Wraps NCEPLIB-bufr "ireadsb" function.
+!> @brief Wraps BUFRLIB "ireadsb" function.
 !>
 !> @param[in] bufr_unit - c_int: the fortran file unit number to read from
 !>
@@ -193,7 +196,7 @@ end function ireadsb_c
 !> @author Ronald McLaren
 !> @date 2020-07-29
 !>
-!> @brief Wraps NCEPLIB-bufr "ufbint" function.
+!> @brief Wraps BUFRLIB "ufbint" function.
 !>
 !> @param[in] bufr_unit - c_int: the fortran file unit number to read from
 !> @param[inout] c_data - c_ptr: c style pointer to a pre-allocated buffer
@@ -217,7 +220,7 @@ end subroutine ufbint_c
 !> @author Ronald McLaren
 !> @date 2020-07-29
 !>
-!> @brief Wraps NCEPLIB-bufr "ufbrep" function.
+!> @brief Wraps BUFRLIB "ufbrep" function.
 !>
 !> @param[in] bufr_unit - c_int: the fortran file unit number to read from
 !> @param[inout] c_data - c_ptr: c style pointer to a pre-allocated buffer
@@ -241,7 +244,7 @@ end subroutine ufbrep_c
 !> @author Ronald McLaren
 !> @date 2021-02-24
 !>
-!> @brief Wraps NCEPLIB-bufr "mtinfo" function.
+!> @brief Wraps BUFRLIB "mtinfo" function.
 !>
 !> @param[in] path - c_char: the path where the WMO tables are stored
 !> @param[in] file_unit_1 - c_int: number to use for first file unit
