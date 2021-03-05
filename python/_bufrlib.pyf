@@ -199,11 +199,6 @@ subroutine chekstab(lun) ! in chekstab.f
     common /bufrbmiss/ bmiss
     common /tababd/ ntba,ntbb,ntbd,mtab,idna,idnb,idnd,taba,tabb,tabd
 end subroutine chekstab
-subroutine chrtrn(str,chr,n) ! in chrtrn.f
-    character*(*) :: str
-    character dimension(n,1),intent(c) :: chr
-    integer, optional,check(shape(chr,0)==n),depend(chr) :: n=shape(chr,0)
-end subroutine chrtrn
 subroutine chrtrna(str,chr,n) ! in chrtrna.f
     character*(*) :: str
     character dimension(n,1),intent(c) :: chr
