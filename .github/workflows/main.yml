@@ -75,8 +75,7 @@ jobs:
         ctest
 
     - name: retest_failed
-      run: |
-        if: ${{ failure() }}
-          cd $GITHUB_WORKSPACE/bufr/build
-          ctest -VV --rerun-failed
-        fi
+      if: ${{ failure() }}
+        cd $GITHUB_WORKSPACE/bufr/build
+        ctest -VV --rerun-failed
+      fi
