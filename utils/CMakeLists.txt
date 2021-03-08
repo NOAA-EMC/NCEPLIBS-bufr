@@ -18,19 +18,18 @@ foreach(_src ${_utils_srcs})
 endforeach()
 
 # the debufr utility uses the "8_DA" (8-byte integer, 8-byte real, dynamic allocation)
-# build of the library
-#set(_lib debufr.o)
-#add_library(${_lib} OBJECT debufr.f)
-#set_target_properties(${_lib} PROPERTIES COMPILE_FLAGS
-#                                         "${fortran_8_DA_flags}")
-#set(_exec debufr.x)
-#add_executable(${_exec} debufr.c)
-#target_compile_definitions(${_exec} PUBLIC "${underscore_def}")
-#target_compile_definitions(${_exec} PUBLIC "${c_8_DA_defs}")
-#add_dependencies(${_exec} bufr::bufr_8_DA)
-#target_link_libraries(${_exec} PRIVATE $<TARGET_OBJECTS:${_lib}>)
-#target_link_libraries(${_exec} PRIVATE bufr::bufr_8_DA)
-#list(APPEND _utils_execs ${_exec})
+set(_exec debufr.x)
+add_executable(${_exec} debufr.c debufr.f)
+add_dependencies(${_exec} bufr::bufr_8_DA)
+set_property(SOURCE debufr.c APPEND_STRING PROPERTY COMPILE_DEFINITIONS
+                                                    "${underscore_def}"
+                                                    "${c_8_DA_defs}")
+set_property(SOURCE debufr.f APPEND_STRING PROPERTY COMPILE_FLAGS
+                                                    "${fortran_8_DA_flags}")
+set_property(TARGET ${_exec} PROPERTY LINKER_LANGUAGE C)
+target_include_directories(${_exec} PRIVATE "${PROJECT_BINARY_DIR}/src")
+target_link_libraries(${_exec} PRIVATE bufr::bufr_8_DA)
+list(APPEND _utils_execs ${_exec})
 
 install(TARGETS ${_utils_execs}
         RUNTIME
