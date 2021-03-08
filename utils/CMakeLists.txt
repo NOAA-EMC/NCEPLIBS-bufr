@@ -19,18 +19,19 @@ endforeach()
 
 # the debufr utility uses the "8_DA" (8-byte integer, 8-byte real, dynamic allocation)
 # build of the library
-set(_lib debufr.o)
-add_library(${_lib} OBJECT debufr.f)
-set_target_properties(${_lib} PROPERTIES COMPILE_FLAGS
-                                         "${fortran_8_DA_flags}")
 set(_exec debufr.x)
-add_executable(${_exec} debufr.c)
-target_include_directories(${_exec} PUBLIC "${CMAKE_BINARY_DIR}/src")
-target_compile_definitions(${_exec} PUBLIC "${underscore_def}")
-target_compile_definitions(${_exec} PUBLIC "${c_8_DA_defs}")
+add_executable(${_exec} debufr.c debufr.f)
 add_dependencies(${_exec} bufr::bufr_8_DA)
-target_link_libraries(${_exec} PRIVATE $<TARGET_OBJECTS:${_lib}>)
+set_property(SOURCE debufr.c APPEND_STRING PROPERTY COMPILE_DEFINITIONS
+                                                    "${underscore_def}"
+                                                    "${c_8_DA_defs}")
+set_property(SOURCE debufr.f APPEND_STRING PROPERTY COMPILE_FLAGS
+                                                    "${fortran_8_DA_flags}")
+target_include_directories(${_exec} PRIVATE "${PROJECT_BINARY_DIR}/src")
 target_link_libraries(${_exec} PRIVATE bufr::bufr_8_DA)
+if(CMAKE_Fortran_COMPILER_ID MATCHES "^(Intel)$")
+  target_link_options(${_exec} PRIVATE "-nofor-main")
+endif()
 list(APPEND _utils_execs ${_exec})
 
 install(TARGETS ${_utils_execs}
