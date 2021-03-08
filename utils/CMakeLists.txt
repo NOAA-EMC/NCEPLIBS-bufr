@@ -28,8 +28,9 @@ set_property(SOURCE debufr.c APPEND_STRING PROPERTY COMPILE_DEFINITIONS
 set_property(SOURCE debufr.f APPEND_STRING PROPERTY COMPILE_FLAGS
                                                     "${fortran_8_DA_flags}")
 target_include_directories(${_exec} PRIVATE "${PROJECT_BINARY_DIR}/src")
+set_property(TARGET ${_exec} PROPERTY LINKER_LANGUAGE C)
 target_link_libraries(${_exec} PRIVATE bufr::bufr_8_DA)
-if(CMAKE_Fortran_COMPILER_ID MATCHES "^(Intel)$")
+if(CMAKE_C_COMPILER_ID MATCHES "^(Intel)$")
   target_link_options(${_exec} PRIVATE "-nofor-main")
 endif()
 list(APPEND _utils_execs ${_exec})
