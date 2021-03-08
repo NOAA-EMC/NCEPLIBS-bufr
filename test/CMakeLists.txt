@@ -96,7 +96,7 @@ list(APPEND test_scripts
   test_wrapper_OUT.sh
   test_gettab.sh
   test_split_by_subset.sh
-  test_debufr.sh
+  #test_debufr.sh
 )
 
 foreach(test_script ${test_scripts})
@@ -115,11 +115,9 @@ function(bufr_add_test_preAPX TESTNAME EXENAME)
            COMMAND ${CMAKE_BINARY_DIR}/bin/test_wrapper_OUT.sh ${EXENAME} "Y")
 endfunction()
 
-list(APPEND test_kinds_4 "4_DA")
-list(APPEND test_kinds_4 "4")
+list(APPEND test_kinds_4 "4_DA" "4")
 
-list(APPEND test_kinds_8 "8_DA")
-list(APPEND test_kinds_8 "8")
+list(APPEND test_kinds_8 "8_DA" "8")
 
 # IN tests
 foreach(test_src ${test_IN_srcs})
@@ -199,7 +197,7 @@ foreach(test_src IN ITEMS ${test_OUT_6_srcs})
 endforeach()
 
 # c_interface tests
-foreach(test_src IN ITEMS ${test_c_interface_srcs}) 
+foreach(test_src IN ITEMS ${test_c_interface_srcs})
   string(REPLACE ".c" "" testPref ${test_src})
   foreach(kind ${test_kinds_4})
     set(test     ${testPref}_${kind})
@@ -214,12 +212,12 @@ endforeach()
 # Test utilities
 
 # Test debufr.x utility
-add_test(NAME test_debufr_1
-  COMMAND ${CMAKE_BINARY_DIR}/bin/test_debufr.sh "${CMAKE_BINARY_DIR}/utils/debufr.x -t ../tables" "testfiles/data/debufr_1" "testrun/debufr_1.run" "testfiles/testoutput/debufr_1.out"
-  )
-add_test(NAME test_debufr_2
-  COMMAND ${CMAKE_BINARY_DIR}/bin/test_debufr.sh "${CMAKE_BINARY_DIR}/utils/debufr.x -t testfiles/data -f bufrtab.031 -c" "testfiles/data/debufr_2" "testrun/debufr_2.run" "testfiles/testoutput/debufr_2.out"
-  )
+#add_test(NAME test_debufr_1
+#  COMMAND ${CMAKE_BINARY_DIR}/bin/test_debufr.sh "${CMAKE_BINARY_DIR}/utils/debufr.x -t ../tables" "testfiles/data/debufr_1" "testrun/debufr_1.run" "testfiles/testoutput/debufr_1.out"
+#  )
+#add_test(NAME test_debufr_2
+#  COMMAND ${CMAKE_BINARY_DIR}/bin/test_debufr.sh "${CMAKE_BINARY_DIR}/utils/debufr.x -t testfiles/data -f bufrtab.031 -c" "testfiles/data/debufr_2" "testrun/debufr_2.run" "testfiles/testoutput/debufr_2.out"
+#  )
 
 # Test gettab.x utility
 add_test(NAME test_gettab

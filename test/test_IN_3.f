@@ -165,6 +165,18 @@ C*	    Continue checking with the next subset.
 
 	    ELSE IF ( isct .eq. 6 ) THEN
 
+                IF ( IFBGET ( 11 ) .eq. 0 ) THEN
+                    print *, '        IFBGET -> OK'
+                ELSE
+                    print *, '        IFBGET -> FAILED!'
+                ENDIF
+
+                IF ( LCMGDF ( 11, cmgtag ) .eq. 0 ) THEN
+                    print *, '        LCMGDF -> OK'
+                ELSE
+                    print *, '        LCMGDF -> FAILED!'
+                ENDIF
+
 		IF ( ( nr8rr .ne. 1 ) .or.
      +		    ( IDNINT(r8arr(2,1)) .ne. 10 ) .or.
      +		    ( IDNINT(r8arr(4,1)) .ne. 12 ) .or.
@@ -218,6 +230,12 @@ C*	    Continue checking with the next subset.
 	ENDDO
 
 C*	Verify that all available subsets were successfully read.
+
+        IF ( IFBGET ( 11 ) .ne. 0 ) THEN
+            print *, '        IFBGET -> OK'
+        ELSE
+            print *, '        IFBGET -> FAILED!'
+        ENDIF
 
 	IF ( ( decodeOK ) .and. ( isct .eq. 10 ) ) THEN
 	    print *, '       IREADNS -> OK'
