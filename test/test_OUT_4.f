@@ -48,6 +48,12 @@ C*	Open the BUFR input and output files.
         CALL MAXOUT ( MXBFMG*4 )
 	print *, '        MAXOUT'
 
+        IF ( IGETMXBY ( ) .eq. MXBFMG*4 ) THEN
+            print *, '        IGETMXBY'
+        ELSE
+            CALL BORT ( 'IGETMXBY FAILURE!' )
+        ENDIF
+
 C*      The following will ensure that subroutine STNDRD is called
 C*      internally during the subsequent calls to WRITSB and CLOSMG.
 

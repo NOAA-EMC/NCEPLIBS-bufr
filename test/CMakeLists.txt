@@ -115,11 +115,9 @@ function(bufr_add_test_preAPX TESTNAME EXENAME)
            COMMAND ${CMAKE_BINARY_DIR}/bin/test_wrapper_OUT.sh ${EXENAME} "Y")
 endfunction()
 
-list(APPEND test_kinds_4 "4_DA")
-list(APPEND test_kinds_4 "4")
+list(APPEND test_kinds_4 "4_DA" "4")
 
-list(APPEND test_kinds_8 "8_DA")
-list(APPEND test_kinds_8 "8")
+list(APPEND test_kinds_8 "8_DA" "8")
 
 # IN tests
 foreach(test_src ${test_IN_srcs})

@@ -7,7 +7,7 @@ C>
 C> @author J. Woollen
 C> @date 2012-09-15
 C>
-C> @param[in] XMISS - real*8: new placeholder value to represent
+C> @param[in] XMISS - real*8: New placeholder value to represent
 C>                    "missing" data
 C>
 C> <p>This subroutine can be called at any time from within an
