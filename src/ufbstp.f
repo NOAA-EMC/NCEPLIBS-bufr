@@ -125,7 +125,7 @@ C> - 2004-08-18  J. Ator    -- Added SAVE for IFIRST1 and IFIRST2 flags
 C> - 2009-04-21  J. Ator    -- Use errwrt()
 C> - 2014-12-10  J. Ator    -- Use modules instead of COMMON blocks
 C>
-      SUBROUTINE UFBSTP(LUNIO,USR,I1,I2,IRET,STR)
+      SUBROUTINE UFBSTP(LUNIN,USR,I1,I2,IRET,STR)
 
       USE MODA_USRINT
       USE MODA_MSGCWD
@@ -150,14 +150,14 @@ C----------------------------------------------------------------------
 C  CHECK THE FILE STATUS AND I-NODE
 C  --------------------------------
 
-      LUNIT = ABS(LUNIO)
+      LUNIT = ABS(LUNIN)
       CALL STATUS(LUNIT,LUN,IL,IM)
       IF(IL.EQ.0) GOTO 900
       IF(IM.EQ.0) GOTO 901
       IF(INODE(LUN).NE.INV(1,LUN)) GOTO 902
 
       IO = MIN(MAX(0,IL),1)
-      IF(LUNIO.NE.LUNIT) IO = 0
+      IF(LUNIN.NE.LUNIT) IO = 0
 
       IF(I1.LE.0) THEN
          IF(IPRT.GE.0) THEN
