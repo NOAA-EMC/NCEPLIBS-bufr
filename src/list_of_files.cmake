@@ -69,7 +69,6 @@ set(fortran_src
   cadn30.f
   capit.f
   chekstab.f
-  chrtrn.f
   chrtrna.f
   cktaba.f
   closmg.f
@@ -201,7 +200,6 @@ set(fortran_src
   pkc.f
   pkftbv.f
   pktdd.f
-  pkx.f
   posapx.f
   rcstpl.f
   rdbfdx.f

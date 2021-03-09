@@ -27,6 +27,12 @@ C> @param[in] lentd    - integer: length of tbldir string
 C> @param[in] tblfil   - character*(*): File containing DX BUFR table
 C>                       information to be used for decoding
 C>                       - 'NULLFILE' = No such file will be used
+C> @param[in] prmstg   - character*(*): String of up to 20 comma-separated
+C>                       PARAMETER=VALUE pairs to be used to dynamically
+C>                       allocate memory within the BUFRLIB software,
+C>                       overriding the default VALUE that would otherwise
+C>                       be used for each such PARAMETER.
+C>                       - 'NULLPSTG' = No such pairs will be used
 C> @param[in] basic    - character: Indicator as to whether only "basic"
 C>                       information in Sections 0-3 should be decoded
 C>                       from each BUFR message:
@@ -43,12 +49,6 @@ C>                       table meanings should be read from master BUFR
 C>                       tables and included in the print output:
 C>                       - 'Y' = Yes
 C>                       - 'N' = No
-C> @param[in] prmstg   - character*(*): String of up to 20 comma-separated
-C>                       PARAMETER=VALUE pairs to be used to dynamically
-C>                       allocate memory within the BUFRLIB software,
-C>                       overriding the default VALUE that would otherwise
-C>                       be used for each such PARAMETER.
-C>                       - 'NULLPSTG' = No such pairs will be used
 C>
 C> @remarks
 C> - See BUFRLIB function isetprm() for a complete list of parameters

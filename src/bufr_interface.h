@@ -1,10 +1,14 @@
 /** @file
+    @brief Define signatures for C functions which wrap native Fortran
+    BUFRLIB functions. 
+
     @author Ronald Mclaren
     @date 2020-07-29
 
-    @brief This header file defines the c function signatures for the functions
-           exposed in bufr.interface.f90. It is included by c/c++ source files
-           that wish to use NCEPLIB-bufr functions.
+    <p>This header file defines the C function signatures for the Fortran
+       functions exposed in bufr_interface.f90. It is intended for use by
+       C/C++ application programs that wish to call BUFRLIB functions
+       written in Fortran.
 */
 
 #pragma once
@@ -39,19 +43,19 @@ extern "C" {
 /** @author Ronald McLaren
     @date 2020-07-29
 
-    @brief Wraps NCEPLIB-bufr "openbf" subroutine.
+    @brief Wraps BUFRLIB "openbf" subroutine.
 
     @param[in] bufr_unit - int: the fortran file unit number
-    @param[in] const char* - const char*: cio string (ex "IN", "SEC3", and "OUT")
+    @param[in] cio - const char*: cio string (ex "IN", "SEC3", and "OUT")
     @param[in] table_file_id - int: table_file unit number
 */
-  void openbf_f(int bufr_unit, const char* cio, int table_file_d);
+  void openbf_f(int bufr_unit, const char* cio, int table_file_id);
 
 
 /** @author Ronald McLaren
     @date 2020-07-29
 
-    @brief Wraps NCEPLIB-bufr "closbf" subroutine.
+    @brief Wraps BUFRLIB "closbf" subroutine.
 
     @param[in] bufr_unit - int: the fortran file unit number to close
 */
@@ -61,8 +65,8 @@ extern "C" {
 /**  @author Ronald McLaren
      @date 2020-07-29
 
-     @brief Wraps NCEPLIB-bufr "exitbufr" subroutine. Closes
-            all open file units used by NCEPLIB-bufr.
+     @brief Wraps BUFRLIB "exitbufr" subroutine. Closes
+            all open file units used by BUFRLIB.
 */
   void exitbufr_f();
 
@@ -70,7 +74,7 @@ extern "C" {
 /** @author Ronald McLaren
     @date 2020-07-29
 
-    @brief Wraps NCEPLIB-bufr "ireadmg" subroutine.
+    @brief Wraps BUFRLIB "ireadmg" subroutine.
 
     @param[in] bufr_unit - int: the fortran file unit number to read from
     @param[inout] subset - char*: the subset string
@@ -83,7 +87,7 @@ extern "C" {
 /** @author Ronald McLaren
     @date 2020-07-29
 
-    @brief Wraps NCEPLIB-bufr "ireadsb" function.
+    @brief Wraps BUFRLIB "ireadsb" function.
 
     @param[in] bufr_unit - int: the fortran file unit number to read from
 */
@@ -93,7 +97,7 @@ extern "C" {
 /** @author Ronald McLaren
     @date 2020-07-29
 
-    @brief Wraps NCEPLIB-bufr "ufbint" function.
+    @brief Wraps BUFRLIB "ufbint" function.
 
     @param[in] bufr_unit - int: the fortran file unit number to read from
     @param[inout] c_data - void**: c style pointer to a pre-allocated buffer
@@ -108,7 +112,7 @@ extern "C" {
 /** @author Ronald McLaren
     @date 2020-07-29
 
-    @brief Wraps NCEPLIB-bufr "ufbrep" function.
+    @brief Wraps BUFRLIB "ufbrep" function.
 
     @param[in] bufr_unit - int: the fortran file unit number to read from
     @param[inout] c_data - void**: c style pointer to a pre-allocated buffer
@@ -123,7 +127,7 @@ extern "C" {
 /** @author Ronald McLaren
     @date 2021-02-24
 
-    @brief Wraps NCEPLIB-bufr "mtinfo" function.
+    @brief Wraps BUFRLIB "mtinfo" function.
 
     @param[in] path - const char*: the path where the WMO tables are stored
     @param[in] file_unit_1 - int: number to use for first file unit

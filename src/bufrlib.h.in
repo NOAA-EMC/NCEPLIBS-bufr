@@ -1,4 +1,15 @@
-/** @file */
+/** @file
+ *  @brief Define signatures for C functions which are native C
+ *  BUFRLIB functions.
+ *
+ *  <p>This header file defines the C function signatures for all
+ *  BUFRLIB functions written in C.  It also contains other macros
+ *  used throughout the C portion of the library.
+ *
+ *  @author J.Ator
+ *  @date 2003-11-04
+ */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -30,6 +41,7 @@
 #define ardllocc   ardllocc_
 #define bort	   bort_
 #define bort_exit  bort_exit_
+#define bvers      bvers_
 #define cadn30	   cadn30_
 #define ccbfl	   ccbfl_
 #define cmpia	   cmpia_
@@ -106,6 +118,7 @@ void arallocc( void );
 void ardllocc( void );
 void bort( char *, f77int );
 void bort_exit( void );
+void bvers( char *, f77int ); 
 void cadn30( f77int *, char *, f77int ); 
 void ccbfl( void );
 int cmpia( const void *, const void * );

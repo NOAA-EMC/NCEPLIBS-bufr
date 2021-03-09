@@ -1,59 +1,43 @@
 C> @file
-C> @author WOOLLEN @date 1994-01-06
-      
-C> THIS SUBROUTINE PACKS AN INTEGER VALUE (NVAL) INTO NBITS
-C>   BITS OF AN INTEGER ARRAY (IBAY), STARTING WITH BIT (IBIT+1).  ON
-C>   OUTPUT, IBIT IS UPDATED TO POINT TO THE LAST BIT THAT WAS PACKED.
+C> @brief Encode an integer value within an integer array.
+
+C> This subroutine encodes an integer value within a specified
+C> number of bits of an integer array, starting at the bit
+C> immediately after a specified bit within the array.
 C>
-C>   NOTE THAT THIS SUBROUTINE WILL NOT WORK PROPERLY IF NBITS IS
-C>   GREATER THAN NBITW (I.E. THE NUMBER OF BITS IN A MACHINE WORD);
-C>   IN SUCH CASES SUBROUTINE PKX SHOULD BE CALLED INSTEAD TO ENSURE
-C>   THAT ALL BITS PRIOR TO THE LAST MACHINE WORD ARE PROPERLY
-C>   ZERO'ED OUT.
+C> @author J. Woollen
+C> @date 1994-01-06
 C>
-C> PROGRAM HISTORY LOG:
-C> 1994-01-06  J. WOOLLEN -- ORIGINAL AUTHOR
-C> 2003-11-04  J. ATOR    -- ADDED DOCUMENTATION
-C> 2003-11-04  J. WOOLLEN -- BIG-ENDIAN/LITTLE-ENDIAN INDEPENDENT (WAS
-C>                           IN DECODER VERSION)
-C> 2003-11-04  S. BENDER  -- ADDED REMARKS/BUFRLIB ROUTINE
-C>                           INTERDEPENDENCIES
-C> 2003-11-04  D. KEYSER  -- UNIFIED/PORTABLE FOR WRF; ADDED HISTORY
-C>                           DOCUMENTATION
-C> 2014-12-03  J. ATOR    -- CALL BORT IF NBITS > NBITW
+C> @param[in] NVAL     - integer: Value to be encoded
+C> @param[in] NBITS    - integer: Number of bits of IBAY within
+C>                       which to encode NVAL
+C> @param[out] IBAY    - integer(*): Array containing encoded NVAL
+C> @param[in,out] IBIT - integer: Bit pointer within IBAY
+C>                       - On input, IBIT points to the bit within
+C>                         IBAY after which to begin encoding NVAL.
+C>                       - On output, IBIT points to the last bit
+C>                         of IBAY which contains the encoded NVAL.
 C>
-C> USAGE:    CALL PKB (NVAL, NBITS, IBAY, IBIT)
-C>   INPUT ARGUMENT LIST:
-C>     NVAL     - INTEGER: INTEGER TO BE PACKED
-C>     NBITS    - INTEGER: NUMBER OF BITS OF IBAY WITHIN WHICH TO PACK
-C>                NVAL
-C>     IBAY     - INTEGER: *-WORD PACKED BINARY ARRAY NOT YET CONTAINING
-C>                PACKED NVAL
-C>     IBIT     - INTEGER: BIT POINTER WITHIN IBAY INDICATING BIT AFTER
-C>                WHICH TO START PACKING
+C> @remarks
+C> - This subroutine is the logical inverse of subroutine upb().
+C> - This subroutine will not work properly if NBITS is greater than
+C>   the number of bits in an integer, as determined via
+C>   an internal call to subroutine wrdlen().  In such cases,
+C>   the user should switch to a compiled version of the BUFRLIB
+C>   software which has a larger integer size.
 C>
-C>   OUTPUT ARGUMENT LIST:
-C>     IBAY     - INTEGER: *-WORD PACKED BINARY ARRAY NOW CONTAINING
-C>                PACKED NVAL
-C>     IBIT     - INTEGER: BIT POINTER WITHIN IBAY INDICATING LAST BIT
-C>                THAT WAS PACKED
-C>
-C> REMARKS:
-C>    THIS SUBROUTINE IS THE INVERSE OF BUFR ARCHIVE LIBRARY ROUTINE
-C>    UPB.
-C>
-C>    THIS ROUTINE CALLS:        BORT     IREV
-C>    THIS ROUTINE IS CALLED BY: ATRCPT   CMSGINI  CNVED4   CPYUPD
-C>                               DXMINI   MSGINI   MSGUPD   MSGWRT
-C>                               MVB      PAD      PADMSG   PKBS1
-C>                               PKX      STNDRD   WRCMPS   WRDXTB
-C>                               WRTREE
-C>                               Normally not called by any application
-C>                               programs.
+C> <b>Program history log:</b>
+C> - 1994-01-06  J. Woollen -- Original author
+C> - 2003-11-04  J. Ator    -- Added documentation
+C> - 2003-11-04  S. Bender  -- Added remarks and routine interdependencies
+C> - 2003-11-04  D. Keyser  -- Unified/portable for WRF; added history
+C>                             documentation; outputs more complete
+C>                             diagnostic info when routine terminates
+C>                             abnormally, unusual things happen or for
+C>                             informational purposes
+C> - 2014-12-03  J. Ator    -- Call bort() if NBITS > NBITW
 C>
       SUBROUTINE PKB(NVAL,NBITS,IBAY,IBIT)
-
-
 
       COMMON /HRDWRD/ NBYTW,NBITW,IORD(8)
 
@@ -92,7 +76,7 @@ C        bits within the next word.
       RETURN
 900   WRITE(BORT_STR,'("BUFRLIB: PKB - NUMBER OF BITS BEING PACKED '//
      . ', NBITS (",I4,"), IS > THE INTEGER WORD LENGTH ON THIS '//
-     . 'MACHINE, NBITW (",I3,"); USE SUBROUTINE PKX INSTEAD")')
+     . 'MACHINE, NBITW (",I3,")")')
      . NBITS,NBITW
       CALL BORT(BORT_STR)
       END

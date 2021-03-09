@@ -8,21 +8,18 @@
 #include <libgen.h>
 #include <unistd.h>
 
+#include "bufrlib.h"
+
 #ifdef UNDERSCORE
-#define cobfl cobfl_
-#define ccbfl ccbfl_
 #define fdebufr fdebufr_
-#define bvers bvers_
 #define prtusage prtusage_
 #endif
 
-#define MXFLEN 125
+void fdebufr( char *, char *, f77int *, char *, char *, char *, char *, char *,
+              f77int, f77int, f77int, f77int, f77int, f77int, f77int );
+void prtusage( char * );
 
-#ifdef F77_INTSIZE_8
-    typedef long f77int;
-#else
-    typedef int f77int;
-#endif
+#define MXFLEN 125
 
 /**
  * This function prints program usage information to standard output.
@@ -307,7 +304,7 @@ int main( int argc, char *argv[ ] ) {
 	*/
 	lentd = (f77int) strlen(tbldir);
 	fdebufr( outfile, tbldir, &lentd, tblfil, prmstg, &basic, &forcemt, &cfms,
-		 strlen(outfile), strlen(tbldir), strlen(tblfil), strlen(prmstg) );
+		 strlen(outfile), strlen(tbldir), strlen(tblfil), strlen(prmstg), 1, 1, 1 );
 
 	/*
 	**  Close the input BUFR file.

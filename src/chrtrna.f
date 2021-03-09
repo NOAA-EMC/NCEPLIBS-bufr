@@ -1,40 +1,34 @@
 C> @file
-C> @author WOOLLEN @date 1994-01-06
-      
-C> THIS SUBROUTINE COPIES A SPECIFIED NUMBER OF CHARACTERS
-C>   FROM A CHARACTER ARRAY INTO A CHARACTER STRING.  THE DIFFERENCE
-C>   BETWEEN THIS SUBROUTINE AND BUFR ARCHIVE LIBRARY SUBROUTINE CHRTRN
-C>   IS THAT, IN THIS SUBROUTINE, THE INPUT CHARACTER ARRAY IS ASSUMED
-C>   TO BE IN ASCII; THUS, FOR CASES WHERE THE NATIVE MACHINE IS EBCDIC,
-C>   AN ASCII TO EBCDIC TRANSLATION IS DONE ON THE FINAL STRING BEFORE
-C>   IT IS OUTPUT.
+C> @brief Copy a specified number of characters from an array into
+C> a string.
+
+C> This subroutine copies a specified number of characters from an
+C> array of characters into a character string.
 C>
-C> PROGRAM HISTORY LOG:
-C> 1994-01-06  J. WOOLLEN -- ORIGINAL AUTHOR
-C> 2003-11-04  J. ATOR    -- ADDED DOCUMENTATION
-C> 2003-11-04  S. BENDER  -- ADDED REMARKS/BUFRLIB ROUTINE
-C>                           INTERDEPENDENCIES
-C> 2003-11-04  D. KEYSER  -- UNIFIED/PORTABLE FOR WRF; ADDED HISTORY
-C>                           DOCUMENTATION
+C> <p>The characters in the input array CHR are assumed to be ASCII,
+C> so for cases where the native machine is EBCDIC, an
+C> ASCII-to-EBCDIC translation is done on the final character string
+C> before it is output as STR.
 C>
-C> USAGE:    CALL CHRTRNA (STR, CHR, N)
-C>   INPUT ARGUMENT LIST:
-C>     CHR      - CHARACTER*1: N-WORD CHARACTER ARRAY IN ASCII
-C>     N        - INTEGER: NUMBER OF CHARACTERS TO COPY
+C> @author J. Woollen
+C> @date 1994-01-06
 C>
-C>   OUTPUT ARGUMENT LIST:
-C>     STR      - CHARACTER*(*): CHARACTER STRING IN ASCII OR EBCDIC,
-C>                DEPENDING ON NATIVE MACHINE
+C> @param[in] CHR     - character(*): Array of characters in ASCII
+C> @param[in] N       - integer: Number of characters to be copied
+C>                      from CHR, starting from the beginning of
+C>                      the array
+C> @param[out] STR    - character*(*): Character string in ASCII or
+C>                      EBCDIC, depending on native machine
 C>
-C> REMARKS:
-C>    THIS ROUTINE CALLS:        IPKM     IUPM
-C>    THIS ROUTINE IS CALLED BY: ICHKSTR
-C>                               Normally not called by any application
-C>                               programs.
+C> @remarks
+C> - The determination as to whether the native machine is ASCII or
+C> EBCDIC is made via an internal call to subroutine wrdlen().
+C>
+C> <b>Program history log:</b>
+C> - 1994-01-06  J. Woollen -- Original author
+C> - 2003-11-04  J. Ator    -- Added documentation
 C>
       SUBROUTINE CHRTRNA(STR,CHR,N)
-
-
 
       COMMON /CHARAC/ IASCII,IATOE(0:255),IETOA(0:255)
 
