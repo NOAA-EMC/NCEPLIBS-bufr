@@ -7,7 +7,15 @@ jobs:
     strategy:
       matrix:
         os: [macos-10.15,  ubuntu-20.04]
-        compiler: [gcc-9,  gcc-10]
+        ccompiler: [clang, gcc-9, gcc-10]
+        fcompiler: [gfortran-9, gfortran-10]
+        exclude:
+          - os: ubuntu-20.04
+            ccompiler: clang
+          - ccompiler: gcc-9
+            fcompiler: gfortran-10
+          - ccompiler: gcc-10
+            fcompiler: gfortran-9
 
     steps:
 
@@ -27,9 +35,9 @@ jobs:
           pip3 install setuptools
           pip3 install numpy
           pip3 install netCDF4
-          if [[ ${{ matrix.compiler }} == "gcc-9" ]]; then
+          if [[ ${{ matrix.fcompiler }} == "gfortran-9" ]]; then
             sudo ln -sf /usr/local/bin/gfortran-9 /usr/local/bin/gfortran
-          elif  [[ ${{ matrix.compiler }} == "gcc-10" ]]; then
+          elif  [[ ${{ matrix.fcompiler }} == "gfortran-10" ]]; then
             sudo ln -sf /usr/local/bin/gfortran-10 /usr/local/bin/gfortran
           fi
         fi
@@ -42,11 +50,16 @@ jobs:
 
     - name: build
       run: |
-        if [[ ${{ matrix.compiler }} == "gcc-9" ]]; then
+        if [[ ${{ matrix.ccompiler }} == "clang" ]]; then
+          export CC=clang
+        elif [[ ${{ matrix.ccompiler }} == "gcc-9" ]]; then
           export CC=gcc-9
-          export FC=gfortran-9
-        elif [[ ${{ matrix.compiler }} == "gcc-10" ]]; then
+        elif [[ ${{ matrix.ccompiler }} == "gcc-10" ]]; then
           export CC=gcc-10
+        fi
+        if [[ ${{ matrix.fcompiler }} == "gfortran-9" ]]; then
+          export FC=gfortran-9
+        elif [[ ${{ matrix.fcompiler }} == "gfortran-10" ]]; then
           export FC=gfortran-10
         fi
         cd bufr

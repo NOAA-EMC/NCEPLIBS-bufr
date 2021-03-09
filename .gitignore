@@ -1,12 +1,12 @@
-build/
-install/
+build*/
+install*/
 
 *.[aox]
 *.mod
 *.so
 .DS_Store
 
-*.swp
+*.sw[a-p]
 testfiles*/
 
 # Python stuff
@@ -19,7 +19,6 @@ __pycache__/
 
 # Distribution / packaging
 .Python
-build/
 develop-eggs/
 dist/
 downloads/
