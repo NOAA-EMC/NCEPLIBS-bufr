@@ -1,40 +1,39 @@
 C> @file
-C> @author ATOR @date 2005-11-29
-	
-C> THIS SUBROUTINE READS AN INPUT BUFR MESSAGE ENCODED USING
-C>   BUFR EDITION 3 AND OUTPUTS AN EQUIVALENT BUFR MESSAGE ENCODED USING
-C>   BUFR EDITION 4.  THE OUTPUT MESSAGE WILL BE SLIGHTLY LONGER THAN THE
-C>   INPUT MESSAGE, SO THE USER MUST ALLOW FOR ENOUGH SPACE WITHIN THE
-C>   MSGOT ARRAY.  NOTE THAT MSGIN AND MSGOT MUST BE SEPARATE ARRAYS.
+C> @brief Convert a BUFR edition 3 message to BUFR edition 4.
+
+C> This subroutine reads an input BUFR message encoded using BUFR
+C> edition 3 and outputs an equivalent BUFR message encoded using
+C> BUFR edition 4.
 C>
-C> PROGRAM HISTORY LOG:
-C> 2005-11-29  J. ATOR    -- ORIGINAL AUTHOR
-C> 2009-08-12  J. ATOR    -- ALLOW SILENT RETURN (INSTEAD OF BORT RETURN)
-C>                           IF MSGIN IS ALREADY ENCODED USING EDITION 4
+C> <p>This subroutine performs the same function as subroutine pkvs01()
+C> when the latter is called with S01MNEM = 'BEN' and IVAL = 4, except
+C> that the latter subroutine operates on BUFR messages internally
+C> within the software, whereas this subroutine operates on a single
+C> BUFR message passed in via a memory array.
 C>
-C> USAGE:    CALL CNVED4 (MSGIN, LMSGOT, MSGOT)
-C>   INPUT ARGUMENT LIST:
-C>     MSGIN    - INTEGER: *-WORD ARRAY CONTAINING BUFR MESSAGE ENCODED
-C>                USING BUFR EDITION 3
-C>     LMSGOT   - INTEGER: DIMENSIONED SIZE (IN INTEGER WORDS) OF MSGOT;
-C>                USED BY THE SUBROUTINE TO ENSURE THAT IT DOES NOT
-C>                OVERFLOW THE MSGOT ARRAY
+C> @author J. Ator
+C> @date 2005-11-29
 C>
-C>   OUTPUT ARGUMENT LIST:
-C>     MSGOT    - INTEGER: *-WORD ARRAY CONTAINING INPUT BUFR MESSAGE
-C>                NOW ENCODED USING BUFR EDITION 4
+C> @param[in] MSGIN    - integer(*): BUFR message
+C> @param[in] LMSGOT   - integer: Dimensioned size (in integers) of
+C>                       MSGOT; used by the subroutine to ensure that
+C>                       it doesn't overflow the MSGOT array
+C> @param[out] MSGOT   - integer(*): Copy of MSGIN encoded using
+C>                       BUFR edition 4
 C>
-C> REMARKS:
-C>    MSGIN AND MSGOT MUST BE SEPARATE ARRAYS.
+C> @remarks
+C> - MSGIN and MSGOT must be separate arrays.
+C> - BUFR edition 4 messages are usually longer in length than their
+C> BUFR edition 3 counterparts, so it's usually a good idea to allow
+C> for extra space when allocating MSGOT within the application program.
 C>
-C>    THIS ROUTINE CALLS:        BORT     GETLENS  IUPBS01  MVB
-C>                               NMWRD    PKB
-C>    THIS ROUTINE IS CALLED BY: MSGWRT
-C>                               Also called by application programs.
+C> <b>Program history log:</b>
+C> - 2005-11-29  J. Ator    -- Original author
+C> - 2009-08-12  J. Ator    -- Allow silent return (instead of bort()
+C>                           return) if MSGIN is already encoded using
+C>                           edition 4
 C>
 	SUBROUTINE CNVED4(MSGIN,LMSGOT,MSGOT)
-
-
 
 	DIMENSION MSGIN(*), MSGOT(*)
 

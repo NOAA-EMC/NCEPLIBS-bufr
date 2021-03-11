@@ -1,45 +1,35 @@
 C> @file
-C> @author ATOR @date 2009-03-23
-      
-C> THIS FUNCTION UNPACKS AND RETURNS A SPECIFIED INTEGER VALUE
-C>   FROM SECTION 3 OF THE BUFR MESSAGE STORED IN ARRAY MBAY.  IT WILL
-C>   WORK ON ANY MESSAGE ENCODED USING BUFR EDITION 2, 3 OR 4.  THE START
-C>   OF THE BUFR MESSAGE (I.E. THE STRING "BUFR") MUST BE ALIGNED ON THE
-C>   FIRST FOUR BYTES OF MBAY, AND THE VALUE TO BE UNPACKED IS SPECIFIED
-C>   VIA THE MNEMONIC S3MNEM, AS EXPLAINED IN FURTHER DETAIL BELOW.
+C> @brief Read a data value from Section 3 of a BUFR message.
+
+C> This function returns a specified value from within Section 3
+C> of a BUFR message.
 C>
-C> PROGRAM HISTORY LOG:
-C> 2009-03-23  J. ATOR    -- ORIGINAL AUTHOR
+C> @author J. Ator
+C> @date 2009-03-23
 C>
-C> USAGE:    IUPBS3 (MBAY, S3MNEM)
-C>   INPUT ARGUMENT LIST:
-C>     MBAY     - INTEGER: *-WORD PACKED BINARY ARRAY CONTAINING
-C>                BUFR MESSAGE
-C>     S3MNEM   - CHARACTER*(*): MNEMONIC SPECIFYING VALUE TO BE
-C>                UNPACKED FROM SECTION 3 OF BUFR MESSAGE:
-C>                  'NSUB'  = NUMBER OF DATA SUBSETS
-C>                  'IOBS'  = FLAG INDICATING WHETHER THE MESSAGE
-C>                            CONTAINS OBSERVED DATA:
-C>                              0 = NO
-C>                              1 = YES
-C>                  'ICMP'  = FLAG INDICATING WHETHER THE MESSAGE
-C>                            CONTAINS COMPRESSED DATA:
-C>                              0 = NO
-C>                              1 = YES
+C> @param[in]  MBAY    - integer(*): BUFR message
+C> @param[in]  S3MNEM   - character*(*): Value to be read from
+C>                        Section 3 of MBAY
+C>                         - 'NSUB'  = Number of data subsets
+C>                         - 'IOBS'  = Flag indicating whether the
+C>                                     message contains observed data:
+C>                                     - 0 = No
+C>                                     - 1 = Yes
+C>                         - 'ICMP'  = Flag indicating whether the
+C>                                     message contains compressed data:
+C>                                     - 0 = No
+C>                                     - 1 = Yes
+C> @returns iupbs3  - integer: Value corresponding to S3MNEM
+C>                      - -1 = S3MNEM was invalid 
 C>
-C>   OUTPUT ARGUMENT LIST:
-C>     IUPBS3   - INTEGER: UNPACKED INTEGER VALUE
-C>                  -1 = THE INPUT S3MNEM MNEMONIC WAS INVALID
+C> @remarks
+C> - The start of the BUFR message (i.e. the string 'BUFR') must be
+C>   aligned on the first 4 bytes of MBAY.
 C>
-C> REMARKS:
-C>    THIS ROUTINE CALLS:        GETLENS  IUPB
-C>    THIS ROUTINE IS CALLED BY: CKTABA   CPDXMM   DUMPBF   MESGBC
-C>                               RDBFDX   READERME STNDRD   WRITLC
-C>                               Also called by application programs.
+C> <b>Program history log:</b>
+C> - 2009-03-23  J. Ator    -- Original author
 C>
       FUNCTION IUPBS3(MBAY,S3MNEM)
-
-
 
 	DIMENSION	MBAY(*)
 
