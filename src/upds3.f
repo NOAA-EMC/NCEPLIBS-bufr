@@ -1,46 +1,36 @@
 C> @file
-C> @author ATOR @date 2003-11-04
-      
-C> THIS SUBROUTINE UNPACKS AND RETURNS THE DESCRIPTORS
-C>   CONTAINED WITHIN SECTION 3 OF A BUFR MESSAGE STORED IN ARRAY MBAY.
-C>   THE START OF THE BUFR MESSAGE (I.E. THE STRING "BUFR") MUST BE
-C>   ALIGNED ON THE FIRST FOUR BYTES OF MBAY.  NOTE ALSO THAT THIS
-C>   SUBROUTINE DOES NOT RECURSIVELY RESOLVE SEQUENCE DESCRIPTORS THAT
-C>   APPEAR WITHIN SECTION 3; RATHER, WHAT IS RETURNED IS THE EXACT LIST
-C>   OF DESCRIPTORS AS IT APPEARS WITHIN SECTION 3.
+C> @brief Read data descriptors from Section 3 of a BUFR message.
+
+C> This subroutine returns the sequence of data descriptors
+C> contained within Section 3 of a BUFR message.
 C>
-C> PROGRAM HISTORY LOG:
-C> 2003-11-04  J. ATOR    -- ORIGINAL AUTHOR (WAS IN DECODER VERSION)
-C> 2003-11-04  S. BENDER  -- ADDED REMARKS/BUFRLIB ROUTINE
-C>                           INTERDEPENDENCIES
-C> 2003-11-04  D. KEYSER  -- UNIFIED/PORTABLE FOR WRF
-C> 2004-08-18  J. ATOR    -- REMOVED IFIRST CHECK, SINCE WRDLEN NOW
-C>                           KEEPS TRACK OF WHETHER IT HAS BEEN CALLED
-C> 2005-11-29  J. ATOR    -- USE GETLENS
-C> 2009-03-23  J. ATOR    -- ADDED LCDS3 ARGUMENT AND CHECK
+C> @author J. Ator
+C> @date 2003-11-04
 C>
-C> USAGE:    CALL UPDS3 (MBAY, LCDS3, CDS3, NDS3)
-C>   INPUT ARGUMENT LIST:
-C>     MBAY     - INTEGER: *-WORD PACKED BINARY ARRAY CONTAINING BUFR
-C>                MESSAGE
-C>     LCDS3    - INTEGER: DIMENSIONED SIZE (IN INTEGER WORDS) OF CDS3;
-C>                USED BY THE SUBROUTINE TO ENSURE THAT IT DOES NOT
-C>                OVERFLOW THE CDS3 ARRAY
+C> @param[in]  MBAY    - integer(*): BUFR message
+C> @param[in] LCDS3    - integer: Dimensioned size of CDS3;
+C>                       used by the subroutine to ensure that
+C>                       it doesn't overflow the CDS3 array
+C> @param[out] CDS3    - character*6(*): Data descriptor sequence
+C>                       within Section 3 of MBAY
+C> @param[out] NDS3    - integer: Number of data descriptors in CDS3
 C>
-C>   OUTPUT ARGUMENT LIST:
-C>     CDS3     - CHARACTER*6: *-WORD ARRAY CONTAINING UNPACKED LIST OF
-C>                DESCRIPTORS (FIRST NDS3 WORDS FILLED)
-C>     NDS3     - INTEGER: NUMBER OF DESCRIPTORS RETURNED
+C> @remarks
+C> - The start of the BUFR message (i.e. the string 'BUFR') must be
+C>   aligned on the first 4 bytes of MBAY.
+C> - This subroutine does not recursively resolve any Table D
+C>   descriptors from within Section 3; rather, what is returned in
+C>   CDS3 is the exact list of data descriptors as it appears within
+C>   Section 3 of MBAY.
 C>
-C> REMARKS:
-C>    THIS ROUTINE CALLS:        ADN30    BORT     IUPB     GETLENS
-C>                               WRDLEN
-C>    THIS ROUTINE IS CALLED BY: READS3
-C>                               Also called by application programs.
+C> <b>Program history log:</b>
+C> - 2003-11-04  J. Ator    -- Original author
+C> - 2004-08-18  J. Ator    -- Removed IFIRST check, since wrdlen() now
+C>                             keeps track of whether it has been called
+C> - 2005-11-29  J. Ator    -- Use getlens()
+C> - 2009-03-23  J. Ator    -- Added LCDS3 argument and check
 C>
       SUBROUTINE UPDS3(MBAY,LCDS3,CDS3,NDS3)
-
-
 
       DIMENSION MBAY(*)
 

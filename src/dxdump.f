@@ -1,46 +1,39 @@
 C> @file
-C> @author ATOR @date 2004-08-18
-      
-C> THIS SUBROUTINE WRITES, TO LOGICAL UNIT LDXOT, AN ASCII
-C>   COPY OF THE BUFR DICTIONARY TABLE INFORMATION ASSOCIATED WITH
-C>   THE BUFR FILE DEFINED BY LOGICAL UNIT LUNIT.  IT IS ESPECIALLY
-C>   USEFUL FOR DETERMINING THE CONTENTS OF ARCHIVE BUFR FILES WHICH
-C>   MAY HAVE SUCH INFORMATION EMBEDDED AS DX MESSAGES AT THE FRONT
-C>   OF THE FILE.  THE OUTPUT FILE WILL BE IN A FORMAT SUITABLE FOR
-C>   SUBSEQUENT INPUT AS A USER-DEFINED DICTIONARY TABLES FILE TO
-C>   BUFR ARCHIVE LIBRARY SUBROUTINE OPENBF, AND IN THAT SENSE THIS
-C>   SUBROUTINE CAN BE VIEWED AS THE LOGICAL INVERSE OF BUFR ARCHIVE
-C>   LIBRARY SUBROUTINE RDUSDX.  NOTE THAT THE BUFR FILE ASSOCIATED
-C>   WITH LOGICAL UNIT LUNIT MUST HAVE ALREADY BEEN IDENTIFIED TO
-C>   THE BUFR ARCHIVE LIBRARY SOFTWARE VIA A PRIOR CALL TO OPENBF.
+C> @brief Print the contents of a DX table.
+
+C> This subroutine prints a copy of the DX table associated with
+C> a specified Fortran logical unit.
 C>
-C> PROGRAM HISTORY LOG:
-C> 2004-08-18  J. ATOR    -- ORIGINAL AUTHOR
-C> 2007-01-19  J. ATOR    -- CORRECTED OUTPUT FOR REFERENCE VALUES
-C>                           LONGER THAN 8 DIGITS
-C> 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
+C> This subroutine is especially useful for learning the structure
+C> of existing BUFR files which contain DX table information
+C> embedded as BUFR messages within those files.
+C> The DX table is printed using the same ASCII format 
+C> described in the documentation for
+C> [DX BUFR Tables](@ref dfbftab), so the output file is suitable
+C> for use as Fortran logical unit LUNDX in subsequent calls to
+C> subroutine openbf() for reading or writing additional BUFR
+C> files with the same structure.
 C>
-C> USAGE:    CALL DXDUMP (LUNIT, LDXOT)
-C>   INPUT ARGUMENT LIST:
-C>     LUNIT    - INTEGER: FORTRAN LOGICAL UNIT NUMBER FOR BUFR FILE
-C>     LDXOT    - INTEGER: FORTRAN LOGICAL UNIT NUMBER FOR OUTPUT FILE
+C> @author J. Ator
+C> @date 2004-08-18
 C>
-C>   INPUT FILES:
-C>     UNIT "LUNIT" - BUFR FILE WITH EMBEDDED DX DICTIONARY MESSAGES
+C> @param[in] LUNIT    - integer: Fortran logical unit number for
+C>                       BUFR file
+C> @param[in] LDXOT    - integer: Fortran logical unit number for
+C>                       print output
 C>
-C>   OUTPUT FILES:
-C>     UNIT "LDXOT" - ASCII VERSION OF DX DICTIONARY INFORMATION, IN
-C>                    FORMAT SUITABLE FOR SUBSEQUENT INPUT TO OPENBF
+C> <p>Logical unit LUNIT must be open for either input or output
+C> operations via a previous call to subroutine openbf().
+C> Logical unit LDXOT must already be associated with a filename
+C> on the local system, typically via a Fortran "OPEN" statement.
 C>
-C> REMARKS:
-C>    THIS ROUTINE CALLS:        BORT     NEMTBD   STATUS   STRSUC
-C>    THIS ROUTINE IS CALLED BY: None
-C>                               Normally called only by application
-C>                               programs.
+C> <b>Program history log:</b>
+C> - 2004-08-18  J. Ator    -- Original author
+C> - 2007-01-19  J. Ator    -- Corrected output for reference values
+C>                             longer than 8 digits
+C> - 2014-12-10  J. Ator    -- Use modules instead of COMMON blocks
 C>
       SUBROUTINE DXDUMP(LUNIT,LDXOT)
-
-
 
       USE MODA_TABABD
       USE MODA_NMIKRP

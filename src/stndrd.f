@@ -1,67 +1,40 @@
 C> @file
-C> @author ATOR @date 2004-08-18
-      
-C> THIS SUBROUTINE READS AN INPUT NCEP BUFR MESSAGE CONTAINED
-C>   WITHIN ARRAY MSGIN AND, USING THE BUFR TABLES INFORMATION ASSOCIATED
-C>   WITH LOGICAL UNIT LUNIT, OUTPUTS A "STANDARDIZED" VERSION OF THIS
-C>   SAME MESSAGE WITHIN ARRAY MSGOT.  THIS "STANDARDIZATION" INVOLVES
-C>   REMOVING ALL OCCURRENCES OF NCEP BUFRLIB-SPECIFIC BYTE COUNTERS AND
-C>   BIT PADS IN SECTION 4 AS WELL AS REPLACING THE TOP-LEVEL TABLE A FXY
-C>   NUMBER IN SECTION 3 WITH AN EQUIVALENT SEQUENCE OF LOWER-LEVEL
-C>   TABLE B, TABLE C, TABLE D AND/OR REPLICATION FXY NUMBERS WHICH
-C>   DIRECTLY CONSTITUTE THAT TABLE A FXY NUMBER AND WHICH THEMSELVES ARE
-C>   ALL WMO-STANDARD.  THE RESULT IS THAT THE OUTPUT MESSAGE IN MSGOT IS
-C>   NOW ENTIRELY COMPLIANT WITH WMO FM-94 BUFR REGULATIONS (I.E. IT IS
-C>   NOW "STANDARD"). IT IS IMPORTANT TO NOTE THAT THE SEQUENCE EXPANSION
-C>   WITHIN SECTION 3 MAY CAUSE THE FINAL "STANDARDIZED" BUFR MESSAGE TO
-C>   BE LONGER THAN THE ORIGINAL INPUT NCEP BUFR MESSAGE BY AS MANY AS
-C>   (MAXNC*2) BYTES (SEE 'bufrlib.inc' FOR AN EXPLANATION OF MAXNC), SO
-C>   THE USER MUST ALLOW FOR ENOUGH SPACE TO ACCOMODATE SUCH AN EXPANSION
-C>   WITHIN THE MSGOT ARRAY.
+C> @brief Standardize a BUFR message.
+
+C> This subroutine performs the same function as subroutine stdmsg(),
+C> except that it operates on a BUFR message passed in via a memory array
+C> and returns its output via a separate memory array,
+C> whereas stdmsg() operates on BUFR messages stored internally
+C> within the software.
+C> 
+C> @author J. Ator
+C> @date 2004-08-18
 C>
-C> PROGRAM HISTORY LOG:
-C> 2004-08-18  J. ATOR    -- ORIGINAL AUTHOR
-C>                           THIS SUBROUTINE IS MODELED AFTER SUBROUTINE
-C>                           STANDARD; HOWEVER, IT USES SUBROUTINE RESTD
-C>                           TO EXPAND SECTION 3 AS MANY LEVELS AS
-C>                           NECESSARY IN ORDER TO ATTAIN TRUE WMO
-C>                           STANDARDIZATION (WHEREAS STANDARD ONLY
-C>                           EXPANDED THE TOP-LEVEL TABLE A FXY NUMBER
-C>                           ONE LEVEL DEEP), AND IT ALSO CONTAINS AN
-C>                           EXTRA INPUT ARGUMENT LMSGOT WHICH PREVENTS
-C>                           OVERFLOW OF THE MSGOT ARRAY
-C> 2005-11-29  J. ATOR    -- USE GETLENS AND IUPBS01; ENSURE THAT BYTE 4
-C>                           OF SECTION 4 IS ZEROED OUT IN MSGOT; CHECK
-C>                           EDITION NUMBER OF BUFR MESSAGE BEFORE 
-C>                           PADDING TO AN EVEN BYTE COUNT
-C> 2009-03-23  J. ATOR    -- USE IUPBS3 AND NEMTBAX; DON'T ASSUME THAT
-C>                           COMPRESSED MESSAGES ARE ALREADY FULLY
-C>                           STANDARDIZED WITHIN SECTION 3
-C> 2014-02-04  J. ATOR    -- ACCOUNT FOR SUBSETS WITH BYTE COUNT > 65530
-C> 2020-07-16  J. ATOR    -- FIX BUG IN ISLEN COMPUTATION WHEN NSUB = 1
+C> @param[in] LUNIT    - integer: Fortran logical unit number for
+C>                       BUFR file
+C> @param[in] MSGIN    - integer(*): BUFR message
+C> @param[in] LMSGOT   - integer: Dimensioned size (in integers) of
+C>                       MSGOT; used by the subroutine to ensure that
+C>                       it doesn't overflow the MSGOT array
+C> @param[out] MSGOT   - integer(*): Standardized copy of MSGIN
 C>
-C> USAGE:    CALL STNDRD (LUNIT, MSGIN, LMSGOT, MSGOT)
-C>   INPUT ARGUMENT LIST:
-C>     LUNIT    - INTEGER: FORTRAN LOGICAL UNIT NUMBER FOR BUFR FILE
-C>     MSGIN    - INTEGER: *-WORD ARRAY CONTAINING BUFR MESSAGE IN NCEP
-C>                BUFR
-C>     LMSGOT   - INTEGER: DIMENSIONED SIZE (IN INTEGER WORDS) OF MSGOT;
-C>                USED BY THE SUBROUTINE TO ENSURE THAT IT DOES NOT
-C>                OVERFLOW THE MSGOT ARRAY
-C>
-C>   OUTPUT ARGUMENT LIST:
-C>     MSGOT    - INTEGER: *-WORD ARRAY CONTAINING INPUT BUFR MESSAGE
-C>                NOW IN STANDARDIZED BUFR
-C>
-C> REMARKS:
-C>    MSGIN AND MSGOT MUST BE SEPARATE ARRAYS.
-C>
-C>    THIS ROUTINE CALLS:        BORT     GETLENS  ISTDESC  IUPB
-C>                               IUPBS01  IUPBS3   MVB      NEMTBAX
-C>                               NUMTAB   PKB      PKC      RESTD
-C>                               STATUS   UPB      UPC
-C>    THIS ROUTINE IS CALLED BY: MSGWRT
-C>                               Also called by application programs.
+C> @remarks
+C> - MSGIN and MSGOT must be separate arrays.
+C> - Standardized messages are usually longer in length than their
+C> non-standard counterparts, so it's usually a good idea to allow
+C> for extra space when allocating MSGOT within the application program.
+C> 
+C> <b>Program history log:</b>
+C> - 2004-08-18  J. Ator    -- Original author
+C> - 2005-11-29  J. Ator    -- Use getlens() and iupbs01(); ensure that
+C>                           byte 4 of Section 4 is zeroed out in MSGOT;
+C>                           check edition number of BUFR message before 
+C>                           padding to an even byte count
+C> - 2009-03-23  J. Ator    -- Use iupbs3() and nemtbax(); don't assume
+C>                           that compressed messages are already fully
+C>                           standardized within Section 3
+C> - 2014-02-04  J. Ator    -- Account for subsets with byte count > 65530
+C> - 2020-07-16  J. Ator    -- Fix bug in ISLEN computation when NSUB = 1
 C>
       SUBROUTINE STNDRD(LUNIT,MSGIN,LMSGOT,MSGOT)
 

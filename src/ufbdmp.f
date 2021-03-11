@@ -1,119 +1,82 @@
 C> @file
-C> @author WOOLLEN @date 1994-01-06
+C> @brief Print the contents of a data subset.
 
-C> THIS SUBROUTINE DUMPS A DETAILED PRINT LISTING OF THE
-C>   CONTENTS OF THE UNPACKED DATA SUBSET CURRENTLY RESIDING IN THE
-C>   INTERNAL ARRAYS ASSOCIATED WITH THE BUFR FILE IN LOGICAL UNIT
-C>   ABS(LUNIN).  ABS(LUNIN) MUST HAVE BEEN OPENED FOR INPUT VIA A
-C>   PREVIOUS CALL TO BUFR ARCHIVE LIBRARY SUBROUTINE OPENBF.  THE DATA
-C>   SUBSET MUST HAVE BEEN SUBSEQUENTLY READ INTO THE INTERNAL BUFR
-C>   ARCHIVE LIBRARY ARRAYS VIA A CALL TO BUFR ARCHIVE LIBRARY SUBROUTINE
-C>   READMG OR READERME, FOLLOWED BY A CALL TO BUFR ARCHIVE LIBRARY
-C>   SUBROUTINE READSB (OR VIA A SINGLE CALL TO BUFR ARCHIVE LIBRARY
-C>   SUBROUTINE READNS!).  FOR A PARTICULAR SUBSET, THE PRINT LISTING
-C>   CONTAINS EACH MNEMONIC ACCOMPANIED BY ITS CORRESPONDING DATA VALUE
-C>   (INCLUDING THE ACTUAL BITS THAT WERE SET FOR FLAG TABLE VALUES!)
-C>   ALONG WITH OTHER POTENTIALLY USEFUL INFORMATION SUCH AS WHICH OTHER
-C>   MNEMONIC(S) THAT MNEMONIC WAS A CONSTITUENT OF WITHIN THE OVERALL
-C>   DATA SUBSET.  HOWEVER, THE LISTING ALSO CONTAINS OTHER MORE ESOTERIC
-C>   INFORMATION SUCH AS BUFR STORAGE CHARACTERISTICS AND A COPY OF THE
-C>   JUMP/LINK TABLE USED INTERNALLY WITHIN THE BUFR ARCHIVE LIBRARY
-C>   SOFTWARE.  THIS SUBROUTINE IS SIMILAR TO BUFR ARCHIVE LIBRARY
-C>   SUBROUTINE UFDUMP, EXCEPT THAT UFDUMP DOES NOT PRINT POINTERS,
-C>   COUNTERS AND THE OTHER MORE ESOTERIC INFORMATION DESCRIBING THE
-C>   INTERNAL SUBSET STRUCTURES.  EACH SUBROUTINE, UFBDMP AND UFDUMP,
-C>   IS USEFUL FOR DIFFERENT DIAGNOSTIC PURPOSES, BUT IN GENERAL UFDUMP
-C>   IS MORE USEFUL FOR JUST LOOKING AT THE DATA ELEMENTS.
+C> This subroutine prints a verbose listing of the contents of a data
+C> subset, including all data values and replicated sequences, as well
+C> as jump/link table information and other internal subset pointers.
 C>
-C> PROGRAM HISTORY LOG:
-C> 1994-01-06  J. WOOLLEN -- ORIGINAL AUTHOR
-C> 1998-07-08  J. WOOLLEN -- REPLACED CALL TO CRAY LIBRARY ROUTINE
-C>                           "ABORT" WITH CALL TO NEW INTERNAL BUFRLIB
-C>                           ROUTINE "BORT"
-C> 1999-11-18  J. WOOLLEN -- THE NUMBER OF BUFR FILES WHICH CAN BE
-C>                           OPENED AT ONE TIME INCREASED FROM 10 TO 32
-C>                           (NECESSARY IN ORDER TO PROCESS MULTIPLE
-C>                           BUFR FILES UNDER THE MPI)
-C> 2002-05-14  J. WOOLLEN -- REMOVED OLD CRAY COMPILER DIRECTIVES
-C> 2003-11-04  S. BENDER  -- ADDED REMARKS/BUFRLIB ROUTINE
-C>                           INTERDEPENDENCIES
-C> 2003-11-04  D. KEYSER  -- MAXJL (MAXIMUM NUMBER OF JUMP/LINK ENTRIES)
-C>                           INCREASED FROM 15000 TO 16000 (WAS IN
-C>                           VERIFICATION VERSION); UNIFIED/PORTABLE FOR
-C>                           WRF; ADDED DOCUMENTATION (INCLUDING
-C>                           HISTORY); OUTPUTS MORE COMPLETE DIAGNOSTIC
-C>                           INFO WHEN ROUTINE TERMINATES ABNORMALLY OR
-C>                           FOR INFORMATIONAL PURPOSES; TEST FOR A
-C>                           MISSING VALUE NOW ALLOWS SOME FUZZINESS
-C>                           ABOUT 10E10 (RATHER THAN TRUE EQUALITY AS
-C>                           BEFORE) BECAUSE SOME MISSING VALUES (E.G.,
-C>                           CHARACTER STRINGS < 8 CHARACTERS) WERE NOT
-C>                           GETTING STAMPED OUT AS "MISSING"; ADDED
-C>                           OPTION TO PRINT VALUES USING FORMAT EDIT
-C>                           DESCRIPTOR "F15.6" IF LUNIN IS < ZERO,
-C>                           IF LUNIN IS > ZERO EDIT DESCRIPTOR EXPANDED
-C>                           FROM "G10.3" TO "G15.6" {REGARDLESS OF
-C>                           LUNIN, ADDITIONAL VALUES
-C>                           "IB,IS,IR,ND,JP,LK,JB" NOW PRINTED (THEY
-C>                           WERE COMMENTED OUT)}
-C> 2004-08-18  J. ATOR    -- MODIFIED FUZZINESS TEST;ADDED READLC OPTION;
-C>                           RESTRUCTURED SOME LOGIC FOR CLARITY
-C> 2006-04-14  D. KEYSER  -- ADD CALL TO UPFTBV FOR FLAG TABLES TO GET
-C>                           ACTUAL BITS THAT WERE SET TO GENERATE VALUE
-C> 2007-01-19  J. ATOR    -- USE FUNCTION IBFMS
-C> 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
-C> 2020-09-09  J. ATOR    -- FIX MISSING CHECK FOR LONG CHARACTER STRINGS
+C> <p>This subroutine is similar to subroutine ufdump(), but it prints
+C> different characteristics of each data subset, and in a slightly
+C> different format.  However, both subroutines can be useful for
+C> different diagnostic purposes, and both can also be run
+C> interactively to scroll through the contents of a data subset.
 C>
-C> USAGE:    CALL UFBDMP (LUNIN, LUPRT)
-C>   INPUT ARGUMENT LIST:
-C>     LUNIN    - INTEGER: ABSOLUTE VALUE IS FORTRAN LOGICAL UNIT NUMBER
-C>                FOR BUFR FILE
-C>                  - IF LUNIN IS GREATER THAN ZERO, DATA VALUES ARE
-C>                    PRINTED OUT USING FORMAT DATA EDIT DESCRIPTOR
-C>                    "G15.6" (all values are printed since output
-C>                    format adapts to the magnitude of the data, but
-C>                    they are not lined up in columns according to
-C>                    decimal point)
-C>                  - IF LUNIN IS LESS THAN ZERO, DATA VALUES ARE
-C>                    PRINTED OUT USING FORMAT DATA EDIT DESCRIPTOR
-C>                    "F15.6" {values are lined up in columns according
-C>                    to decimal point, but data of large magnitude,
-C>                    (i.e., exceeding the format width of 15) get the
-C>                    overflow ("***************") print}
-C>     LUPRT    - INTEGER: FORTRAN LOGICAL UNIT NUMBER FOR PRINT OUTPUT
-C>                FILE
-C>                       0 = LUPRT is set to 06 (standard output) and
-C>                           the subroutine will scroll the output,
-C>                           twenty elements at a time (see REMARKS)
+C> @authors J. Woollen
+C> @authors J. Ator
+C> @authors D. Keyser
+C> @date 1994-01-06
 C>
-C>   INPUT FILES:
-C>     UNIT 05  - STANDARD INPUT (SEE REMARKS)
+C> @param[in] LUNIN    - integer: Absolute value is Fortran logical
+C>                       unit number for BUFR file 
+C>                       - If LUNIN > 0, data values are printed to
+C>                         LUPRT using the format descriptor code
+C>                         'G15.6', meaning that all values will be
+C>                         printed (since the format adapts to the
+C>                         order of magnitude of each value), but
+C>                         values won't necessarily be lined up
+C>                         with the decimal point in the same column
+C>                       - If LUNIN < 0, data values are printed to
+C>                         LUPRT using the format descriptor code
+C>                         'F15.6', meaning that all values will be
+C>                         lined up with the decimal point in the
+C>                         same column, but values exceeding the
+C>                         format width of 15 characters will print
+C>                         as overflow (e.g. '***************')
+C> @param[in] LUPRT    - integer: Fortran logical unit number for
+C>                       print output
+C>                       - 0 = Run interactively, printing to
+C>                             standard output
 C>
-C>   OUTPUT FILES:
-C>     IF LUPRT > 0: UNIT "LUPRT" - PRINT (IF LUPRT=6, STANDARD OUTPUT)
-C>     IF LUPRT = 0: UNIT 06      - STANDARD OUTPUT PRINT (SEE REMARKS)
-C>                    
+C> <p>Logical unit ABS(LUNIN) should have already been opened for
+C> input operations via a previous call to subroutine openbf(), and a
+C> BUFR data subset should have already been read into internal arrays
+C> via a previous call to subroutine readsb(), readns() or equivalent.
 C>
-C> REMARKS:
-C>    THIS ROUTINE WILL SCROLL THROUGH THE DATA SUBSET, TWENTY ELEMENTS
-C>    AT A TIME WHEN LUPRT IS INPUT AS "0".  IN THIS CASE, THE EXECUTING
-C>    SHELL SCRIPT SHOULD USE THE TERMINAL AS BOTH STANDARD INPUT AND
-C>    STANDARD OUTPUT.  INITIALLY, THE FIRST TWENTY ELEMENTS OF THE
-C>    CURRENT UNPACKED SUBSET WILL BE DISPLAYED ON THE TERMIMAL,
-C>    FOLLOWED BY THE PROMPT "(<enter> for MORE, q <enter> to QUIT)".
-C>    IF THE TERMINAL ENTERS ANYTHING OTHER THAN "q" FOLLOWED BY
-C>    "<enter>" (e.g., "<enter>"), THE NEXT TWENTY ELEMENTS WILL BE
-C>    DISPLAYED, AGAIN FOLLOWED BY THE SAME PROMPT.  THIS CONTINUES
-C>    UNTIL EITHER THE ENTIRE SUBSET HAS BEEN DISPLAYED, OR THE TERMINAL
-C>    ENTERS "q" FOLLOWED BY "<enter>" AFTER THE PROMPT, IN WHICH CASE
-C>    THIS SUBROUTINE STOPS THE SCROLL AND RETURNS TO THE CALLING
-C>    PROGRAM (PRESUMABLY TO READ IN THE NEXT SUBSET IN THE BUFR FILE).
+C> <p>Except when LUPRT = 0, logical unit LUPRT must already be
+C> associated with a filename on the local system, typically via a
+C> Fortran "OPEN" statement.  When LUPRT = 0, the subroutine will run
+C> interactively and print to standard output, scrolling 20 lines at
+C> a time and prompting each time whether to quit and return to the
+C> application program (by typing 'q' then '<Enter>') or continue
+C> scrolling (by typing anything else).
 C>
-C>    THIS ROUTINE CALLS:   bort()   ibfms()   icbfms()  isize()
-C>                         readlc() rjust()  status()  upftbv()
-C>    THIS ROUTINE IS CALLED BY: None
-C>                               Normally called only by application
-C>                               programs.
+C> <b>Program history log:</b>
+C> - 1994-01-06  J. Woollen -- Original author
+C> - 1998-07-08  J. Woollen -- Replaced call to Cray library routine ABORT
+C>                             with call to new internal routine bort()
+C> - 1999-11-18  J. Woollen -- The number of BUFR files which can be
+C>                             opened at one time increased from 10 to 32
+C>                             (necessary in order to process multiple
+C>                             BUFR files under the MPI)
+C> - 2002-05-14  J. Woollen -- Removed old Cray compiler directives
+C> - 2003-11-04  S. Bender  -- Added remarks and routine interdependencies
+C> - 2003-11-04  D. Keyser  -- Increased MAXJL from 15000 to 16000;
+C>                             unified/portable for WRF; added history
+C>                             documentation; outputs more complete
+C>                             diagnostic info when routine terminates
+C>                             abnormally, unusual things happen or for
+C>                             informational purposes; allowed fuzziness
+C>                             in test for missing values; added option
+C>                             to print using either 'G15.6' or 'F15.6';
+C>                             added several jump/link table values to
+C>                             output
+C> - 2004-08-18  J. Ator    -- Modified fuzziness test; added readlc()
+C>                             option; restructured some logic for clarity
+C> - 2006-04-14  D. Keyser  -- Add call to upftbv() for flag tables to get
+C>                             actual bits that were set to generate value
+C> - 2007-01-19  J. Ator    -- Use function ibfms()
+C> - 2014-12-10  J. Ator    -- Use modules instead of COMMON blocks
+C> - 2020-09-09  J. Ator    -- Fix missing check for long character strings
 C>
       SUBROUTINE UFBDMP(LUNIN,LUPRT)
 

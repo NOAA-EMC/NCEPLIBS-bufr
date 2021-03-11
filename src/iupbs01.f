@@ -1,92 +1,74 @@
 C> @file
-C> @author ATOR @date 2005-11-29
-      
-C> THIS FUNCTION UNPACKS AND RETURNS A SPECIFIED INTEGER VALUE
-C>   FROM SECTION 0 OR SECTION 1 OF THE BUFR MESSAGE STORED IN ARRAY
-C>   MBAY.  IT WILL WORK ON ANY MESSAGE ENCODED USING BUFR EDITION 2, 3
-C>   OR 4.  THE START OF THE BUFR MESSAGE (I.E. THE STRING "BUFR") MUST
-C>   BE ALIGNED ON THE FIRST FOUR BYTES OF MBAY, AND THE VALUE TO BE
-C>   UNPACKED IS SPECIFIED VIA THE MNEMONIC S01MNEM, AS EXPLAINED IN
-C>   FURTHER DETAIL BELOW.
+C> @brief Read a data value from Section 0 or Section 1 of a BUFR
+C> message.
+
+C> This function returns a specified value from within Section 0 or
+C> Section 1 of a BUFR message.
 C>
-C> PROGRAM HISTORY LOG:
-C> 2005-11-29  J. ATOR    -- ORIGINAL AUTHOR
-C> 2006-04-14  J. ATOR    -- ADDED OPTIONS FOR 'YCEN' AND 'CENT';
-C>                           RESTRUCTURED LOGIC
+C> <p>This function will work on any BUFR message encoded using BUFR
+C> edition 2, 3, or 4.  It is similar to function iupvs01(), except
+C> that it operates on a BUFR message passed in via a memory array,
+C> whereas iupvs01() operates on the BUFR message that was read into
+C> internal arrays via the most recent call to subroutine readmg(),
+C> readerme() or equivalent from a specified Fortran logical unit.
 C>
-C> USAGE:    IUPBS01 (MBAY, S01MNEM)
-C>   INPUT ARGUMENT LIST:
-C>     MBAY     - INTEGER: *-WORD PACKED BINARY ARRAY CONTAINING
-C>                BUFR MESSAGE
-C>     S01MNEM  - CHARACTER*(*): MNEMONIC SPECIFYING VALUE TO BE
-C>                UNPACKED FROM SECTION 0 OR SECTION 1 OF BUFR MESSAGE:
-C>                  'LENM'  = LENGTH (IN BYTES) OF BUFR MESSAGE
-C>                  'LEN0'  = LENGTH (IN BYTES) OF SECTION 0
-C>                  'BEN'   = BUFR EDITION NUMBER 
-C>                  'LEN1'  = LENGTH (IN BYTES) OF SECTION 1
-C>                  'BMT'   = BUFR MASTER TABLE 
-C>                  'OGCE'  = ORIGINATING CENTER
-C>                  'GSES'  = ORIGINATING SUBCENTER
-C>                              (NOTE: THIS VALUE IS PRESENT ONLY IN
-C>                                     BUFR EDITION 3 OR 4 MESSAGES!)
-C>                  'USN'   = UPDATE SEQUENCE NUMBER 
-C>                  'ISC2'  = FLAG INDICATING ABSENCE/PRESENCE OF
-C>                            (OPTIONAL) SECTION 2 IN BUFR MESSAGE:
-C>                              0 = SECTION 2 ABSENT
-C>                              1 = SECTION 2 PRESENT
-C>                  'MTYP'  = DATA CATEGORY 
-C>                  'MSBTI' = DATA SUBCATEGORY (INTERNATIONAL)
-C>                              (NOTE: THIS VALUE IS PRESENT ONLY IN
-C>                                     BUFR EDITION 4 MESSAGES!)
-C>                  'MSBT'  = DATA SUBCATEGORY (LOCAL)
-C>                  'MTV'   = VERSION NUMBER OF MASTER TABLE
-C>                  'MTVL'  = VERSION NUMBER OF LOCAL TABLES
-C>                  'YCEN'  = YEAR OF CENTURY (1-100)
-C>                              (NOTE: THIS VALUE IS PRESENT ONLY IN
-C>                                     BUFR EDITION 2 AND 3 MESSAGES!)
-C>                  'CENT'  = CENTURY (I.E., 20 FOR YEARS 1901-2000,
-C>                                           21 FOR YEARS 2001-2100)
-C>                              (NOTE: THIS VALUE *MAY* BE PRESENT IN
-C>                                     BUFR EDITION 2 AND 3 MESSAGES,
-C>                                     BUT IT IS NEVER PRESENT IN ANY
-C>                                     BUFR EDITION 4 MESSAGES!)
-C>                  'YEAR'  = YEAR (4-DIGIT)
-C>                              (NOTE: THIS VALUE IS PRESENT ONLY IN
-C>                                     BUFR EDITION 4 MESSAGES.  FOR
-C>                                     BUFR EDITION 2 AND 3 MESSAGES
-C>                                     IT WILL BE CALCULATED USING THE
-C>                                     VALUES FOR 'YCEN' AND 'CENT',
-C>                                     EXCEPT WHEN THE LATTER IS NOT
-C>                                     PRESENT AND IN WHICH CASE A
-C>                                     "WINDOWING" TECHNIQUE WILL BE
-C>                                     USED INSTEAD!)
-C>                  'MNTH'  = MONTH
-C>                  'DAYS'  = DAY
-C>                  'HOUR'  = HOUR
-C>                  'MINU'  = MINUTE
-C>                  'SECO'  = SECOND
-C>                              (NOTE: THIS VALUE IS PRESENT ONLY IN
-C>                                     BUFR EDITION 4 MESSAGES!)
+C> @author J. Ator
+C> @date 2005-11-29
 C>
-C>   OUTPUT ARGUMENT LIST:
-C>     IUPBS01  - INTEGER: UNPACKED INTEGER VALUE
-C>                  -1 = THE INPUT S01MNEM MNEMONIC WAS INVALID FOR
-C>                       THE EDITION OF BUFR MESSAGE IN MBAY
+C> @param[in]  MBAY    - integer(*): BUFR message
+C> @param[in]  S01MNEM   - character*(*): Value to be read from
+C>                         Section 0 or Section 1 of MBAY
+C>                         - 'LENM'  = Length (in bytes) of BUFR message
+C>                         - 'LEN0'  = Length (in bytes) of Section 0
+C>                         - 'LEN1'  = Length (in bytes) of Section 1
+C>                         - 'BEN'   = BUFR edition number
+C>                         - 'BMT'   = BUFR master table
+C>                         - 'OGCE'  = Originating center
+C>                         - 'GSES'  = Originating subcenter
+C>                         - 'USN'   = Update sequence number
+C>                         - 'ISC2'  = Flag indicating absence/presence of
+C>                                     (optional) Section 2 in BUFR message:
+C>                                    - 0 = Section 2 absent
+C>                                    - 1 = Section 2 present
+C>                         - 'MTYP'  = Data category
+C>                         - 'MSBTI' = Data subcategory (international)
+C>                         - 'MSBT'  = Data subcategory (local)
+C>                         - 'MTV'   = Version number of master table
+C>                         - 'MTVL'  = Version number of local tables
+C>                         - 'YCEN'  = Year of century (1-100)
+C>                         - 'CENT'  = Century (e.g., 20 for years 1901-2000,
+C>                                     21 for years 2001-2100)
+C>                         - 'YEAR'  = Year (4-digit)
+C>                         - 'MNTH'  = Month
+C>                         - 'DAYS'  = Day
+C>                         - 'HOUR'  = Hour
+C>                         - 'MINU'  = Minute
+C>                         - 'SECO'  = Second
+C> @returns iupbs01  - integer: Value corresponding to S01MNEM
+C>                      - -1 = S01MNEM was invalid for the edition of BUFR
+C>                             message in MBAY, or some other error 
+C>                             occurred
 C>
-C> REMARKS:
-C>    THIS ROUTINE CALLS:        GETS1LOC I4DY     IUPB     WRDLEN
-C>    THIS ROUTINE IS CALLED BY: ATRCPT   CKTABA   CNVED4   COPYBF
-C>                               COPYMG   CPYMEM   CRBMG    CRDBUFR
-C>                               DUMPBF   GETLENS  IDXMSG   IGETDATE
-C>                               IREADMT  IUPVS01  MESGBC   MESGBF
-C>                               MSGWRT   NMWRD    PADMSG   PKBS1
-C>                               RTRCPTB  STBFDX   STNDRD   UFBMEX
-C>                               WRCMPS
-C>                               Also called by application programs.
+C> @remarks
+C> - The start of the BUFR message (i.e. the string 'BUFR') must be
+C>   aligned on the first 4 bytes of MBAY.
+C> - Values corresponding to S01MNEM = 'GSES' can only be read from
+C>   BUFR messages encoded using BUFR edition 3 or 4.
+C> - Values corresponding to S01MNEM = 'YCEN' or 'CENT' can only be
+C>   read from BUFR messages encoded using BUFR edition 2 or 3.
+C> - When reading from BUFR messages encoded using BUFR edition 2
+C>   or 3, values corresponding to S01MNEM = 'YEAR' will be
+C>   calculated internally using the values for 'YCEN' and 'CENT',
+C>   or inferred using a windowing technique
+C> - Values corresponding to S01MNEM = 'SECO' or 'MSBTI' can only
+C>   be read from BUFR messages encoded using BUFR edition 4.
+C>
+C> <b>Program history log:</b>
+C> - 2005-11-29  J. Ator    -- Original author
+C> - 2006-04-14  J. Ator    -- Added options for 'YCEN' and 'CENT';
+C>                             restructured logic
 C>
       FUNCTION IUPBS01(MBAY,S01MNEM)
-
-
 
 	DIMENSION	MBAY(*)
 
