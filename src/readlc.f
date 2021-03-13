@@ -1,44 +1,62 @@
 C> @file
-C> @author WOOLLEN @date 2003-11-04
+C> @brief Read a long character string (greater than 8 bytes) from
+C> a data subset.
 
-C> THIS SUBROUTINE RETURNS A CHARACTER DATA ELEMENT ASSOCIATED
-C>   WITH A PARTICULAR SUBSET MNEMONIC FROM THE INTERNAL MESSAGE BUFFER
-C>   (ARRAY MBAY IN MODULE BITBUF).  IT IS DESIGNED TO BE USED TO RETURN
-C>   CHARACTER ELEMENTS GREATER THAN THE USUAL LENGTH OF EIGHT BYTES.
+C> This subroutine reads a long character string (greater than 8 bytes)
+C> from a data subset.
 C>
-C> PROGRAM HISTORY LOG:
-C> 2003-11-04  J. WOOLLEN -- ORIGINAL AUTHOR
-C> 2003-11-04  D. KEYSER  -- UNIFIED/PORTABLE FOR WRF; ADDED
-C>                           DOCUMENTATION; OUTPUTS MORE COMPLETE
-C>                           DIAGNOSTIC INFO WHEN ROUTINE TERMINATES
-C>                           ABNORMALLY OR UNUSUAL THINGS HAPPEN
-C> 2004-08-09  J. ATOR    -- MAXIMUM MESSAGE LENGTH INCREASED FROM
-C>                           20,000 TO 50,000 BYTES
-C> 2007-01-19  J. ATOR    -- REPLACED CALL TO PARSEQ WITH CALL TO PARSTR
-C> 2009-03-23  J. ATOR    -- ADDED CAPABILITY FOR COMPRESSED MESSAGES;
-C>                           ADDED CHECK FOR OVERFLOW OF CHR; ADDED '#'
-C>                           OPTION FOR MORE THAN ONE OCCURRENCE OF STR
-C> 2009-04-21  J. ATOR    -- USE ERRWRT
-C> 2012-12-07  J. ATOR    -- ALLOW STR MNEMONIC LENGTH OF UP TO 14 CHARS
-C>                           WHEN USED WITH '#' OCCURRENCE CODE
-C> 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
-C> 2020-09-09  J. ATOR    -- SET CHR TO MISSING INSTEAD OF ALL BLANKS
-C>                           IF STR ISN'T FOUND IN SUBSET
+C> <p>The data subset should have already been read into internal arrays
+C> via a previous call to subroutine readsb(), readns() or equivalent.
 C>
-C> USAGE:    CALL READLC (LUNIT, CHR, STR)
-C>   INPUT ARGUMENT LIST:
-C>     LUNIT    - INTEGER: FORTRAN LOGICAL UNIT NUMBER FOR BUFR FILE
-C>     STR      - CHARACTER*(*): STRING (I.E., MNEMONIC)
+C> @authors J. Woollen
+C> @authors J. Ator
+C> @date 2003-11-04
 C>
-C>   OUTPUT ARGUMENT LIST:
-C>     CHR      - CHARACTER*(*): UNPACKED CHARACTER STRING (I.E.,
-C>                CHARACTER DATA ELEMENT GREATER THAN EIGHT BYTES)
+C> @param[in] LUNIT  - integer: Fortran logical unit number for BUFR file
+C> @param[out] CHR   - character*(*): Value corresponding to STR
+C> @param[in] STR    - character*(*): Table B mnemonic of long character
+C>                     string to be retrieved, possibly supplemented
+C>                     with an ordinal occurrence notation
 C>
-C> REMARKS:
-C>    THIS ROUTINE CALLS:        BORT     ERRWRT   IPKM     PARSTR
-C>                               PARUTG   STATUS   UPC
-C>    THIS ROUTINE IS CALLED BY: UFBDMP   UFDUMP   WRTREE
-C>                               Also called by application programs.
+C> <p>If there is more than one occurrence of STR within the data subset
+C> definition, then each occurrence can be retrieved via a separate call
+C> to this subroutine, and by appending the ordinal number of the
+C> occurrence to STR in each case.  For example, if there are 5
+C> occurrences of mnemonic LSTID within a given data subset definition,
+C> then 5 separate calls should be made to this subroutine, once each
+C> with STR set to 'LSTID#1', 'LSTID#2', 'LSTID#3', 'LSTID#4' and
+C> 'LSTID#5'.  However, the first notation is superfluous, because
+C> omitting the ordinal number always defaults to the first occurrence
+C> of a particular string, so a user could just specify 'LSTID'
+C> instead of 'LSTID#1'.
+C>
+C> @remarks
+C> - Character strings which are 8 bytes or less in length can be read
+C> using the real*8 USR array within a call to subroutine ufbint(),
+C> ufbrep(), ufbseq() or equivalent, and then converting the
+C> corresponding real*8 value to character format within the
+C> application program.
+C> - If STR is not found within the data subset definition, then CHR is
+C> returned with all bits set to 1, which is the standard WMO BUFR value
+C> for "missing" data.  Any CHR value returned by this subroutine can be
+C> checked for equivalence to this "missing" value via a call to
+C> function icbfms().
+C>
+C> <b>Program history log:</b>
+C> - 2003-11-04  J. Woollen -- Original author
+C> - 2004-08-09  J. Ator    -- Maximum message length increased from
+C>                             20,000 to 50,000 bytes
+C> - 2007-01-19  J. Ator    -- Replaced call to parseq with call to
+C>                             parstr()
+C> - 2009-03-23  J. Ator    -- Added capability for compressed messages;
+C>                             added check for overflow of chr; added '#'
+C>                             option for more than one occurrence of STR
+C> - 2009-04-21  J. Ator    -- Use errwrt()
+C> - 2012-12-07  J. Ator    -- Allow str mnemonic length of up to 14 chars
+C>                             when used with '#' occurrence code
+C> - 2014-12-10  J. Ator    -- Use modules instead of COMMON blocks
+C> - 2020-09-09  J. Ator    -- Set CHR to "missing" instead of all blanks
+C>                             if STR isn't found in subset
 C>
       SUBROUTINE READLC(LUNIT,CHR,STR)
 

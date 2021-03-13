@@ -1,48 +1,51 @@
 C> @file
-C> @author J @date 2014-10-02
-	
-C> GIVEN A TABLE B MNEMONIC, THIS SUBROUTINE RETURNS THE
-C>   SCALE FACTOR, REFERENCE VALUE AND BIT WIDTH CORRESPONDING TO THE
-C>   (NNEMO)th OCCURRENCE OF THAT MNEMONIC WITHIN A SUBSET
-C>   DEFINITION (COUNTING FROM THE BEGINNING OF THE OVERALL SUBSET
-C>   DEFINITION), AND INCLUDING ACCOUNTING FOR ANY TABLE C OPERATORS
-C>   (E.G. 2-01-YYY, 2-02-YYY, 2-03-YYY, 2-07-YYY) WHICH MAY BE IN
-C>   EFFECT FOR THAT PARTICULAR OCCURRENCE OF THE MNEMONIC.  A SUBSET
-C>   DEFINITION MUST ALREADY BE IN SCOPE, EITHER VIA A PREVIOUS CALL TO
-C>   BUFR ARCHIVE LIBRARY SUBROUTINE READSB OR EQUIVALENT (FOR INPUT
-C>   FILES) OR TO SUBROUTINE OPENMB OR EQUIVALENT (FOR OUTPUT FILES).
+C> @brief Get the scale factor, reference value and bit width
+C> associated with a specified occurrence of a Table B mnemonic.
+
+C> Given a Table B mnemonic defined within a data subset, this
+C> subroutine returns the scale factor, reference value and bit
+C> width of a specified occurrence of that mnemonic within the
+C> overall data subset definition, counting from the beginning
+C> of the subset.
 C>
-C> PROGRAM HISTORY LOG:
-C> 2014-10-02  J. ATOR    -- ORIGINAL VERSION
-C> 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
+C> <p>The values returned include the application of any Table C
+C> operators (e.g. 2-01-YYY, 2-02-YYY, 2-03-YYY, 2-07-YYY,
+C> 2-08-YYY) which may be in effect for the specified occurrence
+C> of the mnemonic.
 C>
-C> USAGE:    CALL NEMSPECS (LUNIT, NEMO, NNEMO, NSCL, NREF, NBTS, IRET )
-C>   INPUT ARGUMENT LIST:
-C>     LUNIT    - INTEGER: FORTRAN LOGICAL UNIT NUMBER FOR BUFR FILE
-C>     NEMO     - CHARACTER*(*): TABLE B MNEMONIC
-C>     NNEMO    - INTEGER: ORDINAL OCCURRENCE OF NEMO FOR WHICH
-C>                INFORMATION IS TO BE RETURNED, COUNTING FROM THE
-C>                BEGINNING OF THE OVERALL SUBSET DEFINITION
+C> @author J. Ator
+C> @date 2014-10-02
 C>
-C>   OUTPUT ARGUMENT LIST:
-C>     NSCL     - INTEGER: SCALE FACTOR CORRESPONDING TO NEMO
-C>     NREF     - INTEGER: REFERENCE VALUE CORRESPONDING TO NEMO
-C>     NBTS     - INTEGER: BIT WIDTH CORRESPONDING TO NEMO
-C>     IRET     - INTEGER: RETURN CODE
-C>                   0 = NORMAL RETURN
-C>                  -1 = REQUESTED MNEMONIC COULD NOT BE FOUND, OR SOME
-C>                       OTHER ERROR OCCURRED
+C> @param[in] LUNIT  - integer: Fortran logical unit number for
+C>                     BUFR file
+C> @param[in] NEMO   - character*(*): Table B mnemonic
+C> @param[in] NNEMO  - integer: Ordinal occurrence of NEMO for
+C>                     which information is to be returned,
+C>                     counting from the beginning of the overall
+C>                     subset definition
+C> @param[out] NSCL  - integer: Scale factor in effect for
+C>                     (NNEMO)th occurrence of NEMO
+C> @param[out] NREF  - integer: Reference value in effect for
+C>                     (NNEMO)th occurrence of NEMO
+C> @param[out] NBTS  - integer: Bit width in effect for
+C>                     (NNEMO)th occurrence of NEMO
+C> @param[out] IRET  - integer: return code
+C>                     - 0 = normal return
+C>                     - -1 = NEMO could not be found, or some
+C>                            other error occurred
 C>
-C> REMARKS:
-C>    THIS ROUTINE CALLS:        FSTAG    STATUS   STRSUC
-C>    THIS ROUTINE IS CALLED BY: None
-C>                               Normally called only by application
-C>                               programs
+C> <p>A data subset must already be in scope within the BUFRLIB
+C> internal arrays for LUNIT, either via a previous call to
+C> readsb(), readns() or equivalent (when reading BUFR data
+C> subsets) or via a previous call to openmg(), openmb() or
+C> equivalent (when writing BUFR data subsets).
+C>
+C> <b>Program history log:</b>
+C> - 2014-10-02  J. Ator    -- Original version
+C> - 2014-12-10  J. Ator    -- Use modules instead of COMMON blocks
 C>
 	SUBROUTINE NEMSPECS ( LUNIT, NEMO, NNEMO,
      .			      NSCL, NREF, NBTS, IRET )
-
-
 
 	USE MODA_USRINT
 	USE MODA_MSGCWD

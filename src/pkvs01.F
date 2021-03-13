@@ -9,16 +9,16 @@ C> copybf(), copymg() or cpymem().
 C>
 C> <p>This subroutine is similar to subroutine pkbs1(), except that
 C> pkbs1() operates on a single BUFR message passed in via a memory
-C> array.  Alternatively, when this subroutine is called, the specified
-C> IVAL will be written into all BUFR messages output by all future calls
-C> to subroutines writsb(), writsa(), writcp(), copybf(), copymg() or
-C> cpymem(), for all Fortran logical units that are open for output
-C> within the application program, unless a subsequent call is made to
-C> this subroutine with the same value of S01MNEM in order to reset the
-C> corresponding IVAL again.  Otherwise, if this subroutine is never
-C> called for a particular value of S01MNEM, then a default value is
-C> used for the corresponding IVAL, as set within subroutine msgini(),
-C> cmsgini() or dxmini().
+C> array.  Alternatively, whenever this subroutine is called, the
+C> specified IVAL will be written into all BUFR messages output by all
+C> future calls to subroutines writsb(), writsa(), writcp(), copybf(),
+C> copymg() or cpymem(), for all Fortran logical units that are open for
+C> output within the application program, unless a subsequent call is
+C> made to this subroutine with the same value of S01MNEM in order to
+C> reset the corresponding IVAL again.  Otherwise, if this subroutine
+C> is never called for a particular value of S01MNEM, then a default
+C> value is used for the corresponding IVAL, as set within subroutine
+C> msgini(), cmsgini() or dxmini().
 C>
 C> @authors J. Ator
 C> @date 2005-11-29
@@ -48,7 +48,7 @@ C>                          - 'MINU'  = Minute
 C>                          - 'SECO'  = Second
 C>
 C> @remarks
-C> - A separate call to this subroutine should be made for each value of
+C> - A separate call to this subroutine must be made for each value of
 C>   S01MNEM that is to be set within Section 0 or Section 1 of
 C>   all future output BUFR messages.
 C> - A call to this subroutine with S01MNEM = 'BEN' and IVAL = 4 will

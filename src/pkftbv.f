@@ -1,33 +1,32 @@
 C> @file
-C> @author JATOR @date 2005-11-29
-      
-C> THIS FUNCTION COMPUTES AND RETURNS THE VALUE EQUIVALENT
-C>   TO THE SETTING OF BIT# IBIT WITHIN A FLAG TABLE OF NBITS BITS.
-C>   IF THE COMPUTATION FAILS FOR ANY REASON, THEN THE VALUE BMISS
-C>   (10E10) IS RETURNED.  NOTE THAT THIS SUBROUTINE IS THE LOGICAL
-C>   INVERSE OF BUFRLIB SUBROUTINE UPFTBV.
+C> @brief Determine the numerical data value equivalent to the
+C> setting of a specified bit within a flag table.
+
+C> This function computes the numerical value equivalent to the
+C> setting of bit #IBIT within a flag table of NBITS bits.
 C>
-C> PROGRAM HISTORY LOG:
-C> 2005-11-29  J. ATOR    -- ORIGINAL VERSION
+C> <p>If the computation fails for any reason, then the function
+C> returns the current placeholder value for "missing" data.
 C>
-C> USAGE:    PKFTBV (NBITS,IBIT)
-C>   INPUT ARGUMENT LIST:
-C>     NBITS    - INTEGER: NUMBER OF BITS IN FLAG TABLE
-C>     IBIT     - INTEGER: NUMBER OF BIT TO BE SET WITHIN FLAG TABLE
+C> @author J. Ator
+C> @date 2005-11-29
 C>
-C>   OUTPUT ARGUMENT LIST:
-C>     PKFTBV   - REAL*8: VALUE EQUIVALENT TO THE SETTING OF BIT# IBIT
-C>                WITHIN A FLAG TABLE OF NBITS BITS.
+C> @param[in] NBITS  - integer: Total number of bits in flag table
+C> @param[in] IBIT   - integer: Number of bit to be set
 C>
-C> REMARKS:
-C>    THIS ROUTINE CALLS:        None
-C>    THIS ROUTINE IS CALLED BY: None
-C>                               Normally called only by application
-C>                               programs.
+C> @returns pkftbv   - real*8: Value equivalent to the setting of
+C>                     bit# IBIT within a flag table of NBITS bits
+C>
+C> @remarks
+C> - This function is the logical inverse of subroutine upftbv().
+C> - According to the WMO standard, bits within a bit field are
+C> numbered from left to right, so bit #1 is always the high-order
+C> (i.e. most significant) bit in any bit field.
+C>
+C> <b>Program history log:</b>
+C> - 2005-11-29  J. Ator    -- Original version
 C>
       REAL*8 FUNCTION PKFTBV(NBITS,IBIT)
-
-
 
       INCLUDE 'bufrlib.inc'
 

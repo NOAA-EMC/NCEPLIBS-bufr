@@ -1,99 +1,104 @@
 C> @file
-C> @author ATOR @date 2014-12-04
-	
-C> THIS FUNCTION SHOULD ONLY BE CALLED IF DYNAMIC MEMORY
-C>   ALLOCATION IS BEING USED.  IT SETS A SPECIFIED PARAMETER TO A
-C>   SPECIFIED VALUE FOR LATER USE IN DYNAMICALLY SIZING ONE OR MORE
-C>   INTERNAL ARRAYS.  THE LIST OF PARAMETERS THAT CAN BE DYNAMICALLY
-C>   SIZED IS GIVEN BELOW, AND A SEPARATE CALL TO THIS FUNCTION MUST
-C>   BE MADE FOR EACH SUCH PARAMETER THAT IS DESIRED TO BE CHANGED
-C>   FROM ITS DEFAULT VALUE.  IF THIS FUNCTION IS NOT CALLED FOR A
-C>   PARTICULAR PARAMETER, THE DEFAULT VALUE IS OBTAINED FROM THE
-C>   CORRESPONDING MODULE FILE FOR THAT PARAMETER.
+C> @brief Define a customized parameter value for dynamic allocation.
+
+C> This function sets a specified parameter to a specified value for
+C> use in dynamically allocating one or more internal arrays within
+C> the BUFRLIB software.
 C>
-C>   NOTE THAT ALL CALLS TO THIS FUNCTION MUST BE MADE PRIOR TO THE
-C>   FIRST CALL TO BUFR ARCHIVE LIBRARY SUBROUTINE OPENBF.
+C> <p>This function should only be called if a dynamic allocation
+C> build of the software is being used.  A separate call to this
+C> function must be made for each parameter that is to be set to a
+C> customized value, and all such calls must be made prior to the
+C> first call to subroutine openbf() from within an application
+C> program, because that is when all internal arrays are dynamically
+C> allocated based on the parameter values in effect at the time.
+C> Otherwise, if this function is never called for a particular
+C> parameter, then an internal default value for that parameter is
+C> used instead.
 C>
-C> PROGRAM HISTORY LOG:
-C> 2014-12-04  J. ATOR    -- ORIGINAL AUTHOR
-C> 2016-05-24  J. ATOR    -- ADD MXNRV, MXBTM, MXBTMSE, MXTCO
-C> 2017-04-03  J. ATOR    -- ADD MXTAMC
-C> 2017-05-22  J. ATOR    -- ADD MXRST
-C> 2017-10-17  J. ATOR    -- ADD MXMTBF
+C> @author J. Ator
+C> @date 2014-12-04
 C>
-C> USAGE:    ISETPRM ( CPRMNM, IPVAL )
-C>   INPUT ARGUMENT LIST:
-C>     CPRMNM   - CHARACTER*(*): PARAMETER TO BE CHANGED FROM ITS
-C>                DEFAULT VALUE:
-C>                  'MXMSGL' = MAXIMUM LENGTH (IN BYTES) OF A BUFR
-C>                             MESSAGE
-C>                  'MAXSS'  = MAXIMUM NUMBER OF DATA VALUES IN AN
-C>                             UNCOMPRESSED BUFR SUBSET
-C>                  'MXCDV'  = MAXIMUM NUMBER OF DATA VALUES THAT CAN BE
-C>                             WRITTEN INTO A COMPRESSED BUFR SUBSET
-C>                  'MXLCC'  = MAXIMUM LENGTH (IN BYTES) OF A CHARACTER
-C>                             STRING THAT CAN BE WRITTEN INTO A
-C>                             COMPRESSED BUFR SUBSET
-C>                  'MXCSB'  = MAXIMUM NUMBER OF SUBSETS THAT CAN BE
-C>                             WRITTEN INTO A COMPRESSED BUFR MESSAGE
-C>                  'NFILES' = MAXIMUM NUMBER OF BUFR FILES THAT CAN BE
-C>                             ACCESSED FOR READING OR WRITING AT ANY
-C>                             ONE TIME
-C>                  'MAXTBA' = MAXIMUM NUMBER OF ENTRIES IN INTERNAL BUFR
-C>                             TABLE A PER BUFR FILE
-C>                  'MAXTBB' = MAXIMUM NUMBER OF ENTRIES IN INTERNAL BUFR
-C>                             TABLE B PER BUFR FILE
-C>                  'MAXTBD' = MAXIMUM NUMBER OF ENTRIES IN INTERNAL BUFR
-C>                             TABLE D PER BUFR FILE
-C>                  'MAXMEM' = MAXIMUM NUMBER OF BYTES THAT CAN BE USED
-C>                             TO STORE BUFR MESSAGES IN INTERNAL MEMORY
-C>                  'MAXMSG' = MAXIMUM NUMBER OF BUFR MESSAGES THAT CAN
-C>                             BE STORED IN INTERNAL MEMORY
-C>                  'MXDXTS' = MAXIMUM NUMBER OF DICTIONARY TABLES THAT
-C>                             CAN BE STORED FOR USE WITH BUFR MESSAGES
-C>                             IN INTERNAL MEMORY
-C>                  'MXMTBB' = MAXIMUM NUMBER OF MASTER TABLE B ENTRIES
-C>                  'MXMTBD' = MAXIMUM NUMBER OF MASTER TABLE D ENTRIES
-C>                  'MXMTBF' = MAXIMUM NUMBER OF MASTER CODE/FLAG ENTRIES
-C>                  'MAXCD'  = MAXIMUM NUMBER OF CHILD DESCRIPTORS IN A
-C>                             TABLE D DESCRIPTOR SEQUENCE DEFINITION
-C>                  'MAXJL'  = MAXIMUM NUMBER OF ENTRIES IN THE INTERNAL
-C>                             JUMP/LINK TABLE
-C>                  'MXS01V' = MAXIMUM NUMBER OF DEFAULT SECTION 0 OR
-C>                             SECTION 1 VALUES THAT CAN BE OVERWRITTEN
-C>                             WITHIN AN OUTPUT BUFR MESSAGE
-C>                  'MXBTM'  = MAXIMUM NUMBER OF BITMAPS THAT CAN BE
-C>			      STORED INTERNALLY FOR A BUFR SUBSET
-C>                 'MXBTMSE' = MAXIMUM NUMBER OF ENTRIES THAT CAN BE
-C>			      SET WITHIN A BITMAP
-C>                  'MXTAMC' = MAXIMUM NUMBER OF TABLE A MNEMONICS IN THE
-C>                             INTERNAL JUMP/LINK TABLE WHICH CONTAIN AT
-C>                             LEAST ONE TABLE C OPERATOR WITH X>=21 IN
-C>                             THEIR SUBSET DEFINITION
-C>                  'MXTCO'  = MAXIMUM NUMBER OF TABLE C OPERATORS (WITH
-C>                             X>=21) IN THE SUBSET DEFINITION OF A
-C>                             TABLE A MNEMONIC
-C>                  'MXNRV'  = MAXIMUM NUMBER OF 2-03 REFERENCE VALUES
-C>			      IN THE INTERNAL JUMP/LINK TABLE
-C>                  'MXRST'  = MAXIMUM NUMBER OF LONG CHARACTER STRINGS
-C>			      THAT CAN BE READ FROM A COMPRESSED SUBSET
-C>      IPVAL   - INTEGER: VALUE ASSOCIATED WITH CPRMNM
+C> @param[in] CPRMNM - character*(*): Parameter to be changed from its
+C>                     internal default value
+C>                    - 'MXMSGL' = Maximum length (in bytes) of a BUFR
+C>                                 message
+C>                    - 'MAXSS'  = Maximum number of data values in an
+C>                                 uncompressed BUFR subset
+C>                    - 'MXCDV'  = Maximum number of data values that
+C>                                 can be written into a compressed BUFR
+C>                                 subset
+C>                    - 'MXLCC'  = Maximum length (in bytes) of a
+C>                                 character string that can be written
+C>                                 into a compressed BUFR subset
+C>                    - 'MXCSB'  = Maximum number of subsets that can be
+C>                                 written into a compressed BUFR
+C>                                 message
+C>                    - 'NFILES' = Maximum number of BUFR files that can
+C>                                 be accessed for reading or writing at
+C>                                 any one time
+C>                    - 'MAXTBA' = Maximum number of entries in internal
+C>                                 BUFR Table A per BUFR file
+C>                    - 'MAXTBB' = Maximum number of entries in internal
+C>                                 BUFR Table B per BUFR file
+C>                    - 'MAXTBD' = Maximum number of entries in internal
+C>                                 BUFR Table D per BUFR file
+C>                    - 'MAXMEM' = Maximum number of bytes that can be
+C>                                 used to store BUFR messages in
+C>                                 internal memory
+C>                    - 'MAXMSG' = Maximum number of BUFR messages that
+C>                                 can be stored in internal memory
+C>                    - 'MXDXTS' = Maximum number of dictionary tables
+C>                                 that can be stored for use with BUFR
+C>                                 messages in internal memory
+C>                    - 'MXMTBB' = Maximum number of master Table B
+C>                                 entries
+C>                    - 'MXMTBD' = Maximum number of master Table D
+C>                                 entries
+C>                    - 'MXMTBF' = Maximum number of master Code/Flag
+C>                                 entries
+C>                    - 'MAXCD'  = Maximum number of child descriptors
+C>                                 in a Table D descriptor sequence
+C>                                 definition
+C>                    - 'MAXJL'  = Maximum number of entries in the
+C>                                 internal jump/link table
+C>                    - 'MXS01V' = Maximum number of default Section 0
+C>                                 or Section 1 values that can be
+C>                                 overwritten within an output BUFR
+C>                                 message
+C>                    - 'MXBTM'  = Maximum number of bitmaps that can be
+C>			           stored internally for a BUFR subset
+C>                    - 'MXBTMSE' = Maximum number of entries that can
+C>			            be set within a bitmap
+C>                    - 'MXTAMC' = Maximum number of Table A mnemonics
+C>                                 in the internal jump/link table which
+C>                                 contain at least one Table C operator
+C>                                 with XX >= 21 in their subset definition
+C>                    - 'MXTCO'  = Maximum number of Table C operators
+C>                                 with XX >= 21 in the subset definition
+C>                                 of a Table A mnemonic
+C>                    - 'MXNRV'  = Maximum number of 2-03 reference
+C>			           values in the internal jump/link
+C>                                 table
+C>                    - 'MXRST'  = Maximum number of long character
+C>                                 strings that can be read from a
+C>                                 compressed subset
+C> @param[in] IPVAL - integer: Value to be set for CPRMNM
 C>
-C>   OUTPUT ARGUMENT LIST:
-C>     ISETPRM  - INTEGER: RETURN CODE:
-C>                   0 = NORMAL RETURN
-C>                  -1 = UNKNOWN CPRNMN, OR DYNAMIC ALLOCATION NOT IN
-C>                       EFFECT FOR THIS BUILD
+C> @returns  isetprm  - integer: return code
+C>                      -  0 = normal return
+C>                      - -1 = Unknown CPRMNM, or dynamic allocation
+C>                             not in effect for this build of the
+C>                             library
 C>
-C> REMARKS:
-C>    THIS ROUTINE CALLS:        ERRWRT
-C>    THIS ROUTINE IS CALLED BY: None
-C>                               Normally called only by application
-C>                               programs.
+C> <b>Program history log:</b>
+C> - 2014-12-04  J. Ator    -- Original author
+C> - 2016-05-24  J. Ator    -- Add MXNRV, MXBTM, MXBTMSE, MXTCO
+C> - 2017-04-03  J. Ator    -- Add MXTAMC
+C> - 2017-05-22  J. Ator    -- Add MXRST
+C> - 2017-10-17  J. Ator    -- Add MXMTBF
 C>
 	INTEGER FUNCTION ISETPRM ( CPRMNM, IPVAL )
-
-
 
 	USE MODV_MAXSS
 	USE MODV_NFILES
