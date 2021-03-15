@@ -1,47 +1,42 @@
 C> @file
-C> @author J @date 2016-06-07
-	
-C> GIVEN A MNEMONIC WITHIN A SUBSET CURRENTLY OPEN FOR
-C>   READING, THIS SUBROUTINE CHECKS WHETHER THE MNEMONIC REFERENCES
-C>   ANOTHER ELEMENT WITHIN THE SAME SUBSET VIA AN INTERNAL BITMAP, AND
-C>   IF SO RETURNS THE REFERENCED MNEMONIC AND ITS LOCATION.  IF THERE
-C>   IS MORE THAN ONE OCCURRENCE OF THE INPUT MNEMONIC WITHIN THE OVERALL
-C>   SUBSET DEFINITION, THE SUBROUTINE WILL RETURN THE MNEMONIC REFERRED
-C>   TO BY THE (NTAGI)th OCCURRENCE OF THE INPUT MNEMONIC, COUNTING FROM
-C>   THE BEGINNING OF THE OVERALL SUBSET DEFINITION.  A SUBSET DEFINITION
-C>   MUST ALREADY BE IN SCOPE, EITHER VIA A PREVIOUS CALL TO BUFR ARCHIVE
-C>   LIBRARY SUBROUTINE READSB OR EQUIVALENT.
+C> @brief Check whether a mnemonic references another mnemonic via
+C> an internal bitmap.
+
+C> This subroutine determines whether a specified Table B mnemonic
+C> references another Table B mnemonic within the same data subset
+C> via an internal bitmap, and if so returns the referenced
+C> mnemonic and its location within the subset.
 C>
-C> PROGRAM HISTORY LOG:
-C> 2016-06-07  J. ATOR    -- ORIGINAL AUTHOR
+C> @author J. Ator
+C> @date 2016-06-07
 C>
-C> USAGE:    CALL GETTAGRE (LUNIT, TAGI, NTAGI, TAGRE, NTAGRE, IRET)
-C>   INPUT ARGUMENT LIST:
-C>     LUNIT    - INTEGER: FORTRAN LOGICAL UNIT NUMBER FOR BUFR FILE
-C>     TAGI     - CHARACTER*(*): MNEMONIC
-C>     NTAGI    - INTEGER: ORDINAL OCCURRENCE OF TAGI FOR WHICH TAGRE
-C>                IS TO BE RETURNED, COUNTING FROM THE BEGINNING OF
-C>                THE OVERALL SUBSET DEFINITION
+C> @param[in] LUNIT  - integer: Fortran logical unit number for
+C>                     BUFR file
+C> @param[in] TAGI   - character*(*): Table B mnemonic
+C> @param[in] NTAGI  - integer: Ordinal occurrence of TAGI for
+C>                     which TAGRE is to be returned, counting from
+C>                     the beginning of the overall subset definition
+C> @param[out] TAGRE - character*(*): Table B mnemonic referenced by
+C>                     TAGI via an internal bitmap
+C> @param[out] NTAGRE - integer: Ordinal occurrence of TAGRE
+C>                      referenced by (NTAGI)th occurrence of TAGI,
+C>                      counting from the beginning of the overall
+C>                      subset definition
+C> @param[out] IRET  - integer: return code
+C>                     - 0 = normal return
+C>                     - -1 = TAGRE could not be found, or some
+C>                            other error occurred
 C>
-C>   OUTPUT ARGUMENT LIST:
-C>     TAGRE    - CHARACTER*(*): MNEMONIC REFERRED TO BY TAGI VIA AN
-C>                INTERNAL BITMAP
-C>     NTAGRE   - INTEGER: ORDINAL OCCURRENCE OF TAGRE REFERRED TO BY
-C>                (NTAGI)th OCCURRENCE OF TAGI, COUNTING FROM THE
-C>                BEGINNING OF THE OVERALL SUBSET DEFINITIION.
-C>     IRET     - INTEGER: RETURN CODE
-C>                   0 = NORMAL RETURN
-C>                  -1 = COULD NOT FIND TAGRE
+C> <p>A data subset must already be in scope within the BUFRLIB
+C> internal arrays for LUNIT, either via a previous call to
+C> readsb(), readns() or equivalent (when reading BUFR data
+C> subsets) or via a previous call to openmg(), openmb() or
+C> equivalent (when writing BUFR data subsets).
 C>
-C> REMARKS:
-C>    THIS ROUTINE CALLS:        FSTAG    STATUS   STRSUC
-C>    THIS ROUTINE IS CALLED BY: None
-C>                               Normally called only by application
-C>                               programs
+C> <b>Program history log:</b>
+C> - 2016-06-07  J. Ator    -- Original author
 C>
 	SUBROUTINE GETTAGRE ( LUNIT, TAGI, NTAGI, TAGRE, NTAGRE, IRET )
-
-
 
 	USE MODA_USRINT
 	USE MODA_MSGCWD
