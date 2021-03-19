@@ -84,7 +84,7 @@ set(fortran_src
   cpdxmm.f
   cpymem.f
   cpyupd.f
-  datebf.f
+  datebf.F
   datelen.f
   digit.f
   drfini.f
