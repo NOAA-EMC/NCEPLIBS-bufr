@@ -44,6 +44,11 @@ more than one BUFR message could become available during such a call.
 compatibility with GNU v10+ compilers.
 [[Issue #81](https://github.com/NOAA-EMC/NCEPLIBS-bufr/issues/81)]
 
+* Subroutines pkx and chrtrn are no longer used within the library and were
+never intended to be called from application codes, so they have now been
+removed from the library.
+[[Issue #107](https://github.com/NOAA-EMC/NCEPLIBS-bufr/issues/107)]
+
 
 ### Version 11.3.2 - July 16, 2020
 

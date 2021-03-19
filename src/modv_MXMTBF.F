@@ -1,24 +1,31 @@
+C> @file
+C> @brief Declare and initialize MXMTBF variable.
+
+C> This module declares and initializes the MXMTBF variable.
+C>
+C> <p>For dynamic allocation builds, this variable is initialized
+C> to a default value which can be overridden by a subsequent call
+C> to function isetprm() within the application program.
+C> For static allocation builds, this variable is set as a
+C> parameter at compile time and cannot be changed within the
+C> application program.
+C>
+C> @author J. Ator
+C> @date 2018-01-11
+
 	MODULE MODV_MXMTBF
 
-C	  MXMTBF is the maximum number of entries in the master
-C	  BUFR Code/Flag tables.
+C>        @var mxmtbf
+C>        Maximum number of entries in a master BUFR Code/Flag
+C>        table, counting across all individual Code/Flag tables,
+C>        and counting each defined code figure (within each
+C>        individual Code table) or defined bit number (within
+C>        each individual Flag table) as a separate entry.
 
-C	  Note that this maximum count includes all entries across
-C	  all Code and Flag tables.  In other words, each defined
-C	  code figure (within each individual Code table) or defined
-C	  bit number (within each individual Flag table) is counted
-C	  as a separate "entry" for the purposes of this parameter
-C	  value.
-
-#ifdef DYNAMIC_ALLOCATION
-
-C	  Set a default value for MXMTBF.  This value will be used
-C	  unless it is overridden by a subsequent user call to
-C	  function ISETPRM.
-
-	  INTEGER :: MXMTBF = 25000
+#ifdef STATIC_ALLOCATION
+	  INTEGER, PARAMETER :: MXMTBF = 25000
 #else
-	  PARAMETER ( MXMTBF = 25000 )
+	  INTEGER :: MXMTBF = 25000
 #endif
 
 	END MODULE

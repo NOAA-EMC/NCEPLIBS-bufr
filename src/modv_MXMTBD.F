@@ -1,17 +1,27 @@
+C> @file
+C> @brief Declare and initialize MXMTBD variable.
+
+C> This module declares and initializes the MXMTBD variable.
+C>
+C> <p>For dynamic allocation builds, this variable is initialized
+C> to a default value which can be overridden by a subsequent call
+C> to function isetprm() within the application program.
+C> For static allocation builds, this variable is set as a
+C> parameter at compile time and cannot be changed within the
+C> application program.
+C>
+C> @author J. Ator
+C> @date 2014-12-10
+
 	MODULE MODV_MXMTBD
 
-C	  MXMTBD is the maximum number of entries in the master
-C	  BUFR Table D.
+C>        @var mxmtbd
+C>        Maximum number of entries in a master BUFR Table D.
 
-#ifdef DYNAMIC_ALLOCATION
-
-C	  Set a default value for MXMTBD.  This value will be used
-C	  unless it is overridden by a subsequent user call to
-C	  function ISETPRM.
-
-	  INTEGER :: MXMTBD = 800
+#ifdef STATIC_ALLOCATION
+	  INTEGER, PARAMETER :: MXMTBD = 1000
 #else
-	  PARAMETER ( MXMTBD = 1000 )
+	  INTEGER :: MXMTBD = 800
 #endif
 
 	END MODULE

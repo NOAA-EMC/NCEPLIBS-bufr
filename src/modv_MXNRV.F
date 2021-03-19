@@ -1,17 +1,28 @@
+C> @file
+C> @brief Declare and initialize MXNRV variable.
+
+C> This module declares and initializes the MXNRV variable.
+C>
+C> <p>For dynamic allocation builds, this variable is initialized
+C> to a default value which can be overridden by a subsequent call
+C> to function isetprm() within the application program.
+C> For static allocation builds, this variable is set as a
+C> parameter at compile time and cannot be changed within the
+C> application program.
+C>
+C> @author J. Ator
+C> @date 2014-12-10
+
 	MODULE MODV_MXNRV
 
-C	  MXNRV is the maximum number of nodes in the jump/link table
-C	  that can contain new 2-03 reference values.
+C>        @var mxnrv
+C>        Maximum number of entries in the internal jump/link table
+C>        that can contain new reference values.
 
-#ifdef DYNAMIC_ALLOCATION
-
-C	  Set a default value for MXNRV.  This value will be used
-C	  unless it is overridden by a subsequent user call to
-C	  function ISETPRM.
-
-	  INTEGER :: MXNRV = 15
+#ifdef STATIC_ALLOCATION
+	  INTEGER, PARAMETER :: MXNRV = 15
 #else
-	  PARAMETER ( MXNRV = 15 )
+	  INTEGER :: MXNRV = 15
 #endif
 
 	END MODULE

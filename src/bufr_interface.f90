@@ -1,11 +1,11 @@
 !> @file
-!> @brief Enable a number of Fortran BUFRLIB functions to be called
-!>        from C and C++ application programs.
+!> @brief Enable a number of BUFRLIB subprograms to be called
+!>        via wrapper functions from C and C++ application programs.
 !>
 !> @author Ronald Mclaren
 !> @date 2020-07-29
 
-!> This module contains functions which map certain Fortran BUFRLIB
+!> This module contains functions which wrap certain Fortran BUFRLIB
 !> functions so they can be called from C and C++. The signatures of
 !> the public functions match their Fortran equivalents, as shown within
 !> the documentation for each of the individual functions.

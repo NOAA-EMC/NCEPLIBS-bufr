@@ -1,17 +1,28 @@
+C> @file
+C> @brief Declare and initialize MXCSB variable.
+
+C> This module declares and initializes the MXCSB variable.
+C>
+C> <p>For dynamic allocation builds, this variable is initialized
+C> to a default value which can be overridden by a subsequent call
+C> to function isetprm() within the application program.
+C> For static allocation builds, this variable is set as a
+C> parameter at compile time and cannot be changed within the
+C> application program.
+C>
+C> @author J. Ator
+C> @date 2014-12-10
+
 	MODULE MODV_MXCSB
 
-C	  MXCSB is the maximum number of subsets that can be written
-C	  into a compressed BUFR message by the BUFRLIB software.
+C>        @var mxcsb
+C>        Maximum number of data subsets that can be written into
+C>	  a compressed BUFR message by the BUFRLIB software.
 
-#ifdef DYNAMIC_ALLOCATION
-
-C	  Set a default value for MXCSB.  This value will be used
-C	  unless it is overridden by a subsequent user call to
-C	  function ISETPRM.
-
-	  INTEGER :: MXCSB = 4000
+#ifdef STATIC_ALLOCATION
+	  INTEGER, PARAMETER :: MXCSB = 4000
 #else
-	  PARAMETER ( MXCSB = 4000 )
+	  INTEGER :: MXCSB = 4000
 #endif
 
 	END MODULE
