@@ -1,10 +1,13 @@
 /** @file
- *  @brief Define signatures for C functions which are native C
- *  BUFRLIB functions.
+ *  @brief Define signatures to enable a number of BUFRLIB
+ *  subprograms to be called directly from C application programs.
  *
- *  <p>This header file defines the C function signatures for all
- *  BUFRLIB functions written in C.  It also contains other macros
- *  used throughout the C portion of the library.
+ *  <p>This header file defines the signatures for all
+ *  BUFRLIB subprograms which are native C functions, or which are
+ *  native Fortran subroutines but can be called directly from C
+ *  application programs without the use of wrapper functions.
+ *  This header file also contains macros used throughout the C
+ *  portion of the BUFRLIB.
  *
  *  @author J.Ator
  *  @date 2003-11-04

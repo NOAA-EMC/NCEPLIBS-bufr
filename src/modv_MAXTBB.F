@@ -1,18 +1,28 @@
+C> @file
+C> @brief Declare and initialize MAXTBB variable.
+
+C> This module declares and initializes the MAXTBB variable.
+C>
+C> <p>For dynamic allocation builds, this variable is initialized
+C> to a default value which can be overridden by a subsequent call
+C> to function isetprm() within the application program.
+C> For static allocation builds, this variable is set as a
+C> parameter at compile time and cannot be changed within the
+C> application program.
+C>
+C> @author J. Ator
+C> @date 2014-12-10
+
 	MODULE MODV_MAXTBB
 
-C	  MAXTBB is the maximum number of entries in the internal BUFR
-C	  Table B for each BUFR file that is connected to the BUFRLIB
-C	  software.
+C>        @var maxtbb
+C>        Maximum number of entries in the internal BUFR Table B for
+C>        each BUFR file that is connected to the BUFRLIB software.
 
-#ifdef DYNAMIC_ALLOCATION
-
-C	  Set a default value for MAXTBB.  This value will be used
-C	  unless it is overridden by a subsequent user call to
-C	  function ISETPRM.
-
-	  INTEGER :: MAXTBB = 500
+#ifdef STATIC_ALLOCATION
+	  INTEGER, PARAMETER :: MAXTBB = 500
 #else
-	  PARAMETER ( MAXTBB = 500 )
+	  INTEGER :: MAXTBB = 500
 #endif
 
 	END MODULE

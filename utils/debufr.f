@@ -1,12 +1,24 @@
 C> @file
 C> @brief Fortran-language code for debufr utility.
 
-C> This module is used to share information between
-C> subroutine fdebufr() and subroutine openbt(), since the latter
-C> is not called by the former but rather is called directly
-C> from within the BUFRLIB software.
+C> This module is used within the debufr utility to share
+C> information between subroutine fdebufr() and subroutine
+C> openbt(), since the latter is not called by the former but
+C> rather is called directly from within the BUFRLIB software.
 
 	MODULE Share_Table_Info
+
+C>          @var ctbldir
+C>          Directory containing DX BUFR tables to be used for
+C>          decoding.
+C>
+C>          @var ltbd
+C>          Length (in characters) of ctbldir.
+C>
+C>          @var ludx
+C>          Fortran logical unit number to use for referencing
+C>          a DX table.
+
 	    CHARACTER*120	ctbldir
 	    INTEGER		ltbd, ludx
 	END MODULE
