@@ -31,12 +31,12 @@ ctest
 make install
 </pre>
 
-Both <pre>path1</pre> and <pre>path2</pre> may be full or relative pathnames
+Both `path1` and `path2` may be full or relative pathnames
 on the system, up to a maximum of 90 characters each.
 
-Installation of the library and utilities will be under <pre>path1</pre>.
-Installation of the master BUFR tables will be under <pre>path2</pre>, or
-under <pre>path1</pre> if <pre>-DMASTER_TABLE_DIR=path2</pre> is omitted
+Installation of the library and utilities will be under `path1`.
+Installation of the master BUFR tables will be under `path2`, or
+under `path1` if `-DMASTER_TABLE_DIR=path2` is omitted
 from the above cmake command.
 
 For Intel and GNU compilers, the library is built with three different
