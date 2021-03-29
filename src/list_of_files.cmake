@@ -4,6 +4,7 @@ set(fortran_src
   modv_MAXJL.F
   modv_MAXMEM.F
   modv_MAXMSG.F
+  modv_MAXNC.F
   modv_MAXSS.F
   modv_MAXTBA.F
   modv_MAXTBB.F
@@ -11,6 +12,7 @@ set(fortran_src
   modv_MXBTM.F
   modv_MXBTMSE.F
   modv_MXCDV.F
+  modv_MXCNEM.F
   modv_MXCSB.F
   modv_MXDXTS.F
   modv_MXH4WLC.F
@@ -19,6 +21,7 @@ set(fortran_src
   modv_MXMTBB.F
   modv_MXMTBD.F
   modv_MXMTBF.F
+  modv_MXNAF.F
   modv_MXNRV.F
   modv_MXRST.F
   modv_MXS01V.F
@@ -31,6 +34,7 @@ set(fortran_src
   moda_bufrsr.F
   moda_comprs.F
   moda_comprx.F
+  moda_dscach.F
   moda_h4wlc.F
   moda_idrdm.F
   moda_ifopbf.F
@@ -62,7 +66,7 @@ set(fortran_src
   moda_xtab.F
   adn30.f
   atrcpt.f
-  bfrini.f
+  ${CMAKE_CURRENT_BINARY_DIR}/bfrini.f90
   blocks.f
   bort.f
   bort2.f
@@ -307,7 +311,7 @@ set(fortran_src
   bufr_interface.f90)
 
 set(f_hdr
-  ${CMAKE_CURRENT_BINARY_DIR}/bufrlib.inc)
+  bufrlib.inc)
 
 set(c_src
   arallocc.c

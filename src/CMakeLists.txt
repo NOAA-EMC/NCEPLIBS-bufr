@@ -1,27 +1,20 @@
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
-# Create the bvers.f file with the version from VERSION file.
+# Create the bvers.f file
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/bvers.f.in ${CMAKE_CURRENT_BINARY_DIR}/bvers.f @ONLY)
 
-# Create the bufrlib.h and bufrlib.inc files
-file(READ bufrlib.h.in _bufrlib_h_in_str)
-foreach(_var IN ITEMS MAXNC MXNAF)
-  if(_bufrlib_h_in_str MATCHES "#define ${_var} ([0-9]+)")
-    set(${_var} ${CMAKE_MATCH_1})
-  else()
-    message(FATAL_ERROR "Unable to parse variable ${_var} value from file: src/bufrlib.h.in")
-  endif()
-endforeach()
-configure_file(${CMAKE_CURRENT_SOURCE_DIR}/bufrlib.inc.in ${CMAKE_CURRENT_BINARY_DIR}/bufrlib.inc @ONLY)
+# Create the bfrini.f90 file
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/bfrini.f90.in ${CMAKE_CURRENT_BINARY_DIR}/bfrini.f90 @ONLY)
 
+# Create the bufrlib.h file
 set(VAR_REGEX_DYNAMIC "INTEGER ::")
 set(VAR_REGEX_STATIC "PARAMETER ")
-foreach(_var IN ITEMS NFILES MAXCD)
+foreach(_var IN ITEMS NFILES MAXCD MAXNC MXNAF)
   foreach(_alloc IN ITEMS DYNAMIC STATIC)
     file(STRINGS modv_${_var}.F _${_var}_tempstr REGEX ${VAR_REGEX_${_alloc}})
     if(_${_var}_tempstr MATCHES "${_var} = ([0-9]+)")
       set(${_var}_${_alloc} ${CMAKE_MATCH_1})
-    else()
+    elseif(${_var} MATCHES "^(NFILES|MAXCD)$" OR ${_alloc} MATCHES "^(STATIC)$")
       message(FATAL_ERROR "Unable to parse variable ${_var}_${_alloc} value from file: modv_${_var}.F")
     endif()
   endforeach()

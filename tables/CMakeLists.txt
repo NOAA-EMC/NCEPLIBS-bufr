@@ -81,5 +81,5 @@ foreach(FILENAME ${bufr_tables})
 endforeach(FILENAME)
 
 # Install BUFR tables during installation
-install(FILES ${bufr_tables} DESTINATION ${CMAKE_INSTALL_PREFIX}/tables)
+install(FILES ${bufr_tables} DESTINATION ${MASTER_TABLE_DIR})
 

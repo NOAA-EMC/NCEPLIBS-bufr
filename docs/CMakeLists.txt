@@ -1,9 +1,7 @@
 # This is the CMake file for building the docs directory of NCEPLIBS-bufr.
-#
-# Ed Hartnett 10/16/20
 
-set(abs_top_srcdir "${CMAKE_SOURCE_DIR}")
-set(config_srcdir "${CMAKE_CURRENT_BINARY_DIR}/../src")
+set(package_base "${CMAKE_SOURCE_DIR}")
+set(build_base "${PROJECT_BINARY_DIR}")
 
 # Create doxyfile.
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/Doxyfile.in ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile @ONLY)
@@ -13,4 +11,3 @@ add_custom_target(doc ALL
   ${DOXYGEN_EXECUTABLE} ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile
   WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
   COMMENT "Generating API Documentation with Doxygen" VERBATIM)
-

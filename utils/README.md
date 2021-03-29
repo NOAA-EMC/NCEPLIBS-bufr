@@ -66,7 +66,8 @@ Usage:
                  via the -f option), or it may contain all of the master
                  BUFR tables when these are being used to decode a
                  file.  If unspecified, the default directory location is
-                 "/gpfs/dell1/nco/ops/nwprod/decoders/decod_shared/fix"
+                 the defined value of the MASTER_TABLE_DIR macro when the
+                 utility was built.
 
        tablefil  file within tabledir containing DX BUFR tables
                  to be used for decoding.
