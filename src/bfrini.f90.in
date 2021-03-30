@@ -81,6 +81,9 @@ COMMON /MSGCMP/ CCMF
 COMMON /TABLEF/ CDMF
 COMMON /TNKRCP/ ITRYR,ITRMO,ITRDY,ITRHR,ITRMI,CTRT
 COMMON /ENDORD/ IBLOCK,IORDBE(4),IORDLE(4)
+COMMON /BUFRBMISS/ BMISS
+
+real*8  BMISS
 
 character*100 CMTDIR
 character*56  DXSTR
@@ -127,6 +130,11 @@ data NLD30 /   5 ,   6 , 8*0 /
 !  -----------------------------------------------------------------
 
 IBLOCK = 0
+
+!  Initialize /BUFRBMISS/
+!  ----------------------
+
+BMISS = 10E10_8
 
 !  Initialize module BITBUF
 !  ------------------------
