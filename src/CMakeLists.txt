@@ -93,7 +93,7 @@ export(EXPORT ${PROJECT_NAME}Exports
   FILE ${PROJECT_NAME}-targets.cmake)
 
 configure_package_config_file(
-  ${CMAKE_SOURCE_DIR}/cmake/PackageConfig.cmake.in ${CMAKE_BINARY_DIR}/${PROJECT_NAME}-config.cmake
+  ${PROJECT_SOURCE_DIR}/cmake/PackageConfig.cmake.in ${CMAKE_BINARY_DIR}/${PROJECT_NAME}-config.cmake
   INSTALL_DESTINATION ${CONFIG_INSTALL_DESTINATION})
 install(FILES ${CMAKE_BINARY_DIR}/${PROJECT_NAME}-config.cmake
   DESTINATION ${CONFIG_INSTALL_DESTINATION})

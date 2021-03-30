@@ -15,7 +15,7 @@ get_target_property(@PROJECT_NAME@_BUILD_TYPES @PROJECT_NAME@::@PROJECT_NAME@_4_
 
 check_required_components("@PROJECT_NAME@")
 
-set(@PROJECT_NAME@_TABLES_DIR "${PACKAGE_PREFIX_DIR}/tables")
+set(@PROJECT_NAME@_TABLES_DIR "@MASTER_TABLE_DIR@")
 
 get_target_property(location @PROJECT_NAME@::@PROJECT_NAME@_4_DA LOCATION)
 message(STATUS "Found @PROJECT_NAME@: ${location} (found version \"@PROJECT_VERSION@\")")

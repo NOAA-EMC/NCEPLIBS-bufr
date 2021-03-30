@@ -1,6 +1,6 @@
 # This is the CMake file for building the docs directory of NCEPLIBS-bufr.
 
-set(package_base "${CMAKE_SOURCE_DIR}")
+set(package_base "${PROJECT_SOURCE_DIR}")
 set(build_base "${PROJECT_BINARY_DIR}")
 
 # Create doxyfile.
