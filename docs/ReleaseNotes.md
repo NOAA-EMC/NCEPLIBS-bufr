@@ -31,6 +31,11 @@ would return a string of all blank characters in such cases.
 mnemonic isn't found in the subset definition.  The library would previously
 abort in such cases. [[Issue #53](https://github.com/NOAA-EMC/NCEPLIBS-bufr/issues/53)]
 
+* The default directory location of the BUFR master tables in subroutine bfrini()
+was changed from a fixed WCOSS-specific path.  It is now set to the defined
+value of the MASTER_TABLE_DIR macro when the library was built.
+[[Issue #123](https://github.com/NOAA-EMC/NCEPLIBS-bufr/issues/123)]
+
 * The Fortran include file "bufrlib.prm" was renamed to "bufrlib.inc" to better
 conform with modern software engineering standards.
 [[Issue #22](https://github.com/NOAA-EMC/NCEPLIBS-bufr/issues/22)]

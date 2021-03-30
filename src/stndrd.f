@@ -38,7 +38,7 @@ C> - 2020-07-16  J. Ator    -- Fix bug in ISLEN computation when NSUB = 1
 C>
       SUBROUTINE STNDRD(LUNIT,MSGIN,LMSGOT,MSGOT)
 
-      INCLUDE 'bufrlib.inc'
+      USE MODV_MAXNC
 
       DIMENSION ICD(MAXNC)
 

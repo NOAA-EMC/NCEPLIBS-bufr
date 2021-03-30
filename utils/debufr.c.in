@@ -62,8 +62,8 @@ void prtusage( char *prgnam ) {
 	printf( "              file to be used (if one was specified via the -f option),\n" );
 	printf( "              or it may contain all of the master BUFR tables when these\n" );
 	printf( "              are being used to decode a file.  If unspecified, the\n" );
-	printf( "              default directory location is\n\n" );
-	printf( "	       \"/gpfs/dell1/nco/ops/nwprod/decoders/decod_shared/fix\"\n\n" );
+	printf( "              default directory location is\n" );
+	printf( "	       \"@MASTER_TABLE_DIR@\"\n\n" );
 	printf( "    tablefil  file within tabledir containing DX BUFR tables to be used\n" );
 	printf( "              for decoding.\n\n" );
 	printf( "     prmstg   string of comma-separated PARAMETER=VALUE pairs, up to a\n" );
@@ -129,7 +129,8 @@ void prtusage( char *prgnam ) {
  *                 via the -f option), or it may contain all of the master
  *                 BUFR tables when these are being used to decode a
  *                 file.  If unspecified, the default directory location is
- *                 "/gpfs/dell1/nco/ops/nwprod/decoders/decod_shared/fix"
+ *                 the defined value of the MASTER_TABLE_DIR macro when the
+ *                 utility was built.
  *
  *       tablefil  file within tabledir containing DX BUFR tables
  *                 to be used for decoding.
@@ -183,7 +184,7 @@ int main( int argc, char *argv[ ] ) {
 	char forcemt = 'N';
 	char cfms = 'Y';
 	char io = 'r';
-	char tbldir[MXFLEN] = "/gpfs/dell1/nco/ops/nwprod/decoders/decod_shared/fix";
+	char tbldir[MXFLEN] = "@MASTER_TABLE_DIR@";
 	char outfile[MXFLEN];
 	char wkstr[MXFLEN];
 	char wkstr2[MXFLEN];

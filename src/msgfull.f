@@ -25,9 +25,7 @@ C>                               programs.
 C>
       LOGICAL FUNCTION MSGFULL(MSIZ,ITOADD,MXSIZ)
 
-
-
-      INCLUDE 'bufrlib.inc'
+      USE MODV_MAXNC
 
       COMMON /MSGSTD/ CSMF
       COMMON /TNKRCP/ ITRYR,ITRMO,ITRDY,ITRHR,ITRMI,CTRT

@@ -1,0 +1,314 @@
+!> @file
+!> @brief Initialize global variables and arrays within internal memory.
+
+!> This subroutine initializes numerous global variables and arrays
+!> within internal modules and COMMON blocks throughout the BUFRLIB
+!> software.
+!>
+!> <p>This subroutine isn't normally called directly by any
+!> application program, because it's automatically called internally
+!> from within subroutine openbf() during the first time that subroutine
+!> is called by any application program.
+!>
+!> @authors J. Woollen
+!> @authors J. Ator
+!> @date 1994-01-06
+!>
+!> <b>Program history log:</b>
+!> - 1994-01-06  J. Woollen -- Original author
+!> - 1995-06-28  J. Woollen -- Increased the size of internal BUFR table
+!>                           arrays in order to handle bigger files
+!> - 1998-07-08  J. Woollen -- Modified to make Y2K-compliant
+!> - 1999-11-18  J. Woollen -- The number of BUFR files which can be
+!>                             opened at one time increased from 10 to 32
+!>                             (necessary in order to process multiple
+!>                             BUFR files under the MPI)
+!> - 2000-09-19  J. Woollen -- Maximum message length increased from
+!>                           10,000 to 20,000 bytes
+!> - 2003-11-04  J. Ator    -- Added documentation
+!> - 2003-11-04  S. Bender  -- Added remarks and routine interdependencies
+!> - 2003-11-04  D. Keyser  -- MAXJL (maximum number of jump/link entries)
+!>                           increased from 15000 to 16000 (was in
+!>                           verification version); initialize
+!>                           variable JSR to zero in new COMMON block
+!>                           /BUFRSR/ (was in verification version);
+!>                           unified/portable for WRF; added history
+!>                           documentation
+!> - 2004-08-18  J. Ator    -- Added initialization of COMMON /MSGSTD/;
+!>                           maximum message length increased from
+!>                           20,000 to 50,000 bytes
+!> - 2005-11-29  J. Ator    -- Added initialization of COMMON /MSGCMP/
+!>			    and calls to pkvs1 and pkvs01()
+!> - 2009-03-23  J. Ator    -- Added initialization of COMMON /DSCACH/,
+!>                           COMMON /MSTINF/ and COMMON /TNKRCP/
+!> - 2012-09-15  J. Woollen -- Modified for C/I/O/BUFR interface,
+!>                           added initialization of COMMON blocks
+!>                           /ENDORD/ and /BUFRBMISS/
+!> - 2014-09-15  J. Ator    -- Change default location of MTDIR
+!> - 2014-11-18  J. Ator    -- Added initialization of modules MSGLIM
+!>                           and USRINT; remove S01CM initialization
+!> - 2016-11-29  J. Ator    -- Explicitly initialize BMISS as 10E10_8
+!> - 2017-10-13  J. Ator    -- Added initialization of COMMON /TABLEF/
+!> - 2019-05-03  J. Ator    -- Change default location of MTDIR
+!> - 2019-05-09  J. Ator    -- Added dimensions for MSGLEN
+!> - 2021-03-23  J. Ator    -- Use mtinfo() with MASTER_TABLE_DIR
+!>                             macro from CMake
+!>
+subroutine bfrini
+
+USE MODA_STBFR
+USE MODA_IDRDM
+USE MODA_MSGLIM
+USE MODA_BITBUF
+USE MODA_BUFRMG
+USE MODA_BUFRSR
+USE MODA_TABABD
+USE MODA_USRINT
+USE MODA_TABLES
+USE MODA_H4WLC
+USE MODA_DSCACH
+
+COMMON /MAXCMP/ MAXCMB,MAXROW,MAXCOL,NCMSGS,NCSUBS,NCBYTS
+COMMON /PADESC/ IBCT,IPD1,IPD2,IPD3,IPD4
+COMMON /REPTAB/ IDNR(5,2),TYPS(5,2),REPS(5,2),LENS(5)
+COMMON /DXTAB / MAXDX,IDXV,NXSTR(10),LDXA(10),LDXB(10),LDXD(10), &
+                LD30(10),DXSTR(10)
+COMMON /MRGCOM/ NRPL,NMRG,NAMB,NTOT
+COMMON /DATELN/ LENDAT
+COMMON /ACMODE/ IAC
+COMMON /MSGSTD/ CSMF
+COMMON /MSGCMP/ CCMF
+COMMON /TABLEF/ CDMF
+COMMON /TNKRCP/ ITRYR,ITRMO,ITRDY,ITRHR,ITRMI,CTRT
+COMMON /ENDORD/ IBLOCK,IORDBE(4),IORDLE(4)
+COMMON /BUFRBMISS/ BMISS
+
+real*8  BMISS
+
+character*100 CMTDIR
+character*56  DXSTR
+character*6   ADSN(5,2),DNDX(25,10)
+character*3   TYPX(5,2),TYPS
+character*1   REPX(5,2),REPS
+character*1   CSMF
+character*1   CCMF
+character*1   CDMF
+character*1   CTRT
+dimension     NDNDX(10),NLDXA(10),NLDXB(10),NLDXD(10),NLD30(10)
+dimension     LENX(5)
+
+data ADSN   / '101000','360001','360002','360003','360004' , &
+              '101255','031002','031001','031001','031000' /
+data TYPX   /    'REP',   'DRP',   'DRP',   'DRS' ,  'DRB' , &
+                 'SEQ',   'RPC',   'RPC',   'RPS' ,  'SEQ' /
+data REPX   /      '"',     '(',     '{',     '[' ,    '<' , &
+                   '"',     ')',     '}',     ']' ,    '>' /
+data LENX   /       0 ,     16 ,      8 ,      8  ,     1  /
+
+data (DNDX(I,1),I=1,25)/ &
+'102000','031001','000001','000002', &
+'110000','031001','000010','000011','000012','000013','000015', &
+                  '000016','000017','000018','000019','000020', &
+'107000','031001','000010','000011','000012','000013','101000', &
+                  '031001','000030'/
+
+data (DNDX(I,2),I=1,15)/ &
+'103000','031001','000001','000002','000003', &
+'101000','031001','300004', &
+'105000','031001','300003','205064','101000','031001','000030'/
+
+data NDNDX /  25 ,  15 , 8*0 /
+data NLDXA /  35 ,  67 , 8*0 /
+data NLDXB /  80 , 112 , 8*0 /
+data NLDXD /  38 ,  70 , 8*0 /
+data NLD30 /   5 ,   6 , 8*0 /
+
+!-----------------------------------------------------------------------
+!-----------------------------------------------------------------------
+
+!  Initialize /ENDORD/ to control output blocking -1=LE 0=NONE +1=BE
+!  -----------------------------------------------------------------
+
+IBLOCK = 0
+
+!  Initialize /BUFRBMISS/
+!  ----------------------
+
+BMISS = 10E10_8
+
+!  Initialize module BITBUF
+!  ------------------------
+
+MAXBYT = min(10000,MXMSGL)
+
+!  Initialize module H4WLC
+!  -----------------------
+
+NH4WLC = 0
+
+!  Initialize /MAXCMP/
+!  -------------------
+
+MAXCMB = MAXBYT
+MAXROW = 0
+MAXCOL = 0
+NCMSGS = 0
+NCSUBS = 0
+NCBYTS = 0
+
+!  Initialize /PADESC/
+!  -------------------
+
+IBCT = ifxy('063000')
+IPD1 = ifxy('102000')
+IPD2 = ifxy('031001')
+IPD3 = ifxy('206001')
+IPD4 = ifxy('063255')
+
+!  Initialize module STBFR
+!  -----------------------
+
+do I=1,NFILES
+  IOLUN(I) = 0
+  IOMSG(I) = 0
+enddo
+
+!  Initialize module IDRDM
+!  -----------------------
+
+do I=1,NFILES
+  IDRDM(I) = 0
+enddo
+
+!  Initialize module MSGLIM
+!  ------------------------
+
+do I=1,NFILES
+  MSGLIM(I) = 3
+enddo
+
+!  Initialize module USRINT
+!  ------------------------
+
+do I=1,NFILES
+  NVAL(I) = 0
+enddo
+
+!  Initialize /REPTAB/
+!  -------------------
+
+do I=1,5
+  LENS(I) = LENX(I)
+  do J=1,2
+    IDNR(I,J) = ifxy(ADSN(I,J))
+    TYPS(I,J) = TYPX(I,J)
+    REPS(I,J) = REPX(I,J)
+  enddo
+enddo
+
+!  Initialize TABABD (internal arrays holding dictionary table)
+!  ------------------------------------------------------------
+
+!    NTBA(0) is the maximum number of entries w/i internal BUFR table A
+
+NTBA(0) = MAXTBA
+
+!    NTBB(0) is the maximum number of entries w/i internal BUFR Table B
+
+NTBB(0) = MAXTBB
+
+!    NTBD(0) is the maximum number of entries w/i internal BUFR Table D
+
+NTBD(0) = MAXTBD
+
+!  Initialize /DXTAB/
+!  ------------------
+
+MAXDX = MAXBYT
+!  .... IDXV is the version number of the local tables
+IDXV  = 1
+
+do J=1,10
+  LDXA(J)  = NLDXA(J)
+  LDXB(J)  = NLDXB(J)
+  LDXD(J)  = NLDXD(J)
+  LD30(J)  = NLD30(J)
+  DXSTR(J) = '      '
+  NXSTR(J) = NDNDX(J)*2
+  do I=1,NDNDX(J)
+    I1 = I*2-1
+    call ipkm(DXSTR(J)(I1:I1),2,ifxy(DNDX(I,J)))
+  enddo
+enddo
+
+!  Initialize module TABLES
+!  ------------------------
+
+MAXTAB = MAXJL
+
+!  Initialize module BUFRMG
+!  ------------------------
+
+do I=1,NFILES
+  MSGLEN(I) = 0
+enddo
+
+!  Initialize /MRGCOM/
+!  -------------------
+
+NRPL = 0
+NMRG = 0
+NAMB = 0
+NTOT = 0
+
+!  Initialize /DATELN/
+!  -------------------
+
+if(LENDAT.ne.10) LENDAT = 8
+
+!  Initialize /ACMODE/
+!  -------------------
+
+IAC = 0
+
+!  Initialize module BUFRSR
+!  ------------------------
+
+do I=1,NFILES
+  JSR(I) = 0
+enddo
+
+!  Initialize /DSCACH/
+!  -------------------
+
+NCNEM = 0
+
+!  Initialize /MSGSTD/
+!  -------------------
+
+CSMF = 'N'
+
+!  Initialize /MSGCMP/
+!  -------------------
+
+CCMF = 'N'
+
+!  Initialize /TABLEF/
+!  -------------------
+
+CDMF = 'N'
+
+!  Initialize /TNKRCP/
+!  -------------------
+
+CTRT = 'N'
+
+!  Initialize /MSTINF/
+!  -------------------
+
+CMTDIR = &
+'@MASTER_TABLE_DIR@'
+call mtinfo(CMTDIR,98,99)
+
+return
+end
