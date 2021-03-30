@@ -88,8 +88,7 @@ C> corresponding mnemonics within the table.
 C>
 C> <p>"Missing" values in USR are always denoted by a unique
 C> placeholder value.  This placeholder value is initially set
-C> to a default value of 10E10 via an internal call to subroutine
-C> bfrini(), but it can be reset to
+C> to a default value of 10E10_8, but it can be reset to
 C> any substitute value of the user's choice via a separate
 C> call to subroutine setbmiss().  In any case, and whenever this
 C> subroutine is used to read data values from an input subset, any
@@ -127,10 +126,9 @@ C> - 2014-12-10  J. Ator    -- Use modules instead of COMMON blocks
 C>
       SUBROUTINE UFBSTP(LUNIN,USR,I1,I2,IRET,STR)
 
+      USE MODV_BMISS
       USE MODA_USRINT
       USE MODA_MSGCWD
-
-      INCLUDE 'bufrlib.inc'
 
       COMMON /QUIET / IPRT
 

@@ -57,7 +57,7 @@ C> - 2014-10-22  J. Ator    -- No longer abort if no subset available for
 C>                             writing; just print a warning message
 C> - 2014-12-10  J. Ator    -- USE modules instead of COMMON blocks
 C> - 2020-09-09  J. Ator    -- No longer abort if STR not available within
-C>                             subset definitiion; instead, just print a
+C>                             subset definition; instead, just print a
 C>                             warning message
 C>
       SUBROUTINE WRITLC(LUNIT,CHR,STR)
@@ -67,8 +67,6 @@ C>
       USE MODA_BITBUF
       USE MODA_TABLES
       USE MODA_COMPRS
-
-      INCLUDE 'bufrlib.inc'
 
       COMMON /QUIET / IPRT
 

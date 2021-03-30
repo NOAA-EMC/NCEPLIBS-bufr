@@ -54,10 +54,6 @@ C>                               programs.
 C>
       SUBROUTINE CMSGINI(LUN,MESG,SUBSET,IDATE,NSUB,NBYT)
 
-
-
-      INCLUDE 'bufrlib.inc'
-
       CHARACTER*128 BORT_STR
       CHARACTER*8   SUBSET
       CHARACTER*4   BUFR

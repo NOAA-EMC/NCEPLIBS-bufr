@@ -62,11 +62,7 @@ C>                               programs.
 C>
       SUBROUTINE UFBMNS(IREP,SUBSET,IDATE)
 
-
-
       USE MODA_MSGMEM
-
-      INCLUDE 'bufrlib.inc'
 
       CHARACTER*128 BORT_STR
       CHARACTER*8   SUBSET

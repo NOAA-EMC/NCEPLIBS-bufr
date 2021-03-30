@@ -50,12 +50,8 @@ C>                               programs.
 C>
       SUBROUTINE TABENT(LUN,NEMO,TAB,ITAB,IREP,IKNT,JUM0)
 
-
-
       USE MODA_TABLES
       USE MODA_NRV203
-
-      INCLUDE 'bufrlib.inc'
 
 C     Note that the values within the COMMON /REPTAB/ arrays were
 C     initialized within subroutine BFRINI.

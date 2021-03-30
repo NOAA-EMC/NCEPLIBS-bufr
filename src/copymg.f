@@ -47,13 +47,9 @@ C>                               programs.
 C>
       SUBROUTINE COPYMG(LUNIN,LUNOT)
 
-
-
       USE MODA_MSGCWD
       USE MODA_BITBUF
       USE MODA_TABLES
-
-      INCLUDE 'bufrlib.inc'
 
       CHARACTER*8  SUBSET
 

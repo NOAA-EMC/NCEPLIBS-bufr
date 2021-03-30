@@ -57,11 +57,7 @@ C>                               programs.
 C>
       SUBROUTINE WTSTAT(LUNIT,LUN,IL,IM)
 
-
-
       USE MODA_STBFR
-
-      INCLUDE 'bufrlib.inc'
 
       CHARACTER*128 BORT_STR
 

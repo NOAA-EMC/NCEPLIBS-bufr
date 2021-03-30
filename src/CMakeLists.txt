@@ -74,7 +74,6 @@ foreach(kind ${kinds})
   list(APPEND LIB_TARGETS ${lib_name})
   install(DIRECTORY ${module_dir} DESTINATION ${CMAKE_INSTALL_PREFIX}/include)
   install(FILES ${c_hdr} DESTINATION ${CMAKE_INSTALL_PREFIX}/include/bufr_${kind})
-  install(FILES ${f_hdr} DESTINATION ${CMAKE_INSTALL_PREFIX}/include/bufr_${kind})
 endforeach()
 
 install(

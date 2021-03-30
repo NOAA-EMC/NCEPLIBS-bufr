@@ -45,12 +45,8 @@ C>                               programs.
 C>
       SUBROUTINE INVMRG(LUBFI,LUBFJ)
 
-
-
       USE MODA_USRINT
       USE MODA_TABLES
-
-      INCLUDE 'bufrlib.inc'
 
       COMMON /MRGCOM/ NRPL,NMRG,NAMB,NTOT
 

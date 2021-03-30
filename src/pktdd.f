@@ -53,12 +53,8 @@ C>                               programs.
 C>
       SUBROUTINE PKTDD(ID,LUN,IDN,IRET)
 
-
-
       USE MODV_MAXCD
       USE MODA_TABABD
-
-      INCLUDE 'bufrlib.inc'
 
       COMMON /DXTAB / MAXDX,IDXV,NXSTR(10),LDXA(10),LDXB(10),LDXD(10),
      .                LD30(10),DXSTR(10)

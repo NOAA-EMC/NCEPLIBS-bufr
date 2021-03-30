@@ -61,8 +61,6 @@ C>
 
       USE MODA_MGWA
 
-      INCLUDE 'bufrlib.inc'
-
       COMMON /QUIET / IPRT
 
       CHARACTER*128 ERRSTR

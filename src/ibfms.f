@@ -38,7 +38,7 @@ C>                           users (may be something other than 10E10)
 C>
 	INTEGER FUNCTION IBFMS ( R8VAL )
 
-	INCLUDE	'bufrlib.inc'
+        USE MODV_BMISS
 
 	REAL*8		R8VAL
 

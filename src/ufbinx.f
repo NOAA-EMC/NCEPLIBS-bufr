@@ -70,12 +70,8 @@ C>                               programs.
 C>
       SUBROUTINE UFBINX(LUNIT,IMSG,ISUB,USR,I1,I2,IRET,STR)
 
-
-
       USE MODA_MSGCWD
       USE MODA_BITBUF
-
-      INCLUDE 'bufrlib.inc'
 
       CHARACTER*(*) STR
       CHARACTER*128 BORT_STR

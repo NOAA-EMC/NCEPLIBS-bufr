@@ -57,12 +57,8 @@ C>                               programs.
 C>
 	SUBROUTINE CPDXMM( LUNIT )
 
-
-
 	USE MODA_MGWA
 	USE MODA_MSGMEM
-
-	INCLUDE	'bufrlib.inc'
 
 	COMMON /QUIET/  IPRT
 

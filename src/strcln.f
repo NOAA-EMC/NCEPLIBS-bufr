@@ -27,9 +27,7 @@ C>                               programs.
 C>
       SUBROUTINE STRCLN
 
-
-
-      INCLUDE 'bufrlib.inc'
+      USE MODV_MXS
 
       COMMON /STCACH/ MSTR,NSTR,LSTR,LUNS(MXS,2),USRS(MXS),ICON(52,MXS)
       CHARACTER*80 USRS

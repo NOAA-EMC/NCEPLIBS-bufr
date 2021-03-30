@@ -56,15 +56,12 @@ C>                               programs.
 C>
       SUBROUTINE RDTREE(LUN,IRET)
 
-
-
+      USE MODV_BMISS
       USE MODA_USRINT
       USE MODA_USRBIT
       USE MODA_IVAL
       USE MODA_BITBUF
       USE MODA_TABLES
-
-      INCLUDE 'bufrlib.inc'
 
       CHARACTER*8  CVAL
       EQUIVALENCE  (CVAL,RVAL)

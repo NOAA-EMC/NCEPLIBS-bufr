@@ -79,11 +79,7 @@ C>                               programs.
 C>
       SUBROUTINE DUMPBF(LUNIT,JDATE,JDUMP)
 
-
-
       USE MODA_MGWA
-
-      INCLUDE 'bufrlib.inc'
 
       COMMON /QUIET / IPRT
 

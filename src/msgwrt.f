@@ -76,15 +76,11 @@ C>                               programs.
 C>
       SUBROUTINE MSGWRT(LUNIT,MESG,MGBYT)
 
-
-
       USE MODA_NULBFR
       USE MODA_BUFRMG
       USE MODA_MGWA
       USE MODA_MGWB
       USE MODA_S01CM
-
-      INCLUDE 'bufrlib.inc'
 
       PARAMETER (MXCOD=15)
 

@@ -53,11 +53,7 @@ C>                               programs.
 C>
       FUNCTION NVNWIN(NODE,LUN,INV1,INV2,INVN,NMAX)
 
-
-
       USE MODA_USRINT
-
-      INCLUDE 'bufrlib.inc'
 
       COMMON /QUIET / IPRT
 

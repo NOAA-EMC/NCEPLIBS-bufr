@@ -35,8 +35,6 @@ C>
 
 	USE MODA_TABABD
 
-	INCLUDE 'bufrlib.inc'
-
 	CHARACTER*1   TAB
 
 	CHARACTER*(*) NEMO, CELEM, CUNIT

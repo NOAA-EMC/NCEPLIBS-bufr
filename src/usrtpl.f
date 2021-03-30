@@ -50,14 +50,10 @@ C>                               programs.
 C>
       SUBROUTINE USRTPL(LUN,INVN,NBMP)
 
-
-
       USE MODA_USRINT
       USE MODA_MSGCWD
       USE MODA_TABLES
       USE MODA_IVTTMP
-
-      INCLUDE 'bufrlib.inc'
 
       COMMON /QUIET / IPRT
 

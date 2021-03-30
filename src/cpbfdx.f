@@ -34,12 +34,8 @@ C>                               programs.
 C>
       SUBROUTINE CPBFDX(LUD,LUN)
 
-
-
       USE MODA_MSGCWD
       USE MODA_TABABD
-
-      INCLUDE 'bufrlib.inc'
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------

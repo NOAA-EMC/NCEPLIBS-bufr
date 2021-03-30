@@ -119,12 +119,8 @@ C>                               programs.
 C>
       SUBROUTINE PARUTG(LUN,IO,UTG,NOD,KON,VAL)
 
-
-
       USE MODA_MSGCWD
       USE MODA_TABLES
-
-      INCLUDE 'bufrlib.inc'
 
       COMMON /UTGPRM/ PICKY
 

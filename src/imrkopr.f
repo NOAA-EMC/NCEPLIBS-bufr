@@ -25,10 +25,6 @@ C>                               programs.
 C>
       INTEGER FUNCTION IMRKOPR(NEMO)
 
-
-
-      INCLUDE 'bufrlib.inc'
-
       CHARACTER*(*)  NEMO
 
 C-----------------------------------------------------------------------

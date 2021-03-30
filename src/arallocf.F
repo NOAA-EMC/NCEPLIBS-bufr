@@ -36,8 +36,6 @@ C>                               programs.
 C>
 	SUBROUTINE ARALLOCF
 
-
-
 #ifdef DYNAMIC_ALLOCATION
 
 	USE MODA_USRINT
@@ -73,8 +71,6 @@ C>
 	USE MODA_BITMAPS
 	USE MODA_NRV203
 	USE MODA_RLCCMN
-
-	INCLUDE	'bufrlib.inc'
 
 	CHARACTER*80 ERRSTR
 	CHARACTER*36  BRTSTR

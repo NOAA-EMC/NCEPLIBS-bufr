@@ -11,8 +11,8 @@ C> @authors D. Keyser
 C> @date 1994-01-06
 C>
 C> @param[in] LUNIT    - integer: Fortran logical unit number for BUFR
-C>                       file (unless IO is set to 'QUIET', in which
-C>                       case this is then a dummy argument)
+C>                       file (unless IO is set to 'FIRST' or 'QUIET', in
+C>                       which case this is a dummy argument)
 C> @param[in] IO       - character*(*): flag indicating how LUNIT is to be
 C>                       used by the software:
 C>                 -   'IN' = input operations with table processing
@@ -40,17 +40,21 @@ C>                             messages whatsoever from LUNIT (e.g. when
 C>                             subroutine readerme() is to be used)
 C>                 - 'QUIET' = LUNIT is ignored; this is an indicator
 C>                             that the value for IPRT in COMMON block
-C>                             /QUIET/ is being reset (see LUNDX)
-C>                 - 'FIRST' = calls bfrini() and wrdlen() as a prelude to
-C>                             user resetting of global parameters such as
-C>                             missing value or output block type
+C>                             /QUIET/ is being reset to the value in
+C>                             LUNDX
+C>                 - 'FIRST' = LUNIT and LUNDX are ignored; this is an
+C>                             indicator to initialize the BUFRLIB
+C>                             software, in case this subroutine was
+C>                             never previously called
 C> @param[in] LUNDX    - integer:
-C>                 - If IO is not 'QUIET' = Fortran logical unit number
+C>                 - If IO is not set to 'FIRST' or 'QUIET' =
+C>                   Fortran logical unit number
 C>                   containing DX BUFR table information to be used in
 C>                   reading/writing from/to LUNIT (depending on the case).
 C>                   This value may be set equal to LUNIT if DX BUFR table
 C>                   information is already embedded in LUNIT.
-C>                 - If IO is 'QUIET' = indicator for degree of printout:
+C>                 - If IO is set to 'QUIET' = indicator for degree of
+C>                   printout:
 C>                      - -1 = no printout except for ABORT messages
 C>                      -  0 = limited printout (default)
 C>                      -  1 = all warning messages are printed out
@@ -75,11 +79,13 @@ C> user is attempting to read BUFR messages whose content and descriptor layout
 C> are unknown in advance. However, all of these additional options are
 C> basically just variations of 'IN' or 'OUT', again depending on whether the
 C> intent is to read or write BUFR messages from the file connected to LUNIT.
-C> The only exception is when IO = 'QUIET', and in this case the subroutine
-C> performs only one function - it simply sets or resets the print verbosity
-C> switch to the value of input argument LUNDX, overriding its previous value.
-C> A default verbosity value of 0 (i.e. limited printout) is set during the first
-C> call to this subroutine, but other options are also available as shown below.
+C> The only exceptions are when IO = 'FIRST' or 'QUIET'.  When IO = 'FIRST',
+C> the subroutine simply checks whether it has already been called from within
+C> the application program and, if not, goes ahead and initializes the library
+C> without actually connecting any files in LUNIT or LUNDX.
+C> Alternatively, when IO = 'QUIET', the subroutine simply sets or resets the
+C> internal print verbosity switch to the value of input argument LUNDX,
+C> overriding its previous value and/or its internal default value of 0.
 C>
 C> <p>The third and final call argument LUNDX identifies the logical unit which
 C> contains the definition of the DX BUFR tables to be associated with unit
@@ -157,8 +163,6 @@ C>
       USE MODA_NULBFR
       USE MODA_STCODE
       USE MODA_IFOPBF
-
-      INCLUDE 'bufrlib.inc'
 
       COMMON /QUIET / IPRT
 

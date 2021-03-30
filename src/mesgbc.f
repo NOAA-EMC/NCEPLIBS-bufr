@@ -95,12 +95,8 @@ C>                               Also called by application programs.
 C>
       SUBROUTINE MESGBC(LUNIN,MESGTYP,ICOMP)
 
-
-
       USE MODA_BITBUF
       USE MODA_MGWA
-
-      INCLUDE 'bufrlib.inc'
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------

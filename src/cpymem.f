@@ -64,14 +64,10 @@ C>                               programs.
 C>
       SUBROUTINE CPYMEM(LUNOT)
 
-
-
       USE MODA_MSGCWD
       USE MODA_BITBUF
       USE MODA_MSGMEM
       USE MODA_TABLES
-
-      INCLUDE 'bufrlib.inc'
 
       CHARACTER*8  SUBSET
 

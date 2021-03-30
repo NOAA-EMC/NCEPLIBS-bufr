@@ -57,11 +57,8 @@ C>                               programs.
 C>
       SUBROUTINE STRING(STR,LUN,I1,IO)
 
-
-
+      USE MODV_MXS
       USE MODA_MSGCWD
-
-      INCLUDE 'bufrlib.inc'
 
       PARAMETER (JCONS=52)
 

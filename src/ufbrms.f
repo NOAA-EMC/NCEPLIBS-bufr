@@ -74,12 +74,8 @@ C>                               programs.
 C>
       SUBROUTINE UFBRMS(IMSG,ISUB,USR,I1,I2,IRET,STR)
 
-
-
       USE MODA_MSGCWD
       USE MODA_MSGMEM
-
-      INCLUDE 'bufrlib.inc'
 
       COMMON /QUIET / IPRT
 

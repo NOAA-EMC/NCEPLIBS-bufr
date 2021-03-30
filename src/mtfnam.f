@@ -36,10 +36,6 @@ C>
 	SUBROUTINE MTFNAM ( IMT, IMTV, IOGCE, IMTVL, TBLTYP,
      .                      STDFIL, LOCFIL )
 
-
-
-	INCLUDE 'bufrlib.inc'
-
 	COMMON /QUIET/  IPRT
 	COMMON /MSTINF/ LUN1, LUN2, LMTD, MTDIR
 

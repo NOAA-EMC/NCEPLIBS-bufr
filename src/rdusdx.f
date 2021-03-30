@@ -63,11 +63,7 @@ C>                               programs.
 C>
       SUBROUTINE RDUSDX(LUNDX,LUN)
 
-
-
       USE MODA_TABABD
-
-      INCLUDE 'bufrlib.inc'
 
       CHARACTER*128 BORT_STR1
       CHARACTER*156 BORT_STR2

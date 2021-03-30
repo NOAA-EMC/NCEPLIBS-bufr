@@ -7,10 +7,10 @@ C> software.
 C>
 C> This subroutine can be called from within an application program at
 C> any time after the initial call to subroutine openbf(), and the
-C> specified value MAX0 will then be used for all future BUFR messages
+C> specified value MAXO will then be used for all future BUFR messages
 C> written by the software to all output files for the remainder of
 C> the program, unless another call is made to this same subroutine
-C> to reset the value of MAX0 again.  Otherwise, if this subroutine
+C> to reset the value of MAXO again.  Otherwise, if this subroutine
 C> is never called, a default maximum message length is used for all
 C> output files, as set via an initial internal call to subroutine
 C> bfrini().
@@ -19,9 +19,9 @@ C> @authors J. Woollen
 C> @authors J. Ator
 C> @date 2002-05-14
 C>
-C> @param[in] MAX0 -   integer: New maximum length (in bytes) for
+C> @param[in] MAXO -   integer: New maximum length (in bytes) for
 C>                     all BUFR messages written to all output files
-C>                     - 0 = Set MAX0 to the maximum value allowed
+C>                     - 0 = Set MAXO to the maximum value allowed
 C>                           by the BUFRLIB software
 C>
 C> <b>Program history log:</b>
@@ -40,8 +40,6 @@ C>
       SUBROUTINE MAXOUT(MAXO)
 
       USE MODA_BITBUF
-
-      INCLUDE 'bufrlib.inc'
 
       COMMON /MAXCMP/ MAXCMB,MAXROW,MAXCOL,NCMSGS,NCSUBS,NCBYTS
       COMMON /DXTAB / MAXDX,IDXV,NXSTR(10),LDXA(10),LDXB(10),LDXD(10),

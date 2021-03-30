@@ -35,12 +35,8 @@ C>                               programs.
 C>
       INTEGER FUNCTION IOK2CPY(LUI,LUO)
 
-
-
       USE MODA_MSGCWD
       USE MODA_TABLES
-
-      INCLUDE 'bufrlib.inc'
 
       CHARACTER*8  SUBSET
 

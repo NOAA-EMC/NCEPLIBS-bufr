@@ -72,8 +72,6 @@ C>
 
       USE MODA_BITBUF
 
-      INCLUDE 'bufrlib.inc'
-
       CHARACTER*(*)   S01MNEM
 
 C-----------------------------------------------------------------------

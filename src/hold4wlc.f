@@ -39,11 +39,7 @@ C>                               programs.
 C>
       SUBROUTINE HOLD4WLC(LUNIT,CHR,STR)
 
-
-
       USE MODA_H4WLC
-
-      INCLUDE 'bufrlib.inc'
 
       COMMON /QUIET/ IPRT
 

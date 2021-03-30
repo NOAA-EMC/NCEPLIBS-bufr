@@ -63,13 +63,9 @@ C>                               Also called by application programs.
 C>
       SUBROUTINE REWNBF(LUNIT,ISR)
 
-
-
       USE MODA_MSGCWD
       USE MODA_BITBUF
       USE MODA_BUFRSR
-
-      INCLUDE 'bufrlib.inc'
 
       CHARACTER*128 BORT_STR
 

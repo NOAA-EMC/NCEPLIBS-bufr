@@ -37,11 +37,7 @@ C>                               Also called by application programs.
 C>
       FUNCTION NMSUB(LUNIT)
 
-
-
       USE MODA_MSGCWD
-
-      INCLUDE 'bufrlib.inc'
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------

@@ -87,12 +87,8 @@ C>                               programs.
 C>
       SUBROUTINE UFBMEM(LUNIT,INEW,IRET,IUNIT)
 
-
-
       USE MODA_MGWA
       USE MODA_MSGMEM
-
-      INCLUDE 'bufrlib.inc'
 
       COMMON /QUIET / IPRT
 

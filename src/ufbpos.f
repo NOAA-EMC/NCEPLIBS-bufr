@@ -50,12 +50,8 @@ C>                               programs.
 C>
       SUBROUTINE UFBPOS(LUNIT,IREC,ISUB,SUBSET,JDATE)
 
-
-
       USE MODA_MSGCWD
       USE MODA_BITBUF
-
-      INCLUDE 'bufrlib.inc'
 
       CHARACTER*128 BORT_STR
       CHARACTER*8   SUBSET
