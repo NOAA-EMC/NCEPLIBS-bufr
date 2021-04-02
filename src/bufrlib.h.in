@@ -26,8 +26,8 @@
 #    define MAXCD @MAXCD_STATIC@
 #endif
 
-#define MAXNC @MAXNC_STATIC@
-#define MXNAF @MXNAF_STATIC@
+#define MAXNC @MAXNC@
+#define MXNAF @MXNAF@
 
 /*
 ** On certain operating systems, the FORTRAN compiler appends an underscore
