@@ -69,8 +69,6 @@ C>
 
       USE MODA_S01CM
 
-      INCLUDE 'bufrlib.inc'
-
       CHARACTER*(*) S01MNEM
 
       CHARACTER*128 BORT_STR

@@ -63,12 +63,8 @@ C>                               programs.
 C>
       SUBROUTINE UFBOVR(LUNIT,USR,I1,I2,IRET,STR)
 
-
-
       USE MODA_USRINT
       USE MODA_MSGCWD
-
-      INCLUDE 'bufrlib.inc'
 
       COMMON /QUIET / IPRT
 

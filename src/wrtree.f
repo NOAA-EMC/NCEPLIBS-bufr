@@ -48,15 +48,11 @@ C>                               programs.
 C>
       SUBROUTINE WRTREE(LUN)
 
-
-
       USE MODA_USRINT
       USE MODA_IVAL
       USE MODA_UFBCPL
       USE MODA_BITBUF
       USE MODA_TABLES
-
-      INCLUDE 'bufrlib.inc'
 
       CHARACTER*120 LSTR
       CHARACTER*8   CVAL

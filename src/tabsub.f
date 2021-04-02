@@ -45,14 +45,10 @@ C>                               programs.
 C>
       SUBROUTINE TABSUB(LUN,NEMO)
 
-
-
       USE MODA_TABLES
       USE MODA_NMIKRP
       USE MODA_NRV203
       USE MODA_BITMAPS
-
-      INCLUDE 'bufrlib.inc'
 
       COMMON /TABCCC/ ICDW,ICSC,ICRV,INCW
 

@@ -94,8 +94,6 @@ C>
       USE MODA_IDRDM
       USE MODA_BITBUF
 
-      INCLUDE 'bufrlib.inc'
-
       COMMON /HRDWRD/ NBYTW,NBITW,IORD(8)
       COMMON /QUIET/  IPRT
 

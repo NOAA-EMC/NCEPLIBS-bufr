@@ -29,12 +29,8 @@ C>                               programs.
 C>
 	INTEGER FUNCTION IPKS(VAL,NODE)
 
-
-
 	USE MODA_TABLES
 	USE MODA_NRV203
-
-	INCLUDE 'bufrlib.inc'
 
 	REAL*8	TEN,VAL
 

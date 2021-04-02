@@ -33,11 +33,7 @@ C>                               programs.
 C>
       SUBROUTINE RTRCPT(LUNIT,IYR,IMO,IDY,IHR,IMI,IRET)
 
-
-
       USE MODA_BITBUF
-
-      INCLUDE 'bufrlib.inc'
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------

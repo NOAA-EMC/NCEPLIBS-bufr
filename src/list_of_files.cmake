@@ -1,10 +1,11 @@
 set(fortran_src
   ${CMAKE_CURRENT_BINARY_DIR}/bvers.f
+  modv_BMISS.f90
   modv_MAXCD.F
   modv_MAXJL.F
   modv_MAXMEM.F
   modv_MAXMSG.F
-  modv_MAXNC.F
+  modv_MAXNC.f90
   modv_MAXSS.F
   modv_MAXTBA.F
   modv_MAXTBB.F
@@ -12,18 +13,19 @@ set(fortran_src
   modv_MXBTM.F
   modv_MXBTMSE.F
   modv_MXCDV.F
-  modv_MXCNEM.F
+  modv_MXCNEM.f90
   modv_MXCSB.F
   modv_MXDXTS.F
-  modv_MXH4WLC.F
+  modv_MXH4WLC.f90
   modv_MXLCC.F
   modv_MXMSGL.F
   modv_MXMTBB.F
   modv_MXMTBD.F
   modv_MXMTBF.F
-  modv_MXNAF.F
+  modv_MXNAF.f90
   modv_MXNRV.F
   modv_MXRST.F
+  modv_MXS.f90
   modv_MXS01V.F
   modv_MXTAMC.F
   modv_MXTCO.F
@@ -309,9 +311,6 @@ set(fortran_src
   fortran_open.f90
   fortran_close.f90
   bufr_interface.f90)
-
-set(f_hdr
-  bufrlib.inc)
 
 set(c_src
   arallocc.c

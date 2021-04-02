@@ -80,11 +80,7 @@ C>                               programs.
 C>
       SUBROUTINE GETWIN(NODE,LUN,IWIN,JWIN)
 
-
-
       USE MODA_USRINT
-
-      INCLUDE 'bufrlib.inc'
 
       CHARACTER*128 BORT_STR
 

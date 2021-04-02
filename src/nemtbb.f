@@ -48,11 +48,7 @@ C>                               programs.
 C>
       SUBROUTINE NEMTBB(LUN,ITAB,UNIT,ISCL,IREF,IBIT)
 
-
-
       USE MODA_TABABD
-
-      INCLUDE 'bufrlib.inc'
 
       CHARACTER*128 BORT_STR
       CHARACTER*24  UNIT

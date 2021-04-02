@@ -36,8 +36,6 @@ C>
 
       USE MODA_TABABD
 
-      INCLUDE 'bufrlib.inc'
-
       REAL*8  VAL,R8VAL,R82I
 
       INTEGER IBIT (*)

@@ -25,11 +25,7 @@ C>                               programs.
 C>
 	FUNCTION IGETNTBI ( LUN, CTB )
 
-
-
 	USE MODA_TABABD
-
-	INCLUDE 'bufrlib.inc'
 
 	CHARACTER*128 BORT_STR
 	CHARACTER*1   CTB

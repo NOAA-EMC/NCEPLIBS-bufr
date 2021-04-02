@@ -78,8 +78,6 @@ C>                               programs.
 C>
       SUBROUTINE WRCMPS(LUNIX)
  
-
- 
       USE MODA_USRINT
       USE MODA_MSGCWD
       USE MODA_BITBUF
@@ -88,8 +86,6 @@ C>
       USE MODA_COMPRX
       USE MODA_COMPRS
       USE MODA_S01CM
- 
-      INCLUDE 'bufrlib.inc'
  
       COMMON /MAXCMP/ MAXCMB,MAXROW,MAXCOL,NCMSGS,NCSUBS,NCBYTS
  

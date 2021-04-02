@@ -54,14 +54,10 @@ C>                               programs.
 C>
       SUBROUTINE MSGINI(LUN)
 
-
-
       USE MODA_MSGCWD
       USE MODA_UFBCPL
       USE MODA_BITBUF
       USE MODA_TABLES
-
-      INCLUDE 'bufrlib.inc'
 
       COMMON /PADESC/ IBCT,IPD1,IPD2,IPD3,IPD4
       COMMON /MSGPTR/ NBY0,NBY1,NBY2,NBY3,NBY4,NBY5

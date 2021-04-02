@@ -44,15 +44,13 @@ C>                               programs.
 C>
       SUBROUTINE RDCMPS(LUN)
 
-
+      USE MODV_BMISS
 
       USE MODA_USRINT
       USE MODA_MSGCWD
       USE MODA_BITBUF
       USE MODA_TABLES
       USE MODA_RLCCMN
-
-      INCLUDE 'bufrlib.inc'
 
       CHARACTER*128 BORT_STR
       CHARACTER*8   CREF,CVAL

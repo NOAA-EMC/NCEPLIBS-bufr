@@ -47,11 +47,7 @@ C>                               programs.
 C>
       FUNCTION INVWIN(NODE,LUN,INV1,INV2)
 
-
-
       USE MODA_USRINT
-
-      INCLUDE 'bufrlib.inc'
 
       COMMON /QUIET/  IPRT
 

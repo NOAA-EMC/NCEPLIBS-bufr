@@ -56,8 +56,6 @@ C>
       USE MODA_MSGCWD
       USE MODA_TABLES
 
-      INCLUDE 'bufrlib.inc'
-
       CHARACTER*8  SUBSET
 
 C-----------------------------------------------------------------------

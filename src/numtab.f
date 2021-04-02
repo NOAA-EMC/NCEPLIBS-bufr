@@ -105,10 +105,6 @@ C>                               programs.
 C>
       SUBROUTINE NUMTAB(LUN,IDN,NEMO,TAB,IRET)
 
-
-
-      INCLUDE 'bufrlib.inc'
-
 C     Note that the values within the COMMON /REPTAB/ arrays were
 C     initialized within subroutine BFRINI.
 

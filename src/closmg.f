@@ -35,7 +35,7 @@ C>                           BUFR files under the MPI)
 C> - 2000-09-19  J. Woollen -- Maximum message length increased from
 C>                           10,000 to 20,000 bytes
 C> - 2003-05-19  J. Woollen -- Corrected a bug which prevented the dump
-C>                           center and initiatiion time messages from
+C>                           center and initiation time messages from
 C>                           being written out
 C> - 2003-11-04  J. Ator    -- Added documentation
 C> - 2003-11-04  S. Bender  -- Added remarks and routine interdependencies
@@ -55,8 +55,6 @@ C>
       USE MODA_MSGCWD
       USE MODA_MSGLIM
       USE MODA_BITBUF
-
-      INCLUDE 'bufrlib.inc'
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------

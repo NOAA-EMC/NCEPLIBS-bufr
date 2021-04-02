@@ -27,6 +27,14 @@ C> operations via a previous call to subroutine openbf().
 C> Logical unit LDXOT must already be associated with a filename
 C> on the local system, typically via a Fortran "OPEN" statement.
 C>
+C> @remarks
+C> - This subroutine only prints the DX table that is currently in
+C> scope for logical unit LUNIT.  Therefore, if logical unit LUNIT
+C> contains multiple embedded DX tables, then multiple calls to 
+C> this subroutine must be made to print out all of the tables,
+C> once while each table is in scope for a data subset defined
+C> within that particular table.
+C>
 C> <b>Program history log:</b>
 C> - 2004-08-18  J. Ator    -- Original author
 C> - 2007-01-19  J. Ator    -- Corrected output for reference values
@@ -37,8 +45,6 @@ C>
 
       USE MODA_TABABD
       USE MODA_NMIKRP
-
-      INCLUDE 'bufrlib.inc'
 
       COMMON /REPTAB/ IDNR(5,2),TYPS(5,2),REPS(5,2),LENS(5)
 

@@ -68,15 +68,12 @@ C>                               programs.
 C>
       SUBROUTINE UFBGET(LUNIT,TAB,I1,IRET,STR)
 
-
-
+      USE MODV_BMISS
       USE MODA_USRINT
       USE MODA_USRBIT
       USE MODA_MSGCWD
       USE MODA_BITBUF
       USE MODA_TABLES
-
-      INCLUDE 'bufrlib.inc'
 
       COMMON /USRSTR/ NNOD,NCON,NODS(20),NODC(10),IVLS(10),KONS(10)
 

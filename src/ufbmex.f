@@ -58,12 +58,8 @@ C>                               programs.
 C>
       SUBROUTINE UFBMEX(LUNIT,LUNDX,INEW,IRET,MESG) 
 
-
-
       USE MODA_MGWA
       USE MODA_MSGMEM
-
-      INCLUDE 'bufrlib.inc'
 
       COMMON /QUIET / IPRT
 

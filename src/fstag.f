@@ -39,12 +39,8 @@ C>                               programs.
 C>
 	SUBROUTINE FSTAG ( LUN, UTAG, NUTAG, NIN, NOUT, IRET )
 
-
-
 	USE MODA_USRINT
 	USE MODA_TABLES
-
-	INCLUDE 'bufrlib.inc'
 
 	CHARACTER*10  TGS(15)
 

@@ -30,8 +30,6 @@ C> - 2016-02-12  J. Ator    -- Modified for CRAYFTN compatibility
 C>
 	INTEGER FUNCTION ICBFMS ( STR, LSTR )
 
-	INCLUDE	'bufrlib.inc'
-
 	CHARACTER*(*)	STR
 
 	CHARACTER*8	STRZ

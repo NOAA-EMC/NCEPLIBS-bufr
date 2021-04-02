@@ -65,11 +65,7 @@ C>                               (see ABSTRACT).
 C>
       SUBROUTINE NEMTAB(LUN,NEMO,IDN,TAB,IRET)
 
-
-
       USE MODA_TABABD
-
-      INCLUDE 'bufrlib.inc'
 
       CHARACTER*(*) NEMO
       CHARACTER*8   NEMT

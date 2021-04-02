@@ -54,11 +54,7 @@ C>                               Also called by application programs.
 C>
       SUBROUTINE UFBCNT(LUNIT,KMSG,KSUB)
 
-
-
       USE MODA_MSGCWD
-
-      INCLUDE 'bufrlib.inc'
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------

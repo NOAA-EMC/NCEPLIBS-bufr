@@ -67,8 +67,6 @@ C>
       USE MODA_TABLES
       USE MODA_RLCCMN
 
-      INCLUDE 'bufrlib.inc'
-
       COMMON /QUIET / IPRT
 
       CHARACTER*(*) CHR,STR

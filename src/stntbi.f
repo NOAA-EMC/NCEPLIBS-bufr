@@ -26,11 +26,7 @@ C>                               programs.
 C>
 	SUBROUTINE STNTBI ( N, LUN, NUMB, NEMO, CELSQ )
 
-
-
 	USE MODA_TABABD
-
-	INCLUDE 'bufrlib.inc'
 
 	CHARACTER*(*) NUMB, NEMO, CELSQ
 

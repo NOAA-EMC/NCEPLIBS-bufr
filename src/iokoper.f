@@ -26,10 +26,6 @@ C>                               programs.
 C>
       INTEGER FUNCTION IOKOPER(NEMO)
 
-
-
-      INCLUDE 'bufrlib.inc'
-
       CHARACTER*(*)  NEMO
 
 C-----------------------------------------------------------------------

@@ -81,14 +81,10 @@ C>                               Also called by application programs.
 C>
       SUBROUTINE RDMEMM(IMSG,SUBSET,JDATE,IRET)
 
-
-
       USE MODA_MSGCWD
       USE MODA_BITBUF
       USE MODA_MGWA
       USE MODA_MSGMEM
-
-      INCLUDE 'bufrlib.inc'
 
       COMMON /QUIET / IPRT
 

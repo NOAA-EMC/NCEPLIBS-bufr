@@ -74,14 +74,10 @@ C>                               programs.
 C>
       SUBROUTINE CKTABA(LUN,SUBSET,JDATE,IRET)
 
-
-
       USE MODA_MSGCWD
       USE MODA_SC3BFR
       USE MODA_UNPTYP
       USE MODA_BITBUF
-
-      INCLUDE 'bufrlib.inc'
 
       COMMON /PADESC/ IBCT,IPD1,IPD2,IPD3,IPD4
       COMMON /QUIET / IPRT

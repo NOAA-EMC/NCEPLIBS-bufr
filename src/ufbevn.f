@@ -128,12 +128,9 @@ C>                               programs.
 C>
       SUBROUTINE UFBEVN(LUNIT,USR,I1,I2,I3,IRET,STR)
 
-
-
+      USE MODV_BMISS
       USE MODA_USRINT
       USE MODA_MSGCWD
-
-      INCLUDE 'bufrlib.inc'
 
       COMMON /USRSTR/ NNOD,NCON,NODS(20),NODC(10),IVLS(10),KONS(10)
       COMMON /UFBN3C/ MAXEVN

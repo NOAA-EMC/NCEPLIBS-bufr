@@ -29,10 +29,6 @@ C>                               Also called by application programs.
 C>
       SUBROUTINE RTRCPTB(MBAY,IYR,IMO,IDY,IHR,IMI,IRET)
 
-
-
-      INCLUDE 'bufrlib.inc'
-
       DIMENSION	MBAY (*)
 
 C-----------------------------------------------------------------------

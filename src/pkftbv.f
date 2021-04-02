@@ -15,7 +15,7 @@ C> @param[in] NBITS  - integer: Total number of bits in flag table
 C> @param[in] IBIT   - integer: Number of bit to be set
 C>
 C> @returns pkftbv   - real*8: Value equivalent to the setting of
-C>                     bit# IBIT within a flag table of NBITS bits
+C>                     bit #IBIT within a flag table of NBITS bits
 C>
 C> @remarks
 C> - This function is the logical inverse of subroutine upftbv().
@@ -28,7 +28,7 @@ C> - 2005-11-29  J. Ator    -- Original version
 C>
       REAL*8 FUNCTION PKFTBV(NBITS,IBIT)
 
-      INCLUDE 'bufrlib.inc'
+      USE MODV_BMISS
 
 C----------------------------------------------------------------------
 C----------------------------------------------------------------------

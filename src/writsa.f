@@ -118,8 +118,6 @@ C>
 
       USE MODA_BUFRMG
 
-      INCLUDE 'bufrlib.inc'
-
       COMMON /MSGCMP/ CCMF
 
       CHARACTER*1 CCMF

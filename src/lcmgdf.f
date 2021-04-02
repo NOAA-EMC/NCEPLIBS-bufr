@@ -43,8 +43,6 @@ C>
 
       USE MODA_TABLES
 
-      INCLUDE 'bufrlib.inc'
-
       CHARACTER*8  SUBSET
 
 C-----------------------------------------------------------------------

@@ -36,11 +36,7 @@ C>                               programs.
 C>
       SUBROUTINE RDMSGW(LUNIT,MESG,IRET)
 
-
-
       USE MODV_MXMSGL
-
-      INCLUDE 'bufrlib.inc'
 
       COMMON /HRDWRD/ NBYTW,NBITW,IORD(8)
 

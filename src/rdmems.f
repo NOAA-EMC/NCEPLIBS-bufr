@@ -61,14 +61,10 @@ C>                               programs.
 C>
       SUBROUTINE RDMEMS(ISUB,IRET)
 
-
-
       USE MODA_MSGCWD
       USE MODA_UNPTYP
       USE MODA_BITBUF
       USE MODA_MSGMEM
-
-      INCLUDE 'bufrlib.inc'
 
       CHARACTER*128 BORT_STR,ERRSTR
 

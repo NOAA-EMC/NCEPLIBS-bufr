@@ -73,8 +73,7 @@ C>                               programs.
 C>
       SUBROUTINE MAKESTAB
 
-
-
+      USE MODV_BMISS
       USE MODA_USRINT
       USE MODA_STBFR
       USE MODA_LUSHR
@@ -83,8 +82,6 @@ C>
       USE MODA_TABLES
       USE MODA_NRV203
       USE MODA_BITMAPS
-
-      INCLUDE 'bufrlib.inc'
 
       COMMON /QUIET/  IPRT
 

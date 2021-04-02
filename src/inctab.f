@@ -42,11 +42,7 @@ C>                               programs.
 C>
       SUBROUTINE INCTAB(ATAG,ATYP,NODE)
 
-
-
       USE MODA_TABLES
-
-      INCLUDE 'bufrlib.inc'
 
       CHARACTER*(*) ATAG,ATYP
       CHARACTER*128 BORT_STR

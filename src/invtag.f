@@ -48,12 +48,8 @@ C>                               programs.
 C>
       FUNCTION INVTAG(NODE,LUN,INV1,INV2)
 
-
-
       USE MODA_USRINT
       USE MODA_TABLES
-
-      INCLUDE 'bufrlib.inc'
 
       COMMON /QUIET/  IPRT
 

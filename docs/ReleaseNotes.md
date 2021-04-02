@@ -36,10 +36,6 @@ was changed from a fixed WCOSS-specific path.  It is now set to the defined
 value of the MASTER_TABLE_DIR macro when the library was built.
 [[Issue #123](https://github.com/NOAA-EMC/NCEPLIBS-bufr/issues/123)]
 
-* The Fortran include file "bufrlib.prm" was renamed to "bufrlib.inc" to better
-conform with modern software engineering standards.
-[[Issue #22](https://github.com/NOAA-EMC/NCEPLIBS-bufr/issues/22)]
-
 * Subroutine writsa() was modified to allow the return of up to two BUFR
 messages during the same call to the subroutine, in the rare instances where
 more than one BUFR message could become available during such a call.

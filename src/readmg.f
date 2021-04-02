@@ -47,7 +47,7 @@ C> - In prior versions of the BUFRLIB software, an input value of
 C> LUNXX < 0 was an indicator to the subroutine to treat any read error
 C> from ABS(LUNXX) the same as an end-of-file condition.  This option is
 C> no longer supported, but the capability to call this subroutine with
-C> LUNXX < 0 is itself still supported for backwards-compatibiity with
+C> LUNXX < 0 is itself still supported for backwards-compatibility with
 C> certain legacy application programs. 
 C>
 C> <b>Program history log:</b>
@@ -100,8 +100,6 @@ C>
       USE MODA_MSGCWD
       USE MODA_SC3BFR
       USE MODA_BITBUF
-
-      INCLUDE 'bufrlib.inc'
 
       COMMON /QUIET / IPRT
 

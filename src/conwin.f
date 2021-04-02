@@ -63,11 +63,7 @@ C>                               programs.
 C>
       SUBROUTINE CONWIN(LUN,INC1,INC2)
 
-
-
       USE MODA_USRINT
-
-      INCLUDE 'bufrlib.inc'
 
       COMMON /USRSTR/ NNOD,NCON,NODS(20),NODC(10),IVLS(10),KONS(10)
 

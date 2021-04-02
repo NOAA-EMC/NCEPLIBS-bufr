@@ -61,13 +61,9 @@ C>                               Also called by application programs.
 C>
       SUBROUTINE COPYSB(LUNIN,LUNOT,IRET)
 
-
-
       USE MODA_MSGCWD
       USE MODA_BITBUF
       USE MODA_TABLES
-
-      INCLUDE 'bufrlib.inc'
 
       CHARACTER*128 BORT_STR
 

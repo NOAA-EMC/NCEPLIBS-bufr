@@ -20,14 +20,10 @@ C>                               programs.
 C>
 	SUBROUTINE STRBTM ( N, LUN )
 
-
-	
 	USE MODA_MSGCWD
 	USE MODA_USRINT
 	USE MODA_TABLES
 	USE MODA_BITMAPS
-
-	INCLUDE 'bufrlib.inc'
 
         LOGICAL ISBTME
 

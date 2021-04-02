@@ -27,12 +27,8 @@ C>                               programs.
 C>
       SUBROUTINE GETABDB(LUNIT,TABDB,ITAB,JTAB)
 
-
-
       USE MODA_TABABD
       USE MODA_NMIKRP
-
-      INCLUDE 'bufrlib.inc'
 
       CHARACTER*128 TABDB(*)
       CHARACTER*8   NEMO

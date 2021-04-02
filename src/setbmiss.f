@@ -15,8 +15,7 @@ C> application program, and the value XMISS will then be treated as
 C> "missing" when reading or writing BUFR data during all future
 C> calls to subroutines ufbint(), ufbrep(), ufbseq(), etc.
 C> Otherwise, if this subroutine is never called, a default
-C> placeholder value of 10E10 is used for "missing", as set via
-C> an initial internal call to subroutine bfrini().
+C> placeholder value of 10E10_8 is used for "missing".
 C>
 C> <p>Any data value can always be checked for equivalence to the
 C> current "missing" value via a call to function ibfms().  See also
@@ -35,7 +34,7 @@ C> - 2012-09-15  J. Woollen -- Original author
 C>
       SUBROUTINE SETBMISS(XMISS)
 
-      INCLUDE 'bufrlib.inc'
+      USE MODV_BMISS
 
       REAL*8 XMISS
 
