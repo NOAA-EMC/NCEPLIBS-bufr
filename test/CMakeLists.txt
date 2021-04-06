@@ -210,3 +210,6 @@ add_test(NAME test_gettab
 add_test(NAME test_split_by_subset
   COMMAND ${CMAKE_BINARY_DIR}/bin/test_split_by_subset.sh "${CMAKE_BINARY_DIR}/utils/split_by_subset.x testfiles/data/satwndbufr" "testfiles/testoutput/satwndbufr_split"
   )
+
+add_executable("test_query.x" test_query.f90)
+target_link_libraries("test_query.x" PRIVATE bufr::bufr_4_DA)
