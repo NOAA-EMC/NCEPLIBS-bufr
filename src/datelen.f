@@ -4,15 +4,14 @@ C> BUFR messages.
 
 C> This subroutine is used to specify the format of Section 1
 C> date-time values that will be output by future calls to
-C> any of the BUFRLIB subroutines which read BUFR messages,
-C> such as readmg() or readerme().
+C> any of the BUFRLIB [message-reading subroutines](@ref hierarchy).
 C> 
 C> @author J. Woollen
 C> @date 1998-07-08
 C>
 C> @param[in] LEN -   integer: Length of Section 1 date-time
 C>                    values to be output by all future calls
-C>                    to readmg(), readerme(), etc.
+C>                    to message-reading subroutines
 C>                    -  8 = YYMMDDHH format with 2-digit year
 C>                           (the default)
 C>                    - 10 = YYYYMMDDHH format with 4-digit year

@@ -5,7 +5,7 @@ C> This subroutine is similar to subroutine writsb(), except that
 C> when the subset is encoded and packed into the current message
 C> for the BUFR file associated with logical unit LUNIT, it is 
 C> packed using compression as prescribed within the
-C> [official WMO BUFR regulations](https://library.wmo.int/index.php?lvl=notice_display&id=10684#.X68yu8hKiUn).
+C> [official WMO BUFR regulations](@ref manual).
 C>
 C> @author J. Woollen
 C> @date 2002-05-14

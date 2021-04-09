@@ -44,8 +44,8 @@ C>                               could not be found, or some other error
 C>                               occurred
 C>
 C> <p>Before calling this subroutine, a BUFR message should already be
-C> opened and initialized for output via a previous call to subroutine
-C> openmg() or openmb().
+C> opened and initialized for output via a previous call to one of the
+C> BUFRLIB [message-writing subroutines](@ref hierarchy).
 C>
 C> <b>Program history log:</b>
 C> - 2016-07-29  J. Ator    -- Original author

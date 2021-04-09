@@ -19,6 +19,9 @@ C>        @var mxmsgl
 C>        Maximum length (in bytes) of a BUFR message that can be
 C>        read or written by the BUFRLIB software.
 
+C>        @var mxmsgld4
+C>        The value of mxmsgl divided by 4.
+
 #ifdef STATIC_ALLOCATION
 	  INTEGER, PARAMETER :: MXMSGL = 600000
 	  INTEGER, PARAMETER :: MXMSGLD4 = MXMSGL/4

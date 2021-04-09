@@ -13,7 +13,9 @@ C>
 C> <p>This subroutine can be called at any time from within an
 C> application program, and the value XMISS will then be treated as
 C> "missing" when reading or writing BUFR data during all future
-C> calls to subroutines ufbint(), ufbrep(), ufbseq(), etc.
+C> calls to any of the other BUFRLIB
+C> [values-reading subroutines](@ref hierarchy) or
+C> [values-writing subroutines](@ref hierarchy).
 C> Otherwise, if this subroutine is never called, a default
 C> placeholder value of 10E10_8 is used for "missing".
 C>

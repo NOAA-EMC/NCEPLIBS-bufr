@@ -24,10 +24,11 @@ C>                     - -1 = TAGPR could not be found, or some
 C>                            other error occurred
 C>
 C> <p>A data subset must already be in scope within the BUFRLIB
-C> internal arrays for LUNIT, either via a previous call to
-C> readsb(), readns() or equivalent (when reading BUFR data
-C> subsets) or via a previous call to openmg(), openmb() or
-C> equivalent (when writing BUFR data subsets).
+C> internal arrays for LUNIT, either via a previous call to one
+C> of the [subset-reading subroutines](@ref hierarchy)
+C> (when reading BUFR data subsets) or via a previous call to one
+C> of the [message-writing subroutines](@ref hierarchy)
+C> (when writing BUFR data subsets).
 C>
 C> <b>Program history log:</b>
 C> - 2012-09-12  J. Ator    -- Original author

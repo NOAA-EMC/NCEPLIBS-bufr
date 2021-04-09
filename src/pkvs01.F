@@ -4,15 +4,17 @@ C> writing BUFR messages.
 
 C> This subroutine is used to specify a value to be written into a
 C> specified location within Section 0 or Section 1 of all BUFR messages
-C> output by future calls to subroutines writsb(), writsa(), writcp(),
-C> copybf(), copymg() or cpymem().
+C> output by future calls to other
+C> [message-writing subroutines](@ref hierarchy) and
+C> [subset-writing subroutines](@ref hierarchy).
 C>
 C> <p>This subroutine is similar to subroutine pkbs1(), except that
 C> pkbs1() operates on a single BUFR message passed in via a memory
 C> array.  Alternatively, whenever this subroutine is called, the
 C> specified IVAL will be written into all BUFR messages output by all
-C> future calls to subroutines writsb(), writsa(), writcp(), copybf(),
-C> copymg() or cpymem(), for all Fortran logical units that are open for
+C> future calls to other [message-writing subroutines](@ref hierarchy)
+C> and [subset-writing subroutines](@ref hierarchy),
+C> for all Fortran logical units that are open for
 C> output within the application program, unless a subsequent call is
 C> made to this subroutine with the same value of S01MNEM in order to
 C> reset the corresponding IVAL again.  Otherwise, if this subroutine

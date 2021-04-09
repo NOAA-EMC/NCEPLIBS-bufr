@@ -5,6 +5,9 @@ C> opened for reading.
 C> This subroutine reads the next BUFR message from logical unit
 C> ABS(LUNXX) into internal arrays.
 C>
+C> <p>Logical unit ABS(LUNXX) should have already been opened for
+C> input operations via a previous call to subroutine openbf().
+C>
 C> @authors J. Woollen
 C> @authors J. Ator
 C> @date 1994-01-06
@@ -26,14 +29,12 @@ C>                           - -1 = there are no more BUFR messages in
 C>                                 the file connected to logical unit
 C>                                 ABS(LUNXX)
 C>
-C> <p>Logical unit ABS(LUNXX) should have already been opened for
-C> input operations via a previous call to subroutine openbf().
-C>
 C> <p>Whenever this subroutine returns with IRET = 0, this indicates
 C> that a new BUFR message of type SUBSET and date-time JDATE was
 C> successfully read into internal arrays within the BUFRLIB
 C> software, and from where it can then be easily manipulated or further
-C> parsed via a call to subroutine readsb() or equivalent.  Otherwise,
+C> parsed via a call to one of the
+C> [subset-reading subroutines](@ref hierarchy).  Otherwise,
 C> if the subroutine returns with IRET = -1, then this indicates that
 C> there are no more BUFR messages (i.e. end-of-file) within the file
 C> connected to logical unit ABS(LUNXX).

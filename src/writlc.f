@@ -6,9 +6,9 @@ C> This subroutine writes a long character string (greater than 8 bytes)
 C> to a data subset.
 C>
 C> <p>The data subset should have already been written into a BUFR
-C> message via a previous call to subroutine writsb(), writsa() or
-C> equivalent, before calling this subroutine to write any long
-C> character strings into the same subset.
+C> message via a previous call to one of the
+C> [subset-writing subroutines](@ref hierarchy), before calling this
+C> subroutine to write any long character strings into the same subset.
 C>
 C> @authors J. Woollen
 C> @authors J. Ator
@@ -36,9 +36,11 @@ C> @remarks
 C> - Character strings which are 8 bytes or less in length can be
 C> written by converting the string into a real*8 value within the
 C> application program, and then using the real*8 USR array within a
-C> call to subroutine ufbint(), ufbrep(), ufbseq() or equivalent
-C> prior to calling subroutine writsb() or writsa() for the data
-C> subset.
+C> call to one of the BUFRLIB
+C> [values-writing subroutines](@ref hierarchy)
+C> prior to calling one of the
+C> [subset-writing subroutines](@ref hierarchy)
+C> for the data subset.
 C>
 C> <b>Program history log:</b>
 C> - 2003-11-04  J. Woollen -- Original author

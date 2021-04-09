@@ -25,7 +25,8 @@ C>
 C> <p>Logical unit LUNIT should have already been opened for
 C> input operations via a previous call to subroutine openbf(), and a
 C> BUFR data subset should have already been read into internal arrays
-C> via a previous call to subroutine readsb(), readns() or equivalent.
+C> via a previous call to one of the
+C> [subset-reading subroutines](@ref hierarchy).
 C>
 C> <p>Except when LUPRT = 0, logical unit LUPRT must already be
 C> associated with a filename on the local system, typically via a

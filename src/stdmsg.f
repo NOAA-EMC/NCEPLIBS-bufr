@@ -2,10 +2,10 @@ C> @file
 C> @brief Specify the use of standardization when writing BUFR messages.
 
 C> This subroutine is used to specify whether BUFR messages output by
-C> future calls to subroutines writsb(), writsa(), writcp(), copybf(),
-C> copymg() or cpymem() should be internally reformatted to remove
-C> all BUFRLIB software extensions to the WMO standard, prior to
-C> actually writing each message. 
+C> future calls to [message-writing subroutines](@ref hierarchy) and
+C> [subset-writing subroutines](@ref hierarchy) should be internally
+C> reformatted to remove all BUFRLIB software extensions to the
+C> WMO standard, prior to actually writing each message. 
 C>
 C> <p>It is strongly recommended to use this subroutine (or,
 C> alternatively, subroutine stndrd() for messages which already exist
@@ -19,8 +19,9 @@ C> packages.
 C>
 C> <p>This subroutine can be called at any time after the first call
 C> to subroutine openbf(), and the specified value for CF will remain
-C> in effect for all future calls to subroutines writsb(), writsa(),
-C> writcp(), copybf(), copymg() or cpymem() for all Fortran logical
+C> in effect for all future calls to 
+C> [message-writing subroutines](@ref hierarchy) and
+C> [subset-writing subroutines](@ref hierarchy) for all Fortran logical
 C> units that are open for output within the application program,
 C> unless a subsequent call is made to this subroutine to reset the
 C> value of CF again.  If this subroutine is never called, a default
@@ -29,11 +30,8 @@ C>
 C> @author J. Ator
 C> @date 2004-08-18
 C>
-C> @param[in] CF    - character*1: Flag indicating whether BUFR
-C>                    messages output by future calls to
-C>                    subroutines writsb(), writsa(), writcp(),
-C>                    copybf(), copymg() or cpymem() are to be
-C>                    standardized
+C> @param[in] CF    - character*1: Flag indicating whether future BUFR
+C>                    output messages are to be standardized
 C>                     - 'N' = No (the default)
 C>                     - 'Y' = Yes
 C>

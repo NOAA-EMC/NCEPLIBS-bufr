@@ -1,8 +1,8 @@
 C> @file
-C> @brief Identify a new system file to the BUFRLIB software for
+C> @brief Connect a new system file to the BUFRLIB software for
 C> reading or writing BUFR messages.
 
-C> This subroutine identifies a new file to the BUFRLIB software for
+C> This subroutine connects a new file to the BUFRLIB software for
 C> input or output operations.
 C>
 C> @authors J. Woollen
@@ -134,14 +134,14 @@ C>                             documentation; outputs more complete
 C>                             diagnostic info when routine terminates
 C>                             abnormally, unusual things happen or for
 C>                             informational purposes
-C> - 2004-08-18  J. Ator    -- added SAVE for IFIRST flag and IO="NODX"
+C> - 2004-08-18  J. Ator    -- Added SAVE for IFIRST flag and IO="NODX"
 C>                             option 
-C> - 2005-11-29  J. Ator    -- added COMMON /MSGFMT/ and ichkstr() call
-C> - 2009-03-23  J. Ator    -- added IO='SEC3' option; removed call to
+C> - 2005-11-29  J. Ator    -- Added COMMON /MSGFMT/ and ichkstr() call
+C> - 2009-03-23  J. Ator    -- Added IO='SEC3' option; removed call to
 C>                             posapn; clarified comments; use errwrt()
-C> - 2010-05-11  J. Ator    -- added COMMON /STCODE/
-C> - 2012-06-18  J. Ator    -- added IO='INUL' option
-C> - 2012-09-15  J. Woollen -- modified for C/I/O/BUFR interface;
+C> - 2010-05-11  J. Ator    -- Added COMMON /STCODE/
+C> - 2012-06-18  J. Ator    -- Added IO='INUL' option
+C> - 2012-09-15  J. Woollen -- Modified for C/I/O/BUFR interface;
 C>                             use INQUIRE to obtain the filename;
 C>                             call C routines openrb(), openwb() and 
 C>                             openab() to connect BUFR files to C;
@@ -151,18 +151,18 @@ C>                             file; add IO type 'FIRST' to support calls
 C>                             to bfrini() and wrdlen() prior to user reset
 C>                             of BUFRLIB parameters found in new routines 
 C>                             setbmiss() and setblock()
-C> - 2014-11-07  J. Ator    -- allow dynamic allocation of certain arrays
-C> - 2015-03-03  J. Ator    -- use MODA_IFOPBF instead of IFIRST
+C> - 2014-11-07  J. Ator    -- Allow dynamic allocation of certain arrays
+C> - 2015-03-03  J. Ator    -- Use MODA_IFOPBF instead of IFIRST
 C>
       SUBROUTINE OPENBF(LUNIT,IO,LUNDX)
 
+      USE MODV_IFOPBF
       USE MODA_MSGCWD
       USE MODA_STBFR
       USE MODA_SC3BFR
       USE MODA_LUSHR
       USE MODA_NULBFR
       USE MODA_STCODE
-      USE MODA_IFOPBF
 
       COMMON /QUIET / IPRT
 

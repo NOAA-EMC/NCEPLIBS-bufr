@@ -3,7 +3,7 @@ C> @brief Test whether a real*8 data value is "missing"
 
 C> This function provides a handy way to check whether a real*8
 C> data value returned from a previous call to any of the
-C> subroutines ufbint(), ufbrep(), ufbseq(), ufbtab(), etc
+C> other BUFRLIB [values-reading subroutines](@ref hierarchy)
 C> contains the current placeholder value for "missing" data.
 C>
 C> @author J. Ator

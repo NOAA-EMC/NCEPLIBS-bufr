@@ -1,41 +1,27 @@
 /** @file
-    @author ATOR @date 2014-12-04
-*/
-
-
-#ifdef DYNAMIC_ALLOCATION
+ *  @brief Free all dynamically-allocated memory within
+ *  internal C language arrays.
+ */
 
 #include "bufrlib.h"
 #include "cread.h"
 #include "mstabs.h"
 
 /**
-C
-C SUBPROGRAM:    ARDLLOCC
-C   PRGMMR: ATOR             ORG: NP12       DATE: 2014-12-04
-C
-C ABSTRACT:  THIS ROUTINE FREES ANY MEMORY THAT WAS DYNAMICALLY
-C   ALLOCATED BY A PREVIOUS CALL TO BUFR ARCHIVE LIBRARY ROUTINE
-C   ARALLOCC.
-C
-C PROGRAM HISTORY LOG:
-C 2014-12-04  J. ATOR    -- ORIGINAL AUTHOR
-C
-C USAGE:    CALL ARDLLOCC
-C
-C REMARKS:
-C    THIS ROUTINE CALLS:        None
-C    THIS ROUTINE IS CALLED BY: ARDLLOCF
-C                               Normally not called by any application
-C                               programs.
-C
-C ATTRIBUTES:
-C   LANGUAGE: C
-C   MACHINE:  PORTABLE TO ALL PLATFORMS
-C
-C$$$*/
+ * This subroutine frees any memory that was dynamically-allocated
+ * during a previous call to subroutine arallocc().
+ *
+ * @author J. Ator
+ * @date 2014-12-04
+ *
+ * <b>Program history log:</b>
+ * - 2014-12-04  J. Ator    -- Original author
+ */
+
 void ardllocc( void )
 {
+
+#ifdef DYNAMIC_ALLOCATION
 
 /*
 **  cread arrays
@@ -61,6 +47,7 @@ void ardllocc( void )
     free( MSTABS_BASE(ndelem) );
     free( MSTABS_BASE(idefxy) );
 
+#endif
+
 }
 
-#endif

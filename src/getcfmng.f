@@ -64,7 +64,8 @@ C> calling this subroutine, in order to ensure that master Code/Flag
 C> tables have been read into internal memory.
 C>
 C> <p>This subroutine can be called at any time after a BUFR message
-C> has been read via subroutine readmg(), readerme() or equivalent, and it
+C> has been read into internal arrays by one of the BUFRLIB
+C> [message-reading subroutines](@ref hierarchy), and it
 C> can be called for any code or flag table mnemonic defined within that
 C> particular message.  In most cases, this means that the mnemonic must
 C> be contained within the subset definition (Section 3) of that message.

@@ -9,8 +9,9 @@ C> <p>This function will work on any BUFR message encoded using BUFR
 C> edition 2, 3, or 4.  It is similar to function iupvs01(), except
 C> that it operates on a BUFR message passed in via a memory array,
 C> whereas iupvs01() operates on the BUFR message that was read into
-C> internal arrays via the most recent call to subroutine readmg(),
-C> readerme() or equivalent from a specified Fortran logical unit.
+C> internal arrays via the most recent call to any of the other
+C> [message-reading subroutines](@ref hierarchy) for a specified
+C> Fortran logical unit.
 C>
 C> @author J. Ator
 C> @date 2005-11-29

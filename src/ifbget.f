@@ -1,10 +1,12 @@
 C> @file
-C> @brief Check whether there are more data subsets available to be
-C> read from a BUFR message
+C> @brief Check whether there are any more data subsets available to be
+C> read from a BUFR message.
 
-C> This function checks whether there are more data subsets available
-C> to be read from within the BUFR message most recently opened for
-C> reading via a call to subroutine readmg(), readerme() or equivalent.
+C> This function checks whether there are any more data subsets
+C> available to be read from within the BUFR message that is
+C> open for reading via the most recent call to any of the
+C> [message-reading subroutines](@ref hierarchy) for a specified
+C> Fortran logical unit.
 C>
 C> @author J. Woollen
 C> @date 1994-01-06

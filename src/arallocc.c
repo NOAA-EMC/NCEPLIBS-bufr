@@ -1,8 +1,6 @@
 /** @file
-    @author ATOR @date 2014-12-04
+ *  @brief Dynamically allocate C language arrays within internal memory.
 */
-
-#ifdef DYNAMIC_ALLOCATION
 
 #include "bufrlib.h"
 #define IN_ARALLOCC
@@ -10,43 +8,33 @@
 #include "mstabs.h"
 
 /**
-C
-C SUBPROGRAM:    ARALLOCC
-C   PRGMMR: ATOR             ORG: NP12       DATE: 2014-12-04
-C
-C ABSTRACT:  IF DYNAMIC MEMORY ALLOCATION IS BEING USED, THIS ROUTINE
-C   IS CALLED DURING THE FIRST CALL TO BUFR ARCHIVE LIBRARY SUBROUTINE
-C   OPENBF TO DYNAMICALLY ALLOCATE MEMORY FOR ALL REQUIRED C LANGUAGE
-C   ARRAYS.  THESE ARRAYS ARE SIZED USING VALUES INPUT DURING ONE OR
-C   MORE PREVIOUS CALLS TO BUFR ARCHIVE LIBRARY SUBROUTINE ISETPRM, OR
-C   ELSE USING ONE OR MORE DEFAULT VALUES SPECIFIED IN MODULE FILES IF
-C   ISETPRM IS NEVER CALLED FOR THOSE PARTICULAR SIZE VALUES.
-C
-C   MEMORY ALLOCATED WITHIN THIS ROUTINE CAN BE FREED VIA A USER CALL
-C   TO BUFR ARCHIVE LIBRARY ROUTINE ARDLLOCF (IN CASES WHERE THE
-C   APPLICATION PROGRAM MAY WISH TO MOVE ON TO OTHER TASKS NOT
-C   REQUIRING ANY FURTHER CALLS TO BUFR ARCHIVE LIBRARY ROUTINES), OR
-C   ELSE IT WILL BE FREED AUTOMATICALLY WHEN THE APPLICATION PROGRAM
-C   TERMINATES.
-C
-C PROGRAM HISTORY LOG:
-C 2014-12-04  J. ATOR    -- ORIGINAL AUTHOR
-C
-C USAGE:    CALL ARALLOCC
-C
-C REMARKS:
-C    THIS ROUTINE CALLS:        BORT     IGETPRM
-C    THIS ROUTINE IS CALLED BY: OPENBF
-C                               Normally not called by any application
-C                               programs.
-C
-C ATTRIBUTES:
-C   LANGUAGE: C
-C   MACHINE:  PORTABLE TO ALL PLATFORMS
-C
-C$$$*/
+ * For dynamic allocation builds of the library, this subroutine is
+ * called internally during the first call to subroutine openbf() from
+ * an application program, in order to dynamically allocate internal
+ * C language arrays based on parameter values set during one or more
+ * previous calls to function isetprm().
+ *
+ * <p>This subroutine isn't normally called directly from an application
+ * program, since it's automatically called internally during the first
+ * call to subroutine openbf() from an application program.
+ *
+ * @author J. Ator
+ * @date 2014-12-04
+ *
+ * @remarks
+ * - All memory allocated within this subroutine can be freed via a
+ *   subsequent call to subroutine exitbufr() from within the
+ *   application program, or else it will be freed automatically by the
+ *   operating system once the application program terminates.
+ *
+ * <b>Program history log:</b>
+ * - 2014-12-04  J. Ator    -- Original author
+ */
+
 void arallocc( void )
 {
+
+#ifdef DYNAMIC_ALLOCATION
 
     char brtstr[50] = "BUFRLIB: ARALLOCC FAILED ALLOCATING ";
 
@@ -140,6 +128,6 @@ void arallocc( void )
         bort( brtstr, ( f77int ) strlen( brtstr ) );
     }
 
-}
-
 #endif
+
+}
