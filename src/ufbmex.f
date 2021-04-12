@@ -1,60 +1,52 @@
 C> @file
-C> @author WOOLLEN @date 2012-01-26
-      
-C> THIS SUBROUTINE OPENS A BUFR FILE FOR INPUT, READS EACH
-C>   MESSAGE AND TRANSFERS THEM ONE-BY-ONE TO INTERNAL MEMORY (ARRAY
-C>   MSGS IN MODULE MSGMEM).  IF MESSAGES ARE APPENDED TO EXISTING
-C>   MESSAGES IN INTERNAL MEMORY, THE BUFR FILE READ HERE IS
-C>   CLOSED PRIOR TO RETURNING TO THE CALLING PROGRAM.  AN ARRAY IS
-C>   ALSO RETURNED CONTAINING A LIST OF MESSAGE TYPES READ IN.
+C> @brief Connect a new system file to the BUFRLIB software, and read
+C> the entire file contents into internal arrays.
+
+C> This subroutine connects a new system file to the BUFRLIB software
+C> for input operations, then reads the entire file contents into
+C> internal arrays so that any of the individual BUFR messages can
+C> later be accessed from memory, instead of having to read them one
+C> at a time sequentially from the system file.
 C>
-C>   THIS IS A VARIATION OF UFBMEM WHICH ENABLES MESSAGE SORTING BEFORE
-C>   READING.  BECAUSE OF THIS RE-ORDERING, EMBEDDED TABLE MESSAGES ARE
-C>   NOT STORED IN MODULE MSGMEM, SINCE THEY ARE NO LONGER RELEVANT
-C>   ONCE THE RE-ORDERING (I.E. SORTING) HAS TAKEN PLACE.  INSTEAD, A
-C>   SEPARATE UNIT NUMBER IS ADDED TO THE INPUT ARGUMENTS TO SPECIFY
-C>   WHERE THE NECESSARY BUFR TABLE INFORMATION CAN BE FOUND.
+C> <p>This subroutine is similar to subroutine ufbmem(), except that
+C> after reading in all of the messages, it then sorts them according
+C> to their message types and returns a corresponding list of these
+C> types.  Furthermore, it does not process any embedded DX BUFR
+C> tables contained within the system file, since these tables are no
+C> longer relevant once the messages have been sorted and re-ordered
+C> from their original positions in the file.  Instead, this
+C> subroutine provides an additional call argument LUNDX to allow
+C> for specification of the necessary DX BUFR table information
+C> associated with the messages in the file.
 C>
-C> PROGRAM HISTORY LOG:
-C> 2012-01-26  J. WOOLLEN -- MODIFIED UFBMEM TO READ AND SORT MEMORY
-C>                           MESSAGES FOR TRANJB INGEST ROUTINES AND
-C>                           RETURN A LIST OF MESSAGE TYPES READ IN.
-C>                           ALSO, A SEPARATE INPUT ARGUMENT IS ADDED
-C>                           TO SPECIFY WHERE TO FIND THE BUFR TABLE,
-C>                           INSTEAD OF SAVING EMBEDDED DICTIONARY
-C>                           MESSAGES IN MODULE MSGMEM
-C> 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
-C> 2015-09-24  D. STOKES  -- FIX MISSING DECLARATION OF COMMON /QUIET/
+C> @author J. Woollen
+C> @date 2012-01-26
 C>
-C> USAGE:    CALL UFBMEX (LUNIT, LUNDX, INEW, IRET, MESG)
-C>   INPUT ARGUMENT LIST:
-C>     LUNIT    - INTEGER: FORTRAN LOGICAL UNIT NUMBER FOR BUFR FILE
-C>     LUNDX    - INTEGER: FORTRAN LOGICAL UNIT NUMBER FOR USER-
-C>                SUPPLIED BUFR DICTIONARY TABLE IN CHARACTER FORMAT
-C>     INEW     - INTEGER: SWITCH:
-C>                       0 = initialize internal arrays prior to
-C>                           transferring messages here
-C>                    else = append the messages transferred here to
-C>                           internal memory arrays
+C> @param[in] LUNIT    - integer: Fortran logical unit number for BUFR
+C>                       file
+C> @param[in] LUNDX    - integer: Fortran logical unit number
+C>                       containing DX BUFR table information
+C>                       associated with BUFR messages in LUNIT
+C> @param[in] INEW     - integer: Processing option
+C>                       - 0 = Initialize the internal arrays, then
+C>                             read all BUFR messages from LUNIT into
+C>                             internal arrays
+C>                       - Otherwise, read all BUFR messages from LUNIT
+C>                         and append them to the existing messages
+C>                         within the internal arrays
+C> @param[out] IRET    - integer: Number of BUFR messages that were
+C>                       read from LUNIT and stored into internal arrays
+C> @param[out] MESG    - integer(*): Types of BUFR messages that were
+C>                       read from LUNIT and stored into internal arrays
 C>
-C>   OUTPUT ARGUMENT LIST:
-C>     IRET     - INTEGER: NUMBER OF MESSAGES TRANSFERRED
-C>     MESG     - INTEGER: ARRAY OF MESSAGE TYPES READ INTO MEMORY
-C>
-C>   INPUT FILES:
-C>     UNIT "LUNIT" - BUFR FILE
-C>     UNIT "LUNDX" - BUFR DICTIONARY TABLE IN CHARACTER FORMAT
-C>
-C> REMARKS:
-C>    NOTE THAT IREADMM, RDMEMM, READMM, UFBMMS, UFBMNS, UFBRMS, UFBTAB
-C>    OR UFBTAM CAN BE CALLED AFTER THIS TO READ SPECIFIC BUFR MESSAGES
-C>    FROM INTERNAL MEMORY.
-C>
-C>    THIS ROUTINE CALLS:        BORT     CLOSBF   ERRWRT   IUPBS01
-C>                               NMWRD    OPENBF   RDMSGW
-C>    THIS ROUTINE IS CALLED BY: None
-C>                               Normally called only by application
-C>                               programs.
+C> <p>Logical unit numbers LUNIT and LUNDX must already be associated
+C> with actual filenames on the local system, typically via a Fortran
+C> "OPEN" statement.
+C>      
+C> <b>Program history log:</b>
+C> - 2012-01-26  J. Woollen -- Original author
+C> - 2014-12-10  J. Ator    -- Use modules instead of COMMON blocks
+C> - 2015-09-24  D. Stokes  -- Fix missing declaration of COMMON /QUIET/
 C>
       SUBROUTINE UFBMEX(LUNIT,LUNDX,INEW,IRET,MESG) 
 

@@ -1,38 +1,35 @@
 C> @file
-C> @author ATOR @date 2009-03-23
-	
-C> THIS SUBROUTINE READS AN INPUT BUFR MESSAGE, APPENDS THE
-C>   TANK RECEIPT TIME TO SECTION 1, AND WRITES THE RESULT TO A NEW BUFR
-C>   MESSAGE FOR OUTPUT.  THE TANK RECEIPT TIME MUST HAVE BEEN SPECIFIED
-C>   VIA A PREVIOUS CALL TO BUFR ARCHIVE LIBRARY SUBROUTINE STRCPT.  THE
-C>   OUTPUT MESSAGE WILL BE SLIGHTLY LONGER THAN THE INPUT MESSAGE, SO
-C>   THE USER MUST ALLOW FOR ENOUGH SPACE WITHIN THE OUTPUT ARRAY.
+C> @brief Add a tank receipt time to a BUFR message.
+
+C> This subroutine reads an input message and outputs an equivalent
+C> BUFR message with a tank receipt time added to Section 1.
 C>
-C> PROGRAM HISTORY LOG:
-C> 2009-03-23  J. ATOR    -- ORIGINAL AUTHOR
+C> <p>The tank receipt time to be added must have been specified via
+C> a previous call to subroutine strcpt().  This subroutine performs
+C> the same function as subroutine strcpt() when the latter is called
+C> with CF = 'Y', except that the latter subroutine operates on BUFR
+C> messages internally within the software, whereas this subroutine
+C> operates on a single BUFR message passed in via a memory array.
 C>
-C> USAGE:    CALL ATRCPT (MSGIN, LMSGOT, MSGOT)
-C>   INPUT ARGUMENT LIST:
-C>     MSGIN    - INTEGER: *-WORD ARRAY CONTAINING BUFR MESSAGE
-C>     LMSGOT   - INTEGER: DIMENSIONED SIZE (IN INTEGER WORDS) OF MSGOT;
-C>                USED BY THE SUBROUTINE TO ENSURE THAT IT DOES NOT
-C>                OVERFLOW THE MSGOT ARRAY
+C> @author J. Ator
+C> @date 2009-03-23
 C>
-C>   OUTPUT ARGUMENT LIST:
-C>     MSGOT    - INTEGER: *-WORD ARRAY CONTAINING INPUT BUFR MESSAGE
-C>                WITH TANK RECEIPT TIME APPENDED TO SECTION 1
+C> @param[in] MSGIN    - integer(*): BUFR message
+C> @param[in] LMSGOT   - integer: Dimensioned size (in integers) of
+C>                       MSGOT; used by the subroutine to ensure that
+C>                       it doesn't overflow the MSGOT array
+C> @param[out] MSGOT   - integer(*): Copy of MSGIN with a tank
+C>                       receipt time added to Section 1
 C>
-C> REMARKS:
-C>    MSGIN AND MSGOT MUST BE SEPARATE ARRAYS.
+C> @remarks
+C> - MSGIN and MSGOT must be separate arrays.
+C> - MSGOT will be longer in length than MSGIN, so the user must allow
+C> for extra space when allocating MSGOT within the application program.
 C>
-C>    THIS ROUTINE CALLS:        BORT     GETLENS  IUPBS01  MVB
-C>                               PKB
-C>    THIS ROUTINE IS CALLED BY: MSGWRT
-C>                               Also called by application programs.
+C> <b>Program history log:</b>
+C> - 2009-03-23  J. Ator    -- Original author
 C>
 	SUBROUTINE ATRCPT(MSGIN,LMSGOT,MSGOT)
-
-
 
 	DIMENSION MSGIN(*), MSGOT(*)
 

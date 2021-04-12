@@ -17,18 +17,19 @@ C>
 C> <p>Logical unit LUNIT should have already been opened for
 C> input operations via a previous call to subroutine openbf(), and a
 C> BUFR message should have already been read into internal arrays via
-C> a previous call to subroutine readmg(), readerme() or equivalent. 
+C> a previous call to one of the 
+C> [message-reading subroutines](@ref hierarchy).
 C>
 C> <p>Whenever this subroutine returns with IRET = 0, this indicates
 C> that a new BUFR data subset (i.e. report) was successfully read into
 C> internal arrays within the BUFRLIB software, and from where it can
-C> then be easily manipulated or further parsed via calls to subroutines
-C> ufbint(), ufbrep(), ufbseq(), etc.  Otherwise, if the subroutine
-C> returns with IRET = -1, then this indicates that there are no more
-C> data subsets available within the current message, and therefore that
-C> a new call needs to be made to subroutine readmg(), readerme() or
-C> equivalent in order to read in the next message from logical unit
-C> LUNIT.
+C> then be easily manipulated or further parsed via calls to any of the
+C> [values-reading subroutines](@ref hierarchy).
+C> Otherwise, if the subroutine returns with IRET = -1, then this
+C> indicates that there are no more data subsets available within the
+C> current message, and therefore that a new call needs to be made to
+C> one of the [message-reading subroutines](@ref hierarchy) in order
+C> to read in the next message from logical unit LUNIT.
 C>
 C> <b>Program history log:</b>
 C> - 1994-01-06  J. Woollen -- Original author

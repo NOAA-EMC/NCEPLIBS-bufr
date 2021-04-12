@@ -2,8 +2,9 @@ C> @file
 C> @brief Write a minutes value into Section 1 of a BUFR message.
 
 C> This subroutine writes a minutes value into Section 1 of the BUFR
-C> message most recently opened for writing via a call to subroutine
-C> openmg(), openmb() or equivalent.
+C> message that was most recently opened for writing via a call to
+C> one of the [message-writing subroutines](@ref hierarchy) for a
+C> specified Fortran logical unit.
 C>
 C> @author J. Woollen
 C> @date 1994-01-06

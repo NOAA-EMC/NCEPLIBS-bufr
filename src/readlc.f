@@ -6,7 +6,8 @@ C> This subroutine reads a long character string (greater than 8 bytes)
 C> from a data subset.
 C>
 C> <p>The data subset should have already been read into internal arrays
-C> via a previous call to subroutine readsb(), readns() or equivalent.
+C> via a previous call to one of the
+C> [subset-reading subroutines](@ref hierarchy).
 C>
 C> @authors J. Woollen
 C> @authors J. Ator
@@ -32,8 +33,8 @@ C> instead of 'LSTID#1'.
 C>
 C> @remarks
 C> - Character strings which are 8 bytes or less in length can be read
-C> using the real*8 USR array within a call to subroutine ufbint(),
-C> ufbrep(), ufbseq() or equivalent, and then converting the
+C> using the real*8 USR array within a call to one of the BUFRLIB
+C> [values-reading subroutines](@ref hierarchy) and then converting the
 C> corresponding real*8 value to character format within the
 C> application program.
 C> - If STR is not found within the data subset definition, then CHR is

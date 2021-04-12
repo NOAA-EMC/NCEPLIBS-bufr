@@ -1,39 +1,32 @@
 C> @file
-C> @author WOOLLEN @date 1994-01-06
-      
-C> THIS FUNCTION RETURNS THE NUMBER OF SUBSETS IN A BUFR
-C>   MESSAGE OPEN FOR INPUT VIA A PREVIOUS CALL TO BUFR ARCHIVE LIBRARY
-C>   SUBROUTINE READMG OR EQUIVALENT.  THE SUBSETS THEMSELVES DO NOT
-C>   HAVE TO BE READ.
+C> @brief Get the number of data subsets from a BUFR message.
+
+C> This function returns the total number of data subsets available
+C> within the BUFR message that was most recently opened for reading
+C> via a call to one of the other
+C> [message-reading subroutines](@ref hierarchy)
+C> for a specified Fortran logical unit.
 C>
-C> PROGRAM HISTORY LOG:
-C> 1994-01-06  J. WOOLLEN -- ORIGINAL AUTHOR
-C> 1998-07-08  J. WOOLLEN -- REPLACED CALL TO CRAY LIBRARY ROUTINE
-C>                           "ABORT" WITH CALL TO NEW INTERNAL BUFRLIB
-C>                           ROUTINE "BORT"
-C> 1999-11-18  J. WOOLLEN -- THE NUMBER OF BUFR FILES WHICH CAN BE
-C>                           OPENED AT ONE TIME INCREASED FROM 10 TO 32
-C>                           (NECESSARY IN ORDER TO PROCESS MULTIPLE
-C>                           BUFR FILES UNDER THE MPI)
-C> 2003-11-04  S. BENDER  -- ADDED REMARKS/BUFRLIB ROUTINE
-C>                           INTERDEPENDENCIES
-C> 2003-11-04  D. KEYSER  -- UNIFIED/PORTABLE FOR WRF; ADDED
-C>                           DOCUMENTATION (INCLUDING HISTORY); OUTPUTS
-C>                           MORE COMPLETE DIAGNOSTIC INFO WHEN ROUTINE
-C>                           TERMINATES ABNORMALLY
-C> 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
+C> <p>The data subsets themselves do not need to have already been
+C> read via previous calls to any of the
+C> [subset-reading subroutines](@ref hierarchy).
 C>
-C> USAGE:    NMSUB (LUNIT)
-C>   INPUT ARGUMENT LIST:
-C>     LUNIT    - INTEGER: FORTRAN LOGICAL UNIT NUMBER FOR BUFR FILE
+C> @author J. Woollen
+C> @date 1994-01-06
 C>
-C>   OUTPUT ARGUMENT LIST:
-C>     NMSUB    - INTEGER: NUMBER OF SUBSETS IN BUFR MESSAGE
+C> @param[in] LUNIT  - integer: Fortran logical unit number for
+C>                     BUFR file
+C> @returns nmsub    - integer: Number of data subsets
 C>
-C> REMARKS:
-C>    THIS ROUTINE CALLS:        BORT     STATUS
-C>    THIS ROUTINE IS CALLED BY: UFBMNS   UFBPOS   UFBTAB   UFBTAM
-C>                               Also called by application programs.
+C> <b>Program history log:</b>
+C> - 1994-01-06  J. Woollen -- Original author
+C> - 1998-07-08  J. Woollen -- Replaced call to Cray library routine ABORT
+C>                             with call to new internal routine bort()
+C> - 1999-11-18  J. Woollen -- The number of BUFR files which can be
+C>                             opened at one time increased from 10 to 32
+C>                             (necessary in order to process multiple
+C>                             BUFR files under the MPI)
+C> - 2014-12-10  J. Ator    -- Use modules instead of COMMON blocks
 C>
       FUNCTION NMSUB(LUNIT)
 

@@ -27,7 +27,7 @@ C> associated with LUNIT, typically as [DX BUFR tables](@ref dfbftab)
 C> information supplied via argument LUNDX when openbf() was called,
 C> or, if openbf() was called with IO = 'SEC3', then as
 C> [master BUFR table](@ref dfbfmstab) information during a previous
-C> call to subroutine readmg(), readerme() or equivalent.
+C> call to one of the [message-reading subroutines](@ref hierarchy).
 C> - Note that this function does not return mnemonic(s) associated
 C> with any long character string(s) found within SUBSET; rather,
 C> it only checks whether at least one such mnemonic exists.  If any

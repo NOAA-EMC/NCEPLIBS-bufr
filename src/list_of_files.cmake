@@ -1,6 +1,7 @@
 set(fortran_src
   ${CMAKE_CURRENT_BINARY_DIR}/bvers.f
   modv_BMISS.f90
+  modv_IFOPBF.f90
   modv_MAXCD.F
   modv_MAXJL.F
   modv_MAXMEM.F
@@ -39,7 +40,6 @@ set(fortran_src
   moda_dscach.F
   moda_h4wlc.F
   moda_idrdm.F
-  moda_ifopbf.F
   moda_ival.F
   moda_ivttmp.F
   moda_lushr.F

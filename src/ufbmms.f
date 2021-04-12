@@ -1,61 +1,44 @@
 C> @file
-C> @author WOOLLEN @date 1994-01-06
-      
-C> THIS SUBROUTINE READS A PARTICULAR SUBSET INTO INTERNAL
-C>   SUBSET ARRAYS FROM A PARTICULAR BUFR MESSAGE IN INTERNAL MEMORY
-C>   BASED ON THE SUBSET NUMBER IN THE MESSAGE AND THE MESSAGE NUMBER IN
-C>   INTERNAL MEMORY.  THIS SUBROUTINE IS ACTUALLY A COMBINATION OF
-C>   BUFR ARCHIVE LIBRARY SUBROUTINES RDMEMM AND RDMEMS.
+C> @brief Read a specified data subset from internal arrays.
+
+C> This subroutine provides a handy way to combine the functionality
+C> of subroutines rdmemm() and rdmems() within a single subroutine
+C> call.
 C>
-C> PROGRAM HISTORY LOG:
-C> 1994-01-06  J. WOOLLEN -- ORIGINAL AUTHOR
-C> 1998-07-08  J. WOOLLEN -- REPLACED CALL TO CRAY LIBRARY ROUTINE
-C>                           "ABORT" WITH CALL TO NEW INTERNAL BUFRLIB
-C>                           ROUTINE "BORT"
-C> 1999-11-18  J. WOOLLEN -- THE MAXIMUM NUMBER OF BYTES REQUIRED TO
-C>                           STORE ALL MESSAGES INTERNALLY WAS INCREASED
-C>                           FROM 4 MBYTES TO 8 MBYTES
-C> 2001-08-15  D. KEYSER  -- PARAMETER MAXMEM (THE MAXIMUM NUMBER OF
-C>                           BYTES REQUIRED TO STORE ALL MESSAGES
-C>                           INTERNALLY) WAS INCREASED FROM 8 MBYTES TO
-C>                           16 MBYTES
-C> 2003-11-04  S. BENDER  -- ADDED REMARKS/BUFRLIB ROUTINE
-C>                           INTERDEPENDENCIES
-C> 2003-11-04  D. KEYSER  -- PARAMETER MAXMSG (THE MAXIMUM NUMBER OF
-C>                           BUFR MESSAGES WHICH CAN BE STORED
-C>                           INTERNALLY) INCREASED FROM 50000 TO 200000;
-C>                           UNIFIED/PORTABLE FOR WRF; ADDED
-C>                           DOCUMENTATION (INCLUDING HISTORY); OUTPUTS
-C>                           MORE COMPLETE DIAGNOSTIC INFO WHEN ROUTINE
-C>                           TERMINATES ABNORMALLY
-C> 2004-11-15  D. KEYSER  -- PARAMETER MAXMEM (THE MAXIMUM NUMBER OF
-C>                           BYTES REQUIRED TO STORE ALL MESSAGES
-C>                           INTERNALLY) WAS INCREASED FROM 16 MBYTES TO
-C>                           50 MBYTES
-C> 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
+C> @author J. Woollen
+C> @date 1994-01-06
 C>
-C> USAGE:    CALL UFBMMS (IMSG, ISUB, SUBSET, JDATE)
-C>   INPUT ARGUMENT LIST:
-C>     IMSG     - INTEGER: POINTER TO BUFR MESSAGE NUMBER (RECORD) IN
-C>                STORAGE
-C>     ISUB     - INTEGER: POINTER TO SUBSET NUMBER TO READ IN BUFR
-C>                MESSAGE
+C> @param[in] IMSG    - integer: Number of BUFR message to be
+C>                      read into scope for further processing,
+C>                      counting from the beginning of the
+C>                      internal arrays in memory
+C> @param[in] ISUB    - integer: Number of data subset to be
+C>                      read from the (IMSG)th BUFR message,
+C>                      counting from the beginning of the message
+C> @param[out] SUBSET - character*8: Table A mnemonic for type of
+C>                      (IMSG)th BUFR message
+C>                      (see [DX BUFR Tables](@ref dfbftab) for
+C>                      further information about Table A mnemonics)
+C> @param[out] JDATE  - integer: Date-time stored within Section 1 of
+C>                      (IMSG)th BUFR message, in format of either
+C>                      YYMMDDHH or YYYYMMDDHH, depending on the most
+C>                      recent call to subroutine datelen()
 C>
-C>   OUTPUT ARGUMENT LIST:
-C>     SUBSET   - CHARACTER*8: TABLE A MNEMONIC FOR BUFR MESSAGE
-C>                CONTAINING SUBSET
-C>     JDATE    - INTEGER: DATE-TIME FROM SECTION 1 OF BUFR MESSAGE
-C>                CONTAINING SUBSET, IN FORMAT OF EITHER YYMMDDHH OR
-C>                YYYYMMDDHH, DEPENDING ON DATELEN() VALUE
+C> <p>Whenever this subroutine returns successfully, the requested data
+C> subset can now be easily manipulated or further parsed via calls to
+C> any of the [values-reading subroutines](@ref hierarchy) using the
+C> Fortran logical unit number IUNIT that was returned from the most
+C> recent call to subroutine ufbmem().
 C>
-C> REMARKS:
-C>    NOTE THAT UFBMEM IS CALLED PRIOR TO THIS TO STORE THE BUFR
-C>    MESSAGES INTO INTERNAL MEMORY.
-C>
-C>    THIS ROUTINE CALLS:        BORT     RDMEMM   RDMEMS   STATUS
-C>    THIS ROUTINE IS CALLED BY: None
-C>                               Normally called only by application
-C>                               programs.
+C> <b>Program history log:</b>
+C> - 1994-01-06  J. Woollen -- Original author
+C> - 1998-07-08  J. Woollen -- Replaced call to Cray library routine
+C>                           "ABORT" with call to new internal BUFRLIB
+C>                           routine "BORT"
+C> - 1999-11-18  J. Woollen -- Increased MAXMEM from 4 Mb to 8 Mb
+C> - 2001-08-15  D. Keyser  -- Increased MAXMEM from 8 Mb to 16 Mb
+C> - 2004-11-15  D. Keyser  -- Increased MAXMEM from 16 Mb to 50 Mb
+C> - 2014-12-10  J. Ator    -- Use modules instead of COMMON blocks
 C>
       SUBROUTINE UFBMMS(IMSG,ISUB,SUBSET,JDATE)
 

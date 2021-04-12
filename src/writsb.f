@@ -16,10 +16,11 @@ C> current message for the BUFR file associated with logical unit LUNIT.
 C> Logical unit LUNIT should have already been opened for output
 C> operations via a previous call to subroutine openbf(), and
 C> a BUFR message should already be open for output within internal
-C> arrays via a previous call to subroutine openmg() or openmb().
+C> arrays via a previous call to one of the BUFRLIB
+C> [message-writing subroutines](@ref hierarchy).
 C> Furthermore, all of the values for the data subset should have
-C> already been written into internal arrays via calls to subroutines
-C> ufbint(), ufbrep(), ufbseq(), etc.
+C> already been written into internal arrays via calls to any of the
+C> BUFRLIB [values-writing subroutines](@ref hierarchy)
 C>
 C> @remarks
 C> - There is a maximum size for any BUFR message that can be written
@@ -34,9 +35,9 @@ C> unit LUNIT.  If adding the data subset to the current message would
 C> cause the maximum message size to be exceeded, then the subroutine will
 C> automatically flush the current message to logical unit LUNIT, then
 C> open and initialize a new internal message using the same SUBSET and
-C> JDATE values that were specified in the most recent call to
-C> openmg() or openmb() for LUNIT, then encode and pack the data
-C> subset into that new message.
+C> JDATE values that were specified in the most recent call to one of
+C> the [message-writing subroutines](@ref hierarchy) for LUNIT, then
+C> encode and pack the data subset into that new message.
 C>
 C> <b>Program history log:</b>
 C> - 1994-01-06  J. Woollen -- Original author

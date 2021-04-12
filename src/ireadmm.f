@@ -1,42 +1,44 @@
 C> @file
-C> @author WOOLLEN @date 1999-11-18
-      
-C> THIS FUNCTION CALLS BUFR ARCHIVE LIBRARY SUBROUTINE READMM
-C>   AND PASSES BACK ITS RETURN CODE.  SEE READMM FOR MORE DETAILS.
+C> @brief Read a specified BUFR message from internal arrays.
+
+C> This function calls BUFRLIB subroutine readmm() and passes
+C> back its return code as the function value.
 C>
-C> PROGRAM HISTORY LOG:
-C> 1999-11-18  J. WOOLLEN -- ORIGINAL AUTHOR (ENTRY POINT IN IREADMG)
-C> 2002-05-14  J. WOOLLEN -- CHANGED FROM AN ENTRY POINT TO INCREASE
-C>                           PORTABILITY TO OTHER PLATFORMS
-C> 2003-11-04  S. BENDER  -- ADDED REMARKS/BUFRLIB ROUTINE
-C>                           INTERDEPENDENCIES
-C> 2003-11-04  D. KEYSER  -- UNIFIED/PORTABLE FOR WRF; ADDED
-C>                           DOCUMENTATION (INCLUDING HISTORY)
+C> @author J. Woollen
+C> @date 1999-11-18
 C>
-C> USAGE:    IREADMM (IMSG, SUBSET, IDATE)
-C>   INPUT ARGUMENT LIST:
-C>     IMSG     - INTEGER: POINTER TO BUFR MESSAGE NUMBER (RECORD) IN
-C>                STORAGE 
+C> @param[in,out] IMSG - integer: Message pointer within internal arrays
+C>                       - On input, IMSG is the number of the BUFR
+C>                         message to be read into scope for further
+C>                         processing, counting from the beginning of
+C>                         the internal arrays in memory
+C>                       - On output, IMSG is incremented by one from
+C>                         its input value
+C> @param[out] SUBSET  - character*8: Table A mnemonic for type of BUFR
+C>                       message that was read into scope
+C>                       (see [DX BUFR Tables](@ref dfbftab) for
+C>                       further information about Table A mnemonics)
+C> @param[out] IDATE   - integer: Date-time stored within Section 1 of
+C>                       BUFR message that was read into scope,
+C>                       in format of either YYMMDDHH or YYYYMMDDHH,
+C>                       depending on the most
+C>                       recent call to subroutine datelen()
+C> @returns ireadmm    - integer:
+C>                          - 0 = new BUFR message was successfully
+C>                                read into scope
+C>                          - -1 = requested message number could not
+C>                                 be found in internal arrays
 C>
-C>   OUTPUT ARGUMENT LIST:
-C>     SUBSET   - CHARACTER*8: TABLE A MNEMONIC FOR TYPE OF BUFR MESSAGE
-C>                BEING READ
-C>     IDATE    - INTEGER: DATE-TIME STORED WITHIN SECTION 1 OF BUFR
-C>                MESSAGE BEING READ, IN FORMAT OF EITHER YYMMDDHH OR
-C>                YYYYMMDDHH, DEPENDING ON DATELEN() VALUE
-C>     IREADMM  - INTEGER: RETURN CODE:
-C>                       0 = normal return
-C>                      -1 = IMSG is either 0 or greater than the
-C>                           number of messages in memory
+C> @remarks
+C> - The use of this function allows the return code from readmm() to be
+C> used as the target variable within an iterative program loop.
 C>
-C> REMARKS:
-C>    THIS ROUTINE CALLS:        READMM
-C>    THIS ROUTINE IS CALLED BY: UFBMNS
-C>                               Also called by application programs.
+C> <b>Program history log:</b>
+C> - 1999-11-18  J. Woollen -- Original author
+C> - 2002-05-14  J. Woollen -- Changed from an entry point to increase
+C>                             portability to other platforms
 C>
       FUNCTION IREADMM(IMSG,SUBSET,IDATE)
-
-
 
       CHARACTER*8 SUBSET
 

@@ -43,8 +43,9 @@ C>
 C> <p>The current placeholder value for "missing" data can be determined
 C> via a separate call to function getbmiss().
 C>
-C> <p>Before calling this function, a BUFR subset should already be open
-C> for reading via a previous call to subroutine readsb() or readns().
+C> <p>Before calling this function, a BUFR data subset should already be
+C> open for reading via a previous call to one of the BUFRLIB
+C> [subset-reading subroutines](@ref hierarchy).
 C>
 C> <b>Program history log:</b>
 C> - 2012-09-12  J. Ator    -- Original author

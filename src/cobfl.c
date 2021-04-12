@@ -39,19 +39,22 @@
  *    the subroutine will automatically close the previous file of
  *    that type before opening the new one.
  *  - When opening a file for input/reading using openbf(), the
- *    user can make subsequent calls to readmg() or readns() to read
+ *    user can make subsequent calls to any of the BUFRLIB
+ *    [message-reading subroutines](@ref hierarchy) to read
  *    individual BUFR messages from that file into internal arrays,
- *    followed by subsequent calls to readsb() to read individual
- *    subsets from each such message.  However, when opening a
- *    file for input/reading using
+ *    followed by subsequent calls to any of the BUFRLIB
+ *    [subset-reading subroutines](@ref hierarchy)) to read
+ *    individual data subsets from each such message.  However, when
+ *    opening a file for input/reading using
  *    this subroutine, the user must instead make subsequent calls
  *    to crbmg() to read individual BUFR messages from that file, and
  *    each such message will be returned directly to the user within
  *    an allocated memory array.  The user may then, if desired,
  *    make subsequent calls to readerme() to store each such
  *    message into the same internal arrays, followed by subsequent
- *    calls to readsb() to read individual subsets from each such
- *    message.
+ *    calls to any of the BUFRLIB
+ *    [subset-reading subroutines](@ref hierarchy) to read
+ *    individual data subsets from each such message.
  *  - When opening a file for output/writing using openbf(), the
  *    user can make subsequent successive calls to writsb() to
  *    pack each completed data subset into the BUFR message that

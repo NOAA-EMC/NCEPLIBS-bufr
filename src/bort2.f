@@ -1,36 +1,23 @@
 C> @file
-C> @author KEYSER @date 2003-11-04
-      
-C> THIS SUBROUTINE WRITES (VIA BUFR ARCHIVE LIBRARY SUBROUTINE
-C>   ERRWRT) TWO GIVEN ERROR STRINGS AND THEN CALLS BUFR ARCHIVE LIBRARY
-C>   SUBROUTINE BORT_EXIT TO ABORT THE APPLICATION PROGRAM CALLING THE
-C>   BUFR ARCHIVE LIBRARY SOFTWARE. IT IS SIMILAR TO BUFR ARCHIVE LIBRARY
-C>   SUBROUTINE BORT, EXCEPT BORT PRINTS ONLY ONE ERROR STRING.
+C> @brief Log two error messages and abort application program.
+
+C> This subroutine calls subroutine errwrt() to log two error messages,
+C> then calls subroutine bort_exit() to abort the application program.
 C>
-C> PROGRAM HISTORY LOG:
-C> 2003-11-04  D. KEYSER  -- ORIGINAL AUTHOR
-C> 2009-04-21  J. ATOR    -- USE ERRWRT
+C> <p>It is similar to subroutine bort(), except that bort() logs
+C> one error message instead of two.
 C>
-C> USAGE:    CALL BORT2 (STR1, STR2)
-C>   INPUT ARGUMENT LIST:
-C>     STR1     - CHARACTER*(*): FIRST ERROR MESSAGE TO BE WRITTEN VIA
-C>                SUBROUTINE ERRWRT
-C>     STR2     - CHARACTER*(*): SECOND ERROR MESSAGE TO BE WRITTEN VIA
-C>                SUBROUTINE ERRWRT
+C> @author D. Keyser
+C> @date 2003-11-04
 C>
-C> REMARKS:
-C>    THIS ROUTINE CALLS:        BORT_EXIT ERRWRT
-C>    THIS ROUTINE IS CALLED BY: ELEMDX   GETNTBE  IREADMT  MTFNAM
-C>                               MTINFO   PARSTR   PARUSR   PARUTG
-C>                               RDUSDX   SEQSDX   SNTBBE   SNTBDE
-C>                               SNTBFE   STRING   UFBINT   UFBOVR
-C>                               UFBREP   UFBSTP   VALX
-C>                               Normally not called by any application
-C>                               programs but it could be.
+C> @param[in] STR1   - character*(*): First error message
+C> @param[in] STR2   - character*(*): Second error message
+C>
+C> <b>Program history log:</b>
+C> - 2003-11-04  D. Keyser  -- Original author
+C> - 2009-04-21  J. Ator    -- Use errwrt()
 C>
       SUBROUTINE BORT2(STR1,STR2)
-
-
 
       CHARACTER*(*) STR1, STR2
 

@@ -23,10 +23,10 @@ C> for more information about master BUFR tables.  In particular, note
 C> that this subroutine is normally only ever called after a prior call
 C> has been made to subroutine openbf() with IO = 'SEC3'.  But in such
 C> cases, any call to this subroutine must be made prior to any
-C> subsequent calls to any of the BUFR message-reading subroutines
-C> (e.g. readmg(), readns(), readerme() ) for the associated BUFR file;
-C> otherwise, default values for CMTDIR, LUNMT1 and LUNMT2 will be used
-C> as defined within subroutine bfrini().  
+C> subsequent calls to any of the BUFR
+C> [message-reading subroutines](@ref hierarchy) for the associated BUFR
+C> file; otherwise, default values for CMTDIR, LUNMT1 and LUNMT2 will be
+C> used as defined within subroutine bfrini().  
 C>
 C> <p>For CMTDIR, any full or relative directory pathname that is legal
 C> on the local filesystem is permissible, up to a total maximum length

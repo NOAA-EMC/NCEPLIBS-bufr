@@ -1,87 +1,62 @@
 C> @file
-C> @author WOOLLEN @date 1994-01-06
-      
-C> THIS SUBROUTINE CHECKS WHETHER LOGICAL UNIT NUMBER LUNIT
-C>   (AND ITS ASSOCIATED BUFR FILE) IS CURRENTLY CONNECTED TO THE
-C>   BUFR ARCHIVE LIBRARY SOFTWARE.  IF SO, IT RETURNS THE I/O STREAM
-C>   INDEX (LUN) ASSOCIATED WITH THE LOGICAL UNIT NUMBER, THE LOGICAL
-C>   UNIT STATUS INDICATOR (IL), AND THE BUFR MESSAGE STATUS INDICATOR
-C>   (IM) FOR THAT I/O STREAM INDEX.  OTHERWISE, IT CHECKS WHETHER THERE
-C>   IS SPACE FOR A NEW I/O STREAM INDEX AND, IF SO, RETURNS THE NEXT
-C>   AVAILABLE I/O STREAM INDEX IN LUN IN ORDER TO DEFINE LUNIT (IL AND
-C>   IM ARE RETURNED AS ZERO, THEY ARE LATER DEFINED VIA CALLS TO BUFR
-C>   ARCHIVE LIBRARY SUBROUTINE WTSTAT IN THIS CASE).  IF THERE IS NO
-C>   SPACE FOR A NEW I/O STREAM INDEX, LUN IS RETURNED AS ZERO (AS WELL
-C>   AS IL AND IM) MEANING LUNIT COULD NOT BE CONNECTED TO THE BUFR
-C>   ARCHIVE LIBRARY SOFTWARE.  LUN IS USED TO IDENTIFY UP TO "NFILES"
-C>   UNIQUE BUFR FILES IN THE VARIOUS INTERNAL ARRAYS.
+C> @brief Check whether a system file is connected to the BUFRLIB
+C> software.
+
+C> This subroutine checks whether a specified Fortran logical unit
+C> number is currently connected to the BUFRLIB software.
 C>
-C> PROGRAM HISTORY LOG:
-C> 1994-01-06  J. WOOLLEN -- ORIGINAL AUTHOR
-C> 1996-12-11  J. WOOLLEN -- FIXED A LONG STANDING BUG WHICH OCCURS IN
-C>                           UNUSUAL SITUATIONS, VERY LOW IMPACT
-C> 1998-07-08  J. WOOLLEN -- REPLACED CALL TO CRAY LIBRARY ROUTINE
-C>                           "ABORT" WITH CALL TO NEW INTERNAL BUFRLIB
-C>                           ROUTINE "BORT"
-C> 1999-11-18  J. WOOLLEN -- THE NUMBER OF BUFR FILES WHICH CAN BE
-C>                           OPENED AT ONE TIME INCREASED FROM 10 TO 32
-C>                           (NECESSARY IN ORDER TO PROCESS MULTIPLE
-C>                           BUFR FILES UNDER THE MPI)
-C> 2003-11-04  J. ATOR    -- ADDED DOCUMENTATION
-C> 2003-11-04  S. BENDER  -- ADDED REMARKS/BUFRLIB ROUTINE
-C>                           INTERDEPENDENCIES
-C> 2003-11-04  D. KEYSER  -- UNIFIED/PORTABLE FOR WRF; ADDED HISTORY
-C>                           DOCUMENTATION; OUTPUTS MORE COMPLETE
-C>                           DIAGNOSTIC INFO WHEN ROUTINE TERMINATES
-C>                           ABNORMALLY
-C> 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
+C> <p>If the unit number is already connected, then the subroutine
+C> returns information about the associated file.  Otherwise, it
+C> returns the next available internal I/O stream index that could
+C> be used to connect the associated file to the software via a
+C> subsequent call to subroutine wtstat().
 C>
-C> USAGE:    CALL STATUS ( LUNIT, LUN, IL, IM )
-C>   INPUT ARGUMENT LIST:
-C>     LUNIT    - INTEGER: FORTRAN LOGICAL UNIT NUMBER FOR BUFR FILE
+C> @author J. Woollen
+C> @date 1994-01-06
+C>       
+C> @param[in]  LUNIT    - integer: Fortran logical unit number for
+C>                        BUFR file
+C> @param[out]  LUN     - integer: Internal I/O stream index associated
+C>                        with LUNIT
+C>                        - 0 = LUNIT is not already connected to the
+C>                              software, <b>and</b> there is no
+C>                              remaining internal space available
+C>                              that could be used to connect it
+C> @param[out]  IL      - integer: File status
+C>                        - 0 = LUNIT is not already connected to the
+C>                              software, but LUN contains a new
+C>                              internal I/O stream index that could
+C>                              be used to connect it via a subsequent
+C>                              call to subroutine wtstat()
+C>                        - 1 = LUNIT is already connected to the
+C>                              software for output operations
+C>                              (i.e. writing/encoding BUFR)
+C>                        - -1 = LUNIT is already connected to the
+C>                               software for input operations
+C>                               (i.e. reading/decoding BUFR)
+C> @param[out]  IM      - integer: Message status, indicating whether
+C>                        there is already a message open within
+C>                        internal arrays for LUNIT
+C>                        - 0 = No
+C>                        - 1 = Yes
 C>
-C>   OUTPUT ARGUMENT LIST:
-C>     LUN      - INTEGER: I/O STREAM INDEX ASSOCIATED WITH LOGICAL UNIT
-C>                LUNIT
-C>                       0 = LUNIT is not currently connected to the
-C>                           BUFR Archive Library software and there is
-C>                           no space for a new I/O stream index
-C>     IL       - INTEGER: LOGICAL UNIT STATUS INDICATOR:
-C>                       0 = LUNIT is not currently connected to the
-C>                           BUFR Archive Library software or it was
-C>                           just connected in this call to STATUS
-C>                       1 = LUNIT is connected to the BUFR Archive
-C>                           Library software as an output file
-C>                      -1 = LUNIT is connected to the BUFR Archive
-C>                           Library software as an input file
-C>     IM       - INTEGER: INDICATOR AS TO WHETHER THERE IS A BUFR
-C>                MESSAGE CURRENTLY OPEN WITHIN MEMORY FOR THIS LUNIT:
-C>                       0 = no or LUNIT was just connected to the
-C>                           BUFR Archive Library software in this call
-C>                           to STATUS
-C>                       1 = yes
-C>
-C> REMARKS:
-C>    THIS ROUTINE CALLS:        BORT
-C>    THIS ROUTINE IS CALLED BY: CLOSBF   CLOSMG   COPYBF   COPYMG
-C>                               COPYSB   CPYMEM   DATEBF   DRFINI
-C>                               DUMPBF   DXDUMP   GETABDB  GETTAGPR
-C>                               GETTAGRE GETVALNB IFBGET   IGETSC
-C>                               INVMRG   IUPVS01  LCMGDF   MESGBC
-C>                               MINIMG   MSGWRT   NEMDEFS  NEMSPECS
-C>                               NMSUB    OPENBF   OPENMB   OPENMG
-C>                               POSAPX   RDMEMM   RDMEMS   RDMGSB
-C>                               READDX   READERME READLC   READMG
-C>                               READNS   READSB   REWNBF   RTRCPT
-C>                               SETVALNB STNDRD   UFBCNT   UFBCPY
-C>                               UFBCUP   UFBDMP   UFBEVN   UFBGET
-C>                               UFBIN3   UFBINT   UFBINX   UFBMMS
-C>                               UFBOVR   UFBPOS   UFBQCD   UFBQCP
-C>                               UFBREP   UFBRMS   UFBSEQ   UFBSTP
-C>                               UFBTAB   UFBTAM   UFDUMP   UPFTBV
-C>                               WRCMPS   WRDXTB   WRITLC   WRITSA
-C>                               WRITSB   GETCFMNG
-C>                               Also called by application programs.
+C> <b>Program history log:</b>
+C> - 1994-01-06  J. Woollen -- Original author
+C> - 1996-12-11  J. Woollen -- Fixed a long standing bug which occurs in
+C>                             unusual situations, very low impact
+C> - 1998-07-08  J. Woollen -- Replaced call to Cray library routine ABORT
+C>                             with call to new internal routine bort()
+C> - 1999-11-18  J. Woollen -- The number of BUFR files which can be
+C>                             opened at one time increased from 10 to 32
+C>                             (necessary in order to process multiple
+C>                             BUFR files under the MPI)
+C> - 2003-11-04  J. Ator    -- Added documentation
+C> - 2003-11-04  S. Bender  -- Added remarks and routine interdependencies
+C> - 2003-11-04  D. Keyser  -- Unified/portable for WRF; added history
+C>                             documentation; outputs more complete
+C>                             diagnostic info when routine terminates
+C>                             abnormally
+C> - 2014-12-10  J. Ator    -- Use modules instead of COMMON blocks
 C>
       SUBROUTINE STATUS(LUNIT,LUN,IL,IM)
 
