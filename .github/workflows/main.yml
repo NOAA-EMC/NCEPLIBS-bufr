@@ -30,8 +30,8 @@ jobs:
           sudo python3 -m pip install -U netCDF4
           sudo python3 -m pip install -U pdoc
         elif [[ ${{ matrix.os }} == "macos-10.15" ]]; then
+          brew update
           brew install doxygen
-          brew install python3
           pip3 install setuptools
           pip3 install numpy
           pip3 install netCDF4
