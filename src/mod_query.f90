@@ -1,8 +1,14 @@
 module mod_query
   use moda_tables
   use moda_msgcwd
+  use moda_usrint
 
   implicit none
+
+  character(len=3), parameter :: Subset = 'SUB'
+  character(len=3), parameter :: DelayedRep = 'DRP'
+  character(len=3), parameter :: Sequence = 'SEQ'
+  character(len=3), parameter :: FixedRep = 'REP'
 
   private
   public::query
@@ -11,19 +17,24 @@ contains
   subroutine query(lunit, query_str, data_ptr)
     integer, intent(in) :: lunit
     character(len=*), intent(in) :: query_str
-    real, pointer, intent(out) :: data_ptr
+    real(kind=8), pointer, intent(out) :: data_ptr(:)
 
-    integer :: lun
-    integer :: il, im
-    integer :: query_node_idx
+    integer :: lun, il, im
+
     character(len=8), allocatable :: mnemonics(:)
+    integer, allocatable :: table_path(:)
+    real(kind=8), target, allocatable :: data(:)
 
     call status(lunit, lun, il, im)
-
     call split_query_str(query_str, mnemonics)
-    query_node_idx = find_indicies(lun, inode(lun) + 1, mnemonics, 1)
+    allocate(table_path(size(mnemonics)))
+    call find_table_indices(lun, inode(lun) + 1, mnemonics, 1, table_path)
+    call collect_data(lun, table_path, data)
+
+    data_ptr => data
 
     deallocate(mnemonics)
+    deallocate(table_path)
 
   end subroutine query
 
@@ -64,37 +75,33 @@ contains
   end subroutine split_query_str
 
 
-  recursive function find_indicies(lun, current_node_idx, mnemonics, mnemonic_idx) result(result_idx)
+  recursive subroutine find_table_indices(lun, current_node_idx, mnemonics, mnemonic_idx, indices)
     integer, intent(in) :: lun
     integer, intent(in) :: current_node_idx
     character(len=8), intent(in) :: mnemonics(:)
     integer, intent(in) :: mnemonic_idx
+    integer, intent(inout) :: indices(*)
 
-    integer :: result_idx
     integer :: find_result
     integer :: node_idx
 
-    result_idx = -1
     node_idx = current_node_idx
     do while(node_idx > 0 .and. mnemonic_idx <= size(mnemonics))
       if (tag(node_idx) == mnemonics(mnemonic_idx)) then
         if (has_children(lun, node_idx)) then
-          print *, '> ', tag(node_idx)
-          result_idx = find_indicies(lun, node_idx + 1, mnemonics, mnemonic_idx + 1)
-          goto 10
+          indices(mnemonic_idx) = jmpb(node_idx)
+          call find_table_indices(lun, node_idx + 1, mnemonics, mnemonic_idx + 1, indices)
         else
-          print *, '** ', tag(node_idx)
-          result_idx = node_idx
-          goto 10
+          indices(mnemonic_idx) = node_idx
         end if
+        goto 10  ! break loop
       else
-        print *, tag(node_idx)
         node_idx = next_node(node_idx) ! move to next node
       end if
     end do
 
-    10 continue !break
-  end function
+    10 continue
+  end subroutine
 
 
   integer function next_node(node_idx)
@@ -102,9 +109,77 @@ contains
 
     next_node = link(node_idx)
 
-    if (typ(next_node) == 'DRP') then  ! if its a delayed replication cnt node
+    if (typ(next_node) == 'DRP' .or. typ(next_node) == 'REP') then  ! if its a delayed replication cnt node
       next_node = next_node + 1  ! skip delayed rep count node
     end if
+  end function
+
+
+  subroutine collect_data(lun, table_path, data)
+    integer, intent(in) :: lun
+    integer, intent(in) :: table_path(:)
+    real(kind=8), intent(out), allocatable :: data(:)
+
+    integer :: table_cursor, idx
+    integer :: path_cursor, data_cursor, collected_data_cursor
+
+    allocate(data(rep_count(lun, table_path)))
+
+    path_cursor = 0
+    collected_data_cursor = 0
+    do data_cursor = 1, nval(lun)
+      ! Found the target element, record it
+      if (path_cursor == size(table_path) - 1 .and. &
+        table_path(path_cursor + 1) == inv(data_cursor, lun)) then
+
+        collected_data_cursor = collected_data_cursor + 1
+        data(collected_data_cursor) = val(data_cursor, lun)
+
+      ! Found a path sequence, go down the tree
+      else if (path_cursor < size(table_path) .and. &
+        table_path(path_cursor + 1) == inv(data_cursor, lun)) then
+
+        path_cursor = path_cursor + 1
+
+      ! Found the end of the sequence, go up the tree
+      else if (link(table_path(path_cursor)) == inv(data_cursor, lun)) then
+
+        path_cursor = path_cursor - 1
+      end if
+    end do
+  end subroutine
+
+
+  function rep_count(lun, table_path) result(count)
+    integer, intent(in) :: lun
+    integer, intent(in) :: table_path(:)
+
+    integer(kind = 8) :: count
+    integer :: path_cursor, data_cursor
+
+    count= 0
+    path_cursor = 0
+    do data_cursor = 1, nval(lun)
+
+      ! Found the target element, count it
+      if (path_cursor == size(table_path) - 1 .and. &
+        table_path(path_cursor + 1) == inv(data_cursor, lun)) then
+
+        count = count + 1
+
+      ! Found a path sequence, go down the tree
+      else if (path_cursor < size(table_path) .and. &
+          table_path(path_cursor + 1) == inv(data_cursor, lun)) then
+
+        path_cursor = path_cursor + 1
+
+      ! Found the end of the sequence, go up the tree
+      else if (link(table_path(path_cursor)) == inv(data_cursor, lun)) then
+
+        path_cursor = path_cursor - 1
+
+      end if
+    end do
   end function
 
 
@@ -117,25 +192,5 @@ contains
       has_children = .true.
     end if
   end function has_children
-
-
-!  function get_parent(node_idx) result(parent_idx)
-!    integer(kind=8), intent(in) :: node_idx
-!    integer(kind=8) :: parent_idx
-!
-!  end function get_parent
-
-
-
-  subroutine count_repeats(seq_mnemonics)
-    character(len=8), intent(in) :: seq_mnemonics(*)
-  end subroutine count_repeats
-
-
-  recursive subroutine count_repeats_of_seq(seq_mnemonic)
-    character(len=8), intent(in) :: seq_mnemonic
-
-    !    JMPB(NODE)
-  end subroutine count_repeats_of_seq
 
 end module mod_query
