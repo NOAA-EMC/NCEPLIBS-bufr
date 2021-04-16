@@ -16,8 +16,8 @@ program bufr_test
 
   do while (ireadmg(lunit, subset, idate) == 0)
     do while (ireadsb(lunit) == 0)
-      call query(lunit, "/CLONH", data_ptr)
-!      call query(lunit, "/ROSEQ1/ROSEQ2/BNDA", data_ptr)
+!      call query(lunit, "/CLONH", data_ptr)
+      call query(lunit, "/ROSEQ1/ROSEQ2/BNDA[2]", data_ptr)
       print *, data_ptr
     end do
   end do

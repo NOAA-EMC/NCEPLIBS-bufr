@@ -39,25 +39,30 @@ contains
   end subroutine query
 
 
-  subroutine split_query_str(query_str, mnemonics)
-    character, parameter :: Delimiter = "/"
+  subroutine split_query_str(query_str, mnemonics, index)
+    character, parameter :: PathDelimiter = "/"
+    character(len=2), parameter :: SubscriptDelimiters = "[]"
 
     character(len=*), intent(in) :: query_str
     character(len=10), allocatable, intent(out) :: mnemonics(:)
+    integer, intent(out) :: index
 
     integer(kind=8), allocatable :: slash_positions(:)
     integer(kind=8) :: slash_idx, char_idx
     integer(kind=8) :: num_seqs
     integer(kind=8) :: mnemonic_start_pos, mnemonic_end_pos
+    character(len=:), allocatable :: last_element
+    integer :: start_subscript, end_subscript
 
-    allocate(slash_positions(count(transfer(query_str, "a", len(query_str)) == Delimiter)))
+    allocate(slash_positions(count(transfer(query_str, "a", len(query_str)) == PathDelimiter)))
+    index = 0
 
     ! Find the index of the delimiters.
     ! NOTE: Intel version of findloc has a bug, so avoid it
     slash_idx = 1
     do char_idx = 1, len(query_str)
       !ignore optional leading slash
-      if (query_str(char_idx:char_idx) == Delimiter) then
+      if (query_str(char_idx:char_idx) == PathDelimiter) then
         slash_positions(slash_idx) = char_idx
         slash_idx = slash_idx + 1
       end if
@@ -69,8 +74,27 @@ contains
       mnemonics(slash_idx) = trim(query_str(slash_positions(slash_idx) + 1 : slash_positions(slash_idx + 1) - 1))
     end do
 
-    ! Capture the data mnemonic
-    mnemonics(size(slash_positions)) = trim(query_str(slash_positions(size(slash_positions)) + 1 : len(query_str)))
+    ! Parse last element
+    last_element = query_str(slash_positions(size(slash_positions)) + 1 : len(query_str))
+
+    if (count(transfer(query_str, "a", len(query_str)) == SubscriptDelimiters(1:1)) > 0) then
+      if (count(transfer(query_str, "a", len(query_str)) == SubscriptDelimiters(2:2)) /= 1) then
+        error stop 'Missing closing paranthesis.'
+      end if
+
+      start_subscript = index_of_char(last_element, SubscriptDelimiters(1:1))
+      end_subscript = index_of_char(last_element, SubscriptDelimiters(2:2))
+
+      read(last_element(start_subscript + 1:end_subscript - 1), *) index
+
+      mnemonics(size(slash_positions)) = last_element(1:start_subscript - 1)
+    else
+      if (count(transfer(query_str, "a", len(query_str)) == SubscriptDelimiters(2:2)) /= 1) then
+        error stop 'Found unexpected parenthesis.'
+      end if
+
+      mnemonics(size(slash_positions)) = last_element
+    end if
 
   end subroutine split_query_str
 
@@ -82,12 +106,13 @@ contains
 
     integer :: current_sequence
     integer :: node_idx
+    integer :: index
     integer :: table_cursor, mnemonic_cursor
     character(len=10), allocatable :: mnemonics(:)
 
     integer, allocatable :: branches(:)
 
-    call split_query_str(query_str, mnemonics)
+    call split_query_str(query_str, mnemonics, index)
 
     allocate(branches(size(mnemonics) - 1))
     allocate(target_nodes(0))
@@ -130,6 +155,14 @@ contains
     end do
 
     deallocate(mnemonics)
+
+    if (index > 0 .and. index <= size(target_nodes)) then
+      if (index > size(target_nodes)) then
+        error stop 'Invalid index in query str ' // query_str // '.'
+      end if
+
+      target_nodes = [target_nodes(index)]
+    end if
 
     if (size(target_nodes) == 0) then
       error stop 'Could not find the target node for ' // query_str // '.'
@@ -179,5 +212,22 @@ contains
 
     dims(2) = size(target_nodes)
   end function
+
+
+  function index_of_char(char_str, char) result(char_idx)
+    character(len=*), intent(in) :: char_str
+    character, intent(in) :: char
+
+    integer :: char_idx
+    integer :: idx
+
+    do idx = 1, len(char_str)
+      if (char_str(idx:idx) == char) then
+        char_idx = idx
+        exit
+      end if
+    end do
+
+  end function index_of_char
 
 end module mod_query
