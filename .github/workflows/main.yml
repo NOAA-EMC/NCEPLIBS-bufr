@@ -66,11 +66,7 @@ jobs:
         cd bufr
         mkdir build
         cd build
-        if [[ ${{ matrix.os }} == "ubuntu-20.04" ]]; then
-           cmake -DCMAKE_INSTALL_PREFIX=./install -DENABLE_PYTHON=ON -DCMAKE_Fortran_FLAGS="-g -fprofile-arcs -ftest-coverage -fprofile-abs-path -O0" ..
-        else
-           cmake -DCMAKE_INSTALL_PREFIX=./install -DENABLE_PYTHON=ON ..
-        fi
+        cmake -DCMAKE_INSTALL_PREFIX=./install -DENABLE_PYTHON=ON ..
         make -j2
         make install
 
@@ -78,13 +74,3 @@ jobs:
       run: |
         cd $GITHUB_WORKSPACE/bufr/build
         ctest
-        if [[ ${{ matrix.os }} == "ubuntu-20.04" ]]; then
-           gcovr -r .. --html-details -o test-coverage.html
-        fi
-
-    - uses: actions/upload-artifact@v2
-      if: ${{ matrix.os == 'ubuntu-20.04' }}
-      with:
-        name: test-coverage
-        path: NCEPLIBS-bufr/build/*.html
-      
