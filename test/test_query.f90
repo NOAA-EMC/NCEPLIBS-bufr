@@ -7,7 +7,7 @@ program bufr_test
 
   character(8) :: subset
   integer(kind=8) :: idate
-  real(kind=8), pointer :: data_ptr(:)
+  real(kind=8), pointer :: data_ptr(:, :)
 
     open(lunit, file="/home/rmclaren/Work/ioda-bundle/ioda_converters/test/testinput/gnssro_kompsat5_20180415_00Z.bufr")
     !    open(lunit, file="/home/rmclaren/Work/ioda-bundle/ioda_converters/test/testinput/gdas.t00z.1bhrs4.tm00.bufr_d")
@@ -16,7 +16,8 @@ program bufr_test
 
   do while (ireadmg(lunit, subset, idate) == 0)
     do while (ireadsb(lunit) == 0)
-      call query(lunit, "/ROSEQ1/ROSEQ2/BNDA", data_ptr)
+      call query(lunit, "/CLONH", data_ptr)
+!      call query(lunit, "/ROSEQ1/ROSEQ2/BNDA", data_ptr)
       print *, data_ptr
     end do
   end do
