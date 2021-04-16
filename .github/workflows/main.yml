@@ -66,7 +66,11 @@ jobs:
         cd bufr
         mkdir build
         cd build
-        cmake -DCMAKE_INSTALL_PREFIX=./install -DENABLE_PYTHON=ON ..
+        if [[ ${{ matrix.os }} == "ubuntu-20.04" ]]; then
+           cmake -DCMAKE_INSTALL_PREFIX=./install -DENABLE_PYTHON=ON -DCMAKE_Fortran_FLAGS="-g -fprofile-arcs -ftest-coverage -fprofile-abs-path -O0" ..
+        else
+           cmake -DCMAKE_INSTALL_PREFIX=./install -DENABLE_PYTHON=ON ..
+        fi
         make -j2
         make install
 
