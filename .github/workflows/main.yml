@@ -29,6 +29,7 @@ jobs:
           sudo python3 -m pip install -U numpy
           sudo python3 -m pip install -U netCDF4
           sudo python3 -m pip install -U pdoc
+          sudo python3 -m pip install -U gcovr
         elif [[ ${{ matrix.os }} == "macos-10.15" ]]; then
           brew update
           brew install doxygen
@@ -65,7 +66,11 @@ jobs:
         cd bufr
         mkdir build
         cd build
-        cmake -DCMAKE_INSTALL_PREFIX=./install -DENABLE_PYTHON=ON ..
+        if [[ ${{ matrix.os }} == "ubuntu-20.04" ]]; then
+           cmake -DCMAKE_INSTALL_PREFIX=./install -DENABLE_PYTHON=ON -DCMAKE_Fortran_FLAGS="-g -fprofile-arcs -ftest-coverage -fprofile-abs-path -O0" ..
+        else
+           cmake -DCMAKE_INSTALL_PREFIX=./install -DENABLE_PYTHON=ON ..
+        fi
         make -j2
         make install
 
@@ -73,3 +78,13 @@ jobs:
       run: |
         cd $GITHUB_WORKSPACE/bufr/build
         ctest
+        if [[ ${{ matrix.os }} == "ubuntu-20.04" ]]; then
+           gcovr -r .. --html-details -o test-coverage.html
+        fi
+
+    - uses: actions/upload-artifact@v2
+      if: ${{ matrix.os == 'ubuntu-20.04' }}
+      with:
+        name: test-coverage
+        path: NCEPLIBS-bufr/build/*.html
+      
