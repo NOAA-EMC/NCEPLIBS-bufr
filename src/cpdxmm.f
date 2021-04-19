@@ -1,5 +1,5 @@
 C> @file
-C> Read embedded DX table into internal arrays.
+C> Read embedded DX BUFR table into internal arrays.
 
 C> This subroutine reads an entire DX BUFR table from a specified
 C> file into internal arrays.

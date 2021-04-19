@@ -13,13 +13,13 @@
  *  @author J. Ator
  *  @date 2005-11-29
  *
- *  @param[in] mxmb     - f77int: Dimensioned size (in bytes) of
+ *  @param[in] mxmb     - f77int*: Dimensioned size (in bytes) of
  *                        bmg; used by the subroutine to ensure that
  *                        it doesn't overflow the bmg array
  *  @param[out] bmg     - char*: BUFR message
- *  @param[out] nmb     - f77int: Size (in bytes) of BUFR message
+ *  @param[out] nmb     - f77int*: Size (in bytes) of BUFR message
  *                        in bmg
- *  @param[out] iret    - f77int: return code
+ *  @param[out] iret    - f77int*: return code
  *                         - 0 = normal return
  *                         - 1 = overflow of bmg array
  *                         - 2 = "7777" indicator not found in

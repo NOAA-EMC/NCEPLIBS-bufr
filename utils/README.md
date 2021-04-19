@@ -6,11 +6,11 @@
 |---------|--------------------------------------------------------------------------|
 | [debufr](#debufr) | Read BUFR file and write verbose listing of contents |
 | [readbp](#readbp) | Read prepbufr file and print each report one at a time |
-| [readmp](#readmp) | Read BUFR file containing embedded DX tables, and print each report one at a time |
+| [readmp](#readmp) | Read BUFR file containing embedded DX BUFR tables, and print each report one at a time |
 | [binv](#binv) | Print inventory of BUFR file by message type |
 | [sinv](#sinv) | Print inventory of BUFR satellite data file by platform and instrument type |
 | [cmpbqm](#cmpbqm) | Print inventory of observations from prepbufr file by variable, report type and quality mark |
-| [gettab](#gettab) | Print embedded DX tables from within a BUFR file |
+| [gettab](#gettab) | Print embedded DX BUFR tables from within a BUFR file |
 | [split_by_subset](#split) | Split a BUFR file into separate BUFR files for each subset type |
 
 <br>

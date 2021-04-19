@@ -1,66 +1,60 @@
 C> @file
-C> @author WOOLLEN @date 1994-01-06
-      
-C> THIS SUBROUTINE COPIES A BUFR MESSAGE, INTACT, FROM
-C>   INTERNAL MEMORY, STORED VIA A PREVIOUS CALL TO BUFR ARCHIVE LIBRARY
-C>   SUBROUTINE UFBMEM, TO LOGICAL UNIT LUNOT, OPENED FOR OUTPUT VIA A
-C>   PREVIOUS CALL TO BUFR ARCHIVE LIBRARY SUBROUTINE OPENBF.  THE
-C>   MESSAGE COPIED FROM INTERNAL MEMORY WILL BE THE ONE MOST RECENTLY
-C>   READ INTO THE MESSAGE BUFFER (ARRAY MBAY IN MODULE BITBUF)
-C>   USING BUFR ARCHIVE LIBRARY SUBROUTINE RDMEMM OR READMM.  THE OUTPUT
-C>   FILE MUST HAVE NO CURENTLY OPEN MESSAGES.  ALSO, THE INTERNAL BUFR
-C>   TABLES ASSOCIATED WITH THE INPUT MESSAGE MUST BE IDENTICAL TO THE
-C>   BUFR TABLES USED TO OPEN LUNOT TO THE BUFR INTERFACE.  THIS
-C>   SUBROUTINE IS SIMILAR TO BUFR ARCHIVE LIBRARY SUBROUTINE COPYMG
-C>   EXCEPT THE INPUT MESSAGE IS FROM INTERNAL MEMORY NOT FROM A
-C>   PHYSICAL BUFR FILE.
+C> @brief Copy a BUFR message.
+
+C> This subroutine copies a BUFR message from internal arrays in
+C> memory to a specified Fortran logical unit.
 C>
-C> PROGRAM HISTORY LOG:
-C> 1994-01-06  J. WOOLLEN -- ORIGINAL AUTHOR
-C> 1998-07-08  J. WOOLLEN -- REPLACED CALL TO CRAY LIBRARY ROUTINE
-C>                           "ABORT" WITH CALL TO NEW INTERNAL BUFRLIB
-C>                           ROUTINE "BORT"
-C> 1999-11-18  J. WOOLLEN -- THE NUMBER OF BUFR FILES WHICH CAN BE
-C>                           OPENED AT ONE TIME INCREASED FROM 10 TO 32
-C>                           (NECESSARY IN ORDER TO PROCESS MULTIPLE
-C>                           BUFR FILES UNDER THE MPI)
-C> 2000-09-19  J. WOOLLEN -- MAXIMUM MESSAGE LENGTH INCREASED FROM
-C>                           10,000 TO 20,000 BYTES
-C> 2001-08-15  D. KEYSER  -- PARAMETER MAXMEM (THE MAXIMUM NUMBER OF
-C>                           BYTES REQUIRED TO STORE ALL MESSAGES
-C>                           INTERNALLY) WAS INCREASED FROM 8 MBYTES TO
-C>                           16 MBYTES
-C> 2003-11-04  S. BENDER  -- ADDED REMARKS/BUFRLIB ROUTINE
-C>                           INTERDEPENDENCIES
-C> 2003-11-04  D. KEYSER  -- PARAMETER MAXMSG (THE MAXIMUM NUMBER OF
-C>                           BUFR MESSAGES WHICH CAN BE STORED
-C>                           INTERNALLY) INCREASED FROM 50000 TO 200000;
-C>                           MAXJL (MAXIMUM NUMBER OF JUMP/LINK ENTRIES)
-C>                           INCREASED FROM 15000 TO 16000 (WAS IN
-C>                           VERIFICATION VERSION); UNIFIED/PORTABLE FOR
-C>                           WRF; ADDED DOCUMENTATION (INCLUDING
-C>                           HISTORY); OUTPUTS MORE COMPLETE DIAGNOSTIC
-C>                           INFO WHEN ROUTINE TERMINATES ABNORMALLY
-C> 2004-08-09  J. ATOR    -- MAXIMUM MESSAGE LENGTH INCREASED FROM
-C>                           20,000 TO 50,000 BYTES
-C> 2004-11-15  D. KEYSER  -- PARAMETER MAXMEM (THE MAXIMUM NUMBER OF
-C>                           BYTES REQUIRED TO STORE ALL MESSAGES
-C>                           INTERNALLY) WAS INCREASED FROM 16 MBYTES TO
-C>                           50 MBYTES
-C> 2005-11-29  J. ATOR    -- USE IUPBS01
-C> 2009-06-26  J. ATOR    -- USE IOK2CPY
-C> 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
+C> <p>This subroutine is similar to subroutine copymg(), except that
+C> it copies a BUFR message from internal arrays in memory to a
+C> specified Fortran logical unit, whereas copymg() copies a BUFR
+C> message from one Fortran logical unit to another.
 C>
-C> USAGE:    CALL CPYMEM (LUNOT)
-C>   INPUT ARGUMENT LIST:
-C>     LUNOT    - INTEGER: FORTRAN LOGICAL UNIT NUMBER FOR BUFR FILE
+C> @author J. Woollen
+C> @date 1994-01-06
 C>
-C> REMARKS:
-C>    THIS ROUTINE CALLS:        BORT     IOK2CPY  IUPBS01  MSGWRT
-C>                               NEMTBA   STATUS
-C>    THIS ROUTINE IS CALLED BY: None
-C>                               Normally called only by application
-C>                               programs.
+C> @param[in] LUNOT    - integer: Fortran logical unit number for
+C>                       target BUFR file
+C>
+C> <p>One or more files of BUFR messages should have already been
+C> read into internal arrays in memory via one or more previous
+C> calls to subroutine ufbmem(), and a BUFR message should already
+C> be in scope for processing from these arrays via a previous call
+C> to subroutine rdmemm() or readmm().
+C>
+C> <p>Logical unit LUNOT should have already been opened for output
+C> operations via a previous call to subroutine openbf(), but there
+C> should not be any BUFR message already open for output within the
+C> internal arrays for LUNOT via a previous call to one of the BUFRLIB
+C> [message-writing subroutines](@ref hierarchy).
+C>
+C> <p>The [DX BUFR Table information](@ref dfbftab) associated with
+C> the internal arrays in memory and with logical unit LUNOT must
+C> contain identical definitions for the type of BUFR message to be
+C> copied from the former to the latter.
+C>
+C> @remarks
+C> - This subroutine uses subroutine msgwrt() to write to LUNOT;
+C> therefore, it can be used to transform a copy of the
+C> original BUFR message from memory with any or all of the updates
+C> described in the documentation for subroutine msgwrt().
+C>
+C> <b>Program history log:</b>
+C> - 1994-01-06  J. Woollen -- Original author
+C> - 1998-07-08  J. Woollen -- Replaced call to Cray library routine ABORT
+C>                             with call to new internal routine bort()
+C> - 1999-11-18  J. Woollen -- The number of BUFR files which can be
+C>                             opened at one time increased from 10 to 32
+C>                             (necessary in order to process multiple
+C>                             BUFR files under the MPI)
+C> - 2000-09-19  J. Woollen -- Maximum message length increased
+C>                             from 10,000 to 20,000 bytes
+C> - 2001-08-15  D. Keyser  -- Increased MAXMEM from 8 Mb to 16 Mb
+C> - 2004-08-09  J. Ator    -- Maximum message length increased
+C>                             from 20,000 to 50,000 bytes
+C> - 2004-11-15  D. Keyser  -- Increased MAXMEM from 16 Mb to 50 Mb
+C> - 2005-11-29  J. Ator    -- Use iupbs01()
+C> - 2009-06-26  J. Ator    -- Use iok2cpy()
+C> - 2014-12-10  J. Ator    -- Use modules instead of COMMON blocks
 C>
       SUBROUTINE CPYMEM(LUNOT)
 

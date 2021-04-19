@@ -1,28 +1,23 @@
 C> @file
-C> @author J @date 2015-03-06
-      
-C> THIS FUNCTION DETERMINES WHETHER THE GIVEN MNEMONIC
-C>   CONTAINS A TABLE C OPERATOR KNOWN TO THE BUFR ARCHIVE LIBRARY.
+C> @brief Check whether a mnemonic is a Table C operator.
+
+C> This function determines whether a specified mnemonic is a
+C> Table C operator supported by the BUFRLIB software.
 C>
-C> PROGRAM HISTORY LOG:
-C> 2015-03-06  J. ATOR    -- ORIGINAL AUTHOR
-C> 2016-05-04  J. ATOR    -- USE IMRKOPR AND ALLOW ADDITIONAL OPERATORS
+C> @author J. Ator
+C> @date 2015-03-06
 C>
-C> USAGE:    IOKOPER (NEMO)
-C>   INPUT ARGUMENT LIST:
-C>     NEMO     - CHARACTER*(*): MNEMONIC
+C> @param[in] NEMO   - character*(*): Mnemonic
+C> @returns iokoper  - integer: Flag indicating whether NEMO is a
+C>                     Table C operator supported by the BUFRLIB
+C>                     software
+C>                        - 0 = No
+C>                        - 1 = Yes
 C>
-C>   OUTPUT ARGUMENT LIST:
-C>     IOKOPER  - INTEGER: RETURN CODE INDICATING WHETHER NEMO CONTAINS
-C>                A KNOWN TABLE C OPERATOR
-C>                  0 - NO
-C>                  1 - YES
-C>
-C> REMARKS:
-C>    THIS ROUTINE CALLS:        IMRKOPR
-C>    THIS ROUTINE IS CALLED BY: ISTDESC   NEMTAB   NUMTAB   TABSUB
-C>                               Normally not called by any application
-C>                               programs.
+C> <b>Program history log:</b>
+C> - 2015-03-06  J. Ator    -- Original author
+C> - 2016-05-04  J. Ator    -- Use imrkopr() and allow additional
+C>                             operators
 C>
       INTEGER FUNCTION IOKOPER(NEMO)
 

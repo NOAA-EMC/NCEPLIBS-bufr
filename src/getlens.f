@@ -20,12 +20,12 @@ C>                     through N (i.e. LEN0, LEN1,...,LENN).
 C>                     Any section lengths that are not specified
 C>                     to be read are returned with a default
 C>                     placeholder value of -1.
-C> @param[out]  LEN0 - integer: Length of Section 0
-C> @param[out]  LEN1 - integer: Length of Section 1
-C> @param[out]  LEN2 - integer: Length of Section 2
-C> @param[out]  LEN3 - integer: Length of Section 3
-C> @param[out]  LEN4 - integer: Length of Section 4
-C> @param[out]  LEN5 - integer: Length of Section 5
+C> @param[out]  LEN0 - integer: Length (in bytes) of Section 0
+C> @param[out]  LEN1 - integer: Length (in bytes) of Section 1
+C> @param[out]  LEN2 - integer: Length (in bytes) of Section 2
+C> @param[out]  LEN3 - integer: Length (in bytes) of Section 3
+C> @param[out]  LEN4 - integer: Length (in bytes) of Section 4
+C> @param[out]  LEN5 - integer: Length (in bytes) of Section 5
 C>
 C> @remarks
 C> - The start of the BUFR message (i.e. the string 'BUFR') must be

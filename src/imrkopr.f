@@ -1,27 +1,20 @@
 C> @file
-C> @author J @date 2016-05-04
-      
-C> THIS FUNCTION DETERMINES WHETHER THE GIVEN MNEMONIC
-C>   CONTAINS A TABLE C MARKER OPERATOR.
+C> @brief Check whether a mnemonic is a Table C marker operator.
+
+C> This function determines whether a specified mnemonic is a
+C> Table C marker operator.
 C>
-C> PROGRAM HISTORY LOG:
-C> 2016-05-04  J. ATOR    -- ORIGINAL AUTHOR
+C> @author J. Ator
+C> @date 2016-05-04
 C>
-C> USAGE:    IMRKOPR (NEMO)
-C>   INPUT ARGUMENT LIST:
-C>     NEMO     - CHARACTER*(*): MNEMONIC
+C> @param[in] NEMO   - character*(*): Mnemonic
+C> @returns iokoper  - integer: Flag indicating whether NEMO is a
+C>                     Table C marker operator
+C>                        - 0 = No
+C>                        - 1 = Yes
 C>
-C>   OUTPUT ARGUMENT LIST:
-C>     IMRKOPR  - INTEGER: RETURN CODE INDICATING WHETHER NEMO CONTAINS
-C>                A TABLE C MARKER OPERATOR
-C>                  0 - NO
-C>                  1 - YES
-C>
-C> REMARKS:
-C>    THIS ROUTINE CALLS:        None
-C>    THIS ROUTINE IS CALLED BY: IGETRFEL IOKOPER  STSEQ
-C>                               Normally not called by any application
-C>                               programs.
+C> <b>Program history log:</b>
+C> - 2016-05-04  J. Ator    -- Original author
 C>
       INTEGER FUNCTION IMRKOPR(NEMO)
 
