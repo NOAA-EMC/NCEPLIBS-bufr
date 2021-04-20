@@ -47,6 +47,7 @@ jobs:
         gcovr -r .. --html-details -o test-coverage.html
 
     - uses: actions/upload-artifact@v2
+      with:
         name: test-coverage
         path: NCEPLIBS-bufr/build/*.html
       
