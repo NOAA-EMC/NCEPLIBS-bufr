@@ -6,16 +6,9 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        os: [macos-10.15,  ubuntu-20.04]
-        ccompiler: [clang, gcc-9, gcc-10]
-        fcompiler: [gfortran-9, gfortran-10]
-        exclude:
-          - os: ubuntu-20.04
-            ccompiler: clang
-          - ccompiler: gcc-9
-            fcompiler: gfortran-10
-          - ccompiler: gcc-10
-            fcompiler: gfortran-9
+        os: ubuntu-latest
+        ccompiler: [gcc-10]
+        fcompiler: [gfortran-10]
 
     steps:
 
@@ -38,18 +31,8 @@ jobs:
 
     - name: build
       run: |
-        if [[ ${{ matrix.ccompiler }} == "clang" ]]; then
-          export CC=clang
-        elif [[ ${{ matrix.ccompiler }} == "gcc-9" ]]; then
-          export CC=gcc-9
-        elif [[ ${{ matrix.ccompiler }} == "gcc-10" ]]; then
           export CC=gcc-10
-        fi
-        if [[ ${{ matrix.fcompiler }} == "gfortran-9" ]]; then
-          export FC=gfortran-9
-        elif [[ ${{ matrix.fcompiler }} == "gfortran-10" ]]; then
           export FC=gfortran-10
-        fi
         cd bufr
         mkdir build
         cd build
