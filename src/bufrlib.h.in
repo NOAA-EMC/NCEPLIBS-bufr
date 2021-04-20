@@ -47,7 +47,6 @@
 #define bvers      bvers_
 #define cadn30	   cadn30_
 #define cmpia	   cmpia_
-#define cpmstabs   cpmstabs_
 #define elemdx	   elemdx_
 #define gets1loc   gets1loc_
 #define ichkstr	   ichkstr_
@@ -104,9 +103,6 @@ void bort_exit( void );
 void bvers( char *, f77int ); 
 void cadn30( f77int *, char *, f77int ); 
 int cmpia( const void *, const void * );
-void cpmstabs( f77int *, f77int *, char (*)[4], char (*)[12], char (*)[4],
-	char (*)[14], char (*)[8], char (*)[120], f77int *, f77int *,
-	char (*)[120], char (*)[8], f77int *, f77int *, f77int * );
 void elemdx( char *, f77int *, f77int );
 void gets1loc( char *, f77int *, f77int *, f77int *, f77int *, f77int );
 f77int ichkstr ( char *, char *, f77int *, f77int, f77int );

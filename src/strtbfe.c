@@ -16,7 +16,7 @@
  *                     table entry
  *  @param[in] ival  - f77int*: Code figure or bit number
  *  @param[in] meaning - char*: Meaning associated with ifxyn and ival
- *  @param[in] lmeaning - f77int: Length (in bytes) of meaning
+ *  @param[in] lmeaning - f77int*: Length (in bytes) of meaning
  *  @param[in] idfxy - f77int*: Bitwise representation of FXY number
  *                     upon which ifxyn and ival depend (if any), or
  *                     else set to a value of (-1)
