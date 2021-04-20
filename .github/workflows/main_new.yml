@@ -1,4 +1,4 @@
-name: Build and Test
+name: code coverage
 on: [push, pull_request]
 
 jobs:
