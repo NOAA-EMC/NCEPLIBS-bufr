@@ -4,14 +4,11 @@ on: [push, pull_request]
 jobs:
   build:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        os: ubuntu-latest
-        ccompiler: [gcc-10]
-        fcompiler: [gfortran-10]
+    env:
+      FC: gfortran-10
+      CC: gcc-10
 
     steps:
-
     - name: install-deps
       run: |
           sudo apt-get update
