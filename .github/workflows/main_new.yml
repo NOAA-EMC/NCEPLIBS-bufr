@@ -31,12 +31,12 @@ jobs:
 
     - name: build
       run: |
-          export CC=gcc-10
-          export FC=gfortran-10
+        export CC=gcc-10
+        export FC=gfortran-10
         cd bufr
         mkdir build
         cd build
-           cmake -DCMAKE_INSTALL_PREFIX=./install -DCMAKE_Fortran_FLAGS="-g -fprofile-arcs -ftest-coverage -fprofile-abs-path -O0" ..
+        cmake -DCMAKE_INSTALL_PREFIX=./install -DCMAKE_Fortran_FLAGS="-g -fprofile-arcs -ftest-coverage -fprofile-abs-path -O0" ..
         make -j2
         make install
 
@@ -44,7 +44,7 @@ jobs:
       run: |
         cd $GITHUB_WORKSPACE/bufr/build
         ctest
-           gcovr -r .. --html-details -o test-coverage.html
+        gcovr -r .. --html-details -o test-coverage.html
 
     - uses: actions/upload-artifact@v2
         name: test-coverage
