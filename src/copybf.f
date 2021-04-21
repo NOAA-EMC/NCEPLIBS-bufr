@@ -1,48 +1,40 @@
 C> @file
-C> @author WOOLLEN @date 1994-01-06
-      
-C> THIS SUBROUTINE COPIES AN ENTIRE BUFR FILE FROM LOGICAL
-C>   UNIT LUNIN TO LOGICAL UNIT LUNOT.
+C> @brief Copy an entire BUFR file.
+
+C> This subroutine copies an entire BUFR file from one Fortran
+C> logical unit to another.
 C>
-C> PROGRAM HISTORY LOG:
-C> 1994-01-06  J. WOOLLEN -- ORIGINAL AUTHOR
-C> 1998-07-08  J. WOOLLEN -- REPLACED CALL TO CRAY LIBRARY ROUTINE
-C>                           "ABORT" WITH CALL TO NEW INTERNAL BUFRLIB
-C>                           ROUTINE "BORT"
-C> 2000-09-19  J. WOOLLEN -- MAXIMUM MESSAGE LENGTH INCREASED FROM
-C>                           10,000 TO 20,000 BYTES
-C> 2003-11-04  S. BENDER  -- ADDED REMARKS/BUFRLIB ROUTINE
-C>                           INTERDEPENDENCIES
-C> 2003-11-04  D. KEYSER  -- UNIFIED/PORTABLE FOR WRF; ADDED
-C>                           DOCUMENTATION (INCLUDING HISTORY); OUTPUTS
-C>                           MORE COMPLETE DIAGNOSTIC INFO WHEN ROUTINE
-C>                           TERMINATES ABNORMALLY
-C> 2004-08-09  J. ATOR    -- MAXIMUM MESSAGE LENGTH INCREASED FROM
-C>                           20,000 TO 50,000 BYTES
-C> 2005-11-29  J. ATOR    -- USE RDMSGW AND NMWRD
-C> 2012-09-15  J. WOOLLEN -- CONVERT TO C LANGUAGE I/O INTERFACE
-C>                           USE READMG AND COPYMG TO COPY FILE
-C> 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
+C> @author J. Woollen
+C> @date 1994-01-06
 C>
-C> USAGE:    CALL COPYBF (LUNIN, LUNOT)
-C>   INPUT ARGUMENT LIST:
-C>     LUNIN    - INTEGER: FORTRAN LOGICAL UNIT NUMBER FOR INPUT BUFR
-C>                FILE
-C>     LUNOT    - INTEGER: FORTRAN LOGICAL UNIT NUMBER FOR OUTPUT BUFR
-C>                FILE
+C> @param[in] LUNIN    - integer: Fortran logical unit number for
+C>                       source BUFR file 
+C> @param[in] LUNOT    - integer: Fortran logical unit number for
+C>                       target BUFR file 
 C>
-C>   INPUT FILES:
-C>     UNIT "LUNIN" - BUFR FILE
+C> <p>The logical unit numbers LUNIN and LUNOT must already be
+C> associated with actual filenames on the local system, typically
+C> via a Fortran "OPEN" statement.
 C>
-C>   OUTPUT FILES:
-C>     UNIT "LUNOT" - BUFR FILE
+C> @remarks
+C> - This subroutine uses subroutine msgwrt() to copy each BUFR
+C> message from LUNIN to LUNOT; therefore, this subroutine can be
+C> used to create a copy of LUNIN where each corresponding message
+C> in LUNOT contains any or all of the updates described in the
+C> documentation for subroutine msgwrt().
 C>
-C> REMARKS:
-C>    THIS ROUTINE CALLS:        BORT     CLOSBF   IUPBS01  MSGWRT
-C>                               OPENBF   RDMSGW   STATUS   WRDLEN
-C>    THIS ROUTINE IS CALLED BY: None
-C>                               Normally called only by application
-C>                               programs.
+C> <b>Program history log:</b>
+C> - 1994-01-06  J. Woollen -- Original author
+C> - 1998-07-08  J. Woollen -- Replaced call to Cray library routine ABORT
+C>                             with call to new internal routine bort()
+C> - 2000-09-19  J. Woollen -- Maximum message length increased
+C>                             from 10,000 to 20,000 bytes
+C> - 2004-08-09  J. Ator    -- Maximum message length increased
+C>                             from 20,000 to 50,000 bytes
+C> - 2005-11-29  J. Ator    -- Use rdmsgw() and iupbs01()
+C> - 2012-09-15  J. Woollen -- Modified for C/I/O/BUFR interface;
+C>                             use status()
+C> - 2014-12-10  J. Ator    -- Use modules instead of COMMON blocks
 C>
       SUBROUTINE COPYBF(LUNIN,LUNOT)
 

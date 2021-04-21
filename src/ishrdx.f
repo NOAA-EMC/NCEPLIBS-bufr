@@ -1,33 +1,28 @@
 C> @file
-C> @author J @date 2009-11-30
-      
-C> THIS FUNCTION DETERMINES WHETHER LOGICAL UNIT IOLUN(LUN) IS
-C>   SHARING INTERNAL TABLE INFORMATION WITH LOGICAL UNIT IOLUN(LUD).
-C>   NOTE THAT TWO LOGICAL UNITS CAN HAVE THE SAME INTERNAL TABLE
-C>   INFORMATION WITHOUT ACTUALLY SHARING IT.
+C> @brief Check whether two BUFR files are sharing the same DX BUFR
+C> table.
+
+C> This function determines whether the same
+C> [DX BUFR Table](@ref dfbftab) is being shared between two
+C> Fortran logical units.
 C>
-C> PROGRAM HISTORY LOG:
-C> 2009-11-30  J. ATOR    -- ORIGINAL AUTHOR
-C> 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
+C> @author J. Ator
+C> @date 2009-06-18
 C>
-C> USAGE:    ISHRDX (LUD, LUN)
-C>   INPUT ARGUMENT LIST:
-C>     LUD      - INTEGER: I/O STREAM INDEX INTO INTERNAL MEMORY ARRAYS
-C>                FOR FIRST LOGICAL UNIT
-C>     LUN      - INTEGER: I/O STREAM INDEX INTO INTERNAL MEMORY ARRAYS
-C>                FOR SECOND LOGICAL UNIT
+C> @param[in]  LUD      - integer: Internal I/O stream index associated
+C>                        with first BUFR file
+C> @param[in]  LUN      - integer: Internal I/O stream index associated
+C>                        with second BUFR file
+C> @returns ishrdx      - integer: Flag indicating whether the same
+C>                        DX BUFR table is being shared between the
+C>                        BUFR file associated with LUD and the BUFR
+C>                        file associated with LUN
+C>                        - 0 = No
+C>                        - 1 = Yes
 C>
-C>   OUTPUT ARGUMENT LIST:
-C>     ISHRDX   - INTEGER: RETURN CODE INDICATING WHETHER IOLUN(LUN)
-C>                IS SHARING TABLE INFORMATION WITH IOLUN(LUD):
-C>                  0 - NO
-C>                  1 - YES
-C>
-C> REMARKS:
-C>    THIS ROUTINE CALLS:        None
-C>    THIS ROUTINE IS CALLED BY: ICMPDX  MAKESTAB
-C>                               Normally not called by any application
-C>                               programs.
+C> <b>Program history log:</b>
+C> - 2009-06-18  J. Ator    -- Original author
+C> - 2014-12-10  J. Ator    -- Use modules instead of COMMON blocks
 C>
       INTEGER FUNCTION ISHRDX(LUD,LUN)
 

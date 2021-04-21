@@ -1,5 +1,5 @@
 C> @file
-C> @brief Fortran-language code for debufr utility.
+C> @brief Fortran language code for debufr utility.
 
 C> This module is used within the debufr utility to share
 C> information between subroutine fdebufr() and subroutine
@@ -69,22 +69,22 @@ C> - Fortran logical unit numbers 51, 90, 91, 92 and 93 are reserved
 C> for use within this subroutine.
 C>
 C> <b>Program history log:</b>
-C> - 2009-07-01  J. Ator     Original author
-C> - 2012-06-18  J. Ator     Added tblfil argument and options to decode
+C> - 2009-07-01  J. Ator  -- Original author
+C> - 2012-06-18  J. Ator  -- Added tblfil argument and options to decode
 C>                          files according to DX dictionary information 
-C> - 2012-12-07  J. Ator     Added forcemt and lentd arguments
-C> - 2013-10-07  J. Ator     Print Section 1 tank receipt time information
+C> - 2012-12-07  J. Ator  -- Added forcemt and lentd arguments
+C> - 2013-10-07  J. Ator  -- Print Section 1 tank receipt time information
 C>                          for NCEP/NCO BUFR messages if available
-C> - 2013-11-15  J. Ator     Added check for missing or unreadable tblfil
-C> - 2014-09-15  J. Ator     Confirm BUFR file was opened (i.e. at least
+C> - 2013-11-15  J. Ator  -- Added check for missing or unreadable tblfil
+C> - 2014-09-15  J. Ator  -- Confirm BUFR file was opened (i.e. at least
 C>                          one good return from crbmg() before calling
 C>                          dxdump().
-C> - 2018-01-19  J. Ator     Added print of code and flag table meanings.
-C> - 2018-03-01  J. Ator     Added print of data types and subtypes from
+C> - 2018-01-19  J. Ator  -- Added print of code and flag table meanings.
+C> - 2018-03-01  J. Ator  -- Added print of data types and subtypes from
 C>                          code and flag tables.
-C> - 2018-09-05  J. Ator     Added prmstg argument
-C> - 2019-02-01  J. Ator     Remove limit on length of prmstg
-C> - 2021-02-24  J. Ator     Use all formatted writes, for consistent
+C> - 2018-09-05  J. Ator  -- Added prmstg argument
+C> - 2019-02-01  J. Ator  -- Remove limit on length of prmstg
+C> - 2021-02-24  J. Ator  -- Use all formatted writes, for consistent
 C>                          output between builds using 4-byte vs. 8-byte
 C>                          integers
 C>

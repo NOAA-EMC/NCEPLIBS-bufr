@@ -1,63 +1,66 @@
 C> @file
-C> @author WOOLLEN @date 1994-01-06
-      
-C> This subroutine copies a packed data subset, intact, from
-c>   logical unit lunin, opened for input via a previous call to bufr
-c>   archive library subroutine openbf, to logical unit lunot, opened
-c>   for output via a previous call to openbf. The bufr message must
-c>   have been previously read from unit lunit using bufr archive
-c>   library subroutine readmg or readerme and may be either compressed
-c>   or uncompressed. Also, bufr archive library subroutine openmg or
-c>   openmb must have been previously called to open and initialize a
-c>   bufr message within memory for unit lunot. Each call to copysb
-c>   advances the pointer to the beginning of the next subset in both
-c>   the input and output files, unless input parameter lunot is .le.
-c>   zero, in which case the output pointer is not advanced. The
-c>   compression status of the output subset/bufr message will always
-c>   match that of the input subset/bufr message {i.e., if input message
-c>   is uncompressed(compressed) output message will be uncompressed
-c>   (compressed)}.
+C> @brief Copy a BUFR data subset.
+
+C> This subroutine copies a BUFR data subset from one Fortran logical
+C> unit to another.
 C>
-C> PROGRAM HISTORY LOG:
-C> -1994-01-06  J. WOOLLEN -- ORIGINAL AUTHOR
-C> -1998-07-08  J. WOOLLEN -- REPLACED CALL TO CRAY LIBRARY ROUTINE
-C>                           "ABORT" WITH CALL TO NEW INTERNAL BUFRLIB
-C>                           ROUTINE "BORT"
-C> -1999-11-18  J. WOOLLEN -- THE NUMBER OF BUFR FILES WHICH CAN BE
-C>                           OPENED AT ONE TIME INCREASED FROM 10 TO 32
-C>                           (NECESSARY IN ORDER TO PROCESS MULTIPLE
-C>                           BUFR FILES UNDER THE MPI)
-C> -2000-09-19  J. WOOLLEN -- MAXIMUM MESSAGE LENGTH INCREASED FROM
-C>                           10,000 TO 20,000 BYTES
-C> -2002-05-14  J. WOOLLEN -- REMOVED OLD CRAY COMPILER DIRECTIVES
-C> -2003-11-04  S. BENDER  -- ADDED REMARKS/BUFRLIB ROUTINE
-C>                           INTERDEPENDENCIES
-C> -2003-11-04  D. KEYSER  -- UNIFIED/PORTABLE FOR WRF; ADDED
-C>                           DOCUMENTATION (INCLUDING HISTORY); OUTPUTS
-C>                           MORE COMPLETE DIAGNOSTIC INFO WHEN ROUTINE
-C>                           TERMINATES ABNORMALLY
-C> -2004-08-09  J. ATOR    -- MAXIMUM MESSAGE LENGTH INCREASED FROM
-C>                           20,000 TO 50,000 BYTES
-C> -2005-09-16  J. WOOLLEN -- NOW WRITES OUT COMPRESSED SUBSET/MESSAGE IF
-C>                           INPUT SUBSET/MESSAGE IS COMPRESSED (BEFORE
-C>                           COULD ONLY WRITE OUT UNCOMPRESSED SUBSET/
-C>                           MESSAGE REGARDLESS OF COMPRESSION STATUS OF
-C>                           INPUT SUBSET/MESSAGE)
-C> -2009-06-26  J. ATOR    -- USE IOK2CPY
-C> -2014-11-03  J. ATOR    -- HANDLE OVERSIZED (>65530 BYTE) SUBSETS
-C> -2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
+C> @author J. Woollen
+C> @date 1994-01-06
 C>
-C> @param[in] LUNIN Fortran logical unit number for input bufr file.
-C> @param[in] LUNOT Fortran logical unit number for output bufr file.
-C> @param[out] IRET RETURN CODE:
-C> -     0 = normal return
-C> -    -1 = there are no more subsets in the input BUFR message
+C> @param[in] LUNIN    - integer: Fortran logical unit number for
+C>                       source BUFR file
+C> @param[in] LUNOT    - integer: Fortran logical unit number for
+C>                       target BUFR file
+C> @param[out] IRET    - integer: return code
+C>                       - 0 = normal return
+C>                       - -1 = a BUFR data subset could not be
+C>                              read from the BUFR message in
+C>                              internal arrays for LUNIN
 C>
-C> REMARKS:
-C> THIS ROUTINE CALLS: bort() cmpmsg() cpyupd() getlens()
-C> iok2cpy() mesgbc() readsb() status() ufbcpy() upb() writsb()
-C>    THIS ROUTINE IS CALLED BY: icopysb()
-C>                               Also called by application programs.
+C> <p>Logical unit LUNIN should have already been opened for input
+C> operations via a previous call to subroutine openbf(), and a BUFR
+C> message should have already been read into internal arrays for
+C> LUNIN via a previous call to one of the
+C> [message-reading subroutines](@ref hierarchy).
+C>
+C> <p>Logical unit LUNOT should have already been opened for output
+C> operations via a previous call to subroutine openbf(), and a BUFR
+C> message should already be open for output within internal arrays
+C> via a previous call to one of the BUFRLIB
+C> [message-writing subroutines](@ref hierarchy).
+C>
+C> <p>The compression status of the data subset (i.e. compressed or
+C> uncompressed) will be preserved when copying from LUNIN to LUNOT.
+C>
+C> <p>If LUNOT < 0, then a data subset is read from the BUFR message
+C> in internal arrays for LUNIN but is not copied to the BUFR
+C> message in internal arrays for LUNOT.  Otherwise, the
+C> [DX BUFR Table information](@ref dfbftab) associated with
+C> each of the logical units LUNIN and LUNOT must contain identical
+C> definitions for the type of BUFR message containing the data
+C> subset to be copied from LUNIN to LUNOT.
+C>
+C> <b>Program history log:</b>
+C> - 1994-01-06  J. Woollen -- Original author
+C> - 1998-07-08  J. Woollen -- Replaced call to Cray library routine ABORT
+C>                             with call to new internal routine bort()
+C> - 1999-11-18  J. Woollen -- The number of BUFR files which can be
+C>                             opened at one time increased from 10 to 32
+C>                             (necessary in order to process multiple
+C>                             BUFR files under the MPI)
+C> - 2000-09-19  J. Woollen -- Maximum message length increased
+C>                             from 10,000 to 20,000 bytes
+C> - 2002-05-14  J. Woollen -- Removed old Cray compiler directives
+C> - 2004-08-09  J. Ator    -- Maximum message length increased
+C>                             from 20,000 to 50,000 bytes
+C> - 2005-09-16  J. Woollen -- Now writes out compressed subset/message if
+C>                           input subset/message is compressed (before
+C>                           could only write out uncompressed subset/
+C>                           message regardless of compression status of
+C>                           input subset/message)
+C> - 2009-06-26  J. Ator    -- Use iok2cpy()
+C> - 2014-11-03  J. Ator    -- Handle oversized (>65530 bytes) subsets
+C> - 2014-12-10  J. Ator    -- Use modules instead of COMMON blocks
 C>
       SUBROUTINE COPYSB(LUNIN,LUNOT,IRET)
 

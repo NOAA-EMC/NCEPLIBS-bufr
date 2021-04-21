@@ -25,8 +25,8 @@ BUFR Table D, as defined for use within a particular local originating center
 Actual filenames use the following convention:
 
 <pre>
-Standard tables:     bufrtab.Table<i>X</i>_STD_<i>M</i>_<i>V</i>
-Local tables:        bufrtab.Table<i>X</i>_LOC_<i>M</i>_<i>C</i>_<i>L</i>
+Standard tables:     bufrtab.Table.<i>X</i>_STD_<i>M</i>_<i>V</i>
+Local tables:        bufrtab.Table.<i>X</i>_LOC_<i>M</i>_<i>C</i>_<i>L</i>
 
         where:       <i>X</i> = Table type ('B' or 'D')
                      <i>M</i> = Master Table number ('0' for WMO, '10' for IOC, etc.)
@@ -35,7 +35,7 @@ Local tables:        bufrtab.Table<i>X</i>_LOC_<i>M</i>_<i>C</i>_<i>L</i>
                      <i>L</i> = Version number of local tables used
 </pre>
 
-Whenever a new BUFR message is read (using any of the subroutines readmg(), readns(), readerme(), etc.)
+Whenever any of the [message-reading subroutines](@ref hierarchy) are used to read a new BUFR message
 from a Fortran logical unit that was previously opened using subroutine
 openbf() with IO='SEC3', the identification section (Section 1) of the message is automatically scanned to
 determine the above values for that message. The BUFRLIB software then automatically generates the four necessary
@@ -47,7 +47,7 @@ applied to the new message. With this approach, the user can have multiple maste
 the same directory, and the BUFRLIB software will always locate and read the appropriate files depending on
 the corresponding values stored within Section 1 of each new message to be decoded. For more details about
 the above values, see the discussion on Section 1 within the official
-[WMO Manual 306, Volume I.2](https://library.wmo.int/index.php?lvl=notice_display&id=10684#.X68yu8hKiUn).
+[WMO Manual 306, Volume I.2](@ref manual).
 
 <br>
 Now that we've discussed the content and naming conventions for master BUFR table files, let's turn our

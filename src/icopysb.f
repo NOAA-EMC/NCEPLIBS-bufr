@@ -1,40 +1,32 @@
 C> @file
-C> @author WOOLLEN @date 1994-01-06
+C> @brief Copy a BUFR data subset.
       
-C> THIS FUNCTION CALLS BUFR ARCHIVE LIBRARY SUBROUTINE COPYSB
-C>   AND PASSES BACK ITS RETURN CODE.  SEE COPYSB FOR MORE DETAILS.
+C> This function calls BUFRLIB subroutine copysb() and passes
+C> back its return code as the function value.
 C>
-C> PROGRAM HISTORY LOG:
-C> 1994-01-06  J. WOOLLEN -- ORIGINAL AUTHOR (ENTRY POINT IN IREADMG)
-C> 2002-05-14  J. WOOLLEN -- CHANGED FROM AN ENTRY POINT TO INCREASE
-C>                           PORTABILITY TO OTHER PLATFORMS
-C> 2003-11-04  S. BENDER  -- ADDED REMARKS/BUFRLIB ROUTINE
-C>                           INTERDEPENDENCIES
-C> 2003-11-04  D. KEYSER  -- UNIFIED/PORTABLE FOR WRF; ADDED
-C>                           DOCUMENTATION (INCLUDING HISTORY)
+C> @author J. Woollen
+C> @date 1994-01-06
 C>
-C> USAGE:    ICOPYSB (LUNIN, LUNOT)
-C>   INPUT ARGUMENT LIST:
-C>     LUNIT    - INTEGER: FORTRAN LOGICAL UNIT NUMBER FOR INPUT BUFR
-C>                FILE
-C>     LUNOT    - INTEGER: FORTRAN LOGICAL UNIT NUMBER FOR OUTPUT BUFR
-C>                FILE
+C> @param[in] LUNIN    - integer: Fortran logical unit number for
+C>                       source BUFR file
+C> @param[in] LUNOT    - integer: Fortran logical unit number for
+C>                       target BUFR file
+C> @returns icopysb    - integer: return code
+C>                       - 0 = normal return
+C>                       - -1 = a BUFR data subset could not be
+C>                              read from the BUFR message in
+C>                              internal arrays for LUNIN
 C>
-C>   OUTPUT ARGUMENT LIST:
-C>     ICOPYSB  - INTEGER: RETURN CODE:
-C>                       0 = normal return
-C>                      -1 = there are no more subsets in the input
-C>                           BUFR message
+C> @remarks
+C> - The use of this function allows the return code from copysb() to be
+C> used as the target variable within an iterative program loop.
 C>
-C> REMARKS:
-C>    THIS ROUTINE CALLS:        COPYSB
-C>    THIS ROUTINE IS CALLED BY: None
-C>                               Normally called only by application
-C>                               programs.
+C> <b>Program history log:</b>
+C> - 1994-01-06 J. Woollen -- Original author
+C> - 2002-05-14 J. Woollen -- Changed from an entry point to increase
+C>                           portability to other platforms
 C>
       FUNCTION ICOPYSB(LUNIN,LUNOT)
-
-
 
       CALL COPYSB(LUNIN,LUNOT,IRET)
       ICOPYSB = IRET

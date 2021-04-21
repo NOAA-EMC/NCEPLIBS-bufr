@@ -1,5 +1,5 @@
 /** @file
- *  @brief C-language code for debufr utility.
+ *  @brief C language code for debufr utility.
  */
 
 #include <ctype.h>
@@ -9,6 +9,7 @@
 #include <unistd.h>
 
 #include "bufrlib.h"
+#include "cobfl.h"
 
 #ifdef UNDERSCORE
 #define fdebufr fdebufr_
@@ -30,7 +31,7 @@ void prtusage( char * );
  * @param[in]  prgnam - char*: [path/]name of program executable
  *
  * <b>Program history log:</b>
- * - 2018-03-01  J. Ator     Original author
+ * - 2018-03-01  J. Ator  -- Original author
  */
 
 void prtusage( char *prgnam ) {
@@ -151,28 +152,28 @@ void prtusage( char *prgnam ) {
  * for use within this program.
  *
  * <b>Program history log:</b>
- * - 2009-07-01  J. Ator     Original author
- * - 2012-06-18  J. Ator     Modified to allow decoding of BUFR files
+ * - 2009-07-01  J. Ator  -- Original author
+ * - 2012-06-18  J. Ator  -- Modified to allow decoding of BUFR files
  *                           based on NCEP DX dictionary table
  *                           information.  The program can now process
  *                           any files that previously required the use
  *                           of ckbufr.
- * - 2012-12-07  J. Ator     Modified to add -m and -v options and inline
+ * - 2012-12-07  J. Ator  -- Modified to add -m and -v options and inline
  *                           version of OPENBT subroutine for mixed BUFR files
- * - 2013-10-07  J. Ator     Print Section 1 tank receipt time information
+ * - 2013-10-07  J. Ator  -- Print Section 1 tank receipt time information
  *                           for NCEP/NCO BUFR messages if available
- * - 2013-11-15  J. Ator     Add -h option and check for non-existent tablefil
- * - 2014-09-15  J. Ator     Change default path for tabledir, change default
+ * - 2013-11-15  J. Ator  -- Add -h option and check for non-existent tablefil
+ * - 2014-09-15  J. Ator  -- Change default path for tabledir, change default
  *                           name for outfile, and confirm outfile is writeable
- * - 2018-01-19  J. Ator     Add print of code and flag table meanings.
- * - 2018-04-09  J. Ator     Add -c option to turn off print of code and flag
+ * - 2018-01-19  J. Ator  -- Add print of code and flag table meanings.
+ * - 2018-04-09  J. Ator  -- Add -c option to turn off print of code and flag
  *                           table meanings (default is "on").
- * - 2018-09-05  J. Ator     Add -p option to pass in one or more BUFRLIB
+ * - 2018-09-05  J. Ator  -- Add -p option to pass in one or more BUFRLIB
  *                           dynamic allocation parameters to override default
  *                           settings
- * - 2019-02-01  J. Ator     Remove limit on length of prmstg, and allow up
+ * - 2019-02-01  J. Ator  -- Remove limit on length of prmstg, and allow up
  *                           to 20 PARAMETER=VALUE pairs
- * - 2021-03-02  J. Ator     Add missing #include files, remove unused errflg
+ * - 2021-03-02  J. Ator  -- Add missing #include files, remove unused errflg
  *                           variable, and other general cleanup.
  */
 

@@ -1,97 +1,74 @@
 /** @file
-    @author ATOR @date 2018-01-11
-*/
-
-
+ *  @brief Search for a specified master Code/Flag table entry.
+ */
 #include "bufrlib.h"
 #include "cfe.h"
 
 /**
-C
-C SUBPROGRAM:    SRCHTBF
-C   PRGMMR: ATOR             ORG: NCEP       DATE: 2018-01-11
-C
-C ABSTRACT:  THIS ROUTINE SEARCHES FOR A SPECIFIED DESCRIPTOR AND
-C   ASSOCIATED VALUE (CODE FIGURE OR BIT NUMBER) WITHIN THE INTERNAL
-C   MEMORY STRUCTURE FOR STORING CODE/FLAG TABLE INFORMATION.  THE
-C   SEARCH MAY ALSO OPTIONALLY INCLUDE A SPECIFIED SECOND DESCRIPTOR
-C   AND ASSOCIATED VALUE UPON WHICH THE FIRST DESCRIPTOR AND ITS
-C   ASSOCIATED VALUE DEPEND, FOR CASES SUCH AS, E.G. WHEN THE MEANING
-C   OF AN ORIGINATING SUBCENTER VALUE DEPENDS ON THE IDENTITY OF THE
-C   ORIGINATING CENTER.
-C
-C   IF THE REQUESTED ENTRY IN THE TABLE IS FOUND, THE ROUTINE RETURNS
-C   THE ASSOCIATED MEANING AS A CHARACTER STRING.  OTHERWISE, AND IF
-C   THERE WAS NO OPTIONAL SECOND DESCRIPTOR AND ASSOCIATED VALUE
-C   SPECIFIED ON INPUT, THE ROUTINE WILL RE-SEARCH THE TABLE TO CHECK
-C   WHETHER THE MEANING OF THE FIRST DESCRIPTOR AND ASSOCIATED VALUE
-C   MAY INDEED DEPEND ON THE VALUE OF ONE OR MORE OTHER POSSIBLE
-C   SECOND DESCRIPTORS.  IF SO, THOSE POSSIBLE DESCRIPTORS ARE RETURNED
-C   ALONG WITH A SPECIAL RETURN CODE SO THAT THE CALLING ROUTINE MAY
-C   EXAMINE THEM AND POSSIBLY ISSUE ANOTHER SUBSEQUENT CALL TO THIS
-C   SAME ROUTINE WITH SPECIFIED VALUES FOR THE SECOND DESCRIPTOR AND
-C   ASSOCIATED VALUE.
-C
-C PROGRAM HISTORY LOG:
-C 2018-01-11  J. ATOR    -- ORIGINAL AUTHOR
-C
-C USAGE:    CALL SRCHTBF ( IFXYI, IVALI, IFXYD, MXFXYD, IVALD,
-C                          MEANING, MXMNG, LNMNG, IRET )
-C
-C   INPUT ARGUMENT LIST:
-C     IFXYI    - INTEGER: BIT-WISE REPRESENTATION OF FXY DESCRIPTOR
-C     IVALI    - INTEGER: VALUE (CODE FIGURE OR BIT NUMBER) ASSOCIATED
-C                WITH IFXYI
-C     IFXYD    - INTEGER: ARRAY WITH THE FIRST ELEMENT SET TO THE
-C                BIT-WISE REPRESENTATION OF THE FXY DESCRIPTOR, IF ANY,
-C                UPON WHICH THE VALUES IFXYI AND IVALI DEPEND.  THIS IS
-C                OPTIONAL, AND THE FIRST ELEMENT OF THE ARRAY CAN BE SET
-C                TO (-1) IF THE MEANINGS OF IFXYI AND IVALI DO NOT
-C                DEPEND ON THE VALUE OF ANY OTHER DESCRIPTOR.
-C                  -1 = NO DEPENDENCY SPECIFIED
-C     IVALD    - INTEGER: VALUE (CODE FIGURE OR BIT NUMBER) ASSOCIATED
-C                WITH IFXYD.  THIS VALUE SHOULD BE SET TO (-1)
-C                WHENEVER THE FIRST ELEMENT OF THE IFXYD ARRAY IS
-C                LIKEWISE SET TO (-1)
-C                  -1 = NO DEPENDENCY SPECIFIED
-C     MXFXYD   - INTEGER: DIMENSIONED SIZE OF IFXYD; USED BY THE ROUTINE
-C                TO ENSURE THAT IT DOES NOT OVERFLOW THE IFXYD ARRAY
-C                UPON OUTPUT
-C     MXMNG    - INTEGER: DIMENSIONED SIZE OF MEANING STRING; USED BY
-C                THE ROUTINE TO ENSURE THAT IT DOES NOT OVERFLOW THIS
-C                STRING UPON OUTPUT
-C
-C   OUTPUT ARGUMENT LIST:
-C     MEANING  - CHARACTER*(LNMNG): MEANING CORRESPONDING TO IFXYI AND
-C                IVALI (AND TO IFXYD AND IVALD, IF SPECIFIED)
-C     LNMNG    - INTEGER: LENGTH OF STRING RETURNED IN MEANING
-C     IFXYD    - INTEGER: IF THE INITIAL SEARCH OF THE TABLE WAS
-C                UNSUCCESSFUL, *AND* IF NO OPTIONAL SECOND DESCRIPTOR
-C                AND ASSOCIATED VALUE WERE SPECIFIED ON INPUT, *AND* IF
-C                THE SECOND SEARCH OF THE TABLE DETERMINED THAT THE
-C                MEANING OF THE FIRST DESCRIPTOR AND ASSOCIATED VALUE
-C                INDEED DEPENDS ON ONE OR MORE OTHER POSSIBLE SECOND
-C                DESCRIPTORS, THEN THOSE POSSIBLE SECOND DESCRIPTORS
-C                ARE RETURNED WITHIN THE FIRST IRET ELEMENTS OF IFXYD 
-C     IRET     - RETURN CODE:
-C                   0 = MEANING FOUND AND STORED IN MEANING STRING
-C                  -1 = MEANING NOT FOUND
-C                  >0 = MEANING NOT FOUND, *AND* IFXYD AND IVALD WERE
-C                       BOTH SET TO (-1) ON INPUT, *AND* THE MEANING OF
-C                       IFXYI AND IVALI DEPENDS ON THE VALUE OF ONE OF
-C                       THE IRET DESCRIPTORS RETURNED IN IFXYD
-C
-C REMARKS:
-C    THIS ROUTINE CALLS:        CMPSTIA1 CMPSTIA2
-C    THIS ROUTINE IS CALLED BY: GETCFMNG UFDUMP
-C                               Normally not called by any application
-C                               programs.
-C
-C ATTRIBUTES:
-C   LANGUAGE: C
-C   MACHINE:  PORTABLE TO ALL PLATFORMS
-C
-C$$$*/
+ *  This subroutine searches for a specified FXY number and associated
+ *  value (code figure or bit number) within the internal memory
+ *  structure for storage of master Code/Flag table entries, and if
+ *  found returns the associated meaning as a character string.
+ *
+ *  <p>The search may optionally include a specified second FXY number
+ *  and associated value upon which the first FXY number and its
+ *  associated value depend, for example when the meaning of an
+ *  originating sub-center value depends on the identity of the
+ *  originating center for which the sub-center in question is a 
+ *  member.
+ *
+ *  @author J. Ator
+ *  @date 2018-01-11
+ *
+ *  @param[in] ifxyi - f77int*: Bitwise representation of FXY number
+ *                     to search for
+ *  @param[in] ivali - f77int*: Value (code figure or bit number)
+ *                     associated with ifxyi
+ *  @param[in,out] ifxyd - f77int*:
+ *                         - On input, ifxyd[0] is set to
+ *                           the bitwise representation of the FXY
+ *                           number upon which ifxyi and ivali depend,
+ *                           or else set to (-1) if ifxyi and ivali do
+ *                           not depend on the value associated with
+ *                           any other FXY number
+ *                         - On output, if the initial search of the
+ *                           master Code/Flag table was unsuccessful,
+ *                           <b>and</b> if ifxyd[0] and ivald were both
+ *                           set to (-1) on input, <b>and</b> if a
+ *                           second search of the table determines that
+ *                           the meaning of ifxyi and ivali indeed
+ *                           depends on one or more other FXY numbers,
+ *                           then the bitwise representations of those
+ *                           FXY numbers are returned within the first
+ *                           iret elements of ifxyd
+ *  @param[in] ivald - f77int*: Value (code figure or bit number)
+ *                     associated with the FXY number in ifxyd[0]; set
+ *                     to (-1) whenever ifxyd[0] is also set to (-1)
+ *  @param[in] mxfxyd - f77int*: Dimensioned size (in f77ints) of
+ *                      ifxyd; used by the subroutine to ensure that
+ *                      it doesn't overflow the ifxyd array
+ *  @param[in] mxmng - f77int*: Dimensioned size (in bytes) of meaning
+ *                     string; used by the subroutine to ensure that
+ *                     it doesn't overflow the meaning string
+ *  @param[out] meaning - char*: Meaning corresponding to ifxyi and
+ *                        ivali (and to ifxyd[0] and ivald, if
+ *                        specified on input)
+ *  @param[out] lnmng - f77int*: Length (in bytes) of string returned
+ *                      in CMEANG
+ *  @param[out] iret - f77int*: return code
+ *                     -  0 = meaning found and stored in meaning string
+ *                     - -1 = meaning not found
+ *                     - >0 = meaning not found, <b>and</b> ifxyd[0] and
+ *                            ivald were both set to (-1) on input,
+ *                            <b>and</b> the meaning of ifxyi and ivali
+ *                            depends on the the value associated with
+ *                            one of the FXY numbers whose bitwise
+ *                            representation is stored in the first iret
+ *                            elements of ifxyd
+ *
+ * <b>Program history log:</b>
+ * - 2018-01-11  J. Ator    -- Original author
+ */
 void srchtbf( f77int *ifxyi, f77int *ivali, f77int *ifxyd, f77int *mxfxyd, f77int *ivald,
 	      char *meaning, f77int *mxmng, f77int *lnmng, f77int *iret )
 {

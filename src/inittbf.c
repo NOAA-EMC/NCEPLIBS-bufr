@@ -1,37 +1,22 @@
 /** @file
-    @author ATOR @date 2017-11-03
-*/
-
-
+ *  @brief Initialize memory for internal storage of master
+ *  Code/Flag table entries.
+ */
 #include "bufrlib.h"
 #define IN_INITTBF
 #include "cfe.h"
 
 /**
-C
-C SUBPROGRAM:    INITTBF
-C   PRGMMR: ATOR             ORG: NCEP       DATE: 2017-11-03
-C
-C ABSTRACT:  THIS ROUTINE INITIALIZES THE INTERNAL MEMORY STRUCTURE
-C   FOR STORING CODE/FLAG TABLE INFORMATION, INCLUDING DYNAMICALLY
-C   ALLOCATING SPACE FOR THIS STRUCTURE IF NEEDED.
-C
-C PROGRAM HISTORY LOG:
-C 2017-11-03  J. ATOR    -- ORIGINAL AUTHOR
-C
-C USAGE:    CALL INITTBF
-C
-C REMARKS:
-C    THIS ROUTINE CALLS:        BORT     IGETPRM
-C    THIS ROUTINE IS CALLED BY: RDMTBF
-C                               Normally not called by any application
-C                               programs.
-C
-C ATTRIBUTES:
-C   LANGUAGE: C
-C   MACHINE:  PORTABLE TO ALL PLATFORMS
-C
-C$$$*/
+ *  This subroutine initializes the internal memory structure
+ *  for storage of master Code/Flag table entries, including
+ *  dynamically allocating space for this structure if needed.
+ *
+ *  @author J. Ator
+ *  @date 2017-11-03
+ *
+ *  <b>Program history log:</b>
+ *  - 2017-11-03  J. Ator    -- Original author
+*/
 void inittbf( void )
 {
     char brtstr[50] = "BUFRLIB: INITTBF FAILED ALLOCATING CFE";

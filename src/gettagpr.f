@@ -1,5 +1,6 @@
 C> @file
-C> @brief Get the parent for a specified occurrence of a mnemonic.
+C> @brief Get the parent for a specified occurrence of a Table B or
+C> Table D mnemonic.
 
 C> This subroutine returns the Table D mnemonic corresponding to the
 C> parent sequence of a specified Table B or Table D mnemonic within

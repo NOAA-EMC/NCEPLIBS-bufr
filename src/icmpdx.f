@@ -1,34 +1,32 @@
 C> @file
-C> @author J @date 2009-06-18
-      
-C> THIS FUNCTION DETERMINES WHETHER LOGICAL UNIT IOLUN(LUN)
-C>   HAS THE SAME INTERNAL TABLE INFORMATION AS LOGICAL UNIT IOLUN(LUD).
-C>   NOTE THAT THIS DOES NOT NECESSARILY MEAN THAT IOLUN(LUN) AND
-C>   IOLUN(LUD) ARE SHARING TABLE INFORMATION, SINCE TWO LOGICAL UNITS
-C>   CAN HAVE THE SAME INTERNAL TABLE INFORMATION WITHOUT SHARING IT.
+C> @brief Check whether two BUFR files have the same DX BUFR table
+C> information.
+
+C> This function determines whether the full set of associated
+C> [DX BUFR Table information](@ref dfbftab) is identical between
+C> two Fortran logical units.
 C>
-C> PROGRAM HISTORY LOG:
-C> 2009-06-18  J. ATOR    -- ORIGINAL AUTHOR
-C> 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
+C> Note that two different logical units can have identical DX BUFR
+C> Table information associated with them even if they aren't actually
+C> sharing the same DX BUFR table.
 C>
-C> USAGE:    ICMPDX (LUD, LUN)
-C>   INPUT ARGUMENT LIST:
-C>     LUD      - INTEGER: I/O STREAM INDEX INTO INTERNAL MEMORY ARRAYS
-C>                FOR FIRST LOGICAL UNIT
-C>     LUN      - INTEGER: I/O STREAM INDEX INTO INTERNAL MEMORY ARRAYS
-C>                FOR SECOND LOGICAL UNIT
+C> @author J. Ator
+C> @date 2009-06-18
 C>
-C>   OUTPUT ARGUMENT LIST:
-C>     ICMPDX   - INTEGER: RETURN CODE INDICATING WHETHER IOLUN(LUN)
-C>                HAS THE SAME INTERNAL TABLE INFORMATION AS IOLUN(LUD):
-C>                  0 - NO
-C>                  1 - YES
+C> @param[in]  LUD      - integer: Internal I/O stream index associated
+C>                        with first BUFR file
+C> @param[in]  LUN      - integer: Internal I/O stream index associated
+C>                        with second BUFR file
+C> @returns icmpdx      - integer: Flag indicating whether the 
+C>                        BUFR file associated with LUD and the BUFR
+C>                        file associated with LUN have the same DX
+C>                        BUFR table information
+C>                        - 0 = No
+C>                        - 1 = Yes
 C>
-C> REMARKS:
-C>    THIS ROUTINE CALLS:        ISHRDX
-C>    THIS ROUTINE IS CALLED BY: IOK2CPY  MAKESTAB
-C>                               Normally not called by any application
-C>                               programs.
+C> <b>Program history log:</b>
+C> - 2009-06-18  J. Ator    -- Original author
+C> - 2014-12-10  J. Ator    -- Use modules instead of COMMON blocks
 C>
       INTEGER FUNCTION ICMPDX(LUD,LUN)
 

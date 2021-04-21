@@ -1,49 +1,33 @@
 /** @file
-    @author ATOR @date 2017-11-13
-*/
-
+ *  @brief Store a new master Code/Flag table entry.
+ */
 #include "bufrlib.h"
 #include "cfe.h"
 
 /**
-C
-C SUBPROGRAM:    STRTBFE
-C   PRGMMR: ATOR             ORG: NCEP       DATE: 2017-11-13
-C
-C ABSTRACT:  THIS ROUTINE STORES A NEW ENTRY INTO THE INTERNAL MEMORY
-C   STRUCTURE FOR CODE/FLAG TABLE INFORMATION.
-C
-C PROGRAM HISTORY LOG:
-C 2017-11-13  J. ATOR    -- ORIGINAL AUTHOR
-C
-C USAGE:    CALL STRTBFE ( IFXYN, IVAL, MEANING, LMEANING,
-C                          IDFXY, IDVAL )
-C
-C   INPUT ARGUMENT LIST:
-C     IFXYN    - INTEGER: BIT-WISE REPRESENTATION OF FXY NUMBER FOR
-C                WHICH IVAL IS A DEFINED CODE OR FLAG TABLE ENTRY
-C     IVAL     - INTEGER: CODE FIGURE OR BIT NUMBER
-C     MEANING  - CHARACTER*(*): MEANING ASSOCIATED WITH IVAL
-C     LMEANING - INTEGER: LENGTH (IN BYTES) OF MEANING
-C     IDFXY    - INTEGER: BIT-WISE REPRESENTATION OF OTHER FXY NUMBER
-C                UPON WHICH IVAL IS DEPENDENT, IF ANY
-C		   -1 = NO DEPENDENCY
-C     IDVAL    - INTEGER: CODE FIGURE OR BIT NUMBER ASSOCIATED WITH
-C                IDFXY AND UPON WHICH IVAL IS DEPENDENT, IF ANY
-C		   -1 = NO DEPENDENCY
-C           
-C
-C REMARKS:
-C    THIS ROUTINE CALLS:        BORT
-C    THIS ROUTINE IS CALLED BY: SNTBFE
-C                               Normally not called by any application
-C                               programs.
-C
-C ATTRIBUTES:
-C   LANGUAGE: C
-C   MACHINE:  PORTABLE TO ALL PLATFORMS
-C
-C$$$*/
+ *  This subroutine adds a new entry to the internal memory
+ *  structure for storage of master Code/Flag table entries.
+ *
+ *  @author J. Ator
+ *  @date 2017-11-13
+ *
+ *  @param[in] ifxyn - f77int*: Bitwise representation of FXY number
+ *                     for which ival is a defined code or flag
+ *                     table entry
+ *  @param[in] ival  - f77int*: Code figure or bit number
+ *  @param[in] meaning - char*: Meaning associated with ifxyn and ival
+ *  @param[in] lmeaning - f77int*: Length (in bytes) of meaning
+ *  @param[in] idfxy - f77int*: Bitwise representation of FXY number
+ *                     upon which ifxyn and ival depend (if any), or
+ *                     else set to a value of (-1)
+ *  @param[in] idval - f77int*: Code figure or bit number associated
+ *                     with idfxy and upon which ifxyn and ival depend
+ *                     (if any), or else set to (-1) whenever idfxy is
+ *                     also set to (-1)
+ *
+ * <b>Program history log:</b>
+ * - 2017-11-13  J. Ator    -- Original author
+*/
 void strtbfe( f77int *ifxyn, f77int *ival, char *meaning, f77int *lmeaning,
 	      f77int *idfxy, f77int *idval )
 {

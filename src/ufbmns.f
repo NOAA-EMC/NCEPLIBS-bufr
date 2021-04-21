@@ -22,7 +22,7 @@ C> @param[out] SUBSET - character*8: Table A mnemonic for type of BUFR
 C>                      message that was read into scope
 C>                      (see [DX BUFR Tables](@ref dfbftab) for
 C>                      further information about Table A mnemonics)
-C> @param[out] JDATE  - integer: Date-time stored within Section 1 of
+C> @param[out] IDATE  - integer: Date-time stored within Section 1 of
 C>                      BUFR message that was read into scope,
 C>                      in format of either YYMMDDHH or YYYYMMDDHH,
 C>                      depending on the most

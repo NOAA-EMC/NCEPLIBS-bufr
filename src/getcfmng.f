@@ -3,7 +3,7 @@ C> @brief Decode the meaning of a numerical value from a code or flag table
 
 C> This subroutine searches for a specified Table B mnemonic and associated
 C> value (code figure or bit number) within the master Code/Flag tables,
-C> and if found returns the assocated meaning as a character string.
+C> and if found returns the associated meaning as a character string.
 C>
 C> @author J. Ator
 C> @date 2018-01-11
@@ -36,7 +36,8 @@ C.                        mnemonics are returned within this string, as a
 C>                        series of IRET successive 8-byte substrings. 
 C>                        An example of this scenario is included below
 C>                        within the Remarks.
-C> @param[out] LNMNG    - integer: Length of string returned in CMEANG
+C> @param[out] LNMNG    - integer: Length (in bytes) of string returned in
+C>                        CMEANG
 C> @param[out] IRET     - integer: return code
 C>                       -  0 = meaning found and stored in CMEANG string
 C>                       - -1 = meaning not found

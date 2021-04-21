@@ -1,6 +1,6 @@
 C> @file
-C> @brief Check whether a mnemonic references another mnemonic via
-C> an internal bitmap.
+C> @brief Check whether a Table B mnemonic references another
+C> Table B mnemonic via an internal bitmap.
 
 C> This subroutine determines whether a specified Table B mnemonic
 C> references another Table B mnemonic within the same data subset

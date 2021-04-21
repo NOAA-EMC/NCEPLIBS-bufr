@@ -1,49 +1,34 @@
 /** @file
-    @author ATOR @date 2017-11-13
-*/
-
-
+ *  @brief Define a comparison between two master Code/Flag table
+ *  entries.
+ */
 #include "bufrlib.h"
 #include "cfe.h"
 
 /**
-C
-C SUBPROGRAM:   CMPSTIA2 
-C   PRGMMR: ATOR             ORG: NCEP       DATE: 2017-11-13
-C
-C ABSTRACT:  THIS ROUTINE DEFINES A COMPARISON BETWEEN TWO ENTRIES IN
-C   THE INTERNAL MEMORY STRUCTURE USED FOR STORING ASCII MASTER
-C   CODE/FLAG TABLE INFORMATION.  THE COMPARISON IS USED BY THE
-C   BINARY SEARCH FUNCTION BSEARCH, AND IT DIFFERS FROM THE LOGIC IN
-C   ROUTINE CMPSTIA1 BECAUSE IT ONLY COMPARES THE IFFXYN AND IFVAL
-C   COMPONENTS OF THE STRUCTURE, WHEREAS CMPSTIA1 COMPARES ALL OF THE
-C   COMPONENTS IFFXY, IFVAL, IFFXYD and IFVALD.
-C
-C PROGRAM HISTORY LOG:
-C 2017-11-13  J. ATOR    -- ORIGINAL AUTHOR
-C
-C USAGE:    CALL CMPSTIA2( PE1, PE2 )
-C   INPUT ARGUMENT LIST:
-C     PE1      - FIRST STRUCTURE ENTRY TO BE COMPARED
-C     PE2      - SECOND STRUCTURE ENTRY TO BE COMPARED
-C
-C   OUTPUT ARGUMENT LIST:
-C     CMPSTIA2   - INTEGER: RESULT OF COMPARISON:
-C                      -1 = PE1 is less than PE2
-C                       0 = PE1 is equal to PE2
-C                       1 = PE1 is greater than PE2
-C
-C REMARKS:
-C    THIS ROUTINE CALLS:        None
-C    THIS ROUTINE IS CALLED BY: SRCHTBF
-C                               Normally not called by any application
-C                               programs.
-C
-C ATTRIBUTES:
-C   LANGUAGE: C
-C   MACHINE:  PORTABLE TO ALL PLATFORMS
-C
-C$$$*/
+ * This function defines a comparison between two entries within the
+ * internal memory structure for storage of master Code/Flag table
+ * entries.  The comparison is used by the intrinsic C function
+ * bsearch, and it differs from the the comparison in
+ * function cmpstia1() because it only compares the iffxyn and ifval
+ * components of the structure, whereas cmpstia1() compares all of
+ * the iffxyn, ifval, iffxynd and ifvald components of the structure.
+ *
+ * @author J. Ator
+ * @date 2017-11-13
+ *
+ * @param[in] pe1 - struct code_flag_entry*: First master Code/Flag
+ *                  table entry
+ * @param[in] pe2 - struct code_flag_entry*: Second master Code/Flag
+ *                  table entry
+ * @returns cmpstia2 - integer:
+ *                     - -1 = pe1 is less than pe2
+ *                     -  0 = pe1 is equal to pe2
+ *                     -  1 = pe1 is greater than pe2
+ *
+ * <b>Program history log:</b>
+ * - 2017-11-13  J. Ator    -- Original author
+*/
 int cmpstia2( const void *pe1, const void *pe2 )
 {
 	struct code_flag_entry *mype1 = ( struct code_flag_entry * ) pe1;

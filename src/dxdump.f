@@ -1,13 +1,13 @@
 C> @file
-C> @brief Print the contents of a DX table.
+C> @brief Print the contents of a DX BUFR table.
 
-C> This subroutine prints a copy of the DX table associated with
-C> a specified Fortran logical unit.
+C> This subroutine prints a copy of the DX BUFR table associated
+C> with a specified Fortran logical unit.
 C>
 C> This subroutine is especially useful for learning the structure
-C> of existing BUFR files which contain DX table information
+C> of existing BUFR files which contain DX BUFR table information
 C> embedded as BUFR messages within those files.
-C> The DX table is printed using the same ASCII format 
+C> The DX BUFR table is printed using the same ASCII format 
 C> described in the documentation for
 C> [DX BUFR Tables](@ref dfbftab), so the output file is suitable
 C> for use as Fortran logical unit LUNDX in subsequent calls to
@@ -28,9 +28,9 @@ C> Logical unit LDXOT must already be associated with a filename
 C> on the local system, typically via a Fortran "OPEN" statement.
 C>
 C> @remarks
-C> - This subroutine only prints the DX table that is currently in
-C> scope for logical unit LUNIT.  Therefore, if logical unit LUNIT
-C> contains multiple embedded DX tables, then multiple calls to 
+C> - This subroutine only prints the DX BUFR table that is currently
+C> in scope for logical unit LUNIT.  Therefore, if logical unit LUNIT
+C> contains multiple embedded DX BUFR tables, then multiple calls to 
 C> this subroutine must be made to print out all of the tables,
 C> once while each table is in scope for a data subset defined
 C> within that particular table.

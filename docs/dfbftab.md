@@ -551,15 +551,15 @@ number must be all digits, with the next 2 characters (i.e. the "X" component) a
 between 00 and 63, and the final 3 characters (i.e. the "Y" component) as a number between 001
 and 255. Readers who are more familiar with BUFR will immediately recognize these F, X, and Y
 values as those that are defined within the
-[official documentation of the BUFR code form](https://library.wmo.int/index.php?lvl=notice_display&id=10684#.X68yu8hKiUn);
+[official documentation of the BUFR code form](@ref manual);
 therefore, by international convention, a mnemonic should not be given an X value between 00 and 47
 along with a Y value between 001 and 191 unless that mnemonic, when subsequently defined, corresponds
 exactly to the BUFR descriptor having that same FXY number within the
-[official, internationally-coordinated WMO BUFR tables](https://community.wmo.int/activity-areas/wmo-codes/manual-codes/latest-version). For example, in our [sample DX BUFR tables file](#bftab),
+[official WMO master BUFR tables](@ref wmomstab). For example, in our [sample DX BUFR tables file](#bftab),
 mnemonic "WMOB" is declared with an FXY number of 001001; therefore, it has the exact same text
 description (i.e. "WMO BLOCK NUMBER") and, when later defined within the last section of the file,
 the exact same scale factor, reference value, bit width, and units as for FXY number 001001 within
-the official WMO BUFR tables. This concept should be somewhat intuitive, but it's obviously very
+the official WMO master BUFR tables. This concept should be somewhat intuitive, but it's obviously very
 important when the BUFRLIB software is to be used to encode BUFR messages that may potentially be
 read by other users in other organizations around the world.
 
@@ -716,7 +716,7 @@ First, notice how a 201YYY indicator precedes each occurrence of ACAV within the
 sequence mnemonic OBSEQ as well as each occurrence of HINC within the definition of the Table A mnemonic
 NC002007. This indicator is called an <i>operator</i>, and readers more familiar with the details of BUFR
 will no doubt recognize it from Table C of the
-[official, internationally-coordinated WMO BUFR tables](https://community.wmo.int/activity-areas/wmo-codes/manual-codes/latest-version).
+[official WMO master BUFR tables](@ref wmomstab).
 In short, the effect of this operator is that, for each Table B mnemonic which follows it within the current
 sequence, and continuing up until the point in the sequence where a corresponding 201000 operator is reached
 (and which turns off the effect), ( YYY - 128 ) bits should be added to the bit width that is otherwise defined
