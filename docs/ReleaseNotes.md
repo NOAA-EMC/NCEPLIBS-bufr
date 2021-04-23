@@ -3,7 +3,7 @@
 @brief Detailed description of changes included within each new release.
 
 
-### Version 11.4.0 - TBD
+### Version 11.5.0 - April 26, 2021
 
 * Subroutine ufbseq() was modified for cases where the number of available
 levels exceeds the amount of user-provided array space when reading from an
@@ -49,6 +49,12 @@ compatibility with GNU v10+ compilers.
 never intended to be called from application codes, so they have now been
 removed from the library.
 [[Issue #107](https://github.com/NOAA-EMC/NCEPLIBS-bufr/issues/107)]
+
+
+### Version 11.4.0 - November 20, 2020
+
+* A Python API was added to the library, for use with Python applications.
+[[Issue #61](https://github.com/NOAA-EMC/NCEPLIBS-bufr/issues/61)]
 
 
 ### Version 11.3.2 - July 16, 2020
