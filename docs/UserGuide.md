@@ -52,7 +52,7 @@ writing/encoding BUFR data:
 <tr>
   <th>reading/decoding</th>
   <td>openbf() openbf_f() ufbmem() ufbmex() cobfl()</td>
-  <td>readmg() ireadmg() ireadmg_f() readerme() readns() ireadns() rdmemm() readmm() ireadmm() crbmg() datelen() getlens() iupvs01() iupbs01() iupbs3() nmsub() rtrcpt()</td>
+  <td>readmg() ireadmg() ireadmg_f() readerme() readns() ireadns() rdmemm() readmm() ireadmm() crbmg() datelen() getlens() iupvs01() iupbs01() iupbs3() nmsub() rtrcpt() igetdate()</td>
   <td>readsb() ireadsb() ireadsb_f() readns() ireadns() rdmems() ufbmms() ufbmns()</td>
   <td>ufbint() ufbrep() ufbseq() ufbstp() ufbint_f() ufbrep_f() ufbrms() readlc() getvalnb() setbmiss() getbmiss() ibfms() icbfms()</td>
 </tr>
