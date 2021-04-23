@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.3.2</span>
+   &#160;<span id="projectnumber">11.5.0</span>
    </div>
   </td>
  </tr>
@@ -92,7 +92,7 @@ $(document).ready(function(){initNavTree('cobfl_8h_source.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -107,11 +107,31 @@ $(document).ready(function(){initNavTree('cobfl_8h_source.html','');});
 </div><!--header-->
 <div class="contents">
 <a href="cobfl_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;</div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#ifdef IN_COBFL</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor"></span>    FILE *pbf[2];  <span class="comment">/* each element will automatically initialize to NULL */</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#else</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor"></span>    <span class="keyword">extern</span> FILE *pbf[2];</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#ifdef UNDERSCORE</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define cobfl      cobfl_</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define crbmg      crbmg_</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define cwbmg      cwbmg_</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define ccbfl      ccbfl_</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define rbytes     rbytes_</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="preprocessor"></span></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="keywordtype">void</span> <a class="code" href="cobfl_8c.html#a8ee2da6f5d4198418177b973d9b1108c">cobfl</a>( <span class="keywordtype">char</span> *, <span class="keywordtype">char</span> * );</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="keywordtype">void</span> <a class="code" href="ccbfl_8c.html#ab66668ab9633ce3b475416f6a9899802">ccbfl</a>( <span class="keywordtype">void</span> );</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="keywordtype">void</span> <a class="code" href="cobfl_8h.html#aaec663988563e497bfe9ef80d1674b00">crbmg</a>( <span class="keywordtype">char</span> *, f77int *, f77int *, f77int * );</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="keywordtype">void</span> <a class="code" href="cobfl_8h.html#a204acc5f09ddbbdd59ccc4ff491935df">cwbmg</a>( <span class="keywordtype">char</span> *, f77int *, f77int * );</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;f77int <a class="code" href="cobfl_8h.html#a662fa0f4a540caee1bfaa5e413b714e3">rbytes</a>( <span class="keywordtype">char</span> *, f77int *, f77int, f77int );</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="preprocessor">#ifdef IN_COBFL</span></div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="preprocessor"></span>    FILE *<a class="code" href="cobfl_8h.html#a749687e8025ba9e13e3634055d551dce">pbf</a>[2];  <span class="comment">/* each element will automatically initialize to NULL */</span></div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="preprocessor">#else</span></div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="preprocessor"></span>    <span class="keyword">extern</span> FILE *<a class="code" href="cobfl_8h.html#a749687e8025ba9e13e3634055d551dce">pbf</a>[2];</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="cobfl_8h_html_a749687e8025ba9e13e3634055d551dce"><div class="ttname"><a href="cobfl_8h.html#a749687e8025ba9e13e3634055d551dce">pbf</a></div><div class="ttdeci">FILE * pbf[2]</div><div class="ttdoc">File pointers. </div></div>
+<div class="ttc" id="ccbfl_8c_html_ab66668ab9633ce3b475416f6a9899802"><div class="ttname"><a href="ccbfl_8c.html#ab66668ab9633ce3b475416f6a9899802">ccbfl</a></div><div class="ttdeci">void ccbfl(void)</div><div class="ttdoc">This subroutine closes all system files that were opened via previous calls to subroutine cobfl()...</div><div class="ttdef"><b>Definition:</b> <a href="ccbfl_8c_source.html#l00018">ccbfl.c:18</a></div></div>
+<div class="ttc" id="cobfl_8h_html_a204acc5f09ddbbdd59ccc4ff491935df"><div class="ttname"><a href="cobfl_8h.html#a204acc5f09ddbbdd59ccc4ff491935df">cwbmg</a></div><div class="ttdeci">void cwbmg(char *, f77int *, f77int *)</div><div class="ttdoc">This subroutine writes a BUFR message to the system file that was opened via the most recent call to ...</div><div class="ttdef"><b>Definition:</b> <a href="cwbmg_8c_source.html#l00033">cwbmg.c:33</a></div></div>
+<div class="ttc" id="cobfl_8h_html_a662fa0f4a540caee1bfaa5e413b714e3"><div class="ttname"><a href="cobfl_8h.html#a662fa0f4a540caee1bfaa5e413b714e3">rbytes</a></div><div class="ttdeci">f77int rbytes(char *, f77int *, f77int, f77int)</div><div class="ttdoc">This function reads a specified number of bytes from the system file that was opened via the most rec...</div><div class="ttdef"><b>Definition:</b> <a href="rbytes_8c_source.html#l00038">rbytes.c:38</a></div></div>
+<div class="ttc" id="cobfl_8h_html_aaec663988563e497bfe9ef80d1674b00"><div class="ttname"><a href="cobfl_8h.html#aaec663988563e497bfe9ef80d1674b00">crbmg</a></div><div class="ttdeci">void crbmg(char *, f77int *, f77int *, f77int *)</div><div class="ttdoc">This subroutine reads the next BUFR message from the system file that was opened via the most recent ...</div><div class="ttdef"><b>Definition:</b> <a href="crbmg_8c_source.html#l00046">crbmg.c:46</a></div></div>
+<div class="ttc" id="cobfl_8c_html_a8ee2da6f5d4198418177b973d9b1108c"><div class="ttname"><a href="cobfl_8c.html#a8ee2da6f5d4198418177b973d9b1108c">cobfl</a></div><div class="ttdeci">void cobfl(char *bfl, char *io)</div><div class="ttdoc">This subroutine opens a new file for reading or writing BUFR messages via a C language interface...</div><div class="ttdef"><b>Definition:</b> <a href="cobfl_8c_source.html#l00079">cobfl.c:79</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

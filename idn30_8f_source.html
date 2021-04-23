@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.3.2</span>
+   &#160;<span id="projectnumber">11.5.0</span>
    </div>
   </td>
  </tr>
@@ -92,7 +92,7 @@ $(document).ready(function(){initNavTree('idn30_8f_source.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -182,9 +182,9 @@ $(document).ready(function(){initNavTree('idn30_8f_source.html','');});
 <div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;      CALL <a class="code" href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort</a>(bort_str)</div>
 <div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;      <span class="keywordflow">END</span></div>
 <div class="ttc" id="idn30_8f_html_a69a1bd958e896bf2f1d6e23159d82713"><div class="ttname"><a href="idn30_8f.html#a69a1bd958e896bf2f1d6e23159d82713">idn30</a></div><div class="ttdeci">function idn30(ADN30, L30)</div><div class="ttdoc">THIS FUNCTION CONVERTS A DESCRIPTOR FROM ITS FIVE OR SIX CHARACTER ASCII REPRESENTATION TO ITS BIT-WI...</div><div class="ttdef"><b>Definition:</b> <a href="idn30_8f_source.html#l00037">idn30.f:37</a></div></div>
-<div class="ttc" id="adn30_8f_html_a1e96adbf45bd49facbf0ef30ae375db4"><div class="ttname"><a href="adn30_8f.html#a1e96adbf45bd49facbf0ef30ae375db4">adn30</a></div><div class="ttdeci">character *(*) function adn30(IDN, L30)</div><div class="ttdoc">This function converts a descriptor from its bit-wise (integer) representation to its 5 or 6 characte...</div><div class="ttdef"><b>Definition:</b> <a href="adn30_8f_source.html#l00035">adn30.f:35</a></div></div>
+<div class="ttc" id="adn30_8f_html_a1e96adbf45bd49facbf0ef30ae375db4"><div class="ttname"><a href="adn30_8f.html#a1e96adbf45bd49facbf0ef30ae375db4">adn30</a></div><div class="ttdeci">character *(*) function adn30(IDN, L30)</div><div class="ttdoc">This function converts a descriptor from its bit-wise (integer) representation to its 5 or 6 characte...</div><div class="ttdef"><b>Definition:</b> <a href="adn30_8f_source.html#l00027">adn30.f:27</a></div></div>
 <div class="ttc" id="ifxy_8f_html_ac971a6f6d644344a5b09d50175498074"><div class="ttname"><a href="ifxy_8f.html#ac971a6f6d644344a5b09d50175498074">ifxy</a></div><div class="ttdeci">function ifxy(ADSC)</div><div class="ttdoc">THIS FUNCTION RETURNS THE INTEGER CORRESPONDING TO THE BIT-WISE REPRESENTATION OF AN INPUT CHARACTER ...</div><div class="ttdef"><b>Definition:</b> <a href="ifxy_8f_source.html#l00049">ifxy.f:49</a></div></div>
-<div class="ttc" id="bort_8f_html_a488d3a8cf930fb592a9fdaefcfa04ac4"><div class="ttname"><a href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort</a></div><div class="ttdeci">subroutine bort(STR)</div><div class="ttdoc">THIS SUBROUTINE WRITES (VIA BUFR ARCHIVE LIBRARY SUBROUTINE ERRWRT) A GIVEN ERROR STRING AND THEN CAL...</div><div class="ttdef"><b>Definition:</b> <a href="bort_8f_source.html#l00069">bort.f:69</a></div></div>
+<div class="ttc" id="bort_8f_html_a488d3a8cf930fb592a9fdaefcfa04ac4"><div class="ttname"><a href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort</a></div><div class="ttdeci">subroutine bort(STR)</div><div class="ttdoc">This subroutine calls subroutine errwrt() to log an error message, then calls subroutine bort_exit() ...</div><div class="ttdef"><b>Definition:</b> <a href="bort_8f_source.html#l00023">bort.f:23</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

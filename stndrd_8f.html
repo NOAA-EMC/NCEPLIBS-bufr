@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.3.2</span>
+   &#160;<span id="projectnumber">11.5.0</span>
    </div>
   </td>
  </tr>
@@ -92,7 +92,7 @@ $(document).ready(function(){initNavTree('stndrd_8f.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -109,17 +109,19 @@ $(document).ready(function(){initNavTree('stndrd_8f.html','');});
 </div><!--header-->
 <div class="contents">
 
+<p>Standardize a BUFR message.  
+<a href="#details">More...</a></p>
+
 <p><a href="stndrd_8f_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions/Subroutines</h2></td></tr>
 <tr class="memitem:a9a40fe96eef4a44c203f5e663fc47c4b"><td class="memItemLeft" align="right" valign="top">subroutine&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stndrd_8f.html#a9a40fe96eef4a44c203f5e663fc47c4b">stndrd</a> (LUNIT, MSGIN, LMSGOT, MSGOT)</td></tr>
-<tr class="memdesc:a9a40fe96eef4a44c203f5e663fc47c4b"><td class="mdescLeft">&#160;</td><td class="mdescRight">THIS SUBROUTINE READS AN INPUT NCEP BUFR MESSAGE CONTAINED WITHIN ARRAY MSGIN AND, USING THE BUFR TABLES INFORMATION ASSOCIATED WITH LOGICAL UNIT LUNIT, OUTPUTS A "STANDARDIZED" VERSION OF THIS SAME MESSAGE WITHIN ARRAY MSGOT.  <a href="#a9a40fe96eef4a44c203f5e663fc47c4b">More...</a><br/></td></tr>
+<tr class="memdesc:a9a40fe96eef4a44c203f5e663fc47c4b"><td class="mdescLeft">&#160;</td><td class="mdescRight">This subroutine performs the same function as subroutine <a class="el" href="stdmsg_8f.html#abcb573ae105505deb6d3c0ad55abbce2" title="This subroutine is used to specify whether BUFR messages output by future calls to message-writing su...">stdmsg()</a>, except that it operates on a BUFR message passed in via a memory array and returns its output via a separate memory array, whereas <a class="el" href="stdmsg_8f.html#abcb573ae105505deb6d3c0ad55abbce2" title="This subroutine is used to specify whether BUFR messages output by future calls to message-writing su...">stdmsg()</a> operates on BUFR messages stored internally within the software.  <a href="#a9a40fe96eef4a44c203f5e663fc47c4b">More...</a><br/></td></tr>
 <tr class="separator:a9a40fe96eef4a44c203f5e663fc47c4b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><dl class="section author"><dt>Author</dt><dd>ATOR </dd></dl>
-<dl class="section date"><dt>Date</dt><dd>2004-08-18 </dd></dl>
+<div class="textblock"><p>Standardize a BUFR message. </p>
 
 <p>Definition in file <a class="el" href="stndrd_8f_source.html">stndrd.f</a>.</p>
 </div><h2 class="groupheader">Function/Subroutine Documentation</h2>
@@ -159,15 +161,37 @@ Functions/Subroutines</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>THIS SUBROUTINE READS AN INPUT NCEP BUFR MESSAGE CONTAINED WITHIN ARRAY MSGIN AND, USING THE BUFR TABLES INFORMATION ASSOCIATED WITH LOGICAL UNIT LUNIT, OUTPUTS A "STANDARDIZED" VERSION OF THIS SAME MESSAGE WITHIN ARRAY MSGOT. </p>
-<p>THIS "STANDARDIZATION" INVOLVES REMOVING ALL OCCURRENCES OF NCEP BUFRLIB-SPECIFIC BYTE COUNTERS AND BIT PADS IN SECTION 4 AS WELL AS REPLACING THE TOP-LEVEL TABLE A FXY NUMBER IN SECTION 3 WITH AN EQUIVALENT SEQUENCE OF LOWER-LEVEL TABLE B, TABLE C, TABLE D AND/OR REPLICATION FXY NUMBERS WHICH DIRECTLY CONSTITUTE THAT TABLE A FXY NUMBER AND WHICH THEMSELVES ARE ALL WMO-STANDARD. THE RESULT IS THAT THE OUTPUT MESSAGE IN MSGOT IS NOW ENTIRELY COMPLIANT WITH WMO FM-94 BUFR REGULATIONS (I.E. IT IS NOW "STANDARD"). IT IS IMPORTANT TO NOTE THAT THE SEQUENCE EXPANSION WITHIN SECTION 3 MAY CAUSE THE FINAL "STANDARDIZED" BUFR MESSAGE TO BE LONGER THAN THE ORIGINAL INPUT NCEP BUFR MESSAGE BY AS MANY AS (MAXNC*2) BYTES (SEE '<a class="el" href="bufrlib_8inc_source.html">bufrlib.inc</a>' FOR AN EXPLANATION OF MAXNC), SO THE USER MUST ALLOW FOR ENOUGH SPACE TO ACCOMODATE SUCH AN EXPANSION WITHIN THE MSGOT ARRAY.</p>
-<p>PROGRAM HISTORY LOG: 2004-08-18 J. ATOR &ndash; ORIGINAL AUTHOR THIS SUBROUTINE IS MODELED AFTER SUBROUTINE STANDARD; HOWEVER, IT USES SUBROUTINE RESTD TO EXPAND SECTION 3 AS MANY LEVELS AS NECESSARY IN ORDER TO ATTAIN TRUE WMO STANDARDIZATION (WHEREAS STANDARD ONLY EXPANDED THE TOP-LEVEL TABLE A FXY NUMBER ONE LEVEL DEEP), AND IT ALSO CONTAINS AN EXTRA INPUT ARGUMENT LMSGOT WHICH PREVENTS OVERFLOW OF THE MSGOT ARRAY 2005-11-29 J. ATOR &ndash; USE GETLENS AND IUPBS01; ENSURE THAT BYTE 4 OF SECTION 4 IS ZEROED OUT IN MSGOT; CHECK EDITION NUMBER OF BUFR MESSAGE BEFORE PADDING TO AN EVEN BYTE COUNT 2009-03-23 J. ATOR &ndash; USE IUPBS3 AND NEMTBAX; DON'T ASSUME THAT COMPRESSED MESSAGES ARE ALREADY FULLY STANDARDIZED WITHIN SECTION 3 2014-02-04 J. ATOR &ndash; ACCOUNT FOR SUBSETS WITH BYTE COUNT &gt; 65530 2020-07-16 J. ATOR &ndash; FIX BUG IN ISLEN COMPUTATION WHEN NSUB = 1</p>
-<p>USAGE: CALL STNDRD (LUNIT, MSGIN, LMSGOT, MSGOT) INPUT ARGUMENT LIST: LUNIT - INTEGER: FORTRAN LOGICAL UNIT NUMBER FOR BUFR FILE MSGIN - INTEGER: *-WORD ARRAY CONTAINING BUFR MESSAGE IN NCEP BUFR LMSGOT - INTEGER: DIMENSIONED SIZE (IN INTEGER WORDS) OF MSGOT; USED BY THE SUBROUTINE TO ENSURE THAT IT DOES NOT OVERFLOW THE MSGOT ARRAY</p>
-<p>OUTPUT ARGUMENT LIST: MSGOT - INTEGER: *-WORD ARRAY CONTAINING INPUT BUFR MESSAGE NOW IN STANDARDIZED BUFR</p>
-<p>REMARKS: MSGIN AND MSGOT MUST BE SEPARATE ARRAYS.</p>
-<p>THIS ROUTINE CALLS: BORT GETLENS ISTDESC IUPB IUPBS01 IUPBS3 MVB NEMTBAX NUMTAB PKB PKC RESTD STATUS UPB UPC THIS ROUTINE IS CALLED BY: MSGWRT Also called by application programs. </p>
+<p>This subroutine performs the same function as subroutine <a class="el" href="stdmsg_8f.html#abcb573ae105505deb6d3c0ad55abbce2" title="This subroutine is used to specify whether BUFR messages output by future calls to message-writing su...">stdmsg()</a>, except that it operates on a BUFR message passed in via a memory array and returns its output via a separate memory array, whereas <a class="el" href="stdmsg_8f.html#abcb573ae105505deb6d3c0ad55abbce2" title="This subroutine is used to specify whether BUFR messages output by future calls to message-writing su...">stdmsg()</a> operates on BUFR messages stored internally within the software. </p>
+<dl class="section author"><dt>Author</dt><dd>J. Ator </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2004-08-18</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">LUNIT</td><td>- integer: Fortran logical unit number for BUFR file </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">MSGIN</td><td>- integer(*): BUFR message </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">LMSGOT</td><td>- integer: Dimensioned size (in integers) of MSGOT; used by the subroutine to ensure that it doesn't overflow the MSGOT array </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">MSGOT</td><td>- integer(*): Standardized copy of MSGIN</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section remark"><dt>Remarks</dt><dd><ul>
+<li>MSGIN and MSGOT must be separate arrays.</li>
+<li>Standardized messages are usually longer in length than their non-standard counterparts, so it's usually a good idea to allow for extra space when allocating MSGOT within the application program.</li>
+</ul>
+</dd></dl>
+<p><b>Program history log:</b></p>
+<ul>
+<li>2004-08-18 J. Ator &ndash; Original author</li>
+<li>2005-11-29 J. Ator &ndash; Use <a class="el" href="getlens_8f.html#a15ffcb4cde43c73327fd3afb738078e2" title="This subroutine reads the lengths of all of the individual sections of a given BUFR message...">getlens()</a> and <a class="el" href="iupbs01_8f.html#adcd6f7c2f898b4f938153c5cf79a9cf5" title="This function returns a specified value from within Section 0 or Section 1 of a BUFR message...">iupbs01()</a>; ensure that byte 4 of Section 4 is zeroed out in MSGOT; check edition number of BUFR message before padding to an even byte count</li>
+<li>2009-03-23 J. Ator &ndash; Use <a class="el" href="iupbs3_8f.html#a542e11287f9dc5bf72d3889db48e1b19" title="This function returns a specified value from within Section 3 of a BUFR message. ">iupbs3()</a> and <a class="el" href="nemtbax_8f.html#adec9ab84d3bc51e082325e710354192e" title="THIS SUBROUTINE SEARCHES FOR MNEMONIC NEMO WITHIN THE INTERNAL TABLE A ARRAYS HOLDING THE DICTIONARY ...">nemtbax()</a>; don't assume that compressed messages are already fully standardized within Section 3</li>
+<li>2014-02-04 J. Ator &ndash; Account for subsets with byte count &gt; 65530</li>
+<li>2020-07-16 J. Ator &ndash; Fix bug in ISLEN computation when NSUB = 1 </li>
+</ul>
 
-<p>Definition at line <a class="el" href="stndrd_8f_source.html#l00066">66</a> of file <a class="el" href="stndrd_8f_source.html">stndrd.f</a>.</p>
+<p>Definition at line <a class="el" href="stndrd_8f_source.html#l00039">39</a> of file <a class="el" href="stndrd_8f_source.html">stndrd.f</a>.</p>
+
+<p>References <a class="el" href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort()</a>, <a class="el" href="getlens_8f.html#a15ffcb4cde43c73327fd3afb738078e2">getlens()</a>, <a class="el" href="istdesc_8f.html#a8cf4d2f75a7094c482f39dec47f37175">istdesc()</a>, <a class="el" href="iupb_8f.html#a3f8fa4b5261e85ecbf679208e7635c6c">iupb()</a>, <a class="el" href="iupbs01_8f.html#adcd6f7c2f898b4f938153c5cf79a9cf5">iupbs01()</a>, <a class="el" href="iupbs3_8f.html#a542e11287f9dc5bf72d3889db48e1b19">iupbs3()</a>, <a class="el" href="mvb_8f.html#a3fb4ee7c2a5cf7725257dcdd71826ba2">mvb()</a>, <a class="el" href="nemtbax_8f.html#adec9ab84d3bc51e082325e710354192e">nemtbax()</a>, <a class="el" href="numtab_8f.html#abe719d38067d3f869c1b200530fc92f9">numtab()</a>, <a class="el" href="pkb_8f.html#a35aa2e691ff3ad32de9d8721cae613f7">pkb()</a>, <a class="el" href="pkc_8f.html#a0376a4af04f7be036484c666ebbb8ef9">pkc()</a>, <a class="el" href="restd_8c.html#aef3fbb522b92409bdc654d70b39daaa0">restd()</a>, <a class="el" href="status_8f.html#a22292e7a69c411a961168198d259f336">status()</a>, <a class="el" href="upb_8f.html#aae09b58b06877db63e95889f67c146c0">upb()</a>, and <a class="el" href="upc_8f.html#ae2afdf50d0bf4063426faeae29515208">upc()</a>.</p>
+
+<p>Referenced by <a class="el" href="msgwrt_8f.html#ac95ecf1436ba14805a33efd29fab1e5d">msgwrt()</a>.</p>
 
 </div>
 </div>

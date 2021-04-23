@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.3.2</span>
+   &#160;<span id="projectnumber">11.5.0</span>
    </div>
   </td>
  </tr>
@@ -92,7 +92,7 @@ $(document).ready(function(){initNavTree('pkvs01_8F_source.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -107,139 +107,131 @@ $(document).ready(function(){initNavTree('pkvs01_8F_source.html','');});
 </div><!--header-->
 <div class="contents">
 <a href="pkvs01_8F.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="comment">C&gt; @file</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment">C&gt; @author ATOR @date 2005-11-29</span></div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;      </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="comment">C&gt; THIS SUBROUTINE IS USED TO SPECIFY A VALUE TO BE WRITTEN</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="comment">C&gt;   INTO A SPECIFIED LOCATION WITHIN SECTION 0 OR SECTION 1 OF ALL BUFR</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="comment">C&gt;   MESSAGES THAT WILL BE OUTPUT BY FUTURE CALLS TO ANY OF THE BUFR</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="comment">C&gt;   ARCHIVE LIBRARY SUBROUTINES WHICH CREATE SUCH MESSAGES (E.G. WRITCP,</span></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="comment">C&gt;   WRITSB, COPYMG, WRITSA, ETC.).  IT WILL WORK ON ANY MESSAGE ENCODED</span></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="comment">C&gt;   USING BUFR EDITION 2, 3 OR 4, AND IT CAN BE CALLED AT ANY TIME,</span></div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="comment">C&gt;   INCLUDING BEFORE THE FIRST CALL TO BUFR ARCHIVE LIBRARY SUBROUTINE</span></div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="comment">C&gt;   OPENBF IF IT IS DESIRED FOR THE NEW VALUE TO ALSO BE INCLUDED IN ANY</span></div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="comment">C&gt;   DX DICTIONARY TABLE MESSAGES THAT WILL BE OUTPUT BY BUFR ARCHIVE</span></div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="comment">C&gt;   LIBRARY SUBROUTINE WRITDX.  IN ANY CASE, THE LOCATION WITHIN WHICH</span></div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment">C&gt;   TO STORE THE VALUE IS SPECIFIED VIA THE MNEMONIC S01MNEM, AS</span></div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="comment">C&gt;   EXPLAINED IN FURTHER DETAIL BELOW.  IF MULTIPLE VALUES ARE DESIRED</span></div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="comment">C&gt;   TO BE CHANGED WITHIN SECTION 0 OR SECTION 1 OF FUTURE OUTPUT</span></div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="comment">C&gt;   MESSAGES, THEN EACH SUCH VALUE (AND CORRESPONDING LOCATION)</span></div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="comment">C&gt;   SHOULD BE SPECIFIED USING A SEPARATE CALL TO THIS SUBROUTINE.</span></div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment">C&gt;   NOTE THAT EACH CALL TO THIS SUBROUTINE WITH A PARTICULAR LOCATION</span></div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="comment">C&gt;   SPECIFICATION WILL OVERRIDE THE EFFECT OF ANY PREVIOUS CALL WITH</span></div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="comment">C&gt;   THAT SAME SPECIFICATION (OR, IN THE CASE OF THE FIRST CALL WITH A</span></div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="comment">C&gt;   PARTICULAR LOCATION SPECIFICATION, IT WILL OVERRIDE THE DEFAULT</span></div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="comment">C&gt;   SECTION 0 OR SECTION 1 VALUE FOR THE CORRESPONDING LOCATION!).</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment">C&gt; @brief Specify a value to be included in Section 0 or Section 1 when</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="comment">C&gt; writing BUFR messages.</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="comment">C&gt; This subroutine is used to specify a value to be written into a</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="comment">C&gt; specified location within Section 0 or Section 1 of all BUFR messages</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="comment">C&gt; output by future calls to other</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="comment">C&gt; [message-writing subroutines](@ref hierarchy) and</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="comment">C&gt; [subset-writing subroutines](@ref hierarchy).</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="comment">C&gt;</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="comment">C&gt; &lt;p&gt;This subroutine is similar to subroutine pkbs1(), except that</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="comment">C&gt; pkbs1() operates on a single BUFR message passed in via a memory</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="comment">C&gt; array.  Alternatively, whenever this subroutine is called, the</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment">C&gt; specified IVAL will be written into all BUFR messages output by all</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="comment">C&gt; future calls to other [message-writing subroutines](@ref hierarchy)</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="comment">C&gt; and [subset-writing subroutines](@ref hierarchy),</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="comment">C&gt; for all Fortran logical units that are open for</span></div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="comment">C&gt; output within the application program, unless a subsequent call is</span></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment">C&gt; made to this subroutine with the same value of S01MNEM in order to</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="comment">C&gt; reset the corresponding IVAL again.  Otherwise, if this subroutine</span></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="comment">C&gt; is never called for a particular value of S01MNEM, then a default</span></div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="comment">C&gt; value is used for the corresponding IVAL, as set within subroutine</span></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="comment">C&gt; msgini(), cmsgini() or dxmini().</span></div>
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="comment">C&gt;</span></div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="comment">C&gt; PROGRAM HISTORY LOG:</span></div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="comment">C&gt; 2005-11-29  J. ATOR    -- ORIGINAL AUTHOR</span></div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="comment">C&gt; 2006-04-14  D. KEYSER  -- UPDATED DOCBLOCK</span></div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="comment">C&gt; 2015-03-03  J. ATOR    -- USE MODULE MODA_S01CM</span></div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="comment">C&gt;</span></div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="comment">C&gt; USAGE:    CALL PKVS01(S01MNEM,IVAL)</span></div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="comment">C&gt;   INPUT ARGUMENT LIST:</span></div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="comment">C&gt;     S01MNEM  - CHARACTER*(*): MNEMONIC SPECIFYING LOCATION WHERE IVAL</span></div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="comment">C&gt;                IS TO BE STORED WITHIN SECTION 0 OR SECTION 1 OF ALL</span></div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="comment">C&gt;                FUTURE OUTPUT BUFR MESSAGES:</span></div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="comment">C&gt;                  &#39;BEN&#39;   = BUFR EDITION NUMBER</span></div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="comment">C&gt;                  &#39;BMT&#39;   = BUFR MASTER TABLE </span></div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="comment">C&gt;                  &#39;OGCE&#39;  = ORIGINATING CENTER</span></div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="comment">C&gt;                  &#39;GSES&#39;  = ORIGINATING SUBCENTER</span></div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="comment">C&gt;                              (NOTE: THIS VALUE WILL BE STORED ONLY IN</span></div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="comment">C&gt;                                     BUFR EDITION 3 OR 4 MESSAGES!)</span></div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="comment">C&gt;                  &#39;USN&#39;   = UPDATE SEQUENCE NUMBER </span></div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="comment">C&gt;                  &#39;MTYP&#39;  = DATA CATEGORY</span></div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="comment">C&gt;                  &#39;MSBTI&#39; = DATA SUBCATEGORY (INTERNATIONAL)</span></div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="comment">C&gt;                              (NOTE: THIS VALUE WILL BE STORED ONLY IN</span></div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<span class="comment">C&gt;                                     BUFR EDITION 4 MESSAGES!)</span></div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="comment">C&gt;                  &#39;MSBT&#39;  = DATA SUBCATEGORY (LOCAL)</span></div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;<span class="comment">C&gt;                  &#39;MTV&#39;   = VERSION NUMBER OF MASTER TABLE</span></div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<span class="comment">C&gt;                  &#39;MTVL&#39;  = VERSION NUMBER OF LOCAL TABLES</span></div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<span class="comment">C&gt;                  &#39;YCEN&#39;  = YEAR OF CENTURY (1-100)</span></div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;<span class="comment">C&gt;                              (NOTE: THIS VALUE WILL BE STORED ONLY IN</span></div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;<span class="comment">C&gt;                                     BUFR EDITION 2 AND 3 MESSAGES!)</span></div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="comment">C&gt;                  &#39;CENT&#39;  = CENTURY (I.E., 20 FOR YEARS 1901-2000,</span></div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;<span class="comment">C&gt;                                           21 FOR YEARS 2001-2100)</span></div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;<span class="comment">C&gt;                              (NOTE: THIS VALUE WILL BE STORED ONLY IN</span></div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;<span class="comment">C&gt;                                     BUFR EDITION 2 AND 3 MESSAGES!)</span></div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;<span class="comment">C&gt;                  &#39;YEAR&#39;  = YEAR (4-DIGIT)</span></div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;<span class="comment">C&gt;                              (NOTE: THIS VALUE WILL BE STORED ONLY IN</span></div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;<span class="comment">C&gt;                                     BUFR EDITION 4 MESSAGES!)</span></div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;<span class="comment">C&gt;                  &#39;MNTH&#39;  = MONTH</span></div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;<span class="comment">C&gt;                  &#39;DAYS&#39;  = DAY</span></div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;<span class="comment">C&gt;                  &#39;HOUR&#39;  = HOUR</span></div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;<span class="comment">C&gt;                  &#39;MINU&#39;  = MINUTE</span></div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;<span class="comment">C&gt;                  &#39;SECO&#39;  = SECOND</span></div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;<span class="comment">C&gt;                              (NOTE: THIS VALUE WILL BE STORED ONLY IN</span></div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;<span class="comment">C&gt;                                     BUFR EDITION 4 MESSAGES!)</span></div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;<span class="comment">C&gt;     IVAL     - INTEGER: NEW VALUE FOR LOCATION POINTED TO BY S01MNEM</span></div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;<span class="comment">C&gt;</span></div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;<span class="comment">C&gt; REMARKS:</span></div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;<span class="comment">C&gt;    THIS ROUTINE CALLS:        BORT     OPENBF</span></div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;<span class="comment">C&gt;    THIS ROUTINE IS CALLED BY: None</span></div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;<span class="comment">C&gt;                               Normally called only by application</span></div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;<span class="comment">C&gt;                               programs.</span></div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;<span class="comment">C&gt;</span></div>
-<div class="line"><a name="l00074"></a><span class="lineno"><a class="line" href="pkvs01_8F.html#a66383a142ad21a8793d728a6eafb9fe8">   74</a></span>&#160;<span class="keyword">      SUBROUTINE </span><a class="code" href="pkvs01_8F.html#a66383a142ad21a8793d728a6eafb9fe8">pkvs01</a>(S01MNEM,IVAL)</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="comment">C&gt; @authors J. Ator</span></div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="comment">C&gt; @date 2005-11-29</span></div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="comment">C&gt;</span></div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="comment">C&gt; @param[in]     IVAL    - integer: Value to be stored</span></div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="comment">C&gt; @param[in]  S01MNEM    - character*(*): Location where IVAL is to</span></div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="comment">C&gt;                          be stored within Section 0 or Section 1 of</span></div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="comment">C&gt;                          all future output BUFR messages</span></div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="comment">C&gt;                          - &#39;BEN&#39;   = BUFR edition number</span></div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="comment">C&gt;                          - &#39;BMT&#39;   = BUFR master table</span></div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="comment">C&gt;                          - &#39;OGCE&#39;  = Originating center</span></div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="comment">C&gt;                          - &#39;GSES&#39;  = Originating subcenter</span></div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="comment">C&gt;                          - &#39;USN&#39;   = Update sequence number</span></div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="comment">C&gt;                          - &#39;MTYP&#39;  = Data category</span></div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="comment">C&gt;                          - &#39;MSBTI&#39; = Data subcategory (international)</span></div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="comment">C&gt;                          - &#39;MSBT&#39;  = Data subcategory (local)</span></div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="comment">C&gt;                          - &#39;MTV&#39;   = Version number of master table</span></div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="comment">C&gt;                          - &#39;MTVL&#39;  = Version number of local tables</span></div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="comment">C&gt;                          - &#39;YCEN&#39;  = Year of century (1-100)</span></div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="comment">C&gt;                          - &#39;CENT&#39;  = Century (e.g., 20 for years 1901-2000,</span></div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="comment">C&gt;                                      21 for years 2001-2100)</span></div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<span class="comment">C&gt;                          - &#39;YEAR&#39;  = Year (4-digit)</span></div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="comment">C&gt;                          - &#39;MNTH&#39;  = Month</span></div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;<span class="comment">C&gt;                          - &#39;DAYS&#39;  = Day</span></div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<span class="comment">C&gt;                          - &#39;HOUR&#39;  = Hour</span></div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<span class="comment">C&gt;                          - &#39;MINU&#39;  = Minute</span></div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;<span class="comment">C&gt;                          - &#39;SECO&#39;  = Second</span></div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;<span class="comment">C&gt;</span></div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="comment">C&gt; @remarks</span></div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;<span class="comment">C&gt; - A separate call to this subroutine must be made for each value of</span></div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;<span class="comment">C&gt;   S01MNEM that is to be set within Section 0 or Section 1 of</span></div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;<span class="comment">C&gt;   all future output BUFR messages.</span></div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;<span class="comment">C&gt; - A call to this subroutine with S01MNEM = &#39;BEN&#39; and IVAL = 4 will</span></div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;<span class="comment">C&gt;   force all future output BUFR messages to be encoded using BUFR</span></div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;<span class="comment">C&gt;   edition 4; otherwise, messages will be encoded using BUFR edition 3</span></div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;<span class="comment">C&gt;   by default.</span></div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;<span class="comment">C&gt; - Values corresponding to S01MNEM = &#39;YCEN&#39; or &#39;CENT&#39; can only be stored</span></div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;<span class="comment">C&gt;   within BUFR messages encoded using BUFR edition 3.</span></div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;<span class="comment">C&gt; - Values corresponding to S01MNEM = &#39;YEAR&#39;, &#39;SECO&#39; or &#39;MSBTI&#39; can only</span></div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;<span class="comment">C&gt;   be stored within BUFR messages encoded using BUFR edition 4.</span></div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;<span class="comment">C&gt;</span></div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;<span class="comment">C&gt; &lt;b&gt;Program history log:&lt;/b&gt;</span></div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;<span class="comment">C&gt; - 2005-11-29  J. Ator    -- Original author</span></div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;<span class="comment">C&gt; - 2006-04-14  D. Keyser  -- Updated docblock</span></div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;<span class="comment">C&gt; - 2015-03-03  J. Ator    -- Use module MODA_S01CM</span></div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;<span class="comment">C&gt;</span></div>
+<div class="line"><a name="l00070"></a><span class="lineno"><a class="line" href="pkvs01_8F.html#a66383a142ad21a8793d728a6eafb9fe8">   70</a></span>&#160;<span class="keyword">      SUBROUTINE </span><a class="code" href="pkvs01_8F.html#a66383a142ad21a8793d728a6eafb9fe8">pkvs01</a>(S01MNEM,IVAL)</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;      <span class="keywordtype">USE </span><a class="code" href="classmoda__s01cm.html">moda_s01cm</a></div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;      <span class="keywordtype">CHARACTER*(*)</span> s01mnem</div>
 <div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;      <span class="keywordtype">CHARACTER*128</span> bort_str</div>
 <div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;      <span class="keywordtype">USE </span><a class="code" href="classmoda__s01cm.html">moda_s01cm</a></div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;      include <span class="stringliteral">&#39;bufrlib.inc&#39;</span></div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;      <span class="keywordtype">CHARACTER*(*)</span> s01mnem</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;      <span class="keywordtype">CHARACTER*128</span> bort_str</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;<span class="comment">C-----------------------------------------------------------------------</span></div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;<span class="comment">C-----------------------------------------------------------------------</span></div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;<span class="preprocessor">#ifdef DYNAMIC_ALLOCATION</span></div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;<span class="preprocessor"></span></div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;<span class="comment">C     CONFIRM THAT THE ARRAYS NEEDED BY THIS SUBROUTINE HAVE ALREADY</span></div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;<span class="comment">C     BEEN ALLOCATED (AND IF NOT, GO AHEAD AND ALLOCATE THEM NOW), SINCE</span></div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;<span class="comment">C     IT&#39;S POSSIBLE FOR THIS SUBROUTINE TO BE CALLED BEFORE THE FIRST</span></div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;<span class="comment">C     CALL TO SUBROUTINE OPENBF.</span></div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;      <span class="keywordflow">IF</span> ( ( .NOT. <span class="keyword">ALLOCATED</span>(cmnem) ) .OR.</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;     .     ( .NOT. <span class="keyword">ALLOCATED</span>(ivmnem) ) )  <span class="keywordflow">THEN</span></div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;        CALL <a class="code" href="openbf_8F.html#a9bea9aeada166bd9037b959ca8452b28">openbf</a>(0,<span class="stringliteral">&#39;FIRST&#39;</span>,0)</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;      <span class="keywordflow">ENDIF</span></div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;<span class="preprocessor"></span></div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;<span class="comment">C     IF AN IVAL HAS ALREADY BEEN ASSIGNED FOR THIS PARTICULAR S01MNEM,</span></div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;<span class="comment">C     THEN OVERWRITE THAT ENTRY IN COMMON /S01CM/ USING THE NEW IVAL.</span></div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;      <span class="keywordflow">IF</span>(ns01v.GT.0) <span class="keywordflow">THEN</span></div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;        <span class="keywordflow">DO</span> i=1,ns01v</div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;          <span class="keywordflow">IF</span>(s01mnem.EQ.cmnem(i)) <span class="keywordflow">THEN</span></div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;            ivmnem(i) = ival</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;            <span class="keywordflow">RETURN</span></div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;          <span class="keywordflow">ENDIF</span></div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;        <span class="keywordflow">ENDDO</span></div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;      <span class="keywordflow">ENDIF</span></div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;<span class="comment">C-----------------------------------------------------------------------</span></div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;<span class="comment">C-----------------------------------------------------------------------</span></div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;<span class="preprocessor">#ifdef DYNAMIC_ALLOCATION</span></div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;<span class="preprocessor"></span></div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;<span class="comment">C     CONFIRM THAT THE ARRAYS NEEDED BY THIS SUBROUTINE HAVE ALREADY</span></div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;<span class="comment">C     BEEN ALLOCATED (AND IF NOT, GO AHEAD AND ALLOCATE THEM NOW), SINCE</span></div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;<span class="comment">C     IT&#39;S POSSIBLE FOR THIS SUBROUTINE TO BE CALLED BEFORE THE FIRST</span></div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;<span class="comment">C     CALL TO SUBROUTINE OPENBF.</span></div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;      <span class="keywordflow">IF</span> ( ( .NOT. <span class="keyword">ALLOCATED</span>(cmnem) ) .OR.</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;     .     ( .NOT. <span class="keyword">ALLOCATED</span>(ivmnem) ) )  <span class="keywordflow">THEN</span></div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;        CALL <a class="code" href="openbf_8F.html#a9bea9aeada166bd9037b959ca8452b28">openbf</a>(0,<span class="stringliteral">&#39;FIRST&#39;</span>,0)</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;      <span class="keywordflow">ENDIF</span></div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;<span class="preprocessor"></span></div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;<span class="comment">C     IF AN IVAL HAS ALREADY BEEN ASSIGNED FOR THIS PARTICULAR S01MNEM,</span></div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;<span class="comment">C     THEN OVERWRITE THAT ENTRY IN COMMON /S01CM/ USING THE NEW IVAL.</span></div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;      <span class="keywordflow">IF</span>(ns01v.GT.0) <span class="keywordflow">THEN</span></div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;        <span class="keywordflow">DO</span> i=1,ns01v</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;          <span class="keywordflow">IF</span>(s01mnem.EQ.cmnem(i)) <span class="keywordflow">THEN</span></div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;            ivmnem(i) = ival</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;            <span class="keywordflow">RETURN</span></div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;          <span class="keywordflow">ENDIF</span></div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;        <span class="keywordflow">ENDDO</span></div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;      <span class="keywordflow">ENDIF</span></div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;<span class="comment">C     OTHERWISE, USE THE NEXT AVAILABLE UNUSED ENTRY IN COMMON /S01CM/.</span></div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;      <span class="keywordflow">IF</span>(ns01v.GE.mxs01v) goto 900</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;      ns01v = ns01v + 1</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;      cmnem(ns01v) = s01mnem</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;      ivmnem(ns01v) = ival</div>
 <div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;</div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;<span class="comment">C     OTHERWISE, USE THE NEXT AVAILABLE UNUSED ENTRY IN COMMON /S01CM/.</span></div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;</div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;      <span class="keywordflow">IF</span>(ns01v.GE.mxs01v) goto 900</div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;</div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;      ns01v = ns01v + 1</div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;      cmnem(ns01v) = s01mnem</div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;      ivmnem(ns01v) = ival</div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;</div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;<span class="comment">C  EXITS</span></div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;<span class="comment">C  -----</span></div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;</div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;      <span class="keywordflow">RETURN</span></div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;900   <span class="keyword">WRITE</span>(bort_str,<span class="stringliteral">&#39;(&quot;BUFRLIB: PKVS01 - CANNOT OVERWRITE MORE THAN &#39;</span>//</div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;     . <span class="stringliteral">&#39;&quot;,I2,&quot; DIFFERENT LOCATIONS WITHIN SECTION 0 OR SECTION 1&quot;)&#39;</span>)</div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;     . mxs01v</div>
-<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;      CALL <a class="code" href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort</a>(bort_str)</div>
-<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;      <span class="keywordflow">END</span></div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;<span class="comment">C  EXITS</span></div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;<span class="comment">C  -----</span></div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;      <span class="keywordflow">RETURN</span></div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;900   <span class="keyword">WRITE</span>(bort_str,<span class="stringliteral">&#39;(&quot;BUFRLIB: PKVS01 - CANNOT OVERWRITE MORE THAN &#39;</span>//</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;     . <span class="stringliteral">&#39;&quot;,I2,&quot; DIFFERENT LOCATIONS WITHIN SECTION 0 OR SECTION 1&quot;)&#39;</span>)</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;     . mxs01v</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;      CALL <a class="code" href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort</a>(bort_str)</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;      <span class="keywordflow">END</span></div>
 <div class="ttc" id="classmoda__s01cm_html"><div class="ttname"><a href="classmoda__s01cm.html">moda_s01cm</a></div><div class="ttdef"><b>Definition:</b> <a href="moda__s01cm_8F_source.html#l00001">moda_s01cm.F:1</a></div></div>
-<div class="ttc" id="openbf_8F_html_a9bea9aeada166bd9037b959ca8452b28"><div class="ttname"><a href="openbf_8F.html#a9bea9aeada166bd9037b959ca8452b28">openbf</a></div><div class="ttdeci">subroutine openbf(LUNIT, IO, LUNDX)</div><div class="ttdoc">This subroutine identifies a new file to the BUFRLIB software for input or output operations...</div><div class="ttdef"><b>Definition:</b> <a href="openbf_8F_source.html#l00162">openbf.F:162</a></div></div>
-<div class="ttc" id="pkvs01_8F_html_a66383a142ad21a8793d728a6eafb9fe8"><div class="ttname"><a href="pkvs01_8F.html#a66383a142ad21a8793d728a6eafb9fe8">pkvs01</a></div><div class="ttdeci">subroutine pkvs01(S01MNEM, IVAL)</div><div class="ttdoc">THIS SUBROUTINE IS USED TO SPECIFY A VALUE TO BE WRITTEN INTO A SPECIFIED LOCATION WITHIN SECTION 0 O...</div><div class="ttdef"><b>Definition:</b> <a href="pkvs01_8F_source.html#l00074">pkvs01.F:74</a></div></div>
-<div class="ttc" id="bort_8f_html_a488d3a8cf930fb592a9fdaefcfa04ac4"><div class="ttname"><a href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort</a></div><div class="ttdeci">subroutine bort(STR)</div><div class="ttdoc">THIS SUBROUTINE WRITES (VIA BUFR ARCHIVE LIBRARY SUBROUTINE ERRWRT) A GIVEN ERROR STRING AND THEN CAL...</div><div class="ttdef"><b>Definition:</b> <a href="bort_8f_source.html#l00069">bort.f:69</a></div></div>
+<div class="ttc" id="openbf_8F_html_a9bea9aeada166bd9037b959ca8452b28"><div class="ttname"><a href="openbf_8F.html#a9bea9aeada166bd9037b959ca8452b28">openbf</a></div><div class="ttdeci">subroutine openbf(LUNIT, IO, LUNDX)</div><div class="ttdoc">This subroutine connects a new file to the BUFRLIB software for input or output operations. </div><div class="ttdef"><b>Definition:</b> <a href="openbf_8F_source.html#l00157">openbf.F:157</a></div></div>
+<div class="ttc" id="pkvs01_8F_html_a66383a142ad21a8793d728a6eafb9fe8"><div class="ttname"><a href="pkvs01_8F.html#a66383a142ad21a8793d728a6eafb9fe8">pkvs01</a></div><div class="ttdeci">subroutine pkvs01(S01MNEM, IVAL)</div><div class="ttdoc">This subroutine is used to specify a value to be written into a specified location within Section 0 o...</div><div class="ttdef"><b>Definition:</b> <a href="pkvs01_8F_source.html#l00070">pkvs01.F:70</a></div></div>
+<div class="ttc" id="bort_8f_html_a488d3a8cf930fb592a9fdaefcfa04ac4"><div class="ttname"><a href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort</a></div><div class="ttdeci">subroutine bort(STR)</div><div class="ttdoc">This subroutine calls subroutine errwrt() to log an error message, then calls subroutine bort_exit() ...</div><div class="ttdef"><b>Definition:</b> <a href="bort_8f_source.html#l00023">bort.f:23</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

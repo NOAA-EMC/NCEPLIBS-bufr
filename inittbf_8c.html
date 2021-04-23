@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.3.2</span>
+   &#160;<span id="projectnumber">11.5.0</span>
    </div>
   </td>
  </tr>
@@ -92,7 +92,7 @@ $(document).ready(function(){initNavTree('inittbf_8c.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -109,6 +109,9 @@ $(document).ready(function(){initNavTree('inittbf_8c.html','');});
 <div class="title">inittbf.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>Initialize memory for internal storage of master Code/Flag table entries.  
+<a href="#details">More...</a></p>
 <div class="textblock"><code>#include &quot;<a class="el" href="bufrlib_8h_source.html">bufrlib.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="cfe_8h_source.html">cfe.h</a>&quot;</code><br/>
 </div>
@@ -117,12 +120,11 @@ $(document).ready(function(){initNavTree('inittbf_8c.html','');});
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:aa06057bdd5b8456df9b33ec96a5cc57e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="inittbf_8c.html#aa06057bdd5b8456df9b33ec96a5cc57e">inittbf</a> (void)</td></tr>
-<tr class="memdesc:aa06057bdd5b8456df9b33ec96a5cc57e"><td class="mdescLeft">&#160;</td><td class="mdescRight">C C SUBPROGRAM: INITTBF C PRGMMR: ATOR ORG: NCEP DATE: 2017-11-03 C C ABSTRACT: THIS ROUTINE INITIALIZES THE INTERNAL MEMORY STRUCTURE C FOR STORING CODE/FLAG TABLE INFORMATION, INCLUDING DYNAMICALLY C ALLOCATING SPACE FOR THIS STRUCTURE IF NEEDED.  <a href="#aa06057bdd5b8456df9b33ec96a5cc57e">More...</a><br/></td></tr>
+<tr class="memdesc:aa06057bdd5b8456df9b33ec96a5cc57e"><td class="mdescLeft">&#160;</td><td class="mdescRight">This subroutine initializes the internal memory structure for storage of master Code/Flag table entries, including dynamically allocating space for this structure if needed.  <a href="#aa06057bdd5b8456df9b33ec96a5cc57e">More...</a><br/></td></tr>
 <tr class="separator:aa06057bdd5b8456df9b33ec96a5cc57e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><dl class="section author"><dt>Author</dt><dd>ATOR </dd></dl>
-<dl class="section date"><dt>Date</dt><dd>2017-11-03 </dd></dl>
+<div class="textblock"><p>Initialize memory for internal storage of master Code/Flag table entries. </p>
 
 <p>Definition in file <a class="el" href="inittbf_8c_source.html">inittbf.c</a>.</p>
 </div><h2 class="groupheader">Function Documentation</h2>
@@ -140,10 +142,19 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>C C SUBPROGRAM: INITTBF C PRGMMR: ATOR ORG: NCEP DATE: 2017-11-03 C C ABSTRACT: THIS ROUTINE INITIALIZES THE INTERNAL MEMORY STRUCTURE C FOR STORING CODE/FLAG TABLE INFORMATION, INCLUDING DYNAMICALLY C ALLOCATING SPACE FOR THIS STRUCTURE IF NEEDED. </p>
-<p>C C PROGRAM HISTORY LOG: C 2017-11-03 J. ATOR &ndash; ORIGINAL AUTHOR C C USAGE: CALL INITTBF C C REMARKS: C THIS ROUTINE CALLS: BORT IGETPRM C THIS ROUTINE IS CALLED BY: RDMTBF C Normally not called by any application C programs. C C ATTRIBUTES: C LANGUAGE: C C MACHINE: PORTABLE TO ALL PLATFORMS C C$$$ </p>
+<p>This subroutine initializes the internal memory structure for storage of master Code/Flag table entries, including dynamically allocating space for this structure if needed. </p>
+<dl class="section author"><dt>Author</dt><dd>J. Ator </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2017-11-03</dd></dl>
+<p><b>Program history log:</b></p>
+<ul>
+<li>2017-11-03 J. Ator &ndash; Original author </li>
+</ul>
 
-<p>Definition at line <a class="el" href="inittbf_8c_source.html#l00035">35</a> of file <a class="el" href="inittbf_8c_source.html">inittbf.c</a>.</p>
+<p>Definition at line <a class="el" href="inittbf_8c_source.html#l00020">20</a> of file <a class="el" href="inittbf_8c_source.html">inittbf.c</a>.</p>
+
+<p>References <a class="el" href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort()</a>, <a class="el" href="cfe_8h.html#aca17d2b0ff92068c3f23e96ec9703411">cfe</a>, <a class="el" href="igetprm_8f.html#acf5cb6268e5091d81f9eec4e61f87cdb">igetprm()</a>, <a class="el" href="cfe_8h.html#a259df6152a449c45ee997f874b625873">mxmtbf</a>, and <a class="el" href="cfe_8h.html#a442ef62aedebd6a96bcfdf71530f655b">nmtf</a>.</p>
+
+<p>Referenced by <a class="el" href="rdmtbf_8f.html#a5ca890fe454d0615933e8b535e28ac00">rdmtbf()</a>.</p>
 
 </div>
 </div>

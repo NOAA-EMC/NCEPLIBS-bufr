@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.3.2</span>
+   &#160;<span id="projectnumber">11.5.0</span>
    </div>
   </td>
  </tr>
@@ -92,7 +92,7 @@ $(document).ready(function(){initNavTree('blocks_8f.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -109,17 +109,19 @@ $(document).ready(function(){initNavTree('blocks_8f.html','');});
 </div><!--header-->
 <div class="contents">
 
+<p>Encapsulate a BUFR message with IEEE Fortran control words.  
+<a href="#details">More...</a></p>
+
 <p><a href="blocks_8f_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions/Subroutines</h2></td></tr>
 <tr class="memitem:a58e616c094fc6ddcdf5e33554105c3d4"><td class="memItemLeft" align="right" valign="top">subroutine&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="blocks_8f.html#a58e616c094fc6ddcdf5e33554105c3d4">blocks</a> (MBAY, MWRD)</td></tr>
-<tr class="memdesc:a58e616c094fc6ddcdf5e33554105c3d4"><td class="mdescLeft">&#160;</td><td class="mdescRight">BLOCKS WILL ADD IEEE FORTRAN TYPE RECORD CONTROL WORDS TO A PURE BUFR RECORD PASSED FROM MSGWRT, IN PREPARATION FOR OUTPUTING THE RECORD TO DISK.  <a href="#a58e616c094fc6ddcdf5e33554105c3d4">More...</a><br/></td></tr>
+<tr class="memdesc:a58e616c094fc6ddcdf5e33554105c3d4"><td class="mdescLeft">&#160;</td><td class="mdescRight">This subroutine encapsulates a BUFR message with IEEE Fortran control words as specified via the most recent call to subroutine <a class="el" href="setblock_8f.html#a4f62f9ac4a473f33f3c93f3e99bf69a5" title="This subroutine is used to specify whether BUFR messages output by future calls to message-writing su...">setblock()</a>.  <a href="#a58e616c094fc6ddcdf5e33554105c3d4">More...</a><br/></td></tr>
 <tr class="separator:a58e616c094fc6ddcdf5e33554105c3d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><dl class="section author"><dt>Author</dt><dd>WOOLLEN </dd></dl>
-<dl class="section date"><dt>Date</dt><dd>2012-09-15 </dd></dl>
+<div class="textblock"><p>Encapsulate a BUFR message with IEEE Fortran control words. </p>
 
 <p>Definition in file <a class="el" href="blocks_8f_source.html">blocks.f</a>.</p>
 </div><h2 class="groupheader">Function/Subroutine Documentation</h2>
@@ -147,18 +149,31 @@ Functions/Subroutines</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>BLOCKS WILL ADD IEEE FORTRAN TYPE RECORD CONTROL WORDS TO A PURE BUFR RECORD PASSED FROM MSGWRT, IN PREPARATION FOR OUTPUTING THE RECORD TO DISK. </p>
-<p>THE DEFAULT OUTPUT TYPE IS PURE (NO CONTROL WORDS), IN WHICH CASE THIS ROUTINE DOES NOTHING. AN APPLICATION CAN SPECIFY THAT EITHER BIG OR LITTLE ENDIAN RECORD CONTROL WORDS ARE TO BE APPENDED TO PURE BUFR RECORDS VIA A PREVIOUS CALL TO SUBROUTINE SETBLOCK.</p>
-<p>THE FOLLOWING DIAGRAM ILLUSTRATES IEEE CONTROL WORDS FOUND IN AN UNFORMATTED FORTRAN RECORD CONRTAINING FOUR 4-BYTE WORDS </p>
-<pre class="fragment">ctw1-wrd1-wrd2-wrd3-wrd4-ctw2
-|    |    |    |    |    |
-0016-aaaa-bbbb-cccc-dddd-0016
-</pre><p>CTW1 AND CTW2 CONTAIN A BYTE COUNT FOR THE DATA RECORD THAT THEY ENCLOSE. THEY CAN BE STORED IN EITHER BIG OR LITTLE ENDIAN BYTE ORDERING (NOTE: CTWS ARE ALWAYS 4-BYTE WORDS)</p>
-<p>PROGRAM HISTORY LOG: 2012-09-15 J. WOOLLEN &ndash; ORIGINAL AUTHOR</p>
-<p>USAGE: CALL BLOCKS(MBAY,MWRD) INPUT ARGUMENTS: OUTPUT ARGUMENTS: REMARKS: THIS ROUTINE CALLS: None</p>
-<p>THIS ROUTINE IS CALLED BY: MSGWRT </p>
+<p>This subroutine encapsulates a BUFR message with IEEE Fortran control words as specified via the most recent call to subroutine <a class="el" href="setblock_8f.html#a4f62f9ac4a473f33f3c93f3e99bf69a5" title="This subroutine is used to specify whether BUFR messages output by future calls to message-writing su...">setblock()</a>. </p>
+<p>A previous call to subroutine <a class="el" href="setblock_8f.html#a4f62f9ac4a473f33f3c93f3e99bf69a5" title="This subroutine is used to specify whether BUFR messages output by future calls to message-writing su...">setblock()</a> is required in order to activate encapsulation with control words, and to specify whether the control words should be encoded using big-endian or little-endian byte ordering. In such cases, the input parameter MBAY is then modified to add the specified control words to the existing BUFR message whenever this subroutine is called, and MWRD is also modified accordingly.</p>
+<p>Alternatively, if subroutine <a class="el" href="setblock_8f.html#a4f62f9ac4a473f33f3c93f3e99bf69a5" title="This subroutine is used to specify whether BUFR messages output by future calls to message-writing su...">setblock()</a> was never previously called, or if no encapsulation was specified during the most recent call to subroutine <a class="el" href="setblock_8f.html#a4f62f9ac4a473f33f3c93f3e99bf69a5" title="This subroutine is used to specify whether BUFR messages output by future calls to message-writing su...">setblock()</a>, then this subroutine simply returns without modifying either of its input parameters.</p>
+<dl class="section author"><dt>Author</dt><dd>J. Woollen </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2012-09-15</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in,out]</td><td class="paramname">MBAY</td><td>- integer(*): BUFR message, possibly with added control words on output </td></tr>
+    <tr><td class="paramdir">[in,out]</td><td class="paramname">MWRD</td><td>- integer: Size (in integers) of contents of MBAY</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section remark"><dt>Remarks</dt><dd><ul>
+<li>For more information about IEEE Fortran control words, as well as their historical use within the BUFRLIB software, see the documentation for subroutine <a class="el" href="setblock_8f.html#a4f62f9ac4a473f33f3c93f3e99bf69a5" title="This subroutine is used to specify whether BUFR messages output by future calls to message-writing su...">setblock()</a>.</li>
+<li>Whenever a BUFR message in MBAY is to be encapsulated with control words, the user must ensure the availability of sufficient extra space when allocating MBAY within the application program.</li>
+</ul>
+</dd></dl>
+<p><b>Program history log:</b></p>
+<ul>
+<li>2012-09-15 J. Woollen &ndash; Original author </li>
+</ul>
 
 <p>Definition at line <a class="el" href="blocks_8f_source.html#l00043">43</a> of file <a class="el" href="blocks_8f_source.html">blocks.f</a>.</p>
+
+<p>Referenced by <a class="el" href="msgwrt_8f.html#ac95ecf1436ba14805a33efd29fab1e5d">msgwrt()</a>.</p>
 
 </div>
 </div>

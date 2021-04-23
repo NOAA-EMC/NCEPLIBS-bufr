@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.3.2</span>
+   &#160;<span id="projectnumber">11.5.0</span>
    </div>
   </td>
  </tr>
@@ -92,7 +92,7 @@ $(document).ready(function(){initNavTree('uptdd_8f_source.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -167,52 +167,48 @@ $(document).ready(function(){initNavTree('uptdd_8f_source.html','');});
 <div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;<span class="comment">C&gt;</span></div>
 <div class="line"><a name="l00060"></a><span class="lineno"><a class="line" href="uptdd_8f.html#a560d41b7c906a6cb2dc1f53259261dd4">   60</a></span>&#160;<span class="keyword">      SUBROUTINE </span><a class="code" href="uptdd_8f.html#a560d41b7c906a6cb2dc1f53259261dd4">uptdd</a>(ID,LUN,IENT,IRET)</div>
 <div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;      <span class="keywordtype">USE </span><a class="code" href="moda__tababd_8F.html#classmoda__tababd">moda_tababd</a></div>
 <div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;      <span class="keywordtype">USE </span><a class="code" href="classmoda__tababd.html">moda_tababd</a></div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;      include <span class="stringliteral">&#39;bufrlib.inc&#39;</span></div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;      <span class="keyword">COMMON</span> /dxtab / maxdx,idxv,nxstr(10),ldxa(10),ldxb(10),ldxd(10),</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;     .                ld30(10),dxstr(10)</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;      <span class="keywordtype">CHARACTER*128</span> bort_str</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;      <span class="keywordtype">CHARACTER*56</span>  dxstr</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;<span class="comment">C-----------------------------------------------------------------------</span></div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;<span class="comment">C-----------------------------------------------------------------------</span></div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;      ldd = ldxd(idxv+1)+1</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;<span class="comment">C  CHECK IF IENT IS IN BOUNDS</span></div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;<span class="comment">C  --------------------------</span></div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;      ndsc = <a class="code" href="iupm_8f.html#a870aa6933e94946232ec975e8cdd04db">iupm</a>(tabd(id,lun)(ldd:ldd),8)</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;      <span class="keywordflow">IF</span>(ient.EQ.0) <span class="keywordflow">THEN</span></div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;         iret = ndsc</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;         goto 100</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;      <span class="keywordflow">ELSEIF</span>(ient.LT.0 .OR. ient.GT.ndsc) <span class="keywordflow">THEN</span></div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;         goto 900</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;      <span class="keywordflow">ENDIF</span></div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;<span class="comment">C  RETURN THE DESCRIPTOR INDICATED BY IENT</span></div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;<span class="comment">C  ---------------------------------------</span></div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;      idsc = ldd+1 + (ient-1)*2</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;      iret = <a class="code" href="iupm_8f.html#a870aa6933e94946232ec975e8cdd04db">iupm</a>(tabd(id,lun)(idsc:idsc),16)</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;<span class="comment">C  EXITS</span></div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;<span class="comment">C  -----</span></div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;100   <span class="keywordflow">RETURN</span></div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;900   <span class="keyword">WRITE</span>(bort_str,<span class="stringliteral">&#39;(&quot;BUFRLIB: UPTDD - VALUE OF THIRD ARGUMENT IENT&#39;</span>//</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;     . <span class="stringliteral">&#39; (INPUT) IS OUT OF RANGE (IENT =&quot;,I4,&quot;)&quot;)&#39;</span>) ient</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;      CALL <a class="code" href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort</a>(bort_str)</div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;      <span class="keywordflow">END</span></div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;      <span class="keyword">COMMON</span> /dxtab / maxdx,idxv,nxstr(10),ldxa(10),ldxb(10),ldxd(10),</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;     .                ld30(10),dxstr(10)</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;      <span class="keywordtype">CHARACTER*128</span> bort_str</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;      <span class="keywordtype">CHARACTER*56</span>  dxstr</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;<span class="comment">C-----------------------------------------------------------------------</span></div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;<span class="comment">C-----------------------------------------------------------------------</span></div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;      ldd = ldxd(idxv+1)+1</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;<span class="comment">C  CHECK IF IENT IS IN BOUNDS</span></div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;<span class="comment">C  --------------------------</span></div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;      ndsc = <a class="code" href="iupm_8f.html#a870aa6933e94946232ec975e8cdd04db">iupm</a>(tabd(id,lun)(ldd:ldd),8)</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;      <span class="keywordflow">IF</span>(ient.EQ.0) <span class="keywordflow">THEN</span></div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;         iret = ndsc</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;         goto 100</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;      <span class="keywordflow">ELSEIF</span>(ient.LT.0 .OR. ient.GT.ndsc) <span class="keywordflow">THEN</span></div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;         goto 900</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;      <span class="keywordflow">ENDIF</span></div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;<span class="comment">C  RETURN THE DESCRIPTOR INDICATED BY IENT</span></div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;<span class="comment">C  ---------------------------------------</span></div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;      idsc = ldd+1 + (ient-1)*2</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;      iret = <a class="code" href="iupm_8f.html#a870aa6933e94946232ec975e8cdd04db">iupm</a>(tabd(id,lun)(idsc:idsc),16)</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;<span class="comment">C  EXITS</span></div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;<span class="comment">C  -----</span></div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;100   <span class="keywordflow">RETURN</span></div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;900   <span class="keyword">WRITE</span>(bort_str,<span class="stringliteral">&#39;(&quot;BUFRLIB: UPTDD - VALUE OF THIRD ARGUMENT IENT&#39;</span>//</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;     . <span class="stringliteral">&#39; (INPUT) IS OUT OF RANGE (IENT =&quot;,I4,&quot;)&quot;)&#39;</span>) ient</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;      CALL <a class="code" href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort</a>(bort_str)</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;      <span class="keywordflow">END</span></div>
 <div class="ttc" id="iupm_8f_html_a870aa6933e94946232ec975e8cdd04db"><div class="ttname"><a href="iupm_8f.html#a870aa6933e94946232ec975e8cdd04db">iupm</a></div><div class="ttdeci">function iupm(CBAY, NBITS)</div><div class="ttdoc">THIS FUNCTION UNPACKS AND RETURNS A BINARY INTEGER WORD CONTAINED WITHIN NBITS BITS OF A CHARACTER ST...</div><div class="ttdef"><b>Definition:</b> <a href="iupm_8f_source.html#l00040">iupm.f:40</a></div></div>
-<div class="ttc" id="classmoda__tababd_html"><div class="ttname"><a href="classmoda__tababd.html">moda_tababd</a></div><div class="ttdef"><b>Definition:</b> <a href="moda__tababd_8F_source.html#l00001">moda_tababd.F:1</a></div></div>
-<div class="ttc" id="bort_8f_html_a488d3a8cf930fb592a9fdaefcfa04ac4"><div class="ttname"><a href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort</a></div><div class="ttdeci">subroutine bort(STR)</div><div class="ttdoc">THIS SUBROUTINE WRITES (VIA BUFR ARCHIVE LIBRARY SUBROUTINE ERRWRT) A GIVEN ERROR STRING AND THEN CAL...</div><div class="ttdef"><b>Definition:</b> <a href="bort_8f_source.html#l00069">bort.f:69</a></div></div>
+<div class="ttc" id="moda__tababd_8F_html_classmoda__tababd"><div class="ttname"><a href="moda__tababd_8F.html#classmoda__tababd">moda_tababd</a></div><div class="ttdoc">This module contains array and variable declarations used to store DX BUFR tables internally for mult...</div><div class="ttdef"><b>Definition:</b> <a href="moda__tababd_8F_source.html#l00010">moda_tababd.F:10</a></div></div>
+<div class="ttc" id="bort_8f_html_a488d3a8cf930fb592a9fdaefcfa04ac4"><div class="ttname"><a href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort</a></div><div class="ttdeci">subroutine bort(STR)</div><div class="ttdoc">This subroutine calls subroutine errwrt() to log an error message, then calls subroutine bort_exit() ...</div><div class="ttdef"><b>Definition:</b> <a href="bort_8f_source.html#l00023">bort.f:23</a></div></div>
 <div class="ttc" id="uptdd_8f_html_a560d41b7c906a6cb2dc1f53259261dd4"><div class="ttname"><a href="uptdd_8f.html#a560d41b7c906a6cb2dc1f53259261dd4">uptdd</a></div><div class="ttdeci">subroutine uptdd(ID, LUN, IENT, IRET)</div><div class="ttdoc">THIS SUBROUTINE RETURNS THE BIT-WISE REPRESENTATION OF THE FXY VALUE CORRESPONDING TO...</div><div class="ttdef"><b>Definition:</b> <a href="uptdd_8f_source.html#l00060">uptdd.f:60</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->

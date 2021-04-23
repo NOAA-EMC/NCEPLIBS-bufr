@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.3.2</span>
+   &#160;<span id="projectnumber">11.5.0</span>
    </div>
   </td>
  </tr>
@@ -92,7 +92,7 @@ $(document).ready(function(){initNavTree('sntbbe_8f.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -160,31 +160,31 @@ Functions/Subroutines</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">character*4, dimension(*)&#160;</td>
+          <td class="paramtype">character, dimension(4,*)&#160;</td>
           <td class="paramname"><em>CMSCL</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">character*12, dimension(*)&#160;</td>
+          <td class="paramtype">character, dimension(12,*)&#160;</td>
           <td class="paramname"><em>CMSREF</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">character*4, dimension(*)&#160;</td>
+          <td class="paramtype">character, dimension(4,*)&#160;</td>
           <td class="paramname"><em>CMBW</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">character*14, dimension(*)&#160;</td>
+          <td class="paramtype">character, dimension(14,*)&#160;</td>
           <td class="paramname"><em>CMUNIT</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">character*8, dimension(*)&#160;</td>
+          <td class="paramtype">character, dimension(8,*)&#160;</td>
           <td class="paramname"><em>CMMNEM</em>, </td>
         </tr>
         <tr>
@@ -196,7 +196,7 @@ Functions/Subroutines</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">character*120, dimension(*)&#160;</td>
+          <td class="paramtype">character, dimension(120,*)&#160;</td>
           <td class="paramname"><em>CMELEM</em>&#160;</td>
         </tr>
         <tr>
@@ -208,12 +208,16 @@ Functions/Subroutines</h2></td></tr>
 </div><div class="memdoc">
 
 <p>THIS SUBROUTINE PARSES AN ENTRY THAT WAS PREVIOUSLY READ FROM AN ASCII MASTER TABLE B FILE AND THEN STORES THE OUTPUT INTO THE MERGED ARRAYS. </p>
-<p>PROGRAM HISTORY LOG: 2007-01-19 J. ATOR &ndash; ORIGINAL AUTHOR</p>
+<p>PROGRAM HISTORY LOG: 2007-01-19 J. ATOR &ndash; ORIGINAL AUTHOR 2021-01-08 J. ATOR &ndash; MODIFIED MSTABS ARRAY DECLARATIONS FOR GNUv10 PORTABILITY</p>
 <p>USAGE: CALL SNTBBE ( IFXYN, LINE, MXMTBB, NMTBB, IMFXYN, CMSCL, CMSREF, CMBW, CMUNIT, CMMNEM, CMDSC, CMELEM ) INPUT ARGUMENT LIST: IFXYN - INTEGER: BIT-WISE REPRESENTATION OF FXY NUMBER FOR TABLE ENTRY; THIS FXY NUMBER IS THE ELEMENT DESCRIPTOR LINE - CHARACTER*(*): TABLE ENTRY MXMTBB - INTEGER: MAXIMUM NUMBER OF ENTRIES TO BE STORED IN MERGED MASTER TABLE B ARRAYS; THIS SHOULD BE THE SAME NUMBER AS WAS USED TO DIMENSION THE OUTPUT ARRAYS IN THE CALLING PROGRAM, AND IT IS USED BY THIS SUBROUTINE TO ENSURE THAT IT DOESN'T OVERFLOW THESE ARRAYS</p>
 <p>OUTPUT ARGUMENT LIST: NMTBB - INTEGER: NUMBER OF ENTRIES IN MERGED MASTER TABLE B ARRAYS IMFXYN(*)- INTEGER: MERGED ARRAY CONTAINING BIT-WISE REPRESENTATIONS OF FXY NUMBERS (I.E. ELEMENT DESCRIPTORS) CMSCL(*) - CHARACTER*4: MERGED ARRAY CONTAINING SCALE FACTORS CMSREF(*)- CHARACTER*12: MERGED ARRAY CONTAINING REFERENCE VALUES CMBW(*) - CHARACTER*4: MERGED ARRAY CONTAINING BIT WIDTHS CMUNIT(*)- CHARACTER*14: MERGED ARRAY CONTAINING UNITS CMMNEM(*)- CHARACTER*8: MERGED ARRAY CONTAINING MNEMONICS CMDSC(*) - CHARACTER*4: MERGED ARRAY CONTAINING DESCRIPTOR CODES CMELEM(*)- CHARACTER*120: MERGED ARRAY CONTAINING ELEMENT NAMES</p>
 <p>REMARKS: THIS ROUTINE CALLS: BORT BORT2 JSTCHR NEMOCK PARSTR RJUST THIS ROUTINE IS CALLED BY: RDMTBB Normally not called by any application programs. </p>
 
-<p>Definition at line <a class="el" href="sntbbe_8f_source.html#l00045">45</a> of file <a class="el" href="sntbbe_8f_source.html">sntbbe.f</a>.</p>
+<p>Definition at line <a class="el" href="sntbbe_8f_source.html#l00047">47</a> of file <a class="el" href="sntbbe_8f_source.html">sntbbe.f</a>.</p>
+
+<p>References <a class="el" href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort()</a>, <a class="el" href="bort2_8f.html#a50f605cc96a22ffce20206c2d254b9c3">bort2()</a>, <a class="el" href="jstchr_8f.html#a70645166feda4141fc524790e255ae00">jstchr()</a>, <a class="el" href="nemock_8f.html#a4cd0d5caf72ff1f2acb4747d11494dd2">nemock()</a>, <a class="el" href="parstr_8f.html#a3379a342ab3d92dd01eef1f3172f9b86">parstr()</a>, and <a class="el" href="rjust_8f.html#a29f84394ca521e497ab85126109cba80">rjust()</a>.</p>
+
+<p>Referenced by <a class="el" href="rdmtbb_8f.html#a500535fb51e5caae61f0fd3627a211da">rdmtbb()</a>.</p>
 
 </div>
 </div>

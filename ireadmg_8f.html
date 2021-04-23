@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.3.2</span>
+   &#160;<span id="projectnumber">11.5.0</span>
    </div>
   </td>
  </tr>
@@ -92,7 +92,7 @@ $(document).ready(function(){initNavTree('ireadmg_8f.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -161,8 +161,8 @@ Functions/Subroutines</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">LUNIT</td><td>- integer: Fortran logical unit number for BUFR file </td></tr>
-    <tr><td class="paramdir">[out]</td><td class="paramname">SUBSET</td><td>- character*8: Table A mnemonic for type of BUFR message that was read (see DX BUFR Tables for further information about Table A mnemonics) </td></tr>
-    <tr><td class="paramdir">[out]</td><td class="paramname">IDATE</td><td>- integer: date-time stored within Section 1 of BUFR message that was read, in format of either YYMMDDHH or YYYYMMDDHH, depending on the most recent call to subroutine <a class="el" href="datelen_8f.html#ac75cb362f84167ca65b058a97401efcd" title="THIS SUBROUTINE IS USED TO SPECIFY THE LENGTH OF DATE-TIME VALUES THAT WILL BE OUTPUT BY FUTURE CALLS...">datelen()</a> </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">SUBSET</td><td>- character*8: Table A mnemonic for type of BUFR message that was read (see <a class="el" href="md__gpfs_dell2_emc_obsproc_noscrub_Jeff_8Ator_NCEPLIBS-bufr-GitHub_nceplibs-bufr_docs_dfbftab.html#dfbftab">DX BUFR Tables</a> for further information about Table A mnemonics) </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">IDATE</td><td>- integer: date-time stored within Section 1 of BUFR message that was read, in format of either YYMMDDHH or YYYYMMDDHH, depending on the most recent call to subroutine <a class="el" href="datelen_8f.html#ac75cb362f84167ca65b058a97401efcd" title="This subroutine is used to specify the format of Section 1 date-time values that will be output by fu...">datelen()</a> </td></tr>
   </table>
   </dd>
 </dl>
@@ -181,13 +181,14 @@ Functions/Subroutines</h2></td></tr>
 <li>1999-11-18 J. Woollen &ndash; Added new function entry points ireadmm and ireadibm</li>
 <li>2002-05-14 J. Woollen &ndash; Removed entry points icopysb, ireadft, ireadibm, ireadmm, ireadns and ireadsb (they became separate routines in the BUFRLIB to increase portability to other platforms)</li>
 <li>2003-11-04 S. Bender &ndash; Added remarks and routine interdependencies</li>
-<li>2003-11-04 D. Keyser &ndash; Unified/portable for WRF; added history documentation</li>
+<li>2003-11-04 D. Keyser &ndash; Unified/portable for WRF; added history documentation </li>
 </ul>
-<p><b>This routine calls:</b> <a class="el" href="readmg_8f.html#a9fb3da32fb87bc017d16b9f0f707be9b" title="This subroutine reads the next BUFR message from logical unit ABS(LUNXX) into internal arrays...">readmg()</a></p>
-<p><b>This routine is called by:</b> <a class="el" href="ufbtab_8f.html#a4fb9c0d69c11bdc6e218f81de3dc6025" title="THIS SUBROUTINE EITHER OPENS A BUFR FILE CONNECTED TO ABS(LUNIN) FOR INPUT OPERATIONS (IF IT IS NOT A...">ufbtab()</a> <br/>
-Also called by application programs. </p>
 
-<p>Definition at line <a class="el" href="ireadmg_8f_source.html#l00048">48</a> of file <a class="el" href="ireadmg_8f_source.html">ireadmg.f</a>.</p>
+<p>Definition at line <a class="el" href="ireadmg_8f_source.html#l00043">43</a> of file <a class="el" href="ireadmg_8f_source.html">ireadmg.f</a>.</p>
+
+<p>References <a class="el" href="readmg_8f.html#a9fb3da32fb87bc017d16b9f0f707be9b">readmg()</a>.</p>
+
+<p>Referenced by <a class="el" href="classbufr__c__interface__mod.html#ae4c70617eb7be9b4885faa3544c82611">bufr_c_interface_mod::ireadmg_c()</a>, <a class="el" href="split__by__subset_8f90.html#ae5d45e2086aa783d8ca85e2fd47c8118">split_by_subset()</a>, and <a class="el" href="ufbtab_8f.html#a4fb9c0d69c11bdc6e218f81de3dc6025">ufbtab()</a>.</p>
 
 </div>
 </div>

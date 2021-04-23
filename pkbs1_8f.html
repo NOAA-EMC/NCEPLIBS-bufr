@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.3.2</span>
+   &#160;<span id="projectnumber">11.5.0</span>
    </div>
   </td>
  </tr>
@@ -92,7 +92,7 @@ $(document).ready(function(){initNavTree('pkbs1_8f.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -109,17 +109,19 @@ $(document).ready(function(){initNavTree('pkbs1_8f.html','');});
 </div><!--header-->
 <div class="contents">
 
+<p>Write a data value into Section 1 of a BUFR message.  
+<a href="#details">More...</a></p>
+
 <p><a href="pkbs1_8f_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions/Subroutines</h2></td></tr>
 <tr class="memitem:a70abc28f30375ab44077b95ed58b59bb"><td class="memItemLeft" align="right" valign="top">subroutine&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pkbs1_8f.html#a70abc28f30375ab44077b95ed58b59bb">pkbs1</a> (IVAL, MBAY, S1MNEM)</td></tr>
-<tr class="memdesc:a70abc28f30375ab44077b95ed58b59bb"><td class="mdescLeft">&#160;</td><td class="mdescRight">THIS SUBROUTINE STORES A SPECIFIED INTEGER VALUE INTO A SPECIFIED LOCATION WITHIN SECTION 1 OF THE BUFR MESSAGE STORED IN ARRAY MBAY, OVERWRITING THE VALUE PREVIOUSLY STORED AT THAT LOCATION.  <a href="#a70abc28f30375ab44077b95ed58b59bb">More...</a><br/></td></tr>
+<tr class="memdesc:a70abc28f30375ab44077b95ed58b59bb"><td class="mdescLeft">&#160;</td><td class="mdescRight">This subroutines writes a specified value into a specified location within Section 1 of a BUFR message, overwriting the value previously stored in that location.  <a href="#a70abc28f30375ab44077b95ed58b59bb">More...</a><br/></td></tr>
 <tr class="separator:a70abc28f30375ab44077b95ed58b59bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><dl class="section author"><dt>Author</dt><dd>J </dd></dl>
-<dl class="section date"><dt>Date</dt><dd>2005-11-29 </dd></dl>
+<div class="textblock"><p>Write a data value into Section 1 of a BUFR message. </p>
 
 <p>Definition in file <a class="el" href="pkbs1_8f_source.html">pkbs1.f</a>.</p>
 </div><h2 class="groupheader">Function/Subroutine Documentation</h2>
@@ -153,14 +155,57 @@ Functions/Subroutines</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>THIS SUBROUTINE STORES A SPECIFIED INTEGER VALUE INTO A SPECIFIED LOCATION WITHIN SECTION 1 OF THE BUFR MESSAGE STORED IN ARRAY MBAY, OVERWRITING THE VALUE PREVIOUSLY STORED AT THAT LOCATION. </p>
-<p>IT WILL WORK ON ANY MESSAGE ENCODED USING BUFR EDITION 2, 3 OR 4. THE START OF THE BUFR MESSAGE (I.E. THE STRING "BUFR") MUST BE ALIGNED ON THE FIRST FOUR BYTES OF MBAY, AND THE LOCATION WITHIN WHICH TO STORE THE VALUE IS SPECIFIED VIA THE MNEMONIC S1MNEM, AS EXPLAINED IN FURTHER DETAIL BELOW.</p>
-<p>PROGRAM HISTORY LOG: 2005-11-29 J. ATOR &ndash; ORIGINAL AUTHOR 2006-04-14 D. KEYSER &ndash; ADDED OPTIONS FOR 'MTYP', 'MSBT', 'YEAR', 'MNTH', 'DAYS', 'HOUR', 'YCEN' AND 'CENT'</p>
-<p>USAGE: PKBS1 (IVAL, MBAY, S1MNEM) INPUT ARGUMENT LIST: IVAL - INTEGER: VALUE TO BE STORED MBAY - INTEGER: *-WORD PACKED BINARY ARRAY CONTAINING BUFR MESSAGE PRIOR TO STORING IVAL S1MNEM - CHARACTER*(*): MNEMONIC SPECIFYING LOCATION WHERE IVAL IS TO BE STORED WITHIN SECTION 1 OF BUFR MESSAGE: 'BMT' = BUFR MASTER TABLE 'OGCE' = ORIGINATING CENTER 'GSES' = ORIGINATING SUBCENTER (NOTE: THIS VALUE IS STORED ONLY IN BUFR EDITION 3 OR 4 MESSAGES!) 'USN' = UPDATE SEQUENCE NUMBER 'MTYP' = DATA CATEGORY 'MSBTI' = DATA SUBCATEGORY (INTERNATIONAL) (NOTE: THIS VALUE IS STORED ONLY IN BUFR EDITION 4 MESSAGES!) 'MSBT' = DATA SUBCATEGORY (LOCAL) 'MTV' = VERSION NUMBER OF MASTER TABLE 'MTVL' = VERSION NUMBER OF LOCAL TABLES 'YCEN' = YEAR OF CENTURY (1-100) (NOTE: THIS VALUE IS STORED ONLY IN BUFR EDITION 2 AND 3 MESSAGES!) 'CENT' = CENTURY (I.E., 20 FOR YEARS 1901-2000, 21 FOR YEARS 2001-2100) (NOTE: THIS VALUE IS STORED ONLY IN BUFR EDITION 2 AND 3 MESSAGES!) 'YEAR' = YEAR (4-DIGIT) (NOTE: THIS VALUE IS STORED ONLY IN BUFR EDITION 4 MESSAGES!) 'MNTH' = MONTH 'DAYS' = DAY 'HOUR' = HOUR 'MINU' = MINUTE 'SECO' = SECOND (NOTE: THIS VALUE IS STORED ONLY IN BUFR EDITION 4 MESSAGES!)</p>
-<p>OUTPUT ARGUMENT LIST: MBAY - INTEGER: *-WORD PACKED BINARY ARRAY CONTAINING BUFR MESSAGE WITH IVAL NOW STORED AS REQUESTED</p>
-<p>REMARKS: THIS ROUTINE CALLS: BORT GETS1LOC IUPBS01 PKB THIS ROUTINE IS CALLED BY: MINIMG MSGWRT Also called by application programs. </p>
+<p>This subroutines writes a specified value into a specified location within Section 1 of a BUFR message, overwriting the value previously stored in that location. </p>
+<p>This subroutine will work on any BUFR message encoded using BUFR edition 2, 3, or 4. It is similar to subroutine <a class="el" href="pkvs01_8F.html#a66383a142ad21a8793d728a6eafb9fe8" title="This subroutine is used to specify a value to be written into a specified location within Section 0 o...">pkvs01()</a>, except that it operates on a BUFR message passed in via a memory array, whereas <a class="el" href="pkvs01_8F.html#a66383a142ad21a8793d728a6eafb9fe8" title="This subroutine is used to specify a value to be written into a specified location within Section 0 o...">pkvs01()</a> operates on BUFR messages stored internally within the software.</p>
+<dl class="section author"><dt>Authors</dt><dd>J. Ator </dd>
+<dd>
+D. Keyser </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2005-11-29</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">IVAL</td><td>- integer: Value to be stored </td></tr>
+    <tr><td class="paramdir">[in,out]</td><td class="paramname">MBAY</td><td>- integer(*): BUFR message </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">S1MNEM</td><td>- character*(*): Location in Section 1 of MBAY within which to store IVAL<ul>
+<li>'BMT' = BUFR master table</li>
+<li>'OGCE' = Originating center</li>
+<li>'GSES' = Originating subcenter</li>
+<li>'USN' = Update sequence number</li>
+<li>'MTYP' = Data category</li>
+<li>'MSBTI' = Data subcategory (international)</li>
+<li>'MSBT' = Data subcategory (local)</li>
+<li>'MTV' = Version number of master table</li>
+<li>'MTVL' = Version number of local tables</li>
+<li>'YCEN' = Year of century (1-100)</li>
+<li>'CENT' = Century (e.g., 20 for years 1901-2000, 21 for years 2001-2100)</li>
+<li>'YEAR' = Year (4-digit)</li>
+<li>'MNTH' = Month</li>
+<li>'DAYS' = Day</li>
+<li>'HOUR' = Hour</li>
+<li>'MINU' = Minute</li>
+<li>'SECO' = Second</li>
+</ul>
+</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section remark"><dt>Remarks</dt><dd><ul>
+<li>The start of the BUFR message (i.e. the string 'BUFR') must be aligned on the first 4 bytes of MBAY.</li>
+<li>Values corresponding to S1MNEM = 'GSES' can only be stored within BUFR messages encoded using BUFR edition 3 or 4.</li>
+<li>Values corresponding to S1MNEM = 'YCEN' or 'CENT' can only be stored within BUFR messages encoded using BUFR edition 2 or 3.</li>
+<li>Values corresponding to S1MNEM = 'YEAR', 'SECO' or 'MSBTI' can only be stored within BUFR messages encoded using BUFR edition 4.</li>
+</ul>
+</dd></dl>
+<p><b>Program history log:</b></p>
+<ul>
+<li>2005-11-29 J. Ator &ndash; Original author</li>
+<li>2006-04-14 D. Keyser &ndash; Added options for 'MTYP', 'MSBT', 'YEAR', 'MNTH', 'DAYS', 'HOUR', 'YCEN' and 'CENT' </li>
+</ul>
 
-<p>Definition at line <a class="el" href="pkbs1_8f_source.html#l00065">65</a> of file <a class="el" href="pkbs1_8f_source.html">pkbs1.f</a>.</p>
+<p>Definition at line <a class="el" href="pkbs1_8f_source.html#l00056">56</a> of file <a class="el" href="pkbs1_8f_source.html">pkbs1.f</a>.</p>
+
+<p>References <a class="el" href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort()</a>, <a class="el" href="gets1loc_8f.html#afa67517d4a9f4c4da6852a85aefed7e9">gets1loc()</a>, <a class="el" href="iupbs01_8f.html#adcd6f7c2f898b4f938153c5cf79a9cf5">iupbs01()</a>, and <a class="el" href="pkb_8f.html#a35aa2e691ff3ad32de9d8721cae613f7">pkb()</a>.</p>
+
+<p>Referenced by <a class="el" href="minimg_8f.html#a0de30bc9d4aecf05598b98c208f6b3b9">minimg()</a>, and <a class="el" href="msgwrt_8f.html#ac95ecf1436ba14805a33efd29fab1e5d">msgwrt()</a>.</p>
 
 </div>
 </div>

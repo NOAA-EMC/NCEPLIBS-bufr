@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.3.2</span>
+   &#160;<span id="projectnumber">11.5.0</span>
    </div>
   </td>
  </tr>
@@ -92,7 +92,7 @@ $(document).ready(function(){initNavTree('nummtb_8c.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -159,6 +159,10 @@ Functions</h2></td></tr>
 <p>THE SEARCH USES BINARY SEARCH LOGIC, SO ALL OF THE ENTRIES C IN THE TABLE MUST BE SORTED IN ASCENDING ORDER (BY FXY NUMBER) IN C ORDER FOR THIS ROUTINE TO WORK PROPERLY. C C PROGRAM HISTORY LOG: C 2009-03-23 J. ATOR &ndash; ORIGINAL AUTHOR C C USAGE: CALL NUMMTB( IDN, TAB, IPT ) C INPUT ARGUMENT LIST: C IDN - INTEGER: BIT-WISE REPRESENTATION OF FXY VALUE TO BE C SEARCHED FOR C C OUTPUT ARGUMENT LIST: C TAB - CHARACTER: TABLE IN WHICH IDN WAS FOUND ('B' OR 'D') C IPT - INTEGER: INDEX OF ENTRY FOR IDN IN MASTER TABLE TAB C C REMARKS: C THIS ROUTINE CALLS: BORT CADN30 CMPIA C THIS ROUTINE IS CALLED BY: STSEQ C Normally not called by any application C programs. C C ATTRIBUTES: C LANGUAGE: C C MACHINE: PORTABLE TO ALL PLATFORMS C C$$$ </p>
 
 <p>Definition at line <a class="el" href="nummtb_8c_source.html#l00043">43</a> of file <a class="el" href="nummtb_8c_source.html">nummtb.c</a>.</p>
+
+<p>References <a class="el" href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort()</a>, <a class="el" href="cadn30_8f.html#a62b50a0be6585c53b6604953e5f39ad1">cadn30()</a>, <a class="el" href="cmpia_8c.html#afe9ff1cb9d09192a6d0c76f58c2e3f29">cmpia()</a>, and <a class="el" href="ifxy_8f.html#ac971a6f6d644344a5b09d50175498074">ifxy()</a>.</p>
+
+<p>Referenced by <a class="el" href="stseq_8c.html#a712e57cd19d1f94b87269d7dfc679c5e">stseq()</a>.</p>
 
 </div>
 </div>

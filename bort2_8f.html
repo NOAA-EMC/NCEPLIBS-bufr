@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.3.2</span>
+   &#160;<span id="projectnumber">11.5.0</span>
    </div>
   </td>
  </tr>
@@ -92,7 +92,7 @@ $(document).ready(function(){initNavTree('bort2_8f.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -109,17 +109,19 @@ $(document).ready(function(){initNavTree('bort2_8f.html','');});
 </div><!--header-->
 <div class="contents">
 
+<p>Log two error messages and abort application program.  
+<a href="#details">More...</a></p>
+
 <p><a href="bort2_8f_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions/Subroutines</h2></td></tr>
 <tr class="memitem:a50f605cc96a22ffce20206c2d254b9c3"><td class="memItemLeft" align="right" valign="top">subroutine&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="bort2_8f.html#a50f605cc96a22ffce20206c2d254b9c3">bort2</a> (STR1, STR2)</td></tr>
-<tr class="memdesc:a50f605cc96a22ffce20206c2d254b9c3"><td class="mdescLeft">&#160;</td><td class="mdescRight">THIS SUBROUTINE WRITES (VIA BUFR ARCHIVE LIBRARY SUBROUTINE ERRWRT) TWO GIVEN ERROR STRINGS AND THEN CALLS BUFR ARCHIVE LIBRARY SUBROUTINE BORT_EXIT TO ABORT THE APPLICATION PROGRAM CALLING THE BUFR ARCHIVE LIBRARY SOFTWARE.  <a href="#a50f605cc96a22ffce20206c2d254b9c3">More...</a><br/></td></tr>
+<tr class="memdesc:a50f605cc96a22ffce20206c2d254b9c3"><td class="mdescLeft">&#160;</td><td class="mdescRight">This subroutine calls subroutine <a class="el" href="errwrt_8f.html#a65626d9a772648676146b62b596c2764" title="This subroutine allows the user to specify a custom location for the logging of error and diagnostic ...">errwrt()</a> to log two error messages, then calls subroutine <a class="el" href="bort__exit_8c.html#a0f6c0efb4e258f8dc7550620b2536b60" title="This subroutine terminates the application program with a non-zero status code. ">bort_exit()</a> to abort the application program.  <a href="#a50f605cc96a22ffce20206c2d254b9c3">More...</a><br/></td></tr>
 <tr class="separator:a50f605cc96a22ffce20206c2d254b9c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><dl class="section author"><dt>Author</dt><dd>KEYSER </dd></dl>
-<dl class="section date"><dt>Date</dt><dd>2003-11-04 </dd></dl>
+<div class="textblock"><p>Log two error messages and abort application program. </p>
 
 <p>Definition in file <a class="el" href="bort2_8f_source.html">bort2.f</a>.</p>
 </div><h2 class="groupheader">Function/Subroutine Documentation</h2>
@@ -147,13 +149,28 @@ Functions/Subroutines</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>THIS SUBROUTINE WRITES (VIA BUFR ARCHIVE LIBRARY SUBROUTINE ERRWRT) TWO GIVEN ERROR STRINGS AND THEN CALLS BUFR ARCHIVE LIBRARY SUBROUTINE BORT_EXIT TO ABORT THE APPLICATION PROGRAM CALLING THE BUFR ARCHIVE LIBRARY SOFTWARE. </p>
-<p>IT IS SIMILAR TO BUFR ARCHIVE LIBRARY SUBROUTINE BORT, EXCEPT BORT PRINTS ONLY ONE ERROR STRING.</p>
-<p>PROGRAM HISTORY LOG: 2003-11-04 D. KEYSER &ndash; ORIGINAL AUTHOR 2009-04-21 J. ATOR &ndash; USE ERRWRT</p>
-<p>USAGE: CALL BORT2 (STR1, STR2) INPUT ARGUMENT LIST: STR1 - CHARACTER*(*): FIRST ERROR MESSAGE TO BE WRITTEN VIA SUBROUTINE ERRWRT STR2 - CHARACTER*(*): SECOND ERROR MESSAGE TO BE WRITTEN VIA SUBROUTINE ERRWRT</p>
-<p>REMARKS: THIS ROUTINE CALLS: BORT_EXIT ERRWRT THIS ROUTINE IS CALLED BY: ELEMDX GETNTBE IREADMT MTFNAM MTINFO PARSTR PARUSR PARUTG RDUSDX SEQSDX SNTBBE SNTBDE SNTBFE STRING UFBINT UFBOVR UFBREP UFBSTP VALX Normally not called by any application programs but it could be. </p>
+<p>This subroutine calls subroutine <a class="el" href="errwrt_8f.html#a65626d9a772648676146b62b596c2764" title="This subroutine allows the user to specify a custom location for the logging of error and diagnostic ...">errwrt()</a> to log two error messages, then calls subroutine <a class="el" href="bort__exit_8c.html#a0f6c0efb4e258f8dc7550620b2536b60" title="This subroutine terminates the application program with a non-zero status code. ">bort_exit()</a> to abort the application program. </p>
+<p>It is similar to subroutine <a class="el" href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4" title="This subroutine calls subroutine errwrt() to log an error message, then calls subroutine bort_exit() ...">bort()</a>, except that <a class="el" href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4" title="This subroutine calls subroutine errwrt() to log an error message, then calls subroutine bort_exit() ...">bort()</a> logs one error message instead of two.</p>
+<dl class="section author"><dt>Author</dt><dd>D. Keyser </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2003-11-04</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">STR1</td><td>- character*(*): First error message </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">STR2</td><td>- character*(*): Second error message</td></tr>
+  </table>
+  </dd>
+</dl>
+<p><b>Program history log:</b></p>
+<ul>
+<li>2003-11-04 D. Keyser &ndash; Original author</li>
+<li>2009-04-21 J. Ator &ndash; Use <a class="el" href="errwrt_8f.html#a65626d9a772648676146b62b596c2764" title="This subroutine allows the user to specify a custom location for the logging of error and diagnostic ...">errwrt()</a> </li>
+</ul>
 
-<p>Definition at line <a class="el" href="bort2_8f_source.html#l00031">31</a> of file <a class="el" href="bort2_8f_source.html">bort2.f</a>.</p>
+<p>Definition at line <a class="el" href="bort2_8f_source.html#l00020">20</a> of file <a class="el" href="bort2_8f_source.html">bort2.f</a>.</p>
+
+<p>References <a class="el" href="bort__exit_8c.html#a0f6c0efb4e258f8dc7550620b2536b60">bort_exit()</a>, and <a class="el" href="errwrt_8f.html#a65626d9a772648676146b62b596c2764">errwrt()</a>.</p>
+
+<p>Referenced by <a class="el" href="elemdx_8f.html#adfd6de0f5d3b01918ea50186bf208a2d">elemdx()</a>, <a class="el" href="getntbe_8f.html#a114eb13cc332b1a370f5d4bc81b43417">getntbe()</a>, <a class="el" href="ireadmt_8F.html#a0c3eff73be06d581b8b6ffcd47fede03">ireadmt()</a>, <a class="el" href="mtfnam_8f.html#a9991cbb64b79f8c3f07d1037344ab143">mtfnam()</a>, <a class="el" href="mtinfo_8f.html#ad95cdae13646faad7b457f7c854bbfc7">mtinfo()</a>, <a class="el" href="parstr_8f.html#a3379a342ab3d92dd01eef1f3172f9b86">parstr()</a>, <a class="el" href="parusr_8f.html#a8c7afcc8ef3c345d51b9e902be92f9e5">parusr()</a>, <a class="el" href="parutg_8f.html#a48496d3ac23b5e7d75a524f4ae62e181">parutg()</a>, <a class="el" href="rdusdx_8f.html#ab4869b52a96f03ad2eb5328e71c25764">rdusdx()</a>, <a class="el" href="seqsdx_8f.html#ae2dcc6ee54e54657a7b2be4c73e8154f">seqsdx()</a>, <a class="el" href="sntbbe_8f.html#ae308430ece0bc88b4f8239cfbc13fe1e">sntbbe()</a>, <a class="el" href="sntbde_8f.html#ae7338a521f1a0879429886018b9c3e00">sntbde()</a>, <a class="el" href="sntbfe_8f.html#a99678d8b031a5f9c1b9c2cc1e8e42d8e">sntbfe()</a>, <a class="el" href="string_8f.html#ad5386a1e671ead372f1c087994b68438">string()</a>, <a class="el" href="ufbint_8f.html#afe3364a491b49e0c9e5a526b009aaa75">ufbint()</a>, <a class="el" href="ufbovr_8f.html#a2776cda22355240c1dee1c5ae8b4e56f">ufbovr()</a>, <a class="el" href="ufbrep_8f.html#adb981832bdbbb26903265fb946aac58c">ufbrep()</a>, <a class="el" href="ufbstp_8f.html#a8153bb675bd7b02b4a2a58b77ba9d581">ufbstp()</a>, and <a class="el" href="valx_8f.html#a0b8041e934c1c4ae5f455e8c6f4e7daf">valx()</a>.</p>
 
 </div>
 </div>

@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.3.2</span>
+   &#160;<span id="projectnumber">11.5.0</span>
    </div>
   </td>
  </tr>
@@ -92,7 +92,7 @@ $(document).ready(function(){initNavTree('getvalnb_8f_source.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -107,97 +107,100 @@ $(document).ready(function(){initNavTree('getvalnb_8f_source.html','');});
 </div><!--header-->
 <div class="contents">
 <a href="getvalnb_8f.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="comment">C&gt; @file</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment">C&gt; @author J @date 2012-09-12</span></div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;    </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="comment">C&gt; THIS FUNCTION SHOULD ONLY BE CALLED WHEN A BUFR FILE IS</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="comment">C&gt;   OPENED FOR INPUT, AND A SUBSET DEFINITION MUST ALREADY BE IN SCOPE</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="comment">C&gt;   VIA A PREVIOUS CALL TO BUFR ARCHIVE LIBRARY SUBROUTINE READSB OR</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="comment">C&gt;   EQUIVALENT.  THE FUNCTION WILL FIRST SEARCH FOR THE (NTAGPV)th</span></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="comment">C&gt;   OCCURRENCE OF MNEMONIC TAGPV WITHIN THE OVERALL SUBSET DEFINITION,</span></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="comment">C&gt;   COUNTING FROM THE BEGINNING OF THE SUBSET.  IF FOUND, IT WILL THEN</span></div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="comment">C&gt;   SEARCH FORWARD (IF NTAGNB IS POSITIVE) OR BACKWARD (IF NTAGNB IS</span></div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="comment">C&gt;   NEGATIVE) FROM THAT POINT WITHIN THE SUBSET FOR THE (NTAGNB)th</span></div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="comment">C&gt;   OCCURRENCE OF MNEMONIC TAGNB AND RETURN THE VALUE CORRESPONDING</span></div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="comment">C&gt;   TO THAT MNEMONIC. </span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment">C&gt; @brief Read one data value from a data subset.</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="comment">C&gt; This function can be used to read a data value corresponding to</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="comment">C&gt; a specific occurrence of a mnemonic within a data subset, based on</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="comment">C&gt; its position relative to a different mnemonic within the subset.</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="comment">C&gt;</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="comment">C&gt; &lt;p&gt;The function first searches for a specific occurrence of a pivot</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="comment">C&gt; mnemonic, counting from the beginning of the subset.  From there,</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="comment">C&gt; it then searches in either a forward or backward direction for a</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="comment">C&gt; specific occurrence of a nearby mnemonic, and if found</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="comment">C&gt; returns the data value from the corresponding location</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="comment">C&gt; within the subset.</span></div>
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment">C&gt;</span></div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="comment">C&gt; PROGRAM HISTORY LOG:</span></div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="comment">C&gt; 2012-09-12  J. ATOR    -- ORIGINAL AUTHOR</span></div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="comment">C&gt; 2014-10-02  J. ATOR    -- MODIFIED TO USE FSTAG</span></div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="comment">C&gt; 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS</span></div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment">C&gt;</span></div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="comment">C&gt; USAGE:    CALL GETVALNB (LUNIT, TAGPV, NTAGPV, TAGNB, NTAGNB)</span></div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="comment">C&gt;   INPUT ARGUMENT LIST:</span></div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="comment">C&gt;     LUNIT    - INTEGER: FORTRAN LOGICAL UNIT NUMBER FOR BUFR FILE</span></div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="comment">C&gt;     TAGPV    - CHARACTER*(*): PIVOT MNEMONIC; THE FUNCTION WILL</span></div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="comment">C&gt;                FIRST SEARCH FOR the (NTAGPV)th OCCURRENCE OF THIS</span></div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="comment">C&gt;                MNEMONIC, COUNTING FROM THE BEGINNING OF THE OVERALL</span></div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="comment">C&gt;                SUBSET DEFINITION</span></div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="comment">C&gt;     NTAGPV   - INTEGER: ORDINAL OCCURRENCE OF TAGPV TO SEARCH FOR</span></div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="comment">C&gt;     TAGNB    - CHARACTER*(*): NEARBY MNEMONIC; ASSUMING TAGPV IS</span></div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="comment">C&gt;                SUCCESSFULLY FOUND, THE FUNCTION WILL THEN SEARCH</span></div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="comment">C&gt;                NEARBY FOR THE (NTAGNB)th OCCURRENCE OF TAGNB AND</span></div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="comment">C&gt;                RETURN THE CORRESPONDING VALUE</span></div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="comment">C&gt;     NTAGNB   - INTEGER: ORDINAL OCCURRENCE OF TAGNB TO SEARCH FOR,</span></div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="comment">C&gt;                COUNTING FROM THE LOCATION OF TAGPV WITHIN THE OVERALL</span></div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="comment">C&gt;                SUBSET DEFINITION.  IF NTAGNB IS POSITIVE, THE FUNCTION</span></div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="comment">C&gt;                WILL SEARCH IN A FORWARD DIRECTION FROM THE LOCATION OF</span></div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="comment">C&gt;                TAGPV, OR IF NTAGNB IS NEGATIVE IT WILL INSTEAD SEARCH</span></div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="comment">C&gt;                IN A BACKWARDS DIRECTION.</span></div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="comment">C&gt;</span></div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="comment">C&gt;   OUTPUT ARGUMENT LIST:</span></div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="comment">C&gt;     GETVALNB - REAL*8: VALUE CORRESPONDING TO (NTAGNB)th OCCURRENCE</span></div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="comment">C&gt;                OF TAGNB.  IF FOR ANY REASON THIS VALUE CANNOT BE</span></div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="comment">C&gt;                LOCATED, THEN THE BUFR ARCHIVE LIBRARY MISSING VALUE</span></div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="comment">C&gt;                BMISS WILL BE RETURNED.</span></div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="comment">C&gt;</span></div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<span class="comment">C&gt; REMARKS:</span></div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="comment">C&gt;    THIS ROUTINE CALLS:        FSTAG    STATUS</span></div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;<span class="comment">C&gt;    THIS ROUTINE IS CALLED BY: None</span></div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<span class="comment">C&gt;                               Normally called only by application</span></div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<span class="comment">C&gt;                               programs</span></div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;<span class="comment">C&gt;</span></div>
-<div class="line"><a name="l00051"></a><span class="lineno"><a class="line" href="getvalnb_8f.html#aaaf963dceeb56a2917b0142afbbe0742">   51</a></span>&#160;<span class="keyword">    REAL*8 </span><span class="keyword">FUNCTION </span><a class="code" href="getvalnb_8f.html#aaaf963dceeb56a2917b0142afbbe0742">getvalnb</a> ( LUNIT, TAGPV, NTAGPV, TAGNB, NTAGNB )</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    <span class="keywordtype">USE </span><a class="code" href="classmoda__usrint.html">moda_usrint</a></div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <span class="keywordtype">USE </span><a class="code" href="classmoda__msgcwd.html">moda_msgcwd</a></div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    <span class="keywordtype">USE </span><a class="code" href="classmoda__tables.html">moda_tables</a></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="comment">C&gt; @author J. Ator</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="comment">C&gt; @date 2012-09-12</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="comment">C&gt;</span></div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="comment">C&gt; @param[in] LUNIT   - integer: Fortran logical unit number for</span></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment">C&gt;                      BUFR file</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="comment">C&gt; @param[in] TAGPV   - character*(*): Pivot mnemonic; the subroutine</span></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="comment">C&gt;                      will first search for the (NTAGPV)th occurrence</span></div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="comment">C&gt;                      of this mnemonic, counting from the beginning</span></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="comment">C&gt;                      of the overall subset definition</span></div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="comment">C&gt; @param[in] NTAGPV  - integer: Ordinal occurrence of TAGPV to search for,</span></div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="comment">C&gt;                      counting from the beginning of the overall</span></div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="comment">C&gt;                      subset definition</span></div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="comment">C&gt; @param[in] TAGNB   - character*(*): Nearby mnemonic; assuming TAGPV is</span></div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="comment">C&gt;                      successfully found, the subroutine will then search</span></div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="comment">C&gt;                      nearby for the (NTAGNB)th occurrence of TAGNB and</span></div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="comment">C&gt;                      return the corresponding value</span></div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="comment">C&gt; @param[in] NTAGNB  - integer: Ordinal occurrence of TAGNB to search for,</span></div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="comment">C&gt;                      counting from the location of TAGPV within the</span></div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="comment">C&gt;                      overall subset definition.  If NTAGNB is positive,</span></div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="comment">C&gt;                      the subroutine will search in a forward direction</span></div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="comment">C&gt;                      from the location of TAGPV; otherwise, if NTAGNB is</span></div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="comment">C&gt;                      negative, it will instead search in a backwards</span></div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="comment">C&gt;                      direction from the location of TAGPV.</span></div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="comment">C&gt; @returns getvalnb - real*8: Value corresponding to (NTAGNB)th occurrence</span></div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="comment">C&gt;                     of TAGNB.  If for any reason this value cannot be</span></div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="comment">C&gt;                     located, then the current placeholder value for</span></div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="comment">C&gt;                     &quot;missing&quot; data will be returned instead.</span></div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="comment">C&gt;</span></div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="comment">C&gt; &lt;p&gt;The current placeholder value for &quot;missing&quot; data can be determined</span></div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="comment">C&gt; via a separate call to function getbmiss().</span></div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<span class="comment">C&gt;</span></div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="comment">C&gt; &lt;p&gt;Before calling this function, a BUFR data subset should already be</span></div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;<span class="comment">C&gt; open for reading via a previous call to one of the BUFRLIB</span></div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<span class="comment">C&gt; [subset-reading subroutines](@ref hierarchy).</span></div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<span class="comment">C&gt;</span></div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;<span class="comment">C&gt; &lt;b&gt;Program history log:&lt;/b&gt;</span></div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;<span class="comment">C&gt; - 2012-09-12  J. Ator    -- Original author</span></div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="comment">C&gt; - 2014-10-02  J. Ator    -- Modified to use fstag()</span></div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;<span class="comment">C&gt; - 2014-12-10  J. Ator    -- Use modules instead of COMMON blocks</span></div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;<span class="comment">C&gt;</span></div>
+<div class="line"><a name="l00055"></a><span class="lineno"><a class="line" href="getvalnb_8f.html#aaaf963dceeb56a2917b0142afbbe0742">   55</a></span>&#160;<span class="keyword">    REAL*8 </span><span class="keyword">FUNCTION </span><a class="code" href="getvalnb_8f.html#aaaf963dceeb56a2917b0142afbbe0742">getvalnb</a> ( LUNIT, TAGPV, NTAGPV, TAGNB, NTAGNB )</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;        <span class="keywordtype">USE </span><a class="code" href="modv__BMISS_8f90.html#classmodv__bmiss">modv_bmiss</a></div>
 <div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    include <span class="stringliteral">&#39;bufrlib.inc&#39;</span></div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    <span class="keywordtype">CHARACTER*(*)</span> tagpv, tagnb</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    <span class="keywordtype">USE </span><a class="code" href="classmoda__usrint.html">moda_usrint</a></div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    <span class="keywordtype">USE </span><a class="code" href="classmoda__msgcwd.html">moda_msgcwd</a></div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    <span class="keywordtype">USE </span><a class="code" href="moda__tables_8F.html#classmoda__tables">moda_tables</a></div>
 <div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;<span class="comment">C----------------------------------------------------------------------</span></div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;<span class="comment">C----------------------------------------------------------------------</span></div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    <a class="code" href="getvalnb_8f.html#aaaf963dceeb56a2917b0142afbbe0742">getvalnb</a> = bmiss</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    <span class="keywordtype">CHARACTER*(*)</span> tagpv, tagnb</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;<span class="comment">C----------------------------------------------------------------------</span></div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;<span class="comment">C----------------------------------------------------------------------</span></div>
 <div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;<span class="comment">C   Get LUN from LUNIT.</span></div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    <a class="code" href="getvalnb_8f.html#aaaf963dceeb56a2917b0142afbbe0742">getvalnb</a> = bmiss</div>
 <div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    CALL <a class="code" href="status_8f.html#a22292e7a69c411a961168198d259f336">status</a>(lunit, lun, il, im )</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    <span class="keywordflow">IF</span> ( il .GE. 0 ) <span class="keywordflow">RETURN</span></div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    <span class="keywordflow">IF</span> ( inode(lun) .NE. inv(1,lun) ) <span class="keywordflow">RETURN</span></div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;<span class="comment">C   Starting from the beginning of the subset, locate the (NTAGPV)th</span></div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;<span class="comment">C   occurrence of TAGPV.</span></div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    CALL <a class="code" href="fstag_8f.html#a4086d332625381684867dd7ec13a20e5">fstag</a>( lun, tagpv, ntagpv, 1, npv, iret )</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    <span class="keywordflow">IF</span> ( iret .NE. 0 ) <span class="keywordflow">RETURN</span></div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;<span class="comment">C   Now, starting from the (NTAGPV)th occurrence of TAGPV, search</span></div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;<span class="comment">C   forward or backward for the (NTAGNB)th occurrence of TAGNB.</span></div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    CALL <a class="code" href="fstag_8f.html#a4086d332625381684867dd7ec13a20e5">fstag</a>( lun, tagnb, ntagnb, npv, nnb, iret )</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    <span class="keywordflow">IF</span> ( iret .NE. 0 ) <span class="keywordflow">RETURN</span></div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    <a class="code" href="getvalnb_8f.html#aaaf963dceeb56a2917b0142afbbe0742">getvalnb</a> = val(nnb,lun)</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;        </div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    <span class="keywordflow">RETURN</span></div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    <span class="keywordflow">END</span></div>
-<div class="ttc" id="getvalnb_8f_html_aaaf963dceeb56a2917b0142afbbe0742"><div class="ttname"><a href="getvalnb_8f.html#aaaf963dceeb56a2917b0142afbbe0742">getvalnb</a></div><div class="ttdeci">REAL *8 function getvalnb(LUNIT, TAGPV, NTAGPV, TAGNB, NTAGNB)</div><div class="ttdoc">THIS FUNCTION SHOULD ONLY BE CALLED WHEN A BUFR FILE IS OPENED FOR INPUT, AND A SUBSET DEFINITION MUS...</div><div class="ttdef"><b>Definition:</b> <a href="getvalnb_8f_source.html#l00051">getvalnb.f:51</a></div></div>
-<div class="ttc" id="status_8f_html_a22292e7a69c411a961168198d259f336"><div class="ttname"><a href="status_8f.html#a22292e7a69c411a961168198d259f336">status</a></div><div class="ttdeci">subroutine status(LUNIT, LUN, IL, IM)</div><div class="ttdoc">THIS SUBROUTINE CHECKS WHETHER LOGICAL UNIT NUMBER LUNIT (AND ITS ASSOCIATED BUFR FILE) IS CURRENTLY ...</div><div class="ttdef"><b>Definition:</b> <a href="status_8f_source.html#l00086">status.f:86</a></div></div>
-<div class="ttc" id="classmoda__tables_html"><div class="ttname"><a href="classmoda__tables.html">moda_tables</a></div><div class="ttdef"><b>Definition:</b> <a href="moda__tables_8F_source.html#l00001">moda_tables.F:1</a></div></div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;<span class="comment">C   Get LUN from LUNIT.</span></div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    CALL <a class="code" href="status_8f.html#a22292e7a69c411a961168198d259f336">status</a>(lunit, lun, il, im )</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    <span class="keywordflow">IF</span> ( il .GE. 0 ) <span class="keywordflow">RETURN</span></div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    <span class="keywordflow">IF</span> ( inode(lun) .NE. inv(1,lun) ) <span class="keywordflow">RETURN</span></div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;<span class="comment">C   Starting from the beginning of the subset, locate the (NTAGPV)th</span></div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;<span class="comment">C   occurrence of TAGPV.</span></div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    CALL <a class="code" href="fstag_8f.html#a4086d332625381684867dd7ec13a20e5">fstag</a>( lun, tagpv, ntagpv, 1, npv, iret )</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    <span class="keywordflow">IF</span> ( iret .NE. 0 ) <span class="keywordflow">RETURN</span></div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;<span class="comment">C   Now, starting from the (NTAGPV)th occurrence of TAGPV, search</span></div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;<span class="comment">C   forward or backward for the (NTAGNB)th occurrence of TAGNB.</span></div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    CALL <a class="code" href="fstag_8f.html#a4086d332625381684867dd7ec13a20e5">fstag</a>( lun, tagnb, ntagnb, npv, nnb, iret )</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    <span class="keywordflow">IF</span> ( iret .NE. 0 ) <span class="keywordflow">RETURN</span></div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    <a class="code" href="getvalnb_8f.html#aaaf963dceeb56a2917b0142afbbe0742">getvalnb</a> = val(nnb,lun)</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;        </div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;    <span class="keywordflow">RETURN</span></div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;    <span class="keywordflow">END</span></div>
+<div class="ttc" id="getvalnb_8f_html_aaaf963dceeb56a2917b0142afbbe0742"><div class="ttname"><a href="getvalnb_8f.html#aaaf963dceeb56a2917b0142afbbe0742">getvalnb</a></div><div class="ttdeci">REAL *8 function getvalnb(LUNIT, TAGPV, NTAGPV, TAGNB, NTAGNB)</div><div class="ttdoc">This function can be used to read a data value corresponding to a specific occurrence of a mnemonic w...</div><div class="ttdef"><b>Definition:</b> <a href="getvalnb_8f_source.html#l00055">getvalnb.f:55</a></div></div>
+<div class="ttc" id="modv__BMISS_8f90_html_classmodv__bmiss"><div class="ttname"><a href="modv__BMISS_8f90.html#classmodv__bmiss">modv_bmiss</a></div><div class="ttdoc">This module declares and initializes the BMISS variable. </div><div class="ttdef"><b>Definition:</b> <a href="modv__BMISS_8f90_source.html#l00009">modv_BMISS.f90:9</a></div></div>
+<div class="ttc" id="moda__tables_8F_html_classmoda__tables"><div class="ttname"><a href="moda__tables_8F.html#classmoda__tables">moda_tables</a></div><div class="ttdoc">This module contains array and variable declarations used to store the internal jump/link table...</div><div class="ttdef"><b>Definition:</b> <a href="moda__tables_8F_source.html#l00013">moda_tables.F:13</a></div></div>
+<div class="ttc" id="status_8f_html_a22292e7a69c411a961168198d259f336"><div class="ttname"><a href="status_8f.html#a22292e7a69c411a961168198d259f336">status</a></div><div class="ttdeci">subroutine status(LUNIT, LUN, IL, IM)</div><div class="ttdoc">This subroutine checks whether a specified Fortran logical unit number is currently connected to the ...</div><div class="ttdef"><b>Definition:</b> <a href="status_8f_source.html#l00061">status.f:61</a></div></div>
 <div class="ttc" id="classmoda__usrint_html"><div class="ttname"><a href="classmoda__usrint.html">moda_usrint</a></div><div class="ttdef"><b>Definition:</b> <a href="moda__usrint_8F_source.html#l00001">moda_usrint.F:1</a></div></div>
 <div class="ttc" id="classmoda__msgcwd_html"><div class="ttname"><a href="classmoda__msgcwd.html">moda_msgcwd</a></div><div class="ttdef"><b>Definition:</b> <a href="moda__msgcwd_8F_source.html#l00001">moda_msgcwd.F:1</a></div></div>
 <div class="ttc" id="fstag_8f_html_a4086d332625381684867dd7ec13a20e5"><div class="ttname"><a href="fstag_8f.html#a4086d332625381684867dd7ec13a20e5">fstag</a></div><div class="ttdeci">subroutine fstag(LUN, UTAG, NUTAG, NIN, NOUT, IRET)</div><div class="ttdoc">THIS SUBROUTINE FINDS THE (NUTAG)th OCCURRENCE OF MNEMONIC UTAG WITHIN THE CURRENT OVERALL SUBSET DEF...</div><div class="ttdef"><b>Definition:</b> <a href="fstag_8f_source.html#l00040">fstag.f:40</a></div></div>

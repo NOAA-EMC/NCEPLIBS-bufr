@@ -1,6 +1,7 @@
 var mstabs_8h =
 [
     [ "MSTABS_BASE", "mstabs_8h.html#a929412cb1c384bff023a7c0d840ce76e", null ],
+    [ "cpmstabs", "mstabs_8h.html#a3b149893bee75a651e24b2344067264c", null ],
     [ "MSTABS_BASE", "mstabs_8h.html#a938e2c8b2a342250659391f77ee01691", null ],
     [ "MSTABS_BASE", "mstabs_8h.html#a43035bdb1d685e674bc2e1fc3ad3b2ce", null ],
     [ "MSTABS_BASE", "mstabs_8h.html#a5e7e829bba137eea82f5c27ed65a37a6", null ],

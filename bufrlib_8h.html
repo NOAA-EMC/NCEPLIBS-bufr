@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.3.2</span>
+   &#160;<span id="projectnumber">11.5.0</span>
    </div>
   </td>
  </tr>
@@ -92,7 +92,7 @@ $(document).ready(function(){initNavTree('bufrlib_8h.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -110,6 +110,9 @@ $(document).ready(function(){initNavTree('bufrlib_8h.html','');});
 <div class="title">bufrlib.h File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>Define signatures to enable a number of BUFRLIB subprograms to be called directly from C application programs.  
+<a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;stdio.h&gt;</code><br/>
 <code>#include &lt;stdlib.h&gt;</code><br/>
 <code>#include &lt;string.h&gt;</code><br/>
@@ -126,7 +129,7 @@ Macros</h2></td></tr>
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>MAXNC</b>&#160;&#160;&#160;600</td></tr>
 <tr class="separator:ae0761ad222ac0baf7add69d41ab53510"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a418e7eacd5437694be8d51643e52485f"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a418e7eacd5437694be8d51643e52485f"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>MXNAF</b>&#160;&#160;&#160;3</td></tr>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>MXNAF</b>&#160;&#160;&#160;4</td></tr>
 <tr class="separator:a418e7eacd5437694be8d51643e52485f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a51b267f0e740902752570c1847b99f14"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a51b267f0e740902752570c1847b99f14"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>NFILES</b>&#160;&#160;&#160;32</td></tr>
@@ -140,48 +143,27 @@ typedef int&#160;</td><td class="memItemRight" valign="bottom"><b>f77int</b></td
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a98efd59b32b1d2ed2c060d2564824e28"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a98efd59b32b1d2ed2c060d2564824e28"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>arallocc</b> (void)</td></tr>
+<tr class="memitem:a98efd59b32b1d2ed2c060d2564824e28"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="bufrlib_8h.html#a98efd59b32b1d2ed2c060d2564824e28">arallocc</a> (void)</td></tr>
+<tr class="memdesc:a98efd59b32b1d2ed2c060d2564824e28"><td class="mdescLeft">&#160;</td><td class="mdescRight">For dynamic allocation builds of the library, this subroutine is called internally during the first call to subroutine <a class="el" href="openbf_8F.html#a9bea9aeada166bd9037b959ca8452b28" title="This subroutine connects a new file to the BUFRLIB software for input or output operations. ">openbf()</a> from an application program, in order to dynamically allocate internal C language arrays based on parameter values set during one or more previous calls to function <a class="el" href="isetprm_8F.html#a366156765665bb1e1452635b12ff5093" title="This function sets a specified parameter to a specified value for use in dynamically allocating one o...">isetprm()</a>.  <a href="#a98efd59b32b1d2ed2c060d2564824e28">More...</a><br/></td></tr>
 <tr class="separator:a98efd59b32b1d2ed2c060d2564824e28"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac283516a1391fee0635b01beffdad7cb"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac283516a1391fee0635b01beffdad7cb"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>ardllocc</b> (void)</td></tr>
+<tr class="memitem:ac283516a1391fee0635b01beffdad7cb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="bufrlib_8h.html#ac283516a1391fee0635b01beffdad7cb">ardllocc</a> (void)</td></tr>
+<tr class="memdesc:ac283516a1391fee0635b01beffdad7cb"><td class="mdescLeft">&#160;</td><td class="mdescRight">This subroutine frees any memory that was dynamically allocated during a previous call to subroutine <a class="el" href="arallocc_8c.html#a98efd59b32b1d2ed2c060d2564824e28" title="For dynamic allocation builds of the library, this subroutine is called internally during the first c...">arallocc()</a>.  <a href="#ac283516a1391fee0635b01beffdad7cb">More...</a><br/></td></tr>
 <tr class="separator:ac283516a1391fee0635b01beffdad7cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7de367cdbb661e09f85b37f65551a9bd"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a7de367cdbb661e09f85b37f65551a9bd"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>bort</b> (char *, f77int)</td></tr>
 <tr class="separator:a7de367cdbb661e09f85b37f65551a9bd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0f6c0efb4e258f8dc7550620b2536b60"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="bufrlib_8h.html#a0f6c0efb4e258f8dc7550620b2536b60">bort_exit</a> (void)</td></tr>
-<tr class="memdesc:a0f6c0efb4e258f8dc7550620b2536b60"><td class="mdescLeft">&#160;</td><td class="mdescRight">C C SUBPROGRAM: BORT_EXIT C PRGMMR: ATOR ORG: NP12 DATE: 2003-11-04 C C ABSTRACT: THIS SUBROUTINE WILL TERMINATE THE APPLICATION PROGRAM AND C RETURN AN IMPLEMENTATION-DEFINED NON-ZERO STATUS CODE TO THE C EXECUTING SHELL SCRIPT.  <a href="#a0f6c0efb4e258f8dc7550620b2536b60">More...</a><br/></td></tr>
+<tr class="memdesc:a0f6c0efb4e258f8dc7550620b2536b60"><td class="mdescLeft">&#160;</td><td class="mdescRight">This subroutine terminates the application program with a non-zero status code.  <a href="#a0f6c0efb4e258f8dc7550620b2536b60">More...</a><br/></td></tr>
 <tr class="separator:a0f6c0efb4e258f8dc7550620b2536b60"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab847b1928ab5afce4c0dd426527a67be"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab847b1928ab5afce4c0dd426527a67be"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>bvers</b> (char *, f77int)</td></tr>
+<tr class="separator:ab847b1928ab5afce4c0dd426527a67be"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4e4a1601fe91b0d3e1e96184b583d76c"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a4e4a1601fe91b0d3e1e96184b583d76c"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>cadn30</b> (f77int *, char *, f77int)</td></tr>
 <tr class="separator:a4e4a1601fe91b0d3e1e96184b583d76c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab66668ab9633ce3b475416f6a9899802"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="bufrlib_8h.html#ab66668ab9633ce3b475416f6a9899802">ccbfl</a> (void)</td></tr>
-<tr class="memdesc:ab66668ab9633ce3b475416f6a9899802"><td class="mdescLeft">&#160;</td><td class="mdescRight">C C SUBPROGRAM: CCBFL C PRGMMR: ATOR ORG: NP12 DATE: 2005-11-29 C C ABSTRACT: THIS ROUTINE CLOSES (AND FLUSHES ANY REMAINING OUTPUT TO!) C ANY SYSTEM FILES THAT ARE STILL OPEN FROM ANY PREVIOUS CALLS TO BUFR C ARCHIVE LIBRARY SUBROUTINE COBFL.  <a href="#ab66668ab9633ce3b475416f6a9899802">More...</a><br/></td></tr>
-<tr class="separator:ab66668ab9633ce3b475416f6a9899802"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8eda0001bb7041111117d589f6176f99"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="bufrlib_8h.html#a8eda0001bb7041111117d589f6176f99">cmpia</a> (const void *, const void *)</td></tr>
 <tr class="memdesc:a8eda0001bb7041111117d589f6176f99"><td class="mdescLeft">&#160;</td><td class="mdescRight">C C SUBPROGRAM: CMPIA C PRGMMR: ATOR ORG: NP12 DATE: 2009-03-23 C C ABSTRACT: THIS ROUTINE DEFINES A COMPARISON BETWEEN TWO INTEGERS C FOR USE BY THE BINARY SEARCH FUNCTION BSEARCH.  <a href="#a8eda0001bb7041111117d589f6176f99">More...</a><br/></td></tr>
 <tr class="separator:a8eda0001bb7041111117d589f6176f99"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6184cab6384681f5f52c295fb6998216"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="bufrlib_8h.html#a6184cab6384681f5f52c295fb6998216">cmpstia1</a> (const void *, const void *)</td></tr>
-<tr class="memdesc:a6184cab6384681f5f52c295fb6998216"><td class="mdescLeft">&#160;</td><td class="mdescRight">C C SUBPROGRAM: CMPSTIA1 C PRGMMR: ATOR ORG: NCEP DATE: 2017-11-13 C C ABSTRACT: THIS ROUTINE DEFINES A COMPARISON BETWEEN TWO ENTRIES IN C THE INTERNAL MEMORY STRUCTURE USED FOR STORING ASCII MASTER C CODE/FLAG TABLE INFORMATION.  <a href="#a6184cab6384681f5f52c295fb6998216">More...</a><br/></td></tr>
-<tr class="separator:a6184cab6384681f5f52c295fb6998216"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa09810b363464d0f0b1e3a5b7f011a01"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="bufrlib_8h.html#aa09810b363464d0f0b1e3a5b7f011a01">cmpstia2</a> (const void *, const void *)</td></tr>
-<tr class="memdesc:aa09810b363464d0f0b1e3a5b7f011a01"><td class="mdescLeft">&#160;</td><td class="mdescRight">C C SUBPROGRAM: CMPSTIA2 C PRGMMR: ATOR ORG: NCEP DATE: 2017-11-13 C C ABSTRACT: THIS ROUTINE DEFINES A COMPARISON BETWEEN TWO ENTRIES IN C THE INTERNAL MEMORY STRUCTURE USED FOR STORING ASCII MASTER C CODE/FLAG TABLE INFORMATION.  <a href="#aa09810b363464d0f0b1e3a5b7f011a01">More...</a><br/></td></tr>
-<tr class="separator:aa09810b363464d0f0b1e3a5b7f011a01"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2cc93905bfe9b24f37046b555e43b7d4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="bufrlib_8h.html#a2cc93905bfe9b24f37046b555e43b7d4">cobfl</a> (char *, char *)</td></tr>
-<tr class="memdesc:a2cc93905bfe9b24f37046b555e43b7d4"><td class="mdescLeft">&#160;</td><td class="mdescRight">C C SUBPROGRAM: COBFL C PRGMMR: ATOR ORG: NP12 DATE: 2005-11-29 C C ABSTRACT: THIS ROUTINE OPENS A SPECIFIED SYSTEM FILE FOR READING C OR WRITING VIA THE BUFR ARCHIVE LIBRARY C I/O INTERFACE.  <a href="#a2cc93905bfe9b24f37046b555e43b7d4">More...</a><br/></td></tr>
-<tr class="separator:a2cc93905bfe9b24f37046b555e43b7d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3b149893bee75a651e24b2344067264c"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a3b149893bee75a651e24b2344067264c"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>cpmstabs</b> (f77int *, f77int *, char(*)[4], char(*)[12], char(*)[4], char(*)[14], char(*)[8], char(*)[120], f77int *, f77int *, char(*)[120], char(*)[8], f77int *, f77int *, f77int *)</td></tr>
-<tr class="separator:a3b149893bee75a651e24b2344067264c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aaec663988563e497bfe9ef80d1674b00"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="bufrlib_8h.html#aaec663988563e497bfe9ef80d1674b00">crbmg</a> (char *, f77int *, f77int *, f77int *)</td></tr>
-<tr class="memdesc:aaec663988563e497bfe9ef80d1674b00"><td class="mdescLeft">&#160;</td><td class="mdescRight">C C SUBPROGRAM: CRBMG C PRGMMR: ATOR ORG: NP12 DATE: 2005-11-29 C C ABSTRACT: THIS ROUTINE READS THE NEXT BUFR MESSAGE FROM THE SYSTEM C FILE MOST RECENTLY OPENED FOR READING/INPUT VIA BUFR ARCHIVE LIBRARY C ROUTINE COBFL.  <a href="#aaec663988563e497bfe9ef80d1674b00">More...</a><br/></td></tr>
-<tr class="separator:aaec663988563e497bfe9ef80d1674b00"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a204acc5f09ddbbdd59ccc4ff491935df"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="bufrlib_8h.html#a204acc5f09ddbbdd59ccc4ff491935df">cwbmg</a> (char *, f77int *, f77int *)</td></tr>
-<tr class="memdesc:a204acc5f09ddbbdd59ccc4ff491935df"><td class="mdescLeft">&#160;</td><td class="mdescRight">C C SUBPROGRAM: CWBMG C PRGMMR: ATOR ORG: NP12 DATE: 2005-11-29 C C ABSTRACT: THIS ROUTINE WRITES A SPECIFIED NUMBER OF BYTES TO THE C SYSTEM FILE MOST RECENTLY OPENED FOR WRITING/OUTPUT VIA BUFR C ARCHIVE LIBRARY ROUTINE COBFL.  <a href="#a204acc5f09ddbbdd59ccc4ff491935df">More...</a><br/></td></tr>
-<tr class="separator:a204acc5f09ddbbdd59ccc4ff491935df"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1242c4d43753a37cdb9abfb3f01e5583"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="bufrlib_8h.html#a1242c4d43753a37cdb9abfb3f01e5583">dlloctbf</a> (void)</td></tr>
-<tr class="memdesc:a1242c4d43753a37cdb9abfb3f01e5583"><td class="mdescLeft">&#160;</td><td class="mdescRight">C C SUBPROGRAM: DLLOCTBF C PRGMMR: ATOR ORG: NCEP DATE: 2017-11-03 C C ABSTRACT: THIS ROUTINE FREES THE SPACE THAT WAS PREVIOUSLY ALLOCATED C BY SUBPROGRAM INITTBF FOR STORING CODE/FLAG TABLE INFORMATION INTO C AN INTERNAL MEMORY STRUCTURE.  <a href="#a1242c4d43753a37cdb9abfb3f01e5583">More...</a><br/></td></tr>
-<tr class="separator:a1242c4d43753a37cdb9abfb3f01e5583"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae1a90a79e77afbc6351042054e06c8e0"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ae1a90a79e77afbc6351042054e06c8e0"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>elemdx</b> (char *, f77int *, f77int)</td></tr>
 <tr class="separator:ae1a90a79e77afbc6351042054e06c8e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -209,9 +191,6 @@ f77int&#160;</td><td class="memItemRight" valign="bottom"><b>igettdi</b> (f77int
 <tr class="memitem:ac6d9aedeae6d71b4f94e93575e1f7d6a"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac6d9aedeae6d71b4f94e93575e1f7d6a"></a>
 f77int&#160;</td><td class="memItemRight" valign="bottom"><b>imrkopr</b> (char *, f77int)</td></tr>
 <tr class="separator:ac6d9aedeae6d71b4f94e93575e1f7d6a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa06057bdd5b8456df9b33ec96a5cc57e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="bufrlib_8h.html#aa06057bdd5b8456df9b33ec96a5cc57e">inittbf</a> (void)</td></tr>
-<tr class="memdesc:aa06057bdd5b8456df9b33ec96a5cc57e"><td class="mdescLeft">&#160;</td><td class="mdescRight">C C SUBPROGRAM: INITTBF C PRGMMR: ATOR ORG: NCEP DATE: 2017-11-03 C C ABSTRACT: THIS ROUTINE INITIALIZES THE INTERNAL MEMORY STRUCTURE C FOR STORING CODE/FLAG TABLE INFORMATION, INCLUDING DYNAMICALLY C ALLOCATING SPACE FOR THIS STRUCTURE IF NEEDED.  <a href="#aa06057bdd5b8456df9b33ec96a5cc57e">More...</a><br/></td></tr>
-<tr class="separator:aa06057bdd5b8456df9b33ec96a5cc57e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a02edb7d891393fb49eccefd456e8eaa8"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a02edb7d891393fb49eccefd456e8eaa8"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>ipkm</b> (char *, f77int *, f77int *, f77int)</td></tr>
 <tr class="separator:a02edb7d891393fb49eccefd456e8eaa8"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -239,27 +218,15 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>numtbd</b> (f77int *,
 <tr class="memitem:a17eeaccf09617c16a80a4aef03e45dbb"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a17eeaccf09617c16a80a4aef03e45dbb"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>pktdd</b> (f77int *, f77int *, f77int *, f77int *)</td></tr>
 <tr class="separator:a17eeaccf09617c16a80a4aef03e45dbb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a662fa0f4a540caee1bfaa5e413b714e3"><td class="memItemLeft" align="right" valign="top">f77int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="bufrlib_8h.html#a662fa0f4a540caee1bfaa5e413b714e3">rbytes</a> (char *, f77int *, f77int, f77int)</td></tr>
-<tr class="memdesc:a662fa0f4a540caee1bfaa5e413b714e3"><td class="mdescLeft">&#160;</td><td class="mdescRight">C C SUBPROGRAM: RBYTES C PRGMMR: ATOR ORG: NP12 DATE: 2005-11-29 C C ABSTRACT: THIS FUNCTION READS A SPECIFIED NUMBER OF BYTES FROM C THE SYSTEM FILE MOST RECENTLY OPENED FOR READING/INPUT VIA C BUFR ARCHIVE LIBRARY ROUTINE COBFL.  <a href="#a662fa0f4a540caee1bfaa5e413b714e3">More...</a><br/></td></tr>
-<tr class="separator:a662fa0f4a540caee1bfaa5e413b714e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6e3f94bc0f7840b91151e7a25bd6e687"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a6e3f94bc0f7840b91151e7a25bd6e687"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>restd</b> (f77int *, f77int *, f77int *, f77int *)</td></tr>
 <tr class="separator:a6e3f94bc0f7840b91151e7a25bd6e687"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af9bdd990bf256341aa36e1f0611132de"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="bufrlib_8h.html#af9bdd990bf256341aa36e1f0611132de">sorttbf</a> (void)</td></tr>
-<tr class="memdesc:af9bdd990bf256341aa36e1f0611132de"><td class="mdescLeft">&#160;</td><td class="mdescRight">C C SUBPROGRAM: SORTTBF C PRGMMR: ATOR ORG: NCEP DATE: 2017-11-16 C C ABSTRACT: THIS ROUTINE SORTS THE CONTENTS OF THE INTERNAL MEMORY C STRUCTURE FOR STORING CODE/FLAG TABLE INFORMATION, IN PREPARATION C FOR LATER SEARCHES USING THE BSEARCH (BINARY SEARCH) FUNCTION.  <a href="#af9bdd990bf256341aa36e1f0611132de">More...</a><br/></td></tr>
-<tr class="separator:af9bdd990bf256341aa36e1f0611132de"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acc1aa6de33a783e043e47e2522c688e3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="bufrlib_8h.html#acc1aa6de33a783e043e47e2522c688e3">srchtbf</a> (f77int *, f77int *, f77int *, f77int *, f77int *, char *, f77int *, f77int *, f77int *)</td></tr>
-<tr class="memdesc:acc1aa6de33a783e043e47e2522c688e3"><td class="mdescLeft">&#160;</td><td class="mdescRight">C C SUBPROGRAM: SRCHTBF C PRGMMR: ATOR ORG: NCEP DATE: 2018-01-11 C C ABSTRACT: THIS ROUTINE SEARCHES FOR A SPECIFIED DESCRIPTOR AND C ASSOCIATED VALUE (CODE FIGURE OR BIT NUMBER) WITHIN THE INTERNAL C MEMORY STRUCTURE FOR STORING CODE/FLAG TABLE INFORMATION.  <a href="#acc1aa6de33a783e043e47e2522c688e3">More...</a><br/></td></tr>
-<tr class="separator:acc1aa6de33a783e043e47e2522c688e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a035aeaf1837853b4d0911dbee6fcb910"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a035aeaf1837853b4d0911dbee6fcb910"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>stntbi</b> (f77int *, f77int *, char *, char *, char *, f77int, f77int, f77int)</td></tr>
 <tr class="separator:a035aeaf1837853b4d0911dbee6fcb910"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abca7cd0d3917fb8248d88d2ac482a20d"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="abca7cd0d3917fb8248d88d2ac482a20d"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>strnum</b> (char *, f77int *, f77int)</td></tr>
 <tr class="separator:abca7cd0d3917fb8248d88d2ac482a20d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a18da596b767aa8c20953f8085b0c8c20"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="bufrlib_8h.html#a18da596b767aa8c20953f8085b0c8c20">strtbfe</a> (f77int *, f77int *, char *, f77int *, f77int *, f77int *)</td></tr>
-<tr class="memdesc:a18da596b767aa8c20953f8085b0c8c20"><td class="mdescLeft">&#160;</td><td class="mdescRight">C C SUBPROGRAM: STRTBFE C PRGMMR: ATOR ORG: NCEP DATE: 2017-11-13 C C ABSTRACT: THIS ROUTINE STORES A NEW ENTRY INTO THE INTERNAL MEMORY C STRUCTURE FOR CODE/FLAG TABLE INFORMATION.  <a href="#a18da596b767aa8c20953f8085b0c8c20">More...</a><br/></td></tr>
-<tr class="separator:a18da596b767aa8c20953f8085b0c8c20"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac12b014fb3cdc2f2e23d82e5fb8c7c27"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac12b014fb3cdc2f2e23d82e5fb8c7c27"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>stseq</b> (f77int *, f77int *, f77int *, char *, char *, f77int *, f77int *)</td></tr>
 <tr class="separator:ac12b014fb3cdc2f2e23d82e5fb8c7c27"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -270,10 +237,82 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>uptdd</b> (f77int *, 
 void&#160;</td><td class="memItemRight" valign="bottom"><b>wrdesc</b> (f77int, f77int *, f77int *)</td></tr>
 <tr class="separator:a2c35e17e2f40ced5c1873114672a2dd9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9bfc98edfd5b8cb85b1569386133346a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="bufrlib_8h.html#a9bfc98edfd5b8cb85b1569386133346a">wrdlen</a> (void)</td></tr>
-<tr class="memdesc:a9bfc98edfd5b8cb85b1569386133346a"><td class="mdescLeft">&#160;</td><td class="mdescRight">THIS SUBROUTINE FIGURES OUT SOME IMPORTANT INFORMATION ABOUT THE LOCAL MACHINE ON WHICH THE BUFR ARCHIVE LIBRARY SOFTWARE IS BEING RUN AND STORES THIS INTO COMMON BLOCK /HRDWRD/.  <a href="#a9bfc98edfd5b8cb85b1569386133346a">More...</a><br/></td></tr>
+<tr class="memdesc:a9bfc98edfd5b8cb85b1569386133346a"><td class="mdescLeft">&#160;</td><td class="mdescRight">This subroutine figures out some important information about the local machine on which the BUFRLIB software is being run, including the native endianness, the number of bytes in an integer, and whether the machine uses the ASCII or EBCDIC character set.  <a href="#a9bfc98edfd5b8cb85b1569386133346a">More...</a><br/></td></tr>
 <tr class="separator:a9bfc98edfd5b8cb85b1569386133346a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Function Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Define signatures to enable a number of BUFRLIB subprograms to be called directly from C application programs. </p>
+<p>This header file defines the signatures for all BUFRLIB subprograms which are native C functions, or which are native Fortran subroutines but can be called directly from C application programs without the use of wrapper functions. This header file also contains macros used throughout the C portion of the BUFRLIB.</p>
+<dl class="section author"><dt>Author</dt><dd>J.Ator </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2003-11-04 </dd></dl>
+
+<p>Definition in file <a class="el" href="bufrlib_8h_source.html">bufrlib.h</a>.</p>
+</div><h2 class="groupheader">Function Documentation</h2>
+<a class="anchor" id="a98efd59b32b1d2ed2c060d2564824e28"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void arallocc </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>For dynamic allocation builds of the library, this subroutine is called internally during the first call to subroutine <a class="el" href="openbf_8F.html#a9bea9aeada166bd9037b959ca8452b28" title="This subroutine connects a new file to the BUFRLIB software for input or output operations. ">openbf()</a> from an application program, in order to dynamically allocate internal C language arrays based on parameter values set during one or more previous calls to function <a class="el" href="isetprm_8F.html#a366156765665bb1e1452635b12ff5093" title="This function sets a specified parameter to a specified value for use in dynamically allocating one o...">isetprm()</a>. </p>
+<p>This subroutine isn't normally called directly from an application program, since it's automatically called internally during the first call to subroutine <a class="el" href="openbf_8F.html#a9bea9aeada166bd9037b959ca8452b28" title="This subroutine connects a new file to the BUFRLIB software for input or output operations. ">openbf()</a> from an application program.</p>
+<dl class="section author"><dt>Author</dt><dd>J. Ator </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2014-12-04</dd></dl>
+<dl class="section remark"><dt>Remarks</dt><dd><ul>
+<li>All memory allocated within this subroutine can be freed via a subsequent call to subroutine <a class="el" href="exitbufr_8f.html#a355f094d616febcea2820cf547cbff8e" title="This subroutine frees all dynamically-allocated memory, closes all logical units that are open within...">exitbufr()</a> from within the application program, or else it will be freed automatically by the operating system once the application program terminates.</li>
+</ul>
+</dd></dl>
+<p><b>Program history log:</b></p>
+<ul>
+<li>2014-12-04 J. Ator &ndash; Original author </li>
+</ul>
+
+<p>Definition at line <a class="el" href="arallocc_8c_source.html#l00034">34</a> of file <a class="el" href="arallocc_8c_source.html">arallocc.c</a>.</p>
+
+<p>References <a class="el" href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort()</a>, <a class="el" href="igetprm_8f.html#acf5cb6268e5091d81f9eec4e61f87cdb">igetprm()</a>, <a class="el" href="cread_8h.html#ae8fcf44cac11b6f7d97220c101c0318e">lstpos</a>, and <a class="el" href="cread_8h.html#a295878b87917249212597ed62f390038">pb</a>.</p>
+
+<p>Referenced by <a class="el" href="openbf_8F.html#a9bea9aeada166bd9037b959ca8452b28">openbf()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ac283516a1391fee0635b01beffdad7cb"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ardllocc </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This subroutine frees any memory that was dynamically allocated during a previous call to subroutine <a class="el" href="arallocc_8c.html#a98efd59b32b1d2ed2c060d2564824e28" title="For dynamic allocation builds of the library, this subroutine is called internally during the first c...">arallocc()</a>. </p>
+<dl class="section author"><dt>Author</dt><dd>J. Ator </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2014-12-04</dd></dl>
+<p><b>Program history log:</b></p>
+<ul>
+<li>2014-12-04 J. Ator &ndash; Original author </li>
+</ul>
+
+<p>Definition at line <a class="el" href="ardllocc_8c_source.html#l00021">21</a> of file <a class="el" href="ardllocc_8c_source.html">ardllocc.c</a>.</p>
+
+<p>References <a class="el" href="cread_8h.html#ae8fcf44cac11b6f7d97220c101c0318e">lstpos</a>, and <a class="el" href="cread_8h.html#a295878b87917249212597ed62f390038">pb</a>.</p>
+
+<p>Referenced by <a class="el" href="ardllocf_8F.html#a7b3e4d5498fedd9e94ac45b69fc04b58">ardllocf()</a>.</p>
+
+</div>
+</div>
 <a class="anchor" id="a0f6c0efb4e258f8dc7550620b2536b60"></a>
 <div class="memitem">
 <div class="memproto">
@@ -288,31 +327,20 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>wrdesc</b> (f77int, f
       </table>
 </div><div class="memdoc">
 
-<p>C C SUBPROGRAM: BORT_EXIT C PRGMMR: ATOR ORG: NP12 DATE: 2003-11-04 C C ABSTRACT: THIS SUBROUTINE WILL TERMINATE THE APPLICATION PROGRAM AND C RETURN AN IMPLEMENTATION-DEFINED NON-ZERO STATUS CODE TO THE C EXECUTING SHELL SCRIPT. </p>
-<p>C C PROGRAM HISTORY LOG: C 2003-11-04 J. ATOR &ndash; ORIGINAL AUTHOR C 2003-11-04 D. KEYSER &ndash; UNIFIED/PORTABLE FOR WRF C 2004-08-18 J. ATOR &ndash; USE <a class="el" href="bufrlib_8h.html">bufrlib.h</a> INCLUDE FILE C 2007-01-19 J. ATOR &ndash; FIX DECLARATION FOR ANSI-C C C USAGE: CALL BORT_EXIT C C REMARKS: C THIS ROUTINE CALLS: None C THIS ROUTINE IS CALLED BY: BORT BORT2 C Normally not called by application C programs but it could be. C C ATTRIBUTES: C LANGUAGE: C C MACHINE: PORTABLE TO ALL PLATFORMS C C$$$ </p>
+<p>This subroutine terminates the application program with a non-zero status code. </p>
+<dl class="section author"><dt>Author</dt><dd>J. Ator </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2003-11-04</dd></dl>
+<p><b>Program history log:</b></p>
+<ul>
+<li>2003-11-04 J. Ator &ndash; Original author</li>
+<li>2003-11-04 D. Keyser &ndash; Unified/portable for WRF</li>
+<li>2004-08-18 J. Ator &ndash; Use <a class="el" href="bufrlib_8h.html" title="Define signatures to enable a number of BUFRLIB subprograms to be called directly from C application ...">bufrlib.h</a> include file</li>
+<li>2007-01-19 J. Ator &ndash; Fix declaration for ANSI-C </li>
+</ul>
 
-<p>Definition at line <a class="el" href="bort__exit_8c_source.html#l00036">36</a> of file <a class="el" href="bort__exit_8c_source.html">bort_exit.c</a>.</p>
+<p>Definition at line <a class="el" href="bort__exit_8c_source.html#l00021">21</a> of file <a class="el" href="bort__exit_8c_source.html">bort_exit.c</a>.</p>
 
-</div>
-</div>
-<a class="anchor" id="ab66668ab9633ce3b475416f6a9899802"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void ccbfl </td>
-          <td>(</td>
-          <td class="paramtype">void&#160;</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>C C SUBPROGRAM: CCBFL C PRGMMR: ATOR ORG: NP12 DATE: 2005-11-29 C C ABSTRACT: THIS ROUTINE CLOSES (AND FLUSHES ANY REMAINING OUTPUT TO!) C ANY SYSTEM FILES THAT ARE STILL OPEN FROM ANY PREVIOUS CALLS TO BUFR C ARCHIVE LIBRARY SUBROUTINE COBFL. </p>
-<p>C C PROGRAM HISTORY LOG: C 2005-11-29 J. ATOR &ndash; ORIGINAL AUTHOR C C USAGE: CALL CCBFL C C REMARKS: C THIS ROUTINE CALLS: None C THIS ROUTINE IS CALLED BY: None C Normally called only by application C programs. C C ATTRIBUTES: C LANGUAGE: C C MACHINE: PORTABLE TO ALL PLATFORMS C C$$$ </p>
-
-<p>Definition at line <a class="el" href="ccbfl_8c_source.html#l00034">34</a> of file <a class="el" href="ccbfl_8c_source.html">ccbfl.c</a>.</p>
+<p>Referenced by <a class="el" href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort()</a>, and <a class="el" href="bort2_8f.html#a50f605cc96a22ffce20206c2d254b9c3">bort2()</a>.</p>
 
 </div>
 </div>
@@ -345,199 +373,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>wrdesc</b> (f77int, f
 
 <p>Definition at line <a class="el" href="cmpia_8c_source.html#l00041">41</a> of file <a class="el" href="cmpia_8c_source.html">cmpia.c</a>.</p>
 
-</div>
-</div>
-<a class="anchor" id="a6184cab6384681f5f52c295fb6998216"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int cmpstia1 </td>
-          <td>(</td>
-          <td class="paramtype">const void *&#160;</td>
-          <td class="paramname"><em>pe1</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const void *&#160;</td>
-          <td class="paramname"><em>pe2</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>C C SUBPROGRAM: CMPSTIA1 C PRGMMR: ATOR ORG: NCEP DATE: 2017-11-13 C C ABSTRACT: THIS ROUTINE DEFINES A COMPARISON BETWEEN TWO ENTRIES IN C THE INTERNAL MEMORY STRUCTURE USED FOR STORING ASCII MASTER C CODE/FLAG TABLE INFORMATION. </p>
-<p>THE COMPARISON IS USED BY THE C BINARY SEARCH FUNCTIONS QSORT AND BSEARCH, AND IT DIFFERS FROM THE C LOGIC IN ROUTINE CMPSTIA2 BECAUSE IT COMPARES ALL OF THE IFFXY, C IFVAL, IFFXYD and IFVALD COMPONENTS OF THE STRUCTURE, WHEREAS C CMPSTIA2 ONLY COMPARES THE IFFXYN AND IFVAL COMPONENTS. C C PROGRAM HISTORY LOG: C 2017-11-13 J. ATOR &ndash; ORIGINAL AUTHOR C C USAGE: CALL CMPSTIA1( PE1, PE2 ) C INPUT ARGUMENT LIST: C PE1 - FIRST STRUCTURE ENTRY TO BE COMPARED C PE2 - SECOND STRUCTURE ENTRY TO BE COMPARED C C OUTPUT ARGUMENT LIST: C CMPSTIA2 - INTEGER: RESULT OF COMPARISON: C -1 = PE1 is less than PE2 C 0 = PE1 is equal to PE2 C 1 = PE1 is greater than PE2 C C REMARKS: C THIS ROUTINE CALLS: None C THIS ROUTINE IS CALLED BY: SORTTBF SRCHTBF C Normally not called by any application C programs. C C ATTRIBUTES: C LANGUAGE: C C MACHINE: PORTABLE TO ALL PLATFORMS C C$$$ </p>
-
-<p>Definition at line <a class="el" href="cmpstia1_8c_source.html#l00047">47</a> of file <a class="el" href="cmpstia1_8c_source.html">cmpstia1.c</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="aa09810b363464d0f0b1e3a5b7f011a01"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int cmpstia2 </td>
-          <td>(</td>
-          <td class="paramtype">const void *&#160;</td>
-          <td class="paramname"><em>pe1</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const void *&#160;</td>
-          <td class="paramname"><em>pe2</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>C C SUBPROGRAM: CMPSTIA2 C PRGMMR: ATOR ORG: NCEP DATE: 2017-11-13 C C ABSTRACT: THIS ROUTINE DEFINES A COMPARISON BETWEEN TWO ENTRIES IN C THE INTERNAL MEMORY STRUCTURE USED FOR STORING ASCII MASTER C CODE/FLAG TABLE INFORMATION. </p>
-<p>THE COMPARISON IS USED BY THE C BINARY SEARCH FUNCTION BSEARCH, AND IT DIFFERS FROM THE LOGIC IN C ROUTINE CMPSTIA1 BECAUSE IT ONLY COMPARES THE IFFXYN AND IFVAL C COMPONENTS OF THE STRUCTURE, WHEREAS CMPSTIA1 COMPARES ALL OF THE C COMPONENTS IFFXY, IFVAL, IFFXYD and IFVALD. C C PROGRAM HISTORY LOG: C 2017-11-13 J. ATOR &ndash; ORIGINAL AUTHOR C C USAGE: CALL CMPSTIA2( PE1, PE2 ) C INPUT ARGUMENT LIST: C PE1 - FIRST STRUCTURE ENTRY TO BE COMPARED C PE2 - SECOND STRUCTURE ENTRY TO BE COMPARED C C OUTPUT ARGUMENT LIST: C CMPSTIA2 - INTEGER: RESULT OF COMPARISON: C -1 = PE1 is less than PE2 C 0 = PE1 is equal to PE2 C 1 = PE1 is greater than PE2 C C REMARKS: C THIS ROUTINE CALLS: None C THIS ROUTINE IS CALLED BY: SRCHTBF C Normally not called by any application C programs. C C ATTRIBUTES: C LANGUAGE: C C MACHINE: PORTABLE TO ALL PLATFORMS C C$$$ </p>
-
-<p>Definition at line <a class="el" href="cmpstia2_8c_source.html#l00047">47</a> of file <a class="el" href="cmpstia2_8c_source.html">cmpstia2.c</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a2cc93905bfe9b24f37046b555e43b7d4"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void cobfl </td>
-          <td>(</td>
-          <td class="paramtype">char *&#160;</td>
-          <td class="paramname"><em>bfl</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">char *&#160;</td>
-          <td class="paramname"><em>io</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>C C SUBPROGRAM: COBFL C PRGMMR: ATOR ORG: NP12 DATE: 2005-11-29 C C ABSTRACT: THIS ROUTINE OPENS A SPECIFIED SYSTEM FILE FOR READING C OR WRITING VIA THE BUFR ARCHIVE LIBRARY C I/O INTERFACE. </p>
-<p>THERE C CAN BE AT MOST TWO SYSTEM FILES OPEN AT ANY GIVEN TIME (ONE FOR C READING/INPUT AND ONE FOR WRITING/OUTPUT). IF A CALL TO THIS C ROUTINE IS MADE FOR EITHER READING/INPUT OR WRITING/OUTPUT AND C SUCH A FILE IS ALREADY OPEN TO THE BUFR ARCHIVE LIBRARY C I/O C INTERFACE, THEN THAT FILE WILL BE CLOSED BEFORE OPENING THE C NEW ONE. C C PROGRAM HISTORY LOG: C 2005-11-29 J. ATOR &ndash; ORIGINAL AUTHOR C C USAGE: CALL COBFL( BFL, IO ) C INPUT ARGUMENT LIST: C BFL - CHARACTER*(*): SYSTEM FILE TO BE OPENED. INCLUSION C OF DIRECTORY PREFIXES OR OTHER LOCAL FILESYSTEM C NOTATION IS ALLOWED UP TO 500 TOTAL CHARACTERS. C IO - CHARACTER: FLAG INDICATING HOW BFL IS TO BE OPENED C FOR USE WITH THE C I/O INTERFACE: C 'r' = READING (INPUT) C 'w' = WRITING (OUTPUT) C C REMARKS: C THIS ROUTINE CALLS: BORT WRDLEN C THIS ROUTINE IS CALLED BY: None C Normally called only by application C programs. C C ATTRIBUTES: C LANGUAGE: C C MACHINE: PORTABLE TO ALL PLATFORMS C C$$$ </p>
-
-<p>Definition at line <a class="el" href="cobfl_8c_source.html#l00050">50</a> of file <a class="el" href="cobfl_8c_source.html">cobfl.c</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="aaec663988563e497bfe9ef80d1674b00"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void crbmg </td>
-          <td>(</td>
-          <td class="paramtype">char *&#160;</td>
-          <td class="paramname"><em>bmg</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">f77int *&#160;</td>
-          <td class="paramname"><em>mxmb</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">f77int *&#160;</td>
-          <td class="paramname"><em>nmb</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">f77int *&#160;</td>
-          <td class="paramname"><em>iret</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>C C SUBPROGRAM: CRBMG C PRGMMR: ATOR ORG: NP12 DATE: 2005-11-29 C C ABSTRACT: THIS ROUTINE READS THE NEXT BUFR MESSAGE FROM THE SYSTEM C FILE MOST RECENTLY OPENED FOR READING/INPUT VIA BUFR ARCHIVE LIBRARY C ROUTINE COBFL. </p>
-<p>ANY BUFR EDITION 0 OR EDITION 1 MESSAGES THAT ARE C READ ARE AUTOMATICALLY CONVERTED TO BUFR EDITION 2. C C PROGRAM HISTORY LOG: C 2005-11-29 J. ATOR &ndash; ORIGINAL AUTHOR C C USAGE: CALL CRBMG( BMG, MXMB, NMB, IRET ) C INPUT ARGUMENT LIST: C MXMB - INTEGER: DIMENSIONED SIZE (IN BYTES) OF BMG; USED C BY THE ROUTINE TO ENSURE THAT IT DOES NOT OVERFLOW C THE BMG ARRAY C C OUTPUT ARGUMENT LIST: C BMG - CHARACTER*1: ARRAY CONTAINING BUFR MESSAGE C NMB - INTEGER: SIZE (IN BYTES) OF BUFR MESSAGE IN BMG C IRET - INTEGER: RETURN CODE: C 0 = normal return C 1 = overflow of BMG array C 2 = "7777" indicator not found in expected location C -1 = end-of-file encountered while reading C -2 = I/O error encountered while reading C C REMARKS: C THIS ROUTINE CALLS: BORT GETS1LOC ICHKSTR IPKM C IUPBS01 IUPM RBYTES C THIS ROUTINE IS CALLED BY: None C Normally called only by application C programs. C C ATTRIBUTES: C LANGUAGE: C C MACHINE: PORTABLE TO ALL PLATFORMS C C$$$ </p>
-
-<p>Definition at line <a class="el" href="crbmg_8c_source.html#l00050">50</a> of file <a class="el" href="crbmg_8c_source.html">crbmg.c</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a204acc5f09ddbbdd59ccc4ff491935df"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void cwbmg </td>
-          <td>(</td>
-          <td class="paramtype">char *&#160;</td>
-          <td class="paramname"><em>bmg</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">f77int *&#160;</td>
-          <td class="paramname"><em>nmb</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">f77int *&#160;</td>
-          <td class="paramname"><em>iret</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>C C SUBPROGRAM: CWBMG C PRGMMR: ATOR ORG: NP12 DATE: 2005-11-29 C C ABSTRACT: THIS ROUTINE WRITES A SPECIFIED NUMBER OF BYTES TO THE C SYSTEM FILE MOST RECENTLY OPENED FOR WRITING/OUTPUT VIA BUFR C ARCHIVE LIBRARY ROUTINE COBFL. </p>
-<p>C C PROGRAM HISTORY LOG: C 2005-11-29 J. ATOR &ndash; ORIGINAL AUTHOR C C USAGE: CALL CWBMG( BMG, NMB, IRET ) C INPUT ARGUMENT LIST: C BMG - CHARACTER*1: ARRAY CONTAINING BYTES TO BE WRITTEN C NMB - INTEGER: NUMBER OF BYTES WITHIN BMG TO BE WRITTEN C C OUTPUT ARGUMENT LIST: C IRET - INTEGER: RETURN CODE: C 0 = normal return C -1 = I/O error occurred while writing C C REMARKS: C THIS ROUTINE CALLS: BORT C THIS ROUTINE IS CALLED BY: None C Normally called only by application C programs. C C ATTRIBUTES: C LANGUAGE: C C MACHINE: PORTABLE TO ALL PLATFORMS C C$$$ </p>
-
-<p>Definition at line <a class="el" href="cwbmg_8c_source.html#l00042">42</a> of file <a class="el" href="cwbmg_8c_source.html">cwbmg.c</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a1242c4d43753a37cdb9abfb3f01e5583"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void dlloctbf </td>
-          <td>(</td>
-          <td class="paramtype">void&#160;</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>C C SUBPROGRAM: DLLOCTBF C PRGMMR: ATOR ORG: NCEP DATE: 2017-11-03 C C ABSTRACT: THIS ROUTINE FREES THE SPACE THAT WAS PREVIOUSLY ALLOCATED C BY SUBPROGRAM INITTBF FOR STORING CODE/FLAG TABLE INFORMATION INTO C AN INTERNAL MEMORY STRUCTURE. </p>
-<p>THE STRUCTURE POINTER IS THEN RESET, C WHICH ALLOWS FOR A POTENTIAL RE-ALLOCATION OF MEMORY IN THE FUTURE. C C PROGRAM HISTORY LOG: C 2017-11-03 J. ATOR &ndash; ORIGINAL AUTHOR C C USAGE: CALL DLLOCTBF C C REMARKS: C THIS ROUTINE CALLS: None C THIS ROUTINE IS CALLED BY: EXITBUFR C Normally not called by any application C programs. C C ATTRIBUTES: C LANGUAGE: C C MACHINE: PORTABLE TO ALL PLATFORMS C C$$$ </p>
-
-<p>Definition at line <a class="el" href="dlloctbf_8c_source.html#l00035">35</a> of file <a class="el" href="dlloctbf_8c_source.html">dlloctbf.c</a>.</p>
+<p>Referenced by <a class="el" href="bufrlib_8h.html#a48d75b3c35724dafc2413994a4e679b4">nummtb()</a>.</p>
 
 </div>
 </div>
@@ -576,26 +412,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>wrdesc</b> (f77int, f
 
 <p>Definition at line <a class="el" href="icvidx_8c_source.html#l00041">41</a> of file <a class="el" href="icvidx_8c_source.html">icvidx.c</a>.</p>
 
-</div>
-</div>
-<a class="anchor" id="aa06057bdd5b8456df9b33ec96a5cc57e"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void inittbf </td>
-          <td>(</td>
-          <td class="paramtype">void&#160;</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>C C SUBPROGRAM: INITTBF C PRGMMR: ATOR ORG: NCEP DATE: 2017-11-03 C C ABSTRACT: THIS ROUTINE INITIALIZES THE INTERNAL MEMORY STRUCTURE C FOR STORING CODE/FLAG TABLE INFORMATION, INCLUDING DYNAMICALLY C ALLOCATING SPACE FOR THIS STRUCTURE IF NEEDED. </p>
-<p>C C PROGRAM HISTORY LOG: C 2017-11-03 J. ATOR &ndash; ORIGINAL AUTHOR C C USAGE: CALL INITTBF C C REMARKS: C THIS ROUTINE CALLS: BORT IGETPRM C THIS ROUTINE IS CALLED BY: RDMTBF C Normally not called by any application C programs. C C ATTRIBUTES: C LANGUAGE: C C MACHINE: PORTABLE TO ALL PLATFORMS C C$$$ </p>
-
-<p>Definition at line <a class="el" href="inittbf_8c_source.html#l00035">35</a> of file <a class="el" href="inittbf_8c_source.html">inittbf.c</a>.</p>
+<p>Referenced by <a class="el" href="mstabs_8h.html#a3b149893bee75a651e24b2344067264c">cpmstabs()</a>, <a class="el" href="ireadmt_8F.html#a0c3eff73be06d581b8b6ffcd47fede03">ireadmt()</a>, and <a class="el" href="stseq_8c.html#a712e57cd19d1f94b87269d7dfc679c5e">stseq()</a>.</p>
 
 </div>
 </div>
@@ -634,197 +451,9 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>wrdesc</b> (f77int, f
 
 <p>Definition at line <a class="el" href="nummtb_8c_source.html#l00043">43</a> of file <a class="el" href="nummtb_8c_source.html">nummtb.c</a>.</p>
 
-</div>
-</div>
-<a class="anchor" id="a662fa0f4a540caee1bfaa5e413b714e3"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">f77int rbytes </td>
-          <td>(</td>
-          <td class="paramtype">char *&#160;</td>
-          <td class="paramname"><em>bmg</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">f77int *&#160;</td>
-          <td class="paramname"><em>mxmb</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">f77int&#160;</td>
-          <td class="paramname"><em>isloc</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">f77int&#160;</td>
-          <td class="paramname"><em>newbytes</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
+<p>References <a class="el" href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort()</a>, <a class="el" href="cadn30_8f.html#a62b50a0be6585c53b6604953e5f39ad1">cadn30()</a>, <a class="el" href="cmpia_8c.html#afe9ff1cb9d09192a6d0c76f58c2e3f29">cmpia()</a>, and <a class="el" href="ifxy_8f.html#ac971a6f6d644344a5b09d50175498074">ifxy()</a>.</p>
 
-<p>C C SUBPROGRAM: RBYTES C PRGMMR: ATOR ORG: NP12 DATE: 2005-11-29 C C ABSTRACT: THIS FUNCTION READS A SPECIFIED NUMBER OF BYTES FROM C THE SYSTEM FILE MOST RECENTLY OPENED FOR READING/INPUT VIA C BUFR ARCHIVE LIBRARY ROUTINE COBFL. </p>
-<p>C C PROGRAM HISTORY LOG: C 2005-11-29 J. ATOR &ndash; ORIGINAL AUTHOR C C USAGE: RBYTES( BMG, MXMB, ISLOC, NEWBYTES ) C INPUT ARGUMENT LIST: C MXMB - INTEGER: DIMENSIONED SIZE (IN BYTES) OF BMG; USED C BY THE FUNCTION TO ENSURE THAT IT DOES NOT OVERFLOW C THE BMG ARRAY C ISLOC - INTEGER: STARTING BYTE NUMBER WITHIN BMG INTO C WHICH TO READ THE NEXT NEWBYTES BYTES C NEWBYTES - INTEGER: NUMBER OF BYTES TO READ FROM THE SYSTEM C FILE MOST RECENTLY OPENED FOR READING/INPUT VIA C BUFR ARCHIVE LIBRARY ROUTINE COBFL C C OUTPUT ARGUMENT LIST: C BMG - CHARACTER*1: ARRAY CONTAINING THE NEWBYTES BYTES C THAT WERE READ, BEGINNING AT BYTE NUMBER ISLOC C RBYTES - INTEGER: RETURN CODE: C 0 = normal return C 1 = overflow of BMG array C -1 = end-of-file encountered while reading C -2 = I/O error encountered while reading C C REMARKS: C THIS ROUTINE CALLS: None C THIS ROUTINE IS CALLED BY: CRBMG C Normally not called by any application C programs. C C ATTRIBUTES: C LANGUAGE: C C MACHINE: PORTABLE TO ALL PLATFORMS C C$$$ </p>
-
-<p>Definition at line <a class="el" href="rbytes_8c_source.html#l00049">49</a> of file <a class="el" href="rbytes_8c_source.html">rbytes.c</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="af9bdd990bf256341aa36e1f0611132de"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void sorttbf </td>
-          <td>(</td>
-          <td class="paramtype">void&#160;</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>C C SUBPROGRAM: SORTTBF C PRGMMR: ATOR ORG: NCEP DATE: 2017-11-16 C C ABSTRACT: THIS ROUTINE SORTS THE CONTENTS OF THE INTERNAL MEMORY C STRUCTURE FOR STORING CODE/FLAG TABLE INFORMATION, IN PREPARATION C FOR LATER SEARCHES USING THE BSEARCH (BINARY SEARCH) FUNCTION. </p>
-<p>C C PROGRAM HISTORY LOG: C 2017-11-16 J. ATOR &ndash; ORIGINAL AUTHOR C C USAGE: CALL SORTTBF C C REMARKS: C THIS ROUTINE CALLS: CMPSTIA1 C THIS ROUTINE IS CALLED BY: RDMTBF C Normally not called by any application C programs. C C ATTRIBUTES: C LANGUAGE: C C MACHINE: PORTABLE TO ALL PLATFORMS C C$$$ </p>
-
-<p>Definition at line <a class="el" href="sorttbf_8c_source.html#l00034">34</a> of file <a class="el" href="sorttbf_8c_source.html">sorttbf.c</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="acc1aa6de33a783e043e47e2522c688e3"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void srchtbf </td>
-          <td>(</td>
-          <td class="paramtype">f77int *&#160;</td>
-          <td class="paramname"><em>ifxyi</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">f77int *&#160;</td>
-          <td class="paramname"><em>ivali</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">f77int *&#160;</td>
-          <td class="paramname"><em>ifxyd</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">f77int *&#160;</td>
-          <td class="paramname"><em>mxfxyd</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">f77int *&#160;</td>
-          <td class="paramname"><em>ivald</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">char *&#160;</td>
-          <td class="paramname"><em>meaning</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">f77int *&#160;</td>
-          <td class="paramname"><em>mxmng</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">f77int *&#160;</td>
-          <td class="paramname"><em>lnmng</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">f77int *&#160;</td>
-          <td class="paramname"><em>iret</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>C C SUBPROGRAM: SRCHTBF C PRGMMR: ATOR ORG: NCEP DATE: 2018-01-11 C C ABSTRACT: THIS ROUTINE SEARCHES FOR A SPECIFIED DESCRIPTOR AND C ASSOCIATED VALUE (CODE FIGURE OR BIT NUMBER) WITHIN THE INTERNAL C MEMORY STRUCTURE FOR STORING CODE/FLAG TABLE INFORMATION. </p>
-<p>THE C SEARCH MAY ALSO OPTIONALLY INCLUDE A SPECIFIED SECOND DESCRIPTOR C AND ASSOCIATED VALUE UPON WHICH THE FIRST DESCRIPTOR AND ITS C ASSOCIATED VALUE DEPEND, FOR CASES SUCH AS, E.G. WHEN THE MEANING C OF AN ORIGINATING SUBCENTER VALUE DEPENDS ON THE IDENTITY OF THE C ORIGINATING CENTER. C C IF THE REQUESTED ENTRY IN THE TABLE IS FOUND, THE ROUTINE RETURNS C THE ASSOCIATED MEANING AS A CHARACTER STRING. OTHERWISE, AND IF C THERE WAS NO OPTIONAL SECOND DESCRIPTOR AND ASSOCIATED VALUE C SPECIFIED ON INPUT, THE ROUTINE WILL RE-SEARCH THE TABLE TO CHECK C WHETHER THE MEANING OF THE FIRST DESCRIPTOR AND ASSOCIATED VALUE C MAY INDEED DEPEND ON THE VALUE OF ONE OR MORE OTHER POSSIBLE C SECOND DESCRIPTORS. IF SO, THOSE POSSIBLE DESCRIPTORS ARE RETURNED C ALONG WITH A SPECIAL RETURN CODE SO THAT THE CALLING ROUTINE MAY C EXAMINE THEM AND POSSIBLY ISSUE ANOTHER SUBSEQUENT CALL TO THIS C SAME ROUTINE WITH SPECIFIED VALUES FOR THE SECOND DESCRIPTOR AND C ASSOCIATED VALUE. C C PROGRAM HISTORY LOG: C 2018-01-11 J. ATOR &ndash; ORIGINAL AUTHOR C C USAGE: CALL SRCHTBF ( IFXYI, IVALI, IFXYD, MXFXYD, IVALD, C MEANING, MXMNG, LNMNG, IRET ) C C INPUT ARGUMENT LIST: C IFXYI - INTEGER: BIT-WISE REPRESENTATION OF FXY DESCRIPTOR C IVALI - INTEGER: VALUE (CODE FIGURE OR BIT NUMBER) ASSOCIATED C WITH IFXYI C IFXYD - INTEGER: ARRAY WITH THE FIRST ELEMENT SET TO THE C BIT-WISE REPRESENTATION OF THE FXY DESCRIPTOR, IF ANY, C UPON WHICH THE VALUES IFXYI AND IVALI DEPEND. THIS IS C OPTIONAL, AND THE FIRST ELEMENT OF THE ARRAY CAN BE SET C TO (-1) IF THE MEANINGS OF IFXYI AND IVALI DO NOT C DEPEND ON THE VALUE OF ANY OTHER DESCRIPTOR. C -1 = NO DEPENDENCY SPECIFIED C IVALD - INTEGER: VALUE (CODE FIGURE OR BIT NUMBER) ASSOCIATED C WITH IFXYD. THIS VALUE SHOULD BE SET TO (-1) C WHENEVER THE FIRST ELEMENT OF THE IFXYD ARRAY IS C LIKEWISE SET TO (-1) C -1 = NO DEPENDENCY SPECIFIED C MXFXYD - INTEGER: DIMENSIONED SIZE OF IFXYD; USED BY THE ROUTINE C TO ENSURE THAT IT DOES NOT OVERFLOW THE IFXYD ARRAY C UPON OUTPUT C MXMNG - INTEGER: DIMENSIONED SIZE OF MEANING STRING; USED BY C THE ROUTINE TO ENSURE THAT IT DOES NOT OVERFLOW THIS C STRING UPON OUTPUT C C OUTPUT ARGUMENT LIST: C MEANING - CHARACTER*(LNMNG): MEANING CORRESPONDING TO IFXYI AND C IVALI (AND TO IFXYD AND IVALD, IF SPECIFIED) C LNMNG - INTEGER: LENGTH OF STRING RETURNED IN MEANING C IFXYD - INTEGER: IF THE INITIAL SEARCH OF THE TABLE WAS C UNSUCCESSFUL, <em>AND</em> IF NO OPTIONAL SECOND DESCRIPTOR C AND ASSOCIATED VALUE WERE SPECIFIED ON INPUT, <em>AND</em> IF C THE SECOND SEARCH OF THE TABLE DETERMINED THAT THE C MEANING OF THE FIRST DESCRIPTOR AND ASSOCIATED VALUE C INDEED DEPENDS ON ONE OR MORE OTHER POSSIBLE SECOND C DESCRIPTORS, THEN THOSE POSSIBLE SECOND DESCRIPTORS C ARE RETURNED WITHIN THE FIRST IRET ELEMENTS OF IFXYD C IRET - RETURN CODE: C 0 = MEANING FOUND AND STORED IN MEANING STRING C -1 = MEANING NOT FOUND C &gt;0 = MEANING NOT FOUND, <em>AND</em> IFXYD AND IVALD WERE C BOTH SET TO (-1) ON INPUT, <em>AND</em> THE MEANING OF C IFXYI AND IVALI DEPENDS ON THE VALUE OF ONE OF C THE IRET DESCRIPTORS RETURNED IN IFXYD C C REMARKS: C THIS ROUTINE CALLS: CMPSTIA1 CMPSTIA2 C THIS ROUTINE IS CALLED BY: GETCFMNG UFDUMP C Normally not called by any application C programs. C C ATTRIBUTES: C LANGUAGE: C C MACHINE: PORTABLE TO ALL PLATFORMS C C$$$ </p>
-
-<p>Definition at line <a class="el" href="srchtbf_8c_source.html#l00095">95</a> of file <a class="el" href="srchtbf_8c_source.html">srchtbf.c</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a18da596b767aa8c20953f8085b0c8c20"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void strtbfe </td>
-          <td>(</td>
-          <td class="paramtype">f77int *&#160;</td>
-          <td class="paramname"><em>ifxyn</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">f77int *&#160;</td>
-          <td class="paramname"><em>ival</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">char *&#160;</td>
-          <td class="paramname"><em>meaning</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">f77int *&#160;</td>
-          <td class="paramname"><em>lmeaning</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">f77int *&#160;</td>
-          <td class="paramname"><em>idfxy</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">f77int *&#160;</td>
-          <td class="paramname"><em>idval</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>C C SUBPROGRAM: STRTBFE C PRGMMR: ATOR ORG: NCEP DATE: 2017-11-13 C C ABSTRACT: THIS ROUTINE STORES A NEW ENTRY INTO THE INTERNAL MEMORY C STRUCTURE FOR CODE/FLAG TABLE INFORMATION. </p>
-<p>C C PROGRAM HISTORY LOG: C 2017-11-13 J. ATOR &ndash; ORIGINAL AUTHOR C C USAGE: CALL STRTBFE ( IFXYN, IVAL, MEANING, LMEANING, C IDFXY, IDVAL ) C C INPUT ARGUMENT LIST: C IFXYN - INTEGER: BIT-WISE REPRESENTATION OF FXY NUMBER FOR C WHICH IVAL IS A DEFINED CODE OR FLAG TABLE ENTRY C IVAL - INTEGER: CODE FIGURE OR BIT NUMBER C MEANING - CHARACTER*(*): MEANING ASSOCIATED WITH IVAL C LMEANING - INTEGER: LENGTH (IN BYTES) OF MEANING C IDFXY - INTEGER: BIT-WISE REPRESENTATION OF OTHER FXY NUMBER C UPON WHICH IVAL IS DEPENDENT, IF ANY C -1 = NO DEPENDENCY C IDVAL - INTEGER: CODE FIGURE OR BIT NUMBER ASSOCIATED WITH C IDFXY AND UPON WHICH IVAL IS DEPENDENT, IF ANY C -1 = NO DEPENDENCY C C C REMARKS: C THIS ROUTINE CALLS: BORT C THIS ROUTINE IS CALLED BY: SNTBFE C Normally not called by any application C programs. C C ATTRIBUTES: C LANGUAGE: C C MACHINE: PORTABLE TO ALL PLATFORMS C C$$$ </p>
-
-<p>Definition at line <a class="el" href="strtbfe_8c_source.html#l00047">47</a> of file <a class="el" href="strtbfe_8c_source.html">strtbfe.c</a>.</p>
+<p>Referenced by <a class="el" href="stseq_8c.html#a712e57cd19d1f94b87269d7dfc679c5e">stseq()</a>.</p>
 
 </div>
 </div>
@@ -842,14 +471,29 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>wrdesc</b> (f77int, f
       </table>
 </div><div class="memdoc">
 
-<p>THIS SUBROUTINE FIGURES OUT SOME IMPORTANT INFORMATION ABOUT THE LOCAL MACHINE ON WHICH THE BUFR ARCHIVE LIBRARY SOFTWARE IS BEING RUN AND STORES THIS INTO COMMON BLOCK /HRDWRD/. </p>
-<p>SUCH INFORMATION INCLUDES DETERMINING THE NUMBER OF BITS AND THE NUMBER OF BYTES IN A MACHINE WORD AS WELL AS DETERMINING WHETHER THE MACHINE USES THE ASCII OR EBCDIC CHARACTER SET.</p>
-<p>NOTE: IT IS ONLY NECESSARY FOR THIS SUBROUTINE TO BE CALLED ONCE, AND THIS IS NORMALLY DONE DURING THE FIRST CALL TO BUFR ARCHIVE LIBRARY SUBROUTINE OPENBF. HOWEVER, THE SUBROUTINE DOES KEEP TRACK OF WHETHER IT HAS ALREADY BEEN CALLED; THUS, IF IT IS CALLED AGAIN LATER BY A DIFFERENT BUFR ARCHIVE LIBRARY SUBROUTINE, IT WILL JUST QUIETLY RETURN WITHOUT (RE)COMPUTING ALL OF THE INFORMATION WITHIN COMMON BLOCK /HRDWRD/.</p>
-<p>PROGRAM HISTORY LOG: 1994-01-06 J. WOOLLEN &ndash; ORIGINAL AUTHOR 1998-07-08 J. WOOLLEN &ndash; REPLACED CALL TO CRAY LIBRARY ROUTINE "ABORT" WITH CALL TO NEW INTERNAL BUFRLIB ROUTINE "BORT" 2003-11-04 J. ATOR &ndash; ADDED DOCUMENTATION 2003-11-04 S. BENDER &ndash; ADDED REMARKS/BUFRLIB ROUTINE INTERDEPENDENCIES 2003-11-04 D. KEYSER &ndash; UNIFIED/PORTABLE FOR WRF; ADDED HISTORY DOCUMENTATION; OUTPUTS MORE COMPLETE DIAGNOSTIC INFO WHEN ROUTINE TERMINATES ABNORMALLY OR FOR INFORMATIONAL PURPOSES; NBYTW INITIALIZED AS ZERO THE FIRST TIME THIS ROUTINE IS CALLED (BEFORE WAS UNDEFINED WHEN FIRST REFERENCED) 2004-08-18 J. ATOR &ndash; ADDED SAVE FOR IFIRST FLAG AND IMMEDIATE RETURN IF IFIRST=1 2007-01-19 J. ATOR &ndash; BIG-ENDIAN VS. LITTLE-ENDIAN IS NOW DETERMINED AT COMPILE TIME AND CONFIGURED WITHIN BUFRLIB VIA CONDITIONAL COMPILATION DIRECTIVES 2009-03-23 J. ATOR &ndash; CALL BVERS TO GET VERSION NUMBER</p>
-<p>USAGE: CALL WRDLEN</p>
-<p>REMARKS: THIS ROUTINE CALLS: BORT BVERS ERRWRT IUPM THIS ROUTINE IS CALLED BY: COBFL COPYBF DATEBF DATELEN DUMPBF IUPBS01 MESGBC MESGBF OPENBF RDMTBB RDMTBD RDMTBF UPDS3 Normally not called by any application programs. </p>
+<p>This subroutine figures out some important information about the local machine on which the BUFRLIB software is being run, including the native endianness, the number of bytes in an integer, and whether the machine uses the ASCII or EBCDIC character set. </p>
+<p>This subroutine isn't normally called directly by any application program, because it's automatically called internally from within subroutine <a class="el" href="openbf_8F.html#a9bea9aeada166bd9037b959ca8452b28" title="This subroutine connects a new file to the BUFRLIB software for input or output operations. ">openbf()</a> during the first time that subroutine is called by any application program. It's also called as needed from within several other subroutines, but it always keeps track of its results as well as whether it has already been called during the life of an application program, and that way if it does end up being called more than once, it will just quietly return without having to recompute all of its results from the first call.</p>
+<dl class="section author"><dt>Authors</dt><dd>J. Woollen </dd>
+<dd>
+J. Ator </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>1994-01-06</dd></dl>
+<p><b>Program history log:</b></p>
+<ul>
+<li>1994-01-06 J. Woollen &ndash; Original author</li>
+<li>1998-07-08 J. Woollen &ndash; Replaced call to Cray library routine ABORT with call to new internal routine <a class="el" href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4" title="This subroutine calls subroutine errwrt() to log an error message, then calls subroutine bort_exit() ...">bort()</a></li>
+<li>2003-11-04 J. Ator &ndash; Added documentation</li>
+<li>2003-11-04 S. Bender &ndash; Added remarks and routine interdependencies</li>
+<li>2003-11-04 D. Keyser &ndash; Unified/portable for WRF; added history documentation; outputs more complete diagnostic info when routine terminates abnormally, unusual things happen or for informational purposes; initialized NBYTW to zero during the first call</li>
+<li>2004-08-18 J. Ator &ndash; Added SAVE For IFIRST flag and immediate return if IFIRST=1</li>
+<li>2007-01-19 J. Ator &ndash; Big-endian vs. little-endian is now determined at compile time and configured within BUFRLIB via conditional compilation directives</li>
+<li>2009-03-23 J. Ator &ndash; Call <a class="el" href="bvers_8f.html#a210e17eb5b254e38f27e129304d4eae7" title="This subroutine returns a character string containing the version number of the BUFRLIB software...">bvers()</a> to get version number </li>
+</ul>
 
-<p>Definition at line <a class="el" href="wrdlen_8F_source.html#l00053">53</a> of file <a class="el" href="wrdlen_8F_source.html">wrdlen.F</a>.</p>
+<p>Definition at line <a class="el" href="wrdlen_8F_source.html#l00043">43</a> of file <a class="el" href="wrdlen_8F_source.html">wrdlen.F</a>.</p>
+
+<p>References <a class="el" href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort()</a>, <a class="el" href="errwrt_8f.html#a65626d9a772648676146b62b596c2764">errwrt()</a>, and <a class="el" href="iupm_8f.html#a870aa6933e94946232ec975e8cdd04db">iupm()</a>.</p>
+
+<p>Referenced by <a class="el" href="cobfl_8h.html#a2cc93905bfe9b24f37046b555e43b7d4">cobfl()</a>, <a class="el" href="copybf_8f.html#a621280835c0e7a4ac960b0bf719c9721">copybf()</a>, <a class="el" href="datebf_8F.html#a688208e451a81634a110c6963561f22e">datebf()</a>, <a class="el" href="datelen_8f.html#ac75cb362f84167ca65b058a97401efcd">datelen()</a>, <a class="el" href="dumpbf_8f.html#a345cb5b88ed574ab5f66b9a90e61acc6">dumpbf()</a>, <a class="el" href="iupbs01_8f.html#adcd6f7c2f898b4f938153c5cf79a9cf5">iupbs01()</a>, <a class="el" href="iupbs3_8f.html#a542e11287f9dc5bf72d3889db48e1b19">iupbs3()</a>, <a class="el" href="openbf_8F.html#a9bea9aeada166bd9037b959ca8452b28">openbf()</a>, <a class="el" href="rdmtbb_8f.html#a500535fb51e5caae61f0fd3627a211da">rdmtbb()</a>, <a class="el" href="rdmtbd_8f.html#a46cfbed2b4e693c0bc7e4792c47d5692">rdmtbd()</a>, <a class="el" href="rdmtbf_8f.html#a5ca890fe454d0615933e8b535e28ac00">rdmtbf()</a>, and <a class="el" href="upds3_8f.html#ae80c8bfb0497b4db22d56d4c4149dd47">upds3()</a>.</p>
 
 </div>
 </div>
@@ -858,7 +502,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>wrdesc</b> (f77int, f
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_0b3aeaa6bca0f5074f69704b571ca784.html">src</a></li><li class="navelem"><a class="el" href="bufrlib_8h.html">bufrlib.h</a></li>
+    <li class="navelem"><a class="el" href="dir_047d76e5e7dea49fcfe9568091f4d555.html">src</a></li><li class="navelem"><a class="el" href="bufrlib_8h.html">bufrlib.h</a></li>
     <li class="footer">Generated by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.5 </li>

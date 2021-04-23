@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.3.2</span>
+   &#160;<span id="projectnumber">11.5.0</span>
    </div>
   </td>
  </tr>
@@ -92,7 +92,7 @@ $(document).ready(function(){initNavTree('stseq_8c.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -183,6 +183,10 @@ Functions</h2></td></tr>
 <p>ANY DESCRIPTORS IN IDN WHICH ARE THEMSELVES C SEQUENCES ARE IMMEDIATELY RESOLVED VIA A RECURSIVE CALL TO THIS C SAME ROUTINE. C C PROGRAM HISTORY LOG: C 2009-03-23 J. ATOR &ndash; ORIGINAL AUTHOR C 2010-03-19 J. ATOR &ndash; ADDED PROCESSING FOR 2-04 ASSOCIATED FIELDS C 2010-04-05 J. ATOR &ndash; ADDED PROCESSING FOR 2-2X, 2-3X AND 2-4X C NON-MARKER OPERATORS C 2015-03-04 J. ATOR &ndash; HANDLE SPECIAL CASE WHEN ASSOCIATED FIELDS C ARE IN EFFECT FOR A TABLE D DESCRIPTOR C C USAGE: CALL STSEQ( LUN, IREPCT, IDN, NEMO, CSEQ, CDESC, NCDESC ) C INPUT ARGUMENT LIST: C LUN - INTEGER: I/O STREAM INDEX INTO INTERNAL MEMORY ARRAYS C IREPCT - INTEGER: REPLICATION SEQUENCE COUNTER FOR THE CURRENT C MASTER TABLE; USED INTERNALLY TO KEEP TRACK OF WHICH C SEQUENCE NAMES HAVE ALREADY BEEN DEFINED AND THEREBY C AVOID CONTENTION WITHIN THE INTERNAL BUFR TABLE D C IDN - INTEGER: BIT-WISE REPRESENTATION OF FXY VALUE FOR C SEQUENCE TO BE STORED C NEMO - CHARACTER*8: MNEMONIC CORRESPONDING TO IDN C CSEQ - CHARACTER*55: DESCRIPTION CORRESPONDING TO IDN C CDESC - INTEGER: ARRAY OF BIT-WISE REPRESENTATIONS OF FXY C VALUES CORRESPONDING TO DESCRIPTORS WHICH CONSTITUTE C THE IDN SEQUENCE C NCDESC - INTEGER: NUMBER OF VALUES IN CDESC C C OUTPUT ARGUMENT LIST: C IREPCT - INTEGER: REPLICATION SEQUENCE COUNTER FOR THE CURRENT C MASTER TABLE; USED INTERNALLY TO KEEP TRACK OF WHICH C SEQUENCE NAMES HAVE ALREADY BEEN DEFINED AND THEREBY C AVOID CONTENTION WITHIN THE INTERNAL BUFR TABLE D C C REMARKS: C THIS ROUTINE CALLS: BORT CADN30 ELEMDX ICVIDX C IFXY IGETNTBI IGETPRM IGETTDI C IMRKOPR NEMTAB NUMMTB NUMTBD C PKTDD STNTBI STRNUM STSEQ C THIS ROUTINE IS CALLED BY: READS3 STSEQ C Normally not called by any application C programs. C C ATTRIBUTES: C LANGUAGE: C C MACHINE: PORTABLE TO ALL PLATFORMS C C$$$ </p>
 
 <p>Definition at line <a class="el" href="stseq_8c_source.html#l00064">64</a> of file <a class="el" href="stseq_8c_source.html">stseq.c</a>.</p>
+
+<p>References <a class="el" href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort()</a>, <a class="el" href="cadn30_8f.html#a62b50a0be6585c53b6604953e5f39ad1">cadn30()</a>, <a class="el" href="elemdx_8f.html#adfd6de0f5d3b01918ea50186bf208a2d">elemdx()</a>, <a class="el" href="icvidx_8c.html#a959f9a18d293352c8b60a1844a52611a">icvidx()</a>, <a class="el" href="ifxy_8f.html#ac971a6f6d644344a5b09d50175498074">ifxy()</a>, <a class="el" href="igetntbi_8f.html#aa62d319cf10b3a98796b583619d8b599">igetntbi()</a>, <a class="el" href="igetprm_8f.html#acf5cb6268e5091d81f9eec4e61f87cdb">igetprm()</a>, <a class="el" href="igettdi_8f.html#a2c1b3d34feef0ad9297be7f4f666a5f1">igettdi()</a>, <a class="el" href="imrkopr_8f.html#a1b959e70121283ff0ba5e1f753cbe766">imrkopr()</a>, <a class="el" href="nemtab_8f.html#a3f3fb5a378c52dac83cb4fce27ceb712">nemtab()</a>, <a class="el" href="nummtb_8c.html#a651b447e340dc0ebffca6e985fdc8182">nummtb()</a>, <a class="el" href="numtbd_8f.html#aae71d3919c5fc05ca4915e7b61aa3735">numtbd()</a>, <a class="el" href="pktdd_8f.html#a5a9bc43ec2b7b51ae5097fd7b828dd84">pktdd()</a>, <a class="el" href="stntbi_8f.html#ad26b48825c877d44d1223a3f4e4051ed">stntbi()</a>, and <a class="el" href="strnum_8f.html#a3cb1ef014cf71b6456ec7fa46d51ed06">strnum()</a>.</p>
+
+<p>Referenced by <a class="el" href="reads3_8f.html#a57a4b386c104472c2df89ca9217d0d4b">reads3()</a>.</p>
 
 </div>
 </div>

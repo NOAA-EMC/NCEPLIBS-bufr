@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.3.2</span>
+   &#160;<span id="projectnumber">11.5.0</span>
    </div>
   </td>
  </tr>
@@ -92,7 +92,7 @@ $(document).ready(function(){initNavTree('pkb_8f.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -109,17 +109,19 @@ $(document).ready(function(){initNavTree('pkb_8f.html','');});
 </div><!--header-->
 <div class="contents">
 
+<p>Encode an integer value within an integer array.  
+<a href="#details">More...</a></p>
+
 <p><a href="pkb_8f_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions/Subroutines</h2></td></tr>
 <tr class="memitem:a35aa2e691ff3ad32de9d8721cae613f7"><td class="memItemLeft" align="right" valign="top">subroutine&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pkb_8f.html#a35aa2e691ff3ad32de9d8721cae613f7">pkb</a> (NVAL, NBITS, IBAY, IBIT)</td></tr>
-<tr class="memdesc:a35aa2e691ff3ad32de9d8721cae613f7"><td class="mdescLeft">&#160;</td><td class="mdescRight">THIS SUBROUTINE PACKS AN INTEGER VALUE (NVAL) INTO NBITS BITS OF AN INTEGER ARRAY (IBAY), STARTING WITH BIT (IBIT+1).  <a href="#a35aa2e691ff3ad32de9d8721cae613f7">More...</a><br/></td></tr>
+<tr class="memdesc:a35aa2e691ff3ad32de9d8721cae613f7"><td class="mdescLeft">&#160;</td><td class="mdescRight">This subroutine encodes an integer value within a specified number of bits of an integer array, starting at the bit immediately after a specified bit within the array.  <a href="#a35aa2e691ff3ad32de9d8721cae613f7">More...</a><br/></td></tr>
 <tr class="separator:a35aa2e691ff3ad32de9d8721cae613f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><dl class="section author"><dt>Author</dt><dd>WOOLLEN </dd></dl>
-<dl class="section date"><dt>Date</dt><dd>1994-01-06 </dd></dl>
+<div class="textblock"><p>Encode an integer value within an integer array. </p>
 
 <p>Definition in file <a class="el" href="pkb_8f_source.html">pkb.f</a>.</p>
 </div><h2 class="groupheader">Function/Subroutine Documentation</h2>
@@ -159,16 +161,41 @@ Functions/Subroutines</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>THIS SUBROUTINE PACKS AN INTEGER VALUE (NVAL) INTO NBITS BITS OF AN INTEGER ARRAY (IBAY), STARTING WITH BIT (IBIT+1). </p>
-<p>ON OUTPUT, IBIT IS UPDATED TO POINT TO THE LAST BIT THAT WAS PACKED.</p>
-<p>NOTE THAT THIS SUBROUTINE WILL NOT WORK PROPERLY IF NBITS IS GREATER THAN NBITW (I.E. THE NUMBER OF BITS IN A MACHINE WORD); IN SUCH CASES SUBROUTINE PKX SHOULD BE CALLED INSTEAD TO ENSURE THAT ALL BITS PRIOR TO THE LAST MACHINE WORD ARE PROPERLY ZERO'ED OUT.</p>
-<p>PROGRAM HISTORY LOG: 1994-01-06 J. WOOLLEN &ndash; ORIGINAL AUTHOR 2003-11-04 J. ATOR &ndash; ADDED DOCUMENTATION 2003-11-04 J. WOOLLEN &ndash; BIG-ENDIAN/LITTLE-ENDIAN INDEPENDENT (WAS IN DECODER VERSION) 2003-11-04 S. BENDER &ndash; ADDED REMARKS/BUFRLIB ROUTINE INTERDEPENDENCIES 2003-11-04 D. KEYSER &ndash; UNIFIED/PORTABLE FOR WRF; ADDED HISTORY DOCUMENTATION 2014-12-03 J. ATOR &ndash; CALL BORT IF NBITS &gt; NBITW</p>
-<p>USAGE: CALL PKB (NVAL, NBITS, IBAY, IBIT) INPUT ARGUMENT LIST: NVAL - INTEGER: INTEGER TO BE PACKED NBITS - INTEGER: NUMBER OF BITS OF IBAY WITHIN WHICH TO PACK NVAL IBAY - INTEGER: *-WORD PACKED BINARY ARRAY NOT YET CONTAINING PACKED NVAL IBIT - INTEGER: BIT POINTER WITHIN IBAY INDICATING BIT AFTER WHICH TO START PACKING</p>
-<p>OUTPUT ARGUMENT LIST: IBAY - INTEGER: *-WORD PACKED BINARY ARRAY NOW CONTAINING PACKED NVAL IBIT - INTEGER: BIT POINTER WITHIN IBAY INDICATING LAST BIT THAT WAS PACKED</p>
-<p>REMARKS: THIS SUBROUTINE IS THE INVERSE OF BUFR ARCHIVE LIBRARY ROUTINE UPB.</p>
-<p>THIS ROUTINE CALLS: BORT IREV THIS ROUTINE IS CALLED BY: ATRCPT CMSGINI CNVED4 CPYUPD DXMINI MSGINI MSGUPD MSGWRT MVB PAD PADMSG PKBS1 PKX STNDRD WRCMPS WRDXTB WRTREE Normally not called by any application programs. </p>
+<p>This subroutine encodes an integer value within a specified number of bits of an integer array, starting at the bit immediately after a specified bit within the array. </p>
+<dl class="section author"><dt>Author</dt><dd>J. Woollen </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>1994-01-06</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">NVAL</td><td>- integer: Value to be encoded </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">NBITS</td><td>- integer: Number of bits of IBAY within which to encode NVAL </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">IBAY</td><td>- integer(*): Array containing encoded NVAL </td></tr>
+    <tr><td class="paramdir">[in,out]</td><td class="paramname">IBIT</td><td>- integer: Bit pointer within IBAY<ul>
+<li>On input, IBIT points to the bit within IBAY after which to begin encoding NVAL.</li>
+<li>On output, IBIT points to the last bit of IBAY which contains the encoded NVAL.</li>
+</ul>
+</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section remark"><dt>Remarks</dt><dd><ul>
+<li>This subroutine is the logical inverse of subroutine <a class="el" href="upb_8f.html#aae09b58b06877db63e95889f67c146c0" title="THIS SUBROUTINE UNPACKS AND RETURNS A BINARY INTEGER CONTAINED WITHIN NBITS BITS OF IBAY...">upb()</a>.</li>
+<li>This subroutine will not work properly if NBITS is greater than the number of bits in an integer, as determined via an internal call to subroutine <a class="el" href="wrdlen_8F.html#afb746f29272671c842018de69b277685" title="This subroutine figures out some important information about the local machine on which the BUFRLIB s...">wrdlen()</a>. In such cases, the user should switch to a compiled version of the BUFRLIB software which has a larger integer size.</li>
+</ul>
+</dd></dl>
+<p><b>Program history log:</b></p>
+<ul>
+<li>1994-01-06 J. Woollen &ndash; Original author</li>
+<li>2003-11-04 J. Ator &ndash; Added documentation</li>
+<li>2003-11-04 S. Bender &ndash; Added remarks and routine interdependencies</li>
+<li>2003-11-04 D. Keyser &ndash; Unified/portable for WRF; added history documentation; outputs more complete diagnostic info when routine terminates abnormally, unusual things happen or for informational purposes</li>
+<li>2014-12-03 J. Ator &ndash; Call <a class="el" href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4" title="This subroutine calls subroutine errwrt() to log an error message, then calls subroutine bort_exit() ...">bort()</a> if NBITS &gt; NBITW </li>
+</ul>
 
-<p>Definition at line <a class="el" href="pkb_8f_source.html#l00054">54</a> of file <a class="el" href="pkb_8f_source.html">pkb.f</a>.</p>
+<p>Definition at line <a class="el" href="pkb_8f_source.html#l00040">40</a> of file <a class="el" href="pkb_8f_source.html">pkb.f</a>.</p>
+
+<p>References <a class="el" href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort()</a>, and <a class="el" href="irev_8F.html#a4a8512777ba30c1c919646c7a6a637f5">irev()</a>.</p>
+
+<p>Referenced by <a class="el" href="atrcpt_8f.html#aab9923798891a9045fe799d144b8f0c3">atrcpt()</a>, <a class="el" href="cmsgini_8f.html#ace74c243976a7546e92121317b36f9de">cmsgini()</a>, <a class="el" href="cnved4_8f.html#a4ca2157b24b043c2729135437c1da49a">cnved4()</a>, <a class="el" href="cpyupd_8f.html#a129651d2e47b6c8986c1fc4dd73d87c9">cpyupd()</a>, <a class="el" href="dxmini_8f.html#aabe733e54f8a9de838ff92bc9fbb7992">dxmini()</a>, <a class="el" href="msgini_8f.html#ae73a0a9e7bba8f7dfeb673f2bca0820b">msgini()</a>, <a class="el" href="msgupd_8f.html#adf75cb2bc2a217eb33ffc8e45b1a5350">msgupd()</a>, <a class="el" href="msgwrt_8f.html#ac95ecf1436ba14805a33efd29fab1e5d">msgwrt()</a>, <a class="el" href="mvb_8f.html#a3fb4ee7c2a5cf7725257dcdd71826ba2">mvb()</a>, <a class="el" href="pad_8f.html#ab92ba263e51623b46cb4a7c9dee641f0">pad()</a>, <a class="el" href="padmsg_8f.html#af8c53e62375434d43ee476856388ee1c">padmsg()</a>, <a class="el" href="pkbs1_8f.html#a70abc28f30375ab44077b95ed58b59bb">pkbs1()</a>, <a class="el" href="stndrd_8f.html#a9a40fe96eef4a44c203f5e663fc47c4b">stndrd()</a>, <a class="el" href="wrcmps_8f.html#a8b333832f77606059ec94ba8b80d4e8d">wrcmps()</a>, <a class="el" href="wrdxtb_8f.html#ac7996a53fc568b2a62ef97e5bc609b41">wrdxtb()</a>, and <a class="el" href="wrtree_8f.html#a0700f04d89a10a24b1acb184f6022c77">wrtree()</a>.</p>
 
 </div>
 </div>

@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.3.2</span>
+   &#160;<span id="projectnumber">11.5.0</span>
    </div>
   </td>
  </tr>
@@ -92,7 +92,7 @@ $(document).ready(function(){initNavTree('closbf_8F_source.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -129,7 +129,7 @@ $(document).ready(function(){initNavTree('closbf_8F_source.html','');});
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="comment">C&gt; ensure that all output is properly flushed to LUNIT.</span></div>
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="comment">C&gt;</span></div>
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="comment">C&gt; &lt;b&gt;Program history log:&lt;/b&gt;</span></div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="comment">C&gt; - 1994-01-06  J. Woollen -- ORIGINAL AUTHOR</span></div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="comment">C&gt; - 1994-01-06  J. Woollen -- Original author</span></div>
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="comment">C&gt; - 2003-11-04  J. Ator    -- Don&#39;t close lunit if opened as a NULL file</span></div>
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="comment">C&gt;                             by openbf()</span></div>
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="comment">C&gt; - 2003-11-04  S. Bender  -- Added remarks and routine interdependencies</span></div>
@@ -141,50 +141,44 @@ $(document).ready(function(){initNavTree('closbf_8F_source.html','');});
 <div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="comment">C&gt; - 2020-07-16  J. Ator    -- Add sanity check to ensure that openbf()</span></div>
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="comment">C&gt;                             was previously called (needed for GSI)</span></div>
 <div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="comment">C&gt; </span></div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="comment">C&gt; &lt;b&gt;This routine calls:&lt;/b&gt;        closfb() closmg() status() wtstat()</span></div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="comment">C&gt; </span></div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="comment">C&gt; &lt;b&gt;This routine is called by:&lt;/b&gt; copybf() exitbufr() mesgbf() ufbinx()</span></div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="comment">C&gt;                            ufbmem() ufbmex()   ufbtab()</span></div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="comment">C&gt;                            &lt;br&gt;Also called by application programs.</span></div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="comment">C&gt;</span></div>
-<div class="line"><a name="l00042"></a><span class="lineno"><a class="line" href="closbf_8F.html#a00c94986037d2cf27d04de7a1f8a3ebc">   42</a></span>&#160;<span class="keyword">      SUBROUTINE </span><a class="code" href="closbf_8F.html#a00c94986037d2cf27d04de7a1f8a3ebc">closbf</a>(LUNIT)</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;      <span class="keywordtype">USE </span><a class="code" href="classmoda__nulbfr.html">moda_nulbfr</a></div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;      include <span class="stringliteral">&#39;bufrlib.inc&#39;</span></div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;      <span class="keywordtype">CHARACTER*128</span> errstr</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<span class="comment">C-----------------------------------------------------------------------</span></div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;<span class="comment">C-----------------------------------------------------------------------</span></div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="preprocessor">#ifdef DYNAMIC_ALLOCATION</span></div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;<span class="preprocessor"></span>      <span class="keywordflow">IF</span> ( .NOT. <span class="keyword">ALLOCATED</span>(null) ) <span class="keywordflow">THEN</span></div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;        CALL <a class="code" href="errwrt_8f.html#a65626d9a772648676146b62b596c2764">errwrt</a>(<span class="stringliteral">&#39;++++++++++++++++++++WARNING++++++++++++++++++++++&#39;</span>)</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;        errstr = <span class="stringliteral">&#39;BUFRLIB: CLOSBF WAS CALLED WITHOUT HAVING &#39;</span> //</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;     .           <span class="stringliteral">&#39;PREVIOUSLY CALLED OPENBF&#39;</span></div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;        CALL <a class="code" href="errwrt_8f.html#a65626d9a772648676146b62b596c2764">errwrt</a>(errstr)</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;        CALL <a class="code" href="errwrt_8f.html#a65626d9a772648676146b62b596c2764">errwrt</a>(<span class="stringliteral">&#39;++++++++++++++++++++WARNING++++++++++++++++++++++&#39;</span>)</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;        <span class="keywordflow">RETURN</span></div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;      <span class="keywordflow">ENDIF</span></div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;<span class="preprocessor"></span></div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;      CALL <a class="code" href="status_8f.html#a22292e7a69c411a961168198d259f336">status</a>(lunit,lun,il,im)</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;      <span class="keywordflow">IF</span>(il.GT.0 .AND. im.NE.0) CALL <a class="code" href="closmg_8f.html#a3378111de0136710daec2ded25ed34e4">closmg</a>(lunit)</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;      <span class="keywordflow">IF</span>(il.NE.0 .AND. null(lun).EQ.0) CALL closfb(lun)</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;      CALL <a class="code" href="wtstat_8f.html#a82676f83ff365e03ad827ed5ba0af1ae">wtstat</a>(lunit,lun,0,0)</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;<span class="comment">C  CLOSE fortran UNIT IF NULL(LUN) = 0</span></div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;<span class="comment">C  -----------------------------------</span></div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;      <span class="keywordflow">IF</span>(null(lun).EQ.0) <span class="keyword">CLOSE</span>(lunit)</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;      <span class="keywordflow">RETURN</span></div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;      <span class="keywordflow">END</span></div>
-<div class="ttc" id="closbf_8F_html_a00c94986037d2cf27d04de7a1f8a3ebc"><div class="ttname"><a href="closbf_8F.html#a00c94986037d2cf27d04de7a1f8a3ebc">closbf</a></div><div class="ttdeci">subroutine closbf(LUNIT)</div><div class="ttdoc">This subroutine closes the connection between logical unit LUNIT and the BUFRLIB software. </div><div class="ttdef"><b>Definition:</b> <a href="closbf_8F_source.html#l00042">closbf.F:42</a></div></div>
-<div class="ttc" id="wtstat_8f_html_a82676f83ff365e03ad827ed5ba0af1ae"><div class="ttname"><a href="wtstat_8f.html#a82676f83ff365e03ad827ed5ba0af1ae">wtstat</a></div><div class="ttdeci">subroutine wtstat(LUNIT, LUN, IL, IM)</div><div class="ttdoc">THIS SUBROUTINE EITHER DISCONNECTS THE INPUT LOGICAL UNIT NUMBER LUNIT (AND ITS ASSOCIATED BUFR FILE)...</div><div class="ttdef"><b>Definition:</b> <a href="wtstat_8f_source.html#l00058">wtstat.f:58</a></div></div>
-<div class="ttc" id="status_8f_html_a22292e7a69c411a961168198d259f336"><div class="ttname"><a href="status_8f.html#a22292e7a69c411a961168198d259f336">status</a></div><div class="ttdeci">subroutine status(LUNIT, LUN, IL, IM)</div><div class="ttdoc">THIS SUBROUTINE CHECKS WHETHER LOGICAL UNIT NUMBER LUNIT (AND ITS ASSOCIATED BUFR FILE) IS CURRENTLY ...</div><div class="ttdef"><b>Definition:</b> <a href="status_8f_source.html#l00086">status.f:86</a></div></div>
-<div class="ttc" id="closmg_8f_html_a3378111de0136710daec2ded25ed34e4"><div class="ttname"><a href="closmg_8f.html#a3378111de0136710daec2ded25ed34e4">closmg</a></div><div class="ttdeci">subroutine closmg(LUNIN)</div><div class="ttdoc">This subroutine closes the BUFR message that is currently open for writing within internal arrays ass...</div><div class="ttdef"><b>Definition:</b> <a href="closmg_8f_source.html#l00060">closmg.f:60</a></div></div>
-<div class="ttc" id="errwrt_8f_html_a65626d9a772648676146b62b596c2764"><div class="ttname"><a href="errwrt_8f.html#a65626d9a772648676146b62b596c2764">errwrt</a></div><div class="ttdeci">subroutine errwrt(STR)</div><div class="ttdoc">THIS SUBROUTINE WRITES A GIVEN ERROR OR OTHER DIAGNOSTIC MESSAGE TO A USER-SPECIFIED LOGICAL UNIT...</div><div class="ttdef"><b>Definition:</b> <a href="errwrt_8f_source.html#l00043">errwrt.f:43</a></div></div>
+<div class="line"><a name="l00036"></a><span class="lineno"><a class="line" href="closbf_8F.html#a00c94986037d2cf27d04de7a1f8a3ebc">   36</a></span>&#160;<span class="keyword">      SUBROUTINE </span><a class="code" href="closbf_8F.html#a00c94986037d2cf27d04de7a1f8a3ebc">closbf</a>(LUNIT)</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;      <span class="keywordtype">USE </span><a class="code" href="classmoda__nulbfr.html">moda_nulbfr</a></div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;      <span class="keywordtype">CHARACTER*128</span> errstr</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="comment">C-----------------------------------------------------------------------</span></div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="comment">C-----------------------------------------------------------------------</span></div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<span class="preprocessor">#ifdef DYNAMIC_ALLOCATION</span></div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="preprocessor"></span>      <span class="keywordflow">IF</span> ( .NOT. <span class="keyword">ALLOCATED</span>(null) ) <span class="keywordflow">THEN</span></div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;        CALL <a class="code" href="errwrt_8f.html#a65626d9a772648676146b62b596c2764">errwrt</a>(<span class="stringliteral">&#39;++++++++++++++++++++WARNING++++++++++++++++++++++&#39;</span>)</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;        errstr = <span class="stringliteral">&#39;BUFRLIB: CLOSBF WAS CALLED WITHOUT HAVING &#39;</span> //</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;     .           <span class="stringliteral">&#39;PREVIOUSLY CALLED OPENBF&#39;</span></div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;        CALL <a class="code" href="errwrt_8f.html#a65626d9a772648676146b62b596c2764">errwrt</a>(errstr)</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;        CALL <a class="code" href="errwrt_8f.html#a65626d9a772648676146b62b596c2764">errwrt</a>(<span class="stringliteral">&#39;++++++++++++++++++++WARNING++++++++++++++++++++++&#39;</span>)</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        <span class="keywordflow">RETURN</span></div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;      <span class="keywordflow">ENDIF</span></div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;<span class="preprocessor"></span></div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;      CALL <a class="code" href="status_8f.html#a22292e7a69c411a961168198d259f336">status</a>(lunit,lun,il,im)</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;      <span class="keywordflow">IF</span>(il.GT.0 .AND. im.NE.0) CALL <a class="code" href="closmg_8f.html#a3378111de0136710daec2ded25ed34e4">closmg</a>(lunit)</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;      <span class="keywordflow">IF</span>(il.NE.0 .AND. null(lun).EQ.0) CALL <a class="code" href="cread_8c.html#abbd928726a21a86c34e3bcea9213f304">closfb</a>(lun)</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;      CALL <a class="code" href="wtstat_8f.html#a82676f83ff365e03ad827ed5ba0af1ae">wtstat</a>(lunit,lun,0,0)</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;<span class="comment">C  CLOSE fortran UNIT IF NULL(LUN) = 0</span></div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;<span class="comment">C  -----------------------------------</span></div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;      <span class="keywordflow">IF</span>(null(lun).EQ.0) <span class="keyword">CLOSE</span>(lunit)</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;      <span class="keywordflow">RETURN</span></div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;      <span class="keywordflow">END</span></div>
+<div class="ttc" id="cread_8c_html_abbd928726a21a86c34e3bcea9213f304"><div class="ttname"><a href="cread_8c.html#abbd928726a21a86c34e3bcea9213f304">closfb</a></div><div class="ttdeci">void closfb(f77int *nfile)</div><div class="ttdoc">This subroutine closes a previously opened BUFR file. </div><div class="ttdef"><b>Definition:</b> <a href="cread_8c_source.html#l00104">cread.c:104</a></div></div>
+<div class="ttc" id="closbf_8F_html_a00c94986037d2cf27d04de7a1f8a3ebc"><div class="ttname"><a href="closbf_8F.html#a00c94986037d2cf27d04de7a1f8a3ebc">closbf</a></div><div class="ttdeci">subroutine closbf(LUNIT)</div><div class="ttdoc">This subroutine closes the connection between logical unit LUNIT and the BUFRLIB software. </div><div class="ttdef"><b>Definition:</b> <a href="closbf_8F_source.html#l00036">closbf.F:36</a></div></div>
+<div class="ttc" id="wtstat_8f_html_a82676f83ff365e03ad827ed5ba0af1ae"><div class="ttname"><a href="wtstat_8f.html#a82676f83ff365e03ad827ed5ba0af1ae">wtstat</a></div><div class="ttdeci">subroutine wtstat(LUNIT, LUN, IL, IM)</div><div class="ttdoc">This subroutine can be used to connect or disconnect a specified Fortran logical unit number to/from ...</div><div class="ttdef"><b>Definition:</b> <a href="wtstat_8f_source.html#l00058">wtstat.f:58</a></div></div>
+<div class="ttc" id="status_8f_html_a22292e7a69c411a961168198d259f336"><div class="ttname"><a href="status_8f.html#a22292e7a69c411a961168198d259f336">status</a></div><div class="ttdeci">subroutine status(LUNIT, LUN, IL, IM)</div><div class="ttdoc">This subroutine checks whether a specified Fortran logical unit number is currently connected to the ...</div><div class="ttdef"><b>Definition:</b> <a href="status_8f_source.html#l00061">status.f:61</a></div></div>
+<div class="ttc" id="closmg_8f_html_a3378111de0136710daec2ded25ed34e4"><div class="ttname"><a href="closmg_8f.html#a3378111de0136710daec2ded25ed34e4">closmg</a></div><div class="ttdeci">subroutine closmg(LUNIN)</div><div class="ttdoc">This subroutine closes the BUFR message that is currently open for writing within internal arrays ass...</div><div class="ttdef"><b>Definition:</b> <a href="closmg_8f_source.html#l00053">closmg.f:53</a></div></div>
+<div class="ttc" id="errwrt_8f_html_a65626d9a772648676146b62b596c2764"><div class="ttname"><a href="errwrt_8f.html#a65626d9a772648676146b62b596c2764">errwrt</a></div><div class="ttdeci">subroutine errwrt(STR)</div><div class="ttdoc">This subroutine allows the user to specify a custom location for the logging of error and diagnostic ...</div><div class="ttdef"><b>Definition:</b> <a href="errwrt_8f_source.html#l00039">errwrt.f:39</a></div></div>
 <div class="ttc" id="classmoda__nulbfr_html"><div class="ttname"><a href="classmoda__nulbfr.html">moda_nulbfr</a></div><div class="ttdef"><b>Definition:</b> <a href="moda__nulbfr_8F_source.html#l00001">moda_nulbfr.F:1</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->

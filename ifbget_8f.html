@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.3.2</span>
+   &#160;<span id="projectnumber">11.5.0</span>
    </div>
   </td>
  </tr>
@@ -92,7 +92,7 @@ $(document).ready(function(){initNavTree('ifbget_8f.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -109,17 +109,19 @@ $(document).ready(function(){initNavTree('ifbget_8f.html','');});
 </div><!--header-->
 <div class="contents">
 
+<p>Check whether there are any more data subsets available to be read from a BUFR message.  
+<a href="#details">More...</a></p>
+
 <p><a href="ifbget_8f_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions/Subroutines</h2></td></tr>
 <tr class="memitem:a14e525e07b45612a965ed571807e8a90"><td class="memItemLeft" align="right" valign="top">function&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ifbget_8f.html#a14e525e07b45612a965ed571807e8a90">ifbget</a> (LUNIT)</td></tr>
-<tr class="memdesc:a14e525e07b45612a965ed571807e8a90"><td class="mdescLeft">&#160;</td><td class="mdescRight">THIS FUNCTION CHECKS TO SEE IF ANY UNREAD SUBSETS ARE IN AN INPUT BUFR MESSAGE PREVIOUSLY OPENED BY BUFR ARCHIVE LIBRARY SUBROUTINE OPENMG OR OPENMB.  <a href="#a14e525e07b45612a965ed571807e8a90">More...</a><br/></td></tr>
+<tr class="memdesc:a14e525e07b45612a965ed571807e8a90"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function checks whether there are any more data subsets available to be read from within the BUFR message that is open for reading via the most recent call to any of the <a class="el" href="md__gpfs_dell2_emc_obsproc_noscrub_Jeff_8Ator_NCEPLIBS-bufr-GitHub_nceplibs-bufr_docs_UserGuide.html#hierarchy">message-reading subroutines</a> for a specified Fortran logical unit.  <a href="#a14e525e07b45612a965ed571807e8a90">More...</a><br/></td></tr>
 <tr class="separator:a14e525e07b45612a965ed571807e8a90"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><dl class="section author"><dt>Author</dt><dd>WOOLLEN </dd></dl>
-<dl class="section date"><dt>Date</dt><dd>1994-01-06 </dd></dl>
+<div class="textblock"><p>Check whether there are any more data subsets available to be read from a BUFR message. </p>
 
 <p>Definition in file <a class="el" href="ifbget_8f_source.html">ifbget.f</a>.</p>
 </div><h2 class="groupheader">Function/Subroutine Documentation</h2>
@@ -137,13 +139,31 @@ Functions/Subroutines</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>THIS FUNCTION CHECKS TO SEE IF ANY UNREAD SUBSETS ARE IN AN INPUT BUFR MESSAGE PREVIOUSLY OPENED BY BUFR ARCHIVE LIBRARY SUBROUTINE OPENMG OR OPENMB. </p>
-<p>PROGRAM HISTORY LOG: 1994-01-06 J. WOOLLEN &ndash; ORIGINAL AUTHOR 1998-07-08 J. WOOLLEN &ndash; REPLACED CALL TO CRAY LIBRARY ROUTINE "ABORT" WITH CALL TO NEW INTERNAL BUFRLIB ROUTINE "BORT" 1999-11-18 J. WOOLLEN &ndash; THE NUMBER OF BUFR FILES WHICH CAN BE OPENED AT ONE TIME INCREASED FROM 10 TO 32 (NECESSARY IN ORDER TO PROCESS MULTIPLE BUFR FILES UNDER THE MPI) 2003-11-04 S. BENDER &ndash; ADDED REMARKS/BUFRLIB ROUTINE INTERDEPENDENCIES 2003-11-04 D. KEYSER &ndash; UNIFIED/PORTABLE FOR WRF; ADDED DOCUMENTATION (INCLUDING HISTORY); OUTPUTS MORE COMPLETE DIAGNOSTIC INFO WHEN ROUTINE TERMINATES ABNORMALLY 2014-12-10 J. ATOR &ndash; USE MODULES INSTEAD OF COMMON BLOCKS</p>
-<p>USAGE: IFBGET (LUNIT) INPUT ARGUMENT LIST: LUNIT - INTEGER: FORTRAN LOGICAL UNIT NUMBER FOR BUFR FILE</p>
-<p>OUTPUT ARGUMENT LIST: IFBGET - INTEGER: RETURN CODE: 0 = there is at least one more subset in the message -1 = there are no more subsets in the message</p>
-<p>REMARKS: THIS ROUTINE CALLS: BORT STATUS THIS ROUTINE IS CALLED BY: None Normally called only by application programs. </p>
+<p>This function checks whether there are any more data subsets available to be read from within the BUFR message that is open for reading via the most recent call to any of the <a class="el" href="md__gpfs_dell2_emc_obsproc_noscrub_Jeff_8Ator_NCEPLIBS-bufr-GitHub_nceplibs-bufr_docs_UserGuide.html#hierarchy">message-reading subroutines</a> for a specified Fortran logical unit. </p>
+<dl class="section author"><dt>Author</dt><dd>J. Woollen </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>1994-01-06</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">LUNIT</td><td>- integer: Fortran logical unit number for BUFR file </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>ifbget - integer:<ul>
+<li>0 = there is at least one more data subset to be read from the BUFR message</li>
+<li>-1 = there are no more data subsets to be read from the BUFR message</li>
+</ul>
+</dd></dl>
+<p><b>Program history log:</b></p>
+<ul>
+<li>1994-01-06 J. Woollen &ndash; Original author</li>
+<li>1998-07-08 J. Woollen &ndash; Replaced call to Cray library routine ABORT with call to new internal routine <a class="el" href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4" title="This subroutine calls subroutine errwrt() to log an error message, then calls subroutine bort_exit() ...">bort()</a></li>
+<li>1999-11-18 J. Woollen &ndash; The number of BUFR files which can be opened at one time increased from 10 to 32 (necessary in order to process multiple BUFR files under the MPI)</li>
+<li>2014-12-10 J. Ator &ndash; Use modules instead of COMMON blocks </li>
+</ul>
 
-<p>Definition at line <a class="el" href="ifbget_8f_source.html#l00041">41</a> of file <a class="el" href="ifbget_8f_source.html">ifbget.f</a>.</p>
+<p>Definition at line <a class="el" href="ifbget_8f_source.html#l00032">32</a> of file <a class="el" href="ifbget_8f_source.html">ifbget.f</a>.</p>
+
+<p>References <a class="el" href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort()</a>, and <a class="el" href="status_8f.html#a22292e7a69c411a961168198d259f336">status()</a>.</p>
 
 </div>
 </div>

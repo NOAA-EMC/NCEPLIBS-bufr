@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.3.2</span>
+   &#160;<span id="projectnumber">11.5.0</span>
    </div>
   </td>
  </tr>
@@ -92,7 +92,7 @@ $(document).ready(function(){initNavTree('strcln_8f_source.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -135,19 +135,18 @@ $(document).ready(function(){initNavTree('strcln_8f_source.html','');});
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="comment">C&gt;</span></div>
 <div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="strcln_8f.html#a19c92d247281ffcad8aab45d7debb54f">   28</a></span>&#160;<span class="keyword">      SUBROUTINE </span><a class="code" href="strcln_8f.html#a19c92d247281ffcad8aab45d7debb54f">strcln</a></div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;      <span class="keywordtype">USE </span><a class="code" href="modv__MXS_8f90.html#classmodv__mxs">modv_mxs</a></div>
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;      include <span class="stringliteral">&#39;bufrlib.inc&#39;</span></div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;      <span class="keyword">COMMON</span> /stcach/ mstr,nstr,lstr,luns(mxs,2),usrs(mxs),icon(52,mxs)</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;      <span class="keywordtype">CHARACTER*80</span> usrs</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;      mstr = mxs</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;      nstr = 0</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;      lstr = 0</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;      <span class="keywordflow">RETURN</span></div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;      <span class="keywordflow">END</span></div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;      <span class="keyword">COMMON</span> /stcach/ mstr,nstr,lstr,luns(mxs,2),usrs(mxs),icon(52,mxs)</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;      <span class="keywordtype">CHARACTER*80</span> usrs</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;      mstr = mxs</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;      nstr = 0</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;      lstr = 0</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;      <span class="keywordflow">RETURN</span></div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;      <span class="keywordflow">END</span></div>
 <div class="ttc" id="strcln_8f_html_a19c92d247281ffcad8aab45d7debb54f"><div class="ttname"><a href="strcln_8f.html#a19c92d247281ffcad8aab45d7debb54f">strcln</a></div><div class="ttdeci">subroutine strcln</div><div class="ttdoc">THIS SUBROUTINE RESETS THE MNEMONIC STRING CACHE IN THE BUFR INTERFACE (ARRAYS IN COMMON BLOCK /STCAC...</div><div class="ttdef"><b>Definition:</b> <a href="strcln_8f_source.html#l00028">strcln.f:28</a></div></div>
+<div class="ttc" id="modv__MXS_8f90_html_classmodv__mxs"><div class="ttname"><a href="modv__MXS_8f90.html#classmodv__mxs">modv_mxs</a></div><div class="ttdoc">This module declares and initializes the MXS variable. </div><div class="ttdef"><b>Definition:</b> <a href="modv__MXS_8f90_source.html#l00009">modv_MXS.f90:9</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

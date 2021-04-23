@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.3.2</span>
+   &#160;<span id="projectnumber">11.5.0</span>
    </div>
   </td>
  </tr>
@@ -92,7 +92,7 @@ $(document).ready(function(){initNavTree('inctab_8f_source.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -150,35 +150,31 @@ $(document).ready(function(){initNavTree('inctab_8f_source.html','');});
 <div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="comment">C&gt;</span></div>
 <div class="line"><a name="l00043"></a><span class="lineno"><a class="line" href="inctab_8f.html#ab4d95e791ea67fccbade97e247ed5646">   43</a></span>&#160;<span class="keyword">      SUBROUTINE </span><a class="code" href="inctab_8f.html#ab4d95e791ea67fccbade97e247ed5646">inctab</a>(ATAG,ATYP,NODE)</div>
 <div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;      <span class="keywordtype">USE </span><a class="code" href="moda__tables_8F.html#classmoda__tables">moda_tables</a></div>
 <div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;      <span class="keywordtype">USE </span><a class="code" href="classmoda__tables.html">moda_tables</a></div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;      include <span class="stringliteral">&#39;bufrlib.inc&#39;</span></div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;      <span class="keywordtype">CHARACTER*(*)</span> atag,atyp</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;      <span class="keywordtype">CHARACTER*128</span> bort_str</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;<span class="comment">C-----------------------------------------------------------------------</span></div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;<span class="comment">C-----------------------------------------------------------------------</span></div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;      ntab = ntab+1</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;      <span class="keywordflow">IF</span>(ntab.GT.maxtab) goto 900</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;      tag(ntab) = atag</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;      typ(ntab) = atyp</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;      node = ntab</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;<span class="comment">C  EXITS</span></div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;<span class="comment">C  -----</span></div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;      <span class="keywordflow">RETURN</span></div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160; 900  <span class="keyword">WRITE</span>(bort_str,<span class="stringliteral">&#39;(&quot;BUFRLIB: INCTAB - THE NUMBER OF JUMP/LINK &#39;</span>//</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;     . <span class="stringliteral">&#39;TABLE ENTRIES EXCEEDS THE LIMIT, MAXTAB (&quot;,I7,&quot;)&quot;)&#39;</span>) maxtab</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;      CALL <a class="code" href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort</a>(bort_str)</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;      <span class="keywordflow">END</span></div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;      <span class="keywordtype">CHARACTER*(*)</span> atag,atyp</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;      <span class="keywordtype">CHARACTER*128</span> bort_str</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;<span class="comment">C-----------------------------------------------------------------------</span></div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;<span class="comment">C-----------------------------------------------------------------------</span></div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;      ntab = ntab+1</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;      <span class="keywordflow">IF</span>(ntab.GT.maxtab) goto 900</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;      tag(ntab) = atag</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;      typ(ntab) = atyp</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;      node = ntab</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;<span class="comment">C  EXITS</span></div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;<span class="comment">C  -----</span></div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;      <span class="keywordflow">RETURN</span></div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160; 900  <span class="keyword">WRITE</span>(bort_str,<span class="stringliteral">&#39;(&quot;BUFRLIB: INCTAB - THE NUMBER OF JUMP/LINK &#39;</span>//</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;     . <span class="stringliteral">&#39;TABLE ENTRIES EXCEEDS THE LIMIT, MAXTAB (&quot;,I7,&quot;)&quot;)&#39;</span>) maxtab</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;      CALL <a class="code" href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort</a>(bort_str)</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;      <span class="keywordflow">END</span></div>
 <div class="ttc" id="inctab_8f_html_ab4d95e791ea67fccbade97e247ed5646"><div class="ttname"><a href="inctab_8f.html#ab4d95e791ea67fccbade97e247ed5646">inctab</a></div><div class="ttdeci">subroutine inctab(ATAG, ATYP, NODE)</div><div class="ttdoc">THIS SUBROUTINE RETURNS THE NEXT AVAILABLE POSITIONAL INDEX FOR WRITING INTO THE INTERNAL JUMP/LINK T...</div><div class="ttdef"><b>Definition:</b> <a href="inctab_8f_source.html#l00043">inctab.f:43</a></div></div>
-<div class="ttc" id="classmoda__tables_html"><div class="ttname"><a href="classmoda__tables.html">moda_tables</a></div><div class="ttdef"><b>Definition:</b> <a href="moda__tables_8F_source.html#l00001">moda_tables.F:1</a></div></div>
-<div class="ttc" id="bort_8f_html_a488d3a8cf930fb592a9fdaefcfa04ac4"><div class="ttname"><a href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort</a></div><div class="ttdeci">subroutine bort(STR)</div><div class="ttdoc">THIS SUBROUTINE WRITES (VIA BUFR ARCHIVE LIBRARY SUBROUTINE ERRWRT) A GIVEN ERROR STRING AND THEN CAL...</div><div class="ttdef"><b>Definition:</b> <a href="bort_8f_source.html#l00069">bort.f:69</a></div></div>
+<div class="ttc" id="moda__tables_8F_html_classmoda__tables"><div class="ttname"><a href="moda__tables_8F.html#classmoda__tables">moda_tables</a></div><div class="ttdoc">This module contains array and variable declarations used to store the internal jump/link table...</div><div class="ttdef"><b>Definition:</b> <a href="moda__tables_8F_source.html#l00013">moda_tables.F:13</a></div></div>
+<div class="ttc" id="bort_8f_html_a488d3a8cf930fb592a9fdaefcfa04ac4"><div class="ttname"><a href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort</a></div><div class="ttdeci">subroutine bort(STR)</div><div class="ttdoc">This subroutine calls subroutine errwrt() to log an error message, then calls subroutine bort_exit() ...</div><div class="ttdef"><b>Definition:</b> <a href="bort_8f_source.html#l00023">bort.f:23</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

@@ -1,7 +1,7 @@
 var searchData=
 [
   ['release_20notes',['Release Notes',['../md__gpfs_dell2_emc_obsproc_noscrub_Jeff_8Ator_NCEPLIBS-bufr-GitHub_nceplibs-bufr_docs_ReleaseNotes.html',1,'']]],
-  ['rbytes',['rbytes',['../rbytes_8c.html#a43ed45350463ba99f0e955fb70a65b55',1,'rbytes(char *bmg, f77int *mxmb, f77int isloc, f77int newbytes):&#160;rbytes.c'],['../bufrlib_8h.html#a662fa0f4a540caee1bfaa5e413b714e3',1,'rbytes(char *, f77int *, f77int, f77int):&#160;rbytes.c']]],
+  ['rbytes',['rbytes',['../cobfl_8h.html#a662fa0f4a540caee1bfaa5e413b714e3',1,'rbytes(char *, f77int *, f77int, f77int):&#160;rbytes.c'],['../rbytes_8c.html#a43ed45350463ba99f0e955fb70a65b55',1,'rbytes(char *bmg, f77int *mxmb, f77int isloc, f77int newbytes):&#160;rbytes.c']]],
   ['rbytes_2ec',['rbytes.c',['../rbytes_8c.html',1,'']]],
   ['rcstpl',['rcstpl',['../rcstpl_8f.html#a6051cb3fd10cab351aaade691f06ffd1',1,'rcstpl.f']]],
   ['rcstpl_2ef',['rcstpl.f',['../rcstpl_8f.html',1,'']]],
@@ -32,6 +32,7 @@ var searchData=
   ['readdx_2ef',['readdx.f',['../readdx_8f.html',1,'']]],
   ['readerme',['readerme',['../readerme_8f.html#aa8235a5af5d22c265bbef3bb47c7fafa',1,'readerme.f']]],
   ['readerme_2ef',['readerme.f',['../readerme_8f.html',1,'']]],
+  ['readlc',['readlc',['../readlc_8f.html#acf408b0943fc7a5040009cd9a9bc57a1',1,'readlc.f']]],
   ['readlc_2ef',['readlc.f',['../readlc_8f.html',1,'']]],
   ['readmg',['readmg',['../readmg_8f.html#a9fb3da32fb87bc017d16b9f0f707be9b',1,'readmg.f']]],
   ['readmg_2ef',['readmg.f',['../readmg_8f.html',1,'']]],

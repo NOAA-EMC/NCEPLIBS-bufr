@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.3.2</span>
+   &#160;<span id="projectnumber">11.5.0</span>
    </div>
   </td>
  </tr>
@@ -92,7 +92,7 @@ $(document).ready(function(){initNavTree('openbt_8f.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -109,17 +109,19 @@ $(document).ready(function(){initNavTree('openbt_8f.html','');});
 </div><!--header-->
 <div class="contents">
 
+<p>Specify DX BUFR table file of last resort.  
+<a href="#details">More...</a></p>
+
 <p><a href="openbt_8f_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions/Subroutines</h2></td></tr>
 <tr class="memitem:ae6c14e3ca6c75e5ee54424817fdd6199"><td class="memItemLeft" align="right" valign="top">subroutine&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="openbt_8f.html#ae6c14e3ca6c75e5ee54424817fdd6199">openbt</a> (LUNDX, MTYP)</td></tr>
-<tr class="memdesc:ae6c14e3ca6c75e5ee54424817fdd6199"><td class="mdescLeft">&#160;</td><td class="mdescRight">THIS IS A DUMMY SUBROUTINE WHICH ALWAYS RETURNS LUNDX = 0.  <a href="#ae6c14e3ca6c75e5ee54424817fdd6199">More...</a><br/></td></tr>
+<tr class="memdesc:ae6c14e3ca6c75e5ee54424817fdd6199"><td class="mdescLeft">&#160;</td><td class="mdescRight">This subroutine is called as a last resort from within subroutine <a class="el" href="cktaba_8f.html#a137108e58830be769ba5b28072cf1b4c" title="THIS SUBROUTINE PARSES THE TABLE A MNEMONIC AND THE DATE OUT OF SECTION 1 OF A BUFR MESSAGE PREVIOUSL...">cktaba()</a>, in the event the latter subroutine is unable to locate a DX BUFR table for use in reading/decoding a given BUFR message.  <a href="#ae6c14e3ca6c75e5ee54424817fdd6199">More...</a><br/></td></tr>
 <tr class="separator:ae6c14e3ca6c75e5ee54424817fdd6199"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><dl class="section author"><dt>Author</dt><dd>WOOLLEN </dd></dl>
-<dl class="section date"><dt>Date</dt><dd>1998-07-08 </dd></dl>
+<div class="textblock"><p>Specify DX BUFR table file of last resort. </p>
 
 <p>Definition in file <a class="el" href="openbt_8f_source.html">openbt.f</a>.</p>
 </div><h2 class="groupheader">Function/Subroutine Documentation</h2>
@@ -147,14 +149,35 @@ Functions/Subroutines</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>THIS IS A DUMMY SUBROUTINE WHICH ALWAYS RETURNS LUNDX = 0. </p>
-<p>OPENBT MUST BE PRESENT BECAUSE IT IS CALLED BY BUFR ARCHIVE LIBRARY SUBROUTINE CKTABA AS A LAST RESORT TO TRY AND FIND AN EXTERNAL USER-SUPPLIED BUFR DICTIONARY TABLE FILE IN CHARACTER FORMAT FROM WHICH A TABLE A MNEMONIC CAN BE LOCATED. IF THE APPLICATION PROGRAM DOES NOT HAVE AN IN-LINE VERSION OF OPENBT (OVERRIDING THIS ONE), THEN THE RETURNED LUNDX = 0 WILL RESULT IN CKTABA RETURNING WITHOUT FINDING A TABLE A MNEMONIC BECAUSE THERE IS NO LINK TO ANY EXTERNAL BUFR TABLES. NORMALLY, IT IS EXPECTED THAT AN IN-LINE VERSION OF THIS SUBROUTINE WILL ACTUALLY FIND THE APPROPRIATE EXTERNAL BUFR TABLE.</p>
-<p>PROGRAM HISTORY LOG: 1998-07-08 J. WOOLLEN &ndash; ORIGINAL AUTHOR 2003-11-04 S. BENDER &ndash; ADDED REMARKS/BUFRLIB ROUTINE INTERDEPENDENCIES 2003-11-04 D. KEYSER &ndash; UNIFIED/PORTABLE FOR WRF; ADDED DOCUMENTATION (INCLUDING HISTORY); ADDED MORE COMPLETE DIAGNOSTIC INFO WHEN UNUSUAL THINGS HAPPEN 2009-04-21 J. ATOR &ndash; USE ERRWRT</p>
-<p>USAGE: CALL OPENBT (LUNDX, MTYP) INPUT ARGUMENT LIST: MTYP - INTEGER: DUMMY {IN AN APPLICATION PROGRAM (IN-LINE) THIS WOULD BE THE BUFR MESSAGE TYPE}</p>
-<p>OUTPUT ARGUMENT LIST: LUNDX - INTEGER: DUMMY, ALWAYS RETURNED AS ZERO {IN AN APPLICATION PROGRAM (IN-LINE) THIS WOULD BE THE FORTRAN LOGICAL UNIT NUMBER CONNECTED TO THE FILE CONTAINING THE EXTERNAL BUFR TABLE}</p>
-<p>REMARKS: THIS ROUTINE CALLS: ERRWRT THIS ROUTINE (IN BUFR ARCHIVE LIBRARY): Called by CKTABA only to allow the BUFR ARCHIVE LIBRARY to compile, CKTABA and any application programs should always call a version of OPENBT in-line in the application program. </p>
+<p>This subroutine is called as a last resort from within subroutine <a class="el" href="cktaba_8f.html#a137108e58830be769ba5b28072cf1b4c" title="THIS SUBROUTINE PARSES THE TABLE A MNEMONIC AND THE DATE OUT OF SECTION 1 OF A BUFR MESSAGE PREVIOUSL...">cktaba()</a>, in the event the latter subroutine is unable to locate a DX BUFR table for use in reading/decoding a given BUFR message. </p>
+<p>Within the BUFRLIB distribution package, this subroutine is a default placeholder which always returns LUNDX = 0 and is only included to allow application programs to compile without generating a link error for an unresolved external reference. However, users are free to define their own inline version of this subroutine with the same name and calling sequence and include it within the compilation of their application program in order to override the default placeholder version of this subroutine. In such cases, subroutine <a class="el" href="cktaba_8f.html#a137108e58830be769ba5b28072cf1b4c" title="THIS SUBROUTINE PARSES THE TABLE A MNEMONIC AND THE DATE OUT OF SECTION 1 OF A BUFR MESSAGE PREVIOUSL...">cktaba()</a> will then use the inline version of this subroutine as a last resort when attempting to locate the required DX BUFR table file.</p>
+<dl class="section author"><dt>Author</dt><dd>J. Woollen </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>1998-07-08</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">MTYP</td><td>- integer: Data category of BUFR message for which subroutine <a class="el" href="cktaba_8f.html#a137108e58830be769ba5b28072cf1b4c" title="THIS SUBROUTINE PARSES THE TABLE A MNEMONIC AND THE DATE OUT OF SECTION 1 OF A BUFR MESSAGE PREVIOUSL...">cktaba()</a> was unable to locate a DX BUFR table file </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">LUNDX</td><td>- integer: Fortran logical unit number for file containing DX BUFR table information to be used in decoding message<ul>
+<li>0 = No such file is available</li>
+</ul>
+</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section remark"><dt>Remarks</dt><dd><ul>
+<li>See <a class="el" href="md__gpfs_dell2_emc_obsproc_noscrub_Jeff_8Ator_NCEPLIBS-bufr-GitHub_nceplibs-bufr_docs_dfbftab.html#dfbftab">DX BUFR Tables</a> for more information about the format and contents of DX BUFR table files.</li>
+</ul>
+</dd></dl>
+<p><b>Program history log:</b></p>
+<ul>
+<li>1998-07-08 J. Woollen &ndash; Original author</li>
+<li>2009-04-21 J. Ator &ndash; Use <a class="el" href="errwrt_8f.html#a65626d9a772648676146b62b596c2764" title="This subroutine allows the user to specify a custom location for the logging of error and diagnostic ...">errwrt()</a> </li>
+</ul>
 
-<p>Definition at line <a class="el" href="openbt_8f_source.html#l00046">46</a> of file <a class="el" href="openbt_8f_source.html">openbt.f</a>.</p>
+<p>Definition at line <a class="el" href="openbt_8f_source.html#l00039">39</a> of file <a class="el" href="openbt_8f_source.html">openbt.f</a>.</p>
+
+<p>References <a class="el" href="errwrt_8f.html#a65626d9a772648676146b62b596c2764">errwrt()</a>.</p>
+
+<p>Referenced by <a class="el" href="cktaba_8f.html#a137108e58830be769ba5b28072cf1b4c">cktaba()</a>.</p>
 
 </div>
 </div>

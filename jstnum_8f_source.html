@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.3.2</span>
+   &#160;<span id="projectnumber">11.5.0</span>
    </div>
   </td>
  </tr>
@@ -92,7 +92,7 @@ $(document).ready(function(){initNavTree('jstnum_8f_source.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -210,8 +210,8 @@ $(document).ready(function(){initNavTree('jstnum_8f_source.html','');});
 <div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;      <span class="keywordflow">END</span></div>
 <div class="ttc" id="jstnum_8f_html_aed41312e53ed76174fb87c3b62ac0b45"><div class="ttname"><a href="jstnum_8f.html#aed41312e53ed76174fb87c3b62ac0b45">jstnum</a></div><div class="ttdeci">subroutine jstnum(STR, SIGN, IRET)</div><div class="ttdoc">THIS SUBROUTINE REMOVES ALL LEADING BLANKS FROM A CHARACTER STRING CONTAINING AN ENCODED INTEGER VALU...</div><div class="ttdef"><b>Definition:</b> <a href="jstnum_8f_source.html#l00049">jstnum.f:49</a></div></div>
 <div class="ttc" id="strnum_8f_html_a3cb1ef014cf71b6456ec7fa46d51ed06"><div class="ttname"><a href="strnum_8f.html#a3cb1ef014cf71b6456ec7fa46d51ed06">strnum</a></div><div class="ttdeci">subroutine strnum(STR, NUM)</div><div class="ttdoc">THIS SUBROUTINE DECODES AN INTEGER FROM A CHARACTER STRING. </div><div class="ttdef"><b>Definition:</b> <a href="strnum_8f_source.html#l00033">strnum.f:33</a></div></div>
-<div class="ttc" id="errwrt_8f_html_a65626d9a772648676146b62b596c2764"><div class="ttname"><a href="errwrt_8f.html#a65626d9a772648676146b62b596c2764">errwrt</a></div><div class="ttdeci">subroutine errwrt(STR)</div><div class="ttdoc">THIS SUBROUTINE WRITES A GIVEN ERROR OR OTHER DIAGNOSTIC MESSAGE TO A USER-SPECIFIED LOGICAL UNIT...</div><div class="ttdef"><b>Definition:</b> <a href="errwrt_8f_source.html#l00043">errwrt.f:43</a></div></div>
-<div class="ttc" id="bort_8f_html_a488d3a8cf930fb592a9fdaefcfa04ac4"><div class="ttname"><a href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort</a></div><div class="ttdeci">subroutine bort(STR)</div><div class="ttdoc">THIS SUBROUTINE WRITES (VIA BUFR ARCHIVE LIBRARY SUBROUTINE ERRWRT) A GIVEN ERROR STRING AND THEN CAL...</div><div class="ttdef"><b>Definition:</b> <a href="bort_8f_source.html#l00069">bort.f:69</a></div></div>
+<div class="ttc" id="errwrt_8f_html_a65626d9a772648676146b62b596c2764"><div class="ttname"><a href="errwrt_8f.html#a65626d9a772648676146b62b596c2764">errwrt</a></div><div class="ttdeci">subroutine errwrt(STR)</div><div class="ttdoc">This subroutine allows the user to specify a custom location for the logging of error and diagnostic ...</div><div class="ttdef"><b>Definition:</b> <a href="errwrt_8f_source.html#l00039">errwrt.f:39</a></div></div>
+<div class="ttc" id="bort_8f_html_a488d3a8cf930fb592a9fdaefcfa04ac4"><div class="ttname"><a href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort</a></div><div class="ttdeci">subroutine bort(STR)</div><div class="ttdoc">This subroutine calls subroutine errwrt() to log an error message, then calls subroutine bort_exit() ...</div><div class="ttdef"><b>Definition:</b> <a href="bort_8f_source.html#l00023">bort.f:23</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

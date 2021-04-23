@@ -1,17 +1,25 @@
 var NAVTREE =
 [
   [ "NCEPLIBS-bufr", "index.html", [
+    [ "Master BUFR Tables", "md__gpfs_dell2_emc_obsproc_noscrub_Jeff_8Ator_NCEPLIBS-bufr-GitHub_nceplibs-bufr_docs_dfbfmstab.html", null ],
+    [ "DX BUFR Tables", "md__gpfs_dell2_emc_obsproc_noscrub_Jeff_8Ator_NCEPLIBS-bufr-GitHub_nceplibs-bufr_docs_dfbftab.html", null ],
     [ "Release Notes", "md__gpfs_dell2_emc_obsproc_noscrub_Jeff_8Ator_NCEPLIBS-bufr-GitHub_nceplibs-bufr_docs_ReleaseNotes.html", null ],
     [ "User Guide", "md__gpfs_dell2_emc_obsproc_noscrub_Jeff_8Ator_NCEPLIBS-bufr-GitHub_nceplibs-bufr_docs_UserGuide.html", null ],
     [ "Sample Utilities", "md__gpfs_dell2_emc_obsproc_noscrub_Jeff_8Ator_NCEPLIBS-bufr-GitHub_nceplibs-bufr_utils_README.html", null ],
     [ "Data Types List", null, [
-      [ "Data Types List", "annotated.html", "annotated" ]
+      [ "Data Types List", "annotated.html", "annotated" ],
+      [ "Data Fields", "functions.html", [
+        [ "All", "functions.html", null ],
+        [ "Functions/Subroutines", "functions_func.html", null ],
+        [ "Variables", "functions_vars.html", null ]
+      ] ]
     ] ],
     [ "Files", null, [
       [ "File List", "files.html", "files" ],
       [ "Globals", "globals.html", [
         [ "All", "globals.html", "globals_dup" ],
-        [ "Functions/Subroutines", "globals_func.html", "globals_func" ]
+        [ "Functions/Subroutines", "globals_func.html", "globals_func" ],
+        [ "Variables", "globals_vars.html", null ]
       ] ]
     ] ]
   ] ]
@@ -20,11 +28,11 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "adn30_8f.html",
-"classmoda__nrv203.html#a68b8f627482812b2863894fd15783892",
-"gets1loc_8f_source.html",
-"moda__bitmaps_8F.html#a4dfbf13c3d38b007276cb0f5c5418396",
-"rdmsgw_8f_source.html",
-"usrtpl_8f.html"
+"closbf_8F_source.html",
+"ibfms_8f.html#a79737107a4ec70afa5efc8eb793d984b",
+"moda__mstabs_8F.html#a838b7486850fa872a343858f3864d723",
+"nemock_8f_source.html",
+"strcln_8f_source.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

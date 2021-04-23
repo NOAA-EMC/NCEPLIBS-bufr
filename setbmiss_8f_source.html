@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.3.2</span>
+   &#160;<span id="projectnumber">11.5.0</span>
    </div>
   </td>
  </tr>
@@ -92,7 +92,7 @@ $(document).ready(function(){initNavTree('setbmiss_8f_source.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -107,49 +107,59 @@ $(document).ready(function(){initNavTree('setbmiss_8f_source.html','');});
 </div><!--header-->
 <div class="contents">
 <a href="setbmiss_8f.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="comment">C&gt; @file</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment">C&gt; @author WOOLLEN @date 2012-09-15</span></div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;      </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="comment">C&gt; SETBMISS WILL ALLOW AN APPLICATION TO DEFINE THE SPECIAL</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="comment">C&gt;           VALUE &quot;BMISS&quot; WHICH DENOTES MISSING VALUES BOTH FOR READING</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="comment">C&gt;           FROM BUFR FILES AND FOR WRITING TO BUFR FILES. THE DEFAULT</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="comment">C&gt;           BUFRLIB MISSING VALUE IS SET TO 10E10 IN SUBROUTINE BFRINI.</span></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="comment">C&gt;</span></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="comment">C&gt; PROGRAM HISTORY LOG:</span></div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="comment">C&gt; 2012-09-15  J. WOOLLEN -- ORIGINAL AUTHOR</span></div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="comment">C&gt;</span></div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="comment">C&gt; USAGE:    CALL SETBMISS(XMISS)</span></div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="comment">C&gt;</span></div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment">C&gt;   INPUT ARGUMENTS:</span></div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="comment">C&gt;     XMISS - REAL*8 MISSING VALUE TO BE USED</span></div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="comment">C&gt;</span></div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="comment">C&gt;   OUTPUT ARGUMENTS:</span></div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="comment">C&gt;</span></div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment">C&gt; REMARKS:</span></div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="comment">C&gt;    THIS ROUTINE CALLS: OPENBF</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment">C&gt; @brief Define a customized placeholder value for &quot;missing&quot; data</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="comment">C&gt; This subroutine allows the user to specify a customized value to</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="comment">C&gt; represent &quot;missing&quot; data when reading from or writing to BUFR files.</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="comment">C&gt;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="comment">C&gt; @author J. Woollen</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="comment">C&gt; @date 2012-09-15</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="comment">C&gt;</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="comment">C&gt; @param[in] XMISS - real*8: New placeholder value to represent</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="comment">C&gt;                    &quot;missing&quot; data</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="comment">C&gt;</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="comment">C&gt; &lt;p&gt;This subroutine can be called at any time from within an</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment">C&gt; application program, and the value XMISS will then be treated as</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="comment">C&gt; &quot;missing&quot; when reading or writing BUFR data during all future</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="comment">C&gt; calls to any of the other BUFRLIB</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="comment">C&gt; [values-reading subroutines](@ref hierarchy) or</span></div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="comment">C&gt; [values-writing subroutines](@ref hierarchy).</span></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment">C&gt; Otherwise, if this subroutine is never called, a default</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="comment">C&gt; placeholder value of 10E10_8 is used for &quot;missing&quot;.</span></div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="comment">C&gt;</span></div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="comment">C&gt;    THIS ROUTINE IS CALLED BY: None</span></div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="comment">C&gt;                               (Normally called only by application</span></div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="comment">C&gt;                               programs)</span></div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="comment">C&gt; &lt;p&gt;Any data value can always be checked for equivalence to the</span></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="comment">C&gt; current &quot;missing&quot; value via a call to function ibfms().  See also</span></div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="comment">C&gt; function getbmiss().</span></div>
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="comment">C&gt;</span></div>
-<div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="setbmiss_8f.html#a5435d5821267af076f83cefdf3c1c7f8">   26</a></span>&#160;<span class="keyword">      SUBROUTINE </span><a class="code" href="setbmiss_8f.html#a5435d5821267af076f83cefdf3c1c7f8">setbmiss</a>(XMISS)</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;      include <span class="stringliteral">&#39;bufrlib.inc&#39;</span></div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;      <span class="keywordtype">REAL*8</span> xmiss</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="comment">c-----------------------------------------------------------------------</span></div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="comment">c-----------------------------------------------------------------------</span></div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;      CALL <a class="code" href="openbf_8F.html#a9bea9aeada166bd9037b959ca8452b28">openbf</a>(0,<span class="stringliteral">&#39;FIRST&#39;</span>,0)</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="comment">C&gt; @remarks</span></div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="comment">C&gt; - The value XMISS is never actually encoded within a BUFR data</span></div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="comment">C&gt; subset; rather, XMISS is a user-friendly placeholder value to</span></div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="comment">C&gt; represent &quot;missing&quot; data values within the scope of the</span></div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="comment">C&gt; application program.  In any actual BUFR data subset, &quot;missing&quot;</span></div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="comment">C&gt; values are always encoded as all bits set to 1, per WMO</span></div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="comment">C&gt; regulations.</span></div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="comment">C&gt; </span></div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="comment">C&gt; &lt;b&gt;Program history log:&lt;/b&gt;</span></div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="comment">C&gt; - 2012-09-15  J. Woollen -- Original author</span></div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="comment">C&gt;</span></div>
+<div class="line"><a name="l00037"></a><span class="lineno"><a class="line" href="setbmiss_8f.html#a5435d5821267af076f83cefdf3c1c7f8">   37</a></span>&#160;<span class="keyword">      SUBROUTINE </span><a class="code" href="setbmiss_8f.html#a5435d5821267af076f83cefdf3c1c7f8">setbmiss</a>(XMISS)</div>
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;      bmiss = xmiss</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;      <span class="keywordtype">USE </span><a class="code" href="modv__BMISS_8f90.html#classmodv__bmiss">modv_bmiss</a></div>
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;      <span class="keywordflow">RETURN</span></div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;      <span class="keywordflow">END</span></div>
-<div class="ttc" id="openbf_8F_html_a9bea9aeada166bd9037b959ca8452b28"><div class="ttname"><a href="openbf_8F.html#a9bea9aeada166bd9037b959ca8452b28">openbf</a></div><div class="ttdeci">subroutine openbf(LUNIT, IO, LUNDX)</div><div class="ttdoc">This subroutine identifies a new file to the BUFRLIB software for input or output operations...</div><div class="ttdef"><b>Definition:</b> <a href="openbf_8F_source.html#l00162">openbf.F:162</a></div></div>
-<div class="ttc" id="setbmiss_8f_html_a5435d5821267af076f83cefdf3c1c7f8"><div class="ttname"><a href="setbmiss_8f.html#a5435d5821267af076f83cefdf3c1c7f8">setbmiss</a></div><div class="ttdeci">subroutine setbmiss(XMISS)</div><div class="ttdoc">SETBMISS WILL ALLOW AN APPLICATION TO DEFINE THE SPECIAL VALUE &amp;quot;BMISS&amp;quot; WHICH DENOTES MISSING VALUES B...</div><div class="ttdef"><b>Definition:</b> <a href="setbmiss_8f_source.html#l00026">setbmiss.f:26</a></div></div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;      <span class="keywordtype">REAL*8</span> xmiss</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="comment">c-----------------------------------------------------------------------</span></div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="comment">c-----------------------------------------------------------------------</span></div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;      CALL <a class="code" href="openbf_8F.html#a9bea9aeada166bd9037b959ca8452b28">openbf</a>(0,<span class="stringliteral">&#39;FIRST&#39;</span>,0)</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;      bmiss = xmiss</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;      <span class="keywordflow">RETURN</span></div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;      <span class="keywordflow">END</span></div>
+<div class="ttc" id="openbf_8F_html_a9bea9aeada166bd9037b959ca8452b28"><div class="ttname"><a href="openbf_8F.html#a9bea9aeada166bd9037b959ca8452b28">openbf</a></div><div class="ttdeci">subroutine openbf(LUNIT, IO, LUNDX)</div><div class="ttdoc">This subroutine connects a new file to the BUFRLIB software for input or output operations. </div><div class="ttdef"><b>Definition:</b> <a href="openbf_8F_source.html#l00157">openbf.F:157</a></div></div>
+<div class="ttc" id="setbmiss_8f_html_a5435d5821267af076f83cefdf3c1c7f8"><div class="ttname"><a href="setbmiss_8f.html#a5435d5821267af076f83cefdf3c1c7f8">setbmiss</a></div><div class="ttdeci">subroutine setbmiss(XMISS)</div><div class="ttdoc">This subroutine allows the user to specify a customized value to represent &amp;quot;missing&amp;quot; data when readin...</div><div class="ttdef"><b>Definition:</b> <a href="setbmiss_8f_source.html#l00037">setbmiss.f:37</a></div></div>
+<div class="ttc" id="modv__BMISS_8f90_html_classmodv__bmiss"><div class="ttname"><a href="modv__BMISS_8f90.html#classmodv__bmiss">modv_bmiss</a></div><div class="ttdoc">This module declares and initializes the BMISS variable. </div><div class="ttdef"><b>Definition:</b> <a href="modv__BMISS_8f90_source.html#l00009">modv_BMISS.f90:9</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

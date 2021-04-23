@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.3.2</span>
+   &#160;<span id="projectnumber">11.5.0</span>
    </div>
   </td>
  </tr>
@@ -92,7 +92,7 @@ $(document).ready(function(){initNavTree('dxdump_8f.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -109,17 +109,19 @@ $(document).ready(function(){initNavTree('dxdump_8f.html','');});
 </div><!--header-->
 <div class="contents">
 
+<p>Print the contents of a DX BUFR table.  
+<a href="#details">More...</a></p>
+
 <p><a href="dxdump_8f_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions/Subroutines</h2></td></tr>
 <tr class="memitem:a0e87c9f4531cca1b96fdb05397f1348d"><td class="memItemLeft" align="right" valign="top">subroutine&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="dxdump_8f.html#a0e87c9f4531cca1b96fdb05397f1348d">dxdump</a> (LUNIT, LDXOT)</td></tr>
-<tr class="memdesc:a0e87c9f4531cca1b96fdb05397f1348d"><td class="mdescLeft">&#160;</td><td class="mdescRight">THIS SUBROUTINE WRITES, TO LOGICAL UNIT LDXOT, AN ASCII COPY OF THE BUFR DICTIONARY TABLE INFORMATION ASSOCIATED WITH THE BUFR FILE DEFINED BY LOGICAL UNIT LUNIT.  <a href="#a0e87c9f4531cca1b96fdb05397f1348d">More...</a><br/></td></tr>
+<tr class="memdesc:a0e87c9f4531cca1b96fdb05397f1348d"><td class="mdescLeft">&#160;</td><td class="mdescRight">This subroutine prints a copy of the DX BUFR table associated with a specified Fortran logical unit.  <a href="#a0e87c9f4531cca1b96fdb05397f1348d">More...</a><br/></td></tr>
 <tr class="separator:a0e87c9f4531cca1b96fdb05397f1348d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><dl class="section author"><dt>Author</dt><dd>ATOR </dd></dl>
-<dl class="section date"><dt>Date</dt><dd>2004-08-18 </dd></dl>
+<div class="textblock"><p>Print the contents of a DX BUFR table. </p>
 
 <p>Definition in file <a class="el" href="dxdump_8f_source.html">dxdump.f</a>.</p>
 </div><h2 class="groupheader">Function/Subroutine Documentation</h2>
@@ -147,15 +149,34 @@ Functions/Subroutines</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>THIS SUBROUTINE WRITES, TO LOGICAL UNIT LDXOT, AN ASCII COPY OF THE BUFR DICTIONARY TABLE INFORMATION ASSOCIATED WITH THE BUFR FILE DEFINED BY LOGICAL UNIT LUNIT. </p>
-<p>IT IS ESPECIALLY USEFUL FOR DETERMINING THE CONTENTS OF ARCHIVE BUFR FILES WHICH MAY HAVE SUCH INFORMATION EMBEDDED AS DX MESSAGES AT THE FRONT OF THE FILE. THE OUTPUT FILE WILL BE IN A FORMAT SUITABLE FOR SUBSEQUENT INPUT AS A USER-DEFINED DICTIONARY TABLES FILE TO BUFR ARCHIVE LIBRARY SUBROUTINE OPENBF, AND IN THAT SENSE THIS SUBROUTINE CAN BE VIEWED AS THE LOGICAL INVERSE OF BUFR ARCHIVE LIBRARY SUBROUTINE RDUSDX. NOTE THAT THE BUFR FILE ASSOCIATED WITH LOGICAL UNIT LUNIT MUST HAVE ALREADY BEEN IDENTIFIED TO THE BUFR ARCHIVE LIBRARY SOFTWARE VIA A PRIOR CALL TO OPENBF.</p>
-<p>PROGRAM HISTORY LOG: 2004-08-18 J. ATOR &ndash; ORIGINAL AUTHOR 2007-01-19 J. ATOR &ndash; CORRECTED OUTPUT FOR REFERENCE VALUES LONGER THAN 8 DIGITS 2014-12-10 J. ATOR &ndash; USE MODULES INSTEAD OF COMMON BLOCKS</p>
-<p>USAGE: CALL DXDUMP (LUNIT, LDXOT) INPUT ARGUMENT LIST: LUNIT - INTEGER: FORTRAN LOGICAL UNIT NUMBER FOR BUFR FILE LDXOT - INTEGER: FORTRAN LOGICAL UNIT NUMBER FOR OUTPUT FILE</p>
-<p>INPUT FILES: UNIT "LUNIT" - BUFR FILE WITH EMBEDDED DX DICTIONARY MESSAGES</p>
-<p>OUTPUT FILES: UNIT "LDXOT" - ASCII VERSION OF DX DICTIONARY INFORMATION, IN FORMAT SUITABLE FOR SUBSEQUENT INPUT TO OPENBF</p>
-<p>REMARKS: THIS ROUTINE CALLS: BORT NEMTBD STATUS STRSUC THIS ROUTINE IS CALLED BY: None Normally called only by application programs. </p>
+<p>This subroutine prints a copy of the DX BUFR table associated with a specified Fortran logical unit. </p>
+<p>This subroutine is especially useful for learning the structure of existing BUFR files which contain DX BUFR table information embedded as BUFR messages within those files. The DX BUFR table is printed using the same ASCII format described in the documentation for <a class="el" href="md__gpfs_dell2_emc_obsproc_noscrub_Jeff_8Ator_NCEPLIBS-bufr-GitHub_nceplibs-bufr_docs_dfbftab.html#dfbftab">DX BUFR Tables</a>, so the output file is suitable for use as Fortran logical unit LUNDX in subsequent calls to subroutine <a class="el" href="openbf_8F.html#a9bea9aeada166bd9037b959ca8452b28" title="This subroutine connects a new file to the BUFRLIB software for input or output operations. ">openbf()</a> for reading or writing additional BUFR files with the same structure.</p>
+<dl class="section author"><dt>Author</dt><dd>J. Ator </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2004-08-18</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">LUNIT</td><td>- integer: Fortran logical unit number for BUFR file </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">LDXOT</td><td>- integer: Fortran logical unit number for print output</td></tr>
+  </table>
+  </dd>
+</dl>
+<p>Logical unit LUNIT must be open for either input or output operations via a previous call to subroutine <a class="el" href="openbf_8F.html#a9bea9aeada166bd9037b959ca8452b28" title="This subroutine connects a new file to the BUFRLIB software for input or output operations. ">openbf()</a>. Logical unit LDXOT must already be associated with a filename on the local system, typically via a Fortran "OPEN" statement.</p>
+<dl class="section remark"><dt>Remarks</dt><dd><ul>
+<li>This subroutine only prints the DX BUFR table that is currently in scope for logical unit LUNIT. Therefore, if logical unit LUNIT contains multiple embedded DX BUFR tables, then multiple calls to this subroutine must be made to print out all of the tables, once while each table is in scope for a data subset defined within that particular table.</li>
+</ul>
+</dd></dl>
+<p><b>Program history log:</b></p>
+<ul>
+<li>2004-08-18 J. Ator &ndash; Original author</li>
+<li>2007-01-19 J. Ator &ndash; Corrected output for reference values longer than 8 digits</li>
+<li>2014-12-10 J. Ator &ndash; Use modules instead of COMMON blocks </li>
+</ul>
 
-<p>Definition at line <a class="el" href="dxdump_8f_source.html#l00041">41</a> of file <a class="el" href="dxdump_8f_source.html">dxdump.f</a>.</p>
+<p>Definition at line <a class="el" href="dxdump_8f_source.html#l00044">44</a> of file <a class="el" href="dxdump_8f_source.html">dxdump.f</a>.</p>
+
+<p>References <a class="el" href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort()</a>, <a class="el" href="nemtbd_8f.html#ac3fb25908c829f741ccd1d440d6051d9">nemtbd()</a>, <a class="el" href="status_8f.html#a22292e7a69c411a961168198d259f336">status()</a>, and <a class="el" href="strsuc_8f.html#a0ad7f0b59d89e0bdd1e9d73947b19e7e">strsuc()</a>.</p>
+
+<p>Referenced by <a class="el" href="debufr_8f.html#a60dcf0fcb9d3a56fe561406bf5b16a9e">fdebufr()</a>.</p>
 
 </div>
 </div>

@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.3.2</span>
+   &#160;<span id="projectnumber">11.5.0</span>
    </div>
   </td>
  </tr>
@@ -92,7 +92,7 @@ $(document).ready(function(){initNavTree('cfe_8h_source.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -107,33 +107,60 @@ $(document).ready(function(){initNavTree('cfe_8h_source.html','');});
 </div><!--header-->
 <div class="contents">
 <a href="cfe_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;</div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#define MAX_MEANING_LEN 150</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor"></span></div>
-<div class="line"><a name="l00007"></a><span class="lineno"><a class="line" href="cfe_8h.html">    7</a></span>&#160;<span class="keyword">struct </span><a class="code" href="cfe_8h.html#structcode__flag__entry">code_flag_entry</a> {</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;    f77int iffxyn;</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;    <span class="comment">/* Bitwise representation of FXY number to which this entry belongs. */</span></div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;    f77int ifval;</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;    <span class="comment">/* Code figure or bit number. */</span></div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;    <span class="keywordtype">char</span> ifmeaning[MAX_MEANING_LEN+1];</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;    <span class="comment">/* Meaning corresponding to ifval. */</span></div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    f77int iffxynd;</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    <span class="comment">/* Bitwise representation of FXY number upon which this entry is</span></div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="comment">       dependent, if any.  Set to (-1) if no dependency. */</span></div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    f77int ifvald;</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    <span class="comment">/* Code figure or bit number upon which this entry is dependent,</span></div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment">       if any.  Set to (-1) if no dependency. */</span></div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;};</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="preprocessor">#ifdef IN_INITTBF</span></div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="preprocessor"></span>    <span class="keyword">struct </span><a class="code" href="cfe_8h.html#structcode__flag__entry">code_flag_entry</a> *cfe;  <span class="comment">/* will automatically initialize to NULL */</span></div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    f77int mxmtbf;</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    f77int nmtf;</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="preprocessor">#else</span></div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="preprocessor"></span>    <span class="keyword">extern</span> <span class="keyword">struct </span><a class="code" href="cfe_8h.html#structcode__flag__entry">code_flag_entry</a> *cfe;</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    <span class="keyword">extern</span> f77int mxmtbf;</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    <span class="keyword">extern</span> f77int nmtf;</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="cfe_8h_html_structcode__flag__entry"><div class="ttname"><a href="cfe_8h.html#structcode__flag__entry">code_flag_entry</a></div><div class="ttdef"><b>Definition:</b> <a href="cfe_8h_source.html#l00007">cfe.h:7</a></div></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#define MAX_MEANING_LEN 150</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor"></span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#ifdef UNDERSCORE</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define cmpstia1   cmpstia1_</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define cmpstia2   cmpstia2_</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define dlloctbf   dlloctbf_</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define inittbf    inittbf_</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define sorttbf    sorttbf_</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define srchtbf    srchtbf_</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define strtbfe    strtbfe_</span></div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="preprocessor"></span></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="keywordtype">int</span> <a class="code" href="cfe_8h.html#a6184cab6384681f5f52c295fb6998216">cmpstia1</a>( <span class="keyword">const</span> <span class="keywordtype">void</span> *, <span class="keyword">const</span> <span class="keywordtype">void</span> * );</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="keywordtype">int</span> <a class="code" href="cfe_8h.html#aa09810b363464d0f0b1e3a5b7f011a01">cmpstia2</a>( <span class="keyword">const</span> <span class="keywordtype">void</span> *, <span class="keyword">const</span> <span class="keywordtype">void</span> * );</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="keywordtype">void</span> <a class="code" href="cfe_8h.html#a1242c4d43753a37cdb9abfb3f01e5583">dlloctbf</a>( <span class="keywordtype">void</span> );</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="keywordtype">void</span> <a class="code" href="cfe_8h.html#aa06057bdd5b8456df9b33ec96a5cc57e">inittbf</a>( <span class="keywordtype">void</span> );</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="keywordtype">void</span> <a class="code" href="cfe_8h.html#af9bdd990bf256341aa36e1f0611132de">sorttbf</a>( <span class="keywordtype">void</span> );</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="keywordtype">void</span> <a class="code" href="cfe_8h.html#acc1aa6de33a783e043e47e2522c688e3">srchtbf</a>( f77int *, f77int *, f77int *, f77int *, f77int *,</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;        <span class="keywordtype">char</span> *, f77int *, f77int *, f77int * );</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="keywordtype">void</span> <a class="code" href="cfe_8h.html#a18da596b767aa8c20953f8085b0c8c20">strtbfe</a>( f77int *, f77int *, <span class="keywordtype">char</span> *, f77int *, f77int *, f77int * );</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;</div>
+<div class="line"><a name="l00033"></a><span class="lineno"><a class="line" href="cfe_8h.html">   33</a></span>&#160;<span class="keyword">struct </span><a class="code" href="cfe_8h.html#structcode__flag__entry">code_flag_entry</a> {</div>
+<div class="line"><a name="l00051"></a><span class="lineno"><a class="line" href="cfe_8h.html#ab790bbdcda38d1938f5b9693850a5f7b">   51</a></span>&#160;    f77int <a class="code" href="cfe_8h.html#ab790bbdcda38d1938f5b9693850a5f7b">iffxyn</a>;</div>
+<div class="line"><a name="l00052"></a><span class="lineno"><a class="line" href="cfe_8h.html#a4a7abbb73aaab68de079e3a2fdd49cc9">   52</a></span>&#160;    f77int <a class="code" href="cfe_8h.html#a4a7abbb73aaab68de079e3a2fdd49cc9">ifval</a>;</div>
+<div class="line"><a name="l00053"></a><span class="lineno"><a class="line" href="cfe_8h.html#a0bf0961cddd11e2ae6903f9894c762c2">   53</a></span>&#160;    <span class="keywordtype">char</span> <a class="code" href="cfe_8h.html#a0bf0961cddd11e2ae6903f9894c762c2">ifmeaning</a>[MAX_MEANING_LEN+1];</div>
+<div class="line"><a name="l00054"></a><span class="lineno"><a class="line" href="cfe_8h.html#a388cc9be4e322fae05ac13a71e98b088">   54</a></span>&#160;    f77int <a class="code" href="cfe_8h.html#a388cc9be4e322fae05ac13a71e98b088">iffxynd</a>;</div>
+<div class="line"><a name="l00055"></a><span class="lineno"><a class="line" href="cfe_8h.html#a73c559bb313a335ee0125bab43307a65">   55</a></span>&#160;    f77int <a class="code" href="cfe_8h.html#a73c559bb313a335ee0125bab43307a65">ifvald</a>;</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;};</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;<span class="preprocessor">#ifdef IN_INITTBF</span></div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;<span class="preprocessor"></span>    <span class="keyword">struct </span><a class="code" href="cfe_8h.html#structcode__flag__entry">code_flag_entry</a> *<a class="code" href="cfe_8h.html#aca17d2b0ff92068c3f23e96ec9703411">cfe</a>;  <span class="comment">/* will automatically initialize to NULL */</span></div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    f77int <a class="code" href="cfe_8h.html#a259df6152a449c45ee997f874b625873">mxmtbf</a>;</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    f77int <a class="code" href="cfe_8h.html#a442ef62aedebd6a96bcfdf71530f655b">nmtf</a>;</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;<span class="preprocessor">#else</span></div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;<span class="preprocessor"></span>    <span class="keyword">extern</span> <span class="keyword">struct </span><a class="code" href="cfe_8h.html#structcode__flag__entry">code_flag_entry</a> *<a class="code" href="cfe_8h.html#aca17d2b0ff92068c3f23e96ec9703411">cfe</a>;</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    <span class="keyword">extern</span> f77int <a class="code" href="cfe_8h.html#a259df6152a449c45ee997f874b625873">mxmtbf</a>;</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    <span class="keyword">extern</span> f77int <a class="code" href="cfe_8h.html#a442ef62aedebd6a96bcfdf71530f655b">nmtf</a>;</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="cfe_8h_html_a259df6152a449c45ee997f874b625873"><div class="ttname"><a href="cfe_8h.html#a259df6152a449c45ee997f874b625873">mxmtbf</a></div><div class="ttdeci">f77int mxmtbf</div><div class="ttdoc">Maximum number of master Code/Flag table entries, counting across all individual Code/Flag tables...</div></div>
+<div class="ttc" id="cfe_8h_html_a4a7abbb73aaab68de079e3a2fdd49cc9"><div class="ttname"><a href="cfe_8h.html#a4a7abbb73aaab68de079e3a2fdd49cc9">code_flag_entry::ifval</a></div><div class="ttdeci">f77int ifval</div><div class="ttdoc">Code figure or bit number. </div><div class="ttdef"><b>Definition:</b> <a href="cfe_8h_source.html#l00052">cfe.h:52</a></div></div>
+<div class="ttc" id="cfe_8h_html_af9bdd990bf256341aa36e1f0611132de"><div class="ttname"><a href="cfe_8h.html#af9bdd990bf256341aa36e1f0611132de">sorttbf</a></div><div class="ttdeci">void sorttbf(void)</div><div class="ttdoc">This subroutine sorts the entries within the internal memory structure for storage of master Code/Fla...</div><div class="ttdef"><b>Definition:</b> <a href="sorttbf_8c_source.html#l00018">sorttbf.c:18</a></div></div>
+<div class="ttc" id="cfe_8h_html_a388cc9be4e322fae05ac13a71e98b088"><div class="ttname"><a href="cfe_8h.html#a388cc9be4e322fae05ac13a71e98b088">code_flag_entry::iffxynd</a></div><div class="ttdeci">f77int iffxynd</div><div class="ttdoc">Bitwise representation of FXY number upon which this entry is dependent, if any. </div><div class="ttdef"><b>Definition:</b> <a href="cfe_8h_source.html#l00054">cfe.h:54</a></div></div>
+<div class="ttc" id="cfe_8h_html_a6184cab6384681f5f52c295fb6998216"><div class="ttname"><a href="cfe_8h.html#a6184cab6384681f5f52c295fb6998216">cmpstia1</a></div><div class="ttdeci">int cmpstia1(const void *, const void *)</div><div class="ttdoc">This function defines a comparison between two entries within the internal memory structure for stora...</div><div class="ttdef"><b>Definition:</b> <a href="cmpstia1_8c_source.html#l00032">cmpstia1.c:32</a></div></div>
+<div class="ttc" id="cfe_8h_html_a0bf0961cddd11e2ae6903f9894c762c2"><div class="ttname"><a href="cfe_8h.html#a0bf0961cddd11e2ae6903f9894c762c2">code_flag_entry::ifmeaning</a></div><div class="ttdeci">char ifmeaning[MAX_MEANING_LEN+1]</div><div class="ttdoc">Meaning corresponding to ifval. </div><div class="ttdef"><b>Definition:</b> <a href="cfe_8h_source.html#l00053">cfe.h:53</a></div></div>
+<div class="ttc" id="cfe_8h_html_aa06057bdd5b8456df9b33ec96a5cc57e"><div class="ttname"><a href="cfe_8h.html#aa06057bdd5b8456df9b33ec96a5cc57e">inittbf</a></div><div class="ttdeci">void inittbf(void)</div><div class="ttdoc">This subroutine initializes the internal memory structure for storage of master Code/Flag table entri...</div><div class="ttdef"><b>Definition:</b> <a href="inittbf_8c_source.html#l00020">inittbf.c:20</a></div></div>
+<div class="ttc" id="cfe_8h_html_a18da596b767aa8c20953f8085b0c8c20"><div class="ttname"><a href="cfe_8h.html#a18da596b767aa8c20953f8085b0c8c20">strtbfe</a></div><div class="ttdeci">void strtbfe(f77int *, f77int *, char *, f77int *, f77int *, f77int *)</div><div class="ttdoc">This subroutine adds a new entry to the internal memory structure for storage of master Code/Flag tab...</div><div class="ttdef"><b>Definition:</b> <a href="strtbfe_8c_source.html#l00031">strtbfe.c:31</a></div></div>
+<div class="ttc" id="cfe_8h_html_a442ef62aedebd6a96bcfdf71530f655b"><div class="ttname"><a href="cfe_8h.html#a442ef62aedebd6a96bcfdf71530f655b">nmtf</a></div><div class="ttdeci">f77int nmtf</div><div class="ttdoc">Number of stored master Code/Flag table entries in cfe, up to a maximum of MXMTBF. </div></div>
+<div class="ttc" id="cfe_8h_html_aa09810b363464d0f0b1e3a5b7f011a01"><div class="ttname"><a href="cfe_8h.html#aa09810b363464d0f0b1e3a5b7f011a01">cmpstia2</a></div><div class="ttdeci">int cmpstia2(const void *, const void *)</div><div class="ttdoc">This function defines a comparison between two entries within the internal memory structure for stora...</div><div class="ttdef"><b>Definition:</b> <a href="cmpstia2_8c_source.html#l00032">cmpstia2.c:32</a></div></div>
+<div class="ttc" id="cfe_8h_html_structcode__flag__entry"><div class="ttname"><a href="cfe_8h.html#structcode__flag__entry">code_flag_entry</a></div><div class="ttdoc">This structure contains array and variable declarations used to store a master Code/Flag table entry...</div><div class="ttdef"><b>Definition:</b> <a href="cfe_8h_source.html#l00033">cfe.h:33</a></div></div>
+<div class="ttc" id="cfe_8h_html_a73c559bb313a335ee0125bab43307a65"><div class="ttname"><a href="cfe_8h.html#a73c559bb313a335ee0125bab43307a65">code_flag_entry::ifvald</a></div><div class="ttdeci">f77int ifvald</div><div class="ttdoc">Code figure or bit number upon which this entry is dependent, if any. </div><div class="ttdef"><b>Definition:</b> <a href="cfe_8h_source.html#l00055">cfe.h:55</a></div></div>
+<div class="ttc" id="cfe_8h_html_ab790bbdcda38d1938f5b9693850a5f7b"><div class="ttname"><a href="cfe_8h.html#ab790bbdcda38d1938f5b9693850a5f7b">code_flag_entry::iffxyn</a></div><div class="ttdeci">f77int iffxyn</div><div class="ttdoc">Bitwise representation of FXY number to which this entry belongs. </div><div class="ttdef"><b>Definition:</b> <a href="cfe_8h_source.html#l00051">cfe.h:51</a></div></div>
+<div class="ttc" id="cfe_8h_html_aca17d2b0ff92068c3f23e96ec9703411"><div class="ttname"><a href="cfe_8h.html#aca17d2b0ff92068c3f23e96ec9703411">cfe</a></div><div class="ttdeci">struct code_flag_entry * cfe</div><div class="ttdoc">Master Code/Flag table entries. </div></div>
+<div class="ttc" id="cfe_8h_html_a1242c4d43753a37cdb9abfb3f01e5583"><div class="ttname"><a href="cfe_8h.html#a1242c4d43753a37cdb9abfb3f01e5583">dlloctbf</a></div><div class="ttdeci">void dlloctbf(void)</div><div class="ttdoc">This subroutine frees any memory that was dynamically allocated during a previous call to subroutine ...</div><div class="ttdef"><b>Definition:</b> <a href="dlloctbf_8c_source.html#l00018">dlloctbf.c:18</a></div></div>
+<div class="ttc" id="cfe_8h_html_acc1aa6de33a783e043e47e2522c688e3"><div class="ttname"><a href="cfe_8h.html#acc1aa6de33a783e043e47e2522c688e3">srchtbf</a></div><div class="ttdeci">void srchtbf(f77int *, f77int *, f77int *, f77int *, f77int *, char *, f77int *, f77int *, f77int *)</div><div class="ttdoc">This subroutine searches for a specified FXY number and associated value (code figure or bit number) ...</div><div class="ttdef"><b>Definition:</b> <a href="srchtbf_8c_source.html#l00072">srchtbf.c:72</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

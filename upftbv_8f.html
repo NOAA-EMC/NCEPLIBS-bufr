@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.3.2</span>
+   &#160;<span id="projectnumber">11.5.0</span>
    </div>
   </td>
  </tr>
@@ -92,7 +92,7 @@ $(document).ready(function(){initNavTree('upftbv_8f.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -109,17 +109,19 @@ $(document).ready(function(){initNavTree('upftbv_8f.html','');});
 </div><!--header-->
 <div class="contents">
 
+<p>Determine the bit settings equivalent to a numerical flag table value.  
+<a href="#details">More...</a></p>
+
 <p><a href="upftbv_8f_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions/Subroutines</h2></td></tr>
 <tr class="memitem:ad0ea8840d6f3cfeed493151e813d67c8"><td class="memItemLeft" align="right" valign="top">subroutine&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="upftbv_8f.html#ad0ea8840d6f3cfeed493151e813d67c8">upftbv</a> (LUNIT, NEMO, VAL, MXIB, IBIT, NIB)</td></tr>
-<tr class="memdesc:ad0ea8840d6f3cfeed493151e813d67c8"><td class="mdescLeft">&#160;</td><td class="mdescRight">GIVEN A MNEMONIC OF TYPE "FLAG TABLE" ALONG WITH ITS CORRESPONDING VALUE, THIS SUBROUTINE DETERMINES THE BIT SETTINGS EQUIVALANT TO THAT VALUE.  <a href="#ad0ea8840d6f3cfeed493151e813d67c8">More...</a><br/></td></tr>
+<tr class="memdesc:ad0ea8840d6f3cfeed493151e813d67c8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Given a Table B mnemonic with flag table units and a corresponding numerical data value, this subroutine determines the bit settings equivalent to that numerical value.  <a href="#ad0ea8840d6f3cfeed493151e813d67c8">More...</a><br/></td></tr>
 <tr class="separator:ad0ea8840d6f3cfeed493151e813d67c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><dl class="section author"><dt>Author</dt><dd>JATOR </dd></dl>
-<dl class="section date"><dt>Date</dt><dd>2005-11-29 </dd></dl>
+<div class="textblock"><p>Determine the bit settings equivalent to a numerical flag table value. </p>
 
 <p>Definition in file <a class="el" href="upftbv_8f_source.html">upftbv.f</a>.</p>
 </div><h2 class="groupheader">Function/Subroutine Documentation</h2>
@@ -171,14 +173,36 @@ Functions/Subroutines</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>GIVEN A MNEMONIC OF TYPE "FLAG TABLE" ALONG WITH ITS CORRESPONDING VALUE, THIS SUBROUTINE DETERMINES THE BIT SETTINGS EQUIVALANT TO THAT VALUE. </p>
-<p>NOTE THAT THIS SUBROUTINE IS THE LOGICAL INVERSE OF BUFRLIB SUBROUTINE PKFTBV.</p>
-<p>PROGRAM HISTORY LOG: 2005-11-29 J. ATOR &ndash; ORIGINAL VERSION 2014-12-10 J. ATOR &ndash; USE MODULES INSTEAD OF COMMON BLOCKS</p>
-<p>USAGE: UPFTBV (LUNIT,NEMO,VAL,MXIB,IBIT,NIB) INPUT ARGUMENT LIST: LUNIT - INTEGER: FORTRAN LOGICAL UNIT NUMBER FOR BUFR FILE NEMO - CHARACTER*(*): MNEMONIC OF TYPE "FLAG TABLE" VAL - REAL*8: VALUE CORRESPONDING TO NEMO MXIB - INTEGER: DIMENSIONED SIZE OF IBIT IN CALLING PROGRAM</p>
-<p>OUTPUT ARGUMENT LIST: IBIT - INTEGER(*): BIT NUMBERS WHICH WERE SET TO "ON" (I.E. SET TO "1") IN VAL NIB - INTEGER: NUMBER OF BIT NUMBERS RETURNED IN IBIT</p>
-<p>REMARKS: THIS ROUTINE CALLS: BORT NEMTAB STATUS VALX THIS ROUTINE IS CALLED BY: UFBDMP UFDUMP Also called by application programs. </p>
+<p>Given a Table B mnemonic with flag table units and a corresponding numerical data value, this subroutine determines the bit settings equivalent to that numerical value. </p>
+<dl class="section author"><dt>Author</dt><dd>J. Ator </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2005-11-29</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">LUNIT</td><td>- integer: Fortran logical unit number for BUFR file </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">NEMO</td><td>- character*(*): Table B mnemonic with flag table units </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">VAL</td><td>- real*8: Value corresponding to NEMO </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">MXIB</td><td>- integer: Dimensioned size (in integers) of IBIT; used by the subroutine to ensure that it doesn't overflow the IBIT array </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">IBIT</td><td>- integer(*): Bit numbers which were set to "On" (i.e. set to "1") in VAL </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">NIB</td><td>- integer: Number of bit numbers returned in IBIT</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section remark"><dt>Remarks</dt><dd><ul>
+<li>This subroutine is the logical inverse of function <a class="el" href="pkftbv_8f.html#a7a3cf05589decb31f83a7c21eba3879c" title="This function computes the numerical value equivalent to the setting of bit #IBIT within a flag table...">pkftbv()</a>.</li>
+<li>According to the WMO standard, bits within a bit field are numbered from left to right, so bit #1 is always the high-order (i.e. most significant) bit in any bit field.</li>
+</ul>
+</dd></dl>
+<p><b>Program history log:</b></p>
+<ul>
+<li>2005-11-29 J. Ator &ndash; Original version</li>
+<li>2014-12-10 J. Ator &ndash; Use modules instead of COMMON blocks </li>
+</ul>
 
-<p>Definition at line <a class="el" href="upftbv_8f_source.html#l00030">30</a> of file <a class="el" href="upftbv_8f_source.html">upftbv.f</a>.</p>
+<p>Definition at line <a class="el" href="upftbv_8f_source.html#l00035">35</a> of file <a class="el" href="upftbv_8f_source.html">upftbv.f</a>.</p>
+
+<p>References <a class="el" href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort()</a>, <a class="el" href="nemtab_8f.html#a3f3fb5a378c52dac83cb4fce27ceb712">nemtab()</a>, <a class="el" href="status_8f.html#a22292e7a69c411a961168198d259f336">status()</a>, and <a class="el" href="valx_8f.html#a0b8041e934c1c4ae5f455e8c6f4e7daf">valx()</a>.</p>
+
+<p>Referenced by <a class="el" href="ufbdmp_8f.html#a27911114237cb390a24f44e0e0d706a3">ufbdmp()</a>, and <a class="el" href="ufdump_8f.html#a1da91a86182d2e03c944a044f8a06813">ufdump()</a>.</p>
 
 </div>
 </div>

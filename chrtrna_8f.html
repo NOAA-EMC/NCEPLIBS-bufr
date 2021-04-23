@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.3.2</span>
+   &#160;<span id="projectnumber">11.5.0</span>
    </div>
   </td>
  </tr>
@@ -92,7 +92,7 @@ $(document).ready(function(){initNavTree('chrtrna_8f.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -109,17 +109,19 @@ $(document).ready(function(){initNavTree('chrtrna_8f.html','');});
 </div><!--header-->
 <div class="contents">
 
+<p>Copy a specified number of characters from an array into a string.  
+<a href="#details">More...</a></p>
+
 <p><a href="chrtrna_8f_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions/Subroutines</h2></td></tr>
 <tr class="memitem:a5aefd6eae9d5a0bec3756a498a219155"><td class="memItemLeft" align="right" valign="top">subroutine&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="chrtrna_8f.html#a5aefd6eae9d5a0bec3756a498a219155">chrtrna</a> (STR, CHR, N)</td></tr>
-<tr class="memdesc:a5aefd6eae9d5a0bec3756a498a219155"><td class="mdescLeft">&#160;</td><td class="mdescRight">THIS SUBROUTINE COPIES A SPECIFIED NUMBER OF CHARACTERS FROM A CHARACTER ARRAY INTO A CHARACTER STRING.  <a href="#a5aefd6eae9d5a0bec3756a498a219155">More...</a><br/></td></tr>
+<tr class="memdesc:a5aefd6eae9d5a0bec3756a498a219155"><td class="mdescLeft">&#160;</td><td class="mdescRight">This subroutine copies a specified number of characters from an array of characters into a character string.  <a href="#a5aefd6eae9d5a0bec3756a498a219155">More...</a><br/></td></tr>
 <tr class="separator:a5aefd6eae9d5a0bec3756a498a219155"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><dl class="section author"><dt>Author</dt><dd>WOOLLEN </dd></dl>
-<dl class="section date"><dt>Date</dt><dd>1994-01-06 </dd></dl>
+<div class="textblock"><p>Copy a specified number of characters from an array into a string. </p>
 
 <p>Definition in file <a class="el" href="chrtrna_8f_source.html">chrtrna.f</a>.</p>
 </div><h2 class="groupheader">Function/Subroutine Documentation</h2>
@@ -153,14 +155,33 @@ Functions/Subroutines</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>THIS SUBROUTINE COPIES A SPECIFIED NUMBER OF CHARACTERS FROM A CHARACTER ARRAY INTO A CHARACTER STRING. </p>
-<p>THE DIFFERENCE BETWEEN THIS SUBROUTINE AND BUFR ARCHIVE LIBRARY SUBROUTINE CHRTRN IS THAT, IN THIS SUBROUTINE, THE INPUT CHARACTER ARRAY IS ASSUMED TO BE IN ASCII; THUS, FOR CASES WHERE THE NATIVE MACHINE IS EBCDIC, AN ASCII TO EBCDIC TRANSLATION IS DONE ON THE FINAL STRING BEFORE IT IS OUTPUT.</p>
-<p>PROGRAM HISTORY LOG: 1994-01-06 J. WOOLLEN &ndash; ORIGINAL AUTHOR 2003-11-04 J. ATOR &ndash; ADDED DOCUMENTATION 2003-11-04 S. BENDER &ndash; ADDED REMARKS/BUFRLIB ROUTINE INTERDEPENDENCIES 2003-11-04 D. KEYSER &ndash; UNIFIED/PORTABLE FOR WRF; ADDED HISTORY DOCUMENTATION</p>
-<p>USAGE: CALL CHRTRNA (STR, CHR, N) INPUT ARGUMENT LIST: CHR - CHARACTER*1: N-WORD CHARACTER ARRAY IN ASCII N - INTEGER: NUMBER OF CHARACTERS TO COPY</p>
-<p>OUTPUT ARGUMENT LIST: STR - CHARACTER*(*): CHARACTER STRING IN ASCII OR EBCDIC, DEPENDING ON NATIVE MACHINE</p>
-<p>REMARKS: THIS ROUTINE CALLS: IPKM IUPM THIS ROUTINE IS CALLED BY: ICHKSTR Normally not called by any application programs. </p>
+<p>This subroutine copies a specified number of characters from an array of characters into a character string. </p>
+<p>The characters in the input array CHR are assumed to be ASCII, so for cases where the native machine is EBCDIC, an ASCII-to-EBCDIC translation is done on the final character string before it is output as STR.</p>
+<dl class="section author"><dt>Author</dt><dd>J. Woollen </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>1994-01-06</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">CHR</td><td>- character(*): Array of characters in ASCII </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">N</td><td>- integer: Number of characters to be copied from CHR, starting from the beginning of the array </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">STR</td><td>- character*(*): Character string in ASCII or EBCDIC, depending on native machine</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section remark"><dt>Remarks</dt><dd><ul>
+<li>The determination as to whether the native machine is ASCII or EBCDIC is made via an internal call to subroutine <a class="el" href="wrdlen_8F.html#afb746f29272671c842018de69b277685" title="This subroutine figures out some important information about the local machine on which the BUFRLIB s...">wrdlen()</a>.</li>
+</ul>
+</dd></dl>
+<p><b>Program history log:</b></p>
+<ul>
+<li>1994-01-06 J. Woollen &ndash; Original author</li>
+<li>2003-11-04 J. Ator &ndash; Added documentation </li>
+</ul>
 
-<p>Definition at line <a class="el" href="chrtrna_8f_source.html#l00035">35</a> of file <a class="el" href="chrtrna_8f_source.html">chrtrna.f</a>.</p>
+<p>Definition at line <a class="el" href="chrtrna_8f_source.html#l00031">31</a> of file <a class="el" href="chrtrna_8f_source.html">chrtrna.f</a>.</p>
+
+<p>References <a class="el" href="ipkm_8f.html#a8826417bb81a4404779e606d6b97759a">ipkm()</a>, and <a class="el" href="iupm_8f.html#a870aa6933e94946232ec975e8cdd04db">iupm()</a>.</p>
+
+<p>Referenced by <a class="el" href="ichkstr_8f.html#af2e2a12582c245f6f119df50da24b35b">ichkstr()</a>.</p>
 
 </div>
 </div>

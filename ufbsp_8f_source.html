@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.3.2</span>
+   &#160;<span id="projectnumber">11.5.0</span>
    </div>
   </td>
  </tr>
@@ -92,7 +92,7 @@ $(document).ready(function(){initNavTree('ufbsp_8f_source.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -177,72 +177,68 @@ $(document).ready(function(){initNavTree('ufbsp_8f_source.html','');});
 <div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;<span class="comment">C&gt;</span></div>
 <div class="line"><a name="l00070"></a><span class="lineno"><a class="line" href="ufbsp_8f.html#a9e01a96271d067c20bac5606efd53560">   70</a></span>&#160;<span class="keyword">      SUBROUTINE </span><a class="code" href="ufbsp_8f.html#a9e01a96271d067c20bac5606efd53560">ufbsp</a>(LUN,USR,I1,I2,IO,IRET)</div>
 <div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;      <span class="keywordtype">USE </span><a class="code" href="classmoda__usrint.html">moda_usrint</a></div>
 <div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;      <span class="keywordtype">USE </span><a class="code" href="classmoda__usrint.html">moda_usrint</a></div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;      <span class="keyword">COMMON</span> /usrstr/ nnod,ncon,nods(20),nodc(10),ivls(10),kons(10)</div>
 <div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;      include <span class="stringliteral">&#39;bufrlib.inc&#39;</span></div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;      <span class="keywordtype">REAL*8</span>  usr(i1,i2)</div>
 <div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;      <span class="keyword">COMMON</span> /usrstr/ nnod,ncon,nods(20),nodc(10),ivls(10),kons(10)</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;      <span class="keywordtype">REAL*8</span>  usr(i1,i2)</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;<span class="comment">C----------------------------------------------------------------------</span></div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;<span class="comment">C----------------------------------------------------------------------</span></div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;<span class="comment">C----------------------------------------------------------------------</span></div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;<span class="comment">C----------------------------------------------------------------------</span></div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;      iret = 0</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;      ins1 = 0</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;      ins2 = 0</div>
 <div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;      iret = 0</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;      ins1 = 0</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;      ins2 = 0</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;<span class="comment">C  FRAME A SECTION OF THE BUFFER - RETURN WHEN NO FRAME</span></div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;<span class="comment">C  ----------------------------------------------------</span></div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;<span class="comment">C  FRAME A SECTION OF THE BUFFER - RETURN WHEN NO FRAME</span></div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;<span class="comment">C  ----------------------------------------------------</span></div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;1     <span class="keywordflow">IF</span>(ins1+1.GT.nval(lun)) goto 100</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;      ins1 = <a class="code" href="invtag_8f.html#a307883c6492d9e7dab968c16ac0fb673">invtag</a>(nods(1),lun,ins1+1,nval(lun))</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;      <span class="keywordflow">IF</span>(ins1.EQ.0) goto 100</div>
 <div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;1     <span class="keywordflow">IF</span>(ins1+1.GT.nval(lun)) goto 100</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;      ins1 = <a class="code" href="invtag_8f.html#a307883c6492d9e7dab968c16ac0fb673">invtag</a>(nods(1),lun,ins1+1,nval(lun))</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;      <span class="keywordflow">IF</span>(ins1.EQ.0) goto 100</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;      ins2 = <a class="code" href="invtag_8f.html#a307883c6492d9e7dab968c16ac0fb673">invtag</a>(nods(1),lun,ins1+1,nval(lun))</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;      <span class="keywordflow">IF</span>(ins2.EQ.0) ins2 = nval(lun)</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;      iret = iret+1</div>
 <div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;      ins2 = <a class="code" href="invtag_8f.html#a307883c6492d9e7dab968c16ac0fb673">invtag</a>(nods(1),lun,ins1+1,nval(lun))</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;      <span class="keywordflow">IF</span>(ins2.EQ.0) ins2 = nval(lun)</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;      iret = iret+1</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;<span class="comment">C  READ USER VALUES</span></div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;<span class="comment">C  ----------------</span></div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;      <span class="keywordflow">IF</span>(io.EQ.0 .AND. iret.LE.i2) <span class="keywordflow">THEN</span></div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;         invm = ins1</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;         <span class="keywordflow">DO</span> i=1,nnod</div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;         <span class="keywordflow">IF</span>(nods(i).GT.0) <span class="keywordflow">THEN</span></div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;            invn = <a class="code" href="invtag_8f.html#a307883c6492d9e7dab968c16ac0fb673">invtag</a>(nods(i),lun,invm,ins2)</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;            <span class="keywordflow">IF</span>(invn.GT.0) usr(i,iret) = val(invn,lun)</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;            invm = max(invn,invm)</div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;         <span class="keywordflow">ENDIF</span></div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;         <span class="keywordflow">ENDDO</span></div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;      <span class="keywordflow">ENDIF</span></div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;</div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;<span class="comment">C  WRITE USER VALUES</span></div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;<span class="comment">C  -----------------</span></div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;</div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;      <span class="keywordflow">IF</span>(io.EQ.1 .AND. iret.LE.i2) <span class="keywordflow">THEN</span></div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;         invm = ins1</div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;         <span class="keywordflow">DO</span> i=1,nnod</div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;         <span class="keywordflow">IF</span>(nods(i).GT.0) <span class="keywordflow">THEN</span></div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;            invn = <a class="code" href="invtag_8f.html#a307883c6492d9e7dab968c16ac0fb673">invtag</a>(nods(i),lun,invm,ins2)</div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;            <span class="keywordflow">IF</span>(invn.GT.0) val(invn,lun) = usr(i,iret)</div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;            invm = max(invn,invm)</div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;         <span class="keywordflow">ENDIF</span></div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;         <span class="keywordflow">ENDDO</span></div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;      <span class="keywordflow">ENDIF</span></div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;</div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;<span class="comment">C  GO FOR NEXT FRAME</span></div>
-<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;<span class="comment">C  -----------------</span></div>
-<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;</div>
-<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;      goto 1</div>
-<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;</div>
-<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;<span class="comment">C  EXIT</span></div>
-<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;<span class="comment">C  ----</span></div>
-<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;</div>
-<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;100   <span class="keywordflow">RETURN</span></div>
-<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;      <span class="keywordflow">END</span></div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;<span class="comment">C  READ USER VALUES</span></div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;<span class="comment">C  ----------------</span></div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;      <span class="keywordflow">IF</span>(io.EQ.0 .AND. iret.LE.i2) <span class="keywordflow">THEN</span></div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;         invm = ins1</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;         <span class="keywordflow">DO</span> i=1,nnod</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;         <span class="keywordflow">IF</span>(nods(i).GT.0) <span class="keywordflow">THEN</span></div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;            invn = <a class="code" href="invtag_8f.html#a307883c6492d9e7dab968c16ac0fb673">invtag</a>(nods(i),lun,invm,ins2)</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;            <span class="keywordflow">IF</span>(invn.GT.0) usr(i,iret) = val(invn,lun)</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;            invm = max(invn,invm)</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;         <span class="keywordflow">ENDIF</span></div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;         <span class="keywordflow">ENDDO</span></div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;      <span class="keywordflow">ENDIF</span></div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;<span class="comment">C  WRITE USER VALUES</span></div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;<span class="comment">C  -----------------</span></div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;      <span class="keywordflow">IF</span>(io.EQ.1 .AND. iret.LE.i2) <span class="keywordflow">THEN</span></div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;         invm = ins1</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;         <span class="keywordflow">DO</span> i=1,nnod</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;         <span class="keywordflow">IF</span>(nods(i).GT.0) <span class="keywordflow">THEN</span></div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;            invn = <a class="code" href="invtag_8f.html#a307883c6492d9e7dab968c16ac0fb673">invtag</a>(nods(i),lun,invm,ins2)</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;            <span class="keywordflow">IF</span>(invn.GT.0) val(invn,lun) = usr(i,iret)</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;            invm = max(invn,invm)</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;         <span class="keywordflow">ENDIF</span></div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;         <span class="keywordflow">ENDDO</span></div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;      <span class="keywordflow">ENDIF</span></div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;</div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;<span class="comment">C  GO FOR NEXT FRAME</span></div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;<span class="comment">C  -----------------</span></div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;</div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;      goto 1</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;</div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;<span class="comment">C  EXIT</span></div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;<span class="comment">C  ----</span></div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;</div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;100   <span class="keywordflow">RETURN</span></div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;      <span class="keywordflow">END</span></div>
 <div class="ttc" id="ufbsp_8f_html_a9e01a96271d067c20bac5606efd53560"><div class="ttname"><a href="ufbsp_8f.html#a9e01a96271d067c20bac5606efd53560">ufbsp</a></div><div class="ttdeci">subroutine ufbsp(LUN, USR, I1, I2, IO, IRET)</div><div class="ttdoc">THIS SUBROUTINE WRITES OR READS SPECIFIED VALUES TO OR FROM THE CURRENT BUFR DATA SUBSET WITHIN INTER...</div><div class="ttdef"><b>Definition:</b> <a href="ufbsp_8f_source.html#l00070">ufbsp.f:70</a></div></div>
 <div class="ttc" id="classmoda__usrint_html"><div class="ttname"><a href="classmoda__usrint.html">moda_usrint</a></div><div class="ttdef"><b>Definition:</b> <a href="moda__usrint_8F_source.html#l00001">moda_usrint.F:1</a></div></div>
 <div class="ttc" id="invtag_8f_html_a307883c6492d9e7dab968c16ac0fb673"><div class="ttname"><a href="invtag_8f.html#a307883c6492d9e7dab968c16ac0fb673">invtag</a></div><div class="ttdeci">function invtag(NODE, LUN, INV1, INV2)</div><div class="ttdoc">THIS FUNCTION LOOKS FOR A SPECIFIED MNEMONIC WITHIN THE PORTION OF THE CURRENT SUBSET BUFFER BOUNDED ...</div><div class="ttdef"><b>Definition:</b> <a href="invtag_8f_source.html#l00049">invtag.f:49</a></div></div>

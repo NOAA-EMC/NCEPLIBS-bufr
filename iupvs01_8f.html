@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.3.2</span>
+   &#160;<span id="projectnumber">11.5.0</span>
    </div>
   </td>
  </tr>
@@ -92,7 +92,7 @@ $(document).ready(function(){initNavTree('iupvs01_8f.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -109,17 +109,19 @@ $(document).ready(function(){initNavTree('iupvs01_8f.html','');});
 </div><!--header-->
 <div class="contents">
 
+<p>Read a data value from Section 0 or Section 1 of a BUFR message.  
+<a href="#details">More...</a></p>
+
 <p><a href="iupvs01_8f_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions/Subroutines</h2></td></tr>
 <tr class="memitem:a7a770c2b160d5ff013a18de56204ad45"><td class="memItemLeft" align="right" valign="top">function&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="iupvs01_8f.html#a7a770c2b160d5ff013a18de56204ad45">iupvs01</a> (LUNIT, S01MNEM)</td></tr>
-<tr class="memdesc:a7a770c2b160d5ff013a18de56204ad45"><td class="mdescLeft">&#160;</td><td class="mdescRight">THIS FUNCTION UNPACKS AND RETURNS A SPECIFIED INTEGER VALUE FROM SECTION 0 OR SECTION 1 OF THE LAST BUFR MESSAGE THAT WAS READ FROM LOGICAL UNIT NUMBER LUNIT VIA BUFR ARCHIVE LIBRARY SUBROUTINE READMG, READERME OR EQUIVALENT.  <a href="#a7a770c2b160d5ff013a18de56204ad45">More...</a><br/></td></tr>
+<tr class="memdesc:a7a770c2b160d5ff013a18de56204ad45"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function returns a specified value from within Section 0 or Section 1 of a BUFR message.  <a href="#a7a770c2b160d5ff013a18de56204ad45">More...</a><br/></td></tr>
 <tr class="separator:a7a770c2b160d5ff013a18de56204ad45"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><dl class="section author"><dt>Author</dt><dd>ATOR </dd></dl>
-<dl class="section date"><dt>Date</dt><dd>2005-11-29 </dd></dl>
+<div class="textblock"><p>Read a data value from Section 0 or Section 1 of a BUFR message. </p>
 
 <p>Definition in file <a class="el" href="iupvs01_8f_source.html">iupvs01.f</a>.</p>
 </div><h2 class="groupheader">Function/Subroutine Documentation</h2>
@@ -147,14 +149,67 @@ Functions/Subroutines</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>THIS FUNCTION UNPACKS AND RETURNS A SPECIFIED INTEGER VALUE FROM SECTION 0 OR SECTION 1 OF THE LAST BUFR MESSAGE THAT WAS READ FROM LOGICAL UNIT NUMBER LUNIT VIA BUFR ARCHIVE LIBRARY SUBROUTINE READMG, READERME OR EQUIVALENT. </p>
-<p>IT WILL WORK ON ANY MESSAGE ENCODED USING BUFR EDITION 2, 3 OR 4, AND THE VALUE TO BE UNPACKED IS SPECIFIED VIA THE MNEMONIC S01MNEM (SEE THE DOCBLOCK OF BUFR ARCHIVE LIBRARY FUNCTION IUPBS01 FOR A LISTING OF POSSIBLE VALUES FOR S01MNEM). NOTE THAT THIS FUNCTION IS SIMILAR TO BUFR ARCHIVE LIBRARY FUNCTION IUPBS01 EXCEPT THAT IT OPERATES ON A BUFR MESSAGE THAT HAS ALREADY BEEN READ INTO THE INTERNAL BUFR ARCHIVE LIBRARY ARRAYS (VIA A PREVIOUS CALL TO READMG, READERME, ETC.) RATHER THAN ON A BUFR MESSAGE PASSED DIRECTLY INTO THE FUNCTION VIA A MEMORY ARRAY.</p>
-<p>PROGRAM HISTORY LOG: 2005-11-29 J. ATOR &ndash; ORIGINAL AUTHOR 2014-12-10 J. ATOR &ndash; USE MODULES INSTEAD OF COMMON BLOCKS</p>
-<p>USAGE: IUPVS01 (LUNIT, S01MNEM) INPUT ARGUMENT LIST: LUNIT - INTEGER: FORTRAN LOGICAL UNIT NUMBER FOR BUFR FILE S01MNEM - CHARACTER*(*): MNEMONIC SPECIFYING VALUE TO BE UNPACKED FROM SECTION 0 OR SECTION 1 OF BUFR MESSAGE (SEE DOCBLOCK OF FUNCTION IUPBS01 FOR LISTING OF POSSIBLE VALUES)</p>
-<p>OUTPUT ARGUMENT LIST: IUPVS01 - INTEGER: UNPACKED INTEGER VALUE -1 = THE INPUT S01MNEM MNEMONIC WAS INVALID</p>
-<p>REMARKS: THIS ROUTINE CALLS: BORT IUPBS01 STATUS THIS ROUTINE IS CALLED BY: None Normally called only by application programs. </p>
+<p>This function returns a specified value from within Section 0 or Section 1 of a BUFR message. </p>
+<p>This function will work on any BUFR message encoded using BUFR edition 2, 3, or 4. It is similar to function <a class="el" href="iupbs01_8f.html#adcd6f7c2f898b4f938153c5cf79a9cf5" title="This function returns a specified value from within Section 0 or Section 1 of a BUFR message...">iupbs01()</a>, except that <a class="el" href="iupbs01_8f.html#adcd6f7c2f898b4f938153c5cf79a9cf5" title="This function returns a specified value from within Section 0 or Section 1 of a BUFR message...">iupbs01()</a> operates on a BUFR message passed in via a memory array, whereas this function operates on the BUFR message that was read into internal arrays via the most recent call to any of the other <a class="el" href="md__gpfs_dell2_emc_obsproc_noscrub_Jeff_8Ator_NCEPLIBS-bufr-GitHub_nceplibs-bufr_docs_UserGuide.html#hierarchy">message-reading subroutines</a> for a specified Fortran logical unit.</p>
+<dl class="section author"><dt>Author</dt><dd>J. Ator </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2005-11-29</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">LUNIT</td><td>- integer: Fortran logical unit number for BUFR file </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">S01MNEM</td><td>- character*(*): Value to be read from Section 0 or Section 1 of BUFR message in internal arrays for LUNIT<ul>
+<li>'LENM' = Length (in bytes) of BUFR message</li>
+<li>'LEN0' = Length (in bytes) of Section 0</li>
+<li>'LEN1' = Length (in bytes) of Section 1</li>
+<li>'BEN' = BUFR edition number</li>
+<li>'BMT' = BUFR master table</li>
+<li>'OGCE' = Originating center</li>
+<li>'GSES' = Originating subcenter</li>
+<li>'USN' = Update sequence number</li>
+<li>'ISC2' = Flag indicating absence/presence of (optional) Section 2 in BUFR message:<ul>
+<li>0 = Section 2 absent</li>
+<li>1 = Section 2 present</li>
+</ul>
+</li>
+<li>'MTYP' = Data category</li>
+<li>'MSBTI' = Data subcategory (international)</li>
+<li>'MSBT' = Data subcategory (local)</li>
+<li>'MTV' = Version number of master table</li>
+<li>'MTVL' = Version number of local tables</li>
+<li>'YCEN' = Year of century (1-100)</li>
+<li>'CENT' = Century (e.g., 20 for years 1901-2000, 21 for years 2001-2100)</li>
+<li>'YEAR' = Year (4-digit)</li>
+<li>'MNTH' = Month</li>
+<li>'DAYS' = Day</li>
+<li>'HOUR' = Hour</li>
+<li>'MINU' = Minute</li>
+<li>'SECO' = Second </li>
+</ul>
+</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>iupvs01 - integer: Value corresponding to S01MNEM<ul>
+<li>-1 = S01MNEM was invalid for the edition of BUFR message in internal arrays for LUNIT, or some other error occurred</li>
+</ul>
+</dd></dl>
+<dl class="section remark"><dt>Remarks</dt><dd><ul>
+<li>Values corresponding to S01MNEM = 'GSES' can only be read from BUFR messages encoded using BUFR edition 3 or 4.</li>
+<li>Values corresponding to S01MNEM = 'YCEN' or 'CENT' can only be read from BUFR messages encoded using BUFR edition 2 or 3.</li>
+<li>When reading from BUFR messages encoded using BUFR edition 2 or 3, values corresponding to S01MNEM = 'YEAR' will be calculated internally using the values for 'YCEN' and 'CENT', or inferred using a windowing technique</li>
+<li>Values corresponding to S01MNEM = 'SECO' or 'MSBTI' can only be read from BUFR messages encoded using BUFR edition 4.</li>
+</ul>
+</dd></dl>
+<p><b>Program history log:</b></p>
+<ul>
+<li>2005-11-29 J. Ator &ndash; Original author</li>
+<li>2014-12-10 J. Ator &ndash; Use modules instead of COMMON blocks </li>
+</ul>
 
-<p>Definition at line <a class="el" href="iupvs01_8f_source.html#l00040">40</a> of file <a class="el" href="iupvs01_8f_source.html">iupvs01.f</a>.</p>
+<p>Definition at line <a class="el" href="iupvs01_8f_source.html#l00071">71</a> of file <a class="el" href="iupvs01_8f_source.html">iupvs01.f</a>.</p>
+
+<p>References <a class="el" href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort()</a>, <a class="el" href="iupbs01_8f.html#adcd6f7c2f898b4f938153c5cf79a9cf5">iupbs01()</a>, and <a class="el" href="status_8f.html#a22292e7a69c411a961168198d259f336">status()</a>.</p>
+
+<p>Referenced by <a class="el" href="split__by__subset_8f90.html#ae5d45e2086aa783d8ca85e2fd47c8118">split_by_subset()</a>.</p>
 
 </div>
 </div>

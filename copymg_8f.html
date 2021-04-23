@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.3.2</span>
+   &#160;<span id="projectnumber">11.5.0</span>
    </div>
   </td>
  </tr>
@@ -92,7 +92,7 @@ $(document).ready(function(){initNavTree('copymg_8f.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -109,17 +109,19 @@ $(document).ready(function(){initNavTree('copymg_8f.html','');});
 </div><!--header-->
 <div class="contents">
 
+<p>Copy a BUFR message.  
+<a href="#details">More...</a></p>
+
 <p><a href="copymg_8f_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions/Subroutines</h2></td></tr>
 <tr class="memitem:a4f8d3631ae3b576ccec17f3f381cebd5"><td class="memItemLeft" align="right" valign="top">subroutine&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="copymg_8f.html#a4f8d3631ae3b576ccec17f3f381cebd5">copymg</a> (LUNIN, LUNOT)</td></tr>
-<tr class="memdesc:a4f8d3631ae3b576ccec17f3f381cebd5"><td class="mdescLeft">&#160;</td><td class="mdescRight">This subroutine copies a bufr message, intact, from logical unit lunin, opened for input via a previous call to bufr archive library subroutine openbf, to logical unit lunot, opened for output via a previous call to openbf.  <a href="#a4f8d3631ae3b576ccec17f3f381cebd5">More...</a><br/></td></tr>
+<tr class="memdesc:a4f8d3631ae3b576ccec17f3f381cebd5"><td class="mdescLeft">&#160;</td><td class="mdescRight">This subroutine copies a BUFR message from one Fortran logical unit to another.  <a href="#a4f8d3631ae3b576ccec17f3f381cebd5">More...</a><br/></td></tr>
 <tr class="separator:a4f8d3631ae3b576ccec17f3f381cebd5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><dl class="section author"><dt>Author</dt><dd>WOOLLEN </dd></dl>
-<dl class="section date"><dt>Date</dt><dd>1994-01-06 </dd></dl>
+<div class="textblock"><p>Copy a BUFR message. </p>
 
 <p>Definition in file <a class="el" href="copymg_8f_source.html">copymg.f</a>.</p>
 </div><h2 class="groupheader">Function/Subroutine Documentation</h2>
@@ -147,35 +149,41 @@ Functions/Subroutines</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>This subroutine copies a bufr message, intact, from logical unit lunin, opened for input via a previous call to bufr archive library subroutine openbf, to logical unit lunot, opened for output via a previous call to openbf. </p>
-<p>The message copied from logical unit lunin will be the one most recently read using bufr archive library subroutine readmg. The output file must have no currently open messages. Also, both files must have been opened to the bufr interface with identical bufr tables.</p>
-<p>PROGRAM HISTORY LOG:</p>
-<ul>
-<li>1994-01-06 J. WOOLLEN &ndash; ORIGINAL AUTHOR</li>
-<li>1998-07-08 J. WOOLLEN &ndash; REPLACED CALL TO CRAY LIBRARY ROUTINE "ABORT" WITH CALL TO NEW INTERNAL BUFRLIB ROUTINE "BORT"</li>
-<li>1999-11-18 J. WOOLLEN &ndash; THE NUMBER OF BUFR FILES WHICH CAN BE OPENED AT ONE TIME INCREASED FROM 10 TO 32 (NECESSARY IN ORDER TO PROCESS MULTIPLE BUFR FILES UNDER THE MPI)</li>
-<li>2000-09-19 J. WOOLLEN &ndash; MAXIMUM MESSAGE LENGTH INCREASED FROM 10,000 TO 20,000 BYTES</li>
-<li>2003-11-04 S. BENDER &ndash; ADDED REMARKS/BUFRLIB ROUTINE INTERDEPENDENCIES</li>
-<li>2003-11-04 D. KEYSER &ndash; MAXJL (MAXIMUM NUMBER OF JUMP/LINK ENTRIES) INCREASED FROM 15000 TO 16000 (WAS IN VERIFICATION VERSION); UNIFIED/PORTABLE FOR WRF; ADDED DOCUMENTATION (INCLUDING HISTORY); OUTPUTS MORE COMPLETE DIAGNOSTIC INFO WHEN ROUTINE TERMINATES ABNORMALLY</li>
-<li>2004-08-09 J. ATOR &ndash; MAXIMUM MESSAGE LENGTH INCREASED FROM 20,000 TO 50,000 BYTES</li>
-<li>2005-11-29 J. ATOR &ndash; USE IUPBS01</li>
-<li>2009-06-26 J. ATOR &ndash; USE IOK2CPY</li>
-<li>2014-12-10 J. ATOR &ndash; USE MODULES INSTEAD OF COMMON BLOCKS</li>
-</ul>
+<p>This subroutine copies a BUFR message from one Fortran logical unit to another. </p>
+<p>This subroutine is similar to subroutine <a class="el" href="cpymem_8f.html#a4d6eaf0d2dd8b39f09a3566ac3c52e5f" title="This subroutine copies a BUFR message from internal arrays in memory to a specified Fortran logical u...">cpymem()</a>, except that it copies a BUFR message from one Fortran logical unit to another, whereas <a class="el" href="cpymem_8f.html#a4d6eaf0d2dd8b39f09a3566ac3c52e5f" title="This subroutine copies a BUFR message from internal arrays in memory to a specified Fortran logical u...">cpymem()</a> copies a BUFR message from internal arrays in memory to a specified Fortran logical unit.</p>
+<dl class="section author"><dt>Author</dt><dd>J. Woollen </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>1994-01-06</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">LUNIN</td><td>Fortran logical unit number for input bufr file. </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">LUNOT</td><td>Fortran logical unit number for output bufr file.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">LUNIN</td><td>- integer: Fortran logical unit number for source BUFR file </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">LUNOT</td><td>- integer: Fortran logical unit number for target BUFR file</td></tr>
   </table>
   </dd>
 </dl>
-<p>REMARKS:</p>
+<p>Logical unit LUNIN should have already been opened for input operations via a previous call to subroutine <a class="el" href="openbf_8F.html#a9bea9aeada166bd9037b959ca8452b28" title="This subroutine connects a new file to the BUFRLIB software for input or output operations. ">openbf()</a>, and a BUFR message should have already been read into internal arrays for LUNIN via a previous call to one of the <a class="el" href="md__gpfs_dell2_emc_obsproc_noscrub_Jeff_8Ator_NCEPLIBS-bufr-GitHub_nceplibs-bufr_docs_UserGuide.html#hierarchy">message-reading subroutines</a>.</p>
+<p>Logical unit LUNOT should have already been opened for output operations via a previous call to subroutine <a class="el" href="openbf_8F.html#a9bea9aeada166bd9037b959ca8452b28" title="This subroutine connects a new file to the BUFRLIB software for input or output operations. ">openbf()</a>, but there should not be any BUFR message already open for output within the internal arrays for LUNOT via a previous call to one of the BUFRLIB <a class="el" href="md__gpfs_dell2_emc_obsproc_noscrub_Jeff_8Ator_NCEPLIBS-bufr-GitHub_nceplibs-bufr_docs_UserGuide.html#hierarchy">message-writing subroutines</a>.</p>
+<p>The <a class="el" href="md__gpfs_dell2_emc_obsproc_noscrub_Jeff_8Ator_NCEPLIBS-bufr-GitHub_nceplibs-bufr_docs_dfbftab.html#dfbftab">DX BUFR Table information</a> associated with each of the logical units LUNIN and LUNOT must contain identical definitions for the type of BUFR message to be copied from LUNIN to LUNOT.</p>
+<dl class="section remark"><dt>Remarks</dt><dd><ul>
+<li>This subroutine uses subroutine <a class="el" href="msgwrt_8f.html#ac95ecf1436ba14805a33efd29fab1e5d" title="This subroutine performs final checks and updates on a BUFR message before writing it to a specified ...">msgwrt()</a> to write to LUNOT; therefore, it can be used to transform a copy of the original BUFR message from LUNIN with any or all of the updates described in the documentation for subroutine <a class="el" href="msgwrt_8f.html#ac95ecf1436ba14805a33efd29fab1e5d" title="This subroutine performs final checks and updates on a BUFR message before writing it to a specified ...">msgwrt()</a>.</li>
+</ul>
+</dd></dl>
+<p><b>Program history log:</b></p>
 <ul>
-<li>THIS ROUTINE CALLS: <a class="el" href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4" title="THIS SUBROUTINE WRITES (VIA BUFR ARCHIVE LIBRARY SUBROUTINE ERRWRT) A GIVEN ERROR STRING AND THEN CAL...">bort()</a> <a class="el" href="iok2cpy_8f.html#a1072d2f1a0e3e2002dd5177ab18ec38b" title="THIS FUNCTION DETERMINES WHETHER A MESSAGE, OR A SUBSET FROM A MESSAGE, CAN BE COPIED FROM LOGICAL UN...">iok2cpy()</a> <a class="el" href="iupbs01_8f.html#adcd6f7c2f898b4f938153c5cf79a9cf5" title="THIS FUNCTION UNPACKS AND RETURNS A SPECIFIED INTEGER VALUE FROM SECTION 0 OR SECTION 1 OF THE BUFR M...">iupbs01()</a> <a class="el" href="msgwrt_8f.html#ac95ecf1436ba14805a33efd29fab1e5d" title="THIS SUBROUTINE PERFORMS SOME FINAL CHECKS ON AN OUTPUT BUFR MESSAGE (E.G., CONFIRMING THAT EACH SECT...">msgwrt()</a> <a class="el" href="nemtba_8f.html#a1038fd60bc3fa89eff9ff79ed996a7e1" title="THIS SUBROUTINE SEARCHES FOR MNEMONIC NEMO WITHIN THE INTERNAL TABLE A ARRAYS HOLDING THE DICTIONARY ...">nemtba()</a> <a class="el" href="status_8f.html#a22292e7a69c411a961168198d259f336" title="THIS SUBROUTINE CHECKS WHETHER LOGICAL UNIT NUMBER LUNIT (AND ITS ASSOCIATED BUFR FILE) IS CURRENTLY ...">status()</a></li>
-<li>THIS ROUTINE IS CALLED BY: None Normally called only by application programs. </li>
+<li>1994-01-06 J. Woollen &ndash; Original author</li>
+<li>1998-07-08 J. Woollen &ndash; Replaced call to Cray library routine ABORT with call to new internal routine <a class="el" href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4" title="This subroutine calls subroutine errwrt() to log an error message, then calls subroutine bort_exit() ...">bort()</a></li>
+<li>1999-11-18 J. Woollen &ndash; The number of BUFR files which can be opened at one time increased from 10 to 32 (necessary in order to process multiple BUFR files under the MPI)</li>
+<li>2000-09-19 J. Woollen &ndash; Maximum message length increased from 10,000 to 20,000 bytes</li>
+<li>2004-08-09 J. Ator &ndash; Maximum message length increased from 20,000 to 50,000 bytes</li>
+<li>2005-11-29 J. Ator &ndash; Use <a class="el" href="iupbs01_8f.html#adcd6f7c2f898b4f938153c5cf79a9cf5" title="This function returns a specified value from within Section 0 or Section 1 of a BUFR message...">iupbs01()</a></li>
+<li>2009-06-26 J. Ator &ndash; Use <a class="el" href="iok2cpy_8f.html#a1072d2f1a0e3e2002dd5177ab18ec38b" title="This function determines whether a BUFR message, or a data subset from within a BUFR message...">iok2cpy()</a></li>
+<li>2014-12-10 J. Ator &ndash; Use modules instead of COMMON blocks </li>
 </ul>
 
-<p>Definition at line <a class="el" href="copymg_8f_source.html#l00048">48</a> of file <a class="el" href="copymg_8f_source.html">copymg.f</a>.</p>
+<p>Definition at line <a class="el" href="copymg_8f_source.html#l00059">59</a> of file <a class="el" href="copymg_8f_source.html">copymg.f</a>.</p>
+
+<p>References <a class="el" href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort()</a>, <a class="el" href="iok2cpy_8f.html#a1072d2f1a0e3e2002dd5177ab18ec38b">iok2cpy()</a>, <a class="el" href="iupbs01_8f.html#adcd6f7c2f898b4f938153c5cf79a9cf5">iupbs01()</a>, <a class="el" href="msgwrt_8f.html#ac95ecf1436ba14805a33efd29fab1e5d">msgwrt()</a>, <a class="el" href="nemtba_8f.html#a1038fd60bc3fa89eff9ff79ed996a7e1">nemtba()</a>, and <a class="el" href="status_8f.html#a22292e7a69c411a961168198d259f336">status()</a>.</p>
+
+<p>Referenced by <a class="el" href="split__by__subset_8f90.html#ae5d45e2086aa783d8ca85e2fd47c8118">split_by_subset()</a>.</p>
 
 </div>
 </div>

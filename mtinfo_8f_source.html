@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.3.2</span>
+   &#160;<span id="projectnumber">11.5.0</span>
    </div>
   </td>
  </tr>
@@ -92,7 +92,7 @@ $(document).ready(function(){initNavTree('mtinfo_8f_source.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -107,64 +107,76 @@ $(document).ready(function(){initNavTree('mtinfo_8f_source.html','');});
 </div><!--header-->
 <div class="contents">
 <a href="mtinfo_8f.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="comment">C&gt; @file</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment">C&gt; @author ATOR @date 2009-03-23</span></div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;      </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="comment">C&gt; THIS SUBROUTINE IS USED TO SPECIFY THE DIRECTORY LOCATION</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="comment">C&gt;   AND FORTRAN LOGICAL UNIT NUMBERS TO USE WHEN READING BUFR MASTER</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="comment">C&gt;   TABLES ON THE LOCAL FILE SYSTEM.  THE INPUT LOGICAL UNIT NUMBERS</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="comment">C&gt;   SHOULD BE UNIQUE BUT SHOULD NOT ALREADY BE ASSIGNED TO ANY ACTUAL</span></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="comment">C&gt;   BUFR MASTER TABLE FILES.  IF THIS SUBROUTINE IS NOT CALLED, THEN</span></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="comment">C&gt;   DEFAULT VALUES ARE USED AS DEFINED WITHIN BUFR ARCHIVE LIBRARY</span></div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="comment">C&gt;   SUBROUTINE BFRINI.</span></div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="comment">C&gt;</span></div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="comment">C&gt; PROGRAM HISTORY LOG:</span></div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="comment">C&gt; 2009-03-23  J. ATOR    -- ORIGINAL AUTHOR</span></div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment">C&gt;</span></div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="comment">C&gt; USAGE:    CALL MTINFO ( CMTDIR, LUNMT1, LUNMT2 )</span></div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="comment">C&gt;   INPUT ARGUMENT LIST:</span></div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="comment">C&gt;     CMTDIR   - CHARACTER*(*): DIRECTORY LOCATION OF BUFR MASTER TABLES</span></div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="comment">C&gt;                ON LOCAL FILE SYSTEM (UP TO 100 CHARACTERS)</span></div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment">C&gt;     LUNMT1   - INTEGER: FIRST FORTRAN LOGICAL UNIT NUMBER TO USE WHEN</span></div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="comment">C&gt;                READING BUFR MASTER TABLES ON LOCAL FILE SYSTEM</span></div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="comment">C&gt;     LUNMT2   - INTEGER: SECOND FORTRAN LOGICAL UNIT NUMBER TO USE WHEN</span></div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="comment">C&gt;                READING BUFR MASTER TABLES ON LOCAL FILE SYSTEM</span></div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="comment">C&gt;</span></div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="comment">C&gt; REMARKS:</span></div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="comment">C&gt;    THIS ROUTINE CALLS:        BORT2    STRSUC</span></div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="comment">C&gt;    THIS ROUTINE IS CALLED BY: None</span></div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="comment">C&gt;                               Normally called only by application</span></div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="comment">C&gt;                               programs.</span></div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="comment">C&gt;</span></div>
-<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="mtinfo_8f.html#ad95cdae13646faad7b457f7c854bbfc7">   30</a></span>&#160;<span class="keyword">      SUBROUTINE </span><a class="code" href="mtinfo_8f.html#ad95cdae13646faad7b457f7c854bbfc7">mtinfo</a> ( CMTDIR, LUNMT1, LUNMT2 )</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;      <span class="keyword">COMMON</span> /mstinf/ lun1, lun2, lmtd, mtdir</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;      <span class="keywordtype">CHARACTER*(*)</span> cmtdir</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;      <span class="keywordtype">CHARACTER*128</span> bort_str</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;      <span class="keywordtype">CHARACTER*100</span> mtdir</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="comment">C-----------------------------------------------------------------------</span></div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="comment">C-----------------------------------------------------------------------</span></div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;      CALL <a class="code" href="strsuc_8f.html#a0ad7f0b59d89e0bdd1e9d73947b19e7e">strsuc</a>( cmtdir, mtdir, lmtd )</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;      <span class="keywordflow">IF</span> ( lmtd .LT. 0 ) goto 900</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;      lun1 = lunmt1</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;      lun2 = lunmt2</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment">C&gt; @brief Specify location of master BUFR tables on local file system</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="comment">C&gt; This subroutine allows the specification of the directory location</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="comment">C&gt; and Fortran logical unit numbers to be used when reading master</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="comment">C&gt; BUFR tables on the local file system.</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="comment">C&gt;</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="comment">C&gt; @author J. Ator</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="comment">C&gt; @date 2009-03-23</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="comment">C&gt;</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="comment">C&gt; @param[in] CMTDIR   - character*(*): Directory location of master</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="comment">C&gt;                          BUFR tables on local file system</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="comment">C&gt;                          (up to 100 characters)</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment">C&gt; @param[in] LUNMT1   - integer: First Fortran logical unit number</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="comment">C&gt;                          to use when reading master BUFR tables on</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="comment">C&gt;                          local file system</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="comment">C&gt; @param[in] LUNMT2   - integer: Second Fortran logical unit number</span></div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="comment">C&gt;                          to use when reading master BUFR tables on</span></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment">C&gt;                          local file system</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="comment">C&gt;</span></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="comment">C&gt; &lt;p&gt;See [Master BUFR Tables](@ref dfbfmstab)</span></div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="comment">C&gt; for more information about master BUFR tables.  In particular, note</span></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="comment">C&gt; that this subroutine is normally only ever called after a prior call</span></div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="comment">C&gt; has been made to subroutine openbf() with IO = &#39;SEC3&#39;.  But in such</span></div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="comment">C&gt; cases, any call to this subroutine must be made prior to any</span></div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="comment">C&gt; subsequent calls to any of the BUFR</span></div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="comment">C&gt; [message-reading subroutines](@ref hierarchy) for the associated BUFR</span></div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="comment">C&gt; file; otherwise, default values for CMTDIR, LUNMT1 and LUNMT2 will be</span></div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="comment">C&gt; used as defined within subroutine bfrini().  </span></div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="comment">C&gt;</span></div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="comment">C&gt; &lt;p&gt;For CMTDIR, any full or relative directory pathname that is legal</span></div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="comment">C&gt; on the local filesystem is permissible, up to a total maximum length</span></div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="comment">C&gt; of 100 characters.  The BUFRLIB software will then automatically search</span></div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="comment">C&gt; within this directory for any necessary master table files and open and</span></div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="comment">C&gt; read them as needed.</span></div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="comment">C&gt; </span></div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="comment">C&gt; &lt;p&gt;The logical unit numbers LUNMT1 and LUNMT2 should be distinct from</span></div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="comment">C&gt; each other but should not already be assigned to any files on the</span></div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="comment">C&gt; local system.</span></div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="comment">C&gt;</span></div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="comment">C&gt; &lt;b&gt;Program history log:&lt;/b&gt;</span></div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="comment">C&gt; - 2009-03-23  J. Ator    -- Original author</span></div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="comment">C&gt;</span></div>
+<div class="line"><a name="l00044"></a><span class="lineno"><a class="line" href="mtinfo_8f.html#ad95cdae13646faad7b457f7c854bbfc7">   44</a></span>&#160;<span class="keyword">      SUBROUTINE </span><a class="code" href="mtinfo_8f.html#ad95cdae13646faad7b457f7c854bbfc7">mtinfo</a> ( CMTDIR, LUNMT1, LUNMT2 )</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;      <span class="keyword">COMMON</span> /mstinf/ lun1, lun2, lmtd, mtdir</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;      <span class="keywordtype">CHARACTER*(*)</span> cmtdir</div>
 <div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;<span class="comment">C  EXITS</span></div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;<span class="comment">C  -----</span></div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;      <span class="keywordtype">CHARACTER*128</span> bort_str</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;      <span class="keywordtype">CHARACTER*100</span> mtdir</div>
 <div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;      <span class="keywordflow">RETURN</span></div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;900   bort_str = <span class="stringliteral">&#39;BUFRLIB: MTINFO - BAD INPUT MASTER TABLE DIRECTORY:&#39;</span></div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;      CALL <a class="code" href="bort2_8f.html#a50f605cc96a22ffce20206c2d254b9c3">bort2</a>(bort_str,cmtdir)</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;      <span class="keywordflow">END</span></div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;<span class="comment">C-----------------------------------------------------------------------</span></div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;<span class="comment">C-----------------------------------------------------------------------</span></div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;      CALL <a class="code" href="strsuc_8f.html#a0ad7f0b59d89e0bdd1e9d73947b19e7e">strsuc</a>( cmtdir, mtdir, lmtd )</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;      <span class="keywordflow">IF</span> ( lmtd .LT. 0 ) goto 900</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;      lun1 = lunmt1</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;      lun2 = lunmt2</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;<span class="comment">C  EXITS</span></div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;<span class="comment">C  -----</span></div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;      <span class="keywordflow">RETURN</span></div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;900   bort_str = <span class="stringliteral">&#39;BUFRLIB: MTINFO - BAD INPUT MASTER TABLE DIRECTORY:&#39;</span></div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;      CALL <a class="code" href="bort2_8f.html#a50f605cc96a22ffce20206c2d254b9c3">bort2</a>(bort_str,cmtdir)</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;      <span class="keywordflow">END</span></div>
 <div class="ttc" id="strsuc_8f_html_a0ad7f0b59d89e0bdd1e9d73947b19e7e"><div class="ttname"><a href="strsuc_8f.html#a0ad7f0b59d89e0bdd1e9d73947b19e7e">strsuc</a></div><div class="ttdeci">subroutine strsuc(STR1, STR2, LENS)</div><div class="ttdoc">THIS SUBROUTINE REMOVES LEADING AND TRAILING BLANKS FROM A STRING. </div><div class="ttdef"><b>Definition:</b> <a href="strsuc_8f_source.html#l00034">strsuc.f:34</a></div></div>
-<div class="ttc" id="bort2_8f_html_a50f605cc96a22ffce20206c2d254b9c3"><div class="ttname"><a href="bort2_8f.html#a50f605cc96a22ffce20206c2d254b9c3">bort2</a></div><div class="ttdeci">subroutine bort2(STR1, STR2)</div><div class="ttdoc">THIS SUBROUTINE WRITES (VIA BUFR ARCHIVE LIBRARY SUBROUTINE ERRWRT) TWO GIVEN ERROR STRINGS AND THEN ...</div><div class="ttdef"><b>Definition:</b> <a href="bort2_8f_source.html#l00031">bort2.f:31</a></div></div>
-<div class="ttc" id="mtinfo_8f_html_ad95cdae13646faad7b457f7c854bbfc7"><div class="ttname"><a href="mtinfo_8f.html#ad95cdae13646faad7b457f7c854bbfc7">mtinfo</a></div><div class="ttdeci">subroutine mtinfo(CMTDIR, LUNMT1, LUNMT2)</div><div class="ttdoc">THIS SUBROUTINE IS USED TO SPECIFY THE DIRECTORY LOCATION AND FORTRAN LOGICAL UNIT NUMBERS TO USE WHE...</div><div class="ttdef"><b>Definition:</b> <a href="mtinfo_8f_source.html#l00030">mtinfo.f:30</a></div></div>
+<div class="ttc" id="bort2_8f_html_a50f605cc96a22ffce20206c2d254b9c3"><div class="ttname"><a href="bort2_8f.html#a50f605cc96a22ffce20206c2d254b9c3">bort2</a></div><div class="ttdeci">subroutine bort2(STR1, STR2)</div><div class="ttdoc">This subroutine calls subroutine errwrt() to log two error messages, then calls subroutine bort_exit(...</div><div class="ttdef"><b>Definition:</b> <a href="bort2_8f_source.html#l00020">bort2.f:20</a></div></div>
+<div class="ttc" id="mtinfo_8f_html_ad95cdae13646faad7b457f7c854bbfc7"><div class="ttname"><a href="mtinfo_8f.html#ad95cdae13646faad7b457f7c854bbfc7">mtinfo</a></div><div class="ttdeci">subroutine mtinfo(CMTDIR, LUNMT1, LUNMT2)</div><div class="ttdoc">This subroutine allows the specification of the directory location and Fortran logical unit numbers t...</div><div class="ttdef"><b>Definition:</b> <a href="mtinfo_8f_source.html#l00044">mtinfo.f:44</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

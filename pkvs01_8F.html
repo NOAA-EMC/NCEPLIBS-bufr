@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.3.2</span>
+   &#160;<span id="projectnumber">11.5.0</span>
    </div>
   </td>
  </tr>
@@ -92,7 +92,7 @@ $(document).ready(function(){initNavTree('pkvs01_8F.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -109,17 +109,19 @@ $(document).ready(function(){initNavTree('pkvs01_8F.html','');});
 </div><!--header-->
 <div class="contents">
 
+<p>Specify a value to be included in Section 0 or Section 1 when writing BUFR messages.  
+<a href="#details">More...</a></p>
+
 <p><a href="pkvs01_8F_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions/Subroutines</h2></td></tr>
 <tr class="memitem:a66383a142ad21a8793d728a6eafb9fe8"><td class="memItemLeft" align="right" valign="top">subroutine&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pkvs01_8F.html#a66383a142ad21a8793d728a6eafb9fe8">pkvs01</a> (S01MNEM, IVAL)</td></tr>
-<tr class="memdesc:a66383a142ad21a8793d728a6eafb9fe8"><td class="mdescLeft">&#160;</td><td class="mdescRight">THIS SUBROUTINE IS USED TO SPECIFY A VALUE TO BE WRITTEN INTO A SPECIFIED LOCATION WITHIN SECTION 0 OR SECTION 1 OF ALL BUFR MESSAGES THAT WILL BE OUTPUT BY FUTURE CALLS TO ANY OF THE BUFR ARCHIVE LIBRARY SUBROUTINES WHICH CREATE SUCH MESSAGES (E.G.  <a href="#a66383a142ad21a8793d728a6eafb9fe8">More...</a><br/></td></tr>
+<tr class="memdesc:a66383a142ad21a8793d728a6eafb9fe8"><td class="mdescLeft">&#160;</td><td class="mdescRight">This subroutine is used to specify a value to be written into a specified location within Section 0 or Section 1 of all BUFR messages output by future calls to other <a class="el" href="md__gpfs_dell2_emc_obsproc_noscrub_Jeff_8Ator_NCEPLIBS-bufr-GitHub_nceplibs-bufr_docs_UserGuide.html#hierarchy">message-writing subroutines</a> and <a class="el" href="md__gpfs_dell2_emc_obsproc_noscrub_Jeff_8Ator_NCEPLIBS-bufr-GitHub_nceplibs-bufr_docs_UserGuide.html#hierarchy">subset-writing subroutines</a>.  <a href="#a66383a142ad21a8793d728a6eafb9fe8">More...</a><br/></td></tr>
 <tr class="separator:a66383a142ad21a8793d728a6eafb9fe8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><dl class="section author"><dt>Author</dt><dd>ATOR </dd></dl>
-<dl class="section date"><dt>Date</dt><dd>2005-11-29 </dd></dl>
+<div class="textblock"><p>Specify a value to be included in Section 0 or Section 1 when writing BUFR messages. </p>
 
 <p>Definition in file <a class="el" href="pkvs01_8F_source.html">pkvs01.F</a>.</p>
 </div><h2 class="groupheader">Function/Subroutine Documentation</h2>
@@ -147,13 +149,54 @@ Functions/Subroutines</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>THIS SUBROUTINE IS USED TO SPECIFY A VALUE TO BE WRITTEN INTO A SPECIFIED LOCATION WITHIN SECTION 0 OR SECTION 1 OF ALL BUFR MESSAGES THAT WILL BE OUTPUT BY FUTURE CALLS TO ANY OF THE BUFR ARCHIVE LIBRARY SUBROUTINES WHICH CREATE SUCH MESSAGES (E.G. </p>
-<p>WRITCP, WRITSB, COPYMG, WRITSA, ETC.). IT WILL WORK ON ANY MESSAGE ENCODED USING BUFR EDITION 2, 3 OR 4, AND IT CAN BE CALLED AT ANY TIME, INCLUDING BEFORE THE FIRST CALL TO BUFR ARCHIVE LIBRARY SUBROUTINE OPENBF IF IT IS DESIRED FOR THE NEW VALUE TO ALSO BE INCLUDED IN ANY DX DICTIONARY TABLE MESSAGES THAT WILL BE OUTPUT BY BUFR ARCHIVE LIBRARY SUBROUTINE WRITDX. IN ANY CASE, THE LOCATION WITHIN WHICH TO STORE THE VALUE IS SPECIFIED VIA THE MNEMONIC S01MNEM, AS EXPLAINED IN FURTHER DETAIL BELOW. IF MULTIPLE VALUES ARE DESIRED TO BE CHANGED WITHIN SECTION 0 OR SECTION 1 OF FUTURE OUTPUT MESSAGES, THEN EACH SUCH VALUE (AND CORRESPONDING LOCATION) SHOULD BE SPECIFIED USING A SEPARATE CALL TO THIS SUBROUTINE. NOTE THAT EACH CALL TO THIS SUBROUTINE WITH A PARTICULAR LOCATION SPECIFICATION WILL OVERRIDE THE EFFECT OF ANY PREVIOUS CALL WITH THAT SAME SPECIFICATION (OR, IN THE CASE OF THE FIRST CALL WITH A PARTICULAR LOCATION SPECIFICATION, IT WILL OVERRIDE THE DEFAULT SECTION 0 OR SECTION 1 VALUE FOR THE CORRESPONDING LOCATION!).</p>
-<p>PROGRAM HISTORY LOG: 2005-11-29 J. ATOR &ndash; ORIGINAL AUTHOR 2006-04-14 D. KEYSER &ndash; UPDATED DOCBLOCK 2015-03-03 J. ATOR &ndash; USE MODULE MODA_S01CM</p>
-<p>USAGE: CALL PKVS01(S01MNEM,IVAL) INPUT ARGUMENT LIST: S01MNEM - CHARACTER*(*): MNEMONIC SPECIFYING LOCATION WHERE IVAL IS TO BE STORED WITHIN SECTION 0 OR SECTION 1 OF ALL FUTURE OUTPUT BUFR MESSAGES: 'BEN' = BUFR EDITION NUMBER 'BMT' = BUFR MASTER TABLE 'OGCE' = ORIGINATING CENTER 'GSES' = ORIGINATING SUBCENTER (NOTE: THIS VALUE WILL BE STORED ONLY IN BUFR EDITION 3 OR 4 MESSAGES!) 'USN' = UPDATE SEQUENCE NUMBER 'MTYP' = DATA CATEGORY 'MSBTI' = DATA SUBCATEGORY (INTERNATIONAL) (NOTE: THIS VALUE WILL BE STORED ONLY IN BUFR EDITION 4 MESSAGES!) 'MSBT' = DATA SUBCATEGORY (LOCAL) 'MTV' = VERSION NUMBER OF MASTER TABLE 'MTVL' = VERSION NUMBER OF LOCAL TABLES 'YCEN' = YEAR OF CENTURY (1-100) (NOTE: THIS VALUE WILL BE STORED ONLY IN BUFR EDITION 2 AND 3 MESSAGES!) 'CENT' = CENTURY (I.E., 20 FOR YEARS 1901-2000, 21 FOR YEARS 2001-2100) (NOTE: THIS VALUE WILL BE STORED ONLY IN BUFR EDITION 2 AND 3 MESSAGES!) 'YEAR' = YEAR (4-DIGIT) (NOTE: THIS VALUE WILL BE STORED ONLY IN BUFR EDITION 4 MESSAGES!) 'MNTH' = MONTH 'DAYS' = DAY 'HOUR' = HOUR 'MINU' = MINUTE 'SECO' = SECOND (NOTE: THIS VALUE WILL BE STORED ONLY IN BUFR EDITION 4 MESSAGES!) IVAL - INTEGER: NEW VALUE FOR LOCATION POINTED TO BY S01MNEM</p>
-<p>REMARKS: THIS ROUTINE CALLS: BORT OPENBF THIS ROUTINE IS CALLED BY: None Normally called only by application programs. </p>
+<p>This subroutine is used to specify a value to be written into a specified location within Section 0 or Section 1 of all BUFR messages output by future calls to other <a class="el" href="md__gpfs_dell2_emc_obsproc_noscrub_Jeff_8Ator_NCEPLIBS-bufr-GitHub_nceplibs-bufr_docs_UserGuide.html#hierarchy">message-writing subroutines</a> and <a class="el" href="md__gpfs_dell2_emc_obsproc_noscrub_Jeff_8Ator_NCEPLIBS-bufr-GitHub_nceplibs-bufr_docs_UserGuide.html#hierarchy">subset-writing subroutines</a>. </p>
+<p>This subroutine is similar to subroutine <a class="el" href="pkbs1_8f.html#a70abc28f30375ab44077b95ed58b59bb" title="This subroutines writes a specified value into a specified location within Section 1 of a BUFR messag...">pkbs1()</a>, except that <a class="el" href="pkbs1_8f.html#a70abc28f30375ab44077b95ed58b59bb" title="This subroutines writes a specified value into a specified location within Section 1 of a BUFR messag...">pkbs1()</a> operates on a single BUFR message passed in via a memory array. Alternatively, whenever this subroutine is called, the specified IVAL will be written into all BUFR messages output by all future calls to other <a class="el" href="md__gpfs_dell2_emc_obsproc_noscrub_Jeff_8Ator_NCEPLIBS-bufr-GitHub_nceplibs-bufr_docs_UserGuide.html#hierarchy">message-writing subroutines</a> and <a class="el" href="md__gpfs_dell2_emc_obsproc_noscrub_Jeff_8Ator_NCEPLIBS-bufr-GitHub_nceplibs-bufr_docs_UserGuide.html#hierarchy">subset-writing subroutines</a>, for all Fortran logical units that are open for output within the application program, unless a subsequent call is made to this subroutine with the same value of S01MNEM in order to reset the corresponding IVAL again. Otherwise, if this subroutine is never called for a particular value of S01MNEM, then a default value is used for the corresponding IVAL, as set within subroutine <a class="el" href="msgini_8f.html#ae73a0a9e7bba8f7dfeb673f2bca0820b" title="THIS SUBROUTINE INITIALIZES, WITHIN THE INTERNAL ARRAYS, A NEW BUFR MESSAGE FOR OUTPUT. ">msgini()</a>, <a class="el" href="cmsgini_8f.html#ace74c243976a7546e92121317b36f9de" title="THIS SUBROUTINE INITIALIZES A NEW BUFR MESSAGE FOR OUTPUT IN COMPRESSED BUFR. ">cmsgini()</a> or <a class="el" href="dxmini_8f.html#aabe733e54f8a9de838ff92bc9fbb7992" title="THIS SUBROUTINE INITIALIZES A BUFR TABLE (DICTIONARY) MESSAGE, WRITING ALL THE PRELIMINARY INFORMATIO...">dxmini()</a>.</p>
+<dl class="section author"><dt>Authors</dt><dd>J. Ator </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2005-11-29</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">IVAL</td><td>- integer: Value to be stored </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">S01MNEM</td><td>- character*(*): Location where IVAL is to be stored within Section 0 or Section 1 of all future output BUFR messages<ul>
+<li>'BEN' = BUFR edition number</li>
+<li>'BMT' = BUFR master table</li>
+<li>'OGCE' = Originating center</li>
+<li>'GSES' = Originating subcenter</li>
+<li>'USN' = Update sequence number</li>
+<li>'MTYP' = Data category</li>
+<li>'MSBTI' = Data subcategory (international)</li>
+<li>'MSBT' = Data subcategory (local)</li>
+<li>'MTV' = Version number of master table</li>
+<li>'MTVL' = Version number of local tables</li>
+<li>'YCEN' = Year of century (1-100)</li>
+<li>'CENT' = Century (e.g., 20 for years 1901-2000, 21 for years 2001-2100)</li>
+<li>'YEAR' = Year (4-digit)</li>
+<li>'MNTH' = Month</li>
+<li>'DAYS' = Day</li>
+<li>'HOUR' = Hour</li>
+<li>'MINU' = Minute</li>
+<li>'SECO' = Second</li>
+</ul>
+</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section remark"><dt>Remarks</dt><dd><ul>
+<li>A separate call to this subroutine must be made for each value of S01MNEM that is to be set within Section 0 or Section 1 of all future output BUFR messages.</li>
+<li>A call to this subroutine with S01MNEM = 'BEN' and IVAL = 4 will force all future output BUFR messages to be encoded using BUFR edition 4; otherwise, messages will be encoded using BUFR edition 3 by default.</li>
+<li>Values corresponding to S01MNEM = 'YCEN' or 'CENT' can only be stored within BUFR messages encoded using BUFR edition 3.</li>
+<li>Values corresponding to S01MNEM = 'YEAR', 'SECO' or 'MSBTI' can only be stored within BUFR messages encoded using BUFR edition 4.</li>
+</ul>
+</dd></dl>
+<p><b>Program history log:</b></p>
+<ul>
+<li>2005-11-29 J. Ator &ndash; Original author</li>
+<li>2006-04-14 D. Keyser &ndash; Updated docblock</li>
+<li>2015-03-03 J. Ator &ndash; Use module MODA_S01CM </li>
+</ul>
 
-<p>Definition at line <a class="el" href="pkvs01_8F_source.html#l00074">74</a> of file <a class="el" href="pkvs01_8F_source.html">pkvs01.F</a>.</p>
+<p>Definition at line <a class="el" href="pkvs01_8F_source.html#l00070">70</a> of file <a class="el" href="pkvs01_8F_source.html">pkvs01.F</a>.</p>
+
+<p>References <a class="el" href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort()</a>, and <a class="el" href="openbf_8F.html#a9bea9aeada166bd9037b959ca8452b28">openbf()</a>.</p>
 
 </div>
 </div>

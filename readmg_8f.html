@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.3.2</span>
+   &#160;<span id="projectnumber">11.5.0</span>
    </div>
   </td>
  </tr>
@@ -92,7 +92,7 @@ $(document).ready(function(){initNavTree('readmg_8f.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -162,16 +162,17 @@ Functions/Subroutines</h2></td></tr>
 </div><div class="memdoc">
 
 <p>This subroutine reads the next BUFR message from logical unit ABS(LUNXX) into internal arrays. </p>
+<p>Logical unit ABS(LUNXX) should have already been opened for input operations via a previous call to subroutine <a class="el" href="openbf_8F.html#a9bea9aeada166bd9037b959ca8452b28" title="This subroutine connects a new file to the BUFRLIB software for input or output operations. ">openbf()</a>.</p>
 <dl class="section author"><dt>Authors</dt><dd>J. Woollen </dd>
 <dd>
 J. Ator </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>1994-01-06</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">LUNXX</td><td>- integer: absolute value is Fortran logical unit number for BUFR file </td></tr>
-    <tr><td class="paramdir">[out]</td><td class="paramname">SUBSET</td><td>- character*8: Table A mnemonic for type of BUFR message that was read (see DX BUFR Tables for further information about Table A mnemonics) </td></tr>
-    <tr><td class="paramdir">[out]</td><td class="paramname">JDATE</td><td>- integer: date-time stored within Section 1 of BUFR message that was read, in format of either YYMMDDHH or YYYYMMDDHH, depending on the most recent call to subroutine <a class="el" href="datelen_8f.html#ac75cb362f84167ca65b058a97401efcd" title="THIS SUBROUTINE IS USED TO SPECIFY THE LENGTH OF DATE-TIME VALUES THAT WILL BE OUTPUT BY FUTURE CALLS...">datelen()</a> </td></tr>
-    <tr><td class="paramdir">[out]</td><td class="paramname">IRET</td><td>- integer:<ul>
+    <tr><td class="paramdir">[in]</td><td class="paramname">LUNXX</td><td>- integer: Absolute value is Fortran logical unit number for BUFR file </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">SUBSET</td><td>- character*8: Table A mnemonic for type of BUFR message that was read (see <a class="el" href="md__gpfs_dell2_emc_obsproc_noscrub_Jeff_8Ator_NCEPLIBS-bufr-GitHub_nceplibs-bufr_docs_dfbftab.html#dfbftab">DX BUFR Tables</a> for further information about Table A mnemonics) </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">JDATE</td><td>- integer: Date-time stored within Section 1 of BUFR message that was read, in format of either YYMMDDHH or YYYYMMDDHH, depending on the most recent call to subroutine <a class="el" href="datelen_8f.html#ac75cb362f84167ca65b058a97401efcd" title="This subroutine is used to specify the format of Section 1 date-time values that will be output by fu...">datelen()</a> </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">IRET</td><td>- integer: return code<ul>
 <li>0 = new BUFR message was successfully read into internal arrays</li>
 <li>-1 = there are no more BUFR messages in the file connected to logical unit ABS(LUNXX)</li>
 </ul>
@@ -179,11 +180,10 @@ J. Ator </dd></dl>
   </table>
   </dd>
 </dl>
-<p>Logical unit ABS(LUNXX) should have already been opened for input operations via a previous call to subroutine <a class="el" href="openbf_8F.html#a9bea9aeada166bd9037b959ca8452b28" title="This subroutine identifies a new file to the BUFRLIB software for input or output operations...">openbf()</a>.</p>
-<p>Whenever this subroutine returns with IRET = 0, this indicates that a new BUFR message of type SUBSET and date-time JDATE was successfully read into internal arrays within the BUFRLIB software, and from where it can then be easily manipulated or further parsed via a call to subroutine <a class="el" href="readsb_8f.html#ae7619346ca59d008b4d6a646408876f5" title="THIS SUBROUTINE SHOULD ONLY BE CALLED WHEN LOGICAL UNIT LUNIT HAS BEEN OPENED FOR INPUT OPERATIONS...">readsb()</a> or equivalent. Otherwise, if the subroutine returns with IRET = -1, then this indicates that there are no more BUFR messages (i.e. end-of-file) within the file connected to logical unit ABS(LUNXX).</p>
+<p>Whenever this subroutine returns with IRET = 0, this indicates that a new BUFR message of type SUBSET and date-time JDATE was successfully read into internal arrays within the BUFRLIB software, and from where it can then be easily manipulated or further parsed via a call to one of the <a class="el" href="md__gpfs_dell2_emc_obsproc_noscrub_Jeff_8Ator_NCEPLIBS-bufr-GitHub_nceplibs-bufr_docs_UserGuide.html#hierarchy">subset-reading subroutines</a>. Otherwise, if the subroutine returns with IRET = -1, then this indicates that there are no more BUFR messages (i.e. end-of-file) within the file connected to logical unit ABS(LUNXX).</p>
 <dl class="section remark"><dt>Remarks</dt><dd><ul>
-<li>Any DX dictionary messages encountered within ABS(LUNXX) will be automatically processed and stored internally, so a successful return from this subroutine will always result in a BUFR message containing actual data values within the internal arrays.</li>
-<li>In prior versions of the BUFRLIB software, an input value of LUNXX &lt; 0 was an indicator to the subroutine to treat any read error from ABS(LUNXX) the same as an end-of-file condition. This option is no longer supported, but the capability to call this subroutine with LUNXX &lt; 0 is itself still supported for backwards-compatibiity with certain legacy application programs.</li>
+<li>Any DX BUFR table messages encountered within ABS(LUNXX) will be automatically processed and stored internally, so a successful return from this subroutine will always result in a BUFR message containing actual data values within the internal arrays.</li>
+<li>In prior versions of the BUFRLIB software, an input value of LUNXX &lt; 0 was an indicator to the subroutine to treat any read error from ABS(LUNXX) the same as an end-of-file condition. This option is no longer supported, but the capability to call this subroutine with LUNXX &lt; 0 is itself still supported for backwards-compatibility with certain legacy application programs.</li>
 </ul>
 </dd></dl>
 <p><b>Program history log:</b></p>
@@ -192,8 +192,8 @@ J. Ator </dd></dl>
 <li>1996-11-25 J. Woollen &ndash; Modified to exit gracefully when the BUFR file is positioned after an "end-of-file"</li>
 <li>1998-07-08 J. Woollen &ndash; Replaced call to Cray library routine "ABORT" with call to new internal BUFRLIB routine "BORT"; modified to make Y2K compliant</li>
 <li>1999-11-18 J. Woollen &ndash; The number of BUFR files which can be opened at one time increased from 10 to 32 (necessary in order to process multiple BUFR files under the MPI); modified with semantic adjustments to ameliorate compiler complaints from Linux boxes (increases portability)</li>
-<li>2000-09-19 J. Woollen &ndash; Removed message decoding logic that had been replicated in this and other read routines and consolidated it into a new routine <a class="el" href="cktaba_8f.html#a137108e58830be769ba5b28072cf1b4c" title="THIS SUBROUTINE PARSES THE TABLE A MNEMONIC AND THE DATE OUT OF SECTION 1 OF A BUFR MESSAGE PREVIOUSL...">cktaba()</a>, cALLED HERE, WHICH IS enhanced to allow compressed and standard BUFR messages to be read; maximum message length increased from 10,000 to 20,000 bytes</li>
-<li>2002-05-14 J. Woollen &ndash; Removed entry point <a class="el" href="datelen_8f.html#ac75cb362f84167ca65b058a97401efcd" title="THIS SUBROUTINE IS USED TO SPECIFY THE LENGTH OF DATE-TIME VALUES THAT WILL BE OUTPUT BY FUTURE CALLS...">datelen()</a> (it became a separate routine in the BUFRLIB to increase portability to other platforms)</li>
+<li>2000-09-19 J. Woollen &ndash; Removed message decoding logic that had been replicated in this and other read routines and consolidated it into a new routine <a class="el" href="cktaba_8f.html#a137108e58830be769ba5b28072cf1b4c" title="THIS SUBROUTINE PARSES THE TABLE A MNEMONIC AND THE DATE OUT OF SECTION 1 OF A BUFR MESSAGE PREVIOUSL...">cktaba()</a>; maximum message length increased from 10,000 to 20,000 bytes</li>
+<li>2002-05-14 J. Woollen &ndash; Removed entry point <a class="el" href="datelen_8f.html#ac75cb362f84167ca65b058a97401efcd" title="This subroutine is used to specify the format of Section 1 date-time values that will be output by fu...">datelen()</a> (it became a separate routine in the BUFRLIB to increase portability to other platforms)</li>
 <li>2003-11-04 J. Ator &ndash; Added documentation</li>
 <li>2003-11-04 S. Bender &ndash; Added remarks and routine interdependencies</li>
 <li>2003-11-04 D. Keyser &ndash; Unified/portable for WRF; added history documentation; outputs more complete diagnostic info when routine terminates abnormally</li>
@@ -201,14 +201,15 @@ J. Ator </dd></dl>
 <li>2005-11-29 J. Ator &ndash; Added <a class="el" href="rdmsgw_8f.html#aa1d21de28344723fc4848ec1cd14b094" title="THIS SUBROUTINE READS THE NEXT BUFR MESSAGE FROM LOGICAL UNIT LUNIT AS AN ARRAY OF INTEGER WORDS...">rdmsgw()</a> and rdmsgb calls to simulate readibm; added LUNXX &lt; 0 option to simulate readft</li>
 <li>2009-03-23 J. Ator &ndash; Add logic to allow Section 3 decoding; add logic to process internal dictionary messages</li>
 <li>2012-06-07 J. Ator &ndash; Don't respond to internal dictionary messages if Section 3 decoding is being used</li>
-<li>2012-09-15 J. Woollen &ndash; Convert to C language I/O interface; remove code to reread message as bytes; replace Fortran BACKSPACE with C backbufr()</li>
-<li>2014-12-10 J. Ator &ndash; Use modules instead of COMMON blocks</li>
+<li>2012-09-15 J. Woollen &ndash; Convert to C language I/O interface; remove code to reread message as bytes; replace Fortran BACKSPACE with C <a class="el" href="cread_8c.html#aebebafa9eeb07f82fc60ae0a8b43533e" title="This subroutine backspaces a BUFR file by one BUFR message. ">backbufr()</a></li>
+<li>2014-12-10 J. Ator &ndash; Use modules instead of COMMON blocks </li>
 </ul>
-<p><b>This routine calls:</b> backbufr() <a class="el" href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4" title="THIS SUBROUTINE WRITES (VIA BUFR ARCHIVE LIBRARY SUBROUTINE ERRWRT) A GIVEN ERROR STRING AND THEN CAL...">bort()</a> <a class="el" href="cktaba_8f.html#a137108e58830be769ba5b28072cf1b4c" title="THIS SUBROUTINE PARSES THE TABLE A MNEMONIC AND THE DATE OUT OF SECTION 1 OF A BUFR MESSAGE PREVIOUSL...">cktaba()</a> <a class="el" href="errwrt_8f.html#a65626d9a772648676146b62b596c2764" title="THIS SUBROUTINE WRITES A GIVEN ERROR OR OTHER DIAGNOSTIC MESSAGE TO A USER-SPECIFIED LOGICAL UNIT...">errwrt()</a> <a class="el" href="idxmsg_8f.html#ab9276526fbe1b76bfa9f3d15f734c2b2" title="THIS FUNCTION DETERMINES WHETHER THE GIVEN BUFR MESSAGE IS A DX DICTIONARY MESSAGE THAT WAS CREATED B...">idxmsg()</a> <a class="el" href="rdbfdx_8f.html#a7d7beabef509022d4d98ebfb79f06dec" title="BEGINNING AT THE CURRENT FILE POINTER LOCATION WITHIN LUNIT, THIS SUBROUTINE READS A COMPLETE DICTION...">rdbfdx()</a> <a class="el" href="rdmsgw_8f.html#aa1d21de28344723fc4848ec1cd14b094" title="THIS SUBROUTINE READS THE NEXT BUFR MESSAGE FROM LOGICAL UNIT LUNIT AS AN ARRAY OF INTEGER WORDS...">rdmsgw()</a> <a class="el" href="reads3_8f.html#a57a4b386c104472c2df89ca9217d0d4b" title="THIS SUBROUTINE READS THE SECTION 3 DESCRIPTORS FROM THE BUFR MESSAGE IN MBAY(1,LUN). ">reads3()</a> <a class="el" href="status_8f.html#a22292e7a69c411a961168198d259f336" title="THIS SUBROUTINE CHECKS WHETHER LOGICAL UNIT NUMBER LUNIT (AND ITS ASSOCIATED BUFR FILE) IS CURRENTLY ...">status()</a> <a class="el" href="wtstat_8f.html#a82676f83ff365e03ad827ed5ba0af1ae" title="THIS SUBROUTINE EITHER DISCONNECTS THE INPUT LOGICAL UNIT NUMBER LUNIT (AND ITS ASSOCIATED BUFR FILE)...">wtstat()</a></p>
-<p><b>This routine is called by:</b> <a class="el" href="ireadmg_8f.html#a08c0eaaa7c6f555ccdceb404772dd962" title="This function calls BUFRLIB subroutine readmg() and passes back its return code as the function value...">ireadmg()</a> <a class="el" href="readns_8f.html#a72f3b23ee95d02a8188d8734369b6149" title="THIS SUBROUTINE SHOULD ONLY BE CALLED WHEN LOGICAL UNIT LUNIT HAS BEEN OPENED FOR INPUT OPERATIONS...">readns()</a> <a class="el" href="rdmgsb_8f.html#a2b56d948663c2c6779d23b280d94e98d" title="THIS SUBROUTINE OPENS A BUFR FILE IN LOGICAL UNIT LUNIT FOR INPUT OPERATIONS, THEN READS A PARTICULAR...">rdmgsb()</a> <a class="el" href="rewnbf_8f.html#a70ac3a628bb020054246ff3fb8392a96" title="THIS SUBROUTINE, DEPENDING ON THE VALUE OF ISR, WILL EITHER: 1) STORE THE CURRENT PARAMETERS ASSOCIAT...">rewnbf()</a> <a class="el" href="ufbinx_8f.html#ac8a380b1f26c05540ca3993fb2b7be85" title="THIS SUBROUTINE EITHER OPENS A BUFR FILE CONNECTED TO LOGICAL UNIT LUNIT FOR INPUT OPERATIONS (IF IT ...">ufbinx()</a> <a class="el" href="ufbpos_8f.html#aa3c92084cc14aae8f61aad4c9f0d8680" title="THIS SUBROUTINE SHOULD ONLY BE CALLED WHEN LOGICAL UNIT LUNIT HAS BEEN OPENED FOR INPUT OPERATIONS...">ufbpos()</a> <br/>
-Also called by application programs. </p>
 
-<p>Definition at line <a class="el" href="readmg_8f_source.html#l00109">109</a> of file <a class="el" href="readmg_8f_source.html">readmg.f</a>.</p>
+<p>Definition at line <a class="el" href="readmg_8f_source.html#l00099">99</a> of file <a class="el" href="readmg_8f_source.html">readmg.f</a>.</p>
+
+<p>References <a class="el" href="cread_8c.html#aebebafa9eeb07f82fc60ae0a8b43533e">backbufr()</a>, <a class="el" href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort()</a>, <a class="el" href="cktaba_8f.html#a137108e58830be769ba5b28072cf1b4c">cktaba()</a>, <a class="el" href="errwrt_8f.html#a65626d9a772648676146b62b596c2764">errwrt()</a>, <a class="el" href="idxmsg_8f.html#ab9276526fbe1b76bfa9f3d15f734c2b2">idxmsg()</a>, <a class="el" href="rdbfdx_8f.html#a7d7beabef509022d4d98ebfb79f06dec">rdbfdx()</a>, <a class="el" href="rdmsgw_8f.html#aa1d21de28344723fc4848ec1cd14b094">rdmsgw()</a>, <a class="el" href="reads3_8f.html#a57a4b386c104472c2df89ca9217d0d4b">reads3()</a>, <a class="el" href="status_8f.html#a22292e7a69c411a961168198d259f336">status()</a>, and <a class="el" href="wtstat_8f.html#a82676f83ff365e03ad827ed5ba0af1ae">wtstat()</a>.</p>
+
+<p>Referenced by <a class="el" href="ireadmg_8f.html#a08c0eaaa7c6f555ccdceb404772dd962">ireadmg()</a>, <a class="el" href="rdmgsb_8f.html#a2b56d948663c2c6779d23b280d94e98d">rdmgsb()</a>, <a class="el" href="readns_8f.html#a72f3b23ee95d02a8188d8734369b6149">readns()</a>, <a class="el" href="rewnbf_8f.html#a70ac3a628bb020054246ff3fb8392a96">rewnbf()</a>, <a class="el" href="ufbinx_8f.html#ac8a380b1f26c05540ca3993fb2b7be85">ufbinx()</a>, and <a class="el" href="ufbpos_8f.html#aa3c92084cc14aae8f61aad4c9f0d8680">ufbpos()</a>.</p>
 
 </div>
 </div>

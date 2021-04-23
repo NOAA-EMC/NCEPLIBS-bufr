@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.3.2</span>
+   &#160;<span id="projectnumber">11.5.0</span>
    </div>
   </td>
  </tr>
@@ -92,7 +92,7 @@ $(document).ready(function(){initNavTree('lstjpb_8f_source.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -164,50 +164,46 @@ $(document).ready(function(){initNavTree('lstjpb_8f_source.html','');});
 <div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;<span class="comment">C&gt;</span></div>
 <div class="line"><a name="l00057"></a><span class="lineno"><a class="line" href="lstjpb_8f.html#a0a74db325c227fe8ee3b77bd7dfd7baf">   57</a></span>&#160;<span class="keyword">      FUNCTION </span><a class="code" href="lstjpb_8f.html#a0a74db325c227fe8ee3b77bd7dfd7baf">lstjpb</a>(NODE,LUN,JBTYP)</div>
 <div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;      <span class="keywordtype">USE </span><a class="code" href="classmoda__msgcwd.html">moda_msgcwd</a></div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;      <span class="keywordtype">USE </span><a class="code" href="classmoda__tables.html">moda_tables</a></div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;      include <span class="stringliteral">&#39;bufrlib.inc&#39;</span></div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;      <span class="keywordtype">CHARACTER*(*)</span> jbtyp</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;      <span class="keywordtype">CHARACTER*128</span> bort_str</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;<span class="comment">C----------------------------------------------------------------------</span></div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;<span class="comment">C----------------------------------------------------------------------</span></div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;      <span class="keywordflow">IF</span>(node.LT.inode(lun)) goto 900</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;      <span class="keywordflow">IF</span>(node.GT.isc(inode(lun))) goto 901</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;      nod = node</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;<span class="comment">C  FIND THIS OR THE PREVIOUS &quot;JBTYP&quot; NODE</span></div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;<span class="comment">C  --------------------------------------</span></div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;10    <span class="keywordflow">IF</span>(typ(nod).NE.jbtyp) <span class="keywordflow">THEN</span></div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;         nod = jmpb(nod)</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;         <span class="keywordflow">IF</span>(nod.NE.0) goto 10</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;      <span class="keywordflow">ENDIF</span></div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;      <a class="code" href="lstjpb_8f.html#a0a74db325c227fe8ee3b77bd7dfd7baf">lstjpb</a> = nod</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;<span class="comment">C  EXITS</span></div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;<span class="comment">C  -----</span></div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;      <span class="keywordflow">RETURN</span></div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;900   <span class="keyword">WRITE</span>(bort_str,<span class="stringliteral">&#39;(&quot;BUFRLIB: LSTJPB - TABLE NODE (&quot;,I7,&quot;) IS OUT &#39;</span>//</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;     . <span class="stringliteral">&#39;OF BOUNDS, &lt; LOWER BOUNDS (&quot;,I7,&quot;); TAG IS &quot;,A10)&#39;</span>)</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;     . node,inode(lun),tag(node)</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;      <span class="keywordtype">USE </span><a class="code" href="classmoda__msgcwd.html">moda_msgcwd</a></div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;      <span class="keywordtype">USE </span><a class="code" href="moda__tables_8F.html#classmoda__tables">moda_tables</a></div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;      <span class="keywordtype">CHARACTER*(*)</span> jbtyp</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;      <span class="keywordtype">CHARACTER*128</span> bort_str</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;<span class="comment">C----------------------------------------------------------------------</span></div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;<span class="comment">C----------------------------------------------------------------------</span></div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;      <span class="keywordflow">IF</span>(node.LT.inode(lun)) goto 900</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;      <span class="keywordflow">IF</span>(node.GT.isc(inode(lun))) goto 901</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;      nod = node</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;<span class="comment">C  FIND THIS OR THE PREVIOUS &quot;JBTYP&quot; NODE</span></div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;<span class="comment">C  --------------------------------------</span></div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;10    <span class="keywordflow">IF</span>(typ(nod).NE.jbtyp) <span class="keywordflow">THEN</span></div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;         nod = jmpb(nod)</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;         <span class="keywordflow">IF</span>(nod.NE.0) goto 10</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;      <span class="keywordflow">ENDIF</span></div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;      <a class="code" href="lstjpb_8f.html#a0a74db325c227fe8ee3b77bd7dfd7baf">lstjpb</a> = nod</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;<span class="comment">C  EXITS</span></div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;<span class="comment">C  -----</span></div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;      <span class="keywordflow">RETURN</span></div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;900   <span class="keyword">WRITE</span>(bort_str,<span class="stringliteral">&#39;(&quot;BUFRLIB: LSTJPB - TABLE NODE (&quot;,I7,&quot;) IS OUT &#39;</span>//</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;     . <span class="stringliteral">&#39;OF BOUNDS, &lt; LOWER BOUNDS (&quot;,I7,&quot;); TAG IS &quot;,A10)&#39;</span>)</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;     . node,inode(lun),tag(node)</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;      CALL <a class="code" href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort</a>(bort_str)</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;901   <span class="keyword">WRITE</span>(bort_str,<span class="stringliteral">&#39;(&quot;BUFRLIB: LSTJPB - TABLE NODE (&quot;,I7,&quot;) IS OUT &#39;</span>//</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;     . <span class="stringliteral">&#39;OF BOUNDS, &gt; UPPER BOUNDS (&quot;,I7,&quot;); TAG IS &quot;,A10)&#39;</span>)</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;     . node,isc(inode(lun)),tag(node)</div>
 <div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;      CALL <a class="code" href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort</a>(bort_str)</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;901   <span class="keyword">WRITE</span>(bort_str,<span class="stringliteral">&#39;(&quot;BUFRLIB: LSTJPB - TABLE NODE (&quot;,I7,&quot;) IS OUT &#39;</span>//</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;     . <span class="stringliteral">&#39;OF BOUNDS, &gt; UPPER BOUNDS (&quot;,I7,&quot;); TAG IS &quot;,A10)&#39;</span>)</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;     . node,isc(inode(lun)),tag(node)</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;      CALL <a class="code" href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort</a>(bort_str)</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;      <span class="keywordflow">END</span></div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;      <span class="keywordflow">END</span></div>
 <div class="ttc" id="lstjpb_8f_html_a0a74db325c227fe8ee3b77bd7dfd7baf"><div class="ttname"><a href="lstjpb_8f.html#a0a74db325c227fe8ee3b77bd7dfd7baf">lstjpb</a></div><div class="ttdeci">function lstjpb(NODE, LUN, JBTYP)</div><div class="ttdoc">THIS FUNCTION SEARCHES BACKWARDS, BEGINNING FROM A GIVEN NODE WITHIN THE JUMP/LINK TABLE...</div><div class="ttdef"><b>Definition:</b> <a href="lstjpb_8f_source.html#l00057">lstjpb.f:57</a></div></div>
-<div class="ttc" id="classmoda__tables_html"><div class="ttname"><a href="classmoda__tables.html">moda_tables</a></div><div class="ttdef"><b>Definition:</b> <a href="moda__tables_8F_source.html#l00001">moda_tables.F:1</a></div></div>
-<div class="ttc" id="bort_8f_html_a488d3a8cf930fb592a9fdaefcfa04ac4"><div class="ttname"><a href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort</a></div><div class="ttdeci">subroutine bort(STR)</div><div class="ttdoc">THIS SUBROUTINE WRITES (VIA BUFR ARCHIVE LIBRARY SUBROUTINE ERRWRT) A GIVEN ERROR STRING AND THEN CAL...</div><div class="ttdef"><b>Definition:</b> <a href="bort_8f_source.html#l00069">bort.f:69</a></div></div>
+<div class="ttc" id="moda__tables_8F_html_classmoda__tables"><div class="ttname"><a href="moda__tables_8F.html#classmoda__tables">moda_tables</a></div><div class="ttdoc">This module contains array and variable declarations used to store the internal jump/link table...</div><div class="ttdef"><b>Definition:</b> <a href="moda__tables_8F_source.html#l00013">moda_tables.F:13</a></div></div>
+<div class="ttc" id="bort_8f_html_a488d3a8cf930fb592a9fdaefcfa04ac4"><div class="ttname"><a href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort</a></div><div class="ttdeci">subroutine bort(STR)</div><div class="ttdoc">This subroutine calls subroutine errwrt() to log an error message, then calls subroutine bort_exit() ...</div><div class="ttdef"><b>Definition:</b> <a href="bort_8f_source.html#l00023">bort.f:23</a></div></div>
 <div class="ttc" id="classmoda__msgcwd_html"><div class="ttname"><a href="classmoda__msgcwd.html">moda_msgcwd</a></div><div class="ttdef"><b>Definition:</b> <a href="moda__msgcwd_8F_source.html#l00001">moda_msgcwd.F:1</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->

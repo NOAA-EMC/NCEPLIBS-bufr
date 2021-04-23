@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.3.2</span>
+   &#160;<span id="projectnumber">11.5.0</span>
    </div>
   </td>
  </tr>
@@ -92,7 +92,7 @@ $(document).ready(function(){initNavTree('mvb_8f_source.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -150,32 +150,28 @@ $(document).ready(function(){initNavTree('mvb_8f_source.html','');});
 <div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="comment">C&gt;</span></div>
 <div class="line"><a name="l00043"></a><span class="lineno"><a class="line" href="mvb_8f.html#a3fb4ee7c2a5cf7725257dcdd71826ba2">   43</a></span>&#160;<span class="keyword">      SUBROUTINE </span><a class="code" href="mvb_8f.html#a3fb4ee7c2a5cf7725257dcdd71826ba2">mvb</a>(IB1,NB1,IB2,NB2,NBM)</div>
 <div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;      include <span class="stringliteral">&#39;bufrlib.inc&#39;</span></div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;      <span class="keywordtype">CHARACTER*128</span> bort_str</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;      dimension     ib1(*),ib2(*)</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="comment">C-----------------------------------------------------------------------</span></div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;<span class="comment">C-----------------------------------------------------------------------</span></div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;      jb1 = 8*(nb1-1)</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;      jb2 = 8*(nb2-1)</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;      <span class="keywordflow">DO</span> n=1,nbm</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;        CALL <a class="code" href="upb_8f.html#aae09b58b06877db63e95889f67c146c0">upb</a>(nval,8,ib1,jb1)</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;        CALL <a class="code" href="pkb_8f.html#a35aa2e691ff3ad32de9d8721cae613f7">pkb</a>(nval,8,ib2,jb2)</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;      <span class="keywordflow">ENDDO</span></div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;<span class="comment">C  EXITS</span></div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;<span class="comment">C  -----</span></div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;      <span class="keywordflow">RETURN</span></div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;      <span class="keywordflow">END</span></div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;      <span class="keywordtype">CHARACTER*128</span> bort_str</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;      dimension     ib1(*),ib2(*)</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<span class="comment">C-----------------------------------------------------------------------</span></div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<span class="comment">C-----------------------------------------------------------------------</span></div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;      jb1 = 8*(nb1-1)</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;      jb2 = 8*(nb2-1)</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;      <span class="keywordflow">DO</span> n=1,nbm</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;        CALL <a class="code" href="upb_8f.html#aae09b58b06877db63e95889f67c146c0">upb</a>(nval,8,ib1,jb1)</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;        CALL <a class="code" href="pkb_8f.html#a35aa2e691ff3ad32de9d8721cae613f7">pkb</a>(nval,8,ib2,jb2)</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;      <span class="keywordflow">ENDDO</span></div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;<span class="comment">C  EXITS</span></div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;<span class="comment">C  -----</span></div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;      <span class="keywordflow">RETURN</span></div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;      <span class="keywordflow">END</span></div>
 <div class="ttc" id="mvb_8f_html_a3fb4ee7c2a5cf7725257dcdd71826ba2"><div class="ttname"><a href="mvb_8f.html#a3fb4ee7c2a5cf7725257dcdd71826ba2">mvb</a></div><div class="ttdeci">subroutine mvb(IB1, NB1, IB2, NB2, NBM)</div><div class="ttdoc">THIS SUBROUTINE COPIES A SPECIFIED NUMBER OF BYTES FROM ONE PACKED BINARY ARRAY TO ANOTHER...</div><div class="ttdef"><b>Definition:</b> <a href="mvb_8f_source.html#l00043">mvb.f:43</a></div></div>
 <div class="ttc" id="upb_8f_html_aae09b58b06877db63e95889f67c146c0"><div class="ttname"><a href="upb_8f.html#aae09b58b06877db63e95889f67c146c0">upb</a></div><div class="ttdeci">subroutine upb(NVAL, NBITS, IBAY, IBIT)</div><div class="ttdoc">THIS SUBROUTINE UNPACKS AND RETURNS A BINARY INTEGER CONTAINED WITHIN NBITS BITS OF IBAY...</div><div class="ttdef"><b>Definition:</b> <a href="upb_8f_source.html#l00049">upb.f:49</a></div></div>
-<div class="ttc" id="pkb_8f_html_a35aa2e691ff3ad32de9d8721cae613f7"><div class="ttname"><a href="pkb_8f.html#a35aa2e691ff3ad32de9d8721cae613f7">pkb</a></div><div class="ttdeci">subroutine pkb(NVAL, NBITS, IBAY, IBIT)</div><div class="ttdoc">THIS SUBROUTINE PACKS AN INTEGER VALUE (NVAL) INTO NBITS BITS OF AN INTEGER ARRAY (IBAY)...</div><div class="ttdef"><b>Definition:</b> <a href="pkb_8f_source.html#l00054">pkb.f:54</a></div></div>
+<div class="ttc" id="pkb_8f_html_a35aa2e691ff3ad32de9d8721cae613f7"><div class="ttname"><a href="pkb_8f.html#a35aa2e691ff3ad32de9d8721cae613f7">pkb</a></div><div class="ttdeci">subroutine pkb(NVAL, NBITS, IBAY, IBIT)</div><div class="ttdoc">This subroutine encodes an integer value within a specified number of bits of an integer array...</div><div class="ttdef"><b>Definition:</b> <a href="pkb_8f_source.html#l00040">pkb.f:40</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

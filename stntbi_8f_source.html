@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.3.2</span>
+   &#160;<span id="projectnumber">11.5.0</span>
    </div>
   </td>
  </tr>
@@ -92,7 +92,7 @@ $(document).ready(function(){initNavTree('stntbi_8f_source.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -134,38 +134,34 @@ $(document).ready(function(){initNavTree('stntbi_8f_source.html','');});
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="comment">C&gt;</span></div>
 <div class="line"><a name="l00027"></a><span class="lineno"><a class="line" href="stntbi_8f.html#ad26b48825c877d44d1223a3f4e4051ed">   27</a></span>&#160;<span class="keyword">    SUBROUTINE </span><a class="code" href="stntbi_8f.html#ad26b48825c877d44d1223a3f4e4051ed">stntbi</a> ( N, LUN, NUMB, NEMO, CELSQ )</div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    <span class="keywordtype">USE </span><a class="code" href="moda__tababd_8F.html#classmoda__tababd">moda_tababd</a></div>
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    <span class="keywordtype">USE </span><a class="code" href="classmoda__tababd.html">moda_tababd</a></div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    <span class="keywordtype">CHARACTER*(*)</span> numb, nemo, celsq</div>
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    include <span class="stringliteral">&#39;bufrlib.inc&#39;</span></div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    <span class="keywordtype">CHARACTER*(*)</span> numb, nemo, celsq</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="comment">C-----------------------------------------------------------------------</span></div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="comment">C-----------------------------------------------------------------------</span></div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    CALL <a class="code" href="nenubd_8f.html#a41014913489bdc74d7a2af0fa44159ba">nenubd</a>( nemo, numb, lun )</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <span class="keywordflow">IF</span> ( numb(1:1) .EQ. <span class="stringliteral">&#39;0&#39;</span>) <span class="keywordflow">THEN</span></div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;            idnb(n,lun) = <a class="code" href="ifxy_8f.html#ac971a6f6d644344a5b09d50175498074">ifxy</a>(numb)</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;            tabb(n,lun)( 1: 6) = numb(1:6)</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;            tabb(n,lun)( 7:14) = nemo(1:8)</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;            tabb(n,lun)(16:70) = celsq(1:55)</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;            ntbb(lun) = n</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <span class="keywordflow">ELSE</span> <span class="keywordflow">IF</span> ( numb(1:1) .EQ. <span class="stringliteral">&#39;3&#39;</span>) <span class="keywordflow">THEN</span></div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;            idnd(n,lun) = <a class="code" href="ifxy_8f.html#ac971a6f6d644344a5b09d50175498074">ifxy</a>(numb)</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;            tabd(n,lun)( 1: 6) = numb(1:6)</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;            tabd(n,lun)( 7:14) = nemo(1:8)</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;            tabd(n,lun)(16:70) = celsq(1:55)</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;            ntbd(lun) = n</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;        <span class="keywordflow">ENDIF</span></div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <span class="keywordflow">RETURN</span></div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    <span class="keywordflow">END</span></div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="comment">C-----------------------------------------------------------------------</span></div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="comment">C-----------------------------------------------------------------------</span></div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    CALL <a class="code" href="nenubd_8f.html#a41014913489bdc74d7a2af0fa44159ba">nenubd</a>( nemo, numb, lun )</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    <span class="keywordflow">IF</span> ( numb(1:1) .EQ. <span class="stringliteral">&#39;0&#39;</span>) <span class="keywordflow">THEN</span></div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;            idnb(n,lun) = <a class="code" href="ifxy_8f.html#ac971a6f6d644344a5b09d50175498074">ifxy</a>(numb)</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;            tabb(n,lun)( 1: 6) = numb(1:6)</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;            tabb(n,lun)( 7:14) = nemo(1:8)</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;            tabb(n,lun)(16:70) = celsq(1:55)</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;            ntbb(lun) = n</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <span class="keywordflow">ELSE</span> <span class="keywordflow">IF</span> ( numb(1:1) .EQ. <span class="stringliteral">&#39;3&#39;</span>) <span class="keywordflow">THEN</span></div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;            idnd(n,lun) = <a class="code" href="ifxy_8f.html#ac971a6f6d644344a5b09d50175498074">ifxy</a>(numb)</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;            tabd(n,lun)( 1: 6) = numb(1:6)</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;            tabd(n,lun)( 7:14) = nemo(1:8)</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;            tabd(n,lun)(16:70) = celsq(1:55)</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;            ntbd(lun) = n</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;        <span class="keywordflow">ENDIF</span></div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    <span class="keywordflow">RETURN</span></div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <span class="keywordflow">END</span></div>
+<div class="ttc" id="moda__tababd_8F_html_classmoda__tababd"><div class="ttname"><a href="moda__tababd_8F.html#classmoda__tababd">moda_tababd</a></div><div class="ttdoc">This module contains array and variable declarations used to store DX BUFR tables internally for mult...</div><div class="ttdef"><b>Definition:</b> <a href="moda__tababd_8F_source.html#l00010">moda_tababd.F:10</a></div></div>
 <div class="ttc" id="nenubd_8f_html_a41014913489bdc74d7a2af0fa44159ba"><div class="ttname"><a href="nenubd_8f.html#a41014913489bdc74d7a2af0fa44159ba">nenubd</a></div><div class="ttdeci">subroutine nenubd(NEMO, NUMB, LUN)</div><div class="ttdoc">THIS SUBROUTINE CHECKS A MNEMONIC AND FXY VALUE PAIR THAT WERE READ FROM A USER-SUPPLIED BUFR DICTION...</div><div class="ttdef"><b>Definition:</b> <a href="nenubd_8f_source.html#l00048">nenubd.f:48</a></div></div>
 <div class="ttc" id="ifxy_8f_html_ac971a6f6d644344a5b09d50175498074"><div class="ttname"><a href="ifxy_8f.html#ac971a6f6d644344a5b09d50175498074">ifxy</a></div><div class="ttdeci">function ifxy(ADSC)</div><div class="ttdoc">THIS FUNCTION RETURNS THE INTEGER CORRESPONDING TO THE BIT-WISE REPRESENTATION OF AN INPUT CHARACTER ...</div><div class="ttdef"><b>Definition:</b> <a href="ifxy_8f_source.html#l00049">ifxy.f:49</a></div></div>
-<div class="ttc" id="classmoda__tababd_html"><div class="ttname"><a href="classmoda__tababd.html">moda_tababd</a></div><div class="ttdef"><b>Definition:</b> <a href="moda__tababd_8F_source.html#l00001">moda_tababd.F:1</a></div></div>
 <div class="ttc" id="stntbi_8f_html_ad26b48825c877d44d1223a3f4e4051ed"><div class="ttname"><a href="stntbi_8f.html#ad26b48825c877d44d1223a3f4e4051ed">stntbi</a></div><div class="ttdeci">subroutine stntbi(N, LUN, NUMB, NEMO, CELSQ)</div><div class="ttdoc">THIS SUBROUTINE STORES A NEW ENTRY WITHIN INTERNAL BUFR TABLE B OR D, DEPENDING ON THE VALUE OF NUMB...</div><div class="ttdef"><b>Definition:</b> <a href="stntbi_8f_source.html#l00027">stntbi.f:27</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->

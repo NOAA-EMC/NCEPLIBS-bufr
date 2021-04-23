@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.3.2</span>
+   &#160;<span id="projectnumber">11.5.0</span>
    </div>
   </td>
  </tr>
@@ -92,7 +92,7 @@ $(document).ready(function(){initNavTree('rewnbf_8f_source.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -171,119 +171,116 @@ $(document).ready(function(){initNavTree('rewnbf_8f_source.html','');});
 <div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;<span class="comment">C&gt;</span></div>
 <div class="line"><a name="l00064"></a><span class="lineno"><a class="line" href="rewnbf_8f.html#a70ac3a628bb020054246ff3fb8392a96">   64</a></span>&#160;<span class="keyword">      SUBROUTINE </span><a class="code" href="rewnbf_8f.html#a70ac3a628bb020054246ff3fb8392a96">rewnbf</a>(LUNIT,ISR)</div>
 <div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;      <span class="keywordtype">USE </span><a class="code" href="classmoda__msgcwd.html">moda_msgcwd</a></div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;      <span class="keywordtype">USE </span><a class="code" href="moda__bitbuf_8F.html#classmoda__bitbuf">moda_bitbuf</a></div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;      <span class="keywordtype">USE </span><a class="code" href="classmoda__bufrsr.html">moda_bufrsr</a></div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;      <span class="keywordtype">USE </span><a class="code" href="classmoda__msgcwd.html">moda_msgcwd</a></div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;      <span class="keywordtype">USE </span><a class="code" href="moda__bitbuf_8F.html#classmoda__bitbuf">moda_bitbuf</a></div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;      <span class="keywordtype">USE </span><a class="code" href="classmoda__bufrsr.html">moda_bufrsr</a></div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;      <span class="keywordtype">CHARACTER*128</span> bort_str</div>
 <div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;      include <span class="stringliteral">&#39;bufrlib.inc&#39;</span></div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;      <span class="keywordtype">CHARACTER*8</span>   subset</div>
 <div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;      <span class="keywordtype">CHARACTER*128</span> bort_str</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;      <span class="keywordtype">CHARACTER*8</span>   subset</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;<span class="comment">C-----------------------------------------------------------------------</span></div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;<span class="comment">C-----------------------------------------------------------------------</span></div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;<span class="comment">C  TRY TO TRAP BAD CALL PROBLEMS</span></div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;<span class="comment">C  -----------------------------</span></div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;      <span class="keywordflow">IF</span>(isr.EQ.0) <span class="keywordflow">THEN</span></div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;         CALL <a class="code" href="status_8f.html#a22292e7a69c411a961168198d259f336">status</a>(lunit,lun,il,im)</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;         <span class="keywordflow">IF</span>(jsr(lun).NE.0)  goto 900</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;         <span class="keywordflow">IF</span>(il.EQ.0) goto 901</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;      <span class="keywordflow">ELSEIF</span>(isr.EQ.1) <span class="keywordflow">THEN</span></div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;         lun = junn</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;         <span class="keywordflow">IF</span>(jsr(junn).NE.1)  goto 902</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;      <span class="keywordflow">ELSE</span></div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;         goto 903</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;      <span class="keywordflow">ENDIF</span></div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;<span class="comment">C  STORE FILE PARAMETERS AND SET FOR READING</span></div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;<span class="comment">C  -----------------------------------------</span></div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;      <span class="keywordflow">IF</span>(isr.EQ.0) <span class="keywordflow">THEN</span></div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;         junn = lun</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;         jill = il</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;         jimm = im</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;         jbit = ibit</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;         jbyt = mbyt(lun)</div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;         jmsg = nmsg(lun)</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;         jsub = nsub(lun)</div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;         ksub = msub(lun)</div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;         jnod = inode(lun)</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;         jdat = idate(lun)</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;         <span class="keywordflow">DO</span> i=1,jbyt</div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;         jbay(i) = mbay(i,lun)</div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;         <span class="keywordflow">ENDDO</span></div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;         CALL <a class="code" href="wtstat_8f.html#a82676f83ff365e03ad827ed5ba0af1ae">wtstat</a>(lunit,lun,-1,0)</div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;      <span class="keywordflow">ENDIF</span></div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;</div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;<span class="comment">C  REWIND THE FILE</span></div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;<span class="comment">C  ---------------</span></div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;</div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;      CALL cewind(lun)</div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;</div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;<span class="comment">C  RESTORE FILE PARAMETERS AND POSITION IT TO WHERE IT WAS SAVED</span></div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;<span class="comment">C  -------------------------------------------------------------</span></div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;</div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;      <span class="keywordflow">IF</span>(isr.EQ.1) <span class="keywordflow">THEN</span></div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;         lun        = junn</div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;         il         = jill</div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;         im         = jimm</div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;         ibit       = jbit</div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;         mbyt(lun)  = jbyt</div>
-<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;         nmsg(lun)  = jmsg</div>
-<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;         nsub(lun)  = jsub</div>
-<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;         msub(lun)  = ksub</div>
-<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;         inode(lun) = jnod</div>
-<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;         idate(lun) = <a class="code" href="i4dy_8f.html#a112153e4ebaab35d9d95d7a29534f48b">i4dy</a>(jdat)</div>
-<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;         <span class="keywordflow">DO</span> i=1,jbyt</div>
-<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;           mbay(i,lun) = jbay(i)</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;<span class="comment">C-----------------------------------------------------------------------</span></div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;<span class="comment">C-----------------------------------------------------------------------</span></div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;<span class="comment">C  TRY TO TRAP BAD CALL PROBLEMS</span></div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;<span class="comment">C  -----------------------------</span></div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;      <span class="keywordflow">IF</span>(isr.EQ.0) <span class="keywordflow">THEN</span></div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;         CALL <a class="code" href="status_8f.html#a22292e7a69c411a961168198d259f336">status</a>(lunit,lun,il,im)</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;         <span class="keywordflow">IF</span>(jsr(lun).NE.0)  goto 900</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;         <span class="keywordflow">IF</span>(il.EQ.0) goto 901</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;      <span class="keywordflow">ELSEIF</span>(isr.EQ.1) <span class="keywordflow">THEN</span></div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;         lun = junn</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;         <span class="keywordflow">IF</span>(jsr(junn).NE.1)  goto 902</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;      <span class="keywordflow">ELSE</span></div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;         goto 903</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;      <span class="keywordflow">ENDIF</span></div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;<span class="comment">C  STORE FILE PARAMETERS AND SET FOR READING</span></div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;<span class="comment">C  -----------------------------------------</span></div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;      <span class="keywordflow">IF</span>(isr.EQ.0) <span class="keywordflow">THEN</span></div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;         junn = lun</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;         jill = il</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;         jimm = im</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;         jbit = ibit</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;         jbyt = mbyt(lun)</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;         jmsg = nmsg(lun)</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;         jsub = nsub(lun)</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;         ksub = msub(lun)</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;         jnod = inode(lun)</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;         jdat = idate(lun)</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;         <span class="keywordflow">DO</span> i=1,jbyt</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;         jbay(i) = mbay(i,lun)</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;         <span class="keywordflow">ENDDO</span></div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;         CALL <a class="code" href="wtstat_8f.html#a82676f83ff365e03ad827ed5ba0af1ae">wtstat</a>(lunit,lun,-1,0)</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;      <span class="keywordflow">ENDIF</span></div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;<span class="comment">C  REWIND THE FILE</span></div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;<span class="comment">C  ---------------</span></div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;      CALL <a class="code" href="cread_8c.html#a36a8ba0032660f65aadb84295bcccc41">cewind</a>(lun)</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;<span class="comment">C  RESTORE FILE PARAMETERS AND POSITION IT TO WHERE IT WAS SAVED</span></div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;<span class="comment">C  -------------------------------------------------------------</span></div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;      <span class="keywordflow">IF</span>(isr.EQ.1) <span class="keywordflow">THEN</span></div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;         lun        = junn</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;         il         = jill</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;         im         = jimm</div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;         ibit       = jbit</div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;         mbyt(lun)  = jbyt</div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;         nmsg(lun)  = jmsg</div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;         nsub(lun)  = jsub</div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;         msub(lun)  = ksub</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;         inode(lun) = jnod</div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;         idate(lun) = <a class="code" href="i4dy_8f.html#a112153e4ebaab35d9d95d7a29534f48b">i4dy</a>(jdat)</div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;         <span class="keywordflow">DO</span> i=1,jbyt</div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;           mbay(i,lun) = jbay(i)</div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;         <span class="keywordflow">ENDDO</span></div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;         <span class="keywordflow">DO</span> imsg=1,jmsg</div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;           CALL <a class="code" href="readmg_8f.html#a9fb3da32fb87bc017d16b9f0f707be9b">readmg</a>(lunit,subset,kdate,ier)</div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;           <span class="keywordflow">IF</span>(ier.LT.0) goto 905</div>
 <div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;         <span class="keywordflow">ENDDO</span></div>
-<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;         <span class="keywordflow">DO</span> imsg=1,jmsg</div>
-<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;           CALL <a class="code" href="readmg_8f.html#a9fb3da32fb87bc017d16b9f0f707be9b">readmg</a>(lunit,subset,kdate,ier)</div>
-<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;           <span class="keywordflow">IF</span>(ier.LT.0) goto 905</div>
-<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;         <span class="keywordflow">ENDDO</span></div>
-<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;         CALL <a class="code" href="wtstat_8f.html#a82676f83ff365e03ad827ed5ba0af1ae">wtstat</a>(lunit,lun,il,im)</div>
-<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;      <span class="keywordflow">ENDIF</span></div>
-<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;</div>
-<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;      jsr(lun) = mod(jsr(lun)+1,2)</div>
-<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;</div>
-<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;<span class="comment">C  EXITS</span></div>
-<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;<span class="comment">C  -----</span></div>
-<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;</div>
-<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;      <span class="keywordflow">RETURN</span></div>
-<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;900   <span class="keyword">WRITE</span>(bort_str,<span class="stringliteral">&#39;(&quot;BUFRLIB: REWNBF - ATTEMPING TO SAVE &#39;</span>//</div>
-<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;     . <span class="stringliteral">&#39;PARAMETERS FOR FILE FOR WHICH THEY HAVE ALREADY BEEN SAVED &#39;</span>//</div>
-<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;     . <span class="stringliteral">&#39;(AND NOT YET RESTORED) (UNIT&quot;,I3,&quot;)&quot;)&#39;</span>) lunit</div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;         CALL <a class="code" href="wtstat_8f.html#a82676f83ff365e03ad827ed5ba0af1ae">wtstat</a>(lunit,lun,il,im)</div>
+<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;      <span class="keywordflow">ENDIF</span></div>
+<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;</div>
+<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;      jsr(lun) = mod(jsr(lun)+1,2)</div>
+<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;</div>
+<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;<span class="comment">C  EXITS</span></div>
+<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;<span class="comment">C  -----</span></div>
+<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;</div>
+<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;      <span class="keywordflow">RETURN</span></div>
+<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;900   <span class="keyword">WRITE</span>(bort_str,<span class="stringliteral">&#39;(&quot;BUFRLIB: REWNBF - ATTEMPING TO SAVE &#39;</span>//</div>
+<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;     . <span class="stringliteral">&#39;PARAMETERS FOR FILE FOR WHICH THEY HAVE ALREADY BEEN SAVED &#39;</span>//</div>
+<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;     . <span class="stringliteral">&#39;(AND NOT YET RESTORED) (UNIT&quot;,I3,&quot;)&quot;)&#39;</span>) lunit</div>
+<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;      CALL <a class="code" href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort</a>(bort_str)</div>
+<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;901   <span class="keyword">WRITE</span>(bort_str,<span class="stringliteral">&#39;(&quot;BUFRLIB: REWNBF - ATTEMPING TO SAVE &#39;</span>//</div>
+<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;     . <span class="stringliteral">&#39;PARAMETERS FOR BUFR FILE WHICH IS NOT OPENED FOR EITHER INPUT&#39;</span>//</div>
+<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;     . <span class="stringliteral">&#39; OR OUTPUT) (UNIT&quot;,I3,&quot;)&quot;)&#39;</span>) lunit</div>
 <div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;      CALL <a class="code" href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort</a>(bort_str)</div>
-<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;901   <span class="keyword">WRITE</span>(bort_str,<span class="stringliteral">&#39;(&quot;BUFRLIB: REWNBF - ATTEMPING TO SAVE &#39;</span>//</div>
-<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;     . <span class="stringliteral">&#39;PARAMETERS FOR BUFR FILE WHICH IS NOT OPENED FOR EITHER INPUT&#39;</span>//</div>
-<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;     . <span class="stringliteral">&#39; OR OUTPUT) (UNIT&quot;,I3,&quot;)&quot;)&#39;</span>) lunit</div>
+<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;902   <span class="keyword">WRITE</span>(bort_str,<span class="stringliteral">&#39;(&quot;BUFRLIB: REWNBF - ATTEMPING TO RESTORE &#39;</span>//</div>
+<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;     . <span class="stringliteral">&#39;PARAMETERS TO BUFR FILE WHICH WERE NEVER SAVED (UNIT&quot;,I3,&quot;)&quot;)&#39;</span>)</div>
+<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;     . lunit</div>
 <div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;      CALL <a class="code" href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort</a>(bort_str)</div>
-<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;902   <span class="keyword">WRITE</span>(bort_str,<span class="stringliteral">&#39;(&quot;BUFRLIB: REWNBF - ATTEMPING TO RESTORE &#39;</span>//</div>
-<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;     . <span class="stringliteral">&#39;PARAMETERS TO BUFR FILE WHICH WERE NEVER SAVED (UNIT&quot;,I3,&quot;)&quot;)&#39;</span>)</div>
-<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;     . lunit</div>
+<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;903   <span class="keyword">WRITE</span>(bort_str,<span class="stringliteral">&#39;(&quot;BUFRLIB: REWNBF - SAVE/RESTORE SWITCH (INPUT &#39;</span>//</div>
+<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;     . <span class="stringliteral">&#39;ARGUMENT ISR) IS NOT ZERO OR ONE (HERE =&quot;,I4,&quot;) (UNIT&quot;,I3,&quot;)&quot;)&#39;</span>)</div>
+<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;     . isr,lunit</div>
 <div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;      CALL <a class="code" href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort</a>(bort_str)</div>
-<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;903   <span class="keyword">WRITE</span>(bort_str,<span class="stringliteral">&#39;(&quot;BUFRLIB: REWNBF - SAVE/RESTORE SWITCH (INPUT &#39;</span>//</div>
-<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;     . <span class="stringliteral">&#39;ARGUMENT ISR) IS NOT ZERO OR ONE (HERE =&quot;,I4,&quot;) (UNIT&quot;,I3,&quot;)&quot;)&#39;</span>)</div>
-<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;     . isr,lunit</div>
+<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;905   <span class="keyword">WRITE</span>(bort_str,<span class="stringliteral">&#39;(&quot;BUFRLIB: REWNBF - HIT END OF FILE BEFORE &#39;</span>//</div>
+<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;     . <span class="stringliteral">&#39;REPOSITIONING BUFR FILE IN UNIT&quot;,I3,&quot; TO ORIGINAL MESSAGE &#39;</span>//</div>
+<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;     . <span class="stringliteral">&#39;NO.&quot;,I5)&#39;</span>) lunit,jmsg</div>
 <div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;      CALL <a class="code" href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort</a>(bort_str)</div>
-<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;905   <span class="keyword">WRITE</span>(bort_str,<span class="stringliteral">&#39;(&quot;BUFRLIB: REWNBF - HIT END OF FILE BEFORE &#39;</span>//</div>
-<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;     . <span class="stringliteral">&#39;REPOSITIONING BUFR FILE IN UNIT&quot;,I3,&quot; TO ORIGINAL MESSAGE &#39;</span>//</div>
-<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;     . <span class="stringliteral">&#39;NO.&quot;,I5)&#39;</span>) lunit,jmsg</div>
-<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;      CALL <a class="code" href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort</a>(bort_str)</div>
-<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;      <span class="keywordflow">END</span></div>
+<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;      <span class="keywordflow">END</span></div>
 <div class="ttc" id="i4dy_8f_html_a112153e4ebaab35d9d95d7a29534f48b"><div class="ttname"><a href="i4dy_8f.html#a112153e4ebaab35d9d95d7a29534f48b">i4dy</a></div><div class="ttdeci">function i4dy(IDATE)</div><div class="ttdoc">THIS FUNCTION CONVERTS AN EIGHT DIGIT INTEGER DATE (YYMMDDHH) TO TEN DIGITS (YYYYMMDDHH) USING THE Y2...</div><div class="ttdef"><b>Definition:</b> <a href="i4dy_8f_source.html#l00049">i4dy.f:49</a></div></div>
 <div class="ttc" id="classmoda__bufrsr_html"><div class="ttname"><a href="classmoda__bufrsr.html">moda_bufrsr</a></div><div class="ttdef"><b>Definition:</b> <a href="moda__bufrsr_8F_source.html#l00001">moda_bufrsr.F:1</a></div></div>
-<div class="ttc" id="wtstat_8f_html_a82676f83ff365e03ad827ed5ba0af1ae"><div class="ttname"><a href="wtstat_8f.html#a82676f83ff365e03ad827ed5ba0af1ae">wtstat</a></div><div class="ttdeci">subroutine wtstat(LUNIT, LUN, IL, IM)</div><div class="ttdoc">THIS SUBROUTINE EITHER DISCONNECTS THE INPUT LOGICAL UNIT NUMBER LUNIT (AND ITS ASSOCIATED BUFR FILE)...</div><div class="ttdef"><b>Definition:</b> <a href="wtstat_8f_source.html#l00058">wtstat.f:58</a></div></div>
-<div class="ttc" id="status_8f_html_a22292e7a69c411a961168198d259f336"><div class="ttname"><a href="status_8f.html#a22292e7a69c411a961168198d259f336">status</a></div><div class="ttdeci">subroutine status(LUNIT, LUN, IL, IM)</div><div class="ttdoc">THIS SUBROUTINE CHECKS WHETHER LOGICAL UNIT NUMBER LUNIT (AND ITS ASSOCIATED BUFR FILE) IS CURRENTLY ...</div><div class="ttdef"><b>Definition:</b> <a href="status_8f_source.html#l00086">status.f:86</a></div></div>
-<div class="ttc" id="bort_8f_html_a488d3a8cf930fb592a9fdaefcfa04ac4"><div class="ttname"><a href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort</a></div><div class="ttdeci">subroutine bort(STR)</div><div class="ttdoc">THIS SUBROUTINE WRITES (VIA BUFR ARCHIVE LIBRARY SUBROUTINE ERRWRT) A GIVEN ERROR STRING AND THEN CAL...</div><div class="ttdef"><b>Definition:</b> <a href="bort_8f_source.html#l00069">bort.f:69</a></div></div>
-<div class="ttc" id="moda__bitbuf_8F_html_classmoda__bitbuf"><div class="ttname"><a href="moda__bitbuf_8F.html#classmoda__bitbuf">moda_bitbuf</a></div><div class="ttdef"><b>Definition:</b> <a href="moda__bitbuf_8F_source.html#l00003">moda_bitbuf.F:3</a></div></div>
+<div class="ttc" id="wtstat_8f_html_a82676f83ff365e03ad827ed5ba0af1ae"><div class="ttname"><a href="wtstat_8f.html#a82676f83ff365e03ad827ed5ba0af1ae">wtstat</a></div><div class="ttdeci">subroutine wtstat(LUNIT, LUN, IL, IM)</div><div class="ttdoc">This subroutine can be used to connect or disconnect a specified Fortran logical unit number to/from ...</div><div class="ttdef"><b>Definition:</b> <a href="wtstat_8f_source.html#l00058">wtstat.f:58</a></div></div>
+<div class="ttc" id="status_8f_html_a22292e7a69c411a961168198d259f336"><div class="ttname"><a href="status_8f.html#a22292e7a69c411a961168198d259f336">status</a></div><div class="ttdeci">subroutine status(LUNIT, LUN, IL, IM)</div><div class="ttdoc">This subroutine checks whether a specified Fortran logical unit number is currently connected to the ...</div><div class="ttdef"><b>Definition:</b> <a href="status_8f_source.html#l00061">status.f:61</a></div></div>
+<div class="ttc" id="cread_8c_html_a36a8ba0032660f65aadb84295bcccc41"><div class="ttname"><a href="cread_8c.html#a36a8ba0032660f65aadb84295bcccc41">cewind</a></div><div class="ttdeci">void cewind(f77int *nfile)</div><div class="ttdoc">This subroutine rewinds a BUFR file back to its beginning. </div><div class="ttdef"><b>Definition:</b> <a href="cread_8c_source.html#l00090">cread.c:90</a></div></div>
+<div class="ttc" id="bort_8f_html_a488d3a8cf930fb592a9fdaefcfa04ac4"><div class="ttname"><a href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort</a></div><div class="ttdeci">subroutine bort(STR)</div><div class="ttdoc">This subroutine calls subroutine errwrt() to log an error message, then calls subroutine bort_exit() ...</div><div class="ttdef"><b>Definition:</b> <a href="bort_8f_source.html#l00023">bort.f:23</a></div></div>
+<div class="ttc" id="moda__bitbuf_8F_html_classmoda__bitbuf"><div class="ttname"><a href="moda__bitbuf_8F.html#classmoda__bitbuf">moda_bitbuf</a></div><div class="ttdoc">This module contains array and variable declarations used to store BUFR messages internally for multi...</div><div class="ttdef"><b>Definition:</b> <a href="moda__bitbuf_8F_source.html#l00010">moda_bitbuf.F:10</a></div></div>
 <div class="ttc" id="classmoda__msgcwd_html"><div class="ttname"><a href="classmoda__msgcwd.html">moda_msgcwd</a></div><div class="ttdef"><b>Definition:</b> <a href="moda__msgcwd_8F_source.html#l00001">moda_msgcwd.F:1</a></div></div>
-<div class="ttc" id="readmg_8f_html_a9fb3da32fb87bc017d16b9f0f707be9b"><div class="ttname"><a href="readmg_8f.html#a9fb3da32fb87bc017d16b9f0f707be9b">readmg</a></div><div class="ttdeci">subroutine readmg(LUNXX, SUBSET, JDATE, IRET)</div><div class="ttdoc">This subroutine reads the next BUFR message from logical unit ABS(LUNXX) into internal arrays...</div><div class="ttdef"><b>Definition:</b> <a href="readmg_8f_source.html#l00109">readmg.f:109</a></div></div>
+<div class="ttc" id="readmg_8f_html_a9fb3da32fb87bc017d16b9f0f707be9b"><div class="ttname"><a href="readmg_8f.html#a9fb3da32fb87bc017d16b9f0f707be9b">readmg</a></div><div class="ttdeci">subroutine readmg(LUNXX, SUBSET, JDATE, IRET)</div><div class="ttdoc">This subroutine reads the next BUFR message from logical unit ABS(LUNXX) into internal arrays...</div><div class="ttdef"><b>Definition:</b> <a href="readmg_8f_source.html#l00099">readmg.f:99</a></div></div>
 <div class="ttc" id="rewnbf_8f_html_a70ac3a628bb020054246ff3fb8392a96"><div class="ttname"><a href="rewnbf_8f.html#a70ac3a628bb020054246ff3fb8392a96">rewnbf</a></div><div class="ttdeci">subroutine rewnbf(LUNIT, ISR)</div><div class="ttdoc">THIS SUBROUTINE, DEPENDING ON THE VALUE OF ISR, WILL EITHER: 1) STORE THE CURRENT PARAMETERS ASSOCIAT...</div><div class="ttdef"><b>Definition:</b> <a href="rewnbf_8f_source.html#l00064">rewnbf.f:64</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->

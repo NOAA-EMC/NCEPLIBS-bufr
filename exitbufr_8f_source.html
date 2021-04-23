@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.3.2</span>
+   &#160;<span id="projectnumber">11.5.0</span>
    </div>
   </td>
  </tr>
@@ -92,7 +92,7 @@ $(document).ready(function(){initNavTree('exitbufr_8f_source.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -107,75 +107,79 @@ $(document).ready(function(){initNavTree('exitbufr_8f_source.html','');});
 </div><!--header-->
 <div class="contents">
 <a href="exitbufr_8f.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="comment">C&gt; @file</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment">C&gt; @author ATOR @date 2015-03-02</span></div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;    </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="comment">C&gt; THIS SUBROUTINE FREES ALL DYNAMICALLY-ALLOCATED MEMORY,</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="comment">C&gt;   CLOSES ALL LOGICAL UNITS THAT ARE OPEN TO THE BUFR ARCHIVE LIBRARY,</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="comment">C&gt;   AND RESETS THE LIBRARY TO ALL OF ITS DEFAULT SETTINGS AS THOUGH IT</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="comment">C&gt;   HAD NEVER BEEN CALLED.  THIS ALLOWS AN APPLICATION PROGRAM TO</span></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="comment">C&gt;   POTENTIALLY RE-ALLOCATE MEMORY ALL OVER AGAIN WITHIN THE BUFR</span></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="comment">C&gt;   ARCHIVE LIBRARY VIA A NEW SUBSEQUENT SERIES OF CALLS TO</span></div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="comment">C&gt;   SUBROUTINES ISETPRM AND OPENBF.</span></div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="comment">C&gt;</span></div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="comment">C&gt;   NOTE THAT ONCE THIS SUBROUTINE IS CALLED, THE ENTIRE BUFR ARCHIVE</span></div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="comment">C&gt;   LIBRARY IS UNUSABLE FOR THE REMAINDER OF THE LIFE OF THE</span></div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment">C&gt;   APPLICATION PROGRAM, UNLESS AND UNTIL SUBROUTINE OPENBF IS</span></div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="comment">C&gt;   CALLED TO ONCE AGAIN DYNAMICALLY ALLOCATE NEW ARRAY SPACE.</span></div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="comment">C&gt;</span></div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="comment">C&gt; PROGRAM HISTORY LOG:</span></div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="comment">C&gt; 2015-03-02  J. ATOR    -- ORIGINAL AUTHOR</span></div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment">C&gt;</span></div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="comment">C&gt; USAGE:    CALL EXITBUFR</span></div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="comment">C&gt;</span></div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="comment">C&gt; REMARKS:</span></div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="comment">C&gt;    THIS ROUTINE CALLS:        ARDLLOCF  CLOSBF  DLLOCTBF</span></div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="comment">C&gt;    THIS ROUTINE IS CALLED BY: None</span></div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="comment">C&gt;                               Normally called only by application</span></div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="comment">C&gt;                               programs.</span></div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="comment">C&gt;</span></div>
-<div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="exitbufr_8f.html#a355f094d616febcea2820cf547cbff8e">   28</a></span>&#160;<span class="keyword">    SUBROUTINE </span><a class="code" href="exitbufr_8f.html#a355f094d616febcea2820cf547cbff8e">exitbufr</a></div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <span class="keywordtype">USE </span><a class="code" href="classmoda__stbfr.html">moda_stbfr</a></div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <span class="keywordtype">USE </span><a class="code" href="classmoda__ifopbf.html">moda_ifopbf</a></div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <span class="keywordtype">USE </span><a class="code" href="classmoda__s01cm.html">moda_s01cm</a></div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    </div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    include <span class="stringliteral">&#39;bufrlib.inc&#39;</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment">C&gt; @brief Reset the BUFRLIB software for potential dynamic</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="comment">C&gt; reallocation of memory.</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="comment">C&gt; This subroutine frees all dynamically-allocated memory,</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="comment">C&gt; closes all logical units that are open within the</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="comment">C&gt; BUFRLIB software, and resets the library to all of its</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="comment">C&gt; default settings as though it had never been called.</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="comment">C&gt;   </span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="comment">C&gt; @author J. Ator</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="comment">C&gt; @date 2015-03-02</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="comment">C&gt;</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="comment">C&gt; @remarks</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment">C&gt; - Calling this subroutine allows an application program to</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="comment">C&gt;   potentially resize arrays and reallocate memory all over again</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="comment">C&gt;   with a new subsequent series of calls to subroutines isetprm()</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="comment">C&gt;   and openbf().  However, if and when this subroutine is called,</span></div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="comment">C&gt;   there is no longer any internal memory available within the</span></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment">C&gt;   BUFRLIB software, and the remainder of the library becomes</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="comment">C&gt;   essentially unusable within the application program, unless</span></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="comment">C&gt;   and until subroutine openbf() is called once again to</span></div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="comment">C&gt;   dynamically allocate new array space.  This may be a useful</span></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="comment">C&gt;   capability for application programs that are finished with</span></div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="comment">C&gt;   using the BUFRLIB software and wish to move on to other</span></div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="comment">C&gt;   unrelated tasks without continuing to tie up all of the</span></div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="comment">C&gt;   allocated memory space within the library.  Otherwise, and</span></div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="comment">C&gt;   unless there&#39;s a need to change parameter sizes following the</span></div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="comment">C&gt;   first call to subroutine openbf(), then there&#39;s no need to ever</span></div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="comment">C&gt;   call this subroutine within an application program, since all</span></div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="comment">C&gt;   allocated memory will automatically get freed anyway by the</span></div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="comment">C&gt;   operating system once the application program terminates.</span></div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="comment">C&gt;</span></div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="comment">C&gt; &lt;b&gt;Program history log:&lt;/b&gt;</span></div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="comment">C&gt; - 2015-03-02  J. Ator    -- Original author</span></div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="comment">C&gt;</span></div>
+<div class="line"><a name="l00036"></a><span class="lineno"><a class="line" href="exitbufr_8f.html#a355f094d616febcea2820cf547cbff8e">   36</a></span>&#160;<span class="keyword">    SUBROUTINE </span><a class="code" href="exitbufr_8f.html#a355f094d616febcea2820cf547cbff8e">exitbufr</a></div>
 <div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    <span class="keyword">COMMON</span> /tablef/ cdmf</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <span class="keywordtype">CHARACTER*1</span> cdmf</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    <span class="keywordtype">USE </span><a class="code" href="modv__IFOPBF_8f90.html#classmodv__ifopbf">modv_ifopbf</a></div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <span class="keywordtype">USE </span><a class="code" href="classmoda__stbfr.html">moda_stbfr</a></div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <span class="keywordtype">USE </span><a class="code" href="classmoda__s01cm.html">moda_s01cm</a></div>
 <div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="comment">C-----------------------------------------------------------------------</span></div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="comment">C-----------------------------------------------------------------------</span></div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<span class="comment">C   Close any logical units that are open to the library.</span></div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <span class="keywordflow">DO</span> jj = 1, nfiles</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;      <span class="keywordflow">IF</span> ( iolun(jj) .NE. 0 ) CALL <a class="code" href="closbf_8F.html#a00c94986037d2cf27d04de7a1f8a3ebc">closbf</a>( abs(iolun(jj)) )</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <span class="keywordflow">END DO</span></div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <span class="keyword">COMMON</span> /tablef/ cdmf</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <span class="keywordtype">CHARACTER*1</span> cdmf</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="comment">C-----------------------------------------------------------------------</span></div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;<span class="comment">C-----------------------------------------------------------------------</span></div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<span class="comment">C   Close any logical units that are open to the library.</span></div>
 <div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;<span class="comment">C   Deallocate all allocated memory.</span></div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    CALL <a class="code" href="ardllocf_8F.html#a7b3e4d5498fedd9e94ac45b69fc04b58">ardllocf</a></div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <span class="keywordflow">DO</span> jj = 1, nfiles</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;      <span class="keywordflow">IF</span> ( iolun(jj) .NE. 0 ) CALL <a class="code" href="closbf_8F.html#a00c94986037d2cf27d04de7a1f8a3ebc">closbf</a>( abs(iolun(jj)) )</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <span class="keywordflow">END DO</span></div>
 <div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    <span class="keywordflow">IF</span> ( cdmf .EQ. <span class="stringliteral">&#39;Y&#39;</span> ) CALL <a class="code" href="dlloctbf_8c.html#a1242c4d43753a37cdb9abfb3f01e5583">dlloctbf</a></div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;<span class="comment">C   Deallocate all allocated memory.</span></div>
 <div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;<span class="comment">C   Reset the library.</span></div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    CALL <a class="code" href="ardllocf_8F.html#a7b3e4d5498fedd9e94ac45b69fc04b58">ardllocf</a></div>
 <div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    ns01v = 0</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    ifopbf = 0</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    <span class="keywordflow">RETURN</span></div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    <span class="keywordflow">END</span></div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    <span class="keywordflow">IF</span> ( cdmf .EQ. <span class="stringliteral">&#39;Y&#39;</span> ) CALL <a class="code" href="cfe_8h.html#a1242c4d43753a37cdb9abfb3f01e5583">dlloctbf</a></div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;<span class="comment">C   Reset the library.</span></div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    ns01v = 0</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    ifopbf = 0</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    <span class="keywordflow">RETURN</span></div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    <span class="keywordflow">END</span></div>
 <div class="ttc" id="classmoda__s01cm_html"><div class="ttname"><a href="classmoda__s01cm.html">moda_s01cm</a></div><div class="ttdef"><b>Definition:</b> <a href="moda__s01cm_8F_source.html#l00001">moda_s01cm.F:1</a></div></div>
-<div class="ttc" id="closbf_8F_html_a00c94986037d2cf27d04de7a1f8a3ebc"><div class="ttname"><a href="closbf_8F.html#a00c94986037d2cf27d04de7a1f8a3ebc">closbf</a></div><div class="ttdeci">subroutine closbf(LUNIT)</div><div class="ttdoc">This subroutine closes the connection between logical unit LUNIT and the BUFRLIB software. </div><div class="ttdef"><b>Definition:</b> <a href="closbf_8F_source.html#l00042">closbf.F:42</a></div></div>
+<div class="ttc" id="closbf_8F_html_a00c94986037d2cf27d04de7a1f8a3ebc"><div class="ttname"><a href="closbf_8F.html#a00c94986037d2cf27d04de7a1f8a3ebc">closbf</a></div><div class="ttdeci">subroutine closbf(LUNIT)</div><div class="ttdoc">This subroutine closes the connection between logical unit LUNIT and the BUFRLIB software. </div><div class="ttdef"><b>Definition:</b> <a href="closbf_8F_source.html#l00036">closbf.F:36</a></div></div>
+<div class="ttc" id="modv__IFOPBF_8f90_html_classmodv__ifopbf"><div class="ttname"><a href="modv__IFOPBF_8f90.html#classmodv__ifopbf">modv_ifopbf</a></div><div class="ttdoc">This module declares and initializes the IFOPBF variable. </div><div class="ttdef"><b>Definition:</b> <a href="modv__IFOPBF_8f90_source.html#l00009">modv_IFOPBF.f90:9</a></div></div>
+<div class="ttc" id="cfe_8h_html_a1242c4d43753a37cdb9abfb3f01e5583"><div class="ttname"><a href="cfe_8h.html#a1242c4d43753a37cdb9abfb3f01e5583">dlloctbf</a></div><div class="ttdeci">void dlloctbf(void)</div><div class="ttdoc">This subroutine frees any memory that was dynamically allocated during a previous call to subroutine ...</div><div class="ttdef"><b>Definition:</b> <a href="dlloctbf_8c_source.html#l00018">dlloctbf.c:18</a></div></div>
 <div class="ttc" id="classmoda__stbfr_html"><div class="ttname"><a href="classmoda__stbfr.html">moda_stbfr</a></div><div class="ttdef"><b>Definition:</b> <a href="moda__stbfr_8F_source.html#l00001">moda_stbfr.F:1</a></div></div>
-<div class="ttc" id="exitbufr_8f_html_a355f094d616febcea2820cf547cbff8e"><div class="ttname"><a href="exitbufr_8f.html#a355f094d616febcea2820cf547cbff8e">exitbufr</a></div><div class="ttdeci">subroutine exitbufr</div><div class="ttdoc">THIS SUBROUTINE FREES ALL DYNAMICALLY-ALLOCATED MEMORY, CLOSES ALL LOGICAL UNITS THAT ARE OPEN TO THE...</div><div class="ttdef"><b>Definition:</b> <a href="exitbufr_8f_source.html#l00028">exitbufr.f:28</a></div></div>
-<div class="ttc" id="dlloctbf_8c_html_a1242c4d43753a37cdb9abfb3f01e5583"><div class="ttname"><a href="dlloctbf_8c.html#a1242c4d43753a37cdb9abfb3f01e5583">dlloctbf</a></div><div class="ttdeci">void dlloctbf(void)</div><div class="ttdoc">C C SUBPROGRAM: DLLOCTBF C PRGMMR: ATOR ORG: NCEP DATE: 2017-11-03 C C ABSTRACT: THIS ROUTINE FREES T...</div><div class="ttdef"><b>Definition:</b> <a href="dlloctbf_8c_source.html#l00035">dlloctbf.c:35</a></div></div>
-<div class="ttc" id="ardllocf_8F_html_a7b3e4d5498fedd9e94ac45b69fc04b58"><div class="ttname"><a href="ardllocf_8F.html#a7b3e4d5498fedd9e94ac45b69fc04b58">ardllocf</a></div><div class="ttdeci">subroutine ardllocf</div><div class="ttdoc">THIS SUBROUTINE FREES ANY MEMORY THAT WAS DYNAMICALLY ALLOCATED BY PREVIOUS CALLS TO BUFR ARCHIVE LIB...</div><div class="ttdef"><b>Definition:</b> <a href="ardllocf_8F_source.html#l00034">ardllocf.F:34</a></div></div>
-<div class="ttc" id="classmoda__ifopbf_html"><div class="ttname"><a href="classmoda__ifopbf.html">moda_ifopbf</a></div><div class="ttdef"><b>Definition:</b> <a href="moda__ifopbf_8F_source.html#l00001">moda_ifopbf.F:1</a></div></div>
+<div class="ttc" id="exitbufr_8f_html_a355f094d616febcea2820cf547cbff8e"><div class="ttname"><a href="exitbufr_8f.html#a355f094d616febcea2820cf547cbff8e">exitbufr</a></div><div class="ttdeci">subroutine exitbufr</div><div class="ttdoc">This subroutine frees all dynamically-allocated memory, closes all logical units that are open within...</div><div class="ttdef"><b>Definition:</b> <a href="exitbufr_8f_source.html#l00036">exitbufr.f:36</a></div></div>
+<div class="ttc" id="ardllocf_8F_html_a7b3e4d5498fedd9e94ac45b69fc04b58"><div class="ttname"><a href="ardllocf_8F.html#a7b3e4d5498fedd9e94ac45b69fc04b58">ardllocf</a></div><div class="ttdeci">subroutine ardllocf</div><div class="ttdoc">This subroutine frees any memory that was dynamically allocated during a previous call to subroutine ...</div><div class="ttdef"><b>Definition:</b> <a href="ardllocf_8F_source.html#l00014">ardllocf.F:14</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

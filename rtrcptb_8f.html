@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.3.2</span>
+   &#160;<span id="projectnumber">11.5.0</span>
    </div>
   </td>
  </tr>
@@ -92,7 +92,7 @@ $(document).ready(function(){initNavTree('rtrcptb_8f.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -109,17 +109,19 @@ $(document).ready(function(){initNavTree('rtrcptb_8f.html','');});
 </div><!--header-->
 <div class="contents">
 
+<p>Read the tank receipt time from Section 1 of a BUFR message.  
+<a href="#details">More...</a></p>
+
 <p><a href="rtrcptb_8f_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions/Subroutines</h2></td></tr>
 <tr class="memitem:a4f5038a30fe22e577f2f99c2121aa444"><td class="memItemLeft" align="right" valign="top">subroutine&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="rtrcptb_8f.html#a4f5038a30fe22e577f2f99c2121aa444">rtrcptb</a> (MBAY, IYR, IMO, IDY, IHR, IMI, IRET)</td></tr>
-<tr class="memdesc:a4f5038a30fe22e577f2f99c2121aa444"><td class="mdescLeft">&#160;</td><td class="mdescRight">THIS SUBROUTINE RETURNS THE TANK RECEIPT TIME STORED WITHIN SECTION 1 OF THE BUFR MESSAGE IN ARRAY MBAY.  <a href="#a4f5038a30fe22e577f2f99c2121aa444">More...</a><br/></td></tr>
+<tr class="memdesc:a4f5038a30fe22e577f2f99c2121aa444"><td class="mdescLeft">&#160;</td><td class="mdescRight">This subroutine reads the tank receipt time (if one exists) from Section 1 of a BUFR message.  <a href="#a4f5038a30fe22e577f2f99c2121aa444">More...</a><br/></td></tr>
 <tr class="separator:a4f5038a30fe22e577f2f99c2121aa444"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><dl class="section author"><dt>Author</dt><dd>ATOR </dd></dl>
-<dl class="section date"><dt>Date</dt><dd>2013-10-07 </dd></dl>
+<div class="textblock"><p>Read the tank receipt time from Section 1 of a BUFR message. </p>
 
 <p>Definition in file <a class="el" href="rtrcptb_8f_source.html">rtrcptb.f</a>.</p>
 </div><h2 class="groupheader">Function/Subroutine Documentation</h2>
@@ -177,13 +179,36 @@ Functions/Subroutines</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>THIS SUBROUTINE RETURNS THE TANK RECEIPT TIME STORED WITHIN SECTION 1 OF THE BUFR MESSAGE IN ARRAY MBAY. </p>
-<p>PROGRAM HISTORY LOG: 2013-10-07 J. ATOR &ndash; ADAPTED FROM RTRCPT</p>
-<p>USAGE: CALL RTRCPT (MBAY,IYR,IMO,IDY,IHR,IMI,IRET) INPUT ARGUMENT LIST: MBAY - INTEGER: *-WORD PACKED BINARY ARRAY CONTAINING BUFR MESSAGE</p>
-<p>OUTPUT ARGUMENT LIST: IYR - INTEGER: TANK RECEIPT YEAR IMO - INTEGER: TANK RECEIPT MONTH IDY - INTEGER: TANK RECEIPT DAY IHR - INTEGER: TANK RECEIPT HOUR IMI - INTEGER: TANK RECEIPT MINUTE IRET - INTEGER: RETURN CODE: 0 = normal return -1 = no tank receipt time was present within MBAY</p>
-<p>REMARKS: THIS ROUTINE CALLS: IUPB IUPBS01 THIS ROUTINE IS CALLED BY: RTRCPT Also called by application programs. </p>
+<p>This subroutine reads the tank receipt time (if one exists) from Section 1 of a BUFR message. </p>
+<p>It is similar to subroutine <a class="el" href="rtrcpt_8f.html#af1b460e0604b1216d2385b7f2a0f2f7d" title="This subroutine reads the tank receipt time (if one exists) from Section 1 of a BUFR message...">rtrcpt()</a>, except that it operates on a BUFR message passed in via a memory array, whereas <a class="el" href="rtrcpt_8f.html#af1b460e0604b1216d2385b7f2a0f2f7d" title="This subroutine reads the tank receipt time (if one exists) from Section 1 of a BUFR message...">rtrcpt()</a> operates on the BUFR message that was read into internal arrays via the most recent call to any of the other <a class="el" href="md__gpfs_dell2_emc_obsproc_noscrub_Jeff_8Ator_NCEPLIBS-bufr-GitHub_nceplibs-bufr_docs_UserGuide.html#hierarchy">message-reading subroutines</a> for a specified Fortran logical unit.</p>
+<dl class="section author"><dt>Author</dt><dd>J. Ator </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2013-10-07</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">MBAY</td><td>- integer(*): BUFR message </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">IYR</td><td>- integer: Tank receipt year </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">IMO</td><td>- integer: Tank receipt month </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">IDY</td><td>- integer: Tank receipt day </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">IHR</td><td>- integer: Tank receipt hour </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">IMI</td><td>- integer: Tank receipt minute </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">IRET</td><td>- integer: return code<ul>
+<li>0 = normal return</li>
+<li>-1 = no tank receipt time exists within MBAY</li>
+</ul>
+</td></tr>
+  </table>
+  </dd>
+</dl>
+<p><b>Program history log:</b></p>
+<ul>
+<li>2013-10-07 J. Ator &ndash; Original author; adapted from <a class="el" href="rtrcpt_8f.html#af1b460e0604b1216d2385b7f2a0f2f7d" title="This subroutine reads the tank receipt time (if one exists) from Section 1 of a BUFR message...">rtrcpt()</a> </li>
+</ul>
 
-<p>Definition at line <a class="el" href="rtrcptb_8f_source.html#l00030">30</a> of file <a class="el" href="rtrcptb_8f_source.html">rtrcptb.f</a>.</p>
+<p>Definition at line <a class="el" href="rtrcptb_8f_source.html#l00029">29</a> of file <a class="el" href="rtrcptb_8f_source.html">rtrcptb.f</a>.</p>
+
+<p>References <a class="el" href="iupb_8f.html#a3f8fa4b5261e85ecbf679208e7635c6c">iupb()</a>, and <a class="el" href="iupbs01_8f.html#adcd6f7c2f898b4f938153c5cf79a9cf5">iupbs01()</a>.</p>
+
+<p>Referenced by <a class="el" href="debufr_8f.html#a60dcf0fcb9d3a56fe561406bf5b16a9e">fdebufr()</a>, and <a class="el" href="rtrcpt_8f.html#af1b460e0604b1216d2385b7f2a0f2f7d">rtrcpt()</a>.</p>
 
 </div>
 </div>

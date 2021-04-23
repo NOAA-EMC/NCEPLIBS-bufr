@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.3.2</span>
+   &#160;<span id="projectnumber">11.5.0</span>
    </div>
   </td>
  </tr>
@@ -92,7 +92,7 @@ $(document).ready(function(){initNavTree('closbf_8F.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -151,25 +151,26 @@ J. Ator </dd></dl>
   </dd>
 </dl>
 <dl class="section remark"><dt>Remarks</dt><dd><ul>
-<li>This subroutine will execute a Fortran "CLOSE" on logical unit LUNIT, even though subroutine <a class="el" href="openbf_8F.html#a9bea9aeada166bd9037b959ca8452b28" title="This subroutine identifies a new file to the BUFRLIB software for input or output operations...">openbf()</a> didn't previously handle the corresponding Fortran "OPEN" of the same file.</li>
-<li>It's a good idea to call this subroutine for every LUNIT that was opened to the software via <a class="el" href="openbf_8F.html#a9bea9aeada166bd9037b959ca8452b28" title="This subroutine identifies a new file to the BUFRLIB software for input or output operations...">openbf()</a>; however, it's especially important to do so when writing/encoding a BUFR file, in order to ensure that all output is properly flushed to LUNIT.</li>
+<li>This subroutine will execute a Fortran "CLOSE" on logical unit LUNIT, even though subroutine <a class="el" href="openbf_8F.html#a9bea9aeada166bd9037b959ca8452b28" title="This subroutine connects a new file to the BUFRLIB software for input or output operations. ">openbf()</a> didn't previously handle the corresponding Fortran "OPEN" of the same file.</li>
+<li>It's a good idea to call this subroutine for every LUNIT that was opened to the software via <a class="el" href="openbf_8F.html#a9bea9aeada166bd9037b959ca8452b28" title="This subroutine connects a new file to the BUFRLIB software for input or output operations. ">openbf()</a>; however, it's especially important to do so when writing/encoding a BUFR file, in order to ensure that all output is properly flushed to LUNIT.</li>
 </ul>
 </dd></dl>
 <p><b>Program history log:</b></p>
 <ul>
-<li>1994-01-06 J. Woollen &ndash; ORIGINAL AUTHOR</li>
-<li>2003-11-04 J. Ator &ndash; Don't close lunit if opened as a NULL file by <a class="el" href="openbf_8F.html#a9bea9aeada166bd9037b959ca8452b28" title="This subroutine identifies a new file to the BUFRLIB software for input or output operations...">openbf()</a></li>
+<li>1994-01-06 J. Woollen &ndash; Original author</li>
+<li>2003-11-04 J. Ator &ndash; Don't close lunit if opened as a NULL file by <a class="el" href="openbf_8F.html#a9bea9aeada166bd9037b959ca8452b28" title="This subroutine connects a new file to the BUFRLIB software for input or output operations. ">openbf()</a></li>
 <li>2003-11-04 S. Bender &ndash; Added remarks and routine interdependencies</li>
 <li>2003-11-04 D. Keyser &ndash; Unified/portable for WRF; added history documentation</li>
-<li>2012-09-15 J. Woollen &ndash; Modified for C/I/O/BUFR interface; added call to closfb() to close C files</li>
+<li>2012-09-15 J. Woollen &ndash; Modified for C/I/O/BUFR interface; added call to <a class="el" href="cread_8c.html#abbd928726a21a86c34e3bcea9213f304" title="This subroutine closes a previously opened BUFR file. ">closfb()</a> to close C files</li>
 <li>2014-12-10 J. Ator &ndash; Use modules instead of COMMON blocks</li>
-<li>2020-07-16 J. Ator &ndash; Add sanity check to ensure that <a class="el" href="openbf_8F.html#a9bea9aeada166bd9037b959ca8452b28" title="This subroutine identifies a new file to the BUFRLIB software for input or output operations...">openbf()</a> was previously called (needed for GSI)</li>
+<li>2020-07-16 J. Ator &ndash; Add sanity check to ensure that <a class="el" href="openbf_8F.html#a9bea9aeada166bd9037b959ca8452b28" title="This subroutine connects a new file to the BUFRLIB software for input or output operations. ">openbf()</a> was previously called (needed for GSI) </li>
 </ul>
-<p><b>This routine calls:</b> closfb() <a class="el" href="closmg_8f.html#a3378111de0136710daec2ded25ed34e4" title="This subroutine closes the BUFR message that is currently open for writing within internal arrays ass...">closmg()</a> <a class="el" href="status_8f.html#a22292e7a69c411a961168198d259f336" title="THIS SUBROUTINE CHECKS WHETHER LOGICAL UNIT NUMBER LUNIT (AND ITS ASSOCIATED BUFR FILE) IS CURRENTLY ...">status()</a> <a class="el" href="wtstat_8f.html#a82676f83ff365e03ad827ed5ba0af1ae" title="THIS SUBROUTINE EITHER DISCONNECTS THE INPUT LOGICAL UNIT NUMBER LUNIT (AND ITS ASSOCIATED BUFR FILE)...">wtstat()</a></p>
-<p><b>This routine is called by:</b> <a class="el" href="copybf_8f.html#a621280835c0e7a4ac960b0bf719c9721" title="THIS SUBROUTINE COPIES AN ENTIRE BUFR FILE FROM LOGICAL UNIT LUNIN TO LOGICAL UNIT LUNOT...">copybf()</a> <a class="el" href="exitbufr_8f.html#a355f094d616febcea2820cf547cbff8e" title="THIS SUBROUTINE FREES ALL DYNAMICALLY-ALLOCATED MEMORY, CLOSES ALL LOGICAL UNITS THAT ARE OPEN TO THE...">exitbufr()</a> <a class="el" href="mesgbf_8f.html#a078d4fcccd886e70666ebeab639cf9c8" title="THIS SUBROUTINE READS AND EXAMINES SECTION 1 OF MESSAGES IN A BUFR FILE IN SEQUENCE UNTIL IT FINDS TH...">mesgbf()</a> <a class="el" href="ufbinx_8f.html#ac8a380b1f26c05540ca3993fb2b7be85" title="THIS SUBROUTINE EITHER OPENS A BUFR FILE CONNECTED TO LOGICAL UNIT LUNIT FOR INPUT OPERATIONS (IF IT ...">ufbinx()</a> <a class="el" href="ufbmem_8f.html#aaa20a946a966bc4de8012e1a01461502" title="THIS SUBROUTINE OPENS A BUFR FILE FOR INPUT, READS EACH MESSAGE AND TRANSFERS THEM ONE-BY-ONE TO INTE...">ufbmem()</a> <a class="el" href="ufbmex_8f.html#abeceab81e913f1c3f833d7b2c680e5b3" title="THIS SUBROUTINE OPENS A BUFR FILE FOR INPUT, READS EACH MESSAGE AND TRANSFERS THEM ONE-BY-ONE TO INTE...">ufbmex()</a> <a class="el" href="ufbtab_8f.html#a4fb9c0d69c11bdc6e218f81de3dc6025" title="THIS SUBROUTINE EITHER OPENS A BUFR FILE CONNECTED TO ABS(LUNIN) FOR INPUT OPERATIONS (IF IT IS NOT A...">ufbtab()</a> <br/>
-Also called by application programs. </p>
 
-<p>Definition at line <a class="el" href="closbf_8F_source.html#l00042">42</a> of file <a class="el" href="closbf_8F_source.html">closbf.F</a>.</p>
+<p>Definition at line <a class="el" href="closbf_8F_source.html#l00036">36</a> of file <a class="el" href="closbf_8F_source.html">closbf.F</a>.</p>
+
+<p>References <a class="el" href="cread_8c.html#abbd928726a21a86c34e3bcea9213f304">closfb()</a>, <a class="el" href="closmg_8f.html#a3378111de0136710daec2ded25ed34e4">closmg()</a>, <a class="el" href="errwrt_8f.html#a65626d9a772648676146b62b596c2764">errwrt()</a>, <a class="el" href="status_8f.html#a22292e7a69c411a961168198d259f336">status()</a>, and <a class="el" href="wtstat_8f.html#a82676f83ff365e03ad827ed5ba0af1ae">wtstat()</a>.</p>
+
+<p>Referenced by <a class="el" href="classbufr__c__interface__mod.html#a5c84dfd918e1785c075f9451dd2d2acb">bufr_c_interface_mod::closbf_c()</a>, <a class="el" href="copybf_8f.html#a621280835c0e7a4ac960b0bf719c9721">copybf()</a>, <a class="el" href="datebf_8F.html#a688208e451a81634a110c6963561f22e">datebf()</a>, <a class="el" href="dumpbf_8f.html#a345cb5b88ed574ab5f66b9a90e61acc6">dumpbf()</a>, <a class="el" href="exitbufr_8f.html#a355f094d616febcea2820cf547cbff8e">exitbufr()</a>, <a class="el" href="mesgbc_8f.html#a7c19b0b932b32b59a6bf5f3c8a809617">mesgbc()</a>, <a class="el" href="mesgbf_8f.html#a078d4fcccd886e70666ebeab639cf9c8">mesgbf()</a>, <a class="el" href="split__by__subset_8f90.html#ae5d45e2086aa783d8ca85e2fd47c8118">split_by_subset()</a>, <a class="el" href="ufbinx_8f.html#ac8a380b1f26c05540ca3993fb2b7be85">ufbinx()</a>, <a class="el" href="ufbmem_8f.html#aaa20a946a966bc4de8012e1a01461502">ufbmem()</a>, <a class="el" href="ufbmex_8f.html#abeceab81e913f1c3f833d7b2c680e5b3">ufbmex()</a>, and <a class="el" href="ufbtab_8f.html#a4fb9c0d69c11bdc6e218f81de3dc6025">ufbtab()</a>.</p>
 
 </div>
 </div>

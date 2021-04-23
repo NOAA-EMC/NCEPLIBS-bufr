@@ -7,8 +7,9 @@ var searchData=
   ['sntbbe',['sntbbe',['../sntbbe_8f.html#ae308430ece0bc88b4f8239cfbc13fe1e',1,'sntbbe.f']]],
   ['sntbde',['sntbde',['../sntbde_8f.html#ae7338a521f1a0879429886018b9c3e00',1,'sntbde.f']]],
   ['sntbfe',['sntbfe',['../sntbfe_8f.html#a99678d8b031a5f9c1b9c2cc1e8e42d8e',1,'sntbfe.f']]],
-  ['sorttbf',['sorttbf',['../sorttbf_8c.html#af9bdd990bf256341aa36e1f0611132de',1,'sorttbf(void):&#160;sorttbf.c'],['../bufrlib_8h.html#af9bdd990bf256341aa36e1f0611132de',1,'sorttbf(void):&#160;sorttbf.c']]],
-  ['srchtbf',['srchtbf',['../srchtbf_8c.html#a24478fa65ca9d41665e8526e12d41cf1',1,'srchtbf(f77int *ifxyi, f77int *ivali, f77int *ifxyd, f77int *mxfxyd, f77int *ivald, char *meaning, f77int *mxmng, f77int *lnmng, f77int *iret):&#160;srchtbf.c'],['../bufrlib_8h.html#acc1aa6de33a783e043e47e2522c688e3',1,'srchtbf(f77int *, f77int *, f77int *, f77int *, f77int *, char *, f77int *, f77int *, f77int *):&#160;srchtbf.c']]],
+  ['sorttbf',['sorttbf',['../cfe_8h.html#af9bdd990bf256341aa36e1f0611132de',1,'sorttbf(void):&#160;sorttbf.c'],['../sorttbf_8c.html#af9bdd990bf256341aa36e1f0611132de',1,'sorttbf(void):&#160;sorttbf.c']]],
+  ['split_5fby_5fsubset',['split_by_subset',['../split__by__subset_8f90.html#ae5d45e2086aa783d8ca85e2fd47c8118',1,'split_by_subset.f90']]],
+  ['srchtbf',['srchtbf',['../cfe_8h.html#acc1aa6de33a783e043e47e2522c688e3',1,'srchtbf(f77int *, f77int *, f77int *, f77int *, f77int *, char *, f77int *, f77int *, f77int *):&#160;srchtbf.c'],['../srchtbf_8c.html#a24478fa65ca9d41665e8526e12d41cf1',1,'srchtbf(f77int *ifxyi, f77int *ivali, f77int *ifxyd, f77int *mxfxyd, f77int *ivald, char *meaning, f77int *mxmng, f77int *lnmng, f77int *iret):&#160;srchtbf.c']]],
   ['status',['status',['../status_8f.html#a22292e7a69c411a961168198d259f336',1,'status.f']]],
   ['stbfdx',['stbfdx',['../stbfdx_8f.html#a35d346baad722c9be56532c38d43f8a0',1,'stbfdx.f']]],
   ['stdmsg',['stdmsg',['../stdmsg_8f.html#abcb573ae105505deb6d3c0ad55abbce2',1,'stdmsg.f']]],
@@ -21,6 +22,6 @@ var searchData=
   ['string',['string',['../string_8f.html#ad5386a1e671ead372f1c087994b68438',1,'string.f']]],
   ['strnum',['strnum',['../strnum_8f.html#a3cb1ef014cf71b6456ec7fa46d51ed06',1,'strnum.f']]],
   ['strsuc',['strsuc',['../strsuc_8f.html#a0ad7f0b59d89e0bdd1e9d73947b19e7e',1,'strsuc.f']]],
-  ['strtbfe',['strtbfe',['../strtbfe_8c.html#accfbc3ebd31acb0031a97d7d7c21b140',1,'strtbfe(f77int *ifxyn, f77int *ival, char *meaning, f77int *lmeaning, f77int *idfxy, f77int *idval):&#160;strtbfe.c'],['../bufrlib_8h.html#a18da596b767aa8c20953f8085b0c8c20',1,'strtbfe(f77int *, f77int *, char *, f77int *, f77int *, f77int *):&#160;strtbfe.c']]],
+  ['strtbfe',['strtbfe',['../cfe_8h.html#a18da596b767aa8c20953f8085b0c8c20',1,'strtbfe(f77int *, f77int *, char *, f77int *, f77int *, f77int *):&#160;strtbfe.c'],['../strtbfe_8c.html#accfbc3ebd31acb0031a97d7d7c21b140',1,'strtbfe(f77int *ifxyn, f77int *ival, char *meaning, f77int *lmeaning, f77int *idfxy, f77int *idval):&#160;strtbfe.c']]],
   ['stseq',['stseq',['../stseq_8c.html#a712e57cd19d1f94b87269d7dfc679c5e',1,'stseq.c']]]
 ];

@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.3.2</span>
+   &#160;<span id="projectnumber">11.5.0</span>
    </div>
   </td>
  </tr>
@@ -92,7 +92,7 @@ $(document).ready(function(){initNavTree('cwbmg_8c.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -108,6 +108,9 @@ $(document).ready(function(){initNavTree('cwbmg_8c.html','');});
 <div class="title">cwbmg.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>Write a message to a BUFR file that was previously opened for writing via a C language interface.  
+<a href="#details">More...</a></p>
 <div class="textblock"><code>#include &quot;<a class="el" href="bufrlib_8h_source.html">bufrlib.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="cobfl_8h_source.html">cobfl.h</a>&quot;</code><br/>
 </div>
@@ -116,12 +119,11 @@ $(document).ready(function(){initNavTree('cwbmg_8c.html','');});
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a9d812ef461a3a6da30baf5143e5a542d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cwbmg_8c.html#a9d812ef461a3a6da30baf5143e5a542d">cwbmg</a> (char *bmg, f77int *nmb, f77int *iret)</td></tr>
-<tr class="memdesc:a9d812ef461a3a6da30baf5143e5a542d"><td class="mdescLeft">&#160;</td><td class="mdescRight">C C SUBPROGRAM: CWBMG C PRGMMR: ATOR ORG: NP12 DATE: 2005-11-29 C C ABSTRACT: THIS ROUTINE WRITES A SPECIFIED NUMBER OF BYTES TO THE C SYSTEM FILE MOST RECENTLY OPENED FOR WRITING/OUTPUT VIA BUFR C ARCHIVE LIBRARY ROUTINE COBFL.  <a href="#a9d812ef461a3a6da30baf5143e5a542d">More...</a><br/></td></tr>
+<tr class="memdesc:a9d812ef461a3a6da30baf5143e5a542d"><td class="mdescLeft">&#160;</td><td class="mdescRight">This subroutine writes a BUFR message to the system file that was opened via the most recent call to subroutine <a class="el" href="cobfl_8c.html#a8ee2da6f5d4198418177b973d9b1108c" title="This subroutine opens a new file for reading or writing BUFR messages via a C language interface...">cobfl()</a> with io = 'w'.  <a href="#a9d812ef461a3a6da30baf5143e5a542d">More...</a><br/></td></tr>
 <tr class="separator:a9d812ef461a3a6da30baf5143e5a542d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><dl class="section author"><dt>Author</dt><dd>ATOR </dd></dl>
-<dl class="section date"><dt>Date</dt><dd>2005-11-29 </dd></dl>
+<div class="textblock"><p>Write a message to a BUFR file that was previously opened for writing via a C language interface. </p>
 
 <p>Definition in file <a class="el" href="cwbmg_8c_source.html">cwbmg.c</a>.</p>
 </div><h2 class="groupheader">Function Documentation</h2>
@@ -155,10 +157,31 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>C C SUBPROGRAM: CWBMG C PRGMMR: ATOR ORG: NP12 DATE: 2005-11-29 C C ABSTRACT: THIS ROUTINE WRITES A SPECIFIED NUMBER OF BYTES TO THE C SYSTEM FILE MOST RECENTLY OPENED FOR WRITING/OUTPUT VIA BUFR C ARCHIVE LIBRARY ROUTINE COBFL. </p>
-<p>C C PROGRAM HISTORY LOG: C 2005-11-29 J. ATOR &ndash; ORIGINAL AUTHOR C C USAGE: CALL CWBMG( BMG, NMB, IRET ) C INPUT ARGUMENT LIST: C BMG - CHARACTER*1: ARRAY CONTAINING BYTES TO BE WRITTEN C NMB - INTEGER: NUMBER OF BYTES WITHIN BMG TO BE WRITTEN C C OUTPUT ARGUMENT LIST: C IRET - INTEGER: RETURN CODE: C 0 = normal return C -1 = I/O error occurred while writing C C REMARKS: C THIS ROUTINE CALLS: BORT C THIS ROUTINE IS CALLED BY: None C Normally called only by application C programs. C C ATTRIBUTES: C LANGUAGE: C C MACHINE: PORTABLE TO ALL PLATFORMS C C$$$ </p>
+<p>This subroutine writes a BUFR message to the system file that was opened via the most recent call to subroutine <a class="el" href="cobfl_8c.html#a8ee2da6f5d4198418177b973d9b1108c" title="This subroutine opens a new file for reading or writing BUFR messages via a C language interface...">cobfl()</a> with io = 'w'. </p>
+<dl class="section author"><dt>Author</dt><dd>J. Ator </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2005-11-29</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">bmg</td><td>- char*: BUFR message to be written </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">nmb</td><td>- f77int*: Size (in bytes) of BUFR message in bmg </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">iret</td><td>- f77int*: return code<ul>
+<li>0 = normal return</li>
+<li>-1 = I/O error encountered while writing</li>
+</ul>
+</td></tr>
+  </table>
+  </dd>
+</dl>
+<p>This subroutine is designed to be easily callable from application program written in either C or Fortran.</p>
+<p>The file to which the message is to be written must have already been opened for writing via a previous call to subroutine <a class="el" href="cobfl_8c.html#a8ee2da6f5d4198418177b973d9b1108c" title="This subroutine opens a new file for reading or writing BUFR messages via a C language interface...">cobfl()</a> with io = 'w'.</p>
+<p><b>Program history log:</b></p>
+<ul>
+<li>2005-11-29 J. Ator &ndash; Original author </li>
+</ul>
 
-<p>Definition at line <a class="el" href="cwbmg_8c_source.html#l00042">42</a> of file <a class="el" href="cwbmg_8c_source.html">cwbmg.c</a>.</p>
+<p>Definition at line <a class="el" href="cwbmg_8c_source.html#l00033">33</a> of file <a class="el" href="cwbmg_8c_source.html">cwbmg.c</a>.</p>
+
+<p>References <a class="el" href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort()</a>, and <a class="el" href="cobfl_8h.html#a749687e8025ba9e13e3634055d551dce">pbf</a>.</p>
 
 </div>
 </div>

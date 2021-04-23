@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.3.2</span>
+   &#160;<span id="projectnumber">11.5.0</span>
    </div>
   </td>
  </tr>
@@ -92,7 +92,7 @@ $(document).ready(function(){initNavTree('gettagre_8f_source.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -107,94 +107,88 @@ $(document).ready(function(){initNavTree('gettagre_8f_source.html','');});
 </div><!--header-->
 <div class="contents">
 <a href="gettagre_8f.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="comment">C&gt; @file</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment">C&gt; @author J @date 2016-06-07</span></div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;    </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="comment">C&gt; GIVEN A MNEMONIC WITHIN A SUBSET CURRENTLY OPEN FOR</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="comment">C&gt;   READING, THIS SUBROUTINE CHECKS WHETHER THE MNEMONIC REFERENCES</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="comment">C&gt;   ANOTHER ELEMENT WITHIN THE SAME SUBSET VIA AN INTERNAL BITMAP, AND</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="comment">C&gt;   IF SO RETURNS THE REFERENCED MNEMONIC AND ITS LOCATION.  IF THERE</span></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="comment">C&gt;   IS MORE THAN ONE OCCURRENCE OF THE INPUT MNEMONIC WITHIN THE OVERALL</span></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="comment">C&gt;   SUBSET DEFINITION, THE SUBROUTINE WILL RETURN THE MNEMONIC REFERRED</span></div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="comment">C&gt;   TO BY THE (NTAGI)th OCCURRENCE OF THE INPUT MNEMONIC, COUNTING FROM</span></div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="comment">C&gt;   THE BEGINNING OF THE OVERALL SUBSET DEFINITION.  A SUBSET DEFINITION</span></div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="comment">C&gt;   MUST ALREADY BE IN SCOPE, EITHER VIA A PREVIOUS CALL TO BUFR ARCHIVE</span></div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="comment">C&gt;   LIBRARY SUBROUTINE READSB OR EQUIVALENT.</span></div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment">C&gt;</span></div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="comment">C&gt; PROGRAM HISTORY LOG:</span></div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="comment">C&gt; 2016-06-07  J. ATOR    -- ORIGINAL AUTHOR</span></div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="comment">C&gt;</span></div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="comment">C&gt; USAGE:    CALL GETTAGRE (LUNIT, TAGI, NTAGI, TAGRE, NTAGRE, IRET)</span></div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment">C&gt;   INPUT ARGUMENT LIST:</span></div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="comment">C&gt;     LUNIT    - INTEGER: FORTRAN LOGICAL UNIT NUMBER FOR BUFR FILE</span></div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="comment">C&gt;     TAGI     - CHARACTER*(*): MNEMONIC</span></div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="comment">C&gt;     NTAGI    - INTEGER: ORDINAL OCCURRENCE OF TAGI FOR WHICH TAGRE</span></div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="comment">C&gt;                IS TO BE RETURNED, COUNTING FROM THE BEGINNING OF</span></div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="comment">C&gt;                THE OVERALL SUBSET DEFINITION</span></div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="comment">C&gt;</span></div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="comment">C&gt;   OUTPUT ARGUMENT LIST:</span></div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="comment">C&gt;     TAGRE    - CHARACTER*(*): MNEMONIC REFERRED TO BY TAGI VIA AN</span></div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="comment">C&gt;                INTERNAL BITMAP</span></div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="comment">C&gt;     NTAGRE   - INTEGER: ORDINAL OCCURRENCE OF TAGRE REFERRED TO BY</span></div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="comment">C&gt;                (NTAGI)th OCCURRENCE OF TAGI, COUNTING FROM THE</span></div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="comment">C&gt;                BEGINNING OF THE OVERALL SUBSET DEFINITIION.</span></div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="comment">C&gt;     IRET     - INTEGER: RETURN CODE</span></div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="comment">C&gt;                   0 = NORMAL RETURN</span></div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="comment">C&gt;                  -1 = COULD NOT FIND TAGRE</span></div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="comment">C&gt;</span></div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="comment">C&gt; REMARKS:</span></div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="comment">C&gt;    THIS ROUTINE CALLS:        FSTAG    STATUS   STRSUC</span></div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="comment">C&gt;    THIS ROUTINE IS CALLED BY: None</span></div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="comment">C&gt;                               Normally called only by application</span></div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="comment">C&gt;                               programs</span></div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="comment">C&gt;</span></div>
-<div class="line"><a name="l00042"></a><span class="lineno"><a class="line" href="gettagre_8f.html#a96a9d206341f6d763af9d7af7342cc58">   42</a></span>&#160;<span class="keyword">    SUBROUTINE </span><a class="code" href="gettagre_8f.html#a96a9d206341f6d763af9d7af7342cc58">gettagre</a> ( LUNIT, TAGI, NTAGI, TAGRE, NTAGRE, IRET )</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment">C&gt; @brief Check whether a Table B mnemonic references another</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="comment">C&gt; Table B mnemonic via an internal bitmap.</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="comment">C&gt; This subroutine determines whether a specified Table B mnemonic</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="comment">C&gt; references another Table B mnemonic within the same data subset</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="comment">C&gt; via an internal bitmap, and if so returns the referenced</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="comment">C&gt; mnemonic and its location within the subset.</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="comment">C&gt;</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="comment">C&gt; @author J. Ator</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="comment">C&gt; @date 2016-06-07</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="comment">C&gt;</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="comment">C&gt; @param[in] LUNIT  - integer: Fortran logical unit number for</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment">C&gt;                     BUFR file</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="comment">C&gt; @param[in] TAGI   - character*(*): Table B mnemonic</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="comment">C&gt; @param[in] NTAGI  - integer: Ordinal occurrence of TAGI for</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="comment">C&gt;                     which TAGRE is to be returned, counting from</span></div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="comment">C&gt;                     the beginning of the overall subset definition</span></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment">C&gt; @param[out] TAGRE - character*(*): Table B mnemonic referenced by</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="comment">C&gt;                     TAGI via an internal bitmap</span></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="comment">C&gt; @param[out] NTAGRE - integer: Ordinal occurrence of TAGRE</span></div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="comment">C&gt;                      referenced by (NTAGI)th occurrence of TAGI,</span></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="comment">C&gt;                      counting from the beginning of the overall</span></div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="comment">C&gt;                      subset definition</span></div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="comment">C&gt; @param[out] IRET  - integer: return code</span></div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="comment">C&gt;                     - 0 = normal return</span></div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="comment">C&gt;                     - -1 = TAGRE could not be found, or some</span></div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="comment">C&gt;                            other error occurred</span></div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="comment">C&gt;</span></div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="comment">C&gt; &lt;p&gt;A data subset must already be in scope within the BUFRLIB</span></div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="comment">C&gt; internal arrays for LUNIT, either via a previous call to one</span></div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="comment">C&gt; of the [subset-reading subroutines](@ref hierarchy)</span></div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="comment">C&gt; (when reading BUFR data subsets) or via a previous call to one</span></div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="comment">C&gt; of the [message-writing subroutines](@ref hierarchy)</span></div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="comment">C&gt; (when writing BUFR data subsets).</span></div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="comment">C&gt;</span></div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="comment">C&gt; &lt;b&gt;Program history log:&lt;/b&gt;</span></div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="comment">C&gt; - 2016-06-07  J. Ator    -- Original author</span></div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="comment">C&gt;</span></div>
+<div class="line"><a name="l00040"></a><span class="lineno"><a class="line" href="gettagre_8f.html#a96a9d206341f6d763af9d7af7342cc58">   40</a></span>&#160;<span class="keyword">    SUBROUTINE </span><a class="code" href="gettagre_8f.html#a96a9d206341f6d763af9d7af7342cc58">gettagre</a> ( LUNIT, TAGI, NTAGI, TAGRE, NTAGRE, IRET )</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <span class="keywordtype">USE </span><a class="code" href="classmoda__usrint.html">moda_usrint</a></div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <span class="keywordtype">USE </span><a class="code" href="classmoda__msgcwd.html">moda_msgcwd</a></div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <span class="keywordtype">USE </span><a class="code" href="moda__tables_8F.html#classmoda__tables">moda_tables</a></div>
 <div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <span class="keywordtype">USE </span><a class="code" href="classmoda__usrint.html">moda_usrint</a></div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <span class="keywordtype">USE </span><a class="code" href="classmoda__msgcwd.html">moda_msgcwd</a></div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <span class="keywordtype">USE </span><a class="code" href="classmoda__tables.html">moda_tables</a></div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <span class="keywordtype">CHARACTER*(*)</span> tagi, tagre</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <span class="keywordtype">CHARACTER*10</span> tagtmp</div>
 <div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    include <span class="stringliteral">&#39;bufrlib.inc&#39;</span></div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    <span class="keywordtype">CHARACTER*(*)</span> tagi, tagre</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    <span class="keywordtype">CHARACTER*10</span> tagtmp</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;<span class="comment">C----------------------------------------------------------------------</span></div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;<span class="comment">C----------------------------------------------------------------------</span></div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    iret = -1</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;<span class="comment">C----------------------------------------------------------------------</span></div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;<span class="comment">C----------------------------------------------------------------------</span></div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    iret = -1</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;<span class="comment">C   Get LUN from LUNIT.</span></div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    CALL <a class="code" href="status_8f.html#a22292e7a69c411a961168198d259f336">status</a>( lunit, lun, il, im )</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    <span class="keywordflow">IF</span> ( il .EQ. 0 ) <span class="keywordflow">RETURN</span></div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    <span class="keywordflow">IF</span> ( inode(lun) .NE. inv(1,lun) ) <span class="keywordflow">RETURN</span></div>
 <div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;<span class="comment">C   Get LUN from LUNIT.</span></div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;<span class="comment">C   Get TAGRE and NTAGRE from the (NTAGI)th occurrence of TAGI.</span></div>
 <div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    CALL <a class="code" href="status_8f.html#a22292e7a69c411a961168198d259f336">status</a>( lunit, lun, il, im )</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    <span class="keywordflow">IF</span> ( il .EQ. 0 ) <span class="keywordflow">RETURN</span></div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    <span class="keywordflow">IF</span> ( inode(lun) .NE. inv(1,lun) ) <span class="keywordflow">RETURN</span></div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;<span class="comment">C   Get TAGRE and NTAGRE from the (NTAGI)th occurrence of TAGI.</span></div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    CALL <a class="code" href="fstag_8f.html#a4086d332625381684867dd7ec13a20e5">fstag</a>( lun, tagi, ntagi, 1, ni, iret )</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    <span class="keywordflow">IF</span> ( iret .NE. 0 ) <span class="keywordflow">RETURN</span></div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    nre = nrfelm(ni,lun)</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    <span class="keywordflow">IF</span> ( nre .GT. 0 ) <span class="keywordflow">THEN</span></div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;        iret = 0</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;        tagre = tag(inv(nre,lun))</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;        CALL <a class="code" href="strsuc_8f.html#a0ad7f0b59d89e0bdd1e9d73947b19e7e">strsuc</a>( tagre, tagtmp, ltre )</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;        ntagre = 0</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;        <span class="keywordflow">DO</span> ii = 1, nre</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;        <span class="keywordflow">IF</span> ( tag(inv(ii,lun))(1:ltre) .EQ. tagre(1:ltre) ) <span class="keywordflow">THEN</span></div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;          ntagre = ntagre + 1</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;        <span class="keywordflow">END IF</span></div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;        <span class="keywordflow">END DO</span></div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    <span class="keywordflow">END IF</span></div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    <span class="keywordflow">RETURN</span></div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    <span class="keywordflow">END</span></div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    CALL <a class="code" href="fstag_8f.html#a4086d332625381684867dd7ec13a20e5">fstag</a>( lun, tagi, ntagi, 1, ni, iret )</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    <span class="keywordflow">IF</span> ( iret .NE. 0 ) <span class="keywordflow">RETURN</span></div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    nre = nrfelm(ni,lun)</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    <span class="keywordflow">IF</span> ( nre .GT. 0 ) <span class="keywordflow">THEN</span></div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;        iret = 0</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;        tagre = tag(inv(nre,lun))</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;        CALL <a class="code" href="strsuc_8f.html#a0ad7f0b59d89e0bdd1e9d73947b19e7e">strsuc</a>( tagre, tagtmp, ltre )</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;        ntagre = 0</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;        <span class="keywordflow">DO</span> ii = 1, nre</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;        <span class="keywordflow">IF</span> ( tag(inv(ii,lun))(1:ltre) .EQ. tagre(1:ltre) ) <span class="keywordflow">THEN</span></div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;          ntagre = ntagre + 1</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;        <span class="keywordflow">END IF</span></div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;        <span class="keywordflow">END DO</span></div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    <span class="keywordflow">END IF</span></div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    <span class="keywordflow">RETURN</span></div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    <span class="keywordflow">END</span></div>
 <div class="ttc" id="strsuc_8f_html_a0ad7f0b59d89e0bdd1e9d73947b19e7e"><div class="ttname"><a href="strsuc_8f.html#a0ad7f0b59d89e0bdd1e9d73947b19e7e">strsuc</a></div><div class="ttdeci">subroutine strsuc(STR1, STR2, LENS)</div><div class="ttdoc">THIS SUBROUTINE REMOVES LEADING AND TRAILING BLANKS FROM A STRING. </div><div class="ttdef"><b>Definition:</b> <a href="strsuc_8f_source.html#l00034">strsuc.f:34</a></div></div>
-<div class="ttc" id="status_8f_html_a22292e7a69c411a961168198d259f336"><div class="ttname"><a href="status_8f.html#a22292e7a69c411a961168198d259f336">status</a></div><div class="ttdeci">subroutine status(LUNIT, LUN, IL, IM)</div><div class="ttdoc">THIS SUBROUTINE CHECKS WHETHER LOGICAL UNIT NUMBER LUNIT (AND ITS ASSOCIATED BUFR FILE) IS CURRENTLY ...</div><div class="ttdef"><b>Definition:</b> <a href="status_8f_source.html#l00086">status.f:86</a></div></div>
-<div class="ttc" id="gettagre_8f_html_a96a9d206341f6d763af9d7af7342cc58"><div class="ttname"><a href="gettagre_8f.html#a96a9d206341f6d763af9d7af7342cc58">gettagre</a></div><div class="ttdeci">subroutine gettagre(LUNIT, TAGI, NTAGI, TAGRE, NTAGRE, IRET)</div><div class="ttdoc">GIVEN A MNEMONIC WITHIN A SUBSET CURRENTLY OPEN FOR READING, THIS SUBROUTINE CHECKS WHETHER THE MNEMO...</div><div class="ttdef"><b>Definition:</b> <a href="gettagre_8f_source.html#l00042">gettagre.f:42</a></div></div>
-<div class="ttc" id="classmoda__tables_html"><div class="ttname"><a href="classmoda__tables.html">moda_tables</a></div><div class="ttdef"><b>Definition:</b> <a href="moda__tables_8F_source.html#l00001">moda_tables.F:1</a></div></div>
+<div class="ttc" id="moda__tables_8F_html_classmoda__tables"><div class="ttname"><a href="moda__tables_8F.html#classmoda__tables">moda_tables</a></div><div class="ttdoc">This module contains array and variable declarations used to store the internal jump/link table...</div><div class="ttdef"><b>Definition:</b> <a href="moda__tables_8F_source.html#l00013">moda_tables.F:13</a></div></div>
+<div class="ttc" id="status_8f_html_a22292e7a69c411a961168198d259f336"><div class="ttname"><a href="status_8f.html#a22292e7a69c411a961168198d259f336">status</a></div><div class="ttdeci">subroutine status(LUNIT, LUN, IL, IM)</div><div class="ttdoc">This subroutine checks whether a specified Fortran logical unit number is currently connected to the ...</div><div class="ttdef"><b>Definition:</b> <a href="status_8f_source.html#l00061">status.f:61</a></div></div>
+<div class="ttc" id="gettagre_8f_html_a96a9d206341f6d763af9d7af7342cc58"><div class="ttname"><a href="gettagre_8f.html#a96a9d206341f6d763af9d7af7342cc58">gettagre</a></div><div class="ttdeci">subroutine gettagre(LUNIT, TAGI, NTAGI, TAGRE, NTAGRE, IRET)</div><div class="ttdoc">This subroutine determines whether a specified Table B mnemonic references another Table B mnemonic w...</div><div class="ttdef"><b>Definition:</b> <a href="gettagre_8f_source.html#l00040">gettagre.f:40</a></div></div>
 <div class="ttc" id="classmoda__usrint_html"><div class="ttname"><a href="classmoda__usrint.html">moda_usrint</a></div><div class="ttdef"><b>Definition:</b> <a href="moda__usrint_8F_source.html#l00001">moda_usrint.F:1</a></div></div>
 <div class="ttc" id="classmoda__msgcwd_html"><div class="ttname"><a href="classmoda__msgcwd.html">moda_msgcwd</a></div><div class="ttdef"><b>Definition:</b> <a href="moda__msgcwd_8F_source.html#l00001">moda_msgcwd.F:1</a></div></div>
 <div class="ttc" id="fstag_8f_html_a4086d332625381684867dd7ec13a20e5"><div class="ttname"><a href="fstag_8f.html#a4086d332625381684867dd7ec13a20e5">fstag</a></div><div class="ttdeci">subroutine fstag(LUN, UTAG, NUTAG, NIN, NOUT, IRET)</div><div class="ttdoc">THIS SUBROUTINE FINDS THE (NUTAG)th OCCURRENCE OF MNEMONIC UTAG WITHIN THE CURRENT OVERALL SUBSET DEF...</div><div class="ttdef"><b>Definition:</b> <a href="fstag_8f_source.html#l00040">fstag.f:40</a></div></div>

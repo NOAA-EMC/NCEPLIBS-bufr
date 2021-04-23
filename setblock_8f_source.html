@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.3.2</span>
+   &#160;<span id="projectnumber">11.5.0</span>
    </div>
   </td>
  </tr>
@@ -92,7 +92,7 @@ $(document).ready(function(){initNavTree('setblock_8f_source.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -107,48 +107,71 @@ $(document).ready(function(){initNavTree('setblock_8f_source.html','');});
 </div><!--header-->
 <div class="contents">
 <a href="setblock_8f.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="comment">C&gt; @file</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment">C&gt; @author WOOLLEN @date 2012-09-15</span></div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;      </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="comment">C&gt; SUBROUTINE SETBLOCK ALLOWS APPLICATIONS TO DEFINE WHAT</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="comment">C&gt;           SORT OF OUTPUT FILE BLOCKING (IEEE RECORD CONTROL WORDS)</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="comment">C&gt;           ARE APPLIED TO BUFR RECORDS WRITTEN FROM THE BUFRLIB</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="comment">C&gt;           ROUTINES. THE DEFAULT IS NONE (PURE BUFR). OTHER OPTIONS</span></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="comment">C&gt;           ARE BIG OR LITTLE ENDIAN.</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment">C&gt; @brief Specify the use of IEEE Fortran control words when writing</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="comment">C&gt; BUFR messages.</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="comment">C&gt; This subroutine is used to specify whether BUFR messages output by</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="comment">C&gt; future calls to [message-writing subroutines](@ref hierarchy)</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="comment">C&gt; should be encapsulated with IEEE Fortran control words when being</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="comment">C&gt; written to output files.</span></div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="comment">C&gt;</span></div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="comment">C&gt; PROGRAM HISTORY LOG:</span></div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="comment">C&gt; 2012-09-15  J. WOOLLEN -- ORIGINAL AUTHOR</span></div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="comment">C&gt;</span></div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="comment">C&gt; USAGE: CALL SETBLOCK(IBLK)</span></div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment">C&gt;</span></div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="comment">C&gt;   INPUT ARGUMENTS:</span></div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="comment">C&gt;     IBLK - INTEGER BLOCK TYPE INDICATOR</span></div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="comment">C&gt;            -1  LITTLE ENDIAN RECORD CONTROL WORDS</span></div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="comment">C&gt;             0  NO RECORD CONTROL WORDS (PURE BUFR)</span></div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment">C&gt;             1  BIG ENDIAN RECORD CONTROL WORDS</span></div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="comment">C&gt;</span></div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="comment">C&gt;   OUTPUT ARGUMENTS:</span></div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="comment">C&gt;</span></div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="comment">C&gt; REMARKS:</span></div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="comment">C&gt;    THIS ROUTINE CALLS: OPENBF</span></div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="comment">C&gt;</span></div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="comment">C&gt;    THIS ROUTINE IS CALLED BY: USER</span></div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="comment">C&gt;</span></div>
-<div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="setblock_8f.html#a4f62f9ac4a473f33f3c93f3e99bf69a5">   28</a></span>&#160;<span class="keyword">      SUBROUTINE </span><a class="code" href="setblock_8f.html#a4f62f9ac4a473f33f3c93f3e99bf69a5">setblock</a>(IBLK) </div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;      <span class="keyword">COMMON</span> /endord/ iblock,iordbe(4),iordle(4)</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="comment">c-----------------------------------------------------------------------</span></div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="comment">c-----------------------------------------------------------------------</span></div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;      CALL <a class="code" href="openbf_8F.html#a9bea9aeada166bd9037b959ca8452b28">openbf</a>(0,<span class="stringliteral">&#39;FIRST&#39;</span>,0)</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;      iblock=iblk  </div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;      <span class="keywordflow">RETURN</span></div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;      <span class="keywordflow">END</span></div>
-<div class="ttc" id="setblock_8f_html_a4f62f9ac4a473f33f3c93f3e99bf69a5"><div class="ttname"><a href="setblock_8f.html#a4f62f9ac4a473f33f3c93f3e99bf69a5">setblock</a></div><div class="ttdeci">subroutine setblock(IBLK)</div><div class="ttdoc">SUBROUTINE SETBLOCK ALLOWS APPLICATIONS TO DEFINE WHAT SORT OF OUTPUT FILE BLOCKING (IEEE RECORD CONT...</div><div class="ttdef"><b>Definition:</b> <a href="setblock_8f_source.html#l00028">setblock.f:28</a></div></div>
-<div class="ttc" id="openbf_8F_html_a9bea9aeada166bd9037b959ca8452b28"><div class="ttname"><a href="openbf_8F.html#a9bea9aeada166bd9037b959ca8452b28">openbf</a></div><div class="ttdeci">subroutine openbf(LUNIT, IO, LUNDX)</div><div class="ttdoc">This subroutine identifies a new file to the BUFRLIB software for input or output operations...</div><div class="ttdef"><b>Definition:</b> <a href="openbf_8F_source.html#l00162">openbf.F:162</a></div></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="comment">C&gt; &lt;p&gt;If control words are requested, then one 4-byte control word is</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="comment">C&gt; written to the output file prior to the start of each BUFR message,</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="comment">C&gt; and a second 4-byte control word is written to the output file after</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="comment">C&gt; the end of each BUFR message.  Each of these control words contains</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment">C&gt; the byte count for the enclosed BUFR message, and they can be</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="comment">C&gt; written using either big-endian or little-endian byte ordering,</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="comment">C&gt; regardless of the native endianness of the local machine.</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="comment">C&gt;</span></div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="comment">C&gt; &lt;p&gt;This subroutine can be called at any time after the first call</span></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment">C&gt; to subroutine openbf(), and the specified value for IBLK will remain</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="comment">C&gt; in effect for all future calls to</span></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="comment">C&gt; [message-writing subroutines](@ref hierarchy) for all Fortran logical</span></div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="comment">C&gt; units that are open for output within the application program,</span></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="comment">C&gt; unless a subsequent call is made to this subroutine to reset the</span></div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="comment">C&gt; value of IBLK again.  If this subroutine is never called, a default</span></div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="comment">C&gt; value of 0 is used for IBLK, as set within subroutine bfrini().</span></div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="comment">C&gt;</span></div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="comment">C&gt; @author J. Woollen</span></div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="comment">C&gt; @date 2012-09-15</span></div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="comment">C&gt;</span></div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="comment">C&gt; @param[in]  IBLK - integer: Flag indicating whether future BUFR</span></div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="comment">C&gt;                    output messages should be encapsulated with</span></div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="comment">C&gt;                    control words</span></div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="comment">C&gt;                     - -1 = Yes, using little-endian control words      </span></div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="comment">C&gt;                     -  0 = No (the default)</span></div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="comment">C&gt;                     -  1 = Yes, using big-endian control words      </span></div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="comment">C&gt;</span></div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="comment">C&gt; @remarks</span></div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="comment">C&gt; - This subroutine can be used to generate BUFR files consistent</span></div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="comment">C&gt; with historical archives, dating back to older versions of the</span></div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="comment">C&gt; BUFRLIB software which used Fortran to directly read/write</span></div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="comment">C&gt; BUFR messages from/to system files.  Standard Fortran historically</span></div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="comment">C&gt; didn&#39;t have a way to read/write binary data streams without</span></div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="comment">C&gt; control words, so as a result many historical archives contain</span></div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="comment">C&gt; these by default.  However, newer versions of the BUFRLIB software</span></div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<span class="comment">C&gt; use C to directly read/write BUFR messages from/to system files</span></div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="comment">C&gt; (including historical archives), so control words are no longer</span></div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;<span class="comment">C&gt; necessary and are therefore now disabled by default when writing</span></div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<span class="comment">C&gt; BUFR messages to output files.</span></div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<span class="comment">C&gt;</span></div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;<span class="comment">C&gt; &lt;b&gt;Program history log:&lt;/b&gt;</span></div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;<span class="comment">C&gt; - 2012-09-15  J. Woollen -- Original author</span></div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="comment">C&gt;</span></div>
+<div class="line"><a name="l00053"></a><span class="lineno"><a class="line" href="setblock_8f.html#a4f62f9ac4a473f33f3c93f3e99bf69a5">   53</a></span>&#160;<span class="keyword">      SUBROUTINE </span><a class="code" href="setblock_8f.html#a4f62f9ac4a473f33f3c93f3e99bf69a5">setblock</a>(IBLK) </div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;      <span class="keyword">COMMON</span> /endord/ iblock,iordbe(4),iordle(4)</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;<span class="comment">c-----------------------------------------------------------------------</span></div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;<span class="comment">c-----------------------------------------------------------------------</span></div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;      CALL <a class="code" href="openbf_8F.html#a9bea9aeada166bd9037b959ca8452b28">openbf</a>(0,<span class="stringliteral">&#39;FIRST&#39;</span>,0)</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;      iblock=iblk  </div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;      <span class="keywordflow">RETURN</span></div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;      <span class="keywordflow">END</span></div>
+<div class="ttc" id="setblock_8f_html_a4f62f9ac4a473f33f3c93f3e99bf69a5"><div class="ttname"><a href="setblock_8f.html#a4f62f9ac4a473f33f3c93f3e99bf69a5">setblock</a></div><div class="ttdeci">subroutine setblock(IBLK)</div><div class="ttdoc">This subroutine is used to specify whether BUFR messages output by future calls to message-writing su...</div><div class="ttdef"><b>Definition:</b> <a href="setblock_8f_source.html#l00053">setblock.f:53</a></div></div>
+<div class="ttc" id="openbf_8F_html_a9bea9aeada166bd9037b959ca8452b28"><div class="ttname"><a href="openbf_8F.html#a9bea9aeada166bd9037b959ca8452b28">openbf</a></div><div class="ttdeci">subroutine openbf(LUNIT, IO, LUNDX)</div><div class="ttdoc">This subroutine connects a new file to the BUFRLIB software for input or output operations. </div><div class="ttdef"><b>Definition:</b> <a href="openbf_8F_source.html#l00157">openbf.F:157</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.3.2</span>
+   &#160;<span id="projectnumber">11.5.0</span>
    </div>
   </td>
  </tr>
@@ -92,7 +92,7 @@ $(document).ready(function(){initNavTree('iokoper_8f_source.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -107,70 +107,61 @@ $(document).ready(function(){initNavTree('iokoper_8f_source.html','');});
 </div><!--header-->
 <div class="contents">
 <a href="iokoper_8f.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="comment">C&gt; @file</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment">C&gt; @author J @date 2015-03-06</span></div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;      </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="comment">C&gt; THIS FUNCTION DETERMINES WHETHER THE GIVEN MNEMONIC</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="comment">C&gt;   CONTAINS A TABLE C OPERATOR KNOWN TO THE BUFR ARCHIVE LIBRARY.</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment">C&gt; @brief Check whether a mnemonic is a Table C operator.</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="comment">C&gt; This function determines whether a specified mnemonic is a</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="comment">C&gt; Table C operator supported by the BUFRLIB software.</span></div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="comment">C&gt;</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="comment">C&gt; PROGRAM HISTORY LOG:</span></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="comment">C&gt; 2015-03-06  J. ATOR    -- ORIGINAL AUTHOR</span></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="comment">C&gt; 2016-05-04  J. ATOR    -- USE IMRKOPR AND ALLOW ADDITIONAL OPERATORS</span></div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="comment">C&gt;</span></div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="comment">C&gt; USAGE:    IOKOPER (NEMO)</span></div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="comment">C&gt;   INPUT ARGUMENT LIST:</span></div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="comment">C&gt;     NEMO     - CHARACTER*(*): MNEMONIC</span></div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment">C&gt;</span></div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="comment">C&gt;   OUTPUT ARGUMENT LIST:</span></div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="comment">C&gt;     IOKOPER  - INTEGER: RETURN CODE INDICATING WHETHER NEMO CONTAINS</span></div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="comment">C&gt;                A KNOWN TABLE C OPERATOR</span></div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="comment">C&gt;                  0 - NO</span></div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment">C&gt;                  1 - YES</span></div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="comment">C&gt;</span></div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="comment">C&gt; REMARKS:</span></div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="comment">C&gt;    THIS ROUTINE CALLS:        IMRKOPR</span></div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="comment">C&gt;    THIS ROUTINE IS CALLED BY: ISTDESC   NEMTAB   NUMTAB   TABSUB</span></div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="comment">C&gt;                               Normally not called by any application</span></div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="comment">C&gt;                               programs.</span></div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="comment">C&gt;</span></div>
-<div class="line"><a name="l00027"></a><span class="lineno"><a class="line" href="iokoper_8f.html#ad1b152815c2a1292444758580ee0803b">   27</a></span>&#160;<span class="keyword">      INTEGER </span><span class="keyword">FUNCTION </span><a class="code" href="iokoper_8f.html#ad1b152815c2a1292444758580ee0803b">iokoper</a>(NEMO)</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="comment">C&gt; @author J. Ator</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="comment">C&gt; @date 2015-03-06</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="comment">C&gt;</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="comment">C&gt; @param[in] NEMO   - character*(*): Mnemonic</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="comment">C&gt; @returns iokoper  - integer: Flag indicating whether NEMO is a</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="comment">C&gt;                     Table C operator supported by the BUFRLIB</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="comment">C&gt;                     software</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment">C&gt;                        - 0 = No</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="comment">C&gt;                        - 1 = Yes</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="comment">C&gt;</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="comment">C&gt; &lt;b&gt;Program history log:&lt;/b&gt;</span></div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="comment">C&gt; - 2015-03-06  J. Ator    -- Original author</span></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment">C&gt; - 2016-05-04  J. Ator    -- Use imrkopr() and allow additional</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="comment">C&gt;                             operators</span></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="comment">C&gt;</span></div>
+<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="iokoper_8f.html#ad1b152815c2a1292444758580ee0803b">   22</a></span>&#160;<span class="keyword">      INTEGER </span><span class="keyword">FUNCTION </span><a class="code" href="iokoper_8f.html#ad1b152815c2a1292444758580ee0803b">iokoper</a>(NEMO)</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;      <span class="keywordtype">CHARACTER*(*)</span>  nemo</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="comment">C-----------------------------------------------------------------------</span></div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="comment">C-----------------------------------------------------------------------</span></div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;      include <span class="stringliteral">&#39;bufrlib.inc&#39;</span></div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;      <span class="keywordtype">CHARACTER*(*)</span>  nemo</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="comment">C-----------------------------------------------------------------------</span></div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="comment">C-----------------------------------------------------------------------</span></div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;      <span class="keywordflow">IF</span> (len(nemo).LT.6) <span class="keywordflow">THEN</span></div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;        <a class="code" href="iokoper_8f.html#ad1b152815c2a1292444758580ee0803b">iokoper</a> = 0</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;      <span class="keywordflow">ELSE</span> <span class="keywordflow">IF</span> ( lge(nemo(1:3),<span class="stringliteral">&#39;201&#39;</span>) .AND. lle(nemo(1:3),<span class="stringliteral">&#39;208&#39;</span>) ) <span class="keywordflow">THEN</span></div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        <a class="code" href="iokoper_8f.html#ad1b152815c2a1292444758580ee0803b">iokoper</a> = 1</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;      <span class="keywordflow">ELSE</span> <span class="keywordflow">IF</span> ( nemo(1:3).EQ.<span class="stringliteral">&#39;221&#39;</span>) <span class="keywordflow">THEN</span></div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        <a class="code" href="iokoper_8f.html#ad1b152815c2a1292444758580ee0803b">iokoper</a> = 1</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;      <span class="keywordflow">ELSE</span> <span class="keywordflow">IF</span> ( ( ( nemo(4:6).EQ.<span class="stringliteral">&#39;000&#39;</span> ) .OR. ( nemo(4:6).EQ.<span class="stringliteral">&#39;255&#39;</span> ) )</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;     +          .AND.</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;     +         ( ( nemo(1:3).EQ.<span class="stringliteral">&#39;237&#39;</span> ) .OR. ( nemo(1:3).EQ.<span class="stringliteral">&#39;241&#39;</span> ) .OR.</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;     +           ( nemo(1:3).EQ.<span class="stringliteral">&#39;242&#39;</span> ) .OR. ( nemo(1:3).EQ.<span class="stringliteral">&#39;243&#39;</span> ) ) )</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;     +          <span class="keywordflow">THEN</span></div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;        <a class="code" href="iokoper_8f.html#ad1b152815c2a1292444758580ee0803b">iokoper</a> = 1</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;      <span class="keywordflow">ELSE</span> <span class="keywordflow">IF</span> ( ( nemo(4:6).EQ.<span class="stringliteral">&#39;000&#39;</span> ) </div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;     +          .AND.</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;     +         ( ( nemo(1:3).EQ.<span class="stringliteral">&#39;222&#39;</span> ) .OR. ( nemo(1:3).EQ.<span class="stringliteral">&#39;223&#39;</span> ) .OR.</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;     +           ( nemo(1:3).EQ.<span class="stringliteral">&#39;224&#39;</span> ) .OR. ( nemo(1:3).EQ.<span class="stringliteral">&#39;225&#39;</span> ) .OR.</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;     +           ( nemo(1:3).EQ.<span class="stringliteral">&#39;232&#39;</span> ) .OR. ( nemo(1:3).EQ.<span class="stringliteral">&#39;235&#39;</span> ) .OR.</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;     +           ( nemo(1:3).EQ.<span class="stringliteral">&#39;236&#39;</span> ) ) )</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;     +          <span class="keywordflow">THEN</span></div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;        <a class="code" href="iokoper_8f.html#ad1b152815c2a1292444758580ee0803b">iokoper</a> = 1</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;      <span class="keywordflow">ELSE</span></div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;        <a class="code" href="iokoper_8f.html#ad1b152815c2a1292444758580ee0803b">iokoper</a> = <a class="code" href="imrkopr_8f.html#a1b959e70121283ff0ba5e1f753cbe766">imrkopr</a>(nemo)</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;      <span class="keywordflow">ENDIF</span></div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;      <span class="keywordflow">RETURN</span></div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;      <span class="keywordflow">END</span></div>
-<div class="ttc" id="imrkopr_8f_html_a1b959e70121283ff0ba5e1f753cbe766"><div class="ttname"><a href="imrkopr_8f.html#a1b959e70121283ff0ba5e1f753cbe766">imrkopr</a></div><div class="ttdeci">INTEGER function imrkopr(NEMO)</div><div class="ttdoc">THIS FUNCTION DETERMINES WHETHER THE GIVEN MNEMONIC CONTAINS A TABLE C MARKER OPERATOR. </div><div class="ttdef"><b>Definition:</b> <a href="imrkopr_8f_source.html#l00026">imrkopr.f:26</a></div></div>
-<div class="ttc" id="iokoper_8f_html_ad1b152815c2a1292444758580ee0803b"><div class="ttname"><a href="iokoper_8f.html#ad1b152815c2a1292444758580ee0803b">iokoper</a></div><div class="ttdeci">INTEGER function iokoper(NEMO)</div><div class="ttdoc">THIS FUNCTION DETERMINES WHETHER THE GIVEN MNEMONIC CONTAINS A TABLE C OPERATOR KNOWN TO THE BUFR ARC...</div><div class="ttdef"><b>Definition:</b> <a href="iokoper_8f_source.html#l00027">iokoper.f:27</a></div></div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;      <span class="keywordflow">IF</span> (len(nemo).LT.6) <span class="keywordflow">THEN</span></div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;        <a class="code" href="iokoper_8f.html#ad1b152815c2a1292444758580ee0803b">iokoper</a> = 0</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;      <span class="keywordflow">ELSE</span> <span class="keywordflow">IF</span> ( lge(nemo(1:3),<span class="stringliteral">&#39;201&#39;</span>) .AND. lle(nemo(1:3),<span class="stringliteral">&#39;208&#39;</span>) ) <span class="keywordflow">THEN</span></div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;        <a class="code" href="iokoper_8f.html#ad1b152815c2a1292444758580ee0803b">iokoper</a> = 1</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;      <span class="keywordflow">ELSE</span> <span class="keywordflow">IF</span> ( nemo(1:3).EQ.<span class="stringliteral">&#39;221&#39;</span>) <span class="keywordflow">THEN</span></div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        <a class="code" href="iokoper_8f.html#ad1b152815c2a1292444758580ee0803b">iokoper</a> = 1</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;      <span class="keywordflow">ELSE</span> <span class="keywordflow">IF</span> ( ( ( nemo(4:6).EQ.<span class="stringliteral">&#39;000&#39;</span> ) .OR. ( nemo(4:6).EQ.<span class="stringliteral">&#39;255&#39;</span> ) )</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;     +          .AND.</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;     +         ( ( nemo(1:3).EQ.<span class="stringliteral">&#39;237&#39;</span> ) .OR. ( nemo(1:3).EQ.<span class="stringliteral">&#39;241&#39;</span> ) .OR.</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;     +           ( nemo(1:3).EQ.<span class="stringliteral">&#39;242&#39;</span> ) .OR. ( nemo(1:3).EQ.<span class="stringliteral">&#39;243&#39;</span> ) ) )</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;     +          <span class="keywordflow">THEN</span></div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;        <a class="code" href="iokoper_8f.html#ad1b152815c2a1292444758580ee0803b">iokoper</a> = 1</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;      <span class="keywordflow">ELSE</span> <span class="keywordflow">IF</span> ( ( nemo(4:6).EQ.<span class="stringliteral">&#39;000&#39;</span> ) </div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;     +          .AND.</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;     +         ( ( nemo(1:3).EQ.<span class="stringliteral">&#39;222&#39;</span> ) .OR. ( nemo(1:3).EQ.<span class="stringliteral">&#39;223&#39;</span> ) .OR.</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;     +           ( nemo(1:3).EQ.<span class="stringliteral">&#39;224&#39;</span> ) .OR. ( nemo(1:3).EQ.<span class="stringliteral">&#39;225&#39;</span> ) .OR.</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;     +           ( nemo(1:3).EQ.<span class="stringliteral">&#39;232&#39;</span> ) .OR. ( nemo(1:3).EQ.<span class="stringliteral">&#39;235&#39;</span> ) .OR.</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;     +           ( nemo(1:3).EQ.<span class="stringliteral">&#39;236&#39;</span> ) ) )</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;     +          <span class="keywordflow">THEN</span></div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;        <a class="code" href="iokoper_8f.html#ad1b152815c2a1292444758580ee0803b">iokoper</a> = 1</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;      <span class="keywordflow">ELSE</span></div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;        <a class="code" href="iokoper_8f.html#ad1b152815c2a1292444758580ee0803b">iokoper</a> = <a class="code" href="imrkopr_8f.html#a1b959e70121283ff0ba5e1f753cbe766">imrkopr</a>(nemo)</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;      <span class="keywordflow">ENDIF</span></div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;      <span class="keywordflow">RETURN</span></div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;      <span class="keywordflow">END</span></div>
+<div class="ttc" id="imrkopr_8f_html_a1b959e70121283ff0ba5e1f753cbe766"><div class="ttname"><a href="imrkopr_8f.html#a1b959e70121283ff0ba5e1f753cbe766">imrkopr</a></div><div class="ttdeci">INTEGER function imrkopr(NEMO)</div><div class="ttdoc">This function determines whether a specified mnemonic is a Table C marker operator. </div><div class="ttdef"><b>Definition:</b> <a href="imrkopr_8f_source.html#l00019">imrkopr.f:19</a></div></div>
+<div class="ttc" id="iokoper_8f_html_ad1b152815c2a1292444758580ee0803b"><div class="ttname"><a href="iokoper_8f.html#ad1b152815c2a1292444758580ee0803b">iokoper</a></div><div class="ttdeci">INTEGER function iokoper(NEMO)</div><div class="ttdoc">This function determines whether a specified mnemonic is a Table C operator supported by the BUFRLIB ...</div><div class="ttdef"><b>Definition:</b> <a href="iokoper_8f_source.html#l00022">iokoper.f:22</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.3.2</span>
+   &#160;<span id="projectnumber">11.5.0</span>
    </div>
   </td>
  </tr>
@@ -92,7 +92,7 @@ $(document).ready(function(){initNavTree('igetdate_8f_source.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -107,61 +107,55 @@ $(document).ready(function(){initNavTree('igetdate_8f_source.html','');});
 </div><!--header-->
 <div class="contents">
 <a href="igetdate_8f.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="comment">C&gt; @file</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment">C&gt; @author ATOR @date 2005-11-29</span></div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;    </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="comment">C&gt; THIS FUNCTION UNPACKS AND RETURNS THE SECTION 1 DATE-TIME</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="comment">C&gt;   FROM THE BUFR MESSAGE STORED IN ARRAY MBAY.  IT WILL WORK ON ANY</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="comment">C&gt;   MESSAGE ENCODED USING BUFR EDITION 2, 3 OR 4.  THE START OF THE</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="comment">C&gt;   BUFR MESSAGE, (I.E. THE STRING &quot;BUFR&quot;) MUST BE ALIGNED ON THE FIRST</span></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="comment">C&gt;   FOUR BYTES OF MBAY.</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment">C&gt; @brief Read the date-time from Section 1 of a BUFR message.</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="comment">C&gt; This function returns the date-time from within Section 1 of a</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="comment">C&gt; BUFR message.</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="comment">C&gt;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="comment">C&gt; &lt;p&gt;The function will work on any BUFR message encoded using BUFR</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="comment">C&gt; edition 2, 3, or 4.</span></div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="comment">C&gt;</span></div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="comment">C&gt; PROGRAM HISTORY LOG:</span></div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="comment">C&gt; 2005-11-29  J. ATOR    -- ORIGINAL AUTHOR</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="comment">C&gt; @author J. Ator</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="comment">C&gt; @date 2005-11-29</span></div>
 <div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="comment">C&gt;</span></div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="comment">C&gt; USAGE:    IGETDATE (MBAY, IYR, IMO, IDY, IHR)</span></div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment">C&gt;   INPUT ARGUMENT LIST:</span></div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="comment">C&gt;     MBAY     - INTEGER: *-WORD PACKED BINARY ARRAY CONTAINING</span></div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="comment">C&gt;                BUFR MESSAGE</span></div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="comment">C&gt;</span></div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="comment">C&gt;   OUTPUT ARGUMENT LIST:</span></div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment">C&gt;     IYR      - INTEGER: SECTION 1 YEAR (YYYY OR YY, DEPENDING ON</span></div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="comment">C&gt;                DATELEN() VALUE)</span></div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="comment">C&gt;     IMO      - INTEGER: SECTION 1 MONTH (MM)</span></div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="comment">C&gt;     IDY      - INTEGER: SECTION 1 DAY (DD)</span></div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="comment">C&gt;     IHR      - INTEGER: SECTION 1 HOUR (HH)</span></div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="comment">C&gt;     IGETDATE - INTEGER: SECTION 1 DATE-TIME (YYYYMMDDHH OR YYMMDDHH,</span></div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="comment">C&gt;                DEPENDING ON DATELEN() VALUE)</span></div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="comment">C&gt;</span></div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="comment">C&gt; REMARKS:</span></div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="comment">C&gt;    THIS ROUTINE CALLS:        IUPBS01</span></div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="comment">C&gt;    THIS ROUTINE IS CALLED BY: CKTABA   DATEBF   DUMPBF</span></div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="comment">C&gt;                               Normally not called by application</span></div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="comment">C&gt;                               programs but it could be.</span></div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="comment">C&gt;</span></div>
-<div class="line"><a name="l00033"></a><span class="lineno"><a class="line" href="igetdate_8f.html#a254f61bc732afa08b20c8526d96ab0c4">   33</a></span>&#160;<span class="keyword">    FUNCTION </span><a class="code" href="igetdate_8f.html#a254f61bc732afa08b20c8526d96ab0c4">igetdate</a>(MBAY,IYR,IMO,IDY,IHR)</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="comment">C&gt; @param[in]  MBAY    - integer(*): BUFR message</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment">C&gt; @param[out] IYR    - integer: Year stored within Section 1 of MBAY,</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="comment">C&gt;                      in format of either YY or YYYY, depending on</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="comment">C&gt;                      the most recent call to subroutine datelen()</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="comment">C&gt; @param[out] IMO    - integer: Month stored within Section 1 of MBAY</span></div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="comment">C&gt; @param[out] IDY    - integer: Day stored within Section 1 of MBAY</span></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment">C&gt; @param[out] IHR    - integer: Hour stored within Section 1 of MBAY</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="comment">C&gt; @returns igetdate    - integer: Date-time stored within Section 1</span></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="comment">C&gt;                        of MBAY, in format of either YYMMDDHH or</span></div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="comment">C&gt;                        YYYYMMDDHH, depending on the most</span></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="comment">C&gt;                        recent call to subroutine datelen()</span></div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="comment">C&gt;</span></div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="comment">C&gt; @remarks</span></div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="comment">C&gt; - The start of the BUFR message (i.e. the string &#39;BUFR&#39;) must be</span></div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="comment">C&gt;   aligned on the first 4 bytes of MBAY.</span></div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="comment">C&gt;</span></div>
+<div class="line"><a name="l00029"></a><span class="lineno"><a class="line" href="igetdate_8f.html#a254f61bc732afa08b20c8526d96ab0c4">   29</a></span>&#160;<span class="keyword">    FUNCTION </span><a class="code" href="igetdate_8f.html#a254f61bc732afa08b20c8526d96ab0c4">igetdate</a>(MBAY,IYR,IMO,IDY,IHR)</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    <span class="keyword">COMMON</span> /dateln/ lendat</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    dimension mbay(*)</div>
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <span class="keyword">COMMON</span> /dateln/ lendat</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    dimension mbay(*)</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="comment">C-----------------------------------------------------------------------</span></div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="comment">C-----------------------------------------------------------------------</span></div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    iyr = <a class="code" href="iupbs01_8f.html#adcd6f7c2f898b4f938153c5cf79a9cf5">iupbs01</a>(mbay,<span class="stringliteral">&#39;YEAR&#39;</span>)</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    imo = <a class="code" href="iupbs01_8f.html#adcd6f7c2f898b4f938153c5cf79a9cf5">iupbs01</a>(mbay,<span class="stringliteral">&#39;MNTH&#39;</span>)</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    idy = <a class="code" href="iupbs01_8f.html#adcd6f7c2f898b4f938153c5cf79a9cf5">iupbs01</a>(mbay,<span class="stringliteral">&#39;DAYS&#39;</span>)</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    ihr = <a class="code" href="iupbs01_8f.html#adcd6f7c2f898b4f938153c5cf79a9cf5">iupbs01</a>(mbay,<span class="stringliteral">&#39;HOUR&#39;</span>)</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <span class="keywordflow">IF</span>(lendat.NE.10) <span class="keywordflow">THEN</span></div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;        iyr = mod(iyr,100)</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <span class="keywordflow">ENDIF</span></div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <a class="code" href="igetdate_8f.html#a254f61bc732afa08b20c8526d96ab0c4">igetdate</a> = (iyr*1000000) + (imo*10000) + (idy*100) + ihr</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <span class="keywordflow">RETURN</span></div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    <span class="keywordflow">END</span></div>
-<div class="ttc" id="igetdate_8f_html_a254f61bc732afa08b20c8526d96ab0c4"><div class="ttname"><a href="igetdate_8f.html#a254f61bc732afa08b20c8526d96ab0c4">igetdate</a></div><div class="ttdeci">function igetdate(MBAY, IYR, IMO, IDY, IHR)</div><div class="ttdoc">THIS FUNCTION UNPACKS AND RETURNS THE SECTION 1 DATE-TIME FROM THE BUFR MESSAGE STORED IN ARRAY MBAY...</div><div class="ttdef"><b>Definition:</b> <a href="igetdate_8f_source.html#l00033">igetdate.f:33</a></div></div>
-<div class="ttc" id="iupbs01_8f_html_adcd6f7c2f898b4f938153c5cf79a9cf5"><div class="ttname"><a href="iupbs01_8f.html#adcd6f7c2f898b4f938153c5cf79a9cf5">iupbs01</a></div><div class="ttdeci">function iupbs01(MBAY, S01MNEM)</div><div class="ttdoc">THIS FUNCTION UNPACKS AND RETURNS A SPECIFIED INTEGER VALUE FROM SECTION 0 OR SECTION 1 OF THE BUFR M...</div><div class="ttdef"><b>Definition:</b> <a href="iupbs01_8f_source.html#l00087">iupbs01.f:87</a></div></div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="comment">C-----------------------------------------------------------------------</span></div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="comment">C-----------------------------------------------------------------------</span></div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    iyr = <a class="code" href="iupbs01_8f.html#adcd6f7c2f898b4f938153c5cf79a9cf5">iupbs01</a>(mbay,<span class="stringliteral">&#39;YEAR&#39;</span>)</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    imo = <a class="code" href="iupbs01_8f.html#adcd6f7c2f898b4f938153c5cf79a9cf5">iupbs01</a>(mbay,<span class="stringliteral">&#39;MNTH&#39;</span>)</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    idy = <a class="code" href="iupbs01_8f.html#adcd6f7c2f898b4f938153c5cf79a9cf5">iupbs01</a>(mbay,<span class="stringliteral">&#39;DAYS&#39;</span>)</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    ihr = <a class="code" href="iupbs01_8f.html#adcd6f7c2f898b4f938153c5cf79a9cf5">iupbs01</a>(mbay,<span class="stringliteral">&#39;HOUR&#39;</span>)</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <span class="keywordflow">IF</span>(lendat.NE.10) <span class="keywordflow">THEN</span></div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        iyr = mod(iyr,100)</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <span class="keywordflow">ENDIF</span></div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <a class="code" href="igetdate_8f.html#a254f61bc732afa08b20c8526d96ab0c4">igetdate</a> = (iyr*1000000) + (imo*10000) + (idy*100) + ihr</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <span class="keywordflow">RETURN</span></div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <span class="keywordflow">END</span></div>
+<div class="ttc" id="igetdate_8f_html_a254f61bc732afa08b20c8526d96ab0c4"><div class="ttname"><a href="igetdate_8f.html#a254f61bc732afa08b20c8526d96ab0c4">igetdate</a></div><div class="ttdeci">function igetdate(MBAY, IYR, IMO, IDY, IHR)</div><div class="ttdoc">This function returns the date-time from within Section 1 of a BUFR message. </div><div class="ttdef"><b>Definition:</b> <a href="igetdate_8f_source.html#l00029">igetdate.f:29</a></div></div>
+<div class="ttc" id="iupbs01_8f_html_adcd6f7c2f898b4f938153c5cf79a9cf5"><div class="ttname"><a href="iupbs01_8f.html#adcd6f7c2f898b4f938153c5cf79a9cf5">iupbs01</a></div><div class="ttdeci">function iupbs01(MBAY, S01MNEM)</div><div class="ttdoc">This function returns a specified value from within Section 0 or Section 1 of a BUFR message...</div><div class="ttdef"><b>Definition:</b> <a href="iupbs01_8f_source.html#l00072">iupbs01.f:72</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.3.2</span>
+   &#160;<span id="projectnumber">11.5.0</span>
    </div>
   </td>
  </tr>
@@ -92,7 +92,7 @@ $(document).ready(function(){initNavTree('rdmsgw_8f_source.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -144,36 +144,33 @@ $(document).ready(function(){initNavTree('rdmsgw_8f_source.html','');});
 <div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="comment">C&gt;</span></div>
 <div class="line"><a name="l00037"></a><span class="lineno"><a class="line" href="rdmsgw_8f.html#aa1d21de28344723fc4848ec1cd14b094">   37</a></span>&#160;<span class="keyword">      SUBROUTINE </span><a class="code" href="rdmsgw_8f.html#aa1d21de28344723fc4848ec1cd14b094">rdmsgw</a>(LUNIT,MESG,IRET)</div>
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;      <span class="keywordtype">USE </span><a class="code" href="modv__MXMSGL_8F.html#classmodv__mxmsgl">modv_mxmsgl</a></div>
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;      <span class="keywordtype">USE </span><a class="code" href="classmodv__mxmsgl.html">modv_mxmsgl</a></div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;      <span class="keyword">COMMON</span> /hrdwrd/ nbytw,nbitw,iord(8)</div>
 <div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;      include <span class="stringliteral">&#39;bufrlib.inc&#39;</span></div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;      dimension   mesg(*)</div>
 <div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;      <span class="keyword">COMMON</span> /hrdwrd/ nbytw,nbitw,iord(8)</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;      dimension   mesg(*)</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;      <span class="keywordtype">CHARACTER*128</span> bort_str</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;      <span class="keywordtype">INTEGER</span> crdbufr</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="comment">C-----------------------------------------------------------------------</span></div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;<span class="comment">C-----------------------------------------------------------------------</span></div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;      CALL <a class="code" href="status_8f.html#a22292e7a69c411a961168198d259f336">status</a>(lunit,lun,il,im)</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;1     iret=crdbufr(lun,mesg,mxmsgl)</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;      <span class="keywordflow">IF</span>(iret.eq.-3)</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;     +   CALL <a class="code" href="errwrt_8f.html#a65626d9a772648676146b62b596c2764">errwrt</a>(<span class="stringliteral">&#39;BUFRLIB: RDMSGW - SKIPPING OVERLARGE MESSAGE&#39;</span>)</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;      <span class="keywordflow">IF</span>(iret.eq.-2)</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;     +   CALL <a class="code" href="errwrt_8f.html#a65626d9a772648676146b62b596c2764">errwrt</a>(<span class="stringliteral">&#39;BUFRLIB: RDMSGW - SKIPPING CORRUPTED MESSAGE&#39;</span>)</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;      <span class="keywordflow">IF</span>(iret.LT.-1) goto 1</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;      <span class="keywordflow">RETURN</span></div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;      <span class="keywordflow">END</span></div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;      <span class="keywordtype">CHARACTER*128</span> bort_str</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;      <span class="keywordtype">INTEGER</span> <a class="code" href="cread_8c.html#a7a2b5c6f6a0feca876f3d3a96569b29c">crdbufr</a></div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<span class="comment">C-----------------------------------------------------------------------</span></div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<span class="comment">C-----------------------------------------------------------------------</span></div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;      CALL <a class="code" href="status_8f.html#a22292e7a69c411a961168198d259f336">status</a>(lunit,lun,il,im)</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;1     iret=<a class="code" href="cread_8c.html#a7a2b5c6f6a0feca876f3d3a96569b29c">crdbufr</a>(lun,mesg,mxmsgl)</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;      <span class="keywordflow">IF</span>(iret.eq.-3)</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;     +   CALL <a class="code" href="errwrt_8f.html#a65626d9a772648676146b62b596c2764">errwrt</a>(<span class="stringliteral">&#39;BUFRLIB: RDMSGW - SKIPPING OVERLARGE MESSAGE&#39;</span>)</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;      <span class="keywordflow">IF</span>(iret.eq.-2)</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;     +   CALL <a class="code" href="errwrt_8f.html#a65626d9a772648676146b62b596c2764">errwrt</a>(<span class="stringliteral">&#39;BUFRLIB: RDMSGW - SKIPPING CORRUPTED MESSAGE&#39;</span>)</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;      <span class="keywordflow">IF</span>(iret.LT.-1) goto 1</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;      <span class="keywordflow">RETURN</span></div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;      <span class="keywordflow">END</span></div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;</div>
+<div class="ttc" id="cread_8c_html_a7a2b5c6f6a0feca876f3d3a96569b29c"><div class="ttname"><a href="cread_8c.html#a7a2b5c6f6a0feca876f3d3a96569b29c">crdbufr</a></div><div class="ttdeci">f77int crdbufr(f77int *nfile, char *bufr, f77int *mxbyt)</div><div class="ttdoc">This function reads the next message from a BUFR file that was previously opened for reading...</div><div class="ttdef"><b>Definition:</b> <a href="cread_8c_source.html#l00126">cread.c:126</a></div></div>
 <div class="ttc" id="rdmsgw_8f_html_aa1d21de28344723fc4848ec1cd14b094"><div class="ttname"><a href="rdmsgw_8f.html#aa1d21de28344723fc4848ec1cd14b094">rdmsgw</a></div><div class="ttdeci">subroutine rdmsgw(LUNIT, MESG, IRET)</div><div class="ttdoc">THIS SUBROUTINE READS THE NEXT BUFR MESSAGE FROM LOGICAL UNIT LUNIT AS AN ARRAY OF INTEGER WORDS...</div><div class="ttdef"><b>Definition:</b> <a href="rdmsgw_8f_source.html#l00037">rdmsgw.f:37</a></div></div>
-<div class="ttc" id="status_8f_html_a22292e7a69c411a961168198d259f336"><div class="ttname"><a href="status_8f.html#a22292e7a69c411a961168198d259f336">status</a></div><div class="ttdeci">subroutine status(LUNIT, LUN, IL, IM)</div><div class="ttdoc">THIS SUBROUTINE CHECKS WHETHER LOGICAL UNIT NUMBER LUNIT (AND ITS ASSOCIATED BUFR FILE) IS CURRENTLY ...</div><div class="ttdef"><b>Definition:</b> <a href="status_8f_source.html#l00086">status.f:86</a></div></div>
-<div class="ttc" id="classmodv__mxmsgl_html"><div class="ttname"><a href="classmodv__mxmsgl.html">modv_mxmsgl</a></div><div class="ttdef"><b>Definition:</b> <a href="modv__MXMSGL_8F_source.html#l00001">modv_MXMSGL.F:1</a></div></div>
-<div class="ttc" id="errwrt_8f_html_a65626d9a772648676146b62b596c2764"><div class="ttname"><a href="errwrt_8f.html#a65626d9a772648676146b62b596c2764">errwrt</a></div><div class="ttdeci">subroutine errwrt(STR)</div><div class="ttdoc">THIS SUBROUTINE WRITES A GIVEN ERROR OR OTHER DIAGNOSTIC MESSAGE TO A USER-SPECIFIED LOGICAL UNIT...</div><div class="ttdef"><b>Definition:</b> <a href="errwrt_8f_source.html#l00043">errwrt.f:43</a></div></div>
+<div class="ttc" id="modv__MXMSGL_8F_html_classmodv__mxmsgl"><div class="ttname"><a href="modv__MXMSGL_8F.html#classmodv__mxmsgl">modv_mxmsgl</a></div><div class="ttdoc">This module declares and initializes the MXMSGL variable. </div><div class="ttdef"><b>Definition:</b> <a href="modv__MXMSGL_8F_source.html#l00016">modv_MXMSGL.F:16</a></div></div>
+<div class="ttc" id="status_8f_html_a22292e7a69c411a961168198d259f336"><div class="ttname"><a href="status_8f.html#a22292e7a69c411a961168198d259f336">status</a></div><div class="ttdeci">subroutine status(LUNIT, LUN, IL, IM)</div><div class="ttdoc">This subroutine checks whether a specified Fortran logical unit number is currently connected to the ...</div><div class="ttdef"><b>Definition:</b> <a href="status_8f_source.html#l00061">status.f:61</a></div></div>
+<div class="ttc" id="errwrt_8f_html_a65626d9a772648676146b62b596c2764"><div class="ttname"><a href="errwrt_8f.html#a65626d9a772648676146b62b596c2764">errwrt</a></div><div class="ttdeci">subroutine errwrt(STR)</div><div class="ttdoc">This subroutine allows the user to specify a custom location for the logging of error and diagnostic ...</div><div class="ttdef"><b>Definition:</b> <a href="errwrt_8f_source.html#l00039">errwrt.f:39</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

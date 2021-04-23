@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.3.2</span>
+   &#160;<span id="projectnumber">11.5.0</span>
    </div>
   </td>
  </tr>
@@ -92,7 +92,7 @@ $(document).ready(function(){initNavTree('igetmxby_8f_source.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -107,53 +107,41 @@ $(document).ready(function(){initNavTree('igetmxby_8f_source.html','');});
 </div><!--header-->
 <div class="contents">
 <a href="igetmxby_8f.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="comment">C&gt; @file</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment">C&gt; @author WOOLLEN @date 2016-06-27</span></div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;      </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="comment">C&gt; IGETMXBY RETURNS THE CURRENT VALUE OF MAXBYT, WHICH IS THE</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="comment">C&gt;           MAXIMUM LENGTH OF A BUFRLIB MESSAGE THAT CAN BE WRITTEN</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="comment">C&gt;           TO AN OUTPUT STREAM.  THIS VALUE IS SET TO A DEFAULT VALUE</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="comment">C&gt;           OF MIN(10000,MXMSGL) IN SUBROUTINE BFRINI, BUT APPLICATION</span></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="comment">C&gt;           PROGRAMS MAY SET IT TO A DIFFERENT VALUE VIA A CALL TO</span></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="comment">C&gt;           SUBROUTINE MAXOUT.</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment">C&gt; @brief Get the maximum length of a BUFR message that can be</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="comment">C&gt; written to an output file.</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="comment">C&gt; This function returns the maximum length of a BUFR message that</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="comment">C&gt; can be written to any output file by the BUFRLIB software.</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="comment">C&gt;</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="comment">C&gt; @author J. Ator</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="comment">C&gt; @date 2016-06-27</span></div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="comment">C&gt;</span></div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="comment">C&gt; PROGRAM HISTORY LOG:</span></div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="comment">C&gt; 2016-06-27  J. ATOR -- ORIGINAL AUTHOR</span></div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="comment">C&gt;</span></div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment">C&gt; USAGE:    IGETMXBY()</span></div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="comment">C&gt;</span></div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="comment">C&gt;   INPUT ARGUMENTS:</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="comment">C&gt; @returns igetmxby  - integer: Maximum length of a BUFR message</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="comment">C&gt;                      that can be written to an output file by</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="comment">C&gt;                      the BUFRLIB software</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment">C&gt;</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="comment">C&gt; &lt;p&gt;This maximum length value can be changed at any time via a</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="comment">C&gt; separate call to subroutine maxout().</span></div>
 <div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="comment">C&gt;</span></div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="comment">C&gt;   OUTPUT ARGUMENTS:</span></div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment">C&gt;     IGETMXBY - INTEGER: CURRENT VALUE OF MAXBYT = MAXIMUM LENGTH OF</span></div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="comment">C&gt;                A BUFRLIB MESSAGE THAT CAN BE WRITTEN TO OUTPUT</span></div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="comment">C&gt;</span></div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="comment">C&gt; REMARKS:</span></div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="comment">C&gt;    THIS ROUTINE CALLS:   OPENBF</span></div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="comment">C&gt;</span></div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="comment">C&gt;    THIS ROUTINE IS CALLED BY: None</span></div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="comment">C&gt;                               Normally called only by application</span></div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="comment">C&gt;                               programs.</span></div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="comment">C&gt;</span></div>
-<div class="line"><a name="l00029"></a><span class="lineno"><a class="line" href="igetmxby_8f.html#a047e7750fd8b3eac80197ccea4641c42">   29</a></span>&#160;<span class="keyword">      INTEGER </span><span class="keyword">FUNCTION </span><a class="code" href="igetmxby_8f.html#a047e7750fd8b3eac80197ccea4641c42">igetmxby</a>()</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="comment">C&gt; &lt;b&gt;Program history log:&lt;/b&gt;</span></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment">C&gt; - 2016-06-27  J. Ator -- Original author</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="comment">C&gt;</span></div>
+<div class="line"><a name="l00021"></a><span class="lineno"><a class="line" href="igetmxby_8f.html#a047e7750fd8b3eac80197ccea4641c42">   21</a></span>&#160;<span class="keyword">      INTEGER </span><span class="keyword">FUNCTION </span><a class="code" href="igetmxby_8f.html#a047e7750fd8b3eac80197ccea4641c42">igetmxby</a>()</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;      <span class="keywordtype">USE </span><a class="code" href="moda__bitbuf_8F.html#classmoda__bitbuf">moda_bitbuf</a></div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="comment">c-----------------------------------------------------------------------</span></div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="comment">c-----------------------------------------------------------------------</span></div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;      CALL <a class="code" href="openbf_8F.html#a9bea9aeada166bd9037b959ca8452b28">openbf</a>(0,<span class="stringliteral">&#39;FIRST&#39;</span>,0)</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;      <a class="code" href="igetmxby_8f.html#a047e7750fd8b3eac80197ccea4641c42">igetmxby</a> = maxbyt</div>
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;      <span class="keywordtype">USE </span><a class="code" href="moda__bitbuf_8F.html#classmoda__bitbuf">moda_bitbuf</a></div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;      include <span class="stringliteral">&#39;bufrlib.inc&#39;</span></div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="comment">c-----------------------------------------------------------------------</span></div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="comment">c-----------------------------------------------------------------------</span></div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;      CALL <a class="code" href="openbf_8F.html#a9bea9aeada166bd9037b959ca8452b28">openbf</a>(0,<span class="stringliteral">&#39;FIRST&#39;</span>,0)</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;      <a class="code" href="igetmxby_8f.html#a047e7750fd8b3eac80197ccea4641c42">igetmxby</a> = maxbyt</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;      <span class="keywordflow">RETURN</span></div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;      <span class="keywordflow">END</span></div>
-<div class="ttc" id="igetmxby_8f_html_a047e7750fd8b3eac80197ccea4641c42"><div class="ttname"><a href="igetmxby_8f.html#a047e7750fd8b3eac80197ccea4641c42">igetmxby</a></div><div class="ttdeci">INTEGER function igetmxby()</div><div class="ttdoc">IGETMXBY RETURNS THE CURRENT VALUE OF MAXBYT, WHICH IS THE MAXIMUM LENGTH OF A BUFRLIB MESSAGE THAT C...</div><div class="ttdef"><b>Definition:</b> <a href="igetmxby_8f_source.html#l00029">igetmxby.f:29</a></div></div>
-<div class="ttc" id="openbf_8F_html_a9bea9aeada166bd9037b959ca8452b28"><div class="ttname"><a href="openbf_8F.html#a9bea9aeada166bd9037b959ca8452b28">openbf</a></div><div class="ttdeci">subroutine openbf(LUNIT, IO, LUNDX)</div><div class="ttdoc">This subroutine identifies a new file to the BUFRLIB software for input or output operations...</div><div class="ttdef"><b>Definition:</b> <a href="openbf_8F_source.html#l00162">openbf.F:162</a></div></div>
-<div class="ttc" id="moda__bitbuf_8F_html_classmoda__bitbuf"><div class="ttname"><a href="moda__bitbuf_8F.html#classmoda__bitbuf">moda_bitbuf</a></div><div class="ttdef"><b>Definition:</b> <a href="moda__bitbuf_8F_source.html#l00003">moda_bitbuf.F:3</a></div></div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;      <span class="keywordflow">RETURN</span></div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;      <span class="keywordflow">END</span></div>
+<div class="ttc" id="igetmxby_8f_html_a047e7750fd8b3eac80197ccea4641c42"><div class="ttname"><a href="igetmxby_8f.html#a047e7750fd8b3eac80197ccea4641c42">igetmxby</a></div><div class="ttdeci">INTEGER function igetmxby()</div><div class="ttdoc">This function returns the maximum length of a BUFR message that can be written to any output file by ...</div><div class="ttdef"><b>Definition:</b> <a href="igetmxby_8f_source.html#l00021">igetmxby.f:21</a></div></div>
+<div class="ttc" id="openbf_8F_html_a9bea9aeada166bd9037b959ca8452b28"><div class="ttname"><a href="openbf_8F.html#a9bea9aeada166bd9037b959ca8452b28">openbf</a></div><div class="ttdeci">subroutine openbf(LUNIT, IO, LUNDX)</div><div class="ttdoc">This subroutine connects a new file to the BUFRLIB software for input or output operations. </div><div class="ttdef"><b>Definition:</b> <a href="openbf_8F_source.html#l00157">openbf.F:157</a></div></div>
+<div class="ttc" id="moda__bitbuf_8F_html_classmoda__bitbuf"><div class="ttname"><a href="moda__bitbuf_8F.html#classmoda__bitbuf">moda_bitbuf</a></div><div class="ttdoc">This module contains array and variable declarations used to store BUFR messages internally for multi...</div><div class="ttdef"><b>Definition:</b> <a href="moda__bitbuf_8F_source.html#l00010">moda_bitbuf.F:10</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

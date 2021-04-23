@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.3.2</span>
+   &#160;<span id="projectnumber">11.5.0</span>
    </div>
   </td>
  </tr>
@@ -92,7 +92,7 @@ $(document).ready(function(){initNavTree('getntbe_8f_source.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -128,53 +128,50 @@ $(document).ready(function(){initNavTree('getntbe_8f_source.html','');});
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="comment">C&gt; -  -1 = end-of-file encountered while reading from LUNT</span></div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="comment">C&gt; -  -2 = I/O error encountered while reading from LUNT</span></div>
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="comment">C&gt;</span></div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="comment">C&gt; &lt;b&gt;This routine calls:&lt;/b&gt; bort2() igetntbl() igetfxy() ifxy()</span></div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="comment">C&gt;                      parstr()</span></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="comment">C&gt; &lt;b&gt;Program history log:&lt;/b&gt;</span></div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="comment">C&gt; - 2007-01-19  J. Ator    -- Original author</span></div>
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="comment">C&gt;</span></div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="comment">C&gt; &lt;b&gt;This routine is called by:&lt;/b&gt; rdmtbb() rdmtbd() rdmtbf()</span></div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="comment">C&gt; &lt;br&gt;Normally not called by any application programs.</span></div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="comment">C&gt;</span></div>
-<div class="line"><a name="l00029"></a><span class="lineno"><a class="line" href="getntbe_8f.html#a114eb13cc332b1a370f5d4bc81b43417">   29</a></span>&#160;<span class="keyword">    SUBROUTINE </span><a class="code" href="getntbe_8f.html#a114eb13cc332b1a370f5d4bc81b43417">getntbe</a> ( LUNT, IFXYN, LINE, IRET )</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    character*(*)   line</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    character*128   bort_str1, bort_str2</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    character*20    tags(4)</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    character*6 adsc</div>
+<div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="getntbe_8f.html#a114eb13cc332b1a370f5d4bc81b43417">   26</a></span>&#160;<span class="keyword">    SUBROUTINE </span><a class="code" href="getntbe_8f.html#a114eb13cc332b1a370f5d4bc81b43417">getntbe</a> ( LUNT, IFXYN, LINE, IRET )</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    character*(*)   line</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    character*128   bort_str1, bort_str2</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    character*20    tags(4)</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    character*6 adsc</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="comment">C-----------------------------------------------------------------------</span></div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="comment">C-----------------------------------------------------------------------</span></div>
 <div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="comment">C-----------------------------------------------------------------------</span></div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="comment">C-----------------------------------------------------------------------</span></div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="comment">C   Get the first line of the next entry in the file.</span></div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="comment">C   Get the first line of the next entry in the file.</span></div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    iret = <a class="code" href="igetntbl_8f.html#a5ef5df8d628be06a161f7973fa839795">igetntbl</a>( lunt, line )</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <span class="keywordflow">IF</span> ( iret .EQ. 0 ) <span class="keywordflow">THEN</span></div>
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    iret = <a class="code" href="igetntbl_8f.html#a5ef5df8d628be06a161f7973fa839795">igetntbl</a>( lunt, line )</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <span class="keywordflow">IF</span> ( iret .EQ. 0 ) <span class="keywordflow">THEN</span></div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="comment">C       The first field within this line should contain the</span></div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="comment">C       FXY number.</span></div>
 <div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="comment">C       The first field within this line should contain the</span></div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<span class="comment">C       FXY number.</span></div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;        CALL <a class="code" href="parstr_8f.html#a3379a342ab3d92dd01eef1f3172f9b86">parstr</a>( line(1:20), tags, 4, ntag, <span class="stringliteral">&#39;|&#39;</span>, .false. )</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;        <span class="keywordflow">IF</span> ( ntag .LT. 1 ) goto 900</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;        <span class="keywordflow">IF</span> ( <a class="code" href="igetfxy_8f.html#a438cad6ce6a5db1ef32ee2fcc3869aa5">igetfxy</a>( tags(1), adsc ) .NE. 0 ) goto 900</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;<span class="comment">C       Store the bit-wise representation of the FXY number.</span></div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;        CALL <a class="code" href="parstr_8f.html#a3379a342ab3d92dd01eef1f3172f9b86">parstr</a>( line(1:20), tags, 4, ntag, <span class="stringliteral">&#39;|&#39;</span>, .false. )</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;        <span class="keywordflow">IF</span> ( ntag .LT. 1 ) goto 900</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;        <span class="keywordflow">IF</span> ( <a class="code" href="igetfxy_8f.html#a438cad6ce6a5db1ef32ee2fcc3869aa5">igetfxy</a>( tags(1), adsc ) .NE. 0 ) goto 900</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<span class="comment">C       Store the bit-wise representation of the FXY number.</span></div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;        ifxyn = <a class="code" href="ifxy_8f.html#ac971a6f6d644344a5b09d50175498074">ifxy</a>( adsc )</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <span class="keywordflow">ENDIF</span></div>
 <div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;        ifxyn = <a class="code" href="ifxy_8f.html#ac971a6f6d644344a5b09d50175498074">ifxy</a>( adsc )</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    <span class="keywordflow">ENDIF</span></div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <span class="keywordflow">RETURN</span></div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; 900    bort_str1 = <span class="stringliteral">&#39;BUFRLIB: GETNTBE - CARD BEGINNING WITH: &#39;</span> //</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;     .     line(1:20)</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;        bort_str2 = <span class="stringliteral">&#39;                  HAS BAD OR MISSING FXY NUMBER&#39;</span></div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    CALL <a class="code" href="bort2_8f.html#a50f605cc96a22ffce20206c2d254b9c3">bort2</a>(bort_str1,bort_str2)</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    <span class="keywordflow">END</span></div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <span class="keywordflow">RETURN</span></div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160; 900    bort_str1 = <span class="stringliteral">&#39;BUFRLIB: GETNTBE - CARD BEGINNING WITH: &#39;</span> //</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;     .     line(1:20)</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;        bort_str2 = <span class="stringliteral">&#39;                  HAS BAD OR MISSING FXY NUMBER&#39;</span></div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    CALL <a class="code" href="bort2_8f.html#a50f605cc96a22ffce20206c2d254b9c3">bort2</a>(bort_str1,bort_str2)</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    <span class="keywordflow">END</span></div>
 <div class="ttc" id="parstr_8f_html_a3379a342ab3d92dd01eef1f3172f9b86"><div class="ttname"><a href="parstr_8f.html#a3379a342ab3d92dd01eef1f3172f9b86">parstr</a></div><div class="ttdeci">subroutine parstr(STR, TAGS, MTAG, NTAG, SEP, LIMIT80)</div><div class="ttdoc">THIS SUBROUTINE PARSES A STRING CONTAINING ONE OR MORE SUBSTRINGS INTO AN ARRAY OF SUBSTRINGS...</div><div class="ttdef"><b>Definition:</b> <a href="parstr_8f_source.html#l00037">parstr.f:37</a></div></div>
-<div class="ttc" id="bort2_8f_html_a50f605cc96a22ffce20206c2d254b9c3"><div class="ttname"><a href="bort2_8f.html#a50f605cc96a22ffce20206c2d254b9c3">bort2</a></div><div class="ttdeci">subroutine bort2(STR1, STR2)</div><div class="ttdoc">THIS SUBROUTINE WRITES (VIA BUFR ARCHIVE LIBRARY SUBROUTINE ERRWRT) TWO GIVEN ERROR STRINGS AND THEN ...</div><div class="ttdef"><b>Definition:</b> <a href="bort2_8f_source.html#l00031">bort2.f:31</a></div></div>
+<div class="ttc" id="bort2_8f_html_a50f605cc96a22ffce20206c2d254b9c3"><div class="ttname"><a href="bort2_8f.html#a50f605cc96a22ffce20206c2d254b9c3">bort2</a></div><div class="ttdeci">subroutine bort2(STR1, STR2)</div><div class="ttdoc">This subroutine calls subroutine errwrt() to log two error messages, then calls subroutine bort_exit(...</div><div class="ttdef"><b>Definition:</b> <a href="bort2_8f_source.html#l00020">bort2.f:20</a></div></div>
 <div class="ttc" id="igetfxy_8f_html_a438cad6ce6a5db1ef32ee2fcc3869aa5"><div class="ttname"><a href="igetfxy_8f.html#a438cad6ce6a5db1ef32ee2fcc3869aa5">igetfxy</a></div><div class="ttdeci">function igetfxy(STR, CFXY)</div><div class="ttdoc">THIS FUNCTION LOOKS FOR AND RETURNS A VALID FXY NUMBER FROM WITHIN THE GIVEN INPUT STRING...</div><div class="ttdef"><b>Definition:</b> <a href="igetfxy_8f_source.html#l00028">igetfxy.f:28</a></div></div>
 <div class="ttc" id="ifxy_8f_html_ac971a6f6d644344a5b09d50175498074"><div class="ttname"><a href="ifxy_8f.html#ac971a6f6d644344a5b09d50175498074">ifxy</a></div><div class="ttdeci">function ifxy(ADSC)</div><div class="ttdoc">THIS FUNCTION RETURNS THE INTEGER CORRESPONDING TO THE BIT-WISE REPRESENTATION OF AN INPUT CHARACTER ...</div><div class="ttdef"><b>Definition:</b> <a href="ifxy_8f_source.html#l00049">ifxy.f:49</a></div></div>
 <div class="ttc" id="igetntbl_8f_html_a5ef5df8d628be06a161f7973fa839795"><div class="ttname"><a href="igetntbl_8f.html#a5ef5df8d628be06a161f7973fa839795">igetntbl</a></div><div class="ttdeci">function igetntbl(LUNT, LINE)</div><div class="ttdoc">THIS FUNCTION GETS THE NEXT LINE FROM THE ASCII MASTER TABLE FILE SPECIFIED BY LUNT, IGNORING ANY BLANK LINES OR COMMENT LINES IN THE PROCESS. </div><div class="ttdef"><b>Definition:</b> <a href="igetntbl_8f_source.html#l00031">igetntbl.f:31</a></div></div>
-<div class="ttc" id="getntbe_8f_html_a114eb13cc332b1a370f5d4bc81b43417"><div class="ttname"><a href="getntbe_8f.html#a114eb13cc332b1a370f5d4bc81b43417">getntbe</a></div><div class="ttdeci">subroutine getntbe(LUNT, IFXYN, LINE, IRET)</div><div class="ttdoc">This subroutine gets the first line of the next entry in the specified ASCII master table B...</div><div class="ttdef"><b>Definition:</b> <a href="getntbe_8f_source.html#l00029">getntbe.f:29</a></div></div>
+<div class="ttc" id="getntbe_8f_html_a114eb13cc332b1a370f5d4bc81b43417"><div class="ttname"><a href="getntbe_8f.html#a114eb13cc332b1a370f5d4bc81b43417">getntbe</a></div><div class="ttdeci">subroutine getntbe(LUNT, IFXYN, LINE, IRET)</div><div class="ttdoc">This subroutine gets the first line of the next entry in the specified ASCII master table B...</div><div class="ttdef"><b>Definition:</b> <a href="getntbe_8f_source.html#l00026">getntbe.f:26</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

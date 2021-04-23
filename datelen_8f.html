@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.3.2</span>
+   &#160;<span id="projectnumber">11.5.0</span>
    </div>
   </td>
  </tr>
@@ -92,7 +92,7 @@ $(document).ready(function(){initNavTree('datelen_8f.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -109,17 +109,19 @@ $(document).ready(function(){initNavTree('datelen_8f.html','');});
 </div><!--header-->
 <div class="contents">
 
+<p>Specify format of Section 1 date-time when reading BUFR messages.  
+<a href="#details">More...</a></p>
+
 <p><a href="datelen_8f_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions/Subroutines</h2></td></tr>
 <tr class="memitem:ac75cb362f84167ca65b058a97401efcd"><td class="memItemLeft" align="right" valign="top">subroutine&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="datelen_8f.html#ac75cb362f84167ca65b058a97401efcd">datelen</a> (LEN)</td></tr>
-<tr class="memdesc:ac75cb362f84167ca65b058a97401efcd"><td class="mdescLeft">&#160;</td><td class="mdescRight">THIS SUBROUTINE IS USED TO SPECIFY THE LENGTH OF DATE-TIME VALUES THAT WILL BE OUTPUT BY FUTURE CALLS TO ANY OF THE BUFR ARCHIVE LIBRARY SUBROUTINES WHICH READ BUFR MESSAGES (E.G.  <a href="#ac75cb362f84167ca65b058a97401efcd">More...</a><br/></td></tr>
+<tr class="memdesc:ac75cb362f84167ca65b058a97401efcd"><td class="mdescLeft">&#160;</td><td class="mdescRight">This subroutine is used to specify the format of Section 1 date-time values that will be output by future calls to any of the BUFRLIB <a class="el" href="md__gpfs_dell2_emc_obsproc_noscrub_Jeff_8Ator_NCEPLIBS-bufr-GitHub_nceplibs-bufr_docs_UserGuide.html#hierarchy">message-reading subroutines</a>.  <a href="#ac75cb362f84167ca65b058a97401efcd">More...</a><br/></td></tr>
 <tr class="separator:ac75cb362f84167ca65b058a97401efcd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><dl class="section author"><dt>Author</dt><dd>WOOLLEN </dd></dl>
-<dl class="section date"><dt>Date</dt><dd>1998-07-08 </dd></dl>
+<div class="textblock"><p>Specify format of Section 1 date-time when reading BUFR messages. </p>
 
 <p>Definition in file <a class="el" href="datelen_8f_source.html">datelen.f</a>.</p>
 </div><h2 class="groupheader">Function/Subroutine Documentation</h2>
@@ -137,13 +139,33 @@ Functions/Subroutines</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>THIS SUBROUTINE IS USED TO SPECIFY THE LENGTH OF DATE-TIME VALUES THAT WILL BE OUTPUT BY FUTURE CALLS TO ANY OF THE BUFR ARCHIVE LIBRARY SUBROUTINES WHICH READ BUFR MESSAGES (E.G. </p>
-<p>READMG, READERME, ETC.). POSSIBLE VALUES ARE "8" (WHICH IS THE DEFAULT) AND "10".</p>
-<p>PROGRAM HISTORY LOG: 1998-07-08 J. WOOLLEN &ndash; ORIGINAL AUTHOR (ENTRY POINT IN READMG) 2002-05-14 J. WOOLLEN &ndash; CHANGED FROM AN ENTRY POINT TO INCREASE PORTABILITY TO OTHER PLATFORMS 2003-11-04 J. ATOR &ndash; ADDED DOCUMENTATION 2003-11-04 S. BENDER &ndash; ADDED REMARKS/BUFRLIB ROUTINE INTERDEPENDENCIES 2003-11-04 D. KEYSER &ndash; UNIFIED/PORTABLE FOR WRF; ADDED HISTORY DOCUMENTATION; OUTPUTS MORE COMPLETE DIAGNOSTIC INFO WHEN ROUTINE TERMINATES ABNORMALLY 2004-12-20 D. KEYSER &ndash; CALLS WRDLEN TO INITIALIZE LOCAL MACHINE INFORMATION (IN CASE IT HAS NOT YET BEEN CALLED), THIS ROUTINE DOES NOT REQUIRE IT BUT IT MAY SOMEDAY CALL OTHER ROUTINES THAT DO REQUIRE IT</p>
-<p>USAGE: CALL DATELEN (LEN) INPUT ARGUMENT LIST: LEN - INTEGER: LENGTH OF DATE-TIME VALUES TO BE OUTPUT BY READ SUBROUTINES: * 8 = YYMMDDHH (2-digit year) 10 = YYYYMMDDHH (4-digit year)</p>
-<p>REMARKS: THIS ROUTINE CALLS: BORT WRDLEN THIS ROUTINE IS CALLED BY: None Normally called only by application programs. </p>
+<p>This subroutine is used to specify the format of Section 1 date-time values that will be output by future calls to any of the BUFRLIB <a class="el" href="md__gpfs_dell2_emc_obsproc_noscrub_Jeff_8Ator_NCEPLIBS-bufr-GitHub_nceplibs-bufr_docs_UserGuide.html#hierarchy">message-reading subroutines</a>. </p>
+<dl class="section author"><dt>Author</dt><dd>J. Woollen </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>1998-07-08</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">LEN</td><td>- integer: Length of Section 1 date-time values to be output by all future calls to message-reading subroutines<ul>
+<li>8 = YYMMDDHH format with 2-digit year (the default)</li>
+<li>10 = YYYYMMDDHH format with 4-digit year</li>
+</ul>
+</td></tr>
+  </table>
+  </dd>
+</dl>
+<p>This subroutine can be called at any time from within the application program, and the specified value for LEN will remain in effect for all future calls to any of the BUFRLIB subroutines which read BUFR messages, unless a subsequent call is made to this subroutine to reset the value of LEN again. If this subroutine is never called, a default value of 8 is used for LEN, as set within subroutine <a class="el" href="bfrini_8f90.html#ab3f045cc170403305543e34e30b87001" title="This subroutine initializes numerous global variables and arrays within internal modules and COMMON b...">bfrini()</a>.</p>
+<p><b>Program history log:</b></p>
+<ul>
+<li>1998-07-08 J. Woollen &ndash; Original author</li>
+<li>2002-05-14 J. Woollen &ndash; Changed from an entry point in <a class="el" href="readmg_8f.html#a9fb3da32fb87bc017d16b9f0f707be9b" title="This subroutine reads the next BUFR message from logical unit ABS(LUNXX) into internal arrays...">readmg()</a> to stand-alone subroutine, to increase portability to other platforms</li>
+<li>2003-11-04 J. Ator &ndash; Added documentation</li>
+<li>2004-12-20 D. Keyser &ndash; Calls <a class="el" href="wrdlen_8F.html#afb746f29272671c842018de69b277685" title="This subroutine figures out some important information about the local machine on which the BUFRLIB s...">wrdlen()</a> to initialize local machine information (in case it has not yet been called), this routine does not require it but it may someday call other routines that do require it </li>
+</ul>
 
-<p>Definition at line <a class="el" href="datelen_8f_source.html#l00040">40</a> of file <a class="el" href="datelen_8f_source.html">datelen.f</a>.</p>
+<p>Definition at line <a class="el" href="datelen_8f_source.html#l00039">39</a> of file <a class="el" href="datelen_8f_source.html">datelen.f</a>.</p>
+
+<p>References <a class="el" href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort()</a>, and <a class="el" href="wrdlen_8F.html#afb746f29272671c842018de69b277685">wrdlen()</a>.</p>
+
+<p>Referenced by <a class="el" href="debufr_8f.html#a60dcf0fcb9d3a56fe561406bf5b16a9e">fdebufr()</a>.</p>
 
 </div>
 </div>

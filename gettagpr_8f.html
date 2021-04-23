@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.3.2</span>
+   &#160;<span id="projectnumber">11.5.0</span>
    </div>
   </td>
  </tr>
@@ -92,7 +92,7 @@ $(document).ready(function(){initNavTree('gettagpr_8f.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -109,17 +109,19 @@ $(document).ready(function(){initNavTree('gettagpr_8f.html','');});
 </div><!--header-->
 <div class="contents">
 
+<p>Get the parent for a specified occurrence of a Table B or Table D mnemonic.  
+<a href="#details">More...</a></p>
+
 <p><a href="gettagpr_8f_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions/Subroutines</h2></td></tr>
 <tr class="memitem:adf81053de34a8bebe6d486f688de5a66"><td class="memItemLeft" align="right" valign="top">subroutine&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="gettagpr_8f.html#adf81053de34a8bebe6d486f688de5a66">gettagpr</a> (LUNIT, TAGCH, NTAGCH, TAGPR, IRET)</td></tr>
-<tr class="memdesc:adf81053de34a8bebe6d486f688de5a66"><td class="mdescLeft">&#160;</td><td class="mdescRight">GIVEN A MNEMONIC CORRESPONDING TO A CHILD DESCRIPTOR WITHIN A PARENT SEQUENCE, THIS SUBROUTINE RETURNS THE MNEMONIC CORRESPONDING TO THE PARENT SEQUENCE.  <a href="#adf81053de34a8bebe6d486f688de5a66">More...</a><br/></td></tr>
+<tr class="memdesc:adf81053de34a8bebe6d486f688de5a66"><td class="mdescLeft">&#160;</td><td class="mdescRight">This subroutine returns the Table D mnemonic corresponding to the parent sequence of a specified Table B or Table D mnemonic within a data subset definition.  <a href="#adf81053de34a8bebe6d486f688de5a66">More...</a><br/></td></tr>
 <tr class="separator:adf81053de34a8bebe6d486f688de5a66"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><dl class="section author"><dt>Author</dt><dd>J </dd></dl>
-<dl class="section date"><dt>Date</dt><dd>2012-09-12 </dd></dl>
+<div class="textblock"><p>Get the parent for a specified occurrence of a Table B or Table D mnemonic. </p>
 
 <p>Definition in file <a class="el" href="gettagpr_8f_source.html">gettagpr.f</a>.</p>
 </div><h2 class="groupheader">Function/Subroutine Documentation</h2>
@@ -165,14 +167,34 @@ Functions/Subroutines</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>GIVEN A MNEMONIC CORRESPONDING TO A CHILD DESCRIPTOR WITHIN A PARENT SEQUENCE, THIS SUBROUTINE RETURNS THE MNEMONIC CORRESPONDING TO THE PARENT SEQUENCE. </p>
-<p>A SUBSET DEFINITION MUST ALREADY BE IN SCOPE, EITHER VIA A PREVIOUS CALL TO BUFR ARCHIVE LIBRARY SUBROUTINE READSB OR EQUIVALENT (FOR INPUT FILES) OR TO SUBROUTINE OPENMB OR EQUIVALENT (FOR OUTPUT FILES). IF THERE IS MORE THAN ONE OCCURRENCE OF THE CHILD DESCRIPTOR WITHIN THE OVERALL SUBSET DEFINITION, THIS SUBROUTINE WILL RETURN THE PARENT MNEMONIC CORRESPONDING TO THE (NTAGCH)th OCCURRENCE OF THE CHILD, COUNTING FROM THE BEGINNING OF THE OVERALL SUBSET DEFINITION.</p>
-<p>PROGRAM HISTORY LOG: 2012-09-12 J. ATOR &ndash; ORIGINAL AUTHOR 2014-10-02 J. ATOR &ndash; MODIFIED TO USE FSTAG 2014-12-10 J. ATOR &ndash; USE MODULES INSTEAD OF COMMON BLOCKS</p>
-<p>USAGE: CALL GETTAGPR (LUNIT, TAGCH, NTAGCH, TAGPR, IRET) INPUT ARGUMENT LIST: LUNIT - INTEGER: FORTRAN LOGICAL UNIT NUMBER FOR BUFR FILE TAGCH - CHARACTER*(*): MNEMONIC CORRESPONDING TO CHILD DESCRIPTOR NTAGCH - INTEGER: ORDINAL OCCURRENCE OF TAGCH FOR WHICH TAGPR IS TO BE RETURNED, COUNTING FROM THE BEGINNING OF THE OVERALL SUBSET DEFINITION</p>
-<p>OUTPUT ARGUMENT LIST: TAGPR - CHARACTER*(*): MNEMONIC CORRESPONDING TO PARENT SEQUENCE DESCRIPTOR IRET - INTEGER: RETURN CODE 0 = NORMAL RETURN -1 = PARENT MNEMONIC COULD NOT BE FOUND, OR SOME OTHER ERROR OCCURRED</p>
-<p>REMARKS: THIS ROUTINE CALLS: FSTAG STATUS THIS ROUTINE IS CALLED BY: None Normally called only by application programs </p>
+<p>This subroutine returns the Table D mnemonic corresponding to the parent sequence of a specified Table B or Table D mnemonic within a data subset definition. </p>
+<dl class="section author"><dt>Author</dt><dd>J. Ator </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2012-09-12</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">LUNIT</td><td>- integer: Fortran logical unit number for BUFR file </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">TAGCH</td><td>- character*(*): Table B or Table D mnemonic </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">NTAGCH</td><td>- integer: Ordinal occurrence of TAGCH for which the parent Table D mnemonic is to be returned, counting from the beginning of the overall subset definition </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">TAGPR</td><td>- character*(*): Table D mnemonic corresponding to parent sequence of (NTAGCH)th occurrence of TAGCH </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">IRET</td><td>- integer: return code<ul>
+<li>0 = normal return</li>
+<li>-1 = TAGPR could not be found, or some other error occurred</li>
+</ul>
+</td></tr>
+  </table>
+  </dd>
+</dl>
+<p>A data subset must already be in scope within the BUFRLIB internal arrays for LUNIT, either via a previous call to one of the <a class="el" href="md__gpfs_dell2_emc_obsproc_noscrub_Jeff_8Ator_NCEPLIBS-bufr-GitHub_nceplibs-bufr_docs_UserGuide.html#hierarchy">subset-reading subroutines</a> (when reading BUFR data subsets) or via a previous call to one of the <a class="el" href="md__gpfs_dell2_emc_obsproc_noscrub_Jeff_8Ator_NCEPLIBS-bufr-GitHub_nceplibs-bufr_docs_UserGuide.html#hierarchy">message-writing subroutines</a> (when writing BUFR data subsets).</p>
+<p><b>Program history log:</b></p>
+<ul>
+<li>2012-09-12 J. Ator &ndash; Original author</li>
+<li>2014-10-02 J. Ator &ndash; Modified to use <a class="el" href="fstag_8f.html#a4086d332625381684867dd7ec13a20e5" title="THIS SUBROUTINE FINDS THE (NUTAG)th OCCURRENCE OF MNEMONIC UTAG WITHIN THE CURRENT OVERALL SUBSET DEF...">fstag()</a></li>
+<li>2014-12-10 J. Ator &ndash; Use modules instead of COMMON blocks </li>
+</ul>
 
-<p>Definition at line <a class="el" href="gettagpr_8f_source.html#l00043">43</a> of file <a class="el" href="gettagpr_8f_source.html">gettagpr.f</a>.</p>
+<p>Definition at line <a class="el" href="gettagpr_8f_source.html#l00039">39</a> of file <a class="el" href="gettagpr_8f_source.html">gettagpr.f</a>.</p>
+
+<p>References <a class="el" href="fstag_8f.html#a4086d332625381684867dd7ec13a20e5">fstag()</a>, and <a class="el" href="status_8f.html#a22292e7a69c411a961168198d259f336">status()</a>.</p>
 
 </div>
 </div>

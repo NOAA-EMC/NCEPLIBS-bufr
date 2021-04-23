@@ -12,6 +12,7 @@ var searchData=
   ['writcp_2ef',['writcp.f',['../writcp_8f.html',1,'']]],
   ['writdx',['writdx',['../writdx_8f.html#aeefeb67236c767bcd39c0b2bc03fa390',1,'writdx.f']]],
   ['writdx_2ef',['writdx.f',['../writdx_8f.html',1,'']]],
+  ['writlc',['writlc',['../writlc_8f.html#a7017d5359bb32ce5407499d7a1b16709',1,'writlc.f']]],
   ['writlc_2ef',['writlc.f',['../writlc_8f.html',1,'']]],
   ['writsa',['writsa',['../writsa_8f.html#a50e3c630fd99f545e2427fe9b18c4d48',1,'writsa.f']]],
   ['writsa_2ef',['writsa.f',['../writsa_8f.html',1,'']]],

@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.3.2</span>
+   &#160;<span id="projectnumber">11.5.0</span>
    </div>
   </td>
  </tr>
@@ -92,7 +92,7 @@ $(document).ready(function(){initNavTree('getwin_8f_source.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -188,50 +188,46 @@ $(document).ready(function(){initNavTree('getwin_8f_source.html','');});
 <div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;<span class="comment">C&gt;</span></div>
 <div class="line"><a name="l00081"></a><span class="lineno"><a class="line" href="getwin_8f.html#a379c23a5975d8a605b4747586726f5b1">   81</a></span>&#160;<span class="keyword">      SUBROUTINE </span><a class="code" href="getwin_8f.html#a379c23a5975d8a605b4747586726f5b1">getwin</a>(NODE,LUN,IWIN,JWIN)</div>
 <div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;      <span class="keywordtype">USE </span><a class="code" href="classmoda__usrint.html">moda_usrint</a></div>
 <div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;      <span class="keywordtype">USE </span><a class="code" href="classmoda__usrint.html">moda_usrint</a></div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;      <span class="keywordtype">CHARACTER*128</span> bort_str</div>
 <div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;      include <span class="stringliteral">&#39;bufrlib.inc&#39;</span></div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;      <span class="keywordtype">CHARACTER*128</span> bort_str</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;<span class="comment">C----------------------------------------------------------------------</span></div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;<span class="comment">C----------------------------------------------------------------------</span></div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;      irpc = <a class="code" href="lstjpb_8f.html#a0a74db325c227fe8ee3b77bd7dfd7baf">lstjpb</a>(node,lun,<span class="stringliteral">&#39;RPC&#39;</span>)</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;      <span class="keywordflow">IF</span>(irpc.EQ.0) <span class="keywordflow">THEN</span></div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;         iwin = <a class="code" href="invwin_8f.html#ac26ae485efa93dee816efb648bdfcc8b">invwin</a>(node,lun,jwin,nval(lun))</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;         <span class="keywordflow">IF</span>(iwin.EQ.0 .and. jwin.GT.1) goto 100</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;         iwin = 1</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;         jwin = nval(lun)</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;         goto 100</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;      <span class="keywordflow">ELSE</span></div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;         iwin = <a class="code" href="invwin_8f.html#ac26ae485efa93dee816efb648bdfcc8b">invwin</a>(irpc,lun,jwin,nval(lun))</div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;         <span class="keywordflow">IF</span>(iwin.EQ.0) <span class="keywordflow">THEN</span></div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;            goto 100</div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;         <span class="keywordflow">ELSEIF</span>(val(iwin,lun).EQ.0.) <span class="keywordflow">THEN</span></div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;            iwin = 0</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;            goto 100</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;         <span class="keywordflow">ENDIF</span></div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;      <span class="keywordflow">ENDIF</span></div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;</div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;      jwin = <a class="code" href="invwin_8f.html#ac26ae485efa93dee816efb648bdfcc8b">invwin</a>(irpc,lun,iwin+1,nval(lun))</div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;      <span class="keywordflow">IF</span>(jwin.EQ.0) goto 900</div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;</div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;<span class="comment">C  EXITS</span></div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;<span class="comment">C  -----</span></div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;</div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;100   <span class="keywordflow">RETURN</span></div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;900   <span class="keyword">WRITE</span>(bort_str,<span class="stringliteral">&#39;(&quot;BUFRLIB: GETWIN - SEARCHED BETWEEN&quot;,I5,&quot; AND&quot;&#39;</span>//</div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;     . <span class="stringliteral">&#39;,I5,&quot;, MISSING BRACKET&quot;)&#39;</span>) iwin+1,nval(lun)</div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;      CALL <a class="code" href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort</a>(bort_str)</div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;      <span class="keywordflow">END</span></div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;<span class="comment">C----------------------------------------------------------------------</span></div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;<span class="comment">C----------------------------------------------------------------------</span></div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;      irpc = <a class="code" href="lstjpb_8f.html#a0a74db325c227fe8ee3b77bd7dfd7baf">lstjpb</a>(node,lun,<span class="stringliteral">&#39;RPC&#39;</span>)</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;      <span class="keywordflow">IF</span>(irpc.EQ.0) <span class="keywordflow">THEN</span></div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;         iwin = <a class="code" href="invwin_8f.html#ac26ae485efa93dee816efb648bdfcc8b">invwin</a>(node,lun,jwin,nval(lun))</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;         <span class="keywordflow">IF</span>(iwin.EQ.0 .and. jwin.GT.1) goto 100</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;         iwin = 1</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;         jwin = nval(lun)</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;         goto 100</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;      <span class="keywordflow">ELSE</span></div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;         iwin = <a class="code" href="invwin_8f.html#ac26ae485efa93dee816efb648bdfcc8b">invwin</a>(irpc,lun,jwin,nval(lun))</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;         <span class="keywordflow">IF</span>(iwin.EQ.0) <span class="keywordflow">THEN</span></div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;            goto 100</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;         <span class="keywordflow">ELSEIF</span>(val(iwin,lun).EQ.0.) <span class="keywordflow">THEN</span></div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;            iwin = 0</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;            goto 100</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;         <span class="keywordflow">ENDIF</span></div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;      <span class="keywordflow">ENDIF</span></div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;      jwin = <a class="code" href="invwin_8f.html#ac26ae485efa93dee816efb648bdfcc8b">invwin</a>(irpc,lun,iwin+1,nval(lun))</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;      <span class="keywordflow">IF</span>(jwin.EQ.0) goto 900</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;<span class="comment">C  EXITS</span></div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;<span class="comment">C  -----</span></div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;100   <span class="keywordflow">RETURN</span></div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;900   <span class="keyword">WRITE</span>(bort_str,<span class="stringliteral">&#39;(&quot;BUFRLIB: GETWIN - SEARCHED BETWEEN&quot;,I5,&quot; AND&quot;&#39;</span>//</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;     . <span class="stringliteral">&#39;,I5,&quot;, MISSING BRACKET&quot;)&#39;</span>) iwin+1,nval(lun)</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;      CALL <a class="code" href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort</a>(bort_str)</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;      <span class="keywordflow">END</span></div>
 <div class="ttc" id="lstjpb_8f_html_a0a74db325c227fe8ee3b77bd7dfd7baf"><div class="ttname"><a href="lstjpb_8f.html#a0a74db325c227fe8ee3b77bd7dfd7baf">lstjpb</a></div><div class="ttdeci">function lstjpb(NODE, LUN, JBTYP)</div><div class="ttdoc">THIS FUNCTION SEARCHES BACKWARDS, BEGINNING FROM A GIVEN NODE WITHIN THE JUMP/LINK TABLE...</div><div class="ttdef"><b>Definition:</b> <a href="lstjpb_8f_source.html#l00057">lstjpb.f:57</a></div></div>
 <div class="ttc" id="getwin_8f_html_a379c23a5975d8a605b4747586726f5b1"><div class="ttname"><a href="getwin_8f.html#a379c23a5975d8a605b4747586726f5b1">getwin</a></div><div class="ttdeci">subroutine getwin(NODE, LUN, IWIN, JWIN)</div><div class="ttdoc">GIVEN A NODE INDEX WITHIN THE INTERNAL JUMP/LINK TABLE, THIS SUBROUTINE LOOKS WITHIN THE CURRENT SUBS...</div><div class="ttdef"><b>Definition:</b> <a href="getwin_8f_source.html#l00081">getwin.f:81</a></div></div>
 <div class="ttc" id="classmoda__usrint_html"><div class="ttname"><a href="classmoda__usrint.html">moda_usrint</a></div><div class="ttdef"><b>Definition:</b> <a href="moda__usrint_8F_source.html#l00001">moda_usrint.F:1</a></div></div>
-<div class="ttc" id="bort_8f_html_a488d3a8cf930fb592a9fdaefcfa04ac4"><div class="ttname"><a href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort</a></div><div class="ttdeci">subroutine bort(STR)</div><div class="ttdoc">THIS SUBROUTINE WRITES (VIA BUFR ARCHIVE LIBRARY SUBROUTINE ERRWRT) A GIVEN ERROR STRING AND THEN CAL...</div><div class="ttdef"><b>Definition:</b> <a href="bort_8f_source.html#l00069">bort.f:69</a></div></div>
+<div class="ttc" id="bort_8f_html_a488d3a8cf930fb592a9fdaefcfa04ac4"><div class="ttname"><a href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort</a></div><div class="ttdeci">subroutine bort(STR)</div><div class="ttdoc">This subroutine calls subroutine errwrt() to log an error message, then calls subroutine bort_exit() ...</div><div class="ttdef"><b>Definition:</b> <a href="bort_8f_source.html#l00023">bort.f:23</a></div></div>
 <div class="ttc" id="invwin_8f_html_ac26ae485efa93dee816efb648bdfcc8b"><div class="ttname"><a href="invwin_8f.html#ac26ae485efa93dee816efb648bdfcc8b">invwin</a></div><div class="ttdeci">function invwin(NODE, LUN, INV1, INV2)</div><div class="ttdoc">THIS FUNCTION LOOKS FOR A SPECIFIED NODE WITHIN THE PORTION OF THE CURRENT SUBSET BUFFER BOUNDED BY T...</div><div class="ttdef"><b>Definition:</b> <a href="invwin_8f_source.html#l00048">invwin.f:48</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->

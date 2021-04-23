@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.3.2</span>
+   &#160;<span id="projectnumber">11.5.0</span>
    </div>
   </td>
  </tr>
@@ -92,7 +92,7 @@ $(document).ready(function(){initNavTree('nemdefs_8f.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -109,17 +109,19 @@ $(document).ready(function(){initNavTree('nemdefs_8f.html','');});
 </div><!--header-->
 <div class="contents">
 
+<p>Get the element name and units associated with a Table B mnemonic.  
+<a href="#details">More...</a></p>
+
 <p><a href="nemdefs_8f_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions/Subroutines</h2></td></tr>
 <tr class="memitem:a494cec4a80b848c31276fed4152651e4"><td class="memItemLeft" align="right" valign="top">subroutine&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="nemdefs_8f.html#a494cec4a80b848c31276fed4152651e4">nemdefs</a> (LUNIT, NEMO, CELEM, CUNIT, IRET)</td></tr>
-<tr class="memdesc:a494cec4a80b848c31276fed4152651e4"><td class="mdescLeft">&#160;</td><td class="mdescRight">GIVEN A TABLE B MNEMONIC, THIS SUBROUTINE RETURNS THE ELEMENT NAME AND UNITS ASSOCIATED WITH THAT MNEMONIC.  <a href="#a494cec4a80b848c31276fed4152651e4">More...</a><br/></td></tr>
+<tr class="memdesc:a494cec4a80b848c31276fed4152651e4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Given a Table B mnemonic defined in the <a class="el" href="md__gpfs_dell2_emc_obsproc_noscrub_Jeff_8Ator_NCEPLIBS-bufr-GitHub_nceplibs-bufr_docs_dfbftab.html#dfbftab">DX BUFR Tables</a> associated with a BUFR file (or in the <a class="el" href="md__gpfs_dell2_emc_obsproc_noscrub_Jeff_8Ator_NCEPLIBS-bufr-GitHub_nceplibs-bufr_docs_dfbfmstab.html#dfbfmstab">master BUFR tables</a>, if the file was opened in subroutine <a class="el" href="openbf_8F.html#a9bea9aeada166bd9037b959ca8452b28" title="This subroutine connects a new file to the BUFRLIB software for input or output operations. ">openbf()</a> with IO = 'SEC3'), this subroutine returns the element name and units associated with that mnemonic.  <a href="#a494cec4a80b848c31276fed4152651e4">More...</a><br/></td></tr>
 <tr class="separator:a494cec4a80b848c31276fed4152651e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><dl class="section author"><dt>Author</dt><dd>J </dd></dl>
-<dl class="section date"><dt>Date</dt><dd>2014-10-02 </dd></dl>
+<div class="textblock"><p>Get the element name and units associated with a Table B mnemonic. </p>
 
 <p>Definition in file <a class="el" href="nemdefs_8f_source.html">nemdefs.f</a>.</p>
 </div><h2 class="groupheader">Function/Subroutine Documentation</h2>
@@ -165,14 +167,33 @@ Functions/Subroutines</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>GIVEN A TABLE B MNEMONIC, THIS SUBROUTINE RETURNS THE ELEMENT NAME AND UNITS ASSOCIATED WITH THAT MNEMONIC. </p>
-<p>THIS SUBROUTINE CAN BE CALLED AT ANY TIME FOLLOWING THE CALL TO BUFR ARCHIVE LIBRARY SUBROUTINE OPENBF FOR THE ASSOCIATED LUNIT.</p>
-<p>PROGRAM HISTORY LOG: 2014-10-02 J. ATOR &ndash; ORIGINAL VERSION 2014-12-10 J. ATOR &ndash; USE MODULES INSTEAD OF COMMON BLOCKS</p>
-<p>USAGE: CALL NEMDEFS (LUNIT, NEMO, CELEM, CUNIT, IRET ) INPUT ARGUMENT LIST: LUNIT - INTEGER: FORTRAN LOGICAL UNIT NUMBER FOR BUFR FILE NEMO - CHARACTER*(*): TABLE B MNEMONIC</p>
-<p>OUTPUT ARGUMENT LIST: CELEM - CHARACTER*55: ELEMENT NAME ASSOCIATED WITH NEMO CUNIT - CHARACTER*24: UNITS ASSOCIATED WITH NEMO IRET - INTEGER: RETURN CODE 0 = NORMAL RETURN -1 = REQUESTED MNEMONIC COULD NOT BE FOUND, OR SOME OTHER ERROR OCCURRED</p>
-<p>REMARKS: THIS ROUTINE CALLS: NEMTAB STATUS THIS ROUTINE IS CALLED BY: None Normally called only by application programs </p>
+<p>Given a Table B mnemonic defined in the <a class="el" href="md__gpfs_dell2_emc_obsproc_noscrub_Jeff_8Ator_NCEPLIBS-bufr-GitHub_nceplibs-bufr_docs_dfbftab.html#dfbftab">DX BUFR Tables</a> associated with a BUFR file (or in the <a class="el" href="md__gpfs_dell2_emc_obsproc_noscrub_Jeff_8Ator_NCEPLIBS-bufr-GitHub_nceplibs-bufr_docs_dfbfmstab.html#dfbfmstab">master BUFR tables</a>, if the file was opened in subroutine <a class="el" href="openbf_8F.html#a9bea9aeada166bd9037b959ca8452b28" title="This subroutine connects a new file to the BUFRLIB software for input or output operations. ">openbf()</a> with IO = 'SEC3'), this subroutine returns the element name and units associated with that mnemonic. </p>
+<dl class="section author"><dt>Author</dt><dd>J. Ator </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2014-10-02</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">LUNIT</td><td>- integer: Fortran logical unit number for BUFR file </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">NEMO</td><td>- character*(*): Table B mnemonic </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">CELEM</td><td>- character*55: Element name associated with NEMO </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">CUNIT</td><td>- character*24: Units associated with NEMO </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">IRET</td><td>- integer: return code<ul>
+<li>0 = normal return</li>
+<li>-1 = NEMO could not be found, or some other error occurred</li>
+</ul>
+</td></tr>
+  </table>
+  </dd>
+</dl>
+<p>Logical unit LUNIT should have already been opened for input or output operations via a previous call to subroutine <a class="el" href="openbf_8F.html#a9bea9aeada166bd9037b959ca8452b28" title="This subroutine connects a new file to the BUFRLIB software for input or output operations. ">openbf()</a>.</p>
+<p><b>Program history log:</b></p>
+<ul>
+<li>2014-10-02 J. Ator &ndash; Original version</li>
+<li>2014-12-10 J. Ator &ndash; Use modules instead of COMMON blocks </li>
+</ul>
 
-<p>Definition at line <a class="el" href="nemdefs_8f_source.html#l00032">32</a> of file <a class="el" href="nemdefs_8f_source.html">nemdefs.f</a>.</p>
+<p>Definition at line <a class="el" href="nemdefs_8f_source.html#l00034">34</a> of file <a class="el" href="nemdefs_8f_source.html">nemdefs.f</a>.</p>
+
+<p>References <a class="el" href="nemtab_8f.html#a3f3fb5a378c52dac83cb4fce27ceb712">nemtab()</a>, and <a class="el" href="status_8f.html#a22292e7a69c411a961168198d259f336">status()</a>.</p>
 
 </div>
 </div>

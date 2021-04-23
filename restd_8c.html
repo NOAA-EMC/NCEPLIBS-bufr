@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.3.2</span>
+   &#160;<span id="projectnumber">11.5.0</span>
    </div>
   </td>
  </tr>
@@ -92,7 +92,7 @@ $(document).ready(function(){initNavTree('restd_8c.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -164,6 +164,10 @@ Functions</h2></td></tr>
 <p>NON-STANDARD) TABLE D DESCRIPTOR, THIS ROUTINE RETURNS C AN EQUIVALENT LIST OF STANDARDIZED CHILD DESCRIPTORS. ANY CHILD C DESCRIPTORS WHICH ARE THEMSELVES LOCAL TABLE D DESCRIPTORS ARE C AUTOMATICALLY RESOLVED VIA A RECURSIVE CALL TO THIS SAME ROUTINE. C THE RECURSIVE PROCESS CONTINUES UNTIL ALL CHILD DESCRIPTORS ARE C EITHER WMO-STANDARD DESCRIPTORS (I.E. FROM TABLE B, TABLE C, OR C TABLE D, OR REPLICATION DESCRIPTORS) OR ELSE ARE LOCAL TABLE B C DESCRIPTORS, IN WHICH CASE THEY ARE PRECEDED WITH AN APPROPRIATE C 206YYY TABLE C OPERATOR IN THE OUTPUT LIST. IN ANY EVENT, THE C FINAL OUTPUT LIST OF EQUIVALENT CHILD DESCRIPTORS IS USABLE BY C ANY STANDARD BUFR DECODER PROGRAM IN ORDER TO INTERPRET THE SAME C DATA VALUES AS WERE REPRESENTED BY THE INITIAL LOCAL TABLE D C DESCRIPTOR THAT WAS INPUT. C C PROGRAM HISTORY LOG: C 2004-08-18 J. ATOR &ndash; ORIGINAL AUTHOR C 2012-04-30 J. ATOR &ndash; USE LONG CAST FOR IBIT IN SPRINTF STMT C C USAGE: CALL RESTD( LUN, TDDESC, NCTDDESC, CTDDESC ) C INPUT ARGUMENT LIST: C LUN - INTEGER: I/O STREAM INDEX INTO INTERNAL MEMORY ARRAYS C TDDESC - INTEGER: BIT-WISE REPRESENTATION OF FXY VALUE FOR C LOCAL TABLE D DESCRIPTOR C C OUTPUT ARGUMENT LIST: C NCTDDESC - INTEGER: NUMBER OF STANDARDIZED CHILD DESCRIPTORS C RETURNED IN CTDDESC C CTDDESC - INTEGER: ARRAY OF STANDARDIZED CHILD DESCRIPTORS C C REMARKS: C THIS ROUTINE CALLS: RESTD NUMTBD NEMTBB IFXY C CADN30 ISTDESC WRDESC UPTDD C THIS ROUTINE IS CALLED BY: RESTD STNDRD C Normally not called by application C programs but it could be. C C ATTRIBUTES: C LANGUAGE: C C MACHINE: PORTABLE TO ALL PLATFORMS C C$$$ </p>
 
 <p>Definition at line <a class="el" href="restd_8c_source.html#l00055">55</a> of file <a class="el" href="restd_8c_source.html">restd.c</a>.</p>
+
+<p>References <a class="el" href="cadn30_8f.html#a62b50a0be6585c53b6604953e5f39ad1">cadn30()</a>, <a class="el" href="ifxy_8f.html#ac971a6f6d644344a5b09d50175498074">ifxy()</a>, <a class="el" href="istdesc_8f.html#a8cf4d2f75a7094c482f39dec47f37175">istdesc()</a>, <a class="el" href="nemtbb_8f.html#a6a5cf8bb2726a59eeb87fbbef58764be">nemtbb()</a>, <a class="el" href="numtbd_8f.html#aae71d3919c5fc05ca4915e7b61aa3735">numtbd()</a>, <a class="el" href="uptdd_8f.html#a560d41b7c906a6cb2dc1f53259261dd4">uptdd()</a>, and <a class="el" href="wrdesc_8c.html#aed82d3eee5bd688cbf51ae05807f584d">wrdesc()</a>.</p>
+
+<p>Referenced by <a class="el" href="stndrd_8f.html#a9a40fe96eef4a44c203f5e663fc47c4b">stndrd()</a>.</p>
 
 </div>
 </div>

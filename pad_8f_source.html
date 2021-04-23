@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.3.2</span>
+   &#160;<span id="projectnumber">11.5.0</span>
    </div>
   </td>
  </tr>
@@ -92,7 +92,7 @@ $(document).ready(function(){initNavTree('pad_8f_source.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -193,8 +193,8 @@ $(document).ready(function(){initNavTree('pad_8f_source.html','');});
 <div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;      CALL <a class="code" href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort</a>(bort_str)</div>
 <div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;      <span class="keywordflow">END</span></div>
 <div class="ttc" id="pad_8f_html_ab92ba263e51623b46cb4a7c9dee641f0"><div class="ttname"><a href="pad_8f.html#ab92ba263e51623b46cb4a7c9dee641f0">pad</a></div><div class="ttdeci">subroutine pad(IBAY, IBIT, IBYT, IPADB)</div><div class="ttdoc">THIS SUBROUTINE FIRST PACKS THE VALUE FOR THE NUMBER OF BITS BEING &amp;quot;PADDED&amp;quot; (WE&amp;#39;LL GET TO THAT LATE...</div><div class="ttdef"><b>Definition:</b> <a href="pad_8f_source.html#l00052">pad.f:52</a></div></div>
-<div class="ttc" id="bort_8f_html_a488d3a8cf930fb592a9fdaefcfa04ac4"><div class="ttname"><a href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort</a></div><div class="ttdeci">subroutine bort(STR)</div><div class="ttdoc">THIS SUBROUTINE WRITES (VIA BUFR ARCHIVE LIBRARY SUBROUTINE ERRWRT) A GIVEN ERROR STRING AND THEN CAL...</div><div class="ttdef"><b>Definition:</b> <a href="bort_8f_source.html#l00069">bort.f:69</a></div></div>
-<div class="ttc" id="pkb_8f_html_a35aa2e691ff3ad32de9d8721cae613f7"><div class="ttname"><a href="pkb_8f.html#a35aa2e691ff3ad32de9d8721cae613f7">pkb</a></div><div class="ttdeci">subroutine pkb(NVAL, NBITS, IBAY, IBIT)</div><div class="ttdoc">THIS SUBROUTINE PACKS AN INTEGER VALUE (NVAL) INTO NBITS BITS OF AN INTEGER ARRAY (IBAY)...</div><div class="ttdef"><b>Definition:</b> <a href="pkb_8f_source.html#l00054">pkb.f:54</a></div></div>
+<div class="ttc" id="bort_8f_html_a488d3a8cf930fb592a9fdaefcfa04ac4"><div class="ttname"><a href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort</a></div><div class="ttdeci">subroutine bort(STR)</div><div class="ttdoc">This subroutine calls subroutine errwrt() to log an error message, then calls subroutine bort_exit() ...</div><div class="ttdef"><b>Definition:</b> <a href="bort_8f_source.html#l00023">bort.f:23</a></div></div>
+<div class="ttc" id="pkb_8f_html_a35aa2e691ff3ad32de9d8721cae613f7"><div class="ttname"><a href="pkb_8f.html#a35aa2e691ff3ad32de9d8721cae613f7">pkb</a></div><div class="ttdeci">subroutine pkb(NVAL, NBITS, IBAY, IBIT)</div><div class="ttdoc">This subroutine encodes an integer value within a specified number of bits of an integer array...</div><div class="ttdef"><b>Definition:</b> <a href="pkb_8f_source.html#l00040">pkb.f:40</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

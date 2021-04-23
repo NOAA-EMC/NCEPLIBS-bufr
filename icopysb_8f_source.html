@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.3.2</span>
+   &#160;<span id="projectnumber">11.5.0</span>
    </div>
   </td>
  </tr>
@@ -92,7 +92,7 @@ $(document).ready(function(){initNavTree('icopysb_8f_source.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -107,49 +107,41 @@ $(document).ready(function(){initNavTree('icopysb_8f_source.html','');});
 </div><!--header-->
 <div class="contents">
 <a href="icopysb_8f.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="comment">C&gt; @file</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment">C&gt; @author WOOLLEN @date 1994-01-06</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment">C&gt; @brief Copy a BUFR data subset.</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;      </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="comment">C&gt; THIS FUNCTION CALLS BUFR ARCHIVE LIBRARY SUBROUTINE COPYSB</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="comment">C&gt;   AND PASSES BACK ITS RETURN CODE.  SEE COPYSB FOR MORE DETAILS.</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="comment">C&gt; This function calls BUFRLIB subroutine copysb() and passes</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="comment">C&gt; back its return code as the function value.</span></div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="comment">C&gt;</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="comment">C&gt; PROGRAM HISTORY LOG:</span></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="comment">C&gt; 1994-01-06  J. WOOLLEN -- ORIGINAL AUTHOR (ENTRY POINT IN IREADMG)</span></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="comment">C&gt; 2002-05-14  J. WOOLLEN -- CHANGED FROM AN ENTRY POINT TO INCREASE</span></div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="comment">C&gt;                           PORTABILITY TO OTHER PLATFORMS</span></div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="comment">C&gt; 2003-11-04  S. BENDER  -- ADDED REMARKS/BUFRLIB ROUTINE</span></div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="comment">C&gt;                           INTERDEPENDENCIES</span></div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="comment">C&gt; 2003-11-04  D. KEYSER  -- UNIFIED/PORTABLE FOR WRF; ADDED</span></div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment">C&gt;                           DOCUMENTATION (INCLUDING HISTORY)</span></div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="comment">C&gt;</span></div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="comment">C&gt; USAGE:    ICOPYSB (LUNIN, LUNOT)</span></div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="comment">C&gt;   INPUT ARGUMENT LIST:</span></div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="comment">C&gt;     LUNIT    - INTEGER: FORTRAN LOGICAL UNIT NUMBER FOR INPUT BUFR</span></div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment">C&gt;                FILE</span></div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="comment">C&gt;     LUNOT    - INTEGER: FORTRAN LOGICAL UNIT NUMBER FOR OUTPUT BUFR</span></div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="comment">C&gt;                FILE</span></div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="comment">C&gt;</span></div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="comment">C&gt;   OUTPUT ARGUMENT LIST:</span></div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="comment">C&gt;     ICOPYSB  - INTEGER: RETURN CODE:</span></div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="comment">C&gt;                       0 = normal return</span></div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="comment">C&gt;                      -1 = there are no more subsets in the input</span></div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="comment">C&gt;                           BUFR message</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="comment">C&gt; @author J. Woollen</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="comment">C&gt; @date 1994-01-06</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="comment">C&gt;</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="comment">C&gt; @param[in] LUNIN    - integer: Fortran logical unit number for</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="comment">C&gt;                       source BUFR file</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="comment">C&gt; @param[in] LUNOT    - integer: Fortran logical unit number for</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="comment">C&gt;                       target BUFR file</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment">C&gt; @returns icopysb    - integer: return code</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="comment">C&gt;                       - 0 = normal return</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="comment">C&gt;                       - -1 = a BUFR data subset could not be</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="comment">C&gt;                              read from the BUFR message in</span></div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="comment">C&gt;                              internal arrays for LUNIN</span></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment">C&gt;</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="comment">C&gt; @remarks</span></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="comment">C&gt; - The use of this function allows the return code from copysb() to be</span></div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="comment">C&gt; used as the target variable within an iterative program loop.</span></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="comment">C&gt;</span></div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="comment">C&gt; &lt;b&gt;Program history log:&lt;/b&gt;</span></div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="comment">C&gt; - 1994-01-06 J. Woollen -- Original author</span></div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="comment">C&gt; - 2002-05-14 J. Woollen -- Changed from an entry point to increase</span></div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="comment">C&gt;                           portability to other platforms</span></div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="comment">C&gt;</span></div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="comment">C&gt; REMARKS:</span></div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="comment">C&gt;    THIS ROUTINE CALLS:        COPYSB</span></div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="comment">C&gt;    THIS ROUTINE IS CALLED BY: None</span></div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="comment">C&gt;                               Normally called only by application</span></div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="comment">C&gt;                               programs.</span></div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="comment">C&gt;</span></div>
-<div class="line"><a name="l00035"></a><span class="lineno"><a class="line" href="icopysb_8f.html#afb30a7a2559d17a3547dc6895655148a">   35</a></span>&#160;<span class="keyword">      FUNCTION </span><a class="code" href="icopysb_8f.html#afb30a7a2559d17a3547dc6895655148a">icopysb</a>(LUNIN,LUNOT)</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;      CALL <a class="code" href="copysb_8f.html#a069b655003f8b71b2f29aa5d9f451a33">copysb</a>(lunin,lunot,iret)</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;      <a class="code" href="icopysb_8f.html#afb30a7a2559d17a3547dc6895655148a">icopysb</a> = iret</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;      <span class="keywordflow">RETURN</span></div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;      <span class="keywordflow">END</span></div>
-<div class="ttc" id="copysb_8f_html_a069b655003f8b71b2f29aa5d9f451a33"><div class="ttname"><a href="copysb_8f.html#a069b655003f8b71b2f29aa5d9f451a33">copysb</a></div><div class="ttdeci">subroutine copysb(LUNIN, LUNOT, IRET)</div><div class="ttdoc">This subroutine copies a packed data subset, intact, from logical unit lunin, opened for input via a ...</div><div class="ttdef"><b>Definition:</b> <a href="copysb_8f_source.html#l00062">copysb.f:62</a></div></div>
-<div class="ttc" id="icopysb_8f_html_afb30a7a2559d17a3547dc6895655148a"><div class="ttname"><a href="icopysb_8f.html#afb30a7a2559d17a3547dc6895655148a">icopysb</a></div><div class="ttdeci">function icopysb(LUNIN, LUNOT)</div><div class="ttdoc">THIS FUNCTION CALLS BUFR ARCHIVE LIBRARY SUBROUTINE COPYSB AND PASSES BACK ITS RETURN CODE...</div><div class="ttdef"><b>Definition:</b> <a href="icopysb_8f_source.html#l00035">icopysb.f:35</a></div></div>
+<div class="line"><a name="l00029"></a><span class="lineno"><a class="line" href="icopysb_8f.html#afb30a7a2559d17a3547dc6895655148a">   29</a></span>&#160;<span class="keyword">      FUNCTION </span><a class="code" href="icopysb_8f.html#afb30a7a2559d17a3547dc6895655148a">icopysb</a>(LUNIN,LUNOT)</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;      CALL <a class="code" href="copysb_8f.html#a069b655003f8b71b2f29aa5d9f451a33">copysb</a>(lunin,lunot,iret)</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;      <a class="code" href="icopysb_8f.html#afb30a7a2559d17a3547dc6895655148a">icopysb</a> = iret</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;      <span class="keywordflow">RETURN</span></div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;      <span class="keywordflow">END</span></div>
+<div class="ttc" id="copysb_8f_html_a069b655003f8b71b2f29aa5d9f451a33"><div class="ttname"><a href="copysb_8f.html#a069b655003f8b71b2f29aa5d9f451a33">copysb</a></div><div class="ttdeci">subroutine copysb(LUNIN, LUNOT, IRET)</div><div class="ttdoc">This subroutine copies a BUFR data subset from one Fortran logical unit to another. </div><div class="ttdef"><b>Definition:</b> <a href="copysb_8f_source.html#l00065">copysb.f:65</a></div></div>
+<div class="ttc" id="icopysb_8f_html_afb30a7a2559d17a3547dc6895655148a"><div class="ttname"><a href="icopysb_8f.html#afb30a7a2559d17a3547dc6895655148a">icopysb</a></div><div class="ttdeci">function icopysb(LUNIN, LUNOT)</div><div class="ttdoc">This function calls BUFRLIB subroutine copysb() and passes back its return code as the function value...</div><div class="ttdef"><b>Definition:</b> <a href="icopysb_8f_source.html#l00029">icopysb.f:29</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

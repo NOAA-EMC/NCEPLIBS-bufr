@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.3.2</span>
+   &#160;<span id="projectnumber">11.5.0</span>
    </div>
   </td>
  </tr>
@@ -92,7 +92,7 @@ $(document).ready(function(){initNavTree('cread_8h.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -103,23 +103,472 @@ $(document).ready(function(){initNavTree('cread_8h.html','');});
 
 <div class="header">
   <div class="summary">
+<a href="#func-members">Functions</a> &#124;
 <a href="#var-members">Variables</a>  </div>
   <div class="headertitle">
 <div class="title">cread.h File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
+<p>Define signatures and declare variables for reading or writing BUFR messages via a C language interface.  
+<a href="#details">More...</a></p>
+
 <p><a href="cread_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:ae9c022992af6584e7417bed0a783f7be"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cread_8h.html#ae9c022992af6584e7417bed0a783f7be">backbufr</a> (f77int *)</td></tr>
+<tr class="memdesc:ae9c022992af6584e7417bed0a783f7be"><td class="mdescLeft">&#160;</td><td class="mdescRight">This subroutine backspaces a BUFR file by one BUFR message.  <a href="#ae9c022992af6584e7417bed0a783f7be">More...</a><br/></td></tr>
+<tr class="separator:ae9c022992af6584e7417bed0a783f7be"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a61e34de2efc69877d3fab8f2ce4c52bc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cread_8h.html#a61e34de2efc69877d3fab8f2ce4c52bc">cewind</a> (f77int *)</td></tr>
+<tr class="memdesc:a61e34de2efc69877d3fab8f2ce4c52bc"><td class="mdescLeft">&#160;</td><td class="mdescRight">This subroutine rewinds a BUFR file back to its beginning.  <a href="#a61e34de2efc69877d3fab8f2ce4c52bc">More...</a><br/></td></tr>
+<tr class="separator:a61e34de2efc69877d3fab8f2ce4c52bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6118e519b5b655f3a3ca54ad4ca1b540"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cread_8h.html#a6118e519b5b655f3a3ca54ad4ca1b540">closfb</a> (f77int *)</td></tr>
+<tr class="memdesc:a6118e519b5b655f3a3ca54ad4ca1b540"><td class="mdescLeft">&#160;</td><td class="mdescRight">This subroutine closes a previously opened BUFR file.  <a href="#a6118e519b5b655f3a3ca54ad4ca1b540">More...</a><br/></td></tr>
+<tr class="separator:a6118e519b5b655f3a3ca54ad4ca1b540"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af7363f66f319c5f4dca3f2f5a01a353c"><td class="memItemLeft" align="right" valign="top">f77int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cread_8h.html#af7363f66f319c5f4dca3f2f5a01a353c">crdbufr</a> (f77int *, char *, f77int *)</td></tr>
+<tr class="memdesc:af7363f66f319c5f4dca3f2f5a01a353c"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function reads the next message from a BUFR file that was previously opened for reading.  <a href="#af7363f66f319c5f4dca3f2f5a01a353c">More...</a><br/></td></tr>
+<tr class="separator:af7363f66f319c5f4dca3f2f5a01a353c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a01bb7665b8031e3d10a402fa0670f9ac"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cread_8h.html#a01bb7665b8031e3d10a402fa0670f9ac">cwrbufr</a> (f77int *, f77int *, f77int *)</td></tr>
+<tr class="memdesc:a01bb7665b8031e3d10a402fa0670f9ac"><td class="mdescLeft">&#160;</td><td class="mdescRight">This subroutine writes a BUFR message into a file that was previously opened for writing.  <a href="#a01bb7665b8031e3d10a402fa0670f9ac">More...</a><br/></td></tr>
+<tr class="separator:a01bb7665b8031e3d10a402fa0670f9ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5efb8a43667c802abf307b33314fd3d7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cread_8h.html#a5efb8a43667c802abf307b33314fd3d7">openab</a> (f77int *, char *)</td></tr>
+<tr class="memdesc:a5efb8a43667c802abf307b33314fd3d7"><td class="mdescLeft">&#160;</td><td class="mdescRight">This subroutine opens a new system file for appending BUFR messages.  <a href="#a5efb8a43667c802abf307b33314fd3d7">More...</a><br/></td></tr>
+<tr class="separator:a5efb8a43667c802abf307b33314fd3d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a21affd5712b2336bf02e4dd7cb9af98b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cread_8h.html#a21affd5712b2336bf02e4dd7cb9af98b">openrb</a> (f77int *, char *)</td></tr>
+<tr class="memdesc:a21affd5712b2336bf02e4dd7cb9af98b"><td class="mdescLeft">&#160;</td><td class="mdescRight">This subroutine opens a new system file for reading BUFR messages.  <a href="#a21affd5712b2336bf02e4dd7cb9af98b">More...</a><br/></td></tr>
+<tr class="separator:a21affd5712b2336bf02e4dd7cb9af98b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a47624e37a8dc7948ac37c35601c527ca"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cread_8h.html#a47624e37a8dc7948ac37c35601c527ca">openwb</a> (f77int *, char *)</td></tr>
+<tr class="memdesc:a47624e37a8dc7948ac37c35601c527ca"><td class="mdescLeft">&#160;</td><td class="mdescRight">This subroutine opens a new system file for writing BUFR messages.  <a href="#a47624e37a8dc7948ac37c35601c527ca">More...</a><br/></td></tr>
+<tr class="separator:a47624e37a8dc7948ac37c35601c527ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
 Variables</h2></td></tr>
-<tr class="memitem:aefab7a58b64ec353ce9fd5ea483be1a0"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aefab7a58b64ec353ce9fd5ea483be1a0"></a>
-fpos_t&#160;</td><td class="memItemRight" valign="bottom"><b>lstpos</b> [NFILES+1]</td></tr>
-<tr class="separator:aefab7a58b64ec353ce9fd5ea483be1a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4c6a2ff4e821e2612369d4201feab321"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a4c6a2ff4e821e2612369d4201feab321"></a>
-FILE *&#160;</td><td class="memItemRight" valign="bottom"><b>pb</b> [NFILES+1]</td></tr>
-<tr class="separator:a4c6a2ff4e821e2612369d4201feab321"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae8fcf44cac11b6f7d97220c101c0318e"><td class="memItemLeft" align="right" valign="top">fpos_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cread_8h.html#ae8fcf44cac11b6f7d97220c101c0318e">lstpos</a> [NFILES+1]</td></tr>
+<tr class="memdesc:ae8fcf44cac11b6f7d97220c101c0318e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Byte positions of last successful reads from files corresponding to pb, for files that were opened for reading.  <a href="#ae8fcf44cac11b6f7d97220c101c0318e">More...</a><br/></td></tr>
+<tr class="separator:ae8fcf44cac11b6f7d97220c101c0318e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a295878b87917249212597ed62f390038"><td class="memItemLeft" align="right" valign="top">FILE *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cread_8h.html#a295878b87917249212597ed62f390038">pb</a> [NFILES+1]</td></tr>
+<tr class="memdesc:a295878b87917249212597ed62f390038"><td class="mdescLeft">&#160;</td><td class="mdescRight">File pointers.  <a href="#a295878b87917249212597ed62f390038">More...</a><br/></td></tr>
+<tr class="separator:a295878b87917249212597ed62f390038"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Define signatures and declare variables for reading or writing BUFR messages via a C language interface. </p>
+<p>These signatures and variables are used by the C language interface which encompasses subroutines <a class="el" href="cread_8c.html#a14e121d68ff9be1138e6d5db31e6f5ba" title="This subroutine opens a new system file for reading BUFR messages. ">openrb()</a>, <a class="el" href="cread_8c.html#a7cfcf6f52e6e0055f633c0b74d4f8743" title="This subroutine opens a new system file for writing BUFR messages. ">openwb()</a>, <a class="el" href="cread_8c.html#af6a61aef4ec7fa42badc830f03b8e56a" title="This subroutine opens a new system file for appending BUFR messages. ">openab()</a>, <a class="el" href="cread_8c.html#aebebafa9eeb07f82fc60ae0a8b43533e" title="This subroutine backspaces a BUFR file by one BUFR message. ">backbufr()</a>, <a class="el" href="cread_8c.html#a36a8ba0032660f65aadb84295bcccc41" title="This subroutine rewinds a BUFR file back to its beginning. ">cewind()</a>, <a class="el" href="cread_8c.html#abbd928726a21a86c34e3bcea9213f304" title="This subroutine closes a previously opened BUFR file. ">closfb()</a>, <a class="el" href="cread_8c.html#a7a2b5c6f6a0feca876f3d3a96569b29c" title="This function reads the next message from a BUFR file that was previously opened for reading...">crdbufr()</a> and <a class="el" href="cread_8c.html#a8e21f3b91ceb5b96eeced683b1b28a1a" title="This subroutine writes a BUFR message into a file that was previously opened for writing. ">cwrbufr()</a>.</p>
+<p>The variables are dimensioned as one larger than NFILES because of the difference in array indexing between Fortran and C. In each subroutine, the value passed in for nfile will be an internal Fortran I/O stream index ranging in value from 1 to NFILES, so we need to allow for this same range of values in C, which would otherwise expect the array indices to range from 0 to NFILES-1.</p>
+<dl class="section author"><dt>Author</dt><dd>J. Woollen </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2012-09-15 </dd></dl>
+
+<p>Definition in file <a class="el" href="cread_8h_source.html">cread.h</a>.</p>
+</div><h2 class="groupheader">Function Documentation</h2>
+<a class="anchor" id="ae9c022992af6584e7417bed0a783f7be"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void backbufr </td>
+          <td>(</td>
+          <td class="paramtype">f77int *&#160;</td>
+          <td class="paramname"><em>nfile</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This subroutine backspaces a BUFR file by one BUFR message. </p>
+<dl class="section author"><dt>Author</dt><dd>J. Woollen </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2012-09-15</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">nfile</td><td>- f77int*: Internal Fortran I/O stream index associated with BUFR file</td></tr>
+  </table>
+  </dd>
+</dl>
+<p><b>Program history log:</b></p>
+<ul>
+<li>2012-09-15 J. Woollen &ndash; Original author</li>
+<li>2014-11-07 J. Ator &ndash; Allow dynamic allocation of pb and lstpos arrays </li>
+</ul>
+
+<p>Definition at line <a class="el" href="cread_8c_source.html#l00076">76</a> of file <a class="el" href="cread_8c_source.html">cread.c</a>.</p>
+
+<p>References <a class="el" href="cread_8h.html#ae8fcf44cac11b6f7d97220c101c0318e">lstpos</a>, and <a class="el" href="cread_8h.html#a295878b87917249212597ed62f390038">pb</a>.</p>
+
+<p>Referenced by <a class="el" href="cpdxmm_8f.html#a48f353028fb8bf77255b4dae476b9da7">cpdxmm()</a>, <a class="el" href="posapx_8f.html#ad32a5730c46c657f5fde47244bd1ebd5">posapx()</a>, <a class="el" href="rdbfdx_8f.html#a7d7beabef509022d4d98ebfb79f06dec">rdbfdx()</a>, <a class="el" href="readmg_8f.html#a9fb3da32fb87bc017d16b9f0f707be9b">readmg()</a>, and <a class="el" href="ufbmem_8f.html#aaa20a946a966bc4de8012e1a01461502">ufbmem()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a61e34de2efc69877d3fab8f2ce4c52bc"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void cewind </td>
+          <td>(</td>
+          <td class="paramtype">f77int *&#160;</td>
+          <td class="paramname"><em>nfile</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This subroutine rewinds a BUFR file back to its beginning. </p>
+<dl class="section author"><dt>Author</dt><dd>J. Woollen </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2012-09-15</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">nfile</td><td>- f77int*: Internal Fortran I/O stream index associated with BUFR file</td></tr>
+  </table>
+  </dd>
+</dl>
+<p><b>Program history log:</b></p>
+<ul>
+<li>2012-09-15 J. Woollen &ndash; Original author</li>
+<li>2014-11-07 J. Ator &ndash; Allow dynamic allocation of pb array </li>
+</ul>
+
+<p>Definition at line <a class="el" href="cread_8c_source.html#l00090">90</a> of file <a class="el" href="cread_8c_source.html">cread.c</a>.</p>
+
+<p>References <a class="el" href="cread_8h.html#a295878b87917249212597ed62f390038">pb</a>.</p>
+
+<p>Referenced by <a class="el" href="rewnbf_8f.html#a70ac3a628bb020054246ff3fb8392a96">rewnbf()</a>, <a class="el" href="ufbmem_8f.html#aaa20a946a966bc4de8012e1a01461502">ufbmem()</a>, and <a class="el" href="ufbpos_8f.html#aa3c92084cc14aae8f61aad4c9f0d8680">ufbpos()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a6118e519b5b655f3a3ca54ad4ca1b540"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void closfb </td>
+          <td>(</td>
+          <td class="paramtype">f77int *&#160;</td>
+          <td class="paramname"><em>nfile</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This subroutine closes a previously opened BUFR file. </p>
+<dl class="section author"><dt>Author</dt><dd>J. Woollen </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2012-09-15</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">nfile</td><td>- f77int*: Internal Fortran I/O stream index associated with BUFR file</td></tr>
+  </table>
+  </dd>
+</dl>
+<p><b>Program history log:</b></p>
+<ul>
+<li>2012-09-15 J. Woollen &ndash; Original author</li>
+<li>2014-11-07 J. Ator &ndash; Allow dynamic allocation of pb array </li>
+</ul>
+
+<p>Definition at line <a class="el" href="cread_8c_source.html#l00104">104</a> of file <a class="el" href="cread_8c_source.html">cread.c</a>.</p>
+
+<p>References <a class="el" href="cread_8h.html#a295878b87917249212597ed62f390038">pb</a>.</p>
+
+<p>Referenced by <a class="el" href="closbf_8F.html#a00c94986037d2cf27d04de7a1f8a3ebc">closbf()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="af7363f66f319c5f4dca3f2f5a01a353c"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">f77int crdbufr </td>
+          <td>(</td>
+          <td class="paramtype">f77int *&#160;</td>
+          <td class="paramname"><em>nfile</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>bufr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">f77int *&#160;</td>
+          <td class="paramname"><em>mxbyt</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This function reads the next message from a BUFR file that was previously opened for reading. </p>
+<dl class="section author"><dt>Author</dt><dd>J. Woollen </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2012-09-15</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">nfile</td><td>- f77int*: Internal Fortran I/O stream index associated with BUFR file </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">bufr</td><td>- char*: BUFR message </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">mxbyt</td><td>- f77int*: Dimensioned size (in bytes) of bufr; used by the function to ensure that it doesn't overflow the BUFR array </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>crdbufr - f77int: return code<ul>
+<li>0 = normal return</li>
+<li>-1 = end-of-file encountered while reading</li>
+<li>-2 = I/O error encountered while reading</li>
+<li>-3 = overflow of bufr array</li>
+</ul>
+</dd></dl>
+<p><b>Program history log:</b></p>
+<ul>
+<li>2012-09-15 J. Woollen &ndash; Original author</li>
+<li>2014-11-07 J. Ator &ndash; Allow dynamic allocation of pb and lstpos arrays </li>
+</ul>
+
+<p>Definition at line <a class="el" href="cread_8c_source.html#l00126">126</a> of file <a class="el" href="cread_8c_source.html">cread.c</a>.</p>
+
+<p>References <a class="el" href="iupbs01_8f.html#adcd6f7c2f898b4f938153c5cf79a9cf5">iupbs01()</a>, <a class="el" href="cread_8h.html#ae8fcf44cac11b6f7d97220c101c0318e">lstpos</a>, and <a class="el" href="cread_8h.html#a295878b87917249212597ed62f390038">pb</a>.</p>
+
+<p>Referenced by <a class="el" href="rdmsgw_8f.html#aa1d21de28344723fc4848ec1cd14b094">rdmsgw()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a01bb7665b8031e3d10a402fa0670f9ac"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void cwrbufr </td>
+          <td>(</td>
+          <td class="paramtype">f77int *&#160;</td>
+          <td class="paramname"><em>nfile</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">f77int *&#160;</td>
+          <td class="paramname"><em>bufr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">f77int *&#160;</td>
+          <td class="paramname"><em>nwrd</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This subroutine writes a BUFR message into a file that was previously opened for writing. </p>
+<dl class="section author"><dt>Author</dt><dd>J. Woollen </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2012-09-15</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">nfile</td><td>- f77int*: Internal Fortran I/O stream index associated with BUFR file </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">bufr</td><td>- f77int*: BUFR message </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">nwrd</td><td>- f77int*: Size (in f77ints) of bufr</td></tr>
+  </table>
+  </dd>
+</dl>
+<p><b>Program history log:</b></p>
+<ul>
+<li>2012-09-15 J. Woollen &ndash; Original author</li>
+<li>2014-11-07 J. Ator &ndash; Allow dynamic allocation of pb array </li>
+</ul>
+
+<p>Definition at line <a class="el" href="cread_8c_source.html#l00157">157</a> of file <a class="el" href="cread_8c_source.html">cread.c</a>.</p>
+
+<p>References <a class="el" href="cread_8h.html#a295878b87917249212597ed62f390038">pb</a>.</p>
+
+<p>Referenced by <a class="el" href="msgwrt_8f.html#ac95ecf1436ba14805a33efd29fab1e5d">msgwrt()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a5efb8a43667c802abf307b33314fd3d7"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void openab </td>
+          <td>(</td>
+          <td class="paramtype">f77int *&#160;</td>
+          <td class="paramname"><em>nfile</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>ufile</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This subroutine opens a new system file for appending BUFR messages. </p>
+<dl class="section author"><dt>Author</dt><dd>J. Woollen </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2012-09-15</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">nfile</td><td>- f77int*: Internal Fortran I/O stream index associated with ufile </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">ufile</td><td>- char*: [path/]name of system file to be opened</td></tr>
+  </table>
+  </dd>
+</dl>
+<p><b>Program history log:</b></p>
+<ul>
+<li>2012-09-15 J. Woollen &ndash; Original author</li>
+<li>2014-11-07 J. Ator &ndash; Allow dynamic allocation of pb array </li>
+</ul>
+
+<p>Definition at line <a class="el" href="cread_8c_source.html#l00062">62</a> of file <a class="el" href="cread_8c_source.html">cread.c</a>.</p>
+
+<p>References <a class="el" href="cread_8h.html#a295878b87917249212597ed62f390038">pb</a>.</p>
+
+<p>Referenced by <a class="el" href="openbf_8F.html#a9bea9aeada166bd9037b959ca8452b28">openbf()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a21affd5712b2336bf02e4dd7cb9af98b"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void openrb </td>
+          <td>(</td>
+          <td class="paramtype">f77int *&#160;</td>
+          <td class="paramname"><em>nfile</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>ufile</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This subroutine opens a new system file for reading BUFR messages. </p>
+<dl class="section author"><dt>Author</dt><dd>J. Woollen </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2012-09-15</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">nfile</td><td>- f77int*: Internal Fortran I/O stream index associated with ufile </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">ufile</td><td>- char*: [path/]name of system file to be opened</td></tr>
+  </table>
+  </dd>
+</dl>
+<p><b>Program history log:</b></p>
+<ul>
+<li>2012-09-15 J. Woollen &ndash; Original author</li>
+<li>2014-11-07 J. Ator &ndash; Allow dynamic allocation of pb array </li>
+</ul>
+
+<p>Definition at line <a class="el" href="cread_8c_source.html#l00032">32</a> of file <a class="el" href="cread_8c_source.html">cread.c</a>.</p>
+
+<p>References <a class="el" href="cread_8h.html#a295878b87917249212597ed62f390038">pb</a>.</p>
+
+<p>Referenced by <a class="el" href="openbf_8F.html#a9bea9aeada166bd9037b959ca8452b28">openbf()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a47624e37a8dc7948ac37c35601c527ca"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void openwb </td>
+          <td>(</td>
+          <td class="paramtype">f77int *&#160;</td>
+          <td class="paramname"><em>nfile</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>ufile</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This subroutine opens a new system file for writing BUFR messages. </p>
+<dl class="section author"><dt>Author</dt><dd>J. Woollen </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2012-09-15</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">nfile</td><td>- f77int*: Internal Fortran I/O stream index associated with ufile </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">ufile</td><td>- char*: [path/]name of system file to be opened</td></tr>
+  </table>
+  </dd>
+</dl>
+<p><b>Program history log:</b></p>
+<ul>
+<li>2012-09-15 J. Woollen &ndash; Original author</li>
+<li>2014-11-07 J. Ator &ndash; Allow dynamic allocation of pb array </li>
+</ul>
+
+<p>Definition at line <a class="el" href="cread_8c_source.html#l00047">47</a> of file <a class="el" href="cread_8c_source.html">cread.c</a>.</p>
+
+<p>References <a class="el" href="cread_8h.html#a295878b87917249212597ed62f390038">pb</a>.</p>
+
+<p>Referenced by <a class="el" href="openbf_8F.html#a9bea9aeada166bd9037b959ca8452b28">openbf()</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Variable Documentation</h2>
+<a class="anchor" id="ae8fcf44cac11b6f7d97220c101c0318e"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">lstpos</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Byte positions of last successful reads from files corresponding to pb, for files that were opened for reading. </p>
+
+<p>Definition at line <a class="el" href="cread_8h_source.html#l00059">59</a> of file <a class="el" href="cread_8h_source.html">cread.h</a>.</p>
+
+<p>Referenced by <a class="el" href="bufrlib_8h.html#a98efd59b32b1d2ed2c060d2564824e28">arallocc()</a>, <a class="el" href="bufrlib_8h.html#ac283516a1391fee0635b01beffdad7cb">ardllocc()</a>, <a class="el" href="cread_8h.html#ae9c022992af6584e7417bed0a783f7be">backbufr()</a>, and <a class="el" href="cread_8h.html#af7363f66f319c5f4dca3f2f5a01a353c">crdbufr()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a295878b87917249212597ed62f390038"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">pb</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>File pointers. </p>
+
+<p>Definition at line <a class="el" href="cread_8h_source.html#l00058">58</a> of file <a class="el" href="cread_8h_source.html">cread.h</a>.</p>
+
+<p>Referenced by <a class="el" href="bufrlib_8h.html#a98efd59b32b1d2ed2c060d2564824e28">arallocc()</a>, <a class="el" href="bufrlib_8h.html#ac283516a1391fee0635b01beffdad7cb">ardllocc()</a>, <a class="el" href="cread_8h.html#ae9c022992af6584e7417bed0a783f7be">backbufr()</a>, <a class="el" href="cread_8h.html#a61e34de2efc69877d3fab8f2ce4c52bc">cewind()</a>, <a class="el" href="cread_8h.html#a6118e519b5b655f3a3ca54ad4ca1b540">closfb()</a>, <a class="el" href="cread_8h.html#af7363f66f319c5f4dca3f2f5a01a353c">crdbufr()</a>, <a class="el" href="cread_8h.html#a01bb7665b8031e3d10a402fa0670f9ac">cwrbufr()</a>, <a class="el" href="cread_8h.html#a5efb8a43667c802abf307b33314fd3d7">openab()</a>, <a class="el" href="cread_8h.html#a21affd5712b2336bf02e4dd7cb9af98b">openrb()</a>, and <a class="el" href="cread_8h.html#a47624e37a8dc7948ac37c35601c527ca">openwb()</a>.</p>
+
+</div>
+</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.3.2</span>
+   &#160;<span id="projectnumber">11.5.0</span>
    </div>
   </td>
  </tr>
@@ -92,7 +92,7 @@ $(document).ready(function(){initNavTree('pkftbv_8f.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -109,17 +109,19 @@ $(document).ready(function(){initNavTree('pkftbv_8f.html','');});
 </div><!--header-->
 <div class="contents">
 
+<p>Determine the numerical data value equivalent to the setting of a specified bit within a flag table.  
+<a href="#details">More...</a></p>
+
 <p><a href="pkftbv_8f_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions/Subroutines</h2></td></tr>
 <tr class="memitem:a7a3cf05589decb31f83a7c21eba3879c"><td class="memItemLeft" align="right" valign="top">REAL *8 function&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pkftbv_8f.html#a7a3cf05589decb31f83a7c21eba3879c">pkftbv</a> (NBITS, IBIT)</td></tr>
-<tr class="memdesc:a7a3cf05589decb31f83a7c21eba3879c"><td class="mdescLeft">&#160;</td><td class="mdescRight">THIS FUNCTION COMPUTES AND RETURNS THE VALUE EQUIVALENT TO THE SETTING OF BIT# IBIT WITHIN A FLAG TABLE OF NBITS BITS.  <a href="#a7a3cf05589decb31f83a7c21eba3879c">More...</a><br/></td></tr>
+<tr class="memdesc:a7a3cf05589decb31f83a7c21eba3879c"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function computes the numerical value equivalent to the setting of bit #IBIT within a flag table of NBITS bits.  <a href="#a7a3cf05589decb31f83a7c21eba3879c">More...</a><br/></td></tr>
 <tr class="separator:a7a3cf05589decb31f83a7c21eba3879c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><dl class="section author"><dt>Author</dt><dd>JATOR </dd></dl>
-<dl class="section date"><dt>Date</dt><dd>2005-11-29 </dd></dl>
+<div class="textblock"><p>Determine the numerical data value equivalent to the setting of a specified bit within a flag table. </p>
 
 <p>Definition in file <a class="el" href="pkftbv_8f_source.html">pkftbv.f</a>.</p>
 </div><h2 class="groupheader">Function/Subroutine Documentation</h2>
@@ -147,14 +149,29 @@ Functions/Subroutines</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>THIS FUNCTION COMPUTES AND RETURNS THE VALUE EQUIVALENT TO THE SETTING OF BIT# IBIT WITHIN A FLAG TABLE OF NBITS BITS. </p>
-<p>IF THE COMPUTATION FAILS FOR ANY REASON, THEN THE VALUE BMISS (10E10) IS RETURNED. NOTE THAT THIS SUBROUTINE IS THE LOGICAL INVERSE OF BUFRLIB SUBROUTINE UPFTBV.</p>
-<p>PROGRAM HISTORY LOG: 2005-11-29 J. ATOR &ndash; ORIGINAL VERSION</p>
-<p>USAGE: PKFTBV (NBITS,IBIT) INPUT ARGUMENT LIST: NBITS - INTEGER: NUMBER OF BITS IN FLAG TABLE IBIT - INTEGER: NUMBER OF BIT TO BE SET WITHIN FLAG TABLE</p>
-<p>OUTPUT ARGUMENT LIST: PKFTBV - REAL*8: VALUE EQUIVALENT TO THE SETTING OF BIT# IBIT WITHIN A FLAG TABLE OF NBITS BITS.</p>
-<p>REMARKS: THIS ROUTINE CALLS: None THIS ROUTINE IS CALLED BY: None Normally called only by application programs. </p>
+<p>This function computes the numerical value equivalent to the setting of bit #IBIT within a flag table of NBITS bits. </p>
+<p>If the computation fails for any reason, then the function returns the current placeholder value for "missing" data.</p>
+<dl class="section author"><dt>Author</dt><dd>J. Ator </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2005-11-29</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">NBITS</td><td>- integer: Total number of bits in flag table </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">IBIT</td><td>- integer: Number of bit to be set</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>pkftbv - real*8: Value equivalent to the setting of bit #IBIT within a flag table of NBITS bits</dd></dl>
+<dl class="section remark"><dt>Remarks</dt><dd><ul>
+<li>This function is the logical inverse of subroutine <a class="el" href="upftbv_8f.html#ad0ea8840d6f3cfeed493151e813d67c8" title="Given a Table B mnemonic with flag table units and a corresponding numerical data value...">upftbv()</a>.</li>
+<li>According to the WMO standard, bits within a bit field are numbered from left to right, so bit #1 is always the high-order (i.e. most significant) bit in any bit field.</li>
+</ul>
+</dd></dl>
+<p><b>Program history log:</b></p>
+<ul>
+<li>2005-11-29 J. Ator &ndash; Original version </li>
+</ul>
 
-<p>Definition at line <a class="el" href="pkftbv_8f_source.html#l00028">28</a> of file <a class="el" href="pkftbv_8f_source.html">pkftbv.f</a>.</p>
+<p>Definition at line <a class="el" href="pkftbv_8f_source.html#l00029">29</a> of file <a class="el" href="pkftbv_8f_source.html">pkftbv.f</a>.</p>
 
 </div>
 </div>

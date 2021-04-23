@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.3.2</span>
+   &#160;<span id="projectnumber">11.5.0</span>
    </div>
   </td>
  </tr>
@@ -92,7 +92,7 @@ $(document).ready(function(){initNavTree('ireadns_8f.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -109,17 +109,19 @@ $(document).ready(function(){initNavTree('ireadns_8f.html','');});
 </div><!--header-->
 <div class="contents">
 
+<p>Read the next data subset from a BUFR file that was previously opened for reading.  
+<a href="#details">More...</a></p>
+
 <p><a href="ireadns_8f_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions/Subroutines</h2></td></tr>
 <tr class="memitem:ad424a6b2c26977fe861708624dbe0b79"><td class="memItemLeft" align="right" valign="top">function&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ireadns_8f.html#ad424a6b2c26977fe861708624dbe0b79">ireadns</a> (LUNIT, SUBSET, IDATE)</td></tr>
-<tr class="memdesc:ad424a6b2c26977fe861708624dbe0b79"><td class="mdescLeft">&#160;</td><td class="mdescRight">THIS FUNCTION CALLS BUFR ARCHIVE LIBRARY SUBROUTINE READNS AND PASSES BACK ITS RETURN CODE.  <a href="#ad424a6b2c26977fe861708624dbe0b79">More...</a><br/></td></tr>
+<tr class="memdesc:ad424a6b2c26977fe861708624dbe0b79"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function calls BUFRLIB subroutine <a class="el" href="readns_8f.html#a72f3b23ee95d02a8188d8734369b6149" title="This subroutine provides a handy way to combine the functionality of subroutines readmg() and readsb(...">readns()</a> and passes back its return code as the function value.  <a href="#ad424a6b2c26977fe861708624dbe0b79">More...</a><br/></td></tr>
 <tr class="separator:ad424a6b2c26977fe861708624dbe0b79"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><dl class="section author"><dt>Author</dt><dd>WOOLLEN </dd></dl>
-<dl class="section date"><dt>Date</dt><dd>1994-01-06 </dd></dl>
+<div class="textblock"><p>Read the next data subset from a BUFR file that was previously opened for reading. </p>
 
 <p>Definition in file <a class="el" href="ireadns_8f_source.html">ireadns.f</a>.</p>
 </div><h2 class="groupheader">Function/Subroutine Documentation</h2>
@@ -153,14 +155,35 @@ Functions/Subroutines</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>THIS FUNCTION CALLS BUFR ARCHIVE LIBRARY SUBROUTINE READNS AND PASSES BACK ITS RETURN CODE. </p>
-<p>SEE READNS FOR MORE DETAILS.</p>
-<p>PROGRAM HISTORY LOG: 1994-01-06 J. WOOLLEN &ndash; ORIGINAL AUTHOR (ENTRY POINT IN IREADMG) 2002-05-14 J. WOOLLEN &ndash; CHANGED FROM AN ENTRY POINT TO INCREASE PORTABILITY TO OTHER PLATFORMS 2003-11-04 S. BENDER &ndash; ADDED REMARKS/BUFRLIB ROUTINE INTERDEPENDENCIES 2003-11-04 D. KEYSER &ndash; UNIFIED/PORTABLE FOR WRF; ADDED DOCUMENTATION (INCLUDING HISTORY)</p>
-<p>USAGE: IREADNS (LUNIT, SUBSET, IDATE) INPUT ARGUMENT LIST: LUNIT - INTEGER: FORTRAN LOGICAL UNIT NUMBER FOR BUFR FILE</p>
-<p>OUTPUT ARGUMENT LIST: SUBSET - CHARACTER*8: TABLE A MNEMONIC FOR BUFR MESSAGE CONTAINING SUBSET BEING READ IDATE - INTEGER: DATE-TIME STORED WITHIN SECTION 1 OF BUFR MESSAGE CONTAINING SUBSET BEING READ, IN FORMAT OF EITHER YYMMDDHH OR YYYYMMDDHH, DEPENDING ON DATELEN() VALUE IREADNS - INTEGER: RETURN CODE: 0 = normal return -1 = there are no more subsets in the BUFR file</p>
-<p>REMARKS: THIS ROUTINE CALLS: READNS THIS ROUTINE IS CALLED BY: None Normally called only by application programs. </p>
+<p>This function calls BUFRLIB subroutine <a class="el" href="readns_8f.html#a72f3b23ee95d02a8188d8734369b6149" title="This subroutine provides a handy way to combine the functionality of subroutines readmg() and readsb(...">readns()</a> and passes back its return code as the function value. </p>
+<dl class="section author"><dt>Author</dt><dd>J. Woollen </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>1994-01-06</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">LUNIT</td><td>- integer: Fortran logical unit number for BUFR file </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">SUBSET</td><td>- character*8: Table A mnemonic for type of data subset that was read (see <a class="el" href="md__gpfs_dell2_emc_obsproc_noscrub_Jeff_8Ator_NCEPLIBS-bufr-GitHub_nceplibs-bufr_docs_dfbftab.html#dfbftab">DX BUFR Tables</a> for further information about Table A mnemonics) </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">IDATE</td><td>- integer: Date-time stored within Section 1 of BUFR message containing data subset that was read, in format of either YYMMDDHH or YYYYMMDDHH, depending on the most recent call to subroutine <a class="el" href="datelen_8f.html#ac75cb362f84167ca65b058a97401efcd" title="This subroutine is used to specify the format of Section 1 date-time values that will be output by fu...">datelen()</a> </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>ireadns - integer:<ul>
+<li>0 = new BUFR data subset was successfully read into internal arrays</li>
+<li>-1 = there are no more BUFR data subsets in the file connected to logical unit LUNIT</li>
+</ul>
+</dd></dl>
+<dl class="section remark"><dt>Remarks</dt><dd><ul>
+<li>The use of this function allows the return code from <a class="el" href="readns_8f.html#a72f3b23ee95d02a8188d8734369b6149" title="This subroutine provides a handy way to combine the functionality of subroutines readmg() and readsb(...">readns()</a> to be used as the target variable within an iterative program loop.</li>
+</ul>
+</dd></dl>
+<p><b>Program history log:</b></p>
+<ul>
+<li>1994-01-06 J. Woollen &ndash; Original author</li>
+<li>2002-05-14 J. Woollen &ndash; Changed from an entry point to increase portability to other platforms </li>
+</ul>
 
 <p>Definition at line <a class="el" href="ireadns_8f_source.html#l00037">37</a> of file <a class="el" href="ireadns_8f_source.html">ireadns.f</a>.</p>
+
+<p>References <a class="el" href="readns_8f.html#a72f3b23ee95d02a8188d8734369b6149">readns()</a>.</p>
 
 </div>
 </div>

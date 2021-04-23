@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.3.2</span>
+   &#160;<span id="projectnumber">11.5.0</span>
    </div>
   </td>
  </tr>
@@ -92,7 +92,7 @@ $(document).ready(function(){initNavTree('invtag_8f_source.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -156,47 +156,43 @@ $(document).ready(function(){initNavTree('invtag_8f_source.html','');});
 <div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<span class="comment">C&gt;</span></div>
 <div class="line"><a name="l00049"></a><span class="lineno"><a class="line" href="invtag_8f.html#a307883c6492d9e7dab968c16ac0fb673">   49</a></span>&#160;<span class="keyword">      FUNCTION </span><a class="code" href="invtag_8f.html#a307883c6492d9e7dab968c16ac0fb673">invtag</a>(NODE,LUN,INV1,INV2)</div>
 <div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;      <span class="keywordtype">USE </span><a class="code" href="classmoda__usrint.html">moda_usrint</a></div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;      <span class="keywordtype">USE </span><a class="code" href="classmoda__tables.html">moda_tables</a></div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;      <span class="keywordtype">USE </span><a class="code" href="classmoda__usrint.html">moda_usrint</a></div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;      <span class="keywordtype">USE </span><a class="code" href="moda__tables_8F.html#classmoda__tables">moda_tables</a></div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;      <span class="keyword">COMMON</span> /quiet/  iprt</div>
 <div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;      include <span class="stringliteral">&#39;bufrlib.inc&#39;</span></div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;      <span class="keywordtype">CHARACTER*10</span> tagn</div>
 <div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;      <span class="keyword">COMMON</span> /quiet/  iprt</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;      <span class="keywordtype">CHARACTER*10</span> tagn</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;<span class="comment">C----------------------------------------------------------------------</span></div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;<span class="comment">C----------------------------------------------------------------------</span></div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;<span class="comment">C----------------------------------------------------------------------</span></div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;<span class="comment">C----------------------------------------------------------------------</span></div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;      <a class="code" href="invtag_8f.html#a307883c6492d9e7dab968c16ac0fb673">invtag</a> = 0</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;      <span class="keywordflow">IF</span>(node.EQ.0) goto 200</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;      tagn = tag(node)</div>
 <div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;      <a class="code" href="invtag_8f.html#a307883c6492d9e7dab968c16ac0fb673">invtag</a> = 0</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;      <span class="keywordflow">IF</span>(node.EQ.0) goto 200</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;      tagn = tag(node)</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;<span class="comment">C  SEARCH BETWEEN INV1 AND INV2</span></div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;<span class="comment">C  ----------------------------</span></div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;<span class="comment">C  SEARCH BETWEEN INV1 AND INV2</span></div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;<span class="comment">C  ----------------------------</span></div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;10    <span class="keywordflow">DO</span> <a class="code" href="invtag_8f.html#a307883c6492d9e7dab968c16ac0fb673">invtag</a>=inv1,inv2</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;      <span class="keywordflow">IF</span>(tag(inv(<a class="code" href="invtag_8f.html#a307883c6492d9e7dab968c16ac0fb673">invtag</a>,lun)).EQ.tagn) goto 100</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;      <span class="keywordflow">ENDDO</span></div>
 <div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;10    <span class="keywordflow">DO</span> <a class="code" href="invtag_8f.html#a307883c6492d9e7dab968c16ac0fb673">invtag</a>=inv1,inv2</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;      <span class="keywordflow">IF</span>(tag(inv(<a class="code" href="invtag_8f.html#a307883c6492d9e7dab968c16ac0fb673">invtag</a>,lun)).EQ.tagn) goto 100</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;      <span class="keywordflow">ENDDO</span></div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;      <a class="code" href="invtag_8f.html#a307883c6492d9e7dab968c16ac0fb673">invtag</a> = 0</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;200   <span class="keywordflow">IF</span>(iprt.GE.2) <span class="keywordflow">THEN</span></div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;      CALL <a class="code" href="errwrt_8f.html#a65626d9a772648676146b62b596c2764">errwrt</a>(<span class="stringliteral">&#39;++++++++++++++BUFR ARCHIVE LIBRARY+++++++++++++++++&#39;</span>)</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;      CALL <a class="code" href="errwrt_8f.html#a65626d9a772648676146b62b596c2764">errwrt</a>(<span class="stringliteral">&#39;BUFRLIB: INVTAG - RETURNING WITH A VALUE OF 0&#39;</span>)</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;      CALL <a class="code" href="errwrt_8f.html#a65626d9a772648676146b62b596c2764">errwrt</a>(<span class="stringliteral">&#39;++++++++++++++BUFR ARCHIVE LIBRARY+++++++++++++++++&#39;</span>)</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;      CALL <a class="code" href="errwrt_8f.html#a65626d9a772648676146b62b596c2764">errwrt</a>(<span class="stringliteral">&#39; &#39;</span>)</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;      <span class="keywordflow">ENDIF</span></div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;<span class="comment">C  EXIT</span></div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;<span class="comment">C  ----</span></div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;100   <span class="keywordflow">RETURN</span></div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;      <span class="keywordflow">END</span></div>
-<div class="ttc" id="errwrt_8f_html_a65626d9a772648676146b62b596c2764"><div class="ttname"><a href="errwrt_8f.html#a65626d9a772648676146b62b596c2764">errwrt</a></div><div class="ttdeci">subroutine errwrt(STR)</div><div class="ttdoc">THIS SUBROUTINE WRITES A GIVEN ERROR OR OTHER DIAGNOSTIC MESSAGE TO A USER-SPECIFIED LOGICAL UNIT...</div><div class="ttdef"><b>Definition:</b> <a href="errwrt_8f_source.html#l00043">errwrt.f:43</a></div></div>
-<div class="ttc" id="classmoda__tables_html"><div class="ttname"><a href="classmoda__tables.html">moda_tables</a></div><div class="ttdef"><b>Definition:</b> <a href="moda__tables_8F_source.html#l00001">moda_tables.F:1</a></div></div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;      <a class="code" href="invtag_8f.html#a307883c6492d9e7dab968c16ac0fb673">invtag</a> = 0</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;200   <span class="keywordflow">IF</span>(iprt.GE.2) <span class="keywordflow">THEN</span></div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;      CALL <a class="code" href="errwrt_8f.html#a65626d9a772648676146b62b596c2764">errwrt</a>(<span class="stringliteral">&#39;++++++++++++++BUFR ARCHIVE LIBRARY+++++++++++++++++&#39;</span>)</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;      CALL <a class="code" href="errwrt_8f.html#a65626d9a772648676146b62b596c2764">errwrt</a>(<span class="stringliteral">&#39;BUFRLIB: INVTAG - RETURNING WITH A VALUE OF 0&#39;</span>)</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;      CALL <a class="code" href="errwrt_8f.html#a65626d9a772648676146b62b596c2764">errwrt</a>(<span class="stringliteral">&#39;++++++++++++++BUFR ARCHIVE LIBRARY+++++++++++++++++&#39;</span>)</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;      CALL <a class="code" href="errwrt_8f.html#a65626d9a772648676146b62b596c2764">errwrt</a>(<span class="stringliteral">&#39; &#39;</span>)</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;      <span class="keywordflow">ENDIF</span></div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;<span class="comment">C  EXIT</span></div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;<span class="comment">C  ----</span></div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;100   <span class="keywordflow">RETURN</span></div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;      <span class="keywordflow">END</span></div>
+<div class="ttc" id="moda__tables_8F_html_classmoda__tables"><div class="ttname"><a href="moda__tables_8F.html#classmoda__tables">moda_tables</a></div><div class="ttdoc">This module contains array and variable declarations used to store the internal jump/link table...</div><div class="ttdef"><b>Definition:</b> <a href="moda__tables_8F_source.html#l00013">moda_tables.F:13</a></div></div>
+<div class="ttc" id="errwrt_8f_html_a65626d9a772648676146b62b596c2764"><div class="ttname"><a href="errwrt_8f.html#a65626d9a772648676146b62b596c2764">errwrt</a></div><div class="ttdeci">subroutine errwrt(STR)</div><div class="ttdoc">This subroutine allows the user to specify a custom location for the logging of error and diagnostic ...</div><div class="ttdef"><b>Definition:</b> <a href="errwrt_8f_source.html#l00039">errwrt.f:39</a></div></div>
 <div class="ttc" id="classmoda__usrint_html"><div class="ttname"><a href="classmoda__usrint.html">moda_usrint</a></div><div class="ttdef"><b>Definition:</b> <a href="moda__usrint_8F_source.html#l00001">moda_usrint.F:1</a></div></div>
 <div class="ttc" id="invtag_8f_html_a307883c6492d9e7dab968c16ac0fb673"><div class="ttname"><a href="invtag_8f.html#a307883c6492d9e7dab968c16ac0fb673">invtag</a></div><div class="ttdeci">function invtag(NODE, LUN, INV1, INV2)</div><div class="ttdoc">THIS FUNCTION LOOKS FOR A SPECIFIED MNEMONIC WITHIN THE PORTION OF THE CURRENT SUBSET BUFFER BOUNDED ...</div><div class="ttdef"><b>Definition:</b> <a href="invtag_8f_source.html#l00049">invtag.f:49</a></div></div>
 </div><!-- fragment --></div><!-- contents -->

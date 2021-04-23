@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.3.2</span>
+   &#160;<span id="projectnumber">11.5.0</span>
    </div>
   </td>
  </tr>
@@ -92,7 +92,7 @@ $(document).ready(function(){initNavTree('tabsub_8f.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -150,39 +150,13 @@ Functions/Subroutines</h2></td></tr>
 <p>THIS SUBROUTINE BUILDS THE ENTIRE JUMP/LINK TREE (I.E., INCLUDING RECURSIVELY RESOLVING ALL "CHILD" MNEMONICS) FOR A TABLE A MNEMONIC (NEMO) WITHIN THE INTERNAL JUMP/LINK TABLE. </p>
 <p>PROGRAM HISTORY LOG: 1994-01-06 J. WOOLLEN &ndash; ORIGINAL AUTHOR 1998-07-08 J. WOOLLEN &ndash; REPLACED CALL TO CRAY LIBRARY ROUTINE "ABORT" WITH CALL TO NEW INTERNAL BUFRLIB ROUTINE "BORT" 2000-09-19 J. WOOLLEN &ndash; ADDED CAPABILITY TO ENCODE AND DECODE DATA USING THE OPERATOR DESCRIPTORS (BUFR TABLE C) FOR CHANGING WIDTH AND CHANGING SCALE 2003-11-04 J. ATOR &ndash; ADDED DOCUMENTATION 2003-11-04 S. BENDER &ndash; ADDED REMARKS/BUFRLIB ROUTINE INTERDEPENDENCIES 2003-11-04 D. KEYSER &ndash; MAXJL (MAXIMUM NUMBER OF JUMP/LINK ENTRIES) INCREASED FROM 15000 TO 16000 (WAS IN VERIFICATION VERSION); UNIFIED/PORTABLE FOR WRF; ADDED HISTORY DOCUMENTATION; OUTPUTS MORE COMPLETE DIAGNOSTIC INFO WHEN ROUTINE TERMINATES ABNORMALLY 2005-11-29 J. ATOR &ndash; ADDED SUPPORT FOR 207 AND 208 OPERATORS 2012-03-02 J. ATOR &ndash; ADDED SUPPORT FOR 203 OPERATOR 2012-04-19 J. ATOR &ndash; FIXED BUG FOR CASES WHERE A TABLE C OPERATOR IMMEDIATELY FOLLOWS A TABLE D SEQUENCE 2014-12-10 J. ATOR &ndash; USE MODULES INSTEAD OF COMMON BLOCKS 2016-05-24 J. ATOR &ndash; STORE TABLE C OPERATORS IN MODULE BITMAPS 2017-04-03 J. ATOR &ndash; ADD A DIMENSION TO ALL TCO ARRAYS SO THAT EACH SUBSET DEFINITION IN THE JUMP/LINK TABLE HAS ITS OWN SET OF TABLE C OPERATORS</p>
 <p>USAGE: CALL TABSUB (LUN, NEMO) INPUT ARGUMENT LIST: LUN - INTEGER: I/O STREAM INDEX INTO INTERNAL MEMORY ARRAYS NEMO - CHARACTER*8: TABLE A MNEMONIC</p>
-<h2>REMARKS: </h2>
-<p>EXAMPLE SHOWING CONTENTS OF INTERNAL JUMP/LINK TABLE (WITHIN MODULE TABLES):</p>
-<p>INTEGER MAXTAB = maximum number of jump/link table entries</p>
-<p>INTEGER NTAB = actual number of jump/link table entries currently in use</p>
-<p>For I = 1, NTAB:</p>
-<p>CHARACTER*10 TAG(I) = mnemonic</p>
-<p>CHARACTER*3 TYP(I) = mnemonic type indicator: "SUB" if TAG(I) is a Table A mnemonic "SEQ" if TAG(I) is a Table D mnemonic using either short (i.e. 1-bit) delayed replication, F=1 regular (i.e. non-delayed) replication, or no replication at all "RPC" if TAG(I) is a Table D mnemonic using either medium (i.e. 8-bit) delayed replication or long (i.e. 16-bit) delayed replication "RPS" if TAG(I) is a Table D mnemonic using medium (i.e. 8-bit) delayed replication in a stack context "DRB" if TAG(I) denotes the short (i.e. 1-bit) delayed replication of a Table D mnemonic (which would then itself have its own separate entry in the jump/link table with a corresponding TAG value of "SEQ") "DRP" if TAG(I) denotes either the medium (i.e. 8-bit) or long (i.e. 16-bit) delayed replication of a Table D mnemonic (which would then itself have its own separate entry in the jump/link table with a corresponding TAG value of "RPC") "DRS" if TAG(I) denotes the medium (i.e. 8-bit) delayed replication, in a stack context, of a Table D mnemonic (which would then itself have its own separate entry in the jump/link table with a corresponding TAG value of "RPS") "REP" if TAG(I) denotes the F=1 regular (i.e. non-delayed) replication of a Table D mnemonic (which would then itself have its own separate entry in the jump/link table with a corresponding TAG value of "SEQ") "CHR" if TAG(I) is a Table B mnemonic with units "CCITT IA5" "NUM" if TAG(I) is a Table B mnemonic with any units other than "CCITT IA5"</p>
-<p>INTEGER JMPB(I):</p>
-<p>IF ( TYP(I) = "SUB" ) THEN JMPB(I) = 0 ELSE IF ( ( TYP(I) = "SEQ" and TAG(I) uses either short (i.e. 1-bit) delayed replication or F=1 regular (i.e. non-delayed) replication ) OR ( TYP(I) = "RPC" ) ) THEN JMPB(I) = the index of the jump/link table entry denoting the replication of TAG(I) ELSE JMPB(I) = the index of the jump/link table entry for the Table A or Table D mnemonic of which TAG(I) is a child END IF</p>
-<p>INTEGER JUMP(I):</p>
-<p>IF ( ( TYP(I) = "CHR" ) OR ( TYP(I) = "NUM" ) ) THEN JUMP(I) = 0 ELSE IF ( ( TYP(I) = "DRB" ) OR ( TYP(I) = "DRP" ) OR ( TYP(I) = "REP" ) ) THEN JUMP(I) = the index of the jump/link table entry for the Table D mnemonic whose replication is denoted by TAG(I) ELSE JUMP(I) = the index of the jump/link table entry for the Table B or Table D mnemonic which, sequentially, is the first child of TAG(I) END IF</p>
-<p>INTEGER LINK(I):</p>
-<p>IF ( ( TYP(I) = "SEQ" and TAG(I) uses either short (i.e. 1-bit) delayed replication or F=1 regular (i.e. non- delayed) replication ) OR ( TYP(I) = "SUB" ) OR ( TYP(I) = "RPC" ) ) THEN LINK(I) = 0 ELSE IF ( TAG(I) is, sequentially, the last child Table B or Table D mnemonic of the parent Table A or Table D mnemonic indexed by JMPB(I) ) THEN LINK(I) = 0 ELSE LINK(I) = the index of the jump/link table entry for the Table B or Table D mnemonic which, sequentially, is the next (i.e. following TAG(I)) child mnemonic of the parent Table A or Table D mnemonic indexed by JMPB(I) END IF</p>
-<p>INTEGER IBT(I):</p>
-<p>IF ( ( TYP(I) = "CHR" ) OR ( TYP(I) = "NUM" ) ) THEN IBT(I) = bit width of Table B mnemonic TAG(I) ELSE IF ( ( TYP(I) = "DRB" ) OR ( TYP(I) = "DRP" ) ) THEN IBT(I) = bit width of delayed descriptor replication factor (i.e. 1, 8, or 16, depending on the replication scheme denoted by TAG(I)) ELSE IBT(I) = 0 END IF</p>
-<p>INTEGER IRF(I):</p>
-<p>IF ( TYP(I) = "NUM" ) THEN IRF(I) = reference value of Table B mnemonic TAG(I) ELSE IF ( TYP(I) = "REP" ) THEN IRF(I) = number of F=1 regular (i.e. non-delayed) replications of Table D mnemonic TAG(JUMP(I)) ELSE IRF(I) = 0 END IF</p>
-<p>INTEGER ISC(I):</p>
-<p>IF ( TYP(I) = "NUM" ) THEN ISC(I) = scale factor of Table B mnemonic TAG(I) ELSE IF ( TYP(I) = "SUB" ) THEN ISC(I) = the index of the jump/link table entry which, sequentially, constitutes the last element of the jump/link tree for Table A mnemonic TAG(I) ELSE ISC(I) = 0 END IF </p>
-<hr/>
-<p>THE FOLLOWING VALUES ARE STORED WITHIN MODULE NRV203 BY THIS SUBROUTINE, FOR USE WITH ANY 2-03-YYY (CHANGE REFERENCE VALUE) OPERATORS PRESENT WITHIN THE ENTIRE JUMP/LINK TABLE:</p>
-<p>NNRV = number of nodes in the jump/link table which contain new reference values (as defined using the 2-03 operator)</p>
-<p>INODNRV(I=1,NNRV) = nodes within jump/link table which contain new reference values</p>
-<p>NRV(I=1,NNRV) = new reference value corresponding to INODNRV(I)</p>
-<p>TAGNRV(I=1,NNRV) = Table B mnemonic to which the new reference value in NRV(I) applies</p>
-<p>ISNRV(I=1,NNRV) = start of node range in jump/link table, within which the new reference value defined by NRV(I) will be applied to all occurrences of TAGNRV(I)</p>
-<p>IENRV(I=1,NNRV) = end of node range in jump/link table, within which the new reference value defined by NRV(I) will be applied to all occurrences of TAGNRV(I)</p>
-<p>IBTNRV = number of bits in Section 4 occupied by each new reference value for the current 2-03 operator (if IBTNRV = 0, then no 2-03 operator is currently in scope)</p>
-<p>IPFNRV = a number between 1 and NNRV, denoting the first entry within the above arrays which applies to the current Table A mnemonic NEMO (if IPFNRV = 0, then no 2-03 operators have been applied to NEMO) </p>
-<hr/>
 <p>THIS ROUTINE CALLS: BORT INCTAB IOKOPER NEMTAB NEMTBD TABENT THIS ROUTINE IS CALLED BY: MAKESTAB Normally not called by any application programs. </p>
 
-<p>Definition at line <a class="el" href="tabsub_8f_source.html#l00221">221</a> of file <a class="el" href="tabsub_8f_source.html">tabsub.f</a>.</p>
+<p>Definition at line <a class="el" href="tabsub_8f_source.html#l00046">46</a> of file <a class="el" href="tabsub_8f_source.html">tabsub.f</a>.</p>
+
+<p>References <a class="el" href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort()</a>, <a class="el" href="inctab_8f.html#ab4d95e791ea67fccbade97e247ed5646">inctab()</a>, <a class="el" href="iokoper_8f.html#ad1b152815c2a1292444758580ee0803b">iokoper()</a>, <a class="el" href="nemtab_8f.html#a3f3fb5a378c52dac83cb4fce27ceb712">nemtab()</a>, <a class="el" href="nemtbd_8f.html#ac3fb25908c829f741ccd1d440d6051d9">nemtbd()</a>, and <a class="el" href="tabent_8f.html#a93eed61bdc169fa276366154d660f959">tabent()</a>.</p>
+
+<p>Referenced by <a class="el" href="makestab_8f.html#ad12d047119fdcdeb97ffbced0696b9fb">makestab()</a>.</p>
 
 </div>
 </div>

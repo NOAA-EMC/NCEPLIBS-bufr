@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.3.2</span>
+   &#160;<span id="projectnumber">11.5.0</span>
    </div>
   </td>
  </tr>
@@ -92,7 +92,7 @@ $(document).ready(function(){initNavTree('iok2cpy_8f.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -109,17 +109,19 @@ $(document).ready(function(){initNavTree('iok2cpy_8f.html','');});
 </div><!--header-->
 <div class="contents">
 
+<p>Check whether a BUFR message or data subset can be copied from one BUFR file to another.  
+<a href="#details">More...</a></p>
+
 <p><a href="iok2cpy_8f_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions/Subroutines</h2></td></tr>
 <tr class="memitem:a1072d2f1a0e3e2002dd5177ab18ec38b"><td class="memItemLeft" align="right" valign="top">INTEGER function&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="iok2cpy_8f.html#a1072d2f1a0e3e2002dd5177ab18ec38b">iok2cpy</a> (LUI, LUO)</td></tr>
-<tr class="memdesc:a1072d2f1a0e3e2002dd5177ab18ec38b"><td class="mdescLeft">&#160;</td><td class="mdescRight">THIS FUNCTION DETERMINES WHETHER A MESSAGE, OR A SUBSET FROM A MESSAGE, CAN BE COPIED FROM LOGICAL UNIT IOLUN(LUI) TO LOGICAL UNIT IOLUN(LUO).  <a href="#a1072d2f1a0e3e2002dd5177ab18ec38b">More...</a><br/></td></tr>
+<tr class="memdesc:a1072d2f1a0e3e2002dd5177ab18ec38b"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function determines whether a BUFR message, or a data subset from within a BUFR message, can be copied from one Fortran logical unit to another.  <a href="#a1072d2f1a0e3e2002dd5177ab18ec38b">More...</a><br/></td></tr>
 <tr class="separator:a1072d2f1a0e3e2002dd5177ab18ec38b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><dl class="section author"><dt>Author</dt><dd>J </dd></dl>
-<dl class="section date"><dt>Date</dt><dd>2009-06-26 </dd></dl>
+<div class="textblock"><p>Check whether a BUFR message or data subset can be copied from one BUFR file to another. </p>
 
 <p>Definition in file <a class="el" href="iok2cpy_8f_source.html">iok2cpy.f</a>.</p>
 </div><h2 class="groupheader">Function/Subroutine Documentation</h2>
@@ -147,14 +149,33 @@ Functions/Subroutines</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>THIS FUNCTION DETERMINES WHETHER A MESSAGE, OR A SUBSET FROM A MESSAGE, CAN BE COPIED FROM LOGICAL UNIT IOLUN(LUI) TO LOGICAL UNIT IOLUN(LUO). </p>
-<p>THE DECISION IS BASED ON WHETHER THE EXACT SAME DEFINITION FOR THE GIVEN MESSAGE TYPE APPEARS WITHIN THE DICTIONARY TABLE INFORMATION FOR BOTH LOGICAL UNITS. NOTE THAT IT IS POSSIBLE FOR A MESSAGE TYPE TO BE IDENTICALLY DEFINED FOR TWO DIFFERENT LOGICAL UNITS EVEN IF THE UNITS THEMSELVES DON'T SHARE THE EXACT SAME FULL SET OF DICTIONARY TABLES.</p>
-<p>PROGRAM HISTORY LOG: 2009-06-26 J. ATOR &ndash; ORIGINAL AUTHOR 2014-12-10 J. ATOR &ndash; USE MODULES INSTEAD OF COMMON BLOCKS</p>
-<p>USAGE: IOK2CPY (LUI, LUO) INPUT ARGUMENT LIST: LUI - INTEGER: I/O STREAM INDEX INTO INTERNAL MEMORY ARRAYS FOR LOGICAL UNIT TO COPY FROM LUO - INTEGER: I/O STREAM INDEX INTO INTERNAL MEMORY ARRAYS FOR LOGICAL UNIT TO COPY TO</p>
-<p>OUTPUT ARGUMENT LIST: IOK2CPY - INTEGER: RETURN CODE INDICATING WHETHER IT IS OKAY TO COPY FROM IOLUN(LUI) TO IOLUN(LUO) 0 - NO 1 - YES</p>
-<p>REMARKS: THIS ROUTINE CALLS: ICMPDX NEMTBAX THIS ROUTINE IS CALLED BY: COPYSB COPYMG CPYMEM UFBCPY Normally not called by any application programs. </p>
+<p>This function determines whether a BUFR message, or a data subset from within a BUFR message, can be copied from one Fortran logical unit to another. </p>
+<p>The decision is based on whether both logical units contain identical definitions for the BUFR message type in question within their associated <a class="el" href="md__gpfs_dell2_emc_obsproc_noscrub_Jeff_8Ator_NCEPLIBS-bufr-GitHub_nceplibs-bufr_docs_dfbftab.html#dfbftab">DX BUFR Table information</a>. Note that it's possible for a BUFR message type to be identically defined for two different logical units even if the full set of associated DX BUFR table information isn't identical between both units.</p>
+<dl class="section author"><dt>Author</dt><dd>J. Ator </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2009-06-26</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">LUI</td><td>- integer: Internal I/O stream index associated with source BUFR file </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">LUO</td><td>- integer: Internal I/O stream index associated with target BUFR file </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>iok2cpy - integer: Flag indicating whether a BUFR message or data subset can be copied from the BUFR file associated with LUI to the BUFR file associated with LUO<ul>
+<li>0 = No</li>
+<li>1 = Yes</li>
+</ul>
+</dd></dl>
+<p><b>Program history log:</b></p>
+<ul>
+<li>2009-06-26 J. Ator &ndash; Original author</li>
+<li>2014-12-10 J. Ator &ndash; Use modules instead of COMMON blocks </li>
+</ul>
 
-<p>Definition at line <a class="el" href="iok2cpy_8f_source.html#l00036">36</a> of file <a class="el" href="iok2cpy_8f_source.html">iok2cpy.f</a>.</p>
+<p>Definition at line <a class="el" href="iok2cpy_8f_source.html#l00035">35</a> of file <a class="el" href="iok2cpy_8f_source.html">iok2cpy.f</a>.</p>
+
+<p>References <a class="el" href="icmpdx_8f.html#aeb77afbeb22c95d6be20b28ebfbd6f84">icmpdx()</a>, and <a class="el" href="nemtbax_8f.html#adec9ab84d3bc51e082325e710354192e">nemtbax()</a>.</p>
+
+<p>Referenced by <a class="el" href="copymg_8f.html#a4f8d3631ae3b576ccec17f3f381cebd5">copymg()</a>, <a class="el" href="copysb_8f.html#a069b655003f8b71b2f29aa5d9f451a33">copysb()</a>, <a class="el" href="cpymem_8f.html#a4d6eaf0d2dd8b39f09a3566ac3c52e5f">cpymem()</a>, and <a class="el" href="ufbcpy_8f.html#ab08f838e3d7ba8d444a383defe4e94f7">ufbcpy()</a>.</p>
 
 </div>
 </div>

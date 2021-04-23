@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.3.2</span>
+   &#160;<span id="projectnumber">11.5.0</span>
    </div>
   </td>
  </tr>
@@ -92,7 +92,7 @@ $(document).ready(function(){initNavTree('icopysb_8f.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -109,17 +109,19 @@ $(document).ready(function(){initNavTree('icopysb_8f.html','');});
 </div><!--header-->
 <div class="contents">
 
+<p>Copy a BUFR data subset.  
+<a href="#details">More...</a></p>
+
 <p><a href="icopysb_8f_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions/Subroutines</h2></td></tr>
 <tr class="memitem:afb30a7a2559d17a3547dc6895655148a"><td class="memItemLeft" align="right" valign="top">function&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="icopysb_8f.html#afb30a7a2559d17a3547dc6895655148a">icopysb</a> (LUNIN, LUNOT)</td></tr>
-<tr class="memdesc:afb30a7a2559d17a3547dc6895655148a"><td class="mdescLeft">&#160;</td><td class="mdescRight">THIS FUNCTION CALLS BUFR ARCHIVE LIBRARY SUBROUTINE COPYSB AND PASSES BACK ITS RETURN CODE.  <a href="#afb30a7a2559d17a3547dc6895655148a">More...</a><br/></td></tr>
+<tr class="memdesc:afb30a7a2559d17a3547dc6895655148a"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function calls BUFRLIB subroutine <a class="el" href="copysb_8f.html#a069b655003f8b71b2f29aa5d9f451a33" title="This subroutine copies a BUFR data subset from one Fortran logical unit to another. ">copysb()</a> and passes back its return code as the function value.  <a href="#afb30a7a2559d17a3547dc6895655148a">More...</a><br/></td></tr>
 <tr class="separator:afb30a7a2559d17a3547dc6895655148a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><dl class="section author"><dt>Author</dt><dd>WOOLLEN </dd></dl>
-<dl class="section date"><dt>Date</dt><dd>1994-01-06 </dd></dl>
+<div class="textblock"><p>Copy a BUFR data subset. </p>
 
 <p>Definition in file <a class="el" href="icopysb_8f_source.html">icopysb.f</a>.</p>
 </div><h2 class="groupheader">Function/Subroutine Documentation</h2>
@@ -147,14 +149,34 @@ Functions/Subroutines</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>THIS FUNCTION CALLS BUFR ARCHIVE LIBRARY SUBROUTINE COPYSB AND PASSES BACK ITS RETURN CODE. </p>
-<p>SEE COPYSB FOR MORE DETAILS.</p>
-<p>PROGRAM HISTORY LOG: 1994-01-06 J. WOOLLEN &ndash; ORIGINAL AUTHOR (ENTRY POINT IN IREADMG) 2002-05-14 J. WOOLLEN &ndash; CHANGED FROM AN ENTRY POINT TO INCREASE PORTABILITY TO OTHER PLATFORMS 2003-11-04 S. BENDER &ndash; ADDED REMARKS/BUFRLIB ROUTINE INTERDEPENDENCIES 2003-11-04 D. KEYSER &ndash; UNIFIED/PORTABLE FOR WRF; ADDED DOCUMENTATION (INCLUDING HISTORY)</p>
-<p>USAGE: ICOPYSB (LUNIN, LUNOT) INPUT ARGUMENT LIST: LUNIT - INTEGER: FORTRAN LOGICAL UNIT NUMBER FOR INPUT BUFR FILE LUNOT - INTEGER: FORTRAN LOGICAL UNIT NUMBER FOR OUTPUT BUFR FILE</p>
-<p>OUTPUT ARGUMENT LIST: ICOPYSB - INTEGER: RETURN CODE: 0 = normal return -1 = there are no more subsets in the input BUFR message</p>
-<p>REMARKS: THIS ROUTINE CALLS: COPYSB THIS ROUTINE IS CALLED BY: None Normally called only by application programs. </p>
+<p>This function calls BUFRLIB subroutine <a class="el" href="copysb_8f.html#a069b655003f8b71b2f29aa5d9f451a33" title="This subroutine copies a BUFR data subset from one Fortran logical unit to another. ">copysb()</a> and passes back its return code as the function value. </p>
+<dl class="section author"><dt>Author</dt><dd>J. Woollen </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>1994-01-06</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">LUNIN</td><td>- integer: Fortran logical unit number for source BUFR file </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">LUNOT</td><td>- integer: Fortran logical unit number for target BUFR file </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>icopysb - integer: return code<ul>
+<li>0 = normal return</li>
+<li>-1 = a BUFR data subset could not be read from the BUFR message in internal arrays for LUNIN</li>
+</ul>
+</dd></dl>
+<dl class="section remark"><dt>Remarks</dt><dd><ul>
+<li>The use of this function allows the return code from <a class="el" href="copysb_8f.html#a069b655003f8b71b2f29aa5d9f451a33" title="This subroutine copies a BUFR data subset from one Fortran logical unit to another. ">copysb()</a> to be used as the target variable within an iterative program loop.</li>
+</ul>
+</dd></dl>
+<p><b>Program history log:</b></p>
+<ul>
+<li>1994-01-06 J. Woollen &ndash; Original author</li>
+<li>2002-05-14 J. Woollen &ndash; Changed from an entry point to increase portability to other platforms </li>
+</ul>
 
-<p>Definition at line <a class="el" href="icopysb_8f_source.html#l00035">35</a> of file <a class="el" href="icopysb_8f_source.html">icopysb.f</a>.</p>
+<p>Definition at line <a class="el" href="icopysb_8f_source.html#l00029">29</a> of file <a class="el" href="icopysb_8f_source.html">icopysb.f</a>.</p>
+
+<p>References <a class="el" href="copysb_8f.html#a069b655003f8b71b2f29aa5d9f451a33">copysb()</a>.</p>
 
 </div>
 </div>

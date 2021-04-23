@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.3.2</span>
+   &#160;<span id="projectnumber">11.5.0</span>
    </div>
   </td>
  </tr>
@@ -92,7 +92,7 @@ $(document).ready(function(){initNavTree('rdmtbd_8f.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -190,7 +190,7 @@ Functions/Subroutines</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">character*8, dimension(*)&#160;</td>
+          <td class="paramtype">character, dimension(8,*)&#160;</td>
           <td class="paramname"><em>CMMNEM</em>, </td>
         </tr>
         <tr>
@@ -202,7 +202,7 @@ Functions/Subroutines</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">character*120, dimension(*)&#160;</td>
+          <td class="paramtype">character, dimension(120,*)&#160;</td>
           <td class="paramname"><em>CMSEQ</em>, </td>
         </tr>
         <tr>
@@ -233,12 +233,16 @@ Functions/Subroutines</h2></td></tr>
 
 <p>THIS SUBROUTINE READS MASTER TABLE D INFORMATION FROM TWO SEPARATE (I.E. </p>
 <p>ONE STANDARD AND ONE LOCAL) ASCII FILES AND THEN MERGES IT INTO A UNIFIED SET OF MASTER TABLE D ARRAYS FOR OUTPUT. EACH OF THE TWO INPUT FILES MUST ALREADY BE INDIVIDUALLY SORTED IN ASCENDING ORDER WITH RESPECT TO THE FXY NUMBERS.</p>
-<p>PROGRAM HISTORY LOG: 2007-01-19 J. ATOR &ndash; ORIGINAL AUTHOR</p>
+<p>PROGRAM HISTORY LOG: 2007-01-19 J. ATOR &ndash; ORIGINAL AUTHOR 2021-01-08 J. ATOR &ndash; MODIFIED MSTABS ARRAY DECLARATIONS FOR GNUv10 PORTABILITY</p>
 <p>USAGE: CALL RDMTBD ( LUNSTD, LUNLTD, MXMTBD, MXELEM, IMT, IMTV, IOGCE, ILTV, NMTBD, IMFXYN, CMMNEM, CMDSC, CMSEQ, NMELEM, IEFXYN, CEELEM ) INPUT ARGUMENT LIST: LUNSTD - INTEGER: FORTRAN LOGICAL UNIT NUMBER OF ASCII FILE CONTAINING STANDARD TABLE D INFORMATION LUNLTD - INTEGER: FORTRAN LOGICAL UNIT NUMBER OF ASCII FILE CONTAINING LOCAL TABLE D INFORMATION MXMTBD - INTEGER: MAXIMUM NUMBER OF ENTRIES TO BE STORED IN MERGED MASTER TABLE D ARRAYS; THIS SHOULD BE THE SAME NUMBER AS WAS USED TO DIMENSION THE OUTPUT ARRAYS IN THE CALLING PROGRAM, AND IT IS USED BY THIS SUBROUTINE TO ENSURE THAT IT DOESN'T OVERFLOW THESE ARRAYS MXELEM - INTEGER: MAXIMUM NUMBER OF ELEMENTS TO BE STORED PER ENTRY WITHIN THE MERGED MASTER TABLE D ARRAYS; THIS SHOULD BE THE SAME NUMBER AS WAS USED TO DIMENSION THE OUTPUT ARRAYS IN THE CALLING PROGRAM, AND IT IS USED BY THIS SUBROUTINE TO ENSURE THAT IT DOESN'T OVERFLOW THESE ARRAYS</p>
 <p>OUTPUT ARGUMENT LIST: IMT - INTEGER: MASTER TABLE, READ FROM EACH ASCII FILE (NOTE: THESE VALUES MUST BE THE SAME IN EACH FILE!) IMTV - INTEGER: VERSION NUMBER OF MASTER TABLE, READ FROM STANDARD ASCII FILE IOGCE - INTEGER: ORIGINATING CENTER, READ FROM LOCAL ASCII FILE ILTV - INTEGER: VERSION NUMBER OF LOCAL TABLE, READ FROM LOCAL ASCII FILE NMTBD - INTEGER: NUMBER OF ENTRIES IN MERGED MASTER TABLE D ARRAYS IMFXYN(*)- INTEGER: MERGED ARRAY CONTAINING BIT-WISE REPRESENTATIONS OF FXY NUMBERS (I.E. SEQUENCE DESCRIPTORS) CMMNEM(*)- CHARACTER*8: MERGED ARRAY CONTAINING MNEMONICS CMDSC(*) - CHARACTER*4: MERGED ARRAY CONTAINING DESCRIPTOR CODES CMSEQ(*) - CHARACTER*120: MERGED ARRAY CONTAINING SEQUENCE NAMES NMELEM(*)- INTEGER: MERGED ARRAY CONTAINING NUMBER OF ELEMENTS STORED FOR EACH ENTRY IEFXYN(*,*)- INTEGER: MERGED ARRAY CONTAINING BIT-WISE REPRESENTATIONS OF ELEMENT FXY NUMBERS CEELEM(*,*)- CHARACTER*120: MERGED ARRAY CONTAINING ELEMENT NAMES</p>
 <p>REMARKS: THIS ROUTINE CALLS: ADN30 BORT GETNTBE GETTBH SNTBDE WRDLEN THIS ROUTINE IS CALLED BY: IREADMT Not normally called by any application programs but it could be. </p>
 
-<p>Definition at line <a class="el" href="rdmtbd_8f_source.html#l00063">63</a> of file <a class="el" href="rdmtbd_8f_source.html">rdmtbd.f</a>.</p>
+<p>Definition at line <a class="el" href="rdmtbd_8f_source.html#l00065">65</a> of file <a class="el" href="rdmtbd_8f_source.html">rdmtbd.f</a>.</p>
+
+<p>References <a class="el" href="adn30_8f.html#a1e96adbf45bd49facbf0ef30ae375db4">adn30()</a>, <a class="el" href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort()</a>, <a class="el" href="getntbe_8f.html#a114eb13cc332b1a370f5d4bc81b43417">getntbe()</a>, <a class="el" href="gettbh_8f.html#afdf05d8351efc21966d1667b09e397e3">gettbh()</a>, <a class="el" href="sntbde_8f.html#ae7338a521f1a0879429886018b9c3e00">sntbde()</a>, and <a class="el" href="wrdlen_8F.html#afb746f29272671c842018de69b277685">wrdlen()</a>.</p>
+
+<p>Referenced by <a class="el" href="ireadmt_8F.html#a0c3eff73be06d581b8b6ffcd47fede03">ireadmt()</a>.</p>
 
 </div>
 </div>

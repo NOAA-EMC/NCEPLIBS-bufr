@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.3.2</span>
+   &#160;<span id="projectnumber">11.5.0</span>
    </div>
   </td>
  </tr>
@@ -92,7 +92,7 @@ $(document).ready(function(){initNavTree('nemtbb_8f_source.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -156,78 +156,74 @@ $(document).ready(function(){initNavTree('nemtbb_8f_source.html','');});
 <div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<span class="comment">C&gt;</span></div>
 <div class="line"><a name="l00049"></a><span class="lineno"><a class="line" href="nemtbb_8f.html#a6a5cf8bb2726a59eeb87fbbef58764be">   49</a></span>&#160;<span class="keyword">      SUBROUTINE </span><a class="code" href="nemtbb_8f.html#a6a5cf8bb2726a59eeb87fbbef58764be">nemtbb</a>(LUN,ITAB,UNIT,ISCL,IREF,IBIT)</div>
 <div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;      <span class="keywordtype">USE </span><a class="code" href="moda__tababd_8F.html#classmoda__tababd">moda_tababd</a></div>
 <div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;      <span class="keywordtype">USE </span><a class="code" href="classmoda__tababd.html">moda_tababd</a></div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;      include <span class="stringliteral">&#39;bufrlib.inc&#39;</span></div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;      <span class="keywordtype">CHARACTER*128</span> bort_str</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;      <span class="keywordtype">CHARACTER*24</span>  unit</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;      <span class="keywordtype">CHARACTER*8</span>   nemo</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;      <span class="keywordtype">REAL*8</span>        mxr</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;<span class="comment">C-----------------------------------------------------------------------</span></div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;<span class="comment">C-----------------------------------------------------------------------</span></div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;      <span class="keywordtype">CHARACTER*128</span> bort_str</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;      <span class="keywordtype">CHARACTER*24</span>  unit</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;      <span class="keywordtype">CHARACTER*8</span>   nemo</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;      <span class="keywordtype">REAL*8</span>        mxr</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;<span class="comment">C-----------------------------------------------------------------------</span></div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;<span class="comment">C-----------------------------------------------------------------------</span></div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;      mxr = 1e11-1</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;      <span class="keywordflow">IF</span>(itab.LE.0 .OR. itab.GT.ntbb(lun)) goto 900</div>
 <div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;      mxr = 1e11-1</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;      <span class="keywordflow">IF</span>(itab.LE.0 .OR. itab.GT.ntbb(lun)) goto 900</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;<span class="comment">C  PULL OUT TABLE B INFORMATION</span></div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;<span class="comment">C  ----------------------------</span></div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;      idn  = idnb(itab,lun)</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;      nemo = tabb(itab,lun)( 7:14)</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;      unit = tabb(itab,lun)(71:94)</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;      iscl = <a class="code" href="valx_8f.html#a0b8041e934c1c4ae5f455e8c6f4e7daf">valx</a>(tabb(itab,lun)( 95: 98))</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;      iref = <a class="code" href="valx_8f.html#a0b8041e934c1c4ae5f455e8c6f4e7daf">valx</a>(tabb(itab,lun)( 99:109))</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;      ibit = <a class="code" href="valx_8f.html#a0b8041e934c1c4ae5f455e8c6f4e7daf">valx</a>(tabb(itab,lun)(110:112))</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;<span class="comment">C  CHECK TABLE B CONTENTS</span></div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;<span class="comment">C  ----------------------</span></div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;      <span class="keywordflow">IF</span>(idn.LT.<a class="code" href="ifxy_8f.html#ac971a6f6d644344a5b09d50175498074">ifxy</a>(<span class="stringliteral">&#39;000000&#39;</span>)) goto 901</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;      <span class="keywordflow">IF</span>(idn.GT.<a class="code" href="ifxy_8f.html#ac971a6f6d644344a5b09d50175498074">ifxy</a>(<span class="stringliteral">&#39;063255&#39;</span>)) goto 901</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;      <span class="keywordflow">IF</span>(iscl.LT.-999 .OR. iscl.GT.999) goto 902</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;      <span class="keywordflow">IF</span>(iref.LE.-mxr .OR. iref.GE.mxr) goto 903</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;      <span class="keywordflow">IF</span>(ibit.LE.0) goto 904</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;      <span class="keywordflow">IF</span>(unit(1:5).NE.<span class="stringliteral">&#39;CCITT&#39;</span> .AND. ibit.GT.32      ) goto 904</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;      <span class="keywordflow">IF</span>(unit(1:5).EQ.<span class="stringliteral">&#39;CCITT&#39;</span> .AND. mod(ibit,8).NE.0) goto 905</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;<span class="comment">C  EXITS</span></div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;<span class="comment">C  -----</span></div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;      <span class="keywordflow">RETURN</span></div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;900   <span class="keyword">WRITE</span>(bort_str,<span class="stringliteral">&#39;(&quot;BUFRLIB: NEMTBB - ITAB (&quot;,I7,&quot;) NOT FOUND IN &#39;</span>//</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;     . <span class="stringliteral">&#39;TABLE B&quot;)&#39;</span>) itab</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;<span class="comment">C  PULL OUT TABLE B INFORMATION</span></div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;<span class="comment">C  ----------------------------</span></div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;      idn  = idnb(itab,lun)</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;      nemo = tabb(itab,lun)( 7:14)</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;      unit = tabb(itab,lun)(71:94)</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;      iscl = <a class="code" href="valx_8f.html#a0b8041e934c1c4ae5f455e8c6f4e7daf">valx</a>(tabb(itab,lun)( 95: 98))</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;      iref = <a class="code" href="valx_8f.html#a0b8041e934c1c4ae5f455e8c6f4e7daf">valx</a>(tabb(itab,lun)( 99:109))</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;      ibit = <a class="code" href="valx_8f.html#a0b8041e934c1c4ae5f455e8c6f4e7daf">valx</a>(tabb(itab,lun)(110:112))</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;<span class="comment">C  CHECK TABLE B CONTENTS</span></div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;<span class="comment">C  ----------------------</span></div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;      <span class="keywordflow">IF</span>(idn.LT.<a class="code" href="ifxy_8f.html#ac971a6f6d644344a5b09d50175498074">ifxy</a>(<span class="stringliteral">&#39;000000&#39;</span>)) goto 901</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;      <span class="keywordflow">IF</span>(idn.GT.<a class="code" href="ifxy_8f.html#ac971a6f6d644344a5b09d50175498074">ifxy</a>(<span class="stringliteral">&#39;063255&#39;</span>)) goto 901</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;      <span class="keywordflow">IF</span>(iscl.LT.-999 .OR. iscl.GT.999) goto 902</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;      <span class="keywordflow">IF</span>(iref.LE.-mxr .OR. iref.GE.mxr) goto 903</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;      <span class="keywordflow">IF</span>(ibit.LE.0) goto 904</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;      <span class="keywordflow">IF</span>(unit(1:5).NE.<span class="stringliteral">&#39;CCITT&#39;</span> .AND. ibit.GT.32      ) goto 904</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;      <span class="keywordflow">IF</span>(unit(1:5).EQ.<span class="stringliteral">&#39;CCITT&#39;</span> .AND. mod(ibit,8).NE.0) goto 905</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;<span class="comment">C  EXITS</span></div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;<span class="comment">C  -----</span></div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;      <span class="keywordflow">RETURN</span></div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;900   <span class="keyword">WRITE</span>(bort_str,<span class="stringliteral">&#39;(&quot;BUFRLIB: NEMTBB - ITAB (&quot;,I7,&quot;) NOT FOUND IN &#39;</span>//</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;     . <span class="stringliteral">&#39;TABLE B&quot;)&#39;</span>) itab</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;      CALL <a class="code" href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort</a>(bort_str)</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;901   <span class="keyword">WRITE</span>(bort_str,<span class="stringliteral">&#39;(&quot;BUFRLIB: NEMTBB - INTEGER REPRESENTATION OF &#39;</span>//</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;     . <span class="stringliteral">&#39;DESCRIPTOR FOR TABLE B MNEMONIC &quot;,A,&quot; (&quot;,I7,&quot;) IS OUTSIDE &#39;</span>//</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;     . <span class="stringliteral">&#39;RANGE 0-16383 (16383 -&gt; 0-63-255)&quot;)&#39;</span>) nemo,idn</div>
 <div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;      CALL <a class="code" href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort</a>(bort_str)</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;901   <span class="keyword">WRITE</span>(bort_str,<span class="stringliteral">&#39;(&quot;BUFRLIB: NEMTBB - INTEGER REPRESENTATION OF &#39;</span>//</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;     . <span class="stringliteral">&#39;DESCRIPTOR FOR TABLE B MNEMONIC &quot;,A,&quot; (&quot;,I7,&quot;) IS OUTSIDE &#39;</span>//</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;     . <span class="stringliteral">&#39;RANGE 0-16383 (16383 -&gt; 0-63-255)&quot;)&#39;</span>) nemo,idn</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;902   <span class="keyword">WRITE</span>(bort_str,<span class="stringliteral">&#39;(&quot;BUFRLIB: NEMTBB - SCALE VALUE FOR TABLE B &#39;</span>//</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;     .<span class="stringliteral">&#39;MNEMONIC &quot;,A,&quot; (&quot;,I7,&quot;) IS OUTSIDE RANGE -999 TO 999&quot;)&#39;</span>)</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;     . nemo,iscl</div>
 <div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;      CALL <a class="code" href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort</a>(bort_str)</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;902   <span class="keyword">WRITE</span>(bort_str,<span class="stringliteral">&#39;(&quot;BUFRLIB: NEMTBB - SCALE VALUE FOR TABLE B &#39;</span>//</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;     .<span class="stringliteral">&#39;MNEMONIC &quot;,A,&quot; (&quot;,I7,&quot;) IS OUTSIDE RANGE -999 TO 999&quot;)&#39;</span>)</div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;     . nemo,iscl</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;903   <span class="keyword">WRITE</span>(bort_str,<span class="stringliteral">&#39;(&quot;BUFRLIB: NEMTBB - REFERENCE VALUE FOR TABLE B&#39;</span>//</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;     .<span class="stringliteral">&#39; MNEMONIC &quot;,A,&quot; (&quot;,I7,&quot;) IS OUTSIDE RANGE +/- 1E11-1&quot;)&#39;</span>)</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;     . nemo,iref</div>
 <div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;      CALL <a class="code" href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort</a>(bort_str)</div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;903   <span class="keyword">WRITE</span>(bort_str,<span class="stringliteral">&#39;(&quot;BUFRLIB: NEMTBB - REFERENCE VALUE FOR TABLE B&#39;</span>//</div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;     .<span class="stringliteral">&#39; MNEMONIC &quot;,A,&quot; (&quot;,I7,&quot;) IS OUTSIDE RANGE +/- 1E11-1&quot;)&#39;</span>)</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;     . nemo,iref</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;      CALL <a class="code" href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort</a>(bort_str)</div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;904   <span class="keyword">WRITE</span>(bort_str,<span class="stringliteral">&#39;(&quot;BUFRLIB: NEMTBB - BIT WIDTH FOR NON-CHARACTER&#39;</span>//</div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;     . <span class="stringliteral">&#39; TABLE B MNEMONIC &quot;,A,&quot; (&quot;,I7,&quot;) IS &gt; 32&quot;)&#39;</span>) nemo,ibit</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;904   <span class="keyword">WRITE</span>(bort_str,<span class="stringliteral">&#39;(&quot;BUFRLIB: NEMTBB - BIT WIDTH FOR NON-CHARACTER&#39;</span>//</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;     . <span class="stringliteral">&#39; TABLE B MNEMONIC &quot;,A,&quot; (&quot;,I7,&quot;) IS &gt; 32&quot;)&#39;</span>) nemo,ibit</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;      CALL <a class="code" href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort</a>(bort_str)</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;905   <span class="keyword">WRITE</span>(bort_str,<span class="stringliteral">&#39;(&quot;BUFRLIB: NEMTBB - BIT WIDTH FOR CHARACTER &#39;</span>//</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;     . <span class="stringliteral">&#39;TABLE B MNEMONIC &quot;,A,&quot; (&quot;,I7,&quot;) IS NOT A MULTIPLE OF 8&quot;)&#39;</span>)</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;     . nemo,ibit</div>
 <div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;      CALL <a class="code" href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort</a>(bort_str)</div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;905   <span class="keyword">WRITE</span>(bort_str,<span class="stringliteral">&#39;(&quot;BUFRLIB: NEMTBB - BIT WIDTH FOR CHARACTER &#39;</span>//</div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;     . <span class="stringliteral">&#39;TABLE B MNEMONIC &quot;,A,&quot; (&quot;,I7,&quot;) IS NOT A MULTIPLE OF 8&quot;)&#39;</span>)</div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;     . nemo,ibit</div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;      CALL <a class="code" href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort</a>(bort_str)</div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;      <span class="keywordflow">END</span></div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;      <span class="keywordflow">END</span></div>
 <div class="ttc" id="valx_8f_html_a0b8041e934c1c4ae5f455e8c6f4e7daf"><div class="ttname"><a href="valx_8f.html#a0b8041e934c1c4ae5f455e8c6f4e7daf">valx</a></div><div class="ttdeci">function valx(STR)</div><div class="ttdoc">THIS FUNCTION DECODES A REAL NUMBER FROM A CHARACTER STRING. </div><div class="ttdef"><b>Definition:</b> <a href="valx_8f_source.html#l00039">valx.f:39</a></div></div>
+<div class="ttc" id="moda__tababd_8F_html_classmoda__tababd"><div class="ttname"><a href="moda__tababd_8F.html#classmoda__tababd">moda_tababd</a></div><div class="ttdoc">This module contains array and variable declarations used to store DX BUFR tables internally for mult...</div><div class="ttdef"><b>Definition:</b> <a href="moda__tababd_8F_source.html#l00010">moda_tababd.F:10</a></div></div>
 <div class="ttc" id="nemtbb_8f_html_a6a5cf8bb2726a59eeb87fbbef58764be"><div class="ttname"><a href="nemtbb_8f.html#a6a5cf8bb2726a59eeb87fbbef58764be">nemtbb</a></div><div class="ttdeci">subroutine nemtbb(LUN, ITAB, UNIT, ISCL, IREF, IBIT)</div><div class="ttdoc">THIS SUBROUTINE CHECKS ALL OF THE PROPERTIES (E.G. </div><div class="ttdef"><b>Definition:</b> <a href="nemtbb_8f_source.html#l00049">nemtbb.f:49</a></div></div>
 <div class="ttc" id="ifxy_8f_html_ac971a6f6d644344a5b09d50175498074"><div class="ttname"><a href="ifxy_8f.html#ac971a6f6d644344a5b09d50175498074">ifxy</a></div><div class="ttdeci">function ifxy(ADSC)</div><div class="ttdoc">THIS FUNCTION RETURNS THE INTEGER CORRESPONDING TO THE BIT-WISE REPRESENTATION OF AN INPUT CHARACTER ...</div><div class="ttdef"><b>Definition:</b> <a href="ifxy_8f_source.html#l00049">ifxy.f:49</a></div></div>
-<div class="ttc" id="classmoda__tababd_html"><div class="ttname"><a href="classmoda__tababd.html">moda_tababd</a></div><div class="ttdef"><b>Definition:</b> <a href="moda__tababd_8F_source.html#l00001">moda_tababd.F:1</a></div></div>
-<div class="ttc" id="bort_8f_html_a488d3a8cf930fb592a9fdaefcfa04ac4"><div class="ttname"><a href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort</a></div><div class="ttdeci">subroutine bort(STR)</div><div class="ttdoc">THIS SUBROUTINE WRITES (VIA BUFR ARCHIVE LIBRARY SUBROUTINE ERRWRT) A GIVEN ERROR STRING AND THEN CAL...</div><div class="ttdef"><b>Definition:</b> <a href="bort_8f_source.html#l00069">bort.f:69</a></div></div>
+<div class="ttc" id="bort_8f_html_a488d3a8cf930fb592a9fdaefcfa04ac4"><div class="ttname"><a href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort</a></div><div class="ttdeci">subroutine bort(STR)</div><div class="ttdoc">This subroutine calls subroutine errwrt() to log an error message, then calls subroutine bort_exit() ...</div><div class="ttdef"><b>Definition:</b> <a href="bort_8f_source.html#l00023">bort.f:23</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

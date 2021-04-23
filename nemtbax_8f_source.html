@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.3.2</span>
+   &#160;<span id="projectnumber">11.5.0</span>
    </div>
   </td>
  </tr>
@@ -92,7 +92,7 @@ $(document).ready(function(){initNavTree('nemtbax_8f_source.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -147,48 +147,44 @@ $(document).ready(function(){initNavTree('nemtbax_8f_source.html','');});
 <div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="comment">C&gt;</span></div>
 <div class="line"><a name="l00040"></a><span class="lineno"><a class="line" href="nemtbax_8f.html#adec9ab84d3bc51e082325e710354192e">   40</a></span>&#160;<span class="keyword">      SUBROUTINE </span><a class="code" href="nemtbax_8f.html#adec9ab84d3bc51e082325e710354192e">nemtbax</a>(LUN,NEMO,MTYP,MSBT,INOD)</div>
 <div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;      <span class="keywordtype">USE </span><a class="code" href="moda__tababd_8F.html#classmoda__tababd">moda_tababd</a></div>
 <div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;      <span class="keywordtype">USE </span><a class="code" href="classmoda__tababd.html">moda_tababd</a></div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;      include <span class="stringliteral">&#39;bufrlib.inc&#39;</span></div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;      <span class="keywordtype">CHARACTER*(*)</span> nemo</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;      <span class="keywordtype">CHARACTER*128</span> bort_str</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;<span class="comment">C-----------------------------------------------------------------------</span></div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="comment">C-----------------------------------------------------------------------</span></div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;      inod = 0</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;<span class="comment">C  LOOK FOR NEMO IN TABLE A</span></div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;<span class="comment">C  ------------------------</span></div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;      <span class="keywordflow">DO</span> i=1,ntba(lun)</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;      <span class="keywordflow">IF</span>(taba(i,lun)(4:11).EQ.nemo) <span class="keywordflow">THEN</span></div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;         mtyp = idna(i,lun,1)</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;         msbt = idna(i,lun,2)</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;         inod = mtab(i,lun)</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;         <span class="keywordflow">IF</span>(mtyp.LT.0 .OR. mtyp.GT.255) goto 900</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;         <span class="keywordflow">IF</span>(msbt.LT.0 .OR. msbt.GT.255) goto 901</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;         goto 100</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;      <span class="keywordflow">ENDIF</span></div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;      <span class="keywordflow">ENDDO</span></div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;<span class="comment">C  EXITS</span></div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;<span class="comment">C  -----</span></div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;100   <span class="keywordflow">RETURN</span></div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;900   <span class="keyword">WRITE</span>(bort_str,<span class="stringliteral">&#39;(&quot;BUFRLIB: NEMTBAX - INVALID MESSAGE TYPE (&quot;,I4&#39;</span>//</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;     . <span class="stringliteral">&#39;,&quot;) RETURNED FOR MENMONIC &quot;,A)&#39;</span>) mtyp,nemo</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;      CALL <a class="code" href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort</a>(bort_str)</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;901   <span class="keyword">WRITE</span>(bort_str,<span class="stringliteral">&#39;(&quot;BUFRLIB: NEMTBAX - INVALID MESSAGE SUBTYPE (&quot;&#39;</span>//</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;     . <span class="stringliteral">&#39;,I4,&quot;) RETURNED FOR MENMONIC &quot;,A)&#39;</span>) msbt,nemo</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;      CALL <a class="code" href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort</a>(bort_str)</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;      <span class="keywordflow">END</span></div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;      <span class="keywordtype">CHARACTER*(*)</span> nemo</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;      <span class="keywordtype">CHARACTER*128</span> bort_str</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;<span class="comment">C-----------------------------------------------------------------------</span></div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<span class="comment">C-----------------------------------------------------------------------</span></div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;      inod = 0</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="comment">C  LOOK FOR NEMO IN TABLE A</span></div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;<span class="comment">C  ------------------------</span></div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;      <span class="keywordflow">DO</span> i=1,ntba(lun)</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;      <span class="keywordflow">IF</span>(taba(i,lun)(4:11).EQ.nemo) <span class="keywordflow">THEN</span></div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;         mtyp = idna(i,lun,1)</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;         msbt = idna(i,lun,2)</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;         inod = mtab(i,lun)</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;         <span class="keywordflow">IF</span>(mtyp.LT.0 .OR. mtyp.GT.255) goto 900</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;         <span class="keywordflow">IF</span>(msbt.LT.0 .OR. msbt.GT.255) goto 901</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;         goto 100</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;      <span class="keywordflow">ENDIF</span></div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;      <span class="keywordflow">ENDDO</span></div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;<span class="comment">C  EXITS</span></div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;<span class="comment">C  -----</span></div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;100   <span class="keywordflow">RETURN</span></div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;900   <span class="keyword">WRITE</span>(bort_str,<span class="stringliteral">&#39;(&quot;BUFRLIB: NEMTBAX - INVALID MESSAGE TYPE (&quot;,I4&#39;</span>//</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;     . <span class="stringliteral">&#39;,&quot;) RETURNED FOR MENMONIC &quot;,A)&#39;</span>) mtyp,nemo</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;      CALL <a class="code" href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort</a>(bort_str)</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;901   <span class="keyword">WRITE</span>(bort_str,<span class="stringliteral">&#39;(&quot;BUFRLIB: NEMTBAX - INVALID MESSAGE SUBTYPE (&quot;&#39;</span>//</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;     . <span class="stringliteral">&#39;,I4,&quot;) RETURNED FOR MENMONIC &quot;,A)&#39;</span>) msbt,nemo</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;      CALL <a class="code" href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort</a>(bort_str)</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;      <span class="keywordflow">END</span></div>
 <div class="ttc" id="nemtbax_8f_html_adec9ab84d3bc51e082325e710354192e"><div class="ttname"><a href="nemtbax_8f.html#adec9ab84d3bc51e082325e710354192e">nemtbax</a></div><div class="ttdeci">subroutine nemtbax(LUN, NEMO, MTYP, MSBT, INOD)</div><div class="ttdoc">THIS SUBROUTINE SEARCHES FOR MNEMONIC NEMO WITHIN THE INTERNAL TABLE A ARRAYS HOLDING THE DICTIONARY ...</div><div class="ttdef"><b>Definition:</b> <a href="nemtbax_8f_source.html#l00040">nemtbax.f:40</a></div></div>
-<div class="ttc" id="classmoda__tababd_html"><div class="ttname"><a href="classmoda__tababd.html">moda_tababd</a></div><div class="ttdef"><b>Definition:</b> <a href="moda__tababd_8F_source.html#l00001">moda_tababd.F:1</a></div></div>
-<div class="ttc" id="bort_8f_html_a488d3a8cf930fb592a9fdaefcfa04ac4"><div class="ttname"><a href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort</a></div><div class="ttdeci">subroutine bort(STR)</div><div class="ttdoc">THIS SUBROUTINE WRITES (VIA BUFR ARCHIVE LIBRARY SUBROUTINE ERRWRT) A GIVEN ERROR STRING AND THEN CAL...</div><div class="ttdef"><b>Definition:</b> <a href="bort_8f_source.html#l00069">bort.f:69</a></div></div>
+<div class="ttc" id="moda__tababd_8F_html_classmoda__tababd"><div class="ttname"><a href="moda__tababd_8F.html#classmoda__tababd">moda_tababd</a></div><div class="ttdoc">This module contains array and variable declarations used to store DX BUFR tables internally for mult...</div><div class="ttdef"><b>Definition:</b> <a href="moda__tababd_8F_source.html#l00010">moda_tababd.F:10</a></div></div>
+<div class="ttc" id="bort_8f_html_a488d3a8cf930fb592a9fdaefcfa04ac4"><div class="ttname"><a href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort</a></div><div class="ttdeci">subroutine bort(STR)</div><div class="ttdoc">This subroutine calls subroutine errwrt() to log an error message, then calls subroutine bort_exit() ...</div><div class="ttdef"><b>Definition:</b> <a href="bort_8f_source.html#l00023">bort.f:23</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

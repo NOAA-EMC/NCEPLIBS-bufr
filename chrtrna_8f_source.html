@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.3.2</span>
+   &#160;<span id="projectnumber">11.5.0</span>
    </div>
   </td>
  </tr>
@@ -92,7 +92,7 @@ $(document).ready(function(){initNavTree('chrtrna_8f_source.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -107,66 +107,60 @@ $(document).ready(function(){initNavTree('chrtrna_8f_source.html','');});
 </div><!--header-->
 <div class="contents">
 <a href="chrtrna_8f.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="comment">C&gt; @file</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment">C&gt; @author WOOLLEN @date 1994-01-06</span></div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;      </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="comment">C&gt; THIS SUBROUTINE COPIES A SPECIFIED NUMBER OF CHARACTERS</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="comment">C&gt;   FROM A CHARACTER ARRAY INTO A CHARACTER STRING.  THE DIFFERENCE</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="comment">C&gt;   BETWEEN THIS SUBROUTINE AND BUFR ARCHIVE LIBRARY SUBROUTINE CHRTRN</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="comment">C&gt;   IS THAT, IN THIS SUBROUTINE, THE INPUT CHARACTER ARRAY IS ASSUMED</span></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="comment">C&gt;   TO BE IN ASCII; THUS, FOR CASES WHERE THE NATIVE MACHINE IS EBCDIC,</span></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="comment">C&gt;   AN ASCII TO EBCDIC TRANSLATION IS DONE ON THE FINAL STRING BEFORE</span></div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="comment">C&gt;   IT IS OUTPUT.</span></div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="comment">C&gt;</span></div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="comment">C&gt; PROGRAM HISTORY LOG:</span></div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="comment">C&gt; 1994-01-06  J. WOOLLEN -- ORIGINAL AUTHOR</span></div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment">C&gt; 2003-11-04  J. ATOR    -- ADDED DOCUMENTATION</span></div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="comment">C&gt; 2003-11-04  S. BENDER  -- ADDED REMARKS/BUFRLIB ROUTINE</span></div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="comment">C&gt;                           INTERDEPENDENCIES</span></div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="comment">C&gt; 2003-11-04  D. KEYSER  -- UNIFIED/PORTABLE FOR WRF; ADDED HISTORY</span></div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="comment">C&gt;                           DOCUMENTATION</span></div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment">C&gt;</span></div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="comment">C&gt; USAGE:    CALL CHRTRNA (STR, CHR, N)</span></div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="comment">C&gt;   INPUT ARGUMENT LIST:</span></div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="comment">C&gt;     CHR      - CHARACTER*1: N-WORD CHARACTER ARRAY IN ASCII</span></div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="comment">C&gt;     N        - INTEGER: NUMBER OF CHARACTERS TO COPY</span></div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="comment">C&gt;</span></div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="comment">C&gt;   OUTPUT ARGUMENT LIST:</span></div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="comment">C&gt;     STR      - CHARACTER*(*): CHARACTER STRING IN ASCII OR EBCDIC,</span></div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="comment">C&gt;                DEPENDING ON NATIVE MACHINE</span></div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="comment">C&gt;</span></div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="comment">C&gt; REMARKS:</span></div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="comment">C&gt;    THIS ROUTINE CALLS:        IPKM     IUPM</span></div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="comment">C&gt;    THIS ROUTINE IS CALLED BY: ICHKSTR</span></div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="comment">C&gt;                               Normally not called by any application</span></div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="comment">C&gt;                               programs.</span></div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="comment">C&gt;</span></div>
-<div class="line"><a name="l00035"></a><span class="lineno"><a class="line" href="chrtrna_8f.html#a5aefd6eae9d5a0bec3756a498a219155">   35</a></span>&#160;<span class="keyword">      SUBROUTINE </span><a class="code" href="chrtrna_8f.html#a5aefd6eae9d5a0bec3756a498a219155">chrtrna</a>(STR,CHR,N)</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment">C&gt; @brief Copy a specified number of characters from an array into</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="comment">C&gt; a string.</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="comment">C&gt; This subroutine copies a specified number of characters from an</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="comment">C&gt; array of characters into a character string.</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="comment">C&gt;</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="comment">C&gt; &lt;p&gt;The characters in the input array CHR are assumed to be ASCII,</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="comment">C&gt; so for cases where the native machine is EBCDIC, an</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="comment">C&gt; ASCII-to-EBCDIC translation is done on the final character string</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="comment">C&gt; before it is output as STR.</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="comment">C&gt;</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="comment">C&gt; @author J. Woollen</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment">C&gt; @date 1994-01-06</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="comment">C&gt;</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="comment">C&gt; @param[in] CHR     - character(*): Array of characters in ASCII</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="comment">C&gt; @param[in] N       - integer: Number of characters to be copied</span></div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="comment">C&gt;                      from CHR, starting from the beginning of</span></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment">C&gt;                      the array</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="comment">C&gt; @param[out] STR    - character*(*): Character string in ASCII or</span></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="comment">C&gt;                      EBCDIC, depending on native machine</span></div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="comment">C&gt;</span></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="comment">C&gt; @remarks</span></div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="comment">C&gt; - The determination as to whether the native machine is ASCII or</span></div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="comment">C&gt; EBCDIC is made via an internal call to subroutine wrdlen().</span></div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="comment">C&gt;</span></div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="comment">C&gt; &lt;b&gt;Program history log:&lt;/b&gt;</span></div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="comment">C&gt; - 1994-01-06  J. Woollen -- Original author</span></div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="comment">C&gt; - 2003-11-04  J. Ator    -- Added documentation</span></div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="comment">C&gt;</span></div>
+<div class="line"><a name="l00031"></a><span class="lineno"><a class="line" href="chrtrna_8f.html#a5aefd6eae9d5a0bec3756a498a219155">   31</a></span>&#160;<span class="keyword">      SUBROUTINE </span><a class="code" href="chrtrna_8f.html#a5aefd6eae9d5a0bec3756a498a219155">chrtrna</a>(STR,CHR,N)</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;      <span class="keyword">COMMON</span> /charac/ iascii,iatoe(0:255),ietoa(0:255)</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;      <span class="keywordtype">CHARACTER*(*)</span> str</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;      <span class="keywordtype">CHARACTER*1</span>   chr(n)</div>
 <div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;      <span class="keyword">COMMON</span> /charac/ iascii,iatoe(0:255),ietoa(0:255)</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="comment">C----------------------------------------------------------------------</span></div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="comment">C----------------------------------------------------------------------</span></div>
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;      <span class="keywordtype">CHARACTER*(*)</span> str</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;      <span class="keywordtype">CHARACTER*1</span>   chr(n)</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="comment">C----------------------------------------------------------------------</span></div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<span class="comment">C----------------------------------------------------------------------</span></div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;<span class="comment">C     Loop on N characters of CHR</span></div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="comment">C     Loop on N characters of CHR</span></div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;      <span class="keywordflow">DO</span> i=1,n</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;      str(i:i) = chr(i)</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="comment">C     If this is an EBCDIC machine, then translate the character</span></div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;<span class="comment">C     from ASCII -&gt; EBCDIC.</span></div>
 <div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;      <span class="keywordflow">DO</span> i=1,n</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;      str(i:i) = chr(i)</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="comment">C     If this is an EBCDIC machine, then translate the character</span></div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;<span class="comment">C     from ASCII -&gt; EBCDIC.</span></div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;      <span class="keywordflow">IF</span>(iascii.EQ.0) CALL <a class="code" href="ipkm_8f.html#a8826417bb81a4404779e606d6b97759a">ipkm</a>(str(i:i),1,iatoe(<a class="code" href="iupm_8f.html#a870aa6933e94946232ec975e8cdd04db">iupm</a>(str(i:i),8)))</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;      <span class="keywordflow">ENDDO</span></div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;      <span class="keywordflow">RETURN</span></div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;      <span class="keywordflow">END</span></div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;      <span class="keywordflow">IF</span>(iascii.EQ.0) CALL <a class="code" href="ipkm_8f.html#a8826417bb81a4404779e606d6b97759a">ipkm</a>(str(i:i),1,iatoe(<a class="code" href="iupm_8f.html#a870aa6933e94946232ec975e8cdd04db">iupm</a>(str(i:i),8)))</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;      <span class="keywordflow">ENDDO</span></div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;      <span class="keywordflow">RETURN</span></div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;      <span class="keywordflow">END</span></div>
 <div class="ttc" id="iupm_8f_html_a870aa6933e94946232ec975e8cdd04db"><div class="ttname"><a href="iupm_8f.html#a870aa6933e94946232ec975e8cdd04db">iupm</a></div><div class="ttdeci">function iupm(CBAY, NBITS)</div><div class="ttdoc">THIS FUNCTION UNPACKS AND RETURNS A BINARY INTEGER WORD CONTAINED WITHIN NBITS BITS OF A CHARACTER ST...</div><div class="ttdef"><b>Definition:</b> <a href="iupm_8f_source.html#l00040">iupm.f:40</a></div></div>
-<div class="ttc" id="ipkm_8f_html_a8826417bb81a4404779e606d6b97759a"><div class="ttname"><a href="ipkm_8f.html#a8826417bb81a4404779e606d6b97759a">ipkm</a></div><div class="ttdeci">subroutine ipkm(CBAY, NBYT, N)</div><div class="ttdoc">THIS SUBROUTINE PACKS AN INTEGER N INTO A CHARACTER STRING CBAY OF LENGTH NBYT BYTES. </div><div class="ttdef"><b>Definition:</b> <a href="ipkm_8f_source.html#l00039">ipkm.f:39</a></div></div>
-<div class="ttc" id="chrtrna_8f_html_a5aefd6eae9d5a0bec3756a498a219155"><div class="ttname"><a href="chrtrna_8f.html#a5aefd6eae9d5a0bec3756a498a219155">chrtrna</a></div><div class="ttdeci">subroutine chrtrna(STR, CHR, N)</div><div class="ttdoc">THIS SUBROUTINE COPIES A SPECIFIED NUMBER OF CHARACTERS FROM A CHARACTER ARRAY INTO A CHARACTER STRIN...</div><div class="ttdef"><b>Definition:</b> <a href="chrtrna_8f_source.html#l00035">chrtrna.f:35</a></div></div>
+<div class="ttc" id="ipkm_8f_html_a8826417bb81a4404779e606d6b97759a"><div class="ttname"><a href="ipkm_8f.html#a8826417bb81a4404779e606d6b97759a">ipkm</a></div><div class="ttdeci">subroutine ipkm(CBAY, NBYT, N)</div><div class="ttdoc">This subroutine encodes an integer value within a specified number of bytes of a character string...</div><div class="ttdef"><b>Definition:</b> <a href="ipkm_8f_source.html#l00029">ipkm.f:29</a></div></div>
+<div class="ttc" id="chrtrna_8f_html_a5aefd6eae9d5a0bec3756a498a219155"><div class="ttname"><a href="chrtrna_8f.html#a5aefd6eae9d5a0bec3756a498a219155">chrtrna</a></div><div class="ttdeci">subroutine chrtrna(STR, CHR, N)</div><div class="ttdoc">This subroutine copies a specified number of characters from an array of characters into a character ...</div><div class="ttdef"><b>Definition:</b> <a href="chrtrna_8f_source.html#l00031">chrtrna.f:31</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

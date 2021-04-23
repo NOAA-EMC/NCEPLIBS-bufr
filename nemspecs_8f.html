@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.3.2</span>
+   &#160;<span id="projectnumber">11.5.0</span>
    </div>
   </td>
  </tr>
@@ -92,7 +92,7 @@ $(document).ready(function(){initNavTree('nemspecs_8f.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -109,17 +109,19 @@ $(document).ready(function(){initNavTree('nemspecs_8f.html','');});
 </div><!--header-->
 <div class="contents">
 
+<p>Get the scale factor, reference value and bit width associated with a specified occurrence of a Table B mnemonic.  
+<a href="#details">More...</a></p>
+
 <p><a href="nemspecs_8f_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions/Subroutines</h2></td></tr>
 <tr class="memitem:ade6573c077e8249684da2c7a3ef08563"><td class="memItemLeft" align="right" valign="top">subroutine&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="nemspecs_8f.html#ade6573c077e8249684da2c7a3ef08563">nemspecs</a> (LUNIT, NEMO, NNEMO, NSCL, NREF, NBTS, IRET)</td></tr>
-<tr class="memdesc:ade6573c077e8249684da2c7a3ef08563"><td class="mdescLeft">&#160;</td><td class="mdescRight">GIVEN A TABLE B MNEMONIC, THIS SUBROUTINE RETURNS THE SCALE FACTOR, REFERENCE VALUE AND BIT WIDTH CORRESPONDING TO THE (NNEMO)th OCCURRENCE OF THAT MNEMONIC WITHIN A SUBSET DEFINITION (COUNTING FROM THE BEGINNING OF THE OVERALL SUBSET DEFINITION), AND INCLUDING ACCOUNTING FOR ANY TABLE C OPERATORS (E.G.  <a href="#ade6573c077e8249684da2c7a3ef08563">More...</a><br/></td></tr>
+<tr class="memdesc:ade6573c077e8249684da2c7a3ef08563"><td class="mdescLeft">&#160;</td><td class="mdescRight">Given a Table B mnemonic defined within a data subset, this subroutine returns the scale factor, reference value and bit width of a specified occurrence of that mnemonic within the overall data subset definition, counting from the beginning of the subset.  <a href="#ade6573c077e8249684da2c7a3ef08563">More...</a><br/></td></tr>
 <tr class="separator:ade6573c077e8249684da2c7a3ef08563"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><dl class="section author"><dt>Author</dt><dd>J </dd></dl>
-<dl class="section date"><dt>Date</dt><dd>2014-10-02 </dd></dl>
+<div class="textblock"><p>Get the scale factor, reference value and bit width associated with a specified occurrence of a Table B mnemonic. </p>
 
 <p>Definition in file <a class="el" href="nemspecs_8f_source.html">nemspecs.f</a>.</p>
 </div><h2 class="groupheader">Function/Subroutine Documentation</h2>
@@ -177,14 +179,36 @@ Functions/Subroutines</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>GIVEN A TABLE B MNEMONIC, THIS SUBROUTINE RETURNS THE SCALE FACTOR, REFERENCE VALUE AND BIT WIDTH CORRESPONDING TO THE (NNEMO)th OCCURRENCE OF THAT MNEMONIC WITHIN A SUBSET DEFINITION (COUNTING FROM THE BEGINNING OF THE OVERALL SUBSET DEFINITION), AND INCLUDING ACCOUNTING FOR ANY TABLE C OPERATORS (E.G. </p>
-<p>2-01-YYY, 2-02-YYY, 2-03-YYY, 2-07-YYY) WHICH MAY BE IN EFFECT FOR THAT PARTICULAR OCCURRENCE OF THE MNEMONIC. A SUBSET DEFINITION MUST ALREADY BE IN SCOPE, EITHER VIA A PREVIOUS CALL TO BUFR ARCHIVE LIBRARY SUBROUTINE READSB OR EQUIVALENT (FOR INPUT FILES) OR TO SUBROUTINE OPENMB OR EQUIVALENT (FOR OUTPUT FILES).</p>
-<p>PROGRAM HISTORY LOG: 2014-10-02 J. ATOR &ndash; ORIGINAL VERSION 2014-12-10 J. ATOR &ndash; USE MODULES INSTEAD OF COMMON BLOCKS</p>
-<p>USAGE: CALL NEMSPECS (LUNIT, NEMO, NNEMO, NSCL, NREF, NBTS, IRET ) INPUT ARGUMENT LIST: LUNIT - INTEGER: FORTRAN LOGICAL UNIT NUMBER FOR BUFR FILE NEMO - CHARACTER*(*): TABLE B MNEMONIC NNEMO - INTEGER: ORDINAL OCCURRENCE OF NEMO FOR WHICH INFORMATION IS TO BE RETURNED, COUNTING FROM THE BEGINNING OF THE OVERALL SUBSET DEFINITION</p>
-<p>OUTPUT ARGUMENT LIST: NSCL - INTEGER: SCALE FACTOR CORRESPONDING TO NEMO NREF - INTEGER: REFERENCE VALUE CORRESPONDING TO NEMO NBTS - INTEGER: BIT WIDTH CORRESPONDING TO NEMO IRET - INTEGER: RETURN CODE 0 = NORMAL RETURN -1 = REQUESTED MNEMONIC COULD NOT BE FOUND, OR SOME OTHER ERROR OCCURRED</p>
-<p>REMARKS: THIS ROUTINE CALLS: FSTAG STATUS STRSUC THIS ROUTINE IS CALLED BY: None Normally called only by application programs </p>
+<p>Given a Table B mnemonic defined within a data subset, this subroutine returns the scale factor, reference value and bit width of a specified occurrence of that mnemonic within the overall data subset definition, counting from the beginning of the subset. </p>
+<p>The values returned include the application of any Table C operators (e.g. 2-01-YYY, 2-02-YYY, 2-03-YYY, 2-07-YYY, 2-08-YYY) which may be in effect for the specified occurrence of the mnemonic.</p>
+<dl class="section author"><dt>Author</dt><dd>J. Ator </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2014-10-02</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">LUNIT</td><td>- integer: Fortran logical unit number for BUFR file </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">NEMO</td><td>- character*(*): Table B mnemonic </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">NNEMO</td><td>- integer: Ordinal occurrence of NEMO for which information is to be returned, counting from the beginning of the overall subset definition </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">NSCL</td><td>- integer: Scale factor in effect for (NNEMO)th occurrence of NEMO </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">NREF</td><td>- integer: Reference value in effect for (NNEMO)th occurrence of NEMO </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">NBTS</td><td>- integer: Bit width in effect for (NNEMO)th occurrence of NEMO </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">IRET</td><td>- integer: return code<ul>
+<li>0 = normal return</li>
+<li>-1 = NEMO could not be found, or some other error occurred</li>
+</ul>
+</td></tr>
+  </table>
+  </dd>
+</dl>
+<p>A data subset must already be in scope within the BUFRLIB internal arrays for LUNIT, either via a previous call to one of the <a class="el" href="md__gpfs_dell2_emc_obsproc_noscrub_Jeff_8Ator_NCEPLIBS-bufr-GitHub_nceplibs-bufr_docs_UserGuide.html#hierarchy">subset-reading subroutines</a> (when reading BUFR data subsets) or via a previous call to one of the <a class="el" href="md__gpfs_dell2_emc_obsproc_noscrub_Jeff_8Ator_NCEPLIBS-bufr-GitHub_nceplibs-bufr_docs_UserGuide.html#hierarchy">message-writing subroutines</a> (when writing BUFR data subsets).</p>
+<p><b>Program history log:</b></p>
+<ul>
+<li>2014-10-02 J. Ator &ndash; Original version</li>
+<li>2014-12-10 J. Ator &ndash; Use modules instead of COMMON blocks </li>
+</ul>
 
-<p>Definition at line <a class="el" href="nemspecs_8f_source.html#l00042">42</a> of file <a class="el" href="nemspecs_8f_source.html">nemspecs.f</a>.</p>
+<p>Definition at line <a class="el" href="nemspecs_8f_source.html#l00048">48</a> of file <a class="el" href="nemspecs_8f_source.html">nemspecs.f</a>.</p>
+
+<p>References <a class="el" href="fstag_8f.html#a4086d332625381684867dd7ec13a20e5">fstag()</a>, <a class="el" href="status_8f.html#a22292e7a69c411a961168198d259f336">status()</a>, and <a class="el" href="strsuc_8f.html#a0ad7f0b59d89e0bdd1e9d73947b19e7e">strsuc()</a>.</p>
 
 </div>
 </div>

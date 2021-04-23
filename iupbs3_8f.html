@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.3.2</span>
+   &#160;<span id="projectnumber">11.5.0</span>
    </div>
   </td>
  </tr>
@@ -92,7 +92,7 @@ $(document).ready(function(){initNavTree('iupbs3_8f.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -109,17 +109,19 @@ $(document).ready(function(){initNavTree('iupbs3_8f.html','');});
 </div><!--header-->
 <div class="contents">
 
+<p>Read a data value from Section 3 of a BUFR message.  
+<a href="#details">More...</a></p>
+
 <p><a href="iupbs3_8f_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions/Subroutines</h2></td></tr>
 <tr class="memitem:a542e11287f9dc5bf72d3889db48e1b19"><td class="memItemLeft" align="right" valign="top">function&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="iupbs3_8f.html#a542e11287f9dc5bf72d3889db48e1b19">iupbs3</a> (MBAY, S3MNEM)</td></tr>
-<tr class="memdesc:a542e11287f9dc5bf72d3889db48e1b19"><td class="mdescLeft">&#160;</td><td class="mdescRight">THIS FUNCTION UNPACKS AND RETURNS A SPECIFIED INTEGER VALUE FROM SECTION 3 OF THE BUFR MESSAGE STORED IN ARRAY MBAY.  <a href="#a542e11287f9dc5bf72d3889db48e1b19">More...</a><br/></td></tr>
+<tr class="memdesc:a542e11287f9dc5bf72d3889db48e1b19"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function returns a specified value from within Section 3 of a BUFR message.  <a href="#a542e11287f9dc5bf72d3889db48e1b19">More...</a><br/></td></tr>
 <tr class="separator:a542e11287f9dc5bf72d3889db48e1b19"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><dl class="section author"><dt>Author</dt><dd>ATOR </dd></dl>
-<dl class="section date"><dt>Date</dt><dd>2009-03-23 </dd></dl>
+<div class="textblock"><p>Read a data value from Section 3 of a BUFR message. </p>
 
 <p>Definition in file <a class="el" href="iupbs3_8f_source.html">iupbs3.f</a>.</p>
 </div><h2 class="groupheader">Function/Subroutine Documentation</h2>
@@ -147,14 +149,47 @@ Functions/Subroutines</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>THIS FUNCTION UNPACKS AND RETURNS A SPECIFIED INTEGER VALUE FROM SECTION 3 OF THE BUFR MESSAGE STORED IN ARRAY MBAY. </p>
-<p>IT WILL WORK ON ANY MESSAGE ENCODED USING BUFR EDITION 2, 3 OR 4. THE START OF THE BUFR MESSAGE (I.E. THE STRING "BUFR") MUST BE ALIGNED ON THE FIRST FOUR BYTES OF MBAY, AND THE VALUE TO BE UNPACKED IS SPECIFIED VIA THE MNEMONIC S3MNEM, AS EXPLAINED IN FURTHER DETAIL BELOW.</p>
-<p>PROGRAM HISTORY LOG: 2009-03-23 J. ATOR &ndash; ORIGINAL AUTHOR</p>
-<p>USAGE: IUPBS3 (MBAY, S3MNEM) INPUT ARGUMENT LIST: MBAY - INTEGER: *-WORD PACKED BINARY ARRAY CONTAINING BUFR MESSAGE S3MNEM - CHARACTER*(*): MNEMONIC SPECIFYING VALUE TO BE UNPACKED FROM SECTION 3 OF BUFR MESSAGE: 'NSUB' = NUMBER OF DATA SUBSETS 'IOBS' = FLAG INDICATING WHETHER THE MESSAGE CONTAINS OBSERVED DATA: 0 = NO 1 = YES 'ICMP' = FLAG INDICATING WHETHER THE MESSAGE CONTAINS COMPRESSED DATA: 0 = NO 1 = YES</p>
-<p>OUTPUT ARGUMENT LIST: IUPBS3 - INTEGER: UNPACKED INTEGER VALUE -1 = THE INPUT S3MNEM MNEMONIC WAS INVALID</p>
-<p>REMARKS: THIS ROUTINE CALLS: GETLENS IUPB THIS ROUTINE IS CALLED BY: CKTABA CPDXMM DUMPBF MESGBC RDBFDX READERME STNDRD WRITLC Also called by application programs. </p>
+<p>This function returns a specified value from within Section 3 of a BUFR message. </p>
+<dl class="section author"><dt>Author</dt><dd>J. Ator </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2009-03-23</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">MBAY</td><td>- integer(*): BUFR message </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">S3MNEM</td><td>- character*(*): Value to be read from Section 3 of MBAY<ul>
+<li>'NSUB' = Number of data subsets</li>
+<li>'IOBS' = Flag indicating whether the message contains observed data:<ul>
+<li>0 = No</li>
+<li>1 = Yes</li>
+</ul>
+</li>
+<li>'ICMP' = Flag indicating whether the message contains compressed data:<ul>
+<li>0 = No</li>
+<li>1 = Yes </li>
+</ul>
+</li>
+</ul>
+</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>iupbs3 - integer: Value corresponding to S3MNEM<ul>
+<li>-1 = S3MNEM was invalid</li>
+</ul>
+</dd></dl>
+<dl class="section remark"><dt>Remarks</dt><dd><ul>
+<li>The start of the BUFR message (i.e. the string 'BUFR') must be aligned on the first 4 bytes of MBAY.</li>
+</ul>
+</dd></dl>
+<p><b>Program history log:</b></p>
+<ul>
+<li>2009-03-23 J. Ator &ndash; Original author </li>
+</ul>
 
-<p>Definition at line <a class="el" href="iupbs3_8f_source.html#l00040">40</a> of file <a class="el" href="iupbs3_8f_source.html">iupbs3.f</a>.</p>
+<p>Definition at line <a class="el" href="iupbs3_8f_source.html#l00032">32</a> of file <a class="el" href="iupbs3_8f_source.html">iupbs3.f</a>.</p>
+
+<p>References <a class="el" href="getlens_8f.html#a15ffcb4cde43c73327fd3afb738078e2">getlens()</a>, <a class="el" href="iupb_8f.html#a3f8fa4b5261e85ecbf679208e7635c6c">iupb()</a>, and <a class="el" href="wrdlen_8F.html#afb746f29272671c842018de69b277685">wrdlen()</a>.</p>
+
+<p>Referenced by <a class="el" href="cktaba_8f.html#a137108e58830be769ba5b28072cf1b4c">cktaba()</a>, <a class="el" href="cpdxmm_8f.html#a48f353028fb8bf77255b4dae476b9da7">cpdxmm()</a>, <a class="el" href="dumpbf_8f.html#a345cb5b88ed574ab5f66b9a90e61acc6">dumpbf()</a>, <a class="el" href="debufr_8f.html#a60dcf0fcb9d3a56fe561406bf5b16a9e">fdebufr()</a>, <a class="el" href="mesgbc_8f.html#a7c19b0b932b32b59a6bf5f3c8a809617">mesgbc()</a>, <a class="el" href="rdbfdx_8f.html#a7d7beabef509022d4d98ebfb79f06dec">rdbfdx()</a>, <a class="el" href="readerme_8f.html#aa8235a5af5d22c265bbef3bb47c7fafa">readerme()</a>, <a class="el" href="stndrd_8f.html#a9a40fe96eef4a44c203f5e663fc47c4b">stndrd()</a>, and <a class="el" href="writlc_8f.html#a7017d5359bb32ce5407499d7a1b16709">writlc()</a>.</p>
 
 </div>
 </div>

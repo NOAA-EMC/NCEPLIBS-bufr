@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.3.2</span>
+   &#160;<span id="projectnumber">11.5.0</span>
    </div>
   </td>
  </tr>
@@ -92,7 +92,7 @@ $(document).ready(function(){initNavTree('getcfmng_8f.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -109,17 +109,19 @@ $(document).ready(function(){initNavTree('getcfmng_8f.html','');});
 </div><!--header-->
 <div class="contents">
 
+<p>Decode the meaning of a numerical value from a code or flag table.  
+<a href="#details">More...</a></p>
+
 <p><a href="getcfmng_8f_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions/Subroutines</h2></td></tr>
 <tr class="memitem:a702c0f19f868ae7dc76f03e2e224f526"><td class="memItemLeft" align="right" valign="top">subroutine&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="getcfmng_8f.html#a702c0f19f868ae7dc76f03e2e224f526">getcfmng</a> (LUNIT, NEMOI, IVALI, NEMOD, IVALD, CMEANG, LNMNG, IRET)</td></tr>
-<tr class="memdesc:a702c0f19f868ae7dc76f03e2e224f526"><td class="mdescLeft">&#160;</td><td class="mdescRight">THIS ROUTINE CAN BE CALLED AT ANY TIME AFTER A BUFR MESSAGE HAS BEEN READ INTO MEMORY VIA SUBROUTINE READMG, READERME OR EQUIVALENT, AND IT CAN BE CALLED FOR ANY CODE OR FLAG TABLE MNEMONIC DEFINED WITHIN THAT MESSAGE.  <a href="#a702c0f19f868ae7dc76f03e2e224f526">More...</a><br/></td></tr>
+<tr class="memdesc:a702c0f19f868ae7dc76f03e2e224f526"><td class="mdescLeft">&#160;</td><td class="mdescRight">This subroutine searches for a specified Table B mnemonic and associated value (code figure or bit number) within the master Code/Flag tables, and if found returns the associated meaning as a character string.  <a href="#a702c0f19f868ae7dc76f03e2e224f526">More...</a><br/></td></tr>
 <tr class="separator:a702c0f19f868ae7dc76f03e2e224f526"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><dl class="section author"><dt>Author</dt><dd>ATOR </dd></dl>
-<dl class="section date"><dt>Date</dt><dd>2018-01-11 </dd></dl>
+<div class="textblock"><p>Decode the meaning of a numerical value from a code or flag table. </p>
 
 <p>Definition in file <a class="el" href="getcfmng_8f_source.html">getcfmng.f</a>.</p>
 </div><h2 class="groupheader">Function/Subroutine Documentation</h2>
@@ -183,16 +185,46 @@ Functions/Subroutines</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>THIS ROUTINE CAN BE CALLED AT ANY TIME AFTER A BUFR MESSAGE HAS BEEN READ INTO MEMORY VIA SUBROUTINE READMG, READERME OR EQUIVALENT, AND IT CAN BE CALLED FOR ANY CODE OR FLAG TABLE MNEMONIC DEFINED WITHIN THAT MESSAGE. </p>
-<p>IT SEARCHES FOR THE SPECIFIED MNEMONIC AND ASSOCIATED VALUE (CODE FIGURE OR BIT NUMBER) WITHIN THE INTERNAL MEMORY STRUCTURE FOR STORING CODE/FLAG TABLE INFORMATION, AND IF FOUND RETURNS THE ASSOCIATED MEANING AS A CHARACTER STRING. THE SEARCH MAY ALSO OPTIONALLY INCLUDE A SPECIFIED SECOND MNEMONIC AND ASSOCIATED VALUE UPON WHICH THE FIRST MNEMONIC AND ITS ASSOCIATED VALUE DEPEND, FOR CASES SUCH AS, E.G. WHEN THE MEANING OF AN ORIGINATING SUBCENTER VALUE DEPENDS ON THE IDENTITY OF THE ORIGINATING CENTER.</p>
-<p>NOTE THAT THIS ROUTINE CAN ONLY BE CALLED FOR MNEMONICS WHICH ARE DEFINED WITHIN THE MESSAGE THAT WAS MOST RECENTLY READ INTO MEMORY. IN MOST CASES THIS MEANS THAT THE MNEMONIC MUST BE CONTAINED WITHIN THE SUBSET DEFINITION (SECTION 3) OF THAT MESSAGE. THE ONLY EXCEPTIONS TO THIS RULE ARE FOR ORIGINATING CENTERS, ORIGINATING SUBCENTERS, DATA TYPES AND DATA SUBTYPES, SINCE THOSE CAN ALSO BE CONTAINED WITHIN THE IDENTIFICATION SECTION (SECTION 1) OF A BUFR MESSAGE. IN ANY CASE, IF THE SEARCH IS UNSUCCESSFUL, AND IF THERE WAS NO OPTIONAL SECOND MNEMONIC AND ASSOCIATED VALUE SPECIFIED ON INPUT, THE ROUTINE WILL RE-SEARCH THE TABLE TO CHECK WHETHER THE MEANING OF THE FIRST MNEMONIC AND ASSOCIATED VALUE MAY INDEED DEPEND ON THE VALUE OF ONE OR MORE OTHER POSSIBLE SECOND MNEMONICS. IF SO, THOSE POSSIBLE MNEMONICS ARE RETURNED ALONG WITH A SPECIAL RETURN CODE SO THAT THE CALLING ROUTINE MAY EXAMINE THEM AND POSSIBLY ISSUE ANOTHER SUBSEQUENT CALL TO THIS SAME ROUTINE WITH SPECIFIED VALUES FOR THE SECOND MNEMONIC AND ASSOCIATED VALUE.</p>
-<p>PROGRAM HISTORY LOG: 2018-01-11 J. ATOR &ndash; ORIGINAL AUTHOR 2018-01-11 J. ATOR &ndash; ADD SPECIAL HANDLING FOR DATA TYPES AND SUBTYPES IN SECTION 1</p>
-<p>USAGE: CALL GETCFMNG ( LUNIT, NEMOI, IVALI, NEMOD, IVALD, CMEANG, LNMNG, IRET )</p>
-<p>INPUT ARGUMENT LIST: LUNIT - INTEGER: FORTRAN LOGICAL UNIT NUMBER FOR BUFR FILE NEMOI - CHARACTER*(*): MNEMONIC TO SEARCH FOR IVALI - INTEGER: VALUE (CODE FIGURE OR BIT NUMBER) ASSOCIATED WITH NEMOI NEMOD - CHARACTER*(*): OPTIONAL SECOND MNEMONIC UPON WHICH THE VALUES NEMOI AND IVALI DEPEND; SET TO ALL BLANK CHARACTERS IF THE MEANINGS OF NEMOI AND IVALI DO NOT DEPEND ON THE VALUE OF ANY OTHER MNEMONIC IVALD - INTEGER: VALUE (CODE FIGURE OR BIT NUMBER) ASSOCIATED WITH NEMOD; SET TO (-1) WHENEVER NEMOD IS SET TO ALL BLANK CHARACTERS</p>
-<p>OUTPUT ARGUMENT LIST: CMEANG - CHARACTER*(*): IF THE INITIAL SEARCH OF THE TABLE WAS SUCCESSFUL, THEN THIS STRING CONTAINS THE MEANING CORRESPONDING TO NEMOI AND IVALI (AND TO NEMOD AND IVALD, IF SPECIFIED). HOWEVER, IF THE INITIAL SEARCH WAS UNSUCCESSFUL, <em>AND</em> IF NO OPTIONAL SECOND MNEMONIC AND ASSOCIATED VALUE WERE SPECIFIED ON INPUT, <em>AND</em> IF THE SECOND SEARCH OF THE TABLE DETERMINED THAT THE MEANING OF THE FIRST MNEMONIC AND ASSOCIATED VALUE INDEED DEPENDS ON ONE OR MORE OTHER POSSIBLE SECOND MNEMONICS, THEN THOSE POSSIBLE SECOND MNEMONICS ARE RETURNED WITHIN THIS STRING, AS A SERIES OF IRET SUCCESSIVE 8-BYTE SUBSTRINGS LNMNG - INTEGER: LENGTH OF STRING RETURNED IN MEANING IRET - RETURN CODE: 0 = MEANING FOUND AND STORED IN CMEANG STRING -1 = MEANING NOT FOUND &gt;0 = MEANING NOT FOUND, <em>AND</em> NEMOD AND IVALD WERE NOT SPECIFIED ON INPUT, <em>AND</em> THE MEANING OF NEMOI AND IVALI DEPENDS ON THE VALUE OF ONE OF THE MNEMONICS STORED IN THE FIRST IRET 8-BYTE SUBSTRINGS OF THE CMEANG STRING</p>
-<p>REMARKS: THIS ROUTINE CALLS: BORT IFXY IREADMT NEMTAB NUMTBD PARSTR SRCHTBF STATUS THIS ROUTINE IS CALLED BY: None Normally called only by application programs. </p>
+<p>This subroutine searches for a specified Table B mnemonic and associated value (code figure or bit number) within the master Code/Flag tables, and if found returns the associated meaning as a character string. </p>
+<dl class="section author"><dt>Author</dt><dd>J. Ator </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2018-01-11</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">LUNIT</td><td>- integer: Fortran logical unit number for BUFR file </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">NEMOI</td><td>- character*(*): Mnemonic to search for </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">IVALI</td><td>- integer: Value (code figure or bit number) associated with NEMOI </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">NEMOD</td><td>- character*(*): Optional second mnemonic upon which the values NEMOI and IVALI depend; set to all blank characters if the meanings of NEMOI and IVALI do not depend on the value of any other mnemonic </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">IVALD</td><td>- integer: Value (code figure or bit number) associated with NEMOD; set to (-1) whenever NEMOD is set to all blank characters </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">CMEANG</td><td>- character*(*): If the initial search of the master Code/Flag tables was successful, then this string contains the meaning corresponding to NEMOI and IVALI (and to NEMOD and IVALD, if specified). However, if the initial search was unsuccessful, <b>and</b> if no optional second mnemonic and associated value were specified on input, <b>and</b> if a second search of the table determines that the meaning of NEMOI and IVALI indeed depends on one or more other possible second mnemonics, then those possible second series of IRET successive 8-byte substrings. An example of this scenario is included below within the Remarks. </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">LNMNG</td><td>- integer: Length (in bytes) of string returned in CMEANG </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">IRET</td><td>- integer: return code<ul>
+<li>0 = meaning found and stored in CMEANG string</li>
+<li>-1 = meaning not found</li>
+<li>&gt;0 = meaning not found, <b>and</b> NEMOD and IVALD were not specified on input, <b>and</b> the meaning of NEMOI and IVALI depends on the value of one of the mnemonics stored in the first IRET 8-byte substrings of CMEANG</li>
+</ul>
+</td></tr>
+  </table>
+  </dd>
+</dl>
+<p>As noted above, this subroutine first does an initial search of the master Code/Flag tables based on the mnemonics and values provided. The input parameters NEMOI and IVALI specify the mnemonic and corresponding numerical code or flag table value for which the meaning is sought, and the optional secondary parameters NEMOD and IVALD are specified when needed to differentiate between multiple possible results. An example of this particular scenario is included below within the Remarks. Otherwise, if the meaning of NEMOD and IVALD does not depend on the value associated with any other mnemonic, then NEMOD should be set to a field of all blank characters, and IVALD should be set to a value of (-1).</p>
+<p>Subroutine <a class="el" href="codflg_8f.html#af415643ef31f484c879e7a770fa69ff9" title="This subroutine is used to specify whether or not code and flag table information should be included ...">codflg()</a> must be called with a CF value of 'Y' prior to calling this subroutine, in order to ensure that master Code/Flag tables have been read into internal memory.</p>
+<p>This subroutine can be called at any time after a BUFR message has been read into internal arrays by one of the BUFRLIB <a class="el" href="md__gpfs_dell2_emc_obsproc_noscrub_Jeff_8Ator_NCEPLIBS-bufr-GitHub_nceplibs-bufr_docs_UserGuide.html#hierarchy">message-reading subroutines</a>, and it can be called for any code or flag table mnemonic defined within that particular message. In most cases, this means that the mnemonic must be contained within the subset definition (Section 3) of that message. The only exceptions to this rule are for originating centers, originating subcenters, data types and data subtypes, since those can also be contained within the identification section (Section 1) of a BUFR message.</p>
+<p>It is the user's responsibility to provide sufficient allocated space in CMEANG for the returned meaning string; otherwise, the returned string will be truncated.</p>
+<dl class="section remark"><dt>Remarks</dt><dd><ul>
+<li>An example of when secondary mnemonics NEMOD and IVALD would be required is when a user is searching for the meaning of a numerical code table value for an originating sub-center (i.e. mnemonic GSES). The meaning of any originating sub-center value depends on the identity of the originating center for which the sub-center in question is a member, so in order for the subroutine to locate and return the proper one, information about the originating center must also be provided. So in this case the user would input GSES and the associated numerical value as NEMOI and IVALI, respectively, but the user would also need to specify an appropriate originating center mnemonic (e.g. GCLONG, OGCE or ORIGC) and associated value from the same BUFR message as input parameters NEMOD and IVALD, respectively, and then the subroutine will be able to locate and return the appropriate meaning string. Otherwise, if this information was not provided, the subroutine would return with an IRET value of 3, and with each of the mnemonics GCLONG, OGCE and ORIGC contained in successive 8-byte substrings of CMEANG (and with a corresponding value of 24 returned for LNMNG), as a hint to the user that more information needs to be input to the subroutine in order to achieve the desired result.</li>
+</ul>
+</dd></dl>
+<p><b>Program history log:</b></p>
+<ul>
+<li>2018-01-11 J. Ator &ndash; Original author</li>
+<li>2018-02-08 J. Ator &ndash; Add special handling for data types and subtypes in Section 1 </li>
+</ul>
 
-<p>Definition at line <a class="el" href="getcfmng_8f_source.html#l00085">85</a> of file <a class="el" href="getcfmng_8f_source.html">getcfmng.f</a>.</p>
+<p>Definition at line <a class="el" href="getcfmng_8f_source.html#l00108">108</a> of file <a class="el" href="getcfmng_8f_source.html">getcfmng.f</a>.</p>
+
+<p>References <a class="el" href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort()</a>, <a class="el" href="ifxy_8f.html#ac971a6f6d644344a5b09d50175498074">ifxy()</a>, <a class="el" href="ireadmt_8F.html#a0c3eff73be06d581b8b6ffcd47fede03">ireadmt()</a>, <a class="el" href="nemtab_8f.html#a3f3fb5a378c52dac83cb4fce27ceb712">nemtab()</a>, <a class="el" href="numtbd_8f.html#aae71d3919c5fc05ca4915e7b61aa3735">numtbd()</a>, <a class="el" href="parstr_8f.html#a3379a342ab3d92dd01eef1f3172f9b86">parstr()</a>, <a class="el" href="cfe_8h.html#acc1aa6de33a783e043e47e2522c688e3">srchtbf()</a>, and <a class="el" href="status_8f.html#a22292e7a69c411a961168198d259f336">status()</a>.</p>
+
+<p>Referenced by <a class="el" href="debufr_8f.html#a60dcf0fcb9d3a56fe561406bf5b16a9e">fdebufr()</a>.</p>
 
 </div>
 </div>

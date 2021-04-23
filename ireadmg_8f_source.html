@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.3.2</span>
+   &#160;<span id="projectnumber">11.5.0</span>
    </div>
   </td>
  </tr>
@@ -92,7 +92,7 @@ $(document).ready(function(){initNavTree('ireadmg_8f_source.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -148,20 +148,15 @@ $(document).ready(function(){initNavTree('ireadmg_8f_source.html','');});
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="comment">C&gt; - 2003-11-04  D. Keyser  -- Unified/portable for WRF; added history</span></div>
 <div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="comment">C&gt;                             documentation</span></div>
 <div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="comment">C&gt;</span></div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="comment">C&gt; &lt;b&gt;This routine calls:&lt;/b&gt;        readmg()</span></div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="comment">C&gt;</span></div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<span class="comment">C&gt; &lt;b&gt;This routine is called by:&lt;/b&gt; ufbtab()</span></div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="comment">C&gt;                            &lt;br&gt;Also called by application programs.</span></div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;<span class="comment">C&gt;</span></div>
-<div class="line"><a name="l00048"></a><span class="lineno"><a class="line" href="ireadmg_8f.html#a08c0eaaa7c6f555ccdceb404772dd962">   48</a></span>&#160;<span class="keyword">      FUNCTION </span><a class="code" href="ireadmg_8f.html#a08c0eaaa7c6f555ccdceb404772dd962">ireadmg</a>(LUNIT,SUBSET,IDATE)</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;      <span class="keywordtype">CHARACTER*8</span> subset</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;      CALL <a class="code" href="readmg_8f.html#a9fb3da32fb87bc017d16b9f0f707be9b">readmg</a>(lunit,subset,idate,iret)</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;      <a class="code" href="ireadmg_8f.html#a08c0eaaa7c6f555ccdceb404772dd962">ireadmg</a> = iret</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;      <span class="keywordflow">RETURN</span></div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;      <span class="keywordflow">END</span></div>
-<div class="ttc" id="ireadmg_8f_html_a08c0eaaa7c6f555ccdceb404772dd962"><div class="ttname"><a href="ireadmg_8f.html#a08c0eaaa7c6f555ccdceb404772dd962">ireadmg</a></div><div class="ttdeci">function ireadmg(LUNIT, SUBSET, IDATE)</div><div class="ttdoc">This function calls BUFRLIB subroutine readmg() and passes back its return code as the function value...</div><div class="ttdef"><b>Definition:</b> <a href="ireadmg_8f_source.html#l00048">ireadmg.f:48</a></div></div>
-<div class="ttc" id="readmg_8f_html_a9fb3da32fb87bc017d16b9f0f707be9b"><div class="ttname"><a href="readmg_8f.html#a9fb3da32fb87bc017d16b9f0f707be9b">readmg</a></div><div class="ttdeci">subroutine readmg(LUNXX, SUBSET, JDATE, IRET)</div><div class="ttdoc">This subroutine reads the next BUFR message from logical unit ABS(LUNXX) into internal arrays...</div><div class="ttdef"><b>Definition:</b> <a href="readmg_8f_source.html#l00109">readmg.f:109</a></div></div>
+<div class="line"><a name="l00043"></a><span class="lineno"><a class="line" href="ireadmg_8f.html#a08c0eaaa7c6f555ccdceb404772dd962">   43</a></span>&#160;<span class="keyword">      FUNCTION </span><a class="code" href="ireadmg_8f.html#a08c0eaaa7c6f555ccdceb404772dd962">ireadmg</a>(LUNIT,SUBSET,IDATE)</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;      <span class="keywordtype">CHARACTER*8</span> subset</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;      CALL <a class="code" href="readmg_8f.html#a9fb3da32fb87bc017d16b9f0f707be9b">readmg</a>(lunit,subset,idate,iret)</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;      <a class="code" href="ireadmg_8f.html#a08c0eaaa7c6f555ccdceb404772dd962">ireadmg</a> = iret</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;      <span class="keywordflow">RETURN</span></div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;      <span class="keywordflow">END</span></div>
+<div class="ttc" id="ireadmg_8f_html_a08c0eaaa7c6f555ccdceb404772dd962"><div class="ttname"><a href="ireadmg_8f.html#a08c0eaaa7c6f555ccdceb404772dd962">ireadmg</a></div><div class="ttdeci">function ireadmg(LUNIT, SUBSET, IDATE)</div><div class="ttdoc">This function calls BUFRLIB subroutine readmg() and passes back its return code as the function value...</div><div class="ttdef"><b>Definition:</b> <a href="ireadmg_8f_source.html#l00043">ireadmg.f:43</a></div></div>
+<div class="ttc" id="readmg_8f_html_a9fb3da32fb87bc017d16b9f0f707be9b"><div class="ttname"><a href="readmg_8f.html#a9fb3da32fb87bc017d16b9f0f707be9b">readmg</a></div><div class="ttdeci">subroutine readmg(LUNXX, SUBSET, JDATE, IRET)</div><div class="ttdoc">This subroutine reads the next BUFR message from logical unit ABS(LUNXX) into internal arrays...</div><div class="ttdef"><b>Definition:</b> <a href="readmg_8f_source.html#l00099">readmg.f:99</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

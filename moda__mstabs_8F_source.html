@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.3.2</span>
+   &#160;<span id="projectnumber">11.5.0</span>
    </div>
   </td>
  </tr>
@@ -92,7 +92,7 @@ $(document).ready(function(){initNavTree('moda__mstabs_8F_source.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -106,66 +106,123 @@ $(document).ready(function(){initNavTree('moda__mstabs_8F_source.html','');});
 <div class="title">moda_mstabs.F</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno"><a class="line" href="classmoda__mstabs.html">    1</a></span>&#160;    <span class="keyword">MODULE</span> <a class="code" href="classmoda__mstabs.html">moda_mstabs</a></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;</div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#ifndef MAXCD_H</span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define MAXCD_H</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor"></span>      <span class="keywordtype">USE </span><a class="code" href="classmodv__maxcd.html">modv_maxcd</a></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor"></span></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#ifndef MXMTBB_H</span></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define MXMTBB_H</span></div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor"></span>      <span class="keywordtype">USE </span><a class="code" href="classmodv__mxmtbb.html">modv_mxmtbb</a></div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor"></span></div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#ifndef MXMTBD_H</span></div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define MXMTBD_H</span></div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor"></span>      <span class="keywordtype">USE </span><a class="code" href="classmodv__mxmtbd.html">modv_mxmtbd</a></div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="preprocessor"></span></div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="preprocessor">#ifdef DYNAMIC_ALLOCATION</span></div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="preprocessor"></span>      <span class="keywordtype">INTEGER</span> :: nmtb</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;      <span class="keywordtype">INTEGER</span> :: nmtd</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;      <span class="keywordtype">INTEGER</span>, <span class="keywordtype">ALLOCATABLE</span> :: ibfxyn(:)</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;      <span class="keywordtype">CHARACTER*4</span>, <span class="keywordtype">ALLOCATABLE</span> :: cbscl(:)</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;      <span class="keywordtype">CHARACTER*12</span>, <span class="keywordtype">ALLOCATABLE</span> :: cbsref(:)</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;      <span class="keywordtype">CHARACTER*4</span>, <span class="keywordtype">ALLOCATABLE</span> :: cbbw(:)</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;      <span class="keywordtype">CHARACTER*14</span>, <span class="keywordtype">ALLOCATABLE</span> :: cbunit(:)</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;      <span class="keywordtype">CHARACTER*8</span>, <span class="keywordtype">ALLOCATABLE</span> :: cbmnem(:)</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;      <span class="keywordtype">CHARACTER*120</span>, <span class="keywordtype">ALLOCATABLE</span> :: cbelem(:)</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;      <span class="keywordtype">INTEGER</span>, <span class="keywordtype">ALLOCATABLE</span> :: idfxyn(:)</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;      <span class="keywordtype">CHARACTER*120</span>, <span class="keywordtype">ALLOCATABLE</span> :: cdseq(:)</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;      <span class="keywordtype">CHARACTER*8</span>, <span class="keywordtype">ALLOCATABLE</span> :: cdmnem(:)</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;      <span class="keywordtype">INTEGER</span>, <span class="keywordtype">ALLOCATABLE</span> :: ndelem(:)</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;      <span class="keywordtype">INTEGER</span>, <span class="keywordtype">ALLOCATABLE</span> :: idefxy(:)</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="preprocessor">#else</span></div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="preprocessor"></span>      <span class="keywordtype">INTEGER</span>, bind(c) :: nmtb</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;      <span class="keywordtype">INTEGER</span>, bind(c) :: nmtd</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;      <span class="keywordtype">INTEGER</span>, bind(c) :: ibfxyn(mxmtbb)</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;      <span class="keywordtype">CHARACTER*4</span>, bind(c) :: cbscl(mxmtbb)</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;      <span class="keywordtype">CHARACTER*12</span>, bind(c) :: cbsref(mxmtbb)</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;      <span class="keywordtype">CHARACTER*4</span>, bind(c) :: cbbw(mxmtbb)</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;      <span class="keywordtype">CHARACTER*14</span>, bind(c) :: cbunit(mxmtbb)</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;      <span class="keywordtype">CHARACTER*8</span>, bind(c) :: cbmnem(mxmtbb)</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;      <span class="keywordtype">CHARACTER*120</span>, bind(c) :: cbelem(mxmtbb)</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;      <span class="keywordtype">INTEGER</span>, bind(c) :: idfxyn(mxmtbd)</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;      <span class="keywordtype">CHARACTER*120</span>, bind(c) :: cdseq(mxmtbd)</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;      <span class="keywordtype">CHARACTER*8</span>, bind(c) :: cdmnem(mxmtbd)</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;      <span class="keywordtype">INTEGER</span>, bind(c) :: ndelem(mxmtbd)</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;      <span class="keywordtype">INTEGER</span>, bind(c) :: idefxy(mxmtbd*maxcd)</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<span class="preprocessor"></span></div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;<span class="keyword">    END MODULE</span></div>
-<div class="ttc" id="classmodv__mxmtbb_html"><div class="ttname"><a href="classmodv__mxmtbb.html">modv_mxmtbb</a></div><div class="ttdef"><b>Definition:</b> <a href="modv__MXMTBB_8F_source.html#l00001">modv_MXMTBB.F:1</a></div></div>
-<div class="ttc" id="classmoda__mstabs_html"><div class="ttname"><a href="classmoda__mstabs.html">moda_mstabs</a></div><div class="ttdef"><b>Definition:</b> <a href="moda__mstabs_8F_source.html#l00001">moda_mstabs.F:1</a></div></div>
-<div class="ttc" id="classmodv__mxmtbd_html"><div class="ttname"><a href="classmodv__mxmtbd.html">modv_mxmtbd</a></div><div class="ttdef"><b>Definition:</b> <a href="modv__MXMTBD_8F_source.html#l00001">modv_MXMTBD.F:1</a></div></div>
-<div class="ttc" id="classmodv__maxcd_html"><div class="ttname"><a href="classmodv__maxcd.html">modv_maxcd</a></div><div class="ttdef"><b>Definition:</b> <a href="modv__MAXCD_8F_source.html#l00001">modv_MAXCD.F:1</a></div></div>
+<a href="moda__mstabs_8F.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="comment">C&gt; @file</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment">C&gt; @brief Declare arrays for internal storage of master Table B</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="comment">C&gt; and Table D entries.</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="comment">C&gt; This module contains array and variable declarations used to</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="comment">C&gt; store master Table B and Table D entries within internal</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="comment">C&gt; memory.</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="comment">C&gt;</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="comment">C&gt; &lt;p&gt;Data values within this module are stored by subroutine</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="comment">C&gt; ireadmt().</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="comment">C&gt;</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="comment">C&gt; @author J. Ator</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="comment">C&gt; @date 2014-12-10</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;</div>
+<div class="line"><a name="l00015"></a><span class="lineno"><a class="line" href="moda__mstabs_8F.html">   15</a></span>&#160;    <span class="keyword">MODULE</span> <a class="code" href="moda__mstabs_8F.html#classmoda__mstabs">moda_mstabs</a></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="preprocessor">#ifndef MAXCD_H</span></div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define MAXCD_H</span></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="preprocessor"></span>      <span class="keywordtype">USE </span><a class="code" href="modv__MAXCD_8F.html#classmodv__maxcd">modv_maxcd</a></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="preprocessor"></span></div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="preprocessor">#ifndef MXMTBB_H</span></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define MXMTBB_H</span></div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="preprocessor"></span>      <span class="keywordtype">USE </span><a class="code" href="modv__MXMTBB_8F.html#classmodv__mxmtbb">modv_mxmtbb</a></div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="preprocessor"></span></div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="preprocessor">#ifndef MXMTBD_H</span></div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define MXMTBD_H</span></div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="preprocessor"></span>      <span class="keywordtype">USE </span><a class="code" href="modv__MXMTBD_8F.html#classmodv__mxmtbd">modv_mxmtbd</a></div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="preprocessor"></span></div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="comment">C&gt;        @var nmtb</span></div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="comment">C&gt;        Number of master Table B entries (up to a maximum of MXMTBB).</span></div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="comment">C&gt;</span></div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="comment">C&gt;        @var ibfxyn</span></div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="comment">C&gt;        Bitwise representations of FXY numbers for master Table B.</span></div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="comment">C&gt;</span></div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="comment">C&gt;        @var cbscl</span></div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="comment">C&gt;        Scale factors corresponding to ibfxyn.</span></div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="comment">C&gt;</span></div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="comment">C&gt;        @var cbsref</span></div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="comment">C&gt;        Reference values corresponding to ibfxyn.</span></div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="comment">C&gt;</span></div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="comment">C&gt;        @var cbbw</span></div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<span class="comment">C&gt;        Bit widths corresponding to ibfxyn.</span></div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="comment">C&gt;</span></div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;<span class="comment">C&gt;        @var cbunit</span></div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<span class="comment">C&gt;        Units corresponding to ibfxyn.</span></div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<span class="comment">C&gt;</span></div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;<span class="comment">C&gt;        @var cbmnem</span></div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;<span class="comment">C&gt;        Mnemonics corresponding to ibfxyn.</span></div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="comment">C&gt;</span></div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;<span class="comment">C&gt;        @var cbelem</span></div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;<span class="comment">C&gt;        Element names corresponding to ibfxyn.</span></div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;<span class="comment">C&gt;</span></div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;<span class="comment">C&gt;        @var nmtd</span></div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;<span class="comment">C&gt;        Number of master Table D entries (up to a maximum of MXMTBD).</span></div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;<span class="comment">C&gt;</span></div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;<span class="comment">C&gt;        @var idfxyn</span></div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;<span class="comment">C&gt;        Bitwise representations of FXY numbers for master Table D.</span></div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;<span class="comment">C&gt;</span></div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;<span class="comment">C&gt;        @var cdseq</span></div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;<span class="comment">C&gt;        Sequence names corresponding to idfxyn.</span></div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;<span class="comment">C&gt;</span></div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;<span class="comment">C&gt;        @var cdmnem</span></div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;<span class="comment">C&gt;        Mnemonics corresponding to idfxyn.</span></div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;<span class="comment">C&gt;</span></div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;<span class="comment">C&gt;        @var ndelem</span></div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;<span class="comment">C&gt;        Numbers of child descriptors corresponding to idfxyn.</span></div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;<span class="comment">C&gt;</span></div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;<span class="comment">C&gt;        @var idefxy</span></div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;<span class="comment">C&gt;        Bitwise representations of child descriptors corresponding</span></div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;<span class="comment">C&gt;        to idfxyn.</span></div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;<span class="preprocessor">#ifdef DYNAMIC_ALLOCATION</span></div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;<span class="preprocessor"></span>      <span class="keywordtype">INTEGER</span> :: nmtb</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;      <span class="keywordtype">INTEGER</span> :: nmtd</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;      <span class="keywordtype">INTEGER</span>, <span class="keywordtype">ALLOCATABLE</span> :: ibfxyn(:)</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;      <span class="keywordtype">CHARACTER</span>, <span class="keywordtype">ALLOCATABLE</span> :: cbscl(:,:)</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;      <span class="keywordtype">CHARACTER</span>, <span class="keywordtype">ALLOCATABLE</span> :: cbsref(:,:)</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;      <span class="keywordtype">CHARACTER</span>, <span class="keywordtype">ALLOCATABLE</span> :: cbbw(:,:)</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;      <span class="keywordtype">CHARACTER</span>, <span class="keywordtype">ALLOCATABLE</span> :: cbunit(:,:)</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;      <span class="keywordtype">CHARACTER</span>, <span class="keywordtype">ALLOCATABLE</span> :: cbmnem(:,:)</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;      <span class="keywordtype">CHARACTER</span>, <span class="keywordtype">ALLOCATABLE</span> :: cbelem(:,:)</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;      <span class="keywordtype">INTEGER</span>, <span class="keywordtype">ALLOCATABLE</span> :: idfxyn(:)</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;      <span class="keywordtype">CHARACTER</span>, <span class="keywordtype">ALLOCATABLE</span> :: cdseq(:,:)</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;      <span class="keywordtype">CHARACTER</span>, <span class="keywordtype">ALLOCATABLE</span> :: cdmnem(:,:)</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;      <span class="keywordtype">INTEGER</span>, <span class="keywordtype">ALLOCATABLE</span> :: ndelem(:)</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;      <span class="keywordtype">INTEGER</span>, <span class="keywordtype">ALLOCATABLE</span> :: idefxy(:)</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;<span class="preprocessor">#else</span></div>
+<div class="line"><a name="l00091"></a><span class="lineno"><a class="line" href="moda__mstabs_8F.html#aa0a37d78f52b49343f8ca272b5e2bae5">   91</a></span>&#160;<span class="preprocessor"></span>      <span class="keywordtype">INTEGER</span>, BIND(C) :: NMTB</div>
+<div class="line"><a name="l00092"></a><span class="lineno"><a class="line" href="moda__mstabs_8F.html#a1212987fefd81da6d3b99fd695cfaab2">   92</a></span>&#160;      <span class="keywordtype">INTEGER</span>, BIND(C) :: NMTD</div>
+<div class="line"><a name="l00093"></a><span class="lineno"><a class="line" href="moda__mstabs_8F.html#ada751f81370240c41d1243773a17793d">   93</a></span>&#160;      <span class="keywordtype">INTEGER</span>, BIND(C) :: IBFXYN(MXMTBB)</div>
+<div class="line"><a name="l00094"></a><span class="lineno"><a class="line" href="moda__mstabs_8F.html#a838b7486850fa872a343858f3864d723">   94</a></span>&#160;      <span class="keywordtype">CHARACTER</span>, BIND(C) :: CBSCL(4,MXMTBB)</div>
+<div class="line"><a name="l00095"></a><span class="lineno"><a class="line" href="moda__mstabs_8F.html#aa8b9388600ac219e46345c0ebde60b1b">   95</a></span>&#160;      <span class="keywordtype">CHARACTER</span>, BIND(C) :: CBSREF(12,MXMTBB)</div>
+<div class="line"><a name="l00096"></a><span class="lineno"><a class="line" href="moda__mstabs_8F.html#afed599d6953a143b7ed2426899aac6ca">   96</a></span>&#160;      <span class="keywordtype">CHARACTER</span>, BIND(C) :: CBBW(4,MXMTBB)</div>
+<div class="line"><a name="l00097"></a><span class="lineno"><a class="line" href="moda__mstabs_8F.html#ac16d774310a4d61de7207284a7c8265a">   97</a></span>&#160;      <span class="keywordtype">CHARACTER</span>, BIND(C) :: CBUNIT(14,MXMTBB)</div>
+<div class="line"><a name="l00098"></a><span class="lineno"><a class="line" href="moda__mstabs_8F.html#a8d1efe4f37e757d5ca37c013b9351dbf">   98</a></span>&#160;      <span class="keywordtype">CHARACTER</span>, BIND(C) :: CBMNEM(8,MXMTBB)</div>
+<div class="line"><a name="l00099"></a><span class="lineno"><a class="line" href="moda__mstabs_8F.html#ab16fc2855fbced425cf78ac55029aac0">   99</a></span>&#160;      <span class="keywordtype">CHARACTER</span>, BIND(C) :: CBELEM(120,MXMTBB)</div>
+<div class="line"><a name="l00100"></a><span class="lineno"><a class="line" href="moda__mstabs_8F.html#a247db3e4e5ef21bfd58b07794d5a824a">  100</a></span>&#160;      <span class="keywordtype">INTEGER</span>, BIND(C) :: IDFXYN(MXMTBD)</div>
+<div class="line"><a name="l00101"></a><span class="lineno"><a class="line" href="moda__mstabs_8F.html#a669399bdec14b1483b70540751a3c84f">  101</a></span>&#160;      <span class="keywordtype">CHARACTER</span>, BIND(C) :: CDSEQ(120,MXMTBD)</div>
+<div class="line"><a name="l00102"></a><span class="lineno"><a class="line" href="moda__mstabs_8F.html#ac534bf5fe95e2c6e1f6a76ba72067705">  102</a></span>&#160;      <span class="keywordtype">CHARACTER</span>, BIND(C) :: CDMNEM(8,MXMTBD)</div>
+<div class="line"><a name="l00103"></a><span class="lineno"><a class="line" href="moda__mstabs_8F.html#a1215b924fe1db24efbb1288973e732ba">  103</a></span>&#160;      <span class="keywordtype">INTEGER</span>, BIND(C) :: NDELEM(MXMTBD)</div>
+<div class="line"><a name="l00104"></a><span class="lineno"><a class="line" href="moda__mstabs_8F.html#a6a6c21b210d1e85fdca3a7b79a1cb0fb">  104</a></span>&#160;      <span class="keywordtype">INTEGER</span>, BIND(C) :: IDEFXY(MXMTBD*MAXCD)</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;<span class="preprocessor"></span></div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;<span class="keyword">    END MODULE</span></div>
+<div class="ttc" id="modv__MXMTBB_8F_html_classmodv__mxmtbb"><div class="ttname"><a href="modv__MXMTBB_8F.html#classmodv__mxmtbb">modv_mxmtbb</a></div><div class="ttdoc">This module declares and initializes the MXMTBB variable. </div><div class="ttdef"><b>Definition:</b> <a href="modv__MXMTBB_8F_source.html#l00016">modv_MXMTBB.F:16</a></div></div>
+<div class="ttc" id="modv__MXMTBD_8F_html_classmodv__mxmtbd"><div class="ttname"><a href="modv__MXMTBD_8F.html#classmodv__mxmtbd">modv_mxmtbd</a></div><div class="ttdoc">This module declares and initializes the MXMTBD variable. </div><div class="ttdef"><b>Definition:</b> <a href="modv__MXMTBD_8F_source.html#l00016">modv_MXMTBD.F:16</a></div></div>
+<div class="ttc" id="moda__mstabs_8F_html_classmoda__mstabs"><div class="ttname"><a href="moda__mstabs_8F.html#classmoda__mstabs">moda_mstabs</a></div><div class="ttdoc">This module contains array and variable declarations used to store master Table B and Table D entries...</div><div class="ttdef"><b>Definition:</b> <a href="moda__mstabs_8F_source.html#l00015">moda_mstabs.F:15</a></div></div>
+<div class="ttc" id="modv__MAXCD_8F_html_classmodv__maxcd"><div class="ttname"><a href="modv__MAXCD_8F.html#classmodv__maxcd">modv_maxcd</a></div><div class="ttdoc">This module declares and initializes the MAXCD variable. </div><div class="ttdef"><b>Definition:</b> <a href="modv__MAXCD_8F_source.html#l00016">modv_MAXCD.F:16</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_30c37837910170b6dae887e9df3b66a9.html">nceplibs-bufr</a></li><li class="navelem"><a class="el" href="dir_e81fc8df062d10d5f2b231f7e4ab81b8.html">src</a></li><li class="navelem"><b>moda_mstabs.F</b></li>
+    <li class="navelem"><a class="el" href="dir_30c37837910170b6dae887e9df3b66a9.html">nceplibs-bufr</a></li><li class="navelem"><a class="el" href="dir_e81fc8df062d10d5f2b231f7e4ab81b8.html">src</a></li><li class="navelem"><a class="el" href="moda__mstabs_8F.html">moda_mstabs.F</a></li>
     <li class="footer">Generated by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.5 </li>

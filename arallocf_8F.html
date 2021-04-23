@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.3.2</span>
+   &#160;<span id="projectnumber">11.5.0</span>
    </div>
   </td>
  </tr>
@@ -92,7 +92,7 @@ $(document).ready(function(){initNavTree('arallocf_8F.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -109,17 +109,19 @@ $(document).ready(function(){initNavTree('arallocf_8F.html','');});
 </div><!--header-->
 <div class="contents">
 
+<p>Dynamically allocate Fortran language arrays within internal memory.  
+<a href="#details">More...</a></p>
+
 <p><a href="arallocf_8F_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions/Subroutines</h2></td></tr>
 <tr class="memitem:a2b64630033a9306be25da1f6b28d913f"><td class="memItemLeft" align="right" valign="top">subroutine&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arallocf_8F.html#a2b64630033a9306be25da1f6b28d913f">arallocf</a></td></tr>
-<tr class="memdesc:a2b64630033a9306be25da1f6b28d913f"><td class="mdescLeft">&#160;</td><td class="mdescRight">IF DYNAMIC MEMORY ALLOCATION IS BEING USED, THIS ROUTINE IS CALLED DURING THE FIRST CALL TO BUFR ARCHIVE LIBRARY SUBROUTINE OPENBF TO DYNAMICALLY ALLOCATE MEMORY FOR ALL REQUIRED FORTRAN LANGUAGE ARRAYS.  <a href="#a2b64630033a9306be25da1f6b28d913f">More...</a><br/></td></tr>
+<tr class="memdesc:a2b64630033a9306be25da1f6b28d913f"><td class="mdescLeft">&#160;</td><td class="mdescRight">For dynamic allocation builds of the library, this subroutine is called internally during the first call to subroutine <a class="el" href="openbf_8F.html#a9bea9aeada166bd9037b959ca8452b28" title="This subroutine connects a new file to the BUFRLIB software for input or output operations. ">openbf()</a> from an application program, in order to dynamically allocate internal Fortran language arrays based on parameter values set during one or more previous calls to function <a class="el" href="isetprm_8F.html#a366156765665bb1e1452635b12ff5093" title="This function sets a specified parameter to a specified value for use in dynamically allocating one o...">isetprm()</a>.  <a href="#a2b64630033a9306be25da1f6b28d913f">More...</a><br/></td></tr>
 <tr class="separator:a2b64630033a9306be25da1f6b28d913f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><dl class="section author"><dt>Author</dt><dd>ATOR </dd></dl>
-<dl class="section date"><dt>Date</dt><dd>2014-12-04 </dd></dl>
+<div class="textblock"><p>Dynamically allocate Fortran language arrays within internal memory. </p>
 
 <p>Definition in file <a class="el" href="arallocf_8F_source.html">arallocf.F</a>.</p>
 </div><h2 class="groupheader">Function/Subroutine Documentation</h2>
@@ -136,14 +138,28 @@ Functions/Subroutines</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>IF DYNAMIC MEMORY ALLOCATION IS BEING USED, THIS ROUTINE IS CALLED DURING THE FIRST CALL TO BUFR ARCHIVE LIBRARY SUBROUTINE OPENBF TO DYNAMICALLY ALLOCATE MEMORY FOR ALL REQUIRED FORTRAN LANGUAGE ARRAYS. </p>
-<p>THESE ARRAYS ARE SIZED USING VALUES INPUT DURING ONE OR MORE PREVIOUS CALLS TO BUFR ARCHIVE LIBRARY SUBROUTINE ISETPRM, OR ELSE USING ONE OR MORE DEFAULT VALUES SPECIFIED IN MODULE FILES IF ISETPRM IS NEVER CALLED FOR THOSE PARTICULAR SIZE VALUES.</p>
-<p>MEMORY ALLOCATED WITHIN THIS ROUTINE CAN BE FREED VIA A USER CALL TO BUFR ARCHIVE LIBRARY ROUTINE ARDLLOCF (IN CASES WHERE THE APPLICATION PROGRAM MAY WISH TO MOVE ON TO OTHER TASKS NOT REQUIRING ANY FURTHER CALLS TO BUFR ARCHIVE LIBRARY ROUTINES), OR ELSE IT WILL BE FREED AUTOMATICALLY WHEN THE APPLICATION PROGRAM TERMINATES.</p>
-<p>PROGRAM HISTORY LOG: 2014-12-04 J. ATOR &ndash; ORIGINAL AUTHOR 2016-05-24 J. ATOR &ndash; ADDED ALLOCATIONS FOR MODA_BITMAPS AND MODA_NRV203 2017-05-22 J. ATOR &ndash; ADDED ALLOCATIONS FOR MODA_RLCCMN 2019-05-09 J. ATOR &ndash; MODIFIED ALLOCATIONS FOR MODA_BUFRMG</p>
-<p>USAGE: CALL ARALLOCF</p>
-<p>REMARKS: THIS ROUTINE CALLS: BORT ERRWRT THIS ROUTINE IS CALLED BY: OPENBF Normally not called by any application programs. </p>
+<p>For dynamic allocation builds of the library, this subroutine is called internally during the first call to subroutine <a class="el" href="openbf_8F.html#a9bea9aeada166bd9037b959ca8452b28" title="This subroutine connects a new file to the BUFRLIB software for input or output operations. ">openbf()</a> from an application program, in order to dynamically allocate internal Fortran language arrays based on parameter values set during one or more previous calls to function <a class="el" href="isetprm_8F.html#a366156765665bb1e1452635b12ff5093" title="This function sets a specified parameter to a specified value for use in dynamically allocating one o...">isetprm()</a>. </p>
+<p>This subroutine isn't normally called directly from an application program, since it's automatically called internally during the first call to subroutine <a class="el" href="openbf_8F.html#a9bea9aeada166bd9037b959ca8452b28" title="This subroutine connects a new file to the BUFRLIB software for input or output operations. ">openbf()</a> from an application program.</p>
+<dl class="section author"><dt>Author</dt><dd>J. Ator </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2014-12-04</dd></dl>
+<dl class="section remark"><dt>Remarks</dt><dd><ul>
+<li>All memory allocated within this subroutine can be freed via a subsequent call to subroutine <a class="el" href="exitbufr_8f.html#a355f094d616febcea2820cf547cbff8e" title="This subroutine frees all dynamically-allocated memory, closes all logical units that are open within...">exitbufr()</a> from within the application program, or else it will be freed automatically by the operating system once the application program terminates.</li>
+</ul>
+</dd></dl>
+<p><b>Program history log:</b></p>
+<ul>
+<li>2014-12-04 J. Ator &ndash; Original author</li>
+<li>2016-05-24 J. Ator &ndash; Added allocations for MODA_BITMAPS and MODA_NRV203</li>
+<li>2017-05-22 J. Ator &ndash; Added allocations for MODA_RLCCMN</li>
+<li>2019-05-09 J. Ator &ndash; Modified allocations for MODA_BUFRMG</li>
+<li>2021-01-08 J. Ator &ndash; Modified mstabs array declarations for GNUv10 portability </li>
+</ul>
 
-<p>Definition at line <a class="el" href="arallocf_8F_source.html#l00035">35</a> of file <a class="el" href="arallocf_8F_source.html">arallocf.F</a>.</p>
+<p>Definition at line <a class="el" href="arallocf_8F_source.html#l00033">33</a> of file <a class="el" href="arallocf_8F_source.html">arallocf.F</a>.</p>
+
+<p>References <a class="el" href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort()</a>, and <a class="el" href="errwrt_8f.html#a65626d9a772648676146b62b596c2764">errwrt()</a>.</p>
+
+<p>Referenced by <a class="el" href="openbf_8F.html#a9bea9aeada166bd9037b959ca8452b28">openbf()</a>.</p>
 
 </div>
 </div>

@@ -9,6 +9,7 @@ var searchData=
   ['sntbde_2ef',['sntbde.f',['../sntbde_8f.html',1,'']]],
   ['sntbfe_2ef',['sntbfe.f',['../sntbfe_8f.html',1,'']]],
   ['sorttbf_2ec',['sorttbf.c',['../sorttbf_8c.html',1,'']]],
+  ['split_5fby_5fsubset_2ef90',['split_by_subset.f90',['../split__by__subset_8f90.html',1,'']]],
   ['srchtbf_2ec',['srchtbf.c',['../srchtbf_8c.html',1,'']]],
   ['status_2ef',['status.f',['../status_8f.html',1,'']]],
   ['stbfdx_2ef',['stbfdx.f',['../stbfdx_8f.html',1,'']]],

@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.3.2</span>
+   &#160;<span id="projectnumber">11.5.0</span>
    </div>
   </td>
  </tr>
@@ -92,7 +92,7 @@ $(document).ready(function(){initNavTree('cread_8h_source.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -107,31 +107,52 @@ $(document).ready(function(){initNavTree('cread_8h_source.html','');});
 </div><!--header-->
 <div class="contents">
 <a href="cread_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;</div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="comment">/*</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="comment">**  The arrays in this header are dimensioned one larger than NFILES because</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="comment">**  of the difference in array indexing between Fortran and C.  In each of the</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="comment">**  CREAD functions, the value passed in for nfile will be a Fortran index</span></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="comment">**  ranging from 1 to NFILES, so we need to allow for this same range of</span></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="comment">**  values in C, which would otherwise expect the array indices to range</span></div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="comment">**  from 0 to NFILES-1.</span></div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="comment">*/</span></div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#ifdef DYNAMIC_ALLOCATION</span></div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor"></span></div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor">#   ifdef IN_ARALLOCC</span></div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="preprocessor"></span>    FILE **pb;</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    fpos_t *lstpos;</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="preprocessor">#   else</span></div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="preprocessor"></span>    <span class="keyword">extern</span> FILE **pb;</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    <span class="keyword">extern</span> fpos_t *lstpos;</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="preprocessor">#   endif</span></div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="preprocessor"></span></div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="preprocessor">#else</span></div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="preprocessor"></span></div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    FILE *pb[NFILES+1];</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    fpos_t lstpos[NFILES+1];</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="preprocessor">#ifdef UNDERSCORE</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define openrb     openrb_</span></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define openwb     openwb_</span></div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define openab     openab_</span></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define backbufr   backbufr_</span></div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define cewind     cewind_</span></div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define closfb     closfb_</span></div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define crdbufr    crdbufr_</span></div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define cwrbufr    cwrbufr_</span></div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="preprocessor"></span></div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="keywordtype">void</span> <a class="code" href="cread_8c.html#a14e121d68ff9be1138e6d5db31e6f5ba">openrb</a>( f77int *, <span class="keywordtype">char</span> * );</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="keywordtype">void</span> <a class="code" href="cread_8c.html#a7cfcf6f52e6e0055f633c0b74d4f8743">openwb</a>( f77int *, <span class="keywordtype">char</span> * );</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="keywordtype">void</span> <a class="code" href="cread_8c.html#af6a61aef4ec7fa42badc830f03b8e56a">openab</a>( f77int *, <span class="keywordtype">char</span> * );</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="keywordtype">void</span> <a class="code" href="cread_8c.html#aebebafa9eeb07f82fc60ae0a8b43533e">backbufr</a>( f77int * );</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="keywordtype">void</span> <a class="code" href="cread_8c.html#a36a8ba0032660f65aadb84295bcccc41">cewind</a>( f77int * );</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="keywordtype">void</span> <a class="code" href="cread_8c.html#abbd928726a21a86c34e3bcea9213f304">closfb</a>( f77int * );</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;f77int <a class="code" href="cread_8c.html#a7a2b5c6f6a0feca876f3d3a96569b29c">crdbufr</a>( f77int *, <span class="keywordtype">char</span> *, f77int * );</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="keywordtype">void</span> <a class="code" href="cread_8c.html#a8e21f3b91ceb5b96eeced683b1b28a1a">cwrbufr</a>( f77int *, f77int *, f77int * );</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="preprocessor">#ifdef DYNAMIC_ALLOCATION</span></div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;<span class="preprocessor"></span></div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<span class="preprocessor">#   ifdef IN_ARALLOCC</span></div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<span class="preprocessor"></span>    FILE **<a class="code" href="cread_8h.html#a295878b87917249212597ed62f390038">pb</a>;</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    fpos_t *<a class="code" href="cread_8h.html#ae8fcf44cac11b6f7d97220c101c0318e">lstpos</a>;</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;<span class="preprocessor">#   else</span></div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="preprocessor"></span>    <span class="keyword">extern</span> FILE **<a class="code" href="cread_8h.html#a295878b87917249212597ed62f390038">pb</a>;</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <span class="keyword">extern</span> fpos_t *<a class="code" href="cread_8h.html#ae8fcf44cac11b6f7d97220c101c0318e">lstpos</a>;</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;<span class="preprocessor">#   endif</span></div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;<span class="preprocessor"></span></div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;<span class="preprocessor">#else</span></div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;<span class="preprocessor"></span></div>
+<div class="line"><a name="l00058"></a><span class="lineno"><a class="line" href="cread_8h.html#a295878b87917249212597ed62f390038">   58</a></span>&#160;    FILE *<a class="code" href="cread_8h.html#a295878b87917249212597ed62f390038">pb</a>[NFILES+1];</div>
+<div class="line"><a name="l00059"></a><span class="lineno"><a class="line" href="cread_8h.html#ae8fcf44cac11b6f7d97220c101c0318e">   59</a></span>&#160;    fpos_t <a class="code" href="cread_8h.html#ae8fcf44cac11b6f7d97220c101c0318e">lstpos</a>[NFILES+1];</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="cread_8c_html_abbd928726a21a86c34e3bcea9213f304"><div class="ttname"><a href="cread_8c.html#abbd928726a21a86c34e3bcea9213f304">closfb</a></div><div class="ttdeci">void closfb(f77int *nfile)</div><div class="ttdoc">This subroutine closes a previously opened BUFR file. </div><div class="ttdef"><b>Definition:</b> <a href="cread_8c_source.html#l00104">cread.c:104</a></div></div>
+<div class="ttc" id="cread_8c_html_aebebafa9eeb07f82fc60ae0a8b43533e"><div class="ttname"><a href="cread_8c.html#aebebafa9eeb07f82fc60ae0a8b43533e">backbufr</a></div><div class="ttdeci">void backbufr(f77int *nfile)</div><div class="ttdoc">This subroutine backspaces a BUFR file by one BUFR message. </div><div class="ttdef"><b>Definition:</b> <a href="cread_8c_source.html#l00076">cread.c:76</a></div></div>
+<div class="ttc" id="cread_8c_html_a7a2b5c6f6a0feca876f3d3a96569b29c"><div class="ttname"><a href="cread_8c.html#a7a2b5c6f6a0feca876f3d3a96569b29c">crdbufr</a></div><div class="ttdeci">f77int crdbufr(f77int *nfile, char *bufr, f77int *mxbyt)</div><div class="ttdoc">This function reads the next message from a BUFR file that was previously opened for reading...</div><div class="ttdef"><b>Definition:</b> <a href="cread_8c_source.html#l00126">cread.c:126</a></div></div>
+<div class="ttc" id="cread_8c_html_a8e21f3b91ceb5b96eeced683b1b28a1a"><div class="ttname"><a href="cread_8c.html#a8e21f3b91ceb5b96eeced683b1b28a1a">cwrbufr</a></div><div class="ttdeci">void cwrbufr(f77int *nfile, f77int *bufr, f77int *nwrd)</div><div class="ttdoc">This subroutine writes a BUFR message into a file that was previously opened for writing. </div><div class="ttdef"><b>Definition:</b> <a href="cread_8c_source.html#l00157">cread.c:157</a></div></div>
+<div class="ttc" id="cread_8h_html_a295878b87917249212597ed62f390038"><div class="ttname"><a href="cread_8h.html#a295878b87917249212597ed62f390038">pb</a></div><div class="ttdeci">FILE * pb[NFILES+1]</div><div class="ttdoc">File pointers. </div><div class="ttdef"><b>Definition:</b> <a href="cread_8h_source.html#l00058">cread.h:58</a></div></div>
+<div class="ttc" id="cread_8c_html_af6a61aef4ec7fa42badc830f03b8e56a"><div class="ttname"><a href="cread_8c.html#af6a61aef4ec7fa42badc830f03b8e56a">openab</a></div><div class="ttdeci">void openab(f77int *nfile, char *ufile)</div><div class="ttdoc">This subroutine opens a new system file for appending BUFR messages. </div><div class="ttdef"><b>Definition:</b> <a href="cread_8c_source.html#l00062">cread.c:62</a></div></div>
+<div class="ttc" id="cread_8c_html_a36a8ba0032660f65aadb84295bcccc41"><div class="ttname"><a href="cread_8c.html#a36a8ba0032660f65aadb84295bcccc41">cewind</a></div><div class="ttdeci">void cewind(f77int *nfile)</div><div class="ttdoc">This subroutine rewinds a BUFR file back to its beginning. </div><div class="ttdef"><b>Definition:</b> <a href="cread_8c_source.html#l00090">cread.c:90</a></div></div>
+<div class="ttc" id="cread_8c_html_a7cfcf6f52e6e0055f633c0b74d4f8743"><div class="ttname"><a href="cread_8c.html#a7cfcf6f52e6e0055f633c0b74d4f8743">openwb</a></div><div class="ttdeci">void openwb(f77int *nfile, char *ufile)</div><div class="ttdoc">This subroutine opens a new system file for writing BUFR messages. </div><div class="ttdef"><b>Definition:</b> <a href="cread_8c_source.html#l00047">cread.c:47</a></div></div>
+<div class="ttc" id="cread_8h_html_ae8fcf44cac11b6f7d97220c101c0318e"><div class="ttname"><a href="cread_8h.html#ae8fcf44cac11b6f7d97220c101c0318e">lstpos</a></div><div class="ttdeci">fpos_t lstpos[NFILES+1]</div><div class="ttdoc">Byte positions of last successful reads from files corresponding to pb, for files that were opened fo...</div><div class="ttdef"><b>Definition:</b> <a href="cread_8h_source.html#l00059">cread.h:59</a></div></div>
+<div class="ttc" id="cread_8c_html_a14e121d68ff9be1138e6d5db31e6f5ba"><div class="ttname"><a href="cread_8c.html#a14e121d68ff9be1138e6d5db31e6f5ba">openrb</a></div><div class="ttdeci">void openrb(f77int *nfile, char *ufile)</div><div class="ttdoc">This subroutine opens a new system file for reading BUFR messages. </div><div class="ttdef"><b>Definition:</b> <a href="cread_8c_source.html#l00032">cread.c:32</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

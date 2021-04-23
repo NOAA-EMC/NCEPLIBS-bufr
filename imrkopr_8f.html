@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.3.2</span>
+   &#160;<span id="projectnumber">11.5.0</span>
    </div>
   </td>
  </tr>
@@ -92,7 +92,7 @@ $(document).ready(function(){initNavTree('imrkopr_8f.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -109,17 +109,19 @@ $(document).ready(function(){initNavTree('imrkopr_8f.html','');});
 </div><!--header-->
 <div class="contents">
 
+<p>Check whether a mnemonic is a Table C marker operator.  
+<a href="#details">More...</a></p>
+
 <p><a href="imrkopr_8f_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions/Subroutines</h2></td></tr>
 <tr class="memitem:a1b959e70121283ff0ba5e1f753cbe766"><td class="memItemLeft" align="right" valign="top">INTEGER function&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="imrkopr_8f.html#a1b959e70121283ff0ba5e1f753cbe766">imrkopr</a> (NEMO)</td></tr>
-<tr class="memdesc:a1b959e70121283ff0ba5e1f753cbe766"><td class="mdescLeft">&#160;</td><td class="mdescRight">THIS FUNCTION DETERMINES WHETHER THE GIVEN MNEMONIC CONTAINS A TABLE C MARKER OPERATOR.  <a href="#a1b959e70121283ff0ba5e1f753cbe766">More...</a><br/></td></tr>
+<tr class="memdesc:a1b959e70121283ff0ba5e1f753cbe766"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function determines whether a specified mnemonic is a Table C marker operator.  <a href="#a1b959e70121283ff0ba5e1f753cbe766">More...</a><br/></td></tr>
 <tr class="separator:a1b959e70121283ff0ba5e1f753cbe766"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><dl class="section author"><dt>Author</dt><dd>J </dd></dl>
-<dl class="section date"><dt>Date</dt><dd>2016-05-04 </dd></dl>
+<div class="textblock"><p>Check whether a mnemonic is a Table C marker operator. </p>
 
 <p>Definition in file <a class="el" href="imrkopr_8f_source.html">imrkopr.f</a>.</p>
 </div><h2 class="groupheader">Function/Subroutine Documentation</h2>
@@ -137,13 +139,28 @@ Functions/Subroutines</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>THIS FUNCTION DETERMINES WHETHER THE GIVEN MNEMONIC CONTAINS A TABLE C MARKER OPERATOR. </p>
-<p>PROGRAM HISTORY LOG: 2016-05-04 J. ATOR &ndash; ORIGINAL AUTHOR</p>
-<p>USAGE: IMRKOPR (NEMO) INPUT ARGUMENT LIST: NEMO - CHARACTER*(*): MNEMONIC</p>
-<p>OUTPUT ARGUMENT LIST: IMRKOPR - INTEGER: RETURN CODE INDICATING WHETHER NEMO CONTAINS A TABLE C MARKER OPERATOR 0 - NO 1 - YES</p>
-<p>REMARKS: THIS ROUTINE CALLS: None THIS ROUTINE IS CALLED BY: IGETRFEL IOKOPER STSEQ Normally not called by any application programs. </p>
+<p>This function determines whether a specified mnemonic is a Table C marker operator. </p>
+<dl class="section author"><dt>Author</dt><dd>J. Ator </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2016-05-04</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">NEMO</td><td>- character*(*): Mnemonic </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>iokoper - integer: Flag indicating whether NEMO is a Table C marker operator<ul>
+<li>0 = No</li>
+<li>1 = Yes</li>
+</ul>
+</dd></dl>
+<p><b>Program history log:</b></p>
+<ul>
+<li>2016-05-04 J. Ator &ndash; Original author </li>
+</ul>
 
-<p>Definition at line <a class="el" href="imrkopr_8f_source.html#l00026">26</a> of file <a class="el" href="imrkopr_8f_source.html">imrkopr.f</a>.</p>
+<p>Definition at line <a class="el" href="imrkopr_8f_source.html#l00019">19</a> of file <a class="el" href="imrkopr_8f_source.html">imrkopr.f</a>.</p>
+
+<p>Referenced by <a class="el" href="igetrfel_8f.html#a694417e2cb11ea5acdec367f739f94e6">igetrfel()</a>, <a class="el" href="iokoper_8f.html#ad1b152815c2a1292444758580ee0803b">iokoper()</a>, and <a class="el" href="stseq_8c.html#a712e57cd19d1f94b87269d7dfc679c5e">stseq()</a>.</p>
 
 </div>
 </div>

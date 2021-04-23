@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.3.2</span>
+   &#160;<span id="projectnumber">11.5.0</span>
    </div>
   </td>
  </tr>
@@ -92,7 +92,7 @@ $(document).ready(function(){initNavTree('stdmsg_8f_source.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -107,61 +107,70 @@ $(document).ready(function(){initNavTree('stdmsg_8f_source.html','');});
 </div><!--header-->
 <div class="contents">
 <a href="stdmsg_8f.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="comment">C&gt; @file</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment">C&gt; @author ATOR @date 2004-08-18</span></div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;      </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="comment">C&gt; THIS SUBROUTINE IS USED TO SPECIFY WHETHER OR NOT BUFR</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="comment">C&gt;   MESSAGES THAT WILL BE OUTPUT BY FUTURE CALLS TO ANY OF THE BUFR</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="comment">C&gt;   ARCHIVE LIBRARY SUBROUTINES WHICH CREATE SUCH MESSAGES (E.G. WRITCP,</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="comment">C&gt;   WRITSB, COPYMG, WRITSA, ETC.) ARE TO BE &quot;STANDARDIZED&quot;.  SEE THE</span></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="comment">C&gt;   DOCUMENTATION BLOCK WITHIN BUFR ARCHIVE LIBRARY SUBROUTINE STNDRD</span></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="comment">C&gt;   FOR AN EXPLANATION OF WHAT &quot;STANDARDIZATION&quot; MEANS.  THIS SUBROUTINE</span></div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="comment">C&gt;   CAN BE CALLED AT ANY TIME AFTER THE FIRST CALL TO BUFR ARCHIVE</span></div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="comment">C&gt;   LIBRARY SUBROUTINE OPENBF, AND THE POSSIBLE VALUES FOR CF ARE &#39;N&#39;</span></div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="comment">C&gt;   (= &#39;NO&#39;, WHICH IS THE DEFAULT) AND &#39;Y&#39; (= &#39;YES&#39;).</span></div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="comment">C&gt;</span></div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment">C&gt; PROGRAM HISTORY LOG:</span></div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="comment">C&gt; 2004-08-18  J. ATOR    -- ORIGINAL AUTHOR</span></div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="comment">C&gt;</span></div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="comment">C&gt; USAGE:    CALL STDMSG (CF)</span></div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="comment">C&gt;   INPUT ARGUMENT LIST:</span></div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment">C&gt;     CF       - CHARACTER*1: FLAG INDICATING WHETHER BUFR MESSAGES</span></div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="comment">C&gt;                OUTPUT BY FUTURE CALLS TO WRITCP, WRITSB, COPYMG, ETC.</span></div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="comment">C&gt;                SHOULD BE &quot;STANDARDIZED&quot;:</span></div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="comment">C&gt;                       &#39;N&#39; = &#39;NO&#39; (THE DEFAULT)</span></div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="comment">C&gt;                       &#39;Y&#39; = &#39;YES&#39;</span></div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="comment">C&gt;</span></div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="comment">C&gt; REMARKS:</span></div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="comment">C&gt;    THIS ROUTINE CALLS:        BORT     CAPIT</span></div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="comment">C&gt;    THIS ROUTINE IS CALLED BY: None</span></div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="comment">C&gt;                               Normally called only by application</span></div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="comment">C&gt;                               programs.</span></div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="comment">C&gt;</span></div>
-<div class="line"><a name="l00031"></a><span class="lineno"><a class="line" href="stdmsg_8f.html#abcb573ae105505deb6d3c0ad55abbce2">   31</a></span>&#160;<span class="keyword">      SUBROUTINE </span><a class="code" href="stdmsg_8f.html#abcb573ae105505deb6d3c0ad55abbce2">stdmsg</a>(CF)</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;      <span class="keyword">COMMON</span> /msgstd/ csmf</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;      <span class="keywordtype">CHARACTER*128</span> bort_str</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;      <span class="keywordtype">CHARACTER*1</span>   csmf, cf</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="comment">C-----------------------------------------------------------------------</span></div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="comment">C-----------------------------------------------------------------------</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment">C&gt; @brief Specify the use of standardization when writing BUFR messages.</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="comment">C&gt; This subroutine is used to specify whether BUFR messages output by</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="comment">C&gt; future calls to [message-writing subroutines](@ref hierarchy) and</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="comment">C&gt; [subset-writing subroutines](@ref hierarchy) should be internally</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="comment">C&gt; reformatted to remove all BUFRLIB software extensions to the</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="comment">C&gt; WMO standard, prior to actually writing each message. </span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="comment">C&gt;</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="comment">C&gt; &lt;p&gt;It is strongly recommended to use this subroutine (or,</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="comment">C&gt; alternatively, subroutine stndrd() for messages which already exist</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="comment">C&gt; in memory arrays) whenever BUFR messages are being written that will</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="comment">C&gt; potentially be read using software other than the BUFRLIB software.</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment">C&gt; Otherwise, by default the output messages will contain a number of</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="comment">C&gt; extensions to allow for faster reading and more efficient storage,</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="comment">C&gt; but which will be encoded using non-standard descriptors in</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="comment">C&gt; Section 3, and therefore likely be unrecognizable to other software</span></div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="comment">C&gt; packages.</span></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment">C&gt;</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="comment">C&gt; &lt;p&gt;This subroutine can be called at any time after the first call</span></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="comment">C&gt; to subroutine openbf(), and the specified value for CF will remain</span></div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="comment">C&gt; in effect for all future calls to </span></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="comment">C&gt; [message-writing subroutines](@ref hierarchy) and</span></div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="comment">C&gt; [subset-writing subroutines](@ref hierarchy) for all Fortran logical</span></div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="comment">C&gt; units that are open for output within the application program,</span></div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="comment">C&gt; unless a subsequent call is made to this subroutine to reset the</span></div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="comment">C&gt; value of CF again.  If this subroutine is never called, a default</span></div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="comment">C&gt; value of &#39;N&#39; is used for CF, as set within subroutine bfrini().</span></div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="comment">C&gt;</span></div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="comment">C&gt; @author J. Ator</span></div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="comment">C&gt; @date 2004-08-18</span></div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="comment">C&gt;</span></div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="comment">C&gt; @param[in] CF    - character*1: Flag indicating whether future BUFR</span></div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="comment">C&gt;                    output messages are to be standardized</span></div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="comment">C&gt;                     - &#39;N&#39; = No (the default)</span></div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="comment">C&gt;                     - &#39;Y&#39; = Yes</span></div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="comment">C&gt;</span></div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="comment">C&gt; &lt;b&gt;Program history log:&lt;/b&gt;</span></div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="comment">C&gt; - 2004-08-18  J. Ator    -- Original author</span></div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="comment">C&gt;</span></div>
+<div class="line"><a name="l00041"></a><span class="lineno"><a class="line" href="stdmsg_8f.html#abcb573ae105505deb6d3c0ad55abbce2">   41</a></span>&#160;<span class="keyword">      SUBROUTINE </span><a class="code" href="stdmsg_8f.html#abcb573ae105505deb6d3c0ad55abbce2">stdmsg</a>(CF)</div>
 <div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;      CALL capit(cf)</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;      <span class="keywordflow">IF</span>(cf.NE.<span class="stringliteral">&#39;Y&#39;</span>.AND. cf.NE.<span class="stringliteral">&#39;N&#39;</span>) goto 900</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;      csmf = cf </div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;<span class="comment">C  EXITS</span></div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<span class="comment">C  -----</span></div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;      <span class="keywordflow">RETURN</span></div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;900   <span class="keyword">WRITE</span>(bort_str,<span class="stringliteral">&#39;(&quot;BUFRLIB: STDMSG - INPUT ARGUMENT IS &quot;,A1,&#39;</span>//</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;     . <span class="stringliteral">&#39;&quot;, IT MUST BE EITHER Y OR N&quot;)&#39;</span>) cf</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;      CALL <a class="code" href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort</a>(bort_str)</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;      <span class="keywordflow">END</span></div>
-<div class="ttc" id="stdmsg_8f_html_abcb573ae105505deb6d3c0ad55abbce2"><div class="ttname"><a href="stdmsg_8f.html#abcb573ae105505deb6d3c0ad55abbce2">stdmsg</a></div><div class="ttdeci">subroutine stdmsg(CF)</div><div class="ttdoc">THIS SUBROUTINE IS USED TO SPECIFY WHETHER OR NOT BUFR MESSAGES THAT WILL BE OUTPUT BY FUTURE CALLS T...</div><div class="ttdef"><b>Definition:</b> <a href="stdmsg_8f_source.html#l00031">stdmsg.f:31</a></div></div>
-<div class="ttc" id="bort_8f_html_a488d3a8cf930fb592a9fdaefcfa04ac4"><div class="ttname"><a href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort</a></div><div class="ttdeci">subroutine bort(STR)</div><div class="ttdoc">THIS SUBROUTINE WRITES (VIA BUFR ARCHIVE LIBRARY SUBROUTINE ERRWRT) A GIVEN ERROR STRING AND THEN CAL...</div><div class="ttdef"><b>Definition:</b> <a href="bort_8f_source.html#l00069">bort.f:69</a></div></div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;      <span class="keyword">COMMON</span> /msgstd/ csmf</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;      <span class="keywordtype">CHARACTER*128</span> bort_str</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;      <span class="keywordtype">CHARACTER*1</span>   csmf, cf</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<span class="comment">C-----------------------------------------------------------------------</span></div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<span class="comment">C-----------------------------------------------------------------------</span></div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;      CALL <a class="code" href="capit_8f.html#acade976948fae8afa1a8301ff9272f56">capit</a>(cf)</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;      <span class="keywordflow">IF</span>(cf.NE.<span class="stringliteral">&#39;Y&#39;</span>.AND. cf.NE.<span class="stringliteral">&#39;N&#39;</span>) goto 900</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;      csmf = cf </div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;<span class="comment">C  EXITS</span></div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;<span class="comment">C  -----</span></div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;      <span class="keywordflow">RETURN</span></div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;900   <span class="keyword">WRITE</span>(bort_str,<span class="stringliteral">&#39;(&quot;BUFRLIB: STDMSG - INPUT ARGUMENT IS &quot;,A1,&#39;</span>//</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;     . <span class="stringliteral">&#39;&quot;, IT MUST BE EITHER Y OR N&quot;)&#39;</span>) cf</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;      CALL <a class="code" href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort</a>(bort_str)</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;      <span class="keywordflow">END</span></div>
+<div class="ttc" id="stdmsg_8f_html_abcb573ae105505deb6d3c0ad55abbce2"><div class="ttname"><a href="stdmsg_8f.html#abcb573ae105505deb6d3c0ad55abbce2">stdmsg</a></div><div class="ttdeci">subroutine stdmsg(CF)</div><div class="ttdoc">This subroutine is used to specify whether BUFR messages output by future calls to message-writing su...</div><div class="ttdef"><b>Definition:</b> <a href="stdmsg_8f_source.html#l00041">stdmsg.f:41</a></div></div>
+<div class="ttc" id="bort_8f_html_a488d3a8cf930fb592a9fdaefcfa04ac4"><div class="ttname"><a href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort</a></div><div class="ttdeci">subroutine bort(STR)</div><div class="ttdoc">This subroutine calls subroutine errwrt() to log an error message, then calls subroutine bort_exit() ...</div><div class="ttdef"><b>Definition:</b> <a href="bort_8f_source.html#l00023">bort.f:23</a></div></div>
+<div class="ttc" id="capit_8f_html_acade976948fae8afa1a8301ff9272f56"><div class="ttname"><a href="capit_8f.html#acade976948fae8afa1a8301ff9272f56">capit</a></div><div class="ttdeci">subroutine capit(STR)</div><div class="ttdoc">THIS SUBROUTINE CAPITALIZES A STRING OF CHARACTERS. </div><div class="ttdef"><b>Definition:</b> <a href="capit_8f_source.html#l00039">capit.f:39</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

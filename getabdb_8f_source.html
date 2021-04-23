@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.3.2</span>
+   &#160;<span id="projectnumber">11.5.0</span>
    </div>
   </td>
  </tr>
@@ -92,7 +92,7 @@ $(document).ready(function(){initNavTree('getabdb_8f_source.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -135,58 +135,54 @@ $(document).ready(function(){initNavTree('getabdb_8f_source.html','');});
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="comment">C&gt;</span></div>
 <div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="getabdb_8f.html#ad95ee5fb1653f04190f61478a05ef275">   28</a></span>&#160;<span class="keyword">      SUBROUTINE </span><a class="code" href="getabdb_8f.html#ad95ee5fb1653f04190f61478a05ef275">getabdb</a>(LUNIT,TABDB,ITAB,JTAB)</div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;      <span class="keywordtype">USE </span><a class="code" href="classmoda__tababd.html">moda_tababd</a></div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;      <span class="keywordtype">USE </span><a class="code" href="classmoda__nmikrp.html">moda_nmikrp</a></div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;      include <span class="stringliteral">&#39;bufrlib.inc&#39;</span></div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;      <span class="keywordtype">CHARACTER*128</span> tabdb(*)</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;      <span class="keywordtype">CHARACTER*8</span>   nemo</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="comment">C-----------------------------------------------------------------------</span></div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="comment">C-----------------------------------------------------------------------</span></div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;      jtab = 0</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<span class="comment">C  MAKE SURE THE FILE IS OPEN</span></div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="comment">C  --------------------------</span></div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;      CALL <a class="code" href="status_8f.html#a22292e7a69c411a961168198d259f336">status</a>(lunit,lun,il,im)</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;      <span class="keywordflow">IF</span>(il.EQ.0) <span class="keywordflow">RETURN</span></div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;<span class="comment">C  WRITE OUT THE TABLE D ENTRIES FOR THIS FILE</span></div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="comment">C  -------------------------------------------</span></div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;      <span class="keywordflow">DO</span> i=1,ntbd(lun)</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;      nemo = tabd(i,lun)(7:14)</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;      CALL <a class="code" href="nemtbd_8f.html#ac3fb25908c829f741ccd1d440d6051d9">nemtbd</a>(lun,i,nseq,nem(1,1),irp(1,1),krp(1,1))</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;      <span class="keywordflow">DO</span> j=1,nseq,10</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;      jtab = jtab+1</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;      <span class="keywordflow">IF</span>(jtab.LE.itab) <span class="keywordflow">THEN</span></div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;         <span class="keyword">WRITE</span>(tabdb(jtab),1) nemo,(nem(k,1),k=j,min(j+9,nseq))</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;1        <span class="keyword">FORMAT</span>(<span class="stringliteral">&#39;D &#39;</span>,a8,10(1x,a10))</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;      <span class="keywordflow">ENDIF</span></div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;      <span class="keywordflow">ENDDO</span></div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;      <span class="keywordflow">ENDDO</span></div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;<span class="comment">C  ADD THE TABLE B ENTRIES</span></div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;<span class="comment">C  -----------------------</span></div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;      <span class="keywordflow">DO</span> i=1,ntbb(lun)</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;      jtab = jtab+1</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;      <span class="keywordflow">IF</span>(jtab.LE.itab) <span class="keywordflow">THEN</span></div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;         <span class="keyword">WRITE</span>(tabdb(jtab),2) tabb(i,lun)(7:14),tabb(i,lun)(71:112)</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;2        <span class="keyword">FORMAT</span>(<span class="stringliteral">&#39;B &#39;</span>,a8,1x,a42)</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;      <span class="keywordflow">ENDIF</span></div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;      <span class="keywordflow">ENDDO</span></div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;      <span class="keywordflow">RETURN</span></div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;      <span class="keywordflow">END</span></div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;      <span class="keywordtype">USE </span><a class="code" href="moda__tababd_8F.html#classmoda__tababd">moda_tababd</a></div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;      <span class="keywordtype">USE </span><a class="code" href="classmoda__nmikrp.html">moda_nmikrp</a></div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;      <span class="keywordtype">CHARACTER*128</span> tabdb(*)</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;      <span class="keywordtype">CHARACTER*8</span>   nemo</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="comment">C-----------------------------------------------------------------------</span></div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="comment">C-----------------------------------------------------------------------</span></div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;      jtab = 0</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="comment">C  MAKE SURE THE FILE IS OPEN</span></div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="comment">C  --------------------------</span></div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;      CALL <a class="code" href="status_8f.html#a22292e7a69c411a961168198d259f336">status</a>(lunit,lun,il,im)</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;      <span class="keywordflow">IF</span>(il.EQ.0) <span class="keywordflow">RETURN</span></div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;<span class="comment">C  WRITE OUT THE TABLE D ENTRIES FOR THIS FILE</span></div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<span class="comment">C  -------------------------------------------</span></div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;      <span class="keywordflow">DO</span> i=1,ntbd(lun)</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;      nemo = tabd(i,lun)(7:14)</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;      CALL <a class="code" href="nemtbd_8f.html#ac3fb25908c829f741ccd1d440d6051d9">nemtbd</a>(lun,i,nseq,nem(1,1),irp(1,1),krp(1,1))</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;      <span class="keywordflow">DO</span> j=1,nseq,10</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;      jtab = jtab+1</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;      <span class="keywordflow">IF</span>(jtab.LE.itab) <span class="keywordflow">THEN</span></div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;         <span class="keyword">WRITE</span>(tabdb(jtab),1) nemo,(nem(k,1),k=j,min(j+9,nseq))</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;1        <span class="keyword">FORMAT</span>(<span class="stringliteral">&#39;D &#39;</span>,a8,10(1x,a10))</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;      <span class="keywordflow">ENDIF</span></div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;      <span class="keywordflow">ENDDO</span></div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;      <span class="keywordflow">ENDDO</span></div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;<span class="comment">C  ADD THE TABLE B ENTRIES</span></div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;<span class="comment">C  -----------------------</span></div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;      <span class="keywordflow">DO</span> i=1,ntbb(lun)</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;      jtab = jtab+1</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;      <span class="keywordflow">IF</span>(jtab.LE.itab) <span class="keywordflow">THEN</span></div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;         <span class="keyword">WRITE</span>(tabdb(jtab),2) tabb(i,lun)(7:14),tabb(i,lun)(71:112)</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;2        <span class="keyword">FORMAT</span>(<span class="stringliteral">&#39;B &#39;</span>,a8,1x,a42)</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;      <span class="keywordflow">ENDIF</span></div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;      <span class="keywordflow">ENDDO</span></div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;      <span class="keywordflow">RETURN</span></div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;      <span class="keywordflow">END</span></div>
+<div class="ttc" id="moda__tababd_8F_html_classmoda__tababd"><div class="ttname"><a href="moda__tababd_8F.html#classmoda__tababd">moda_tababd</a></div><div class="ttdoc">This module contains array and variable declarations used to store DX BUFR tables internally for mult...</div><div class="ttdef"><b>Definition:</b> <a href="moda__tababd_8F_source.html#l00010">moda_tababd.F:10</a></div></div>
 <div class="ttc" id="classmoda__nmikrp_html"><div class="ttname"><a href="classmoda__nmikrp.html">moda_nmikrp</a></div><div class="ttdef"><b>Definition:</b> <a href="moda__nmikrp_8F_source.html#l00001">moda_nmikrp.F:1</a></div></div>
-<div class="ttc" id="status_8f_html_a22292e7a69c411a961168198d259f336"><div class="ttname"><a href="status_8f.html#a22292e7a69c411a961168198d259f336">status</a></div><div class="ttdeci">subroutine status(LUNIT, LUN, IL, IM)</div><div class="ttdoc">THIS SUBROUTINE CHECKS WHETHER LOGICAL UNIT NUMBER LUNIT (AND ITS ASSOCIATED BUFR FILE) IS CURRENTLY ...</div><div class="ttdef"><b>Definition:</b> <a href="status_8f_source.html#l00086">status.f:86</a></div></div>
-<div class="ttc" id="classmoda__tababd_html"><div class="ttname"><a href="classmoda__tababd.html">moda_tababd</a></div><div class="ttdef"><b>Definition:</b> <a href="moda__tababd_8F_source.html#l00001">moda_tababd.F:1</a></div></div>
+<div class="ttc" id="status_8f_html_a22292e7a69c411a961168198d259f336"><div class="ttname"><a href="status_8f.html#a22292e7a69c411a961168198d259f336">status</a></div><div class="ttdeci">subroutine status(LUNIT, LUN, IL, IM)</div><div class="ttdoc">This subroutine checks whether a specified Fortran logical unit number is currently connected to the ...</div><div class="ttdef"><b>Definition:</b> <a href="status_8f_source.html#l00061">status.f:61</a></div></div>
 <div class="ttc" id="getabdb_8f_html_ad95ee5fb1653f04190f61478a05ef275"><div class="ttname"><a href="getabdb_8f.html#ad95ee5fb1653f04190f61478a05ef275">getabdb</a></div><div class="ttdeci">subroutine getabdb(LUNIT, TABDB, ITAB, JTAB)</div><div class="ttdoc">THIS SUBROUTINE RETURNS INTERNAL TABLE B AND TABLE D INFORMATION FOR LOGICAL UNIT LUNIT IN A PRE-DEFI...</div><div class="ttdef"><b>Definition:</b> <a href="getabdb_8f_source.html#l00028">getabdb.f:28</a></div></div>
 <div class="ttc" id="nemtbd_8f_html_ac3fb25908c829f741ccd1d440d6051d9"><div class="ttname"><a href="nemtbd_8f.html#ac3fb25908c829f741ccd1d440d6051d9">nemtbd</a></div><div class="ttdeci">subroutine nemtbd(LUN, ITAB, NSEQ, NEMS, IRPS, KNTS)</div><div class="ttdoc">THIS SUBROUTINE RETURNS A LIST OF THE MNEMONICS (I.E., &amp;quot;CHILD&amp;quot; MNEMONICS) CONTAINED WITHIN A TABLE D ...</div><div class="ttdef"><b>Definition:</b> <a href="nemtbd_8f_source.html#l00086">nemtbd.f:86</a></div></div>
 </div><!-- fragment --></div><!-- contents -->

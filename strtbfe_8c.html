@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.3.2</span>
+   &#160;<span id="projectnumber">11.5.0</span>
    </div>
   </td>
  </tr>
@@ -92,7 +92,7 @@ $(document).ready(function(){initNavTree('strtbfe_8c.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -108,6 +108,9 @@ $(document).ready(function(){initNavTree('strtbfe_8c.html','');});
 <div class="title">strtbfe.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>Store a new master Code/Flag table entry.  
+<a href="#details">More...</a></p>
 <div class="textblock"><code>#include &quot;<a class="el" href="bufrlib_8h_source.html">bufrlib.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="cfe_8h_source.html">cfe.h</a>&quot;</code><br/>
 </div>
@@ -116,12 +119,11 @@ $(document).ready(function(){initNavTree('strtbfe_8c.html','');});
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:accfbc3ebd31acb0031a97d7d7c21b140"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="strtbfe_8c.html#accfbc3ebd31acb0031a97d7d7c21b140">strtbfe</a> (f77int *ifxyn, f77int *ival, char *meaning, f77int *lmeaning, f77int *idfxy, f77int *idval)</td></tr>
-<tr class="memdesc:accfbc3ebd31acb0031a97d7d7c21b140"><td class="mdescLeft">&#160;</td><td class="mdescRight">C C SUBPROGRAM: STRTBFE C PRGMMR: ATOR ORG: NCEP DATE: 2017-11-13 C C ABSTRACT: THIS ROUTINE STORES A NEW ENTRY INTO THE INTERNAL MEMORY C STRUCTURE FOR CODE/FLAG TABLE INFORMATION.  <a href="#accfbc3ebd31acb0031a97d7d7c21b140">More...</a><br/></td></tr>
+<tr class="memdesc:accfbc3ebd31acb0031a97d7d7c21b140"><td class="mdescLeft">&#160;</td><td class="mdescRight">This subroutine adds a new entry to the internal memory structure for storage of master Code/Flag table entries.  <a href="#accfbc3ebd31acb0031a97d7d7c21b140">More...</a><br/></td></tr>
 <tr class="separator:accfbc3ebd31acb0031a97d7d7c21b140"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><dl class="section author"><dt>Author</dt><dd>ATOR </dd></dl>
-<dl class="section date"><dt>Date</dt><dd>2017-11-13 </dd></dl>
+<div class="textblock"><p>Store a new master Code/Flag table entry. </p>
 
 <p>Definition in file <a class="el" href="strtbfe_8c_source.html">strtbfe.c</a>.</p>
 </div><h2 class="groupheader">Function Documentation</h2>
@@ -173,10 +175,30 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>C C SUBPROGRAM: STRTBFE C PRGMMR: ATOR ORG: NCEP DATE: 2017-11-13 C C ABSTRACT: THIS ROUTINE STORES A NEW ENTRY INTO THE INTERNAL MEMORY C STRUCTURE FOR CODE/FLAG TABLE INFORMATION. </p>
-<p>C C PROGRAM HISTORY LOG: C 2017-11-13 J. ATOR &ndash; ORIGINAL AUTHOR C C USAGE: CALL STRTBFE ( IFXYN, IVAL, MEANING, LMEANING, C IDFXY, IDVAL ) C C INPUT ARGUMENT LIST: C IFXYN - INTEGER: BIT-WISE REPRESENTATION OF FXY NUMBER FOR C WHICH IVAL IS A DEFINED CODE OR FLAG TABLE ENTRY C IVAL - INTEGER: CODE FIGURE OR BIT NUMBER C MEANING - CHARACTER*(*): MEANING ASSOCIATED WITH IVAL C LMEANING - INTEGER: LENGTH (IN BYTES) OF MEANING C IDFXY - INTEGER: BIT-WISE REPRESENTATION OF OTHER FXY NUMBER C UPON WHICH IVAL IS DEPENDENT, IF ANY C -1 = NO DEPENDENCY C IDVAL - INTEGER: CODE FIGURE OR BIT NUMBER ASSOCIATED WITH C IDFXY AND UPON WHICH IVAL IS DEPENDENT, IF ANY C -1 = NO DEPENDENCY C C C REMARKS: C THIS ROUTINE CALLS: BORT C THIS ROUTINE IS CALLED BY: SNTBFE C Normally not called by any application C programs. C C ATTRIBUTES: C LANGUAGE: C C MACHINE: PORTABLE TO ALL PLATFORMS C C$$$ </p>
+<p>This subroutine adds a new entry to the internal memory structure for storage of master Code/Flag table entries. </p>
+<dl class="section author"><dt>Author</dt><dd>J. Ator </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2017-11-13</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">ifxyn</td><td>- f77int*: Bitwise representation of FXY number for which ival is a defined code or flag table entry </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">ival</td><td>- f77int*: Code figure or bit number </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">meaning</td><td>- char*: Meaning associated with ifxyn and ival </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">lmeaning</td><td>- f77int*: Length (in bytes) of meaning </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">idfxy</td><td>- f77int*: Bitwise representation of FXY number upon which ifxyn and ival depend (if any), or else set to a value of (-1) </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">idval</td><td>- f77int*: Code figure or bit number associated with idfxy and upon which ifxyn and ival depend (if any), or else set to (-1) whenever idfxy is also set to (-1)</td></tr>
+  </table>
+  </dd>
+</dl>
+<p><b>Program history log:</b></p>
+<ul>
+<li>2017-11-13 J. Ator &ndash; Original author </li>
+</ul>
 
-<p>Definition at line <a class="el" href="strtbfe_8c_source.html#l00047">47</a> of file <a class="el" href="strtbfe_8c_source.html">strtbfe.c</a>.</p>
+<p>Definition at line <a class="el" href="strtbfe_8c_source.html#l00031">31</a> of file <a class="el" href="strtbfe_8c_source.html">strtbfe.c</a>.</p>
+
+<p>References <a class="el" href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort()</a>, <a class="el" href="cfe_8h.html#aca17d2b0ff92068c3f23e96ec9703411">cfe</a>, <a class="el" href="cfe_8h.html#ab790bbdcda38d1938f5b9693850a5f7b">code_flag_entry::iffxyn</a>, <a class="el" href="cfe_8h.html#a388cc9be4e322fae05ac13a71e98b088">code_flag_entry::iffxynd</a>, <a class="el" href="cfe_8h.html#a0bf0961cddd11e2ae6903f9894c762c2">code_flag_entry::ifmeaning</a>, <a class="el" href="cfe_8h.html#a4a7abbb73aaab68de079e3a2fdd49cc9">code_flag_entry::ifval</a>, <a class="el" href="cfe_8h.html#a73c559bb313a335ee0125bab43307a65">code_flag_entry::ifvald</a>, <a class="el" href="cfe_8h.html#a259df6152a449c45ee997f874b625873">mxmtbf</a>, and <a class="el" href="cfe_8h.html#a442ef62aedebd6a96bcfdf71530f655b">nmtf</a>.</p>
+
+<p>Referenced by <a class="el" href="sntbfe_8f.html#a99678d8b031a5f9c1b9c2cc1e8e42d8e">sntbfe()</a>.</p>
 
 </div>
 </div>

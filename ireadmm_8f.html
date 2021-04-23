@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.3.2</span>
+   &#160;<span id="projectnumber">11.5.0</span>
    </div>
   </td>
  </tr>
@@ -92,7 +92,7 @@ $(document).ready(function(){initNavTree('ireadmm_8f.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -109,17 +109,19 @@ $(document).ready(function(){initNavTree('ireadmm_8f.html','');});
 </div><!--header-->
 <div class="contents">
 
+<p>Read a specified BUFR message from internal arrays.  
+<a href="#details">More...</a></p>
+
 <p><a href="ireadmm_8f_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions/Subroutines</h2></td></tr>
 <tr class="memitem:a1635043b8d41b6c87ca523e9b3959fdd"><td class="memItemLeft" align="right" valign="top">function&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ireadmm_8f.html#a1635043b8d41b6c87ca523e9b3959fdd">ireadmm</a> (IMSG, SUBSET, IDATE)</td></tr>
-<tr class="memdesc:a1635043b8d41b6c87ca523e9b3959fdd"><td class="mdescLeft">&#160;</td><td class="mdescRight">THIS FUNCTION CALLS BUFR ARCHIVE LIBRARY SUBROUTINE READMM AND PASSES BACK ITS RETURN CODE.  <a href="#a1635043b8d41b6c87ca523e9b3959fdd">More...</a><br/></td></tr>
+<tr class="memdesc:a1635043b8d41b6c87ca523e9b3959fdd"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function calls BUFRLIB subroutine <a class="el" href="readmm_8f.html#aff20e0eb100b6a0fb2dfe3629661ac9e" title="This subroutine reads a specified BUFR message from internal arrays in memory, so that it is now in s...">readmm()</a> and passes back its return code as the function value.  <a href="#a1635043b8d41b6c87ca523e9b3959fdd">More...</a><br/></td></tr>
 <tr class="separator:a1635043b8d41b6c87ca523e9b3959fdd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><dl class="section author"><dt>Author</dt><dd>WOOLLEN </dd></dl>
-<dl class="section date"><dt>Date</dt><dd>1999-11-18 </dd></dl>
+<div class="textblock"><p>Read a specified BUFR message from internal arrays. </p>
 
 <p>Definition in file <a class="el" href="ireadmm_8f_source.html">ireadmm.f</a>.</p>
 </div><h2 class="groupheader">Function/Subroutine Documentation</h2>
@@ -153,14 +155,41 @@ Functions/Subroutines</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>THIS FUNCTION CALLS BUFR ARCHIVE LIBRARY SUBROUTINE READMM AND PASSES BACK ITS RETURN CODE. </p>
-<p>SEE READMM FOR MORE DETAILS.</p>
-<p>PROGRAM HISTORY LOG: 1999-11-18 J. WOOLLEN &ndash; ORIGINAL AUTHOR (ENTRY POINT IN IREADMG) 2002-05-14 J. WOOLLEN &ndash; CHANGED FROM AN ENTRY POINT TO INCREASE PORTABILITY TO OTHER PLATFORMS 2003-11-04 S. BENDER &ndash; ADDED REMARKS/BUFRLIB ROUTINE INTERDEPENDENCIES 2003-11-04 D. KEYSER &ndash; UNIFIED/PORTABLE FOR WRF; ADDED DOCUMENTATION (INCLUDING HISTORY)</p>
-<p>USAGE: IREADMM (IMSG, SUBSET, IDATE) INPUT ARGUMENT LIST: IMSG - INTEGER: POINTER TO BUFR MESSAGE NUMBER (RECORD) IN STORAGE</p>
-<p>OUTPUT ARGUMENT LIST: SUBSET - CHARACTER*8: TABLE A MNEMONIC FOR TYPE OF BUFR MESSAGE BEING READ IDATE - INTEGER: DATE-TIME STORED WITHIN SECTION 1 OF BUFR MESSAGE BEING READ, IN FORMAT OF EITHER YYMMDDHH OR YYYYMMDDHH, DEPENDING ON DATELEN() VALUE IREADMM - INTEGER: RETURN CODE: 0 = normal return -1 = IMSG is either 0 or greater than the number of messages in memory</p>
-<p>REMARKS: THIS ROUTINE CALLS: READMM THIS ROUTINE IS CALLED BY: UFBMNS Also called by application programs. </p>
+<p>This function calls BUFRLIB subroutine <a class="el" href="readmm_8f.html#aff20e0eb100b6a0fb2dfe3629661ac9e" title="This subroutine reads a specified BUFR message from internal arrays in memory, so that it is now in s...">readmm()</a> and passes back its return code as the function value. </p>
+<dl class="section author"><dt>Author</dt><dd>J. Woollen </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>1999-11-18</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in,out]</td><td class="paramname">IMSG</td><td>- integer: Message pointer within internal arrays<ul>
+<li>On input, IMSG is the number of the BUFR message to be read into scope for further processing, counting from the beginning of the internal arrays in memory</li>
+<li>On output, IMSG is incremented by one from its input value </li>
+</ul>
+</td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">SUBSET</td><td>- character*8: Table A mnemonic for type of BUFR message that was read into scope (see <a class="el" href="md__gpfs_dell2_emc_obsproc_noscrub_Jeff_8Ator_NCEPLIBS-bufr-GitHub_nceplibs-bufr_docs_dfbftab.html#dfbftab">DX BUFR Tables</a> for further information about Table A mnemonics) </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">IDATE</td><td>- integer: Date-time stored within Section 1 of BUFR message that was read into scope, in format of either YYMMDDHH or YYYYMMDDHH, depending on the most recent call to subroutine <a class="el" href="datelen_8f.html#ac75cb362f84167ca65b058a97401efcd" title="This subroutine is used to specify the format of Section 1 date-time values that will be output by fu...">datelen()</a> </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>ireadmm - integer:<ul>
+<li>0 = new BUFR message was successfully read into scope</li>
+<li>-1 = requested message number could not be found in internal arrays</li>
+</ul>
+</dd></dl>
+<dl class="section remark"><dt>Remarks</dt><dd><ul>
+<li>The use of this function allows the return code from <a class="el" href="readmm_8f.html#aff20e0eb100b6a0fb2dfe3629661ac9e" title="This subroutine reads a specified BUFR message from internal arrays in memory, so that it is now in s...">readmm()</a> to be used as the target variable within an iterative program loop.</li>
+</ul>
+</dd></dl>
+<p><b>Program history log:</b></p>
+<ul>
+<li>1999-11-18 J. Woollen &ndash; Original author</li>
+<li>2002-05-14 J. Woollen &ndash; Changed from an entry point to increase portability to other platforms </li>
+</ul>
 
-<p>Definition at line <a class="el" href="ireadmm_8f_source.html#l00037">37</a> of file <a class="el" href="ireadmm_8f_source.html">ireadmm.f</a>.</p>
+<p>Definition at line <a class="el" href="ireadmm_8f_source.html#l00041">41</a> of file <a class="el" href="ireadmm_8f_source.html">ireadmm.f</a>.</p>
+
+<p>References <a class="el" href="readmm_8f.html#aff20e0eb100b6a0fb2dfe3629661ac9e">readmm()</a>.</p>
+
+<p>Referenced by <a class="el" href="ufbmns_8f.html#a790b8cbf5b6a9a6c22a0e7abb0b40443">ufbmns()</a>.</p>
 
 </div>
 </div>

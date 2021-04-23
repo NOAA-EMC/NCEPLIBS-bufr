@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.3.2</span>
+   &#160;<span id="projectnumber">11.5.0</span>
    </div>
   </td>
  </tr>
@@ -92,7 +92,7 @@ $(document).ready(function(){initNavTree('setblock_8f.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -109,17 +109,19 @@ $(document).ready(function(){initNavTree('setblock_8f.html','');});
 </div><!--header-->
 <div class="contents">
 
+<p>Specify the use of IEEE Fortran control words when writing BUFR messages.  
+<a href="#details">More...</a></p>
+
 <p><a href="setblock_8f_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions/Subroutines</h2></td></tr>
 <tr class="memitem:a4f62f9ac4a473f33f3c93f3e99bf69a5"><td class="memItemLeft" align="right" valign="top">subroutine&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="setblock_8f.html#a4f62f9ac4a473f33f3c93f3e99bf69a5">setblock</a> (IBLK)</td></tr>
-<tr class="memdesc:a4f62f9ac4a473f33f3c93f3e99bf69a5"><td class="mdescLeft">&#160;</td><td class="mdescRight">SUBROUTINE SETBLOCK ALLOWS APPLICATIONS TO DEFINE WHAT SORT OF OUTPUT FILE BLOCKING (IEEE RECORD CONTROL WORDS) ARE APPLIED TO BUFR RECORDS WRITTEN FROM THE BUFRLIB ROUTINES.  <a href="#a4f62f9ac4a473f33f3c93f3e99bf69a5">More...</a><br/></td></tr>
+<tr class="memdesc:a4f62f9ac4a473f33f3c93f3e99bf69a5"><td class="mdescLeft">&#160;</td><td class="mdescRight">This subroutine is used to specify whether BUFR messages output by future calls to <a class="el" href="md__gpfs_dell2_emc_obsproc_noscrub_Jeff_8Ator_NCEPLIBS-bufr-GitHub_nceplibs-bufr_docs_UserGuide.html#hierarchy">message-writing subroutines</a> should be encapsulated with IEEE Fortran control words when being written to output files.  <a href="#a4f62f9ac4a473f33f3c93f3e99bf69a5">More...</a><br/></td></tr>
 <tr class="separator:a4f62f9ac4a473f33f3c93f3e99bf69a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><dl class="section author"><dt>Author</dt><dd>WOOLLEN </dd></dl>
-<dl class="section date"><dt>Date</dt><dd>2012-09-15 </dd></dl>
+<div class="textblock"><p>Specify the use of IEEE Fortran control words when writing BUFR messages. </p>
 
 <p>Definition in file <a class="el" href="setblock_8f_source.html">setblock.f</a>.</p>
 </div><h2 class="groupheader">Function/Subroutine Documentation</h2>
@@ -137,16 +139,34 @@ Functions/Subroutines</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>SUBROUTINE SETBLOCK ALLOWS APPLICATIONS TO DEFINE WHAT SORT OF OUTPUT FILE BLOCKING (IEEE RECORD CONTROL WORDS) ARE APPLIED TO BUFR RECORDS WRITTEN FROM THE BUFRLIB ROUTINES. </p>
-<p>THE DEFAULT IS NONE (PURE BUFR). OTHER OPTIONS ARE BIG OR LITTLE ENDIAN.</p>
-<p>PROGRAM HISTORY LOG: 2012-09-15 J. WOOLLEN &ndash; ORIGINAL AUTHOR</p>
-<p>USAGE: CALL SETBLOCK(IBLK)</p>
-<p>INPUT ARGUMENTS: IBLK - INTEGER BLOCK TYPE INDICATOR -1 LITTLE ENDIAN RECORD CONTROL WORDS 0 NO RECORD CONTROL WORDS (PURE BUFR) 1 BIG ENDIAN RECORD CONTROL WORDS</p>
-<p>OUTPUT ARGUMENTS:</p>
-<p>REMARKS: THIS ROUTINE CALLS: OPENBF</p>
-<p>THIS ROUTINE IS CALLED BY: USER </p>
+<p>This subroutine is used to specify whether BUFR messages output by future calls to <a class="el" href="md__gpfs_dell2_emc_obsproc_noscrub_Jeff_8Ator_NCEPLIBS-bufr-GitHub_nceplibs-bufr_docs_UserGuide.html#hierarchy">message-writing subroutines</a> should be encapsulated with IEEE Fortran control words when being written to output files. </p>
+<p>If control words are requested, then one 4-byte control word is written to the output file prior to the start of each BUFR message, and a second 4-byte control word is written to the output file after the end of each BUFR message. Each of these control words contains the byte count for the enclosed BUFR message, and they can be written using either big-endian or little-endian byte ordering, regardless of the native endianness of the local machine.</p>
+<p>This subroutine can be called at any time after the first call to subroutine <a class="el" href="openbf_8F.html#a9bea9aeada166bd9037b959ca8452b28" title="This subroutine connects a new file to the BUFRLIB software for input or output operations. ">openbf()</a>, and the specified value for IBLK will remain in effect for all future calls to <a class="el" href="md__gpfs_dell2_emc_obsproc_noscrub_Jeff_8Ator_NCEPLIBS-bufr-GitHub_nceplibs-bufr_docs_UserGuide.html#hierarchy">message-writing subroutines</a> for all Fortran logical units that are open for output within the application program, unless a subsequent call is made to this subroutine to reset the value of IBLK again. If this subroutine is never called, a default value of 0 is used for IBLK, as set within subroutine <a class="el" href="bfrini_8f90.html#ab3f045cc170403305543e34e30b87001" title="This subroutine initializes numerous global variables and arrays within internal modules and COMMON b...">bfrini()</a>.</p>
+<dl class="section author"><dt>Author</dt><dd>J. Woollen </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2012-09-15</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">IBLK</td><td>- integer: Flag indicating whether future BUFR output messages should be encapsulated with control words<ul>
+<li>-1 = Yes, using little-endian control words</li>
+<li>0 = No (the default)</li>
+<li>1 = Yes, using big-endian control words</li>
+</ul>
+</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section remark"><dt>Remarks</dt><dd><ul>
+<li>This subroutine can be used to generate BUFR files consistent with historical archives, dating back to older versions of the BUFRLIB software which used Fortran to directly read/write BUFR messages from/to system files. Standard Fortran historically didn't have a way to read/write binary data streams without control words, so as a result many historical archives contain these by default. However, newer versions of the BUFRLIB software use C to directly read/write BUFR messages from/to system files (including historical archives), so control words are no longer necessary and are therefore now disabled by default when writing BUFR messages to output files.</li>
+</ul>
+</dd></dl>
+<p><b>Program history log:</b></p>
+<ul>
+<li>2012-09-15 J. Woollen &ndash; Original author </li>
+</ul>
 
-<p>Definition at line <a class="el" href="setblock_8f_source.html#l00028">28</a> of file <a class="el" href="setblock_8f_source.html">setblock.f</a>.</p>
+<p>Definition at line <a class="el" href="setblock_8f_source.html#l00053">53</a> of file <a class="el" href="setblock_8f_source.html">setblock.f</a>.</p>
+
+<p>References <a class="el" href="openbf_8F.html#a9bea9aeada166bd9037b959ca8452b28">openbf()</a>.</p>
 
 </div>
 </div>

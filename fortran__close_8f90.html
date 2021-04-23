@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.3.2</span>
+   &#160;<span id="projectnumber">11.5.0</span>
    </div>
   </td>
  </tr>
@@ -92,7 +92,7 @@ $(document).ready(function(){initNavTree('fortran__close_8f90.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -109,17 +109,18 @@ $(document).ready(function(){initNavTree('fortran__close_8f90.html','');});
 </div><!--header-->
 <div class="contents">
 
+<p>Close a Fortran file on the local system.  
+<a href="#details">More...</a></p>
+
 <p><a href="fortran__close_8f90_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions/Subroutines</h2></td></tr>
 <tr class="memitem:a808124c67b5d58ddeacd935e9ed71fbc"><td class="memItemLeft" align="right" valign="top">subroutine&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="fortran__close_8f90.html#a808124c67b5d58ddeacd935e9ed71fbc">fortran_close</a> (lunit, iret)</td></tr>
-<tr class="memdesc:a808124c67b5d58ddeacd935e9ed71fbc"><td class="mdescLeft">&#160;</td><td class="mdescRight">This subroutine closes an open fortran file.  <a href="#a808124c67b5d58ddeacd935e9ed71fbc">More...</a><br/></td></tr>
 <tr class="separator:a808124c67b5d58ddeacd935e9ed71fbc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><dl class="section author"><dt>Authors</dt><dd>Jeff Whitaker </dd></dl>
-<dl class="section date"><dt>Date</dt><dd>2015-08-30 </dd></dl>
+<div class="textblock"><p>Close a Fortran file on the local system. </p>
 
 <p>Definition in file <a class="el" href="fortran__close_8f90_source.html">fortran_close.f90</a>.</p>
 </div><h2 class="groupheader">Function/Subroutine Documentation</h2>
@@ -146,8 +147,8 @@ Functions/Subroutines</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-
-<p>This subroutine closes an open fortran file. </p>
+<dl class="section author"><dt>Authors</dt><dd>Jeff Whitaker </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2015-08-30</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">lunit</td><td>- integer: Fortran logical unit number for fortran file </td></tr>

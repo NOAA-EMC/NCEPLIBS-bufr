@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.3.2</span>
+   &#160;<span id="projectnumber">11.5.0</span>
    </div>
   </td>
  </tr>
@@ -92,7 +92,7 @@ $(document).ready(function(){initNavTree('igetprm_8f.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -109,17 +109,19 @@ $(document).ready(function(){initNavTree('igetprm_8f.html','');});
 </div><!--header-->
 <div class="contents">
 
+<p>Get the current value of a parameter.  
+<a href="#details">More...</a></p>
+
 <p><a href="igetprm_8f_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions/Subroutines</h2></td></tr>
 <tr class="memitem:acf5cb6268e5091d81f9eec4e61f87cdb"><td class="memItemLeft" align="right" valign="top">INTEGER function&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="igetprm_8f.html#acf5cb6268e5091d81f9eec4e61f87cdb">igetprm</a> (CPRMNM)</td></tr>
-<tr class="memdesc:acf5cb6268e5091d81f9eec4e61f87cdb"><td class="mdescLeft">&#160;</td><td class="mdescRight">THIS FUNCTION RETURNS THE VALUE ASSOCIATED WITH A SPECIFIED PARAMETER.  <a href="#acf5cb6268e5091d81f9eec4e61f87cdb">More...</a><br/></td></tr>
+<tr class="memdesc:acf5cb6268e5091d81f9eec4e61f87cdb"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function returns the current value of a parameter used for allocating one or more internal arrays within the BUFRLIB software.  <a href="#acf5cb6268e5091d81f9eec4e61f87cdb">More...</a><br/></td></tr>
 <tr class="separator:acf5cb6268e5091d81f9eec4e61f87cdb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><dl class="section author"><dt>Author</dt><dd>ATOR </dd></dl>
-<dl class="section date"><dt>Date</dt><dd>2014-12-04 </dd></dl>
+<div class="textblock"><p>Get the current value of a parameter. </p>
 
 <p>Definition in file <a class="el" href="igetprm_8f_source.html">igetprm.f</a>.</p>
 </div><h2 class="groupheader">Function/Subroutine Documentation</h2>
@@ -137,13 +139,55 @@ Functions/Subroutines</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>THIS FUNCTION RETURNS THE VALUE ASSOCIATED WITH A SPECIFIED PARAMETER. </p>
-<p>PROGRAM HISTORY LOG: 2014-12-04 J. ATOR &ndash; ORIGINAL AUTHOR</p>
-<p>USAGE: IGETPRM ( CPRMNM ) INPUT ARGUMENT LIST: CPRMNM - CHARACTER*(*): PARAMETER 'MXMSGL' = MAXIMUM LENGTH (IN BYTES) OF A BUFR MESSAGE 'MAXSS' = MAXIMUM NUMBER OF DATA VALUES IN AN UNCOMPRESSED BUFR SUBSET 'MXCDV' = MAXIMUM NUMBER OF DATA VALUES THAT CAN BE WRITTEN INTO A COMPRESSED BUFR SUBSET 'MXLCC' = MAXIMUM LENGTH (IN BYTES) OF A CHARACTER STRING THAT CAN BE WRITTEN INTO A COMPRESSED BUFR SUBSET 'MXCSB' = MAXIMUM NUMBER OF SUBSETS THAT CAN BE WRITTEN INTO A COMPRESSED BUFR MESSAGE 'NFILES' = MAXIMUM NUMBER OF BUFR FILES THAT CAN BE ACCESSED FOR READING OR WRITING AT ANY ONE TIME 'MAXTBA' = MAXIMUM NUMBER OF ENTRIES IN INTERNAL BUFR TABLE A PER BUFR FILE 'MAXTBB' = MAXIMUM NUMBER OF ENTRIES IN INTERNAL BUFR TABLE B PER BUFR FILE 'MAXTBD' = MAXIMUM NUMBER OF ENTRIES IN INTERNAL BUFR TABLE D PER BUFR FILE 'MAXMEM' = MAXIMUM NUMBER OF BYTES THAT CAN BE USED TO STORE BUFR MESSAGES IN INTERNAL MEMORY 'MAXMSG' = MAXIMUM NUMBER OF BUFR MESSAGES THAT CAN BE STORED IN INTERNAL MEMORY 'MXDXTS' = MAXIMUM NUMBER OF DICTIONARY TABLES THAT CAN BE STORED FOR USE WITH BUFR MESSAGES IN INTERNAL MEMORY 'MXMTBB' = MAXIMUM NUMBER OF MASTER TABLE B ENTRIES 'MXMTBD' = MAXIMUM NUMBER OF MASTER TABLE D ENTRIES 'MXMTBF' = MAXIMUM NUMBER OF MASTER CODE/FLAG ENTRIES 'MAXCD' = MAXIMUM NUMBER OF CHILD DESCRIPTORS IN A TABLE D DESCRIPTOR SEQUENCE DEFINITION 'MAXJL' = MAXIMUM NUMBER OF ENTRIES IN THE INTERNAL JUMP/LINK TABLE 'MXS01V' = MAXIMUM NUMBER OF DEFAULT SECTION 0 OR SECTION 1 VALUES THAT CAN BE OVERWRITTEN WITHIN AN OUTPUT BUFR MESSAGE 'MXBTM' = MAXIMUM NUMBER OF BITMAPS THAT CAN BE STORED INTERNALLY FOR A BUFR SUBSET 'MXBTMSE' = MAXIMUM NUMBER OF ENTRIES THAT CAN BE SET WITHIN A BITMAP 'MXTAMC' = MAXIMUM NUMBER OF TABLE A MNEMONICS IN THE INTERNAL JUMP/LINK TABLE WHICH CONTAIN AT LEAST ONE TABLE C OPERATOR WITH X&gt;=21 IN THEIR SUBSET DEFINITION 'MXTCO' = MAXIMUM NUMBER OF TABLE C OPERATORS (WITH X&gt;=21) IN THE SUBSET DEFINITION OF A TABLE A MNEMONIC 'MXNRV' = MAXIMUM NUMBER OF 2-03 REFERENCE VALUES IN THE INTERNAL JUMP/LINK TABLE 'MXRST' = MAXIMUM NUMBER OF LONG CHARACTER STRINGS THAT CAN BE READ FROM A COMPRESSED SUBSET</p>
-<p>OUTPUT ARGUMENT LIST: IGETPRM - INTEGER: VALUE ASSOCIATED WITH CPRMNM -1 = UNKNOWN CPRNMN</p>
-<p>REMARKS: THIS ROUTINE CALLS: ERRWRT THIS ROUTINE IS CALLED BY: ARALLOCC INITTBF STSEQ Also called by application programs. </p>
+<p>This function returns the current value of a parameter used for allocating one or more internal arrays within the BUFRLIB software. </p>
+<dl class="section author"><dt>Author</dt><dd>J. Ator </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2014-12-04</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">CPRMNM</td><td>- character*(*): Parameter<ul>
+<li>'MXMSGL' = Maximum length (in bytes) of a BUFR message</li>
+<li>'MAXSS' = Maximum number of data values in an uncompressed BUFR subset</li>
+<li>'MXCDV' = Maximum number of data values that can be written into a compressed BUFR subset</li>
+<li>'MXLCC' = Maximum length (in bytes) of a character string that can be written into a compressed BUFR subset</li>
+<li>'MXCSB' = Maximum number of subsets that can be written into a compressed BUFR message</li>
+<li>'NFILES' = Maximum number of BUFR files that can be accessed for reading or writing at any one time</li>
+<li>'MAXTBA' = Maximum number of entries in internal BUFR Table A per BUFR file</li>
+<li>'MAXTBB' = Maximum number of entries in internal BUFR Table B per BUFR file</li>
+<li>'MAXTBD' = Maximum number of entries in internal BUFR Table D per BUFR file</li>
+<li>'MAXMEM' = Maximum number of bytes that can be used to store BUFR messages in internal memory</li>
+<li>'MAXMSG' = Maximum number of BUFR messages that can be stored in internal memory</li>
+<li>'MXDXTS' = Maximum number of dictionary tables that can be stored for use with BUFR messages in internal memory</li>
+<li>'MXMTBB' = Maximum number of master Table B entries</li>
+<li>'MXMTBD' = Maximum number of master Table D entries</li>
+<li>'MXMTBF' = Maximum number of master Code/Flag entries</li>
+<li>'MAXCD' = Maximum number of child descriptors in a Table D descriptor sequence definition</li>
+<li>'MAXJL' = Maximum number of entries in the internal jump/link table</li>
+<li>'MXS01V' = Maximum number of default Section 0 or Section 1 values that can be overwritten within an output BUFR message</li>
+<li>'MXBTM' = Maximum number of bitmaps that can be stored internally for a BUFR subset</li>
+<li>'MXBTMSE' = Maximum number of entries that can be set within a bitmap</li>
+<li>'MXTAMC' = Maximum number of Table A mnemonics in the internal jump/link table which contain at least one Table C operator with XX &gt;= 21 in their subset definition</li>
+<li>'MXTCO' = Maximum number of Table C operators with XX &gt;= 21) in the subset definition of a Table A mnemonic</li>
+<li>'MXNRV' = Maximum number of 2-03 reference values in the internal jump/link table</li>
+<li>'MXRST' = Maximum number of long character strings that can be read from a compressed subset</li>
+</ul>
+</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>igetprm - integer: Value of CPRMNM<ul>
+<li>-1 = Unknown CPRMNM</li>
+</ul>
+</dd></dl>
+<p><b>Program history log:</b></p>
+<ul>
+<li>2014-12-04 J. Ator &ndash; Original author </li>
+</ul>
 
-<p>Definition at line <a class="el" href="igetprm_8f_source.html#l00075">75</a> of file <a class="el" href="igetprm_8f_source.html">igetprm.f</a>.</p>
+<p>Definition at line <a class="el" href="igetprm_8f_source.html#l00081">81</a> of file <a class="el" href="igetprm_8f_source.html">igetprm.f</a>.</p>
+
+<p>References <a class="el" href="errwrt_8f.html#a65626d9a772648676146b62b596c2764">errwrt()</a>.</p>
+
+<p>Referenced by <a class="el" href="bufrlib_8h.html#a98efd59b32b1d2ed2c060d2564824e28">arallocc()</a>, <a class="el" href="inittbf_8c.html#aa06057bdd5b8456df9b33ec96a5cc57e">inittbf()</a>, and <a class="el" href="stseq_8c.html#a712e57cd19d1f94b87269d7dfc679c5e">stseq()</a>.</p>
 
 </div>
 </div>

@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.3.2</span>
+   &#160;<span id="projectnumber">11.5.0</span>
    </div>
   </td>
  </tr>
@@ -92,7 +92,7 @@ $(document).ready(function(){initNavTree('maxout_8f.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -109,17 +109,19 @@ $(document).ready(function(){initNavTree('maxout_8f.html','');});
 </div><!--header-->
 <div class="contents">
 
+<p>Define a customized maximum length for output BUFR messages.  
+<a href="#details">More...</a></p>
+
 <p><a href="maxout_8f_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions/Subroutines</h2></td></tr>
 <tr class="memitem:a453cb7f1f1dda1ab39e54b7a09b9b801"><td class="memItemLeft" align="right" valign="top">subroutine&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="maxout_8f.html#a453cb7f1f1dda1ab39e54b7a09b9b801">maxout</a> (MAXO)</td></tr>
-<tr class="memdesc:a453cb7f1f1dda1ab39e54b7a09b9b801"><td class="mdescLeft">&#160;</td><td class="mdescRight">THIS SUBROUTINE ALLOWS AN APPLICATION PROGRAM TO SET THE RECORD LENGTH OF NEWLY CREATED BUFR MESSAGES, OVERRIDING THE VALUE SET IN BUFR ARCHIVE LIBRARY SUBROUTINE BFRINI.  <a href="#a453cb7f1f1dda1ab39e54b7a09b9b801">More...</a><br/></td></tr>
+<tr class="memdesc:a453cb7f1f1dda1ab39e54b7a09b9b801"><td class="mdescLeft">&#160;</td><td class="mdescRight">This subroutine allows the user to define the maximum length of a BUFR message that can be written to an output file by the BUFRLIB software.  <a href="#a453cb7f1f1dda1ab39e54b7a09b9b801">More...</a><br/></td></tr>
 <tr class="separator:a453cb7f1f1dda1ab39e54b7a09b9b801"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><dl class="section author"><dt>Author</dt><dd>WOOLLEN </dd></dl>
-<dl class="section date"><dt>Date</dt><dd>2002-05-14 </dd></dl>
+<div class="textblock"><p>Define a customized maximum length for output BUFR messages. </p>
 
 <p>Definition in file <a class="el" href="maxout_8f_source.html">maxout.f</a>.</p>
 </div><h2 class="groupheader">Function/Subroutine Documentation</h2>
@@ -137,13 +139,37 @@ Functions/Subroutines</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>THIS SUBROUTINE ALLOWS AN APPLICATION PROGRAM TO SET THE RECORD LENGTH OF NEWLY CREATED BUFR MESSAGES, OVERRIDING THE VALUE SET IN BUFR ARCHIVE LIBRARY SUBROUTINE BFRINI. </p>
-<p>THIS MUST BE CALLED AFTER THE INITIAL CALL TO BUFR ARCHIVE LIBRARY SUBROUTINE OPENBF SINCE OPENBF CALLS BFRINI. THE RECORD LENGTH WILL REMAIN MAXO UNLESS THIS SUBROUTINE IS CALLED AGAIN WITH A NEW MAXO.</p>
-<p>PROGRAM HISTORY LOG: 2002-05-14 J. WOOLLEN &ndash; ORIGINAL AUTHOR 2003-11-04 S. BENDER &ndash; ADDED REMARKS/BUFRLIB ROUTINE INTERDEPENDENCIES 2003-11-04 D. KEYSER &ndash; UNIFIED/PORTABLE FOR WRF; ADDED DOCUMENTATION (INCLUDING HISTORY); OUTPUTS MORE COMPLETE DIAGNOSTIC INFO FOR INFORMATIONAL PURPOSES 2004-08-09 J. ATOR &ndash; MAXIMUM MESSAGE LENGTH INCREASED FROM 20,000 TO 50,000 BYTES 2006-04-14 J. ATOR &ndash; ADDED MAXO=0 OPTION AND OVERFLOW CHECK 2009-03-23 D. KEYSER &ndash; NO LONGER PRINTS THE RECORD LENGTH CHANGE DIAGNOSTIC IF THE REQUESTED RECORD LENGTH PASSED IN AS MAXO IS ACTUALLY THE SAME AS THE PREVIOUS RECORD LENGTH 2009-04-21 J. ATOR &ndash; USE ERRWRT 2014-12-10 J. ATOR &ndash; USE MODULES INSTEAD OF COMMON BLOCKS 2015-09-24 D. STOKES &ndash; CORRECT TYPOS IN DOCBLOCK</p>
-<p>USAGE: CALL MAXOUT (MAXO) INPUT ARGUMENT LIST: MAXO - INTEGER: DESIRED MESSAGE LENGTH (BYTES): 0 = SET RECORD LENGTH TO THE MAXIMUM ALLOWABLE</p>
-<p>REMARKS: THIS ROUTINE CALLS: ERRWRT THIS ROUTINE IS CALLED BY: None Normally called only by application programs. </p>
+<p>This subroutine allows the user to define the maximum length of a BUFR message that can be written to an output file by the BUFRLIB software. </p>
+<p>This subroutine can be called from within an application program at any time after the initial call to subroutine <a class="el" href="openbf_8F.html#a9bea9aeada166bd9037b959ca8452b28" title="This subroutine connects a new file to the BUFRLIB software for input or output operations. ">openbf()</a>, and the specified value MAXO will then be used for all future BUFR messages written by the software to all output files for the remainder of the program, unless another call is made to this same subroutine to reset the value of MAXO again. Otherwise, if this subroutine is never called, a default maximum message length is used for all output files, as set via an initial internal call to subroutine <a class="el" href="bfrini_8f90.html#ab3f045cc170403305543e34e30b87001" title="This subroutine initializes numerous global variables and arrays within internal modules and COMMON b...">bfrini()</a>.</p>
+<dl class="section author"><dt>Authors</dt><dd>J. Woollen </dd>
+<dd>
+J. Ator </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2002-05-14</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">MAXO</td><td>- integer: New maximum length (in bytes) for all BUFR messages written to all output files<ul>
+<li>0 = Set MAXO to the maximum value allowed by the BUFRLIB software</li>
+</ul>
+</td></tr>
+  </table>
+  </dd>
+</dl>
+<p><b>Program history log:</b></p>
+<ul>
+<li>2002-05-14 J. Woollen &ndash; Original author</li>
+<li>2004-08-09 J. Ator &ndash; Maximum message length increased from 20,000 to 50,000 bytes</li>
+<li>2006-04-14 J. Ator &ndash; Added MAXO=0 option and overflow check</li>
+<li>2009-03-23 D. Keyser &ndash; No longer prints the record length change diagnostic if the requested record length passed in as MAXO is actually the same as the previous value</li>
+<li>2009-04-21 J. Ator &ndash; Use <a class="el" href="errwrt_8f.html#a65626d9a772648676146b62b596c2764" title="This subroutine allows the user to specify a custom location for the logging of error and diagnostic ...">errwrt()</a></li>
+<li>2014-12-10 J. Ator &ndash; Use modules instead of COMMON blocks</li>
+<li>2015-09-24 D. Stokes &ndash; Correct typos in docblock </li>
+</ul>
 
-<p>Definition at line <a class="el" href="maxout_8f_source.html#l00041">41</a> of file <a class="el" href="maxout_8f_source.html">maxout.f</a>.</p>
+<p>Definition at line <a class="el" href="maxout_8f_source.html#l00040">40</a> of file <a class="el" href="maxout_8f_source.html">maxout.f</a>.</p>
+
+<p>References <a class="el" href="errwrt_8f.html#a65626d9a772648676146b62b596c2764">errwrt()</a>.</p>
+
+<p>Referenced by <a class="el" href="split__by__subset_8f90.html#ae5d45e2086aa783d8ca85e2fd47c8118">split_by_subset()</a>.</p>
 
 </div>
 </div>

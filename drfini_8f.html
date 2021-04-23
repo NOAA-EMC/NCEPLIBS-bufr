@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.3.2</span>
+   &#160;<span id="projectnumber">11.5.0</span>
    </div>
   </td>
  </tr>
@@ -92,7 +92,7 @@ $(document).ready(function(){initNavTree('drfini_8f.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -109,17 +109,19 @@ $(document).ready(function(){initNavTree('drfini_8f.html','');});
 </div><!--header-->
 <div class="contents">
 
+<p>Initialize replication factors for delayed replication sequences.  
+<a href="#details">More...</a></p>
+
 <p><a href="drfini_8f_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions/Subroutines</h2></td></tr>
 <tr class="memitem:ab9d63d7c2b99152be8e0809413adf621"><td class="memItemLeft" align="right" valign="top">subroutine&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="drfini_8f.html#ab9d63d7c2b99152be8e0809413adf621">drfini</a> (LUNIT, MDRF, NDRF, DRFTAG)</td></tr>
-<tr class="memdesc:ab9d63d7c2b99152be8e0809413adf621"><td class="mdescLeft">&#160;</td><td class="mdescRight">THIS SUBROUTINE INITIALIZES DELAYED REPLICATION FACTORS AND EXPLICITLY ALLOCATES A CORRESPONDING AMOUNT OF SPACE IN THE INTERNAL SUBSET ARRAYS, THEREBY ALLOWING THE SUBSEQUENT USE OF BUFR ARCHIVE LIBRARY SUBROUTINE UFBSEQ TO WRITE DATA DIRECTLY INTO DELAYED REPLICATION SEQUENCES.  <a href="#ab9d63d7c2b99152be8e0809413adf621">More...</a><br/></td></tr>
+<tr class="memdesc:ab9d63d7c2b99152be8e0809413adf621"><td class="mdescLeft">&#160;</td><td class="mdescRight">This subroutine explicitly initializes delayed replication factors and allocates a corresponding amount of space within internal arrays, thereby allowing the subsequent use of subroutine <a class="el" href="ufbseq_8f.html#aa96ada82e0e2f98226594f3532bb245d" title="This subroutine reads or writes an entire sequence of data values from or to the BUFR data subset tha...">ufbseq()</a> to write data into delayed replication sequences.  <a href="#ab9d63d7c2b99152be8e0809413adf621">More...</a><br/></td></tr>
 <tr class="separator:ab9d63d7c2b99152be8e0809413adf621"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><dl class="section author"><dt>Author</dt><dd>WOOLLEN </dd></dl>
-<dl class="section date"><dt>Date</dt><dd>2002-05-14 </dd></dl>
+<div class="textblock"><p>Initialize replication factors for delayed replication sequences. </p>
 
 <p>Definition in file <a class="el" href="drfini_8f_source.html">drfini.f</a>.</p>
 </div><h2 class="groupheader">Function/Subroutine Documentation</h2>
@@ -159,13 +161,34 @@ Functions/Subroutines</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>THIS SUBROUTINE INITIALIZES DELAYED REPLICATION FACTORS AND EXPLICITLY ALLOCATES A CORRESPONDING AMOUNT OF SPACE IN THE INTERNAL SUBSET ARRAYS, THEREBY ALLOWING THE SUBSEQUENT USE OF BUFR ARCHIVE LIBRARY SUBROUTINE UFBSEQ TO WRITE DATA DIRECTLY INTO DELAYED REPLICATION SEQUENCES. </p>
-<p>NOTE THAT THIS SAME TYPE OF INITIALIZATION IS DONE IMPLICTLY WITHIN BUFR ARCHIVE LIBRARY SUBROUTINE UFBINT FOR DELAYED REPLICATION SEQUENCES WHICH APPEAR ONLY ONE TIME WITHIN AN OVERALL SUBSET DEFINITION. HOWEVER, BY USING SUBROUTINE DRFINI ALONG WITH A SUBSEQUENT CALL TO SUBROUTINE UFBSEQ, IT IS ACTUALLY POSSIBLE TO HAVE MULTIPLE OCCURRENCES OF A PARTICULAR DELAYED REPLICATION SEQUENCE WITHIN A SINGLE OVERALL SUBSET DEFINITION.</p>
-<p>PROGRAM HISTORY LOG: 2002-05-14 J. WOOLLEN &ndash; ORIGINAL AUTHOR 2003-11-04 S. BENDER &ndash; ADDED REMARKS/BUFRLIB ROUTINE INTERDEPENDENCIES 2003-11-04 D. KEYSER &ndash; MAXJL (MAXIMUM NUMBER OF JUMP/LINK ENTRIES) INCREASED FROM 15000 TO 16000 (WAS IN VERIFICATION VERSION); UNIFIED/PORTABLE FOR WRF; ADDED DOCUMENTATION (INCLUDING HISTORY); OUTPUTS MORE COMPLETE DIAGNOSTIC INFO WHEN ROUTINE TERMINATES ABNORMALLY 2005-03-04 J. ATOR &ndash; UPDATED DOCUMENTATION 2014-09-08 J. ATOR &ndash; INCREASE NDRF LIMIT FROM 100 TO 200 2014-12-10 J. ATOR &ndash; USE MODULES INSTEAD OF COMMON BLOCKS 2018-06-07 J. ATOR &ndash; INCREASE NDRF LIMIT FROM 200 TO 2000</p>
-<p>USAGE: CALL DRFINI (LUNIT, MDRF, NDRF, DRFTAG) INPUT ARGUMENT LIST: LUNIT - INTEGER: FORTRAN LOGICAL UNIT NUMBER FOR BUFR FILE MDRF - INTEGER: ARRAY OF DELAYED REPLICATION FACTORS, IN ONE-TO-ONE CORRESPONDENCE WITH THE NUMBER OF OCCURRENCES OF DRFTAG WITHIN THE OVERALL SUBSET DEFINITION, AND EXPLICITLY DEFINING HOW MUCH SPACE (I.E. HOW MANY REPLICATIONS) TO ALLOCATE WITHIN EACH SUCCESSIVE OCCURRENCE NDRF - INTEGER: NUMBER OF DELAYED REPLICATION FACTORS WITHIN MDRF DRFTAG - CHARACTER*(*): SEQUENCE MNEMONIC, BRACKETED BY APPROPRIATE DELAYED REPLICATION NOTATION (E.G. {}, () OR &lt;&gt;)</p>
-<p>REMARKS: THIS ROUTINE CALLS: BORT STATUS USRTPL THIS ROUTINE IS CALLED BY: None Normally called only by application programs </p>
+<p>This subroutine explicitly initializes delayed replication factors and allocates a corresponding amount of space within internal arrays, thereby allowing the subsequent use of subroutine <a class="el" href="ufbseq_8f.html#aa96ada82e0e2f98226594f3532bb245d" title="This subroutine reads or writes an entire sequence of data values from or to the BUFR data subset tha...">ufbseq()</a> to write data into delayed replication sequences. </p>
+<dl class="section author"><dt>Author</dt><dd>J. Woollen </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2002-05-14</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">LUNIT</td><td>- integer: Fortran logical unit number for BUFR file </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">MDRF</td><td>- integer(*): Array of delayed replication factors, in one-to-one correspondence with the number of occurrences of DRFTAG within the overall subset definition, and explicitly defining how much space (i.e. how many replications) to allocate within each successive occurrence </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">NDRF</td><td>- integer: Number of delayed replication factors within MDRF </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">DRFTAG</td><td>- character*(*): Table D sequence mnemonic, bracketed by appropriate delayed replication notation (e.g. {}, () OR &lt;&gt;)</td></tr>
+  </table>
+  </dd>
+</dl>
+<p>Logical unit LUNIT should have already been opened for output operations (i.e. writing/encoding BUFR) via a previous call to subroutine <a class="el" href="openbf_8F.html#a9bea9aeada166bd9037b959ca8452b28" title="This subroutine connects a new file to the BUFRLIB software for input or output operations. ">openbf()</a>, and a message for output should have already been opened via a previous call to one of the [message-writing subroutines].</p>
+<p>The use of this subroutine is only required when writing data into delayed replication sequences using <a class="el" href="ufbseq_8f.html#aa96ada82e0e2f98226594f3532bb245d" title="This subroutine reads or writes an entire sequence of data values from or to the BUFR data subset tha...">ufbseq()</a>, or for cases where <a class="el" href="ufbint_8f.html#afe3364a491b49e0c9e5a526b009aaa75" title="This subroutine reads or writes one or more data values from or to the BUFR data subset that is curre...">ufbint()</a> or <a class="el" href="ufbrep_8f.html#adb981832bdbbb26903265fb946aac58c" title="This subroutine reads or writes one or more data values from or to the BUFR data subset that is curre...">ufbrep()</a> are being used to write data into delayed replication sequences which occur more than once within an overall subset definition. In such cases, the use of this subroutine allows the application code to explicitly specify how many replications of the sequence are to be allocated to each occurrence of the delayed replication sequence within the overall subset definition, prior to storing all of the actual data values themselves via a single subsequent call to <a class="el" href="ufbint_8f.html#afe3364a491b49e0c9e5a526b009aaa75" title="This subroutine reads or writes one or more data values from or to the BUFR data subset that is curre...">ufbint()</a> or <a class="el" href="ufbrep_8f.html#adb981832bdbbb26903265fb946aac58c" title="This subroutine reads or writes one or more data values from or to the BUFR data subset that is curre...">ufbrep()</a>. In contrast, the use of this subroutine is not required when <a class="el" href="ufbint_8f.html#afe3364a491b49e0c9e5a526b009aaa75" title="This subroutine reads or writes one or more data values from or to the BUFR data subset that is curre...">ufbint()</a> or <a class="el" href="ufbrep_8f.html#adb981832bdbbb26903265fb946aac58c" title="This subroutine reads or writes one or more data values from or to the BUFR data subset that is curre...">ufbrep()</a> are to be called to store data values for a delayed replication sequence which only occurs one time within an overall subset definition, because in that case the same type of initialization and space allocation functionality will be automatically handled internally within subroutine <a class="el" href="ufbint_8f.html#afe3364a491b49e0c9e5a526b009aaa75" title="This subroutine reads or writes one or more data values from or to the BUFR data subset that is curre...">ufbint()</a> or <a class="el" href="ufbrep_8f.html#adb981832bdbbb26903265fb946aac58c" title="This subroutine reads or writes one or more data values from or to the BUFR data subset that is curre...">ufbrep()</a>.</p>
+<p><b>Program history log:</b></p>
+<ul>
+<li>2002-05-14 J. Woollen &ndash; Original author</li>
+<li>2003-11-04 S. Bender &ndash; Added remarks and routine interdependencies</li>
+<li>2003-11-04 D. Keyser &ndash; Unified/portable for WRF; added history documentation; outputs more complete diagnostic info when routine terminates abnormally</li>
+<li>2005-03-04 J. Ator &ndash; Updated documentation</li>
+<li>2014-09-08 J. Ator &ndash; Increase NDRF limit from 100 to 200</li>
+<li>2014-12-10 J. Ator &ndash; Use modules instead of COMMON blocks</li>
+<li>2018-06-07 J. Ator &ndash; Increase NDRF limit from 200 to 2000 </li>
+</ul>
 
-<p>Definition at line <a class="el" href="drfini_8f_source.html#l00053">53</a> of file <a class="el" href="drfini_8f_source.html">drfini.f</a>.</p>
+<p>Definition at line <a class="el" href="drfini_8f_source.html#l00063">63</a> of file <a class="el" href="drfini_8f_source.html">drfini.f</a>.</p>
+
+<p>References <a class="el" href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort()</a>, <a class="el" href="status_8f.html#a22292e7a69c411a961168198d259f336">status()</a>, and <a class="el" href="usrtpl_8f.html#a677bf700a4a6f0626a41921cd66d8ed9">usrtpl()</a>.</p>
 
 </div>
 </div>

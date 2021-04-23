@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.3.2</span>
+   &#160;<span id="projectnumber">11.5.0</span>
    </div>
   </td>
  </tr>
@@ -92,7 +92,7 @@ $(document).ready(function(){initNavTree('cmpstia2_8c_source.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -107,26 +107,28 @@ $(document).ready(function(){initNavTree('cmpstia2_8c_source.html','');});
 </div><!--header-->
 <div class="contents">
 <a href="cmpstia2_8c.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;</div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="bufrlib_8h.html">bufrlib.h</a>&quot;</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="cfe_8h.html">cfe.h</a>&quot;</span></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;</div>
-<div class="line"><a name="l00047"></a><span class="lineno"><a class="line" href="bufrlib_8h.html#aa09810b363464d0f0b1e3a5b7f011a01">   47</a></span>&#160;<span class="keywordtype">int</span> <a class="code" href="cmpstia2_8c.html#a54e09962aa43b61717212a2702be33c8">cmpstia2</a>( <span class="keyword">const</span> <span class="keywordtype">void</span> *pe1, <span class="keyword">const</span> <span class="keywordtype">void</span> *pe2 )</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;{</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <span class="keyword">struct </span><a class="code" href="cfe_8h.html#structcode__flag__entry">code_flag_entry</a> *mype1 = ( <span class="keyword">struct </span><a class="code" href="cfe_8h.html#structcode__flag__entry">code_flag_entry</a> * ) pe1;</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <span class="keyword">struct </span><a class="code" href="cfe_8h.html#structcode__flag__entry">code_flag_entry</a> *mype2 = ( <span class="keyword">struct </span><a class="code" href="cfe_8h.html#structcode__flag__entry">code_flag_entry</a> * ) pe2;</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    <span class="keywordflow">if</span> ( mype1-&gt;iffxyn == mype2-&gt;iffxyn ) {</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;        <span class="keywordflow">if</span> ( mype1-&gt;ifval == mype2-&gt;ifval ) <span class="keywordflow">return</span> 0;</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;        <span class="keywordflow">return</span> ( mype1-&gt;ifval &lt; mype2-&gt;ifval ? -1 : 1 );</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    }</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <span class="keywordflow">else</span> {</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;        <span class="keywordflow">return</span> ( mype1-&gt;iffxyn &lt; mype2-&gt;iffxyn ? -1 : 1 );</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    }</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;}</div>
-<div class="ttc" id="bufrlib_8h_html"><div class="ttname"><a href="bufrlib_8h.html">bufrlib.h</a></div></div>
-<div class="ttc" id="cfe_8h_html_structcode__flag__entry"><div class="ttname"><a href="cfe_8h.html#structcode__flag__entry">code_flag_entry</a></div><div class="ttdef"><b>Definition:</b> <a href="cfe_8h_source.html#l00007">cfe.h:7</a></div></div>
-<div class="ttc" id="cmpstia2_8c_html_a54e09962aa43b61717212a2702be33c8"><div class="ttname"><a href="cmpstia2_8c.html#a54e09962aa43b61717212a2702be33c8">cmpstia2</a></div><div class="ttdeci">int cmpstia2(const void *pe1, const void *pe2)</div><div class="ttdoc">C C SUBPROGRAM: CMPSTIA2 C PRGMMR: ATOR ORG: NCEP DATE: 2017-11-13 C C ABSTRACT: THIS ROUTINE DEFINES...</div><div class="ttdef"><b>Definition:</b> <a href="cmpstia2_8c_source.html#l00047">cmpstia2.c:47</a></div></div>
-<div class="ttc" id="cfe_8h_html"><div class="ttname"><a href="cfe_8h.html">cfe.h</a></div></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="bufrlib_8h.html">bufrlib.h</a>&quot;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="cfe_8h.html">cfe.h</a>&quot;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;</div>
+<div class="line"><a name="l00032"></a><span class="lineno"><a class="line" href="cmpstia2_8c.html#a54e09962aa43b61717212a2702be33c8">   32</a></span>&#160;<span class="keywordtype">int</span> <a class="code" href="cfe_8h.html#aa09810b363464d0f0b1e3a5b7f011a01">cmpstia2</a>( <span class="keyword">const</span> <span class="keywordtype">void</span> *pe1, <span class="keyword">const</span> <span class="keywordtype">void</span> *pe2 )</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;{</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <span class="keyword">struct </span><a class="code" href="cfe_8h.html#structcode__flag__entry">code_flag_entry</a> *mype1 = ( <span class="keyword">struct </span><a class="code" href="cfe_8h.html#structcode__flag__entry">code_flag_entry</a> * ) pe1;</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    <span class="keyword">struct </span><a class="code" href="cfe_8h.html#structcode__flag__entry">code_flag_entry</a> *mype2 = ( <span class="keyword">struct </span><a class="code" href="cfe_8h.html#structcode__flag__entry">code_flag_entry</a> * ) pe2;</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <span class="keywordflow">if</span> ( mype1-&gt;<a class="code" href="cfe_8h.html#ab790bbdcda38d1938f5b9693850a5f7b">iffxyn</a> == mype2-&gt;<a class="code" href="cfe_8h.html#ab790bbdcda38d1938f5b9693850a5f7b">iffxyn</a> ) {</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;        <span class="keywordflow">if</span> ( mype1-&gt;<a class="code" href="cfe_8h.html#a4a7abbb73aaab68de079e3a2fdd49cc9">ifval</a> == mype2-&gt;<a class="code" href="cfe_8h.html#a4a7abbb73aaab68de079e3a2fdd49cc9">ifval</a> ) <span class="keywordflow">return</span> 0;</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;        <span class="keywordflow">return</span> ( mype1-&gt;<a class="code" href="cfe_8h.html#a4a7abbb73aaab68de079e3a2fdd49cc9">ifval</a> &lt; mype2-&gt;<a class="code" href="cfe_8h.html#a4a7abbb73aaab68de079e3a2fdd49cc9">ifval</a> ? -1 : 1 );</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    }</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;        <span class="keywordflow">return</span> ( mype1-&gt;<a class="code" href="cfe_8h.html#ab790bbdcda38d1938f5b9693850a5f7b">iffxyn</a> &lt; mype2-&gt;<a class="code" href="cfe_8h.html#ab790bbdcda38d1938f5b9693850a5f7b">iffxyn</a> ? -1 : 1 );</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    }</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;}</div>
+<div class="ttc" id="bufrlib_8h_html"><div class="ttname"><a href="bufrlib_8h.html">bufrlib.h</a></div><div class="ttdoc">Define signatures to enable a number of BUFRLIB subprograms to be called directly from C application ...</div></div>
+<div class="ttc" id="cfe_8h_html_a4a7abbb73aaab68de079e3a2fdd49cc9"><div class="ttname"><a href="cfe_8h.html#a4a7abbb73aaab68de079e3a2fdd49cc9">code_flag_entry::ifval</a></div><div class="ttdeci">f77int ifval</div><div class="ttdoc">Code figure or bit number. </div><div class="ttdef"><b>Definition:</b> <a href="cfe_8h_source.html#l00052">cfe.h:52</a></div></div>
+<div class="ttc" id="cfe_8h_html_aa09810b363464d0f0b1e3a5b7f011a01"><div class="ttname"><a href="cfe_8h.html#aa09810b363464d0f0b1e3a5b7f011a01">cmpstia2</a></div><div class="ttdeci">int cmpstia2(const void *, const void *)</div><div class="ttdoc">This function defines a comparison between two entries within the internal memory structure for stora...</div><div class="ttdef"><b>Definition:</b> <a href="cmpstia2_8c_source.html#l00032">cmpstia2.c:32</a></div></div>
+<div class="ttc" id="cfe_8h_html_structcode__flag__entry"><div class="ttname"><a href="cfe_8h.html#structcode__flag__entry">code_flag_entry</a></div><div class="ttdoc">This structure contains array and variable declarations used to store a master Code/Flag table entry...</div><div class="ttdef"><b>Definition:</b> <a href="cfe_8h_source.html#l00033">cfe.h:33</a></div></div>
+<div class="ttc" id="cfe_8h_html_ab790bbdcda38d1938f5b9693850a5f7b"><div class="ttname"><a href="cfe_8h.html#ab790bbdcda38d1938f5b9693850a5f7b">code_flag_entry::iffxyn</a></div><div class="ttdeci">f77int iffxyn</div><div class="ttdoc">Bitwise representation of FXY number to which this entry belongs. </div><div class="ttdef"><b>Definition:</b> <a href="cfe_8h_source.html#l00051">cfe.h:51</a></div></div>
+<div class="ttc" id="cfe_8h_html"><div class="ttname"><a href="cfe_8h.html">cfe.h</a></div><div class="ttdoc">Define signatures and declare variables for internal storage of master Code/Flag table entries...</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

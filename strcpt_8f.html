@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.3.2</span>
+   &#160;<span id="projectnumber">11.5.0</span>
    </div>
   </td>
  </tr>
@@ -92,7 +92,7 @@ $(document).ready(function(){initNavTree('strcpt_8f.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -109,17 +109,19 @@ $(document).ready(function(){initNavTree('strcpt_8f.html','');});
 </div><!--header-->
 <div class="contents">
 
+<p>Specify a tank receipt time to be included in Section 1 when writing BUFR messages.  
+<a href="#details">More...</a></p>
+
 <p><a href="strcpt_8f_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions/Subroutines</h2></td></tr>
 <tr class="memitem:a30d62b2b7af8434cd7227dae56e0f46e"><td class="memItemLeft" align="right" valign="top">subroutine&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="strcpt_8f.html#a30d62b2b7af8434cd7227dae56e0f46e">strcpt</a> (CF, IYR, IMO, IDY, IHR, IMI)</td></tr>
-<tr class="memdesc:a30d62b2b7af8434cd7227dae56e0f46e"><td class="mdescLeft">&#160;</td><td class="mdescRight">THIS SUBROUTINE CAN BE CALLED AT ANY TIME AFTER THE FIRST CALL TO BUFR ARCHIVE LIBRARY SUBROUTINE OPENBF.  <a href="#a30d62b2b7af8434cd7227dae56e0f46e">More...</a><br/></td></tr>
+<tr class="memdesc:a30d62b2b7af8434cd7227dae56e0f46e"><td class="mdescLeft">&#160;</td><td class="mdescRight">This subroutine is used to specify a tank receipt time to be included within Section 1 of all BUFR messages output by future calls to <a class="el" href="md__gpfs_dell2_emc_obsproc_noscrub_Jeff_8Ator_NCEPLIBS-bufr-GitHub_nceplibs-bufr_docs_UserGuide.html#hierarchy">message-writing subroutines</a> and <a class="el" href="md__gpfs_dell2_emc_obsproc_noscrub_Jeff_8Ator_NCEPLIBS-bufr-GitHub_nceplibs-bufr_docs_UserGuide.html#hierarchy">subset-writing subroutines</a>.  <a href="#a30d62b2b7af8434cd7227dae56e0f46e">More...</a><br/></td></tr>
 <tr class="separator:a30d62b2b7af8434cd7227dae56e0f46e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><dl class="section author"><dt>Author</dt><dd>ATOR </dd></dl>
-<dl class="section date"><dt>Date</dt><dd>2009-03-23 </dd></dl>
+<div class="textblock"><p>Specify a tank receipt time to be included in Section 1 when writing BUFR messages. </p>
 
 <p>Definition in file <a class="el" href="strcpt_8f_source.html">strcpt.f</a>.</p>
 </div><h2 class="groupheader">Function/Subroutine Documentation</h2>
@@ -171,13 +173,38 @@ Functions/Subroutines</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>THIS SUBROUTINE CAN BE CALLED AT ANY TIME AFTER THE FIRST CALL TO BUFR ARCHIVE LIBRARY SUBROUTINE OPENBF. </p>
-<p>WHEN CF IS SET TO 'Y' (= 'YES'), THIS SUBROUTINE IS USED TO SPECIFY A TANK RECEIPT TIME THAT WILL BE APPENDED TO SECTION 1 OF ALL FUTURE BUFR MESSAGES OUTPUT BY ANY OF THE BUFR ARCHIVE LIBRARY SUBROUTINES WHICH WRITE SUCH MESSAGES (E.G. WRITSB, COPYMG, WRITSA, ETC.). WHEN CF IS SET TO 'N' (= 'NO', WHICH IS THE DEFAULT), THIS CAPABILITY IS TURNED OFF (IF IT WAS PREVIOUSLY TURNED ON) AND THE VALUES IN ALL OF THE OTHER INPUT ARGUMENTS ARE IGNORED. THE TANK RECEIPT TIME IS A LOCAL EXTENSION TO SECTION 1; HOWEVER, ITS INCLUSION IN A MESSAGE IS STILL FULLY COMPLIANT WITH THE WMO FM-94 BUFR REGULATIONS.</p>
-<p>PROGRAM HISTORY LOG: 2009-03-23 J. ATOR &ndash; ORIGINAL AUTHOR</p>
-<p>USAGE: CALL STRCPT (CF,IYR,IMO,IDY,IHR,IMI) INPUT ARGUMENT LIST: CF - CHARACTER*1: FLAG INDICATING WHETHER FUTURE CALLS TO BUFRLIB MESSAGE WRITING ROUTINES (E.G. WRITSB, COPYMG, WRITSA, ETC.) SHOULD APPEND THE GIVEN TANK RECEIPT TIME TO SECTION 1 OF SUCH MESSAGES: 'N' = 'NO' (THE DEFAULT) 'Y' = 'YES' IYR - INTEGER: TANK RECEIPT YEAR TO BE STORED IMO - INTEGER: TANK RECEIPT MONTH TO BE STORED IDY - INTEGER: TANK RECEIPT DAY TO BE STORED IHR - INTEGER: TANK RECEIPT HOUR TO BE STORED IMI - INTEGER: TANK RECEIPT MINUTE TO BE STORED</p>
-<p>REMARKS: THIS ROUTINE CALLS: BORT CAPIT THIS ROUTINE IS CALLED BY: None Normally called only by application programs. </p>
+<p>This subroutine is used to specify a tank receipt time to be included within Section 1 of all BUFR messages output by future calls to <a class="el" href="md__gpfs_dell2_emc_obsproc_noscrub_Jeff_8Ator_NCEPLIBS-bufr-GitHub_nceplibs-bufr_docs_UserGuide.html#hierarchy">message-writing subroutines</a> and <a class="el" href="md__gpfs_dell2_emc_obsproc_noscrub_Jeff_8Ator_NCEPLIBS-bufr-GitHub_nceplibs-bufr_docs_UserGuide.html#hierarchy">subset-writing subroutines</a>. </p>
+<dl class="section author"><dt>Author</dt><dd>J. Ator </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2009-03-23</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">CF</td><td>- character*1: Flag indicating whether future BUFR output messages should include the tank receipt time defined by IYR, IMO, IDY, IHR, and IMI:<ul>
+<li>'N' = No (the default)</li>
+<li>'Y' = Yes </li>
+</ul>
+</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">IYR</td><td>- integer: Tank receipt year </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">IMO</td><td>- integer: Tank receipt month </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">IDY</td><td>- integer: Tank receipt day </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">IHR</td><td>- integer: Tank receipt hour </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">IMI</td><td>- integer: Tank receipt minute</td></tr>
+  </table>
+  </dd>
+</dl>
+<p>This subroutine can be called at any time after the first call to subroutine <a class="el" href="openbf_8F.html#a9bea9aeada166bd9037b959ca8452b28" title="This subroutine connects a new file to the BUFRLIB software for input or output operations. ">openbf()</a>, and the specified value for CF will remain in effect for all future calls to <a class="el" href="md__gpfs_dell2_emc_obsproc_noscrub_Jeff_8Ator_NCEPLIBS-bufr-GitHub_nceplibs-bufr_docs_UserGuide.html#hierarchy">message-writing subroutines</a> and <a class="el" href="md__gpfs_dell2_emc_obsproc_noscrub_Jeff_8Ator_NCEPLIBS-bufr-GitHub_nceplibs-bufr_docs_UserGuide.html#hierarchy">subset-writing subroutines</a>, for all Fortran logical units that are open for output within the application program, unless a subsequent call is made to this subroutine to reset the value of CF again. If this subroutine is never called, a default value of 'N' is used for CF, as set within subroutine <a class="el" href="bfrini_8f90.html#ab3f045cc170403305543e34e30b87001" title="This subroutine initializes numerous global variables and arrays within internal modules and COMMON b...">bfrini()</a>.</p>
+<p>Whenever this subroutine is called with CF = 'N', the values in IYR, IMO, IDY, IHR, and IMI are ignored.</p>
+<dl class="section remark"><dt>Remarks</dt><dd><ul>
+<li>Tank receipt time is an NCEP extension to Section 1 of the <a class="el" href="md__gpfs_dell2_emc_obsproc_noscrub_Jeff_8Ator_NCEPLIBS-bufr-GitHub_nceplibs-bufr_docs_UserGuide.html#manual">official WMO BUFR regulations</a>. However, it's encoded by the BUFRLIB software in such a way that its inclusion within an output BUFR message is still fully compliant with the regulations.</li>
+</ul>
+</dd></dl>
+<p><b>Program history log:</b></p>
+<ul>
+<li>2009-03-23 J. Ator &ndash; Original author </li>
+</ul>
 
-<p>Definition at line <a class="el" href="strcpt_8f_source.html#l00039">39</a> of file <a class="el" href="strcpt_8f_source.html">strcpt.f</a>.</p>
+<p>Definition at line <a class="el" href="strcpt_8f_source.html#l00047">47</a> of file <a class="el" href="strcpt_8f_source.html">strcpt.f</a>.</p>
+
+<p>References <a class="el" href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort()</a>, and <a class="el" href="capit_8f.html#acade976948fae8afa1a8301ff9272f56">capit()</a>.</p>
 
 </div>
 </div>

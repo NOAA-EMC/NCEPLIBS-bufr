@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.3.2</span>
+   &#160;<span id="projectnumber">11.5.0</span>
    </div>
   </td>
  </tr>
@@ -92,7 +92,7 @@ $(document).ready(function(){initNavTree('openmb_8f_source.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -122,116 +122,107 @@ $(document).ready(function(){initNavTree('openmb_8f_source.html','');});
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment">C&gt;                      BUFR message to be opened</span></div>
 <div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="comment">C&gt;                      (see [DX BUFR Tables](@ref dfbftab) for</span></div>
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="comment">C&gt;                      further information about Table A mnemonics)</span></div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="comment">C&gt; @param[in] JDATE  - integer: date-time to be stored within Section 1</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="comment">C&gt; @param[in] JDATE  - integer: Date-time to be stored within Section 1</span></div>
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="comment">C&gt;                of BUFR message being opened, in format of either</span></div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment">C&gt;                YYMMDDHH or YYYYMMDDHH, depending on the most recent</span></div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="comment">C&gt;                call to subroutine datelen()</span></div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="comment">C&gt;</span></div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="comment">C&gt; &lt;p&gt;Logical unit LUNIT should have already been opened for output</span></div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="comment">C&gt; operations via a previous call to subroutine openbf().</span></div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="comment">C&gt;</span></div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="comment">C&gt; &lt;p&gt;This subroutine is similar to subroutine openmg(), except that it</span></div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="comment">C&gt; will only open a new message if either SUBSET or JDATE has changed</span></div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="comment">C&gt; since the previous call to this subroutine.  Otherwise, it will</span></div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="comment">C&gt; leave the existing internal message unchanged so that the next data</span></div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="comment">C&gt; subset can be written into the same internal message, thereby</span></div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="comment">C&gt; improving overall storage efficiency by allowing the maximum number</span></div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="comment">C&gt; of data subsets to be stored within each output BUFR message.  For</span></div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="comment">C&gt; this reason, openmb() is much more widely used than openmg().</span></div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="comment">C&gt;</span></div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="comment">C&gt; &lt;p&gt;If this subroutine does need to open and initialize a new BUFR</span></div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="comment">C&gt; message for output (e.g. if the value of SUBSET or JDATE has changed</span></div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="comment">C&gt; since the previous call to this subroutine), then any existing</span></div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="comment">C&gt; message within the internal arrays will be automatically flushed and</span></div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="comment">C&gt; written to logical unit LUNIT via an internal call to subroutine</span></div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="comment">C&gt; closmg().  In this case, the behavior of this subroutine then</span></div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="comment">C&gt; becomes exactly like that of subroutine openmg().</span></div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="comment">C&gt;</span></div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="comment">C&gt; &lt;b&gt;Program history log:&lt;/b&gt;</span></div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="comment">C&gt; - 1994-01-06  J. Woollen -- Original author</span></div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="comment">C&gt; - 1998-07-08  J. Woollen -- Replaced call to Cray library routine</span></div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<span class="comment">C&gt;                           &quot;ABORT&quot; with call to new internal BUFRLIB</span></div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="comment">C&gt;                           routine &quot;BORT&quot;; modified to make Y2K</span></div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;<span class="comment">C&gt;                           compliant</span></div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<span class="comment">C&gt; - 1999-11-18  J. Woollen -- The number of BUFR files which can be</span></div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<span class="comment">C&gt;                           opened at one time increased from 10 to 32</span></div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;<span class="comment">C&gt;                           (necessary in order to process multiple</span></div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;<span class="comment">C&gt;                           BUFR files under the MPI)</span></div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="comment">C&gt; - 2003-11-04  J. Ator    -- Added documentation</span></div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;<span class="comment">C&gt; - 2003-11-04  S. Bender  -- Added remarks and routine interdependencies</span></div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;<span class="comment">C&gt; - 2003-11-04  D. Keyser  -- Unified/portable for WRF; added history</span></div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;<span class="comment">C&gt;                           documentation; outputs more complete</span></div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;<span class="comment">C&gt;                           diagnostic info when routine terminates</span></div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;<span class="comment">C&gt;                           abnormally</span></div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;<span class="comment">C&gt; - 2014-12-10  J. Ator    -- Use modules instead of COMMON blocks</span></div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;<span class="comment">C&gt;</span></div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;<span class="comment">C&gt; &lt;b&gt;This routine calls&lt;/b&gt;: bort()     closmg()   i4dy()     msgini()</span></div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;<span class="comment">C&gt;                            nemtba()   status()   usrtpl()   wtstat()</span></div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;<span class="comment">C&gt;</span></div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;<span class="comment">C&gt; &lt;b&gt;This routine is called by:&lt;/b&gt; None</span></div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;<span class="comment">C&gt;                 &lt;br&gt;Normally called only by application programs.</span></div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;<span class="comment">C&gt;</span></div>
-<div class="line"><a name="l00066"></a><span class="lineno"><a class="line" href="openmb_8f.html#a4fc37a744b3f3c266a6f73acc117710a">   66</a></span>&#160;<span class="keyword">      SUBROUTINE </span><a class="code" href="openmb_8f.html#a4fc37a744b3f3c266a6f73acc117710a">openmb</a>(LUNIT,SUBSET,JDATE)</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;      <span class="keywordtype">USE </span><a class="code" href="classmoda__msgcwd.html">moda_msgcwd</a></div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;      include <span class="stringliteral">&#39;bufrlib.inc&#39;</span></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment">C&gt;                YYMMDDHH or YYYYMMDDHH</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="comment">C&gt;</span></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="comment">C&gt; &lt;p&gt;Logical unit LUNIT should have already been opened for output</span></div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="comment">C&gt; operations via a previous call to subroutine openbf().</span></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="comment">C&gt;</span></div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="comment">C&gt; &lt;p&gt;This subroutine is similar to subroutine openmg(), except that it</span></div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="comment">C&gt; will only open a new message if either SUBSET or JDATE has changed</span></div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="comment">C&gt; since the previous call to this subroutine.  Otherwise, it will</span></div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="comment">C&gt; leave the existing internal message unchanged so that the next data</span></div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="comment">C&gt; subset can be written into the same internal message, thereby</span></div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="comment">C&gt; improving overall storage efficiency by allowing the maximum number</span></div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="comment">C&gt; of data subsets to be stored within each output BUFR message.  For</span></div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="comment">C&gt; this reason, openmb() is much more widely used than openmg().</span></div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="comment">C&gt;</span></div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="comment">C&gt; &lt;p&gt;If this subroutine does need to open and initialize a new BUFR</span></div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="comment">C&gt; message for output (e.g. if the value of SUBSET or JDATE has changed</span></div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="comment">C&gt; since the previous call to this subroutine), then any existing</span></div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="comment">C&gt; message within the internal arrays will be automatically flushed and</span></div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="comment">C&gt; written to logical unit LUNIT via an internal call to subroutine</span></div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="comment">C&gt; closmg().  In this case, the behavior of this subroutine then</span></div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="comment">C&gt; becomes exactly like that of subroutine openmg().</span></div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="comment">C&gt;</span></div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="comment">C&gt; &lt;b&gt;Program history log:&lt;/b&gt;</span></div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="comment">C&gt; - 1994-01-06  J. Woollen -- Original author</span></div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="comment">C&gt; - 1998-07-08  J. Woollen -- Replaced call to Cray library routine</span></div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="comment">C&gt;                           &quot;ABORT&quot; with call to new internal BUFRLIB</span></div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<span class="comment">C&gt;                           routine &quot;BORT&quot;; modified to make Y2K</span></div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="comment">C&gt;                           compliant</span></div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;<span class="comment">C&gt; - 1999-11-18  J. Woollen -- The number of BUFR files which can be</span></div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<span class="comment">C&gt;                           opened at one time increased from 10 to 32</span></div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<span class="comment">C&gt;                           (necessary in order to process multiple</span></div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;<span class="comment">C&gt;                           BUFR files under the MPI)</span></div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;<span class="comment">C&gt; - 2003-11-04  J. Ator    -- Added documentation</span></div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="comment">C&gt; - 2003-11-04  S. Bender  -- Added remarks and routine interdependencies</span></div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;<span class="comment">C&gt; - 2003-11-04  D. Keyser  -- Unified/portable for WRF; added history</span></div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;<span class="comment">C&gt;                           documentation; outputs more complete</span></div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;<span class="comment">C&gt;                           diagnostic info when routine terminates</span></div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;<span class="comment">C&gt;                           abnormally</span></div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;<span class="comment">C&gt; - 2014-12-10  J. Ator    -- Use modules instead of COMMON blocks</span></div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;<span class="comment">C&gt;</span></div>
+<div class="line"><a name="l00059"></a><span class="lineno"><a class="line" href="openmb_8f.html#a4fc37a744b3f3c266a6f73acc117710a">   59</a></span>&#160;<span class="keyword">      SUBROUTINE </span><a class="code" href="openmb_8f.html#a4fc37a744b3f3c266a6f73acc117710a">openmb</a>(LUNIT,SUBSET,JDATE)</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;      <span class="keywordtype">USE </span><a class="code" href="classmoda__msgcwd.html">moda_msgcwd</a></div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;      <span class="keywordtype">CHARACTER*(*)</span> subset</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;      <span class="keywordtype">LOGICAL</span>       open</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;<span class="comment">C-----------------------------------------------------------------------</span></div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;<span class="comment">C-----------------------------------------------------------------------</span></div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;<span class="comment">C  CHECK THE FILE STATUS</span></div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;<span class="comment">C  ---------------------</span></div>
 <div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;      <span class="keywordtype">CHARACTER*(*)</span> subset</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;      <span class="keywordtype">LOGICAL</span>       open</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;<span class="comment">C-----------------------------------------------------------------------</span></div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;<span class="comment">C-----------------------------------------------------------------------</span></div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;<span class="comment">C  CHECK THE FILE STATUS</span></div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;<span class="comment">C  ---------------------</span></div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;      CALL <a class="code" href="status_8f.html#a22292e7a69c411a961168198d259f336">status</a>(lunit,lun,il,im)</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;      <span class="keywordflow">IF</span>(il.EQ.0) goto 900</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;      <span class="keywordflow">IF</span>(il.LT.0) goto 901</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;<span class="comment">C  GET SOME SUBSET PARTICULARS</span></div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;<span class="comment">C  ---------------------------</span></div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;<span class="comment">c  .... Given SUBSET, returns MTYP,MSTB,INOD</span></div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;      CALL <a class="code" href="nemtba_8f.html#a1038fd60bc3fa89eff9ff79ed996a7e1">nemtba</a>(lun,subset,mtyp,mstb,inod)</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;      <span class="keyword">OPEN</span> = im.EQ.0.OR.inod.NE.inode(lun).OR.<a class="code" href="i4dy_8f.html#a112153e4ebaab35d9d95d7a29534f48b">i4dy</a>(jdate).NE.idate(lun)</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;<span class="comment">C  MAYBE(?) OPEN A NEW OR DIFFERENT TYPE OF MESSAGE</span></div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;<span class="comment">C  ------------------------------------------------</span></div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;      <span class="keywordflow">IF</span>(open) <span class="keywordflow">THEN</span></div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;         CALL <a class="code" href="closmg_8f.html#a3378111de0136710daec2ded25ed34e4">closmg</a>(lunit)</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;         CALL <a class="code" href="wtstat_8f.html#a82676f83ff365e03ad827ed5ba0af1ae">wtstat</a>(lunit,lun,il, 1)</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;<span class="comment">c  .... Set pos. index for new Tbl A mnem.</span></div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;         inode(lun) = inod</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;<span class="comment">c  .... Set date for new message</span></div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;         idate(lun) = <a class="code" href="i4dy_8f.html#a112153e4ebaab35d9d95d7a29534f48b">i4dy</a>(jdate)</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;<span class="comment">C  INITIALIZE THE OPEN MESSAGE</span></div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;<span class="comment">C  ---------------------------</span></div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;</div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;         CALL <a class="code" href="msgini_8f.html#ae73a0a9e7bba8f7dfeb673f2bca0820b">msgini</a>(lun)</div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;         CALL <a class="code" href="usrtpl_8f.html#a677bf700a4a6f0626a41921cd66d8ed9">usrtpl</a>(lun,1,1)</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;      <span class="keywordflow">ENDIF</span></div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;</div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;<span class="comment">C  EXITS</span></div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;<span class="comment">C  -----</span></div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;</div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;      <span class="keywordflow">RETURN</span></div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;900   CALL <a class="code" href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort</a>(<span class="stringliteral">&#39;BUFRLIB: OPENMB - OUTPUT BUFR FILE IS CLOSED, IT &#39;</span>//</div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;     . <span class="stringliteral">&#39;MUST BE OPEN FOR OUTPUT&#39;</span>)</div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;901   CALL <a class="code" href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort</a>(<span class="stringliteral">&#39;BUFRLIB: OPENMB - OUTPUT BUFR FILE IS OPEN FOR &#39;</span>//</div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;     . <span class="stringliteral">&#39;INPUT, IT MUST BE OPEN FOR OUTPUT&#39;</span>)</div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;      <span class="keywordflow">END</span></div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;      CALL <a class="code" href="status_8f.html#a22292e7a69c411a961168198d259f336">status</a>(lunit,lun,il,im)</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;      <span class="keywordflow">IF</span>(il.EQ.0) goto 900</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;      <span class="keywordflow">IF</span>(il.LT.0) goto 901</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;<span class="comment">C  GET SOME SUBSET PARTICULARS</span></div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;<span class="comment">C  ---------------------------</span></div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;<span class="comment">c  .... Given SUBSET, returns MTYP,MSTB,INOD</span></div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;      CALL <a class="code" href="nemtba_8f.html#a1038fd60bc3fa89eff9ff79ed996a7e1">nemtba</a>(lun,subset,mtyp,mstb,inod)</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;      <span class="keyword">OPEN</span> = im.EQ.0.OR.inod.NE.inode(lun).OR.<a class="code" href="i4dy_8f.html#a112153e4ebaab35d9d95d7a29534f48b">i4dy</a>(jdate).NE.idate(lun)</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;<span class="comment">C  MAYBE(?) OPEN A NEW OR DIFFERENT TYPE OF MESSAGE</span></div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;<span class="comment">C  ------------------------------------------------</span></div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;      <span class="keywordflow">IF</span>(open) <span class="keywordflow">THEN</span></div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;         CALL <a class="code" href="closmg_8f.html#a3378111de0136710daec2ded25ed34e4">closmg</a>(lunit)</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;         CALL <a class="code" href="wtstat_8f.html#a82676f83ff365e03ad827ed5ba0af1ae">wtstat</a>(lunit,lun,il, 1)</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;<span class="comment">c  .... Set pos. index for new Tbl A mnem.</span></div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;         inode(lun) = inod</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;<span class="comment">c  .... Set date for new message</span></div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;         idate(lun) = <a class="code" href="i4dy_8f.html#a112153e4ebaab35d9d95d7a29534f48b">i4dy</a>(jdate)</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;<span class="comment">C  INITIALIZE THE OPEN MESSAGE</span></div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;<span class="comment">C  ---------------------------</span></div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;         CALL <a class="code" href="msgini_8f.html#ae73a0a9e7bba8f7dfeb673f2bca0820b">msgini</a>(lun)</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;         CALL <a class="code" href="usrtpl_8f.html#a677bf700a4a6f0626a41921cd66d8ed9">usrtpl</a>(lun,1,1)</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;      <span class="keywordflow">ENDIF</span></div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;<span class="comment">C  EXITS</span></div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;<span class="comment">C  -----</span></div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;      <span class="keywordflow">RETURN</span></div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;900   CALL <a class="code" href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort</a>(<span class="stringliteral">&#39;BUFRLIB: OPENMB - OUTPUT BUFR FILE IS CLOSED, IT &#39;</span>//</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;     . <span class="stringliteral">&#39;MUST BE OPEN FOR OUTPUT&#39;</span>)</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;901   CALL <a class="code" href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort</a>(<span class="stringliteral">&#39;BUFRLIB: OPENMB - OUTPUT BUFR FILE IS OPEN FOR &#39;</span>//</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;     . <span class="stringliteral">&#39;INPUT, IT MUST BE OPEN FOR OUTPUT&#39;</span>)</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;      <span class="keywordflow">END</span></div>
 <div class="ttc" id="i4dy_8f_html_a112153e4ebaab35d9d95d7a29534f48b"><div class="ttname"><a href="i4dy_8f.html#a112153e4ebaab35d9d95d7a29534f48b">i4dy</a></div><div class="ttdeci">function i4dy(IDATE)</div><div class="ttdoc">THIS FUNCTION CONVERTS AN EIGHT DIGIT INTEGER DATE (YYMMDDHH) TO TEN DIGITS (YYYYMMDDHH) USING THE Y2...</div><div class="ttdef"><b>Definition:</b> <a href="i4dy_8f_source.html#l00049">i4dy.f:49</a></div></div>
 <div class="ttc" id="usrtpl_8f_html_a677bf700a4a6f0626a41921cd66d8ed9"><div class="ttname"><a href="usrtpl_8f.html#a677bf700a4a6f0626a41921cd66d8ed9">usrtpl</a></div><div class="ttdeci">subroutine usrtpl(LUN, INVN, NBMP)</div><div class="ttdoc">THIS SUBROUTINE STORES THE SUBSET TEMPLATE INTO INTERNAL SUBSET ARRAYS IN MODULE USRINT FOR CASES OF ...</div><div class="ttdef"><b>Definition:</b> <a href="usrtpl_8f_source.html#l00051">usrtpl.f:51</a></div></div>
-<div class="ttc" id="openmb_8f_html_a4fc37a744b3f3c266a6f73acc117710a"><div class="ttname"><a href="openmb_8f.html#a4fc37a744b3f3c266a6f73acc117710a">openmb</a></div><div class="ttdeci">subroutine openmb(LUNIT, SUBSET, JDATE)</div><div class="ttdoc">This subroutine opens and initializes a new BUFR message within internal arrays, for eventual output ...</div><div class="ttdef"><b>Definition:</b> <a href="openmb_8f_source.html#l00066">openmb.f:66</a></div></div>
-<div class="ttc" id="wtstat_8f_html_a82676f83ff365e03ad827ed5ba0af1ae"><div class="ttname"><a href="wtstat_8f.html#a82676f83ff365e03ad827ed5ba0af1ae">wtstat</a></div><div class="ttdeci">subroutine wtstat(LUNIT, LUN, IL, IM)</div><div class="ttdoc">THIS SUBROUTINE EITHER DISCONNECTS THE INPUT LOGICAL UNIT NUMBER LUNIT (AND ITS ASSOCIATED BUFR FILE)...</div><div class="ttdef"><b>Definition:</b> <a href="wtstat_8f_source.html#l00058">wtstat.f:58</a></div></div>
-<div class="ttc" id="status_8f_html_a22292e7a69c411a961168198d259f336"><div class="ttname"><a href="status_8f.html#a22292e7a69c411a961168198d259f336">status</a></div><div class="ttdeci">subroutine status(LUNIT, LUN, IL, IM)</div><div class="ttdoc">THIS SUBROUTINE CHECKS WHETHER LOGICAL UNIT NUMBER LUNIT (AND ITS ASSOCIATED BUFR FILE) IS CURRENTLY ...</div><div class="ttdef"><b>Definition:</b> <a href="status_8f_source.html#l00086">status.f:86</a></div></div>
+<div class="ttc" id="openmb_8f_html_a4fc37a744b3f3c266a6f73acc117710a"><div class="ttname"><a href="openmb_8f.html#a4fc37a744b3f3c266a6f73acc117710a">openmb</a></div><div class="ttdeci">subroutine openmb(LUNIT, SUBSET, JDATE)</div><div class="ttdoc">This subroutine opens and initializes a new BUFR message within internal arrays, for eventual output ...</div><div class="ttdef"><b>Definition:</b> <a href="openmb_8f_source.html#l00059">openmb.f:59</a></div></div>
+<div class="ttc" id="wtstat_8f_html_a82676f83ff365e03ad827ed5ba0af1ae"><div class="ttname"><a href="wtstat_8f.html#a82676f83ff365e03ad827ed5ba0af1ae">wtstat</a></div><div class="ttdeci">subroutine wtstat(LUNIT, LUN, IL, IM)</div><div class="ttdoc">This subroutine can be used to connect or disconnect a specified Fortran logical unit number to/from ...</div><div class="ttdef"><b>Definition:</b> <a href="wtstat_8f_source.html#l00058">wtstat.f:58</a></div></div>
+<div class="ttc" id="status_8f_html_a22292e7a69c411a961168198d259f336"><div class="ttname"><a href="status_8f.html#a22292e7a69c411a961168198d259f336">status</a></div><div class="ttdeci">subroutine status(LUNIT, LUN, IL, IM)</div><div class="ttdoc">This subroutine checks whether a specified Fortran logical unit number is currently connected to the ...</div><div class="ttdef"><b>Definition:</b> <a href="status_8f_source.html#l00061">status.f:61</a></div></div>
 <div class="ttc" id="msgini_8f_html_ae73a0a9e7bba8f7dfeb673f2bca0820b"><div class="ttname"><a href="msgini_8f.html#ae73a0a9e7bba8f7dfeb673f2bca0820b">msgini</a></div><div class="ttdeci">subroutine msgini(LUN)</div><div class="ttdoc">THIS SUBROUTINE INITIALIZES, WITHIN THE INTERNAL ARRAYS, A NEW BUFR MESSAGE FOR OUTPUT. </div><div class="ttdef"><b>Definition:</b> <a href="msgini_8f_source.html#l00055">msgini.f:55</a></div></div>
-<div class="ttc" id="closmg_8f_html_a3378111de0136710daec2ded25ed34e4"><div class="ttname"><a href="closmg_8f.html#a3378111de0136710daec2ded25ed34e4">closmg</a></div><div class="ttdeci">subroutine closmg(LUNIN)</div><div class="ttdoc">This subroutine closes the BUFR message that is currently open for writing within internal arrays ass...</div><div class="ttdef"><b>Definition:</b> <a href="closmg_8f_source.html#l00060">closmg.f:60</a></div></div>
-<div class="ttc" id="bort_8f_html_a488d3a8cf930fb592a9fdaefcfa04ac4"><div class="ttname"><a href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort</a></div><div class="ttdeci">subroutine bort(STR)</div><div class="ttdoc">THIS SUBROUTINE WRITES (VIA BUFR ARCHIVE LIBRARY SUBROUTINE ERRWRT) A GIVEN ERROR STRING AND THEN CAL...</div><div class="ttdef"><b>Definition:</b> <a href="bort_8f_source.html#l00069">bort.f:69</a></div></div>
+<div class="ttc" id="closmg_8f_html_a3378111de0136710daec2ded25ed34e4"><div class="ttname"><a href="closmg_8f.html#a3378111de0136710daec2ded25ed34e4">closmg</a></div><div class="ttdeci">subroutine closmg(LUNIN)</div><div class="ttdoc">This subroutine closes the BUFR message that is currently open for writing within internal arrays ass...</div><div class="ttdef"><b>Definition:</b> <a href="closmg_8f_source.html#l00053">closmg.f:53</a></div></div>
+<div class="ttc" id="bort_8f_html_a488d3a8cf930fb592a9fdaefcfa04ac4"><div class="ttname"><a href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort</a></div><div class="ttdeci">subroutine bort(STR)</div><div class="ttdoc">This subroutine calls subroutine errwrt() to log an error message, then calls subroutine bort_exit() ...</div><div class="ttdef"><b>Definition:</b> <a href="bort_8f_source.html#l00023">bort.f:23</a></div></div>
 <div class="ttc" id="classmoda__msgcwd_html"><div class="ttname"><a href="classmoda__msgcwd.html">moda_msgcwd</a></div><div class="ttdef"><b>Definition:</b> <a href="moda__msgcwd_8F_source.html#l00001">moda_msgcwd.F:1</a></div></div>
 <div class="ttc" id="nemtba_8f_html_a1038fd60bc3fa89eff9ff79ed996a7e1"><div class="ttname"><a href="nemtba_8f.html#a1038fd60bc3fa89eff9ff79ed996a7e1">nemtba</a></div><div class="ttdeci">subroutine nemtba(LUN, NEMO, MTYP, MSBT, INOD)</div><div class="ttdoc">THIS SUBROUTINE SEARCHES FOR MNEMONIC NEMO WITHIN THE INTERNAL TABLE A ARRAYS HOLDING THE DICTIONARY ...</div><div class="ttdef"><b>Definition:</b> <a href="nemtba_8f_source.html#l00050">nemtba.f:50</a></div></div>
 </div><!-- fragment --></div><!-- contents -->

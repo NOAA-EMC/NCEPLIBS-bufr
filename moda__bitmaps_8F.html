@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.3.2</span>
+   &#160;<span id="projectnumber">11.5.0</span>
    </div>
   </td>
  </tr>
@@ -92,7 +92,7 @@ $(document).ready(function(){initNavTree('moda__bitmaps_8F.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -110,14 +110,22 @@ $(document).ready(function(){initNavTree('moda__bitmaps_8F.html','');});
 </div><!--header-->
 <div class="contents">
 
+<p>Declare arrays for internal storage of bitmaps.  
+<a href="#details">More...</a></p>
+
 <p><a href="moda__bitmaps_8F_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Data Types</h2></td></tr>
 <tr class="memitem:classmoda__bitmaps"><td class="memItemLeft" align="right" valign="top">module &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="moda__bitmaps_8F.html#classmoda__bitmaps">moda_bitmaps</a></td></tr>
+<tr class="memdesc:classmoda__bitmaps"><td class="mdescLeft">&#160;</td><td class="mdescRight">This module contains array and variable declarations used to store bitmaps internally within a data subset definition.  <a href="moda__bitmaps_8F.html#classmoda__bitmaps">More...</a><br/></td></tr>
 <tr class="separator:classmoda__bitmaps"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<hr/><h2 class="groupheader">Data Type Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Declare arrays for internal storage of bitmaps. </p>
+
+<p>Definition in file <a class="el" href="moda__bitmaps_8F_source.html">moda_bitmaps.F</a>.</p>
+</div><hr/><h2 class="groupheader">Data Type Documentation</h2>
 <a name="classmoda__bitmaps" id="classmoda__bitmaps"></a>
 <div class="memitem">
 <div class="memproto">
@@ -127,89 +135,93 @@ Data Types</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<div class="textblock">
-<p>Definition at line <a class="el" href="moda__bitmaps_8F_source.html#l00003">3</a> of file <a class="el" href="moda__bitmaps_8F_source.html">moda_bitmaps.F</a>.</p>
+<div class="textblock"><p>This module contains array and variable declarations used to store bitmaps internally within a data subset definition. </p>
+<p>Data values within this module are stored by subprograms <a class="el" href="strbtm_8f.html#af07cb67caa4e62d680d319515c2ad94b" title="THIS SUBROUTINE STORES INTERNAL INFORMATION IN MODULE BITMAPS IF THE INPUT ELEMENT IS PART OF A BITMA...">strbtm()</a>, <a class="el" href="igetrfel_8f.html#a694417e2cb11ea5acdec367f739f94e6" title="THIS FUNCTION CHECKS WHETHER THE INPUT ELEMENT REFERS TO A PREVIOUS ELEMENT WITHIN THE SAME SUBSET VI...">igetrfel()</a>, <a class="el" href="makestab_8f.html#ad12d047119fdcdeb97ffbced0696b9fb" title="THIS SUBROUTINE CONSTRUCTS AN INTERNAL JUMP/LINK TABLE WITHIN MODULE TABLES, USING THE INFORMATION WI...">makestab()</a> and <a class="el" href="tabsub_8f.html#a6ad60d6ecdf6a230ccb11e112ecc84ce" title="THIS SUBROUTINE BUILDS THE ENTIRE JUMP/LINK TREE (I.E., INCLUDING RECURSIVELY RESOLVING ALL &quot;CHILD&quot; M...">tabsub()</a>.</p>
+<dl class="section author"><dt>Author</dt><dd>J. Ator </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2016-05-27 </dd></dl>
+
+<p>Definition at line <a class="el" href="moda__bitmaps_8F_source.html#l00013">13</a> of file <a class="el" href="moda__bitmaps_8F_source.html">moda_bitmaps.F</a>.</p>
 </div><table class="fieldtable">
 <tr><th colspan="3">Data Fields</th></tr>
 <tr><td class="fieldtype">
-<a class="anchor" id="a8c4c8d763cf8700e601ae0e6648c000a"></a>character *6, dimension(mxtamc, <br class="typebreak"/>
+<a class="anchor" id="aff2833d58afc64687bb6fc13ccc69613"></a>character *6, dimension(mxtamc, <br class="typebreak"/>
 mxtco)</td>
 <td class="fieldname">
 ctco</td>
 <td class="fielddoc">
-</td></tr>
+Table C operators corresponding to inodtco. </td></tr>
 <tr><td class="fieldtype">
-<a class="anchor" id="a02e4f4d5a9c3a0bb8496e2773553281a"></a>integer, dimension(mxbtm, mxbtmse)</td>
+<a class="anchor" id="a60214440d46f4fd724492ad602534595"></a>integer, dimension(mxbtm, mxbtmse)</td>
 <td class="fieldname">
 ibtmse</td>
 <td class="fielddoc">
-</td></tr>
+Ordinal positions in bitmap of bits that were "set" (set to a value of 0); these ordinal positions can range in value from 1 to iszbtm for each stored bitmap. </td></tr>
 <tr><td class="fieldtype">
-<a class="anchor" id="ad901dbe0dc4d0e41bf249352d0d348ed"></a>integer, dimension(mxtamc)</td>
+<a class="anchor" id="a877ef0b6f4d01a40a42f37d060a9c922"></a>integer, dimension(mxtamc)</td>
 <td class="fieldname">
 inodtamc</td>
 <td class="fielddoc">
-</td></tr>
+Entries within jump/link table which contain Table A mnemonics. </td></tr>
 <tr><td class="fieldtype">
-<a class="anchor" id="a521595f681ee20a094b05fa72aca8882"></a>integer, dimension(mxtamc, mxtco)</td>
+<a class="anchor" id="aca145d572f520a7d776a3da3e2296e0e"></a>integer, dimension(mxtamc, mxtco)</td>
 <td class="fieldname">
 inodtco</td>
 <td class="fielddoc">
-</td></tr>
+Entries within jump/link table which contain Table C operators. </td></tr>
 <tr><td class="fieldtype">
-<a class="anchor" id="a84c8d53bcd2415583152a603fea2ed3c"></a>integer, dimension(mxbtm)</td>
+<a class="anchor" id="ade4fb6845c9d07dcc131200216717f59"></a>integer, dimension(mxbtm)</td>
 <td class="fieldname">
 istbtm</td>
 <td class="fielddoc">
-</td></tr>
+Ordinal position in data subset definition corresponding to the first entry of the bitmap. </td></tr>
 <tr><td class="fieldtype">
-<a class="anchor" id="a7a6c08d61338e39d89e436f7c07d8c85"></a>integer, dimension(mxbtm)</td>
+<a class="anchor" id="a32fe3029f99f07bbe4d1ab2b1a10403a"></a>integer, dimension(mxbtm)</td>
 <td class="fieldname">
 iszbtm</td>
 <td class="fielddoc">
-</td></tr>
+Size of bitmap (total number of entries, whether "set" (set to a value of 0) or not). </td></tr>
 <tr><td class="fieldtype">
-<a class="anchor" id="acd6cd1e5190bdc17381e81624a7e2e80"></a>logical</td>
+<a class="anchor" id="a468ddf44b8f2c0f993d46a0c97ca0883"></a>logical</td>
 <td class="fieldname">
 linbtm</td>
 <td class="fielddoc">
-</td></tr>
+TRUE if a bitmap is in the process of being read for the current data subset. </td></tr>
 <tr><td class="fieldtype">
-<a class="anchor" id="a352a33aaf989dcaab7646f86aa41e27d"></a>integer</td>
+<a class="anchor" id="a0340231a02114f3b869c36055dcd00bd"></a>integer</td>
 <td class="fieldname">
 lstnod</td>
 <td class="fielddoc">
-</td></tr>
+Most recent jump/link table entry that was processed by function <a class="el" href="igetrfel_8f.html#a694417e2cb11ea5acdec367f739f94e6" title="THIS FUNCTION CHECKS WHETHER THE INPUT ELEMENT REFERS TO A PREVIOUS ELEMENT WITHIN THE SAME SUBSET VI...">igetrfel()</a> and whose corresponding value type was either numeric or CCITT IA5. </td></tr>
 <tr><td class="fieldtype">
-<a class="anchor" id="accaa0826b48e876c29f6bb8ebe21c83e"></a>integer</td>
+<a class="anchor" id="a9c7012e2d1af86195808459ee0723540"></a>integer</td>
 <td class="fieldname">
 lstnodct</td>
 <td class="fielddoc">
-</td></tr>
+Current count of consecutive occurrences of lstnod. </td></tr>
 <tr><td class="fieldtype">
-<a class="anchor" id="a6530eb70f0a9131f659c61a74652c93d"></a>integer</td>
+<a class="anchor" id="a0ed1218ca36105bec46a9b3939f7198d"></a>integer</td>
 <td class="fieldname">
 nbtm</td>
 <td class="fielddoc">
-</td></tr>
+Number of stored bitmaps for the current data subset (up to a maximum of MXBTM). </td></tr>
 <tr><td class="fieldtype">
-<a class="anchor" id="a9431d4138261656c6fcd60a74e1d3d74"></a>integer, dimension(mxbtm)</td>
+<a class="anchor" id="a738d240b5645fdf9235cd8c89c8d8597"></a>integer, dimension(mxbtm)</td>
 <td class="fieldname">
 nbtmse</td>
 <td class="fielddoc">
-</td></tr>
+Number of "set" entries (set to a value of 0) in the bitmap. </td></tr>
 <tr><td class="fieldtype">
-<a class="anchor" id="a4dfbf13c3d38b007276cb0f5c5418396"></a>integer</td>
+<a class="anchor" id="aefff36a04de0e2b85785d16b3963e235"></a>integer</td>
 <td class="fieldname">
 ntamc</td>
 <td class="fielddoc">
-</td></tr>
+Number of Table A mnemonics in jump/link table (up to a maximum of MXTAMC) which contain at least one Table C operator with an XX value of 21 or greater in their data subset definition; only Table C operators with an XX value of 21 or greater are tracked within this module, since all others are automatically processed within subroutines <a class="el" href="tabsub_8f.html#a6ad60d6ecdf6a230ccb11e112ecc84ce" title="THIS SUBROUTINE BUILDS THE ENTIRE JUMP/LINK TREE (I.E., INCLUDING RECURSIVELY RESOLVING ALL &quot;CHILD&quot; M...">tabsub()</a> and <a class="el" href="tabent_8f.html#a93eed61bdc169fa276366154d660f959" title="THIS SUBROUTINE BUILDS AND STORES AN ENTRY FOR A TABLE B OR TABLE D MNEMONIC (NEMO) WITHIN THE INTERN...">tabent()</a>. </td></tr>
 <tr><td class="fieldtype">
-<a class="anchor" id="a7c6c68c24ff55d9526e62cdb1b14ea21"></a>integer, dimension(mxtamc)</td>
+<a class="anchor" id="af050e1b93219cec114b5ab57acc17e10"></a>integer, dimension(mxtamc)</td>
 <td class="fieldname">
 ntco</td>
 <td class="fielddoc">
-</td></tr>
+Number of Table C operators (with an XX value of 21 or greater) within the data subset definition of the corresponding Table A mnemonic in inodtamc. </td></tr>
 </table>
 
 </div>

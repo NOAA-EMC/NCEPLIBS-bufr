@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.3.2</span>
+   &#160;<span id="projectnumber">11.5.0</span>
    </div>
   </td>
  </tr>
@@ -92,7 +92,7 @@ $(document).ready(function(){initNavTree('igetdate_8f.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -109,17 +109,19 @@ $(document).ready(function(){initNavTree('igetdate_8f.html','');});
 </div><!--header-->
 <div class="contents">
 
+<p>Read the date-time from Section 1 of a BUFR message.  
+<a href="#details">More...</a></p>
+
 <p><a href="igetdate_8f_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions/Subroutines</h2></td></tr>
 <tr class="memitem:a254f61bc732afa08b20c8526d96ab0c4"><td class="memItemLeft" align="right" valign="top">function&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="igetdate_8f.html#a254f61bc732afa08b20c8526d96ab0c4">igetdate</a> (MBAY, IYR, IMO, IDY, IHR)</td></tr>
-<tr class="memdesc:a254f61bc732afa08b20c8526d96ab0c4"><td class="mdescLeft">&#160;</td><td class="mdescRight">THIS FUNCTION UNPACKS AND RETURNS THE SECTION 1 DATE-TIME FROM THE BUFR MESSAGE STORED IN ARRAY MBAY.  <a href="#a254f61bc732afa08b20c8526d96ab0c4">More...</a><br/></td></tr>
+<tr class="memdesc:a254f61bc732afa08b20c8526d96ab0c4"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function returns the date-time from within Section 1 of a BUFR message.  <a href="#a254f61bc732afa08b20c8526d96ab0c4">More...</a><br/></td></tr>
 <tr class="separator:a254f61bc732afa08b20c8526d96ab0c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><dl class="section author"><dt>Author</dt><dd>ATOR </dd></dl>
-<dl class="section date"><dt>Date</dt><dd>2005-11-29 </dd></dl>
+<div class="textblock"><p>Read the date-time from Section 1 of a BUFR message. </p>
 
 <p>Definition in file <a class="el" href="igetdate_8f_source.html">igetdate.f</a>.</p>
 </div><h2 class="groupheader">Function/Subroutine Documentation</h2>
@@ -165,14 +167,31 @@ Functions/Subroutines</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>THIS FUNCTION UNPACKS AND RETURNS THE SECTION 1 DATE-TIME FROM THE BUFR MESSAGE STORED IN ARRAY MBAY. </p>
-<p>IT WILL WORK ON ANY MESSAGE ENCODED USING BUFR EDITION 2, 3 OR 4. THE START OF THE BUFR MESSAGE, (I.E. THE STRING "BUFR") MUST BE ALIGNED ON THE FIRST FOUR BYTES OF MBAY.</p>
-<p>PROGRAM HISTORY LOG: 2005-11-29 J. ATOR &ndash; ORIGINAL AUTHOR</p>
-<p>USAGE: IGETDATE (MBAY, IYR, IMO, IDY, IHR) INPUT ARGUMENT LIST: MBAY - INTEGER: *-WORD PACKED BINARY ARRAY CONTAINING BUFR MESSAGE</p>
-<p>OUTPUT ARGUMENT LIST: IYR - INTEGER: SECTION 1 YEAR (YYYY OR YY, DEPENDING ON DATELEN() VALUE) IMO - INTEGER: SECTION 1 MONTH (MM) IDY - INTEGER: SECTION 1 DAY (DD) IHR - INTEGER: SECTION 1 HOUR (HH) IGETDATE - INTEGER: SECTION 1 DATE-TIME (YYYYMMDDHH OR YYMMDDHH, DEPENDING ON DATELEN() VALUE)</p>
-<p>REMARKS: THIS ROUTINE CALLS: IUPBS01 THIS ROUTINE IS CALLED BY: CKTABA DATEBF DUMPBF Normally not called by application programs but it could be. </p>
+<p>This function returns the date-time from within Section 1 of a BUFR message. </p>
+<p>The function will work on any BUFR message encoded using BUFR edition 2, 3, or 4.</p>
+<dl class="section author"><dt>Author</dt><dd>J. Ator </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2005-11-29</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">MBAY</td><td>- integer(*): BUFR message </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">IYR</td><td>- integer: Year stored within Section 1 of MBAY, in format of either YY or YYYY, depending on the most recent call to subroutine <a class="el" href="datelen_8f.html#ac75cb362f84167ca65b058a97401efcd" title="This subroutine is used to specify the format of Section 1 date-time values that will be output by fu...">datelen()</a> </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">IMO</td><td>- integer: Month stored within Section 1 of MBAY </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">IDY</td><td>- integer: Day stored within Section 1 of MBAY </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">IHR</td><td>- integer: Hour stored within Section 1 of MBAY </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>igetdate - integer: Date-time stored within Section 1 of MBAY, in format of either YYMMDDHH or YYYYMMDDHH, depending on the most recent call to subroutine <a class="el" href="datelen_8f.html#ac75cb362f84167ca65b058a97401efcd" title="This subroutine is used to specify the format of Section 1 date-time values that will be output by fu...">datelen()</a></dd></dl>
+<dl class="section remark"><dt>Remarks</dt><dd><ul>
+<li>The start of the BUFR message (i.e. the string 'BUFR') must be aligned on the first 4 bytes of MBAY. </li>
+</ul>
+</dd></dl>
 
-<p>Definition at line <a class="el" href="igetdate_8f_source.html#l00033">33</a> of file <a class="el" href="igetdate_8f_source.html">igetdate.f</a>.</p>
+<p>Definition at line <a class="el" href="igetdate_8f_source.html#l00029">29</a> of file <a class="el" href="igetdate_8f_source.html">igetdate.f</a>.</p>
+
+<p>References <a class="el" href="iupbs01_8f.html#adcd6f7c2f898b4f938153c5cf79a9cf5">iupbs01()</a>.</p>
+
+<p>Referenced by <a class="el" href="cktaba_8f.html#a137108e58830be769ba5b28072cf1b4c">cktaba()</a>, <a class="el" href="datebf_8F.html#a688208e451a81634a110c6963561f22e">datebf()</a>, and <a class="el" href="dumpbf_8f.html#a345cb5b88ed574ab5f66b9a90e61acc6">dumpbf()</a>.</p>
 
 </div>
 </div>

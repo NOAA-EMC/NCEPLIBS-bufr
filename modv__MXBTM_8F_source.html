@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.3.2</span>
+   &#160;<span id="projectnumber">11.5.0</span>
    </div>
   </td>
  </tr>
@@ -92,7 +92,7 @@ $(document).ready(function(){initNavTree('modv__MXBTM_8F_source.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -106,31 +106,41 @@ $(document).ready(function(){initNavTree('modv__MXBTM_8F_source.html','');});
 <div class="title">modv_MXBTM.F</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno"><a class="line" href="classmodv__mxbtm.html">    1</a></span>&#160;    <span class="keyword">MODULE</span> <a class="code" href="classmodv__mxbtm.html">modv_mxbtm</a></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;</div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;c     mxbtm is the maximum number of bitmaps that can be stored</div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;c     internally for a bufr subset.</div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;</div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#ifdef DYNAMIC_ALLOCATION</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor"></span></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;c     set a default value for mxbtm.  this value will be used</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;c     unless it is overridden by a subsequent user call to</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;c<span class="keyword">     function </span><a class="code" href="isetprm_8F.html#a366156765665bb1e1452635b12ff5093">isetprm</a>.</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;      <span class="keywordtype">INTEGER</span> :: mxbtm = 5</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#else</span></div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor"></span>      parameter( mxbtm = 5 )</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="preprocessor"></span></div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="keyword">    END MODULE</span></div>
-<div class="ttc" id="isetprm_8F_html_a366156765665bb1e1452635b12ff5093"><div class="ttname"><a href="isetprm_8F.html#a366156765665bb1e1452635b12ff5093">isetprm</a></div><div class="ttdeci">INTEGER function isetprm(CPRMNM, IPVAL)</div><div class="ttdoc">THIS FUNCTION SHOULD ONLY BE CALLED IF DYNAMIC MEMORY ALLOCATION IS BEING USED. </div><div class="ttdef"><b>Definition:</b> <a href="isetprm_8F_source.html#l00094">isetprm.F:94</a></div></div>
-<div class="ttc" id="classmodv__mxbtm_html"><div class="ttname"><a href="classmodv__mxbtm.html">modv_mxbtm</a></div><div class="ttdef"><b>Definition:</b> <a href="modv__MXBTM_8F_source.html#l00001">modv_MXBTM.F:1</a></div></div>
+<a href="modv__MXBTM_8F.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="comment">C&gt; @file</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment">C&gt; @brief Declare and initialize MXBTM variable.</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="comment">C&gt; This module declares and initializes the MXBTM variable.</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="comment">C&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="comment">C&gt; &lt;p&gt;For dynamic allocation builds, this variable is initialized</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="comment">C&gt; to a default value which can be overridden by a subsequent call</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="comment">C&gt; to function isetprm() within the application program.</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="comment">C&gt; For static allocation builds, this variable is set as a</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="comment">C&gt; parameter at compile time and cannot be changed within the</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="comment">C&gt; application program.</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="comment">C&gt;</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="comment">C&gt; @author J. Ator</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment">C&gt; @date 2014-12-10</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;</div>
+<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="modv__MXBTM_8F.html">   16</a></span>&#160;    <span class="keyword">MODULE</span> <a class="code" href="modv__MXBTM_8F.html#classmodv__mxbtm">modv_mxbtm</a></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="comment">C&gt;        @var mxbtm</span></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment">C&gt;        Maximum number of bitmaps that can be stored internally</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="comment">C&gt;        for a data subset.</span></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="preprocessor">#ifdef STATIC_ALLOCATION</span></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="preprocessor"></span>      <span class="keywordtype">INTEGER</span>, <span class="keywordtype">PARAMETER</span> :: mxbtm = 5</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="preprocessor">#else</span></div>
+<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="modv__MXBTM_8F.html#a8f3ab773547d13dfbb25bc7014a6fc97">   25</a></span>&#160;<span class="preprocessor"></span>      <span class="keywordtype">INTEGER</span> :: MXBTM = 5</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="preprocessor"></span></div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="keyword">    END MODULE</span></div>
+<div class="ttc" id="modv__MXBTM_8F_html_classmodv__mxbtm"><div class="ttname"><a href="modv__MXBTM_8F.html#classmodv__mxbtm">modv_mxbtm</a></div><div class="ttdoc">This module declares and initializes the MXBTM variable. </div><div class="ttdef"><b>Definition:</b> <a href="modv__MXBTM_8F_source.html#l00016">modv_MXBTM.F:16</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_30c37837910170b6dae887e9df3b66a9.html">nceplibs-bufr</a></li><li class="navelem"><a class="el" href="dir_e81fc8df062d10d5f2b231f7e4ab81b8.html">src</a></li><li class="navelem"><b>modv_MXBTM.F</b></li>
+    <li class="navelem"><a class="el" href="dir_30c37837910170b6dae887e9df3b66a9.html">nceplibs-bufr</a></li><li class="navelem"><a class="el" href="dir_e81fc8df062d10d5f2b231f7e4ab81b8.html">src</a></li><li class="navelem"><a class="el" href="modv__MXBTM_8F.html">modv_MXBTM.F</a></li>
     <li class="footer">Generated by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.5 </li>

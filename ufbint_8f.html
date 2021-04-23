@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.3.2</span>
+   &#160;<span id="projectnumber">11.5.0</span>
    </div>
   </td>
  </tr>
@@ -92,7 +92,7 @@ $(document).ready(function(){initNavTree('ufbint_8f.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -109,17 +109,19 @@ $(document).ready(function(){initNavTree('ufbint_8f.html','');});
 </div><!--header-->
 <div class="contents">
 
+<p>Read/write one or more data values from/to a data subset.  
+<a href="#details">More...</a></p>
+
 <p><a href="ufbint_8f_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions/Subroutines</h2></td></tr>
 <tr class="memitem:afe3364a491b49e0c9e5a526b009aaa75"><td class="memItemLeft" align="right" valign="top">subroutine&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ufbint_8f.html#afe3364a491b49e0c9e5a526b009aaa75">ufbint</a> (LUNIN, USR, I1, I2, IRET, STR)</td></tr>
-<tr class="memdesc:afe3364a491b49e0c9e5a526b009aaa75"><td class="mdescLeft">&#160;</td><td class="mdescRight">THIS SUBROUTINE WRITES OR READS SPECIFIED VALUES TO OR FROM THE CURRENT BUFR DATA SUBSET WITHIN INTERNAL ARRAYS, WITH THE DIRECTION OF THE DATA TRANSFER DETERMINED BY THE CONTEXT OF ABS(LUNIN) (I.E., IF ABS(LUNIN) POINTS TO A BUFR FILE THAT IS OPEN FOR INPUT, THEN DATA VALUES ARE READ FROM THE INTERNAL DATA SUBSET; OTHERWISE, DATA VALUES ARE WRITTEN TO THE INTERNAL DATA SUBSET).  <a href="#afe3364a491b49e0c9e5a526b009aaa75">More...</a><br/></td></tr>
+<tr class="memdesc:afe3364a491b49e0c9e5a526b009aaa75"><td class="mdescLeft">&#160;</td><td class="mdescRight">This subroutine reads or writes one or more data values from or to the BUFR data subset that is currently open within the BUFRLIB internal arrays.  <a href="#afe3364a491b49e0c9e5a526b009aaa75">More...</a><br/></td></tr>
 <tr class="separator:afe3364a491b49e0c9e5a526b009aaa75"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><dl class="section author"><dt>Author</dt><dd>WOOLLEN </dd></dl>
-<dl class="section date"><dt>Date</dt><dd>1994-01-06 </dd></dl>
+<div class="textblock"><p>Read/write one or more data values from/to a data subset. </p>
 
 <p>Definition in file <a class="el" href="ufbint_8f_source.html">ufbint.f</a>.</p>
 </div><h2 class="groupheader">Function/Subroutine Documentation</h2>
@@ -171,112 +173,67 @@ Functions/Subroutines</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>THIS SUBROUTINE WRITES OR READS SPECIFIED VALUES TO OR FROM THE CURRENT BUFR DATA SUBSET WITHIN INTERNAL ARRAYS, WITH THE DIRECTION OF THE DATA TRANSFER DETERMINED BY THE CONTEXT OF ABS(LUNIN) (I.E., IF ABS(LUNIN) POINTS TO A BUFR FILE THAT IS OPEN FOR INPUT, THEN DATA VALUES ARE READ FROM THE INTERNAL DATA SUBSET; OTHERWISE, DATA VALUES ARE WRITTEN TO THE INTERNAL DATA SUBSET). </p>
-<p>THE DATA VALUES CORRESPOND TO MNEMONICS WHICH ARE PART OF A DELAYED-REPLICATION SEQUENCE, OR FOR WHICH THERE IS NO REPLICATION AT ALL. IF UFBINT IS READING VALUES, THEN EITHER BUFR ARCHIVE LIBRARY SUBROUTINE READSB OR READNS MUST HAVE BEEN PREVIOUSLY CALLED TO READ THE SUBSET FROM UNIT ABS(LUNIN) INTO INTERNAL MEMORY. IF IT IS WRITING VALUES, THEN EITHER BUFR ARCHIVE LIBRARY SUBROUTINE OPENMG OR OPENMB MUST HAVE BEEN PREVIOUSLY CALLED TO OPEN AND INITIALIZE A BUFR MESSAGE WITHIN MEMORY FOR THIS ABS(LUNIN).</p>
-<p>PROGRAM HISTORY LOG: 1994-01-06 J. WOOLLEN &ndash; ORIGINAL AUTHOR 1996-11-25 J. WOOLLEN &ndash; MODIFIED TO ADD A RETURN CODE WHEN MNEMONICS ARE NOT FOUND WHEN READING 1996-12-11 J. WOOLLEN &ndash; REMOVED A HARD ABORT FOR USERS WHO TRY TO WRITE NON-EXISTING MNEMONICS 1996-12-17 J. WOOLLEN &ndash; MODIFIED TO ALWAYS INITIALIZE "USR" ARRAY TO MISSING (10E10) WHEN BUFR FILE IS BEING READ 1998-07-08 J. WOOLLEN &ndash; REPLACED CALL TO CRAY LIBRARY ROUTINE "ABORT" WITH CALL TO NEW INTERNAL BUFRLIB ROUTINE "BORT"; IMPROVED MACHINE PORTABILITY 1999-11-18 J. WOOLLEN &ndash; THE NUMBER OF BUFR FILES WHICH CAN BE OPENED AT ONE TIME INCREASED FROM 10 TO 32 (NECESSARY IN ORDER TO PROCESS MULTIPLE BUFR FILES UNDER THE MPI) 2002-05-14 J. WOOLLEN &ndash; REMOVED OLD CRAY COMPILER DIRECTIVES 2003-11-04 S. BENDER &ndash; ADDED REMARKS/BUFRLIB ROUTINE INTERDEPENDENCIES 2003-11-04 D. KEYSER &ndash; MAXJL (MAXIMUM NUMBER OF JUMP/LINK ENTRIES) INCREASED FROM 15000 TO 16000 (WAS IN VERIFICATION VERSION); UNIFIED/PORTABLE FOR WRF; ADDED DOCUMENTATION (INCLUDING HISTORY); OUTPUTS MORE COMPLETE DIAGNOSTIC INFO WHEN ROUTINE TERMINATES ABNORMALLY OR UNUSUAL THINGS HAPPEN; CHANGED CALL FROM BORT TO BORT2 IN SOME CASES 2004-08-18 J. ATOR &ndash; ADDED SAVE FOR IFIRST1 AND IFIRST2 FLAGS 2009-04-21 J. ATOR &ndash; USE ERRWRT 2014-12-10 J. ATOR &ndash; USE MODULES INSTEAD OF COMMON BLOCKS</p>
-<p>USAGE: CALL UFBINT (LUNIN, USR, I1, I2, IRET, STR) INPUT ARGUMENT LIST: LUNIN - INTEGER: ABSOLUTE VALUE IS FORTRAN LOGICAL UNIT NUMBER FOR BUFR FILE</p>
+<p>This subroutine reads or writes one or more data values from or to the BUFR data subset that is currently open within the BUFRLIB internal arrays. </p>
+<p>The direction of the data transfer is determined by the context of ABS(LUNIN):</p>
 <ul>
-<li>IF BUFR FILE OPEN FOR OUTPUT AND LUNIN IS LESS THAN ZERO, UFBINT TREATS THE BUFR FILE AS THOUGH IT WERE OPEN FOR INPUT USR - ONLY IF BUFR FILE OPEN FOR OUTPUT: REAL*8: (I1,I2) STARTING ADDRESS OF DATA VALUES WRITTEN TO DATA SUBSET I1 - INTEGER: LENGTH OF FIRST DIMENSION OF USR (MUST BE AT LEAST AS LARGE AS THE NUMBER OF BLANK-SEPARATED MNEMONICS IN STR) I2 - INTEGER:</li>
-<li>IF BUFR FILE OPEN FOR INPUT: LENGTH OF SECOND DIMENSION OF USR</li>
-<li>IF BUFR FILE OPEN FOR OUTPUT: NUMBER OF "LEVELS" OF DATA VALUES TO BE WRITTEN TO DATA SUBSET STR - CHARACTER*(*): STRING OF BLANK-SEPARATED TABLE B MNEMONICS IN ONE-TO-ONE CORRESPONDENCE WITH FIRST DIMENSION OF USR</li>
-<li>IF BUFR FILE OPEN FOR INPUT: THIS CAN ALSO BE A SINGLE TABLE D (SEQUENCE) MNEMONIC WITH EITHER 8- OR 16-BIT DELAYED REPLICATION (SEE REMARKS 1)</li>
-<li>IF BUFR FILE OPEN FOR INPUT: THERE ARE THREE "GENERIC" MNEMONICS NOT RELATED TO TABLE B OR D, THESE RETURN THE FOLLOWING INFORMATION IN CORRESPONDING USR LOCATION: 'NUL' WHICH ALWAYS RETURNS BMISS ("MISSING") 'IREC' WHICH ALWAYS RETURNS THE CURRENT BUFR MESSAGE (RECORD) NUMBER IN WHICH THIS SUBSET RESIDES 'ISUB' WHICH ALWAYS RETURNS THE CURRENT SUBSET NUMBER OF THIS SUBSET WITHIN THE BUFR MESSAGE (RECORD) NUMBER 'IREC'</li>
+<li>If ABS(LUNIN) points to a file that was previously opened for input using subroutine <a class="el" href="openbf_8F.html#a9bea9aeada166bd9037b959ca8452b28" title="This subroutine connects a new file to the BUFRLIB software for input or output operations. ">openbf()</a>, then data values are read from the current data subset.</li>
+<li>If ABS(LUNIN) points to a file that was previously opened for output using subroutine <a class="el" href="openbf_8F.html#a9bea9aeada166bd9037b959ca8452b28" title="This subroutine connects a new file to the BUFRLIB software for input or output operations. ">openbf()</a>, then data values are written to the current data subset.</li>
 </ul>
-<p>OUTPUT ARGUMENT LIST: USR - ONLY IF BUFR FILE OPEN FOR INPUT: REAL*8: (I1,I2) STARTING ADDRESS OF DATA VALUES READ FROM DATA SUBSET IRET - INTEGER:</p>
+<p>This subroutine is specifically designed for use with Table B mnemonics which are part of a delayed-replication sequence, or for which there is no replication at all. See also subroutines <a class="el" href="ufbrep_8f.html#adb981832bdbbb26903265fb946aac58c" title="This subroutine reads or writes one or more data values from or to the BUFR data subset that is curre...">ufbrep()</a>, <a class="el" href="ufbseq_8f.html#aa96ada82e0e2f98226594f3532bb245d" title="This subroutine reads or writes an entire sequence of data values from or to the BUFR data subset tha...">ufbseq()</a> and <a class="el" href="ufbstp_8f.html#a8153bb675bd7b02b4a2a58b77ba9d581" title="This subroutine reads or writes one or more data values from or to the BUFR data subset that is curre...">ufbstp()</a>, which can also be used to read/write one or more data values from/to a data subset but are designed for different use cases. A more detailed discussion of these different use cases, including examples, is available in <a class="el" href="md__gpfs_dell2_emc_obsproc_noscrub_Jeff_8Ator_NCEPLIBS-bufr-GitHub_nceplibs-bufr_docs_dfbftab.html#ufbsubs">DX BUFR Tables</a>.</p>
+<dl class="section author"><dt>Author</dt><dd>J. Woollen </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>1994-01-06</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">LUNIN</td><td>- integer: Absolute value is Fortran logical unit number for BUFR file </td></tr>
+    <tr><td class="paramdir">[in,out]</td><td class="paramname">USR</td><td>- real*8(*,*): Data values<ul>
+<li>If ABS(LUNIN) was opened for input, then USR is output from this subroutine and contains data values that were read from the current data subset.</li>
+<li>If ABS(LUNIN) was opened for output, then USR is input to this subroutine and contains data values that are to be written to the current data subset. </li>
+</ul>
+</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">I1</td><td>- integer: Actual first dimension of USR as allocated within the calling program </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">I2</td><td>- integer:<ul>
+<li>If ABS(LUNIN) was opened for input, then I2 must be set equal to the actual second dimension of USR as allocated within the calling program</li>
+<li>If ABS(LUNIN) was opened for output, then I2 must be set equal to the number of replications of STR that are to be written to the data subset </li>
+</ul>
+</td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">IRET</td><td>- integer: Number of replications of STR that were actually read/written from/to the data subset </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">STR</td><td>- character*(*): String of blank-separated Table B mnemonics in one-to-one correspondence with the number of data values that will be read/written from/to the data subset within the first dimension of USR (see <a class="el" href="md__gpfs_dell2_emc_obsproc_noscrub_Jeff_8Ator_NCEPLIBS-bufr-GitHub_nceplibs-bufr_docs_dfbftab.html#dfbftab">DX BUFR Tables</a> for further information about Table B mnemonics)</td></tr>
+  </table>
+  </dd>
+</dl>
+<p>It is the user's responsibility to ensure that USR is dimensioned sufficiently large enough to accommodate the number of data values that are to be read from or written to the data subset. Note also that USR is an array of real*8 values; therefore, any data that are to be written out as character (i.e. CCITT IA5) values in BUFR must be converted from character into real*8 format within the application program before calling this subroutine. Conversely, when this subroutine is being used to read character values from a data subset, the value that is returned will be in real*8 format and must be converted back into character format by the application program before it can be used as such. Alternatively, there are different subroutines such as <a class="el" href="readlc_8f.html#acf408b0943fc7a5040009cd9a9bc57a1" title="This subroutine reads a long character string (greater than 8 bytes) from a data subset. ">readlc()</a> and <a class="el" href="writlc_8f.html#a7017d5359bb32ce5407499d7a1b16709" title="This subroutine writes a long character string (greater than 8 bytes) to a data subset. ">writlc()</a> which can be used to read/write character data directly from/to a data subset without the need to convert from/to real*8 format as an intermediate step.</p>
+<p>Numeric (i.e. non-character) data values within USR are always in the exact units specified for the corresponding mnemonic within the relevant DX or master BUFR table, without any scale or reference values applied. Specifically, this means that, when writing data values into an output subset, the user only needs to store each respective value into USR using the units specified within the table, and the BUFRLIB software will take care of any necessary scaling or referencing of the value before it is actually encoded into BUFR. Conversely, when reading data values from an input subset, the values returned in USR are already de-scaled and de-referenced and, thus, are already in the exact units that were defined for the corresponding mnemonics within the table.</p>
+<p>"Missing" values in USR are always denoted by a unique placeholder value. This placeholder value is initially set to a default value of 10E10_8, but it can be reset to any substitute value of the user's choice via a separate call to subroutine <a class="el" href="setbmiss_8f.html#a5435d5821267af076f83cefdf3c1c7f8" title="This subroutine allows the user to specify a customized value to represent &quot;missing&quot; data when readin...">setbmiss()</a>. In any case, and whenever this subroutine is used to read data values from an input subset, any returned value in USR can be easily checked for equivalence to the current placeholder value via a call to function <a class="el" href="ibfms_8f.html#a79737107a4ec70afa5efc8eb793d984b" title="This function provides a handy way to check whether a real*8 data value returned from a previous call...">ibfms()</a>, and a positive result means that the value for the corresponding mnemonic was encoded as "missing" in BUFR (i.e. all bits set to 1) within the original data subset. Conversely, whenever this subroutine is used to write data values to an output subset, the current placeholder value can be obtained via a separate call to function <a class="el" href="getbmiss_8f.html#afaf2f1c27bbdd180a75315e774c74d8e" title="This function returns the current placeholder value which represents &quot;missing&quot; data when reading from...">getbmiss()</a>, and the resulting value can then be stored into the USR array whereever the user desires a BUFR "missing" value (i.e. all bits set to 1) to be encoded for the corresponding mnemonic within the output subset.</p>
+<dl class="section remark"><dt>Remarks</dt><dd><ul>
+<li>If LUNIN &lt; 0, and if ABS(LUNIN) points to a file that is open for output (writing BUFR), then the subroutine will treat the file pointed to by ABS(LUNIN) as though it was open for input (reading BUFR). This is a special capability for use by some applications that need to read certain values back out from a BUFR file during the same time that it is in the process of being written to.</li>
+<li>If ABS(LUNIN) points to a file that is open for input (reading BUFR), STR may contain a Table D mnemonic that is replicated using either 8-bit or 16-bit delayed replication (as noted using replication indicators {} or (), respectively, within the assocated DX BUFR table), and the corresponding location in USR will contain the total number of replications of that mnemonic within the data subset. Note that, when using this option, the applicable replication indicators must be included in STR along with the mnemonic itself, as shown in an example in the discussion of <a class="el" href="md__gpfs_dell2_emc_obsproc_noscrub_Jeff_8Ator_NCEPLIBS-bufr-GitHub_nceplibs-bufr_docs_dfbftab.html#ufbsubs">DX BUFR Tables</a>.</li>
+<li>If ABS(LUNIN) points to a file that is open for input (reading BUFR), there are a few additional special mnemonics that can be included within STR when calling this subroutine, and which in turn will result in special information being returned within the corresponding location in USR. These special mnemonics are not considered to be part of Table B or Table D and therefore do not need to be definied within the DX or master table file associated with ABS(LUNIN):<ul>
+<li>NUL - returns the "missing" value</li>
+<li>IREC - returns the number of the BUFR message within the file pointed to by ABS(LUNIN) (counting from the beginning of the file) in which the current data subset resides</li>
+<li>ISUB - returns the number of the current data subset within the BUFR message pointed to by IREC, counting from the beginning of the message</li>
+</ul>
+</li>
+</ul>
+</dd></dl>
+<p><b>Program history log:</b></p>
 <ul>
-<li>IF BUFR FILE OPEN FOR INPUT: NUMBER OF "LEVELS" OF DATA VALUES READ FROM DATA SUBSET (MUST BE NO LARGER THAN I2)</li>
-<li>IF BUFR FILE OPEN FOR OUTPUT: NUMBER OF "LEVELS" OF DATA VALUES WRITTEN TO DATA SUBSET (SHOULD BE SAME AS I2)</li>
+<li>1994-01-06 J. Woollen &ndash; Original author</li>
+<li>1996-11-25 J. Woollen &ndash; Modified to add a return code when mnemonics are not found when reading</li>
+<li>1996-12-17 J. Woollen &ndash; Modified to always initialize USR array to "missing" when BUFR file is being read</li>
+<li>1998-07-08 J. Woollen &ndash; Replaced call to Cray library routine ABORT with call to new internal routine <a class="el" href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4" title="This subroutine calls subroutine errwrt() to log an error message, then calls subroutine bort_exit() ...">bort()</a></li>
+<li>1999-11-18 J. Woollen &ndash; The number of BUFR files which can be opened at one time increased from 10 to 32 (necessary in order to process multiple BUFR files under the MPI)</li>
+<li>2003-11-04 S. Bender &ndash; Added remarks and routine interdependencies</li>
+<li>2003-11-04 D. Keyser &ndash; Unified/portable for WRF; added history documentation; outputs more complete diagnostic info when routine terminates abnormally, unusual things happen or for informational purposes</li>
+<li>2004-08-18 J. Ator &ndash; Added SAVE for IFIRST1 and IFIRST2 flags</li>
+<li>2009-04-21 J. Ator &ndash; Use <a class="el" href="errwrt_8f.html#a65626d9a772648676146b62b596c2764" title="This subroutine allows the user to specify a custom location for the logging of error and diagnostic ...">errwrt()</a></li>
+<li>2014-12-10 J. Ator &ndash; Use modules instead of COMMON blocks </li>
 </ul>
-<p>REMARKS: 1) UFBINT CAN ALSO BE CALLED TO PROVIDE INFORMATION ABOUT A SINGLE TABLE D (SEQUENCE) MNEMONIC WITH EITHER 8- OR 16-BIT DELAYED REPLICATION IN A SUBSET WHEN THE BUFR FILE IS OPEN FOR INPUT. THE MNEMONIC IN STR MUST APPEAR AS IT DOES IN THE BUFR TABLE, I.E., BRACKETED BY "{" AND "}" OR "[" AND "]" FOR 8-BIT DELAYED REPLICATION, OR BRACKETED BY "(" AND ")" FOR 16-BIT DELAYED REPLICATION. {NOTE: THIS WILL NOT WORK FOR SEQUENCES WITH 1-BIT DELAYED REPLICATION (BRACKETED BY "&lt;" AND "&gt;"), STANDARD REPLICATION (BRACKETED BY "'s), OR NO REPLICATION (NO BRACKETING SYMBOLS).}</p>
-<p>FOR EXAMPLE:</p>
-<p>CALL UFBINT(LUNIN,PLEVL,1, 50,IRET,'{PLEVL}')</p>
-<p>WILL RETURN WITH IRET EQUAL TO THE NUMBER OF OCCURRENCES OF THE 8-BIT DELAYED REPLICATION SEQUENCE PLEVL IN THE SUBSET AND WITH (PLEVL(I),I=1,IRET) EQUAL TO THE NUMBER OF REPLICATIONS IN EACH OCCURRENCE OF PLEVL IN THE SUBSET. IF THERE ARE NO OCCURRENCES OF PLEVL IN THE SUBSET, IRET IS RETURNED AS ZERO.</p>
-<p>2) WHEN THE BUFR FILE IS OPEN FOR OUTPUT, UFBINT CAN BE USED TO PRE-ALLOCATE SPACE FOR SOME OR ALL MNEMONICS WITHIN DELAYED REPLICATION SEQUENCES. A SUBSEQUENT CALL TO BUFR ARCHIVE LIBRARY ROUTINE UFBREP OR UFBSEQ THEN ACTUALLY STORES THE VALUES INTO THE BUFR FILES. HERE ARE TWO EXAMPLES OF THIS:</p>
-<p>EXAMPLE 1) PROBLEM: AN OUTPUT SUBSET "SEQNCE" IS LAID OUT AS FOLLOWS IN A BUFR TABLE (NOTE 16 CHARACTERS HAVE BEEN REMOVED FROM THE LAST COLUMN TO ALLOW THE TABLE TO FIT IN THIS DOCBLOCK):</p>
-<p>| SEQNCE | {PLEVL} | | PLEVL | WSPD WDIR TSIG PRLC TSIG PRLC TSIG PRLC | </p>
-<pre class="fragment">   -- OR --
-</pre> <pre class="fragment">   | SEQNCE   | {PLEVL}                                           |
-   | PLEVL    | WSPD WDIR "PSEQ"3                                 |
-   | PSEQ     | TSIG PRLC                                         |
 
-     IN THIS CASE THE APPLICATION PROGRAM MUST STORE VALUES WHICH
-     HAVE STANDARD REPLICATION NESTED INSIDE OF A DELAYED
-     REPLICATION SEQUENCE. FOR EXAMPLE,  ASSUME 50 LEVELS OF WIND
-     SPEED, WIND DIRECTION, OBSERVED PRESSURE, FIRST GUESS 
-   THE FOLLOWING LOGIC WOULD ENCODE VALUES PROPERLY:
-</pre><p> ..................................................................... .... REAL*8 DROBS(2,50) REAL*8 SROBS(2,150) .... DO I=1,50 DROBS(1,I) = Value of wind speed on level "I" DROBS(2,I) = Value of wind direction on level "I" SROBS(1,I*3-2) = Value of observed pressure on level "I" SROBS(2,I*3-2) = 25. ! Value in Code Table 0-08-021 (TSIG) ! for time sigificance (Nominal ! reporting time) for observed ! pressure on level "I" SROBS(1,I*3-1) = Value of first guess pressure on level "I" SROBS(2,I*3-1) = 27. ! Value in Code Table 0-08-021 (TSIG) ! for time sigificance (First guess) ! for first guess pressure on level "I" SROBS(1,I*3) = Value of analyzed pressure on level "I" SROBS(2,I*3) = 16. ! Value in Code Table 0-08-021 (TSIG) ! for time sigificance (Analysis) for ! analyzed pressure on level "I" ENDDO </p>
-<pre class="fragment">   ! The call to UFBINT here will not only store the 50
-   !  values of WSPD and WDIR into the BUFR subset, it
-   !  will also allocate the space to store three
-   !  replications of TSIG and PRLC on each of the 50
-   !  delayed-replication "levels"
-</pre><p> CALL UFBINT(LUNIN,DROBS,2, 50,IRET,'WSPD WDIR') </p>
-<pre class="fragment">   ! The call to UFBREP here will actually store the 150
-   !  values of both TSIG and PRLC (three values for each
-   !  on 50 delayed-replication "levels")
-</pre><p> CALL UFBREP(LUNIN,SROBS,2,150,IRET,'TSIG PRLC') .... STOP END ..................................................................... </p>
-<pre class="fragment">   A SIMILAR EXAMPLE COULD BE PROVIDED FOR READING VALUES WHICH
-   HAVE STANDARD REPLICATION NESTED WITHIN DELAYED REPLICATION,
-   FROM BUFR FILES OPEN FOR INPUT.  (NOT SHOWN HERE.)
+<p>Definition at line <a class="el" href="ufbint_8f_source.html#l00160">160</a> of file <a class="el" href="ufbint_8f_source.html">ufbint.f</a>.</p>
 
+<p>References <a class="el" href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort()</a>, <a class="el" href="bort2_8f.html#a50f605cc96a22ffce20206c2d254b9c3">bort2()</a>, <a class="el" href="errwrt_8f.html#a65626d9a772648676146b62b596c2764">errwrt()</a>, <a class="el" href="status_8f.html#a22292e7a69c411a961168198d259f336">status()</a>, <a class="el" href="string_8f.html#ad5386a1e671ead372f1c087994b68438">string()</a>, <a class="el" href="trybump_8f.html#ab8d4eedb2ec08b105c34a04ceb536f47">trybump()</a>, and <a class="el" href="ufbrw_8f.html#abc239f0ea4f858cccb770bad22d04f02">ufbrw()</a>.</p>
 
-   EXAMPLE 2) PROBLEM: AN INPUT SUBSET, "REPT_IN", AND AN OUTPUT
-      SUBSET "REPT_OUT", ARE LAID OUT AS FOLLOWS IN A BUFR TABLE
-      (NOTE 16 CHARACTERS HAVE BEEN REMOVED FROM THE LAST COLUMN
-      TO ALLOW THE TABLE TO FIT IN THIS DOCBLOCK):
-
-   | REPT_IN  | YEAR MNTH DAYS HOUR MINU {PLEVL} CLAT CLON        |
-   | REPT_OUT | YEAR DOYR HOUR MINU {PLEVL} CLAT CLON             |
-   | PLEVL    | PRLC TMBD REHU WDIR WSPD
-
-     IN THIS CASE THE APPLICATION PROGRAM IS READING IN VALUES
-     FROM A BUFR FILE CONTAINING SUBSET "REPT_IN", CONVERTING
-     MONTH AND DAY TO DAY OF YEAR, AND THEN WRITING VALUES TO
-     SUBSET "REPT_OUT" IN ANOTHER BUFR FILE.  A CONVENIENT WAY TO
-     DO THIS IS TO CALL UFBSEQ TO READ IN AND WRITE OUT THE
-     VALUES, HOWEVER THIS IS COMPLICATED BY THE PRESENCE OF THE
-     DELAYED-RELICATION SEQUENCE "PLEVL" BECAUSE THE OUTPUT CALL
-     TO UFBSEQ DOES NOT KNOW A-PRIORI HOW MANY REPLICATIONS ARE
-     NEEDED TO STORE THE CONTENTS OF "PLEVL" (IT SETS THE NUMBER
-     TO ZERO BY DEFUALT).  A CALL TO UFBINT IS FIRST NEEDED TO
-     ALLOCATE THE SPACE AND DETERMINE THE NUMBER OF LEVELS NEEDED
-     TO STORE ALL VALUES IN "PLEVL".
-
-   THE FOLLOWING LOGIC WOULD PEFORM THE READ/WRITE PROPERLY:
-</pre><p> ..................................................................... .... REAL*8 OBSI(2000),OBSO(1999),PLEVL(5,255),REPS_8 CHARACTER*8 SUBSET ....</p>
-<p>CALL DATELEN(10)</p>
-<p>! Open input BUFR file in LUBFI and open output BUFR file in ! LUBFJ, both use the BUFR table in LINDX CALL OPENBF(LUBFI,'IN', LINDX) CALL OPENBF(LUBFJ,'OUT',LINDX)</p>
-<p>! Read through the BUFR messages in the input file DO WHILE(IREADMG(LUBFI,SUBSET,IDATE).GE.0)</p>
-<p>! Open message (for writing) in output file CALL OPENMB(LUBFJ,'REPT_OUT',IDATE)</p>
-<p>! Read through the subsets in this input BUFR messages DO WHILE(IREADSB(LUBFI).EQ.0) </p>
-<pre class="fragment">! This call to UFBSEQ will read in the entire contents
-!  of subset "REPT_IN", storing them into array OBSI
-!  (Note: On input, UFBSEQ knows how many replications
-          of "PLEV" are present)
-</pre><p> CALL UFBSEQ(LUBFI,OBSI,2000,1,IRET,'REPT_IN')</p>
-<p>! This call to UFBINT will return the number of ! replications ("levels") in "PLEVL" for subset ! "REPT_IN"" ! {see 1) above in REMARKS} CALL UFBINT(LUBFI,REPS_8,1,1,IRET,'{PLEVL}') IREPS = REPS_8</p>
-<p>IYR = OBSI(1) IMO = OBSI(2) IDA = OBSI(3) CALL xxxx(IYR, IMO, IDA, JDY) ! convert month and day ! to day of year (JDY) OBSO(1) = OBSI(1) OBSO(2) = JDY DO I = 3,1999 OBSO(I) = OBSI(1+1) ENDDO</p>
-<p>PLEVL = GETBMISS()</p>
-<p>! The call to UFBINT here will allocate the space to ! later allow UFBSEQ to store IREPS replications of ! "PLEVL" into the output BUFR subset "REPT_OUT" (note ! here it is simply storing missing values) CALL UFBINT(LUBFJ,PLEVL,5,IREPS,IRET, $ 'PRLC TMBD REHU WDIR WSPD') </p>
-<pre class="fragment">     ! The call to UFBSEQ here will write out the entire
-     !  contents of subset "REPT_OUT", reading them from
-     !  array OBSO
-    CALL UFBSEQ(LUBFJ,OBSO,1999,1,IRET,'REPT_OUT')
-
-     ! Write the subset into the output BUFR message
-    CALL WRITSB(LUBFJ)
- ENDDO
-
-     ! All done
-
- STOP
- END
-</pre><p> .....................................................................</p>
-<pre class="fragment">THIS ROUTINE CALLS:        BORT     BORT2    ERRWRT   STATUS
-                           STRING   TRYBUMP  UFBRW
-THIS ROUTINE IS CALLED BY: UFBINX   UFBRMS
-                           Also called by application programs.</pre> 
-<p>Definition at line <a class="el" href="ufbint_8f_source.html#l00291">291</a> of file <a class="el" href="ufbint_8f_source.html">ufbint.f</a>.</p>
+<p>Referenced by <a class="el" href="classbufr__c__interface__mod.html#a4ba25e289e99f210b2ae498ac2b11950">bufr_c_interface_mod::ufbint_c()</a>, <a class="el" href="ufbinx_8f.html#ac8a380b1f26c05540ca3993fb2b7be85">ufbinx()</a>, and <a class="el" href="ufbrms_8f.html#ab681330b8a45f02eeea39e5dc9c2f413">ufbrms()</a>.</p>
 
 </div>
 </div>

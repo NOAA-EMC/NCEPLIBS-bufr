@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.3.2</span>
+   &#160;<span id="projectnumber">11.5.0</span>
    </div>
   </td>
  </tr>
@@ -92,7 +92,7 @@ $(document).ready(function(){initNavTree('rdmems_8f.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -109,17 +109,19 @@ $(document).ready(function(){initNavTree('rdmems_8f.html','');});
 </div><!--header-->
 <div class="contents">
 
+<p>Read a specified data subset from a BUFR message.  
+<a href="#details">More...</a></p>
+
 <p><a href="rdmems_8f_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions/Subroutines</h2></td></tr>
 <tr class="memitem:a6056b938e6f893ec3f49ea579ceb4213"><td class="memItemLeft" align="right" valign="top">subroutine&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="rdmems_8f.html#a6056b938e6f893ec3f49ea579ceb4213">rdmems</a> (ISUB, IRET)</td></tr>
-<tr class="memdesc:a6056b938e6f893ec3f49ea579ceb4213"><td class="mdescLeft">&#160;</td><td class="mdescRight">THIS SUBROUTINE READS A PARTICULAR SUBSET FROM A BUFR MESSAGE IN INTERNAL MEMORY (ARRAY MBAY IN MODULE BITBUF) INTO INTERNAL SUBSET ARRAYS BASED ON THE SUBSET NUMBER IN THE MESSAGE.  <a href="#a6056b938e6f893ec3f49ea579ceb4213">More...</a><br/></td></tr>
+<tr class="memdesc:a6056b938e6f893ec3f49ea579ceb4213"><td class="mdescLeft">&#160;</td><td class="mdescRight">This subroutine reads a specified data subset from the BUFR message that was most recently read via a call to subroutine <a class="el" href="rdmemm_8f.html#a4632c7c4909bec051939264eaab54c66" title="This subroutine reads a specified BUFR message from internal arrays in memory, so that it is now in s...">rdmemm()</a> or <a class="el" href="readmm_8f.html#aff20e0eb100b6a0fb2dfe3629661ac9e" title="This subroutine reads a specified BUFR message from internal arrays in memory, so that it is now in s...">readmm()</a>.  <a href="#a6056b938e6f893ec3f49ea579ceb4213">More...</a><br/></td></tr>
 <tr class="separator:a6056b938e6f893ec3f49ea579ceb4213"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><dl class="section author"><dt>Author</dt><dd>WOOLLEN </dd></dl>
-<dl class="section date"><dt>Date</dt><dd>1994-01-06 </dd></dl>
+<div class="textblock"><p>Read a specified data subset from a BUFR message. </p>
 
 <p>Definition in file <a class="el" href="rdmems_8f_source.html">rdmems.f</a>.</p>
 </div><h2 class="groupheader">Function/Subroutine Documentation</h2>
@@ -147,13 +149,40 @@ Functions/Subroutines</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>THIS SUBROUTINE READS A PARTICULAR SUBSET FROM A BUFR MESSAGE IN INTERNAL MEMORY (ARRAY MBAY IN MODULE BITBUF) INTO INTERNAL SUBSET ARRAYS BASED ON THE SUBSET NUMBER IN THE MESSAGE. </p>
-<p>PROGRAM HISTORY LOG: 1994-01-06 J. WOOLLEN &ndash; ORIGINAL AUTHOR 1998-07-08 J. WOOLLEN &ndash; REPLACED CALL TO CRAY LIBRARY ROUTINE "ABORT" WITH CALL TO NEW INTERNAL BUFRLIB ROUTINE "BORT" 1998-10-27 J. WOOLLEN &ndash; MODIFIED TO CORRECT PROBLEMS CAUSED BY IN- LINING CODE WITH FPP DIRECTIVES 1999-11-18 J. WOOLLEN &ndash; THE NUMBER OF BUFR FILES WHICH CAN BE OPENED AT ONE TIME INCREASED FROM 10 TO 32 (NECESSARY IN ORDER TO PROCESS MULTIPLE BUFR FILES UNDER THE MPI) 2000-09-19 J. WOOLLEN &ndash; MAXIMUM MESSAGE LENGTH INCREASED FROM 10,000 TO 20,000 BYTES 2001-08-15 D. KEYSER &ndash; PARAMETER MAXMEM (THE MAXIMUM NUMBER OF BYTES REQUIRED TO STORE ALL MESSAGES INTERNALLY) WAS INCREASED FROM 8 MBYTES TO 16 MBYTES 2003-11-04 S. BENDER &ndash; ADDED REMARKS/BUFRLIB ROUTINE INTERDEPENDENCIES 2003-11-04 D. KEYSER &ndash; PARAMETER MAXMSG (THE MAXIMUM NUMBER OF BUFR MESSAGES WHICH CAN BE STORED INTERNALLY) INCREASED FROM 50000 TO 200000; UNIFIED/PORTABLE FOR WRF; ADDED DOCUMENTATION (INCLUDING HISTORY); OUTPUTS MORE COMPLETE DIAGNOSTIC INFO WHEN ROUTINE TERMINATES ABNORMALLY OR UNUSUAL THINGS HAPPEN 2004-08-09 J. ATOR &ndash; MAXIMUM MESSAGE LENGTH INCREASED FROM 20,000 TO 50,000 BYTES 2004-11-15 D. KEYSER &ndash; PARAMETER MAXMEM (THE MAXIMUM NUMBER OF BYTES REQUIRED TO STORE ALL MESSAGES INTERNALLY) WAS INCREASED FROM 16 MBYTES TO 50 MBYTES 2009-04-21 J. ATOR &ndash; USE ERRWRT 2014-12-10 J. ATOR &ndash; USE MODULES INSTEAD OF COMMON BLOCKS</p>
-<p>USAGE: CALL RDMEMS (ISUB, IRET) INPUT ARGUMENT LIST: ISUB - INTEGER: POINTER TO SUBSET NUMBER TO READ IN BUFR MESSAGE</p>
-<p>OUTPUT ARGUMENT LIST: IRET - INTEGER: RETURN CODE: 0 = normal return -1 = ISUB is greater than the number of subsets in memory</p>
-<p>REMARKS: THIS ROUTINE CALLS: BORT ERRWRT IUPB READSB STATUS THIS ROUTINE IS CALLED BY: UFBMMS UFBMNS UFBRMS Normally not called by any application programs. </p>
+<p>This subroutine reads a specified data subset from the BUFR message that was most recently read via a call to subroutine <a class="el" href="rdmemm_8f.html#a4632c7c4909bec051939264eaab54c66" title="This subroutine reads a specified BUFR message from internal arrays in memory, so that it is now in s...">rdmemm()</a> or <a class="el" href="readmm_8f.html#aff20e0eb100b6a0fb2dfe3629661ac9e" title="This subroutine reads a specified BUFR message from internal arrays in memory, so that it is now in s...">readmm()</a>. </p>
+<dl class="section author"><dt>Author</dt><dd>J. Woollen </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>1994-01-06</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">ISUB</td><td>- integer: Number of data subset to be read from BUFR message, counting from the beginning of the message </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">IRET</td><td>- integer: return code<ul>
+<li>0 = requested data subset was successfully read</li>
+<li>-1 = requested subset number could not be found in the message</li>
+</ul>
+</td></tr>
+  </table>
+  </dd>
+</dl>
+<p>Whenever this subroutine returns with IRET = 0, this indicates that a new BUFR data subset (i.e. report) was successfully read into internal arrays within the BUFRLIB software, and from where it can now be easily manipulated or further parsed via calls to any of the <a class="el" href="md__gpfs_dell2_emc_obsproc_noscrub_Jeff_8Ator_NCEPLIBS-bufr-GitHub_nceplibs-bufr_docs_UserGuide.html#hierarchy">values-reading subroutines</a> using the Fortran logical unit number IUNIT that was returned from the most recent call to subroutine <a class="el" href="ufbmem_8f.html#aaa20a946a966bc4de8012e1a01461502" title="This subroutine connects a new system file to the BUFRLIB software for input operations, then reads the entire file contents into internal arrays so that any of the individual BUFR messages can later be accessed from memory, instead of having to read them one at a time sequentially from the system file. ">ufbmem()</a>.</p>
+<p><b>Program history log:</b></p>
+<ul>
+<li>1994-01-06 J. Woollen &ndash; Original author</li>
+<li>1998-07-08 J. Woollen &ndash; Replaced call to Cray library routine "ABORT" with call to new internal BUFRLIB routine "BORT"</li>
+<li>1998-10-27 J. Woollen &ndash; Modified to correct problems caused by in-lining code with fpp directives</li>
+<li>1999-11-18 J. Woollen &ndash; The number of BUFR files which can be opened at one time increased from 10 to 32 (necessary in order to process multiple BUFR files under the MPI)</li>
+<li>2000-09-19 J. Woollen &ndash; Maximum message length increased from 10,000 to 20,000 bytes</li>
+<li>2001-08-15 D. Keyser &ndash; Increased MAXMEM from 8 Mb to 16 Mb</li>
+<li>2004-08-09 J. Ator &ndash; Maximum message length increased from 20,000 to 50,000 bytes</li>
+<li>2004-11-15 D. Keyser &ndash; Increased MAXMEM from 16 Mb to 50 Mb</li>
+<li>2009-04-21 J. Ator &ndash; Use <a class="el" href="errwrt_8f.html#a65626d9a772648676146b62b596c2764" title="This subroutine allows the user to specify a custom location for the logging of error and diagnostic ...">errwrt()</a></li>
+<li>2014-12-10 J. Ator &ndash; Use modules instead of COMMON blocks </li>
+</ul>
 
-<p>Definition at line <a class="el" href="rdmems_8f_source.html#l00062">62</a> of file <a class="el" href="rdmems_8f_source.html">rdmems.f</a>.</p>
+<p>Definition at line <a class="el" href="rdmems_8f_source.html#l00048">48</a> of file <a class="el" href="rdmems_8f_source.html">rdmems.f</a>.</p>
+
+<p>References <a class="el" href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort()</a>, <a class="el" href="errwrt_8f.html#a65626d9a772648676146b62b596c2764">errwrt()</a>, <a class="el" href="iupb_8f.html#a3f8fa4b5261e85ecbf679208e7635c6c">iupb()</a>, <a class="el" href="readsb_8f.html#ae7619346ca59d008b4d6a646408876f5">readsb()</a>, and <a class="el" href="status_8f.html#a22292e7a69c411a961168198d259f336">status()</a>.</p>
+
+<p>Referenced by <a class="el" href="ufbmms_8f.html#ac6fb935a0e4cdc1872649c8f2ea29cf5">ufbmms()</a>, <a class="el" href="ufbmns_8f.html#a790b8cbf5b6a9a6c22a0e7abb0b40443">ufbmns()</a>, and <a class="el" href="ufbrms_8f.html#ab681330b8a45f02eeea39e5dc9c2f413">ufbrms()</a>.</p>
 
 </div>
 </div>

@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.3.2</span>
+   &#160;<span id="projectnumber">11.5.0</span>
    </div>
   </td>
  </tr>
@@ -92,7 +92,7 @@ $(document).ready(function(){initNavTree('mtinfo_8f.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -109,17 +109,19 @@ $(document).ready(function(){initNavTree('mtinfo_8f.html','');});
 </div><!--header-->
 <div class="contents">
 
+<p>Specify location of master BUFR tables on local file system.  
+<a href="#details">More...</a></p>
+
 <p><a href="mtinfo_8f_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions/Subroutines</h2></td></tr>
 <tr class="memitem:ad95cdae13646faad7b457f7c854bbfc7"><td class="memItemLeft" align="right" valign="top">subroutine&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mtinfo_8f.html#ad95cdae13646faad7b457f7c854bbfc7">mtinfo</a> (CMTDIR, LUNMT1, LUNMT2)</td></tr>
-<tr class="memdesc:ad95cdae13646faad7b457f7c854bbfc7"><td class="mdescLeft">&#160;</td><td class="mdescRight">THIS SUBROUTINE IS USED TO SPECIFY THE DIRECTORY LOCATION AND FORTRAN LOGICAL UNIT NUMBERS TO USE WHEN READING BUFR MASTER TABLES ON THE LOCAL FILE SYSTEM.  <a href="#ad95cdae13646faad7b457f7c854bbfc7">More...</a><br/></td></tr>
+<tr class="memdesc:ad95cdae13646faad7b457f7c854bbfc7"><td class="mdescLeft">&#160;</td><td class="mdescRight">This subroutine allows the specification of the directory location and Fortran logical unit numbers to be used when reading master BUFR tables on the local file system.  <a href="#ad95cdae13646faad7b457f7c854bbfc7">More...</a><br/></td></tr>
 <tr class="separator:ad95cdae13646faad7b457f7c854bbfc7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><dl class="section author"><dt>Author</dt><dd>ATOR </dd></dl>
-<dl class="section date"><dt>Date</dt><dd>2009-03-23 </dd></dl>
+<div class="textblock"><p>Specify location of master BUFR tables on local file system. </p>
 
 <p>Definition in file <a class="el" href="mtinfo_8f_source.html">mtinfo.f</a>.</p>
 </div><h2 class="groupheader">Function/Subroutine Documentation</h2>
@@ -153,13 +155,30 @@ Functions/Subroutines</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>THIS SUBROUTINE IS USED TO SPECIFY THE DIRECTORY LOCATION AND FORTRAN LOGICAL UNIT NUMBERS TO USE WHEN READING BUFR MASTER TABLES ON THE LOCAL FILE SYSTEM. </p>
-<p>THE INPUT LOGICAL UNIT NUMBERS SHOULD BE UNIQUE BUT SHOULD NOT ALREADY BE ASSIGNED TO ANY ACTUAL BUFR MASTER TABLE FILES. IF THIS SUBROUTINE IS NOT CALLED, THEN DEFAULT VALUES ARE USED AS DEFINED WITHIN BUFR ARCHIVE LIBRARY SUBROUTINE BFRINI.</p>
-<p>PROGRAM HISTORY LOG: 2009-03-23 J. ATOR &ndash; ORIGINAL AUTHOR</p>
-<p>USAGE: CALL MTINFO ( CMTDIR, LUNMT1, LUNMT2 ) INPUT ARGUMENT LIST: CMTDIR - CHARACTER*(*): DIRECTORY LOCATION OF BUFR MASTER TABLES ON LOCAL FILE SYSTEM (UP TO 100 CHARACTERS) LUNMT1 - INTEGER: FIRST FORTRAN LOGICAL UNIT NUMBER TO USE WHEN READING BUFR MASTER TABLES ON LOCAL FILE SYSTEM LUNMT2 - INTEGER: SECOND FORTRAN LOGICAL UNIT NUMBER TO USE WHEN READING BUFR MASTER TABLES ON LOCAL FILE SYSTEM</p>
-<p>REMARKS: THIS ROUTINE CALLS: BORT2 STRSUC THIS ROUTINE IS CALLED BY: None Normally called only by application programs. </p>
+<p>This subroutine allows the specification of the directory location and Fortran logical unit numbers to be used when reading master BUFR tables on the local file system. </p>
+<dl class="section author"><dt>Author</dt><dd>J. Ator </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2009-03-23</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">CMTDIR</td><td>- character*(*): Directory location of master BUFR tables on local file system (up to 100 characters) </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">LUNMT1</td><td>- integer: First Fortran logical unit number to use when reading master BUFR tables on local file system </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">LUNMT2</td><td>- integer: Second Fortran logical unit number to use when reading master BUFR tables on local file system</td></tr>
+  </table>
+  </dd>
+</dl>
+<p>See <a class="el" href="md__gpfs_dell2_emc_obsproc_noscrub_Jeff_8Ator_NCEPLIBS-bufr-GitHub_nceplibs-bufr_docs_dfbfmstab.html#dfbfmstab">Master BUFR Tables</a> for more information about master BUFR tables. In particular, note that this subroutine is normally only ever called after a prior call has been made to subroutine <a class="el" href="openbf_8F.html#a9bea9aeada166bd9037b959ca8452b28" title="This subroutine connects a new file to the BUFRLIB software for input or output operations. ">openbf()</a> with IO = 'SEC3'. But in such cases, any call to this subroutine must be made prior to any subsequent calls to any of the BUFR <a class="el" href="md__gpfs_dell2_emc_obsproc_noscrub_Jeff_8Ator_NCEPLIBS-bufr-GitHub_nceplibs-bufr_docs_UserGuide.html#hierarchy">message-reading subroutines</a> for the associated BUFR file; otherwise, default values for CMTDIR, LUNMT1 and LUNMT2 will be used as defined within subroutine <a class="el" href="bfrini_8f90.html#ab3f045cc170403305543e34e30b87001" title="This subroutine initializes numerous global variables and arrays within internal modules and COMMON b...">bfrini()</a>.</p>
+<p>For CMTDIR, any full or relative directory pathname that is legal on the local filesystem is permissible, up to a total maximum length of 100 characters. The BUFRLIB software will then automatically search within this directory for any necessary master table files and open and read them as needed.</p>
+<p>The logical unit numbers LUNMT1 and LUNMT2 should be distinct from each other but should not already be assigned to any files on the local system.</p>
+<p><b>Program history log:</b></p>
+<ul>
+<li>2009-03-23 J. Ator &ndash; Original author </li>
+</ul>
 
-<p>Definition at line <a class="el" href="mtinfo_8f_source.html#l00030">30</a> of file <a class="el" href="mtinfo_8f_source.html">mtinfo.f</a>.</p>
+<p>Definition at line <a class="el" href="mtinfo_8f_source.html#l00044">44</a> of file <a class="el" href="mtinfo_8f_source.html">mtinfo.f</a>.</p>
+
+<p>References <a class="el" href="bort2_8f.html#a50f605cc96a22ffce20206c2d254b9c3">bort2()</a>, and <a class="el" href="strsuc_8f.html#a0ad7f0b59d89e0bdd1e9d73947b19e7e">strsuc()</a>.</p>
+
+<p>Referenced by <a class="el" href="bfrini_8f90.html#ab3f045cc170403305543e34e30b87001">bfrini()</a>, <a class="el" href="debufr_8f.html#a60dcf0fcb9d3a56fe561406bf5b16a9e">fdebufr()</a>, and <a class="el" href="classbufr__c__interface__mod.html#a43d3a0015a83688cfea2a6a2ed3d5cb2">bufr_c_interface_mod::mtinfo_c()</a>.</p>
 
 </div>
 </div>

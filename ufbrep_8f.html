@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.3.2</span>
+   &#160;<span id="projectnumber">11.5.0</span>
    </div>
   </td>
  </tr>
@@ -92,7 +92,7 @@ $(document).ready(function(){initNavTree('ufbrep_8f.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -109,21 +109,23 @@ $(document).ready(function(){initNavTree('ufbrep_8f.html','');});
 </div><!--header-->
 <div class="contents">
 
+<p>Read/write one or more data values from/to a data subset.  
+<a href="#details">More...</a></p>
+
 <p><a href="ufbrep_8f_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions/Subroutines</h2></td></tr>
-<tr class="memitem:a90190b910e24c9922d375dd8d8804b4e"><td class="memItemLeft" align="right" valign="top">subroutine&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ufbrep_8f.html#a90190b910e24c9922d375dd8d8804b4e">ufbrep</a> (LUNIO, USR, I1, I2, IRET, STR)</td></tr>
-<tr class="memdesc:a90190b910e24c9922d375dd8d8804b4e"><td class="mdescLeft">&#160;</td><td class="mdescRight">THIS SUBROUTINE WRITES OR READS SPECIFIED VALUES TO OR FROM THE CURRENT BUFR DATA SUBSET WITHIN INTERNAL ARRAYS, WITH THE DIRECTION OF THE DATA TRANSFER DETERMINED BY THE CONTEXT OF ABS(LUNIO) (I.E., IF ABS(LUNIO) POINTS TO A BUFR FILE THAT IS OPEN FOR INPUT, THEN DATA VALUES ARE READ FROM THE INTERNAL DATA SUBSET; OTHERWISE, DATA VALUES ARE WRITTEN TO THE INTERNAL DATA SUBSET).  <a href="#a90190b910e24c9922d375dd8d8804b4e">More...</a><br/></td></tr>
-<tr class="separator:a90190b910e24c9922d375dd8d8804b4e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adb981832bdbbb26903265fb946aac58c"><td class="memItemLeft" align="right" valign="top">subroutine&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ufbrep_8f.html#adb981832bdbbb26903265fb946aac58c">ufbrep</a> (LUNIN, USR, I1, I2, IRET, STR)</td></tr>
+<tr class="memdesc:adb981832bdbbb26903265fb946aac58c"><td class="mdescLeft">&#160;</td><td class="mdescRight">This subroutine reads or writes one or more data values from or to the BUFR data subset that is currently open within the BUFRLIB internal arrays.  <a href="#adb981832bdbbb26903265fb946aac58c">More...</a><br/></td></tr>
+<tr class="separator:adb981832bdbbb26903265fb946aac58c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><dl class="section author"><dt>Author</dt><dd>WOOLLEN </dd></dl>
-<dl class="section date"><dt>Date</dt><dd>1994-01-06 </dd></dl>
+<div class="textblock"><p>Read/write one or more data values from/to a data subset. </p>
 
 <p>Definition in file <a class="el" href="ufbrep_8f_source.html">ufbrep.f</a>.</p>
 </div><h2 class="groupheader">Function/Subroutine Documentation</h2>
-<a class="anchor" id="a90190b910e24c9922d375dd8d8804b4e"></a>
+<a class="anchor" id="adb981832bdbbb26903265fb946aac58c"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -131,7 +133,7 @@ Functions/Subroutines</h2></td></tr>
           <td class="memname">subroutine ufbrep </td>
           <td>(</td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>LUNIO</em>, </td>
+          <td class="paramname"><em>LUNIN</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -171,26 +173,66 @@ Functions/Subroutines</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>THIS SUBROUTINE WRITES OR READS SPECIFIED VALUES TO OR FROM THE CURRENT BUFR DATA SUBSET WITHIN INTERNAL ARRAYS, WITH THE DIRECTION OF THE DATA TRANSFER DETERMINED BY THE CONTEXT OF ABS(LUNIO) (I.E., IF ABS(LUNIO) POINTS TO A BUFR FILE THAT IS OPEN FOR INPUT, THEN DATA VALUES ARE READ FROM THE INTERNAL DATA SUBSET; OTHERWISE, DATA VALUES ARE WRITTEN TO THE INTERNAL DATA SUBSET). </p>
-<p>THE DATA VALUES CORRESPOND TO MNEMONICS WHICH ARE EITHER: 1) PART OF A REGULAR (I.E., NON-DELAYED) REPLICATION SEQUENCE OR 2) REPLICATED BY BEING DIRECTLY LISTED MORE THAN ONCE WITHIN AN OVERALL SUBSET DEFINITION</p>
-<p>THE DIFFERENCE IN THE WAY UFBREP WORKS AS COMPARED TO UFBINT IS IN THE WAY THE MNEMONIC STRING IS INTERPRETED TO DEFINE WHICH ELEMENTS ARE PROCESSED AND IN WHAT ORDER. UFBREP INTERPRETS THE FIRST MNEMONIC IN THE STRING AS A "PIVOT". THIS MEANS THE 2ND DIMENSION OF THE DATA RETURNED (AS INDICATED BY ARGUMENT I2) IS DEFINED BY OCCURRENCES OF THE PIVOT ELEMENT FOUND WITHIN THE OVERALL SUBSET DEFINITION. FOR EXAMPLE, IF THE SUBSET DEFINITION CONTAINS THE FOLLOWING SEQUENCE OF MNEMONICS: {..,A,..,B,..,C,..,D,..,A,..,C,..,D,..,B,.. A,..,B,..,D,..,C,..,A,..,C,..,B,..,D,..}, THEN READING A SUBSET VIA UFBREP WITH STR = "A B C D" RETURNS THE FOLLOWING 4X4 MATRIX OF VALUES IN USR, USING A AS THE "PIVOT" MNEMONIC SINCE IT WAS THE FIRST MNEMONIC IN THE STRING: ( A1, B1, C1, D1, A2, B2, C2, D2, A3, B3, C3, D3, A4, B4, C4, D4 ) NOTE THAT, WHEN USING UFBREP, THE ORDER OF THE NON-PIVOT MNEMONICS BETWEEN EACH PIVOT IS IMMATERIAL, I.E., IN THE ABOVE EXAMPLE, UFBREP FINDS ALL OF THE OCCURRENCES OF MNEMONICS B, C AND D BETWEEN EACH PIVOT BECAUSE IT SEARCHES INDEPENDENTLY FOR EACH ONE BETWEEN SUCCESSIVE PIVOTS.</p>
-<p>IN CONTRAST, NOTE THERE IS ALSO A SEPARATE SUBROUTINE UFBSTP WHICH IS SIMILAR TO UFBREP, EXCEPT THAT UFBSTP ALWAYS STEPS FORWARD WHEN SEARCHING FOR EACH SUCCESSIVE NON-PIVOT MNEMONIC, RATHER THAN SEARCHING INDEPENDENTLY FOR EACH ONE BETWEEN SUCCESSIVE PIVOTS. SO IN THE ABOVE EXAMPLE WITH STR="A B C D" AND STARTING FROM EACH SUCCESSIVE PIVOT MNEMONIC A, UFBSTP WOULD SEARCH FORWARD FOR THE NEXT OCCURRENCE OF MNEMONIC B, THEN IF FOUND SEARCH FORWARD FROM THERE FOR THE NEXT OCCURRENCE OF C, THEN IF FOUND SEARCH FORWARD FROM THERE FOR THE NEXT OCCURRENCE OF D, ETC. UP UNTIL REACHING THE NEXT OCCURRENCE OF THE PIVOT MNEMONIC A (OR THE END OF THE DATA SUBSET), WITHOUT EVER DOING ANY BACKTRACKING. SO IN THE ABOVE EXAMPLE UFBSTP WOULD RETURN THE FOLLOWING 4x4 MATRIX OF VALUES IN ARRAY USR, WHERE XX DENOTES A "MISSING" VALUE: ( A1, B1, C1, D1, A2, B2, XX, XX, A3, B3, C3, XX, A4, B4, XX, XX )</p>
-<p>PROGRAM HISTORY LOG: 1994-01-06 J. WOOLLEN &ndash; ORIGINAL AUTHOR 1998-07-08 J. WOOLLEN &ndash; REPLACED CALL TO CRAY LIBRARY ROUTINE "ABORT" WITH CALL TO NEW INTERNAL BUFRLIB ROUTINE "BORT" 1999-11-18 J. WOOLLEN &ndash; THE NUMBER OF BUFR FILES WHICH CAN BE OPENED AT ONE TIME INCREASED FROM 10 TO 32 (NECESSARY IN ORDER TO PROCESS MULTIPLE BUFR FILES UNDER THE MPI) 2003-05-19 J. WOOLLEN &ndash; DISABLED THE PARSING SWITCH WHICH CONTROLS CHECKING FOR IN THE SAME REPLICATION GROUP, UFBREP DOES NOT NEED THIS CHECK, AND IT INTERFERES WITH WHAT UFBREP CAN DO OTHERWISE 2003-11-04 S. BENDER &ndash; ADDED REMARKS/BUFRLIB ROUTINE INTERDEPENDENCIES 2003-11-04 D. KEYSER &ndash; MAXJL (MAXIMUM NUMBER OF JUMP/LINK ENTRIES) INCREASED FROM 15000 TO 16000 (WAS IN VERIFICATION VERSION); UNIFIED/PORTABLE FOR WRF; ADDED DOCUMENTATION (INCLUDING HISTORY); OUTPUTS MORE COMPLETE DIAGNOSTIC INFO WHEN ROUTINE TERMINATES ABNORMALLY OR UNUSUAL THINGS HAPPEN; CHANGED CALL FROM BORT TO BORT2 IN SOME CASES 2004-08-18 J. ATOR &ndash; ADDED SAVE FOR IFIRST1 AND IFIRST2 FLAGS 2009-03-31 J. WOOLLEN &ndash; ADD DOCUMENTATION 2009-04-21 J. ATOR &ndash; USE ERRWRT 2014-12-10 J. ATOR &ndash; USE MODULES INSTEAD OF COMMON BLOCKS</p>
-<p>USAGE: CALL UFBREP (LUNIO, USR, I1, I2, IRET, STR) INPUT ARGUMENT LIST: LUNIO - INTEGER: ABSOLUTE VALUE IS FORTRAN LOGICAL UNIT NUMBER FOR BUFR FILE</p>
+<p>This subroutine reads or writes one or more data values from or to the BUFR data subset that is currently open within the BUFRLIB internal arrays. </p>
+<p>The direction of the data transfer is determined by the context of ABS(LUNIN):</p>
 <ul>
-<li>IF BUFR FILE OPEN FOR OUTPUT AND LUNIO IS LESS THAN ZERO, UFBREP TREATS THE BUFR FILE AS THOUGH IT WERE OPEN FOR INPUT USR - ONLY IF BUFR FILE OPEN FOR OUTPUT: REAL*8: (I1,I2) STARTING ADDRESS OF DATA VALUES WRITTEN TO DATA SUBSET I1 - INTEGER: LENGTH OF FIRST DIMENSION OF USR (MUST BE AT LEAST AS LARGE AS THE NUMBER OF BLANK-SEPARATED MNEMONICS IN STR) I2 - INTEGER:</li>
-<li>IF BUFR FILE OPEN FOR INPUT: LENGTH OF SECOND DIMENSION OF USR</li>
-<li>IF BUFR FILE OPEN FOR OUTPUT: NUMBER OF "LEVELS" OF DATA VALUES TO BE WRITTEN TO DATA SUBSET STR - CHARACTER*(*): STRING OF BLANK-SEPARATED TABLE B MNEMONICS IN ONE-TO-ONE CORRESPONDENCE WITH FIRST DIMENSION OF USR</li>
-<li>IF BUFR FILE OPEN FOR INPUT: THERE ARE THREE "GENERIC" MNEMONICS NOT RELATED TO TABLE B, THESE RETURN THE FOLLOWING INFORMATION IN CORRESPONDING USR LOCATION: 'NUL' WHICH ALWAYS RETURNS BMISS ("MISSING") 'IREC' WHICH ALWAYS RETURNS THE CURRENT BUFR MESSAGE (RECORD) NUMBER IN WHICH THIS SUBSET RESIDES 'ISUB' WHICH ALWAYS RETURNS THE CURRENT SUBSET NUMBER OF THIS SUBSET WITHIN THE BUFR MESSAGE (RECORD) NUMBER 'IREC'</li>
+<li>If ABS(LUNIN) points to a file that was previously opened for input using subroutine <a class="el" href="openbf_8F.html#a9bea9aeada166bd9037b959ca8452b28" title="This subroutine connects a new file to the BUFRLIB software for input or output operations. ">openbf()</a>, then data values are read from the current data subset.</li>
+<li>If ABS(LUNIN) points to a file that was previously opened for output using subroutine <a class="el" href="openbf_8F.html#a9bea9aeada166bd9037b959ca8452b28" title="This subroutine connects a new file to the BUFRLIB software for input or output operations. ">openbf()</a>, then data values are written to the current data subset.</li>
 </ul>
-<p>OUTPUT ARGUMENT LIST: USR - ONLY IF BUFR FILE OPEN FOR INPUT: REAL*8: (I1,I2) STARTING ADDRESS OF DATA VALUES READ FROM DATA SUBSET IRET - INTEGER:</p>
+<p>This subroutine is specifically designed for use with Table B mnemonics which are part of a fixed (i.e. non-delayed) replication sequence, or for mnemonics which are replicated by being directly listed more than once within an overall subset definition. See also subroutines <a class="el" href="ufbint_8f.html#afe3364a491b49e0c9e5a526b009aaa75" title="This subroutine reads or writes one or more data values from or to the BUFR data subset that is curre...">ufbint()</a>, <a class="el" href="ufbseq_8f.html#aa96ada82e0e2f98226594f3532bb245d" title="This subroutine reads or writes an entire sequence of data values from or to the BUFR data subset tha...">ufbseq()</a> and <a class="el" href="ufbstp_8f.html#a8153bb675bd7b02b4a2a58b77ba9d581" title="This subroutine reads or writes one or more data values from or to the BUFR data subset that is curre...">ufbstp()</a>, which can also be used to read/write one or more data values from/to a data subset but are designed for different use cases. A more detailed discussion of these different use cases, including examples, is available in <a class="el" href="md__gpfs_dell2_emc_obsproc_noscrub_Jeff_8Ator_NCEPLIBS-bufr-GitHub_nceplibs-bufr_docs_dfbftab.html#ufbsubs">DX BUFR Tables</a>.</p>
+<dl class="section author"><dt>Author</dt><dd>J. Woollen </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>1994-01-06</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">LUNIN</td><td>- integer: Absolute value is Fortran logical unit number for BUFR file </td></tr>
+    <tr><td class="paramdir">[in,out]</td><td class="paramname">USR</td><td>- real*8(*,*): Data values<ul>
+<li>If ABS(LUNIN) was opened for input, then USR is output from this subroutine and contains data values that were read from the current data subset.</li>
+<li>If ABS(LUNIN) was opened for output, then USR is input to this subroutine and contains data values that are to be written to the current data subset. </li>
+</ul>
+</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">I1</td><td>- integer: Actual first dimension of USR as allocated within the calling program </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">I2</td><td>- integer:<ul>
+<li>If ABS(LUNIN) was opened for input, then I2 must be set equal to the actual second dimension of USR as allocated within the calling program</li>
+<li>If ABS(LUNIN) was opened for output, then I2 must be set equal to the number of replications of STR that are to be written to the data subset </li>
+</ul>
+</td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">IRET</td><td>- integer: Number of replications of STR that were actually read/written from/to the data subset </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">STR</td><td>- character*(*): String of blank-separated Table B mnemonics in one-to-one correspondence with the number of data values that will be read/written from/to the data subset within the first dimension of USR (see <a class="el" href="md__gpfs_dell2_emc_obsproc_noscrub_Jeff_8Ator_NCEPLIBS-bufr-GitHub_nceplibs-bufr_docs_dfbftab.html#dfbftab">DX BUFR Tables</a> for further information about Table B mnemonics)</td></tr>
+  </table>
+  </dd>
+</dl>
+<p>It is the user's responsibility to ensure that USR is dimensioned sufficiently large enough to accommodate the number of data values that are to be read from or written to the data subset. Note also that USR is an array of real*8 values; therefore, any data that are to be written out as character (i.e. CCITT IA5) values in BUFR must be converted from character into real*8 format within the application program before calling this subroutine. Conversely, when this subroutine is being used to read character values from a data subset, the value that is returned will be in real*8 format and must be converted back into character format by the application program before it can be used as such. Alternatively, there are different subroutines such as <a class="el" href="readlc_8f.html#acf408b0943fc7a5040009cd9a9bc57a1" title="This subroutine reads a long character string (greater than 8 bytes) from a data subset. ">readlc()</a> and <a class="el" href="writlc_8f.html#a7017d5359bb32ce5407499d7a1b16709" title="This subroutine writes a long character string (greater than 8 bytes) to a data subset. ">writlc()</a> which can be used to read/write character data directly from/to a data subset without the need to convert from/to real*8 format as an intermediate step.</p>
+<p>Numeric (i.e. non-character) data values within USR are always in the exact units specified for the corresponding mnemonic within the relevant DX or master BUFR table, without any scale or reference values applied. Specifically, this means that, when writing data values into an output subset, the user only needs to store each respective value into USR using the units specified within the table, and the BUFRLIB software will take care of any necessary scaling or referencing of the value before it is actually encoded into BUFR. Conversely, when reading data values from an input subset, the values returned in USR are already de-scaled and de-referenced and, thus, are already in the exact units that were defined for the corresponding mnemonics within the table.</p>
+<p>"Missing" values in USR are always denoted by a unique placeholder value. This placeholder value is initially set to a default value of 10E10_8, but it can be reset to any substitute value of the user's choice via a separate call to subroutine <a class="el" href="setbmiss_8f.html#a5435d5821267af076f83cefdf3c1c7f8" title="This subroutine allows the user to specify a customized value to represent &quot;missing&quot; data when readin...">setbmiss()</a>. In any case, and whenever this subroutine is used to read data values from an input subset, any returned value in USR can be easily checked for equivalence to the current placeholder value via a call to function <a class="el" href="ibfms_8f.html#a79737107a4ec70afa5efc8eb793d984b" title="This function provides a handy way to check whether a real*8 data value returned from a previous call...">ibfms()</a>, and a positive result means that the value for the corresponding mnemonic was encoded as "missing" in BUFR (i.e. all bits set to 1) within the original data subset. Conversely, whenever this subroutine is used to write data values to an output subset, the current placeholder value can be obtained via a separate call to function <a class="el" href="getbmiss_8f.html#afaf2f1c27bbdd180a75315e774c74d8e" title="This function returns the current placeholder value which represents &quot;missing&quot; data when reading from...">getbmiss()</a>, and the resulting value can then be stored into the USR array whereever the user desires a BUFR "missing" value (i.e. all bits set to 1) to be encoded for the corresponding mnemonic within the output subset.</p>
+<dl class="section remark"><dt>Remarks</dt><dd><ul>
+<li>If LUNIN &lt; 0, and if ABS(LUNIN) points to a file that is open for output (writing BUFR), then the subroutine will treat the file pointed to by ABS(LUNIN) as though it was open for input (reading BUFR). This is a special capability for use by some applications that need to read certain values back out from a BUFR file during the same time that it is in the process of being written to.</li>
+<li>If ABS(LUNIN) points to a file that is open for input (reading BUFR), there are a few additional special mnemonics that can be included within STR when calling this subroutine, and which in turn will result in special information being returned within the corresponding location in USR. These special mnemonics are not considered to be part of Table B or Table D and therefore do not need to be definied within the DX or master table file associated with ABS(LUNIN):<ul>
+<li>NUL - returns the "missing" value</li>
+<li>IREC - returns the number of the BUFR message within the file pointed to by ABS(LUNIN) (counting from the beginning of the file) in which the current data subset resides</li>
+<li>ISUB - returns the number of the current data subset within the BUFR message pointed to by IREC, counting from the beginning of the message</li>
+</ul>
+</li>
+</ul>
+</dd></dl>
+<p><b>Program history log:</b></p>
 <ul>
-<li>IF BUFR FILE OPEN FOR INPUT: NUMBER OF "LEVELS" OF DATA VALUES READ FROM DATA SUBSET (MUST BE NO LARGER THAN I2)</li>
-<li>IF BUFR FILE OPEN FOR OUTPUT: NUMBER OF "LEVELS" OF DATA VALUES WRITTEN TO DATA SUBSET (SHOULD BE SAME AS I2)</li>
+<li>1994-01-06 J. Woollen &ndash; Original author</li>
+<li>1998-07-08 J. Woollen &ndash; Replaced call to Cray library routine ABORT with call to new internal routine <a class="el" href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4" title="This subroutine calls subroutine errwrt() to log an error message, then calls subroutine bort_exit() ...">bort()</a></li>
+<li>1999-11-18 J. Woollen &ndash; The number of BUFR files which can be opened at one time increased from 10 to C32 (necessary in order to process multiple BUFR files under the MPI)</li>
+<li>2003-05-19 J. Woollen &ndash; Disabled the parsing switch which controls checking for in the same replication group, ufbrep does not need this check, and it interferes with what ufbrep can do otherwise</li>
+<li>2003-11-04 S. Bender &ndash; Added remarks and routine interdependencies</li>
+<li>2003-11-04 D. Keyser &ndash; Unified/portable for WRF; added history documentation; outputs more complete diagnostic info when routine terminates abnormally, unusual things happen or for informational purposes</li>
+<li>2004-08-18 J. Ator &ndash; Added SAVE for IFIRST1 and IFIRST2 flags</li>
+<li>2009-03-31 J. Woollen &ndash; Add documentation</li>
+<li>2009-04-21 J. Ator &ndash; Use <a class="el" href="errwrt_8f.html#a65626d9a772648676146b62b596c2764" title="This subroutine allows the user to specify a custom location for the logging of error and diagnostic ...">errwrt()</a></li>
+<li>2014-12-10 J. Ator &ndash; Use modules instead of COMMON blocks </li>
 </ul>
-<p>REMARKS: THIS ROUTINE CALLS: BORT BORT2 ERRWRT STATUS STRING UFBRP THIS ROUTINE IS CALLED BY: None Normally called only by application programs. </p>
 
-<p>Definition at line <a class="el" href="ufbrep_8f_source.html#l00138">138</a> of file <a class="el" href="ufbrep_8f_source.html">ufbrep.f</a>.</p>
+<p>Definition at line <a class="el" href="ufbrep_8f_source.html#l00153">153</a> of file <a class="el" href="ufbrep_8f_source.html">ufbrep.f</a>.</p>
+
+<p>References <a class="el" href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort()</a>, <a class="el" href="bort2_8f.html#a50f605cc96a22ffce20206c2d254b9c3">bort2()</a>, <a class="el" href="errwrt_8f.html#a65626d9a772648676146b62b596c2764">errwrt()</a>, <a class="el" href="status_8f.html#a22292e7a69c411a961168198d259f336">status()</a>, <a class="el" href="string_8f.html#ad5386a1e671ead372f1c087994b68438">string()</a>, and <a class="el" href="ufbrp_8f.html#a0caf28e523ac9dbea5d5bd592cd40b39">ufbrp()</a>.</p>
+
+<p>Referenced by <a class="el" href="classbufr__c__interface__mod.html#ab1b9e9ac5379560a7f38794f13dedc40">bufr_c_interface_mod::ufbrep_c()</a>.</p>
 
 </div>
 </div>

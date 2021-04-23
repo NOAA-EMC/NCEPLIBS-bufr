@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.3.2</span>
+   &#160;<span id="projectnumber">11.5.0</span>
    </div>
   </td>
  </tr>
@@ -92,7 +92,7 @@ $(document).ready(function(){initNavTree('ardllocf_8F.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -109,17 +109,19 @@ $(document).ready(function(){initNavTree('ardllocf_8F.html','');});
 </div><!--header-->
 <div class="contents">
 
+<p>Free all dynamically-allocated memory within internal Fortran language arrays.  
+<a href="#details">More...</a></p>
+
 <p><a href="ardllocf_8F_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions/Subroutines</h2></td></tr>
 <tr class="memitem:a7b3e4d5498fedd9e94ac45b69fc04b58"><td class="memItemLeft" align="right" valign="top">subroutine&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ardllocf_8F.html#a7b3e4d5498fedd9e94ac45b69fc04b58">ardllocf</a></td></tr>
-<tr class="memdesc:a7b3e4d5498fedd9e94ac45b69fc04b58"><td class="mdescLeft">&#160;</td><td class="mdescRight">THIS SUBROUTINE FREES ANY MEMORY THAT WAS DYNAMICALLY ALLOCATED BY PREVIOUS CALLS TO BUFR ARCHIVE LIBRARY ROUTINES ARALLOCF OR ARALLOCC.  <a href="#a7b3e4d5498fedd9e94ac45b69fc04b58">More...</a><br/></td></tr>
+<tr class="memdesc:a7b3e4d5498fedd9e94ac45b69fc04b58"><td class="mdescLeft">&#160;</td><td class="mdescRight">This subroutine frees any memory that was dynamically allocated during a previous call to subroutine <a class="el" href="arallocf_8F.html#a2b64630033a9306be25da1f6b28d913f" title="For dynamic allocation builds of the library, this subroutine is called internally during the first c...">arallocf()</a>.  <a href="#a7b3e4d5498fedd9e94ac45b69fc04b58">More...</a><br/></td></tr>
 <tr class="separator:a7b3e4d5498fedd9e94ac45b69fc04b58"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><dl class="section author"><dt>Author</dt><dd>ATOR </dd></dl>
-<dl class="section date"><dt>Date</dt><dd>2014-12-04 </dd></dl>
+<div class="textblock"><p>Free all dynamically-allocated memory within internal Fortran language arrays. </p>
 
 <p>Definition in file <a class="el" href="ardllocf_8F_source.html">ardllocf.F</a>.</p>
 </div><h2 class="groupheader">Function/Subroutine Documentation</h2>
@@ -136,13 +138,19 @@ Functions/Subroutines</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>THIS SUBROUTINE FREES ANY MEMORY THAT WAS DYNAMICALLY ALLOCATED BY PREVIOUS CALLS TO BUFR ARCHIVE LIBRARY ROUTINES ARALLOCF OR ARALLOCC. </p>
-<p>NOTE THAT THIS SUBROUTINE IS CALLED WITHIN BUFR ARCHIVE LIBRARY SUBROUTINE EXITBUFR AS PART OF THE PROCESS TO RESET THE LIBRARY AND PREPARE IT FOR POTENTIAL RE-ALLOCATION OF NEW ARRAY SPACE VIA ONE OR MORE SUBSEQUENT CALLS TO SUBROUTINES ISETPRM AND OPENBF. THIS SUBROUTINE SHOULD ONLY BE CALLED DIRECTLY BY AN APPLICATION PROGRAM IF THE PROGRAM IS COMPLETELY FINISHED WITH ALL CALLS TO ALL OTHER BUFR ARCHIVE LIBRARY ROUTINES, BECAUSE THE MEMORY FREED HEREIN WILL RENDER THE LIBRARY AS EFFECTIVELY UNUSABLE FOR THE REMAINDER OF THE LIFE OF THE APPLICATION PROGRAM. HOWEVER, THIS MAY BE A USEFUL OPTION FOR APPLICATION PROGRAMS WHICH WANT TO MOVE ON TO OTHER UNRELATED TASKS WITHOUT CONTINUING TO TIE UP A SIGNIFICANT AMOUNT OF DYNAMICALLY-ALLOCATED HEAP MEMORY RELATED TO THIS LIBRARY. OTHERWISE, ALL SUCH MEMORY WILL BE FREED AUTOMATICALLY ONCE THE APPLICATION PROGRAM TERMINATES.</p>
-<p>PROGRAM HISTORY LOG: 2014-12-04 J. ATOR &ndash; ORIGINAL AUTHOR 2019-05-09 J. ATOR &ndash; MODIFIED DEALLOCATIONS FOR MODA_BUFRMG</p>
-<p>USAGE: CALL ARDLLOCF</p>
-<p>REMARKS: THIS ROUTINE CALLS: ARDLLOCC THIS ROUTINE IS CALLED BY: EXITBUFR Also called by application programs. </p>
+<p>This subroutine frees any memory that was dynamically allocated during a previous call to subroutine <a class="el" href="arallocf_8F.html#a2b64630033a9306be25da1f6b28d913f" title="For dynamic allocation builds of the library, this subroutine is called internally during the first c...">arallocf()</a>. </p>
+<dl class="section author"><dt>Author</dt><dd>J. Ator </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2014-12-04</dd></dl>
+<p><b>Program history log:</b></p>
+<ul>
+<li>2014-12-04 J. Ator &ndash; Original author </li>
+</ul>
 
-<p>Definition at line <a class="el" href="ardllocf_8F_source.html#l00034">34</a> of file <a class="el" href="ardllocf_8F_source.html">ardllocf.F</a>.</p>
+<p>Definition at line <a class="el" href="ardllocf_8F_source.html#l00014">14</a> of file <a class="el" href="ardllocf_8F_source.html">ardllocf.F</a>.</p>
+
+<p>References <a class="el" href="ardllocc_8c.html#ac283516a1391fee0635b01beffdad7cb">ardllocc()</a>.</p>
+
+<p>Referenced by <a class="el" href="exitbufr_8f.html#a355f094d616febcea2820cf547cbff8e">exitbufr()</a>.</p>
 
 </div>
 </div>

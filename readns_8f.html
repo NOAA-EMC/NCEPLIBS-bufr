@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.3.2</span>
+   &#160;<span id="projectnumber">11.5.0</span>
    </div>
   </td>
  </tr>
@@ -92,7 +92,7 @@ $(document).ready(function(){initNavTree('readns_8f.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -109,17 +109,19 @@ $(document).ready(function(){initNavTree('readns_8f.html','');});
 </div><!--header-->
 <div class="contents">
 
+<p>Read the next data subset from a BUFR file that was previously opened for reading.  
+<a href="#details">More...</a></p>
+
 <p><a href="readns_8f_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions/Subroutines</h2></td></tr>
 <tr class="memitem:a72f3b23ee95d02a8188d8734369b6149"><td class="memItemLeft" align="right" valign="top">subroutine&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="readns_8f.html#a72f3b23ee95d02a8188d8734369b6149">readns</a> (LUNIT, SUBSET, JDATE, IRET)</td></tr>
-<tr class="memdesc:a72f3b23ee95d02a8188d8734369b6149"><td class="mdescLeft">&#160;</td><td class="mdescRight">THIS SUBROUTINE SHOULD ONLY BE CALLED WHEN LOGICAL UNIT LUNIT HAS BEEN OPENED FOR INPUT OPERATIONS.  <a href="#a72f3b23ee95d02a8188d8734369b6149">More...</a><br/></td></tr>
+<tr class="memdesc:a72f3b23ee95d02a8188d8734369b6149"><td class="mdescLeft">&#160;</td><td class="mdescRight">This subroutine provides a handy way to combine the functionality of subroutines <a class="el" href="readmg_8f.html#a9fb3da32fb87bc017d16b9f0f707be9b" title="This subroutine reads the next BUFR message from logical unit ABS(LUNXX) into internal arrays...">readmg()</a> and <a class="el" href="readsb_8f.html#ae7619346ca59d008b4d6a646408876f5" title="This subroutine reads the next data subset from a BUFR message into internal arrays. ">readsb()</a> within a single subroutine call.  <a href="#a72f3b23ee95d02a8188d8734369b6149">More...</a><br/></td></tr>
 <tr class="separator:a72f3b23ee95d02a8188d8734369b6149"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><dl class="section author"><dt>Author</dt><dd>WOOLLEN </dd></dl>
-<dl class="section date"><dt>Date</dt><dd>1994-01-06 </dd></dl>
+<div class="textblock"><p>Read the next data subset from a BUFR file that was previously opened for reading. </p>
 
 <p>Definition in file <a class="el" href="readns_8f_source.html">readns.f</a>.</p>
 </div><h2 class="groupheader">Function/Subroutine Documentation</h2>
@@ -159,14 +161,37 @@ Functions/Subroutines</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>THIS SUBROUTINE SHOULD ONLY BE CALLED WHEN LOGICAL UNIT LUNIT HAS BEEN OPENED FOR INPUT OPERATIONS. </p>
-<p>IT READS THE NEXT SUBSET FROM LOGICAL UNIT NUMBER LUNIT INTO INTERNAL SUBSET ARRAYS. BUFR MESSAGES IN LUNIT MAY BE EITHER COMPRESSED OR UNCOMPRESSED. THIS SUBROUTINE IS ACTUALLY A COMBINATION OF BUFR ARCHIVE LIBRARY SUBROUTINES READMG AND READSB.</p>
-<p>PROGRAM HISTORY LOG: 1994-01-06 J. WOOLLEN &ndash; ORIGINAL AUTHOR 1998-07-08 J. WOOLLEN &ndash; REPLACED CALL TO CRAY LIBRARY ROUTINE "ABORT" WITH CALL TO NEW INTERNAL BUFRLIB ROUTINE "BORT" 1999-11-18 J. WOOLLEN &ndash; THE NUMBER OF BUFR FILES WHICH CAN BE OPENED AT ONE TIME INCREASED FROM 10 TO 32 (NECESSARY IN ORDER TO PROCESS MULTIPLE BUFR FILES UNDER THE MPI) 2003-11-04 S. BENDER &ndash; ADDED REMARKS/BUFRLIB ROUTINE INTERDEPENDENCIES 2003-11-04 D. KEYSER &ndash; MAXJL (MAXIMUM NUMBER OF JUMP/LINK ENTRIES) INCREASED FROM 15000 TO 16000 (WAS IN VERIFICATION VERSION); UNIFIED/PORTABLE FOR WRF; ADDED DOCUMENTATION (INCLUDING HISTORY); OUTPUTS MORE COMPLETE DIAGNOSTIC INFO WHEN ROUTINE TERMINATES ABNORMALLY 2014-12-10 J. ATOR &ndash; USE MODULES INSTEAD OF COMMON BLOCKS</p>
-<p>USAGE: CALL READNS (LUNIT, SUBSET, JDATE, IRET) INPUT ARGUMENT LIST: LUNIT - INTEGER: FORTRAN LOGICAL UNIT NUMBER FOR BUFR FILE</p>
-<p>OUTPUT ARGUMENT LIST: SUBSET - CHARACTER*8: TABLE A MNEMONIC FOR BUFR MESSAGE CONTAINING SUBSET BEING READ JDATE - INTEGER: DATE-TIME STORED WITHIN SECTION 1 OF BUFR MESSAGE CONTAINING SUBSET BEING READ, IN FORMAT OF EITHER YYMMDDHH OR YYYYMMDDHH, DEPENDING ON DATELEN() VALUE IREADNS - INTEGER: RETURN CODE: 0 = normal return -1 = there are no more subsets in the BUFR file</p>
-<p>REMARKS: THIS ROUTINE CALLS: BORT READMG READSB STATUS THIS ROUTINE IS CALLED BY: IREADNS Also called by application programs. </p>
+<p>This subroutine provides a handy way to combine the functionality of subroutines <a class="el" href="readmg_8f.html#a9fb3da32fb87bc017d16b9f0f707be9b" title="This subroutine reads the next BUFR message from logical unit ABS(LUNXX) into internal arrays...">readmg()</a> and <a class="el" href="readsb_8f.html#ae7619346ca59d008b4d6a646408876f5" title="This subroutine reads the next data subset from a BUFR message into internal arrays. ">readsb()</a> within a single subroutine call. </p>
+<dl class="section author"><dt>Author</dt><dd>J. Woollen </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>1994-01-06</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">LUNIT</td><td>- integer: Fortran logical unit number for BUFR file </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">SUBSET</td><td>- character*8: Table A mnemonic for type of data subset that was read (see <a class="el" href="md__gpfs_dell2_emc_obsproc_noscrub_Jeff_8Ator_NCEPLIBS-bufr-GitHub_nceplibs-bufr_docs_dfbftab.html#dfbftab">DX BUFR Tables</a> for further information about Table A mnemonics) </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">JDATE</td><td>- integer: Date-time stored within Section 1 of BUFR message containing data subset that was read, in format of either YYMMDDHH or YYYYMMDDHH, depending on the most recent call to subroutine <a class="el" href="datelen_8f.html#ac75cb362f84167ca65b058a97401efcd" title="This subroutine is used to specify the format of Section 1 date-time values that will be output by fu...">datelen()</a> </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">IRET</td><td>- integer: return code<ul>
+<li>0 = new BUFR data subset was successfully read into internal arrays</li>
+<li>-1 = there are no more BUFR data subsets in the file connected to logical unit LUNIT</li>
+</ul>
+</td></tr>
+  </table>
+  </dd>
+</dl>
+<p>Logical unit LUNIT should have already been opened for input operations via a previous call to subroutine <a class="el" href="openbf_8F.html#a9bea9aeada166bd9037b959ca8452b28" title="This subroutine connects a new file to the BUFRLIB software for input or output operations. ">openbf()</a>. But once that is done, the application program can immediately call this subroutine to read each new data subset from the associated BUFR file, and the subroutine will automatically open and close each new BUFR message internally as needed, so that subsequent calls can immediately be made to any of the various <a class="el" href="md__gpfs_dell2_emc_obsproc_noscrub_Jeff_8Ator_NCEPLIBS-bufr-GitHub_nceplibs-bufr_docs_UserGuide.html#hierarchy">values-reading subroutines</a>.</p>
+<p><b>Program history log:</b></p>
+<ul>
+<li>1994-01-06 J. Woollen &ndash; Original author</li>
+<li>1998-07-08 J. Woollen &ndash; Replaced call to Cray library routine "ABORT" with call to new internal BUFRLIB routine "BORT"; modified to make Y2K compliant</li>
+<li>1999-11-18 J. Woollen &ndash; The number of BUFR files which can be opened at one time increased from 10 to 32 (necessary in order to process multiple BUFR files under the MPI)</li>
+<li>2003-11-04 D. Keyser &ndash; MAXJL (maximum number of jump/link entries) increased from 15000 to 16000 (was in verification version)</li>
+<li>2014-12-10 J. Ator &ndash; Use modules instead of COMMON blocks </li>
+</ul>
 
-<p>Definition at line <a class="el" href="readns_8f_source.html#l00050">50</a> of file <a class="el" href="readns_8f_source.html">readns.f</a>.</p>
+<p>Definition at line <a class="el" href="readns_8f_source.html#l00054">54</a> of file <a class="el" href="readns_8f_source.html">readns.f</a>.</p>
+
+<p>References <a class="el" href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort()</a>, <a class="el" href="readmg_8f.html#a9fb3da32fb87bc017d16b9f0f707be9b">readmg()</a>, <a class="el" href="readsb_8f.html#ae7619346ca59d008b4d6a646408876f5">readsb()</a>, and <a class="el" href="status_8f.html#a22292e7a69c411a961168198d259f336">status()</a>.</p>
+
+<p>Referenced by <a class="el" href="ireadns_8f.html#ad424a6b2c26977fe861708624dbe0b79">ireadns()</a>.</p>
 
 </div>
 </div>

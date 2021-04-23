@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.3.2</span>
+   &#160;<span id="projectnumber">11.5.0</span>
    </div>
   </td>
  </tr>
@@ -92,7 +92,7 @@ $(document).ready(function(){initNavTree('ibfms_8f.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -109,17 +109,19 @@ $(document).ready(function(){initNavTree('ibfms_8f.html','');});
 </div><!--header-->
 <div class="contents">
 
+<p>Test whether a real*8 data value is "missing".  
+<a href="#details">More...</a></p>
+
 <p><a href="ibfms_8f_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions/Subroutines</h2></td></tr>
 <tr class="memitem:a79737107a4ec70afa5efc8eb793d984b"><td class="memItemLeft" align="right" valign="top">INTEGER function&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ibfms_8f.html#a79737107a4ec70afa5efc8eb793d984b">ibfms</a> (R8VAL)</td></tr>
-<tr class="memdesc:a79737107a4ec70afa5efc8eb793d984b"><td class="mdescLeft">&#160;</td><td class="mdescRight">THIS FUNCTION TESTS WHETHER THE INPUT VALUE IS EQUIVALENT TO THE BUFR ARCHIVE LIBRARY "MISSING" VALUE.  <a href="#a79737107a4ec70afa5efc8eb793d984b">More...</a><br/></td></tr>
+<tr class="memdesc:a79737107a4ec70afa5efc8eb793d984b"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function provides a handy way to check whether a real*8 data value returned from a previous call to any of the other BUFRLIB <a class="el" href="md__gpfs_dell2_emc_obsproc_noscrub_Jeff_8Ator_NCEPLIBS-bufr-GitHub_nceplibs-bufr_docs_UserGuide.html#hierarchy">values-reading subroutines</a> contains the current placeholder value for "missing" data.  <a href="#a79737107a4ec70afa5efc8eb793d984b">More...</a><br/></td></tr>
 <tr class="separator:a79737107a4ec70afa5efc8eb793d984b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><dl class="section author"><dt>Author</dt><dd>J </dd></dl>
-<dl class="section date"><dt>Date</dt><dd>2007-01-19 </dd></dl>
+<div class="textblock"><p>Test whether a real*8 data value is "missing". </p>
 
 <p>Definition in file <a class="el" href="ibfms_8f_source.html">ibfms.f</a>.</p>
 </div><h2 class="groupheader">Function/Subroutine Documentation</h2>
@@ -137,14 +139,35 @@ Functions/Subroutines</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>THIS FUNCTION TESTS WHETHER THE INPUT VALUE IS EQUIVALENT TO THE BUFR ARCHIVE LIBRARY "MISSING" VALUE. </p>
-<p>THE USE OF INTEGER RETURN CODES ALLOWS THIS FUNCTION TO BE CALLED IN A LOGICAL CONTEXT FROM A CALLING PROGRAM WRITTEN IN C.</p>
-<p>PROGRAM HISTORY LOG: 2007-01-19 J. ATOR &ndash; ORIGINAL AUTHOR 2009-03-23 J. ATOR &ndash; INCREASED VALUE OF BDIFD FOR BETTER TEST ACCURACY 2012-10-05 J. ATOR &ndash; MODIFIED TO REFLECT THE FACT THAT THE "MISSING" VALUE IS NOW CONFIGURABLE BY USERS (MAY BE SOMETHING OTHER THAN 10E10)</p>
-<p>USAGE: IBFMS ( R8VAL ) INPUT ARGUMENT LIST: R8VAL - REAL*8: VALUE TO BE TESTED FOR EQUIVALENCE TO BUFR ARCHIVE LIBRARY "MISSING" VALUE</p>
-<p>OUTPUT ARGUMENT LIST: IBFMS - INTEGER: RETURN CODE: 0 - R8VAL IS NOT EQUIVALENT TO "MISSING" 1 - R8VAL IS EQUIVALENT TO "MISSING"</p>
-<p>REMARKS: THIS ROUTINE CALLS: None THIS ROUTINE IS CALLED BY: INVMRG STRBTM UFBDMP UFBRW UFDUMP WRTREE Also called by application programs. </p>
+<p>This function provides a handy way to check whether a real*8 data value returned from a previous call to any of the other BUFRLIB <a class="el" href="md__gpfs_dell2_emc_obsproc_noscrub_Jeff_8Ator_NCEPLIBS-bufr-GitHub_nceplibs-bufr_docs_UserGuide.html#hierarchy">values-reading subroutines</a> contains the current placeholder value for "missing" data. </p>
+<dl class="section author"><dt>Author</dt><dd>J. Ator </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2007-01-19</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">R8VAL</td><td>- real*8: Data value to be tested</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>ibfms - integer:<ul>
+<li>0 = R8VAL is not "missing"</li>
+<li>1 = R8VAL is "missing"</li>
+</ul>
+</dd></dl>
+<p>The current placeholder value for "missing" data is always equal to the value XMISS as specified during the most recent call to subroutine <a class="el" href="setbmiss_8f.html#a5435d5821267af076f83cefdf3c1c7f8" title="This subroutine allows the user to specify a customized value to represent &quot;missing&quot; data when readin...">setbmiss()</a>, or to a default value of 10E10 if <a class="el" href="setbmiss_8f.html#a5435d5821267af076f83cefdf3c1c7f8" title="This subroutine allows the user to specify a customized value to represent &quot;missing&quot; data when readin...">setbmiss()</a> was never called. In either case, a return value of 1 means that the corresponding value was encoded as "missing" (all bits set to 1) within the actual BUFR data subset.</p>
+<dl class="section remark"><dt>Remarks</dt><dd><ul>
+<li>The use of an integer return code allows this function to be called in a logical context from application programs written in C as well as in Fortran.</li>
+</ul>
+</dd></dl>
+<p><b>Program history log:</b></p>
+<ul>
+<li>2007-01-19 J. Ator &ndash; Original author</li>
+<li>2009-03-23 J. Ator &ndash; Increased value of BDIFD for better test accuracy</li>
+<li>2012-10-05 J. Ator &ndash; Modified to reflect the fact that the "missing" value is now configurable by users (may be something other than 10E10) </li>
+</ul>
 
-<p>Definition at line <a class="el" href="ibfms_8f_source.html#l00033">33</a> of file <a class="el" href="ibfms_8f_source.html">ibfms.f</a>.</p>
+<p>Definition at line <a class="el" href="ibfms_8f_source.html#l00039">39</a> of file <a class="el" href="ibfms_8f_source.html">ibfms.f</a>.</p>
+
+<p>Referenced by <a class="el" href="invmrg_8f.html#aba004145e3ecb6efdb12e8ed9a3121d3">invmrg()</a>, <a class="el" href="strbtm_8f.html#af07cb67caa4e62d680d319515c2ad94b">strbtm()</a>, <a class="el" href="ufbdmp_8f.html#a27911114237cb390a24f44e0e0d706a3">ufbdmp()</a>, <a class="el" href="ufbrw_8f.html#abc239f0ea4f858cccb770bad22d04f02">ufbrw()</a>, <a class="el" href="ufdump_8f.html#a1da91a86182d2e03c944a044f8a06813">ufdump()</a>, and <a class="el" href="wrtree_8f.html#a0700f04d89a10a24b1acb184f6022c77">wrtree()</a>.</p>
 
 </div>
 </div>

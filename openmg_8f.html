@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.3.2</span>
+   &#160;<span id="projectnumber">11.5.0</span>
    </div>
   </td>
  </tr>
@@ -92,7 +92,7 @@ $(document).ready(function(){initNavTree('openmg_8f.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -161,12 +161,12 @@ Functions/Subroutines</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">LUNIT</td><td>- integer: Fortran logical unit number for BUFR file </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">SUBSET</td><td>- character*(*): Table A mnemonic for type of BUFR message to be opened (see DX BUFR Tables for further information about Table A mnemonics) </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">JDATE</td><td>- integer: date-time to be stored within Section 1 of BUFR message being opened, in format of either YYMMDDHH or YYYYMMDDHH, depending on the most recent call to subroutine <a class="el" href="datelen_8f.html#ac75cb362f84167ca65b058a97401efcd" title="THIS SUBROUTINE IS USED TO SPECIFY THE LENGTH OF DATE-TIME VALUES THAT WILL BE OUTPUT BY FUTURE CALLS...">datelen()</a></td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">SUBSET</td><td>- character*(*): Table A mnemonic for type of BUFR message to be opened (see <a class="el" href="md__gpfs_dell2_emc_obsproc_noscrub_Jeff_8Ator_NCEPLIBS-bufr-GitHub_nceplibs-bufr_docs_dfbftab.html#dfbftab">DX BUFR Tables</a> for further information about Table A mnemonics) </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">JDATE</td><td>- integer: Date-time to be stored within Section 1 of BUFR message being opened, in format of either YYMMDDHH or YYYYMMDDHH</td></tr>
   </table>
   </dd>
 </dl>
-<p>Logical unit LUNIT should have already been opened for output operations via a previous call to subroutine <a class="el" href="openbf_8F.html#a9bea9aeada166bd9037b959ca8452b28" title="This subroutine identifies a new file to the BUFRLIB software for input or output operations...">openbf()</a>.</p>
+<p>Logical unit LUNIT should have already been opened for output operations via a previous call to subroutine <a class="el" href="openbf_8F.html#a9bea9aeada166bd9037b959ca8452b28" title="This subroutine connects a new file to the BUFRLIB software for input or output operations. ">openbf()</a>.</p>
 <p>This subroutine is similar to subroutine <a class="el" href="openmb_8f.html#a4fc37a744b3f3c266a6f73acc117710a" title="This subroutine opens and initializes a new BUFR message within internal arrays, for eventual output ...">openmb()</a>, except that it will always open a new message for output, regardless of the values of SUBSET and JDATE. Any existing message within the internal arrays will be automatically flushed and written to logical unit LUNIT via an internal call to subroutine <a class="el" href="closmg_8f.html#a3378111de0136710daec2ded25ed34e4" title="This subroutine closes the BUFR message that is currently open for writing within internal arrays ass...">closmg()</a>.</p>
 <p><b>Program history log:</b></p>
 <ul>
@@ -176,13 +176,12 @@ Functions/Subroutines</h2></td></tr>
 <li>2003-11-04 J. Ator &ndash; Added documentation</li>
 <li>2003-11-04 S. Bender &ndash; Added remarks and routine interdependencies</li>
 <li>2003-11-04 D. Keyser &ndash; Unified/portable for WRF; added history documentation; outputs more complete diagnostic info when routine terminates abnormally</li>
-<li>2014-12-10 J. Ator &ndash; Use modules instead of COMMON blocks</li>
+<li>2014-12-10 J. Ator &ndash; Use modules instead of COMMON blocks </li>
 </ul>
-<p><b>This routine calls</b>: <a class="el" href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4" title="THIS SUBROUTINE WRITES (VIA BUFR ARCHIVE LIBRARY SUBROUTINE ERRWRT) A GIVEN ERROR STRING AND THEN CAL...">bort()</a> <a class="el" href="closmg_8f.html#a3378111de0136710daec2ded25ed34e4" title="This subroutine closes the BUFR message that is currently open for writing within internal arrays ass...">closmg()</a> <a class="el" href="i4dy_8f.html#a112153e4ebaab35d9d95d7a29534f48b" title="THIS FUNCTION CONVERTS AN EIGHT DIGIT INTEGER DATE (YYMMDDHH) TO TEN DIGITS (YYYYMMDDHH) USING THE Y2...">i4dy()</a> <a class="el" href="msgini_8f.html#ae73a0a9e7bba8f7dfeb673f2bca0820b" title="THIS SUBROUTINE INITIALIZES, WITHIN THE INTERNAL ARRAYS, A NEW BUFR MESSAGE FOR OUTPUT. ">msgini()</a> <a class="el" href="nemtba_8f.html#a1038fd60bc3fa89eff9ff79ed996a7e1" title="THIS SUBROUTINE SEARCHES FOR MNEMONIC NEMO WITHIN THE INTERNAL TABLE A ARRAYS HOLDING THE DICTIONARY ...">nemtba()</a> <a class="el" href="status_8f.html#a22292e7a69c411a961168198d259f336" title="THIS SUBROUTINE CHECKS WHETHER LOGICAL UNIT NUMBER LUNIT (AND ITS ASSOCIATED BUFR FILE) IS CURRENTLY ...">status()</a> <a class="el" href="usrtpl_8f.html#a677bf700a4a6f0626a41921cd66d8ed9" title="THIS SUBROUTINE STORES THE SUBSET TEMPLATE INTO INTERNAL SUBSET ARRAYS IN MODULE USRINT FOR CASES OF ...">usrtpl()</a> <a class="el" href="wtstat_8f.html#a82676f83ff365e03ad827ed5ba0af1ae" title="THIS SUBROUTINE EITHER DISCONNECTS THE INPUT LOGICAL UNIT NUMBER LUNIT (AND ITS ASSOCIATED BUFR FILE)...">wtstat()</a></p>
-<p><b>This routine is called by:</b> None <br/>
-Normally called only by application programs. </p>
 
-<p>Definition at line <a class="el" href="openmg_8f_source.html#l00055">55</a> of file <a class="el" href="openmg_8f_source.html">openmg.f</a>.</p>
+<p>Definition at line <a class="el" href="openmg_8f_source.html#l00048">48</a> of file <a class="el" href="openmg_8f_source.html">openmg.f</a>.</p>
+
+<p>References <a class="el" href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort()</a>, <a class="el" href="closmg_8f.html#a3378111de0136710daec2ded25ed34e4">closmg()</a>, <a class="el" href="i4dy_8f.html#a112153e4ebaab35d9d95d7a29534f48b">i4dy()</a>, <a class="el" href="msgini_8f.html#ae73a0a9e7bba8f7dfeb673f2bca0820b">msgini()</a>, <a class="el" href="nemtba_8f.html#a1038fd60bc3fa89eff9ff79ed996a7e1">nemtba()</a>, <a class="el" href="status_8f.html#a22292e7a69c411a961168198d259f336">status()</a>, <a class="el" href="usrtpl_8f.html#a677bf700a4a6f0626a41921cd66d8ed9">usrtpl()</a>, and <a class="el" href="wtstat_8f.html#a82676f83ff365e03ad827ed5ba0af1ae">wtstat()</a>.</p>
 
 </div>
 </div>

@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.3.2</span>
+   &#160;<span id="projectnumber">11.5.0</span>
    </div>
   </td>
  </tr>
@@ -92,7 +92,7 @@ $(document).ready(function(){initNavTree('wrdesc_8c.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -158,6 +158,10 @@ Functions</h2></td></tr>
 <p>C IF AN ARRAY OVERFLOW OCCURS, THEN AN APPROPRIATE ERROR MESSAGE C WILL BE WRITTEN VIA BORT. C C PROGRAM HISTORY LOG: C 2004-08-18 J. ATOR &ndash; ORIGINAL AUTHOR C C USAGE: CALL WRDESC( DESC, DESCARY, NDESCARY ) C INPUT ARGUMENT LIST: C DESC - INTEGER: BIT-WISE REPRESENTATION OF DESCRIPTOR C TO BE WRITTEN INTO DESCARY C DESCARY - INTEGER: ARRAY OF DESCRIPTORS C NDESCARY - INTEGER: NUMBER OF DESCRIPTORS WRITTEN SO FAR C INTO DESCARY C C OUTPUT ARGUMENT LIST: C DESCARY - INTEGER: ARRAY OF DESCRIPTORS C NDESCARY - INTEGER: NUMBER OF DESCRIPTORS WRITTEN SO FAR C INTO DESCARY C C REMARKS: C THIS ROUTINE CALLS: BORT C THIS ROUTINE IS CALLED BY: RESTD C Normally not called by application C programs but it could be. C C ATTRIBUTES: C LANGUAGE: C C MACHINE: PORTABLE TO ALL PLATFORMS C C$$$ </p>
 
 <p>Definition at line <a class="el" href="wrdesc_8c_source.html#l00046">46</a> of file <a class="el" href="wrdesc_8c_source.html">wrdesc.c</a>.</p>
+
+<p>References <a class="el" href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort()</a>.</p>
+
+<p>Referenced by <a class="el" href="restd_8c.html#aef3fbb522b92409bdc654d70b39daaa0">restd()</a>.</p>
 
 </div>
 </div>

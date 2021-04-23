@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.3.2</span>
+   &#160;<span id="projectnumber">11.5.0</span>
    </div>
   </td>
  </tr>
@@ -92,7 +92,7 @@ $(document).ready(function(){initNavTree('crbmg_8c.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -108,6 +108,9 @@ $(document).ready(function(){initNavTree('crbmg_8c.html','');});
 <div class="title">crbmg.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>Read the next message from a BUFR file that was previously opened for reading via a C language interface.  
+<a href="#details">More...</a></p>
 <div class="textblock"><code>#include &quot;<a class="el" href="bufrlib_8h_source.html">bufrlib.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="cobfl_8h_source.html">cobfl.h</a>&quot;</code><br/>
 </div>
@@ -116,12 +119,11 @@ $(document).ready(function(){initNavTree('crbmg_8c.html','');});
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:afe8501c06e833d44117d71dcbc5feb30"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="crbmg_8c.html#afe8501c06e833d44117d71dcbc5feb30">crbmg</a> (char *bmg, f77int *mxmb, f77int *nmb, f77int *iret)</td></tr>
-<tr class="memdesc:afe8501c06e833d44117d71dcbc5feb30"><td class="mdescLeft">&#160;</td><td class="mdescRight">C C SUBPROGRAM: CRBMG C PRGMMR: ATOR ORG: NP12 DATE: 2005-11-29 C C ABSTRACT: THIS ROUTINE READS THE NEXT BUFR MESSAGE FROM THE SYSTEM C FILE MOST RECENTLY OPENED FOR READING/INPUT VIA BUFR ARCHIVE LIBRARY C ROUTINE COBFL.  <a href="#afe8501c06e833d44117d71dcbc5feb30">More...</a><br/></td></tr>
+<tr class="memdesc:afe8501c06e833d44117d71dcbc5feb30"><td class="mdescLeft">&#160;</td><td class="mdescRight">This subroutine reads the next BUFR message from the system file that was opened via the most recent call to subroutine <a class="el" href="cobfl_8c.html#a8ee2da6f5d4198418177b973d9b1108c" title="This subroutine opens a new file for reading or writing BUFR messages via a C language interface...">cobfl()</a> with io = 'r'.  <a href="#afe8501c06e833d44117d71dcbc5feb30">More...</a><br/></td></tr>
 <tr class="separator:afe8501c06e833d44117d71dcbc5feb30"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><dl class="section author"><dt>Author</dt><dd>ATOR </dd></dl>
-<dl class="section date"><dt>Date</dt><dd>2005-11-29 </dd></dl>
+<div class="textblock"><p>Read the next message from a BUFR file that was previously opened for reading via a C language interface. </p>
 
 <p>Definition in file <a class="el" href="crbmg_8c_source.html">crbmg.c</a>.</p>
 </div><h2 class="groupheader">Function Documentation</h2>
@@ -161,10 +163,38 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>C C SUBPROGRAM: CRBMG C PRGMMR: ATOR ORG: NP12 DATE: 2005-11-29 C C ABSTRACT: THIS ROUTINE READS THE NEXT BUFR MESSAGE FROM THE SYSTEM C FILE MOST RECENTLY OPENED FOR READING/INPUT VIA BUFR ARCHIVE LIBRARY C ROUTINE COBFL. </p>
-<p>ANY BUFR EDITION 0 OR EDITION 1 MESSAGES THAT ARE C READ ARE AUTOMATICALLY CONVERTED TO BUFR EDITION 2. C C PROGRAM HISTORY LOG: C 2005-11-29 J. ATOR &ndash; ORIGINAL AUTHOR C C USAGE: CALL CRBMG( BMG, MXMB, NMB, IRET ) C INPUT ARGUMENT LIST: C MXMB - INTEGER: DIMENSIONED SIZE (IN BYTES) OF BMG; USED C BY THE ROUTINE TO ENSURE THAT IT DOES NOT OVERFLOW C THE BMG ARRAY C C OUTPUT ARGUMENT LIST: C BMG - CHARACTER*1: ARRAY CONTAINING BUFR MESSAGE C NMB - INTEGER: SIZE (IN BYTES) OF BUFR MESSAGE IN BMG C IRET - INTEGER: RETURN CODE: C 0 = normal return C 1 = overflow of BMG array C 2 = "7777" indicator not found in expected location C -1 = end-of-file encountered while reading C -2 = I/O error encountered while reading C C REMARKS: C THIS ROUTINE CALLS: BORT GETS1LOC ICHKSTR IPKM C IUPBS01 IUPM RBYTES C THIS ROUTINE IS CALLED BY: None C Normally called only by application C programs. C C ATTRIBUTES: C LANGUAGE: C C MACHINE: PORTABLE TO ALL PLATFORMS C C$$$ </p>
+<p>This subroutine reads the next BUFR message from the system file that was opened via the most recent call to subroutine <a class="el" href="cobfl_8c.html#a8ee2da6f5d4198418177b973d9b1108c" title="This subroutine opens a new file for reading or writing BUFR messages via a C language interface...">cobfl()</a> with io = 'r'. </p>
+<dl class="section author"><dt>Author</dt><dd>J. Ator </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2005-11-29</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">mxmb</td><td>- f77int*: Dimensioned size (in bytes) of bmg; used by the subroutine to ensure that it doesn't overflow the bmg array </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">bmg</td><td>- char*: BUFR message </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">nmb</td><td>- f77int*: Size (in bytes) of BUFR message in bmg </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">iret</td><td>- f77int*: return code<ul>
+<li>0 = normal return</li>
+<li>1 = overflow of bmg array</li>
+<li>2 = "7777" indicator not found in expected location</li>
+<li>-1 = end-of-file encountered while reading</li>
+<li>-2 = I/O error encountered while reading</li>
+</ul>
+</td></tr>
+  </table>
+  </dd>
+</dl>
+<p>This subroutine is designed to be easily callable from application program written in either C or Fortran.</p>
+<p>The file from which messages are to be read must have already been opened for reading via a previous call to subroutine <a class="el" href="cobfl_8c.html#a8ee2da6f5d4198418177b973d9b1108c" title="This subroutine opens a new file for reading or writing BUFR messages via a C language interface...">cobfl()</a> with io = 'r'.</p>
+<p>Any messages read that were encoded according to BUFR edition 0 or BUFR edition 1 are automatically converted to BUFR edition 2 before being returned by this subroutine.</p>
+<p><b>Program history log:</b></p>
+<ul>
+<li>2005-11-29 J. Ator &ndash; Original author </li>
+</ul>
 
-<p>Definition at line <a class="el" href="crbmg_8c_source.html#l00050">50</a> of file <a class="el" href="crbmg_8c_source.html">crbmg.c</a>.</p>
+<p>Definition at line <a class="el" href="crbmg_8c_source.html#l00046">46</a> of file <a class="el" href="crbmg_8c_source.html">crbmg.c</a>.</p>
+
+<p>References <a class="el" href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort()</a>, <a class="el" href="gets1loc_8f.html#afa67517d4a9f4c4da6852a85aefed7e9">gets1loc()</a>, <a class="el" href="ichkstr_8f.html#af2e2a12582c245f6f119df50da24b35b">ichkstr()</a>, <a class="el" href="ipkm_8f.html#a8826417bb81a4404779e606d6b97759a">ipkm()</a>, <a class="el" href="iupbs01_8f.html#adcd6f7c2f898b4f938153c5cf79a9cf5">iupbs01()</a>, <a class="el" href="iupm_8f.html#a870aa6933e94946232ec975e8cdd04db">iupm()</a>, <a class="el" href="cobfl_8h.html#a749687e8025ba9e13e3634055d551dce">pbf</a>, and <a class="el" href="cobfl_8h.html#a662fa0f4a540caee1bfaa5e413b714e3">rbytes()</a>.</p>
+
+<p>Referenced by <a class="el" href="debufr_8f.html#a60dcf0fcb9d3a56fe561406bf5b16a9e">fdebufr()</a>.</p>
 
 </div>
 </div>

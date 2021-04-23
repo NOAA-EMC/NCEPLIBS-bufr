@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.3.2</span>
+   &#160;<span id="projectnumber">11.5.0</span>
    </div>
   </td>
  </tr>
@@ -92,7 +92,7 @@ $(document).ready(function(){initNavTree('iupbs01_8f.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -109,17 +109,19 @@ $(document).ready(function(){initNavTree('iupbs01_8f.html','');});
 </div><!--header-->
 <div class="contents">
 
+<p>Read a data value from Section 0 or Section 1 of a BUFR message.  
+<a href="#details">More...</a></p>
+
 <p><a href="iupbs01_8f_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions/Subroutines</h2></td></tr>
 <tr class="memitem:adcd6f7c2f898b4f938153c5cf79a9cf5"><td class="memItemLeft" align="right" valign="top">function&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="iupbs01_8f.html#adcd6f7c2f898b4f938153c5cf79a9cf5">iupbs01</a> (MBAY, S01MNEM)</td></tr>
-<tr class="memdesc:adcd6f7c2f898b4f938153c5cf79a9cf5"><td class="mdescLeft">&#160;</td><td class="mdescRight">THIS FUNCTION UNPACKS AND RETURNS A SPECIFIED INTEGER VALUE FROM SECTION 0 OR SECTION 1 OF THE BUFR MESSAGE STORED IN ARRAY MBAY.  <a href="#adcd6f7c2f898b4f938153c5cf79a9cf5">More...</a><br/></td></tr>
+<tr class="memdesc:adcd6f7c2f898b4f938153c5cf79a9cf5"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function returns a specified value from within Section 0 or Section 1 of a BUFR message.  <a href="#adcd6f7c2f898b4f938153c5cf79a9cf5">More...</a><br/></td></tr>
 <tr class="separator:adcd6f7c2f898b4f938153c5cf79a9cf5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><dl class="section author"><dt>Author</dt><dd>ATOR </dd></dl>
-<dl class="section date"><dt>Date</dt><dd>2005-11-29 </dd></dl>
+<div class="textblock"><p>Read a data value from Section 0 or Section 1 of a BUFR message. </p>
 
 <p>Definition in file <a class="el" href="iupbs01_8f_source.html">iupbs01.f</a>.</p>
 </div><h2 class="groupheader">Function/Subroutine Documentation</h2>
@@ -147,14 +149,68 @@ Functions/Subroutines</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>THIS FUNCTION UNPACKS AND RETURNS A SPECIFIED INTEGER VALUE FROM SECTION 0 OR SECTION 1 OF THE BUFR MESSAGE STORED IN ARRAY MBAY. </p>
-<p>IT WILL WORK ON ANY MESSAGE ENCODED USING BUFR EDITION 2, 3 OR 4. THE START OF THE BUFR MESSAGE (I.E. THE STRING "BUFR") MUST BE ALIGNED ON THE FIRST FOUR BYTES OF MBAY, AND THE VALUE TO BE UNPACKED IS SPECIFIED VIA THE MNEMONIC S01MNEM, AS EXPLAINED IN FURTHER DETAIL BELOW.</p>
-<p>PROGRAM HISTORY LOG: 2005-11-29 J. ATOR &ndash; ORIGINAL AUTHOR 2006-04-14 J. ATOR &ndash; ADDED OPTIONS FOR 'YCEN' AND 'CENT'; RESTRUCTURED LOGIC</p>
-<p>USAGE: IUPBS01 (MBAY, S01MNEM) INPUT ARGUMENT LIST: MBAY - INTEGER: *-WORD PACKED BINARY ARRAY CONTAINING BUFR MESSAGE S01MNEM - CHARACTER*(*): MNEMONIC SPECIFYING VALUE TO BE UNPACKED FROM SECTION 0 OR SECTION 1 OF BUFR MESSAGE: 'LENM' = LENGTH (IN BYTES) OF BUFR MESSAGE 'LEN0' = LENGTH (IN BYTES) OF SECTION 0 'BEN' = BUFR EDITION NUMBER 'LEN1' = LENGTH (IN BYTES) OF SECTION 1 'BMT' = BUFR MASTER TABLE 'OGCE' = ORIGINATING CENTER 'GSES' = ORIGINATING SUBCENTER (NOTE: THIS VALUE IS PRESENT ONLY IN BUFR EDITION 3 OR 4 MESSAGES!) 'USN' = UPDATE SEQUENCE NUMBER 'ISC2' = FLAG INDICATING ABSENCE/PRESENCE OF (OPTIONAL) SECTION 2 IN BUFR MESSAGE: 0 = SECTION 2 ABSENT 1 = SECTION 2 PRESENT 'MTYP' = DATA CATEGORY 'MSBTI' = DATA SUBCATEGORY (INTERNATIONAL) (NOTE: THIS VALUE IS PRESENT ONLY IN BUFR EDITION 4 MESSAGES!) 'MSBT' = DATA SUBCATEGORY (LOCAL) 'MTV' = VERSION NUMBER OF MASTER TABLE 'MTVL' = VERSION NUMBER OF LOCAL TABLES 'YCEN' = YEAR OF CENTURY (1-100) (NOTE: THIS VALUE IS PRESENT ONLY IN BUFR EDITION 2 AND 3 MESSAGES!) 'CENT' = CENTURY (I.E., 20 FOR YEARS 1901-2000, 21 FOR YEARS 2001-2100) (NOTE: THIS VALUE <em>MAY</em> BE PRESENT IN BUFR EDITION 2 AND 3 MESSAGES, BUT IT IS NEVER PRESENT IN ANY BUFR EDITION 4 MESSAGES!) 'YEAR' = YEAR (4-DIGIT) (NOTE: THIS VALUE IS PRESENT ONLY IN BUFR EDITION 4 MESSAGES. FOR BUFR EDITION 2 AND 3 MESSAGES IT WILL BE CALCULATED USING THE VALUES FOR 'YCEN' AND 'CENT', EXCEPT WHEN THE LATTER IS NOT PRESENT AND IN WHICH CASE A "WINDOWING" TECHNIQUE WILL BE USED INSTEAD!) 'MNTH' = MONTH 'DAYS' = DAY 'HOUR' = HOUR 'MINU' = MINUTE 'SECO' = SECOND (NOTE: THIS VALUE IS PRESENT ONLY IN BUFR EDITION 4 MESSAGES!)</p>
-<p>OUTPUT ARGUMENT LIST: IUPBS01 - INTEGER: UNPACKED INTEGER VALUE -1 = THE INPUT S01MNEM MNEMONIC WAS INVALID FOR THE EDITION OF BUFR MESSAGE IN MBAY</p>
-<p>REMARKS: THIS ROUTINE CALLS: GETS1LOC I4DY IUPB WRDLEN THIS ROUTINE IS CALLED BY: ATRCPT CKTABA CNVED4 COPYBF COPYMG CPYMEM CRBMG CRDBUFR DUMPBF GETLENS IDXMSG IGETDATE IREADMT IUPVS01 MESGBC MESGBF MSGWRT NMWRD PADMSG PKBS1 RTRCPTB STBFDX STNDRD UFBMEX WRCMPS Also called by application programs. </p>
+<p>This function returns a specified value from within Section 0 or Section 1 of a BUFR message. </p>
+<p>This function will work on any BUFR message encoded using BUFR edition 2, 3, or 4. It is similar to function <a class="el" href="iupvs01_8f.html#a7a770c2b160d5ff013a18de56204ad45" title="This function returns a specified value from within Section 0 or Section 1 of a BUFR message...">iupvs01()</a>, except that it operates on a BUFR message passed in via a memory array, whereas <a class="el" href="iupvs01_8f.html#a7a770c2b160d5ff013a18de56204ad45" title="This function returns a specified value from within Section 0 or Section 1 of a BUFR message...">iupvs01()</a> operates on the BUFR message that was read into internal arrays via the most recent call to any of the other <a class="el" href="md__gpfs_dell2_emc_obsproc_noscrub_Jeff_8Ator_NCEPLIBS-bufr-GitHub_nceplibs-bufr_docs_UserGuide.html#hierarchy">message-reading subroutines</a> for a specified Fortran logical unit.</p>
+<dl class="section author"><dt>Author</dt><dd>J. Ator </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2005-11-29</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">MBAY</td><td>- integer(*): BUFR message </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">S01MNEM</td><td>- character*(*): Value to be read from Section 0 or Section 1 of MBAY<ul>
+<li>'LENM' = Length (in bytes) of BUFR message</li>
+<li>'LEN0' = Length (in bytes) of Section 0</li>
+<li>'LEN1' = Length (in bytes) of Section 1</li>
+<li>'BEN' = BUFR edition number</li>
+<li>'BMT' = BUFR master table</li>
+<li>'OGCE' = Originating center</li>
+<li>'GSES' = Originating subcenter</li>
+<li>'USN' = Update sequence number</li>
+<li>'ISC2' = Flag indicating absence/presence of (optional) Section 2 in BUFR message:<ul>
+<li>0 = Section 2 absent</li>
+<li>1 = Section 2 present</li>
+</ul>
+</li>
+<li>'MTYP' = Data category</li>
+<li>'MSBTI' = Data subcategory (international)</li>
+<li>'MSBT' = Data subcategory (local)</li>
+<li>'MTV' = Version number of master table</li>
+<li>'MTVL' = Version number of local tables</li>
+<li>'YCEN' = Year of century (1-100)</li>
+<li>'CENT' = Century (e.g., 20 for years 1901-2000, 21 for years 2001-2100)</li>
+<li>'YEAR' = Year (4-digit)</li>
+<li>'MNTH' = Month</li>
+<li>'DAYS' = Day</li>
+<li>'HOUR' = Hour</li>
+<li>'MINU' = Minute</li>
+<li>'SECO' = Second </li>
+</ul>
+</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>iupbs01 - integer: Value corresponding to S01MNEM<ul>
+<li>-1 = S01MNEM was invalid for the edition of BUFR message in MBAY, or some other error occurred</li>
+</ul>
+</dd></dl>
+<dl class="section remark"><dt>Remarks</dt><dd><ul>
+<li>The start of the BUFR message (i.e. the string 'BUFR') must be aligned on the first 4 bytes of MBAY.</li>
+<li>Values corresponding to S01MNEM = 'GSES' can only be read from BUFR messages encoded using BUFR edition 3 or 4.</li>
+<li>Values corresponding to S01MNEM = 'YCEN' or 'CENT' can only be read from BUFR messages encoded using BUFR edition 2 or 3.</li>
+<li>When reading from BUFR messages encoded using BUFR edition 2 or 3, values corresponding to S01MNEM = 'YEAR' will be calculated internally using the values for 'YCEN' and 'CENT', or inferred using a windowing technique</li>
+<li>Values corresponding to S01MNEM = 'SECO' or 'MSBTI' can only be read from BUFR messages encoded using BUFR edition 4.</li>
+</ul>
+</dd></dl>
+<p><b>Program history log:</b></p>
+<ul>
+<li>2005-11-29 J. Ator &ndash; Original author</li>
+<li>2006-04-14 J. Ator &ndash; Added options for 'YCEN' and 'CENT'; restructured logic </li>
+</ul>
 
-<p>Definition at line <a class="el" href="iupbs01_8f_source.html#l00087">87</a> of file <a class="el" href="iupbs01_8f_source.html">iupbs01.f</a>.</p>
+<p>Definition at line <a class="el" href="iupbs01_8f_source.html#l00072">72</a> of file <a class="el" href="iupbs01_8f_source.html">iupbs01.f</a>.</p>
+
+<p>References <a class="el" href="gets1loc_8f.html#afa67517d4a9f4c4da6852a85aefed7e9">gets1loc()</a>, <a class="el" href="i4dy_8f.html#a112153e4ebaab35d9d95d7a29534f48b">i4dy()</a>, <a class="el" href="iupb_8f.html#a3f8fa4b5261e85ecbf679208e7635c6c">iupb()</a>, and <a class="el" href="wrdlen_8F.html#afb746f29272671c842018de69b277685">wrdlen()</a>.</p>
+
+<p>Referenced by <a class="el" href="atrcpt_8f.html#aab9923798891a9045fe799d144b8f0c3">atrcpt()</a>, <a class="el" href="cktaba_8f.html#a137108e58830be769ba5b28072cf1b4c">cktaba()</a>, <a class="el" href="cnved4_8f.html#a4ca2157b24b043c2729135437c1da49a">cnved4()</a>, <a class="el" href="copybf_8f.html#a621280835c0e7a4ac960b0bf719c9721">copybf()</a>, <a class="el" href="copymg_8f.html#a4f8d3631ae3b576ccec17f3f381cebd5">copymg()</a>, <a class="el" href="cpymem_8f.html#a4d6eaf0d2dd8b39f09a3566ac3c52e5f">cpymem()</a>, <a class="el" href="crbmg_8c.html#afe8501c06e833d44117d71dcbc5feb30">crbmg()</a>, <a class="el" href="cread_8h.html#af7363f66f319c5f4dca3f2f5a01a353c">crdbufr()</a>, <a class="el" href="dumpbf_8f.html#a345cb5b88ed574ab5f66b9a90e61acc6">dumpbf()</a>, <a class="el" href="debufr_8f.html#a60dcf0fcb9d3a56fe561406bf5b16a9e">fdebufr()</a>, <a class="el" href="getlens_8f.html#a15ffcb4cde43c73327fd3afb738078e2">getlens()</a>, <a class="el" href="idxmsg_8f.html#ab9276526fbe1b76bfa9f3d15f734c2b2">idxmsg()</a>, <a class="el" href="igetdate_8f.html#a254f61bc732afa08b20c8526d96ab0c4">igetdate()</a>, <a class="el" href="ireadmt_8F.html#a0c3eff73be06d581b8b6ffcd47fede03">ireadmt()</a>, <a class="el" href="iupvs01_8f.html#a7a770c2b160d5ff013a18de56204ad45">iupvs01()</a>, <a class="el" href="mesgbc_8f.html#a7c19b0b932b32b59a6bf5f3c8a809617">mesgbc()</a>, <a class="el" href="mesgbf_8f.html#a078d4fcccd886e70666ebeab639cf9c8">mesgbf()</a>, <a class="el" href="msgwrt_8f.html#ac95ecf1436ba14805a33efd29fab1e5d">msgwrt()</a>, <a class="el" href="nmwrd_8f.html#af955482010e67b333997227dc1118cfe">nmwrd()</a>, <a class="el" href="padmsg_8f.html#af8c53e62375434d43ee476856388ee1c">padmsg()</a>, <a class="el" href="pkbs1_8f.html#a70abc28f30375ab44077b95ed58b59bb">pkbs1()</a>, <a class="el" href="rtrcptb_8f.html#a4f5038a30fe22e577f2f99c2121aa444">rtrcptb()</a>, <a class="el" href="stbfdx_8f.html#a35d346baad722c9be56532c38d43f8a0">stbfdx()</a>, <a class="el" href="stndrd_8f.html#a9a40fe96eef4a44c203f5e663fc47c4b">stndrd()</a>, <a class="el" href="ufbmex_8f.html#abeceab81e913f1c3f833d7b2c680e5b3">ufbmex()</a>, and <a class="el" href="wrcmps_8f.html#a8b333832f77606059ec94ba8b80d4e8d">wrcmps()</a>.</p>
 
 </div>
 </div>

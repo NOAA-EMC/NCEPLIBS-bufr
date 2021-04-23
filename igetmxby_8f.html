@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.3.2</span>
+   &#160;<span id="projectnumber">11.5.0</span>
    </div>
   </td>
  </tr>
@@ -92,7 +92,7 @@ $(document).ready(function(){initNavTree('igetmxby_8f.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -109,17 +109,19 @@ $(document).ready(function(){initNavTree('igetmxby_8f.html','');});
 </div><!--header-->
 <div class="contents">
 
+<p>Get the maximum length of a BUFR message that can be written to an output file.  
+<a href="#details">More...</a></p>
+
 <p><a href="igetmxby_8f_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions/Subroutines</h2></td></tr>
 <tr class="memitem:a047e7750fd8b3eac80197ccea4641c42"><td class="memItemLeft" align="right" valign="top">INTEGER function&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="igetmxby_8f.html#a047e7750fd8b3eac80197ccea4641c42">igetmxby</a> ()</td></tr>
-<tr class="memdesc:a047e7750fd8b3eac80197ccea4641c42"><td class="mdescLeft">&#160;</td><td class="mdescRight">IGETMXBY RETURNS THE CURRENT VALUE OF MAXBYT, WHICH IS THE MAXIMUM LENGTH OF A BUFRLIB MESSAGE THAT CAN BE WRITTEN TO AN OUTPUT STREAM.  <a href="#a047e7750fd8b3eac80197ccea4641c42">More...</a><br/></td></tr>
+<tr class="memdesc:a047e7750fd8b3eac80197ccea4641c42"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function returns the maximum length of a BUFR message that can be written to any output file by the BUFRLIB software.  <a href="#a047e7750fd8b3eac80197ccea4641c42">More...</a><br/></td></tr>
 <tr class="separator:a047e7750fd8b3eac80197ccea4641c42"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><dl class="section author"><dt>Author</dt><dd>WOOLLEN </dd></dl>
-<dl class="section date"><dt>Date</dt><dd>2016-06-27 </dd></dl>
+<div class="textblock"><p>Get the maximum length of a BUFR message that can be written to an output file. </p>
 
 <p>Definition in file <a class="el" href="igetmxby_8f_source.html">igetmxby.f</a>.</p>
 </div><h2 class="groupheader">Function/Subroutine Documentation</h2>
@@ -136,16 +138,19 @@ Functions/Subroutines</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>IGETMXBY RETURNS THE CURRENT VALUE OF MAXBYT, WHICH IS THE MAXIMUM LENGTH OF A BUFRLIB MESSAGE THAT CAN BE WRITTEN TO AN OUTPUT STREAM. </p>
-<p>THIS VALUE IS SET TO A DEFAULT VALUE OF MIN(10000,MXMSGL) IN SUBROUTINE BFRINI, BUT APPLICATION PROGRAMS MAY SET IT TO A DIFFERENT VALUE VIA A CALL TO SUBROUTINE MAXOUT.</p>
-<p>PROGRAM HISTORY LOG: 2016-06-27 J. ATOR &ndash; ORIGINAL AUTHOR</p>
-<p>USAGE: IGETMXBY()</p>
-<p>INPUT ARGUMENTS:</p>
-<p>OUTPUT ARGUMENTS: IGETMXBY - INTEGER: CURRENT VALUE OF MAXBYT = MAXIMUM LENGTH OF A BUFRLIB MESSAGE THAT CAN BE WRITTEN TO OUTPUT</p>
-<p>REMARKS: THIS ROUTINE CALLS: OPENBF</p>
-<p>THIS ROUTINE IS CALLED BY: None Normally called only by application programs. </p>
+<p>This function returns the maximum length of a BUFR message that can be written to any output file by the BUFRLIB software. </p>
+<dl class="section author"><dt>Author</dt><dd>J. Ator </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2016-06-27</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>igetmxby - integer: Maximum length of a BUFR message that can be written to an output file by the BUFRLIB software</dd></dl>
+<p>This maximum length value can be changed at any time via a separate call to subroutine <a class="el" href="maxout_8f.html#a453cb7f1f1dda1ab39e54b7a09b9b801" title="This subroutine allows the user to define the maximum length of a BUFR message that can be written to...">maxout()</a>.</p>
+<p><b>Program history log:</b></p>
+<ul>
+<li>2016-06-27 J. Ator &ndash; Original author </li>
+</ul>
 
-<p>Definition at line <a class="el" href="igetmxby_8f_source.html#l00029">29</a> of file <a class="el" href="igetmxby_8f_source.html">igetmxby.f</a>.</p>
+<p>Definition at line <a class="el" href="igetmxby_8f_source.html#l00021">21</a> of file <a class="el" href="igetmxby_8f_source.html">igetmxby.f</a>.</p>
+
+<p>References <a class="el" href="openbf_8F.html#a9bea9aeada166bd9037b959ca8452b28">openbf()</a>.</p>
 
 </div>
 </div>

@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.3.2</span>
+   &#160;<span id="projectnumber">11.5.0</span>
    </div>
   </td>
  </tr>
@@ -92,7 +92,7 @@ $(document).ready(function(){initNavTree('icbfms_8f.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -109,17 +109,19 @@ $(document).ready(function(){initNavTree('icbfms_8f.html','');});
 </div><!--header-->
 <div class="contents">
 
+<p>Test whether a character string is "missing".  
+<a href="#details">More...</a></p>
+
 <p><a href="icbfms_8f_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions/Subroutines</h2></td></tr>
 <tr class="memitem:a0ec4c9885d4a21769ddbab8f5f819d01"><td class="memItemLeft" align="right" valign="top">INTEGER function&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="icbfms_8f.html#a0ec4c9885d4a21769ddbab8f5f819d01">icbfms</a> (STR, LSTR)</td></tr>
-<tr class="memdesc:a0ec4c9885d4a21769ddbab8f5f819d01"><td class="mdescLeft">&#160;</td><td class="mdescRight">THIS FUNCTION TESTS WHETHER THE INPUT CHARACTER STRING IS "MISSING" BY CHECKING IF ALL OF THE EQUIVALENT BITS ARE SET TO 1.  <a href="#a0ec4c9885d4a21769ddbab8f5f819d01">More...</a><br/></td></tr>
+<tr class="memdesc:a0ec4c9885d4a21769ddbab8f5f819d01"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function provides a handy way to check whether a character string returned from a previous call to subroutine <a class="el" href="readlc_8f.html#acf408b0943fc7a5040009cd9a9bc57a1" title="This subroutine reads a long character string (greater than 8 bytes) from a data subset. ">readlc()</a> was encoded as "missing" (all bits set to 1) within the actual BUFR data subset.  <a href="#a0ec4c9885d4a21769ddbab8f5f819d01">More...</a><br/></td></tr>
 <tr class="separator:a0ec4c9885d4a21769ddbab8f5f819d01"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><dl class="section author"><dt>Author</dt><dd>J </dd></dl>
-<dl class="section date"><dt>Date</dt><dd>2012-06-07 </dd></dl>
+<div class="textblock"><p>Test whether a character string is "missing". </p>
 
 <p>Definition in file <a class="el" href="icbfms_8f_source.html">icbfms.f</a>.</p>
 </div><h2 class="groupheader">Function/Subroutine Documentation</h2>
@@ -147,14 +149,37 @@ Functions/Subroutines</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>THIS FUNCTION TESTS WHETHER THE INPUT CHARACTER STRING IS "MISSING" BY CHECKING IF ALL OF THE EQUIVALENT BITS ARE SET TO 1. </p>
-<p>IT IS SIMILAR TO BUFR ARCHIVE LIBRARY FUNCTION IBFMS, EXCEPT THAT IBFMS TESTS REAL*8 VALUES FOR EQUIVALENCE TO THE PARAMETER BMISS, WHEREAS ICBFMS CHECKS THAT ALL EQUIVALENT BITS ARE SET TO 1 AND IS THEREFORE A MORE PORTABLE AND RELIABLE TEST FOR USE WITH CHARACTER STRINGS.</p>
-<p>PROGRAM HISTORY LOG: 2012-06-07 J. ATOR &ndash; ORIGINAL AUTHOR 2015-03-10 J. WOOLLEN &ndash; IMPROVED LOGIC FOR TESTING LEGACY CASES PRIOR TO BUFRLIB V10.2.0 2016-02-12 J. ATOR &ndash; MODIFIED FOR CRAYFTN COMPATIBILITY</p>
-<p>USAGE: ICBFMS ( STR, LSTR ) INPUT ARGUMENT LIST: STR - CHARACTER*(*): STRING TO BE TESTED LSTR - INTEGER: NUMBER OF CHARACTERS TO BE TESTED WITHIN STR</p>
-<p>OUTPUT ARGUMENT LIST: ICBFMS - INTEGER: RETURN CODE: 0 - STR IS NOT "MISSING" 1 - STR IS "MISSING"</p>
-<p>REMARKS: THIS ROUTINE CALLS: <a class="el" href="iupm_8f.html#a870aa6933e94946232ec975e8cdd04db" title="THIS FUNCTION UNPACKS AND RETURNS A BINARY INTEGER WORD CONTAINED WITHIN NBITS BITS OF A CHARACTER ST...">iupm()</a> THIS ROUTINE IS CALLED BY: <a class="el" href="rdcmps_8f.html#a4592f4f71832d5bc80939cfd8095ad09" title="THIS SUBROUTINE UNCOMPRESSES AND UNPACKS THE NEXT SUBSET FROM THE INTERNAL COMPRESSED MESSAGE BUFFER ...">rdcmps()</a> <a class="el" href="rdtree_8f.html#a517c48e080eadc5e9a88fff47ffe4c34" title="THIS SUBROUTINE UNPACKS THE NEXT SUBSET FROM THE INTERNAL UNCOMPRESSED MESSAGE BUFFER (ARRAY MBAY IN ...">rdtree()</a> <a class="el" href="ufbdmp_8f.html#a27911114237cb390a24f44e0e0d706a3" title="THIS SUBROUTINE DUMPS A DETAILED PRINT LISTING OF THE CONTENTS OF THE UNPACKED DATA SUBSET CURRENTLY ...">ufbdmp()</a> <a class="el" href="ufdump_8f.html#a1da91a86182d2e03c944a044f8a06813" title="THIS SUBROUTINE DUMPS A DETAILED PRINT LISTING OF THE CONTENTS OF THE UNPACKED DATA SUBSET CURRENTLY ...">ufdump()</a> Also called by application programs. </p>
+<p>This function provides a handy way to check whether a character string returned from a previous call to subroutine <a class="el" href="readlc_8f.html#acf408b0943fc7a5040009cd9a9bc57a1" title="This subroutine reads a long character string (greater than 8 bytes) from a data subset. ">readlc()</a> was encoded as "missing" (all bits set to 1) within the actual BUFR data subset. </p>
+<dl class="section author"><dt>Author</dt><dd>J. Ator </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2012-06-07</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">STR</td><td>- character*(*): String </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">LSTR</td><td>- integer: Length of string, i.e. number of characters within STR to be tested</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>icbfms - integer:<ul>
+<li>0 = STR is not "missing"</li>
+<li>1 = STR is "missing"</li>
+</ul>
+</dd></dl>
+<dl class="section remark"><dt>Remarks</dt><dd><ul>
+<li>The use of an integer return code allows this function to be called in a logical context from application programs written in C as well as in Fortran.</li>
+</ul>
+</dd></dl>
+<p><b>Program history log:</b></p>
+<ul>
+<li>2012-06-07 J. Ator &ndash; Original author</li>
+<li>2015-03-10 J. Woollen &ndash; Improved logic for testing legacy cases prior to BUFRLIB V10.2.0</li>
+<li>2016-02-12 J. Ator &ndash; Modified for CRAYFTN compatibility </li>
+</ul>
 
-<p>Definition at line <a class="el" href="icbfms_8f_source.html#l00033">33</a> of file <a class="el" href="icbfms_8f_source.html">icbfms.f</a>.</p>
+<p>Definition at line <a class="el" href="icbfms_8f_source.html#l00031">31</a> of file <a class="el" href="icbfms_8f_source.html">icbfms.f</a>.</p>
+
+<p>References <a class="el" href="iupm_8f.html#a870aa6933e94946232ec975e8cdd04db">iupm()</a>.</p>
+
+<p>Referenced by <a class="el" href="rdcmps_8f.html#a4592f4f71832d5bc80939cfd8095ad09">rdcmps()</a>, <a class="el" href="rdtree_8f.html#a517c48e080eadc5e9a88fff47ffe4c34">rdtree()</a>, <a class="el" href="ufbdmp_8f.html#a27911114237cb390a24f44e0e0d706a3">ufbdmp()</a>, and <a class="el" href="ufdump_8f.html#a1da91a86182d2e03c944a044f8a06813">ufdump()</a>.</p>
 
 </div>
 </div>

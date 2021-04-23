@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['rbytes',['rbytes',['../rbytes_8c.html#a43ed45350463ba99f0e955fb70a65b55',1,'rbytes(char *bmg, f77int *mxmb, f77int isloc, f77int newbytes):&#160;rbytes.c'],['../bufrlib_8h.html#a662fa0f4a540caee1bfaa5e413b714e3',1,'rbytes(char *, f77int *, f77int, f77int):&#160;rbytes.c']]],
+  ['rbytes',['rbytes',['../cobfl_8h.html#a662fa0f4a540caee1bfaa5e413b714e3',1,'rbytes(char *, f77int *, f77int, f77int):&#160;rbytes.c'],['../rbytes_8c.html#a43ed45350463ba99f0e955fb70a65b55',1,'rbytes(char *bmg, f77int *mxmb, f77int isloc, f77int newbytes):&#160;rbytes.c']]],
   ['rcstpl',['rcstpl',['../rcstpl_8f.html#a6051cb3fd10cab351aaade691f06ffd1',1,'rcstpl.f']]],
   ['rdbfdx',['rdbfdx',['../rdbfdx_8f.html#a7d7beabef509022d4d98ebfb79f06dec',1,'rdbfdx.f']]],
   ['rdcmps',['rdcmps',['../rdcmps_8f.html#a4592f4f71832d5bc80939cfd8095ad09',1,'rdcmps.f']]],
@@ -15,6 +15,7 @@ var searchData=
   ['rdusdx',['rdusdx',['../rdusdx_8f.html#ab4869b52a96f03ad2eb5328e71c25764',1,'rdusdx.f']]],
   ['readdx',['readdx',['../readdx_8f.html#aa40c216c00c44fefb183a3d2641f5077',1,'readdx.f']]],
   ['readerme',['readerme',['../readerme_8f.html#aa8235a5af5d22c265bbef3bb47c7fafa',1,'readerme.f']]],
+  ['readlc',['readlc',['../readlc_8f.html#acf408b0943fc7a5040009cd9a9bc57a1',1,'readlc.f']]],
   ['readmg',['readmg',['../readmg_8f.html#a9fb3da32fb87bc017d16b9f0f707be9b',1,'readmg.f']]],
   ['readmm',['readmm',['../readmm_8f.html#aff20e0eb100b6a0fb2dfe3629661ac9e',1,'readmm.f']]],
   ['readns',['readns',['../readns_8f.html#a72f3b23ee95d02a8188d8734369b6149',1,'readns.f']]],

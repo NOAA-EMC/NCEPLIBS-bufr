@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.3.2</span>
+   &#160;<span id="projectnumber">11.5.0</span>
    </div>
   </td>
  </tr>
@@ -92,7 +92,7 @@ $(document).ready(function(){initNavTree('strbtm_8f.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -150,25 +150,13 @@ Functions/Subroutines</h2></td></tr>
 <p>THIS SUBROUTINE STORES INTERNAL INFORMATION IN MODULE BITMAPS IF THE INPUT ELEMENT IS PART OF A BITMAP. </p>
 <p>PROGRAM HISTORY LOG: 2016-05-27 J. ATOR &ndash; ORIGINAL AUTHOR 2019-05-22 J. ATOR &ndash; ADD CONFIRMATION CHECK</p>
 <p>USAGE: CALL STRBTM ( N, LUN ) INPUT ARGUMENT LIST: N - INTEGER: SUBSET ELEMENT LUN - INTEGER: I/O STREAM INDEX INTO INTERNAL MEMORY ARRAYS</p>
-<h2>REMARKS: </h2>
-<p>THE FOLLOWING VALUES ARE STORED WITHIN MODULE BITMAPS BY THIS SUBROUTINE AND BY SUBPROGRAMS IGETRFEL, MAKESTAB AND TABSUB:</p>
-<p>NBTM = number of stored bitmaps for the current subset (up to a maximum of MXBTM)</p>
-<p>NBTMSE(I=1,NBTM) = number of "set" entries (i.e. set to a value of 0) in the bitmap</p>
-<p>LINBTM = logical variable set to .TRUE. if a bitmap is currently being read for the current subset</p>
-<p>ISTBTM(I=1,NBTM) = ordinal position in subset corresponding to first entry of bitmap</p>
-<p>ISZBTM(I=1,NBTM) = size of bitmap (i.e. total number of entries, whether "set" or not)</p>
-<p>IBTMSE(I=1,NBTM, J=1,NBTMSE(I)) = ordinal positions in bitmap of bits that were "set"; these ordinal positions can range in value from 1 to ISZBTM(I)</p>
-<p>LSTNOD = last jump/link table entry that was processed by function IGETRFEL and whose corresponding value type was either numeric or CCITT IA5</p>
-<p>LSTNODCT = current count of consecutive occurrences of LSTNOD</p>
-<p>NTAMC = number of Table A mnemonics in jump/link table (up to a maximum of MXTAMC) which contain at least one Table C operator with an X value of 21 or greater in their definition; only Table C operators with an X value of 21 or greater are tracked in this module, since all others (e.g. 2-01, 2-02, 2-07) are automatically processed within subroutines TABSUB and TABENT</p>
-<p>INODTAMC(I=1,NTAMC) = location of Table A mnemonic within jump/link table</p>
-<p>NTCO(I=1,NTAMC) = number of Table C operators (with an X value of 21 or greater) within the definition of the given Table A mnemonic</p>
-<p>CTCO(I=1,NTAMC, J=1,NTCO(I)) = Table C operator</p>
-<p>INODTCO(I=1,NTAMC, J=1,NTCO(I)) = location of Table C operator within jump/link table </p>
-<hr/>
 <p>THIS ROUTINE CALLS: BORT IBFMS LSTJPB THIS ROUTINE IS CALLED BY: RCSTPL RDCMPS Normally not called by any application programs. </p>
 
-<p>Definition at line <a class="el" href="strbtm_8f_source.html#l00075">75</a> of file <a class="el" href="strbtm_8f_source.html">strbtm.f</a>.</p>
+<p>Definition at line <a class="el" href="strbtm_8f_source.html#l00021">21</a> of file <a class="el" href="strbtm_8f_source.html">strbtm.f</a>.</p>
+
+<p>References <a class="el" href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort()</a>, <a class="el" href="ibfms_8f.html#a79737107a4ec70afa5efc8eb793d984b">ibfms()</a>, and <a class="el" href="lstjpb_8f.html#a0a74db325c227fe8ee3b77bd7dfd7baf">lstjpb()</a>.</p>
+
+<p>Referenced by <a class="el" href="rcstpl_8f.html#a6051cb3fd10cab351aaade691f06ffd1">rcstpl()</a>, and <a class="el" href="rdcmps_8f.html#a4592f4f71832d5bc80939cfd8095ad09">rdcmps()</a>.</p>
 
 </div>
 </div>

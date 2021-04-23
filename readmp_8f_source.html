@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.3.2</span>
+   &#160;<span id="projectnumber">11.5.0</span>
    </div>
   </td>
  </tr>
@@ -92,7 +92,7 @@ $(document).ready(function(){initNavTree('readmp_8f_source.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -107,8 +107,8 @@ $(document).ready(function(){initNavTree('readmp_8f_source.html','');});
 </div><!--header-->
 <div class="contents">
 <a href="readmp_8f.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="comment">C&gt; @file</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment">C&gt; @brief Read BUFR file containing embedded DX tables, and print</span></div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="comment">C&gt; each report one at a time</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment">C&gt; @brief Read BUFR file containing embedded DX BUFR tables,</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="comment">C&gt; and print each report one at a time</span></div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;</div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;      <span class="keyword">program</span> readmp</div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;      <span class="keywordtype">character*8</span> subset</div>
@@ -124,11 +124,11 @@ $(document).ready(function(){initNavTree('readmp_8f_source.html','');});
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;      <span class="keywordflow">enddo</span></div>
 <div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;      stop</div>
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;      <span class="keywordflow">end</span></div>
-<div class="ttc" id="ireadmg_8f_html_a08c0eaaa7c6f555ccdceb404772dd962"><div class="ttname"><a href="ireadmg_8f.html#a08c0eaaa7c6f555ccdceb404772dd962">ireadmg</a></div><div class="ttdeci">function ireadmg(LUNIT, SUBSET, IDATE)</div><div class="ttdoc">This function calls BUFRLIB subroutine readmg() and passes back its return code as the function value...</div><div class="ttdef"><b>Definition:</b> <a href="ireadmg_8f_source.html#l00048">ireadmg.f:48</a></div></div>
+<div class="ttc" id="ireadmg_8f_html_a08c0eaaa7c6f555ccdceb404772dd962"><div class="ttname"><a href="ireadmg_8f.html#a08c0eaaa7c6f555ccdceb404772dd962">ireadmg</a></div><div class="ttdeci">function ireadmg(LUNIT, SUBSET, IDATE)</div><div class="ttdoc">This function calls BUFRLIB subroutine readmg() and passes back its return code as the function value...</div><div class="ttdef"><b>Definition:</b> <a href="ireadmg_8f_source.html#l00043">ireadmg.f:43</a></div></div>
 <div class="ttc" id="i4dy_8f_html_a112153e4ebaab35d9d95d7a29534f48b"><div class="ttname"><a href="i4dy_8f.html#a112153e4ebaab35d9d95d7a29534f48b">i4dy</a></div><div class="ttdeci">function i4dy(IDATE)</div><div class="ttdoc">THIS FUNCTION CONVERTS AN EIGHT DIGIT INTEGER DATE (YYMMDDHH) TO TEN DIGITS (YYYYMMDDHH) USING THE Y2...</div><div class="ttdef"><b>Definition:</b> <a href="i4dy_8f_source.html#l00049">i4dy.f:49</a></div></div>
-<div class="ttc" id="ireadsb_8f_html_a28f7e78017ef9f00dcce7fb2c0bbab28"><div class="ttname"><a href="ireadsb_8f.html#a28f7e78017ef9f00dcce7fb2c0bbab28">ireadsb</a></div><div class="ttdeci">function ireadsb(LUNIT)</div><div class="ttdoc">THIS FUNCTION CALLS BUFR ARCHIVE LIBRARY SUBROUTINE READSB AND PASSES BACK ITS RETURN CODE...</div><div class="ttdef"><b>Definition:</b> <a href="ireadsb_8f_source.html#l00031">ireadsb.f:31</a></div></div>
-<div class="ttc" id="openbf_8F_html_a9bea9aeada166bd9037b959ca8452b28"><div class="ttname"><a href="openbf_8F.html#a9bea9aeada166bd9037b959ca8452b28">openbf</a></div><div class="ttdeci">subroutine openbf(LUNIT, IO, LUNDX)</div><div class="ttdoc">This subroutine identifies a new file to the BUFRLIB software for input or output operations...</div><div class="ttdef"><b>Definition:</b> <a href="openbf_8F_source.html#l00162">openbf.F:162</a></div></div>
-<div class="ttc" id="ufdump_8f_html_a1da91a86182d2e03c944a044f8a06813"><div class="ttname"><a href="ufdump_8f.html#a1da91a86182d2e03c944a044f8a06813">ufdump</a></div><div class="ttdeci">subroutine ufdump(LUNIT, LUPRT)</div><div class="ttdoc">THIS SUBROUTINE DUMPS A DETAILED PRINT LISTING OF THE CONTENTS OF THE UNPACKED DATA SUBSET CURRENTLY ...</div><div class="ttdef"><b>Definition:</b> <a href="ufdump_8f_source.html#l00084">ufdump.f:84</a></div></div>
+<div class="ttc" id="ireadsb_8f_html_a28f7e78017ef9f00dcce7fb2c0bbab28"><div class="ttname"><a href="ireadsb_8f.html#a28f7e78017ef9f00dcce7fb2c0bbab28">ireadsb</a></div><div class="ttdeci">function ireadsb(LUNIT)</div><div class="ttdoc">This function calls BUFRLIB subroutine readsb() and passes back its return code as the function value...</div><div class="ttdef"><b>Definition:</b> <a href="ireadsb_8f_source.html#l00030">ireadsb.f:30</a></div></div>
+<div class="ttc" id="openbf_8F_html_a9bea9aeada166bd9037b959ca8452b28"><div class="ttname"><a href="openbf_8F.html#a9bea9aeada166bd9037b959ca8452b28">openbf</a></div><div class="ttdeci">subroutine openbf(LUNIT, IO, LUNDX)</div><div class="ttdoc">This subroutine connects a new file to the BUFRLIB software for input or output operations. </div><div class="ttdef"><b>Definition:</b> <a href="openbf_8F_source.html#l00157">openbf.F:157</a></div></div>
+<div class="ttc" id="ufdump_8f_html_a1da91a86182d2e03c944a044f8a06813"><div class="ttname"><a href="ufdump_8f.html#a1da91a86182d2e03c944a044f8a06813">ufdump</a></div><div class="ttdeci">subroutine ufdump(LUNIT, LUPRT)</div><div class="ttdoc">This subroutine prints a verbose listing of the contents of a data subset, including all data values ...</div><div class="ttdef"><b>Definition:</b> <a href="ufdump_8f_source.html#l00071">ufdump.f:71</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

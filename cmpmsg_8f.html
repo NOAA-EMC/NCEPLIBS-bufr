@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.3.2</span>
+   &#160;<span id="projectnumber">11.5.0</span>
    </div>
   </td>
  </tr>
@@ -92,7 +92,7 @@ $(document).ready(function(){initNavTree('cmpmsg_8f.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -109,17 +109,19 @@ $(document).ready(function(){initNavTree('cmpmsg_8f.html','');});
 </div><!--header-->
 <div class="contents">
 
+<p>Specify the use of compression when writing BUFR messages.  
+<a href="#details">More...</a></p>
+
 <p><a href="cmpmsg_8f_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions/Subroutines</h2></td></tr>
 <tr class="memitem:a75b2d1dfd1dedb519205399a8087fd56"><td class="memItemLeft" align="right" valign="top">subroutine&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cmpmsg_8f.html#a75b2d1dfd1dedb519205399a8087fd56">cmpmsg</a> (CF)</td></tr>
-<tr class="memdesc:a75b2d1dfd1dedb519205399a8087fd56"><td class="mdescLeft">&#160;</td><td class="mdescRight">THIS SUBROUTINE IS USED TO SPECIFY WHETHER OR NOT BUFR MESSAGES CREATED BY FUTURE CALLS TO EITHER OF THE BUFR ARCHIVE LIBRARY SUBROUTINES WRITSB OR WRITSA ARE TO BE COMPRESSED.  <a href="#a75b2d1dfd1dedb519205399a8087fd56">More...</a><br/></td></tr>
+<tr class="memdesc:a75b2d1dfd1dedb519205399a8087fd56"><td class="mdescLeft">&#160;</td><td class="mdescRight">This subroutine is used to specify whether BUFR messages output by future calls to <a class="el" href="md__gpfs_dell2_emc_obsproc_noscrub_Jeff_8Ator_NCEPLIBS-bufr-GitHub_nceplibs-bufr_docs_UserGuide.html#hierarchy">message-writing subroutines</a> and <a class="el" href="md__gpfs_dell2_emc_obsproc_noscrub_Jeff_8Ator_NCEPLIBS-bufr-GitHub_nceplibs-bufr_docs_UserGuide.html#hierarchy">subset-writing subroutines</a> are to be compressed.  <a href="#a75b2d1dfd1dedb519205399a8087fd56">More...</a><br/></td></tr>
 <tr class="separator:a75b2d1dfd1dedb519205399a8087fd56"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><dl class="section author"><dt>Author</dt><dd>ATOR </dd></dl>
-<dl class="section date"><dt>Date</dt><dd>2005-03-09 </dd></dl>
+<div class="textblock"><p>Specify the use of compression when writing BUFR messages. </p>
 
 <p>Definition in file <a class="el" href="cmpmsg_8f_source.html">cmpmsg.f</a>.</p>
 </div><h2 class="groupheader">Function/Subroutine Documentation</h2>
@@ -137,13 +139,31 @@ Functions/Subroutines</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>THIS SUBROUTINE IS USED TO SPECIFY WHETHER OR NOT BUFR MESSAGES CREATED BY FUTURE CALLS TO EITHER OF THE BUFR ARCHIVE LIBRARY SUBROUTINES WRITSB OR WRITSA ARE TO BE COMPRESSED. </p>
-<p>THIS SUBROUTINE CAN BE CALLED AT ANY TIME AFTER THE FIRST CALL TO BUFR ARCHIVE LIBRARY SUBROUTINE OPENBF, AND THE POSSIBLE VALUES FOR CF ARE 'N' (= 'NO', WHICH IS THE DEFAULT) AND 'Y' (= 'YES').</p>
-<p>PROGRAM HISTORY LOG: 2005-03-09 J. ATOR &ndash; ORIGINAL AUTHOR</p>
-<p>USAGE: CALL CMPMSG (CF) INPUT ARGUMENT LIST: CF - CHARACTER*1: FLAG INDICATING WHETHER BUFR MESSAGES OUTPUT BY FUTURE CALLS TO WRITSB OR WRITSA ARE TO BE COMPRESSED: 'N' = 'NO' (THE DEFAULT) 'Y' = 'YES'</p>
-<p>REMARKS: THIS ROUTINE CALLS: BORT CAPIT THIS ROUTINE IS CALLED BY: COPYSB WRITCP Also called by application programs. </p>
+<p>This subroutine is used to specify whether BUFR messages output by future calls to <a class="el" href="md__gpfs_dell2_emc_obsproc_noscrub_Jeff_8Ator_NCEPLIBS-bufr-GitHub_nceplibs-bufr_docs_UserGuide.html#hierarchy">message-writing subroutines</a> and <a class="el" href="md__gpfs_dell2_emc_obsproc_noscrub_Jeff_8Ator_NCEPLIBS-bufr-GitHub_nceplibs-bufr_docs_UserGuide.html#hierarchy">subset-writing subroutines</a> are to be compressed. </p>
+<dl class="section author"><dt>Author</dt><dd>J. Ator </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2005-03-09</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">CF</td><td>- character*1: Flag indicating whether future BUFR output messages are to be compressed<ul>
+<li>'N' = No (the default)</li>
+<li>'Y' = Yes</li>
+</ul>
+</td></tr>
+  </table>
+  </dd>
+</dl>
+<p>This subroutine can be called at any time after the first call to subroutine <a class="el" href="openbf_8F.html#a9bea9aeada166bd9037b959ca8452b28" title="This subroutine connects a new file to the BUFRLIB software for input or output operations. ">openbf()</a>, and the specified value for CF will remain in effect for all future calls to <a class="el" href="md__gpfs_dell2_emc_obsproc_noscrub_Jeff_8Ator_NCEPLIBS-bufr-GitHub_nceplibs-bufr_docs_UserGuide.html#hierarchy">message-writing subroutines</a> and <a class="el" href="md__gpfs_dell2_emc_obsproc_noscrub_Jeff_8Ator_NCEPLIBS-bufr-GitHub_nceplibs-bufr_docs_UserGuide.html#hierarchy">subset-writing subroutines</a> for all Fortran logical units that are open for output within the application program, unless a subsequent call is made to this subroutine to reset the value of CF again. If this subroutine is never called, a default value of 'N' is used for CF, as set within subroutine <a class="el" href="bfrini_8f90.html#ab3f045cc170403305543e34e30b87001" title="This subroutine initializes numerous global variables and arrays within internal modules and COMMON b...">bfrini()</a>.</p>
+<p>When compression is activated, it is implemented using the algorithm for data subset compression prescribed within the <a class="el" href="md__gpfs_dell2_emc_obsproc_noscrub_Jeff_8Ator_NCEPLIBS-bufr-GitHub_nceplibs-bufr_docs_UserGuide.html#manual">official WMO BUFR regulations</a>. Compression is most useful when the data subsets to be compressed are devoid of any delayed replication, and when there is minimal variation of corresponding data values among different data subsets within the same BUFR message. Otherwise, compression may provide little to no benefit, and which is why it is not activated by default.</p>
+<p><b>Program history log:</b></p>
+<ul>
+<li>2005-03-09 J. Ator &ndash; Original author </li>
+</ul>
 
-<p>Definition at line <a class="el" href="cmpmsg_8f_source.html#l00027">27</a> of file <a class="el" href="cmpmsg_8f_source.html">cmpmsg.f</a>.</p>
+<p>Definition at line <a class="el" href="cmpmsg_8f_source.html#l00040">40</a> of file <a class="el" href="cmpmsg_8f_source.html">cmpmsg.f</a>.</p>
+
+<p>References <a class="el" href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort()</a>, and <a class="el" href="capit_8f.html#acade976948fae8afa1a8301ff9272f56">capit()</a>.</p>
+
+<p>Referenced by <a class="el" href="copysb_8f.html#a069b655003f8b71b2f29aa5d9f451a33">copysb()</a>, and <a class="el" href="writcp_8f.html#a94a9d0fc7a8a4d3b68aff1a24ef47afb">writcp()</a>.</p>
 
 </div>
 </div>

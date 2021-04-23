@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.3.2</span>
+   &#160;<span id="projectnumber">11.5.0</span>
    </div>
   </td>
  </tr>
@@ -92,7 +92,7 @@ $(document).ready(function(){initNavTree('moda__bitbuf_8F.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -110,14 +110,22 @@ $(document).ready(function(){initNavTree('moda__bitbuf_8F.html','');});
 </div><!--header-->
 <div class="contents">
 
+<p>Declare arrays for internal storage of BUFR messages.  
+<a href="#details">More...</a></p>
+
 <p><a href="moda__bitbuf_8F_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Data Types</h2></td></tr>
 <tr class="memitem:classmoda__bitbuf"><td class="memItemLeft" align="right" valign="top">module &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="moda__bitbuf_8F.html#classmoda__bitbuf">moda_bitbuf</a></td></tr>
+<tr class="memdesc:classmoda__bitbuf"><td class="mdescLeft">&#160;</td><td class="mdescRight">This module contains array and variable declarations used to store BUFR messages internally for multiple I/O streams.  <a href="moda__bitbuf_8F.html#classmoda__bitbuf">More...</a><br/></td></tr>
 <tr class="separator:classmoda__bitbuf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<hr/><h2 class="groupheader">Data Type Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Declare arrays for internal storage of BUFR messages. </p>
+
+<p>Definition in file <a class="el" href="moda__bitbuf_8F_source.html">moda_bitbuf.F</a>.</p>
+</div><hr/><h2 class="groupheader">Data Type Documentation</h2>
 <a name="classmoda__bitbuf" id="classmoda__bitbuf"></a>
 <div class="memitem">
 <div class="memproto">
@@ -127,8 +135,11 @@ Data Types</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<div class="textblock">
-<p>Definition at line <a class="el" href="moda__bitbuf_8F_source.html#l00003">3</a> of file <a class="el" href="moda__bitbuf_8F_source.html">moda_bitbuf.F</a>.</p>
+<div class="textblock"><p>This module contains array and variable declarations used to store BUFR messages internally for multiple I/O streams. </p>
+<dl class="section author"><dt>Author</dt><dd>J. Ator </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2014-12-10 </dd></dl>
+
+<p>Definition at line <a class="el" href="moda__bitbuf_8F_source.html#l00010">10</a> of file <a class="el" href="moda__bitbuf_8F_source.html">moda_bitbuf.F</a>.</p>
 </div><table class="fieldtable">
 <tr><th colspan="3">Data Fields</th></tr>
 <tr><td class="fieldtype">
@@ -144,24 +155,24 @@ ibit</td>
 <td class="fielddoc">
 </td></tr>
 <tr><td class="fieldtype">
-<a class="anchor" id="aeb00e574adb63bf7cc809d540d5a02bc"></a>integer</td>
+<a class="anchor" id="a53837bd62186cdc39c8062a88e6489d2"></a>integer</td>
 <td class="fieldname">
 maxbyt</td>
 <td class="fielddoc">
-</td></tr>
+Maximum length of an output BUFR message. </td></tr>
 <tr><td class="fieldtype">
-<a class="anchor" id="adc87977f1e29a727b391e72fd30caa00"></a>integer, dimension(mxmsgld4, <br class="typebreak"/>
+<a class="anchor" id="a983cdfefb8e99f7ede13ce9f979bea3e"></a>integer, dimension(mxmsgld4, <br class="typebreak"/>
 nfiles)</td>
 <td class="fieldname">
 mbay</td>
 <td class="fielddoc">
-</td></tr>
+Current BUFR message for each internal I/O stream. </td></tr>
 <tr><td class="fieldtype">
-<a class="anchor" id="a42665f1cb67a767cf3ec0e10a648b733"></a>integer, dimension(nfiles)</td>
+<a class="anchor" id="a6bac74e064b4a8512f7f2599d0588dd3"></a>integer, dimension(nfiles)</td>
 <td class="fieldname">
 mbyt</td>
 <td class="fielddoc">
-</td></tr>
+Length (in bytes) of current BUFR message for each internal I/O stream. </td></tr>
 </table>
 
 </div>

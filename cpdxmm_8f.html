@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.3.2</span>
+   &#160;<span id="projectnumber">11.5.0</span>
    </div>
   </td>
  </tr>
@@ -92,7 +92,7 @@ $(document).ready(function(){initNavTree('cpdxmm_8f.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -109,17 +109,19 @@ $(document).ready(function(){initNavTree('cpdxmm_8f.html','');});
 </div><!--header-->
 <div class="contents">
 
+<p>Read embedded DX BUFR table into internal arrays.  
+<a href="#details">More...</a></p>
+
 <p><a href="cpdxmm_8f_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions/Subroutines</h2></td></tr>
 <tr class="memitem:a48f353028fb8bf77255b4dae476b9da7"><td class="memItemLeft" align="right" valign="top">subroutine&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cpdxmm_8f.html#a48f353028fb8bf77255b4dae476b9da7">cpdxmm</a> (LUNIT)</td></tr>
-<tr class="memdesc:a48f353028fb8bf77255b4dae476b9da7"><td class="mdescLeft">&#160;</td><td class="mdescRight">BEGINNING AT THE CURRENT FILE POINTER LOCATION WITHIN LUNIT, THIS SUBROUTINE READS A COMPLETE DICTIONARY TABLE (I.E.  <a href="#a48f353028fb8bf77255b4dae476b9da7">More...</a><br/></td></tr>
+<tr class="memdesc:a48f353028fb8bf77255b4dae476b9da7"><td class="mdescLeft">&#160;</td><td class="mdescRight">This subroutine reads an entire DX BUFR table from a specified file into internal arrays.  <a href="#a48f353028fb8bf77255b4dae476b9da7">More...</a><br/></td></tr>
 <tr class="separator:a48f353028fb8bf77255b4dae476b9da7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><dl class="section author"><dt>Author</dt><dd>J </dd></dl>
-<dl class="section date"><dt>Date</dt><dd>2009-03-23 </dd></dl>
+<div class="textblock"><p>Read embedded DX BUFR table into internal arrays. </p>
 
 <p>Definition in file <a class="el" href="cpdxmm_8f_source.html">cpdxmm.f</a>.</p>
 </div><h2 class="groupheader">Function/Subroutine Documentation</h2>
@@ -137,24 +139,27 @@ Functions/Subroutines</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>BEGINNING AT THE CURRENT FILE POINTER LOCATION WITHIN LUNIT, THIS SUBROUTINE READS A COMPLETE DICTIONARY TABLE (I.E. </p>
-<p>ONE OR MORE ADJACENT BUFR DX (DICTIONARY) MESSAGES) INTO MODULE MSGMEM.</p>
-<p>PROGRAM HISTORY LOG: 2009-03-23 J. ATOR &ndash; ORIGINAL AUTHOR 2012-09-15 J. WOOLLEN &ndash; MODIFIED FOR C/I/O/BUFR INTERFACE; REPLACED FORTRAN BACKSPACE WITH C BACKBUFR 2014-12-10 J. ATOR &ndash; USE MODULES INSTEAD OF COMMON BLOCKS</p>
-<p>USAGE: CALL CPDXMM (LUNIT) INPUT ARGUMENT LIST: LUNIT - INTEGER: FORTRAN LOGICAL UNIT NUMBER FOR BUFR FILE</p>
-<p>REMARKS:</p>
-<p>THE FOLLOWING VALUES ARE STORED WITHIN MODULE MSGMEM BY THIS SUBROUTINE:</p>
-<p>LDXM = number of array words filled within MDX</p>
-<p>MDX(I=1,LDXM) = DX dictionary messages for use in decoding data messages stored within MSGS array (in MODULE MSGMEM)</p>
-<p>NDXM = number of DX dictionary messages within MDX</p>
-<p>IPDXM(I=1,NDXM) = pointer to first word of (I)th message within MDX</p>
-<p>NDXTS = number of DX dictionary tables represented by messages within MDX</p>
-<p>IFDXTS(J=1,NDXTS) = sequential number of first message within MDX which is part of (J)th dictionary table</p>
-<p>ICDXTS(J=1,NDXTS) = count of consecutive messages within MDX (beginning with IFDXTS(J)) which constitute (J)th dictionary table</p>
-<p>IPMSGS(J=1,NDXTS) = sequential number of first data message within MSGS array (in MODULE MSGMEM) to which (J)th dictionary table applies</p>
-<p>LDXTS = current dictionary table that is in scope (i.e. a number between 1 and NDXTS)</p>
-<p>THIS ROUTINE CALLS: BORT ERRWRT IDXMSG IUPBS3 NMWRD RDMSGW THIS ROUTINE IS CALLED BY: UFBMEM Not normally called by application programs. </p>
+<p>This subroutine reads an entire DX BUFR table from a specified file into internal arrays. </p>
+<dl class="section author"><dt>Author</dt><dd>J. Ator </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2009-03-23</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">LUNIT</td><td>- integer: Fortran logical unit number for BUFR file</td></tr>
+  </table>
+  </dd>
+</dl>
+<p><b>Program history log:</b></p>
+<ul>
+<li>2009-03-23 J. Ator &ndash; Original author</li>
+<li>2012-09-15 J. Woollen &ndash; Modified for C/I/O/BUFR interface; replace Fortran BACKSPACE with C <a class="el" href="cread_8c.html#aebebafa9eeb07f82fc60ae0a8b43533e" title="This subroutine backspaces a BUFR file by one BUFR message. ">backbufr()</a></li>
+<li>2014-12-10 J. Ator &ndash; Use modules instead of COMMON blocks </li>
+</ul>
 
-<p>Definition at line <a class="el" href="cpdxmm_8f_source.html#l00058">58</a> of file <a class="el" href="cpdxmm_8f_source.html">cpdxmm.f</a>.</p>
+<p>Definition at line <a class="el" href="cpdxmm_8f_source.html#l00019">19</a> of file <a class="el" href="cpdxmm_8f_source.html">cpdxmm.f</a>.</p>
+
+<p>References <a class="el" href="cread_8c.html#aebebafa9eeb07f82fc60ae0a8b43533e">backbufr()</a>, <a class="el" href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort()</a>, <a class="el" href="errwrt_8f.html#a65626d9a772648676146b62b596c2764">errwrt()</a>, <a class="el" href="idxmsg_8f.html#ab9276526fbe1b76bfa9f3d15f734c2b2">idxmsg()</a>, <a class="el" href="iupbs3_8f.html#a542e11287f9dc5bf72d3889db48e1b19">iupbs3()</a>, <a class="el" href="nmwrd_8f.html#af955482010e67b333997227dc1118cfe">nmwrd()</a>, <a class="el" href="rdmsgw_8f.html#aa1d21de28344723fc4848ec1cd14b094">rdmsgw()</a>, and <a class="el" href="status_8f.html#a22292e7a69c411a961168198d259f336">status()</a>.</p>
+
+<p>Referenced by <a class="el" href="ufbmem_8f.html#aaa20a946a966bc4de8012e1a01461502">ufbmem()</a>.</p>
 
 </div>
 </div>

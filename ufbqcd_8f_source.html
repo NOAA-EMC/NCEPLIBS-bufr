@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.3.2</span>
+   &#160;<span id="projectnumber">11.5.0</span>
    </div>
   </td>
  </tr>
@@ -92,7 +92,7 @@ $(document).ready(function(){initNavTree('ufbqcd_8f_source.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -195,11 +195,11 @@ $(document).ready(function(){initNavTree('ufbqcd_8f_source.html','');});
 <div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;     . <span class="stringliteral">&#39;WITH INPUT MNEM. &quot;,A)&#39;</span>) fxy,nemo</div>
 <div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;      CALL <a class="code" href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort</a>(bort_str)</div>
 <div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;      <span class="keywordflow">END</span></div>
-<div class="ttc" id="adn30_8f_html_a1e96adbf45bd49facbf0ef30ae375db4"><div class="ttname"><a href="adn30_8f.html#a1e96adbf45bd49facbf0ef30ae375db4">adn30</a></div><div class="ttdeci">character *(*) function adn30(IDN, L30)</div><div class="ttdoc">This function converts a descriptor from its bit-wise (integer) representation to its 5 or 6 characte...</div><div class="ttdef"><b>Definition:</b> <a href="adn30_8f_source.html#l00035">adn30.f:35</a></div></div>
+<div class="ttc" id="adn30_8f_html_a1e96adbf45bd49facbf0ef30ae375db4"><div class="ttname"><a href="adn30_8f.html#a1e96adbf45bd49facbf0ef30ae375db4">adn30</a></div><div class="ttdeci">character *(*) function adn30(IDN, L30)</div><div class="ttdoc">This function converts a descriptor from its bit-wise (integer) representation to its 5 or 6 characte...</div><div class="ttdef"><b>Definition:</b> <a href="adn30_8f_source.html#l00027">adn30.f:27</a></div></div>
 <div class="ttc" id="ufbqcd_8f_html_a57a460b5be1c7a9226f607c99e480bca"><div class="ttname"><a href="ufbqcd_8f.html#a57a460b5be1c7a9226f607c99e480bca">ufbqcd</a></div><div class="ttdeci">subroutine ufbqcd(LUNIT, NEMO, QCD)</div><div class="ttdoc">THIS SUBROUTINE READS IN A MNEMONIC KNOWN TO BE IN THE BUFR TABLE ASSOCIATED WITH THE BUFR FILE IN LO...</div><div class="ttdef"><b>Definition:</b> <a href="ufbqcd_8f_source.html#l00050">ufbqcd.f:50</a></div></div>
-<div class="ttc" id="status_8f_html_a22292e7a69c411a961168198d259f336"><div class="ttname"><a href="status_8f.html#a22292e7a69c411a961168198d259f336">status</a></div><div class="ttdeci">subroutine status(LUNIT, LUN, IL, IM)</div><div class="ttdoc">THIS SUBROUTINE CHECKS WHETHER LOGICAL UNIT NUMBER LUNIT (AND ITS ASSOCIATED BUFR FILE) IS CURRENTLY ...</div><div class="ttdef"><b>Definition:</b> <a href="status_8f_source.html#l00086">status.f:86</a></div></div>
+<div class="ttc" id="status_8f_html_a22292e7a69c411a961168198d259f336"><div class="ttname"><a href="status_8f.html#a22292e7a69c411a961168198d259f336">status</a></div><div class="ttdeci">subroutine status(LUNIT, LUN, IL, IM)</div><div class="ttdoc">This subroutine checks whether a specified Fortran logical unit number is currently connected to the ...</div><div class="ttdef"><b>Definition:</b> <a href="status_8f_source.html#l00061">status.f:61</a></div></div>
 <div class="ttc" id="nemtab_8f_html_a3f3fb5a378c52dac83cb4fce27ceb712"><div class="ttname"><a href="nemtab_8f.html#a3f3fb5a378c52dac83cb4fce27ceb712">nemtab</a></div><div class="ttdeci">subroutine nemtab(LUN, NEMO, IDN, TAB, IRET)</div><div class="ttdoc">THIS SUBROUTINE SEARCHES FOR MNEMONIC NEMO WITHIN THE INTERNAL TABLE B AND D ARRAYS HOLDING THE DICTI...</div><div class="ttdef"><b>Definition:</b> <a href="nemtab_8f_source.html#l00066">nemtab.f:66</a></div></div>
-<div class="ttc" id="bort_8f_html_a488d3a8cf930fb592a9fdaefcfa04ac4"><div class="ttname"><a href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort</a></div><div class="ttdeci">subroutine bort(STR)</div><div class="ttdoc">THIS SUBROUTINE WRITES (VIA BUFR ARCHIVE LIBRARY SUBROUTINE ERRWRT) A GIVEN ERROR STRING AND THEN CAL...</div><div class="ttdef"><b>Definition:</b> <a href="bort_8f_source.html#l00069">bort.f:69</a></div></div>
+<div class="ttc" id="bort_8f_html_a488d3a8cf930fb592a9fdaefcfa04ac4"><div class="ttname"><a href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort</a></div><div class="ttdeci">subroutine bort(STR)</div><div class="ttdoc">This subroutine calls subroutine errwrt() to log an error message, then calls subroutine bort_exit() ...</div><div class="ttdef"><b>Definition:</b> <a href="bort_8f_source.html#l00023">bort.f:23</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.3.2</span>
+   &#160;<span id="projectnumber">11.5.0</span>
    </div>
   </td>
  </tr>
@@ -92,7 +92,7 @@ $(document).ready(function(){initNavTree('upds3_8f.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -109,17 +109,19 @@ $(document).ready(function(){initNavTree('upds3_8f.html','');});
 </div><!--header-->
 <div class="contents">
 
+<p>Read data descriptors from Section 3 of a BUFR message.  
+<a href="#details">More...</a></p>
+
 <p><a href="upds3_8f_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions/Subroutines</h2></td></tr>
 <tr class="memitem:ae80c8bfb0497b4db22d56d4c4149dd47"><td class="memItemLeft" align="right" valign="top">subroutine&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="upds3_8f.html#ae80c8bfb0497b4db22d56d4c4149dd47">upds3</a> (MBAY, LCDS3, CDS3, NDS3)</td></tr>
-<tr class="memdesc:ae80c8bfb0497b4db22d56d4c4149dd47"><td class="mdescLeft">&#160;</td><td class="mdescRight">THIS SUBROUTINE UNPACKS AND RETURNS THE DESCRIPTORS CONTAINED WITHIN SECTION 3 OF A BUFR MESSAGE STORED IN ARRAY MBAY.  <a href="#ae80c8bfb0497b4db22d56d4c4149dd47">More...</a><br/></td></tr>
+<tr class="memdesc:ae80c8bfb0497b4db22d56d4c4149dd47"><td class="mdescLeft">&#160;</td><td class="mdescRight">This subroutine returns the sequence of data descriptors contained within Section 3 of a BUFR message.  <a href="#ae80c8bfb0497b4db22d56d4c4149dd47">More...</a><br/></td></tr>
 <tr class="separator:ae80c8bfb0497b4db22d56d4c4149dd47"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><dl class="section author"><dt>Author</dt><dd>ATOR </dd></dl>
-<dl class="section date"><dt>Date</dt><dd>2003-11-04 </dd></dl>
+<div class="textblock"><p>Read data descriptors from Section 3 of a BUFR message. </p>
 
 <p>Definition in file <a class="el" href="upds3_8f_source.html">upds3.f</a>.</p>
 </div><h2 class="groupheader">Function/Subroutine Documentation</h2>
@@ -159,14 +161,36 @@ Functions/Subroutines</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>THIS SUBROUTINE UNPACKS AND RETURNS THE DESCRIPTORS CONTAINED WITHIN SECTION 3 OF A BUFR MESSAGE STORED IN ARRAY MBAY. </p>
-<p>THE START OF THE BUFR MESSAGE (I.E. THE STRING "BUFR") MUST BE ALIGNED ON THE FIRST FOUR BYTES OF MBAY. NOTE ALSO THAT THIS SUBROUTINE DOES NOT RECURSIVELY RESOLVE SEQUENCE DESCRIPTORS THAT APPEAR WITHIN SECTION 3; RATHER, WHAT IS RETURNED IS THE EXACT LIST OF DESCRIPTORS AS IT APPEARS WITHIN SECTION 3.</p>
-<p>PROGRAM HISTORY LOG: 2003-11-04 J. ATOR &ndash; ORIGINAL AUTHOR (WAS IN DECODER VERSION) 2003-11-04 S. BENDER &ndash; ADDED REMARKS/BUFRLIB ROUTINE INTERDEPENDENCIES 2003-11-04 D. KEYSER &ndash; UNIFIED/PORTABLE FOR WRF 2004-08-18 J. ATOR &ndash; REMOVED IFIRST CHECK, SINCE WRDLEN NOW KEEPS TRACK OF WHETHER IT HAS BEEN CALLED 2005-11-29 J. ATOR &ndash; USE GETLENS 2009-03-23 J. ATOR &ndash; ADDED LCDS3 ARGUMENT AND CHECK</p>
-<p>USAGE: CALL UPDS3 (MBAY, LCDS3, CDS3, NDS3) INPUT ARGUMENT LIST: MBAY - INTEGER: *-WORD PACKED BINARY ARRAY CONTAINING BUFR MESSAGE LCDS3 - INTEGER: DIMENSIONED SIZE (IN INTEGER WORDS) OF CDS3; USED BY THE SUBROUTINE TO ENSURE THAT IT DOES NOT OVERFLOW THE CDS3 ARRAY</p>
-<p>OUTPUT ARGUMENT LIST: CDS3 - CHARACTER*6: *-WORD ARRAY CONTAINING UNPACKED LIST OF DESCRIPTORS (FIRST NDS3 WORDS FILLED) NDS3 - INTEGER: NUMBER OF DESCRIPTORS RETURNED</p>
-<p>REMARKS: THIS ROUTINE CALLS: ADN30 BORT IUPB GETLENS WRDLEN THIS ROUTINE IS CALLED BY: READS3 Also called by application programs. </p>
+<p>This subroutine returns the sequence of data descriptors contained within Section 3 of a BUFR message. </p>
+<dl class="section author"><dt>Author</dt><dd>J. Ator </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2003-11-04</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">MBAY</td><td>- integer(*): BUFR message </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">LCDS3</td><td>- integer: Dimensioned size of CDS3; used by the subroutine to ensure that it doesn't overflow the CDS3 array </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">CDS3</td><td>- character*6(*): Data descriptor sequence within Section 3 of MBAY </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">NDS3</td><td>- integer: Number of data descriptors in CDS3</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section remark"><dt>Remarks</dt><dd><ul>
+<li>The start of the BUFR message (i.e. the string 'BUFR') must be aligned on the first 4 bytes of MBAY.</li>
+<li>This subroutine does not recursively resolve any Table D descriptors from within Section 3; rather, what is returned in CDS3 is the exact list of data descriptors as it appears within Section 3 of MBAY.</li>
+</ul>
+</dd></dl>
+<p><b>Program history log:</b></p>
+<ul>
+<li>2003-11-04 J. Ator &ndash; Original author</li>
+<li>2004-08-18 J. Ator &ndash; Removed IFIRST check, since <a class="el" href="wrdlen_8F.html#afb746f29272671c842018de69b277685" title="This subroutine figures out some important information about the local machine on which the BUFRLIB s...">wrdlen()</a> now keeps track of whether it has been called</li>
+<li>2005-11-29 J. Ator &ndash; Use <a class="el" href="getlens_8f.html#a15ffcb4cde43c73327fd3afb738078e2" title="This subroutine reads the lengths of all of the individual sections of a given BUFR message...">getlens()</a></li>
+<li>2009-03-23 J. Ator &ndash; Added LCDS3 argument and check </li>
+</ul>
 
-<p>Definition at line <a class="el" href="upds3_8f_source.html#l00041">41</a> of file <a class="el" href="upds3_8f_source.html">upds3.f</a>.</p>
+<p>Definition at line <a class="el" href="upds3_8f_source.html#l00033">33</a> of file <a class="el" href="upds3_8f_source.html">upds3.f</a>.</p>
+
+<p>References <a class="el" href="adn30_8f.html#a1e96adbf45bd49facbf0ef30ae375db4">adn30()</a>, <a class="el" href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort()</a>, <a class="el" href="getlens_8f.html#a15ffcb4cde43c73327fd3afb738078e2">getlens()</a>, <a class="el" href="iupb_8f.html#a3f8fa4b5261e85ecbf679208e7635c6c">iupb()</a>, and <a class="el" href="wrdlen_8F.html#afb746f29272671c842018de69b277685">wrdlen()</a>.</p>
+
+<p>Referenced by <a class="el" href="debufr_8f.html#a60dcf0fcb9d3a56fe561406bf5b16a9e">fdebufr()</a>, <a class="el" href="ireadmt_8F.html#a0c3eff73be06d581b8b6ffcd47fede03">ireadmt()</a>, and <a class="el" href="reads3_8f.html#a57a4b386c104472c2df89ca9217d0d4b">reads3()</a>.</p>
 
 </div>
 </div>

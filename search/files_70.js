@@ -11,6 +11,5 @@ var searchData=
   ['pkftbv_2ef',['pkftbv.f',['../pkftbv_8f.html',1,'']]],
   ['pktdd_2ef',['pktdd.f',['../pktdd_8f.html',1,'']]],
   ['pkvs01_2ef',['pkvs01.F',['../pkvs01_8F.html',1,'']]],
-  ['pkx_2ef',['pkx.f',['../pkx_8f.html',1,'']]],
   ['posapx_2ef',['posapx.f',['../posapx_8f.html',1,'']]]
 ];

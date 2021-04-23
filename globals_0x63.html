@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.3.2</span>
+   &#160;<span id="projectnumber">11.5.0</span>
    </div>
   </td>
  </tr>
@@ -76,6 +76,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li class="current"><a href="globals.html"><span>All</span></a></li>
       <li><a href="globals_func.html"><span>Functions/Subroutines</span></a></li>
+      <li><a href="globals_vars.html"><span>Variables</span></a></li>
     </ul>
   </div>
   <div id="navrow4" class="tabs3">
@@ -123,7 +124,7 @@ $(document).ready(function(){initNavTree('globals_0x63.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -143,14 +144,18 @@ $(document).ready(function(){initNavTree('globals_0x63.html','');});
 : <a class="el" href="capit_8f.html#acade976948fae8afa1a8301ff9272f56">capit.f</a>
 </li>
 <li>ccbfl()
-: <a class="el" href="bufrlib_8h.html#ab66668ab9633ce3b475416f6a9899802">bufrlib.h</a>
+: <a class="el" href="cobfl_8h.html#ab66668ab9633ce3b475416f6a9899802">cobfl.h</a>
 , <a class="el" href="ccbfl_8c.html#ab66668ab9633ce3b475416f6a9899802">ccbfl.c</a>
+</li>
+<li>cewind()
+: <a class="el" href="cread_8c.html#a36a8ba0032660f65aadb84295bcccc41">cread.c</a>
+, <a class="el" href="cread_8h.html#a61e34de2efc69877d3fab8f2ce4c52bc">cread.h</a>
+</li>
+<li>cfe
+: <a class="el" href="cfe_8h.html#aca17d2b0ff92068c3f23e96ec9703411">cfe.h</a>
 </li>
 <li>chekstab()
 : <a class="el" href="chekstab_8f.html#aab7a156a89f4b58d3ef31ab946485e50">chekstab.f</a>
-</li>
-<li>chrtrn()
-: <a class="el" href="chrtrn_8f.html#ad97c365049f252c203cacf7ca89436a9">chrtrn.f</a>
 </li>
 <li>chrtrna()
 : <a class="el" href="chrtrna_8f.html#a5aefd6eae9d5a0bec3756a498a219155">chrtrna.f</a>
@@ -160,6 +165,16 @@ $(document).ready(function(){initNavTree('globals_0x63.html','');});
 </li>
 <li>closbf()
 : <a class="el" href="closbf_8F.html#a00c94986037d2cf27d04de7a1f8a3ebc">closbf.F</a>
+</li>
+<li>closbf_f()
+: <a class="el" href="bufr__interface_8h.html#a019047beca19815d95ea0a78993b7e2a">bufr_interface.h</a>
+</li>
+<li>close_f()
+: <a class="el" href="bufr__interface_8h.html#ab0f41346d672e0fb0311bd658b867249">bufr_interface.h</a>
+</li>
+<li>closfb()
+: <a class="el" href="cread_8c.html#abbd928726a21a86c34e3bcea9213f304">cread.c</a>
+, <a class="el" href="cread_8h.html#a6118e519b5b655f3a3ca54ad4ca1b540">cread.h</a>
 </li>
 <li>closmg()
 : <a class="el" href="closmg_8f.html#a3378111de0136710daec2ded25ed34e4">closmg.f</a>
@@ -172,12 +187,12 @@ $(document).ready(function(){initNavTree('globals_0x63.html','');});
 : <a class="el" href="cmpmsg_8f.html#a75b2d1dfd1dedb519205399a8087fd56">cmpmsg.f</a>
 </li>
 <li>cmpstia1()
-: <a class="el" href="cmpstia1_8c.html#a7211d196317c36365a40a128875d5041">cmpstia1.c</a>
-, <a class="el" href="bufrlib_8h.html#a6184cab6384681f5f52c295fb6998216">bufrlib.h</a>
+: <a class="el" href="cfe_8h.html#a6184cab6384681f5f52c295fb6998216">cfe.h</a>
+, <a class="el" href="cmpstia1_8c.html#a7211d196317c36365a40a128875d5041">cmpstia1.c</a>
 </li>
 <li>cmpstia2()
-: <a class="el" href="cmpstia2_8c.html#a54e09962aa43b61717212a2702be33c8">cmpstia2.c</a>
-, <a class="el" href="bufrlib_8h.html#aa09810b363464d0f0b1e3a5b7f011a01">bufrlib.h</a>
+: <a class="el" href="cfe_8h.html#aa09810b363464d0f0b1e3a5b7f011a01">cfe.h</a>
+, <a class="el" href="cmpstia2_8c.html#a54e09962aa43b61717212a2702be33c8">cmpstia2.c</a>
 </li>
 <li>cmsgini()
 : <a class="el" href="cmsgini_8f.html#ace74c243976a7546e92121317b36f9de">cmsgini.f</a>
@@ -186,8 +201,8 @@ $(document).ready(function(){initNavTree('globals_0x63.html','');});
 : <a class="el" href="cnved4_8f.html#a4ca2157b24b043c2729135437c1da49a">cnved4.f</a>
 </li>
 <li>cobfl()
-: <a class="el" href="cobfl_8c.html#a8ee2da6f5d4198418177b973d9b1108c">cobfl.c</a>
-, <a class="el" href="bufrlib_8h.html#a2cc93905bfe9b24f37046b555e43b7d4">bufrlib.h</a>
+: <a class="el" href="cobfl_8h.html#a2cc93905bfe9b24f37046b555e43b7d4">cobfl.h</a>
+, <a class="el" href="cobfl_8c.html#a8ee2da6f5d4198418177b973d9b1108c">cobfl.c</a>
 </li>
 <li>codflg()
 : <a class="el" href="codflg_8f.html#af415643ef31f484c879e7a770fa69ff9">codflg.f</a>
@@ -210,6 +225,10 @@ $(document).ready(function(){initNavTree('globals_0x63.html','');});
 <li>cpdxmm()
 : <a class="el" href="cpdxmm_8f.html#a48f353028fb8bf77255b4dae476b9da7">cpdxmm.f</a>
 </li>
+<li>cpmstabs()
+: <a class="el" href="cpmstabs_8c.html#a673669e621934ba05d6a44794294c8be">cpmstabs.c</a>
+, <a class="el" href="mstabs_8h.html#a3b149893bee75a651e24b2344067264c">mstabs.h</a>
+</li>
 <li>cpymem()
 : <a class="el" href="cpymem_8f.html#a4d6eaf0d2dd8b39f09a3566ac3c52e5f">cpymem.f</a>
 </li>
@@ -217,12 +236,20 @@ $(document).ready(function(){initNavTree('globals_0x63.html','');});
 : <a class="el" href="cpyupd_8f.html#a129651d2e47b6c8986c1fc4dd73d87c9">cpyupd.f</a>
 </li>
 <li>crbmg()
-: <a class="el" href="bufrlib_8h.html#aaec663988563e497bfe9ef80d1674b00">bufrlib.h</a>
-, <a class="el" href="crbmg_8c.html#afe8501c06e833d44117d71dcbc5feb30">crbmg.c</a>
+: <a class="el" href="crbmg_8c.html#afe8501c06e833d44117d71dcbc5feb30">crbmg.c</a>
+, <a class="el" href="cobfl_8h.html#aaec663988563e497bfe9ef80d1674b00">cobfl.h</a>
+</li>
+<li>crdbufr()
+: <a class="el" href="cread_8c.html#a7a2b5c6f6a0feca876f3d3a96569b29c">cread.c</a>
+, <a class="el" href="cread_8h.html#af7363f66f319c5f4dca3f2f5a01a353c">cread.h</a>
 </li>
 <li>cwbmg()
 : <a class="el" href="cwbmg_8c.html#a9d812ef461a3a6da30baf5143e5a542d">cwbmg.c</a>
-, <a class="el" href="bufrlib_8h.html#a204acc5f09ddbbdd59ccc4ff491935df">bufrlib.h</a>
+, <a class="el" href="cobfl_8h.html#a204acc5f09ddbbdd59ccc4ff491935df">cobfl.h</a>
+</li>
+<li>cwrbufr()
+: <a class="el" href="cread_8c.html#a8e21f3b91ceb5b96eeced683b1b28a1a">cread.c</a>
+, <a class="el" href="cread_8h.html#a01bb7665b8031e3d10a402fa0670f9ac">cread.h</a>
 </li>
 </ul>
 </div><!-- contents -->

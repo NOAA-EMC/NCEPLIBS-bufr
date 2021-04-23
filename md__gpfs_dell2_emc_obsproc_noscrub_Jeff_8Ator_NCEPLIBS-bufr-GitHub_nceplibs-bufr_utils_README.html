@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.3.2</span>
+   &#160;<span id="projectnumber">11.5.0</span>
    </div>
   </td>
  </tr>
@@ -86,7 +86,7 @@ $(document).ready(function(){initNavTree('md__gpfs_dell2_emc_obsproc_noscrub_Jef
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -105,21 +105,62 @@ $(document).ready(function(){initNavTree('md__gpfs_dell2_emc_obsproc_noscrub_Jef
 <tr>
 <th>Utility </th><th>Description  </th></tr>
 <tr>
+<td><a href="#debufr">debufr</a> </td><td>Read BUFR file and write verbose listing of contents </td></tr>
+<tr>
 <td><a href="#readbp">readbp</a> </td><td>Read prepbufr file and print each report one at a time </td></tr>
 <tr>
-<td><a href="#readmp">readmp</a> </td><td>Read BUFR file containing embedded DX tables, and print each report one at a time </td></tr>
+<td><a href="#readmp">readmp</a> </td><td>Read BUFR file containing embedded DX BUFR tables, and print each report one at a time </td></tr>
 <tr>
 <td><a href="#binv">binv</a> </td><td>Print inventory of BUFR file by message type </td></tr>
 <tr>
 <td><a href="#sinv">sinv</a> </td><td>Print inventory of BUFR satellite data file by platform and instrument type </td></tr>
 <tr>
 <td><a href="#cmpbqm">cmpbqm</a> </td><td>Print inventory of observations from prepbufr file by variable, report type and quality mark </td></tr>
+<tr>
+<td><a href="#gettab">gettab</a> </td><td>Print embedded DX BUFR tables from within a BUFR file </td></tr>
+<tr>
+<td><a href="#split">split_by_subset</a> </td><td>Split a BUFR file into separate BUFR files for each subset type </td></tr>
 </table>
 <p><br/>
  </p>
 <hr/>
-<div id="readbp"></div><div id="readbp"><h3>readbp</h3>
-</div><div id="readbp"></div><div id="readbp">A utility to read prepbufr files which prints each report one at a time, or jumps to a report with characteristics defined by various keys such as report type, subset type, xy locagtion, station id, etc. Keys can be entered as arguments to the script or entered while the program is running. Basic operation is to print one report at a time with the default being starting at the beginning and continuing until the end or the user enters 'q'. Summary of keys follows. A key is entered after a report is output. Most keys require an additional input after entering the key. The 'd' key dumps the BUFR contents of the report without further input.</div><div id="readbp"><table class="doxtable">
+<div id="debufr"></div><div id="debufr"><h3>debufr</h3>
+</div><div id="debufr"></div><div id="debufr">This program decodes a BUFR file and writes a verbose listing of the contents to the file specified via the -o option. If a <a class="el" href="md__gpfs_dell2_emc_obsproc_noscrub_Jeff_8Ator_NCEPLIBS-bufr-GitHub_nceplibs-bufr_docs_dfbftab.html#dfbftab">DX BUFR Tables</a> file is specified (using the -f option) or if the specified BUFR file contains an embedded DX BUFR tables message as the first message in the file, then this information is used to decode the data messages in the file. Otherwise, or whenever the -m option is specified, <a class="el" href="md__gpfs_dell2_emc_obsproc_noscrub_Jeff_8Ator_NCEPLIBS-bufr-GitHub_nceplibs-bufr_docs_dfbfmstab.html#dfbfmstab">master BUFR tables</a> are read and used to decode the data messages in the file.</div><div id="debufr"><pre>
+Usage:</pre></div><div id="debufr"><pre>   debufr.x [-v] [-h] [-b] [-c] [-m] [-o outfile] [-t tabledir] [-f tablefil] [-p prmstg] bufrfile</pre></div><div id="debufr"><pre>     where:
+       -v        prints version information and exits</pre></div><div id="debufr"><pre>       -h        prints program help and usage information and exits</pre></div><div id="debufr"><pre>       -b        specifies the "basic" option, meaning that only the
+                 information in Sections 0-3 will be decoded from each
+                 BUFR message in the bufrfile, and no attempt will be
+                 made to decode the data in Section 4</pre></div><div id="debufr"><pre>       -c        specifies that code and flag table meanings should not
+                 be read from master BUFR tables and included in the
+                 output; otherwise this feature is enabled by default</pre></div><div id="debufr"><pre>       -m        specifies that master BUFR tables will be used to
+                 decode the data messages in the file, regardless of
+                 whether it contains any embedded DX BUFR table
+                 messages.  This option can be used to view the actual
+                 contents of DX BUFR table messages, which otherwise
+                 would not be printed in the output listing.</pre></div><div id="debufr"><pre>       outfile   [path/]name of file to contain verbose output listing.
+                 The default is "bufrfilename.debufr.out" in the current
+                 working directory, where bufrfilename is the basename of
+                 the bufrfile (i.e. bufrfile with any preceding [path/]
+                 removed).</pre></div><div id="debufr"><pre>       tabledir  [path/]name of directory containing tables to be used
+                 for decoding.  This directory contains the DX BUFR
+                 tables file to be used (if one was specified
+                 via the -f option), or it may contain all of the master
+                 BUFR tables when these are being used to decode a
+                 file.  If unspecified, the default directory location is
+                 the defined value of the MASTER_TABLE_DIR macro when the
+                 utility was built.</pre></div><div id="debufr"><pre>       tablefil  file within tabledir containing DX BUFR tables
+                 to be used for decoding.</pre></div><div id="debufr"><pre>       prmstg    string of comma-separated PARAMETER=VALUE pairs, up to a
+                 maximum of 20.  For each pair, the dynamic allocation
+                 PARAMETER will be set to VALUE within the underlying
+                 BUFRLIB software, overriding the default value that
+                 would otherwise be used.  A complete list of parameters
+                 that can be dynamically sized is included within the
+                 documentation for BUFRLIB function <a class="el" href="isetprm_8F.html#a366156765665bb1e1452635b12ff5093" title="This function sets a specified parameter to a specified value for use in dynamically allocating one o...">isetprm()</a>.</pre></div><div id="debufr"><pre>       bufrfile  [path/]name of BUFR file to be decoded
+</pre></div><div id="debufr">See the source code at <a class="el" href="debufr_8c.html" title="C language code for debufr utility. ">debufr.c</a> and <a class="el" href="debufr_8f.html" title="Fortran language code for debufr utility. ">debufr.f</a></div><div id="debufr"><br/>
+ </p>
+<hr/>
+</div><div id="debufr"><div id="readbp"></div></div><div id="debufr"><div id="readbp"><h3>readbp</h3>
+</div></div><div id="debufr"><div id="readbp"></div></div><div id="debufr"><div id="readbp">A utility to read prepbufr files which prints each report one at a time, or jumps to a report with characteristics defined by various keys such as report type, subset type, xy locagtion, station id, etc. Keys can be entered as arguments to the script or entered while the program is running. Basic operation is to print one report at a time with the default being starting at the beginning and continuing until the end or the user enters 'q'. Summary of keys follows. A key is entered after a report is output. Most keys require an additional input after entering the key. The 'd' key dumps the BUFR contents of the report without further input.</div></div><div id="debufr"><div id="readbp"><table class="doxtable">
 <tr>
 <th align="center">key</th><th>description </th><th align="center">sample input  </th></tr>
 <tr>
@@ -135,7 +176,7 @@ $(document).ready(function(){initNavTree('md__gpfs_dell2_emc_obsproc_noscrub_Jef
 <tr>
 <td align="center">d </td><td>dump </td><td align="center">BUFR contents </td></tr>
 </table>
-<p>See the source code at <a class="el" href="readbp_8f.html" title="Read prepbufr file and print each report one at a time. ">readbp.f</a></div><div id="readbp">Sample output for: <code>./readbp gdas.20200812/00/gdas.t00z.prepbufr'</code></div><div id="readbp"><div class="fragment"><div class="line">MESSAGE: ADPUPA       1     2    20081200</div>
+<p>See the source code at <a class="el" href="readbp_8f.html" title="Read prepbufr file and print each report one at a time. ">readbp.f</a></div></div><div id="debufr"><div id="readbp">Sample output for: <code>./readbp gdas.20200812/00/gdas.t00z.prepbufr'</code></div></div><div id="debufr"><div id="readbp"><div class="fragment"><div class="line">MESSAGE: ADPUPA       1     2    20081200</div>
 <div class="line">STATION: 89642      140.02   -66.67</div>
 <div class="line">TIME:      20081200      0.00</div>
 <div class="line">ELV:        43.00</div>
@@ -162,11 +203,11 @@ $(document).ready(function(){initNavTree('md__gpfs_dell2_emc_obsproc_noscrub_Jef
 <div class="line">  15   1    50.0(2) *******(*) *******(*) *******(*)    57.1(2)    26.6(2)</div>
 <div class="line">  16   1    30.0(2) *******(*) *******(*) *******(*)    70.5(2)    18.9(2)</div>
 <div class="line">  17   1    20.0(2) *******(*) *******(*) *******(*)    83.1(2)    22.3(2)</div>
-</div><!-- fragment --></div><div id="readbp"><br/>
+</div><!-- fragment --></div></div><div id="debufr"><div id="readbp"><br/>
  </p>
 <hr/>
-</div><div id="readbp"><div id="readmp"></div></div><div id="readbp"><div id="readmp"><h3>readmp</h3>
-</div></div><div id="readbp"><div id="readmp"></div></div><div id="readbp"><div id="readmp">A utility to read any BUFR file with embedded DX tables, and print the contents of each subset one at a time.</div></div><div id="readbp"><div id="readmp">See the source code at <a class="el" href="readmp_8f.html" title="Read BUFR file containing embedded DX tables, and print each report one at a time. ">readmp.f</a></div></div><div id="readbp"><div id="readmp">Sample output for: <code>./readmp gdas.20200812/00/gdas.t00z.sfcshp.tm00.bufr_d</code></div></div><div id="readbp"><div id="readmp"><div class="fragment"><div class="line"> MESSAGE TYPE NC001001</div>
+</div></div><div id="debufr"><div id="readbp"><div id="readmp"></div></div></div><div id="debufr"><div id="readbp"><div id="readmp"><h3>readmp</h3>
+</div></div></div><div id="debufr"><div id="readbp"><div id="readmp"></div></div></div><div id="debufr"><div id="readbp"><div id="readmp">A utility to read any BUFR file with embedded DX tables, and print the contents of each subset one at a time.</div></div></div><div id="debufr"><div id="readbp"><div id="readmp">See the source code at <a class="el" href="readmp_8f.html" title="Read BUFR file containing embedded DX BUFR tables, and print each report one at a time...">readmp.f</a></div></div></div><div id="debufr"><div id="readbp"><div id="readmp">Sample output for: <code>./readmp.x gdas.20200812/00/gdas.t00z.sfcshp.tm00.bufr_d</code></div></div></div><div id="debufr"><div id="readbp"><div id="readmp"><div class="fragment"><div class="line"> MESSAGE TYPE NC001001</div>
 <div class="line"></div>
 <div class="line">004001  YEAR                      2020.0  YEAR                          YEAR</div>
 <div class="line">004002  MNTH                         8.0  MONTH                         MONTH</div>
@@ -237,11 +278,11 @@ $(document).ready(function(){initNavTree('md__gpfs_dell2_emc_obsproc_noscrub_Jef
 <div class="line">           &lt;ICESQ1&gt;     0 REPLICATIONS</div>
 <div class="line">           &lt;RPSEC3&gt;     0 REPLICATIONS</div>
 <div class="line">           {RAWRPT}     0 REPLICATIONS</div>
-</div><!-- fragment --></div></div><div id="readbp"><div id="readmp"><br/>
+</div><!-- fragment --></div></div></div><div id="debufr"><div id="readbp"><div id="readmp"><br/>
  </p>
 <hr/>
-</div></div><div id="readbp"><div id="readmp"><div id="binv"></div></div></div><div id="readbp"><div id="readmp"><div id="binv"><h3>binv</h3>
-</div></div></div><div id="readbp"><div id="readmp"><div id="binv"></div></div></div><div id="readbp"><div id="readmp"><div id="binv">A utility to print a BUFR file inventory by message type.</div></div></div><div id="readbp"><div id="readmp"><div id="binv">See the source code at <a class="el" href="binv_8f.html" title="Print inventory of BUFR file by message type. ">binv.f</a></div></div></div><div id="readbp"><div id="readmp"><div id="binv">Sample output for: <code>./binv gdas.20200812/00/gdas.t00z.prepbufr</code></div></div></div><div id="readbp"><div id="readmp"><div id="binv"><div class="fragment"><div class="line">type        messages       subsets         bytes</div>
+</div></div></div><div id="debufr"><div id="readbp"><div id="readmp"><div id="binv"></div></div></div></div><div id="debufr"><div id="readbp"><div id="readmp"><div id="binv"><h3>binv</h3>
+</div></div></div></div><div id="debufr"><div id="readbp"><div id="readmp"><div id="binv"></div></div></div></div><div id="debufr"><div id="readbp"><div id="readmp"><div id="binv">A utility to print a BUFR file inventory by message type.</div></div></div></div><div id="debufr"><div id="readbp"><div id="readmp"><div id="binv">See the source code at <a class="el" href="binv_8f.html" title="Print inventory of BUFR file by message type. ">binv.f</a></div></div></div></div><div id="debufr"><div id="readbp"><div id="readmp"><div id="binv">Sample output for: <code>./binv.x gdas.20200812/00/gdas.t00z.prepbufr</code></div></div></div></div><div id="debufr"><div id="readbp"><div id="readmp"><div id="binv"><div class="fragment"><div class="line">type        messages       subsets         bytes</div>
 <div class="line"></div>
 <div class="line">ADPUPA           363          1427       3091984        3.93</div>
 <div class="line">AIRCAR          1817        169107      18052250       93.07</div>
@@ -256,11 +297,11 @@ $(document).ready(function(){initNavTree('md__gpfs_dell2_emc_obsproc_noscrub_Jef
 <div class="line">ASCATW          1390        225151      13809272      161.98</div>
 <div class="line">SYNDAT             2           102         13234       51.00</div>
 <div class="line">TOTAL           6823        774888      67232740</div>
-</div><!-- fragment --></div></div></div><div id="readbp"><div id="readmp"><div id="binv"><br/>
+</div><!-- fragment --></div></div></div></div><div id="debufr"><div id="readbp"><div id="readmp"><div id="binv"><br/>
  </p>
 <hr/>
-</div></div></div><div id="readbp"><div id="readmp"><div id="binv"><div id="sinv"></div></div></div></div><div id="readbp"><div id="readmp"><div id="binv"><div id="sinv"><h3>sinv</h3>
-</div></div></div></div><div id="readbp"><div id="readmp"><div id="binv"><div id="sinv"></div></div></div></div><div id="readbp"><div id="readmp"><div id="binv"><div id="sinv">Utility to print an inventory of satellite data by platform and instrument type.</div></div></div></div><div id="readbp"><div id="readmp"><div id="binv"><div id="sinv">See the source code at <a class="el" href="sinv_8f.html" title="Print inventory of BUFR satellite data file by platform and instrument type. ">sinv.f</a></div></div></div></div><div id="readbp"><div id="readmp"><div id="binv"><div id="sinv">Sample output for: <code>./sinv gdas.20200812/00/gdas.t00z.satwnd.tm00.bufr_d</code> </p>
+</div></div></div></div><div id="debufr"><div id="readbp"><div id="readmp"><div id="binv"><div id="sinv"></div></div></div></div></div><div id="debufr"><div id="readbp"><div id="readmp"><div id="binv"><div id="sinv"><h3>sinv</h3>
+</div></div></div></div></div><div id="debufr"><div id="readbp"><div id="readmp"><div id="binv"><div id="sinv"></div></div></div></div></div><div id="debufr"><div id="readbp"><div id="readmp"><div id="binv"><div id="sinv">Utility to print an inventory of satellite data by platform and instrument type.</div></div></div></div></div><div id="debufr"><div id="readbp"><div id="readmp"><div id="binv"><div id="sinv">See the source code at <a class="el" href="sinv_8f.html" title="Print inventory of BUFR satellite data file by platform and instrument type. ">sinv.f</a></div></div></div></div></div><div id="debufr"><div id="readbp"><div id="readmp"><div id="binv"><div id="sinv">Sample output for: <code>./sinv.x gdas.20200812/00/gdas.t00z.satwnd.tm00.bufr_d</code> </p>
 <div class="fragment"><div class="line">003  METOP-1           7220</div>
 <div class="line">004  METOP-2           8911</div>
 <div class="line">055  METEOSAT-8      172430</div>
@@ -275,11 +316,11 @@ $(document).ready(function(){initNavTree('md__gpfs_dell2_emc_obsproc_noscrub_Jef
 <div class="line">471  INSAT-3D         24108</div>
 <div class="line">473  INSAT-3DR        79427</div>
 <div class="line">784  AQUA              2850</div>
-</div><!-- fragment --></div></div></div></div><div id="readbp"><div id="readmp"><div id="binv"><div id="sinv"><br/>
+</div><!-- fragment --></div></div></div></div></div><div id="debufr"><div id="readbp"><div id="readmp"><div id="binv"><div id="sinv"><br/>
  </p>
 <hr/>
-</div></div></div></div><div id="readbp"><div id="readmp"><div id="binv"><div id="sinv"><div id="cmpbqm"></div></div></div></div></div><div id="readbp"><div id="readmp"><div id="binv"><div id="sinv"><div id="cmpbqm"><h3>cmpbqm</h3>
-</div></div></div></div></div><div id="readbp"><div id="readmp"><div id="binv"><div id="sinv"><div id="cmpbqm"></div></div></div></div></div><div id="readbp"><div id="readmp"><div id="binv"><div id="sinv"><div id="cmpbqm">An inventory of prepbufr observations by variable, report type, and quality mark made from a prepbufr file. The ob type,total count,and quality marks are listed by column. The cka and ckb columns are counts of observed values with missing qm, or qms with missing observations. The cka and ckb should be zero but sometimes they're not. The qm values are found in <a href="https://www.emc.ncep.noaa.gov/mmb/data_processing/prepbufr.doc/table_7.htm">bufr code tables</a>, but below a quick summary. The GSI qms are added by a program run by the <code>fit2obs</code> system which copies that information from the convstat files. The sample output prepbufr was after prep but pre-analysis. </p>
+</div></div></div></div></div><div id="debufr"><div id="readbp"><div id="readmp"><div id="binv"><div id="sinv"><div id="cmpbqm"></div></div></div></div></div></div><div id="debufr"><div id="readbp"><div id="readmp"><div id="binv"><div id="sinv"><div id="cmpbqm"><h3>cmpbqm</h3>
+</div></div></div></div></div></div><div id="debufr"><div id="readbp"><div id="readmp"><div id="binv"><div id="sinv"><div id="cmpbqm"></div></div></div></div></div></div><div id="debufr"><div id="readbp"><div id="readmp"><div id="binv"><div id="sinv"><div id="cmpbqm">An inventory of prepbufr observations by variable, report type, and quality mark made from a prepbufr file. The ob type,total count,and quality marks are listed by column. The cka and ckb columns are counts of observed values with missing qm, or qms with missing observations. The cka and ckb should be zero but sometimes they're not. The qm values are found in <a href="https://www.emc.ncep.noaa.gov/mmb/data_processing/prepbufr.doc/table_7.htm">bufr code tables</a>, but below a quick summary. The GSI qms are added by a program run by the <code>fit2obs</code> system which copies that information from the convstat files. The sample output prepbufr was after prep but pre-analysis. </p>
 <table class="doxtable">
 <tr>
 <th align="center">Quality Marker</th><th>Description  </th></tr>
@@ -310,7 +351,7 @@ $(document).ready(function(){initNavTree('md__gpfs_dell2_emc_obsproc_noscrub_Jef
 <tr>
 <td align="center">15 </td><td>rejected by prepdata code (ie failed various sanity checks) </td></tr>
 </table>
-<p>See the source code at <a class="el" href="cmpbqm_8f.html" title="Print inventory of observations from prepbufr file by variable, report type and quality mark...">cmpbqm.f</a></div></div></div></div></div><div id="readbp"><div id="readmp"><div id="binv"><div id="sinv"><div id="cmpbqm">Sample output for: <code>./cmpbqm gdas.20200811/00/gdas.t00z.prepbufr</code> </p>
+<p>See the source code at <a class="el" href="cmpbqm_8f.html" title="Print inventory of observations from prepbufr file by variable, report type and quality mark...">cmpbqm.f</a></div></div></div></div></div></div><div id="debufr"><div id="readbp"><div id="readmp"><div id="binv"><div id="sinv"><div id="cmpbqm">Sample output for: <code>./cmpbqm.x gdas.20200811/00/gdas.t00z.prepbufr</code> </p>
 <div class="fragment"><div class="line">DATA  VALID AT  2020081100</div>
 <div class="line"></div>
 <div class="line"> PRESSURE</div>
@@ -444,7 +485,52 @@ $(document).ready(function(){initNavTree('md__gpfs_dell2_emc_obsproc_noscrub_Jef
 <div class="line"></div>
 <div class="line"></div>
 <div class="line"> ******CMPBQM PROCESSED         7066  BUFR RECORDS******</div>
-</div><!-- fragment --> </div></div></div></div></div></div></div><!-- contents -->
+</div><!-- fragment --> <hr/>
+</div></div></div></div></div></div><div id="debufr"><div id="readbp"><div id="readmp"><div id="binv"><div id="sinv"><div id="cmpbqm"><div id="gettab"></div></div></div></div></div></div></div><div id="debufr"><div id="readbp"><div id="readmp"><div id="binv"><div id="sinv"><div id="cmpbqm"><div id="gettab"><h3>gettab</h3>
+</div></div></div></div></div></div></div><div id="debufr"><div id="readbp"><div id="readmp"><div id="binv"><div id="sinv"><div id="cmpbqm"><div id="gettab"></div></div></div></div></div></div></div><div id="debufr"><div id="readbp"><div id="readmp"><div id="binv"><div id="sinv"><div id="cmpbqm"><div id="gettab">A utility to read any BUFR file with embedded DX tables, and print the table.</div></div></div></div></div></div></div><div id="debufr"><div id="readbp"><div id="readmp"><div id="binv"><div id="sinv"><div id="cmpbqm"><div id="gettab">See the source code at <a class="el" href="gettab_8f90.html" title="Read BUFR file containing embedded DX BUFR tables, and print the tables to stdout. ">gettab.f90</a></div></div></div></div></div></div></div><div id="debufr"><div id="readbp"><div id="readmp"><div id="binv"><div id="sinv"><div id="cmpbqm"><div id="gettab">Sample output for: <code>./gettab.x gdas.20200812/00/gdas.t00z.adpsfc.tm00.bufr_d</code></div></div></div></div></div></div></div><div id="debufr"><div id="readbp"><div id="readmp"><div id="binv"><div id="sinv"><div id="cmpbqm"><div id="gettab"><div class="fragment"><div class="line">.------------------------------------------------------------------------------.</div>
+<div class="line">| ------------   USER DEFINITIONS FOR TABLE-A TABLE-B TABLE D   -------------- |</div>
+<div class="line">|------------------------------------------------------------------------------|</div>
+<div class="line">| MNEMONIC | NUMBER | DESCRIPTION                                              |</div>
+<div class="line">|----------|--------|----------------------------------------------------------|</div>
+<div class="line">|          |        |                                                          |</div>
+<div class="line">| NC000000 | A51001 | MTYP 000-000 SYNOPTIC-LAND, RESTRICTED (WMO RES 40)      |</div>
+<div class="line">| NC000001 | A63200 | MTYP 000-001 SYNOPTIC - FIXED LAND                       |</div>
+<div class="line">| NC000002 | A61192 | MTYP 000-002 SYNOPTIC - MOBIL LAND                       |</div>
+<div class="line">| NC000007 | A63206 | MTYP 000-007 AVIATION - METAR / SPECI                    |</div>
+<div class="line">| NC000008 | A63247 | MTYP 000-008 NPN AND MAP PROFILER SURFACE                |</div>
+<div class="line">| NC000010 | A56100 | MTYP 000-010 PRODUCTS (SHEF) NOT IN ANY OTHER TANK       |</div>
+<div class="line">| NC000011 | A63214 | MTYP 000-011 AFOS PRODUCTS (PRECIP) (SHEF)               |</div>
+<div class="line">| NC000012 | A63215 | MTYP 000-012 SUPPLEMENTARY CLIMATOLOGICAL DATA           |</div>
+<div class="line">| NC000020 | A56250 | MTYP 000-020 WIND ENERGY NACELLE, RESTRICTED             |</div>
+<div class="line">| NC000100 | A51050 | MTYP 000-100 SYNOPTIC - FIXED LAND (BUFR) (WMO RES 40)   |</div>
+<div class="line">| NC000101 | A51051 | MTYP 000-101 SYNOPTIC - FIXED LAND (BUFR)                |</div>
+<div class="line">| NC000102 | A51052 | MTYP 000-102 SYNOPTIC - MOBIL LAND (BUFR)                |</div>
+<div class="line">|          |        |                                                          |</div>
+<div class="line">| SFCSTNID | 301004 | SURFACE STATION IDENTIFICATION                           |</div>
+<div class="line">| YYMMDD   | 301011 | DATE -- YEAR, MONTH, DAY                                 |</div>
+<div class="line">| HHMM     | 301012 | TIME -- HOUR, MINUTE                                     |</div>
+<div class="line">| HHMMSS   | 301013 | TIME -- HOUR, MINUTE, SECOND                             |</div>
+<div class="line">| LTLONH   | 301021 | LOCATION -- LATITUDE, LONGITUDE (HIGH ACCURACY)          |</div>
+<div class="line">| LALOLV   | 301024 | LOCATION -- LATITUDE, LONGITUDE, ELEVATION               |</div>
+<div class="line">| SFIDTIME | 301090 | SURFACE STATION IDENTIFICATION, TIME AND LOCATION        |</div>
+<div class="line">| MOBIDENT | 301092 | MOBILE SURFACE STATION IDENTIFICATION, DATE/TIME, HORIZ  |</div>
+<div class="line">| WIGOSID  | 301150 | WIGOS IDENTIFIER                                         |</div>
+<div class="line">| PRESSQ03 | 302001 |                                                          |</div>
+<div class="line">| GENCLOUD | 302004 | GENERAL CLOUD INFORMATION                                |</div>
+<div class="line">| PRESDATA | 302031 | PRESSURE INFORMATION                                     |</div>
+<div class="line">| PWEATHER | 302038 | PRESENT AND PAST WEATHER                                 |</div>
+<div class="line">| DIRCLDFT | 302047 | DIRECTION OF CLOUD DRIFT                                 |</div>
+<div class="line">| VISBSEQN | 302069 | VISIBILITY DATA                                          |</div>
+<div class="line">| TEMHUMDA | 302072 | TEMPERATURE AND HUMIDITY DATA                            |</div>
+<div class="line">| STGDSNDM | 302078 | STATE OF GROUND AND SNOW DEPTH MEASUREMENT               |</div>
+<div class="line">| FILENAME | 352004 | FILE NAME SEQUENCE                                       |</div>
+<div class="line">| SHTPMOSQ | 356101 | SHEF TIME PERIOD SEQUENCE (MONTHS)                       |</div>
+<div class="line">| SHTPHRSQ | 356102 | SHEF TIME PERIOD SEQUENCE (HOURS)                        |</div>
+<div class="line">| SHTPMISQ | 356103 | SHEF TIME PERIOD SEQUENCE (MINUTES)                      |</div>
+<div class="line">| SHPRESSQ | 356104 | SHEF PRESSURE SEQUENCE                                   |</div>
+<div class="line">| SHPMSLSQ | 356105 | SHEF PRESSURE (MSL) SEQUENCE                             |</div>
+</div><!-- fragment --></div></div></div></div></div></div></div><div id="debufr"><div id="readbp"><div id="readmp"><div id="binv"><div id="sinv"><div id="cmpbqm"><div id="gettab"><div id="split"></div></div></div></div></div></div></div></div><div id="debufr"><div id="readbp"><div id="readmp"><div id="binv"><div id="sinv"><div id="cmpbqm"><div id="gettab"><div id="split"><h3>split_by_subset</h3>
+</div></div></div></div></div></div></div></div><div id="debufr"><div id="readbp"><div id="readmp"><div id="binv"><div id="sinv"><div id="cmpbqm"><div id="gettab"><div id="split"></div></div></div></div></div></div></div></div><div id="debufr"><div id="readbp"><div id="readmp"><div id="binv"><div id="sinv"><div id="cmpbqm"><div id="gettab"><div id="split">A utility to read any BUFR file and split it into separate BUFR files based on subset type</div></div></div></div></div></div></div></div><div id="debufr"><div id="readbp"><div id="readmp"><div id="binv"><div id="sinv"><div id="cmpbqm"><div id="gettab"><div id="split">See the source code at <a class="el" href="split__by__subset_8f90.html" title="Split a BUFR file into separate BUFR files by subset type. ">split_by_subset.f90</a></div></div></div></div></div></div></div></div><div id="debufr"><div id="readbp"><div id="readmp"><div id="binv"><div id="sinv"><div id="cmpbqm"><div id="gettab"><div id="split">Usage: <code>./split_by_subset.x gdas.20200812/00/gdas.t00z.satwnd.tm00.bufr_d</code> ~~~ </div></div></div></div></div></div></div></div></div></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->

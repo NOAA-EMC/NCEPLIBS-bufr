@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.3.2</span>
+   &#160;<span id="projectnumber">11.5.0</span>
    </div>
   </td>
  </tr>
@@ -92,7 +92,7 @@ $(document).ready(function(){initNavTree('exitbufr_8f.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -109,17 +109,19 @@ $(document).ready(function(){initNavTree('exitbufr_8f.html','');});
 </div><!--header-->
 <div class="contents">
 
+<p>Reset the BUFRLIB software for potential dynamic reallocation of memory.  
+<a href="#details">More...</a></p>
+
 <p><a href="exitbufr_8f_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions/Subroutines</h2></td></tr>
 <tr class="memitem:a355f094d616febcea2820cf547cbff8e"><td class="memItemLeft" align="right" valign="top">subroutine&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="exitbufr_8f.html#a355f094d616febcea2820cf547cbff8e">exitbufr</a></td></tr>
-<tr class="memdesc:a355f094d616febcea2820cf547cbff8e"><td class="mdescLeft">&#160;</td><td class="mdescRight">THIS SUBROUTINE FREES ALL DYNAMICALLY-ALLOCATED MEMORY, CLOSES ALL LOGICAL UNITS THAT ARE OPEN TO THE BUFR ARCHIVE LIBRARY, AND RESETS THE LIBRARY TO ALL OF ITS DEFAULT SETTINGS AS THOUGH IT HAD NEVER BEEN CALLED.  <a href="#a355f094d616febcea2820cf547cbff8e">More...</a><br/></td></tr>
+<tr class="memdesc:a355f094d616febcea2820cf547cbff8e"><td class="mdescLeft">&#160;</td><td class="mdescRight">This subroutine frees all dynamically-allocated memory, closes all logical units that are open within the BUFRLIB software, and resets the library to all of its default settings as though it had never been called.  <a href="#a355f094d616febcea2820cf547cbff8e">More...</a><br/></td></tr>
 <tr class="separator:a355f094d616febcea2820cf547cbff8e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><dl class="section author"><dt>Author</dt><dd>ATOR </dd></dl>
-<dl class="section date"><dt>Date</dt><dd>2015-03-02 </dd></dl>
+<div class="textblock"><p>Reset the BUFRLIB software for potential dynamic reallocation of memory. </p>
 
 <p>Definition in file <a class="el" href="exitbufr_8f_source.html">exitbufr.f</a>.</p>
 </div><h2 class="groupheader">Function/Subroutine Documentation</h2>
@@ -136,14 +138,23 @@ Functions/Subroutines</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>THIS SUBROUTINE FREES ALL DYNAMICALLY-ALLOCATED MEMORY, CLOSES ALL LOGICAL UNITS THAT ARE OPEN TO THE BUFR ARCHIVE LIBRARY, AND RESETS THE LIBRARY TO ALL OF ITS DEFAULT SETTINGS AS THOUGH IT HAD NEVER BEEN CALLED. </p>
-<p>THIS ALLOWS AN APPLICATION PROGRAM TO POTENTIALLY RE-ALLOCATE MEMORY ALL OVER AGAIN WITHIN THE BUFR ARCHIVE LIBRARY VIA A NEW SUBSEQUENT SERIES OF CALLS TO SUBROUTINES ISETPRM AND OPENBF.</p>
-<p>NOTE THAT ONCE THIS SUBROUTINE IS CALLED, THE ENTIRE BUFR ARCHIVE LIBRARY IS UNUSABLE FOR THE REMAINDER OF THE LIFE OF THE APPLICATION PROGRAM, UNLESS AND UNTIL SUBROUTINE OPENBF IS CALLED TO ONCE AGAIN DYNAMICALLY ALLOCATE NEW ARRAY SPACE.</p>
-<p>PROGRAM HISTORY LOG: 2015-03-02 J. ATOR &ndash; ORIGINAL AUTHOR</p>
-<p>USAGE: CALL EXITBUFR</p>
-<p>REMARKS: THIS ROUTINE CALLS: ARDLLOCF CLOSBF DLLOCTBF THIS ROUTINE IS CALLED BY: None Normally called only by application programs. </p>
+<p>This subroutine frees all dynamically-allocated memory, closes all logical units that are open within the BUFRLIB software, and resets the library to all of its default settings as though it had never been called. </p>
+<dl class="section author"><dt>Author</dt><dd>J. Ator </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2015-03-02</dd></dl>
+<dl class="section remark"><dt>Remarks</dt><dd><ul>
+<li>Calling this subroutine allows an application program to potentially resize arrays and reallocate memory all over again with a new subsequent series of calls to subroutines <a class="el" href="isetprm_8F.html#a366156765665bb1e1452635b12ff5093" title="This function sets a specified parameter to a specified value for use in dynamically allocating one o...">isetprm()</a> and <a class="el" href="openbf_8F.html#a9bea9aeada166bd9037b959ca8452b28" title="This subroutine connects a new file to the BUFRLIB software for input or output operations. ">openbf()</a>. However, if and when this subroutine is called, there is no longer any internal memory available within the BUFRLIB software, and the remainder of the library becomes essentially unusable within the application program, unless and until subroutine <a class="el" href="openbf_8F.html#a9bea9aeada166bd9037b959ca8452b28" title="This subroutine connects a new file to the BUFRLIB software for input or output operations. ">openbf()</a> is called once again to dynamically allocate new array space. This may be a useful capability for application programs that are finished with using the BUFRLIB software and wish to move on to other unrelated tasks without continuing to tie up all of the allocated memory space within the library. Otherwise, and unless there's a need to change parameter sizes following the first call to subroutine <a class="el" href="openbf_8F.html#a9bea9aeada166bd9037b959ca8452b28" title="This subroutine connects a new file to the BUFRLIB software for input or output operations. ">openbf()</a>, then there's no need to ever call this subroutine within an application program, since all allocated memory will automatically get freed anyway by the operating system once the application program terminates.</li>
+</ul>
+</dd></dl>
+<p><b>Program history log:</b></p>
+<ul>
+<li>2015-03-02 J. Ator &ndash; Original author </li>
+</ul>
 
-<p>Definition at line <a class="el" href="exitbufr_8f_source.html#l00028">28</a> of file <a class="el" href="exitbufr_8f_source.html">exitbufr.f</a>.</p>
+<p>Definition at line <a class="el" href="exitbufr_8f_source.html#l00036">36</a> of file <a class="el" href="exitbufr_8f_source.html">exitbufr.f</a>.</p>
+
+<p>References <a class="el" href="ardllocf_8F.html#a7b3e4d5498fedd9e94ac45b69fc04b58">ardllocf()</a>, <a class="el" href="closbf_8F.html#a00c94986037d2cf27d04de7a1f8a3ebc">closbf()</a>, and <a class="el" href="cfe_8h.html#a1242c4d43753a37cdb9abfb3f01e5583">dlloctbf()</a>.</p>
+
+<p>Referenced by <a class="el" href="classbufr__c__interface__mod.html#aeabdf4108093f589b346a1f0b7d1f393">bufr_c_interface_mod::exitbufr_c()</a>.</p>
 
 </div>
 </div>

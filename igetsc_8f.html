@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.3.2</span>
+   &#160;<span id="projectnumber">11.5.0</span>
    </div>
   </td>
  </tr>
@@ -92,7 +92,7 @@ $(document).ready(function(){initNavTree('igetsc_8f.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -109,17 +109,19 @@ $(document).ready(function(){initNavTree('igetsc_8f.html','');});
 </div><!--header-->
 <div class="contents">
 
+<p>Check for an abnormal status code associated with the processing of a file.  
+<a href="#details">More...</a></p>
+
 <p><a href="igetsc_8f_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions/Subroutines</h2></td></tr>
 <tr class="memitem:a8efe4738abf3cd97d25a5eb9c5e70c20"><td class="memItemLeft" align="right" valign="top">function&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="igetsc_8f.html#a8efe4738abf3cd97d25a5eb9c5e70c20">igetsc</a> (LUNIT)</td></tr>
-<tr class="memdesc:a8efe4738abf3cd97d25a5eb9c5e70c20"><td class="mdescLeft">&#160;</td><td class="mdescRight">THIS FUNCTION RETURNS ANY STATUS CODE THAT WAS INTERNALLY SET WITHIN THE BUFR ARCHIVE LIBRARY SOFTWARE FOR A GIVEN LOGICAL UNIT NUMBER.  <a href="#a8efe4738abf3cd97d25a5eb9c5e70c20">More...</a><br/></td></tr>
+<tr class="memdesc:a8efe4738abf3cd97d25a5eb9c5e70c20"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function returns a status code associated with any file that was previously opened via a call to subroutine <a class="el" href="openbf_8F.html#a9bea9aeada166bd9037b959ca8452b28" title="This subroutine connects a new file to the BUFRLIB software for input or output operations. ">openbf()</a>, so that the application program can check whether the BUFRLIB software encountered any specific problems while processing the file.  <a href="#a8efe4738abf3cd97d25a5eb9c5e70c20">More...</a><br/></td></tr>
 <tr class="separator:a8efe4738abf3cd97d25a5eb9c5e70c20"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><dl class="section author"><dt>Author</dt><dd>J </dd></dl>
-<dl class="section date"><dt>Date</dt><dd>2010-05-11 </dd></dl>
+<div class="textblock"><p>Check for an abnormal status code associated with the processing of a file. </p>
 
 <p>Definition in file <a class="el" href="igetsc_8f_source.html">igetsc.f</a>.</p>
 </div><h2 class="groupheader">Function/Subroutine Documentation</h2>
@@ -137,13 +139,32 @@ Functions/Subroutines</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>THIS FUNCTION RETURNS ANY STATUS CODE THAT WAS INTERNALLY SET WITHIN THE BUFR ARCHIVE LIBRARY SOFTWARE FOR A GIVEN LOGICAL UNIT NUMBER. </p>
-<p>PROGRAM HISTORY LOG: 2010-05-11 J. ATOR &ndash; ORIGINAL AUTHOR 2014-12-10 J. ATOR &ndash; USE MODULES INSTEAD OF COMMON BLOCKS</p>
-<p>USAGE: IGETSC (LUNIT) INPUT ARGUMENT LIST: LUNIT - INTEGER: FORTRAN LOGICAL UNIT NUMBER FOR BUFR FILE</p>
-<p>OUTPUT ARGUMENT LIST: IGETSC - INTEGER: STATUS CODE FOR LUNIT: 0 = no problems noted with LUNIT -1 = unable to position LUNIT for appending, possibly due to an incomplete BUFR message at the end of the file</p>
-<p>REMARKS: THIS ROUTINE CALLS: BORT STATUS THIS ROUTINE IS CALLED BY: None Normally called only by application programs. </p>
+<p>This function returns a status code associated with any file that was previously opened via a call to subroutine <a class="el" href="openbf_8F.html#a9bea9aeada166bd9037b959ca8452b28" title="This subroutine connects a new file to the BUFRLIB software for input or output operations. ">openbf()</a>, so that the application program can check whether the BUFRLIB software encountered any specific problems while processing the file. </p>
+<dl class="section author"><dt>Author</dt><dd>J. Ator </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2010-05-11</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">LUNIT</td><td>- integer: Fortran logical unit number for BUFR file </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>igetsc - integer:<ul>
+<li>0 = no problems were encountered</li>
+</ul>
+</dd></dl>
+<dl class="section remark"><dt>Remarks</dt><dd><ul>
+<li>Once subroutine <a class="el" href="openbf_8F.html#a9bea9aeada166bd9037b959ca8452b28" title="This subroutine connects a new file to the BUFRLIB software for input or output operations. ">openbf()</a> has been called for LUNIT, this function can then be called any number of times and at any point throughout the remainder of the life of the application program. However, it is most typically called immediately prior to exiting an application program.</li>
+</ul>
+</dd></dl>
+<p><b>Program history log:</b></p>
+<ul>
+<li>2010-05-11 J. Ator &ndash; Original author</li>
+<li>2014-12-10 J. Ator &ndash; Use modules instead of COMMON blocks </li>
+</ul>
 
 <p>Definition at line <a class="el" href="igetsc_8f_source.html#l00029">29</a> of file <a class="el" href="igetsc_8f_source.html">igetsc.f</a>.</p>
+
+<p>References <a class="el" href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort()</a>, and <a class="el" href="status_8f.html#a22292e7a69c411a961168198d259f336">status()</a>.</p>
 
 </div>
 </div>

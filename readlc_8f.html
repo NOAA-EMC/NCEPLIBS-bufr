@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.3.2</span>
+   &#160;<span id="projectnumber">11.5.0</span>
    </div>
   </td>
  </tr>
@@ -92,7 +92,7 @@ $(document).ready(function(){initNavTree('readlc_8f.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -109,25 +109,93 @@ $(document).ready(function(){initNavTree('readlc_8f.html','');});
 </div><!--header-->
 <div class="contents">
 
+<p>Read a long character string (greater than 8 bytes) from a data subset.  
+<a href="#details">More...</a></p>
+
 <p><a href="readlc_8f_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions/Subroutines</h2></td></tr>
-<tr class="memitem:acf408b0943fc7a5040009cd9a9bc57a1"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="acf408b0943fc7a5040009cd9a9bc57a1"></a>
-subroutine&#160;</td><td class="memItemRight" valign="bottom"><b>readlc</b> (LUNIT, CHR, STR)</td></tr>
+<tr class="memitem:acf408b0943fc7a5040009cd9a9bc57a1"><td class="memItemLeft" align="right" valign="top">subroutine&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="readlc_8f.html#acf408b0943fc7a5040009cd9a9bc57a1">readlc</a> (LUNIT, CHR, STR)</td></tr>
+<tr class="memdesc:acf408b0943fc7a5040009cd9a9bc57a1"><td class="mdescLeft">&#160;</td><td class="mdescRight">This subroutine reads a long character string (greater than 8 bytes) from a data subset.  <a href="#acf408b0943fc7a5040009cd9a9bc57a1">More...</a><br/></td></tr>
 <tr class="separator:acf408b0943fc7a5040009cd9a9bc57a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><dl class="section author"><dt>Author</dt><dd>WOOLLEN </dd></dl>
-<dl class="section date"><dt>Date</dt><dd>2003-11-04</dd></dl>
-<p>THIS SUBROUTINE RETURNS A CHARACTER DATA ELEMENT ASSOCIATED WITH A PARTICULAR SUBSET MNEMONIC FROM THE INTERNAL MESSAGE BUFFER (ARRAY MBAY IN MODULE BITBUF). IT IS DESIGNED TO BE USED TO RETURN CHARACTER ELEMENTS GREATER THAN THE USUAL LENGTH OF EIGHT BYTES.</p>
-<p>PROGRAM HISTORY LOG: 2003-11-04 J. WOOLLEN &ndash; ORIGINAL AUTHOR 2003-11-04 D. KEYSER &ndash; UNIFIED/PORTABLE FOR WRF; ADDED DOCUMENTATION; OUTPUTS MORE COMPLETE DIAGNOSTIC INFO WHEN ROUTINE TERMINATES ABNORMALLY OR UNUSUAL THINGS HAPPEN 2004-08-09 J. ATOR &ndash; MAXIMUM MESSAGE LENGTH INCREASED FROM 20,000 TO 50,000 BYTES 2007-01-19 J. ATOR &ndash; REPLACED CALL TO PARSEQ WITH CALL TO PARSTR 2009-03-23 J. ATOR &ndash; ADDED CAPABILITY FOR COMPRESSED MESSAGES; ADDED CHECK FOR OVERFLOW OF CHR; ADDED '#' OPTION FOR MORE THAN ONE OCCURRENCE OF STR 2009-04-21 J. ATOR &ndash; USE ERRWRT 2012-12-07 J. ATOR &ndash; ALLOW STR MNEMONIC LENGTH OF UP TO 14 CHARS WHEN USED WITH '#' OCCURRENCE CODE 2014-12-10 J. ATOR &ndash; USE MODULES INSTEAD OF COMMON BLOCKS 2020-09-09 J. ATOR &ndash; SET CHR TO MISSING INSTEAD OF ALL BLANKS IF STR ISN'T FOUND IN SUBSET</p>
-<p>USAGE: CALL READLC (LUNIT, CHR, STR) INPUT ARGUMENT LIST: LUNIT - INTEGER: FORTRAN LOGICAL UNIT NUMBER FOR BUFR FILE STR - CHARACTER*(*): STRING (I.E., MNEMONIC)</p>
-<p>OUTPUT ARGUMENT LIST: CHR - CHARACTER*(*): UNPACKED CHARACTER STRING (I.E., CHARACTER DATA ELEMENT GREATER THAN EIGHT BYTES)</p>
-<p>REMARKS: THIS ROUTINE CALLS: BORT ERRWRT IPKM PARSTR PARUTG STATUS UPC THIS ROUTINE IS CALLED BY: UFBDMP UFDUMP WRTREE Also called by application programs. </p>
+<div class="textblock"><p>Read a long character string (greater than 8 bytes) from a data subset. </p>
 
 <p>Definition in file <a class="el" href="readlc_8f_source.html">readlc.f</a>.</p>
-</div></div><!-- contents -->
+</div><h2 class="groupheader">Function/Subroutine Documentation</h2>
+<a class="anchor" id="acf408b0943fc7a5040009cd9a9bc57a1"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">subroutine readlc </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>LUNIT</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">character*(*)&#160;</td>
+          <td class="paramname"><em>CHR</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">character*(*)&#160;</td>
+          <td class="paramname"><em>STR</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This subroutine reads a long character string (greater than 8 bytes) from a data subset. </p>
+<p>The data subset should have already been read into internal arrays via a previous call to one of the <a class="el" href="md__gpfs_dell2_emc_obsproc_noscrub_Jeff_8Ator_NCEPLIBS-bufr-GitHub_nceplibs-bufr_docs_UserGuide.html#hierarchy">subset-reading subroutines</a>.</p>
+<dl class="section author"><dt>Authors</dt><dd>J. Woollen </dd>
+<dd>
+J. Ator </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2003-11-04</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">LUNIT</td><td>- integer: Fortran logical unit number for BUFR file </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">CHR</td><td>- character*(*): Value corresponding to STR </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">STR</td><td>- character*(*): Table B mnemonic of long character string to be retrieved, possibly supplemented with an ordinal occurrence notation</td></tr>
+  </table>
+  </dd>
+</dl>
+<p>If there is more than one occurrence of STR within the data subset definition, then each occurrence can be retrieved via a separate call to this subroutine, and by appending the ordinal number of the occurrence to STR in each case. For example, if there are 5 occurrences of mnemonic LSTID within a given data subset definition, then 5 separate calls should be made to this subroutine, once each with STR set to 'LSTID#1', 'LSTID#2', 'LSTID#3', 'LSTID#4' and 'LSTID#5'. However, the first notation is superfluous, because omitting the ordinal number always defaults to the first occurrence of a particular string, so a user could just specify 'LSTID' instead of 'LSTID#1'.</p>
+<dl class="section remark"><dt>Remarks</dt><dd><ul>
+<li>Character strings which are 8 bytes or less in length can be read using the real*8 USR array within a call to one of the BUFRLIB <a class="el" href="md__gpfs_dell2_emc_obsproc_noscrub_Jeff_8Ator_NCEPLIBS-bufr-GitHub_nceplibs-bufr_docs_UserGuide.html#hierarchy">values-reading subroutines</a> and then converting the corresponding real*8 value to character format within the application program.</li>
+<li>If STR is not found within the data subset definition, then CHR is returned with all bits set to 1, which is the standard WMO BUFR value for "missing" data. Any CHR value returned by this subroutine can be checked for equivalence to this "missing" value via a call to function <a class="el" href="icbfms_8f.html#a0ec4c9885d4a21769ddbab8f5f819d01" title="This function provides a handy way to check whether a character string returned from a previous call ...">icbfms()</a>.</li>
+</ul>
+</dd></dl>
+<p><b>Program history log:</b></p>
+<ul>
+<li>2003-11-04 J. Woollen &ndash; Original author</li>
+<li>2004-08-09 J. Ator &ndash; Maximum message length increased from 20,000 to 50,000 bytes</li>
+<li>2007-01-19 J. Ator &ndash; Replaced call to parseq with call to <a class="el" href="parstr_8f.html#a3379a342ab3d92dd01eef1f3172f9b86" title="THIS SUBROUTINE PARSES A STRING CONTAINING ONE OR MORE SUBSTRINGS INTO AN ARRAY OF SUBSTRINGS...">parstr()</a></li>
+<li>2009-03-23 J. Ator &ndash; Added capability for compressed messages; added check for overflow of chr; added '#' option for more than one occurrence of STR</li>
+<li>2009-04-21 J. Ator &ndash; Use <a class="el" href="errwrt_8f.html#a65626d9a772648676146b62b596c2764" title="This subroutine allows the user to specify a custom location for the logging of error and diagnostic ...">errwrt()</a></li>
+<li>2012-12-07 J. Ator &ndash; Allow str mnemonic length of up to 14 chars when used with '#' occurrence code</li>
+<li>2014-12-10 J. Ator &ndash; Use modules instead of COMMON blocks</li>
+<li>2020-09-09 J. Ator &ndash; Set CHR to "missing" instead of all blanks if STR isn't found in subset </li>
+</ul>
+
+<p>Definition at line <a class="el" href="readlc_8f_source.html#l00062">62</a> of file <a class="el" href="readlc_8f_source.html">readlc.f</a>.</p>
+
+<p>References <a class="el" href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort()</a>, <a class="el" href="errwrt_8f.html#a65626d9a772648676146b62b596c2764">errwrt()</a>, <a class="el" href="ipkm_8f.html#a8826417bb81a4404779e606d6b97759a">ipkm()</a>, <a class="el" href="parstr_8f.html#a3379a342ab3d92dd01eef1f3172f9b86">parstr()</a>, <a class="el" href="parutg_8f.html#a48496d3ac23b5e7d75a524f4ae62e181">parutg()</a>, <a class="el" href="status_8f.html#a22292e7a69c411a961168198d259f336">status()</a>, and <a class="el" href="upc_8f.html#ae2afdf50d0bf4063426faeae29515208">upc()</a>.</p>
+
+<p>Referenced by <a class="el" href="ufbdmp_8f.html#a27911114237cb390a24f44e0e0d706a3">ufbdmp()</a>, <a class="el" href="ufdump_8f.html#a1da91a86182d2e03c944a044f8a06813">ufdump()</a>, and <a class="el" href="wrtree_8f.html#a0700f04d89a10a24b1acb184f6022c77">wrtree()</a>.</p>
+
+</div>
+</div>
+</div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->

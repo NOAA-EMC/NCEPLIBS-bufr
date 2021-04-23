@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.3.2</span>
+   &#160;<span id="projectnumber">11.5.0</span>
    </div>
   </td>
  </tr>
@@ -92,7 +92,7 @@ $(document).ready(function(){initNavTree('drstpl_8f_source.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -164,37 +164,33 @@ $(document).ready(function(){initNavTree('drstpl_8f_source.html','');});
 <div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;<span class="comment">C&gt;</span></div>
 <div class="line"><a name="l00057"></a><span class="lineno"><a class="line" href="drstpl_8f.html#a665ed582f0160b2112ca37fe79457d5f">   57</a></span>&#160;<span class="keyword">      SUBROUTINE </span><a class="code" href="drstpl_8f.html#a665ed582f0160b2112ca37fe79457d5f">drstpl</a>(INOD,LUN,INV1,INV2,INVN)</div>
 <div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;      <span class="keywordtype">USE </span><a class="code" href="moda__tables_8F.html#classmoda__tables">moda_tables</a></div>
 <div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;      <span class="keywordtype">USE </span><a class="code" href="classmoda__tables.html">moda_tables</a></div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;      include <span class="stringliteral">&#39;bufrlib.inc&#39;</span></div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;<span class="comment">C-----------------------------------------------------------------------</span></div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;<span class="comment">C-----------------------------------------------------------------------</span></div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;1     node = inod</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;2     node = jmpb(node)</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;      <span class="keywordflow">IF</span>(node.EQ.0) goto 100</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;      <span class="keywordflow">IF</span>(typ(node).EQ.<span class="stringliteral">&#39;DRS&#39;</span> .OR. typ(node).EQ.<span class="stringliteral">&#39;DRB&#39;</span>) <span class="keywordflow">THEN</span></div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;         invn = <a class="code" href="invwin_8f.html#ac26ae485efa93dee816efb648bdfcc8b">invwin</a>(node,lun,inv1,inv2)</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;         <span class="keywordflow">IF</span>(invn.GT.0) <span class="keywordflow">THEN</span></div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;            CALL <a class="code" href="usrtpl_8f.html#a677bf700a4a6f0626a41921cd66d8ed9">usrtpl</a>(lun,invn,1)</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;            CALL <a class="code" href="newwin_8f.html#a7c72d9d0b9a4769b7d930b705490e057">newwin</a>(lun,inv1,inv2)</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;            invn = <a class="code" href="invwin_8f.html#ac26ae485efa93dee816efb648bdfcc8b">invwin</a>(inod,lun,invn,inv2)</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;            <span class="keywordflow">IF</span>(invn.GT.0) goto 100</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;            goto 1</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;         <span class="keywordflow">ENDIF</span></div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;      <span class="keywordflow">ENDIF</span></div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;      goto 2</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;<span class="comment">C  EXIT</span></div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;<span class="comment">C  ----</span></div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;100   <span class="keywordflow">RETURN</span></div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;      <span class="keywordflow">END</span></div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;<span class="comment">C-----------------------------------------------------------------------</span></div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;<span class="comment">C-----------------------------------------------------------------------</span></div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;1     node = inod</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;2     node = jmpb(node)</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;      <span class="keywordflow">IF</span>(node.EQ.0) goto 100</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;      <span class="keywordflow">IF</span>(typ(node).EQ.<span class="stringliteral">&#39;DRS&#39;</span> .OR. typ(node).EQ.<span class="stringliteral">&#39;DRB&#39;</span>) <span class="keywordflow">THEN</span></div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;         invn = <a class="code" href="invwin_8f.html#ac26ae485efa93dee816efb648bdfcc8b">invwin</a>(node,lun,inv1,inv2)</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;         <span class="keywordflow">IF</span>(invn.GT.0) <span class="keywordflow">THEN</span></div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;            CALL <a class="code" href="usrtpl_8f.html#a677bf700a4a6f0626a41921cd66d8ed9">usrtpl</a>(lun,invn,1)</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;            CALL <a class="code" href="newwin_8f.html#a7c72d9d0b9a4769b7d930b705490e057">newwin</a>(lun,inv1,inv2)</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;            invn = <a class="code" href="invwin_8f.html#ac26ae485efa93dee816efb648bdfcc8b">invwin</a>(inod,lun,invn,inv2)</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;            <span class="keywordflow">IF</span>(invn.GT.0) goto 100</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;            goto 1</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;         <span class="keywordflow">ENDIF</span></div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;      <span class="keywordflow">ENDIF</span></div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;      goto 2</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;<span class="comment">C  EXIT</span></div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;<span class="comment">C  ----</span></div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;100   <span class="keywordflow">RETURN</span></div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;      <span class="keywordflow">END</span></div>
 <div class="ttc" id="usrtpl_8f_html_a677bf700a4a6f0626a41921cd66d8ed9"><div class="ttname"><a href="usrtpl_8f.html#a677bf700a4a6f0626a41921cd66d8ed9">usrtpl</a></div><div class="ttdeci">subroutine usrtpl(LUN, INVN, NBMP)</div><div class="ttdoc">THIS SUBROUTINE STORES THE SUBSET TEMPLATE INTO INTERNAL SUBSET ARRAYS IN MODULE USRINT FOR CASES OF ...</div><div class="ttdef"><b>Definition:</b> <a href="usrtpl_8f_source.html#l00051">usrtpl.f:51</a></div></div>
-<div class="ttc" id="classmoda__tables_html"><div class="ttname"><a href="classmoda__tables.html">moda_tables</a></div><div class="ttdef"><b>Definition:</b> <a href="moda__tables_8F_source.html#l00001">moda_tables.F:1</a></div></div>
+<div class="ttc" id="moda__tables_8F_html_classmoda__tables"><div class="ttname"><a href="moda__tables_8F.html#classmoda__tables">moda_tables</a></div><div class="ttdoc">This module contains array and variable declarations used to store the internal jump/link table...</div><div class="ttdef"><b>Definition:</b> <a href="moda__tables_8F_source.html#l00013">moda_tables.F:13</a></div></div>
 <div class="ttc" id="drstpl_8f_html_a665ed582f0160b2112ca37fe79457d5f"><div class="ttname"><a href="drstpl_8f.html#a665ed582f0160b2112ca37fe79457d5f">drstpl</a></div><div class="ttdeci">subroutine drstpl(INOD, LUN, INV1, INV2, INVN)</div><div class="ttdoc">THIS SUBROUTINE IS CALLED BY BUFR ARCHIVE LIBRARY SUBROUTINE UFBRW WHENEVER IT CAN&amp;#39;T FIND A MNEMONIC ...</div><div class="ttdef"><b>Definition:</b> <a href="drstpl_8f_source.html#l00057">drstpl.f:57</a></div></div>
 <div class="ttc" id="invwin_8f_html_ac26ae485efa93dee816efb648bdfcc8b"><div class="ttname"><a href="invwin_8f.html#ac26ae485efa93dee816efb648bdfcc8b">invwin</a></div><div class="ttdeci">function invwin(NODE, LUN, INV1, INV2)</div><div class="ttdoc">THIS FUNCTION LOOKS FOR A SPECIFIED NODE WITHIN THE PORTION OF THE CURRENT SUBSET BUFFER BOUNDED BY T...</div><div class="ttdef"><b>Definition:</b> <a href="invwin_8f_source.html#l00048">invwin.f:48</a></div></div>
 <div class="ttc" id="newwin_8f_html_a7c72d9d0b9a4769b7d930b705490e057"><div class="ttname"><a href="newwin_8f.html#a7c72d9d0b9a4769b7d930b705490e057">newwin</a></div><div class="ttdeci">subroutine newwin(LUN, IWIN, JWIN)</div><div class="ttdoc">GIVEN AN INDEX WITHIN THE INTERNAL JUMP/LINK TABLE WHICH POINTS TO THE START OF AN &amp;quot;RPC&amp;quot; WINDOW (I...</div><div class="ttdef"><b>Definition:</b> <a href="newwin_8f_source.html#l00051">newwin.f:51</a></div></div>

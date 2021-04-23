@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.3.2</span>
+   &#160;<span id="projectnumber">11.5.0</span>
    </div>
   </td>
  </tr>
@@ -92,7 +92,7 @@ $(document).ready(function(){initNavTree('ufbmex_8f.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -109,17 +109,19 @@ $(document).ready(function(){initNavTree('ufbmex_8f.html','');});
 </div><!--header-->
 <div class="contents">
 
+<p>Connect a new system file to the BUFRLIB software, and read the entire file contents into internal arrays.  
+<a href="#details">More...</a></p>
+
 <p><a href="ufbmex_8f_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions/Subroutines</h2></td></tr>
 <tr class="memitem:abeceab81e913f1c3f833d7b2c680e5b3"><td class="memItemLeft" align="right" valign="top">subroutine&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ufbmex_8f.html#abeceab81e913f1c3f833d7b2c680e5b3">ufbmex</a> (LUNIT, LUNDX, INEW, IRET, MESG)</td></tr>
-<tr class="memdesc:abeceab81e913f1c3f833d7b2c680e5b3"><td class="mdescLeft">&#160;</td><td class="mdescRight">THIS SUBROUTINE OPENS A BUFR FILE FOR INPUT, READS EACH MESSAGE AND TRANSFERS THEM ONE-BY-ONE TO INTERNAL MEMORY (ARRAY MSGS IN MODULE MSGMEM).  <a href="#abeceab81e913f1c3f833d7b2c680e5b3">More...</a><br/></td></tr>
+<tr class="memdesc:abeceab81e913f1c3f833d7b2c680e5b3"><td class="mdescLeft">&#160;</td><td class="mdescRight">This subroutine connects a new system file to the BUFRLIB software for input operations, then reads the entire file contents into internal arrays so that any of the individual BUFR messages can later be accessed from memory, instead of having to read them one at a time sequentially from the system file.  <a href="#abeceab81e913f1c3f833d7b2c680e5b3">More...</a><br/></td></tr>
 <tr class="separator:abeceab81e913f1c3f833d7b2c680e5b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><dl class="section author"><dt>Author</dt><dd>WOOLLEN </dd></dl>
-<dl class="section date"><dt>Date</dt><dd>2012-01-26 </dd></dl>
+<div class="textblock"><p>Connect a new system file to the BUFRLIB software, and read the entire file contents into internal arrays. </p>
 
 <p>Definition in file <a class="el" href="ufbmex_8f_source.html">ufbmex.f</a>.</p>
 </div><h2 class="groupheader">Function/Subroutine Documentation</h2>
@@ -165,17 +167,35 @@ Functions/Subroutines</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>THIS SUBROUTINE OPENS A BUFR FILE FOR INPUT, READS EACH MESSAGE AND TRANSFERS THEM ONE-BY-ONE TO INTERNAL MEMORY (ARRAY MSGS IN MODULE MSGMEM). </p>
-<p>IF MESSAGES ARE APPENDED TO EXISTING MESSAGES IN INTERNAL MEMORY, THE BUFR FILE READ HERE IS CLOSED PRIOR TO RETURNING TO THE CALLING PROGRAM. AN ARRAY IS ALSO RETURNED CONTAINING A LIST OF MESSAGE TYPES READ IN.</p>
-<p>THIS IS A VARIATION OF UFBMEM WHICH ENABLES MESSAGE SORTING BEFORE READING. BECAUSE OF THIS RE-ORDERING, EMBEDDED TABLE MESSAGES ARE NOT STORED IN MODULE MSGMEM, SINCE THEY ARE NO LONGER RELEVANT ONCE THE RE-ORDERING (I.E. SORTING) HAS TAKEN PLACE. INSTEAD, A SEPARATE UNIT NUMBER IS ADDED TO THE INPUT ARGUMENTS TO SPECIFY WHERE THE NECESSARY BUFR TABLE INFORMATION CAN BE FOUND.</p>
-<p>PROGRAM HISTORY LOG: 2012-01-26 J. WOOLLEN &ndash; MODIFIED UFBMEM TO READ AND SORT MEMORY MESSAGES FOR TRANJB INGEST ROUTINES AND RETURN A LIST OF MESSAGE TYPES READ IN. ALSO, A SEPARATE INPUT ARGUMENT IS ADDED TO SPECIFY WHERE TO FIND THE BUFR TABLE, INSTEAD OF SAVING EMBEDDED DICTIONARY MESSAGES IN MODULE MSGMEM 2014-12-10 J. ATOR &ndash; USE MODULES INSTEAD OF COMMON BLOCKS 2015-09-24 D. STOKES &ndash; FIX MISSING DECLARATION OF COMMON /QUIET/</p>
-<p>USAGE: CALL UFBMEX (LUNIT, LUNDX, INEW, IRET, MESG) INPUT ARGUMENT LIST: LUNIT - INTEGER: FORTRAN LOGICAL UNIT NUMBER FOR BUFR FILE LUNDX - INTEGER: FORTRAN LOGICAL UNIT NUMBER FOR USER- SUPPLIED BUFR DICTIONARY TABLE IN CHARACTER FORMAT INEW - INTEGER: SWITCH: 0 = initialize internal arrays prior to transferring messages here else = append the messages transferred here to internal memory arrays</p>
-<p>OUTPUT ARGUMENT LIST: IRET - INTEGER: NUMBER OF MESSAGES TRANSFERRED MESG - INTEGER: ARRAY OF MESSAGE TYPES READ INTO MEMORY</p>
-<p>INPUT FILES: UNIT "LUNIT" - BUFR FILE UNIT "LUNDX" - BUFR DICTIONARY TABLE IN CHARACTER FORMAT</p>
-<p>REMARKS: NOTE THAT IREADMM, RDMEMM, READMM, UFBMMS, UFBMNS, UFBRMS, UFBTAB OR UFBTAM CAN BE CALLED AFTER THIS TO READ SPECIFIC BUFR MESSAGES FROM INTERNAL MEMORY.</p>
-<p>THIS ROUTINE CALLS: BORT CLOSBF ERRWRT IUPBS01 NMWRD OPENBF RDMSGW THIS ROUTINE IS CALLED BY: None Normally called only by application programs. </p>
+<p>This subroutine connects a new system file to the BUFRLIB software for input operations, then reads the entire file contents into internal arrays so that any of the individual BUFR messages can later be accessed from memory, instead of having to read them one at a time sequentially from the system file. </p>
+<p>This subroutine is similar to subroutine <a class="el" href="ufbmem_8f.html#aaa20a946a966bc4de8012e1a01461502" title="This subroutine connects a new system file to the BUFRLIB software for input operations, then reads the entire file contents into internal arrays so that any of the individual BUFR messages can later be accessed from memory, instead of having to read them one at a time sequentially from the system file. ">ufbmem()</a>, except that after reading in all of the messages, it then sorts them according to their message types and returns a corresponding list of these types. Furthermore, it does not process any embedded DX BUFR tables contained within the system file, since these tables are no longer relevant once the messages have been sorted and re-ordered from their original positions in the file. Instead, this subroutine provides an additional call argument LUNDX to allow for specification of the necessary DX BUFR table information associated with the messages in the file.</p>
+<dl class="section author"><dt>Author</dt><dd>J. Woollen </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2012-01-26</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">LUNIT</td><td>- integer: Fortran logical unit number for BUFR file </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">LUNDX</td><td>- integer: Fortran logical unit number containing DX BUFR table information associated with BUFR messages in LUNIT </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">INEW</td><td>- integer: Processing option<ul>
+<li>0 = Initialize the internal arrays, then read all BUFR messages from LUNIT into internal arrays</li>
+<li>Otherwise, read all BUFR messages from LUNIT and append them to the existing messages within the internal arrays </li>
+</ul>
+</td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">IRET</td><td>- integer: Number of BUFR messages that were read from LUNIT and stored into internal arrays </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">MESG</td><td>- integer(*): Types of BUFR messages that were read from LUNIT and stored into internal arrays</td></tr>
+  </table>
+  </dd>
+</dl>
+<p>Logical unit numbers LUNIT and LUNDX must already be associated with actual filenames on the local system, typically via a Fortran "OPEN" statement.</p>
+<p><b>Program history log:</b></p>
+<ul>
+<li>2012-01-26 J. Woollen &ndash; Original author</li>
+<li>2014-12-10 J. Ator &ndash; Use modules instead of COMMON blocks</li>
+<li>2015-09-24 D. Stokes &ndash; Fix missing declaration of COMMON /QUIET/ </li>
+</ul>
 
-<p>Definition at line <a class="el" href="ufbmex_8f_source.html#l00059">59</a> of file <a class="el" href="ufbmex_8f_source.html">ufbmex.f</a>.</p>
+<p>Definition at line <a class="el" href="ufbmex_8f_source.html#l00051">51</a> of file <a class="el" href="ufbmex_8f_source.html">ufbmex.f</a>.</p>
+
+<p>References <a class="el" href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort()</a>, <a class="el" href="closbf_8F.html#a00c94986037d2cf27d04de7a1f8a3ebc">closbf()</a>, <a class="el" href="errwrt_8f.html#a65626d9a772648676146b62b596c2764">errwrt()</a>, <a class="el" href="iupbs01_8f.html#adcd6f7c2f898b4f938153c5cf79a9cf5">iupbs01()</a>, <a class="el" href="nmwrd_8f.html#af955482010e67b333997227dc1118cfe">nmwrd()</a>, <a class="el" href="openbf_8F.html#a9bea9aeada166bd9037b959ca8452b28">openbf()</a>, and <a class="el" href="rdmsgw_8f.html#aa1d21de28344723fc4848ec1cd14b094">rdmsgw()</a>.</p>
 
 </div>
 </div>

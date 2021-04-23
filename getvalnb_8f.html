@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.3.2</span>
+   &#160;<span id="projectnumber">11.5.0</span>
    </div>
   </td>
  </tr>
@@ -92,7 +92,7 @@ $(document).ready(function(){initNavTree('getvalnb_8f.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -109,17 +109,19 @@ $(document).ready(function(){initNavTree('getvalnb_8f.html','');});
 </div><!--header-->
 <div class="contents">
 
+<p>Read one data value from a data subset.  
+<a href="#details">More...</a></p>
+
 <p><a href="getvalnb_8f_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions/Subroutines</h2></td></tr>
 <tr class="memitem:aaaf963dceeb56a2917b0142afbbe0742"><td class="memItemLeft" align="right" valign="top">REAL *8 function&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="getvalnb_8f.html#aaaf963dceeb56a2917b0142afbbe0742">getvalnb</a> (LUNIT, TAGPV, NTAGPV, TAGNB, NTAGNB)</td></tr>
-<tr class="memdesc:aaaf963dceeb56a2917b0142afbbe0742"><td class="mdescLeft">&#160;</td><td class="mdescRight">THIS FUNCTION SHOULD ONLY BE CALLED WHEN A BUFR FILE IS OPENED FOR INPUT, AND A SUBSET DEFINITION MUST ALREADY BE IN SCOPE VIA A PREVIOUS CALL TO BUFR ARCHIVE LIBRARY SUBROUTINE READSB OR EQUIVALENT.  <a href="#aaaf963dceeb56a2917b0142afbbe0742">More...</a><br/></td></tr>
+<tr class="memdesc:aaaf963dceeb56a2917b0142afbbe0742"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function can be used to read a data value corresponding to a specific occurrence of a mnemonic within a data subset, based on its position relative to a different mnemonic within the subset.  <a href="#aaaf963dceeb56a2917b0142afbbe0742">More...</a><br/></td></tr>
 <tr class="separator:aaaf963dceeb56a2917b0142afbbe0742"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><dl class="section author"><dt>Author</dt><dd>J </dd></dl>
-<dl class="section date"><dt>Date</dt><dd>2012-09-12 </dd></dl>
+<div class="textblock"><p>Read one data value from a data subset. </p>
 
 <p>Definition in file <a class="el" href="getvalnb_8f_source.html">getvalnb.f</a>.</p>
 </div><h2 class="groupheader">Function/Subroutine Documentation</h2>
@@ -165,14 +167,33 @@ Functions/Subroutines</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>THIS FUNCTION SHOULD ONLY BE CALLED WHEN A BUFR FILE IS OPENED FOR INPUT, AND A SUBSET DEFINITION MUST ALREADY BE IN SCOPE VIA A PREVIOUS CALL TO BUFR ARCHIVE LIBRARY SUBROUTINE READSB OR EQUIVALENT. </p>
-<p>THE FUNCTION WILL FIRST SEARCH FOR THE (NTAGPV)th OCCURRENCE OF MNEMONIC TAGPV WITHIN THE OVERALL SUBSET DEFINITION, COUNTING FROM THE BEGINNING OF THE SUBSET. IF FOUND, IT WILL THEN SEARCH FORWARD (IF NTAGNB IS POSITIVE) OR BACKWARD (IF NTAGNB IS NEGATIVE) FROM THAT POINT WITHIN THE SUBSET FOR THE (NTAGNB)th OCCURRENCE OF MNEMONIC TAGNB AND RETURN THE VALUE CORRESPONDING TO THAT MNEMONIC.</p>
-<p>PROGRAM HISTORY LOG: 2012-09-12 J. ATOR &ndash; ORIGINAL AUTHOR 2014-10-02 J. ATOR &ndash; MODIFIED TO USE FSTAG 2014-12-10 J. ATOR &ndash; USE MODULES INSTEAD OF COMMON BLOCKS</p>
-<p>USAGE: CALL GETVALNB (LUNIT, TAGPV, NTAGPV, TAGNB, NTAGNB) INPUT ARGUMENT LIST: LUNIT - INTEGER: FORTRAN LOGICAL UNIT NUMBER FOR BUFR FILE TAGPV - CHARACTER*(*): PIVOT MNEMONIC; THE FUNCTION WILL FIRST SEARCH FOR the (NTAGPV)th OCCURRENCE OF THIS MNEMONIC, COUNTING FROM THE BEGINNING OF THE OVERALL SUBSET DEFINITION NTAGPV - INTEGER: ORDINAL OCCURRENCE OF TAGPV TO SEARCH FOR TAGNB - CHARACTER*(*): NEARBY MNEMONIC; ASSUMING TAGPV IS SUCCESSFULLY FOUND, THE FUNCTION WILL THEN SEARCH NEARBY FOR THE (NTAGNB)th OCCURRENCE OF TAGNB AND RETURN THE CORRESPONDING VALUE NTAGNB - INTEGER: ORDINAL OCCURRENCE OF TAGNB TO SEARCH FOR, COUNTING FROM THE LOCATION OF TAGPV WITHIN THE OVERALL SUBSET DEFINITION. IF NTAGNB IS POSITIVE, THE FUNCTION WILL SEARCH IN A FORWARD DIRECTION FROM THE LOCATION OF TAGPV, OR IF NTAGNB IS NEGATIVE IT WILL INSTEAD SEARCH IN A BACKWARDS DIRECTION.</p>
-<p>OUTPUT ARGUMENT LIST: GETVALNB - REAL*8: VALUE CORRESPONDING TO (NTAGNB)th OCCURRENCE OF TAGNB. IF FOR ANY REASON THIS VALUE CANNOT BE LOCATED, THEN THE BUFR ARCHIVE LIBRARY MISSING VALUE BMISS WILL BE RETURNED.</p>
-<p>REMARKS: THIS ROUTINE CALLS: FSTAG STATUS THIS ROUTINE IS CALLED BY: None Normally called only by application programs </p>
+<p>This function can be used to read a data value corresponding to a specific occurrence of a mnemonic within a data subset, based on its position relative to a different mnemonic within the subset. </p>
+<p>The function first searches for a specific occurrence of a pivot mnemonic, counting from the beginning of the subset. From there, it then searches in either a forward or backward direction for a specific occurrence of a nearby mnemonic, and if found returns the data value from the corresponding location within the subset.</p>
+<dl class="section author"><dt>Author</dt><dd>J. Ator </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2012-09-12</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">LUNIT</td><td>- integer: Fortran logical unit number for BUFR file </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">TAGPV</td><td>- character*(*): Pivot mnemonic; the subroutine will first search for the (NTAGPV)th occurrence of this mnemonic, counting from the beginning of the overall subset definition </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">NTAGPV</td><td>- integer: Ordinal occurrence of TAGPV to search for, counting from the beginning of the overall subset definition </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">TAGNB</td><td>- character*(*): Nearby mnemonic; assuming TAGPV is successfully found, the subroutine will then search nearby for the (NTAGNB)th occurrence of TAGNB and return the corresponding value </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">NTAGNB</td><td>- integer: Ordinal occurrence of TAGNB to search for, counting from the location of TAGPV within the overall subset definition. If NTAGNB is positive, the subroutine will search in a forward direction from the location of TAGPV; otherwise, if NTAGNB is negative, it will instead search in a backwards direction from the location of TAGPV. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>getvalnb - real*8: Value corresponding to (NTAGNB)th occurrence of TAGNB. If for any reason this value cannot be located, then the current placeholder value for "missing" data will be returned instead.</dd></dl>
+<p>The current placeholder value for "missing" data can be determined via a separate call to function <a class="el" href="getbmiss_8f.html#afaf2f1c27bbdd180a75315e774c74d8e" title="This function returns the current placeholder value which represents &quot;missing&quot; data when reading from...">getbmiss()</a>.</p>
+<p>Before calling this function, a BUFR data subset should already be open for reading via a previous call to one of the BUFRLIB <a class="el" href="md__gpfs_dell2_emc_obsproc_noscrub_Jeff_8Ator_NCEPLIBS-bufr-GitHub_nceplibs-bufr_docs_UserGuide.html#hierarchy">subset-reading subroutines</a>.</p>
+<p><b>Program history log:</b></p>
+<ul>
+<li>2012-09-12 J. Ator &ndash; Original author</li>
+<li>2014-10-02 J. Ator &ndash; Modified to use <a class="el" href="fstag_8f.html#a4086d332625381684867dd7ec13a20e5" title="THIS SUBROUTINE FINDS THE (NUTAG)th OCCURRENCE OF MNEMONIC UTAG WITHIN THE CURRENT OVERALL SUBSET DEF...">fstag()</a></li>
+<li>2014-12-10 J. Ator &ndash; Use modules instead of COMMON blocks </li>
+</ul>
 
-<p>Definition at line <a class="el" href="getvalnb_8f_source.html#l00051">51</a> of file <a class="el" href="getvalnb_8f_source.html">getvalnb.f</a>.</p>
+<p>Definition at line <a class="el" href="getvalnb_8f_source.html#l00055">55</a> of file <a class="el" href="getvalnb_8f_source.html">getvalnb.f</a>.</p>
+
+<p>References <a class="el" href="fstag_8f.html#a4086d332625381684867dd7ec13a20e5">fstag()</a>, and <a class="el" href="status_8f.html#a22292e7a69c411a961168198d259f336">status()</a>.</p>
 
 </div>
 </div>
