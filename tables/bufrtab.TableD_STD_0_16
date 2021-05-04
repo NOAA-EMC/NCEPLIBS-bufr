@@ -1,7 +1,7 @@
 Table D STD |  0 | 16
 #
 # Standard BUFR Table D, Master Table 0, Version 16
-# This file was generated: 2016/10/28 15:42:56
+# This file was generated: 2021/05/04 21:47:35
 #
 #========================================================================================================
 # F-XX-YYY | MNEMONIC   ;DCOD ; NAME           <-- sequence definition
@@ -1768,7 +1768,7 @@ Table D STD |  0 | 16
            | 0-20-061 > | Runway visual range (RVR)
            | 0-20-018   | Tendency of runway visual range
 
-  3-07-014 | WPRIMEWS   ;     ; w´w´
+  3-07-014 | WPRIMEWS   ;     ; Significant present or forecast weather
            | 1-01-000 > | Delayed replication of 1 descriptor
            | 0-31-001 > | Delayed descriptor replication factor
            | 0-20-019   | Significant present or forecast weather
@@ -1779,7 +1779,7 @@ Table D STD |  0 | 16
            | 3-02-005 > | 
            | 0-20-002   | Vertical visibility
 
-  3-07-016 | REWPRMEW   ;     ; REw´w´
+  3-07-016 | REWPRMEW   ;     ; Significant recent weather phenomena
            | 1-01-000 > | Delayed replication of 1 descriptor
            | 0-31-001 > | Delayed descriptor replication factor
            | 0-20-020   | Significant recent weather phenomena
@@ -1805,20 +1805,20 @@ Table D STD |  0 | 16
            | 1-01-000 > | Delayed replication of 1 descriptor
            | 0-31-001 > | Delayed descriptor replication factor
            | 0-20-001 > | Horizontal visibility
-           | 3-07-014   | w´w´
+           | 3-07-014   | Significant present or forecast weather
 
   3-07-020 | SMETARSP   ;     ; Short METAR/SPECI
            | 3-07-011 > | Main part of data for representation of METAR/SPECI code in BUFR
-           | 3-07-014 > | w´w´
-           | 3-07-016   | REw´w´
+           | 3-07-014 > | Significant present or forecast weather
+           | 3-07-016   | Significant recent weather phenomena
 
   3-07-021 | TMETARSP   ;     ; Total sequence for representation of METAR/SPECI code in BUFR
            | 3-07-011 > | Main part of data for representation of METAR/SPECI code in BUFR
            | 3-07-012 > | DvVVVV
            | 3-07-013 > | DRDR/VRVRVRVR
-           | 3-07-014 > | w´w´
+           | 3-07-014 > | Significant present or forecast weather
            | 3-07-015 > | Clouds group(s)
-           | 3-07-016 > | REw´w´
+           | 3-07-016 > | Significant recent weather phenomena
            | 3-07-017 > | Wind shear on runways(s)
            | 3-07-018 > | Trend-type landing forecast
            | 3-07-015   | Clouds group(s)
@@ -1927,10 +1927,10 @@ Table D STD |  0 | 16
            | 1-01-000 > | Delayed replication of 1 descriptor
            | 0-31-000 > | Short delayed descriptor replication factor
            | 0-20-060 > | Prevailing horizontal visibility
-           | 3-07-014 > | w´w´
+           | 3-07-014 > | Significant present or forecast weather
            | 3-07-047   | METAR/SPECI/TAF clouds, replacing 3-07-015
 
-  3-07-049 | SEACONDT   ;     ; Sea conditions WTsTs/SS’
+  3-07-049 | SEACONDT   ;     ; Sea conditions
            | 1-02-000 > | Delayed replication of 2 descriptors
            | 0-31-000 > | Short delayed descriptor replication factor
            | 0-22-043 > | Sea/water temperature
@@ -1956,11 +1956,11 @@ Table D STD |  0 | 16
            | 3-07-045 > | Main part of METAR/SPECI, replacing 3-07-011
            | 3-07-046 > | METAR/SPECI visibility
            | 3-07-013 > | DRDR/VRVRVRVR
-           | 3-07-014 > | w´w´
+           | 3-07-014 > | Significant present or forecast weather
            | 3-07-047 > | METAR/SPECI/TAF clouds, replacing 3-07-015
-           | 3-07-016 > | REw´w´
+           | 3-07-016 > | Significant recent weather phenomena
            | 3-07-017 > | Wind shear on runways(s)
-           | 3-07-049 > | Sea conditions WTsTs/SS’
+           | 3-07-049 > | Sea conditions
            | 3-07-050 > | Runway state RRRRERERCReReRBRBR
            | 1-01-000 > | Delayed replication of 1 descriptor
            | 0-31-001 > | Delayed descriptor replication factor
@@ -1997,7 +1997,7 @@ Table D STD |  0 | 16
            | 0-07-032 > | Height of sensor above local ground (or deck of marine platform)
            | 0-20-009 > | General weather indicator (TAF/METAR)
            | 0-20-060 > | Prevailing horizontal visibility
-           | 3-07-014 > | w´w´
+           | 3-07-014 > | Significant present or forecast weather
            | 3-07-047   | METAR/SPECI/TAF clouds, replacing 3-07-015
 
   3-07-054 | FSTEXTMP   ;     ; Forecast of extreme temperatures

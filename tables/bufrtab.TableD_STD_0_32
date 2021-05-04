@@ -1,7 +1,7 @@
 Table D STD |  0 | 32
 #
 # Standard BUFR Table D, Master Table 0, Version 32
-# This file was generated: 2019/05/29 13:06:46
+# This file was generated: 2021/05/04 21:48:17
 #
 #========================================================================================================
 # F-XX-YYY | MNEMONIC   ;DCOD ; NAME           <-- sequence definition
@@ -185,7 +185,7 @@ Table D STD |  0 | 32
            | 3-01-012 > | Hour, minute
            | 3-01-023   | Latitude/longitude (coarse accuracy)
 
-  3-01-035 | BUOYPLTM   ;     ; Buoy/platform - moving)
+  3-01-035 | BUOYPLTM   ;     ; Buoy/platform - moving
            | 0-01-005 > | Buoy/platform identifier
            | 0-01-012 > | Direction of motion of moving observing platform
            | 0-01-013 > | Speed of motion of moving observing platform
@@ -516,7 +516,7 @@ Table D STD |  0 | 32
            | 0-02-014 > | Tracking technique/status of system used
            | 0-02-003   | Type of measuring equipment used
 
-  3-01-113 | DATETMLN   ;     ; Date/time of launch)
+  3-01-113 | DATETMLN   ;     ; Date/time of launch
            | 0-08-021 > | Time significance
            | 3-01-011 > | Year, month, day
            | 3-01-013   | Hour, minute, second
@@ -2531,7 +2531,7 @@ Table D STD |  0 | 32
            | 3-01-074 > | Ozone instrumentation - Dobson spectrophotometer
            | 3-07-031   | Ozone data - averaged observations
 
-  3-07-045 | METARSPM   ;     ; Main part of METAR/SPECI), replacing 3 07 01
+  3-07-045 | METARSPM   ;     ; Main part of METAR/SPECI, replacing 3-07-011
            | 0-01-063 > | ICAO location indicator
            | 0-08-079 > | Product status
            | 0-02-001 > | Type of station
@@ -2567,7 +2567,7 @@ Table D STD |  0 | 32
            | 0-05-021 > | Bearing or azimuth
            | 0-20-059   | Minimum horizontal visibility
 
-  3-07-047 | METARSPC   ;     ; METAR/SPECI/TAF clouds), replacing 3 07 01
+  3-07-047 | METARSPC   ;     ; METAR/SPECI/TAF clouds, replacing 3-07-015
            | 1-05-000 > | Delayed replication of 5 descriptors
            | 0-31-001 > | Delayed descriptor replication factor
            | 0-08-002 > | Vertical significance (surface observations)
@@ -2578,7 +2578,7 @@ Table D STD |  0 | 32
            | 0-20-002 > | Vertical visibility
            | 0-20-091   | Vertical visibility
 
-  3-07-048 | TRENDFST   ;     ; Trend type forecast), replacing 3 07 01
+  3-07-048 | TRENDFST   ;     ; Trend type forecast, replacing 3-07-018
            | 0-08-016 > | Change qualifier of a trend-type forecast or an aerodrome forecast
            | 1-02-000 > | Delayed replication of 2 descriptors
            | 0-31-001 > | Delayed descriptor replication factor
@@ -2627,7 +2627,7 @@ Table D STD |  0 | 32
            | 0-20-088 > | Depth of runway deposits
            | 0-20-089   | Runway friction coefficient
 
-  3-07-051 | METARSPI   ;     ; Full METAR/SPECI), replacing 3 07 02
+  3-07-051 | METARSPI   ;     ; Full METAR/SPECI, replacing 3-07-021
            | 3-07-045 > | Main part of METAR/SPECI), replacing 3 07 01
            | 3-07-046 > | METAR/SPECI visibility
            | 3-07-013 > | Runway visual range
@@ -6007,7 +6007,7 @@ Table D STD |  0 | 32
            | 2-01-000 > | Cancel change data width
            | 0-15-052 > | Log10 of number density of aerosol particles with diameter greater than 5 nm
            | 0-15-053 > | Log10 of number density of aerosol particles with diameter greater than 14 nm
-           | 0-15-054 > | Log10 of number density of aerosol particles with diameter between 0.25 and 2.5 µm
+           | 0-15-054 > | Log10 of number density of aerosol particles with diameter between 0.25 and 2.5 um
            | 0-15-055 > | Non volatile aerosol ratio
            | 0-07-004 > | Pressure
            | 0-07-004 > | Pressure
@@ -6297,7 +6297,7 @@ Table D STD |  0 | 32
 
   3-12-032 | SEAWPROR   ;     ; SEAWINDS precipitation
            | 0-21-120 > | Probability of rain
-           | 0-21-121 > | SEAWINDS NOF* rain index
+           | 0-21-121 > | SEAWINDS NOF rain index
            | 0-13-055 > | Intensity of precipitation
            | 0-21-122   | Attenuation correction on sigma-0 (from tB)
 
@@ -6692,7 +6692,7 @@ Table D STD |  0 | 32
            | 0-21-181 > | 20 Hz ocean backscatter coefficient
            | 0-21-138 > | Std Ku band corrected ocean backscatter coefficient
            | 0-21-180 > | Number of 20 Hz valid points for ocean backscatter coefficient
-           | 0-21-177 > | Corrected OCOG* backscatter coefficient
+           | 0-21-177 > | Corrected OCOG backscatter coefficient
            | 0-21-178 > | STD of 20 Hz OCOG backscatter coefficient
            | 0-21-179 > | Number of 20 Hz valid points for OCOG backscatter coefficient
            | 0-10-079 > | Off-nadir angle of the satellite from platform data
@@ -6722,7 +6722,7 @@ Table D STD |  0 | 32
            | 0-25-133 > | Sea state bias correction on Ku band
            | 0-25-182 > | L1 processing flag
            | 0-25-183 > | L1 processing quality
-           | 0-25-180 > | LRM* per cent
+           | 0-25-180 > | LRM per cent
            | 0-25-184 > | L2 product status
            | 0-25-181 > | L2 processing flag
            | 0-33-080   | Scan level quality flags
@@ -8722,7 +8722,7 @@ Table D STD |  0 | 32
            | 0-21-183 > | Specific band corrected ocean backscatter coefficient
            | 0-22-190 > | Specific band significant wave height
            | 0-22-133 > | Specific band net instrument correction for significant wave height
-           | 0-21-177 > | Corrected OCOG* backscatter coefficient
+           | 0-21-177 > | Corrected OCOG backscatter coefficient
            | 0-21-185 > | Specific band net instrumental correction for AGC
            | 0-13-164 > | Sea ice freeboard
            | 2-02-126 > | Change scale
