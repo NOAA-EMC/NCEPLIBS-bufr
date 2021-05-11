@@ -1,7 +1,7 @@
-Table F STD |  0 | 20
+Table F STD |  0 | 36
 #
-# Standard BUFR Table CODE/FLAG, Master Table 0, Version 20
-# This file was generated: 2021/05/11 22:56:07
+# Standard BUFR Table CODE/FLAG, Master Table 0, Version 36
+# This file was generated: 2021/05/11 22:56:47
 #
 #========================================================================================================
 # F-XX-YYY | MNEMONIC ; CODE               <-- code table definition
@@ -53,6 +53,13 @@ Table F STD |  0 | 20
               | 58 > | METEOSAT 1
               | 59 > | METEOSAT 2
               | 60 > | ENVISAT
+              | 61 > | Sentinel 3A
+              | 62 > | Sentinel 1A
+              | 63 > | Sentinel 1B
+              | 64 > | Sentinel 5P
+              | 65 > | Sentinel 3B
+              | 66 > | Sentinel 6A
+              | 67 > | Sentinel 6B
               | 70 > | METEOSAT 11
               | 120 > | ADEOS
               | 121 > | ADEOS II
@@ -61,6 +68,8 @@ Table F STD |  0 | 20
               | 150 > | GMS 3
               | 151 > | GMS 4
               | 152 > | GMS 5
+              | 153 > | GMS
+              | 154 > | GMS-2
               | 171 > | MTSAT-1R
               | 172 > | MTSAT-2
               | 173 > | Himawari-8
@@ -80,6 +89,8 @@ Table F STD |  0 | 20
               | 222 > | LANDSAT 7
               | 223 > | NOAA 19
               | 224 > | NPP
+              | 225 > | NOAA 20
+              | 226 > | NOAA 21
               | 240 > | DMSP 7
               | 241 > | DMSP 8
               | 242 > | DMSP 9
@@ -102,20 +113,37 @@ Table F STD |  0 | 20
               | 259 > | GOES 15
               | 260 > | JASON 1
               | 261 > | JASON 2
+              | 262 > | JASON 3
+              | 265 > | GeoOptics CICERO OP1
+              | 266 > | GeoOptics CICERO OP2
+              | 267 > | PlanetiQ GNOMES-A
+              | 268 > | PlanetiQ GNOMES-B
+              | 269 > | Spire Lemur 3U Cubesat
+              | 270 > | GOES 16
+              | 271 > | GOES 17
+              | 272 > | GOES 18
+              | 273 > | GOES 19
               | 281 > | QUIKSCAT
               | 282 > | TRMM
               | 283 > | CORIOLIS
               | 285 > | DMSP17
               | 286 > | DMSP18
+              | 287 > | DMSP-19
+              | 288 > | GPM-core
+              | 289 > | Orbiting Carbon Observatory - 2 (OCO-2, NASA)
               | 310 > | GOMS 1
               | 311 > | GOMS 2
               | 320 > | METEOR 2-21
               | 321 > | METEOR 3-5
               | 322 > | METEOR 3M-1
               | 323 > | METEOR 3M-2
+              | 324 > | METEOR-M N2
+              | 325 > | METEOR-M N2 2
               | 341 > | RESURS 01-4
               | 410 > | KALPANA-1
               | 421 > | Oceansat-2
+              | 422 > | ScatSat-1
+              | 423 > | Oceansat-3
               | 430 > | INSAT 1B
               | 431 > | INSAT 1C
               | 432 > | INSAT 1D
@@ -127,15 +155,26 @@ Table F STD |  0 | 20
               | 470 > | INSAT 3A
               | 471 > | INSAT 3D
               | 472 > | INSAT 3E
+              | 473 > | INSAT 3DR
+              | 474 > | INSAT 3DS
               | 500 > | FY-1C
               | 501 > | FY-1D
+              | 502 > | Hai Yang 2A (HY-2A, SOA/NSOAS China)
+              | 503 > | Hai Yang 2B (HY-2B, SOA/NSOAS China)
+              | 504 > | Hai Yang 2C (HY-2C, SOA/NSOAS China)
               | 510 > | FY-2
               | 512 > | FY-2B
               | 513 > | FY-2C
               | 514 > | FY-2D
               | 515 > | FY-2E
+              | 516 > | FY-2F
+              | 517 > | FY-2G
+              | 518 > | FY-2H
               | 520 > | FY-3A
               | 521 > | FY-3B
+              | 522 > | FY-3C
+              | 523 > | FY-3D
+              | 530 > | FY-4A
               | 700 > | TIROS M (ITOS 1)
               | 701 > | NOAA 1
               | 702 > | NOAA 2
@@ -151,6 +190,12 @@ Table F STD |  0 | 20
               | 721 > | GFO
               | 722 > | GRACE A
               | 723 > | GRACE B
+              | 724 > | COSMIC-2 P1
+              | 725 > | COSMIC-2 P2
+              | 726 > | COSMIC-2 P3
+              | 727 > | COSMIC-2 P4
+              | 728 > | COSMIC-2 P5
+              | 729 > | COSMIC-2 P6
               | 731 > | GOES 1
               | 732 > | GOES 2
               | 733 > | GOES 3
@@ -162,6 +207,12 @@ Table F STD |  0 | 20
               | 743 > | COSMIC-4
               | 744 > | COSMIC-5
               | 745 > | COSMIC-6
+              | 750 > | COSMIC-2 E1
+              | 751 > | COSMIC-2 E2
+              | 752 > | COSMIC-2 E3
+              | 753 > | COSMIC-2 E4
+              | 754 > | COSMIC-2 E5
+              | 755 > | COSMIC-2 E6
               | 763 > | NIMBUS 3
               | 764 > | NIMBUS 4
               | 765 > | NIMBUS 5
@@ -177,8 +228,14 @@ Table F STD |  0 | 20
               | 787 > | CALIPSO
               | 788 > | CloudSat
               | 800 > | SUNSAT
-              | 810 > | COMS-1
-              | 811 > | COMS-2
+              | 801 > | International Space Station (ISS)
+              | 802 > | CFOSAT
+              | 803 > | GRACE C (GRACE-FO)
+              | 804 > | GRACE D (GRACE-FO)
+              | 810 > | COMS
+              | 811 > | GEO-KOMPSAT-2A
+              | 812 > | SCISAT-1
+              | 813 > | ODIN
               | 820 > | SAC-C
               | 821 > | SAC-D
               | 825 > | KOMPSAT-5
@@ -186,7 +243,9 @@ Table F STD |  0 | 20
               | 851 > | Combination of NOAA 16 to NOAA 19
               | 852 > | Combination of METOP-1 to METOP-3
               | 853 > | Combination of METEOSAT and DMSP
-              | 854   | Non-specific mixture of geostationary and low earth orbiting satellites
+              | 854 > | Non-specific mixture of geostationary and low earth orbiting satellites
+              | 855 > | Combination of INSAT 3D and INSAT 3DR
+              | 856   | Combination of Sentinel-3 satellites
 
   0-01-024 | WSPDS ; CODE
               | 0 > | No wind speed data available
@@ -269,7 +328,7 @@ Table F STD |  0 | 20
               | 50 > | Venezuela (NMC)
               | 51 > | Miami (RSMC)
               | 52 > | Miami (RSMC), National Hurricane Center
-              | 53 > | Montreal (RSMC)
+              | 53 > | MSC Monitoring
               | 54 > | Montreal (RSMC)
               | 55 > | San Francisco
               | 56 > | ARINC Centre
@@ -359,6 +418,7 @@ Table F STD |  0 | 20
               | 145 > | French Guyana
               | 146 > | Brazilian Navy Hydrographic Centre
               | 147 > | COmision Nacional de Actividades Espaciales (CONAE) - Argentina
+              | 148 > | Brazilian Department of Airspace Control - DECEA
               | 150 > | Antigua and Barbuda (NMC)
               | 151 > | Bahamas (NMC)
               | 152 > | Barbados (NMC)
@@ -387,6 +447,9 @@ Table F STD |  0 | 20
               | 175 > | University Corporation for Atmospheric Research (UCAR) - United States
               | 176 > | U.S. Cooperative Institute for Meteorological Satellite Studies (CIMSS)
               | 177 > | U.S. NOAA National Ocean Service
+              | 178 > | Spire Global, Inc.
+              | 179 > | GeoOptics, Inc.
+              | 180 > | PlanetiQ
               | 190 > | Cook Islands (NMC)
               | 191 > | French Polynesia (NMC)
               | 192 > | Tonga (NMC)
@@ -441,6 +504,7 @@ Table F STD |  0 | 20
               | 246 > | Republic of Moldova (NMC)
               | 247 > | Operational Programme for the Exchange of weather RAdar information (OPERA) - EUMETNET
               | 248 > | Montenegro (NMC)
+              | 249 > | Barcelona Dust Forecast Center
               | 250 > | COnsortium for Small scale MOdelling  (COSMO)
               | 251 > | Meteorological Cooperation on Operational NWP (MetCoOp)
               | 252 > | Max Planck Institute for Meteorology (MPI-M)
@@ -478,16 +542,15 @@ Table F STD |  0 | 20
               | 286 > | Sudan (NMC)
               | 287 > | Swaziland (NMC)
               | 288 > | Togo (NMC)
-              | 289   | Zambia (NMC)
+              | 289 > | Zambia (NMC)
+              | 290 > | EUMETNET E-Profile
+              | 291   | The Institute of Atmospheric Physics (IAP) of Chinese Academy of Sciences (CAS)
 
   0-01-032 | GNAP ; CODE
-           | 0-01-031,0-01-033,0-01-035=160
-              | 0 > | First guess
-              | 1 > | Quality values derived from the EUMETSAT QI (Quality Indicator) method, excluding the forecast consistency test, but with slight differences between the different satellite operators
-              | 2 > | Quality values derived from the NESDIS RFF (Recursive Filter Function) method
-              | 3 > | Quality values derived from the EUMETSAT QI (Quality Indicator) method, with the forecast consistency test
-              | 4 > | Quality values derived from the NESDIS EE (Expected Error) method
-              | 5 > | Quality values derived from the EUMETSAT QI (Quality Indicator) method, excluding the forecast consistency test, and common to all satellite operators (computed exactly the same way)
+           | 0-01-031,0-01-033,0-01-035=34
+              | 101 > | Quality values derived from the EUMETSAT QI (Quality Indicator) method, with the forecast consistency test
+              | 102 > | Quality values derived from the EUMETSAT QI (Quality Indicator) method, excluding the forecast consistency test
+              | 103 > | Quality values derived from the NESDIS RFF (Recursive Filter Function) method
            | 0-01-031,0-01-033,0-01-035=98
               | 61 > | 3DVAR analysis
               | 65 > | 4DVAR analysis
@@ -495,10 +558,10 @@ Table F STD |  0 | 20
               | 1 > | Quality values derived from the EUMETSAT QI (Quality Indicator) method, with the forecast consistency test
               | 2 > | Quality values derived from the EUMETSAT QI (Quality Indicator) method, excluding the forecast consistency test
               | 3 > | Quality values derived from the NESDIS RFF (Recursive Filter Function) method
-           | 0-01-031,0-01-033,0-01-035=34
-              | 101 > | Quality values derived from the EUMETSAT QI (Quality Indicator) method, with the forecast consistency test
-              | 102 > | Quality values derived from the EUMETSAT QI (Quality Indicator) method, excluding the forecast consistency test
-              | 103 > | Quality values derived from the NESDIS RFF (Recursive Filter Function) method
+           | 0-01-031,0-01-033,0-01-035=176
+              | 1 > | Quality values derived from the EUMETSAT QI (Quality Indicator) method, excluding the forecast consistency test
+              | 2 > | Quality values derived from the NESDIS RFF (Recursive Filter Function) method
+              | 3 > | Quality values derived from the EUMETSAT QI (Quality Indicator) method, with the forecast consistency test
            | 0-01-031,0-01-033,0-01-035=7
               | 2 > | Ultra Violet Index Model
               | 3 > | NCEP/ARL Transport and Dispersion Model
@@ -529,6 +592,8 @@ Table F STD |  0 | 20
               | 68 > | 80 wave triangular, 18-layer Spectral model from GFS model
               | 69 > | 80 wave triangular, 18 layer Spectral model from "Medium Range Forecast
               | 70 > | Quasi-Lagrangian Hurricane Model (QLM)
+              | 71 > | Hurricane Weather Research and Forecasting (HWRF) Model
+              | 72 > | Hurricane Non-Hydrostatic Multiscale Model on the B Grid (HNMMB)
               | 73 > | Fog Forecast model - Ocean Products Center
               | 74 > | Gulf of Mexico Wind/Wave
               | 75 > | Gulf of Alaska Wind/Wave
@@ -607,10 +672,13 @@ Table F STD |  0 | 20
               | 211 > | EPA Air Quality Forecast - Currently Eastern U.S. Domain
               | 215 > | SPC Manual Forecast Product
               | 220 > | NCEP/OPC automated product
-           | 0-01-031,0-01-033,0-01-035=176
-              | 1 > | Quality values derived from the EUMETSAT QI (Quality Indicator) method, excluding the forecast consistency test
+           | 0-01-031,0-01-033,0-01-035=160
+              | 0 > | First guess
+              | 1 > | Quality values derived from the EUMETSAT QI (Quality Indicator) method, excluding the forecast consistency test, but with slight differences between the different satellite operators
               | 2 > | Quality values derived from the NESDIS RFF (Recursive Filter Function) method
-              | 3   | Quality values derived from the EUMETSAT QI (Quality Indicator) method, with the forecast consistency test
+              | 3 > | Quality values derived from the EUMETSAT QI (Quality Indicator) method, with the forecast consistency test
+              | 4 > | Quality values derived from the NESDIS EE (Expected Error) method
+              | 5   | Quality values derived from the EUMETSAT QI (Quality Indicator) method, excluding the forecast consistency test, and common to all satellite operators (computed exactly the same way)
 
   0-01-033 | OGCE ; CODE
               | 0 > | WMO Secretariat
@@ -666,7 +734,7 @@ Table F STD |  0 | 20
               | 50 > | Venezuela (NMC)
               | 51 > | Miami (RSMC)
               | 52 > | Miami (RSMC), National Hurricane Center
-              | 53 > | Montreal (RSMC)
+              | 53 > | MSC Monitoring
               | 54 > | Montreal (RSMC)
               | 55 > | San Francisco
               | 56 > | ARINC Centre
@@ -756,6 +824,7 @@ Table F STD |  0 | 20
               | 145 > | French Guyana
               | 146 > | Brazilian Navy Hydrographic Centre
               | 147 > | COmision Nacional de Actividades Espaciales (CONAE) - Argentina
+              | 148 > | Brazilian Department of Airspace Control - DECEA
               | 150 > | Antigua and Barbuda (NMC)
               | 151 > | Bahamas (NMC)
               | 152 > | Barbados (NMC)
@@ -784,6 +853,9 @@ Table F STD |  0 | 20
               | 175 > | University Corporation for Atmospheric Research (UCAR) - United States
               | 176 > | U.S. Cooperative Institute for Meteorological Satellite Studies (CIMSS)
               | 177 > | U.S. NOAA National Ocean Service
+              | 178 > | Spire Global, Inc.
+              | 179 > | GeoOptics, Inc.
+              | 180 > | PlanetiQ
               | 190 > | Cook Islands (NMC)
               | 191 > | French Polynesia (NMC)
               | 192 > | Tonga (NMC)
@@ -838,15 +910,121 @@ Table F STD |  0 | 20
               | 246 > | Republic of Moldova (NMC)
               | 247 > | Operational Programme for the Exchange of weather RAdar information (OPERA) - EUMETNET
               | 248 > | Montenegro (NMC)
+              | 249 > | Barcelona Dust Forecast Center
               | 250 > | COnsortium for Small scale MOdelling  (COSMO)
               | 251 > | Meteorological Cooperation on Operational NWP (MetCoOp)
               | 252 > | Max Planck Institute for Meteorology (MPI-M)
               | 254   | EUMETSAT Operation Centre
 
   0-01-034 | GSES ; CODE
+           | 0-01-031,0-01-033,0-01-035=34
+              | 0 > | No sub-centre
+              | 207 > | Syowa
+              | 240 > | Kiyose
+              | 241 > | Reanalysis project
+           | 0-01-031,0-01-033,0-01-035=46
+              | 0 > | No sub-centre
+              | 10 > | Cachoeira Paulista (INPE)
+              | 11 > | Cuiaba (INPE)
+              | 12 > | Brasilia (SEPIS-INMET)
+              | 13 > | Fortaleza (FUNCEME)
+              | 14 > | Natal (Navy Hygrog. Centre)
+              | 15 > | Manaus (SIVAM)
+              | 16 > | Natal (INPE)
+              | 17 > | Boa Vista
+              | 18 > | SIPAM-Porto Velho-RO
+              | 19 > | SIPAM-Belem-PA
+              | 25 > | Sao Paulo University - USP
+           | 0-01-031,0-01-033,0-01-035=147
+              | 0 > | No sub-centre
+              | 10 > | Cordoba
+              | 15 > | Ushuaia
+              | 20 > | Marambio
+              | 30 > | Santiago de Chile
+              | 40 > | Punta Arenas
+              | 50 > | Base Presidente Frei
+              | 60 > | Cotopaxi
+           | 0-01-031,0-01-033,0-01-035=72
+              | 0 > | No sub-centre
+              | 249 > | Singapore
            | 0-01-031,0-01-033,0-01-035=227
               | 0 > | No sub-centre
               | 1 > | Luxembourg (NMC)
+           | 0-01-031,0-01-033,0-01-035=254
+              | 0 > | No sub-centre
+              | 10 > | Tromso (Norway)
+              | 20 > | Maspalomas (Spain)
+              | 30 > | Kangerlussuaq (Greenland)
+              | 40 > | Edmonton (Canada)
+              | 50 > | Bedford (Canada)
+              | 60 > | Gander (Canada)
+              | 70 > | Monterey (USA)
+              | 80 > | Wallops Island (USA)
+              | 90 > | Gilmor Creek (USA)
+              | 100 > | Athens (Greece)
+              | 120 > | Ewa Beach, Hawaii
+              | 125 > | Ford Island, Hawaii
+              | 130 > | Miami, Florida
+              | 140 > | Lannion (France)
+              | 150 > | Svalbard (Norway)
+              | 170 > | St Denis (La Reunion)
+              | 180 > | Moscow
+              | 190 > | Muscat
+              | 200 > | Khabarovsk
+              | 210 > | Novosibirsk
+           | 0-01-031,0-01-033,0-01-035=80
+              | 0 > | No sub-centre
+              | 101 > | Albania (NMC)
+              | 102 > | National Research Council/Institute of Atmospheric Sciences and Climate (CNR-ISAC)
+           | 0-01-031,0-01-033,0-01-035=40
+              | 0 > | No sub-centre
+              | 243 > | Seoul
+              | 245 > | Jincheon
+           | 0-01-031,0-01-033,0-01-035=96
+              | 0 > | No sub-centre
+              | 1 > | Cyprus (NMC)
+           | 0-01-031,0-01-033,0-01-035=2
+              | 0 > | No sub-centre
+              | 201 > | Casey
+              | 203 > | Davis
+              | 210 > | Alice Springs
+              | 211 > | Melbourne Crib Point 1
+              | 214 > | Darwin
+              | 217 > | Perth
+              | 219 > | Townsville
+              | 232 > | Fiji
+              | 235 > | Noumea
+              | 237 > | Papeete
+              | 250 > | Vladivostock
+              | 251 > | Guam
+              | 252 > | Honolulu
+           | 0-01-031,0-01-033,0-01-035=176
+              | 0 > | No sub-centre
+              | 10 > | Tromso (Norway)
+              | 11 > | McMurdo (Antarctica)
+              | 12 > | Sodankyla (Finland)
+              | 13 > | Fairbanks (USA)
+              | 14 > | Barrow (USA)
+              | 15 > | Rothera (Antarctica)
+              | 20 > | Honolulu (United States)
+              | 21 > | Gilmore Creek (United States)
+              | 22 > | Madison (United States)
+              | 23 > | Miami (United States)
+              | 24 > | Mayaguez (Puerto Rico)
+              | 25 > | Monterey (United States)
+              | 26 > | Guam
+              | 27 > | Corvallis (United States)
+              | 28 > | Hampton (United States)
+              | 29 > | New York City (United States)
+           | 0-01-031,0-01-033,0-01-035=161
+              | 0 > | No sub-centre
+              | 1 > | Great Lakes Environmental Research Laboratory
+              | 2 > | Earth System Research Laboratory
+              | 3 > | Atlantic Oceanographic and Meteorological Laboratory
+              | 4 > | Pacific Marine Environmental Laboratory
+              | 5 > | Air Resources Laboratory
+              | 6 > | Geophysical Fluid Dynamics Laboratory
+              | 7 > | National Severe Storms Laboratory
            | 0-01-031,0-01-033,0-01-035=74
               | 0 > | No sub-centre
               | 1 > | Shanwick Oceanic Area Control Centre
@@ -874,13 +1052,23 @@ Table F STD |  0 | 20
               | 35 > | Instituto Geografico Nacional de Espana (Spain)
               | 36 > | Met Eireann (Ireland)
               | 37 > | Royal Observatory of Belgium (Belgium)
-           | 0-01-031,0-01-033,0-01-035=80
+           | 0-01-031,0-01-033,0-01-035=250
               | 0 > | No sub-centre
-              | 101 > | Albania (NMC)
-           | 0-01-031,0-01-033,0-01-035=160
+              | 76 > | RHM (Russia)
+              | 78 > | DWD (Germany)
+              | 80 > | USAM (Italy)
+              | 96 > | HNMS (Greece)
+              | 215 > | MCH (Switzerland)
+              | 220 > | IMGW (Poland)
+              | 242 > | NMA (Romania)
+           | 0-01-031,0-01-033,0-01-035=39
               | 0 > | No sub-centre
-              | 10 > | Tromso (Norway)
-              | 11 > | McMurdo (Antarctica)
+              | 225 > | Beijing
+              | 226 > | Guangzhou
+              | 228 > | Urumuqi
+           | 0-01-031,0-01-033,0-01-035=89
+              | 0 > | No sub-centre
+              | 1 > | Solar and Ozone Observatory Hradec Kralove
            | 0-01-031,0-01-033,0-01-035=78
               | 0 > | No sub-centre
               | 10 > | POLARA (Polarimetric Radar Algorithms instance)
@@ -904,47 +1092,17 @@ Table F STD |  0 | 20
               | 236 > | Thuringen, TOCC Erfurt
               | 237 > | EasyWay - Meteotrans
               | 254 > | EUMETSAT
-           | 0-01-031,0-01-033,0-01-035=89
+           | 0-01-031,0-01-033,0-01-035=85
               | 0 > | No sub-centre
-              | 1 > | Solar and Ozone Observatory Hradec Kralove
-           | 0-01-031,0-01-033,0-01-035=46
+              | 200 > | Institut National de l'Environnement Industriel et des Risques (France)
+              | 201 > | Rheinisches Institut fur Umweltforschung an der Universitat zu Koln E.V. (Germany)
+              | 202 > | Institut Francais de Recherche pour l'Exploitation de la Mer
+              | 203 > | Aarhus University (Denmark)
+              | 204 > | Institute of Environmental Protection - National Research Institute (Poland)
+           | 0-01-031,0-01-033,0-01-035=177
               | 0 > | No sub-centre
-              | 10 > | Cachoeira Paulista (INPE)
-              | 11 > | Cuiaba (INPE)
-              | 12 > | Brasilia (INMET)
-              | 13 > | Fortaleza (FUNCEME)
-              | 14 > | Natal (Navy Hygrog. Centre)
-              | 15 > | Manaus (SIVAM)
-              | 16 > | Natal (INPE)
-              | 17 > | Boa Vista
-           | 0-01-031,0-01-033,0-01-035=254
-              | 0 > | No sub-centre
-              | 10 > | Tromso (Norway)
-              | 20 > | Maspalomas (Spain)
-              | 30 > | Kangerlussuaq (Greenland)
-              | 40 > | Edmonton (Canada)
-              | 50 > | Bedford (Canada)
-              | 60 > | Gander (Canada)
-              | 70 > | Monterey (USA)
-              | 80 > | Wallops Island (USA)
-              | 90 > | Gilmor Creek (USA)
-              | 100 > | Athens (Greece)
-              | 120 > | Ewa Beach, Hawaii
-              | 130 > | Miami, Florida
-              | 140 > | Lannion (France)
-              | 150 > | Svalbard (Norway)
-              | 170 > | St Denis (La Reunion)
-              | 180 > | Moscow
-              | 190 > | Muscat
-              | 200 > | Khabarovsk
-              | 210 > | Novosibirsk
-           | 0-01-031,0-01-033,0-01-035=34
-              | 0 > | No sub-centre
-              | 207 > | Syowa
-              | 240 > | Kiyose
-           | 0-01-031,0-01-033,0-01-035=110
-              | 0 > | No sub-centre
-              | 229 > | Hong-Kong
+              | 1 > | Center for Operational Oceanographic Products and Services
+              | 2 > | Coastal Survey Development Laboratory
            | 0-01-031,0-01-033,0-01-035=173
               | 0 > | No sub-centre
               | 1 > | Ames Research Center
@@ -961,72 +1119,16 @@ Table F STD |  0 | 20
               | 12 > | Independent Verification and Validation Facility
               | 13 > | NASA Shared Service Center
               | 14 > | Wallops Flight Facility
-           | 0-01-031,0-01-033,0-01-035=2
+           | 0-01-031,0-01-033,0-01-035=110
               | 0 > | No sub-centre
-              | 201 > | Casey
-              | 203 > | Davis
-              | 211 > | Melbourne Crib Point 1
-              | 214 > | Darwin
-              | 217 > | Perth
-              | 219 > | Townsville
-              | 232 > | Fiji
-              | 235 > | Noumea
-              | 237 > | Papeete
-              | 250 > | Vladivostock
-              | 251 > | Guam
-              | 252 > | Honolulu
-           | 0-01-031,0-01-033,0-01-035=72
-              | 0 > | No sub-centre
-              | 249 > | Singapore
-           | 0-01-031,0-01-033,0-01-035=161
-              | 0 > | No sub-centre
-              | 1 > | Great Lakes Environmental Research Laboratory
-              | 2 > | Earth System Research Laboratory
-           | 0-01-031,0-01-033,0-01-035=40
-              | 0 > | No sub-centre
-              | 243 > | Seoul
-              | 245 > | Jincheon
-           | 0-01-031,0-01-033,0-01-035=250
-              | 0 > | No sub-centre
-              | 76 > | RHM (Russia)
-              | 78 > | DWD (Germany)
-              | 80 > | USAM (Italy)
-              | 96 > | HNMS (Greece)
-              | 215 > | MCH (Switzerland)
-              | 220 > | IMGW (Poland)
-              | 242 > | NMA (Romania)
-           | 0-01-031,0-01-033,0-01-035=177
-              | 0 > | No sub-centre
-              | 1 > | Center for Operational Oceanographic Products and Services
-              | 2 > | Coastal Survey Development Laboratory
-           | 0-01-031,0-01-033,0-01-035=147
-              | 0 > | No sub-centre
-              | 10 > | Cordoba
-              | 15 > | Ushuaia
-              | 20 > | Marambio
-              | 30 > | Santiago de Chile
-              | 40 > | Punta Arenas
-              | 50 > | Base Presidente Frei
-              | 60 > | Cotopaxi
-           | 0-01-031,0-01-033,0-01-035=69
-              | 0 > | No sub-centre
-              | 243 > | Kelburn
-           | 0-01-031,0-01-033,0-01-035=204
-              | 0 > | No sub-centre
-              | 101 > | Maupuia
-              | 102 > | Lauder
-           | 0-01-031,0-01-033,0-01-035=39
-              | 0 > | No sub-centre
-              | 225 > | Beijing
-              | 226 > | Guangzhou
-              | 228 > | Urumuqi
+              | 229 > | Hong-Kong
            | 0-01-031,0-01-033,0-01-035=7
               | 0 > | No sub-centre
               | 1 > | NCEP Reanalysis Project
               | 2 > | NCEP Ensemble Products
               | 3 > | NCEP Central Operations
               | 4 > | Environmental Modeling Center
-              | 5 > | Hydrometeorological Prediction Center
+              | 5 > | Weather Prediction Center
               | 6 > | Ocean Prediction Center
               | 7 > | Climate Prediction Center
               | 8 > | Aviation Weather Center
@@ -1039,17 +1141,35 @@ Table F STD |  0 | 20
               | 15 > | North American Regional Reanalysis Project
               | 16 > | Space Weather Prediction Center
               | 17 > | ESRL Global Systems Division
-           | 0-01-031,0-01-033,0-01-035=96
+           | 0-01-031,0-01-033,0-01-035=204
               | 0 > | No sub-centre
-              | 1 > | Cyprus (NMC)
-           | 0-01-031,0-01-033,0-01-035=176
+              | 101 > | Maupuia
+              | 102 > | Lauder
+           | 0-01-031,0-01-033,0-01-035=191
               | 0 > | No sub-centre
+              | 1 > | RARS station of Tahiti (French Polynesia)
+           | 0-01-031,0-01-033,0-01-035=69
+              | 0 > | No sub-centre
+              | 204 > | National Institute of Water and Atmospheric Research (NIWA - New Zealand)
+              | 205 > | Niue
+              | 206 > | Raotonga (Cook Islands)
+              | 207 > | Apia (Samoa)
+              | 208 > | Tonga
+              | 209 > | Tuvalu
+              | 210 > | Kiribati
+              | 211 > | Tokelau
+              | 243 > | Kelburn
+           | 0-01-031,0-01-033,0-01-035=160
+              | 0 > | No sub-centre
+              | 1 > | National Climatic Data Center
+              | 2 > | National Geophysical Data Center
+              | 3 > | National Oceanographic Data Center
+              | 4 > | Center for Satellite Applications and Research (STAR)
+              | 5 > | Joint Polar Satellite System
               | 10 > | Tromso (Norway)
               | 11 > | McMurdo (Antarctica)
-              | 12 > | Sodankyla (Finland)
-              | 13 > | Fairbanks (USA)
-              | 14 > | Barrow (USA)
-              | 15   | Rothera (Antarctica)
+           | 0-01-031,0-01-033,0-01-035=148
+              | 1   | Integrated Centre of Aeronautical Meteorology - CIMAER
 
   0-01-035 | ORIGC ; CODE
               | 0 > | WMO Secretariat
@@ -1105,7 +1225,7 @@ Table F STD |  0 | 20
               | 50 > | Venezuela (NMC)
               | 51 > | Miami (RSMC)
               | 52 > | Miami (RSMC), National Hurricane Center
-              | 53 > | Montreal (RSMC)
+              | 53 > | MSC Monitoring
               | 54 > | Montreal (RSMC)
               | 55 > | San Francisco
               | 56 > | ARINC Centre
@@ -1195,6 +1315,7 @@ Table F STD |  0 | 20
               | 145 > | French Guyana
               | 146 > | Brazilian Navy Hydrographic Centre
               | 147 > | COmision Nacional de Actividades Espaciales (CONAE) - Argentina
+              | 148 > | Brazilian Department of Airspace Control - DECEA
               | 150 > | Antigua and Barbuda (NMC)
               | 151 > | Bahamas (NMC)
               | 152 > | Barbados (NMC)
@@ -1223,6 +1344,9 @@ Table F STD |  0 | 20
               | 175 > | University Corporation for Atmospheric Research (UCAR) - United States
               | 176 > | U.S. Cooperative Institute for Meteorological Satellite Studies (CIMSS)
               | 177 > | U.S. NOAA National Ocean Service
+              | 178 > | Spire Global, Inc.
+              | 179 > | GeoOptics, Inc.
+              | 180 > | PlanetiQ
               | 190 > | Cook Islands (NMC)
               | 191 > | French Polynesia (NMC)
               | 192 > | Tonga (NMC)
@@ -1277,6 +1401,7 @@ Table F STD |  0 | 20
               | 246 > | Republic of Moldova (NMC)
               | 247 > | Operational Programme for the Exchange of weather RAdar information (OPERA) - EUMETNET
               | 248 > | Montenegro (NMC)
+              | 249 > | Barcelona Dust Forecast Center
               | 250 > | COnsortium for Small scale MOdelling  (COSMO)
               | 251 > | Meteorological Cooperation on Operational NWP (MetCoOp)
               | 252 > | Max Planck Institute for Meteorology (MPI-M)
@@ -1314,7 +1439,9 @@ Table F STD |  0 | 20
               | 286 > | Sudan (NMC)
               | 287 > | Swaziland (NMC)
               | 288 > | Togo (NMC)
-              | 289   | Zambia (NMC)
+              | 289 > | Zambia (NMC)
+              | 290 > | EUMETNET E-Profile
+              | 291   | The Institute of Atmospheric Physics (IAP) of Chinese Academy of Sciences (CAS)
 
   0-01-036 | AOOP ; CODE
               | 36001 > | Australia, Bureau of Meteorology (BOM)
@@ -1322,6 +1449,9 @@ Table F STD |  0 | 20
               | 36003 > | Australia, the Commonwealth Scientific and Industrial Research Organisation (CSIRO)
               | 124001 > | Canada, Marine Environmental Data Service (MEDS)
               | 124002 > | Canada, Institute of Ocean Sciences (IOS)
+              | 124173 > | Canada, Environment Canada
+              | 124174 > | Canada, Department of National Defense
+              | 124175 > | Canada, Nav Canada
               | 156001 > | China, The State Oceanic Administration
               | 156002 > | China, Second Institute of Oceanography State Oceanic Administration
               | 156003 > | China, Institute of Ocean Technology
@@ -1360,6 +1490,15 @@ Table F STD |  0 | 20
               | 4 > | CMS (France) cloud mask used by Medspiration
               | 5   | EUMETSAT OSI-SAF
 
+  0-01-044 | GNAPS ; CODE
+              | 1 > | Full weighted mixture of individual quality tests
+              | 2 > | Weighted mixture of individual tests, but excluding forecast comparison
+              | 3 > | Recursive filter function
+              | 4 > | Common quality index (QI) without forecast
+              | 5 > | QI without forecast
+              | 6 > | QI with forecast
+              | 7   | Estimated Error (EE) in m/s converted to a percent confidence
+
   0-01-052 | PTIDT ; CODE
               | 0 > | Primary
               | 1   | Secondary
@@ -1374,7 +1513,8 @@ Table F STD |  0 | 20
               | 0 > | Unperturbed high-resolution control forecast
               | 1 > | Unperturbed low-resolution control forecast
               | 2 > | Negatively perturbed forecast
-              | 3   | Positively perturbed forecast
+              | 3 > | Positively perturbed forecast
+              | 4   | Perturbed forecast
 
   0-01-101 | STID ; CODE
               | 100 > | Algeria
@@ -1579,6 +1719,18 @@ Table F STD |  0 | 20
               | 648 > | Ukraine
               | 649   | United Kingdom of Great Britain and Northern Ireland (RA VI)
 
+  0-01-150 | CRFS ; CODE
+              | 0 > | WGS84, as used by ICAO since 1998
+              | 1 > | ETRS89, as defined by EPSG::4258
+              | 2 > | NAD83, as defined by EPSG::4269
+              | 3 > | DHDN, as defined by EPSG::4314
+              | 4 > | Ellipsoidal datum using the International Reference Meridian and the International Reference Pole as the prime meridian and prime pole, respectively, and the origin of the International Terrestrial Reference System (ITRS).  International Reference Meridian, International Reference Pole and ITRS are maintained by the International Earth Rotation and Reference Systems Service (IERS).
+              | 5   | Earth-centered, earth-fixed (ECEF) coordinate system or Earth-centred rotational (ECR) system. This is a right-handed Cartesian coordinate system (X, Y, Z) rotating with the Earth. The origin is defined by the centre of mass of the Earth.
+
+  0-01-151 | FMSLRD ; CODE
+              | 0 > | Earth Gravitational Model 1996
+              | 1   | Baltic height system 1977
+
   0-02-001 | TOST ; CODE
               | 0 > | Automatic
               | 1 > | Manned
@@ -1600,6 +1752,7 @@ Table F STD |  0 | 20
               | 7 > | Satellite navigation
               | 8 > | Radio-acoustic Sounding System (RASS)
               | 9 > | Sodar
+              | 10 > | LIDAR
               | 14   | Pressure instrument associated with wind measuring equipment but pressure element failed during ascent
 
   0-02-004 | TIEM ; CODE
@@ -1613,6 +1766,34 @@ Table F STD |  0 | 20
               | 7 > | Maize
               | 8 > | Sorghum
               | 9   | Other crops
+
+  0-02-006 | UARSI ; CODE
+              | 1 > | Elastic backscatter lidar
+              | 2 > | Raman backscatter lidar
+              | 3 > | Radar wind profiler
+              | 4 > | Lidar wind profiler
+              | 5 > | Sodar wind profiler
+              | 6 > | Wind profiler
+              | 7   | Lidar
+
+  0-02-007 | TGIT ; CODE
+              | 1 > | Shaft encoder float system
+              | 2 > | Ultrasonic
+              | 3 > | Radar
+              | 4 > | Pressure (single transducer)
+              | 5 > | Pressure (multiple transducer)
+              | 6 > | Pressure (in stilling well)
+              | 7 > | Bubbler pressure
+              | 8 > | Acoustic (with sounding tube)
+              | 9   | Acoustic (in open air)
+
+  0-02-008 | TOFSP ; CODE
+              | 0 > | Fixed platform
+              | 1 > | Mobile offshore drill ship
+              | 2 > | Jack-up rig
+              | 3 > | Semi-submersible platform
+              | 4 > | FPSO (floating production storage and offloading unit)
+              | 5   | Light vessel
 
   0-02-011 | RATP ; CODE
               | 1 > | iMet-1-BB (USA)
@@ -1711,33 +1892,60 @@ Table F STD |  0 | 20
               | 94 > | No pressure radiosonde plus transponder
               | 95 > | No pressure radiosonde plus radar reflector
               | 96 > | Descending radiosonde
-              | 97 > | BAT-16P (South Africa)
-              | 98 > | BAT-16G (South Africa)
-              | 99 > | BAT-4G (South Africa)
+              | 97 > | iMet-2/iMet-1500 RDF radiosonde with pressure sensor chip (South Africa)
+              | 98 > | iMet-2/iMet-1500 GPS radiosonde with derived pressure from GPS height (South Africa)
+              | 99 > | iMet-2/iMet-3200 GPS radiosonde with derived pressure from GPS height (South Africa)
               | 110 > | Sippican LMS5 w/Chip Thermistor, duct mounted capacitance relative humidity sensor and derived pressure from GPS height
               | 111 > | Sippican LMS6 w/Chip Thermistor, external boom mounted capacitance relative humidity sensor, and derived pressure from GPS height
+              | 112 > | Jin Yang RSG-20A with derived pressure from GPS height GL-5000P (Republic of Korea)
               | 113 > | Vaisala RS92/MARWIN MW32 (Finland)
               | 114 > | Vaisala RS92/DigiCORA MW41 (Finland)
               | 115 > | PAZA-12M/Radiotheodolite-UL (Ukraine)
               | 116 > | PAZA-22/AVK-1 (Ukraine)
               | 117 > | Graw DFM-09 (Germany)
+              | 119 > | Polus-MRZ-N1 (Russian Federation)
+              | 121 > | Jin Yang 1524LA LORAN-C/GL5000 (Republic of Korea)
               | 122 > | Meisei RS-11G GPS radiosonde with thermistor, capacitance relative humidity sensor, and derived pressure from GPS height (Japan)
               | 123 > | Vaisala RS41/DigiCORA MW41 (Finland)
               | 124 > | Vaisala RS41/AUTOSONDE (Finland)
               | 125 > | Vaisala RS41/MARWIN MW32 (Finland)
+              | 126 > | Meteolabor SRS-C34/Argus 37 (Switzerland)
               | 128 > | AVK - AK2-02 (Russian Federation)
               | 129 > | MARL-A or Vektor-M - AK2-02 (Russian Federation)
               | 130 > | Meisei RS06G (Japan)
               | 131 > | Taiyuan GTS1-1/GFE(L) (China)
               | 132 > | Shanghai GTS1/GFE(L) (China)
               | 133 > | Nanjing GTS1-2/GFE(L) (China)
+              | 134 > | iMet-4 GPS radiosonde (USA)
+              | 135 > | Meisei iMS-100 GPS radiosonde w/thermistor sensor, capacitance relative humidity sensor, and derived pressure from GPS height (Japan)
+              | 136 > | Meisei iMDS-17 GPS dropsonde w/thermistor sensor, capacitance relative humidity sensor, and capacitance pressure sensor (Japan)
               | 141 > | Vaisala RS41 with pressure derived from GPS height/ DigiCORA MW41 (Finland)
               | 142 > | Vaisala RS41 with pressure derived from GPS height/ AUTOSONDE (Finland)
+              | 143 > | NanJing Daqiao XGP-3G (China)
+              | 144 > | TianJin HuaYunTianYi GTS(U)1 (China)
+              | 145 > | Beijing Changfeng CF-06 (China)
+              | 146 > | Shanghai Changwang GTS3 (China)
               | 148 > | PAZA-22M/MARL-A
+              | 150 > | Meteolabor SRS-C50/Argus (Switzerland)
               | 152 > | Vaisala RS92-NGP/Intermet IMS-2000 (USA)
+              | 153 > | AVK - I-2012 (Russian Federation)
+              | 154 > | Graw DFM-17 (Germany)
+              | 160 > | MARL-A or Vektor-M - I-2012 (Russian Federation)
+              | 162 > | MARL-A or Vektor-M - MRZ-3MK (Russian Federation)
+              | 163 > | Modem M20 radiosonde w/thermistor sensor, capacitance relative humidity sensor, and derived pressure from GPS height (France)
+              | 164 > | Modem PilotSonde GPS radiosonde (France)
+              | 173 > | MARL-A (Russian Federation) - ASPAN-15 (Kazakhstan)
               | 177 > | Modem GPSonde M10 (France)
               | 182 > | Lockheed Martin LMS-6 w/chip thermistor, external boom mounted polymer capacitive relative humidity sensor, capacitive pressure sensor and GPS wind
-              | 183   | Vaisala RS92-D/Intermet IMS 1500 w/silicon capacitive pressure sensor, capacitive wire temperature sensor, twin thin-film heated polymer capacitive relative humidity sensor and RDF wind
+              | 183 > | Vaisala RS92-D/Intermet IMS 1500 w/silicon capacitive pressure sensor, capacitive wire temperature sensor, twin thin-film heated polymer capacitive relative humidity sensor and RDF wind
+              | 184 > | iMet-54/iMet-3200/3400 GPS radiosonde with derived pressure from GPS height (South Africa)
+              | 190 > | NCAR research dropsonde NRD94 with GPS and Vaisala RS92-based sensor module (United States)
+              | 191 > | NCAR research dropsonde NRD41 with GPS and Vaisala RS41-based sensor module (United States)
+              | 192 > | Vaisala/NCAR dropsonde RD94 with GPS and Vaisala RS92-based sensor module (Finland/USA)
+              | 193 > | Vaisala/NCAR dropsonde RD41 with GPS and Vaisala RS41-based sensor module (Finland/USA)
+              | 200 > | Nanjing GTS11 (China)
+              | 201 > | Shanghai GTS12 (China)
+              | 202   | Taiyuan GTS13 (China)
 
   0-02-013 | SIRC ; CODE
               | 0 > | No correction
@@ -1747,7 +1955,9 @@ Table F STD |  0 | 20
               | 4 > | Solar and infrared corrected automatically by radiosonde system
               | 5 > | Solar corrected automatically by radiosonde system
               | 6 > | Solar and infrared corrected as specified by country
-              | 7   | Solar corrected as specified by country
+              | 7 > | Solar corrected as specified by country
+              | 8 > | Solar and infrared corrected as specified by GRUAN
+              | 9   | Solar corrected as specified by GRUAN
 
   0-02-014 | TTSS ; CODE
               | 0 > | No wind finding
@@ -1816,7 +2026,8 @@ Table F STD |  0 | 20
               | 0 > | No corrections
               | 1 > | Time lag correction provided by the manufacturer
               | 2 > | Solar radiation correction provided by the manufacturer
-              | 3   | Solar radiation and time lag correction provided by the manufacturer
+              | 3 > | Solar radiation and time lag correction provided by the manufacturer
+              | 7   | GRUAN solar radiation and time lag correction
 
   0-02-019 | SIID ; CODE
               | 10 > | BNSC Radiometer AATSR (Advanced along track scanning radiometer)
@@ -1837,6 +2048,7 @@ Table F STD |  0 | 20
               | 54 > | CNES Radiometer ScaRaB/MV2 (Scanner for Earth's radiation budget)
               | 55 > | CNES Radiometer POLDER (POLDER)
               | 56 > | CNES Imaging multi-spectral radiometer IIR (Imaging Infrared Radiometer)
+              | 57 > | ESA/EUMETSAT Radar altimeter POSEIDON-4 (High precision altimetry, dual frequency (C and Ku band) pulse-width limited radar altimeter, synthetic-aperture processing, interleaved Low Rate and High Rate)
               | 60 > | CNES Spectrometer VEGETATION (VEGETATION)
               | 61 > | CNES Spectrometer WINDII (WINDII)
               | 62 > | CNES Altimeter AltiKa (Ka band Radar Altimeter)
@@ -1845,10 +2057,12 @@ Table F STD |  0 | 20
               | 85 > | CSA Radar SAR (CSA) (Synthetic aperture radar (CSA))
               | 90 > | CSA Radiometer MOPITT (Measurements of pollution in the troposphere)
               | 91 > | CSA Atmospheric chemistry instrument OSIRIS (Optical spectrograph and Infrared imaging system)
+              | 92 > | CSA Limb-scanning sounder ACE-FTS (Atmospheric Chemistry Experiment - Fourier Transform Spectrometer)
               | 97 > | CSIRO Radiometer Panchromatic imager
               | 98 > | CRCSS Atmospheric temperature and humidity sounder GPS receiver
               | 102 > | DLR Radiometer CHAMP GPS sounder (GPS turborogue space receiver (TRSR))
               | 103 > | DLR Radiometer IGOR (Integrated GPS and Occultation Receiver)
+              | 104 > | NASA GNSS occultation sounder Tri-G (Triple-G (GPS, Galileo, GLONASS))
               | 116 > | DLR Magnetometer CHAMP gravity package (Accelerometer+GPS) (STAR accelerometer)
               | 117 > | DLR Magnetometer CHAMP magnetometry package (1 scalar+2 vector magnetometer) (Overhauser magnetometer (OVM) and fluxgate magnetometer (FGM))
               | 120 > | ESA Communications ENVISAT Comms (Communications package on ENVISAT)
@@ -1865,6 +2079,8 @@ Table F STD |  0 | 20
               | 147 > | ESA Radar RA-2/MWR (Radar altimeter - 2)
               | 148 > | ESA Radar RA/MWR (Radar altimeter)
               | 150 > | ESA Scatterometer SCATTEROMETER (Scatterometer)
+              | 151 > | ESA Imaging radar SAR-C (Synthetic Aperture Radar (C-band))
+              | 152 > | Cross-nadir scanning SW (Sounder TROPOMI Tropospheric Monitoring Instrument)
               | 161 > | ESA Radiometer MIPAS (Michelson interferometric passive atmosphere sounder)
               | 162 > | ESA Imaging multi-spectral radiometer (passive microwave) MWR-2 (Microwave radiometer-2)
               | 163 > | ESA Atmospheric chemistry instrument SOPRANO (Sub-milimetre observation of processes in the absorption noteworthy for ozone)
@@ -1874,6 +2090,9 @@ Table F STD |  0 | 20
               | 175 > | ESA Spectrometer SCIAMACHY (Scanning imaging absorption spectrometer for atmospheric cartography)
               | 176 > | ESA Radiometer MIRAS (Microwave Imaging Radiometer Using Aperture Synthesis)
               | 177 > | ESA Radar Altimeter SIRAL (SAR/Interferometric Radar Altimeter)
+              | 178 > | ESA Radar Altimeter SRAL (Synthetic aperture radar altimeter)
+              | 179 > | Moderate resolution optical imager OLCI (Ocean and land colour imager)
+              | 180 > | Moderate resolution optical imager SLSTR (Sea and land surface temperature radiometer)
               | 181 > | EUMETSAT Communications METEOSAT Comms (Communications package for METEOSAT)
               | 182 > | EUMETSAT Communications MSG Comms (Communications package for MSG)
               | 190 > | ESA/EUMETSAT Scatterometer ASCAT (Advanced scatterometer)
@@ -1908,6 +2127,7 @@ Table F STD |  0 | 20
               | 286 > | ISRO Ocean colour instrument OCM (Ocean colour monitor)
               | 287 > | ASI ROSA (Radio Occultation Sounder of the Atmosphere)
               | 288 > | ISRO Scatterometer SCAT (Scatterometer)
+              | 289 > | ISRO Optical imager IMG (Imager)
               | 290 > | JMA Communications MTSAT Comms (Communications package for MTSAT)
               | 291 > | JMA Communications Himawari Comms (Communications package for Himawari)
               | 294 > | JMA Imaging multi-spectral radiometer IMAGER/MTSAT-2 (Imager/MTSAT-2)
@@ -1921,6 +2141,7 @@ Table F STD |  0 | 20
               | 309 > | NASA Cloud profile and rain radar CPR (Cloudsat) (Cloud profiling radar)
               | 312 > | NASA Radar NSCAT (NASA scatterometer)
               | 313 > | NASA Radar SeaWinds (ADEOS II - NASA scatterometer)
+              | 314 > | NASA Radar RapidScat (RapidScat scatterometer)
               | 330 > | NASA Earth radiation budget radiometer ACRIM (Active cavity radiometer irradiance monitor)
               | 334 > | NASA Total and profile ozone BUV (Backscatter ultraviolet instrument)
               | 336 > | NASA High-resolution optical imager ALI (Advanced land imager)
@@ -1969,6 +2190,7 @@ Table F STD |  0 | 20
               | 426 > | NASA Spectrometer SOLSTICE (Solar stellar irradiance comparison experiment)
               | 430 > | NASA Spectrometer TES (Troposhperic emission spectrometer)
               | 431 > | NASA Spectrometer TOMS (Total ozone mapping spectrometer)
+              | 432 > | NASA Spectrometer OCO (Orbiting Carbon Observatory)
               | 450 > | JAXA Communications ADEOS Comms (Communications package for ADEOS)
               | 451 > | JAXA Communications DCS (JAXA) (Data collection system (JAXA))
               | 453 > | NASDA Communications GMS Comms (Communications package on GMS)
@@ -1997,6 +2219,18 @@ Table F STD |  0 | 20
               | 515 > | JAXA Total and profile ozone SOFIS (Solar occultation Fourier transform spectrometer for Inclined orbit Satellite)
               | 516 > | JAXA Spectrometer TANSO-FTS (Thermal and Near infrared Sensor for carbon Observations ( TANSO) Fourier Transform Spectrometer (FTS))
               | 517 > | JAXA Imager TANSO-CAI (Thermal and Near infrared Sensor for carbon Observations ( TANSO) Cloud and Aerosol Imager (CAI))
+              | 518 > | JAXA Cloud and precipitation radar DPR (Dual-frequency precipitation radar)
+              | 519 > | JAXA MW imaging/sounding radiometer, conical scanning GMI (GPM microwave imager)
+              | 526 > | GeoOptics GNSS occultation sounder Cion-A (GeoOptics Cion GNSS occultation receiver A)
+              | 527 > | GeoOptics GNSS occultation sounder Cion-B (GeoOptics Cion GNSS occultation receiver B)
+              | 528 > | GeoOptics GNSS occultation sounder Cion-C (GeoOptics Cion GNSS occultation receiver C)
+              | 529 > | GeoOptics GNSS occultation sounder Cion-D (GeoOptics Cion GNSS occultation receiver D)
+              | 530 > | Spire GNSS occultation sounder SGNOS-A (Spire global navigation satellite system occultation sounder A)
+              | 531 > | Spire GNSS occultation sounder SGNOS-B (Spire global navigation satellite system occultation sounder B)
+              | 532 > | Spire GNSS occultation sounder SGNOS-C (Spire global navigation satellite system occultation sounder C)
+              | 533 > | Spire GNSS occultation sounder SGNOS-D (Spire global navigation satellite system occultation sounder D)
+              | 534 > | PlanetiQ GNSS occultationsounder Pyxis-A (PlanetiQ Pyxis GNSS occultation receiver A)
+              | 535 > | PlanetiQ GNSS occultationsounder Pyxis-B (PlanetiQ Pyxis GNSS occultation receiver B)
               | 540 > | NOAA Communications DCS (NOAA) (Data-collection system (NOAA))
               | 541 > | NOAA Communications GOES Comms (Communications package on GOES)
               | 542 > | NOAA Communications LANDSAT Comms (Communications package for LANDSAT)
@@ -2017,11 +2251,14 @@ Table F STD |  0 | 20
               | 592 > | NOAA Radiometer AVHRR/4 (Advanced very high-resolution radiometer/4)
               | 600 > | NOAA Radiometer ERBE (Earth's radiation budget experiment)
               | 601 > | NOAA Radiometer ETM+ (Enhanced thematic mapper)
+              | 604 > | NOAA Radiometer HIRS/1 (High-resolution infrared sounder/1)
               | 605 > | NOAA Radiometer HIRS/2 (High-resolution infrared sounder/2)
               | 606 > | NOAA Radiometer HIRS/3 (High-resolution infrared sounder/3)
               | 607 > | NOAA Radiometer HIRS/4 (High-resolution infrared sounder/4)
               | 615 > | NOAA Radiometer IMAGER (Imager)
               | 616 > | NOAA Imaging multi-spectral radiometer (vis/IR) VIIRS (Visible/infrared imager radiometer suite)
+              | 617 > | NOAA Imaging multi-spectral radiometer ABI (Advanced baseline imager)
+              | 618 > | NOAA High-resolution optical imager GLM (Geostationary lightning mapper)
               | 620 > | NOAA Atmospheric temperature and humidity sounder CrIRS/NP (Cross track infrared sounder/NPOESS)
               | 621 > | NOAA Atmospheric temperature and humidity sounder ATMS (Advanced technology microwave sounder)
               | 622 > | NOAA Radiometer MSS (Multispectral scanning system)
@@ -2045,6 +2282,9 @@ Table F STD |  0 | 20
               | 683 > | NSAU High-resolution optical imager SU-UMS (Stereo radiometer with high resolution)
               | 684 > | NSAU High-resolution optical imager SU-VR (Visible radiometer with high resolution)
               | 685 > | NSAU Radiometer TRASSER
+              | 686 > | SOA Scatterometer SCAT (Scatterometer)
+              | 687 > | SOA Radar altimeter ALT (Radar altimeter)
+              | 688 > | SOA Microwave radiometer MWI (Microwave radiometer)
               | 700 > | ROSCOSMOS Communications KONDOR-2 (Data collection and transmission system)
               | 701 > | ROSCOSMOS Communications BRK
               | 710 > | ROSCOSMOS Lidar ALISSA (Backscatter lidar)
@@ -2101,6 +2341,8 @@ Table F STD |  0 | 20
               | 858 > | ROSCOSMOS Spectrometer KGI-4
               | 859 > | ROSCOSMOS Spectrometer Ozon-M
               | 860 > | ROSCOSMOS Spectrometer RMK-2
+              | 861 > | ROSCOSMOS Atmospheric temperature and humidity sounder MTVZA-GY (Module for temperature and humidity sounding in the atmosphere)
+              | 862 > | ROSCOSMOS Spectrometer IKFS-2 (Infrared Fourier spectrometer)
               | 900 > | NOAA Radiometer MAXIE (Magnetospheric atmospheric X-ray imaging experiment)
               | 901 > | NOAA Radiometer OLS (Operational linescan system)
               | 905 > | NOAA Radiometer SSM/I (Mission sensor microwave imager)
@@ -2120,6 +2362,7 @@ Table F STD |  0 | 20
               | 940 > | ROSCOSMOS Atmospheric temperature and humidity sounder MTVZA-OK (Scanning microwave radiometer)
               | 941 > | CNES Atmospheric temperature and humidity sounder SAPHIR
               | 942 > | CNES Microwave imager MADRAS (Microwave Analysis and Detection of Rain and Atmospheric Structures)
+              | 943 > | CNSA Scatterometer SCAT (on CFOSAT) Scatterometer
               | 944 > | NOAA Radar altimeter ALT (Altimeter)
               | 945 > | NOAA Earth radiation budget radiometer TSIS (Total solar irradiance sensor)
               | 946 > | NOAA Imaging multi-spectral radiometer (passive microwave) CMIS (Conical-scanning microwave imager/sounder)
@@ -2128,7 +2371,21 @@ Table F STD |  0 | 20
               | 949 > | NOAA Magnetic field, Auroal imagery Scintillation boundary SESS (Space environmental sensor suite)
               | 950 > | NRSCC Imaging multi-spectral radiometer (vis/IR) VIRR (Multispectral visible and infrared scan radiometer (10 channels))
               | 951 > | NRSCC Total and profile ozone TOM (Total ozone mapper)
-              | 952   | NRSCC Total and profile ozone OP (Ozone profiler)
+              | 952 > | NRSCC Total and profile ozone OP (Ozone profiler)
+              | 953 > | CMA Microwave sounding radiometer, crosstrack scanning MWHS-2 (Microwave humidity sounder-2)
+              | 954 > | CMA Microwave sounding radiometer, crosstrack scanning MWTS-2 (Microwave temperature sounder-2)
+              | 955 > | CMA Cross-nadir scanning IR sounder HIRAS (Hyperspectral infrared atmospheric sounder))
+              | 956 > | CMA Spectrometer SBUS (Solar Backscatter Ultraviolet Sounder)
+              | 957 > | CMA Spectrometer TOU (Total Ozone Unit)
+              | 958 > | GNSS occultation sounder GNOS (Global navigation satellite system occultation sounder)
+              | 959 > | SNSB Limb-scanning sounder SMR (Sub-millimetre radiometer)
+              | 961 > | CMA Imaging multi-spectral radiometer AGRI (Advanced Geosynchronous Radiation Imager)
+              | 962 > | CMA Atmospheric temperature and humidity sounder GIIRS (Geosynchronous Interferometric Infrared Sounder)
+              | 963 > | CMA High-resolution optical imager LMI (Lightning Mapper Imager)
+              | 964 > | CMA Space Environment SEP (Space Environment Package)
+              | 980 > | KMA Imager AMI (Advanced Meteorological Imager)
+              | 981 > | KMA Imager MI (Meteorological Imager)
+              | 982   | KMA Space environment KSEM (Korea Space wEather Monitor)
 
   0-02-020 | SCLF ; CODE
               | 0 > | Nimbus
@@ -2136,9 +2393,11 @@ Table F STD |  0 | 20
               | 2 > | Tiros 1 (Tiros, NOAA-6 to NOAA-13)
               | 3 > | Tiros 2 (NOAA-14 onwards)
               | 10 > | EOS
+              | 20 > | GPM-core
               | 31 > | DMSP
               | 61 > | EUMETSAT Polar System (EPS)
               | 91 > | ERS
+              | 92 > | Sentinel-3
               | 121 > | ADEOS
               | 122 > | GCOM
               | 241 > | GOES
@@ -2154,9 +2413,12 @@ Table F STD |  0 | 20
               | 351 > | GOMS
               | 380 > | FY-1
               | 381 > | FY-2
+              | 382 > | FY-3
+              | 383 > | FY-4
               | 401 > | GPS
               | 402 > | GLONASS
-              | 403   | GALILEO
+              | 403 > | GALILEO
+              | 404   | BDS (BeiDou navigation satellite system)
 
   0-02-021 | SIDU ; FLAG
               | 1 > | High resolution Infrared sounder (HIRS)
@@ -2344,7 +2606,8 @@ Table F STD |  0 | 20
               | 9 > | POSEIDON altimeter
               | 10 > | JMR (JASON Microwave Radiometer)
               | 11 > | MHS
-              | 12   | ASCAT
+              | 12 > | ASCAT
+              | 13   | OSCAT2
 
   0-02-049 | GSDP ; FLAG
               | 1 > | Processing technique not defined
@@ -2463,6 +2726,11 @@ Table F STD |  0 | 20
   0-02-066 | RGRSY ; CODE
               | 0 > | InterMet IMS 2000
               | 1 > | InterMet IMS 1500C
+              | 2 > | ShangHai GTC1
+              | 3 > | NanJing GTC2
+              | 4 > | NanJing GFE(L)1
+              | 5 > | MARL-A radar
+              | 6 > | VEKTOR-M radar
               | 62   | Other
 
   0-02-070 | OSLL ; CODE
@@ -2483,6 +2751,8 @@ Table F STD |  0 | 20
               | 0 > | Kaysam
               | 1 > | Totex
               | 2 > | KKS
+              | 3 > | Guangzhou Shuangyi (China)
+              | 4 > | ChemChina Zhuzhou (China)
               | 62   | Other
 
   0-02-081 | BTYPE ; CODE
@@ -2493,6 +2763,8 @@ Table F STD |  0 | 20
               | 4 > | HM28
               | 5 > | HM30
               | 6 > | SV16
+              | 7 > | Totex TA type balloons
+              | 8 > | Totex TX type balloons
               | 30   | Other
 
   0-02-083 | BSHEL ; CODE
@@ -2500,6 +2772,7 @@ Table F STD |  0 | 20
               | 1 > | Low bay
               | 2 > | Balloon Inflation Launch System (BILS)
               | 3 > | Roof-top BILS
+              | 4 > | Automated unmanned sounding system
               | 14   | Other
 
   0-02-084 | BGTYP ; CODE
@@ -2507,6 +2780,11 @@ Table F STD |  0 | 20
               | 1 > | Helium
               | 2 > | Natural gas
               | 14   | Other
+
+  0-02-092 | OPCM ; CODE
+              | 0 > | UV channel based retrieval
+              | 1 > | Visible channel based retrieval
+              | 2   | Combined UV based retrieval and visible based retrieval
 
   0-02-095 | PSENS ; CODE
               | 0 > | Capacitance aneroid
@@ -2523,6 +2801,8 @@ Table F STD |  0 | 20
               | 3 > | Capacitance wire
               | 4 > | Resistive sensor
               | 5 > | Chip thermistor
+              | 6 > | Mercury
+              | 7 > | Alcohol/glycol
               | 30   | Other
 
   0-02-097 | RHSENS ; CODE
@@ -2535,6 +2815,22 @@ Table F STD |  0 | 20
               | 6 > | Sippican Mark IIA Carbon Hygristor
               | 7 > | Twin alternatively-heated humicap capacitance sensor
               | 8 > | Humicap capacitance sensor with active de-icing method
+              | 9 > | Carbon hygristor
+              | 10 > | Psychrometer
+              | 11 > | Capacitive (polymer)
+              | 12 > | Capacitive (ceramic, including metal oxide)
+              | 13 > | Resistive (generic)
+              | 14 > | Resistive (salt polymer)
+              | 15 > | Resistive (conductive polymer)
+              | 16 > | Thermal conductivity
+              | 17 > | Gravimetric
+              | 18 > | Paper-metal coil
+              | 19 > | Ordinary human hair
+              | 20 > | Rolled hair (torsion)
+              | 21 > | Goldbeater's skin
+              | 22 > | Chilled mirror hygrometer
+              | 23 > | Dew cell
+              | 24 > | Optical absorption sensor
               | 30   | Other
 
   0-02-099 | POLA ; CODE
@@ -2651,6 +2947,17 @@ Table F STD |  0 | 20
               | 8 > | On zenith haze
               | 9   | On direct sun through thin cloud, fog or haze
 
+  0-02-147 | MTCC ; CODE
+              | 1 > | Direct leased circuit
+              | 2 > | Dialed up connection
+              | 3 > | Internet ISP
+              | 4 > | DCP via satellite (MTSAT, METEOSAT, etc.)
+              | 5 > | VSAT
+              | 6 > | GAN, BGAN
+              | 7 > | Thiss terminal
+              | 8 > | Iridium satellites
+              | 9   | Mobile telephony
+
   0-02-148 | DCLS ; CODE
               | 1 > | Argos
               | 2 > | GPS
@@ -2668,7 +2975,7 @@ Table F STD |  0 | 20
               | 1 > | Standard Lagrangian drifter (Global Drifter Programme)
               | 2 > | Standard FGGE type drifting buoy (non-Lagrangian meteorological drifting buoy)
               | 3 > | Wind measuring FGGE type drifting buoy (non-Lagrangian meteorological drifting buoy)
-              | 4 > | Ice float
+              | 4 > | Ice drifter
               | 5 > | SVPG Standard Lagrangian drifter with GPS
               | 6 > | SVP-HR Drifter with high resolution temperature or thermistor string
               | 8 > | Unspecified sub-surface float
@@ -2697,7 +3004,9 @@ Table F STD |  0 | 20
               | 34 > |  Mooring Oceanographic 
               | 35 > |  Mooring Meteorological 
               | 36 > |  Mooring Multidisciplinary (OceanSITES) 
-              | 37   |  Mooring Tide Gauge or Tsunami buoy
+              | 37 > |  Mooring Tide Gauge or Tsunami buoy
+              | 38 > | Ice beacon
+              | 39   | Ice mass balance buoy
 
   0-02-150 | INCN ; CODE
               | 1 > | HIRS 1
@@ -2805,6 +3114,33 @@ Table F STD |  0 | 20
               | 8 > | 90 to less than 110 mm
               | 9   | 110 mm and greater
 
+  0-02-161 | WDPF ; FLAG
+              | 11 > | Wind height calculated from median cloud-top pressure of target
+              | 12 > | Target is cloudy
+              | 13 > | Low-level inversion
+              | 14 > | CCC method
+              | 15   | Nested tracking
+
+  0-02-162 | EHAM ; CODE
+              | 0 > | Auto editor
+              | 1 > | IRW height assignment
+              | 2 > | WV height assignment
+              | 3 > | H2O intercept height assignment
+              | 4 > | CO2 slicing height assignment
+              | 5 > | Low pixel max gradient
+              | 6 > | Higher pixel max gradient
+              | 7 > | Primary height assignment
+              | 8 > | Layer thickness assignment
+              | 9 > | Cumulative contribution function - 10 percent height
+              | 10 > | Cumulative contribution function - 50 percent height
+              | 11 > | Cumulative contribution function - 90 percent height
+              | 12 > | Cumulative contribution function - height of maximum gradient
+              | 13 > | IR/two WV channel rationing method
+              | 14 > | Composite height assignment
+              | 15 > | Optimal estimation
+              | 16 > | Inversion correction
+              | 17   | Geometric height assignment
+
   0-02-163 | HAMD ; CODE
               | 0 > | Auto editor
               | 1 > | IRW height assignment
@@ -2825,7 +3161,8 @@ Table F STD |  0 | 20
   0-02-164 | TCMD ; CODE
               | 0 > | LP - Norms least square minimum
               | 1 > | EN - Euclidean norm with radiance correlation
-              | 2   | CC - Cross correlation
+              | 2 > | CC - Cross correlation
+              | 3   | Stereo matching
 
   0-02-165 | RDTF ; FLAG
               | 1 > | Clear path
@@ -2976,7 +3313,8 @@ Table F STD |  0 | 20
               | 20 > | Wet snow
               | 21 > | Hoar frost
               | 22 > | Dew
-              | 23   | White dew
+              | 23 > | White dew
+              | 24   | Convective precipitation
 
   0-02-187 | CDWP ; FLAG
               | 1 > | Dust/sand whirl
@@ -3014,6 +3352,153 @@ Table F STD |  0 | 20
               | 1 > | Geopotential height calculated from GPS height
               | 2   | Geopotential height calculated from radar height
 
+  0-03-001 | SFSTP ; CODE
+              | 0 > | Land station (synoptic network)
+              | 1 > | Shallow water station (fixed to sea/lake floor)
+              | 2 > | Ship
+              | 3 > | Rig/platform
+              | 4 > | Moored buoy
+              | 5 > | Drifting buoy (or drifter)
+              | 6 > | Ice buoy
+              | 7 > | Land station (local network)
+              | 8 > | Land vehicle
+              | 9 > | Autonomous marine vehicle
+              | 10   | Tag attached to marine animal
+
+  0-03-003 | THHS ; CODE
+              | 0 > | Screen
+              | 1 > | Sling/Whirling
+              | 2 > | Unscreened
+              | 3 > | Radiation shield
+              | 4 > | Aspirated (e.g. Assmann)
+              | 5 > | Other shelter
+              | 6   | Handheld
+
+  0-03-004 | TPSCSH ; CODE
+              | 0 > | Stevenson screen
+              | 1 > | Marine Stevenson screen
+              | 2 > | Cylindrical section plate shield
+              | 3 > | Concentric tube
+              | 4 > | Rectangular section shield
+              | 5 > | Square section shield
+              | 6 > | Triangular section shield
+              | 7 > | Open covered lean-to
+              | 8 > | Open covered inverted V roof
+              | 9   | Integrated (e.g. Chilled Mirror)
+
+  0-03-008 | AVSCSH ; CODE
+              | 0 > | Natural ventilation in use
+              | 1 > | Artificial ventilation in use; constant flow at time of reading
+              | 2   | Artificial ventilation in use; variable flow at time of reading
+
+  0-03-010 | MSCM ; CODE
+              | 2 > | GEK (Geomagnetic ElectroKinetograph)
+              | 3 > | Ship's set and drift determined by fixes 3-6 hours apart
+              | 4 > | Ship's set and drift determined by fixes more than 6 hours but less than 12 hours apart
+              | 5 > | Drift of buoy
+              | 6 > | ADCP (Acoustic Doppler Current Profiler)
+              | 7 > | ADCP (Acoustic Doppler Current Profiler) bottom tracking mode
+              | 8 > | Electromagnetic sensor
+              | 9 > | Rotor and vane
+              | 10   | Lowered ADCP
+
+  0-03-011 | MDCL ; CODE
+              | 0 > | Depth calculated using fall rate equation
+              | 1   | Depth calculated from water pressure/equation of state
+
+  0-03-012 | SDOM ; CODE
+              | 0 > | Anderraa oxygen optode
+              | 1   | Winkler bottle
+
+  0-03-016 | POSRS ; CODE
+              | 0 > | Fast lane between the wheel tracks
+              | 1 > | Fast lane between the wheel tracks in the opposite direction
+              | 2 > | Fast lane in the wheel tracks
+              | 3 > | Fast lane in the wheel tracks in the opposite direction
+              | 4 > | Slow lane between the wheel tracks
+              | 5 > | Slow lane between the wheel tracks in the opposite direction
+              | 6 > | Slow lane in the wheel tracks
+              | 7   | Slow lane in the wheel tracks in the opposite direction
+
+  0-03-017 | TOSTX ; FLAG
+              | 1 > | Automatic
+              | 2 > | Manned
+              | 3 > | Event-triggered
+              | 4   | Longer time period than the standard
+
+  0-03-018 | TPROAD ; CODE
+              | 0 > | Free track without further information
+              | 1 > | Free track, embankment
+              | 2 > | Free track, flat relative to surroundings
+              | 3 > | Free track, water basin(s) in vicinity
+              | 4 > | Free track, forest
+              | 5 > | Free track, cliff
+              | 6 > | Free track, on hilltop
+              | 7 > | Free track, on hilltop, forest
+              | 8 > | Free track, in valley
+              | 9 > | Free track, in valley, forest
+              | 10 > | Free track, north inclination
+              | 11 > | Free track, north inclination, forest
+              | 12 > | Free track, south inclination
+              | 13 > | Free track, south inclination, forest
+              | 20 > | Bridge without further information
+              | 21 > | Bridge across a valley in an urban area
+              | 22 > | Bridge across a valley with forest/meadows/fields
+              | 23 > | Bridge across street/track
+              | 24 > | Bridge across big river/canal
+              | 25 > | Bridge across river/canal of medium size
+              | 26   | Bridge across a small stream/loading canal
+
+  0-03-019 | TPCONS ; CODE
+              | 0 > | Asphalt
+              | 1 > | Concrete
+              | 2 > | Concrete construction
+              | 3 > | Steel-girder construction
+              | 4 > | Box girder bridge
+              | 5 > | Orthotropic slab
+              | 6   | Drain asphalt
+
+  0-03-020 | MTHHS ; CODE
+              | 0 > | Wood
+              | 1 > | Metal alloy
+              | 2 > | Plastic/GRP
+              | 3   | Reed/grass/leaf
+
+  0-03-021 | HYGH ; CODE
+              | 0 > | Unheated
+              | 1 > | Heated
+              | 2   | Not applicable
+
+  0-03-022 | INSTO ; CODE
+              | 0 > | National hydro meteorological/weather service
+              | 1 > | Other
+              | 2   | Standards institute
+
+  0-03-023 | CLTHS ; CODE
+              | 0 > | Single v section louvers
+              | 1 > | Overlapping louvers
+              | 2 > | Double v section louvers
+              | 3 > | Non-overlapping louvers
+              | 4 > | Vented, non-louvered
+              | 5   | Not applicable
+
+  0-03-027 | TPFR ; CODE
+              | 0 > | Solo (single radiosonde)
+              | 1 > | Block
+              | 2 > | Bar
+              | 3 > | Cross
+              | 4 > | T-rig
+              | 5 > | Double T-rig
+              | 6   | Complex
+
+  0-03-028 | MSWEM ; CODE
+              | 1 > | Multi point manual snow survey
+              | 2 > | Single point manual snow water equivalent measurement
+              | 3 > | Snow pillow or snow scale
+              | 4 > | Passive gamma
+              | 5 > | Cosmic ray attenuation
+              | 6   | Time domain reflectometry
+
   0-04-059 | TOMV ; FLAG
               | 1 > | 00 UTC
               | 2 > | 06 UTC
@@ -3027,6 +3512,10 @@ Table F STD |  0 | 20
               | 2 > | From 15 to 45 minutes
               | 3 > | More than 45 minutes
               | 9   | Data not available
+
+  0-05-069 | RCVCH ; CODE
+              | 0 > | Mie
+              | 1   | Rayleigh
 
   0-08-001 | VSIG ; FLAG
               | 1 > | Surface
@@ -3135,7 +3624,8 @@ Table F STD |  0 | 20
               | 8 > | Runway or road
               | 9 > | Ship or platform deck in steel
               | 10 > | Ship or platform deck in wood
-              | 11   | Ship or platform deck partly covered with rubber mat
+              | 11 > | Ship or platform deck partly covered with rubber mat
+              | 12   | Building roof
 
   0-08-011 | METFET ; CODE
               | 0 > | Quasi stationary front at the surface
@@ -3184,6 +3674,11 @@ Table F STD |  0 | 20
               | 6 > | one minute maximum value   normal value
               | 7 > | one minute maximum value   above the upper limit for assessments of RVR (P)
               | 8   | one minute maximum value   below the lower limit for assessments of RVR (M)
+
+  0-08-015 | SIGS ; CODE
+              | 0 > | Single sensor
+              | 1 > | Primary sensor
+              | 2   | Secondary sensor (backup)
 
   0-08-016 | CHQL ; CODE
               | 0 > | NOSIG
@@ -3295,13 +3790,33 @@ Table F STD |  0 | 20
               | 14 > | Glacier
               | 15 > | Urban land
               | 16 > | Rural land
-              | 17   | Suburban land
+              | 17 > | Suburban land
+              | 18   | Sea ice
+
+  0-08-032 | SOOP ; CODE
+              | 0 > | Routine operation
+              | 1 > | Event triggered by storm surge
+              | 2 > | Event triggered by tsunami
+              | 3 > | Event triggered manually
+              | 4 > | Installation testing
+              | 5   | Maintenance testing
 
   0-08-033 | MDPC ; CODE
               | 1 > | Percentage confidence calculated using cloud fraction
               | 2 > | Percentage confidence calculated using standard deviation of temperature
               | 3 > | Percentage confidence calculated using probability of cloud contamination
               | 4   | Percentage confidence calculated using normality of distribution
+
+  0-08-034 | TSQL ; CODE
+              | 0 > | Secondary sampling: averaged
+              | 1 > | Secondary sampling: discrete
+              | 2 > | Secondary sampling: mixed
+              | 3 > | Near-surface sampling: averaged, pumped
+              | 4 > | Near-surface sampling: averaged, unpumped
+              | 5 > | Near-surface sampling: discrete, pumped
+              | 6 > | Near-surface sampling: discrete, unpumped
+              | 7 > | Near-surface sampling: mixed, pumped
+              | 8   | Near-surface sampling: mixed, unpumped
 
   0-08-035 | TOME ; CODE
               | 0 > | Global
@@ -3318,6 +3833,15 @@ Table F STD |  0 | 20
               | 4 > | RTH
               | 5 > | Observing site
               | 6   | Other
+
+  0-08-037 | BLCSIG ; CODE
+              | 0 > | Manufacturer's baseline unit check
+              | 1 > | Weather screen
+              | 2   | GRUAN standard humidity chamber
+
+  0-08-038 | INDSIG ; CODE
+              | 0 > | Verified instrument reading
+              | 1   | Reference instrument reading
 
   0-08-039 | TSIGAF ; CODE
               | 0 > | Issue time of forecast
@@ -3367,6 +3891,8 @@ Table F STD |  0 | 20
               | 35 > | Freezing level top
               | 36 > | Flight level base
               | 37 > | Flight level top
+              | 38 > | Top of wind sounding
+              | 39 > | Bottom of wind sounding
               | 40 > | Significant thermodynamic level (inversion)
               | 41 > | Significant RH level (per NCDC criteria)
               | 42 > | Significant temperature level (per NCDC)
@@ -3408,6 +3934,7 @@ Table F STD |  0 | 20
               | 13 > | End of missing wind data
               | 14 > | Top of wind sounding
               | 15 > | Level determined by regional decision
+              | 16 > | Freezing level
               | 17   | Pressure level originally indicated by height as the vertical coordinate
 
   0-08-043 | ATCT ; CODE
@@ -3439,22 +3966,22 @@ Table F STD |  0 | 20
               | 7 > | Formaldehyde (HCHO)
               | 8 > | Sulphur dioxide (SO2)
               | 9 > | Ammonia (NH3)
-              | 10 > | Ammonium (NH4+)
+              | 10 > | Ammonium cation (NH4+)
               | 11 > | Nitrogen monoxide (NO)
               | 12 > | Atomic oxygen (O)
               | 13 > | Nitrate radical (NO3)
-              | 14 > | Hydroperoxyl radical (HO2)
+              | 14 > | Hydroperoxyl radical (HOO)
               | 15 > | Dinitrogen pentoxide (N2O5)
               | 16 > | Nitrous acid (HONO)
               | 17 > | Nitric acid (HNO3)
               | 18 > | Peroxynitric acid (HO2NO2)
               | 19 > | Hydrogen peroxide (H2O2)
-              | 20 > | Molecular hydrogen (H)
+              | 20 > | Dihydrogen (H2)
               | 21 > | Atomic nitrogen (N)
-              | 22 > | Sulphate (SO4--)
-              | 23 > | Radon (Rn)
-              | 24 > | Elemental mercury (Hg)
-              | 25 > | Divalent mercury (Hg2+)
+              | 22 > | Sulphate anion (SO4--)
+              | 23 > | Atomic radon (Rn)
+              | 24 > | Mercury vapour (Hg(0))
+              | 25 > | Mercury(II) cation (Hg2+)
               | 26 > | Atomic chlorine (Cl)
               | 27 > | Chlorine monoxide (ClO)
               | 28 > | Dichlorine peroxide (Cl2O2)
@@ -3467,9 +3994,17 @@ Table F STD |  0 | 20
               | 35 > | Hydrogen bromide (HBr)
               | 36 > | Hypobromous acid (HBrO)
               | 37 > | Bromine nitrate (BrONO2)
-              | 38 > | Oxygen (O2)
+              | 38 > | Dioxygen (O2)
+              | 39 > | Nitryl chloride (NO2Cl)
+              | 40 > | Sulphuric Acid (H2SO4)
+              | 41 > | Hydrogen sulphide (H2S)
+              | 42 > | Sulphur trioxide (SO3)
+              | 43 > | Bromine (Br2)
+              | 44 > | Hydrofluoric acid (HF)
+              | 45 > | Sulfur hexaflouride (SF6)
+              | 46 > | Chlorine (Cl2)
               | 10000 > | Hydroxyl radical (OH)
-              | 10001 > | Methyl peroxy radical (CH3O2)
+              | 10001 > | Methyl peroxy radical (CH3OO)
               | 10002 > | Methyl hydroperoxide (CH3O2H)
               | 10004 > | Methanol (CH3OH)
               | 10005 > | Formic acid (CH3OOH)
@@ -3483,7 +4018,7 @@ Table F STD |  0 | 20
               | 10013 > | Peroxyacetyl nitrate (CH3C(O)OONO2)
               | 10014 > | Propane (C3H8)
               | 10015 > | Propene (C3H6)
-              | 10016 > | Butanes (C4H10)
+              | 10016 > | Butanes (all isomers)
               | 10017 > | Isoprene (C5H10)
               | 10018 > | Alpha pinene (C10H16)
               | 10019 > | Beta pinene (C10H16)
@@ -3491,8 +4026,45 @@ Table F STD |  0 | 20
               | 10021 > | Benzene (C6H6)
               | 10022 > | Toluene (C7H8)
               | 10023 > | Xylene (C8H10)
+              | 10024 > | Methanesulphonic acid
+              | 10025 > | Methylglyoxal (2-oxopropanal)
+              | 10026 > | Peroxyacetyl radical
+              | 10027 > | Methacrylic acid (2-methylprop-2-enoic acid)
+              | 10028 > | Methacrolein (2-methylprop-2-enal)
+              | 10029 > | Acetone (propan-2-one)
+              | 10030 > | Ethyl dioxidanyl radical
+              | 10031 > | Butadiene (buta-1,3-diene)
+              | 10032 > | Acetaldehyde (ethanal)
+              | 10033 > | Glycolaldehyde (hydroxyethanal)
+              | 10034 > | Cresol (methylphenol), all isomers
+              | 10035 > | Peracetic acid (ethaneperoxoic acid)
+              | 10036 > | 2-hydroxyethyl oxidanyl radical
+              | 10037 > | 2-hydroxyethyl dioxidanyl radical
+              | 10038 > | Glyoxal (oxaldehyde)
+              | 10039 > | Isopropyl dioxidanyl radical
+              | 10040 > | Isopropyl hydroperoxide (2-hydroperoxypropane)
+              | 10041 > | Hydroxyacetone (1-hydroxypropan-2-one)
+              | 10042 > | Peroxyacetic acid (ethaneperoxoic acid)
+              | 10043 > | Methyl vinyl ketone (but-3-en-2-one)
+              | 10044 > | Phenoxy radical
+              | 10045 > | Methyl radical
+              | 10046 > | Carbonyl sulphide (carbon oxide sulphide)
+              | 10047 > | Dibromomethane (CH2BR2)
+              | 10048 > | Methoxy radical
+              | 10049 > | Tribromomethane (CHBR3)
+              | 10050 > | Formyl radical (oxomethyl radical)
+              | 10051 > | Hydroxymethyl dioxidanyl radical
+              | 10052 > | Ethyl hydroperoxide
+              | 10053 > | 3-hydroxypropyl dioxidanyl radical
+              | 10054 > | 3-hydroxypropyl hydroperoxide
+              | 10055 > | Methyl-peroxy-nitrate (Nitroperoxy-methane)
+              | 10056 > | 2-lambda-1-Oxidanyloxy-2-methylbut-3-en-1-ol (4-Hydroxy-3-methyl-1-butene-3-ylperoxy radical)
+              | 10057 > | 2-lambda-1-Oxidanyloxy-3-methylbut-3-en-1-ol (2-Hydroxy-1-isopropenylethylperoxy radical)
+              | 10058 > | (Z)-4-Hydroperoxy-2-methyl-2-butenal
+              | 10059 > | (Z)-4-Hydroperoxy-3-methyl-2-butenal
               | 10500 > | Dimethyl sulphide (CH3SCH3 (DMS))
-              | 20001 > | Hydrogen chloride
+              | 10501 > | Dimethyl sulphoxide ((CH3)2SO (DMSO))
+              | 20001 > | Hydrogen chloride (HCl)
               | 20002 > | CFC-11
               | 20003 > | CFC-12
               | 20004 > | CFC-113
@@ -3510,13 +4082,14 @@ Table F STD |  0 | 20
               | 20016 > | Carbon tetrachloride (HCC-10)
               | 20017 > | HCC-140a (CH3CCl3)
               | 20018 > | Methyl bromide (HBC-40B1)
-              | 20019 > | Hexachlorocyclohexane (HCH)
-              | 20020 > | Alpha hexachlorocyclohexane
+              | 20019 > | Hexachlorocyclohexane (HCH) all isomers
+              | 20020 > | Alpha hexachlorocyclohexane both enantiomers
               | 20021 > | Hexachlorobiphenyl (PCB-153)
+              | 20022 > | HCFC 141a (1,1-dichloro-2-fluoro-ethane)
               | 30000 > | Radioactive pollutant (tracer, defined by originating centre)
-              | 30010 > | Hydrogen
-              | 30011 > | Hydrogen organic bounded
-              | 30012 > | Hydrogen inorganic
+              | 30010 > | Tritium (Hydrogen 3)
+              | 30011 > | Tritium organic bounded
+              | 30012 > | Tritium inorganic
               | 30013 > | Beryllium 7
               | 30014 > | Beryllium 10
               | 30015 > | Carbon 14
@@ -3798,6 +4371,12 @@ Table F STD |  0 | 20
               | 30292 > | Sum noble gas
               | 30293 > | Activation gas
               | 30294 > | Cs-137 equivalent
+              | 30295 > | Carbon 13
+              | 30296 > | Lead (Pb)
+              | 40000 > | Singlet sigma oxygen (dioxygen (sigma singlet))
+              | 40001 > | Singlet delta oxygen (dioxygen (delta singlet))
+              | 40002 > | Singlet excited oxygen atom
+              | 40003 > | Triplet ground state oxygen atom
               | 60000 > | HOx radical (OH+HO2)
               | 60001 > | Total inorganic and organic peroxy radicals (HO2 + RO2) (RO2)
               | 60002 > | Passive Ozone
@@ -3815,6 +4394,22 @@ Table F STD |  0 | 20
               | 60014 > | Anthropogenic non-methane volatile organic compounds expressed as carbon (aNMVOC)
               | 60015 > | Biogenic non-methane volatile organic compounds expressed as carbon (bNMVOC)
               | 60016 > | Lumped oxygenated hydrocarbons (OVOC)
+              | 60017 > | NOx expressed as nitrogen dioxide (NO2)
+              | 60018 > | Organic aldehydes
+              | 60019 > | Organic peroxides
+              | 60020 > | Organic nitrates
+              | 60021 > | Ethers
+              | 60022 > | Amines
+              | 60023 > | Ketones
+              | 60024 > | Dicarbonyls unsaturated
+              | 60025 > | Hydroxy dicarbonyls unsaturated
+              | 60026 > | Hydroxy ketones
+              | 60027 > | Oxides
+              | 60028 > | Peroxyacyl nitrates
+              | 60029 > | Aromatic peroxide radicals (Aryl dioxydanyl radicals)
+              | 60030 > | Biogenic secondary organic compound
+              | 60031 > | Anthropogenic secondary organic compound
+              | 60032 > | All hydroxy-peroxide products of the reaction of hydroxy-isoprene adducts with oxygen
               | 62000 > | Total aerosol
               | 62001 > | Dust dry
               | 62002 > | Water in ambient
@@ -3827,7 +4422,48 @@ Table F STD |  0 | 20
               | 62009 > | Black carbon dry
               | 62010 > | Particulate organic matter dry
               | 62011 > | Primary particulate organic matter dry
-              | 62012   | Secondary particulate organic matter dry
+              | 62012 > | Secondary particulate organic matter dry
+              | 62013 > | Black carbon hydrophilic dry
+              | 62014 > | Black carbon hydrophobic dry
+              | 62015 > | Particulate organic matter hydrophilic dry
+              | 62016 > | Particulate organic matter hydrophobic dry
+              | 62017 > | Nitrate hydrophilic dry
+              | 62018 > | Nitrate hydrophobic dry
+              | 62020 > | Smoke - high absorption
+              | 62021 > | Smoke - low absorption
+              | 62022 > | Aerosol - high absorption
+              | 62023 > | Aerosol - low absorption
+              | 62025 > | Volcanic ash
+              | 62026 > | Particulate matter (PM)
+              | 62028 > | Total aerosol hydrophilic
+              | 62029 > | Total aerosol hydrophobic
+              | 62030 > | Primary particulate inorganic matter dry
+              | 62031 > | Secondary particulate inorganic matter dry
+              | 62032 > | Biogenic secondary organic aerosol
+              | 62033 > | Anthropogenic secondary organic aerosol
+              | 62100 > | Alnus (Alder) pollen
+              | 62101 > | Betula (Birch) pollen
+              | 62102 > | Castanea (Chestnut) pollen
+              | 62103 > | Carpinus (Hornbeam) pollen
+              | 62104 > | Corylus (Hazel) pollen
+              | 62105 > | Fagus (Beech) pollen
+              | 62106 > | Fraxinus (Ash) pollen
+              | 62107 > | Pinus (Pine) pollen
+              | 62108 > | Platanus (Plane) pollen
+              | 62109 > | Populus (Cottonwood, Poplar) pollen
+              | 62110 > | Quercus (Oak) pollen
+              | 62111 > | Salix (Willow) pollen
+              | 62112 > | Taxus (Yew) pollen
+              | 62113 > | Tilia (Lime, Linden) pollen
+              | 62114 > | Ulmus (Elm) pollen
+              | 62115 > | Olea (Olive) pollen
+              | 62200 > | Ambrosia (Ragweed, Burr-ragweed) pollen
+              | 62201 > | Artemisia (Sagebrush, Wormwood, Mugwort) pollen
+              | 62202 > | Brassica (Rape, Broccoli, Brussels Sprouts, Cabbage, Cauliflower, Collards, Kale, Kohlrabi, Mustard, Rutabaga) pollen
+              | 62203 > | Plantago (Plantain) pollen
+              | 62204 > | Rumex (Dock, Sorrel) pollen
+              | 62205 > | Urtica (Nettle) pollen
+              | 62300   | Poaceae (Grass family) pollen
 
   0-08-050 | QNMV ; CODE
               | 1 > | Pressure
@@ -3957,6 +4593,9 @@ Table F STD |  0 | 20
               | 11 > | Water temperature at a level
               | 12 > | Salinity at a level
               | 13 > | Water depth at a level
+              | 14 > | Sea/water current speed at a level
+              | 15 > | Sea/water current direction at a level
+              | 16 > | Dissolved oxygen at a level
               | 20   | Position
 
   0-08-081 | TOEQ ; CODE
@@ -3994,7 +4633,39 @@ Table F STD |  0 | 20
               | 6 > | Significant humidity level
               | 7 > | Significant wind level
               | 8 > | Vertically interpolated level (This should be set to 1 for points on the vertical profile that fall between the model's native vertical levels)
-              | 9   | Virtual station height
+              | 9 > | Virtual station height
+              | 10   | Level of best fit
+
+  0-08-087 | CPOS ; CODE
+              | 0 > | Upper left
+              | 1 > | Upper right
+              | 2 > | Lower right
+              | 3   | Lower left
+
+  0-08-088 | MAPSIG ; CODE
+              | 0 > | Top view (geographical longitude on X axis and latitude on Y axis)
+              | 1 > | North-South view (transect with geographical longitude on X axis and vertical height on Y axis)
+              | 2   | East-West view (transect with geographical latitude on X axis and vertical height on Y axis)
+
+  0-08-091 | CRDSIG ; CODE
+              | 0 > | Satellite coordinates
+              | 1 > | Observation coordinates
+              | 2 > | Start of observation
+              | 3 > | End of observation
+              | 4 > | Horizontal center of gravity of the observation
+              | 5 > | Vertical center of gravity of the observation
+              | 6 > | Top of the observation
+              | 7 > | Bottom of the observation
+              | 8 > | Projection origin
+              | 9   | Coordinates of true scale
+
+  0-08-092 | MUNCEX ; CODE
+              | 0   | Standard uncertainty
+
+  0-08-093 | MUNCSG ; CODE
+              | 0 > | Total uncertainty
+              | 1 > | Systematic component of uncertainty
+              | 2   | Random component of uncertainty
 
   0-10-063 | CHPT ; CODE
               | 0 > | Increasing, then decreasing; atmospheric pressure the same or higher than 3 hours ago
@@ -4181,7 +4852,12 @@ Table F STD |  0 | 20
               | 3 > | Ice
               | 4 > | Possible ice
               | 5 > | Ocean
-              | 6   | Coast
+              | 6 > | Coast
+              | 7 > | Inland water (e.g. river, lake, wetland, swamp)
+              | 8 > | Snow cover
+              | 9 > | Sea ice
+              | 10 > | Standing water (e.g. temporary flooding)
+              | 11   | Snow
 
   0-13-041 | PGSC ; CODE
               | 1 > | A
@@ -4594,7 +5270,7 @@ Table F STD |  0 | 20
               | 254 > | Drizzle, rate of fall 0.80-1.59 mm h**-1
               | 255 > | Drizzle, rate of fall 1.60-3.19 mm h**-1
               | 256 > | Drizzle, rate of fall 3.20-6.39 mm h**-1
-              | 257 > | Drizzle, rate of fall 6.40 mm h**-1 or more
+              | 257 > | Drizzle, rate of fall more 6.40 mm h**-1 or more
               | 259 > | Drizzle and snow
               | 260 > | Rain, rate of fall less than 1.0 mm h**-1
               | 261 > | Rain, rate of fall 1.0-1.9 mm h**-1
@@ -4603,7 +5279,7 @@ Table F STD |  0 | 20
               | 264 > | Rain, rate of fall 8.0-15.9 mm h**-1
               | 265 > | Rain, rate of fall 16.0-31.9 mm h**-1
               | 266 > | Rain, rate of fall 32.0-63.9 mm h**-1
-              | 267 > | Rain, rate of fall 64.0 mm h**-1 or more
+              | 267 > | Rain, rate of fall more 64.0 mm h**-1 or more
               | 270 > | Snow, rate of fall less than 1.0 cm h**-1
               | 271 > | Snow, rate of fall 1.0-1.9 cm h**-1
               | 272 > | Snow, rate of fall 2.0-3.9 cm h**-1
@@ -4611,7 +5287,7 @@ Table F STD |  0 | 20
               | 274 > | Snow, rate of fall 8.0-15.9 cm h**-1
               | 275 > | Snow, rate of fall 16.0-31.9 cm h**-1
               | 276 > | Snow, rate of fall 32.0-63.9 cm h**-1
-              | 277 > | Snow, rate of fall 64.0 cm h**-1 or more
+              | 277 > | Snow, rate of fall more 64.0 cm h**-1 or more
               | 278 > | Snow or Ice crystal precipitation from a clear sky
               | 279 > | Wet snow, freezing on contact
               | 280 > | Precipitation of rain
@@ -4767,6 +5443,13 @@ Table F STD |  0 | 20
               | 40 > | CH
               | 41 > | CM
               | 42 > | CL
+              | 43 > | Clear
+              | 44 > | Liquid water
+              | 45 > | Supercooled liquid water
+              | 46 > | Mixed phase
+              | 47 > | Optically thick ice
+              | 48 > | Optically thin ice
+              | 49 > | Multilayered ice
               | 59 > | Cloud not visible owing to darkness, fog, duststorm, sandstorm, or other analogous phenomena
               | 60 > | CH clouds Invisible owing to darkness, fog, blowing dust or sand, or other similar phenomena, or because of a continuous layer of lower clouds
               | 61 > | CM clouds Invisible owing to darkness, fog, blowing dust or sand, or other similar phenomena, or because of continuous layer of lower clouds
@@ -5027,7 +5710,8 @@ Table F STD |  0 | 20
               | 1 > | Water
               | 2 > | Ice
               | 3 > | Mixed
-              | 4   | Clear
+              | 4 > | Clear
+              | 5   | Supercooled liquid water
 
   0-20-062 | SOGR ; CODE
               | 0 > | Surface of ground dry (without cracks and no appreciable amount of dust or loose sand)
@@ -5318,7 +6002,7 @@ Table F STD |  0 | 20
               | 7 > | Area covered by dispersed bands < 100 km**2
               | 8 > | Area covered by dispersed bands 100-1000 km**2
               | 9 > | Area covered by dispersed bands > 1000 km**2
-           | 0-20-104=8,6,4,1,5,3,2,7,9
+           | 0-20-104=7,5,9,6,4,8,2,3,1
               | 0 > | Small swarm less than 1 km**2 or adults in ground, tens or hundreds of individuals visible simultaneously, duration of passage less than 1 hour ago
               | 1 > | Small swarm less than 1 km**2 or adults in ground, tens or hundreds of individuals visible simultaneously, duration of passage 1 to 6 hours ago
               | 2 > | Small swarm less than 1 km**2 or adults in ground, tens or hundreds of individuals visible simultaneously, duration of passage over 6 hours ago
@@ -5412,6 +6096,28 @@ Table F STD |  0 | 20
               | 47 > | Many isolated clouds observed from a higher level
               | 48 > | Sea of isolated clouds observed from a higher level
               | 49   | Bad visibility obscuring the downward view observed from a higher level
+
+  0-20-137 | EVOC ; CODE
+              | 0 > | No change
+              | 1 > | Cumulification
+              | 2 > | Slow elevation
+              | 3 > | Rapid elevation
+              | 4 > | Elevation and stratification
+              | 5 > | Slow lowering
+              | 6 > | Rapid lowering
+              | 7 > | Stratification
+              | 8 > | Stratification and lowering
+              | 9   | Rapid change
+
+  0-20-138 | ROADSC ; CODE
+              | 0 > | Dry
+              | 1 > | Moist
+              | 2 > | Wet
+              | 3 > | Rime
+              | 4 > | Snow
+              | 5 > | Ice
+              | 6 > | Glaze
+              | 7   | Not dry
 
   0-21-066 | WSPC ; FLAG
               | 1 > | Process equipment not working
@@ -5560,6 +6266,10 @@ Table F STD |  0 | 20
   0-21-144 | ALRF ; FLAG
               | 1   | Rain
 
+  0-21-148 | TEVF ; FLAG
+              | 1 > | No short scale variation
+              | 2   | Short scale variation
+
   0-21-150 | BEAMC ; CODE
               | 0 > | Data from single ground station (no co-location)
               | 1   | Data from multiple ground station (co-located data)
@@ -5629,7 +6339,7 @@ Table F STD |  0 | 20
               | 51 > | Sippican Deep Blue (fall rate equation coefficients: a = 6.472, b = -2.16)
               | 52 > | Sippican Deep Blue (fall rate equation coefficients: a = 6.691, b = -2.25)
               | 61 > | Sippican T-10 (fall rate equation coefficients: a = 6.301, b = -2.16)
-              | 71 > | Sippican T-11 (fall rate equation coefficients: a = 1.779, b = -0.255)
+              | 71 > | Sippican T-11 (fall rate equation coefficients: a = 1.7779, b = -0.255)
               | 81 > | Sippican AXBT (300 m probes) (fall rate equation coefficients: a = 1.52, b = 0.0)
               | 201 > | TSK T-4 (fall rate equation coefficients: a = 6.472, b = -2.16)
               | 202 > | TSK T-4 (fall rate equation coefficients: a = 6.691, b = -2.25)
@@ -5659,11 +6369,11 @@ Table F STD |  0 | 20
               | 710 > | Sippican XCTD Deep
               | 720 > | Sippican AXCTD
               | 730 > | Sippican SXCTD
-              | 741 > | TSK XCTD/XCTD-1 (fall rate equation coefficients: a = 3.42543, b = -0.47)
-              | 742 > | TSK XCTD-2 (fall rate equation coefficients: a = 3.43898, b = -0.31)
+              | 741 > | TSK XCTD/XCTD-1/XCTD-1N (fall rate equation coefficients: a = 3.42543, b = -0.47)
+              | 742 > | TSK XCTD-2/XCTD-2N (fall rate equation coefficients: a = 3.43898, b = -0.31)
               | 743 > | TSK XCTD-2F (fall rate equation coefficients: a = 3.43898, b = -0.31)
-              | 744 > | TSK XCTD-3 (fall rate equation coefficients: a = 5.07598, b = -0.72)
-              | 745 > | TSK XCTD-4 (fall rate equation coefficients: a = 3.68081, b = -0.47)
+              | 744 > | TSK XCTD-3/XCTD-3N (fall rate equation coefficients: a = 5.07598, b = -0.72)
+              | 745 > | TSK XCTD-4/XCTD-4N (fall rate equation coefficients: a = 3.68081, b = -0.47)
               | 751 > | TSK AXCTD
               | 780 > | Sea-Bird SBE21 SEACAT Thermosalinograph
               | 781 > | Sea-Bird SBE45 MicroTSG Thermosalinograph
@@ -5673,6 +6383,12 @@ Table F STD |  0 | 20
               | 825 > | Temperature (sonic) and pressure probes
               | 830 > | CTD
               | 831 > | CTD-P-ALACE float
+              | 834 > | PROVOR V SBE
+              | 835 > | PROVOR IV
+              | 836 > | PROVOR III
+              | 837 > | ARVOR_C, SBE conductivity sensor
+              | 838 > | ARVOR_D, SBE conductivity sensor
+              | 839 > | PROVOR-II, SBE conductivity sensor
               | 840 > | PROVOR, no conductivity sensor
               | 841 > | PROVOR, Sea-Bird conductivity sensor
               | 842 > | PROVOR, FSI conductivity sensor
@@ -5681,10 +6397,13 @@ Table F STD |  0 | 20
               | 845 > | Webb Research, no conductivity sensor
               | 846 > | Webb Research, Sea-Bird conductivity sensor
               | 847 > | Webb Research, FSI conductivity sensor
+              | 848 > | APEX-EM, SBE conductivity sensor
+              | 849 > | APEX_D, SBE conductivity sensor
               | 850 > | SOLO, no conductivity sensor
               | 851 > | SOLO, Sea-Bird conductivity sensor
               | 852 > | SOLO,  FSI conductivity sensor
               | 853 > | Profiling Float, SOLO2 (SCRIPPS), Seabird conductivity sensor
+              | 854 > | S2A, SBE conductivity sensor
               | 855 > | Profiling Float, NINJA, no conductivity sensor
               | 856 > | Profiling Float, NINJA, SBE conductivity sensor
               | 857 > | Profiling Float, NINJA, FSI conductivity sensor
@@ -5692,8 +6411,35 @@ Table F STD |  0 | 20
               | 859 > | Profiling Float, NEMO, no conductivity
               | 860 > | Profiling Float, NEMO, SBE conductivity sensor
               | 861 > | Profiling Float, NEMO, FSI conductivity sensor
-              | 900 > | Sippican LMP-5 XBT (fall rate equation coefficients: a = 9.727, b = -0.0000473)
+              | 862 > | SOLO_D, SBE conductivity sensor
+              | 863 > | NAVIS-A, SBE conductivity sensor
+              | 864 > | NINJA_D, SBE conductivity sensor
+              | 865 > | NOVA, SBE conductivity sensor
+              | 866 > | ALAMO, No conductivity sensor
+              | 867 > | ALAMO, RBR conductivity sensor
+              | 868 > | ALAMO, SBE conductivity sensor
+              | 870 > | HM2000
+              | 871 > | COPEX
+              | 872 > | S2X
+              | 873 > | ALTO
+              | 874 > | SOLO_D_MRV
+              | 875 > | ALTO RBR
+              | 876 > | ALTO SBE
+              | 877 > | APEX RBR
+              | 878 > | ARVOR RBR
+              | 879 > | SOLO II RBR
+              | 880 > | S2A RBR
+              | 900 > | Sippican LMP-5 XBT (fall rate equation coefficients: a = 9.727, b = -0.0473)
               | 901 > | Ice-tethered Profiler (ITP), SBE CTD
+              | 902 > | Brooke ocean moving vessel profiler (MVP)
+              | 903 > | Seabird CTD
+              | 904 > | AML oceanographic CTD
+              | 905 > | Falmouth scientific CTD
+              | 906 > | Ocean sensors CTD
+              | 907 > | Valeport CTD
+              | 908 > | Ocean science MVP
+              | 909 > | Idronaut CTD
+              | 910 > | Seabird SBE38
               | 995 > | Instrument attached to marine mammals
               | 996   | Instrument attached to animals other than marine mammals
 
@@ -6195,6 +6941,18 @@ Table F STD |  0 | 20
               | 5 > | Reconstructed chirp used
               | 6   | Slant range to ground range conversion applied
 
+  0-25-112 | BSADQF ; FLAG
+              | 1 > | Band specific range
+              | 2 > | Band specific significant wave height
+              | 3 > | Band specific backscatter coefficient
+              | 4 > | Off nadir angle from band specific waveform parameters
+              | 5   | Off nadir angle from platform
+
+  0-25-113 | BSACQF ; FLAG
+              | 1 > | Band specific range instrumental correction
+              | 2 > | Band specific significant wave height instrumental correction
+              | 3   | Band specific backscatter coefficient instrumental correction
+
   0-25-120 | RAPF ; CODE
               | 0 > | Percentage of data set records free of processing errors during Level 2 processing is greater than the acceptable threshold
               | 1   | Percentage of data set records free of processing errors during Level 2 processing is less than the acceptable threshold
@@ -6221,7 +6979,7 @@ Table F STD |  0 | 20
               | 3 > | Pixel is close to the border delimiting the extended Alias free zone
               | 4 > | Pixel is inside the extended Alias free zone
               | 5 > | Pixel is inside the exclusive of Alias free zone
-              | 6 > | Pixel is located in a zone where a Moon Alias was reconstructed
+              | 6 > | Pixel is located in a zone where a moon alias was reconstructed
               | 7 > | Pixel is located in a zone where Sun reflection has been detected
               | 8 > | Pixel is located in a zone where Sun Alias was reconstructed
               | 9 > | Flat target transformation has been performed during image reconstruction of this pixel
@@ -6241,6 +6999,29 @@ Table F STD |  0 | 20
   0-25-184 | L2PS ; CODE
               | 0 > | OK
               | 1   | Product has a duration shorter than the input product
+
+  0-25-187 | CONFLG ; CODE
+              | 0 > | Valid
+              | 1   | Not valid
+
+  0-25-188 | MRSLP ; CODE
+              | 0 > | Pressure adjusted to mean sea level following WMO 8 for low level (< 50 m) stations
+              | 1 > | Pressure adjusted to mean sea level following WMO 8 for stations below 750 m
+              | 2 > | Pressure adjusted to sea level following national practice
+              | 3 > | Pressure adjusted to local water level following national practice
+              | 4   | Pressure not corrected for height
+
+  0-25-190 | AEPM ; CODE
+              | 0 > | Low Resolution Mode (LRM)
+              | 1 > | Synthetic Aperture Radar (SAR)
+              | 2 > | LRM and SAR (interleaved)
+              | 4 > | Pseudo-LRM (PLRM)
+              | 5   | SAR Interferometric Mode (SARIN)
+
+  0-25-191 | ATRM ; CODE
+              | 0 > | Open loop
+              | 1 > | Closed loop
+              | 2   | Open loop fixed gain
 
   0-26-010 | HRIN ; FLAG
               | 1 > | 0100 included
@@ -6313,6 +7094,7 @@ Table F STD |  0 | 20
               | 6 > | 4-bit indicator of quality control class according to GTSPP (0 = unqualified, 1 = correct value (all checks passed), 2 = probably good but value inconsistent with statistics (differ from climatology), 3 = probably bad (spike or gradient, if other tests passed), 4 = bad or impossible value (out of scale, vertical instability or constant profile), 5 = value modified during quality control, 8 = interpolated value)
               | 7 > | Percentage confidence
               | 8 > | 2-bit indicator of suspected data (0 = Not suspected, 1 = Suspected, 2 = Reserved, 3 = Information not required)
+              | 9 > | 4-bit status of ancillary data (0 = Data present and good and collocated, 1 = Data available but of degraded quality and not used, 2 = No spatiotemporally collocated data available)
               | 21   | 1 bit indicator of correction (0 = original value, 1 = substituted/corrected value)
 
   0-31-031 | DPRI ; FLAG
@@ -6433,10 +7215,11 @@ Table F STD |  0 | 20
               | 15   | No laser output
 
   0-33-027 | QCLS ; CODE
-              | 0 > | Radius > 1500 m
-              | 1 > | 500 m < Radius <1500 m
-              | 2 > | 250 m < Radius < 500 m
-              | 3   | Radius < 250 m
+              | 0 > | Radius >= 1500 m
+              | 1 > | 500 m =< Radius <1500 m
+              | 2 > | 250 m =< Radius < 500 m
+              | 3 > | Radius < 250 m
+              | 4   | <= 100m
 
   0-33-028 | SSOQ ; CODE
               | 1 > | Nominal
@@ -6482,7 +7265,8 @@ Table F STD |  0 | 20
               | 3 > | No good PRTs for this line
               | 4 > | Some bad blackbody view counts for this line
               | 5 > | Some bad space view counts for this line
-              | 6   | Some bad PRT temps on this line
+              | 6 > | Some bad PRT temps on this line
+              | 7   | Quality for this scan is reduced
 
   0-33-033 | FOVQ ; FLAG
               | 1 > | Secondary calibration used
@@ -6686,9 +7470,44 @@ Table F STD |  0 | 20
               | 19 > | Value in data block 19 is invalid
               | 20   | Value in data block 20 is invalid
 
+  0-33-055 | WVQF ; FLAG
+              | 11 > | Ocean sigma-0 is not available for wind retrievals
+              | 12 > | Background wind is not available
+              | 13 > | Background model detect land
+              | 14 > | Background model detect ice
+              | 15 > | Sigma-0 is not land/ice free
+              | 16 > | Sigma-0 land contamination
+              | 17 > | Sigma-0 ice contamination
+              | 18 > | Not enough azimuthal diversity
+              | 19 > | Inversion is not done
+              | 20 > | Overall WVC flag
+              | 21 > | Inversion is attempted (flag is set)
+              | 22 > | Rain flag is attempted (flag is set)
+              | 23   | Rain is detected
+
+  0-33-056 | SZQF ; FLAG
+              | 8 > | Ascending
+              | 9 > | VV polarisation
+              | 10 > | Fore of spacecraft
+              | 11 > | Land
+              | 12 > | Poor sigma-0 (summary)
+              | 13 > | Invalid sigma-0 (summary)
+              | 14 > | Poor BT
+              | 15 > | Invalid BT
+              | 16 > | Land-sea boundary
+              | 17 > | Negative sigma-0
+              | 21 > | Ice
+              | 22 > | Missing data at a given latitude-longitude for sea-ice flagging process for 2 or more days
+              | 23   | Ice-ocean contamination
+
   0-33-060 | QGFQ ; CODE
               | 0 > | Good
               | 1   | Bad
+
+  0-33-066 | AMVQ ; FLAG
+              | 20 > | Good wind, but an alternative channel used for feature tracking
+              | 21 > | Good wind, but an alternative set of channels used for the determination of cloud-top height/AMV height assignment
+              | 22   | Correlation surface constraint fails
 
   0-33-070 | SBUVTOQ ; CODE
               | 0 > | Good retrieval
@@ -6817,6 +7636,7 @@ Table F STD |  0 | 20
               | 15   | Solar eclipse during Earth view scan
 
   0-33-083 | VIIRSQ ; FLAG
+              | 6 > | Pixel is affected by radio frequency interference
               | 7 > | Poor calibration quality due to bad space view offsets, on-board calibration view offsets, etc. or use of a previous calibration view
               | 8 > | Saturated pixel
               | 9 > | Missing data - data required for calibration processing is not available for processing
@@ -6839,11 +7659,77 @@ Table F STD |  0 | 20
               | 14 > | Ice concentration threshold exceeded (SST not retrieved due to ice concentration exceeding threshold in system spec)
               | 15   | Thin cirrus detected in pixel
 
+  0-33-085 | AOTQ ; FLAG
+              | 4 > | Angstrom exponent is outside of the system specification range
+              | 5 > | Excluded, Angstrom exponent for AOT at 550 nm < 0.15
+              | 6 > | Bright surface in cell (if over land), or shallow or turbid water in cell (if over ocean)
+              | 7 > | Low sun, excluded, Solar Zenith Angle > 80 degrees
+              | 8 > | Low sun, degraded, 65 degrees < Solar Zenith Angle <= 80 degrees
+              | 9 > | Fire detected in cell
+              | 10 > | Snow/Ice in cell
+              | 11 > | Cloud shadow in cell
+              | 12 > | Sun glint in cell
+              | 13 > | Bad SDR data present in horizontal cell (quality of AOT/APSP degraded or AOT/APSP not retrieved due to bad SDR data in horizontal cell)
+              | 14 > | Cirrus contamination in cell
+              | 15 > | Cloud adjacent to cell
+              | 16 > | Cloud contamination in cell
+              | 17   | AOT is outside of the system specification range
+
   0-33-086 | RETRQ ; CODE
               | 0 > | Not retrieved
               | 1 > | Excluded
               | 2 > | Degraded
               | 3   | High quality
+
+  0-33-087 | XSAA ; CODE
+              | 0 > | Less than or equal to 10%
+              | 1 > | Greater than 10% but less than or equal to 20%
+              | 2 > | Greater than 20% but less than or equal to 30%
+              | 3 > | Greater than 30% but less than or equal to 40%
+              | 4 > | Greater than 40% but less than or equal to 50%
+              | 5 > | Greater than 50% but less than or equal to 60%
+              | 6 > | Greater than 60% but less than or equal to 70%
+              | 7 > | Greater than 70% but less than or equal to 80%
+              | 8   | Greater than 80%
+
+  0-33-088 | OTCQ ; FLAG
+              | 6 > | Surface reflectivity out of range
+              | 7 > | Residual too large
+              | 8 > | Aerosol index limit exceeded
+              | 9 > | Solar eclipse present (All or part of the instantaneous field-of-view is affected by a solar eclipse, umbra or penumbra viewing)
+              | 10 > | Sun glint present within instantaneous field-of-view
+              | 11 > | Snow or ice surface is within the instantaneous field-of-view
+              | 12 > | Solar zenith angle in excluded (night) condition (solar zenith angle >= 88 degrees)
+              | 13 > | Solar zenith angle in degraded condition (80 degrees <= solar zenith angle < 88 degrees)
+              | 14 > | SO2 index > 6 DU (degraded condition)
+              | 15 > | Residues are not consistent (indicates whether the residues from the 22 wavelengths
+              | 16 > | Ozone triplet selection is not consistent within retrieval (ozone triplet consistency)
+              | 17   | Input data quality is not good
+
+  0-33-092 | BSOQ ; FLAG
+              | 1 > | Altimeter operating
+              | 2   | MicroWave Radiometer (MWR) operating
+
+  0-33-093 | QFGNX ; FLAG
+              | 1 > | Path delay quality is considered poor
+              | 2 > | GALILEO satellites used
+              | 3 > | GLONASS satellites used
+              | 4 > | GPS satellites used
+              | 5 > | BeiDou satellites used
+              | 9 > | Meteorological data applied
+              | 10 > | Atmospheric loading correction applied
+              | 11 > | Ocean tide loading applied
+              | 12 > | Second order ionosphere corrections applied
+              | 13 > | Third order ionosphere corrections applied
+              | 14 > | PPP solution
+              | 15 > | Gradients applied to path delay
+              | 16 > | Multipath corrections applied to path delay
+              | 17 > | Residual applied to path delay
+              | 18 > | Climate quality data processing
+              | 19 > | Re-processing
+              | 20 > | Post-processing
+              | 21 > | Near-real time data processing
+              | 22   | Real time data processing
 
   0-35-001 | TFFM ; CODE
               | 0 > | Real time
@@ -6927,6 +7813,10 @@ Table F STD |  0 | 20
               | 11 > | Excessive missing temperature
               | 12 > | Excessive missing pressure
               | 13 > | User terminated
+              | 14 > | Sudden loss of signal
+              | 15 > | Tracking lost
+              | 16 > | Increasing pressure
+              | 17 > | Invalid and/or missed data time limits exceeded
               | 30   | Other
 
   0-40-005 | SMCF ; FLAG
@@ -6995,4 +7885,177 @@ Table F STD |  0 | 20
   0-40-025 | IFDT ; CODE
               | 0 > | Good
               | 1   | Bad
+
+  0-40-028 | GMIQ ; CODE
+              | 0 > | Good data
+              | 1 > | Possible sun glint
+              | 2 > | Possible radio frequency interference
+              | 3 > | Degraded geolocation data
+              | 4 > | Data corrected for warm load intrusion
+              | 5 > | Scan blanking on
+              | 6 > | Data is missing from file or unreadable
+              | 7 > | Unphysical brightness temperature
+              | 8 > | Error in geolocation data
+              | 9 > | Data missing in one channel
+              | 10 > | Data missing in multiple channels
+              | 11 > | Lat/long values are out of range
+              | 12 > | Non-normal status modes
+              | 13   | Distance to corresponding low frequency pixel > 7 km
+
+  0-40-036 | LL2BCT ; CODE
+              | 0 > | Clear
+              | 1   | Cloud
+
+  0-40-043 | SMNI ; CODE
+              | 0 > | The platform is not undergoing a manoeuvre
+              | 1 > | The platform is undergoing a manoeuvre, nominal processing
+              | 2   | The platform is undergoing a manoeuvre, no processing
+
+  0-40-045 | CFHA ; FLAG
+              | 1 > | Cloud products retrieved with the chi-squared method
+              | 2 > | Cloud products retrieved with the CO2 slicing
+              | 3 > | Height assignment performed with statistical first guess retrieval
+              | 4   | Height assignment performed with NWP forecasts
+
+  0-40-046 | CLDSM ; CODE
+              | 0 > | The IASI IFOV is clear
+              | 1 > | Small cloud contamination possible
+              | 2 > | The IASI IFOV is partially covered by clouds
+              | 3   | High or full cloud coverage
+
+  0-40-047 | VIL1P ; CODE
+              | 0 > | The measurements and side information are available and of good quality for L2 processing
+              | 1 > | The L1c products are of degraded quality according to L1c flags, no L2 processing
+              | 2   | Quality control indicates that the L1c data are of degraded quality (not indicated by the IASI L1c flags), no L2 processing
+
+  0-40-048 | VAL1F ; CODE
+              | 0 > | The expected AMSU measurements are available, of good quality and collocated with IASI for processing
+              | 1 > | AMSU-A data are available but of degraded quality (according to AMSU L1 flags or QC tests) and not used for processing
+              | 2   | No coincident (time and space) AMSU measurements available for processing
+
+  0-40-049 | CTXR ; FLAG
+              | 4 > | IASI cloud optical thickness indicates a cloud
+              | 5 > | IASI cloud optical thickness computed
+              | 6 > | AVHRR heterogeneity test indicates a cloud
+              | 7 > | AVHRR heterogeneity test executed
+              | 8 > | IASI-AVHRR ANN cloud test indicates a cloud
+              | 9 > | IASI-AVHRR ANN cloud test executed
+              | 10 > | AVHRR integrated cloud fraction indicates a cloud
+              | 11 > | AVHRR integrated cloud fraction assessed
+              | 12 > | AMSU cloud test indicates a cloud
+              | 13 > | AMSU cloud test executed
+              | 14 > | IASI window cloud test indicates a cloud
+              | 15   | IASI window cloud test executed
+
+  0-40-050 | RTRIN ; FLAG
+              | 5 > | MHS included
+              | 6 > | AMSU included
+              | 7   | IASI included
+
+  0-40-051 | CVIR ; CODE
+              | 0 > | OEM not attempted
+              | 1 > | OEM aborted because first guess residuals too high
+              | 2 > | The minimisation did not converge, sounding rejected
+              | 3 > | The minimisation did not converge, sounding accepted
+              | 4 > | The minimisation converged, sounding rejected
+              | 5   | The minimisation converged, sounding accepted
+
+  0-40-052 | ISFRTR ; FLAG
+              | 4 > | Supersaturation conditions in the OEM retrieval
+              | 5 > | Superadiabatic conditions in the OEM retrieval
+              | 6 > | Supersaturation conditions in the first guess
+              | 7   | Superadiabatic conditions in the first guess
+
+  0-40-054 | PPIE ; FLAG
+              | 1 > | An error has been detected
+              | 2 > | Message from L1
+              | 3 > | Message from L2
+              | 4 > | Message from ancillary data
+              | 5 > | Message from fitting procedure
+              | 6 > | File opening
+              | 7 > | File reading
+              | 8 > | Quality flag
+              | 9 > | Level 2 "from linear regression" (F_Qual) report a pixel where L2 are not fully trusted
+              | 10 > | Empty field or data
+              | 11 > | Missing surface pressure value
+              | 12   | Radiance filtering
+
+  0-40-055 | DRTR ; FLAG
+              | 1 > | Radiance filtering
+              | 2 > | Polar regions
+              | 3 > | Location in the night
+              | 4 > | Negative altitude surface below MSL
+              | 5 > | Cloud-covered scene
+              | 6 > | Scene above the sea
+              | 7 > | Scene above desert
+              | 8 > | Skin temperature
+              | 9 > | Skin temperature differential
+              | 10 > | Spectral line contrast too weak
+              | 11 > | Maximum number of iterations exceeded
+              | 12 > | Negative partial columns
+              | 13 > | Matrix ill-conditioned
+              | 14 > | Fit diverged
+              | 15 > | Error in GSL usage
+              | 16 > | Residuals biased
+              | 17 > | Residuals sloped
+              | 18 > | Residuals RMS large
+              | 19 > | Weird averaging kernels
+              | 20   | Ice presence detected
+
+  0-40-056 | GRTRQ ; CODE
+              | 0 > | Use not recommended
+              | 1 > | Use with caution
+              | 2   | Best quality
+
+  0-40-057 | IL2RTR ; FLAG
+              | 1 > | An error has been detected
+              | 2 > | Message from L1
+              | 3 > | Message from L2
+              | 4 > | Message from ancillary data
+              | 5 > | Message from fitting procedure
+              | 7 > | Bad L1 or L2 flag raised
+              | 8 > | Level 2 not fully trusted
+              | 9 > | Missing temperature or humidity levels in the vertical profile
+              | 10 > | Missing surface pressure value
+              | 11 > | Radiance filtering
+              | 12 > | Polar regions
+              | 13 > | Location in the night
+              | 14 > | Negative altitude
+              | 15 > | Cloud-covered scene
+              | 16 > | Scene above the sea
+              | 17 > | Scene above desert
+              | 18 > | Missing skin temperature
+              | 19 > | Retrieved skin temperature too different from model
+              | 20 > | Spectral line contrast too weak
+              | 21 > | Maximum number of iterations exceeded
+              | 22 > | Negative partial columns
+              | 23 > | Matrix ill-conditioned
+              | 24 > | Fit diverged
+              | 25 > | Error in GSL usage
+              | 26 > | Residuals biased
+              | 27 > | Residuals sloped
+              | 28 > | Residuals RMS large
+              | 29 > | Weird averaging kernels
+              | 30   | Ice presence detected
+
+  0-40-068 | GRTRQSO2 ; CODE
+              | 0 > | Values calculated with IASI L2
+              | 1 > | Pressure and temperature profiles missing in IASI L2 data; model/forecast data used instead
+              | 2   | Best quality
+
+  0-40-074 | GIQF ; FLAG
+              | 1 > | Incompatibility of a scan angle for electroencephalogram
+              | 2 > | Calibration failure (limit of black body temperature reached, not enough sources for interferometry, etc.)
+              | 3 > | Geolocation executed taking into account the orientation of the spacecraft and using the star catalogue
+              | 4 > | High level of cryogenic sediment reached, requiring outgassing of the radiation cooler. Set when NESR level of the ice cover threshold crossed
+              | 5 > | Interferometry package flag
+              | 6 > | General accuracy flag
+              | 7 > | Noise present during the interferometry
+              | 8 > | Outgassing of the radiation cooler
+              | 9 > | Flag preceding the first 24 hours/day mark (set to on as a rule)
+              | 10   | Telemetry package flag
+
+  0-42-004 | CIPSWV ; CODE
+              | 0 > | Wave direction resolved
+              | 1   | 180-degree ambiguity not resolved
 END

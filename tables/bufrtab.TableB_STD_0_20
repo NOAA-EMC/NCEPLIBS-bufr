@@ -1,7 +1,7 @@
 Table B STD |  0 | 20
 #
 # Standard BUFR Table B, Master Table 0, Version 20
-# This file was generated: 2021/05/04 21:47:44
+# This file was generated: 2021/05/11 22:56:06
 #
 #========================================================================================================
 # F-XX-YYY |SCALE| REFERENCE   | BIT |      UNIT         | MNEMONIC ;DESC ;  ELEMENT NAME

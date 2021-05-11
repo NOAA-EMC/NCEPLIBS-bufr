@@ -1,7 +1,7 @@
 Table D STD |  0 | 25
 #
 # Standard BUFR Table D, Master Table 0, Version 25
-# This file was generated: 2021/05/04 21:47:58
+# This file was generated: 2021/05/11 22:56:18
 #
 #========================================================================================================
 # F-XX-YYY | MNEMONIC   ;DCOD ; NAME           <-- sequence definition
@@ -5005,7 +5005,7 @@ Table D STD |  0 | 25
            | 0-08-046 > | Atmospheric chemical or physical constituent type
            | 2-01-139 > | Change data width
            | 2-02-126 > | Change scale
-           | 0-15-026 > | Concentration of pollutant (mol mol-1)
+           | 0-15-026 > | Concentration of pollutant
            | 2-02-000 > | Cancel change scale
            | 2-01-000 > | Cancel change data width
            | 1-06-000 > | Delayed replication of 6 descriptors
@@ -5013,7 +5013,7 @@ Table D STD |  0 | 25
            | 0-08-046 > | Atmospheric chemical or physical constituent type
            | 2-01-138 > | Change data width
            | 2-02-130 > | Change scale
-           | 0-15-026 > | Concentration of pollutant (mol mol-1)
+           | 0-15-026 > | Concentration of pollutant
            | 2-02-000 > | Cancel change scale
            | 2-01-000 > | Cancel change data width
            | 0-15-052 > | Log10 of number density of aerosol particles with diameter greater than 5 nm

@@ -1,7 +1,7 @@
 Table F STD |  0 | 28
 #
 # Standard BUFR Table CODE/FLAG, Master Table 0, Version 28
-# This file was generated: 2021/05/04 21:48:07
+# This file was generated: 2021/05/11 22:56:27
 #
 #========================================================================================================
 # F-XX-YYY | MNEMONIC ; CODE               <-- code table definition
@@ -975,7 +975,7 @@ Table F STD |  0 | 28
               | 254 > | EUMETSAT
            | 0-01-031,0-01-033,0-01-035=204
               | 0 > | No sub-centre
-              | 101 > | Maupia
+              | 101 > | Maupuia
               | 102 > | Lauder
            | 0-01-031,0-01-033,0-01-035=80
               | 0 > | No sub-centre

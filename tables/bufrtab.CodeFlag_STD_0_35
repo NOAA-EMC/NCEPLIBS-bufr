@@ -1,7 +1,7 @@
 Table F STD |  0 | 35
 #
 # Standard BUFR Table CODE/FLAG, Master Table 0, Version 35
-# This file was generated: 2021/05/04 21:48:26
+# This file was generated: 2021/05/11 22:56:44
 #
 #========================================================================================================
 # F-XX-YYY | MNEMONIC ; CODE               <-- code table definition
@@ -1142,7 +1142,7 @@ Table F STD |  0 | 35
               | 17 > | ESRL Global Systems Division
            | 0-01-031,0-01-033,0-01-035=204
               | 0 > | No sub-centre
-              | 101 > | Maupia
+              | 101 > | Maupuia
               | 102 > | Lauder
            | 0-01-031,0-01-033,0-01-035=191
               | 0 > | No sub-centre
@@ -7461,13 +7461,13 @@ Table F STD |  0 | 35
               | 20   | Value in data block 20 is invalid
 
   0-33-055 | WVQF ; FLAG
-              | 11 > | Ocean sigma0 is not available for wind retrievals
+              | 11 > | Ocean sigma-0 is not available for wind retrievals
               | 12 > | Background wind is not available
               | 13 > | Background model detect land
               | 14 > | Background model detect ice
-              | 15 > | Sigma0 is not land/ice free
-              | 16 > | Sigma0 land contamination
-              | 17 > | Sigma0 ice contamination
+              | 15 > | Sigma-0 is not land/ice free
+              | 16 > | Sigma-0 land contamination
+              | 17 > | Sigma-0 ice contamination
               | 18 > | Not enough azimuthal diversity
               | 19 > | Inversion is not done
               | 20 > | Overall WVC flag
@@ -7480,14 +7480,14 @@ Table F STD |  0 | 35
               | 9 > | VV polarisation
               | 10 > | Fore of spacecraft
               | 11 > | Land
-              | 12 > | Poor sigma0 (summary)
-              | 13 > | Invalid sigma0 (summary)
+              | 12 > | Poor sigma-0 (summary)
+              | 13 > | Invalid sigma-0 (summary)
               | 14 > | Poor BT
               | 15 > | Invalid BT
               | 16 > | Land-sea boundary
-              | 17 > | Negative sigma0
+              | 17 > | Negative sigma-0
               | 21 > | Ice
-              | 22 > | Missing data at a given latitude-longitude for sea-ice flagging process for 2 or more number of days
+              | 22 > | Missing data at a given latitude-longitude for sea-ice flagging process for 2 or more days
               | 23   | Ice-ocean contamination
 
   0-33-060 | QGFQ ; CODE
@@ -8021,7 +8021,7 @@ Table F STD |  0 | 35
               | 6 > | General accuracy flag
               | 7 > | Noise present during the interferometry
               | 8 > | Outgassing of the radiation cooler
-              | 9 > | Flag preceding the first 24 hours/day mark (on as a rule)
+              | 9 > | Flag preceding the first 24 hours/day mark (set to on as a rule)
               | 10   | Telemetry package flag
 
   0-42-004 | CIPSWV ; CODE

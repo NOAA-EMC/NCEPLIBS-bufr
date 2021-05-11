@@ -1,7 +1,7 @@
 Table F LOC |  0 | 7 |  1
 #
 # Local BUFR Table CODE/FLAG, Master Table 0, Originating Center 7, Version 1
-# This file was generated: 2021/05/04 16:54:48
+# This file was generated: 2021/05/10 20:34:01
 #
 #========================================================================================================
 # F-XX-YYY | MNEMONIC ; CODE               <-- code table definition
@@ -4524,6 +4524,7 @@ Table F LOC |  0 | 7 |  1
               | 11 > | Special aeronautical observations (SPECI)
               | 14 > | Ground-based GPS humidity observations (GPSIWV)
               | 20 > | Climatological observations (CLIMAT)
+              | 21 > | Climatological observations (monthly reports of daily climate data)
               | 30 > | Sferics locations
               | 40 > | Hydrologic reports
               | 50 > | Hourly synoptic observations with supplementary one-hour data
@@ -4571,6 +4572,7 @@ Table F LOC |  0 | 7 |  1
            | 0-55-020=4
               | 0 > | ASDAR/ACARS (AMDAR)
               | 1 > | Manual (AIREP,PIREP)
+              | 2 > | Mode-S
            | 0-55-020=5
               | 0 > | Cloud wind data (SATOB)
               | 1 > | Cloud properties
@@ -4582,6 +4584,7 @@ Table F LOC |  0 | 7 |  1
            | 0-55-020=7
               | 0 > | Forecast Tropical cyclone tracks from EPS
               | 1 > | Squall Line
+              | 2 > | Forecast tropical cyclone from deterministic system
            | 0-55-020=8
               | 0 > | Surface ozone
               | 1 > | Ozone vertical sounding
