@@ -304,7 +304,9 @@ set(fortran_src
   openbf.F
   pkvs01.F
   wrdlen.F
-  mod_query.f90
+  modq_string.f90
+  modq_query_set.f90
+  modq_result_set.f90
   fortran_open.f90
   fortran_close.f90
   bufr_interface.f90)
