@@ -29,6 +29,7 @@ C> - 2017-05-22  J. Ator    -- Added allocations for MODA_RLCCMN
 C> - 2019-05-09  J. Ator    -- Modified allocations for MODA_BUFRMG
 C> - 2021-01-08  J. Ator    -- Modified mstabs array declarations
 C>                             for GNUv10 portability
+C> - 2021-05-17  J. Ator    -- Allow up to 24 characters in cbunit
 C>
 	SUBROUTINE ARALLOCF
 
@@ -446,7 +447,7 @@ C	MODA_MSTABS arrays.
 	ALLOCATE( CBBW(4,MXMTBB), STAT=iost )
 	IF ( iost .ne. 0 ) CALL BORT( BRTSTR // 'CBBW' )
 
-	ALLOCATE( CBUNIT(14,MXMTBB), STAT=iost )
+	ALLOCATE( CBUNIT(24,MXMTBB), STAT=iost )
 	IF ( iost .ne. 0 ) CALL BORT( BRTSTR // 'CBUNIT' )
 
 	ALLOCATE( CBMNEM(8,MXMTBB), STAT=iost )

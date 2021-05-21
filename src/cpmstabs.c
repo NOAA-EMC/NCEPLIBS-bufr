@@ -22,7 +22,7 @@
  *  @param[in] pcbsref - char(*)[12]: Master Table B reference
  *                        values
  *  @param[in] pcbbw - char(*)[4]: Master Table B bit widths
- *  @param[in] pcbunit - char(*)[14]: Master Table B units
+ *  @param[in] pcbunit - char(*)[24]: Master Table B units
  *  @param[in] pcbmnem - char(*)[8]: Master Table B mnemonics
  *  @param[in] pcbelem - char(*)[120]: Master Table B element names
  *  @param[in] pnmtd - f77int*: Number of master Table D entries
@@ -40,11 +40,12 @@
  *
  * <b>Program history log:</b>
  * - 2014-12-04  J. Ator    -- Original author
+ * - 2021-05-17  J. Ator    -- Allow up to 24 characters in cbunit
 */
 void cpmstabs(  f77int *pnmtb,
 		f77int *pibfxyn, char (*pcbscl)[4],
 		char (*pcbsref)[12], char (*pcbbw)[4],
-		char (*pcbunit)[14], char (*pcbmnem)[8],
+		char (*pcbunit)[24], char (*pcbmnem)[8],
 		char (*pcbelem)[120],
 		f77int *pnmtd,
 		f77int *pidfxyn, char (*pcdseq)[120],
@@ -68,7 +69,7 @@ void cpmstabs(  f77int *pnmtb,
 	for ( jj = 0; jj < 12; jj++ ) {
 	    MSTABS_BASE(cbsref)[ii][jj] = pcbsref[ii][jj];
 	}
-	for ( jj = 0; jj < 14; jj++ ) {
+	for ( jj = 0; jj < 24; jj++ ) {
 	    MSTABS_BASE(cbunit)[ii][jj] = pcbunit[ii][jj];
 	}
 	for ( jj = 0; jj < 120; jj++ ) {

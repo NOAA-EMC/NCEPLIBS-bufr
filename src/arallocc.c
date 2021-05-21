@@ -29,6 +29,7 @@
  *
  * <b>Program history log:</b>
  * - 2014-12-04  J. Ator    -- Original author
+ * - 2021-05-17  J. Ator    -- Allow up to 24 characters in cbunit
  */
 
 void arallocc( void )
@@ -88,7 +89,7 @@ void arallocc( void )
         bort( brtstr, ( f77int ) strlen( brtstr ) );
     }
 
-    if ( ( MSTABS_BASE(cbunit) = malloc( mxmtbb * 14 * sizeof(char) ) ) == NULL ) {
+    if ( ( MSTABS_BASE(cbunit) = malloc( mxmtbb * 24 * sizeof(char) ) ) == NULL ) {
 	strcat( brtstr, "CBUNIT" );
         bort( brtstr, ( f77int ) strlen( brtstr ) );
     }

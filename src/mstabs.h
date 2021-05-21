@@ -20,7 +20,7 @@
 #endif
 
 void cpmstabs( f77int *, f77int *, char (*)[4], char (*)[12], char (*)[4],
-        char (*)[14], char (*)[8], char (*)[120], f77int *, f77int *,
+        char (*)[24], char (*)[8], char (*)[120], f77int *, f77int *,
         char (*)[120], char (*)[8], f77int *, f77int *, f77int * );
 
 #ifdef STATIC_ALLOCATION
@@ -32,7 +32,7 @@ void cpmstabs( f77int *, f77int *, char (*)[4], char (*)[12], char (*)[4],
     extern char   MSTABS_BASE(cbscl)[][4];
     extern char   MSTABS_BASE(cbsref)[][12];
     extern char   MSTABS_BASE(cbbw)[][4];
-    extern char   MSTABS_BASE(cbunit)[][14];
+    extern char   MSTABS_BASE(cbunit)[][24];
     extern char   MSTABS_BASE(cbmnem)[][8];
     extern char   MSTABS_BASE(cbelem)[][120];
     extern f77int MSTABS_BASE(nmtd);
@@ -52,7 +52,7 @@ void cpmstabs( f77int *, f77int *, char (*)[4], char (*)[12], char (*)[4],
 	char   (*MSTABS_BASE(cbscl))[4];
 	char   (*MSTABS_BASE(cbsref))[12];
 	char   (*MSTABS_BASE(cbbw))[4];
-	char   (*MSTABS_BASE(cbunit))[14];
+	char   (*MSTABS_BASE(cbunit))[24];
 	char   (*MSTABS_BASE(cbmnem))[8];
 	char   (*MSTABS_BASE(cbelem))[120];
 	f77int MSTABS_BASE(nmtd);
@@ -67,7 +67,7 @@ void cpmstabs( f77int *, f77int *, char (*)[4], char (*)[12], char (*)[4],
 	extern char   (*MSTABS_BASE(cbscl))[4];
 	extern char   (*MSTABS_BASE(cbsref))[12];
 	extern char   (*MSTABS_BASE(cbbw))[4];
-	extern char   (*MSTABS_BASE(cbunit))[14];
+	extern char   (*MSTABS_BASE(cbunit))[24];
 	extern char   (*MSTABS_BASE(cbmnem))[8];
 	extern char   (*MSTABS_BASE(cbelem))[120];
 	extern f77int MSTABS_BASE(nmtd);
