@@ -1,14 +1,6 @@
 module modq_query_set
+  use modq_string
   implicit none
-
-  type, private :: String
-    private
-      character(len=75) :: char_buffer
-
-    contains
-      procedure :: chars => string__get_chars
-      procedure :: delete => string__delete
-  end type
 
   type, public :: QuerySet
     private
@@ -17,25 +9,14 @@ module modq_query_set
 
     contains
       procedure :: add => query_set__add
-      procedure :: delete => query_set__delete
+      procedure :: count => query_set__count
+      procedure :: get_query_name => query_set__get_query_name
+      procedure :: get_query_str => query_set__get_query_str
       procedure :: print => query_set__print
-
+      final :: query_set__delete
   end type QuerySet
 
 contains
-
-  function string__get_chars(self) result(chars)
-    class(String), intent(in) :: self
-    character(len=:), allocatable :: chars
-
-    chars = trim(self%char_buffer)
-  end function string__get_chars
-
-
-  subroutine string__delete(self)
-    class(String), intent(inout) :: self
-  end subroutine
-
 
   subroutine query_set__add(self, query_str, query_name)
     class(QuerySet), intent(inout) :: self
@@ -50,8 +31,31 @@ contains
   end subroutine query_set__add
 
 
-  subroutine query_set__print(self)
+  integer function query_set__count(self) result(count)
     class(QuerySet), intent(in) :: self
+    count = size(self%names)
+  end function query_set__count
+
+
+  function query_set__get_query_name(self, idx) result(name)
+    class(QuerySet), intent(inout) :: self
+    integer, intent(in) :: idx
+    character(len=:), allocatable :: name
+    name = self%names(idx)%chars()
+  end function query_set__get_query_name
+
+
+  function query_set__get_query_str(self, idx) result(query_str)
+    class(QuerySet), intent(inout) :: self
+    integer, intent(in) :: idx
+    character(len=:), allocatable :: query_str
+
+    query_str = self%query_strs(idx)%chars()
+  end function query_set__get_query_str
+
+
+  subroutine query_set__print(self)
+    class(QuerySet), intent(inout) :: self
 
     integer :: q_idx
 
@@ -62,10 +66,16 @@ contains
 
 
   subroutine query_set__delete(self)
-    class(QuerySet), intent(inout) :: self
+    type(QuerySet), intent(inout) :: self
 
-    deallocate(self%names)
-    deallocate(self%query_strs)
+    if (allocated(self%names)) then
+      deallocate(self%names)
+    end if
+
+    if (allocated(self%query_strs)) then
+      deallocate(self%query_strs)
+    end if
+
   end subroutine query_set__delete
 
 end module modq_query_set

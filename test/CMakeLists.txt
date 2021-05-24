@@ -86,6 +86,10 @@ list(APPEND test_c_interface_srcs
   test_c_interface_2.c
 )
 
+list(APPEND test_query_srcs
+  test_query.f90
+)
+
 # Install testing scripts
 list(APPEND test_scripts
   test_wrapper_IN.sh
@@ -191,6 +195,23 @@ foreach(test_src IN ITEMS ${test_c_interface_srcs})
   endforeach()
 endforeach()
 
+add_executable("test_query.x" test_query.f90)
+add_dependencies("test_query.x" bufr_4_DA)
+target_link_libraries("test_query.x" PRIVATE bufr::bufr_4_DA)
+
+## query tests
+#foreach(test_src IN ITEMS ${test_query_srcs})
+#  string(REPLACE ".c" "" testPref ${test_src})
+#  foreach(kind ${test_kinds})
+#    set(test     ${testPref}_${kind})
+#    set(test_exe ${test}.x)
+#    add_executable(${test_exe} ${test_src})
+#    add_dependencies(${test_exe} bufr_${kind})
+#    target_link_libraries(${test_exe} PRIVATE bufr::bufr_${kind})
+#    add_test(NAME ${test} COMMAND ${CMAKE_BINARY_DIR}/test/${test_exe})
+#  endforeach()
+#endforeach()
+
 # Test utilities
 
 # Test debufr.x utility
@@ -211,5 +232,13 @@ add_test(NAME test_split_by_subset
   COMMAND ${CMAKE_BINARY_DIR}/bin/test_split_by_subset.sh "${CMAKE_BINARY_DIR}/utils/split_by_subset.x testfiles/data/satwndbufr" "testfiles/testoutput/satwndbufr_split"
   )
 
-add_executable("test_query.x" test_query.f90)
-target_link_libraries("test_query.x" PRIVATE bufr::bufr_4_DA)
+
+
+#foreach(kind ${test_kinds})
+#  set(test     ${testPref}_${kind})
+#  set(test_exe ${test}.x)
+#  add_executable(${test_exe} ${test_src})
+#  add_dependencies(${test_exe} bufr_${kind})
+#  target_link_libraries(${test_exe} PRIVATE bufr::bufr_${kind})
+#  add_test(NAME ${test} COMMAND ${CMAKE_BINARY_DIR}/test/${test_exe})
+#endforeach()

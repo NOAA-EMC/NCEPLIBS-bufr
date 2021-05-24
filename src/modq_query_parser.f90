@@ -56,7 +56,7 @@ contains
 
       mnemonics(size(slash_positions)) = last_element(1:start_subscript - 1)
     else
-      if (count(transfer(query_str, "a", len(query_str)) == SubscriptDelimiters(2:2)) /= 1) then
+      if (count(transfer(query_str, "a", len(query_str)) == SubscriptDelimiters(2:2)) /= 0) then
         error stop 'Found unexpected parenthesis.'
       end if
 

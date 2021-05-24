@@ -7,7 +7,6 @@ contains
   subroutine compare_arrays(array1, array2)
     real(kind=8), intent(in) :: array1(:)
     real(kind=4), intent(in) :: array2(:)
-    integer :: idx
 
     if (size(array1) /= size(array2)) then
       error stop "Array sizes mismatch."
@@ -35,8 +34,8 @@ end subroutine test__query_set
 
 
 subroutine test__result_set
-  use modq_result_set
   use modq_string
+  use modq_result_set
   use modq_test
   implicit none
 
@@ -91,29 +90,79 @@ subroutine test__result_set
   data_field%seq_counts(3) = SeqCounts((/1, 2, 3, 1/))
 
   call data_frame%add(data_field)
-
+!
   result_set = ResultSet()
   call result_set%add(data_frame)
-
+!
   call compare_arrays(result_set%get("N0"), (/10.1, 10.34, 10.49/))
-
   call compare_arrays(result_set%get("N7"), (/1.01, 2.02, 3.03, 4.04, 5.05, 6.06, 7.07, 8.08, 9.09, &
                                               10.1, 11.11, 12.12, 13.13, 14.14, 15.15, 16.1/))
-
   call compare_arrays(result_set%get("N0", for="N7"), (/10.1, 10.1, 10.1, 10.34, 10.34, 10.34, 10.34, 10.34, &
                                                         10.34, 10.34, 10.34, 10.34, 10.34, 10.34, 10.34, &
                                                         10.49/))
-
   call compare_arrays(result_set%get("N8"), (/1.05, 2.05, 3.05, 4.05, 5.05, 6.05, 7.05/))
-
   call compare_arrays(result_set%get("N0", for="N8"), (/10.1, 10.1, 10.1, 10.34, 10.34, 10.34, 10.49/))
 
-
-!  if (result_set%get("N0") /= (/10.1, 10.34, 10.49/)) then
-!    error stop "Incorrect N0"
-!  end if
-
 end subroutine test__result_set
+
+
+subroutine test__query
+  use modq_query
+  use modq_query_set
+  use modq_result_set
+  implicit none
+
+  integer :: ireadmg, ireadsb
+  character(8) :: subset
+  integer(kind=8) :: my_idate
+  integer(kind=8) :: iret
+  integer, parameter :: lunit = 12
+
+  type(QuerySet) :: query_set
+  type(ResultSet) :: result_set
+
+  open(lunit, file="/home/rmclaren/Work/ioda-bundle/ioda_converters/test/testinput/gnssro_kompsat5_20180415_00Z.bufr")
+  call openbf(lunit, "IN", lunit)
+
+!  call query_set%add("*/CLATH", "latitude")
+!  call query_set%add("*/CLONH", "longitude")
+  call query_set%add("*/ROSEQ1/ROSEQ2/BNDA[2]", "bending_angle")
+
+  do while (ireadmg(lunit, subset, my_idate) == 0)
+    do while (ireadsb(lunit) == 0)
+      call query(lunit, query_set, result_set)
+    end do
+  end do
+
+  call closbf(12)
+  close(12)
+end subroutine test__query
+
+!subroutine test_list
+!  use modq_list
+!  implicit none
+!
+!  type(IntList) :: my_list
+!
+!  my_list = IntList()
+!  call my_list%append(100)
+!  call my_list%append(10)
+!  call my_list%append(32)
+!
+!  if (mylist%count() /= 3)
+!    error stop "List count is wrong"
+!  end if
+!
+!  if (mylist%at(2) /= 10)
+!    error stop "List contents is wrong"
+!  end if
+!
+!  call my_list%delete()
+!
+!
+!
+!
+!end subroutine test_list
 
 
 
@@ -128,7 +177,14 @@ end subroutine test__result_set
 !end subroutine test__list
 
 
+
+
 program test_query
+!  use modq_result_set
+  implicit none
+
+
+
 !  use mod_strings
 !
 !  type(String), allocatable :: strs(:)
@@ -147,6 +203,7 @@ program test_query
 
   call test__query_set
   call test__result_set
+  call test__query
 
 end program test_query
 

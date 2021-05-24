@@ -1,3 +1,5 @@
+
+
 module modq_result_set
   use modq_string
   implicit none
@@ -201,7 +203,7 @@ contains
     do seq_idx = 1, size(target_field%seq_path)
       if (target_field%seq_path(seq_idx) /= for_field%seq_path(seq_idx)) then
         error stop "The target field {target_field.name} and the for field " &
-                    //target_field%name%chars &
+                    // target_field%name%chars() &
                     //" don't occur along the same path."
       end if
     end do
@@ -237,7 +239,10 @@ contains
     else
       seq_counts = for_field%seq_counts(seq_idx)%counts
       do cnt_idx = offset + 1, offset + last_count
-        count = count + self%get_counts(for_field, seq_idx + 1, seq_counts(cnt_idx), sum(seq_counts(1:cnt_idx - 1)))
+        count = count + self%get_counts(for_field, &
+                                        seq_idx + 1, &
+                                        seq_counts(cnt_idx), &
+                                        sum(seq_counts(1:cnt_idx - 1)))
       end do
     end if
   end function result_set__get_counts
@@ -249,7 +254,6 @@ contains
     integer :: node_id
     integer :: field_idx
     type(DataField) :: field
-    integer :: idx
 
     if (.not. allocated(self%data_frames)) then
       allocate(self%data_frames(0))
@@ -263,7 +267,7 @@ contains
         self%names = [self%names, field%name]
         self%node_ids = [self%node_ids, field%node_id]
       elseif (node_id /= field%node_id) then
-        error stop "Inconsistent node id for field " //field%name%chars
+        error stop "Inconsistent node id for field " //field%name%chars()
       end if
     end do
 
@@ -280,7 +284,8 @@ contains
 
     node_id = 0
     do name_idx = 1, size(self%names)
-      if (self%names(name_idx)%chars == name%chars) then
+      print *, self%names(name_idx)%chars()
+      if (self%names(name_idx)%chars() == name%chars()) then
         node_id = self%node_ids(name_idx)
         exit
       end if
