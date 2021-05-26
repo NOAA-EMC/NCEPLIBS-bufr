@@ -4,16 +4,17 @@ module modq_string
 
   contains
     procedure :: chars => string__get_chars
+    procedure :: print => string__print
+    procedure, pass(self) :: string__copy
+    generic, public :: assignment(=) => string__copy
+    procedure :: string__equals
+    generic, public :: operator(==) => string__equals
     final :: string__delete
   end type String
 
   interface String
     module procedure initialize_string_chars
   end interface String
-
-  interface assignment(=)
-    procedure string__copy
-  end interface
 
 contains
 
@@ -32,6 +33,12 @@ contains
   end function string__get_chars
 
 
+  subroutine string__print(self)
+    class(String), intent(in) :: self
+    print *, self%char_buffer
+  end subroutine
+
+
   subroutine string__delete(self)
     type(String), intent(inout) :: self
     if (allocated(self%char_buffer)) then
@@ -40,16 +47,24 @@ contains
   end subroutine
 
 
+  logical function string__equals(self, other) result(are_equal)
+    class(String), intent(in) :: self
+    class(String), intent(in) :: other
+
+    are_equal = (self%char_buffer == other%char_buffer)
+  end function string__equals
+
+
   subroutine string__copy(self, other)
-    class(String), allocatable, intent(out) :: self
-    type(String), intent(in) :: other
+    class(String), intent(inout) :: self
+    class(String), intent(in) :: other
 
-    self%char_buffer = other%char_buffer
-
-    if (.not. allocated(self)) then
-      allocate(self)
+    if ( allocated(self%char_buffer)) then
+      deallocate(self%char_buffer)
     end if
 
-    allocate(self%char_buffer, source=other%char_buffer)
+    if ( allocated(other%char_buffer)) then
+      allocate(self%char_buffer, source=other%char_buffer)
+    end if
   end subroutine string__copy
 end module modq_string

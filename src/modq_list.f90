@@ -37,6 +37,7 @@ module modq_list
   contains
     procedure, public :: append => int_list__append
     procedure, public :: at => int_list__at
+    procedure, public :: get_array => int_list__get_array
     procedure, public :: set => int_list__set
     final :: int_list__delete
   end type IntList
@@ -206,6 +207,18 @@ contains
 
     item = transfer(self%at_base(idx), item)
   end function int_list__at
+
+
+  function int_list__get_array(self) result(data)
+    class(IntList), intent(in) :: self
+    integer, allocatable :: data(:)
+    integer :: idx
+
+    allocate(data(self%size))
+    do idx = 1, self%size
+      data(idx) = self%at(idx)
+    end do
+  end function int_list__get_array
 
 
   subroutine int_list__set(self, idx, val)

@@ -17,12 +17,12 @@ module modq_result_set
   type, public :: DataField
     type(String) :: name
     integer :: node_id = 0
-    real(kind=8), allocatable :: data(:)
+    real(kind=8), allocatable :: data(:, :)
     integer, allocatable :: seq_path(:)
     type(SeqCounts), allocatable :: seq_counts(:)
 
   contains
-    procedure :: delete => data_field__delete
+    final :: data_field__delete
   end type
 
   interface DataField
@@ -35,7 +35,7 @@ module modq_result_set
   contains
     procedure :: add => data_frame__add
     procedure :: field_for_node => data_frame__field_for_node
-    procedure :: delete => data_frame__delete
+    final ::  data_frame__delete
   end type
 
   interface DataFrame
@@ -54,7 +54,7 @@ module modq_result_set
       procedure :: get_counts => result_set__get_counts
       procedure :: add => result_set__add
       procedure :: node_id_of => result_set__node_id_of
-      procedure :: delete => result_set__delete
+      final :: result_set__delete
   end type ResultSet
 
   interface ResultSet
@@ -72,16 +72,25 @@ contains
   type(DataField) function initialize__data_field() result(data_field)
     data_field = DataField(String(""), 0, null(), null(), null())  ! Needed because of gfortran bug
 
-    allocate(data_field%data(0))
+    allocate(data_field%data(0, 0))
     allocate(data_field%seq_path(0))
   end function initialize__data_field
 
   subroutine data_field__delete(self)
-    class(DataField), intent(inout) :: self
+    type(DataField), intent(inout) :: self
 
-    deallocate(self%data)
-    deallocate(self%seq_path)
-    deallocate(self%seq_counts)
+    if (allocated(self%data)) then
+      deallocate(self%data)
+    end if
+
+    if (allocated(self%seq_path)) then
+      deallocate(self%seq_path)
+    end if
+
+    if (allocated(self%seq_counts)) then
+      deallocate(self%seq_counts)
+    end if
+
   end subroutine data_field__delete
 
   ! Data Frame Procedures
@@ -120,16 +129,11 @@ contains
   end function data_frame__field_for_node
 
   subroutine data_frame__delete(self)
-    class(DataFrame), intent(inout) :: self
+    type(DataFrame), intent(inout) :: self
 
-    integer :: field_idx
-
-    do field_idx = 1, size(self%data_fields)
-      call self%data_fields(field_idx)%delete()
-    end do
-
-    deallocate(self%data_fields)
-
+    if (allocated(self%data_fields)) then
+      deallocate(self%data_fields)
+    end if
   end subroutine data_frame__delete
 
   ! Result Set Procedures
@@ -153,7 +157,8 @@ contains
     type(DataField), allocatable :: target_field, for_field
 
     integer, allocatable :: rep_counts(:)
-    real(kind=8), allocatable :: field_data(:)
+    real(kind=8), allocatable :: field_data(:, :)
+    integer :: dims(2)
 
 
     type(DataFrame), allocatable :: df
@@ -175,10 +180,11 @@ contains
         for_field = self%data_frames(frame_idx)%field_for_node(for_node_id)
         rep_counts = self%rep_counts(target_field, for_field)
 
-        allocate(field_data(sum(rep_counts)))
+        dims = shape(target_field%data)
+        allocate(field_data(sum(rep_counts), dims(2)))
         do data_idx = 1, size(rep_counts)
           do rep_idx = 1, rep_counts(data_idx)
-            field_data(sum(rep_counts(1:data_idx - 1)) + rep_idx) = target_field%data(data_idx)
+            field_data(sum(rep_counts(1:data_idx - 1)) + rep_idx, :) = target_field%data(data_idx, :)
           end do
         end do
 
@@ -284,8 +290,7 @@ contains
 
     node_id = 0
     do name_idx = 1, size(self%names)
-      print *, self%names(name_idx)%chars()
-      if (self%names(name_idx)%chars() == name%chars()) then
+      if (self%names(name_idx) == name) then
         node_id = self%node_ids(name_idx)
         exit
       end if
@@ -293,11 +298,19 @@ contains
   end function result_set__node_id_of
 
   subroutine result_set__delete(self)
-    class(ResultSet), intent(inout) :: self
+    type(ResultSet), intent(inout) :: self
 
-    deallocate(self%names)
-    deallocate(self%node_ids)
-    deallocate(self%data_frames)
+    if (allocated(self%names)) then
+      deallocate(self%names)
+    end if
+
+    if (allocated(self%node_ids)) then
+      deallocate(self%node_ids)
+    end if
+
+    if (allocated(self%data_frames)) then
+      deallocate(self%data_frames)
+    end if
   end subroutine result_set__delete
 
 end module modq_result_set
