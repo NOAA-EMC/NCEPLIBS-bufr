@@ -38,7 +38,7 @@ contains
 
 
   function query_set__get_query_name(self, idx) result(name)
-    class(QuerySet), intent(inout) :: self
+    class(QuerySet), intent(in) :: self
     integer, intent(in) :: idx
     character(len=:), allocatable :: name
     name = self%names(idx)%chars()
@@ -46,7 +46,7 @@ contains
 
 
   function query_set__get_query_str(self, idx) result(query_str)
-    class(QuerySet), intent(inout) :: self
+    class(QuerySet), intent(in) :: self
     integer, intent(in) :: idx
     character(len=:), allocatable :: query_str
 
@@ -55,7 +55,7 @@ contains
 
 
   subroutine query_set__print(self)
-    class(QuerySet), intent(inout) :: self
+    class(QuerySet), intent(in) :: self
 
     integer :: q_idx
 

@@ -310,6 +310,7 @@ set(fortran_src
   modq_query_set.f90
   modq_query_parser.f90
   modq_result_set.f90
+  modq_execute.f90
   fortran_open.f90
   fortran_close.f90
   bufr_interface.f90)

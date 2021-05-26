@@ -46,8 +46,8 @@ contains
 !
   subroutine query(lunit, query_set, result_set)
     integer, intent(in) :: lunit
-    type(QuerySet), intent(inout) :: query_set
-    type(ResultSet), intent(out) :: result_set
+    type(QuerySet), intent(in) :: query_set
+    type(ResultSet), intent(inout) :: result_set
 
     integer :: lun, il, im
     type(SeqCounter) :: seq_counter
@@ -57,8 +57,6 @@ contains
     type(Target), allocatable :: targets(:)
 
     call status(lunit, lun, il, im)
-
-    result_set = ResultSet()
 
     targets = find_targets(lun, query_set)
     call collect_data(lun, targets, result_set)
@@ -78,7 +76,7 @@ contains
 
   function find_targets(lun, query_set) result(targets)
     integer, intent(in) :: lun
-    type(QuerySet), intent(inout) :: query_set
+    type(QuerySet), intent(in) :: query_set
     type(Target), allocatable :: targets(:)
 
     integer :: target_idx
@@ -295,7 +293,6 @@ contains
     path_cursor = 0
     do data_cursor = 1, nval(lun)
       node_idx = inv(data_cursor, lun)
-!      print *, node_idx, tag(node_idx), typ(node_idx)
 
       if (path_cursor > 0) then
         rep_node_idx = rep_node_idxs(path_cursor)
