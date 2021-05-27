@@ -223,14 +223,13 @@ subroutine test__query
   open(lunit, file="/home/rmclaren/Work/ioda-bundle/ioda_converters/test/testinput/gnssro_kompsat5_20180415_00Z.bufr")
   call openbf(lunit, "IN", lunit)
 
-  call query_set%add("*/ROSEQ1/CLATH", "latitude")
-  call query_set%add("*/ROSEQ1/CLONH", "longitude")
-  call query_set%add("*/ROSEQ1/ROSEQ2/IMPP", "frequency")
-  call query_set%add("*/ROSEQ1/ROSEQ3/HEIT", "heit")
+!  call query_set%add("*/ROSEQ1/CLATH", "latitude")
+!  call query_set%add("*/ROSEQ1/CLONH", "longitude")
+  call query_set%add("*/ROSEQ1/ROSEQ2/BNDA[1]", "bending_angle")
 
   result_set = execute(lunit, query_set, 2)
 
-  print *, "Latitude", result_set%get("latitude")
+  print *, "Bending Angle", result_set%get("bending_angle")
 
 end subroutine test__query
 
@@ -263,39 +262,10 @@ end subroutine test__query
 
 
 
-!subroutine test__list
-!  use modq_list
-!
-!  type(List) :: l
-!
-!  call l%append(2)
-!
-!end subroutine test__list
-
-
-
-
 program test_query
 !  use modq_result_set
   implicit none
 
-
-
-!  use mod_strings
-!
-!  type(String), allocatable :: strs(:)
-!  integer :: idx
-!
-!  allocate(strs(0))
-!
-!  strs = [strs, String("one")]
-!  strs = [strs, String("two")]
-!  strs = [strs, String("three")]
-!
-!  do idx = 1, size(strs)
-!    print *, strs(idx)%chars
-!  end do
-!!  print *, strs
 
 !  call test__query_set
 !  call test__result_set
@@ -303,38 +273,6 @@ program test_query
   call test__query
 
 end program test_query
-
-!program bufr_test
-!
-!  integer, parameter :: lunit = 12
-!
-!  character(8) :: subset
-!  integer(kind=8) :: idate
-!  real(kind=8), pointer :: data_ptr(:, :)
-!
-!
-!  open(lunit, file="/home/rmclaren/Work/ioda-bundle/ioda_converters/test/testinput/gnssro_kompsat5_20180415_00Z.bufr")
-!  !    open(lunit, file="/home/rmclaren/Work/ioda-bundle/ioda_converters/test/testinput/gdas.t00z.1bhrs4.tm00.bufr_d")
-!  !    open(lunit, file="/home/rmclaren/Work/ioda-bundle/ioda_converters/test/testinput/gdas.t18z.1bmhs.tm00.bufr_d")
-!  call openbf(lunit, "IN", lunit)
-!
-!  do while (ireadmg(lunit, subset, idate) == 0)
-!    do while (ireadsb(lunit) == 0)
-!      result_set = ResultSet()
-!      call query(lunit, query_set, result_set)
-!
-!      print *, result_set%as_real("latitude")
-!      print *, result_set%as_real("longitude")
-!      print *, result_set%as_real("bending_angle")
-!
-!      call result_set%delete()!    end do
-!  end do
-!
-!  call query_set%delete()
-!
-!  call closbf(12)
-!  close(12)
-!end program
 
 
 

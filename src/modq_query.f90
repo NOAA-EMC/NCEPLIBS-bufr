@@ -151,10 +151,6 @@ contains
       end if
     end do
 
-    targ = Target(name, branches, target_nodes)
-
-    deallocate(mnemonics)
-
     if (index > 0 .and. index <= size(target_nodes)) then
       if (index > size(target_nodes)) then
         error stop 'Invalid index in query str ' // query_str // '.'
@@ -165,7 +161,13 @@ contains
 
     if (size(target_nodes) == 0) then
       error stop 'Could not find the target node for ' // query_str // '.'
+    else if (size(target_nodes) /= 1) then
+      error stop 'Query string must return exactly 1 target. Are you missing an index? ' // query_str // '.'
     end if
+
+    targ = Target(name, branches, target_nodes)
+
+    deallocate(mnemonics)
   end function
 
 
