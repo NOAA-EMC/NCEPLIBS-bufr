@@ -182,6 +182,7 @@ contains
 
         dims = shape(target_field%data)
         allocate(field_data(sum(rep_counts), dims(2)))
+
         do data_idx = 1, size(rep_counts)
           do rep_idx = 1, rep_counts(data_idx)
             field_data(sum(rep_counts(1:data_idx - 1)) + rep_idx, :) = target_field%data(data_idx, :)
@@ -189,7 +190,8 @@ contains
         end do
 
         data = [data, field_data]
-
+        
+        deallocate(field_data)
       else
         data = [data, target_field%data]
       end if
