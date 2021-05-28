@@ -176,14 +176,14 @@ contains
     type(Target), intent(in) :: targets(:)
     type(ResultSet), intent(inout) :: result_set
 
-    real(kind=8), allocatable :: dat(:,:)
+    real(kind=8), allocatable :: dat(:)
     integer :: dims(2)
     integer :: col_idx, node_idx, path_idx
     integer :: current_sequence
     integer :: data_cursor, path_cursor
-    integer, allocatable :: collected_data_cursor(:)
+    integer :: collected_data_cursor
     logical :: target_found
-    integer, allocatable :: target_nodes(:)
+    integer :: target_node
     type(SeqCounter) :: seq_counter
 
     integer :: target_idx
@@ -197,58 +197,32 @@ contains
         deallocate(dat)
       end if
 
-      allocate(dat(dims(1), dims(2)))
+      allocate(dat(dims(1)))
 
       path_cursor = 0
       current_sequence = 1
-      target_nodes = targets(target_idx)%node_ids
+      target_node = targets(target_idx)%node_ids(1)
 !      seq_counter = SeqCounter()
-      allocate(collected_data_cursor(dims(2)))
 
       collected_data_cursor = 1
       do data_cursor = 1, nval(lun)
         node_idx = inv(data_cursor, lun)
         target_found = .false.
 
-        do col_idx = 1, dims(2)
-          ! Found the target element, record it
-          if (node_idx == target_nodes(col_idx)) then
+        if (node_idx == target_node) then
 
-            dat(collected_data_cursor(col_idx), col_idx)  = val(data_cursor, lun)
-            collected_data_cursor(col_idx) = collected_data_cursor(col_idx) + 1
+          dat(collected_data_cursor)  = val(data_cursor, lun)
+          collected_data_cursor = collected_data_cursor + 1
 
-            target_found = .true.
-          end if
-        end do
-
-!        if (.not. target_found) then
-!          ! Found a path sequence, go down the tree
-!          if (typ(node_idx) == DelayedRep .or. typ(node_idx) == FixedRep) then
-!
-!            path_cursor = path_cursor + 1
-!            current_sequence = node_idx
-!
-!            if (size(seq_path) < path_cursor) then
-!              current_seq_path = [current_seq_path, node_idx]
-!            else
-!              current_seq_path(path_cursor) = node_idx
-!            end if
-!
-!            ! Found the end of the sequence, go up the tree
-!          else if (link(current_sequence) == node_idx) then
-!
-!            path_cursor = path_cursor - 1
-!            current_sequence = jmpb(node_idx - 1)
-!            current_seq_path(path_cursor) = -1
-!          end if
-!        end if
+          target_found = .true.
+        end if
       end do
 
       seq_counter = get_counts(lun, targets(target_idx))
 
       data_field = DataField()
       data_field%name = String(targets(target_idx)%name)
-      data_field%node_id = target_nodes(1)
+      data_field%node_id = target_node
       data_field%data = dat
 
       if (allocated(data_field%seq_path)) then
@@ -267,8 +241,6 @@ contains
       end do
 
       call data_frame%add(data_field)
-
-      deallocate(collected_data_cursor)
     end do
 
     call result_set%add(data_frame)

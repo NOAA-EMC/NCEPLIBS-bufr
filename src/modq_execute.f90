@@ -4,8 +4,6 @@ module modq_execute
   use modq_result_set
   implicit none
 
-
-
   contains
     type(ResultSet) function execute(file_unit, query_set, next) result(result_set)
       integer, intent(in) :: file_unit
@@ -26,9 +24,11 @@ module modq_execute
           call query(file_unit, query_set, result_set)
         end do
 
-        msg_num = msg_num + 1
-        if (msg_num > next) then
-          exit
+        if (present(next)) then
+          msg_num = msg_num + 1
+          if (msg_num > next) then
+            exit
+          end if
         end if
       end do
     end function execute

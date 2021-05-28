@@ -17,7 +17,7 @@ module modq_result_set
   type, public :: DataField
     type(String) :: name
     integer :: node_id = 0
-    real(kind=8), allocatable :: data(:, :)
+    real(kind=8), allocatable :: data(:)
     integer, allocatable :: seq_path(:)
     type(SeqCounts), allocatable :: seq_counts(:)
 
@@ -72,7 +72,7 @@ contains
   type(DataField) function initialize__data_field() result(data_field)
     data_field = DataField(String(""), 0, null(), null(), null())  ! Needed because of gfortran bug
 
-    allocate(data_field%data(0, 0))
+    allocate(data_field%data(0))
     allocate(data_field%seq_path(0))
   end function initialize__data_field
 
@@ -157,8 +157,7 @@ contains
     type(DataField), allocatable :: target_field, for_field
 
     integer, allocatable :: rep_counts(:)
-    real(kind=8), allocatable :: field_data(:, :)
-    integer :: dims(2)
+    real(kind=8), allocatable :: field_data(:)
 
 
     type(DataFrame), allocatable :: df
@@ -180,17 +179,16 @@ contains
         for_field = self%data_frames(frame_idx)%field_for_node(for_node_id)
         rep_counts = self%rep_counts(target_field, for_field)
 
-        dims = shape(target_field%data)
-        allocate(field_data(sum(rep_counts), dims(2)))
+        allocate(field_data(sum(rep_counts)))
 
         do data_idx = 1, size(rep_counts)
           do rep_idx = 1, rep_counts(data_idx)
-            field_data(sum(rep_counts(1:data_idx - 1)) + rep_idx, :) = target_field%data(data_idx, :)
+            field_data(sum(rep_counts(1:data_idx - 1)) + rep_idx) = target_field%data(data_idx)
           end do
         end do
 
         data = [data, field_data]
-        
+
         deallocate(field_data)
       else
         data = [data, target_field%data]
