@@ -3,6 +3,19 @@
 @brief Detailed description of changes included within each new release.
 
 
+### Version 11.6.0 - TBD
+
+* The default BUFR master table version number for output BUFR messages was
+changed from 29 to 36 within subroutines cmsgini(), dxmini() and msgini().
+[[Issue #142](https://github.com/NOAA-EMC/NCEPLIBS-bufr/issues/142)]
+
+* The library was modified to read up to 24 characters from the units field
+of BUFR master Table B files.  Furthermore, in accordance with updated
+guidance from WMO, all fields within all BUFR master table files are now
+restricted to the CCITTIA5 character set.
+[[Issue #140](https://github.com/NOAA-EMC/NCEPLIBS-bufr/issues/140)]
+
+
 ### Version 11.5.0 - April 26, 2021
 
 * Subroutine ufbseq() was modified for cases where the number of available

@@ -1,7 +1,7 @@
 Table D STD |  0 | 34
 #
 # Standard BUFR Table D, Master Table 0, Version 34
-# This file was generated: 2020/04/21 16:01:20
+# This file was generated: 2021/05/11 22:56:41
 #
 #========================================================================================================
 # F-XX-YYY | MNEMONIC   ;DCOD ; NAME           <-- sequence definition
@@ -2295,7 +2295,7 @@ Table D STD |  0 | 34
            | 0-11-002   | Wind speed
 
   3-06-043 | MRBGROBS   ;     ; Marine biogeochemical and radiation observations
-           | 0-41-001 > | pCO₂
+           | 0-41-001 > | pCO2
            | 0-08-043 > | Atmospheric chemical or physical constituent type
            | 0-15-028 > | Mole fraction of atmospheric constituent/pollutant in dry air
            | 0-08-043 > | Atmospheric chemical or physical constituent type
@@ -2531,7 +2531,7 @@ Table D STD |  0 | 34
            | 3-01-074 > | Ozone instrumentation - Dobson spectrophotometer
            | 3-07-031   | Ozone data - averaged observations
 
-  3-07-045 | METARSPM   ;     ; Main part of METAR/SPECI), replacing 3 07 01
+  3-07-045 | METARSPM   ;     ; Main part of METAR/SPECI, replacing 3-07-011
            | 0-01-063 > | ICAO location indicator
            | 0-08-079 > | Product status
            | 0-02-001 > | Type of station
@@ -2567,7 +2567,7 @@ Table D STD |  0 | 34
            | 0-05-021 > | Bearing or azimuth
            | 0-20-059   | Minimum horizontal visibility
 
-  3-07-047 | METARSPC   ;     ; METAR/SPECI/TAF clouds), replacing 3 07 01
+  3-07-047 | METARSPC   ;     ; METAR/SPECI/TAF clouds, replacing 3-07-015
            | 1-05-000 > | Delayed replication of 5 descriptors
            | 0-31-001 > | Delayed descriptor replication factor
            | 0-08-002 > | Vertical significance (surface observations)
@@ -2578,7 +2578,7 @@ Table D STD |  0 | 34
            | 0-20-002 > | Vertical visibility
            | 0-20-091   | Vertical visibility
 
-  3-07-048 | TRENDFST   ;     ; Trend type forecast), replacing 3 07 01
+  3-07-048 | TRENDFST   ;     ; Trend type forecast, replacing 3-07-018
            | 0-08-016 > | Change qualifier of a trend-type forecast or an aerodrome forecast
            | 1-02-000 > | Delayed replication of 2 descriptors
            | 0-31-001 > | Delayed descriptor replication factor
@@ -2627,7 +2627,7 @@ Table D STD |  0 | 34
            | 0-20-088 > | Depth of runway deposits
            | 0-20-089   | Runway friction coefficient
 
-  3-07-051 | METARSPI   ;     ; Full METAR/SPECI), replacing 3 07 02
+  3-07-051 | METARSPI   ;     ; Full METAR/SPECI, replacing 3-07-021
            | 3-07-045 > | Main part of METAR/SPECI), replacing 3 07 01
            | 3-07-046 > | METAR/SPECI visibility
            | 3-07-013 > | Runway visual range
@@ -6007,7 +6007,7 @@ Table D STD |  0 | 34
            | 2-01-000 > | Cancel change data width
            | 0-15-052 > | Log10 of number density of aerosol particles with diameter greater than 5 nm
            | 0-15-053 > | Log10 of number density of aerosol particles with diameter greater than 14 nm
-           | 0-15-054 > | Log10 of number density of aerosol particles with diameter between 0.25 and 2.5 µm
+           | 0-15-054 > | Log10 of number density of aerosol particles with diameter between 0.25 and 2.5 um
            | 0-15-055 > | Non volatile aerosol ratio
            | 0-07-004 > | Pressure
            | 0-07-004 > | Pressure

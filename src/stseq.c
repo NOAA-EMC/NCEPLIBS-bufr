@@ -24,6 +24,7 @@ C 2010-04-05  J. ATOR    -- ADDED PROCESSING FOR 2-2X, 2-3X AND 2-4X
 C                           NON-MARKER OPERATORS
 C 2015-03-04  J. ATOR    -- HANDLE SPECIAL CASE WHEN ASSOCIATED FIELDS
 C                           ARE IN EFFECT FOR A TABLE D DESCRIPTOR
+C 2021-05-17  J. Ator    -- Allow up to 24 characters in cbunit
 C
 C USAGE:    CALL STSEQ( LUN, IREPCT, IDN, NEMO, CSEQ, CDESC, NCDESC )
 C   INPUT ARGUMENT LIST:
@@ -417,7 +418,7 @@ void stseq( f77int *lun, f77int *irepct, f77int *idn, char nemo[8],
 		strncpy( &card[13], &MSTABS_BASE(cbscl)[ipt][0], 4 );
 		strncpy( &card[19], &MSTABS_BASE(cbsref)[ipt][0], 12 );
 		strncpy( &card[33], &MSTABS_BASE(cbbw)[ipt][0], 4 );
-		strncpy( &card[40], &MSTABS_BASE(cbunit)[ipt][0], 14 );
+		strncpy( &card[40], &MSTABS_BASE(cbunit)[ipt][0], 24 );
 		elemdx( card, lun, sizeof( card ) );
 	    }
 	    pkint = cdesc[i];

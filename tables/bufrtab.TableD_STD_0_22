@@ -1,7 +1,7 @@
 Table D STD |  0 | 22
 #
 # Standard BUFR Table D, Master Table 0, Version 22
-# This file was generated: 2016/10/28 15:43:45
+# This file was generated: 2021/05/11 22:56:11
 #
 #========================================================================================================
 # F-XX-YYY | MNEMONIC   ;DCOD ; NAME           <-- sequence definition
@@ -4633,7 +4633,7 @@ Table D STD |  0 | 22
            | 2-01-000 > | Cancel change data width
            | 0-15-052 > | Log10 of number density of aerosol particles with diameter greater than 5 nm
            | 0-15-053 > | Log10 of number density of aerosol particles with diameter greater than 14 nm
-           | 0-15-054 > | Log10 of number density of aerosol particles with diameter between 0.25 and 2.5 µm
+           | 0-15-054 > | Log10 of number density of aerosol particles with diameter between 0.25 and 2.5 um
            | 0-15-055 > | Non volatile aerosol ratio
            | 0-07-004 > | Pressure
            | 0-07-004 > | Pressure

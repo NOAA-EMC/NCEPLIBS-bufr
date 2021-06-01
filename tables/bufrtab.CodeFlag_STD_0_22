@@ -1,7 +1,7 @@
 Table F STD |  0 | 22
 #
 # Standard BUFR Table CODE/FLAG, Master Table 0, Version 22
-# This file was generated: 2021/01/05 19:42:29
+# This file was generated: 2021/05/11 22:56:12
 #
 #========================================================================================================
 # F-XX-YYY | MNEMONIC ; CODE               <-- code table definition
@@ -243,7 +243,7 @@ Table F STD |  0 | 22
               | 22 > | ACMAD
               | 23 > | Mozambique (NMC)
               | 24 > | Pretoria (RSMC)
-              | 25 > | La Réunion (RSMC)
+              | 25 > | La Reunion (RSMC)
               | 26 > | Khabarovsk (RSMC)
               | 27 > | Khabarovsk (RSMC)
               | 28 > | New Delhi (RSMC)
@@ -264,7 +264,7 @@ Table F STD |  0 | 22
               | 43 > | Brasilia (RSMC)
               | 44 > | Brasilia (RSMC)
               | 45 > | Santiago
-              | 46 > | Brazilian Space Agency ­ INPE
+              | 46 > | Brazilian Space Agency - INPE
               | 47 > | Colombia (NMC)
               | 48 > | Ecuador (NMC)
               | 49 > | Peru (NMC)
@@ -298,8 +298,8 @@ Table F STD |  0 | 22
               | 79 > | Offenbach (RSMC)
               | 80 > | Rome (RSMC)
               | 81 > | Rome (RSMC)
-              | 82 > | Norrköping
-              | 83 > | Norrköping
+              | 82 > | Norrkoping
+              | 83 > | Norrkoping
               | 84 > | Toulouse (RSMC)
               | 85 > | Toulouse (RSMC)
               | 86 > | Helsinki
@@ -378,7 +378,7 @@ Table F STD |  0 | 22
               | 164 > | Honduras (NMC)
               | 165 > | Jamaica (NMC)
               | 166 > | Mexico
-              | 167 > | Curaçao and Sint Maarten (NMC)
+              | 167 > | Curacao and Sint Maarten (NMC)
               | 168 > | Nicaragua (NMC)
               | 169 > | Panama (NMC)
               | 170 > | Saint Lucia (NMC)
@@ -403,13 +403,13 @@ Table F STD |  0 | 22
               | 201 > | Philippines (NMC)
               | 202 > | Samoa (NMC)
               | 203 > | Solomon Islands (NMC)
-              | 204 > | National Institute of Water and Atmospheric Research  (NIWA – New Zealand)
+              | 204 > | National Institute of Water and Atmospheric Research  (NIWA - New Zealand)
               | 210 > | Frascati (ESA/ESRIN)
               | 211 > | Lannion
               | 212 > | Lisboa
               | 213 > | Reykiavik
               | 214 > | Madrid
-              | 215 > | Zürich
+              | 215 > | Zurich
               | 216 > | Service ARGOS Toulouse
               | 217 > | Bratislava
               | 218 > | Budapest
@@ -640,7 +640,7 @@ Table F STD |  0 | 22
               | 22 > | ACMAD
               | 23 > | Mozambique (NMC)
               | 24 > | Pretoria (RSMC)
-              | 25 > | La Réunion (RSMC)
+              | 25 > | La Reunion (RSMC)
               | 26 > | Khabarovsk (RSMC)
               | 27 > | Khabarovsk (RSMC)
               | 28 > | New Delhi (RSMC)
@@ -661,7 +661,7 @@ Table F STD |  0 | 22
               | 43 > | Brasilia (RSMC)
               | 44 > | Brasilia (RSMC)
               | 45 > | Santiago
-              | 46 > | Brazilian Space Agency ­ INPE
+              | 46 > | Brazilian Space Agency - INPE
               | 47 > | Colombia (NMC)
               | 48 > | Ecuador (NMC)
               | 49 > | Peru (NMC)
@@ -695,8 +695,8 @@ Table F STD |  0 | 22
               | 79 > | Offenbach (RSMC)
               | 80 > | Rome (RSMC)
               | 81 > | Rome (RSMC)
-              | 82 > | Norrköping
-              | 83 > | Norrköping
+              | 82 > | Norrkoping
+              | 83 > | Norrkoping
               | 84 > | Toulouse (RSMC)
               | 85 > | Toulouse (RSMC)
               | 86 > | Helsinki
@@ -775,7 +775,7 @@ Table F STD |  0 | 22
               | 164 > | Honduras (NMC)
               | 165 > | Jamaica (NMC)
               | 166 > | Mexico
-              | 167 > | Curaçao and Sint Maarten (NMC)
+              | 167 > | Curacao and Sint Maarten (NMC)
               | 168 > | Nicaragua (NMC)
               | 169 > | Panama (NMC)
               | 170 > | Saint Lucia (NMC)
@@ -800,13 +800,13 @@ Table F STD |  0 | 22
               | 201 > | Philippines (NMC)
               | 202 > | Samoa (NMC)
               | 203 > | Solomon Islands (NMC)
-              | 204 > | National Institute of Water and Atmospheric Research  (NIWA – New Zealand)
+              | 204 > | National Institute of Water and Atmospheric Research  (NIWA - New Zealand)
               | 210 > | Frascati (ESA/ESRIN)
               | 211 > | Lannion
               | 212 > | Lisboa
               | 213 > | Reykiavik
               | 214 > | Madrid
-              | 215 > | Zürich
+              | 215 > | Zurich
               | 216 > | Service ARGOS Toulouse
               | 217 > | Bratislava
               | 218 > | Budapest
@@ -856,7 +856,7 @@ Table F STD |  0 | 22
               | 1 > | Solar and Ozone Observatory Hradec Kralove
            | 0-01-031,0-01-033,0-01-035=204
               | 0 > | No sub-centre
-              | 101 > | Maupia
+              | 101 > | Maupuia
               | 102 > | Lauder
            | 0-01-031,0-01-033,0-01-035=176
               | 0 > | No sub-centre
@@ -890,7 +890,7 @@ Table F STD |  0 | 22
               | 249 > | Singapore
            | 0-01-031,0-01-033,0-01-035=147
               | 0 > | No sub-centre
-              | 10 > | Córdoba
+              | 10 > | Cordoba
               | 15 > | Ushuaia
               | 20 > | Marambio
               | 30 > | Santiago de Chile
@@ -919,8 +919,8 @@ Table F STD |  0 | 22
               | 26 > | Federal Office of Topography (Switzerland)
               | 27 > | Nordic Commission of Geodesy (Norway)
               | 28 > | Nordic Commission of Geodesy (Sweden)
-              | 29 > | Institute Géographique National (France) - Service de géodésie
-              | 30 > | Bundesamt für Kartographie und Geodäsie (Germany)
+              | 29 > | Institute Geographique National (France) - Service de geodesie
+              | 30 > | Bundesamt fur Kartographie und Geodasie (Germany)
               | 31 > | Institute of Engineering Satellite Surveying and Geodesy (U.K.)
               | 32 > | Joint Operational Meteorology and Oceanography Centre (JOMOC)
               | 33 > | Koninklijk Nederlands Meteorologisch Institut (Netherlands)
@@ -933,14 +933,14 @@ Table F STD |  0 | 22
               | 10 > | POLARA (Polarimetric Radar Algorithms instance)
               | 64 > | Bundeswehr Geoinformation Office (BGIO)
               | 110 > | NowCast mobile (Lightning data)
-              | 221 > | Schleswig-Holstein, Traffic Operations Computing Center (TOCC) Kiel/Neumünster
+              | 221 > | Schleswig-Holstein, Traffic Operations Computing Center (TOCC) Kiel/Neumunster
               | 222 > | Hamburg, TOCC Hamburg
               | 223 > | Niedersachsen, TOCC Hannover
               | 224 > | Austria (NMC)
               | 225 > | Nordrhein-Westfalen, TOCC Kamen
-              | 226 > | Hessen, TOCC Rüsselsheim
+              | 226 > | Hessen, TOCC Russelsheim
               | 227 > | Rheinland-Pfalz, TOCC Koblenz
-              | 228 > | Baden-Württemberg, TOCC Ludwigsburg
+              | 228 > | Baden-Wurttemberg, TOCC Ludwigsburg
               | 229 > | Bayern, TOCC Freimann
               | 230 > | Saarland, TOCC Rohrbach
               | 231 > | Bayern, Autobahn directorate Nordbayern
@@ -948,8 +948,8 @@ Table F STD |  0 | 22
               | 233 > | Mecklenburg-Vorpommern, TOCC Malchow
               | 234 > | Sachsen, TOCC Dresden
               | 235 > | Sachsen-Anhalt, TOCC Halle
-              | 236 > | Thüringen, TOCC Erfurt
-              | 237 > | EasyWay – Meteotrans
+              | 236 > | Thuringen, TOCC Erfurt
+              | 237 > | EasyWay - Meteotrans
               | 254 > | EUMETSAT
            | 0-01-031,0-01-033,0-01-035=227
               | 0 > | No sub-centre
@@ -997,7 +997,7 @@ Table F STD |  0 | 22
            | 0-01-031,0-01-033,0-01-035=85
               | 0 > | No sub-centre
               | 200 > | Institut National de l'Environnement Industriel et des Risques (France)
-              | 201 > | Rheinisches Institut für Umweltforschung an der Universität zu Köln E.V. (Germany)
+              | 201 > | Rheinisches Institut fur Umweltforschung an der Universitat zu Koln E.V. (Germany)
            | 0-01-031,0-01-033,0-01-035=177
               | 0 > | No sub-centre
               | 1 > | Center for Operational Oceanographic Products and Services
@@ -1032,7 +1032,7 @@ Table F STD |  0 | 22
               | 130 > | Miami, Florida
               | 140 > | Lannion (France)
               | 150 > | Svalbard (Norway)
-              | 170 > | St Denis (La Réunion)
+              | 170 > | St Denis (La Reunion)
               | 180 > | Moscow
               | 190 > | Muscat
               | 200 > | Khabarovsk
@@ -1047,7 +1047,7 @@ Table F STD |  0 | 22
               | 15 > | Manaus (SIVAM)
               | 16 > | Natal (INPE)
               | 17 > | Boa Vista
-              | 25 > | São Paulo University - USP
+              | 25 > | Sao Paulo University - USP
            | 0-01-031,0-01-033,0-01-035=39
               | 0 > | No sub-centre
               | 225 > | Beijing
@@ -1102,7 +1102,7 @@ Table F STD |  0 | 22
               | 22 > | ACMAD
               | 23 > | Mozambique (NMC)
               | 24 > | Pretoria (RSMC)
-              | 25 > | La Réunion (RSMC)
+              | 25 > | La Reunion (RSMC)
               | 26 > | Khabarovsk (RSMC)
               | 27 > | Khabarovsk (RSMC)
               | 28 > | New Delhi (RSMC)
@@ -1123,7 +1123,7 @@ Table F STD |  0 | 22
               | 43 > | Brasilia (RSMC)
               | 44 > | Brasilia (RSMC)
               | 45 > | Santiago
-              | 46 > | Brazilian Space Agency ­ INPE
+              | 46 > | Brazilian Space Agency - INPE
               | 47 > | Colombia (NMC)
               | 48 > | Ecuador (NMC)
               | 49 > | Peru (NMC)
@@ -1157,8 +1157,8 @@ Table F STD |  0 | 22
               | 79 > | Offenbach (RSMC)
               | 80 > | Rome (RSMC)
               | 81 > | Rome (RSMC)
-              | 82 > | Norrköping
-              | 83 > | Norrköping
+              | 82 > | Norrkoping
+              | 83 > | Norrkoping
               | 84 > | Toulouse (RSMC)
               | 85 > | Toulouse (RSMC)
               | 86 > | Helsinki
@@ -1237,7 +1237,7 @@ Table F STD |  0 | 22
               | 164 > | Honduras (NMC)
               | 165 > | Jamaica (NMC)
               | 166 > | Mexico
-              | 167 > | Curaçao and Sint Maarten (NMC)
+              | 167 > | Curacao and Sint Maarten (NMC)
               | 168 > | Nicaragua (NMC)
               | 169 > | Panama (NMC)
               | 170 > | Saint Lucia (NMC)
@@ -1262,13 +1262,13 @@ Table F STD |  0 | 22
               | 201 > | Philippines (NMC)
               | 202 > | Samoa (NMC)
               | 203 > | Solomon Islands (NMC)
-              | 204 > | National Institute of Water and Atmospheric Research  (NIWA – New Zealand)
+              | 204 > | National Institute of Water and Atmospheric Research  (NIWA - New Zealand)
               | 210 > | Frascati (ESA/ESRIN)
               | 211 > | Lannion
               | 212 > | Lisboa
               | 213 > | Reykiavik
               | 214 > | Madrid
-              | 215 > | Zürich
+              | 215 > | Zurich
               | 216 > | Service ARGOS Toulouse
               | 217 > | Bratislava
               | 218 > | Budapest
@@ -1353,8 +1353,8 @@ Table F STD |  0 | 22
               | 156001 > | China, The State Oceanic Administration
               | 156002 > | China, Second Institute of Oceanography State Oceanic Administration
               | 156003 > | China, Institute of Ocean Technology
-              | 250001 > | France, Institut de Recherche pour le Développement (IRD)
-              | 250002 > | France, Institut Français de Recherche pour l'Exploitation de la mer (IFREMER)
+              | 250001 > | France, Institut de Recherche pour le Developpement (IRD)
+              | 250002 > | France, Institut Francais de Recherche pour l'Exploitation de la mer (IFREMER)
               | 276001 > | Germany, Bundesamt fuer Seeschiffahrt und Hydrographie (BSH)
               | 276002 > | Germany, Institut fuer Meereskunde, Kiel
               | 356001 > | India, National Institute of Oceanography (NIO)
@@ -1366,11 +1366,11 @@ Table F STD |  0 | 22
               | 410001 > | Republic of Korea, Seoul National University
               | 410002 > | Republic of Korea, Korea Ocean Research and Development Institute  (KORDI)
               | 410003 > | Republic of Korea, Meteorological Research Institute
-              | 540001 > | New Caledonia, Institut de Recherche pour le Développement (IRD)
+              | 540001 > | New Caledonia, Institut de Recherche pour le Developpement (IRD)
               | 554001 > | New Zealand, National Institute of Water and Atmospheric Research (NIWA)
               | 643001 > | Russia, State Oceanographic Institute of Roshydromet
               | 643002 > | Russia, Federal Service for Hydrometeorology and Environmental Monitoring
-              | 724001 > | Spain, Instituto Español de Oceanografia
+              | 724001 > | Spain, Instituto Espanol de Oceanografia
               | 826001 > | United Kingdom, Hydrographic Office
               | 826002 > | United Kingdom, Southampton Oceanography Centre (SOC)
               | 840001 > | USA, NOAA Atlantic Oceanographic and Meteorological Laboratories (AOML)
@@ -1471,7 +1471,7 @@ Table F STD |  0 | 22
               | 207 > | Hong Kong, China
               | 208 > | India
               | 209 > | Iran, Islamic Republic of
-              | 210 > | Iraq 
+              | 210 > | Iraq
               | 211 > | Japan
               | 212 > | Kazakhstan
               | 213 > | Kuwait
@@ -1504,14 +1504,14 @@ Table F STD |  0 | 22
               | 305 > | Ecuador
               | 306 > | France
               | 307 > | Guyana
-              | 308 > | Paraguay 
+              | 308 > | Paraguay
               | 309 > | Peru
               | 310 > | Suriname
               | 311 > | Uruguay
               | 312 > | Venezuela
               | 400 > | Antigua and Barbuda
               | 401 > | Bahamas
-              | 402 > | Barbados 
+              | 402 > | Barbados
               | 403 > | Belize
               | 404 > | British Caribbean Territories
               | 405 > | Canada
@@ -1527,7 +1527,7 @@ Table F STD |  0 | 22
               | 415 > | Honduras
               | 416 > | Jamaica
               | 417 > | Mexico
-              | 418 > | Curaçao and Sint Maarten
+              | 418 > | Curacao and Sint Maarten
               | 419 > | Nicaragua
               | 420 > | Panama
               | 421 > | Saint Lucia
@@ -1565,7 +1565,7 @@ Table F STD |  0 | 22
               | 606 > | Bosnia and Herzegovina
               | 607 > | Bulgaria
               | 608 > | Croatia
-              | 609 > | Cyprus 
+              | 609 > | Cyprus
               | 610 > | Czech Republic
               | 611 > | Denmark
               | 612 > | Estonia
@@ -1615,7 +1615,7 @@ Table F STD |  0 | 22
   0-02-002 | TIWM ; FLAG
               | 1 > | Certified Instruments
               | 2 > | Originally measured in knots
-              | 3   | Originally measured in km h⁻¹
+              | 3   | Originally measured in km h**-1
 
   0-02-003 | A4ME ; CODE
               | 0 > | Pressure Instrument associated with wind measuring equipment
@@ -1634,7 +1634,7 @@ Table F STD |  0 | 22
               | 0 > | USA open pan evaporimeter (without cover)
               | 1 > | USA open pan evaporimeter (mesh covered)
               | 2 > | GGI 3000 evaporimeter (sunken)
-              | 3 > | 20 m² tank
+              | 3 > | 20 m**2 tank
               | 4 > | Others
               | 5 > | Rice
               | 6 > | Wheat
@@ -1718,7 +1718,7 @@ Table F STD |  0 | 22
               | 62 > | Vaisala RS80/PCCora (Finland)
               | 63 > | Vaisala RS80/Star (Finland)
               | 64 > | Orbital Sciences Corporation, Space Data Division, transponder radiosonde, type 909 11-XX, where XX corresponds to the model of the instrument (USA)
-              | 65 > | VIZ transponder radiosonde, model number 1499–520 (USA)
+              | 65 > | VIZ transponder radiosonde, model number 1499-520 (USA)
               | 66 > | Vaisala RS80 /Autosonde (Finland)
               | 67 > | Vaisala RS80/Digicora III (Finland)
               | 68 > | AVK RZM-2 (Russian Federation)
@@ -1764,7 +1764,7 @@ Table F STD |  0 | 22
               | 123 > | Vaisala RS41/DigiCORA MW41 (Finland)
               | 124 > | Vaisala RS41/AUTOSONDE (Finland)
               | 125 > | Vaisala RS41/MARWIN MW32 (Finland)
-              | 126 > | Meteolabor SRS–C34/Argus 37 (Switzerland)
+              | 126 > | Meteolabor SRS-C34/Argus 37 (Switzerland)
               | 128 > | AVK - AK2-02 (Russian Federation)
               | 129 > | MARL-A or Vektor-M - AK2-02 (Russian Federation)
               | 130 > | Meisei RS06G (Japan)
@@ -2283,8 +2283,8 @@ Table F STD |  0 | 22
 
   0-02-033 | MSDM ; CODE
               | 0 > | No salinity measured
-              | 1 > | In situ sensor, accuracy better than 0.02 ‰
-              | 2 > | In situ sensor, accuracy less than 0.02 ‰
+              | 1 > | In situ sensor, accuracy better than 0.02 0/00
+              | 2 > | In situ sensor, accuracy less than 0.02 0/00
               | 3   | Sample analysis
 
   0-02-034 | DROT ; CODE
@@ -2869,8 +2869,8 @@ Table F STD |  0 | 22
               | 0 > | Auto editor
               | 1 > | IRW height assignment
               | 2 > | WV height assignment
-              | 3 > | H₂O intercept height assignment
-              | 4 > | CO₂ slicing height assignment
+              | 3 > | H2O intercept height assignment
+              | 4 > | CO2 slicing height assignment
               | 5 > | Low pixel max gradient
               | 6 > | Higher pixel max gradient
               | 7 > | Primary height assignment
@@ -3363,7 +3363,7 @@ Table F STD |  0 | 22
               | 0 > | Averaging kernel matrix
               | 1 > | Correlation matrix (C)
               | 2 > | Lower triangular correlation matrix square root (L from C=LL^T)
-              | 3   | Inverse of lower triangular correlation matrix square root (L⁻¹)
+              | 3   | Inverse of lower triangular correlation matrix square root (L**-1)
 
   0-08-029 | RSST ; CODE
               | 0 > | Open ocean or semi-enclosed sea
@@ -3522,69 +3522,69 @@ Table F STD |  0 | 22
               | 31   | Volcanic Ash
 
   0-08-046 | ACCT ; CODE
-              | 0 > | Ozone (O₃)
-              | 1 > | Water vapour (H₂O)
-              | 2 > | Methane (CH₄)
-              | 3 > | Carbon dioxide (CO₂)
+              | 0 > | Ozone (O3)
+              | 1 > | Water vapour (H2O)
+              | 2 > | Methane (CH4)
+              | 3 > | Carbon dioxide (CO2)
               | 4 > | Carbon monoxide (CO)
-              | 5 > | Nitrogen dioxide (NO₂)
-              | 6 > | Nitrous oxide (N₂O)
+              | 5 > | Nitrogen dioxide (NO2)
+              | 6 > | Nitrous oxide (N2O)
               | 7 > | Formaldehyde (HCHO)
-              | 8 > | Sulphur dioxide (SO₂)
-              | 9 > | Ammonia (NH₃)
-              | 10 > | Ammonium (NH₄⁺)
+              | 8 > | Sulphur dioxide (SO2)
+              | 9 > | Ammonia (NH3)
+              | 10 > | Ammonium (NH4+)
               | 11 > | Nitrogen monoxide (NO)
               | 12 > | Atomic oxygen (O)
-              | 13 > | Nitrate radical (NO₃)
-              | 14 > | Hydroperoxyl radical (HO₂)
-              | 15 > | Dinitrogen pentoxide (N₂O₅)
+              | 13 > | Nitrate radical (NO3)
+              | 14 > | Hydroperoxyl radical (HO2)
+              | 15 > | Dinitrogen pentoxide (N2O5)
               | 16 > | Nitrous acid (HONO)
-              | 17 > | Nitric acid (HNO₃)
-              | 18 > | Peroxynitric acid (HO₂NO₂)
-              | 19 > | Hydrogen peroxide (H₂O₂)
+              | 17 > | Nitric acid (HNO3)
+              | 18 > | Peroxynitric acid (HO2NO2)
+              | 19 > | Hydrogen peroxide (H2O2)
               | 20 > | Molecular hydrogen (H)
               | 21 > | Atomic nitrogen (N)
-              | 22 > | Sulphate (SO₄⁻⁻)
+              | 22 > | Sulphate (SO4--)
               | 23 > | Radon (Rn)
               | 24 > | Elemental mercury (Hg)
-              | 25 > | Divalent mercury (Hg₂⁺)
+              | 25 > | Divalent mercury (Hg2+)
               | 26 > | Atomic chlorine (Cl)
               | 27 > | Chlorine monoxide (ClO)
-              | 28 > | Dichlorine peroxide (Cl₂O₂)
+              | 28 > | Dichlorine peroxide (Cl2O2)
               | 29 > | Hypochlorous acid (HClO)
-              | 30 > | Chlorine nitrate (ClONO₂)
-              | 31 > | Chlorine dioxide (ClO₂)
+              | 30 > | Chlorine nitrate (ClONO2)
+              | 31 > | Chlorine dioxide (ClO2)
               | 32 > | Atomic bromine (Br)
               | 33 > | Bromine monoxide (BrO)
               | 34 > | Bromine chloride (BrCl)
               | 35 > | Hydrogen bromide (HBr)
               | 36 > | Hypobromous acid (HBrO)
-              | 37 > | Bromine nitrate (BrONO₂)
-              | 38 > | Oxygen (O₂)
+              | 37 > | Bromine nitrate (BrONO2)
+              | 38 > | Oxygen (O2)
               | 10000 > | Hydroxyl radical (OH)
-              | 10001 > | Methyl peroxy radical (CH₃O₂)
-              | 10002 > | Methyl hydroperoxide (CH₃O₂H)
-              | 10004 > | Methanol (CH₃OH)
-              | 10005 > | Formic acid (CH₃OOH)
+              | 10001 > | Methyl peroxy radical (CH3O2)
+              | 10002 > | Methyl hydroperoxide (CH3O2H)
+              | 10004 > | Methanol (CH3OH)
+              | 10005 > | Formic acid (CH3OOH)
               | 10006 > | Hydrogen Cyanide (HCN)
-              | 10007 > | Aceto nitrile (CH₃CN)
-              | 10008 > | Ethane (C₂H₆)
-              | 10009 > | Ethene (= Ethylene) (C₂H₄)
-              | 10010 > | Ethyne (= Acetylene) (C₂H₂)
-              | 10011 > | Ethanol (C₂H₅OH)
-              | 10012 > | Acetic acid (C₂H₅OOH)
-              | 10013 > | Peroxyacetyl nitrate (CH₃C(O)OONO₂)
-              | 10014 > | Propane (C₃H₈)
-              | 10015 > | Propene (C₃H₆)
-              | 10016 > | Butanes (C₄H₁₀)
-              | 10017 > | Isoprene (C₅H₁₀)
-              | 10018 > | Alpha pinene (C₁₀H₁₆)
-              | 10019 > | Beta pinene (C₁₀H₁₆)
-              | 10020 > | Limonene (C₁₀H₁₆)
-              | 10021 > | Benzene (C₆H₆)
-              | 10022 > | Toluene (C₇H₈)
-              | 10023 > | Xylene (C₈H₁₀)
-              | 10500 > | Dimethyl sulphide (CH₃SCH₃ (DMS))
+              | 10007 > | Aceto nitrile (CH3CN)
+              | 10008 > | Ethane (C2H6)
+              | 10009 > | Ethene (= Ethylene) (C2H4)
+              | 10010 > | Ethyne (= Acetylene) (C2H2)
+              | 10011 > | Ethanol (C2H5OH)
+              | 10012 > | Acetic acid (C2H5OOH)
+              | 10013 > | Peroxyacetyl nitrate (CH3C(O)OONO2)
+              | 10014 > | Propane (C3H8)
+              | 10015 > | Propene (C3H6)
+              | 10016 > | Butanes (C4H10)
+              | 10017 > | Isoprene (C5H10)
+              | 10018 > | Alpha pinene (C10H16)
+              | 10019 > | Beta pinene (C10H16)
+              | 10020 > | Limonene (C10H16)
+              | 10021 > | Benzene (C6H6)
+              | 10022 > | Toluene (C7H8)
+              | 10023 > | Xylene (C8H10)
+              | 10500 > | Dimethyl sulphide (CH3SCH3 (DMS))
               | 20001 > | Hydrogen chloride
               | 20002 > | CFC-11
               | 20003 > | CFC-12
@@ -3601,7 +3601,7 @@ Table F STD |  0 | 22
               | 20014 > | Halon-2402
               | 20015 > | Methyl chloride (HCC-40)
               | 20016 > | Carbon tetrachloride (HCC-10)
-              | 20017 > | HCC-140a (CH₃CCl₃)
+              | 20017 > | HCC-140a (CH3CCl3)
               | 20018 > | Methyl bromide (HBC-40B1)
               | 20019 > | Hexachlorocyclohexane (HCH)
               | 20020 > | Alpha hexachlorocyclohexane
@@ -3891,15 +3891,15 @@ Table F STD |  0 | 22
               | 30292 > | Sum noble gas
               | 30293 > | Activation gas
               | 30294 > | Cs-137 equivalent
-              | 60000 > | HOx radical (OH+HO₂)
-              | 60001 > | Total inorganic and organic peroxy radicals (HO₂ + RO₂) (RO₂)
+              | 60000 > | HOx radical (OH+HO2)
+              | 60001 > | Total inorganic and organic peroxy radicals (HO2 + RO2) (RO2)
               | 60002 > | Passive Ozone
               | 60003 > | NOx expressed as nitrogen (NOx)
               | 60004 > | All nitrogen oxides (NOx) expressed as nitrogen (NOx)
               | 60005 > | Total inorganic chlorine (Clx)
               | 60006 > | Total inorganic bromine (Brx)
-              | 60007 > | Total inorganic chlorine except HCl, ClONO₂: ClOx
-              | 60008 > | Total inorganic bromine except HBr, BrONO₂: BrOx
+              | 60007 > | Total inorganic chlorine except HCl, ClONO2: ClOx
+              | 60008 > | Total inorganic bromine except HBr, BrONO2: BrOx
               | 60009 > | Lumped Alkanes
               | 60010 > | Lumped Alkenes
               | 60011 > | Lumped Aromatic Compounds
@@ -3908,7 +3908,7 @@ Table F STD |  0 | 22
               | 60014 > | Anthropogenic non-methane volatile organic compounds expressed as carbon (aNMVOC)
               | 60015 > | Biogenic non-methane volatile organic compounds expressed as carbon (bNMVOC)
               | 60016 > | Lumped oxygenated hydrocarbons (OVOC)
-              | 60017 > | NOx expressed as nitrogen dioxide (NO₂)
+              | 60017 > | NOx expressed as nitrogen dioxide (NO2)
               | 62000 > | Total aerosol
               | 62001 > | Dust dry
               | 62002 > | Water in ambient
@@ -3953,9 +3953,9 @@ Table F STD |  0 | 22
               | 6   | Sunshine duration
 
   0-08-052 | CNDO ; CODE
-              | 0 > | Mean wind speed over a 10-minute period observed or recorded equal to or more than 10 m s⁻¹ or 20 knots
-              | 1 > | Mean wind speed over a 10-minute period observed or recorded equal to or more than 20 m s⁻¹ or 40 knots
-              | 2 > | Mean wind speed over a 10-minute period observed or recorded equal to or more than 30 m s⁻¹ or 60 knots
+              | 0 > | Mean wind speed over a 10-minute period observed or recorded equal to or more than 10 m s**-1 or 20 knots
+              | 1 > | Mean wind speed over a 10-minute period observed or recorded equal to or more than 20 m s**-1 or 40 knots
+              | 2 > | Mean wind speed over a 10-minute period observed or recorded equal to or more than 30 m s**-1 or 60 knots
               | 3 > | Maximum temperature less than 273.15 K
               | 4 > | Maximum temperature equal to or more than 298.15 K
               | 5 > | Maximum temperature equal to or more than 303.15 K
@@ -3963,12 +3963,12 @@ Table F STD |  0 | 22
               | 7 > | Maximum temperature equal to or more than 313.15 K
               | 8 > | Minimum temperature less than 273.15 K
               | 9 > | Maximum temperature equal to or more than 273.15 K
-              | 10 > | Precipitation equal to or more than 1.0 kg m⁻²
-              | 11 > | Precipitation equal to or more than 5.0 kg m⁻²
-              | 12 > | Precipitation equal to or more than 10.0 kg m⁻²
-              | 13 > | Precipitation equal to or more than 50.0 kg m⁻²
-              | 14 > | Precipitation equal to or more than 100.0 kg m⁻²
-              | 15 > | Precipitation equal to or more than 150.0 kg m⁻²
+              | 10 > | Precipitation equal to or more than 1.0 kg m**-2
+              | 11 > | Precipitation equal to or more than 5.0 kg m**-2
+              | 12 > | Precipitation equal to or more than 10.0 kg m**-2
+              | 13 > | Precipitation equal to or more than 50.0 kg m**-2
+              | 14 > | Precipitation equal to or more than 100.0 kg m**-2
+              | 15 > | Precipitation equal to or more than 150.0 kg m**-2
               | 16 > | Snow depth more than 0.00 m
               | 17 > | Snow depth more than 0.01 m
               | 18 > | Snow depth more than 0.10 m
@@ -4163,34 +4163,34 @@ Table F STD |  0 | 22
               | 14   | Extreme, cloud/clear air not specified
 
   0-11-037 | TRBXST ; CODE
-              | 0 > | Average value of eddy dissipation rate < 0.1 m⅔ s⁻¹, and peak value < 0.1 m⅔ s⁻¹
-              | 1 > | Average value of eddy dissipation rate < 0.1 m⅔ s⁻¹, and peak value < 0.2 and >= 0.1 m⅔ s⁻¹
-              | 2 > | Average value of eddy dissipation rate < 0.2 and >= 0.1 m⅔ s⁻¹, and peak value < 0.2 and >= 0.1 m⅔ s⁻¹
-              | 3 > | Average value of eddy dissipation rate < 0.1 m⅔ s⁻¹, and peak value < 0.3 and >= 0.2 m⅔ s⁻¹
-              | 4 > | Average value of eddy dissipation rate < 0.2 and >= 0.1 m⅔ s⁻¹, and peak value < 0.3 and >= 0.2 m⅔ s⁻¹
-              | 5 > | Average value of eddy dissipation rate < 0.3 and >= 0.2 m⅔ s⁻¹, and peak value < 0.3 and >= 0.2 m⅔ s⁻¹
-              | 6 > | Average value of eddy dissipation rate < 0.1 m⅔ s⁻¹, and peak value < 0.4 and >= 0.3 m⅔ s⁻¹
-              | 7 > | Average value of eddy dissipation rate < 0.2 and >= 0.1 m⅔ s⁻¹, and peak value < 0.4 and >= 0.3 m⅔ s⁻¹
-              | 8 > | Average value of eddy dissipation rate < 0.3 and >= 0.2 m⅔ s⁻¹, and peak value < 0.4 and >= 0.3 m⅔ s⁻¹
-              | 9 > | Average value of eddy dissipation rate < 0.4 and >= 0.3 m⅔ s⁻¹, and peak value < 0.4 and >= 0.3 m⅔ s⁻¹
-              | 10 > | Average value of eddy dissipation rate < 0.1 m⅔ s⁻¹, and peak value < 0.5 and >= 0.4 m⅔ s⁻¹
-              | 11 > | Average value of eddy dissipation rate < 0.2 and >= 0.1 m⅔ s⁻¹, and peak value < 0.5 and >= 0.4 m⅔ s⁻¹
-              | 12 > | Average value of eddy dissipation rate < 0.3 and >= 0.2 m⅔ s⁻¹, and peak value < 0.5 and >= 0.4 m⅔ s⁻¹
-              | 13 > | Average value of eddy dissipation rate < 0.4 and >= 0.3 m⅔ s⁻¹, and peak value < 0.5 and >= 0.4 m⅔ s⁻¹
-              | 14 > | Average value of eddy dissipation rate < 0.5 and >= 0.4 m⅔ s⁻¹, and peak value < 0.5 and >= 0.4 m⅔ s⁻¹
-              | 15 > | Average value of eddy dissipation rate < 0.1 m⅔ s⁻¹, and peak value < 0.8 and >= 0.5 m⅔ s⁻¹
-              | 16 > | Average value of eddy dissipation rate < 0.2 and >= 0.1 m⅔ s⁻¹, and peak value < 0.8 and >= 0.5 m⅔ s⁻¹
-              | 17 > | Average value of eddy dissipation rate < 0.3 and >= 0.2 m⅔ s⁻¹, and peak value < 0.8 and >= 0.5 m⅔ s⁻¹
-              | 18 > | Average value of eddy dissipation rate < 0.4 and >= 0.3 m⅔ s⁻¹, and peak value < 0.8 and >= 0.5 m⅔ s⁻¹
-              | 19 > | Average value of eddy dissipation rate < 0.5 and >= 0.4 m⅔ s⁻¹, and peak value < 0.8 and >= 0.5 m⅔ s⁻¹
-              | 20 > | Average value of eddy dissipation rate < 0.8 and >= 0.5 m⅔ s⁻¹, and peak value < 0.8 and >= 0.5 m⅔ s⁻¹
-              | 21 > | Average value of eddy dissipation rate < 0.1 m⅔ s⁻¹, and peak value >= 0.8 m⅔ s⁻¹
-              | 22 > | Average value of eddy dissipation rate < 0.2 and >= 0.1 m⅔ s⁻¹, and peak value >= 0.8 m⅔ s⁻¹
-              | 23 > | Average value of eddy dissipation rate < 0.3 and >= 0.2 m⅔ s⁻¹, and peak value >= 0.8 m⅔ s⁻¹
-              | 24 > | Average value of eddy dissipation rate < 0.4 and >= 0.3 m⅔ s⁻¹, and peak value >= 0.8 m⅔ s⁻¹
-              | 25 > | Average value of eddy dissipation rate < 0.5 and >= 0.4 m⅔ s⁻¹, and peak value >= 0.8 m⅔ s⁻¹
-              | 26 > | Average value of eddy dissipation rate < 0.8 and >= 0.5 m⅔ s⁻¹, and peak value >= 0.8 m⅔ s⁻¹
-              | 27 > | Average value of eddy dissipation rate >= 0.8 m⅔ s⁻¹, and peak value >= 0.8 m⅔ s⁻¹
+              | 0 > | Average value of eddy dissipation rate < 0.1 m**(2/3) s**-1, and peak value < 0.1 m**(2/3) s**-1
+              | 1 > | Average value of eddy dissipation rate < 0.1 m**(2/3) s**-1, and peak value < 0.2 and >= 0.1 m**(2/3) s**-1
+              | 2 > | Average value of eddy dissipation rate < 0.2 and >= 0.1 m**(2/3) s**-1, and peak value < 0.2 and >= 0.1 m**(2/3) s**-1
+              | 3 > | Average value of eddy dissipation rate < 0.1 m**(2/3) s**-1, and peak value < 0.3 and >= 0.2 m**(2/3) s**-1
+              | 4 > | Average value of eddy dissipation rate < 0.2 and >= 0.1 m**(2/3) s**-1, and peak value < 0.3 and >= 0.2 m**(2/3) s**-1
+              | 5 > | Average value of eddy dissipation rate < 0.3 and >= 0.2 m**(2/3) s**-1, and peak value < 0.3 and >= 0.2 m**(2/3) s**-1
+              | 6 > | Average value of eddy dissipation rate < 0.1 m**(2/3) s**-1, and peak value < 0.4 and >= 0.3 m**(2/3) s**-1
+              | 7 > | Average value of eddy dissipation rate < 0.2 and >= 0.1 m**(2/3) s**-1, and peak value < 0.4 and >= 0.3 m**(2/3) s**-1
+              | 8 > | Average value of eddy dissipation rate < 0.3 and >= 0.2 m**(2/3) s**-1, and peak value < 0.4 and >= 0.3 m**(2/3) s**-1
+              | 9 > | Average value of eddy dissipation rate < 0.4 and >= 0.3 m**(2/3) s**-1, and peak value < 0.4 and >= 0.3 m**(2/3) s**-1
+              | 10 > | Average value of eddy dissipation rate < 0.1 m**(2/3) s**-1, and peak value < 0.5 and >= 0.4 m**(2/3) s**-1
+              | 11 > | Average value of eddy dissipation rate < 0.2 and >= 0.1 m**(2/3) s**-1, and peak value < 0.5 and >= 0.4 m**(2/3) s**-1
+              | 12 > | Average value of eddy dissipation rate < 0.3 and >= 0.2 m**(2/3) s**-1, and peak value < 0.5 and >= 0.4 m**(2/3) s**-1
+              | 13 > | Average value of eddy dissipation rate < 0.4 and >= 0.3 m**(2/3) s**-1, and peak value < 0.5 and >= 0.4 m**(2/3) s**-1
+              | 14 > | Average value of eddy dissipation rate < 0.5 and >= 0.4 m**(2/3) s**-1, and peak value < 0.5 and >= 0.4 m**(2/3) s**-1
+              | 15 > | Average value of eddy dissipation rate < 0.1 m**(2/3) s**-1, and peak value < 0.8 and >= 0.5 m**(2/3) s**-1
+              | 16 > | Average value of eddy dissipation rate < 0.2 and >= 0.1 m**(2/3) s**-1, and peak value < 0.8 and >= 0.5 m**(2/3) s**-1
+              | 17 > | Average value of eddy dissipation rate < 0.3 and >= 0.2 m**(2/3) s**-1, and peak value < 0.8 and >= 0.5 m**(2/3) s**-1
+              | 18 > | Average value of eddy dissipation rate < 0.4 and >= 0.3 m**(2/3) s**-1, and peak value < 0.8 and >= 0.5 m**(2/3) s**-1
+              | 19 > | Average value of eddy dissipation rate < 0.5 and >= 0.4 m**(2/3) s**-1, and peak value < 0.8 and >= 0.5 m**(2/3) s**-1
+              | 20 > | Average value of eddy dissipation rate < 0.8 and >= 0.5 m**(2/3) s**-1, and peak value < 0.8 and >= 0.5 m**(2/3) s**-1
+              | 21 > | Average value of eddy dissipation rate < 0.1 m**(2/3) s**-1, and peak value >= 0.8 m**(2/3) s**-1
+              | 22 > | Average value of eddy dissipation rate < 0.2 and >= 0.1 m**(2/3) s**-1, and peak value >= 0.8 m**(2/3) s**-1
+              | 23 > | Average value of eddy dissipation rate < 0.3 and >= 0.2 m**(2/3) s**-1, and peak value >= 0.8 m**(2/3) s**-1
+              | 24 > | Average value of eddy dissipation rate < 0.4 and >= 0.3 m**(2/3) s**-1, and peak value >= 0.8 m**(2/3) s**-1
+              | 25 > | Average value of eddy dissipation rate < 0.5 and >= 0.4 m**(2/3) s**-1, and peak value >= 0.8 m**(2/3) s**-1
+              | 26 > | Average value of eddy dissipation rate < 0.8 and >= 0.5 m**(2/3) s**-1, and peak value >= 0.8 m**(2/3) s**-1
+              | 27 > | Average value of eddy dissipation rate >= 0.8 m**(2/3) s**-1, and peak value >= 0.8 m**(2/3) s**-1
               | 28   | Nil
 
   0-11-038 | TOPEDR ; CODE
@@ -4444,16 +4444,16 @@ Table F STD |  0 | 22
               | 6   | Cyclone centre undetermined
 
   0-19-109 | MWFC ; CODE
-              | 0 > | Less than 1° of latitude
-              | 1 > | 1° to less than 2° of latitude
-              | 2 > | 2° to less than 3° of latitude
-              | 3 > | 3° to less than 4° of latitude
-              | 4 > | 4° to less than 5° of latitude
-              | 5 > | 5° to less than 6° of latitude
-              | 6 > | 6° to less than 7° of latitude
-              | 7 > | 7° to less than 8° of latitude
-              | 8 > | 8° to less than 9° of latitude
-              | 9 > | 9° of latitude or more
+              | 0 > | Less than 1 deg of latitude
+              | 1 > | 1 deg to less than 2 deg of latitude
+              | 2 > | 2 deg to less than 3 deg of latitude
+              | 3 > | 3 deg to less than 4 deg of latitude
+              | 4 > | 4 deg to less than 5 deg of latitude
+              | 5 > | 5 deg to less than 6 deg of latitude
+              | 6 > | 6 deg to less than 7 deg of latitude
+              | 7 > | 7 deg to less than 8 deg of latitude
+              | 8 > | 8 deg to less than 9 deg of latitude
+              | 9 > | 9 deg of latitude or more
               | 10   | Undetermined
 
   0-19-110 | A24C ; CODE
@@ -4694,31 +4694,31 @@ Table F STD |  0 | 22
               | 247 > | Dense fog, visibility 60-90 m
               | 248 > | Dense fog, visibility 30-60 m
               | 249 > | Dense fog, visibility less than 30 m
-              | 250 > | Drizzle, rate of fall less than 0.10 mm h⁻¹
-              | 251 > | Drizzle, rate of fall 0.10-0.19 mm h⁻¹
-              | 252 > | Drizzle, rate of fall 0.20-0.39 mm h⁻¹
-              | 253 > | Drizzle, rate of fall 0.40-0.79 mm h⁻¹
-              | 254 > | Drizzle, rate of fall 0.80-1.59 mm h⁻¹
-              | 255 > | Drizzle, rate of fall 1.60-3.19 mm h⁻¹
-              | 256 > | Drizzle, rate of fall 3.20-6.39 mm h⁻¹
-              | 257 > | Drizzle, rate of fall 6.40 mm h⁻¹ or more
+              | 250 > | Drizzle, rate of fall less than 0.10 mm h**-1
+              | 251 > | Drizzle, rate of fall 0.10-0.19 mm h**-1
+              | 252 > | Drizzle, rate of fall 0.20-0.39 mm h**-1
+              | 253 > | Drizzle, rate of fall 0.40-0.79 mm h**-1
+              | 254 > | Drizzle, rate of fall 0.80-1.59 mm h**-1
+              | 255 > | Drizzle, rate of fall 1.60-3.19 mm h**-1
+              | 256 > | Drizzle, rate of fall 3.20-6.39 mm h**-1
+              | 257 > | Drizzle, rate of fall 6.40 mm h**-1 or more
               | 259 > | Drizzle and snow
-              | 260 > | Rain, rate of fall less than 1.0 mm h⁻¹
-              | 261 > | Rain, rate of fall 1.0-1.9 mm h⁻¹
-              | 262 > | Rain, rate of fall 2.0-3.9 mm h⁻¹
-              | 263 > | Rain, rate of fall 4.0-7.9 mm h⁻¹
-              | 264 > | Rain, rate of fall 8.0-15.9 mm h⁻¹
-              | 265 > | Rain, rate of fall 16.0-31.9 mm h⁻¹
-              | 266 > | Rain, rate of fall 32.0-63.9 mm h⁻¹
-              | 267 > | Rain, rate of fall 64.0 mm h⁻¹ or more
-              | 270 > | Snow, rate of fall less than 1.0 cm h⁻¹
-              | 271 > | Snow, rate of fall 1.0-1.9 cm h⁻¹
-              | 272 > | Snow, rate of fall 2.0-3.9 cm h⁻¹
-              | 273 > | Snow, rate of fall 4.0-7.9 cm h⁻¹
-              | 274 > | Snow, rate of fall 8.0-15.9 cm h⁻¹
-              | 275 > | Snow, rate of fall 16.0-31.9 cm h⁻¹
-              | 276 > | Snow, rate of fall 32.0-63.9 cm h⁻¹
-              | 277 > | Snow, rate of fall 64.0 cm h⁻¹ or more
+              | 260 > | Rain, rate of fall less than 1.0 mm h**-1
+              | 261 > | Rain, rate of fall 1.0-1.9 mm h**-1
+              | 262 > | Rain, rate of fall 2.0-3.9 mm h**-1
+              | 263 > | Rain, rate of fall 4.0-7.9 mm h**-1
+              | 264 > | Rain, rate of fall 8.0-15.9 mm h**-1
+              | 265 > | Rain, rate of fall 16.0-31.9 mm h**-1
+              | 266 > | Rain, rate of fall 32.0-63.9 mm h**-1
+              | 267 > | Rain, rate of fall 64.0 mm h**-1 or more
+              | 270 > | Snow, rate of fall less than 1.0 cm h**-1
+              | 271 > | Snow, rate of fall 1.0-1.9 cm h**-1
+              | 272 > | Snow, rate of fall 2.0-3.9 cm h**-1
+              | 273 > | Snow, rate of fall 4.0-7.9 cm h**-1
+              | 274 > | Snow, rate of fall 8.0-15.9 cm h**-1
+              | 275 > | Snow, rate of fall 16.0-31.9 cm h**-1
+              | 276 > | Snow, rate of fall 32.0-63.9 cm h**-1
+              | 277 > | Snow, rate of fall 64.0 cm h**-1 or more
               | 278 > | Snow or Ice crystal precipitation from a clear sky
               | 279 > | Wet snow, freezing on contact
               | 280 > | Precipitation of rain
@@ -5416,19 +5416,19 @@ Table F STD |  0 | 22
 
   0-20-105 | SSLO ; CODE
            | 0-20-104=0
-              | 1 > | Area covered by isolated bands < 10 m²
-              | 2 > | Area covered by isolated bands 10-100 m²
-              | 3 > | Area covered by isolated bands 100-1000 m²
-              | 4 > | Area covered by isolated bands 1000-10000 m²
+              | 1 > | Area covered by isolated bands < 10 m**2
+              | 2 > | Area covered by isolated bands 10-100 m**2
+              | 3 > | Area covered by isolated bands 100-1000 m**2
+              | 4 > | Area covered by isolated bands 1000-10000 m**2
               | 5 > | Area covered by isolated bands 1-10 ha
               | 6 > | Area covered by isolated bands > 10 ha
-              | 7 > | Area covered by dispersed bands < 100 km²
-              | 8 > | Area covered by dispersed bands 100-1000 km²
-              | 9 > | Area covered by dispersed bands > 1000 km²
+              | 7 > | Area covered by dispersed bands < 100 km**2
+              | 8 > | Area covered by dispersed bands 100-1000 km**2
+              | 9 > | Area covered by dispersed bands > 1000 km**2
            | 0-20-104=5,4,3,7,8,1,2,9,6
-              | 0 > | Small swarm less than 1 km² or adults in ground, tens or hundreds of individuals visible simultaneously, duration of passage less than 1 hour ago
-              | 1 > | Small swarm less than 1 km² or adults in ground, tens or hundreds of individuals visible simultaneously, duration of passage 1 to 6 hours ago
-              | 2 > | Small swarm less than 1 km² or adults in ground, tens or hundreds of individuals visible simultaneously, duration of passage over 6 hours ago
+              | 0 > | Small swarm less than 1 km**2 or adults in ground, tens or hundreds of individuals visible simultaneously, duration of passage less than 1 hour ago
+              | 1 > | Small swarm less than 1 km**2 or adults in ground, tens or hundreds of individuals visible simultaneously, duration of passage 1 to 6 hours ago
+              | 2 > | Small swarm less than 1 km**2 or adults in ground, tens or hundreds of individuals visible simultaneously, duration of passage over 6 hours ago
               | 3 > | Medium swarm or scattered adults, several visible simultaneously, duration of passage less than 1 hour ago
               | 4 > | Medium swarm or scattered adults, several visible simultaneously, duration of passage 1 to 6 hours ago
               | 5 > | Medium swarm or scattered adults, several visible simultaneously, duration of passage over 6 hours ago
@@ -5488,12 +5488,12 @@ Table F STD |  0 | 22
               | 11 > | Isolated orographic clouds, pileus, incus, forming
               | 12 > | Isolated orographic clouds, pileus, incus, not changing
               | 13 > | Isolated orographic clouds, pileus, incus, dissolving
-              | 14 > | Irregular banks of orographic cloud, föhn bank, etc., forming
-              | 15 > | Irregular banks of orographic cloud, föhn bank, etc., not changing
-              | 16 > | Irregular banks of orographic cloud, föhn bank, etc., dissolving
-              | 17 > | Compact layer of orographic cloud, föhn bank, etc., forming
-              | 18 > | Compact layer of orographic cloud, föhn bank, etc., not changing
-              | 19 > | Compact layer of orographic cloud, föhn bank, etc., dissolving
+              | 14 > | Irregular banks of orographic cloud, fohn bank, etc., forming
+              | 15 > | Irregular banks of orographic cloud, fohn bank, etc., not changing
+              | 16 > | Irregular banks of orographic cloud, fohn bank, etc., dissolving
+              | 17 > | Compact layer of orographic cloud, fohn bank, etc., forming
+              | 18 > | Compact layer of orographic cloud, fohn bank, etc., not changing
+              | 19 > | Compact layer of orographic cloud, fohn bank, etc., dissolving
               | 20 > | All mountains open, only small amounts of cloud present
               | 21 > | Mountains partly covered with detached clouds (not more than half the peaks can be seen)
               | 22 > | All mountains slopes covered, peaks and passes free
@@ -5569,14 +5569,14 @@ Table F STD |  0 | 22
               | 7   | Not enough measurements (N<10)
 
   0-21-069 | SSPC ; FLAG
-              | 1 > | 12.0 µm channel present in source data
-              | 2 > | 11.0 µm channel present in source data
-              | 3 > | 3.7 µm channel present in source data
-              | 4 > | 1.6 µm channel present in source data
+              | 1 > | 12.0 um channel present in source data
+              | 2 > | 11.0 um channel present in source data
+              | 3 > | 3.7 um channel present in source data
+              | 4 > | 1.6 um channel present in source data
               | 5 > | Cloud identification used 1.6 um histogram reflectance cloud test
-              | 6 > | 1.6 µm histogram reflectance cloud test used dynamic threshold
+              | 6 > | 1.6 um histogram reflectance cloud test used dynamic threshold
               | 7 > | Sun glint detected by 1.6 um reflectance cloud test
-              | 8 > | 3.7 µm channel used in sea surface temperature retrieval
+              | 8 > | 3.7 um channel used in sea surface temperature retrieval
               | 9   | Sea surface temperature derivation used day-time data (night time if zero)
 
   0-21-070 | SSPC2 ; FLAG
@@ -5629,8 +5629,8 @@ Table F STD |  0 | 22
               | 8 > | Some portion of wind vector cell is over land
               | 9 > | Some portion of wind vector cell is over ice
               | 10 > | Wind retrieval not performed for wind vector cell
-              | 11 > | Reported wind speed is greater than 30 m s⁻¹
-              | 12   | Reported wind speed is less than or equal to 3 m s⁻¹
+              | 11 > | Reported wind speed is greater than 30 m s**-1
+              | 12   | Reported wind speed is less than or equal to 3 m s**-1
 
   0-21-115 | SSQU ; FLAG
               | 1 > | Sigma-0 measurement is not usable
@@ -5694,8 +5694,8 @@ Table F STD |  0 | 22
               | 8 > | Some portion of wind vector cell is over land
               | 9 > | Some portion of wind vector cell is over ice
               | 10 > | Wind retrieval not performed for wind vector cell
-              | 11 > | Reported wind speed is greater than 30 m s⁻¹
-              | 12 > | Reported wind speed is less than or equal to 3 m s⁻¹
+              | 11 > | Reported wind speed is greater than 30 m s**-1
+              | 12 > | Reported wind speed is less than or equal to 3 m s**-1
               | 13 > | Rain flag for the wind vector cell is not usable
               | 14 > | Rain flag algorithm detects rain
               | 15 > | No meteorological background used
@@ -6848,7 +6848,7 @@ Table F STD |  0 | 22
   0-33-071 | SBUVPOQ ; CODE
               | 0 > | Good retrieval
               | 1 > | Solar zenith angle greater than 84 degrees
-              | 2 > | Difference between step 3 and profile total ozone greater than limit (25 DU)
+              | 2 > | Difference between step 3 and profile total ozone greater than limit (25DU)
               | 3 > | Average final residue for wavelengths used in retrieval greater than threshold
               | 4 > | Final residue greater than 3 times a priori error
               | 5 > | Difference between retrieved and a priori greater than 3 times a priori error
@@ -7022,7 +7022,7 @@ Table F STD |  0 | 22
               | 11 > | Snow or ice surface is within the instantaneous field-of-view
               | 12 > | Solar zenith angle in excluded (night) condition (solar zenith angle >= 88 degrees)
               | 13 > | Solar zenith angle in degraded condition (80 degrees <= solar zenith angle < 88 degrees)
-              | 14 > | SO₂ index > 6 DU (degraded condition)
+              | 14 > | SO2 index > 6 DU (degraded condition)
               | 15 > | Residues are not consistent (indicates whether the residues from the 22 wavelengths
               | 16 > | Ozone triplet selection is not consistent within retrieval (ozone triplet consistency)
               | 17   | Input data quality is not good

@@ -1,6 +1,10 @@
 # Fetch test data from: https://ftp.emc.ncep.noaa.gov/static_files/public/bufr.tar
 set(BUFR_URL "https://ftp.emc.ncep.noaa.gov/static_files/public")
-set(BUFR_TAR "bufr.tar")
+if(${PROJECT_VERSION} VERSION_GREATER_EQUAL 11.6.0)
+  set(BUFR_TAR "bufr-11.6.0.tar")
+else()
+  set(BUFR_TAR "bufr.tar")
+endif()
 
 find_program(CURL_pgm curl)
 mark_as_advanced(CURL_pgm)

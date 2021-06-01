@@ -1,7 +1,7 @@
 Table D STD |  0 | 24
 #
 # Standard BUFR Table D, Master Table 0, Version 24
-# This file was generated: 2016/10/28 15:44:00
+# This file was generated: 2021/05/11 22:56:16
 #
 #========================================================================================================
 # F-XX-YYY | MNEMONIC   ;DCOD ; NAME           <-- sequence definition
@@ -4867,7 +4867,7 @@ Table D STD |  0 | 24
            | 2-01-000 > | Cancel change data width
            | 0-15-052 > | Log10 of number density of aerosol particles with diameter greater than 5 nm
            | 0-15-053 > | Log10 of number density of aerosol particles with diameter greater than 14 nm
-           | 0-15-054 > | Log10 of number density of aerosol particles with diameter between 0.25 and 2.5 µm
+           | 0-15-054 > | Log10 of number density of aerosol particles with diameter between 0.25 and 2.5 um
            | 0-15-055 > | Non volatile aerosol ratio
            | 0-07-004 > | Pressure
            | 0-07-004 > | Pressure
@@ -5157,7 +5157,7 @@ Table D STD |  0 | 24
 
   3-12-032 | SEAWPROR   ;     ; SEAWINDS precipitation
            | 0-21-120 > | Probability of rain
-           | 0-21-121 > | SEAWINDS NOF* rain index
+           | 0-21-121 > | SEAWINDS NOF rain index
            | 0-13-055 > | Intensity of precipitation
            | 0-21-122   | Attenuation correction on sigma-0 (from tB)
 
@@ -5552,7 +5552,7 @@ Table D STD |  0 | 24
            | 0-21-181 > | 20 Hz ocean backscatter coefficient
            | 0-21-138 > | Std Ku band corrected ocean backscatter coefficient
            | 0-21-180 > | Number of 20 Hz valid points for ocean backscatter coefficient
-           | 0-21-177 > | Corrected OCOG* backscatter coefficient
+           | 0-21-177 > | Corrected OCOG backscatter coefficient
            | 0-21-178 > | STD of 20 Hz OCOG backscatter coefficient
            | 0-21-179 > | Number of 20 Hz valid points for OCOG backscatter coefficient
            | 0-10-079 > | Off-nadir angle of the satellite from platform data
@@ -5582,7 +5582,7 @@ Table D STD |  0 | 24
            | 0-25-133 > | Sea state bias correction on Ku band
            | 0-25-182 > | L1 processing flag
            | 0-25-183 > | L1 processing quality
-           | 0-25-180 > | LRM* per cent
+           | 0-25-180 > | LRM per cent
            | 0-25-184 > | L2 product status
            | 0-25-181 > | L2 processing flag
            | 0-33-080   | Scan level quality flags
