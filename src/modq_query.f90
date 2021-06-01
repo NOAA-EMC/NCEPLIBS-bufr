@@ -27,6 +27,7 @@ module modq_query
       procedure, public :: add_cnt_for_seq => seq_counter__add_cnt_for_seq
       procedure, public :: inc_last_cnt_for_seq => seq_counter__inc_last_cnt_for_seq
       procedure, public :: dec_last_cnt_for_seq => seq_counter__dec_last_cnt_for_seq
+      final :: seq_counter__delete
   end type SeqCounter
 
   interface SeqCounter
@@ -229,7 +230,7 @@ contains
         deallocate(data_field%seq_path)
       end if
 
-      allocate(data_field%seq_path, source=seq_counter%seqs%get_array())
+      allocate(data_field%seq_path, source=seq_counter%seqs%array())
 
       if (allocated(data_field%seq_counts)) then
         deallocate(data_field%seq_counts)
@@ -237,7 +238,7 @@ contains
 
       allocate(data_field%seq_counts(size(data_field%seq_path)))
       do path_idx = 1, size(data_field%seq_path)
-        allocate(data_field%seq_counts(path_idx)%counts, source=seq_counter%counts_list(path_idx)%get_array())
+        allocate(data_field%seq_counts(path_idx)%counts, source=seq_counter%counts_list(path_idx)%array())
       end do
 
       call data_frame%add(data_field)
@@ -322,7 +323,7 @@ contains
     type(IntList), intent(in) :: seqs
     type(IntList), allocatable :: int_lists(:)
 
-    allocate(int_lists(seqs%count()))
+    allocate(int_lists(seqs%length()))
     seq_counter = SeqCounter(seqs, int_lists)
   end function init__seq_counter_w_seq
 
@@ -334,7 +335,7 @@ contains
     logical :: found
 
     found = .false.
-    do idx = 1, self%seqs%count()
+    do idx = 1, self%seqs%length()
       if (seq == self%seqs%at(idx)) then
         counts = self%counts_list(idx)
         found = .true.
@@ -359,15 +360,15 @@ contains
     type(IntList) :: counts
 
     found = .false.
-    do idx = 1, self%seqs%count()
+    do idx = 1, self%seqs%length()
       if (seq == self%seqs%at(idx)) then
         found = .true.
-        call self%counts_list(idx)%append(cnt)
+        call self%counts_list(idx)%push(cnt)
       end if
     end do
 
     if (.not. found) then
-      call self%seqs%append(seq)
+      call self%seqs%push(seq)
       self%counts_list = [self%counts_list, IntList((/cnt/))]
     end if
 
@@ -381,11 +382,11 @@ contains
     integer :: idx
 
     found = .false.
-    do idx = 1, self%seqs%count()
+    do idx = 1, self%seqs%length()
       if (seq == self%seqs%at(idx)) then
         found = .true.
-        call self%counts_list(idx)%set(self%counts_list(idx)%count(), &
-                                       self%counts_list(idx)%at(self%counts_list(idx)%count()) + 1)
+        self%counts_list(idx)%at(self%counts_list(idx)%length()) = &
+          self%counts_list(idx)%at(self%counts_list(idx)%length()) + 1
         exit
       end if
     end do
@@ -405,11 +406,11 @@ contains
     type(IntList) :: list
 
     found = .false.
-    do idx = 1, self%seqs%count()
+    do idx = 1, self%seqs%length()
       if (seq == self%seqs%at(idx)) then
         found = .true.
-        call self%counts_list(idx)%set(self%counts_list(idx)%count(), &
-                                       self%counts_list(idx)%at(self%counts_list(idx)%count()) - 1)
+        self%counts_list(idx)%at(self%counts_list(idx)%length()) = &
+          self%counts_list(idx)%at(self%counts_list(idx)%length()) - 1
         exit
       end if
     end do
@@ -417,7 +418,17 @@ contains
     if (.not. found) then
       error stop "SeqCounter: Trying to increment unknown sequence."
     end if
-
-
   end subroutine seq_counter__dec_last_cnt_for_seq
+
+
+  subroutine seq_counter__delete(self)
+    type(SeqCounter), intent(inout) :: self
+    integer :: idx
+
+    do idx = 1, size(self%counts_list)
+      call self%counts_list(idx)%delete()
+    end do
+
+    deallocate(self%counts_list)
+  end subroutine seq_counter__delete
 end module modq_query
