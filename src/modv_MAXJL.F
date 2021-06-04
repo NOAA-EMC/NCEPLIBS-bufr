@@ -1,17 +1,27 @@
+C> @file
+C> @brief Declare and initialize MAXJL variable.
+
+C> This module declares and initializes the MAXJL variable.
+C>
+C> <p>For dynamic allocation builds, this variable is initialized
+C> to a default value which can be overridden by a subsequent call
+C> to function isetprm() within the application program.
+C> For static allocation builds, this variable is set as a
+C> parameter at compile time and cannot be changed within the
+C> application program.
+C>
+C> @author J. Ator
+C> @date 2014-12-10
+
 	MODULE MODV_MAXJL
 
-C	  MAXJL is the maximum number of entries in the internal
-C	  jump/link table.
+C>        @var maxjl
+C>        Maximum number of entries in the internal jump/link table.
 
-#ifdef DYNAMIC_ALLOCATION
-
-C	  Set a default value for MAXJL.  This value will be used
-C	  unless it is overridden by a subsequent user call to
-C	  function ISETPRM.
-
-	  INTEGER :: MAXJL = 84000
+#ifdef STATIC_ALLOCATION
+	  INTEGER, PARAMETER :: MAXJL = 96000
 #else
-	  PARAMETER ( MAXJL = 96000 )
+	  INTEGER :: MAXJL = 84000
 #endif
 
 	END MODULE

@@ -3,7 +3,7 @@ C> @brief Determine important information about the local machine.
 
 C> This subroutine figures out some important information about the
 C> local machine on which the BUFRLIB software is being run, including
-C> the native endianness, the number of bytes in a machine word, and
+C> the native endianness, the number of bytes in an integer, and
 C> whether the machine uses the ASCII or EBCDIC character set.
 C>
 C> <p>This subroutine isn't normally called directly by any
@@ -84,7 +84,6 @@ C  -----------------------------------------
       INT = ISHFT(INT,1)
       IF(INT.EQ.0) GOTO 10
       ENDDO
-c  .... DK: Can the below ever happen since upper loop bounds is 65?
    10 IF(I.GE.65)       GOTO 900
       IF(MOD(I,8).NE.0) GOTO 901
 

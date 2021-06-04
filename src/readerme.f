@@ -31,8 +31,10 @@ C> except that here we have one additional input argument MESG which
 C> contains the BUFR message to be read by the BUFRLIB software.
 C> As such, this subroutine can be used in any context in which readmg()
 C> might otherwise be used, and from that point on, the application
-C> program can proceed with calls to subroutine readsb() (and,
-C> subsequently, subroutines ufbint(), ufbrep(), ufbseq(), etc.), just
+C> program can proceed with a call to one of the
+C> [subset-reading subroutines](@ref hierarchy) (and then,
+C> subsequently, to any of the
+C> [values-reading subroutines](@ref hierarchy)), just
 C> like if readmg() had been called instead.
 C>
 C> <p>When using this subroutine, it's still necessary for the
@@ -93,8 +95,6 @@ C>
       USE MODA_SC3BFR
       USE MODA_IDRDM
       USE MODA_BITBUF
-
-      INCLUDE 'bufrlib.inc'
 
       COMMON /HRDWRD/ NBYTW,NBITW,IORD(8)
       COMMON /QUIET/  IPRT

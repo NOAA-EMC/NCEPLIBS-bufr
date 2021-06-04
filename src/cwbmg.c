@@ -14,9 +14,9 @@
  *  @date 2005-11-29
  *
  *  @param[in] bmg     - char*: BUFR message to be written
- *  @param[in] nmb     - f77int: Size (in bytes) of BUFR message
+ *  @param[in] nmb     - f77int*: Size (in bytes) of BUFR message
  *                        in bmg
- *  @param[out] iret    - f77int: return code
+ *  @param[out] iret   - f77int*: return code
  *                         - 0 = normal return
  *                         - -1 = I/O error encountered while writing
  *

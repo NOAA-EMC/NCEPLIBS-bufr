@@ -50,11 +50,7 @@ C>                               programs.
 C>
       SUBROUTINE NEWWIN(LUN,IWIN,JWIN)
 
-
-
       USE MODA_USRINT
-
-      INCLUDE 'bufrlib.inc'
 
       CHARACTER*128 BORT_STR
 

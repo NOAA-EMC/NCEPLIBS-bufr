@@ -1,50 +1,67 @@
 C> @file
-C> @author WOOLLEN @date 2003-11-04
+C> @brief Write a long character string (greater than 8 bytes) to
+C> a data subset.
 
-C> THIS SUBROUTINE PACKS A CHARACTER DATA ELEMENT ASSOCIATED
-C>   WITH A PARTICULAR SUBSET MNEMONIC FROM THE INTERNAL MESSAGE BUFFER
-C>   (ARRAY MBAY IN MODULE BITBUF).  IT IS DESIGNED TO BE USED
-C>   TO STORE CHARACTER ELEMENTS GREATER THAN THE USUAL LENGTH OF EIGHT
-C>   BYTES.  NOTE THAT SUBROUTINE WRITSB OR WRITSA MUST HAVE ALREADY
-C>   BEEN CALLED TO STORE ALL OTHER ELEMENTS OF THE SUBSET BEFORE THIS
-C>   SUBROUTINE CAN BE CALLED TO FILL IN ANY LONG CHARACTER STRINGS.
+C> This subroutine writes a long character string (greater than 8 bytes)
+C> to a data subset.
 C>
-C> PROGRAM HISTORY LOG:
-C> 2003-11-04  J. WOOLLEN -- ORIGINAL AUTHOR
-C> 2003-11-04  D. KEYSER  -- UNIFIED/PORTABLE FOR WRF; ADDED
-C>                           DOCUMENTATION; OUTPUTS MORE COMPLETE
-C>                           DIAGNOSTIC INFO WHEN ROUTINE TERMINATES
-C>                           ABNORMALLY
-C> 2004-08-09  J. ATOR    -- MAXIMUM MESSAGE LENGTH INCREASED FROM
-C>                           20,000 TO 50,000 BYTES
-C> 2005-11-29  J. ATOR    -- USE GETLENS
-C> 2007-01-19  J. ATOR    -- REPLACED CALL TO PARSEQ WITH CALL TO PARSTR
-C> 2009-03-23  J. ATOR    -- ADDED '#' OPTION FOR MORE THAN ONE
-C>                           OCCURRENCE OF STR
-C> 2009-08-11  J. WOOLLEN -- ADDED COMMON COMPRS ALONG WITH LOGIC TO
-C>                           WRITE LONG STRINGS INTO COMPRESSED SUBSETS
-C> 2012-12-07  J. ATOR    -- ALLOW STR MNEMONIC LENGTH OF UP TO 14 CHARS
-C>                           WHEN USED WITH '#' OCCURRENCE CODE
-C> 2014-10-22  J. ATOR    -- NO LONGER ABORT IF NO SUBSET AVAILABLE FOR
-C>                           WRITING; JUST PRINT A WARNING MESSAGE
-C> 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
-C> 2020-09-09  J. ATOR    -- NO LONGER ABORT IF STR NOT AVAILABLE WITHIN
-C>                           SUBSET DEFINITIION; JUST PRINT A WARNING MSG
+C> <p>The data subset should have already been written into a BUFR
+C> message via a previous call to one of the
+C> [subset-writing subroutines](@ref hierarchy), before calling this
+C> subroutine to write any long character strings into the same subset.
 C>
-C> USAGE:    CALL WRITLC (LUNIT, CHR, STR)
-C>   INPUT ARGUMENT LIST:
-C>     LUNIT    - INTEGER: FORTRAN LOGICAL UNIT NUMBER FOR BUFR FILE
-C>     CHR      - CHARACTER*(*): UNPACKED CHARACTER STRING (I.E.,
-C>                CHARACTER DATA ELEMENT GREATER THAN EIGHT BYTES)
-C>     STR      - CHARACTER*(*): MNEMONIC ASSOCIATED WITH STRING IN CHR
+C> @authors J. Woollen
+C> @authors J. Ator
+C> @date 2003-11-04
 C>
-C> REMARKS:
-C>    THIS ROUTINE CALLS:        BORT     GETLENS  IUPBS3   PARSTR
-C>                               PARUTG   PKC      STATUS   UPB
-C>                               UPBB     USRTPL
-C>    THIS ROUTINE IS CALLED BY: MSGUPD
-C>                               Also called by application programs.
-
+C> @param[in] LUNIT  - integer: Fortran logical unit number for BUFR file
+C> @param[in] CHR   - character*(*): Value corresponding to STR
+C> @param[in] STR    - character*(*): Table B mnemonic of long character
+C>                     string to be written, possibly supplemented
+C>                     with an ordinal occurrence notation
+C>
+C> <p>If there is more than one occurrence of STR within the data subset
+C> definition, then each occurrence can be written via a separate call
+C> to this subroutine, and by appending the ordinal number of the
+C> occurrence to STR in each case.  For example, if there are 5
+C> occurrences of mnemonic LSTID within a given data subset definition,
+C> then 5 separate calls should be made to this subroutine, once each
+C> with STR set to 'LSTID#1', 'LSTID#2', 'LSTID#3', 'LSTID#4' and
+C> 'LSTID#5'.  However, the first notation is superfluous, because
+C> omitting the ordinal number always defaults to the first occurrence
+C> of a particular string, so a user could just specify 'LSTID'
+C> instead of 'LSTID#1'.
+C>
+C> @remarks
+C> - Character strings which are 8 bytes or less in length can be
+C> written by converting the string into a real*8 value within the
+C> application program, and then using the real*8 USR array within a
+C> call to one of the BUFRLIB
+C> [values-writing subroutines](@ref hierarchy)
+C> prior to calling one of the
+C> [subset-writing subroutines](@ref hierarchy)
+C> for the data subset.
+C>
+C> <b>Program history log:</b>
+C> - 2003-11-04  J. Woollen -- Original author
+C> - 2004-08-09  J. Ator    -- Maximum message length increased from
+C>                             20,000 to 50,000 bytes
+C> - 2005-11-29  J. Ator    -- Use getlens()
+C> - 2007-01-19  J. Ator    -- Replaced call to parseq with call to
+C>                             parstr()
+C> - 2009-03-23  J. Ator    -- Added '#' option for more than one
+C>                             occurrence of STR
+C> - 2009-08-11  J. Woollen -- Added COMMON COMPRS along with logic to
+C>                             write long strings into compressed subsets
+C> - 2012-12-07  J. Ator    -- Allow str mnemonic length of up to 14 chars
+C>                             when used with '#' occurrence code
+C> - 2014-10-22  J. Ator    -- No longer abort if no subset available for
+C>                             writing; just print a warning message
+C> - 2014-12-10  J. Ator    -- USE modules instead of COMMON blocks
+C> - 2020-09-09  J. Ator    -- No longer abort if STR not available within
+C>                             subset definition; instead, just print a
+C>                             warning message
+C>
       SUBROUTINE WRITLC(LUNIT,CHR,STR)
 
       USE MODA_USRINT
@@ -52,8 +69,6 @@ C>                               Also called by application programs.
       USE MODA_BITBUF
       USE MODA_TABLES
       USE MODA_COMPRS
-
-      INCLUDE 'bufrlib.inc'
 
       COMMON /QUIET / IPRT
 

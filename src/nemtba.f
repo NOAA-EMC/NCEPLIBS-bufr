@@ -49,10 +49,6 @@ C>                               programs.
 C>
       SUBROUTINE NEMTBA(LUN,NEMO,MTYP,MSBT,INOD)
 
-
-
-      INCLUDE 'bufrlib.inc'
-
       CHARACTER*(*) NEMO
       CHARACTER*128 BORT_STR
 

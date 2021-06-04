@@ -56,11 +56,7 @@ C>                               programs.
 C>
       FUNCTION INVCON(NC,LUN,INV1,INV2)
 
-
-
       USE MODA_USRINT
-
-      INCLUDE 'bufrlib.inc'
 
       COMMON /USRSTR/ NNOD,NCON,NODS(20),NODC(10),IVLS(10),KONS(10)
       COMMON /QUIET / IPRT

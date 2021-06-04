@@ -23,6 +23,8 @@ C>                           20,000 TO 50,000 BYTES
 C> 2005-11-29  J. ATOR    -- CHANGED DEFAULT MASTER TABLE VERSION TO 12
 C> 2009-05-07  J. ATOR    -- CHANGED DEFAULT MASTER TABLE VERSION TO 13;
 C>                           REMOVED STANDARDIZATION LOGIC FOR SECTION 3
+C> 2019-05-21  J. ATOR    -- CHANGED DEFAULT MASTER TABLE VERSION TO 29
+C> 2021-05-14  J. ATOR    -- CHANGED DEFAULT MASTER TABLE VERSION TO 36
 C>
 C> USAGE:    CALL CMSGINI (LUN, MESG, SUBSET, IDATE, NSUB, NBYT)
 C>   INPUT ARGUMENT LIST:
@@ -53,10 +55,6 @@ C>                               Normally not called by any application
 C>                               programs.
 C>
       SUBROUTINE CMSGINI(LUN,MESG,SUBSET,IDATE,NSUB,NBYT)
-
-
-
-      INCLUDE 'bufrlib.inc'
 
       CHARACTER*128 BORT_STR
       CHARACTER*8   SUBSET
@@ -126,7 +124,7 @@ C  ---------
       CALL PKB(   0 ,  8 , MESG,MBIT)
       CALL PKB(MTYP ,  8 , MESG,MBIT)
       CALL PKB(MSBT ,  8 , MESG,MBIT)
-      CALL PKB(  29 ,  8 , MESG,MBIT)
+      CALL PKB(  36 ,  8 , MESG,MBIT)
       CALL PKB(   0 ,  8 , MESG,MBIT)
       CALL PKB(MEAR ,  8 , MESG,MBIT)
       CALL PKB(MMON ,  8 , MESG,MBIT)

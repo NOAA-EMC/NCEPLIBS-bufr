@@ -1,74 +1,56 @@
 C> @file
-C> @author WOOLLEN @date 1994-01-06
-      
-C> THIS SUBROUTINE READS A PARTICULAR SUBSET FROM A BUFR
-C>   MESSAGE IN INTERNAL MEMORY (ARRAY MBAY IN MODULE BITBUF) INTO
-C>   INTERNAL SUBSET ARRAYS BASED ON THE SUBSET NUMBER IN THE MESSAGE.
+C> @brief Read a specified data subset from a BUFR message.
+
+C> This subroutine reads a specified data subset from the BUFR message
+C> that was most recently read via a call to subroutine rdmemm() or
+C> readmm().
 C>
-C> PROGRAM HISTORY LOG:
-C> 1994-01-06  J. WOOLLEN -- ORIGINAL AUTHOR
-C> 1998-07-08  J. WOOLLEN -- REPLACED CALL TO CRAY LIBRARY ROUTINE
-C>                           "ABORT" WITH CALL TO NEW INTERNAL BUFRLIB
-C>                           ROUTINE "BORT"
-C> 1998-10-27  J. WOOLLEN -- MODIFIED TO CORRECT PROBLEMS CAUSED BY IN-
-C>                           LINING CODE WITH FPP DIRECTIVES
-C> 1999-11-18  J. WOOLLEN -- THE NUMBER OF BUFR FILES WHICH CAN BE
-C>                           OPENED AT ONE TIME INCREASED FROM 10 TO 32
-C>                           (NECESSARY IN ORDER TO PROCESS MULTIPLE
-C>                           BUFR FILES UNDER THE MPI)
-C> 2000-09-19  J. WOOLLEN -- MAXIMUM MESSAGE LENGTH INCREASED FROM
-C>                           10,000 TO 20,000 BYTES
-C> 2001-08-15  D. KEYSER  -- PARAMETER MAXMEM (THE MAXIMUM NUMBER OF
-C>                           BYTES REQUIRED TO STORE ALL MESSAGES
-C>                           INTERNALLY) WAS INCREASED FROM 8 MBYTES TO
-C>                           16 MBYTES
-C> 2003-11-04  S. BENDER  -- ADDED REMARKS/BUFRLIB ROUTINE
-C>                           INTERDEPENDENCIES
-C> 2003-11-04  D. KEYSER  -- PARAMETER MAXMSG (THE MAXIMUM NUMBER OF
-C>                           BUFR MESSAGES WHICH CAN BE STORED
-C>                           INTERNALLY) INCREASED FROM 50000 TO 200000;
-C>                           UNIFIED/PORTABLE FOR WRF; ADDED
-C>                           DOCUMENTATION (INCLUDING HISTORY); OUTPUTS
-C>                           MORE COMPLETE DIAGNOSTIC INFO WHEN ROUTINE
-C>                           TERMINATES ABNORMALLY OR UNUSUAL THINGS
-C>                           HAPPEN
-C> 2004-08-09  J. ATOR    -- MAXIMUM MESSAGE LENGTH INCREASED FROM
-C>                           20,000 TO 50,000 BYTES
-C> 2004-11-15  D. KEYSER  -- PARAMETER MAXMEM (THE MAXIMUM NUMBER OF
-C>                           BYTES REQUIRED TO STORE ALL MESSAGES
-C>                           INTERNALLY) WAS INCREASED FROM 16 MBYTES TO
-C>                           50 MBYTES
-C> 2009-04-21  J. ATOR    -- USE ERRWRT
-C> 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
+C> @author J. Woollen
+C> @date 1994-01-06
 C>
-C> USAGE:    CALL RDMEMS (ISUB, IRET)
-C>   INPUT ARGUMENT LIST:
-C>     ISUB     - INTEGER: POINTER TO SUBSET NUMBER TO READ IN BUFR
-C>                MESSAGE
+C> @param[in] ISUB    - integer: Number of data subset to be
+C>                      read from BUFR message, counting from the
+C>                      beginning of the message
+C> @param[out] IRET   - integer: return code
+C>                         - 0 = requested data subset was
+C>                               successfully read
+C>                         - -1 = requested subset number could not
+C>                                be found in the message
 C>
-C>   OUTPUT ARGUMENT LIST:
-C>     IRET     - INTEGER: RETURN CODE:
-C>                       0 = normal return
-C>                      -1 = ISUB is greater than the number of subsets
-C>                           in memory
+C> <p>Whenever this subroutine returns with IRET = 0, this indicates
+C> that a new BUFR data subset (i.e. report) was successfully read into
+C> internal arrays within the BUFRLIB software, and from where it can
+C> now be easily manipulated or further parsed via calls to any of the
+C> [values-reading subroutines](@ref hierarchy) using the Fortran
+C> logical unit number IUNIT that was returned from the most recent
+C> call to subroutine ufbmem().
 C>
-C> REMARKS:
-C>    THIS ROUTINE CALLS:        BORT     ERRWRT   IUPB     READSB
-C>                               STATUS
-C>    THIS ROUTINE IS CALLED BY: UFBMMS   UFBMNS   UFBRMS
-C>                               Normally not called by any application
-C>                               programs.
+C> <b>Program history log:</b>
+C> - 1994-01-06  J. Woollen -- Original author
+C> - 1998-07-08  J. Woollen -- Replaced call to Cray library routine
+C>                           "ABORT" with call to new internal BUFRLIB
+C>                           routine "BORT"
+C> - 1998-10-27  J. Woollen -- Modified to correct problems caused by
+C>                           in-lining code with fpp directives
+C> - 1999-11-18  J. Woollen -- The number of BUFR files which can be
+C>                           opened at one time increased from 10 to 32
+C>                           (necessary in order to process multiple
+C>                           BUFR files under the MPI)
+C> - 2000-09-19  J. Woollen -- Maximum message length increased
+C>                             from 10,000 to 20,000 bytes
+C> - 2001-08-15  D. Keyser  -- Increased MAXMEM from 8 Mb to 16 Mb
+C> - 2004-08-09  J. Ator    -- Maximum message length increased
+C>                             from 20,000 to 50,000 bytes
+C> - 2004-11-15  D. Keyser  -- Increased MAXMEM from 16 Mb to 50 Mb
+C> - 2009-04-21  J. Ator    -- Use errwrt()
+C> - 2014-12-10  J. Ator    -- Use modules instead of COMMON blocks
 C>
       SUBROUTINE RDMEMS(ISUB,IRET)
-
-
 
       USE MODA_MSGCWD
       USE MODA_UNPTYP
       USE MODA_BITBUF
       USE MODA_MSGMEM
-
-      INCLUDE 'bufrlib.inc'
 
       CHARACTER*128 BORT_STR,ERRSTR
 

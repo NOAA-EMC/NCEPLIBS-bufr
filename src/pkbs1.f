@@ -1,70 +1,59 @@
 C> @file
-C> @author J @date 2005-11-29
-	
-C> THIS SUBROUTINE STORES A SPECIFIED INTEGER VALUE INTO A
-C>   SPECIFIED LOCATION WITHIN SECTION 1 OF THE BUFR MESSAGE STORED IN
-C>   ARRAY MBAY, OVERWRITING THE VALUE PREVIOUSLY STORED AT THAT
-C>   LOCATION.  IT WILL WORK ON ANY MESSAGE ENCODED USING BUFR EDITION
-C>   2, 3 OR 4.  THE START OF THE BUFR MESSAGE (I.E. THE STRING "BUFR")
-C>   MUST BE ALIGNED ON THE FIRST FOUR BYTES OF MBAY, AND THE LOCATION
-C>   WITHIN WHICH TO STORE THE VALUE IS SPECIFIED VIA THE MNEMONIC
-C>   S1MNEM, AS EXPLAINED IN FURTHER DETAIL BELOW.
+C> @brief Write a data value into Section 1 of a BUFR message.
+
+C> This subroutines writes a specified value into a specified location
+C> within Section 1 of a BUFR message, overwriting the value previously
+C> stored in that location.
 C>
-C> PROGRAM HISTORY LOG:
-C> 2005-11-29  J. ATOR    -- ORIGINAL AUTHOR
-C> 2006-04-14  D. KEYSER  -- ADDED OPTIONS FOR 'MTYP', 'MSBT', 'YEAR',
-C>                           'MNTH', 'DAYS', 'HOUR', 'YCEN' AND 'CENT'
+C> <p>This subroutine will work on any BUFR message encoded using BUFR
+C> edition 2, 3, or 4.  It is similar to subroutine pkvs01(), except
+C> that it operates on a BUFR message passed in via a memory array,
+C> whereas pkvs01() operates on BUFR messages stored internally within
+C> the software.
 C>
-C> USAGE:    PKBS1 (IVAL, MBAY, S1MNEM)
-C>   INPUT ARGUMENT LIST:
-C>     IVAL     - INTEGER: VALUE TO BE STORED
-C>     MBAY     - INTEGER: *-WORD PACKED BINARY ARRAY CONTAINING
-C>                BUFR MESSAGE PRIOR TO STORING IVAL
-C>     S1MNEM   - CHARACTER*(*): MNEMONIC SPECIFYING LOCATION WHERE IVAL
-C>                IS TO BE STORED WITHIN SECTION 1 OF BUFR MESSAGE:
-C>                  'BMT'   = BUFR MASTER TABLE
-C>                  'OGCE'  = ORIGINATING CENTER
-C>                  'GSES'  = ORIGINATING SUBCENTER
-C>                              (NOTE: THIS VALUE IS STORED ONLY IN
-C>                                     BUFR EDITION 3 OR 4 MESSAGES!)
-C>                  'USN'   = UPDATE SEQUENCE NUMBER
-C>                  'MTYP'  = DATA CATEGORY
-C>                  'MSBTI' = DATA SUBCATEGORY (INTERNATIONAL)
-C>                              (NOTE: THIS VALUE IS STORED ONLY IN
-C>                                     BUFR EDITION 4 MESSAGES!)
-C>                  'MSBT'  = DATA SUBCATEGORY (LOCAL)
-C>                  'MTV'   = VERSION NUMBER OF MASTER TABLE
-C>                  'MTVL'  = VERSION NUMBER OF LOCAL TABLES
-C>                  'YCEN'  = YEAR OF CENTURY (1-100)
-C>                              (NOTE: THIS VALUE IS STORED ONLY IN
-C>                                     BUFR EDITION 2 AND 3 MESSAGES!)
-C>                  'CENT'  = CENTURY (I.E., 20 FOR YEARS 1901-2000,
-C>                                           21 FOR YEARS 2001-2100)
-C>                              (NOTE: THIS VALUE IS STORED ONLY IN
-C>                                     BUFR EDITION 2 AND 3 MESSAGES!)
-C>                  'YEAR'  = YEAR (4-DIGIT)
-C>                              (NOTE: THIS VALUE IS STORED ONLY IN
-C>                                     BUFR EDITION 4 MESSAGES!)
-C>                  'MNTH'  = MONTH
-C>                  'DAYS'  = DAY
-C>                  'HOUR'  = HOUR
-C>                  'MINU'  = MINUTE
-C>                  'SECO'  = SECOND
-C>                              (NOTE: THIS VALUE IS STORED ONLY IN
-C>                                     BUFR EDITION 4 MESSAGES!)
+C> @authors J. Ator
+C> @authors D. Keyser
+C> @date 2005-11-29
+C>	
+C> @param[in]     IVAL    - integer: Value to be stored
+C> @param[in,out] MBAY    - integer(*): BUFR message
+C> @param[in]   S1MNEM    - character*(*): Location in Section 1 of
+C>                          MBAY within which to store IVAL
+C>                          - 'BMT'   = BUFR master table
+C>                          - 'OGCE'  = Originating center
+C>                          - 'GSES'  = Originating subcenter
+C>                          - 'USN'   = Update sequence number
+C>                          - 'MTYP'  = Data category
+C>                          - 'MSBTI' = Data subcategory (international)
+C>                          - 'MSBT'  = Data subcategory (local)
+C>                          - 'MTV'   = Version number of master table
+C>                          - 'MTVL'  = Version number of local tables
+C>                          - 'YCEN'  = Year of century (1-100)
+C>                          - 'CENT'  = Century (e.g., 20 for years 1901-2000,
+C>                                      21 for years 2001-2100)
+C>                          - 'YEAR'  = Year (4-digit)
+C>                          - 'MNTH'  = Month
+C>                          - 'DAYS'  = Day
+C>                          - 'HOUR'  = Hour
+C>                          - 'MINU'  = Minute
+C>                          - 'SECO'  = Second
 C>
-C>   OUTPUT ARGUMENT LIST:
-C>     MBAY     - INTEGER: *-WORD PACKED BINARY ARRAY CONTAINING BUFR
-C>                MESSAGE WITH IVAL NOW STORED AS REQUESTED
+C> @remarks
+C> - The start of the BUFR message (i.e. the string 'BUFR') must be
+C>   aligned on the first 4 bytes of MBAY.
+C> - Values corresponding to S1MNEM = 'GSES' can only be stored within
+C>   BUFR messages encoded using BUFR edition 3 or 4.
+C> - Values corresponding to S1MNEM = 'YCEN' or 'CENT' can only be stored
+C>   within BUFR messages encoded using BUFR edition 2 or 3.
+C> - Values corresponding to S1MNEM = 'YEAR', 'SECO' or 'MSBTI' can only
+C>   be stored within BUFR messages encoded using BUFR edition 4.
 C>
-C> REMARKS:
-C>    THIS ROUTINE CALLS:        BORT     GETS1LOC IUPBS01  PKB      
-C>    THIS ROUTINE IS CALLED BY: MINIMG   MSGWRT
-C>                               Also called by application programs.
+C> <b>Program history log:</b>
+C> - 2005-11-29  J. Ator    -- Original author
+C> - 2006-04-14  D. Keyser  -- Added options for 'MTYP', 'MSBT', 'YEAR',
+C>                             'MNTH', 'DAYS', 'HOUR', 'YCEN' and 'CENT'
 C>
 	SUBROUTINE PKBS1(IVAL,MBAY,S1MNEM)
-
-
 
 	DIMENSION	MBAY(*)
 

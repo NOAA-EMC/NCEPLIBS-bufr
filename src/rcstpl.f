@@ -58,16 +58,13 @@ C>                               programs.
 C>
       SUBROUTINE RCSTPL(LUN,IRET)
 
-
-
+      USE MODV_BMISS
       USE MODA_USRINT
       USE MODA_USRBIT
       USE MODA_MSGCWD
       USE MODA_BITBUF
       USE MODA_TABLES
       USE MODA_USRTMP
-
-      INCLUDE 'bufrlib.inc'
 
       COMMON /QUIET / IPRT
 

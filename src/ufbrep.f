@@ -87,8 +87,7 @@ C> corresponding mnemonics within the table.
 C>
 C> <p>"Missing" values in USR are always denoted by a unique
 C> placeholder value.  This placeholder value is initially set
-C> to a default value of 10E10 via an internal call to subroutine
-C> bfrini(), but it can be reset to
+C> to a default value of 10E10_8, but it can be reset to
 C> any substitute value of the user's choice via a separate
 C> call to subroutine setbmiss().  In any case, and whenever this
 C> subroutine is used to read data values from an input subset, any
@@ -151,12 +150,11 @@ C> - 2009-03-31  J. Woollen -- Add documentation
 C> - 2009-04-21  J. Ator    -- Use errwrt()
 C> - 2014-12-10  J. Ator    -- Use modules instead of COMMON blocks
 C>
-      SUBROUTINE UFBREP(LUNIO,USR,I1,I2,IRET,STR)
+      SUBROUTINE UFBREP(LUNIN,USR,I1,I2,IRET,STR)
 
+      USE MODV_BMISS
       USE MODA_USRINT
       USE MODA_MSGCWD
-
-      INCLUDE 'bufrlib.inc'
 
       COMMON /ACMODE/ IAC
       COMMON /QUIET / IPRT
@@ -177,14 +175,14 @@ C----------------------------------------------------------------------
 C  CHECK THE FILE STATUS AND I-NODE
 C  --------------------------------
 
-      LUNIT = ABS(LUNIO)
+      LUNIT = ABS(LUNIN)
       CALL STATUS(LUNIT,LUN,IL,IM)
       IF(IL.EQ.0) GOTO 900
       IF(IM.EQ.0) GOTO 901
       IF(INODE(LUN).NE.INV(1,LUN)) GOTO 902
 
       IO = MIN(MAX(0,IL),1)
-      IF(LUNIO.NE.LUNIT) IO = 0
+      IF(LUNIN.NE.LUNIT) IO = 0
 
       IF(I1.LE.0) THEN
          IF(IPRT.GE.0) THEN

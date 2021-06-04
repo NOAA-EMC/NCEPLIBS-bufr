@@ -1,83 +1,75 @@
 C> @file
-C> @author ATOR @date 2005-11-29
-      
-C> THIS SUBROUTINE IS USED TO SPECIFY A VALUE TO BE WRITTEN
-C>   INTO A SPECIFIED LOCATION WITHIN SECTION 0 OR SECTION 1 OF ALL BUFR
-C>   MESSAGES THAT WILL BE OUTPUT BY FUTURE CALLS TO ANY OF THE BUFR
-C>   ARCHIVE LIBRARY SUBROUTINES WHICH CREATE SUCH MESSAGES (E.G. WRITCP,
-C>   WRITSB, COPYMG, WRITSA, ETC.).  IT WILL WORK ON ANY MESSAGE ENCODED
-C>   USING BUFR EDITION 2, 3 OR 4, AND IT CAN BE CALLED AT ANY TIME,
-C>   INCLUDING BEFORE THE FIRST CALL TO BUFR ARCHIVE LIBRARY SUBROUTINE
-C>   OPENBF IF IT IS DESIRED FOR THE NEW VALUE TO ALSO BE INCLUDED IN ANY
-C>   DX DICTIONARY TABLE MESSAGES THAT WILL BE OUTPUT BY BUFR ARCHIVE
-C>   LIBRARY SUBROUTINE WRITDX.  IN ANY CASE, THE LOCATION WITHIN WHICH
-C>   TO STORE THE VALUE IS SPECIFIED VIA THE MNEMONIC S01MNEM, AS
-C>   EXPLAINED IN FURTHER DETAIL BELOW.  IF MULTIPLE VALUES ARE DESIRED
-C>   TO BE CHANGED WITHIN SECTION 0 OR SECTION 1 OF FUTURE OUTPUT
-C>   MESSAGES, THEN EACH SUCH VALUE (AND CORRESPONDING LOCATION)
-C>   SHOULD BE SPECIFIED USING A SEPARATE CALL TO THIS SUBROUTINE.
-C>   NOTE THAT EACH CALL TO THIS SUBROUTINE WITH A PARTICULAR LOCATION
-C>   SPECIFICATION WILL OVERRIDE THE EFFECT OF ANY PREVIOUS CALL WITH
-C>   THAT SAME SPECIFICATION (OR, IN THE CASE OF THE FIRST CALL WITH A
-C>   PARTICULAR LOCATION SPECIFICATION, IT WILL OVERRIDE THE DEFAULT
-C>   SECTION 0 OR SECTION 1 VALUE FOR THE CORRESPONDING LOCATION!).
+C> @brief Specify a value to be included in Section 0 or Section 1 when
+C> writing BUFR messages.
+
+C> This subroutine is used to specify a value to be written into a
+C> specified location within Section 0 or Section 1 of all BUFR messages
+C> output by future calls to other
+C> [message-writing subroutines](@ref hierarchy) and
+C> [subset-writing subroutines](@ref hierarchy).
 C>
-C> PROGRAM HISTORY LOG:
-C> 2005-11-29  J. ATOR    -- ORIGINAL AUTHOR
-C> 2006-04-14  D. KEYSER  -- UPDATED DOCBLOCK
-C> 2015-03-03  J. ATOR    -- USE MODULE MODA_S01CM
+C> <p>This subroutine is similar to subroutine pkbs1(), except that
+C> pkbs1() operates on a single BUFR message passed in via a memory
+C> array.  Alternatively, whenever this subroutine is called, the
+C> specified IVAL will be written into all BUFR messages output by all
+C> future calls to other [message-writing subroutines](@ref hierarchy)
+C> and [subset-writing subroutines](@ref hierarchy),
+C> for all Fortran logical units that are open for
+C> output within the application program, unless a subsequent call is
+C> made to this subroutine with the same value of S01MNEM in order to
+C> reset the corresponding IVAL again.  Otherwise, if this subroutine
+C> is never called for a particular value of S01MNEM, then a default
+C> value is used for the corresponding IVAL, as set within subroutine
+C> msgini(), cmsgini() or dxmini().
 C>
-C> USAGE:    CALL PKVS01(S01MNEM,IVAL)
-C>   INPUT ARGUMENT LIST:
-C>     S01MNEM  - CHARACTER*(*): MNEMONIC SPECIFYING LOCATION WHERE IVAL
-C>                IS TO BE STORED WITHIN SECTION 0 OR SECTION 1 OF ALL
-C>                FUTURE OUTPUT BUFR MESSAGES:
-C>                  'BEN'   = BUFR EDITION NUMBER
-C>                  'BMT'   = BUFR MASTER TABLE 
-C>                  'OGCE'  = ORIGINATING CENTER
-C>                  'GSES'  = ORIGINATING SUBCENTER
-C>                              (NOTE: THIS VALUE WILL BE STORED ONLY IN
-C>                                     BUFR EDITION 3 OR 4 MESSAGES!)
-C>                  'USN'   = UPDATE SEQUENCE NUMBER 
-C>                  'MTYP'  = DATA CATEGORY
-C>                  'MSBTI' = DATA SUBCATEGORY (INTERNATIONAL)
-C>                              (NOTE: THIS VALUE WILL BE STORED ONLY IN
-C>                                     BUFR EDITION 4 MESSAGES!)
-C>                  'MSBT'  = DATA SUBCATEGORY (LOCAL)
-C>                  'MTV'   = VERSION NUMBER OF MASTER TABLE
-C>                  'MTVL'  = VERSION NUMBER OF LOCAL TABLES
-C>                  'YCEN'  = YEAR OF CENTURY (1-100)
-C>                              (NOTE: THIS VALUE WILL BE STORED ONLY IN
-C>                                     BUFR EDITION 2 AND 3 MESSAGES!)
-C>                  'CENT'  = CENTURY (I.E., 20 FOR YEARS 1901-2000,
-C>                                           21 FOR YEARS 2001-2100)
-C>                              (NOTE: THIS VALUE WILL BE STORED ONLY IN
-C>                                     BUFR EDITION 2 AND 3 MESSAGES!)
-C>                  'YEAR'  = YEAR (4-DIGIT)
-C>                              (NOTE: THIS VALUE WILL BE STORED ONLY IN
-C>                                     BUFR EDITION 4 MESSAGES!)
-C>                  'MNTH'  = MONTH
-C>                  'DAYS'  = DAY
-C>                  'HOUR'  = HOUR
-C>                  'MINU'  = MINUTE
-C>                  'SECO'  = SECOND
-C>                              (NOTE: THIS VALUE WILL BE STORED ONLY IN
-C>                                     BUFR EDITION 4 MESSAGES!)
-C>     IVAL     - INTEGER: NEW VALUE FOR LOCATION POINTED TO BY S01MNEM
+C> @authors J. Ator
+C> @date 2005-11-29
 C>
-C> REMARKS:
-C>    THIS ROUTINE CALLS:        BORT     OPENBF
-C>    THIS ROUTINE IS CALLED BY: None
-C>                               Normally called only by application
-C>                               programs.
+C> @param[in]     IVAL    - integer: Value to be stored
+C> @param[in]  S01MNEM    - character*(*): Location where IVAL is to
+C>                          be stored within Section 0 or Section 1 of
+C>                          all future output BUFR messages
+C>                          - 'BEN'   = BUFR edition number
+C>                          - 'BMT'   = BUFR master table
+C>                          - 'OGCE'  = Originating center
+C>                          - 'GSES'  = Originating subcenter
+C>                          - 'USN'   = Update sequence number
+C>                          - 'MTYP'  = Data category
+C>                          - 'MSBTI' = Data subcategory (international)
+C>                          - 'MSBT'  = Data subcategory (local)
+C>                          - 'MTV'   = Version number of master table
+C>                          - 'MTVL'  = Version number of local tables
+C>                          - 'YCEN'  = Year of century (1-100)
+C>                          - 'CENT'  = Century (e.g., 20 for years 1901-2000,
+C>                                      21 for years 2001-2100)
+C>                          - 'YEAR'  = Year (4-digit)
+C>                          - 'MNTH'  = Month
+C>                          - 'DAYS'  = Day
+C>                          - 'HOUR'  = Hour
+C>                          - 'MINU'  = Minute
+C>                          - 'SECO'  = Second
+C>
+C> @remarks
+C> - A separate call to this subroutine must be made for each value of
+C>   S01MNEM that is to be set within Section 0 or Section 1 of
+C>   all future output BUFR messages.
+C> - A call to this subroutine with S01MNEM = 'BEN' and IVAL = 4 will
+C>   force all future output BUFR messages to be encoded using BUFR
+C>   edition 4; otherwise, messages will be encoded using BUFR edition 3
+C>   by default.
+C> - Values corresponding to S01MNEM = 'YCEN' or 'CENT' can only be stored
+C>   within BUFR messages encoded using BUFR edition 3.
+C> - Values corresponding to S01MNEM = 'YEAR', 'SECO' or 'MSBTI' can only
+C>   be stored within BUFR messages encoded using BUFR edition 4.
+C>
+C> <b>Program history log:</b>
+C> - 2005-11-29  J. Ator    -- Original author
+C> - 2006-04-14  D. Keyser  -- Updated docblock
+C> - 2015-03-03  J. Ator    -- Use module MODA_S01CM
 C>
       SUBROUTINE PKVS01(S01MNEM,IVAL)
 
-
-
       USE MODA_S01CM
-
-      INCLUDE 'bufrlib.inc'
 
       CHARACTER*(*) S01MNEM
 

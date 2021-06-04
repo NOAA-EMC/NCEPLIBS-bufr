@@ -1,44 +1,50 @@
 C> @file
-C> @author ATOR @date 2009-03-23
-      
-C> THIS SUBROUTINE CAN BE CALLED AT ANY TIME AFTER THE FIRST
-C>   CALL TO BUFR ARCHIVE LIBRARY SUBROUTINE OPENBF.  WHEN CF IS SET TO
-C>   'Y' (= 'YES'), THIS SUBROUTINE IS USED TO SPECIFY A TANK RECEIPT
-C>   TIME THAT WILL BE APPENDED TO SECTION 1 OF ALL FUTURE BUFR MESSAGES
-C>   OUTPUT BY ANY OF THE BUFR ARCHIVE LIBRARY SUBROUTINES WHICH WRITE
-C>   SUCH MESSAGES (E.G. WRITSB, COPYMG, WRITSA, ETC.).  WHEN CF IS SET
-C>   TO 'N' (= 'NO', WHICH IS THE DEFAULT), THIS CAPABILITY IS TURNED OFF
-C>   (IF IT WAS PREVIOUSLY TURNED ON) AND THE VALUES IN ALL OF THE OTHER
-C>   INPUT ARGUMENTS ARE IGNORED.  THE TANK RECEIPT TIME IS A LOCAL
-C>   EXTENSION TO SECTION 1; HOWEVER, ITS INCLUSION IN A MESSAGE IS
-C>   STILL FULLY COMPLIANT WITH THE WMO FM-94 BUFR REGULATIONS.
+C> @brief Specify a tank receipt time to be included in Section 1
+C> when writing BUFR messages.
+
+C> This subroutine is used to specify a tank receipt time to be
+C> included within Section 1 of all BUFR messages output by future calls
+C> to [message-writing subroutines](@ref hierarchy) and
+C> [subset-writing subroutines](@ref hierarchy).
 C>
-C> PROGRAM HISTORY LOG:
-C> 2009-03-23  J. ATOR    -- ORIGINAL AUTHOR
+C> @author J. Ator
+C> @date 2009-03-23
 C>
-C> USAGE:    CALL STRCPT (CF,IYR,IMO,IDY,IHR,IMI)
-C>   INPUT ARGUMENT LIST:
-C>     CF       - CHARACTER*1: FLAG INDICATING WHETHER FUTURE CALLS TO
-C>                BUFRLIB MESSAGE WRITING ROUTINES (E.G. WRITSB, COPYMG,
-C>                WRITSA, ETC.) SHOULD APPEND THE GIVEN TANK RECEIPT
-C>                TIME TO SECTION 1 OF SUCH MESSAGES:
-C>                       'N' = 'NO' (THE DEFAULT)
-C>                       'Y' = 'YES'
-C>     IYR      - INTEGER: TANK RECEIPT YEAR TO BE STORED
-C>     IMO      - INTEGER: TANK RECEIPT MONTH TO BE STORED
-C>     IDY      - INTEGER: TANK RECEIPT DAY TO BE STORED
-C>     IHR      - INTEGER: TANK RECEIPT HOUR TO BE STORED
-C>     IMI      - INTEGER: TANK RECEIPT MINUTE TO BE STORED
+C> @param[in] CF    - character*1: Flag indicating whether future BUFR
+C>                    output messages should include the tank receipt
+C>                    time defined by IYR, IMO, IDY, IHR, and IMI:
+C>                     - 'N' = No (the default)
+C>                     - 'Y' = Yes
+C> @param[in] IYR   - integer: Tank receipt year
+C> @param[in] IMO   - integer: Tank receipt month
+C> @param[in] IDY   - integer: Tank receipt day
+C> @param[in] IHR   - integer: Tank receipt hour
+C> @param[in] IMI   - integer: Tank receipt minute
 C>
-C> REMARKS:
-C>    THIS ROUTINE CALLS:        BORT     CAPIT
-C>    THIS ROUTINE IS CALLED BY: None
-C>                               Normally called only by application
-C>                               programs.
+C> <p>This subroutine can be called at any time after the first call
+C> to subroutine openbf(), and the specified value for CF will remain
+C> in effect for all future calls to
+C> [message-writing subroutines](@ref hierarchy) and
+C> [subset-writing subroutines](@ref hierarchy), for all Fortran logical
+C> units that are open for output within the application program,
+C> unless a subsequent call is made to this subroutine to reset the
+C> value of CF again.  If this subroutine is never called, a default
+C> value of 'N' is used for CF, as set within subroutine bfrini().
+C>
+C> <p>Whenever this subroutine is called with CF = 'N', the values in
+C> IYR, IMO, IDY, IHR, and IMI are ignored.
+C>
+C> @remarks
+C> - Tank receipt time is an NCEP extension to Section 1 of the 
+C> [official WMO BUFR regulations](@ref manual).
+C> However, it's encoded by the BUFRLIB software in such a way that
+C> its inclusion within an output BUFR message is still fully
+C> compliant with the regulations.
+C>
+C> <b>Program history log:</b>
+C> - 2009-03-23  J. Ator    -- Original author
 C>
       SUBROUTINE STRCPT(CF,IYR,IMO,IDY,IHR,IMI)
-
-
 
       COMMON /TNKRCP/ ITRYR,ITRMO,ITRDY,ITRHR,ITRMI,CTRT
 

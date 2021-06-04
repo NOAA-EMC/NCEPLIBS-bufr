@@ -85,12 +85,8 @@ C>                               programs.
 C>
       SUBROUTINE NEMTBD(LUN,ITAB,NSEQ,NEMS,IRPS,KNTS)
 
-
-
       USE MODV_MAXCD
       USE MODA_TABABD
-
-      INCLUDE 'bufrlib.inc'
 
       CHARACTER*128 BORT_STR
       CHARACTER*8   NEMO,NEMS,NEMT,NEMF

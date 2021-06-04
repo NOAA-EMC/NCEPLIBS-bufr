@@ -1,38 +1,26 @@
 C> @file
-C> @author WOOLLEN @date 2016-06-27
-      
-C> IGETMXBY RETURNS THE CURRENT VALUE OF MAXBYT, WHICH IS THE
-C>           MAXIMUM LENGTH OF A BUFRLIB MESSAGE THAT CAN BE WRITTEN
-C>           TO AN OUTPUT STREAM.  THIS VALUE IS SET TO A DEFAULT VALUE
-C>           OF MIN(10000,MXMSGL) IN SUBROUTINE BFRINI, BUT APPLICATION
-C>           PROGRAMS MAY SET IT TO A DIFFERENT VALUE VIA A CALL TO
-C>           SUBROUTINE MAXOUT.
+C> @brief Get the maximum length of a BUFR message that can be
+C> written to an output file.
+
+C> This function returns the maximum length of a BUFR message that
+C> can be written to any output file by the BUFRLIB software.
 C>
-C> PROGRAM HISTORY LOG:
-C> 2016-06-27  J. ATOR -- ORIGINAL AUTHOR
+C> @author J. Ator
+C> @date 2016-06-27
 C>
-C> USAGE:    IGETMXBY()
+C> @returns igetmxby  - integer: Maximum length of a BUFR message
+C>                      that can be written to an output file by
+C>                      the BUFRLIB software
 C>
-C>   INPUT ARGUMENTS:
+C> <p>This maximum length value can be changed at any time via a
+C> separate call to subroutine maxout().
 C>
-C>   OUTPUT ARGUMENTS:
-C>     IGETMXBY - INTEGER: CURRENT VALUE OF MAXBYT = MAXIMUM LENGTH OF
-C>                A BUFRLIB MESSAGE THAT CAN BE WRITTEN TO OUTPUT
-C>
-C> REMARKS:
-C>    THIS ROUTINE CALLS: 	OPENBF
-C>
-C>    THIS ROUTINE IS CALLED BY: None
-C>                               Normally called only by application
-C>                               programs.
+C> <b>Program history log:</b>
+C> - 2016-06-27  J. Ator -- Original author
 C>
       INTEGER FUNCTION IGETMXBY()
 
-
-
       USE MODA_BITBUF
-
-      INCLUDE 'bufrlib.inc'
 
 c-----------------------------------------------------------------------
 c-----------------------------------------------------------------------

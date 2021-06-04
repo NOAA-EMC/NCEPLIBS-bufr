@@ -33,8 +33,8 @@ C> But once that is done, the application program can immediately call
 C> this subroutine to read each new data subset from the
 C> associated BUFR file, and the subroutine will automatically open
 C> and close each new BUFR message internally as needed, so that
-C> subsequent calls can immediately be made to the various data values
-C> subroutines such as ufbint(), ufbrep(), ufbseq(), etc.
+C> subsequent calls can immediately be made to any of the various
+C> [values-reading subroutines](@ref hierarchy).
 C>
 C> <b>Program history log:</b>
 C> - 1994-01-06  J. Woollen -- Original author
@@ -55,8 +55,6 @@ C>
 
       USE MODA_MSGCWD
       USE MODA_TABLES
-
-      INCLUDE 'bufrlib.inc'
 
       CHARACTER*8  SUBSET
 

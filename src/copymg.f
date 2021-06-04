@@ -1,59 +1,66 @@
 C> @file
-C> @author WOOLLEN @date 1994-01-06
-      
-C> This subroutine copies a bufr message, intact, from logical
-C> unit lunin, opened for input via a previous call to bufr archive
-C> library subroutine openbf, to logical unit lunot, opened for output
-C> via a previous call to openbf. The message copied from logical
-C> unit lunin will be the one most recently read using bufr archive
-C> library subroutine readmg. The output file must have no currently
-C> open messages. Also, both files must have been opened to the bufr
-C> interface with identical bufr tables.
+C> @brief Copy a BUFR message.
+
+C> This subroutine copies a BUFR message from one Fortran logical unit
+C> to another.
 C>
-C> PROGRAM HISTORY LOG:
-C> - 1994-01-06  J. WOOLLEN -- ORIGINAL AUTHOR
-C> - 1998-07-08  J. WOOLLEN -- REPLACED CALL TO CRAY LIBRARY ROUTINE
-C>                           "ABORT" WITH CALL TO NEW INTERNAL BUFRLIB
-C>                           ROUTINE "BORT"
-C> - 1999-11-18  J. WOOLLEN -- THE NUMBER OF BUFR FILES WHICH CAN BE
-C>                           OPENED AT ONE TIME INCREASED FROM 10 TO 32
-C>                           (NECESSARY IN ORDER TO PROCESS MULTIPLE
-C>                           BUFR FILES UNDER THE MPI)
-C> - 2000-09-19  J. WOOLLEN -- MAXIMUM MESSAGE LENGTH INCREASED FROM
-C>                           10,000 TO 20,000 BYTES
-C> - 2003-11-04  S. BENDER  -- ADDED REMARKS/BUFRLIB ROUTINE
-C>                           INTERDEPENDENCIES
-C> - 2003-11-04  D. KEYSER  -- MAXJL (MAXIMUM NUMBER OF JUMP/LINK ENTRIES)
-C>                           INCREASED FROM 15000 TO 16000 (WAS IN
-C>                           VERIFICATION VERSION); UNIFIED/PORTABLE FOR
-C>                           WRF; ADDED DOCUMENTATION (INCLUDING
-C>                           HISTORY); OUTPUTS MORE COMPLETE DIAGNOSTIC
-C>                           INFO WHEN ROUTINE TERMINATES ABNORMALLY
-C> - 2004-08-09  J. ATOR    -- MAXIMUM MESSAGE LENGTH INCREASED FROM
-C>                           20,000 TO 50,000 BYTES
-C> - 2005-11-29  J. ATOR    -- USE IUPBS01
-C> - 2009-06-26  J. ATOR    -- USE IOK2CPY
-C> - 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
+C> <p>This subroutine is similar to subroutine cpymem(), except that
+C> it copies a BUFR message from one Fortran logical unit to another,
+C> whereas cpymem() copies a BUFR message from internal arrays in
+C> memory to a specified Fortran logical unit.
 C>
-C> @param[in] LUNIN Fortran logical unit number for input bufr file.
-C> @param[in] LUNOT Fortran logical unit number for output bufr file.
+C> @author J. Woollen
+C> @date 1994-01-06
 C>
-C> REMARKS:
-C> - THIS ROUTINE CALLS:
-C>      bort() iok2cpy() iupbs01() msgwrt() nemtba() status()
-C> - THIS ROUTINE IS CALLED BY: None
-C>                               Normally called only by application
-C>                               programs.
+C> @param[in] LUNIN    - integer: Fortran logical unit number for
+C>                       source BUFR file
+C> @param[in] LUNOT    - integer: Fortran logical unit number for
+C>                       target BUFR file
+C>
+C> <p>Logical unit LUNIN should have already been opened for input
+C> operations via a previous call to subroutine openbf(), and a BUFR
+C> message should have already been read into internal arrays for
+C> LUNIN via a previous call to one of the
+C> [message-reading subroutines](@ref hierarchy).
+C>
+C> <p>Logical unit LUNOT should have already been opened for output
+C> operations via a previous call to subroutine openbf(), but there
+C> should not be any BUFR message already open for output within the
+C> internal arrays for LUNOT via a previous call to one of the BUFRLIB
+C> [message-writing subroutines](@ref hierarchy).
+C>
+C> <p>The [DX BUFR Table information](@ref dfbftab) associated with
+C> each of the logical units LUNIN and LUNOT must contain identical
+C> definitions for the type of BUFR message to be copied from LUNIN
+C> to LUNOT.
+C>
+C> @remarks
+C> - This subroutine uses subroutine msgwrt() to write to LUNOT;
+C> therefore, it can be used to transform a copy of the
+C> original BUFR message from LUNIN with any or all of the updates
+C> described in the documentation for subroutine msgwrt().
+C>
+C> <b>Program history log:</b>
+C> - 1994-01-06  J. Woollen -- Original author
+C> - 1998-07-08  J. Woollen -- Replaced call to Cray library routine ABORT
+C>                             with call to new internal routine bort()
+C> - 1999-11-18  J. Woollen -- The number of BUFR files which can be
+C>                             opened at one time increased from 10 to 32
+C>                             (necessary in order to process multiple
+C>                             BUFR files under the MPI)
+C> - 2000-09-19  J. Woollen -- Maximum message length increased
+C>                             from 10,000 to 20,000 bytes
+C> - 2004-08-09  J. Ator    -- Maximum message length increased
+C>                             from 20,000 to 50,000 bytes
+C> - 2005-11-29  J. Ator    -- Use iupbs01()
+C> - 2009-06-26  J. Ator    -- Use iok2cpy()
+C> - 2014-12-10  J. Ator    -- Use modules instead of COMMON blocks
 C>
       SUBROUTINE COPYMG(LUNIN,LUNOT)
-
-
 
       USE MODA_MSGCWD
       USE MODA_BITBUF
       USE MODA_TABLES
-
-      INCLUDE 'bufrlib.inc'
 
       CHARACTER*8  SUBSET
 

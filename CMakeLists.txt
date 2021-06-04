@@ -1,6 +1,6 @@
 # This is the main CMake file for NCEPLIBS-bufr.
 #
-# Mark Potts, Kyle Gerheiser, Rahul Mahajan, Ed Hartnett
+# Mark Potts, Kyle Gerheiser, Rahul Mahajan, Ed Hartnett, Jeff Ator
 cmake_minimum_required(VERSION 3.15)
 
 file(STRINGS "VERSION" pVersion)
@@ -14,6 +14,8 @@ project(
 option(ENABLE_DOCS "Enable generation of doxygen-based documentation." OFF)
 option(ENABLE_PYTHON "Enable building python module 'ncepbufr'" OFF)
 option(BUILD_SHARED_LIBS "Enable building shared libraries" OFF)
+
+set(MASTER_TABLE_DIR "${CMAKE_INSTALL_PREFIX}/tables" CACHE STRING "Installation location of Master BUFR Tables")
 
 if(NOT CMAKE_BUILD_TYPE MATCHES "^(Debug|Release|RelWithDebInfo|MinSizeRel)$")
   message(STATUS "Setting build type to 'Release' as none was specified.")
@@ -47,7 +49,9 @@ list(APPEND kinds "4_DA" "8_DA" "d_DA")
 list(APPEND kinds "4" "8" "d")
 
 # Set common to the package compiler flags
-if(CMAKE_C_COMPILER_ID MATCHES "^(GNU)$")
+if(CMAKE_C_COMPILER_ID MATCHES "^(Intel)$")
+  set(CMAKE_C_FLAGS_DEBUG "-O0")
+elseif(CMAKE_C_COMPILER_ID MATCHES "^(GNU)$")
   set(CMAKE_C_FLAGS_DEBUG "-ggdb -Wall -O0")
 endif()
 
@@ -65,13 +69,17 @@ elseif(CMAKE_Fortran_COMPILER_ID MATCHES "^(GNU)$")
   set(CMAKE_Fortran_FLAGS_RELEASE "-O3")
 endif()
 
+set(fortran_8_DA_flags ${fortran_8_flags})
+set(fortran_d_DA_flags ${fortran_d_flags})
+
+set(underscore_def "UNDERSCORE")
+set(c_8_defs "F77_INTSIZE_8")
+set(c_8_DA_defs ${c_8_defs})
+
 # For gfortran-10+ backward compatibility
 if(${CMAKE_Fortran_COMPILER_ID} MATCHES "^(GNU)$" AND ${CMAKE_Fortran_COMPILER_VERSION} VERSION_GREATER_EQUAL 10)
   set(CMAKE_Fortran_FLAGS "${CMAKE_Fortran_FLAGS} -w -fallow-argument-mismatch -fallow-invalid-boz")
 endif()
-
-set(fortran_8_DA_flags ${fortran_8_flags})
-set(fortran_d_DA_flags ${fortran_d_flags})
 
 add_subdirectory(src)
 add_subdirectory(utils)

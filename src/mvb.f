@@ -42,10 +42,6 @@ C>                               programs.
 C>
       SUBROUTINE MVB(IB1,NB1,IB2,NB2,NBM)
 
-
-
-      INCLUDE 'bufrlib.inc'
-
       CHARACTER*128 BORT_STR
       DIMENSION     IB1(*),IB2(*)
 

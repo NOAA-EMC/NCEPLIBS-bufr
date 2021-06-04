@@ -1,8 +1,8 @@
 !> @file
+!> @brief Close a Fortran file on the local system
+
 !> @authors Jeff Whitaker
 !> @date 2015-08-30
-
-!> @brief This subroutine closes an open fortran file
 !>
 !> @param[in] lunit    - integer: Fortran logical unit number for fortran
 !>                       file

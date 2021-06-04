@@ -47,14 +47,10 @@ C>                               Also called by application programs.
 C>
       SUBROUTINE UFBCPY(LUBIN,LUBOT)
 
-
-
       USE MODA_USRINT
       USE MODA_MSGCWD
       USE MODA_UFBCPL
       USE MODA_TABLES
-
-      INCLUDE 'bufrlib.inc'
 
 C----------------------------------------------------------------------
 C----------------------------------------------------------------------

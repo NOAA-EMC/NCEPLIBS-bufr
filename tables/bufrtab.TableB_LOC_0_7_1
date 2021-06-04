@@ -1,7 +1,7 @@
 Table B LOC |  0 | 7 |  1
 #
 # Local BUFR Table B, Master Table 0, Originating Center 7, Version 1
-# This file was generated: 2020/05/27 13:52:05
+# This file was generated: 2021/05/04 16:54:47
 #
 #========================================================================================================
 # F-XX-YYY |SCALE| REFERENCE   | BIT |      UNIT         | MNEMONIC ;DESC ;  ELEMENT NAME
@@ -94,6 +94,8 @@ Table B LOC |  0 | 7 |  1
   0-07-197 |   1 |       -4000 |  20 | m                 | FLVL     ;     ; Flight level
   0-07-198 |   3 |           0 |  15 | m                 | RSHM     ;     ; River stage height
   0-07-199 |   3 |           0 |  15 | m                 | RSH29    ;     ; River stage height above NGVD 1929
+  0-07-200 |   3 |           0 |  15 | m                 | CHDEL    ;     ; Chart datum elevation
+  0-07-201 |   0 |           0 | 200 | CCITT IA5         | CHDNM    ;     ; Chart datum name or description
   0-07-204 |   2 |           0 |  12 | m                 | ANHT     ;     ; Anemometer height
   0-07-244 |   1 |           0 |  14 | mb                | PCO      ;     ; PREPBUFR: Pressure coordinate
   0-07-245 |   1 |           0 |  14 | mb                | POB      ;     ; PREPBUFR: Pressure observation
@@ -117,7 +119,7 @@ Table B LOC |  0 | 7 |  1
   0-10-192 |   1 |           0 |  14 | mb                | PMO      ;     ; PREPFITS: Mean sea-level pressure observation
   0-10-194 |   0 |       -1000 |  17 | m                 | ELV      ;     ; PREPFITS: Station elevation
   0-10-195 |   0 |       -1000 |  17 | m                 | ZOB      ;     ; PREPFITS: Height
-  0-10-196 |   0 |      -10000 |  20 | m² s⁻²            | XMGP10   ;     ; Extrapolated mandatory level geopotential
+  0-10-196 |   0 |      -10000 |  20 | m**2 s**-2        | XMGP10   ;     ; Extrapolated mandatory level geopotential
   0-10-197 |   0 |           0 |  13 | m                 | HPBL     ;     ; Height of the planetary boundary layer
   0-10-199 |   0 |       -1000 |  17 | m                 | ELV      ;     ; PREPBUFR: Station elevation
   0-10-243 |   1 |           0 |  14 | mb                | PMO      ;     ; PREPBUFR: Mean sea-level pressure observation
@@ -131,35 +133,35 @@ Table B LOC |  0 | 7 |  1
   0-10-252 |   0 |       -1000 |  17 | m                 | ZCL      ;     ; PREPBUFR: Climatological height value
   0-10-253 |   0 |           0 |  10 | m                 | ZCS      ;     ; PREPBUFR: Standard deviation of climatological height value
   0-10-255 |   0 |       -1000 |  17 | m                 | ZFCMOD   ;     ; PREPBUFR: Model forecast (background) height value
-  0-11-193 |   2 |       -1024 |  13 | m² s⁻²            | TKEL     ;     ; Turbulent kinetic energy in a layer
-  0-11-196 |   1 |       -4096 |  13 | m s⁻¹             | U10M     ;     ; u-component at 10 m
-  0-11-197 |   1 |       -4096 |  13 | m s⁻¹             | V10M     ;     ; v-component at 10 m
+  0-11-193 |   2 |       -1024 |  13 | m**2 s**-2        | TKEL     ;     ; Turbulent kinetic energy in a layer
+  0-11-196 |   1 |       -4096 |  13 | m s**-1           | U10M     ;     ; u-component at 10 m
+  0-11-197 |   1 |       -4096 |  13 | m s**-1           | V10M     ;     ; v-component at 10 m
   0-11-200 |   0 |           0 |   9 | Degree true       | WDIR1    ;     ; Surface wind direction
-  0-11-201 |   1 |           0 |  12 | m s⁻¹             | WSPD1    ;     ; Surface wind speed
+  0-11-201 |   1 |           0 |  12 | m s**-1           | WSPD1    ;     ; Surface wind speed
   0-11-202 |   0 |           0 |   9 | Degree true       | PKWDDR   ;     ; Peak wind direction
-  0-11-203 |   1 |           0 |  12 | m s⁻¹             | PKWDSP   ;     ; Peak wind speed
-  0-11-205 |   1 |           0 |  12 | m s⁻¹             | PKSWSP   ;     ; Peak surface wind speed
+  0-11-203 |   1 |           0 |  12 | m s**-1           | PKWDSP   ;     ; Peak wind speed
+  0-11-205 |   1 |           0 |  12 | m s**-1           | PKSWSP   ;     ; Peak surface wind speed
   0-11-206 |   2 |           0 |  10 | m                 | SRLM     ;     ; Roughness length
-  0-11-208 |   3 |           0 |  10 | m s⁻¹             | SFEX     ;     ; Surface exchange coefficient
-  0-11-210 |   1 |           0 |  12 | m s⁻¹             | RMSW     ;     ; Root mean square vector wind error
+  0-11-208 |   3 |           0 |  10 | m s**-1           | SFEX     ;     ; Surface exchange coefficient
+  0-11-210 |   1 |           0 |  12 | m s**-1           | RMSW     ;     ; Root mean square vector wind error
   0-11-211 |   2 |           0 |  16 | Degree true       | WD10H    ;     ; Wind direction at 10 m
-  0-11-212 |   2 |           0 |  14 | m s⁻¹             | WS10H    ;     ; Wind speed at 10 m
+  0-11-212 |   2 |           0 |  14 | m s**-1           | WS10H    ;     ; Wind speed at 10 m
   0-11-217 |   0 |           0 |   5 | Code table        | SQM      ;     ; PREPBUFR: Wind speed (SOB) (quality) marker
   0-11-218 |   0 |           0 |   5 | Code table        | DFQ      ;     ; PREPBUFR: Wind direction/speed (DDO/FFO) (quality) marker
   0-11-219 |   0 |           0 |   5 | Code table        | DFP      ;     ; PREPBUFR: Wind direction/speed (DDO/FFO) event program code
   0-11-220 |   0 |           0 |  10 | Code table        | DFR      ;     ; PREPBUFR: Wind direction/speed (DDO/FFO) event reason code
   0-11-221 |   0 |           0 |   9 | Degree true       | MWDH     ;     ; Mean wind direction for 1500 - 3000 m
-  0-11-222 |   1 |           0 |  12 | m s⁻¹             | MWSH     ;     ; Mean wind speed for 1500 - 3000 m
-  0-11-223 |   1 |           0 |  12 | m s⁻¹             | XS10     ;     ; 10 m extrapolated wind speed
-  0-11-224 |   1 |           0 |  12 | m s⁻¹             | XS20     ;     ; 20 m extrapolated wind speed
+  0-11-222 |   1 |           0 |  12 | m s**-1           | MWSH     ;     ; Mean wind speed for 1500 - 3000 m
+  0-11-223 |   1 |           0 |  12 | m s**-1           | XS10     ;     ; 10 m extrapolated wind speed
+  0-11-224 |   1 |           0 |  12 | m s**-1           | XS20     ;     ; 20 m extrapolated wind speed
   0-11-225 |   4 |           0 |  16 | Numeric           | RF10M    ;     ; 10 meter wind reduction factor
   0-11-227 |   0 |           0 |   9 | Degree true       | WDRC     ;     ; Continuous wind direction
-  0-11-228 |   1 |           0 |  12 | m s⁻¹             | WDSC     ;     ; Continuous wind speed
-  0-11-229 |   1 |        -512 |  10 | Pa s⁻¹            | OMEG     ;     ; w-component
-  0-11-230 |   1 |           0 |  12 | m s⁻¹             | WSOS     ;     ; Ocean surface wind speed
-  0-11-231 |   1 |       -4096 |  13 | m s⁻¹             | USTM     ;     ; u-component of storm motion
-  0-11-232 |   1 |       -4096 |  13 | m s⁻¹             | VSTM     ;     ; v-component of storm motion
-  0-11-233 |   1 |      -10000 |  15 | m² s⁻²            | HLCY     ;     ; Storm relative helicity
+  0-11-228 |   1 |           0 |  12 | m s**-1           | WDSC     ;     ; Continuous wind speed
+  0-11-229 |   1 |        -512 |  10 | Pa s**-1          | OMEG     ;     ; w-component
+  0-11-230 |   1 |           0 |  12 | m s**-1           | WSOS     ;     ; Ocean surface wind speed
+  0-11-231 |   1 |       -4096 |  13 | m s**-1           | USTM     ;     ; u-component of storm motion
+  0-11-232 |   1 |       -4096 |  13 | m s**-1           | VSTM     ;     ; v-component of storm motion
+  0-11-233 |   1 |      -10000 |  15 | m**2 s**-2        | HLCY     ;     ; Storm relative helicity
   0-11-235 |   0 |           0 |   6 | Code table        | TRBX     ;     ; Turbulence index
   0-11-236 |   0 |           0 |   6 | Code table        | TRBX10   ;     ; Turbulence index for period from 1 minute prior to observation time to observation time
   0-11-237 |   0 |           0 |   6 | Code table        | TRBX21   ;     ; Turbulence index for period from 2 minutes prior to observation time to 1 minute prior to observation time
@@ -168,19 +170,19 @@ Table B LOC |  0 | 7 |  1
   0-11-240 |   0 |           0 |   5 | Code table        | WQM      ;     ; PREPBUFR: u-, v-component wind (UOB/VOB) (quality) marker
   0-11-241 |   0 |           0 |   5 | Code table        | WPC      ;     ; PREPBUFR: u-, v-component wind (UOB/VOB) event program code
   0-11-242 |   0 |           0 |  10 | Code table        | WRC      ;     ; PREPBUFR: u-, v-component wind (UOB/VOB) event reason code
-  0-11-243 |   1 |       -4096 |  13 | m s⁻¹             | UFC      ;     ; PREPBUFR: Global forecast (background) u-component wind value
-  0-11-244 |   1 |       -4096 |  13 | m s⁻¹             | VFC      ;     ; PREPBUFR: Global forecast (background) v-component wind value
-  0-11-245 |   1 |           0 |  10 | m s⁻¹             | WOE      ;     ; PREPBUFR: Wind observation error
-  0-11-246 |   1 |       -4096 |  13 | m s⁻¹             | UAN      ;     ; PREPBUFR: Analyzed u-component wind value
-  0-11-247 |   1 |       -4096 |  13 | m s⁻¹             | VAN      ;     ; PREPBUFR: Analyzed v-component wind value
-  0-11-248 |   1 |       -4096 |  13 | m s⁻¹             | UCL      ;     ; PREPBUFR: Climatological u-component wind value
-  0-11-249 |   1 |       -4096 |  13 | m s⁻¹             | VCL      ;     ; PREPBUFR: Climatological v-component wind value
-  0-11-250 |   1 |           0 |  10 | m s⁻¹             | UCS      ;     ; PREPBUFR: Standard deviation of climatological u-component wind value
-  0-11-251 |   1 |           0 |  10 | m s⁻¹             | VCS      ;     ; PREPBUFR: Standard deviation of climatological v-component wind value
+  0-11-243 |   1 |       -4096 |  13 | m s**-1           | UFC      ;     ; PREPBUFR: Global forecast (background) u-component wind value
+  0-11-244 |   1 |       -4096 |  13 | m s**-1           | VFC      ;     ; PREPBUFR: Global forecast (background) v-component wind value
+  0-11-245 |   1 |           0 |  10 | m s**-1           | WOE      ;     ; PREPBUFR: Wind observation error
+  0-11-246 |   1 |       -4096 |  13 | m s**-1           | UAN      ;     ; PREPBUFR: Analyzed u-component wind value
+  0-11-247 |   1 |       -4096 |  13 | m s**-1           | VAN      ;     ; PREPBUFR: Analyzed v-component wind value
+  0-11-248 |   1 |       -4096 |  13 | m s**-1           | UCL      ;     ; PREPBUFR: Climatological u-component wind value
+  0-11-249 |   1 |       -4096 |  13 | m s**-1           | VCL      ;     ; PREPBUFR: Climatological v-component wind value
+  0-11-250 |   1 |           0 |  10 | m s**-1           | UCS      ;     ; PREPBUFR: Standard deviation of climatological u-component wind value
+  0-11-251 |   1 |           0 |  10 | m s**-1           | VCS      ;     ; PREPBUFR: Standard deviation of climatological v-component wind value
   0-11-252 |   0 |           0 |   9 | kt                | FFO      ;     ; PREPBUFR/PREPFITS: Wind speed observation
-  0-11-253 |   1 |           0 |  10 | m s⁻¹             | WOETU    ;     ; PREPBUFR: Analysis-tuned wind observation error
-  0-11-254 |   1 |       -4096 |  13 | m s⁻¹             | UFCMOD   ;     ; PREPBUFR: Model forecast (background) u-component wind value
-  0-11-255 |   1 |       -4096 |  13 | m s⁻¹             | VFCMOD   ;     ; PREPBUFR: Model forecast (background) v-component wind value
+  0-11-253 |   1 |           0 |  10 | m s**-1           | WOETU    ;     ; PREPBUFR: Analysis-tuned wind observation error
+  0-11-254 |   1 |       -4096 |  13 | m s**-1           | UFCMOD   ;     ; PREPBUFR: Model forecast (background) u-component wind value
+  0-11-255 |   1 |       -4096 |  13 | m s**-1           | VFCMOD   ;     ; PREPBUFR: Model forecast (background) v-component wind value
   0-12-192 |   1 |       -2732 |  14 | Celsius           | TOB      ;     ; PREPFITS: Temperature observation (dry-bulb or virtual)
   0-12-193 |   2 |           0 |  16 | K                 | CTTP     ;     ; Temperature (city)
   0-12-194 |   2 |           0 |  16 | K                 | CTMX     ;     ; Maximum temperature (city)
@@ -188,11 +190,11 @@ Table B LOC |  0 | 7 |  1
   0-12-196 |   1 |           0 |  12 | K                 | TMIN     ;     ; 1-hour minimum temperature at lowest model level
   0-12-197 |   1 |           0 |  12 | K                 | TMAX     ;     ; 1-hour maximum temperature at lowest model level
   0-12-198 |   1 |           0 |  12 | K                 | STC1     ;     ; Layer soil temperature
-  0-12-199 |   1 |      -10000 |  15 | W m⁻²             | FXLH     ;     ; 1-hour average latent heat flux
-  0-12-200 |   1 |      -10000 |  15 | W m⁻²             | FXLP     ;     ; 1-hour average potential latent heat flux
-  0-12-201 |   1 |      -10000 |  15 | W m⁻²             | FXSH     ;     ; 1-hour average sensible heat flux
-  0-12-202 |   1 |       -5000 |  14 | W m⁻²             | FXSS     ;     ; 1-hour average sub-surface heat flux
-  0-12-203 |   1 |      -10000 |  14 | W m⁻²             | FXSN     ;     ; 1-hour average snow phase change heat flux
+  0-12-199 |   1 |      -10000 |  15 | W m**-2           | FXLH     ;     ; 1-hour average latent heat flux
+  0-12-200 |   1 |      -10000 |  15 | W m**-2           | FXLP     ;     ; 1-hour average potential latent heat flux
+  0-12-201 |   1 |      -10000 |  15 | W m**-2           | FXSH     ;     ; 1-hour average sensible heat flux
+  0-12-202 |   1 |       -5000 |  14 | W m**-2           | FXSS     ;     ; 1-hour average sub-surface heat flux
+  0-12-203 |   1 |      -10000 |  14 | W m**-2           | FXSN     ;     ; 1-hour average snow phase change heat flux
   0-12-204 |   1 |           0 |  12 | K                 | SLTB     ;     ; Bottom soil temperature
   0-12-205 |   1 |           0 |  12 | K                 | TH10     ;     ; Potential temperature at 10 m
   0-12-206 |   2 |           0 |  10 | K                 | CSTC     ;     ; Cold space temperature correction
@@ -201,8 +203,8 @@ Table B LOC |  0 | 7 |  1
   0-12-212 |   2 |           0 |  16 | K                 | MISTH    ;     ; Minimum soil temperature
   0-12-213 |   2 |           0 |  16 | K                 | RDTM     ;     ; Road temperature
   0-12-214 |   2 |           0 |  16 | K                 | RLFT     ;     ; Road liquid freeze temperature
-  0-12-221 |   6 |       -6000 |  14 | K s⁻¹             | DTCP     ;     ; Convective latent heating rate
-  0-12-222 |   6 |       -6000 |  14 | K s⁻¹             | DTGP     ;     ; Stable latent heating rate
+  0-12-221 |   6 |       -6000 |  14 | K s**-1           | DTCP     ;     ; Convective latent heating rate
+  0-12-222 |   6 |       -6000 |  14 | K s**-1           | DTGP     ;     ; Stable latent heating rate
   0-12-233 |   2 |           0 |  19 | K                 | TMBR85   ;     ; Brightness temperature for SSM/I 85 GHz channels
   0-12-243 |   1 |       -2732 |  14 | Celsius           | TVO      ;     ; PREPBUFR: Virtual temperature observation
   0-12-244 |   1 |       -2732 |  14 | Celsius           | TDO      ;     ; PREPBUFR/PREVENTS: Dew-point temperature observation
@@ -217,79 +219,79 @@ Table B LOC |  0 | 7 |  1
   0-12-253 |   1 |           0 |  10 | Celsius           | TCS      ;     ; PREPBUFR: Standard deviation of climatological temperature value
   0-12-254 |   1 |           0 |  10 | Celsius           | TOETU    ;     ; PREPBUFR: Analysis-tuned temperature observation error
   0-12-255 |   1 |       -2732 |  14 | Celsius           | TFCMOD   ;     ; PREPBUFR: Model forecast (background) temperature value
-  0-13-192 |   2 |           0 |  12 | kg m⁻²            | CH2O     ;     ; Cloud water
-  0-13-193 |   1 |           0 |  11 | kg m⁻²            | PH2O     ;     ; Total column precipitable water
+  0-13-192 |   2 |           0 |  12 | kg m**-2          | CH2O     ;     ; Cloud water
+  0-13-193 |   1 |           0 |  11 | kg m**-2          | PH2O     ;     ; Total column precipitable water
   0-13-194 |   0 |           0 |   3 | Code table        | INPC     ;     ; Indicator for inclusion/omission of precipitation
   0-13-195 |   0 |         -40 |   8 | Numeric           | STBS5    ;     ; Modified Showalter stability index
   0-13-196 |   3 |          -2 |  20 | m                 | SNDP     ;     ; Snow depth
   0-13-197 |   3 |           0 |   8 | m                 | SMOI     ;     ; Soil moisture
-  0-13-198 |   5 |           0 |  14 | kg kg⁻¹           | Q2MS     ;     ; Specific humidity at 2 m
-  0-13-199 |   1 |          -1 |  14 | kg m⁻²            | TP5M     ;     ; Total precipitation past 5 minutes
+  0-13-198 |   5 |           0 |  14 | kg kg**-1         | Q2MS     ;     ; Specific humidity at 2 m
+  0-13-199 |   1 |          -1 |  14 | kg m**-2          | TP5M     ;     ; Total precipitation past 5 minutes
   0-13-201 |   2 |       -5000 |  14 | K                 | GLFTI    ;     ; Lifted index
-  0-13-202 |   1 |           0 |  11 | kg m⁻²            | PH2O19   ;     ; Precipitable water in layer bounded by 1.0 to 0.9 sigma
-  0-13-203 |   1 |           0 |  11 | kg m⁻²            | PH2O97   ;     ; Precipitable water in layer bounded by 0.9 to 0.7 sigma
-  0-13-204 |   1 |           0 |  11 | kg m⁻²            | PH2O73   ;     ; Precipitable water in layer bounded by 0.7 to 0.3 sigma
-  0-13-205 |   2 |           0 |  12 | mm h⁻¹            | TRRT     ;     ; Total rain rate
-  0-13-206 |   6 |           0 |  18 | kg m⁻² s⁻¹        | REQ6     ;     ; Rainfall/water equivalent of snow (average rate)
+  0-13-202 |   1 |           0 |  11 | kg m**-2          | PH2O19   ;     ; Precipitable water in layer bounded by 1.0 to 0.9 sigma
+  0-13-203 |   1 |           0 |  11 | kg m**-2          | PH2O97   ;     ; Precipitable water in layer bounded by 0.9 to 0.7 sigma
+  0-13-204 |   1 |           0 |  11 | kg m**-2          | PH2O73   ;     ; Precipitable water in layer bounded by 0.7 to 0.3 sigma
+  0-13-205 |   2 |           0 |  12 | mm h**-1          | TRRT     ;     ; Total rain rate
+  0-13-206 |   6 |           0 |  18 | kg m**-2 s**-1    | REQ6     ;     ; Rainfall/water equivalent of snow (average rate)
   0-13-207 |   2 |           0 |  12 | mm                | RCWA     ;     ; Rain plus cloud water
   0-13-208 |   2 |           0 |  12 | mm                | PCIA     ;     ; Precipitation plus cloud ice
   0-13-209 |   0 |           0 |   2 | Code table        | TERR     ;     ; Terrain type
-  0-13-210 |   2 |           0 |  18 | kg m⁻²            | SWEM     ;     ; Snow water equivalent
-  0-13-212 |   3 |           0 |  11 | kg m⁻²            | CNPW     ;     ; Canopy water
-  0-13-213 |   2 |        -500 |  10 | m s⁻¹             | STRV     ;     ; Stream velocity
-  0-13-214 |   2 |    -8450000 |  25 | m³ s⁻¹            | DCHG     ;     ; Discharge
-  0-13-215 |   2 |           0 |  12 | mm h⁻¹            | CRRT     ;     ; Convective rain rate
-  0-13-216 |   1 |          -1 |  14 | kg m⁻²            | SNFL     ;     ; 1-hour accumulated snowfall
-  0-13-217 |   1 |          -1 |  14 | kg m⁻²            | C01M     ;     ; Convective precipitation in past 1 hour
-  0-13-218 |   2 |           0 |  14 | kg m⁻²            | N01M     ;     ; 1-hour accumulated snow melt
-  0-13-219 |   1 |          -1 |  14 | kg m⁻²            | C03M     ;     ; Convective precipitation in past 3 hours
+  0-13-210 |   2 |           0 |  18 | kg m**-2          | SWEM     ;     ; Snow water equivalent
+  0-13-212 |   3 |           0 |  11 | kg m**-2          | CNPW     ;     ; Canopy water
+  0-13-213 |   2 |        -500 |  10 | m s**-1           | STRV     ;     ; Stream velocity
+  0-13-214 |   2 |    -8450000 |  25 | m**3 s**-1        | DCHG     ;     ; Discharge
+  0-13-215 |   2 |           0 |  12 | mm h**-1          | CRRT     ;     ; Convective rain rate
+  0-13-216 |   1 |          -1 |  14 | kg m**-2          | SNFL     ;     ; 1-hour accumulated snowfall
+  0-13-217 |   1 |          -1 |  14 | kg m**-2          | C01M     ;     ; Convective precipitation in past 1 hour
+  0-13-218 |   2 |           0 |  14 | kg m**-2          | N01M     ;     ; 1-hour accumulated snow melt
+  0-13-219 |   1 |          -1 |  14 | kg m**-2          | C03M     ;     ; Convective precipitation in past 3 hours
   0-13-220 |   0 |           0 |   8 | %                 | WTNS     ;     ; Soil moisture availability
   0-13-221 |  -2 |      -99990 |  18 | Pa                | SLMT     ;     ; Soil moisture tension
-  0-13-222 |   2 |           0 |  15 | kg m⁻²            | R01M     ;     ; 1-hour accumulated surface runoff
-  0-13-224 |   2 |           0 |  15 | kg m⁻²            | BFGR     ;     ; 1-hour accumulated baseflow-groundwater runoff
+  0-13-222 |   2 |           0 |  15 | kg m**-2          | R01M     ;     ; 1-hour accumulated surface runoff
+  0-13-224 |   2 |           0 |  15 | kg m**-2          | BFGR     ;     ; 1-hour accumulated baseflow-groundwater runoff
   0-13-226 |   3 |           0 |  10 | Numeric           | SMC1     ;     ; Layer volumetric soil moisture
-  0-13-227 |   1 |          -1 |  14 | kg m⁻²            | CTP24    ;     ; City total precipitation past 24 hours
+  0-13-227 |   1 |          -1 |  14 | kg m**-2          | CTP24    ;     ; City total precipitation past 24 hours
   0-13-228 |   0 |           0 |   3 | Code table        | SRMK     ;     ; Snow report remarks
   0-13-231 |   0 |           0 |   7 | %                 | SNRA     ;     ; Snow ratio from explicit cloud scheme
   0-13-232 |   0 |           0 |   2 | Code table        | WXTS     ;     ; Snow precipitation type
   0-13-233 |   0 |           0 |   2 | Code table        | WXTP     ;     ; Ice pellet precipitation type
   0-13-234 |   0 |           0 |   2 | Code table        | WXTZ     ;     ; Freezing rain precipitation type
   0-13-235 |   0 |           0 |   2 | Code table        | WXTR     ;     ; Rain precipitation type
-  0-13-239 |   5 |           0 |  16 | kg kg⁻¹           | CWTR     ;     ; Cloud water mixing ratio
-  0-13-240 |   5 |           0 |  14 | kg kg⁻¹           | Q10M     ;     ; Specific humidity at 10 m
-  0-13-242 |   0 |           0 |  16 | mg kg⁻¹           | ESBAK    ;     ; PREPBUFR: Global forecast (background) saturation specific humidity value
+  0-13-239 |   5 |           0 |  16 | kg kg**-1         | CWTR     ;     ; Cloud water mixing ratio
+  0-13-240 |   5 |           0 |  14 | kg kg**-1         | Q10M     ;     ; Specific humidity at 10 m
+  0-13-242 |   0 |           0 |  16 | mg kg**-1         | ESBAK    ;     ; PREPBUFR: Global forecast (background) saturation specific humidity value
   0-13-243 |   1 |         -50 |  10 | K                 | LFTI     ;     ; PREPBUFR: Lifted index
-  0-13-244 |   5 |           0 |  16 | kg kg⁻¹           | IMXR     ;     ; Ice mixing ratio
-  0-13-245 |   0 |           0 |  16 | mg kg⁻¹           | QOB      ;     ; PREPBUFR: Specific humidity observation
+  0-13-244 |   5 |           0 |  16 | kg kg**-1         | IMXR     ;     ; Ice mixing ratio
+  0-13-245 |   0 |           0 |  16 | mg kg**-1         | QOB      ;     ; PREPBUFR: Specific humidity observation
   0-13-246 |   0 |           0 |   5 | Code table        | QQM      ;     ; PREPBUFR: Specific humidity (quality) marker
   0-13-247 |   0 |           0 |   5 | Code table        | QPC      ;     ; PREPBUFR: Specific humidity event program code
   0-13-248 |   0 |           0 |  10 | Code table        | QRC      ;     ; PREPBUFR: Specific humidity event reason code
-  0-13-249 |   0 |           0 |  16 | mg kg⁻¹           | QFC      ;     ; PREPBUFR: Global forecast (background) specific humidity value
+  0-13-249 |   0 |           0 |  16 | mg kg**-1         | QFC      ;     ; PREPBUFR: Global forecast (background) specific humidity value
   0-13-250 |   1 |           0 |  10 | %*0.1             | QOE      ;     ; PREPBUFR: Relative humidity observation error
-  0-13-251 |   0 |           0 |  16 | mg kg⁻¹           | QAN      ;     ; PREPBUFR: Analyzed Specific humidity value
-  0-13-252 |   0 |           0 |  16 | mg kg⁻¹           | QCL      ;     ; PREPBUFR: Climatological Specific humidity value
-  0-13-253 |   0 |           0 |  16 | mg kg⁻¹           | QCS      ;     ; PREPBUFR: Standard deviation of climatological specific humidity value
+  0-13-251 |   0 |           0 |  16 | mg kg**-1         | QAN      ;     ; PREPBUFR: Analyzed Specific humidity value
+  0-13-252 |   0 |           0 |  16 | mg kg**-1         | QCL      ;     ; PREPBUFR: Climatological Specific humidity value
+  0-13-253 |   0 |           0 |  16 | mg kg**-1         | QCS      ;     ; PREPBUFR: Standard deviation of climatological specific humidity value
   0-13-254 |   1 |           0 |  10 | %*0.1             | QOETU    ;     ; PREPBUFR: Analysis-tuned relative humidity observation error
-  0-13-255 |   0 |           0 |  16 | mg kg⁻¹           | QFCMOD   ;     ; PREPBUFR: Model forecast (background) specific humidity value
-  0-14-194 |   7 |      -12000 |  15 | K s⁻¹             | DTSW     ;     ; Short-wave heating rate
-  0-14-195 |   7 |      -12000 |  15 | K s⁻¹             | DTLW     ;     ; Long-wave heating rate
-  0-14-198 |   1 |           0 |  14 | W m⁻²             | SWRD     ;     ; 1-hour average downward short-wave flux
-  0-14-199 |   1 |      -15000 |  14 | W m⁻²             | SWRU     ;     ; 1-hour average upward short-wave flux
-  0-14-200 |   1 |           0 |  13 | W m⁻²             | LWRD     ;     ; 1-hour average downward long-wave flux
-  0-14-201 |   1 |       -8192 |  13 | W m⁻²             | LWRU     ;     ; 1-hour average upward long-wave flux
-  0-14-202 |   1 |       -8192 |  13 | W m⁻²             | LWRT     ;     ; 1-hour average net long-wave flux at top
-  0-14-203 |   1 |      -15000 |  15 | W m⁻²             | SWRT     ;     ; 1-hour average net short-wave flux at top
+  0-13-255 |   0 |           0 |  16 | mg kg**-1         | QFCMOD   ;     ; PREPBUFR: Model forecast (background) specific humidity value
+  0-14-194 |   7 |      -12000 |  15 | K s**-1           | DTSW     ;     ; Short-wave heating rate
+  0-14-195 |   7 |      -12000 |  15 | K s**-1           | DTLW     ;     ; Long-wave heating rate
+  0-14-198 |   1 |           0 |  14 | W m**-2           | SWRD     ;     ; 1-hour average downward short-wave flux
+  0-14-199 |   1 |      -15000 |  14 | W m**-2           | SWRU     ;     ; 1-hour average upward short-wave flux
+  0-14-200 |   1 |           0 |  13 | W m**-2           | LWRD     ;     ; 1-hour average downward long-wave flux
+  0-14-201 |   1 |       -8192 |  13 | W m**-2           | LWRU     ;     ; 1-hour average upward long-wave flux
+  0-14-202 |   1 |       -8192 |  13 | W m**-2           | LWRT     ;     ; 1-hour average net long-wave flux at top
+  0-14-203 |   1 |      -15000 |  15 | W m**-2           | SWRT     ;     ; 1-hour average net short-wave flux at top
   0-14-204 |   2 |        -300 |  10 | Numeric           | LOGCT    ;     ; Log 10 of cloud test results
-  0-14-226 |   7 |      -12000 |  15 | K s⁻¹             | DTAR     ;     ; Net radiative heating rate
-  0-15-192 |   4 |           0 |  17 | cm³ m⁻³           | OZMR     ;     ; Ozone mixing ratio
+  0-14-226 |   7 |      -12000 |  15 | K s**-1           | DTAR     ;     ; Net radiative heating rate
+  0-15-192 |   4 |           0 |  17 | cm**3 m**-3       | OZMR     ;     ; Ozone mixing ratio
   0-15-193 |   2 |        -100 |  16 | m                 | OPTH     ;     ; Aerosol optical thickness
   0-15-194 |   2 |           0 |  16 | Degree            | SCATTA   ;     ; Scattering angle
   0-15-195 |   0 |           0 |   4 | Code table        | AEROTP   ;     ; Aerosol type land
   0-15-196 |   0 |           0 |   6 | Code table        | AFBO     ;     ; Algorithm flag for best ozone
-  0-15-197 |   4 |     -100000 |  21 | cm³ m⁻³           | OZMX     ;     ; Ozone mixing ratio
-  0-15-198 |   4 |     -100000 |  19 | cm³ m⁻³           | OZMP     ;     ; Ozone mixing ratio precision
+  0-15-197 |   4 |     -100000 |  21 | cm**3 m**-3       | OZMX     ;     ; Ozone mixing ratio
+  0-15-198 |   4 |     -100000 |  19 | cm**3 m**-3       | OZMP     ;     ; Ozone mixing ratio precision
   0-15-199 |   0 |           0 |  18 | Flag table        | MLST     ;     ; Microwave Limb Sounder (MLS) status flag
-  0-15-202 |   3 |       13000 |  12 | log (m⁻²)         | LIEDL    ;     ; Log 10 of integrated electron density
+  0-15-202 |   3 |       13000 |  12 | log (m**-2)       | LIEDL    ;     ; Log 10 of integrated electron density
   0-20-193 |   0 |           0 |  12 | m                 | V2RIM    ;     ; Second runway visual range (RVR)
   0-20-194 |  -1 |         -40 |  16 | m                 | HBOI     ;     ; Height of base of icing
   0-20-195 |  -1 |         -40 |  16 | m                 | HTOI     ;     ; Height of top of icing
@@ -320,9 +322,9 @@ Table B LOC |  0 | 7 |  1
   0-20-249 |  -1 |           0 |  14 | Pa                | CTPFC    ;     ; PREPBUFR: Global forecast (background) cloud top pressure value
   0-20-250 |  -1 |           0 |  10 | Pa                | CTPOE    ;     ; PREPBUFR: Cloud top pressure observation error
   0-20-251 |  -1 |           0 |  14 | Pa                | CTPAN    ;     ; PREPBUFR: Analyzed cloud top pressure value
-  0-21-194 |   1 |       -4096 |  13 | m s⁻¹             | RWND     ;     ; Radial wind superob radial wind speed
+  0-21-194 |   1 |       -4096 |  13 | m s**-1           | RWND     ;     ; Radial wind superob radial wind speed
   0-21-195 |   2 |           0 |  16 | Degree            | RWAZ     ;     ; Radial wind superob azimuth
-  0-21-196 |   1 |           0 |  12 | m s⁻¹             | RSTD     ;     ; Standard deviation of radial wind superob wind
+  0-21-196 |   1 |           0 |  12 | m s**-1           | RSTD     ;     ; Standard deviation of radial wind superob wind
   0-21-197 |   0 |           0 |  10 | Numeric           | VOCP     ;     ; Volume coverage pattern
   0-21-226 |   1 |           0 |  12 | Degree            | A1       ;     ; PREPBUFR: European Remote-sensing Satellite (ERS) incident angle number 1
   0-21-227 |   1 |           0 |  12 | Degree            | A2       ;     ; PREPBUFR: European Remote-sensing Satellite (ERS) incident angle number 2
@@ -428,9 +430,9 @@ Table B LOC |  0 | 7 |  1
   0-33-241 |   0 |           0 |   3 | Code table        | QHDOP    ;     ; Quality for observed position
   0-33-242 |   0 |           0 |   4 | Code table        | QHDOM    ;     ; Quality for observed meteorological parameters
   0-33-245 |   2 |           0 |  16 | K                 | SSTE     ;     ; Estimated error covariance for sea surface temperature retrieval
-  0-33-246 |   2 |           0 |  15 | m s⁻¹             | SPDE     ;     ; Estimated error covariance for wind speed retrieval
-  0-33-247 |   2 |           0 |  14 | kg m⁻²            | VPRE     ;     ; Estimated error covariance for total water vapor retrieval
-  0-33-248 |   3 |           0 |  14 | kg m⁻²            | CLDE     ;     ; Estimated error covariance for total cloud liquid retrieval
+  0-33-246 |   2 |           0 |  15 | m s**-1           | SPDE     ;     ; Estimated error covariance for wind speed retrieval
+  0-33-247 |   2 |           0 |  14 | kg m**-2          | VPRE     ;     ; Estimated error covariance for total water vapor retrieval
+  0-33-248 |   3 |           0 |  14 | kg m**-2          | CLDE     ;     ; Estimated error covariance for total cloud liquid retrieval
   0-33-249 |   0 |           0 |  88 | CCITT IA5         | NRLQMS   ;     ; NRL aircraft quality mark
   0-33-250 |   0 |           0 |   3 | Code table        | QCRF     ;     ; Quality mark for reflectivities along radial line
   0-33-251 |   0 |           0 |   3 | Code table        | QCRW     ;     ; Quality mark for winds along radial line
@@ -449,8 +451,8 @@ Table B LOC |  0 | 7 |  1
   0-50-003 |   0 |           0 |   7 | Numeric           | PROCN    ;     ; PREPBUFR: Process number for this MPI run
   0-50-004 |   0 |           0 |   7 | Numeric           | MGPT     ;     ; BUFR message number
   0-50-005 |   0 |           0 |  24 | CCITT IA5         | SRC      ;     ; PREPBUFR: File name of data source
-  0-50-192 |   0 |           0 |  14 | J kg⁻¹            | CAPE     ;     ; PREPBUFR/PREPFITS: Convective available potential energy
-  0-50-193 |   0 |       -3890 |  12 | J kg⁻¹            | CINH     ;     ; PREPBUFR/PREPFITS: Convective inhibition
+  0-50-192 |   0 |           0 |  14 | J kg**-1          | CAPE     ;     ; PREPBUFR/PREPFITS: Convective available potential energy
+  0-50-193 |   0 |       -3890 |  12 | J kg**-1          | CINH     ;     ; PREPBUFR/PREPFITS: Convective inhibition
   0-50-194 |   1 |         -50 |  10 | K                 | LI       ;     ; PREPFITS: Lifted index
   0-50-195 |  -1 |         -40 |  16 | m                 | PBL      ;     ; PREPFITS: Planetary boudary layer height
   0-50-196 |   1 |           0 |  14 | mb                | TROP     ;     ; PREPFITS: Tropopause level
@@ -465,51 +467,51 @@ Table B LOC |  0 | 7 |  1
   0-50-215 |   0 |           0 |   3 | Code table        | CLFG     ;     ; Calibration flags for SAPHIR/MADRAS
   0-50-220 |   0 |           0 |   3 | Code table        | QMLTNDO  ;     ; Quality information for Log10 of number density of ozone
   0-50-221 |   0 |           0 |   3 | Code table        | QMMIXRV  ;     ; Quality information for volumetric mixing ratio significand
-  0-50-238 |   5 |     1200000 |  20 | log (m⁻³)         | LTNDOSD  ;     ; Standard deviation of Log10 of number density of ozone
+  0-50-238 |   5 |     1200000 |  20 | log (m**-3)       | LTNDOSD  ;     ; Standard deviation of Log10 of number density of ozone
   0-50-239 |   6 |           0 |  30 | Numeric           | MIXRVSD  ;     ; Standard deviation of volumetric mixing ratio significand
   0-51-001 |   0 |           0 |   5 | Code table        | RRTQM    ;     ; PREPBUFR: Rainfall (average rate) (quality) marker
   0-51-002 |   0 |           0 |   5 | Code table        | RRTPC    ;     ; PREPBUFR: Rainfall (average rate) event program code
   0-51-003 |   0 |           0 |  10 | Code table        | RRTRC    ;     ; PREPBUFR: Rainfall (average rate) event reason code
-  0-51-004 |   6 |           0 |  18 | kg m⁻² s⁻¹        | RRTFC    ;     ; PREPBUFR: Global forecast (background) rainfall (average rate) value
-  0-51-005 |   6 |           0 |  18 | kg m⁻² s⁻¹        | RRTOE    ;     ; PREPBUFR: Rainfall (average rate) observation error
-  0-51-006 |   6 |           0 |  18 | kg m⁻² s⁻¹        | RRTAN    ;     ; PREPBUFR: Analyzed rainfall (average rate) value
+  0-51-004 |   6 |           0 |  18 | kg m**-2 s**-1    | RRTFC    ;     ; PREPBUFR: Global forecast (background) rainfall (average rate) value
+  0-51-005 |   6 |           0 |  18 | kg m**-2 s**-1    | RRTOE    ;     ; PREPBUFR: Rainfall (average rate) observation error
+  0-51-006 |   6 |           0 |  18 | kg m**-2 s**-1    | RRTAN    ;     ; PREPBUFR: Analyzed rainfall (average rate) value
   0-51-021 |   0 |           0 |   5 | Code table        | PWQ      ;     ; PREPBUFR: Total precipitable water (quality) marker
   0-51-022 |   0 |           0 |   5 | Code table        | PWP      ;     ; PREPBUFR: Total precipitable water event program code
   0-51-023 |   0 |           0 |  10 | Code table        | PWR      ;     ; PREPBUFR: Total precipitable water event reason code
-  0-51-024 |   1 |           0 |  11 | kg m⁻²            | PWF      ;     ; PREPBUFR: Global forecast (background) total precipitable water value
-  0-51-025 |   1 |           0 |  10 | kg m⁻²            | PWE      ;     ; PREPBUFR: Total precipitable water observation error
-  0-51-026 |   1 |           0 |  11 | kg m⁻²            | PWA      ;     ; PREPBUFR: Analyzed total precipitable water value
-  0-51-027 |   1 |           0 |  10 | kg m⁻²            | PWETU    ;     ; PREPBUFR: Analysis-tuned total precipitable water observation error
-  0-51-030 |   1 |           0 |  11 | kg m⁻²            | PWFMOD   ;     ; PREPBUFR: Model forecast (background) total precipitable water value
+  0-51-024 |   1 |           0 |  11 | kg m**-2          | PWF      ;     ; PREPBUFR: Global forecast (background) total precipitable water value
+  0-51-025 |   1 |           0 |  10 | kg m**-2          | PWE      ;     ; PREPBUFR: Total precipitable water observation error
+  0-51-026 |   1 |           0 |  11 | kg m**-2          | PWA      ;     ; PREPBUFR: Analyzed total precipitable water value
+  0-51-027 |   1 |           0 |  10 | kg m**-2          | PWETU    ;     ; PREPBUFR: Analysis-tuned total precipitable water observation error
+  0-51-030 |   1 |           0 |  11 | kg m**-2          | PWFMOD   ;     ; PREPBUFR: Model forecast (background) total precipitable water value
   0-51-032 |   0 |           0 |   5 | Code table        | PW1Q     ;     ; PREPBUFR: Precipitable water in layer bounded by 1.0 to 0.9 sigma (quality) marker
   0-51-033 |   0 |           0 |   5 | Code table        | PW1P     ;     ; PREPBUFR: Precipitable water in layer bounded by 1.0 to 0.9 sigma event program code
   0-51-034 |   0 |           0 |  10 | Code table        | PW1R     ;     ; PREPBUFR: Precipitable water in layer bounded by 1.0 to 0.9 sigma event reason code
-  0-51-035 |   1 |           0 |  11 | kg m⁻²            | PW1F     ;     ; PREPBUFR: Global forecast (background) precipitable water value in layer bounded by 1.0 to 0.9 sigma
-  0-51-036 |   1 |           0 |  10 | kg m⁻²            | PW1E     ;     ; PREPBUFR: Precipitable water in layer bounded by 1.0 to 0.9 sigma observation error
-  0-51-037 |   1 |           0 |  11 | kg m⁻²            | PW1A     ;     ; PREPBUFR: Analyzed precipitable water value in layer bounded by 1.0 to 0.9 sigma
-  0-51-040 |   1 |           0 |  11 | kg m⁻²            | PW1FMOD  ;     ; PREPBUFR: Model forecast (background) precipitable water value in layer bounded by 1.0 to 0.9 sigma
+  0-51-035 |   1 |           0 |  11 | kg m**-2          | PW1F     ;     ; PREPBUFR: Global forecast (background) precipitable water value in layer bounded by 1.0 to 0.9 sigma
+  0-51-036 |   1 |           0 |  10 | kg m**-2          | PW1E     ;     ; PREPBUFR: Precipitable water in layer bounded by 1.0 to 0.9 sigma observation error
+  0-51-037 |   1 |           0 |  11 | kg m**-2          | PW1A     ;     ; PREPBUFR: Analyzed precipitable water value in layer bounded by 1.0 to 0.9 sigma
+  0-51-040 |   1 |           0 |  11 | kg m**-2          | PW1FMOD  ;     ; PREPBUFR: Model forecast (background) precipitable water value in layer bounded by 1.0 to 0.9 sigma
   0-51-042 |   0 |           0 |   5 | Code table        | PW2Q     ;     ; PREPBUFR: Precipitable water in layer bounded by 0.9 to 0.7 sigma (quality) marker
   0-51-043 |   0 |           0 |   5 | Code table        | PW2P     ;     ; PREPBUFR: Precipitable water in layer bounded by 0.9 to 0.7 sigma event program code
   0-51-044 |   0 |           0 |  10 | Code table        | PW2R     ;     ; PREPBUFR: Precipitable water in layer bounded by 0.9 to 0.7 sigma event reason code
-  0-51-045 |   1 |           0 |  11 | kg m⁻²            | PW2F     ;     ; PREPBUFR: Global forecast (background) precipitable water value in layer bounded by 0.9 to 0.7 sigma
-  0-51-046 |   1 |           0 |  10 | kg m⁻²            | PW2E     ;     ; PREPBUFR: Precipitable water in layer bounded by 0.9 to 0.7 sigma observation error
-  0-51-047 |   1 |           0 |  11 | kg m⁻²            | PW2A     ;     ; PREPBUFR: Analyzed precipitable water value in layer bounded by 0.9 to 0.7 sigma
-  0-51-050 |   1 |           0 |  11 | kg m⁻²            | PW2FMOD  ;     ; PREPBUFR: Model forecast (background) precipitable water value in layer bounded by 0.9 to 0.7 sigma
+  0-51-045 |   1 |           0 |  11 | kg m**-2          | PW2F     ;     ; PREPBUFR: Global forecast (background) precipitable water value in layer bounded by 0.9 to 0.7 sigma
+  0-51-046 |   1 |           0 |  10 | kg m**-2          | PW2E     ;     ; PREPBUFR: Precipitable water in layer bounded by 0.9 to 0.7 sigma observation error
+  0-51-047 |   1 |           0 |  11 | kg m**-2          | PW2A     ;     ; PREPBUFR: Analyzed precipitable water value in layer bounded by 0.9 to 0.7 sigma
+  0-51-050 |   1 |           0 |  11 | kg m**-2          | PW2FMOD  ;     ; PREPBUFR: Model forecast (background) precipitable water value in layer bounded by 0.9 to 0.7 sigma
   0-51-052 |   0 |           0 |   5 | Code table        | PW3Q     ;     ; PREPBUFR: Precipitable water in layer bounded by 0.7 to 0.3 sigma (quality) marker
   0-51-053 |   0 |           0 |   5 | Code table        | PW3P     ;     ; PREPBUFR: Precipitable water in layer bounded by 0.7 to 0.3 sigma event program code
   0-51-054 |   0 |           0 |  10 | Code table        | PW3R     ;     ; PREPBUFR: Precipitable water in layer bounded by 0.7 to 0.3 sigma event reason code
-  0-51-055 |   1 |           0 |  11 | kg m⁻²            | PW3F     ;     ; PREPBUFR: Global forecast (background) precipitable water value in layer bounded by 0.7 to 0.3 sigma
-  0-51-056 |   1 |           0 |  10 | kg m⁻²            | PW3E     ;     ; PREPBUFR: Precipitable water in layer bounded by 0.7 to 0.3 sigma observation error
-  0-51-057 |   1 |           0 |  11 | kg m⁻²            | PW3A     ;     ; PREPBUFR: Analyzed precipitable water value in layer bounded by 0.7 to 0.3 sigma
-  0-51-060 |   1 |           0 |  11 | kg m⁻²            | PW3FMOD  ;     ; PREPBUFR: Model forecast (background) precipitable water value in layer bounded by 0.7 to 0.3 sigma
-  0-51-061 |   1 |           0 |  11 | kg m⁻²            | PW4O     ;     ; PREPBUFR: Precipitable water observation in layer bounded by 0.3 to 0.0 sigma
+  0-51-055 |   1 |           0 |  11 | kg m**-2          | PW3F     ;     ; PREPBUFR: Global forecast (background) precipitable water value in layer bounded by 0.7 to 0.3 sigma
+  0-51-056 |   1 |           0 |  10 | kg m**-2          | PW3E     ;     ; PREPBUFR: Precipitable water in layer bounded by 0.7 to 0.3 sigma observation error
+  0-51-057 |   1 |           0 |  11 | kg m**-2          | PW3A     ;     ; PREPBUFR: Analyzed precipitable water value in layer bounded by 0.7 to 0.3 sigma
+  0-51-060 |   1 |           0 |  11 | kg m**-2          | PW3FMOD  ;     ; PREPBUFR: Model forecast (background) precipitable water value in layer bounded by 0.7 to 0.3 sigma
+  0-51-061 |   1 |           0 |  11 | kg m**-2          | PW4O     ;     ; PREPBUFR: Precipitable water observation in layer bounded by 0.3 to 0.0 sigma
   0-51-062 |   0 |           0 |   5 | Code table        | PW4Q     ;     ; PREPBUFR: Precipitable water in layer bounded by 0.3 to 0.0 sigma (quality) marker
   0-51-063 |   0 |           0 |   5 | Code table        | PW4P     ;     ; PREPBUFR: Precipitable water in layer bounded by 0.3 to 0.0 sigma event program code
   0-51-064 |   0 |           0 |  10 | Code table        | PW4R     ;     ; PREPBUFR: Precipitable water in layer bounded by 0.3 to 0.0 sigma event reason code
-  0-51-065 |   1 |           0 |  11 | kg m⁻²            | PW4F     ;     ; PREPBUFR: Global forecast (background) precipitable water value in layer bounded by 0.3 to 0.0 sigma
-  0-51-066 |   1 |           0 |  10 | kg m⁻²            | PW4E     ;     ; PREPBUFR: Precipitable water in layer bounded by 0.3 to 0.0 sigma observation error
-  0-51-067 |   1 |           0 |  11 | kg m⁻²            | PW4A     ;     ; PREPBUFR: Analyzed precipitable water value in layer bounded by 0.3 to 0.0 sigma
-  0-51-070 |   1 |           0 |  11 | kg m⁻²            | PW4FMOD  ;     ; PREPBUFR: Model forecast (background) precipitable water value in layer bounded by 0.3 to 0.0 sigma
+  0-51-065 |   1 |           0 |  11 | kg m**-2          | PW4F     ;     ; PREPBUFR: Global forecast (background) precipitable water value in layer bounded by 0.3 to 0.0 sigma
+  0-51-066 |   1 |           0 |  10 | kg m**-2          | PW4E     ;     ; PREPBUFR: Precipitable water in layer bounded by 0.3 to 0.0 sigma observation error
+  0-51-067 |   1 |           0 |  11 | kg m**-2          | PW4A     ;     ; PREPBUFR: Analyzed precipitable water value in layer bounded by 0.3 to 0.0 sigma
+  0-51-070 |   1 |           0 |  11 | kg m**-2          | PW4FMOD  ;     ; PREPBUFR: Model forecast (background) precipitable water value in layer bounded by 0.3 to 0.0 sigma
   0-55-006 |   0 |           0 |  10 | Code table        | NMCT     ;     ; NCEP report type
   0-55-007 |   0 |           0 |  10 | Code table        | TYP      ;     ; PREPBUFR: Report type
   0-55-008 |   0 |           0 |  10 | Code table        | T29      ;     ; PREPBUFR: Data dump report type

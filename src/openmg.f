@@ -49,8 +49,6 @@ C>
 
       USE MODA_MSGCWD
 
-      INCLUDE 'bufrlib.inc'
-
       CHARACTER*(*) SUBSET
 
 C-----------------------------------------------------------------------

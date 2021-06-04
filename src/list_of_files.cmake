@@ -1,9 +1,12 @@
 set(fortran_src
   ${CMAKE_CURRENT_BINARY_DIR}/bvers.f
+  modv_BMISS.f90
+  modv_IFOPBF.f90
   modv_MAXCD.F
   modv_MAXJL.F
   modv_MAXMEM.F
   modv_MAXMSG.F
+  modv_MAXNC.f90
   modv_MAXSS.F
   modv_MAXTBA.F
   modv_MAXTBB.F
@@ -11,16 +14,19 @@ set(fortran_src
   modv_MXBTM.F
   modv_MXBTMSE.F
   modv_MXCDV.F
+  modv_MXCNEM.f90
   modv_MXCSB.F
   modv_MXDXTS.F
-  modv_MXH4WLC.F
+  modv_MXH4WLC.f90
   modv_MXLCC.F
   modv_MXMSGL.F
   modv_MXMTBB.F
   modv_MXMTBD.F
   modv_MXMTBF.F
+  modv_MXNAF.f90
   modv_MXNRV.F
   modv_MXRST.F
+  modv_MXS.f90
   modv_MXS01V.F
   modv_MXTAMC.F
   modv_MXTCO.F
@@ -31,9 +37,9 @@ set(fortran_src
   moda_bufrsr.F
   moda_comprs.F
   moda_comprx.F
+  moda_dscach.F
   moda_h4wlc.F
   moda_idrdm.F
-  moda_ifopbf.F
   moda_ival.F
   moda_ivttmp.F
   moda_lushr.F
@@ -62,14 +68,13 @@ set(fortran_src
   moda_xtab.F
   adn30.f
   atrcpt.f
-  bfrini.f
+  ${CMAKE_CURRENT_BINARY_DIR}/bfrini.f90
   blocks.f
   bort.f
   bort2.f
   cadn30.f
   capit.f
   chekstab.f
-  chrtrn.f
   chrtrna.f
   cktaba.f
   closmg.f
@@ -85,7 +90,7 @@ set(fortran_src
   cpdxmm.f
   cpymem.f
   cpyupd.f
-  datebf.f
+  datebf.F
   datelen.f
   digit.f
   drfini.f
@@ -201,7 +206,6 @@ set(fortran_src
   pkc.f
   pkftbv.f
   pktdd.f
-  pkx.f
   posapx.f
   rcstpl.f
   rdbfdx.f
@@ -314,9 +318,6 @@ set(fortran_src
   fortran_open.f90
   fortran_close.f90
   bufr_interface.f90)
-
-set(f_hdr
-  ${CMAKE_CURRENT_BINARY_DIR}/bufrlib.inc)
 
 set(c_src
   arallocc.c

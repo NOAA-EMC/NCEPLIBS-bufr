@@ -26,11 +26,7 @@ C>                               programs.
 C>
 	SUBROUTINE STNTBIA ( N, LUN, NUMB, NEMO, CELSQ )
 
-
-
 	USE MODA_TABABD
-
-	INCLUDE 'bufrlib.inc'
 
 	CHARACTER*128 BORT_STR
 

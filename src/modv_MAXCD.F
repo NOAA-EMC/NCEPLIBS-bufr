@@ -1,22 +1,30 @@
+C> @file
+C> @brief Declare and initialize MAXCD variable.
+
+C> This module declares and initializes the MAXCD variable.
+C>
+C> <p>For dynamic allocation builds, this variable is initialized
+C> to a default value which can be overridden by a subsequent call
+C> to function isetprm() within the application program.
+C> For static allocation builds, this variable is set as a
+C> parameter at compile time and cannot be changed within the
+C> application program.
+C>
+C> @author J. Ator
+C> @date 2014-12-10
+
 	MODULE MODV_MAXCD
 
-C	  MAXCD is the maximum number of child descriptors that can
-C	  be included within the sequence definition of a Table D
-C	  descriptor.
+C>        @var maxcd
+C>	  Maximum number of child descriptors that can be included
+C>        within the sequence definition of a Table D descriptor,
+C>        not counting the recursive resolution of any child
+C>        descriptors which may themselves be Table D descriptors.
 
-C	  Note that this value does *not* need to take into account
-C	  the recursive resolution of any child descriptors which may
-C	  themselves be Table D descriptors.
-
-#ifdef DYNAMIC_ALLOCATION
-
-C	  Set a default value for MAXCD.  This value will be used
-C	  unless it is overridden by a subsequent user call to
-C	  function ISETPRM.
-
-	  INTEGER :: MAXCD = 250
+#ifdef STATIC_ALLOCATION
+	  INTEGER, PARAMETER :: MAXCD = 250
 #else
-	  PARAMETER ( MAXCD = 250 )
+	  INTEGER :: MAXCD = 250
 #endif
 
 	END MODULE

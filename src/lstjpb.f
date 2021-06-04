@@ -56,12 +56,8 @@ C>                               programs.
 C>
       FUNCTION LSTJPB(NODE,LUN,JBTYP)
 
-
-
       USE MODA_MSGCWD
       USE MODA_TABLES
-
-      INCLUDE 'bufrlib.inc'
 
       CHARACTER*(*) JBTYP
       CHARACTER*128 BORT_STR

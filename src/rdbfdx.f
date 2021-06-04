@@ -69,11 +69,7 @@ C>                               programs.
 C>
       SUBROUTINE RDBFDX(LUNIT,LUN)
 
-
-
 	USE MODA_MGWA
-
-	INCLUDE 'bufrlib.inc'
 
 	COMMON /QUIET/  IPRT
 

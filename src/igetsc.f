@@ -1,38 +1,34 @@
 C> @file
-C> @author J @date 2010-05-11
-      
-C> THIS FUNCTION RETURNS ANY STATUS CODE THAT WAS INTERNALLY
-C>   SET WITHIN THE BUFR ARCHIVE LIBRARY SOFTWARE FOR A GIVEN LOGICAL
-C>   UNIT NUMBER
+C> @brief Check for an abnormal status code associated with the
+C> processing of a file
+
+C> This function returns a status code associated with any file that
+C> was previously opened via a call to subroutine openbf(), so that
+C> the application program can check whether the BUFRLIB software
+C> encountered any specific problems while processing the file.
 C>
-C> PROGRAM HISTORY LOG:
-C> 2010-05-11  J. ATOR    -- ORIGINAL AUTHOR
-C> 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
+C> @author J. Ator
+C> @date 2010-05-11
 C>
-C> USAGE:    IGETSC (LUNIT)
-C>   INPUT ARGUMENT LIST:
-C>     LUNIT    - INTEGER: FORTRAN LOGICAL UNIT NUMBER FOR BUFR FILE
+C> @param[in] LUNIT  - integer: Fortran logical unit number for
+C>                         BUFR file
+C> @returns igetsc - integer:
+C>                    -  0 = no problems were encountered
 C>
-C>   OUTPUT ARGUMENT LIST:
-C>     IGETSC   - INTEGER: STATUS CODE FOR LUNIT:
-C>                       0 = no problems noted with LUNIT
-C>                      -1 = unable to position LUNIT for appending,
-C>                           possibly due to an incomplete BUFR message
-C>                           at the end of the file
+C> @remarks
+C> - Once subroutine openbf() has been called for LUNIT, this function
+C> can then be called any number of times and at any point throughout
+C> the remainder of the life of the application program.  However, it
+C> is most typically called immediately prior to exiting an application
+C> program.
 C>
-C> REMARKS:
-C>    THIS ROUTINE CALLS:        BORT     STATUS
-C>    THIS ROUTINE IS CALLED BY: None
-C>                               Normally called only by application
-C>                               programs.
+C> <b>Program history log:</b>
+C> - 2010-05-11  J. Ator    -- Original author
+C> - 2014-12-10  J. Ator    -- Use modules instead of COMMON blocks
 C>
       FUNCTION IGETSC(LUNIT)
 
-
-
       USE MODA_STCODE
-
-      INCLUDE 'bufrlib.inc'
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------

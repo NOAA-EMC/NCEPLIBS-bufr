@@ -3,7 +3,20 @@
 @brief Detailed description of changes included within each new release.
 
 
-### Version 11.4.0 - TBD
+### Version 11.6.0 - TBD
+
+* The default BUFR master table version number for output BUFR messages was
+changed from 29 to 36 within subroutines cmsgini(), dxmini() and msgini().
+[[Issue #142](https://github.com/NOAA-EMC/NCEPLIBS-bufr/issues/142)]
+
+* The library was modified to read up to 24 characters from the units field
+of BUFR master Table B files.  Furthermore, in accordance with updated
+guidance from WMO, all fields within all BUFR master table files are now
+restricted to the CCITTIA5 character set.
+[[Issue #140](https://github.com/NOAA-EMC/NCEPLIBS-bufr/issues/140)]
+
+
+### Version 11.5.0 - April 26, 2021
 
 * Subroutine ufbseq() was modified for cases where the number of available
 levels exceeds the amount of user-provided array space when reading from an
@@ -31,9 +44,10 @@ would return a string of all blank characters in such cases.
 mnemonic isn't found in the subset definition.  The library would previously
 abort in such cases. [[Issue #53](https://github.com/NOAA-EMC/NCEPLIBS-bufr/issues/53)]
 
-* The Fortran include file "bufrlib.prm" was renamed to "bufrlib.inc" to better
-conform with modern software engineering standards.
-[[Issue #22](https://github.com/NOAA-EMC/NCEPLIBS-bufr/issues/22)]
+* The default directory location of the BUFR master tables in subroutine bfrini()
+was changed from a fixed WCOSS-specific path.  It is now set to the defined
+value of the MASTER_TABLE_DIR macro when the library was built.
+[[Issue #123](https://github.com/NOAA-EMC/NCEPLIBS-bufr/issues/123)]
 
 * Subroutine writsa() was modified to allow the return of up to two BUFR
 messages during the same call to the subroutine, in the rare instances where
@@ -43,6 +57,17 @@ more than one BUFR message could become available during such a call.
 * Several internal Fortran variable declarations were modified for
 compatibility with GNU v10+ compilers.
 [[Issue #81](https://github.com/NOAA-EMC/NCEPLIBS-bufr/issues/81)]
+
+* Subroutines pkx and chrtrn are no longer used within the library and were
+never intended to be called from application codes, so they have now been
+removed from the library.
+[[Issue #107](https://github.com/NOAA-EMC/NCEPLIBS-bufr/issues/107)]
+
+
+### Version 11.4.0 - November 20, 2020
+
+* A Python API was added to the library, for use with Python applications.
+[[Issue #61](https://github.com/NOAA-EMC/NCEPLIBS-bufr/issues/61)]
 
 
 ### Version 11.3.2 - July 16, 2020

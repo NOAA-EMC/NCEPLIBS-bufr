@@ -58,13 +58,9 @@ C>                               programs.
 C>
       SUBROUTINE MSGUPD(LUNIT,LUN)
 
-
-
       USE MODA_MSGCWD
       USE MODA_BITBUF
       USE MODA_H4WLC
-
-      INCLUDE 'bufrlib.inc'
 
       COMMON /MSGPTR/ NBY0,NBY1,NBY2,NBY3,NBY4,NBY5
       COMMON /QUIET / IPRT

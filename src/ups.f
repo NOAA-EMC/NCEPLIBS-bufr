@@ -30,12 +30,8 @@ C>                               programs.
 C>
 	REAL*8 FUNCTION UPS(IVAL,NODE)
 
-
-
 	USE MODA_TABLES
 	USE MODA_NRV203
-
-	INCLUDE 'bufrlib.inc'
 
 	REAL*8	TEN
 

@@ -1,85 +1,72 @@
 C> @file
-C> @author WOOLLEN @date 2002-05-14
+C> @brief Print the contents of a data subset.
 
-C> THIS SUBROUTINE DUMPS A DETAILED PRINT LISTING OF THE
-C>   CONTENTS OF THE UNPACKED DATA SUBSET CURRENTLY RESIDING IN THE
-C>   INTERNAL ARRAYS ASSOCIATED WITH THE BUFR FILE IN LOGICAL UNIT LUNIT.
-C>   LUNIT MUST HAVE BEEN OPENED FOR INPUT VIA A PREVIOUS CALL TO BUFR
-C>   ARCHIVE LIBRARY SUBROUTINE OPENBF.  THE DATA SUBSET MUST HAVE BEEN
-C>   SUBSEQUENTLY READ INTO THE INTERNAL BUFR ARCHIVE LIBRARY ARRAYS VIA
-C>   A CALL TO BUFR ARCHIVE LIBRARY SUBROUTINE READMG OR READERME,
-C>   FOLLOWED BY A CALL TO BUFR ARCHIVE LIBRARY SUBROUTINE READSB (OR VIA
-C>   A SINGLE CALL TO BUFR ARCHIVE LIBRARY SUBROUTINE READNS!).  FOR A
-C>   PARTICULAR SUBSET, THE PRINT LISTING CONTAINS EACH MNEMONIC
-C>   ACCOMPANIED BY ITS CORRESPONDING DATA VALUE (INCLUDING THE ACTUAL
-C>   BITS THAT WERE SET FOR FLAG TABLE VALUES!) AS WELL AS OTHER USEFUL
-C>   IDENTIFICATION INFORMATION.  THIS SUBROUTINE IS SIMILAR TO BUFR
-C>   ARCHIVE LIBRARY SUBROUTINE UFBDMP EXCEPT THAT IT DOES NOT PRINT
-C>   POINTERS, COUNTERS AND OTHER MORE ESOTERIC INFORMATION DESCRIBING
-C>   THE INTERNAL SUBSET STRUCTURES.  EACH SUBROUTINE, UFBDMP AND UFDUMP,
-C>   IS USEFUL FOR DIFFERENT DIAGNOSTIC PURPOSES, BUT IN GENERAL UFDUMP
-C>   IS MORE USEFUL FOR JUST LOOKING AT THE DATA ELEMENTS.
+C> This subroutine prints a verbose listing of the contents of a data
+C> subset, including all data values and replicated sequences, as well
+C> as the meanings of data values which are code or flag table entries.
 C>
-C> PROGRAM HISTORY LOG:
-C> 2002-05-14  J. WOOLLEN -- ORIGINAL AUTHOR
-C> 2003-11-04  J. WOOLLEN -- MODIFIED TO HANDLE PRINT OF CHARACTER
-C>                           VALUES GREATER THAN EIGHT BYTES
-C> 2003-11-04  S. BENDER  -- ADDED REMARKS/BUFRLIB ROUTINE
-C>                           INTERDEPENDENCIES
-C> 2003-11-04  D. KEYSER  -- MAXJL (MAXIMUM NUMBER OF JUMP/LINK ENTRIES)
-C>                           INCREASED FROM 15000 TO 16000 (WAS IN
-C>                           VERIFICATION VERSION); UNIFIED/PORTABLE FOR
-C>                           WRF; ADDED DOCUMENTATION (INCLUDING
-C>                           HISTORY); OUTPUTS MORE COMPLETE DIAGNOSTIC
-C>                           INFO WHEN ROUTINE TERMINATES ABNORMALLY
-C> 2004-08-18  J. ATOR    -- ADDED FUZZINESS TEST AND THRESHOLD FOR
-C>                           MISSING VALUE; ADDED INTERACTIVE AND
-C>                           SCROLLING CAPABILITY SIMILAR TO UFBDMP
-C> 2006-04-14  J. ATOR    -- ADD CALL TO UPFTBV FOR FLAG TABLES TO GET
-C>                           ACTUAL BITS THAT WERE SET TO GENERATE VALUE
-C> 2007-01-19  J. ATOR    -- USE FUNCTION IBFMS
-C> 2009-03-23  J. ATOR    -- ADD LEVEL MARKERS TO OUTPUT FOR SEQUENCES
-C>                           WHERE THE REPLICATION COUNT IS > 1; OUTPUT
-C>                           ALL OCCURRENCES OF LONG CHARACTER STRINGS
-C> 2012-02-24  J. ATOR    -- FIX MISSING CHECK FOR LONG CHARACTER STRINGS
-C> 2012-03-02  J. ATOR    -- LABEL REDEFINED REFERENCE VALUES
-C> 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
-C> 2015-09-24  J. WOOLLEN -- PRINT LEVEL IDENTIFIERS FOR EVENT STACKS
-C> 2020-08-18  J. ATOR    -- IMPROVE LOGIC FOR SEQUENCE TRACKING
+C> <p>This subroutine is similar to subroutine ufbdmp(), but it prints
+C> different characteristics of each data subset, and in a slightly
+C> different format.  However, both subroutines can be useful for
+C> different diagnostic purposes, and both can also be run
+C> interactively to scroll through the contents of a data subset.
 C>
-C> USAGE:    CALL UFDUMP (LUNIT, LUPRT)
-C>   INPUT ARGUMENT LIST:
-C>     LUNIT    - INTEGER: FORTRAN LOGICAL UNIT NUMBER FOR BUFR FILE
-C>     LUPRT    - INTEGER: FORTRAN LOGICAL UNIT NUMBER FOR PRINT OUTPUT
-C>                FILE
-C>                       0 = LUPRT is set to 06
+C> @authors J. Woollen
+C> @authors J. Ator
+C> @date 2002-05-14
 C>
-C>   OUTPUT FILES:
-C>     IF LUPRT > 0: UNIT "LUPRT" - PRINT (IF LUPRT=6, STANDARD OUTPUT)
-C>     IF LUPRT = 0: UNIT 06      - STANDARD OUTPUT PRINT
+C> @param[in] LUNIT    - integer: Fortran logical unit number for
+C>                       BUFR file
+C> @param[in] LUPRT    - integer: Fortran logical unit number for
+C>                       print output
+C>                       - 0 = Run interactively, printing to
+C>                             standard output
 C>
-C> REMARKS:
-C>    THIS ROUTINE WILL SCROLL THROUGH THE DATA SUBSET, TWENTY ELEMENTS
-C>    AT A TIME WHEN LUPRT IS INPUT AS "0".  IN THIS CASE, THE EXECUTING
-C>    SHELL SCRIPT SHOULD USE THE TERMINAL AS BOTH STANDARD INPUT AND
-C>    STANDARD OUTPUT.  INITIALLY, THE FIRST TWENTY ELEMENTS OF THE
-C>    CURRENT UNPACKED SUBSET WILL BE DISPLAYED ON THE TERMIMAL,
-C>    FOLLOWED BY THE PROMPT "(<enter> for MORE, q <enter> to QUIT)".
-C>    IF THE TERMINAL ENTERS ANYTHING OTHER THAN "q" FOLLOWED BY
-C>    "<enter>" (e.g., "<enter>"), THE NEXT TWENTY ELEMENTS WILL BE
-C>    DISPLAYED, AGAIN FOLLOWED BY THE SAME PROMPT.  THIS CONTINUES
-C>    UNTIL EITHER THE ENTIRE SUBSET HAS BEEN DISPLAYED, OR THE TERMINAL
-C>    ENTERS "q" FOLLOWED BY "<enter>" AFTER THE PROMPT, IN WHICH CASE
-C>    THIS SUBROUTINE STOPS THE SCROLL AND RETURNS TO THE CALLING
-C>    PROGRAM (PRESUMABLY TO READ IN THE NEXT SUBSET IN THE BUFR FILE).
+C> <p>Logical unit LUNIT should have already been opened for
+C> input operations via a previous call to subroutine openbf(), and a
+C> BUFR data subset should have already been read into internal arrays
+C> via a previous call to one of the
+C> [subset-reading subroutines](@ref hierarchy).
 C>
-C>    THIS ROUTINE CALLS:   bort()    fstag()   icbfms()   ibfms()
-C>                          ireadmt() isize()   nemtab()   numtbd()
-C>                          readlc()   rjust()   srchtbf()  status()
-C>                          strsuc()   upftbv()
-C>    THIS ROUTINE IS CALLED BY: None
-C>                               Normally called only by application
-C>                               programs.
+C> <p>Except when LUPRT = 0, logical unit LUPRT must already be
+C> associated with a filename on the local system, typically via a
+C> Fortran "OPEN" statement.  When LUPRT = 0, the subroutine will run
+C> interactively and print to standard output, scrolling 20 lines at
+C> a time and prompting each time whether to quit and return to the
+C> application program (by typing 'q' then '<Enter>') or continue
+C> scrolling (by typing anything else).
+C>
+C> @remarks
+C> - In order for the meanings of code and flag table values to be
+C> included in the output, a previous call to subroutine codflg()
+C> must have been made with argument CF = 'Y'.  Otherwise, only the
+C> code and flag table values themselves will be printed.
+C>
+C> <b>Program history log:</b>
+C> - 2002-05-14  J. Woollen -- Original author
+C> - 2003-11-04  J. Woollen -- Modified to handle print of character
+C>                             values greater than 8 bytes
+C> - 2003-11-04  S. Bender  -- Added remarks and routine interdependencies
+C> - 2003-11-04  D. Keyser  -- Increased MAXJL from 15000 to 16000;
+C>                             unified/portable for WRF; added history
+C>                             documentation; outputs more complete
+C>                             diagnostic info when routine terminates
+C>                             abnormally, unusual things happen or for
+C>                             informational purposes
+C> - 2004-08-18  J. Ator    -- Added fuzziness test and threshold for
+C>                             missing value; added interactive and
+C>                             scrolling capability similar to ufbdmp()
+C> - 2006-04-14  J. Ator    -- Add call to upftbv() for flag tables to get
+C>                             actual bits that were set to generate value
+C> - 2007-01-19  J. Ator    -- Use function ibfms()
+C> - 2009-03-23  J. Ator    -- Add level markers to output for sequences
+C>                             where the replication count is > 1; output
+C>                             all occurrences of long character strings
+C> - 2012-02-24  J. Ator    -- Fix missing check for long character strings
+C> - 2012-03-02  J. Ator    -- Label redefined reference values
+C> - 2014-12-10  J. Ator    -- Use modules instead of COMMON blocks
+C> - 2015-09-24  J. Woollen -- Print level identifiers for event stacks
+C> - 2020-08-18  J. Ator    -- Improve logic for sequence tracking
 C>
       SUBROUTINE UFDUMP(LUNIT,LUPRT)
 
@@ -88,8 +75,6 @@ C>
       USE MODA_TABABD
       USE MODA_TABLES
       USE MODA_NRV203
-
-      INCLUDE 'bufrlib.inc'
 
       COMMON /TABLEF/ CDMF
 

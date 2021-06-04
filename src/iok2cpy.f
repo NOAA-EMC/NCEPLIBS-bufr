@@ -1,46 +1,41 @@
 C> @file
-C> @author J @date 2009-06-26
-      
-C> THIS FUNCTION DETERMINES WHETHER A MESSAGE, OR A SUBSET
-C>   FROM A MESSAGE, CAN BE COPIED FROM LOGICAL UNIT IOLUN(LUI) TO
-C>   LOGICAL UNIT IOLUN(LUO).  THE DECISION IS BASED ON WHETHER THE
-C>   EXACT SAME DEFINITION FOR THE GIVEN MESSAGE TYPE APPEARS WITHIN
-C>   THE DICTIONARY TABLE INFORMATION FOR BOTH LOGICAL UNITS.  NOTE THAT
-C>   IT IS POSSIBLE FOR A MESSAGE TYPE TO BE IDENTICALLY DEFINED FOR TWO
-C>   DIFFERENT LOGICAL UNITS EVEN IF THE UNITS THEMSELVES DON'T SHARE
-C>   THE EXACT SAME FULL SET OF DICTIONARY TABLES.
+C> @brief Check whether a BUFR message or data subset can be copied
+C> from one BUFR file to another.
+
+C> This function determines whether a BUFR message, or a data subset
+C> from within a BUFR message, can be copied from one Fortran logical
+C> unit to another.
 C>
-C> PROGRAM HISTORY LOG:
-C> 2009-06-26  J. ATOR    -- ORIGINAL AUTHOR
-C> 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
+C> <p>The decision is based on whether both logical units contain
+C> identical definitions for the BUFR message type in question within
+C> their associated [DX BUFR Table information](@ref dfbftab).
+C> Note that it's possible for a BUFR message type to be identically
+C> defined for two different logical units even if the full set of
+C> associated DX BUFR table information isn't identical between both
+C> units.
 C>
-C> USAGE:    IOK2CPY (LUI, LUO)
-C>   INPUT ARGUMENT LIST:
-C>     LUI      - INTEGER: I/O STREAM INDEX INTO INTERNAL MEMORY ARRAYS
-C>                FOR LOGICAL UNIT TO COPY FROM
-C>     LUO      - INTEGER: I/O STREAM INDEX INTO INTERNAL MEMORY ARRAYS
-C>                FOR LOGICAL UNIT TO COPY TO
+C> @author J. Ator
+C> @date 2009-06-26
 C>
-C>   OUTPUT ARGUMENT LIST:
-C>     IOK2CPY  - INTEGER: RETURN CODE INDICATING WHETHER IT IS OKAY TO
-C>                COPY FROM IOLUN(LUI) TO IOLUN(LUO)
-C>                  0 - NO
-C>                  1 - YES
+C> @param[in]  LUI      - integer: Internal I/O stream index associated
+C>                        with source BUFR file
+C> @param[in]  LUO      - integer: Internal I/O stream index associated
+C>                        with target BUFR file
+C> @returns iok2cpy     - integer: Flag indicating whether a BUFR
+C>                        message or data subset can be copied from the
+C>                        BUFR file associated with LUI to the BUFR file
+C>                        associated with LUO
+C>                        - 0 = No
+C>                        - 1 = Yes
 C>
-C> REMARKS:
-C>    THIS ROUTINE CALLS:        ICMPDX   NEMTBAX
-C>    THIS ROUTINE IS CALLED BY: COPYSB   COPYMG   CPYMEM   UFBCPY
-C>                               Normally not called by any application
-C>                               programs.
+C> <b>Program history log:</b>
+C> - 2009-06-26  J. Ator    -- Original author
+C> - 2014-12-10  J. Ator    -- Use modules instead of COMMON blocks
 C>
       INTEGER FUNCTION IOK2CPY(LUI,LUO)
 
-
-
       USE MODA_MSGCWD
       USE MODA_TABLES
-
-      INCLUDE 'bufrlib.inc'
 
       CHARACTER*8  SUBSET
 

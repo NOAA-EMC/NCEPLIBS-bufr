@@ -21,7 +21,7 @@ C> important to do so when writing/encoding a BUFR file, in order to
 C> ensure that all output is properly flushed to LUNIT.
 C>
 C> <b>Program history log:</b>
-C> - 1994-01-06  J. Woollen -- ORIGINAL AUTHOR
+C> - 1994-01-06  J. Woollen -- Original author
 C> - 2003-11-04  J. Ator    -- Don't close lunit if opened as a NULL file
 C>                             by openbf()
 C> - 2003-11-04  S. Bender  -- Added remarks and routine interdependencies
@@ -37,7 +37,6 @@ C>
 
       USE MODA_NULBFR
 
-      INCLUDE 'bufrlib.inc'
       CHARACTER*128 ERRSTR
 
 C-----------------------------------------------------------------------

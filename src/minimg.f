@@ -1,58 +1,39 @@
 C> @file
-C> @author WOOLLEN @date 1994-01-06
-      
-C> THIS SUBROUTINE PACKS THE VALUE OF MINI INTO SECTION 1 OF
-C>   THE BUFR MESSAGE THAT IS CURRENTLY OPEN WITHIN MEMORY FOR LUNIT,
-C>   SO THAT THIS VALUE THEN BECOMES THE MINUTES COMPONENT OF THE
-C>   SECTION 1 DATE-TIME FOR THE MESSAGE.  THIS SUBROUTINE SHOULD ONLY
-C>   BE CALLED WHEN LOGICAL UNIT LUNIT HAS BEEN OPENED FOR OUTPUT
-C>   OPERATIONS.
+C> @brief Write a minutes value into Section 1 of a BUFR message.
+
+C> This subroutine writes a minutes value into Section 1 of the BUFR
+C> message that was most recently opened for writing via a call to
+C> one of the [message-writing subroutines](@ref hierarchy) for a
+C> specified Fortran logical unit.
 C>
-C> PROGRAM HISTORY LOG:
-C> 1994-01-06  J. WOOLLEN -- ORIGINAL AUTHOR (ENTRY POINT IN MSGINI)
-C> 1998-07-08  J. WOOLLEN -- REPLACED CALL TO CRAY LIBRARY ROUTINE
-C>                           "ABORT" WITH CALL TO NEW INTERNAL BUFRLIB
-C>                           ROUTINE "BORT" (IN PARENT ROUTINE MSGINI)
-C> 1999-11-18  J. WOOLLEN -- THE NUMBER OF BUFR FILES WHICH CAN BE
-C>                           OPENED AT ONE TIME INCREASED FROM 10 TO 32
-C>                           (NECESSARY IN ORDER TO PROCESS MULTIPLE
-C>                           BUFR FILES UNDER THE MPI) (IN PARENT
-C>                           ROUTINE MSGINI)
-C> 2000-09-19  J. WOOLLEN -- MAXIMUM MESSAGE LENGTH INCREASED FROM
-C>                           10,000 TO 20,000 BYTES (IN PARENT ROUTINE
-C>                           MSGINI)
-C> 2002-05-14  J. WOOLLEN -- CHANGED FROM AN ENTRY POINT TO INCREASE
-C>                           PORTABILITY TO OTHER PLATFORMS
-C> 2003-11-04  J. ATOR    -- ADDED DOCUMENTATION
-C> 2003-11-04  S. BENDER  -- ADDED REMARKS/BUFRLIB ROUTINE
-C>                           INTERDEPENDENCIES
-C> 2003-11-04  D. KEYSER  -- UNIFIED/PORTABLE FOR WRF; ADDED HISTORY
-C>                           DOCUMENTATION; OUTPUTS MORE COMPLETE
-C>                           DIAGNOSTIC INFO WHEN ROUTINE TERMINATES
-C>                           ABNORMALLY
-C> 2004-08-09  J. ATOR    -- MAXIMUM MESSAGE LENGTH INCREASED FROM
-C>                           20,000 TO 50,000 BYTES
-C> 2005-11-29  J. ATOR    -- USE PKBS1
-C> 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
+C> @author J. Woollen
+C> @date 1994-01-06
 C>
-C> USAGE:    CALL MINIMG (LUNIT, MINI)
-C>   INPUT ARGUMENT LIST:
-C>     LUNIT    - INTEGER: FORTRAN LOGICAL UNIT NUMBER FOR BUFR FILE
-C>     MINI     - INTEGER: MINUTES VALUE TO BE PACKED
+C> @param[in] LUNIT  - integer: Fortran logical unit number for
+C>                              BUFR file
+C> @param[in] MINI   - integer: Minutes value
 C>
-C> REMARKS:
-C>    THIS ROUTINE CALLS:        BORT     PKBS1    STATUS
-C>    THIS ROUTINE IS CALLED BY: None
-C>                               Normally called only by application
-C>                               programs.
+C> <b>Program history log:</b>
+C> - 1994-01-06  J. Woollen -- Original author
+C> - 1998-07-08  J. Woollen -- Replaced call to Cray library routine ABORT
+C>                             with call to new internal routine bort()
+C> - 1999-11-18  J. Woollen -- The number of BUFR files which can be
+C>                             opened at one time increased from 10 to 32
+C>                             (necessary in order to process multiple
+C>                             BUFR files under the MPI)
+C> - 2000-09-19  J. Woollen -- Maximum message length increased from
+C>                             10,000 to 20,000 bytes
+C> - 2002-05-14  J. Woollen -- Changed from an entry point to increase
+C>                             portability to other platforms
+C> - 2003-11-04  J. Ator    -- Added documentation
+C> - 2004-08-09  J. Ator    -- Maximum message length increased from
+C>                             20,000 to 50,000 bytes
+C> - 2005-11-29  J. Ator    -- Use pkbs1()
+C> - 2014-12-10  J. Ator    -- Use modules instead of COMMON blocks
 C>
       SUBROUTINE MINIMG(LUNIT,MINI)
 
-
-
       USE MODA_BITBUF
-
-      INCLUDE 'bufrlib.inc'
 
       CALL STATUS(LUNIT,LUN,IL,IM)
       IF(IL.EQ.0) GOTO 900

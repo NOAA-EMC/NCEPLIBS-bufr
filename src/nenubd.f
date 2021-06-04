@@ -47,11 +47,7 @@ C>                               programs.
 C>
       SUBROUTINE NENUBD(NEMO,NUMB,LUN)
 
-
-
       USE MODA_TABABD
-
-      INCLUDE 'bufrlib.inc'
 
       CHARACTER*128 BORT_STR
       CHARACTER*8   NEMO

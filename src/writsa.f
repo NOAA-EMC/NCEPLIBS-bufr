@@ -30,10 +30,11 @@ C> current message for the BUFR file associated with logical unit
 C> ABS(LUNXX).  Logical unit ABS(LUNXX) should have already been opened
 C> for output operations via a previous call to subroutine openbf(),
 C> and a BUFR message should already be open for output within internal
-C> arrays via a previous call to subroutine openmg() or openmb().
+C> arrays via a previous call to one of the BUFRLIB
+C> [message-writing subroutines](@ref hierarchy).
 C> Furthermore, all of the values for the data subset should have
-C> already been written into internal arrays via calls to subroutines
-C> ufbint(), ufbrep(), ufbseq(), etc.
+C> already been written into internal arrays via calls to any of the
+C> BUFRLIB [values-writing subroutines](@ref hierarchy)
 C>
 C> <p>Where this subroutine differs from writsb() is that, in addition
 C> to doing all of the above, it also returns a copy of each completed
@@ -76,9 +77,9 @@ C> subset to the current message would cause the maximum message size
 C> to be exceeded, then the subroutine will automatically flush the
 C> current message to logical unit ABS(LUNXX) and to array MSGT, then
 C> open and initialize a new internal message using the same SUBSET and
-C> JDATE values that were specified in the most recent call to
-C> openmg() or openmb() for ABS(LUNXX), then encode and pack the data
-C> subset into that new message.
+C> JDATE values that were specified in the most recent call to one of
+C> the [message-writing subroutines](@ref hierarchy) for ABS(LUNXX),
+C> then encode and pack the data subset into that new message.
 C> - If the user would prefer that output messages only be returned
 C> to the calling program via the MSGT memory array and not also
 C> written to Fortran logical unit ABS(LUNXX), then this can be
@@ -117,8 +118,6 @@ C>
       SUBROUTINE WRITSA(LUNXX,LMSGT,MSGT,MSGL)
 
       USE MODA_BUFRMG
-
-      INCLUDE 'bufrlib.inc'
 
       COMMON /MSGCMP/ CCMF
 

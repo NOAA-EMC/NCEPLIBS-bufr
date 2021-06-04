@@ -1,54 +1,46 @@
 C> @file
-C> @author J @date 2012-09-12
-	
-C> GIVEN A MNEMONIC CORRESPONDING TO A CHILD DESCRIPTOR
-C>   WITHIN A PARENT SEQUENCE, THIS SUBROUTINE RETURNS THE MNEMONIC
-C>   CORRESPONDING TO THE PARENT SEQUENCE.  A SUBSET DEFINITION MUST
-C>   ALREADY BE IN SCOPE, EITHER VIA A PREVIOUS CALL TO BUFR ARCHIVE
-C>   LIBRARY SUBROUTINE READSB OR EQUIVALENT (FOR INPUT FILES) OR TO
-C>   SUBROUTINE OPENMB OR EQUIVALENT (FOR OUTPUT FILES).  IF THERE IS
-C>   MORE THAN ONE OCCURRENCE OF THE CHILD DESCRIPTOR WITHIN THE
-C>   OVERALL SUBSET DEFINITION, THIS SUBROUTINE WILL RETURN THE PARENT
-C>   MNEMONIC CORRESPONDING TO THE (NTAGCH)th OCCURRENCE OF THE CHILD,
-C>   COUNTING FROM THE BEGINNING OF THE OVERALL SUBSET DEFINITION.
+C> @brief Get the parent for a specified occurrence of a Table B or
+C> Table D mnemonic.
+
+C> This subroutine returns the Table D mnemonic corresponding to the
+C> parent sequence of a specified Table B or Table D mnemonic within
+C> a data subset definition.
 C>
-C> PROGRAM HISTORY LOG:
-C> 2012-09-12  J. ATOR    -- ORIGINAL AUTHOR
-C> 2014-10-02  J. ATOR    -- MODIFIED TO USE FSTAG
-C> 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
+C> @author J. Ator
+C> @date 2012-09-12
 C>
-C> USAGE:    CALL GETTAGPR (LUNIT, TAGCH, NTAGCH, TAGPR, IRET)
-C>   INPUT ARGUMENT LIST:
-C>     LUNIT    - INTEGER: FORTRAN LOGICAL UNIT NUMBER FOR BUFR FILE
-C>     TAGCH    - CHARACTER*(*): MNEMONIC CORRESPONDING TO CHILD
-C>                DESCRIPTOR
-C>     NTAGCH   - INTEGER: ORDINAL OCCURRENCE OF TAGCH FOR WHICH
-C>                TAGPR IS TO BE RETURNED, COUNTING FROM THE
-C>                BEGINNING OF THE OVERALL SUBSET DEFINITION
+C> @param[in] LUNIT  - integer: Fortran logical unit number for
+C>                     BUFR file
+C> @param[in] TAGCH  - character*(*): Table B or Table D mnemonic
+C> @param[in] NTAGCH - integer: Ordinal occurrence of TAGCH for
+C>                     which the parent Table D mnemonic is to be
+C>                     returned, counting from the beginning of the
+C>                     overall subset definition
+C> @param[out] TAGPR - character*(*): Table D mnemonic corresponding
+C>                     to parent sequence of (NTAGCH)th occurrence
+C>                     of TAGCH
+C> @param[out] IRET  - integer: return code
+C>                     - 0 = normal return
+C>                     - -1 = TAGPR could not be found, or some
+C>                            other error occurred
 C>
-C>   OUTPUT ARGUMENT LIST:
-C>     TAGPR    - CHARACTER*(*): MNEMONIC CORRESPONDING TO PARENT
-C>                SEQUENCE DESCRIPTOR
-C>     IRET     - INTEGER: RETURN CODE
-C>                   0 = NORMAL RETURN
-C>                  -1 = PARENT MNEMONIC COULD NOT BE FOUND, OR SOME
-C>                       OTHER ERROR OCCURRED
+C> <p>A data subset must already be in scope within the BUFRLIB
+C> internal arrays for LUNIT, either via a previous call to one
+C> of the [subset-reading subroutines](@ref hierarchy)
+C> (when reading BUFR data subsets) or via a previous call to one
+C> of the [message-writing subroutines](@ref hierarchy)
+C> (when writing BUFR data subsets).
 C>
-C> REMARKS:
-C>    THIS ROUTINE CALLS:        FSTAG    STATUS
-C>    THIS ROUTINE IS CALLED BY: None
-C>                               Normally called only by application
-C>                               programs
+C> <b>Program history log:</b>
+C> - 2012-09-12  J. Ator    -- Original author
+C> - 2014-10-02  J. Ator    -- Modified to use fstag()
+C> - 2014-12-10  J. Ator    -- Use modules instead of COMMON blocks
 C>
 	SUBROUTINE GETTAGPR ( LUNIT, TAGCH, NTAGCH, TAGPR, IRET )
-
-
 
 	USE MODA_USRINT
 	USE MODA_MSGCWD
 	USE MODA_TABLES
-
-	INCLUDE 'bufrlib.inc'
 
 	CHARACTER*(*) TAGCH, TAGPR
 

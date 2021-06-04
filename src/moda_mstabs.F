@@ -1,3 +1,17 @@
+C> @file
+C> @brief Declare arrays for internal storage of master Table B
+C> and Table D entries.
+
+C> This module contains array and variable declarations used to
+C> store master Table B and Table D entries within internal
+C> memory.
+C>
+C> <p>Data values within this module are stored by subroutine
+C> ireadmt().
+C>
+C> @author J. Ator
+C> @date 2014-12-10
+
 	MODULE MODA_MSTABS
 
 #ifndef MAXCD_H
@@ -14,6 +28,49 @@
 #define MXMTBD_H
 	  USE MODV_MXMTBD
 #endif
+
+C>        @var nmtb
+C>        Number of master Table B entries (up to a maximum of MXMTBB).
+C>
+C>        @var ibfxyn
+C>        Bitwise representations of FXY numbers for master Table B.
+C>
+C>        @var cbscl
+C>        Scale factors corresponding to ibfxyn.
+C>
+C>        @var cbsref
+C>        Reference values corresponding to ibfxyn.
+C>
+C>        @var cbbw
+C>        Bit widths corresponding to ibfxyn.
+C>
+C>        @var cbunit
+C>        Units corresponding to ibfxyn.
+C>
+C>        @var cbmnem
+C>        Mnemonics corresponding to ibfxyn.
+C>
+C>        @var cbelem
+C>        Element names corresponding to ibfxyn.
+C>
+C>        @var nmtd
+C>        Number of master Table D entries (up to a maximum of MXMTBD).
+C>
+C>        @var idfxyn
+C>        Bitwise representations of FXY numbers for master Table D.
+C>
+C>        @var cdseq
+C>        Sequence names corresponding to idfxyn.
+C>
+C>        @var cdmnem
+C>        Mnemonics corresponding to idfxyn.
+C>
+C>        @var ndelem
+C>        Numbers of child descriptors corresponding to idfxyn.
+C>
+C>        @var idefxy
+C>        Bitwise representations of child descriptors corresponding
+C>        to idfxyn.
 
 #ifdef DYNAMIC_ALLOCATION
 	  INTEGER :: NMTB
@@ -37,7 +94,7 @@
 	  CHARACTER, BIND(C) :: CBSCL(4,MXMTBB)
 	  CHARACTER, BIND(C) :: CBSREF(12,MXMTBB)
 	  CHARACTER, BIND(C) :: CBBW(4,MXMTBB)
-	  CHARACTER, BIND(C) :: CBUNIT(14,MXMTBB)
+	  CHARACTER, BIND(C) :: CBUNIT(24,MXMTBB)
 	  CHARACTER, BIND(C) :: CBMNEM(8,MXMTBB)
 	  CHARACTER, BIND(C) :: CBELEM(120,MXMTBB)
 	  INTEGER, BIND(C) :: IDFXYN(MXMTBD)

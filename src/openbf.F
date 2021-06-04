@@ -1,8 +1,8 @@
 C> @file
-C> @brief Identify a new system file to the BUFRLIB software for
+C> @brief Connect a new system file to the BUFRLIB software for
 C> reading or writing BUFR messages.
 
-C> This subroutine identifies a new file to the BUFRLIB software for
+C> This subroutine connects a new file to the BUFRLIB software for
 C> input or output operations.
 C>
 C> @authors J. Woollen
@@ -11,8 +11,8 @@ C> @authors D. Keyser
 C> @date 1994-01-06
 C>
 C> @param[in] LUNIT    - integer: Fortran logical unit number for BUFR
-C>                       file (unless IO is set to 'QUIET', in which
-C>                       case this is then a dummy argument)
+C>                       file (unless IO is set to 'FIRST' or 'QUIET', in
+C>                       which case this is a dummy argument)
 C> @param[in] IO       - character*(*): flag indicating how LUNIT is to be
 C>                       used by the software:
 C>                 -   'IN' = input operations with table processing
@@ -40,17 +40,21 @@ C>                             messages whatsoever from LUNIT (e.g. when
 C>                             subroutine readerme() is to be used)
 C>                 - 'QUIET' = LUNIT is ignored; this is an indicator
 C>                             that the value for IPRT in COMMON block
-C>                             /QUIET/ is being reset (see LUNDX)
-C>                 - 'FIRST' = calls bfrini() and wrdlen() as a prelude to
-C>                             user resetting of global parameters such as
-C>                             missing value or output block type
+C>                             /QUIET/ is being reset to the value in
+C>                             LUNDX
+C>                 - 'FIRST' = LUNIT and LUNDX are ignored; this is an
+C>                             indicator to initialize the BUFRLIB
+C>                             software, in case this subroutine was
+C>                             never previously called
 C> @param[in] LUNDX    - integer:
-C>                 - If IO is not 'QUIET' = Fortran logical unit number
+C>                 - If IO is not set to 'FIRST' or 'QUIET' =
+C>                   Fortran logical unit number
 C>                   containing DX BUFR table information to be used in
 C>                   reading/writing from/to LUNIT (depending on the case).
 C>                   This value may be set equal to LUNIT if DX BUFR table
 C>                   information is already embedded in LUNIT.
-C>                 - If IO is 'QUIET' = indicator for degree of printout:
+C>                 - If IO is set to 'QUIET' = indicator for degree of
+C>                   printout:
 C>                      - -1 = no printout except for ABORT messages
 C>                      -  0 = limited printout (default)
 C>                      -  1 = all warning messages are printed out
@@ -75,11 +79,13 @@ C> user is attempting to read BUFR messages whose content and descriptor layout
 C> are unknown in advance. However, all of these additional options are
 C> basically just variations of 'IN' or 'OUT', again depending on whether the
 C> intent is to read or write BUFR messages from the file connected to LUNIT.
-C> The only exception is when IO = 'QUIET', and in this case the subroutine
-C> performs only one function - it simply sets or resets the print verbosity
-C> switch to the value of input argument LUNDX, overriding its previous value.
-C> A default verbosity value of 0 (i.e. limited printout) is set during the first
-C> call to this subroutine, but other options are also available as shown below.
+C> The only exceptions are when IO = 'FIRST' or 'QUIET'.  When IO = 'FIRST',
+C> the subroutine simply checks whether it has already been called from within
+C> the application program and, if not, goes ahead and initializes the library
+C> without actually connecting any files in LUNIT or LUNDX.
+C> Alternatively, when IO = 'QUIET', the subroutine simply sets or resets the
+C> internal print verbosity switch to the value of input argument LUNDX,
+C> overriding its previous value and/or its internal default value of 0.
 C>
 C> <p>The third and final call argument LUNDX identifies the logical unit which
 C> contains the definition of the DX BUFR tables to be associated with unit
@@ -128,14 +134,14 @@ C>                             documentation; outputs more complete
 C>                             diagnostic info when routine terminates
 C>                             abnormally, unusual things happen or for
 C>                             informational purposes
-C> - 2004-08-18  J. Ator    -- added SAVE for IFIRST flag and IO="NODX"
+C> - 2004-08-18  J. Ator    -- Added SAVE for IFIRST flag and IO="NODX"
 C>                             option 
-C> - 2005-11-29  J. Ator    -- added COMMON /MSGFMT/ and ichkstr() call
-C> - 2009-03-23  J. Ator    -- added IO='SEC3' option; removed call to
+C> - 2005-11-29  J. Ator    -- Added COMMON /MSGFMT/ and ichkstr() call
+C> - 2009-03-23  J. Ator    -- Added IO='SEC3' option; removed call to
 C>                             posapn; clarified comments; use errwrt()
-C> - 2010-05-11  J. Ator    -- added COMMON /STCODE/
-C> - 2012-06-18  J. Ator    -- added IO='INUL' option
-C> - 2012-09-15  J. Woollen -- modified for C/I/O/BUFR interface;
+C> - 2010-05-11  J. Ator    -- Added COMMON /STCODE/
+C> - 2012-06-18  J. Ator    -- Added IO='INUL' option
+C> - 2012-09-15  J. Woollen -- Modified for C/I/O/BUFR interface;
 C>                             use INQUIRE to obtain the filename;
 C>                             call C routines openrb(), openwb() and 
 C>                             openab() to connect BUFR files to C;
@@ -145,20 +151,18 @@ C>                             file; add IO type 'FIRST' to support calls
 C>                             to bfrini() and wrdlen() prior to user reset
 C>                             of BUFRLIB parameters found in new routines 
 C>                             setbmiss() and setblock()
-C> - 2014-11-07  J. Ator    -- allow dynamic allocation of certain arrays
-C> - 2015-03-03  J. Ator    -- use MODA_IFOPBF instead of IFIRST
+C> - 2014-11-07  J. Ator    -- Allow dynamic allocation of certain arrays
+C> - 2015-03-03  J. Ator    -- Use MODA_IFOPBF instead of IFIRST
 C>
       SUBROUTINE OPENBF(LUNIT,IO,LUNDX)
 
+      USE MODV_IFOPBF
       USE MODA_MSGCWD
       USE MODA_STBFR
       USE MODA_SC3BFR
       USE MODA_LUSHR
       USE MODA_NULBFR
       USE MODA_STCODE
-      USE MODA_IFOPBF
-
-      INCLUDE 'bufrlib.inc'
 
       COMMON /QUIET / IPRT
 

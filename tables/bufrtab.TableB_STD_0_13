@@ -1,7 +1,7 @@
 Table B STD |  0 | 13
 #
 # Standard BUFR Table B, Master Table 0, Version 13
-# This file was generated: 2016/10/28 15:41:45
+# This file was generated: 2021/05/11 22:55:47
 #
 #========================================================================================================
 # F-XX-YYY |SCALE| REFERENCE   | BIT |      UNIT         | MNEMONIC ;DESC ;  ELEMENT NAME
@@ -39,8 +39,8 @@ Table B STD |  0 | 13
   0-01-010 |   0 |           0 |  64 | CCITT IA5         | SBPI     ;     ; Stationary buoy platform identifier; e.g. C-MAN buoys
   0-01-011 |   0 |           0 |  72 | CCITT IA5         | SMID     ;     ; Ship or mobile land station identifier
   0-01-012 |   0 |           0 |   9 | Degree true       | DOMO     ;     ; Direction of motion of moving observing platform
-  0-01-013 |   0 |           0 |  10 | m s⁻¹             | SMMO     ;     ; Speed of motion of moving observing platform
-  0-01-014 |   2 |           0 |  10 | m s⁻¹             | PLDS     ;     ; Platform drift speed (high precision)
+  0-01-013 |   0 |           0 |  10 | m s**-1           | SMMO     ;     ; Speed of motion of moving observing platform
+  0-01-014 |   2 |           0 |  10 | m s**-1           | PLDS     ;     ; Platform drift speed (high precision)
   0-01-015 |   0 |           0 | 160 | CCITT IA5         | STSN     ;     ; Station or site name
   0-01-018 |   0 |           0 |  40 | CCITT IA5         | SSTN     ;     ; Short station or site name
   0-01-019 |   0 |           0 | 256 | CCITT IA5         | LSTN     ;     ; Long station or site name
@@ -60,9 +60,9 @@ Table B STD |  0 | 13
   0-01-035 |   0 |           0 |  16 | Code table        | ORIGC    ;     ; Originating centre
   0-01-036 |   0 |           0 |  20 | Code table        | AOOP     ;     ; Agency in charge of operating the observing platform
   0-01-037 |   0 |           0 |  24 | CCITT IA5         | SIGSI    ;     ; SIGMET sequence identifier
-  0-01-041 |   5 | -1073741824 |  31 | m s⁻¹             | PS00     ;     ; Absolute platform velocity - first component
-  0-01-042 |   5 | -1073741824 |  31 | m s⁻¹             | PS90     ;     ; Absolute platform velocity - second component
-  0-01-043 |   5 | -1073741824 |  31 | m s⁻¹             | PSNP     ;     ; Absolute platform velocity - third component
+  0-01-041 |   5 | -1073741824 |  31 | m s**-1           | PS00     ;     ; Absolute platform velocity - first component
+  0-01-042 |   5 | -1073741824 |  31 | m s**-1           | PS90     ;     ; Absolute platform velocity - second component
+  0-01-043 |   5 | -1073741824 |  31 | m s**-1           | PSNP     ;     ; Absolute platform velocity - third component
   0-01-050 |   0 |           0 |  17 | Numeric           | PTID     ;     ; Platform transmitter ID number
   0-01-051 |   0 |           0 |  96 | CCITT IA5         | PTIDC    ;     ; Platform transmitter ID number
   0-01-060 |   0 |           0 |  64 | CCITT IA5         | ACRP     ;     ; Aircraft reporting point (Beacon identifier)
@@ -164,12 +164,12 @@ Table B STD |  0 | 13
   0-02-106 |   1 |           0 |   6 | Degree            | BEAMW    ;     ; 3-dB beamwidth
   0-02-107 |   0 |           0 |   6 | dB                | SLSU     ;     ; Sidelobe suppression
   0-02-108 |   0 |           0 |   6 | dB                | CPDS     ;     ; Crosspol discrimination (on axis)
-  0-02-109 |   2 |           0 |  12 | Degree s⁻¹        | ANSA     ;     ; Antenna speed (azimuth)
-  0-02-110 |   2 |           0 |  12 | Degree s⁻¹        | ANSE     ;     ; Antenna speed (elevation)
+  0-02-109 |   2 |           0 |  12 | Degree s**-1      | ANSA     ;     ; Antenna speed (azimuth)
+  0-02-110 |   2 |           0 |  12 | Degree s**-1      | ANSE     ;     ; Antenna speed (elevation)
   0-02-111 |   1 |           0 |  10 | Degree            | RAIA     ;     ; Radar incidence angle
   0-02-112 |   1 |           0 |  12 | Degree            | RALA     ;     ; Radar look angle
   0-02-113 |   0 |           0 |   4 | Numeric           | NOAL     ;     ; Number of azimuth looks
-  0-02-114 |   0 |           0 |  15 | m²                | ANES     ;     ; Antenna effective surface area
+  0-02-114 |   0 |           0 |  15 | m**2              | ANES     ;     ; Antenna effective surface area
   0-02-115 |   0 |           0 |   5 | Code table        | SFEQP    ;     ; Type of surface observing equipment
   0-02-116 |   0 |           0 |   7 | %                 | P320     ;     ; Percentage of 320 MHz band processed
   0-02-117 |   0 |           0 |   7 | %                 | P080     ;     ; Percentage of 80 MHz band processed
@@ -218,7 +218,7 @@ Table B STD |  0 | 13
   0-02-168 |  -3 |           0 |  16 | Pa                | HPLE     ;     ; Hydrostatic pressure of lower end of cable (thermistor string)
   0-02-169 |   0 |           0 |   4 | Code table        | ANTP     ;     ; Anemometer type
   0-02-172 |   0 |           0 |   8 | Code table        | PTAG     ;     ; Product type for retrieved atmospheric gases
-  0-02-173 |   4 |           0 |  10 | Degree²           | SONA     ;     ; Square of the off-nadir angle
+  0-02-173 |   4 |           0 |  10 | Degree**2         | SONA     ;     ; Square of the off-nadir angle
   0-02-174 |   0 |           0 |   9 | Numeric           | MACP     ;     ; Mean across track pixel number
   0-02-175 |   0 |           0 |   4 | Code table        | MOPM     ;     ; Method of precipitation measurement
   0-02-176 |   0 |           0 |   4 | Code table        | MSGM     ;     ; Method of state of ground measurement
@@ -301,19 +301,19 @@ Table B STD |  0 | 13
   0-06-015 |   5 |   -18000000 |  26 | Degree            | LONDH    ;     ; Longitude displacement (high accuracy)
   0-06-016 |   2 |      -18000 |  16 | Degree            | LOND     ;     ; Longitude displacement (coarse accuracy)
   0-06-021 |  -1 |           0 |  13 | m                 | DIST     ;     ; Distance
-  0-06-030 |   5 |           0 |  13 | rad m⁻¹           | WNSP     ;     ; Wave number (spectral)
+  0-06-030 |   5 |           0 |  13 | rad m**-1         | WNSP     ;     ; Wave number (spectral)
   0-06-031 |   0 |           0 |  12 | Numeric           | COLN     ;     ; Column number
   0-06-033 |  -1 |           0 |  16 | m                 | PSH2     ;     ; Pixel size on horizontal - 2
   0-06-034 |   0 |           0 |   7 | Numeric           | CTCN     ;     ; Cross-track cell number
   0-06-040 |   0 |           0 |  13 | m                 | RAOC     ;     ; Radius of confidence
   0-07-001 |   0 |        -400 |  15 | m                 | SELV     ;     ; Height of station
   0-07-002 |  -1 |         -40 |  16 | m                 | HMSL     ;     ; Height or altitude
-  0-07-003 |  -1 |        -400 |  17 | m² s⁻²            | GP07C    ;     ; Geopotential
+  0-07-003 |  -1 |        -400 |  17 | m**2 s**-2        | GP07C    ;     ; Geopotential
   0-07-004 |  -1 |           0 |  14 | Pa                | PRLC     ;     ; Pressure
   0-07-005 |   0 |        -400 |  12 | m                 | HINC     ;     ; Height increment
   0-07-006 |   0 |           0 |  15 | m                 | HAST     ;     ; Height above station
   0-07-007 |   0 |       -1000 |  17 | m                 | HEIT     ;     ; Height
-  0-07-008 |   0 |      -10000 |  20 | m² s⁻²            | GP07     ;     ; Geopotential
+  0-07-008 |   0 |      -10000 |  20 | m**2 s**-2        | GP07     ;     ; Geopotential
   0-07-009 |   0 |       -1000 |  17 | gpm               | GPHTST   ;     ; Geopotential height
   0-07-010 |   0 |       -1024 |  16 | m                 | FLVLST   ;     ; Flight level
   0-07-021 |   2 |       -9000 |  15 | Degree            | ELEV     ;     ; Elevation
@@ -387,10 +387,10 @@ Table B STD |  0 | 13
   0-08-085 |   0 |           0 |   3 | Code table        | BEAMI    ;     ; Beam identifier
   0-10-001 |   0 |        -400 |  15 | m                 | HOLS     ;     ; Height of land surface
   0-10-002 |  -1 |         -40 |  16 | m                 | HITE     ;     ; Height
-  0-10-003 |  -1 |        -400 |  17 | m² s⁻²            | GEOP     ;     ; Geopotential
+  0-10-003 |  -1 |        -400 |  17 | m**2 s**-2        | GEOP     ;     ; Geopotential
   0-10-004 |  -1 |           0 |  14 | Pa                | PRES     ;     ; Pressure
   0-10-007 |   0 |       -1000 |  17 | m                 | HGHT     ;     ; Height
-  0-10-008 |   0 |      -10000 |  20 | m² s⁻²            | GP10     ;     ; Geopotential
+  0-10-008 |   0 |      -10000 |  20 | m**2 s**-2        | GP10     ;     ; Geopotential
   0-10-009 |   0 |       -1000 |  17 | gpm               | GPH10    ;     ; Geopotential height
   0-10-010 |  -1 |           0 |  14 | Pa                | PMSLMN   ;     ; Minimum pressure reduced to mean sea level
   0-10-011 |  -1 |           0 |  14 | Pa                | PMSLMX   ;     ; Maximum pressure reduced to mean sea level
@@ -412,9 +412,9 @@ Table B STD |  0 | 13
   0-10-070 |   0 |        -400 |  16 | m                 | IALT     ;     ; Indicated aircraft altitude
   0-10-080 |   2 |       -9000 |  15 | Degree            | VZAN     ;     ; Viewing zenith angle
   0-10-081 |   3 |           0 |  31 | m                 | ALRE     ;     ; Altitude of COG above reference ellipsoid
-  0-10-082 |   3 |      -65536 |  17 | m s⁻¹             | IALR     ;     ; Instantaneous altitude rate
-  0-10-083 |   2 |           0 |  16 | Degree²           | ONAP     ;     ; Squared off nadir angle of the satellite from platform data
-  0-10-084 |   2 |           0 |  16 | Degree²           | ONAW     ;     ; Squared off nadir angle of the satellite from waveform data
+  0-10-082 |   3 |      -65536 |  17 | m s**-1           | IALR     ;     ; Instantaneous altitude rate
+  0-10-083 |   2 |           0 |  16 | Degree**2         | ONAP     ;     ; Squared off nadir angle of the satellite from platform data
+  0-10-084 |   2 |           0 |  16 | Degree**2         | ONAW     ;     ; Squared off nadir angle of the satellite from waveform data
   0-10-085 |   3 |     -131072 |  18 | m                 | MSSH     ;     ; Mean sea surface height
   0-10-086 |   3 |     -131072 |  18 | m                 | GEODH    ;     ; Geoid's height
   0-10-087 |   1 |     -131072 |  18 | m                 | ODLE     ;     ; Ocean depth/land elevation
@@ -426,61 +426,61 @@ Table B STD |  0 | 13
   0-10-093 |   3 |      -32768 |  16 | m                 | GPTH     ;     ; Geocentric pole tide height
   0-10-095 |   0 |           0 |  16 | m                 | HOAU     ;     ; Height of atmosphere used
   0-11-001 |   0 |           0 |   9 | Degree true       | WDIR     ;     ; Wind direction
-  0-11-002 |   1 |           0 |  12 | m s⁻¹             | WSPD     ;     ; Wind speed
-  0-11-003 |   1 |       -4096 |  13 | m s⁻¹             | UWND     ;     ; u-component
-  0-11-004 |   1 |       -4096 |  13 | m s⁻¹             | VWND     ;     ; v-component
-  0-11-005 |   1 |        -512 |  10 | Pa s⁻¹            | OMEGA    ;     ; w-component
-  0-11-006 |   2 |       -4096 |  13 | m s⁻¹             | WCMP     ;     ; w-component
+  0-11-002 |   1 |           0 |  12 | m s**-1           | WSPD     ;     ; Wind speed
+  0-11-003 |   1 |       -4096 |  13 | m s**-1           | UWND     ;     ; u-component
+  0-11-004 |   1 |       -4096 |  13 | m s**-1           | VWND     ;     ; v-component
+  0-11-005 |   1 |        -512 |  10 | Pa s**-1          | OMEGA    ;     ; w-component
+  0-11-006 |   2 |       -4096 |  13 | m s**-1           | WCMP     ;     ; w-component
   0-11-010 |   0 |           0 |   9 | Degree true       | WDAS     ;     ; Wind direction associated with wind speed which follows
   0-11-011 |   0 |           0 |   9 | Degree true       | WD10     ;     ; Wind direction at 10 m
-  0-11-012 |   1 |           0 |  12 | m s⁻¹             | WS10     ;     ; Wind speed at 10 m
+  0-11-012 |   1 |           0 |  12 | m s**-1           | WS10     ;     ; Wind speed at 10 m
   0-11-013 |   0 |           0 |   9 | Degree true       | WD05     ;     ; Wind direction at 5 m
-  0-11-014 |   1 |           0 |  12 | m s⁻¹             | WS05     ;     ; Wind speed at 5 m
+  0-11-014 |   1 |           0 |  12 | m s**-1           | WS05     ;     ; Wind speed at 5 m
   0-11-016 |   0 |           0 |   9 | Degree true       | DRC1     ;     ; Extreme counterclockwise wind direction of a variable wind
   0-11-017 |   0 |           0 |   9 | Degree true       | DRC2     ;     ; Extreme clockwise wind direction of a variable wind
   0-11-019 |   0 |           0 |   7 | %                 | STOW     ;     ; Steadiness of wind
-  0-11-021 |   9 |      -65536 |  17 | s⁻¹               | RVORT    ;     ; Relative vorticity
-  0-11-022 |   9 |      -65536 |  17 | s⁻¹               | DIVG     ;     ; Divergence
-  0-11-023 |  -2 |      -65536 |  17 | m² s⁻¹            | VPOT     ;     ; Velocity potential
+  0-11-021 |   9 |      -65536 |  17 | s**-1             | RVORT    ;     ; Relative vorticity
+  0-11-022 |   9 |      -65536 |  17 | s**-1             | DIVG     ;     ; Divergence
+  0-11-023 |  -2 |      -65536 |  17 | m**2 s**-1        | VPOT     ;     ; Velocity potential
   0-11-030 |   0 |           0 |   6 | Code table        | DGOTX    ;     ; Extended degree of turbulence
   0-11-031 |   0 |           0 |   4 | Code table        | DGOT     ;     ; Degree of turbulence
   0-11-032 |  -1 |         -40 |  16 | m                 | HBOT     ;     ; Height of base of turbulence
   0-11-033 |  -1 |         -40 |  16 | m                 | HTOT     ;     ; Height of top of turbulence
-  0-11-034 |   1 |       -1024 |  11 | m s⁻¹             | VGVL     ;     ; Vertical gust velocity
-  0-11-035 |   2 |       -8192 |  14 | m s⁻²             | VGAC     ;     ; Vertical gust acceleration
-  0-11-036 |   1 |           0 |  10 | m s⁻¹             | MDEVG    ;     ; Maximum derived equivalent vertical gust speed
+  0-11-034 |   1 |       -1024 |  11 | m s**-1           | VGVL     ;     ; Vertical gust velocity
+  0-11-035 |   2 |       -8192 |  14 | m s**-2           | VGAC     ;     ; Vertical gust acceleration
+  0-11-036 |   1 |           0 |  10 | m s**-1           | MDEVG    ;     ; Maximum derived equivalent vertical gust speed
   0-11-037 |   0 |           0 |   6 | Code table        | TRBXST   ;     ; Turbulence index
   0-11-038 |   0 |           0 |   5 | Code table        | TOPEDR   ;     ; Time of occurrence of peak eddy dissipation rate
   0-11-039 |   0 |           0 |   6 | Code table        | XTOPEDR  ;     ; Extended time of occurrence of peak eddy dissipation rate
-  0-11-040 |   1 |           0 |  12 | m s⁻¹             | MXWS     ;     ; Maximum wind speed (mean wind)
-  0-11-041 |   1 |           0 |  12 | m s⁻¹             | MXGS     ;     ; Maximum wind gust speed
-  0-11-042 |   1 |           0 |  12 | m s⁻¹             | MXWS10   ;     ; Maximum wind speed (10-minute mean wind)
+  0-11-040 |   1 |           0 |  12 | m s**-1           | MXWS     ;     ; Maximum wind speed (mean wind)
+  0-11-041 |   1 |           0 |  12 | m s**-1           | MXGS     ;     ; Maximum wind gust speed
+  0-11-042 |   1 |           0 |  12 | m s**-1           | MXWS10   ;     ; Maximum wind speed (10-minute mean wind)
   0-11-043 |   0 |           0 |   9 | Degree true       | MXGD     ;     ; Maximum wind gust direction
   0-11-044 |   0 |           0 |   9 | Degree true       | MWDL     ;     ; Mean wind direction for surface - 1500 m (5000 feet)
-  0-11-045 |   1 |           0 |  12 | m s⁻¹             | MWSL     ;     ; Mean wind speed for surface - 1500 m (5000 feet)
-  0-11-046 |   1 |           0 |  12 | m s⁻¹             | MIWS     ;     ; Maximum instantaneous wind speed
-  0-11-047 |   1 |           0 |  12 | m s⁻¹             | MIWS10   ;     ; Maximum instantaneous wind speed over 10 minutes
+  0-11-045 |   1 |           0 |  12 | m s**-1           | MWSL     ;     ; Mean wind speed for surface - 1500 m (5000 feet)
+  0-11-046 |   1 |           0 |  12 | m s**-1           | MIWS     ;     ; Maximum instantaneous wind speed
+  0-11-047 |   1 |           0 |  12 | m s**-1           | MIWS10   ;     ; Maximum instantaneous wind speed over 10 minutes
   0-11-049 |   0 |           0 |   9 | Degree true       | SDWD     ;     ; Standard deviation of wind direction
-  0-11-050 |   1 |           0 |  12 | m s⁻¹             | SDHS     ;     ; Standard deviation of horizontal wind speed
-  0-11-051 |   1 |           0 |   8 | m s⁻¹             | SDVS     ;     ; Standard deviation of vertical wind speed
-  0-11-052 |   2 |           0 |  13 | m s⁻¹             | FUWS     ;     ; Formal uncertainty in wind speed
+  0-11-050 |   1 |           0 |  12 | m s**-1           | SDHS     ;     ; Standard deviation of horizontal wind speed
+  0-11-051 |   1 |           0 |   8 | m s**-1           | SDVS     ;     ; Standard deviation of vertical wind speed
+  0-11-052 |   2 |           0 |  13 | m s**-1           | FUWS     ;     ; Formal uncertainty in wind speed
   0-11-053 |   2 |           0 |  15 | Degree true       | FUWD     ;     ; Formal uncertainty in wind direction
   0-11-054 |   0 |           0 |   9 | Degree true       | MWDIRL   ;     ; Mean wind direction for 1500 m - 3000 m
-  0-11-055 |   1 |           0 |  12 | m s⁻¹             | MWSPDL   ;     ; Mean wind speed for 1500 m - 3000 m
-  0-11-061 |   1 |           0 |  12 | m s⁻¹             | AWSB     ;     ; Absolute wind shear in 1 km layer below
-  0-11-062 |   1 |           0 |  12 | m s⁻¹             | AWSA     ;     ; Absolute wind shear in 1 km layer above
+  0-11-055 |   1 |           0 |  12 | m s**-1           | MWSPDL   ;     ; Mean wind speed for 1500 m - 3000 m
+  0-11-061 |   1 |           0 |  12 | m s**-1           | AWSB     ;     ; Absolute wind shear in 1 km layer below
+  0-11-062 |   1 |           0 |  12 | m s**-1           | AWSA     ;     ; Absolute wind shear in 1 km layer above
   0-11-070 |   0 |           0 |  32 | CCITT IA5         | DRAS     ;     ; Designator of the runway affected by wind shear (including ALL)
-  0-11-071 |   3 |        -128 |  14 | m² s⁻²            | TVMF     ;     ; Turbulent vertical momentum flux
-  0-11-072 |   3 |        -128 |  11 | K m s⁻¹           | TVBF     ;     ; Turbulent vertical buoyancy flux
-  0-11-073 |   2 |       -1024 |  13 | m² s⁻²            | TKEN     ;     ; Turbulent kinetic energy
-  0-11-074 |   2 |       -1024 |  10 | m² s⁻²            | DPEN     ;     ; Dissipation energy
-  0-11-075 |   2 |           0 |   8 | m⅔ s⁻¹            | MTRB     ;     ; Mean turbulence intensity (eddy dissipation rate)
-  0-11-076 |   2 |           0 |   8 | m⅔ s⁻¹            | PTRB     ;     ; Peak turbulence intensity (eddy dissipation rate)
+  0-11-071 |   3 |        -128 |  14 | m**2 s**-2        | TVMF     ;     ; Turbulent vertical momentum flux
+  0-11-072 |   3 |        -128 |  11 | K m s**-1         | TVBF     ;     ; Turbulent vertical buoyancy flux
+  0-11-073 |   2 |       -1024 |  13 | m**2 s**-2        | TKEN     ;     ; Turbulent kinetic energy
+  0-11-074 |   2 |       -1024 |  10 | m**2 s**-2        | DPEN     ;     ; Dissipation energy
+  0-11-075 |   2 |           0 |   8 | m**(2/3) s**-1    | MTRB     ;     ; Mean turbulence intensity (eddy dissipation rate)
+  0-11-076 |   2 |           0 |   8 | m**(2/3) s**-1    | PTRB     ;     ; Peak turbulence intensity (eddy dissipation rate)
   0-11-077 |   0 |           0 |  12 | s                 | RIEDR    ;     ; Reporting interval or averaging time for eddy dissipation rate
   0-11-081 |   2 |           0 |  16 | Degree true       | MWD10    ;     ; Model wind direction at 10m
-  0-11-082 |   2 |           0 |  14 | m s⁻¹             | MWS10    ;     ; Model wind speed at 10m
-  0-11-095 |   1 |       -4096 |  13 | m s⁻¹             | UMWV     ;     ; u-component of the model wind vector
-  0-11-096 |   1 |       -4096 |  13 | m s⁻¹             | VWMV     ;     ; v-component of the model wind vector
+  0-11-082 |   2 |           0 |  14 | m s**-1           | MWS10    ;     ; Model wind speed at 10m
+  0-11-095 |   1 |       -4096 |  13 | m s**-1           | UMWV     ;     ; u-component of the model wind vector
+  0-11-096 |   1 |       -4096 |  13 | m s**-1           | VWMV     ;     ; v-component of the model wind vector
   0-12-001 |   1 |           0 |  12 | K                 | TMDBST   ;     ; Temperature/dry-bulb temperature
   0-12-002 |   1 |           0 |  12 | K                 | TMWBST   ;     ; Wet-bulb temperature
   0-12-003 |   1 |           0 |  12 | K                 | TMDPST   ;     ; Dew-point temperature
@@ -509,9 +509,9 @@ Table B STD |  0 | 13
   0-12-065 |   1 |           0 |  12 | K                 | SDTB     ;     ; Standard deviation brightness temperature
   0-12-070 |   2 |           0 |  16 | K                 | WLTM     ;     ; Warm load temperature
   0-12-071 |   1 |           0 |  12 | K                 | CCST     ;     ; Coldest cluster temperature
-  0-12-072 |   6 |           0 |  31 | W m⁻² sr⁻¹        | RDNEH    ;     ; Radiance
-  0-12-075 |  -3 |           0 |  16 | W m⁻³ sr⁻¹        | SPRD     ;     ; Spectral radiance
-  0-12-076 |   3 |           0 |  16 | W m⁻² sr⁻¹        | RDNE     ;     ; Radiance
+  0-12-072 |   6 |           0 |  31 | W m**-2 sr**-1    | RDNEH    ;     ; Radiance
+  0-12-075 |  -3 |           0 |  16 | W m**-3 sr**-1    | SPRD     ;     ; Spectral radiance
+  0-12-076 |   3 |           0 |  16 | W m**-2 sr**-1    | RDNE     ;     ; Radiance
   0-12-101 |   2 |           0 |  16 | K                 | TMDB     ;     ; Temperature/dry-bulb temperature
   0-12-102 |   2 |           0 |  16 | K                 | TMWB     ;     ; Wet-bulb temperature
   0-12-103 |   2 |           0 |  16 | K                 | TMDP     ;     ; Dew-point temperature
@@ -549,29 +549,29 @@ Table B STD |  0 | 13
   0-12-187 |   2 |           0 |  16 | K                 | MDVSST   ;     ; Mean dual view sea-surface temperature
   0-12-188 |   2 |           0 |  16 | K                 | I23P8B   ;     ; Interpolated 23.8 GHz brightness T from MWR
   0-12-189 |   2 |           0 |  16 | K                 | I36P5B   ;     ; Interpolated 36.5 GHz brightness T from MWR
-  0-13-001 |   5 |           0 |  14 | kg kg⁻¹           | SPFH     ;     ; Specific humidity
-  0-13-002 |   5 |           0 |  14 | kg kg⁻¹           | MIXR     ;     ; Mixing ratio
+  0-13-001 |   5 |           0 |  14 | kg kg**-1         | SPFH     ;     ; Specific humidity
+  0-13-002 |   5 |           0 |  14 | kg kg**-1         | MIXR     ;     ; Mixing ratio
   0-13-003 |   0 |           0 |   7 | %                 | REHU     ;     ; Relative humidity
   0-13-004 |  -1 |           0 |  10 | Pa                | VAPR     ;     ; Vapour pressure
-  0-13-005 |   3 |           0 |   7 | kg m⁻³            | VADN     ;     ; Vapour density
+  0-13-005 |   3 |           0 |   7 | kg m**-3          | VADN     ;     ; Vapour density
   0-13-006 |  -1 |         -40 |  16 | m                 | MIXH     ;     ; Mixing heights
   0-13-007 |   0 |           0 |   7 | %                 | MIRH     ;     ; Minimum relative humidity
   0-13-008 |   0 |           0 |   7 | %                 | MXRH     ;     ; Maximum relative humidity
   0-13-009 |   1 |       -1000 |  12 | %                 | RAWHU    ;     ; Relative humidity
-  0-13-011 |   1 |          -1 |  14 | kg m⁻²            | TOPC     ;     ; Total precipitation/total water equivalent
+  0-13-011 |   1 |          -1 |  14 | kg m**-2          | TOPC     ;     ; Total precipitation/total water equivalent
   0-13-012 |   2 |          -2 |  12 | m                 | DOFS     ;     ; Depth of fresh snow
   0-13-013 |   2 |          -2 |  16 | m                 | TOSD     ;     ; Total snow depth
-  0-13-014 |   4 |           0 |  12 | kg m⁻² s⁻¹        | REQV     ;     ; Rainfall/water equivalent of snow (averaged rate)
-  0-13-015 |   7 |           0 |  12 | m s⁻¹             | SNFLA    ;     ; Snowfall (averaged rate)
-  0-13-016 |   0 |           0 |   7 | kg m⁻²            | TPWT     ;     ; Precipitable water
-  0-13-019 |   1 |          -1 |  14 | kg m⁻²            | TP01     ;     ; Total precipitation past 1 hour
-  0-13-020 |   1 |          -1 |  14 | kg m⁻²            | TP03     ;     ; Total precipitation past 3 hours
-  0-13-021 |   1 |          -1 |  14 | kg m⁻²            | TP06     ;     ; Total precipitation past 6 hours
-  0-13-022 |   1 |          -1 |  14 | kg m⁻²            | TP12     ;     ; Total precipitation past 12 hours
-  0-13-023 |   1 |          -1 |  14 | kg m⁻²            | TP24     ;     ; Total precipitation past 24 hours
-  0-13-031 |   0 |           0 |   7 | kg m⁻²            | EVTR     ;     ; Evapotranspiration
-  0-13-032 |   1 |           0 |   8 | kg m⁻²            | EVAP     ;     ; Evaporation/evapotranspiration
-  0-13-033 |   1 |           0 |  10 | kg m⁻²            | EVAP1    ;     ; Evaporation/evapotranspiration
+  0-13-014 |   4 |           0 |  12 | kg m**-2 s**-1    | REQV     ;     ; Rainfall/water equivalent of snow (averaged rate)
+  0-13-015 |   7 |           0 |  12 | m s**-1           | SNFLA    ;     ; Snowfall (averaged rate)
+  0-13-016 |   0 |           0 |   7 | kg m**-2          | TPWT     ;     ; Precipitable water
+  0-13-019 |   1 |          -1 |  14 | kg m**-2          | TP01     ;     ; Total precipitation past 1 hour
+  0-13-020 |   1 |          -1 |  14 | kg m**-2          | TP03     ;     ; Total precipitation past 3 hours
+  0-13-021 |   1 |          -1 |  14 | kg m**-2          | TP06     ;     ; Total precipitation past 6 hours
+  0-13-022 |   1 |          -1 |  14 | kg m**-2          | TP12     ;     ; Total precipitation past 12 hours
+  0-13-023 |   1 |          -1 |  14 | kg m**-2          | TP24     ;     ; Total precipitation past 24 hours
+  0-13-031 |   0 |           0 |   7 | kg m**-2          | EVTR     ;     ; Evapotranspiration
+  0-13-032 |   1 |           0 |   8 | kg m**-2          | EVAP     ;     ; Evaporation/evapotranspiration
+  0-13-033 |   1 |           0 |  10 | kg m**-2          | EVAP1    ;     ; Evaporation/evapotranspiration
   0-13-038 |   0 |           0 |   2 | Code table        | SADF     ;     ; Superadiabatic indicator
   0-13-039 |   0 |           0 |   3 | Code table        | TERN     ;     ; Terrain type (ice/snow)
   0-13-040 |   0 |           0 |   4 | Code table        | SFLG     ;     ; Surface flag
@@ -583,76 +583,76 @@ Table B STD |  0 | 13
   0-13-046 |   0 |         -30 |   8 | K                 | MAXB     ;     ; Maximum buoyancy
   0-13-047 |   0 |         -60 |   6 | K                 | STBS     ;     ; Modified Showalter stability index
   0-13-051 |   0 |           0 |   4 | Code table        | FRGP     ;     ; Frequency group, precipitation
-  0-13-052 |   1 |          -1 |  14 | kg m⁻²            | HIDP     ;     ; Highest daily amount of precipitation
-  0-13-055 |   4 |           0 |   8 | kg m⁻² s⁻¹        | PRAT     ;     ; Intensity of precipitation
+  0-13-052 |   1 |          -1 |  14 | kg m**-2          | HIDP     ;     ; Highest daily amount of precipitation
+  0-13-055 |   4 |           0 |   8 | kg m**-2 s**-1    | PRAT     ;     ; Intensity of precipitation
   0-13-056 |   0 |           0 |   4 | Code table        | CIPR     ;     ; Character and intensity of precipitation
   0-13-057 |   0 |           0 |   4 | Code table        | TBEPR    ;     ; Time of beginning or end of precipitation
   0-13-058 |   4 |           0 |   7 | m                 | SOPE     ;     ; Size of precipitating element
   0-13-059 |   0 |           0 |   7 | Numeric           | NOFL     ;     ; Number of flashes (thunderstorm)
-  0-13-060 |   1 |          -1 |  17 | kg m⁻²            | TOAP     ;     ; Total accumulated precipitation
+  0-13-060 |   1 |          -1 |  17 | kg m**-2          | TOAP     ;     ; Total accumulated precipitation
   0-13-071 |   2 |           0 |  14 | m                 | UPWL     ;     ; Upstream water level
   0-13-072 |   2 |           0 |  14 | m                 | DNWL     ;     ; Downstream water level
   0-13-073 |   2 |           0 |  14 | m                 | MXWL     ;     ; Maximum water level
   0-13-080 |   1 |           0 |  10 | pH unit           | WAPH     ;     ; Water pH
-  0-13-081 |   3 |           0 |  14 | S m⁻¹             | WACN     ;     ; Water conductivity
+  0-13-081 |   3 |           0 |  14 | S m**-1           | WACN     ;     ; Water conductivity
   0-13-082 |   1 |           0 |  12 | K                 | WATM     ;     ; Water temperature
-  0-13-083 |   6 |           0 |  15 | kg m⁻³            | DOXY     ;     ; Dissolved oxygen
+  0-13-083 |   6 |           0 |  15 | kg m**-3          | DOXY     ;     ; Dissolved oxygen
   0-13-084 |   0 |           0 |  14 | lm                | TURBD    ;     ; Turbidity
   0-13-085 |   3 |           0 |  14 | V                 | OXYRP    ;     ; Oxydation Reduction Potential (ORP)
-  0-13-090 |   1 |           0 |  10 | kg m⁻²            | RWVC     ;     ; Radiometer water vapour content
-  0-13-091 |   2 |           0 |   8 | kg m⁻²            | RLQC     ;     ; Radiometer liquid content
+  0-13-090 |   1 |           0 |  10 | kg m**-2          | RWVC     ;     ; Radiometer water vapour content
+  0-13-091 |   2 |           0 |   8 | kg m**-2          | RLQC     ;     ; Radiometer liquid content
   0-13-093 |   0 |           0 |   8 | Numeric           | COPT     ;     ; Cloud optical thickness
-  0-13-095 |   4 |           0 |  19 | kg m⁻²            | TCWV     ;     ; Total column water vapour
-  0-13-096 |   2 |           0 |  14 | kg m⁻²            | MRWVC    ;     ; MWR water vapour content
-  0-13-097 |   2 |           0 |  14 | kg m⁻²            | MRLWC    ;     ; MWR liquid water content
-  0-13-098 |   8 |           0 |  30 | kg m⁻²            | IWVD     ;     ; Integrated water vapour density
-  0-14-001 |  -3 |       -2048 |  12 | J m⁻²             | LWR24    ;     ; Long-wave radiation, integrated over 24 hours
-  0-14-002 |  -3 |       -2048 |  12 | J m⁻²             | LWRAD    ;     ; Long-wave radiation, integrated over period specified
-  0-14-003 |  -3 |       -2048 |  12 | J m⁻²             | SWR24    ;     ; Short-wave radiation, integrated over 24 hours
-  0-14-004 |  -3 |       -2048 |  12 | J m⁻²             | SWRAD    ;     ; Short-wave radiation, integrated over period specified
-  0-14-011 |  -3 |       -2048 |  12 | J m⁻²             | NLWR24   ;     ; Net long-wave radiation, integrated over 24 hours
-  0-14-012 |  -3 |       -2048 |  12 | J m⁻²             | NLWRAD   ;     ; Net long-wave radiation, integrated over period specified
-  0-14-013 |  -3 |       -2048 |  12 | J m⁻²             | NSWR24   ;     ; Net short-wave radiation, integrated over 24 hours
-  0-14-014 |  -3 |       -2048 |  12 | J m⁻²             | NSWRAD   ;     ; Net short-wave radiation, integrated over period specified
-  0-14-015 |  -4 |      -16384 |  15 | J m⁻²             | NR24     ;     ; Net radiation, integrated over 24 hours
-  0-14-016 |  -4 |      -16384 |  15 | J m⁻²             | NRAD     ;     ; Net radiation, integrated over period specified
-  0-14-017 |  -3 |       -2048 |  12 | W m⁻²             | ILWRDP   ;     ; Instantaneous long-wave radiation
-  0-14-018 |  -3 |       -2048 |  12 | W m⁻²             | ISWRDP   ;     ; Instantaneous short-wave radiation
+  0-13-095 |   4 |           0 |  19 | kg m**-2          | TCWV     ;     ; Total column water vapour
+  0-13-096 |   2 |           0 |  14 | kg m**-2          | MRWVC    ;     ; MWR water vapour content
+  0-13-097 |   2 |           0 |  14 | kg m**-2          | MRLWC    ;     ; MWR liquid water content
+  0-13-098 |   8 |           0 |  30 | kg m**-2          | IWVD     ;     ; Integrated water vapour density
+  0-14-001 |  -3 |       -2048 |  12 | J m**-2           | LWR24    ;     ; Long-wave radiation, integrated over 24 hours
+  0-14-002 |  -3 |       -2048 |  12 | J m**-2           | LWRAD    ;     ; Long-wave radiation, integrated over period specified
+  0-14-003 |  -3 |       -2048 |  12 | J m**-2           | SWR24    ;     ; Short-wave radiation, integrated over 24 hours
+  0-14-004 |  -3 |       -2048 |  12 | J m**-2           | SWRAD    ;     ; Short-wave radiation, integrated over period specified
+  0-14-011 |  -3 |       -2048 |  12 | J m**-2           | NLWR24   ;     ; Net long-wave radiation, integrated over 24 hours
+  0-14-012 |  -3 |       -2048 |  12 | J m**-2           | NLWRAD   ;     ; Net long-wave radiation, integrated over period specified
+  0-14-013 |  -3 |       -2048 |  12 | J m**-2           | NSWR24   ;     ; Net short-wave radiation, integrated over 24 hours
+  0-14-014 |  -3 |       -2048 |  12 | J m**-2           | NSWRAD   ;     ; Net short-wave radiation, integrated over period specified
+  0-14-015 |  -4 |      -16384 |  15 | J m**-2           | NR24     ;     ; Net radiation, integrated over 24 hours
+  0-14-016 |  -4 |      -16384 |  15 | J m**-2           | NRAD     ;     ; Net radiation, integrated over period specified
+  0-14-017 |  -3 |       -2048 |  12 | W m**-2           | ILWRDP   ;     ; Instantaneous long-wave radiation
+  0-14-018 |  -3 |       -2048 |  12 | W m**-2           | ISWRDP   ;     ; Instantaneous short-wave radiation
   0-14-019 |   0 |           0 |   7 | %                 | SALB     ;     ; Surface albedo
-  0-14-020 |  -4 |           0 |  15 | J m⁻²             | GSO24    ;     ; Global solar radiation, integrated over 24 hours
-  0-14-021 |  -4 |           0 |  15 | J m⁻²             | GSORD    ;     ; Global solar radiation, integrated over period specified
-  0-14-022 |  -4 |           0 |  15 | J m⁻²             | DFSO24   ;     ; Diffuse solar radiation, integrated over 24 hours
-  0-14-023 |  -4 |           0 |  15 | J m⁻²             | DFSORDX  ;     ; Diffuse solar radiation, integrated over period specified
-  0-14-024 |  -4 |           0 |  15 | J m⁻²             | DRSO24   ;     ; Direct solar radiation, integrated over 24 hours
-  0-14-025 |  -4 |           0 |  15 | J m⁻²             | DRSORDX  ;     ; Direct solar radiation, integrated over period specified
+  0-14-020 |  -4 |           0 |  15 | J m**-2           | GSO24    ;     ; Global solar radiation, integrated over 24 hours
+  0-14-021 |  -4 |           0 |  15 | J m**-2           | GSORD    ;     ; Global solar radiation, integrated over period specified
+  0-14-022 |  -4 |           0 |  15 | J m**-2           | DFSO24   ;     ; Diffuse solar radiation, integrated over 24 hours
+  0-14-023 |  -4 |           0 |  15 | J m**-2           | DFSORDX  ;     ; Diffuse solar radiation, integrated over period specified
+  0-14-024 |  -4 |           0 |  15 | J m**-2           | DRSO24   ;     ; Direct solar radiation, integrated over 24 hours
+  0-14-025 |  -4 |           0 |  15 | J m**-2           | DRSORDX  ;     ; Direct solar radiation, integrated over period specified
   0-14-026 |   0 |           0 |   7 | %                 | CLAL     ;     ; Albedo at the top of clouds
   0-14-027 |   0 |           0 |   7 | %                 | ALBD     ;     ; Albedo
-  0-14-028 |  -2 |           0 |  16 | J m⁻²             | GSORDH   ;     ; Global solar radiation (high accuracy), integrated over period specified
-  0-14-029 |  -2 |           0 |  16 | J m⁻²             | DFSORD   ;     ; Diffuse solar radiation (high accuracy), integrated over period specified
-  0-14-030 |  -2 |           0 |  16 | J m⁻²             | DRSORD   ;     ; Direct solar radiation (high accuracy), integrated over period specified
+  0-14-028 |  -2 |           0 |  16 | J m**-2           | GSORDH   ;     ; Global solar radiation (high accuracy), integrated over period specified
+  0-14-029 |  -2 |           0 |  16 | J m**-2           | DFSORD   ;     ; Diffuse solar radiation (high accuracy), integrated over period specified
+  0-14-030 |  -2 |           0 |  16 | J m**-2           | DRSORD   ;     ; Direct solar radiation (high accuracy), integrated over period specified
   0-14-031 |   0 |           0 |  11 | Minute            | TOSS     ;     ; Total sunshine
   0-14-032 |   0 |           0 |  10 | Hour              | TOSH     ;     ; Total sunshine
   0-14-033 |   0 |           0 |   9 | %                 | TOSP     ;     ; Total sunshine
   0-14-034 |   0 |           0 |  11 | Minute            | SOPS     ;     ; Sunshine over period specified
   0-14-042 |   0 |           0 |   7 | %                 | BDRF     ;     ; Bidirectional reflectance
-  0-14-045 |   0 |           0 |  11 | W m⁻² sr⁻¹ cm     | CHRAD    ;     ; Channel radiance
-  0-14-046 |   0 |       -5000 |  16 | W m⁻² sr⁻¹ m      | SCRA     ;     ; Scaled IASI radiance
-  0-14-047 |   0 |           0 |  31 | W m⁻² sr⁻¹ m      | SMRA     ;     ; Scaled mean AVHRR radiance
-  0-14-048 |   0 |           0 |  31 | W m⁻² sr⁻¹ m      | SSDR     ;     ; Scaled standard deviation AVHRR radiance
+  0-14-045 |   0 |           0 |  11 | W m**-2 sr**-1 cm | CHRAD    ;     ; Channel radiance
+  0-14-046 |   0 |       -5000 |  16 | W m**-2 sr**-1 m  | SCRA     ;     ; Scaled IASI radiance
+  0-14-047 |   0 |           0 |  31 | W m**-2 sr**-1 m  | SMRA     ;     ; Scaled mean AVHRR radiance
+  0-14-048 |   0 |           0 |  31 | W m**-2 sr**-1 m  | SSDR     ;     ; Scaled standard deviation AVHRR radiance
   0-14-050 |   1 |           0 |  10 | %                 | EMMI     ;     ; Emissivity
-  0-14-051 |  -3 |           0 |  14 | J m⁻²             | DRSOLH   ;     ; Direct solar radiation integrated over last hour
+  0-14-051 |  -3 |           0 |  14 | J m**-2           | DRSOLH   ;     ; Direct solar radiation integrated over last hour
   0-14-055 |   0 |      -32768 |  16 | Numeric           | SOAI     ;     ; Solar activity index
   0-15-001 |   0 |           0 |  10 | DU                | OZON     ;     ; Total ozone
   0-15-002 |   2 |           0 |  10 | Numeric           | AIRM     ;     ; Air mass (slant path at 22 km)
   0-15-003 |   4 |           0 |   9 | Pa                | MOPP     ;     ; Measured ozone partial pressure (sounding)
   0-15-004 |   3 |           0 |  11 | Numeric           | OSCF     ;     ; Ozone sounding correction factor (CF)
   0-15-005 |   0 |           0 |  10 | DU                | OZOP     ;     ; Ozone p
-  0-15-011 |   3 |       14000 |  13 | log (m⁻²)         | LIED     ;     ; Log 10 of integrated electron density
+  0-15-011 |   3 |       14000 |  13 | log (m**-2)       | LIED     ;     ; Log 10 of integrated electron density
   0-15-015 |   0 |           0 |  31 | Numeric           | MSCN     ;     ; Maximum image spectral component before normalization
-  0-15-020 |   8 |           0 |  21 | kg m⁻²            | IOZD     ;     ; Integrated ozone density
+  0-15-020 |   8 |           0 |  21 | kg m**-2          | IOZD     ;     ; Integrated ozone density
   0-15-025 |   0 |           0 |   4 | Code table        | TYPO     ;     ; Type of pollutant
-  0-15-026 |   9 |           0 |   9 | mol mol⁻¹         | COPO     ;     ; Concentration of pollutant
-  0-15-027 |   9 |           0 |  10 | kg m⁻³            | COPOPM   ;     ; Concentration of pollutant
+  0-15-026 |   9 |           0 |   9 | mol mol**-1       | COPO     ;     ; Concentration of pollutant
+  0-15-027 |   9 |           0 |  10 | kg m**-3          | COPOPM   ;     ; Concentration of pollutant
   0-15-031 |   4 |       10000 |  15 | m                 | APDS     ;     ; Atmospheric path delay in satellite signal
   0-15-032 |   4 |           0 |  10 | m                 | APDE     ;     ; Estimated error in atmospheric path delay
   0-15-033 |   5 |      -10000 |  15 | m                 | PDDX     ;     ; Difference in path delays for limb views at extremes of scan
@@ -662,10 +662,10 @@ Table B STD |  0 | 13
   0-15-037 |   8 |     -100000 |  23 | rad               | BNDA     ;     ; Bending angle
   0-19-001 |   0 |           0 |   6 | Code table        | STMFE1   ;     ; Type of synoptic feature
   0-19-002 |  -2 |           0 |  12 | m                 | STMFE2   ;     ; Effective radius of feature
-  0-19-003 |   0 |           0 |   8 | m s⁻¹             | STMFE3   ;     ; Wind speed threshold
+  0-19-003 |   0 |           0 |   8 | m s**-1           | STMFE3   ;     ; Wind speed threshold
   0-19-004 |  -2 |           0 |  12 | m                 | STMFE4   ;     ; Effective radius with respect to wind speeds above threshold
   0-19-005 |   0 |           0 |   9 | Degree true       | STMFE5   ;     ; Direction of motion of feature
-  0-19-006 |   2 |           0 |  14 | m s⁻¹             | STMFE6   ;     ; Speed of motion of feature
+  0-19-006 |   2 |           0 |  14 | m s**-1           | STMFE6   ;     ; Speed of motion of feature
   0-19-007 |  -3 |           0 |  12 | m                 | STMFE7   ;     ; Effective radius of feature
   0-19-008 |   0 |           0 |   3 | Code table        | STMFE8   ;     ; Vertical extent of circulation
   0-19-009 |  -3 |           0 |  12 | m                 | STMFE9   ;     ; Effective radius with respect to wind speeds above threshold (large storms)
@@ -730,8 +730,8 @@ Table B STD |  0 | 13
   0-20-040 |   0 |           0 |   4 | Code table        | EDRS     ;     ; Evolution of drift snow
   0-20-041 |   0 |           0 |   4 | Code table        | AFIC     ;     ; Airframe icing
   0-20-042 |   0 |           0 |   2 | Code table        | AFICP    ;     ; Airframe icing present
-  0-20-043 |   4 |           0 |   7 | kg m⁻³            | PLWC     ;     ; Peak liquid water content
-  0-20-044 |   4 |           0 |   7 | kg m⁻³            | ALWC     ;     ; Average liquid water content
+  0-20-043 |   4 |           0 |   7 | kg m**-3          | PLWC     ;     ; Peak liquid water content
+  0-20-044 |   4 |           0 |   7 | kg m**-3          | ALWC     ;     ; Average liquid water content
   0-20-045 |   0 |           0 |   2 | Code table        | SCLD     ;     ; Supercooled large droplet (SLD) conditions
   0-20-048 |   0 |           0 |   4 | Code table        | EVFE     ;     ; Evolution of feature
   0-20-050 |   0 |           0 |   8 | Code table        | CLDI     ;     ; Cloud index
@@ -768,15 +768,15 @@ Table B STD |  0 | 13
   0-21-003 |   1 |          -5 |   7 | dB                | DREF     ;     ; Differential reflectivity
   0-21-005 |   0 |         -65 |   6 | dB                | LDPR     ;     ; Linear depolarization ratio
   0-21-006 |   0 |         -65 |   6 | dB                | CDPR     ;     ; Circular depolarization ratio
-  0-21-011 |   0 |        -128 |   8 | m s⁻¹             | DMVX     ;     ; Doppler mean velocity in x-direction
-  0-21-012 |   0 |        -128 |   8 | m s⁻¹             | DMVY     ;     ; Doppler mean velocity in y-direction
-  0-21-013 |   0 |        -128 |   8 | m s⁻¹             | DMVZ     ;     ; Doppler mean velocity in z-direction
-  0-21-014 |   1 |       -4096 |  13 | m s⁻¹             | DMVR     ;     ; Doppler mean velocity (radial)
-  0-21-017 |   1 |           0 |   8 | m s⁻¹             | DVSW     ;     ; Doppler velocity spectral width
+  0-21-011 |   0 |        -128 |   8 | m s**-1           | DMVX     ;     ; Doppler mean velocity in x-direction
+  0-21-012 |   0 |        -128 |   8 | m s**-1           | DMVY     ;     ; Doppler mean velocity in y-direction
+  0-21-013 |   0 |        -128 |   8 | m s**-1           | DMVZ     ;     ; Doppler mean velocity in z-direction
+  0-21-014 |   1 |       -4096 |  13 | m s**-1           | DMVR     ;     ; Doppler mean velocity (radial)
+  0-21-017 |   1 |           0 |   8 | m s**-1           | DVSW     ;     ; Doppler velocity spectral width
   0-21-021 |  -3 |           0 |   4 | m                 | ECHT     ;     ; Echo tops
   0-21-030 |   0 |         -32 |   8 | dB                | STNR     ;     ; Signal to noise ratio
-  0-21-031 |   0 |           0 |   7 | kg m⁻²            | VILWC    ;     ; Vertically-integrated liquid-water content
-  0-21-036 |   7 |           0 |  12 | m s⁻¹             | RRFI     ;     ; Radar rainfall intensity
+  0-21-031 |   0 |           0 |   7 | kg m**-2          | VILWC    ;     ; Vertically-integrated liquid-water content
+  0-21-036 |   7 |           0 |  12 | m s**-1           | RRFI     ;     ; Radar rainfall intensity
   0-21-041 |  -2 |           0 |   8 | m                 | BBHT     ;     ; Bright-band height
   0-21-051 |   0 |        -256 |   8 | dB                | SGPW     ;     ; Signal power above 1 mW
   0-21-062 |   2 |       -5000 |  13 | dB                | BKST     ;     ; Backscatter
@@ -836,7 +836,7 @@ Table B STD |  0 | 13
   0-21-131 |   6 |           0 |  28 | Numeric           | SMXE     ;     ; Spectrum max energy
   0-21-132 |   3 |           0 |  19 | Degree            | DSXH     ;     ; Direction of spectrum max on higher resolution grid
   0-21-133 |   3 |           0 |  29 | m                 | WSXH     ;     ; Wavelength of spectrum max on higher resolution grid
-  0-21-134 |   3 |           0 |  19 | rad m⁻¹           | RRCC     ;     ; Range resolution of cress covariance spectrum
+  0-21-134 |   3 |           0 |  19 | rad m**-1         | RRCC     ;     ; Range resolution of cress covariance spectrum
   0-21-135 |   3 |     -524288 |  20 | Numeric           | RCPN     ;     ; Real part of cross spectra polar grid number of bins
   0-21-136 |   3 |     -524288 |  20 | Numeric           | ICPN     ;     ; Imaginary part of cross spectra polar grid number of bins
   0-21-137 |   2 |      -32768 |  16 | dB                | KOBC     ;     ; Ku band corrected ocean backscatter coefficient
@@ -849,12 +849,12 @@ Table B STD |  0 | 13
   0-21-144 |   0 |           0 |   2 | Flag table        | ALRF     ;     ; Altimeter rain flag
   0-21-150 |   0 |           0 |   2 | Code table        | BEAMC    ;     ; Beam collocation
   0-21-151 |   2 |           0 |   9 | dB                | EES40    ;     ; Estimated error in sigma-0 at 40 degrees incidence angle
-  0-21-152 |   2 |         -80 |   7 | dB degree⁻¹       | S40IA    ;     ; Slope at 40 degrees incidence angle
-  0-21-153 |   2 |         -40 |   6 | dB degree⁻¹       | EEL40    ;     ; Estimated error in slope at 40 degrees incidence angle
+  0-21-152 |   2 |         -80 |   7 | dB degree**-1     | S40IA    ;     ; Slope at 40 degrees incidence angle
+  0-21-153 |   2 |         -40 |   6 | dB degree**-1     | EEL40    ;     ; Estimated error in slope at 40 degrees incidence angle
   0-21-154 |   2 |           0 |  12 | dB                | SMOS     ;     ; Soil moisture sensitivity
   0-21-155 |   0 |           0 |  24 | Flag table        | WVCQ     ;     ; Wind vector cell quality
   0-21-156 |   1 |       -4096 |  13 | Numeric           | BSCD     ;     ; Backscatter distance
-  0-21-157 |  10 |           0 |  22 | dB m⁻¹            | LULAU    ;     ; Loss per unit length of atmosphere used
+  0-21-157 |  10 |           0 |  22 | dB m**-1          | LULAU    ;     ; Loss per unit length of atmosphere used
   0-21-158 |   0 |           0 |   2 | Code table        | AKPEQ    ;     ; ASCAT KP quality estimate
   0-21-159 |   0 |           0 |   2 | Code table        | ASGU     ;     ; ASCAT sigma-0 usability
   0-21-160 |   3 |           0 |  10 | Numeric           | AUSY     ;     ; ASCAT use of synthetic data
@@ -877,8 +877,8 @@ Table B STD |  0 | 13
   0-22-023 |   1 |           0 |  10 | m                 | HOSW     ;     ; Height of swell waves
   0-22-025 |   2 |           0 |  10 | m                 | SDWH0    ;     ; Standard deviation wave height
   0-22-026 |   2 |           0 |  10 | m                 | SDWH     ;     ; Standard deviation of significant wave height
-  0-22-031 |   2 |           0 |  13 | m s⁻¹             | SPOC     ;     ; Speed of current
-  0-22-032 |   2 |           0 |  13 | m s⁻¹             | SSSC     ;     ; Speed of sea surface current
+  0-22-031 |   2 |           0 |  13 | m s**-1           | SPOC     ;     ; Speed of current
+  0-22-032 |   2 |           0 |  13 | m s**-1           | SSSC     ;     ; Speed of sea surface current
   0-22-035 |   2 |           0 |  14 | m                 | TERCX    ;     ; Tidal elevation with respect to local chart datum
   0-22-036 |   2 |           0 |  14 | m                 | MRTEX    ;     ; Meteorological residual tidal elevation (surge or offset)
   0-22-037 |   3 |      -10000 |  15 | m                 | TERL     ;     ; Tidal elevation with respect to national land datum
@@ -888,7 +888,7 @@ Table B STD |  0 | 13
   0-22-041 |   1 |           0 |  12 | K                 | SST15    ;     ; Sea-surface temperature (15-day running mean)
   0-22-042 |   1 |           0 |  12 | K                 | SSTL     ;     ; Sea/water temperature
   0-22-043 |   2 |           0 |  15 | K                 | SST1     ;     ; Sea/water temperature
-  0-22-044 |   1 |           0 |  14 | m s⁻¹             | SVEL     ;     ; Sound velocity
+  0-22-044 |   1 |           0 |  14 | m s**-1           | SVEL     ;     ; Sound velocity
   0-22-045 |   3 |           0 |  19 | K                 | SSTH     ;     ; Sea/water temperature
   0-22-049 |   2 |           0 |  15 | K                 | SST0     ;     ; Sea surface temperature
   0-22-050 |   2 |           0 |   8 | K                 | SSTD     ;     ; Standard deviation sea-surface temperature
@@ -901,10 +901,10 @@ Table B STD |  0 | 13
   0-22-063 |   0 |           0 |  14 | m                 | TOWD     ;     ; Total water depth
   0-22-064 |   3 |           0 |  17 | Part per thousand | SALNH    ;     ; Salinity
   0-22-065 |  -3 |           0 |  17 | Pa                | WPRS     ;     ; Water pressure
-  0-22-066 |   6 |           0 |  26 | S m⁻¹             | WCON     ;     ; Water conductivity
+  0-22-066 |   6 |           0 |  26 | S m**-1           | WCON     ;     ; Water conductivity
   0-22-067 |   0 |           0 |  10 | Code table        | IWTEMP   ;     ; Instrument type for water temperature profile measurement
   0-22-068 |   0 |           0 |   7 | Code table        | WTEMPR   ;     ; Water temperature profile recorder types
-  0-22-069 |   3 |           0 |  22 | m² Hz⁻¹           | SWDE     ;     ; Spectral wave density
+  0-22-069 |   3 |           0 |  22 | m**2 Hz**-1       | SWDE     ;     ; Spectral wave density
   0-22-070 |   2 |           0 |  13 | m                 | SGWH     ;     ; Significant wave height
   0-22-071 |   1 |           0 |   9 | s                 | SPWP     ;     ; Spectral peak wave period
   0-22-072 |   0 |           0 |  13 | m                 | SPWL     ;     ; Spectral peak wave length
@@ -916,22 +916,22 @@ Table B STD |  0 | 13
   0-22-078 |   0 |           0 |  12 | s                 | DOWR     ;     ; Duration of wave record
   0-22-079 |   0 |           0 |  16 | m                 | LOWR     ;     ; Length of wave record
   0-22-080 |   3 |           0 |  10 | Hz                | WCFR     ;     ; Waveband central frequency
-  0-22-081 |   5 |           0 |  13 | m⁻¹               | WCWN     ;     ; Waveband central wave number
-  0-22-082 |   2 |           0 |  20 | m² s              | MXSWD    ;     ; Maximum non-directional spectral wave density
-  0-22-083 |   2 |           0 |  20 | m³                | MXSWN    ;     ; Maximum non-directional spectral wave number
+  0-22-081 |   5 |           0 |  13 | m**-1             | WCWN     ;     ; Waveband central wave number
+  0-22-082 |   2 |           0 |  20 | m**2 s            | MXSWD    ;     ; Maximum non-directional spectral wave density
+  0-22-083 |   2 |           0 |  20 | m**3              | MXSWN    ;     ; Maximum non-directional spectral wave number
   0-22-084 |   0 |           0 |   7 | Numeric           | BMXSWD   ;     ; Band containing maximum non-directional spectral wave density
   0-22-085 |   0 |           0 |   7 | Numeric           | SWDR     ;     ; Spectral wave density ratio
   0-22-086 |   0 |           0 |   9 | Degree true       | MDWC     ;     ; Mean direction from which waves are coming
   0-22-087 |   0 |           0 |   9 | Degree true       | PDWC     ;     ; Principal direction from which waves are coming
   0-22-088 |   2 |           0 |   7 | Numeric           | FNPF     ;     ; First normalized polar coordinate from Fourier coefficients
   0-22-089 |   2 |           0 |   7 | Numeric           | SNPF     ;     ; Second normalized polar coordinate from Fourier coefficients
-  0-22-090 |   2 |           0 |  20 | m² s              | NSWF     ;     ; Non-directional spectral estimate by wave frequency
-  0-22-091 |   2 |           0 |  20 | m³                | NSWN     ;     ; Non-directional spectral estimate by wave number
-  0-22-092 |   2 |           0 |  20 | m² rad⁻¹ s        | DSWF     ;     ; Directional spectral estimate by wave frequency
-  0-22-093 |   2 |           0 |  20 | m⁴                | DSWN     ;     ; Directional spectral estimate by wave number
+  0-22-090 |   2 |           0 |  20 | m**2 s            | NSWF     ;     ; Non-directional spectral estimate by wave frequency
+  0-22-091 |   2 |           0 |  20 | m**3              | NSWN     ;     ; Non-directional spectral estimate by wave number
+  0-22-092 |   2 |           0 |  20 | m**2 rad**-1 s    | DSWF     ;     ; Directional spectral estimate by wave frequency
+  0-22-093 |   2 |           0 |  20 | m**4              | DSWN     ;     ; Directional spectral estimate by wave number
   0-22-094 |   0 |           0 |   7 | Numeric           | TNWB     ;     ; Total number of wave bands
   0-22-095 |   0 |           0 |   8 | Degree            | DSIW     ;     ; Directional spread of individual waves
-  0-22-096 |   3 |           0 |   4 | s⁻¹               | SBWD     ;     ; Spectral band width
+  0-22-096 |   3 |           0 |   4 | s**-1             | SBWD     ;     ; Spectral band width
   0-22-097 |   0 |           0 |  14 | m                 | MWLW     ;     ; Mean wavelength > 731 m of image spectrum at low wave numbers
   0-22-098 |   0 |           0 |  14 | m                 | WSLW     ;     ; Wavelength spread (wavelength > 731 m) at low wave numbers
   0-22-099 |   0 |           0 |   9 | Degree true       | MDLW     ;     ; Mean direction at low wave numbers (wavelength > 731 m)
@@ -953,7 +953,7 @@ Table B STD |  0 | 13
   0-22-158 |   3 |           0 |  16 | m                 | SBSW     ;     ; S band significant wave height
   0-22-159 |   3 |           0 |  16 | m                 | SSBSW    ;     ; STD of 18 Hz S band significant wave height
   0-22-160 |   6 |           0 |  21 | Numeric           | NIWA     ;     ; Normalized inverse wave age
-  0-22-161 |   4 |           0 |  27 | m⁴                | WASP     ;     ; Wave spectra
+  0-22-161 |   4 |           0 |  27 | m**4              | WASP     ;     ; Wave spectra
   0-23-001 |   0 |           0 |   3 | Code table        | AENA     ;     ; Accident early notification - article applicable
   0-23-002 |   0 |           0 |   5 | Code table        | AFII     ;     ; Activity or facility involved in incident
   0-23-003 |   0 |           0 |   3 | Code table        | TPRE     ;     ; Type of release
@@ -964,14 +964,14 @@ Table B STD |  0 | 13
   0-23-008 |   0 |           0 |   2 | Code table        | SOCR     ;     ; State of current release
   0-23-009 |   0 |           0 |   2 | Code table        | SOER     ;     ; State of expected release
   0-23-016 |   0 |           0 |   2 | Code table        | PCTE     ;     ; Possibility of significant chemical toxic health effect
-  0-23-017 |   6 |           0 |  20 | m³ s⁻¹            | FDMR     ;     ; Flow discharge of major recipient
+  0-23-017 |   6 |           0 |  20 | m**3 s**-1        | FDMR     ;     ; Flow discharge of major recipient
   0-23-018 |   0 |           0 |   3 | Code table        | RBOT     ;     ; Release behaviour over time
   0-23-019 |   0 |      -15000 |  17 | m                 | ARHT     ;     ; Actual release height
   0-23-021 |   0 |      -15000 |  17 | m                 | ERHT     ;     ; Effective release height
   0-23-022 |   0 |           0 |  24 | m                 | DRPS     ;     ; Distance of release point or site of incident
-  0-23-023 |   1 |           0 |  12 | m s⁻¹             | MTSA     ;     ; Main transport speed in the atmosphere
-  0-23-024 |   2 |           0 |  13 | m s⁻¹             | MTSW     ;     ; Main transport speed in water
-  0-23-025 |   2 |           0 |  13 | m s⁻¹             | MTSG     ;     ; Main transport speed in ground water
+  0-23-023 |   1 |           0 |  12 | m s**-1           | MTSA     ;     ; Main transport speed in the atmosphere
+  0-23-024 |   2 |           0 |  13 | m s**-1           | MTSW     ;     ; Main transport speed in water
+  0-23-025 |   2 |           0 |  13 | m s**-1           | MTSG     ;     ; Main transport speed in ground water
   0-23-027 |   0 |           0 |   9 | Degree true       | MTDA     ;     ; Main transport direction in the atmosphere
   0-23-028 |   0 |           0 |   9 | Degree true       | MTDW     ;     ; Main transport direction in water
   0-23-029 |   0 |           0 |   9 | Degree true       | MTDG     ;     ; Main transport direction in ground water
@@ -985,10 +985,10 @@ Table B STD |  0 | 13
   0-24-011 |   2 |           0 |  32 | mSv               | DOSE     ;     ; Dose
   0-24-012 |   2 |           0 |  32 | mSv               | TDOSE    ;     ; Trajectory dose (defined location and expected time of arrival)
   0-24-013 |   2 |           0 |  32 | mSv               | GDOSE    ;     ; Gamma dose in air along the main transport path (defined location and time period)
-  0-24-021 |   2 |           0 |  32 | Bq m⁻³            | AIRC     ;     ; Air concentration (of named isotope type including gross beta)
-  0-24-022 |   2 |           0 |  32 | Bq l⁻¹            | COIP     ;     ; Concentration in precipitation (of named isotope type)
-  0-24-023 |   1 |           0 |  14 | s⁻¹               | PRBR     ;     ; Pulse rate of beta radiation
-  0-24-024 |   1 |           0 |  14 | s⁻¹               | PRGR     ;     ; Pulse rate of gamma radiation
+  0-24-021 |   2 |           0 |  32 | Bq m**-3          | AIRC     ;     ; Air concentration (of named isotope type including gross beta)
+  0-24-022 |   2 |           0 |  32 | Bq l**-1          | COIP     ;     ; Concentration in precipitation (of named isotope type)
+  0-24-023 |   1 |           0 |  14 | s**-1             | PRBR     ;     ; Pulse rate of beta radiation
+  0-24-024 |   1 |           0 |  14 | s**-1             | PRGR     ;     ; Pulse rate of gamma radiation
   0-25-001 |  -1 |           0 |   6 | m                 | RAGL     ;     ; Range-gate length
   0-25-002 |   0 |           0 |   4 | Numeric           | ROGA     ;     ; Number of gates averaged
   0-25-003 |   0 |           0 |   8 | Numeric           | NOIP     ;     ; Number of integrated pulses
@@ -1004,7 +1004,7 @@ Table B STD |  0 | 13
   0-25-013 |   0 |           0 |   2 | Flag table        | BBCO     ;     ; Bright-band correction
   0-25-014 |   0 |           0 |  12 | Numeric           | ACCO     ;     ; Azimuth clutter cut-off
   0-25-015 |   0 |           0 |   2 | Flag table        | RDCO     ;     ; Radome attenuation correction
-  0-25-016 |   5 |           0 |   6 | dB m⁻¹            | CACO     ;     ; Clear-air attenuation correction
+  0-25-016 |   5 |           0 |   6 | dB m**-1          | CACO     ;     ; Clear-air attenuation correction
   0-25-017 |   0 |           0 |   2 | Flag table        | PACO     ;     ; Precipitation attenuation correction
   0-25-018 |   7 |           0 |   6 | Numeric           | A2ZF     ;     ; A to Z law for attenuation factor
   0-25-019 |   2 |           0 |   7 | Numeric           | A2ZE     ;     ; A to Z law for attenuation exponent
@@ -1019,7 +1019,7 @@ Table B STD |  0 | 13
   0-25-033 |   0 |           0 |   2 | Code table        | NPSM     ;     ; Wind profiler submode information
   0-25-034 |   0 |           0 |   4 | Flag table        | NPQC     ;     ; Wind profiler quality control test results
   0-25-036 |   0 |           0 |   4 | Code table        | ALME     ;     ; Atmospherics location method
-  0-25-040 |   0 |           0 |   4 | Code table        | CO2W     ;     ; CO₂ wind product derivation
+  0-25-040 |   0 |           0 |   4 | Code table        | CO2W     ;     ; CO2 wind product derivation
   0-25-041 |   0 |           0 |   2 | Code table        | MPDR     ;     ; Moving platform direction reporting method
   0-25-042 |   0 |           0 |   2 | Code table        | MPSR     ;     ; Moving platform speed reporting method
   0-25-043 |   4 |           0 |  15 | s                 | WSIT     ;     ; Wave sampling interval (time)
@@ -1046,16 +1046,16 @@ Table B STD |  0 | 13
   0-25-070 |   0 |           0 |   4 | Numeric           | MJFC     ;     ; Major frame count
   0-25-071 |   0 |           0 |   5 | Numeric           | FRCT     ;     ; Frame count
   0-25-075 |   0 |           0 |   5 | Numeric           | SACV     ;     ; Satellite antenna corrections version number
-  0-25-076 |   8 |           0 |  30 | log (m⁻¹)         | LOGRCW   ;     ; Log-10 of (Temperature-radiance central wave number) for ATOVS
+  0-25-076 |   8 |           0 |  30 | log (m**-1)       | LOGRCW   ;     ; Log-10 of (Temperature-radiance central wave number) for ATOVS
   0-25-077 |   5 |     -100000 |  18 | Numeric           | BWCC1    ;     ; Bandwidth correction coefficient 1 for ATOVS
   0-25-078 |   5 |           0 |  17 | Numeric           | BWCC2    ;     ; Bandwidth correction coefficient 2 for ATOVS
-  0-25-079 |   4 |           0 |  24 | W m⁻²             | ASFI     ;     ; Albedo-radiance solar filtered irradiance for ATOVS
+  0-25-079 |   4 |           0 |  24 | W m**-2           | ASFI     ;     ; Albedo-radiance solar filtered irradiance for ATOVS
   0-25-080 |  10 |           0 |  14 | m                 | AEFW     ;     ; Albedo-radiance equivalent filter width for ATOVS
   0-25-085 |   0 |           0 |   7 | Numeric           | FCPH     ;     ; Fraction of clear pixels in HIRS FOV
   0-25-086 |   0 |           0 |   2 | Code table        | QDEP     ;     ; Depth correction indicator
   0-25-090 |   0 |           0 |   4 | Code table        | ORSF     ;     ; Orbit state flag
   0-25-091 |   3 |      -18192 |  13 | dB                | SCRIN    ;     ; Structure constant of the refraction index (Cn2)
-  0-25-092 |   2 |       28000 |  14 | m s⁻¹             | APVE     ;     ; Acoustic propagation velocity
+  0-25-092 |   2 |       28000 |  14 | m s**-1           | APVE     ;     ; Acoustic propagation velocity
   0-25-093 |   0 |           0 |   8 | Flag table        | RACC     ;     ; RASS computation correction
   0-25-095 |   0 |           0 |   2 | Flag table        | ASFL     ;     ; Altimeter state flag
   0-25-096 |   0 |           0 |   5 | Flag table        | RSFL     ;     ; Radiometer state flag

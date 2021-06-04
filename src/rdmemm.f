@@ -1,94 +1,70 @@
 C> @file
-C> @author WOOLLEN @date 1994-01-06
-      
-C> THIS SUBROUTINE READS A PARTICULAR BUFR MESSAGE FROM
-C>   INTERNAL MEMORY (ARRAY MSGS IN MODULE MSGMEM) INTO A MESSAGE
-C>   BUFFER (ARRAY MBAY IN MODULE BITBUF).  IT IS IDENTICAL
-C>   TO BUFR ARCHIVE LIBRARY SUBROUTINE READMM EXCEPT IT DOES
-C>   NOT ADVANCE THE VALUE OF IMSG PRIOR TO RETURNING TO CALLING
-C>   PROGRAM.
+C> @brief Read a specified BUFR message from internal arrays.
+
+C> This subroutine reads a specified BUFR message from internal
+C> arrays in memory, so that it is now in scope for processing
+C> via a subsequent call to subroutine rdmems().
 C>
-C> PROGRAM HISTORY LOG:
-C> 1994-01-06  J. WOOLLEN -- ORIGINAL AUTHOR
-C> 1998-07-08  J. WOOLLEN -- REPLACED CALL TO CRAY LIBRARY ROUTINE
-C>                           "ABORT" WITH CALL TO NEW INTERNAL BUFRLIB
-C>                           ROUTINE "BORT"; MODIFIED TO MAKE Y2K
-C>                           COMPLIANT
-C> 1999-11-18  J. WOOLLEN -- THE NUMBER OF BUFR FILES WHICH CAN BE
-C>                           OPENED AT ONE TIME INCREASED FROM 10 TO 32
-C>                           (NECESSARY IN ORDER TO PROCESS MULTIPLE
-C>                           BUFR FILES UNDER THE MPI); THE MAXIMUM
-C>                           NUMBER OF BYTES REQUIRED TO STORE ALL
-C>                           MESSAGES INTERNALLY WAS INCREASED FROM 4
-C>                           MBYTES TO 8 MBYTES
-C> 2000-09-19  J. WOOLLEN -- REMOVED MESSAGE DECODING LOGIC THAT HAD
-C>                           BEEN REPLICATED IN THIS AND OTHER READ
-C>                           ROUTINES AND CONSOLIDATED IT INTO A NEW
-C>                           ROUTINE CKTABA, CALLED HERE, WHICH IS
-C>                           ENHANCED TO ALLOW COMPRESSED AND STANDARD
-C>                           BUFR MESSAGES TO BE READ; MAXIMUM MESSAGE
-C>                           LENGTH INCREASED FROM 10,000 TO 20,000
-C>                           BYTES
-C> 2001-08-15  D. KEYSER  -- PARAMETER MAXMEM (THE MAXIMUM NUMBER OF
-C>                           BYTES REQUIRED TO STORE ALL MESSAGES
-C>                           INTERNALLY) WAS INCREASED FROM 8 MBYTES TO
-C>                           16 MBYTES
-C> 2003-11-04  S. BENDER  -- ADDED REMARKS/BUFRLIB ROUTINE
-C>                           INTERDEPENDENCIES
-C> 2003-11-04  D. KEYSER  -- PARAMETER MAXMSG (THE MAXIMUM NUMBER OF
-C>                           BUFR MESSAGES WHICH CAN BE STORED
-C>                           INTERNALLY) INCREASED FROM 50000 TO 200000;
-C>                           UNIFIED/PORTABLE FOR WRF; ADDED
-C>                           DOCUMENTATION (INCLUDING HISTORY); OUTPUTS
-C>                           MORE COMPLETE DIAGNOSTIC INFO WHEN ROUTINE
-C>                           TERMINATES ABNORMALLY OR UNUSUAL THINGS
-C>                           HAPPEN
-C> 2004-08-09  J. ATOR    -- MAXIMUM MESSAGE LENGTH INCREASED FROM
-C>                           20,000 TO 50,000 BYTES
-C> 2004-11-15  D. KEYSER  -- PARAMETER MAXMEM (THE MAXIMUM NUMBER OF
-C>                           BYTES REQUIRED TO STORE ALL MESSAGES
-C>                           INTERNALLY) WAS INCREASED FROM 16 MBYTES TO
-C>                           50 MBYTES
-C> 2009-03-23  J. ATOR    -- MODIFIED TO HANDLE EMBEDDED BUFR TABLE
-C>                           (DICTIONARY) MESSAGES; USE ERRWRT
-C> 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
-C>                          
+C> <p>BUFR messages should already be stored within internal
+C> arrays in memory via one or more previous calls to
+C> subroutine ufbmem().
 C>
-C> USAGE:    CALL RDMEMM (IMSG, SUBSET, JDATE, IRET)
-C>   INPUT ARGUMENT LIST:
-C>     IMSG     - INTEGER: POINTER TO BUFR MESSAGE NUMBER (RECORD) IN
-C>                STORAGE
+C> @author J. Woollen
+C> @date 1994-01-06
 C>
-C>   OUTPUT ARGUMENT LIST:
-C>     SUBSET   - CHARACTER*8: TABLE A MNEMONIC FOR TYPE OF BUFR MESSAGE
-C>                BEING READ
-C>     JDATE    - INTEGER: DATE-TIME STORED WITHIN SECTION 1 OF BUFR
-C>                MESSAGE BEING READ, IN FORMAT OF EITHER YYMMDDHH OR
-C>                YYYYMMDDHH, DEPENDING ON DATELEN() VALUE
-C>     IRET     - INTEGER: RETURN CODE:
-C>                       0 = normal return
-C>                      -1 = IMSG is either zero or greater than the
-C>                           number of messages in memory
-C>
-C> REMARKS:
-C>    NOTE THAT UFBMEM IS CALLED PRIOR TO THIS TO STORE THE BUFR
-C>    MESSAGES INTO INTERNAL MEMORY.
-C>
-C>    THIS ROUTINE CALLS:        BORT     CKTABA   DXINIT   ERRWRT
-C>                               MAKESTAB STATUS   STBFDX   WTSTAT
-C>    THIS ROUTINE IS CALLED BY: READMM   UFBMMS   UFBRMS   UFBTAM
-C>                               Also called by application programs.
+C> @param[in] IMSG    - integer: Number of BUFR message to be
+C>                      read into scope for further processing,
+C>                      counting from the beginning of the
+C>                      internal arrays in memory
+C> @param[out] SUBSET - character*8: Table A mnemonic for type of BUFR
+C>                      message that was read into scope
+C>                      (see [DX BUFR Tables](@ref dfbftab) for
+C>                      further information about Table A mnemonics)
+C> @param[out] JDATE  - integer: Date-time stored within Section 1 of
+C>                      BUFR message that was read into scope,
+C>                      in format of either YYMMDDHH or YYYYMMDDHH,
+C>                      depending on the most
+C>                      recent call to subroutine datelen()
+C> @param[out] IRET   - integer: return code
+C>                          - 0 = requested message was
+C>                                successfully read into scope
+C>                          - -1 = requested message number could not
+C>                                 be found in internal arrays
+C>      
+C> <b>Program history log:</b>
+C> - 1994-01-06  J. Woollen -- Original author
+C> - 1998-07-08  J. Woollen -- Replaced call to Cray library routine
+C>                           "ABORT" with call to new internal BUFRLIB
+C>                           routine "BORT"; modified to make Y2K
+C>                           compliant
+C> - 1999-11-18  J. Woollen -- The number of BUFR files which can be
+C>                           opened at one time increased from 10 to 32
+C>                           (necessary in order to process multiple
+C>                           BUFR files under the MPI); increased MAXMEM
+C>                           from 4 Mb to 8 Mb
+C> - 2000-09-19  J. Woollen -- Removed message decoding logic that had
+C>                           been replicated in this and other read
+C>                           routines and consolidated it into a new
+C>                           routine cktaba(); maximum message
+C>                           length increased from 10,000 to 20,000
+C>                           bytes
+C> - 2001-08-15  D. Keyser  -- Increased MAXMEM from 8 Mb to 16 Mb
+C> - 2003-11-04  S. Bender  -- Added remarks and routine interdependencies
+C> - 2003-11-04  D. Keyser  -- Unified/portable for WRF; added history
+C>                             documentation
+C> - 2004-08-09  J. Ator    -- Maximum message length increased
+C>                             from 20,000 to 50,000 bytes
+C> - 2004-11-15  D. Keyser  -- Increased MAXMEM from 16 Mb to 50 Mb
+C> - 2009-03-23  J. Ator    -- Modified to handle embedded BUFR table
+C>                           (dictionary) messages; use errwrt()
+C> - 2014-12-10  J. Ator    -- Use modules instead of COMMON blocks
 C>
       SUBROUTINE RDMEMM(IMSG,SUBSET,JDATE,IRET)
-
-
 
       USE MODA_MSGCWD
       USE MODA_BITBUF
       USE MODA_MGWA
       USE MODA_MSGMEM
-
-      INCLUDE 'bufrlib.inc'
 
       COMMON /QUIET / IPRT
 

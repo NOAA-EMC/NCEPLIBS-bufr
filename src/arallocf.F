@@ -1,42 +1,37 @@
 C> @file
-C> @author ATOR @date 2014-12-04
+C> @brief Dynamically allocate Fortran language arrays within internal
+C> memory.
 	
-C> IF DYNAMIC MEMORY ALLOCATION IS BEING USED, THIS ROUTINE
-C>   IS CALLED DURING THE FIRST CALL TO BUFR ARCHIVE LIBRARY SUBROUTINE
-C>   OPENBF TO DYNAMICALLY ALLOCATE MEMORY FOR ALL REQUIRED FORTRAN
-C>   LANGUAGE ARRAYS.  THESE ARRAYS ARE SIZED USING VALUES INPUT DURING
-C>   ONE OR MORE PREVIOUS CALLS TO BUFR ARCHIVE LIBRARY SUBROUTINE
-C>   ISETPRM, OR ELSE USING ONE OR MORE DEFAULT VALUES SPECIFIED IN
-C>   MODULE FILES IF ISETPRM IS NEVER CALLED FOR THOSE PARTICULAR SIZE
-C>   VALUES.
+C> For dynamic allocation builds of the library, this subroutine is
+C> called internally during the first call to subroutine openbf() from
+C> an application program, in order to dynamically allocate internal
+C> Fortran language arrays based on parameter values set during one or
+C> more previous calls to function isetprm().
 C>
-C>   MEMORY ALLOCATED WITHIN THIS ROUTINE CAN BE FREED VIA A USER CALL
-C>   TO BUFR ARCHIVE LIBRARY ROUTINE ARDLLOCF (IN CASES WHERE THE
-C>   APPLICATION PROGRAM MAY WISH TO MOVE ON TO OTHER TASKS NOT
-C>   REQUIRING ANY FURTHER CALLS TO BUFR ARCHIVE LIBRARY ROUTINES), OR
-C>   ELSE IT WILL BE FREED AUTOMATICALLY WHEN THE APPLICATION PROGRAM
-C>   TERMINATES.
+C> <p>This subroutine isn't normally called directly from an application
+C> program, since it's automatically called internally during the first
+C> call to subroutine openbf() from an application program.
 C>
-C> PROGRAM HISTORY LOG:
-C> 2014-12-04  J. ATOR    -- ORIGINAL AUTHOR
-C> 2016-05-24  J. ATOR    -- ADDED ALLOCATIONS FOR MODA_BITMAPS
-C>                           AND MODA_NRV203
-C> 2017-05-22  J. ATOR    -- ADDED ALLOCATIONS FOR MODA_RLCCMN
-C> 2019-05-09  J. ATOR    -- MODIFIED ALLOCATIONS FOR MODA_BUFRMG
-C> 2021-01-08  J. ATOR    -- MODIFIED MSTABS ARRAY DECLARATIONS
-C>                           FOR GNUv10 PORTABILITY
+C> @author J. Ator
+C> @date 2014-12-04
 C>
-C> USAGE:    CALL ARALLOCF
+C> @remarks
+C> - All memory allocated within this subroutine can be freed via a
+C> subsequent call to subroutine exitbufr() from within the
+C> application program, or else it will be freed automatically by the
+C> operating system once the application program terminates.
 C>
-C> REMARKS:
-C>    THIS ROUTINE CALLS:        BORT     ERRWRT
-C>    THIS ROUTINE IS CALLED BY: OPENBF
-C>                               Normally not called by any application
-C>                               programs.
+C> <b>Program history log:</b>
+C> - 2014-12-04  J. Ator    -- Original author
+C> - 2016-05-24  J. Ator    -- Added allocations for MODA_BITMAPS
+C>                             and MODA_NRV203
+C> - 2017-05-22  J. Ator    -- Added allocations for MODA_RLCCMN
+C> - 2019-05-09  J. Ator    -- Modified allocations for MODA_BUFRMG
+C> - 2021-01-08  J. Ator    -- Modified mstabs array declarations
+C>                             for GNUv10 portability
+C> - 2021-05-17  J. Ator    -- Allow up to 24 characters in cbunit
 C>
 	SUBROUTINE ARALLOCF
-
-
 
 #ifdef DYNAMIC_ALLOCATION
 
@@ -73,8 +68,6 @@ C>
 	USE MODA_BITMAPS
 	USE MODA_NRV203
 	USE MODA_RLCCMN
-
-	INCLUDE	'bufrlib.inc'
 
 	CHARACTER*80 ERRSTR
 	CHARACTER*36  BRTSTR
@@ -454,7 +447,7 @@ C	MODA_MSTABS arrays.
 	ALLOCATE( CBBW(4,MXMTBB), STAT=iost )
 	IF ( iost .ne. 0 ) CALL BORT( BRTSTR // 'CBBW' )
 
-	ALLOCATE( CBUNIT(14,MXMTBB), STAT=iost )
+	ALLOCATE( CBUNIT(24,MXMTBB), STAT=iost )
 	IF ( iost .ne. 0 ) CALL BORT( BRTSTR // 'CBUNIT' )
 
 	ALLOCATE( CBMNEM(8,MXMTBB), STAT=iost )

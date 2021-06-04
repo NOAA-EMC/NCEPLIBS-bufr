@@ -1,62 +1,64 @@
 C> @file
-C> @author J @date 2012-09-12
-	
-C> THIS FUNCTION SHOULD ONLY BE CALLED WHEN A BUFR FILE IS
-C>   OPENED FOR INPUT, AND A SUBSET DEFINITION MUST ALREADY BE IN SCOPE
-C>   VIA A PREVIOUS CALL TO BUFR ARCHIVE LIBRARY SUBROUTINE READSB OR
-C>   EQUIVALENT.  THE FUNCTION WILL FIRST SEARCH FOR THE (NTAGPV)th
-C>   OCCURRENCE OF MNEMONIC TAGPV WITHIN THE OVERALL SUBSET DEFINITION,
-C>   COUNTING FROM THE BEGINNING OF THE SUBSET.  IF FOUND, IT WILL THEN
-C>   SEARCH FORWARD (IF NTAGNB IS POSITIVE) OR BACKWARD (IF NTAGNB IS
-C>   NEGATIVE) FROM THAT POINT WITHIN THE SUBSET FOR THE (NTAGNB)th
-C>   OCCURRENCE OF MNEMONIC TAGNB AND RETURN THE VALUE CORRESPONDING
-C>   TO THAT MNEMONIC. 
+C> @brief Read one data value from a data subset.
+
+C> This function can be used to read a data value corresponding to
+C> a specific occurrence of a mnemonic within a data subset, based on
+C> its position relative to a different mnemonic within the subset.
 C>
-C> PROGRAM HISTORY LOG:
-C> 2012-09-12  J. ATOR    -- ORIGINAL AUTHOR
-C> 2014-10-02  J. ATOR    -- MODIFIED TO USE FSTAG
-C> 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
+C> <p>The function first searches for a specific occurrence of a pivot
+C> mnemonic, counting from the beginning of the subset.  From there,
+C> it then searches in either a forward or backward direction for a
+C> specific occurrence of a nearby mnemonic, and if found
+C> returns the data value from the corresponding location
+C> within the subset.
 C>
-C> USAGE:    CALL GETVALNB (LUNIT, TAGPV, NTAGPV, TAGNB, NTAGNB)
-C>   INPUT ARGUMENT LIST:
-C>     LUNIT    - INTEGER: FORTRAN LOGICAL UNIT NUMBER FOR BUFR FILE
-C>     TAGPV    - CHARACTER*(*): PIVOT MNEMONIC; THE FUNCTION WILL
-C>                FIRST SEARCH FOR the (NTAGPV)th OCCURRENCE OF THIS
-C>                MNEMONIC, COUNTING FROM THE BEGINNING OF THE OVERALL
-C>                SUBSET DEFINITION
-C>     NTAGPV   - INTEGER: ORDINAL OCCURRENCE OF TAGPV TO SEARCH FOR
-C>     TAGNB    - CHARACTER*(*): NEARBY MNEMONIC; ASSUMING TAGPV IS
-C>                SUCCESSFULLY FOUND, THE FUNCTION WILL THEN SEARCH
-C>                NEARBY FOR THE (NTAGNB)th OCCURRENCE OF TAGNB AND
-C>                RETURN THE CORRESPONDING VALUE
-C>     NTAGNB   - INTEGER: ORDINAL OCCURRENCE OF TAGNB TO SEARCH FOR,
-C>                COUNTING FROM THE LOCATION OF TAGPV WITHIN THE OVERALL
-C>                SUBSET DEFINITION.  IF NTAGNB IS POSITIVE, THE FUNCTION
-C>                WILL SEARCH IN A FORWARD DIRECTION FROM THE LOCATION OF
-C>                TAGPV, OR IF NTAGNB IS NEGATIVE IT WILL INSTEAD SEARCH
-C>                IN A BACKWARDS DIRECTION.
+C> @author J. Ator
+C> @date 2012-09-12
 C>
-C>   OUTPUT ARGUMENT LIST:
-C>     GETVALNB - REAL*8: VALUE CORRESPONDING TO (NTAGNB)th OCCURRENCE
-C>                OF TAGNB.  IF FOR ANY REASON THIS VALUE CANNOT BE
-C>                LOCATED, THEN THE BUFR ARCHIVE LIBRARY MISSING VALUE
-C>                BMISS WILL BE RETURNED.
+C> @param[in] LUNIT   - integer: Fortran logical unit number for
+C>                      BUFR file
+C> @param[in] TAGPV   - character*(*): Pivot mnemonic; the subroutine
+C>                      will first search for the (NTAGPV)th occurrence
+C>                      of this mnemonic, counting from the beginning
+C>                      of the overall subset definition
+C> @param[in] NTAGPV  - integer: Ordinal occurrence of TAGPV to search for,
+C>                      counting from the beginning of the overall
+C>                      subset definition
+C> @param[in] TAGNB   - character*(*): Nearby mnemonic; assuming TAGPV is
+C>                      successfully found, the subroutine will then search
+C>                      nearby for the (NTAGNB)th occurrence of TAGNB and
+C>                      return the corresponding value
+C> @param[in] NTAGNB  - integer: Ordinal occurrence of TAGNB to search for,
+C>                      counting from the location of TAGPV within the
+C>                      overall subset definition.  If NTAGNB is positive,
+C>                      the subroutine will search in a forward direction
+C>                      from the location of TAGPV; otherwise, if NTAGNB is
+C>                      negative, it will instead search in a backwards
+C>                      direction from the location of TAGPV.
+C> @returns getvalnb - real*8: Value corresponding to (NTAGNB)th occurrence
+C>                     of TAGNB.  If for any reason this value cannot be
+C>                     located, then the current placeholder value for
+C>                     "missing" data will be returned instead.
 C>
-C> REMARKS:
-C>    THIS ROUTINE CALLS:        FSTAG    STATUS
-C>    THIS ROUTINE IS CALLED BY: None
-C>                               Normally called only by application
-C>                               programs
+C> <p>The current placeholder value for "missing" data can be determined
+C> via a separate call to function getbmiss().
+C>
+C> <p>Before calling this function, a BUFR data subset should already be
+C> open for reading via a previous call to one of the BUFRLIB
+C> [subset-reading subroutines](@ref hierarchy).
+C>
+C> <b>Program history log:</b>
+C> - 2012-09-12  J. Ator    -- Original author
+C> - 2014-10-02  J. Ator    -- Modified to use fstag()
+C> - 2014-12-10  J. Ator    -- Use modules instead of COMMON blocks
 C>
 	REAL*8 FUNCTION GETVALNB ( LUNIT, TAGPV, NTAGPV, TAGNB, NTAGNB )
 
-
+        USE MODV_BMISS
 
 	USE MODA_USRINT
 	USE MODA_MSGCWD
 	USE MODA_TABLES
-
-	INCLUDE 'bufrlib.inc'
 
 	CHARACTER*(*) TAGPV, TAGNB
 

@@ -1,67 +1,61 @@
 C> @file
-C> @author WOOLLEN @date 1999-11-18
-      
-C> THIS SUBROUTINE READS A PARTICULAR BUFR MESSAGE FROM
-C>   INTERNAL MEMORY (ARRAY MSGS IN MODULE MSGMEM) INTO A MESSAGE
-C>   BUFFER (ARRAY MBAY IN MODULE BITBUF).  IT IS IDENTICAL
-C>   TO BUFR ARCHIVE LIBRARY SUBROUTINE RDMEMM EXCEPT IT ADVANCES
-C>   THE VALUE OF IMSG BY ONE PRIOR TO RETURNING TO CALLING PROGRAM.
+C> @brief Read a specified BUFR message from internal arrays.
+
+C> This subroutine reads a specified BUFR message from internal
+C> arrays in memory, so that it is now in scope for processing
+C> via a subsequent call to subroutine rdmems().
 C>
-C> PROGRAM HISTORY LOG:
-C> 1999-11-18  J. WOOLLEN -- ORIGINAL AUTHOR
-C> 2000-09-19  J. WOOLLEN -- MAXIMUM MESSAGE LENGTH INCREASED FROM
-C>                           10,000 TO 20,000 BYTES
-C> 2001-08-15  D. KEYSER  -- PARAMETER MAXMEM (THE MAXIMUM NUMBER OF
-C>                           BYTES REQUIRED TO STORE ALL MESSAGES
-C>                           INTERNALLY) WAS INCREASED FROM 8 MBYTES TO
-C>                           16 MBYTES
-C> 2003-11-04  S. BENDER  -- ADDED REMARKS/BUFRLIB ROUTINE
-C>                           INTERDEPENDENCIES
-C> 2003-11-04  D. KEYSER  -- PARAMETER MAXMSG (THE MAXIMUM NUMBER OF
-C>                           BUFR MESSAGES WHICH CAN BE STORED
-C>                           INTERNALLY) INCREASED FROM 50000 TO 200000;
-C>                           UNIFIED/PORTABLE FOR WRF; ADDED
-C>                           DOCUMENTATION (INCLUDING HISTORY); OUTPUTS
-C>                           MORE COMPLETE DIAGNOSTIC INFO WHEN ROUTINE
-C>                           TERMINATES ABNORMALLY OR UNUSUAL THINGS
-C>                           HAPPEN
-C> 2004-08-09  J. ATOR    -- MAXIMUM MESSAGE LENGTH INCREASED FROM
-C>                           20,000 TO 50,000 BYTES
-C> 2004-11-15  D. KEYSER  -- PARAMETER MAXMEM (THE MAXIMUM NUMBER OF
-C>                           BYTES REQUIRED TO STORE ALL MESSAGES
-C>                           INTERNALLY) WAS INCREASED FROM 16 MBYTES TO
-C>                           50 MBYTES
-C> 2009-03-23  J. ATOR    -- REWROTE TO CALL RDMEMM
+C> <p>BUFR messages should already be stored within internal
+C> arrays in memory via one or more previous calls to
+C> subroutine ufbmem().
 C>
-C> USAGE:    CALL READMM (IMSG, SUBSET, JDATE, IRET)
-C>   INPUT ARGUMENT LIST:
-C>     IMSG     - INTEGER: POINTER TO BUFR MESSAGE NUMBER (RECORD) IN
-C>                STORAGE
+C> <p>This subroutine is similar to subroutine rdmemm(), except that
+C> it increments the value of IMSG prior to returning to the calling
+C> program, which in turn allows the subroutine to be easily called
+C> within an iterative program loop.
 C>
-C>   OUTPUT ARGUMENT LIST:
-C>     IMSG     - INTEGER: POINTER TO BUFR MESSAGE NUMBER (RECORD) IN
-C>                STORAGE
-C>     SUBSET   - CHARACTER*8: TABLE A MNEMONIC FOR TYPE OF BUFR MESSAGE
-C>                BEING READ
-C>     JDATE    - INTEGER: DATE-TIME STORED WITHIN SECTION 1 OF BUFR
-C>                MESSAGE BEING READ, IN FORMAT OF EITHER YYMMDDHH OR
-C>                YYYYMMDDHH, DEPENDING ON DATELEN() VALUE
-C>     IRET     - INTEGER: RETURN CODE:
-C>                       0 = normal return
-C>                      -1 = IMSG is either zero or greater than the
-C>                           number of messages in memory
+C> @author J. Woollen
+C> @date 1999-11-18
 C>
-C> REMARKS:
-C>    NOTE THAT UFBMEM IS CALLED PRIOR TO THIS TO STORE THE BUFR
-C>    MESSAGES INTO INTERNAL MEMORY.
+C> @param[in,out] IMSG - integer: Message pointer within internal arrays
+C>                       - On input, IMSG is the number of the BUFR
+C>                         message to be read into scope for further
+C>                         processing, counting from the beginning of
+C>                         the internal arrays in memory
+C>                       - On output, IMSG is incremented by one from
+C>                         its input value
+C> @param[out] SUBSET  - character*8: Table A mnemonic for type of BUFR
+C>                       message that was read into scope
+C>                       (see [DX BUFR Tables](@ref dfbftab) for
+C>                       further information about Table A mnemonics)
+C> @param[out] JDATE   - integer: Date-time stored within Section 1 of
+C>                       BUFR message that was read into scope,
+C>                       in format of either YYMMDDHH or YYYYMMDDHH,
+C>                       depending on the most
+C>                       recent call to subroutine datelen()
+C> @param[out] IRET    - integer: return code
+C>                          - 0 = requested message was
+C>                                successfully read into scope
+C>                          - -1 = requested message number could not
+C>                                 be found in internal arrays
 C>
-C>    THIS ROUTINE CALLS:        RDMEMM
-C>    THIS ROUTINE IS CALLED BY: IREADMM
-C>                               Also called by application programs.
+C> <b>Program history log:</b>
+C> - 1999-11-18  J. Woollen -- Original author
+C> - 2000-09-19  J. Woollen -- Maximum message length increased
+C>                             from 10,000 to 20,000 bytes
+C> - 2001-08-15  D. Keyser  -- Increased MAXMEM from 8 Mb to 16 Mb
+C> - 2003-11-04  S. Bender  -- Added remarks and routine interdependencies
+C> - 2003-11-04  D. Keyser  -- Unified/portable for WRF; added history
+C>                             documentation; outputs more complete
+C>                             diagnostic info when routine terminates
+C>                             abnormally; increased MAXMSG from 50000
+C>                             to 200000
+C> - 2004-08-09  J. Ator    -- Maximum message length increased
+C>                             from 20,000 to 50,000 bytes
+C> - 2004-11-15  D. Keyser  -- Increased MAXMEM from 16 Mb to 50 Mb
+C> - 2009-03-23  J. Ator    -- Rewrote to call rdmemm()
 C>
       SUBROUTINE READMM(IMSG,SUBSET,JDATE,IRET)
-
-
 
       CHARACTER*8 SUBSET
 

@@ -1,6 +1,6 @@
 !> @file
-!> @brief Read BUFR file containing embedded DX tables,
-!> and print the table to stdout
+!> @brief Read BUFR file containing embedded DX BUFR tables,
+!> and print the tables to stdout
 !> @author WOOLLEN @date 2000-01-01
 
 program gettab

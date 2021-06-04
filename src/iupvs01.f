@@ -1,49 +1,76 @@
 C> @file
-C> @author ATOR @date 2005-11-29
-      
-C> THIS FUNCTION UNPACKS AND RETURNS A SPECIFIED INTEGER VALUE
-C>   FROM SECTION 0 OR SECTION 1 OF THE LAST BUFR MESSAGE THAT WAS READ
-C>   FROM LOGICAL UNIT NUMBER LUNIT VIA BUFR ARCHIVE LIBRARY SUBROUTINE
-C>   READMG, READERME OR EQUIVALENT.  IT WILL WORK ON ANY MESSAGE ENCODED
-C>   USING BUFR EDITION 2, 3 OR 4, AND THE VALUE TO BE UNPACKED IS
-C>   SPECIFIED VIA THE MNEMONIC S01MNEM (SEE THE DOCBLOCK OF BUFR ARCHIVE
-C>   LIBRARY FUNCTION IUPBS01 FOR A LISTING OF POSSIBLE VALUES FOR
-C>   S01MNEM).  NOTE THAT THIS FUNCTION IS SIMILAR TO BUFR ARCHIVE
-C>   LIBRARY FUNCTION IUPBS01 EXCEPT THAT IT OPERATES ON A BUFR MESSAGE
-C>   THAT HAS ALREADY BEEN READ INTO THE INTERNAL BUFR ARCHIVE LIBRARY
-C>   ARRAYS (VIA A PREVIOUS CALL TO READMG, READERME, ETC.) RATHER THAN
-C>   ON A BUFR MESSAGE PASSED DIRECTLY INTO THE FUNCTION VIA A MEMORY
-C>   ARRAY.
+C> @brief Read a data value from Section 0 or Section 1 of a BUFR
+C> message.
+
+C> This function returns a specified value from within Section 0 or
+C> Section 1 of a BUFR message.
 C>
-C> PROGRAM HISTORY LOG:
-C> 2005-11-29  J. ATOR    -- ORIGINAL AUTHOR
-C> 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
+C> <p>This function will work on any BUFR message encoded using BUFR
+C> edition 2, 3, or 4.  It is similar to function iupbs01(), except
+C> that iupbs01() operates on a BUFR message passed in via a memory
+C> array, whereas this function operates on the BUFR message that was
+C> read into internal arrays via the most recent call to any of the
+C> other [message-reading subroutines](@ref hierarchy) for a specified
+C> Fortran logical unit.
 C>
-C> USAGE:    IUPVS01 (LUNIT, S01MNEM)
-C>   INPUT ARGUMENT LIST:
-C>     LUNIT    - INTEGER: FORTRAN LOGICAL UNIT NUMBER FOR BUFR FILE
-C>     S01MNEM  - CHARACTER*(*): MNEMONIC SPECIFYING VALUE TO BE
-C>                UNPACKED FROM SECTION 0 OR SECTION 1 OF BUFR MESSAGE
-C>                  (SEE DOCBLOCK OF FUNCTION IUPBS01 FOR LISTING OF
-C>                  POSSIBLE VALUES)
+C> @author J. Ator
+C> @date 2005-11-29
 C>
-C>   OUTPUT ARGUMENT LIST:
-C>     IUPVS01   - INTEGER: UNPACKED INTEGER VALUE
-C>                  -1 = THE INPUT S01MNEM MNEMONIC WAS INVALID
+C> @param[in]   LUNIT    - integer: Fortran logical unit number for
+C>                         BUFR file
+C> @param[in]  S01MNEM   - character*(*): Value to be read from
+C>                         Section 0 or Section 1 of BUFR message in
+C>                         internal arrays for LUNIT
+C>                         - 'LENM'  = Length (in bytes) of BUFR message
+C>                         - 'LEN0'  = Length (in bytes) of Section 0
+C>                         - 'LEN1'  = Length (in bytes) of Section 1
+C>                         - 'BEN'   = BUFR edition number
+C>                         - 'BMT'   = BUFR master table
+C>                         - 'OGCE'  = Originating center
+C>                         - 'GSES'  = Originating subcenter
+C>                         - 'USN'   = Update sequence number
+C>                         - 'ISC2'  = Flag indicating absence/presence of
+C>                                     (optional) Section 2 in BUFR message:
+C>                                    - 0 = Section 2 absent
+C>                                    - 1 = Section 2 present
+C>                         - 'MTYP'  = Data category
+C>                         - 'MSBTI' = Data subcategory (international)
+C>                         - 'MSBT'  = Data subcategory (local)
+C>                         - 'MTV'   = Version number of master table
+C>                         - 'MTVL'  = Version number of local tables
+C>                         - 'YCEN'  = Year of century (1-100)
+C>                         - 'CENT'  = Century (e.g., 20 for years 1901-2000,
+C>                                     21 for years 2001-2100)
+C>                         - 'YEAR'  = Year (4-digit)
+C>                         - 'MNTH'  = Month
+C>                         - 'DAYS'  = Day
+C>                         - 'HOUR'  = Hour
+C>                         - 'MINU'  = Minute
+C>                         - 'SECO'  = Second
+C> @returns iupvs01  - integer: Value corresponding to S01MNEM
+C>                      - -1 = S01MNEM was invalid for the edition of BUFR
+C>                             message in internal arrays for LUNIT, or some
+C>                             other error occurred
 C>
-C> REMARKS:
-C>    THIS ROUTINE CALLS:        BORT     IUPBS01  STATUS
-C>    THIS ROUTINE IS CALLED BY: None
-C>                               Normally called only by application
-C>                               programs.
+C> @remarks
+C> - Values corresponding to S01MNEM = 'GSES' can only be read from
+C>   BUFR messages encoded using BUFR edition 3 or 4.
+C> - Values corresponding to S01MNEM = 'YCEN' or 'CENT' can only be
+C>   read from BUFR messages encoded using BUFR edition 2 or 3.
+C> - When reading from BUFR messages encoded using BUFR edition 2
+C>   or 3, values corresponding to S01MNEM = 'YEAR' will be
+C>   calculated internally using the values for 'YCEN' and 'CENT',
+C>   or inferred using a windowing technique
+C> - Values corresponding to S01MNEM = 'SECO' or 'MSBTI' can only
+C>   be read from BUFR messages encoded using BUFR edition 4.
+C>
+C> <b>Program history log:</b>
+C> - 2005-11-29  J. Ator    -- Original author
+C> - 2014-12-10  J. Ator    -- Use modules instead of COMMON blocks
 C>
       FUNCTION IUPVS01(LUNIT,S01MNEM)
 
-
-
       USE MODA_BITBUF
-
-      INCLUDE 'bufrlib.inc'
 
       CHARACTER*(*)   S01MNEM
 

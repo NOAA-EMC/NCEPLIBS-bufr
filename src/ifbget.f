@@ -1,50 +1,37 @@
 C> @file
-C> @author WOOLLEN @date 1994-01-06
-      
-C> THIS FUNCTION CHECKS TO SEE IF ANY UNREAD SUBSETS ARE IN
-C>   AN INPUT BUFR MESSAGE PREVIOUSLY OPENED BY BUFR ARCHIVE LIBRARY
-C>   SUBROUTINE OPENMG OR OPENMB.
+C> @brief Check whether there are any more data subsets available to be
+C> read from a BUFR message.
+
+C> This function checks whether there are any more data subsets
+C> available to be read from within the BUFR message that is
+C> open for reading via the most recent call to any of the
+C> [message-reading subroutines](@ref hierarchy) for a specified
+C> Fortran logical unit.
 C>
-C> PROGRAM HISTORY LOG:
-C> 1994-01-06  J. WOOLLEN -- ORIGINAL AUTHOR
-C> 1998-07-08  J. WOOLLEN -- REPLACED CALL TO CRAY LIBRARY ROUTINE
-C>                           "ABORT" WITH CALL TO NEW INTERNAL BUFRLIB
-C>                           ROUTINE "BORT"
-C> 1999-11-18  J. WOOLLEN -- THE NUMBER OF BUFR FILES WHICH CAN BE
-C>                           OPENED AT ONE TIME INCREASED FROM 10 TO 32
-C>                           (NECESSARY IN ORDER TO PROCESS MULTIPLE
-C>                           BUFR FILES UNDER THE MPI)
-C> 2003-11-04  S. BENDER  -- ADDED REMARKS/BUFRLIB ROUTINE
-C>                           INTERDEPENDENCIES
-C> 2003-11-04  D. KEYSER  -- UNIFIED/PORTABLE FOR WRF; ADDED
-C>                           DOCUMENTATION (INCLUDING HISTORY); OUTPUTS
-C>                           MORE COMPLETE DIAGNOSTIC INFO WHEN ROUTINE
-C>                           TERMINATES ABNORMALLY
-C> 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
+C> @author J. Woollen
+C> @date 1994-01-06
 C>
-C> USAGE:    IFBGET (LUNIT)
-C>   INPUT ARGUMENT LIST:
-C>     LUNIT    - INTEGER: FORTRAN LOGICAL UNIT NUMBER FOR BUFR FILE
+C> @param[in] LUNIT  - integer: Fortran logical unit number for
+C>                         BUFR file
+C> @returns ifbget - integer:
+C>                    -  0 = there is at least one more data subset
+C>                           to be read from the BUFR message
+C>                    - -1 = there are no more data subsets
+C>                           to be read from the BUFR message
 C>
-C>   OUTPUT ARGUMENT LIST:
-C>     IFBGET   - INTEGER: RETURN CODE:
-C>                       0 = there is at least one more subset in the
-C>                           message
-C>                      -1 = there are no more subsets in the message
-C>
-C> REMARKS:
-C>    THIS ROUTINE CALLS:        BORT     STATUS
-C>    THIS ROUTINE IS CALLED BY: None
-C>                               Normally called only by application
-C>                               programs.
+C> <b>Program history log:</b>
+C> - 1994-01-06  J. Woollen -- Original author
+C> - 1998-07-08  J. Woollen -- Replaced call to Cray library routine ABORT
+C>                             with call to new internal routine bort()
+C> - 1999-11-18  J. Woollen -- The number of BUFR files which can be
+C>                             opened at one time increased from 10 to 32
+C>                             (necessary in order to process multiple
+C>                             BUFR files under the MPI)
+C> - 2014-12-10  J. Ator  -- Use modules instead of COMMON blocks
 C>
       FUNCTION IFBGET(LUNIT)
 
-
-
       USE MODA_MSGCWD
-
-      INCLUDE 'bufrlib.inc'
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------

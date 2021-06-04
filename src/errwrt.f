@@ -22,7 +22,7 @@ C>
 C> @author J. Ator
 C> @date 2009-04-21
 C>
-C> @param[in] STR   - character*(*): Error string or other diagnostic
+C> @param[in] STR   - character*(*): Error message or other diagnostic
 C>                    to be printed to standard output (default) or
 C>                    to another location (if specified via an inline
 C>                    replacement version of this subroutine)

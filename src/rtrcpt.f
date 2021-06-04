@@ -1,43 +1,38 @@
 C> @file
-C> @author ATOR @date 2009-03-23
-      
-C> THIS SUBROUTINE RETURNS THE TANK RECEIPT TIME STORED WITHIN
-C>   SECTION 1 OF THE BUFR MESSAGE OPEN FOR INPUT VIA A PREVIOUS CALL TO
-C>   BUFR ARCHIVE LIBRARY SUBROUTINE READMG, READMM OR EQUIVALENT.
+C> @brief Read the tank receipt time from Section 1 of a BUFR message.
+
+C> This subroutine reads the tank receipt time (if one exists) from 
+C> Section 1 of a BUFR message.  It is similar to subroutine rtrcptb(),
+C> except that rtrcptb() operates on a BUFR message passed in via a
+C> memory array, whereas this subroutine operates on the BUFR message
+C> that was read into internal arrays via the most recent call to any
+C> of the other [message-reading subroutines](@ref hierarchy) for a
+C> specified Fortran logical unit.
 C>
-C> PROGRAM HISTORY LOG:
-C> 2009-03-23  J. ATOR    -- ORIGINAL AUTHOR
-C> 2013-10-07  J. ATOR    -- MODIFIED TO CALL RTRCPTB
-C> 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
+C> @author J. Ator
+C> @date 2009-03-23
 C>
-C> USAGE:    CALL RTRCPT (LUNIT,IYR,IMO,IDY,IHR,IMI,IRET) 
-C>   INPUT ARGUMENT LIST:
-C>     LUNIT    - INTEGER: FORTRAN LOGICAL UNIT NUMBER FOR BUFR FILE
-C>
-C>   OUTPUT ARGUMENT LIST:
-C>     IYR      - INTEGER: TANK RECEIPT YEAR
-C>     IMO      - INTEGER: TANK RECEIPT MONTH
-C>     IDY      - INTEGER: TANK RECEIPT DAY
-C>     IHR      - INTEGER: TANK RECEIPT HOUR
-C>     IMI      - INTEGER: TANK RECEIPT MINUTE
-C>     IRET     - INTEGER: RETURN CODE:
-C>                       0 = normal return
-C>                      -1 = no tank receipt time was present within the
-C>                           BUFR message currently open for input
-C>
-C> REMARKS:
-C>    THIS ROUTINE CALLS:        BORT     RTRCPTB   STATUS
-C>    THIS ROUTINE IS CALLED BY: None
-C>                               Normally called only by application
-C>                               programs.
+C> @param[in] LUNIT  - integer: Fortran logical unit number for
+C>                     BUFR file
+C> @param[out] IYR   - integer: Tank receipt year
+C> @param[out] IMO   - integer: Tank receipt month
+C> @param[out] IDY   - integer: Tank receipt day
+C> @param[out] IHR   - integer: Tank receipt hour
+C> @param[out] IMI   - integer: Tank receipt minute
+C> @param[out] IRET  - integer: return code
+C>                     - 0 = normal return
+C>                     - -1 = no tank receipt time exists within the
+C>                            BUFR message currently open for input
+C>                            within internal arrays
+C> 
+C> <b>Program history log:</b>
+C> - 2009-03-23  J. Ator    -- Original author
+C> - 2013-10-07  J. Ator    -- Modified to call rtrcptb()
+C> - 2014-12-10  J. Ator    -- Use modules instead of COMMON blocks
 C>
       SUBROUTINE RTRCPT(LUNIT,IYR,IMO,IDY,IHR,IMI,IRET)
 
-
-
       USE MODA_BITBUF
-
-      INCLUDE 'bufrlib.inc'
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------

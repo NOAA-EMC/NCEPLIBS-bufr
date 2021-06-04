@@ -53,11 +53,7 @@ C>                               programs.
 C>
       SUBROUTINE NUMTBD(LUN,IDN,NEMO,TAB,IRET)
 
-
-
       USE MODA_TABABD
-
-      INCLUDE 'bufrlib.inc'
 
       CHARACTER*(*) NEMO
       CHARACTER*1   TAB

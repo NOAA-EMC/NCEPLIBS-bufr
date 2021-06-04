@@ -1,59 +1,58 @@
 /** @file
-    @author ATOR @date 2014-12-04
-*/
-
-
-#ifdef DYNAMIC_ALLOCATION
-
+ *  @brief Copy master Table B and Table D information from
+ *  Fortran arrays to C arrays within internal memory.
+ */
 #include "bufrlib.h"
 #include "mstabs.h"
 
 /**
-
-If dynamic memory allocation is being used, then we can't
-directly access the fortran module mstabs arrays from within c, so
-this routine is called within bufr archive library subroutine
-ireadmt to copy the relevant information from these fortran arrays
-to new arrays for use within c.
-
-@author ATOR #date 2014-12-04
-
- PROGRAM HISTORY LOG:
-- 2014-12-04  J. ATOR    -- ORIGINAL AUTHOR
-
-   INPUT ARGUMENT LIST:
-@param[in] pmtbb number of entries in master table b arrays
-@param[in] pibfxyn bit-wise representations of fxy numbers
-@param[in] pcbscl scale factors
-@param[in] pcbcsref reference values
-@param[in] pcbbw bit widths
-@param[in] pcbunit units
-@param[in] pcbmnem mnemonics
-@param[in] pcbelem element names
-@param[in] pmtbd number of entries in master table d arrays
-@param[in] pidfxyn bit-wise representations of fxy numbers
-@param[in] pcdseq sequence names
-@param[in] pcdmnem mnemonics
-@param[in] pndelem number of elements stored for pcdseq
-@param[in] pidefxy bit-wise representations of fxy numbers for
-elements in pndelem
-@param[in] maxcd maximum number of elements per pcdseq; used by the
-subroutine when calling function icvidx
-
- REMARKS:
-    THIS ROUTINE CALLS:        icvidx()
-    THIS ROUTINE IS CALLED BY: ireadmt()
+ *  This subroutine copies relevant information from the Fortran
+ *  module MODA_MSTABS arrays to new arrays within C, for use
+ *  whenever arrays are dynamically allocated at run time and in
+ *  which case we can't directly access the Fortran module
+ *  MODA_MSTABS arrays from within C.
+ *
+ *  @author J. Ator
+ *  @date 2014-12-04
+ *
+ *  @param[in] pnmtb - f77int*: Number of master Table B entries
+ *  @param[in] pibfxyn - f77int*: Bitwise representations of
+ *                       master Table B FXY numbers
+ *  @param[in] pcbscl - char(*)[4]: Master Table B scale factors
+ *  @param[in] pcbsref - char(*)[12]: Master Table B reference
+ *                        values
+ *  @param[in] pcbbw - char(*)[4]: Master Table B bit widths
+ *  @param[in] pcbunit - char(*)[24]: Master Table B units
+ *  @param[in] pcbmnem - char(*)[8]: Master Table B mnemonics
+ *  @param[in] pcbelem - char(*)[120]: Master Table B element names
+ *  @param[in] pnmtd - f77int*: Number of master Table D entries
+ *  @param[in] pidfxyn - f77int*: Bitwise representations of
+ *                       master Table D FXY numbers
+ *  @param[in] pcdseq - char(*)[120]: Master Table D sequence names
+ *  @param[in] pcdmnem - char(*)[8]: Master Table D mnemonics
+ *  @param[in] pndelem - f77int*: Number of child descriptors for
+ *                       master Table D sequence
+ *  @param[in] pidefxy - f77int*: Bitwise representations of
+ *                       child descriptors for master Table D
+ *                       sequence
+ *  @param[in] maxcd - f77int*: Maximum number of child descriptors
+ *                     for a master Table D sequence
+ *
+ * <b>Program history log:</b>
+ * - 2014-12-04  J. Ator    -- Original author
+ * - 2021-05-17  J. Ator    -- Allow up to 24 characters in cbunit
 */
 void cpmstabs(  f77int *pnmtb,
 		f77int *pibfxyn, char (*pcbscl)[4],
 		char (*pcbsref)[12], char (*pcbbw)[4],
-		char (*pcbunit)[14], char (*pcbmnem)[8],
+		char (*pcbunit)[24], char (*pcbmnem)[8],
 		char (*pcbelem)[120],
 		f77int *pnmtd,
 		f77int *pidfxyn, char (*pcdseq)[120],
 		char (*pcdmnem)[8], f77int *pndelem,
 		f77int *pidefxy, f77int *maxcd )
 {
+#ifdef DYNAMIC_ALLOCATION
 
     f77int ii, jj, idx;
 
@@ -70,7 +69,7 @@ void cpmstabs(  f77int *pnmtb,
 	for ( jj = 0; jj < 12; jj++ ) {
 	    MSTABS_BASE(cbsref)[ii][jj] = pcbsref[ii][jj];
 	}
-	for ( jj = 0; jj < 14; jj++ ) {
+	for ( jj = 0; jj < 24; jj++ ) {
 	    MSTABS_BASE(cbunit)[ii][jj] = pcbunit[ii][jj];
 	}
 	for ( jj = 0; jj < 120; jj++ ) {
@@ -93,7 +92,7 @@ void cpmstabs(  f77int *pnmtb,
 	    MSTABS_BASE(cdseq)[ii][jj] = pcdseq[ii][jj];
 	}
     }
+#endif
 
 }
 
-#endif

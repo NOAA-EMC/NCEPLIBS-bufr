@@ -32,20 +32,27 @@ C*	Open the BUFR table and output file.
 	print *, '        OPENBF'
 
 C*	Write a standard, compressed BUFR message with 3 subsets.
+C*      Compression will be implemented using WRITCP.
 
 	CALL STDMSG ('Y')
 	print *, '        STDMSG'
-	CALL CMPMSG ('Y')
-	print *, '        CMPMSG'
 
 C*	First subset.
 
 	CALL OPENMB ( 11, 'FR004029', 2012031212 )
 	print *, '        OPENMB'
 
+        IF ( LCMGDF ( 11, 'FR004029' ) .eq. 1 ) THEN
+	    print *, '        LCMGDF'
+        ELSE
+            CALL BORT ( 'LCMGDF FAILURE!' )
+	ENDIF
+
 	CALL GETTAGPR ( 11, 'MNTH', 1, tagpr, iertgp )
 	IF ( ( iertgp .eq. 0 ) .and. ( tagpr .eq. 'YYMMDD' ) ) THEN
 	    print *, '        GETTAGPR'
+        ELSE
+            CALL BORT ( 'GETTAGPR FAILURE!' )
 	ENDIF
 
 C*	The output of the following calls will be checked below, after
@@ -90,13 +97,14 @@ C*	in r8flv(1,3) and r8flv(1,4) when writing the message.
      +	    'HOUR MINU TMDB DGOT MDEVG ROLQ INTV DPOF WDIR WSPD')
 	print *, '        UFBINT'
 
-	CALL WRITSB ( 11 )
-	print *, '        WRITSB'
+	CALL WRITCP ( 11 )
+	print *, '        WRITCP'
 
-C*	We need to run the following check after the call to WRITSB,
+C*	We need to run the following check after the call to WRITCP,
 C*	because new reference values aren't stored into a message (nor
 C*	applied when packing any other values within that message) until
-C*	WRITSB calls WRTREE, which in turn calls IPKS.
+C*	WRITCP calls WRITSB, which in turn calls WRTREE, which in turn
+C*      calls IPKS.
 
 	DO jj = 1, 5
 	    CALL NEMSPECS ( 11, 'FLVLST', jj, nsc(jj), nrf(jj),
@@ -112,6 +120,8 @@ C*	WRITSB calls WRTREE, which in turn calls IPKS.
      +		( ierns(5) .eq. 0 ) .and. ( nrf(5) .eq. -1024 ) .and.
      +		( nbt(3) .eq. 16 ) .and. ( nbt(5) .eq. 16 ) )  THEN
 	    print *, '        NEMSPECS'
+        ELSE
+            CALL BORT ( 'NEMSPECS FAILURE!' )
 	END IF
 
 	acrn = 'TESTUPS008'
@@ -141,7 +151,7 @@ C*	Second subset.
 	CALL UFBINT ( 11, r8oth, 10, 1, nlv,
      +	    'HOUR MINU TMDB DGOT MDEVG ROLQ INTV DPOF WDIR WSPD')
 
-	CALL WRITSB ( 11 )
+	CALL WRITCP ( 11 )
 
 	acrn = 'TESTAAL225'
 	CALL WRITLC ( 11, acrn, 'ACRN' )
@@ -169,7 +179,7 @@ C*	Third subset.
 	CALL UFBINT ( 11, r8oth, 10, 1, nlv,
      +	    'HOUR MINU TMDB DGOT MDEVG ROLQ INTV DPOF WDIR WSPD')
 
-	CALL WRITSB ( 11 )
+	CALL WRITCP ( 11 )
 
 	acrn = 'TESTSWA193'
 	CALL WRITLC ( 11, acrn, 'ACRN' )

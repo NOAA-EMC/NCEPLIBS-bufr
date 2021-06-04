@@ -1,5 +1,5 @@
 C> @file
-C> @brief Specify DX table file of last resort.
+C> @brief Specify DX BUFR table file of last resort.
 
 C> This subroutine is called as a last resort from within subroutine
 C> cktaba(), in the event the latter subroutine is unable to locate

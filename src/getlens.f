@@ -1,44 +1,40 @@
 C> @file
-C> @author ATOR @date 2005-11-29
-	
-C> THIS SUBROUTINE UNPACKS AND RETURNS ALL OF THE INDIVIDUAL
-C>   SECTION LENGTHS OF THE BUFR MESSAGE STORED IN ARRAY MBAY, UP TO A
-C>   SPECIFIED POINT.  IT WILL WORK ON ANY MESSAGE ENCODED USING BUFR
-C>   EDITION 2, 3 OR 4.  THE START OF THE BUFR MESSAGE (I.E. THE STRING
-C>   "BUFR") MUST BE ALIGNED ON THE FIRST FOUR BYTES OF MBAY.
+C> @brief Read the section lengths of a BUFR message.
+
+C> This subroutine reads the lengths of all of the individual
+C> sections of a given BUFR message, up to a specified point in
+C> the message.
 C>
-C> PROGRAM HISTORY LOG:
-C> 2005-11-29  J. ATOR    -- ORIGINAL AUTHOR
+C> <p>This subroutine will work on any BUFR message encoded using
+C> BUFR edition 2, 3, or 4
 C>
-C> USAGE:    CALL GETLENS (MBAY, LL, LEN0, LEN1, LEN2, LEN3, LEN4, LEN5)
-C>   INPUT ARGUMENT LIST:
-C>     MBAY     - INTEGER: *-WORD PACKED BINARY ARRAY CONTAINING
-C>                BUFR MESSAGE
-C>     LL       - INTEGER: NUMBER OF LAST SECTION FOR WHICH THE LENGTH
-C>                IS TO BE UNPACKED.  IN OTHER WORDS, SETTING LL = N
-C>                MEANS TO UNPACK THE LENGTHS OF SECTIONS 0 THROUGH N
-C>                (I.E. LEN0, LEN1,...,LEN(N)).  ANY SECTION LENGTHS
-C>                THAT ARE NOT UNPACKED ARE RETURNED WITH A DEFAULT
-C>                VALUE OF -1.
+C> @author J. Ator
+C> @date 2005-11-29
 C>
-C>   OUTPUT ARGUMENT LIST:
-C>     LEN0     - LENGTH OF SECTION 0 (= -1 IF NOT UNPACKED)
-C>     LEN1     - LENGTH OF SECTION 1 (= -1 IF NOT UNPACKED)
-C>     LEN2     - LENGTH OF SECTION 2 (= -1 IF NOT UNPACKED)
-C>     LEN3     - LENGTH OF SECTION 3 (= -1 IF NOT UNPACKED)
-C>     LEN4     - LENGTH OF SECTION 4 (= -1 IF NOT UNPACKED)
-C>     LEN5     - LENGTH OF SECTION 5 (= -1 IF NOT UNPACKED)
+C> @param[in]  MBAY  - integer(*): BUFR message
+C> @param[in]   LL   - integer: Number of last section for
+C>                     which the length is to be read.
+C>                     In other words, setting LL = N means to
+C>                     read and return the lengths of Sections 0
+C>                     through N (i.e. LEN0, LEN1,...,LENN).
+C>                     Any section lengths that are not specified
+C>                     to be read are returned with a default
+C>                     placeholder value of -1.
+C> @param[out]  LEN0 - integer: Length (in bytes) of Section 0
+C> @param[out]  LEN1 - integer: Length (in bytes) of Section 1
+C> @param[out]  LEN2 - integer: Length (in bytes) of Section 2
+C> @param[out]  LEN3 - integer: Length (in bytes) of Section 3
+C> @param[out]  LEN4 - integer: Length (in bytes) of Section 4
+C> @param[out]  LEN5 - integer: Length (in bytes) of Section 5
 C>
-C> REMARKS:
-C>    THIS ROUTINE CALLS:        IUPB     IUPBS01
-C>    THIS ROUTINE IS CALLED BY: ATRCPT   CKTABA   CNVED4   COPYSB
-C>                               IUPBS3   MSGWRT   STBFDX   STNDRD
-C>                               UPDS3    WRDXTB   WRITLC
-C>                               Also called by application programs.
+C> @remarks
+C> - The start of the BUFR message (i.e. the string 'BUFR') must be
+C>   aligned on the first 4 bytes of MBAY.
+C>
+C> <b>Program history log:</b>
+C> - 2005-11-29  J. Ator    -- Original author
 C>
 	SUBROUTINE GETLENS(MBAY,LL,LEN0,LEN1,LEN2,LEN3,LEN4,LEN5)
-
-
 
 	DIMENSION   MBAY(*)
 

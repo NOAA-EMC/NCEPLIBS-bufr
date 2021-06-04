@@ -1,26 +1,12 @@
-# Set library specific flags
-if(CMAKE_C_COMPILER_ID MATCHES "^(Intel)$")
-  set(c_8_defs "F77_INTSIZE_8")
-endif()
-
-set(c_8_DA_defs ${c_8_defs})
-
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
-# Create the bvers.f file with the version from VERSION file.
+# Create the bvers.f file
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/bvers.f.in ${CMAKE_CURRENT_BINARY_DIR}/bvers.f @ONLY)
 
-# Create the bufrlib.h and bufrlib.inc files
-file(READ bufrlib.h.in _bufrlib_h_in_str)
-foreach(_var IN ITEMS MAXNC MXNAF)
-  if(_bufrlib_h_in_str MATCHES "#define ${_var} ([0-9]+)")
-    set(${_var} ${CMAKE_MATCH_1})
-  else()
-    message(FATAL_ERROR "Unable to parse variable ${_var} value from file: src/bufrlib.h.in")
-  endif()
-endforeach()
-configure_file(${CMAKE_CURRENT_SOURCE_DIR}/bufrlib.inc.in ${CMAKE_CURRENT_BINARY_DIR}/bufrlib.inc @ONLY)
+# Create the bfrini.f90 file
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/bfrini.f90.in ${CMAKE_CURRENT_BINARY_DIR}/bfrini.f90 @ONLY)
 
+# Create the bufrlib.h file
 set(VAR_REGEX_DYNAMIC "INTEGER ::")
 set(VAR_REGEX_STATIC "PARAMETER ")
 foreach(_var IN ITEMS NFILES MAXCD)
@@ -33,9 +19,15 @@ foreach(_var IN ITEMS NFILES MAXCD)
     endif()
   endforeach()
 endforeach()
+foreach(_var IN ITEMS MAXNC MXNAF)
+  file(STRINGS modv_${_var}.f90 _${_var}_tempstr REGEX "parameter,")
+  if(_${_var}_tempstr MATCHES "${_var} = ([0-9]+)")
+    set(${_var} ${CMAKE_MATCH_1})
+  else()
+    message(FATAL_ERROR "Unable to parse variable ${_var} value from file: modv_${_var}.f90")
+  endif()
+endforeach()
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/bufrlib.h.in ${CMAKE_CURRENT_BINARY_DIR}/bufrlib.h @ONLY)
-
-list(APPEND underscore_def UNDERSCORE)
 
 include(TestBigEndian)
 test_big_endian(IS_BIG_ENDIAN)
@@ -62,7 +54,6 @@ foreach(kind ${kinds})
   set_target_properties(${lib_name}_f PROPERTIES COMPILE_FLAGS
                                                  "${fortran_${kind}_flags}")
   target_compile_definitions(${lib_name}_f PUBLIC "${allocation_def}")
-  target_compile_definitions(${lib_name}_f PUBLIC "${underscore_def}")
   target_compile_definitions(${lib_name}_f PRIVATE "${endian_def}")
 
   add_library(${lib_name}_c OBJECT ${c_src})
@@ -70,7 +61,6 @@ foreach(kind ${kinds})
                                                  "${c_${kind}_flags}")
   target_compile_definitions(${lib_name}_c PUBLIC "${allocation_def}")
   target_compile_definitions(${lib_name}_c PUBLIC "${underscore_def}")
-  target_compile_definitions(${lib_name}_c PRIVATE "${endian_def}")
   target_compile_definitions(${lib_name}_c PRIVATE "${c_${kind}_defs}")
 
   set_target_properties(${lib_name}_f PROPERTIES Fortran_MODULE_DIRECTORY "${module_dir}")
@@ -92,7 +82,6 @@ foreach(kind ${kinds})
   list(APPEND LIB_TARGETS ${lib_name})
   install(DIRECTORY ${module_dir} DESTINATION ${CMAKE_INSTALL_PREFIX}/include)
   install(FILES ${c_hdr} DESTINATION ${CMAKE_INSTALL_PREFIX}/include/bufr_${kind})
-  install(FILES ${f_hdr} DESTINATION ${CMAKE_INSTALL_PREFIX}/include/bufr_${kind})
 endforeach()
 
 install(
@@ -111,7 +100,7 @@ export(EXPORT ${PROJECT_NAME}Exports
   FILE ${PROJECT_NAME}-targets.cmake)
 
 configure_package_config_file(
-  ${CMAKE_SOURCE_DIR}/cmake/PackageConfig.cmake.in ${CMAKE_BINARY_DIR}/${PROJECT_NAME}-config.cmake
+  ${PROJECT_SOURCE_DIR}/cmake/PackageConfig.cmake.in ${CMAKE_BINARY_DIR}/${PROJECT_NAME}-config.cmake
   INSTALL_DESTINATION ${CONFIG_INSTALL_DESTINATION})
 install(FILES ${CMAKE_BINARY_DIR}/${PROJECT_NAME}-config.cmake
   DESTINATION ${CONFIG_INSTALL_DESTINATION})

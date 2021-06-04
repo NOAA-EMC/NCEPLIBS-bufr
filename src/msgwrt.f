@@ -1,92 +1,78 @@
 C> @file
-C> @author WOOLLEN @date 1994-01-06
-      
-C> THIS SUBROUTINE PERFORMS SOME FINAL CHECKS ON AN OUTPUT
-C>  BUFR MESSAGE (E.G., CONFIRMING THAT EACH SECTION OF THE MESSAGE HAS
-C>  AN EVEN NUMBER OF BYTES WHEN NECESSARY, "STANDARDIZING" THE MESSAGE
-C>  IF REQUESTED VIA A PREVIOUS CALL TO BUFR ARCHIVE LIBRARY SUBROUTINE
-C>  STDMSG, ETC.), AND THEN PREPARES THE MESSAGE FOR FINAL OUTPUT TO
-C>  LOGICAL UNIT LUNIT (E.G., ADDING THE STRING "7777" TO THE LAST FOUR
-C>  BYTES OF THE MESSAGE, APPENDING ZEROED-OUT BYTES UP TO A SUBSEQUENT
-C>  MACHINE WORD BOUNDARY, ETC.).  IT THEN WRITES OUT THE FINISHED
-C>  MESSAGE TO LOGICAL UNIT LUNIT AND ALSO STORES A COPY OF IT WITHIN
-C>  MODULE BUFRMG FOR POSSIBLE LATER RETRIEVAL VIA BUFR ARCHIVE
-C>  LIBRARY SUBROUTINE WRITSA.
+C> @brief Finalize a BUFR message for output and write the message to
+C> a BUFR file.
+
+C> This subroutine performs final checks and updates on a BUFR message
+C> before writing it to a specified Fortran logical unit.
 C>
-C> PROGRAM HISTORY LOG:
-C> 1994-01-06  J. WOOLLEN -- ORIGINAL AUTHOR
-C> 1997-07-29  J. WOOLLEN -- MODIFIED TO UPDATE THE CURRENT BUFR VERSION
-C>                           WRITTEN IN SECTION 0 FROM 2 TO 3
-C> 1998-07-08  J. WOOLLEN -- REPLACED CALL TO CRAY LIBRARY ROUTINE
-C>                           "ABORT" WITH CALL TO NEW INTERNAL BUFRLIB
-C>                           ROUTINE "BORT"
-C> 1998-11-24  J. WOOLLEN -- MODIFIED TO ZERO OUT THE PADDING BYTES
-C>                           WRITTEN AT THE END OF SECTION 4
-C> 2000-09-19  J. WOOLLEN -- MAXIMUM MESSAGE LENGTH INCREASED FROM
-C>                           10,000 TO 20,000 BYTES
-C> 2003-11-04  J. ATOR    -- DON'T WRITE TO LUNIT IF OPENED AS A NULL
-C>                           FILE BY OPENBF {NULL(LUN) = 1 IN NEW
-C>                           COMMON BLOCK /NULBFR/} (WAS IN DECODER
-C>                           VERSION); ADDED DOCUMENTATION
-C> 2003-11-04  S. BENDER  -- ADDED REMARKS/BUFRLIB ROUTINE
-C>                           INTERDEPENDENCIES
-C> 2003-11-04  D. KEYSER  -- UNIFIED/PORTABLE FOR WRF; ADDED HISTORY
-C>                           DOCUMENTATION; OUTPUTS MORE COMPLETE
-C>                           DIAGNOSTIC INFO WHEN ROUTINE TERMINATES
-C>                           ABNORMALLY
-C> 2004-08-18  J. ATOR    -- IMPROVED DOCUMENTATION; ADDED LOGIC TO CALL
-C>                           STNDRD IF REQUESTED VIA COMMON /MSGSTD/;
-C>                           ADDED LOGIC TO CALL OVRBS1 IF NECESSARY;
-C>                           MAXIMUM MESSAGE LENGTH INCREASED FROM
-C>                           20,000 TO 50,000 BYTES
-C> 2005-11-29  J. ATOR    -- USE GETLENS, IUPBS01, PADMSG, PKBS1 AND
-C>                           NMWRD; ADDED LOGIC TO CALL PKBS1 AND/OR
-C>                           CNVED4 WHEN NECESSARY
-C> 2009-03-23  J. ATOR    -- USE IDXMSG AND ERRWRT; ADD CALL TO ATRCPT;
-C>                           ALLOW STANDARDIZING VIA COMMON /MSGSTD/
-C>                           EVEN IF DATA IS COMPRESSED; WORK ON LOCAL
-C>                           COPY OF INPUT MESSAGE
-C> 2012-09-15  J. WOOLLEN -- MODIFIED FOR C/I/O/BUFR INTERFACE;
-C>                           CALL NEW ROUTINE BLOCKS FOR FILE BLOCKING
-C>                           AND NEW C ROUTINE CWRBUFR TO WRITE BUFR
-C>                           MESSAGE TO DISK FILE
-C> 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
-C> 2019-05-09  J. ATOR    -- ADDED DIMENSIONS FOR MSGLEN AND MSGTXT
+C> <p>These final checks and updates include:
+C> - Standardizing the BUFR message, if requested via a previous call
+C> subroutine stdmsg()
+C> - Converting the BUFR message from edition 3 to edition 4, if
+C> requested via a previous call to subroutine pkvs01()
+C> - Storing any customized values into Section 0 or Section 1 of the
+C> BUFR message, if requested via one or more previous calls to
+C> subroutine pkvs01()
+C> - Storing a tank receipt time into Section 1 of the BUFR message,
+C> if requested via a previous call to subroutine strcpt()
+C> - For edition 3 BUFR messages, ensuring each section of the message
+C> contains an even number of bytes
+C> - Storing '7777' into the last four bytes of the BUFR message, and
+C> storing the final message length in Section 0
+C> - Appending zeroed-out bytes after the end of the BUFR message, up
+C> to the next machine word boundary
+C> - Encapsulating the BUFR message with IEEE Fortran control words,
+C> if requested via a previous call to subroutine setblock()
+C> - Storing a copy of the final message into internal arrays for
+C> possible later retrival via subroutine writsa()
 C>
-C> USAGE:    CALL MSGWRT (LUNIT, MESG, MGBYT)
-C>   INPUT ARGUMENT LIST:
-C>     LUNIT    - INTEGER: FORTRAN LOGICAL UNIT NUMBER FOR BUFR FILE
-C>     MESG     - INTEGER: *-WORD PACKED BINARY ARRAY CONTAINING BUFR
-C>                MESSAGE TO OUTPUT TO LUNIT
-C>     MGBYT    - INTEGER: LENGTH OF BUFR MESSAGE IN BYTES
+C> @author J. Woollen
+C> @date 1994-01-06
 C>
-C>   OUTPUT FILES:
-C>     UNIT "LUNIT" - BUFR FILE
+C> @param[in] LUNIT  - integer: Fortran logical unit number for BUFR
+C>                     file
+C> @param[in] MESG   - integer(*): BUFR message
+C> @param[in] MGBYT  - integer: Size (in bytes) of BUFR message
 C>
-C> REMARKS:
-C>    THIS ROUTINE CALLS:        ATRCPT   BORT     CNVED4   ERRWRT
-C>                               GETLENS  IDXMSG   IUPB     IUPBS01
-C>                               NMWRD    PADMSG   PKB      PKBS1
-C>                               PKC      STATUS   STNDRD   BLOCKS
-C>                               CWRBUFR
-C>    THIS ROUTINE IS CALLED BY: CLOSMG   COPYBF   COPYMG   CPYMEM
-C>                               CPYUPD   MSGUPD   WRCMPS   WRDXTB
-C>                               Normally not called by any application
-C>                               programs.
+C> <b>Program history log:</b>
+C> - 1994-01-06  J. Woollen -- Original author
+C> - 1997-07-29  J. Woollen -- Modified to update the current BUFR version
+C>                           written in Section 0 from 2 to 3
+C> - 1998-07-08  J. Woollen -- Replaced call to Cray library routine ABORT
+C>                             with call to new internal routine bort()
+C> - 1998-11-24  J. Woollen -- Modified to zero out the padding bytes
+C>                           written at the end of Section 4
+C> - 2000-09-19  J. Woollen -- Maximum message length increased
+C>                           from 10,000 to 20,000 bytes
+C> - 2003-11-04  J. Ator    -- Don't write to LUNIT if opened by
+C>                           openbf() using IO = 'NUL'
+C> - 2003-11-04  S. Bender  -- Added remarks and routine interdependencies
+C> - 2003-11-04  D. Keyser  -- Unified/portable for WRF; added history
+C>                             documentation; outputs more complete
+C>                             diagnostic info when routine terminates
+C>                             abnormally, unusual things happen or for
+C>                             informational purposes
+C> - 2005-11-29  J. Ator    -- Use getlens(), iupbs01(), padmsg(), pkbs1()
+C>                           and nmwrd(); added logic to call pkbs1()
+C>                           and/or cnved4() when necessary
+C> - 2009-03-23  J. Ator    -- Use idxmsg() and errwrt(); add call to
+C>                           atrcpt(); allow standardizing via
+C>                           COMMON /MSGSTD/ even if data is compressed;
+C>                           work on local copy of input message
+C> - 2012-09-15  J. Woollen -- Modified for C/I/O/BUFR interface;
+C>                           call new routine blocks() for file blocking
+C>                           and new C routine cwrbufr() to write BUFR
+C>                           message to disk file
+C> - 2014-12-10  J. Ator    -- Use modules instead of COMMON blocks
+C> - 2019-05-09  J. Ator    -- Added dimensions for MSGLEN and MSGTXT
 C>
       SUBROUTINE MSGWRT(LUNIT,MESG,MGBYT)
-
-
 
       USE MODA_NULBFR
       USE MODA_BUFRMG
       USE MODA_MGWA
       USE MODA_MGWB
       USE MODA_S01CM
-
-      INCLUDE 'bufrlib.inc'
-
-      PARAMETER (MXCOD=15)
 
       COMMON /QUIET / IPRT
       COMMON /MSGSTD/ CSMF

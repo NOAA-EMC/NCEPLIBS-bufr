@@ -53,37 +53,6 @@ C>     UNIT "LUNDX" - USER-SUPPLIED BUFR DICTIONARY TABLE IN CHARACTER
 C>                    FORMAT
 C>
 C> REMARKS:
-C>    CONTENTS OF INTERNAL ARRAYS WRITTEN INTO MODULE TABABD:
-C>
-C>     For Table A entries:
-C>        NTBA(LUN)     - INTEGER: Number of Table A entries (note that
-C>                        NTBA(0) contains the maximum number of such
-C>                        entries as set within subroutine BFRINI)
-C>        TABA(N,LUN)   - CHARACTER*128: Table A entries, where
-C>                        N=1,2,3,...,NTBA(LUN)
-C>        IDNA(N,LUN,1) - INTEGER: Message type corresponding to
-C>                        TABA(N,LUN)
-C>        IDNA(N,LUN,2) - INTEGER: Message subtype corresponding to
-C>                        TABA(N,LUN)
-C>
-C>     For Table B entries:
-C>        NTBB(LUN)     - INTEGER: Number of Table B entries (note that
-C>                        NTBB(0) contains the maximum number of such
-C>                        entries as set within subroutine BFRINI)
-C>        TABB(N,LUN)   - CHARACTER*128: Table B entries, where
-C>                        N=1,2,3,...,NTBB(LUN)
-C>        IDNB(N,LUN)   - INTEGER: Bit-wise representation of the FXY
-C>                        value corresponding to TABB(N,LUN)
-C>
-C>     For Table D entries:
-C>        NTBD(LUN)     - INTEGER: Number of Table D entries (note that
-C>                        NTBD(0) contains the maximum number of such
-C>                        entries as set within subroutine BFRINI)
-C>        TABD(N,LUN)   - CHARACTER*600: Table D entries, where
-C>                        N=1,2,3,...,NTBD(LUN)
-C>        IDND(N,LUN)   - INTEGER: Bit-wise representation of the FXY
-C>                        value corresponding to TABD(N,LUN)
-C>
 C>
 C>    THIS ROUTINE CALLS:        BORT2    DXINIT   ELEMDX   IGETNTBI
 C>                               MAKESTAB NEMOCK   NUMBCK   SEQSDX
@@ -94,11 +63,7 @@ C>                               programs.
 C>
       SUBROUTINE RDUSDX(LUNDX,LUN)
 
-
-
       USE MODA_TABABD
-
-      INCLUDE 'bufrlib.inc'
 
       CHARACTER*128 BORT_STR1
       CHARACTER*156 BORT_STR2

@@ -1,48 +1,46 @@
 C> @file
-C> @author WOOLLEN @date 2012-09-15
-      
-C> BLOCKS WILL ADD IEEE FORTRAN TYPE RECORD CONTROL
-C>           WORDS TO A PURE BUFR RECORD PASSED FROM MSGWRT, IN
-C>           PREPARATION FOR OUTPUTING THE RECORD TO DISK.  THE
-C>           DEFAULT OUTPUT TYPE IS PURE (NO CONTROL WORDS), IN
-C>           WHICH CASE THIS ROUTINE DOES NOTHING.  AN APPLICATION
-C>           CAN SPECIFY THAT EITHER BIG OR LITTLE ENDIAN RECORD
-C>           CONTROL WORDS ARE TO BE APPENDED TO PURE BUFR RECORDS
-C>           VIA A PREVIOUS CALL TO SUBROUTINE SETBLOCK.
+C> @brief Encapsulate a BUFR message with IEEE Fortran control
+C> words.
+
+C> This subroutine encapsulates a BUFR message with IEEE Fortran
+C> control words as specified via the most recent call to
+C> subroutine setblock(). 
 C>
-C> THE FOLLOWING DIAGRAM ILLUSTRATES IEEE CONTROL WORDS FOUND
-C> IN AN UNFORMATTED FORTRAN RECORD CONRTAINING FOUR 4-BYTE WORDS
+C> <p>A previous call to subroutine setblock() is required in
+C> order to activate encapsulation with control words, and to
+C> specify whether the control words should be encoded using
+C> big-endian or little-endian byte ordering.  In such cases,
+C> the input parameter MBAY is then modified to
+C> add the specified control words to the existing BUFR message
+C> whenever this subroutine is called, and MWRD is also
+C> modified accordingly.
 C>
-C>     ctw1-wrd1-wrd2-wrd3-wrd4-ctw2
-C>     |    |    |    |    |    |
-C>     0016-aaaa-bbbb-cccc-dddd-0016
+C> <p>Alternatively, if subroutine setblock() was never previously
+C> called, or if no encapsulation was specified during the most
+C> recent call to subroutine setblock(), then this subroutine
+C> simply returns without modifying either of its input parameters.
 C>
-C> CTW1 AND CTW2 CONTAIN A BYTE COUNT FOR THE DATA RECORD THAT 
-C> THEY ENCLOSE. THEY CAN BE STORED IN EITHER BIG OR LITTLE
-C> ENDIAN BYTE ORDERING (NOTE: CTWS ARE ALWAYS 4-BYTE WORDS)
+C> @author J. Woollen
+C> @date 2012-09-15
 C>
-C> PROGRAM HISTORY LOG:
-C> 2012-09-15  J. WOOLLEN -- ORIGINAL AUTHOR
+C> @param[in,out] MBAY - integer(*): BUFR message, possibly with
+C>                       added control words on output
+C> @param[in,out] MWRD - integer: Size (in integers) of contents
+C>                       of MBAY
 C>
-C> USAGE:    CALL BLOCKS(MBAY,MWRD)
-C>   INPUT ARGUMENTS:
-c     MBAY - INTEGER ARRAY CONTAINING PURE BUFR MESSAGE
-c     MWRD - INTEGER WORD COUNT FOR MBAY
+C> @remarks
+C> - For more information about IEEE Fortran control words, as
+C> well as their historical use within the BUFRLIB software, see
+C> the documentation for subroutine setblock().
+C> - Whenever a BUFR message in MBAY is to be encapsulated with
+C> control words, the user must ensure the availability of
+C> sufficient extra space when allocating MBAY within the
+C> application program.
 C>
-C>   OUTPUT ARGUMENTS:
-c     MBAY - INTEGER ARRAY CONTAINING INPUT BUFR MESSAGE, POSSIBLY
-c            WITH CONTROL WORDS ADDED DEPENDING ON WHETHER SUBROUTINE
-c            SETBLOCK WAS PREVIOUSLY CALLED
-c     MWRD - INTEGER WORD COUNT FOR MBAY
-C>
-C> REMARKS:
-C>    THIS ROUTINE CALLS:   None 
-C>
-C>    THIS ROUTINE IS CALLED BY:  MSGWRT 
+C> <b>Program history log:</b>
+C> - 2012-09-15  J. Woollen -- Original author
 C>
       SUBROUTINE BLOCKS(MBAY,MWRD)
-
-
 
       COMMON /HRDWRD/ NBYTW,NBITW,IORD(8)
       COMMON /ENDORD/ IBLOCK,IORDBE(4),IORDLE(4)

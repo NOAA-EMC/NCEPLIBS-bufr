@@ -14,8 +14,10 @@ C>
 C> <p>This subroutine can be called at any time from within an
 C> application program, and the returned value can then be
 C> used to represent "missing" data within the context of
-C> future calls to subroutines ufbint(), ufbrep(), ufbseq(),
-C> etc.  This placeholder value can also be changed at any
+C> future calls to any of the other BUFRLIB
+C> [values-reading subroutines](@ref hierarchy) or
+C> [values-writing subroutines](@ref hierarchy).
+C> This placeholder value can also be changed at any
 C> time via a separate call to subroutine setbmiss().
 C>
 C> <b>Program history log:</b>
@@ -23,7 +25,7 @@ C> - 2012-09-15  J. Woollen -- Original author
 C>
       REAL*8 FUNCTION GETBMISS()
 
-      INCLUDE 'bufrlib.inc'
+      USE MODV_BMISS
 
 c-----------------------------------------------------------------------
 c-----------------------------------------------------------------------

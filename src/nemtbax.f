@@ -39,11 +39,7 @@ C>                               programs.
 C>
       SUBROUTINE NEMTBAX(LUN,NEMO,MTYP,MSBT,INOD)
 
-
-
       USE MODA_TABABD
-
-      INCLUDE 'bufrlib.inc'
 
       CHARACTER*(*) NEMO
       CHARACTER*128 BORT_STR

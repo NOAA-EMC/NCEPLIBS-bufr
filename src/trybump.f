@@ -69,11 +69,7 @@ C>                               programs.
 C>
       SUBROUTINE TRYBUMP(LUNIT,LUN,USR,I1,I2,IO,IRET)
 
-
-
       USE MODA_USRINT
-
-      INCLUDE 'bufrlib.inc'
 
       COMMON /USRSTR/ NNOD,NCON,NODS(20),NODC(10),IVLS(10),KONS(10)
 

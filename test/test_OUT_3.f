@@ -30,6 +30,8 @@ C*	Open the BUFR table and output file.
 	IF ( ( IGETPRM ( 'NFILES' ) .eq. 2 ) .and.
      +       ( IGETPRM ( 'MXMSGL' ) .eq. 8000 ) ) THEN
 	  print *, '        IGETPRM'
+        ELSE
+            CALL BORT ( 'IGETPRM FAILURE!' )
 	END IF
 
 C*	Write a standard message.
@@ -115,6 +117,8 @@ C*	Open the BUFR table and output file.
 	IF ( ( IGETPRM ( 'NFILES' ) .eq. 5 ) .and.
      +       ( IGETPRM ( 'MXMSGL' ) .eq. 12000 ) ) THEN
 	  print *, '        IGETPRM'
+        ELSE
+            CALL BORT ( 'IGETPRM FAILURE!' )
 	END IF
 
 C*	Write a standard message.

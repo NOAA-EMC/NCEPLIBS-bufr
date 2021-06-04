@@ -38,9 +38,7 @@ C>                               programs but it could be.
 C>
       FUNCTION VALX(STR)
 
-
-
-      INCLUDE 'bufrlib.inc'
+      USE MODV_BMISS
 
       CHARACTER*(*) STR
       CHARACTER*128 BORT_STR1,BORT_STR2

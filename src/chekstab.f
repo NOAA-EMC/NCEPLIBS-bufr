@@ -38,12 +38,8 @@ C>                               programs.
 C>
       SUBROUTINE CHEKSTAB(LUN)
 
-
-
       USE MODA_TABABD
       USE MODA_NMIKRP
-
-      INCLUDE 'bufrlib.inc'
 
       CHARACTER*128 BORT_STR
       CHARACTER*24  UNIT

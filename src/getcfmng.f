@@ -3,7 +3,7 @@ C> @brief Decode the meaning of a numerical value from a code or flag table
 
 C> This subroutine searches for a specified Table B mnemonic and associated
 C> value (code figure or bit number) within the master Code/Flag tables,
-C> and if found returns the assocated meaning as a character string.
+C> and if found returns the associated meaning as a character string.
 C>
 C> @author J. Ator
 C> @date 2018-01-11
@@ -36,7 +36,8 @@ C.                        mnemonics are returned within this string, as a
 C>                        series of IRET successive 8-byte substrings. 
 C>                        An example of this scenario is included below
 C>                        within the Remarks.
-C> @param[out] LNMNG    - integer: Length of string returned in CMEANG
+C> @param[out] LNMNG    - integer: Length (in bytes) of string returned in
+C>                        CMEANG
 C> @param[out] IRET     - integer: return code
 C>                       -  0 = meaning found and stored in CMEANG string
 C>                       - -1 = meaning not found
@@ -64,7 +65,8 @@ C> calling this subroutine, in order to ensure that master Code/Flag
 C> tables have been read into internal memory.
 C>
 C> <p>This subroutine can be called at any time after a BUFR message
-C> has been read via subroutine readmg(), readerme() or equivalent, and it
+C> has been read into internal arrays by one of the BUFRLIB
+C> [message-reading subroutines](@ref hierarchy), and it
 C> can be called for any code or flag table mnemonic defined within that
 C> particular message.  In most cases, this means that the mnemonic must
 C> be contained within the subset definition (Section 3) of that message.
@@ -107,8 +109,6 @@ C>
      .			      CMEANG, LNMNG, IRET )
 
 	USE MODA_TABABD
-
-	INCLUDE 'bufrlib.inc'
 
 	COMMON /TABLEF/ CDMF
 

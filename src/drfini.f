@@ -27,7 +27,8 @@ C>
 C> <p>Logical unit LUNIT should have already been opened for output
 C> operations (i.e. writing/encoding BUFR) via a previous call to
 C> subroutine openbf(), and a message for output should have already
-C> been opened via a previous call to subroutine openmg() or openmb().
+C> been opened via a previous call to one of the
+C> [message-writing subroutines].
 C>
 C> <p>The use of this subroutine is only required when writing data
 C> into delayed replication sequences using ufbseq(), or for cases
@@ -63,8 +64,6 @@ C>
 
       USE MODA_USRINT
       USE MODA_TABLES
-
-      INCLUDE 'bufrlib.inc'
 
       CHARACTER*(*) DRFTAG
       CHARACTER*128 BORT_STR

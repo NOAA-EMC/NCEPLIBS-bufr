@@ -1,39 +1,40 @@
 C> @file
-C> @author JATOR @date 2005-11-29
-      
-C> GIVEN A MNEMONIC OF TYPE "FLAG TABLE" ALONG WITH ITS
-C>   CORRESPONDING VALUE, THIS SUBROUTINE DETERMINES THE BIT SETTINGS
-C>   EQUIVALANT TO THAT VALUE.  NOTE THAT THIS SUBROUTINE IS THE
-C>   LOGICAL INVERSE OF BUFRLIB SUBROUTINE PKFTBV.
+C> @brief Determine the bit settings equivalent to a numerical
+C> flag table value.
+
+C> Given a Table B mnemonic with flag table units and a
+C> corresponding numerical data value, this subroutine determines
+C> the bit settings equivalent to that numerical value.
 C>
-C> PROGRAM HISTORY LOG:
-C> 2005-11-29  J. ATOR    -- ORIGINAL VERSION
-C> 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
+C> @author J. Ator
+C> @date 2005-11-29
 C>
-C> USAGE:    UPFTBV (LUNIT,NEMO,VAL,MXIB,IBIT,NIB)
-C>   INPUT ARGUMENT LIST:
-C>     LUNIT    - INTEGER: FORTRAN LOGICAL UNIT NUMBER FOR BUFR FILE
-C>     NEMO     - CHARACTER*(*): MNEMONIC OF TYPE "FLAG TABLE"
-C>     VAL      - REAL*8: VALUE CORRESPONDING TO NEMO
-C>     MXIB     - INTEGER: DIMENSIONED SIZE OF IBIT IN CALLING PROGRAM
+C> @param[in] LUNIT  - integer: Fortran logical unit number for
+C>                     BUFR file
+C> @param[in] NEMO   - character*(*): Table B mnemonic with
+C>                     flag table units
+C> @param[in] VAL    - real*8: Value corresponding to NEMO
+C> @param[in] MXIB   - integer: Dimensioned size (in integers) of
+C>                     IBIT; used by the subroutine to ensure that
+C>                     it doesn't overflow the IBIT array
+C> @param[out] IBIT  - integer(*): Bit numbers which were set to
+C>                     "On" (i.e. set to "1") in VAL
+C> @param[out] NIB   - integer: Number of bit numbers returned in
+C>                     IBIT
 C>
-C>   OUTPUT ARGUMENT LIST:
-C>     IBIT     - INTEGER(*): BIT NUMBERS WHICH WERE SET TO "ON"
-C>                (I.E. SET TO "1") IN VAL
-C>     NIB      - INTEGER: NUMBER OF BIT NUMBERS RETURNED IN IBIT
+C> @remarks
+C> - This subroutine is the logical inverse of function pkftbv().
+C> - According to the WMO standard, bits within a bit field are
+C> numbered from left to right, so bit #1 is always the high-order
+C> (i.e. most significant) bit in any bit field.
 C>
-C> REMARKS:
-C>    THIS ROUTINE CALLS:        BORT     NEMTAB   STATUS   VALX
-C>    THIS ROUTINE IS CALLED BY: UFBDMP   UFDUMP
-C>                               Also called by application programs.
+C> <b>Program history log:</b>
+C> - 2005-11-29  J. Ator    -- Original version
+C> - 2014-12-10  J. Ator    -- Use modules instead of COMMON blocks
 C>
       SUBROUTINE UPFTBV(LUNIT,NEMO,VAL,MXIB,IBIT,NIB)
 
-
-
       USE MODA_TABABD
-
-      INCLUDE 'bufrlib.inc'
 
       REAL*8  VAL,R8VAL,R82I
 

@@ -1,8 +1,8 @@
 !> @file
+!> @brief Open a Fortran file on the local system
+
 !> @authors Jeff Whitaker
 !> @date 2015-08-30
-
-!> @brief This subroutine opens a fortran file for input or output
 !>
 !> @param[in] filename - character*(*): name of the file to be opened
 !> @param[in] lunit    - integer: Fortran logical unit number for fortran

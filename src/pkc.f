@@ -1,57 +1,45 @@
 C> @file
-C> @author WOOLLEN @date 1994-01-06
-      
-C> THIS SUBROUTINE PACKS A CHARACTER STRING (CHR) CONTAINING
-C>   NCHR CHARACTERS INTO NCHR BYTES OF AN INTEGER ARRAY (IBAY),
-C>   STARTING WITH BIT (IBIT+1).  ON OUTPUT, IBIT IS UPDATED TO POINT TO
-C>   THE LAST BIT THAT WAS PACKED.  NOTE THAT THERE IS NO GUARANTEE THAT
-C>   THE NCHR CHARACTERS WILL BE ALIGNED ON BYTE BOUNDARIES WHEN PACKED
-C>   WITHIN IBAY.
+C> @brief Encode a character string within an integer array.
+
+C> This subroutine encodes a character string within a specified
+C> number of bits of an integer array, starting at the bit
+C> immediately after a specified bit within the array.
 C>
-C> PROGRAM HISTORY LOG:
-C> 1994-01-06  J. WOOLLEN -- ORIGINAL AUTHOR
-C> 1998-07-08  J. WOOLLEN -- REPLACED CALL TO CRAY LIBRARY ROUTINE
-C>                           "ABORT" WITH CALL TO NEW INTERNAL BUFRLIB
-C>                           ROUTINE "BORT"
-C> 2003-11-04  J. ATOR    -- ADDED DOCUMENTATION
-C> 2003-11-04  J. WOOLLEN -- BIG-ENDIAN/LITTLE-ENDIAN INDEPENDENT (WAS
-C>                           IN DECODER VERSION)
-C> 2003-11-04  S. BENDER  -- ADDED REMARKS/BUFRLIB ROUTINE
-C>                           INTERDEPENDENCIES
-C> 2003-11-04  D. KEYSER  -- UNIFIED/PORTABLE FOR WRF; ADDED HISTORY
-C>                           DOCUMENTATION; OUTPUTS MORE COMPLETE
-C>                           DIAGNOSTIC INFO WHEN ROUTINE TERMINATES
-C>                           ABNORMALLY; CHANGED CALL FROM BORT TO BORT2
-C> 2004-08-18  J. ATOR    -- MODIFIED TO BE COMPATIBLE WITH WRITLC
+C> @author J. Woollen
+C> @date 1994-01-06
 C>
-C> USAGE:    CALL PKC (CHR, NCHR, IBAY, IBIT)
-C>   INPUT ARGUMENT LIST:
-C>     CHR      - CHARACTER*(*): CHARACTER STRING TO BE PACKED
-C>     NCHR     - INTEGER: NUMBER OF BYTES OF IBAY WITHIN WHICH TO PACK
-C>                CHR (I.E., THE NUMBER OF CHARACTERS IN CHR)
-C>     IBIT     - INTEGER: BIT POINTER WITHIN IBAY INDICATING BIT AFTER
-C>                WHICH TO START PACKING
+C> @param[in] CHR      - character*(*): String to be encoded
+C> @param[in] NCHR     - integer: Number of bytes of IBAY within
+C>                       which to encode CHR (i.e. the number of
+C>                       characters in CHR)
+C> @param[out] IBAY    - integer(*): Array containing encoded CHR
+C> @param[in,out] IBIT - integer: Bit pointer within IBAY
+C>                       - On input, IBIT points to the bit within
+C>                         IBAY after which to begin encoding CHR.
+C>                       - On output, IBIT points to the last bit
+C>                         of IBAY which contains the encoded CHR.
 C>
-C>   OUTPUT ARGUMENT LIST:
-C>     IBAY     - INTEGER: *-WORD PACKED BINARY ARRAY NOW CONTAINING
-C>                PACKED CHR
-C>     IBIT     - INTEGER: BIT POINTER WITHIN IBAY INDICATING LAST BIT
-C>                THAT WAS PACKED
+C> @remarks
+C> - This subroutine is the logical inverse of subroutine upc().
+C> - On input, there is no requirement that IBIT must point to the first
+C>   bit of a byte within IBAY.  Correspondingly, on output there is no
+C>   guarantee that the NCHR characters of CHR will be aligned on byte
+C>   boundaries when encoded within IBAY.
 C>
-C> REMARKS:
-C>    THIS SUBROUTINE IS THE INVERSE OF BUFR ARCHIVE LIBRARY ROUTINE
-C>    UPC.
-C>
-C>    THIS ROUTINE CALLS:        IPKM     IREV     IUPM
-C>    THIS ROUTINE IS CALLED BY: CMSGINI  DXMINI   MSGINI   MSGWRT
-C>                               STNDRD   WRCMPS   WRDXTB   WRITLC
-C>                               WRTREE
-C>                               Normally not called by any application
-C>                               programs.
+C> <b>Program history log:</b>
+C> - 1994-01-06  J. Woollen -- Original author
+C> - 1998-07-08  J. Woollen -- Replaced call to Cray library routine ABORT
+C>                             with call to new internal routine bort()
+C> - 2003-11-04  J. Woollen -- Modified to be endian-independent
+C> - 2003-11-04  J. Ator    -- Added documentation
+C> - 2003-11-04  S. Bender  -- Added remarks and routine interdependencies
+C> - 2003-11-04  D. Keyser  -- Unified/portable for WRF; added history
+C>                             documentation; outputs more complete
+C>                             diagnostic info when routine terminates
+C>                             abnormally; use bort2() instead of bort()
+C> - 2004-08-18  J. Ator    -- Modified to be compatible with writlc()
 C>
       SUBROUTINE PKC(CHR,NCHR,IBAY,IBIT)
-
-
 
       COMMON /CHARAC/ IASCII,IATOE(0:255),IETOA(0:255)
       COMMON /HRDWRD/ NBYTW,NBITW,IORD(8)

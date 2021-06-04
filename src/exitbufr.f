@@ -1,39 +1,43 @@
 C> @file
-C> @author ATOR @date 2015-03-02
-	
-C> THIS SUBROUTINE FREES ALL DYNAMICALLY-ALLOCATED MEMORY,
-C>   CLOSES ALL LOGICAL UNITS THAT ARE OPEN TO THE BUFR ARCHIVE LIBRARY,
-C>   AND RESETS THE LIBRARY TO ALL OF ITS DEFAULT SETTINGS AS THOUGH IT
-C>   HAD NEVER BEEN CALLED.  THIS ALLOWS AN APPLICATION PROGRAM TO
-C>   POTENTIALLY RE-ALLOCATE MEMORY ALL OVER AGAIN WITHIN THE BUFR
-C>   ARCHIVE LIBRARY VIA A NEW SUBSEQUENT SERIES OF CALLS TO
-C>   SUBROUTINES ISETPRM AND OPENBF.
+C> @brief Reset the BUFRLIB software for potential dynamic
+C> reallocation of memory.
+
+C> This subroutine frees all dynamically-allocated memory,
+C> closes all logical units that are open within the
+C> BUFRLIB software, and resets the library to all of its
+C> default settings as though it had never been called.
+C>   
+C> @author J. Ator
+C> @date 2015-03-02
 C>
-C>   NOTE THAT ONCE THIS SUBROUTINE IS CALLED, THE ENTIRE BUFR ARCHIVE
-C>   LIBRARY IS UNUSABLE FOR THE REMAINDER OF THE LIFE OF THE
-C>   APPLICATION PROGRAM, UNLESS AND UNTIL SUBROUTINE OPENBF IS
-C>   CALLED TO ONCE AGAIN DYNAMICALLY ALLOCATE NEW ARRAY SPACE.
+C> @remarks
+C> - Calling this subroutine allows an application program to
+C>   potentially resize arrays and reallocate memory all over again
+C>   with a new subsequent series of calls to subroutines isetprm()
+C>   and openbf().  However, if and when this subroutine is called,
+C>   there is no longer any internal memory available within the
+C>   BUFRLIB software, and the remainder of the library becomes
+C>   essentially unusable within the application program, unless
+C>   and until subroutine openbf() is called once again to
+C>   dynamically allocate new array space.  This may be a useful
+C>   capability for application programs that are finished with
+C>   using the BUFRLIB software and wish to move on to other
+C>   unrelated tasks without continuing to tie up all of the
+C>   allocated memory space within the library.  Otherwise, and
+C>   unless there's a need to change parameter sizes following the
+C>   first call to subroutine openbf(), then there's no need to ever
+C>   call this subroutine within an application program, since all
+C>   allocated memory will automatically get freed anyway by the
+C>   operating system once the application program terminates.
 C>
-C> PROGRAM HISTORY LOG:
-C> 2015-03-02  J. ATOR    -- ORIGINAL AUTHOR
-C>
-C> USAGE:    CALL EXITBUFR
-C>
-C> REMARKS:
-C>    THIS ROUTINE CALLS:        ARDLLOCF  CLOSBF  DLLOCTBF
-C>    THIS ROUTINE IS CALLED BY: None
-C>                               Normally called only by application
-C>                               programs.
+C> <b>Program history log:</b>
+C> - 2015-03-02  J. Ator    -- Original author
 C>
 	SUBROUTINE EXITBUFR
 
-
-
+	USE MODV_IFOPBF
 	USE MODA_STBFR
-	USE MODA_IFOPBF
 	USE MODA_S01CM
-	
-	INCLUDE 'bufrlib.inc'
 
 	COMMON /TABLEF/ CDMF
 
