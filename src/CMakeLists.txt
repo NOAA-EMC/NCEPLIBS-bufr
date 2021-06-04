@@ -1,44 +1,6 @@
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
-# Create the bvers.f file
-configure_file(${CMAKE_CURRENT_SOURCE_DIR}/bvers.f.in ${CMAKE_CURRENT_BINARY_DIR}/bvers.f @ONLY)
-
-# Create the bfrini.f90 file
-configure_file(${CMAKE_CURRENT_SOURCE_DIR}/bfrini.f90.in ${CMAKE_CURRENT_BINARY_DIR}/bfrini.f90 @ONLY)
-
-# Create the bufrlib.h file
-set(VAR_REGEX_DYNAMIC "INTEGER ::")
-set(VAR_REGEX_STATIC "PARAMETER ")
-foreach(_var IN ITEMS NFILES MAXCD)
-  foreach(_alloc IN ITEMS DYNAMIC STATIC)
-    file(STRINGS modv_${_var}.F _${_var}_tempstr REGEX ${VAR_REGEX_${_alloc}})
-    if(_${_var}_tempstr MATCHES "${_var} = ([0-9]+)")
-      set(${_var}_${_alloc} ${CMAKE_MATCH_1})
-    else()
-      message(FATAL_ERROR "Unable to parse variable ${_var}_${_alloc} value from file: modv_${_var}.F")
-    endif()
-  endforeach()
-endforeach()
-foreach(_var IN ITEMS MAXNC MXNAF)
-  file(STRINGS modv_${_var}.f90 _${_var}_tempstr REGEX "parameter,")
-  if(_${_var}_tempstr MATCHES "${_var} = ([0-9]+)")
-    set(${_var} ${CMAKE_MATCH_1})
-  else()
-    message(FATAL_ERROR "Unable to parse variable ${_var} value from file: modv_${_var}.f90")
-  endif()
-endforeach()
-configure_file(${CMAKE_CURRENT_SOURCE_DIR}/bufrlib.h.in ${CMAKE_CURRENT_BINARY_DIR}/bufrlib.h @ONLY)
-
-include(TestBigEndian)
-test_big_endian(IS_BIG_ENDIAN)
-if(IS_BIG_ENDIAN)
-  list(APPEND endian_def BIG_ENDIAN)
-else()
-  list(APPEND endian_def LITTLE_ENDIAN)
-endif()
-
-set(fortran_src
-  ${CMAKE_CURRENT_BINARY_DIR}/bvers.f ${CMAKE_CURRENT_BINARY_DIR}/bfrini.f90
+list(APPEND fortran_src
   modv_BMISS.f90 modv_IFOPBF.f90 modv_MAXCD.F modv_MAXJL.F modv_MAXMEM.F modv_MAXMSG.F modv_MAXNC.f90
   modv_MAXSS.F modv_MAXTBA.F modv_MAXTBB.F modv_MAXTBD.F modv_MXBTM.F modv_MXBTMSE.F modv_MXCDV.F
   modv_MXCNEM.f90 modv_MXCSB.F modv_MXDXTS.F modv_MXH4WLC.f90 modv_MXLCC.F modv_MXMSGL.F modv_MXMTBB.F
@@ -73,14 +35,50 @@ set(fortran_src
   wrtree.f wtstat.f arallocf.F ardllocf.F closbf.F ireadmt.F irev.F isetprm.F openbf.F pkvs01.F
   wrdlen.F fortran_open.f90 fortran_close.f90 bufr_interface.f90)
 
-set(c_src
+list(APPEND c_src
   arallocc.c ardllocc.c bort_exit.c ccbfl.c cmpia.c cmpstia1.c cmpstia2.c cobfl.c cpmstabs.c
   crbmg.c cread.c cwbmg.c dlloctbf.c icvidx.c inittbf.c nummtb.c rbytes.c restd.c sorttbf.c
   srchtbf.c strtbfe.c stseq.c wrdesc.c)
 
-set(c_hdr
-  ${CMAKE_CURRENT_BINARY_DIR}/bufrlib.h
+list(APPEND c_hdr
   cfe.h cobfl.h cread.h mstabs.h bufr_interface.h)
+
+# Create the bvers.f file and bfrini.f90 files
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/bvers.f.in ${CMAKE_CURRENT_BINARY_DIR}/bvers.f @ONLY)
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/bfrini.f90.in ${CMAKE_CURRENT_BINARY_DIR}/bfrini.f90 @ONLY)
+list(APPEND fortran_src ${CMAKE_CURRENT_BINARY_DIR}/bvers.f ${CMAKE_CURRENT_BINARY_DIR}/bfrini.f90)
+
+# Create the bufrlib.h file
+set(VAR_REGEX_DYNAMIC "INTEGER ::")
+set(VAR_REGEX_STATIC "PARAMETER ")
+foreach(_var IN ITEMS NFILES MAXCD)
+  foreach(_alloc IN ITEMS DYNAMIC STATIC)
+    file(STRINGS modv_${_var}.F _${_var}_tempstr REGEX ${VAR_REGEX_${_alloc}})
+    if(_${_var}_tempstr MATCHES "${_var} = ([0-9]+)")
+      set(${_var}_${_alloc} ${CMAKE_MATCH_1})
+    else()
+      message(FATAL_ERROR "Unable to parse variable ${_var}_${_alloc} value from file: modv_${_var}.F")
+    endif()
+  endforeach()
+endforeach()
+foreach(_var IN ITEMS MAXNC MXNAF)
+  file(STRINGS modv_${_var}.f90 _${_var}_tempstr REGEX "parameter,")
+  if(_${_var}_tempstr MATCHES "${_var} = ([0-9]+)")
+    set(${_var} ${CMAKE_MATCH_1})
+  else()
+    message(FATAL_ERROR "Unable to parse variable ${_var} value from file: modv_${_var}.f90")
+  endif()
+endforeach()
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/bufrlib.h.in ${CMAKE_CURRENT_BINARY_DIR}/bufrlib.h @ONLY)
+list(APPEND c_hdr ${CMAKE_CURRENT_BINARY_DIR}/bufrlib.h)
+
+include(TestBigEndian)
+test_big_endian(IS_BIG_ENDIAN)
+if(IS_BIG_ENDIAN)
+  list(APPEND endian_def BIG_ENDIAN)
+else()
+  list(APPEND endian_def LITTLE_ENDIAN)
+endif()
 
 foreach(kind ${kinds})
   set(lib_name ${PROJECT_NAME}_${kind})
