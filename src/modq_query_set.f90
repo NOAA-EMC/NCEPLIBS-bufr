@@ -23,11 +23,26 @@ contains
     character(len=*), intent(in) :: query_str
     character(len=*), intent(in) ::  query_name
 
+    type(String), allocatable :: tmp_strs(:)
+
     if (.not. allocated(self%names)) allocate(self%names(0))
     if (.not. allocated(self%query_strs)) allocate(self%query_strs(0))
 
-    self%names = [self%names, String(query_name)]
-    self%query_strs = [self%query_strs, String(query_str)]
+    ! Unfortunately necessary to expand the array manually as doing
+    ! self%names = [self%names, String(query_name)] results in memory
+    ! leak (Fortran runtime is not deallocating self%names).
+    allocate(tmp_strs(size(self%names) + 1))
+    tmp_strs(1:size(self%names)) = self%names(1:size(self%names))
+    tmp_strs(size(tmp_strs)) = String(query_name)
+    deallocate(self%names)
+    call move_alloc(tmp_strs, self%names)
+
+    allocate(tmp_strs(size(self%query_strs) + 1))
+    tmp_strs(1:size(self%query_strs)) = self%query_strs(1:size(self%query_strs))
+    tmp_strs(size(tmp_strs)) = String(query_str)
+    deallocate(self%query_strs)
+    call move_alloc(tmp_strs, self%query_strs)
+
   end subroutine query_set__add
 
 

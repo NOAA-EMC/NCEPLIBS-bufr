@@ -27,12 +27,11 @@ module modq_query
       procedure, public :: add_cnt_for_seq => seq_counter__add_cnt_for_seq
       procedure, public :: inc_last_cnt_for_seq => seq_counter__inc_last_cnt_for_seq
       procedure, public :: dec_last_cnt_for_seq => seq_counter__dec_last_cnt_for_seq
-      final :: seq_counter__delete
+      procedure, public :: delete => seq_counter__delete
   end type SeqCounter
 
   interface SeqCounter
     module procedure :: init__seq_counter
-    module procedure :: init__seq_counter_w_seq
   end interface SeqCounter
 
   private
@@ -51,26 +50,12 @@ contains
     type(ResultSet), intent(inout) :: result_set
 
     integer :: lun, il, im
-    type(SeqCounter) :: seq_counter
-
-    character(len=10), allocatable :: mnemonics(:)
-    integer :: index, idx, idx2
     type(Target), allocatable :: targets(:)
 
     call status(lunit, lun, il, im)
 
     targets = find_targets(lun, query_set)
     call collect_data(lun, targets, result_set)
-
-!    do idx = 1, seq_counter%seqs%count()
-!      print *, "Seq: ", seq_counter%seqs%at(idx)
-!
-!      do idx2 = 1, seq_counter%counts_list(idx)%count()
-!        print *, " ", seq_counter%counts_list(idx)%count(), seq_counter%counts_list(idx)%at(idx2)
-!      end do
-!
-!      print *, " "
-!    end do
 
   end subroutine query
 
@@ -83,13 +68,20 @@ contains
     integer :: target_idx
     character(len=:), allocatable :: name
     character(len=:), allocatable :: query_str
+    type(Target), allocatable :: tmp_targets(:)
 
     allocate(targets(0))
     do target_idx = 1,query_set%count()
       name = query_set%get_query_name(target_idx)
       query_str = query_set%get_query_str(target_idx)
 
-      targets = [targets, find_target(lun, name, query_str)]
+      ! Fortran runtime does not deallocate memory correctly if you do
+      ! targets = [targets, find_target(lun, name, query_str)]
+      allocate(tmp_targets(size(targets) + 1))
+      tmp_targets(1:size(targets)) = targets(1:size(targets))
+      tmp_targets(size(tmp_targets)) = find_target(lun, name, query_str)
+      deallocate(targets)
+      call move_alloc(tmp_targets, targets)
     end do
   end function
 
@@ -105,8 +97,6 @@ contains
     integer :: index
     integer :: table_cursor, mnemonic_cursor
     character(len=10), allocatable :: mnemonics(:)
-    integer :: target_idx
-
     integer, allocatable :: branches(:)
 
     call split_query_str(query_str, mnemonics, index)
@@ -179,7 +169,7 @@ contains
 
     real(kind=8), allocatable :: dat(:)
     integer :: dims(2)
-    integer :: col_idx, node_idx, path_idx
+    integer :: node_idx, path_idx
     integer :: current_sequence
     integer :: data_cursor, path_cursor
     integer :: collected_data_cursor
@@ -241,6 +231,7 @@ contains
         allocate(data_field%seq_counts(path_idx)%counts, source=seq_counter%counts_list(path_idx)%array())
       end do
 
+      call seq_counter%delete()
       call data_frame%add(data_field)
     end do
 
@@ -254,9 +245,8 @@ contains
 
     integer :: path_cursor
     integer :: data_cursor
-    integer :: target_idx, node_idx, rep_node_idx
+    integer :: node_idx, rep_node_idx
     integer, allocatable :: rep_node_idxs(:)
-    integer, allocatable :: seq_node_idxs(:)
 
     allocate(rep_node_idxs, source=targ%seq_path)
     rep_node_idxs = rep_node_idxs + 1 ! Rep node always one after the seq node
@@ -272,15 +262,17 @@ contains
       if (path_cursor > 0) then
         rep_node_idx = rep_node_idxs(path_cursor)
 
-        if (node_idx == targ%seq_path(path_cursor + 1)) then
-          path_cursor = path_cursor + 1
-          rep_node_idx = rep_node_idxs(path_cursor)
-          call seq_counter%add_cnt_for_seq(rep_node_idx, 0)
-        else if (node_idx == rep_node_idx) then
+        if (node_idx == rep_node_idx) then
           call seq_counter%inc_last_cnt_for_seq(rep_node_idx)
         else if (node_idx == link(targ%seq_path(path_cursor))) then
           call seq_counter%dec_last_cnt_for_seq(rep_node_idx)
           path_cursor = path_cursor - 1
+        else if (path_cursor == size(targ%seq_path)) then
+          continue
+        else if (node_idx == targ%seq_path(path_cursor + 1)) then
+          path_cursor = path_cursor + 1
+          rep_node_idx = rep_node_idxs(path_cursor)
+          call seq_counter%add_cnt_for_seq(rep_node_idx, 0)
         end if
       else
         if (node_idx == targ%seq_path(path_cursor + 1)) then
@@ -299,7 +291,6 @@ contains
     integer :: dims(2)
 
     integer :: data_cursor
-    integer :: target_idx, node_idx
 
     dims = 0
     do data_cursor = 1, nval(lun)
@@ -317,15 +308,6 @@ contains
     seq_counter = SeqCounter(IntList(), null())
     allocate(seq_counter%counts_list(0))
   end function init__seq_counter
-
-
-  type(SeqCounter) function init__seq_counter_w_seq(seqs) result(seq_counter)
-    type(IntList), intent(in) :: seqs
-    type(IntList), allocatable :: int_lists(:)
-
-    allocate(int_lists(seqs%length()))
-    seq_counter = SeqCounter(seqs, int_lists)
-  end function init__seq_counter_w_seq
 
 
   type(IntList) function seq_counter__cnts_for_seq(self, seq) result(counts)
@@ -357,7 +339,7 @@ contains
 
     logical :: found
     integer :: idx
-    type(IntList) :: counts
+    type(IntList), allocatable :: tmp_counts_list(:)
 
     found = .false.
     do idx = 1, self%seqs%length()
@@ -369,7 +351,14 @@ contains
 
     if (.not. found) then
       call self%seqs%push(seq)
-      self%counts_list = [self%counts_list, IntList((/cnt/))]
+
+      ! Fortran runtime has problems with custom types in
+      ! self%counts_list = [self%counts_list, IntList((/cnt/))]
+      allocate(tmp_counts_list(size(self%counts_list) + 1))
+      tmp_counts_list(1:size(self%counts_list)) = self%counts_list(1:size(self%counts_list))
+      tmp_counts_list(size(tmp_counts_list)) = IntList((/cnt/))
+      deallocate(self%counts_list)
+      call move_alloc(tmp_counts_list, self%counts_list)
     end if
 
   end subroutine seq_counter__add_cnt_for_seq
@@ -403,7 +392,6 @@ contains
     integer, intent(in) :: seq
     logical :: found
     integer :: idx
-    type(IntList) :: list
 
     found = .false.
     do idx = 1, self%seqs%length()
@@ -422,7 +410,7 @@ contains
 
 
   subroutine seq_counter__delete(self)
-    type(SeqCounter), intent(inout) :: self
+    class(SeqCounter), intent(inout) :: self
     integer :: idx
 
     do idx = 1, size(self%counts_list)

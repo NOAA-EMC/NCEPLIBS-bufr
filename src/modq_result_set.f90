@@ -230,20 +230,20 @@ contains
 
   recursive function result_set__get_counts(self, for_field, seq_idx, last_count, offset) result(count)
     class(ResultSet), intent(in) :: self
-    type(DataField), intent(in) :: for_field
+    type(DataField), target, intent(in) :: for_field
     integer, intent(in) :: seq_idx
     integer, intent(in) :: last_count
     integer, intent(in) :: offset
     integer :: count
 
-    integer, allocatable :: seq_counts(:)
+    integer, pointer :: seq_counts(:)
     integer :: cnt_idx
 
     count = 0
     if (seq_idx == size(for_field%seq_path)) then
       count = sum(for_field%seq_counts(seq_idx)%counts(offset + 1:offset + last_count))
     else
-      seq_counts = for_field%seq_counts(seq_idx)%counts
+      seq_counts => for_field%seq_counts(seq_idx)%counts
       do cnt_idx = offset + 1, offset + last_count
         count = count + self%get_counts(for_field, &
                                         seq_idx + 1, &

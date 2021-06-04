@@ -13,7 +13,6 @@ module modq_execute
       integer :: ireadmg, ireadsb
       character(8) :: subset
       integer(kind=8) :: my_idate
-      integer(kind=8) :: iret
 
       integer :: msg_num
 

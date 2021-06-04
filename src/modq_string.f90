@@ -39,14 +39,6 @@ contains
   end subroutine
 
 
-  subroutine string__delete(self)
-    type(String), intent(inout) :: self
-    if (allocated(self%char_buffer)) then
-      deallocate(self%char_buffer)
-    end if
-  end subroutine
-
-
   logical function string__equals(self, other) result(are_equal)
     class(String), intent(in) :: self
     class(String), intent(in) :: other
@@ -67,4 +59,13 @@ contains
       allocate(self%char_buffer, source=other%char_buffer)
     end if
   end subroutine string__copy
+
+
+  subroutine string__delete(self)
+    type(String), intent(inout) :: self
+
+    if (allocated(self%char_buffer)) then
+      deallocate(self%char_buffer)
+    end if
+  end subroutine
 end module modq_string

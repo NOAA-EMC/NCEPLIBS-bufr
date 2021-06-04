@@ -7,18 +7,16 @@ module modq_query_parser
 
 contains
   subroutine split_query_str(query_str, mnemonics, index)
-    character, parameter :: PathDelimiter = "/"
-    character(len=2), parameter :: SubscriptDelimiters = "[]"
-
-    character(len=*), intent(in) :: query_str
+    character(len=*), target, intent(in) :: query_str
     character(len=10), allocatable, intent(out) :: mnemonics(:)
     integer, intent(out) :: index
 
+    character, parameter :: PathDelimiter = "/"
+    character(len=2), parameter :: SubscriptDelimiters = "[]"
+
     integer(kind=8), allocatable :: slash_positions(:)
     integer(kind=8) :: slash_idx, char_idx
-    integer(kind=8) :: num_seqs
-    integer(kind=8) :: mnemonic_start_pos, mnemonic_end_pos
-    character(len=:), allocatable :: last_element
+    character(len=:), pointer :: last_element
     integer :: start_subscript, end_subscript
 
     allocate(slash_positions(count(transfer(query_str, "a", len(query_str)) == PathDelimiter)))
@@ -42,7 +40,7 @@ contains
     end do
 
     ! Parse last element
-    last_element = query_str(slash_positions(size(slash_positions)) + 1 : len(query_str))
+    last_element => query_str(slash_positions(size(slash_positions)) + 1 : len(query_str))
 
     if (count(transfer(query_str, "a", len(query_str)) == SubscriptDelimiters(1:1)) > 0) then
       if (count(transfer(query_str, "a", len(query_str)) == SubscriptDelimiters(2:2)) /= 1) then
