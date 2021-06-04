@@ -169,50 +169,78 @@ contains
 
     real(kind=8), allocatable :: dat(:)
     integer :: dims(2)
-    integer :: node_idx, path_idx
+    integer :: node_idx, path_idx, rep_node_idx, target_idx
     integer :: current_sequence
     integer :: data_cursor, path_cursor
     integer :: collected_data_cursor
-    logical :: target_found
     integer :: target_node
-    type(SeqCounter) :: seq_counter
-
-    integer :: target_idx
+    integer, allocatable :: rep_node_idxs(:)
     type(DataField) :: data_field
     type(DataFrame) :: data_frame
+    type(SeqCounter) :: seq_counter
+    type(Target) :: targ
 
     do target_idx = 1, size(targets)
-      dims = result_shape(lun, targets(target_idx)%node_ids)
+      targ = targets(target_idx)
+      dims = result_shape(lun, targ%node_ids)
 
       if (allocated(dat)) then
         deallocate(dat)
       end if
+      if (allocated(rep_node_idxs)) then
+        deallocate(rep_node_idxs)
+      end if
 
       allocate(dat(dims(1)))
+      allocate(rep_node_idxs, source=targ%seq_path)
 
       path_cursor = 0
       current_sequence = 1
-      target_node = targets(target_idx)%node_ids(1)
-!      seq_counter = SeqCounter()
-
+      target_node = targ%node_ids(1)
+      rep_node_idxs = rep_node_idxs + 1 ! Rep node always one after the seq node
       collected_data_cursor = 1
+
+      seq_counter = SeqCounter()
+      call seq_counter%add_cnt_for_seq(1, 1)
+
       do data_cursor = 1, nval(lun)
         node_idx = inv(data_cursor, lun)
-        target_found = .false.
 
+        ! Collect the data
         if (node_idx == target_node) then
-
           dat(collected_data_cursor)  = val(data_cursor, lun)
           collected_data_cursor = collected_data_cursor + 1
+        end if
 
-          target_found = .true.
+        ! Update sequence count
+        if (path_cursor > 0) then
+          rep_node_idx = rep_node_idxs(path_cursor)
+
+          if (node_idx == rep_node_idx) then
+            call seq_counter%inc_last_cnt_for_seq(rep_node_idx)
+          else if (node_idx == link(targ%seq_path(path_cursor))) then
+            call seq_counter%dec_last_cnt_for_seq(rep_node_idx)
+            path_cursor = path_cursor - 1
+          else if (path_cursor == size(targ%seq_path)) then
+            continue
+          else if (node_idx == targ%seq_path(path_cursor + 1)) then
+            path_cursor = path_cursor + 1
+            rep_node_idx = rep_node_idxs(path_cursor)
+            call seq_counter%add_cnt_for_seq(rep_node_idx, 0)
+          end if
+        else
+          if (node_idx == targ%seq_path(path_cursor + 1)) then
+            path_cursor = path_cursor + 1
+            rep_node_idx = rep_node_idxs(path_cursor)
+            call seq_counter%add_cnt_for_seq(rep_node_idx, 0)
+          end if
         end if
       end do
 
-      seq_counter = get_counts(lun, targets(target_idx))
+!      seq_counter = get_counts(lun, targ)
 
       data_field = DataField()
-      data_field%name = String(targets(target_idx)%name)
+      data_field%name = String(targ%name)
       data_field%node_id = target_node
       data_field%data = dat
 
@@ -237,53 +265,7 @@ contains
 
     call result_set%add(data_frame)
   end subroutine
-
-
-  type(SeqCounter) function get_counts(lun, targ) result(seq_counter)
-    integer, intent(in) :: lun
-    type(Target), intent(in) :: targ
-
-    integer :: path_cursor
-    integer :: data_cursor
-    integer :: node_idx, rep_node_idx
-    integer, allocatable :: rep_node_idxs(:)
-
-    allocate(rep_node_idxs, source=targ%seq_path)
-    rep_node_idxs = rep_node_idxs + 1 ! Rep node always one after the seq node
-
-    seq_counter = SeqCounter()
-    call seq_counter%add_cnt_for_seq(1, 1)
-
-!    dims = 0
-    path_cursor = 0
-    do data_cursor = 1, nval(lun)
-      node_idx = inv(data_cursor, lun)
-
-      if (path_cursor > 0) then
-        rep_node_idx = rep_node_idxs(path_cursor)
-
-        if (node_idx == rep_node_idx) then
-          call seq_counter%inc_last_cnt_for_seq(rep_node_idx)
-        else if (node_idx == link(targ%seq_path(path_cursor))) then
-          call seq_counter%dec_last_cnt_for_seq(rep_node_idx)
-          path_cursor = path_cursor - 1
-        else if (path_cursor == size(targ%seq_path)) then
-          continue
-        else if (node_idx == targ%seq_path(path_cursor + 1)) then
-          path_cursor = path_cursor + 1
-          rep_node_idx = rep_node_idxs(path_cursor)
-          call seq_counter%add_cnt_for_seq(rep_node_idx, 0)
-        end if
-      else
-        if (node_idx == targ%seq_path(path_cursor + 1)) then
-          path_cursor = path_cursor + 1
-          rep_node_idx = rep_node_idxs(path_cursor)
-          call seq_counter%add_cnt_for_seq(rep_node_idx, 0)
-        end if
-      end if
-    end do
-  end function
-
+  
 
   function result_shape(lun, target_nodes) result(dims)
     integer, intent(in) :: lun

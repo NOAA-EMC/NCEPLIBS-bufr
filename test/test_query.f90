@@ -168,7 +168,7 @@ subroutine test__query_gnssro
   call query_set%add("*/ROSEQ1/CLONH", "longitude")
   call query_set%add("*/ROSEQ1/ROSEQ2/BNDA[1]", "bending_angle")
 
-  result_set = execute(lunit, query_set, 3)
+  result_set = execute(lunit, query_set)
 
   print *, "Latitude", result_set%get("latitude", for="bending_angle")
   print *, "Longitude", result_set%get("longitude", for="bending_angle")
