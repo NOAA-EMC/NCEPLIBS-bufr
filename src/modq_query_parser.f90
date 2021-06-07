@@ -6,8 +6,9 @@ module modq_query_parser
   public::split_query_str
 
 contains
-  subroutine split_query_str(query_str, mnemonics, index)
+  subroutine split_query_str(query_str, subset, mnemonics, index)
     character(len=*), target, intent(in) :: query_str
+    character(len=10), intent(out) :: subset
     character(len=10), allocatable, intent(out) :: mnemonics(:)
     integer, intent(out) :: index
 
@@ -32,6 +33,10 @@ contains
         slash_idx = slash_idx + 1
       end if
     end do
+
+    ! Capture the subset string
+    subset = trim(query_str(1:slash_positions(1) - 1))
+
 
     ! Capture the sequence mnemonic strings
     allocate(mnemonics(size(slash_positions)))

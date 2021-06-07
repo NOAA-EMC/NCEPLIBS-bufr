@@ -14,6 +14,8 @@ module modq_query
 
   type, private :: Target
     character(len=:), allocatable :: name
+    character(len=:), allocatable :: query_str
+    character(len=:), allocatable :: subset
     integer, allocatable :: seq_path(:)
     integer, allocatable :: node_ids(:)
   end type Target
@@ -44,8 +46,9 @@ module modq_query
 
 contains
 !
-  subroutine query(lunit, query_set, result_set)
+  subroutine query(lunit, current_subset, query_set, result_set)
     integer, intent(in) :: lunit
+    type(String), intent(in) :: current_subset
     type(QuerySet), intent(in) :: query_set
     type(ResultSet), intent(inout) :: result_set
 
@@ -55,7 +58,7 @@ contains
     call status(lunit, lun, il, im)
 
     targets = find_targets(lun, query_set)
-    call collect_data(lun, targets, result_set)
+    call collect_data(lun, current_subset, targets, result_set)
 
   end subroutine query
 
@@ -96,10 +99,11 @@ contains
     integer :: node_idx
     integer :: index
     integer :: table_cursor, mnemonic_cursor
+    character(len=10) :: subset
     character(len=10), allocatable :: mnemonics(:)
     integer, allocatable :: branches(:)
 
-    call split_query_str(query_str, mnemonics, index)
+    call split_query_str(query_str, subset, mnemonics, index)
 
     allocate(branches(size(mnemonics) - 1))
     allocate(target_nodes(0))
@@ -156,14 +160,15 @@ contains
       error stop 'Query string must return exactly 1 target. Are you missing an index? ' // query_str // '.'
     end if
 
-    targ = Target(name, branches, target_nodes)
+    targ = Target(name, query_str, subset, branches, target_nodes)
 
     deallocate(mnemonics)
   end function
 
 
-  subroutine collect_data(lun, targets, result_set)
+  subroutine collect_data(lun, subset, targets, result_set)
     integer, intent(in) :: lun
+    type(String), intent(in) :: subset
     type(Target), intent(in) :: targets(:)
     type(ResultSet), intent(inout) :: result_set
 
@@ -182,6 +187,22 @@ contains
 
     do target_idx = 1, size(targets)
       targ = targets(target_idx)
+
+      ! Ignore targets with the wrong subset ID
+      if (targ%subset /= "*") then
+        if (targ%subset /= subset%chars()) then
+          data_field = DataField()
+          data_field%name = String(targ%name)
+          data_field%node_id = target_node
+          data_field%query_str = String(targ%query_str)
+          data_field%missing = .true.
+
+          call data_frame%add(data_field)
+
+          cycle
+        end if
+      end if
+
       dims = result_shape(lun, targ%node_ids)
 
       if (allocated(dat)) then
@@ -237,11 +258,10 @@ contains
         end if
       end do
 
-!      seq_counter = get_counts(lun, targ)
-
       data_field = DataField()
       data_field%name = String(targ%name)
       data_field%node_id = target_node
+      data_field%query_str = String(targ%query_str)
       data_field%data = dat
 
       if (allocated(data_field%seq_path)) then
@@ -265,7 +285,7 @@ contains
 
     call result_set%add(data_frame)
   end subroutine
-  
+
 
   function result_shape(lun, target_nodes) result(dims)
     integer, intent(in) :: lun

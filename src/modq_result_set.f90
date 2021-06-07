@@ -6,6 +6,8 @@ module modq_result_set
 
   private
 
+  real(kind=8), public, parameter :: MissingValue = 10e10
+
   type, public :: SeqCounts
     integer, allocatable :: counts(:)
   end type
@@ -16,6 +18,8 @@ module modq_result_set
 
   type, public :: DataField
     type(String) :: name
+    type(String) :: query_str
+    logical :: missing = .false.
     integer :: node_id = 0
     real(kind=8), allocatable :: data(:)
     integer, allocatable :: seq_path(:)
@@ -70,7 +74,8 @@ contains
 
   ! Data Field Procedures
   type(DataField) function initialize__data_field() result(data_field)
-    data_field = DataField(String(""), 0, null(), null(), null())  ! Needed because of gfortran bug
+    ! Needed because of gfortran bug
+    data_field = DataField(String(""), String(""), .false., 0, null(), null(), null())
 
     allocate(data_field%data(0))
     allocate(data_field%seq_path(0))
@@ -146,6 +151,7 @@ contains
     allocate(result_set%node_ids(0))
   end function initialize__result_set
 
+
   function result_set__get(self, field_name, for) result(data)
     class(ResultSet), intent(in) :: self
     character(len=*), intent(in) :: field_name
@@ -158,9 +164,8 @@ contains
 
     integer, allocatable :: rep_counts(:)
     real(kind=8), allocatable :: field_data(:)
-
-
     type(DataFrame), allocatable :: df
+
 
     allocate(data(0))
 
@@ -175,23 +180,34 @@ contains
       df = self%data_frames(frame_idx)
       target_field = df%field_for_node(target_node_id)
 
-      if (for_node_id > 0) then
-        for_field = self%data_frames(frame_idx)%field_for_node(for_node_id)
-        rep_counts = self%rep_counts(target_field, for_field)
+      if (.not. target_field%missing) then
+        if (for_node_id > 0) then
+          for_field = self%data_frames(frame_idx)%field_for_node(for_node_id)
+          rep_counts = self%rep_counts(target_field, for_field)
 
-        allocate(field_data(sum(rep_counts)))
+          allocate(field_data(sum(rep_counts)))
 
-        do data_idx = 1, size(rep_counts)
-          do rep_idx = 1, rep_counts(data_idx)
-            field_data(sum(rep_counts(1:data_idx - 1)) + rep_idx) = target_field%data(data_idx)
+          do data_idx = 1, size(rep_counts)
+            do rep_idx = 1, rep_counts(data_idx)
+              field_data(sum(rep_counts(1:data_idx - 1)) + rep_idx) = target_field%data(data_idx)
+            end do
           end do
-        end do
 
-        data = [data, field_data]
-
-        deallocate(field_data)
+          data = [data, field_data]
+          deallocate(field_data)
+        else
+          data = [data, target_field%data]
+        end if
       else
-        data = [data, target_field%data]
+        if (for_node_id > 0) then
+          for_field = self%data_frames(frame_idx)%field_for_node(for_node_id)
+          allocate(field_data(size(for_field%data)))
+          field_data = MissingValue
+          data = [data, field_data]
+          deallocate(field_data)
+        else
+          data = [data, real(MissingValue, 8)]
+        end if
       end if
     end do
   end function

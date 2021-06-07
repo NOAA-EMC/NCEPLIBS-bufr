@@ -106,50 +106,6 @@ end module modq_test
 !end subroutine test__result_set
 
 
-!subroutine test__query_hrs_manual
-!  use modq_query
-!  use modq_query_set
-!  use modq_result_set
-!  implicit none
-!
-!  integer :: num_msgs
-!  integer :: ireadmg, ireadsb
-!  character(8) :: subset
-!  integer(kind=8) :: my_idate
-!  integer(kind=8) :: iret
-!  integer, parameter :: lunit = 12
-!
-!  type(QuerySet) :: query_set
-!  type(ResultSet) :: result_set
-!
-!  open(lunit, file="/home/rmclaren/Work/ioda-bundle/ioda_converters/test/testinput/gdas.t00z.1bhrs4.tm00.bufr_d")
-!  call openbf(lunit, "IN", lunit)
-!
-!  call query_set%add("*/CLAT", "latitude")
-!  call query_set%add("*/CLON", "longitude")
-!  call query_set%add("*/BRIT/TMBR", "radiance")
-!!  call query_set%add("*/ROSEQ1/ROSEQ2/BNDA[2]", "bending_angle")
-!
-!  num_msgs = 1
-!  result_set = ResultSet()
-!  do while (ireadmg(lunit, subset, my_idate) == 0)
-!    do while (ireadsb(lunit) == 0)
-!      call query(lunit, query_set, result_set)
-!    end do
-!
-!    num_msgs = num_msgs + 1
-!    if (num_msgs > 10) then
-!      exit
-!    end if
-!  end do
-!
-!  print *, "Lat", result_set%get("latitude")
-!
-!  call closbf(12)
-!  close(12)
-!end subroutine test__query_hrs_manual
-
-
 subroutine test__query_gnssro
   use modq_execute
   use modq_query_set
@@ -164,11 +120,25 @@ subroutine test__query_gnssro
   open(lunit, file="/home/rmclaren/Work/ioda-bundle/ioda_converters/test/testinput/gnssro_kompsat5_20180415_00Z.bufr")
   call openbf(lunit, "IN", lunit)
 
-  call query_set%add("*/ROSEQ1/CLATH", "latitude")
+!  call query_set%add("[*/CLONH, */CLON]", "longitude1")
+  call query_set%add("NC003011/ROSEQ1/CLATH", "latitude")
   call query_set%add("*/ROSEQ1/CLONH", "longitude")
   call query_set%add("*/ROSEQ1/ROSEQ2/BNDA[1]", "bending_angle")
 
-  result_set = execute(lunit, query_set)
+!  print *, "Num Messages", count_msgs(lunit)
+  result_set = execute(lunit, query_set, next=1)
+
+  print *, "Latitude", result_set%get("latitude", for="bending_angle")
+  print *, "Longitude", result_set%get("longitude", for="bending_angle")
+  print *, "Bending Angle", result_set%get("bending_angle")
+
+  result_set = execute(lunit, query_set, next=1)
+
+  print *, "Latitude", result_set%get("latitude", for="bending_angle")
+  print *, "Longitude", result_set%get("longitude", for="bending_angle")
+  print *, "Bending Angle", result_set%get("bending_angle")
+
+  result_set = execute(lunit, query_set, next=1)
 
   print *, "Latitude", result_set%get("latitude", for="bending_angle")
   print *, "Longitude", result_set%get("longitude", for="bending_angle")
