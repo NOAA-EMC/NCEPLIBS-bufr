@@ -1,11 +1,63 @@
 
 module modq_query_parser
+  use modq_string
   implicit none
 
   private
+  public::split_into_subqueries
   public::split_query_str
 
 contains
+  function split_into_subqueries(query_str) result(subqueries)
+    character(len=*), target, intent(in) :: query_str
+    Type(String), allocatable :: subqueries(:)
+
+    character(len=2), parameter :: QuerylistDelimiters = "[]"
+    character(len=1), parameter :: QuerySplitChar = ","
+
+    character(len=:), allocatable :: working_str
+    integer, allocatable :: comma_positions(:)
+    integer :: idx, char_idx, comma_idx
+    integer :: last_pos
+
+    working_str = trim(adjustl(query_str))
+
+    if (working_str(1:1) == QuerylistDelimiters(1:1)) then
+      if (working_str(len(working_str):len(working_str)) /= QuerylistDelimiters(2:2)) then
+        error stop "Query Parser: multi query is lacking closing brackets."
+      end if
+
+      working_str = working_str(2:len(working_str) - 1)
+      allocate(comma_positions(count(transfer(working_str, "a", len(working_str)) == QuerySplitChar)))
+      allocate(subqueries(size(comma_positions) + 1))
+
+      ! Find the index of the commas.
+      comma_idx = 1
+      do char_idx = 1, len(working_str)
+        !ignore optional leading slash
+        if (working_str(char_idx:char_idx) == QuerySplitChar) then
+          comma_positions(comma_idx) = char_idx
+          comma_idx = comma_idx + 1
+        end if
+      end do
+
+      last_pos = 1
+      do idx = 1, size(comma_positions) + 1
+        if (idx < size(comma_positions) + 1) then
+          subqueries(idx) = String(trim(adjustl(working_str(last_pos:comma_positions(idx)-1))))
+          last_pos = comma_positions(idx) + 1
+        else
+          subqueries(idx) = String(trim(adjustl(working_str(last_pos:len(working_str)))))
+        end if
+      end do
+    else
+      ! Not a list of queries, so just return the result
+      allocate(subqueries(1))
+      subqueries(1) = String(trim(adjustl(working_str)))
+    end if
+  end function split_into_subqueries
+
+
   subroutine split_query_str(query_str, subset, mnemonics, index)
     character(len=*), target, intent(in) :: query_str
     character(len=10), intent(out) :: subset
@@ -36,7 +88,6 @@ contains
 
     ! Capture the subset string
     subset = trim(query_str(1:slash_positions(1) - 1))
-
 
     ! Capture the sequence mnemonic strings
     allocate(mnemonics(size(slash_positions)))

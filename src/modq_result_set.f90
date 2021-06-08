@@ -20,7 +20,6 @@ module modq_result_set
     type(String) :: name
     type(String) :: query_str
     logical :: missing = .false.
-    integer :: node_id = 0
     real(kind=8), allocatable :: data(:)
     integer, allocatable :: seq_path(:)
     type(SeqCounts), allocatable :: seq_counts(:)
@@ -38,7 +37,7 @@ module modq_result_set
 
   contains
     procedure :: add => data_frame__add
-    procedure :: field_for_node => data_frame__field_for_node
+    procedure :: field_for_node_named => data_frame__field_for_node_named
     final ::  data_frame__delete
   end type
 
@@ -50,14 +49,12 @@ module modq_result_set
 
     type(DataFrame), allocatable :: data_frames(:)
     type(String), allocatable :: names(:)
-    integer, allocatable :: node_ids(:)
 
     contains
       procedure :: get => result_set__get
       procedure :: rep_counts => result_set__rep_counts
       procedure :: get_counts => result_set__get_counts
       procedure :: add => result_set__add
-      procedure :: node_id_of => result_set__node_id_of
       final :: result_set__delete
   end type ResultSet
 
@@ -75,7 +72,7 @@ contains
   ! Data Field Procedures
   type(DataField) function initialize__data_field() result(data_field)
     ! Needed because of gfortran bug
-    data_field = DataField(String(""), String(""), .false., 0, null(), null(), null())
+    data_field = DataField(String(""), String(""), .false., null(), null(), null())
 
     allocate(data_field%data(0))
     allocate(data_field%seq_path(0))
@@ -116,22 +113,29 @@ contains
 
   end subroutine data_frame__add
 
-  function data_frame__field_for_node(self, node_id) result(field)
-    class(DataFrame), intent(in) :: self
-    integer, intent(in) :: node_id
 
-    type(DataField), allocatable :: field
+  function data_frame__field_for_node_named(self, name) result(field)
+    class(DataFrame), intent(in) :: self
+    type(String), intent(in) :: name
 
     integer :: field_idx
+    logical :: field_found
+    type(DataField), allocatable :: field
 
+    field_found = .false.
     do field_idx = 1, size(self%data_fields)
-      if (self%data_fields(field_idx)%node_id == node_id) then
+      if (self%data_fields(field_idx)%name == name) then
         field = self%data_fields(field_idx)
+        field_found = .true.
         exit
       end if
     end do
 
-  end function data_frame__field_for_node
+    if (.not. field_found) then
+      error stop "Using unknown field named " // name%chars()
+    end if
+  end function data_frame__field_for_node_named
+
 
   subroutine data_frame__delete(self)
     type(DataFrame), intent(inout) :: self
@@ -144,11 +148,10 @@ contains
   ! Result Set Procedures
 
   type(ResultSet) function initialize__result_set() result(result_set)
-    result_set = ResultSet(null(), null(), null())   ! Needed because of gfortran bug
+    result_set = ResultSet(null(), null())   ! Needed because of gfortran bug
 
     allocate(result_set%data_frames(0))
     allocate(result_set%names(0))
-    allocate(result_set%node_ids(0))
   end function initialize__result_set
 
 
@@ -159,30 +162,21 @@ contains
     real(kind=8), allocatable :: data(:)
 
     integer :: frame_idx, data_idx, rep_idx
-    integer :: target_node_id, for_node_id
     type(DataField), allocatable :: target_field, for_field
 
     integer, allocatable :: rep_counts(:)
     real(kind=8), allocatable :: field_data(:)
     type(DataFrame), allocatable :: df
 
-
     allocate(data(0))
-
-    target_node_id = self%node_id_of(String(field_name))
-
-    for_node_id = 0
-    if (present(for)) then
-      for_node_id = self%node_id_of(String(for))
-    end if
 
     do frame_idx = 1, size(self%data_frames)
       df = self%data_frames(frame_idx)
-      target_field = df%field_for_node(target_node_id)
+      target_field = df%field_for_node_named(String(field_name))
 
       if (.not. target_field%missing) then
-        if (for_node_id > 0) then
-          for_field = self%data_frames(frame_idx)%field_for_node(for_node_id)
+        if (present(for)) then
+          for_field = self%data_frames(frame_idx)%field_for_node_named(String(for))
           rep_counts = self%rep_counts(target_field, for_field)
 
           allocate(field_data(sum(rep_counts)))
@@ -199,8 +193,8 @@ contains
           data = [data, target_field%data]
         end if
       else
-        if (for_node_id > 0) then
-          for_field = self%data_frames(frame_idx)%field_for_node(for_node_id)
+        if (present(for)) then
+          for_field = self%data_frames(frame_idx)%field_for_node_named(String(for))
           allocate(field_data(size(for_field%data)))
           field_data = MissingValue
           data = [data, field_data]
@@ -224,8 +218,8 @@ contains
 
     do seq_idx = 1, size(target_field%seq_path)
       if (target_field%seq_path(seq_idx) /= for_field%seq_path(seq_idx)) then
-        error stop "The target field {target_field.name} and the for field " &
-                    // target_field%name%chars() &
+        error stop "The target field " // target_field%name%chars() // " and the for field " &
+                    //  for_field%name%chars() &
                     //" don't occur along the same path."
       end if
     end do
@@ -273,23 +267,27 @@ contains
     class(ResultSet), intent(inout) :: self
     type(DataFrame), intent(in) :: data_frame
 
-    integer :: node_id
-    integer :: field_idx
+    integer :: field_idx, name_idx
+    logical :: name_found
     type(DataField) :: field
 
     if (.not. allocated(self%data_frames)) then
       allocate(self%data_frames(0))
     end if
 
-
     do field_idx = 1, size(data_frame%data_fields)
       field = data_frame%data_fields(field_idx)
-      node_id = self%node_id_of(field%name)
-      if (node_id == 0) then
+
+      name_found = .false.
+      do name_idx = 1, size(self%names)
+        if (field%name == self%names(name_idx)) then
+          name_found = .true.
+          exit
+        end if
+      end do
+
+      if (.not. name_found) then
         self%names = [self%names, field%name]
-        self%node_ids = [self%node_ids, field%node_id]
-      elseif (node_id /= field%node_id) then
-        error stop "Inconsistent node id for field " //field%name%chars()
       end if
     end do
 
@@ -297,31 +295,11 @@ contains
 
   end subroutine result_set__add
 
-  function result_set__node_id_of(self, name) result(node_id)
-    class(ResultSet), intent(in) :: self
-    type(String), intent(in) :: name
-
-    integer :: node_id
-    integer :: name_idx
-
-    node_id = 0
-    do name_idx = 1, size(self%names)
-      if (self%names(name_idx) == name) then
-        node_id = self%node_ids(name_idx)
-        exit
-      end if
-    end do
-  end function result_set__node_id_of
-
   subroutine result_set__delete(self)
     type(ResultSet), intent(inout) :: self
 
     if (allocated(self%names)) then
       deallocate(self%names)
-    end if
-
-    if (allocated(self%node_ids)) then
-      deallocate(self%node_ids)
     end if
 
     if (allocated(self%data_frames)) then

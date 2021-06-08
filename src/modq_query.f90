@@ -15,7 +15,6 @@ module modq_query
   type, private :: Target
     character(len=:), allocatable :: name
     character(len=:), allocatable :: query_str
-    character(len=:), allocatable :: subset
     integer, allocatable :: seq_path(:)
     integer, allocatable :: node_ids(:)
   end type Target
@@ -57,40 +56,68 @@ contains
 
     call status(lunit, lun, il, im)
 
-    targets = find_targets(lun, query_set)
-    call collect_data(lun, current_subset, targets, result_set)
+    targets = find_targets(lun, current_subset, query_set)
+    call collect_data(lun, targets, result_set)
 
   end subroutine query
 
 
-  function find_targets(lun, query_set) result(targets)
+  function find_targets(lun, current_subset, query_set) result(targets)
     integer, intent(in) :: lun
+    type(String), intent(in) :: current_subset
     type(QuerySet), intent(in) :: query_set
     type(Target), allocatable :: targets(:)
 
-    integer :: target_idx
+    integer :: q_idx, target_idx
     character(len=:), allocatable :: name
-    character(len=:), allocatable :: query_str
+    type(String) :: query_str
+    type(String), allocatable :: query_strs(:)
     type(Target), allocatable :: tmp_targets(:)
+    type(Target) :: targ
+    logical :: found_target
 
     allocate(targets(0))
     do target_idx = 1,query_set%count()
       name = query_set%get_query_name(target_idx)
-      query_str = query_set%get_query_str(target_idx)
+      query_strs = split_into_subqueries(query_set%get_query_str(target_idx))
 
-      ! Fortran runtime does not deallocate memory correctly if you do
-      ! targets = [targets, find_target(lun, name, query_str)]
-      allocate(tmp_targets(size(targets) + 1))
-      tmp_targets(1:size(targets)) = targets(1:size(targets))
-      tmp_targets(size(tmp_targets)) = find_target(lun, name, query_str)
-      deallocate(targets)
-      call move_alloc(tmp_targets, targets)
+      found_target = .false.
+      do q_idx = 1, size(query_strs)
+        query_str = query_strs(q_idx)
+        targ = find_target(lun, current_subset, name, query_str%chars())
+
+        if (size(targ%node_ids) /= 0) then
+          ! Fortran runtime does not deallocate memory correctly if you do
+          ! targets = [targets, find_target(lun, name, query_str)]
+          allocate(tmp_targets(size(targets) + 1))
+          tmp_targets(1:size(targets)) = targets(1:size(targets))
+          tmp_targets(size(tmp_targets)) = targ
+          deallocate(targets)
+          call move_alloc(tmp_targets, targets)
+
+          found_target = .true.
+          exit
+        end if
+      end do
+
+      if (.not. found_target) then
+        ! Add the last missing target to the list
+        allocate(tmp_targets(size(targets) + 1))
+        tmp_targets(1:size(targets)) = targets(1:size(targets))
+        tmp_targets(size(tmp_targets)) = targ
+        deallocate(targets)
+        call move_alloc(tmp_targets, targets)
+
+        print *, "Warning: Query String "  // query_set%get_query_str(target_idx) // " didn't apply to subset " &
+                 // current_subset%chars()
+      end if
     end do
   end function
 
 
-  type(Target) function find_target(lun, name, query_str) result(targ)
+  type(Target) function find_target(lun, current_subset, name, query_str) result(targ)
     integer, intent(in) :: lun
+    type(String), intent(in) :: current_subset
     character(len=*), intent(in) :: name
     character(len=*), intent(in) :: query_str
 
@@ -102,73 +129,86 @@ contains
     character(len=10) :: subset
     character(len=10), allocatable :: mnemonics(:)
     integer, allocatable :: branches(:)
+    logical :: is_missing_target
 
     call split_query_str(query_str, subset, mnemonics, index)
 
-    allocate(branches(size(mnemonics) - 1))
-    allocate(target_nodes(0))
+    is_missing_target = .false.
+    ! Ignore targets with the wrong subset ID
+    if (subset /= "*") then
+      if (subset /= current_subset%chars()) then
+        is_missing_target = .true.
 
-    node_idx = 1
-    table_cursor = 0
-    mnemonic_cursor = 0
-    current_sequence = 1
-    do node_idx = inode(lun), isc(inode(lun))
-      if (mnemonic_cursor == size(mnemonics) - 1 .and. &
-          table_cursor == mnemonic_cursor .and. &
-          tag(node_idx) == mnemonics(size(mnemonics))) then
+        allocate(branches(0))
+        allocate(target_nodes(0))
+      end if
+    end if
 
-        ! We found a target
-        target_nodes = [target_nodes, node_idx]
+    if (.not. is_missing_target) then
+      allocate(branches(size(mnemonics) - 1))
+      allocate(target_nodes(0))
 
-      else if (typ(node_idx) == DelayedRep .or. typ(node_idx) == FixedRep) then
-        ! Enter the sequence
-        if (tag(node_idx + 1) == mnemonics(mnemonic_cursor + 1) .and. &
-            table_cursor == mnemonic_cursor) then
-
-          mnemonic_cursor = mnemonic_cursor + 1
-          branches(mnemonic_cursor) = node_idx
-        end if
-
-        current_sequence = node_idx
-        table_cursor = table_cursor + 1
-
-      else if (link(current_sequence) == node_idx) then
-        ! Exit sequence
-        if (mnemonic_cursor > 0 .and. &
+      node_idx = 1
+      table_cursor = 0
+      mnemonic_cursor = 0
+      current_sequence = 1
+      do node_idx = inode(lun), isc(inode(lun))
+        if (mnemonic_cursor == size(mnemonics) - 1 .and. &
             table_cursor == mnemonic_cursor .and. &
-            link(branches(mnemonic_cursor)) == node_idx) then
+            tag(node_idx) == mnemonics(size(mnemonics))) then
 
-          mnemonic_cursor = mnemonic_cursor - 1
+          ! We found a target
+          target_nodes = [target_nodes, node_idx]
+
+        else if (typ(node_idx) == DelayedRep .or. typ(node_idx) == FixedRep) then
+          ! Enter the sequence
+          if (tag(node_idx + 1) == mnemonics(mnemonic_cursor + 1) .and. &
+              table_cursor == mnemonic_cursor) then
+
+            mnemonic_cursor = mnemonic_cursor + 1
+            branches(mnemonic_cursor) = node_idx
+          end if
+
+          current_sequence = node_idx
+          table_cursor = table_cursor + 1
+
+        else if (link(current_sequence) == node_idx) then
+          ! Exit sequence
+          if (mnemonic_cursor > 0 .and. &
+              table_cursor == mnemonic_cursor .and. &
+              link(branches(mnemonic_cursor)) == node_idx) then
+
+            mnemonic_cursor = mnemonic_cursor - 1
+          end if
+
+          table_cursor = table_cursor - 1
+          current_sequence = jmpb(node_idx - 1)
+        end if
+      end do
+
+      if (index > 0 .and. index <= size(target_nodes)) then
+        if (index > size(target_nodes)) then
+          error stop 'Invalid index in query str ' // query_str // '.'
         end if
 
-        table_cursor = table_cursor - 1
-        current_sequence = jmpb(node_idx - 1)
-      end if
-    end do
-
-    if (index > 0 .and. index <= size(target_nodes)) then
-      if (index > size(target_nodes)) then
-        error stop 'Invalid index in query str ' // query_str // '.'
+        target_nodes = [target_nodes(index)]
       end if
 
-      target_nodes = [target_nodes(index)]
+      if (size(target_nodes) == 0) then
+        error stop 'Could not find the target node for ' // query_str // '.'
+      else if (size(target_nodes) /= 1) then
+        error stop 'Query string must return exactly 1 target. Are you missing an index? ' // query_str // '.'
+      end if
     end if
 
-    if (size(target_nodes) == 0) then
-      error stop 'Could not find the target node for ' // query_str // '.'
-    else if (size(target_nodes) /= 1) then
-      error stop 'Query string must return exactly 1 target. Are you missing an index? ' // query_str // '.'
-    end if
-
-    targ = Target(name, query_str, subset, branches, target_nodes)
+    targ = Target(name, query_str, branches, target_nodes)
 
     deallocate(mnemonics)
   end function
 
 
-  subroutine collect_data(lun, subset, targets, result_set)
+  subroutine collect_data(lun, targets, result_set)
     integer, intent(in) :: lun
-    type(String), intent(in) :: subset
     type(Target), intent(in) :: targets(:)
     type(ResultSet), intent(inout) :: result_set
 
@@ -188,21 +228,6 @@ contains
     do target_idx = 1, size(targets)
       targ = targets(target_idx)
 
-      ! Ignore targets with the wrong subset ID
-      if (targ%subset /= "*") then
-        if (targ%subset /= subset%chars()) then
-          data_field = DataField()
-          data_field%name = String(targ%name)
-          data_field%node_id = target_node
-          data_field%query_str = String(targ%query_str)
-          data_field%missing = .true.
-
-          call data_frame%add(data_field)
-
-          cycle
-        end if
-      end if
-
       dims = result_shape(lun, targ%node_ids)
 
       if (allocated(dat)) then
@@ -210,6 +235,20 @@ contains
       end if
       if (allocated(rep_node_idxs)) then
         deallocate(rep_node_idxs)
+      end if
+
+      ! Ignore targets with the wrong subset ID
+      if (size(targ%node_ids) == 0) then
+        allocate(dat(1))
+        dat(1) = MissingValue
+
+        data_field = DataField()
+        data_field%name = String(targ%name)
+        data_field%query_str = String(targ%query_str)
+        data_field%data = dat
+        data_field%missing = .true.
+        call data_frame%add(data_field)
+        cycle
       end if
 
       allocate(dat(dims(1)))
@@ -260,7 +299,6 @@ contains
 
       data_field = DataField()
       data_field%name = String(targ%name)
-      data_field%node_id = target_node
       data_field%query_str = String(targ%query_str)
       data_field%data = dat
 
@@ -376,6 +414,7 @@ contains
     do idx = 1, self%seqs%length()
       if (seq == self%seqs%at(idx)) then
         found = .true.
+
         self%counts_list(idx)%at(self%counts_list(idx)%length()) = &
           self%counts_list(idx)%at(self%counts_list(idx)%length()) + 1
         exit
