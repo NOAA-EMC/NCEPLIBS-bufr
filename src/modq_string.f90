@@ -5,6 +5,7 @@ module modq_string
   contains
     procedure :: chars => string__get_chars
     procedure :: print => string__print
+    procedure :: append => string__append
     procedure, pass(self) :: string__copy
     generic, public :: assignment(=) => string__copy
     procedure :: string__equals
@@ -37,6 +38,22 @@ contains
     class(String), intent(in) :: self
     print *, self%char_buffer
   end subroutine
+
+
+  subroutine string__append(self, str)
+    class(String), intent(inout) :: self
+    type(String), intent(in) :: str
+
+    character(len=:), allocatable :: tmp_char_buffer
+    integer :: new_length
+
+    new_length = len(self%char_buffer) + len(str%chars())
+    allocate(character(len=new_length) :: tmp_char_buffer)
+    tmp_char_buffer(1:len(self%char_buffer)) = self%char_buffer(1:len(self%char_buffer))
+    tmp_char_buffer(len(self%char_buffer) + 1 : len(tmp_char_buffer)) = str%chars()
+    deallocate(self%char_buffer)
+    call move_alloc(tmp_char_buffer, self%char_buffer)
+  end subroutine string__append
 
 
   logical function string__equals(self, other) result(are_equal)
