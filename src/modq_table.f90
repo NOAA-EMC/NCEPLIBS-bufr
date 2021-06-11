@@ -117,7 +117,7 @@ contains
               deallocate(query_bases)
               call move_alloc(tmp_strs, query_bases)
 
-              ! Fortran is horrible!
+              ! Neccessary cause Fortran handles .and. in if statements in a strange way
               if (seq_path%length() - 1 > 0) then
                 if (seq_path%at(seq_path%length() - 1) == jmpb(node_idx + 1)) then
                   ! Exit the sequence

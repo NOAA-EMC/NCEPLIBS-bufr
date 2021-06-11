@@ -120,7 +120,7 @@ subroutine test__query_gnssro
   open(lunit, file="/home/rmclaren/Work/ioda-bundle/ioda_converters/test/testinput/gnssro_kompsat5_20180415_00Z.bufr")
   call openbf(lunit, "IN", lunit)
 
-!  call query_set%add("[*/CLONH, */CLON]", "longitude1")
+  call query_set%add("*/ROSEQ3/HEIT", "test")
   call query_set%add("NC003011/ROSEQ1/CLATH", "latitude")
   call query_set%add("*/ROSEQ1/CLONH", "longitude")
   call query_set%add("*/ROSEQ1/ROSEQ2/BNDA[1]", "bending_angle")
@@ -128,19 +128,22 @@ subroutine test__query_gnssro
 !  print *, "Num Messages", count_msgs(lunit)
   result_set = execute(lunit, query_set, next=1)
 
-  print *, "Latitude", result_set%get("latitude", for="bending_angle")
+  print *, "Test", result_set%get("test")
+  print *, "Latitude", result_set%get("latitude",  for="bending_angle")
   print *, "Longitude", result_set%get("longitude", for="bending_angle")
   print *, "Bending Angle", result_set%get("bending_angle")
 
   result_set = execute(lunit, query_set, next=1)
 
-  print *, "Latitude", result_set%get("latitude", for="bending_angle")
+  print *, "Test", result_set%get("test")
+  print *, "Latitude", result_set%get("latitude",  for="bending_angle")
   print *, "Longitude", result_set%get("longitude", for="bending_angle")
   print *, "Bending Angle", result_set%get("bending_angle")
 
   result_set = execute(lunit, query_set, next=1)
 
-  print *, "Latitude", result_set%get("latitude", for="bending_angle")
+  print *, "Test", result_set%get("test")
+  print *, "Latitude", result_set%get("latitude",  for="bending_angle")
   print *, "Longitude", result_set%get("longitude", for="bending_angle")
   print *, "Bending Angle", result_set%get("bending_angle")
 
@@ -186,8 +189,58 @@ subroutine test_int_list
 
 end subroutine test_int_list
 
+subroutine test_query_parser
+  use modq_string
+  use modq_query_parser
+  implicit none
+
+  integer :: idx
+
+  type(String), allocatable :: query_strs(:)
+
+  query_strs = split_into_subqueries("*/ABCD/CDDC/CLONH")
+
+  do idx = 1, size(query_strs)
+    print *, query_strs(idx)%chars()
+  end do
+
+end subroutine test_query_parser
+
+subroutine test_table
+  use modq_string
+  use modq_table
+  implicit none
+
+  integer, parameter :: lunit = 12
+  type(String), allocatable :: subsets(:)
+  type(String), allocatable :: q_paths(:)
+  integer :: subset_idx, q_idx
+  integer :: ierr
+
+  open(lunit, file="/home/rmclaren/Work/ioda-bundle/ioda_converters/test/testinput/gnssro_kompsat5_20180415_00Z.bufr")
+  call openbf(lunit, "IN", lunit)
+!  subsets = all_subsets(lunit)
+!
+!  call fseek(lunit, 0, 0, ierr)
+!
+!  do subset_idx = 1, size(subsets)
+!    q_paths = all_queries(lunit, subsets(subset_idx))
+!    do q_idx = 1, size(q_paths)
+!      print *, q_paths(q_idx)%chars()
+!    end do
+!  end do
+
+  q_paths = all_queries(lunit, String("NC003010"))
+  do q_idx = 1, size(q_paths)
+    print *, q_paths(q_idx)%chars()
+  end do
+
+  close(lunit)
+end subroutine test_table
+
 
 program test_query
+  use modq_table
   implicit none
 
 
@@ -195,6 +248,8 @@ program test_query
 !  call test__result_set
   call test__query_gnssro
 !  call test_int_list
+!  call test_query_parser
+!  call test_table
 
 end program test_query
 

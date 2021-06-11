@@ -122,7 +122,6 @@ contains
     character(len=*), intent(in) :: query_str
 
     integer, allocatable :: target_nodes(:)
-    integer :: current_sequence
     integer :: node_idx
     integer :: index
     integer :: table_cursor, mnemonic_cursor
@@ -130,6 +129,7 @@ contains
     character(len=10), allocatable :: mnemonics(:)
     integer, allocatable :: branches(:)
     logical :: is_missing_target
+    type(IntList) :: seq_path
 
     call split_query_str(query_str, subset, mnemonics, index)
 
@@ -148,19 +148,14 @@ contains
       allocate(branches(size(mnemonics) - 1))
       allocate(target_nodes(0))
 
+      seq_path = IntList()
+      call seq_path%push(1)  ! Add root node id
+
       node_idx = 1
       table_cursor = 0
       mnemonic_cursor = 0
-      current_sequence = 1
       do node_idx = inode(lun), isc(inode(lun))
-        if (mnemonic_cursor == size(mnemonics) - 1 .and. &
-            table_cursor == mnemonic_cursor .and. &
-            tag(node_idx) == mnemonics(size(mnemonics))) then
-
-          ! We found a target
-          target_nodes = [target_nodes, node_idx]
-
-        else if (typ(node_idx) == DelayedRep .or. typ(node_idx) == FixedRep) then
+        if (typ(node_idx) == DelayedRep .or. typ(node_idx) == FixedRep) then
           ! Enter the sequence
           if (tag(node_idx + 1) == mnemonics(mnemonic_cursor + 1) .and. &
               table_cursor == mnemonic_cursor) then
@@ -169,20 +164,38 @@ contains
             branches(mnemonic_cursor) = node_idx
           end if
 
-          current_sequence = node_idx
+          call seq_path%push(node_idx + 1)
           table_cursor = table_cursor + 1
 
-        else if (link(current_sequence) == node_idx) then
-          ! Exit sequence
-          if (mnemonic_cursor > 0 .and. &
-              table_cursor == mnemonic_cursor .and. &
-              link(branches(mnemonic_cursor)) == node_idx) then
+        else if (mnemonic_cursor == size(mnemonics) - 1 .and. &
+          table_cursor == mnemonic_cursor .and. &
+          tag(node_idx) == mnemonics(size(mnemonics))) then
 
-            mnemonic_cursor = mnemonic_cursor - 1
+          ! We found a target
+          target_nodes = [target_nodes, node_idx]
+
+          ! Neccessary cause Fortran handles .and. in if statements in a strange way
+          if (seq_path%length() - 1 > 0) then
+            if (seq_path%at(seq_path%length() - 1) == jmpb(node_idx + 1)) then
+              ! Exit the sequence
+              call seq_path%pop()
+              table_cursor = table_cursor - 1
+            end if
           end if
 
-          table_cursor = table_cursor - 1
-          current_sequence = jmpb(node_idx - 1)
+        else if (seq_path%length() - 1 > 0) then
+          if (seq_path%at(seq_path%length() - 1) == jmpb(node_idx + 1)) then
+            ! Exit sequence
+            if (mnemonic_cursor > 0 .and. &
+                table_cursor == mnemonic_cursor .and. &
+                link(branches(mnemonic_cursor)) == node_idx) then
+              mnemonic_cursor = mnemonic_cursor - 1
+            end if
+
+            call seq_path%pop()
+            table_cursor = table_cursor - 1
+
+          end if
         end if
       end do
 
@@ -227,9 +240,7 @@ contains
 
     do target_idx = 1, size(targets)
       targ = targets(target_idx)
-
-      dims = result_shape(lun, targ%node_ids)
-
+      
       if (allocated(dat)) then
         deallocate(dat)
       end if
@@ -250,6 +261,8 @@ contains
         call data_frame%add(data_field)
         cycle
       end if
+
+      dims = result_shape(lun, targ%node_ids)
 
       allocate(dat(dims(1)))
       allocate(rep_node_idxs, source=targ%seq_path)
