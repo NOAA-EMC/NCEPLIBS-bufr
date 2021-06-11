@@ -207,10 +207,8 @@ contains
         target_nodes = [target_nodes(index)]
       end if
 
-      if (size(target_nodes) == 0) then
-        error stop 'Could not find the target node for ' // query_str // '.'
-      else if (size(target_nodes) /= 1) then
-        error stop 'Query string must return exactly 1 target. Are you missing an index? ' // query_str // '.'
+      if (size(target_nodes) > 1) then
+        error stop 'Query string must return 1 target. Are you missing an index? ' // query_str // '.'
       end if
     end if
 

@@ -120,7 +120,7 @@ subroutine test__query_gnssro
   open(lunit, file="/home/rmclaren/Work/ioda-bundle/ioda_converters/test/testinput/gnssro_kompsat5_20180415_00Z.bufr")
   call openbf(lunit, "IN", lunit)
 
-  call query_set%add("*/ROSEQ3/HEIT", "test")
+  call query_set%add("*/ROSEQ3/ROSEQ5/HEIT", "test")
   call query_set%add("NC003011/ROSEQ1/CLATH", "latitude")
   call query_set%add("*/ROSEQ1/CLONH", "longitude")
   call query_set%add("*/ROSEQ1/ROSEQ2/BNDA[1]", "bending_angle")
