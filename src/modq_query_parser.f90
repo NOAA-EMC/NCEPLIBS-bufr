@@ -24,7 +24,7 @@ contains
 
     if (working_str(1:1) == QuerylistDelimiters(1:1)) then
       if (working_str(len(working_str):len(working_str)) /= QuerylistDelimiters(2:2)) then
-        error stop "Query Parser: multi query is lacking closing brackets."
+        call bort("Query Parser: multi query is lacking closing brackets.")
       end if
 
       working_str = working_str(2:len(working_str) - 1)
@@ -100,7 +100,7 @@ contains
 
     if (count(transfer(query_str, "a", len(query_str)) == SubscriptDelimiters(1:1)) > 0) then
       if (count(transfer(query_str, "a", len(query_str)) == SubscriptDelimiters(2:2)) /= 1) then
-        error stop 'Missing closing paranthesis.'
+        call bort('Missing closing paranthesis.')
       end if
 
       start_subscript = index_of_char(last_element, SubscriptDelimiters(1:1))
@@ -111,7 +111,7 @@ contains
       mnemonics(size(slash_positions)) = last_element(1:start_subscript - 1)
     else
       if (count(transfer(query_str, "a", len(query_str)) == SubscriptDelimiters(2:2)) /= 0) then
-        error stop 'Found unexpected parenthesis.'
+        call bort('Found unexpected parenthesis.')
       end if
 
       mnemonics(size(slash_positions)) = last_element

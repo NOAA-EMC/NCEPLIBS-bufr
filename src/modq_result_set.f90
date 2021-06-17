@@ -132,7 +132,7 @@ contains
     end do
 
     if (.not. field_found) then
-      error stop "Using unknown field named " // name%chars()
+      call bort("Using unknown field named " // name%chars())
     end if
   end function data_frame__field_for_node_named
 
@@ -218,9 +218,8 @@ contains
 
     do seq_idx = 1, size(target_field%seq_path)
       if (target_field%seq_path(seq_idx) /= for_field%seq_path(seq_idx)) then
-        error stop "The target field " // target_field%name%chars() // " and the for field " &
-                    //  for_field%name%chars() &
-                    //" don't occur along the same path."
+        call bort("The target field " // target_field%name%chars() // " and the for field " &
+                  // for_field%name%chars() // " don't occur along the same path.")
       end if
     end do
 

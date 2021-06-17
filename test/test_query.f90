@@ -9,11 +9,11 @@ contains
     real(kind=4), intent(in) :: array2(:)
 
     if (size(array1) /= size(array2)) then
-      error stop "Array sizes mismatch."
+      call bort("Array sizes mismatch.")
     end if
 
     if (any(abs(array1 - array2) > 1e-6)) then
-      error stop "Value mismatch."
+      call bort("Value mismatch.")
     end if
   end subroutine compare_arrays
 end module modq_test

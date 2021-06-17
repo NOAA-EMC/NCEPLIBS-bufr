@@ -88,7 +88,7 @@ module modq_list
       integer, pointer :: val
 
       if (sizeof(self%values) < idx) then
-        error stop "IntList: Index out of range."
+        call bort("IntList: Index out of range.")
       end if
 
       val => self%values(idx)
@@ -114,7 +114,7 @@ module modq_list
       integer, pointer :: tmp(:)
 
       if (new_size < self%size) then
-        error stop "IntList: Truncating Data during resize."
+        call bort("IntList: Truncating Data during resize.")
       end if
 
       allocate(tmp(new_size))

@@ -201,14 +201,14 @@ contains
 
       if (index > 0 .and. index <= size(target_nodes)) then
         if (index > size(target_nodes)) then
-          error stop 'Invalid index in query str ' // query_str // '.'
+          call bort('Invalid index in query str ' // query_str // '.')
         end if
 
         target_nodes = [target_nodes(index)]
       end if
 
       if (size(target_nodes) > 1) then
-        error stop 'Query string must return 1 target. Are you missing an index? ' // query_str // '.'
+        call bort('Query string must return 1 target. Are you missing an index? ' // query_str // '.')
       end if
     end if
 
@@ -377,7 +377,7 @@ contains
     end do
 
     if (.not. found) then
-      error stop "Getting counts for unkown sequence."
+      call bort("Getting counts for unkown sequence.")
     end if
 
   end function seq_counter__cnts_for_seq
@@ -433,7 +433,7 @@ contains
     end do
 
     if (.not. found) then
-      error stop "SeqCounter: Trying to increment unknown sequence."
+      call bort("SeqCounter: Trying to increment unknown sequence.")
     end if
 
   end subroutine seq_counter__inc_last_cnt_for_seq
@@ -456,7 +456,7 @@ contains
     end do
 
     if (.not. found) then
-      error stop "SeqCounter: Trying to increment unknown sequence."
+      call bort("SeqCounter: Trying to increment unknown sequence.")
     end if
   end subroutine seq_counter__dec_last_cnt_for_seq
 
