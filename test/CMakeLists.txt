@@ -95,9 +95,12 @@ list(APPEND test_c_interface_srcs
   test_c_interface_2.c
 )
 
-list(APPEND test_query_srcs
-  test_query.f90
-)
+list(APPEND query_test_srcs
+  test_query_execute.f90
+  test_query_root.f90
+  test_query_fixed_reps.f90
+  test_query_delayed_reps.f90
+  test_query_multi_queries.f90)
 
 # Install testing scripts
 list(APPEND test_scripts
@@ -218,22 +221,23 @@ foreach(test_src IN ITEMS ${test_c_interface_srcs})
   endforeach()
 endforeach()
 
-add_executable("test_query.x" test_query.f90)
-add_dependencies("test_query.x" bufr_4_DA)
-target_link_libraries("test_query.x" PRIVATE bufr::bufr_4_DA)
 
-## query tests
-#foreach(test_src IN ITEMS ${test_query_srcs})
-#  string(REPLACE ".c" "" testPref ${test_src})
-#  foreach(kind ${test_kinds})
-#    set(test     ${testPref}_${kind})
-#    set(test_exe ${test}.x)
-#    add_executable(${test_exe} ${test_src})
-#    add_dependencies(${test_exe} bufr_${kind})
-#    target_link_libraries(${test_exe} PRIVATE bufr::bufr_${kind})
-#    add_test(NAME ${test} COMMAND ${CMAKE_BINARY_DIR}/test/${test_exe})
-#  endforeach()
-#endforeach()
+# query tests
+foreach(test_src IN ITEMS ${query_test_srcs})
+  string(REPLACE ".f90" "" testPref ${test_src})
+  foreach(kind ${test_kinds})
+    set(test     ${testPref}_${kind})
+    set(test_exe ${test}.x)
+    add_executable(${test_exe} ${test_src})
+    add_dependencies(${test_exe} bufr_${kind})
+    target_link_libraries(${test_exe} PRIVATE bufr::bufr_${kind})
+    add_test(NAME ${test} COMMAND ${CMAKE_BINARY_DIR}/test/${test_exe})
+  endforeach()
+endforeach()
+
+add_executable("query_playground.x" query_playground.f90)
+add_dependencies("query_playground.x" bufr_4_DA)
+target_link_libraries("query_playground.x" PRIVATE bufr::bufr_4_DA)
 
 # Test utilities
 
