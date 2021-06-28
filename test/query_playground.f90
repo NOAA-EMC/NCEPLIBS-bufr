@@ -101,35 +101,19 @@ subroutine test__query_gnssro
   type(QuerySet) :: query_set
   type(ResultSet) :: result_set
 
-  open(lunit, file="/home/rmclaren/Work/ioda-bundle/ioda_converters/test/testinput/gnssro_kompsat5_20180415_00Z.bufr")
+  
+  !open(lunit, file="/home/rmclaren/Work/ioda-bundle/ioda_converters/test/testinput/gnssro_kompsat5_20180415_00Z.bufr")
+  open(lunit, file="/scratch1/NCEPDEV/da/Ronald.McLaren/data/gdas.t00z.1bmhs.tm00.bufr_d")
   call openbf(lunit, "IN", lunit)
 
-  call query_set%add("*/ROSEQ3/ROSEQ5/HEIT", "test")
-  call query_set%add("NC003011/ROSEQ1/CLATH", "latitude")
-  call query_set%add("*/ROSEQ1/CLONH", "longitude")
-  call query_set%add("*/ROSEQ1/ROSEQ2/BNDA[1]", "bending_angle")
+  call query_set%add("*/CLAT", "latitude")
+  call query_set%add("*/CLON", "longitude")
 
 !  print *, "Num Messages", count_msgs(lunit)
-  result_set = execute(lunit, query_set, next=1)
+  result_set = execute(lunit, query_set, next=5)
 
-  print *, "Test", result_set%get("test")
-  print *, "Latitude", result_set%get("latitude",  for="bending_angle")
-  print *, "Longitude", result_set%get("longitude", for="bending_angle")
-  print *, "Bending Angle", result_set%get("bending_angle")
-
-  result_set = execute(lunit, query_set, next=1)
-
-  print *, "Test", result_set%get("test")
-  print *, "Latitude", result_set%get("latitude",  for="bending_angle")
-  print *, "Longitude", result_set%get("longitude", for="bending_angle")
-  print *, "Bending Angle", result_set%get("bending_angle")
-
-  result_set = execute(lunit, query_set, next=1)
-
-  print *, "Test", result_set%get("test")
-  print *, "Latitude", result_set%get("latitude",  for="bending_angle")
-  print *, "Longitude", result_set%get("longitude", for="bending_angle")
-  print *, "Bending Angle", result_set%get("bending_angle")
+  print *, "Latitude", size(result_set%get("latitude"))
+  print *, "Longitude", size(result_set%get("longitude"))
 
 end subroutine test__query_gnssro
 
