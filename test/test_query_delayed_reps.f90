@@ -1,5 +1,7 @@
-program test_query_delayed_reps
+
+
+program main
+  use modq_test
   implicit none
 
-
-end program test_query_delayed_reps
+end program main
