@@ -105,11 +105,16 @@ contains
     class(DataFrame), intent(inout) :: self
     type(DataField), intent(in) :: data_field
 
+    type(DataField), allocatable :: tmp_data_field(:)
+
     if (.not. allocated(self%data_fields)) then
       allocate(self%data_fields(0))
     end if
 
-    self%data_fields = [self%data_fields, data_field]
+    allocate(tmp_data_field(size(self%data_fields) + 1))
+    tmp_data_field(1:size(self%data_fields)) = self%data_fields
+    tmp_data_field(size(tmp_data_field)) = data_field
+    call move_alloc(tmp_data_field, self%data_fields) 
 
   end subroutine data_frame__add
 
@@ -203,6 +208,18 @@ contains
           data = [data, real(MissingValue, 8)]
         end if
       end if
+
+      if (allocated(target_field)) then
+        deallocate(target_field)
+      end if
+
+      if (allocated(for_field)) then
+        deallocate(for_field)
+      end if
+
+      if (allocated(df)) then
+        deallocate(df)
+      end if
     end do
   end function
 
@@ -269,6 +286,8 @@ contains
     integer :: field_idx, name_idx
     logical :: name_found
     type(DataField) :: field
+    type(DataFrame), allocatable :: tmp_data_frames(:)
+    type(String), allocatable :: tmp_names(:)
 
     if (.not. allocated(self%data_frames)) then
       allocate(self%data_frames(0))
@@ -286,11 +305,20 @@ contains
       end do
 
       if (.not. name_found) then
-        self%names = [self%names, field%name]
+          
+        allocate(tmp_names(size(self%names) + 1))
+        tmp_names(1:size(self%names)) = self%names
+        tmp_names(size(tmp_names)) = field%name
+        call move_alloc(tmp_names, self%names) 
+
+        !self%names = [self%names, field%name]
       end if
     end do
 
-    self%data_frames = [self%data_frames, data_frame]
+    allocate(tmp_data_frames(size(self%data_frames) + 1))
+    tmp_data_frames(1:size(self%data_frames)) = self%data_frames
+    tmp_data_frames(size(tmp_data_frames)) = data_frame
+    call move_alloc(tmp_data_frames, self%data_frames) 
 
   end subroutine result_set__add
 

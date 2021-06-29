@@ -18,6 +18,7 @@ module modq_list
     procedure, public :: length => int_list__length
     procedure, public :: resize => int_list__resize
     procedure, public :: delete => int_list__delete
+    procedure, public :: print => int_list__print
     final :: int_list__final
   end type IntList
 
@@ -131,10 +132,10 @@ module modq_list
     subroutine int_list__delete(self)
       class(IntList), intent(inout) :: self
 
-      if (associated(self%values)) then
-        deallocate(self%values)
-        self%values => null()
-      end if
+      !if (associated(self%values)) then
+      !  deallocate(self%values)
+      !  nullify(self%values)
+      !end if
     end subroutine int_list__delete
 
 
@@ -143,8 +144,19 @@ module modq_list
 
       if (associated(self%values)) then
         deallocate(self%values)
-        self%values => null()
+        nullify(self%values)
       end if
     end subroutine int_list__final
+
+
+    subroutine int_list__print(self)
+        class(IntList), intent(in) :: self
+
+        integer :: idx
+
+        do idx = 1, self%length()
+          print *, self%at(idx)
+        end do
+    end subroutine
 
 end module modq_list

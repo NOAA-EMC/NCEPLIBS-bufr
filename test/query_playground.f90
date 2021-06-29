@@ -110,7 +110,7 @@ subroutine test__query_gnssro
   call query_set%add("*/CLON", "longitude")
 
 !  print *, "Num Messages", count_msgs(lunit)
-  result_set = execute(lunit, query_set, next=5)
+  result_set = execute(lunit, query_set, next=3)
 
   print *, "Latitude", size(result_set%get("latitude"))
   print *, "Longitude", size(result_set%get("longitude"))

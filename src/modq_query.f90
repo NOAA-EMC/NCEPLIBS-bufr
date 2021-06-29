@@ -220,7 +220,7 @@ contains
 
   subroutine collect_data(lun, targets, result_set)
     integer, intent(in) :: lun
-    type(Target), intent(in) :: targets(:)
+    type(Target), target, intent(in) :: targets(:)
     type(ResultSet), intent(inout) :: result_set
 
     real(kind=8), allocatable :: dat(:)
@@ -234,10 +234,10 @@ contains
     type(DataField) :: data_field
     type(DataFrame) :: data_frame
     type(SeqCounter) :: seq_counter
-    type(Target) :: targ
+    type(Target), pointer :: targ
 
     do target_idx = 1, size(targets)
-      targ = targets(target_idx)
+      targ => targets(target_idx)
       
       if (allocated(dat)) then
         deallocate(dat)
@@ -299,7 +299,7 @@ contains
             rep_node_idx = rep_node_idxs(path_cursor)
             call seq_counter%add_cnt_for_seq(rep_node_idx, 0)
           end if
-        else
+        else if (size(targ%seq_path) >= path_cursor + 1) then
           if (node_idx == targ%seq_path(path_cursor + 1)) then
             path_cursor = path_cursor + 1
             rep_node_idx = rep_node_idxs(path_cursor)

@@ -7,7 +7,7 @@ module modq_string
     procedure :: print => string__print
     procedure :: append => string__append
     procedure, pass(self) :: string__copy
-    generic, public :: assignment(=) => string__copy
+!    generic, public :: assignment(=) => string__copy
     procedure :: string__equals
     generic, public :: operator(==) => string__equals
     final :: string__delete
