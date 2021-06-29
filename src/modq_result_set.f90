@@ -6,7 +6,7 @@ module modq_result_set
 
   private
 
-  real(kind=8), public, parameter :: MissingValue = 10e10
+  real(kind=8), public, parameter :: MissingValue = 10e10_8
 
   type, public :: SeqCounts
     integer, allocatable :: counts(:)
@@ -242,7 +242,7 @@ contains
 
     allocate(counts(0))
     target_count =  sum(target_field%seq_counts(size(target_field%seq_counts))%counts)
-    if (target_count > 1) then
+    if (target_count > 0) then
       do rep_idx = 1, target_count
         count = self%get_counts(for_field, &
                                 size(target_field%seq_counts) + 1, &

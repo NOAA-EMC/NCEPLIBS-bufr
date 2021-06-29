@@ -225,10 +225,11 @@ endforeach()
 # query tests
 foreach(test_src IN ITEMS ${query_test_srcs})
   string(REPLACE ".f90" "" testPref ${test_src})
-  foreach(kind ${test_kinds})
+  foreach(kind ${test_kinds_4})
     set(test     ${testPref}_${kind})
     set(test_exe ${test}.x)
-    add_executable(${test_exe} ${test_src})
+    message("*** ${test}")
+    add_executable(${test_exe} ${test_src} modq_test.f90)
     add_dependencies(${test_exe} bufr_${kind})
     target_link_libraries(${test_exe} PRIVATE bufr::bufr_${kind})
     add_test(NAME ${test} COMMAND ${CMAKE_BINARY_DIR}/test/${test_exe})
@@ -238,6 +239,7 @@ endforeach()
 add_executable("query_playground.x" query_playground.f90)
 add_dependencies("query_playground.x" bufr_4_DA)
 target_link_libraries("query_playground.x" PRIVATE bufr::bufr_4_DA)
+
 
 # Test utilities
 
@@ -258,14 +260,3 @@ add_test(NAME test_gettab
 add_test(NAME test_split_by_subset
   COMMAND ${CMAKE_BINARY_DIR}/bin/test_split_by_subset.sh "${CMAKE_BINARY_DIR}/utils/split_by_subset.x testfiles/data/satwndbufr" "testfiles/testoutput/satwndbufr_split"
   )
-
-
-
-#foreach(kind ${test_kinds})
-#  set(test     ${testPref}_${kind})
-#  set(test_exe ${test}.x)
-#  add_executable(${test_exe} ${test_src})
-#  add_dependencies(${test_exe} bufr_${kind})
-#  target_link_libraries(${test_exe} PRIVATE bufr::bufr_${kind})
-#  add_test(NAME ${test} COMMAND ${CMAKE_BINARY_DIR}/test/${test_exe})
-#endforeach()
