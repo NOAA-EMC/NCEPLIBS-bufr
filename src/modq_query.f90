@@ -185,11 +185,12 @@ contains
 
         else if (seq_path%length() - 1 > 0) then
           if (seq_path%at(seq_path%length() - 1) == jmpb(node_idx + 1)) then
+
             ! Exit sequence
-            if (mnemonic_cursor > 0 .and. &
-                table_cursor == mnemonic_cursor .and. &
-                link(branches(mnemonic_cursor)) == node_idx) then
-              mnemonic_cursor = mnemonic_cursor - 1
+            if (mnemonic_cursor > 0 .and. table_cursor == mnemonic_cursor) then
+              if (link(branches(mnemonic_cursor)) == node_idx) then
+                mnemonic_cursor = mnemonic_cursor - 1
+              end if
             end if
 
             call seq_path%pop()
@@ -463,12 +464,19 @@ contains
 
   subroutine seq_counter__delete(self)
     class(SeqCounter), intent(inout) :: self
-    integer :: idx
 
-    do idx = 1, size(self%counts_list)
-      call self%counts_list(idx)%delete()
-    end do
+! GNU does not finalize this object properly
+#ifdef GNU
+    block
+      integer :: idx
 
-    deallocate(self%counts_list)
+      do idx = 1, size(self%counts_list)
+        call self%counts_list(idx)%delete()
+      end do
+
+      deallocate(self%counts_list)
+    end block
+#endif
+
   end subroutine seq_counter__delete
 end module modq_query

@@ -67,6 +67,7 @@ elseif(CMAKE_Fortran_COMPILER_ID MATCHES "^(GNU)$")
   set(CMAKE_Fortran_FLAGS "${CMAKE_Fortran_FLAGS} -g -fbacktrace")
   set(CMAKE_Fortran_FLAGS_DEBUG "-ggdb -Wall -O0")
   set(CMAKE_Fortran_FLAGS_RELEASE "-O3")
+  add_compile_definitions("GNU=1")
 endif()
 
 set(fortran_8_DA_flags ${fortran_8_flags})

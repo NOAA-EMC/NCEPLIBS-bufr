@@ -132,10 +132,10 @@ module modq_list
     subroutine int_list__delete(self)
       class(IntList), intent(inout) :: self
 
-      !if (associated(self%values)) then
-      !  deallocate(self%values)
-      !  nullify(self%values)
-      !end if
+      if (associated(self%values)) then
+        deallocate(self%values)
+        nullify(self%values)
+      end if
     end subroutine int_list__delete
 
 
