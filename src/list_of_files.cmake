@@ -310,7 +310,7 @@ set(fortran_src
   wrdlen.F
   modq_string.f90
   modq_list.f90
-  modq_query.f90
+  modq_query.F90
   modq_query_set.f90
   modq_query_parser.f90
   modq_result_set.f90
