@@ -4,29 +4,15 @@
 
 #include "QuerySet.h"
 
-extern int __modq_query_set_MOD___vtab_modq_query_set_Queryset;
+#include "query_interface.h"
 
-extern "C"
-{
-    void __cxx_query_interface_MOD_allocate__query_set(bufr::Address *caddr);
-    void __cxx_query_interface_MOD_deallocate__query_set(bufr::Address caddr);
-
-    void __modq_query_set_MOD_query_set__add(bufr::Address self,
-                                             const char* query,
-                                             const char* name,
-                                             std::size_t query_len,
-                                             std::size_t name_len);
-
-    void __modq_query_set_MOD_query_set__print(bufr::Address self);
-};
 
 namespace bufr
 {
-
     QuerySet::QuerySet()
     {
         Address data_ptr = nullptr;
-        __cxx_query_interface_MOD_allocate__query_set(&data_ptr);
+        query_set__allocate_f(&data_ptr);
         initialize(data_ptr, true);
     }
 
@@ -34,22 +20,18 @@ namespace bufr
     {
         if (is_owned_)
         {
-            __cxx_query_interface_MOD_deallocate__query_set(data_ptr_);
+            query_set__deallocate_f(data_ptr_);
         }
     }
 
     void QuerySet::add(const std::string& query_str, const std::string& query_name)
     {
-        __modq_query_set_MOD_query_set__add(class_data_ptr_,
-                                            query_str.c_str(),
-                                            query_name.c_str(),
-                                            query_str.size(),
-                                            query_name.size());
+        query_set__add_f(class_data_ptr_, query_str.c_str(), query_name.c_str());
     }
 
     void QuerySet::print()
     {
-        __modq_query_set_MOD_query_set__print(class_data_ptr_);
+        query_set__print_f(class_data_ptr_);
     }
 
     Address QuerySet::get_v_ptr()

@@ -5,26 +5,13 @@
 #include "ResultSet.h"
 #include "query_interface.h"
 
-struct FortranRealArray
-{
-    double* data;
-    std::size_t size;
-};
-
-extern int __modq_result_set_MOD___vtab_modq_result_set_Resultset;
-
-extern "C"
-{
-    void __cxx_query_interface_MOD_allocate__result_set(bufr::Address *caddr);
-    void __cxx_query_interface_MOD_deallocate__result_set(bufr::Address caddr);
-}
 
 namespace bufr
 {
     ResultSet::ResultSet()
     {
         Address data_ptr;
-        __cxx_query_interface_MOD_allocate__result_set(&data_ptr);
+        result_set__allocate_f(&data_ptr);
         initialize(data_ptr, true);
     }
 
@@ -32,7 +19,7 @@ namespace bufr
     {
         if (is_owned_)
         {
-            __cxx_query_interface_MOD_deallocate__result_set(data_ptr_);
+            result_set__deallocate_f(data_ptr_);
         }
     }
 

@@ -20,6 +20,7 @@ module bufr_c_interface_mod
   implicit none
 
   private
+  public :: c_f_string
   public :: open_c, close_c
   public :: openbf_c, closbf_c
   public :: exitbufr_c

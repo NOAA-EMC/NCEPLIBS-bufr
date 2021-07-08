@@ -6,10 +6,11 @@
 
 #include "FortranObject.h"
 #include "bufr_interface.h"
+#include "query_interface.h"
 
 extern "C"
 {
-    void __cxx_query_interface_MOD_execute_c(int, bufr::Address, int, bufr::Address);
+    void __query_interface_MOD_execute_c(int, bufr::Address, int, bufr::Address);
 }
 
 namespace bufr
@@ -34,10 +35,9 @@ namespace bufr
     ResultSet File::execute(const QuerySet& query_set, int next)
     {
         auto result_set = ResultSet();
-        __cxx_query_interface_MOD_execute_c(fileUnit_,
-                                            query_set.get_fortran_obj(),
-                                            next,
-                                            result_set.get_fortran_obj());
+        auto result_set_f = result_set.get_fortran_obj();
+        auto query_set_f = query_set.get_fortran_obj();
+        execute_f(fileUnit_, &query_set_f, next, &result_set_f);
         return result_set;
     }
 

@@ -7,7 +7,6 @@
 
 namespace bufr
 {
-    typedef void(*generic_fpointer)(void);
     typedef void* Address;
 
     struct FortranClassContainer
