@@ -316,6 +316,15 @@ set(fortran_src
   modq_result_set.f90
   modq_execute.f90
   modq_table.f90
+  cxx_query_interface/query_interface.f90
+  cxx_query_interface/FortranObject.h
+  cxx_query_interface/FortranObject.cpp
+  cxx_query_interface/QuerySet.h
+  cxx_query_interface/QuerySet.cpp
+  cxx_query_interface/ResultSet.h
+  cxx_query_interface/ResultSet.cpp
+  cxx_query_interface/File.h
+  cxx_query_interface/File.cpp
   fortran_open.f90
   fortran_close.f90
   bufr_interface.f90)

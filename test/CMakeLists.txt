@@ -240,6 +240,9 @@ add_executable("query_playground.x" query_playground.f90)
 add_dependencies("query_playground.x" bufr_4_DA)
 target_link_libraries("query_playground.x" PRIVATE bufr::bufr_4_DA)
 
+add_executable("cpp_query_playground.x" query_playground.cpp)
+add_dependencies("cpp_query_playground.x" bufr_4_DA)
+target_link_libraries("cpp_query_playground.x" PRIVATE bufr::bufr_4_DA)
 
 # Test utilities
 

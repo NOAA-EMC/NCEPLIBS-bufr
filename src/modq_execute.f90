@@ -11,17 +11,35 @@ module modq_execute
       type(QuerySet), intent(in) :: query_set
       integer, optional, intent(in) ::  next
 
+      integer :: num_msgs
+
+      if (.not. present(next)) then
+        num_msgs = 0
+      else
+        num_msgs = next
+      end if
+
+      result_set = ResultSet()
+      call execute_(file_unit, query_set, result_set, num_msgs)
+    end function execute
+
+
+    subroutine execute_(file_unit, query_set, result_set, next)
+      integer, intent(in) :: file_unit
+      type(QuerySet), intent(in) :: query_set
+      type(ResultSet), intent(inout) :: result_set
+      integer, intent(in) ::  next
+
       integer :: ireadmg, ireadsb
       character(8) :: subset
       integer(kind=8) :: my_idate
       integer :: msg_num
 
       msg_num = 0
-      result_set = ResultSet()
       do while (ireadmg(file_unit, subset, my_idate) == 0)
         msg_num = msg_num + 1
 
-        if (present(next)) then
+        if (next > 0) then
           if (msg_num > next) then
             exit
           end if
@@ -31,7 +49,7 @@ module modq_execute
           call query(file_unit, String(subset), query_set, result_set)
         end do
       end do
-    end function execute
+    end subroutine execute_
 
 
     integer function count_msgs(file_unit) result(total)

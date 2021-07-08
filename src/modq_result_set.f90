@@ -180,7 +180,7 @@ contains
       target_field = df%field_for_node_named(String(field_name))
 
       if (.not. target_field%missing) then
-        if (present(for)) then
+        if (present(for) .and. for /= "") then
           for_field = self%data_frames(frame_idx)%field_for_node_named(String(for))
           rep_counts = self%rep_counts(target_field, for_field)
 
@@ -305,20 +305,17 @@ contains
       end do
 
       if (.not. name_found) then
-          
         allocate(tmp_names(size(self%names) + 1))
         tmp_names(1:size(self%names)) = self%names
         tmp_names(size(tmp_names)) = field%name
-        call move_alloc(tmp_names, self%names) 
-
-        !self%names = [self%names, field%name]
+        call move_alloc(tmp_names, self%names)
       end if
     end do
 
     allocate(tmp_data_frames(size(self%data_frames) + 1))
     tmp_data_frames(1:size(self%data_frames)) = self%data_frames
     tmp_data_frames(size(tmp_data_frames)) = data_frame
-    call move_alloc(tmp_data_frames, self%data_frames) 
+    call move_alloc(tmp_data_frames, self%data_frames)
 
   end subroutine result_set__add
 

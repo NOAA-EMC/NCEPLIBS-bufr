@@ -102,12 +102,12 @@ subroutine test__query_gnssro
   type(ResultSet) :: result_set
 
   
-  !open(lunit, file="/home/rmclaren/Work/ioda-bundle/ioda_converters/test/testinput/gnssro_kompsat5_20180415_00Z.bufr")
-  open(lunit, file="/scratch1/NCEPDEV/da/Ronald.McLaren/data/gdas.t00z.1bmhs.tm00.bufr_d")
+  open(lunit, file="/home/rmclaren/Work/ioda-bundle/ioda_converters/test/testinput/gnssro_kompsat5_20180415_00Z.bufr")
+  !open(lunit, file="/scratch1/NCEPDEV/da/Ronald.McLaren/data/gdas.t00z.1bmhs.tm00.bufr_d")
   call openbf(lunit, "IN", lunit)
 
-  call query_set%add("*/CLAT", "latitude")
-  call query_set%add("*/CLON", "longitude")
+  call query_set%add("*/CLATH", "latitude")
+  call query_set%add("*/CLONH", "longitude")
 
 !  print *, "Num Messages", count_msgs(lunit)
   result_set = execute(lunit, query_set, next=3)
