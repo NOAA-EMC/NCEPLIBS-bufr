@@ -25,6 +25,8 @@ contains
     character(len=*) :: name
 
     test = TestInstance(String(name))
+
+    print *, "Running ", name
   end function initialize__test
 
   subroutine test__failed(self, msg)
@@ -37,91 +39,48 @@ contains
     call bort(abort_msg)
   end subroutine
 
-  subroutine test__compare_arrays(self, array1, array2)
+  subroutine test__compare_arrays(self, array1, array2, extra_msg)
     class(TestInstance), intent(in) :: self
     class(*), intent(in) :: array1(:)
     class(*), intent(in) :: array2(:)
+    character(len=*), optional, intent(in) :: extra_msg
 
-    real(kind=8), allocatable :: real_array_1(:)
-    real(kind=8), allocatable :: real_array_2(:)
+    character(len=:), allocatable :: extra_msg_
 
+    logical :: value_mismatch
+
+    if (present(extra_msg)) then
+      extra_msg_ = extra_msg // " "
+    else
+      extra_msg_ = ""
+    end if
+
+    if (size(array1) /= size(array2)) then
+      call self%failed(extra_msg_ // "Array sizes mismatch.")
+    end if
+
+    value_mismatch = .true.
     select type (array1)
       type is (real(kind=4))
         select type (array2)
           type is (real(kind=4))
-            call compare_arrays_r_4_4(self, array1, array2)
+            value_mismatch = any(abs(array1 - array2) > 1e-6)
           type is (real(kind=8))
-            call compare_arrays_r_4_8(self, array1, array2)
+            value_mismatch = any(abs(array1 - array2) > 1e-6)
         end select
       type is (real(kind=8))
         select type (array2)
           type is (real(kind=4))
-            call compare_arrays_r_8_4(self, array1, array2)
+            value_mismatch = any(abs(array1 - array2) > 1e-6)
           type is (real(kind=8))
-            call compare_arrays_r_8_8(self, array1, array2)
+            value_mismatch = any(abs(array1 - array2) > 1e-6)
         end select
     end select
+
+    if (value_mismatch) then
+      call self%failed(extra_msg_ // "Value mismatch.")
+    end if
   end subroutine test__compare_arrays
-
-  subroutine compare_arrays_r_8_4(test, array1, array2)
-    class(TestInstance), intent(in) :: test
-    real(kind=8), intent(in) :: array1(:)
-    real(kind=4), intent(in) :: array2(:)
-
-    if (size(array1) /= size(array2)) then
-      call test%failed("Array sizes mismatch.")
-    end if
-
-    if (any(abs(array1 - array2) > 1e-6)) then
-      call test%failed("Value mismatch.")
-    end if
-  end subroutine compare_arrays_r_8_4
-
-
-  subroutine compare_arrays_r_4_4(test, array1, array2)
-    class(TestInstance), intent(in) :: test
-    real(kind=4), intent(in) :: array1(:)
-    real(kind=4), intent(in) :: array2(:)
-
-    if (size(array1) /= size(array2)) then
-      call test%failed("Array sizes mismatch.")
-    end if
-
-    if (any(abs(array1 - array2) > 1e-6)) then
-      call test%failed("Value mismatch.")
-    end if
-  end subroutine compare_arrays_r_4_4
-
-
-  subroutine compare_arrays_r_4_8(test, array1, array2)
-    class(TestInstance), intent(in) :: test
-    real(kind=4), intent(in) :: array1(:)
-    real(kind=8), intent(in) :: array2(:)
-
-    if (size(array1) /= size(array2)) then
-      call test%failed("Array sizes mismatch.")
-    end if
-
-    if (any(abs(array1 - array2) > 1e-6)) then
-      call test%failed("Value mismatch.")
-    end if
-  end subroutine compare_arrays_r_4_8
-
-
-  subroutine compare_arrays_r_8_8(test, array1, array2)
-    class(TestInstance), intent(in) :: test
-    real(kind=8), intent(in) :: array1(:)
-    real(kind=8), intent(in) :: array2(:)
-
-    if (size(array1) /= size(array2)) then
-      call test%failed("Array sizes mismatch.")
-    end if
-
-    if (any(abs(array1 - array2) > 1e-6)) then
-      call test%failed("Value mismatch.")
-    end if
-  end subroutine compare_arrays_r_8_8
-
 
   subroutine reset_file(file_unit, file_name)
     integer, intent(in) :: file_unit
