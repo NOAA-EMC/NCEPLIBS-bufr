@@ -63,16 +63,6 @@ module query_interface
     call execute_(file_unit, query_set_f, result_set_f, next)
   end subroutine execute_c
 
-!    subroutine execute_c(file_unit, query_set, next, result_set)
-!      integer(c_int), value, intent(in) :: file_unit
-!      type(QuerySet), intent(in) :: query_set
-!      integer(c_int), value, intent(in) :: next
-!      type(ResultSet), intent(inout) :: result_set
-!
-!      call execute_(file_unit, query_set, result_set, next)
-!    end subroutine execute_c
-
-
   ! Result Set Methods
   subroutine result_set__allocate(result_set_cptr) bind(C, name='result_set__allocate_f')
     type(c_ptr), intent(inout) :: result_set_cptr
