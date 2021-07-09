@@ -22,7 +22,6 @@ extern "C" {
     void execute_f(std::size_t file_unit, void** query_set, std::size_t next, void** result_set);
 
     // ResultSet Methods
-
     void result_set__allocate_f(void** result_set);
     double* result_set__get_f(void* cls,
                               const char* field,
