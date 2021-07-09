@@ -33,15 +33,19 @@ list(APPEND fortran_src
   ufbrw.f ufbseq.f ufbsp.f ufbstp.f ufbtab.f ufbtam.f ufdump.f upb.f upbb.f upc.f upds3.f upftbv.f
   ups.f uptdd.f usrtpl.f valx.f wrcmps.f wrdxtb.f writcp.f writdx.f writlc.f writsa.f writsb.f
   wrtree.f wtstat.f arallocf.F ardllocf.F closbf.F ireadmt.F irev.F isetprm.F openbf.F pkvs01.F
-  wrdlen.F fortran_open.f90 fortran_close.f90 bufr_interface.f90)
+  wrdlen.F query_interface.f90 fortran_open.f90 fortran_close.f90 bufr_interface.f90 modq_list.f90
+  modq_string.f90 modq_query_parser.f90 modq_query.F90 modq_result_set.f90 modq_query_set.f90
+  modq_execute.f90 modq_table.f90)
 
 list(APPEND c_src
   arallocc.c ardllocc.c bort_exit.c ccbfl.c cmpia.c cmpstia1.c cmpstia2.c cobfl.c cpmstabs.c
   crbmg.c cread.c cwbmg.c dlloctbf.c icvidx.c inittbf.c nummtb.c rbytes.c restd.c sorttbf.c
-  srchtbf.c strtbfe.c stseq.c wrdesc.c)
+  srchtbf.c strtbfe.c stseq.c wrdesc.c ../cxx/FortranObject.cpp ../cxx/QuerySet.cpp
+  ../cxx/ResultSet.cpp ../cxx/File.cpp)
 
 list(APPEND c_hdr
-  cfe.h cobfl.h cread.h mstabs.h bufr_interface.h)
+  cfe.h cobfl.h cread.h mstabs.h bufr_interface.h query_interface.h ../cxx/FortranObject.h
+  ../cxx/QuerySet.h ../cxx/ResultSet.h ../cxx/File.h)
 
 # Create the bvers.f file and bfrini.f90 files
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/bvers.f.in ${CMAKE_CURRENT_BINARY_DIR}/bvers.f @ONLY)
@@ -111,7 +115,8 @@ foreach(kind ${kinds})
   add_library(${PROJECT_NAME}::${lib_name} ALIAS ${lib_name})
 
   target_include_directories(${lib_name} PUBLIC
-    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>)
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../cxx>)
 
   target_include_directories(${lib_name} INTERFACE
     $<BUILD_INTERFACE:${module_dir}>

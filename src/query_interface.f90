@@ -56,11 +56,15 @@ module query_interface
 
     type(QuerySet), pointer :: query_set_f
     type(ResultSet), pointer :: result_set_f
+    integer :: int_type
 
     call c_f_pointer(query_set_c, query_set_f)
     call c_f_pointer(result_set_c, result_set_f)
 
-    call execute_(file_unit, query_set_f, result_set_f, next)
+    call execute_(transfer(file_unit, int_type), &
+                  query_set_f, &
+                  result_set_f, &
+                  transfer(next, int_type))
   end subroutine execute_c
 
   ! Result Set Methods

@@ -6,9 +6,9 @@
 #include <iostream>
 #include <vector>
 
-#include "cxx_query_interface/QuerySet.h"
-#include "cxx_query_interface/ResultSet.h"
-#include "cxx_query_interface/File.h"
+#include "QuerySet.h"
+#include "ResultSet.h"
+#include "File.h"
 
 template<typename T>
 void print(const std::string& name, const std::vector<T>& vec)

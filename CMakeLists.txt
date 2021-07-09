@@ -13,7 +13,6 @@ project(
 # Handle user options.
 option(ENABLE_DOCS "Enable generation of doxygen-based documentation." OFF)
 option(ENABLE_PYTHON "Enable building python module 'ncepbufr'" OFF)
-option(ENABLE_CXX_QUERY "Enable c++ query interface module" ON)
 option(BUILD_SHARED_LIBS "Enable building shared libraries" OFF)
 
 set(MASTER_TABLE_DIR "${CMAKE_INSTALL_PREFIX}/tables" CACHE STRING "Installation location of Master BUFR Tables")
