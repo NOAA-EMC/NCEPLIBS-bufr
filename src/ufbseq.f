@@ -183,236 +183,245 @@ C----------------------------------------------------------------------
 C  CHECK THE FILE STATUS AND I-NODE
 C  --------------------------------
 
-
-
       LUNIT = ABS(LUNIN)
       CALL STATUS(LUNIT,LUN,IL,IM)
-!     IF(IL.EQ.0) GOTO 900
-!     IF(IM.EQ.0) GOTO 901
+      IF(IL.EQ.0) GOTO 900
+      IF(IM.EQ.0) GOTO 901
 
-      PRINT *, "**** ", INODE(LUN)
+      IO = MIN(MAX(0,IL),1)
+      IF(LUNIT.NE.LUNIN) IO = 0
+
+      IF(I1.LE.0) THEN
+         IF(IPRT.GE.0) THEN
+      CALL ERRWRT('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
+      ERRSTR = 'BUFRLIB: UFBSEQ - 3rd ARG. (INPUT) IS .LE. 0, ' //
+     .   'SO RETURN WITH 5th ARG. (IRET) = 0; 6th ARG. (STR) ='
+      CALL ERRWRT(ERRSTR)
+      CALL ERRWRT(STR)
+      CALL ERRWRT('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
+      CALL ERRWRT(' ')
+         ENDIF
+         GOTO 100
+      ELSEIF(I2.LE.0) THEN
+         IF(IPRT.EQ.-1)  IFIRST1 = 1
+         IF(IO.EQ.0 .OR. IFIRST1.EQ.0 .OR. IPRT.GE.1)  THEN
+      CALL ERRWRT('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
+      ERRSTR = 'BUFRLIB: UFBSEQ - 4th ARG. (INPUT) IS .LE. 0, ' //
+     .   'SO RETURN WITH 5th ARG. (IRET) = 0; 6th ARG. (STR) ='
+      CALL ERRWRT(ERRSTR)
+      CALL ERRWRT(STR)
+            IF(IPRT.EQ.0 .AND. IO.EQ.1) THEN
+      ERRSTR = 'Note: Only the first occurrence of this WARNING ' //
+     .   'message is printed, there may be more.  To output all ' //
+     .   'such messages,'
+      CALL ERRWRT(ERRSTR)
+      ERRSTR = 'modify your application program to add ' //
+     .   '"CALL OPENBF(0,''QUIET'',1)" prior to the first call ' //
+     .   'to a BUFRLIB routine.'
+      CALL ERRWRT(ERRSTR)
+            ENDIF
+      CALL ERRWRT('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
+      CALL ERRWRT(' ')
+            IFIRST1 = 1
+         ENDIF
+         GOTO 100
+      ENDIF
+
+C  CHECK FOR VALID SEQUENCE AND SEQUENCE LENGTH ARGUMENTS
+C  ------------------------------------------------------
+
+      CALL PARSTR(STR,TAGS,MTAG,NTAG,' ',.TRUE.)
+      IF(NTAG.LT.1) GOTO 902
+      IF(NTAG.GT.1) GOTO 903
+      IF(I1.LE.0) GOTO 904
+      IF(I2.LE.0) GOTO 905
+      IF(INODE(LUN).NE.INV(1,LUN)) GOTO 906
+
+
+C  INITIALIZE USR ARRAY PRECEEDING AN INPUT OPERATION
+C  --------------------------------------------------
+
+      IF(IO.EQ.0) THEN
+         DO J=1,I2
+         DO I=1,I1
+         USR(I,J) = BMISS
+         ENDDO
+         ENDDO
+      ENDIF
+
+
+C  FIND THE PARAMETERS OF THE SPECIFIED SEQUENCE
+C  ---------------------------------------------
 
       DO NODE=INODE(LUN),ISC(INODE(LUN))
-      PRINT *, NODE, " ", TAG(NODE)
-      PRINT *, "  ", TAG(JMPB(NODE)), " ", TAG(LINK(NODE))
-      END DO
-      END SUBROUTINE
+      IF(STR.EQ.TAG(NODE)) THEN
+         IF(TYP(NODE).EQ.'SEQ'.OR.TYP(NODE).EQ.'RPC') THEN
+            INS1 = 1
+5           INS1 = INVTAG(NODE,LUN,INS1,NVAL(LUN))
+            IF(INS1.EQ.0) GOTO 200
+            IF(TYP(NODE).EQ.'RPC'.AND.VAL(INS1,LUN).EQ.0.) THEN
+               INS1 = INS1+1
+               GOTO 5
+            ENDIF
+            INS2 = INVTAG(NODE,LUN,INS1+1,NVAL(LUN))
+            IF(INS2.EQ.0) INS2 = 10E5
+            NODS = NODE
+            DO WHILE(LINK(NODS).EQ.0.AND.JMPB(NODS).GT.0)
+            NODS = JMPB(NODS)
+            ENDDO
+            IF(LINK(NODS).EQ.0) THEN
+               INSX = NVAL(LUN)
+            ELSEIF(LINK(NODS).GT.0) THEN
+               INSX = INVWIN(LINK(NODS),LUN,INS1+1,NVAL(LUN))-1
+            ENDIF
+            INS2 = MIN(INS2,INSX)
+         ELSEIF(TYP(NODE).EQ.'SUB') THEN
+            INS1 = 1
+            INS2 = NVAL(LUN)
+         ELSE
+            GOTO 907
+         ENDIF
+         NSEQ = 0
+         DO ISQ=INS1,INS2
+         ITYP = ITP(INV(ISQ,LUN))
+         IF(ITYP.GT.1) NSEQ = NSEQ+1
+         ENDDO
+         IF(NSEQ.GT.I1) GOTO 908
+         GOTO 1
+      ENDIF
+      ENDDO
 
-!     IO = MIN(MAX(0,IL),1)
-!     IF(LUNIT.NE.LUNIN) IO = 0
-!!     IF(I1.LE.0) THEN
-!        IF(IPRT.GE.0) THEN
-!     CALL ERRWRT('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
-!     ERRSTR = 'BUFRLIB: UFBSEQ - 3rd ARG. (INPUT) IS .LE. 0, ' //
-!    .   'SO RETURN WITH 5th ARG. (IRET) = 0; 6th ARG. (STR) ='
-!     CALL ERRWRT(ERRSTR)
-!     CALL ERRWRT(STR)
-!     CALL ERRWRT('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
-!     CALL ERRWRT(' ')
-!        ENDIF
-!        GOTO 100
-!     ELSEIF(I2.LE.0) THEN
-!        IF(IPRT.EQ.-1)  IFIRST1 = 1
-!        IF(IO.EQ.0 .OR. IFIRST1.EQ.0 .OR. IPRT.GE.1)  THEN
-!     CALL ERRWRT('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
-!     ERRSTR = 'BUFRLIB: UFBSEQ - 4th ARG. (INPUT) IS .LE. 0, ' //
-!    .   'SO RETURN WITH 5th ARG. (IRET) = 0; 6th ARG. (STR) ='
-!     CALL ERRWRT(ERRSTR)
-!     CALL ERRWRT(STR)
-!           IF(IPRT.EQ.0 .AND. IO.EQ.1) THEN
-!     ERRSTR = 'Note: Only the first occurrence of this WARNING ' //
-!    .   'message is printed, there may be more.  To output all ' //
-!    .   'such messages,'
-!     CALL ERRWRT(ERRSTR)
-!     ERRSTR = 'modify your application program to add ' //
-!    .   '"CALL OPENBF(0,''QUIET'',1)" prior to the first call ' //
-!    .   'to a BUFRLIB routine.'
-!     CALL ERRWRT(ERRSTR)
-!           ENDIF
-!     CALL ERRWRT('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
-!     CALL ERRWRT(' ')
-!           IFIRST1 = 1
-!        ENDIF
-!        GOTO 100
-!     ENDIF
-!!  CHECK FOR VALID SEQUENCE AND SEQUENCE LENGTH ARGUMENTS
-!  ------------------------------------------------------
-!!     CALL PARSTR(STR,TAGS,MTAG,NTAG,' ',.TRUE.)
-!     IF(NTAG.LT.1) GOTO 902
-!     IF(NTAG.GT.1) GOTO 903
-!     IF(I1.LE.0) GOTO 904
-!     IF(I2.LE.0) GOTO 905
-!     IF(INODE(LUN).NE.INV(1,LUN)) GOTO 906
-!!!  INITIALIZE USR ARRAY PRECEEDING AN INPUT OPERATION
-!  --------------------------------------------------
-!!     IF(IO.EQ.0) THEN
-!        DO J=1,I2
-!        DO I=1,I1
-!        USR(I,J) = BMISS
-!        ENDDO
-!        ENDDO
-!     ENDIF
-!!!  FIND THE PARAMETERS OF THE SPECIFIED SEQUENCE
-!  ---------------------------------------------
-!!     DO NODE=INODE(LUN),ISC(INODE(LUN))
-!     PRINT *, TAG(NODE), "  ", TAG(JMPB(NODE)), "  ", TAG(LINK(NODE))
-!     PRINT *, TYP(NODE), "  ", TAG(INV(NODE,LUN))
-!     IF(STR.EQ.TAG(NODE)) THEN
-!        IF(TYP(NODE).EQ.'SEQ'.OR.TYP(NODE).EQ.'RPC') THEN
-!           INS1 = 1
-!           INS1 = INVTAG(NODE,LUN,INS1,NVAL(LUN))
-!           PRINT *, INS1, "   ", NODE
-!           IF(INS1.EQ.0) GOTO 200
-!           IF(TYP(NODE).EQ.'RPC'.AND.VAL(INS1,LUN).EQ.0.) THEN
-!              INS1 = INS1+1
-!              GOTO 5
-!           ENDIF
-!           INS2 = INVTAG(NODE,LUN,INS1+1,NVAL(LUN))
-!!           IF(INS2.EQ.0) INS2 = 10E5
-!           NODS = NODE
-!           DO WHILE(LINK(NODS).EQ.0.AND.JMPB(NODS).GT.0)
-!           NODS = JMPB(NODS)
-!           ENDDO
-!           IF(LINK(NODS).EQ.0) THEN
-!              INSX = NVAL(LUN)
-!           ELSEIF(LINK(NODS).GT.0) THEN
-!              INSX = INVWIN(LINK(NODS),LUN,INS1+1,NVAL(LUN))-1
-!           ENDIF
-!           INS2 = MIN(INS2,INSX)
-!        ELSEIF(TYP(NODE).EQ.'SUB') THEN
-!           INS1 = 1
-!           INS2 = NVAL(LUN)
-!        ELSE
-!           GOTO 907
-!        ENDIF
-!        NSEQ = 0
-!!        DO ISQ=INS1,INS2
-!        ITYP = ITP(INV(ISQ,LUN))
-!        IF(ITYP.GT.1) NSEQ = NSEQ+1
-!        ENDDO
-!        IF(NSEQ.GT.I1) GOTO 908
-!        GOTO 1
-!     ENDIF
-!     ENDDO
-!!     GOTO 200
-!!  FRAME A SECTION OF THE BUFFER - RETURN WHEN NO FRAME
-!  ----------------------------------------------------
-!!     INS1 = INVTAG(NODE,LUN,INS1,NVAL(LUN))
-!     IF(INS1.GT.NVAL(LUN)) GOTO 200
-!     IF(INS1.GT.0) THEN
-!        IF(TYP(NODE).EQ.'RPC'.AND.VAL(INS1,LUN).EQ.0.) THEN
-!           INS1 = INS1+1
-!           GOTO 1
-!        ELSEIF(IO.EQ.0.AND.IRET+1.GT.I2) THEN
-!           IF(IPRT.GE.0)  THEN
-!     CALL ERRWRT('++++++++++++BUFR ARCHIVE LIBRARY+++++++++++++++')
-!     WRITE ( UNIT=ERRSTR, FMT='(A,I5,A,A,A)' )
-!    . 'BUFRLIB: UFBSEQ - INCOMPLETE READ; ONLY THE FIRST ', I2,
-!    . ' (=4TH INPUT ARG.) ''LEVELS'' OF INPUT MNEMONIC ', TAGS(1),
-!    . ' WERE READ'
-!     CALL ERRWRT(ERRSTR)
-!     CALL ERRWRT('++++++++++++BUFR ARCHIVE LIBRARY+++++++++++++++')
-!     CALL ERRWRT(' ')
-!           ENDIF
-!           GOTO 200
-!        ENDIF
-!     ELSEIF(INS1.EQ.0) THEN
-!        IF(IO.EQ.1.AND.IRET.LT.I2) GOTO 910
-!     ELSE
-!        GOTO 911
-!     ENDIF
-!!     IF(INS1.EQ. 0) GOTO 200
-!     IF(IRET.EQ.I2) GOTO 200
-!!     IRET = IRET+1
-!     INS1 = INS1+1
-!!  READ/WRITE USER VALUES
-!  ----------------------
-!!     J = INS1
-!     DO I=1,NSEQ
-!     DO WHILE(ITP(INV(J,LUN)).LT.2)
-!     J = J+1
-!     ENDDO
-!     IF(IO.EQ.0) USR(I,IRET) = VAL(J,LUN )
-!     IF(IO.EQ.1) VAL(J,LUN ) = USR(I,IRET)
-!     J = J+1
-!     ENDDO
-!!  CHECK FOR NEXT FRAME
-!  --------------------
-!!     GOTO 1
-!!00   CONTINUE
-!!     IF(IRET.EQ.0)  THEN
-!        IF(IO.EQ.0) THEN
-!           IF(IPRT.GE.1)  THEN
-!     CALL ERRWRT('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
-!     ERRSTR = 'BUFRLIB: UFBSEQ - NO SPECIFIED VALUES READ IN, ' //
-!    .   'SO RETURN WITH 5th ARG. (IRET) = 0; 6th ARG. (STR) ='
-!     CALL ERRWRT(ERRSTR)
-!     CALL ERRWRT(STR)
-!     CALL ERRWRT('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
-!     CALL ERRWRT(' ')
-!           ENDIF
-!        ELSE
-!           IF(IPRT.EQ.-1)  IFIRST2 = 1
-!           IF(IFIRST2.EQ.0 .OR. IPRT.GE.1)  THEN
-!     CALL ERRWRT('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
-!     ERRSTR = 'BUFRLIB: UFBSEQ - NO SPECIFIED VALUES WRITTEN OUT, ' //
-!    .   'SO RETURN WITH 5th ARG. (IRET) = 0; 6th ARG. (STR) ='
-!     CALL ERRWRT(ERRSTR)
-!     CALL ERRWRT(STR)
-!     CALL ERRWRT('MAY NOT BE IN THE BUFR TABLE(?)')
-!              IF(IPRT.EQ.0) THEN
-!     ERRSTR = 'Note: Only the first occurrence of this WARNING ' //
-!    .   'message is printed, there may be more.  To output all ' //
-!    .   'such messages,'
-!     CALL ERRWRT(ERRSTR)
-!     ERRSTR = 'modify your application program to add ' //
-!    .   '"CALL OPENBF(0,''QUIET'',1)" prior to the first call ' //
-!    .   'to a BUFRLIB routine.'
-!     CALL ERRWRT(ERRSTR)
-!              ENDIF
-!     CALL ERRWRT('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
-!     CALL ERRWRT(' ')
-!              IFIRST2 = 1
-!           ENDIF
-!        ENDIF
-!     ENDIF
-!!  EXITS
-!  -----
-!!00   RETURN
-!00   CALL BORT('BUFRLIB: UFBSEQ - BUFR FILE IS CLOSED, IT MUST BE'//
-!    . ' OPEN')
-!01   CALL BORT('BUFRLIB: UFBSEQ - A MESSAGE MUST BE OPEN IN BUFR '//
-!    . 'FILE, NONE ARE')
-!02   WRITE(BORT_STR,'("BUFRLIB: UFBSEQ - THE INPUT STRING (",A,") '//
-!    . 'DOES NOT CONTAIN ANY MNEMONICS!!")') STR
-!     CALL BORT(BORT_STR)
-!03   WRITE(BORT_STR,'("BUFRLIB: UFBSEQ - THERE CANNOT BE MORE THAN '//
-!    . 'ONE MNEMONIC IN THE INPUT STRING (",A,") (HERE THERE ARE ",I3'//
-!    . ',")")') STR,NTAG
-!     CALL BORT(BORT_STR)
-!04   WRITE(BORT_STR,'("BUFRLIB: UFBSEQ - THIRD ARGUMENT (INPUT) MUST'//
-!    . ' BE .GT. ZERO (HERE IT IS",I4,") - INPUT MNEMONIC IS ",A)')
-!    . I1,TAGS(1)
-!     CALL BORT(BORT_STR)
-!05   WRITE(BORT_STR,'("BUFRLIB: UFBSEQ - FOURTH ARGUMENT (INPUT) '//
-!    . 'MUST BE .GT. ZERO (HERE IT IS",I4,") - INPUT MNEMONIC IS ",A)')
-!    . I2,TAGS(1)
-!     CALL BORT(BORT_STR)
-!06   CALL BORT('BUFRLIB: UFBSEQ - LOCATION OF INTERNAL TABLE FOR '//
-!    . 'BUFR FILE DOES NOT AGREE WITH EXPECTED LOCATION IN INTERNAL '//
-!    . 'SUBSET ARRAY')
-!07   WRITE(BORT_STR,'("BUFRLIB: UFBSEQ - INPUT MNEMONIC ",A," MUST '//
-!    . 'BE A SEQUENCE (HERE IT IS TYPE """,A,""")")') TAGS(1),TYP(NODE)
-!     CALL BORT(BORT_STR)
-!08   WRITE(BORT_STR,'("BUFRLIB: UFBSEQ - INPUT SEQ. MNEM. ",A,'//
-!    . '" CONSISTS OF",I4," TABLE B MNEM., .GT. THE MAX. SPECIFIED IN'//
-!    . ' (INPUT) ARGUMENT 3 (",I3,")")') TAGS(1),NSEQ,I1
-!     CALL BORT(BORT_STR)
-!10   WRITE(BORT_STR,'("BUFRLIB: UFBSEQ - NO. OF ''LEVELS'' WRITTEN '//
-!    . '(",I5,") .LT. NO. REQUESTED (",I5,") - INCOMPLETE WRITE '//
-!    . '(INPUT MNEMONIC IS ",A,")")')  IRET,I2,TAGS(1)
-!     CALL BORT(BORT_STR)
-!11   WRITE(BORT_STR,'("BUFRLIB: UFBSEQ - VARIABLE INS1 MUST BE .GE. '//
-!    . 'ZERO, HERE IT IS",I4," - INPUT MNEMONIC IS ",A)') INS1,TAGS(1)
-!     CALL BORT(BORT_STR)
-!     END
+      GOTO 200
+
+C  FRAME A SECTION OF THE BUFFER - RETURN WHEN NO FRAME
+C  ----------------------------------------------------
+
+1     INS1 = INVTAG(NODE,LUN,INS1,NVAL(LUN))
+      IF(INS1.GT.NVAL(LUN)) GOTO 200
+      IF(INS1.GT.0) THEN
+         IF(TYP(NODE).EQ.'RPC'.AND.VAL(INS1,LUN).EQ.0.) THEN
+            INS1 = INS1+1
+            GOTO 1
+         ELSEIF(IO.EQ.0.AND.IRET+1.GT.I2) THEN
+            IF(IPRT.GE.0)  THEN
+      CALL ERRWRT('++++++++++++BUFR ARCHIVE LIBRARY+++++++++++++++')
+      WRITE ( UNIT=ERRSTR, FMT='(A,I5,A,A,A)' )
+     . 'BUFRLIB: UFBSEQ - INCOMPLETE READ; ONLY THE FIRST ', I2,
+     . ' (=4TH INPUT ARG.) ''LEVELS'' OF INPUT MNEMONIC ', TAGS(1),
+     . ' WERE READ'
+      CALL ERRWRT(ERRSTR)
+      CALL ERRWRT('++++++++++++BUFR ARCHIVE LIBRARY+++++++++++++++')
+      CALL ERRWRT(' ')
+            ENDIF
+            GOTO 200
+         ENDIF
+      ELSEIF(INS1.EQ.0) THEN
+         IF(IO.EQ.1.AND.IRET.LT.I2) GOTO 910
+      ELSE
+         GOTO 911
+      ENDIF
+
+      IF(INS1.EQ. 0) GOTO 200
+      IF(IRET.EQ.I2) GOTO 200
+
+      IRET = IRET+1
+      INS1 = INS1+1
+
+C  READ/WRITE USER VALUES
+C  ----------------------
+
+      J = INS1
+      DO I=1,NSEQ
+      DO WHILE(ITP(INV(J,LUN)).LT.2)
+      J = J+1
+      ENDDO
+      IF(IO.EQ.0) USR(I,IRET) = VAL(J,LUN )
+      IF(IO.EQ.1) VAL(J,LUN ) = USR(I,IRET)
+      J = J+1
+      ENDDO
+
+C  CHECK FOR NEXT FRAME
+C  --------------------
+
+      GOTO 1
+
+200   CONTINUE
+
+      IF(IRET.EQ.0)  THEN
+         IF(IO.EQ.0) THEN
+            IF(IPRT.GE.1)  THEN
+      CALL ERRWRT('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
+      ERRSTR = 'BUFRLIB: UFBSEQ - NO SPECIFIED VALUES READ IN, ' //
+     .   'SO RETURN WITH 5th ARG. (IRET) = 0; 6th ARG. (STR) ='
+      CALL ERRWRT(ERRSTR)
+      CALL ERRWRT(STR)
+      CALL ERRWRT('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
+      CALL ERRWRT(' ')
+            ENDIF
+         ELSE
+            IF(IPRT.EQ.-1)  IFIRST2 = 1
+            IF(IFIRST2.EQ.0 .OR. IPRT.GE.1)  THEN
+      CALL ERRWRT('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
+      ERRSTR = 'BUFRLIB: UFBSEQ - NO SPECIFIED VALUES WRITTEN OUT, ' //
+     .   'SO RETURN WITH 5th ARG. (IRET) = 0; 6th ARG. (STR) ='
+      CALL ERRWRT(ERRSTR)
+      CALL ERRWRT(STR)
+      CALL ERRWRT('MAY NOT BE IN THE BUFR TABLE(?)')
+               IF(IPRT.EQ.0) THEN
+      ERRSTR = 'Note: Only the first occurrence of this WARNING ' //
+     .   'message is printed, there may be more.  To output all ' //
+     .   'such messages,'
+      CALL ERRWRT(ERRSTR)
+      ERRSTR = 'modify your application program to add ' //
+     .   '"CALL OPENBF(0,''QUIET'',1)" prior to the first call ' //
+     .   'to a BUFRLIB routine.'
+      CALL ERRWRT(ERRSTR)
+               ENDIF
+      CALL ERRWRT('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
+      CALL ERRWRT(' ')
+               IFIRST2 = 1
+            ENDIF
+         ENDIF
+      ENDIF
+
+C  EXITS
+C  -----
+
+100   RETURN
+900   CALL BORT('BUFRLIB: UFBSEQ - BUFR FILE IS CLOSED, IT MUST BE'//
+     . ' OPEN')
+901   CALL BORT('BUFRLIB: UFBSEQ - A MESSAGE MUST BE OPEN IN BUFR '//
+     . 'FILE, NONE ARE')
+902   WRITE(BORT_STR,'("BUFRLIB: UFBSEQ - THE INPUT STRING (",A,") '//
+     . 'DOES NOT CONTAIN ANY MNEMONICS!!")') STR
+      CALL BORT(BORT_STR)
+903   WRITE(BORT_STR,'("BUFRLIB: UFBSEQ - THERE CANNOT BE MORE THAN '//
+     . 'ONE MNEMONIC IN THE INPUT STRING (",A,") (HERE THERE ARE ",I3'//
+     . ',")")') STR,NTAG
+      CALL BORT(BORT_STR)
+904   WRITE(BORT_STR,'("BUFRLIB: UFBSEQ - THIRD ARGUMENT (INPUT) MUST'//
+     . ' BE .GT. ZERO (HERE IT IS",I4,") - INPUT MNEMONIC IS ",A)')
+     . I1,TAGS(1)
+      CALL BORT(BORT_STR)
+905   WRITE(BORT_STR,'("BUFRLIB: UFBSEQ - FOURTH ARGUMENT (INPUT) '//
+     . 'MUST BE .GT. ZERO (HERE IT IS",I4,") - INPUT MNEMONIC IS ",A)')
+     . I2,TAGS(1)
+      CALL BORT(BORT_STR)
+906   CALL BORT('BUFRLIB: UFBSEQ - LOCATION OF INTERNAL TABLE FOR '//
+     . 'BUFR FILE DOES NOT AGREE WITH EXPECTED LOCATION IN INTERNAL '//
+     . 'SUBSET ARRAY')
+907   WRITE(BORT_STR,'("BUFRLIB: UFBSEQ - INPUT MNEMONIC ",A," MUST '//
+     . 'BE A SEQUENCE (HERE IT IS TYPE """,A,""")")') TAGS(1),TYP(NODE)
+      CALL BORT(BORT_STR)
+908   WRITE(BORT_STR,'("BUFRLIB: UFBSEQ - INPUT SEQ. MNEM. ",A,'//
+     . '" CONSISTS OF",I4," TABLE B MNEM., .GT. THE MAX. SPECIFIED IN'//
+     . ' (INPUT) ARGUMENT 3 (",I3,")")') TAGS(1),NSEQ,I1
+      CALL BORT(BORT_STR)
+910   WRITE(BORT_STR,'("BUFRLIB: UFBSEQ - NO. OF ''LEVELS'' WRITTEN '//
+     . '(",I5,") .LT. NO. REQUESTED (",I5,") - INCOMPLETE WRITE '//
+     . '(INPUT MNEMONIC IS ",A,")")')  IRET,I2,TAGS(1)
+      CALL BORT(BORT_STR)
+911   WRITE(BORT_STR,'("BUFRLIB: UFBSEQ - VARIABLE INS1 MUST BE .GE. '//
+     . 'ZERO, HERE IT IS",I4," - INPUT MNEMONIC IS ",A)') INS1,TAGS(1)
+      CALL BORT(BORT_STR)
+      END
