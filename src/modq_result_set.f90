@@ -7,6 +7,7 @@ module modq_result_set
   private
 
   real(kind=8), public, parameter :: MissingValue = 10e10_8
+  integer, parameter :: DataFrameResizeSize = 50000
 
   type, public :: SeqCounts
     integer, allocatable :: counts(:)
@@ -49,6 +50,7 @@ module modq_result_set
 
     type(DataFrame), allocatable :: data_frames(:)
     type(String), allocatable :: names(:)
+    integer(kind=8) :: data_frames_size = 0
 
     contains
       procedure :: get => result_set__get
@@ -153,7 +155,7 @@ contains
   ! Result Set Procedures
 
   type(ResultSet) function initialize__result_set() result(result_set)
-    result_set = ResultSet(null(), null())   ! Needed because of gfortran bug
+    result_set = ResultSet(null(), null(), 0)   ! Needed because of gfortran bug
 
     allocate(result_set%data_frames(0))
     allocate(result_set%names(0))
@@ -175,7 +177,7 @@ contains
 
     allocate(data(0))
 
-    do frame_idx = 1, size(self%data_frames)
+    do frame_idx = 1, self%data_frames_size
       df = self%data_frames(frame_idx)
       target_field = df%field_for_node_named(String(field_name))
 
@@ -312,10 +314,14 @@ contains
       end if
     end do
 
-    allocate(tmp_data_frames(size(self%data_frames) + 1))
-    tmp_data_frames(1:size(self%data_frames)) = self%data_frames
-    tmp_data_frames(size(tmp_data_frames)) = data_frame
-    call move_alloc(tmp_data_frames, self%data_frames)
+    if (self%data_frames_size >= size(self%data_frames)) then
+      allocate(tmp_data_frames(self%data_frames_size + DataFrameResizeSize))
+      tmp_data_frames(1:self%data_frames_size) = self%data_frames
+      call move_alloc(tmp_data_frames, self%data_frames)
+    end if
+
+    self%data_frames_size = self%data_frames_size + 1
+    self%data_frames(self%data_frames_size) = data_frame
 
   end subroutine result_set__add
 

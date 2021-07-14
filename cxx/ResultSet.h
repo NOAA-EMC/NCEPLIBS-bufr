@@ -17,7 +17,7 @@ namespace bufr
         ResultSet();
         ~ResultSet();
 
-        std::vector<double> get(const std::string& field_name, const std::string& for_field = "");
+        std::vector<float> get(const std::string& field_name, const std::string& for_field = "") const;
 
      protected:
         Address get_v_ptr() override;

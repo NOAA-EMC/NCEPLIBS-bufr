@@ -23,8 +23,8 @@ namespace bufr
         }
     }
 
-    std::vector<double> ResultSet::get(const std::string& field_name,
-                                       const std::string& for_field)
+    std::vector<float> ResultSet::get(const std::string& field_name,
+                                       const std::string& for_field) const
     {
         double* data_ptr = nullptr;
         std::size_t data_len;
@@ -34,7 +34,16 @@ namespace bufr
                           &data_ptr,
                           &data_len);
 
-        auto data =  std::vector<double>();
+        auto data_d =  std::vector<double>();
+
+        auto data = std::vector<float>();
+        data.resize(data_d.size());
+
+        for (const auto& dataElement : data_d)
+        {
+            data.push_back(static_cast<double> (dataElement));
+        }
+
         data.assign(data_ptr, data_ptr + data_len);
         return data;
     }
