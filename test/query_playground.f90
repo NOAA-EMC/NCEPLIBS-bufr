@@ -100,20 +100,25 @@ subroutine test__query_gnssro
 
   type(QuerySet) :: query_set
   type(ResultSet) :: result_set
+  real(kind=8), allocatable :: data(:,:,:)
 
   
-  open(lunit, file="/home/rmclaren/Work/ioda-bundle/ioda_converters/test/testinput/gnssro_kompsat5_20180415_00Z.bufr")
-  !open(lunit, file="/scratch1/NCEPDEV/da/Ronald.McLaren/data/gdas.t00z.1bmhs.tm00.bufr_d")
+!  open(lunit, file="/home/rmclaren/Work/ioda-bundle/iodaconv/test/testinput/gnssro_kompsat5_20180415_00Z.bufr")
+  open(lunit, file="/home/rmclaren/Work/ioda-bundle/iodaconv/test/testinput/gdas.t18z.1bmhs.tm00.bufr_d")
   call openbf(lunit, "IN", lunit)
 
-  call query_set%add("*/CLATH", "latitude")
-  call query_set%add("*/CLONH", "longitude")
+  call query_set%add("*/CLAT", "latitude")
+  call query_set%add("*/CLON", "longitude")
+  call query_set%add("[*/BRITCSTC/TMBR, */BRIT/TMBR]", "radiance")
 
 !  print *, "Num Messages", count_msgs(lunit)
-  result_set = execute(lunit, query_set, next=3)
+  result_set = execute(lunit, query_set, next=1)
 
-  print *, "Latitude", size(result_set%get("latitude"))
-  print *, "Longitude", size(result_set%get("longitude"))
+  data = result_set%get("latitude")
+
+  print *, "Latitude", shape(data)
+  print *, "Longitude", result_set%get("longitude")
+  print *, "Radiance", result_set%get("radiance")
 
 end subroutine test__query_gnssro
 

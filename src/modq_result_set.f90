@@ -51,6 +51,7 @@ module modq_result_set
     type(DataFrame), allocatable :: data_frames(:)
     type(String), allocatable :: names(:)
     integer(kind=8) :: data_frames_size = 0
+    integer, allocatable :: field_widths(:)
 
     contains
       procedure :: get => result_set__get
@@ -155,10 +156,11 @@ contains
   ! Result Set Procedures
 
   type(ResultSet) function initialize__result_set() result(result_set)
-    result_set = ResultSet(null(), null(), 0)   ! Needed because of gfortran bug
+    result_set = ResultSet(null(), null(), 0, null())   ! Needed because of gfortran bug
 
     allocate(result_set%data_frames(0))
     allocate(result_set%names(0))
+    allocate(result_set%field_widths(0))
   end function initialize__result_set
 
 
@@ -166,63 +168,72 @@ contains
     class(ResultSet), intent(in) :: self
     character(len=*), intent(in) :: field_name
     character(len=*), intent(in), optional :: for
-    real(kind=8), allocatable :: data(:)
+    real(kind=8), allocatable :: data(:, :, :)
 
-    integer :: frame_idx, data_idx, rep_idx
-    type(DataField), allocatable :: target_field, for_field
 
-    integer, allocatable :: rep_counts(:)
-    real(kind=8), allocatable :: field_data(:)
-    type(DataFrame), allocatable :: df
+    block  ! Initialize Data
+      integer :: field_width
+      integer :: name_idx
 
-    allocate(data(0))
-
-    do frame_idx = 1, self%data_frames_size
-      df = self%data_frames(frame_idx)
-      target_field = df%field_for_node_named(String(field_name))
-
-      if (.not. target_field%missing) then
+      ! Figure out the width for the 2d data field
+      field_width = 0
+      do name_idx = 1, size(self%names)
         if (present(for) .and. for /= "") then
-          for_field = self%data_frames(frame_idx)%field_for_node_named(String(for))
-          rep_counts = self%rep_counts(target_field, for_field)
+          if (self%names(name_idx)%chars() == for) then
+            field_width = self%field_widths(name_idx)
+            exit
+          end if
+        else
+          if (String(field_name) == self%names(name_idx)) then
+            field_width = self%field_widths(name_idx)
+            exit
+          end if
+        end if
+      end do
 
-          allocate(field_data(sum(rep_counts)))
+      allocate(data(self%data_frames_size, field_width, 1))
+      data = MissingValue
+    end block  ! Initialize Data
 
-          do data_idx = 1, size(rep_counts)
-            do rep_idx = 1, rep_counts(data_idx)
-              field_data(sum(rep_counts(1:data_idx - 1)) + rep_idx) = target_field%data(data_idx)
+
+    block  ! Get Data
+      integer :: frame_idx, data_idx, rep_idx
+      type(DataField), allocatable :: target_field, for_field
+
+      integer, allocatable :: rep_counts(:)
+      real(kind=8), allocatable :: field_data(:)
+
+      do frame_idx = 1, self%data_frames_size
+        target_field = self%data_frames(frame_idx)%field_for_node_named(String(field_name))
+
+        if (.not. target_field%missing) then
+          if (present(for) .and. for /= "") then
+            for_field = self%data_frames(frame_idx)%field_for_node_named(String(for))
+            rep_counts = self%rep_counts(target_field, for_field)
+
+            allocate(field_data(sum(rep_counts)))
+
+            do data_idx = 1, size(rep_counts)
+              do rep_idx = 1, rep_counts(data_idx)
+                field_data(sum(rep_counts(1:data_idx - 1)) + rep_idx) = target_field%data(data_idx)
+              end do
             end do
-          end do
 
-          data = [data, field_data]
-          deallocate(field_data)
-        else
-          data = [data, target_field%data]
+            data(frame_idx, 1:size(field_data), 1) = field_data
+            deallocate(field_data)
+          else
+!            print *, shape(data)
+!            print *, size(target_field%data)
+!            print *, target_field%data
+!            print *, ""
+            data(frame_idx, 1:size(target_field%data), 1) = target_field%data
+          end if
         end if
-      else
-        if (present(for)) then
-          for_field = self%data_frames(frame_idx)%field_for_node_named(String(for))
-          allocate(field_data(size(for_field%data)))
-          field_data = MissingValue
-          data = [data, field_data]
-          deallocate(field_data)
-        else
-          data = [data, real(MissingValue, 8)]
-        end if
-      end if
 
-      if (allocated(target_field)) then
-        deallocate(target_field)
-      end if
-
-      if (allocated(for_field)) then
-        deallocate(for_field)
-      end if
-
-      if (allocated(df)) then
-        deallocate(df)
-      end if
-    end do
+        if (allocated(target_field)) deallocate(target_field)
+        if (allocated(for_field)) deallocate(for_field)
+      end do
+    end block  ! Get Data
   end function
 
   function result_set__rep_counts(self, target_field, for_field) result(counts)
@@ -301,6 +312,7 @@ contains
       name_found = .false.
       do name_idx = 1, size(self%names)
         if (field%name == self%names(name_idx)) then
+          self%field_widths(name_idx) = max(size(field%data), self%field_widths(name_idx))
           name_found = .true.
           exit
         end if
@@ -311,6 +323,8 @@ contains
         tmp_names(1:size(self%names)) = self%names
         tmp_names(size(tmp_names)) = field%name
         call move_alloc(tmp_names, self%names)
+
+        self%field_widths = [self%field_widths, size(field%data)]
       end if
     end do
 

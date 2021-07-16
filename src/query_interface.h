@@ -27,7 +27,9 @@ extern "C" {
                               const char* field,
                               const char* for_field,
                               double** data,
-                              std::size_t* data_len);
+                              std::size_t* dim_rows,
+                              std::size_t* dim_cols,
+                              std::size_t* dim_z);
 
     void result_set__deallocate_f(void* result_set);
 

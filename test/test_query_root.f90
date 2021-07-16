@@ -12,7 +12,7 @@ module test_query_root
       integer, parameter :: FileUnit = 12
 
       type(TestInstance) :: test
-      real(kind=8), allocatable :: old_interface_data(:), query_interface_data(:)
+      real(kind=8), allocatable :: old_interface_data(:), query_interface_data(:, :, :)
 
       test = TestInstance("test__get_root_data")
 
@@ -76,7 +76,7 @@ module test_query_root
 !      print *, "New", query_interface_data
 
       ! Compare the arrays
-      call test%compare_arrays(old_interface_data, query_interface_data)
+      call test%compare_arrays(old_interface_data, pack(query_interface_data, .true.))
 
       !Clean Up
       call closbf(FileUnit)
@@ -90,7 +90,7 @@ module test_query_root
       integer, parameter :: FileUnit = 12
 
       type(TestInstance) :: test
-      real(kind=8), allocatable :: old_interface_data(:), query_interface_data(:)
+      real(kind=8), allocatable :: old_interface_data(:), query_interface_data(:, :, :)
 
       test = TestInstance("test__get_root_missing_data")
 
@@ -155,7 +155,7 @@ module test_query_root
 !      print *, "New", query_interface_data
 
       ! Compare the arrays
-      call test%compare_arrays(old_interface_data, query_interface_data)
+      call test%compare_arrays(old_interface_data, pack(query_interface_data, .true.))
 
       !Clean Up
       call closbf(FileUnit)
@@ -169,7 +169,7 @@ module test_query_root
       integer, parameter :: FileUnit = 12
 
       type(TestInstance) :: test
-      real(kind=8), allocatable :: old_interface_data(:), query_interface_data(:)
+      real(kind=8), allocatable :: old_interface_data(:), query_interface_data(:,:,:)
 
       test = TestInstance("test__get_root_for_seq")
 
@@ -235,7 +235,7 @@ module test_query_root
 !      print *, "New", size(query_interface_data)
 
       ! Compare the arrays
-      call test%compare_arrays(old_interface_data, query_interface_data, "Doomed to fail!")
+      call test%compare_arrays(old_interface_data, pack(query_interface_data, .true.), "Doomed to fail!")
 
       !Clean Up
       call closbf(FileUnit)
