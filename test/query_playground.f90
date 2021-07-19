@@ -114,13 +114,47 @@ subroutine test__query_gnssro
 !  print *, "Num Messages", count_msgs(lunit)
   result_set = execute(lunit, query_set, next=1)
 
-  data = result_set%get("latitude")
+  data = result_set%get_as_number("latitude")
 
   print *, "Latitude", shape(data)
   print *, "Longitude", result_set%get("longitude")
   print *, "Radiance", result_set%get("radiance")
 
 end subroutine test__query_gnssro
+
+subroutine test__query_ia5
+  use modq_execute
+  use modq_query_set
+  use modq_result_set
+  implicit none
+
+  integer, parameter :: lunit = 12
+
+  type(QuerySet) :: query_set
+  type(ResultSet) :: result_set
+  character(:), allocatable :: data(:)
+
+
+  open(lunit, file="/home/rmclaren/Work/ioda-bundle/iodaconv/test/testinput/bufr_satwnd_old_format.bufr")
+  call openbf(lunit, "IN", lunit)
+
+  call query_set%add("*/BORG", "hello")
+
+!  print *, "Num Messages", count_msgs(lunit)
+  result_set = execute(lunit, query_set, next=5)
+
+  data = result_set%get_as_string("hello")
+
+  print *, "Type: "
+  block  ! print data
+    integer :: idx
+
+    do idx = 1, size(data)
+      print *, data(idx), transfer(data(idx)(5:5), idx)
+    end do
+  end block ! print data
+
+end subroutine test__query_ia5
 
 subroutine test_int_list
   use modq_list
@@ -219,7 +253,8 @@ program test_query
 
 !  call test__query_set
 !  call test__result_set
-  call test__query_gnssro
+!   call test__query_gnssro
+  call test__query_ia5
 !  call test_int_list
 !  call test_query_parser
 !  call test_table

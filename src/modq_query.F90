@@ -15,6 +15,7 @@ module modq_query
   type, private :: Target
     character(len=:), allocatable :: name
     character(len=:), allocatable :: query_str
+    logical :: is_string
     integer, allocatable :: seq_path(:)
     integer, allocatable :: node_ids(:)
   end type Target
@@ -40,7 +41,6 @@ module modq_query
   character(len=3), parameter :: DelayedRep = 'DRP'
   character(len=3), parameter :: Sequence = 'SEQ'
   character(len=3), parameter :: FixedRep = 'REP'
-  character(len=3), parameter :: Value = 'NUM'
   public::query
 
 contains
@@ -122,6 +122,7 @@ contains
     character(len=*), intent(in) :: query_str
 
     integer, allocatable :: target_nodes(:)
+    logical :: is_string = .false.
     integer :: node_idx
     integer :: index
     integer :: table_cursor, mnemonic_cursor
@@ -173,6 +174,7 @@ contains
 
           ! We found a target
           target_nodes = [target_nodes, node_idx]
+          is_string = (itp(node_idx) == 3)
 
           ! Neccessary cause Fortran handles .and. in if statements in a strange way
           if (seq_path%length() - 1 > 0) then
@@ -213,7 +215,7 @@ contains
       end if
     end if
 
-    targ = Target(name, query_str, branches, target_nodes)
+    targ = Target(name, query_str, is_string, branches, target_nodes)
 
     deallocate(mnemonics)
   end function
@@ -312,6 +314,7 @@ contains
       data_field = DataField()
       data_field%name = String(targ%name)
       data_field%query_str = String(targ%query_str)
+      data_field%is_string = targ%is_string
       data_field%data = dat
 
       if (allocated(data_field%seq_path)) then

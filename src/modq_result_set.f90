@@ -20,6 +20,7 @@ module modq_result_set
   type, public :: DataField
     type(String) :: name
     type(String) :: query_str
+    logical :: is_string
     logical :: missing = .false.
     real(kind=8), allocatable :: data(:)
     integer, allocatable :: seq_path(:)
@@ -50,11 +51,13 @@ module modq_result_set
 
     type(DataFrame), allocatable :: data_frames(:)
     type(String), allocatable :: names(:)
-    integer(kind=8) :: data_frames_size = 0
+    integer :: data_frames_size = 0
     integer, allocatable :: field_widths(:)
 
     contains
       procedure :: get => result_set__get
+      procedure :: get_as_string => result_set__get_as_string
+      procedure :: get_as_number => result_set__get_as_number
       procedure :: rep_counts => result_set__rep_counts
       procedure :: get_counts => result_set__get_counts
       procedure :: add => result_set__add
@@ -75,7 +78,7 @@ contains
   ! Data Field Procedures
   type(DataField) function initialize__data_field() result(data_field)
     ! Needed because of gfortran bug
-    data_field = DataField(String(""), String(""), .false., null(), null(), null())
+    data_field = DataField(String(""), String(""), .false., .false., null(), null(), null())
 
     allocate(data_field%data(0))
     allocate(data_field%seq_path(0))
@@ -222,10 +225,6 @@ contains
             data(frame_idx, 1:size(field_data), 1) = field_data
             deallocate(field_data)
           else
-!            print *, shape(data)
-!            print *, size(target_field%data)
-!            print *, target_field%data
-!            print *, ""
             data(frame_idx, 1:size(target_field%data), 1) = target_field%data
           end if
         end if
@@ -235,6 +234,72 @@ contains
       end do
     end block  ! Get Data
   end function
+
+
+  function result_set__get_as_string(self, field_name, for) result(char_data)
+    class(ResultSet), intent(in) :: self
+    character(len=*), intent(in) :: field_name
+    character(len=*), intent(in), optional :: for
+    character(:), allocatable :: char_data(:)
+
+    real(kind=8), allocatable :: dat(:, :, :)
+    integer :: data_shape(3)
+    
+    block ! Check data type of field
+      type(DataField), allocatable :: target_field
+
+      target_field = self%data_frames(1)%field_for_node_named(String(field_name))
+      if (.not. target_field%is_string) then
+        call bort(field_name // " is a number field. Use get_as_number to get its value")
+      end if
+    end block ! Check data type of field
+
+    dat = self%get(field_name, for)
+    data_shape = shape(dat)
+
+    allocate(character(data_shape(2) * 8) :: char_data(data_shape(1)))
+    char_data = ""
+
+    ! Manually copy each element in the data array
+    block ! Move data into char_data)
+      integer :: data_row_idx, data_col_idx, char_idx
+      integer :: char_cursor_pos
+      integer(kind=8) :: data_int_rep
+
+      do data_row_idx = 1, data_shape(1)
+        char_cursor_pos = 1
+        do data_col_idx = 1, data_shape(2)
+          do char_idx = 0, 7
+            data_int_rep = transfer(dat(data_row_idx, data_col_idx, 1), data_int_rep)
+            char_data(data_row_idx)(char_cursor_pos:char_cursor_pos) = &
+              transfer(ibits(data_int_rep, char_idx*8, 8), "a")
+            char_cursor_pos = char_cursor_pos + 1
+          end do
+        end do
+      end do
+
+    end block ! Move data into char_data
+  end function result_set__get_as_string
+
+
+  function result_set__get_as_number(self, field_name, for) result(data)
+    class(ResultSet), intent(in) :: self
+    character(len=*), intent(in) :: field_name
+    character(len=*), intent(in), optional :: for
+    real(kind=8), allocatable :: data(:, :, :)
+
+    block ! Check data type of field
+      type(DataField), allocatable :: target_field
+
+      target_field = self%data_frames(1)%field_for_node_named(String(field_name))
+      if (target_field%is_string) then
+        call bort(field_name // " is a string field. Use get_as_string to get its value")
+      end if
+    end block ! Check data type of field
+
+    data = self%get(field_name, for)
+  end function result_set__get_as_number
+
 
   function result_set__rep_counts(self, target_field, for_field) result(counts)
     class(ResultSet), intent(in) :: self
@@ -291,6 +356,7 @@ contains
       end do
     end if
   end function result_set__get_counts
+
 
   subroutine result_set__add(self, data_frame)
     class(ResultSet), intent(inout) :: self
