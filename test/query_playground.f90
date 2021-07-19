@@ -100,7 +100,7 @@ subroutine test__query_gnssro
 
   type(QuerySet) :: query_set
   type(ResultSet) :: result_set
-  real(kind=8), allocatable :: data(:,:,:)
+  real(kind=8), allocatable :: dat(:,:,:)
 
   
 !  open(lunit, file="/home/rmclaren/Work/ioda-bundle/iodaconv/test/testinput/gnssro_kompsat5_20180415_00Z.bufr")
@@ -114,9 +114,9 @@ subroutine test__query_gnssro
 !  print *, "Num Messages", count_msgs(lunit)
   result_set = execute(lunit, query_set, next=1)
 
-  data = result_set%get_as_number("latitude")
+  dat = result_set%get("latitude")
 
-  print *, "Latitude", shape(data)
+  print *, "Latitude", shape(dat)
   print *, "Longitude", result_set%get("longitude")
   print *, "Radiance", result_set%get("radiance")
 
