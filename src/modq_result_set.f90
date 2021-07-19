@@ -56,7 +56,7 @@ module modq_result_set
 
     contains
       procedure :: get => result_set__get
-      procedure :: get_as_string => result_set__get_as_string
+      procedure :: get_as_chars => result_set__get_as_chars
       procedure, private :: get_raw_values => result_set__get_raw_values
       procedure :: rep_counts => result_set__rep_counts
       procedure :: get_counts => result_set__get_counts
@@ -186,7 +186,7 @@ contains
   end function result_set__get
 
 
-  function result_set__get_as_string(self, field_name, for) result(char_data)
+  function result_set__get_as_chars(self, field_name, for) result(char_data)
     class(ResultSet), intent(in) :: self
     character(len=*), intent(in) :: field_name
     character(len=*), intent(in), optional :: for
@@ -229,7 +229,7 @@ contains
       end do
 
     end block ! Move data into char_data
-  end function result_set__get_as_string
+  end function result_set__get_as_chars
 
 
   function result_set__get_raw_values(self, field_name, for) result(data)

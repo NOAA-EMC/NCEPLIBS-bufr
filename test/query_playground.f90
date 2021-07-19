@@ -138,12 +138,12 @@ subroutine test__query_ia5
   open(lunit, file="/home/rmclaren/Work/ioda-bundle/iodaconv/test/testinput/bufr_satwnd_old_format.bufr")
   call openbf(lunit, "IN", lunit)
 
-  call query_set%add("*/BORG", "hello")
+  call query_set%add("*/BORG", "resistance_is_futile")
 
 !  print *, "Num Messages", count_msgs(lunit)
   result_set = execute(lunit, query_set, next=5)
 
-  data = result_set%get_as_string("hello")
+  data = result_set%get_as_chars("resistance_is_futile")
 
   print *, "Type: "
   block  ! print data
