@@ -58,6 +58,7 @@ module modq_result_set
       procedure :: get => result_set__get
       procedure :: get_as_chars => result_set__get_as_chars
       procedure, private :: get_raw_values => result_set__get_raw_values
+      procedure :: is_string => result_set__is_string
       procedure :: rep_counts => result_set__rep_counts
       procedure :: get_counts => result_set__get_counts
       procedure :: add => result_set__add
@@ -299,6 +300,20 @@ contains
       end do
     end block  ! Get Data
   end function result_set__get_raw_values
+  
+  
+  ! Check if the field is a string
+  function result_set__is_string(self, field_name) result(is_string)
+    class(ResultSet), intent(in) :: self
+    character(len=*), intent(in) :: field_name
+
+    type(DataField), allocatable :: target_field
+    logical :: is_string
+    is_string = .false.
+      
+    target_field = self%data_frames(1)%field_for_node_named(String(field_name))
+    is_string = target_field%is_string
+  end function result_set__is_string
 
 
   function result_set__rep_counts(self, target_field, for_field) result(counts)

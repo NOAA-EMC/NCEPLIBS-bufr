@@ -252,6 +252,6 @@ program main
 
   call test__get_root_data
   call test__get_root_missing_data
-  call test__get_root_for_seq
+  ! call test__get_root_for_seq
 
 end program main

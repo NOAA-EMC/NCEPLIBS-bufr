@@ -115,6 +115,52 @@ module query_interface
 
   end subroutine result_set__get_c
 
+
+  subroutine result_set__get_as_chars_c(cls, field, for_field, strs_c, num_strs) &
+    bind(C, name="result_set__get_as_chars_f")
+
+    type(c_ptr), intent(inout) :: cls
+    character(kind=c_char, len=1), intent(in) :: field
+    character(kind=c_char, len=1), intent(in) :: for_field
+    type(c_ptr), intent(inout) :: strs_c(:)
+    integer(kind=c_int), intent(out) :: num_strs
+
+    character(len=:), allocatable :: f_field, f_for_field
+    character(len=:), target, allocatable :: strs_f(:)
+    integer :: idx
+
+    type(ResultSet), pointer :: result_set_fptr
+    call c_f_pointer(cls, result_set_fptr)
+
+    f_field = c_f_string(field)
+    f_for_field = c_f_string(for_field)
+
+    strs_f = result_set_fptr%get_as_chars(f_field, f_for_field)
+
+    do idx = 1, size(strs_f)
+      strs_f(idx) = trim(strs_f(idx))//c_null_char
+      strs_c(idx) = c_loc(strs_f(idx))
+    end do
+
+    num_strs = size(strs_f)
+
+  end subroutine result_set__get_as_chars_c
+
+
+  type(logical) function result_set__is_string_c(cls, field) &
+    result(is_string) &
+    bind(C, name="result_set__is_string_f")
+    
+    type(c_ptr), intent(inout) :: cls
+    character(kind=c_char, len=1), intent(in) :: field
+
+    type(ResultSet), pointer :: result_set_fptr
+
+    call c_f_pointer(cls, result_set_fptr)
+    is_string = result_set_fptr%is_string(c_f_string(field))
+  end function result_set__is_string_c
+  
+
   subroutine result_set__deallocate(result_set_cptr) bind(C, name='result_set__deallocate_f')
     type(c_ptr), value :: result_set_cptr
     type(ResultSet), pointer :: result_set_fptr

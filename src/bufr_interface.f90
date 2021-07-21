@@ -21,6 +21,7 @@ module bufr_c_interface_mod
 
   private
   public :: c_f_string
+  public :: copy_f_c_str
   public :: open_c, close_c
   public :: openbf_c, closbf_c
   public :: exitbufr_c
