@@ -126,8 +126,11 @@ module query_interface
     integer(kind=c_int), intent(out) :: num_strs
 
     character(len=:), allocatable :: f_field, f_for_field
-    character(len=:), target, allocatable :: strs_f(:)
+    character(len=:), allocatable :: strs_f(:)
     integer :: idx
+    
+    ! strs_f_targ is needed to overcome a GNU compiler issue 
+    character(len=:), target, allocatable :: strs_f_targ(:)
 
     type(ResultSet), pointer :: result_set_fptr
     call c_f_pointer(cls, result_set_fptr)
@@ -137,9 +140,11 @@ module query_interface
 
     strs_f = result_set_fptr%get_as_chars(f_field, f_for_field)
 
+    allocate(character(len=len(strs_f) + 1)::strs_f_targ(size(strs_f)))
+
     do idx = 1, size(strs_f)
-      strs_f(idx) = trim(strs_f(idx))//c_null_char
-      strs_c(idx) = c_loc(strs_f(idx))
+      strs_f_targ(idx) = trim(strs_f(idx))//c_null_char
+      strs_c(idx) = c_loc(strs_f_targ(idx))
     end do
 
     num_strs = size(strs_f)
