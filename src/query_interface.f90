@@ -116,21 +116,20 @@ module query_interface
   end subroutine result_set__get_c
 
 
-  subroutine result_set__get_as_chars_c(cls, field, for_field, strs_c, num_strs) &
-    bind(C, name="result_set__get_as_chars_f")
-
+  subroutine result_set__get_raw_c(cls, field, for_field, data, dim_rows, dim_cols, dim_z) bind(C, name="result_set__get_raw_f")
     type(c_ptr), intent(inout) :: cls
     character(kind=c_char, len=1), intent(in) :: field
     character(kind=c_char, len=1), intent(in) :: for_field
-    type(c_ptr), intent(inout) :: strs_c(:)
-    integer(kind=c_int), intent(out) :: num_strs
+    type(c_ptr), intent(inout) :: data
+    integer(kind=c_int), intent(out) :: dim_rows
+    integer(kind=c_int), intent(out) :: dim_cols
+    integer(kind=c_int), intent(out) :: dim_z
+
 
     character(len=:), allocatable :: f_field, f_for_field
-    character(len=:), allocatable :: strs_f(:)
-    integer :: idx
-    
-    ! strs_f_targ is needed to overcome a GNU compiler issue 
-    character(len=:), target, allocatable :: strs_f_targ(:)
+    real(kind=8), allocatable :: data_f(:, :, :)
+    real(kind=8), pointer :: data_f_ptr(:, :, :)
+    integer :: dims(3)
 
     type(ResultSet), pointer :: result_set_fptr
     call c_f_pointer(cls, result_set_fptr)
@@ -138,18 +137,18 @@ module query_interface
     f_field = c_f_string(field)
     f_for_field = c_f_string(for_field)
 
-    strs_f = result_set_fptr%get_as_chars(f_field, f_for_field)
+    data_f = result_set_fptr%get_raw_values(f_field, f_for_field)
 
-    allocate(character(len=len(strs_f) + 1)::strs_f_targ(size(strs_f)))
+    dims = shape(data_f)
+    dim_rows = dims(1)
+    dim_cols = dims(2)
+    dim_z = dims(3)
+    if (dim_rows * dim_cols * dim_z > 0) then
+      allocate(data_f_ptr, source=data_f)
+      data = c_loc(data_f_ptr(1, 1, 1))
+    end if
 
-    do idx = 1, size(strs_f)
-      strs_f_targ(idx) = trim(strs_f(idx))//c_null_char
-      strs_c(idx) = c_loc(strs_f_targ(idx))
-    end do
-
-    num_strs = size(strs_f)
-
-  end subroutine result_set__get_as_chars_c
+  end subroutine result_set__get_raw_c
 
 
   type(logical) function result_set__is_string_c(cls, field) &

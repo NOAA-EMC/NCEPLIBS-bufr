@@ -6,18 +6,33 @@
 
 #include "FortranObject.h"
 
+#include <iostream>
+#include <memory>
 #include <string>
 #include <vector>
 
+
 namespace bufr
 {
+    struct ResultBase {
+        virtual ~ResultBase() {}
+        virtual void print() = 0;
+    };
+
     template <typename T>
-    struct Result
+    struct Result : ResultBase
     {
         std::vector<T> data;
         std::vector<std::size_t> dims;
-    };
 
+        void print() final
+        {
+            for (auto val : data)
+            {
+                std::cout << val << ", ";
+            }
+        }
+    };
 
     class ResultSet : public FortranObject
     {
@@ -25,9 +40,7 @@ namespace bufr
         ResultSet();
         ~ResultSet();
 
-        Result<float> get(const std::string& field_name, const std::string& for_field = "") const;
-        Result<std::string> get_as_strs(const std::string& field_name, const std::string& for_field = "") const;
-        bool is_string(const std::string& field_name) const;
+        std::shared_ptr<ResultBase> get(const std::string& field_name, const std::string& for_field = "") const;
 
      protected:
         Address get_v_ptr() override;

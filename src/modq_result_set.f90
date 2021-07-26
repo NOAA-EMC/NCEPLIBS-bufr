@@ -57,7 +57,7 @@ module modq_result_set
     contains
       procedure :: get => result_set__get
       procedure :: get_as_chars => result_set__get_as_chars
-      procedure, private :: get_raw_values => result_set__get_raw_values
+      procedure :: get_raw_values => result_set__get_raw_values
       procedure :: is_string => result_set__is_string
       procedure :: rep_counts => result_set__rep_counts
       procedure :: get_counts => result_set__get_counts

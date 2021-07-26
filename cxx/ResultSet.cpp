@@ -6,6 +6,10 @@
 #include "ResultSet.h"
 #include "query_interface.h"
 
+#include <algorithm> 
+#include <iostream>
+#include <sstream>
+
 
 namespace bufr
 {
@@ -24,67 +28,71 @@ namespace bufr
         }
     }
 
-    Result<float> ResultSet::get(const std::string& field_name,
-                                 const std::string& for_field) const
+    std::shared_ptr<ResultBase> ResultSet::get(const std::string& field_name,
+                                               const std::string& for_field) const
     {
         double* data_ptr = nullptr;
         std::size_t dimRows = 0;
         std::size_t dimCols = 0;
         std::size_t dimZ = 0;
-        result_set__get_f(class_data_ptr_,
-                          field_name.c_str(),
-                          for_field.c_str(),
-                          &data_ptr,
-                          &dimRows,
-                          &dimCols,
-                          &dimZ);
+        result_set__get_raw_f(class_data_ptr_,
+                              field_name.c_str(),
+                              for_field.c_str(),
+                              &data_ptr,
+                              &dimRows,
+                              &dimCols,
+                              &dimZ);
 
-        auto total_size = dimRows * dimCols * dimZ;
-        auto data = std::vector<float>();
+        bool isString = result_set__is_string_f(class_data_ptr_, field_name.c_str());
 
-        data.resize(total_size);
+        std::cout << (isString ? "Got String" : "Got Float") << std::endl;
+        std::cout << dimRows << " " << dimCols << std::endl;
 
-        for (int data_idx = 0; data_idx < total_size; data_idx++)
+        std::shared_ptr<ResultBase> result;
+
+        if (isString)
         {
-            data[data_idx] = static_cast<float>(data_ptr[data_idx]);
+            auto data = std::vector<std::string>();
+
+            const char* char_ptr = (char*) data_ptr;
+            for (int row_idx = 0; row_idx < dimRows; row_idx++)
+            {
+                std::string str = std::string(char_ptr + row_idx * dimCols * sizeof(double),
+                                              dimCols * sizeof(double));
+
+                // trim trailing whitespace from str
+                str.erase(std::find_if(str.rbegin(), str.rend(),
+                                       [](char c) { return !std::isspace(c); }).base(), str.end());
+
+                data.push_back(str);
+            }
+
+            auto strResult = std::make_shared<Result<std::string>>();
+            strResult->data = data;
+            strResult->dims.push_back(dimRows);
+            result = strResult;
+        }
+        else
+        {
+            auto total_size = dimRows * dimCols * dimZ;
+            auto data = std::vector<float>();
+
+            data.resize(total_size);
+
+            for (int data_idx = 0; data_idx < total_size; data_idx++)
+            {
+                data[data_idx] = static_cast<float>(data_ptr[data_idx]);
+            }
+
+            auto floatResult = std::make_shared<Result<float>>();
+            floatResult->data = data;
+            floatResult->dims.push_back(dimRows);
+            floatResult->dims.push_back(dimCols);
+            floatResult->dims.push_back(dimZ);
+            result = floatResult;
         }
 
-        Result<float> result;
-        result.data = data;
-        result.dims.push_back(dimRows);
-        result.dims.push_back(dimCols);
-        result.dims.push_back(dimZ);
-
         return result;
-    }
-
-    Result<std::string> ResultSet::get_as_strs(const std::string& field_name,
-                                               const std::string& for_field) const
-    {
-        char* char_ptr = nullptr;
-        std::size_t num_strs = 0;
-
-        result_set__get_as_chars_f(class_data_ptr_,
-                                   field_name.c_str(),
-                                   for_field.c_str(),
-                                   &char_ptr,
-                                   &num_strs);
-
-        Result<std::string> result;
-        result.data.resize(num_strs);
-        result.dims.push_back(num_strs);
-
-        for (int str_idx = 0; str_idx < num_strs; str_idx++)
-        {
-            result.data[str_idx] = std::string(&char_ptr[str_idx]);
-        }
-
-        return result;
-    }
-
-    bool ResultSet::is_string(const std::string& fieldName) const
-    {
-        return result_set__is_string_f(class_data_ptr_, fieldName.c_str());
     }
 
     Address ResultSet::get_v_ptr()

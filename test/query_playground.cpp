@@ -10,18 +10,14 @@
 #include "ResultSet.h"
 #include "File.h"
 
-template<typename T>
-void print(const std::string& name, const std::vector<T>& vec)
+void print(const std::string& name, const std::shared_ptr<bufr::ResultBase>& result)
 {
     std::cout << name << ": ";
-    for (auto val : vec)
-    {
-        std::cout << val << ", ";
-    }
+    result->print();
     std::cout << std::endl;
 }
 
-int main()
+void test_get_data_mhs()
 {
 //    auto file = bufr::File(
 //        "/home/rmclaren/Work/ioda-bundle/iodaconv/test/testinput/gnssro_kompsat5_20180415_00Z.bufr");
@@ -47,11 +43,34 @@ int main()
 //
     auto result_set = file.execute(query_set, 15);
 //
-    auto latitude = result_set.get("latitude").data;
-    auto longitude = result_set.get("longitude").data;
+    auto latitude = result_set.get("latitude");
+    auto longitude = result_set.get("longitude");
 
     print("Latitude", latitude);
     print("Longitude", longitude);
 
     file.close();
+}
+
+void test_get_data_chars()
+{
+    auto file = bufr::File(
+        "/home/rmclaren/Work/ioda-bundle/iodaconv/test/testinput/bufr_satwnd_old_format.bufr");
+
+    auto query_set = bufr::QuerySet();
+    query_set.add("*/BORG", "borg");
+
+    auto result_set = file.execute(query_set, 15);
+
+    auto borg = result_set.get("borg");
+
+    print("BORG", borg);
+
+    file.close();
+}
+
+
+int main()
+{
+    test_get_data_chars();
 }
