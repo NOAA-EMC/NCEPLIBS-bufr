@@ -11,7 +11,8 @@ module modq_table
   character(len=3), parameter :: DelayedRep = 'DRP'
   character(len=3), parameter :: Sequence = 'SEQ'
   character(len=3), parameter :: FixedRep = 'REP'
-  character(len=3), parameter :: Value = 'NUM'
+  character(len=3), parameter :: Number = 'NUM'
+  character(len=3), parameter :: Char = 'CHR'
 
   private
   public :: all_subsets
@@ -70,16 +71,12 @@ contains
     type(String), target, allocatable :: query_bases(:)
     type(String), pointer :: query_bases_ptr(:)
     type(IntList) :: seq_path
-
-
-    seq_path = IntList()
-    call seq_path%push(inode(lun))  ! Add root node id
+    logical :: subset_found = .false.
+    integer :: query_base_idx
 
     rewind(file_unit)
 
     allocate(current_path(0))
-    allocate(query_strs(0))
-    allocate(query_bases(0))
 
     call status(file_unit, lun, il, im)
 
@@ -87,9 +84,17 @@ contains
       msg_num = msg_num + 1
 
       if (current_subset == subset%chars()) then
+        subset_found = .true.
+
         do while (ireadsb(file_unit) == 0)
           node_idx = 1
           table_cursor = 0
+
+          seq_path = IntList()
+          call seq_path%push(inode(lun))  ! Add root node id
+          allocate(query_bases(isc(inode(lun)) -  inode(lun)))
+
+          query_base_idx = 1
 
           do node_idx = inode(lun), isc(inode(lun))
             if (typ(node_idx) == DelayedRep .or. typ(node_idx) == FixedRep) then
@@ -108,14 +113,10 @@ contains
 
               current_path(table_cursor) = String(trim(tag(node_idx + 1)))
 
-            else if (typ(node_idx) == Value) then
+            else if (typ(node_idx) == Number .or. typ(node_idx) == Char) then
               ! Found a value
-
-              allocate(tmp_strs(size(query_bases) + 1))
-              tmp_strs(1:size(query_bases)) = query_bases(1:size(query_bases))
-              tmp_strs(size(tmp_strs)) = make_query_base(current_path, String(tag(node_idx)))
-              deallocate(query_bases)
-              call move_alloc(tmp_strs, query_bases)
+              query_bases(query_base_idx) =  make_query_base(current_path, String(tag(node_idx)))
+              query_base_idx = query_base_idx + 1
 
               ! Neccessary cause Fortran handles .and. in if statements in a strange way
               if (seq_path%length() > 1) then
@@ -140,17 +141,19 @@ contains
 
           query_bases_ptr => query_bases
 
-          do base_idx = 1, size(query_bases)
-            allocate(tmp_strs(size(query_strs) + 1))
-            tmp_strs(1:size(query_strs)) = query_strs(1:size(query_strs))
-            tmp_strs(size(tmp_strs)) = make_query_str(String(current_subset), &
-                                                      base_idx, &
-                                                      query_bases_ptr)
-            deallocate(query_strs)
-            call move_alloc(tmp_strs, query_strs)
+          allocate(query_strs(query_base_idx - 1))
+          do base_idx = 1, query_base_idx - 1
+            query_strs(base_idx) = make_query_str(String(current_subset), &
+                                                  base_idx, &
+                                                  query_bases_ptr)
           end do
+
+          exit  ! Capture the table for the first encounter only
         end do
-        exit  ! Capture the table for the first encounter only
+      end if
+
+      if (subset_found) then
+        exit
       end if
     end do
   end function all_queries
