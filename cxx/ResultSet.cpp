@@ -44,10 +44,6 @@ namespace bufr
                               &dimZ);
 
         bool isString = result_set__is_string_f(class_data_ptr_, field_name.c_str());
-
-        std::cout << (isString ? "Got String" : "Got Float") << std::endl;
-        std::cout << dimRows << " " << dimCols << std::endl;
-
         std::shared_ptr<ResultBase> result;
 
         if (isString)

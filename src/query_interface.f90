@@ -81,42 +81,9 @@ module query_interface
   end subroutine result_set__allocate
 
 
-  subroutine result_set__get_c(cls, field, for_field, data, dim_rows, dim_cols, dim_z) bind(C, name="result_set__get_f")
-    type(c_ptr), intent(inout) :: cls
-    character(kind=c_char, len=1), intent(in) :: field
-    character(kind=c_char, len=1), intent(in) :: for_field
-    type(c_ptr), intent(inout) :: data
-    integer(kind=c_int), intent(out) :: dim_rows
-    integer(kind=c_int), intent(out) :: dim_cols
-    integer(kind=c_int), intent(out) :: dim_z
+  subroutine result_set__get_raw_c(cls, field, for_field, data, dim_rows, dim_cols, dim_z) &
+    bind(C, name="result_set__get_raw_f")
 
-
-    character(len=:), allocatable :: f_field, f_for_field
-    real(kind=8), allocatable :: data_f(:, :, :)
-    real(kind=8), pointer :: data_f_ptr(:, :, :)
-    integer :: dims(3)
-
-    type(ResultSet), pointer :: result_set_fptr
-    call c_f_pointer(cls, result_set_fptr)
-
-    f_field = c_f_string(field)
-    f_for_field = c_f_string(for_field)
-
-    data_f = result_set_fptr%get(f_field, f_for_field)
-
-    dims = shape(data_f)
-    dim_rows = dims(1)
-    dim_cols = dims(2)
-    dim_z = dims(3)
-    if (dim_rows * dim_cols * dim_z > 0) then
-      allocate(data_f_ptr, source=data_f)
-      data = c_loc(data_f_ptr(1, 1, 1))
-    end if
-
-  end subroutine result_set__get_c
-
-
-  subroutine result_set__get_raw_c(cls, field, for_field, data, dim_rows, dim_cols, dim_z) bind(C, name="result_set__get_raw_f")
     type(c_ptr), intent(inout) :: cls
     character(kind=c_char, len=1), intent(in) :: field
     character(kind=c_char, len=1), intent(in) :: for_field
