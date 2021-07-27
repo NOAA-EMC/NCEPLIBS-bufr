@@ -73,7 +73,7 @@ contains
 
 
     seq_path = IntList()
-    call seq_path%push(1)  ! Add root node id
+    call seq_path%push(inode(lun))  ! Add root node id
 
     rewind(file_unit)
 
@@ -118,7 +118,7 @@ contains
               call move_alloc(tmp_strs, query_bases)
 
               ! Neccessary cause Fortran handles .and. in if statements in a strange way
-              if (seq_path%length() - 1 > 0) then
+              if (seq_path%length() > 1) then
                 if (seq_path%at(seq_path%length() - 1) == jmpb(node_idx + 1)) then
                   ! Exit the sequence
                   call seq_path%pop()
@@ -127,7 +127,7 @@ contains
                 end if
               end if
 
-            else if (seq_path%length() - 1 > 0) then
+            else if (seq_path%length() > 1) then
               if (seq_path%at(seq_path%length() - 1) == jmpb(node_idx + 1)) then
                 ! Exit the sequence
                 call seq_path%pop()
