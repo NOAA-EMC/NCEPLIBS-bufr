@@ -27,26 +27,25 @@ contains
     integer :: idx
     integer :: ireadmg
     integer(kind=8) :: my_idate
-    logical :: found_subset
-    type(String), allocatable :: subsets(:), tmp_subsets(:)
+    logical :: subset_already_found
+    type(String), allocatable :: subsets(:)
+    type(String), allocatable :: tmp_subsets(:)
 
-    rewind(file_unit)
     allocate(subsets(0))
 
     do while (ireadmg(file_unit, current_subset, my_idate) == 0)
-      found_subset = .false.
+      subset_already_found = .false.
       do idx = 1, size(subsets)
         if (subsets(idx) == String(current_subset)) then
-          found_subset = .true.
+          subset_already_found = .true.
           exit
         end if
       end do
 
-      if (.not. found_subset) then
+      if (.not. subset_already_found) then
         allocate(tmp_subsets(size(subsets) + 1))
-        tmp_subsets(1:size(subsets)) = subsets(1:size(subsets))
+        if (size(subsets) > 0 ) tmp_subsets(1:size(subsets)) = subsets(1:size(subsets))
         tmp_subsets(size(tmp_subsets)) = String(current_subset)
-        deallocate(subsets)
         call move_alloc(tmp_subsets, subsets)
       end if
     end do
@@ -59,7 +58,7 @@ contains
     type(String), allocatable :: query_strs(:)
 
     integer :: ireadmg, ireadsb
-    character(8) :: current_subset
+    character(len=8) :: current_subset
     integer(kind=8) :: my_idate
     integer :: msg_num
 
@@ -73,8 +72,6 @@ contains
     type(IntList) :: seq_path
     logical :: subset_found = .false.
     integer :: query_base_idx
-
-    rewind(file_unit)
 
     allocate(current_path(0))
 

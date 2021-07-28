@@ -224,7 +224,7 @@ subroutine test_table
   integer :: subset_idx, q_idx
   integer :: ierr
 
-  open(lunit, file="/home/rmclaren/Work/ioda-bundle/ioda_converters/test/testinput/gnssro_kompsat5_20180415_00Z.bufr")
+  open(lunit, file="/home/rmclaren/Work/ioda-bundle/iodaconv/test/testinput/bufr_satwnd_old_format.bufr")
   call openbf(lunit, "IN", lunit)
 !  subsets = all_subsets(lunit)
 !
@@ -237,7 +237,7 @@ subroutine test_table
 !    end do
 !  end do
 
-  q_paths = all_queries(lunit, String("NC003010"))
+  q_paths = all_queries(lunit, String("NC005066"))
   do q_idx = 1, size(q_paths)
     print *, q_paths(q_idx)%chars()
   end do
@@ -253,11 +253,11 @@ program test_query
 
 !  call test__query_set
 !  call test__result_set
-  call test__query_gnssro
-  call test__query_ia5
+!  call test__query_gnssro
+!  call test__query_ia5
 !  call test_int_list
 !  call test_query_parser
-!  call test_table
+  call test_table
 
 end program test_query
 
