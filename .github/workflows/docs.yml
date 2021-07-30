@@ -38,18 +38,6 @@ jobs:
         make -j2
         make install
         mv docs/html $GITHUB_WORKSPACE/docs
-
-    - name: Build library and documentation
-      run: |
-        export CC=gcc-9
-        export FC=gfortran-9
-        cd bufr
-        mkdir build
-        cd build
-        cmake -DCMAKE_INSTALL_PREFIX=./install -DENABLE_PYTHON=ON -DENABLE_DOCS=ON ..
-        make -j2
-        make install
-        mv docs/html $GITHUB_WORKSPACE/docs
         cd $GITHUB_WORKSPACE
         ls -R docs/
 
