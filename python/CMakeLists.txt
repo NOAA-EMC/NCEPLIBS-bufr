@@ -33,9 +33,9 @@ if(ENABLE_DOCS)
   # Uses pdoc (https://github.com/BurntSushi/pdoc)
   find_program(PDOC_EXECUTABLE pdoc REQUIRED)
   install(CODE "message(\"Building Python API documentation:
-  ${PDOC_EXECUTABLE} -o ../docs/python' ./ncepbufr\")
+  ${PDOC_EXECUTABLE} -o ../docs/html/python' ./ncepbufr\")
                 set(ENV{PYTHONPATH} ${_install_dir})
-                execute_process(COMMAND ${PDOC_EXECUTABLE} -o ../docs/python ./ncepbufr
+                execute_process(COMMAND ${PDOC_EXECUTABLE} -o ../docs/html/python ./ncepbufr
                                 WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR})")
 endif()
 
