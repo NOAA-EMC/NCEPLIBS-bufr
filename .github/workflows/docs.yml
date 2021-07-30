@@ -3,6 +3,7 @@ on:
   push:
     branches:
       - bugfix/pdoc
+#      - develop replace above line after confirmation from owners
 
 jobs:
   create_documentation:
@@ -38,8 +39,32 @@ jobs:
         make install
         mv docs/html $GITHUB_WORKSPACE/docs
 
-    - name: Deploy documentation
-      uses: JamesIves/github-pages-deploy-action@4.1.4
+    - name: Build library and documentation
+      run: |
+        export CC=gcc-9
+        export FC=gfortran-9
+        cd bufr
+        mkdir build
+        cd build
+        cmake -DCMAKE_INSTALL_PREFIX=./install -DENABLE_PYTHON=ON -DENABLE_DOCS=ON ..
+        make -j2
+        make install
+        mv docs/html $GITHUB_WORKSPACE/docs
+        cd $GITHUB_WORKSPACE
+        ls -R docs/
+
+# Disable until confirmation from owners
+#    - name: Deploy documentation
+# Disable until confirmation from owners
+#    - name: Deploy documentation
+#      uses: JamesIves/github-pages-deploy-action@4.1.4
+#      with:
+#        branch: gh-pages
+#        folder: docs
+
+# Remove after confirmation from owners
+    - name: Upload documentation
+      uses: actions/upload-artifact@v2
       with:
-        branch: gh-pages
-        folder: docs
+        name: docs
+        path: docs
