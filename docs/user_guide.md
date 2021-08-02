@@ -7,5 +7,7 @@ meteorological data.
 Please see the [Related Pages](pages.html) tab for more details on this library,
 including a comprehensive user guide.
 
+The python API documentation is available [here](python/index.html)
+
 This library is part of the
 [NCEPLIBS](https://github.com/NOAA-EMC/NCEPLIBS) project.
