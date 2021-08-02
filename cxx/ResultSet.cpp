@@ -70,14 +70,20 @@ namespace bufr
         }
         else
         {
-            auto total_size = dimRows * dimCols * dimZ;
             auto data = std::vector<float>();
 
-            data.resize(total_size);
+            data.resize(dimRows * dimCols);
 
-            for (int data_idx = 0; data_idx < total_size; data_idx++)
+            // Raw fortran data arranged in column major ordering
+            // but we want row major ordering instead. So convert.
+            unsigned int pos = 0;
+            for (int rowIdx = 0; rowIdx < dimRows; rowIdx++)
             {
-                data[data_idx] = static_cast<float>(data_ptr[data_idx]);
+                for (int colIdx = 0; colIdx < dimCols; colIdx++)
+                {
+                    data[pos] = static_cast<float>(data_ptr[rowIdx + dimRows * colIdx]);
+                    pos++;
+                }
             }
 
             auto floatResult = std::make_shared<Result<float>>();
