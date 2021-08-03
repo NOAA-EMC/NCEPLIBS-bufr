@@ -60,7 +60,7 @@ contains
     integer :: ireadmg, ireadsb
     character(len=8) :: current_subset
     integer(kind=8) :: my_idate
-    integer :: msg_num
+    integer :: msg_num = 0
 
     integer :: lun, il, im
     integer :: node_idx, base_idx
@@ -72,8 +72,10 @@ contains
     type(IntList) :: seq_path
     logical :: subset_found = .false.
     integer :: query_base_idx
+    integer :: readsb_result
 
     allocate(current_path(0))
+    allocate(query_strs(0))
 
     call status(file_unit, lun, il, im)
 
@@ -81,9 +83,8 @@ contains
       msg_num = msg_num + 1
 
       if (current_subset == subset%chars()) then
-        subset_found = .true.
-
-        do while (ireadsb(file_unit) == 0)
+        do while ( ireadsb(file_unit) == 0)
+          subset_found = .true.
           node_idx = 1
           table_cursor = 0
 
@@ -138,6 +139,7 @@ contains
 
           query_bases_ptr => query_bases
 
+          deallocate(query_strs)
           allocate(query_strs(query_base_idx - 1))
           do base_idx = 1, query_base_idx - 1
             query_strs(base_idx) = make_query_str(String(current_subset), &
