@@ -1,4 +1,9 @@
-
+!> @file
+!> @brief Module that contains functions that execute a query
+!>
+!> @author Ronald Mclaren
+!> @date 2021-05-11
+!>
 
 module modq_query
   use moda_tables
@@ -12,16 +17,40 @@ module modq_query
 
   implicit none
 
+
+  !> @author Ronald Mclaren
+  !> @date 2021-05-11
+  !>
+  !> @brief Data structure that holds all the information about a specific target
+  !>        node derived from a query string.
+  !>
   type, private :: Target
+    !> @brief The name assinged to the target node
     character(len=:), allocatable :: name
+    !> @brief The query string for this target node
     character(len=:), allocatable :: query_str
+    !> @brief Does this target point to a string or real field.
     logical :: is_string
+    !> @brief The list of sequences leading to this target
     integer, allocatable :: seq_path(:)
+    !> @brief The list of node ID's associated with this target
     integer, allocatable :: node_ids(:)
   end type Target
 
+  !> @author Ronald Mclaren
+  !> @date 2021-05-24
+  !>
+  !> @brief Object that is used to count the number of repeats for a series of
+  !>        nested sequences. Always starts at 1 for the root "subset" sequence.
+  !>        Each new sequence is associated with a list of counts one for each
+  !>        time the sequence is encountered and numbering the number of repeats
+  !>        for that encounter. In this way it builds up a picture or tree for
+  !>        the heirarchy of sequence repetitions.
+  !>        
   type, private :: SeqCounter
+    !> @brief The list of sequences. Starts at the root sequence and goes down from there.
     type(IntList) :: seqs
+    !> @brief The list of counts for each sequence in the seqs list.
     type(IntList), allocatable :: counts_list(:)
 
     contains
@@ -44,7 +73,18 @@ module modq_query
   public::query
 
 contains
-!
+
+
+!> @author Ronald Mclaren
+!> @date 2021-06-07
+!>
+!> @brief Executes a query
+!>
+!> @param[in] lunit - integer: The file unit number
+!> @param[in] current_subset - type(String): The current subset string
+!> @param[in] query_set - type(QuerySet): The query set
+!> @param[inout] result_set - type(ResultSet): The result set to add to
+!>
   subroutine query(lunit, current_subset, query_set, result_set)
     integer, intent(in) :: lunit
     type(String), intent(in) :: current_subset
@@ -62,6 +102,17 @@ contains
   end subroutine query
 
 
+  !> @author Ronald Mclaren
+  !> @date 2021-06-08
+  !>
+  !> @brief Finds the targets for all the queries in a query set 
+  !> in the query set
+  !>
+  !> @param[in] lun - integer: Unit number for the BUFR file
+  !> @param[in] current_subset - type(String): The current subset string
+  !> @param[in] query_set - type(QuerySet): The query set
+  !> @return targets - type(Target)(:): The list of targets
+  !>
   function find_targets(lun, current_subset, query_set) result(targets)
     integer, intent(in) :: lun
     type(String), intent(in) :: current_subset
@@ -108,13 +159,27 @@ contains
         deallocate(targets)
         call move_alloc(tmp_targets, targets)
 
-        print *, "Warning: Query String "  // query_set%get_query_str(target_idx) // " didn't apply to subset " &
+        print *, "Warning: Query String "  &
+                 // query_set%get_query_str(target_idx) &
+                 // " didn't apply to subset " &
                  // current_subset%chars()
       end if
     end do
   end function
 
 
+  !> @author Ronald Mclaren
+  !> @date 2021-06-08
+  !>
+  !> @brief Finds the node inidices and other applicable data for a specific 
+  !>        query string and returns the info in a target object.
+  !>
+  !> @param[in] lun - integer: Unit number for the BUFR file
+  !> @param[in] current_subset - type(String): The current subset string
+  !> @param[in] name - character(:): The name of the target
+  !> @param[in] query_str - character(:): The query string
+  !> @return targ - type(Target): The target
+  !>
   type(Target) function find_target(lun, current_subset, name, query_str) result(targ)
     integer, intent(in) :: lun
     type(String), intent(in) :: current_subset
@@ -221,6 +286,15 @@ contains
   end function
 
 
+  !> @author Ronald Mclaren
+  !> @date 2021-06-08
+  !>
+  !> @brief Collects the data for the targets and adds them to the result set.
+  !>
+  !> @param[in] lun - integer: Unit number for the BUFR file
+  !> @param[in] targets - type(Target)(:): Array of targets
+  !> @param[in] result_set - type(ResultSet): The result set
+  !>
   subroutine collect_data(lun, targets, result_set)
     integer, intent(in) :: lun
     type(Target), target, intent(in) :: targets(:)
@@ -329,7 +403,8 @@ contains
 
       allocate(data_field%seq_counts(size(data_field%seq_path)))
       do path_idx = 1, size(data_field%seq_path)
-        allocate(data_field%seq_counts(path_idx)%counts, source=seq_counter%counts_list(path_idx)%array())
+        allocate(data_field%seq_counts(path_idx)%counts, &
+                 source=seq_counter%counts_list(path_idx)%array())
       end do
 
       call seq_counter%delete()
@@ -340,6 +415,14 @@ contains
   end subroutine
 
 
+  !> @author Ronald Mclaren
+  !> @date 2021-05-11
+  !>
+  !> @brief Computes the shape of the resulting data given target node ids.
+  !>
+  !> @param[in] lun - integer: Unit number for the BUFR file
+  !> @param[in] target_nodes - integer(:): Array of target node ids
+  !>
   function result_shape(lun, target_nodes) result(dims)
     integer, intent(in) :: lun
     integer, intent(in) :: target_nodes(:)
@@ -359,12 +442,29 @@ contains
 
 
   ! SeqCounter methods
+
+  !> @author Ronald Mclaren
+  !> @date 2021-05-24
+  !>
+  !> @brief Initializes a new SeqCounter object.
+  !>
+  !> @return seq_counter - type(SeqCounter): The initialized SeqCounter object
+  !>
   type(SeqCounter) function init__seq_counter() result(seq_counter)
     seq_counter = SeqCounter(IntList(), null())
     allocate(seq_counter%counts_list(0))
   end function init__seq_counter
 
 
+  !> @author Ronald Mclaren
+  !> @date 2021-05-24
+  !>
+  !> @brief Gets the counts for a given sequence.
+  !>
+  !> @param[in] self - class(SeqCounter): The SeqCounter instance
+  !> @param[in] seq - integer: The sequence index
+  !> @return counts - type(IntList): The counts for the given sequence
+  !>
   type(IntList) function seq_counter__cnts_for_seq(self, seq) result(counts)
     class(SeqCounter), intent(in) :: self
     integer, intent(in) :: seq
@@ -387,6 +487,15 @@ contains
   end function seq_counter__cnts_for_seq
 
 
+  !> @author Ronald Mclaren
+  !> @date 2021-05-24
+  !>
+  !> @brief Adds a count of repeats for a given sequence.
+  !>
+  !> @param[in] self - class(SeqCounter): The SeqCounter instance
+  !> @param[in] seq - integer: The sequence index
+  !> @param[in] count - integer: The count (number of repeats) to add
+  !>
   subroutine seq_counter__add_cnt_for_seq(self, seq, cnt)
     class(SeqCounter), intent(inout) :: self
     integer, intent(in) :: seq
@@ -419,6 +528,14 @@ contains
   end subroutine seq_counter__add_cnt_for_seq
 
 
+  !> @author Ronald Mclaren
+  !> @date 2021-05-24
+  !>
+  !> @brief Increments the last count for a given sequence by 1.
+  !>
+  !> @param[in] self - class(SeqCounter): The SeqCounter instance
+  !> @param[in] seq - integer: The sequence index
+  !>
   subroutine seq_counter__inc_last_cnt_for_seq(self, seq)
     class(SeqCounter), intent(inout) :: self
     integer, intent(in) :: seq
@@ -443,6 +560,14 @@ contains
   end subroutine seq_counter__inc_last_cnt_for_seq
 
 
+  !> @author Ronald Mclaren
+  !> @date 2021-05-24
+  !>
+  !> @brief Decrements the last count for a given sequence.
+  !>
+  !> @param[in] self - class(SeqCounter): The SeqCounter instance
+  !> @param[in] seq - integer: The sequence index
+  !>
   subroutine seq_counter__dec_last_cnt_for_seq(self, seq)
     class(SeqCounter), intent(inout) :: self
     integer, intent(in) :: seq
@@ -465,6 +590,13 @@ contains
   end subroutine seq_counter__dec_last_cnt_for_seq
 
 
+  !> @author Ronald Mclaren
+  !> @date 2021-06-01
+  !>
+  !> @brief Deletes the sequence counter from memory.
+  !>
+  !> @param[in] self - class(SeqCounter): The SeqCounter instance
+  !>
   subroutine seq_counter__delete(self)
     class(SeqCounter), intent(inout) :: self
 
