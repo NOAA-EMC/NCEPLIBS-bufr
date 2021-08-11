@@ -239,39 +239,25 @@ contains
     character(len=*), intent(in), optional :: for
     real(kind=8), allocatable :: data(:, :, :)
 
-
-    block  ! Initialize Data
-      integer :: field_width
-      integer :: name_idx
-
-      ! Figure out the width for the 2d data field
-      field_width = 0
-      do name_idx = 1, size(self%names)
-        if (present(for) .and. for /= "") then
-          if (self%names(name_idx)%chars() == for) then
-            field_width = self%field_widths(name_idx)
-            exit
-          end if
-        else
-          if (String(field_name) == self%names(name_idx)) then
-            field_width = self%field_widths(name_idx)
-            exit
-          end if
-        end if
-      end do
-
-      allocate(data(self%data_frames_size, field_width, 1))
-      data = MissingValue
-    end block  ! Initialize Data
+    
+    type ResultField
+      real(kind=8), allocatable :: data(:, :)
+    end type ResultField
+    type(ResultField), allocatable :: result_fields(:)
+    integer :: total_rows, total_cols
 
 
-    block  ! Get Data
-      integer :: frame_idx, data_idx, rep_idx
+    block  ! Get Result Fields
+      integer :: frame_idx, data_idx, rep_idx, row_idx, col_idx
+      integer :: num_rows, num_cols
       type(DataField), allocatable :: target_field, for_field
 
-      integer, allocatable :: rep_counts(:)
-      real(kind=8), allocatable :: field_data(:)
+      integer, allocatable :: rep_counts(:, :)
 
+      allocate(result_fields(self%data_frames_size))
+
+      total_rows = 1
+      total_cols = 1
       do frame_idx = 1, self%data_frames_size
         target_field = self%data_frames(frame_idx)%field_for_node_named(String(field_name))
 
@@ -280,25 +266,70 @@ contains
             for_field = self%data_frames(frame_idx)%field_for_node_named(String(for))
             rep_counts = self%rep_counts(target_field, for_field)
 
-            allocate(field_data(sum(rep_counts)))
+            num_rows = sum(rep_counts(2, :))
+            num_cols = maxval(rep_counts(1, :))
+            total_cols = max(num_cols, total_cols)
 
-            do data_idx = 1, size(rep_counts)
-              do rep_idx = 1, rep_counts(data_idx)
-                field_data(sum(rep_counts(1:data_idx - 1)) + rep_idx) = target_field%data(data_idx)
+            allocate(result_fields(frame_idx)%data(num_rows, num_cols))
+            result_fields(frame_idx)%data = MissingValue
+
+            ! If there is a single column it means the data is target field
+            ! is shallower than the for field. In this case we need to
+            ! copy the data for the number of for field repeats. The result 
+            ! is that the field_data is a single column whose length is the
+            ! sum of all the for field repeats.
+            if (num_cols == 1) then
+              do data_idx = 1, size(rep_counts(1, :))  
+                do rep_idx = 1, rep_counts(2, data_idx)
+                  result_fields(frame_idx)%data(sum(rep_counts(2, 1:data_idx - 1)) + rep_idx, 1) = &
+                    target_field%data(data_idx)
+                end do
               end do
-            end do
 
-            data(frame_idx, 1:size(field_data), 1) = field_data
-            deallocate(field_data)
+            ! If there is a single row per target element it means the target 
+            ! field is deeper than the for field. In this case the for field data 
+            ! ends up being a 2d array. The number of columns is the number of 
+            ! repeats of the target field associated one of the for field elements.
+            ! The number of rows is consistent with the number of for field elements. 
+            else if (all(rep_counts(2, :) == 1)) then
+              do row_idx = 1, num_rows
+                result_fields(frame_idx)%data(row_idx, 1:rep_counts(1, row_idx)) = &
+                  target_field%data(1:rep_counts(1, row_idx))
+              end do
+            end if
+
+            ! data(data_row_idx : data_row_idx + num_rows, 1:num_cols, 1) = field_data
+            total_rows = total_rows + num_rows
+
           else
-            data(frame_idx, 1:size(target_field%data), 1) = target_field%data
+            allocate(result_fields(frame_idx)%data(1, size(target_field%data)))
+            result_fields(frame_idx)%data(1, :) = target_field%data
+
+            ! data(frame_idx, 1:size(target_field%data), 1) = target_field%data
           end if
         end if
 
         if (allocated(target_field)) deallocate(target_field)
         if (allocated(for_field)) deallocate(for_field)
       end do
-    end block  ! Get Data
+    end block  ! Get Result Fields
+
+    block  ! Make Output Data
+      integer :: data_row_idx
+      integer :: field_idx
+      integer :: data_shape(2)
+
+      allocate(data(total_rows, total_cols, 1))
+
+      data_row_idx = 1
+      do field_idx = 1, size(result_fields)
+        data_shape = shape(result_fields(field_idx)%data)
+        data(data_row_idx:data_row_idx + data_shape(1), 1:data_shape(2), 1) = &
+            result_fields(field_idx)%data
+
+        data_row_idx = data_row_idx + data_shape(1)
+      end do
+    end block  ! Make Output Data
   end function result_set__get_raw_values
   
   
@@ -316,40 +347,129 @@ contains
   end function result_set__is_string
 
 
+  ! @brief Compute the total number of elements that exist in the target field for a "for" field.
+  !        Example 1:
+  !          Lets say we have a field with the following sequence counts:
+  !            root:                 1
+  !            seq_1 (for field):    3
+  !            seq_2:                1, 2, 1
+  !            seq_3 (target field): 2, 2, 1, 2
+  !
+  !          In this case the target field is deeper than the for field. So we want to group the
+  !          target field by the for field that the target corresponds to. The total number of 
+  !          target values is 7 (sum of target field counts), while there are 3 for field values. 
+  !          The sequence count table indicates that for the first for field value there are 2
+  !          target field values (1 -> 3 -> 1 -> 2). The second for field value corresponds the next 
+  !          3 target field values (1 -> 3 -> 2 -> (2, 1)). The third for field value corresponds to 
+  !          the last 2 target field value, and so on (1 -> 3 -> 1 -> 2).
+  !
+  !          Writing the result in table form we can represent the result as follows:
+  !
+  !                                 Target Counts | For Counts
+  !                                 ---------------------------
+  !                                             2 | 1
+  !                                             3 | 1
+  !                                             2 | 1
+  !            
+  !        Example 2:
+  !          Lets say we have a field with the following sequence counts:
+  !            root:                 1
+  !            seq_1 (target field): 3
+  !            seq_2:                1, 2, 1
+  !            seq_3 (for field):    2, 2, 1, 2
+  !          
+  !          In this case the target field is shallower than the for field. Basically what this
+  !          means is that each field in the target field will be repeated by the number of times
+  !          indicated by the for field. So in the example above there are a total number of 3
+  !          target field values (sum of target_field counts). The number of counts in the for field
+  !          corresponding to the first target value is 2, corresponding to the first for field
+  !          count. The number of counts of the second target value is 2, corresponding to the
+  !          second for field count, and so on.
+  !
+  !          Writing the result in table form we can represent the result as follows:
+  !
+  !                                 Target Counts | For Counts
+  !                                 ---------------------------
+  !                                             1 | 2
+  !                                             1 | 3
+  !                                             1 | 2
+  !
+  ! @param[in] self - class(ResultSet) : the class instance.
+  ! @param[in] target_field - type(DataField) : the target
+  ! @param[in] for_field - type(DataField) : the "for" field
+  ! @return counts - integer(2, :) : The relative counts between the target and for fields (see 
+  !                                  brief).
+  !
   function result_set__rep_counts(self, target_field, for_field) result(counts)
     class(ResultSet), intent(in) :: self
     type(DataField), intent(in) :: target_field
     type(DataField), intent(in) :: for_field
 
-    integer, allocatable :: counts(:)
+    integer, allocatable :: counts(:, :)
     integer :: seq_idx, rep_idx
     integer :: target_count
     integer :: count
 
-    do seq_idx = 1, size(target_field%seq_path)
+    do seq_idx = 1, min(size(target_field%seq_path), size(for_field%seq_path))
       if (target_field%seq_path(seq_idx) /= for_field%seq_path(seq_idx)) then
         call bort("The target field " // target_field%name%chars() // " and the for field " &
                   // for_field%name%chars() // " don't occur along the same path.")
       end if
     end do
 
-    allocate(counts(0))
-    target_count =  sum(target_field%seq_counts(size(target_field%seq_counts))%counts)
-    if (target_count > 0) then
+    ! The target is deeper than the for field
+    if (size(target_field%seq_path) > size(for_field%seq_path)) then
+      target_count =  sum(for_field%seq_counts(size(for_field%seq_counts))%counts)
+      allocate(counts(2, target_count))
+
+      do rep_idx = 1, target_count
+        count = self%get_counts(target_field, &
+                                size(for_field%seq_counts) + 1, &
+                                1, &
+                                rep_idx - 1)
+
+        counts(1, rep_idx) = count
+        counts(2, rep_idx) = 1
+      end do
+
+    ! The target is at the same level as the for field
+    else if (size(target_field%seq_path) == size(for_field%seq_path)) then
+      target_count =  sum(target_field%seq_counts(size(target_field%seq_counts))%counts)
+      allocate(counts(2, target_count))
+
+      counts = 1
+
+    ! The target is shallower than the for field
+    else
+      target_count =  sum(target_field%seq_counts(size(target_field%seq_counts))%counts)
+      allocate(counts(2, target_count))
+
       do rep_idx = 1, target_count
         count = self%get_counts(for_field, &
                                 size(target_field%seq_counts) + 1, &
                                 1, &
                                 rep_idx - 1)
 
-        counts = [counts, count]
+        counts(1, rep_idx) = 1
+        counts(2, rep_idx) = count
       end do
     end if
   end function result_set__rep_counts
 
-  recursive function result_set__get_counts(self, for_field, seq_idx, last_count, offset) result(count)
+
+  ! @brief Recursively count the number of elements associated with a field coming from a specific
+  !        sequence instance.
+  !
+  ! @param[in] self - class(ResultSet) : the class instance.
+  ! @param[in] field - type(DataField) : the field whose reps we want to count to.
+  ! @param[in] seq_idx - integer : the index of the sequence we are counting from.
+  ! @param[in] last_count - integer : the count from the previous sequence.
+  ! param[in] offset - integer : the offset inside the current sequence count list.
+  ! @return count - integer : the number of reps
+  !
+  recursive function result_set__get_counts(self, field, seq_idx, last_count, offset) result(count)
     class(ResultSet), intent(in) :: self
-    type(DataField), target, intent(in) :: for_field
+    type(DataField), target, intent(in) :: field
     integer, intent(in) :: seq_idx
     integer, intent(in) :: last_count
     integer, intent(in) :: offset
@@ -359,12 +479,12 @@ contains
     integer :: cnt_idx
 
     count = 0
-    if (seq_idx == size(for_field%seq_path)) then
-      count = sum(for_field%seq_counts(seq_idx)%counts(offset + 1:offset + last_count))
+    if (seq_idx == size(field%seq_path)) then
+      count = sum(field%seq_counts(seq_idx)%counts(offset + 1:offset + last_count))
     else
-      seq_counts => for_field%seq_counts(seq_idx)%counts
+      seq_counts => field%seq_counts(seq_idx)%counts
       do cnt_idx = offset + 1, offset + last_count
-        count = count + self%get_counts(for_field, &
+        count = count + self%get_counts(field, &
                                         seq_idx + 1, &
                                         seq_counts(cnt_idx), &
                                         sum(seq_counts(1:cnt_idx - 1)))
