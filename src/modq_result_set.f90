@@ -256,12 +256,18 @@ contains
 
       allocate(result_fields(self%data_frames_size))
 
-      total_rows = 1
-      total_cols = 1
+      total_rows = 0
+      total_cols = 0
       do frame_idx = 1, self%data_frames_size
         target_field = self%data_frames(frame_idx)%field_for_node_named(String(field_name))
 
-        if (.not. target_field%missing) then
+        if (target_field%missing) then
+          ! Add a missing as missing value
+          allocate(result_fields(frame_idx)%data(1, 1))
+          result_fields(frame_idx)%data = MissingValue
+          total_cols = 1
+          total_rows = total_rows + 1
+        else
           if (present(for) .and. for /= "") then
             for_field = self%data_frames(frame_idx)%field_for_node_named(String(for))
             rep_counts = self%rep_counts(target_field, for_field)
@@ -279,7 +285,7 @@ contains
             ! is that the field_data is a single column whose length is the
             ! sum of all the for field repeats.
             if (num_cols == 1) then
-              do data_idx = 1, size(rep_counts(1, :))  
+              do data_idx = 1, sum(rep_counts(2, :))
                 do rep_idx = 1, rep_counts(2, data_idx)
                   result_fields(frame_idx)%data(sum(rep_counts(2, 1:data_idx - 1)) + rep_idx, 1) = &
                     target_field%data(data_idx)
@@ -298,14 +304,13 @@ contains
               end do
             end if
 
-            ! data(data_row_idx : data_row_idx + num_rows, 1:num_cols, 1) = field_data
-            total_rows = total_rows + num_rows
+            if (num_cols > 0) total_rows = total_rows + num_rows
 
           else
             allocate(result_fields(frame_idx)%data(1, size(target_field%data)))
-            result_fields(frame_idx)%data(1, :) = target_field%data
-
-            ! data(frame_idx, 1:size(target_field%data), 1) = target_field%data
+            result_fields(frame_idx)%data(1, 1:size(target_field%data)) = target_field%data
+            if (size(target_field%data) > 0) total_rows = total_rows + 1
+            if (size(target_field%data) > total_cols) total_cols = size(target_field%data)
           end if
         end if
 
@@ -329,6 +334,7 @@ contains
 
         data_row_idx = data_row_idx + data_shape(1)
       end do
+
     end block  ! Make Output Data
   end function result_set__get_raw_values
   
