@@ -309,7 +309,7 @@ contains
           else
             allocate(result_fields(frame_idx)%data(1, size(target_field%data)))
             result_fields(frame_idx)%data(1, 1:size(target_field%data)) = target_field%data
-            if (size(target_field%data) > 0) total_rows = total_rows + 1
+            total_rows = total_rows + 1
             if (size(target_field%data) > total_cols) total_cols = size(target_field%data)
           end if
         end if
@@ -325,13 +325,12 @@ contains
       integer :: data_shape(2)
 
       allocate(data(total_rows, total_cols, 1))
+      data = MissingValue
 
       data_row_idx = 1
       do field_idx = 1, size(result_fields)
         data_shape = shape(result_fields(field_idx)%data)
-        data(data_row_idx:data_row_idx + data_shape(1), 1:data_shape(2), 1) = &
-            result_fields(field_idx)%data
-
+        data(data_row_idx:data_row_idx + data_shape(1) - 1, 1:data_shape(2), 1) = result_fields(field_idx)%data
         data_row_idx = data_row_idx + data_shape(1)
       end do
 

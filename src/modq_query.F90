@@ -68,6 +68,8 @@ module modq_query
   private
   character(len=3), parameter :: Subset = 'SUB'
   character(len=3), parameter :: DelayedRep = 'DRP'
+  character(len=3), parameter :: DelayedRepStacked = 'DRS'
+  character(len=3), parameter :: DelayedRepBit = 'DRB'
   character(len=3), parameter :: Sequence = 'SEQ'
   character(len=3), parameter :: FixedRep = 'REP'
   public::query
@@ -221,7 +223,9 @@ contains
       table_cursor = 0
       mnemonic_cursor = 0
       do node_idx = inode(lun), isc(inode(lun))
-        if (typ(node_idx) == DelayedRep .or. typ(node_idx) == FixedRep) then
+        if (typ(node_idx) == DelayedRep .or. &
+            typ(node_idx) == FixedRep .or. &
+            typ(node_idx) == DelayedRepStacked) then
           ! Enter the sequence
           if (tag(node_idx + 1) == mnemonics(mnemonic_cursor + 1) .and. &
               table_cursor == mnemonic_cursor) then

@@ -9,6 +9,8 @@ module modq_table
 
   character(len=3), parameter :: Subset = 'SUB'
   character(len=3), parameter :: DelayedRep = 'DRP'
+  character(len=3), parameter :: DelayedRepStacked = 'DRS'
+  character(len=3), parameter :: DelayedBinary = 'DRB'
   character(len=3), parameter :: Sequence = 'SEQ'
   character(len=3), parameter :: FixedRep = 'REP'
   character(len=3), parameter :: Number = 'NUM'
@@ -95,7 +97,9 @@ contains
           query_base_idx = 1
 
           do node_idx = inode(lun), isc(inode(lun))
-            if (typ(node_idx) == DelayedRep .or. typ(node_idx) == FixedRep) then
+            if (typ(node_idx) == DelayedRep .or. &
+                typ(node_idx) == FixedRep .or. &
+                typ(node_idx) == DelayedRepStacked) then
               ! Enter the sequence
 
               call seq_path%push(node_idx + 1)
