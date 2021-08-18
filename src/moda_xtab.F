@@ -5,10 +5,6 @@
 	  USE MODV_NFILES
 #endif
 
-#ifdef DYNAMIC_ALLOCATION
 	  LOGICAL, ALLOCATABLE :: XTAB(:)
-#else
-	  LOGICAL :: XTAB(NFILES)
-#endif
 
 	END MODULE

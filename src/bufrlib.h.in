@@ -18,14 +18,8 @@
 #include <string.h>
 #include <ctype.h>
 
-#ifdef DYNAMIC_ALLOCATION
-#    define NFILES @NFILES_DYNAMIC@ 
-#    define MAXCD @MAXCD_DYNAMIC@
-#else
-#    define NFILES @NFILES_STATIC@
-#    define MAXCD @MAXCD_STATIC@
-#endif
-
+#define NFILES @NFILES@ 
+#define MAXCD @MAXCD@
 #define MAXNC @MAXNC@
 #define MXNAF @MXNAF@
 

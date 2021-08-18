@@ -1,11 +1,11 @@
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
 list(APPEND fortran_src
-  modv_BMISS.f90 modv_IFOPBF.f90 modv_MAXCD.F modv_MAXJL.F modv_MAXMEM.F modv_MAXMSG.F modv_MAXNC.f90
-  modv_MAXSS.F modv_MAXTBA.F modv_MAXTBB.F modv_MAXTBD.F modv_MXBTM.F modv_MXBTMSE.F modv_MXCDV.F
-  modv_MXCNEM.f90 modv_MXCSB.F modv_MXDXTS.F modv_MXH4WLC.f90 modv_MXLCC.F modv_MXMSGL.F modv_MXMTBB.F
-  modv_MXMTBD.F modv_MXMTBF.F modv_MXNAF.f90 modv_MXNRV.F modv_MXRST.F modv_MXS.f90 modv_MXS01V.F
-  modv_MXTAMC.F modv_MXTCO.F modv_NFILES.F
+  modv_BMISS.f90 modv_IFOPBF.f90 modv_MAXCD.f90 modv_MAXJL.f modv_MAXMEM.f modv_MAXMSG.f modv_MAXNC.f90
+  modv_MAXSS.f modv_MAXTBA.f modv_MAXTBB.f modv_MAXTBD.f modv_MXBTM.f modv_MXBTMSE.f modv_MXCDV.f
+  modv_MXCNEM.f90 modv_MXCSB.f modv_MXDXTS.f modv_MXH4WLC.f90 modv_MXLCC.f modv_MXMSGL.f modv_MXMTBB.f
+  modv_MXMTBD.f modv_MXMTBF.f modv_MXNAF.f90 modv_MXNRV.f modv_MXRST.f modv_MXS.f90 modv_MXS01V.f
+  modv_MXTAMC.f modv_MXTCO.f modv_NFILES.f90
   moda_bitbuf.F moda_bitmaps.F moda_bufrmg.F moda_bufrsr.F moda_comprs.F moda_comprx.F moda_dscach.F
   moda_h4wlc.F moda_idrdm.F moda_ival.F moda_ivttmp.F moda_lushr.F moda_mgwa.F moda_mgwb.F moda_msgcwd.F
   moda_msglim.F moda_msgmem.F moda_mstabs.F moda_nmikrp.F moda_nrv203.F moda_nulbfr.F moda_rdmtb.F
@@ -13,7 +13,7 @@ list(APPEND fortran_src
   moda_ufbcpl.F moda_unptyp.F moda_usrbit.F moda_usrint.F moda_usrtmp.F moda_xtab.F
   adn30.f atrcpt.f blocks.f bort.f bort2.f cadn30.f capit.f chekstab.f chrtrna.f cktaba.f closmg.f
   cmpmsg.f cmsgini.f cnved4.f codflg.f conwin.f copybf.f copymg.f copysb.f cpbfdx.f cpdxmm.f cpymem.f
-  cpyupd.f datebf.F datelen.f digit.f drfini.f drstpl.f dumpbf.f dxdump.f dxinit.f dxmini.f elemdx.f
+  cpyupd.f datebf.f datelen.f digit.f drfini.f drstpl.f dumpbf.f dxdump.f dxinit.f dxmini.f elemdx.f
   errwrt.f exitbufr.f fstag.f getabdb.f getbmiss.f getcfmng.f getlens.f getntbe.f gets1loc.f gettagpr.f
   gettagre.f gettbh.f getvalnb.f getwin.f hold4wlc.f i4dy.f ibfms.f icbfms.f ichkstr.f icmpdx.f icopysb.f
   idn30.f idxmsg.f ifbget.f ifxy.f igetdate.f igetfxy.f igetmxby.f igetntbi.f igetntbl.f igetprm.f
@@ -32,7 +32,7 @@ list(APPEND fortran_src
   ufbmem.f ufbmex.f ufbmms.f ufbmns.f ufbovr.f ufbpos.f ufbqcd.f ufbqcp.f ufbrep.f ufbrms.f ufbrp.f
   ufbrw.f ufbseq.f ufbsp.f ufbstp.f ufbtab.f ufbtam.f ufdump.f upb.f upbb.f upc.f upds3.f upftbv.f
   ups.f uptdd.f usrtpl.f valx.f wrcmps.f wrdxtb.f writcp.f writdx.f writlc.f writsa.f writsb.f
-  wrtree.f wtstat.f arallocf.F ardllocf.F closbf.F ireadmt.F irev.F isetprm.F openbf.F pkvs01.F
+  wrtree.f wtstat.f arallocf.f ardllocf.f closbf.f ireadmt.f irev.F isetprm.f openbf.f pkvs01.f
   wrdlen.F fortran_open.f90 fortran_close.f90 bufr_interface.f90)
 
 list(APPEND c_src
@@ -49,20 +49,8 @@ configure_file(${CMAKE_CURRENT_SOURCE_DIR}/bfrini.f90.in ${CMAKE_CURRENT_BINARY_
 list(APPEND fortran_src ${CMAKE_CURRENT_BINARY_DIR}/bvers.f ${CMAKE_CURRENT_BINARY_DIR}/bfrini.f90)
 
 # Create the bufrlib.h file
-set(VAR_REGEX_DYNAMIC "INTEGER ::")
-set(VAR_REGEX_STATIC "PARAMETER ")
-foreach(_var IN ITEMS NFILES MAXCD)
-  foreach(_alloc IN ITEMS DYNAMIC STATIC)
-    file(STRINGS modv_${_var}.F _${_var}_tempstr REGEX ${VAR_REGEX_${_alloc}})
-    if(_${_var}_tempstr MATCHES "${_var} = ([0-9]+)")
-      set(${_var}_${_alloc} ${CMAKE_MATCH_1})
-    else()
-      message(FATAL_ERROR "Unable to parse variable ${_var}_${_alloc} value from file: modv_${_var}.F")
-    endif()
-  endforeach()
-endforeach()
-foreach(_var IN ITEMS MAXNC MXNAF)
-  file(STRINGS modv_${_var}.f90 _${_var}_tempstr REGEX "parameter,")
+foreach(_var IN ITEMS MAXNC MXNAF MAXCD NFILES)
+  file(STRINGS modv_${_var}.f90 _${_var}_tempstr REGEX "integer,")
   if(_${_var}_tempstr MATCHES "${_var} = ([0-9]+)")
     set(${_var} ${CMAKE_MATCH_1})
   else()
@@ -84,23 +72,14 @@ foreach(kind ${kinds})
   set(lib_name ${PROJECT_NAME}_${kind})
   set(module_dir "${CMAKE_CURRENT_BINARY_DIR}/include/bufr_${kind}")
 
-  # determine ALLOCATION based on kind
-  if(${kind} MATCHES "^([4|8|d]_DA)$")
-    set(allocation_def "DYNAMIC_ALLOCATION")
-  else()
-    set(allocation_def "STATIC_ALLOCATION")
-  endif()
-
   add_library(${lib_name}_f OBJECT ${fortran_src})
   set_target_properties(${lib_name}_f PROPERTIES COMPILE_FLAGS
                                                  "${fortran_${kind}_flags}")
-  target_compile_definitions(${lib_name}_f PUBLIC "${allocation_def}")
   target_compile_definitions(${lib_name}_f PRIVATE "${endian_def}")
 
   add_library(${lib_name}_c OBJECT ${c_src})
   set_target_properties(${lib_name}_c PROPERTIES COMPILE_FLAGS
                                                  "${c_${kind}_flags}")
-  target_compile_definitions(${lib_name}_c PUBLIC "${allocation_def}")
   target_compile_definitions(${lib_name}_c PUBLIC "${underscore_def}")
   target_compile_definitions(${lib_name}_c PRIVATE "${c_${kind}_defs}")
 
@@ -118,7 +97,6 @@ foreach(kind ${kinds})
     $<INSTALL_INTERFACE:include/bufr_${kind}>)
 
   target_compile_definitions(${lib_name} PUBLIC "${underscore_def}")
-  target_compile_definitions(${lib_name} PUBLIC "${allocation_def}")
 
   list(APPEND LIB_TARGETS ${lib_name})
   install(DIRECTORY ${module_dir} DESTINATION ${CMAKE_INSTALL_PREFIX}/include)

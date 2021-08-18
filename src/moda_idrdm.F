@@ -5,10 +5,6 @@
 	  USE MODV_NFILES
 #endif
 
-#ifdef DYNAMIC_ALLOCATION
 	  INTEGER, ALLOCATABLE :: IDRDM(:)
-#else
-	  INTEGER :: IDRDM(NFILES)
-#endif
 
 	END MODULE

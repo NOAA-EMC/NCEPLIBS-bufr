@@ -15,24 +15,23 @@ foreach(_src ${_utils_srcs})
   get_filename_component(_name "${_src}" NAME_WE)
   set( _exec "${_name}.x")
   add_executable(${_exec} ${_src})
-  add_dependencies(${_exec} bufr::bufr_4_DA)
-  target_link_libraries(${_exec} PRIVATE bufr::bufr_4_DA)
+  add_dependencies(${_exec} bufr::bufr_4)
+  target_link_libraries(${_exec} PRIVATE bufr::bufr_4)
   list(APPEND _utils_execs ${_exec})
 endforeach()
 
-# the debufr utility uses the "8_DA" (8-byte integer, 8-byte real, dynamic allocation)
-# build of the library
+# the debufr utility uses the "8" (8-byte integer, 8-byte real) build of the library
 set(_exec debufr.x)
 add_executable(${_exec} ${CMAKE_CURRENT_BINARY_DIR}/debufr.c debufr.f)
-add_dependencies(${_exec} bufr::bufr_8_DA)
+add_dependencies(${_exec} bufr::bufr_8)
 set_property(SOURCE ${CMAKE_CURRENT_BINARY_DIR}/debufr.c APPEND_STRING PROPERTY COMPILE_DEFINITIONS
                                                                                 "${underscore_def}"
-                                                                                "${c_8_DA_defs}")
+                                                                                "${c_8_defs}")
 set_property(SOURCE debufr.f APPEND_STRING PROPERTY COMPILE_FLAGS
-                                                    "${fortran_8_DA_flags}")
+                                                    "${fortran_8_flags}")
 target_include_directories(${_exec} PRIVATE "${PROJECT_BINARY_DIR}/src")
 set_property(TARGET ${_exec} PROPERTY LINKER_LANGUAGE C)
-target_link_libraries(${_exec} PRIVATE bufr::bufr_8_DA)
+target_link_libraries(${_exec} PRIVATE bufr::bufr_8)
 list(APPEND _utils_execs ${_exec})
 
 install(TARGETS ${_utils_execs}

@@ -31,14 +31,8 @@ C>        Current BUFR message for each internal I/O stream.
 
 	  INTEGER :: MAXBYT
 	  INTEGER :: IBIT
-#ifdef DYNAMIC_ALLOCATION
 	  INTEGER, ALLOCATABLE :: IBAY(:)
 	  INTEGER, ALLOCATABLE :: MBYT(:)
 	  INTEGER, ALLOCATABLE :: MBAY(:,:)
-#else
-	  INTEGER :: IBAY(MXMSGLD4)
-	  INTEGER :: MBYT(NFILES)
-	  INTEGER :: MBAY(MXMSGLD4,NFILES)
-#endif
 
 	END MODULE

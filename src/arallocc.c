@@ -35,8 +35,6 @@
 void arallocc( void )
 {
 
-#ifdef DYNAMIC_ALLOCATION
-
     char brtstr[50] = "BUFRLIB: ARALLOCC FAILED ALLOCATING ";
 
     f77int nfiles;
@@ -128,7 +126,5 @@ void arallocc( void )
 	strcat( brtstr, "IDEFXY" );
         bort( brtstr, ( f77int ) strlen( brtstr ) );
     }
-
-#endif
 
 }

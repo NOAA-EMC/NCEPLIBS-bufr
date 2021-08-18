@@ -5,6 +5,10 @@
 
 ### Version 11.6.0 - TBD
 
+* All of the library builds now use dynamic allocation, so the "_DA" suffix
+has now been correspondingly removed from the names of the library builds.
+[[Issue #77](https://github.com/NOAA-EMC/NCEPLIBS-bufr/issues/77)]
+
 * The default BUFR master table version number for output BUFR messages was
 changed from 29 to 36 within subroutines cmsgini(), dxmini() and msgini().
 [[Issue #142](https://github.com/NOAA-EMC/NCEPLIBS-bufr/issues/142)]

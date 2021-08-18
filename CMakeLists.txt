@@ -45,7 +45,6 @@ if(APPLE)
 endif()
 
 # Determine the kinds upfront (both src/ and test/ need them).
-list(APPEND kinds "4_DA" "8_DA" "d_DA")
 list(APPEND kinds "4" "8" "d")
 
 # Set common to the package compiler flags
@@ -69,12 +68,8 @@ elseif(CMAKE_Fortran_COMPILER_ID MATCHES "^(GNU)$")
   set(CMAKE_Fortran_FLAGS_RELEASE "-O3")
 endif()
 
-set(fortran_8_DA_flags ${fortran_8_flags})
-set(fortran_d_DA_flags ${fortran_d_flags})
-
 set(underscore_def "UNDERSCORE")
 set(c_8_defs "F77_INTSIZE_8")
-set(c_8_DA_defs ${c_8_defs})
 
 # For gfortran-10+ backward compatibility
 if(${CMAKE_Fortran_COMPILER_ID} MATCHES "^(GNU)$" AND ${CMAKE_Fortran_COMPILER_VERSION} VERSION_GREATER_EQUAL 10)

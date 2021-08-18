@@ -52,7 +52,6 @@ void cpmstabs(  f77int *pnmtb,
 		char (*pcdmnem)[8], f77int *pndelem,
 		f77int *pidefxy, f77int *maxcd )
 {
-#ifdef DYNAMIC_ALLOCATION
 
     f77int ii, jj, idx;
 
@@ -92,7 +91,6 @@ void cpmstabs(  f77int *pnmtb,
 	    MSTABS_BASE(cdseq)[ii][jj] = pcdseq[ii][jj];
 	}
     }
-#endif
 
 }
 

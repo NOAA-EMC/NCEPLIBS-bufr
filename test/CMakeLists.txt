@@ -120,9 +120,9 @@ function(bufr_add_test_preAPX TESTNAME EXENAME)
            COMMAND ${CMAKE_BINARY_DIR}/bin/test_wrapper_OUT.sh ${EXENAME} "Y")
 endfunction()
 
-list(APPEND test_kinds_4 "4_DA" "4")
+list(APPEND test_kinds_4 "4")
 
-list(APPEND test_kinds_8 "8_DA" "8")
+list(APPEND test_kinds_8 "8")
 
 # IN tests
 foreach(test_src ${test_IN_srcs})
@@ -139,8 +139,8 @@ foreach(test_src ${test_IN_srcs})
   endforeach()
 endforeach()
 
-# OUT_1 and OUT_5 tests
-foreach(test_src IN ITEMS ${test_OUT_1_srcs} ${test_OUT_5_srcs})
+# OUT_1, OUT_3, OUT_4, and OUT_5 tests
+foreach(test_src ${test_OUT_1_srcs} ${test_OUT_3_srcs} ${test_OUT_4_srcs} ${test_OUT_5_srcs})
   string(REPLACE ".f" "" testPref ${test_src})
   foreach(kind ${test_kinds_4})
     set(test     ${testPref}_${kind})
@@ -154,7 +154,7 @@ foreach(test_src IN ITEMS ${test_OUT_1_srcs} ${test_OUT_5_srcs})
   endforeach()
 endforeach()
 
-# OUT_2 tests
+# OUT_2 tests; these use the bufr_add_test_preAPX function
 foreach(test_src ${test_OUT_2_srcs})
   string(REPLACE ".f" "" testPref ${test_src})
   foreach(kind ${test_kinds_4})
@@ -169,25 +169,8 @@ foreach(test_src ${test_OUT_2_srcs})
   endforeach()
 endforeach()
 
-# OUT_3 and OUT_4 tests; these are for "DA" (dynamic allocation) builds only
-foreach(test_src IN ITEMS ${test_OUT_3_srcs} ${test_OUT_4_srcs})
-  string(REPLACE ".f" "" testPref ${test_src})
-  foreach(kind ${test_kinds_4})
-    if(${kind} MATCHES "^([4|8|d]_DA)$")
-      set(test     ${testPref}_${kind})
-      set(test_exe ${test}.x)
-      add_executable(${test_exe} ${test_src})
-      set_target_properties(${test_exe} PROPERTIES COMPILE_FLAGS
-                                                   "${fortran_${kind}_flags}")
-      add_dependencies(${test_exe} bufr_${kind})
-      target_link_libraries(${test_exe} PRIVATE bufr::bufr_${kind})
-      bufr_add_test(${test} ${test_exe})
-    endif()
-  endforeach()
-endforeach()
-
 # OUT_6 tests; these are for "8" (8-byte integer, 8-byte real) builds only
-foreach(test_src IN ITEMS ${test_OUT_6_srcs})
+foreach(test_src ${test_OUT_6_srcs})
   string(REPLACE ".f" "" testPref ${test_src})
   foreach(kind ${test_kinds_8})
     set(test     ${testPref}_${kind})
@@ -202,7 +185,7 @@ foreach(test_src IN ITEMS ${test_OUT_6_srcs})
 endforeach()
 
 # c_interface tests
-foreach(test_src IN ITEMS ${test_c_interface_srcs})
+foreach(test_src ${test_c_interface_srcs})
   string(REPLACE ".c" "" testPref ${test_src})
   foreach(kind ${test_kinds_4})
     set(test     ${testPref}_${kind})
