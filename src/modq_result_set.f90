@@ -1,5 +1,3 @@
-
-
 module modq_result_set
   use modq_string
   implicit none
@@ -168,10 +166,10 @@ contains
   end function initialize__result_set
 
 
-  function result_set__get(self, field_name, for) result(data)
+  function result_set__get(self, field_name, group_by) result(data)
     class(ResultSet), intent(in) :: self
     character(len=*), intent(in) :: field_name
-    character(len=*), intent(in), optional :: for
+    character(len=*), intent(in), optional :: group_by
     real(kind=8), allocatable :: data(:, :, :)
 
     block ! Check data type of field
@@ -183,14 +181,14 @@ contains
       end if
     end block ! Check data type of field
 
-    data = self%get_raw_values(field_name, for)
+    data = self%get_raw_values(field_name, group_by)
   end function result_set__get
 
 
-  function result_set__get_as_chars(self, field_name, for) result(char_data)
+  function result_set__get_as_chars(self, field_name, group_by) result(char_data)
     class(ResultSet), intent(in) :: self
     character(len=*), intent(in) :: field_name
-    character(len=*), intent(in), optional :: for
+    character(len=*), intent(in), optional :: group_by
     character(:), allocatable :: char_data(:)
 
     real(kind=8), allocatable :: dat(:, :, :)
@@ -205,7 +203,7 @@ contains
       end if
     end block ! Check data type of field
 
-    dat = self%get_raw_values(field_name, for)
+    dat = self%get_raw_values(field_name, group_by)
     data_shape = shape(dat)
 
     allocate(character(data_shape(2) * 8) :: char_data(data_shape(1)))
@@ -233,10 +231,10 @@ contains
   end function result_set__get_as_chars
 
 
-  function result_set__get_raw_values(self, field_name, for) result(data)
+  function result_set__get_raw_values(self, field_name, group_by) result(data)
     class(ResultSet), intent(in) :: self
     character(len=*), intent(in) :: field_name
-    character(len=*), intent(in), optional :: for
+    character(len=*), intent(in), optional :: group_by
     real(kind=8), allocatable :: data(:, :, :)
 
     
@@ -250,7 +248,7 @@ contains
     block  ! Get Result Fields
       integer :: frame_idx, data_idx, rep_idx, row_idx, col_idx
       integer :: num_rows, num_cols
-      type(DataField), allocatable :: target_field, for_field
+      type(DataField), allocatable :: target_field, group_by_field
 
       integer, allocatable :: rep_counts(:, :)
 
@@ -268,9 +266,9 @@ contains
           total_cols = 1
           total_rows = total_rows + 1
         else
-          if (present(for) .and. for /= "") then
-            for_field = self%data_frames(frame_idx)%field_for_node_named(String(for))
-            rep_counts = self%rep_counts(target_field, for_field)
+          if (present(group_by) .and. group_by /= "") then
+            group_by_field = self%data_frames(frame_idx)%field_for_node_named(String(group_by))
+            rep_counts = self%rep_counts(target_field, group_by_field)
 
             num_rows = sum(rep_counts(2, :))
             num_cols = maxval(rep_counts(1, :))
@@ -280,10 +278,10 @@ contains
             result_fields(frame_idx)%data = MissingValue
 
             ! If there is a single column it means the data is target field
-            ! is shallower than the for field. In this case we need to
-            ! copy the data for the number of for field repeats. The result 
+            ! is shallower than the group_by field. In this case we need to
+            ! copy the data for the number of group_by field repeats. The result 
             ! is that the field_data is a single column whose length is the
-            ! sum of all the for field repeats.
+            ! sum of all the group_by field repeats.
             if (num_cols == 1) then
               do data_idx = 1, sum(rep_counts(2, :))
                 do rep_idx = 1, rep_counts(2, data_idx)
@@ -293,10 +291,10 @@ contains
               end do
 
             ! If there is a single row per target element it means the target 
-            ! field is deeper than the for field. In this case the for field data 
+            ! field is deeper than the group_by field. In this case the group_by field data 
             ! ends up being a 2d array. The number of columns is the number of 
-            ! repeats of the target field associated one of the for field elements.
-            ! The number of rows is consistent with the number of for field elements. 
+            ! repeats of the target field associated one of the group_by field elements.
+            ! The number of rows is consistent with the number of group_by field elements. 
             else if (all(rep_counts(2, :) == 1)) then
               do row_idx = 1, num_rows
                 result_fields(frame_idx)%data(row_idx, 1:rep_counts(1, row_idx)) = &
@@ -315,7 +313,7 @@ contains
         end if
 
         if (allocated(target_field)) deallocate(target_field)
-        if (allocated(for_field)) deallocate(for_field)
+        if (allocated(group_by_field)) deallocate(group_by_field)
       end do
     end block  ! Get Result Fields
 
@@ -330,7 +328,8 @@ contains
       data_row_idx = 1
       do field_idx = 1, size(result_fields)
         data_shape = shape(result_fields(field_idx)%data)
-        data(data_row_idx:data_row_idx + data_shape(1) - 1, 1:data_shape(2), 1) = result_fields(field_idx)%data
+        data(data_row_idx:data_row_idx + data_shape(1) - 1, 1:data_shape(2), 1) = &
+          result_fields(field_idx)%data
         data_row_idx = data_row_idx + data_shape(1)
       end do
 
@@ -352,25 +351,25 @@ contains
   end function result_set__is_string
 
 
-  ! @brief Compute the total number of elements that exist in the target field for a "for" field.
+  ! @brief Compute the total number of elements that exist in the target field for a group_by field.
   !        Example 1:
   !          Lets say we have a field with the following sequence counts:
-  !            root:                 1
-  !            seq_1 (for field):    3
-  !            seq_2:                1, 2, 1
-  !            seq_3 (target field): 2, 2, 1, 2
+  !            root:                   1
+  !            seq_1 (group_by field): 3
+  !            seq_2:                  1, 2, 1
+  !            seq_3 (target field):   2, 2, 1, 2
   !
-  !          In this case the target field is deeper than the for field. So we want to group the
-  !          target field by the for field that the target corresponds to. The total number of 
-  !          target values is 7 (sum of target field counts), while there are 3 for field values. 
-  !          The sequence count table indicates that for the first for field value there are 2
-  !          target field values (1 -> 3 -> 1 -> 2). The second for field value corresponds the next 
-  !          3 target field values (1 -> 3 -> 2 -> (2, 1)). The third for field value corresponds to 
-  !          the last 2 target field value, and so on (1 -> 3 -> 1 -> 2).
+  !          In this case the target field is deeper than the group_by field. So we want to group 
+  !          the target field by the group_by field that the target corresponds to. The total number
+  !          of target values is 7 (sum of target field counts), while there are 3 group_by field 
+  !          values. The sequence count table indicates that for the first group_by field value 
+  !          there are 2 target field values (1 -> 3 -> 1 -> 2). The second group_by field value 
+  !          corresponds the next 3 target field values (1 -> 3 -> 2 -> (2, 1)). The third group_by 
+  !          field value corresponds to the last 2 target field value, and so on (1 -> 3 -> 1 -> 2).
   !
   !          Writing the result in table form we can represent the result as follows:
   !
-  !                                 Target Counts | For Counts
+  !                                 Target Counts | Group_by Counts
   !                                 ---------------------------
   !                                             2 | 1
   !                                             3 | 1
@@ -378,22 +377,22 @@ contains
   !            
   !        Example 2:
   !          Lets say we have a field with the following sequence counts:
-  !            root:                 1
-  !            seq_1 (target field): 3
-  !            seq_2:                1, 2, 1
-  !            seq_3 (for field):    2, 2, 1, 2
+  !            root:                   1
+  !            seq_1 (target field):   3
+  !            seq_2:                  1, 2, 1
+  !            seq_3 (group_by field): 2, 2, 1, 2
   !          
-  !          In this case the target field is shallower than the for field. Basically what this
+  !          In this case the target field is shallower than the group_by field. Basically what this
   !          means is that each field in the target field will be repeated by the number of times
-  !          indicated by the for field. So in the example above there are a total number of 3
-  !          target field values (sum of target_field counts). The number of counts in the for field
-  !          corresponding to the first target value is 2, corresponding to the first for field
-  !          count. The number of counts of the second target value is 2, corresponding to the
-  !          second for field count, and so on.
+  !          indicated by the group_by field. So in the example above there are a total number of 3
+  !          target field values (sum of target_field counts). The number of counts in the group_by 
+  !          field corresponding to the first target value is 2, corresponding to the first group_by
+  !          field count. The number of counts of the second target value is 2, corresponding to the
+  !          second group_by field count, and so on.
   !
   !          Writing the result in table form we can represent the result as follows:
   !
-  !                                 Target Counts | For Counts
+  !                                 Target Counts | Group_by Counts
   !                                 ---------------------------
   !                                             1 | 2
   !                                             1 | 3
@@ -401,35 +400,35 @@ contains
   !
   ! @param[in] self - class(ResultSet) : the class instance.
   ! @param[in] target_field - type(DataField) : the target
-  ! @param[in] for_field - type(DataField) : the "for" field
-  ! @return counts - integer(2, :) : The relative counts between the target and for fields (see 
+  ! @param[in] group_by_field - type(DataField) : the group_by field
+  ! @return counts - integer(2, :) : The relative counts between the target and group_by fields (see 
   !                                  brief).
   !
-  function result_set__rep_counts(self, target_field, for_field) result(counts)
+  function result_set__rep_counts(self, target_field, group_by_field) result(counts)
     class(ResultSet), intent(in) :: self
     type(DataField), intent(in) :: target_field
-    type(DataField), intent(in) :: for_field
+    type(DataField), intent(in) :: group_by_field
 
     integer, allocatable :: counts(:, :)
     integer :: seq_idx, rep_idx
     integer :: target_count
     integer :: count
 
-    do seq_idx = 1, min(size(target_field%seq_path), size(for_field%seq_path))
-      if (target_field%seq_path(seq_idx) /= for_field%seq_path(seq_idx)) then
-        call bort("The target field " // target_field%name%chars() // " and the for field " &
-                  // for_field%name%chars() // " don't occur along the same path.")
+    do seq_idx = 1, min(size(target_field%seq_path), size(group_by_field%seq_path))
+      if (target_field%seq_path(seq_idx) /= group_by_field%seq_path(seq_idx)) then
+        call bort("The target field " // target_field%name%chars() // " and the group_by field " &
+                  // group_by_field%name%chars() // " don't occur along the same path.")
       end if
     end do
 
-    ! The target is deeper than the for field
-    if (size(target_field%seq_path) > size(for_field%seq_path)) then
-      target_count =  sum(for_field%seq_counts(size(for_field%seq_counts))%counts)
+    ! The target is deeper than the group_by field
+    if (size(target_field%seq_path) > size(group_by_field%seq_path)) then
+      target_count =  sum(group_by_field%seq_counts(size(group_by_field%seq_counts))%counts)
       allocate(counts(2, target_count))
 
       do rep_idx = 1, target_count
         count = self%get_counts(target_field, &
-                                size(for_field%seq_counts) + 1, &
+                                size(group_by_field%seq_counts) + 1, &
                                 1, &
                                 rep_idx - 1)
 
@@ -437,20 +436,20 @@ contains
         counts(2, rep_idx) = 1
       end do
 
-    ! The target is at the same level as the for field
-    else if (size(target_field%seq_path) == size(for_field%seq_path)) then
+    ! The target is at the same level as the group_by field
+    else if (size(target_field%seq_path) == size(group_by_field%seq_path)) then
       target_count =  sum(target_field%seq_counts(size(target_field%seq_counts))%counts)
       allocate(counts(2, target_count))
 
       counts = 1
 
-    ! The target is shallower than the for field
+    ! The target is shallower than the group_by field
     else
       target_count =  sum(target_field%seq_counts(size(target_field%seq_counts))%counts)
       allocate(counts(2, target_count))
 
       do rep_idx = 1, target_count
-        count = self%get_counts(for_field, &
+        count = self%get_counts(group_by_field, &
                                 size(target_field%seq_counts) + 1, &
                                 1, &
                                 rep_idx - 1)

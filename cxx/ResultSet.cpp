@@ -29,7 +29,7 @@ namespace bufr
     }
 
     std::shared_ptr<ResultBase> ResultSet::get(const std::string& field_name,
-                                               const std::string& for_field) const
+                                               const std::string& group_by_field) const
     {
         double* data_ptr = nullptr;
         std::size_t dimRows = 0;
@@ -37,7 +37,7 @@ namespace bufr
         std::size_t dimZ = 0;
         result_set__get_raw_f(class_data_ptr_,
                               field_name.c_str(),
-                              for_field.c_str(),
+                              group_by_field.c_str(),
                               &data_ptr,
                               &dimRows,
                               &dimCols,

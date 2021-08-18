@@ -228,7 +228,7 @@ module test_query_root
         call query_set%add("*/YOB", "latitude")
         call query_set%add("*/PRSLEVEL/CAT", "data_level_category")
         result_set = execute(FileUnit, query_set)
-        query_interface_data = result_set%get("latitude", for="data_level_category")
+        query_interface_data = result_set%get("latitude", group_by="data_level_category")
       end block  ! Query Interface
 
       !      print *, "Old", old_interface_data

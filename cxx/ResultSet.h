@@ -40,7 +40,8 @@ namespace bufr
         ResultSet();
         ~ResultSet();
 
-        std::shared_ptr<ResultBase> get(const std::string& field_name, const std::string& for_field = "") const;
+        std::shared_ptr<ResultBase> get(const std::string& field_name, 
+                                        const std::string& group_by_field = "") const;
 
      protected:
         Address get_v_ptr() override;
