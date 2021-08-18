@@ -65,7 +65,7 @@ contains
     integer :: msg_num = 0
 
     integer :: lun, il, im
-    integer :: node_idx, base_idx
+    integer :: node_idx, base_idx, path_idx, rewind_idx
     integer :: table_cursor
     type(String), allocatable :: tmp_strs(:)
     type(String), allocatable :: current_path(:)
@@ -97,9 +97,11 @@ contains
           query_base_idx = 1
 
           do node_idx = inode(lun), isc(inode(lun))
+            print *, tag(node_idx), " ", typ(node_idx), " ", tag(jmpb(node_idx))
             if (typ(node_idx) == DelayedRep .or. &
                 typ(node_idx) == FixedRep .or. &
-                typ(node_idx) == DelayedRepStacked) then
+                typ(node_idx) == DelayedRepStacked .or. &
+                typ(node_idx) == DelayedBinary) then
               ! Enter the sequence
 
               call seq_path%push(node_idx + 1)
@@ -122,22 +124,38 @@ contains
 
               ! Neccessary cause Fortran handles .and. in if statements in a strange way
               if (seq_path%length() > 1) then
-                if (seq_path%at(seq_path%length() - 1) == jmpb(node_idx + 1)) then
-                  ! Exit the sequence
-                  call seq_path%pop()
-                  current_path(table_cursor) = String("")
-                  table_cursor = table_cursor - 1
-                end if
+                ! Peak ahead to see if the next node is inside one of the containing sequences
+                ! then go back up the approptiate number of sequences. Sequences might end in sequences.
+                do path_idx = seq_path%length() - 1, 1, -1
+                  if (seq_path%at(path_idx) == jmpb(node_idx + 1)) then
+                    do rewind_idx = 1, seq_path%length() - path_idx
+                      ! Exit the sequence
+                      call seq_path%pop()
+
+                      current_path(table_cursor) = String("")
+                      table_cursor = table_cursor - 1
+                    end do
+                    exit
+                  end if
+                end do
               end if
 
             else if (seq_path%length() > 1) then
-              if (seq_path%at(seq_path%length() - 1) == jmpb(node_idx + 1)) then
-                ! Exit the sequence
-                call seq_path%pop()
+              ! Peak ahead to see if the next node is inside one of the containing sequences
+              ! then go back up the approptiate number of sequences. Sequences might end in sequences.
+              do path_idx = seq_path%length() - 1, 1, -1
+                if (seq_path%at(path_idx) == jmpb(node_idx + 1)) then
 
-                current_path(table_cursor) = String("")
-                table_cursor = table_cursor - 1
-              end if
+                  do rewind_idx = 1, seq_path%length() - path_idx
+                    ! Exit the sequence
+                    call seq_path%pop()
+
+                    current_path(table_cursor) = String("")
+                    table_cursor = table_cursor - 1
+                  end do
+                  exit
+                end if
+              end do
             end if
           end do
 
