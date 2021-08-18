@@ -72,4 +72,4 @@ jobs:
     - name: test
       run: |
         cd $GITHUB_WORKSPACE/bufr/build
-        ctest
+        ctest --output-on-failure

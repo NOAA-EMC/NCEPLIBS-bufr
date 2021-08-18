@@ -40,7 +40,7 @@ jobs:
     - name: test
       run: |
         cd $GITHUB_WORKSPACE/bufr/build
-        ctest
+        ctest --output-on-failure
         gcovr -r .. --html-details -o test-coverage.html
 
     - uses: actions/upload-artifact@v2
