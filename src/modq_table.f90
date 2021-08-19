@@ -97,7 +97,6 @@ contains
           query_base_idx = 1
 
           do node_idx = inode(lun), isc(inode(lun))
-            print *, tag(node_idx), " ", typ(node_idx), " ", tag(jmpb(node_idx))
             if (typ(node_idx) == DelayedRep .or. &
                 typ(node_idx) == FixedRep .or. &
                 typ(node_idx) == DelayedRepStacked .or. &
