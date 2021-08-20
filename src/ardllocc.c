@@ -21,8 +21,6 @@
 void ardllocc( void )
 {
 
-#ifdef DYNAMIC_ALLOCATION
-
 /*
 **  cread arrays
 */
@@ -46,8 +44,6 @@ void ardllocc( void )
     free( MSTABS_BASE(cdmnem) );
     free( MSTABS_BASE(ndelem) );
     free( MSTABS_BASE(idefxy) );
-
-#endif
 
 }
 

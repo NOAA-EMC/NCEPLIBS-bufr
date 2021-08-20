@@ -73,14 +73,10 @@ void stseq( f77int *lun, f77int *irepct, f77int *idn, char nemo[8],
 
 /*
 **  The following variable is declared as automatic so that a local
-**  private copy is created (and, if necessary, dynamically allocated)
-**  during each recursive call to this subroutine.
+**  private copy is created and dynamically allocated during each
+**  recursive call to this subroutine.
 */
-#ifdef DYNAMIC_ALLOCATION
     f77int *rpdesc;
-#else
-    f77int rpdesc[MAXCD];
-#endif
 
 /*
 **  The following variables are declared as static so that they
@@ -363,13 +359,12 @@ void stseq( f77int *lun, f77int *irepct, f77int *idn, char nemo[8],
 **		mnemonic and description as well.
 */
 
-#ifdef DYNAMIC_ALLOCATION
 		if ( ( rpdesc = malloc( imxcd * sizeof(f77int) ) ) == NULL ) {
 		    sprintf( errstr, "BUFRLIB: STSEQ - UNABLE TO ALLOCATE SPACE"
 			    " FOR RPDESC" );
 		    bort( errstr, ( f77int ) strlen( errstr ) );
 		}
-#endif
+
 		for ( j = 0; j < ix; j++ ) {
 		    rpdesc[j] = cdesc[i+j];
 		}
@@ -383,9 +378,8 @@ void stseq( f77int *lun, f77int *irepct, f77int *idn, char nemo[8],
 
 		stseq( lun, irepct, &rpidn, nemo2, rpseq, rpdesc, &ix );
 
-#ifdef DYNAMIC_ALLOCATION
 		free( rpdesc );
-#endif
+
 		pkint = rpidn;
 		i += ix - 1; 
 	    }

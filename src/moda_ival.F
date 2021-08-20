@@ -5,10 +5,6 @@
 	  USE MODV_MAXSS
 #endif
 
-#ifdef DYNAMIC_ALLOCATION
 	  INTEGER, ALLOCATABLE :: IVAL(:)
-#else
-	  INTEGER IVAL(MAXSS)
-#endif
 
 	END MODULE

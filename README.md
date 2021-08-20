@@ -46,10 +46,7 @@ type/size combinations:
 - "8" = 8-byte integers and 8-byte reals
 - "d" = 4-byte integers and 8-byte reals
 
-In addition, each of the above combinations can be built with internally
-static or internally dynamic array allocation. The builds of the library
-which support dynamic array allocation have a "_DA" suffix.
-All type/size combinations and allocation variations are built and installed.
+All type/size combinations are built and installed.
 
 ## Disclaimer
 

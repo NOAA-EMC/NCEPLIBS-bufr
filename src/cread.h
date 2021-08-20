@@ -43,19 +43,10 @@ void cwrbufr( f77int *, f77int *, f77int * );
  *  Byte positions of last successful reads from files corresponding to pb,
  *  for files that were opened for reading
  */
-#ifdef DYNAMIC_ALLOCATION
-
-#   ifdef IN_ARALLOCC
-	FILE **pb;
-	fpos_t *lstpos;
-#   else
-	extern FILE **pb;
-	extern fpos_t *lstpos;
-#   endif
-
+#ifdef IN_ARALLOCC
+    FILE **pb;
+    fpos_t *lstpos;
 #else
-
-    FILE *pb[NFILES+1];
-    fpos_t lstpos[NFILES+1];
-
+    extern FILE **pb;
+    extern fpos_t *lstpos;
 #endif

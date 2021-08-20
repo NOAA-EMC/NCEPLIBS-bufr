@@ -5,10 +5,6 @@
 	  USE MODV_NFILES
 #endif
 
-#ifdef DYNAMIC_ALLOCATION
 	  INTEGER, ALLOCATABLE :: LUS(:)
-#else
-	  INTEGER :: LUS(NFILES)
-#endif
 
 	END MODULE

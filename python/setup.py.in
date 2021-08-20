@@ -12,9 +12,9 @@ attdict = dict(sources=[],
                extra_objects=[])
 
 add_attribute(sources="@CMAKE_CURRENT_SOURCE_DIR@/_bufrlib.pyf")
-add_attribute(include_dirs="@CMAKE_BINARY_DIR@/src/include_4_DA")
+add_attribute(include_dirs="@CMAKE_BINARY_DIR@/src/include_4")
 add_attribute(library_dirs="@CMAKE_BINARY_DIR@/src")
-add_attribute(libraries="bufr_4_DA")
+add_attribute(libraries="bufr_4")
 
 setup(name       = "py-ncepbufr",
     version      = "@PROJECT_VERSION@",
