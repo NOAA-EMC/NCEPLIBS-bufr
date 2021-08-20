@@ -1,67 +1,52 @@
 /** @file
-    @author ATOR @date 2009-03-23
-*/
-
+ *  @brief Store information about a standard Table D descriptor
+ *  within internal DX BUFR tables.
+ */
 
 #include "bufrlib.h"
 #include "mstabs.h"
 
 /**
-C
-C SUBPROGRAM:   STSEQ 
-C   PRGMMR: ATOR             ORG: NP12       DATE: 2009-03-23
-C
-C ABSTRACT:  USING THE BUFR MASTER TABLES, THIS ROUTINE STORES ALL
-C   OF THE INFORMATION FOR SEQUENCE IDN WITHIN THE INTERNAL BUFR
-C   TABLES B AND D.  ANY DESCRIPTORS IN IDN WHICH ARE THEMSELVES
-C   SEQUENCES ARE IMMEDIATELY RESOLVED VIA A RECURSIVE CALL TO THIS
-C   SAME ROUTINE.
-C
-C PROGRAM HISTORY LOG:
-C 2009-03-23  J. ATOR    -- ORIGINAL AUTHOR
-C 2010-03-19  J. ATOR    -- ADDED PROCESSING FOR 2-04 ASSOCIATED FIELDS
-C 2010-04-05  J. ATOR    -- ADDED PROCESSING FOR 2-2X, 2-3X AND 2-4X
-C                           NON-MARKER OPERATORS
-C 2015-03-04  J. ATOR    -- HANDLE SPECIAL CASE WHEN ASSOCIATED FIELDS
-C                           ARE IN EFFECT FOR A TABLE D DESCRIPTOR
-C 2021-05-17  J. Ator    -- Allow up to 24 characters in cbunit
-C
-C USAGE:    CALL STSEQ( LUN, IREPCT, IDN, NEMO, CSEQ, CDESC, NCDESC )
-C   INPUT ARGUMENT LIST:
-C     LUN      - INTEGER: I/O STREAM INDEX INTO INTERNAL MEMORY ARRAYS
-C     IREPCT   - INTEGER: REPLICATION SEQUENCE COUNTER FOR THE CURRENT
-C                MASTER TABLE; USED INTERNALLY TO KEEP TRACK OF WHICH
-C                SEQUENCE NAMES HAVE ALREADY BEEN DEFINED AND THEREBY
-C                AVOID CONTENTION WITHIN THE INTERNAL BUFR TABLE D
-C     IDN      - INTEGER: BIT-WISE REPRESENTATION OF FXY VALUE FOR
-C                SEQUENCE TO BE STORED
-C     NEMO     - CHARACTER*8: MNEMONIC CORRESPONDING TO IDN
-C     CSEQ     - CHARACTER*55: DESCRIPTION CORRESPONDING TO IDN
-C     CDESC    - INTEGER: ARRAY OF BIT-WISE REPRESENTATIONS OF FXY
-C                VALUES CORRESPONDING TO DESCRIPTORS WHICH CONSTITUTE
-C                THE IDN SEQUENCE
-C     NCDESC   - INTEGER: NUMBER OF VALUES IN CDESC
-C
-C   OUTPUT ARGUMENT LIST:
-C     IREPCT   - INTEGER: REPLICATION SEQUENCE COUNTER FOR THE CURRENT
-C                MASTER TABLE; USED INTERNALLY TO KEEP TRACK OF WHICH
-C                SEQUENCE NAMES HAVE ALREADY BEEN DEFINED AND THEREBY
-C                AVOID CONTENTION WITHIN THE INTERNAL BUFR TABLE D
-C
-C REMARKS:
-C    THIS ROUTINE CALLS:        BORT     CADN30   ELEMDX   ICVIDX
-C                               IFXY     IGETNTBI IGETPRM  IGETTDI
-C                               IMRKOPR  NEMTAB   NUMMTB   NUMTBD
-C                               PKTDD    STNTBI   STRNUM   STSEQ
-C    THIS ROUTINE IS CALLED BY: READS3   STSEQ
-C                               Normally not called by any application
-C                               programs.
-C
-C ATTRIBUTES:
-C   LANGUAGE: C
-C   MACHINE:  PORTABLE TO ALL PLATFORMS
-C
-C$$$*/
+ * Given the bit-wise (integer) representation of a WMO-standard
+ * Table D descriptor, this subroutine uses the master BUFR tables
+ * to store all of the necessary information for that descriptor
+ * within the internal DX BUFR tables.  Any child descriptors which
+ * are themselves Table D descriptors are automatically resolved via
+ * a recursive call to this same subroutine.
+ *
+ * @author J. Ator
+ * @date 2009-03-23
+ *
+ * @param[in] lun - f77int*: Internal Fortran I/O stream index
+ *                   associated with BUFR file
+ * @param[in,out] irepct - f77int*: Replication sequence counter for
+ *                         the current master table; used internally
+ *                         to keep track of which sequence names have
+ *                         already been defined, and thereby avoid
+ *                         contention within the internal DX BUFR
+ *                         Table D
+ * @param[in] idn - f77int*: Bit-wise representation of FXY value for
+ *                  WMO-standard Table D descriptor
+ * @param[in] nemo - char[8]: Mnemonic corresponding to idn
+ * @param[in] cseq - char[55]: Description corresponding to idn
+ * @param[in] cdesc - f77int*: Array of WMO-standard child descriptors
+ *                    equivalent to idn
+ * @param[in] ncdesc - f77int*: Number of WMO-standard child descriptors
+ *                     in cdesc
+ *
+ * <b>Program history log:</b>
+ * - 2009-03-23  J. Ator    -- Original author
+ * - 2010-03-19  J. Ator    -- Added processing for 2-04 associated fields
+ * - 2010-04-05  J. Ator    -- Added processing for 2-2X, 2-3X and 2-4X
+ *                             non-marker operators
+ * - 2015-03-04  J. Ator    -- Handle special case when associated fields
+ *                             are in effect for a Table D descriptor
+ * - 2021-05-17  J. Ator    -- Allow up to 24 characters in cbunit
+ * - 2021-08-18  J. Ator    -- Use strcpy instead of strncpy and then
+ *                             overwrite trailing null, in order to
+ *                             silence superfluous GNU compiler warnings
+*/
+
 void stseq( f77int *lun, f77int *irepct, f77int *idn, char nemo[8],
 	    char cseq[55], f77int cdesc[], f77int *ncdesc )
 {
@@ -245,7 +230,8 @@ void stseq( f77int *lun, f77int *irepct, f77int *idn, char nemo[8],
 		    strncpy( &card[16], "0", 1 );
 		    strncpy( &card[30], "0", 1 );
 		    sprintf( &card[33], "%4lu", ( unsigned long ) nbits );
-		    strncpy( &card[40], units, strlen( units ) );
+		    strcpy( &card[40], units );
+		    card[40+strlen(units)] = cblk;  /* overwrite trailing null */
 		    elemdx( card, lun, sizeof( card ) );
 		  }
 		  if ( ix == 4 )  {

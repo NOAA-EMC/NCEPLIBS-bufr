@@ -1,57 +1,44 @@
 /** @file
-    @author ATOR @date 2004-08-18
+ *  @brief Standardize a local Table D descriptor.
 */
-
 
 #include "bufrlib.h"
 
 /**
-C
-C SUBPROGRAM:    RESTD
-C   PRGMMR: ATOR             ORG: NP12       DATE: 2004-08-18
-C
-C ABSTRACT:  GIVEN THE BIT-WISE REPRESENTATION OF A LOCAL
-C   (I.E. NON-STANDARD) TABLE D DESCRIPTOR, THIS ROUTINE RETURNS
-C   AN EQUIVALENT LIST OF STANDARDIZED CHILD DESCRIPTORS.  ANY CHILD
-C   DESCRIPTORS WHICH ARE THEMSELVES LOCAL TABLE D DESCRIPTORS ARE
-C   AUTOMATICALLY RESOLVED VIA A RECURSIVE CALL TO THIS SAME ROUTINE.
-C   THE RECURSIVE PROCESS CONTINUES UNTIL ALL CHILD DESCRIPTORS ARE
-C   EITHER WMO-STANDARD DESCRIPTORS (I.E. FROM TABLE B, TABLE C, OR
-C   TABLE D, OR REPLICATION DESCRIPTORS) OR ELSE ARE LOCAL TABLE B
-C   DESCRIPTORS, IN WHICH CASE THEY ARE PRECEDED WITH AN APPROPRIATE
-C   206YYY TABLE C OPERATOR IN THE OUTPUT LIST.  IN ANY EVENT, THE
-C   FINAL OUTPUT LIST OF EQUIVALENT CHILD DESCRIPTORS IS USABLE BY
-C   ANY STANDARD BUFR DECODER PROGRAM IN ORDER TO INTERPRET THE SAME
-C   DATA VALUES AS WERE REPRESENTED BY THE INITIAL LOCAL TABLE D
-C   DESCRIPTOR THAT WAS INPUT.
-C
-C PROGRAM HISTORY LOG:
-C 2004-08-18  J. ATOR    -- ORIGINAL AUTHOR
-C 2012-04-30  J. ATOR    -- USE LONG CAST FOR IBIT IN SPRINTF STMT
-C
-C USAGE:    CALL RESTD( LUN, TDDESC, NCTDDESC, CTDDESC )
-C   INPUT ARGUMENT LIST:
-C     LUN      - INTEGER: I/O STREAM INDEX INTO INTERNAL MEMORY ARRAYS
-C     TDDESC   - INTEGER: BIT-WISE REPRESENTATION OF FXY VALUE FOR
-C		 LOCAL TABLE D DESCRIPTOR
-C
-C   OUTPUT ARGUMENT LIST:
-C     NCTDDESC - INTEGER: NUMBER OF STANDARDIZED CHILD DESCRIPTORS
-C		 RETURNED IN CTDDESC
-C     CTDDESC  - INTEGER: ARRAY OF STANDARDIZED CHILD DESCRIPTORS
-C
-C REMARKS:
-C    THIS ROUTINE CALLS:        RESTD    NUMTBD   NEMTBB   IFXY
-C				CADN30   ISTDESC  WRDESC   UPTDD
-C    THIS ROUTINE IS CALLED BY: RESTD    STNDRD 
-C                               Normally not called by application
-C                               programs but it could be.
-C
-C ATTRIBUTES:
-C   LANGUAGE: C
-C   MACHINE:  PORTABLE TO ALL PLATFORMS
-C
-C$$$*/
+ * Given the bit-wise (integer) representation of a local (not
+ * WMO-standard) Table D descriptor, this subroutine returns an
+ * equivalent array of WMO-standard child descriptors.
+ *
+ * <p>Any child descriptors which are themselves local Table D
+ * descriptors are automatically resolved via a recursive call to
+ * this same subroutine.  This recursive process continues until all
+ * child descriptors are either WMO-standard descriptors (from Table B,
+ * Table C, Table D, or replication descriptors) or else are local
+ * Table B descriptors, in which case they are preceded with an
+ * appropriate 2-06-YYY Table C operator in the output array.
+ * The output array is then useable by any standard BUFR decoder program
+ * in order to interpret the same data values as were represented by
+ * the input local Table D descriptor.
+ *
+ * @author J. Ator
+ * @date 2004-08-18
+ *
+ * @param[in] lun - f77int*: Internal Fortran I/O stream index
+ *                  associated with BUFR file
+ * @param[in] tddesc - f77int*: Bit-wise representation of FXY value
+ *                     for local Table D descriptor
+ * @param[out] nctddesc - f77int*: Number of WMO-standard child
+ *                        descriptors returned in ctddesc
+ * @param[out] ctddesc - f77int*: Array of WMO-standard child
+ *                       descriptors equivalent to tddesc
+ *
+ * <b>Program history log:</b>
+ * - 2004-08-18  J. Ator    -- Original author
+ * - 2012-04-30  J. Ator    -- Use long cast for ibit in sprintf stmt
+ * - 2021-08-18  J. Ator    -- Use cwork to silence superfluous GNU
+ *                             compiler warnings
+*/
+
 void restd( f77int *lun, f77int *tddesc, f77int *nctddesc, f77int ctddesc[] )
 {
     f77int i0 = 0;
@@ -60,7 +47,7 @@ void restd( f77int *lun, f77int *tddesc, f77int *nctddesc, f77int ctddesc[] )
     f77int i, j, inum, itbd, ictbd;
     f77int iscl, iref, ibit;
 
-    char tab, nemo[9], adn[7], cunit[25];
+    char tab, nemo[9], adn[7], cunit[25], cwork[31];
 
 /*
 **  How many child descriptors does *tddesc have?
@@ -95,8 +82,9 @@ void restd( f77int *lun, f77int *tddesc, f77int *nctddesc, f77int ctddesc[] )
 **		    the replication descriptor ctddesc[(*nctddesc)-1]
 */
 		    cadn30( &ctddesc[(*nctddesc)-1], adn, 7 );
-		    sprintf( adn, "%c%02ld%c%c%c",
+		    sprintf( cwork, "%c%02ld%c%c%c",
 			     adn[0], (long) ncdesc, adn[3], adn[4], adn[5] );
+		    strncpy( adn, cwork, 6 ); adn[6] = '\0';
 		    ctddesc[(*nctddesc)-1] = ifxy( adn, 7 );
 		}
 		else if ( ( *nctddesc > 1 ) &&
@@ -107,8 +95,9 @@ void restd( f77int *lun, f77int *tddesc, f77int *nctddesc, f77int ctddesc[] )
 **		    the replication descriptor ctddesc[(*nctddesc)-2]
 */
 		    cadn30( &ctddesc[(*nctddesc)-2], adn, 7 );
-		    sprintf( adn, "%c%02ld%c%c%c",
+		    sprintf( cwork, "%c%02ld%c%c%c",
 			     adn[0], (long) ncdesc, adn[3], adn[4], adn[5] );
+		    strncpy( adn, cwork, 6 ); adn[6] = '\0';
 		    ctddesc[(*nctddesc)-2] = ifxy( adn, 7 );
 		}
 /*
@@ -125,7 +114,8 @@ void restd( f77int *lun, f77int *tddesc, f77int *nctddesc, f77int ctddesc[] )
 **		a 206YYY operator in the output list.
 */ 
 		nemtbb( lun, &ictbd, cunit, &iscl, &iref, &ibit, 25 );
-		sprintf( adn, "%c%c%c%03ld", '2', '0', '6', (long) ibit );
+		sprintf( cwork, "%c%c%c%03ld", '2', '0', '6', (long) ibit );
+		strncpy( adn, cwork, 6 ); adn[6] = '\0';
 		wrdesc( ifxy( adn, 7 ), ctddesc, nctddesc );
 	        wrdesc( desc, ctddesc, nctddesc );
 	    }
