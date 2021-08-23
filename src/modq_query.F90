@@ -419,6 +419,7 @@ contains
       data_field%query_str = String(targ%query_str)
       data_field%is_string = targ%is_string
       data_field%data = dat
+      if (size(dat) == 0) data_field%missing = .true.
 
       if (allocated(data_field%seq_path)) then
         deallocate(data_field%seq_path)
