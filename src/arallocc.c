@@ -8,11 +8,10 @@
 #include "mstabs.h"
 
 /**
- * For dynamic allocation builds of the library, this subroutine is
- * called internally during the first call to subroutine openbf() from
- * an application program, in order to dynamically allocate internal
- * C language arrays based on parameter values set during one or more
- * previous calls to function isetprm().
+ * This subroutine is called internally during the first call to
+ * subroutine openbf() from an application program, in order to
+ * dynamically allocate internal C language arrays based on parameter
+ * values set during one or more previous calls to function isetprm().
  *
  * <p>This subroutine isn't normally called directly from an application
  * program, since it's automatically called internally during the first

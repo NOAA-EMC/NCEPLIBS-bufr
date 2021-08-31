@@ -3,12 +3,9 @@
 
 !> This module declares and initializes the NFILES variable.
 !>
-!> <p>For dynamic allocation builds, this variable is initialized
-!> to a default value which can be overridden by a subsequent call
-!> to function isetprm() within the application program.
-!> For static allocation builds, this variable is set as a
-!> parameter at compile time and cannot be changed within the
-!> application program.
+!> <p>This variable is initialized to a default value which
+!> can be overridden by a subsequent call to function isetprm()
+!> within the application program.
 !>
 !> @author J. Ator
 !> @date 2014-12-10

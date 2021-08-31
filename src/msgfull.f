@@ -1,27 +1,24 @@
 C> @file
-C> @author J @date 2009-03-23
-      
-C> THIS LOGICAL FUNCTION DETERMINES WHETHER THE CURRENT SUBSET
-C>   (OF LENGTH ITOADD BYTES) WILL FIT WITHIN THE CURRENT BUFR MESSAGE.
-C>   A FINITE AMOUNT OF "WIGGLE ROOM" IS ALLOWED FOR AS SHOWN BELOW.
+C> @brief Check whether a data subset will fit within a BUFR message
+
+C> This function determines whether the current data subset in the
+C> internal arrays will fit within the current BUFR message in the
+C> internal arrays, based on the prescribed maximum size of a BUFR
+C> message and the allowance of some extra "wiggle room" that may
+C> be needed later when writing out the message.
 C>
-C> PROGRAM HISTORY LOG:
-C> 2009-03-23  J. ATOR    -- ORIGINAL AUTHOR
+C> @author J. Ator
+C> @date 2009-03-23
 C>
-C> USAGE:    MSGFULL (MSIZ,ITOADD,MXSIZ)
-C>   INPUT ARGUMENT LIST:
-C>     MSIZ     - INTEGER: SIZE OF CURRENT MESSAGE (IN BYTES)
-C>     ITOADD   - INTEGER: SIZE OF SUBSET TO BE ADDED (IN BYTES)
-C>     MXSIZ    - INTEGER: MAXIMUM SIZE OF A BUFR MESSAGE
+C> @param[in] MSIZ - integer: Size (in bytes) of current BUFR message
+C> @param[in] ITOADD - integer: Size (in bytes) of current data subset 
+C> @param[in] MXSIZ - integer: Maximum size of a BUFR message
+C> @returns MSGFULL - logical: Flag indicating whether the current
+C>                    data subset will fit within the current BUFR
+C>                    message
 C>
-C>   OUTPUT ARGUMENT LIST:
-C>     MSGFULL  - LOGICAL: FALSE IF SUBSET WILL FIT; TRUE OTHERWISE
-C>
-C> REMARKS:
-C>    THIS ROUTINE CALLS:        None
-C>    THIS ROUTINE IS CALLED BY: CPYUPD   MSGUPD   WRCMPS   WRDXTB
-C>                               Normally not called by any application
-C>                               programs.
+C> <b>Program history log:</b>
+C> - 2009-03-23  J. Ator    -- Original author
 C>
       LOGICAL FUNCTION MSGFULL(MSIZ,ITOADD,MXSIZ)
 

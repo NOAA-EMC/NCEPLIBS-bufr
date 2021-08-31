@@ -3,12 +3,9 @@ C> @brief Declare and initialize MXBTMSE variable.
 
 C> This module declares and initializes the MXBTMSE variable.
 C>
-C> <p>For dynamic allocation builds, this variable is initialized
-C> to a default value which can be overridden by a subsequent call
-C> to function isetprm() within the application program.
-C> For static allocation builds, this variable is set as a
-C> parameter at compile time and cannot be changed within the
-C> application program.
+C> <p>This variable is initialized to a default value which can
+C> be overridden by a subsequent call to function isetprm() within
+C> the application program.
 C>
 C> @author J. Ator
 C> @date 2014-12-10

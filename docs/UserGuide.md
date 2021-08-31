@@ -64,3 +64,7 @@ writing/encoding BUFR data:
   <td>ufbint() ufbrep() ufbseq() ufbstp() ufbint_f() ufbrep_f() writlc() setvalnb() setbmiss()</td>
 </tr>
 </table>
+
+Furthermore, many of the above subroutines and functions can also be accessed via a separate
+[Python API](https://noaa-emc.github.io/NCEPLIBS-bufr/python/index.html),
+if this functionality was enabled when the library was built.

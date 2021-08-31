@@ -1,67 +1,51 @@
 C> @file
-C> @author WOOLLEN @date 1994-01-06
-      
-C> THIS SUBROUTINE SEARCHES FOR MNEMONIC NEMO WITHIN THE
-C>   INTERNAL TABLE B AND D ARRAYS HOLDING THE DICTIONARY TABLE (ARRAYS
-C>   IN MODULE TABABD) AND, IF FOUND, RETURNS INFORMATION ABOUT
-C>   THAT MNEMONIC FROM WITHIN THESE ARRAYS.  OTHERWISE, IT CHECKS
-C>   WHETHER NEMO IS A TABLE C OPERATOR DESCRIPTOR AND, IF SO, DIRECTLY
-C>   COMPUTES AND RETURNS SIMILAR INFORMATION ABOUT THAT DESCRIPTOR.
-C>   THIS SUBROUTINE MAY BE USEFUL TO APPLICATION PROGRAMS WHICH WANT
-C>   TO CHECK WHETHER A PARTICULAR MNEMONIC IS IN THE DICTIONARY.  IN
-C>   THIS CASE, BUFR ARCHIVE LIBRARY SUBROUTINE OPENBF MUST FIRST BE
-C>   CALLED TO STORE THE DICTIONARY TABLE INTERNALLY, AND BUFR ARCHIVE
-C>   LIBRARY SUBROUTINE STATUS MUST BE CALLED TO CONNECT THE LOGICAL
-C>   UNIT NUMBER FOR THE BUFR FILE OPENED IN OPENBF TO LUN.
+C> @brief Get information about a descriptor, based on the mnemonic
+
+C> This subroutine returns information about a descriptor from the
+C> internal DX BUFR tables, based on the mnemonic associated with
+C> that descriptor.
 C>
-C> PROGRAM HISTORY LOG:
-C> 1994-01-06  J. WOOLLEN -- ORIGINAL AUTHOR
-C> 1995-06-28  J. WOOLLEN -- INCREASED THE SIZE OF INTERNAL BUFR TABLE
-C>                           ARRAYS IN ORDER TO HANDLE BIGGER FILES
-C> 1999-11-18  J. WOOLLEN -- THE NUMBER OF BUFR FILES WHICH CAN BE
-C>                           OPENED AT ONE TIME INCREASED FROM 10 TO 32
-C>                           (NECESSARY IN ORDER TO PROCESS MULTIPLE
-C>                           BUFR FILES UNDER THE MPI)
-C> 2000-09-19  J. WOOLLEN -- ADDED CAPABILITY TO ENCODE AND DECODE DATA
-C>                           USING THE OPERATOR DESCRIPTORS (BUFR TABLE
-C>                           C) FOR CHANGING WIDTH AND CHANGING SCALE
-C> 2003-11-04  J. ATOR    -- ADDED DOCUMENTATION
-C> 2003-11-04  S. BENDER  -- ADDED REMARKS/BUFRLIB ROUTINE
-C>                           INTERDEPENDENCIES
-C> 2003-11-04  D. KEYSER  -- UNIFIED/PORTABLE FOR WRF; ADDED HISTORY
-C>                           DOCUMENTATION
-C> 2005-11-29  J. ATOR    -- ADDED SUPPORT FOR 207 AND 208 OPERATORS
-C> 2010-03-19  J. ATOR    -- ADDED SUPPORT FOR 204 AND 205 OPERATORS
-C> 2012-03-02  J. ATOR    -- ADDED SUPPORT FOR 203 OPERATOR
-C> 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
-C> 2015-02-25  J. ATOR    -- ALLOW PROCESSING OF 2-2X, 2-3X AND 2-4X
-C>                           NON-MARKER OPERATORS IN DX TABLES
+C> @author J. Woollen
+C> @date 1994-01-06
 C>
-C> USAGE:    CALL NEMTAB (LUN, NEMO, IDN, TAB, IRET)
-C>   INPUT ARGUMENT LIST:
-C>     LUN      - INTEGER: I/O STREAM INDEX INTO INTERNAL MEMORY ARRAYS
-C>     NEMO     - CHARACTER*(*): MNEMONIC TO SEARCH FOR
+C> @param[in] LUN - integer: Internal I/O stream index associated
+C>                  with DX BUFR tables
+C> @param[in] NEMO - character*(*): Mnemonic
+C> @param[out] IDN - integer: Bit-wise representation of FXY value
+C>                  for descriptor associated with NEMO
+C> @param[out] TAB - character: Type associated with IDN
+C>                     - 'B' = Table B descriptor
+C>                     - 'D' = Table D descriptor
+C>                     - 'C' = Table C operator
+C> @param[out] IRET - integer:
+C>                     - Positional index of IDN within internal
+C>                       Table B, if TAB = 'B'
+C>                     - Positional index of IDN within internal
+C>                       Table D, if TAB = 'D'
+C>                     - The X portion of the FXY value in IDN, if
+C>                       TAB = 'C'
+C>                     - 0, otherwise
 C>
-C>   OUTPUT ARGUMENT LIST:
-C>     IDN      - INTEGER: BIT-WISE REPRESENTATION OF FXY VALUE
-C>                CORRESPONDING TO NEMO (IF NEMO WAS FOUND)
-C>     TAB      - CHARACTER*1: INTERNAL TABLE ARRAY IN WHICH NEMO WAS
-C>                FOUND:
-C>                     'B' = Table B array
-C>                     'C' = Table C array
-C>                     'D' = Table D array
-C>     IRET     - INTEGER: POSITIONAL INDEX OF NEMO WITHIN TAB
-C>                       0 = NEMO was not found within any of the Table
-C>                           B, C, or D arrays
-C>
-C> REMARKS:
-C>    THIS ROUTINE CALLS:        IFXY     IOKOPER
-C>    THIS ROUTINE IS CALLED BY: CHEKSTAB CMSGINI  ELEMDX   GETCFMNG
-C>                               IGETRFEL MSGINI   NEMDEFS  SEQSDX
-C>                               STSEQ    TABSUB   UFBDMP   UFBQCD
-C>                               UFDUMP   UPFTBV
-C>                               Also called by application programs
-C>                               (see ABSTRACT).
+C> <b>Program history log:</b>
+C> - 1994-01-06  J. Woollen -- Original author
+C> - 1995-06-28  J. Woollen -- Increased the size of internal BUFR table
+C>                           arrays in order to handle bigger files
+C> - 1999-11-18  J. Woollen -- The number of BUFR files which can be
+C>                             opened at one time increased from 10 to 32
+C>                             (necessary in order to process multiple
+C>                             BUFR files under the MPI)
+C> - 2000-09-19  J. Woollen -- Added capability to encode and decode data
+C>                           using the operator descriptors (BUFR table
+C>                           C) for changing width and changing scale
+C> - 2003-11-04  J. Ator    -- Added documentation
+C> - 2003-11-04  S. Bender  -- Added remarks and routine interdependencies
+C> - 2003-11-04  D. Keyser  -- Unified/portable for WRF; added history
+C>                           documentation
+C> - 2005-11-29  J. Ator    -- Added support for 207 and 208 operators
+C> - 2010-03-19  J. Ator    -- Added support for 204 and 205 operators
+C> - 2012-03-02  J. Ator    -- Added support for 203 operator
+C> - 2015-02-25  J. Ator    -- Allow processing of 2-2x, 2-3x and 2-4X
+C>                           non-marker operators in DX tables
 C>
       SUBROUTINE NEMTAB(LUN,NEMO,IDN,TAB,IRET)
 

@@ -2,14 +2,13 @@
  *  @brief Define signatures and declare variables for internal storage
  *  of master Table B and Table D entries.
  *
- *  <p>If arrays are statically allocated, then we can directly access
- *  the arrays in Fortran module MODA_MSTABS from within C.  However, if
- *  arrays are dynamically allocated, meaning that their size isn't known
- *  at compile time, then we can't directly access these arrays from
- *  within C.  Instead, we need to allocate separate array space in C
- *  and then use subroutine cpmstabs() to copy the relevant information
- *  from the Fortran module MODA_MSTABS arrays to these C arrays at run
- *  time, in order to be able to access this information from within C.
+ *  <p>Since the arrays in Fortran module MODA_MSTABS are dynamically
+ *  allocated and their size isn't known at compile time, then we can't
+ *  directly access them from within C.  Instead, we need to allocate
+ *  separate array space in C and then use subroutine cpmstabs() to copy
+ *  the relevant information from the Fortran module MODA_MSTABS arrays
+ *  to these C arrays at run time, in order to be able to access this
+ *  information from within C.
  *
  *  @author J. Ator
  *  @date 2014-12-04

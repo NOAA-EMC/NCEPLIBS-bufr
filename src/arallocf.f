@@ -2,11 +2,11 @@ C> @file
 C> @brief Dynamically allocate Fortran language arrays within internal
 C> memory.
 	
-C> For dynamic allocation builds of the library, this subroutine is
-C> called internally during the first call to subroutine openbf() from
-C> an application program, in order to dynamically allocate internal
-C> Fortran language arrays based on parameter values set during one or
-C> more previous calls to function isetprm().
+C> This subroutine is called internally during the first call to
+C> subroutine openbf() from an application program, in order to
+C> dynamically allocate internal Fortran language arrays based on
+C> parameter values set during one or more previous calls to function
+C> isetprm().
 C>
 C> <p>This subroutine isn't normally called directly from an application
 C> program, since it's automatically called internally during the first
