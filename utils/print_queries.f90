@@ -44,7 +44,7 @@ contains
     if (trim(subset) /= "") then
       q_paths = all_queries(FileUnit, String(subset))
 
-      print *, "Possible queries for subset:", subset
+      print *, "Possible queries for subset: ", subset
       call print_paths(q_paths)
     else
       subsets = all_subsets(FileUnit)
@@ -69,7 +69,7 @@ contains
 
         q_paths = all_queries(FileUnit, subsets(subset_idx))
 
-        print *, "Possible queries for subset:", subsets(subset_idx)%chars()
+        print *, "Possible queries for subset: ", subsets(subset_idx)%chars()
         call print_paths(q_paths)
         print *, ""
       end do
