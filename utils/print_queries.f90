@@ -1,4 +1,3 @@
-
 module mod_print_queries
   use modq_string
   use modq_table
@@ -45,7 +44,7 @@ contains
     if (trim(subset) /= "") then
       q_paths = all_queries(FileUnit, String(subset))
 
-      print *, "Possible queries:"
+      print *, "Possible queries for subset:", subset
       call print_paths(q_paths)
     else
       subsets = all_subsets(FileUnit)
@@ -58,18 +57,19 @@ contains
       do subset_idx = 1, size(subsets)
         print *, "  ", subsets(subset_idx)%chars()
       end do
+      print *, "Total number of subsets found:", size(subsets)
       print *, ""
 
+      ! Reset the file
+      call closbf(FileUnit)
+      close(FileUnit)
+      open(FileUnit, file=trim(input_file))
+      call openbf(FileUnit, "IN", FileUnit)
       do subset_idx = 1, size(subsets)
-        ! Reset the file
-        call closbf(FileUnit)
-        close(FileUnit)
-        open(FileUnit, file=trim(input_file))
-        call openbf(FileUnit, "IN", FileUnit)
 
         q_paths = all_queries(FileUnit, subsets(subset_idx))
 
-        print *, "Possible queries:"
+        print *, "Possible queries for subset:", subsets(subset_idx)%chars()
         call print_paths(q_paths)
         print *, ""
       end do
@@ -109,8 +109,8 @@ program main
     end if
   end do
 
-  print *, input_file
-  print *, subset
+  print *, trim(input_file)
+  print *, trim(subset)
 
   if (trim(input_file) == "") then
     call print_help

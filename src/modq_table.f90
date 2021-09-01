@@ -170,6 +170,8 @@ contains
 
           exit  ! Capture the table for the first encounter only
         end do
+      else
+        cycle
       end if
 
       if (subset_found) then
