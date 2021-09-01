@@ -5,8 +5,7 @@ C> This function sets a specified parameter to a specified value for
 C> use in dynamically allocating one or more internal arrays within
 C> the BUFRLIB software.
 C>
-C> <p>This function should only be called if a dynamic allocation
-C> build of the software is being used.  A separate call to this
+C> <p>A separate call to this
 C> function must be made for each parameter that is to be set to a
 C> customized value, and all such calls must be made prior to the
 C> first call to subroutine openbf() from within an application

@@ -1,55 +1,34 @@
 C> @file
-C> @author WOOLLEN @date 2002-05-14
-      
-C> THIS SUBROUTINE SEARCHES FOR AN INTEGER IDN, CONTAINING THE
-C>   BIT-WISE REPRESENTATION OF A DESCRIPTOR (FXY) VALUE, WITHIN THE
-C>   INTERNAL BUFR TABLE B AND D ARRAYS IN MODULE TABABD.  IF FOUND,
-C>   IT RETURNS THE CORRESPONDING MNEMONIC AND OTHER INFORMATION FROM
-C>   WITHIN THESE ARRAYS.  IF IDN IS NOT FOUND, IT RETURNS WITH IRET=0.
+C> @brief Search for a descriptor within the internal DX BUFR tables
+
+C> This subroutine searches for a descriptor within Table B and
+C> Table D of the internal DX BUFR tables.
 C>
-C> PROGRAM HISTORY LOG:
-C> 2002-05-14  J. WOOLLEN -- ORIGINAL AUTHOR
-C> 2003-11-04  S. BENDER  -- ADDED REMARKS/BUFRLIB ROUTINE
-C>                           INTERDEPENDENCIES
-C> 2003-11-04  D. KEYSER  -- UNIFIED/PORTABLE FOR WRF; ADDED
-C>                           DOCUMENTATION (INCLUDING HISTORY)
-C> 2009-04-21  J. ATOR    -- USE IFXY FOR MORE EFFICIENT SEARCHING
-C> 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
+C> @author J. Woollen
+C> @date 2002-05-14
 C>
-C> USAGE:    CALL NUMTBD (LUN, IDN, NEMO, TAB, IRET)
-C>   INPUT ARGUMENT LIST:
-C>     LUN      - INTEGER: I/O STREAM INDEX INTO INTERNAL MEMORY ARRAYS
-C>     IDN      - INTEGER: BIT-WISE REPRESENTATION OF DESCRIPTOR (FXY)
-C>                VALUE
+C> @param[in] LUN - integer: Internal I/O stream index associated
+C>                  with DX BUFR tables
+C> @param[in} IDN - integer: Bit-wise representation of FXY value
+C>                  for descriptor
+C> @param[out] NEMO - character*(*): Mnemonic associated with IDN
+C> @param[out] TAB - character: Type associated with IDN
+C>                     - 'B' = Table B descriptor
+C>                     - 'D' = Table D descriptor
+C> @param[out] IRET - integer: 
+C>                     - Positional index of IDN within internal
+C>                       Table B, if TAB = 'B'
+C>                     - Positional index of IDN within internal
+C>                       Table D, if TAB = 'D'
+C>                     - 0, otherwise
 C>
-C>   OUTPUT ARGUMENT LIST:
-C>     NEMO     - CHARACTER*(*): MNEMONIC CORRESPONDING TO IDN
-C>     TAB      - CHARACTER*1: TYPE OF FXY VALUE THAT IS BIT-WISE
-C>                REPRESENTED BY IDN:
-C>                     'B' = BUFR Table B descriptor
-C>                     'D' = BUFR Table D descriptor
-C>     IRET     - INTEGER: RETURN VALUE (SEE REMARKS)
-C>
-C> REMARKS:
-C>    THE INTERPRETATION OF THE RETURN VALUE IRET DEPENDS UPON THE
-C>    RETURN VALUE OF TAB, AS FOLLOWS:
-C>
-C>    IF ( TAB = 'B' ) THEN
-C>       IRET = positional index of IDN within internal BUFR Table B
-C>              array
-C>    ELSE IF ( TAB = 'D') THEN
-C>       IRET = positional index of IDN within internal BUFR Table D
-C>              array
-C>    ELSE IF ( IRET = 0 ) THEN
-C>       IDN was not found in internal BUFR Table B or D
-C>    END IF
-C>
-C>
-C>    THIS ROUTINE CALLS:        IFXY
-C>    THIS ROUTINE IS CALLED BY: GETCFMNG NUMTAB   RESTD    STSEQ
-C>                               UFDUMP
-C>                               Normally not called by any application
-C>                               programs.
+C> <b>Program history log:</b>
+C> - 2002-05-14  J. Woollen -- Original author
+C> - 2003-11-04  S. Bender  -- Added remarks and routine interdependencies
+C> - 2003-11-04  D. Keyser  -- Unified/portable for WRF; added history
+C>                           documentation
+C> - 2009-04-21  J. Ator    -- Use ifxy() for more efficient searching
+C> - 2014-12-10  J. Ator    -- Use modules instead of COMMON blocks
 C>
       SUBROUTINE NUMTBD(LUN,IDN,NEMO,TAB,IRET)
 

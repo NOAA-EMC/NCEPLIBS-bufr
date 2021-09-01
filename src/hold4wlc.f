@@ -1,41 +1,61 @@
 C> @file
-C> @author ATOR @date 2014-02-05
-      
-C> NORMALLY, A LONG CHARACTER STRING (I.E. LONGER THAN 8
-C>   BYTES) IS STORED IN AN UNCOMPRESSED BUFR SUBSET FOR OUTPUT VIA A
-C>   CALL TO BUFR ARCHIVE LIBRARY SUBROUTINE WRITLC, AT A POINT AFTER THE
-C>   CALL TO BUFR ARCHIVE LIBRARY SUBROUTINE WRITSB (OR WRITSA) HAS
-C>   ALREADY BEEN MADE FOR THE SUBSET IN QUESTION.  THIS WORKS FINE FOR
-C>   ALL CASES EXCEPT WHEN WRITSB (OR WRITSA) FLUSHES THE MESSAGE
-C>   CONTAINING THE SUBSET IN QUESTION TO THE BUFR OUTPUT STREAM DURING
-C>   THE SAME CALL TO WRITSB (OR WRITSA), SUCH AS WHEN A SUBSET HAS A
-C>   BYTE COUNT > 65530 BYTES.  WHEN THIS HAPPENS, THERE IS NO LONGER ANY
-C>   WAY FOR A SUBSEQUENT WRITLC CALL TO STORE A LONG CHARACTER STRING IN
-C>   THE SUBSET, BECAUSE THE SUBSET HAS ALREADY BEEN FLUSHED FROM
-C>   INTERNAL MEMORY TO THE OUTPUT STREAM.  THIS SUBROUTINE GETS AROUND
-C>   THAT PROBLEM, BY ALLOWING A LONG CHARACTER STRING TO BE SPECIFIED
-C>   AHEAD OF TIME (I.E. BEFORE CALLING WRITSB OR WRITSB), AND THE
-C>   CORRESPONDING VALUE WILL BE HELD AND STORED AUTOMATICALLY (VIA AN
-C>   INTERNAL CALL TO WRITLC) AT THE PROPER TIME DURING THE SUBSEQUENT
-C>   CALL TO WRITSB (OR WRITSA).  IF MULTIPLE LONG CHARACTER STRINGS NEED
-C>   TO BE STORED IN A SUBSET, THEN A SEPARATE CALL TO THIS SUBROUTINE
-C>   SHOULD BE MADE FOR EACH SUCH STRING.
+C> @brief Write a long character string (greater than 8 bytes) to
+C> a data subset
+
+C> This subroutine writes a long character string (greater than 8 bytes)
+C> to a data subset.
 C>
-C> PROGRAM HISTORY LOG:
-C> 2014-02-05  J. ATOR    -- ORIGINAL AUTHOR
+C> <p>Normally, subroutine writlc() is used to write a long character
+C> string to a data subset.  However, subroutine writlc() can only be
+C> called <b>after</b> a call to one of the
+C> [subset-writing subroutines](@ref hierarchy), so it will not work
+C> for cases when one of those subroutines flushes the message
+C> containing the data subset in question to logical unit LUNIT during
+C> the same call to that subroutine, such as when the data subset
+C> contains more than 65530 bytes.  When this happens, there is no
+C> longer any way for a subsequent writlc() call to write a long
+C> character string into that data subset, because the data subset has
+C> already been flushed from internal memory.  This subroutine solves
+C> that problem, by allowing a long character string to be specified
+C> <b>before</b> calling one of the
+C> [subset-writing subroutines](@ref hierarchy), and the string value
+C> will be held and stored automatically (via an internal call to
+C> subroutine writlc()) at the proper time during the subsequent call
+C> to the [subset-writing subroutines](@ref hierarchy).
 C>
-C> USAGE:    CALL HOLD4WLC(LUNIT,CHR,STR)
-C>   INPUT ARGUMENT LIST:
-C>     LUNIT    - INTEGER: FORTRAN LOGICAL UNIT NUMBER FOR BUFR FILE
-C>     CHR      - CHARACTER*(*): UNPACKED CHARACTER STRING (I.E.,
-C>                CHARACTER DATA ELEMENT GREATER THAN EIGHT BYTES)
-C>     STR      - CHARACTER*(*): MNEMONIC ASSOCIATED WITH STRING IN CHR
+C> @author J. Ator
+C> @date 2014-02-05
 C>
-C> REMARKS:
-C>    THIS ROUTINE CALLS:        ERRWRT   STRSUC
-C>    THIS ROUTINE IS CALLED BY: None
-C>                               Normally called only by application
-C>                               programs.
+C> @param[in] LUNIT  - integer: Fortran logical unit number for BUFR file
+C> @param[in] CHR   - character*(*): Value corresponding to STR
+C> @param[in] STR    - character*(*): Table B mnemonic of long character
+C>                     string to be written, possibly supplemented
+C>                     with an ordinal occurrence notation
+C>
+C> <p>If there is more than one occurrence of STR within the data subset
+C> definition, then each occurrence can be written via a separate call
+C> to this subroutine, and by appending the ordinal number of the
+C> occurrence to STR in each case.  For example, if there are 5
+C> occurrences of mnemonic LSTID within a given data subset definition,
+C> then 5 separate calls should be made to this subroutine, once each
+C> with STR set to 'LSTID#1', 'LSTID#2', 'LSTID#3', 'LSTID#4' and
+C> 'LSTID#5'.  However, the first notation is superfluous, because
+C> omitting the ordinal number always defaults to the first occurrence
+C> of a particular string, so a user could just specify 'LSTID'
+C> instead of 'LSTID#1'.
+C>
+C> @remarks
+C> - Character strings which are 8 bytes or less in length can be
+C> written by converting the string into a real*8 value within the
+C> application program, and then using the real*8 USR array within a
+C> call to one of the BUFRLIB
+C> [values-writing subroutines](@ref hierarchy)
+C> prior to calling one of the
+C> [subset-writing subroutines](@ref hierarchy)
+C> for the data subset.
+C>
+C> <b>Program history log:</b>
+C> - 2014-02-05  J. Ator -- Original author
 C>
       SUBROUTINE HOLD4WLC(LUNIT,CHR,STR)
 

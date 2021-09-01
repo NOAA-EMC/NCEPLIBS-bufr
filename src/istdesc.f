@@ -1,32 +1,26 @@
 C> @file
-C> @author ATOR @date 2004-08-18
-	
-C> GIVEN THE BIT-WISE REPRESENTATION OF THE FXY VALUE
-C>   FOR A DESCRIPTOR, THIS FUNCTION DETERMINES WHETHER THE DESCRIPTOR
-C>   IS A WMO-STANDARD DESCRIPTOR OR A LOCAL DESCRIPTOR.
+C> @brief Check whether a descriptor is standard
+
+C> Given the bit-wise (integer) representation of a descriptor, this
+C> function determines whether the descriptor is WMO-standard.
 C>
-C> PROGRAM HISTORY LOG:
-C> 2004-08-18  J. ATOR    -- ORIGINAL AUTHOR
+C> <p>If a descriptor is not WMO-standard, then by definition it is a
+C> local descriptor.
 C>
-C> USAGE:    ISTDESC( IDN )
-C>   INPUT ARGUMENT LIST:
-C>     IDN      - INTEGER: BIT-WISE REPRESENTATION OF FXY VALUE
-C>		 FOR DESCRIPTOR TO BE CHECKED
+C> @author J. Ator
+C> @date 2004-08-18
 C>
-C>   OUTPUT ARGUMENT LIST:
-C>     ISTDESC  - INTEGER: RETURN VALUE:
-C>		   0 - IDN IS A LOCAL DESCRIPTOR
-C>		   1 - IDN IS A WMO-STANDARD DESCRIPTOR
+C> @param[in] IDN - integer: Bit-wise representation of FXY value for
+C>                  descriptor
+C> @returns istdesc - integer: Flag indicating whether IDN is a
+C>                    WMO-standard descriptor:
+C>                        - 0 = No
+C>                        - 1 = Yes
 C>
-C> REMARKS:
-C>    THIS ROUTINE CALLS:        ADN30    IOKOPER
-C>    THIS ROUTINE IS CALLED BY: IREADMT  RESTD    STNDRD
-C>                               Normally not called by application
-C>                               programs but it could be.
+C> <b>Program history log:</b>
+C> - 2004-08-18  J. Ator    -- Original author
 C>
 	FUNCTION ISTDESC( IDN )
-
-
 
 	CHARACTER*6	ADSC, ADN30
 

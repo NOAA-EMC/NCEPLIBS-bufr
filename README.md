@@ -48,6 +48,10 @@ type/size combinations:
 
 All type/size combinations are built and installed.
 
+If Python interoperability is desired, `-DENABLE_PYTHON=ON` can also
+be added to the above cmake command.  However, version 3 of Python
+must be installed and available on the system.
+
 ## Disclaimer
 
 The United States Department of Commerce (DOC) GitHub project code is
