@@ -60,14 +60,12 @@ contains
       print *, "Total number of subsets found:", size(subsets)
       print *, ""
 
-      ! Reset the file
-      call closbf(FileUnit)
-      close(FileUnit)
-      open(FileUnit, file=trim(input_file))
-      call openbf(FileUnit, "IN", FileUnit)
       do subset_idx = 1, size(subsets)
-
-        rewind(FileUnit)
+        ! Reset the file
+        call closbf(FileUnit)
+        close(FileUnit)
+        open(FileUnit, file=trim(input_file))
+        call openbf(FileUnit, "IN", FileUnit)
 
         q_paths = all_queries(FileUnit, subsets(subset_idx))
 
