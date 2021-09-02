@@ -67,6 +67,8 @@ contains
       call openbf(FileUnit, "IN", FileUnit)
       do subset_idx = 1, size(subsets)
 
+        rewind(FileUnit)
+
         q_paths = all_queries(FileUnit, subsets(subset_idx))
 
         print *, "Possible queries for subset: ", subsets(subset_idx)%chars()

@@ -72,7 +72,7 @@ contains
     type(String), target, allocatable :: query_bases(:)
     type(String), pointer :: query_bases_ptr(:)
     type(IntList) :: seq_path
-    logical :: subset_found = .false.
+    logical :: subset_found
     integer :: query_base_idx
     integer :: readsb_result
 
@@ -81,6 +81,7 @@ contains
 
     call status(file_unit, lun, il, im)
 
+    subset_found = .false.
     do while (ireadmg(file_unit, current_subset, my_idate) == 0)
       msg_num = msg_num + 1
 
@@ -170,8 +171,8 @@ contains
 
           exit  ! Capture the table for the first encounter only
         end do
-      else
-        cycle
+!      else
+!        cycle
       end if
 
       if (subset_found) then
