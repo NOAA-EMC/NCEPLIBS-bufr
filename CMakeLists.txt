@@ -42,6 +42,7 @@ if(APPLE)
   # The linker on macOS does not include `common symbols` by default
   # Passing the -c flag includes them and fixes an error with undefined symbols
   set(CMAKE_Fortran_ARCHIVE_FINISH "<CMAKE_RANLIB> -c <TARGET>")
+  set(CMAKE_C_ARCHIVE_FINISH "<CMAKE_RANLIB> -c <TARGET>")
 endif()
 
 # Determine the kinds upfront (both src/ and test/ need them).
