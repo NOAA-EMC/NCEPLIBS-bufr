@@ -13,11 +13,14 @@ if(NOT EXISTS "${CMAKE_CURRENT_BINARY_DIR}/${BUFR_TAR}")
     ${CMAKE_CURRENT_BINARY_DIR}/${BUFR_TAR}
     SHOW_PROGRESS
     STATUS status
+    INACTIVITY_TIMEOUT 30
     )
 
   list(GET status 0 status_num)
 
   if(NOT status_num EQUAL 0 OR NOT EXISTS ${CMAKE_CURRENT_BINARY_DIR}/${BUFR_TAR})
+    # Remove empty file if download doesn't complete
+    file(REMOVE ${CMAKE_CURRENT_BINARY_DIR}/${BUFR_TAR})
     message(STATUS "Could not download bufr test files, not building tests")
     return()
   endif()
