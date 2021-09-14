@@ -6,44 +6,21 @@ else()
   set(BUFR_TAR "bufr.tar")
 endif()
 
-find_program(CURL_pgm curl)
-mark_as_advanced(CURL_pgm)
+if(NOT EXISTS "${CMAKE_CURRENT_BINARY_DIR}/${BUFR_TAR}")
+  file(DOWNLOAD
+    ${BUFR_URL}/${BUFR_TAR}
+    ${CMAKE_CURRENT_BINARY_DIR}/${BUFR_TAR}
+    SHOW_PROGRESS
+    STATUS status
+    )
 
-if(CURL_pgm)
+  list(GET status 0 status_num)
 
-  add_custom_command(
-    OUTPUT ${BUFR_TAR}
-    COMMENT "(curl) downloading ${BUFR_URL}/${BUFR_TAR}"
-    COMMAND ${CURL_pgm}
-            --silent --show-error --fail
-            --retry 0
-            --connect-timeout 30
-            --output ${BUFR_TAR}
-            ${BUFR_URL}/${BUFR_TAR} )
-
-else()
-
-  find_program(WGET_pgm wget)
-  mark_as_advanced(WGET_pgm)
-
-  if(WGET_pgm)
-
-    add_custom_command(
-      OUTPUT ${BUFR_TAR}
-      COMMENT "(wget) downloading ${BUFR_URL}/${BUFR_TAR}"
-      COMMAND ${WGET_pgm}
-              -nv
-              -t 0
-              -T 30
-              -O ${BUFR_TAR}
-              ${BUFR_URL}/${BUFR_TAR} )
-
-  else()
-
-    message(SEND_ERROR "Could not find curl or wget.\nCannot download test data from server.\nPlease obtain the test data by other means and place it in the build directory!")
+  if(NOT status_num EQUAL 0 OR NOT EXISTS ${CMAKE_CURRENT_BINARY_DIR}/${BUFR_TAR})
+    message(STATUS "Could not download bufr test files, not building tests")
     return()
-
   endif()
+  
 endif()
 
 add_custom_target(get_bufr_test_data ALL DEPENDS ${BUFR_TAR})
