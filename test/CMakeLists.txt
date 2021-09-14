@@ -7,6 +7,7 @@ else()
 endif()
 
 if(NOT EXISTS "${CMAKE_CURRENT_BINARY_DIR}/${BUFR_TAR}")
+  message(STATUS "Downloading bufr test files...")
   file(DOWNLOAD
     ${BUFR_URL}/${BUFR_TAR}
     ${CMAKE_CURRENT_BINARY_DIR}/${BUFR_TAR}
