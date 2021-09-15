@@ -14,6 +14,7 @@ project(
 option(ENABLE_DOCS "Enable generation of doxygen-based documentation." OFF)
 option(ENABLE_PYTHON "Enable building python module 'ncepbufr'" OFF)
 option(BUILD_SHARED_LIBS "Enable building shared libraries" OFF)
+option(BUILD_TESTS "Build tests" ON)
 
 set(MASTER_TABLE_DIR "${CMAKE_INSTALL_PREFIX}/tables" CACHE STRING "Installation location of Master BUFR Tables")
 
@@ -86,7 +87,9 @@ endif()
 
 add_subdirectory(tables)
 
-add_subdirectory(test)
+if(BUILD_TESTS)
+  add_subdirectory(test)
+endif()
 
 # Generate doxygen documentation if desired.
 if(ENABLE_DOCS)
