@@ -1,40 +1,26 @@
 C> @file
-C> @author WOOLLEN @date 1994-01-06
-      
-C> THIS FUNCTION DECODES A REAL NUMBER FROM A CHARACTER
-C>   STRING.  IF THE DECODE FAILS, THEN THE VALUE BMISS IS
-C>   RETURNED.  NOTE THAT, UNLIKE FOR SUBROUTINE STRNUM, THE INPUT
-C>   STRING MAY CONTAIN A LEADING SIGN CHARACTER (E.G. '+', '-').
+C> @brief Decode a real number from a character string
+
+C> This function decodes a real number from a character string.
+C> The string may contain a leading sign ('+' or '-') character.
+C> If the decode fails for any reason, then the current placeholder
+C> value for "missing" data is returned.
 C>
-C> PROGRAM HISTORY LOG:
-C> 1994-01-06  J. WOOLLEN -- ORIGINAL AUTHOR
-C> 1998-07-08  J. WOOLLEN -- REPLACED CALL TO CRAY LIBRARY ROUTINE
-C>                           "ABORT" WITH CALL TO NEW INTERNAL BUFRLIB
-C>                           ROUTINE "BORT"
-C> 1999-11-18  J. WOOLLEN -- RENAMED THIS FUNCTION FROM "VAL$" TO "VALX"
-C>                           TO REMOVE THE POSSIBILITY OF THE "$" SYMBOL
-C>                           CAUSING PROBLEMS ON OTHER PLATFORMS
-C> 2003-11-04  J. ATOR    -- ADDED DOCUMENTATION
-C> 2003-11-04  S. BENDER  -- ADDED REMARKS/BUFRLIB ROUTINE
-C>                           INTERDEPENDENCIES
-C> 2003-11-04  D. KEYSER  -- UNIFIED/PORTABLE FOR WRF; ADDED HISTORY
-C>                           DOCUMENTATION; OUTPUTS MORE COMPLETE
-C>                           DIAGNOSTIC INFO WHEN ROUTINE TERMINATES
-C>                           ABNORMALLY; CHANGED CALL FROM BORT TO BORT2
-C> 2009-04-21  J. ATOR    -- USE ERRWRT
+C> @author J. Woollen
+C> @date 1994-01-06
 C>
-C> USAGE:    VALX (STR)
-C>   INPUT ARGUMENT LIST:
-C>     STR      - CHARACTER*(*): STRING CONTAINING ENCODED REAL VALUE
+C> @param[in]  STR - character*(*): String
+C> @returns   VALX - real: Value decoded from STR
 C>
-C>   OUTPUT ARGUMENT LIST:
-C>     VALX     - REAL: DECODED VALUE
-C>
-C> REMARKS:
-C>    THIS ROUTINE CALLS:        BORT2    ERRWRT   RJUST
-C>    THIS ROUTINE IS CALLED BY: GETTBH   NEMTBB   UPFTBV
-C>                               Normally not called by any application
-C>                               programs but it could be.
+C> <b>Program History Log:</b>
+C> - 1994-01-06  J. Woollen -- Original author
+C> - 1998-07-08  J. Woollen -- Replaced call to CRAY library routine
+C>                           "ABORT" with call to new internal BUFRLIB
+C>                           routine bort()
+C> - 1999-11-18  J. Woollen -- Renamed from val$ to valx because the $
+C>                           symbol causes problems on certain platforms
+C> - 2003-11-04  D. Keyser  -- Use bort2() instead of bort()
+C> - 2009-04-21  J. Ator    -- Use errwrt()
 C>
       FUNCTION VALX(STR)
 

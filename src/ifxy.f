@@ -1,54 +1,44 @@
 C> @file
-C> @author WOOLLEN @date 1994-01-06
-      
-C> THIS FUNCTION RETURNS THE INTEGER CORRESPONDING TO THE
-C>   BIT-WISE REPRESENTATION OF AN INPUT CHARACTER FXY VALUE OF LENGTH
-C>   SIX.
+C> @brief Convert an FXY value from its six character representation
+C> to its bit-wise (integer) representation
+
+C> This function converts an FXY value from its 6 character
+C> representation to its bit-wise (integer) representation.
 C>
-C> PROGRAM HISTORY LOG:
-C> 1994-01-06  J. WOOLLEN -- ORIGINAL AUTHOR
-C> 2003-11-04  J. ATOR    -- ADDED DOCUMENTATION
-C> 2003-11-04  S. BENDER  -- ADDED REMARKS/BUFRLIB ROUTINE
-C>                           INTERDEPENDENCIES
-C> 2003-11-04  D. KEYSER  -- UNIFIED/PORTABLE FOR WRF; ADDED HISTORY
-C>                           DOCUMENTATION
+C> @author J. Woollen
+C> @date 1994-01-06
 C>
-C> USAGE:    IFXY (ADSC)
-C>   INPUT ARGUMENT LIST:
-C>     ADSC     - CHARACTER*6: CHARACTER FORM OF DESCRIPTOR (FXY VALUE)
+C> @param[in] ADSC - character*6: FXY value
+C> @returns ifxy - integer: Bit-wise representation of FXY value
 C>
-C>   OUTPUT ARGUMENT LIST:
-C>     IFXY     - INTEGER: BIT-WISE REPRESENTATION OF DESCRIPTOR (FXY)
-C>                VALUE
+C> @remarks
+C> Per the [official WMO BUFR regulations](@ref manual), an FXY value
+C> can be represented as a bit-wise integer in 16 bits, ordered from
+C> left (most significant) to right (least significant), and where the
+C> F value occupies the first 2 bits, the X value occupies the next 6
+C> bits, and the Y value occupies the last 8 bits.
 C>
-C> REMARKS:
+C>     For example, if ADSC = '063022'
 C>
-C>      EXAMPLE:
+C>        F |     X     |      Y
+C>        0 |     63    |      22
+C>       0 0 1 1 1 1 1 1 0 0 0 1 0 1 1 0
 C>
-C>      If ADSC = '063022', then IFXY = 16150 since:
+C>     then the corresponding ifxy
 C>
-C>      0       63           22
+C>       = ( 2**13 + 2**12 + 2**11 + 2**10 + 2**9 + 2**8 +
+C>           2**4 + 2**2 + 2**1 )
 C>
-C>      F |     X     |       Y
-C>        |           |
-C>     0 0 1 1 1 1 1 1 0 0 0 1 0 1 1 0  =
+C>       = 16150      
 C>
-C>      ( 2**13 + 2**12 + 2**11 + 2**10 +
-C>              2**9 + 2**8 + 2**4 + 2**2 + 2**1 )  = 16150
-C>
-C>
-C>    THIS ROUTINE CALLS:        None
-C>    THIS ROUTINE IS CALLED BY: BFRINI   DXINIT   GETNTBE  GETCFMNG
-C>                               IDN30    IREADMT  NEMTAB   NEMTBB
-C>                               NEMTBD   NUMTBD   READS3   RESTD
-C>                               SNTBDE   SNTBFE   STBFDX   STNTBI
-C>                               STSEQ    UFBQCP
-C>                               Normally not called by any application
-C>                               programs but it could be.
+C> <b>Program History Log:</b>
+C> - 1994-01-06  J. Woollen -- Original author
+C> - 2003-11-04  J. Ator  -- Added documentation
+C> - 2003-11-04  S. Bender  -- Added remarks and routine interdependencies
+C> - 2003-11-04  D. Keyser  -- Unified/portable for WRF; added
+C>                           history documentation
 C>
       FUNCTION IFXY(ADSC)
-
-
 
       CHARACTER*6 ADSC
 

@@ -214,8 +214,8 @@ void stseq( f77int *lun, f77int *irepct, f77int *idn, char nemo[8],
 		    memset( &rpseq[ilen], (int) cblk, 55 - ilen );
 /*
 **		    Note that 49152 = 3*(2**14), so subtracting 49152 in the
-**		    following statement changes a Table D bitwise FXY value into 
-**		    a Table B bitwise FXY value.
+**		    following statement changes a Table D bit-wise FXY value into 
+**		    a Table B bit-wise FXY value.
 */
 		    pkint = ( igettdi( lun ) - 49152 );
 		    cadn30( &pkint, adn2, sizeof( adn2 ) );

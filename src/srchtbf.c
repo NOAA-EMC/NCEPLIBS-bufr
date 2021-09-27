@@ -20,13 +20,13 @@
  *  @author J. Ator
  *  @date 2018-01-11
  *
- *  @param[in] ifxyi - f77int*: Bitwise representation of FXY number
+ *  @param[in] ifxyi - f77int*: Bit-wise representation of FXY number
  *                     to search for
  *  @param[in] ivali - f77int*: Value (code figure or bit number)
  *                     associated with ifxyi
  *  @param[in,out] ifxyd - f77int*:
  *                         - On input, ifxyd[0] is set to
- *                           the bitwise representation of the FXY
+ *                           the bit-wise representation of the FXY
  *                           number upon which ifxyi and ivali depend,
  *                           or else set to (-1) if ifxyi and ivali do
  *                           not depend on the value associated with
@@ -38,7 +38,7 @@
  *                           second search of the table determines that
  *                           the meaning of ifxyi and ivali indeed
  *                           depends on one or more other FXY numbers,
- *                           then the bitwise representations of those
+ *                           then the bit-wise representations of those
  *                           FXY numbers are returned within the first
  *                           iret elements of ifxyd
  *  @param[in] ivald - f77int*: Value (code figure or bit number)
@@ -62,7 +62,7 @@
  *                            ivald were both set to (-1) on input,
  *                            <b>and</b> the meaning of ifxyi and ivali
  *                            depends on the the value associated with
- *                            one of the FXY numbers whose bitwise
+ *                            one of the FXY numbers whose bit-wise
  *                            representation is stored in the first iret
  *                            elements of ifxyd
  *

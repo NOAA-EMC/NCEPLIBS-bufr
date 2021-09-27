@@ -1,34 +1,24 @@
 C> @file
-C> @author ATOR @date 2004-08-18
-	
-C> GIVEN THE BIT-WISE REPRESENTATION OF THE FXY VALUE
-C>   FOR A DESCRIPTOR, THIS ROUTINE CALLS FUNCTION ADN30 AND STORES
-C>   ITS RETURN VALUE (I.E. THE ASCII-EQUIVALENT FXY VALUE) AS THE
-C>   ROUTINE OUTPUT VALUE.  THIS MECHANISM (I.E. A FORTRAN SUBROUTINE
-C>   WRAPPER RETURNING ADN AS A CALL PARAMETER, RATHER THAN DIRECTLY
-C>   CALLING THE FORTRAN FUNCTION ADN30 FROM WITHIN A C ROUTINE)
-C>   ALLOWS SAFE AND PORTABLE (ALBEIT INDIRECT) ACCESS TO THE ADN30
-C>   FUNCTION LOGIC FROM WITHIN A C ROUTINE.
+C> @brief Convert an FXY value from its bit-wise (integer)
+C> representation to its six character representation
+
+C> This subroutine converts an FXY value from its bit-wise (integer)
+C> representation to its 6 character representation.  It is similar
+C> to function adn30(), except that it always returns 6 characters,
+C> and it always returns its output as a call parameter instead of a
+C> function value, which in turn allows it to be more easily called
+C> from within a C language function.
 C>
-C> PROGRAM HISTORY LOG:
-C> 2004-08-18  J. ATOR    -- ORIGINAL AUTHOR
+C> @author J. Ator
+C> @date 2004-08-18
 C>
-C> USAGE:    CADN30( IDN, ADN )
-C>   INPUT ARGUMENT LIST:
-C>     IDN      - INTEGER: BIT-WISE REPRESENTATION OF FXY VALUE
+C> @param[in] IDN - integer: Bit-wise representation of FXY value
+C> @param[out] ADN - character*6: FXY value
 C>
-C>   OUTPUT ARGUMENT LIST:
-C>     ADN      - CHARACTER*(*): ASCII-CHARACTER FORM OF IDN
-C>
-C> REMARKS:
-C>    THIS ROUTINE CALLS:        ADN30
-C>    THIS ROUTINE IS CALLED BY: NUMMTB   RESTD    STSEQ
-C>                               Normally not called by application
-C>                               programs but it could be.
+C> <b>Program History Log:</b>
+C> - 2004-08-18  J. Ator -- Original author
 C>
 	SUBROUTINE CADN30( IDN, ADN )
-
-
 
 	CHARACTER*(*)	ADN
 	CHARACTER*6	ADN30

@@ -33,7 +33,7 @@ C>        @var nmtb
 C>        Number of master Table B entries (up to a maximum of MXMTBB).
 C>
 C>        @var ibfxyn
-C>        Bitwise representations of FXY numbers for master Table B.
+C>        Bit-wise representations of FXY numbers for master Table B.
 C>
 C>        @var cbscl
 C>        Scale factors corresponding to ibfxyn.
@@ -57,7 +57,7 @@ C>        @var nmtd
 C>        Number of master Table D entries (up to a maximum of MXMTBD).
 C>
 C>        @var idfxyn
-C>        Bitwise representations of FXY numbers for master Table D.
+C>        Bit-wise representations of FXY numbers for master Table D.
 C>
 C>        @var cdseq
 C>        Sequence names corresponding to idfxyn.
@@ -69,7 +69,7 @@ C>        @var ndelem
 C>        Numbers of child descriptors corresponding to idfxyn.
 C>
 C>        @var idefxy
-C>        Bitwise representations of child descriptors corresponding
+C>        Bit-wise representations of child descriptors corresponding
 C>        to idfxyn.
 
 	  INTEGER :: NMTB
