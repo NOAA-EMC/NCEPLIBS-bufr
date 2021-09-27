@@ -1,44 +1,20 @@
 C> @file
-C> @author WOOLLEN @date 2002-05-14
-      
-C> THIS SUBROUTINE CAPITALIZES A STRING OF CHARACTERS. THIS
-C>   ENABLES THE USE OF MIXED CASE IN THE UNIT SECTION OF THE ASCII
-C>   BUFR TABLES.  AN EXAMPLE: A PROGRAM WHICH GENERATES AN ASCII BUFR
-C>   TABLE FROM THE "MASTER TABLE B" MIGHT END UP COPYING SOME UNITS
-C>   FIELDS IN MIXED OR LOWER CASE.  IF THE UNITS ARE 'CODE TABLE' OR
-C>   'FLAG TABLE' OR CERTAIN OTHER UNIT DESIGNATIONS, THE TABLE WILL BE
-C>   PARSED INCORRECTLY, AND THE DATA READ OR INCORRECTLY AS A RESULT.
-C>   THIS MAKES SURE ALL UNIT DESIGNATIONS ARE SEEN BY THE PARSER IN
-C>   UPPER CASE TO AVOID THESE TYPES OF PROBLEMS.
+C> @brief Capitalize a character string
+
+C> This subroutine capitalizes all of the alphabetic characters in
+C> a string.  The string is modified in place.
 C>
-C> PROGRAM HISTORY LOG:
-C> 2002-05-14  J. WOOLLEN -- ORIGINAL AUTHOR
-C> 2003-11-04  S. BENDER  -- ADDED REMARKS/BUFRLIB ROUTINE
-C>                           INTERDEPENDENCIES
-C> 2003-11-04  D. KEYSER  -- UNIFIED/PORTABLE FOR WRF; ADDED
-C>                           DOCUMENTATION (INCLUDING HISTORY)
-C> 2012-03-02  J. ATOR    -- CHANGED NAME OF UPS ARRAY TO UPCS TO AVOID
-C>                           NAMESPACE CONTENTION WITH NEW FUNCTION UPS
+C> @author J. Woollen
+C> @date 2002-05-14
 C>
-C> USAGE:    CALL CAPIT (STR)
-C>   INPUT ARGUMENT LIST:
-C>     STR      - CHARACTER*(*): STRING POSSIBLY CONTAINING MIXED UPPER-
-C>                AND LOWER-CASE CHARACTERS
+C> @param[in,out] STR - character*(*): String
 C>
-C>   OUTPUT ARGUMENT LIST:
-C>     STR      - CHARACTER*(*): SAME STRING AS INPUT BUT NOW CONTAINING
-C>                ALL UPPER-CASE CHARACTERS
-C>
-C> REMARKS:
-C>    THIS ROUTINE CALLS:        None
-C>    THIS ROUTINE IS CALLED BY: CMPMSG   CODFLG   ELEMDX   STBFDX
-C>                               STDMSG   STRCPT
-C>                               Normally not called by any application
-C>                               programs but it could be.
+C> <b>Program History Log:</b>
+C> - 2002-05-14  J. Woollen -- Original author
+C> - 2012-03-02  J. Ator    -- Changed name of ups array to upcs to avoid
+C>                             namespace contention with function ups()
 C>
       SUBROUTINE CAPIT(STR)
-
-
 
       CHARACTER*(*) STR
       CHARACTER*26 UPCS,LWCS

@@ -1,38 +1,24 @@
 C> @file
-C> @author WOOLLEN @date 1994-01-06
-      
-C> THIS SUBROUTINE DECODES AN INTEGER FROM A CHARACTER STRING.
-C>   THE INPUT STRING SHOULD CONTAIN ONLY DIGITS AND (OPTIONAL) TRAILING
-C>   BLANKS AND SHOULD NOT CONTAIN ANY SIGN CHARACTERS (E.G. '+', '-')
-C>   NOR LEADING BLANKS NOR EMBEDDED BLANKS.
+C> @brief Decode an integer from a character string
+
+C> This subroutine decodes an integer from a character string.  The
+C> string should contain only digits and (optional) trailing blanks.
+C> It should not contain any sign ('+' or '-') character nor any
+C> leading blanks nor embedded blanks.
 C>
-C> PROGRAM HISTORY LOG:
-C> 1994-01-06  J. WOOLLEN -- ORIGINAL AUTHOR
-C> 2003-11-04  J. ATOR    -- ADDED DOCUMENTATION
-C> 2003-11-04  S. BENDER  -- ADDED REMARKS/BUFRLIB ROUTINE
-C>                           INTERDEPENDENCIES
-C> 2003-11-04  D. KEYSER  -- UNIFIED/PORTABLE FOR WRF; ADDED HISTORY
-C>                           DOCUMENTATION
-C> 2009-04-21  J. ATOR    -- USE ERRWRT
+C> @author J. Woollen
+C> @date 1994-01-06
 C>
-C> USAGE:    CALL STRNUM (STR, NUM)
-C>   INPUT ARGUMENT LIST:
-C>     STR      - CHARACTER*(*): STRING CONTAINING ENCODED INTEGER VALUE
+C> @param[in]  STR - character*(*): String
+C> @param[out] NUM - integer: Value decoded from STR
+C>                   - -1 = decode was unsuccessful
 C>
-C>   OUTPUT ARGUMENT LIST:
-C>     NUM      - INTEGER: DECODED VALUE
-C>                      -1 = decode was unsuccessful
-C>
-C> REMARKS:
-C>    THIS ROUTINE CALLS:        ERRWRT   STRSUC
-C>    THIS ROUTINE IS CALLED BY: JSTNUM   PARUTG   SEQSDX   SNTBFE
-C>                               STSEQ
-C>                               Normally not called by any application
-C>                               programs but it could be.
+C> <b>Program History Log:</b>
+C> - 1994-01-06  J. Woollen -- Original author
+C> - 2003-11-04  J. Ator    -- Added documentation
+C> - 2009-04-21  J. Ator    -- Use errwrt()
 C>
       SUBROUTINE STRNUM(STR,NUM)
-
-
 
       CHARACTER*(*) STR
       CHARACTER*20  STR2

@@ -1,39 +1,24 @@
 C> @file
-C> @author WOOLLEN @date 1994-01-06
-      
-C> THIS SUBROUTINE REMOVES LEADING AND TRAILING BLANKS FROM A
-C>   STRING.
+C> @brief Remove leading and trailing blanks from a character string
+
+C> This subroutine removes leading and trailing blanks from a
+C> character string.  The string may not contain any embedded blanks.
 C>
-C> PROGRAM HISTORY LOG:
-C> 1994-01-06  J. WOOLLEN -- ORIGINAL AUTHOR
-C> 2003-11-04  J. ATOR    -- ADDED DOCUMENTATION
-C> 2003-11-04  S. BENDER  -- ADDED REMARKS/BUFRLIB ROUTINE
-C>                           INTERDEPENDENCIES
-C> 2003-11-04  D. KEYSER  -- UNIFIED/PORTABLE FOR WRF; ADDED HISTORY
-C>                           DOCUMENTATION; ADDED MORE COMPLETE
-C>                           DIAGNOSTIC INFO WHEN UNUSUAL THINGS HAPPEN
-C> 2009-04-21  J. ATOR    -- USE ERRWRT
+C> @author J. Woollen
+C> @date 1994-01-06
 C>
-C> USAGE:    CALL STRSUC (STR1, STR2, LENS)
-C>   INPUT ARGUMENT LIST:
-C>     STR1     - CHARACTER*(*): STRING
+C> @param[in]  STR1 - character*(*): String
+C> @param[out] STR2 - character*(*): Copy of STR1 with leading and
+C>                    trailing blanks removed
+C> @param[out] LENS - integer: Length of STR2
+C>                     - -1 = STR1 contained embedded blanks
 C>
-C>   OUTPUT ARGUMENT LIST:
-C>     STR2     - CHARACTER*(*): COPY OF STR1 WITH LEADING AND TRAILING
-C>                BLANKS REMOVED
-C>     LENS     - INTEGER: LENGTH OF STR2:
-C>                      -1 = STR1 contained embedded blanks
-C>
-C> REMARKS:
-C>    THIS ROUTINE CALLS:        ERRWRT
-C>    THIS ROUTINE IS CALLED BY: DXDUMP   GETTAGRE HOLD4WLC MTFNAM
-C>                               MTINFO   NEMSPECS STRNUM   UFDUMP
-C>                               Normally not called by any application
-C>                               programs but it could be.
+C> <b>Program History Log:</b>
+C> - 1994-01-06  J. Woollen -- Original author
+C> - 2003-11-04  J. Ator    -- Added documentation
+C> - 2009-04-21  J. Ator    -- Use errwrt()
 C>
       SUBROUTINE STRSUC(STR1,STR2,LENS)
-
-
 
       CHARACTER*(*) STR1,STR2
 

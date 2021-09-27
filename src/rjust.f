@@ -1,34 +1,19 @@
 C> @file
-C> @author WOOLLEN @date 1994-01-06
-      
-C> THIS FUNCTION RIGHT JUSTIFIES A CHARACTER STRING.
+C> @brief Right-justify a character string
+
+C> This function right-justifies a character string by removing
+C> all trailing blanks.  The string is modified in place.
 C>
-C> PROGRAM HISTORY LOG:
-C> 1994-01-06  J. WOOLLEN -- ORIGINAL AUTHOR
-C> 2003-11-04  S. BENDER  -- ADDED REMARKS/BUFRLIB ROUTINE
-C>                           INTERDEPENDENCIES
-C> 2003-11-04  D. KEYSER  -- UNIFIED/PORTABLE FOR WRF; ADDED
-C>                           DOCUMENTATION (INCLUDING HISTORY); OUTPUTS
-C>                           MORE COMPLETE DIAGNOSTIC INFO WHEN ROUTINE
-C>                           TERMINATES ABNORMALLY
+C> @author J. Woollen
+C> @date 1994-01-06
 C>
-C> USAGE:    RJUST (STR)
-C>   INPUT ARGUMENT LIST:
-C>     STR      - CHARACTER*(*): STRING TO BE RIGHT-JUSTIFED
+C> @param[in,out] STR - character*(*): String
+C> @returns      RVAL - real: Dummy value always set to 0
 C>
-C>   OUTPUT ARGUMENT LIST:
-C>     STR      - CHARACTER*(*): RIGHT-JUSTIFIED STRING
-C>     RJUST    - REAL: ALWAYS RETURNED AS 0 (DUMMY)
-C>
-C> REMARKS:
-C>    THIS ROUTINE CALLS:        BORT
-C>    THIS ROUTINE IS CALLED BY: SNTBBE   UFBDMP   UFDUMP   VALX
-C>                               Normally not called by any application
-C>                               programs but it could be.
+C> <b>Program History Log:</b>
+C> - 1994-01-06  J. Woollen -- Original author
 C>
       FUNCTION RJUST(STR)
-
-
 
       CHARACTER*(*) STR
       RJUST = 0.

@@ -32,7 +32,7 @@ void strtbfe( f77int *, f77int *, char *, f77int *, f77int *, f77int * );
  */
 struct code_flag_entry {
     /** @var iffxyn
-     *  Bitwise representation of FXY number to which this entry belongs.
+     *  Bit-wise representation of FXY number to which this entry belongs.
      *
      *  @var ifval
      *  Code figure or bit number.
@@ -41,7 +41,7 @@ struct code_flag_entry {
      *  Meaning corresponding to ifval.
      *
      *  @var iffxynd
-     *  Bitwise representation of FXY number upon which this entry is
+     *  Bit-wise representation of FXY number upon which this entry is
      *  dependent, if any.  Set to (-1) if no dependency.
      *
      *  @var ifvald

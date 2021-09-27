@@ -1,48 +1,29 @@
 C> @file
-C> @author WOOLLEN @date 1994-01-06
-      
-C> THIS SUBROUTINE LEFT-JUSTIFIES (I.E. REMOVES ALL LEADING
-C>   BLANKS FROM) A CHARACTER STRING.
+C> @brief Left-justify a character string
+
+C> This subroutine left-justifies a character string by removing
+C> all leading blanks.  The string is modified in place.
 C>
-C> PROGRAM HISTORY LOG:
-C> 1994-01-06  J. WOOLLEN -- ORIGINAL AUTHOR (ENTRY POINT IN JSTIFY)
-C> 1998-07-08  J. WOOLLEN -- REPLACED CALL TO CRAY LIBRARY ROUTINE
-C>                           "ABORT" WITH CALL TO NEW INTERNAL BUFRLIB
-C>                           ROUTINE "BORT" (IN PARENT ROUTINE JSTIFY)
-C> 2002-05-14  J. WOOLLEN -- CHANGED FROM AN ENTRY POINT TO INCREASE
-C>                           PORTABILITY TO OTHER PLATFORMS (JSTIFY WAS
-C>                           THEN REMOVED BECAUSE IT WAS JUST A DUMMY
-C>                           ROUTINE WITH ENTRIES)
-C> 2003-11-04  J. ATOR    -- ADDED DOCUMENTATION
-C> 2003-11-04  S. BENDER  -- ADDED REMARKS/BUFRLIB ROUTINE
-C>                           INTERDEPENDENCIES
-C> 2003-11-04  D. KEYSER  -- UNIFIED/PORTABLE FOR WRF; ADDED HISTORY
-C>                           DOCUMENTATION; OUTPUTS MORE COMPLETE
-C>                           DIAGNOSTIC INFO WHEN ROUTINE TERMINATES
-C>                           ABNORMALLY
-C> 2007-01-19  J. ATOR    -- RESTRUCTURED AND ADDED IRET ARGUMENT
+C> @author J. Woollen
+C> @date 1994-01-06
 C>
-C> USAGE:    CALL JSTCHR (STR, IRET)
-C>   INPUT ARGUMENT LIST:
-C>     STR      - CHARACTER*(*): STRING
-C>
-C>   OUTPUT ARGUMENT LIST:
-C>     STR      - CHARACTER*(*): COPY OF INPUT STR WITH LEADING BLANKS
-C>                REMOVED
-C>     IRET     - INTEGER: RETURN CODE:
-C>                       0 = normal return
-C>                      -1 = input string was empty (i.e. all blanks)
-C>
-C> REMARKS:
-C>    THIS ROUTINE CALLS:        None
-C>    THIS ROUTINE IS CALLED BY: ELEMDX   IGETFXY  SNTBBE   SNTBDE
-C>                               SNTBFE
-C>                               Normally not called by any application
-C>                               programs but it could be.
+C> @param[in,out] STR - character*(*): String
+C> @param[out]    IRET - integer: return code
+C>                       - 0 = normal return
+C>                       - -1 = input string contained only blank
+C>                              characters
+C>                
+C> <b>Program History Log:</b>
+C> - 1994-01-06  J. Woollen -- Original author
+C> - 1998-07-08  J. Woollen -- Replaced call to Cray library routine
+C>                             ABORT with call to new internal routine
+C>                             bort()
+C> - 2002-05-14  J. Woollen -- Changed from an entry point to increase
+C>                             portability to other platforms
+C> - 2003-11-04  J. Ator    -- Added documentation
+C> - 2007-01-19  J. Ator    -- Restructured and added IRET argument
 C>
       SUBROUTINE JSTCHR(STR,IRET)
-
-
 
       CHARACTER*(*) STR
 

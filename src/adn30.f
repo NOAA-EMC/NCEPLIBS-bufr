@@ -1,25 +1,27 @@
 C> @file
-C> @brief Convert an FXY descriptor from its bit-wise (integer)
-C> representation to its five or six character ASCII representation.
+C> @brief Convert an FXY value from its bit-wise (integer)
+C> representation to its five or six character representation
 
-C> This function converts a descriptor from its bit-wise
-C> (integer) representation to its 5 or 6 character ASCII
+C> This function converts an FXY value from its bit-wise
+C> (integer) representation to its 5 or 6 character
 C> representation.
 C>
 C> @author J. Woollen
 C> @date 1994-01-06
 C>
-C> @param[in] IDN - integer: bit-wise representation of descriptor (FXY)
-C>                value
-C> @param[in] L30 - integer: length of string to be returned; can be
+C> @param[in] IDN - integer: Bit-wise representation of FXY value
+C> @param[in] L30 - integer: Length of string to be returned; can be
 C>                either 5 or 6 characters
-C> @returns adn30 - character*(*): ASCII form of descriptor (FXY) value
+C> @returns adn30 - character*(*): FXY value
+C>
+C> @remarks
+C> - This function is the logical inverse of function idn30().
 C>
 C> <b>Program History Log:</b>
 C> - 1994-01-06  J. Woollen -- Original author
 C> - 1998-07-08  J. Woollen -- Replaced call to CRAY library routine
 C>                           "ABORT" with call to new internal BUFRLIB
-C>                           routine "BORT"
+C>                           routine bort()
 C> - 2003-11-04  S. Bender  -- Added remarks and routine interdependencies
 C> - 2003-11-04  D. Keyser  -- Unified/portable for WRF; added
 C>                           history documentation
