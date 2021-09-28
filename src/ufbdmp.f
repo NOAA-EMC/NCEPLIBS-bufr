@@ -158,7 +158,7 @@ C  -------------------------------------------------------------------
       LK = LINK(ND)
       JB = JMPB(ND)
       TG_RJ = TG
-      RJ = RJUST(TG_RJ)
+      CALL RJUST(TG_RJ)
       IF(TP.NE.'CHR') THEN
          BITS = '              '
          IF(IT.EQ.2) THEN
@@ -215,7 +215,7 @@ C              this value.
             ENDIF
          ENDIF
          IF ( NCHR.LE.20 .OR. LCHR.EQ.PMISS ) THEN
-            RJ = RJUST(LCHR)
+            CALL RJUST(LCHR)
             WRITE(LUOUT,2) NV,TP,IT,TG_RJ,LCHR,IB,IS,IR,ND,JP,LK,JB
          ELSE
             WRITE(LUOUT,4) NV,TP,IT,TG_RJ,LCHR2(1:NCHR),IB,IS,IR,ND,JP,

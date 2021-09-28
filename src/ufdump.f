@@ -423,7 +423,7 @@ C           that we can properly output each one.
          ENDIF
 
          IF ( NCHR.LE.20 .OR. LCHR.EQ.PMISS ) THEN
-            IRET = RJUST(LCHR)
+            CALL RJUST(LCHR)
             FMT = '(A6,2X,A10,2X,A20,2X,"(",I2,")",A24,2X,A48)'
             WRITE(LUOUT,FMT) NUMB,NEMO,LCHR,NCHR,UNIT,DESC
          ELSE

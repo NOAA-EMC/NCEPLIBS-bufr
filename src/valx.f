@@ -39,7 +39,7 @@ C----------------------------------------------------------------------
       LENS = LEN(STR)
       IF(LENS.GT.99) GOTO 900
       BSTR(1:LENS) = STR
-      RJ = RJUST(BSTR(1:LENS))
+      CALL RJUST(BSTR(1:LENS))
       WRITE(FMT,'(''(F'',I2,''.0)'')') LENS
       VALX = BMISS
       READ(BSTR,FMT,ERR=800) VAL

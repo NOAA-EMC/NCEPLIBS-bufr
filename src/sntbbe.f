@@ -88,7 +88,7 @@ C	Scale factor.
 	    BORT_STR2 = '                  HAS MISSING SCALE FACTOR'
 	    GOTO 901
 	ENDIF
-	RJ = RJUST ( TAGS(2)(1:4) )
+	CALL RJUST ( TAGS(2)(1:4) )
         DO II = 1, 4
 	    CMSCL ( II, NMTBB ) = TAGS(2)(II:II)
         ENDDO
@@ -100,7 +100,7 @@ C	Reference value.
 	    BORT_STR2 = '                  HAS MISSING REFERENCE VALUE'
 	    GOTO 901
 	ENDIF
-	RJ = RJUST ( TAGS(3)(1:12) )
+	CALL RJUST ( TAGS(3)(1:12) )
         DO II = 1, 12
 	    CMSREF ( II, NMTBB ) = TAGS(3)(II:II)
         ENDDO
@@ -112,7 +112,7 @@ C	Bit width.
 	    BORT_STR2 = '                  HAS MISSING BIT WIDTH'
 	    GOTO 901
 	ENDIF
-	RJ = RJUST ( TAGS(4)(1:4) )
+	CALL RJUST ( TAGS(4)(1:4) )
         DO II = 1, 4
 	    CMBW ( II, NMTBB ) = TAGS(4)(II:II)
         END DO

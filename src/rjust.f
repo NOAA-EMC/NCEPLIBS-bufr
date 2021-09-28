@@ -1,22 +1,21 @@
 C> @file
 C> @brief Right-justify a character string
 
-C> This function right-justifies a character string by removing
+C> This subroutine right-justifies a character string by removing
 C> all trailing blanks.  The string is modified in place.
 C>
 C> @author J. Woollen
 C> @date 1994-01-06
 C>
 C> @param[in,out] STR - character*(*): String
-C> @returns      RVAL - real: Dummy value always set to 0
 C>
 C> <b>Program History Log:</b>
 C> - 1994-01-06  J. Woollen -- Original author
+C> - 2021-09-28  J. Ator -- Changed from function to subroutine
 C>
-      FUNCTION RJUST(STR)
+      SUBROUTINE RJUST(STR)
 
       CHARACTER*(*) STR
-      RJUST = 0.
       IF(STR.EQ.' ') GOTO 100
       LSTR = LEN(STR)
       DO WHILE(STR(LSTR:LSTR).EQ.' ')

@@ -2513,10 +2513,9 @@ subroutine rewnbf(lunit,isr) ! in rewnbf.f
     common /bitbuf/ maxbyt,ibit,ibay,mbyt,mbay
     common /bufrsr/ junn,jill,jimm,jbit,jbyt,jmsg,jsub,ksub,jnod,jdat,jsr,jbay
 end subroutine rewnbf
-function rjust(str) ! in rjust.f
+subroutine rjust(str) ! in rjust.f
     character*(*) :: str
-    real :: rjust
-end function rjust
+end subroutine rjust
 subroutine rsvfvm(nem1,nem2) ! in rsvfvm.f
     character*8 :: nem1
     character*8 :: nem2
