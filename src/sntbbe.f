@@ -85,7 +85,7 @@ C	Parse the table entry.
 
 C	Scale factor.
 
-        TAGS(2) = ADJUSTL( TAGS(2) )
+  	TAGS(2) = ADJUSTL( TAGS(2) )
 	IF ( TAGS(2) .EQ. ' ' ) THEN
 	    BORT_STR2 = '                  HAS MISSING SCALE FACTOR'
 	    GOTO 901
@@ -97,7 +97,7 @@ C	Scale factor.
 
 C	Reference value.
 
-        TAGS(3) = ADJUSTL( TAGS(3) )
+	TAGS(3) = ADJUSTL( TAGS(3) )
 	IF ( TAGS(3) .EQ. ' ' ) THEN
 	    BORT_STR2 = '                  HAS MISSING REFERENCE VALUE'
 	    GOTO 901
@@ -109,7 +109,7 @@ C	Reference value.
 
 C	Bit width.
 
-        TAGS(4) = ADJUSTL( TAGS(4) )
+	TAGS(4) = ADJUSTL( TAGS(4) )
 	IF ( TAGS(4) .EQ. ' ' ) THEN
 	    BORT_STR2 = '                  HAS MISSING BIT WIDTH'
 	    GOTO 901
@@ -122,7 +122,7 @@ C	Bit width.
 C	Units.  Note that this field is allowed to be blank.
 
 	IF ( NTAG .GT. 4 ) THEN
-            TAGS(5) = ADJUSTL( TAGS(5) )
+	    TAGS(5) = ADJUSTL( TAGS(5) )
             DO II = 1, 24
 	        CMUNIT ( II, NMTBB ) = TAGS(5)(II:II)
             ENDDO
@@ -146,7 +146,7 @@ C	Comment (additional) fields.  Any of these fields may be blank.
 	    CALL PARSTR ( WKTAG, TAGS, 10, NTAG, ';', .FALSE. )
 	    IF ( NTAG .GT. 0 ) THEN
 C		The first additional field contains the mnemonic.
-                TAGS(1) = ADJUSTL( TAGS(1) )
+		TAGS(1) = ADJUSTL( TAGS(1) )
 C		If there is a mnemonic, then make sure it's legal.
 		IF ( ( TAGS(1) .NE. ' ' ) .AND.
      .		    ( NEMOCK ( TAGS(1) ) .NE. 0 ) ) THEN
@@ -159,12 +159,12 @@ C		If there is a mnemonic, then make sure it's legal.
 	    ENDIF
 	    IF ( NTAG .GT. 1 ) THEN
 C		The second additional field contains descriptor codes.
-                TAGS(2) = ADJUSTL( TAGS(2) )
+		TAGS(2) = ADJUSTL( TAGS(2) )
 		CMDSC ( NMTBB ) = TAGS(2)(1:4)
 	    ENDIF
 	    IF ( NTAG .GT. 2 ) THEN
 C		The third additional field contains the element name.
-                TAGS(3) = ADJUSTL( TAGS(3) )
+		TAGS(3) = ADJUSTL( TAGS(3) )
                 DO II = 1, 120 
 		    CMELEM ( II, NMTBB ) = TAGS(3)(II:II)
                 ENDDO

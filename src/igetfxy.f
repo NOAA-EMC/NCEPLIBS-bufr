@@ -52,7 +52,7 @@ C	Left-justify a copy of the input string.
 	ELSE
 	    STR2 = STR
 	ENDIF
-        STR2 = ADJUSTL ( STR2 )
+	STR2 = ADJUSTL ( STR2 )
 	IF ( STR2 .EQ. ' ' ) RETURN
 
 C	Look for an FXY number.

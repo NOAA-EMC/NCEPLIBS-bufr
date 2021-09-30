@@ -107,7 +107,7 @@ C	    Parse the rest of the line.  Any of the fields may be blank.
 	    CALL PARSTR ( LINE(IPT+1:), TAGS, 10, NTAG, ';', .FALSE. )
 	    IF ( NTAG .GT. 0 ) THEN
 C		The first additional field contains the mnemonic.
-                TAGS(1) = ADJUSTL( TAGS(1) )
+		TAGS(1) = ADJUSTL( TAGS(1) )
 C               If there is a mnemonic, then make sure it's legal.
                 IF ( ( TAGS(1) .NE. ' ' ) .AND.
      .		    ( NEMOCK ( TAGS(1) ) .NE. 0 ) ) THEN
@@ -120,7 +120,7 @@ C               If there is a mnemonic, then make sure it's legal.
 	    ENDIF
 	    IF ( NTAG .GT. 1 ) THEN
 C		The second additional field contains descriptor codes.
-                TAGS(2) = ADJUSTL( TAGS(2) )
+		TAGS(2) = ADJUSTL( TAGS(2) )
 		CMDSC ( NMTBD ) = TAGS(2)(1:4)
 	    ENDIF
 	    IF ( NTAG .GT. 2 ) THEN
@@ -163,7 +163,7 @@ C	    The second field contains the FXY number for this element.
 C	    The third field (if it exists) contains the element name.
 
 	    IF ( NTAG .GT. 2 ) THEN
-                TAGS(3) = ADJUSTL( TAGS(3) )
+		TAGS(3) = ADJUSTL( TAGS(3) )
 		CEELEM ( NMTBD, NELEM ) = TAGS(3)(1:120)
 	    ELSE
 		CEELEM ( NMTBD, NELEM ) = ' '
