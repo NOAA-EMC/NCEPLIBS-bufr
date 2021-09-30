@@ -19,9 +19,9 @@ guidance from WMO, all fields within all BUFR master table files are now
 restricted to the CCITTIA5 character set.
 [[Issue #140](https://github.com/NOAA-EMC/NCEPLIBS-bufr/issues/140)]
 
-* Function rjust() has been rewritten as a subroutine, given that it had
-always returned a dummy value of zero, which in turn was never used within
-any of the other library subprograms from which the function was called.
+* Subroutine jstchr and function rjust have been removed from the library,
+and their usage has been replaced with the Fortran intrinsic functions
+adjustl and adjustr.
 [[Issue #165](https://github.com/NOAA-EMC/NCEPLIBS-bufr/issues/165)]
 
 * Several prototypes were added to the bufrlib.h header file to enable

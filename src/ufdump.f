@@ -67,6 +67,7 @@ C> - 2012-03-02  J. Ator    -- Label redefined reference values
 C> - 2014-12-10  J. Ator    -- Use modules instead of COMMON blocks
 C> - 2015-09-24  J. Woollen -- Print level identifiers for event stacks
 C> - 2020-08-18  J. Ator    -- Improve logic for sequence tracking
+C> - 2021-09-30  J. Ator    -- Replace rjust with Fortran intrinsic adjustr
 C>
       SUBROUTINE UFDUMP(LUNIT,LUPRT)
 
@@ -423,7 +424,7 @@ C           that we can properly output each one.
          ENDIF
 
          IF ( NCHR.LE.20 .OR. LCHR.EQ.PMISS ) THEN
-            CALL RJUST(LCHR)
+            LCHR = ADJUSTR(LCHR)
             FMT = '(A6,2X,A10,2X,A20,2X,"(",I2,")",A24,2X,A48)'
             WRITE(LUOUT,FMT) NUMB,NEMO,LCHR,NCHR,UNIT,DESC
          ELSE

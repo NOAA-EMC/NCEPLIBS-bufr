@@ -29,6 +29,7 @@ C> - 2002-05-14  J. Woollen -- Changed from an entry point to increase
 C>                             portability to other platforms
 C> - 2003-11-04  J. Ator    -- Added documentation
 C> - 2009-04-21  J. Ator    -- Use errwrt()
+C> - 2021-09-30  J. Ator    -- Use Fortran intrinsic adjustl
 C>
       SUBROUTINE JSTNUM(STR,SIGN,IRET)
 
@@ -46,11 +47,8 @@ C-----------------------------------------------------------------------
 
       IF(STR.EQ.' ') GOTO 900
 
+      STR = ADJUSTL(STR)
       LSTR = LEN(STR)
-2     IF(STR(1:1).EQ.' ') THEN
-         STR  = STR(2:LSTR)
-         GOTO 2
-      ENDIF
       IF(STR(1:1).EQ.'+') THEN
          STR  = STR(2:LSTR)
          SIGN = '+'

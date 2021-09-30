@@ -78,6 +78,7 @@ C>                             actual bits that were set to generate value
 C> - 2007-01-19  J. Ator    -- Use function ibfms()
 C> - 2014-12-10  J. Ator    -- Use modules instead of COMMON blocks
 C> - 2020-09-09  J. Ator    -- Fix missing check for long character strings
+C> - 2021-09-30  J. Ator    -- Replace rjust with Fortran intrinsic adjustr
 C>
       SUBROUTINE UFBDMP(LUNIN,LUPRT)
 
@@ -157,8 +158,7 @@ C  -------------------------------------------------------------------
       JP = JUMP(ND)
       LK = LINK(ND)
       JB = JMPB(ND)
-      TG_RJ = TG
-      CALL RJUST(TG_RJ)
+      TG_RJ = ADJUSTR(TG)
       IF(TP.NE.'CHR') THEN
          BITS = '              '
          IF(IT.EQ.2) THEN
@@ -215,7 +215,7 @@ C              this value.
             ENDIF
          ENDIF
          IF ( NCHR.LE.20 .OR. LCHR.EQ.PMISS ) THEN
-            CALL RJUST(LCHR)
+            LCHR = ADJUSTR(LCHR)
             WRITE(LUOUT,2) NV,TP,IT,TG_RJ,LCHR,IB,IS,IR,ND,JP,LK,JB
          ELSE
             WRITE(LUOUT,4) NV,TP,IT,TG_RJ,LCHR2(1:NCHR),IB,IS,IR,ND,JP,

@@ -29,6 +29,8 @@ C>                           DIAGNOSTIC INFO WHEN ROUTINE TERMINATES
 C>                           ABNORMALLY; CHANGED CALL FROM BORT TO BORT2
 C> 2007-01-19  J. ATOR    -- ADDED EXTRA ARGUMENT FOR CALL TO JSTCHR
 C> 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
+C> - 2021-09-30  J. Ator    -- Replace jstchr with Fortran intrinsic
+C>                             adjustl
 C>
 C> USAGE:    CALL ELEMDX (CARD, LUN)
 C>   INPUT ARGUMENT LIST:
@@ -37,8 +39,7 @@ C>                FROM A USER-SUPPLIED BUFR DICTIONARY TABLE
 C>     LUN      - INTEGER: I/O STREAM INDEX INTO INTERNAL MEMORY ARRAYS 
 C>
 C> REMARKS:
-C>    THIS ROUTINE CALLS:        BORT2    CAPIT    JSTCHR   JSTNUM
-C>                               NEMTAB
+C>    THIS ROUTINE CALLS:        BORT2    CAPIT    JSTNUM    NEMTAB
 C>    THIS ROUTINE IS CALLED BY: RDUSDX   STSEQ
 C>                               Normally not called by any application
 C>                               programs.
@@ -85,8 +86,8 @@ C     reference value, bit width, and units to it.
 C  LEFT JUSTIFY AND STORE CHARACTERISTICS
 C  --------------------------------------
 
-      CALL JSTCHR(UNIT,IRET)
-      IF(IRET.NE.0) GOTO 904
+      UNIT = ADJUSTL(UNIT)
+      IF(UNIT.EQ.' ') GOTO 904
       TABB(IELE,LUN)(71:94) = UNIT
 
       SCAL_ORIG=SCAL

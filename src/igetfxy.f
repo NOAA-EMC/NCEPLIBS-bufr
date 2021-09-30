@@ -8,6 +8,8 @@ C>   IT IS ALWAYS RETURNED IN FORMAT FXXYYY UPON OUTPUT.
 C>
 C> PROGRAM HISTORY LOG:
 C> 2007-01-19  J. ATOR    -- ORIGINAL AUTHOR
+C> - 2021-09-30  J. Ator    -- Replace jstchr with Fortran intrinsic
+C>                             adjustl
 C>
 C> USAGE:    IGETFXY ( STR, CFXY )
 C>   INPUT ARGUMENT LIST:
@@ -20,7 +22,7 @@ C>                       0 = normal return
 C>                      -1 = could not find a valid FXY number in STR
 C>
 C> REMARKS:
-C>    THIS ROUTINE CALLS:        JSTCHR   NUMBCK
+C>    THIS ROUTINE CALLS:        NUMBCK
 C>    THIS ROUTINE IS CALLED BY: GETNTBE  SNTBDE   SNTBFE
 C>                               Normally not called by any application
 C>                               programs.
@@ -50,8 +52,8 @@ C	Left-justify a copy of the input string.
 	ELSE
 	    STR2 = STR
 	ENDIF
-	CALL JSTCHR ( STR2, IRET )
-	IF ( IRET .NE. 0 ) RETURN
+        STR2 = ADJUSTL ( STR2 )
+	IF ( STR2 .EQ. ' ' ) RETURN
 
 C	Look for an FXY number.
 

@@ -13,6 +13,8 @@ C> PROGRAM HISTORY LOG:
 C> 2007-01-19  J. ATOR    -- ORIGINAL AUTHOR
 C> 2021-01-08  J. ATOR    -- MODIFIED MSTABS ARRAY DECLARATIONS
 C>                           FOR GNUv10 PORTABILITY
+C> - 2021-09-30  J. Ator    -- Replace jstchr with Fortran intrinsic
+C>                             adjustl
 C>
 C> USAGE:    CALL SNTBDE ( LUNT, IFXYN, LINE, MXMTBD, MXELEM,
 C>                         NMTBD, IMFXYN, CMMNEM, CMDSC, CMSEQ,
@@ -52,8 +54,7 @@ C>   CEELEM(*,*)- CHARACTER*120: MERGED ARRAY CONTAINING ELEMENT NAMES
 C>
 C> REMARKS:
 C>    THIS ROUTINE CALLS:        ADN30    BORT     BORT2    IFXY
-C>                               IGETFXY  IGETNTBL JSTCHR   NEMOCK
-C>                               PARSTR
+C>                               IGETFXY  IGETNTBL NEMOCK   PARSTR
 C>    THIS ROUTINE IS CALLED BY: RDMTBD
 C>                               Normally not called by any application
 C>                               programs.
@@ -106,9 +107,9 @@ C	    Parse the rest of the line.  Any of the fields may be blank.
 	    CALL PARSTR ( LINE(IPT+1:), TAGS, 10, NTAG, ';', .FALSE. )
 	    IF ( NTAG .GT. 0 ) THEN
 C		The first additional field contains the mnemonic.
-		CALL JSTCHR ( TAGS(1), IRET )
-C		If there is a mnemonic, then make sure it's legal.
-		IF ( ( IRET .EQ. 0 ) .AND.
+                TAGS(1) = ADJUSTL( TAGS(1) )
+C               If there is a mnemonic, then make sure it's legal.
+                IF ( ( TAGS(1) .NE. ' ' ) .AND.
      .		    ( NEMOCK ( TAGS(1) ) .NE. 0 ) ) THEN
 		    BORT_STR2 = '                  HAS ILLEGAL MNEMONIC'
 		    GOTO 901
@@ -119,12 +120,12 @@ C		If there is a mnemonic, then make sure it's legal.
 	    ENDIF
 	    IF ( NTAG .GT. 1 ) THEN
 C		The second additional field contains descriptor codes.
-		CALL JSTCHR ( TAGS(2), IRET )
+                TAGS(2) = ADJUSTL( TAGS(2) )
 		CMDSC ( NMTBD ) = TAGS(2)(1:4)
 	    ENDIF
 	    IF ( NTAG .GT. 2 ) THEN
 C		The third additional field contains the sequence name.
-		CALL JSTCHR ( TAGS(3), IRET )
+		TAGS(3) = ADJUSTL( TAGS(3) )
                 DO II = 1, 120
 		    CMSEQ ( II, NMTBD ) = TAGS(3)(II:II)
                 ENDDO
@@ -162,7 +163,7 @@ C	    The second field contains the FXY number for this element.
 C	    The third field (if it exists) contains the element name.
 
 	    IF ( NTAG .GT. 2 ) THEN
-		CALL JSTCHR ( TAGS(3), IRET )
+                TAGS(3) = ADJUSTL( TAGS(3) )
 		CEELEM ( NMTBD, NELEM ) = TAGS(3)(1:120)
 	    ELSE
 		CEELEM ( NMTBD, NELEM ) = ' '

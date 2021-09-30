@@ -7,6 +7,8 @@ C>   STORES THE OUTPUT INTO AN INTERNAL MEMORY STRUCTURE.
 C>
 C> PROGRAM HISTORY LOG:
 C> 2017-11-02  J. ATOR    -- ORIGINAL AUTHOR
+C> - 2021-09-30  J. Ator    -- Replace jstchr with Fortran intrinsic
+C>                             adjustl
 C>
 C> USAGE:    CALL SNTBFE ( LUNT, IFXYN, LINE )
 C>   INPUT ARGUMENT LIST:
@@ -17,8 +19,7 @@ C>     LINE     - CHARACTER*(*): FIRST LINE OF TABLE ENTRY
 C>
 C> REMARKS:
 C>    THIS ROUTINE CALLS:        ADN30    BORT2    IFXY     IGETFXY
-C>                               IGETNTBL JSTCHR   PARSTR   STRNUM
-C>                               STRTBFE
+C>                               IGETNTBL PARSTR   STRNUM   STRTBFE
 C>    THIS ROUTINE IS CALLED BY: RDMTBF
 C>                               Normally not called by any application
 C>                               programs.
@@ -94,7 +95,7 @@ C		Parse the list of values.
 		  GOTO 900
 		ENDIF
 		DO II = 1, NIDVAL
-		  CALL JSTCHR ( CVAL(II), IER )
+                  CVAL(II) = ADJUSTL( CVAL(II) )
 		  CALL STRNUM ( CVAL(II), IVAL )
 		  IDVAL(II) = IVAL
 		ENDDO
@@ -114,12 +115,12 @@ C		  This is the last line for this table entry.
 		  TAGS(2)(IPT+1:IPT+1) = ' '
 		ENDIF
 
-		CALL JSTCHR ( TAGS(2), IER )
+                TAGS(2) = ADJUSTL( TAGS(2) )
 		CALL STRNUM ( TAGS(2), IVAL )
 
 C		Find the last non-blank character in the meaning string.
 
-		CALL JSTCHR ( TAGS(3), IER )
+                TAGS(3) = ADJUSTL( TAGS(3) )
 		LT3 = LEN(TAGS(3))
 		LSTNBLK = .FALSE.
 		DO WHILE ( ( LT3 .GT. 0 ) .AND. ( .NOT. LSTNBLK ) )

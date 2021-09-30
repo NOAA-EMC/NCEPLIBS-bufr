@@ -10,6 +10,9 @@ C> 2007-01-19  J. ATOR    -- ORIGINAL AUTHOR
 C> 2021-01-08  J. ATOR    -- MODIFIED MSTABS ARRAY DECLARATIONS
 C>                           FOR GNUv10 PORTABILITY
 C> - 2021-05-17  J. Ator    -- Allow up to 24 characters in cmunit
+C> - 2021-09-30  J. Ator    -- Replace jstchr with Fortran intrinsic
+C>                             adjustl; replace rjust with Fortran
+C>                             intrinsic adjustr
 C>
 C> USAGE:    CALL SNTBBE ( IFXYN, LINE, MXMTBB,
 C>                         NMTBB, IMFXYN, CMSCL, CMSREF, CMBW,
@@ -39,8 +42,7 @@ C>     CMDSC(*) - CHARACTER*4: MERGED ARRAY CONTAINING DESCRIPTOR CODES
 C>     CMELEM(*)- CHARACTER*120: MERGED ARRAY CONTAINING ELEMENT NAMES 
 C>
 C> REMARKS:
-C>    THIS ROUTINE CALLS:        BORT     BORT2    JSTCHR   NEMOCK
-C>                               PARSTR   RJUST
+C>    THIS ROUTINE CALLS:        BORT     BORT2    NEMOCK   PARSTR
 C>    THIS ROUTINE IS CALLED BY: RDMTBB
 C>                               Normally not called by any application
 C>                               programs.
@@ -83,36 +85,36 @@ C	Parse the table entry.
 
 C	Scale factor.
 
-	CALL JSTCHR ( TAGS(2), IRET )
-	IF ( IRET .NE. 0 ) THEN
+        TAGS(2) = ADJUSTL( TAGS(2) )
+	IF ( TAGS(2) .EQ. ' ' ) THEN
 	    BORT_STR2 = '                  HAS MISSING SCALE FACTOR'
 	    GOTO 901
 	ENDIF
-	CALL RJUST ( TAGS(2)(1:4) )
+	TAGS(2)(1:4) = ADJUSTR( TAGS(2)(1:4) )
         DO II = 1, 4
 	    CMSCL ( II, NMTBB ) = TAGS(2)(II:II)
         ENDDO
 
 C	Reference value.
 
-	CALL JSTCHR ( TAGS(3), IRET )
-	IF ( IRET .NE. 0 ) THEN
+        TAGS(3) = ADJUSTL( TAGS(3) )
+	IF ( TAGS(3) .EQ. ' ' ) THEN
 	    BORT_STR2 = '                  HAS MISSING REFERENCE VALUE'
 	    GOTO 901
 	ENDIF
-	CALL RJUST ( TAGS(3)(1:12) )
+	TAGS(3)(1:12) = ADJUSTR( TAGS(3)(1:12) )
         DO II = 1, 12
 	    CMSREF ( II, NMTBB ) = TAGS(3)(II:II)
         ENDDO
 
 C	Bit width.
 
-	CALL JSTCHR ( TAGS(4), IRET )
-	IF ( IRET .NE. 0 ) THEN
+        TAGS(4) = ADJUSTL( TAGS(4) )
+	IF ( TAGS(4) .EQ. ' ' ) THEN
 	    BORT_STR2 = '                  HAS MISSING BIT WIDTH'
 	    GOTO 901
 	ENDIF
-	CALL RJUST ( TAGS(4)(1:4) )
+	TAGS(4)(1:4) = ADJUSTR( TAGS(4)(1:4) )
         DO II = 1, 4
 	    CMBW ( II, NMTBB ) = TAGS(4)(II:II)
         END DO
@@ -120,7 +122,7 @@ C	Bit width.
 C	Units.  Note that this field is allowed to be blank.
 
 	IF ( NTAG .GT. 4 ) THEN
-	    CALL JSTCHR ( TAGS(5), IRET )
+            TAGS(5) = ADJUSTL( TAGS(5) )
             DO II = 1, 24
 	        CMUNIT ( II, NMTBB ) = TAGS(5)(II:II)
             ENDDO
@@ -144,9 +146,9 @@ C	Comment (additional) fields.  Any of these fields may be blank.
 	    CALL PARSTR ( WKTAG, TAGS, 10, NTAG, ';', .FALSE. )
 	    IF ( NTAG .GT. 0 ) THEN
 C		The first additional field contains the mnemonic.
-		CALL JSTCHR ( TAGS(1), IRET )
+                TAGS(1) = ADJUSTL( TAGS(1) )
 C		If there is a mnemonic, then make sure it's legal.
-		IF ( ( IRET .EQ. 0 ) .AND.
+		IF ( ( TAGS(1) .NE. ' ' ) .AND.
      .		    ( NEMOCK ( TAGS(1) ) .NE. 0 ) ) THEN
 		    BORT_STR2 = '                  HAS ILLEGAL MNEMONIC'
 		    GOTO 901
@@ -157,12 +159,12 @@ C		If there is a mnemonic, then make sure it's legal.
 	    ENDIF
 	    IF ( NTAG .GT. 1 ) THEN
 C		The second additional field contains descriptor codes.
-		CALL JSTCHR ( TAGS(2), IRET )
+                TAGS(2) = ADJUSTL( TAGS(2) )
 		CMDSC ( NMTBB ) = TAGS(2)(1:4)
 	    ENDIF
 	    IF ( NTAG .GT. 2 ) THEN
 C		The third additional field contains the element name.
-		CALL JSTCHR ( TAGS(3), IRET )
+                TAGS(3) = ADJUSTL( TAGS(3) )
                 DO II = 1, 120 
 		    CMELEM ( II, NMTBB ) = TAGS(3)(II:II)
                 ENDDO

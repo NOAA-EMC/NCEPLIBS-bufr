@@ -19,13 +19,13 @@ list(APPEND fortran_src
   idn30.f idxmsg.f ifbget.f ifxy.f igetdate.f igetfxy.f igetmxby.f igetntbi.f igetntbl.f igetprm.f
   igetrfel.f igetsc.f igettdi.f imrkopr.f inctab.f invcon.f invmrg.f invtag.f invwin.f iok2cpy.f
   iokoper.f ipkm.f ipks.f ireadmg.f ireadmm.f ireadns.f ireadsb.f ishrdx.f isize.f istdesc.f iupb.f
-  iupbs01.f iupbs3.f iupm.f iupvs01.f jstchr.f jstnum.f lcmgdf.f lmsg.f lstjpb.f makestab.f maxout.f
+  iupbs01.f iupbs3.f iupm.f iupvs01.f jstnum.f lcmgdf.f lmsg.f lstjpb.f makestab.f maxout.f
   mesgbc.f mesgbf.f minimg.f mrginv.f msgfull.f msgini.f msgupd.f msgwrt.f mtfnam.f mtinfo.f mvb.f
   nemdefs.f nemock.f nemspecs.f nemtab.f nemtba.f nemtbax.f nemtbb.f nemtbd.f nenubd.f nevn.f newwin.f
   nmsub.f nmwrd.f numbck.f numtab.f numtbd.f nvnwin.f nwords.f nxtwin.f openbt.f openmb.f openmg.f pad.f
   padmsg.f parstr.f parusr.f parutg.f pkb.f pkbs1.f pkc.f pkftbv.f pktdd.f posapx.f rcstpl.f rdbfdx.f
   rdcmps.f rdmemm.f rdmems.f rdmgsb.f rdmsgw.f rdmtbb.f rdmtbd.f rdmtbf.f rdtree.f rdusdx.f readdx.f
-  readerme.f readlc.f readmg.f readmm.f readns.f reads3.f readsb.f rewnbf.f rjust.f rsvfvm.f rtrcpt.f
+  readerme.f readlc.f readmg.f readmm.f readns.f reads3.f readsb.f rewnbf.f rsvfvm.f rtrcpt.f
   rtrcptb.f seqsdx.f setblock.f setbmiss.f setvalnb.f sntbbe.f sntbde.f sntbfe.f status.f stbfdx.f
   stdmsg.f stndrd.f stntbi.f stntbia.f strbtm.f strcln.f strcpt.f string.f strnum.f strsuc.f tabent.f
   tabsub.f trybump.f ufbcnt.f ufbcpy.f ufbcup.f ufbdmp.f ufbevn.f ufbget.f ufbin3.f ufbint.f ufbinx.f
