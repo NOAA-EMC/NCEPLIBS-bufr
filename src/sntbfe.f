@@ -95,7 +95,7 @@ C		Parse the list of values.
 		  GOTO 900
 		ENDIF
 		DO II = 1, NIDVAL
-                  CVAL(II) = ADJUSTL( CVAL(II) )
+		  CVAL(II) = ADJUSTL( CVAL(II) )
 		  CALL STRNUM ( CVAL(II), IVAL )
 		  IDVAL(II) = IVAL
 		ENDDO
@@ -115,12 +115,12 @@ C		  This is the last line for this table entry.
 		  TAGS(2)(IPT+1:IPT+1) = ' '
 		ENDIF
 
-                TAGS(2) = ADJUSTL( TAGS(2) )
+		TAGS(2) = ADJUSTL( TAGS(2) )
 		CALL STRNUM ( TAGS(2), IVAL )
 
 C		Find the last non-blank character in the meaning string.
 
-                TAGS(3) = ADJUSTL( TAGS(3) )
+		TAGS(3) = ADJUSTL( TAGS(3) )
 		LT3 = LEN(TAGS(3))
 		LSTNBLK = .FALSE.
 		DO WHILE ( ( LT3 .GT. 0 ) .AND. ( .NOT. LSTNBLK ) )
