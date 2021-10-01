@@ -19,6 +19,11 @@ guidance from WMO, all fields within all BUFR master table files are now
 restricted to the CCITTIA5 character set.
 [[Issue #140](https://github.com/NOAA-EMC/NCEPLIBS-bufr/issues/140)]
 
+* Subroutine jstchr and function rjust have been removed from the library,
+and their usage has been replaced with the Fortran intrinsic functions
+adjustl and adjustr.
+[[Issue #165](https://github.com/NOAA-EMC/NCEPLIBS-bufr/issues/165)]
+
 * Several prototypes were added to the bufrlib.h header file to enable
 further interoperability with C application programs.  In addition, several
 existing prototypes were modified to use size_t when passing string lengths

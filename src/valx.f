@@ -21,6 +21,8 @@ C> - 1999-11-18  J. Woollen -- Renamed from val$ to valx because the $
 C>                           symbol causes problems on certain platforms
 C> - 2003-11-04  D. Keyser  -- Use bort2() instead of bort()
 C> - 2009-04-21  J. Ator    -- Use errwrt()
+C> - 2021-09-30  J. Ator    -- Replace rjust with Fortran intrinsic
+C>                             adjustr
 C>
       FUNCTION VALX(STR)
 
@@ -38,8 +40,7 @@ C----------------------------------------------------------------------
 
       LENS = LEN(STR)
       IF(LENS.GT.99) GOTO 900
-      BSTR(1:LENS) = STR
-      RJ = RJUST(BSTR(1:LENS))
+      BSTR(1:LENS) = ADJUSTR(STR)
       WRITE(FMT,'(''(F'',I2,''.0)'')') LENS
       VALX = BMISS
       READ(BSTR,FMT,ERR=800) VAL

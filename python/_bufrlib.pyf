@@ -1235,10 +1235,6 @@ function iupvs01(lunit,s01mnem) ! in iupvs01.f
     common /bufrbmiss/ bmiss
     common /bitbuf/ maxbyt,ibit,ibay,mbyt,mbay
 end function iupvs01
-subroutine jstchr(str,iret) ! in jstchr.f
-    character*(*) :: str
-    integer :: iret
-end subroutine jstchr
 subroutine jstnum(str,sign,iret) ! in jstnum.f
     character*(*) :: str
     character*1 :: sign
@@ -2513,10 +2509,6 @@ subroutine rewnbf(lunit,isr) ! in rewnbf.f
     common /bitbuf/ maxbyt,ibit,ibay,mbyt,mbay
     common /bufrsr/ junn,jill,jimm,jbit,jbyt,jmsg,jsub,ksub,jnod,jdat,jsr,jbay
 end subroutine rewnbf
-function rjust(str) ! in rjust.f
-    character*(*) :: str
-    real :: rjust
-end function rjust
 subroutine rsvfvm(nem1,nem2) ! in rsvfvm.f
     character*8 :: nem1
     character*8 :: nem2

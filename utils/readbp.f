@@ -302,8 +302,7 @@ C        IF(TAB.NE.'B') CALL BORT('UFBDMP - BAD ITYP!')
       ELSEIF(ITYP.EQ.3) THEN                                            
          LCHR = ' '
          NCHR = IBT(NODE)/8
-         LCHR = CVAL
-         IRET = RJUST(LCHR)
+         LCHR = ADJUSTR(CVAL)
          FMT = '(A6,2X,A8,2X,A18,2X,"(",i2,")",A8,2x,a28)'
          WRITE(LUOUT,FMT) NUMB,NEMO,LCHR,NCHR,UNIT,DESC
       ENDIF                                                             
