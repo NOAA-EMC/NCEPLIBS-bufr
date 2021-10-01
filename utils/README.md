@@ -12,6 +12,7 @@
 | [cmpbqm](#cmpbqm) | Print inventory of observations from prepbufr file by variable, report type and quality mark |
 | [gettab](#gettab) | Print embedded DX BUFR tables from within a BUFR file |
 | [split_by_subset](#split) | Split a BUFR file into separate BUFR files for each subset type |
+| [xbfmg](#xbfmg) | Split a BUFR file into separate BUFR files for each message |
 
 <br>
 
@@ -453,6 +454,8 @@ typ   tot    0-3    4-7      8      9    10     11    12    13    14    15    ck
  ******CMPBQM PROCESSED         7066  BUFR RECORDS******
 ~~~
 
+<br>
+
 ---
 
 <div id="gettab"/>
@@ -511,6 +514,9 @@ Sample output for: `./gettab.x gdas.20200812/00/gdas.t00z.adpsfc.tm00.bufr_d`
 
 ~~~
 
+<br>
+
+---
 
 <div id="split"/>
 
@@ -521,4 +527,52 @@ A utility to read any BUFR file and split it into separate BUFR files based on s
 See the source code at split_by_subset.f90
 
 Usage: `./split_by_subset.x gdas.20200812/00/gdas.t00z.satwnd.tm00.bufr_d`
-~~~
+
+<br>
+
+---
+
+<div id="xbfmg"/>
+
+### xbfmg 
+
+This program splits a single file containing one or more BUFR messages into one or more
+BUFR files each containing a single BUFR message.  The output BUFR files are written to the
+current working directory, according to a pre-defined naming convention as described below.
+
+<pre>
+Usage:
+
+   xbfmg [-v] [-h] [-g] bufrfile
+
+     where:
+       -v        prints version information and exits
+
+       -h        prints program help and usage information and exits
+
+       -g        preserves within each output file any GTS bulletin header and control
+                 characters associated with the corresponding BUFR message from the
+                 input file
+
+       bufrfile  [path/]name of input file containing one or more BUFR messages to be
+                 extracted into separate output files within the current working directory
+
+   The output will be stored within the current working directory using the
+   following filenames:
+
+       (basename).xbfmg.out.000001
+       (basename).xbfmg.out.000002
+       (basename).xbfmg.out.000003
+         and so on, up through 
+       (basename).xbfmg.out.(last#)
+
+   where:
+
+       (basename) = basename of bufrfile
+
+       (last#) = total number of BUFR messages in bufrfile
+</pre>
+
+See the source code at xbfmg.c
+
+<br>
