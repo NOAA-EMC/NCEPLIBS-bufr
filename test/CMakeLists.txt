@@ -83,6 +83,7 @@ list(APPEND test_scripts
   test_gettab.sh
   test_split_by_subset.sh
   test_debufr.sh
+  test_xbfmg.sh
 )
 
 foreach(test_script ${test_scripts})
@@ -178,15 +179,15 @@ foreach(test_src ${test_c_interface_srcs})
   endforeach()
 endforeach()
 
-# Test utilities
-
 # Test debufr.x utility
-add_test(NAME test_debufr_1
-  COMMAND ${CMAKE_BINARY_DIR}/bin/test_debufr.sh "${CMAKE_BINARY_DIR}/utils/debufr.x -t ../tables" "testfiles/data/debufr_1" "testrun/debufr_1.run" "testfiles/testoutput/debufr_1.out"
-  )
-add_test(NAME test_debufr_2
-  COMMAND ${CMAKE_BINARY_DIR}/bin/test_debufr.sh "${CMAKE_BINARY_DIR}/utils/debufr.x -t testfiles/data -f bufrtab.031 -c" "testfiles/data/debufr_2" "testrun/debufr_2.run" "testfiles/testoutput/debufr_2.out"
-  )
+set(db_flags_1 "-t ../tables")
+set(db_flags_2 "-t testfiles/data -f bufrtab.031 -c")
+foreach(db_num RANGE 1 2)
+  set(db_case debufr_${db_num})
+  add_test(NAME test_${db_case} COMMAND ${CMAKE_BINARY_DIR}/bin/test_debufr.sh
+           "${CMAKE_BINARY_DIR}/utils/debufr.x ${db_flags_${db_num}}" "testfiles/data/${db_case}"
+           "testrun/${db_case}.run" "testfiles/testoutput/${db_case}.out")
+endforeach()
 
 # Test gettab.x utility
 add_test(NAME test_gettab
@@ -197,3 +198,13 @@ add_test(NAME test_gettab
 add_test(NAME test_split_by_subset
   COMMAND ${CMAKE_BINARY_DIR}/bin/test_split_by_subset.sh "${CMAKE_BINARY_DIR}/utils/split_by_subset.x testfiles/data/satwndbufr" "testfiles/testoutput/satwndbufr_split"
   )
+
+# Test xbfmg.x utility
+set(xb_flags_1 "-g")
+set(xb_flags_2 "")
+foreach(xb_num RANGE 1 2)
+  set(xb_case xbfmg_${xb_num})
+  add_test(NAME test_${xb_case} COMMAND ${CMAKE_BINARY_DIR}/bin/test_xbfmg.sh
+           "${CMAKE_BINARY_DIR}/utils/xbfmg.x ${xb_flags_${xb_num}}" "testfiles/data"
+           "testfiles/testoutput/xbfmg" "${xb_case}")
+endforeach()

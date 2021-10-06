@@ -9,7 +9,7 @@ C> @date 2002-05-14
 C>
 C> @param[in] LUN - integer: Internal I/O stream index associated
 C>                  with DX BUFR tables
-C> @param[in} IDN - integer: Bit-wise representation of FXY value
+C> @param[in] IDN - integer: Bit-wise representation of FXY value
 C>                  for descriptor
 C> @param[out] NEMO - character*(*): Mnemonic associated with IDN
 C> @param[out] TAB - character: Type associated with IDN
