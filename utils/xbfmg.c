@@ -100,6 +100,7 @@ void prtusage( char *prgnam ) {
  * <b>Program history log:</b>
  * - 2018-03-01  J. Ator  -- Original author
  * - 2021-09-29  J. Ator  -- Use basename instead of pid in output filenames
+ * - 2021-10-08  J. Ator  -- Simplify bvstr instantiation and initialization
  */
 
 main( int argc, char *argv[] ) {
@@ -114,7 +115,7 @@ main( int argc, char *argv[] ) {
 	char outfile_temp[MXFLEN];
 	char wkstr[MXFLEN];
 
-	char bvstr[9] = "        ";
+	char *bvstr;
 
 	int ch;
 
@@ -133,25 +134,19 @@ main( int argc, char *argv[] ) {
         while ( ( ch = getopt ( argc, argv, "vgh" ) ) != EOF ) {
             switch ( ch ) {
 		case 'v':
-		    bvers ( bvstr, sizeof(bvstr) );
-		    /* append a trailing NULL to bvstr for printf */
-		    for ( ii = 0; ii < sizeof(bvstr); ii++ ) {
-		        if ( ( bvstr[ii] != '.' ) && ( !isdigit(bvstr[ii]) ) ) {
-		          bvstr[ii] = '\0';
-		          break;
-		        }
-		    }
+		    bvstr = ( char * ) calloc( 9, sizeof(char) );  /* allocate bvstr and initialize to all nulls */
+		    bvers( bvstr, sizeof(bvstr) );
 		    printf( "This is xbfmg v3.2.0, built with BUFRLIB v%s\n", bvstr );
 		    return 0;
-                case 'g':
+		case 'g':
 		    save_GTSbull = 1;
-                    break;
+		    break;
 		case 'h':
                     printf( "\nPROGRAM %s\n", argv[0] );
                     printf( "\nABSTRACT: This program reads an input file containing one or more\n" );
-		    printf( "  BUFR messages as given by the first argument.  It then extracts each\n" );
-		    printf( "  each individual BUFR message into its own separate output file within\n" );
-		    printf( "  the current working directory.\n" );
+                    printf( "  BUFR messages as given by the first argument.  It then extracts each\n" );
+                    printf( "  each individual BUFR message into its own separate output file within\n" );
+                    printf( "  the current working directory.\n" );
                     prtusage( argv[0] );
                     return 0;
                     break;
@@ -198,8 +193,8 @@ main( int argc, char *argv[] ) {
 	fclose( fp );
 
 	/*
- 	**  Create an output file name template.
-        */
+	**  Create an output file name template.
+	*/
 	strcpy( wkstr, argv[optind] );
 	strcpy( outfile_temp, basename( wkstr ) );
 	strcat( outfile_temp, ".xbfmg.out" );
