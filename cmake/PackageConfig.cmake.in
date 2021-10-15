@@ -1,8 +1,5 @@
 @PACKAGE_INIT@
 
-#  * @PROJECT_NAME@::@PROJECT_NAME@_4_DA - real32 library target with dynamic allocation
-#  * @PROJECT_NAME@::@PROJECT_NAME@_8_DA - real64 library target with dynamic allocation
-#  * @PROJECT_NAME@::@PROJECT_NAME@_d_DA - mixed library target with dynamic allocation
 #  * @PROJECT_NAME@::@PROJECT_NAME@_4    - real32 library target
 #  * @PROJECT_NAME@::@PROJECT_NAME@_8    - real64 library target
 #  * @PROJECT_NAME@::@PROJECT_NAME@_d    - mixed library target
@@ -11,11 +8,11 @@
 include("${CMAKE_CURRENT_LIST_DIR}/@PROJECT_NAME@-targets.cmake")
 
 # Get the build type from real32 library target with dyanmic allocation
-get_target_property(@PROJECT_NAME@_BUILD_TYPES @PROJECT_NAME@::@PROJECT_NAME@_4_DA IMPORTED_CONFIGURATIONS)
+get_target_property(@PROJECT_NAME@_BUILD_TYPES @PROJECT_NAME@::@PROJECT_NAME@_4 IMPORTED_CONFIGURATIONS)
 
 check_required_components("@PROJECT_NAME@")
 
 set(@PROJECT_NAME@_TABLES_DIR "@MASTER_TABLE_DIR@")
 
-get_target_property(location @PROJECT_NAME@::@PROJECT_NAME@_4_DA LOCATION)
+get_target_property(location @PROJECT_NAME@::@PROJECT_NAME@_4 LOCATION)
 message(STATUS "Found @PROJECT_NAME@: ${location} (found version \"@PROJECT_VERSION@\")")
