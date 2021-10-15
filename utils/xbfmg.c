@@ -103,7 +103,7 @@ void prtusage( char *prgnam ) {
  * - 2021-10-08  J. Ator  -- Simplify bvstr instantiation and initialization
  */
 
-main( int argc, char *argv[] ) {
+int main( int argc, char *argv[] ) {
 
 	struct stat fileinfo;
 

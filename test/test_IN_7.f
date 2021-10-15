@@ -21,7 +21,9 @@ C>      generation of error messages from within the library.
 
         USE Share_errstr
 
-        CHARACTER*(*) str
+        CHARACTER*(*)   str
+
+        INTEGER         str_len 
 
         str_len = LEN(str)
         errstr ( errstr_len + 1 : errstr_len + str_len + 1 ) = str
