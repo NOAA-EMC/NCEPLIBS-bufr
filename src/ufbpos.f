@@ -1,52 +1,51 @@
 C> @file
-C> @author WOOLLEN @date 1995-11-22
-      
-C> THIS SUBROUTINE SHOULD ONLY BE CALLED WHEN LOGICAL UNIT
-C>   LUNIT HAS BEEN OPENED FOR INPUT OPERATIONS.  IT POSITIONS THE
-C>   MESSAGE POINTER TO A USER-SPECIFIED BUFR MESSAGE NUMBER IN THE FILE
-C>   CONNECTED TO LUNIT AND THEN CALLS BUFR ARCHIVE LIBRARY SUBROUTINE
-C>   READMG TO READ THIS BUFR MESSAGE INTO A MESSAGE BUFFER (ARRAY MBAY
-C>   IN MODULE BITBUF).  IT THEN POSITIONS THE SUBSET POINTER TO
-C>   A USER-SPECIFIED SUBSET NUMBER WITHIN THE BUFR MESSAGE AND CALLS
-C>   BUFR ARCHIVE LIBRARY SUBROUTINE READSB TO READ THIS SUBSET INTO
-C>   INTERNAL SUBSET ARRAYS.  THE BUFR MESSAGE HERE MAY BE EITHER
-C>   COMPRESSED OR UNCOMPRESSED.  THE USER-SPECIFIED MESSAGE NUMBER DOES
-C>   NOT INCLUDE ANY DICTIONARY MESSAGES THAT MAY BE AT THE TOP OF THE
-C>   FILE).
+C> @brief Jump forwards or backwards to a specified data subset within
+C> a BUFR file
+
+C> This subroutine repositions the file pointer to the beginning of a
+C> specified data subset within a specified message of a BUFR file,
+C> then reads that data subset into internal arrays so that it can be
+C> further processed via subsequent calls to any of the
+C> [values-reading subroutines](@ref hierarchy).
 C>
-C> PROGRAM HISTORY LOG:
-C> 1995-11-22  J. WOOLLEN -- ORIGINAL AUTHOR (WAS IN-LINED IN PROGRAM
-C>                           NAM_STNMLIST)
-C> 2005-03-04  D. KEYSER  -- ADDED TO BUFR ARCHIVE LIBRARY; ADDED
-C>                           DOCUMENTATION
-C> 2005-11-29  J. ATOR    -- USE IUPBS01 AND RDMSGW
-C> 2006-04-14  J. ATOR    -- REMOVE UNNECESSARY MOIN INITIALIZATION
-C> 2009-03-23  J. ATOR    -- MODIFIED TO HANDLE EMBEDDED BUFR TABLE
-C>                           (DICTIONARY) MESSAGES
-C> 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
+C> The specified data subset may be before or after the current location
+C> of the file pointer within the BUFR file.
 C>
-C> USAGE:    CALL UFBPOS( LUNIT, IREC, ISUB, SUBSET, JDATE )
-C>   INPUT ARGUMENT LIST:
-C>     LUNIT    - INTEGER: FORTRAN LOGICAL UNIT NUMBER FOR BUFR FILE
-C>     IREC     - INTEGER: POINTER TO BUFR MESSAGE NUMBER (RECORD) IN
-C>                FILE (DOES NOT INCLUDE ANY DICTIONARY MESSSAGES THAT
-C>                MAY BE AT THE TOP OF THE FILE)
-C>     ISUB     - INTEGER: POINTER TO SUBSET NUMBER TO READ IN BUFR
-C>                MESSAGE
+C> @author J. Woollen
+C> @date 1995-11-22
 C>
-C>   OUTPUT ARGUMENT LIST:
-C>     SUBSET   - CHARACTER*8: TABLE A MNEMONIC FOR TYPE OF BUFR MESSAGE
-C>                BEING READ
-C>     JDATE    - INTEGER: DATE-TIME STORED WITHIN SECTION 1 OF BUFR
-C>                MESSAGE BEING READ, IN FORMAT OF EITHER YYMMDDHH OR
-C>                YYYYMMDDHH, DEPENDING ON DATELEN() VALUE
+C> @param[in] LUNIT  - integer: Fortran logical unit number for BUFR file
+C> @param[in] IREC   - integer: Ordinal number of message to be read,
+C>                     counting from the beginning of the BUFR file, but
+C>                     not counting any messages which contain DX BUFR
+C>                     tables information
+C> @param[in] ISUB   - integer: Ordinal number of data subset to be
+C>                     read from (IREC)th message, counting from the
+C>                     beginning of the message
+C> @param[out] SUBSET - character*8: Table A mnemonic for type of BUFR
+C>                      message that was read
+C>                      (see [DX BUFR Tables](@ref dfbftab)
+C>                      for further information about Table A mnemonics)
+C> @param[out] JDATE  - integer: Date-time stored within Section 1 of
+C>                      BUFR message that was read, in format of either
+C>                      YYMMDDHH or YYYYMMDDHH, depending on the most
+C>                      recent call to subroutine datelen()
 C>
-C> REMARKS:
-C>    THIS ROUTINE CALLS:        BORT     CEWIND   NMSUB    READMG
-C>                               READSB   STATUS   UFBCNT   UPB
-C>    THIS ROUTINE IS CALLED BY: None
-C>                               Normally called only by application
-C>                               programs.
+C> @remarks
+C> - Logical unit LUNIT should have already been opened for input
+C> operations via a previous call to subroutine openbf().
+C> - The value specified for IREC should <b>not</b> include any messages
+C> which contain DX BUFR tables information.
+C>
+C> <b>Program history log:</b>
+C> - 1995-11-22  J. Woollen -- Original author
+C> - 2005-03-04  D. Keyser  -- Added documentation
+C> - 2006-04-14  J. Ator    -- Remove unnecessary MOIN initialization
+C> - 2009-03-23  J. Ator    -- Modified to handle embedded BUFR table
+C>                             (dictionary) messages
+C> - 2014-12-10  J. Ator    -- Use modules instead of COMMON blocks
+C> - 2021-10-08  J. Ator    -- Use readsb() to read all subsets from
+C>                             IREC(th) message
 C>
       SUBROUTINE UFBPOS(LUNIT,IREC,ISUB,SUBSET,JDATE)
 
@@ -93,19 +92,11 @@ C  ----------------------------------------------
          CALL UFBCNT(LUNIT,JREC,JSUB)
       ENDDO
 
-      KSUB = NMSUB(LUNIT)
-      IF(ISUB.GT.KSUB)  GOTO 905
-
-      DO WHILE (ISUB-1.GT.JSUB)
-         IBIT = MBYT(LUN)*8
-         CALL UPB(NBYT,16,MBAY(1,LUN),IBIT)
-         MBYT(LUN) = MBYT(LUN) + NBYT
-         NSUB(LUN) = NSUB(LUN) + 1
+      DO WHILE (ISUB.GT.JSUB)
+         CALL READSB(LUNIT,IRET)
+         IF(IRET.NE.0) GOTO 905
          CALL UFBCNT(LUNIT,JREC,JSUB)
       ENDDO
-
-      CALL READSB(LUNIT,IRET)
-      IF(IRET.NE.0) GOTO 905
 
 C  EXITS
 C  -----
