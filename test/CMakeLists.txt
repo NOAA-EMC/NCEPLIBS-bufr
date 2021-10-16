@@ -45,6 +45,7 @@ list(APPEND test_IN_srcs
   test_IN_4.f
   test_IN_5.f
   test_IN_6.f
+  test_IN_7.f
   )
 
 list(APPEND test_OUT_1_srcs
