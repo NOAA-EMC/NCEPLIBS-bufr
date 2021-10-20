@@ -13,6 +13,10 @@ has now been correspondingly removed from the names of the library builds.
 changed from 29 to 36 within subroutines cmsgini(), dxmini() and msgini().
 [[Issue #142](https://github.com/NOAA-EMC/NCEPLIBS-bufr/issues/142)]
 
+* The maximum length of a [path/]filename that can be passed into function
+cobfl() was increased to 200 characters.
+[[Issue #174](https://github.com/NOAA-EMC/NCEPLIBS-bufr/issues/174)]
+
 * The library was modified to read up to 24 characters from the units field
 of BUFR master Table B files.  Furthermore, in accordance with updated
 guidance from WMO, all fields within all BUFR master table files are now
