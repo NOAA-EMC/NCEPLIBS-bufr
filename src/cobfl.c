@@ -6,7 +6,7 @@
 #define IN_COBFL
 #include "cobfl.h"
 
-#define MXFNLEN 100
+#define MXFNLEN 200
 
 /**
  *  This subroutine opens a new file for reading or writing BUFR
@@ -18,7 +18,7 @@
  *  @param[in] bfl   - char*: System file to be opened.
  *                     Inclusion of directory prefixes or other
  *                     local filesystem notation is allowed, up
- *                     to 100 total characters.
+ *                     to 200 total characters.
  *  @param[in]  io   - char: Flag indicating how bfl is to
  *                     be opened:
  *                      - 'r' = input (for reading BUFR messages) 
@@ -75,13 +75,14 @@
  *  
  *  <b>Program history log:</b>
  *  - 2005-11-29  J. Ator    -- Original author
+ *  - 2021-10-20  J. Ator    -- Increase MXFNLEN to 200 characters
  */
 void cobfl( char *bfl, char *io )
 {
     char lbf[MXFNLEN+1];
     char lio;
 
-    char errstr[150];
+    char errstr[MXFNLEN+50];
 
     char foparg[3] = " b";  /* 3rd character will automatically
 			       initialize to NULL */
@@ -96,7 +97,8 @@ void cobfl( char *bfl, char *io )
     for ( i = 0; ( ! isspace( bfl[i] ) && ! iscntrl( bfl[i] ) ); i++ ) {
 	if ( i == MXFNLEN ) {
 	    sprintf( errstr, "BUFRLIB: COBFL - INPUT FILENAME CONTAINS"
-			    " MORE THAN %d CHARACTERS", MXFNLEN );
+			    " MORE THAN %hu CHARACTERS",
+			    ( unsigned short ) MXFNLEN );
 	    bort( errstr, ( f77int ) strlen( errstr ) );
 	}
 	lbf[i] = bfl[i];
