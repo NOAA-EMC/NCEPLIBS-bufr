@@ -1,36 +1,29 @@
 C> @file
-C> @author ATOR @date 2007-01-19
-	
-C> THIS FUNCTION GETS THE NEXT LINE FROM THE ASCII MASTER
-C>   TABLE FILE SPECIFIED BY LUNT, IGNORING ANY BLANK LINES OR COMMENT
-C>   LINES IN THE PROCESS.
+C> @brief Read the next line from a master table B, table D or Code/Flag
+C> table file
+
+C> This subroutine reads the next line from an ASCII master table B,
+C> table D or Code/Flag table file, ignoring any blank lines or comment
+C> lines in the process.
 C>
-C> PROGRAM HISTORY LOG:
-C> 2007-01-19  J. ATOR    -- ORIGINAL AUTHOR
+C> @author J. Ator
+C> @date 2007-01-19
 C>
-C> USAGE:    IGETNTBL ( LUNT, LINE )
-C>   INPUT ARGUMENT LIST:
-C>     LUNT     - INTEGER: FORTRAN LOGICAL UNIT NUMBER OF ASCII FILE
-C>                CONTAINING MASTER TABLE INFORMATION
+C> @param[in] LUNT    - integer: Fortran logical unit number for
+C>                      ASCII file containing table information
+C> @param[out] LINE   - character*(*): Next non-blank, non-comment line
+C>                      that was read from LUNT
+C> @returns igetntbl  - integer: return code
+C>                        -  0 = normal return
+C>                        - -1 = end-of-file encountered while reading
+C>                               from LUNT
+C>                        - -2 = I/O error encountered while reading
+C>                               from LUNT
 C>
-C>   OUTPUT ARGUMENT LIST:
-C>     LINE     - CHARACTER*(*): NEXT NON-BLANK, NON-COMMENT LINE READ
-C>                FROM LUNT
-C>     IGETNTBL - INTEGER: RETURN CODE:
-C>                       0 = normal return
-C>                      -1 = end-of-file encountered while reading
-C>                           from LUNT
-C>                      -2 = I/O error encountered while reading
-C>                           from LUNT
-C> REMARKS:
-C>    THIS ROUTINE CALLS:        None
-C>    THIS ROUTINE IS CALLED BY: GETNTBE  GETTBH   SNTBDE   SNTBFE
-C>                               Normally not called by any application
-C>                               programs.
+C> <b>Program history log:</b>
+C> - 2007-01-19  J. Ator    -- Original author
 C>
 	FUNCTION IGETNTBL ( LUNT, LINE )
-
-
 
 	CHARACTER*(*)	LINE
 

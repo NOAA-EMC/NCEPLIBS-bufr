@@ -1,56 +1,48 @@
 C> @file
-C> @author WOOLLEN @date 1994-01-06
-      
-C> THIS SUBROUTINE RETURNS A COUNT OF THE CURRENT MESSAGE
-C>   NUMBER AND SUBSET NUMBER, WHERE THE MESSAGE NUMBER IS RELATIVE TO
-C>   ALL MESSAGES IN THE BUFR FILE AND THE SUBSET NUMBER IS RELATIVE TO
-C>   ALL SUBSETS IN THE MESSAGE.  IF THE MESSAGE/SUBSET ARE BEING READ,
-C>   THE MESSAGE COUNT ADVANCES EACH TIME BUFR ARCHIVE LIBRARY
-C>   SUBROUTINE READMG (OR EQUIVALENT) IS CALLED AND THE SUBSET COUNT
-C>   ADVANCES EACH TIME BUFR ARCHIVE LIBRARY SUBROUTINE READSB (OR
-C>   EQUIVALENT) IS CALLED FOR A PARTICULAR MESSAGE.  IF THE MESSAGE/
-C>   SUBSET ARE BEING WRITTEN, THE MESSAGE COUNT ADVANCES EACH TIME
-C>   BUFR ARCHIVE LIBRARY SUBROUTINE OPENMG (OR EQUIVALENT) IS CALLED
-C>   AND THE SUBSET COUNT ADVANCES EACH TIME BUFR ARCHIVE LIBRARY
-C>   SUBROUTINE WRITSB (OR EQUIVALENT) IS CALLED.
+C> @brief Get the current message number and data subset number within
+C> a BUFR file
+
+C> This subroutine returns the current location of the file pointer
+C> within a BUFR file, in terms of a message number counting from the
+C> beginning of the file, and a data subset number counting from the
+C> beginning of that message.
 C>
-C> PROGRAM HISTORY LOG:
-C> 1994-01-06  J. WOOLLEN -- ORIGINAL AUTHOR
-C> 1998-07-08  J. WOOLLEN -- REPLACED CALL TO CRAY LIBRARY ROUTINE
-C>                           "ABORT" WITH CALL TO NEW INTERNAL BUFRLIB
-C>                           ROUTINE "BORT"
-C> 1999-11-18  J. WOOLLEN -- THE NUMBER OF BUFR FILES WHICH CAN BE
-C>                           OPENED AT ONE TIME INCREASED FROM 10 TO 32
-C>                           (NECESSARY IN ORDER TO PROCESS MULTIPLE
-C>                           BUFR FILES UNDER THE MPI)
-C> 2003-11-04  S. BENDER  -- ADDED REMARKS/BUFRLIB ROUTINE
-C>                           INTERDEPENDENCIES
-C> 2003-11-04  D. KEYSER  -- UNIFIED/PORTABLE FOR WRF; ADDED
-C>                           DOCUMENTATION (INCLUDING HISTORY); OUTPUTS
-C>                           MORE COMPLETE DIAGNOSTIC INFO WHEN ROUTINE
-C>                           TERMINATES ABNORMALLY
-C> 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
+C> @author J. Woollen
+C> @date 1994-01-06
 C>
-C> USAGE:    CALL UFBCNT (LUNIT, KMSG, KSUB)
-C>   INPUT ARGUMENT LIST:
-C>     LUNIT    - INTEGER: FORTRAN LOGICAL UNIT NUMBER FOR BUFR FILE
+C> @param[in] LUNIT  - integer: Fortran logical unit number for BUFR file
+C> @param[out] KMSG  - integer: Ordinal number of current message,
+C>                     counting from the beginning of the BUFR file, but
+C>                     not counting any messages which contain DX BUFR
+C>                     tables information
+C> @param[out] KSUB  - integer: Ordinal number of current data subset
+C>                     within (KMSG)th message, counting from the
+C>                     beginning of the message
 C>
-C>   OUTPUT ARGUMENT LIST:
-C>     KMSG     - INTEGER: POINTER TO MESSAGE COUNT IN BUFR FILE
-C>                (INCLUDING MESSAGE CURRENTLY OPEN FOR READING/WRITING)
-C>     KSUB     - INTEGER: POINTER TO SUBSET COUNT IN BUFR MESSAGE
-C>                (INCLUDING SUBSET CURRENTLY OPEN FOR READING/WRITING)
+C> @remarks
+C> - Logical unit LUNIT should have already been opened via a previous
+C> call to subroutine openbf().  If LUNIT was opened for input
+C> operations, then KMSG is incremented with each call to any of the
+C> [message-reading subroutines](@ref hierarchy), and KSUB is
+C> incremented with each call to any of the
+C> [subset-reading subroutines](@ref hierarchy) for that message.
+C> Otherwise, if LUNIT was opened for output operations, then KMSG is
+C> incremented with each call to any of the
+C> [message-writing subroutines](@ref hierarchy), and KSUB is
+C> incremented with each call to any of the
+C> [subset-writing subroutines](@ref hierarchy) for that message.
+C> - The value returned for KMSG does <b>not</b> include any messages
+C> which contain DX BUFR tables information.
 C>
-C> REMARKS:
-C>    IF AN APPLICATION PROGRAM DESIRES TO KNOW THE NUMBER OF SUBSETS IN
-C>    A BUFR MESSAGES JUST OPENED, IT MUST USE THE FUNCTION NMSUB RATHER
-C>    THAN THIS SUBROUTINE BECAUSE KSUB ONLY INCREMENTS BY ONE FOR EACH
-C>    CALL TO READSB (I.E., KSUB = 0 IMMEDIATELY AFTER READMG IS
-C>    CALLED).
-C>
-C>    THIS ROUTINE CALLS:        BORT     STATUS
-C>    THIS ROUTINE IS CALLED BY: UFBPOS
-C>                               Also called by application programs.
+C> <b>Program history log:</b>
+C> - 1994-01-06  J. Woollen -- Original author
+C> - 1998-07-08  J. Woollen -- Replaced call to Cray library routine ABORT
+C>                             with call to new internal routine bort()
+C> - 1999-11-18  J. Woollen -- The number of BUFR files which can be
+C>                             opened at one time increased from 10 to 32
+C>                             (necessary in order to process multiple
+C>                             BUFR files under the MPI)
+C> - 2014-12-10  J. Ator    -- Use modules instead of COMMON blocks
 C>
       SUBROUTINE UFBCNT(LUNIT,KMSG,KSUB)
 

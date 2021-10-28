@@ -1,69 +1,53 @@
 C> @file
-C> @author ATOR @date 2007-01-19
-	
-C> THIS SUBROUTINE PARSES THE FIRST LINE OF AN ENTRY THAT WAS
-C>   PREVIOUSLY READ FROM AN ASCII MASTER TABLE D FILE AND STORES THE
-C>   OUTPUT INTO THE MERGED ARRAYS.  IT THEN READS AND PARSES ALL
-C>   REMAINING LINES FOR THAT SAME ENTRY AND THEN LIKEWISE STORES THAT
-C>   OUTPUT INTO THE MERGED ARRAYS.  THE RESULT IS THAT, UPON OUTPUT,
-C>   THE MERGED ARRAYS NOW CONTAIN ALL OF THE INFORMATION FOR THE
-C>   CURRENT TABLE ENTRY.
+C> @brief Store a master Table D entry into Fortran arrays
+
+C> This subroutine stores the first line of an entry that was
+C> previously read from an ASCII master Table D file into a set of
+C> merged Fortran arrays.  It then reads and stores all remaining
+C> lines of that same entry into the same merged Fortran arrays.
 C>
-C> PROGRAM HISTORY LOG:
-C> 2007-01-19  J. ATOR    -- ORIGINAL AUTHOR
-C> 2021-01-08  J. ATOR    -- MODIFIED MSTABS ARRAY DECLARATIONS
-C>                           FOR GNUv10 PORTABILITY
+C> @author J. Ator
+C> @date 2007-01-19
+C>
+C> @param[in] LUNT    - integer: Fortran logical unit number for
+C>                      ASCII file containing Table D information
+C> @param[in] IFXYN   - integer: Bit-wise representation of FXY number
+C> @param[in]  LINE   - character*(*): First line of Table D entry
+C> @param[in] MXMTBD  - integer: Dimensioned size (in integers) of
+C>                      merged output arrays; used by the subroutine
+C>                      to ensure that it doesn't overflow these
+C>                      arrays
+C> @param[in] MXELEM  - integer: Maximum number of elements to be
+C>                      stored per Table D sequence within merged
+C>                      output arrays; used by the subroutine to
+C>                      ensure that it doesn't overflow these arrays
+C> @param[out] NMTBD  - integer: Number of entries in merged output
+C>                      arrays
+C> @param[out] IMFXYN - integer(*): Merged array containing bit-wise
+C>                      representations of FXY numbers
+C> @param[out] CMMNEM - character*8(*): Merged array containing
+C>                      mnemonics
+C> @param[out] CMDSC  - character*4(*): Merged array containing
+C>                      descriptor codes
+C> @param[out] CMSEQ  - character*120(*): Merged array containing
+C>                      sequence names
+C> @param[out] NMELEM - integer(*): Merged array containing number of
+C>                      elements stored for each sequence
+C> @param[out] IEFXYN - integer(*,*): Merged array containing bit-wise
+C>                      representations of element FXY numbers
+C> @param[out] CEELEM - character*120(*,*): Merged array containing
+C>                      element names
+C>
+C> <b>Program history log:</b>
+C> - 2007-01-19  J. Ator    -- Original author
+C> - 2021-01-08  J. Ator    -- Modified mstabs array declarations
+C>                           for GNUv10 portability
 C> - 2021-09-30  J. Ator    -- Replace jstchr with Fortran intrinsic
 C>                             adjustl
-C>
-C> USAGE:    CALL SNTBDE ( LUNT, IFXYN, LINE, MXMTBD, MXELEM,
-C>                         NMTBD, IMFXYN, CMMNEM, CMDSC, CMSEQ,
-C>                         NMELEM, IEFXYN, CEELEM )
-C>   INPUT ARGUMENT LIST:
-C>     LUNT     - INTEGER: FORTRAN LOGICAL UNIT NUMBER OF ASCII FILE
-C>                CONTAINING MASTER TABLE D INFORMATION
-C>     IFXYN    - INTEGER: BIT-WISE REPRESENTATION OF FXY NUMBER FOR
-C>                TABLE ENTRY; THIS FXY NUMBER IS THE SEQUENCE DESCRIPTOR
-C>     LINE     - CHARACTER*(*): FIRST LINE OF TABLE ENTRY
-C>     MXMTBD   - INTEGER: MAXIMUM NUMBER OF ENTRIES TO BE STORED IN
-C>                MERGED MASTER TABLE D ARRAYS; THIS SHOULD BE THE SAME
-C>                NUMBER AS WAS USED TO DIMENSION THE OUTPUT ARRAYS IN
-C>                THE CALLING PROGRAM, AND IT IS USED BY THIS SUBROUTINE
-C>                TO ENSURE THAT IT DOESN'T OVERFLOW THESE ARRAYS
-C>     MXELEM   - INTEGER: MAXIMUM NUMBER OF ELEMENTS TO BE STORED PER
-C>                ENTRY WITHIN THE MERGED MASTER TABLE D ARRAYS; THIS
-C>                SHOULD BE THE SAME NUMBER AS WAS USED TO DIMENSION THE
-C>                OUTPUT ARRAYS IN THE CALLING PROGRAM, AND IT IS USED
-C>                BY THIS SUBROUTINE TO ENSURE THAT IT DOESN'T OVERFLOW
-C>                THESE ARRAYS
-C>
-C>   OUTPUT ARGUMENT LIST:
-C>     NMTBD    - INTEGER: NUMBER OF ENTRIES IN MERGED MASTER TABLE D
-C>                ARRAYS
-C>     IMFXYN(*)- INTEGER: MERGED ARRAY CONTAINING BIT-WISE
-C>                REPRESENTATIONS OF FXY NUMBERS (I.E. SEQUENCE
-C>                DESCRIPTORS)
-C>     CMMNEM(*)- CHARACTER*8: MERGED ARRAY CONTAINING MNEMONICS
-C>     CMDSC(*) - CHARACTER*4: MERGED ARRAY CONTAINING DESCRIPTOR CODES 
-C>     CMSEQ(*) - CHARACTER*120: MERGED ARRAY CONTAINING SEQUENCE NAMES
-C>     NMELEM(*)- INTEGER: MERGED ARRAY CONTAINING NUMBER OF ELEMENTS
-C>                STORED FOR EACH ENTRY
-C>   IEFXYN(*,*)- INTEGER: MERGED ARRAY CONTAINING BIT-WISE
-C>                REPRESENTATIONS OF ELEMENT FXY NUMBERS
-C>   CEELEM(*,*)- CHARACTER*120: MERGED ARRAY CONTAINING ELEMENT NAMES 
-C>
-C> REMARKS:
-C>    THIS ROUTINE CALLS:        ADN30    BORT     BORT2    IFXY
-C>                               IGETFXY  IGETNTBL NEMOCK   PARSTR
-C>    THIS ROUTINE IS CALLED BY: RDMTBD
-C>                               Normally not called by any application
-C>                               programs.
 C>
 	SUBROUTINE SNTBDE ( LUNT, IFXYN, LINE, MXMTBD, MXELEM,
      .			    NMTBD, IMFXYN, CMMNEM, CMDSC, CMSEQ,
      .			    NMELEM, IEFXYN, CEELEM )
-
-
 
 	CHARACTER*(*)	LINE
 	CHARACTER*200	TAGS(10), CLINE

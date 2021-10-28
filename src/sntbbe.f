@@ -1,57 +1,48 @@
 C> @file
-C> @author ATOR @date 2007-01-19
-	
-C> THIS SUBROUTINE PARSES AN ENTRY THAT WAS PREVIOUSLY READ
-C>   FROM AN ASCII MASTER TABLE B FILE AND THEN STORES THE OUTPUT INTO
-C>   THE MERGED ARRAYS.
+C> @brief Store a master Table B entry into Fortran arrays
+
+C> This subroutine stores an entry that was previously read from an
+C> ASCII master Table B file into a set of merged Fortran arrays.
 C>
-C> PROGRAM HISTORY LOG:
-C> 2007-01-19  J. ATOR    -- ORIGINAL AUTHOR
-C> 2021-01-08  J. ATOR    -- MODIFIED MSTABS ARRAY DECLARATIONS
-C>                           FOR GNUv10 PORTABILITY
+C> @author J. Ator
+C> @date 2007-01-19
+C>
+C> @param[in] IFXYN   - integer: Bit-wise representation of FXY number
+C> @param[in]  LINE   - character*(*): Table B entry
+C> @param[in] MXMTBB  - integer: Dimensioned size (in integers) of
+C>                      merged output arrays; used by the subroutine
+C>                      to ensure that it doesn't overflow these
+C>                      arrays
+C> @param[out] NMTBB  - integer: Number of entries in merged output
+C>                      arrays
+C> @param[out] IMFXYN - integer(*): Merged array containing bit-wise
+C>                      representations of FXY numbers
+C> @param[out] CMSCL  - character*4(*): Merged array containing
+C>                      scale factors
+C> @param[out] CMSREF - character*12(*): Merged array containing
+C>                      reference values
+C> @param[out] CMBW   - character*4(*): Merged array containing
+C>                      bit widths
+C> @param[out] CMUNIT - character*24(*): Merged array containing units
+C> @param[out] CMMNEM - character*8(*): Merged array containing
+C>                      mnemonics
+C> @param[out] CMDSC  - character*4(*): Merged array containing
+C>                      descriptor codes
+C> @param[out] CMELEM - character*120(*): Merged array containing
+C>                      element names
+C>
+C> <b>Program history log:</b>
+C> - 2007-01-19  J. Ator    -- Original author
+C> - 2021-01-08  J. Ator    -- Modified mstabs array declarations
+C>                           for GNUv10 portability
 C> - 2021-05-17  J. Ator    -- Allow up to 24 characters in cmunit
 C> - 2021-09-30  J. Ator    -- Replace jstchr with Fortran intrinsic
 C>                             adjustl; replace rjust with Fortran
 C>                             intrinsic adjustr
 C>
-C> USAGE:    CALL SNTBBE ( IFXYN, LINE, MXMTBB,
-C>                         NMTBB, IMFXYN, CMSCL, CMSREF, CMBW,
-C>                         CMUNIT, CMMNEM, CMDSC, CMELEM )
-C>   INPUT ARGUMENT LIST:
-C>     IFXYN    - INTEGER: BIT-WISE REPRESENTATION OF FXY NUMBER FOR
-C>                TABLE ENTRY; THIS FXY NUMBER IS THE ELEMENT DESCRIPTOR
-C>     LINE     - CHARACTER*(*): TABLE ENTRY
-C>     MXMTBB   - INTEGER: MAXIMUM NUMBER OF ENTRIES TO BE STORED IN
-C>                MERGED MASTER TABLE B ARRAYS; THIS SHOULD BE THE SAME
-C>                NUMBER AS WAS USED TO DIMENSION THE OUTPUT ARRAYS IN
-C>                THE CALLING PROGRAM, AND IT IS USED BY THIS SUBROUTINE
-C>                TO ENSURE THAT IT DOESN'T OVERFLOW THESE ARRAYS
-C>
-C>   OUTPUT ARGUMENT LIST:
-C>     NMTBB    - INTEGER: NUMBER OF ENTRIES IN MERGED MASTER TABLE B
-C>                ARRAYS
-C>     IMFXYN(*)- INTEGER: MERGED ARRAY CONTAINING BIT-WISE
-C>                REPRESENTATIONS OF FXY NUMBERS (I.E. ELEMENT
-C>                DESCRIPTORS)
-C>     CMSCL(*) - CHARACTER*4: MERGED ARRAY CONTAINING SCALE FACTORS
-C>     CMSREF(*)- CHARACTER*12: MERGED ARRAY CONTAINING REFERENCE VALUES
-C>     CMBW(*)  - CHARACTER*4: MERGED ARRAY CONTAINING BIT WIDTHS
-C>     CMUNIT(*)- CHARACTER*24: MERGED ARRAY CONTAINING UNITS
-C>     CMMNEM(*)- CHARACTER*8: MERGED ARRAY CONTAINING MNEMONICS
-C>     CMDSC(*) - CHARACTER*4: MERGED ARRAY CONTAINING DESCRIPTOR CODES 
-C>     CMELEM(*)- CHARACTER*120: MERGED ARRAY CONTAINING ELEMENT NAMES 
-C>
-C> REMARKS:
-C>    THIS ROUTINE CALLS:        BORT     BORT2    NEMOCK   PARSTR
-C>    THIS ROUTINE IS CALLED BY: RDMTBB
-C>                               Normally not called by any application
-C>                               programs.
-C>
 	SUBROUTINE SNTBBE ( IFXYN, LINE, MXMTBB,
      .			    NMTBB, IMFXYN, CMSCL, CMSREF, CMBW,
      .			    CMUNIT, CMMNEM, CMDSC, CMELEM )
-
-
 
 	CHARACTER*(*)	LINE
 	CHARACTER*200	TAGS(10), WKTAG

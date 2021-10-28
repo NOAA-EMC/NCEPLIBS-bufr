@@ -17,6 +17,10 @@ changed from 29 to 36 within subroutines cmsgini(), dxmini() and msgini().
 cobfl() was increased to 200 characters.
 [[Issue #174](https://github.com/NOAA-EMC/NCEPLIBS-bufr/issues/174)]
 
+* Subroutine ufbpos() was modified to allow it to work for all types of
+BUFR messages, including compressed messages.
+[[Issue #170](https://github.com/NOAA-EMC/NCEPLIBS-bufr/issues/170)]
+
 * The library was modified to read up to 24 characters from the units field
 of BUFR master Table B files.  Furthermore, in accordance with updated
 guidance from WMO, all fields within all BUFR master table files are now

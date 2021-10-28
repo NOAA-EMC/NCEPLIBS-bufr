@@ -1,39 +1,41 @@
 C> @file
-C> @author ATOR @date 2007-01-19
-	
-C> THIS SUBROUTINE READS AND PARSES THE HEADER LINES FROM TWO
-C>   SEPARATE (I.E. ONE STANDARD AND ONE LOCAL) ASCII FILES CONTAINING
-C>   EITHER MASTER TABLE B OR MASTER TABLE D INFORMATION.
+C> @brief Read the header lines from a master table B, table D or
+C> Code/Flag table
+
+C> This subroutine reads the header lines from two separate ASCII
+C> files (one standard and one local) containing master table B,
+C> table D or Code/Flag table information.
 C>
-C> PROGRAM HISTORY LOG:
-C> 2007-01-19  J. ATOR    -- ORIGINAL AUTHOR
+C> @author J. Ator
+C> @date 2007-01-19
 C>
-C> USAGE:    CALL GETTBH ( LUNS, LUNL, TAB, IMT, IMTV, IOGCE, ILTV )
+C> @param[in] LUNS    - integer: Fortran logical unit number for
+C>                      ASCII file containing standard table
+C>                      information
+C> @param[in] LUNL    - integer: Fortran logical unit number for
+C>                      ASCII file containing local table
+C>                      information
+C> @param[out] TAB    - character: Type of table
+C>                        - 'B' = Table B
+C>                        - 'D' = Table D
+C>                        - 'F' = Code/Flag table
+C> @param[out] IMT    - integer: Master table
+C>                      - This value is read from both ASCII
+C>                        files and must be identical between them.
+C> @param[out] IMTV   - integer: Version number of master table
+C>                      - This value is read from the standard ASCII
+C>                        file.
+C> @param[out] IOGCE  - integer: Originating center
+C>                      - This value is read from the local ASCII
+C>                        file.
+C> @param[out] ILTV   - integer: Version number of local table
+C>                      - This value is read from the local ASCII
+C>                        file.
 C>
-C>   INPUT ARGUMENT LIST:
-C>     LUNS     - INTEGER: FORTRAN LOGICAL UNIT NUMBER OF ASCII FILE
-C>                CONTAINING STANDARD TABLE INFORMATION
-C>     LUNL     - INTEGER: FORTRAN LOGICAL UNIT NUMBER OF ASCII FILE
-C>                CONTAINING LOCAL TABLE INFORMATION
-C>     TAB      - CHARACTER*1: TABLE TYPE ('B' OR 'D')
-C>
-C>   OUTPUT ARGUMENT LIST:
-C>     IMT      - INTEGER: MASTER TABLE, READ FROM EACH ASCII FILE
-C>                (NOTE: THESE VALUES MUST BE THE SAME IN EACH FILE!)
-C>     IMTV     - INTEGER: VERSION NUMBER OF MASTER TABLE, READ FROM
-C>                STANDARD ASCII FILE
-C>     IOGCE    - INTEGER: ORIGINATING CENTER, READ FROM LOCAL ASCII FILE
-C>     ILTV     - INTEGER: VERSION NUMBER OF LOCAL TABLE, READ FROM
-C>                LOCAL ASCII FILE
-C>
-C> REMARKS:
-C>    THIS ROUTINE CALLS:        BORT     IGETNTBL PARSTR   VALX
-C>    THIS ROUTINE IS CALLED BY: RDMTBB   RDMTBD   RDMTBF
-C>                               Also called by application programs.
+C> <b>Program history log:</b>
+C> - 2007-01-19  J. Ator    -- Original author
 C>
 	SUBROUTINE GETTBH ( LUNS, LUNL, TAB, IMT, IMTV, IOGCE, ILTV )
-
-
 
 	CHARACTER*128	BORT_STR
 	CHARACTER*40	HEADER
