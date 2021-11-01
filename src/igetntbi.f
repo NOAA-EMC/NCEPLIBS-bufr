@@ -1,27 +1,26 @@
 C> @file
-C> @author ATOR @date 2009-03-23
-	
-C> THIS FUNCTION RETURNS THE NEXT AVAILABLE INDEX FOR
-C>   STORING AN ENTRY WITHIN INTERNAL BUFR TABLE CTB.
+C> @brief Get the next index for storing an entry within an internal
+C> DX BUFR table
+
+C> This function returns the next available index for storing an
+C> entry within a specified internal DX BUFR table.
 C>
-C> PROGRAM HISTORY LOG:
-C> 2009-03-23  J. ATOR    -- ORIGINAL AUTHOR
-C> 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
+C> @author J. Ator
+C> @date 2009-03-23
 C>
-C> USAGE:    CALL IGETNTBI ( LUN, CTB )
-C>   INPUT ARGUMENT LIST:
-C>     LUN      - INTEGER: I/O STREAM INDEX INTO INTERNAL MEMORY ARRAYS
-C>     CTB      - CHARACTER*1: INTERNAL BUFR TABLE FROM WHICH TO RETURN
-C>                THE NEXT AVAILABLE INDEX ('A','B', OR 'D')
+C> @param[in]  LUN    - integer: Internal I/O stream index associated
+C>                      with BUFR file
+C> @param[in]  CTB    - character: Type of internal DX BUFR table for
+C>                      which to return the next available index
+C>                        - 'A' = Table A
+C>                        - 'B' = Table B
+C>                        - 'D' = Table D
+C> @returns igetntbi  - integer: Next available index for storing an
+C>                      entry within CTB
 C>
-C>   OUTPUT ARGUMENT LIST:
-C>     IGETNTBI  - INTEGER: NEXT AVAILABLE INDEX IN TABLE CTB
-C>
-C> REMARKS:
-C>    THIS ROUTINE CALLS:        BORT
-C>    THIS ROUTINE IS CALLED BY: RDUSDX   READS3   STBFDX   STSEQ
-C>                               Not normally called by application
-C>                               programs.
+C> <b>Program history log:</b>
+C> - 2009-03-23  J. Ator    -- Original author
+C> - 2014-12-10  J. Ator    -- Use modules instead of COMMON blocks
 C>
 	FUNCTION IGETNTBI ( LUN, CTB )
 

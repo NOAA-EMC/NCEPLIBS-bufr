@@ -1,33 +1,27 @@
 C> @file
-C> @author ATOR @date 2017-10-17
-	
-C> THIS SUBROUTINE READS MASTER CODE/FLAG TABLE INFORMATION
-C>   FROM TWO SEPARATE (I.E. ONE STANDARD AND ONE LOCAL) ASCII FILES
-C>   AND THEN MERGES IT INTO AN INTERNAL MEMORY STRUCTURE.  EACH OF THE
-C>   TWO INPUT FILES MUST ALREADY BE INDIVIDUALLY SORTED IN ASCENDING
-C>   ORDER WITH RESPECT TO THE FXY NUMBERS.
+C> @brief Read master Code/Flag table information from local file system
+
+C> This subroutine reads master Code/Flag table information from two
+C> separate ASCII files (one standard and one local) and then merges the
+C> output into a single set of arrays.
 C>
-C> PROGRAM HISTORY LOG:
-C> 2017-10-17  J. ATOR    -- ORIGINAL AUTHOR
+C> <p>Each of the two ASCII files must already be individually sorted
+C> in ascending order with respect to the FXY numbers.
 C>
-C> USAGE:    CALL RDMTBF ( LUNSTF, LUNLTF )
+C> @author J. Ator
+C> @date 2017-10-17
 C>
-C>   INPUT ARGUMENT LIST:
-C>     LUNSTF   - INTEGER: FORTRAN LOGICAL UNIT NUMBER OF ASCII FILE
-C>                CONTAINING STANDARD CODE/FLAG TABLE INFORMATION
-C>     LUNLTF   - INTEGER: FORTRAN LOGICAL UNIT NUMBER OF ASCII FILE
-C>                CONTAINING LOCAL CODE/FLAG TABLE INFORMATION
+C> @param[in] LUNSTF  - integer: Fortran logical unit number for
+C>                      ASCII file containing standard Code/Flag table
+C>                      information
+C> @param[in] LUNLTF  - integer: Fortran logical unit number for
+C>                      ASCII file containing local Code/Flag table
+C>                      information
 C>
-C> REMARKS:
-C>    THIS ROUTINE CALLS:        ADN30    BORT     GETNTBE  GETTBH
-C>                               INITTBF  SNTBFE   SORTTBF  WRDLEN
-C>    THIS ROUTINE IS CALLED BY: IREADMT
-C>                               Not normally called by any application
-C>                               programs.
+C> <b>Program history log:</b>
+C> - 2017-10-17  J. Ator    -- Original author
 C>
 	SUBROUTINE RDMTBF ( LUNSTF, LUNLTF )
-
-
 
 	CHARACTER*160	STLINE, LTLINE
 	CHARACTER*128	BORT_STR

@@ -1,32 +1,27 @@
 C> @file
-C> @author ATOR @date 2017-11-02
-	
-C> THIS SUBROUTINE READS A COMPLETE ENTRY (CORRESPONDING
-C>   TO THE INPUT FXY NUMBER) FROM AN ASCII MASTER CODE/FLAG TABLE AND
-C>   STORES THE OUTPUT INTO AN INTERNAL MEMORY STRUCTURE.
+C> @brief Store a master Code/Flag table entry into internal memory
+
+C> This subroutine stores the first line of an entry that was
+C> previously read from an ASCII master Code/Flag table file into an
+C> internal memory structure.  It then reads and stores all remaining
+C> lines of that same entry into the same internal memory structure.
 C>
-C> PROGRAM HISTORY LOG:
-C> 2017-11-02  J. ATOR    -- ORIGINAL AUTHOR
+C> @author J. Ator
+C> @date 2017-11-02
+C>
+C> @param[in] LUNT    - integer: Fortran logical unit number for
+C>                      ASCII file containing Code/Flag table
+C>                      information
+C> @param[in] IFXYN   - integer: Bit-wise representation of FXY number
+C> @param[in]  LINE   - character*(*): First line of Code/Flag table
+C>                      entry
+C>
+C> <b>Program history log:</b>
+C> - 2017-11-02  J. ATOR    -- Original author
 C> - 2021-09-30  J. Ator    -- Replace jstchr with Fortran intrinsic
 C>                             adjustl
 C>
-C> USAGE:    CALL SNTBFE ( LUNT, IFXYN, LINE )
-C>   INPUT ARGUMENT LIST:
-C>     LUNT     - INTEGER: FORTRAN LOGICAL UNIT NUMBER OF ASCII FILE
-C>                CONTAINING MASTER CODE/FLAG TABLE INFORMATION
-C>     IFXYN    - INTEGER: BIT-WISE REPRESENTATION OF FXY NUMBER
-C>     LINE     - CHARACTER*(*): FIRST LINE OF TABLE ENTRY
-C>
-C> REMARKS:
-C>    THIS ROUTINE CALLS:        ADN30    BORT2    IFXY     IGETFXY
-C>                               IGETNTBL PARSTR   STRNUM   STRTBFE
-C>    THIS ROUTINE IS CALLED BY: RDMTBF
-C>                               Normally not called by any application
-C>                               programs.
-C>
 	SUBROUTINE SNTBFE ( LUNT, IFXYN, LINE )
-
-
 
 	CHARACTER*(*)	LINE
 	CHARACTER*160	CLINE, TAGS(4), CDSTR(2), ADSC(10), CVAL(25)

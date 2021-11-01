@@ -1,73 +1,68 @@
 C> @file
-C> @author ATOR @date 2007-01-19
-	
-C> THIS SUBROUTINE READS MASTER TABLE D INFORMATION FROM TWO
-C>   SEPARATE (I.E. ONE STANDARD AND ONE LOCAL) ASCII FILES AND THEN
-C>   MERGES IT INTO A UNIFIED SET OF MASTER TABLE D ARRAYS FOR OUTPUT.
-C>   EACH OF THE TWO INPUT FILES MUST ALREADY BE INDIVIDUALLY SORTED IN
-C>   ASCENDING ORDER WITH RESPECT TO THE FXY NUMBERS.
+C> @brief Read master Table D information from local file system
+
+C> This subroutine reads master Table D information from two separate
+C> ASCII files (one standard and one local) and then merges the
+C> output into a single set of arrays.
 C>
-C> PROGRAM HISTORY LOG:
-C> 2007-01-19  J. ATOR    -- ORIGINAL AUTHOR
-C> 2021-01-08  J. ATOR    -- MODIFIED MSTABS ARRAY DECLARATIONS
-C>                           FOR GNUv10 PORTABILITY
+C> <p>Each of the two ASCII files must already be individually sorted
+C> in ascending order with respect to the FXY numbers.
 C>
-C> USAGE:    CALL RDMTBD ( LUNSTD, LUNLTD, MXMTBD, MXELEM,
-C>                         IMT, IMTV, IOGCE, ILTV,
-C>                         NMTBD, IMFXYN, CMMNEM, CMDSC, CMSEQ,
-C>                         NMELEM, IEFXYN, CEELEM )
-C>   INPUT ARGUMENT LIST:
-C>     LUNSTD   - INTEGER: FORTRAN LOGICAL UNIT NUMBER OF ASCII FILE
-C>                CONTAINING STANDARD TABLE D INFORMATION
-C>     LUNLTD   - INTEGER: FORTRAN LOGICAL UNIT NUMBER OF ASCII FILE
-C>                CONTAINING LOCAL TABLE D INFORMATION
-C>     MXMTBD   - INTEGER: MAXIMUM NUMBER OF ENTRIES TO BE STORED IN
-C>                MERGED MASTER TABLE D ARRAYS; THIS SHOULD BE THE SAME
-C>                NUMBER AS WAS USED TO DIMENSION THE OUTPUT ARRAYS IN
-C>                THE CALLING PROGRAM, AND IT IS USED BY THIS SUBROUTINE
-C>                TO ENSURE THAT IT DOESN'T OVERFLOW THESE ARRAYS
-C>     MXELEM   - INTEGER: MAXIMUM NUMBER OF ELEMENTS TO BE STORED PER
-C>                ENTRY WITHIN THE MERGED MASTER TABLE D ARRAYS; THIS
-C>                SHOULD BE THE SAME NUMBER AS WAS USED TO DIMENSION THE
-C>                OUTPUT ARRAYS IN THE CALLING PROGRAM, AND IT IS USED
-C>                BY THIS SUBROUTINE TO ENSURE THAT IT DOESN'T OVERFLOW
-C>                THESE ARRAYS
+C> @author J. Ator
+C> @date 2007-01-19
 C>
-C>   OUTPUT ARGUMENT LIST:
-C>     IMT      - INTEGER: MASTER TABLE, READ FROM EACH ASCII FILE
-C>                (NOTE: THESE VALUES MUST BE THE SAME IN EACH FILE!)
-C>     IMTV     - INTEGER: VERSION NUMBER OF MASTER TABLE, READ FROM
-C>                STANDARD ASCII FILE
-C>     IOGCE    - INTEGER: ORIGINATING CENTER, READ FROM LOCAL ASCII FILE
-C>     ILTV     - INTEGER: VERSION NUMBER OF LOCAL TABLE, READ FROM
-C>                LOCAL ASCII FILE
-C>     NMTBD    - INTEGER: NUMBER OF ENTRIES IN MERGED MASTER TABLE D
-C>                ARRAYS
-C>     IMFXYN(*)- INTEGER: MERGED ARRAY CONTAINING BIT-WISE
-C>                REPRESENTATIONS OF FXY NUMBERS (I.E. SEQUENCE
-C>                DESCRIPTORS)
-C>     CMMNEM(*)- CHARACTER*8: MERGED ARRAY CONTAINING MNEMONICS
-C>     CMDSC(*) - CHARACTER*4: MERGED ARRAY CONTAINING DESCRIPTOR CODES
-C>     CMSEQ(*) - CHARACTER*120: MERGED ARRAY CONTAINING SEQUENCE NAMES
-C>     NMELEM(*)- INTEGER: MERGED ARRAY CONTAINING NUMBER OF ELEMENTS
-C>                STORED FOR EACH ENTRY
-C>   IEFXYN(*,*)- INTEGER: MERGED ARRAY CONTAINING BIT-WISE
-C>                REPRESENTATIONS OF ELEMENT FXY NUMBERS
-C>   CEELEM(*,*)- CHARACTER*120: MERGED ARRAY CONTAINING ELEMENT NAMES
+C> @param[in] LUNSTD  - integer: Fortran logical unit number for
+C>                      ASCII file containing standard Table D
+C>                      information
+C> @param[in] LUNLTD  - integer: Fortran logical unit number for
+C>                      ASCII file containing local Table D
+C>                      information
+C> @param[in] MXMTBD  - integer: Dimensioned size (in integers) of
+C>                      merged output arrays; used by the subroutine
+C>                      to ensure that it doesn't overflow these
+C>                      arrays
+C> @param[in] MXELEM  - integer: Maximum number of elements to be
+C>                      stored per Table D sequence within merged
+C>                      output arrays; used by the subroutine to
+C>                      ensure that it doesn't overflow these arrays
+C> @param[out] IMT    - integer: Master table
+C>                      - This value is read from both ASCII
+C>                        files and must be identical between them.
+C> @param[out] IMTV   - integer: Version number of master table
+C>                      - This value is read from the standard ASCII
+C>                        file.
+C> @param[out] IOGCE  - integer: Originating center
+C>                      - This value is read from the local ASCII
+C>                        file.
+C> @param[out] ILTV   - integer: Version number of local table
+C>                      - This value is read from the local ASCII
+C>                        file.
+C> @param[out] NMTBD  - integer: Number of entries in merged output
+C>                      arrays
+C> @param[out] IMFXYN - integer(*): Merged array containing bit-wise
+C>                      representations of FXY numbers
+C> @param[out] CMMNEM - character*8(*): Merged array containing
+C>                      mnemonics
+C> @param[out] CMDSC  - character*4(*): Merged array containing
+C>                      descriptor codes
+C> @param[out] CMSEQ  - character*120(*): Merged array containing
+C>                      sequence names
+C> @param[out] NMELEM - integer(*): Merged array containing number of
+C>                      elements stored for each sequence
+C> @param[out] IEFXYN - integer(*,*): Merged array containing bit-wise
+C>                      representations of element FXY numbers
+C> @param[out] CEELEM - character*120(*,*): Merged array containing
+C>                      element names
 C>
-C> REMARKS:
-C>    THIS ROUTINE CALLS:        ADN30    BORT     GETNTBE  GETTBH
-C>                               SNTBDE   WRDLEN
-C>    THIS ROUTINE IS CALLED BY: IREADMT
-C>                               Not normally called by any application
-C>                               programs but it could be.
+C> <b>Program history log:</b>
+C> - 2007-01-19  J. Ator    -- Original author
+C> - 2021-01-08  J. Ator    -- Modified mstabs array declarations
+C>                           for GNUv10 portability
 C>
 	SUBROUTINE RDMTBD ( LUNSTD, LUNLTD, MXMTBD, MXELEM,
      .			    IMT, IMTV, IOGCE, ILTV,
      .			    NMTBD, IMFXYN, CMMNEM, CMDSC, CMSEQ,
      .			    NMELEM, IEFXYN, CEELEM )
-
-
 
 	CHARACTER*200	STLINE, LTLINE
 	CHARACTER*128	BORT_STR

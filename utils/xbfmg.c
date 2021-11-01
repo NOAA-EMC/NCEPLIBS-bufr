@@ -128,7 +128,7 @@ int main( int argc, char *argv[] ) {
 
 	unsigned short ii;
 
-        /*
+	/*
 	**  Get the valid options from the command line:
 	*/
         while ( ( ch = getopt ( argc, argv, "vgh" ) ) != EOF ) {
@@ -225,48 +225,52 @@ int main( int argc, char *argv[] ) {
 		free( pc );
 		return 0;
 	    }
-/*
-**	    Open a new output file for this message.
-*/
+
+	    /*
+	    **  Open a new output file for this message.
+	    */
 	    sprintf( outfile, "%s.%06lu", outfile_temp, ++noutfile );
 	    if ( ( fp = fopen( outfile, "wb" ) ) == NULL ) {
 		printf( "\nERROR: Could not open output file %s!\n", outfile );
 		return -1;
 	    }
-/*
-**	    If requested, write the preceding GTS bulletin information to the output file.
-*/
+
+	    /*
+	    **  If requested, write the preceding GTS bulletin information to the output file.
+	    */
 	    if ( save_GTSbull ) {
 		while ( psb < pmsg ) {
 		    fputc( *psb++, fp );
 		}
 	    }
-/*
-**	    Read the BUFR message length from Section 0.
-*/
+
+	    /*
+	    **  Read the BUFR message length from Section 0.
+	    */
 	    memcpy( &wkint, ( pmsg + 4 ), 3 );
 	    msglen = iupb( &wkint, &c1, &c24 );
 
-/*
-**	    Write the BUFR message to the output file.
-*/
+	    /*
+	    **  Write the BUFR message to the output file.
+	    */
 	    if  ( ( pmsg + msglen - pc - 1 ) <= filesize ) {
 		for ( i = 1; i <= msglen; i++ ) {
 		    fputc( *pmsg++, fp );
 		}
 	    }
-/*
-**	    Make sure that the "7777" indicator is in the expected place.
-*/
+
+	    /*
+	    **  Make sure that the "7777" indicator is in the expected place.
+	    */
 	    if ( ( *(pmsg - 4) != '7' ) || ( *(pmsg - 3) != '7' ) || 
 	         ( *(pmsg - 2) != '7' ) || ( *(pmsg - 1) != '7' ) )  {
 	        printf( "\nERROR: Could not find 7777 indicator in output file %s!\n",
 			outfile );
 	    }
 
-/*
-**	    If requested, append GTS bulletin tail markers to the output file.
-*/
+	    /*
+	    **  If requested, append GTS bulletin tail markers to the output file.
+	    */
 	    if ( save_GTSbull ) {
 		fputc( '\x0d', fp );
 		fputc( '\x0d', fp );

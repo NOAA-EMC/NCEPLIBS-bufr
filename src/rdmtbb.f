@@ -1,65 +1,66 @@
 C> @file
-C> @author ATOR @date 2007-01-19
-	
-C> THIS SUBROUTINE READS MASTER TABLE B INFORMATION FROM TWO
-C>   SEPARATE (I.E. ONE STANDARD AND ONE LOCAL) ASCII FILES AND THEN
-C>   MERGES IT INTO A UNIFIED SET OF MASTER TABLE B ARRAYS FOR OUTPUT.
-C>   EACH OF THE TWO INPUT FILES MUST ALREADY BE INDIVIDUALLY SORTED IN
-C>   ASCENDING ORDER WITH RESPECT TO THE FXY NUMBERS.
+C> @brief Read master Table B information from local file system
+
+C> This subroutine reads master Table B information from two separate
+C> ASCII files (one standard and one local) and then merges the
+C> output into a single set of arrays.
 C>
-C> PROGRAM HISTORY LOG:
-C> 2007-01-19  J. ATOR    -- ORIGINAL AUTHOR
-C> 2021-01-08  J. ATOR    -- MODIFIED MSTABS ARRAY DECLARATIONS
-C>                           FOR GNUv10 PORTABILITY
+C> <p>Each of the two ASCII files must already be individually sorted
+C> in ascending order with respect to the FXY numbers.
+C>
+C> @author J. Ator
+C> @date 2007-01-19
+C>
+C> @param[in] LUNSTB  - integer: Fortran logical unit number for
+C>                      ASCII file containing standard Table B
+C>                      information
+C> @param[in] LUNLTB  - integer: Fortran logical unit number for
+C>                      ASCII file containing local Table B
+C>                      information
+C> @param[in] MXMTBB  - integer: Dimensioned size (in integers) of
+C>                      merged output arrays; used by the subroutine
+C>                      to ensure that it doesn't overflow these
+C>                      arrays
+C> @param[out] IMT    - integer: Master table
+C>                      - This value is read from both ASCII
+C>                        files and must be identical between them.
+C> @param[out] IMTV   - integer: Version number of master table
+C>                      - This value is read from the standard ASCII
+C>                        file.
+C> @param[out] IOGCE  - integer: Originating center
+C>                      - This value is read from the local ASCII
+C>                        file.
+C> @param[out] ILTV   - integer: Version number of local table
+C>                      - This value is read from the local ASCII
+C>                        file.
+C> @param[out] NMTBB  - integer: Number of entries in merged output
+C>                      arrays
+C> @param[out] IMFXYN - integer(*): Merged array containing bit-wise
+C>                      representations of FXY numbers
+C> @param[out] CMSCL  - character*4(*): Merged array containing
+C>                      scale factors
+C> @param[out] CMSREF - character*12(*): Merged array containing
+C>                      reference values
+C> @param[out] CMBW   - character*4(*): Merged array containing
+C>                      bit widths
+C> @param[out] CMUNIT - character*24(*): Merged array containing units
+C> @param[out] CMMNEM - character*8(*): Merged array containing
+C>                      mnemonics
+C> @param[out] CMDSC  - character*4(*): Merged array containing
+C>                      descriptor codes
+C> @param[out] CMELEM - character*120(*): Merged array containing
+C>                      element names
+C>
+C> <b>Program history log:</b>
+C> - 2007-01-19  J. Ator    -- Original author
+C> - 2021-01-08  J. Ator    -- Modified mstabs array declarations
+C>                           for GNUv10 portability
 C> - 2021-05-17  J. Ator    -- Allow up to 24 characters in cmunit
-C>
-C> USAGE:    CALL RDMTBB ( LUNSTB, LUNLTB, MXMTBB, IMT, IMTV, IOGCE,
-C>                         ILTV, NMTBB, IMFXYN, CMSCL, CMSREF, CMBW,
-C>                         CMUNIT, CMMNEM, CMDSC, CMELEM )
-C>   INPUT ARGUMENT LIST:
-C>     LUNSTB   - INTEGER: FORTRAN LOGICAL UNIT NUMBER OF ASCII FILE
-C>                CONTAINING STANDARD TABLE B INFORMATION
-C>     LUNLTB   - INTEGER: FORTRAN LOGICAL UNIT NUMBER OF ASCII FILE
-C>                CONTAINING LOCAL TABLE B INFORMATION
-C>     MXMTBB   - INTEGER: MAXIMUM NUMBER OF ENTRIES TO BE STORED IN
-C>                MERGED MASTER TABLE B ARRAYS; THIS SHOULD BE THE SAME
-C>                NUMBER AS WAS USED TO DIMENSION THE OUTPUT ARRAYS IN
-C>                THE CALLING PROGRAM, AND IT IS USED BY THIS SUBROUTINE
-C>                TO ENSURE THAT IT DOESN'T OVERFLOW THESE ARRAYS
-C>
-C>   OUTPUT ARGUMENT LIST:
-C>     IMT      - INTEGER: MASTER TABLE, READ FROM EACH ASCII FILE
-C>                (NOTE: THESE VALUES MUST BE THE SAME IN EACH FILE!)
-C>     IMTV     - INTEGER: VERSION NUMBER OF MASTER TABLE, READ FROM
-C>                STANDARD ASCII FILE
-C>     IOGCE    - INTEGER: ORIGINATING CENTER, READ FROM LOCAL ASCII FILE
-C>     ILTV     - INTEGER: VERSION NUMBER OF LOCAL TABLE, READ FROM
-C>                LOCAL ASCII FILE
-C>     NMTBB    - INTEGER: NUMBER OF ENTRIES IN MERGED MASTER TABLE B
-C>                ARRAYS
-C>     IMFXYN(*)- INTEGER: MERGED ARRAY CONTAINING BIT-WISE
-C>                REPRESENTATIONS OF FXY NUMBERS
-C>     CMSCL(*) - CHARACTER*4: MERGED ARRAY CONTAINING SCALE FACTORS
-C>     CMSREF(*)- CHARACTER*12: MERGED ARRAY CONTAINING REFERENCE VALUES
-C>     CMBW(*)  - CHARACTER*4: MERGED ARRAY CONTAINING BIT WIDTHS
-C>     CMUNIT(*)- CHARACTER*24: MERGED ARRAY CONTAINING UNITS
-C>     CMMNEM(*)- CHARACTER*8: MERGED ARRAY CONTAINING MNEMONICS
-C>     CMDSC(*) - CHARACTER*4: MERGED ARRAY CONTAINING DESCRIPTOR CODES 
-C>     CMELEM(*)- CHARACTER*120: MERGED ARRAY CONTAINING ELEMENT NAMES 
-C>
-C> REMARKS:
-C>    THIS ROUTINE CALLS:        ADN30    BORT     GETNTBE  GETTBH
-C>                               SNTBBE   WRDLEN
-C>    THIS ROUTINE IS CALLED BY: IREADMT
-C>                               Not normally called by any application
-C>                               programs but it could be.
 C>
 	SUBROUTINE RDMTBB ( LUNSTB, LUNLTB, MXMTBB,
      .			    IMT, IMTV, IOGCE, ILTV,
      .			    NMTBB, IMFXYN, CMSCL, CMSREF, CMBW,
      .			    CMUNIT, CMMNEM, CMDSC, CMELEM )
-
-
 
 	CHARACTER*200	STLINE, LTLINE
 	CHARACTER*128	BORT_STR

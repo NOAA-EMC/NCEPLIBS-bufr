@@ -1,8 +1,8 @@
 C> @file
-C> @brief Get the first line of the next entry from a master
-C> table B, table D or Code/Flag file
+C> @brief Read the first line of the next entry from a master
+C> table B, table D or Code/Flag table file
 	
-C> This subroutine gets the first line of the next entry from
+C> This subroutine reads the first line of the next entry from
 C> the specified ASCII master table B, table D or table F (Code/Flag)
 C> file. This line contains, among other things, the FXY number
 C> corresponding to this entry.
@@ -11,7 +11,7 @@ C> @author J. Ator
 C> @date 2007-01-19
 C>
 C> @param[in] LUNT   - integer: Fortran logical unit number of 
-C>                     master table B, table D or Code/Flag file
+C>                     master table B, table D or Code/Flag table file
 C> @param[out] IFXYN - integer: Bit-wise representation of FXY number
 C>                     for next table entry
 C> @param[out] LINE  - character*(*): First line of next table entry

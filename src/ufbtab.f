@@ -1,198 +1,100 @@
 C> @file
-C> @author WOOLLEN @date 1994-01-06
-      
-C> THIS SUBROUTINE EITHER OPENS A BUFR FILE CONNECTED TO
-C>   ABS(LUNIN) FOR INPUT OPERATIONS (IF IT IS NOT ALREADY OPENED AS
-C>   SUCH), OR SAVES ITS POSITION AND REWINDS IT TO THE FIRST DATA
-C>   MESSAGE (IF BUFR FILE ALREADY OPENED), THE EXTENT OF ITS PROCESSING
-C>   IS DETERMINED BY THE SIGN OF LUNIN.  IF LUNIN IS GREATER THAN ZERO,
-C>   THIS SUBROUTINE READS SPECIFIED VALUES FROM ALL DATA SUBSETS IN THE
-C>   BUFR FILE INTO INTERNAL ARRAYS AND RETURNS THESE VALUES ALONG WITH
-C>   A COUNT OF THE SUBSETS.  IF LUNIN IS LESS THAN ZERO, THIS
-C>   SUBROUTINE RETURNS THE BUFR ARCHIVE LIBRARY'S GLOBAL VALUE FOR
-C>   MISSING (REGARDLESS OF THE MNEMONICS SPECIFIED IN STR)
-C>   ALONG WITH A COUNT OF THE SUBSETS (SEE REMARKS 2).  FINALLY, THIS
-C>   SUBROUTINE EITHER CLOSES THE BUFR FILE IN ABS(LUNIN) (IF IT WAS
-C>   OPENED HERE) OR RESTORES IT TO ITS PREVIOUS READ/WRITE STATUS AND
-C>   POSITION (IF IT WAS NOT OPENED HERE).  WHEN LUNIN IS GREATER THAN
-C>   ZERO, THE DATA VALUES CORRESPOND TO MNEMONICS, NORMALLY WHERE THERE
-C>   IS NO REPLICATION (THERE CAN BE REGULAR OR DELAYED REPLICATION, BUT
-C>   THIS SUBROUTINE WILL ONLY READ THE FIRST OCCURRENCE OF THE MNEMONIC
-C>   IN EACH SUBSET).  UFBTAB PROVIDES A MECHANISM WHEREBY A USER CAN
-C>   EITHER DO A QUICK SCAN OF THE RANGE OF VALUES CORRESPONDING TO ONE
-C>   OR MORE MNEMNONICS AMONGST ALL DATA SUBSETS FOR AN ENTIRE BUFR FILE
-C>   (WHEN LUNIN IS GREATER THAN ZERO), OR SIMPLY OBTAIN A COUNT OF
-C>   SUBSETS IN THE BUFR FILE (WHEN LUNIN IS LESS THAN ZERO); NO OTHER
-C>   BUFR ARCHIVE LIBRARY ROUTINES HAVE TO BE CALLED.  THIS SUBROUTINE
-C>   IS SIMILAR TO BUFR ARCHIVE LIBRARY SUBROUTINE UFBTAM EXCEPT UFBTAM
-C>   READS SUBSETS FROM MESSAGES STORED IN INTERNAL MEMORY AND IT HAS NO
-C>   OPTION FOR RETURNING ONLY A COUNT OF THE SUBSETS.  IN ADDITION,
-C>   UFBTAM CURRENTLY CANNOT READ DATA FROM COMPRESSED BUFR MESSAGES.
-C>   UFBTAB CAN READ DATA FROM BOTH UNCOMPRESSED AND COMPRESSED BUFR
-C>   MESSAGES.
+C> @brief Read one or more data values from every data subset in a
+C> BUFR file
+
+C> This subroutine reads through every data subset in a BUFR file
+C> and returns one or more specified data values from each subset.
 C>
-C> PROGRAM HISTORY LOG:
-C> 1994-01-06  J. WOOLLEN -- ORIGINAL AUTHOR
-C> 1998-07-08  J. WOOLLEN -- IMPROVED MACHINE PORTABILITY
-C> 1998-10-27  J. WOOLLEN -- MODIFIED TO CORRECT PROBLEMS CAUSED BY IN-
-C>                           LINING CODE WITH FPP DIRECTIVES
-C> 1999-11-18  J. WOOLLEN -- THE NUMBER OF BUFR FILES WHICH CAN BE
-C>                           OPENED AT ONE TIME INCREASED FROM 10 TO 32
-C>                           (NECESSARY IN ORDER TO PROCESS MULTIPLE
-C>                           BUFR FILES UNDER THE MPI)
-C> 2000-09-19  J. WOOLLEN -- MAXIMUM MESSAGE LENGTH INCREASED FROM
-C>                           10,000 TO 20,000 BYTES
-C> 2002-05-14  J. WOOLLEN -- REMOVED OLD CRAY COMPILER DIRECTIVES
-C> 2003-11-04  S. BENDER  -- ADDED REMARKS/BUFRLIB ROUTINE
-C>                           INTERDEPENDENCIES
-C> 2003-11-04  D. KEYSER  -- MODIFIED TO NOT ABORT WHEN THERE ARE TOO
-C>                           MANY SUBSETS COMING IN (I.E., .GT. "I2"),
-C>                           BUT RATHER JUST PROCESS "I2" REPORTS AND
-C>                           PRINT A DIAGNOSTIC; MAXJL (MAXIMUM NUMBER
-C>                           OF JUMP/LINK ENTRIES) INCREASED FROM 15000
-C>                           TO 16000 (WAS IN VERIFICATION VERSION);
-C>                           MODIFIED TO CALL ROUTINE REWNBF WHEN THE
-C>                           BUFR FILE IS ALREADY OPENED, ALLOWS
-C>                           SPECIFIC SUBSET INFORMATION TO BE READ FROM
-C>                           A FILE IN THE MIDST OF ITS BEING READ FROM
-C>                           OR WRITTEN TO), BEFORE OPENBF WAS ALWAYS
-C>                           CALLED AND THIS WOULD HAVE LED TO AN ABORT
-C>                           OF THE APPLICATION PROGRAM (WAS IN
-C>                           VERIFICATION VERSION); UNIFIED/PORTABLE FOR
-C>                           WRF; ADDED DOCUMENTATION (INCLUDING
-C>                           HISTORY)
-C> 2004-08-09  J. ATOR    -- MAXIMUM MESSAGE LENGTH INCREASED FROM
-C>                           20,000 TO 50,000 BYTES
-C> 2005-09-16  J. WOOLLEN -- WORKS FOR COMPRESSED BUFR MESSAGES; ADDED
-C>                           OPTION TO RETURN ONLY SUBSET COUNT (WHEN
-C>                           INPUT UNIT NUMBER IS LESS THAN ZERO)
-C> 2006-04-14  J. ATOR    -- ADD DECLARATION FOR CREF
-C> 2007-01-19  J. ATOR    -- REPLACED CALL TO PARSEQ WITH CALL TO PARSTR
-C> 2009-04-21  J. ATOR    -- USE ERRWRT
-C> 2009-12-01  J. ATOR    -- FIX BUG FOR COMPRESSED CHARACTER STRINGS
-C>                           WHICH ARE IDENTICAL ACROSS ALL SUBSETS IN
-C>                           A SINGLE MESSAGE
-C> 2010-05-07  J. ATOR    -- WHEN CALLING IREADMG, TREAT READ ERROR AS
-C>                           END-OF-FILE CONDITION
-C> 2012-03-02  J. ATOR    -- USE FUNCTION UPS
-C> 2012-09-15  J. WOOLLEN -- MODIFIED FOR C/I/O/BUFR INTERFACE;
-C>                           USE NEW OPENBF TYPE 'INX' TO OPEN AND CLOSE
-C>                           THE C FILE WITHOUT CLOSING THE FORTRAN FILE
-C> 2014-11-20  J. ATOR    -- ENSURE OPENBF HAS BEEN CALLED AT LEAST ONCE
-C>                           BEFORE CALLING STATUS
-C> 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
-C> 2016-12-19  J. WOOLLEN -- FIX BUG TO PREVENT INVENTORY OVERFLOW
+C> <p>This provides a useful way to scan the ranges of one or more
+C> specified data values across an entire BUFR file. 
 C>
-C> USAGE:    CALL UFBTAB (LUNIN, TAB, I1, I2, IRET, STR)
-C>   INPUT ARGUMENT LIST:
-C>     LUNIN    - INTEGER: ABSOLUTE VALUE IS FORTRAN LOGICAL UNIT NUMBER
-C>                FOR BUFR FILE
-C>     I1       - INTEGER:
-C>                  - IF LUNIN IS GREATER THAN ZERO: LENGTH OF FIRST
-C>                    DIMENSION OF TAB (MUST BE AT LEAST AS LARGE AS THE
-C>                    NUMBER OF BLANK-SEPARATED MNEMONICS IN STR)
-C>                  - IF LUNIN IS LESS THAN ZERO: LENGTH OF FIRST
-C>                    DIMENSION OF TAB (RECOMMEND PASSING IN WITH VALUE
-C>                    OF 1 - SEE REMARKS 2)
-C>     I2       - INTEGER: LENGTH OF SECOND DIMENSION OF TAB
-C>                  - IF LUNIN IS GREATER THAN ZERO: MUST BE AT LEAST AS
-C>                    LARGE AS VALUE RETURNED IN IRET, OTHERWISE ONLY
-C>                    FIRST I2 SUBSETS ARE RETURNED IN TAB
-C>                  - IF LUNIN IS LESS THAN ZERO: RECOMMEND PASSING IN
-C>                    WITH VALUE OF 1 - SEE REMARKS 2
-C>     STR      - CHARACTER*(*):
-C>                  - IF LUNIN IS GREATER THAN ZERO: STRING OF BLANK-
-C>                    SEPARATED TABLE B MNEMONICS IN ONE-TO-ONE
-C>                    CORRESPONDENCE WITH FIRST DIMENSION OF TAB, I1
-C>                    (THE NUMBER OF MNEMONICS IN THE STRING MUST BE NO
-C>                    LARGER THAN I1)
-C>                      - THERE ARE THREE "GENERIC" MNEMONICS NOT
-C>                        RELATED TO TABLE B, THESE RETURN THE FOLLOWING
-C>                        INFORMATION IN CORRESPONDING TAB LOCATION:
-C>                         'NUL'  WHICH ALWAYS RETURNS BMISS ("MISSING")
-C>                         'IREC' WHICH ALWAYS RETURNS THE CURRENT BUFR
-C>                                MESSAGE (RECORD) NUMBER IN WHICH THIS
-C>                                SUBSET RESIDES
-C>                         'ISUB' WHICH ALWAYS RETURNS THE CURRENT
-C>                                SUBSET NUMBER OF THIS SUBSET WITHIN
-C>                                THE BUFR MESSAGE (RECORD) NUMBER
-C>                                'IREC'
-C>                  - IF LUNIN IS LESS THAN ZERO: DUMMY {RECOMMEND
-C>                    PASSING IN STRING AS A 1-CHARACTER BLANK (i.e.,
-C>                    ' ') - SEE REMARKS 2}
+C> @author J. Woollen
+C> @date 1994-01-06
+C>      
+C> @param[in] LUNIN    - integer: Absolute value is Fortran logical
+C>                       unit number for BUFR file
+C> @param[out] TAB     - real*8(*,*): Data values
+C> @param[in] I1  - integer: Actual first dimension of TAB as allocated
+C>                  within the calling program
+C> @param[in] I2  - integer: Actual second dimension of TAB as allocated
+C>                  within the calling program
+C> @param[out] IRET - integer: Number of data subsets in BUFR file
+C> @param[in] STR - character*(*): String of blank-separated
+C>                  Table B mnemonics, in one-to-one correspondence
+C>                  with the number of data values that will be read
+C>                  from each data subset within the first dimension of
+C>                  TAB (see [DX BUFR Tables](@ref dfbftab) for further
+C>                  information about Table B mnemonics)
 C>
-C>   OUTPUT ARGUMENT LIST:
-C>     TAB      - REAL*8: (I1,I2):
-C>                  - IF LUNIN IS GREATER THAN ZERO: STARTING ADDRESS OF
-C>                    DATA VALUES READ FROM BUFR FILE
-C>                  - IF LUNIN IS LESS THAN ZERO: STARTING ADDRESS OF
-C>                    ARRAY OF VALUES ALL RETURNED WITH THE BUFRLIB'S
-C>                    GLOBAL VALUE FOR MISSING (BMISS)
-C>     IRET     - INTEGER: NUMBER OF DATA SUBSETS IN BUFR FILE
-C>                  - IF LUNIN IS GREATER THAN ZERO: MUST BE NO LARGER
-C>                    THAN I2, OTHERWISE ONLY FIRST I2 SUBSETS ARE
-C>                    RETURNED IN TAB
+C> <p>It is the user's responsibility to ensure that TAB is dimensioned
+C> sufficiently large enough to accommodate the number of data values
+C> that are to be read from the BUFR file.  Specifically, each row of
+C> TAB will contain the data values read from a different data subset,
+C> so the value I2 must be at least as large as the total number of data
+C> subsets in the BUFR file.
 C>
-C> REMARKS:
-C>    1) NOTE THAT UFBMEM CAN BE CALLED PRIOR TO THIS TO STORE THE BUFR
-C>       MESSAGES INTO INTERNAL MEMORY.
+C> <p>If logical unit ABS(LUNIN) has already been opened
+C> via a previous call to subroutine openbf(), then this subroutine
+C> will save the current file position, rewind the file to the
+C> beginning, read through the entire file, and then restore it to its
+C> previous file position.  Otherwise, if logical unit ABS(LUNIN) has
+C> not already been opened via a previous call to subroutine openbf(),
+C> then this subroutine will open it via an internal call to
+C> subroutine openbf(), read through the entire file, and then close
+C> it via an internal call to subroutine closbf().
 C>
-C>    2) BELOW ARE TWO EXAMPLES WHERE THE USER CALLS UFBTAB WITH LUNIN
-C>       LESS THAN ZERO SO AS TO ONLY OBTAIN A COUNT OF SUBSETS IN A
-C>       BUFR FILE (ALONG WITH THE BUFRLIB'S GLOBAL VALUE FOR
-C>       "MISSING").
+C> @remarks
+C> - If LUNIN < 0, the number of data subsets in the BUFR file will
+C> still be returned in IRET; however, STR will be ignored,
+C> and all of the values returned in TAB will contain the current
+C> placeholder value for "missing" data.
+C> - If any of the Table B mnemonics in STR are replicated within the
+C> data subset definition for the BUFR file, then this subroutine will
+C> only return the value corresponding to the first occurrence of each
+C> such mnemonic (counting from the beginning of the data subset
+C> definition) within the corresponding row of TAB.
 C>
-C>       EXAMPLE 1) I1 AND I2 ARE SET TO 1 SUCH THAT TAB IS A SCALAR AND
-C>          STR IS SET TO A 1-CHARACTER BLANK.  THESE ARE THE
-C>          RECOMMENDED VALUES FOR I1, I2 AND STR SINCE THEY USE THE
-C>          LEAST AMOUNT OF MEMORY):
-C>
-C>            REAL(8) TAB
-C>                 ....
-C>                 ....
-C>            CALL UFBTAB(-LUNIN,TAB,1,1,IRET,' ')
-C>                 ....
-C>                 ....
-C>
-C>          HERE IRET WILL RETURN THE COUNT OF SUBSETS IN THE BUFR FILE
-C>          AND TAB WILL RETURN THE BUFRLIB'S GLOBAL VALUE FOR "MISSING"
-C>          (BMISS).
-C>
-C>       EXAMPLE 2) I1 IS SET TO 4 AND I2 IS SET TO 8 SUCH THAT TAB IS A
-C>          32-WORD ARRAY, AND STR IS SET TO A NONSENSICAL STRING.
-C>          THESE VALUES FOR I1, I2 AND STR WASTE MEMORY BUT GIVE THE
-C>          SAME ANSWERS FOR TAB AND IRET AS IN EXAMPLE 1 (FOR THE SAME
-C>          INPUT BUFR FILE!):
-C>
-C>            REAL(8) TAB(4,8)
-C>                 ....
-C>                 ....
-C>            CALL UFBTAB(-LUNIN,TAB,4,8,IRET,'BUFR IS A WONDERFUL FMT')
-C>                 ....
-C>                 ....
-C>
-C>          HERE IRET WILL AGAIN RETURN THE COUNT OF SUBSETS IN THE BUFR
-C>          FILE AND ALL 32 VALUES OF ARRAY TAB WILL RETURN THE
-C>          BUFRLIB'S GLOBAL VALUE FOR "MISSING" (BMISS).
-C>
-C>       THE SIXTH ARGUMENT STR IS A DUMMY VALUE AND CAN BE SET TO
-C>       ANY CHARACTER STRING (AGAIN, A 1-CHARACTER BLANK ' ' IS
-C>       RECOMMENDED).  THE THIRD ARGUMENT I1 HAS NO RELATIONSHIP WITH
-C>       THE NUMBER OF BLANK-SEPARATED MNEMONICS IN STR AND CAN BE SET
-C>       TO ANY INTEGER VALUE (AGAIN, 1 IS RECOMMENDED).  THE FOURTH
-C>       ARGUMENT I2 HAS NO RELATIONSHIP WITH THE NUMBER OF DATA SUBSETS
-C>       IN THE BUFR FILE RETURNED IN IRET (AGAIN, 1 IS RECOMMENDED).
-C>
-C>.....................................................................
-C>
-C>    THIS ROUTINE CALLS:        BORT     CLOSBF   ERRWRT   IREADMG
-C>                               IREADSB  MESGBC   NMSUB    OPENBF
-C>                               PARSTR   REWNBF   STATUS   STRING
-C>                               UPB      UPBB     UPC      UPS
-C>                               USRTPL
-C>    THIS ROUTINE IS CALLED BY: None
-C>                               Normally called only by application
-C>                               programs.
+C> <b>Program history log:</b>
+C> - 1994-01-06  J. Woollen -- Original author
+C> - 1998-07-08  J. Woollen -- Replaced call to Cray library routine
+C>                           "ABORT" with call to new internal BUFRLIB
+C>                           routine "BORT"
+C> - 1999-11-18  J. Woollen -- The number of BUFR files which can be
+C>                           opened at one time increased from 10 to 32
+C>                           (necessary in order to process multiple
+C>                           BUFR files under the MPI)
+C> - 2000-09-19  J. Woollen -- Maximum length increased
+C>                           from 10,000 to 20,000 bytes
+C> - 2002-05-14  J. Woollen -- Removed old Cray compiler directives
+C> - 2003-11-04  D. Keyser  -- Modified to not abort when there are
+C>                           more than I2 data subsets, but instead
+C>                           just process first I2 subsets and print a
+C>                           diagnostic; increased MAXJL from 15000
+C>                           to 16000; modified to use rewnbf();
+C>                           upgraded to allow reading from a file that
+C>                           has already been opened via openbf()
+C> - 2004-08-09  J. Ator    -- Maximum message length increased from
+C>                           20,000 to 50,000 bytes
+C> - 2005-09-16  J. Woollen -- upgraded to work for compressed BUFR
+C>                           messages, and to allow for LUNIN < 0 option
+C> - 2006-04-14  J. Ator    -- Add declaration for CREF
+C> - 2007-01-19  J. Ator    -- Replaced call to parseq with call to
+C>                            parstr()
+C> - 2009-04-21  J. Ator    -- Use errwrt()
+C> - 2009-12-01  J. Ator    -- Fix bug for compressed character strings
+C>                           which are identical across all subsets in
+C>                           a single messagE
+C> - 2010-05-07  J. Ator    -- When calling ireadmg(), treat read error
+C>                           as EOF condition
+C> - 2012-03-02  J. Ator    -- Use function ups()
+C> - 2012-09-15  J. Woollen -- Modified for C/I/O/BUFR interface;
+C>                             added IO type 'INX' to enable open and
+C>                             close for C file without closing FORTRAN
+C>                             file
+C> - 2014-11-20  J. Ator    -- Ensure openbf() has been called at least
+C>                           once before calling status()
+C> - 2014-12-10  J. Ator    -- Use modules instead of COMMON blocks
+C> - 2016-12-19  J. Woollen -- Fix bug to prevent inventory overflow
 C>
       SUBROUTINE UFBTAB(LUNIN,TAB,I1,I2,IRET,STR)
 

@@ -1,55 +1,47 @@
 C> @file
-C> @author ATOR @date 2009-03-23
-	
-C> THIS FUNCTION CHECKS THE MOST RECENT BUFR MESSAGE THAT
-C>   WAS READ AS INPUT VIA SUBROUTINE READMG, READERME OR EQUIVALENT
-C>   TO DETERMINE IF THE APPROPRIATE CORRESPONDING BUFR MASTER TABLES
-C>   HAVE ALREADY BEEN READ INTO INTERNAL MEMORY.  IF NOT, THEN IT
-C>   OPENS THE APPROPRIATE BUFR MASTER TABLE FILES AND READS THEM INTO
-C>   INTERNAL MEMORY, CLEARING ANY PREVIOUS MASTER TABLE INFORMATION
-C>   ALREADY STORED THERE.  INFORMATION ABOUT THE BUFR MASTER TABLE
-C>   FILES IS OBTAINED FROM THE MOST RECENT CALL TO SUBROUTINE MTINFO,
-C>   OR ELSE AS DEFINED WITHIN SUBROUTINE BFRINI IF SUBROUTINE MTINFO
-C>   WAS NEVER CALLED.
+C> @brief Check whether master BUFR tables need to be read from the
+C> local file system
+
+C> This function checks the most recent BUFR message that was read
+C> via a call to one of the
+C> [message-reading subroutines](@ref hierarchy) and determines
+C> whether the appropriate corresponding BUFR master tables have
+C> already been read into internal memory.
 C>
-C> PROGRAM HISTORY LOG:
-C> 2009-03-23  J. ATOR    -- ORIGINAL AUTHOR
-C> 2014-11-25  J. ATOR    -- ADD CALL TO CPMSTABS FOR ACCESS TO MASTER
-C>                           TABLE INFORMATION WITHIN C WHEN USING
-C>                           DYNAMICALLY ALLOCATED ARRAYS
-C> 2017-10-13  J. ATOR    -- ADD FUNCTIONALITY TO CHECK WHETHER NEW
-C>                           MASTER TABLES NEED TO BE READ (THIS
-C>                           FUNCTIONALITY WAS PREVIOUSLY PART OF
-C>                           SUBROUTINE READS3)
-C> 2018-04-09  J. ATOR    -- ONLY READ MASTER B AND D TABLES WHEN
-C>                           SECTION 3 IS BEING USED FOR DECODING
+C> <p>If not, then it opens the appropriate master BUFR tables on the
+C> local file system and then reads the contents into internal
+C> memory, clearing any previous master BUFR table information that
+C> may have previously been stored there.
 C>
-C> USAGE:    IREADMT ( LUN )
-C>   INPUT ARGUMENT LIST:
-C>     LUN      - INTEGER: I/O STREAM INDEX INTO INTERNAL MEMORY ARRAYS
+C> @author J. Ator
+C> @date 2009-03-23
 C>
-C>   OUTPUT ARGUMENT LIST:
-C>    IREADMT   - INTEGER: RETURN CODE INDICATING WHETHER NEW BUFR
-C>                MASTER TABLE FILES NEEDED TO BE OPENED AND READ
-C>                DURING THIS CALL TO THE FUNCTION
-C>                  0 = NO
-C>                  1 = YES
+C> @param[in]  LUN      - integer: Internal I/O stream index associated
+C>                        with BUFR file
+C> @returns ireadmt     - integer: Flag indicating whether new master
+C>                        BUFR tables needed to be read into internal
+C>                        memory:
+C>                        - 0 = No
+C>                        - 1 = Yes
 C>
-C>   INPUT FILES:
-C>     UNITS 98,99  - IF SUBROUTINE MTINFO WAS NEVER CALLED, THEN THESE
-C>                    LOGICAL UNIT NUMBERS ARE USED BY THIS ROUTINE FOR
-C>                    OPENING AND READING THE BUFR MASTER TABLES.
-C>                    ALTERNATIVELY, IF SUBROUTINE MTINFO WAS CALLED,
-C>                    THEN THE LOGICAL UNIT NUMBERS SPECIFIED IN THE
-C>                    MOST RECENT CALL TO MTINFO (ARGUMENTS LUNMT1 AND
-C>                    LUNMT2) ARE USED INSTEAD.
-C> REMARKS:
-C>    THIS ROUTINE CALLS:        BORT2    CPMSTABS ERRWRT   ICVIDX
-C>                               IFXY     ISTDESC  IUPBS01  MTFNAM
-C>                               RDMTBB   RDMTBD   RDMTBF   UPDS3
-C>    THIS ROUTINE IS CALLED BY: GETCFMNG READS3   UFDUMP
-C>                               Normally not called by any application
-C>                               programs.
+C> <p>Information about the location of master BUFR tables on the 
+C> local file system is obtained from the most recent call to
+C> subroutine mtinfo(), or else from subroutine bfrini() if
+C> subroutine mtinfo() was never called, and in which case Fortran
+C> logical unit numbers 98 and 99 will be used by this function
+C> for opening and reading master BUFR table files.
+C>
+C> <b>Program history log:</b>
+C> - 2009-03-23  J. Ator    -- Original author
+C> - 2014-11-25  J. Ator    -- Add call to cpmstabs() for access to
+C>                           master table information within C when
+C>                           using dynamically-allocated arrays
+C> - 2017-10-13  J. Ator    -- Add functionality to check whether new
+C>                           master tables need to be read (this
+C>                           functionality was previously part of
+C>                           subroutine reads3())
+C> - 2018-04-09  J. Ator    -- Only read master B and D tables when
+C>                           Section 3 is being used for decoding
 C>
 	INTEGER FUNCTION IREADMT ( LUN )
 
