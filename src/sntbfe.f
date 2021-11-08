@@ -9,17 +9,18 @@ C>
 C> @author J. Ator
 C> @date 2017-11-02
 C>
-C> @param[in] LUNT    - integer: Fortran logical unit number for
+C> @param[in] LUNT   -- integer: Fortran logical unit number for
 C>                      ASCII file containing Code/Flag table
 C>                      information
-C> @param[in] IFXYN   - integer: Bit-wise representation of FXY number
-C> @param[in]  LINE   - character*(*): First line of Code/Flag table
+C> @param[in] IFXYN  -- integer: Bit-wise representation of FXY number
+C> @param[in]  LINE  -- character*(*): First line of Code/Flag table
 C>                      entry
 C>
 C> <b>Program history log:</b>
-C> - 2017-11-02  J. ATOR    -- Original author
-C> - 2021-09-30  J. Ator    -- Replace jstchr with Fortran intrinsic
-C>                             adjustl
+C> | Date | Programmer | Comments |
+C> | -----|------------|----------|
+C> | 2017-11-02 | J. Ator | Original author |
+C> | 2021-09-30 | J. Ator | Replace jstchr with Fortran intrinsic adjustl |
 C>
 	SUBROUTINE SNTBFE ( LUNT, IFXYN, LINE )
 

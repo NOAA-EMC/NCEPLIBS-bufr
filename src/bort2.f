@@ -10,12 +10,14 @@ C>
 C> @author D. Keyser
 C> @date 2003-11-04
 C>
-C> @param[in] STR1   - character*(*): First error message
-C> @param[in] STR2   - character*(*): Second error message
+C> @param[in] STR1  -- character*(*): First error message
+C> @param[in] STR2  -- character*(*): Second error message
 C>
 C> <b>Program history log:</b>
-C> - 2003-11-04  D. Keyser  -- Original author
-C> - 2009-04-21  J. Ator    -- Use errwrt()
+C> | Date | Programmer | Comments |
+C> | -----|------------|----------|
+C> | 2003-11-04 | D. Keyser | Original author |
+C> | 2009-04-21 | J. Ator   | Use errwrt() |
 C>
       SUBROUTINE BORT2(STR1,STR2)
 

@@ -11,20 +11,20 @@ C>
 C> @author J. Woollen
 C> @date 1994-01-06
 C>      
-C> @param[in] LUNIN    - integer: Absolute value is Fortran logical
+C> @param[in] LUNIN   -- integer: Absolute value is Fortran logical
 C>                       unit number for BUFR file
-C> @param[out] TAB     - real*8(*,*): Data values
-C> @param[in] I1  - integer: Actual first dimension of TAB as allocated
+C> @param[out] TAB    -- real*8(*,*): Data values
+C> @param[in] I1 -- integer: Actual first dimension of TAB as allocated
 C>                  within the calling program
-C> @param[in] I2  - integer: Actual second dimension of TAB as allocated
+C> @param[in] I2 -- integer: Actual second dimension of TAB as allocated
 C>                  within the calling program
-C> @param[out] IRET - integer: Number of data subsets in BUFR file
-C> @param[in] STR - character*(*): String of blank-separated
-C>                  Table B mnemonics, in one-to-one correspondence
-C>                  with the number of data values that will be read
-C>                  from each data subset within the first dimension of
-C>                  TAB (see [DX BUFR Tables](@ref dfbftab) for further
-C>                  information about Table B mnemonics)
+C> @param[out] IRET -- integer: Number of data subsets in BUFR file
+C> @param[in] STR -- character*(*): String of blank-separated
+C>                   Table B mnemonics, in one-to-one correspondence
+C>                   with the number of data values that will be read
+C>                   from each data subset within the first dimension of
+C>                   TAB (see [DX BUFR Tables](@ref dfbftab) for further
+C>                   information about Table B mnemonics)
 C>
 C> <p>It is the user's responsibility to ensure that TAB is dimensioned
 C> sufficiently large enough to accommodate the number of data values
@@ -55,46 +55,27 @@ C> such mnemonic (counting from the beginning of the data subset
 C> definition) within the corresponding row of TAB.
 C>
 C> <b>Program history log:</b>
-C> - 1994-01-06  J. Woollen -- Original author
-C> - 1998-07-08  J. Woollen -- Replaced call to Cray library routine
-C>                           "ABORT" with call to new internal BUFRLIB
-C>                           routine "BORT"
-C> - 1999-11-18  J. Woollen -- The number of BUFR files which can be
-C>                           opened at one time increased from 10 to 32
-C>                           (necessary in order to process multiple
-C>                           BUFR files under the MPI)
-C> - 2000-09-19  J. Woollen -- Maximum length increased
-C>                           from 10,000 to 20,000 bytes
-C> - 2002-05-14  J. Woollen -- Removed old Cray compiler directives
-C> - 2003-11-04  D. Keyser  -- Modified to not abort when there are
-C>                           more than I2 data subsets, but instead
-C>                           just process first I2 subsets and print a
-C>                           diagnostic; increased MAXJL from 15000
-C>                           to 16000; modified to use rewnbf();
-C>                           upgraded to allow reading from a file that
-C>                           has already been opened via openbf()
-C> - 2004-08-09  J. Ator    -- Maximum message length increased from
-C>                           20,000 to 50,000 bytes
-C> - 2005-09-16  J. Woollen -- upgraded to work for compressed BUFR
-C>                           messages, and to allow for LUNIN < 0 option
-C> - 2006-04-14  J. Ator    -- Add declaration for CREF
-C> - 2007-01-19  J. Ator    -- Replaced call to parseq with call to
-C>                            parstr()
-C> - 2009-04-21  J. Ator    -- Use errwrt()
-C> - 2009-12-01  J. Ator    -- Fix bug for compressed character strings
-C>                           which are identical across all subsets in
-C>                           a single messagE
-C> - 2010-05-07  J. Ator    -- When calling ireadmg(), treat read error
-C>                           as EOF condition
-C> - 2012-03-02  J. Ator    -- Use function ups()
-C> - 2012-09-15  J. Woollen -- Modified for C/I/O/BUFR interface;
-C>                             added IO type 'INX' to enable open and
-C>                             close for C file without closing FORTRAN
-C>                             file
-C> - 2014-11-20  J. Ator    -- Ensure openbf() has been called at least
-C>                           once before calling status()
-C> - 2014-12-10  J. Ator    -- Use modules instead of COMMON blocks
-C> - 2016-12-19  J. Woollen -- Fix bug to prevent inventory overflow
+C> | Date | Programmer | Comments |
+C> | -----|------------|----------|
+C> | 1994-01-06 | J. Woollen | Original author |
+C> | 1998-07-08 | J. Woollen | Replaced call to Cray library routine "ABORT" with call to new internal routine bort() |
+C> | 1999-11-18 | J. Woollen | The number of BUFR files which can be opened at one time increased from 10 to 32 |
+C> | 2000-09-19 | J. Woollen | Maximum length increased from 10,000 to 20,000 bytes |
+C> | 2002-05-14 | J. Woollen | Removed old Cray compiler directives |
+C> | 2003-11-04 | D. Keyser  | Modified to not abort when there are more than I2 data subsets, but instead just process first I2 subsets and print a diagnostic |
+C> | 2003-11-04 | D. Keyser  | Increased MAXJL from 15000 to 16000; modified to use rewnbf(); upgraded to allow reading from a file that has already been opened via openbf() |
+C> | 2004-08-09 | J. Ator    | Maximum message length increased from 20,000 to 50,000 bytes |
+C> | 2005-09-16 | J. Woollen | upgraded to work for compressed BUFR messages, and to allow for LUNIN < 0 option |
+C> | 2006-04-14 | J. Ator    | Add declaration for CREF |
+C> | 2007-01-19 | J. Ator    | Replaced call to parseq with call to parstr() |
+C> | 2009-04-21 | J. Ator    | Use errwrt() |
+C> | 2009-12-01 | J. Ator    | Fix bug for compressed character strings which are identical across all subsets in a single messagE |
+C> | 2010-05-07 | J. Ator    | When calling ireadmg(), treat read error as EOF condition |
+C> | 2012-03-02 | J. Ator    | Use function ups() |
+C> | 2012-09-15 | J. Woollen | Modified for C/I/O/BUFR interface; added IO type 'INX' to enable open and close for C file without closing FORTRAN file |
+C> | 2014-11-20 | J. Ator    | Ensure openbf() has been called at least once before calling status() |
+C> | 2014-12-10 | J. Ator    | Use modules instead of COMMON blocks |
+C> | 2016-12-19 | J. Woollen | Fix bug to prevent inventory overflow |
 C>
       SUBROUTINE UFBTAB(LUNIN,TAB,I1,I2,IRET,STR)
 

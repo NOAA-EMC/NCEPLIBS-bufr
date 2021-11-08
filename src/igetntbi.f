@@ -8,19 +8,21 @@ C>
 C> @author J. Ator
 C> @date 2009-03-23
 C>
-C> @param[in]  LUN    - integer: Internal I/O stream index associated
+C> @param[in]  LUN   -- integer: Internal I/O stream index associated
 C>                      with BUFR file
-C> @param[in]  CTB    - character: Type of internal DX BUFR table for
+C> @param[in]  CTB   -- character: Type of internal DX BUFR table for
 C>                      which to return the next available index
 C>                        - 'A' = Table A
 C>                        - 'B' = Table B
 C>                        - 'D' = Table D
-C> @returns igetntbi  - integer: Next available index for storing an
+C> @returns igetntbi -- integer: Next available index for storing an
 C>                      entry within CTB
 C>
 C> <b>Program history log:</b>
-C> - 2009-03-23  J. Ator    -- Original author
-C> - 2014-12-10  J. Ator    -- Use modules instead of COMMON blocks
+C> | Date | Programmer | Comments |
+C> | -----|------------|----------|
+C> | 2009-03-23 | J. Ator | Original author |
+C> | 2014-12-10 | J. Ator | Use modules instead of COMMON blocks |
 C>
 	FUNCTION IGETNTBI ( LUN, CTB )
 

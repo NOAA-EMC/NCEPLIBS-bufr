@@ -9,17 +9,17 @@ C>
 C> @author J. Ator
 C> @date 2005-11-29
 C>
-C> @param[in] LUNIT  - integer: Fortran logical unit number for
+C> @param[in] LUNIT -- integer: Fortran logical unit number for
 C>                     BUFR file
-C> @param[in] NEMO   - character*(*): Table B mnemonic with
+C> @param[in] NEMO  -- character*(*): Table B mnemonic with
 C>                     flag table units
-C> @param[in] VAL    - real*8: Value corresponding to NEMO
-C> @param[in] MXIB   - integer: Dimensioned size (in integers) of
+C> @param[in] VAL   -- real*8: Value corresponding to NEMO
+C> @param[in] MXIB  -- integer: Dimensioned size (in integers) of
 C>                     IBIT; used by the subroutine to ensure that
 C>                     it doesn't overflow the IBIT array
-C> @param[out] IBIT  - integer(*): Bit numbers which were set to
+C> @param[out] IBIT -- integer(*): Bit numbers which were set to
 C>                     "On" (i.e. set to "1") in VAL
-C> @param[out] NIB   - integer: Number of bit numbers returned in
+C> @param[out] NIB  -- integer: Number of bit numbers returned in
 C>                     IBIT
 C>
 C> @remarks
@@ -29,8 +29,10 @@ C> numbered from left to right, so bit #1 is always the high-order
 C> (i.e. most significant) bit in any bit field.
 C>
 C> <b>Program history log:</b>
-C> - 2005-11-29  J. Ator    -- Original version
-C> - 2014-12-10  J. Ator    -- Use modules instead of COMMON blocks
+C> | Date | Programmer | Comments |
+C> | -----|------------|----------|
+C> | 2005-11-29 | J. Ator | Original version |
+C> | 2014-12-10 | J. Ator | Use modules instead of COMMON blocks |
 C>
       SUBROUTINE UPFTBV(LUNIT,NEMO,VAL,MXIB,IBIT,NIB)
 

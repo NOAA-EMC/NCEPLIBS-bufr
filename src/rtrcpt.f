@@ -12,23 +12,25 @@ C>
 C> @author J. Ator
 C> @date 2009-03-23
 C>
-C> @param[in] LUNIT  - integer: Fortran logical unit number for
+C> @param[in] LUNIT -- integer: Fortran logical unit number for
 C>                     BUFR file
-C> @param[out] IYR   - integer: Tank receipt year
-C> @param[out] IMO   - integer: Tank receipt month
-C> @param[out] IDY   - integer: Tank receipt day
-C> @param[out] IHR   - integer: Tank receipt hour
-C> @param[out] IMI   - integer: Tank receipt minute
-C> @param[out] IRET  - integer: return code
+C> @param[out] IYR  -- integer: Tank receipt year
+C> @param[out] IMO  -- integer: Tank receipt month
+C> @param[out] IDY  -- integer: Tank receipt day
+C> @param[out] IHR  -- integer: Tank receipt hour
+C> @param[out] IMI  -- integer: Tank receipt minute
+C> @param[out] IRET -- integer: return code
 C>                     - 0 = normal return
 C>                     - -1 = no tank receipt time exists within the
 C>                            BUFR message currently open for input
 C>                            within internal arrays
 C> 
 C> <b>Program history log:</b>
-C> - 2009-03-23  J. Ator    -- Original author
-C> - 2013-10-07  J. Ator    -- Modified to call rtrcptb()
-C> - 2014-12-10  J. Ator    -- Use modules instead of COMMON blocks
+C> | Date | Programmer | Comments |
+C> | -----|------------|----------|
+C> | 2009-03-23 | J. Ator | Original author |
+C> | 2013-10-07 | J. Ator | Modified to call rtrcptb() |
+C> | 2014-12-10 | J. Ator | Use modules instead of COMMON blocks |
 C>
       SUBROUTINE RTRCPT(LUNIT,IYR,IMO,IDY,IHR,IMI,IRET)
 

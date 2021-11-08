@@ -10,13 +10,13 @@ C>
 C> @author J. Ator
 C> @date 2004-08-18
 C>
-C> @param[in] LUNIT    - integer: Fortran logical unit number for
+C> @param[in] LUNIT   -- integer: Fortran logical unit number for
 C>                       BUFR file
-C> @param[in] MSGIN    - integer(*): BUFR message
-C> @param[in] LMSGOT   - integer: Dimensioned size (in integers) of
+C> @param[in] MSGIN   -- integer(*): BUFR message
+C> @param[in] LMSGOT  -- integer: Dimensioned size (in integers) of
 C>                       MSGOT; used by the subroutine to ensure that
 C>                       it doesn't overflow the MSGOT array
-C> @param[out] MSGOT   - integer(*): Standardized copy of MSGIN
+C> @param[out] MSGOT  -- integer(*): Standardized copy of MSGIN
 C>
 C> @remarks
 C> - MSGIN and MSGOT must be separate arrays.
@@ -25,16 +25,13 @@ C> non-standard counterparts, so it's usually a good idea to allow
 C> for extra space when allocating MSGOT within the application program.
 C> 
 C> <b>Program history log:</b>
-C> - 2004-08-18  J. Ator    -- Original author
-C> - 2005-11-29  J. Ator    -- Use getlens() and iupbs01(); ensure that
-C>                           byte 4 of Section 4 is zeroed out in MSGOT;
-C>                           check edition number of BUFR message before 
-C>                           padding to an even byte count
-C> - 2009-03-23  J. Ator    -- Use iupbs3() and nemtbax(); don't assume
-C>                           that compressed messages are already fully
-C>                           standardized within Section 3
-C> - 2014-02-04  J. Ator    -- Account for subsets with byte count > 65530
-C> - 2020-07-16  J. Ator    -- Fix bug in ISLEN computation when NSUB = 1
+C> | Date | Programmer | Comments |
+C> | -----|------------|----------|
+C> | 2004-08-18 | J. Ator | Original author |
+C> | 2005-11-29 | J. Ator | Use getlens() and iupbs01(); ensure that byte 4 of Section 4 is zeroed out in MSGOT; check edition number of BUFR message before padding to an even byte count |
+C> | 2009-03-23 | J. Ator | Use iupbs3() and nemtbax(); don't assume that compressed messages are already fully standardized within Section 3 |
+C> | 2014-02-04 | J. Ator | Account for subsets with byte count > 65530 |
+C> | 2020-07-16 | J. Ator | Fix bug in ISLEN computation when NSUB = 1 |
 C>
       SUBROUTINE STNDRD(LUNIT,MSGIN,LMSGOT,MSGOT)
 

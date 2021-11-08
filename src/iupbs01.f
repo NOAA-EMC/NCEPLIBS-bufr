@@ -16,8 +16,8 @@ C>
 C> @author J. Ator
 C> @date 2005-11-29
 C>
-C> @param[in]  MBAY    - integer(*): BUFR message
-C> @param[in]  S01MNEM   - character*(*): Value to be read from
+C> @param[in]  MBAY   -- integer(*): BUFR message
+C> @param[in]  S01MNEM  -- character*(*): Value to be read from
 C>                         Section 0 or Section 1 of MBAY
 C>                         - 'LENM'  = Length (in bytes) of BUFR message
 C>                         - 'LEN0'  = Length (in bytes) of Section 0
@@ -45,7 +45,7 @@ C>                         - 'DAYS'  = Day
 C>                         - 'HOUR'  = Hour
 C>                         - 'MINU'  = Minute
 C>                         - 'SECO'  = Second
-C> @returns iupbs01  - integer: Value corresponding to S01MNEM
+C> @returns iupbs01 -- integer: Value corresponding to S01MNEM
 C>                      - -1 = S01MNEM was invalid for the edition of BUFR
 C>                             message in MBAY, or some other error 
 C>                             occurred
@@ -65,9 +65,10 @@ C> - Values corresponding to S01MNEM = 'SECO' or 'MSBTI' can only
 C>   be read from BUFR messages encoded using BUFR edition 4.
 C>
 C> <b>Program history log:</b>
-C> - 2005-11-29  J. Ator    -- Original author
-C> - 2006-04-14  J. Ator    -- Added options for 'YCEN' and 'CENT';
-C>                             restructured logic
+C> | Date | Programmer | Comments |
+C> | -----|------------|----------|
+C> | 2005-11-29 | J. Ator | Original author |
+C> | 2006-04-14 | J. Ator | Added options for 'YCEN' and 'CENT'; restructured logic |
 C>
       FUNCTION IUPBS01(MBAY,S01MNEM)
 

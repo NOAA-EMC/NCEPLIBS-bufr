@@ -9,14 +9,16 @@ C>
 C> @author J. Woollen
 C> @date 1994-01-06
 C>
-C> @param[in]  STR - character*(*): String
-C> @param[out] NUM - integer: Value decoded from STR
-C>                   - -1 = decode was unsuccessful
+C> @param[in]  STR -- character*(*): String
+C> @param[out] NUM -- integer: Value decoded from STR
+C>                    - -1 = decode was unsuccessful
 C>
 C> <b>Program History Log:</b>
-C> - 1994-01-06  J. Woollen -- Original author
-C> - 2003-11-04  J. Ator    -- Added documentation
-C> - 2009-04-21  J. Ator    -- Use errwrt()
+C> | Date | Programmer | Comments |
+C> | -----|------------|----------|
+C> | 1994-01-06 | J. Woollen | Original author |
+C> | 2003-11-04 | J. Ator    | Added documentation |
+C> | 2009-04-21 | J. Ator    | Use errwrt() |
 C>
       SUBROUTINE STRNUM(STR,NUM)
 

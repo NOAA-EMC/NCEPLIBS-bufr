@@ -27,9 +27,9 @@ C>
 C> @author J. Woollen
 C> @date 1994-01-06
 C>
-C> @param[in] LUNIN    - integer: Absolute value is Fortran logical
+C> @param[in] LUNIN   -- integer: Absolute value is Fortran logical
 C>                       unit number for BUFR file
-C> @param[in,out] USR  - real*8(*,*): Data values
+C> @param[in,out] USR -- real*8(*,*): Data values
 C>                         - If ABS(LUNIN) was opened for input, then
 C>                           USR is output from this subroutine and
 C>                           contains data values that were read
@@ -38,24 +38,24 @@ C>                         - If ABS(LUNIN) was opened for output, then
 C>                           USR is input to this subroutine and
 C>                           contains data values that are to be
 C>                           written to the current data subset.
-C> @param[in] I1 - integer: Actual first dimension of USR as allocated
-C>                 within the calling program
-C> @param[in] I2 - integer:
+C> @param[in] I1 -- integer: Actual first dimension of USR as allocated
+C>                  within the calling program
+C> @param[in] I2 -- integer:
 C>                    - If ABS(LUNIN) was opened for input, then I2
 C>                      must be set equal to the actual second dimension
 C>                      of USR as allocated within the calling program
 C>                    - If ABS(LUNIN) was opened for output, then I2
 C>                      must be set equal to the number of replications
 C>                      of STR that are to be written to the data subset
-C> @param[out] IRET - integer: Number of replications of STR that were
-C>                    actually read/written from/to the data subset
-C> @param[in] STR - character*(*): String of blank-separated
-C>                  Table B mnemonics
-C>                  in one-to-one correspondence with the number of data
-C>                  values that will be read/written from/to the data
-C>                  subset within the first dimension of USR (see
-C>                  [DX BUFR Tables](@ref dfbftab) for further
-C>                  information about Table B mnemonics)
+C> @param[out] IRET -- integer: Number of replications of STR that were
+C>                     actually read/written from/to the data subset
+C> @param[in] STR -- character*(*): String of blank-separated
+C>                   Table B mnemonics
+C>                   in one-to-one correspondence with the number of data
+C>                   values that will be read/written from/to the data
+C>                   subset within the first dimension of USR (see
+C>                   [DX BUFR Tables](@ref dfbftab) for further
+C>                   information about Table B mnemonics)
 C>
 C> <p>It is the user's responsibility to ensure that USR is dimensioned
 C> sufficiently large enough to accommodate the number of data values
@@ -113,16 +113,14 @@ C> that need to read certain values back out from a BUFR file during
 C> the same time that it is in the process of being written to.
 C>
 C> <b>Program history log:</b>
-C> - 1994-01-06  J. Woollen -- Original author
-C> - 2003-11-04  S. Bender  -- Added remarks and routine interdependencies
-C> - 2003-11-04  D. Keyser  -- Unified/portable for WRF; added history
-C>                             documentation; outputs more complete
-C>                             diagnostic info when routine terminates
-C>                             abnormally, unusual things happen or for
-C>                             informational purposes
-C> - 2004-08-18  J. Ator    -- Added SAVE for IFIRST1 and IFIRST2 flags
-C> - 2009-04-21  J. Ator    -- Use errwrt()
-C> - 2014-12-10  J. Ator    -- Use modules instead of COMMON blocks
+C> | Date | Programmer | Comments |
+C> | -----|------------|----------|
+C> | 1994-01-06 | J. Woollen | Original author |
+C> | 2003-11-04 | S. Bender  | Added remarks and routine interdependencies |
+C> | 2003-11-04 | D. Keyser  | Unified/portable for WRF; added documentation; outputs more complete diagnostic info when routine terminates abnormally |
+C> | 2004-08-18 | J. Ator    | Added SAVE for IFIRST1 and IFIRST2 flags |
+C> | 2009-04-21 | J. Ator    | Use errwrt() |
+C> | 2014-12-10 | J. Ator    | Use modules instead of COMMON blocks |
 C>
       SUBROUTINE UFBSTP(LUNIN,USR,I1,I2,IRET,STR)
 

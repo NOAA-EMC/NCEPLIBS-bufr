@@ -10,7 +10,7 @@ C>
 C> @author J. Woollen
 C> @date 2002-05-14
 C>
-C> @param[in] LUNIT  - integer: Fortran logical unit number for BUFR file
+C> @param[in] LUNIT -- integer: Fortran logical unit number for BUFR file
 C>
 C> @remarks
 C> - This subroutine activates compression via an internal call to
@@ -23,8 +23,10 @@ C> subroutine is still supported within the BUFRLIB software for
 C> backwards-compatibility with certain legacy application programs.
 C>
 C> <b>Program history log:</b>
-C> - 2002-05-14  J. Woollen -- Original author
-C> - 2005-03-09  J. Ator    -- Modified to use cmpmsg() and writsb()
+C> | Date | Programmer | Comments |
+C> | -----|------------|----------|
+C> | 2002-05-14 | J. Woollen | Original author |
+C> | 2005-03-09 | J. Ator    | Modified to use cmpmsg() and writsb() |
 C>
       SUBROUTINE WRITCP(LUNIT)
 

@@ -10,11 +10,11 @@ C>
 C> @author J. Woollen
 C> @date 1994-01-06
 C>
-C> @param[in]  LUNIT    - integer: Fortran logical unit number for
+C> @param[in]  LUNIT   -- integer: Fortran logical unit number for
 C>                        BUFR file
-C> @param[in]  LUN      - integer: Internal I/O stream index associated
+C> @param[in]  LUN     -- integer: Internal I/O stream index associated
 C>                        with LUNIT
-C> @param[in]  IL       - integer: File status update option
+C> @param[in]  IL      -- integer: File status update option
 C>                        - 0 = Disconnect LUNIT from the software
 C>                        - 1 = Connect LUNIT to the software for
 C>                              output operations
@@ -24,7 +24,7 @@ C>                        - -1 = Connect LUNIT to the software for
 C>                               input operations
 C>                               (i.e. reading/decoding BUFR),
 C>                               if not already connected
-C> @param[in]  IM       - integer: Message status update option, to
+C> @param[in]  IM      -- integer: Message status update option, to
 C>                        indicate whether a message is now open
 C>                        within the internal arrays for LUNIT
 C>                        - 0 = No
@@ -39,21 +39,15 @@ C> LUNIT and LUN values remain linked to each other for as
 C> long as the file is connected to the software.
 C>
 C> <b>Program history log:</b>
-C> - 1994-01-06  J. Woollen -- Original author
-C> - 1998-07-08  J. Woollen -- Replaced call to Cray library routine ABORT
-C>                             with call to new internal routine bort()
-C> - 1999-11-18  J. Woollen -- The number of BUFR files which can be
-C>                             opened at one time increased from 10 to 32
-C>                             (necessary in order to process multiple
-C>                             BUFR files under the MPI)
-C> - 2003-11-04  J. Ator    -- Corrected a typo in test for IM validity;
-C>                             added documentation
-C> - 2003-11-04  S. Bender  -- Added remarks and routine interdependencies
-C> - 2003-11-04  D. Keyser  -- Unified/portable for WRF; added history
-C>                             documentation; outputs more complete
-C>                             diagnostic info when routine terminates
-C>                             abnormally
-C> - 2014-12-10  J. Ator    -- Use modules instead of COMMON blocks
+C> | Date | Programmer | Comments |
+C> | -----|------------|----------|
+C> | 1994-01-06 | J. Woollen | Original author |
+C> | 1998-07-08 | J. Woollen | Replaced call to Cray library routine ABORT with call to new internal routine bort() |
+C> | 1999-11-18 | J. Woollen | The number of BUFR files which can be opened at one time increased from 10 to 32 |
+C> | 2003-11-04 | J. Ator    | Corrected a typo in test for IM validity; added documentation |
+C> | 2003-11-04 | S. Bender  | Added remarks and routine interdependencies |
+C> | 2003-11-04 | D. Keyser  | Unified/portable for WRF; added documentation; outputs more complete diagnostic info when routine terminates abnormally |
+C> | 2014-12-10 | J. Ator    | Use modules instead of COMMON blocks |
 C>
       SUBROUTINE WTSTAT(LUNIT,LUN,IL,IM)
 

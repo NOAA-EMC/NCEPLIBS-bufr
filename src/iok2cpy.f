@@ -17,11 +17,11 @@ C>
 C> @author J. Ator
 C> @date 2009-06-26
 C>
-C> @param[in]  LUI      - integer: Internal I/O stream index associated
+C> @param[in]  LUI     -- integer: Internal I/O stream index associated
 C>                        with source BUFR file
-C> @param[in]  LUO      - integer: Internal I/O stream index associated
+C> @param[in]  LUO     -- integer: Internal I/O stream index associated
 C>                        with target BUFR file
-C> @returns iok2cpy     - integer: Flag indicating whether a BUFR
+C> @returns iok2cpy    -- integer: Flag indicating whether a BUFR
 C>                        message or data subset can be copied from the
 C>                        BUFR file associated with LUI to the BUFR file
 C>                        associated with LUO
@@ -29,8 +29,10 @@ C>                        - 0 = No
 C>                        - 1 = Yes
 C>
 C> <b>Program history log:</b>
-C> - 2009-06-26  J. Ator    -- Original author
-C> - 2014-12-10  J. Ator    -- Use modules instead of COMMON blocks
+C> | Date | Programmer | Comments |
+C> | -----|------------|----------|
+C> | 2009-06-26 | J. Ator | Original author |
+C> | 2014-12-10 | J. Ator | Use modules instead of COMMON blocks |
 C>
       INTEGER FUNCTION IOK2CPY(LUI,LUO)
 

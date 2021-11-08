@@ -13,13 +13,13 @@
  *  @author J. Ator
  *  @date 2005-11-29
  *
- *  @param[in] mxmb     - f77int*: Dimensioned size (in bytes) of
+ *  @param[in] mxmb    -- f77int*: Dimensioned size (in bytes) of
  *                        bmg; used by the subroutine to ensure that
  *                        it doesn't overflow the bmg array
- *  @param[out] bmg     - char*: BUFR message
- *  @param[out] nmb     - f77int*: Size (in bytes) of BUFR message
+ *  @param[out] bmg    -- char*: BUFR message
+ *  @param[out] nmb    -- f77int*: Size (in bytes) of BUFR message
  *                        in bmg
- *  @param[out] iret    - f77int*: return code
+ *  @param[out] iret   -- f77int*: return code
  *                         - 0 = normal return
  *                         - 1 = overflow of bmg array
  *                         - 2 = "7777" indicator not found in
@@ -40,7 +40,9 @@
  * before being returned by this subroutine.
  *
  *  <b>Program history log:</b>
- *  - 2005-11-29  J. Ator    -- Original author
+ *  | Date | Programmer | Comments |
+ *  | -----|------------|----------|
+ *  | 2005-11-29 | J. Ator | Original author |
  *
  */
 void crbmg( char *bmg, f77int *mxmb, f77int *nmb, f77int *iret )

@@ -7,7 +7,7 @@ C>
 C> @author J. Woollen
 C> @date 1994-01-06
 C>
-C> @param[in] LUNIT  - integer: Fortran logical unit number for BUFR file
+C> @param[in] LUNIT -- integer: Fortran logical unit number for BUFR file
 C>
 C> <p>This subroutine is called to indicate to the BUFRLIB software that
 C> all necessary values for a data subset (i.e. report) have been written,
@@ -40,17 +40,14 @@ C> the [message-writing subroutines](@ref hierarchy) for LUNIT, then
 C> encode and pack the data subset into that new message.
 C>
 C> <b>Program history log:</b>
-C> - 1994-01-06  J. Woollen -- Original author
-C> - 1998-07-08  J. Woollen -- Replaced call to Cray library routine
-C>                           "ABORT" with call to new internal BUFRLIB
-C>                           routine "BORT"
-C> - 2003-11-04  J. Ator -- Added documentation
-C> - 2003-11-04  S. Bender  -- Added remarks and routine interdependencies
-C> - 2003-11-04  D. Keyser  -- Unified/portable for WRF; added history
-C>                           documentation; outputs more complete
-C>                           diagnostic info when routine terminates
-C>                           abnormally
-C> - 2005-03-09  J. Ator -- Added capability for compressed messages
+C> | Date | Programmer | Comments |
+C> | -----|------------|----------|
+C> | 1994-01-06 | J. Woollen | Original author |
+C> | 1998-07-08 | J. Woollen | Replaced call to Cray library routine "ABORT" with call to new internal routine bort() |
+C> | 2003-11-04 | J. Ator | Added documentation |
+C> | 2003-11-04 | S. Bender | Added remarks and routine interdependencies |
+C> | 2003-11-04 | D. Keyser | Unified/portable for WRF; added documentation; outputs more complete diagnostic info when routine terminates abnormally |
+C> | 2005-03-09 | J. Ator | Added capability for compressed messages |
 C>
       SUBROUTINE WRITSB(LUNIT)
 

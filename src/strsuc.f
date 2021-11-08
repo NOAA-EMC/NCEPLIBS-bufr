@@ -7,16 +7,18 @@ C>
 C> @author J. Woollen
 C> @date 1994-01-06
 C>
-C> @param[in]  STR1 - character*(*): String
-C> @param[out] STR2 - character*(*): Copy of STR1 with leading and
-C>                    trailing blanks removed
-C> @param[out] LENS - integer: Length of STR2
+C> @param[in]  STR1 -- character*(*): String
+C> @param[out] STR2 -- character*(*): Copy of STR1 with leading and
+C>                     trailing blanks removed
+C> @param[out] LENS -- integer: Length of STR2
 C>                     - -1 = STR1 contained embedded blanks
 C>
 C> <b>Program History Log:</b>
-C> - 1994-01-06  J. Woollen -- Original author
-C> - 2003-11-04  J. Ator    -- Added documentation
-C> - 2009-04-21  J. Ator    -- Use errwrt()
+C> | Date | Programmer | Comments |
+C> | -----|------------|----------|
+C> | 1994-01-06 | J. Woollen | Original author
+C> | 2003-11-04 | J. Ator    | Added documentation
+C> | 2009-04-21 | J. Ator    | Use errwrt()
 C>
       SUBROUTINE STRSUC(STR1,STR2,LENS)
 

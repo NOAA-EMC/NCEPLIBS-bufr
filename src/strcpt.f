@@ -10,16 +10,16 @@ C>
 C> @author J. Ator
 C> @date 2009-03-23
 C>
-C> @param[in] CF    - character*1: Flag indicating whether future BUFR
+C> @param[in] CF   -- character*1: Flag indicating whether future BUFR
 C>                    output messages should include the tank receipt
 C>                    time defined by IYR, IMO, IDY, IHR, and IMI:
 C>                     - 'N' = No (the default)
 C>                     - 'Y' = Yes
-C> @param[in] IYR   - integer: Tank receipt year
-C> @param[in] IMO   - integer: Tank receipt month
-C> @param[in] IDY   - integer: Tank receipt day
-C> @param[in] IHR   - integer: Tank receipt hour
-C> @param[in] IMI   - integer: Tank receipt minute
+C> @param[in] IYR  -- integer: Tank receipt year
+C> @param[in] IMO  -- integer: Tank receipt month
+C> @param[in] IDY  -- integer: Tank receipt day
+C> @param[in] IHR  -- integer: Tank receipt hour
+C> @param[in] IMI  -- integer: Tank receipt minute
 C>
 C> <p>This subroutine can be called at any time after the first call
 C> to subroutine openbf(), and the specified value for CF will remain
@@ -42,7 +42,9 @@ C> its inclusion within an output BUFR message is still fully
 C> compliant with the regulations.
 C>
 C> <b>Program history log:</b>
-C> - 2009-03-23  J. Ator    -- Original author
+C> | Date | Programmer | Comments |
+C> | -----|------------|----------|
+C> | 2009-03-23 | J. Ator | Original author |
 C>
       SUBROUTINE STRCPT(CF,IYR,IMO,IDY,IHR,IMI)
 

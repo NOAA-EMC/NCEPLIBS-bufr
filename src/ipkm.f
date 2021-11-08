@@ -8,23 +8,21 @@ C>
 C> @author J. Woollen
 C> @date 1994-01-06
 C>
-C> @param[in] N       - integer: Value to be encoded
-C> @param[in] NBYT    - integer: Number of bytes of CBAY (up to a
+C> @param[in] N      -- integer: Value to be encoded
+C> @param[in] NBYT   -- integer: Number of bytes of CBAY (up to a
 C>                      maximum of 8) within which to encode N
-C> @param[out] CBAY   - character*(*): String of length NBYT bytes
+C> @param[out] CBAY  -- character*(*): String of length NBYT bytes
 C>                      containing encoded integer N
 C>
 C> <b>Program history log:</b>
-C> - 1994-01-06  J. Woollen -- Original author
-C> - 1998-07-08  J. Woollen -- Replaced call to Cray library routine ABORT
-C>                             with call to new internal routine bort()
-C> - 2003-11-04  J. Woollen -- Modified to be endian-independent
-C> - 2003-11-04  J. Ator    -- Added documentation
-C> - 2003-11-04  S. Bender  -- Added remarks and routine interdependencies
-C> - 2003-11-04  D. Keyser  -- Unified/portable for WRF; added history
-C>                             documentation; outputs more complete
-C>                             diagnostic info when routine terminates
-C>                             abnormally
+C> | Date | Programmer | Comments |
+C> | -----|------------|----------|
+C> | 1994-01-06 | J. Woollen | Original author |
+C> | 1998-07-08 | J. Woollen | Replaced call to Cray library routine ABORT with call to new internal routine bort() |
+C> | 2003-11-04 | J. Woollen | Modified to be endian-independent |
+C> | 2003-11-04 | J. Ator    | Added documentation |
+C> | 2003-11-04 | S. Bender  | Added remarks and routine interdependencies |
+C> | 2003-11-04 | D. Keyser  | Unified/portable for WRF; added documentation; outputs more complete diagnostic info when routine terminates abnormally |
 C>
       SUBROUTINE IPKM(CBAY,NBYT,N)
 

@@ -8,7 +8,7 @@ C>
 C> @author J. Ator
 C> @date 2005-03-09
 C>
-C> @param[in] CF    - character*1: Flag indicating whether future BUFR
+C> @param[in] CF   -- character*1: Flag indicating whether future BUFR
 C>                    output messages are to be compressed
 C>                     - 'N' = No (the default)
 C>                     - 'Y' = Yes
@@ -34,8 +34,9 @@ C> compression may provide little to no benefit, and which is why
 C> it is not activated by default.
 C>
 C> <b>Program history log:</b>
-C> - 2005-03-09  J. Ator    -- Original author
-C>
+C> | Date | Programmer | Comments |
+C> | -----|------------|----------|
+C> | 2005-03-09 | J. Ator  | Original author |
 C>
       SUBROUTINE CMPMSG(CF)
 

@@ -13,10 +13,10 @@
  *  @author J. Ator
  *  @date 2005-11-29
  *
- *  @param[in] bmg     - char*: BUFR message to be written
- *  @param[in] nmb     - f77int*: Size (in bytes) of BUFR message
+ *  @param[in] bmg    -- char*: BUFR message to be written
+ *  @param[in] nmb    -- f77int*: Size (in bytes) of BUFR message
  *                        in bmg
- *  @param[out] iret   - f77int*: return code
+ *  @param[out] iret  -- f77int*: return code
  *                         - 0 = normal return
  *                         - -1 = I/O error encountered while writing
  *
@@ -28,7 +28,9 @@
  * with io = 'w'.
  *
  *  <b>Program history log:</b>
- *  - 2005-11-29  J. Ator    -- Original author
+ *  | Date | Programmer | Comments |
+ *  | -----|------------|----------|
+ *  | 2005-11-29 | J. Ator | Original author |
  */
 void cwbmg( char *bmg, f77int *nmb, f77int *iret )
 {

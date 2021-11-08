@@ -7,14 +7,16 @@ C>
 C> @author J. Ator
 C> @date 2016-05-04
 C>
-C> @param[in] NEMO   - character*(*): Mnemonic
-C> @returns iokoper  - integer: Flag indicating whether NEMO is a
+C> @param[in] NEMO  -- character*(*): Mnemonic
+C> @returns iokoper -- integer: Flag indicating whether NEMO is a
 C>                     Table C marker operator
 C>                        - 0 = No
 C>                        - 1 = Yes
 C>
 C> <b>Program history log:</b>
-C> - 2016-05-04  J. Ator    -- Original author
+C> | Date | Programmer | Comments |
+C> | -----|------------|----------|
+C> | 2016-05-04 | J. Ator | Original author |
 C>
       INTEGER FUNCTION IMRKOPR(NEMO)
 

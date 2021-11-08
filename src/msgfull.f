@@ -10,15 +10,17 @@ C>
 C> @author J. Ator
 C> @date 2009-03-23
 C>
-C> @param[in] MSIZ - integer: Size (in bytes) of current BUFR message
-C> @param[in] ITOADD - integer: Size (in bytes) of current data subset 
-C> @param[in] MXSIZ - integer: Maximum size of a BUFR message
-C> @returns MSGFULL - logical: Flag indicating whether the current
-C>                    data subset will fit within the current BUFR
-C>                    message
+C> @param[in] MSIZ -- integer: Size (in bytes) of current BUFR message
+C> @param[in] ITOADD -- integer: Size (in bytes) of current data subset 
+C> @param[in] MXSIZ -- integer: Maximum size of a BUFR message
+C> @returns MSGFULL -- logical: Flag indicating whether the current
+C>                     data subset will fit within the current BUFR
+C>                     message
 C>
 C> <b>Program history log:</b>
-C> - 2009-03-23  J. Ator    -- Original author
+C> | Date | Programmer | Comments |
+C> | -----|------------|----------|
+C> | 2009-03-23 | J. Ator | Original author |
 C>
       LOGICAL FUNCTION MSGFULL(MSIZ,ITOADD,MXSIZ)
 

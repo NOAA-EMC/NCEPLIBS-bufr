@@ -26,9 +26,9 @@ C>
 C> @author J. Ator
 C> @date 2014-02-05
 C>
-C> @param[in] LUNIT  - integer: Fortran logical unit number for BUFR file
-C> @param[in] CHR   - character*(*): Value corresponding to STR
-C> @param[in] STR    - character*(*): Table B mnemonic of long character
+C> @param[in] LUNIT -- integer: Fortran logical unit number for BUFR file
+C> @param[in] CHR  -- character*(*): Value corresponding to STR
+C> @param[in] STR   -- character*(*): Table B mnemonic of long character
 C>                     string to be written, possibly supplemented
 C>                     with an ordinal occurrence notation
 C>
@@ -55,7 +55,9 @@ C> [subset-writing subroutines](@ref hierarchy)
 C> for the data subset.
 C>
 C> <b>Program history log:</b>
-C> - 2014-02-05  J. Ator -- Original author
+C> | Date | Programmer | Comments |
+C> | -----|------------|----------|
+C> | 2014-02-05 | J. Ator | Original author |
 C>
       SUBROUTINE HOLD4WLC(LUNIT,CHR,STR)
 

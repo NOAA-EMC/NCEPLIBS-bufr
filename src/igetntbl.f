@@ -9,11 +9,11 @@ C>
 C> @author J. Ator
 C> @date 2007-01-19
 C>
-C> @param[in] LUNT    - integer: Fortran logical unit number for
+C> @param[in] LUNT   -- integer: Fortran logical unit number for
 C>                      ASCII file containing table information
-C> @param[out] LINE   - character*(*): Next non-blank, non-comment line
+C> @param[out] LINE  -- character*(*): Next non-blank, non-comment line
 C>                      that was read from LUNT
-C> @returns igetntbl  - integer: return code
+C> @returns igetntbl -- integer: return code
 C>                        -  0 = normal return
 C>                        - -1 = end-of-file encountered while reading
 C>                               from LUNT
@@ -21,7 +21,9 @@ C>                        - -2 = I/O error encountered while reading
 C>                               from LUNT
 C>
 C> <b>Program history log:</b>
-C> - 2007-01-19  J. Ator    -- Original author
+C> | Date | Programmer | Comments |
+C> | -----|------------|----------|
+C> | 2007-01-19 | J. Ator | Original author |
 C>
 	FUNCTION IGETNTBL ( LUNT, LINE )
 

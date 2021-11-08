@@ -10,19 +10,19 @@ C>
 C> @author J. Woollen
 C> @date 1994-01-06
 C>
-C> @param[in] LUNIT    - integer: Fortran logical unit number for BUFR
+C> @param[in] LUNIT   -- integer: Fortran logical unit number for BUFR
 C>                       file
-C> @param[out] MEAR    - integer: Year stored within Section 1 of
+C> @param[out] MEAR   -- integer: Year stored within Section 1 of
 C>                       first data message, in format of either
 C>                       YY or YYYY, depending on the most
 C>                       recent call to subroutine datelen()
-C> @param[out] MMON    - integer: Month stored within Section 1 of
+C> @param[out] MMON   -- integer: Month stored within Section 1 of
 C>                       first data message
-C> @param[out] MDAY    - integer: Day stored within Section 1 of
+C> @param[out] MDAY   -- integer: Day stored within Section 1 of
 C>                       first data message
-C> @param[out] MOUR    - integer: Hour stored within Section 1 of
+C> @param[out] MOUR   -- integer: Hour stored within Section 1 of
 C>                       first data message
-C> @param[out] IDATE    - integer: Date-time stored within Section 1 of
+C> @param[out] IDATE   -- integer: Date-time stored within Section 1 of
 C>                        first data message, in format of either
 C>                        YYMMDDHH or YYYYMMDDHH, depending on the most
 C>                        recent call to subroutine datelen()
@@ -31,31 +31,20 @@ C> <p>Logical unit LUNIT must already be associated with a filename
 C> on the local system, typically via a Fortran "OPEN" statement.
 C>
 C> <b>Program history log:</b>
-C> - 1994-01-06  J. Woollen -- Original author
-C> - 1998-07-08  J. Woollen -- Replaced call to Cray library routine ABORT
-C>                             with call to new internal routine bort()
-C> - 1998-08-31  J. Woollen -- Modified to correct an error which led to
-C>                             MEAR being returned as 2-digit when it was
-C>                             requested as 4-digit via a prior call to
-C>                             datelen()
-C> - 1998-10-27  J. Woollen -- Modified to correct problems caused by
-C>                             in-lining code with fpp directives
-C> - 2003-05-19  M. Shirey  -- Replaced calls to Fortran insrinsic
-C>                             function ICHAR with the NCEP W3LIB
-C>                             function MOVA2I
-C> - 2003-11-04  D. Keyser  -- Modified date calculations to no longer
-C>                             use floating point arithmetic
-C> - 2004-08-18  J. Ator    -- Modified 'BUFR' string test for portability
-C>                             to EBCDIC machines
-C> - 2004-12-20  D. Keyser  -- Calls wrdlen() to initialize local machine
-C>                             information, in case it has not yet been
-C>                             called
-C> - 2005-11-29  J. Ator    -- Use igetdate(), iupbs01() and rdmsgw()
-C> - 2009-03-23  J. Ator    -- Use idxmsg() and errwrt()
-C> - 2012-09-15  J. Woollen -- Modified for C/I/O/BUFR interface;
-C>                             use new openbf type 'INX' to open and close
-C>                             the C file without closing the Fortran file
-C> - 2014-12-10  J. Ator    -- Use modules instead of COMMON blocks
+C> | Date | Programmer | Comments |
+C> | -----|------------|----------|
+C> | 1994-01-06 | J. Woollen | Original author |
+C> | 1998-07-08 | J. Woollen | Replaced call to Cray library routine ABORT with call to new internal routine bort() |
+C> | 1998-08-31 | J. Woollen | Modified to correct an error which led to MEAR being returned as 2-digit when it was requested as 4-digit via a prior call to datelen() |
+C> | 1998-10-27 | J. Woollen | Modified to correct problems caused by in-lining code with fpp directives |
+C> | 2003-05-19 | M. Shirey  | Replaced calls to Fortran insrinsic function ICHAR with the NCEP W3LIB function MOVA2I |
+C> | 2003-11-04 | D. Keyser  | Modified date calculations to no longer use floating point arithmetic |
+C> | 2004-08-18 | J. Ator    | Modified 'BUFR' string test for portability to EBCDIC machines |
+C> | 2004-12-20 | D. Keyser  | Calls wrdlen() to initialize local machine information, in case it has not yet been called |
+C> | 2005-11-29 | J. Ator    | Use igetdate(), iupbs01() and rdmsgw() |
+C> | 2009-03-23 | J. Ator    | Use idxmsg() and errwrt() |
+C> | 2012-09-15 | J. Woollen | Modified for C/I/O/BUFR interface; use new openbf type 'INX' to open and close the C file without closing the Fortran file |
+C> | 2014-12-10 | J. Ator    | Use modules instead of COMMON blocks |
 C>                           
       SUBROUTINE DATEBF(LUNIT,MEAR,MMON,MDAY,MOUR,IDATE)
 

@@ -25,8 +25,8 @@ C>
 C> @authors J. Ator
 C> @date 2005-11-29
 C>
-C> @param[in]     IVAL    - integer: Value to be stored
-C> @param[in]  S01MNEM    - character*(*): Location where IVAL is to
+C> @param[in]     IVAL   -- integer: Value to be stored
+C> @param[in]  S01MNEM   -- character*(*): Location where IVAL is to
 C>                          be stored within Section 0 or Section 1 of
 C>                          all future output BUFR messages
 C>                          - 'BEN'   = BUFR edition number
@@ -63,9 +63,11 @@ C> - Values corresponding to S01MNEM = 'YEAR', 'SECO' or 'MSBTI' can only
 C>   be stored within BUFR messages encoded using BUFR edition 4.
 C>
 C> <b>Program history log:</b>
-C> - 2005-11-29  J. Ator    -- Original author
-C> - 2006-04-14  D. Keyser  -- Updated docblock
-C> - 2015-03-03  J. Ator    -- Use module MODA_S01CM
+C> | Date | Programmer | Comments |
+C> | -----|------------|----------|
+C> | 2005-11-29 | J. Ator    | Original author |
+C> | 2006-04-14 | D. Keyser  | Updated docblock |
+C> | 2015-03-03 | J. Ator    | Use module MODA_S01CM |
 C>
       SUBROUTINE PKVS01(S01MNEM,IVAL)
 

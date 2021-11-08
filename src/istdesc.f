@@ -10,15 +10,17 @@ C>
 C> @author J. Ator
 C> @date 2004-08-18
 C>
-C> @param[in] IDN - integer: Bit-wise representation of FXY value for
-C>                  descriptor
-C> @returns istdesc - integer: Flag indicating whether IDN is a
-C>                    WMO-standard descriptor:
+C> @param[in] IDN -- integer: Bit-wise representation of FXY value for
+C>                   descriptor
+C> @returns istdesc -- integer: Flag indicating whether IDN is a
+C>                     WMO-standard descriptor:
 C>                        - 0 = No
 C>                        - 1 = Yes
 C>
 C> <b>Program history log:</b>
-C> - 2004-08-18  J. Ator    -- Original author
+C> | Date | Programmer | Comments |
+C> | -----|------------|----------|
+C> | 2004-08-18 | J. Ator | Original author |
 C>
 	FUNCTION ISTDESC( IDN )
 

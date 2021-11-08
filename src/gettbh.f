@@ -9,31 +9,33 @@ C>
 C> @author J. Ator
 C> @date 2007-01-19
 C>
-C> @param[in] LUNS    - integer: Fortran logical unit number for
+C> @param[in] LUNS   -- integer: Fortran logical unit number for
 C>                      ASCII file containing standard table
 C>                      information
-C> @param[in] LUNL    - integer: Fortran logical unit number for
+C> @param[in] LUNL   -- integer: Fortran logical unit number for
 C>                      ASCII file containing local table
 C>                      information
-C> @param[out] TAB    - character: Type of table
+C> @param[out] TAB   -- character: Type of table
 C>                        - 'B' = Table B
 C>                        - 'D' = Table D
 C>                        - 'F' = Code/Flag table
-C> @param[out] IMT    - integer: Master table
+C> @param[out] IMT   -- integer: Master table
 C>                      - This value is read from both ASCII
 C>                        files and must be identical between them.
-C> @param[out] IMTV   - integer: Version number of master table
+C> @param[out] IMTV  -- integer: Version number of master table
 C>                      - This value is read from the standard ASCII
 C>                        file.
-C> @param[out] IOGCE  - integer: Originating center
+C> @param[out] IOGCE -- integer: Originating center
 C>                      - This value is read from the local ASCII
 C>                        file.
-C> @param[out] ILTV   - integer: Version number of local table
+C> @param[out] ILTV  -- integer: Version number of local table
 C>                      - This value is read from the local ASCII
 C>                        file.
 C>
 C> <b>Program history log:</b>
-C> - 2007-01-19  J. Ator    -- Original author
+C> | Date | Programmer | Comments |
+C> | -----|------------|----------|
+C> | 2007-01-19 | J. Ator | Original author |
 C>
 	SUBROUTINE GETTBH ( LUNS, LUNL, TAB, IMT, IMTV, IOGCE, ILTV )
 

@@ -15,7 +15,9 @@
  * @date 2014-12-04
  *
  * <b>Program history log:</b>
- * - 2014-12-04  J. Ator    -- Original author
+ * | Date | Programmer | Comments |
+ * | -----|------------|----------|
+ * | 2014-12-04 | J. Ator | Original author |
  */
 
 void ardllocc( void )

@@ -17,34 +17,32 @@
  * @author J. Ator
  * @date 2009-03-23
  *
- * @param[in] lun - f77int*: Internal Fortran I/O stream index
+ * @param[in] lun -- f77int*: Internal Fortran I/O stream index
  *                   associated with BUFR file
- * @param[in,out] irepct - f77int*: Replication sequence counter for
- *                         the current master table; used internally
- *                         to keep track of which sequence names have
- *                         already been defined, and thereby avoid
- *                         contention within the internal DX BUFR
- *                         Table D
- * @param[in] idn - f77int*: Bit-wise representation of FXY value for
- *                  WMO-standard Table D descriptor
- * @param[in] nemo - char[8]: Mnemonic corresponding to idn
- * @param[in] cseq - char[55]: Description corresponding to idn
- * @param[in] cdesc - f77int*: Array of WMO-standard child descriptors
- *                    equivalent to idn
- * @param[in] ncdesc - f77int*: Number of WMO-standard child descriptors
- *                     in cdesc
+ * @param[in,out] irepct -- f77int*: Replication sequence counter for
+ *                          the current master table; used internally
+ *                          to keep track of which sequence names have
+ *                          already been defined, and thereby avoid
+ *                          contention within the internal DX BUFR
+ *                          Table D
+ * @param[in] idn -- f77int*: Bit-wise representation of FXY value for
+ *                   WMO-standard Table D descriptor
+ * @param[in] nemo -- char[8]: Mnemonic corresponding to idn
+ * @param[in] cseq -- char[55]: Description corresponding to idn
+ * @param[in] cdesc -- f77int*: Array of WMO-standard child descriptors
+ *                     equivalent to idn
+ * @param[in] ncdesc -- f77int*: Number of WMO-standard child descriptors
+ *                      in cdesc
  *
  * <b>Program history log:</b>
- * - 2009-03-23  J. Ator    -- Original author
- * - 2010-03-19  J. Ator    -- Added processing for 2-04 associated fields
- * - 2010-04-05  J. Ator    -- Added processing for 2-2X, 2-3X and 2-4X
- *                             non-marker operators
- * - 2015-03-04  J. Ator    -- Handle special case when associated fields
- *                             are in effect for a Table D descriptor
- * - 2021-05-17  J. Ator    -- Allow up to 24 characters in cbunit
- * - 2021-08-18  J. Ator    -- Use strcpy instead of strncpy and then
- *                             overwrite trailing null, in order to
- *                             silence superfluous GNU compiler warnings
+ * | Date | Programmer | Comments |
+ * | -----|------------|----------|
+ * | 2009-03-23 | J. Ator | Original author |
+ * | 2010-03-19 | J. Ator | Added processing for 2-04 associated fields |
+ * | 2010-04-05 | J. Ator | Added processing for 2-2X, 2-3X and 2-4X non-marker operators |
+ * | 2015-03-04 | J. Ator | Handle special case when associated fields are in effect for a Table D descriptor |
+ * | 2021-05-17 | J. Ator | Allow up to 24 characters in cbunit |
+ * | 2021-08-18 | J. Ator | Use strcpy instead of strncpy and then overwrite trailing null, in order to silence superfluous GNU compiler warnings |
 */
 
 void stseq( f77int *lun, f77int *irepct, f77int *idn, char nemo[8],

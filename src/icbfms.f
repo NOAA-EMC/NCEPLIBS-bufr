@@ -9,13 +9,12 @@ C>
 C> @author J. Ator
 C> @date 2012-06-07
 C>
-C> @param[in] STR - character*(*): String
-C> @param[in] LSTR - integer: Length of string, i.e. number of
-C>                   characters within STR to be tested
-C>
-C> @returns icbfms  -  integer:
-C>                    - 0 = STR is not "missing"
-C>                    - 1 = STR is "missing"
+C> @param[in] STR -- character*(*): String
+C> @param[in] LSTR -- integer: Length of string, i.e. number of
+C>                    characters within STR to be tested
+C> @returns icbfms  --  integer:
+C>                      - 0 = STR is not "missing"
+C>                      - 1 = STR is "missing"
 C>
 C> @remarks
 C> - The use of an integer return code allows this function
@@ -23,10 +22,11 @@ C> to be called in a logical context from application programs
 C> written in C as well as in Fortran.
 C>
 C> <b>Program history log:</b>
-C> - 2012-06-07  J. Ator    -- Original author
-C> - 2015-03-10  J. Woollen -- Improved logic for testing legacy cases
-C>                           prior to BUFRLIB V10.2.0
-C> - 2016-02-12  J. Ator    -- Modified for CRAYFTN compatibility
+C> | Date | Programmer | Comments |
+C> | -----|------------|----------|
+C> | 2012-06-07 | J. Ator | Original author |
+C> | 2015-03-10 | J. Woollen | Improved logic for testing legacy cases prior to BUFRLIB V10.2.0 |
+C> | 2016-02-12 | J. Ator | Modified for CRAYFTN compatibility |
 C>
 	INTEGER FUNCTION ICBFMS ( STR, LSTR )
 

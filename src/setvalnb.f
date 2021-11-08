@@ -15,29 +15,29 @@ C>
 C> @author J. Ator
 C> @date 2016-07-29
 C>
-C> @param[in] LUNIT   - integer: Fortran logical unit number for
+C> @param[in] LUNIT  -- integer: Fortran logical unit number for
 C>                      BUFR file
-C> @param[in] TAGPV   - character*(*): Pivot mnemonic; the subroutine
+C> @param[in] TAGPV  -- character*(*): Pivot mnemonic; the subroutine
 C>                      will first search for the (NTAGPV)th occurrence
 C>                      of this mnemonic, counting from the beginning
 C>                      of the overall subset definition
-C> @param[in] NTAGPV  - integer: Ordinal occurrence of TAGPV to search for,
+C> @param[in] NTAGPV -- integer: Ordinal occurrence of TAGPV to search for,
 C>                      counting from the beginning of the overall
 C>                      subset definition
-C> @param[in] TAGNB   - character*(*): Nearby mnemonic; assuming TAGPV is
+C> @param[in] TAGNB  -- character*(*): Nearby mnemonic; assuming TAGPV is
 C>                      successfully found, the subroutine will then search
 C>                      nearby for the (NTAGNB)th occurrence of TAGNB and
 C>                      store R8VAL as the corresponding value
-C> @param[in] NTAGNB  - integer: Ordinal occurrence of TAGNB to search for,
+C> @param[in] NTAGNB -- integer: Ordinal occurrence of TAGNB to search for,
 C>                      counting from the location of TAGPV within the
 C>                      overall subset definition.  If NTAGNB is positive,
 C>                      the subroutine will search in a forward direction
 C>                      from the location of TAGPV; otherwise, if NTAGNB is
 C>                      negative, it will instead search in a backwards
 C>                      direction from the location of TAGPV.
-C> @param[in] R8VAL    - real*8: Value to be stored corresponding to
+C> @param[in] R8VAL  -- real*8: Value to be stored corresponding to
 C>                      (NTAGNB)th occurrence of TAGNB within the subset
-C> @param[out] IRET    - integer: return code
+C> @param[out] IRET  -- integer: return code
 C>                        - 0 = R8VAL was successfully stored
 C>                        - -1 = the (NTAGNB)th occurence of mnemonic TAGNB
 C>                               could not be found, or some other error
@@ -48,7 +48,9 @@ C> opened and initialized for output via a previous call to one of the
 C> BUFRLIB [message-writing subroutines](@ref hierarchy).
 C>
 C> <b>Program history log:</b>
-C> - 2016-07-29  J. Ator    -- Original author
+C> | Date | Programmer | Comments |
+C> | -----|------------|----------|
+C> | 2016-07-29 | J. Ator | Original author |
 C>
 	SUBROUTINE SETVALNB ( LUNIT, TAGPV, NTAGPV, TAGNB, NTAGNB,
      .                        R8VAL, IRET )

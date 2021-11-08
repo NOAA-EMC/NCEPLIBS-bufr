@@ -10,14 +10,14 @@ C>
 C> @author J. Ator
 C> @date 2005-11-29
 C>
-C> @param[in]  MBAY    - integer(*): BUFR message
-C> @param[out] IYR    - integer: Year stored within Section 1 of MBAY,
+C> @param[in]  MBAY   -- integer(*): BUFR message
+C> @param[out] IYR   -- integer: Year stored within Section 1 of MBAY,
 C>                      in format of either YY or YYYY, depending on
 C>                      the most recent call to subroutine datelen()
-C> @param[out] IMO    - integer: Month stored within Section 1 of MBAY
-C> @param[out] IDY    - integer: Day stored within Section 1 of MBAY
-C> @param[out] IHR    - integer: Hour stored within Section 1 of MBAY
-C> @returns igetdate    - integer: Date-time stored within Section 1
+C> @param[out] IMO   -- integer: Month stored within Section 1 of MBAY
+C> @param[out] IDY   -- integer: Day stored within Section 1 of MBAY
+C> @param[out] IHR   -- integer: Hour stored within Section 1 of MBAY
+C> @returns igetdate   -- integer: Date-time stored within Section 1
 C>                        of MBAY, in format of either YYMMDDHH or
 C>                        YYYYMMDDHH, depending on the most
 C>                        recent call to subroutine datelen()
@@ -25,6 +25,11 @@ C>
 C> @remarks
 C> - The start of the BUFR message (i.e. the string 'BUFR') must be
 C>   aligned on the first 4 bytes of MBAY.
+C>
+C> <b>Program history log:</b>
+C> | Date | Programmer | Comments |
+C> | -----|------------|----------|
+C> | 2005-11-29 | J. Ator  | Original author |
 C>
 	FUNCTION IGETDATE(MBAY,IYR,IMO,IDY,IHR)
 

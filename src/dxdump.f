@@ -17,9 +17,9 @@ C>
 C> @author J. Ator
 C> @date 2004-08-18
 C>
-C> @param[in] LUNIT    - integer: Fortran logical unit number for
+C> @param[in] LUNIT   -- integer: Fortran logical unit number for
 C>                       BUFR file
-C> @param[in] LDXOT    - integer: Fortran logical unit number for
+C> @param[in] LDXOT   -- integer: Fortran logical unit number for
 C>                       print output
 C>
 C> <p>Logical unit LUNIT must be open for either input or output
@@ -36,10 +36,11 @@ C> once while each table is in scope for a data subset defined
 C> within that particular table.
 C>
 C> <b>Program history log:</b>
-C> - 2004-08-18  J. Ator    -- Original author
-C> - 2007-01-19  J. Ator    -- Corrected output for reference values
-C>                             longer than 8 digits
-C> - 2014-12-10  J. Ator    -- Use modules instead of COMMON blocks
+C> | Date | Programmer | Comments |
+C> | -----|------------|----------|
+C> | 2004-08-18 | J. Ator | Original author |
+C> | 2007-01-19 | J. Ator | Corrected output for reference values longer than 8 digits |
+C> | 2014-12-10 | J. Ator | Use modules instead of COMMON blocks |
 C>
       SUBROUTINE DXDUMP(LUNIT,LDXOT)
 

@@ -15,7 +15,9 @@
  *  @date 2017-11-03
  *
  *  <b>Program history log:</b>
- *  - 2017-11-03  J. Ator    -- Original author
+ *  | Date | Programmer | Comments |
+ *  | -----|------------|----------|
+ *  | 2017-11-03 | J. Ator | Original author |
 */
 void inittbf( void )
 {

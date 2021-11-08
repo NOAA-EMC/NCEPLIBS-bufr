@@ -11,25 +11,24 @@ C>
 C> @author J. Woollen
 C> @date 1994-01-06
 C>
-C> @param[in,out] STR - character*(*): String
-C> @param[out]   SIGN - character*1: Sign of encoded integer value
-C>                      - '+' = positive value
-C>                      - '-' = negative value
-C> @param[out]   IRET - integer: return code
-C>                      - 0 = normal return
-C>                      - -1 = input string contained non-blank
-C>                             characters which were also non-numeric
+C> @param[in,out] STR -- character*(*): String
+C> @param[out]   SIGN -- character*1: Sign of encoded integer value
+C>                       - '+' = positive value
+C>                       - '-' = negative value
+C> @param[out]   IRET -- integer: return code
+C>                       - 0 = normal return
+C>                       - -1 = input string contained non-blank
+C>                              characters which were also non-numeric
 C>
 C> <b>Program History Log:</b>
-C> - 1994-01-06  J. Woollen -- Original author
-C> - 1998-07-08  J. Woollen -- Replaced call to Cray library routine
-C>                             ABORT with call to new internal routine
-C>                             bort()
-C> - 2002-05-14  J. Woollen -- Changed from an entry point to increase
-C>                             portability to other platforms
-C> - 2003-11-04  J. Ator    -- Added documentation
-C> - 2009-04-21  J. Ator    -- Use errwrt()
-C> - 2021-09-30  J. Ator    -- Use Fortran intrinsic adjustl
+C> | Date | Programmer | Comments |
+C> | -----|------------|----------|
+C> | 1994-01-06 | J. Woollen | Original author |
+C> | 1998-07-08 | J. Woollen | Replaced call to Cray library routine ABORT with call to new internal routine bort() |
+C> | 2002-05-14 | J. Woollen | Changed from an entry point to increase portability to other platforms |
+C> | 2003-11-04 | J. Ator    | Added documentation |
+C> | 2009-04-21 | J. Ator    | Use errwrt() |
+C> | 2021-09-30 | J. Ator    | Use Fortran intrinsic adjustl |
 C>
       SUBROUTINE JSTNUM(STR,SIGN,IRET)
 

@@ -20,21 +20,23 @@ C>
 C> @author J. Woollen
 C> @date 1998-07-08
 C>
-C> @param[in] MTYP - integer: Data category of BUFR message for which
-C>                   subroutine cktaba() was unable to locate a
-C>                   DX BUFR table file
-C> @param[out] LUNDX - integer: Fortran logical unit number for file
-C>                   containing DX BUFR table information to be
-C>                   used in decoding message
-C>                     - 0 = No such file is available
+C> @param[in] MTYP -- integer: Data category of BUFR message for which
+C>                    subroutine cktaba() was unable to locate a
+C>                    DX BUFR table file
+C> @param[out] LUNDX -- integer: Fortran logical unit number for file
+C>                      containing DX BUFR table information to be
+C>                      used in decoding message
+C>                      - 0 = No such file is available
 C>
 C> @remarks
 C> - See [DX BUFR Tables](@ref dfbftab) for more information about
 C> the format and contents of DX BUFR table files.
 C>
 C> <b>Program history log:</b>
-C> - 1998-07-08  J. Woollen -- Original author
-C> - 2009-04-21  J. Ator    -- Use errwrt()
+C> | Date | Programmer | Comments |
+C> | -----|------------|----------|
+C> | 1998-07-08 | J. Woollen | Original author |
+C> | 2009-04-21 | J. Ator    | Use errwrt() |
 C>
       SUBROUTINE OPENBT(LUNDX,MTYP)
 

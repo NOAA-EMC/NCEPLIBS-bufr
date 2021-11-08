@@ -11,13 +11,13 @@ C> @authors J. Woollen
 C> @authors J. Ator
 C> @date 1994-01-06
 C>
-C> @param[in] LUNXX    - integer: Absolute value is Fortran logical
+C> @param[in] LUNXX   -- integer: Absolute value is Fortran logical
 C>                       unit number for BUFR file
-C> @param[in] LMSGT    - integer: Dimensioned size (in integers) of
+C> @param[in] LMSGT   -- integer: Dimensioned size (in integers) of
 C>                       MSGT; used by the subroutine to ensure that
 C>                      it doesn't overflow the MSGT array
-C> @param[out] MSGT    - integer(*): BUFR message
-C> @param[out] MSGL    - integer: Size (in integers) of BUFR message
+C> @param[out] MSGT   -- integer(*): BUFR message
+C> @param[out] MSGL   -- integer: Size (in integers) of BUFR message
 C>                        in MSGT
 C>                        - 0 = No BUFR message was returned within
 C>                              MSGT
@@ -89,31 +89,19 @@ C> does not even need to be associated with an actual file on the
 C> local system.
 C>
 C> <b>Program history log:</b>
-C> - 1994-01-06  J. Woollen -- Original author
-C> - 1998-07-08  J. Woollen -- Replaced call to Cray library routine
-C>                           "ABORT" with call to new internal BUFRLIB
-C>                           routine "BORT"; modified to make Y2K
-C>                           compliant
-C> - 2000-09-19  J. Woollen -- Maximum message length increased
-C>                             from 10,000 to 20,000 bytes
-C> - 2003-11-04  S. Bender  -- Added remarks and routine interdependencies
-C> - 2003-11-04  D. Keyser  -- Unified/portable for WRF; added history
-C>                           documentation; outputs more complete
-C>                           diagnostic info when routine terminates
-C>                           abnormally
-C> - 2004-08-18  J. Ator    -- Add post msgupd() check for and return of
-C>                           message within MSGT in order to prevent
-C>                           loss of message in certain situations;
-C>                           maximum message length increased from
-C>                           20,000 to 50,000 bytes
-C> - 2005-03-09  J. Ator    -- Added capability for compressed messages
-C> - 2009-03-23  J. Ator    -- Added LMSGT argument and check
-C> - 2014-12-10  J. Ator    -- Use modules instead of COMMON blocks
-C> - 2019-05-09  J. Ator    -- Added dimensions for MSGLEN and MSGTXT
-C> - 2020-09-22  J. Ator    -- Added capability to return two BUFR
-C>                           messages within MSGT during the same call
-C>                           to this routine, in the rare instances
-C>                           where this can occur
+C> | Date | Programmer | Comments |
+C> | -----|------------|----------|
+C> | 1994-01-06 | J. Woollen | Original author |
+C> | 1998-07-08 | J. Woollen | Replaced call to Cray library routine "ABORT" with call to new internal routine bort(); modified to make Y2K compliant |
+C> | 2000-09-19 | J. Woollen | Maximum message length increased from 10,000 to 20,000 bytes |
+C> | 2003-11-04 | S. Bender  | Added remarks and routine interdependencies |
+C> | 2003-11-04 | D. Keyser  | Unified/portable for WRF; added documentation; outputs more complete diagnostic info when routine terminates abnormally |
+C> | 2004-08-18 | J. Ator    | Add post msgupd() check for and return of message within MSGT in order to prevent loss of message in certain situations; maximum message length increased from 20,000 to 50,000 bytes |
+C> | 2005-03-09 | J. Ator    | Added capability for compressed messages |
+C> | 2009-03-23 | J. Ator    | Added LMSGT argument and check |
+C> | 2014-12-10 | J. Ator    | Use modules instead of COMMON blocks |
+C> | 2019-05-09 | J. Ator    | Added dimensions for MSGLEN and MSGTXT |
+C> | 2020-09-22 | J. Ator    | Added capability to return two BUFR messages within MSGT during the same call to this routine, in the rare instances where this can occur |
 C>
       SUBROUTINE WRITSA(LUNXX,LMSGT,MSGT,MSGL)
 

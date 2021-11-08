@@ -7,12 +7,13 @@ C>
 C> @author J. Woollen
 C> @date 2002-05-14
 C>
-C> @param[in,out] STR - character*(*): String
+C> @param[in,out] STR -- character*(*): String
 C>
 C> <b>Program History Log:</b>
-C> - 2002-05-14  J. Woollen -- Original author
-C> - 2012-03-02  J. Ator    -- Changed name of ups array to upcs to avoid
-C>                             namespace contention with function ups()
+C> | Date | Programmer | Comments |
+C> | -----|------------|----------|
+C> | 2002-05-14 | J. Woollen | Original author |
+C> | 2012-03-02 | J. Ator | Changed name of ups array to upcs to avoid namespace contention with function ups() |
 C>
       SUBROUTINE CAPIT(STR)
 

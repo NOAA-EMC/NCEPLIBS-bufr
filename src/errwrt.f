@@ -22,7 +22,7 @@ C>
 C> @author J. Ator
 C> @date 2009-04-21
 C>
-C> @param[in] STR   - character*(*): Error message or other diagnostic
+C> @param[in] STR  -- character*(*): Error message or other diagnostic
 C>                    to be printed to standard output (default) or
 C>                    to another location (if specified via an inline
 C>                    replacement version of this subroutine)
@@ -33,8 +33,10 @@ C> logging can be controlled via a separate call to subroutine
 C> openbf() with IO = 'QUIET'.
 C>
 C> <b>Program history log:</b>
-C> - 2009-04-21  J. Ator    -- Original author
-C> - 2012-11-15  D. Keyser  -- Use formatted print
+C> | Date | Programmer | Comments |
+C> | -----|------------|----------|
+C> | 2009-04-21 | J. Ator    | Original author |
+C> | 2012-11-15 | D. Keyser  | Use formatted print |
 C>
       SUBROUTINE ERRWRT(STR)
 

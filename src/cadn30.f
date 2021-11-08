@@ -12,11 +12,13 @@ C>
 C> @author J. Ator
 C> @date 2004-08-18
 C>
-C> @param[in] IDN - integer: Bit-wise representation of FXY value
-C> @param[out] ADN - character*6: FXY value
+C> @param[in] IDN -- integer: Bit-wise representation of FXY value
+C> @param[out] ADN -- character*6: FXY value
 C>
 C> <b>Program History Log:</b>
-C> - 2004-08-18  J. Ator -- Original author
+C> | Date | Programmer | Comments |
+C> | -----|------------|----------|
+C> | 2004-08-18 | J. Ator | Original author |
 C>
 	SUBROUTINE CADN30( IDN, ADN )
 

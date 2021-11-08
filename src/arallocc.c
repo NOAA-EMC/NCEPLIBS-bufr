@@ -27,8 +27,10 @@
  *   operating system once the application program terminates.
  *
  * <b>Program history log:</b>
- * - 2014-12-04  J. Ator    -- Original author
- * - 2021-05-17  J. Ator    -- Allow up to 24 characters in cbunit
+ * | Date | Programmer | Comments |
+ * | -----|------------|----------|
+ * | 2014-12-04 | J. Ator | Original author |
+ * | 2021-05-17 | J. Ator | Allow up to 24 characters in cbunit |
  */
 
 void arallocc( void )

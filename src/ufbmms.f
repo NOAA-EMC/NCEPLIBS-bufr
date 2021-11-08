@@ -8,18 +8,18 @@ C>
 C> @author J. Woollen
 C> @date 1994-01-06
 C>
-C> @param[in] IMSG    - integer: Number of BUFR message to be
+C> @param[in] IMSG   -- integer: Number of BUFR message to be
 C>                      read into scope for further processing,
 C>                      counting from the beginning of the
 C>                      internal arrays in memory
-C> @param[in] ISUB    - integer: Number of data subset to be
+C> @param[in] ISUB   -- integer: Number of data subset to be
 C>                      read from the (IMSG)th BUFR message,
 C>                      counting from the beginning of the message
-C> @param[out] SUBSET - character*8: Table A mnemonic for type of
-C>                      (IMSG)th BUFR message
-C>                      (see [DX BUFR Tables](@ref dfbftab) for
-C>                      further information about Table A mnemonics)
-C> @param[out] JDATE  - integer: Date-time stored within Section 1 of
+C> @param[out] SUBSET -- character*8: Table A mnemonic for type of
+C>                       (IMSG)th BUFR message
+C>                       (see [DX BUFR Tables](@ref dfbftab) for
+C>                       further information about Table A mnemonics)
+C> @param[out] JDATE -- integer: Date-time stored within Section 1 of
 C>                      (IMSG)th BUFR message, in format of either
 C>                      YYMMDDHH or YYYYMMDDHH, depending on the most
 C>                      recent call to subroutine datelen()
@@ -31,14 +31,14 @@ C> Fortran logical unit number IUNIT that was returned from the most
 C> recent call to subroutine ufbmem().
 C>
 C> <b>Program history log:</b>
-C> - 1994-01-06  J. Woollen -- Original author
-C> - 1998-07-08  J. Woollen -- Replaced call to Cray library routine
-C>                           "ABORT" with call to new internal BUFRLIB
-C>                           routine "BORT"
-C> - 1999-11-18  J. Woollen -- Increased MAXMEM from 4 Mb to 8 Mb
-C> - 2001-08-15  D. Keyser  -- Increased MAXMEM from 8 Mb to 16 Mb
-C> - 2004-11-15  D. Keyser  -- Increased MAXMEM from 16 Mb to 50 Mb
-C> - 2014-12-10  J. Ator    -- Use modules instead of COMMON blocks
+C> | Date | Programmer | Comments |
+C> | -----|------------|----------|
+C> | 1994-01-06 | J. Woollen | Original author |
+C> | 1998-07-08 | J. Woollen | Replaced call to Cray library routine "ABORT" with call to new internal routine bort() |
+C> | 1999-11-18 | J. Woollen | Increased MAXMEM from 4 Mb to 8 Mb |
+C> | 2001-08-15 | D. Keyser  | Increased MAXMEM from 8 Mb to 16 Mb |
+C> | 2004-11-15 | D. Keyser  | Increased MAXMEM from 16 Mb to 50 Mb |
+C> | 2014-12-10 | J. Ator    | Use modules instead of COMMON blocks |
 C>
       SUBROUTINE UFBMMS(IMSG,ISUB,SUBSET,JDATE)
 

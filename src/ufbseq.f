@@ -33,9 +33,9 @@ C> @authors J. Woollen
 C> @authors J. Ator
 C> @date 2000-09-19
 C>
-C> @param[in] LUNIN    - integer: Absolute value is Fortran logical
+C> @param[in] LUNIN   -- integer: Absolute value is Fortran logical
 C>                       unit number for BUFR file
-C> @param[in,out] USR  - real*8(*,*): Data values
+C> @param[in,out] USR -- real*8(*,*): Data values
 C>                         - If ABS(LUNIN) was opened for input, then
 C>                           USR is output from this subroutine and
 C>                           contains data values that were read
@@ -44,24 +44,24 @@ C>                         - If ABS(LUNIN) was opened for output, then
 C>                           USR is input to this subroutine and
 C>                           contains data values that are to be
 C>                           written to the current data subset.
-C> @param[in] I1 - integer: Actual first dimension of USR as allocated
-C>                 within the calling program
-C> @param[in] I2 - integer:
+C> @param[in] I1 -- integer: Actual first dimension of USR as allocated
+C>                  within the calling program
+C> @param[in] I2 -- integer:
 C>                    - If ABS(LUNIN) was opened for input, then I2
 C>                      must be set equal to the actual second dimension
 C>                      of USR as allocated within the calling program
 C>                    - If ABS(LUNIN) was opened for output, then I2
 C>                      must be set equal to the number of replications
 C>                      of STR that are to be written to the data subset
-C> @param[out] IRET - integer: Number of replications of STR that were
-C>                    actually read/written from/to the data subset
-C> @param[in] STR - character*(*): String consisting of a single Table A
-C>                  or Table D mnemonic whose sequence definition is
-C>                  in one-to-one correspondence with the number of data
-C>                  values that will be read/written from/to the data
-C>                  subset within the first dimension of USR
-C>                  (see [DX BUFR Tables](@ref dfbftab) for further
-C>                  information about Table A and Table D mnemonics)
+C> @param[out] IRET -- integer: Number of replications of STR that were
+C>                     actually read/written from/to the data subset
+C> @param[in] STR -- character*(*): String consisting of a single Table A
+C>                   or Table D mnemonic whose sequence definition is
+C>                   in one-to-one correspondence with the number of data
+C>                   values that will be read/written from/to the data
+C>                   subset within the first dimension of USR
+C>                   (see [DX BUFR Tables](@ref dfbftab) for further
+C>                   information about Table A and Table D mnemonics)
 C>
 C> <p>It is the user's responsibility to ensure that USR is dimensioned
 C> sufficiently large enough to accommodate the number of data values
@@ -125,34 +125,19 @@ C> in order to pre-allocate the necessary internal array space for
 C> the number of replications of the sequence.
 C>
 C> <b>Program history log:</b>
-C> - 2000-09-19  J. Woollen -- Original author
-C> - 2002-05-14  J. Woollen -- Improved generality; previously ufbseq
-C>                           would not recognize compressed delayed
-C>                           replication as a legitimate data structure
-C> - 2003-05-19  J. Woollen -- Corrected the logic array of exit
-C>                           conditions for the subroutine; previously,
-C>                           in some cases, proper exits were missed,
-C>                           generating bogus error messages, because of
-C>                           several miscellaneous bugs which are now
-C>                           removed
-C> - 2003-11-04  S. Bender  -- Added remarks and routine interdependencies
-C> - 2003-11-04  D. Keyser  -- Unified/portable for WRF; added history
-C>                             documentation; outputs more complete
-C>                             diagnostic info when routine terminates
-C>                             abnormally, unusual things happen or for
-C>                             informational purposes
-C> - 2004-08-18  J. Ator    -- Added SAVE for IFIRST1 and IFIRST2 flags
-C> - 2007-01-19  J. Ator    -- Replaced call to parseq with call to parstr()
-C> - 2009-04-21  J. Ator    -- Use errwrt()
-C> - 2014-09-10  J. Ator    -- Fix bug involving nested delayed replication
-C>                           where first replication of outer sequence
-C>                           does not contain a replication of the inner
-C>                           sequence
-C> - 2014-12-10  J. Ator    -- Use modules instead of COMMON blocks
-C> - 2020-03-06  J. Ator    -- No longer abort when reading data and number
-C>                           of available levels is greater than I2;
-C>                           instead just return first I2 levels and
-C>                           print a diagnostic message
+C> | Date | Programmer | Comments |
+C> | -----|------------|----------|
+C> | 2000-09-19 | J. Woollen | Original author |
+C> | 2002-05-14 | J. Woollen | Improved generality; previously ufbseq would not recognize compressed delayed replication as a legitimate data structure |
+C> | 2003-05-19 | J. Woollen | Corrected the logic array of exit conditions for the subroutine; previously, in some cases, proper exits were missed, generating bogus error messages |
+C> | 2003-11-04 | S. Bender  | Added remarks and routine interdependencies |
+C> | 2003-11-04 | D. Keyser  | Unified/portable for WRF; added documentation; outputs more complete diagnostic info when routine terminates abnormally |
+C> | 2004-08-18 | J. Ator    | Added SAVE for IFIRST1 and IFIRST2 flags |
+C> | 2007-01-19 | J. Ator    | Replaced call to parseq with call to parstr() |
+C> | 2009-04-21 | J. Ator    | Use errwrt() |
+C> | 2014-09-10 | J. Ator    | Fix bug involving nested delayed replication where first replication of outer sequence does not contain a replication of the inner sequence |
+C> | 2014-12-10 | J. Ator    | Use modules instead of COMMON blocks |
+C> | 2020-03-06 | J. Ator    | No longer abort when reading data and number of available levels is greater than I2; instead just return first I2 levels and print a diagnostic message |
 C>
       SUBROUTINE UFBSEQ(LUNIN,USR,I1,I2,IRET,STR)
 

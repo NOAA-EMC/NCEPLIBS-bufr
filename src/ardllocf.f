@@ -9,7 +9,9 @@ C> @author J. Ator
 C> @date 2014-12-04
 C>
 C> <b>Program history log:</b>
-C> - 2014-12-04  J. Ator    -- Original author
+C> | Date | Programmer | Comments |
+C> | -----|------------|----------|
+C> | 2014-12-04 | J. Ator | Original author |
 C>
 	SUBROUTINE ARDLLOCF
 

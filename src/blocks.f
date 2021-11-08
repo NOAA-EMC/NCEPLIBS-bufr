@@ -23,10 +23,10 @@ C>
 C> @author J. Woollen
 C> @date 2012-09-15
 C>
-C> @param[in,out] MBAY - integer(*): BUFR message, possibly with
-C>                       added control words on output
-C> @param[in,out] MWRD - integer: Size (in integers) of contents
-C>                       of MBAY
+C> @param[in,out] MBAY -- integer(*): BUFR message, possibly with
+C>                        added control words on output
+C> @param[in,out] MWRD -- integer: Size (in integers) of contents
+C>                        of MBAY
 C>
 C> @remarks
 C> - For more information about IEEE Fortran control words, as
@@ -38,7 +38,9 @@ C> sufficient extra space when allocating MBAY within the
 C> application program.
 C>
 C> <b>Program history log:</b>
-C> - 2012-09-15  J. Woollen -- Original author
+C> | Date | Programmer | Comments |
+C> | -----|------------|----------|
+C> | 2012-09-15 | J. Ator  | Original author |
 C>
       SUBROUTINE BLOCKS(MBAY,MWRD)
 

@@ -11,8 +11,8 @@ C>
 C> @author J. Ator
 C> @date 2005-11-29
 C>
-C> @param[in]  MBAY  - integer(*): BUFR message
-C> @param[in]   LL   - integer: Number of last section for
+C> @param[in]  MBAY -- integer(*): BUFR message
+C> @param[in]   LL  -- integer: Number of last section for
 C>                     which the length is to be read.
 C>                     In other words, setting LL = N means to
 C>                     read and return the lengths of Sections 0
@@ -20,19 +20,21 @@ C>                     through N (i.e. LEN0, LEN1,...,LENN).
 C>                     Any section lengths that are not specified
 C>                     to be read are returned with a default
 C>                     placeholder value of -1.
-C> @param[out]  LEN0 - integer: Length (in bytes) of Section 0
-C> @param[out]  LEN1 - integer: Length (in bytes) of Section 1
-C> @param[out]  LEN2 - integer: Length (in bytes) of Section 2
-C> @param[out]  LEN3 - integer: Length (in bytes) of Section 3
-C> @param[out]  LEN4 - integer: Length (in bytes) of Section 4
-C> @param[out]  LEN5 - integer: Length (in bytes) of Section 5
+C> @param[out]  LEN0 -- integer: Length (in bytes) of Section 0
+C> @param[out]  LEN1 -- integer: Length (in bytes) of Section 1
+C> @param[out]  LEN2 -- integer: Length (in bytes) of Section 2
+C> @param[out]  LEN3 -- integer: Length (in bytes) of Section 3
+C> @param[out]  LEN4 -- integer: Length (in bytes) of Section 4
+C> @param[out]  LEN5 -- integer: Length (in bytes) of Section 5
 C>
 C> @remarks
 C> - The start of the BUFR message (i.e. the string 'BUFR') must be
 C>   aligned on the first 4 bytes of MBAY.
 C>
 C> <b>Program history log:</b>
-C> - 2005-11-29  J. Ator    -- Original author
+C> | Date | Programmer | Comments |
+C> | -----|------------|----------|
+C> | 2005-11-29 | J. Ator | Original author |
 C>
 	SUBROUTINE GETLENS(MBAY,LL,LEN0,LEN1,LEN2,LEN3,LEN4,LEN5)
 

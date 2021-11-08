@@ -19,23 +19,21 @@ C> @authors J. Woollen
 C> @authors J. Ator
 C> @date 2002-05-14
 C>
-C> @param[in] MAXO -   integer: New maximum length (in bytes) for
+C> @param[in] MAXO --  integer: New maximum length (in bytes) for
 C>                     all BUFR messages written to all output files
 C>                     - 0 = Set MAXO to the maximum value allowed
 C>                           by the BUFRLIB software
 C>
 C> <b>Program history log:</b>
-C> - 2002-05-14  J. Woollen -- Original author
-C> - 2004-08-09  J. Ator    -- Maximum message length increased from
-C>                           20,000 to 50,000 bytes
-C> - 2006-04-14  J. Ator    -- Added MAXO=0 option and overflow check
-C> - 2009-03-23  D. Keyser  -- No longer prints the record length change
-C>                           diagnostic if the requested record length
-C>                           passed in as MAXO is actually the same as
-C>                           the previous value
-C> - 2009-04-21  J. Ator    -- Use errwrt()
-C> - 2014-12-10  J. Ator    -- Use modules instead of COMMON blocks
-C> - 2015-09-24  D. Stokes  -- Correct typos in docblock
+C> | Date | Programmer | Comments |
+C> | -----|------------|----------|
+C> | 2002-05-14 | J. Woollen | Original author |
+C> | 2004-08-09 | J. Ator    | Maximum message length increased from 20,000 to 50,000 bytes |
+C> | 2006-04-14 | J. Ator    | Added MAXO=0 option and overflow check |
+C> | 2009-03-23 | D. Keyser  | No longer print record length change diagnostic if requested record length is the same as the previous value |
+C> | 2009-04-21 | J. Ator    | Use errwrt() |
+C> | 2014-12-10 | J. Ator    | Use modules instead of COMMON blocks |
+C> | 2015-09-24 | D. Stokes  | Correct typos in docblock |
 C>
       SUBROUTINE MAXOUT(MAXO)
 

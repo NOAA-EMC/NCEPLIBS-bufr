@@ -9,22 +9,21 @@ C>
 C> @author J. Woollen
 C> @date 1994-01-06
 C>
-C> @param[in] IDN - integer: Bit-wise representation of FXY value
-C> @param[in] L30 - integer: Length of string to be returned; can be
+C> @param[in] IDN -- integer: Bit-wise representation of FXY value
+C> @param[in] L30 -- integer: Length of string to be returned; can be
 C>                either 5 or 6 characters
-C> @returns adn30 - character*(*): FXY value
+C> @returns adn30 -- character*(*): FXY value
 C>
 C> @remarks
 C> - This function is the logical inverse of function idn30().
 C>
 C> <b>Program History Log:</b>
-C> - 1994-01-06  J. Woollen -- Original author
-C> - 1998-07-08  J. Woollen -- Replaced call to CRAY library routine
-C>                           "ABORT" with call to new internal BUFRLIB
-C>                           routine bort()
-C> - 2003-11-04  S. Bender  -- Added remarks and routine interdependencies
-C> - 2003-11-04  D. Keyser  -- Unified/portable for WRF; added
-C>                           history documentation
+C> | Date | Programmer | Comments |
+C> | -----|------------|----------|
+C> | 1994-01-06 | J. Woollen | Original author |
+C> | 1998-07-08 | J. Woollen | Replaced call to CRAY library routine "ABORT" with call to new internal BUFRLIB routine bort() |
+C> | 2003-11-04 | S. Bender  | Added remarks and routine interdependencies |
+C> | 2003-11-04 | D. Keyser  | Unified/portable for WRF; added history documentation |
       
       FUNCTION ADN30(IDN,L30)
 

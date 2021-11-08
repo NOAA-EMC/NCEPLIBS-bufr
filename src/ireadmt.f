@@ -16,9 +16,9 @@ C>
 C> @author J. Ator
 C> @date 2009-03-23
 C>
-C> @param[in]  LUN      - integer: Internal I/O stream index associated
+C> @param[in]  LUN     -- integer: Internal I/O stream index associated
 C>                        with BUFR file
-C> @returns ireadmt     - integer: Flag indicating whether new master
+C> @returns ireadmt    -- integer: Flag indicating whether new master
 C>                        BUFR tables needed to be read into internal
 C>                        memory:
 C>                        - 0 = No
@@ -32,16 +32,12 @@ C> logical unit numbers 98 and 99 will be used by this function
 C> for opening and reading master BUFR table files.
 C>
 C> <b>Program history log:</b>
-C> - 2009-03-23  J. Ator    -- Original author
-C> - 2014-11-25  J. Ator    -- Add call to cpmstabs() for access to
-C>                           master table information within C when
-C>                           using dynamically-allocated arrays
-C> - 2017-10-13  J. Ator    -- Add functionality to check whether new
-C>                           master tables need to be read (this
-C>                           functionality was previously part of
-C>                           subroutine reads3())
-C> - 2018-04-09  J. Ator    -- Only read master B and D tables when
-C>                           Section 3 is being used for decoding
+C> | Date | Programmer | Comments |
+C> | -----|------------|----------|
+C> | 2009-03-23 | J. Ator  | Original author |
+C> | 2014-11-25 | J. Ator  | Add call to cpmstabs() for access to master table information within C when using dynamically-allocated arrays |
+C> | 2017-10-13 | J. Ator  | Add functionality to check whether new master tables need to be read (this functionality was previously part of subroutine reads3()) |
+C> | 2018-04-09 | J. Ator  | Only read master B and D tables when Section 3 is being used for decoding |
 C>
 	INTEGER FUNCTION IREADMT ( LUN )
 

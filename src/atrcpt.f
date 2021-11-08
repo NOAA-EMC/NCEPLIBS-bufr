@@ -14,11 +14,11 @@ C>
 C> @author J. Ator
 C> @date 2009-03-23
 C>
-C> @param[in] MSGIN    - integer(*): BUFR message
-C> @param[in] LMSGOT   - integer: Dimensioned size (in integers) of
+C> @param[in] MSGIN   -- integer(*): BUFR message
+C> @param[in] LMSGOT  -- integer: Dimensioned size (in integers) of
 C>                       MSGOT; used by the subroutine to ensure that
 C>                       it doesn't overflow the MSGOT array
-C> @param[out] MSGOT   - integer(*): Copy of MSGIN with a tank
+C> @param[out] MSGOT  -- integer(*): Copy of MSGIN with a tank
 C>                       receipt time added to Section 1
 C>
 C> @remarks
@@ -27,7 +27,9 @@ C> - MSGOT will be longer in length than MSGIN, so the user must allow
 C> for extra space when allocating MSGOT within the application program.
 C>
 C> <b>Program history log:</b>
-C> - 2009-03-23  J. Ator    -- Original author
+C> | Date | Programmer | Comments |
+C> | -----|------------|----------|
+C> | 2009-03-23 | J. Ator  | Original author |
 C>
 	SUBROUTINE ATRCPT(MSGIN,LMSGOT,MSGOT)
 

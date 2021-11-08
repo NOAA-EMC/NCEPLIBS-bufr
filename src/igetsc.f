@@ -10,10 +10,10 @@ C>
 C> @author J. Ator
 C> @date 2010-05-11
 C>
-C> @param[in] LUNIT  - integer: Fortran logical unit number for
+C> @param[in] LUNIT -- integer: Fortran logical unit number for
 C>                         BUFR file
-C> @returns igetsc - integer:
-C>                    -  0 = no problems were encountered
+C> @returns igetsc -- integer:
+C>                     -  0 = no problems were encountered
 C>
 C> @remarks
 C> - Once subroutine openbf() has been called for LUNIT, this function
@@ -23,8 +23,10 @@ C> is most typically called immediately prior to exiting an application
 C> program.
 C>
 C> <b>Program history log:</b>
-C> - 2010-05-11  J. Ator    -- Original author
-C> - 2014-12-10  J. Ator    -- Use modules instead of COMMON blocks
+C> | Date | Programmer | Comments |
+C> | -----|------------|----------|
+C> | 2010-05-11 | J. Ator | Original author |
+C> | 2014-12-10 | J. Ator | Use modules instead of COMMON blocks |
 C>
       FUNCTION IGETSC(LUNIT)
 

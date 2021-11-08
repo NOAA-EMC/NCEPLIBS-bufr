@@ -7,8 +7,8 @@ C>
 C> @author J. Woollen
 C> @date 1994-01-06
 C>
-C> @param[in] LUNIT    - integer: Fortran logical unit number for BUFR file
-C> @param[out] IRET    - integer: return code
+C> @param[in] LUNIT   -- integer: Fortran logical unit number for BUFR file
+C> @param[out] IRET   -- integer: return code
 C>                           - 0 = new BUFR data subset was successfully
 C>                                 read into internal arrays
 C>                           - -1 = there are no more BUFR data subsets in
@@ -32,29 +32,17 @@ C> one of the [message-reading subroutines](@ref hierarchy) in order
 C> to read in the next message from logical unit LUNIT.
 C>
 C> <b>Program history log:</b>
-C> - 1994-01-06  J. Woollen -- Original author
-C> - 1998-07-08  J. Woollen -- Replaced call to Cray library routine
-C>                           "ABORT" with call to new internal BUFRLIB
-C>                           routine "BORT"
-C> - 1999-11-18  J. Woollen -- The number of BUFR files which can be
-C>                           opened at one time increased from 10 to 32
-C>                           (necessary in order to process multiple
-C>                           BUFR files under the MPI)
-C> - 2000-09-19  J. Woollen -- Added call to new routine rdcmps() allowing
-C>                           subsets to also be decoded from compressed
-C>                           BUFR messages; maximum length increased
-C>                           from 10,000 to 20,000 bytes
-C> - 2002-05-14  J. Woollen -- Corrected error relating to certain
-C>                          foreign file types; removed old Cray
-C>                          compiler directives
-C> - 2003-11-04  S. Bender  -- Added remarks and routine interdependencies
-C> - 2003-11-04  D. Keyser  -- Unified/portable for WRF; added history
-C>                           documentation; outputs more complete
-C>                           diagnostic info when routine terminates
-C>                           abnormally
-C> - 2004-08-09  J. Ator    -- Maximum message length increased from
-C>                           20,000 to 50,000 bytes
-C> - 2014-12-10  J. Ator    -- Use modules instead of COMMON blocks
+C> | Date | Programmer | Comments |
+C> | -----|------------|----------|
+C> | 1994-01-06 | J. Woollen | Original author |
+C> | 1998-07-08 | J. Woollen | Replaced call to Cray library routine "ABORT" with call to new internal routine bort() |
+C> | 1999-11-18 | J. Woollen | The number of BUFR files which can be opened at one time increased from 10 to 32 |
+C> | 2000-09-19 | J. Woollen | Added call to new routine rdcmps() allowing subsets to also be decoded from compressed BUFR messages; maximum length increased from 10,000 to 20,000 bytes |
+C> | 2002-05-14 | J. Woollen | Corrected error relating to certain foreign file types; removed old Cray compiler directives |
+C> | 2003-11-04 | S. Bender  | Added remarks and routine interdependencies |
+C> | 2003-11-04 | D. Keyser  | Unified/portable for WRF; added documentation; outputs more complete diagnostic info when routine terminates abnormally |
+C> | 2004-08-09 | J. Ator    | Maximum message length increased from 20,000 to 50,000 bytes |
+C> | 2014-12-10 | J. Ator    | Use modules instead of COMMON blocks |
 C>
       SUBROUTINE READSB(LUNIT,IRET)
 

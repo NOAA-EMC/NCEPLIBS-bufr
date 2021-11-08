@@ -14,9 +14,9 @@ C> @authors J. Woollen
 C> @authors J. Ator
 C> @date 2003-11-04
 C>
-C> @param[in] LUNIT  - integer: Fortran logical unit number for BUFR file
-C> @param[in] CHR   - character*(*): Value corresponding to STR
-C> @param[in] STR    - character*(*): Table B mnemonic of long character
+C> @param[in] LUNIT -- integer: Fortran logical unit number for BUFR file
+C> @param[in] CHR  -- character*(*): Value corresponding to STR
+C> @param[in] STR   -- character*(*): Table B mnemonic of long character
 C>                     string to be written, possibly supplemented
 C>                     with an ordinal occurrence notation
 C>
@@ -43,24 +43,18 @@ C> [subset-writing subroutines](@ref hierarchy)
 C> for the data subset.
 C>
 C> <b>Program history log:</b>
-C> - 2003-11-04  J. Woollen -- Original author
-C> - 2004-08-09  J. Ator    -- Maximum message length increased from
-C>                             20,000 to 50,000 bytes
-C> - 2005-11-29  J. Ator    -- Use getlens()
-C> - 2007-01-19  J. Ator    -- Replaced call to parseq with call to
-C>                             parstr()
-C> - 2009-03-23  J. Ator    -- Added '#' option for more than one
-C>                             occurrence of STR
-C> - 2009-08-11  J. Woollen -- Added COMMON COMPRS along with logic to
-C>                             write long strings into compressed subsets
-C> - 2012-12-07  J. Ator    -- Allow str mnemonic length of up to 14 chars
-C>                             when used with '#' occurrence code
-C> - 2014-10-22  J. Ator    -- No longer abort if no subset available for
-C>                             writing; just print a warning message
-C> - 2014-12-10  J. Ator    -- USE modules instead of COMMON blocks
-C> - 2020-09-09  J. Ator    -- No longer abort if STR not available within
-C>                             subset definition; instead, just print a
-C>                             warning message
+C> | Date | Programmer | Comments |
+C> | -----|------------|----------|
+C> | 2003-11-04 | J. Woollen | Original author |
+C> | 2004-08-09 | J. Ator    | Maximum message length increased from 20,000 to 50,000 bytes |
+C> | 2005-11-29 | J. Ator    | Use getlens() |
+C> | 2007-01-19 | J. Ator    | Replaced call to parseq with call to parstr() |
+C> | 2009-03-23 | J. Ator    | Added '#' option for more than one occurrence of STR |
+C> | 2009-08-11 | J. Woollen | Added COMMON COMPRS along with logic to write long strings into compressed subsets |
+C> | 2012-12-07 | J. Ator    | Allow str mnemonic length of up to 14 chars when used with '#' occurrence code |
+C> | 2014-10-22 | J. Ator    | No longer abort if no subset available for writing; just print a warning message |
+C> | 2014-12-10 | J. Ator    | USE modules instead of COMMON blocks |
+C> | 2020-09-09 | J. Ator    | No longer abort if STR not available within subset definition; instead, just print a warning message |
 C>
       SUBROUTINE WRITLC(LUNIT,CHR,STR)
 

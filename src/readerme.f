@@ -9,18 +9,18 @@ C> @authors J. Woollen
 C> @authors J. Ator
 C> @date 1995-06-28
 C>
-C> @param[in] MESG     - integer(*): BUFR message
-C> @param[in] LUNIT    - integer: Fortran logical unit number for
+C> @param[in] MESG    -- integer(*): BUFR message
+C> @param[in] LUNIT   -- integer: Fortran logical unit number for
 C>                       BUFR file
-C> @param[out] SUBSET   - character*8: Table A mnemonic for type of BUFR
+C> @param[out] SUBSET  -- character*8: Table A mnemonic for type of BUFR
 C>                        message that was read
 C>                        (see [DX BUFR Tables](@ref dfbftab)
 C>                        for further information about Table A mnemonics)
-C> @param[out] JDATE    - integer: Date-time stored within Section 1 of
+C> @param[out] JDATE   -- integer: Date-time stored within Section 1 of
 C>                        BUFR message that was read, in format of either
 C>                        YYMMDDHH or YYYYMMDDHH, depending on the most
 C>                        recent call to subroutine datelen()
-C> @param[out] IRET     - integer: return code
+C> @param[out] IRET    -- integer: return code
 C>                           - 0 = MESG was successfully read
 C>                           - 11 = MESG contained a DX BUFR table message
 C>                           - -1 = MESG contained an unrecognized
@@ -55,40 +55,21 @@ C> BUFR table, up until a call is made where MESG no longer contains a
 C> DX BUFR table message.
 C>
 C> <b>Program history log:</b>
-C> - 1995-06-28  J. Woollen -- Original author
-C> - 1997-07-29  J. Woollen -- Modified to process GOES soundings
-C>                             from NESDIS
-C> - 1998-07-08  J. Woollen -- Replaced call to Cray library routine
-C>                           "ABORT" with call to new internal BUFRLIB
-C>                           routine "BORT"; modified to make Y2K
-C>                           compliant; improved machine portability
-C> - 1999-11-18  J. Woollen -- The number of BUFR files which can be
-C>                           opened at one time increased from 10 to 32
-C>                           (necessary in order to process multiple
-C>                           BUFR files under the MPI); increased the
-C>                           maximum number of possible descriptors in
-C>                           a subset from 1000 to 3000
-C> - 2000-09-19  J. Woollen -- Removed message decoding logic that had
-C>                           been replicated in this and other read
-C>                           routines and consolidated it into a new
-C>                           routine cktaba(); maximum message
-C>                           length increased from 10,000 to 20,000
-C>                           bytes
-C> - 2003-11-04  S. Bender  -- Added remarks and routine interdependencies
-C> - 2003-11-04  D. Keyser  -- Unified/portable for WRF; added history
-C>                           documentation; outputs more complete
-C>                           diagnostic info when routine terminates
-C>                           abnormally
-C> - 2004-08-18  J. Ator    -- Modified 'BUFR' string test for portability
-C>                           to EBCDIC machines; maximum message length
-C>                           increased from 20,000 to 50,000 bytes
-C> - 2005-11-29  J. Ator    -- Use ichkstr()
-C> - 2009-03-23  D. Keyser  -- Call bort() in case of MBAY overflow
-C> - 2009-03-23  J. Ator    -- Add logic to allow Section 3 decoding;
-C>                           add logic to process dictionary messages
-C> - 2012-06-07  J. Ator    -- Don't respond to DX table messages if
-C>                           Section 3 decoding is being used
-C> - 2014-12-10  J. Ator    -- Use modules instead of COMMON blocks
+C> | Date | Programmer | Comments |
+C> | -----|------------|----------|
+C> | 1995-06-28 | J. Woollen | Original author |
+C> | 1997-07-29 | J. Woollen | Modified to process GOES soundings from NESDIS |
+C> | 1998-07-08 | J. Woollen | Replaced call to Cray library routine "ABORT" with call to new internal routine bort(); modified to make Y2K compliant; improved machine portability |
+C> | 1999-11-18 | J. Woollen | The number of BUFR files which can be opened at one time increased from 10 to 32; increased the maximum number of possible descriptors in a subset from 1000 to 3000 |
+C> | 2000-09-19 | J. Woollen | Removed logic that had been replicated in this and other read routines and consolidated it into a new routine cktaba(); maximum message length increased from 10,000 to 20,000 bytes |
+C> | 2003-11-04 | S. Bender  | Added remarks and routine interdependencies |
+C> | 2003-11-04 | D. Keyser  | Unified/portable for WRF; added documentation; outputs more complete diagnostic info when routine terminates abnormally |
+C> | 2004-08-18 | J. Ator    | Modified 'BUFR' string test for portability to EBCDIC machines; maximum message length increased from 20,000 to 50,000 bytes |
+C> | 2005-11-29 | J. Ator    | Use ichkstr() |
+C> | 2009-03-23 | D. Keyser  | Call bort() in case of MBAY overflow |
+C> | 2009-03-23 | J. Ator    | Add logic to allow Section 3 decoding; add logic to process dictionary messages |
+C> | 2012-06-07 | J. Ator    | Don't respond to DX table messages if Section 3 decoding is being used |
+C> | 2014-12-10 | J. Ator    | Use modules instead of COMMON blocks |
 C>
       SUBROUTINE READERME(MESG,LUNIT,SUBSET,JDATE,IRET)
 

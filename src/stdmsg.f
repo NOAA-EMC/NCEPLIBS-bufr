@@ -30,13 +30,15 @@ C>
 C> @author J. Ator
 C> @date 2004-08-18
 C>
-C> @param[in] CF    - character*1: Flag indicating whether future BUFR
+C> @param[in] CF   -- character*1: Flag indicating whether future BUFR
 C>                    output messages are to be standardized
 C>                     - 'N' = No (the default)
 C>                     - 'Y' = Yes
 C>
 C> <b>Program history log:</b>
-C> - 2004-08-18  J. Ator    -- Original author
+C> | Date | Programmer | Comments |
+C> | -----|------------|----------|
+C> | 2004-08-18 | J. Ator | Original author |
 C>
       SUBROUTINE STDMSG(CF)
 

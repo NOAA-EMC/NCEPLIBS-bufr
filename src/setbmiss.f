@@ -7,8 +7,8 @@ C>
 C> @author J. Woollen
 C> @date 2012-09-15
 C>
-C> @param[in] XMISS - real*8: New placeholder value to represent
-C>                    "missing" data
+C> @param[in] XMISS -- real*8: New placeholder value to represent
+C>                     "missing" data
 C>
 C> <p>This subroutine can be called at any time from within an
 C> application program, and the value XMISS will then be treated as
@@ -32,7 +32,9 @@ C> values are always encoded as all bits set to 1, per WMO
 C> regulations.
 C> 
 C> <b>Program history log:</b>
-C> - 2012-09-15  J. Woollen -- Original author
+C> | Date | Programmer | Comments |
+C> | -----|------------|----------|
+C> | 2012-09-15 | J. Woollen | Original author |
 C>
       SUBROUTINE SETBMISS(XMISS)
 
