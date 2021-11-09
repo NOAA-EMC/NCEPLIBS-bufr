@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.5.0</span>
+   &#160;<span id="projectnumber">11.6.0</span>
    </div>
   </td>
  </tr>
@@ -143,65 +143,68 @@ Data Types</h2></td></tr>
 </div><table class="fieldtable">
 <tr><th colspan="3">Data Fields</th></tr>
 <tr><td class="fieldtype">
-<a class="anchor" id="ad14872cd78934140e84b611da29960f4"></a>integer, dimension(maxtba, <br class="typebreak"/>
-nfiles, 2)</td>
+<a class="anchor" id="ad14872cd78934140e84b611da29960f4"></a>integer, dimension(:,:,:), <br class="typebreak"/>
+allocatable</td>
 <td class="fieldname">
 idna</td>
 <td class="fielddoc">
 Message types (in array element 1) and subtypes (in array element 2) corresponding to taba. </td></tr>
 <tr><td class="fieldtype">
-<a class="anchor" id="a0250ae3b9d9c9a1a128eaf7231ae4efd"></a>integer, dimension(maxtbb, nfiles)</td>
+<a class="anchor" id="a0250ae3b9d9c9a1a128eaf7231ae4efd"></a>integer, dimension(:,:), <br class="typebreak"/>
+allocatable</td>
 <td class="fieldname">
 idnb</td>
 <td class="fielddoc">
 Bit-wise representations of the FXY values corresponding to tabb. </td></tr>
 <tr><td class="fieldtype">
-<a class="anchor" id="acb5e2ea559b1ec70a0e8ffcc63e83e16"></a>integer, dimension(maxtbd, nfiles)</td>
+<a class="anchor" id="acb5e2ea559b1ec70a0e8ffcc63e83e16"></a>integer, dimension(:,:), <br class="typebreak"/>
+allocatable</td>
 <td class="fieldname">
 idnd</td>
 <td class="fielddoc">
 Bit-wise representations of the FXY values corresponding to tabd. </td></tr>
 <tr><td class="fieldtype">
-<a class="anchor" id="a4140ebac72dd425d2cf1c2c30dd9a642"></a>integer, dimension(maxtba, nfiles)</td>
+<a class="anchor" id="a4140ebac72dd425d2cf1c2c30dd9a642"></a>integer, dimension(:,:), <br class="typebreak"/>
+allocatable</td>
 <td class="fieldname">
 mtab</td>
 <td class="fielddoc">
 Entries within jump/link table corresponding to taba. </td></tr>
 <tr><td class="fieldtype">
-<a class="anchor" id="ab3fd5df1595035bdd18a4c8f6c684aab"></a>integer, dimension(0:nfiles)</td>
+<a class="anchor" id="ab3fd5df1595035bdd18a4c8f6c684aab"></a>integer, dimension(:), allocatable</td>
 <td class="fieldname">
 ntba</td>
 <td class="fielddoc">
 Number of Table A entries for each internal I/O stream (up to a maximum of MAXTBA, whose value is stored in array element 0). </td></tr>
 <tr><td class="fieldtype">
-<a class="anchor" id="aa1658c68804908d18cf649ea6a71f4b4"></a>integer, dimension(0:nfiles)</td>
+<a class="anchor" id="aa1658c68804908d18cf649ea6a71f4b4"></a>integer, dimension(:), allocatable</td>
 <td class="fieldname">
 ntbb</td>
 <td class="fielddoc">
 Number of Table B entries for each internal I/O stream (up to a maximum of MAXTBB, whose value is stored in array element 0). </td></tr>
 <tr><td class="fieldtype">
-<a class="anchor" id="a6c2c97d760b48a0666c8d68fbcb9ab1b"></a>integer, dimension(0:nfiles)</td>
+<a class="anchor" id="a6c2c97d760b48a0666c8d68fbcb9ab1b"></a>integer, dimension(:), allocatable</td>
 <td class="fieldname">
 ntbd</td>
 <td class="fielddoc">
 Number of Table D entries for each internal I/O stream (up to a maximum of MAXTBD, whose value is stored in array element 0). </td></tr>
 <tr><td class="fieldtype">
-<a class="anchor" id="a134a19d240e297675899893d547dea76"></a>character *128, dimension(maxtba, <br class="typebreak"/>
-nfiles)</td>
+<a class="anchor" id="a134a19d240e297675899893d547dea76"></a>character *128, dimension(:,:), <br class="typebreak"/>
+allocatable</td>
 <td class="fieldname">
 taba</td>
 <td class="fielddoc">
 Table A entries for each internal I/O stream. </td></tr>
 <tr><td class="fieldtype">
-<a class="anchor" id="a02aa7932b81c08536844ab883e364dbd"></a>character *128, dimension(maxtbb, <br class="typebreak"/>
-nfiles)</td>
+<a class="anchor" id="a02aa7932b81c08536844ab883e364dbd"></a>character *128, dimension(:,:), <br class="typebreak"/>
+allocatable</td>
 <td class="fieldname">
 tabb</td>
 <td class="fielddoc">
 Table B entries for each internal I/O stream. </td></tr>
 <tr><td class="fieldtype">
-<a class="anchor" id="add71bf3c9987301b6852d255fa00a48d"></a>character *600, dimension(maxtbd, <br class="typebreak"/>
-nfiles)</td>
+<a class="anchor" id="add71bf3c9987301b6852d255fa00a48d"></a>character *600, dimension(:,:), <br class="typebreak"/>
+allocatable</td>
 <td class="fieldname">
 tabd</td>
 <td class="fielddoc">

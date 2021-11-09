@@ -29,7 +29,7 @@ var searchData=
   ['nevn_2ef',['nevn.f',['../nevn_8f.html',1,'']]],
   ['newwin',['newwin',['../newwin_8f.html#a7c72d9d0b9a4769b7d930b705490e057',1,'newwin.f']]],
   ['newwin_2ef',['newwin.f',['../newwin_8f.html',1,'']]],
-  ['nfiles',['nfiles',['../modv__NFILES_8F.html#a23b3ec50292a2caf2c84b45f2ef295c7',1,'modv_nfiles']]],
+  ['nfiles',['nfiles',['../modv__NFILES_8f90.html#a23b3ec50292a2caf2c84b45f2ef295c7',1,'modv_nfiles']]],
   ['nmsub',['nmsub',['../nmsub_8f.html#a536bd3da0a5f7305e5e1e12b6654967d',1,'nmsub.f']]],
   ['nmsub_2ef',['nmsub.f',['../nmsub_8f.html',1,'']]],
   ['nmtb',['nmtb',['../moda__mstabs_8F.html#aa0a37d78f52b49343f8ca272b5e2bae5',1,'moda_mstabs']]],

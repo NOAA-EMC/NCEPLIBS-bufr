@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.5.0</span>
+   &#160;<span id="projectnumber">11.6.0</span>
    </div>
   </td>
  </tr>
@@ -168,10 +168,10 @@ Functions</h2></td></tr>
 <dl class="section date"><dt>Date</dt><dd>2005-11-29</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">mxmb</td><td>- f77int*: Dimensioned size (in bytes) of bmg; used by the subroutine to ensure that it doesn't overflow the bmg array </td></tr>
-    <tr><td class="paramdir">[out]</td><td class="paramname">bmg</td><td>- char*: BUFR message </td></tr>
-    <tr><td class="paramdir">[out]</td><td class="paramname">nmb</td><td>- f77int*: Size (in bytes) of BUFR message in bmg </td></tr>
-    <tr><td class="paramdir">[out]</td><td class="paramname">iret</td><td>- f77int*: return code<ul>
+    <tr><td class="paramdir">[in]</td><td class="paramname">mxmb</td><td>&ndash; f77int*: Dimensioned size (in bytes) of bmg; used by the subroutine to ensure that it doesn't overflow the bmg array </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">bmg</td><td>&ndash; char*: BUFR message </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">nmb</td><td>&ndash; f77int*: Size (in bytes) of BUFR message in bmg </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">iret</td><td>&ndash; f77int*: return code<ul>
 <li>0 = normal return</li>
 <li>1 = overflow of bmg array</li>
 <li>2 = "7777" indicator not found in expected location</li>
@@ -185,12 +185,15 @@ Functions</h2></td></tr>
 <p>This subroutine is designed to be easily callable from application program written in either C or Fortran.</p>
 <p>The file from which messages are to be read must have already been opened for reading via a previous call to subroutine <a class="el" href="cobfl_8c.html#a8ee2da6f5d4198418177b973d9b1108c" title="This subroutine opens a new file for reading or writing BUFR messages via a C language interface...">cobfl()</a> with io = 'r'.</p>
 <p>Any messages read that were encoded according to BUFR edition 0 or BUFR edition 1 are automatically converted to BUFR edition 2 before being returned by this subroutine.</p>
-<p><b>Program history log:</b></p>
-<ul>
-<li>2005-11-29 J. Ator &ndash; Original author </li>
-</ul>
+<p><b>Program history log:</b> </p>
+<table class="doxtable">
+<tr>
+<th>Date </th><th>Programmer </th><th>Comments  </th></tr>
+<tr>
+<td>2005-11-29 </td><td>J. Ator </td><td>Original author </td></tr>
+</table>
 
-<p>Definition at line <a class="el" href="crbmg_8c_source.html#l00046">46</a> of file <a class="el" href="crbmg_8c_source.html">crbmg.c</a>.</p>
+<p>Definition at line <a class="el" href="crbmg_8c_source.html#l00048">48</a> of file <a class="el" href="crbmg_8c_source.html">crbmg.c</a>.</p>
 
 <p>References <a class="el" href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort()</a>, <a class="el" href="gets1loc_8f.html#afa67517d4a9f4c4da6852a85aefed7e9">gets1loc()</a>, <a class="el" href="ichkstr_8f.html#af2e2a12582c245f6f119df50da24b35b">ichkstr()</a>, <a class="el" href="ipkm_8f.html#a8826417bb81a4404779e606d6b97759a">ipkm()</a>, <a class="el" href="iupbs01_8f.html#adcd6f7c2f898b4f938153c5cf79a9cf5">iupbs01()</a>, <a class="el" href="iupm_8f.html#a870aa6933e94946232ec975e8cdd04db">iupm()</a>, <a class="el" href="cobfl_8h.html#a749687e8025ba9e13e3634055d551dce">pbf</a>, and <a class="el" href="cobfl_8h.html#a662fa0f4a540caee1bfaa5e413b714e3">rbytes()</a>.</p>
 

@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['datebf_2ef',['datebf.F',['../datebf_8F.html',1,'']]],
+  ['datebf_2ef',['datebf.f',['../datebf_8f.html',1,'']]],
   ['datelen_2ef',['datelen.f',['../datelen_8f.html',1,'']]],
   ['debufr_2ec',['debufr.c',['../debufr_8c.html',1,'']]],
   ['debufr_2ef',['debufr.f',['../debufr_8f.html',1,'']]],

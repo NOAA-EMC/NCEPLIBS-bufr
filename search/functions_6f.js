@@ -3,7 +3,7 @@ var searchData=
   ['open_5fc',['open_c',['../classbufr__c__interface__mod.html#a0f20ed7d5f2a19163047e05f5780ce8f',1,'bufr_c_interface_mod']]],
   ['open_5ff',['open_f',['../bufr__interface_8h.html#accefcb852f45e506cac79e92a52b93a0',1,'bufr_interface.h']]],
   ['openab',['openab',['../cread_8c.html#af6a61aef4ec7fa42badc830f03b8e56a',1,'openab(f77int *nfile, char *ufile):&#160;cread.c'],['../cread_8h.html#a5efb8a43667c802abf307b33314fd3d7',1,'openab(f77int *, char *):&#160;cread.c']]],
-  ['openbf',['openbf',['../openbf_8F.html#a9bea9aeada166bd9037b959ca8452b28',1,'openbf.F']]],
+  ['openbf',['openbf',['../openbf_8f.html#a9bea9aeada166bd9037b959ca8452b28',1,'openbf.f']]],
   ['openbf_5fc',['openbf_c',['../classbufr__c__interface__mod.html#a06b9b9b76864aed6f463610a213501e4',1,'bufr_c_interface_mod']]],
   ['openbf_5ff',['openbf_f',['../bufr__interface_8h.html#a750d83d2c9745f46cccb75dc9fec3788',1,'bufr_interface.h']]],
   ['openbt',['openbt',['../openbt_8f.html#ae6c14e3ca6c75e5ee54424817fdd6199',1,'openbt(LUNDX, MTYP):&#160;openbt.f'],['../debufr_8f.html#a8dbba5dc66c2e09ccdd8065dda184f89',1,'openbt(lundx, mtyp):&#160;debufr.f']]],

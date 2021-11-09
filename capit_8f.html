@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.5.0</span>
+   &#160;<span id="projectnumber">11.6.0</span>
    </div>
   </td>
  </tr>
@@ -109,17 +109,19 @@ $(document).ready(function(){initNavTree('capit_8f.html','');});
 </div><!--header-->
 <div class="contents">
 
+<p>Capitalize a character string.  
+<a href="#details">More...</a></p>
+
 <p><a href="capit_8f_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions/Subroutines</h2></td></tr>
 <tr class="memitem:acade976948fae8afa1a8301ff9272f56"><td class="memItemLeft" align="right" valign="top">subroutine&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="capit_8f.html#acade976948fae8afa1a8301ff9272f56">capit</a> (STR)</td></tr>
-<tr class="memdesc:acade976948fae8afa1a8301ff9272f56"><td class="mdescLeft">&#160;</td><td class="mdescRight">THIS SUBROUTINE CAPITALIZES A STRING OF CHARACTERS.  <a href="#acade976948fae8afa1a8301ff9272f56">More...</a><br/></td></tr>
+<tr class="memdesc:acade976948fae8afa1a8301ff9272f56"><td class="mdescLeft">&#160;</td><td class="mdescRight">This subroutine capitalizes all of the alphabetic characters in a string.  <a href="#acade976948fae8afa1a8301ff9272f56">More...</a><br/></td></tr>
 <tr class="separator:acade976948fae8afa1a8301ff9272f56"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><dl class="section author"><dt>Author</dt><dd>WOOLLEN </dd></dl>
-<dl class="section date"><dt>Date</dt><dd>2002-05-14 </dd></dl>
+<div class="textblock"><p>Capitalize a character string. </p>
 
 <p>Definition in file <a class="el" href="capit_8f_source.html">capit.f</a>.</p>
 </div><h2 class="groupheader">Function/Subroutine Documentation</h2>
@@ -137,14 +139,27 @@ Functions/Subroutines</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>THIS SUBROUTINE CAPITALIZES A STRING OF CHARACTERS. </p>
-<p>THIS ENABLES THE USE OF MIXED CASE IN THE UNIT SECTION OF THE ASCII BUFR TABLES. AN EXAMPLE: A PROGRAM WHICH GENERATES AN ASCII BUFR TABLE FROM THE "MASTER TABLE B" MIGHT END UP COPYING SOME UNITS FIELDS IN MIXED OR LOWER CASE. IF THE UNITS ARE 'CODE TABLE' OR 'FLAG TABLE' OR CERTAIN OTHER UNIT DESIGNATIONS, THE TABLE WILL BE PARSED INCORRECTLY, AND THE DATA READ OR INCORRECTLY AS A RESULT. THIS MAKES SURE ALL UNIT DESIGNATIONS ARE SEEN BY THE PARSER IN UPPER CASE TO AVOID THESE TYPES OF PROBLEMS.</p>
-<p>PROGRAM HISTORY LOG: 2002-05-14 J. WOOLLEN &ndash; ORIGINAL AUTHOR 2003-11-04 S. BENDER &ndash; ADDED REMARKS/BUFRLIB ROUTINE INTERDEPENDENCIES 2003-11-04 D. KEYSER &ndash; UNIFIED/PORTABLE FOR WRF; ADDED DOCUMENTATION (INCLUDING HISTORY) 2012-03-02 J. ATOR &ndash; CHANGED NAME OF UPS ARRAY TO UPCS TO AVOID NAMESPACE CONTENTION WITH NEW FUNCTION UPS</p>
-<p>USAGE: CALL CAPIT (STR) INPUT ARGUMENT LIST: STR - CHARACTER*(*): STRING POSSIBLY CONTAINING MIXED UPPER- AND LOWER-CASE CHARACTERS</p>
-<p>OUTPUT ARGUMENT LIST: STR - CHARACTER*(*): SAME STRING AS INPUT BUT NOW CONTAINING ALL UPPER-CASE CHARACTERS</p>
-<p>REMARKS: THIS ROUTINE CALLS: None THIS ROUTINE IS CALLED BY: CMPMSG CODFLG ELEMDX STBFDX STDMSG STRCPT Normally not called by any application programs but it could be. </p>
+<p>This subroutine capitalizes all of the alphabetic characters in a string. </p>
+<p>The string is modified in place.</p>
+<dl class="section author"><dt>Author</dt><dd>J. Woollen </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2002-05-14</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in,out]</td><td class="paramname">STR</td><td>&ndash; character*(*): String</td></tr>
+  </table>
+  </dd>
+</dl>
+<p><b>Program History Log:</b> </p>
+<table class="doxtable">
+<tr>
+<th>Date </th><th>Programmer </th><th>Comments  </th></tr>
+<tr>
+<td>2002-05-14 </td><td>J. Woollen </td><td>Original author </td></tr>
+<tr>
+<td>2012-03-02 </td><td>J. Ator </td><td>Changed name of ups array to upcs to avoid namespace contention with function <a class="el" href="ups_8f.html#a56875172e70c1f81f415ff777b239168" title="THIS FUNCTION UNPACKS A REAL*8 USER VALUE FROM A PACKED BUFR INTEGER BY APPLYING THE PROPER SCALE AND...">ups()</a> </td></tr>
+</table>
 
-<p>Definition at line <a class="el" href="capit_8f_source.html#l00039">39</a> of file <a class="el" href="capit_8f_source.html">capit.f</a>.</p>
+<p>Definition at line <a class="el" href="capit_8f_source.html#l00018">18</a> of file <a class="el" href="capit_8f_source.html">capit.f</a>.</p>
 
 <p>Referenced by <a class="el" href="cmpmsg_8f.html#a75b2d1dfd1dedb519205399a8087fd56">cmpmsg()</a>, <a class="el" href="codflg_8f.html#af415643ef31f484c879e7a770fa69ff9">codflg()</a>, <a class="el" href="elemdx_8f.html#adfd6de0f5d3b01918ea50186bf208a2d">elemdx()</a>, <a class="el" href="stbfdx_8f.html#a35d346baad722c9be56532c38d43f8a0">stbfdx()</a>, <a class="el" href="stdmsg_8f.html#abcb573ae105505deb6d3c0ad55abbce2">stdmsg()</a>, and <a class="el" href="strcpt_8f.html#a30d62b2b7af8434cd7227dae56e0f46e">strcpt()</a>.</p>
 

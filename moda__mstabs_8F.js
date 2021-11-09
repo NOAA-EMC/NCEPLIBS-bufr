@@ -1,8 +1,6 @@
 var moda__mstabs_8F =
 [
     [ "moda_mstabs", "moda__mstabs_8F.html#classmoda__mstabs", [
-      [ "bind", "moda__mstabs_8F.html#a675b19300da4ee6254968b69aafab7a8", null ],
-      [ "bind", "moda__mstabs_8F.html#a9128d05d0c51e74908d40bcbe114dcf6", null ],
       [ "cbbw", "moda__mstabs_8F.html#afed599d6953a143b7ed2426899aac6ca", null ],
       [ "cbelem", "moda__mstabs_8F.html#ab16fc2855fbced425cf78ac55029aac0", null ],
       [ "cbmnem", "moda__mstabs_8F.html#a8d1efe4f37e757d5ca37c013b9351dbf", null ],

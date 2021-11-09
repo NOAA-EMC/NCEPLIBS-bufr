@@ -1,4 +1,4 @@
 var classmoda__mgwb =
 [
-    [ "mgwb", "classmoda__mgwb.html#ace80478fcfa78e228a8f46a2e17b8328", null ]
+    [ "mgwb", "classmoda__mgwb.html#ac38651460e5e05dd70fe8c19fc1a9caa", null ]
 ];

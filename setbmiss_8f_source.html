@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.5.0</span>
+   &#160;<span id="projectnumber">11.6.0</span>
    </div>
   </td>
  </tr>
@@ -115,8 +115,8 @@ $(document).ready(function(){initNavTree('setbmiss_8f_source.html','');});
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="comment">C&gt; @author J. Woollen</span></div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="comment">C&gt; @date 2012-09-15</span></div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="comment">C&gt;</span></div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="comment">C&gt; @param[in] XMISS - real*8: New placeholder value to represent</span></div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="comment">C&gt;                    &quot;missing&quot; data</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="comment">C&gt; @param[in] XMISS -- real*8: New placeholder value to represent</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="comment">C&gt;                     &quot;missing&quot; data</span></div>
 <div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="comment">C&gt;</span></div>
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="comment">C&gt; &lt;p&gt;This subroutine can be called at any time from within an</span></div>
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment">C&gt; application program, and the value XMISS will then be treated as</span></div>
@@ -140,26 +140,28 @@ $(document).ready(function(){initNavTree('setbmiss_8f_source.html','');});
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="comment">C&gt; regulations.</span></div>
 <div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="comment">C&gt; </span></div>
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="comment">C&gt; &lt;b&gt;Program history log:&lt;/b&gt;</span></div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="comment">C&gt; - 2012-09-15  J. Woollen -- Original author</span></div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="comment">C&gt;</span></div>
-<div class="line"><a name="l00037"></a><span class="lineno"><a class="line" href="setbmiss_8f.html#a5435d5821267af076f83cefdf3c1c7f8">   37</a></span>&#160;<span class="keyword">      SUBROUTINE </span><a class="code" href="setbmiss_8f.html#a5435d5821267af076f83cefdf3c1c7f8">setbmiss</a>(XMISS)</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;      <span class="keywordtype">USE </span><a class="code" href="modv__BMISS_8f90.html#classmodv__bmiss">modv_bmiss</a></div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="comment">C&gt; | Date | Programmer | Comments |</span></div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="comment">C&gt; | -----|------------|----------|</span></div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="comment">C&gt; | 2012-09-15 | J. Woollen | Original author |</span></div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="comment">C&gt;</span></div>
+<div class="line"><a name="l00039"></a><span class="lineno"><a class="line" href="setbmiss_8f.html#a5435d5821267af076f83cefdf3c1c7f8">   39</a></span>&#160;<span class="keyword">      SUBROUTINE </span><a class="code" href="setbmiss_8f.html#a5435d5821267af076f83cefdf3c1c7f8">setbmiss</a>(XMISS)</div>
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;      <span class="keywordtype">REAL*8</span> xmiss</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;      <span class="keywordtype">USE </span><a class="code" href="modv__BMISS_8f90.html#classmodv__bmiss">modv_bmiss</a></div>
 <div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="comment">c-----------------------------------------------------------------------</span></div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="comment">c-----------------------------------------------------------------------</span></div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;      CALL <a class="code" href="openbf_8F.html#a9bea9aeada166bd9037b959ca8452b28">openbf</a>(0,<span class="stringliteral">&#39;FIRST&#39;</span>,0)</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;      <span class="keywordtype">REAL*8</span> xmiss</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<span class="comment">c-----------------------------------------------------------------------</span></div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="comment">c-----------------------------------------------------------------------</span></div>
 <div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;      bmiss = xmiss</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;      CALL <a class="code" href="openbf_8f.html#a9bea9aeada166bd9037b959ca8452b28">openbf</a>(0,<span class="stringliteral">&#39;FIRST&#39;</span>,0)</div>
 <div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;      <span class="keywordflow">RETURN</span></div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;      <span class="keywordflow">END</span></div>
-<div class="ttc" id="openbf_8F_html_a9bea9aeada166bd9037b959ca8452b28"><div class="ttname"><a href="openbf_8F.html#a9bea9aeada166bd9037b959ca8452b28">openbf</a></div><div class="ttdeci">subroutine openbf(LUNIT, IO, LUNDX)</div><div class="ttdoc">This subroutine connects a new file to the BUFRLIB software for input or output operations. </div><div class="ttdef"><b>Definition:</b> <a href="openbf_8F_source.html#l00157">openbf.F:157</a></div></div>
-<div class="ttc" id="setbmiss_8f_html_a5435d5821267af076f83cefdf3c1c7f8"><div class="ttname"><a href="setbmiss_8f.html#a5435d5821267af076f83cefdf3c1c7f8">setbmiss</a></div><div class="ttdeci">subroutine setbmiss(XMISS)</div><div class="ttdoc">This subroutine allows the user to specify a customized value to represent &amp;quot;missing&amp;quot; data when readin...</div><div class="ttdef"><b>Definition:</b> <a href="setbmiss_8f_source.html#l00037">setbmiss.f:37</a></div></div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;      bmiss = xmiss</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;      <span class="keywordflow">RETURN</span></div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;      <span class="keywordflow">END</span></div>
+<div class="ttc" id="setbmiss_8f_html_a5435d5821267af076f83cefdf3c1c7f8"><div class="ttname"><a href="setbmiss_8f.html#a5435d5821267af076f83cefdf3c1c7f8">setbmiss</a></div><div class="ttdeci">subroutine setbmiss(XMISS)</div><div class="ttdoc">This subroutine allows the user to specify a customized value to represent &amp;quot;missing&amp;quot; data when readin...</div><div class="ttdef"><b>Definition:</b> <a href="setbmiss_8f_source.html#l00039">setbmiss.f:39</a></div></div>
 <div class="ttc" id="modv__BMISS_8f90_html_classmodv__bmiss"><div class="ttname"><a href="modv__BMISS_8f90.html#classmodv__bmiss">modv_bmiss</a></div><div class="ttdoc">This module declares and initializes the BMISS variable. </div><div class="ttdef"><b>Definition:</b> <a href="modv__BMISS_8f90_source.html#l00009">modv_BMISS.f90:9</a></div></div>
+<div class="ttc" id="openbf_8f_html_a9bea9aeada166bd9037b959ca8452b28"><div class="ttname"><a href="openbf_8f.html#a9bea9aeada166bd9037b959ca8452b28">openbf</a></div><div class="ttdeci">subroutine openbf(LUNIT, IO, LUNDX)</div><div class="ttdoc">This subroutine connects a new file to the BUFRLIB software for input or output operations. </div><div class="ttdef"><b>Definition:</b> <a href="openbf_8f_source.html#l00138">openbf.f:138</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

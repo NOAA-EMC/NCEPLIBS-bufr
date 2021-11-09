@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.5.0</span>
+   &#160;<span id="projectnumber">11.6.0</span>
    </div>
   </td>
  </tr>
@@ -122,11 +122,11 @@ $(document).ready(function(){initNavTree('cnved4_8f_source.html','');});
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment">C&gt; @author J. Ator</span></div>
 <div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="comment">C&gt; @date 2005-11-29</span></div>
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="comment">C&gt;</span></div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="comment">C&gt; @param[in] MSGIN    - integer(*): BUFR message</span></div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="comment">C&gt; @param[in] LMSGOT   - integer: Dimensioned size (in integers) of</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="comment">C&gt; @param[in] MSGIN   -- integer(*): BUFR message</span></div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="comment">C&gt; @param[in] LMSGOT  -- integer: Dimensioned size (in integers) of</span></div>
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment">C&gt;                       MSGOT; used by the subroutine to ensure that</span></div>
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="comment">C&gt;                       it doesn&#39;t overflow the MSGOT array</span></div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="comment">C&gt; @param[out] MSGOT   - integer(*): Copy of MSGIN encoded using</span></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="comment">C&gt; @param[out] MSGOT  -- integer(*): Copy of MSGIN encoded using</span></div>
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="comment">C&gt;                       BUFR edition 4</span></div>
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="comment">C&gt;</span></div>
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="comment">C&gt; @remarks</span></div>
@@ -136,10 +136,10 @@ $(document).ready(function(){initNavTree('cnved4_8f_source.html','');});
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="comment">C&gt; for extra space when allocating MSGOT within the application program.</span></div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="comment">C&gt;</span></div>
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="comment">C&gt; &lt;b&gt;Program history log:&lt;/b&gt;</span></div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="comment">C&gt; - 2005-11-29  J. Ator    -- Original author</span></div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="comment">C&gt; - 2009-08-12  J. Ator    -- Allow silent return (instead of bort()</span></div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="comment">C&gt;                           return) if MSGIN is already encoded using</span></div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="comment">C&gt;                           edition 4</span></div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="comment">C&gt; | Date | Programmer | Comments |</span></div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="comment">C&gt; | -----|------------|----------|</span></div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="comment">C&gt; | 2005-11-29 | J. Ator | Original author |</span></div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="comment">C&gt; | 2009-08-12 | J. Ator | Allow silent return (instead of bort() return) if MSGIN is already encoded using edition 4 |</span></div>
 <div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="comment">C&gt;</span></div>
 <div class="line"><a name="l00036"></a><span class="lineno"><a class="line" href="cnved4_8f.html#a4ca2157b24b043c2729135437c1da49a">   36</a></span>&#160;<span class="keyword">    SUBROUTINE </span><a class="code" href="cnved4_8f.html#a4ca2157b24b043c2729135437c1da49a">cnved4</a>(MSGIN,LMSGOT,MSGOT)</div>
 <div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;</div>
@@ -239,10 +239,10 @@ $(document).ready(function(){initNavTree('cnved4_8f_source.html','');});
 <div class="ttc" id="mvb_8f_html_a3fb4ee7c2a5cf7725257dcdd71826ba2"><div class="ttname"><a href="mvb_8f.html#a3fb4ee7c2a5cf7725257dcdd71826ba2">mvb</a></div><div class="ttdeci">subroutine mvb(IB1, NB1, IB2, NB2, NBM)</div><div class="ttdoc">THIS SUBROUTINE COPIES A SPECIFIED NUMBER OF BYTES FROM ONE PACKED BINARY ARRAY TO ANOTHER...</div><div class="ttdef"><b>Definition:</b> <a href="mvb_8f_source.html#l00043">mvb.f:43</a></div></div>
 <div class="ttc" id="nmwrd_8f_html_af955482010e67b333997227dc1118cfe"><div class="ttname"><a href="nmwrd_8f.html#af955482010e67b333997227dc1118cfe">nmwrd</a></div><div class="ttdeci">function nmwrd(MBAY)</div><div class="ttdoc">GIVEN AN INTEGER ARRAY CONTAINING SECTION ZERO FROM A BUFR MESSAGE, THIS FUNCTION DETERMINES A COUNT ...</div><div class="ttdef"><b>Definition:</b> <a href="nmwrd_8f_source.html#l00027">nmwrd.f:27</a></div></div>
 <div class="ttc" id="cnved4_8f_html_a4ca2157b24b043c2729135437c1da49a"><div class="ttname"><a href="cnved4_8f.html#a4ca2157b24b043c2729135437c1da49a">cnved4</a></div><div class="ttdeci">subroutine cnved4(MSGIN, LMSGOT, MSGOT)</div><div class="ttdoc">This subroutine reads an input BUFR message encoded using BUFR edition 3 and outputs an equivalent BU...</div><div class="ttdef"><b>Definition:</b> <a href="cnved4_8f_source.html#l00036">cnved4.f:36</a></div></div>
-<div class="ttc" id="getlens_8f_html_a15ffcb4cde43c73327fd3afb738078e2"><div class="ttname"><a href="getlens_8f.html#a15ffcb4cde43c73327fd3afb738078e2">getlens</a></div><div class="ttdeci">subroutine getlens(MBAY, LL, LEN0, LEN1, LEN2, LEN3, LEN4, LEN5)</div><div class="ttdoc">This subroutine reads the lengths of all of the individual sections of a given BUFR message...</div><div class="ttdef"><b>Definition:</b> <a href="getlens_8f_source.html#l00037">getlens.f:37</a></div></div>
-<div class="ttc" id="bort_8f_html_a488d3a8cf930fb592a9fdaefcfa04ac4"><div class="ttname"><a href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort</a></div><div class="ttdeci">subroutine bort(STR)</div><div class="ttdoc">This subroutine calls subroutine errwrt() to log an error message, then calls subroutine bort_exit() ...</div><div class="ttdef"><b>Definition:</b> <a href="bort_8f_source.html#l00023">bort.f:23</a></div></div>
-<div class="ttc" id="pkb_8f_html_a35aa2e691ff3ad32de9d8721cae613f7"><div class="ttname"><a href="pkb_8f.html#a35aa2e691ff3ad32de9d8721cae613f7">pkb</a></div><div class="ttdeci">subroutine pkb(NVAL, NBITS, IBAY, IBIT)</div><div class="ttdoc">This subroutine encodes an integer value within a specified number of bits of an integer array...</div><div class="ttdef"><b>Definition:</b> <a href="pkb_8f_source.html#l00040">pkb.f:40</a></div></div>
-<div class="ttc" id="iupbs01_8f_html_adcd6f7c2f898b4f938153c5cf79a9cf5"><div class="ttname"><a href="iupbs01_8f.html#adcd6f7c2f898b4f938153c5cf79a9cf5">iupbs01</a></div><div class="ttdeci">function iupbs01(MBAY, S01MNEM)</div><div class="ttdoc">This function returns a specified value from within Section 0 or Section 1 of a BUFR message...</div><div class="ttdef"><b>Definition:</b> <a href="iupbs01_8f_source.html#l00072">iupbs01.f:72</a></div></div>
+<div class="ttc" id="getlens_8f_html_a15ffcb4cde43c73327fd3afb738078e2"><div class="ttname"><a href="getlens_8f.html#a15ffcb4cde43c73327fd3afb738078e2">getlens</a></div><div class="ttdeci">subroutine getlens(MBAY, LL, LEN0, LEN1, LEN2, LEN3, LEN4, LEN5)</div><div class="ttdoc">This subroutine reads the lengths of all of the individual sections of a given BUFR message...</div><div class="ttdef"><b>Definition:</b> <a href="getlens_8f_source.html#l00039">getlens.f:39</a></div></div>
+<div class="ttc" id="bort_8f_html_a488d3a8cf930fb592a9fdaefcfa04ac4"><div class="ttname"><a href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort</a></div><div class="ttdeci">subroutine bort(STR)</div><div class="ttdoc">This subroutine calls subroutine errwrt() to log an error message, then calls subroutine bort_exit() ...</div><div class="ttdef"><b>Definition:</b> <a href="bort_8f_source.html#l00022">bort.f:22</a></div></div>
+<div class="ttc" id="pkb_8f_html_a35aa2e691ff3ad32de9d8721cae613f7"><div class="ttname"><a href="pkb_8f.html#a35aa2e691ff3ad32de9d8721cae613f7">pkb</a></div><div class="ttdeci">subroutine pkb(NVAL, NBITS, IBAY, IBIT)</div><div class="ttdoc">This subroutine encodes an integer value within a specified number of bits of an integer array...</div><div class="ttdef"><b>Definition:</b> <a href="pkb_8f_source.html#l00038">pkb.f:38</a></div></div>
+<div class="ttc" id="iupbs01_8f_html_adcd6f7c2f898b4f938153c5cf79a9cf5"><div class="ttname"><a href="iupbs01_8f.html#adcd6f7c2f898b4f938153c5cf79a9cf5">iupbs01</a></div><div class="ttdeci">function iupbs01(MBAY, S01MNEM)</div><div class="ttdoc">This function returns a specified value from within Section 0 or Section 1 of a BUFR message...</div><div class="ttdef"><b>Definition:</b> <a href="iupbs01_8f_source.html#l00073">iupbs01.f:73</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

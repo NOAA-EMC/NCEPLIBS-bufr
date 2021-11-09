@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.5.0</span>
+   &#160;<span id="projectnumber">11.6.0</span>
    </div>
   </td>
  </tr>
@@ -150,29 +150,34 @@ Functions/Subroutines</h2></td></tr>
 </div><div class="memdoc">
 
 <p>This subroutine prints a copy of the DX BUFR table associated with a specified Fortran logical unit. </p>
-<p>This subroutine is especially useful for learning the structure of existing BUFR files which contain DX BUFR table information embedded as BUFR messages within those files. The DX BUFR table is printed using the same ASCII format described in the documentation for <a class="el" href="md__gpfs_dell2_emc_obsproc_noscrub_Jeff_8Ator_NCEPLIBS-bufr-GitHub_nceplibs-bufr_docs_dfbftab.html#dfbftab">DX BUFR Tables</a>, so the output file is suitable for use as Fortran logical unit LUNDX in subsequent calls to subroutine <a class="el" href="openbf_8F.html#a9bea9aeada166bd9037b959ca8452b28" title="This subroutine connects a new file to the BUFRLIB software for input or output operations. ">openbf()</a> for reading or writing additional BUFR files with the same structure.</p>
+<p>This subroutine is especially useful for learning the structure of existing BUFR files which contain DX BUFR table information embedded as BUFR messages within those files. The DX BUFR table is printed using the same ASCII format described in the documentation for <a class="el" href="md__gpfs_dell2_emc_obsproc_noscrub_Jeff_8Ator_NCEPLIBS-bufr-GitHub_nceplibs-bufr_docs_dfbftab.html#dfbftab">DX BUFR Tables</a>, so the output file is suitable for use as Fortran logical unit LUNDX in subsequent calls to subroutine <a class="el" href="openbf_8f.html#a9bea9aeada166bd9037b959ca8452b28" title="This subroutine connects a new file to the BUFRLIB software for input or output operations. ">openbf()</a> for reading or writing additional BUFR files with the same structure.</p>
 <dl class="section author"><dt>Author</dt><dd>J. Ator </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>2004-08-18</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">LUNIT</td><td>- integer: Fortran logical unit number for BUFR file </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">LDXOT</td><td>- integer: Fortran logical unit number for print output</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">LUNIT</td><td>&ndash; integer: Fortran logical unit number for BUFR file </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">LDXOT</td><td>&ndash; integer: Fortran logical unit number for print output</td></tr>
   </table>
   </dd>
 </dl>
-<p>Logical unit LUNIT must be open for either input or output operations via a previous call to subroutine <a class="el" href="openbf_8F.html#a9bea9aeada166bd9037b959ca8452b28" title="This subroutine connects a new file to the BUFRLIB software for input or output operations. ">openbf()</a>. Logical unit LDXOT must already be associated with a filename on the local system, typically via a Fortran "OPEN" statement.</p>
+<p>Logical unit LUNIT must be open for either input or output operations via a previous call to subroutine <a class="el" href="openbf_8f.html#a9bea9aeada166bd9037b959ca8452b28" title="This subroutine connects a new file to the BUFRLIB software for input or output operations. ">openbf()</a>. Logical unit LDXOT must already be associated with a filename on the local system, typically via a Fortran "OPEN" statement.</p>
 <dl class="section remark"><dt>Remarks</dt><dd><ul>
 <li>This subroutine only prints the DX BUFR table that is currently in scope for logical unit LUNIT. Therefore, if logical unit LUNIT contains multiple embedded DX BUFR tables, then multiple calls to this subroutine must be made to print out all of the tables, once while each table is in scope for a data subset defined within that particular table.</li>
 </ul>
 </dd></dl>
-<p><b>Program history log:</b></p>
-<ul>
-<li>2004-08-18 J. Ator &ndash; Original author</li>
-<li>2007-01-19 J. Ator &ndash; Corrected output for reference values longer than 8 digits</li>
-<li>2014-12-10 J. Ator &ndash; Use modules instead of COMMON blocks </li>
-</ul>
+<p><b>Program history log:</b> </p>
+<table class="doxtable">
+<tr>
+<th>Date </th><th>Programmer </th><th>Comments  </th></tr>
+<tr>
+<td>2004-08-18 </td><td>J. Ator </td><td>Original author </td></tr>
+<tr>
+<td>2007-01-19 </td><td>J. Ator </td><td>Corrected output for reference values longer than 8 digits </td></tr>
+<tr>
+<td>2014-12-10 </td><td>J. Ator </td><td>Use modules instead of COMMON blocks </td></tr>
+</table>
 
-<p>Definition at line <a class="el" href="dxdump_8f_source.html#l00044">44</a> of file <a class="el" href="dxdump_8f_source.html">dxdump.f</a>.</p>
+<p>Definition at line <a class="el" href="dxdump_8f_source.html#l00045">45</a> of file <a class="el" href="dxdump_8f_source.html">dxdump.f</a>.</p>
 
 <p>References <a class="el" href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort()</a>, <a class="el" href="nemtbd_8f.html#ac3fb25908c829f741ccd1d440d6051d9">nemtbd()</a>, <a class="el" href="status_8f.html#a22292e7a69c411a961168198d259f336">status()</a>, and <a class="el" href="strsuc_8f.html#a0ad7f0b59d89e0bdd1e9d73947b19e7e">strsuc()</a>.</p>
 

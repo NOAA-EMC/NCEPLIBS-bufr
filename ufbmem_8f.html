@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.5.0</span>
+   &#160;<span id="projectnumber">11.6.0</span>
    </div>
   </td>
  </tr>
@@ -167,14 +167,14 @@ Functions/Subroutines</h2></td></tr>
 <dl class="section date"><dt>Date</dt><dd>1994-01-06</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">LUNIT</td><td>- integer: Fortran logical unit number for BUFR file </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">INEW</td><td>- integer: Processing option<ul>
+    <tr><td class="paramdir">[in]</td><td class="paramname">LUNIT</td><td>&ndash; integer: Fortran logical unit number for BUFR file </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">INEW</td><td>&ndash; integer: Processing option<ul>
 <li>0 = Initialize the internal arrays, then read all BUFR messages from LUNIT into internal arrays</li>
 <li>Otherwise, read all BUFR messages from LUNIT and append them to the existing messages within the internal arrays </li>
 </ul>
 </td></tr>
-    <tr><td class="paramdir">[out]</td><td class="paramname">IRET</td><td>- integer: Number of BUFR messages that were read from LUNIT and stored into internal arrays </td></tr>
-    <tr><td class="paramdir">[out]</td><td class="paramname">IUNIT</td><td>- integer: File status<ul>
+    <tr><td class="paramdir">[out]</td><td class="paramname">IRET</td><td>&ndash; integer: Number of BUFR messages that were read from LUNIT and stored into internal arrays </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">IUNIT</td><td>&ndash; integer: File status<ul>
 <li>0 = LUNIT was empty, so no messages were read</li>
 <li>Otherwise, the Fortran logical unit number to use for later access to any of the messages from the internal arrays</li>
 </ul>
@@ -183,28 +183,44 @@ Functions/Subroutines</h2></td></tr>
   </dd>
 </dl>
 <p>Logical unit number LUNIT must already be associated with an actual filename on the local system, typically via a Fortran "OPEN" statement.</p>
-<p>When INEW = 0, the output value IUNIT will be set equal to the input value LUNIT. Otherwise, the output value IUNIT will be set to the value of LUNIT that was input when this subroutine was previously called with INEW = 0, and the system file connected to LUNIT will be closed via an internal call to subroutine <a class="el" href="closbf_8F.html#a00c94986037d2cf27d04de7a1f8a3ebc" title="This subroutine closes the connection between logical unit LUNIT and the BUFRLIB software. ">closbf()</a> before exiting this subroutine. In either case, IUNIT can now be used to access all BUFR messages that were read and stored by all previous calls to this subroutine.</p>
-<p><b>Program history log:</b></p>
-<ul>
-<li>1994-01-06 J. Woollen &ndash; Original author</li>
-<li>1998-07-08 J. Woollen &ndash; Replaced call to Cray library routine ABORT with call to new internal routine <a class="el" href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4" title="This subroutine calls subroutine errwrt() to log an error message, then calls subroutine bort_exit() ...">bort()</a></li>
-<li>1999-11-18 J. Woollen &ndash; Increased MAXMEM from 4 Mb to 8 Mb</li>
-<li>2000-09-19 J. Woollen &ndash; Maximum message length increased from 10,000 to 20,000 bytes</li>
-<li>2001-08-15 D. Keyser &ndash; Increased MAXMEM from 8 Mb to 16 Mb</li>
-<li>2003-11-04 S. Bender &ndash; Added remarks and routine interdependencies</li>
-<li>2003-11-04 D. Keyser &ndash; Unified/portable for WRF; added history documentation; outputs more complete diagnostic info when routine terminates abnormally; increased MAXMSG from 50000 to 200000</li>
-<li>2004-08-09 J. Ator &ndash; Maximum message length increased from 20,000 to 50,000 bytes</li>
-<li>2004-11-15 D. Keyser &ndash; Don't abort when there are either MAXMSG or MAXMEM is exceeded; instead, just store up to MAXMSG messages or MAXMEM bytes and print a diagnostic</li>
-<li>2005-11-29 J. Ator &ndash; Use <a class="el" href="rdmsgw_8f.html#aa1d21de28344723fc4848ec1cd14b094" title="THIS SUBROUTINE READS THE NEXT BUFR MESSAGE FROM LOGICAL UNIT LUNIT AS AN ARRAY OF INTEGER WORDS...">rdmsgw()</a> and <a class="el" href="nmwrd_8f.html#af955482010e67b333997227dc1118cfe" title="GIVEN AN INTEGER ARRAY CONTAINING SECTION ZERO FROM A BUFR MESSAGE, THIS FUNCTION DETERMINES A COUNT ...">nmwrd()</a></li>
-<li>2009-03-23 J. Ator &ndash; Modified to handle embedded DX tables</li>
-<li>2012-09-15 J. Woollen &ndash; Modified for C/I/O/BUFR interface; call <a class="el" href="status_8f.html#a22292e7a69c411a961168198d259f336" title="This subroutine checks whether a specified Fortran logical unit number is currently connected to the ...">status()</a> to get LUN; replace Fortran REWIND and BACKSPACE with C routines <a class="el" href="cread_8c.html#a36a8ba0032660f65aadb84295bcccc41" title="This subroutine rewinds a BUFR file back to its beginning. ">cewind()</a> and <a class="el" href="cread_8c.html#aebebafa9eeb07f82fc60ae0a8b43533e" title="This subroutine backspaces a BUFR file by one BUFR message. ">backbufr()</a></li>
-<li>2014-12-10 J. Ator &ndash; Use modules instead of COMMON blocks</li>
-<li>2015-09-24 D. Stokes &ndash; Fix missing declaration of COMMON /QUIET/ </li>
-</ul>
+<p>When INEW = 0, the output value IUNIT will be set equal to the input value LUNIT. Otherwise, the output value IUNIT will be set to the value of LUNIT that was input when this subroutine was previously called with INEW = 0, and the system file connected to LUNIT will be closed via an internal call to subroutine <a class="el" href="closbf_8f.html#a00c94986037d2cf27d04de7a1f8a3ebc" title="This subroutine closes the connection between logical unit LUNIT and the BUFRLIB software. ">closbf()</a> before exiting this subroutine. In either case, IUNIT can now be used to access all BUFR messages that were read and stored by all previous calls to this subroutine.</p>
+<p><b>Program history log:</b> </p>
+<table class="doxtable">
+<tr>
+<th>Date </th><th>Programmer </th><th>Comments  </th></tr>
+<tr>
+<td>1994-01-06 </td><td>J. Woollen </td><td>Original author </td></tr>
+<tr>
+<td>1998-07-08 </td><td>J. Woollen </td><td>Replaced call to Cray library routine ABORT with call to new internal routine <a class="el" href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4" title="This subroutine calls subroutine errwrt() to log an error message, then calls subroutine bort_exit() ...">bort()</a> </td></tr>
+<tr>
+<td>1999-11-18 </td><td>J. Woollen </td><td>Increased MAXMEM from 4 Mb to 8 Mb </td></tr>
+<tr>
+<td>2000-09-19 </td><td>J. Woollen </td><td>Maximum message length increased from 10,000 to 20,000 bytes </td></tr>
+<tr>
+<td>2001-08-15 </td><td>D. Keyser </td><td>Increased MAXMEM from 8 Mb to 16 Mb </td></tr>
+<tr>
+<td>2003-11-04 </td><td>S. Bender </td><td>Added remarks and routine interdependencies </td></tr>
+<tr>
+<td>2003-11-04 </td><td>D. Keyser </td><td>Unified/portable for WRF; added documentation; outputs more complete diagnostic info when routine terminates abnormally; increased MAXMSG from 50000 to 200000 </td></tr>
+<tr>
+<td>2004-08-09 </td><td>J. Ator </td><td>Maximum message length increased from 20,000 to 50,000 bytes </td></tr>
+<tr>
+<td>2004-11-15 </td><td>D. Keyser </td><td>Don't abort when there are either MAXMSG or MAXMEM is exceeded; instead, just store up to MAXMSG messages or MAXMEM bytes and print a diagnostic </td></tr>
+<tr>
+<td>2005-11-29 </td><td>J. Ator </td><td>Use <a class="el" href="rdmsgw_8f.html#aa1d21de28344723fc4848ec1cd14b094" title="THIS SUBROUTINE READS THE NEXT BUFR MESSAGE FROM LOGICAL UNIT LUNIT AS AN ARRAY OF INTEGER WORDS...">rdmsgw()</a> and <a class="el" href="nmwrd_8f.html#af955482010e67b333997227dc1118cfe" title="GIVEN AN INTEGER ARRAY CONTAINING SECTION ZERO FROM A BUFR MESSAGE, THIS FUNCTION DETERMINES A COUNT ...">nmwrd()</a> </td></tr>
+<tr>
+<td>2009-03-23 </td><td>J. Ator </td><td>Modified to handle embedded DX tables </td></tr>
+<tr>
+<td>2012-09-15 </td><td>J. Woollen </td><td>Modified for C/I/O/BUFR interface; call <a class="el" href="status_8f.html#a22292e7a69c411a961168198d259f336" title="This subroutine checks whether a specified Fortran logical unit number is currently connected to the ...">status()</a> to get LUN; replace Fortran REWIND and BACKSPACE with C routines <a class="el" href="cread_8c.html#a36a8ba0032660f65aadb84295bcccc41" title="This subroutine rewinds a BUFR file back to its beginning. ">cewind()</a> and <a class="el" href="cread_8c.html#aebebafa9eeb07f82fc60ae0a8b43533e" title="This subroutine backspaces a BUFR file by one BUFR message. ">backbufr()</a> </td></tr>
+<tr>
+<td>2014-12-10 </td><td>J. Ator </td><td>Use modules instead of COMMON blocks </td></tr>
+<tr>
+<td>2015-09-24 </td><td>D. Stokes </td><td>Fix missing declaration of COMMON /QUIET/ </td></tr>
+</table>
 
-<p>Definition at line <a class="el" href="ufbmem_8f_source.html#l00076">76</a> of file <a class="el" href="ufbmem_8f_source.html">ufbmem.f</a>.</p>
+<p>Definition at line <a class="el" href="ufbmem_8f_source.html#l00065">65</a> of file <a class="el" href="ufbmem_8f_source.html">ufbmem.f</a>.</p>
 
-<p>References <a class="el" href="cread_8c.html#aebebafa9eeb07f82fc60ae0a8b43533e">backbufr()</a>, <a class="el" href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort()</a>, <a class="el" href="cread_8c.html#a36a8ba0032660f65aadb84295bcccc41">cewind()</a>, <a class="el" href="closbf_8F.html#a00c94986037d2cf27d04de7a1f8a3ebc">closbf()</a>, <a class="el" href="cpdxmm_8f.html#a48f353028fb8bf77255b4dae476b9da7">cpdxmm()</a>, <a class="el" href="errwrt_8f.html#a65626d9a772648676146b62b596c2764">errwrt()</a>, <a class="el" href="idxmsg_8f.html#ab9276526fbe1b76bfa9f3d15f734c2b2">idxmsg()</a>, <a class="el" href="nmwrd_8f.html#af955482010e67b333997227dc1118cfe">nmwrd()</a>, <a class="el" href="openbf_8F.html#a9bea9aeada166bd9037b959ca8452b28">openbf()</a>, <a class="el" href="rdmsgw_8f.html#aa1d21de28344723fc4848ec1cd14b094">rdmsgw()</a>, and <a class="el" href="status_8f.html#a22292e7a69c411a961168198d259f336">status()</a>.</p>
+<p>References <a class="el" href="cread_8c.html#aebebafa9eeb07f82fc60ae0a8b43533e">backbufr()</a>, <a class="el" href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort()</a>, <a class="el" href="cread_8c.html#a36a8ba0032660f65aadb84295bcccc41">cewind()</a>, <a class="el" href="closbf_8f.html#a00c94986037d2cf27d04de7a1f8a3ebc">closbf()</a>, <a class="el" href="cpdxmm_8f.html#a48f353028fb8bf77255b4dae476b9da7">cpdxmm()</a>, <a class="el" href="errwrt_8f.html#a65626d9a772648676146b62b596c2764">errwrt()</a>, <a class="el" href="idxmsg_8f.html#ab9276526fbe1b76bfa9f3d15f734c2b2">idxmsg()</a>, <a class="el" href="nmwrd_8f.html#af955482010e67b333997227dc1118cfe">nmwrd()</a>, <a class="el" href="openbf_8f.html#a9bea9aeada166bd9037b959ca8452b28">openbf()</a>, <a class="el" href="rdmsgw_8f.html#aa1d21de28344723fc4848ec1cd14b094">rdmsgw()</a>, and <a class="el" href="status_8f.html#a22292e7a69c411a961168198d259f336">status()</a>.</p>
 
 </div>
 </div>

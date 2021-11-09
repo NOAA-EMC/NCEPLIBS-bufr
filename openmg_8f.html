@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.5.0</span>
+   &#160;<span id="projectnumber">11.6.0</span>
    </div>
   </td>
  </tr>
@@ -160,26 +160,35 @@ Functions/Subroutines</h2></td></tr>
 <dl class="section date"><dt>Date</dt><dd>1994-01-06</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">LUNIT</td><td>- integer: Fortran logical unit number for BUFR file </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">SUBSET</td><td>- character*(*): Table A mnemonic for type of BUFR message to be opened (see <a class="el" href="md__gpfs_dell2_emc_obsproc_noscrub_Jeff_8Ator_NCEPLIBS-bufr-GitHub_nceplibs-bufr_docs_dfbftab.html#dfbftab">DX BUFR Tables</a> for further information about Table A mnemonics) </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">JDATE</td><td>- integer: Date-time to be stored within Section 1 of BUFR message being opened, in format of either YYMMDDHH or YYYYMMDDHH</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">LUNIT</td><td>&ndash; integer: Fortran logical unit number for BUFR file </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">SUBSET</td><td>&ndash; character*(*): Table A mnemonic for type of BUFR message to be opened (see <a class="el" href="md__gpfs_dell2_emc_obsproc_noscrub_Jeff_8Ator_NCEPLIBS-bufr-GitHub_nceplibs-bufr_docs_dfbftab.html#dfbftab">DX BUFR Tables</a> for further information about Table A mnemonics) </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">JDATE</td><td>&ndash; integer: Date-time to be stored within Section 1 of BUFR message being opened, in format of either YYMMDDHH or YYYYMMDDHH</td></tr>
   </table>
   </dd>
 </dl>
-<p>Logical unit LUNIT should have already been opened for output operations via a previous call to subroutine <a class="el" href="openbf_8F.html#a9bea9aeada166bd9037b959ca8452b28" title="This subroutine connects a new file to the BUFRLIB software for input or output operations. ">openbf()</a>.</p>
+<p>Logical unit LUNIT should have already been opened for output operations via a previous call to subroutine <a class="el" href="openbf_8f.html#a9bea9aeada166bd9037b959ca8452b28" title="This subroutine connects a new file to the BUFRLIB software for input or output operations. ">openbf()</a>.</p>
 <p>This subroutine is similar to subroutine <a class="el" href="openmb_8f.html#a4fc37a744b3f3c266a6f73acc117710a" title="This subroutine opens and initializes a new BUFR message within internal arrays, for eventual output ...">openmb()</a>, except that it will always open a new message for output, regardless of the values of SUBSET and JDATE. Any existing message within the internal arrays will be automatically flushed and written to logical unit LUNIT via an internal call to subroutine <a class="el" href="closmg_8f.html#a3378111de0136710daec2ded25ed34e4" title="This subroutine closes the BUFR message that is currently open for writing within internal arrays ass...">closmg()</a>.</p>
-<p><b>Program history log:</b></p>
-<ul>
-<li>1994-01-06 J. Woollen &ndash; Original author</li>
-<li>1998-07-08 J. Woollen &ndash; Replaced call to Cray library routine "ABORT" with call to new internal BUFRLIB routine "BORT"; modified to make Y2K compliant</li>
-<li>1999-11-18 J. Woollen &ndash; The number of BUFR files which can be opened at one time increased from 10 to 32 (necessary in order to process multiple BUFR files under the MPI)</li>
-<li>2003-11-04 J. Ator &ndash; Added documentation</li>
-<li>2003-11-04 S. Bender &ndash; Added remarks and routine interdependencies</li>
-<li>2003-11-04 D. Keyser &ndash; Unified/portable for WRF; added history documentation; outputs more complete diagnostic info when routine terminates abnormally</li>
-<li>2014-12-10 J. Ator &ndash; Use modules instead of COMMON blocks </li>
-</ul>
+<p><b>Program history log:</b> </p>
+<table class="doxtable">
+<tr>
+<th>Date </th><th>Programmer </th><th>Comments  </th></tr>
+<tr>
+<td>1994-01-06 </td><td>J. Woollen </td><td>Original author </td></tr>
+<tr>
+<td>1998-07-08 </td><td>J. Woollen </td><td>Replaced call to Cray library routine "ABORT" with call to new internal routine <a class="el" href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4" title="This subroutine calls subroutine errwrt() to log an error message, then calls subroutine bort_exit() ...">bort()</a>; modified to make Y2K compliant </td></tr>
+<tr>
+<td>1999-11-18 </td><td>J. Woollen </td><td>The number of BUFR files which can be opened at one time increased from 10 to 32 </td></tr>
+<tr>
+<td>2003-11-04 </td><td>J. Ator </td><td>Added documentation </td></tr>
+<tr>
+<td>2003-11-04 </td><td>S. Bender </td><td>Added remarks and routine interdependencies </td></tr>
+<tr>
+<td>2003-11-04 </td><td>D. Keyser </td><td>Unified/portable for WRF; added documentation; outputs more complete diagnostic info when routine terminates abnormally </td></tr>
+<tr>
+<td>2014-12-10 </td><td>J. Ator </td><td>Use modules instead of COMMON blocks </td></tr>
+</table>
 
-<p>Definition at line <a class="el" href="openmg_8f_source.html#l00048">48</a> of file <a class="el" href="openmg_8f_source.html">openmg.f</a>.</p>
+<p>Definition at line <a class="el" href="openmg_8f_source.html#l00041">41</a> of file <a class="el" href="openmg_8f_source.html">openmg.f</a>.</p>
 
 <p>References <a class="el" href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort()</a>, <a class="el" href="closmg_8f.html#a3378111de0136710daec2ded25ed34e4">closmg()</a>, <a class="el" href="i4dy_8f.html#a112153e4ebaab35d9d95d7a29534f48b">i4dy()</a>, <a class="el" href="msgini_8f.html#ae73a0a9e7bba8f7dfeb673f2bca0820b">msgini()</a>, <a class="el" href="nemtba_8f.html#a1038fd60bc3fa89eff9ff79ed996a7e1">nemtba()</a>, <a class="el" href="status_8f.html#a22292e7a69c411a961168198d259f336">status()</a>, <a class="el" href="usrtpl_8f.html#a677bf700a4a6f0626a41921cd66d8ed9">usrtpl()</a>, and <a class="el" href="wtstat_8f.html#a82676f83ff365e03ad827ed5ba0af1ae">wtstat()</a>.</p>
 

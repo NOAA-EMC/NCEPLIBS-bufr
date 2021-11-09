@@ -1,7 +1,7 @@
 var moda__bitbuf_8F =
 [
     [ "moda_bitbuf", "moda__bitbuf_8F.html#classmoda__bitbuf", [
-      [ "ibay", "moda__bitbuf_8F.html#a323a6a16bbaf7f8b573b20c6da2c5a97", null ],
+      [ "ibay", "moda__bitbuf_8F.html#a4910f483014af612d37ea34a1f477434", null ],
       [ "ibit", "moda__bitbuf_8F.html#a8c052fc732472f6f329209ac2db75cf9", null ],
       [ "maxbyt", "moda__bitbuf_8F.html#a53837bd62186cdc39c8062a88e6489d2", null ],
       [ "mbay", "moda__bitbuf_8F.html#a983cdfefb8e99f7ede13ce9f979bea3e", null ],

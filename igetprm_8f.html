@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.5.0</span>
+   &#160;<span id="projectnumber">11.6.0</span>
    </div>
   </td>
  </tr>
@@ -144,7 +144,7 @@ Functions/Subroutines</h2></td></tr>
 <dl class="section date"><dt>Date</dt><dd>2014-12-04</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">CPRMNM</td><td>- character*(*): Parameter<ul>
+    <tr><td class="paramdir">[in]</td><td class="paramname">CPRMNM</td><td>&ndash; character*(*): Parameter<ul>
 <li>'MXMSGL' = Maximum length (in bytes) of a BUFR message</li>
 <li>'MAXSS' = Maximum number of data values in an uncompressed BUFR subset</li>
 <li>'MXCDV' = Maximum number of data values that can be written into a compressed BUFR subset</li>
@@ -174,16 +174,19 @@ Functions/Subroutines</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>igetprm - integer: Value of CPRMNM<ul>
+<dl class="section return"><dt>Returns</dt><dd>igetprm &ndash; integer: Value of CPRMNM<ul>
 <li>-1 = Unknown CPRMNM</li>
 </ul>
 </dd></dl>
-<p><b>Program history log:</b></p>
-<ul>
-<li>2014-12-04 J. Ator &ndash; Original author </li>
-</ul>
+<p><b>Program history log:</b> </p>
+<table class="doxtable">
+<tr>
+<th>Date </th><th>Programmer </th><th>Comments  </th></tr>
+<tr>
+<td>2014-12-04 </td><td>J. Ator </td><td>Original author </td></tr>
+</table>
 
-<p>Definition at line <a class="el" href="igetprm_8f_source.html#l00081">81</a> of file <a class="el" href="igetprm_8f_source.html">igetprm.f</a>.</p>
+<p>Definition at line <a class="el" href="igetprm_8f_source.html#l00083">83</a> of file <a class="el" href="igetprm_8f_source.html">igetprm.f</a>.</p>
 
 <p>References <a class="el" href="errwrt_8f.html#a65626d9a772648676146b62b596c2764">errwrt()</a>.</p>
 

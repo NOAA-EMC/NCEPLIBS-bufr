@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.5.0</span>
+   &#160;<span id="projectnumber">11.6.0</span>
    </div>
   </td>
  </tr>
@@ -112,7 +112,7 @@ $(document).ready(function(){initNavTree('dfbfmstab_8md.html','');});
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;@anchor dfbfmstab</div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;</div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;This document describes the format and concept of master BUFR tables. These are required by the BUFRLIB software</div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;whenever the IO=<span class="stringliteral">&#39;SEC3&#39;</span> option is specified during a call to subroutine <a class="code" href="openbf_8F.html#a9bea9aeada166bd9037b959ca8452b28">openbf</a>() for the reading/decoding of a</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;whenever the IO=<span class="stringliteral">&#39;SEC3&#39;</span> option is specified during a call to subroutine <a class="code" href="openbf_8f.html#a9bea9aeada166bd9037b959ca8452b28">openbf</a>() for the reading/decoding of a</div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;given file of BUFR messages.  Otherwise, if a different value of IO is specified, then only a</div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;[DX BUFR tables](@ref dfbftab) file is normally required, and master BUFR tables are not needed.</div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;</div>
@@ -145,7 +145,7 @@ $(document).ready(function(){initNavTree('dfbfmstab_8md.html','');});
 <div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;</div>
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;Whenever any of the [message-reading subroutines](@ref hierarchy) are used to read a new BUFR message</div>
 <div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;from a Fortran logical unit that was previously opened using subroutine</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<a class="code" href="openbf_8F.html#a9bea9aeada166bd9037b959ca8452b28">openbf</a>() with IO=&#39;SEC3&#39;, the identification section (Section 1) of the message is automatically scanned to</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<a class="code" href="openbf_8f.html#a9bea9aeada166bd9037b959ca8452b28">openbf</a>() with IO=&#39;SEC3&#39;, the identification section (Section 1) of the message is automatically scanned to</div>
 <div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;determine the above values for that message. The BUFRLIB software then automatically generates the four necessary</div>
 <div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;filenames using those values and attempts to open and read each of those files from within the directory that was</div>
 <div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;specified as CMTDIR during the previous call to subroutine <a class="code" href="mtinfo_8f.html#ad95cdae13646faad7b457f7c854bbfc7">mtinfo</a>(). This table information is then retained</div>
@@ -582,8 +582,8 @@ $(document).ready(function(){initNavTree('dfbfmstab_8md.html','');});
 <div class="line"><a name="l00474"></a><span class="lineno">  474</span>&#160;<span class="stringliteral">- [Standard Code/Flag Tables for Master Table 0 (WMO), Version 34](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.CodeFlag_STD_0_34)</span></div>
 <div class="line"><a name="l00475"></a><span class="lineno">  475</span>&#160;<span class="stringliteral">- [Standard Code/Flag Tables for Master Table 0 (WMO), Version 35](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.CodeFlag_STD_0_35)</span></div>
 <div class="line"><a name="l00476"></a><span class="lineno">  476</span>&#160;<span class="stringliteral">- [Local Code/Flag Tables for Master Table 0 (WMO), Originating Center 7 (NCEP), Version 1](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.CodeFlag_LOC_0_7_1)</span></div>
-<div class="ttc" id="mtinfo_8f_html_ad95cdae13646faad7b457f7c854bbfc7"><div class="ttname"><a href="mtinfo_8f.html#ad95cdae13646faad7b457f7c854bbfc7">mtinfo</a></div><div class="ttdeci">subroutine mtinfo(CMTDIR, LUNMT1, LUNMT2)</div><div class="ttdoc">This subroutine allows the specification of the directory location and Fortran logical unit numbers t...</div><div class="ttdef"><b>Definition:</b> <a href="mtinfo_8f_source.html#l00044">mtinfo.f:44</a></div></div>
-<div class="ttc" id="openbf_8F_html_a9bea9aeada166bd9037b959ca8452b28"><div class="ttname"><a href="openbf_8F.html#a9bea9aeada166bd9037b959ca8452b28">openbf</a></div><div class="ttdeci">subroutine openbf(LUNIT, IO, LUNDX)</div><div class="ttdoc">This subroutine connects a new file to the BUFRLIB software for input or output operations. </div><div class="ttdef"><b>Definition:</b> <a href="openbf_8F_source.html#l00157">openbf.F:157</a></div></div>
+<div class="ttc" id="mtinfo_8f_html_ad95cdae13646faad7b457f7c854bbfc7"><div class="ttname"><a href="mtinfo_8f.html#ad95cdae13646faad7b457f7c854bbfc7">mtinfo</a></div><div class="ttdeci">subroutine mtinfo(CMTDIR, LUNMT1, LUNMT2)</div><div class="ttdoc">This subroutine allows the specification of the directory location and Fortran logical unit numbers t...</div><div class="ttdef"><b>Definition:</b> <a href="mtinfo_8f_source.html#l00046">mtinfo.f:46</a></div></div>
+<div class="ttc" id="openbf_8f_html_a9bea9aeada166bd9037b959ca8452b28"><div class="ttname"><a href="openbf_8f.html#a9bea9aeada166bd9037b959ca8452b28">openbf</a></div><div class="ttdeci">subroutine openbf(LUNIT, IO, LUNDX)</div><div class="ttdoc">This subroutine connects a new file to the BUFRLIB software for input or output operations. </div><div class="ttdef"><b>Definition:</b> <a href="openbf_8f_source.html#l00138">openbf.f:138</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.5.0</span>
+   &#160;<span id="projectnumber">11.6.0</span>
    </div>
   </td>
  </tr>
@@ -109,17 +109,19 @@ $(document).ready(function(){initNavTree('hold4wlc_8f.html','');});
 </div><!--header-->
 <div class="contents">
 
+<p>Write a long character string (greater than 8 bytes) to a data subset.  
+<a href="#details">More...</a></p>
+
 <p><a href="hold4wlc_8f_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions/Subroutines</h2></td></tr>
 <tr class="memitem:a1020adebd71f7daed547332a5137b8be"><td class="memItemLeft" align="right" valign="top">subroutine&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hold4wlc_8f.html#a1020adebd71f7daed547332a5137b8be">hold4wlc</a> (LUNIT, CHR, STR)</td></tr>
-<tr class="memdesc:a1020adebd71f7daed547332a5137b8be"><td class="mdescLeft">&#160;</td><td class="mdescRight">NORMALLY, A LONG CHARACTER STRING (I.E.  <a href="#a1020adebd71f7daed547332a5137b8be">More...</a><br/></td></tr>
+<tr class="memdesc:a1020adebd71f7daed547332a5137b8be"><td class="mdescLeft">&#160;</td><td class="mdescRight">This subroutine writes a long character string (greater than 8 bytes) to a data subset.  <a href="#a1020adebd71f7daed547332a5137b8be">More...</a><br/></td></tr>
 <tr class="separator:a1020adebd71f7daed547332a5137b8be"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><dl class="section author"><dt>Author</dt><dd>ATOR </dd></dl>
-<dl class="section date"><dt>Date</dt><dd>2014-02-05 </dd></dl>
+<div class="textblock"><p>Write a long character string (greater than 8 bytes) to a data subset. </p>
 
 <p>Definition in file <a class="el" href="hold4wlc_8f_source.html">hold4wlc.f</a>.</p>
 </div><h2 class="groupheader">Function/Subroutine Documentation</h2>
@@ -153,13 +155,32 @@ Functions/Subroutines</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>NORMALLY, A LONG CHARACTER STRING (I.E. </p>
-<p>LONGER THAN 8 BYTES) IS STORED IN AN UNCOMPRESSED BUFR SUBSET FOR OUTPUT VIA A CALL TO BUFR ARCHIVE LIBRARY SUBROUTINE WRITLC, AT A POINT AFTER THE CALL TO BUFR ARCHIVE LIBRARY SUBROUTINE WRITSB (OR WRITSA) HAS ALREADY BEEN MADE FOR THE SUBSET IN QUESTION. THIS WORKS FINE FOR ALL CASES EXCEPT WHEN WRITSB (OR WRITSA) FLUSHES THE MESSAGE CONTAINING THE SUBSET IN QUESTION TO THE BUFR OUTPUT STREAM DURING THE SAME CALL TO WRITSB (OR WRITSA), SUCH AS WHEN A SUBSET HAS A BYTE COUNT &gt; 65530 BYTES. WHEN THIS HAPPENS, THERE IS NO LONGER ANY WAY FOR A SUBSEQUENT WRITLC CALL TO STORE A LONG CHARACTER STRING IN THE SUBSET, BECAUSE THE SUBSET HAS ALREADY BEEN FLUSHED FROM INTERNAL MEMORY TO THE OUTPUT STREAM. THIS SUBROUTINE GETS AROUND THAT PROBLEM, BY ALLOWING A LONG CHARACTER STRING TO BE SPECIFIED AHEAD OF TIME (I.E. BEFORE CALLING WRITSB OR WRITSB), AND THE CORRESPONDING VALUE WILL BE HELD AND STORED AUTOMATICALLY (VIA AN INTERNAL CALL TO WRITLC) AT THE PROPER TIME DURING THE SUBSEQUENT CALL TO WRITSB (OR WRITSA). IF MULTIPLE LONG CHARACTER STRINGS NEED TO BE STORED IN A SUBSET, THEN A SEPARATE CALL TO THIS SUBROUTINE SHOULD BE MADE FOR EACH SUCH STRING.</p>
-<p>PROGRAM HISTORY LOG: 2014-02-05 J. ATOR &ndash; ORIGINAL AUTHOR</p>
-<p>USAGE: CALL HOLD4WLC(LUNIT,CHR,STR) INPUT ARGUMENT LIST: LUNIT - INTEGER: FORTRAN LOGICAL UNIT NUMBER FOR BUFR FILE CHR - CHARACTER*(*): UNPACKED CHARACTER STRING (I.E., CHARACTER DATA ELEMENT GREATER THAN EIGHT BYTES) STR - CHARACTER*(*): MNEMONIC ASSOCIATED WITH STRING IN CHR</p>
-<p>REMARKS: THIS ROUTINE CALLS: ERRWRT STRSUC THIS ROUTINE IS CALLED BY: None Normally called only by application programs. </p>
+<p>This subroutine writes a long character string (greater than 8 bytes) to a data subset. </p>
+<p>Normally, subroutine <a class="el" href="writlc_8f.html#a7017d5359bb32ce5407499d7a1b16709" title="This subroutine writes a long character string (greater than 8 bytes) to a data subset. ">writlc()</a> is used to write a long character string to a data subset. However, subroutine <a class="el" href="writlc_8f.html#a7017d5359bb32ce5407499d7a1b16709" title="This subroutine writes a long character string (greater than 8 bytes) to a data subset. ">writlc()</a> can only be called <b>after</b> a call to one of the <a class="el" href="md__gpfs_dell2_emc_obsproc_noscrub_Jeff_8Ator_NCEPLIBS-bufr-GitHub_nceplibs-bufr_docs_UserGuide.html#hierarchy">subset-writing subroutines</a>, so it will not work for cases when one of those subroutines flushes the message containing the data subset in question to logical unit LUNIT during the same call to that subroutine, such as when the data subset contains more than 65530 bytes. When this happens, there is no longer any way for a subsequent <a class="el" href="writlc_8f.html#a7017d5359bb32ce5407499d7a1b16709" title="This subroutine writes a long character string (greater than 8 bytes) to a data subset. ">writlc()</a> call to write a long character string into that data subset, because the data subset has already been flushed from internal memory. This subroutine solves that problem, by allowing a long character string to be specified <b>before</b> calling one of the <a class="el" href="md__gpfs_dell2_emc_obsproc_noscrub_Jeff_8Ator_NCEPLIBS-bufr-GitHub_nceplibs-bufr_docs_UserGuide.html#hierarchy">subset-writing subroutines</a>, and the string value will be held and stored automatically (via an internal call to subroutine <a class="el" href="writlc_8f.html#a7017d5359bb32ce5407499d7a1b16709" title="This subroutine writes a long character string (greater than 8 bytes) to a data subset. ">writlc()</a>) at the proper time during the subsequent call to the <a class="el" href="md__gpfs_dell2_emc_obsproc_noscrub_Jeff_8Ator_NCEPLIBS-bufr-GitHub_nceplibs-bufr_docs_UserGuide.html#hierarchy">subset-writing subroutines</a>.</p>
+<dl class="section author"><dt>Author</dt><dd>J. Ator </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2014-02-05</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">LUNIT</td><td>&ndash; integer: Fortran logical unit number for BUFR file </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">CHR</td><td>&ndash; character*(*): Value corresponding to STR </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">STR</td><td>&ndash; character*(*): Table B mnemonic of long character string to be written, possibly supplemented with an ordinal occurrence notation</td></tr>
+  </table>
+  </dd>
+</dl>
+<p>If there is more than one occurrence of STR within the data subset definition, then each occurrence can be written via a separate call to this subroutine, and by appending the ordinal number of the occurrence to STR in each case. For example, if there are 5 occurrences of mnemonic LSTID within a given data subset definition, then 5 separate calls should be made to this subroutine, once each with STR set to 'LSTID#1', 'LSTID#2', 'LSTID#3', 'LSTID#4' and 'LSTID#5'. However, the first notation is superfluous, because omitting the ordinal number always defaults to the first occurrence of a particular string, so a user could just specify 'LSTID' instead of 'LSTID#1'.</p>
+<dl class="section remark"><dt>Remarks</dt><dd><ul>
+<li>Character strings which are 8 bytes or less in length can be written by converting the string into a real*8 value within the application program, and then using the real*8 USR array within a call to one of the BUFRLIB <a class="el" href="md__gpfs_dell2_emc_obsproc_noscrub_Jeff_8Ator_NCEPLIBS-bufr-GitHub_nceplibs-bufr_docs_UserGuide.html#hierarchy">values-writing subroutines</a> prior to calling one of the <a class="el" href="md__gpfs_dell2_emc_obsproc_noscrub_Jeff_8Ator_NCEPLIBS-bufr-GitHub_nceplibs-bufr_docs_UserGuide.html#hierarchy">subset-writing subroutines</a> for the data subset.</li>
+</ul>
+</dd></dl>
+<p><b>Program history log:</b> </p>
+<table class="doxtable">
+<tr>
+<th>Date </th><th>Programmer </th><th>Comments  </th></tr>
+<tr>
+<td>2014-02-05 </td><td>J. Ator </td><td>Original author </td></tr>
+</table>
 
-<p>Definition at line <a class="el" href="hold4wlc_8f_source.html#l00040">40</a> of file <a class="el" href="hold4wlc_8f_source.html">hold4wlc.f</a>.</p>
+<p>Definition at line <a class="el" href="hold4wlc_8f_source.html#l00062">62</a> of file <a class="el" href="hold4wlc_8f_source.html">hold4wlc.f</a>.</p>
 
 <p>References <a class="el" href="errwrt_8f.html#a65626d9a772648676146b62b596c2764">errwrt()</a>, and <a class="el" href="strsuc_8f.html#a0ad7f0b59d89e0bdd1e9d73947b19e7e">strsuc()</a>.</p>
 

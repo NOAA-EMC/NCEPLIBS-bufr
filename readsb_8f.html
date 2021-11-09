@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.5.0</span>
+   &#160;<span id="projectnumber">11.6.0</span>
    </div>
   </td>
  </tr>
@@ -154,8 +154,8 @@ Functions/Subroutines</h2></td></tr>
 <dl class="section date"><dt>Date</dt><dd>1994-01-06</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">LUNIT</td><td>- integer: Fortran logical unit number for BUFR file </td></tr>
-    <tr><td class="paramdir">[out]</td><td class="paramname">IRET</td><td>- integer: return code<ul>
+    <tr><td class="paramdir">[in]</td><td class="paramname">LUNIT</td><td>&ndash; integer: Fortran logical unit number for BUFR file </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">IRET</td><td>&ndash; integer: return code<ul>
 <li>0 = new BUFR data subset was successfully read into internal arrays</li>
 <li>-1 = there are no more BUFR data subsets in the BUFR message</li>
 </ul>
@@ -163,22 +163,33 @@ Functions/Subroutines</h2></td></tr>
   </table>
   </dd>
 </dl>
-<p>Logical unit LUNIT should have already been opened for input operations via a previous call to subroutine <a class="el" href="openbf_8F.html#a9bea9aeada166bd9037b959ca8452b28" title="This subroutine connects a new file to the BUFRLIB software for input or output operations. ">openbf()</a>, and a BUFR message should have already been read into internal arrays via a previous call to one of the <a class="el" href="md__gpfs_dell2_emc_obsproc_noscrub_Jeff_8Ator_NCEPLIBS-bufr-GitHub_nceplibs-bufr_docs_UserGuide.html#hierarchy">message-reading subroutines</a>.</p>
+<p>Logical unit LUNIT should have already been opened for input operations via a previous call to subroutine <a class="el" href="openbf_8f.html#a9bea9aeada166bd9037b959ca8452b28" title="This subroutine connects a new file to the BUFRLIB software for input or output operations. ">openbf()</a>, and a BUFR message should have already been read into internal arrays via a previous call to one of the <a class="el" href="md__gpfs_dell2_emc_obsproc_noscrub_Jeff_8Ator_NCEPLIBS-bufr-GitHub_nceplibs-bufr_docs_UserGuide.html#hierarchy">message-reading subroutines</a>.</p>
 <p>Whenever this subroutine returns with IRET = 0, this indicates that a new BUFR data subset (i.e. report) was successfully read into internal arrays within the BUFRLIB software, and from where it can then be easily manipulated or further parsed via calls to any of the <a class="el" href="md__gpfs_dell2_emc_obsproc_noscrub_Jeff_8Ator_NCEPLIBS-bufr-GitHub_nceplibs-bufr_docs_UserGuide.html#hierarchy">values-reading subroutines</a>. Otherwise, if the subroutine returns with IRET = -1, then this indicates that there are no more data subsets available within the current message, and therefore that a new call needs to be made to one of the <a class="el" href="md__gpfs_dell2_emc_obsproc_noscrub_Jeff_8Ator_NCEPLIBS-bufr-GitHub_nceplibs-bufr_docs_UserGuide.html#hierarchy">message-reading subroutines</a> in order to read in the next message from logical unit LUNIT.</p>
-<p><b>Program history log:</b></p>
-<ul>
-<li>1994-01-06 J. Woollen &ndash; Original author</li>
-<li>1998-07-08 J. Woollen &ndash; Replaced call to Cray library routine "ABORT" with call to new internal BUFRLIB routine "BORT"</li>
-<li>1999-11-18 J. Woollen &ndash; The number of BUFR files which can be opened at one time increased from 10 to 32 (necessary in order to process multiple BUFR files under the MPI)</li>
-<li>2000-09-19 J. Woollen &ndash; Added call to new routine <a class="el" href="rdcmps_8f.html#a4592f4f71832d5bc80939cfd8095ad09" title="THIS SUBROUTINE UNCOMPRESSES AND UNPACKS THE NEXT SUBSET FROM THE INTERNAL COMPRESSED MESSAGE BUFFER ...">rdcmps()</a> allowing subsets to also be decoded from compressed BUFR messages; maximum length increased from 10,000 to 20,000 bytes</li>
-<li>2002-05-14 J. Woollen &ndash; Corrected error relating to certain foreign file types; removed old Cray compiler directives</li>
-<li>2003-11-04 S. Bender &ndash; Added remarks and routine interdependencies</li>
-<li>2003-11-04 D. Keyser &ndash; Unified/portable for WRF; added history documentation; outputs more complete diagnostic info when routine terminates abnormally</li>
-<li>2004-08-09 J. Ator &ndash; Maximum message length increased from 20,000 to 50,000 bytes</li>
-<li>2014-12-10 J. Ator &ndash; Use modules instead of COMMON blocks </li>
-</ul>
+<p><b>Program history log:</b> </p>
+<table class="doxtable">
+<tr>
+<th>Date </th><th>Programmer </th><th>Comments  </th></tr>
+<tr>
+<td>1994-01-06 </td><td>J. Woollen </td><td>Original author </td></tr>
+<tr>
+<td>1998-07-08 </td><td>J. Woollen </td><td>Replaced call to Cray library routine "ABORT" with call to new internal routine <a class="el" href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4" title="This subroutine calls subroutine errwrt() to log an error message, then calls subroutine bort_exit() ...">bort()</a> </td></tr>
+<tr>
+<td>1999-11-18 </td><td>J. Woollen </td><td>The number of BUFR files which can be opened at one time increased from 10 to 32 </td></tr>
+<tr>
+<td>2000-09-19 </td><td>J. Woollen </td><td>Added call to new routine <a class="el" href="rdcmps_8f.html#a4592f4f71832d5bc80939cfd8095ad09" title="THIS SUBROUTINE UNCOMPRESSES AND UNPACKS THE NEXT SUBSET FROM THE INTERNAL COMPRESSED MESSAGE BUFFER ...">rdcmps()</a> allowing subsets to also be decoded from compressed BUFR messages; maximum length increased from 10,000 to 20,000 bytes </td></tr>
+<tr>
+<td>2002-05-14 </td><td>J. Woollen </td><td>Corrected error relating to certain foreign file types; removed old Cray compiler directives </td></tr>
+<tr>
+<td>2003-11-04 </td><td>S. Bender </td><td>Added remarks and routine interdependencies </td></tr>
+<tr>
+<td>2003-11-04 </td><td>D. Keyser </td><td>Unified/portable for WRF; added documentation; outputs more complete diagnostic info when routine terminates abnormally </td></tr>
+<tr>
+<td>2004-08-09 </td><td>J. Ator </td><td>Maximum message length increased from 20,000 to 50,000 bytes </td></tr>
+<tr>
+<td>2014-12-10 </td><td>J. Ator </td><td>Use modules instead of COMMON blocks </td></tr>
+</table>
 
-<p>Definition at line <a class="el" href="readsb_8f_source.html#l00059">59</a> of file <a class="el" href="readsb_8f_source.html">readsb.f</a>.</p>
+<p>Definition at line <a class="el" href="readsb_8f_source.html#l00047">47</a> of file <a class="el" href="readsb_8f_source.html">readsb.f</a>.</p>
 
 <p>References <a class="el" href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort()</a>, <a class="el" href="rdcmps_8f.html#a4592f4f71832d5bc80939cfd8095ad09">rdcmps()</a>, <a class="el" href="rdtree_8f.html#a517c48e080eadc5e9a88fff47ffe4c34">rdtree()</a>, <a class="el" href="status_8f.html#a22292e7a69c411a961168198d259f336">status()</a>, and <a class="el" href="upb_8f.html#aae09b58b06877db63e95889f67c146c0">upb()</a>.</p>
 

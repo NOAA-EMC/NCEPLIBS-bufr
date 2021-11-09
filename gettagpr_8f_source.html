@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.5.0</span>
+   &#160;<span id="projectnumber">11.6.0</span>
    </div>
   </td>
  </tr>
@@ -117,19 +117,19 @@ $(document).ready(function(){initNavTree('gettagpr_8f_source.html','');});
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="comment">C&gt; @author J. Ator</span></div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="comment">C&gt; @date 2012-09-12</span></div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="comment">C&gt;</span></div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="comment">C&gt; @param[in] LUNIT  - integer: Fortran logical unit number for</span></div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="comment">C&gt;                     BUFR file</span></div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment">C&gt; @param[in] TAGCH  - character*(*): Table B or Table D mnemonic</span></div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="comment">C&gt; @param[in] NTAGCH - integer: Ordinal occurrence of TAGCH for</span></div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="comment">C&gt;                     which the parent Table D mnemonic is to be</span></div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="comment">C&gt;                     returned, counting from the beginning of the</span></div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="comment">C&gt;                     overall subset definition</span></div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment">C&gt; @param[out] TAGPR - character*(*): Table D mnemonic corresponding</span></div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="comment">C&gt;                     to parent sequence of (NTAGCH)th occurrence</span></div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="comment">C&gt;                     of TAGCH</span></div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="comment">C&gt; @param[out] IRET  - integer: return code</span></div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="comment">C&gt;                     - 0 = normal return</span></div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="comment">C&gt;                     - -1 = TAGPR could not be found, or some</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="comment">C&gt; @param[in] LUNIT  -- integer: Fortran logical unit number for</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="comment">C&gt;                      BUFR file</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment">C&gt; @param[in] TAGCH  -- character*(*): Table B or Table D mnemonic</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="comment">C&gt; @param[in] NTAGCH -- integer: Ordinal occurrence of TAGCH for</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="comment">C&gt;                      which the parent Table D mnemonic is to be</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="comment">C&gt;                      returned, counting from the beginning of the</span></div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="comment">C&gt;                      overall subset definition</span></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment">C&gt; @param[out] TAGPR -- character*(*): Table D mnemonic corresponding</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="comment">C&gt;                      to parent sequence of (NTAGCH)th occurrence</span></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="comment">C&gt;                      of TAGCH</span></div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="comment">C&gt; @param[out] IRET  -- integer: return code</span></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="comment">C&gt;                      - 0 = normal return</span></div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="comment">C&gt;                      - -1 = TAGPR could not be found, or some</span></div>
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="comment">C&gt;                            other error occurred</span></div>
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="comment">C&gt;</span></div>
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="comment">C&gt; &lt;p&gt;A data subset must already be in scope within the BUFRLIB</span></div>
@@ -140,41 +140,43 @@ $(document).ready(function(){initNavTree('gettagpr_8f_source.html','');});
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="comment">C&gt; (when writing BUFR data subsets).</span></div>
 <div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="comment">C&gt;</span></div>
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="comment">C&gt; &lt;b&gt;Program history log:&lt;/b&gt;</span></div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="comment">C&gt; - 2012-09-12  J. Ator    -- Original author</span></div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="comment">C&gt; - 2014-10-02  J. Ator    -- Modified to use fstag()</span></div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="comment">C&gt; - 2014-12-10  J. Ator    -- Use modules instead of COMMON blocks</span></div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="comment">C&gt;</span></div>
-<div class="line"><a name="l00039"></a><span class="lineno"><a class="line" href="gettagpr_8f.html#adf81053de34a8bebe6d486f688de5a66">   39</a></span>&#160;<span class="keyword">    SUBROUTINE </span><a class="code" href="gettagpr_8f.html#adf81053de34a8bebe6d486f688de5a66">gettagpr</a> ( LUNIT, TAGCH, NTAGCH, TAGPR, IRET )</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <span class="keywordtype">USE </span><a class="code" href="classmoda__usrint.html">moda_usrint</a></div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <span class="keywordtype">USE </span><a class="code" href="classmoda__msgcwd.html">moda_msgcwd</a></div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <span class="keywordtype">USE </span><a class="code" href="moda__tables_8F.html#classmoda__tables">moda_tables</a></div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <span class="keywordtype">CHARACTER*(*)</span> tagch, tagpr</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="comment">C&gt; | Date | Programmer | Comments |</span></div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="comment">C&gt; | -----|------------|----------|</span></div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="comment">C&gt; | 2012-09-12 | J. Ator | Original author |</span></div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="comment">C&gt; | 2014-10-02 | J. Ator | Modified to use fstag() |</span></div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="comment">C&gt; | 2014-12-10 | J. Ator | Use modules instead of COMMON blocks |</span></div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="comment">C&gt;</span></div>
+<div class="line"><a name="l00041"></a><span class="lineno"><a class="line" href="gettagpr_8f.html#adf81053de34a8bebe6d486f688de5a66">   41</a></span>&#160;<span class="keyword">    SUBROUTINE </span><a class="code" href="gettagpr_8f.html#adf81053de34a8bebe6d486f688de5a66">gettagpr</a> ( LUNIT, TAGCH, NTAGCH, TAGPR, IRET )</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <span class="keywordtype">USE </span><a class="code" href="classmoda__usrint.html">moda_usrint</a></div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <span class="keywordtype">USE </span><a class="code" href="classmoda__msgcwd.html">moda_msgcwd</a></div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <span class="keywordtype">USE </span><a class="code" href="moda__tables_8F.html#classmoda__tables">moda_tables</a></div>
 <div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;<span class="comment">C----------------------------------------------------------------------</span></div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<span class="comment">C----------------------------------------------------------------------</span></div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    iret = -1</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <span class="keywordtype">CHARACTER*(*)</span> tagch, tagpr</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<span class="comment">C----------------------------------------------------------------------</span></div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;<span class="comment">C----------------------------------------------------------------------</span></div>
 <div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="comment">C   Get LUN from LUNIT.</span></div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    iret = -1</div>
 <div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    CALL <a class="code" href="status_8f.html#a22292e7a69c411a961168198d259f336">status</a>( lunit, lun, il, im )</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    <span class="keywordflow">IF</span> ( il .EQ. 0 ) <span class="keywordflow">RETURN</span></div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <span class="keywordflow">IF</span> ( inode(lun) .NE. inv(1,lun) ) <span class="keywordflow">RETURN</span></div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;<span class="comment">C   Get TAGPR from the (NTAGCH)th occurrence of TAGCH.</span></div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;<span class="comment">C   Get LUN from LUNIT.</span></div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    CALL <a class="code" href="status_8f.html#a22292e7a69c411a961168198d259f336">status</a>( lunit, lun, il, im )</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    <span class="keywordflow">IF</span> ( il .EQ. 0 ) <span class="keywordflow">RETURN</span></div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    <span class="keywordflow">IF</span> ( inode(lun) .NE. inv(1,lun) ) <span class="keywordflow">RETURN</span></div>
 <div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    CALL <a class="code" href="fstag_8f.html#a4086d332625381684867dd7ec13a20e5">fstag</a>( lun, tagch, ntagch, 1, nch, iret )</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    <span class="keywordflow">IF</span> ( iret .NE. 0 ) <span class="keywordflow">RETURN</span></div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    tagpr = tag(jmpb(inv(nch,lun)))</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;<span class="comment">C   Get TAGPR from the (NTAGCH)th occurrence of TAGCH.</span></div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    CALL <a class="code" href="fstag_8f.html#a4086d332625381684867dd7ec13a20e5">fstag</a>( lun, tagch, ntagch, 1, nch, iret )</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    <span class="keywordflow">IF</span> ( iret .NE. 0 ) <span class="keywordflow">RETURN</span></div>
 <div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    <span class="keywordflow">RETURN</span></div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    <span class="keywordflow">END</span></div>
-<div class="ttc" id="gettagpr_8f_html_adf81053de34a8bebe6d486f688de5a66"><div class="ttname"><a href="gettagpr_8f.html#adf81053de34a8bebe6d486f688de5a66">gettagpr</a></div><div class="ttdeci">subroutine gettagpr(LUNIT, TAGCH, NTAGCH, TAGPR, IRET)</div><div class="ttdoc">This subroutine returns the Table D mnemonic corresponding to the parent sequence of a specified Tabl...</div><div class="ttdef"><b>Definition:</b> <a href="gettagpr_8f_source.html#l00039">gettagpr.f:39</a></div></div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    tagpr = tag(jmpb(inv(nch,lun)))</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    <span class="keywordflow">RETURN</span></div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    <span class="keywordflow">END</span></div>
+<div class="ttc" id="gettagpr_8f_html_adf81053de34a8bebe6d486f688de5a66"><div class="ttname"><a href="gettagpr_8f.html#adf81053de34a8bebe6d486f688de5a66">gettagpr</a></div><div class="ttdeci">subroutine gettagpr(LUNIT, TAGCH, NTAGCH, TAGPR, IRET)</div><div class="ttdoc">This subroutine returns the Table D mnemonic corresponding to the parent sequence of a specified Tabl...</div><div class="ttdef"><b>Definition:</b> <a href="gettagpr_8f_source.html#l00041">gettagpr.f:41</a></div></div>
 <div class="ttc" id="moda__tables_8F_html_classmoda__tables"><div class="ttname"><a href="moda__tables_8F.html#classmoda__tables">moda_tables</a></div><div class="ttdoc">This module contains array and variable declarations used to store the internal jump/link table...</div><div class="ttdef"><b>Definition:</b> <a href="moda__tables_8F_source.html#l00013">moda_tables.F:13</a></div></div>
-<div class="ttc" id="status_8f_html_a22292e7a69c411a961168198d259f336"><div class="ttname"><a href="status_8f.html#a22292e7a69c411a961168198d259f336">status</a></div><div class="ttdeci">subroutine status(LUNIT, LUN, IL, IM)</div><div class="ttdoc">This subroutine checks whether a specified Fortran logical unit number is currently connected to the ...</div><div class="ttdef"><b>Definition:</b> <a href="status_8f_source.html#l00061">status.f:61</a></div></div>
+<div class="ttc" id="status_8f_html_a22292e7a69c411a961168198d259f336"><div class="ttname"><a href="status_8f.html#a22292e7a69c411a961168198d259f336">status</a></div><div class="ttdeci">subroutine status(LUNIT, LUN, IL, IM)</div><div class="ttdoc">This subroutine checks whether a specified Fortran logical unit number is currently connected to the ...</div><div class="ttdef"><b>Definition:</b> <a href="status_8f_source.html#l00055">status.f:55</a></div></div>
 <div class="ttc" id="classmoda__usrint_html"><div class="ttname"><a href="classmoda__usrint.html">moda_usrint</a></div><div class="ttdef"><b>Definition:</b> <a href="moda__usrint_8F_source.html#l00001">moda_usrint.F:1</a></div></div>
 <div class="ttc" id="classmoda__msgcwd_html"><div class="ttname"><a href="classmoda__msgcwd.html">moda_msgcwd</a></div><div class="ttdef"><b>Definition:</b> <a href="moda__msgcwd_8F_source.html#l00001">moda_msgcwd.F:1</a></div></div>
 <div class="ttc" id="fstag_8f_html_a4086d332625381684867dd7ec13a20e5"><div class="ttname"><a href="fstag_8f.html#a4086d332625381684867dd7ec13a20e5">fstag</a></div><div class="ttdeci">subroutine fstag(LUN, UTAG, NUTAG, NIN, NOUT, IRET)</div><div class="ttdoc">THIS SUBROUTINE FINDS THE (NUTAG)th OCCURRENCE OF MNEMONIC UTAG WITHIN THE CURRENT OVERALL SUBSET DEF...</div><div class="ttdef"><b>Definition:</b> <a href="fstag_8f_source.html#l00040">fstag.f:40</a></div></div>

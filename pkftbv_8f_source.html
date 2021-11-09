@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.5.0</span>
+   &#160;<span id="projectnumber">11.6.0</span>
    </div>
   </td>
  </tr>
@@ -119,10 +119,10 @@ $(document).ready(function(){initNavTree('pkftbv_8f_source.html','');});
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="comment">C&gt; @author J. Ator</span></div>
 <div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="comment">C&gt; @date 2005-11-29</span></div>
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="comment">C&gt;</span></div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment">C&gt; @param[in] NBITS  - integer: Total number of bits in flag table</span></div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="comment">C&gt; @param[in] IBIT   - integer: Number of bit to be set</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment">C&gt; @param[in] NBITS -- integer: Total number of bits in flag table</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="comment">C&gt; @param[in] IBIT  -- integer: Number of bit to be set</span></div>
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="comment">C&gt;</span></div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="comment">C&gt; @returns pkftbv   - real*8: Value equivalent to the setting of</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="comment">C&gt; @returns pkftbv  -- real*8: Value equivalent to the setting of</span></div>
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="comment">C&gt;                     bit #IBIT within a flag table of NBITS bits</span></div>
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment">C&gt;</span></div>
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="comment">C&gt; @remarks</span></div>
@@ -132,24 +132,26 @@ $(document).ready(function(){initNavTree('pkftbv_8f_source.html','');});
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="comment">C&gt; (i.e. most significant) bit in any bit field.</span></div>
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="comment">C&gt;</span></div>
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="comment">C&gt; &lt;b&gt;Program history log:&lt;/b&gt;</span></div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="comment">C&gt; - 2005-11-29  J. Ator    -- Original version</span></div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="comment">C&gt;</span></div>
-<div class="line"><a name="l00029"></a><span class="lineno"><a class="line" href="pkftbv_8f.html#a7a3cf05589decb31f83a7c21eba3879c">   29</a></span>&#160;<span class="keyword">      REAL*8 </span><span class="keyword">FUNCTION </span><a class="code" href="pkftbv_8f.html#a7a3cf05589decb31f83a7c21eba3879c">pkftbv</a>(NBITS,IBIT)</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;      <span class="keywordtype">USE </span><a class="code" href="modv__BMISS_8f90.html#classmodv__bmiss">modv_bmiss</a></div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="comment">C&gt; | Date | Programmer | Comments |</span></div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="comment">C&gt; | -----|------------|----------|</span></div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="comment">C&gt; | 2005-11-29 | J. Ator | Original version |</span></div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="comment">C&gt;</span></div>
+<div class="line"><a name="l00031"></a><span class="lineno"><a class="line" href="pkftbv_8f.html#a7a3cf05589decb31f83a7c21eba3879c">   31</a></span>&#160;<span class="keyword">      REAL*8 </span><span class="keyword">FUNCTION </span><a class="code" href="pkftbv_8f.html#a7a3cf05589decb31f83a7c21eba3879c">pkftbv</a>(NBITS,IBIT)</div>
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="comment">C----------------------------------------------------------------------</span></div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="comment">C----------------------------------------------------------------------</span></div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;      <span class="keywordflow">IF</span>((nbits.LE.0).OR.(ibit.LE.0).OR.(ibit.GT.nbits)) <span class="keywordflow">THEN</span></div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;          <a class="code" href="pkftbv_8f.html#a7a3cf05589decb31f83a7c21eba3879c">pkftbv</a> = bmiss</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;      <span class="keywordflow">ELSE</span></div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;          <a class="code" href="pkftbv_8f.html#a7a3cf05589decb31f83a7c21eba3879c">pkftbv</a> = (2.)**(nbits-ibit)</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;      <span class="keywordflow">ENDIF</span></div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;      <span class="keywordflow">RETURN</span></div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;      <span class="keywordflow">END</span></div>
-<div class="ttc" id="pkftbv_8f_html_a7a3cf05589decb31f83a7c21eba3879c"><div class="ttname"><a href="pkftbv_8f.html#a7a3cf05589decb31f83a7c21eba3879c">pkftbv</a></div><div class="ttdeci">REAL *8 function pkftbv(NBITS, IBIT)</div><div class="ttdoc">This function computes the numerical value equivalent to the setting of bit #IBIT within a flag table...</div><div class="ttdef"><b>Definition:</b> <a href="pkftbv_8f_source.html#l00029">pkftbv.f:29</a></div></div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;      <span class="keywordtype">USE </span><a class="code" href="modv__BMISS_8f90.html#classmodv__bmiss">modv_bmiss</a></div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="comment">C----------------------------------------------------------------------</span></div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="comment">C----------------------------------------------------------------------</span></div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;      <span class="keywordflow">IF</span>((nbits.LE.0).OR.(ibit.LE.0).OR.(ibit.GT.nbits)) <span class="keywordflow">THEN</span></div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;          <a class="code" href="pkftbv_8f.html#a7a3cf05589decb31f83a7c21eba3879c">pkftbv</a> = bmiss</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;      <span class="keywordflow">ELSE</span></div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;          <a class="code" href="pkftbv_8f.html#a7a3cf05589decb31f83a7c21eba3879c">pkftbv</a> = (2.)**(nbits-ibit)</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;      <span class="keywordflow">ENDIF</span></div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;      <span class="keywordflow">RETURN</span></div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;      <span class="keywordflow">END</span></div>
+<div class="ttc" id="pkftbv_8f_html_a7a3cf05589decb31f83a7c21eba3879c"><div class="ttname"><a href="pkftbv_8f.html#a7a3cf05589decb31f83a7c21eba3879c">pkftbv</a></div><div class="ttdeci">REAL *8 function pkftbv(NBITS, IBIT)</div><div class="ttdoc">This function computes the numerical value equivalent to the setting of bit #IBIT within a flag table...</div><div class="ttdef"><b>Definition:</b> <a href="pkftbv_8f_source.html#l00031">pkftbv.f:31</a></div></div>
 <div class="ttc" id="modv__BMISS_8f90_html_classmodv__bmiss"><div class="ttname"><a href="modv__BMISS_8f90.html#classmodv__bmiss">modv_bmiss</a></div><div class="ttdoc">This module declares and initializes the BMISS variable. </div><div class="ttdef"><b>Definition:</b> <a href="modv__BMISS_8f90_source.html#l00009">modv_BMISS.f90:9</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->

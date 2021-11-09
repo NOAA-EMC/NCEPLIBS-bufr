@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.5.0</span>
+   &#160;<span id="projectnumber">11.6.0</span>
    </div>
   </td>
  </tr>
@@ -154,12 +154,12 @@ Functions/Subroutines</h2></td></tr>
 <dl class="section date"><dt>Date</dt><dd>2012-06-07</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">STR</td><td>- character*(*): String </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">LSTR</td><td>- integer: Length of string, i.e. number of characters within STR to be tested</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">STR</td><td>&ndash; character*(*): String </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">LSTR</td><td>&ndash; integer: Length of string, i.e. number of characters within STR to be tested </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>icbfms - integer:<ul>
+<dl class="section return"><dt>Returns</dt><dd>icbfms &ndash; integer:<ul>
 <li>0 = STR is not "missing"</li>
 <li>1 = STR is "missing"</li>
 </ul>
@@ -168,12 +168,17 @@ Functions/Subroutines</h2></td></tr>
 <li>The use of an integer return code allows this function to be called in a logical context from application programs written in C as well as in Fortran.</li>
 </ul>
 </dd></dl>
-<p><b>Program history log:</b></p>
-<ul>
-<li>2012-06-07 J. Ator &ndash; Original author</li>
-<li>2015-03-10 J. Woollen &ndash; Improved logic for testing legacy cases prior to BUFRLIB V10.2.0</li>
-<li>2016-02-12 J. Ator &ndash; Modified for CRAYFTN compatibility </li>
-</ul>
+<p><b>Program history log:</b> </p>
+<table class="doxtable">
+<tr>
+<th>Date </th><th>Programmer </th><th>Comments  </th></tr>
+<tr>
+<td>2012-06-07 </td><td>J. Ator </td><td>Original author </td></tr>
+<tr>
+<td>2015-03-10 </td><td>J. Woollen </td><td>Improved logic for testing legacy cases prior to BUFRLIB V10.2.0 </td></tr>
+<tr>
+<td>2016-02-12 </td><td>J. Ator </td><td>Modified for CRAYFTN compatibility </td></tr>
+</table>
 
 <p>Definition at line <a class="el" href="icbfms_8f_source.html#l00031">31</a> of file <a class="el" href="icbfms_8f_source.html">icbfms.f</a>.</p>
 

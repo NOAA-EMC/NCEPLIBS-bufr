@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.5.0</span>
+   &#160;<span id="projectnumber">11.6.0</span>
    </div>
   </td>
  </tr>
@@ -190,14 +190,14 @@ Functions/Subroutines</h2></td></tr>
 <dl class="section date"><dt>Date</dt><dd>2018-01-11</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">LUNIT</td><td>- integer: Fortran logical unit number for BUFR file </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">NEMOI</td><td>- character*(*): Mnemonic to search for </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">IVALI</td><td>- integer: Value (code figure or bit number) associated with NEMOI </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">NEMOD</td><td>- character*(*): Optional second mnemonic upon which the values NEMOI and IVALI depend; set to all blank characters if the meanings of NEMOI and IVALI do not depend on the value of any other mnemonic </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">IVALD</td><td>- integer: Value (code figure or bit number) associated with NEMOD; set to (-1) whenever NEMOD is set to all blank characters </td></tr>
-    <tr><td class="paramdir">[out]</td><td class="paramname">CMEANG</td><td>- character*(*): If the initial search of the master Code/Flag tables was successful, then this string contains the meaning corresponding to NEMOI and IVALI (and to NEMOD and IVALD, if specified). However, if the initial search was unsuccessful, <b>and</b> if no optional second mnemonic and associated value were specified on input, <b>and</b> if a second search of the table determines that the meaning of NEMOI and IVALI indeed depends on one or more other possible second mnemonics, then those possible second series of IRET successive 8-byte substrings. An example of this scenario is included below within the Remarks. </td></tr>
-    <tr><td class="paramdir">[out]</td><td class="paramname">LNMNG</td><td>- integer: Length (in bytes) of string returned in CMEANG </td></tr>
-    <tr><td class="paramdir">[out]</td><td class="paramname">IRET</td><td>- integer: return code<ul>
+    <tr><td class="paramdir">[in]</td><td class="paramname">LUNIT</td><td>&ndash; integer: Fortran logical unit number for BUFR file </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">NEMOI</td><td>&ndash; character*(*): Mnemonic to search for </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">IVALI</td><td>&ndash; integer: Value (code figure or bit number) associated with NEMOI </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">NEMOD</td><td>&ndash; character*(*): Optional second mnemonic upon which the values NEMOI and IVALI depend; set to all blank characters if the meanings of NEMOI and IVALI do not depend on the value of any other mnemonic </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">IVALD</td><td>&ndash; integer: Value (code figure or bit number) associated with NEMOD; set to (-1) whenever NEMOD is set to all blank characters </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">CMEANG</td><td>&ndash; character*(*): If the initial search of the master Code/Flag tables was successful, then this string contains the meaning corresponding to NEMOI and IVALI (and to NEMOD and IVALD, if specified). However, if the initial search was unsuccessful, <b>and</b> if no optional second mnemonic and associated value were specified on input, <b>and</b> if a second search of the table determines that the meaning of NEMOI and IVALI indeed depends on one or more other possible second mnemonics, then those possible second series of IRET successive 8-byte substrings. An example of this scenario is included below within the Remarks. </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">LNMNG</td><td>&ndash; integer: Length (in bytes) of string returned in CMEANG </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">IRET</td><td>&ndash; integer: return code<ul>
 <li>0 = meaning found and stored in CMEANG string</li>
 <li>-1 = meaning not found</li>
 <li>&gt;0 = meaning not found, <b>and</b> NEMOD and IVALD were not specified on input, <b>and</b> the meaning of NEMOI and IVALI depends on the value of one of the mnemonics stored in the first IRET 8-byte substrings of CMEANG</li>
@@ -214,15 +214,19 @@ Functions/Subroutines</h2></td></tr>
 <li>An example of when secondary mnemonics NEMOD and IVALD would be required is when a user is searching for the meaning of a numerical code table value for an originating sub-center (i.e. mnemonic GSES). The meaning of any originating sub-center value depends on the identity of the originating center for which the sub-center in question is a member, so in order for the subroutine to locate and return the proper one, information about the originating center must also be provided. So in this case the user would input GSES and the associated numerical value as NEMOI and IVALI, respectively, but the user would also need to specify an appropriate originating center mnemonic (e.g. GCLONG, OGCE or ORIGC) and associated value from the same BUFR message as input parameters NEMOD and IVALD, respectively, and then the subroutine will be able to locate and return the appropriate meaning string. Otherwise, if this information was not provided, the subroutine would return with an IRET value of 3, and with each of the mnemonics GCLONG, OGCE and ORIGC contained in successive 8-byte substrings of CMEANG (and with a corresponding value of 24 returned for LNMNG), as a hint to the user that more information needs to be input to the subroutine in order to achieve the desired result.</li>
 </ul>
 </dd></dl>
-<p><b>Program history log:</b></p>
-<ul>
-<li>2018-01-11 J. Ator &ndash; Original author</li>
-<li>2018-02-08 J. Ator &ndash; Add special handling for data types and subtypes in Section 1 </li>
-</ul>
+<p><b>Program history log:</b> </p>
+<table class="doxtable">
+<tr>
+<th>Date </th><th>Programmer </th><th>Comments  </th></tr>
+<tr>
+<td>2018-01-11 </td><td>J. Ator </td><td>Original author </td></tr>
+<tr>
+<td>2018-02-08 </td><td>J. Ator </td><td>Add special handling for data types and subtypes in Section 1 </td></tr>
+</table>
 
-<p>Definition at line <a class="el" href="getcfmng_8f_source.html#l00108">108</a> of file <a class="el" href="getcfmng_8f_source.html">getcfmng.f</a>.</p>
+<p>Definition at line <a class="el" href="getcfmng_8f_source.html#l00109">109</a> of file <a class="el" href="getcfmng_8f_source.html">getcfmng.f</a>.</p>
 
-<p>References <a class="el" href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort()</a>, <a class="el" href="ifxy_8f.html#ac971a6f6d644344a5b09d50175498074">ifxy()</a>, <a class="el" href="ireadmt_8F.html#a0c3eff73be06d581b8b6ffcd47fede03">ireadmt()</a>, <a class="el" href="nemtab_8f.html#a3f3fb5a378c52dac83cb4fce27ceb712">nemtab()</a>, <a class="el" href="numtbd_8f.html#aae71d3919c5fc05ca4915e7b61aa3735">numtbd()</a>, <a class="el" href="parstr_8f.html#a3379a342ab3d92dd01eef1f3172f9b86">parstr()</a>, <a class="el" href="cfe_8h.html#acc1aa6de33a783e043e47e2522c688e3">srchtbf()</a>, and <a class="el" href="status_8f.html#a22292e7a69c411a961168198d259f336">status()</a>.</p>
+<p>References <a class="el" href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort()</a>, <a class="el" href="ifxy_8f.html#ac971a6f6d644344a5b09d50175498074">ifxy()</a>, <a class="el" href="ireadmt_8f.html#a0c3eff73be06d581b8b6ffcd47fede03">ireadmt()</a>, <a class="el" href="nemtab_8f.html#a3f3fb5a378c52dac83cb4fce27ceb712">nemtab()</a>, <a class="el" href="numtbd_8f.html#aae71d3919c5fc05ca4915e7b61aa3735">numtbd()</a>, <a class="el" href="parstr_8f.html#a3379a342ab3d92dd01eef1f3172f9b86">parstr()</a>, <a class="el" href="cfe_8h.html#acc1aa6de33a783e043e47e2522c688e3">srchtbf()</a>, and <a class="el" href="status_8f.html#a22292e7a69c411a961168198d259f336">status()</a>.</p>
 
 <p>Referenced by <a class="el" href="debufr_8f.html#a60dcf0fcb9d3a56fe561406bf5b16a9e">fdebufr()</a>.</p>
 

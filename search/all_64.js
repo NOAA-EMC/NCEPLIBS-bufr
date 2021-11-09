@@ -1,7 +1,7 @@
 var searchData=
 [
-  ['datebf',['datebf',['../datebf_8F.html#a688208e451a81634a110c6963561f22e',1,'datebf.F']]],
-  ['datebf_2ef',['datebf.F',['../datebf_8F.html',1,'']]],
+  ['datebf',['datebf',['../datebf_8f.html#a688208e451a81634a110c6963561f22e',1,'datebf.f']]],
+  ['datebf_2ef',['datebf.f',['../datebf_8f.html',1,'']]],
   ['datelen',['datelen',['../datelen_8f.html#ac75cb362f84167ca65b058a97401efcd',1,'datelen.f']]],
   ['datelen_2ef',['datelen.f',['../datelen_8f.html',1,'']]],
   ['debufr_2ec',['debufr.c',['../debufr_8c.html',1,'']]],

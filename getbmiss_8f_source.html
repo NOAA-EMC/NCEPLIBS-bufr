@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.5.0</span>
+   &#160;<span id="projectnumber">11.6.0</span>
    </div>
   </td>
  </tr>
@@ -116,8 +116,8 @@ $(document).ready(function(){initNavTree('getbmiss_8f_source.html','');});
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="comment">C&gt; @author J. Woollen</span></div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="comment">C&gt; @date 2012-09-15</span></div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="comment">C&gt;</span></div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="comment">C&gt; @returns getbmiss - real*8: current placeholder value for</span></div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="comment">C&gt;                     &quot;missing&quot; data</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="comment">C&gt; @returns getbmiss -- real*8: current placeholder value for</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="comment">C&gt;                      &quot;missing&quot; data</span></div>
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="comment">C&gt;</span></div>
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment">C&gt; &lt;p&gt;This subroutine can be called at any time from within an</span></div>
 <div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="comment">C&gt; application program, and the returned value can then be</span></div>
@@ -129,24 +129,26 @@ $(document).ready(function(){initNavTree('getbmiss_8f_source.html','');});
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="comment">C&gt; time via a separate call to subroutine setbmiss().</span></div>
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="comment">C&gt;</span></div>
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="comment">C&gt; &lt;b&gt;Program history log:&lt;/b&gt;</span></div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="comment">C&gt; - 2012-09-15  J. Woollen -- Original author</span></div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="comment">C&gt;</span></div>
-<div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="getbmiss_8f.html#afaf2f1c27bbdd180a75315e774c74d8e">   26</a></span>&#160;<span class="keyword">      REAL*8 </span><span class="keyword">FUNCTION </span><a class="code" href="getbmiss_8f.html#afaf2f1c27bbdd180a75315e774c74d8e">getbmiss</a>()</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;      <span class="keywordtype">USE </span><a class="code" href="modv__BMISS_8f90.html#classmodv__bmiss">modv_bmiss</a></div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="comment">C&gt; | Date | Programmer | Comments |</span></div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="comment">C&gt; | -----|------------|----------|</span></div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="comment">C&gt; | 2012-09-15 | J. Woollen | Original author |</span></div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="comment">C&gt;</span></div>
+<div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="getbmiss_8f.html#afaf2f1c27bbdd180a75315e774c74d8e">   28</a></span>&#160;<span class="keyword">      REAL*8 </span><span class="keyword">FUNCTION </span><a class="code" href="getbmiss_8f.html#afaf2f1c27bbdd180a75315e774c74d8e">getbmiss</a>()</div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="comment">c-----------------------------------------------------------------------</span></div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="comment">c-----------------------------------------------------------------------</span></div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;      CALL <a class="code" href="openbf_8F.html#a9bea9aeada166bd9037b959ca8452b28">openbf</a>(0,<span class="stringliteral">&#39;FIRST&#39;</span>,0)</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;      <span class="keywordtype">USE </span><a class="code" href="modv__BMISS_8f90.html#classmodv__bmiss">modv_bmiss</a></div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="comment">c-----------------------------------------------------------------------</span></div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="comment">c-----------------------------------------------------------------------</span></div>
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;      <a class="code" href="getbmiss_8f.html#afaf2f1c27bbdd180a75315e774c74d8e">getbmiss</a> = bmiss</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;      CALL <a class="code" href="openbf_8f.html#a9bea9aeada166bd9037b959ca8452b28">openbf</a>(0,<span class="stringliteral">&#39;FIRST&#39;</span>,0)</div>
 <div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;      <span class="keywordflow">RETURN</span></div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;      <span class="keywordflow">END</span></div>
-<div class="ttc" id="openbf_8F_html_a9bea9aeada166bd9037b959ca8452b28"><div class="ttname"><a href="openbf_8F.html#a9bea9aeada166bd9037b959ca8452b28">openbf</a></div><div class="ttdeci">subroutine openbf(LUNIT, IO, LUNDX)</div><div class="ttdoc">This subroutine connects a new file to the BUFRLIB software for input or output operations. </div><div class="ttdef"><b>Definition:</b> <a href="openbf_8F_source.html#l00157">openbf.F:157</a></div></div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;      <a class="code" href="getbmiss_8f.html#afaf2f1c27bbdd180a75315e774c74d8e">getbmiss</a> = bmiss</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;      <span class="keywordflow">RETURN</span></div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;      <span class="keywordflow">END</span></div>
 <div class="ttc" id="modv__BMISS_8f90_html_classmodv__bmiss"><div class="ttname"><a href="modv__BMISS_8f90.html#classmodv__bmiss">modv_bmiss</a></div><div class="ttdoc">This module declares and initializes the BMISS variable. </div><div class="ttdef"><b>Definition:</b> <a href="modv__BMISS_8f90_source.html#l00009">modv_BMISS.f90:9</a></div></div>
-<div class="ttc" id="getbmiss_8f_html_afaf2f1c27bbdd180a75315e774c74d8e"><div class="ttname"><a href="getbmiss_8f.html#afaf2f1c27bbdd180a75315e774c74d8e">getbmiss</a></div><div class="ttdeci">REAL *8 function getbmiss()</div><div class="ttdoc">This function returns the current placeholder value which represents &amp;quot;missing&amp;quot; data when reading from...</div><div class="ttdef"><b>Definition:</b> <a href="getbmiss_8f_source.html#l00026">getbmiss.f:26</a></div></div>
+<div class="ttc" id="getbmiss_8f_html_afaf2f1c27bbdd180a75315e774c74d8e"><div class="ttname"><a href="getbmiss_8f.html#afaf2f1c27bbdd180a75315e774c74d8e">getbmiss</a></div><div class="ttdeci">REAL *8 function getbmiss()</div><div class="ttdoc">This function returns the current placeholder value which represents &amp;quot;missing&amp;quot; data when reading from...</div><div class="ttdef"><b>Definition:</b> <a href="getbmiss_8f_source.html#l00028">getbmiss.f:28</a></div></div>
+<div class="ttc" id="openbf_8f_html_a9bea9aeada166bd9037b959ca8452b28"><div class="ttname"><a href="openbf_8f.html#a9bea9aeada166bd9037b959ca8452b28">openbf</a></div><div class="ttdeci">subroutine openbf(LUNIT, IO, LUNDX)</div><div class="ttdoc">This subroutine connects a new file to the BUFRLIB software for input or output operations. </div><div class="ttdef"><b>Definition:</b> <a href="openbf_8f_source.html#l00138">openbf.f:138</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

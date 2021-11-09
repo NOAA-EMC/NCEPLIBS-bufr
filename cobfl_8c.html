@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.5.0</span>
+   &#160;<span id="projectnumber">11.6.0</span>
    </div>
   </td>
  </tr>
@@ -123,7 +123,7 @@ Macros</h2></td></tr>
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>IN_COBFL</b></td></tr>
 <tr class="separator:ab87b3eaa0632bdbb0ddd7bb5d7e8b554"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adcb9ca74c59f88b5a3d6bd10c8095692"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="adcb9ca74c59f88b5a3d6bd10c8095692"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>MXFNLEN</b>&#160;&#160;&#160;100</td></tr>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>MXFNLEN</b>&#160;&#160;&#160;200</td></tr>
 <tr class="separator:adcb9ca74c59f88b5a3d6bd10c8095692"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
@@ -166,8 +166,8 @@ Functions</h2></td></tr>
 <dl class="section date"><dt>Date</dt><dd>2005-11-29</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">bfl</td><td>- char*: System file to be opened. Inclusion of directory prefixes or other local filesystem notation is allowed, up to 100 total characters. </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">io</td><td>- char: Flag indicating how bfl is to be opened:<ul>
+    <tr><td class="paramdir">[in]</td><td class="paramname">bfl</td><td>&ndash; char*: System file to be opened. Inclusion of directory prefixes or other local filesystem notation is allowed, up to 200 total characters. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">io</td><td>&ndash; char: Flag indicating how bfl is to be opened:<ul>
 <li>'r' = input (for reading BUFR messages)</li>
 <li>'w' = output (for writing BUFR messages)</li>
 </ul>
@@ -175,20 +175,25 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<p>This subroutine is designed to be easily callable from application program written in either C or Fortran. It is functionally equivalent to subroutine <a class="el" href="openbf_8F.html#a9bea9aeada166bd9037b959ca8452b28" title="This subroutine connects a new file to the BUFRLIB software for input or output operations. ">openbf()</a>; however, there are some important differences:</p>
+<p>This subroutine is designed to be easily callable from application program written in either C or Fortran. It is functionally equivalent to subroutine <a class="el" href="openbf_8f.html#a9bea9aeada166bd9037b959ca8452b28" title="This subroutine connects a new file to the BUFRLIB software for input or output operations. ">openbf()</a>; however, there are some important differences:</p>
 <ul>
-<li>When using <a class="el" href="openbf_8F.html#a9bea9aeada166bd9037b959ca8452b28" title="This subroutine connects a new file to the BUFRLIB software for input or output operations. ">openbf()</a>, the underlying file must already be associated with a Fortran logical unit number on the local system, typicially via a prior Fortran "OPEN" statement. This is not required when using this subroutine.</li>
+<li>When using <a class="el" href="openbf_8f.html#a9bea9aeada166bd9037b959ca8452b28" title="This subroutine connects a new file to the BUFRLIB software for input or output operations. ">openbf()</a>, the underlying file must already be associated with a Fortran logical unit number on the local system, typicially via a prior Fortran "OPEN" statement. This is not required when using this subroutine.</li>
 <li>When using this subroutine, it is only possible to have at most one input (io = 'r') file and one output (io = 'w') file open at a time. If a successive call to this subroutine is made in either case where a file of that type is already open, then the subroutine will automatically close the previous file of that type before opening the new one.</li>
-<li>When opening a file for input/reading using <a class="el" href="openbf_8F.html#a9bea9aeada166bd9037b959ca8452b28" title="This subroutine connects a new file to the BUFRLIB software for input or output operations. ">openbf()</a>, the user can make subsequent calls to any of the BUFRLIB <a class="el" href="md__gpfs_dell2_emc_obsproc_noscrub_Jeff_8Ator_NCEPLIBS-bufr-GitHub_nceplibs-bufr_docs_UserGuide.html#hierarchy">message-reading subroutines</a> to read individual BUFR messages from that file into internal arrays, followed by subsequent calls to any of the BUFRLIB <a class="el" href="md__gpfs_dell2_emc_obsproc_noscrub_Jeff_8Ator_NCEPLIBS-bufr-GitHub_nceplibs-bufr_docs_UserGuide.html#hierarchy">subset-reading subroutines</a>) to read individual data subsets from each such message. However, when opening a file for input/reading using this subroutine, the user must instead make subsequent calls to <a class="el" href="cobfl_8h.html#aaec663988563e497bfe9ef80d1674b00" title="This subroutine reads the next BUFR message from the system file that was opened via the most recent ...">crbmg()</a> to read individual BUFR messages from that file, and each such message will be returned directly to the user within an allocated memory array. The user may then, if desired, make subsequent calls to <a class="el" href="readerme_8f.html#aa8235a5af5d22c265bbef3bb47c7fafa" title="This subroutine is similar to subroutine readmg(), except that it reads a BUFR message from an array ...">readerme()</a> to store each such message into the same internal arrays, followed by subsequent calls to any of the BUFRLIB <a class="el" href="md__gpfs_dell2_emc_obsproc_noscrub_Jeff_8Ator_NCEPLIBS-bufr-GitHub_nceplibs-bufr_docs_UserGuide.html#hierarchy">subset-reading subroutines</a> to read individual data subsets from each such message.</li>
-<li>When opening a file for output/writing using <a class="el" href="openbf_8F.html#a9bea9aeada166bd9037b959ca8452b28" title="This subroutine connects a new file to the BUFRLIB software for input or output operations. ">openbf()</a>, the user can make subsequent successive calls to <a class="el" href="writsb_8f.html#a02b3dbd97116388430f863f3e49fa47f" title="This subroutine writes a complete data subset into a BUFR message, for eventual output to logical uni...">writsb()</a> to pack each completed data subset into the BUFR message that is currently open within the internal arrays, for eventual output to that file. However, when opening a file for output/writing using this subroutine, the user can instead, if desired, make subsequent successive calls to <a class="el" href="writsa_8f.html#a50e3c630fd99f545e2427fe9b18c4d48" title="This subroutine is similar to subroutine writsb(), except that in addition to writing each completed ...">writsa()</a> to pack each completed data subset into the BUFR message that is currently open within the internal arrays. The use of <a class="el" href="writsa_8f.html#a50e3c630fd99f545e2427fe9b18c4d48" title="This subroutine is similar to subroutine writsb(), except that in addition to writing each completed ...">writsa()</a> will cause each completed BUFR message to be returned directly to the user within an allocated memory array, which in turn can then be written directly to the file via a subsequent call to <a class="el" href="cobfl_8h.html#a204acc5f09ddbbdd59ccc4ff491935df" title="This subroutine writes a BUFR message to the system file that was opened via the most recent call to ...">cwbmg()</a>.</li>
+<li>When opening a file for input/reading using <a class="el" href="openbf_8f.html#a9bea9aeada166bd9037b959ca8452b28" title="This subroutine connects a new file to the BUFRLIB software for input or output operations. ">openbf()</a>, the user can make subsequent calls to any of the BUFRLIB <a class="el" href="md__gpfs_dell2_emc_obsproc_noscrub_Jeff_8Ator_NCEPLIBS-bufr-GitHub_nceplibs-bufr_docs_UserGuide.html#hierarchy">message-reading subroutines</a> to read individual BUFR messages from that file into internal arrays, followed by subsequent calls to any of the BUFRLIB <a class="el" href="md__gpfs_dell2_emc_obsproc_noscrub_Jeff_8Ator_NCEPLIBS-bufr-GitHub_nceplibs-bufr_docs_UserGuide.html#hierarchy">subset-reading subroutines</a>) to read individual data subsets from each such message. However, when opening a file for input/reading using this subroutine, the user must instead make subsequent calls to <a class="el" href="cobfl_8h.html#aaec663988563e497bfe9ef80d1674b00" title="This subroutine reads the next BUFR message from the system file that was opened via the most recent ...">crbmg()</a> to read individual BUFR messages from that file, and each such message will be returned directly to the user within an allocated memory array. The user may then, if desired, make subsequent calls to <a class="el" href="readerme_8f.html#aa8235a5af5d22c265bbef3bb47c7fafa" title="This subroutine is similar to subroutine readmg(), except that it reads a BUFR message from an array ...">readerme()</a> to store each such message into the same internal arrays, followed by subsequent calls to any of the BUFRLIB <a class="el" href="md__gpfs_dell2_emc_obsproc_noscrub_Jeff_8Ator_NCEPLIBS-bufr-GitHub_nceplibs-bufr_docs_UserGuide.html#hierarchy">subset-reading subroutines</a> to read individual data subsets from each such message.</li>
+<li>When opening a file for output/writing using <a class="el" href="openbf_8f.html#a9bea9aeada166bd9037b959ca8452b28" title="This subroutine connects a new file to the BUFRLIB software for input or output operations. ">openbf()</a>, the user can make subsequent successive calls to <a class="el" href="writsb_8f.html#a02b3dbd97116388430f863f3e49fa47f" title="This subroutine writes a complete data subset into a BUFR message, for eventual output to logical uni...">writsb()</a> to pack each completed data subset into the BUFR message that is currently open within the internal arrays, for eventual output to that file. However, when opening a file for output/writing using this subroutine, the user can instead, if desired, make subsequent successive calls to <a class="el" href="writsa_8f.html#a50e3c630fd99f545e2427fe9b18c4d48" title="This subroutine is similar to subroutine writsb(), except that in addition to writing each completed ...">writsa()</a> to pack each completed data subset into the BUFR message that is currently open within the internal arrays. The use of <a class="el" href="writsa_8f.html#a50e3c630fd99f545e2427fe9b18c4d48" title="This subroutine is similar to subroutine writsb(), except that in addition to writing each completed ...">writsa()</a> will cause each completed BUFR message to be returned directly to the user within an allocated memory array, which in turn can then be written directly to the file via a subsequent call to <a class="el" href="cobfl_8h.html#a204acc5f09ddbbdd59ccc4ff491935df" title="This subroutine writes a BUFR message to the system file that was opened via the most recent call to ...">cwbmg()</a>.</li>
 </ul>
 <p>Any errors encountered when using this subroutine are automatically logged to standard output, or to an alternate location previously specified via a call to subroutine <a class="el" href="errwrt_8f.html#a65626d9a772648676146b62b596c2764" title="This subroutine allows the user to specify a custom location for the logging of error and diagnostic ...">errwrt()</a>.</p>
-<p><b>Program history log:</b></p>
-<ul>
-<li>2005-11-29 J. Ator &ndash; Original author </li>
-</ul>
+<p><b>Program history log:</b> </p>
+<table class="doxtable">
+<tr>
+<th>Date </th><th>Programmer </th><th>Comments  </th></tr>
+<tr>
+<td>2005-11-29 </td><td>J. Ator </td><td>Original author </td></tr>
+<tr>
+<td>2021-10-20 </td><td>J. Ator </td><td>Increase MXFNLEN to 200 characters </td></tr>
+</table>
 
-<p>Definition at line <a class="el" href="cobfl_8c_source.html#l00079">79</a> of file <a class="el" href="cobfl_8c_source.html">cobfl.c</a>.</p>
+<p>Definition at line <a class="el" href="cobfl_8c_source.html#l00082">82</a> of file <a class="el" href="cobfl_8c_source.html">cobfl.c</a>.</p>
 
 <p>References <a class="el" href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort()</a>, <a class="el" href="cobfl_8h.html#a749687e8025ba9e13e3634055d551dce">pbf</a>, and <a class="el" href="wrdlen_8F.html#afb746f29272671c842018de69b277685">wrdlen()</a>.</p>
 

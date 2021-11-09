@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.5.0</span>
+   &#160;<span id="projectnumber">11.6.0</span>
    </div>
   </td>
  </tr>
@@ -117,7 +117,7 @@ $(document).ready(function(){initNavTree('nemdefs_8f.html','');});
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions/Subroutines</h2></td></tr>
 <tr class="memitem:a494cec4a80b848c31276fed4152651e4"><td class="memItemLeft" align="right" valign="top">subroutine&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="nemdefs_8f.html#a494cec4a80b848c31276fed4152651e4">nemdefs</a> (LUNIT, NEMO, CELEM, CUNIT, IRET)</td></tr>
-<tr class="memdesc:a494cec4a80b848c31276fed4152651e4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Given a Table B mnemonic defined in the <a class="el" href="md__gpfs_dell2_emc_obsproc_noscrub_Jeff_8Ator_NCEPLIBS-bufr-GitHub_nceplibs-bufr_docs_dfbftab.html#dfbftab">DX BUFR Tables</a> associated with a BUFR file (or in the <a class="el" href="md__gpfs_dell2_emc_obsproc_noscrub_Jeff_8Ator_NCEPLIBS-bufr-GitHub_nceplibs-bufr_docs_dfbfmstab.html#dfbfmstab">master BUFR tables</a>, if the file was opened in subroutine <a class="el" href="openbf_8F.html#a9bea9aeada166bd9037b959ca8452b28" title="This subroutine connects a new file to the BUFRLIB software for input or output operations. ">openbf()</a> with IO = 'SEC3'), this subroutine returns the element name and units associated with that mnemonic.  <a href="#a494cec4a80b848c31276fed4152651e4">More...</a><br/></td></tr>
+<tr class="memdesc:a494cec4a80b848c31276fed4152651e4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Given a Table B mnemonic defined in the <a class="el" href="md__gpfs_dell2_emc_obsproc_noscrub_Jeff_8Ator_NCEPLIBS-bufr-GitHub_nceplibs-bufr_docs_dfbftab.html#dfbftab">DX BUFR Tables</a> associated with a BUFR file (or in the <a class="el" href="md__gpfs_dell2_emc_obsproc_noscrub_Jeff_8Ator_NCEPLIBS-bufr-GitHub_nceplibs-bufr_docs_dfbfmstab.html#dfbfmstab">master BUFR tables</a>, if the file was opened in subroutine <a class="el" href="openbf_8f.html#a9bea9aeada166bd9037b959ca8452b28" title="This subroutine connects a new file to the BUFRLIB software for input or output operations. ">openbf()</a> with IO = 'SEC3'), this subroutine returns the element name and units associated with that mnemonic.  <a href="#a494cec4a80b848c31276fed4152651e4">More...</a><br/></td></tr>
 <tr class="separator:a494cec4a80b848c31276fed4152651e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
@@ -167,16 +167,16 @@ Functions/Subroutines</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Given a Table B mnemonic defined in the <a class="el" href="md__gpfs_dell2_emc_obsproc_noscrub_Jeff_8Ator_NCEPLIBS-bufr-GitHub_nceplibs-bufr_docs_dfbftab.html#dfbftab">DX BUFR Tables</a> associated with a BUFR file (or in the <a class="el" href="md__gpfs_dell2_emc_obsproc_noscrub_Jeff_8Ator_NCEPLIBS-bufr-GitHub_nceplibs-bufr_docs_dfbfmstab.html#dfbfmstab">master BUFR tables</a>, if the file was opened in subroutine <a class="el" href="openbf_8F.html#a9bea9aeada166bd9037b959ca8452b28" title="This subroutine connects a new file to the BUFRLIB software for input or output operations. ">openbf()</a> with IO = 'SEC3'), this subroutine returns the element name and units associated with that mnemonic. </p>
+<p>Given a Table B mnemonic defined in the <a class="el" href="md__gpfs_dell2_emc_obsproc_noscrub_Jeff_8Ator_NCEPLIBS-bufr-GitHub_nceplibs-bufr_docs_dfbftab.html#dfbftab">DX BUFR Tables</a> associated with a BUFR file (or in the <a class="el" href="md__gpfs_dell2_emc_obsproc_noscrub_Jeff_8Ator_NCEPLIBS-bufr-GitHub_nceplibs-bufr_docs_dfbfmstab.html#dfbfmstab">master BUFR tables</a>, if the file was opened in subroutine <a class="el" href="openbf_8f.html#a9bea9aeada166bd9037b959ca8452b28" title="This subroutine connects a new file to the BUFRLIB software for input or output operations. ">openbf()</a> with IO = 'SEC3'), this subroutine returns the element name and units associated with that mnemonic. </p>
 <dl class="section author"><dt>Author</dt><dd>J. Ator </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>2014-10-02</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">LUNIT</td><td>- integer: Fortran logical unit number for BUFR file </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">NEMO</td><td>- character*(*): Table B mnemonic </td></tr>
-    <tr><td class="paramdir">[out]</td><td class="paramname">CELEM</td><td>- character*55: Element name associated with NEMO </td></tr>
-    <tr><td class="paramdir">[out]</td><td class="paramname">CUNIT</td><td>- character*24: Units associated with NEMO </td></tr>
-    <tr><td class="paramdir">[out]</td><td class="paramname">IRET</td><td>- integer: return code<ul>
+    <tr><td class="paramdir">[in]</td><td class="paramname">LUNIT</td><td>&ndash; integer: Fortran logical unit number for BUFR file </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">NEMO</td><td>&ndash; character*(*): Table B mnemonic </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">CELEM</td><td>&ndash; character*55: Element name associated with NEMO </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">CUNIT</td><td>&ndash; character*24: Units associated with NEMO </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">IRET</td><td>&ndash; integer: return code<ul>
 <li>0 = normal return</li>
 <li>-1 = NEMO could not be found, or some other error occurred</li>
 </ul>
@@ -184,14 +184,18 @@ Functions/Subroutines</h2></td></tr>
   </table>
   </dd>
 </dl>
-<p>Logical unit LUNIT should have already been opened for input or output operations via a previous call to subroutine <a class="el" href="openbf_8F.html#a9bea9aeada166bd9037b959ca8452b28" title="This subroutine connects a new file to the BUFRLIB software for input or output operations. ">openbf()</a>.</p>
-<p><b>Program history log:</b></p>
-<ul>
-<li>2014-10-02 J. Ator &ndash; Original version</li>
-<li>2014-12-10 J. Ator &ndash; Use modules instead of COMMON blocks </li>
-</ul>
+<p>Logical unit LUNIT should have already been opened for input or output operations via a previous call to subroutine <a class="el" href="openbf_8f.html#a9bea9aeada166bd9037b959ca8452b28" title="This subroutine connects a new file to the BUFRLIB software for input or output operations. ">openbf()</a>.</p>
+<p><b>Program history log:</b> </p>
+<table class="doxtable">
+<tr>
+<th>Date </th><th>Programmer </th><th>Comments  </th></tr>
+<tr>
+<td>2014-10-02 </td><td>J. Ator </td><td>Original version </td></tr>
+<tr>
+<td>2014-12-10 </td><td>J. Ator </td><td>Use modules instead of COMMON blocks </td></tr>
+</table>
 
-<p>Definition at line <a class="el" href="nemdefs_8f_source.html#l00034">34</a> of file <a class="el" href="nemdefs_8f_source.html">nemdefs.f</a>.</p>
+<p>Definition at line <a class="el" href="nemdefs_8f_source.html#l00036">36</a> of file <a class="el" href="nemdefs_8f_source.html">nemdefs.f</a>.</p>
 
 <p>References <a class="el" href="nemtab_8f.html#a3f3fb5a378c52dac83cb4fce27ceb712">nemtab()</a>, and <a class="el" href="status_8f.html#a22292e7a69c411a961168198d259f336">status()</a>.</p>
 

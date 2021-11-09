@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.5.0</span>
+   &#160;<span id="projectnumber">11.6.0</span>
    </div>
   </td>
  </tr>
@@ -124,7 +124,7 @@ $(document).ready(function(){initNavTree('moda__nrv203_8F_source.html','');});
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;</div>
 <div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="preprocessor">#ifndef MXNRV_H</span></div>
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define MXNRV_H</span></div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="preprocessor"></span>      <span class="keywordtype">USE </span><a class="code" href="modv__MXNRV_8F.html#classmodv__mxnrv">modv_mxnrv</a></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="preprocessor"></span>      <span class="keywordtype">USE </span><a class="code" href="modv__MXNRV_8f.html#classmodv__mxnrv">modv_mxnrv</a></div>
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="preprocessor"></span></div>
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="comment">C&gt;        @var nnrv</span></div>
@@ -169,23 +169,15 @@ $(document).ready(function(){initNavTree('moda__nrv203_8F_source.html','');});
 <div class="line"><a name="l00061"></a><span class="lineno"><a class="line" href="moda__nrv203_8F.html#a41bda72f132c84bd89ae8e37a77e3d5a">   61</a></span>&#160;      <span class="keywordtype">INTEGER</span> :: NNRV</div>
 <div class="line"><a name="l00062"></a><span class="lineno"><a class="line" href="moda__nrv203_8F.html#a99e9b2b856e50716e0cea964c6259614">   62</a></span>&#160;      <span class="keywordtype">INTEGER</span> :: IBTNRV</div>
 <div class="line"><a name="l00063"></a><span class="lineno"><a class="line" href="moda__nrv203_8F.html#a5595f890826d88612b54935984741d23">   63</a></span>&#160;      <span class="keywordtype">INTEGER</span> :: IPFNRV</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;<span class="preprocessor">#ifdef DYNAMIC_ALLOCATION</span></div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;<span class="preprocessor"></span>      <span class="keywordtype">CHARACTER*8</span>, <span class="keywordtype">ALLOCATABLE</span> :: TAGNRV(:)</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;      <span class="keywordtype">INTEGER</span>, <span class="keywordtype">ALLOCATABLE</span> :: INODNRV(:) </div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;      <span class="keywordtype">INTEGER</span>, <span class="keywordtype">ALLOCATABLE</span> :: NRV(:) </div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;      <span class="keywordtype">INTEGER</span>, <span class="keywordtype">ALLOCATABLE</span> :: ISNRV(:) </div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;      <span class="keywordtype">INTEGER</span>, <span class="keywordtype">ALLOCATABLE</span> :: IENRV(:) </div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;<span class="preprocessor">#else</span></div>
-<div class="line"><a name="l00071"></a><span class="lineno"><a class="line" href="moda__nrv203_8F.html#ae8e3abe8b229c6d0de88c326d3a70ef0">   71</a></span>&#160;<span class="preprocessor"></span>      <span class="keywordtype">CHARACTER*8</span> :: TAGNRV(MXNRV)</div>
-<div class="line"><a name="l00072"></a><span class="lineno"><a class="line" href="moda__nrv203_8F.html#ac9424edf0554e80c82a269606b92e3e2">   72</a></span>&#160;      <span class="keywordtype">INTEGER</span> :: INODNRV(MXNRV) </div>
-<div class="line"><a name="l00073"></a><span class="lineno"><a class="line" href="moda__nrv203_8F.html#ade9e0fefa44c29d964d053ecd11dee7b">   73</a></span>&#160;      <span class="keywordtype">INTEGER</span> :: NRV(MXNRV) </div>
-<div class="line"><a name="l00074"></a><span class="lineno"><a class="line" href="moda__nrv203_8F.html#aab045f5c9dcc350b38b553dc1a24d3c4">   74</a></span>&#160;      <span class="keywordtype">INTEGER</span> :: ISNRV(MXNRV) </div>
-<div class="line"><a name="l00075"></a><span class="lineno"><a class="line" href="moda__nrv203_8F.html#a48e061fdc8f4b8755731ac12387635ed">   75</a></span>&#160;      <span class="keywordtype">INTEGER</span> :: IENRV(MXNRV) </div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;<span class="preprocessor"></span></div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;<span class="keyword">    END MODULE</span></div>
+<div class="line"><a name="l00064"></a><span class="lineno"><a class="line" href="moda__nrv203_8F.html#ae8e3abe8b229c6d0de88c326d3a70ef0">   64</a></span>&#160;      <span class="keywordtype">CHARACTER*8</span>, <span class="keywordtype">ALLOCATABLE</span> :: TAGNRV(:)</div>
+<div class="line"><a name="l00065"></a><span class="lineno"><a class="line" href="moda__nrv203_8F.html#ac9424edf0554e80c82a269606b92e3e2">   65</a></span>&#160;      <span class="keywordtype">INTEGER</span>, <span class="keywordtype">ALLOCATABLE</span> :: INODNRV(:) </div>
+<div class="line"><a name="l00066"></a><span class="lineno"><a class="line" href="moda__nrv203_8F.html#ade9e0fefa44c29d964d053ecd11dee7b">   66</a></span>&#160;      <span class="keywordtype">INTEGER</span>, <span class="keywordtype">ALLOCATABLE</span> :: NRV(:) </div>
+<div class="line"><a name="l00067"></a><span class="lineno"><a class="line" href="moda__nrv203_8F.html#aab045f5c9dcc350b38b553dc1a24d3c4">   67</a></span>&#160;      <span class="keywordtype">INTEGER</span>, <span class="keywordtype">ALLOCATABLE</span> :: ISNRV(:) </div>
+<div class="line"><a name="l00068"></a><span class="lineno"><a class="line" href="moda__nrv203_8F.html#a48e061fdc8f4b8755731ac12387635ed">   68</a></span>&#160;      <span class="keywordtype">INTEGER</span>, <span class="keywordtype">ALLOCATABLE</span> :: IENRV(:) </div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;<span class="keyword">    END MODULE</span></div>
+<div class="ttc" id="modv__MXNRV_8f_html_classmodv__mxnrv"><div class="ttname"><a href="modv__MXNRV_8f.html#classmodv__mxnrv">modv_mxnrv</a></div><div class="ttdoc">This module declares and initializes the MXNRV variable. </div><div class="ttdef"><b>Definition:</b> <a href="modv__MXNRV_8f_source.html#l00013">modv_MXNRV.f:13</a></div></div>
 <div class="ttc" id="moda__nrv203_8F_html_classmoda__nrv203"><div class="ttname"><a href="moda__nrv203_8F.html#classmoda__nrv203">moda_nrv203</a></div><div class="ttdoc">This module contains array and variable declarations for use with any 2-03-YYY (change reference valu...</div><div class="ttdef"><b>Definition:</b> <a href="moda__nrv203_8F_source.html#l00015">moda_nrv203.F:15</a></div></div>
-<div class="ttc" id="modv__MXNRV_8F_html_classmodv__mxnrv"><div class="ttname"><a href="modv__MXNRV_8F.html#classmodv__mxnrv">modv_mxnrv</a></div><div class="ttdoc">This module declares and initializes the MXNRV variable. </div><div class="ttdef"><b>Definition:</b> <a href="modv__MXNRV_8F_source.html#l00016">modv_MXNRV.F:16</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

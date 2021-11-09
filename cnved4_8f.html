@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.5.0</span>
+   &#160;<span id="projectnumber">11.6.0</span>
    </div>
   </td>
  </tr>
@@ -156,14 +156,14 @@ Functions/Subroutines</h2></td></tr>
 </div><div class="memdoc">
 
 <p>This subroutine reads an input BUFR message encoded using BUFR edition 3 and outputs an equivalent BUFR message encoded using BUFR edition 4. </p>
-<p>This subroutine performs the same function as subroutine <a class="el" href="pkvs01_8F.html#a66383a142ad21a8793d728a6eafb9fe8" title="This subroutine is used to specify a value to be written into a specified location within Section 0 o...">pkvs01()</a> when the latter is called with S01MNEM = 'BEN' and IVAL = 4, except that the latter subroutine operates on BUFR messages internally within the software, whereas this subroutine operates on a single BUFR message passed in via a memory array.</p>
+<p>This subroutine performs the same function as subroutine <a class="el" href="pkvs01_8f.html#a66383a142ad21a8793d728a6eafb9fe8" title="This subroutine is used to specify a value to be written into a specified location within Section 0 o...">pkvs01()</a> when the latter is called with S01MNEM = 'BEN' and IVAL = 4, except that the latter subroutine operates on BUFR messages internally within the software, whereas this subroutine operates on a single BUFR message passed in via a memory array.</p>
 <dl class="section author"><dt>Author</dt><dd>J. Ator </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>2005-11-29</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">MSGIN</td><td>- integer(*): BUFR message </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">LMSGOT</td><td>- integer: Dimensioned size (in integers) of MSGOT; used by the subroutine to ensure that it doesn't overflow the MSGOT array </td></tr>
-    <tr><td class="paramdir">[out]</td><td class="paramname">MSGOT</td><td>- integer(*): Copy of MSGIN encoded using BUFR edition 4</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">MSGIN</td><td>&ndash; integer(*): BUFR message </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">LMSGOT</td><td>&ndash; integer: Dimensioned size (in integers) of MSGOT; used by the subroutine to ensure that it doesn't overflow the MSGOT array </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">MSGOT</td><td>&ndash; integer(*): Copy of MSGIN encoded using BUFR edition 4</td></tr>
   </table>
   </dd>
 </dl>
@@ -172,11 +172,15 @@ Functions/Subroutines</h2></td></tr>
 <li>BUFR edition 4 messages are usually longer in length than their BUFR edition 3 counterparts, so it's usually a good idea to allow for extra space when allocating MSGOT within the application program.</li>
 </ul>
 </dd></dl>
-<p><b>Program history log:</b></p>
-<ul>
-<li>2005-11-29 J. Ator &ndash; Original author</li>
-<li>2009-08-12 J. Ator &ndash; Allow silent return (instead of <a class="el" href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4" title="This subroutine calls subroutine errwrt() to log an error message, then calls subroutine bort_exit() ...">bort()</a> return) if MSGIN is already encoded using edition 4 </li>
-</ul>
+<p><b>Program history log:</b> </p>
+<table class="doxtable">
+<tr>
+<th>Date </th><th>Programmer </th><th>Comments  </th></tr>
+<tr>
+<td>2005-11-29 </td><td>J. Ator </td><td>Original author </td></tr>
+<tr>
+<td>2009-08-12 </td><td>J. Ator </td><td>Allow silent return (instead of <a class="el" href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4" title="This subroutine calls subroutine errwrt() to log an error message, then calls subroutine bort_exit() ...">bort()</a> return) if MSGIN is already encoded using edition 4 </td></tr>
+</table>
 
 <p>Definition at line <a class="el" href="cnved4_8f_source.html#l00036">36</a> of file <a class="el" href="cnved4_8f_source.html">cnved4.f</a>.</p>
 

@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.5.0</span>
+   &#160;<span id="projectnumber">11.6.0</span>
    </div>
   </td>
  </tr>
@@ -144,25 +144,25 @@ Data Types</h2></td></tr>
 </div><table class="fieldtable">
 <tr><th colspan="3">Data Fields</th></tr>
 <tr><td class="fieldtype">
-<a class="anchor" id="a2a48063f017d00747c0f3f6c9d818937"></a>integer, dimension(mxdxts)</td>
+<a class="anchor" id="a2a48063f017d00747c0f3f6c9d818937"></a>integer, dimension(:), allocatable</td>
 <td class="fieldname">
 icdxts</td>
 <td class="fielddoc">
 Number of consecutive messages within mdx which constitute each DX BUFR table, beginning with the corresponding ifdxts. </td></tr>
 <tr><td class="fieldtype">
-<a class="anchor" id="a1763816444bbb96e4b174d99eec6f9b4"></a>integer, dimension(mxdxts)</td>
+<a class="anchor" id="a1763816444bbb96e4b174d99eec6f9b4"></a>integer, dimension(:), allocatable</td>
 <td class="fieldname">
 ifdxts</td>
 <td class="fielddoc">
 Pointers to the beginning of each DX BUFR table within mdx. </td></tr>
 <tr><td class="fieldtype">
-<a class="anchor" id="a2dfbdfa6ce42a008df5140a4a546d11f"></a>integer, dimension(mxdxm)</td>
+<a class="anchor" id="a2dfbdfa6ce42a008df5140a4a546d11f"></a>integer, dimension(:), allocatable</td>
 <td class="fieldname">
 ipdxm</td>
 <td class="fielddoc">
 Pointers to the beginning of each message within mdx. </td></tr>
 <tr><td class="fieldtype">
-<a class="anchor" id="a9f330f0aebd886192975cb4b7b7d4446"></a>integer, dimension(mxdxts)</td>
+<a class="anchor" id="a9f330f0aebd886192975cb4b7b7d4446"></a>integer, dimension(:), allocatable</td>
 <td class="fieldname">
 ipmsgs</td>
 <td class="fielddoc">
@@ -180,7 +180,7 @@ ldxts</td>
 <td class="fielddoc">
 Number of DX BUFR table that is currently in scope, depending on which BUFR message within msgs is currently in scope from the most recent call to subroutine <a class="el" href="rdmemm_8f.html#a4632c7c4909bec051939264eaab54c66" title="This subroutine reads a specified BUFR message from internal arrays in memory, so that it is now in s...">rdmemm()</a> or <a class="el" href="readmm_8f.html#aff20e0eb100b6a0fb2dfe3629661ac9e" title="This subroutine reads a specified BUFR message from internal arrays in memory, so that it is now in s...">readmm()</a>. </td></tr>
 <tr><td class="fieldtype">
-<a class="anchor" id="a400dd812aeab46b676dec1cd645fc9d8"></a>integer, dimension(mxdxw)</td>
+<a class="anchor" id="a400dd812aeab46b676dec1cd645fc9d8"></a>integer, dimension(:), allocatable</td>
 <td class="fieldname">
 mdx</td>
 <td class="fielddoc">
@@ -192,13 +192,13 @@ mlast</td>
 <td class="fielddoc">
 Number of array elements filled within msgs (up to a maximum of MAXMEM). </td></tr>
 <tr><td class="fieldtype">
-<a class="anchor" id="ab6edf6bdc7ccfa8b6be20e407a3262c4"></a>integer, dimension(0:maxmsg)</td>
+<a class="anchor" id="ab6edf6bdc7ccfa8b6be20e407a3262c4"></a>integer, dimension(:), allocatable</td>
 <td class="fieldname">
 msgp</td>
 <td class="fielddoc">
 Pointers to the beginning of each message within msgs (up to a maximum of MAXMSG, and where array element 0 contains the actual number of messages stored within msgs). </td></tr>
 <tr><td class="fieldtype">
-<a class="anchor" id="a03f1b3139e846c899bc32203ae991b17"></a>integer, dimension(maxmem)</td>
+<a class="anchor" id="a03f1b3139e846c899bc32203ae991b17"></a>integer, dimension(:), allocatable</td>
 <td class="fieldname">
 msgs</td>
 <td class="fielddoc">
@@ -209,6 +209,18 @@ BUFR messages read from one or more BUFR files. </td></tr>
 munit</td>
 <td class="fielddoc">
 Fortran logical unit number for use in accessing contents of BUFR files within internal memory. </td></tr>
+<tr><td class="fieldtype">
+<a class="anchor" id="a549e012729bbc3cb18894d34380ce5bd"></a>integer</td>
+<td class="fieldname">
+mxdxm</td>
+<td class="fielddoc">
+</td></tr>
+<tr><td class="fieldtype">
+<a class="anchor" id="af2710ff69575fa7a323c654e7998e142"></a>integer</td>
+<td class="fieldname">
+mxdxw</td>
+<td class="fielddoc">
+</td></tr>
 <tr><td class="fieldtype">
 <a class="anchor" id="a3f0d636fdbdde987db3c43e66991cd96"></a>integer</td>
 <td class="fieldname">

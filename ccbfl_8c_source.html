@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.5.0</span>
+   &#160;<span id="projectnumber">11.6.0</span>
    </div>
   </td>
  </tr>
@@ -110,17 +110,17 @@ $(document).ready(function(){initNavTree('ccbfl_8c_source.html','');});
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="bufrlib_8h.html">bufrlib.h</a>&quot;</span></div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="cobfl_8h.html">cobfl.h</a>&quot;</span></div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;</div>
-<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="cobfl_8h.html#ab66668ab9633ce3b475416f6a9899802">   18</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="ccbfl_8c.html#ab66668ab9633ce3b475416f6a9899802">ccbfl</a>( <span class="keywordtype">void</span> )</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;{</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    <span class="keywordtype">unsigned</span> <span class="keywordtype">short</span> i;</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    <span class="keywordflow">for</span> ( i = 0; i &lt; 2; i++ ) {</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;        <span class="keywordflow">if</span> ( <a class="code" href="cobfl_8h.html#a749687e8025ba9e13e3634055d551dce">pbf</a>[i] != NULL ) fclose( <a class="code" href="cobfl_8h.html#a749687e8025ba9e13e3634055d551dce">pbf</a>[i] );</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    }</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;}</div>
+<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="cobfl_8h.html#ab66668ab9633ce3b475416f6a9899802">   20</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="ccbfl_8c.html#ab66668ab9633ce3b475416f6a9899802">ccbfl</a>( <span class="keywordtype">void</span> )</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;{</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    <span class="keywordtype">unsigned</span> <span class="keywordtype">short</span> i;</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    <span class="keywordflow">for</span> ( i = 0; i &lt; 2; i++ ) {</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;        <span class="keywordflow">if</span> ( <a class="code" href="cobfl_8h.html#a749687e8025ba9e13e3634055d551dce">pbf</a>[i] != NULL ) fclose( <a class="code" href="cobfl_8h.html#a749687e8025ba9e13e3634055d551dce">pbf</a>[i] );</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    }</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;}</div>
 <div class="ttc" id="bufrlib_8h_html"><div class="ttname"><a href="bufrlib_8h.html">bufrlib.h</a></div><div class="ttdoc">Define signatures to enable a number of BUFRLIB subprograms to be called directly from C application ...</div></div>
 <div class="ttc" id="cobfl_8h_html_a749687e8025ba9e13e3634055d551dce"><div class="ttname"><a href="cobfl_8h.html#a749687e8025ba9e13e3634055d551dce">pbf</a></div><div class="ttdeci">FILE * pbf[2]</div><div class="ttdoc">File pointers. </div></div>
-<div class="ttc" id="ccbfl_8c_html_ab66668ab9633ce3b475416f6a9899802"><div class="ttname"><a href="ccbfl_8c.html#ab66668ab9633ce3b475416f6a9899802">ccbfl</a></div><div class="ttdeci">void ccbfl(void)</div><div class="ttdoc">This subroutine closes all system files that were opened via previous calls to subroutine cobfl()...</div><div class="ttdef"><b>Definition:</b> <a href="ccbfl_8c_source.html#l00018">ccbfl.c:18</a></div></div>
+<div class="ttc" id="ccbfl_8c_html_ab66668ab9633ce3b475416f6a9899802"><div class="ttname"><a href="ccbfl_8c.html#ab66668ab9633ce3b475416f6a9899802">ccbfl</a></div><div class="ttdeci">void ccbfl(void)</div><div class="ttdoc">This subroutine closes all system files that were opened via previous calls to subroutine cobfl()...</div><div class="ttdef"><b>Definition:</b> <a href="ccbfl_8c_source.html#l00020">ccbfl.c:20</a></div></div>
 <div class="ttc" id="cobfl_8h_html"><div class="ttname"><a href="cobfl_8h.html">cobfl.h</a></div><div class="ttdoc">Define signatures and declare variables for reading or writing BUFR messages via a C language interfa...</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->

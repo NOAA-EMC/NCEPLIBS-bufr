@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.5.0</span>
+   &#160;<span id="projectnumber">11.6.0</span>
    </div>
   </td>
  </tr>
@@ -109,17 +109,19 @@ $(document).ready(function(){initNavTree('digit_8f.html','');});
 </div><!--header-->
 <div class="contents">
 
+<p>Check whether the characters in a string are all numeric.  
+<a href="#details">More...</a></p>
+
 <p><a href="digit_8f_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions/Subroutines</h2></td></tr>
 <tr class="memitem:a911ce57f596d20517e27ce91b6893ef1"><td class="memItemLeft" align="right" valign="top">LOGICAL function&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="digit_8f.html#a911ce57f596d20517e27ce91b6893ef1">digit</a> (STR)</td></tr>
-<tr class="memdesc:a911ce57f596d20517e27ce91b6893ef1"><td class="mdescLeft">&#160;</td><td class="mdescRight">THIS LOGICAL FUNCTION TESTS THE CHARACTERS IN A STRING TO DETERMINE IF THEY ARE ALL DIGITS ('0','1','2','3','4','5','6','7', '8' OR '9').  <a href="#a911ce57f596d20517e27ce91b6893ef1">More...</a><br/></td></tr>
+<tr class="memdesc:a911ce57f596d20517e27ce91b6893ef1"><td class="mdescLeft">&#160;</td><td class="mdescRight">This logical function checks whether the characters in a string are all numeric.  <a href="#a911ce57f596d20517e27ce91b6893ef1">More...</a><br/></td></tr>
 <tr class="separator:a911ce57f596d20517e27ce91b6893ef1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><dl class="section author"><dt>Author</dt><dd>WOOLLEN </dd></dl>
-<dl class="section date"><dt>Date</dt><dd>1994-01-06 </dd></dl>
+<div class="textblock"><p>Check whether the characters in a string are all numeric. </p>
 
 <p>Definition in file <a class="el" href="digit_8f_source.html">digit.f</a>.</p>
 </div><h2 class="groupheader">Function/Subroutine Documentation</h2>
@@ -137,13 +139,29 @@ Functions/Subroutines</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>THIS LOGICAL FUNCTION TESTS THE CHARACTERS IN A STRING TO DETERMINE IF THEY ARE ALL DIGITS ('0','1','2','3','4','5','6','7', '8' OR '9'). </p>
-<p>PROGRAM HISTORY LOG: 1994-01-06 J. WOOLLEN &ndash; ORIGINAL AUTHOR 2003-11-04 S. BENDER &ndash; ADDED REMARKS/BUFRLIB ROUTINE INTERDEPENDENCIES 2003-11-04 D. KEYSER &ndash; UNIFIED/PORTABLE FOR WRF; ADDED DOCUMENTATION (INCLUDING HISTORY) 2007-01-19 J. ATOR &ndash; SIMPLIFIED LOGIC 2009-03-23 J. ATOR &ndash; FIXED MINOR BUG CAUSED BY TYPO</p>
-<p>USAGE: DIGIT (STR) INPUT ARGUMENT LIST: STR - CHARACTER*(*): STRING</p>
-<p>OUTPUT ARGUMENT LIST: DIGIT - LOGICAL: TRUE IF ALL CHARACTERS IN STR ARE DIGITS ('0' - '9'), OTHERWISE FALSE</p>
-<p>REMARKS: THIS ROUTINE CALLS: None THIS ROUTINE IS CALLED BY: CKTABA NUMBCK STNTBIA Normally not called by any application programs but it could be. </p>
+<p>This logical function checks whether the characters in a string are all numeric. </p>
+<dl class="section author"><dt>Author</dt><dd>J. Woollen </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>1994-01-06</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">STR</td><td>&ndash; character*(*): String </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>digit &ndash; logical: .TRUE. if all characters in STR are numeric; .FALSE. otherwise</dd></dl>
+<p><b>Program History Log:</b> </p>
+<table class="doxtable">
+<tr>
+<th>Date </th><th>Programmer </th><th>Comments  </th></tr>
+<tr>
+<td>1994-01-06 </td><td>J. Woollen </td><td>Original author </td></tr>
+<tr>
+<td>2007-01-19 </td><td>J. Ator </td><td>Simplified logic </td></tr>
+<tr>
+<td>2009-03-23 </td><td>J. Ator </td><td>Fixed minor bug caused by typo </td></tr>
+</table>
 
-<p>Definition at line <a class="el" href="digit_8f_source.html#l00031">31</a> of file <a class="el" href="digit_8f_source.html">digit.f</a>.</p>
+<p>Definition at line <a class="el" href="digit_8f_source.html#l00021">21</a> of file <a class="el" href="digit_8f_source.html">digit.f</a>.</p>
 
 <p>Referenced by <a class="el" href="cktaba_8f.html#a137108e58830be769ba5b28072cf1b4c">cktaba()</a>, <a class="el" href="numbck_8f.html#abfd2a53dd5457f38bb1aa40284f2475a">numbck()</a>, and <a class="el" href="stntbia_8f.html#afe5b7799490cf671bd2d13730f97fa39">stntbia()</a>.</p>
 

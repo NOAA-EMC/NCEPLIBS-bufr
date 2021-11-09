@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.5.0</span>
+   &#160;<span id="projectnumber">11.6.0</span>
    </div>
   </td>
  </tr>
@@ -136,7 +136,7 @@ Data Types</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <div class="textblock"><p>This module contains array and variable declarations used to store master Table B and Table D entries within internal memory. </p>
-<p>Data values within this module are stored by subroutine <a class="el" href="ireadmt_8F.html#a0c3eff73be06d581b8b6ffcd47fede03" title="THIS FUNCTION CHECKS THE MOST RECENT BUFR MESSAGE THAT WAS READ AS INPUT VIA SUBROUTINE READMG...">ireadmt()</a>.</p>
+<p>Data values within this module are stored by subroutine <a class="el" href="ireadmt_8f.html#a0c3eff73be06d581b8b6ffcd47fede03" title="This function checks the most recent BUFR message that was read via a call to one of the message-read...">ireadmt()</a>.</p>
 <dl class="section author"><dt>Author</dt><dd>J. Ator </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>2014-12-10 </dd></dl>
 
@@ -144,85 +144,81 @@ Data Types</h2></td></tr>
 </div><table class="fieldtable">
 <tr><th colspan="3">Data Fields</th></tr>
 <tr><td class="fieldtype">
-<a class="anchor" id="a675b19300da4ee6254968b69aafab7a8"></a>integer, dimension(c)</td>
-<td class="fieldname">
-bind</td>
-<td class="fielddoc">
-</td></tr>
-<tr><td class="fieldtype">
-<a class="anchor" id="a9128d05d0c51e74908d40bcbe114dcf6"></a>character, dimension(c)</td>
-<td class="fieldname">
-bind</td>
-<td class="fielddoc">
-</td></tr>
-<tr><td class="fieldtype">
-<a class="anchor" id="afed599d6953a143b7ed2426899aac6ca"></a>character, dimension(4, mxmtbb)</td>
+<a class="anchor" id="afed599d6953a143b7ed2426899aac6ca"></a>character, dimension(:,:), <br class="typebreak"/>
+allocatable</td>
 <td class="fieldname">
 cbbw</td>
 <td class="fielddoc">
 Bit widths corresponding to ibfxyn. </td></tr>
 <tr><td class="fieldtype">
-<a class="anchor" id="ab16fc2855fbced425cf78ac55029aac0"></a>character, dimension(120, mxmtbb)</td>
+<a class="anchor" id="ab16fc2855fbced425cf78ac55029aac0"></a>character, dimension(:,:), <br class="typebreak"/>
+allocatable</td>
 <td class="fieldname">
 cbelem</td>
 <td class="fielddoc">
 Element names corresponding to ibfxyn. </td></tr>
 <tr><td class="fieldtype">
-<a class="anchor" id="a8d1efe4f37e757d5ca37c013b9351dbf"></a>character, dimension(8, mxmtbb)</td>
+<a class="anchor" id="a8d1efe4f37e757d5ca37c013b9351dbf"></a>character, dimension(:,:), <br class="typebreak"/>
+allocatable</td>
 <td class="fieldname">
 cbmnem</td>
 <td class="fielddoc">
 Mnemonics corresponding to ibfxyn. </td></tr>
 <tr><td class="fieldtype">
-<a class="anchor" id="a838b7486850fa872a343858f3864d723"></a>character, dimension(4, mxmtbb)</td>
+<a class="anchor" id="a838b7486850fa872a343858f3864d723"></a>character, dimension(:,:), <br class="typebreak"/>
+allocatable</td>
 <td class="fieldname">
 cbscl</td>
 <td class="fielddoc">
 Scale factors corresponding to ibfxyn. </td></tr>
 <tr><td class="fieldtype">
-<a class="anchor" id="aa8b9388600ac219e46345c0ebde60b1b"></a>character, dimension(12, mxmtbb)</td>
+<a class="anchor" id="aa8b9388600ac219e46345c0ebde60b1b"></a>character, dimension(:,:), <br class="typebreak"/>
+allocatable</td>
 <td class="fieldname">
 cbsref</td>
 <td class="fielddoc">
 Reference values corresponding to ibfxyn. </td></tr>
 <tr><td class="fieldtype">
-<a class="anchor" id="ac16d774310a4d61de7207284a7c8265a"></a>character, dimension(14, mxmtbb)</td>
+<a class="anchor" id="ac16d774310a4d61de7207284a7c8265a"></a>character, dimension(:,:), <br class="typebreak"/>
+allocatable</td>
 <td class="fieldname">
 cbunit</td>
 <td class="fielddoc">
 Units corresponding to ibfxyn. </td></tr>
 <tr><td class="fieldtype">
-<a class="anchor" id="ac534bf5fe95e2c6e1f6a76ba72067705"></a>character, dimension(8, mxmtbd)</td>
+<a class="anchor" id="ac534bf5fe95e2c6e1f6a76ba72067705"></a>character, dimension(:,:), <br class="typebreak"/>
+allocatable</td>
 <td class="fieldname">
 cdmnem</td>
 <td class="fielddoc">
 Mnemonics corresponding to idfxyn. </td></tr>
 <tr><td class="fieldtype">
-<a class="anchor" id="a669399bdec14b1483b70540751a3c84f"></a>character, dimension(120, mxmtbd)</td>
+<a class="anchor" id="a669399bdec14b1483b70540751a3c84f"></a>character, dimension(:,:), <br class="typebreak"/>
+allocatable</td>
 <td class="fieldname">
 cdseq</td>
 <td class="fielddoc">
 Sequence names corresponding to idfxyn. </td></tr>
 <tr><td class="fieldtype">
-<a class="anchor" id="ada751f81370240c41d1243773a17793d"></a>integer, dimension(mxmtbb)</td>
+<a class="anchor" id="ada751f81370240c41d1243773a17793d"></a>integer, dimension(:), allocatable</td>
 <td class="fieldname">
 ibfxyn</td>
 <td class="fielddoc">
-Bitwise representations of FXY numbers for master Table B. </td></tr>
+Bit-wise representations of FXY numbers for master Table B. </td></tr>
 <tr><td class="fieldtype">
-<a class="anchor" id="a6a6c21b210d1e85fdca3a7b79a1cb0fb"></a>integer, dimension(mxmtbd *maxcd)</td>
+<a class="anchor" id="a6a6c21b210d1e85fdca3a7b79a1cb0fb"></a>integer, dimension(:), allocatable</td>
 <td class="fieldname">
 idefxy</td>
 <td class="fielddoc">
-Bitwise representations of child descriptors corresponding to idfxyn. </td></tr>
+Bit-wise representations of child descriptors corresponding to idfxyn. </td></tr>
 <tr><td class="fieldtype">
-<a class="anchor" id="a247db3e4e5ef21bfd58b07794d5a824a"></a>integer, dimension(mxmtbd)</td>
+<a class="anchor" id="a247db3e4e5ef21bfd58b07794d5a824a"></a>integer, dimension(:), allocatable</td>
 <td class="fieldname">
 idfxyn</td>
 <td class="fielddoc">
-Bitwise representations of FXY numbers for master Table D. </td></tr>
+Bit-wise representations of FXY numbers for master Table D. </td></tr>
 <tr><td class="fieldtype">
-<a class="anchor" id="a1215b924fe1db24efbb1288973e732ba"></a>integer, dimension(mxmtbd)</td>
+<a class="anchor" id="a1215b924fe1db24efbb1288973e732ba"></a>integer, dimension(:), allocatable</td>
 <td class="fieldname">
 ndelem</td>
 <td class="fielddoc">

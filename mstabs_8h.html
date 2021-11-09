@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.5.0</span>
+   &#160;<span id="projectnumber">11.6.0</span>
    </div>
   </td>
  </tr>
@@ -123,9 +123,9 @@ Macros</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a3b149893bee75a651e24b2344067264c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mstabs_8h.html#a3b149893bee75a651e24b2344067264c">cpmstabs</a> (f77int *, f77int *, char(*)[4], char(*)[12], char(*)[4], char(*)[14], char(*)[8], char(*)[120], f77int *, f77int *, char(*)[120], char(*)[8], f77int *, f77int *, f77int *)</td></tr>
-<tr class="memdesc:a3b149893bee75a651e24b2344067264c"><td class="mdescLeft">&#160;</td><td class="mdescRight">This subroutine copies relevant information from the Fortran module MODA_MSTABS arrays to new arrays within C, for use whenever arrays are dynamically allocated at run time and in which case we can't directly access the Fortran module MODA_MSTABS arrays from within C.  <a href="#a3b149893bee75a651e24b2344067264c">More...</a><br/></td></tr>
-<tr class="separator:a3b149893bee75a651e24b2344067264c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a292019f8851993ccd1ab2b553afb0c5a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mstabs_8h.html#a292019f8851993ccd1ab2b553afb0c5a">cpmstabs</a> (f77int *, f77int *, char(*)[4], char(*)[12], char(*)[4], char(*)[24], char(*)[8], char(*)[120], f77int *, f77int *, char(*)[120], char(*)[8], f77int *, f77int *, f77int *)</td></tr>
+<tr class="memdesc:a292019f8851993ccd1ab2b553afb0c5a"><td class="mdescLeft">&#160;</td><td class="mdescRight">This subroutine copies relevant information from the Fortran module MODA_MSTABS arrays to new arrays within C, for use whenever arrays are dynamically allocated at run time and in which case we can't directly access the Fortran module MODA_MSTABS arrays from within C.  <a href="#a292019f8851993ccd1ab2b553afb0c5a">More...</a><br/></td></tr>
+<tr class="separator:a292019f8851993ccd1ab2b553afb0c5a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a938e2c8b2a342250659391f77ee01691"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a938e2c8b2a342250659391f77ee01691"></a>
 f77int&#160;</td><td class="memItemRight" valign="bottom"><b>MSTABS_BASE</b> (nmtb)</td></tr>
 <tr class="separator:a938e2c8b2a342250659391f77ee01691"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -141,9 +141,9 @@ char(*&#160;</td><td class="memItemRight" valign="bottom"><b>MSTABS_BASE</b> (cb
 <tr class="memitem:a9c8ad94384d1d0c428228bf8952e45be"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a9c8ad94384d1d0c428228bf8952e45be"></a>
 char(*&#160;</td><td class="memItemRight" valign="bottom"><b>MSTABS_BASE</b> (cbbw))[4]</td></tr>
 <tr class="separator:a9c8ad94384d1d0c428228bf8952e45be"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3374d50a21bdd9d34650e5afb024bdea"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a3374d50a21bdd9d34650e5afb024bdea"></a>
-char(*&#160;</td><td class="memItemRight" valign="bottom"><b>MSTABS_BASE</b> (cbunit))[14]</td></tr>
-<tr class="separator:a3374d50a21bdd9d34650e5afb024bdea"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5478e1d11d8954a79dfea7a642fb76b8"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a5478e1d11d8954a79dfea7a642fb76b8"></a>
+char(*&#160;</td><td class="memItemRight" valign="bottom"><b>MSTABS_BASE</b> (cbunit))[24]</td></tr>
+<tr class="separator:a5478e1d11d8954a79dfea7a642fb76b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab24e7549d92f116b01ad04e0695be81a"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab24e7549d92f116b01ad04e0695be81a"></a>
 char(*&#160;</td><td class="memItemRight" valign="bottom"><b>MSTABS_BASE</b> (cbmnem))[8]</td></tr>
 <tr class="separator:ab24e7549d92f116b01ad04e0695be81a"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -171,13 +171,13 @@ f77int *&#160;</td><td class="memItemRight" valign="bottom"><b>MSTABS_BASE</b> (
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Define signatures and declare variables for internal storage of master Table B and Table D entries. </p>
-<p>If arrays are statically allocated, then we can directly access the arrays in Fortran module MODA_MSTABS from within C. However, if arrays are dynamically allocated, meaning that their size isn't known at compile time, then we can't directly access these arrays from within C. Instead, we need to allocate separate array space in C and then use subroutine <a class="el" href="cpmstabs_8c.html#a673669e621934ba05d6a44794294c8be" title="This subroutine copies relevant information from the Fortran module MODA_MSTABS arrays to new arrays ...">cpmstabs()</a> to copy the relevant information from the Fortran module MODA_MSTABS arrays to these C arrays at run time, in order to be able to access this information from within C.</p>
+<p>Since the arrays in Fortran module MODA_MSTABS are dynamically allocated and their size isn't known at compile time, then we can't directly access them from within C. Instead, we need to allocate separate array space in C and then use subroutine <a class="el" href="cpmstabs_8c.html#ad3053930c021517ffd3bf3031fb2138b" title="This subroutine copies relevant information from the Fortran module MODA_MSTABS arrays to new arrays ...">cpmstabs()</a> to copy the relevant information from the Fortran module MODA_MSTABS arrays to these C arrays at run time, in order to be able to access this information from within C.</p>
 <dl class="section author"><dt>Author</dt><dd>J. Ator </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>2014-12-04 </dd></dl>
 
 <p>Definition in file <a class="el" href="mstabs_8h_source.html">mstabs.h</a>.</p>
 </div><h2 class="groupheader">Function Documentation</h2>
-<a class="anchor" id="a3b149893bee75a651e24b2344067264c"></a>
+<a class="anchor" id="a292019f8851993ccd1ab2b553afb0c5a"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -215,7 +215,7 @@ f77int *&#160;</td><td class="memItemRight" valign="bottom"><b>MSTABS_BASE</b> (
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">char(*)&#160;</td>
-          <td class="paramname"><em>pcbunit</em>[14], </td>
+          <td class="paramname"><em>pcbunit</em>[24], </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -284,34 +284,39 @@ f77int *&#160;</td><td class="memItemRight" valign="bottom"><b>MSTABS_BASE</b> (
 <dl class="section date"><dt>Date</dt><dd>2014-12-04</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">pnmtb</td><td>- f77int*: Number of master Table B entries </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">pibfxyn</td><td>- f77int*: Bitwise representations of master Table B FXY numbers </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">pcbscl</td><td>- char(*)[4]: Master Table B scale factors </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">pcbsref</td><td>- char(*)[12]: Master Table B reference values </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">pcbbw</td><td>- char(*)[4]: Master Table B bit widths </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">pcbunit</td><td>- char(*)[14]: Master Table B units </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">pcbmnem</td><td>- char(*)[8]: Master Table B mnemonics </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">pcbelem</td><td>- char(*)[120]: Master Table B element names </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">pnmtd</td><td>- f77int*: Number of master Table D entries </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">pidfxyn</td><td>- f77int*: Bitwise representations of master Table D FXY numbers </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">pcdseq</td><td>- char(*)[120]: Master Table D sequence names </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">pcdmnem</td><td>- char(*)[8]: Master Table D mnemonics </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">pndelem</td><td>- f77int*: Number of child descriptors for master Table D sequence </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">pidefxy</td><td>- f77int*: Bitwise representations of child descriptors for master Table D sequence </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">maxcd</td><td>- f77int*: Maximum number of child descriptors for a master Table D sequence</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">pnmtb</td><td>&ndash; f77int*: Number of master Table B entries </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">pibfxyn</td><td>&ndash; f77int*: Bit-wise representations of master Table B FXY numbers </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">pcbscl</td><td>&ndash; char(*)[4]: Master Table B scale factors </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">pcbsref</td><td>&ndash; char(*)[12]: Master Table B reference values </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">pcbbw</td><td>&ndash; char(*)[4]: Master Table B bit widths </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">pcbunit</td><td>&ndash; char(*)[24]: Master Table B units </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">pcbmnem</td><td>&ndash; char(*)[8]: Master Table B mnemonics </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">pcbelem</td><td>&ndash; char(*)[120]: Master Table B element names </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">pnmtd</td><td>&ndash; f77int*: Number of master Table D entries </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">pidfxyn</td><td>&ndash; f77int*: Bit-wise representations of master Table D FXY numbers </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">pcdseq</td><td>&ndash; char(*)[120]: Master Table D sequence names </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">pcdmnem</td><td>&ndash; char(*)[8]: Master Table D mnemonics </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">pndelem</td><td>&ndash; f77int*: Number of child descriptors for master Table D sequence </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">pidefxy</td><td>&ndash; f77int*: Bit-wise representations of child descriptors for master Table D sequence </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">maxcd</td><td>&ndash; f77int*: Maximum number of child descriptors for a master Table D sequence</td></tr>
   </table>
   </dd>
 </dl>
-<p><b>Program history log:</b></p>
-<ul>
-<li>2014-12-04 J. Ator &ndash; Original author </li>
-</ul>
+<p><b>Program history log:</b> </p>
+<table class="doxtable">
+<tr>
+<th>Date </th><th>Programmer </th><th>Comments  </th></tr>
+<tr>
+<td>2014-12-04 </td><td>J. Ator </td><td>Original author </td></tr>
+<tr>
+<td>2021-05-17 </td><td>J. Ator </td><td>Allow up to 24 characters in cbunit </td></tr>
+</table>
 
-<p>Definition at line <a class="el" href="cpmstabs_8c_source.html#l00044">44</a> of file <a class="el" href="cpmstabs_8c_source.html">cpmstabs.c</a>.</p>
+<p>Definition at line <a class="el" href="cpmstabs_8c_source.html#l00047">47</a> of file <a class="el" href="cpmstabs_8c_source.html">cpmstabs.c</a>.</p>
 
 <p>References <a class="el" href="icvidx_8c.html#a959f9a18d293352c8b60a1844a52611a">icvidx()</a>.</p>
 
-<p>Referenced by <a class="el" href="ireadmt_8F.html#a0c3eff73be06d581b8b6ffcd47fede03">ireadmt()</a>.</p>
+<p>Referenced by <a class="el" href="ireadmt_8f.html#a0c3eff73be06d581b8b6ffcd47fede03">ireadmt()</a>.</p>
 
 </div>
 </div>

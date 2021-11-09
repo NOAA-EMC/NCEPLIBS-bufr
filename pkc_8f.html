@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.5.0</span>
+   &#160;<span id="projectnumber">11.6.0</span>
    </div>
   </td>
  </tr>
@@ -166,10 +166,10 @@ Functions/Subroutines</h2></td></tr>
 <dl class="section date"><dt>Date</dt><dd>1994-01-06</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">CHR</td><td>- character*(*): String to be encoded </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">NCHR</td><td>- integer: Number of bytes of IBAY within which to encode CHR (i.e. the number of characters in CHR) </td></tr>
-    <tr><td class="paramdir">[out]</td><td class="paramname">IBAY</td><td>- integer(*): Array containing encoded CHR </td></tr>
-    <tr><td class="paramdir">[in,out]</td><td class="paramname">IBIT</td><td>- integer: Bit pointer within IBAY<ul>
+    <tr><td class="paramdir">[in]</td><td class="paramname">CHR</td><td>&ndash; character*(*): String to be encoded </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">NCHR</td><td>&ndash; integer: Number of bytes of IBAY within which to encode CHR (i.e. the number of characters in CHR) </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">IBAY</td><td>&ndash; integer(*): Array containing encoded CHR </td></tr>
+    <tr><td class="paramdir">[in,out]</td><td class="paramname">IBIT</td><td>&ndash; integer: Bit pointer within IBAY<ul>
 <li>On input, IBIT points to the bit within IBAY after which to begin encoding CHR.</li>
 <li>On output, IBIT points to the last bit of IBAY which contains the encoded CHR.</li>
 </ul>
@@ -182,18 +182,27 @@ Functions/Subroutines</h2></td></tr>
 <li>On input, there is no requirement that IBIT must point to the first bit of a byte within IBAY. Correspondingly, on output there is no guarantee that the NCHR characters of CHR will be aligned on byte boundaries when encoded within IBAY.</li>
 </ul>
 </dd></dl>
-<p><b>Program history log:</b></p>
-<ul>
-<li>1994-01-06 J. Woollen &ndash; Original author</li>
-<li>1998-07-08 J. Woollen &ndash; Replaced call to Cray library routine ABORT with call to new internal routine <a class="el" href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4" title="This subroutine calls subroutine errwrt() to log an error message, then calls subroutine bort_exit() ...">bort()</a></li>
-<li>2003-11-04 J. Woollen &ndash; Modified to be endian-independent</li>
-<li>2003-11-04 J. Ator &ndash; Added documentation</li>
-<li>2003-11-04 S. Bender &ndash; Added remarks and routine interdependencies</li>
-<li>2003-11-04 D. Keyser &ndash; Unified/portable for WRF; added history documentation; outputs more complete diagnostic info when routine terminates abnormally; use <a class="el" href="bort2_8f.html#a50f605cc96a22ffce20206c2d254b9c3" title="This subroutine calls subroutine errwrt() to log two error messages, then calls subroutine bort_exit(...">bort2()</a> instead of <a class="el" href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4" title="This subroutine calls subroutine errwrt() to log an error message, then calls subroutine bort_exit() ...">bort()</a></li>
-<li>2004-08-18 J. Ator &ndash; Modified to be compatible with <a class="el" href="writlc_8f.html#a7017d5359bb32ce5407499d7a1b16709" title="This subroutine writes a long character string (greater than 8 bytes) to a data subset. ">writlc()</a> </li>
-</ul>
+<p><b>Program history log:</b> </p>
+<table class="doxtable">
+<tr>
+<th>Date </th><th>Programmer </th><th>Comments  </th></tr>
+<tr>
+<td>1994-01-06 </td><td>J. Woollen </td><td>Original author </td></tr>
+<tr>
+<td>1998-07-08 </td><td>J. Woollen </td><td>Replaced call to Cray library routine ABORT with call to new internal routine <a class="el" href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4" title="This subroutine calls subroutine errwrt() to log an error message, then calls subroutine bort_exit() ...">bort()</a> </td></tr>
+<tr>
+<td>2003-11-04 </td><td>J. Woollen </td><td>Modified to be endian-independent </td></tr>
+<tr>
+<td>2003-11-04 </td><td>J. Ator </td><td>Added documentation </td></tr>
+<tr>
+<td>2003-11-04 </td><td>S. Bender </td><td>Added remarks and routine interdependencies </td></tr>
+<tr>
+<td>2003-11-04 </td><td>D. Keyser </td><td>Unified/portable for WRF; added documentation; outputs more complete diagnostic info when routine terminates abnormally; use <a class="el" href="bort2_8f.html#a50f605cc96a22ffce20206c2d254b9c3" title="This subroutine calls subroutine errwrt() to log two error messages, then calls subroutine bort_exit(...">bort2()</a> instead of <a class="el" href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4" title="This subroutine calls subroutine errwrt() to log an error message, then calls subroutine bort_exit() ...">bort()</a> </td></tr>
+<tr>
+<td>2004-08-18 </td><td>J. Ator </td><td>Modified to be compatible with <a class="el" href="writlc_8f.html#a7017d5359bb32ce5407499d7a1b16709" title="This subroutine writes a long character string (greater than 8 bytes) to a data subset. ">writlc()</a> </td></tr>
+</table>
 
-<p>Definition at line <a class="el" href="pkc_8f_source.html#l00042">42</a> of file <a class="el" href="pkc_8f_source.html">pkc.f</a>.</p>
+<p>Definition at line <a class="el" href="pkc_8f_source.html#l00040">40</a> of file <a class="el" href="pkc_8f_source.html">pkc.f</a>.</p>
 
 <p>References <a class="el" href="ipkm_8f.html#a8826417bb81a4404779e606d6b97759a">ipkm()</a>, <a class="el" href="irev_8F.html#a4a8512777ba30c1c919646c7a6a637f5">irev()</a>, and <a class="el" href="iupm_8f.html#a870aa6933e94946232ec975e8cdd04db">iupm()</a>.</p>
 

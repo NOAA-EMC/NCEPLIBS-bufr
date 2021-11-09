@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.5.0</span>
+   &#160;<span id="projectnumber">11.6.0</span>
    </div>
   </td>
  </tr>
@@ -166,15 +166,15 @@ Functions/Subroutines</h2></td></tr>
 <dl class="section date"><dt>Date</dt><dd>1994-01-06</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">LUNIT</td><td>- integer: Fortran logical unit number for BUFR file </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">LUN</td><td>- integer: Internal I/O stream index associated with LUNIT </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">IL</td><td>- integer: File status update option<ul>
+    <tr><td class="paramdir">[in]</td><td class="paramname">LUNIT</td><td>&ndash; integer: Fortran logical unit number for BUFR file </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">LUN</td><td>&ndash; integer: Internal I/O stream index associated with LUNIT </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">IL</td><td>&ndash; integer: File status update option<ul>
 <li>0 = Disconnect LUNIT from the software</li>
 <li>1 = Connect LUNIT to the software for output operations (i.e. writing/encoding BUFR), if not already connected</li>
 <li>-1 = Connect LUNIT to the software for input operations (i.e. reading/decoding BUFR), if not already connected </li>
 </ul>
 </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">IM</td><td>- integer: Message status update option, to indicate whether a message is now open within the internal arrays for LUNIT<ul>
+    <tr><td class="paramdir">[in]</td><td class="paramname">IM</td><td>&ndash; integer: Message status update option, to indicate whether a message is now open within the internal arrays for LUNIT<ul>
 <li>0 = No</li>
 <li>1 = Yes</li>
 </ul>
@@ -183,22 +183,31 @@ Functions/Subroutines</h2></td></tr>
   </dd>
 </dl>
 <p>Before this subroutine is called to connect any LUNIT to the software, a previous call should have been made to subroutine <a class="el" href="status_8f.html#a22292e7a69c411a961168198d259f336" title="This subroutine checks whether a specified Fortran logical unit number is currently connected to the ...">status()</a> to confirm that internal space is available to connect the associated file, as well as to obtain an LUN value to use in connecting it. Once a file is connected, the corresponding LUNIT and LUN values remain linked to each other for as long as the file is connected to the software.</p>
-<p><b>Program history log:</b></p>
-<ul>
-<li>1994-01-06 J. Woollen &ndash; Original author</li>
-<li>1998-07-08 J. Woollen &ndash; Replaced call to Cray library routine ABORT with call to new internal routine <a class="el" href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4" title="This subroutine calls subroutine errwrt() to log an error message, then calls subroutine bort_exit() ...">bort()</a></li>
-<li>1999-11-18 J. Woollen &ndash; The number of BUFR files which can be opened at one time increased from 10 to 32 (necessary in order to process multiple BUFR files under the MPI)</li>
-<li>2003-11-04 J. Ator &ndash; Corrected a typo in test for IM validity; added documentation</li>
-<li>2003-11-04 S. Bender &ndash; Added remarks and routine interdependencies</li>
-<li>2003-11-04 D. Keyser &ndash; Unified/portable for WRF; added history documentation; outputs more complete diagnostic info when routine terminates abnormally</li>
-<li>2014-12-10 J. Ator &ndash; Use modules instead of COMMON blocks </li>
-</ul>
+<p><b>Program history log:</b> </p>
+<table class="doxtable">
+<tr>
+<th>Date </th><th>Programmer </th><th>Comments  </th></tr>
+<tr>
+<td>1994-01-06 </td><td>J. Woollen </td><td>Original author </td></tr>
+<tr>
+<td>1998-07-08 </td><td>J. Woollen </td><td>Replaced call to Cray library routine ABORT with call to new internal routine <a class="el" href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4" title="This subroutine calls subroutine errwrt() to log an error message, then calls subroutine bort_exit() ...">bort()</a> </td></tr>
+<tr>
+<td>1999-11-18 </td><td>J. Woollen </td><td>The number of BUFR files which can be opened at one time increased from 10 to 32 </td></tr>
+<tr>
+<td>2003-11-04 </td><td>J. Ator </td><td>Corrected a typo in test for IM validity; added documentation </td></tr>
+<tr>
+<td>2003-11-04 </td><td>S. Bender </td><td>Added remarks and routine interdependencies </td></tr>
+<tr>
+<td>2003-11-04 </td><td>D. Keyser </td><td>Unified/portable for WRF; added documentation; outputs more complete diagnostic info when routine terminates abnormally </td></tr>
+<tr>
+<td>2014-12-10 </td><td>J. Ator </td><td>Use modules instead of COMMON blocks </td></tr>
+</table>
 
-<p>Definition at line <a class="el" href="wtstat_8f_source.html#l00058">58</a> of file <a class="el" href="wtstat_8f_source.html">wtstat.f</a>.</p>
+<p>Definition at line <a class="el" href="wtstat_8f_source.html#l00052">52</a> of file <a class="el" href="wtstat_8f_source.html">wtstat.f</a>.</p>
 
 <p>References <a class="el" href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort()</a>.</p>
 
-<p>Referenced by <a class="el" href="closbf_8F.html#a00c94986037d2cf27d04de7a1f8a3ebc">closbf()</a>, <a class="el" href="closmg_8f.html#a3378111de0136710daec2ded25ed34e4">closmg()</a>, <a class="el" href="openbf_8F.html#a9bea9aeada166bd9037b959ca8452b28">openbf()</a>, <a class="el" href="openmb_8f.html#a4fc37a744b3f3c266a6f73acc117710a">openmb()</a>, <a class="el" href="openmg_8f.html#ab4daa2db1ea9729121b061486af173be">openmg()</a>, <a class="el" href="rdmemm_8f.html#a4632c7c4909bec051939264eaab54c66">rdmemm()</a>, <a class="el" href="readerme_8f.html#aa8235a5af5d22c265bbef3bb47c7fafa">readerme()</a>, <a class="el" href="readmg_8f.html#a9fb3da32fb87bc017d16b9f0f707be9b">readmg()</a>, and <a class="el" href="rewnbf_8f.html#a70ac3a628bb020054246ff3fb8392a96">rewnbf()</a>.</p>
+<p>Referenced by <a class="el" href="closbf_8f.html#a00c94986037d2cf27d04de7a1f8a3ebc">closbf()</a>, <a class="el" href="closmg_8f.html#a3378111de0136710daec2ded25ed34e4">closmg()</a>, <a class="el" href="openbf_8f.html#a9bea9aeada166bd9037b959ca8452b28">openbf()</a>, <a class="el" href="openmb_8f.html#a4fc37a744b3f3c266a6f73acc117710a">openmb()</a>, <a class="el" href="openmg_8f.html#ab4daa2db1ea9729121b061486af173be">openmg()</a>, <a class="el" href="rdmemm_8f.html#a4632c7c4909bec051939264eaab54c66">rdmemm()</a>, <a class="el" href="readerme_8f.html#aa8235a5af5d22c265bbef3bb47c7fafa">readerme()</a>, <a class="el" href="readmg_8f.html#a9fb3da32fb87bc017d16b9f0f707be9b">readmg()</a>, and <a class="el" href="rewnbf_8f.html#a70ac3a628bb020054246ff3fb8392a96">rewnbf()</a>.</p>
 
 </div>
 </div>

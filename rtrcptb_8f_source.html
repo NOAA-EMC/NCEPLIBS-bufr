@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.5.0</span>
+   &#160;<span id="projectnumber">11.6.0</span>
    </div>
   </td>
  </tr>
@@ -120,60 +120,62 @@ $(document).ready(function(){initNavTree('rtrcptb_8f_source.html','');});
 <div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="comment">C&gt; @author J. Ator</span></div>
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="comment">C&gt; @date 2013-10-07</span></div>
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment">C&gt;</span></div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="comment">C&gt; @param[in]  MBAY  - integer(*): BUFR message</span></div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="comment">C&gt; @param[out] IYR   - integer: Tank receipt year</span></div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="comment">C&gt; @param[out] IMO   - integer: Tank receipt month</span></div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="comment">C&gt; @param[out] IDY   - integer: Tank receipt day</span></div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment">C&gt; @param[out] IHR   - integer: Tank receipt hour</span></div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="comment">C&gt; @param[out] IMI   - integer: Tank receipt minute</span></div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="comment">C&gt; @param[out] IRET  - integer: return code</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="comment">C&gt; @param[in]  MBAY -- integer(*): BUFR message</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="comment">C&gt; @param[out] IYR  -- integer: Tank receipt year</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="comment">C&gt; @param[out] IMO  -- integer: Tank receipt month</span></div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="comment">C&gt; @param[out] IDY  -- integer: Tank receipt day</span></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment">C&gt; @param[out] IHR  -- integer: Tank receipt hour</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="comment">C&gt; @param[out] IMI  -- integer: Tank receipt minute</span></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="comment">C&gt; @param[out] IRET -- integer: return code</span></div>
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="comment">C&gt;                     - 0 = normal return</span></div>
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="comment">C&gt;                     - -1 = no tank receipt time exists within</span></div>
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="comment">C&gt;                            MBAY</span></div>
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="comment">C&gt;</span></div>
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="comment">C&gt; &lt;b&gt;Program history log:&lt;/b&gt;</span></div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="comment">C&gt; - 2013-10-07  J. Ator    -- Original author; adapted from rtrcpt()</span></div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="comment">C&gt;</span></div>
-<div class="line"><a name="l00029"></a><span class="lineno"><a class="line" href="rtrcptb_8f.html#a4f5038a30fe22e577f2f99c2121aa444">   29</a></span>&#160;<span class="keyword">      SUBROUTINE </span><a class="code" href="rtrcptb_8f.html#a4f5038a30fe22e577f2f99c2121aa444">rtrcptb</a>(MBAY,IYR,IMO,IDY,IHR,IMI,IRET)</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;      dimension mbay(*)</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="comment">C&gt; | Date | Programmer | Comments |</span></div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="comment">C&gt; | -----|------------|----------|</span></div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="comment">C&gt; | 2013-10-07 | J. Ator | Original author; adapted from rtrcpt() |</span></div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="comment">C&gt;</span></div>
+<div class="line"><a name="l00031"></a><span class="lineno"><a class="line" href="rtrcptb_8f.html#a4f5038a30fe22e577f2f99c2121aa444">   31</a></span>&#160;<span class="keyword">      SUBROUTINE </span><a class="code" href="rtrcptb_8f.html#a4f5038a30fe22e577f2f99c2121aa444">rtrcptb</a>(MBAY,IYR,IMO,IDY,IHR,IMI,IRET)</div>
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="comment">C-----------------------------------------------------------------------</span></div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="comment">C-----------------------------------------------------------------------</span></div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;      iret = -1</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;      dimension mbay(*)</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="comment">C-----------------------------------------------------------------------</span></div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="comment">C-----------------------------------------------------------------------</span></div>
 <div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="comment">C     Check whether the message contains a tank receipt time.</span></div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;      iret = -1</div>
 <div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;      <span class="keywordflow">IF</span>(<a class="code" href="iupbs01_8f.html#adcd6f7c2f898b4f938153c5cf79a9cf5">iupbs01</a>(mbay,<span class="stringliteral">&#39;BEN&#39;</span>).EQ.4) <span class="keywordflow">THEN</span></div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    is1byt = 23</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;      <span class="keywordflow">ELSE</span></div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    is1byt = 19</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;      <span class="keywordflow">ENDIF</span></div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;      <span class="keywordflow">IF</span>( (is1byt+5) .GT. <a class="code" href="iupbs01_8f.html#adcd6f7c2f898b4f938153c5cf79a9cf5">iupbs01</a>(mbay,<span class="stringliteral">&#39;LEN1&#39;</span>) ) <span class="keywordflow">RETURN</span></div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;<span class="comment">C     Unpack the tank receipt time.</span></div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="comment">C     Check whether the message contains a tank receipt time.</span></div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;      <span class="keywordflow">IF</span>(<a class="code" href="iupbs01_8f.html#adcd6f7c2f898b4f938153c5cf79a9cf5">iupbs01</a>(mbay,<span class="stringliteral">&#39;BEN&#39;</span>).EQ.4) <span class="keywordflow">THEN</span></div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    is1byt = 23</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;      <span class="keywordflow">ELSE</span></div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    is1byt = 19</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;      <span class="keywordflow">ENDIF</span></div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;      <span class="keywordflow">IF</span>( (is1byt+5) .GT. <a class="code" href="iupbs01_8f.html#adcd6f7c2f898b4f938153c5cf79a9cf5">iupbs01</a>(mbay,<span class="stringliteral">&#39;LEN1&#39;</span>) ) <span class="keywordflow">RETURN</span></div>
 <div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<span class="comment">C     Note that IS1BYT is a starting byte number relative to the</span></div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;<span class="comment">C     beginning of Section 1, so we still need to account for</span></div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;<span class="comment">C     Section 0 when specifying the actual byte numbers to unpack</span></div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="comment">C     within the overall message.</span></div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;      imgbyt = is1byt + <a class="code" href="iupbs01_8f.html#adcd6f7c2f898b4f938153c5cf79a9cf5">iupbs01</a>(mbay,<span class="stringliteral">&#39;LEN0&#39;</span>)</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<span class="comment">C     Unpack the tank receipt time.</span></div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;<span class="comment">C     Note that IS1BYT is a starting byte number relative to the</span></div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="comment">C     beginning of Section 1, so we still need to account for</span></div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;<span class="comment">C     Section 0 when specifying the actual byte numbers to unpack</span></div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;<span class="comment">C     within the overall message.</span></div>
 <div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;      iyr = <a class="code" href="iupb_8f.html#a3f8fa4b5261e85ecbf679208e7635c6c">iupb</a>(mbay,imgbyt,16)</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;      imo = <a class="code" href="iupb_8f.html#a3f8fa4b5261e85ecbf679208e7635c6c">iupb</a>(mbay,imgbyt+2,8)</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;      idy = <a class="code" href="iupb_8f.html#a3f8fa4b5261e85ecbf679208e7635c6c">iupb</a>(mbay,imgbyt+3,8)</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;      ihr = <a class="code" href="iupb_8f.html#a3f8fa4b5261e85ecbf679208e7635c6c">iupb</a>(mbay,imgbyt+4,8)</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;      imi = <a class="code" href="iupb_8f.html#a3f8fa4b5261e85ecbf679208e7635c6c">iupb</a>(mbay,imgbyt+5,8)</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;      iret = 0</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;      imgbyt = is1byt + <a class="code" href="iupbs01_8f.html#adcd6f7c2f898b4f938153c5cf79a9cf5">iupbs01</a>(mbay,<span class="stringliteral">&#39;LEN0&#39;</span>)</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;      iyr = <a class="code" href="iupb_8f.html#a3f8fa4b5261e85ecbf679208e7635c6c">iupb</a>(mbay,imgbyt,16)</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;      imo = <a class="code" href="iupb_8f.html#a3f8fa4b5261e85ecbf679208e7635c6c">iupb</a>(mbay,imgbyt+2,8)</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;      idy = <a class="code" href="iupb_8f.html#a3f8fa4b5261e85ecbf679208e7635c6c">iupb</a>(mbay,imgbyt+3,8)</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;      ihr = <a class="code" href="iupb_8f.html#a3f8fa4b5261e85ecbf679208e7635c6c">iupb</a>(mbay,imgbyt+4,8)</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;      imi = <a class="code" href="iupb_8f.html#a3f8fa4b5261e85ecbf679208e7635c6c">iupb</a>(mbay,imgbyt+5,8)</div>
 <div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;      <span class="keywordflow">RETURN</span></div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;      <span class="keywordflow">END</span></div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;      iret = 0</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;      <span class="keywordflow">RETURN</span></div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;      <span class="keywordflow">END</span></div>
 <div class="ttc" id="iupb_8f_html_a3f8fa4b5261e85ecbf679208e7635c6c"><div class="ttname"><a href="iupb_8f.html#a3f8fa4b5261e85ecbf679208e7635c6c">iupb</a></div><div class="ttdeci">function iupb(MBAY, NBYT, NBIT)</div><div class="ttdoc">THIS FUNCTION UNPACKS AND RETURNS A BINARY INTEGER WORD CONTAINED WITHIN NBIT BITS OF A BUFR MESSAGE ...</div><div class="ttdef"><b>Definition:</b> <a href="iupb_8f_source.html#l00036">iupb.f:36</a></div></div>
-<div class="ttc" id="rtrcptb_8f_html_a4f5038a30fe22e577f2f99c2121aa444"><div class="ttname"><a href="rtrcptb_8f.html#a4f5038a30fe22e577f2f99c2121aa444">rtrcptb</a></div><div class="ttdeci">subroutine rtrcptb(MBAY, IYR, IMO, IDY, IHR, IMI, IRET)</div><div class="ttdoc">This subroutine reads the tank receipt time (if one exists) from Section 1 of a BUFR message...</div><div class="ttdef"><b>Definition:</b> <a href="rtrcptb_8f_source.html#l00029">rtrcptb.f:29</a></div></div>
-<div class="ttc" id="iupbs01_8f_html_adcd6f7c2f898b4f938153c5cf79a9cf5"><div class="ttname"><a href="iupbs01_8f.html#adcd6f7c2f898b4f938153c5cf79a9cf5">iupbs01</a></div><div class="ttdeci">function iupbs01(MBAY, S01MNEM)</div><div class="ttdoc">This function returns a specified value from within Section 0 or Section 1 of a BUFR message...</div><div class="ttdef"><b>Definition:</b> <a href="iupbs01_8f_source.html#l00072">iupbs01.f:72</a></div></div>
+<div class="ttc" id="rtrcptb_8f_html_a4f5038a30fe22e577f2f99c2121aa444"><div class="ttname"><a href="rtrcptb_8f.html#a4f5038a30fe22e577f2f99c2121aa444">rtrcptb</a></div><div class="ttdeci">subroutine rtrcptb(MBAY, IYR, IMO, IDY, IHR, IMI, IRET)</div><div class="ttdoc">This subroutine reads the tank receipt time (if one exists) from Section 1 of a BUFR message...</div><div class="ttdef"><b>Definition:</b> <a href="rtrcptb_8f_source.html#l00031">rtrcptb.f:31</a></div></div>
+<div class="ttc" id="iupbs01_8f_html_adcd6f7c2f898b4f938153c5cf79a9cf5"><div class="ttname"><a href="iupbs01_8f.html#adcd6f7c2f898b4f938153c5cf79a9cf5">iupbs01</a></div><div class="ttdeci">function iupbs01(MBAY, S01MNEM)</div><div class="ttdoc">This function returns a specified value from within Section 0 or Section 1 of a BUFR message...</div><div class="ttdef"><b>Definition:</b> <a href="iupbs01_8f_source.html#l00073">iupbs01.f:73</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

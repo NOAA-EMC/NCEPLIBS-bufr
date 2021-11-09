@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.5.0</span>
+   &#160;<span id="projectnumber">11.6.0</span>
    </div>
   </td>
  </tr>
@@ -130,9 +130,9 @@ Macros</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:abccbcb4cfac57a39eb35703e25aa806c"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="abccbcb4cfac57a39eb35703e25aa806c"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>fdebufr</b> (char *, char *, f77int *, char *, char *, char *, char *, char *, f77int, f77int, f77int, f77int, f77int, f77int, f77int)</td></tr>
-<tr class="separator:abccbcb4cfac57a39eb35703e25aa806c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abacb92420fe370fd1b38571320a5c763"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="abacb92420fe370fd1b38571320a5c763"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>fdebufr</b> (char *, char *, f77int *, char *, char *, char *, char *, char *, size_t, size_t, size_t, size_t, size_t, size_t, size_t)</td></tr>
+<tr class="separator:abacb92420fe370fd1b38571320a5c763"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0ddf1224851353fc92bfbff6f499fa97"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="debufr_8c.html#a0ddf1224851353fc92bfbff6f499fa97">main</a> (int argc, char *argv[])</td></tr>
 <tr class="memdesc:a0ddf1224851353fc92bfbff6f499fa97"><td class="mdescLeft">&#160;</td><td class="mdescRight">This program decodes a BUFR file and generates a verbose listing of the contents.  <a href="#a0ddf1224851353fc92bfbff6f499fa97">More...</a><br/></td></tr>
 <tr class="separator:a0ddf1224851353fc92bfbff6f499fa97"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -204,29 +204,42 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>fdebufr</b> (char *, 
                 BUFRLIB software, overriding the default value that
                 would otherwise be used.  A complete list of parameters
                 that can be dynamically sized is included within the
-                documentation for BUFRLIB function <a class="el" href="isetprm_8F.html#a366156765665bb1e1452635b12ff5093" title="This function sets a specified parameter to a specified value for use in dynamically allocating one o...">isetprm()</a>.</pre><pre>      bufrfile  [path/]name of BUFR file to be decoded
+                documentation for BUFRLIB function <a class="el" href="isetprm_8f.html#a366156765665bb1e1452635b12ff5093" title="This function sets a specified parameter to a specified value for use in dynamically allocating one o...">isetprm()</a>.</pre><pre>      bufrfile  [path/]name of BUFR file to be decoded
 </pre><dl class="section remark"><dt>Remarks</dt><dd><ul>
 <li>Fortran logical unit numbers 51, 90, 91, 92 and 93 are reserved for use within this program.</li>
 </ul>
 </dd></dl>
-<p><b>Program history log:</b></p>
-<ul>
-<li>2009-07-01 J. Ator &ndash; Original author</li>
-<li>2012-06-18 J. Ator &ndash; Modified to allow decoding of BUFR files based on NCEP DX dictionary table information. The program can now process any files that previously required the use of ckbufr.</li>
-<li>2012-12-07 J. Ator &ndash; Modified to add -m and -v options and inline version of OPENBT subroutine for mixed BUFR files</li>
-<li>2013-10-07 J. Ator &ndash; Print Section 1 tank receipt time information for NCEP/NCO BUFR messages if available</li>
-<li>2013-11-15 J. Ator &ndash; Add -h option and check for non-existent tablefil</li>
-<li>2014-09-15 J. Ator &ndash; Change default path for tabledir, change default name for outfile, and confirm outfile is writeable</li>
-<li>2018-01-19 J. Ator &ndash; Add print of code and flag table meanings.</li>
-<li>2018-04-09 J. Ator &ndash; Add -c option to turn off print of code and flag table meanings (default is "on").</li>
-<li>2018-09-05 J. Ator &ndash; Add -p option to pass in one or more BUFRLIB dynamic allocation parameters to override default settings</li>
-<li>2019-02-01 J. Ator &ndash; Remove limit on length of prmstg, and allow up to 20 PARAMETER=VALUE pairs</li>
-<li>2021-03-02 J. Ator &ndash; Add missing #include files, remove unused errflg variable, and other general cleanup. </li>
-</ul>
+<p><b>Program history log:</b> </p>
+<table class="doxtable">
+<tr>
+<th>Date </th><th>Programmer </th><th>Comments  </th></tr>
+<tr>
+<td>2009-07-01 </td><td>J. Ator </td><td>Original author </td></tr>
+<tr>
+<td>2012-06-18 </td><td>J. Ator </td><td>Modified to allow decoding of BUFR files based on NCEP DX dictionary table information. The program can now process any files that previously required the use of ckbufr. </td></tr>
+<tr>
+<td>2012-12-07 </td><td>J. Ator </td><td>Modified to add -m and -v options and inline version of OPENBT subroutine for mixed BUFR files </td></tr>
+<tr>
+<td>2013-10-07 </td><td>J. Ator </td><td>Print Section 1 tank receipt time information for NCEP/NCO BUFR messages if available </td></tr>
+<tr>
+<td>2013-11-15 </td><td>J. Ator </td><td>Add -h option and check for non-existent tablefil </td></tr>
+<tr>
+<td>2014-09-15 </td><td>J. Ator </td><td>Change default path for tabledir, change default name for outfile, and confirm outfile is writeable </td></tr>
+<tr>
+<td>2018-01-19 </td><td>J. Ator </td><td>Add print of code and flag table meanings </td></tr>
+<tr>
+<td>2018-04-09 </td><td>J. Ator </td><td>Add -c option to turn off print of code and flag table meanings (default is "on") </td></tr>
+<tr>
+<td>2018-09-05 </td><td>J. Ator </td><td>Add -p option to pass in one or more BUFRLIB dynamic allocation parameters to override default settings </td></tr>
+<tr>
+<td>2019-02-01 </td><td>J. Ator </td><td>Remove limit on length of prmstg, and allow up to 20 PARAMETER=VALUE pairs </td></tr>
+<tr>
+<td>2021-03-02 </td><td>J. Ator </td><td>Add missing #include files, remove unused errflg variable, and other general cleanup </td></tr>
+</table>
 
-<p>Definition at line <a class="el" href="debufr_8c_source.html#l00180">180</a> of file <a class="el" href="debufr_8c_source.html">debufr.c</a>.</p>
+<p>Definition at line <a class="el" href="debufr_8c_source.html#l00172">172</a> of file <a class="el" href="debufr_8c_source.html">debufr.c</a>.</p>
 
-<p>References <a class="el" href="bvers_8f.html#a210e17eb5b254e38f27e129304d4eae7">bvers()</a>, <a class="el" href="ccbfl_8c.html#ab66668ab9633ce3b475416f6a9899802">ccbfl()</a>, <a class="el" href="cobfl_8c.html#a8ee2da6f5d4198418177b973d9b1108c">cobfl()</a>, <a class="el" href="debufr_8f.html#a60dcf0fcb9d3a56fe561406bf5b16a9e">fdebufr()</a>, and <a class="el" href="debufr_8c.html#a54cbb8b652032605c043b18a134cd85d">prtusage()</a>.</p>
+<p>References <a class="el" href="bvers_8f.html#a210e17eb5b254e38f27e129304d4eae7">bvers()</a>, <a class="el" href="ccbfl_8c.html#ab66668ab9633ce3b475416f6a9899802">ccbfl()</a>, <a class="el" href="cobfl_8c.html#a8ee2da6f5d4198418177b973d9b1108c">cobfl()</a>, <a class="el" href="debufr_8f.html#a60dcf0fcb9d3a56fe561406bf5b16a9e">fdebufr()</a>, and <a class="el" href="xbfmg_8c.html#a54cbb8b652032605c043b18a134cd85d">prtusage()</a>.</p>
 
 </div>
 </div>
@@ -249,18 +262,17 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>fdebufr</b> (char *, 
 <dl class="section date"><dt>Date</dt><dd>2018-03-01</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">prgnam</td><td>- char*: [path/]name of program executable</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">prgnam</td><td>&ndash; char*: [path/]name of program executable</td></tr>
   </table>
   </dd>
 </dl>
-<p><b>Program history log:</b></p>
-<ul>
-<li>2018-03-01 J. Ator &ndash; Original author </li>
-</ul>
-
-<p>Definition at line <a class="el" href="debufr_8c_source.html#l00037">37</a> of file <a class="el" href="debufr_8c_source.html">debufr.c</a>.</p>
-
-<p>Referenced by <a class="el" href="debufr_8c.html#a0ddf1224851353fc92bfbff6f499fa97">main()</a>.</p>
+<p><b>Program history log:</b> </p>
+<table class="doxtable">
+<tr>
+<th>Date </th><th>Programmer </th><th>Comments  </th></tr>
+<tr>
+<td>2018-03-01 </td><td>J. Ator </td><td>Original author </td></tr>
+</table>
 
 </div>
 </div>
@@ -269,7 +281,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>fdebufr</b> (char *, 
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_f72925317209be2a4a6a6dc4c9d3bb97.html">utils</a></li><li class="navelem"><a class="el" href="debufr_8c.html">debufr.c</a></li>
+    <li class="navelem"><a class="el" href="dir_1c7cb1e53c36c68d6005e0e04c42a1f1.html">utils</a></li><li class="navelem"><a class="el" href="debufr_8c.html">debufr.c</a></li>
     <li class="footer">Generated by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.5 </li>

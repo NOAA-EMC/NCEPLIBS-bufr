@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.5.0</span>
+   &#160;<span id="projectnumber">11.6.0</span>
    </div>
   </td>
  </tr>
@@ -144,7 +144,7 @@ Data Types</h2></td></tr>
 </div><table class="fieldtable">
 <tr><th colspan="3">Data Fields</th></tr>
 <tr><td class="fieldtype">
-<a class="anchor" id="a729c4578db36e716bb8bb25ef52492f7"></a>integer, dimension(maxjl)</td>
+<a class="anchor" id="a729c4578db36e716bb8bb25ef52492f7"></a>integer, dimension(:), allocatable</td>
 <td class="fieldname">
 ibt</td>
 <td class="fielddoc">
@@ -154,7 +154,7 @@ Bit widths corresponding to tag and typ: <ul>
 </ul>
 </td></tr>
 <tr><td class="fieldtype">
-<a class="anchor" id="ab79e99391c4ef5297d721faec8daf556"></a>integer, dimension(maxjl)</td>
+<a class="anchor" id="ab79e99391c4ef5297d721faec8daf556"></a>integer, dimension(:), allocatable</td>
 <td class="fieldname">
 irf</td>
 <td class="fielddoc">
@@ -165,7 +165,7 @@ Reference values corresponding to tag and typ: <ul>
 </ul>
 </td></tr>
 <tr><td class="fieldtype">
-<a class="anchor" id="a1c178b3f0fb4f7ad1380cb7509d371a7"></a>integer, dimension(maxjl)</td>
+<a class="anchor" id="a1c178b3f0fb4f7ad1380cb7509d371a7"></a>integer, dimension(:), allocatable</td>
 <td class="fieldname">
 isc</td>
 <td class="fielddoc">
@@ -176,13 +176,14 @@ Scale factors corresponding to tag and typ: <ul>
 </ul>
 </td></tr>
 <tr><td class="fieldtype">
-<a class="anchor" id="a0a03a3592a2fd696d235f7e391f8767c"></a>integer, dimension(maxjl, 2)</td>
+<a class="anchor" id="a18e681f9bedbaadf3526641e19598901"></a>integer, dimension(:,:), <br class="typebreak"/>
+allocatable</td>
 <td class="fieldname">
 iseq</td>
 <td class="fielddoc">
 </td></tr>
 <tr><td class="fieldtype">
-<a class="anchor" id="a0d02cd4fff2bdd0fbf7ec08a5cb6ce32"></a>integer, dimension(maxjl)</td>
+<a class="anchor" id="a0d02cd4fff2bdd0fbf7ec08a5cb6ce32"></a>integer, dimension(:), allocatable</td>
 <td class="fieldname">
 itp</td>
 <td class="fielddoc">
@@ -194,7 +195,7 @@ Integer type values corresponding to typ: <ul>
 </ul>
 </td></tr>
 <tr><td class="fieldtype">
-<a class="anchor" id="af0011251f23eeb68a68082203e016d96"></a>integer, dimension(maxjl)</td>
+<a class="anchor" id="af0011251f23eeb68a68082203e016d96"></a>integer, dimension(:), allocatable</td>
 <td class="fieldname">
 jmpb</td>
 <td class="fielddoc">
@@ -205,13 +206,13 @@ Jump backward indices corresponding to tag and typ: <ul>
 </ul>
 </td></tr>
 <tr><td class="fieldtype">
-<a class="anchor" id="a04e683d9e796133c5d98aaa87af478c8"></a>integer, dimension(maxjl)</td>
+<a class="anchor" id="a0b8b25c6365505c5045ab473f54e03f6"></a>integer, dimension(:), allocatable</td>
 <td class="fieldname">
 jseq</td>
 <td class="fielddoc">
 </td></tr>
 <tr><td class="fieldtype">
-<a class="anchor" id="a25ce26a6a80778fa70af7de68fbd60db"></a>integer, dimension(maxjl)</td>
+<a class="anchor" id="a25ce26a6a80778fa70af7de68fbd60db"></a>integer, dimension(:), allocatable</td>
 <td class="fieldname">
 jump</td>
 <td class="fielddoc">
@@ -222,13 +223,13 @@ Jump forward indices corresponding to tag and typ: <ul>
 </ul>
 </td></tr>
 <tr><td class="fieldtype">
-<a class="anchor" id="ac96b165a608147106535942ea475dcf8"></a>integer, dimension(maxjl)</td>
+<a class="anchor" id="a28b0f02b81a535890fc64ec13fdfc35b"></a>integer, dimension(:), allocatable</td>
 <td class="fieldname">
 knt</td>
 <td class="fielddoc">
 </td></tr>
 <tr><td class="fieldtype">
-<a class="anchor" id="a32e52e19f5b61f95cd1f4bf5f106a9fe"></a>integer, dimension(maxjl)</td>
+<a class="anchor" id="a32e52e19f5b61f95cd1f4bf5f106a9fe"></a>integer, dimension(:), allocatable</td>
 <td class="fieldname">
 knti</td>
 <td class="fielddoc">
@@ -239,7 +240,7 @@ Initialized replication counts corresponding to typ and jump: <ul>
 </ul>
 </td></tr>
 <tr><td class="fieldtype">
-<a class="anchor" id="a055602ab4ef62ed7220ea308013d89b9"></a>integer, dimension(maxjl)</td>
+<a class="anchor" id="a055602ab4ef62ed7220ea308013d89b9"></a>integer, dimension(:), allocatable</td>
 <td class="fieldname">
 link</td>
 <td class="fielddoc">
@@ -261,13 +262,15 @@ ntab</td>
 <td class="fielddoc">
 Number of entries in the jump/link table. </td></tr>
 <tr><td class="fieldtype">
-<a class="anchor" id="a72f922bfc79b111f1bf8487defd6ea2b"></a>character *10, dimension(maxjl)</td>
+<a class="anchor" id="a72f922bfc79b111f1bf8487defd6ea2b"></a>character *10, dimension(:), <br class="typebreak"/>
+allocatable</td>
 <td class="fieldname">
 tag</td>
 <td class="fielddoc">
 Mnemonics in the jump/link table. </td></tr>
 <tr><td class="fieldtype">
-<a class="anchor" id="a1d6fb8d806a42e177ff8a3f5aa31a5d9"></a>character *3, dimension(maxjl)</td>
+<a class="anchor" id="a1d6fb8d806a42e177ff8a3f5aa31a5d9"></a>character *3, dimension(:), <br class="typebreak"/>
+allocatable</td>
 <td class="fieldname">
 typ</td>
 <td class="fielddoc">
@@ -285,7 +288,7 @@ Type indicators corresponding to tag: <ul>
 </ul>
 </td></tr>
 <tr><td class="fieldtype">
-<a class="anchor" id="ade9c90f63bc5b44f41bb30d9c13ef7a7"></a>real *8, dimension(maxjl)</td>
+<a class="anchor" id="ade9c90f63bc5b44f41bb30d9c13ef7a7"></a>real *8, dimension(:), allocatable</td>
 <td class="fieldname">
 vali</td>
 <td class="fielddoc">

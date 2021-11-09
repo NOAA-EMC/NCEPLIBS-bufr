@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.5.0</span>
+   &#160;<span id="projectnumber">11.6.0</span>
    </div>
   </td>
  </tr>
@@ -117,7 +117,7 @@ $(document).ready(function(){initNavTree('datelen_8f_source.html','');});
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="comment">C&gt; @author J. Woollen</span></div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="comment">C&gt; @date 1998-07-08</span></div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="comment">C&gt;</span></div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="comment">C&gt; @param[in] LEN -   integer: Length of Section 1 date-time</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="comment">C&gt; @param[in] LEN --  integer: Length of Section 1 date-time</span></div>
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="comment">C&gt;                    values to be output by all future calls</span></div>
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment">C&gt;                    to message-reading subroutines</span></div>
 <div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="comment">C&gt;                    -  8 = YYMMDDHH format with 2-digit year</span></div>
@@ -133,46 +133,42 @@ $(document).ready(function(){initNavTree('datelen_8f_source.html','');});
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="comment">C&gt; subroutine bfrini().</span></div>
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="comment">C&gt;</span></div>
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="comment">C&gt; &lt;b&gt;Program history log:&lt;/b&gt;</span></div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="comment">C&gt; - 1998-07-08  J. Woollen -- Original author</span></div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="comment">C&gt; - 2002-05-14  J. Woollen -- Changed from an entry point in readmg()</span></div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="comment">C&gt;                           to stand-alone subroutine, to increase</span></div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="comment">C&gt;                           portability to other platforms</span></div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="comment">C&gt; - 2003-11-04  J. Ator    -- Added documentation</span></div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="comment">C&gt; - 2004-12-20  D. Keyser  -- Calls wrdlen() to initialize local machine</span></div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="comment">C&gt;                           information (in case it has not yet been</span></div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="comment">C&gt;                           called), this routine does not require it</span></div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="comment">C&gt;                           but it may someday call other routines that</span></div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="comment">C&gt;                           do require it</span></div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="comment">C&gt;</span></div>
-<div class="line"><a name="l00039"></a><span class="lineno"><a class="line" href="datelen_8f.html#ac75cb362f84167ca65b058a97401efcd">   39</a></span>&#160;<span class="keyword">      SUBROUTINE </span><a class="code" href="datelen_8f.html#ac75cb362f84167ca65b058a97401efcd">datelen</a>(LEN)</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="comment">C&gt; | Date | Programmer | Comments |</span></div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="comment">C&gt; | -----|------------|----------|</span></div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="comment">C&gt; | 1998-07-08 | J. Woollen | Original author |</span></div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="comment">C&gt; | 2002-05-14 | J. Woollen | Changed from an entry point in readmg() to stand-alone subroutine, to increase portability to other platforms |</span></div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="comment">C&gt; | 2003-11-04 | J. Ator    | Added documentation |</span></div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="comment">C&gt; | 2004-12-20 | D. Keyser  | Calls wrdlen() to initialize local machine information, in case it has not yet been called |</span></div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="comment">C&gt;</span></div>
+<div class="line"><a name="l00035"></a><span class="lineno"><a class="line" href="datelen_8f.html#ac75cb362f84167ca65b058a97401efcd">   35</a></span>&#160;<span class="keyword">      SUBROUTINE </span><a class="code" href="datelen_8f.html#ac75cb362f84167ca65b058a97401efcd">datelen</a>(LEN)</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;      <span class="keyword">COMMON</span> /dateln/ lendat</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;      <span class="keywordtype">CHARACTER*128</span> bort_str</div>
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;      <span class="keyword">COMMON</span> /dateln/ lendat</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;      <span class="keywordtype">CHARACTER*128</span> bort_str</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<span class="comment">C-----------------------------------------------------------------------</span></div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="comment">C-----------------------------------------------------------------------</span></div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="comment">C-----------------------------------------------------------------------</span></div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="comment">C-----------------------------------------------------------------------</span></div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="comment">C  CALL SUBROUTINE WRDLEN TO INITIALIZE SOME IMPORTANT INFORMATION</span></div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<span class="comment">C  ABOUT THE LOCAL MACHINE (IN CASE IT HAS NOT YET BEEN CALLED)</span></div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="comment">C  ---------------------------------------------------------------</span></div>
 <div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<span class="comment">C  CALL SUBROUTINE WRDLEN TO INITIALIZE SOME IMPORTANT INFORMATION</span></div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<span class="comment">C  ABOUT THE LOCAL MACHINE (IN CASE IT HAS NOT YET BEEN CALLED)</span></div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;<span class="comment">C  ---------------------------------------------------------------</span></div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;      CALL <a class="code" href="wrdlen_8F.html#afb746f29272671c842018de69b277685">wrdlen</a></div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;      <span class="keywordflow">IF</span>(len.NE.8 .AND. len.NE.10) goto 900</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;      lendat = len</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;<span class="comment">C  EXITS</span></div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;<span class="comment">C  -----</span></div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;      <span class="keywordflow">RETURN</span></div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;900   <span class="keyword">WRITE</span>(bort_str,<span class="stringliteral">&#39;(&quot;BUFRLIB: DATELEN - INPUT ARGUMENT IS&quot;,I4,&quot; - &#39;</span>//</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;     . <span class="stringliteral">&#39;IT MUST BE EITHER 8 OR 10&quot;)&#39;</span>) len</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;      CALL <a class="code" href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort</a>(bort_str)</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;      <span class="keywordflow">END</span></div>
-<div class="ttc" id="datelen_8f_html_ac75cb362f84167ca65b058a97401efcd"><div class="ttname"><a href="datelen_8f.html#ac75cb362f84167ca65b058a97401efcd">datelen</a></div><div class="ttdeci">subroutine datelen(LEN)</div><div class="ttdoc">This subroutine is used to specify the format of Section 1 date-time values that will be output by fu...</div><div class="ttdef"><b>Definition:</b> <a href="datelen_8f_source.html#l00039">datelen.f:39</a></div></div>
-<div class="ttc" id="wrdlen_8F_html_afb746f29272671c842018de69b277685"><div class="ttname"><a href="wrdlen_8F.html#afb746f29272671c842018de69b277685">wrdlen</a></div><div class="ttdeci">subroutine wrdlen</div><div class="ttdoc">This subroutine figures out some important information about the local machine on which the BUFRLIB s...</div><div class="ttdef"><b>Definition:</b> <a href="wrdlen_8F_source.html#l00043">wrdlen.F:43</a></div></div>
-<div class="ttc" id="bort_8f_html_a488d3a8cf930fb592a9fdaefcfa04ac4"><div class="ttname"><a href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort</a></div><div class="ttdeci">subroutine bort(STR)</div><div class="ttdoc">This subroutine calls subroutine errwrt() to log an error message, then calls subroutine bort_exit() ...</div><div class="ttdef"><b>Definition:</b> <a href="bort_8f_source.html#l00023">bort.f:23</a></div></div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;      CALL <a class="code" href="wrdlen_8F.html#afb746f29272671c842018de69b277685">wrdlen</a></div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;      <span class="keywordflow">IF</span>(len.NE.8 .AND. len.NE.10) goto 900</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;      lendat = len</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;<span class="comment">C  EXITS</span></div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;<span class="comment">C  -----</span></div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;      <span class="keywordflow">RETURN</span></div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;900   <span class="keyword">WRITE</span>(bort_str,<span class="stringliteral">&#39;(&quot;BUFRLIB: DATELEN - INPUT ARGUMENT IS&quot;,I4,&quot; - &#39;</span>//</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;     . <span class="stringliteral">&#39;IT MUST BE EITHER 8 OR 10&quot;)&#39;</span>) len</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;      CALL <a class="code" href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort</a>(bort_str)</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;      <span class="keywordflow">END</span></div>
+<div class="ttc" id="datelen_8f_html_ac75cb362f84167ca65b058a97401efcd"><div class="ttname"><a href="datelen_8f.html#ac75cb362f84167ca65b058a97401efcd">datelen</a></div><div class="ttdeci">subroutine datelen(LEN)</div><div class="ttdoc">This subroutine is used to specify the format of Section 1 date-time values that will be output by fu...</div><div class="ttdef"><b>Definition:</b> <a href="datelen_8f_source.html#l00035">datelen.f:35</a></div></div>
+<div class="ttc" id="wrdlen_8F_html_afb746f29272671c842018de69b277685"><div class="ttname"><a href="wrdlen_8F.html#afb746f29272671c842018de69b277685">wrdlen</a></div><div class="ttdeci">subroutine wrdlen</div><div class="ttdoc">This subroutine figures out some important information about the local machine on which the BUFRLIB s...</div><div class="ttdef"><b>Definition:</b> <a href="wrdlen_8F_source.html#l00035">wrdlen.F:35</a></div></div>
+<div class="ttc" id="bort_8f_html_a488d3a8cf930fb592a9fdaefcfa04ac4"><div class="ttname"><a href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort</a></div><div class="ttdeci">subroutine bort(STR)</div><div class="ttdoc">This subroutine calls subroutine errwrt() to log an error message, then calls subroutine bort_exit() ...</div><div class="ttdef"><b>Definition:</b> <a href="bort_8f_source.html#l00022">bort.f:22</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

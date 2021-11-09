@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.5.0</span>
+   &#160;<span id="projectnumber">11.6.0</span>
    </div>
   </td>
  </tr>
@@ -107,104 +107,107 @@ $(document).ready(function(){initNavTree('restd_8c_source.html','');});
 </div><!--header-->
 <div class="contents">
 <a href="restd_8c.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;</div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="bufrlib_8h.html">bufrlib.h</a>&quot;</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;</div>
-<div class="line"><a name="l00055"></a><span class="lineno"><a class="line" href="restd_8c.html#aef3fbb522b92409bdc654d70b39daaa0">   55</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="restd_8c.html#aef3fbb522b92409bdc654d70b39daaa0">restd</a>( f77int *lun, f77int *tddesc, f77int *nctddesc, f77int ctddesc[] )</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;{</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    f77int i0 = 0;</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="bufrlib_8h.html">bufrlib.h</a>&quot;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;</div>
+<div class="line"><a name="l00043"></a><span class="lineno"><a class="line" href="restd_8c.html#aef3fbb522b92409bdc654d70b39daaa0">   43</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="restd_8c.html#aef3fbb522b92409bdc654d70b39daaa0">restd</a>( f77int *lun, f77int *tddesc, f77int *nctddesc, f77int ctddesc[] )</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;{</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    f77int i0 = 0;</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    f77int desc, ncdesc, cdesc[MAXNC];</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    f77int i, j, inum, itbd, ictbd;</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    f77int iscl, iref, ibit;</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <span class="keywordtype">char</span> tab, nemo[9], adn[7], cunit[25], cwork[31];</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;<span class="comment">/*</span></div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;<span class="comment">**  How many child descriptors does *tddesc have?</span></div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;<span class="comment">*/</span></div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <a class="code" href="numtbd_8f.html#aae71d3919c5fc05ca4915e7b61aa3735">numtbd</a>( lun, tddesc, nemo, &amp;tab, &amp;itbd, 9, 1 );</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    <a class="code" href="uptdd_8f.html#a560d41b7c906a6cb2dc1f53259261dd4">uptdd</a>( &amp;itbd, lun, &amp;i0, &amp;inum );</div>
 <div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    f77int desc, ncdesc, cdesc[MAXNC];</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    f77int i, j, inum, itbd, ictbd;</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    f77int iscl, iref, ibit;</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    <span class="keywordtype">char</span> tab, nemo[9], adn[7], cunit[25];</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;<span class="comment">/*</span></div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;<span class="comment">**  How many child descriptors does *tddesc have?</span></div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;<span class="comment">*/</span></div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    <a class="code" href="numtbd_8f.html#aae71d3919c5fc05ca4915e7b61aa3735">numtbd</a>( lun, tddesc, nemo, &amp;tab, &amp;itbd, 9, 1 );</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    <a class="code" href="uptdd_8f.html#a560d41b7c906a6cb2dc1f53259261dd4">uptdd</a>( &amp;itbd, lun, &amp;i0, &amp;inum );</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    *nctddesc = 0;</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;<span class="comment">/*</span></div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;<span class="comment">**  Examine each child descriptor one at a time.</span></div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;<span class="comment">*/</span></div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    <span class="keywordflow">for</span> ( i = 1; i &lt;= inum; i++ ) {</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    <a class="code" href="uptdd_8f.html#a560d41b7c906a6cb2dc1f53259261dd4">uptdd</a>( &amp;itbd, lun, &amp;i, &amp;desc ); </div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    <span class="keywordflow">if</span> (! <a class="code" href="istdesc_8f.html#a8cf4d2f75a7094c482f39dec47f37175">istdesc</a>( &amp;desc ) ) {</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;<span class="comment">/*</span></div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;<span class="comment">**      desc is a local descriptor.</span></div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;<span class="comment">*/</span> </div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;        <a class="code" href="numtbd_8f.html#aae71d3919c5fc05ca4915e7b61aa3735">numtbd</a>( lun, &amp;desc, nemo, &amp;tab, &amp;ictbd, 9, 1 );</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;        <span class="keywordflow">if</span> ( tab == <span class="charliteral">&#39;D&#39;</span> ) {</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;<span class="comment">/*</span></div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;<span class="comment">**      desc is itself a local Table D descriptor, so resolve</span></div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;<span class="comment">**      it now via a recursive call to this same routine.</span></div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;<span class="comment">*/</span> </div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;            <a class="code" href="restd_8c.html#aef3fbb522b92409bdc654d70b39daaa0">restd</a>( lun, &amp;desc, &amp;ncdesc, cdesc );</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;            <span class="keywordflow">if</span> ( ( *nctddesc &gt; 0 ) &amp;&amp;</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;             ( ctddesc[(*nctddesc)-1] &gt;  <a class="code" href="ifxy_8f.html#ac971a6f6d644344a5b09d50175498074">ifxy</a>( <span class="stringliteral">&quot;101000&quot;</span>, 6 ) ) &amp;&amp;</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;             ( ctddesc[(*nctddesc)-1] &lt;= <a class="code" href="ifxy_8f.html#ac971a6f6d644344a5b09d50175498074">ifxy</a>( <span class="stringliteral">&quot;101255&quot;</span>, 6 ) ) ) {</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;<span class="comment">/*</span></div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;<span class="comment">**          desc is replicated using fixed replication, so write</span></div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;<span class="comment">**          the number of child descriptors into the X value of</span></div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;<span class="comment">**          the replication descriptor ctddesc[(*nctddesc)-1]</span></div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;<span class="comment">*/</span></div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;            <a class="code" href="cadn30_8f.html#a62b50a0be6585c53b6604953e5f39ad1">cadn30</a>( &amp;ctddesc[(*nctddesc)-1], adn, 7 );</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;            sprintf( adn, <span class="stringliteral">&quot;%c%02ld%c%c%c&quot;</span>,</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;                 adn[0], (<span class="keywordtype">long</span>) ncdesc, adn[3], adn[4], adn[5] );</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;            ctddesc[(*nctddesc)-1] = <a class="code" href="ifxy_8f.html#ac971a6f6d644344a5b09d50175498074">ifxy</a>( adn, 7 );</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;        }</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;        <span class="keywordflow">else</span> <span class="keywordflow">if</span> ( ( *nctddesc &gt; 1 ) &amp;&amp;</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;              ( ctddesc[(*nctddesc)-2] == <a class="code" href="ifxy_8f.html#ac971a6f6d644344a5b09d50175498074">ifxy</a>( <span class="stringliteral">&quot;101000&quot;</span>, 6 ) ) ) {</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    *nctddesc = 0;</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;<span class="comment">/*</span></div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;<span class="comment">**  Examine each child descriptor one at a time.</span></div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;<span class="comment">*/</span></div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    <span class="keywordflow">for</span> ( i = 1; i &lt;= inum; i++ ) {</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    <a class="code" href="uptdd_8f.html#a560d41b7c906a6cb2dc1f53259261dd4">uptdd</a>( &amp;itbd, lun, &amp;i, &amp;desc ); </div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    <span class="keywordflow">if</span> (! <a class="code" href="istdesc_8f.html#a8cf4d2f75a7094c482f39dec47f37175">istdesc</a>( &amp;desc ) ) {</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;<span class="comment">/*</span></div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;<span class="comment">**      desc is a local descriptor.</span></div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;<span class="comment">*/</span> </div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;        <a class="code" href="numtbd_8f.html#aae71d3919c5fc05ca4915e7b61aa3735">numtbd</a>( lun, &amp;desc, nemo, &amp;tab, &amp;ictbd, 9, 1 );</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;        <span class="keywordflow">if</span> ( tab == <span class="charliteral">&#39;D&#39;</span> ) {</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;<span class="comment">/*</span></div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;<span class="comment">**      desc is itself a local Table D descriptor, so resolve</span></div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;<span class="comment">**      it now via a recursive call to this same routine.</span></div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;<span class="comment">*/</span> </div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;            <a class="code" href="restd_8c.html#aef3fbb522b92409bdc654d70b39daaa0">restd</a>( lun, &amp;desc, &amp;ncdesc, cdesc );</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;            <span class="keywordflow">if</span> ( ( *nctddesc &gt; 0 ) &amp;&amp;</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;             ( ctddesc[(*nctddesc)-1] &gt;  <a class="code" href="ifxy_8f.html#ac971a6f6d644344a5b09d50175498074">ifxy</a>( <span class="stringliteral">&quot;101000&quot;</span>, 6 ) ) &amp;&amp;</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;             ( ctddesc[(*nctddesc)-1] &lt;= <a class="code" href="ifxy_8f.html#ac971a6f6d644344a5b09d50175498074">ifxy</a>( <span class="stringliteral">&quot;101255&quot;</span>, 6 ) ) ) {</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;<span class="comment">/*</span></div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;<span class="comment">**          desc is replicated using fixed replication, so write</span></div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;<span class="comment">**          the number of child descriptors into the X value of</span></div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;<span class="comment">**          the replication descriptor ctddesc[(*nctddesc)-1]</span></div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;<span class="comment">*/</span></div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;            <a class="code" href="cadn30_8f.html#a62b50a0be6585c53b6604953e5f39ad1">cadn30</a>( &amp;ctddesc[(*nctddesc)-1], adn, 7 );</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;            sprintf( cwork, <span class="stringliteral">&quot;%c%02ld%c%c%c&quot;</span>,</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;                 adn[0], (<span class="keywordtype">long</span>) ncdesc, adn[3], adn[4], adn[5] );</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;            strncpy( adn, cwork, 6 ); adn[6] = <span class="charliteral">&#39;\0&#39;</span>;</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;            ctddesc[(*nctddesc)-1] = <a class="code" href="ifxy_8f.html#ac971a6f6d644344a5b09d50175498074">ifxy</a>( adn, 7 );</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;        }</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;        <span class="keywordflow">else</span> <span class="keywordflow">if</span> ( ( *nctddesc &gt; 1 ) &amp;&amp;</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;              ( ctddesc[(*nctddesc)-2] == <a class="code" href="ifxy_8f.html#ac971a6f6d644344a5b09d50175498074">ifxy</a>( <span class="stringliteral">&quot;101000&quot;</span>, 6 ) ) ) {</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;<span class="comment">/*</span></div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;<span class="comment">**          desc is replicated using delayed replication, so write</span></div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;<span class="comment">**          the number of child descriptors into the X value of</span></div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;<span class="comment">**          the replication descriptor ctddesc[(*nctddesc)-2]</span></div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;<span class="comment">*/</span></div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;            <a class="code" href="cadn30_8f.html#a62b50a0be6585c53b6604953e5f39ad1">cadn30</a>( &amp;ctddesc[(*nctddesc)-2], adn, 7 );</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;            sprintf( cwork, <span class="stringliteral">&quot;%c%02ld%c%c%c&quot;</span>,</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;                 adn[0], (<span class="keywordtype">long</span>) ncdesc, adn[3], adn[4], adn[5] );</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;            strncpy( adn, cwork, 6 ); adn[6] = <span class="charliteral">&#39;\0&#39;</span>;</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;            ctddesc[(*nctddesc)-2] = <a class="code" href="ifxy_8f.html#ac971a6f6d644344a5b09d50175498074">ifxy</a>( adn, 7 );</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;        }</div>
 <div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;<span class="comment">/*</span></div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;<span class="comment">**          desc is replicated using delayed replication, so write</span></div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;<span class="comment">**          the number of child descriptors into the X value of</span></div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;<span class="comment">**          the replication descriptor ctddesc[(*nctddesc)-2]</span></div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;<span class="comment">*/</span></div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;            <a class="code" href="cadn30_8f.html#a62b50a0be6585c53b6604953e5f39ad1">cadn30</a>( &amp;ctddesc[(*nctddesc)-2], adn, 7 );</div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;            sprintf( adn, <span class="stringliteral">&quot;%c%02ld%c%c%c&quot;</span>,</div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;                 adn[0], (<span class="keywordtype">long</span>) ncdesc, adn[3], adn[4], adn[5] );</div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;            ctddesc[(*nctddesc)-2] = <a class="code" href="ifxy_8f.html#ac971a6f6d644344a5b09d50175498074">ifxy</a>( adn, 7 );</div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;        }</div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;<span class="comment">/*</span></div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;<span class="comment">**      Add the child descriptors to the output list.</span></div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;<span class="comment">*/</span></div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;        <span class="keywordflow">for</span> ( j = 0; j &lt; ncdesc; j++ ) {</div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;            <a class="code" href="wrdesc_8c.html#aed82d3eee5bd688cbf51ae05807f584d">wrdesc</a>( cdesc[j], ctddesc, nctddesc );</div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;        }</div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;            </div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;        }</div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;        <span class="keywordflow">else</span> <span class="keywordflow">if</span> ( tab == <span class="charliteral">&#39;B&#39;</span> ) {</div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;<span class="comment">/*</span></div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;<span class="comment">**      desc is a local Table B descriptor, so precede it with</span></div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;<span class="comment">**      a 206YYY operator in the output list.</span></div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;<span class="comment">*/</span> </div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;        <a class="code" href="nemtbb_8f.html#a6a5cf8bb2726a59eeb87fbbef58764be">nemtbb</a>( lun, &amp;ictbd, cunit, &amp;iscl, &amp;iref, &amp;ibit, 25 );</div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;        sprintf( adn, <span class="stringliteral">&quot;%c%c%c%03ld&quot;</span>, <span class="charliteral">&#39;2&#39;</span>, <span class="charliteral">&#39;0&#39;</span>, <span class="charliteral">&#39;6&#39;</span>, (<span class="keywordtype">long</span>) ibit );</div>
-<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;        <a class="code" href="wrdesc_8c.html#aed82d3eee5bd688cbf51ae05807f584d">wrdesc</a>( <a class="code" href="ifxy_8f.html#ac971a6f6d644344a5b09d50175498074">ifxy</a>( adn, 7 ), ctddesc, nctddesc );</div>
-<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;            <a class="code" href="wrdesc_8c.html#aed82d3eee5bd688cbf51ae05807f584d">wrdesc</a>( desc, ctddesc, nctddesc );</div>
-<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;        }</div>
-<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;        }</div>
-<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;    <span class="keywordflow">else</span> {</div>
-<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;<span class="comment">/*</span></div>
-<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;<span class="comment">**      desc is a standard Table B, Table D, operator or replicator</span></div>
-<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;<span class="comment">**      descriptor, so append it &quot;as is&quot; to the output list.</span></div>
-<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;<span class="comment">*/</span> </div>
-<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;        <a class="code" href="wrdesc_8c.html#aed82d3eee5bd688cbf51ae05807f584d">wrdesc</a>( desc, ctddesc, nctddesc );</div>
-<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;    }</div>
-<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;    }</div>
-<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;</div>
-<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;    <span class="keywordflow">return</span>;</div>
-<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;}</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;<span class="comment">**      Add the child descriptors to the output list.</span></div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;<span class="comment">*/</span></div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;        <span class="keywordflow">for</span> ( j = 0; j &lt; ncdesc; j++ ) {</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;            <a class="code" href="wrdesc_8c.html#aed82d3eee5bd688cbf51ae05807f584d">wrdesc</a>( cdesc[j], ctddesc, nctddesc );</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;        }</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;            </div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;        }</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;        <span class="keywordflow">else</span> <span class="keywordflow">if</span> ( tab == <span class="charliteral">&#39;B&#39;</span> ) {</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;<span class="comment">/*</span></div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;<span class="comment">**      desc is a local Table B descriptor, so precede it with</span></div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;<span class="comment">**      a 206YYY operator in the output list.</span></div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;<span class="comment">*/</span> </div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;        <a class="code" href="nemtbb_8f.html#a6a5cf8bb2726a59eeb87fbbef58764be">nemtbb</a>( lun, &amp;ictbd, cunit, &amp;iscl, &amp;iref, &amp;ibit, 25 );</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;        sprintf( cwork, <span class="stringliteral">&quot;%c%c%c%03ld&quot;</span>, <span class="charliteral">&#39;2&#39;</span>, <span class="charliteral">&#39;0&#39;</span>, <span class="charliteral">&#39;6&#39;</span>, (<span class="keywordtype">long</span>) ibit );</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;        strncpy( adn, cwork, 6 ); adn[6] = <span class="charliteral">&#39;\0&#39;</span>;</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;        <a class="code" href="wrdesc_8c.html#aed82d3eee5bd688cbf51ae05807f584d">wrdesc</a>( <a class="code" href="ifxy_8f.html#ac971a6f6d644344a5b09d50175498074">ifxy</a>( adn, 7 ), ctddesc, nctddesc );</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;            <a class="code" href="wrdesc_8c.html#aed82d3eee5bd688cbf51ae05807f584d">wrdesc</a>( desc, ctddesc, nctddesc );</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;        }</div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;        }</div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;    <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;<span class="comment">/*</span></div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;<span class="comment">**      desc is a standard Table B, Table D, operator or replicator</span></div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;<span class="comment">**      descriptor, so append it &quot;as is&quot; to the output list.</span></div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;<span class="comment">*/</span> </div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;        <a class="code" href="wrdesc_8c.html#aed82d3eee5bd688cbf51ae05807f584d">wrdesc</a>( desc, ctddesc, nctddesc );</div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;    }</div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;    }</div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;</div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;    <span class="keywordflow">return</span>;</div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;}</div>
 <div class="ttc" id="bufrlib_8h_html"><div class="ttname"><a href="bufrlib_8h.html">bufrlib.h</a></div><div class="ttdoc">Define signatures to enable a number of BUFRLIB subprograms to be called directly from C application ...</div></div>
-<div class="ttc" id="restd_8c_html_aef3fbb522b92409bdc654d70b39daaa0"><div class="ttname"><a href="restd_8c.html#aef3fbb522b92409bdc654d70b39daaa0">restd</a></div><div class="ttdeci">void restd(f77int *lun, f77int *tddesc, f77int *nctddesc, f77int ctddesc[])</div><div class="ttdoc">C C SUBPROGRAM: RESTD C PRGMMR: ATOR ORG: NP12 DATE: 2004-08-18 C C ABSTRACT: GIVEN THE BIT-WISE REPR...</div><div class="ttdef"><b>Definition:</b> <a href="restd_8c_source.html#l00055">restd.c:55</a></div></div>
-<div class="ttc" id="istdesc_8f_html_a8cf4d2f75a7094c482f39dec47f37175"><div class="ttname"><a href="istdesc_8f.html#a8cf4d2f75a7094c482f39dec47f37175">istdesc</a></div><div class="ttdeci">function istdesc(IDN)</div><div class="ttdoc">GIVEN THE BIT-WISE REPRESENTATION OF THE FXY VALUE FOR A DESCRIPTOR, THIS FUNCTION DETERMINES WHETHER...</div><div class="ttdef"><b>Definition:</b> <a href="istdesc_8f_source.html#l00027">istdesc.f:27</a></div></div>
-<div class="ttc" id="nemtbb_8f_html_a6a5cf8bb2726a59eeb87fbbef58764be"><div class="ttname"><a href="nemtbb_8f.html#a6a5cf8bb2726a59eeb87fbbef58764be">nemtbb</a></div><div class="ttdeci">subroutine nemtbb(LUN, ITAB, UNIT, ISCL, IREF, IBIT)</div><div class="ttdoc">THIS SUBROUTINE CHECKS ALL OF THE PROPERTIES (E.G. </div><div class="ttdef"><b>Definition:</b> <a href="nemtbb_8f_source.html#l00049">nemtbb.f:49</a></div></div>
-<div class="ttc" id="numtbd_8f_html_aae71d3919c5fc05ca4915e7b61aa3735"><div class="ttname"><a href="numtbd_8f.html#aae71d3919c5fc05ca4915e7b61aa3735">numtbd</a></div><div class="ttdeci">subroutine numtbd(LUN, IDN, NEMO, TAB, IRET)</div><div class="ttdoc">THIS SUBROUTINE SEARCHES FOR AN INTEGER IDN, CONTAINING THE BIT-WISE REPRESENTATION OF A DESCRIPTOR (...</div><div class="ttdef"><b>Definition:</b> <a href="numtbd_8f_source.html#l00054">numtbd.f:54</a></div></div>
-<div class="ttc" id="ifxy_8f_html_ac971a6f6d644344a5b09d50175498074"><div class="ttname"><a href="ifxy_8f.html#ac971a6f6d644344a5b09d50175498074">ifxy</a></div><div class="ttdeci">function ifxy(ADSC)</div><div class="ttdoc">THIS FUNCTION RETURNS THE INTEGER CORRESPONDING TO THE BIT-WISE REPRESENTATION OF AN INPUT CHARACTER ...</div><div class="ttdef"><b>Definition:</b> <a href="ifxy_8f_source.html#l00049">ifxy.f:49</a></div></div>
-<div class="ttc" id="cadn30_8f_html_a62b50a0be6585c53b6604953e5f39ad1"><div class="ttname"><a href="cadn30_8f.html#a62b50a0be6585c53b6604953e5f39ad1">cadn30</a></div><div class="ttdeci">subroutine cadn30(IDN, ADN)</div><div class="ttdoc">GIVEN THE BIT-WISE REPRESENTATION OF THE FXY VALUE FOR A DESCRIPTOR, THIS ROUTINE CALLS FUNCTION ADN3...</div><div class="ttdef"><b>Definition:</b> <a href="cadn30_8f_source.html#l00029">cadn30.f:29</a></div></div>
+<div class="ttc" id="restd_8c_html_aef3fbb522b92409bdc654d70b39daaa0"><div class="ttname"><a href="restd_8c.html#aef3fbb522b92409bdc654d70b39daaa0">restd</a></div><div class="ttdeci">void restd(f77int *lun, f77int *tddesc, f77int *nctddesc, f77int ctddesc[])</div><div class="ttdoc">Given the bit-wise (integer) representation of a local (not WMO-standard) Table D descriptor...</div><div class="ttdef"><b>Definition:</b> <a href="restd_8c_source.html#l00043">restd.c:43</a></div></div>
+<div class="ttc" id="istdesc_8f_html_a8cf4d2f75a7094c482f39dec47f37175"><div class="ttname"><a href="istdesc_8f.html#a8cf4d2f75a7094c482f39dec47f37175">istdesc</a></div><div class="ttdeci">function istdesc(IDN)</div><div class="ttdoc">Given the bit-wise (integer) representation of a descriptor, this function determines whether the des...</div><div class="ttdef"><b>Definition:</b> <a href="istdesc_8f_source.html#l00025">istdesc.f:25</a></div></div>
+<div class="ttc" id="nemtbb_8f_html_a6a5cf8bb2726a59eeb87fbbef58764be"><div class="ttname"><a href="nemtbb_8f.html#a6a5cf8bb2726a59eeb87fbbef58764be">nemtbb</a></div><div class="ttdeci">subroutine nemtbb(LUN, ITAB, UNIT, ISCL, IREF, IBIT)</div><div class="ttdoc">This subroutine returns information about a Table B descriptor from the internal DX BUFR tables...</div><div class="ttdef"><b>Definition:</b> <a href="nemtbb_8f_source.html#l00031">nemtbb.f:31</a></div></div>
+<div class="ttc" id="numtbd_8f_html_aae71d3919c5fc05ca4915e7b61aa3735"><div class="ttname"><a href="numtbd_8f.html#aae71d3919c5fc05ca4915e7b61aa3735">numtbd</a></div><div class="ttdeci">subroutine numtbd(LUN, IDN, NEMO, TAB, IRET)</div><div class="ttdoc">This subroutine searches for a descriptor within Table B and Table D of the internal DX BUFR tables...</div><div class="ttdef"><b>Definition:</b> <a href="numtbd_8f_source.html#l00035">numtbd.f:35</a></div></div>
+<div class="ttc" id="ifxy_8f_html_ac971a6f6d644344a5b09d50175498074"><div class="ttname"><a href="ifxy_8f.html#ac971a6f6d644344a5b09d50175498074">ifxy</a></div><div class="ttdeci">function ifxy(ADSC)</div><div class="ttdoc">This function converts an FXY value from its 6 character representation to its bit-wise (integer) rep...</div><div class="ttdef"><b>Definition:</b> <a href="ifxy_8f_source.html#l00042">ifxy.f:42</a></div></div>
+<div class="ttc" id="cadn30_8f_html_a62b50a0be6585c53b6604953e5f39ad1"><div class="ttname"><a href="cadn30_8f.html#a62b50a0be6585c53b6604953e5f39ad1">cadn30</a></div><div class="ttdeci">subroutine cadn30(IDN, ADN)</div><div class="ttdoc">This subroutine converts an FXY value from its bit-wise (integer) representation to its 6 character r...</div><div class="ttdef"><b>Definition:</b> <a href="cadn30_8f_source.html#l00023">cadn30.f:23</a></div></div>
 <div class="ttc" id="wrdesc_8c_html_aed82d3eee5bd688cbf51ae05807f584d"><div class="ttname"><a href="wrdesc_8c.html#aed82d3eee5bd688cbf51ae05807f584d">wrdesc</a></div><div class="ttdeci">void wrdesc(f77int desc, f77int descary[], f77int *ndescary)</div><div class="ttdoc">C C SUBPROGRAM: WRDESC C PRGMMR: ATOR ORG: NP12 DATE: 2004-08-18 C C ABSTRACT: GIVEN THE BIT-WISE REP...</div><div class="ttdef"><b>Definition:</b> <a href="wrdesc_8c_source.html#l00046">wrdesc.c:46</a></div></div>
 <div class="ttc" id="uptdd_8f_html_a560d41b7c906a6cb2dc1f53259261dd4"><div class="ttname"><a href="uptdd_8f.html#a560d41b7c906a6cb2dc1f53259261dd4">uptdd</a></div><div class="ttdeci">subroutine uptdd(ID, LUN, IENT, IRET)</div><div class="ttdoc">THIS SUBROUTINE RETURNS THE BIT-WISE REPRESENTATION OF THE FXY VALUE CORRESPONDING TO...</div><div class="ttdef"><b>Definition:</b> <a href="uptdd_8f_source.html#l00060">uptdd.f:60</a></div></div>
 </div><!-- fragment --></div><!-- contents -->

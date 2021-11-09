@@ -25,7 +25,6 @@ var searchData=
   ['readsb_2ef',['readsb.f',['../readsb_8f.html',1,'']]],
   ['restd_2ec',['restd.c',['../restd_8c.html',1,'']]],
   ['rewnbf_2ef',['rewnbf.f',['../rewnbf_8f.html',1,'']]],
-  ['rjust_2ef',['rjust.f',['../rjust_8f.html',1,'']]],
   ['rsvfvm_2ef',['rsvfvm.f',['../rsvfvm_8f.html',1,'']]],
   ['rtrcpt_2ef',['rtrcpt.f',['../rtrcpt_8f.html',1,'']]],
   ['rtrcptb_2ef',['rtrcptb.f',['../rtrcptb_8f.html',1,'']]]

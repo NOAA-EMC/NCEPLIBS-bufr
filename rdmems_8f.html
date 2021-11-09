@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.5.0</span>
+   &#160;<span id="projectnumber">11.6.0</span>
    </div>
   </td>
  </tr>
@@ -154,8 +154,8 @@ Functions/Subroutines</h2></td></tr>
 <dl class="section date"><dt>Date</dt><dd>1994-01-06</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">ISUB</td><td>- integer: Number of data subset to be read from BUFR message, counting from the beginning of the message </td></tr>
-    <tr><td class="paramdir">[out]</td><td class="paramname">IRET</td><td>- integer: return code<ul>
+    <tr><td class="paramdir">[in]</td><td class="paramname">ISUB</td><td>&ndash; integer: Number of data subset to be read from BUFR message, counting from the beginning of the message </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">IRET</td><td>&ndash; integer: return code<ul>
 <li>0 = requested data subset was successfully read</li>
 <li>-1 = requested subset number could not be found in the message</li>
 </ul>
@@ -164,21 +164,33 @@ Functions/Subroutines</h2></td></tr>
   </dd>
 </dl>
 <p>Whenever this subroutine returns with IRET = 0, this indicates that a new BUFR data subset (i.e. report) was successfully read into internal arrays within the BUFRLIB software, and from where it can now be easily manipulated or further parsed via calls to any of the <a class="el" href="md__gpfs_dell2_emc_obsproc_noscrub_Jeff_8Ator_NCEPLIBS-bufr-GitHub_nceplibs-bufr_docs_UserGuide.html#hierarchy">values-reading subroutines</a> using the Fortran logical unit number IUNIT that was returned from the most recent call to subroutine <a class="el" href="ufbmem_8f.html#aaa20a946a966bc4de8012e1a01461502" title="This subroutine connects a new system file to the BUFRLIB software for input operations, then reads the entire file contents into internal arrays so that any of the individual BUFR messages can later be accessed from memory, instead of having to read them one at a time sequentially from the system file. ">ufbmem()</a>.</p>
-<p><b>Program history log:</b></p>
-<ul>
-<li>1994-01-06 J. Woollen &ndash; Original author</li>
-<li>1998-07-08 J. Woollen &ndash; Replaced call to Cray library routine "ABORT" with call to new internal BUFRLIB routine "BORT"</li>
-<li>1998-10-27 J. Woollen &ndash; Modified to correct problems caused by in-lining code with fpp directives</li>
-<li>1999-11-18 J. Woollen &ndash; The number of BUFR files which can be opened at one time increased from 10 to 32 (necessary in order to process multiple BUFR files under the MPI)</li>
-<li>2000-09-19 J. Woollen &ndash; Maximum message length increased from 10,000 to 20,000 bytes</li>
-<li>2001-08-15 D. Keyser &ndash; Increased MAXMEM from 8 Mb to 16 Mb</li>
-<li>2004-08-09 J. Ator &ndash; Maximum message length increased from 20,000 to 50,000 bytes</li>
-<li>2004-11-15 D. Keyser &ndash; Increased MAXMEM from 16 Mb to 50 Mb</li>
-<li>2009-04-21 J. Ator &ndash; Use <a class="el" href="errwrt_8f.html#a65626d9a772648676146b62b596c2764" title="This subroutine allows the user to specify a custom location for the logging of error and diagnostic ...">errwrt()</a></li>
-<li>2014-12-10 J. Ator &ndash; Use modules instead of COMMON blocks </li>
-</ul>
+<p><b>Program history log:</b> </p>
+<table class="doxtable">
+<tr>
+<th>Date </th><th>Programmer </th><th>Comments  </th></tr>
+<tr>
+<td>1994-01-06 </td><td>J. Woollen </td><td>Original author </td></tr>
+<tr>
+<td>1998-07-08 </td><td>J. Woollen </td><td>Replaced call to Cray library routine "ABORT" with call to new internal routine <a class="el" href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4" title="This subroutine calls subroutine errwrt() to log an error message, then calls subroutine bort_exit() ...">bort()</a> </td></tr>
+<tr>
+<td>1998-10-27 </td><td>J. Woollen </td><td>Modified to correct problems caused by in-lining code with fpp directives </td></tr>
+<tr>
+<td>1999-11-18 </td><td>J. Woollen </td><td>The number of BUFR files which can be opened at one time increased from 10 to 32 </td></tr>
+<tr>
+<td>2000-09-19 </td><td>J. Woollen </td><td>Maximum message length increased from 10,000 to 20,000 bytes </td></tr>
+<tr>
+<td>2001-08-15 </td><td>D. Keyser </td><td>Increased MAXMEM from 8 Mb to 16 Mb </td></tr>
+<tr>
+<td>2004-08-09 </td><td>J. Ator </td><td>Maximum message length increased from 20,000 to 50,000 bytes </td></tr>
+<tr>
+<td>2004-11-15 </td><td>D. Keyser </td><td>Increased MAXMEM from 16 Mb to 50 Mb </td></tr>
+<tr>
+<td>2009-04-21 </td><td>J. Ator </td><td>Use <a class="el" href="errwrt_8f.html#a65626d9a772648676146b62b596c2764" title="This subroutine allows the user to specify a custom location for the logging of error and diagnostic ...">errwrt()</a> </td></tr>
+<tr>
+<td>2014-12-10 </td><td>J. Ator </td><td>Use modules instead of COMMON blocks </td></tr>
+</table>
 
-<p>Definition at line <a class="el" href="rdmems_8f_source.html#l00048">48</a> of file <a class="el" href="rdmems_8f_source.html">rdmems.f</a>.</p>
+<p>Definition at line <a class="el" href="rdmems_8f_source.html#l00042">42</a> of file <a class="el" href="rdmems_8f_source.html">rdmems.f</a>.</p>
 
 <p>References <a class="el" href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort()</a>, <a class="el" href="errwrt_8f.html#a65626d9a772648676146b62b596c2764">errwrt()</a>, <a class="el" href="iupb_8f.html#a3f8fa4b5261e85ecbf679208e7635c6c">iupb()</a>, <a class="el" href="readsb_8f.html#ae7619346ca59d008b4d6a646408876f5">readsb()</a>, and <a class="el" href="status_8f.html#a22292e7a69c411a961168198d259f336">status()</a>.</p>
 

@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.5.0</span>
+   &#160;<span id="projectnumber">11.6.0</span>
    </div>
   </td>
  </tr>
@@ -140,96 +140,126 @@ Typedefs</h2></td></tr>
 <tr class="memitem:a5c4dfc0f91864103ff0e0e94eb361822"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a5c4dfc0f91864103ff0e0e94eb361822"></a>
 typedef int&#160;</td><td class="memItemRight" valign="bottom"><b>f77int</b></td></tr>
 <tr class="separator:a5c4dfc0f91864103ff0e0e94eb361822"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a527be609c510456682d15d744b350ba1"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a527be609c510456682d15d744b350ba1"></a>
+typedef double&#160;</td><td class="memItemRight" valign="bottom"><b>f77r8</b></td></tr>
+<tr class="separator:a527be609c510456682d15d744b350ba1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a98efd59b32b1d2ed2c060d2564824e28"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="bufrlib_8h.html#a98efd59b32b1d2ed2c060d2564824e28">arallocc</a> (void)</td></tr>
-<tr class="memdesc:a98efd59b32b1d2ed2c060d2564824e28"><td class="mdescLeft">&#160;</td><td class="mdescRight">For dynamic allocation builds of the library, this subroutine is called internally during the first call to subroutine <a class="el" href="openbf_8F.html#a9bea9aeada166bd9037b959ca8452b28" title="This subroutine connects a new file to the BUFRLIB software for input or output operations. ">openbf()</a> from an application program, in order to dynamically allocate internal C language arrays based on parameter values set during one or more previous calls to function <a class="el" href="isetprm_8F.html#a366156765665bb1e1452635b12ff5093" title="This function sets a specified parameter to a specified value for use in dynamically allocating one o...">isetprm()</a>.  <a href="#a98efd59b32b1d2ed2c060d2564824e28">More...</a><br/></td></tr>
+<tr class="memdesc:a98efd59b32b1d2ed2c060d2564824e28"><td class="mdescLeft">&#160;</td><td class="mdescRight">This subroutine is called internally during the first call to subroutine <a class="el" href="openbf_8f.html#a9bea9aeada166bd9037b959ca8452b28" title="This subroutine connects a new file to the BUFRLIB software for input or output operations. ">openbf()</a> from an application program, in order to dynamically allocate internal C language arrays based on parameter values set during one or more previous calls to function <a class="el" href="isetprm_8f.html#a366156765665bb1e1452635b12ff5093" title="This function sets a specified parameter to a specified value for use in dynamically allocating one o...">isetprm()</a>.  <a href="#a98efd59b32b1d2ed2c060d2564824e28">More...</a><br/></td></tr>
 <tr class="separator:a98efd59b32b1d2ed2c060d2564824e28"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac283516a1391fee0635b01beffdad7cb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="bufrlib_8h.html#ac283516a1391fee0635b01beffdad7cb">ardllocc</a> (void)</td></tr>
-<tr class="memdesc:ac283516a1391fee0635b01beffdad7cb"><td class="mdescLeft">&#160;</td><td class="mdescRight">This subroutine frees any memory that was dynamically allocated during a previous call to subroutine <a class="el" href="arallocc_8c.html#a98efd59b32b1d2ed2c060d2564824e28" title="For dynamic allocation builds of the library, this subroutine is called internally during the first c...">arallocc()</a>.  <a href="#ac283516a1391fee0635b01beffdad7cb">More...</a><br/></td></tr>
+<tr class="memdesc:ac283516a1391fee0635b01beffdad7cb"><td class="mdescLeft">&#160;</td><td class="mdescRight">This subroutine frees any memory that was dynamically allocated during a previous call to subroutine <a class="el" href="arallocc_8c.html#a98efd59b32b1d2ed2c060d2564824e28" title="This subroutine is called internally during the first call to subroutine openbf() from an application...">arallocc()</a>.  <a href="#ac283516a1391fee0635b01beffdad7cb">More...</a><br/></td></tr>
 <tr class="separator:ac283516a1391fee0635b01beffdad7cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7de367cdbb661e09f85b37f65551a9bd"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a7de367cdbb661e09f85b37f65551a9bd"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>bort</b> (char *, f77int)</td></tr>
-<tr class="separator:a7de367cdbb661e09f85b37f65551a9bd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a92df1378ee8ec6f7e75af67cb89a761d"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a92df1378ee8ec6f7e75af67cb89a761d"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>bort</b> (char *, size_t)</td></tr>
+<tr class="separator:a92df1378ee8ec6f7e75af67cb89a761d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0f6c0efb4e258f8dc7550620b2536b60"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="bufrlib_8h.html#a0f6c0efb4e258f8dc7550620b2536b60">bort_exit</a> (void)</td></tr>
 <tr class="memdesc:a0f6c0efb4e258f8dc7550620b2536b60"><td class="mdescLeft">&#160;</td><td class="mdescRight">This subroutine terminates the application program with a non-zero status code.  <a href="#a0f6c0efb4e258f8dc7550620b2536b60">More...</a><br/></td></tr>
 <tr class="separator:a0f6c0efb4e258f8dc7550620b2536b60"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab847b1928ab5afce4c0dd426527a67be"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab847b1928ab5afce4c0dd426527a67be"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>bvers</b> (char *, f77int)</td></tr>
-<tr class="separator:ab847b1928ab5afce4c0dd426527a67be"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4e4a1601fe91b0d3e1e96184b583d76c"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a4e4a1601fe91b0d3e1e96184b583d76c"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>cadn30</b> (f77int *, char *, f77int)</td></tr>
-<tr class="separator:a4e4a1601fe91b0d3e1e96184b583d76c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a71e54e1df207183c659898659d466dcc"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a71e54e1df207183c659898659d466dcc"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>bvers</b> (char *, size_t)</td></tr>
+<tr class="separator:a71e54e1df207183c659898659d466dcc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a94898135812b79addd8838c5d7d10083"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a94898135812b79addd8838c5d7d10083"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>cadn30</b> (f77int *, char *, size_t)</td></tr>
+<tr class="separator:a94898135812b79addd8838c5d7d10083"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a162dcb94c958d05c20ba7ecd02f2f978"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a162dcb94c958d05c20ba7ecd02f2f978"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>closbf</b> (f77int *)</td></tr>
+<tr class="separator:a162dcb94c958d05c20ba7ecd02f2f978"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8eda0001bb7041111117d589f6176f99"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="bufrlib_8h.html#a8eda0001bb7041111117d589f6176f99">cmpia</a> (const void *, const void *)</td></tr>
 <tr class="memdesc:a8eda0001bb7041111117d589f6176f99"><td class="mdescLeft">&#160;</td><td class="mdescRight">C C SUBPROGRAM: CMPIA C PRGMMR: ATOR ORG: NP12 DATE: 2009-03-23 C C ABSTRACT: THIS ROUTINE DEFINES A COMPARISON BETWEEN TWO INTEGERS C FOR USE BY THE BINARY SEARCH FUNCTION BSEARCH.  <a href="#a8eda0001bb7041111117d589f6176f99">More...</a><br/></td></tr>
 <tr class="separator:a8eda0001bb7041111117d589f6176f99"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae1a90a79e77afbc6351042054e06c8e0"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ae1a90a79e77afbc6351042054e06c8e0"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>elemdx</b> (char *, f77int *, f77int)</td></tr>
-<tr class="separator:ae1a90a79e77afbc6351042054e06c8e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a67b6203e347502db6c356d8a96bb49a2"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a67b6203e347502db6c356d8a96bb49a2"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>gets1loc</b> (char *, f77int *, f77int *, f77int *, f77int *, f77int)</td></tr>
-<tr class="separator:a67b6203e347502db6c356d8a96bb49a2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a844a16e64ded24f4cfbb3d75cfdc14ae"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a844a16e64ded24f4cfbb3d75cfdc14ae"></a>
-f77int&#160;</td><td class="memItemRight" valign="bottom"><b>ichkstr</b> (char *, char *, f77int *, f77int, f77int)</td></tr>
-<tr class="separator:a844a16e64ded24f4cfbb3d75cfdc14ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab429431fd56e030c61ce0369e533dac1"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab429431fd56e030c61ce0369e533dac1"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>cmpmsg</b> (char *, size_t)</td></tr>
+<tr class="separator:ab429431fd56e030c61ce0369e533dac1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9d4bd49eb23a8c829c7cfb9c6d44ffd2"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a9d4bd49eb23a8c829c7cfb9c6d44ffd2"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>elemdx</b> (char *, f77int *, size_t)</td></tr>
+<tr class="separator:a9d4bd49eb23a8c829c7cfb9c6d44ffd2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a80ecffd4afac48f0dacec8536d56a180"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a80ecffd4afac48f0dacec8536d56a180"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>gets1loc</b> (char *, f77int *, f77int *, f77int *, f77int *, size_t)</td></tr>
+<tr class="separator:a80ecffd4afac48f0dacec8536d56a180"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7e081f04f68e9a4d1991c7371b550a2f"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a7e081f04f68e9a4d1991c7371b550a2f"></a>
+f77int&#160;</td><td class="memItemRight" valign="bottom"><b>ibfms</b> (f77r8 *)</td></tr>
+<tr class="separator:a7e081f04f68e9a4d1991c7371b550a2f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5dfb1f24fe86386fe15ad6b240804a61"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a5dfb1f24fe86386fe15ad6b240804a61"></a>
+f77int&#160;</td><td class="memItemRight" valign="bottom"><b>ichkstr</b> (char *, char *, f77int *, size_t, size_t)</td></tr>
+<tr class="separator:a5dfb1f24fe86386fe15ad6b240804a61"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ade83ee15799d32cd0b08b90f0e0ca852"><td class="memItemLeft" align="right" valign="top">f77int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="bufrlib_8h.html#ade83ee15799d32cd0b08b90f0e0ca852">icvidx</a> (f77int *, f77int *, f77int *)</td></tr>
 <tr class="memdesc:ade83ee15799d32cd0b08b90f0e0ca852"><td class="mdescLeft">&#160;</td><td class="mdescRight">C C SUBPROGRAM: ICVIDX C PRGMMR: ATOR ORG: NP12 DATE: 2009-03-23 C C ABSTRACT: THIS ROUTINE COMPUTES A UNIQUE 1-DIMENSIONAL ARRAY C INDEX FROM 2-DIMENSIONAL INDICES.  <a href="#ade83ee15799d32cd0b08b90f0e0ca852">More...</a><br/></td></tr>
 <tr class="separator:ade83ee15799d32cd0b08b90f0e0ca852"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5e4c9767ca7c17c083818cb68a1a6cae"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a5e4c9767ca7c17c083818cb68a1a6cae"></a>
-f77int&#160;</td><td class="memItemRight" valign="bottom"><b>ifxy</b> (char *, f77int)</td></tr>
-<tr class="separator:a5e4c9767ca7c17c083818cb68a1a6cae"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abcf341f80f3bf30e30cc136f75cec823"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="abcf341f80f3bf30e30cc136f75cec823"></a>
-f77int&#160;</td><td class="memItemRight" valign="bottom"><b>igetntbi</b> (f77int *, char *, f77int)</td></tr>
-<tr class="separator:abcf341f80f3bf30e30cc136f75cec823"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad929214f4c9862fd275f8d2b94db6201"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad929214f4c9862fd275f8d2b94db6201"></a>
-f77int&#160;</td><td class="memItemRight" valign="bottom"><b>igetprm</b> (char *, f77int)</td></tr>
-<tr class="separator:ad929214f4c9862fd275f8d2b94db6201"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aae444547dc6de00a9e72c6049dcf26d0"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aae444547dc6de00a9e72c6049dcf26d0"></a>
+f77int&#160;</td><td class="memItemRight" valign="bottom"><b>ifxy</b> (char *, size_t)</td></tr>
+<tr class="separator:aae444547dc6de00a9e72c6049dcf26d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8681ca21d60ead9d8573dd9d0d394f44"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a8681ca21d60ead9d8573dd9d0d394f44"></a>
+f77int&#160;</td><td class="memItemRight" valign="bottom"><b>igetntbi</b> (f77int *, char *, size_t)</td></tr>
+<tr class="separator:a8681ca21d60ead9d8573dd9d0d394f44"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a32bc70aa20a13d5690002621f13dcf8a"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a32bc70aa20a13d5690002621f13dcf8a"></a>
+f77int&#160;</td><td class="memItemRight" valign="bottom"><b>igetprm</b> (char *, size_t)</td></tr>
+<tr class="separator:a32bc70aa20a13d5690002621f13dcf8a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aae90ec05c16abed3a470e4c27a55e821"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aae90ec05c16abed3a470e4c27a55e821"></a>
 f77int&#160;</td><td class="memItemRight" valign="bottom"><b>igettdi</b> (f77int *)</td></tr>
 <tr class="separator:aae90ec05c16abed3a470e4c27a55e821"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac6d9aedeae6d71b4f94e93575e1f7d6a"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac6d9aedeae6d71b4f94e93575e1f7d6a"></a>
-f77int&#160;</td><td class="memItemRight" valign="bottom"><b>imrkopr</b> (char *, f77int)</td></tr>
-<tr class="separator:ac6d9aedeae6d71b4f94e93575e1f7d6a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a02edb7d891393fb49eccefd456e8eaa8"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a02edb7d891393fb49eccefd456e8eaa8"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>ipkm</b> (char *, f77int *, f77int *, f77int)</td></tr>
-<tr class="separator:a02edb7d891393fb49eccefd456e8eaa8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afda43bc00d3444844de3f824064d7562"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="afda43bc00d3444844de3f824064d7562"></a>
+f77int&#160;</td><td class="memItemRight" valign="bottom"><b>imrkopr</b> (char *, size_t)</td></tr>
+<tr class="separator:afda43bc00d3444844de3f824064d7562"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad104a56b6bbc0fe78e1559f2a20833dc"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad104a56b6bbc0fe78e1559f2a20833dc"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>ipkm</b> (char *, f77int *, f77int *, size_t)</td></tr>
+<tr class="separator:ad104a56b6bbc0fe78e1559f2a20833dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aca8674b844ef0785e83c77406bbfecec"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aca8674b844ef0785e83c77406bbfecec"></a>
+f77int&#160;</td><td class="memItemRight" valign="bottom"><b>ireadns</b> (f77int *, char *, f77int *, size_t)</td></tr>
+<tr class="separator:aca8674b844ef0785e83c77406bbfecec"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a647af793e9c3527066edd855ba9f0dfd"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a647af793e9c3527066edd855ba9f0dfd"></a>
 f77int&#160;</td><td class="memItemRight" valign="bottom"><b>istdesc</b> (f77int *)</td></tr>
 <tr class="separator:a647af793e9c3527066edd855ba9f0dfd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a694294af404b6c70541f9445bb099618"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a694294af404b6c70541f9445bb099618"></a>
-f77int&#160;</td><td class="memItemRight" valign="bottom"><b>iupbs01</b> (f77int *, char *, f77int)</td></tr>
-<tr class="separator:a694294af404b6c70541f9445bb099618"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3a3922bab9e72d26f07d98de928a0513"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a3a3922bab9e72d26f07d98de928a0513"></a>
-f77int&#160;</td><td class="memItemRight" valign="bottom"><b>iupm</b> (char *, f77int *, f77int)</td></tr>
-<tr class="separator:a3a3922bab9e72d26f07d98de928a0513"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a26f3853b5abd6f922ee438f917132a4c"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a26f3853b5abd6f922ee438f917132a4c"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>nemtab</b> (f77int *, char *, f77int *, char *, f77int *, f77int, f77int)</td></tr>
-<tr class="separator:a26f3853b5abd6f922ee438f917132a4c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a035af42d5e4385ad19b24d129c2de494"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a035af42d5e4385ad19b24d129c2de494"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>nemtbb</b> (f77int *, f77int *, char *, f77int *, f77int *, f77int *, f77int)</td></tr>
-<tr class="separator:a035af42d5e4385ad19b24d129c2de494"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac15d7ce9745e9e88b0a83dc414ffe265"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac15d7ce9745e9e88b0a83dc414ffe265"></a>
+f77int&#160;</td><td class="memItemRight" valign="bottom"><b>iupb</b> (f77int *, f77int *, f77int *)</td></tr>
+<tr class="separator:ac15d7ce9745e9e88b0a83dc414ffe265"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afc8fae3f885285d8b4765df2ae7e8d6f"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="afc8fae3f885285d8b4765df2ae7e8d6f"></a>
+f77int&#160;</td><td class="memItemRight" valign="bottom"><b>iupbs01</b> (f77int *, char *, size_t)</td></tr>
+<tr class="separator:afc8fae3f885285d8b4765df2ae7e8d6f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acc677e38c928fdc9e246cacb21c97067"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="acc677e38c928fdc9e246cacb21c97067"></a>
+f77int&#160;</td><td class="memItemRight" valign="bottom"><b>iupm</b> (char *, f77int *, size_t)</td></tr>
+<tr class="separator:acc677e38c928fdc9e246cacb21c97067"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad07074d042a67f5d7880e41cc1343329"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad07074d042a67f5d7880e41cc1343329"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>maxout</b> (f77int *)</td></tr>
+<tr class="separator:ad07074d042a67f5d7880e41cc1343329"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a401a580f7a4b554f884196d22b23946a"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a401a580f7a4b554f884196d22b23946a"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>nemtab</b> (f77int *, char *, f77int *, char *, f77int *, size_t, size_t)</td></tr>
+<tr class="separator:a401a580f7a4b554f884196d22b23946a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af6aa130f2766c0980479bb1c1216cf44"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="af6aa130f2766c0980479bb1c1216cf44"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>nemtbb</b> (f77int *, f77int *, char *, f77int *, f77int *, f77int *, size_t)</td></tr>
+<tr class="separator:af6aa130f2766c0980479bb1c1216cf44"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a48d75b3c35724dafc2413994a4e679b4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="bufrlib_8h.html#a48d75b3c35724dafc2413994a4e679b4">nummtb</a> (f77int *, char *, f77int *)</td></tr>
 <tr class="memdesc:a48d75b3c35724dafc2413994a4e679b4"><td class="mdescLeft">&#160;</td><td class="mdescRight">C C SUBPROGRAM: NUMMTB C PRGMMR: ATOR ORG: NP12 DATE: 2009-03-23 C C ABSTRACT: THIS ROUTINE SEARCHES FOR AN ENTRY CORRESPONDING TO IDN C IN THE BUFR MASTER TABLE (EITHER 'B' OR 'D', DEPENDING ON THE VALUE C OF IDN).  <a href="#a48d75b3c35724dafc2413994a4e679b4">More...</a><br/></td></tr>
 <tr class="separator:a48d75b3c35724dafc2413994a4e679b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4642c5c6ce2599cd23a79066669ded8b"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a4642c5c6ce2599cd23a79066669ded8b"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>numtbd</b> (f77int *, f77int *, char *, char *, f77int *, f77int, f77int)</td></tr>
-<tr class="separator:a4642c5c6ce2599cd23a79066669ded8b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac0a6c15bbdad1f0068cea5de5712fcc5"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac0a6c15bbdad1f0068cea5de5712fcc5"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>numtbd</b> (f77int *, f77int *, char *, char *, f77int *, size_t, size_t)</td></tr>
+<tr class="separator:ac0a6c15bbdad1f0068cea5de5712fcc5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a36c3e7914cfc1d695c09dc1116de1171"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a36c3e7914cfc1d695c09dc1116de1171"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>openmb</b> (f77int *, char *, f77int *, size_t)</td></tr>
+<tr class="separator:a36c3e7914cfc1d695c09dc1116de1171"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a17eeaccf09617c16a80a4aef03e45dbb"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a17eeaccf09617c16a80a4aef03e45dbb"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>pktdd</b> (f77int *, f77int *, f77int *, f77int *)</td></tr>
 <tr class="separator:a17eeaccf09617c16a80a4aef03e45dbb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6e3f94bc0f7840b91151e7a25bd6e687"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a6e3f94bc0f7840b91151e7a25bd6e687"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>restd</b> (f77int *, f77int *, f77int *, f77int *)</td></tr>
 <tr class="separator:a6e3f94bc0f7840b91151e7a25bd6e687"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a035aeaf1837853b4d0911dbee6fcb910"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a035aeaf1837853b4d0911dbee6fcb910"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>stntbi</b> (f77int *, f77int *, char *, char *, char *, f77int, f77int, f77int)</td></tr>
-<tr class="separator:a035aeaf1837853b4d0911dbee6fcb910"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abca7cd0d3917fb8248d88d2ac482a20d"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="abca7cd0d3917fb8248d88d2ac482a20d"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>strnum</b> (char *, f77int *, f77int)</td></tr>
-<tr class="separator:abca7cd0d3917fb8248d88d2ac482a20d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afc1bf1648b73d06166dd95e15590d1b3"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="afc1bf1648b73d06166dd95e15590d1b3"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>stntbi</b> (f77int *, f77int *, char *, char *, char *, size_t, size_t, size_t)</td></tr>
+<tr class="separator:afc1bf1648b73d06166dd95e15590d1b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a526e4f4af1b04ec2d3ec7d0e00f75b99"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a526e4f4af1b04ec2d3ec7d0e00f75b99"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>strnum</b> (char *, f77int *, size_t)</td></tr>
+<tr class="separator:a526e4f4af1b04ec2d3ec7d0e00f75b99"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac12b014fb3cdc2f2e23d82e5fb8c7c27"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac12b014fb3cdc2f2e23d82e5fb8c7c27"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>stseq</b> (f77int *, f77int *, f77int *, char *, char *, f77int *, f77int *)</td></tr>
 <tr class="separator:ac12b014fb3cdc2f2e23d82e5fb8c7c27"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abe2c3ffa48feedc790c90878fe32fbbf"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="abe2c3ffa48feedc790c90878fe32fbbf"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>ufbint</b> (f77int *, f77r8 *, f77int *, f77int *, f77int *, char *, size_t)</td></tr>
+<tr class="separator:abe2c3ffa48feedc790c90878fe32fbbf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af3f14c25cb587e19cdc550570a4f7b1f"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="af3f14c25cb587e19cdc550570a4f7b1f"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>ufbseq</b> (f77int *, f77r8 *, f77int *, f77int *, f77int *, char *, size_t)</td></tr>
+<tr class="separator:af3f14c25cb587e19cdc550570a4f7b1f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4e00446c1eef532c20e7f525622de734"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a4e00446c1eef532c20e7f525622de734"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>uptdd</b> (f77int *, f77int *, f77int *, f77int *)</td></tr>
 <tr class="separator:a4e00446c1eef532c20e7f525622de734"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -262,24 +292,29 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>wrdesc</b> (f77int, f
       </table>
 </div><div class="memdoc">
 
-<p>For dynamic allocation builds of the library, this subroutine is called internally during the first call to subroutine <a class="el" href="openbf_8F.html#a9bea9aeada166bd9037b959ca8452b28" title="This subroutine connects a new file to the BUFRLIB software for input or output operations. ">openbf()</a> from an application program, in order to dynamically allocate internal C language arrays based on parameter values set during one or more previous calls to function <a class="el" href="isetprm_8F.html#a366156765665bb1e1452635b12ff5093" title="This function sets a specified parameter to a specified value for use in dynamically allocating one o...">isetprm()</a>. </p>
-<p>This subroutine isn't normally called directly from an application program, since it's automatically called internally during the first call to subroutine <a class="el" href="openbf_8F.html#a9bea9aeada166bd9037b959ca8452b28" title="This subroutine connects a new file to the BUFRLIB software for input or output operations. ">openbf()</a> from an application program.</p>
+<p>This subroutine is called internally during the first call to subroutine <a class="el" href="openbf_8f.html#a9bea9aeada166bd9037b959ca8452b28" title="This subroutine connects a new file to the BUFRLIB software for input or output operations. ">openbf()</a> from an application program, in order to dynamically allocate internal C language arrays based on parameter values set during one or more previous calls to function <a class="el" href="isetprm_8f.html#a366156765665bb1e1452635b12ff5093" title="This function sets a specified parameter to a specified value for use in dynamically allocating one o...">isetprm()</a>. </p>
+<p>This subroutine isn't normally called directly from an application program, since it's automatically called internally during the first call to subroutine <a class="el" href="openbf_8f.html#a9bea9aeada166bd9037b959ca8452b28" title="This subroutine connects a new file to the BUFRLIB software for input or output operations. ">openbf()</a> from an application program.</p>
 <dl class="section author"><dt>Author</dt><dd>J. Ator </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>2014-12-04</dd></dl>
 <dl class="section remark"><dt>Remarks</dt><dd><ul>
 <li>All memory allocated within this subroutine can be freed via a subsequent call to subroutine <a class="el" href="exitbufr_8f.html#a355f094d616febcea2820cf547cbff8e" title="This subroutine frees all dynamically-allocated memory, closes all logical units that are open within...">exitbufr()</a> from within the application program, or else it will be freed automatically by the operating system once the application program terminates.</li>
 </ul>
 </dd></dl>
-<p><b>Program history log:</b></p>
-<ul>
-<li>2014-12-04 J. Ator &ndash; Original author </li>
-</ul>
+<p><b>Program history log:</b> </p>
+<table class="doxtable">
+<tr>
+<th>Date </th><th>Programmer </th><th>Comments  </th></tr>
+<tr>
+<td>2014-12-04 </td><td>J. Ator </td><td>Original author </td></tr>
+<tr>
+<td>2021-05-17 </td><td>J. Ator </td><td>Allow up to 24 characters in cbunit </td></tr>
+</table>
 
-<p>Definition at line <a class="el" href="arallocc_8c_source.html#l00034">34</a> of file <a class="el" href="arallocc_8c_source.html">arallocc.c</a>.</p>
+<p>Definition at line <a class="el" href="arallocc_8c_source.html#l00036">36</a> of file <a class="el" href="arallocc_8c_source.html">arallocc.c</a>.</p>
 
-<p>References <a class="el" href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort()</a>, <a class="el" href="igetprm_8f.html#acf5cb6268e5091d81f9eec4e61f87cdb">igetprm()</a>, <a class="el" href="cread_8h.html#ae8fcf44cac11b6f7d97220c101c0318e">lstpos</a>, and <a class="el" href="cread_8h.html#a295878b87917249212597ed62f390038">pb</a>.</p>
+<p>References <a class="el" href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort()</a>, <a class="el" href="igetprm_8f.html#acf5cb6268e5091d81f9eec4e61f87cdb">igetprm()</a>, <a class="el" href="cread_8h.html#af3681883f8ef0fe1771afc9aeb072eb0">lstpos</a>, and <a class="el" href="cread_8h.html#a58db779a0b3c7250a119069bd2e5106c">pb</a>.</p>
 
-<p>Referenced by <a class="el" href="openbf_8F.html#a9bea9aeada166bd9037b959ca8452b28">openbf()</a>.</p>
+<p>Referenced by <a class="el" href="openbf_8f.html#a9bea9aeada166bd9037b959ca8452b28">openbf()</a>.</p>
 
 </div>
 </div>
@@ -297,19 +332,22 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>wrdesc</b> (f77int, f
       </table>
 </div><div class="memdoc">
 
-<p>This subroutine frees any memory that was dynamically allocated during a previous call to subroutine <a class="el" href="arallocc_8c.html#a98efd59b32b1d2ed2c060d2564824e28" title="For dynamic allocation builds of the library, this subroutine is called internally during the first c...">arallocc()</a>. </p>
+<p>This subroutine frees any memory that was dynamically allocated during a previous call to subroutine <a class="el" href="arallocc_8c.html#a98efd59b32b1d2ed2c060d2564824e28" title="This subroutine is called internally during the first call to subroutine openbf() from an application...">arallocc()</a>. </p>
 <dl class="section author"><dt>Author</dt><dd>J. Ator </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>2014-12-04</dd></dl>
-<p><b>Program history log:</b></p>
-<ul>
-<li>2014-12-04 J. Ator &ndash; Original author </li>
-</ul>
+<p><b>Program history log:</b> </p>
+<table class="doxtable">
+<tr>
+<th>Date </th><th>Programmer </th><th>Comments  </th></tr>
+<tr>
+<td>2014-12-04 </td><td>J. Ator </td><td>Original author </td></tr>
+</table>
 
-<p>Definition at line <a class="el" href="ardllocc_8c_source.html#l00021">21</a> of file <a class="el" href="ardllocc_8c_source.html">ardllocc.c</a>.</p>
+<p>Definition at line <a class="el" href="ardllocc_8c_source.html#l00023">23</a> of file <a class="el" href="ardllocc_8c_source.html">ardllocc.c</a>.</p>
 
-<p>References <a class="el" href="cread_8h.html#ae8fcf44cac11b6f7d97220c101c0318e">lstpos</a>, and <a class="el" href="cread_8h.html#a295878b87917249212597ed62f390038">pb</a>.</p>
+<p>References <a class="el" href="cread_8h.html#af3681883f8ef0fe1771afc9aeb072eb0">lstpos</a>, and <a class="el" href="cread_8h.html#a58db779a0b3c7250a119069bd2e5106c">pb</a>.</p>
 
-<p>Referenced by <a class="el" href="ardllocf_8F.html#a7b3e4d5498fedd9e94ac45b69fc04b58">ardllocf()</a>.</p>
+<p>Referenced by <a class="el" href="ardllocf_8f.html#a7b3e4d5498fedd9e94ac45b69fc04b58">ardllocf()</a>.</p>
 
 </div>
 </div>
@@ -330,15 +368,21 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>wrdesc</b> (f77int, f
 <p>This subroutine terminates the application program with a non-zero status code. </p>
 <dl class="section author"><dt>Author</dt><dd>J. Ator </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>2003-11-04</dd></dl>
-<p><b>Program history log:</b></p>
-<ul>
-<li>2003-11-04 J. Ator &ndash; Original author</li>
-<li>2003-11-04 D. Keyser &ndash; Unified/portable for WRF</li>
-<li>2004-08-18 J. Ator &ndash; Use <a class="el" href="bufrlib_8h.html" title="Define signatures to enable a number of BUFRLIB subprograms to be called directly from C application ...">bufrlib.h</a> include file</li>
-<li>2007-01-19 J. Ator &ndash; Fix declaration for ANSI-C </li>
-</ul>
+<p><b>Program history log:</b> </p>
+<table class="doxtable">
+<tr>
+<th>Date </th><th>Programmer </th><th>Comments  </th></tr>
+<tr>
+<td>2003-11-04 </td><td>J. Ator </td><td>Original author </td></tr>
+<tr>
+<td>2003-11-04 </td><td>D. Keyser </td><td>Unified/portable for WRF </td></tr>
+<tr>
+<td>2004-08-18 </td><td>J. Ator </td><td>Use <a class="el" href="bufrlib_8h.html" title="Define signatures to enable a number of BUFRLIB subprograms to be called directly from C application ...">bufrlib.h</a> include file </td></tr>
+<tr>
+<td>2007-01-19 </td><td>J. Ator </td><td>Fix declaration for ANSI-C </td></tr>
+</table>
 
-<p>Definition at line <a class="el" href="bort__exit_8c_source.html#l00021">21</a> of file <a class="el" href="bort__exit_8c_source.html">bort_exit.c</a>.</p>
+<p>Definition at line <a class="el" href="bort__exit_8c_source.html#l00023">23</a> of file <a class="el" href="bort__exit_8c_source.html">bort_exit.c</a>.</p>
 
 <p>Referenced by <a class="el" href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort()</a>, and <a class="el" href="bort2_8f.html#a50f605cc96a22ffce20206c2d254b9c3">bort2()</a>.</p>
 
@@ -412,7 +456,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>wrdesc</b> (f77int, f
 
 <p>Definition at line <a class="el" href="icvidx_8c_source.html#l00041">41</a> of file <a class="el" href="icvidx_8c_source.html">icvidx.c</a>.</p>
 
-<p>Referenced by <a class="el" href="mstabs_8h.html#a3b149893bee75a651e24b2344067264c">cpmstabs()</a>, <a class="el" href="ireadmt_8F.html#a0c3eff73be06d581b8b6ffcd47fede03">ireadmt()</a>, and <a class="el" href="stseq_8c.html#a712e57cd19d1f94b87269d7dfc679c5e">stseq()</a>.</p>
+<p>Referenced by <a class="el" href="mstabs_8h.html#a292019f8851993ccd1ab2b553afb0c5a">cpmstabs()</a>, <a class="el" href="ireadmt_8f.html#a0c3eff73be06d581b8b6ffcd47fede03">ireadmt()</a>, and <a class="el" href="stseq_8c.html#a712e57cd19d1f94b87269d7dfc679c5e">stseq()</a>.</p>
 
 </div>
 </div>
@@ -472,28 +516,38 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>wrdesc</b> (f77int, f
 </div><div class="memdoc">
 
 <p>This subroutine figures out some important information about the local machine on which the BUFRLIB software is being run, including the native endianness, the number of bytes in an integer, and whether the machine uses the ASCII or EBCDIC character set. </p>
-<p>This subroutine isn't normally called directly by any application program, because it's automatically called internally from within subroutine <a class="el" href="openbf_8F.html#a9bea9aeada166bd9037b959ca8452b28" title="This subroutine connects a new file to the BUFRLIB software for input or output operations. ">openbf()</a> during the first time that subroutine is called by any application program. It's also called as needed from within several other subroutines, but it always keeps track of its results as well as whether it has already been called during the life of an application program, and that way if it does end up being called more than once, it will just quietly return without having to recompute all of its results from the first call.</p>
+<p>This subroutine isn't normally called directly by any application program, because it's automatically called internally from within subroutine <a class="el" href="openbf_8f.html#a9bea9aeada166bd9037b959ca8452b28" title="This subroutine connects a new file to the BUFRLIB software for input or output operations. ">openbf()</a> during the first time that subroutine is called by any application program. It's also called as needed from within several other subroutines, but it always keeps track of its results as well as whether it has already been called during the life of an application program, and that way if it does end up being called more than once, it will just quietly return without having to recompute all of its results from the first call.</p>
 <dl class="section author"><dt>Authors</dt><dd>J. Woollen </dd>
 <dd>
 J. Ator </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>1994-01-06</dd></dl>
-<p><b>Program history log:</b></p>
-<ul>
-<li>1994-01-06 J. Woollen &ndash; Original author</li>
-<li>1998-07-08 J. Woollen &ndash; Replaced call to Cray library routine ABORT with call to new internal routine <a class="el" href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4" title="This subroutine calls subroutine errwrt() to log an error message, then calls subroutine bort_exit() ...">bort()</a></li>
-<li>2003-11-04 J. Ator &ndash; Added documentation</li>
-<li>2003-11-04 S. Bender &ndash; Added remarks and routine interdependencies</li>
-<li>2003-11-04 D. Keyser &ndash; Unified/portable for WRF; added history documentation; outputs more complete diagnostic info when routine terminates abnormally, unusual things happen or for informational purposes; initialized NBYTW to zero during the first call</li>
-<li>2004-08-18 J. Ator &ndash; Added SAVE For IFIRST flag and immediate return if IFIRST=1</li>
-<li>2007-01-19 J. Ator &ndash; Big-endian vs. little-endian is now determined at compile time and configured within BUFRLIB via conditional compilation directives</li>
-<li>2009-03-23 J. Ator &ndash; Call <a class="el" href="bvers_8f.html#a210e17eb5b254e38f27e129304d4eae7" title="This subroutine returns a character string containing the version number of the BUFRLIB software...">bvers()</a> to get version number </li>
-</ul>
+<p><b>Program history log:</b> </p>
+<table class="doxtable">
+<tr>
+<th>Date </th><th>Programmer </th><th>Comments  </th></tr>
+<tr>
+<td>1994-01-06 </td><td>J. Woollen </td><td>Original author </td></tr>
+<tr>
+<td>1998-07-08 </td><td>J. Woollen </td><td>Replaced call to Cray library routine ABORT with call to new internal routine <a class="el" href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4" title="This subroutine calls subroutine errwrt() to log an error message, then calls subroutine bort_exit() ...">bort()</a> </td></tr>
+<tr>
+<td>2003-11-04 </td><td>J. Ator </td><td>Added documentation </td></tr>
+<tr>
+<td>2003-11-04 </td><td>S. Bender </td><td>Added remarks and routine interdependencies </td></tr>
+<tr>
+<td>2003-11-04 </td><td>D. Keyser </td><td>Unified/portable for WRF; added documentation; outputs more complete diagnostic info when routine terminates abnormally, initialized NBYTW to zero during the first call </td></tr>
+<tr>
+<td>2004-08-18 </td><td>J. Ator </td><td>Added SAVE For IFIRST flag and immediate return if IFIRST=1 </td></tr>
+<tr>
+<td>2007-01-19 </td><td>J. Ator </td><td>Big-endian vs. little-endian is now determined at compile time and configured within BUFRLIB via conditional compilation directives </td></tr>
+<tr>
+<td>2009-03-23 </td><td>J. Ator </td><td>Call <a class="el" href="bvers_8f.html#a210e17eb5b254e38f27e129304d4eae7" title="This subroutine returns a character string containing the version number of the BUFRLIB software...">bvers()</a> to get version number </td></tr>
+</table>
 
-<p>Definition at line <a class="el" href="wrdlen_8F_source.html#l00043">43</a> of file <a class="el" href="wrdlen_8F_source.html">wrdlen.F</a>.</p>
+<p>Definition at line <a class="el" href="wrdlen_8F_source.html#l00035">35</a> of file <a class="el" href="wrdlen_8F_source.html">wrdlen.F</a>.</p>
 
 <p>References <a class="el" href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort()</a>, <a class="el" href="errwrt_8f.html#a65626d9a772648676146b62b596c2764">errwrt()</a>, and <a class="el" href="iupm_8f.html#a870aa6933e94946232ec975e8cdd04db">iupm()</a>.</p>
 
-<p>Referenced by <a class="el" href="cobfl_8h.html#a2cc93905bfe9b24f37046b555e43b7d4">cobfl()</a>, <a class="el" href="copybf_8f.html#a621280835c0e7a4ac960b0bf719c9721">copybf()</a>, <a class="el" href="datebf_8F.html#a688208e451a81634a110c6963561f22e">datebf()</a>, <a class="el" href="datelen_8f.html#ac75cb362f84167ca65b058a97401efcd">datelen()</a>, <a class="el" href="dumpbf_8f.html#a345cb5b88ed574ab5f66b9a90e61acc6">dumpbf()</a>, <a class="el" href="iupbs01_8f.html#adcd6f7c2f898b4f938153c5cf79a9cf5">iupbs01()</a>, <a class="el" href="iupbs3_8f.html#a542e11287f9dc5bf72d3889db48e1b19">iupbs3()</a>, <a class="el" href="openbf_8F.html#a9bea9aeada166bd9037b959ca8452b28">openbf()</a>, <a class="el" href="rdmtbb_8f.html#a500535fb51e5caae61f0fd3627a211da">rdmtbb()</a>, <a class="el" href="rdmtbd_8f.html#a46cfbed2b4e693c0bc7e4792c47d5692">rdmtbd()</a>, <a class="el" href="rdmtbf_8f.html#a5ca890fe454d0615933e8b535e28ac00">rdmtbf()</a>, and <a class="el" href="upds3_8f.html#ae80c8bfb0497b4db22d56d4c4149dd47">upds3()</a>.</p>
+<p>Referenced by <a class="el" href="cobfl_8h.html#a2cc93905bfe9b24f37046b555e43b7d4">cobfl()</a>, <a class="el" href="copybf_8f.html#a621280835c0e7a4ac960b0bf719c9721">copybf()</a>, <a class="el" href="datelen_8f.html#ac75cb362f84167ca65b058a97401efcd">datelen()</a>, <a class="el" href="dumpbf_8f.html#a345cb5b88ed574ab5f66b9a90e61acc6">dumpbf()</a>, <a class="el" href="iupbs01_8f.html#adcd6f7c2f898b4f938153c5cf79a9cf5">iupbs01()</a>, <a class="el" href="iupbs3_8f.html#a542e11287f9dc5bf72d3889db48e1b19">iupbs3()</a>, <a class="el" href="xbfmg_8c.html#a0ddf1224851353fc92bfbff6f499fa97">main()</a>, <a class="el" href="openbf_8f.html#a9bea9aeada166bd9037b959ca8452b28">openbf()</a>, <a class="el" href="rdmtbb_8f.html#a500535fb51e5caae61f0fd3627a211da">rdmtbb()</a>, <a class="el" href="rdmtbd_8f.html#a46cfbed2b4e693c0bc7e4792c47d5692">rdmtbd()</a>, <a class="el" href="rdmtbf_8f.html#a5ca890fe454d0615933e8b535e28ac00">rdmtbf()</a>, and <a class="el" href="upds3_8f.html#ae80c8bfb0497b4db22d56d4c4149dd47">upds3()</a>.</p>
 
 </div>
 </div>
@@ -502,7 +556,7 @@ J. Ator </dd></dl>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_047d76e5e7dea49fcfe9568091f4d555.html">src</a></li><li class="navelem"><a class="el" href="bufrlib_8h.html">bufrlib.h</a></li>
+    <li class="navelem"><a class="el" href="dir_4e7c8c4fc0d923782da8a23d70a9725b.html">src</a></li><li class="navelem"><a class="el" href="bufrlib_8h.html">bufrlib.h</a></li>
     <li class="footer">Generated by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.5 </li>

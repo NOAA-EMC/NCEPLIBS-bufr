@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.5.0</span>
+   &#160;<span id="projectnumber">11.6.0</span>
    </div>
   </td>
  </tr>
@@ -120,6 +120,8 @@ $(document).ready(function(){initNavTree('md__gpfs_dell2_emc_obsproc_noscrub_Jef
 <td><a href="#gettab">gettab</a> </td><td>Print embedded DX BUFR tables from within a BUFR file </td></tr>
 <tr>
 <td><a href="#split">split_by_subset</a> </td><td>Split a BUFR file into separate BUFR files for each subset type </td></tr>
+<tr>
+<td><a href="#xbfmg">xbfmg</a> </td><td>Split a BUFR file into separate BUFR files for each message </td></tr>
 </table>
 <p><br/>
  </p>
@@ -155,7 +157,7 @@ Usage:</pre></div><div id="debufr"><pre>   debufr.x [-v] [-h] [-b] [-c] [-m] [-o
                  BUFRLIB software, overriding the default value that
                  would otherwise be used.  A complete list of parameters
                  that can be dynamically sized is included within the
-                 documentation for BUFRLIB function <a class="el" href="isetprm_8F.html#a366156765665bb1e1452635b12ff5093" title="This function sets a specified parameter to a specified value for use in dynamically allocating one o...">isetprm()</a>.</pre></div><div id="debufr"><pre>       bufrfile  [path/]name of BUFR file to be decoded
+                 documentation for BUFRLIB function <a class="el" href="isetprm_8f.html#a366156765665bb1e1452635b12ff5093" title="This function sets a specified parameter to a specified value for use in dynamically allocating one o...">isetprm()</a>.</pre></div><div id="debufr"><pre>       bufrfile  [path/]name of BUFR file to be decoded
 </pre></div><div id="debufr">See the source code at <a class="el" href="debufr_8c.html" title="C language code for debufr utility. ">debufr.c</a> and <a class="el" href="debufr_8f.html" title="Fortran language code for debufr utility. ">debufr.f</a></div><div id="debufr"><br/>
  </p>
 <hr/>
@@ -485,7 +487,9 @@ Usage:</pre></div><div id="debufr"><pre>   debufr.x [-v] [-h] [-b] [-c] [-m] [-o
 <div class="line"></div>
 <div class="line"></div>
 <div class="line"> ******CMPBQM PROCESSED         7066  BUFR RECORDS******</div>
-</div><!-- fragment --> <hr/>
+</div><!-- fragment --></div></div></div></div></div></div><div id="debufr"><div id="readbp"><div id="readmp"><div id="binv"><div id="sinv"><div id="cmpbqm"><br/>
+ </p>
+<hr/>
 </div></div></div></div></div></div><div id="debufr"><div id="readbp"><div id="readmp"><div id="binv"><div id="sinv"><div id="cmpbqm"><div id="gettab"></div></div></div></div></div></div></div><div id="debufr"><div id="readbp"><div id="readmp"><div id="binv"><div id="sinv"><div id="cmpbqm"><div id="gettab"><h3>gettab</h3>
 </div></div></div></div></div></div></div><div id="debufr"><div id="readbp"><div id="readmp"><div id="binv"><div id="sinv"><div id="cmpbqm"><div id="gettab"></div></div></div></div></div></div></div><div id="debufr"><div id="readbp"><div id="readmp"><div id="binv"><div id="sinv"><div id="cmpbqm"><div id="gettab">A utility to read any BUFR file with embedded DX tables, and print the table.</div></div></div></div></div></div></div><div id="debufr"><div id="readbp"><div id="readmp"><div id="binv"><div id="sinv"><div id="cmpbqm"><div id="gettab">See the source code at <a class="el" href="gettab_8f90.html" title="Read BUFR file containing embedded DX BUFR tables, and print the tables to stdout. ">gettab.f90</a></div></div></div></div></div></div></div><div id="debufr"><div id="readbp"><div id="readmp"><div id="binv"><div id="sinv"><div id="cmpbqm"><div id="gettab">Sample output for: <code>./gettab.x gdas.20200812/00/gdas.t00z.adpsfc.tm00.bufr_d</code></div></div></div></div></div></div></div><div id="debufr"><div id="readbp"><div id="readmp"><div id="binv"><div id="sinv"><div id="cmpbqm"><div id="gettab"><div class="fragment"><div class="line">.------------------------------------------------------------------------------.</div>
 <div class="line">| ------------   USER DEFINITIONS FOR TABLE-A TABLE-B TABLE D   -------------- |</div>
@@ -529,8 +533,27 @@ Usage:</pre></div><div id="debufr"><pre>   debufr.x [-v] [-h] [-b] [-c] [-m] [-o
 <div class="line">| SHTPMISQ | 356103 | SHEF TIME PERIOD SEQUENCE (MINUTES)                      |</div>
 <div class="line">| SHPRESSQ | 356104 | SHEF PRESSURE SEQUENCE                                   |</div>
 <div class="line">| SHPMSLSQ | 356105 | SHEF PRESSURE (MSL) SEQUENCE                             |</div>
-</div><!-- fragment --></div></div></div></div></div></div></div><div id="debufr"><div id="readbp"><div id="readmp"><div id="binv"><div id="sinv"><div id="cmpbqm"><div id="gettab"><div id="split"></div></div></div></div></div></div></div></div><div id="debufr"><div id="readbp"><div id="readmp"><div id="binv"><div id="sinv"><div id="cmpbqm"><div id="gettab"><div id="split"><h3>split_by_subset</h3>
-</div></div></div></div></div></div></div></div><div id="debufr"><div id="readbp"><div id="readmp"><div id="binv"><div id="sinv"><div id="cmpbqm"><div id="gettab"><div id="split"></div></div></div></div></div></div></div></div><div id="debufr"><div id="readbp"><div id="readmp"><div id="binv"><div id="sinv"><div id="cmpbqm"><div id="gettab"><div id="split">A utility to read any BUFR file and split it into separate BUFR files based on subset type</div></div></div></div></div></div></div></div><div id="debufr"><div id="readbp"><div id="readmp"><div id="binv"><div id="sinv"><div id="cmpbqm"><div id="gettab"><div id="split">See the source code at <a class="el" href="split__by__subset_8f90.html" title="Split a BUFR file into separate BUFR files by subset type. ">split_by_subset.f90</a></div></div></div></div></div></div></div></div><div id="debufr"><div id="readbp"><div id="readmp"><div id="binv"><div id="sinv"><div id="cmpbqm"><div id="gettab"><div id="split">Usage: <code>./split_by_subset.x gdas.20200812/00/gdas.t00z.satwnd.tm00.bufr_d</code> ~~~ </div></div></div></div></div></div></div></div></div></div><!-- contents -->
+</div><!-- fragment --></div></div></div></div></div></div></div><div id="debufr"><div id="readbp"><div id="readmp"><div id="binv"><div id="sinv"><div id="cmpbqm"><div id="gettab"><br/>
+ </p>
+<hr/>
+</div></div></div></div></div></div></div><div id="debufr"><div id="readbp"><div id="readmp"><div id="binv"><div id="sinv"><div id="cmpbqm"><div id="gettab"><div id="split"></div></div></div></div></div></div></div></div><div id="debufr"><div id="readbp"><div id="readmp"><div id="binv"><div id="sinv"><div id="cmpbqm"><div id="gettab"><div id="split"><h3>split_by_subset</h3>
+</div></div></div></div></div></div></div></div><div id="debufr"><div id="readbp"><div id="readmp"><div id="binv"><div id="sinv"><div id="cmpbqm"><div id="gettab"><div id="split"></div></div></div></div></div></div></div></div><div id="debufr"><div id="readbp"><div id="readmp"><div id="binv"><div id="sinv"><div id="cmpbqm"><div id="gettab"><div id="split">A utility to read any BUFR file and split it into separate BUFR files based on subset type</div></div></div></div></div></div></div></div><div id="debufr"><div id="readbp"><div id="readmp"><div id="binv"><div id="sinv"><div id="cmpbqm"><div id="gettab"><div id="split">See the source code at <a class="el" href="split__by__subset_8f90.html" title="Split a BUFR file into separate BUFR files by subset type. ">split_by_subset.f90</a></div></div></div></div></div></div></div></div><div id="debufr"><div id="readbp"><div id="readmp"><div id="binv"><div id="sinv"><div id="cmpbqm"><div id="gettab"><div id="split">Usage: <code>./split_by_subset.x gdas.20200812/00/gdas.t00z.satwnd.tm00.bufr_d</code></div></div></div></div></div></div></div></div><div id="debufr"><div id="readbp"><div id="readmp"><div id="binv"><div id="sinv"><div id="cmpbqm"><div id="gettab"><div id="split"><br/>
+ </p>
+<hr/>
+</div></div></div></div></div></div></div></div><div id="debufr"><div id="readbp"><div id="readmp"><div id="binv"><div id="sinv"><div id="cmpbqm"><div id="gettab"><div id="split"><div id="xbfmg"></div></div></div></div></div></div></div></div></div><div id="debufr"><div id="readbp"><div id="readmp"><div id="binv"><div id="sinv"><div id="cmpbqm"><div id="gettab"><div id="split"><div id="xbfmg"><h3>xbfmg</h3>
+</div></div></div></div></div></div></div></div></div><div id="debufr"><div id="readbp"><div id="readmp"><div id="binv"><div id="sinv"><div id="cmpbqm"><div id="gettab"><div id="split"><div id="xbfmg"></div></div></div></div></div></div></div></div></div><div id="debufr"><div id="readbp"><div id="readmp"><div id="binv"><div id="sinv"><div id="cmpbqm"><div id="gettab"><div id="split"><div id="xbfmg">This program splits a single file containing one or more BUFR messages into one or more BUFR files each containing a single BUFR message. The output BUFR files are written to the current working directory, according to a pre-defined naming convention as described below.</div></div></div></div></div></div></div></div></div><div id="debufr"><div id="readbp"><div id="readmp"><div id="binv"><div id="sinv"><div id="cmpbqm"><div id="gettab"><div id="split"><div id="xbfmg"><pre>
+Usage:</pre></div></div></div></div></div></div></div></div></div><div id="debufr"><div id="readbp"><div id="readmp"><div id="binv"><div id="sinv"><div id="cmpbqm"><div id="gettab"><div id="split"><div id="xbfmg"><pre>   xbfmg [-v] [-h] [-g] bufrfile</pre></div></div></div></div></div></div></div></div></div><div id="debufr"><div id="readbp"><div id="readmp"><div id="binv"><div id="sinv"><div id="cmpbqm"><div id="gettab"><div id="split"><div id="xbfmg"><pre>     where:
+       -v        prints version information and exits</pre></div></div></div></div></div></div></div></div></div><div id="debufr"><div id="readbp"><div id="readmp"><div id="binv"><div id="sinv"><div id="cmpbqm"><div id="gettab"><div id="split"><div id="xbfmg"><pre>       -h        prints program help and usage information and exits</pre></div></div></div></div></div></div></div></div></div><div id="debufr"><div id="readbp"><div id="readmp"><div id="binv"><div id="sinv"><div id="cmpbqm"><div id="gettab"><div id="split"><div id="xbfmg"><pre>       -g        preserves within each output file any GTS bulletin header and control
+                 characters associated with the corresponding BUFR message from the
+                 input file</pre></div></div></div></div></div></div></div></div></div><div id="debufr"><div id="readbp"><div id="readmp"><div id="binv"><div id="sinv"><div id="cmpbqm"><div id="gettab"><div id="split"><div id="xbfmg"><pre>       bufrfile  [path/]name of input file containing one or more BUFR messages to be
+                 extracted into separate output files within the current working directory</pre></div></div></div></div></div></div></div></div></div><div id="debufr"><div id="readbp"><div id="readmp"><div id="binv"><div id="sinv"><div id="cmpbqm"><div id="gettab"><div id="split"><div id="xbfmg"><pre>   The output will be stored within the current working directory using the
+   following filenames:</pre></div></div></div></div></div></div></div></div></div><div id="debufr"><div id="readbp"><div id="readmp"><div id="binv"><div id="sinv"><div id="cmpbqm"><div id="gettab"><div id="split"><div id="xbfmg"><pre>       (basename).xbfmg.out.000001
+       (basename).xbfmg.out.000002
+       (basename).xbfmg.out.000003
+         and so on, up through 
+       (basename).xbfmg.out.(last#)</pre></div></div></div></div></div></div></div></div></div><div id="debufr"><div id="readbp"><div id="readmp"><div id="binv"><div id="sinv"><div id="cmpbqm"><div id="gettab"><div id="split"><div id="xbfmg"><pre>   where:</pre></div></div></div></div></div></div></div></div></div><div id="debufr"><div id="readbp"><div id="readmp"><div id="binv"><div id="sinv"><div id="cmpbqm"><div id="gettab"><div id="split"><div id="xbfmg"><pre>       (basename) = basename of bufrfile</pre></div></div></div></div></div></div></div></div></div><div id="debufr"><div id="readbp"><div id="readmp"><div id="binv"><div id="sinv"><div id="cmpbqm"><div id="gettab"><div id="split"><div id="xbfmg"><pre>       (last#) = total number of BUFR messages in bufrfile
+</pre></div></div></div></div></div></div></div></div></div><div id="debufr"><div id="readbp"><div id="readmp"><div id="binv"><div id="sinv"><div id="cmpbqm"><div id="gettab"><div id="split"><div id="xbfmg">See the source code at <a class="el" href="xbfmg_8c.html" title="Split a BUFR file into separate BUFR files by message. ">xbfmg.c</a></div></div></div></div></div></div></div></div></div><div id="debufr"><div id="readbp"><div id="readmp"><div id="binv"><div id="sinv"><div id="cmpbqm"><div id="gettab"><div id="split"><div id="xbfmg"><br/>
+ </div></div></div></div></div></div></div></div></div></div></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->

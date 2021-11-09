@@ -7,7 +7,7 @@ var searchData=
   ['chekstab_2ef',['chekstab.f',['../chekstab_8f.html',1,'']]],
   ['chrtrna_2ef',['chrtrna.f',['../chrtrna_8f.html',1,'']]],
   ['cktaba_2ef',['cktaba.f',['../cktaba_8f.html',1,'']]],
-  ['closbf_2ef',['closbf.F',['../closbf_8F.html',1,'']]],
+  ['closbf_2ef',['closbf.f',['../closbf_8f.html',1,'']]],
   ['closmg_2ef',['closmg.f',['../closmg_8f.html',1,'']]],
   ['cmpbqm_2ef',['cmpbqm.f',['../cmpbqm_8f.html',1,'']]],
   ['cmpia_2ec',['cmpia.c',['../cmpia_8c.html',1,'']]],

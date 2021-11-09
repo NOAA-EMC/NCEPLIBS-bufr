@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.5.0</span>
+   &#160;<span id="projectnumber">11.6.0</span>
    </div>
   </td>
  </tr>
@@ -117,11 +117,11 @@ $(document).ready(function(){initNavTree('ishrdx_8f_source.html','');});
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="comment">C&gt; @author J. Ator</span></div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="comment">C&gt; @date 2009-06-18</span></div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="comment">C&gt;</span></div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="comment">C&gt; @param[in]  LUD      - integer: Internal I/O stream index associated</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="comment">C&gt; @param[in]  LUD     -- integer: Internal I/O stream index associated</span></div>
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="comment">C&gt;                        with first BUFR file</span></div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment">C&gt; @param[in]  LUN      - integer: Internal I/O stream index associated</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment">C&gt; @param[in]  LUN     -- integer: Internal I/O stream index associated</span></div>
 <div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="comment">C&gt;                        with second BUFR file</span></div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="comment">C&gt; @returns ishrdx      - integer: Flag indicating whether the same</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="comment">C&gt; @returns ishrdx     -- integer: Flag indicating whether the same</span></div>
 <div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="comment">C&gt;                        DX BUFR table is being shared between the</span></div>
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="comment">C&gt;                        BUFR file associated with LUD and the BUFR</span></div>
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment">C&gt;                        file associated with LUN</span></div>
@@ -129,43 +129,45 @@ $(document).ready(function(){initNavTree('ishrdx_8f_source.html','');});
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="comment">C&gt;                        - 1 = Yes</span></div>
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="comment">C&gt;</span></div>
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="comment">C&gt; &lt;b&gt;Program history log:&lt;/b&gt;</span></div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="comment">C&gt; - 2009-06-18  J. Ator    -- Original author</span></div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="comment">C&gt; - 2014-12-10  J. Ator    -- Use modules instead of COMMON blocks</span></div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="comment">C&gt;</span></div>
-<div class="line"><a name="l00027"></a><span class="lineno"><a class="line" href="ishrdx_8f.html#a892b93ad4be59052bf66fe2e3b6aed35">   27</a></span>&#160;<span class="keyword">      INTEGER </span><span class="keyword">FUNCTION </span><a class="code" href="ishrdx_8f.html#a892b93ad4be59052bf66fe2e3b6aed35">ishrdx</a>(LUD,LUN)</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;      <span class="keywordtype">USE </span><a class="code" href="moda__tababd_8F.html#classmoda__tababd">moda_tababd</a></div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="comment">C&gt; | Date | Programmer | Comments |</span></div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="comment">C&gt; | -----|------------|----------|</span></div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="comment">C&gt; | 2009-06-18 | J. Ator | Original author |</span></div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="comment">C&gt; | 2014-12-10 | J. Ator | Use modules instead of COMMON blocks |</span></div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="comment">C&gt;</span></div>
+<div class="line"><a name="l00029"></a><span class="lineno"><a class="line" href="ishrdx_8f.html#a892b93ad4be59052bf66fe2e3b6aed35">   29</a></span>&#160;<span class="keyword">      INTEGER </span><span class="keyword">FUNCTION </span><a class="code" href="ishrdx_8f.html#a892b93ad4be59052bf66fe2e3b6aed35">ishrdx</a>(LUD,LUN)</div>
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="comment">C-----------------------------------------------------------------------</span></div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="comment">C-----------------------------------------------------------------------</span></div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="comment">C     Note that, for any I/O stream index value LUx, the MTAB(*,LUx)</span></div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="comment">C     array contains pointer indices into the internal jump/link table</span></div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="comment">C     for each of the Table A mnemonics that is currently defined for</span></div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="comment">C     that LUx value.  Thus, if all of these indices are identical for</span></div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="comment">C     two different LUx values, then the associated logical units are</span></div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="comment">C     sharing table information.</span></div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;      <span class="keywordflow">IF</span> ( ( ntba(lud) .GE. 1 ) .AND.</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;     +      ( ntba(lud) .EQ. ntba(lun) ) ) <span class="keywordflow">THEN</span></div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    ii = 1</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <a class="code" href="ishrdx_8f.html#a892b93ad4be59052bf66fe2e3b6aed35">ishrdx</a> = 1</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <span class="keywordflow">DO</span> <span class="keywordflow">WHILE</span> ( ( ii .LE. ntba(lud) ) .AND. ( <a class="code" href="ishrdx_8f.html#a892b93ad4be59052bf66fe2e3b6aed35">ishrdx</a> .EQ. 1 ) )</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;      <span class="keywordflow">IF</span> ( ( mtab(ii,lud) .NE. 0 ) .AND.</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;     +      ( mtab(ii,lud) .EQ. mtab(ii,lun) ) ) <span class="keywordflow">THEN</span></div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;        ii = ii + 1</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;      <span class="keywordflow">ELSE</span></div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;        <a class="code" href="ishrdx_8f.html#a892b93ad4be59052bf66fe2e3b6aed35">ishrdx</a> = 0</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;      <span class="keywordflow">ENDIF</span></div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    <span class="keywordflow">ENDDO</span></div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;      <span class="keywordflow">ELSE</span></div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    <a class="code" href="ishrdx_8f.html#a892b93ad4be59052bf66fe2e3b6aed35">ishrdx</a> = 0</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;      <span class="keywordflow">ENDIF</span></div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;      <span class="keywordflow">RETURN</span></div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;      <span class="keywordflow">END</span></div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;      <span class="keywordtype">USE </span><a class="code" href="moda__tababd_8F.html#classmoda__tababd">moda_tababd</a></div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="comment">C-----------------------------------------------------------------------</span></div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="comment">C-----------------------------------------------------------------------</span></div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="comment">C     Note that, for any I/O stream index value LUx, the MTAB(*,LUx)</span></div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="comment">C     array contains pointer indices into the internal jump/link table</span></div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="comment">C     for each of the Table A mnemonics that is currently defined for</span></div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="comment">C     that LUx value.  Thus, if all of these indices are identical for</span></div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="comment">C     two different LUx values, then the associated logical units are</span></div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="comment">C     sharing table information.</span></div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;      <span class="keywordflow">IF</span> ( ( ntba(lud) .GE. 1 ) .AND.</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;     +      ( ntba(lud) .EQ. ntba(lun) ) ) <span class="keywordflow">THEN</span></div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    ii = 1</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <a class="code" href="ishrdx_8f.html#a892b93ad4be59052bf66fe2e3b6aed35">ishrdx</a> = 1</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <span class="keywordflow">DO</span> <span class="keywordflow">WHILE</span> ( ( ii .LE. ntba(lud) ) .AND. ( <a class="code" href="ishrdx_8f.html#a892b93ad4be59052bf66fe2e3b6aed35">ishrdx</a> .EQ. 1 ) )</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;      <span class="keywordflow">IF</span> ( ( mtab(ii,lud) .NE. 0 ) .AND.</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;     +      ( mtab(ii,lud) .EQ. mtab(ii,lun) ) ) <span class="keywordflow">THEN</span></div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;        ii = ii + 1</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;      <span class="keywordflow">ELSE</span></div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        <a class="code" href="ishrdx_8f.html#a892b93ad4be59052bf66fe2e3b6aed35">ishrdx</a> = 0</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;      <span class="keywordflow">ENDIF</span></div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    <span class="keywordflow">ENDDO</span></div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;      <span class="keywordflow">ELSE</span></div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <a class="code" href="ishrdx_8f.html#a892b93ad4be59052bf66fe2e3b6aed35">ishrdx</a> = 0</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;      <span class="keywordflow">ENDIF</span></div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;      <span class="keywordflow">RETURN</span></div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;      <span class="keywordflow">END</span></div>
 <div class="ttc" id="moda__tababd_8F_html_classmoda__tababd"><div class="ttname"><a href="moda__tababd_8F.html#classmoda__tababd">moda_tababd</a></div><div class="ttdoc">This module contains array and variable declarations used to store DX BUFR tables internally for mult...</div><div class="ttdef"><b>Definition:</b> <a href="moda__tababd_8F_source.html#l00010">moda_tababd.F:10</a></div></div>
-<div class="ttc" id="ishrdx_8f_html_a892b93ad4be59052bf66fe2e3b6aed35"><div class="ttname"><a href="ishrdx_8f.html#a892b93ad4be59052bf66fe2e3b6aed35">ishrdx</a></div><div class="ttdeci">INTEGER function ishrdx(LUD, LUN)</div><div class="ttdoc">This function determines whether the same DX BUFR Table is being shared between two Fortran logical u...</div><div class="ttdef"><b>Definition:</b> <a href="ishrdx_8f_source.html#l00027">ishrdx.f:27</a></div></div>
+<div class="ttc" id="ishrdx_8f_html_a892b93ad4be59052bf66fe2e3b6aed35"><div class="ttname"><a href="ishrdx_8f.html#a892b93ad4be59052bf66fe2e3b6aed35">ishrdx</a></div><div class="ttdeci">INTEGER function ishrdx(LUD, LUN)</div><div class="ttdoc">This function determines whether the same DX BUFR Table is being shared between two Fortran logical u...</div><div class="ttdef"><b>Definition:</b> <a href="ishrdx_8f_source.html#l00029">ishrdx.f:29</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.5.0</span>
+   &#160;<span id="projectnumber">11.6.0</span>
    </div>
   </td>
  </tr>
@@ -109,17 +109,19 @@ $(document).ready(function(){initNavTree('numtbd_8f.html','');});
 </div><!--header-->
 <div class="contents">
 
+<p>Search for a Table B or Table D descriptor within the internal DX BUFR tables.  
+<a href="#details">More...</a></p>
+
 <p><a href="numtbd_8f_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions/Subroutines</h2></td></tr>
 <tr class="memitem:aae71d3919c5fc05ca4915e7b61aa3735"><td class="memItemLeft" align="right" valign="top">subroutine&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="numtbd_8f.html#aae71d3919c5fc05ca4915e7b61aa3735">numtbd</a> (LUN, IDN, NEMO, TAB, IRET)</td></tr>
-<tr class="memdesc:aae71d3919c5fc05ca4915e7b61aa3735"><td class="mdescLeft">&#160;</td><td class="mdescRight">THIS SUBROUTINE SEARCHES FOR AN INTEGER IDN, CONTAINING THE BIT-WISE REPRESENTATION OF A DESCRIPTOR (FXY) VALUE, WITHIN THE INTERNAL BUFR TABLE B AND D ARRAYS IN MODULE TABABD.  <a href="#aae71d3919c5fc05ca4915e7b61aa3735">More...</a><br/></td></tr>
+<tr class="memdesc:aae71d3919c5fc05ca4915e7b61aa3735"><td class="mdescLeft">&#160;</td><td class="mdescRight">This subroutine searches for a descriptor within Table B and Table D of the internal DX BUFR tables.  <a href="#aae71d3919c5fc05ca4915e7b61aa3735">More...</a><br/></td></tr>
 <tr class="separator:aae71d3919c5fc05ca4915e7b61aa3735"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><dl class="section author"><dt>Author</dt><dd>WOOLLEN </dd></dl>
-<dl class="section date"><dt>Date</dt><dd>2002-05-14 </dd></dl>
+<div class="textblock"><p>Search for a Table B or Table D descriptor within the internal DX BUFR tables. </p>
 
 <p>Definition in file <a class="el" href="numtbd_8f_source.html">numtbd.f</a>.</p>
 </div><h2 class="groupheader">Function/Subroutine Documentation</h2>
@@ -165,19 +167,45 @@ Functions/Subroutines</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>THIS SUBROUTINE SEARCHES FOR AN INTEGER IDN, CONTAINING THE BIT-WISE REPRESENTATION OF A DESCRIPTOR (FXY) VALUE, WITHIN THE INTERNAL BUFR TABLE B AND D ARRAYS IN MODULE TABABD. </p>
-<p>IF FOUND, IT RETURNS THE CORRESPONDING MNEMONIC AND OTHER INFORMATION FROM WITHIN THESE ARRAYS. IF IDN IS NOT FOUND, IT RETURNS WITH IRET=0.</p>
-<p>PROGRAM HISTORY LOG: 2002-05-14 J. WOOLLEN &ndash; ORIGINAL AUTHOR 2003-11-04 S. BENDER &ndash; ADDED REMARKS/BUFRLIB ROUTINE INTERDEPENDENCIES 2003-11-04 D. KEYSER &ndash; UNIFIED/PORTABLE FOR WRF; ADDED DOCUMENTATION (INCLUDING HISTORY) 2009-04-21 J. ATOR &ndash; USE IFXY FOR MORE EFFICIENT SEARCHING 2014-12-10 J. ATOR &ndash; USE MODULES INSTEAD OF COMMON BLOCKS</p>
-<p>USAGE: CALL NUMTBD (LUN, IDN, NEMO, TAB, IRET) INPUT ARGUMENT LIST: LUN - INTEGER: I/O STREAM INDEX INTO INTERNAL MEMORY ARRAYS IDN - INTEGER: BIT-WISE REPRESENTATION OF DESCRIPTOR (FXY) VALUE</p>
-<p>OUTPUT ARGUMENT LIST: NEMO - CHARACTER*(*): MNEMONIC CORRESPONDING TO IDN TAB - CHARACTER*1: TYPE OF FXY VALUE THAT IS BIT-WISE REPRESENTED BY IDN: 'B' = BUFR Table B descriptor 'D' = BUFR Table D descriptor IRET - INTEGER: RETURN VALUE (SEE REMARKS)</p>
-<p>REMARKS: THE INTERPRETATION OF THE RETURN VALUE IRET DEPENDS UPON THE RETURN VALUE OF TAB, AS FOLLOWS:</p>
-<p>IF ( TAB = 'B' ) THEN IRET = positional index of IDN within internal BUFR Table B array ELSE IF ( TAB = 'D') THEN IRET = positional index of IDN within internal BUFR Table D array ELSE IF ( IRET = 0 ) THEN IDN was not found in internal BUFR Table B or D END IF</p>
-<pre class="fragment">THIS ROUTINE CALLS:        IFXY
-THIS ROUTINE IS CALLED BY: GETCFMNG NUMTAB   RESTD    STSEQ
-                           UFDUMP
-                           Normally not called by any application
-                           programs.</pre> 
-<p>Definition at line <a class="el" href="numtbd_8f_source.html#l00054">54</a> of file <a class="el" href="numtbd_8f_source.html">numtbd.f</a>.</p>
+<p>This subroutine searches for a descriptor within Table B and Table D of the internal DX BUFR tables. </p>
+<dl class="section author"><dt>Author</dt><dd>J. Woollen </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2002-05-14</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">LUN</td><td>&ndash; integer: Internal I/O stream index associated with DX BUFR tables </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">IDN</td><td>&ndash; integer: Bit-wise representation of FXY value for Table B or Table D descriptor </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">NEMO</td><td>&ndash; character*(*): Mnemonic associated with IDN </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">TAB</td><td>&ndash; character: Type associated with IDN<ul>
+<li>'B' = Table B descriptor</li>
+<li>'D' = Table D descriptor </li>
+</ul>
+</td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">IRET</td><td>&ndash; integer:<ul>
+<li>Positional index of IDN within internal Table B, if TAB = 'B'</li>
+<li>Positional index of IDN within internal Table D, if TAB = 'D'</li>
+<li>0, otherwise</li>
+</ul>
+</td></tr>
+  </table>
+  </dd>
+</dl>
+<p><b>Program history log:</b> </p>
+<table class="doxtable">
+<tr>
+<th>Date </th><th>Programmer </th><th>Comments  </th></tr>
+<tr>
+<td>2002-05-14 </td><td>J. Woollen </td><td>Original author </td></tr>
+<tr>
+<td>2003-11-04 </td><td>S. Bender </td><td>Added remarks and routine interdependencies </td></tr>
+<tr>
+<td>2003-11-04 </td><td>D. Keyser </td><td>Unified/portable for WRF; added history documentation </td></tr>
+<tr>
+<td>2009-04-21 </td><td>J. Ator </td><td>Use <a class="el" href="ifxy_8f.html#ac971a6f6d644344a5b09d50175498074" title="This function converts an FXY value from its 6 character representation to its bit-wise (integer) rep...">ifxy()</a> for more efficient searching </td></tr>
+<tr>
+<td>2014-12-10 </td><td>J. Ator </td><td>Use modules instead of COMMON blocks </td></tr>
+</table>
+
+<p>Definition at line <a class="el" href="numtbd_8f_source.html#l00035">35</a> of file <a class="el" href="numtbd_8f_source.html">numtbd.f</a>.</p>
 
 <p>References <a class="el" href="ifxy_8f.html#ac971a6f6d644344a5b09d50175498074">ifxy()</a>.</p>
 

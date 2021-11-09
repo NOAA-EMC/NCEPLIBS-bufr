@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.5.0</span>
+   &#160;<span id="projectnumber">11.6.0</span>
    </div>
   </td>
  </tr>
@@ -159,8 +159,8 @@ Functions/Subroutines</h2></td></tr>
 <p>These final checks and updates include:</p>
 <ul>
 <li>Standardizing the BUFR message, if requested via a previous call subroutine <a class="el" href="stdmsg_8f.html#abcb573ae105505deb6d3c0ad55abbce2" title="This subroutine is used to specify whether BUFR messages output by future calls to message-writing su...">stdmsg()</a></li>
-<li>Converting the BUFR message from edition 3 to edition 4, if requested via a previous call to subroutine <a class="el" href="pkvs01_8F.html#a66383a142ad21a8793d728a6eafb9fe8" title="This subroutine is used to specify a value to be written into a specified location within Section 0 o...">pkvs01()</a></li>
-<li>Storing any customized values into Section 0 or Section 1 of the BUFR message, if requested via one or more previous calls to subroutine <a class="el" href="pkvs01_8F.html#a66383a142ad21a8793d728a6eafb9fe8" title="This subroutine is used to specify a value to be written into a specified location within Section 0 o...">pkvs01()</a></li>
+<li>Converting the BUFR message from edition 3 to edition 4, if requested via a previous call to subroutine <a class="el" href="pkvs01_8f.html#a66383a142ad21a8793d728a6eafb9fe8" title="This subroutine is used to specify a value to be written into a specified location within Section 0 o...">pkvs01()</a></li>
+<li>Storing any customized values into Section 0 or Section 1 of the BUFR message, if requested via one or more previous calls to subroutine <a class="el" href="pkvs01_8f.html#a66383a142ad21a8793d728a6eafb9fe8" title="This subroutine is used to specify a value to be written into a specified location within Section 0 o...">pkvs01()</a></li>
 <li>Storing a tank receipt time into Section 1 of the BUFR message, if requested via a previous call to subroutine <a class="el" href="strcpt_8f.html#a30d62b2b7af8434cd7227dae56e0f46e" title="This subroutine is used to specify a tank receipt time to be included within Section 1 of all BUFR me...">strcpt()</a></li>
 <li>For edition 3 BUFR messages, ensuring each section of the message contains an even number of bytes</li>
 <li>Storing '7777' into the last four bytes of the BUFR message, and storing the final message length in Section 0</li>
@@ -172,30 +172,45 @@ Functions/Subroutines</h2></td></tr>
 <dl class="section date"><dt>Date</dt><dd>1994-01-06</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">LUNIT</td><td>- integer: Fortran logical unit number for BUFR file </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">MESG</td><td>- integer(*): BUFR message </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">MGBYT</td><td>- integer: Size (in bytes) of BUFR message</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">LUNIT</td><td>&ndash; integer: Fortran logical unit number for BUFR file </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">MESG</td><td>&ndash; integer(*): BUFR message </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">MGBYT</td><td>&ndash; integer: Size (in bytes) of BUFR message</td></tr>
   </table>
   </dd>
 </dl>
-<p><b>Program history log:</b></p>
-<ul>
-<li>1994-01-06 J. Woollen &ndash; Original author</li>
-<li>1997-07-29 J. Woollen &ndash; Modified to update the current BUFR version written in Section 0 from 2 to 3</li>
-<li>1998-07-08 J. Woollen &ndash; Replaced call to Cray library routine ABORT with call to new internal routine <a class="el" href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4" title="This subroutine calls subroutine errwrt() to log an error message, then calls subroutine bort_exit() ...">bort()</a></li>
-<li>1998-11-24 J. Woollen &ndash; Modified to zero out the padding bytes written at the end of Section 4</li>
-<li>2000-09-19 J. Woollen &ndash; Maximum message length increased from 10,000 to 20,000 bytes</li>
-<li>2003-11-04 J. Ator &ndash; Don't write to LUNIT if opened by <a class="el" href="openbf_8F.html#a9bea9aeada166bd9037b959ca8452b28" title="This subroutine connects a new file to the BUFRLIB software for input or output operations. ">openbf()</a> using IO = 'NUL'</li>
-<li>2003-11-04 S. Bender &ndash; Added remarks and routine interdependencies</li>
-<li>2003-11-04 D. Keyser &ndash; Unified/portable for WRF; added history documentation; outputs more complete diagnostic info when routine terminates abnormally, unusual things happen or for informational purposes</li>
-<li>2005-11-29 J. Ator &ndash; Use <a class="el" href="getlens_8f.html#a15ffcb4cde43c73327fd3afb738078e2" title="This subroutine reads the lengths of all of the individual sections of a given BUFR message...">getlens()</a>, <a class="el" href="iupbs01_8f.html#adcd6f7c2f898b4f938153c5cf79a9cf5" title="This function returns a specified value from within Section 0 or Section 1 of a BUFR message...">iupbs01()</a>, <a class="el" href="padmsg_8f.html#af8c53e62375434d43ee476856388ee1c" title="THIS SUBROUTINE PADS A BUFR MESSAGE WITH ZEROED-OUT BYTES FROM THE END OF THE MESSAGE UP TO THE NEXT ...">padmsg()</a>, <a class="el" href="pkbs1_8f.html#a70abc28f30375ab44077b95ed58b59bb" title="This subroutines writes a specified value into a specified location within Section 1 of a BUFR messag...">pkbs1()</a> and <a class="el" href="nmwrd_8f.html#af955482010e67b333997227dc1118cfe" title="GIVEN AN INTEGER ARRAY CONTAINING SECTION ZERO FROM A BUFR MESSAGE, THIS FUNCTION DETERMINES A COUNT ...">nmwrd()</a>; added logic to call <a class="el" href="pkbs1_8f.html#a70abc28f30375ab44077b95ed58b59bb" title="This subroutines writes a specified value into a specified location within Section 1 of a BUFR messag...">pkbs1()</a> and/or <a class="el" href="cnved4_8f.html#a4ca2157b24b043c2729135437c1da49a" title="This subroutine reads an input BUFR message encoded using BUFR edition 3 and outputs an equivalent BU...">cnved4()</a> when necessary</li>
-<li>2009-03-23 J. Ator &ndash; Use <a class="el" href="idxmsg_8f.html#ab9276526fbe1b76bfa9f3d15f734c2b2" title="THIS FUNCTION DETERMINES WHETHER THE GIVEN BUFR MESSAGE IS A DX DICTIONARY MESSAGE THAT WAS CREATED B...">idxmsg()</a> and <a class="el" href="errwrt_8f.html#a65626d9a772648676146b62b596c2764" title="This subroutine allows the user to specify a custom location for the logging of error and diagnostic ...">errwrt()</a>; add call to <a class="el" href="atrcpt_8f.html#aab9923798891a9045fe799d144b8f0c3" title="This subroutine reads an input message and outputs an equivalent BUFR message with a tank receipt tim...">atrcpt()</a>; allow standardizing via COMMON /MSGSTD/ even if data is compressed; work on local copy of input message</li>
-<li>2012-09-15 J. Woollen &ndash; Modified for C/I/O/BUFR interface; call new routine <a class="el" href="blocks_8f.html#a58e616c094fc6ddcdf5e33554105c3d4" title="This subroutine encapsulates a BUFR message with IEEE Fortran control words as specified via the most...">blocks()</a> for file blocking and new C routine <a class="el" href="cread_8c.html#a8e21f3b91ceb5b96eeced683b1b28a1a" title="This subroutine writes a BUFR message into a file that was previously opened for writing. ">cwrbufr()</a> to write BUFR message to disk file</li>
-<li>2014-12-10 J. Ator &ndash; Use modules instead of COMMON blocks</li>
-<li>2019-05-09 J. Ator &ndash; Added dimensions for MSGLEN and MSGTXT </li>
-</ul>
+<p><b>Program history log:</b> </p>
+<table class="doxtable">
+<tr>
+<th>Date </th><th>Programmer </th><th>Comments  </th></tr>
+<tr>
+<td>1994-01-06 </td><td>J. Woollen </td><td>Original author </td></tr>
+<tr>
+<td>1997-07-29 </td><td>J. Woollen </td><td>Modified to update the current BUFR version written in Section 0 from 2 to 3 </td></tr>
+<tr>
+<td>1998-07-08 </td><td>J. Woollen </td><td>Replaced call to Cray library routine ABORT with call to new internal routine <a class="el" href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4" title="This subroutine calls subroutine errwrt() to log an error message, then calls subroutine bort_exit() ...">bort()</a> </td></tr>
+<tr>
+<td>1998-11-24 </td><td>J. Woollen </td><td>Modified to zero out the padding bytes written at the end of Section 4 </td></tr>
+<tr>
+<td>2000-09-19 </td><td>J. Woollen </td><td>Maximum message length increased from 10,000 to 20,000 bytes </td></tr>
+<tr>
+<td>2003-11-04 </td><td>J. Ator </td><td>Don't write to LUNIT if opened by <a class="el" href="openbf_8f.html#a9bea9aeada166bd9037b959ca8452b28" title="This subroutine connects a new file to the BUFRLIB software for input or output operations. ">openbf()</a> using IO = 'NUL' </td></tr>
+<tr>
+<td>2003-11-04 </td><td>S. Bender </td><td>Added remarks and routine interdependencies </td></tr>
+<tr>
+<td>2003-11-04 </td><td>D. Keyser </td><td>Unified/portable for WRF; added documentation; outputs more complete diagnostic info when routine terminates abnormally </td></tr>
+<tr>
+<td>2005-11-29 </td><td>J. Ator </td><td>Use <a class="el" href="getlens_8f.html#a15ffcb4cde43c73327fd3afb738078e2" title="This subroutine reads the lengths of all of the individual sections of a given BUFR message...">getlens()</a>, <a class="el" href="iupbs01_8f.html#adcd6f7c2f898b4f938153c5cf79a9cf5" title="This function returns a specified value from within Section 0 or Section 1 of a BUFR message...">iupbs01()</a>, <a class="el" href="padmsg_8f.html#af8c53e62375434d43ee476856388ee1c" title="THIS SUBROUTINE PADS A BUFR MESSAGE WITH ZEROED-OUT BYTES FROM THE END OF THE MESSAGE UP TO THE NEXT ...">padmsg()</a>, <a class="el" href="pkbs1_8f.html#a70abc28f30375ab44077b95ed58b59bb" title="This subroutines writes a specified value into a specified location within Section 1 of a BUFR messag...">pkbs1()</a> and <a class="el" href="nmwrd_8f.html#af955482010e67b333997227dc1118cfe" title="GIVEN AN INTEGER ARRAY CONTAINING SECTION ZERO FROM A BUFR MESSAGE, THIS FUNCTION DETERMINES A COUNT ...">nmwrd()</a>; added logic to call <a class="el" href="pkbs1_8f.html#a70abc28f30375ab44077b95ed58b59bb" title="This subroutines writes a specified value into a specified location within Section 1 of a BUFR messag...">pkbs1()</a> and/or <a class="el" href="cnved4_8f.html#a4ca2157b24b043c2729135437c1da49a" title="This subroutine reads an input BUFR message encoded using BUFR edition 3 and outputs an equivalent BU...">cnved4()</a> when necessary </td></tr>
+<tr>
+<td>2009-03-23 </td><td>J. Ator </td><td>Use <a class="el" href="idxmsg_8f.html#ab9276526fbe1b76bfa9f3d15f734c2b2" title="This function determines whether a given BUFR message contains DX BUFR tables information that was ge...">idxmsg()</a> and <a class="el" href="errwrt_8f.html#a65626d9a772648676146b62b596c2764" title="This subroutine allows the user to specify a custom location for the logging of error and diagnostic ...">errwrt()</a>; add call to <a class="el" href="atrcpt_8f.html#aab9923798891a9045fe799d144b8f0c3" title="This subroutine reads an input message and outputs an equivalent BUFR message with a tank receipt tim...">atrcpt()</a>; allow standardizing even if data is compressed; work on local copy of input message </td></tr>
+<tr>
+<td>2012-09-15 </td><td>J. Woollen </td><td>Modified for C/I/O/BUFR interface; call new routine <a class="el" href="blocks_8f.html#a58e616c094fc6ddcdf5e33554105c3d4" title="This subroutine encapsulates a BUFR message with IEEE Fortran control words as specified via the most...">blocks()</a> for file blocking and new C routine <a class="el" href="cread_8c.html#a8e21f3b91ceb5b96eeced683b1b28a1a" title="This subroutine writes a BUFR message into a file that was previously opened for writing. ">cwrbufr()</a> to write BUFR message to disk file </td></tr>
+<tr>
+<td>2014-12-10 </td><td>J. Ator </td><td>Use modules instead of COMMON blocks </td></tr>
+<tr>
+<td>2019-05-09 </td><td>J. Ator </td><td>Added dimensions for MSGLEN and MSGTXT </td></tr>
+</table>
 
-<p>Definition at line <a class="el" href="msgwrt_8f_source.html#l00069">69</a> of file <a class="el" href="msgwrt_8f_source.html">msgwrt.f</a>.</p>
+<p>Definition at line <a class="el" href="msgwrt_8f_source.html#l00054">54</a> of file <a class="el" href="msgwrt_8f_source.html">msgwrt.f</a>.</p>
 
 <p>References <a class="el" href="atrcpt_8f.html#aab9923798891a9045fe799d144b8f0c3">atrcpt()</a>, <a class="el" href="blocks_8f.html#a58e616c094fc6ddcdf5e33554105c3d4">blocks()</a>, <a class="el" href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort()</a>, <a class="el" href="cnved4_8f.html#a4ca2157b24b043c2729135437c1da49a">cnved4()</a>, <a class="el" href="cread_8c.html#a8e21f3b91ceb5b96eeced683b1b28a1a">cwrbufr()</a>, <a class="el" href="errwrt_8f.html#a65626d9a772648676146b62b596c2764">errwrt()</a>, <a class="el" href="getlens_8f.html#a15ffcb4cde43c73327fd3afb738078e2">getlens()</a>, <a class="el" href="idxmsg_8f.html#ab9276526fbe1b76bfa9f3d15f734c2b2">idxmsg()</a>, <a class="el" href="iupbs01_8f.html#adcd6f7c2f898b4f938153c5cf79a9cf5">iupbs01()</a>, <a class="el" href="nmwrd_8f.html#af955482010e67b333997227dc1118cfe">nmwrd()</a>, <a class="el" href="padmsg_8f.html#af8c53e62375434d43ee476856388ee1c">padmsg()</a>, <a class="el" href="pkb_8f.html#a35aa2e691ff3ad32de9d8721cae613f7">pkb()</a>, <a class="el" href="pkbs1_8f.html#a70abc28f30375ab44077b95ed58b59bb">pkbs1()</a>, <a class="el" href="pkc_8f.html#a0376a4af04f7be036484c666ebbb8ef9">pkc()</a>, <a class="el" href="status_8f.html#a22292e7a69c411a961168198d259f336">status()</a>, and <a class="el" href="stndrd_8f.html#a9a40fe96eef4a44c203f5e663fc47c4b">stndrd()</a>.</p>
 

@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.5.0</span>
+   &#160;<span id="projectnumber">11.6.0</span>
    </div>
   </td>
  </tr>
@@ -111,34 +111,34 @@ $(document).ready(function(){initNavTree('inittbf_8c_source.html','');});
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#define IN_INITTBF</span></div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#include &quot;<a class="code" href="cfe_8h.html">cfe.h</a>&quot;</span></div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;</div>
-<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="inittbf_8c.html#aa06057bdd5b8456df9b33ec96a5cc57e">   20</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="cfe_8h.html#aa06057bdd5b8456df9b33ec96a5cc57e">inittbf</a>( <span class="keywordtype">void</span> )</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;{</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    <span class="keywordtype">char</span> brtstr[50] = <span class="stringliteral">&quot;BUFRLIB: INITTBF FAILED ALLOCATING CFE&quot;</span>;</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    <span class="comment">/*</span></div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="comment">    **  Has array space for the internal memory structure been</span></div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="comment">    **  allocated yet?</span></div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="comment">    */</span></div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    <span class="keywordflow">if</span> ( <a class="code" href="cfe_8h.html#aca17d2b0ff92068c3f23e96ec9703411">cfe</a> == NULL ) {</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    </div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;        <a class="code" href="cfe_8h.html#a259df6152a449c45ee997f874b625873">mxmtbf</a> = <a class="code" href="igetprm_8f.html#acf5cb6268e5091d81f9eec4e61f87cdb">igetprm</a>( <span class="stringliteral">&quot;MXMTBF&quot;</span>, 6 );</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;        <span class="keywordflow">if</span> ( ( <a class="code" href="cfe_8h.html#aca17d2b0ff92068c3f23e96ec9703411">cfe</a> = malloc( <a class="code" href="cfe_8h.html#a259df6152a449c45ee997f874b625873">mxmtbf</a> * <span class="keyword">sizeof</span>(<span class="keyword">struct</span> <a class="code" href="cfe_8h.html#structcode__flag__entry">code_flag_entry</a>) ) )</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;            == NULL ) {</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;            <a class="code" href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort</a>( brtstr, ( f77int ) strlen( brtstr ) );</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;        }</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    }</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    <a class="code" href="cfe_8h.html#a442ef62aedebd6a96bcfdf71530f655b">nmtf</a> = 0;</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;}</div>
+<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="inittbf_8c.html#aa06057bdd5b8456df9b33ec96a5cc57e">   22</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="cfe_8h.html#aa06057bdd5b8456df9b33ec96a5cc57e">inittbf</a>( <span class="keywordtype">void</span> )</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;{</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    <span class="keywordtype">char</span> brtstr[50] = <span class="stringliteral">&quot;BUFRLIB: INITTBF FAILED ALLOCATING CFE&quot;</span>;</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <span class="comment">/*</span></div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="comment">    **  Has array space for the internal memory structure been</span></div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="comment">    **  allocated yet?</span></div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="comment">    */</span></div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <span class="keywordflow">if</span> ( <a class="code" href="cfe_8h.html#aca17d2b0ff92068c3f23e96ec9703411">cfe</a> == NULL ) {</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    </div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;        <a class="code" href="cfe_8h.html#a259df6152a449c45ee997f874b625873">mxmtbf</a> = <a class="code" href="igetprm_8f.html#acf5cb6268e5091d81f9eec4e61f87cdb">igetprm</a>( <span class="stringliteral">&quot;MXMTBF&quot;</span>, 6 );</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        <span class="keywordflow">if</span> ( ( <a class="code" href="cfe_8h.html#aca17d2b0ff92068c3f23e96ec9703411">cfe</a> = malloc( <a class="code" href="cfe_8h.html#a259df6152a449c45ee997f874b625873">mxmtbf</a> * <span class="keyword">sizeof</span>(<span class="keyword">struct</span> <a class="code" href="cfe_8h.html#structcode__flag__entry">code_flag_entry</a>) ) )</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;            == NULL ) {</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;            <a class="code" href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort</a>( brtstr, ( f77int ) strlen( brtstr ) );</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;        }</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    }</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <a class="code" href="cfe_8h.html#a442ef62aedebd6a96bcfdf71530f655b">nmtf</a> = 0;</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;}</div>
 <div class="ttc" id="bufrlib_8h_html"><div class="ttname"><a href="bufrlib_8h.html">bufrlib.h</a></div><div class="ttdoc">Define signatures to enable a number of BUFRLIB subprograms to be called directly from C application ...</div></div>
 <div class="ttc" id="cfe_8h_html_a259df6152a449c45ee997f874b625873"><div class="ttname"><a href="cfe_8h.html#a259df6152a449c45ee997f874b625873">mxmtbf</a></div><div class="ttdeci">f77int mxmtbf</div><div class="ttdoc">Maximum number of master Code/Flag table entries, counting across all individual Code/Flag tables...</div></div>
-<div class="ttc" id="cfe_8h_html_aa06057bdd5b8456df9b33ec96a5cc57e"><div class="ttname"><a href="cfe_8h.html#aa06057bdd5b8456df9b33ec96a5cc57e">inittbf</a></div><div class="ttdeci">void inittbf(void)</div><div class="ttdoc">This subroutine initializes the internal memory structure for storage of master Code/Flag table entri...</div><div class="ttdef"><b>Definition:</b> <a href="inittbf_8c_source.html#l00020">inittbf.c:20</a></div></div>
-<div class="ttc" id="igetprm_8f_html_acf5cb6268e5091d81f9eec4e61f87cdb"><div class="ttname"><a href="igetprm_8f.html#acf5cb6268e5091d81f9eec4e61f87cdb">igetprm</a></div><div class="ttdeci">INTEGER function igetprm(CPRMNM)</div><div class="ttdoc">This function returns the current value of a parameter used for allocating one or more internal array...</div><div class="ttdef"><b>Definition:</b> <a href="igetprm_8f_source.html#l00081">igetprm.f:81</a></div></div>
+<div class="ttc" id="cfe_8h_html_aa06057bdd5b8456df9b33ec96a5cc57e"><div class="ttname"><a href="cfe_8h.html#aa06057bdd5b8456df9b33ec96a5cc57e">inittbf</a></div><div class="ttdeci">void inittbf(void)</div><div class="ttdoc">This subroutine initializes the internal memory structure for storage of master Code/Flag table entri...</div><div class="ttdef"><b>Definition:</b> <a href="inittbf_8c_source.html#l00022">inittbf.c:22</a></div></div>
+<div class="ttc" id="igetprm_8f_html_acf5cb6268e5091d81f9eec4e61f87cdb"><div class="ttname"><a href="igetprm_8f.html#acf5cb6268e5091d81f9eec4e61f87cdb">igetprm</a></div><div class="ttdeci">INTEGER function igetprm(CPRMNM)</div><div class="ttdoc">This function returns the current value of a parameter used for allocating one or more internal array...</div><div class="ttdef"><b>Definition:</b> <a href="igetprm_8f_source.html#l00083">igetprm.f:83</a></div></div>
 <div class="ttc" id="cfe_8h_html_a442ef62aedebd6a96bcfdf71530f655b"><div class="ttname"><a href="cfe_8h.html#a442ef62aedebd6a96bcfdf71530f655b">nmtf</a></div><div class="ttdeci">f77int nmtf</div><div class="ttdoc">Number of stored master Code/Flag table entries in cfe, up to a maximum of MXMTBF. </div></div>
 <div class="ttc" id="cfe_8h_html_structcode__flag__entry"><div class="ttname"><a href="cfe_8h.html#structcode__flag__entry">code_flag_entry</a></div><div class="ttdoc">This structure contains array and variable declarations used to store a master Code/Flag table entry...</div><div class="ttdef"><b>Definition:</b> <a href="cfe_8h_source.html#l00033">cfe.h:33</a></div></div>
 <div class="ttc" id="cfe_8h_html_aca17d2b0ff92068c3f23e96ec9703411"><div class="ttname"><a href="cfe_8h.html#aca17d2b0ff92068c3f23e96ec9703411">cfe</a></div><div class="ttdeci">struct code_flag_entry * cfe</div><div class="ttdoc">Master Code/Flag table entries. </div></div>
-<div class="ttc" id="bort_8f_html_a488d3a8cf930fb592a9fdaefcfa04ac4"><div class="ttname"><a href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort</a></div><div class="ttdeci">subroutine bort(STR)</div><div class="ttdoc">This subroutine calls subroutine errwrt() to log an error message, then calls subroutine bort_exit() ...</div><div class="ttdef"><b>Definition:</b> <a href="bort_8f_source.html#l00023">bort.f:23</a></div></div>
+<div class="ttc" id="bort_8f_html_a488d3a8cf930fb592a9fdaefcfa04ac4"><div class="ttname"><a href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort</a></div><div class="ttdeci">subroutine bort(STR)</div><div class="ttdoc">This subroutine calls subroutine errwrt() to log an error message, then calls subroutine bort_exit() ...</div><div class="ttdef"><b>Definition:</b> <a href="bort_8f_source.html#l00022">bort.f:22</a></div></div>
 <div class="ttc" id="cfe_8h_html"><div class="ttname"><a href="cfe_8h.html">cfe.h</a></div><div class="ttdoc">Define signatures and declare variables for internal storage of master Code/Flag table entries...</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->

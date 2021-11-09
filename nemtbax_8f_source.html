@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.5.0</span>
+   &#160;<span id="projectnumber">11.6.0</span>
    </div>
   </td>
  </tr>
@@ -107,84 +107,77 @@ $(document).ready(function(){initNavTree('nemtbax_8f_source.html','');});
 </div><!--header-->
 <div class="contents">
 <a href="nemtbax_8f.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="comment">C&gt; @file</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment">C&gt; @author WOOLLEN @date 1999-11-18</span></div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;      </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="comment">C&gt; THIS SUBROUTINE SEARCHES FOR MNEMONIC NEMO WITHIN THE</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="comment">C&gt;   INTERNAL TABLE A ARRAYS HOLDING THE DICTIONARY TABLE (ARRAYS IN</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="comment">C&gt;   MODULE TABABD) AND, IF FOUND, RETURNS INFORMATION ABOUT</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="comment">C&gt;   THAT MNEMONIC FROM WITHIN THESE ARRAYS.  IT IS IDENTICAL TO BUFR</span></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="comment">C&gt;   ARCHIVE LIBRARY SUBROUTINE NEMTBA EXCEPT THAT, IF NEMO IS NOT</span></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="comment">C&gt;   FOUND, THIS SUBROUTINE RETURNS WITH INOD EQUAL TO ZERO, WHEREAS</span></div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="comment">C&gt;   NEMTBA CALLS BUFR ARCHIVE LIBRARY SUBROUTINE BORT IN SUCH CASES.</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment">C&gt; @brief Search for a Table A descriptor within the internal DX</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="comment">C&gt; BUFR tables</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="comment">C&gt; This subroutine searches for a descriptor within Table A of the</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="comment">C&gt; internal DX BUFR tables.</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="comment">C&gt;</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="comment">C&gt; &lt;p&gt;It is similar to subroutine nemtba(), except it returns an INOD</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="comment">C&gt; value of 0 if the descriptor is not found in Table A, whereas</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="comment">C&gt; nemtba() will call subroutine bort() in such cases.</span></div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="comment">C&gt;</span></div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="comment">C&gt; PROGRAM HISTORY LOG:</span></div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="comment">C&gt; 1999-11-18  J. WOOLLEN -- ORIGINAL AUTHOR</span></div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment">C&gt; 2003-11-04  S. BENDER  -- ADDED REMARKS/BUFRLIB ROUTINE</span></div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="comment">C&gt;                           INTERDEPENDENCIES</span></div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="comment">C&gt; 2003-11-04  D. KEYSER  -- UNIFIED/PORTABLE FOR WRF; ADDED</span></div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="comment">C&gt;                           DOCUMENTATION (INCLUDING HISTORY); OUTPUTS</span></div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="comment">C&gt;                           MORE COMPLETE DIAGNOSTIC INFO WHEN ROUTINE</span></div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment">C&gt;                           TERMINATES ABNORMALLY</span></div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="comment">C&gt; 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS</span></div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="comment">C&gt;</span></div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="comment">C&gt; USAGE:    CALL NEMTBAX (LUN, NEMO, MTYP, MSBT, INOD)</span></div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="comment">C&gt;   INPUT ARGUMENT LIST:</span></div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="comment">C&gt;     LUN      - INTEGER: I/O STREAM INDEX INTO INTERNAL MEMORY ARRAYS</span></div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="comment">C&gt;     NEMO     - CHARACTER*(*): TABLE A MNEMONIC TO SEARCH FOR</span></div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="comment">C&gt;</span></div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="comment">C&gt;   OUTPUT ARGUMENT LIST:</span></div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="comment">C&gt;     MTYP     - INTEGER: MESSAGE TYPE CORRESPONDING TO NEMO</span></div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="comment">C&gt;     MSBT     - INTEGER: MESSAGE SUBTYPE CORRESPONDING TO NEMO</span></div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="comment">C&gt;     INOD     - INTEGER: POSITIONAL INDEX OF NEMO WITHIN INTERNAL</span></div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="comment">C&gt;                         JUMP/LINK TABLE IF NEMO FOUND</span></div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="comment">C&gt;                       0 = NEMO not found</span></div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="comment">C&gt;</span></div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="comment">C&gt; REMARKS:</span></div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="comment">C&gt;    THIS ROUTINE CALLS:        BORT</span></div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="comment">C&gt;    THIS ROUTINE IS CALLED BY: CKTABA   IOK2CPY  NEMTBA   STNDRD</span></div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="comment">C&gt;                               Normally not called by any application</span></div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="comment">C&gt;                               programs.</span></div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="comment">C&gt;</span></div>
-<div class="line"><a name="l00040"></a><span class="lineno"><a class="line" href="nemtbax_8f.html#adec9ab84d3bc51e082325e710354192e">   40</a></span>&#160;<span class="keyword">      SUBROUTINE </span><a class="code" href="nemtbax_8f.html#adec9ab84d3bc51e082325e710354192e">nemtbax</a>(LUN,NEMO,MTYP,MSBT,INOD)</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;      <span class="keywordtype">USE </span><a class="code" href="moda__tababd_8F.html#classmoda__tababd">moda_tababd</a></div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;      <span class="keywordtype">CHARACTER*(*)</span> nemo</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;      <span class="keywordtype">CHARACTER*128</span> bort_str</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;<span class="comment">C-----------------------------------------------------------------------</span></div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<span class="comment">C-----------------------------------------------------------------------</span></div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;      inod = 0</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="comment">C  LOOK FOR NEMO IN TABLE A</span></div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;<span class="comment">C  ------------------------</span></div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;      <span class="keywordflow">DO</span> i=1,ntba(lun)</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;      <span class="keywordflow">IF</span>(taba(i,lun)(4:11).EQ.nemo) <span class="keywordflow">THEN</span></div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;         mtyp = idna(i,lun,1)</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;         msbt = idna(i,lun,2)</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;         inod = mtab(i,lun)</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;         <span class="keywordflow">IF</span>(mtyp.LT.0 .OR. mtyp.GT.255) goto 900</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;         <span class="keywordflow">IF</span>(msbt.LT.0 .OR. msbt.GT.255) goto 901</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;         goto 100</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;      <span class="keywordflow">ENDIF</span></div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;      <span class="keywordflow">ENDDO</span></div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;<span class="comment">C  EXITS</span></div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;<span class="comment">C  -----</span></div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;100   <span class="keywordflow">RETURN</span></div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;900   <span class="keyword">WRITE</span>(bort_str,<span class="stringliteral">&#39;(&quot;BUFRLIB: NEMTBAX - INVALID MESSAGE TYPE (&quot;,I4&#39;</span>//</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;     . <span class="stringliteral">&#39;,&quot;) RETURNED FOR MENMONIC &quot;,A)&#39;</span>) mtyp,nemo</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;      CALL <a class="code" href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort</a>(bort_str)</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;901   <span class="keyword">WRITE</span>(bort_str,<span class="stringliteral">&#39;(&quot;BUFRLIB: NEMTBAX - INVALID MESSAGE SUBTYPE (&quot;&#39;</span>//</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;     . <span class="stringliteral">&#39;,I4,&quot;) RETURNED FOR MENMONIC &quot;,A)&#39;</span>) msbt,nemo</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;      CALL <a class="code" href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort</a>(bort_str)</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;      <span class="keywordflow">END</span></div>
-<div class="ttc" id="nemtbax_8f_html_adec9ab84d3bc51e082325e710354192e"><div class="ttname"><a href="nemtbax_8f.html#adec9ab84d3bc51e082325e710354192e">nemtbax</a></div><div class="ttdeci">subroutine nemtbax(LUN, NEMO, MTYP, MSBT, INOD)</div><div class="ttdoc">THIS SUBROUTINE SEARCHES FOR MNEMONIC NEMO WITHIN THE INTERNAL TABLE A ARRAYS HOLDING THE DICTIONARY ...</div><div class="ttdef"><b>Definition:</b> <a href="nemtbax_8f_source.html#l00040">nemtbax.f:40</a></div></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="comment">C&gt; @author J. Woollen</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="comment">C&gt; @date 1999-11-18</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment">C&gt;</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="comment">C&gt; @param[in] LUN -- integer: Internal I/O stream index associated</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="comment">C&gt;                   with DX BUFR tables</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="comment">C&gt; @param[in] NEMO -- character*(*): Mnemonic for Table A descriptor</span></div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="comment">C&gt; @param[out] MTYP -- integer: Message type corresponding to NEMO</span></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment">C&gt; @param[out] MSBT -- integer: Message subtype corresponding to NEMO</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="comment">C&gt; @param[out] INOD -- integer:</span></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="comment">C&gt;                     - Positional index of NEMO within internal</span></div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="comment">C&gt;                       Table A, if found</span></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="comment">C&gt;                     - 0, otherwise</span></div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="comment">C&gt;</span></div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="comment">C&gt; &lt;b&gt;Program history log:&lt;/b&gt;</span></div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="comment">C&gt; | Date | Programmer | Comments |</span></div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="comment">C&gt; | -----|------------|----------|</span></div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="comment">C&gt; | 1999-11-18 | J. Woollen | Original author |</span></div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="comment">C&gt; | 2003-11-04 | S. Bender  | Added remarks/bufrlib routine interdependencies |</span></div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="comment">C&gt; | 2003-11-04 | D. Keyser  | Unified/portable for WRF; added documentation; outputs more complete diagnostic info when routine terminates abnormally |</span></div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="comment">C&gt; | 2014-12-10 | J. Ator    | Use modules instead of COMMON blocks |</span></div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="comment">C&gt;</span></div>
+<div class="line"><a name="l00033"></a><span class="lineno"><a class="line" href="nemtbax_8f.html#adec9ab84d3bc51e082325e710354192e">   33</a></span>&#160;<span class="keyword">      SUBROUTINE </span><a class="code" href="nemtbax_8f.html#adec9ab84d3bc51e082325e710354192e">nemtbax</a>(LUN,NEMO,MTYP,MSBT,INOD)</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;      <span class="keywordtype">USE </span><a class="code" href="moda__tababd_8F.html#classmoda__tababd">moda_tababd</a></div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;      <span class="keywordtype">CHARACTER*(*)</span> nemo</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;      <span class="keywordtype">CHARACTER*128</span> bort_str</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="comment">C-----------------------------------------------------------------------</span></div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="comment">C-----------------------------------------------------------------------</span></div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;      inod = 0</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<span class="comment">C  LOOK FOR NEMO IN TABLE A</span></div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="comment">C  ------------------------</span></div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;      <span class="keywordflow">DO</span> i=1,ntba(lun)</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;      <span class="keywordflow">IF</span>(taba(i,lun)(4:11).EQ.nemo) <span class="keywordflow">THEN</span></div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;         mtyp = idna(i,lun,1)</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;         msbt = idna(i,lun,2)</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;         inod = mtab(i,lun)</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;         <span class="keywordflow">IF</span>(mtyp.LT.0 .OR. mtyp.GT.255) goto 900</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;         <span class="keywordflow">IF</span>(msbt.LT.0 .OR. msbt.GT.255) goto 901</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;         goto 100</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;      <span class="keywordflow">ENDIF</span></div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;      <span class="keywordflow">ENDDO</span></div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;<span class="comment">C  EXITS</span></div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;<span class="comment">C  -----</span></div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;100   <span class="keywordflow">RETURN</span></div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;900   <span class="keyword">WRITE</span>(bort_str,<span class="stringliteral">&#39;(&quot;BUFRLIB: NEMTBAX - INVALID MESSAGE TYPE (&quot;,I4&#39;</span>//</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;     . <span class="stringliteral">&#39;,&quot;) RETURNED FOR MENMONIC &quot;,A)&#39;</span>) mtyp,nemo</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;      CALL <a class="code" href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort</a>(bort_str)</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;901   <span class="keyword">WRITE</span>(bort_str,<span class="stringliteral">&#39;(&quot;BUFRLIB: NEMTBAX - INVALID MESSAGE SUBTYPE (&quot;&#39;</span>//</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;     . <span class="stringliteral">&#39;,I4,&quot;) RETURNED FOR MENMONIC &quot;,A)&#39;</span>) msbt,nemo</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;      CALL <a class="code" href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort</a>(bort_str)</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;      <span class="keywordflow">END</span></div>
+<div class="ttc" id="nemtbax_8f_html_adec9ab84d3bc51e082325e710354192e"><div class="ttname"><a href="nemtbax_8f.html#adec9ab84d3bc51e082325e710354192e">nemtbax</a></div><div class="ttdeci">subroutine nemtbax(LUN, NEMO, MTYP, MSBT, INOD)</div><div class="ttdoc">This subroutine searches for a descriptor within Table A of the internal DX BUFR tables. </div><div class="ttdef"><b>Definition:</b> <a href="nemtbax_8f_source.html#l00033">nemtbax.f:33</a></div></div>
 <div class="ttc" id="moda__tababd_8F_html_classmoda__tababd"><div class="ttname"><a href="moda__tababd_8F.html#classmoda__tababd">moda_tababd</a></div><div class="ttdoc">This module contains array and variable declarations used to store DX BUFR tables internally for mult...</div><div class="ttdef"><b>Definition:</b> <a href="moda__tababd_8F_source.html#l00010">moda_tababd.F:10</a></div></div>
-<div class="ttc" id="bort_8f_html_a488d3a8cf930fb592a9fdaefcfa04ac4"><div class="ttname"><a href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort</a></div><div class="ttdeci">subroutine bort(STR)</div><div class="ttdoc">This subroutine calls subroutine errwrt() to log an error message, then calls subroutine bort_exit() ...</div><div class="ttdef"><b>Definition:</b> <a href="bort_8f_source.html#l00023">bort.f:23</a></div></div>
+<div class="ttc" id="bort_8f_html_a488d3a8cf930fb592a9fdaefcfa04ac4"><div class="ttname"><a href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort</a></div><div class="ttdeci">subroutine bort(STR)</div><div class="ttdoc">This subroutine calls subroutine errwrt() to log an error message, then calls subroutine bort_exit() ...</div><div class="ttdef"><b>Definition:</b> <a href="bort_8f_source.html#l00022">bort.f:22</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

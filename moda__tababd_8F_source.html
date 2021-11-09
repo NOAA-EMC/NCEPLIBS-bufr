@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.5.0</span>
+   &#160;<span id="projectnumber">11.6.0</span>
    </div>
   </td>
  </tr>
@@ -119,22 +119,22 @@ $(document).ready(function(){initNavTree('moda__tababd_8F_source.html','');});
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;</div>
 <div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#ifndef MAXTBA_H</span></div>
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define MAXTBA_H</span></div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor"></span>      <span class="keywordtype">USE </span><a class="code" href="modv__MAXTBA_8F.html#classmodv__maxtba">modv_maxtba</a></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor"></span>      <span class="keywordtype">USE </span><a class="code" href="modv__MAXTBA_8f.html#classmodv__maxtba">modv_maxtba</a></div>
 <div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="preprocessor"></span></div>
 <div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="preprocessor">#ifndef MAXTBB_H</span></div>
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define MAXTBB_H</span></div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="preprocessor"></span>      <span class="keywordtype">USE </span><a class="code" href="modv__MAXTBB_8F.html#classmodv__maxtbb">modv_maxtbb</a></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="preprocessor"></span>      <span class="keywordtype">USE </span><a class="code" href="modv__MAXTBB_8f.html#classmodv__maxtbb">modv_maxtbb</a></div>
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="preprocessor"></span></div>
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="preprocessor">#ifndef MAXTBD_H</span></div>
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define MAXTBD_H</span></div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="preprocessor"></span>      <span class="keywordtype">USE </span><a class="code" href="modv__MAXTBD_8F.html#classmodv__maxtbd">modv_maxtbd</a></div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="preprocessor"></span>      <span class="keywordtype">USE </span><a class="code" href="modv__MAXTBD_8f.html#classmodv__maxtbd">modv_maxtbd</a></div>
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="preprocessor"></span></div>
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="preprocessor">#ifndef NFILES_H</span></div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define NFILES_H</span></div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="preprocessor"></span>      <span class="keywordtype">USE </span><a class="code" href="modv__NFILES_8F.html#classmodv__nfiles">modv_nfiles</a></div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="preprocessor"></span>      <span class="keywordtype">USE </span><a class="code" href="modv__NFILES_8f90.html#classmodv__nfiles">modv_nfiles</a></div>
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="preprocessor"></span></div>
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="comment">C&gt;        @var ntba</span></div>
@@ -176,36 +176,23 @@ $(document).ready(function(){initNavTree('moda__tababd_8F_source.html','');});
 <div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;<span class="comment">C&gt;        Bit-wise representations of the FXY values corresponding</span></div>
 <div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;<span class="comment">C&gt;        to tabd.</span></div>
 <div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;<span class="preprocessor">#ifdef DYNAMIC_ALLOCATION</span></div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;<span class="preprocessor"></span>      <span class="keywordtype">INTEGER</span>, <span class="keywordtype">ALLOCATABLE</span> :: ntba(:)</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;      <span class="keywordtype">INTEGER</span>, <span class="keywordtype">ALLOCATABLE</span> :: ntbb(:)</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;      <span class="keywordtype">INTEGER</span>, <span class="keywordtype">ALLOCATABLE</span> :: ntbd(:)</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;      <span class="keywordtype">INTEGER</span>, <span class="keywordtype">ALLOCATABLE</span> :: mtab(:,:)</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;      <span class="keywordtype">INTEGER</span>, <span class="keywordtype">ALLOCATABLE</span> :: idna(:,:,:)</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;      <span class="keywordtype">INTEGER</span>, <span class="keywordtype">ALLOCATABLE</span> :: idnb(:,:)</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;      <span class="keywordtype">INTEGER</span>, <span class="keywordtype">ALLOCATABLE</span> :: idnd(:,:)</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;      <span class="keywordtype">CHARACTER*128</span>, <span class="keywordtype">ALLOCATABLE</span> :: taba(:,:)</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;      <span class="keywordtype">CHARACTER*128</span>, <span class="keywordtype">ALLOCATABLE</span> :: tabb(:,:)</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;      <span class="keywordtype">CHARACTER*600</span>, <span class="keywordtype">ALLOCATABLE</span> :: tabd(:,:)</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;<span class="preprocessor">#else</span></div>
-<div class="line"><a name="l00083"></a><span class="lineno"><a class="line" href="moda__tababd_8F.html#ab3fd5df1595035bdd18a4c8f6c684aab">   83</a></span>&#160;<span class="preprocessor"></span>      <span class="keywordtype">INTEGER</span> :: NTBA(0:NFILES)</div>
-<div class="line"><a name="l00084"></a><span class="lineno"><a class="line" href="moda__tababd_8F.html#aa1658c68804908d18cf649ea6a71f4b4">   84</a></span>&#160;      <span class="keywordtype">INTEGER</span> :: NTBB(0:NFILES)</div>
-<div class="line"><a name="l00085"></a><span class="lineno"><a class="line" href="moda__tababd_8F.html#a6c2c97d760b48a0666c8d68fbcb9ab1b">   85</a></span>&#160;      <span class="keywordtype">INTEGER</span> :: NTBD(0:NFILES)</div>
-<div class="line"><a name="l00086"></a><span class="lineno"><a class="line" href="moda__tababd_8F.html#a4140ebac72dd425d2cf1c2c30dd9a642">   86</a></span>&#160;      <span class="keywordtype">INTEGER</span> :: MTAB(MAXTBA,NFILES)</div>
-<div class="line"><a name="l00087"></a><span class="lineno"><a class="line" href="moda__tababd_8F.html#ad14872cd78934140e84b611da29960f4">   87</a></span>&#160;      <span class="keywordtype">INTEGER</span> :: IDNA(MAXTBA,NFILES,2)</div>
-<div class="line"><a name="l00088"></a><span class="lineno"><a class="line" href="moda__tababd_8F.html#a0250ae3b9d9c9a1a128eaf7231ae4efd">   88</a></span>&#160;      <span class="keywordtype">INTEGER</span> :: IDNB(MAXTBB,NFILES)</div>
-<div class="line"><a name="l00089"></a><span class="lineno"><a class="line" href="moda__tababd_8F.html#acb5e2ea559b1ec70a0e8ffcc63e83e16">   89</a></span>&#160;      <span class="keywordtype">INTEGER</span> :: IDND(MAXTBD,NFILES)</div>
-<div class="line"><a name="l00090"></a><span class="lineno"><a class="line" href="moda__tababd_8F.html#a134a19d240e297675899893d547dea76">   90</a></span>&#160;      <span class="keywordtype">CHARACTER*128</span> :: TABA(MAXTBA,NFILES)</div>
-<div class="line"><a name="l00091"></a><span class="lineno"><a class="line" href="moda__tababd_8F.html#a02aa7932b81c08536844ab883e364dbd">   91</a></span>&#160;      <span class="keywordtype">CHARACTER*128</span> :: TABB(MAXTBB,NFILES)</div>
-<div class="line"><a name="l00092"></a><span class="lineno"><a class="line" href="moda__tababd_8F.html#add71bf3c9987301b6852d255fa00a48d">   92</a></span>&#160;      <span class="keywordtype">CHARACTER*600</span> :: TABD(MAXTBD,NFILES)</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;<span class="preprocessor"></span></div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;<span class="keyword">    END MODULE</span></div>
+<div class="line"><a name="l00071"></a><span class="lineno"><a class="line" href="moda__tababd_8F.html#ab3fd5df1595035bdd18a4c8f6c684aab">   71</a></span>&#160;      <span class="keywordtype">INTEGER</span>, <span class="keywordtype">ALLOCATABLE</span> :: NTBA(:)</div>
+<div class="line"><a name="l00072"></a><span class="lineno"><a class="line" href="moda__tababd_8F.html#aa1658c68804908d18cf649ea6a71f4b4">   72</a></span>&#160;      <span class="keywordtype">INTEGER</span>, <span class="keywordtype">ALLOCATABLE</span> :: NTBB(:)</div>
+<div class="line"><a name="l00073"></a><span class="lineno"><a class="line" href="moda__tababd_8F.html#a6c2c97d760b48a0666c8d68fbcb9ab1b">   73</a></span>&#160;      <span class="keywordtype">INTEGER</span>, <span class="keywordtype">ALLOCATABLE</span> :: NTBD(:)</div>
+<div class="line"><a name="l00074"></a><span class="lineno"><a class="line" href="moda__tababd_8F.html#a4140ebac72dd425d2cf1c2c30dd9a642">   74</a></span>&#160;      <span class="keywordtype">INTEGER</span>, <span class="keywordtype">ALLOCATABLE</span> :: MTAB(:,:)</div>
+<div class="line"><a name="l00075"></a><span class="lineno"><a class="line" href="moda__tababd_8F.html#ad14872cd78934140e84b611da29960f4">   75</a></span>&#160;      <span class="keywordtype">INTEGER</span>, <span class="keywordtype">ALLOCATABLE</span> :: IDNA(:,:,:)</div>
+<div class="line"><a name="l00076"></a><span class="lineno"><a class="line" href="moda__tababd_8F.html#a0250ae3b9d9c9a1a128eaf7231ae4efd">   76</a></span>&#160;      <span class="keywordtype">INTEGER</span>, <span class="keywordtype">ALLOCATABLE</span> :: IDNB(:,:)</div>
+<div class="line"><a name="l00077"></a><span class="lineno"><a class="line" href="moda__tababd_8F.html#acb5e2ea559b1ec70a0e8ffcc63e83e16">   77</a></span>&#160;      <span class="keywordtype">INTEGER</span>, <span class="keywordtype">ALLOCATABLE</span> :: IDND(:,:)</div>
+<div class="line"><a name="l00078"></a><span class="lineno"><a class="line" href="moda__tababd_8F.html#a134a19d240e297675899893d547dea76">   78</a></span>&#160;      <span class="keywordtype">CHARACTER*128</span>, <span class="keywordtype">ALLOCATABLE</span> :: TABA(:,:)</div>
+<div class="line"><a name="l00079"></a><span class="lineno"><a class="line" href="moda__tababd_8F.html#a02aa7932b81c08536844ab883e364dbd">   79</a></span>&#160;      <span class="keywordtype">CHARACTER*128</span>, <span class="keywordtype">ALLOCATABLE</span> :: TABB(:,:)</div>
+<div class="line"><a name="l00080"></a><span class="lineno"><a class="line" href="moda__tababd_8F.html#add71bf3c9987301b6852d255fa00a48d">   80</a></span>&#160;      <span class="keywordtype">CHARACTER*600</span>, <span class="keywordtype">ALLOCATABLE</span> :: TABD(:,:)</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;<span class="keyword">    END MODULE</span></div>
+<div class="ttc" id="modv__NFILES_8f90_html_classmodv__nfiles"><div class="ttname"><a href="modv__NFILES_8f90.html#classmodv__nfiles">modv_nfiles</a></div><div class="ttdoc">This module declares and initializes the NFILES variable. </div><div class="ttdef"><b>Definition:</b> <a href="modv__NFILES_8f90_source.html#l00013">modv_NFILES.f90:13</a></div></div>
 <div class="ttc" id="moda__tababd_8F_html_classmoda__tababd"><div class="ttname"><a href="moda__tababd_8F.html#classmoda__tababd">moda_tababd</a></div><div class="ttdoc">This module contains array and variable declarations used to store DX BUFR tables internally for mult...</div><div class="ttdef"><b>Definition:</b> <a href="moda__tababd_8F_source.html#l00010">moda_tababd.F:10</a></div></div>
-<div class="ttc" id="modv__MAXTBB_8F_html_classmodv__maxtbb"><div class="ttname"><a href="modv__MAXTBB_8F.html#classmodv__maxtbb">modv_maxtbb</a></div><div class="ttdoc">This module declares and initializes the MAXTBB variable. </div><div class="ttdef"><b>Definition:</b> <a href="modv__MAXTBB_8F_source.html#l00016">modv_MAXTBB.F:16</a></div></div>
-<div class="ttc" id="modv__NFILES_8F_html_classmodv__nfiles"><div class="ttname"><a href="modv__NFILES_8F.html#classmodv__nfiles">modv_nfiles</a></div><div class="ttdoc">This module declares and initializes the NFILES variable. </div><div class="ttdef"><b>Definition:</b> <a href="modv__NFILES_8F_source.html#l00016">modv_NFILES.F:16</a></div></div>
-<div class="ttc" id="modv__MAXTBD_8F_html_classmodv__maxtbd"><div class="ttname"><a href="modv__MAXTBD_8F.html#classmodv__maxtbd">modv_maxtbd</a></div><div class="ttdoc">This module declares and initializes the MAXTBD variable. </div><div class="ttdef"><b>Definition:</b> <a href="modv__MAXTBD_8F_source.html#l00016">modv_MAXTBD.F:16</a></div></div>
-<div class="ttc" id="modv__MAXTBA_8F_html_classmodv__maxtba"><div class="ttname"><a href="modv__MAXTBA_8F.html#classmodv__maxtba">modv_maxtba</a></div><div class="ttdoc">This module declares and initializes the MAXTBA variable. </div><div class="ttdef"><b>Definition:</b> <a href="modv__MAXTBA_8F_source.html#l00016">modv_MAXTBA.F:16</a></div></div>
+<div class="ttc" id="modv__MAXTBB_8f_html_classmodv__maxtbb"><div class="ttname"><a href="modv__MAXTBB_8f.html#classmodv__maxtbb">modv_maxtbb</a></div><div class="ttdoc">This module declares and initializes the MAXTBB variable. </div><div class="ttdef"><b>Definition:</b> <a href="modv__MAXTBB_8f_source.html#l00013">modv_MAXTBB.f:13</a></div></div>
+<div class="ttc" id="modv__MAXTBD_8f_html_classmodv__maxtbd"><div class="ttname"><a href="modv__MAXTBD_8f.html#classmodv__maxtbd">modv_maxtbd</a></div><div class="ttdoc">This module declares and initializes the MAXTBD variable. </div><div class="ttdef"><b>Definition:</b> <a href="modv__MAXTBD_8f_source.html#l00013">modv_MAXTBD.f:13</a></div></div>
+<div class="ttc" id="modv__MAXTBA_8f_html_classmodv__maxtba"><div class="ttname"><a href="modv__MAXTBA_8f.html#classmodv__maxtba">modv_maxtba</a></div><div class="ttdoc">This module declares and initializes the MAXTBA variable. </div><div class="ttdef"><b>Definition:</b> <a href="modv__MAXTBA_8f_source.html#l00013">modv_MAXTBA.f:13</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

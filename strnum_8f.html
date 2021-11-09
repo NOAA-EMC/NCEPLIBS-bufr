@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.5.0</span>
+   &#160;<span id="projectnumber">11.6.0</span>
    </div>
   </td>
  </tr>
@@ -109,17 +109,19 @@ $(document).ready(function(){initNavTree('strnum_8f.html','');});
 </div><!--header-->
 <div class="contents">
 
+<p>Decode an integer from a character string.  
+<a href="#details">More...</a></p>
+
 <p><a href="strnum_8f_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions/Subroutines</h2></td></tr>
 <tr class="memitem:a3cb1ef014cf71b6456ec7fa46d51ed06"><td class="memItemLeft" align="right" valign="top">subroutine&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="strnum_8f.html#a3cb1ef014cf71b6456ec7fa46d51ed06">strnum</a> (STR, NUM)</td></tr>
-<tr class="memdesc:a3cb1ef014cf71b6456ec7fa46d51ed06"><td class="mdescLeft">&#160;</td><td class="mdescRight">THIS SUBROUTINE DECODES AN INTEGER FROM A CHARACTER STRING.  <a href="#a3cb1ef014cf71b6456ec7fa46d51ed06">More...</a><br/></td></tr>
+<tr class="memdesc:a3cb1ef014cf71b6456ec7fa46d51ed06"><td class="mdescLeft">&#160;</td><td class="mdescRight">This subroutine decodes an integer from a character string.  <a href="#a3cb1ef014cf71b6456ec7fa46d51ed06">More...</a><br/></td></tr>
 <tr class="separator:a3cb1ef014cf71b6456ec7fa46d51ed06"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><dl class="section author"><dt>Author</dt><dd>WOOLLEN </dd></dl>
-<dl class="section date"><dt>Date</dt><dd>1994-01-06 </dd></dl>
+<div class="textblock"><p>Decode an integer from a character string. </p>
 
 <p>Definition in file <a class="el" href="strnum_8f_source.html">strnum.f</a>.</p>
 </div><h2 class="groupheader">Function/Subroutine Documentation</h2>
@@ -147,14 +149,33 @@ Functions/Subroutines</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>THIS SUBROUTINE DECODES AN INTEGER FROM A CHARACTER STRING. </p>
-<p>THE INPUT STRING SHOULD CONTAIN ONLY DIGITS AND (OPTIONAL) TRAILING BLANKS AND SHOULD NOT CONTAIN ANY SIGN CHARACTERS (E.G. '+', '-') NOR LEADING BLANKS NOR EMBEDDED BLANKS.</p>
-<p>PROGRAM HISTORY LOG: 1994-01-06 J. WOOLLEN &ndash; ORIGINAL AUTHOR 2003-11-04 J. ATOR &ndash; ADDED DOCUMENTATION 2003-11-04 S. BENDER &ndash; ADDED REMARKS/BUFRLIB ROUTINE INTERDEPENDENCIES 2003-11-04 D. KEYSER &ndash; UNIFIED/PORTABLE FOR WRF; ADDED HISTORY DOCUMENTATION 2009-04-21 J. ATOR &ndash; USE ERRWRT</p>
-<p>USAGE: CALL STRNUM (STR, NUM) INPUT ARGUMENT LIST: STR - CHARACTER*(*): STRING CONTAINING ENCODED INTEGER VALUE</p>
-<p>OUTPUT ARGUMENT LIST: NUM - INTEGER: DECODED VALUE -1 = decode was unsuccessful</p>
-<p>REMARKS: THIS ROUTINE CALLS: ERRWRT STRSUC THIS ROUTINE IS CALLED BY: JSTNUM PARUTG SEQSDX SNTBFE STSEQ Normally not called by any application programs but it could be. </p>
+<p>This subroutine decodes an integer from a character string. </p>
+<p>The string should contain only digits and (optional) trailing blanks. It should not contain any sign ('+' or '-') character nor any leading blanks nor embedded blanks.</p>
+<dl class="section author"><dt>Author</dt><dd>J. Woollen </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>1994-01-06</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">STR</td><td>&ndash; character*(*): String </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">NUM</td><td>&ndash; integer: Value decoded from STR<ul>
+<li>-1 = decode was unsuccessful</li>
+</ul>
+</td></tr>
+  </table>
+  </dd>
+</dl>
+<p><b>Program History Log:</b> </p>
+<table class="doxtable">
+<tr>
+<th>Date </th><th>Programmer </th><th>Comments  </th></tr>
+<tr>
+<td>1994-01-06 </td><td>J. Woollen </td><td>Original author </td></tr>
+<tr>
+<td>2003-11-04 </td><td>J. Ator </td><td>Added documentation </td></tr>
+<tr>
+<td>2009-04-21 </td><td>J. Ator </td><td>Use <a class="el" href="errwrt_8f.html#a65626d9a772648676146b62b596c2764" title="This subroutine allows the user to specify a custom location for the logging of error and diagnostic ...">errwrt()</a> </td></tr>
+</table>
 
-<p>Definition at line <a class="el" href="strnum_8f_source.html#l00033">33</a> of file <a class="el" href="strnum_8f_source.html">strnum.f</a>.</p>
+<p>Definition at line <a class="el" href="strnum_8f_source.html#l00023">23</a> of file <a class="el" href="strnum_8f_source.html">strnum.f</a>.</p>
 
 <p>References <a class="el" href="errwrt_8f.html#a65626d9a772648676146b62b596c2764">errwrt()</a>, and <a class="el" href="strsuc_8f.html#a0ad7f0b59d89e0bdd1e9d73947b19e7e">strsuc()</a>.</p>
 

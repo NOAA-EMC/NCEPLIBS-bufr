@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.5.0</span>
+   &#160;<span id="projectnumber">11.6.0</span>
    </div>
   </td>
  </tr>
@@ -121,7 +121,7 @@ $(document).ready(function(){initNavTree('arallocc_8c.html','');});
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a98efd59b32b1d2ed2c060d2564824e28"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arallocc_8c.html#a98efd59b32b1d2ed2c060d2564824e28">arallocc</a> (void)</td></tr>
-<tr class="memdesc:a98efd59b32b1d2ed2c060d2564824e28"><td class="mdescLeft">&#160;</td><td class="mdescRight">For dynamic allocation builds of the library, this subroutine is called internally during the first call to subroutine <a class="el" href="openbf_8F.html#a9bea9aeada166bd9037b959ca8452b28" title="This subroutine connects a new file to the BUFRLIB software for input or output operations. ">openbf()</a> from an application program, in order to dynamically allocate internal C language arrays based on parameter values set during one or more previous calls to function <a class="el" href="isetprm_8F.html#a366156765665bb1e1452635b12ff5093" title="This function sets a specified parameter to a specified value for use in dynamically allocating one o...">isetprm()</a>.  <a href="#a98efd59b32b1d2ed2c060d2564824e28">More...</a><br/></td></tr>
+<tr class="memdesc:a98efd59b32b1d2ed2c060d2564824e28"><td class="mdescLeft">&#160;</td><td class="mdescRight">This subroutine is called internally during the first call to subroutine <a class="el" href="openbf_8f.html#a9bea9aeada166bd9037b959ca8452b28" title="This subroutine connects a new file to the BUFRLIB software for input or output operations. ">openbf()</a> from an application program, in order to dynamically allocate internal C language arrays based on parameter values set during one or more previous calls to function <a class="el" href="isetprm_8f.html#a366156765665bb1e1452635b12ff5093" title="This function sets a specified parameter to a specified value for use in dynamically allocating one o...">isetprm()</a>.  <a href="#a98efd59b32b1d2ed2c060d2564824e28">More...</a><br/></td></tr>
 <tr class="separator:a98efd59b32b1d2ed2c060d2564824e28"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
@@ -143,24 +143,29 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>For dynamic allocation builds of the library, this subroutine is called internally during the first call to subroutine <a class="el" href="openbf_8F.html#a9bea9aeada166bd9037b959ca8452b28" title="This subroutine connects a new file to the BUFRLIB software for input or output operations. ">openbf()</a> from an application program, in order to dynamically allocate internal C language arrays based on parameter values set during one or more previous calls to function <a class="el" href="isetprm_8F.html#a366156765665bb1e1452635b12ff5093" title="This function sets a specified parameter to a specified value for use in dynamically allocating one o...">isetprm()</a>. </p>
-<p>This subroutine isn't normally called directly from an application program, since it's automatically called internally during the first call to subroutine <a class="el" href="openbf_8F.html#a9bea9aeada166bd9037b959ca8452b28" title="This subroutine connects a new file to the BUFRLIB software for input or output operations. ">openbf()</a> from an application program.</p>
+<p>This subroutine is called internally during the first call to subroutine <a class="el" href="openbf_8f.html#a9bea9aeada166bd9037b959ca8452b28" title="This subroutine connects a new file to the BUFRLIB software for input or output operations. ">openbf()</a> from an application program, in order to dynamically allocate internal C language arrays based on parameter values set during one or more previous calls to function <a class="el" href="isetprm_8f.html#a366156765665bb1e1452635b12ff5093" title="This function sets a specified parameter to a specified value for use in dynamically allocating one o...">isetprm()</a>. </p>
+<p>This subroutine isn't normally called directly from an application program, since it's automatically called internally during the first call to subroutine <a class="el" href="openbf_8f.html#a9bea9aeada166bd9037b959ca8452b28" title="This subroutine connects a new file to the BUFRLIB software for input or output operations. ">openbf()</a> from an application program.</p>
 <dl class="section author"><dt>Author</dt><dd>J. Ator </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>2014-12-04</dd></dl>
 <dl class="section remark"><dt>Remarks</dt><dd><ul>
 <li>All memory allocated within this subroutine can be freed via a subsequent call to subroutine <a class="el" href="exitbufr_8f.html#a355f094d616febcea2820cf547cbff8e" title="This subroutine frees all dynamically-allocated memory, closes all logical units that are open within...">exitbufr()</a> from within the application program, or else it will be freed automatically by the operating system once the application program terminates.</li>
 </ul>
 </dd></dl>
-<p><b>Program history log:</b></p>
-<ul>
-<li>2014-12-04 J. Ator &ndash; Original author </li>
-</ul>
+<p><b>Program history log:</b> </p>
+<table class="doxtable">
+<tr>
+<th>Date </th><th>Programmer </th><th>Comments  </th></tr>
+<tr>
+<td>2014-12-04 </td><td>J. Ator </td><td>Original author </td></tr>
+<tr>
+<td>2021-05-17 </td><td>J. Ator </td><td>Allow up to 24 characters in cbunit </td></tr>
+</table>
 
-<p>Definition at line <a class="el" href="arallocc_8c_source.html#l00034">34</a> of file <a class="el" href="arallocc_8c_source.html">arallocc.c</a>.</p>
+<p>Definition at line <a class="el" href="arallocc_8c_source.html#l00036">36</a> of file <a class="el" href="arallocc_8c_source.html">arallocc.c</a>.</p>
 
-<p>References <a class="el" href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort()</a>, <a class="el" href="igetprm_8f.html#acf5cb6268e5091d81f9eec4e61f87cdb">igetprm()</a>, <a class="el" href="cread_8h.html#ae8fcf44cac11b6f7d97220c101c0318e">lstpos</a>, and <a class="el" href="cread_8h.html#a295878b87917249212597ed62f390038">pb</a>.</p>
+<p>References <a class="el" href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort()</a>, <a class="el" href="igetprm_8f.html#acf5cb6268e5091d81f9eec4e61f87cdb">igetprm()</a>, <a class="el" href="cread_8h.html#af3681883f8ef0fe1771afc9aeb072eb0">lstpos</a>, and <a class="el" href="cread_8h.html#a58db779a0b3c7250a119069bd2e5106c">pb</a>.</p>
 
-<p>Referenced by <a class="el" href="openbf_8F.html#a9bea9aeada166bd9037b959ca8452b28">openbf()</a>.</p>
+<p>Referenced by <a class="el" href="openbf_8f.html#a9bea9aeada166bd9037b959ca8452b28">openbf()</a>.</p>
 
 </div>
 </div>

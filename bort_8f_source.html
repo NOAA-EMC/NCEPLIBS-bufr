@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.5.0</span>
+   &#160;<span id="projectnumber">11.6.0</span>
    </div>
   </td>
  </tr>
@@ -118,32 +118,31 @@ $(document).ready(function(){initNavTree('bort_8f_source.html','');});
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="comment">C&gt; @author J. Woollen</span></div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="comment">C&gt; @date 1998-07-08</span></div>
 <div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="comment">C&gt;</span></div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="comment">C&gt; @param[in] STR   - character*(*): Error message</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="comment">C&gt; @param[in] STR   -- character*(*): Error message</span></div>
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment">C&gt;</span></div>
 <div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="comment">C&gt; &lt;b&gt;Program history log:&lt;/b&gt;</span></div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="comment">C&gt; - 1998-07-08  J. Woollen -- Original author</span></div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="comment">C&gt; - 2003-11-04  J. Ator    -- Added documentation; replaced call to</span></div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="comment">C&gt;                             intrinsic C routine &quot;exit&quot; with call</span></div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment">C&gt;                             to bort_exit() to ensure return of</span></div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="comment">C&gt;                             non-zero status code</span></div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="comment">C&gt; - 2009-04-21  J. Ator    -- Use errwrt()</span></div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="comment">C&gt;</span></div>
-<div class="line"><a name="l00023"></a><span class="lineno"><a class="line" href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">   23</a></span>&#160;<span class="keyword">      SUBROUTINE </span><a class="code" href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort</a>(STR)</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;      <span class="keywordtype">CHARACTER*(*)</span> str</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;      CALL <a class="code" href="errwrt_8f.html#a65626d9a772648676146b62b596c2764">errwrt</a>(<span class="stringliteral">&#39; &#39;</span>)</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;      CALL <a class="code" href="errwrt_8f.html#a65626d9a772648676146b62b596c2764">errwrt</a>(<span class="stringliteral">&#39;***********BUFR ARCHIVE LIBRARY ABORT**************&#39;</span>)</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;      CALL <a class="code" href="errwrt_8f.html#a65626d9a772648676146b62b596c2764">errwrt</a>(str)</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;      CALL <a class="code" href="errwrt_8f.html#a65626d9a772648676146b62b596c2764">errwrt</a>(<span class="stringliteral">&#39;***********BUFR ARCHIVE LIBRARY ABORT**************&#39;</span>)</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;      CALL <a class="code" href="errwrt_8f.html#a65626d9a772648676146b62b596c2764">errwrt</a>(<span class="stringliteral">&#39; &#39;</span>)</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;      CALL <a class="code" href="bort__exit_8c.html#a0f6c0efb4e258f8dc7550620b2536b60">bort_exit</a></div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;      <span class="keywordflow">END</span></div>
-<div class="ttc" id="errwrt_8f_html_a65626d9a772648676146b62b596c2764"><div class="ttname"><a href="errwrt_8f.html#a65626d9a772648676146b62b596c2764">errwrt</a></div><div class="ttdeci">subroutine errwrt(STR)</div><div class="ttdoc">This subroutine allows the user to specify a custom location for the logging of error and diagnostic ...</div><div class="ttdef"><b>Definition:</b> <a href="errwrt_8f_source.html#l00039">errwrt.f:39</a></div></div>
-<div class="ttc" id="bort__exit_8c_html_a0f6c0efb4e258f8dc7550620b2536b60"><div class="ttname"><a href="bort__exit_8c.html#a0f6c0efb4e258f8dc7550620b2536b60">bort_exit</a></div><div class="ttdeci">void bort_exit(void)</div><div class="ttdoc">This subroutine terminates the application program with a non-zero status code. </div><div class="ttdef"><b>Definition:</b> <a href="bort__exit_8c_source.html#l00021">bort_exit.c:21</a></div></div>
-<div class="ttc" id="bort_8f_html_a488d3a8cf930fb592a9fdaefcfa04ac4"><div class="ttname"><a href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort</a></div><div class="ttdeci">subroutine bort(STR)</div><div class="ttdoc">This subroutine calls subroutine errwrt() to log an error message, then calls subroutine bort_exit() ...</div><div class="ttdef"><b>Definition:</b> <a href="bort_8f_source.html#l00023">bort.f:23</a></div></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="comment">C&gt; | Date | Programmer | Comments |</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="comment">C&gt; | -----|------------|----------|</span></div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="comment">C&gt; | 1998-07-08 | J. Woollen | Original author |</span></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment">C&gt; | 2003-11-04 | J. Ator    | Added documentation; replaced call to intrinsic C routine &quot;exit&quot; with call to bort_exit() to ensure return of non-zero status code |</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="comment">C&gt; | 2009-04-21 | J. Ator    | Use errwrt() |</span></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="comment">C&gt;</span></div>
+<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">   22</a></span>&#160;<span class="keyword">      SUBROUTINE </span><a class="code" href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort</a>(STR)</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;      <span class="keywordtype">CHARACTER*(*)</span> str</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;      CALL <a class="code" href="errwrt_8f.html#a65626d9a772648676146b62b596c2764">errwrt</a>(<span class="stringliteral">&#39; &#39;</span>)</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;      CALL <a class="code" href="errwrt_8f.html#a65626d9a772648676146b62b596c2764">errwrt</a>(<span class="stringliteral">&#39;***********BUFR ARCHIVE LIBRARY ABORT**************&#39;</span>)</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;      CALL <a class="code" href="errwrt_8f.html#a65626d9a772648676146b62b596c2764">errwrt</a>(str)</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;      CALL <a class="code" href="errwrt_8f.html#a65626d9a772648676146b62b596c2764">errwrt</a>(<span class="stringliteral">&#39;***********BUFR ARCHIVE LIBRARY ABORT**************&#39;</span>)</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;      CALL <a class="code" href="errwrt_8f.html#a65626d9a772648676146b62b596c2764">errwrt</a>(<span class="stringliteral">&#39; &#39;</span>)</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;      CALL <a class="code" href="bort__exit_8c.html#a0f6c0efb4e258f8dc7550620b2536b60">bort_exit</a></div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;      <span class="keywordflow">END</span></div>
+<div class="ttc" id="errwrt_8f_html_a65626d9a772648676146b62b596c2764"><div class="ttname"><a href="errwrt_8f.html#a65626d9a772648676146b62b596c2764">errwrt</a></div><div class="ttdeci">subroutine errwrt(STR)</div><div class="ttdoc">This subroutine allows the user to specify a custom location for the logging of error and diagnostic ...</div><div class="ttdef"><b>Definition:</b> <a href="errwrt_8f_source.html#l00041">errwrt.f:41</a></div></div>
+<div class="ttc" id="bort__exit_8c_html_a0f6c0efb4e258f8dc7550620b2536b60"><div class="ttname"><a href="bort__exit_8c.html#a0f6c0efb4e258f8dc7550620b2536b60">bort_exit</a></div><div class="ttdeci">void bort_exit(void)</div><div class="ttdoc">This subroutine terminates the application program with a non-zero status code. </div><div class="ttdef"><b>Definition:</b> <a href="bort__exit_8c_source.html#l00023">bort_exit.c:23</a></div></div>
+<div class="ttc" id="bort_8f_html_a488d3a8cf930fb592a9fdaefcfa04ac4"><div class="ttname"><a href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort</a></div><div class="ttdeci">subroutine bort(STR)</div><div class="ttdoc">This subroutine calls subroutine errwrt() to log an error message, then calls subroutine bort_exit() ...</div><div class="ttdef"><b>Definition:</b> <a href="bort_8f_source.html#l00022">bort.f:22</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

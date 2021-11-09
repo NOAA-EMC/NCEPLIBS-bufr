@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.5.0</span>
+   &#160;<span id="projectnumber">11.6.0</span>
    </div>
   </td>
  </tr>
@@ -143,7 +143,7 @@ Data Types</h2></td></tr>
 </div><table class="fieldtable">
 <tr><th colspan="3">Data Fields</th></tr>
 <tr><td class="fieldtype">
-<a class="anchor" id="a323a6a16bbaf7f8b573b20c6da2c5a97"></a>integer, dimension(mxmsgld4)</td>
+<a class="anchor" id="a4910f483014af612d37ea34a1f477434"></a>integer, dimension(:), allocatable</td>
 <td class="fieldname">
 ibay</td>
 <td class="fielddoc">
@@ -161,14 +161,14 @@ maxbyt</td>
 <td class="fielddoc">
 Maximum length of an output BUFR message. </td></tr>
 <tr><td class="fieldtype">
-<a class="anchor" id="a983cdfefb8e99f7ede13ce9f979bea3e"></a>integer, dimension(mxmsgld4, <br class="typebreak"/>
-nfiles)</td>
+<a class="anchor" id="a983cdfefb8e99f7ede13ce9f979bea3e"></a>integer, dimension(:,:), <br class="typebreak"/>
+allocatable</td>
 <td class="fieldname">
 mbay</td>
 <td class="fielddoc">
 Current BUFR message for each internal I/O stream. </td></tr>
 <tr><td class="fieldtype">
-<a class="anchor" id="a6bac74e064b4a8512f7f2599d0588dd3"></a>integer, dimension(nfiles)</td>
+<a class="anchor" id="a6bac74e064b4a8512f7f2599d0588dd3"></a>integer, dimension(:), allocatable</td>
 <td class="fieldname">
 mbyt</td>
 <td class="fielddoc">

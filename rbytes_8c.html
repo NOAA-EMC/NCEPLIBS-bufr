@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.5.0</span>
+   &#160;<span id="projectnumber">11.6.0</span>
    </div>
   </td>
  </tr>
@@ -168,26 +168,29 @@ Functions</h2></td></tr>
 <dl class="section date"><dt>Date</dt><dd>2005-11-29</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">mxmb</td><td>- f77int*: Dimensioned size (in bytes) of bmg; used by the function to ensure that it doesn't overflow the bmg array </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">isloc</td><td>- f77int: Starting byte within bmg into which to read the next newbytes bytes </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">newbytes</td><td>- f77int: Number of bytes to read from system file most recently opened for input/reading via subroutine <a class="el" href="cobfl_8c.html#a8ee2da6f5d4198418177b973d9b1108c" title="This subroutine opens a new file for reading or writing BUFR messages via a C language interface...">cobfl()</a> </td></tr>
-    <tr><td class="paramdir">[out]</td><td class="paramname">bmg</td><td>- char*: Array containing the newbytes bytes that were read, beginning at byte number isloc </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">mxmb</td><td>&ndash; f77int*: Dimensioned size (in bytes) of bmg; used by the function to ensure that it doesn't overflow the bmg array </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">isloc</td><td>&ndash; f77int: Starting byte within bmg into which to read the next newbytes bytes </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">newbytes</td><td>&ndash; f77int: Number of bytes to read from system file most recently opened for input/reading via subroutine <a class="el" href="cobfl_8c.html#a8ee2da6f5d4198418177b973d9b1108c" title="This subroutine opens a new file for reading or writing BUFR messages via a C language interface...">cobfl()</a> </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">bmg</td><td>&ndash; char*: Array containing the newbytes bytes that were read, beginning at byte number isloc </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>rbytes - f77int: return code<ul>
+<dl class="section return"><dt>Returns</dt><dd>rbytes &ndash; f77int: return code<ul>
 <li>0 = normal return</li>
 <li>1 = overflow of bmg array</li>
 <li>-1 = end-of-file encountered while reading</li>
 <li>-2 = I/O error encountered while reading</li>
 </ul>
 </dd></dl>
-<p><b>Program history log:</b></p>
-<ul>
-<li>2005-11-29 J. Ator &ndash; Original author </li>
-</ul>
+<p><b>Program history log:</b> </p>
+<table class="doxtable">
+<tr>
+<th>Date </th><th>Programmer </th><th>Comments  </th></tr>
+<tr>
+<td>2005-11-29 </td><td>J. Ator </td><td>Original author </td></tr>
+</table>
 
-<p>Definition at line <a class="el" href="rbytes_8c_source.html#l00038">38</a> of file <a class="el" href="rbytes_8c_source.html">rbytes.c</a>.</p>
+<p>Definition at line <a class="el" href="rbytes_8c_source.html#l00040">40</a> of file <a class="el" href="rbytes_8c_source.html">rbytes.c</a>.</p>
 
 <p>References <a class="el" href="cobfl_8h.html#a749687e8025ba9e13e3634055d551dce">pbf</a>.</p>
 

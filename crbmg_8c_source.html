@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.5.0</span>
+   &#160;<span id="projectnumber">11.6.0</span>
    </div>
   </td>
  </tr>
@@ -110,123 +110,123 @@ $(document).ready(function(){initNavTree('crbmg_8c_source.html','');});
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="bufrlib_8h.html">bufrlib.h</a>&quot;</span></div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="cobfl_8h.html">cobfl.h</a>&quot;</span></div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;</div>
-<div class="line"><a name="l00046"></a><span class="lineno"><a class="line" href="crbmg_8c.html#afe8501c06e833d44117d71dcbc5feb30">   46</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="cobfl_8h.html#aaec663988563e497bfe9ef80d1674b00">crbmg</a>( <span class="keywordtype">char</span> *bmg, f77int *mxmb, f77int *nmb, f77int *iret )</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;{</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    f77int i1 = 1, i2 = 2, i3 = 3, i4 = 4, i24 = 24;</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    f77int wkint[2];</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    f77int iben, isbyt, iwid;</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    <span class="keywordtype">char</span> errstr[129];</div>
+<div class="line"><a name="l00048"></a><span class="lineno"><a class="line" href="crbmg_8c.html#afe8501c06e833d44117d71dcbc5feb30">   48</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="cobfl_8h.html#aaec663988563e497bfe9ef80d1674b00">crbmg</a>( <span class="keywordtype">char</span> *bmg, f77int *mxmb, f77int *nmb, f77int *iret )</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;{</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    f77int i1 = 1, i2 = 2, i3 = 3, i4 = 4, i24 = 24;</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    f77int wkint[2];</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    f77int iben, isbyt, iwid;</div>
 <div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    <span class="keywordtype">unsigned</span> <span class="keywordtype">short</span> i, nsecs; </div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> lsec;</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;<span class="comment">/*</span></div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;<span class="comment">**  Make sure that a file is open for reading.</span></div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;<span class="comment">*/</span></div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    <span class="keywordflow">if</span> ( <a class="code" href="cobfl_8h.html#a749687e8025ba9e13e3634055d551dce">pbf</a>[0] == NULL ) {</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    sprintf( errstr, <span class="stringliteral">&quot;BUFRLIB: CRBMG - NO FILE IS OPEN FOR READING&quot;</span> );</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;        <a class="code" href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort</a>( errstr, ( f77int ) strlen( errstr ) );</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    }</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;<span class="comment">/*</span></div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;<span class="comment">**  Initialize the first 4 characters of the output array to blanks.</span></div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;<span class="comment">*/</span></div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    <span class="keywordflow">if</span> ( *mxmb &lt; 4 ) {</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    *iret = 1;</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    <span class="keywordflow">return</span>;</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    }</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    strncpy( bmg, <span class="stringliteral">&quot;    &quot;</span>, 4);</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;<span class="comment">/*</span></div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;<span class="comment">**  Look for the start of the next BUFR message.</span></div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;<span class="comment">*/</span></div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    <span class="keywordflow">while</span> ( <a class="code" href="ichkstr_8f.html#af2e2a12582c245f6f119df50da24b35b">ichkstr</a>( <span class="stringliteral">&quot;BUFR&quot;</span>, bmg, &amp;i4, 4, 4 ) != 0 ) {</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;        memmove( bmg, &amp;bmg[1], 3 );</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    <span class="keywordflow">if</span> ( ( *iret = <a class="code" href="cobfl_8h.html#a662fa0f4a540caee1bfaa5e413b714e3">rbytes</a>( bmg, mxmb, 3, 1 ) ) != 0 ) <span class="keywordflow">return</span>;</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    }</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;<span class="comment">/*</span></div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;<span class="comment">**  Read the next 4 bytes and determine the BUFR edition number that was used</span></div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;<span class="comment">**  to encode the message.</span></div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;<span class="comment">*/</span></div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    <span class="keywordflow">if</span> ( ( *iret = <a class="code" href="cobfl_8h.html#a662fa0f4a540caee1bfaa5e413b714e3">rbytes</a>( bmg, mxmb, 4, 4 ) ) != 0 ) <span class="keywordflow">return</span>;</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    memcpy( wkint, bmg, 8 );</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    iben = <a class="code" href="iupbs01_8f.html#adcd6f7c2f898b4f938153c5cf79a9cf5">iupbs01</a>( wkint, <span class="stringliteral">&quot;BEN&quot;</span>, 3 );</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    <span class="keywordflow">if</span> ( iben &gt;= 2 ) {</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;<span class="comment">/*</span></div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;<span class="comment">**  Get the length of the BUFR message.</span></div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;<span class="comment">*/</span></div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;        *nmb = <a class="code" href="iupbs01_8f.html#adcd6f7c2f898b4f938153c5cf79a9cf5">iupbs01</a>( wkint, <span class="stringliteral">&quot;LENM&quot;</span>, 4 );</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;<span class="comment">/*</span></div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;<span class="comment">**  Read the remainder of the BUFR message.</span></div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;<span class="comment">*/</span></div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;    <span class="keywordflow">if</span> ( ( *iret = <a class="code" href="cobfl_8h.html#a662fa0f4a540caee1bfaa5e413b714e3">rbytes</a>( bmg, mxmb, 8, *nmb-8 ) ) != 0 ) <span class="keywordflow">return</span>;</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;    }</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;    <span class="keywordflow">else</span> {</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;<span class="comment">/*</span></div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;<span class="comment">**  Read the remainder of the BUFR message and then convert it to BUFR</span></div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;<span class="comment">**  edition 2.  The message length isn&#39;t encoded in Section 0, so we need</span></div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;<span class="comment">**  to compute it by unpacking and summing the lengths of the individual</span></div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;<span class="comment">**  sections.</span></div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;<span class="comment">*/</span></div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;    lsec = 4;   <span class="comment">/* length of Section 0 */</span></div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;<span class="comment">/*</span></div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;<span class="comment">**  Get the length of Section 1 and add it to the total.</span></div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;<span class="comment">*/</span></div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;    <a class="code" href="gets1loc_8f.html#afa67517d4a9f4c4da6852a85aefed7e9">gets1loc</a>( <span class="stringliteral">&quot;LEN1&quot;</span>, &amp;iben, &amp;isbyt, &amp;iwid, &amp;wkint[0], 4 );</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;    *nmb = lsec + <a class="code" href="iupm_8f.html#a870aa6933e94946232ec975e8cdd04db">iupm</a>( &amp;bmg[lsec+isbyt-1], &amp;iwid, 3 );</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;<span class="comment">/*</span></div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;<span class="comment">**  Read up through the end of Section 1.</span></div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;<span class="comment">*/</span></div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;    <span class="keywordflow">if</span> ( ( *iret = <a class="code" href="cobfl_8h.html#a662fa0f4a540caee1bfaa5e413b714e3">rbytes</a>( bmg, mxmb, 8, *nmb-8 ) ) != 0 ) <span class="keywordflow">return</span>;</div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;<span class="comment">/*</span></div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;<span class="comment">**  Is there a Section 2?</span></div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;<span class="comment">*/</span></div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;    <a class="code" href="gets1loc_8f.html#afa67517d4a9f4c4da6852a85aefed7e9">gets1loc</a>( <span class="stringliteral">&quot;ISC2&quot;</span>, &amp;iben, &amp;isbyt, &amp;iwid, &amp;wkint[0], 4 );</div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;    nsecs = <a class="code" href="iupm_8f.html#a870aa6933e94946232ec975e8cdd04db">iupm</a>( &amp;bmg[lsec+isbyt-1], &amp;iwid, 1 ) + 2;</div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;<span class="comment">/*</span></div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;<span class="comment">**  Read up through the end of Section 4.</span></div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;<span class="comment">*/</span></div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;    <span class="keywordflow">for</span> ( i = 1; i &lt;= nsecs; i++ ) {</div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;        <span class="keywordflow">if</span> ( ( *iret = <a class="code" href="cobfl_8h.html#a662fa0f4a540caee1bfaa5e413b714e3">rbytes</a>( bmg, mxmb, *nmb, 3 ) ) != 0 ) <span class="keywordflow">return</span>;</div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;        lsec = <a class="code" href="iupm_8f.html#a870aa6933e94946232ec975e8cdd04db">iupm</a>( &amp;bmg[*nmb], &amp;i24, 3 );</div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;        <span class="keywordflow">if</span> ( ( *iret = <a class="code" href="cobfl_8h.html#a662fa0f4a540caee1bfaa5e413b714e3">rbytes</a>( bmg, mxmb, *nmb+3, lsec-3 ) ) != 0 ) <span class="keywordflow">return</span>;</div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;        *nmb += lsec;</div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;    }</div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;<span class="comment">/*</span></div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;<span class="comment">**  Read Section 5.</span></div>
-<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;<span class="comment">*/</span></div>
-<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;    <span class="keywordflow">if</span> ( ( *iret = <a class="code" href="cobfl_8h.html#a662fa0f4a540caee1bfaa5e413b714e3">rbytes</a>( bmg, mxmb, *nmb, 4 ) ) != 0 ) <span class="keywordflow">return</span>;</div>
-<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;    *nmb += 4;</div>
-<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;<span class="comment">/*</span></div>
-<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;<span class="comment">**  Expand Section 0 from 4 bytes to 8 bytes, then encode the message length</span></div>
-<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;<span class="comment">**  and new edition number (i.e. 2) into the new (expanded) Section 0.</span></div>
-<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;<span class="comment">*/</span></div>
-<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;    <span class="keywordflow">if</span> ( *nmb + 4 &gt; *mxmb ) {</div>
-<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;        *iret = 1;</div>
-<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;        <span class="keywordflow">return</span>;</div>
-<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;        }</div>
-<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;    memmove( &amp;bmg[8], &amp;bmg[4], *nmb-4 );</div>
-<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;    *nmb += 4;</div>
-<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;    <a class="code" href="ipkm_8f.html#a8826417bb81a4404779e606d6b97759a">ipkm</a>( &amp;bmg[4], &amp;i3, nmb, 3 );</div>
-<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;    <a class="code" href="ipkm_8f.html#a8826417bb81a4404779e606d6b97759a">ipkm</a>( &amp;bmg[7], &amp;i1, &amp;i2, 1 );</div>
-<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;    }</div>
-<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;<span class="comment">/*</span></div>
-<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;<span class="comment">**  Check that the &quot;7777&quot; is in the expected location.</span></div>
-<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;<span class="comment">*/</span></div>
-<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;    *iret = ( ( <a class="code" href="ichkstr_8f.html#af2e2a12582c245f6f119df50da24b35b">ichkstr</a>( <span class="stringliteral">&quot;7777&quot;</span>, &amp;bmg[*nmb-4], &amp;i4, 4, 4 ) == 0 ) ? 0 : 2 );</div>
-<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;</div>
-<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;    <span class="keywordflow">return</span>;</div>
-<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;}</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    <span class="keywordtype">char</span> errstr[129];</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <span class="keywordtype">unsigned</span> <span class="keywordtype">short</span> i, nsecs; </div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> lsec;</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;<span class="comment">/*</span></div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;<span class="comment">**  Make sure that a file is open for reading.</span></div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;<span class="comment">*/</span></div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    <span class="keywordflow">if</span> ( <a class="code" href="cobfl_8h.html#a749687e8025ba9e13e3634055d551dce">pbf</a>[0] == NULL ) {</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    sprintf( errstr, <span class="stringliteral">&quot;BUFRLIB: CRBMG - NO FILE IS OPEN FOR READING&quot;</span> );</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;        <a class="code" href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort</a>( errstr, ( f77int ) strlen( errstr ) );</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    }</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;<span class="comment">/*</span></div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;<span class="comment">**  Initialize the first 4 characters of the output array to blanks.</span></div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;<span class="comment">*/</span></div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    <span class="keywordflow">if</span> ( *mxmb &lt; 4 ) {</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    *iret = 1;</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    <span class="keywordflow">return</span>;</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    }</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    strncpy( bmg, <span class="stringliteral">&quot;    &quot;</span>, 4);</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;<span class="comment">/*</span></div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;<span class="comment">**  Look for the start of the next BUFR message.</span></div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;<span class="comment">*/</span></div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    <span class="keywordflow">while</span> ( <a class="code" href="ichkstr_8f.html#af2e2a12582c245f6f119df50da24b35b">ichkstr</a>( <span class="stringliteral">&quot;BUFR&quot;</span>, bmg, &amp;i4, 4, 4 ) != 0 ) {</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;        memmove( bmg, &amp;bmg[1], 3 );</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    <span class="keywordflow">if</span> ( ( *iret = <a class="code" href="cobfl_8h.html#a662fa0f4a540caee1bfaa5e413b714e3">rbytes</a>( bmg, mxmb, 3, 1 ) ) != 0 ) <span class="keywordflow">return</span>;</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    }</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;<span class="comment">/*</span></div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;<span class="comment">**  Read the next 4 bytes and determine the BUFR edition number that was used</span></div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;<span class="comment">**  to encode the message.</span></div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;<span class="comment">*/</span></div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    <span class="keywordflow">if</span> ( ( *iret = <a class="code" href="cobfl_8h.html#a662fa0f4a540caee1bfaa5e413b714e3">rbytes</a>( bmg, mxmb, 4, 4 ) ) != 0 ) <span class="keywordflow">return</span>;</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    memcpy( wkint, bmg, 8 );</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    iben = <a class="code" href="iupbs01_8f.html#adcd6f7c2f898b4f938153c5cf79a9cf5">iupbs01</a>( wkint, <span class="stringliteral">&quot;BEN&quot;</span>, 3 );</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    <span class="keywordflow">if</span> ( iben &gt;= 2 ) {</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;<span class="comment">/*</span></div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;<span class="comment">**  Get the length of the BUFR message.</span></div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;<span class="comment">*/</span></div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;        *nmb = <a class="code" href="iupbs01_8f.html#adcd6f7c2f898b4f938153c5cf79a9cf5">iupbs01</a>( wkint, <span class="stringliteral">&quot;LENM&quot;</span>, 4 );</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;<span class="comment">/*</span></div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;<span class="comment">**  Read the remainder of the BUFR message.</span></div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;<span class="comment">*/</span></div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;    <span class="keywordflow">if</span> ( ( *iret = <a class="code" href="cobfl_8h.html#a662fa0f4a540caee1bfaa5e413b714e3">rbytes</a>( bmg, mxmb, 8, *nmb-8 ) ) != 0 ) <span class="keywordflow">return</span>;</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    }</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;<span class="comment">/*</span></div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;<span class="comment">**  Read the remainder of the BUFR message and then convert it to BUFR</span></div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;<span class="comment">**  edition 2.  The message length isn&#39;t encoded in Section 0, so we need</span></div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;<span class="comment">**  to compute it by unpacking and summing the lengths of the individual</span></div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;<span class="comment">**  sections.</span></div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;<span class="comment">*/</span></div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;    lsec = 4;   <span class="comment">/* length of Section 0 */</span></div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;<span class="comment">/*</span></div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;<span class="comment">**  Get the length of Section 1 and add it to the total.</span></div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;<span class="comment">*/</span></div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    <a class="code" href="gets1loc_8f.html#afa67517d4a9f4c4da6852a85aefed7e9">gets1loc</a>( <span class="stringliteral">&quot;LEN1&quot;</span>, &amp;iben, &amp;isbyt, &amp;iwid, &amp;wkint[0], 4 );</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;    *nmb = lsec + <a class="code" href="iupm_8f.html#a870aa6933e94946232ec975e8cdd04db">iupm</a>( &amp;bmg[lsec+isbyt-1], &amp;iwid, 3 );</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;<span class="comment">/*</span></div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;<span class="comment">**  Read up through the end of Section 1.</span></div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;<span class="comment">*/</span></div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;    <span class="keywordflow">if</span> ( ( *iret = <a class="code" href="cobfl_8h.html#a662fa0f4a540caee1bfaa5e413b714e3">rbytes</a>( bmg, mxmb, 8, *nmb-8 ) ) != 0 ) <span class="keywordflow">return</span>;</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;<span class="comment">/*</span></div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;<span class="comment">**  Is there a Section 2?</span></div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;<span class="comment">*/</span></div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;    <a class="code" href="gets1loc_8f.html#afa67517d4a9f4c4da6852a85aefed7e9">gets1loc</a>( <span class="stringliteral">&quot;ISC2&quot;</span>, &amp;iben, &amp;isbyt, &amp;iwid, &amp;wkint[0], 4 );</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;    nsecs = <a class="code" href="iupm_8f.html#a870aa6933e94946232ec975e8cdd04db">iupm</a>( &amp;bmg[lsec+isbyt-1], &amp;iwid, 1 ) + 2;</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;<span class="comment">/*</span></div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;<span class="comment">**  Read up through the end of Section 4.</span></div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;<span class="comment">*/</span></div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;    <span class="keywordflow">for</span> ( i = 1; i &lt;= nsecs; i++ ) {</div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;        <span class="keywordflow">if</span> ( ( *iret = <a class="code" href="cobfl_8h.html#a662fa0f4a540caee1bfaa5e413b714e3">rbytes</a>( bmg, mxmb, *nmb, 3 ) ) != 0 ) <span class="keywordflow">return</span>;</div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;        lsec = <a class="code" href="iupm_8f.html#a870aa6933e94946232ec975e8cdd04db">iupm</a>( &amp;bmg[*nmb], &amp;i24, 3 );</div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;        <span class="keywordflow">if</span> ( ( *iret = <a class="code" href="cobfl_8h.html#a662fa0f4a540caee1bfaa5e413b714e3">rbytes</a>( bmg, mxmb, *nmb+3, lsec-3 ) ) != 0 ) <span class="keywordflow">return</span>;</div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;        *nmb += lsec;</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;    }</div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;<span class="comment">/*</span></div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;<span class="comment">**  Read Section 5.</span></div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;<span class="comment">*/</span></div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;    <span class="keywordflow">if</span> ( ( *iret = <a class="code" href="cobfl_8h.html#a662fa0f4a540caee1bfaa5e413b714e3">rbytes</a>( bmg, mxmb, *nmb, 4 ) ) != 0 ) <span class="keywordflow">return</span>;</div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;    *nmb += 4;</div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;<span class="comment">/*</span></div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;<span class="comment">**  Expand Section 0 from 4 bytes to 8 bytes, then encode the message length</span></div>
+<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;<span class="comment">**  and new edition number (i.e. 2) into the new (expanded) Section 0.</span></div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;<span class="comment">*/</span></div>
+<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;    <span class="keywordflow">if</span> ( *nmb + 4 &gt; *mxmb ) {</div>
+<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;        *iret = 1;</div>
+<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;        <span class="keywordflow">return</span>;</div>
+<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;        }</div>
+<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;    memmove( &amp;bmg[8], &amp;bmg[4], *nmb-4 );</div>
+<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;    *nmb += 4;</div>
+<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;    <a class="code" href="ipkm_8f.html#a8826417bb81a4404779e606d6b97759a">ipkm</a>( &amp;bmg[4], &amp;i3, nmb, 3 );</div>
+<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;    <a class="code" href="ipkm_8f.html#a8826417bb81a4404779e606d6b97759a">ipkm</a>( &amp;bmg[7], &amp;i1, &amp;i2, 1 );</div>
+<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;    }</div>
+<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;<span class="comment">/*</span></div>
+<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;<span class="comment">**  Check that the &quot;7777&quot; is in the expected location.</span></div>
+<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;<span class="comment">*/</span></div>
+<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;    *iret = ( ( <a class="code" href="ichkstr_8f.html#af2e2a12582c245f6f119df50da24b35b">ichkstr</a>( <span class="stringliteral">&quot;7777&quot;</span>, &amp;bmg[*nmb-4], &amp;i4, 4, 4 ) == 0 ) ? 0 : 2 );</div>
+<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;</div>
+<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;    <span class="keywordflow">return</span>;</div>
+<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;}</div>
 <div class="ttc" id="bufrlib_8h_html"><div class="ttname"><a href="bufrlib_8h.html">bufrlib.h</a></div><div class="ttdoc">Define signatures to enable a number of BUFRLIB subprograms to be called directly from C application ...</div></div>
 <div class="ttc" id="cobfl_8h_html_a749687e8025ba9e13e3634055d551dce"><div class="ttname"><a href="cobfl_8h.html#a749687e8025ba9e13e3634055d551dce">pbf</a></div><div class="ttdeci">FILE * pbf[2]</div><div class="ttdoc">File pointers. </div></div>
 <div class="ttc" id="iupm_8f_html_a870aa6933e94946232ec975e8cdd04db"><div class="ttname"><a href="iupm_8f.html#a870aa6933e94946232ec975e8cdd04db">iupm</a></div><div class="ttdeci">function iupm(CBAY, NBITS)</div><div class="ttdoc">THIS FUNCTION UNPACKS AND RETURNS A BINARY INTEGER WORD CONTAINED WITHIN NBITS BITS OF A CHARACTER ST...</div><div class="ttdef"><b>Definition:</b> <a href="iupm_8f_source.html#l00040">iupm.f:40</a></div></div>
 <div class="ttc" id="ichkstr_8f_html_af2e2a12582c245f6f119df50da24b35b"><div class="ttname"><a href="ichkstr_8f.html#af2e2a12582c245f6f119df50da24b35b">ichkstr</a></div><div class="ttdeci">function ichkstr(STR, CHR, N)</div><div class="ttdoc">THIS FUNCTION COMPARES A SPECIFIED NUMBER OF CHARACTERS FROM AN INPUT CHARACTER ARRAY AGAINST THE SAM...</div><div class="ttdef"><b>Definition:</b> <a href="ichkstr_8f_source.html#l00032">ichkstr.f:32</a></div></div>
 <div class="ttc" id="gets1loc_8f_html_afa67517d4a9f4c4da6852a85aefed7e9"><div class="ttname"><a href="gets1loc_8f.html#afa67517d4a9f4c4da6852a85aefed7e9">gets1loc</a></div><div class="ttdeci">subroutine gets1loc(S1MNEM, IBEN, ISBYT, IWID, IRET)</div><div class="ttdoc">THIS SUBROUTINE RETURNS THE LOCATION (I.E. </div><div class="ttdef"><b>Definition:</b> <a href="gets1loc_8f_source.html#l00080">gets1loc.f:80</a></div></div>
 <div class="ttc" id="cobfl_8h_html"><div class="ttname"><a href="cobfl_8h.html">cobfl.h</a></div><div class="ttdoc">Define signatures and declare variables for reading or writing BUFR messages via a C language interfa...</div></div>
-<div class="ttc" id="cobfl_8h_html_a662fa0f4a540caee1bfaa5e413b714e3"><div class="ttname"><a href="cobfl_8h.html#a662fa0f4a540caee1bfaa5e413b714e3">rbytes</a></div><div class="ttdeci">f77int rbytes(char *, f77int *, f77int, f77int)</div><div class="ttdoc">This function reads a specified number of bytes from the system file that was opened via the most rec...</div><div class="ttdef"><b>Definition:</b> <a href="rbytes_8c_source.html#l00038">rbytes.c:38</a></div></div>
-<div class="ttc" id="cobfl_8h_html_aaec663988563e497bfe9ef80d1674b00"><div class="ttname"><a href="cobfl_8h.html#aaec663988563e497bfe9ef80d1674b00">crbmg</a></div><div class="ttdeci">void crbmg(char *, f77int *, f77int *, f77int *)</div><div class="ttdoc">This subroutine reads the next BUFR message from the system file that was opened via the most recent ...</div><div class="ttdef"><b>Definition:</b> <a href="crbmg_8c_source.html#l00046">crbmg.c:46</a></div></div>
-<div class="ttc" id="ipkm_8f_html_a8826417bb81a4404779e606d6b97759a"><div class="ttname"><a href="ipkm_8f.html#a8826417bb81a4404779e606d6b97759a">ipkm</a></div><div class="ttdeci">subroutine ipkm(CBAY, NBYT, N)</div><div class="ttdoc">This subroutine encodes an integer value within a specified number of bytes of a character string...</div><div class="ttdef"><b>Definition:</b> <a href="ipkm_8f_source.html#l00029">ipkm.f:29</a></div></div>
-<div class="ttc" id="bort_8f_html_a488d3a8cf930fb592a9fdaefcfa04ac4"><div class="ttname"><a href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort</a></div><div class="ttdeci">subroutine bort(STR)</div><div class="ttdoc">This subroutine calls subroutine errwrt() to log an error message, then calls subroutine bort_exit() ...</div><div class="ttdef"><b>Definition:</b> <a href="bort_8f_source.html#l00023">bort.f:23</a></div></div>
-<div class="ttc" id="iupbs01_8f_html_adcd6f7c2f898b4f938153c5cf79a9cf5"><div class="ttname"><a href="iupbs01_8f.html#adcd6f7c2f898b4f938153c5cf79a9cf5">iupbs01</a></div><div class="ttdeci">function iupbs01(MBAY, S01MNEM)</div><div class="ttdoc">This function returns a specified value from within Section 0 or Section 1 of a BUFR message...</div><div class="ttdef"><b>Definition:</b> <a href="iupbs01_8f_source.html#l00072">iupbs01.f:72</a></div></div>
+<div class="ttc" id="cobfl_8h_html_a662fa0f4a540caee1bfaa5e413b714e3"><div class="ttname"><a href="cobfl_8h.html#a662fa0f4a540caee1bfaa5e413b714e3">rbytes</a></div><div class="ttdeci">f77int rbytes(char *, f77int *, f77int, f77int)</div><div class="ttdoc">This function reads a specified number of bytes from the system file that was opened via the most rec...</div><div class="ttdef"><b>Definition:</b> <a href="rbytes_8c_source.html#l00040">rbytes.c:40</a></div></div>
+<div class="ttc" id="cobfl_8h_html_aaec663988563e497bfe9ef80d1674b00"><div class="ttname"><a href="cobfl_8h.html#aaec663988563e497bfe9ef80d1674b00">crbmg</a></div><div class="ttdeci">void crbmg(char *, f77int *, f77int *, f77int *)</div><div class="ttdoc">This subroutine reads the next BUFR message from the system file that was opened via the most recent ...</div><div class="ttdef"><b>Definition:</b> <a href="crbmg_8c_source.html#l00048">crbmg.c:48</a></div></div>
+<div class="ttc" id="ipkm_8f_html_a8826417bb81a4404779e606d6b97759a"><div class="ttname"><a href="ipkm_8f.html#a8826417bb81a4404779e606d6b97759a">ipkm</a></div><div class="ttdeci">subroutine ipkm(CBAY, NBYT, N)</div><div class="ttdoc">This subroutine encodes an integer value within a specified number of bytes of a character string...</div><div class="ttdef"><b>Definition:</b> <a href="ipkm_8f_source.html#l00027">ipkm.f:27</a></div></div>
+<div class="ttc" id="bort_8f_html_a488d3a8cf930fb592a9fdaefcfa04ac4"><div class="ttname"><a href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort</a></div><div class="ttdeci">subroutine bort(STR)</div><div class="ttdoc">This subroutine calls subroutine errwrt() to log an error message, then calls subroutine bort_exit() ...</div><div class="ttdef"><b>Definition:</b> <a href="bort_8f_source.html#l00022">bort.f:22</a></div></div>
+<div class="ttc" id="iupbs01_8f_html_adcd6f7c2f898b4f938153c5cf79a9cf5"><div class="ttname"><a href="iupbs01_8f.html#adcd6f7c2f898b4f938153c5cf79a9cf5">iupbs01</a></div><div class="ttdeci">function iupbs01(MBAY, S01MNEM)</div><div class="ttdoc">This function returns a specified value from within Section 0 or Section 1 of a BUFR message...</div><div class="ttdef"><b>Definition:</b> <a href="iupbs01_8f_source.html#l00073">iupbs01.f:73</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

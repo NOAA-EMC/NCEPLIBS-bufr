@@ -1,4 +1,4 @@
 var classmoda__ufbcpl =
 [
-    [ "luncpy", "classmoda__ufbcpl.html#a0bba8db7f42e9d0ea6d9a469bd1202c6", null ]
+    [ "luncpy", "classmoda__ufbcpl.html#abf94758379c91be61fcf18f6c9dae5cf", null ]
 ];

@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.5.0</span>
+   &#160;<span id="projectnumber">11.6.0</span>
    </div>
   </td>
  </tr>
@@ -110,62 +110,60 @@ $(document).ready(function(){initNavTree('cpmstabs_8c_source.html','');});
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="bufrlib_8h.html">bufrlib.h</a>&quot;</span></div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="mstabs_8h.html">mstabs.h</a>&quot;</span></div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;</div>
-<div class="line"><a name="l00044"></a><span class="lineno"><a class="line" href="mstabs_8h.html#a3b149893bee75a651e24b2344067264c">   44</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="cpmstabs_8c.html#a673669e621934ba05d6a44794294c8be">cpmstabs</a>(  f77int *pnmtb,</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;        f77int *pibfxyn, <span class="keywordtype">char</span> (*pcbscl)[4],</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;        <span class="keywordtype">char</span> (*pcbsref)[12], <span class="keywordtype">char</span> (*pcbbw)[4],</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;        <span class="keywordtype">char</span> (*pcbunit)[14], <span class="keywordtype">char</span> (*pcbmnem)[8],</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;        <span class="keywordtype">char</span> (*pcbelem)[120],</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;        f77int *pnmtd,</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;        f77int *pidfxyn, <span class="keywordtype">char</span> (*pcdseq)[120],</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;        <span class="keywordtype">char</span> (*pcdmnem)[8], f77int *pndelem,</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        f77int *pidefxy, f77int *maxcd )</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;{</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;<span class="preprocessor">#ifdef DYNAMIC_ALLOCATION</span></div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;<span class="preprocessor"></span></div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    f77int ii, jj, idx;</div>
+<div class="line"><a name="l00047"></a><span class="lineno"><a class="line" href="mstabs_8h.html#a292019f8851993ccd1ab2b553afb0c5a">   47</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="cpmstabs_8c.html#ad3053930c021517ffd3bf3031fb2138b">cpmstabs</a>(  f77int *pnmtb,</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;        f77int *pibfxyn, <span class="keywordtype">char</span> (*pcbscl)[4],</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;        <span class="keywordtype">char</span> (*pcbsref)[12], <span class="keywordtype">char</span> (*pcbbw)[4],</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;        <span class="keywordtype">char</span> (*pcbunit)[24], <span class="keywordtype">char</span> (*pcbmnem)[8],</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;        <span class="keywordtype">char</span> (*pcbelem)[120],</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        f77int *pnmtd,</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;        f77int *pidfxyn, <span class="keywordtype">char</span> (*pcdseq)[120],</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;        <span class="keywordtype">char</span> (*pcdmnem)[8], f77int *pndelem,</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;        f77int *pidefxy, f77int *maxcd )</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;{</div>
 <div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    MSTABS_BASE(nmtb) = *pnmtb;</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    <span class="keywordflow">for</span> ( ii = 0; ii &lt; *pnmtb; ii++ ) {</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    MSTABS_BASE(ibfxyn)[ii] = pibfxyn[ii];</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    <span class="keywordflow">for</span> ( jj = 0; jj &lt; 4; jj++ ) {</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;        MSTABS_BASE(cbscl)[ii][jj] = pcbscl[ii][jj];</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;        MSTABS_BASE(cbbw)[ii][jj] = pcbbw[ii][jj];</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    }</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    <span class="keywordflow">for</span> ( jj = 0; jj &lt; 8; jj++ ) {</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;        MSTABS_BASE(cbmnem)[ii][jj] = pcbmnem[ii][jj];</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    }</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    <span class="keywordflow">for</span> ( jj = 0; jj &lt; 12; jj++ ) {</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;        MSTABS_BASE(cbsref)[ii][jj] = pcbsref[ii][jj];</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    }</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    <span class="keywordflow">for</span> ( jj = 0; jj &lt; 14; jj++ ) {</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;        MSTABS_BASE(cbunit)[ii][jj] = pcbunit[ii][jj];</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    }</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    <span class="keywordflow">for</span> ( jj = 0; jj &lt; 120; jj++ ) {</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;        MSTABS_BASE(cbelem)[ii][jj] = pcbelem[ii][jj];</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    }</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    }</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    MSTABS_BASE(nmtd) = *pnmtd;</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    <span class="keywordflow">for</span> ( ii = 0; ii &lt; *pnmtd; ii++ ) {</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    MSTABS_BASE(idfxyn)[ii] = pidfxyn[ii];</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    MSTABS_BASE(ndelem)[ii] = pndelem[ii];</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    <span class="keywordflow">for</span> ( jj = 0; jj &lt; pndelem[ii]; jj++ ) {</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;        idx = <a class="code" href="icvidx_8c.html#a959f9a18d293352c8b60a1844a52611a">icvidx</a>( &amp;ii, &amp;jj, maxcd );</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;        MSTABS_BASE(idefxy)[idx] = pidefxy[idx];</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    }</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    <span class="keywordflow">for</span> ( jj = 0; jj &lt; 8; jj++ ) {</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;        MSTABS_BASE(cdmnem)[ii][jj] = pcdmnem[ii][jj];</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    }</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;    <span class="keywordflow">for</span> ( jj = 0; jj &lt; 120; jj++ ) {</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;        MSTABS_BASE(cdseq)[ii][jj] = pcdseq[ii][jj];</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    }</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    }</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;<span class="preprocessor"></span></div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;}</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    f77int ii, jj, idx;</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    MSTABS_BASE(nmtb) = *pnmtb;</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    <span class="keywordflow">for</span> ( ii = 0; ii &lt; *pnmtb; ii++ ) {</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    MSTABS_BASE(ibfxyn)[ii] = pibfxyn[ii];</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    <span class="keywordflow">for</span> ( jj = 0; jj &lt; 4; jj++ ) {</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;        MSTABS_BASE(cbscl)[ii][jj] = pcbscl[ii][jj];</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;        MSTABS_BASE(cbbw)[ii][jj] = pcbbw[ii][jj];</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    }</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    <span class="keywordflow">for</span> ( jj = 0; jj &lt; 8; jj++ ) {</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;        MSTABS_BASE(cbmnem)[ii][jj] = pcbmnem[ii][jj];</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    }</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    <span class="keywordflow">for</span> ( jj = 0; jj &lt; 12; jj++ ) {</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;        MSTABS_BASE(cbsref)[ii][jj] = pcbsref[ii][jj];</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    }</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    <span class="keywordflow">for</span> ( jj = 0; jj &lt; 24; jj++ ) {</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;        MSTABS_BASE(cbunit)[ii][jj] = pcbunit[ii][jj];</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    }</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    <span class="keywordflow">for</span> ( jj = 0; jj &lt; 120; jj++ ) {</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;        MSTABS_BASE(cbelem)[ii][jj] = pcbelem[ii][jj];</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    }</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    }</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    MSTABS_BASE(nmtd) = *pnmtd;</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    <span class="keywordflow">for</span> ( ii = 0; ii &lt; *pnmtd; ii++ ) {</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    MSTABS_BASE(idfxyn)[ii] = pidfxyn[ii];</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    MSTABS_BASE(ndelem)[ii] = pndelem[ii];</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    <span class="keywordflow">for</span> ( jj = 0; jj &lt; pndelem[ii]; jj++ ) {</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;        idx = <a class="code" href="icvidx_8c.html#a959f9a18d293352c8b60a1844a52611a">icvidx</a>( &amp;ii, &amp;jj, maxcd );</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;        MSTABS_BASE(idefxy)[idx] = pidefxy[idx];</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    }</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    <span class="keywordflow">for</span> ( jj = 0; jj &lt; 8; jj++ ) {</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;        MSTABS_BASE(cdmnem)[ii][jj] = pcdmnem[ii][jj];</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;    }</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    <span class="keywordflow">for</span> ( jj = 0; jj &lt; 120; jj++ ) {</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;        MSTABS_BASE(cdseq)[ii][jj] = pcdseq[ii][jj];</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;    }</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;    }</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;}</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;</div>
 <div class="ttc" id="bufrlib_8h_html"><div class="ttname"><a href="bufrlib_8h.html">bufrlib.h</a></div><div class="ttdoc">Define signatures to enable a number of BUFRLIB subprograms to be called directly from C application ...</div></div>
-<div class="ttc" id="cpmstabs_8c_html_a673669e621934ba05d6a44794294c8be"><div class="ttname"><a href="cpmstabs_8c.html#a673669e621934ba05d6a44794294c8be">cpmstabs</a></div><div class="ttdeci">void cpmstabs(f77int *pnmtb, f77int *pibfxyn, char(*pcbscl)[4], char(*pcbsref)[12], char(*pcbbw)[4], char(*pcbunit)[14], char(*pcbmnem)[8], char(*pcbelem)[120], f77int *pnmtd, f77int *pidfxyn, char(*pcdseq)[120], char(*pcdmnem)[8], f77int *pndelem, f77int *pidefxy, f77int *maxcd)</div><div class="ttdoc">This subroutine copies relevant information from the Fortran module MODA_MSTABS arrays to new arrays ...</div><div class="ttdef"><b>Definition:</b> <a href="cpmstabs_8c_source.html#l00044">cpmstabs.c:44</a></div></div>
+<div class="ttc" id="cpmstabs_8c_html_ad3053930c021517ffd3bf3031fb2138b"><div class="ttname"><a href="cpmstabs_8c.html#ad3053930c021517ffd3bf3031fb2138b">cpmstabs</a></div><div class="ttdeci">void cpmstabs(f77int *pnmtb, f77int *pibfxyn, char(*pcbscl)[4], char(*pcbsref)[12], char(*pcbbw)[4], char(*pcbunit)[24], char(*pcbmnem)[8], char(*pcbelem)[120], f77int *pnmtd, f77int *pidfxyn, char(*pcdseq)[120], char(*pcdmnem)[8], f77int *pndelem, f77int *pidefxy, f77int *maxcd)</div><div class="ttdoc">This subroutine copies relevant information from the Fortran module MODA_MSTABS arrays to new arrays ...</div><div class="ttdef"><b>Definition:</b> <a href="cpmstabs_8c_source.html#l00047">cpmstabs.c:47</a></div></div>
 <div class="ttc" id="mstabs_8h_html"><div class="ttname"><a href="mstabs_8h.html">mstabs.h</a></div><div class="ttdoc">Define signatures and declare variables for internal storage of master Table B and Table D entries...</div></div>
 <div class="ttc" id="icvidx_8c_html_a959f9a18d293352c8b60a1844a52611a"><div class="ttname"><a href="icvidx_8c.html#a959f9a18d293352c8b60a1844a52611a">icvidx</a></div><div class="ttdeci">f77int icvidx(f77int *ii, f77int *jj, f77int *numjj)</div><div class="ttdoc">C C SUBPROGRAM: ICVIDX C PRGMMR: ATOR ORG: NP12 DATE: 2009-03-23 C C ABSTRACT: THIS ROUTINE COMPUTES ...</div><div class="ttdef"><b>Definition:</b> <a href="icvidx_8c_source.html#l00041">icvidx.c:41</a></div></div>
 </div><!-- fragment --></div><!-- contents -->

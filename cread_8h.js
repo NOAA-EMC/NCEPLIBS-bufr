@@ -8,6 +8,6 @@ var cread_8h =
     [ "openab", "cread_8h.html#a5efb8a43667c802abf307b33314fd3d7", null ],
     [ "openrb", "cread_8h.html#a21affd5712b2336bf02e4dd7cb9af98b", null ],
     [ "openwb", "cread_8h.html#a47624e37a8dc7948ac37c35601c527ca", null ],
-    [ "lstpos", "cread_8h.html#ae8fcf44cac11b6f7d97220c101c0318e", null ],
-    [ "pb", "cread_8h.html#a295878b87917249212597ed62f390038", null ]
+    [ "lstpos", "cread_8h.html#af3681883f8ef0fe1771afc9aeb072eb0", null ],
+    [ "pb", "cread_8h.html#a58db779a0b3c7250a119069bd2e5106c", null ]
 ];

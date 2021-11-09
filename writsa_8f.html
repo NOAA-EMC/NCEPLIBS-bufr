@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.5.0</span>
+   &#160;<span id="projectnumber">11.6.0</span>
    </div>
   </td>
  </tr>
@@ -168,41 +168,54 @@ J. Ator </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>1994-01-06</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">LUNXX</td><td>- integer: Absolute value is Fortran logical unit number for BUFR file </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">LMSGT</td><td>- integer: Dimensioned size (in integers) of MSGT; used by the subroutine to ensure that it doesn't overflow the MSGT array </td></tr>
-    <tr><td class="paramdir">[out]</td><td class="paramname">MSGT</td><td>- integer(*): BUFR message </td></tr>
-    <tr><td class="paramdir">[out]</td><td class="paramname">MSGL</td><td>- integer: Size (in integers) of BUFR message in MSGT<ul>
+    <tr><td class="paramdir">[in]</td><td class="paramname">LUNXX</td><td>&ndash; integer: Absolute value is Fortran logical unit number for BUFR file </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">LMSGT</td><td>&ndash; integer: Dimensioned size (in integers) of MSGT; used by the subroutine to ensure that it doesn't overflow the MSGT array </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">MSGT</td><td>&ndash; integer(*): BUFR message </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">MSGL</td><td>&ndash; integer: Size (in integers) of BUFR message in MSGT<ul>
 <li>0 = No BUFR message was returned within MSGT</li>
 </ul>
 </td></tr>
   </table>
   </dd>
 </dl>
-<p>This subroutine looks and behaves a lot like subroutine <a class="el" href="writsb_8f.html#a02b3dbd97116388430f863f3e49fa47f" title="This subroutine writes a complete data subset into a BUFR message, for eventual output to logical uni...">writsb()</a>. Specifically, it is called to indicate to the BUFRLIB software that all necessary values for a data subset (i.e. report) have been written, and thus that the subset is ready to be encoded and packed into the current message for the BUFR file associated with logical unit ABS(LUNXX). Logical unit ABS(LUNXX) should have already been opened for output operations via a previous call to subroutine <a class="el" href="openbf_8F.html#a9bea9aeada166bd9037b959ca8452b28" title="This subroutine connects a new file to the BUFRLIB software for input or output operations. ">openbf()</a>, and a BUFR message should already be open for output within internal arrays via a previous call to one of the BUFRLIB <a class="el" href="md__gpfs_dell2_emc_obsproc_noscrub_Jeff_8Ator_NCEPLIBS-bufr-GitHub_nceplibs-bufr_docs_UserGuide.html#hierarchy">message-writing subroutines</a>. Furthermore, all of the values for the data subset should have already been written into internal arrays via calls to any of the BUFRLIB <a class="el" href="md__gpfs_dell2_emc_obsproc_noscrub_Jeff_8Ator_NCEPLIBS-bufr-GitHub_nceplibs-bufr_docs_UserGuide.html#hierarchy">values-writing subroutines</a></p>
+<p>This subroutine looks and behaves a lot like subroutine <a class="el" href="writsb_8f.html#a02b3dbd97116388430f863f3e49fa47f" title="This subroutine writes a complete data subset into a BUFR message, for eventual output to logical uni...">writsb()</a>. Specifically, it is called to indicate to the BUFRLIB software that all necessary values for a data subset (i.e. report) have been written, and thus that the subset is ready to be encoded and packed into the current message for the BUFR file associated with logical unit ABS(LUNXX). Logical unit ABS(LUNXX) should have already been opened for output operations via a previous call to subroutine <a class="el" href="openbf_8f.html#a9bea9aeada166bd9037b959ca8452b28" title="This subroutine connects a new file to the BUFRLIB software for input or output operations. ">openbf()</a>, and a BUFR message should already be open for output within internal arrays via a previous call to one of the BUFRLIB <a class="el" href="md__gpfs_dell2_emc_obsproc_noscrub_Jeff_8Ator_NCEPLIBS-bufr-GitHub_nceplibs-bufr_docs_UserGuide.html#hierarchy">message-writing subroutines</a>. Furthermore, all of the values for the data subset should have already been written into internal arrays via calls to any of the BUFRLIB <a class="el" href="md__gpfs_dell2_emc_obsproc_noscrub_Jeff_8Ator_NCEPLIBS-bufr-GitHub_nceplibs-bufr_docs_UserGuide.html#hierarchy">values-writing subroutines</a></p>
 <p>Where this subroutine differs from <a class="el" href="writsb_8f.html#a02b3dbd97116388430f863f3e49fa47f" title="This subroutine writes a complete data subset into a BUFR message, for eventual output to logical uni...">writsb()</a> is that, in addition to doing all of the above, it also returns a copy of each completed BUFR message to the application program within a memory array. When using this subroutine, it is important to note that the BUFRLIB software is designed to pack as many data subsets as possible into each message for output, and therefore not every call to this subroutine will result in a message being returned in MSGT. In such cases, MSGL will contain the value 0, indicating that no message was returned.</p>
 <p>In other words, only when MSGL contains a value greater than 0 is there an actual BUFR message within MSGT; otherwise, the message into which the data subset was packed remains internally within BUFRLIB so that future data subsets can be packed into it as well, and the message will eventually be returned during some other future call to this subroutine. For this reason, there is a way to force the subroutine to return any message contained within the internal BUFRLIB arrays, such as when there are no more data subsets to be encoded and we're ready to exit the application program. In this case, the application program should make one final call to this subroutine, but with LUNXX set to a negative value; specifically, to the additive inverse of the Fortran logical unit number of the BUFR file. This signals to the subroutine that there are no more data subsets to be packed into the current message for logical unit ABS(LUNXX), and that the existing message should instead be immediately flushed to output and returned in MSGT.</p>
 <dl class="section remark"><dt>Remarks</dt><dd><ul>
 <li>There is a maximum size for any BUFR message that can be written by the BUFRLIB software. This maximum message size is initially set to an internal default value within subroutine <a class="el" href="bfrini_8f90.html#ab3f045cc170403305543e34e30b87001" title="This subroutine initializes numerous global variables and arrays within internal modules and COMMON b...">bfrini()</a>, but it can be changed to a different value via a separate prior call to subroutine <a class="el" href="maxout_8f.html#a453cb7f1f1dda1ab39e54b7a09b9b801" title="This subroutine allows the user to define the maximum length of a BUFR message that can be written to...">maxout()</a>.</li>
 <li>As is the case for subroutine <a class="el" href="writsb_8f.html#a02b3dbd97116388430f863f3e49fa47f" title="This subroutine writes a complete data subset into a BUFR message, for eventual output to logical uni...">writsb()</a>, this subroutine will also check to ensure that the data subset, when encoded and packed, will fit into the current BUFR message that is open within the internal arrays associated with logical unit ABS(LUNXX). If adding the data subset to the current message would cause the maximum message size to be exceeded, then the subroutine will automatically flush the current message to logical unit ABS(LUNXX) and to array MSGT, then open and initialize a new internal message using the same SUBSET and JDATE values that were specified in the most recent call to one of the <a class="el" href="md__gpfs_dell2_emc_obsproc_noscrub_Jeff_8Ator_NCEPLIBS-bufr-GitHub_nceplibs-bufr_docs_UserGuide.html#hierarchy">message-writing subroutines</a> for ABS(LUNXX), then encode and pack the data subset into that new message.</li>
-<li>If the user would prefer that output messages only be returned to the calling program via the MSGT memory array and not also written to Fortran logical unit ABS(LUNXX), then this can be accomplished by setting IO = 'NUL' when calling subroutine <a class="el" href="openbf_8F.html#a9bea9aeada166bd9037b959ca8452b28" title="This subroutine connects a new file to the BUFRLIB software for input or output operations. ">openbf()</a> for ABS(LUNXX). In such cases, the logical unit number ABS(LUNXX) does not even need to be associated with an actual file on the local system.</li>
+<li>If the user would prefer that output messages only be returned to the calling program via the MSGT memory array and not also written to Fortran logical unit ABS(LUNXX), then this can be accomplished by setting IO = 'NUL' when calling subroutine <a class="el" href="openbf_8f.html#a9bea9aeada166bd9037b959ca8452b28" title="This subroutine connects a new file to the BUFRLIB software for input or output operations. ">openbf()</a> for ABS(LUNXX). In such cases, the logical unit number ABS(LUNXX) does not even need to be associated with an actual file on the local system.</li>
 </ul>
 </dd></dl>
-<p><b>Program history log:</b></p>
-<ul>
-<li>1994-01-06 J. Woollen &ndash; Original author</li>
-<li>1998-07-08 J. Woollen &ndash; Replaced call to Cray library routine "ABORT" with call to new internal BUFRLIB routine "BORT"; modified to make Y2K compliant</li>
-<li>2000-09-19 J. Woollen &ndash; Maximum message length increased from 10,000 to 20,000 bytes</li>
-<li>2003-11-04 S. Bender &ndash; Added remarks and routine interdependencies</li>
-<li>2003-11-04 D. Keyser &ndash; Unified/portable for WRF; added history documentation; outputs more complete diagnostic info when routine terminates abnormally</li>
-<li>2004-08-18 J. Ator &ndash; Add post <a class="el" href="msgupd_8f.html#adf75cb2bc2a217eb33ffc8e45b1a5350" title="THIS SUBROUTINE PACKS UP THE CURRENT SUBSET WITHIN MEMORY (ARRAY IBAY IN MODULE BITBUF) AND THEN TRIE...">msgupd()</a> check for and return of message within MSGT in order to prevent loss of message in certain situations; maximum message length increased from 20,000 to 50,000 bytes</li>
-<li>2005-03-09 J. Ator &ndash; Added capability for compressed messages</li>
-<li>2009-03-23 J. Ator &ndash; Added LMSGT argument and check</li>
-<li>2014-12-10 J. Ator &ndash; Use modules instead of COMMON blocks</li>
-<li>2019-05-09 J. Ator &ndash; Added dimensions for MSGLEN and MSGTXT</li>
-<li>2020-09-22 J. Ator &ndash; Added capability to return two BUFR messages within MSGT during the same call to this routine, in the rare instances where this can occur </li>
-</ul>
+<p><b>Program history log:</b> </p>
+<table class="doxtable">
+<tr>
+<th>Date </th><th>Programmer </th><th>Comments  </th></tr>
+<tr>
+<td>1994-01-06 </td><td>J. Woollen </td><td>Original author </td></tr>
+<tr>
+<td>1998-07-08 </td><td>J. Woollen </td><td>Replaced call to Cray library routine "ABORT" with call to new internal routine <a class="el" href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4" title="This subroutine calls subroutine errwrt() to log an error message, then calls subroutine bort_exit() ...">bort()</a>; modified to make Y2K compliant </td></tr>
+<tr>
+<td>2000-09-19 </td><td>J. Woollen </td><td>Maximum message length increased from 10,000 to 20,000 bytes </td></tr>
+<tr>
+<td>2003-11-04 </td><td>S. Bender </td><td>Added remarks and routine interdependencies </td></tr>
+<tr>
+<td>2003-11-04 </td><td>D. Keyser </td><td>Unified/portable for WRF; added documentation; outputs more complete diagnostic info when routine terminates abnormally </td></tr>
+<tr>
+<td>2004-08-18 </td><td>J. Ator </td><td>Add post <a class="el" href="msgupd_8f.html#adf75cb2bc2a217eb33ffc8e45b1a5350" title="THIS SUBROUTINE PACKS UP THE CURRENT SUBSET WITHIN MEMORY (ARRAY IBAY IN MODULE BITBUF) AND THEN TRIE...">msgupd()</a> check for and return of message within MSGT in order to prevent loss of message in certain situations; maximum message length increased from 20,000 to 50,000 bytes </td></tr>
+<tr>
+<td>2005-03-09 </td><td>J. Ator </td><td>Added capability for compressed messages </td></tr>
+<tr>
+<td>2009-03-23 </td><td>J. Ator </td><td>Added LMSGT argument and check </td></tr>
+<tr>
+<td>2014-12-10 </td><td>J. Ator </td><td>Use modules instead of COMMON blocks </td></tr>
+<tr>
+<td>2019-05-09 </td><td>J. Ator </td><td>Added dimensions for MSGLEN and MSGTXT </td></tr>
+<tr>
+<td>2020-09-22 </td><td>J. Ator </td><td>Added capability to return two BUFR messages within MSGT during the same call to this routine, in the rare instances where this can occur </td></tr>
+</table>
 
-<p>Definition at line <a class="el" href="writsa_8f_source.html#l00118">118</a> of file <a class="el" href="writsa_8f_source.html">writsa.f</a>.</p>
+<p>Definition at line <a class="el" href="writsa_8f_source.html#l00106">106</a> of file <a class="el" href="writsa_8f_source.html">writsa.f</a>.</p>
 
 <p>References <a class="el" href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort()</a>, <a class="el" href="closmg_8f.html#a3378111de0136710daec2ded25ed34e4">closmg()</a>, <a class="el" href="msgupd_8f.html#adf75cb2bc2a217eb33ffc8e45b1a5350">msgupd()</a>, <a class="el" href="status_8f.html#a22292e7a69c411a961168198d259f336">status()</a>, <a class="el" href="wrcmps_8f.html#a8b333832f77606059ec94ba8b80d4e8d">wrcmps()</a>, and <a class="el" href="wrtree_8f.html#a0700f04d89a10a24b1acb184f6022c77">wrtree()</a>.</p>
 

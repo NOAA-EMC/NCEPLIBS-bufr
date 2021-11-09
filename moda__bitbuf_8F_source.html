@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.5.0</span>
+   &#160;<span id="projectnumber">11.6.0</span>
    </div>
   </td>
  </tr>
@@ -119,12 +119,12 @@ $(document).ready(function(){initNavTree('moda__bitbuf_8F_source.html','');});
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;</div>
 <div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#ifndef MXMSGL_H</span></div>
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define MXMSGL_H</span></div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor"></span>      <span class="keywordtype">USE </span><a class="code" href="modv__MXMSGL_8F.html#classmodv__mxmsgl">modv_mxmsgl</a></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor"></span>      <span class="keywordtype">USE </span><a class="code" href="modv__MXMSGL_8f.html#classmodv__mxmsgl">modv_mxmsgl</a></div>
 <div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="preprocessor"></span></div>
 <div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="preprocessor">#ifndef NFILES_H</span></div>
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define NFILES_H</span></div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="preprocessor"></span>      <span class="keywordtype">USE </span><a class="code" href="modv__NFILES_8F.html#classmodv__nfiles">modv_nfiles</a></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="preprocessor"></span>      <span class="keywordtype">USE </span><a class="code" href="modv__NFILES_8f90.html#classmodv__nfiles">modv_nfiles</a></div>
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="preprocessor"></span></div>
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="comment">C&gt;        @var maxbyt</span></div>
@@ -139,20 +139,14 @@ $(document).ready(function(){initNavTree('moda__bitbuf_8F_source.html','');});
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;</div>
 <div class="line"><a name="l00032"></a><span class="lineno"><a class="line" href="moda__bitbuf_8F.html#a53837bd62186cdc39c8062a88e6489d2">   32</a></span>&#160;      <span class="keywordtype">INTEGER</span> :: MAXBYT</div>
 <div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;      <span class="keywordtype">INTEGER</span> :: IBIT</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="preprocessor">#ifdef DYNAMIC_ALLOCATION</span></div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="preprocessor"></span>      <span class="keywordtype">INTEGER</span>, <span class="keywordtype">ALLOCATABLE</span> :: IBAY(:)</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;      <span class="keywordtype">INTEGER</span>, <span class="keywordtype">ALLOCATABLE</span> :: MBYT(:)</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;      <span class="keywordtype">INTEGER</span>, <span class="keywordtype">ALLOCATABLE</span> :: MBAY(:,:)</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="preprocessor">#else</span></div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="preprocessor"></span>      <span class="keywordtype">INTEGER</span> :: IBAY(MXMSGLD4)</div>
-<div class="line"><a name="l00040"></a><span class="lineno"><a class="line" href="moda__bitbuf_8F.html#a6bac74e064b4a8512f7f2599d0588dd3">   40</a></span>&#160;      <span class="keywordtype">INTEGER</span> :: MBYT(NFILES)</div>
-<div class="line"><a name="l00041"></a><span class="lineno"><a class="line" href="moda__bitbuf_8F.html#a983cdfefb8e99f7ede13ce9f979bea3e">   41</a></span>&#160;      <span class="keywordtype">INTEGER</span> :: MBAY(MXMSGLD4,NFILES)</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="preprocessor"></span></div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="keyword">    END MODULE</span></div>
-<div class="ttc" id="modv__MXMSGL_8F_html_classmodv__mxmsgl"><div class="ttname"><a href="modv__MXMSGL_8F.html#classmodv__mxmsgl">modv_mxmsgl</a></div><div class="ttdoc">This module declares and initializes the MXMSGL variable. </div><div class="ttdef"><b>Definition:</b> <a href="modv__MXMSGL_8F_source.html#l00016">modv_MXMSGL.F:16</a></div></div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;      <span class="keywordtype">INTEGER</span>, <span class="keywordtype">ALLOCATABLE</span> :: IBAY(:)</div>
+<div class="line"><a name="l00035"></a><span class="lineno"><a class="line" href="moda__bitbuf_8F.html#a6bac74e064b4a8512f7f2599d0588dd3">   35</a></span>&#160;      <span class="keywordtype">INTEGER</span>, <span class="keywordtype">ALLOCATABLE</span> :: MBYT(:)</div>
+<div class="line"><a name="l00036"></a><span class="lineno"><a class="line" href="moda__bitbuf_8F.html#a983cdfefb8e99f7ede13ce9f979bea3e">   36</a></span>&#160;      <span class="keywordtype">INTEGER</span>, <span class="keywordtype">ALLOCATABLE</span> :: MBAY(:,:)</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="keyword">    END MODULE</span></div>
+<div class="ttc" id="modv__NFILES_8f90_html_classmodv__nfiles"><div class="ttname"><a href="modv__NFILES_8f90.html#classmodv__nfiles">modv_nfiles</a></div><div class="ttdoc">This module declares and initializes the NFILES variable. </div><div class="ttdef"><b>Definition:</b> <a href="modv__NFILES_8f90_source.html#l00013">modv_NFILES.f90:13</a></div></div>
+<div class="ttc" id="modv__MXMSGL_8f_html_classmodv__mxmsgl"><div class="ttname"><a href="modv__MXMSGL_8f.html#classmodv__mxmsgl">modv_mxmsgl</a></div><div class="ttdoc">This module declares and initializes the MXMSGL variable. </div><div class="ttdef"><b>Definition:</b> <a href="modv__MXMSGL_8f_source.html#l00013">modv_MXMSGL.f:13</a></div></div>
 <div class="ttc" id="moda__bitbuf_8F_html_classmoda__bitbuf"><div class="ttname"><a href="moda__bitbuf_8F.html#classmoda__bitbuf">moda_bitbuf</a></div><div class="ttdoc">This module contains array and variable declarations used to store BUFR messages internally for multi...</div><div class="ttdef"><b>Definition:</b> <a href="moda__bitbuf_8F_source.html#l00010">moda_bitbuf.F:10</a></div></div>
-<div class="ttc" id="modv__NFILES_8F_html_classmodv__nfiles"><div class="ttname"><a href="modv__NFILES_8F.html#classmodv__nfiles">modv_nfiles</a></div><div class="ttdoc">This module declares and initializes the NFILES variable. </div><div class="ttdef"><b>Definition:</b> <a href="modv__NFILES_8F_source.html#l00016">modv_NFILES.F:16</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

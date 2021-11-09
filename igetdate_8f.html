@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.5.0</span>
+   &#160;<span id="projectnumber">11.6.0</span>
    </div>
   </td>
  </tr>
@@ -173,25 +173,32 @@ Functions/Subroutines</h2></td></tr>
 <dl class="section date"><dt>Date</dt><dd>2005-11-29</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">MBAY</td><td>- integer(*): BUFR message </td></tr>
-    <tr><td class="paramdir">[out]</td><td class="paramname">IYR</td><td>- integer: Year stored within Section 1 of MBAY, in format of either YY or YYYY, depending on the most recent call to subroutine <a class="el" href="datelen_8f.html#ac75cb362f84167ca65b058a97401efcd" title="This subroutine is used to specify the format of Section 1 date-time values that will be output by fu...">datelen()</a> </td></tr>
-    <tr><td class="paramdir">[out]</td><td class="paramname">IMO</td><td>- integer: Month stored within Section 1 of MBAY </td></tr>
-    <tr><td class="paramdir">[out]</td><td class="paramname">IDY</td><td>- integer: Day stored within Section 1 of MBAY </td></tr>
-    <tr><td class="paramdir">[out]</td><td class="paramname">IHR</td><td>- integer: Hour stored within Section 1 of MBAY </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">MBAY</td><td>&ndash; integer(*): BUFR message </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">IYR</td><td>&ndash; integer: Year stored within Section 1 of MBAY, in format of either YY or YYYY, depending on the most recent call to subroutine <a class="el" href="datelen_8f.html#ac75cb362f84167ca65b058a97401efcd" title="This subroutine is used to specify the format of Section 1 date-time values that will be output by fu...">datelen()</a> </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">IMO</td><td>&ndash; integer: Month stored within Section 1 of MBAY </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">IDY</td><td>&ndash; integer: Day stored within Section 1 of MBAY </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">IHR</td><td>&ndash; integer: Hour stored within Section 1 of MBAY </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>igetdate - integer: Date-time stored within Section 1 of MBAY, in format of either YYMMDDHH or YYYYMMDDHH, depending on the most recent call to subroutine <a class="el" href="datelen_8f.html#ac75cb362f84167ca65b058a97401efcd" title="This subroutine is used to specify the format of Section 1 date-time values that will be output by fu...">datelen()</a></dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>igetdate &ndash; integer: Date-time stored within Section 1 of MBAY, in format of either YYMMDDHH or YYYYMMDDHH, depending on the most recent call to subroutine <a class="el" href="datelen_8f.html#ac75cb362f84167ca65b058a97401efcd" title="This subroutine is used to specify the format of Section 1 date-time values that will be output by fu...">datelen()</a></dd></dl>
 <dl class="section remark"><dt>Remarks</dt><dd><ul>
-<li>The start of the BUFR message (i.e. the string 'BUFR') must be aligned on the first 4 bytes of MBAY. </li>
+<li>The start of the BUFR message (i.e. the string 'BUFR') must be aligned on the first 4 bytes of MBAY.</li>
 </ul>
 </dd></dl>
+<p><b>Program history log:</b> </p>
+<table class="doxtable">
+<tr>
+<th>Date </th><th>Programmer </th><th>Comments  </th></tr>
+<tr>
+<td>2005-11-29 </td><td>J. Ator </td><td>Original author </td></tr>
+</table>
 
-<p>Definition at line <a class="el" href="igetdate_8f_source.html#l00029">29</a> of file <a class="el" href="igetdate_8f_source.html">igetdate.f</a>.</p>
+<p>Definition at line <a class="el" href="igetdate_8f_source.html#l00034">34</a> of file <a class="el" href="igetdate_8f_source.html">igetdate.f</a>.</p>
 
 <p>References <a class="el" href="iupbs01_8f.html#adcd6f7c2f898b4f938153c5cf79a9cf5">iupbs01()</a>.</p>
 
-<p>Referenced by <a class="el" href="cktaba_8f.html#a137108e58830be769ba5b28072cf1b4c">cktaba()</a>, <a class="el" href="datebf_8F.html#a688208e451a81634a110c6963561f22e">datebf()</a>, and <a class="el" href="dumpbf_8f.html#a345cb5b88ed574ab5f66b9a90e61acc6">dumpbf()</a>.</p>
+<p>Referenced by <a class="el" href="cktaba_8f.html#a137108e58830be769ba5b28072cf1b4c">cktaba()</a>, <a class="el" href="datebf_8f.html#a688208e451a81634a110c6963561f22e">datebf()</a>, and <a class="el" href="dumpbf_8f.html#a345cb5b88ed574ab5f66b9a90e61acc6">dumpbf()</a>.</p>
 
 </div>
 </div>

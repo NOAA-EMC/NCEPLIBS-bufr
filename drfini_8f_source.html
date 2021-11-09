@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.5.0</span>
+   &#160;<span id="projectnumber">11.6.0</span>
    </div>
   </td>
  </tr>
@@ -118,19 +118,19 @@ $(document).ready(function(){initNavTree('drfini_8f_source.html','');});
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="comment">C&gt; @author J. Woollen</span></div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="comment">C&gt; @date 2002-05-14</span></div>
 <div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="comment">C&gt;</span></div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="comment">C&gt; @param[in] LUNIT  - integer: Fortran logical unit number for BUFR</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="comment">C&gt; @param[in] LUNIT -- integer: Fortran logical unit number for BUFR</span></div>
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment">C&gt;                     file</span></div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="comment">C&gt; @param[in] MDRF   - integer(*): Array of delayed replication factors,</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="comment">C&gt; @param[in] MDRF  -- integer(*): Array of delayed replication factors,</span></div>
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="comment">C&gt;                     in one-to-one correspondence with the number</span></div>
 <div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="comment">C&gt;                     of occurrences of DRFTAG within the overall</span></div>
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="comment">C&gt;                     subset definition, and explicitly defining</span></div>
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment">C&gt;                     how much space (i.e. how many replications)</span></div>
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="comment">C&gt;                     to allocate within each successive occurrence</span></div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="comment">C&gt; @param[in] NDRF   - integer: Number of delayed replication factors</span></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="comment">C&gt; @param[in] NDRF  -- integer: Number of delayed replication factors</span></div>
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="comment">C&gt;                     within MDRF</span></div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="comment">C&gt; @param[in] DRFTAG - character*(*): Table D sequence mnemonic,</span></div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="comment">C&gt;                     bracketed by appropriate delayed replication</span></div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="comment">C&gt;                     notation (e.g. {}, () OR &lt;&gt;)</span></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="comment">C&gt; @param[in] DRFTAG -- character*(*): Table D sequence mnemonic,</span></div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="comment">C&gt;                      bracketed by appropriate delayed replication</span></div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="comment">C&gt;                      notation (e.g. {}, () OR &lt;&gt;)</span></div>
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="comment">C&gt;</span></div>
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="comment">C&gt; &lt;p&gt;Logical unit LUNIT should have already been opened for output</span></div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="comment">C&gt; operations (i.e. writing/encoding BUFR) via a previous call to</span></div>
@@ -157,62 +157,61 @@ $(document).ready(function(){initNavTree('drfini_8f_source.html','');});
 <div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<span class="comment">C&gt; ufbint() or ufbrep().</span></div>
 <div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;<span class="comment">C&gt;</span></div>
 <div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;<span class="comment">C&gt; &lt;b&gt;Program history log:&lt;/b&gt;</span></div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="comment">C&gt; - 2002-05-14  J. Woollen -- Original author</span></div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;<span class="comment">C&gt; - 2003-11-04  S. Bender  -- Added remarks and routine interdependencies</span></div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;<span class="comment">C&gt; - 2003-11-04  D. Keyser  -- Unified/portable for WRF; added history</span></div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;<span class="comment">C&gt;                           documentation; outputs more complete</span></div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;<span class="comment">C&gt;                           diagnostic info when routine terminates</span></div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;<span class="comment">C&gt;                           abnormally</span></div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;<span class="comment">C&gt; - 2005-03-04  J. Ator    -- Updated documentation</span></div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;<span class="comment">C&gt; - 2014-09-08  J. Ator    -- Increase NDRF limit from 100 to 200</span></div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;<span class="comment">C&gt; - 2014-12-10  J. Ator    -- Use modules instead of COMMON blocks</span></div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;<span class="comment">C&gt; - 2018-06-07  J. Ator    -- Increase NDRF limit from 200 to 2000</span></div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;<span class="comment">C&gt;</span></div>
-<div class="line"><a name="l00063"></a><span class="lineno"><a class="line" href="drfini_8f.html#ab9d63d7c2b99152be8e0809413adf621">   63</a></span>&#160;<span class="keyword">      SUBROUTINE </span><a class="code" href="drfini_8f.html#ab9d63d7c2b99152be8e0809413adf621">drfini</a>(LUNIT,MDRF,NDRF,DRFTAG)</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;      <span class="keywordtype">USE </span><a class="code" href="classmoda__usrint.html">moda_usrint</a></div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;      <span class="keywordtype">USE </span><a class="code" href="moda__tables_8F.html#classmoda__tables">moda_tables</a></div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;      <span class="keywordtype">CHARACTER*(*)</span> drftag</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;      <span class="keywordtype">CHARACTER*128</span> bort_str</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;      dimension     mdrf(ndrf)</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="comment">C&gt; | Date | Programmer | Comments |</span></div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;<span class="comment">C&gt; | -----|------------|----------|</span></div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;<span class="comment">C&gt; | 2002-05-14 | J. Woollen | Original author |</span></div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;<span class="comment">C&gt; | 2003-11-04 | S. Bender | Added remarks and routine interdependencies</span></div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;<span class="comment">C&gt; | 2003-11-04 | D. Keyser | Unified/portable for WRF; added history documentation; outputs more complete diagnostic info when routine terminates abnormally |</span></div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;<span class="comment">C&gt; | 2005-03-04 | J. Ator | Updated documentation |</span></div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;<span class="comment">C&gt; | 2014-09-08 | J. Ator | Increase NDRF limit from 100 to 200 |</span></div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;<span class="comment">C&gt; | 2014-12-10 | J. Ator | Use modules instead of COMMON blocks |</span></div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;<span class="comment">C&gt; | 2018-06-07 | J. Ator | Increase NDRF limit from 200 to 2000 |</span></div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;<span class="comment">C&gt;</span></div>
+<div class="line"><a name="l00062"></a><span class="lineno"><a class="line" href="drfini_8f.html#ab9d63d7c2b99152be8e0809413adf621">   62</a></span>&#160;<span class="keyword">      SUBROUTINE </span><a class="code" href="drfini_8f.html#ab9d63d7c2b99152be8e0809413adf621">drfini</a>(LUNIT,MDRF,NDRF,DRFTAG)</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;      <span class="keywordtype">USE </span><a class="code" href="classmoda__usrint.html">moda_usrint</a></div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;      <span class="keywordtype">USE </span><a class="code" href="moda__tables_8F.html#classmoda__tables">moda_tables</a></div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;      <span class="keywordtype">CHARACTER*(*)</span> drftag</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;      <span class="keywordtype">CHARACTER*128</span> bort_str</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;      dimension     mdrf(ndrf)</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;<span class="comment">C-----------------------------------------------------------------------</span></div>
 <div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;<span class="comment">C-----------------------------------------------------------------------</span></div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;<span class="comment">C-----------------------------------------------------------------------</span></div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;      <span class="keywordflow">IF</span>(ndrf.GT.2000) goto 900</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;      CALL <a class="code" href="status_8f.html#a22292e7a69c411a961168198d259f336">status</a>(lunit,lun,il,im)</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;<span class="comment">C  COMFORM THE TEMPLATES TO THE DELAYED REPLICATION FACTORS</span></div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;<span class="comment">C  --------------------------------------------------------</span></div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;      m = 0</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;      n = 0</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;10    <span class="keywordflow">DO</span> n=n+1,nval(lun)</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;      node = inv(n,lun)</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;      <span class="keywordflow">IF</span>(itp(node).EQ.1 .AND. tag(node).EQ.drftag) <span class="keywordflow">THEN</span></div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;         m = m+1</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;         CALL <a class="code" href="usrtpl_8f.html#a677bf700a4a6f0626a41921cd66d8ed9">usrtpl</a>(lun,n,mdrf(m))</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;         goto 10</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;      <span class="keywordflow">ENDIF</span></div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;      <span class="keywordflow">ENDDO</span></div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;<span class="comment">C  EXITS</span></div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;<span class="comment">C  -----</span></div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;      <span class="keywordflow">RETURN</span></div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160; 900  <span class="keyword">WRITE</span>(bort_str,<span class="stringliteral">&#39;(&quot;BUFRLIB: DRFINI - THE NUMBER OF DELAYED &#39;</span>//</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;     . <span class="stringliteral">&#39;REPLICATION FACTORS (&quot;,I5,&quot;) EXCEEDS THE LIMIT (2000)&quot;)&#39;</span>) ndrf</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;      CALL <a class="code" href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort</a>(bort_str)</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;      <span class="keywordflow">END</span></div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;      <span class="keywordflow">IF</span>(ndrf.GT.2000) goto 900</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;      CALL <a class="code" href="status_8f.html#a22292e7a69c411a961168198d259f336">status</a>(lunit,lun,il,im)</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;<span class="comment">C  COMFORM THE TEMPLATES TO THE DELAYED REPLICATION FACTORS</span></div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;<span class="comment">C  --------------------------------------------------------</span></div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;      m = 0</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;      n = 0</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;10    <span class="keywordflow">DO</span> n=n+1,nval(lun)</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;      node = inv(n,lun)</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;      <span class="keywordflow">IF</span>(itp(node).EQ.1 .AND. tag(node).EQ.drftag) <span class="keywordflow">THEN</span></div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;         m = m+1</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;         CALL <a class="code" href="usrtpl_8f.html#a677bf700a4a6f0626a41921cd66d8ed9">usrtpl</a>(lun,n,mdrf(m))</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;         goto 10</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;      <span class="keywordflow">ENDIF</span></div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;      <span class="keywordflow">ENDDO</span></div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;<span class="comment">C  EXITS</span></div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;<span class="comment">C  -----</span></div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;      <span class="keywordflow">RETURN</span></div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160; 900  <span class="keyword">WRITE</span>(bort_str,<span class="stringliteral">&#39;(&quot;BUFRLIB: DRFINI - THE NUMBER OF DELAYED &#39;</span>//</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;     . <span class="stringliteral">&#39;REPLICATION FACTORS (&quot;,I5,&quot;) EXCEEDS THE LIMIT (2000)&quot;)&#39;</span>) ndrf</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;      CALL <a class="code" href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort</a>(bort_str)</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;      <span class="keywordflow">END</span></div>
 <div class="ttc" id="usrtpl_8f_html_a677bf700a4a6f0626a41921cd66d8ed9"><div class="ttname"><a href="usrtpl_8f.html#a677bf700a4a6f0626a41921cd66d8ed9">usrtpl</a></div><div class="ttdeci">subroutine usrtpl(LUN, INVN, NBMP)</div><div class="ttdoc">THIS SUBROUTINE STORES THE SUBSET TEMPLATE INTO INTERNAL SUBSET ARRAYS IN MODULE USRINT FOR CASES OF ...</div><div class="ttdef"><b>Definition:</b> <a href="usrtpl_8f_source.html#l00051">usrtpl.f:51</a></div></div>
-<div class="ttc" id="drfini_8f_html_ab9d63d7c2b99152be8e0809413adf621"><div class="ttname"><a href="drfini_8f.html#ab9d63d7c2b99152be8e0809413adf621">drfini</a></div><div class="ttdeci">subroutine drfini(LUNIT, MDRF, NDRF, DRFTAG)</div><div class="ttdoc">This subroutine explicitly initializes delayed replication factors and allocates a corresponding amou...</div><div class="ttdef"><b>Definition:</b> <a href="drfini_8f_source.html#l00063">drfini.f:63</a></div></div>
+<div class="ttc" id="drfini_8f_html_ab9d63d7c2b99152be8e0809413adf621"><div class="ttname"><a href="drfini_8f.html#ab9d63d7c2b99152be8e0809413adf621">drfini</a></div><div class="ttdeci">subroutine drfini(LUNIT, MDRF, NDRF, DRFTAG)</div><div class="ttdoc">This subroutine explicitly initializes delayed replication factors and allocates a corresponding amou...</div><div class="ttdef"><b>Definition:</b> <a href="drfini_8f_source.html#l00062">drfini.f:62</a></div></div>
 <div class="ttc" id="moda__tables_8F_html_classmoda__tables"><div class="ttname"><a href="moda__tables_8F.html#classmoda__tables">moda_tables</a></div><div class="ttdoc">This module contains array and variable declarations used to store the internal jump/link table...</div><div class="ttdef"><b>Definition:</b> <a href="moda__tables_8F_source.html#l00013">moda_tables.F:13</a></div></div>
-<div class="ttc" id="status_8f_html_a22292e7a69c411a961168198d259f336"><div class="ttname"><a href="status_8f.html#a22292e7a69c411a961168198d259f336">status</a></div><div class="ttdeci">subroutine status(LUNIT, LUN, IL, IM)</div><div class="ttdoc">This subroutine checks whether a specified Fortran logical unit number is currently connected to the ...</div><div class="ttdef"><b>Definition:</b> <a href="status_8f_source.html#l00061">status.f:61</a></div></div>
+<div class="ttc" id="status_8f_html_a22292e7a69c411a961168198d259f336"><div class="ttname"><a href="status_8f.html#a22292e7a69c411a961168198d259f336">status</a></div><div class="ttdeci">subroutine status(LUNIT, LUN, IL, IM)</div><div class="ttdoc">This subroutine checks whether a specified Fortran logical unit number is currently connected to the ...</div><div class="ttdef"><b>Definition:</b> <a href="status_8f_source.html#l00055">status.f:55</a></div></div>
 <div class="ttc" id="classmoda__usrint_html"><div class="ttname"><a href="classmoda__usrint.html">moda_usrint</a></div><div class="ttdef"><b>Definition:</b> <a href="moda__usrint_8F_source.html#l00001">moda_usrint.F:1</a></div></div>
-<div class="ttc" id="bort_8f_html_a488d3a8cf930fb592a9fdaefcfa04ac4"><div class="ttname"><a href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort</a></div><div class="ttdeci">subroutine bort(STR)</div><div class="ttdoc">This subroutine calls subroutine errwrt() to log an error message, then calls subroutine bort_exit() ...</div><div class="ttdef"><b>Definition:</b> <a href="bort_8f_source.html#l00023">bort.f:23</a></div></div>
+<div class="ttc" id="bort_8f_html_a488d3a8cf930fb592a9fdaefcfa04ac4"><div class="ttname"><a href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort</a></div><div class="ttdeci">subroutine bort(STR)</div><div class="ttdoc">This subroutine calls subroutine errwrt() to log an error message, then calls subroutine bort_exit() ...</div><div class="ttdef"><b>Definition:</b> <a href="bort_8f_source.html#l00022">bort.f:22</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

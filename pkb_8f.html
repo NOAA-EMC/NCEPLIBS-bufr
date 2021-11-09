@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.5.0</span>
+   &#160;<span id="projectnumber">11.6.0</span>
    </div>
   </td>
  </tr>
@@ -166,10 +166,10 @@ Functions/Subroutines</h2></td></tr>
 <dl class="section date"><dt>Date</dt><dd>1994-01-06</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">NVAL</td><td>- integer: Value to be encoded </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">NBITS</td><td>- integer: Number of bits of IBAY within which to encode NVAL </td></tr>
-    <tr><td class="paramdir">[out]</td><td class="paramname">IBAY</td><td>- integer(*): Array containing encoded NVAL </td></tr>
-    <tr><td class="paramdir">[in,out]</td><td class="paramname">IBIT</td><td>- integer: Bit pointer within IBAY<ul>
+    <tr><td class="paramdir">[in]</td><td class="paramname">NVAL</td><td>&ndash; integer: Value to be encoded </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">NBITS</td><td>&ndash; integer: Number of bits of IBAY within which to encode NVAL </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">IBAY</td><td>&ndash; integer(*): Array containing encoded NVAL </td></tr>
+    <tr><td class="paramdir">[in,out]</td><td class="paramname">IBIT</td><td>&ndash; integer: Bit pointer within IBAY<ul>
 <li>On input, IBIT points to the bit within IBAY after which to begin encoding NVAL.</li>
 <li>On output, IBIT points to the last bit of IBAY which contains the encoded NVAL.</li>
 </ul>
@@ -182,16 +182,23 @@ Functions/Subroutines</h2></td></tr>
 <li>This subroutine will not work properly if NBITS is greater than the number of bits in an integer, as determined via an internal call to subroutine <a class="el" href="wrdlen_8F.html#afb746f29272671c842018de69b277685" title="This subroutine figures out some important information about the local machine on which the BUFRLIB s...">wrdlen()</a>. In such cases, the user should switch to a compiled version of the BUFRLIB software which has a larger integer size.</li>
 </ul>
 </dd></dl>
-<p><b>Program history log:</b></p>
-<ul>
-<li>1994-01-06 J. Woollen &ndash; Original author</li>
-<li>2003-11-04 J. Ator &ndash; Added documentation</li>
-<li>2003-11-04 S. Bender &ndash; Added remarks and routine interdependencies</li>
-<li>2003-11-04 D. Keyser &ndash; Unified/portable for WRF; added history documentation; outputs more complete diagnostic info when routine terminates abnormally, unusual things happen or for informational purposes</li>
-<li>2014-12-03 J. Ator &ndash; Call <a class="el" href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4" title="This subroutine calls subroutine errwrt() to log an error message, then calls subroutine bort_exit() ...">bort()</a> if NBITS &gt; NBITW </li>
-</ul>
+<p><b>Program history log:</b> </p>
+<table class="doxtable">
+<tr>
+<th>Date </th><th>Programmer </th><th>Comments  </th></tr>
+<tr>
+<td>1994-01-06 </td><td>J. Woollen </td><td>Original author </td></tr>
+<tr>
+<td>2003-11-04 </td><td>J. Ator </td><td>Added documentation </td></tr>
+<tr>
+<td>2003-11-04 </td><td>S. Bender </td><td>Added remarks and routine interdependencies </td></tr>
+<tr>
+<td>2003-11-04 </td><td>D. Keyser </td><td>Unified/portable for WRF; added documentation; outputs more complete diagnostic info when routine terminates abnormally </td></tr>
+<tr>
+<td>2014-12-03 </td><td>J. Ator </td><td>Call <a class="el" href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4" title="This subroutine calls subroutine errwrt() to log an error message, then calls subroutine bort_exit() ...">bort()</a> if NBITS &gt; NBITW </td></tr>
+</table>
 
-<p>Definition at line <a class="el" href="pkb_8f_source.html#l00040">40</a> of file <a class="el" href="pkb_8f_source.html">pkb.f</a>.</p>
+<p>Definition at line <a class="el" href="pkb_8f_source.html#l00038">38</a> of file <a class="el" href="pkb_8f_source.html">pkb.f</a>.</p>
 
 <p>References <a class="el" href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort()</a>, and <a class="el" href="irev_8F.html#a4a8512777ba30c1c919646c7a6a637f5">irev()</a>.</p>
 

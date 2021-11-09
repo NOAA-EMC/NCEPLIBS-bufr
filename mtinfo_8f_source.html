@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.5.0</span>
+   &#160;<span id="projectnumber">11.6.0</span>
    </div>
   </td>
  </tr>
@@ -116,13 +116,13 @@ $(document).ready(function(){initNavTree('mtinfo_8f_source.html','');});
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="comment">C&gt; @author J. Ator</span></div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="comment">C&gt; @date 2009-03-23</span></div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="comment">C&gt;</span></div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="comment">C&gt; @param[in] CMTDIR   - character*(*): Directory location of master</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="comment">C&gt; @param[in] CMTDIR  -- character*(*): Directory location of master</span></div>
 <div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="comment">C&gt;                          BUFR tables on local file system</span></div>
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="comment">C&gt;                          (up to 100 characters)</span></div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment">C&gt; @param[in] LUNMT1   - integer: First Fortran logical unit number</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment">C&gt; @param[in] LUNMT1  -- integer: First Fortran logical unit number</span></div>
 <div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="comment">C&gt;                          to use when reading master BUFR tables on</span></div>
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="comment">C&gt;                          local file system</span></div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="comment">C&gt; @param[in] LUNMT2   - integer: Second Fortran logical unit number</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="comment">C&gt; @param[in] LUNMT2  -- integer: Second Fortran logical unit number</span></div>
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="comment">C&gt;                          to use when reading master BUFR tables on</span></div>
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment">C&gt;                          local file system</span></div>
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="comment">C&gt;</span></div>
@@ -147,36 +147,38 @@ $(document).ready(function(){initNavTree('mtinfo_8f_source.html','');});
 <div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="comment">C&gt; local system.</span></div>
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="comment">C&gt;</span></div>
 <div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="comment">C&gt; &lt;b&gt;Program history log:&lt;/b&gt;</span></div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="comment">C&gt; - 2009-03-23  J. Ator    -- Original author</span></div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="comment">C&gt;</span></div>
-<div class="line"><a name="l00044"></a><span class="lineno"><a class="line" href="mtinfo_8f.html#ad95cdae13646faad7b457f7c854bbfc7">   44</a></span>&#160;<span class="keyword">      SUBROUTINE </span><a class="code" href="mtinfo_8f.html#ad95cdae13646faad7b457f7c854bbfc7">mtinfo</a> ( CMTDIR, LUNMT1, LUNMT2 )</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;      <span class="keyword">COMMON</span> /mstinf/ lun1, lun2, lmtd, mtdir</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="comment">C&gt; | Date | Programmer | Comments |</span></div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="comment">C&gt; | -----|------------|----------|</span></div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="comment">C&gt; | 2009-03-23 | J. Ator | Original author |</span></div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<span class="comment">C&gt;</span></div>
+<div class="line"><a name="l00046"></a><span class="lineno"><a class="line" href="mtinfo_8f.html#ad95cdae13646faad7b457f7c854bbfc7">   46</a></span>&#160;<span class="keyword">      SUBROUTINE </span><a class="code" href="mtinfo_8f.html#ad95cdae13646faad7b457f7c854bbfc7">mtinfo</a> ( CMTDIR, LUNMT1, LUNMT2 )</div>
 <div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;      <span class="keywordtype">CHARACTER*(*)</span> cmtdir</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;      <span class="keyword">COMMON</span> /mstinf/ lun1, lun2, lmtd, mtdir</div>
 <div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;      <span class="keywordtype">CHARACTER*128</span> bort_str</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;      <span class="keywordtype">CHARACTER*100</span> mtdir</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;<span class="comment">C-----------------------------------------------------------------------</span></div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;<span class="comment">C-----------------------------------------------------------------------</span></div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;      CALL <a class="code" href="strsuc_8f.html#a0ad7f0b59d89e0bdd1e9d73947b19e7e">strsuc</a>( cmtdir, mtdir, lmtd )</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;      <span class="keywordflow">IF</span> ( lmtd .LT. 0 ) goto 900</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;      lun1 = lunmt1</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;      lun2 = lunmt2</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;<span class="comment">C  EXITS</span></div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;<span class="comment">C  -----</span></div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;      <span class="keywordflow">RETURN</span></div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;900   bort_str = <span class="stringliteral">&#39;BUFRLIB: MTINFO - BAD INPUT MASTER TABLE DIRECTORY:&#39;</span></div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;      CALL <a class="code" href="bort2_8f.html#a50f605cc96a22ffce20206c2d254b9c3">bort2</a>(bort_str,cmtdir)</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;      <span class="keywordflow">END</span></div>
-<div class="ttc" id="strsuc_8f_html_a0ad7f0b59d89e0bdd1e9d73947b19e7e"><div class="ttname"><a href="strsuc_8f.html#a0ad7f0b59d89e0bdd1e9d73947b19e7e">strsuc</a></div><div class="ttdeci">subroutine strsuc(STR1, STR2, LENS)</div><div class="ttdoc">THIS SUBROUTINE REMOVES LEADING AND TRAILING BLANKS FROM A STRING. </div><div class="ttdef"><b>Definition:</b> <a href="strsuc_8f_source.html#l00034">strsuc.f:34</a></div></div>
-<div class="ttc" id="bort2_8f_html_a50f605cc96a22ffce20206c2d254b9c3"><div class="ttname"><a href="bort2_8f.html#a50f605cc96a22ffce20206c2d254b9c3">bort2</a></div><div class="ttdeci">subroutine bort2(STR1, STR2)</div><div class="ttdoc">This subroutine calls subroutine errwrt() to log two error messages, then calls subroutine bort_exit(...</div><div class="ttdef"><b>Definition:</b> <a href="bort2_8f_source.html#l00020">bort2.f:20</a></div></div>
-<div class="ttc" id="mtinfo_8f_html_ad95cdae13646faad7b457f7c854bbfc7"><div class="ttname"><a href="mtinfo_8f.html#ad95cdae13646faad7b457f7c854bbfc7">mtinfo</a></div><div class="ttdeci">subroutine mtinfo(CMTDIR, LUNMT1, LUNMT2)</div><div class="ttdoc">This subroutine allows the specification of the directory location and Fortran logical unit numbers t...</div><div class="ttdef"><b>Definition:</b> <a href="mtinfo_8f_source.html#l00044">mtinfo.f:44</a></div></div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;      <span class="keywordtype">CHARACTER*(*)</span> cmtdir</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;      <span class="keywordtype">CHARACTER*128</span> bort_str</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;      <span class="keywordtype">CHARACTER*100</span> mtdir</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;<span class="comment">C-----------------------------------------------------------------------</span></div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;<span class="comment">C-----------------------------------------------------------------------</span></div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;      CALL <a class="code" href="strsuc_8f.html#a0ad7f0b59d89e0bdd1e9d73947b19e7e">strsuc</a>( cmtdir, mtdir, lmtd )</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;      <span class="keywordflow">IF</span> ( lmtd .LT. 0 ) goto 900</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;      lun1 = lunmt1</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;      lun2 = lunmt2</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;<span class="comment">C  EXITS</span></div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;<span class="comment">C  -----</span></div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;      <span class="keywordflow">RETURN</span></div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;900   bort_str = <span class="stringliteral">&#39;BUFRLIB: MTINFO - BAD INPUT MASTER TABLE DIRECTORY:&#39;</span></div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;      CALL <a class="code" href="bort2_8f.html#a50f605cc96a22ffce20206c2d254b9c3">bort2</a>(bort_str,cmtdir)</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;      <span class="keywordflow">END</span></div>
+<div class="ttc" id="strsuc_8f_html_a0ad7f0b59d89e0bdd1e9d73947b19e7e"><div class="ttname"><a href="strsuc_8f.html#a0ad7f0b59d89e0bdd1e9d73947b19e7e">strsuc</a></div><div class="ttdeci">subroutine strsuc(STR1, STR2, LENS)</div><div class="ttdoc">This subroutine removes leading and trailing blanks from a character string. </div><div class="ttdef"><b>Definition:</b> <a href="strsuc_8f_source.html#l00023">strsuc.f:23</a></div></div>
+<div class="ttc" id="bort2_8f_html_a50f605cc96a22ffce20206c2d254b9c3"><div class="ttname"><a href="bort2_8f.html#a50f605cc96a22ffce20206c2d254b9c3">bort2</a></div><div class="ttdeci">subroutine bort2(STR1, STR2)</div><div class="ttdoc">This subroutine calls subroutine errwrt() to log two error messages, then calls subroutine bort_exit(...</div><div class="ttdef"><b>Definition:</b> <a href="bort2_8f_source.html#l00022">bort2.f:22</a></div></div>
+<div class="ttc" id="mtinfo_8f_html_ad95cdae13646faad7b457f7c854bbfc7"><div class="ttname"><a href="mtinfo_8f.html#ad95cdae13646faad7b457f7c854bbfc7">mtinfo</a></div><div class="ttdeci">subroutine mtinfo(CMTDIR, LUNMT1, LUNMT2)</div><div class="ttdoc">This subroutine allows the specification of the directory location and Fortran logical unit numbers t...</div><div class="ttdef"><b>Definition:</b> <a href="mtinfo_8f_source.html#l00046">mtinfo.f:46</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

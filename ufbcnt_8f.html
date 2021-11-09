@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.5.0</span>
+   &#160;<span id="projectnumber">11.6.0</span>
    </div>
   </td>
  </tr>
@@ -109,17 +109,19 @@ $(document).ready(function(){initNavTree('ufbcnt_8f.html','');});
 </div><!--header-->
 <div class="contents">
 
+<p>Get the current message number and data subset number within a BUFR file.  
+<a href="#details">More...</a></p>
+
 <p><a href="ufbcnt_8f_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions/Subroutines</h2></td></tr>
 <tr class="memitem:a836b84a254c97ec3a032561e08e2d29a"><td class="memItemLeft" align="right" valign="top">subroutine&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ufbcnt_8f.html#a836b84a254c97ec3a032561e08e2d29a">ufbcnt</a> (LUNIT, KMSG, KSUB)</td></tr>
-<tr class="memdesc:a836b84a254c97ec3a032561e08e2d29a"><td class="mdescLeft">&#160;</td><td class="mdescRight">THIS SUBROUTINE RETURNS A COUNT OF THE CURRENT MESSAGE NUMBER AND SUBSET NUMBER, WHERE THE MESSAGE NUMBER IS RELATIVE TO ALL MESSAGES IN THE BUFR FILE AND THE SUBSET NUMBER IS RELATIVE TO ALL SUBSETS IN THE MESSAGE.  <a href="#a836b84a254c97ec3a032561e08e2d29a">More...</a><br/></td></tr>
+<tr class="memdesc:a836b84a254c97ec3a032561e08e2d29a"><td class="mdescLeft">&#160;</td><td class="mdescRight">This subroutine returns the current location of the file pointer within a BUFR file, in terms of a message number counting from the beginning of the file, and a data subset number counting from the beginning of that message.  <a href="#a836b84a254c97ec3a032561e08e2d29a">More...</a><br/></td></tr>
 <tr class="separator:a836b84a254c97ec3a032561e08e2d29a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><dl class="section author"><dt>Author</dt><dd>WOOLLEN </dd></dl>
-<dl class="section date"><dt>Date</dt><dd>1994-01-06 </dd></dl>
+<div class="textblock"><p>Get the current message number and data subset number within a BUFR file. </p>
 
 <p>Definition in file <a class="el" href="ufbcnt_8f_source.html">ufbcnt.f</a>.</p>
 </div><h2 class="groupheader">Function/Subroutine Documentation</h2>
@@ -153,15 +155,37 @@ Functions/Subroutines</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>THIS SUBROUTINE RETURNS A COUNT OF THE CURRENT MESSAGE NUMBER AND SUBSET NUMBER, WHERE THE MESSAGE NUMBER IS RELATIVE TO ALL MESSAGES IN THE BUFR FILE AND THE SUBSET NUMBER IS RELATIVE TO ALL SUBSETS IN THE MESSAGE. </p>
-<p>IF THE MESSAGE/SUBSET ARE BEING READ, THE MESSAGE COUNT ADVANCES EACH TIME BUFR ARCHIVE LIBRARY SUBROUTINE READMG (OR EQUIVALENT) IS CALLED AND THE SUBSET COUNT ADVANCES EACH TIME BUFR ARCHIVE LIBRARY SUBROUTINE READSB (OR EQUIVALENT) IS CALLED FOR A PARTICULAR MESSAGE. IF THE MESSAGE/ SUBSET ARE BEING WRITTEN, THE MESSAGE COUNT ADVANCES EACH TIME BUFR ARCHIVE LIBRARY SUBROUTINE OPENMG (OR EQUIVALENT) IS CALLED AND THE SUBSET COUNT ADVANCES EACH TIME BUFR ARCHIVE LIBRARY SUBROUTINE WRITSB (OR EQUIVALENT) IS CALLED.</p>
-<p>PROGRAM HISTORY LOG: 1994-01-06 J. WOOLLEN &ndash; ORIGINAL AUTHOR 1998-07-08 J. WOOLLEN &ndash; REPLACED CALL TO CRAY LIBRARY ROUTINE "ABORT" WITH CALL TO NEW INTERNAL BUFRLIB ROUTINE "BORT" 1999-11-18 J. WOOLLEN &ndash; THE NUMBER OF BUFR FILES WHICH CAN BE OPENED AT ONE TIME INCREASED FROM 10 TO 32 (NECESSARY IN ORDER TO PROCESS MULTIPLE BUFR FILES UNDER THE MPI) 2003-11-04 S. BENDER &ndash; ADDED REMARKS/BUFRLIB ROUTINE INTERDEPENDENCIES 2003-11-04 D. KEYSER &ndash; UNIFIED/PORTABLE FOR WRF; ADDED DOCUMENTATION (INCLUDING HISTORY); OUTPUTS MORE COMPLETE DIAGNOSTIC INFO WHEN ROUTINE TERMINATES ABNORMALLY 2014-12-10 J. ATOR &ndash; USE MODULES INSTEAD OF COMMON BLOCKS</p>
-<p>USAGE: CALL UFBCNT (LUNIT, KMSG, KSUB) INPUT ARGUMENT LIST: LUNIT - INTEGER: FORTRAN LOGICAL UNIT NUMBER FOR BUFR FILE</p>
-<p>OUTPUT ARGUMENT LIST: KMSG - INTEGER: POINTER TO MESSAGE COUNT IN BUFR FILE (INCLUDING MESSAGE CURRENTLY OPEN FOR READING/WRITING) KSUB - INTEGER: POINTER TO SUBSET COUNT IN BUFR MESSAGE (INCLUDING SUBSET CURRENTLY OPEN FOR READING/WRITING)</p>
-<p>REMARKS: IF AN APPLICATION PROGRAM DESIRES TO KNOW THE NUMBER OF SUBSETS IN A BUFR MESSAGES JUST OPENED, IT MUST USE THE FUNCTION NMSUB RATHER THAN THIS SUBROUTINE BECAUSE KSUB ONLY INCREMENTS BY ONE FOR EACH CALL TO READSB (I.E., KSUB = 0 IMMEDIATELY AFTER READMG IS CALLED).</p>
-<p>THIS ROUTINE CALLS: BORT STATUS THIS ROUTINE IS CALLED BY: UFBPOS Also called by application programs. </p>
+<p>This subroutine returns the current location of the file pointer within a BUFR file, in terms of a message number counting from the beginning of the file, and a data subset number counting from the beginning of that message. </p>
+<dl class="section author"><dt>Author</dt><dd>J. Woollen </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>1994-01-06</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">LUNIT</td><td>&ndash; integer: Fortran logical unit number for BUFR file </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">KMSG</td><td>&ndash; integer: Ordinal number of current message, counting from the beginning of the BUFR file, but not counting any messages which contain DX BUFR tables information </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">KSUB</td><td>&ndash; integer: Ordinal number of current data subset within (KMSG)th message, counting from the beginning of the message</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section remark"><dt>Remarks</dt><dd><ul>
+<li>Logical unit LUNIT should have already been opened via a previous call to subroutine <a class="el" href="openbf_8f.html#a9bea9aeada166bd9037b959ca8452b28" title="This subroutine connects a new file to the BUFRLIB software for input or output operations. ">openbf()</a>. If LUNIT was opened for input operations, then KMSG is incremented with each call to any of the <a class="el" href="md__gpfs_dell2_emc_obsproc_noscrub_Jeff_8Ator_NCEPLIBS-bufr-GitHub_nceplibs-bufr_docs_UserGuide.html#hierarchy">message-reading subroutines</a>, and KSUB is incremented with each call to any of the <a class="el" href="md__gpfs_dell2_emc_obsproc_noscrub_Jeff_8Ator_NCEPLIBS-bufr-GitHub_nceplibs-bufr_docs_UserGuide.html#hierarchy">subset-reading subroutines</a> for that message. Otherwise, if LUNIT was opened for output operations, then KMSG is incremented with each call to any of the <a class="el" href="md__gpfs_dell2_emc_obsproc_noscrub_Jeff_8Ator_NCEPLIBS-bufr-GitHub_nceplibs-bufr_docs_UserGuide.html#hierarchy">message-writing subroutines</a>, and KSUB is incremented with each call to any of the <a class="el" href="md__gpfs_dell2_emc_obsproc_noscrub_Jeff_8Ator_NCEPLIBS-bufr-GitHub_nceplibs-bufr_docs_UserGuide.html#hierarchy">subset-writing subroutines</a> for that message.</li>
+<li>The value returned for KMSG does <b>not</b> include any messages which contain DX BUFR tables information.</li>
+</ul>
+</dd></dl>
+<p><b>Program history log:</b> </p>
+<table class="doxtable">
+<tr>
+<th>Date </th><th>Programmer </th><th>Comments  </th></tr>
+<tr>
+<td>1994-01-06 </td><td>J. Woollen </td><td>Original author </td></tr>
+<tr>
+<td>1998-07-08 </td><td>J. Woollen </td><td>Replaced call to Cray library routine ABORT with call to new internal routine <a class="el" href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4" title="This subroutine calls subroutine errwrt() to log an error message, then calls subroutine bort_exit() ...">bort()</a> </td></tr>
+<tr>
+<td>1999-11-18 </td><td>J. Woollen </td><td>The number of BUFR files which can be opened at one time increased from 10 to 32 </td></tr>
+<tr>
+<td>2014-12-10 </td><td>J. Ator </td><td>Use modules instead of COMMON blocks </td></tr>
+</table>
 
-<p>Definition at line <a class="el" href="ufbcnt_8f_source.html#l00055">55</a> of file <a class="el" href="ufbcnt_8f_source.html">ufbcnt.f</a>.</p>
+<p>Definition at line <a class="el" href="ufbcnt_8f_source.html#l00045">45</a> of file <a class="el" href="ufbcnt_8f_source.html">ufbcnt.f</a>.</p>
 
 <p>References <a class="el" href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort()</a>, and <a class="el" href="status_8f.html#a22292e7a69c411a961168198d259f336">status()</a>.</p>
 

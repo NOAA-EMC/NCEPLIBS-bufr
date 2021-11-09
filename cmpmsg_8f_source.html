@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.5.0</span>
+   &#160;<span id="projectnumber">11.6.0</span>
    </div>
   </td>
  </tr>
@@ -116,7 +116,7 @@ $(document).ready(function(){initNavTree('cmpmsg_8f_source.html','');});
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="comment">C&gt; @author J. Ator</span></div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="comment">C&gt; @date 2005-03-09</span></div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="comment">C&gt;</span></div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="comment">C&gt; @param[in] CF    - character*1: Flag indicating whether future BUFR</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="comment">C&gt; @param[in] CF   -- character*1: Flag indicating whether future BUFR</span></div>
 <div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="comment">C&gt;                    output messages are to be compressed</span></div>
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="comment">C&gt;                     - &#39;N&#39; = No (the default)</span></div>
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment">C&gt;                     - &#39;Y&#39; = Yes</span></div>
@@ -142,34 +142,35 @@ $(document).ready(function(){initNavTree('cmpmsg_8f_source.html','');});
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="comment">C&gt; it is not activated by default.</span></div>
 <div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="comment">C&gt;</span></div>
 <div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="comment">C&gt; &lt;b&gt;Program history log:&lt;/b&gt;</span></div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="comment">C&gt; - 2005-03-09  J. Ator    -- Original author</span></div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="comment">C&gt;</span></div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="comment">C&gt;</span></div>
-<div class="line"><a name="l00040"></a><span class="lineno"><a class="line" href="cmpmsg_8f.html#a75b2d1dfd1dedb519205399a8087fd56">   40</a></span>&#160;<span class="keyword">      SUBROUTINE </span><a class="code" href="cmpmsg_8f.html#a75b2d1dfd1dedb519205399a8087fd56">cmpmsg</a>(CF)</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;      <span class="keyword">COMMON</span> /msgcmp/ ccmf</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;      <span class="keywordtype">CHARACTER*128</span> bort_str</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;      <span class="keywordtype">CHARACTER*1</span>   ccmf, cf</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;<span class="comment">C-----------------------------------------------------------------------</span></div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="comment">C&gt; | Date | Programmer | Comments |</span></div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="comment">C&gt; | -----|------------|----------|</span></div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="comment">C&gt; | 2005-03-09 | J. Ator  | Original author |</span></div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="comment">C&gt;</span></div>
+<div class="line"><a name="l00041"></a><span class="lineno"><a class="line" href="cmpmsg_8f.html#a75b2d1dfd1dedb519205399a8087fd56">   41</a></span>&#160;<span class="keyword">      SUBROUTINE </span><a class="code" href="cmpmsg_8f.html#a75b2d1dfd1dedb519205399a8087fd56">cmpmsg</a>(CF)</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;      <span class="keyword">COMMON</span> /msgcmp/ ccmf</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;      <span class="keywordtype">CHARACTER*128</span> bort_str</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;      <span class="keywordtype">CHARACTER*1</span>   ccmf, cf</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;</div>
 <div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<span class="comment">C-----------------------------------------------------------------------</span></div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;      CALL <a class="code" href="capit_8f.html#acade976948fae8afa1a8301ff9272f56">capit</a>(cf)</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;      <span class="keywordflow">IF</span>(cf.NE.<span class="stringliteral">&#39;Y&#39;</span>.AND. cf.NE.<span class="stringliteral">&#39;N&#39;</span>) goto 900</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;      ccmf = cf </div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;<span class="comment">C  EXITS</span></div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;<span class="comment">C  -----</span></div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;      <span class="keywordflow">RETURN</span></div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;900   <span class="keyword">WRITE</span>(bort_str,<span class="stringliteral">&#39;(&quot;BUFRLIB: CMPMSG - INPUT ARGUMENT IS &quot;,A1,&#39;</span>//</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;     . <span class="stringliteral">&#39;&quot;, IT MUST BE EITHER Y OR N&quot;)&#39;</span>) cf</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;      CALL <a class="code" href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort</a>(bort_str)</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;      <span class="keywordflow">END</span></div>
-<div class="ttc" id="cmpmsg_8f_html_a75b2d1dfd1dedb519205399a8087fd56"><div class="ttname"><a href="cmpmsg_8f.html#a75b2d1dfd1dedb519205399a8087fd56">cmpmsg</a></div><div class="ttdeci">subroutine cmpmsg(CF)</div><div class="ttdoc">This subroutine is used to specify whether BUFR messages output by future calls to message-writing su...</div><div class="ttdef"><b>Definition:</b> <a href="cmpmsg_8f_source.html#l00040">cmpmsg.f:40</a></div></div>
-<div class="ttc" id="bort_8f_html_a488d3a8cf930fb592a9fdaefcfa04ac4"><div class="ttname"><a href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort</a></div><div class="ttdeci">subroutine bort(STR)</div><div class="ttdoc">This subroutine calls subroutine errwrt() to log an error message, then calls subroutine bort_exit() ...</div><div class="ttdef"><b>Definition:</b> <a href="bort_8f_source.html#l00023">bort.f:23</a></div></div>
-<div class="ttc" id="capit_8f_html_acade976948fae8afa1a8301ff9272f56"><div class="ttname"><a href="capit_8f.html#acade976948fae8afa1a8301ff9272f56">capit</a></div><div class="ttdeci">subroutine capit(STR)</div><div class="ttdoc">THIS SUBROUTINE CAPITALIZES A STRING OF CHARACTERS. </div><div class="ttdef"><b>Definition:</b> <a href="capit_8f_source.html#l00039">capit.f:39</a></div></div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<span class="comment">C-----------------------------------------------------------------------</span></div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;      CALL <a class="code" href="capit_8f.html#acade976948fae8afa1a8301ff9272f56">capit</a>(cf)</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;      <span class="keywordflow">IF</span>(cf.NE.<span class="stringliteral">&#39;Y&#39;</span>.AND. cf.NE.<span class="stringliteral">&#39;N&#39;</span>) goto 900</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;      ccmf = cf </div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;<span class="comment">C  EXITS</span></div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;<span class="comment">C  -----</span></div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;      <span class="keywordflow">RETURN</span></div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;900   <span class="keyword">WRITE</span>(bort_str,<span class="stringliteral">&#39;(&quot;BUFRLIB: CMPMSG - INPUT ARGUMENT IS &quot;,A1,&#39;</span>//</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;     . <span class="stringliteral">&#39;&quot;, IT MUST BE EITHER Y OR N&quot;)&#39;</span>) cf</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;      CALL <a class="code" href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort</a>(bort_str)</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;      <span class="keywordflow">END</span></div>
+<div class="ttc" id="cmpmsg_8f_html_a75b2d1dfd1dedb519205399a8087fd56"><div class="ttname"><a href="cmpmsg_8f.html#a75b2d1dfd1dedb519205399a8087fd56">cmpmsg</a></div><div class="ttdeci">subroutine cmpmsg(CF)</div><div class="ttdoc">This subroutine is used to specify whether BUFR messages output by future calls to message-writing su...</div><div class="ttdef"><b>Definition:</b> <a href="cmpmsg_8f_source.html#l00041">cmpmsg.f:41</a></div></div>
+<div class="ttc" id="bort_8f_html_a488d3a8cf930fb592a9fdaefcfa04ac4"><div class="ttname"><a href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort</a></div><div class="ttdeci">subroutine bort(STR)</div><div class="ttdoc">This subroutine calls subroutine errwrt() to log an error message, then calls subroutine bort_exit() ...</div><div class="ttdef"><b>Definition:</b> <a href="bort_8f_source.html#l00022">bort.f:22</a></div></div>
+<div class="ttc" id="capit_8f_html_acade976948fae8afa1a8301ff9272f56"><div class="ttname"><a href="capit_8f.html#acade976948fae8afa1a8301ff9272f56">capit</a></div><div class="ttdeci">subroutine capit(STR)</div><div class="ttdoc">This subroutine capitalizes all of the alphabetic characters in a string. </div><div class="ttdef"><b>Definition:</b> <a href="capit_8f_source.html#l00018">capit.f:18</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

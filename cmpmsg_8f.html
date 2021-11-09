@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.5.0</span>
+   &#160;<span id="projectnumber">11.6.0</span>
    </div>
   </td>
  </tr>
@@ -144,7 +144,7 @@ Functions/Subroutines</h2></td></tr>
 <dl class="section date"><dt>Date</dt><dd>2005-03-09</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">CF</td><td>- character*1: Flag indicating whether future BUFR output messages are to be compressed<ul>
+    <tr><td class="paramdir">[in]</td><td class="paramname">CF</td><td>&ndash; character*1: Flag indicating whether future BUFR output messages are to be compressed<ul>
 <li>'N' = No (the default)</li>
 <li>'Y' = Yes</li>
 </ul>
@@ -152,14 +152,17 @@ Functions/Subroutines</h2></td></tr>
   </table>
   </dd>
 </dl>
-<p>This subroutine can be called at any time after the first call to subroutine <a class="el" href="openbf_8F.html#a9bea9aeada166bd9037b959ca8452b28" title="This subroutine connects a new file to the BUFRLIB software for input or output operations. ">openbf()</a>, and the specified value for CF will remain in effect for all future calls to <a class="el" href="md__gpfs_dell2_emc_obsproc_noscrub_Jeff_8Ator_NCEPLIBS-bufr-GitHub_nceplibs-bufr_docs_UserGuide.html#hierarchy">message-writing subroutines</a> and <a class="el" href="md__gpfs_dell2_emc_obsproc_noscrub_Jeff_8Ator_NCEPLIBS-bufr-GitHub_nceplibs-bufr_docs_UserGuide.html#hierarchy">subset-writing subroutines</a> for all Fortran logical units that are open for output within the application program, unless a subsequent call is made to this subroutine to reset the value of CF again. If this subroutine is never called, a default value of 'N' is used for CF, as set within subroutine <a class="el" href="bfrini_8f90.html#ab3f045cc170403305543e34e30b87001" title="This subroutine initializes numerous global variables and arrays within internal modules and COMMON b...">bfrini()</a>.</p>
+<p>This subroutine can be called at any time after the first call to subroutine <a class="el" href="openbf_8f.html#a9bea9aeada166bd9037b959ca8452b28" title="This subroutine connects a new file to the BUFRLIB software for input or output operations. ">openbf()</a>, and the specified value for CF will remain in effect for all future calls to <a class="el" href="md__gpfs_dell2_emc_obsproc_noscrub_Jeff_8Ator_NCEPLIBS-bufr-GitHub_nceplibs-bufr_docs_UserGuide.html#hierarchy">message-writing subroutines</a> and <a class="el" href="md__gpfs_dell2_emc_obsproc_noscrub_Jeff_8Ator_NCEPLIBS-bufr-GitHub_nceplibs-bufr_docs_UserGuide.html#hierarchy">subset-writing subroutines</a> for all Fortran logical units that are open for output within the application program, unless a subsequent call is made to this subroutine to reset the value of CF again. If this subroutine is never called, a default value of 'N' is used for CF, as set within subroutine <a class="el" href="bfrini_8f90.html#ab3f045cc170403305543e34e30b87001" title="This subroutine initializes numerous global variables and arrays within internal modules and COMMON b...">bfrini()</a>.</p>
 <p>When compression is activated, it is implemented using the algorithm for data subset compression prescribed within the <a class="el" href="md__gpfs_dell2_emc_obsproc_noscrub_Jeff_8Ator_NCEPLIBS-bufr-GitHub_nceplibs-bufr_docs_UserGuide.html#manual">official WMO BUFR regulations</a>. Compression is most useful when the data subsets to be compressed are devoid of any delayed replication, and when there is minimal variation of corresponding data values among different data subsets within the same BUFR message. Otherwise, compression may provide little to no benefit, and which is why it is not activated by default.</p>
-<p><b>Program history log:</b></p>
-<ul>
-<li>2005-03-09 J. Ator &ndash; Original author </li>
-</ul>
+<p><b>Program history log:</b> </p>
+<table class="doxtable">
+<tr>
+<th>Date </th><th>Programmer </th><th>Comments  </th></tr>
+<tr>
+<td>2005-03-09 </td><td>J. Ator </td><td>Original author </td></tr>
+</table>
 
-<p>Definition at line <a class="el" href="cmpmsg_8f_source.html#l00040">40</a> of file <a class="el" href="cmpmsg_8f_source.html">cmpmsg.f</a>.</p>
+<p>Definition at line <a class="el" href="cmpmsg_8f_source.html#l00041">41</a> of file <a class="el" href="cmpmsg_8f_source.html">cmpmsg.f</a>.</p>
 
 <p>References <a class="el" href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort()</a>, and <a class="el" href="capit_8f.html#acade976948fae8afa1a8301ff9272f56">capit()</a>.</p>
 

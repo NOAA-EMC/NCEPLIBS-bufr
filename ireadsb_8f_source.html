@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.5.0</span>
+   &#160;<span id="projectnumber">11.6.0</span>
    </div>
   </td>
  </tr>
@@ -115,25 +115,25 @@ $(document).ready(function(){initNavTree('ireadsb_8f_source.html','');});
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="comment">C&gt; @author J. Woollen</span></div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="comment">C&gt; @date 1994-01-06</span></div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="comment">C&gt;</span></div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="comment">C&gt; @param[in] LUNIT  - integer: Fortran logical unit number for</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="comment">C&gt; @param[in] LUNIT -- integer: Fortran logical unit number for</span></div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="comment">C&gt;                         BUFR file</span></div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="comment">C&gt; @returns ireadsb - integer:</span></div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="comment">C&gt;                    - 0 = new BUFR data subset was successfully</span></div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment">C&gt;                          read into internal arrays</span></div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="comment">C&gt;                    - -1 = there are no more BUFR data subsets in</span></div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="comment">C&gt;                           the BUFR message</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="comment">C&gt; @returns ireadsb -- integer:</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="comment">C&gt;                     - 0 = new BUFR data subset was successfully</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment">C&gt;                           read into internal arrays</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="comment">C&gt;                     - -1 = there are no more BUFR data subsets in</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="comment">C&gt;                            the BUFR message</span></div>
 <div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="comment">C&gt;</span></div>
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="comment">C&gt; @remarks</span></div>
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment">C&gt; - The use of this function allows the return code from readsb() to be</span></div>
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="comment">C&gt; used as the target variable within an iterative program loop.</span></div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="comment">C&gt;</span></div>
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="comment">C&gt; &lt;b&gt;Program history log:&lt;/b&gt;</span></div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="comment">C&gt; - 1994-01-06  J. Woollen -- Original author</span></div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="comment">C&gt; - 2002-05-14 J. Woollen -- Changed from an entry point to increase</span></div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="comment">C&gt;                           portability to other platforms</span></div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="comment">C&gt; - 2003-11-04  S. Bender  -- Added remarks and routine interdependencies</span></div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="comment">C&gt; - 2003-11-04  D. Keyser  -- Unified/portable for WRF; added history</span></div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="comment">C&gt;                           documentation</span></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="comment">C&gt; | Date | Programmer | Comments |</span></div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="comment">C&gt; | -----|------------|----------|</span></div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="comment">C&gt; | 1994-01-06 | J. Woollen | Original author |</span></div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="comment">C&gt; | 2002-05-14 | J. Woollen | Changed from an entry point to increase portability to other platforms |</span></div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="comment">C&gt; | 2003-11-04 | S. Bender | Added remarks and routine interdependencies |</span></div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="comment">C&gt; | 2003-11-04 | D. Keyser | Unified/portable for WRF; added documentation |</span></div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="comment">C&gt;</span></div>
 <div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="ireadsb_8f.html#a28f7e78017ef9f00dcce7fb2c0bbab28">   30</a></span>&#160;<span class="keyword">      FUNCTION </span><a class="code" href="ireadsb_8f.html#a28f7e78017ef9f00dcce7fb2c0bbab28">ireadsb</a>(LUNIT)</div>
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;</div>
@@ -142,7 +142,7 @@ $(document).ready(function(){initNavTree('ireadsb_8f_source.html','');});
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;      <span class="keywordflow">RETURN</span></div>
 <div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;      <span class="keywordflow">END</span></div>
 <div class="ttc" id="ireadsb_8f_html_a28f7e78017ef9f00dcce7fb2c0bbab28"><div class="ttname"><a href="ireadsb_8f.html#a28f7e78017ef9f00dcce7fb2c0bbab28">ireadsb</a></div><div class="ttdeci">function ireadsb(LUNIT)</div><div class="ttdoc">This function calls BUFRLIB subroutine readsb() and passes back its return code as the function value...</div><div class="ttdef"><b>Definition:</b> <a href="ireadsb_8f_source.html#l00030">ireadsb.f:30</a></div></div>
-<div class="ttc" id="readsb_8f_html_ae7619346ca59d008b4d6a646408876f5"><div class="ttname"><a href="readsb_8f.html#ae7619346ca59d008b4d6a646408876f5">readsb</a></div><div class="ttdeci">subroutine readsb(LUNIT, IRET)</div><div class="ttdoc">This subroutine reads the next data subset from a BUFR message into internal arrays. </div><div class="ttdef"><b>Definition:</b> <a href="readsb_8f_source.html#l00059">readsb.f:59</a></div></div>
+<div class="ttc" id="readsb_8f_html_ae7619346ca59d008b4d6a646408876f5"><div class="ttname"><a href="readsb_8f.html#ae7619346ca59d008b4d6a646408876f5">readsb</a></div><div class="ttdeci">subroutine readsb(LUNIT, IRET)</div><div class="ttdoc">This subroutine reads the next data subset from a BUFR message into internal arrays. </div><div class="ttdef"><b>Definition:</b> <a href="readsb_8f_source.html#l00047">readsb.f:47</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.5.0</span>
+   &#160;<span id="projectnumber">11.6.0</span>
    </div>
   </td>
  </tr>
@@ -117,17 +117,17 @@ $(document).ready(function(){initNavTree('upftbv_8f_source.html','');});
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="comment">C&gt; @author J. Ator</span></div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="comment">C&gt; @date 2005-11-29</span></div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="comment">C&gt;</span></div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="comment">C&gt; @param[in] LUNIT  - integer: Fortran logical unit number for</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="comment">C&gt; @param[in] LUNIT -- integer: Fortran logical unit number for</span></div>
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="comment">C&gt;                     BUFR file</span></div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment">C&gt; @param[in] NEMO   - character*(*): Table B mnemonic with</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment">C&gt; @param[in] NEMO  -- character*(*): Table B mnemonic with</span></div>
 <div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="comment">C&gt;                     flag table units</span></div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="comment">C&gt; @param[in] VAL    - real*8: Value corresponding to NEMO</span></div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="comment">C&gt; @param[in] MXIB   - integer: Dimensioned size (in integers) of</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="comment">C&gt; @param[in] VAL   -- real*8: Value corresponding to NEMO</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="comment">C&gt; @param[in] MXIB  -- integer: Dimensioned size (in integers) of</span></div>
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="comment">C&gt;                     IBIT; used by the subroutine to ensure that</span></div>
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment">C&gt;                     it doesn&#39;t overflow the IBIT array</span></div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="comment">C&gt; @param[out] IBIT  - integer(*): Bit numbers which were set to</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="comment">C&gt; @param[out] IBIT -- integer(*): Bit numbers which were set to</span></div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="comment">C&gt;                     &quot;On&quot; (i.e. set to &quot;1&quot;) in VAL</span></div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="comment">C&gt; @param[out] NIB   - integer: Number of bit numbers returned in</span></div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="comment">C&gt; @param[out] NIB  -- integer: Number of bit numbers returned in</span></div>
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="comment">C&gt;                     IBIT</span></div>
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="comment">C&gt;</span></div>
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="comment">C&gt; @remarks</span></div>
@@ -137,70 +137,72 @@ $(document).ready(function(){initNavTree('upftbv_8f_source.html','');});
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="comment">C&gt; (i.e. most significant) bit in any bit field.</span></div>
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="comment">C&gt;</span></div>
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="comment">C&gt; &lt;b&gt;Program history log:&lt;/b&gt;</span></div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="comment">C&gt; - 2005-11-29  J. Ator    -- Original version</span></div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="comment">C&gt; - 2014-12-10  J. Ator    -- Use modules instead of COMMON blocks</span></div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="comment">C&gt;</span></div>
-<div class="line"><a name="l00035"></a><span class="lineno"><a class="line" href="upftbv_8f.html#ad0ea8840d6f3cfeed493151e813d67c8">   35</a></span>&#160;<span class="keyword">      SUBROUTINE </span><a class="code" href="upftbv_8f.html#ad0ea8840d6f3cfeed493151e813d67c8">upftbv</a>(LUNIT,NEMO,VAL,MXIB,IBIT,NIB)</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;      <span class="keywordtype">USE </span><a class="code" href="moda__tababd_8F.html#classmoda__tababd">moda_tababd</a></div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="comment">C&gt; | Date | Programmer | Comments |</span></div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="comment">C&gt; | -----|------------|----------|</span></div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="comment">C&gt; | 2005-11-29 | J. Ator | Original version |</span></div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="comment">C&gt; | 2014-12-10 | J. Ator | Use modules instead of COMMON blocks |</span></div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="comment">C&gt;</span></div>
+<div class="line"><a name="l00037"></a><span class="lineno"><a class="line" href="upftbv_8f.html#ad0ea8840d6f3cfeed493151e813d67c8">   37</a></span>&#160;<span class="keyword">      SUBROUTINE </span><a class="code" href="upftbv_8f.html#ad0ea8840d6f3cfeed493151e813d67c8">upftbv</a>(LUNIT,NEMO,VAL,MXIB,IBIT,NIB)</div>
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;      <span class="keywordtype">REAL*8</span>  val,r8val,r82i</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;      <span class="keywordtype">USE </span><a class="code" href="moda__tababd_8F.html#classmoda__tababd">moda_tababd</a></div>
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;      <span class="keywordtype">INTEGER</span> ibit (*)</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;      <span class="keywordtype">REAL*8</span>  val,r8val,r82i</div>
 <div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;      <span class="keywordtype">CHARACTER*(*)</span> nemo</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;      <span class="keywordtype">CHARACTER*128</span> bort_str</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;      <span class="keywordtype">CHARACTER*1</span>   tab</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;<span class="comment">C----------------------------------------------------------------------</span></div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<span class="comment">C----------------------------------------------------------------------</span></div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;<span class="comment">C     Perform some sanity checks.</span></div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;      <span class="keywordtype">INTEGER</span> ibit (*)</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;      <span class="keywordtype">CHARACTER*(*)</span> nemo</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;      <span class="keywordtype">CHARACTER*128</span> bort_str</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;      <span class="keywordtype">CHARACTER*1</span>   tab</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<span class="comment">C----------------------------------------------------------------------</span></div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;<span class="comment">C----------------------------------------------------------------------</span></div>
 <div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;      CALL <a class="code" href="status_8f.html#a22292e7a69c411a961168198d259f336">status</a>(lunit,lun,il,im)</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;      <span class="keywordflow">IF</span>(il.EQ.0) goto 900</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;      CALL <a class="code" href="nemtab_8f.html#a3f3fb5a378c52dac83cb4fce27ceb712">nemtab</a>(lun,nemo,idn,tab,n)</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;      <span class="keywordflow">IF</span>(n.EQ.0) goto 901</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;      <span class="keywordflow">IF</span>(tabb(n,lun)(71:74).NE.<span class="stringliteral">&#39;FLAG&#39;</span>) goto 902</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;<span class="comment">C     Figure out which bits are set.</span></div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;      </div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;      nib = 0</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;      r8val = val</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;      nbits = <a class="code" href="valx_8f.html#a0b8041e934c1c4ae5f455e8c6f4e7daf">valx</a>(tabb(n,lun)(110:112))</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;      <span class="keywordflow">DO</span> i=(nbits-1),0,-1</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;          r82i = (2.)**i</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;          <span class="keywordflow">IF</span>(abs(r8val-r82i).LT.(0.005)) <span class="keywordflow">THEN</span></div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;              nib = nib + 1</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;              <span class="keywordflow">IF</span>(nib.GT.mxib) goto 903</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;              ibit(nib) = nbits-i</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;              <span class="keywordflow">RETURN</span></div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;          <span class="keywordflow">ELSEIF</span>(r82i.LT.r8val) <span class="keywordflow">THEN</span></div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;              nib = nib + 1</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;              <span class="keywordflow">IF</span>(nib.GT.mxib) goto 903</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;              ibit(nib) = nbits-i</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;              r8val = r8val - r82i</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;          <span class="keywordflow">ENDIF</span></div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;      <span class="keywordflow">ENDDO</span></div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;      <span class="keywordflow">RETURN</span></div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;900   CALL <a class="code" href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort</a>(<span class="stringliteral">&#39;BUFRLIB: UPFTBV - INPUT BUFR FILE IS CLOSED, IT &#39;</span>//</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;     . <span class="stringliteral">&#39;MUST BE OPEN FOR INPUT&#39;</span>)</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;901   <span class="keyword">WRITE</span>(bort_str,<span class="stringliteral">&#39;(&quot;BUFRLIB: UPFTBV - MNEMONIC &quot;,A,&#39;</span>//</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;     . <span class="stringliteral">&#39;&quot; NOT FOUND IN TABLE B&quot;)&#39;</span>) nemo</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;      CALL <a class="code" href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort</a>(bort_str)</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;902   <span class="keyword">WRITE</span>(bort_str,<span class="stringliteral">&#39;(&quot;BUFRLIB: UPFTBV - MNEMONIC &quot;,A,&#39;</span>//</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;     . <span class="stringliteral">&#39;&quot; IS NOT A FLAG TABLE&quot;)&#39;</span>) nemo</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;      CALL <a class="code" href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort</a>(bort_str)</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;903   CALL <a class="code" href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort</a>(<span class="stringliteral">&#39;BUFRLIB: UPFTBV - IBIT ARRAY OVERFLOW&#39;</span>)</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;      <span class="keywordflow">END</span></div>
-<div class="ttc" id="valx_8f_html_a0b8041e934c1c4ae5f455e8c6f4e7daf"><div class="ttname"><a href="valx_8f.html#a0b8041e934c1c4ae5f455e8c6f4e7daf">valx</a></div><div class="ttdeci">function valx(STR)</div><div class="ttdoc">THIS FUNCTION DECODES A REAL NUMBER FROM A CHARACTER STRING. </div><div class="ttdef"><b>Definition:</b> <a href="valx_8f_source.html#l00039">valx.f:39</a></div></div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="comment">C     Perform some sanity checks.</span></div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;      CALL <a class="code" href="status_8f.html#a22292e7a69c411a961168198d259f336">status</a>(lunit,lun,il,im)</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;      <span class="keywordflow">IF</span>(il.EQ.0) goto 900</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;      CALL <a class="code" href="nemtab_8f.html#a3f3fb5a378c52dac83cb4fce27ceb712">nemtab</a>(lun,nemo,idn,tab,n)</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;      <span class="keywordflow">IF</span>(n.EQ.0) goto 901</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;      <span class="keywordflow">IF</span>(tabb(n,lun)(71:74).NE.<span class="stringliteral">&#39;FLAG&#39;</span>) goto 902</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;<span class="comment">C     Figure out which bits are set.</span></div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;      </div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;      nib = 0</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;      r8val = val</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;      nbits = <a class="code" href="valx_8f.html#a0b8041e934c1c4ae5f455e8c6f4e7daf">valx</a>(tabb(n,lun)(110:112))</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;      <span class="keywordflow">DO</span> i=(nbits-1),0,-1</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;          r82i = (2.)**i</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;          <span class="keywordflow">IF</span>(abs(r8val-r82i).LT.(0.005)) <span class="keywordflow">THEN</span></div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;              nib = nib + 1</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;              <span class="keywordflow">IF</span>(nib.GT.mxib) goto 903</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;              ibit(nib) = nbits-i</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;              <span class="keywordflow">RETURN</span></div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;          <span class="keywordflow">ELSEIF</span>(r82i.LT.r8val) <span class="keywordflow">THEN</span></div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;              nib = nib + 1</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;              <span class="keywordflow">IF</span>(nib.GT.mxib) goto 903</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;              ibit(nib) = nbits-i</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;              r8val = r8val - r82i</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;          <span class="keywordflow">ENDIF</span></div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;      <span class="keywordflow">ENDDO</span></div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;      <span class="keywordflow">RETURN</span></div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;900   CALL <a class="code" href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort</a>(<span class="stringliteral">&#39;BUFRLIB: UPFTBV - INPUT BUFR FILE IS CLOSED, IT &#39;</span>//</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;     . <span class="stringliteral">&#39;MUST BE OPEN FOR INPUT&#39;</span>)</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;901   <span class="keyword">WRITE</span>(bort_str,<span class="stringliteral">&#39;(&quot;BUFRLIB: UPFTBV - MNEMONIC &quot;,A,&#39;</span>//</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;     . <span class="stringliteral">&#39;&quot; NOT FOUND IN TABLE B&quot;)&#39;</span>) nemo</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;      CALL <a class="code" href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort</a>(bort_str)</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;902   <span class="keyword">WRITE</span>(bort_str,<span class="stringliteral">&#39;(&quot;BUFRLIB: UPFTBV - MNEMONIC &quot;,A,&#39;</span>//</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;     . <span class="stringliteral">&#39;&quot; IS NOT A FLAG TABLE&quot;)&#39;</span>) nemo</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;      CALL <a class="code" href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort</a>(bort_str)</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;903   CALL <a class="code" href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort</a>(<span class="stringliteral">&#39;BUFRLIB: UPFTBV - IBIT ARRAY OVERFLOW&#39;</span>)</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;      <span class="keywordflow">END</span></div>
+<div class="ttc" id="valx_8f_html_a0b8041e934c1c4ae5f455e8c6f4e7daf"><div class="ttname"><a href="valx_8f.html#a0b8041e934c1c4ae5f455e8c6f4e7daf">valx</a></div><div class="ttdeci">function valx(STR)</div><div class="ttdoc">This function decodes a real number from a character string. </div><div class="ttdef"><b>Definition:</b> <a href="valx_8f_source.html#l00025">valx.f:25</a></div></div>
 <div class="ttc" id="moda__tababd_8F_html_classmoda__tababd"><div class="ttname"><a href="moda__tababd_8F.html#classmoda__tababd">moda_tababd</a></div><div class="ttdoc">This module contains array and variable declarations used to store DX BUFR tables internally for mult...</div><div class="ttdef"><b>Definition:</b> <a href="moda__tababd_8F_source.html#l00010">moda_tababd.F:10</a></div></div>
-<div class="ttc" id="status_8f_html_a22292e7a69c411a961168198d259f336"><div class="ttname"><a href="status_8f.html#a22292e7a69c411a961168198d259f336">status</a></div><div class="ttdeci">subroutine status(LUNIT, LUN, IL, IM)</div><div class="ttdoc">This subroutine checks whether a specified Fortran logical unit number is currently connected to the ...</div><div class="ttdef"><b>Definition:</b> <a href="status_8f_source.html#l00061">status.f:61</a></div></div>
-<div class="ttc" id="upftbv_8f_html_ad0ea8840d6f3cfeed493151e813d67c8"><div class="ttname"><a href="upftbv_8f.html#ad0ea8840d6f3cfeed493151e813d67c8">upftbv</a></div><div class="ttdeci">subroutine upftbv(LUNIT, NEMO, VAL, MXIB, IBIT, NIB)</div><div class="ttdoc">Given a Table B mnemonic with flag table units and a corresponding numerical data value...</div><div class="ttdef"><b>Definition:</b> <a href="upftbv_8f_source.html#l00035">upftbv.f:35</a></div></div>
-<div class="ttc" id="nemtab_8f_html_a3f3fb5a378c52dac83cb4fce27ceb712"><div class="ttname"><a href="nemtab_8f.html#a3f3fb5a378c52dac83cb4fce27ceb712">nemtab</a></div><div class="ttdeci">subroutine nemtab(LUN, NEMO, IDN, TAB, IRET)</div><div class="ttdoc">THIS SUBROUTINE SEARCHES FOR MNEMONIC NEMO WITHIN THE INTERNAL TABLE B AND D ARRAYS HOLDING THE DICTI...</div><div class="ttdef"><b>Definition:</b> <a href="nemtab_8f_source.html#l00066">nemtab.f:66</a></div></div>
-<div class="ttc" id="bort_8f_html_a488d3a8cf930fb592a9fdaefcfa04ac4"><div class="ttname"><a href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort</a></div><div class="ttdeci">subroutine bort(STR)</div><div class="ttdoc">This subroutine calls subroutine errwrt() to log an error message, then calls subroutine bort_exit() ...</div><div class="ttdef"><b>Definition:</b> <a href="bort_8f_source.html#l00023">bort.f:23</a></div></div>
+<div class="ttc" id="status_8f_html_a22292e7a69c411a961168198d259f336"><div class="ttname"><a href="status_8f.html#a22292e7a69c411a961168198d259f336">status</a></div><div class="ttdeci">subroutine status(LUNIT, LUN, IL, IM)</div><div class="ttdoc">This subroutine checks whether a specified Fortran logical unit number is currently connected to the ...</div><div class="ttdef"><b>Definition:</b> <a href="status_8f_source.html#l00055">status.f:55</a></div></div>
+<div class="ttc" id="upftbv_8f_html_ad0ea8840d6f3cfeed493151e813d67c8"><div class="ttname"><a href="upftbv_8f.html#ad0ea8840d6f3cfeed493151e813d67c8">upftbv</a></div><div class="ttdeci">subroutine upftbv(LUNIT, NEMO, VAL, MXIB, IBIT, NIB)</div><div class="ttdoc">Given a Table B mnemonic with flag table units and a corresponding numerical data value...</div><div class="ttdef"><b>Definition:</b> <a href="upftbv_8f_source.html#l00037">upftbv.f:37</a></div></div>
+<div class="ttc" id="nemtab_8f_html_a3f3fb5a378c52dac83cb4fce27ceb712"><div class="ttname"><a href="nemtab_8f.html#a3f3fb5a378c52dac83cb4fce27ceb712">nemtab</a></div><div class="ttdeci">subroutine nemtab(LUN, NEMO, IDN, TAB, IRET)</div><div class="ttdoc">This subroutine returns information about a descriptor from the internal DX BUFR tables, based on the mnemonic associated with that descriptor. </div><div class="ttdef"><b>Definition:</b> <a href="nemtab_8f_source.html#l00044">nemtab.f:44</a></div></div>
+<div class="ttc" id="bort_8f_html_a488d3a8cf930fb592a9fdaefcfa04ac4"><div class="ttname"><a href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort</a></div><div class="ttdeci">subroutine bort(STR)</div><div class="ttdoc">This subroutine calls subroutine errwrt() to log an error message, then calls subroutine bort_exit() ...</div><div class="ttdef"><b>Definition:</b> <a href="bort_8f_source.html#l00022">bort.f:22</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

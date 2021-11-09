@@ -12,6 +12,8 @@ var moda__msgmem_8F =
       [ "msgp", "moda__msgmem_8F.html#ab6edf6bdc7ccfa8b6be20e407a3262c4", null ],
       [ "msgs", "moda__msgmem_8F.html#a03f1b3139e846c899bc32203ae991b17", null ],
       [ "munit", "moda__msgmem_8F.html#a64c89d306faeb4022758397f923d6ced", null ],
+      [ "mxdxm", "moda__msgmem_8F.html#a549e012729bbc3cb18894d34380ce5bd", null ],
+      [ "mxdxw", "moda__msgmem_8F.html#af2710ff69575fa7a323c654e7998e142", null ],
       [ "ndxm", "moda__msgmem_8F.html#a3f0d636fdbdde987db3c43e66991cd96", null ],
       [ "ndxts", "moda__msgmem_8F.html#aca5ac18fb9783e17067f5cbed511f57a", null ]
     ] ],

@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.5.0</span>
+   &#160;<span id="projectnumber">11.6.0</span>
    </div>
   </td>
  </tr>
@@ -116,41 +116,42 @@ $(document).ready(function(){initNavTree('ireadns_8f_source.html','');});
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="comment">C&gt; @author J. Woollen</span></div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="comment">C&gt; @date 1994-01-06</span></div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="comment">C&gt;</span></div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="comment">C&gt; @param[in] LUNIT    - integer: Fortran logical unit number for</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="comment">C&gt; @param[in] LUNIT   -- integer: Fortran logical unit number for</span></div>
 <div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="comment">C&gt;                       BUFR file</span></div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="comment">C&gt; @param[out] SUBSET   - character*8: Table A mnemonic for type of</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="comment">C&gt; @param[out] SUBSET  -- character*8: Table A mnemonic for type of</span></div>
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment">C&gt;                        data subset that was read</span></div>
 <div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="comment">C&gt;                        (see [DX BUFR Tables](@ref dfbftab)</span></div>
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="comment">C&gt;                        for further information about Table A mnemonics)</span></div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="comment">C&gt; @param[out] IDATE    - integer: Date-time stored within Section 1 of</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="comment">C&gt; @param[out] IDATE   -- integer: Date-time stored within Section 1 of</span></div>
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="comment">C&gt;                        BUFR message containing data subset that</span></div>
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment">C&gt;                        was read, in format of either</span></div>
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="comment">C&gt;                        YYMMDDHH or YYYYMMDDHH, depending on the most</span></div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="comment">C&gt;                        recent call to subroutine datelen()      </span></div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="comment">C&gt; @returns ireadns - integer:</span></div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="comment">C&gt;                    - 0 = new BUFR data subset was successfully</span></div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="comment">C&gt;                          read into internal arrays</span></div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="comment">C&gt;                    - -1 = there are no more BUFR data subsets in</span></div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="comment">C&gt;                          the file connected to logical unit LUNIT</span></div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="comment">C&gt; @returns ireadns -- integer:</span></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="comment">C&gt;                     - 0 = new BUFR data subset was successfully</span></div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="comment">C&gt;                           read into internal arrays</span></div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="comment">C&gt;                     - -1 = there are no more BUFR data subsets in</span></div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="comment">C&gt;                           the file connected to logical unit LUNIT</span></div>
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="comment">C&gt;</span></div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="comment">C&gt; @remarks</span></div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="comment">C&gt; - The use of this function allows the return code from readns() to be</span></div>
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="comment">C&gt; used as the target variable within an iterative program loop.</span></div>
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="comment">C&gt;</span></div>
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="comment">C&gt; &lt;b&gt;Program history log:&lt;/b&gt;</span></div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="comment">C&gt; - 1994-01-06  J. Woollen -- Original author</span></div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="comment">C&gt; - 2002-05-14 J. Woollen -- Changed from an entry point to increase</span></div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="comment">C&gt;                           portability to other platforms</span></div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="comment">C&gt;</span></div>
-<div class="line"><a name="l00037"></a><span class="lineno"><a class="line" href="ireadns_8f.html#ad424a6b2c26977fe861708624dbe0b79">   37</a></span>&#160;<span class="keyword">      FUNCTION </span><a class="code" href="ireadns_8f.html#ad424a6b2c26977fe861708624dbe0b79">ireadns</a>(LUNIT,SUBSET,IDATE)</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;      <span class="keywordtype">CHARACTER*8</span> subset</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;      CALL <a class="code" href="readns_8f.html#a72f3b23ee95d02a8188d8734369b6149">readns</a>(lunit,subset,idate,iret)</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;      <a class="code" href="ireadns_8f.html#ad424a6b2c26977fe861708624dbe0b79">ireadns</a> = iret</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;      <span class="keywordflow">RETURN</span></div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;      <span class="keywordflow">END</span></div>
-<div class="ttc" id="ireadns_8f_html_ad424a6b2c26977fe861708624dbe0b79"><div class="ttname"><a href="ireadns_8f.html#ad424a6b2c26977fe861708624dbe0b79">ireadns</a></div><div class="ttdeci">function ireadns(LUNIT, SUBSET, IDATE)</div><div class="ttdoc">This function calls BUFRLIB subroutine readns() and passes back its return code as the function value...</div><div class="ttdef"><b>Definition:</b> <a href="ireadns_8f_source.html#l00037">ireadns.f:37</a></div></div>
-<div class="ttc" id="readns_8f_html_a72f3b23ee95d02a8188d8734369b6149"><div class="ttname"><a href="readns_8f.html#a72f3b23ee95d02a8188d8734369b6149">readns</a></div><div class="ttdeci">subroutine readns(LUNIT, SUBSET, JDATE, IRET)</div><div class="ttdoc">This subroutine provides a handy way to combine the functionality of subroutines readmg() and readsb(...</div><div class="ttdef"><b>Definition:</b> <a href="readns_8f_source.html#l00054">readns.f:54</a></div></div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="comment">C&gt; | Date | Programmer | Comments |</span></div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="comment">C&gt; | -----|------------|----------|</span></div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="comment">C&gt; | 1994-01-06 | J. Woollen | Original author |</span></div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="comment">C&gt; | 2002-05-14 | J. Woollen | Changed from an entry point to increase portability to other platforms |</span></div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="comment">C&gt;</span></div>
+<div class="line"><a name="l00038"></a><span class="lineno"><a class="line" href="ireadns_8f.html#ad424a6b2c26977fe861708624dbe0b79">   38</a></span>&#160;<span class="keyword">      FUNCTION </span><a class="code" href="ireadns_8f.html#ad424a6b2c26977fe861708624dbe0b79">ireadns</a>(LUNIT,SUBSET,IDATE)</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;      <span class="keywordtype">CHARACTER*8</span> subset</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;      CALL <a class="code" href="readns_8f.html#a72f3b23ee95d02a8188d8734369b6149">readns</a>(lunit,subset,idate,iret)</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;      <a class="code" href="ireadns_8f.html#ad424a6b2c26977fe861708624dbe0b79">ireadns</a> = iret</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;      <span class="keywordflow">RETURN</span></div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;      <span class="keywordflow">END</span></div>
+<div class="ttc" id="ireadns_8f_html_ad424a6b2c26977fe861708624dbe0b79"><div class="ttname"><a href="ireadns_8f.html#ad424a6b2c26977fe861708624dbe0b79">ireadns</a></div><div class="ttdeci">function ireadns(LUNIT, SUBSET, IDATE)</div><div class="ttdoc">This function calls BUFRLIB subroutine readns() and passes back its return code as the function value...</div><div class="ttdef"><b>Definition:</b> <a href="ireadns_8f_source.html#l00038">ireadns.f:38</a></div></div>
+<div class="ttc" id="readns_8f_html_a72f3b23ee95d02a8188d8734369b6149"><div class="ttname"><a href="readns_8f.html#a72f3b23ee95d02a8188d8734369b6149">readns</a></div><div class="ttdeci">subroutine readns(LUNIT, SUBSET, JDATE, IRET)</div><div class="ttdoc">This subroutine provides a handy way to combine the functionality of subroutines readmg() and readsb(...</div><div class="ttdef"><b>Definition:</b> <a href="readns_8f_source.html#l00048">readns.f:48</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

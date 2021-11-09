@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.5.0</span>
+   &#160;<span id="projectnumber">11.6.0</span>
    </div>
   </td>
  </tr>
@@ -109,17 +109,19 @@ $(document).ready(function(){initNavTree('sntbbe_8f.html','');});
 </div><!--header-->
 <div class="contents">
 
+<p>Store a master Table B entry into Fortran arrays.  
+<a href="#details">More...</a></p>
+
 <p><a href="sntbbe_8f_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions/Subroutines</h2></td></tr>
 <tr class="memitem:ae308430ece0bc88b4f8239cfbc13fe1e"><td class="memItemLeft" align="right" valign="top">subroutine&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sntbbe_8f.html#ae308430ece0bc88b4f8239cfbc13fe1e">sntbbe</a> (IFXYN, LINE, MXMTBB, NMTBB, IMFXYN, CMSCL, CMSREF, CMBW, CMUNIT, CMMNEM, CMDSC, CMELEM)</td></tr>
-<tr class="memdesc:ae308430ece0bc88b4f8239cfbc13fe1e"><td class="mdescLeft">&#160;</td><td class="mdescRight">THIS SUBROUTINE PARSES AN ENTRY THAT WAS PREVIOUSLY READ FROM AN ASCII MASTER TABLE B FILE AND THEN STORES THE OUTPUT INTO THE MERGED ARRAYS.  <a href="#ae308430ece0bc88b4f8239cfbc13fe1e">More...</a><br/></td></tr>
+<tr class="memdesc:ae308430ece0bc88b4f8239cfbc13fe1e"><td class="mdescLeft">&#160;</td><td class="mdescRight">This subroutine stores an entry that was previously read from an ASCII master Table B file into a set of merged Fortran arrays.  <a href="#ae308430ece0bc88b4f8239cfbc13fe1e">More...</a><br/></td></tr>
 <tr class="separator:ae308430ece0bc88b4f8239cfbc13fe1e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><dl class="section author"><dt>Author</dt><dd>ATOR </dd></dl>
-<dl class="section date"><dt>Date</dt><dd>2007-01-19 </dd></dl>
+<div class="textblock"><p>Store a master Table B entry into Fortran arrays. </p>
 
 <p>Definition in file <a class="el" href="sntbbe_8f_source.html">sntbbe.f</a>.</p>
 </div><h2 class="groupheader">Function/Subroutine Documentation</h2>
@@ -178,7 +180,7 @@ Functions/Subroutines</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">character, dimension(14,*)&#160;</td>
+          <td class="paramtype">character, dimension(24,*)&#160;</td>
           <td class="paramname"><em>CMUNIT</em>, </td>
         </tr>
         <tr>
@@ -207,15 +209,43 @@ Functions/Subroutines</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>THIS SUBROUTINE PARSES AN ENTRY THAT WAS PREVIOUSLY READ FROM AN ASCII MASTER TABLE B FILE AND THEN STORES THE OUTPUT INTO THE MERGED ARRAYS. </p>
-<p>PROGRAM HISTORY LOG: 2007-01-19 J. ATOR &ndash; ORIGINAL AUTHOR 2021-01-08 J. ATOR &ndash; MODIFIED MSTABS ARRAY DECLARATIONS FOR GNUv10 PORTABILITY</p>
-<p>USAGE: CALL SNTBBE ( IFXYN, LINE, MXMTBB, NMTBB, IMFXYN, CMSCL, CMSREF, CMBW, CMUNIT, CMMNEM, CMDSC, CMELEM ) INPUT ARGUMENT LIST: IFXYN - INTEGER: BIT-WISE REPRESENTATION OF FXY NUMBER FOR TABLE ENTRY; THIS FXY NUMBER IS THE ELEMENT DESCRIPTOR LINE - CHARACTER*(*): TABLE ENTRY MXMTBB - INTEGER: MAXIMUM NUMBER OF ENTRIES TO BE STORED IN MERGED MASTER TABLE B ARRAYS; THIS SHOULD BE THE SAME NUMBER AS WAS USED TO DIMENSION THE OUTPUT ARRAYS IN THE CALLING PROGRAM, AND IT IS USED BY THIS SUBROUTINE TO ENSURE THAT IT DOESN'T OVERFLOW THESE ARRAYS</p>
-<p>OUTPUT ARGUMENT LIST: NMTBB - INTEGER: NUMBER OF ENTRIES IN MERGED MASTER TABLE B ARRAYS IMFXYN(*)- INTEGER: MERGED ARRAY CONTAINING BIT-WISE REPRESENTATIONS OF FXY NUMBERS (I.E. ELEMENT DESCRIPTORS) CMSCL(*) - CHARACTER*4: MERGED ARRAY CONTAINING SCALE FACTORS CMSREF(*)- CHARACTER*12: MERGED ARRAY CONTAINING REFERENCE VALUES CMBW(*) - CHARACTER*4: MERGED ARRAY CONTAINING BIT WIDTHS CMUNIT(*)- CHARACTER*14: MERGED ARRAY CONTAINING UNITS CMMNEM(*)- CHARACTER*8: MERGED ARRAY CONTAINING MNEMONICS CMDSC(*) - CHARACTER*4: MERGED ARRAY CONTAINING DESCRIPTOR CODES CMELEM(*)- CHARACTER*120: MERGED ARRAY CONTAINING ELEMENT NAMES</p>
-<p>REMARKS: THIS ROUTINE CALLS: BORT BORT2 JSTCHR NEMOCK PARSTR RJUST THIS ROUTINE IS CALLED BY: RDMTBB Normally not called by any application programs. </p>
+<p>This subroutine stores an entry that was previously read from an ASCII master Table B file into a set of merged Fortran arrays. </p>
+<dl class="section author"><dt>Author</dt><dd>J. Ator </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2007-01-19</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">IFXYN</td><td>&ndash; integer: Bit-wise representation of FXY number </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">LINE</td><td>&ndash; character*(*): Table B entry </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">MXMTBB</td><td>&ndash; integer: Dimensioned size (in integers) of merged output arrays; used by the subroutine to ensure that it doesn't overflow these arrays </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">NMTBB</td><td>&ndash; integer: Number of entries in merged output arrays </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">IMFXYN&amp;ndash;</td><td>integer(*): Merged array containing bit-wise representations of FXY numbers </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">CMSCL</td><td>&ndash; character*4(*): Merged array containing scale factors </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">CMSREF</td><td>&ndash; character*12(*): Merged array containing reference values </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">CMBW</td><td>&ndash; character*4(*): Merged array containing bit widths </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">CMUNIT</td><td>&ndash; character*24(*): Merged array containing units </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">CMMNEM</td><td>&ndash; character*8(*): Merged array containing mnemonics </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">CMDSC</td><td>&ndash; character*4(*): Merged array containing descriptor codes </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">CMELEM</td><td>&ndash; character*120(*): Merged array containing element names</td></tr>
+  </table>
+  </dd>
+</dl>
+<p><b>Program history log:</b> </p>
+<table class="doxtable">
+<tr>
+<th>Date </th><th>Programmer </th><th>Comments  </th></tr>
+<tr>
+<td>2007-01-19 </td><td>J. Ator </td><td>Original author </td></tr>
+<tr>
+<td>2021-01-08 </td><td>J. Ator </td><td>Modified mstabs array declarations for GNUv10 portability </td></tr>
+<tr>
+<td>2021-05-17 </td><td>J. Ator </td><td>Allow up to 24 characters in cmunit </td></tr>
+<tr>
+<td>2021-09-30 </td><td>J. Ator </td><td>Replace jstchr with Fortran intrinsic adjustl; replace rjust with Fortran intrinsic adjustr </td></tr>
+</table>
 
-<p>Definition at line <a class="el" href="sntbbe_8f_source.html#l00047">47</a> of file <a class="el" href="sntbbe_8f_source.html">sntbbe.f</a>.</p>
+<p>Definition at line <a class="el" href="sntbbe_8f_source.html#l00042">42</a> of file <a class="el" href="sntbbe_8f_source.html">sntbbe.f</a>.</p>
 
-<p>References <a class="el" href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort()</a>, <a class="el" href="bort2_8f.html#a50f605cc96a22ffce20206c2d254b9c3">bort2()</a>, <a class="el" href="jstchr_8f.html#a70645166feda4141fc524790e255ae00">jstchr()</a>, <a class="el" href="nemock_8f.html#a4cd0d5caf72ff1f2acb4747d11494dd2">nemock()</a>, <a class="el" href="parstr_8f.html#a3379a342ab3d92dd01eef1f3172f9b86">parstr()</a>, and <a class="el" href="rjust_8f.html#a29f84394ca521e497ab85126109cba80">rjust()</a>.</p>
+<p>References <a class="el" href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort()</a>, <a class="el" href="bort2_8f.html#a50f605cc96a22ffce20206c2d254b9c3">bort2()</a>, <a class="el" href="nemock_8f.html#a4cd0d5caf72ff1f2acb4747d11494dd2">nemock()</a>, and <a class="el" href="parstr_8f.html#a3379a342ab3d92dd01eef1f3172f9b86">parstr()</a>.</p>
 
 <p>Referenced by <a class="el" href="rdmtbb_8f.html#a500535fb51e5caae61f0fd3627a211da">rdmtbb()</a>.</p>
 

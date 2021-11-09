@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.5.0</span>
+   &#160;<span id="projectnumber">11.6.0</span>
    </div>
   </td>
  </tr>
@@ -160,23 +160,31 @@ Functions/Subroutines</h2></td></tr>
 <dl class="section date"><dt>Date</dt><dd>1994-01-06</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">N</td><td>- integer: Value to be encoded </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">NBYT</td><td>- integer: Number of bytes of CBAY (up to a maximum of 8) within which to encode N </td></tr>
-    <tr><td class="paramdir">[out]</td><td class="paramname">CBAY</td><td>- character*(*): String of length NBYT bytes containing encoded integer N</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">N</td><td>&ndash; integer: Value to be encoded </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">NBYT</td><td>&ndash; integer: Number of bytes of CBAY (up to a maximum of 8) within which to encode N </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">CBAY</td><td>&ndash; character*(*): String of length NBYT bytes containing encoded integer N</td></tr>
   </table>
   </dd>
 </dl>
-<p><b>Program history log:</b></p>
-<ul>
-<li>1994-01-06 J. Woollen &ndash; Original author</li>
-<li>1998-07-08 J. Woollen &ndash; Replaced call to Cray library routine ABORT with call to new internal routine <a class="el" href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4" title="This subroutine calls subroutine errwrt() to log an error message, then calls subroutine bort_exit() ...">bort()</a></li>
-<li>2003-11-04 J. Woollen &ndash; Modified to be endian-independent</li>
-<li>2003-11-04 J. Ator &ndash; Added documentation</li>
-<li>2003-11-04 S. Bender &ndash; Added remarks and routine interdependencies</li>
-<li>2003-11-04 D. Keyser &ndash; Unified/portable for WRF; added history documentation; outputs more complete diagnostic info when routine terminates abnormally </li>
-</ul>
+<p><b>Program history log:</b> </p>
+<table class="doxtable">
+<tr>
+<th>Date </th><th>Programmer </th><th>Comments  </th></tr>
+<tr>
+<td>1994-01-06 </td><td>J. Woollen </td><td>Original author </td></tr>
+<tr>
+<td>1998-07-08 </td><td>J. Woollen </td><td>Replaced call to Cray library routine ABORT with call to new internal routine <a class="el" href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4" title="This subroutine calls subroutine errwrt() to log an error message, then calls subroutine bort_exit() ...">bort()</a> </td></tr>
+<tr>
+<td>2003-11-04 </td><td>J. Woollen </td><td>Modified to be endian-independent </td></tr>
+<tr>
+<td>2003-11-04 </td><td>J. Ator </td><td>Added documentation </td></tr>
+<tr>
+<td>2003-11-04 </td><td>S. Bender </td><td>Added remarks and routine interdependencies </td></tr>
+<tr>
+<td>2003-11-04 </td><td>D. Keyser </td><td>Unified/portable for WRF; added documentation; outputs more complete diagnostic info when routine terminates abnormally </td></tr>
+</table>
 
-<p>Definition at line <a class="el" href="ipkm_8f_source.html#l00029">29</a> of file <a class="el" href="ipkm_8f_source.html">ipkm.f</a>.</p>
+<p>Definition at line <a class="el" href="ipkm_8f_source.html#l00027">27</a> of file <a class="el" href="ipkm_8f_source.html">ipkm.f</a>.</p>
 
 <p>References <a class="el" href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort()</a>, and <a class="el" href="irev_8F.html#a4a8512777ba30c1c919646c7a6a637f5">irev()</a>.</p>
 

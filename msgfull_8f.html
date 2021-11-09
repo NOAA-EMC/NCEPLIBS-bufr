@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.5.0</span>
+   &#160;<span id="projectnumber">11.6.0</span>
    </div>
   </td>
  </tr>
@@ -109,17 +109,19 @@ $(document).ready(function(){initNavTree('msgfull_8f.html','');});
 </div><!--header-->
 <div class="contents">
 
+<p>Check whether a data subset will fit within a BUFR message.  
+<a href="#details">More...</a></p>
+
 <p><a href="msgfull_8f_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions/Subroutines</h2></td></tr>
 <tr class="memitem:af3f4d7d709cbf81165b5b3491a8f9cfb"><td class="memItemLeft" align="right" valign="top">LOGICAL function&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="msgfull_8f.html#af3f4d7d709cbf81165b5b3491a8f9cfb">msgfull</a> (MSIZ, ITOADD, MXSIZ)</td></tr>
-<tr class="memdesc:af3f4d7d709cbf81165b5b3491a8f9cfb"><td class="mdescLeft">&#160;</td><td class="mdescRight">THIS LOGICAL FUNCTION DETERMINES WHETHER THE CURRENT SUBSET (OF LENGTH ITOADD BYTES) WILL FIT WITHIN THE CURRENT BUFR MESSAGE.  <a href="#af3f4d7d709cbf81165b5b3491a8f9cfb">More...</a><br/></td></tr>
+<tr class="memdesc:af3f4d7d709cbf81165b5b3491a8f9cfb"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function determines whether the current data subset in the internal arrays will fit within the current BUFR message in the internal arrays, based on the prescribed maximum size of a BUFR message and the allowance of some extra "wiggle room" that may be needed later when writing out the message.  <a href="#af3f4d7d709cbf81165b5b3491a8f9cfb">More...</a><br/></td></tr>
 <tr class="separator:af3f4d7d709cbf81165b5b3491a8f9cfb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><dl class="section author"><dt>Author</dt><dd>J </dd></dl>
-<dl class="section date"><dt>Date</dt><dd>2009-03-23 </dd></dl>
+<div class="textblock"><p>Check whether a data subset will fit within a BUFR message. </p>
 
 <p>Definition in file <a class="el" href="msgfull_8f_source.html">msgfull.f</a>.</p>
 </div><h2 class="groupheader">Function/Subroutine Documentation</h2>
@@ -153,14 +155,27 @@ Functions/Subroutines</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>THIS LOGICAL FUNCTION DETERMINES WHETHER THE CURRENT SUBSET (OF LENGTH ITOADD BYTES) WILL FIT WITHIN THE CURRENT BUFR MESSAGE. </p>
-<p>A FINITE AMOUNT OF "WIGGLE ROOM" IS ALLOWED FOR AS SHOWN BELOW.</p>
-<p>PROGRAM HISTORY LOG: 2009-03-23 J. ATOR &ndash; ORIGINAL AUTHOR</p>
-<p>USAGE: MSGFULL (MSIZ,ITOADD,MXSIZ) INPUT ARGUMENT LIST: MSIZ - INTEGER: SIZE OF CURRENT MESSAGE (IN BYTES) ITOADD - INTEGER: SIZE OF SUBSET TO BE ADDED (IN BYTES) MXSIZ - INTEGER: MAXIMUM SIZE OF A BUFR MESSAGE</p>
-<p>OUTPUT ARGUMENT LIST: MSGFULL - LOGICAL: FALSE IF SUBSET WILL FIT; TRUE OTHERWISE</p>
-<p>REMARKS: THIS ROUTINE CALLS: None THIS ROUTINE IS CALLED BY: CPYUPD MSGUPD WRCMPS WRDXTB Normally not called by any application programs. </p>
+<p>This function determines whether the current data subset in the internal arrays will fit within the current BUFR message in the internal arrays, based on the prescribed maximum size of a BUFR message and the allowance of some extra "wiggle room" that may be needed later when writing out the message. </p>
+<dl class="section author"><dt>Author</dt><dd>J. Ator </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2009-03-23</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">MSIZ</td><td>&ndash; integer: Size (in bytes) of current BUFR message </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">ITOADD</td><td>&ndash; integer: Size (in bytes) of current data subset </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">MXSIZ</td><td>&ndash; integer: Maximum size of a BUFR message </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>MSGFULL &ndash; logical: Flag indicating whether the current data subset will fit within the current BUFR message</dd></dl>
+<p><b>Program history log:</b> </p>
+<table class="doxtable">
+<tr>
+<th>Date </th><th>Programmer </th><th>Comments  </th></tr>
+<tr>
+<td>2009-03-23 </td><td>J. Ator </td><td>Original author </td></tr>
+</table>
 
-<p>Definition at line <a class="el" href="msgfull_8f_source.html#l00026">26</a> of file <a class="el" href="msgfull_8f_source.html">msgfull.f</a>.</p>
+<p>Definition at line <a class="el" href="msgfull_8f_source.html#l00025">25</a> of file <a class="el" href="msgfull_8f_source.html">msgfull.f</a>.</p>
 
 <p>Referenced by <a class="el" href="cpyupd_8f.html#a129651d2e47b6c8986c1fc4dd73d87c9">cpyupd()</a>, <a class="el" href="msgupd_8f.html#adf75cb2bc2a217eb33ffc8e45b1a5350">msgupd()</a>, <a class="el" href="wrcmps_8f.html#a8b333832f77606059ec94ba8b80d4e8d">wrcmps()</a>, and <a class="el" href="wrdxtb_8f.html#ac7996a53fc568b2a62ef97e5bc609b41">wrdxtb()</a>.</p>
 

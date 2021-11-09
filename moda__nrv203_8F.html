@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.5.0</span>
+   &#160;<span id="projectnumber">11.6.0</span>
    </div>
   </td>
  </tr>
@@ -150,13 +150,13 @@ ibtnrv</td>
 <td class="fielddoc">
 Number of bits in Section 4 occupied by each new reference value for the current 2-03-YYY operator in scope; set to 0 if no such operator is currently in scope. </td></tr>
 <tr><td class="fieldtype">
-<a class="anchor" id="a48e061fdc8f4b8755731ac12387635ed"></a>integer, dimension(mxnrv)</td>
+<a class="anchor" id="a48e061fdc8f4b8755731ac12387635ed"></a>integer, dimension(:), allocatable</td>
 <td class="fieldname">
 ienrv</td>
 <td class="fielddoc">
 End of entry range in jump/link table, within which the corresponding new reference value in nrv will be applied to all occurrences of the corresponding Table B mnemonic in tagnrv. </td></tr>
 <tr><td class="fieldtype">
-<a class="anchor" id="ac9424edf0554e80c82a269606b92e3e2"></a>integer, dimension(mxnrv)</td>
+<a class="anchor" id="ac9424edf0554e80c82a269606b92e3e2"></a>integer, dimension(:), allocatable</td>
 <td class="fieldname">
 inodnrv</td>
 <td class="fielddoc">
@@ -168,7 +168,7 @@ ipfnrv</td>
 <td class="fielddoc">
 A number between 1 and nnrv, denoting the first entry within the module arrays which applies to the current data subset in scope; set to 0 if no 2-03-YYY operators have been applied to the current data subset in scope. </td></tr>
 <tr><td class="fieldtype">
-<a class="anchor" id="aab045f5c9dcc350b38b553dc1a24d3c4"></a>integer, dimension(mxnrv)</td>
+<a class="anchor" id="aab045f5c9dcc350b38b553dc1a24d3c4"></a>integer, dimension(:), allocatable</td>
 <td class="fieldname">
 isnrv</td>
 <td class="fielddoc">
@@ -180,13 +180,14 @@ nnrv</td>
 <td class="fielddoc">
 Number of entries in the jump/link table which contain new reference values (up to a maximum of MXNRV). </td></tr>
 <tr><td class="fieldtype">
-<a class="anchor" id="ade9e0fefa44c29d964d053ecd11dee7b"></a>integer, dimension(mxnrv)</td>
+<a class="anchor" id="ade9e0fefa44c29d964d053ecd11dee7b"></a>integer, dimension(:), allocatable</td>
 <td class="fieldname">
 nrv</td>
 <td class="fielddoc">
 New reference values corresponding to inodnrv. </td></tr>
 <tr><td class="fieldtype">
-<a class="anchor" id="ae8e3abe8b229c6d0de88c326d3a70ef0"></a>character *8, dimension(mxnrv)</td>
+<a class="anchor" id="ae8e3abe8b229c6d0de88c326d3a70ef0"></a>character *8, dimension(:), <br class="typebreak"/>
+allocatable</td>
 <td class="fieldname">
 tagnrv</td>
 <td class="fielddoc">

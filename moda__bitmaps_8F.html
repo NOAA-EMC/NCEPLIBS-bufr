@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.5.0</span>
+   &#160;<span id="projectnumber">11.6.0</span>
    </div>
   </td>
  </tr>
@@ -144,38 +144,40 @@ Data Types</h2></td></tr>
 </div><table class="fieldtable">
 <tr><th colspan="3">Data Fields</th></tr>
 <tr><td class="fieldtype">
-<a class="anchor" id="aff2833d58afc64687bb6fc13ccc69613"></a>character *6, dimension(mxtamc, <br class="typebreak"/>
-mxtco)</td>
+<a class="anchor" id="aff2833d58afc64687bb6fc13ccc69613"></a>character *6, dimension(:,:), <br class="typebreak"/>
+allocatable</td>
 <td class="fieldname">
 ctco</td>
 <td class="fielddoc">
 Table C operators corresponding to inodtco. </td></tr>
 <tr><td class="fieldtype">
-<a class="anchor" id="a60214440d46f4fd724492ad602534595"></a>integer, dimension(mxbtm, mxbtmse)</td>
+<a class="anchor" id="a60214440d46f4fd724492ad602534595"></a>integer, dimension(:,:), <br class="typebreak"/>
+allocatable</td>
 <td class="fieldname">
 ibtmse</td>
 <td class="fielddoc">
 Ordinal positions in bitmap of bits that were "set" (set to a value of 0); these ordinal positions can range in value from 1 to iszbtm for each stored bitmap. </td></tr>
 <tr><td class="fieldtype">
-<a class="anchor" id="a877ef0b6f4d01a40a42f37d060a9c922"></a>integer, dimension(mxtamc)</td>
+<a class="anchor" id="a877ef0b6f4d01a40a42f37d060a9c922"></a>integer, dimension(:), allocatable</td>
 <td class="fieldname">
 inodtamc</td>
 <td class="fielddoc">
 Entries within jump/link table which contain Table A mnemonics. </td></tr>
 <tr><td class="fieldtype">
-<a class="anchor" id="aca145d572f520a7d776a3da3e2296e0e"></a>integer, dimension(mxtamc, mxtco)</td>
+<a class="anchor" id="aca145d572f520a7d776a3da3e2296e0e"></a>integer, dimension(:,:), <br class="typebreak"/>
+allocatable</td>
 <td class="fieldname">
 inodtco</td>
 <td class="fielddoc">
 Entries within jump/link table which contain Table C operators. </td></tr>
 <tr><td class="fieldtype">
-<a class="anchor" id="ade4fb6845c9d07dcc131200216717f59"></a>integer, dimension(mxbtm)</td>
+<a class="anchor" id="ade4fb6845c9d07dcc131200216717f59"></a>integer, dimension(:), allocatable</td>
 <td class="fieldname">
 istbtm</td>
 <td class="fielddoc">
 Ordinal position in data subset definition corresponding to the first entry of the bitmap. </td></tr>
 <tr><td class="fieldtype">
-<a class="anchor" id="a32fe3029f99f07bbe4d1ab2b1a10403a"></a>integer, dimension(mxbtm)</td>
+<a class="anchor" id="a32fe3029f99f07bbe4d1ab2b1a10403a"></a>integer, dimension(:), allocatable</td>
 <td class="fieldname">
 iszbtm</td>
 <td class="fielddoc">
@@ -205,7 +207,7 @@ nbtm</td>
 <td class="fielddoc">
 Number of stored bitmaps for the current data subset (up to a maximum of MXBTM). </td></tr>
 <tr><td class="fieldtype">
-<a class="anchor" id="a738d240b5645fdf9235cd8c89c8d8597"></a>integer, dimension(mxbtm)</td>
+<a class="anchor" id="a738d240b5645fdf9235cd8c89c8d8597"></a>integer, dimension(:), allocatable</td>
 <td class="fieldname">
 nbtmse</td>
 <td class="fielddoc">
@@ -217,7 +219,7 @@ ntamc</td>
 <td class="fielddoc">
 Number of Table A mnemonics in jump/link table (up to a maximum of MXTAMC) which contain at least one Table C operator with an XX value of 21 or greater in their data subset definition; only Table C operators with an XX value of 21 or greater are tracked within this module, since all others are automatically processed within subroutines <a class="el" href="tabsub_8f.html#a6ad60d6ecdf6a230ccb11e112ecc84ce" title="THIS SUBROUTINE BUILDS THE ENTIRE JUMP/LINK TREE (I.E., INCLUDING RECURSIVELY RESOLVING ALL &quot;CHILD&quot; M...">tabsub()</a> and <a class="el" href="tabent_8f.html#a93eed61bdc169fa276366154d660f959" title="THIS SUBROUTINE BUILDS AND STORES AN ENTRY FOR A TABLE B OR TABLE D MNEMONIC (NEMO) WITHIN THE INTERN...">tabent()</a>. </td></tr>
 <tr><td class="fieldtype">
-<a class="anchor" id="af050e1b93219cec114b5ab57acc17e10"></a>integer, dimension(mxtamc)</td>
+<a class="anchor" id="af050e1b93219cec114b5ab57acc17e10"></a>integer, dimension(:), allocatable</td>
 <td class="fieldname">
 ntco</td>
 <td class="fielddoc">

@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.5.0</span>
+   &#160;<span id="projectnumber">11.6.0</span>
    </div>
   </td>
  </tr>
@@ -144,12 +144,12 @@ Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
 Variables</h2></td></tr>
-<tr class="memitem:ae8fcf44cac11b6f7d97220c101c0318e"><td class="memItemLeft" align="right" valign="top">fpos_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cread_8h.html#ae8fcf44cac11b6f7d97220c101c0318e">lstpos</a> [NFILES+1]</td></tr>
-<tr class="memdesc:ae8fcf44cac11b6f7d97220c101c0318e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Byte positions of last successful reads from files corresponding to pb, for files that were opened for reading.  <a href="#ae8fcf44cac11b6f7d97220c101c0318e">More...</a><br/></td></tr>
-<tr class="separator:ae8fcf44cac11b6f7d97220c101c0318e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a295878b87917249212597ed62f390038"><td class="memItemLeft" align="right" valign="top">FILE *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cread_8h.html#a295878b87917249212597ed62f390038">pb</a> [NFILES+1]</td></tr>
-<tr class="memdesc:a295878b87917249212597ed62f390038"><td class="mdescLeft">&#160;</td><td class="mdescRight">File pointers.  <a href="#a295878b87917249212597ed62f390038">More...</a><br/></td></tr>
-<tr class="separator:a295878b87917249212597ed62f390038"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af3681883f8ef0fe1771afc9aeb072eb0"><td class="memItemLeft" align="right" valign="top">fpos_t *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cread_8h.html#af3681883f8ef0fe1771afc9aeb072eb0">lstpos</a></td></tr>
+<tr class="memdesc:af3681883f8ef0fe1771afc9aeb072eb0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Byte positions of last successful reads from files corresponding to pb, for files that were opened for reading.  <a href="#af3681883f8ef0fe1771afc9aeb072eb0">More...</a><br/></td></tr>
+<tr class="separator:af3681883f8ef0fe1771afc9aeb072eb0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a58db779a0b3c7250a119069bd2e5106c"><td class="memItemLeft" align="right" valign="top">FILE **&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cread_8h.html#a58db779a0b3c7250a119069bd2e5106c">pb</a></td></tr>
+<tr class="memdesc:a58db779a0b3c7250a119069bd2e5106c"><td class="mdescLeft">&#160;</td><td class="mdescRight">File pointers.  <a href="#a58db779a0b3c7250a119069bd2e5106c">More...</a><br/></td></tr>
+<tr class="separator:a58db779a0b3c7250a119069bd2e5106c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Define signatures and declare variables for reading or writing BUFR messages via a C language interface. </p>
@@ -179,19 +179,23 @@ Variables</h2></td></tr>
 <dl class="section date"><dt>Date</dt><dd>2012-09-15</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">nfile</td><td>- f77int*: Internal Fortran I/O stream index associated with BUFR file</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">nfile</td><td>&ndash; f77int*: Internal Fortran I/O stream index associated with BUFR file</td></tr>
   </table>
   </dd>
 </dl>
-<p><b>Program history log:</b></p>
-<ul>
-<li>2012-09-15 J. Woollen &ndash; Original author</li>
-<li>2014-11-07 J. Ator &ndash; Allow dynamic allocation of pb and lstpos arrays </li>
-</ul>
+<p><b>Program history log:</b> </p>
+<table class="doxtable">
+<tr>
+<th>Date </th><th>Programmer </th><th>Comments  </th></tr>
+<tr>
+<td>2012-09-15 </td><td>J. Woollen </td><td>Original author </td></tr>
+<tr>
+<td>2014-11-07 </td><td>J. Ator </td><td>Allow dynamic allocation of pb and lstpos arrays </td></tr>
+</table>
 
-<p>Definition at line <a class="el" href="cread_8c_source.html#l00076">76</a> of file <a class="el" href="cread_8c_source.html">cread.c</a>.</p>
+<p>Definition at line <a class="el" href="cread_8c_source.html#l00084">84</a> of file <a class="el" href="cread_8c_source.html">cread.c</a>.</p>
 
-<p>References <a class="el" href="cread_8h.html#ae8fcf44cac11b6f7d97220c101c0318e">lstpos</a>, and <a class="el" href="cread_8h.html#a295878b87917249212597ed62f390038">pb</a>.</p>
+<p>References <a class="el" href="cread_8h.html#af3681883f8ef0fe1771afc9aeb072eb0">lstpos</a>, and <a class="el" href="cread_8h.html#a58db779a0b3c7250a119069bd2e5106c">pb</a>.</p>
 
 <p>Referenced by <a class="el" href="cpdxmm_8f.html#a48f353028fb8bf77255b4dae476b9da7">cpdxmm()</a>, <a class="el" href="posapx_8f.html#ad32a5730c46c657f5fde47244bd1ebd5">posapx()</a>, <a class="el" href="rdbfdx_8f.html#a7d7beabef509022d4d98ebfb79f06dec">rdbfdx()</a>, <a class="el" href="readmg_8f.html#a9fb3da32fb87bc017d16b9f0f707be9b">readmg()</a>, and <a class="el" href="ufbmem_8f.html#aaa20a946a966bc4de8012e1a01461502">ufbmem()</a>.</p>
 
@@ -216,19 +220,23 @@ Variables</h2></td></tr>
 <dl class="section date"><dt>Date</dt><dd>2012-09-15</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">nfile</td><td>- f77int*: Internal Fortran I/O stream index associated with BUFR file</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">nfile</td><td>&ndash; f77int*: Internal Fortran I/O stream index associated with BUFR file</td></tr>
   </table>
   </dd>
 </dl>
-<p><b>Program history log:</b></p>
-<ul>
-<li>2012-09-15 J. Woollen &ndash; Original author</li>
-<li>2014-11-07 J. Ator &ndash; Allow dynamic allocation of pb array </li>
-</ul>
+<p><b>Program history log:</b> </p>
+<table class="doxtable">
+<tr>
+<th>Date </th><th>Programmer </th><th>Comments  </th></tr>
+<tr>
+<td>2012-09-15 </td><td>J. Woollen </td><td>Original author </td></tr>
+<tr>
+<td>2014-11-07 </td><td>J. Ator </td><td>Allow dynamic allocation of pb array </td></tr>
+</table>
 
-<p>Definition at line <a class="el" href="cread_8c_source.html#l00090">90</a> of file <a class="el" href="cread_8c_source.html">cread.c</a>.</p>
+<p>Definition at line <a class="el" href="cread_8c_source.html#l00100">100</a> of file <a class="el" href="cread_8c_source.html">cread.c</a>.</p>
 
-<p>References <a class="el" href="cread_8h.html#a295878b87917249212597ed62f390038">pb</a>.</p>
+<p>References <a class="el" href="cread_8h.html#a58db779a0b3c7250a119069bd2e5106c">pb</a>.</p>
 
 <p>Referenced by <a class="el" href="rewnbf_8f.html#a70ac3a628bb020054246ff3fb8392a96">rewnbf()</a>, <a class="el" href="ufbmem_8f.html#aaa20a946a966bc4de8012e1a01461502">ufbmem()</a>, and <a class="el" href="ufbpos_8f.html#aa3c92084cc14aae8f61aad4c9f0d8680">ufbpos()</a>.</p>
 
@@ -253,21 +261,25 @@ Variables</h2></td></tr>
 <dl class="section date"><dt>Date</dt><dd>2012-09-15</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">nfile</td><td>- f77int*: Internal Fortran I/O stream index associated with BUFR file</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">nfile</td><td>&ndash; f77int*: Internal Fortran I/O stream index associated with BUFR file</td></tr>
   </table>
   </dd>
 </dl>
-<p><b>Program history log:</b></p>
-<ul>
-<li>2012-09-15 J. Woollen &ndash; Original author</li>
-<li>2014-11-07 J. Ator &ndash; Allow dynamic allocation of pb array </li>
-</ul>
+<p><b>Program history log:</b> </p>
+<table class="doxtable">
+<tr>
+<th>Date </th><th>Programmer </th><th>Comments  </th></tr>
+<tr>
+<td>2012-09-15 </td><td>J. Woollen </td><td>Original author </td></tr>
+<tr>
+<td>2014-11-07 </td><td>J. Ator </td><td>Allow dynamic allocation of pb array </td></tr>
+</table>
 
-<p>Definition at line <a class="el" href="cread_8c_source.html#l00104">104</a> of file <a class="el" href="cread_8c_source.html">cread.c</a>.</p>
+<p>Definition at line <a class="el" href="cread_8c_source.html#l00116">116</a> of file <a class="el" href="cread_8c_source.html">cread.c</a>.</p>
 
-<p>References <a class="el" href="cread_8h.html#a295878b87917249212597ed62f390038">pb</a>.</p>
+<p>References <a class="el" href="cread_8h.html#a58db779a0b3c7250a119069bd2e5106c">pb</a>.</p>
 
-<p>Referenced by <a class="el" href="closbf_8F.html#a00c94986037d2cf27d04de7a1f8a3ebc">closbf()</a>.</p>
+<p>Referenced by <a class="el" href="closbf_8f.html#a00c94986037d2cf27d04de7a1f8a3ebc">closbf()</a>.</p>
 
 </div>
 </div>
@@ -306,28 +318,32 @@ Variables</h2></td></tr>
 <dl class="section date"><dt>Date</dt><dd>2012-09-15</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">nfile</td><td>- f77int*: Internal Fortran I/O stream index associated with BUFR file </td></tr>
-    <tr><td class="paramdir">[out]</td><td class="paramname">bufr</td><td>- char*: BUFR message </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">mxbyt</td><td>- f77int*: Dimensioned size (in bytes) of bufr; used by the function to ensure that it doesn't overflow the BUFR array </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">nfile</td><td>&ndash; f77int*: Internal Fortran I/O stream index associated with BUFR file </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">bufr</td><td>&ndash; char*: BUFR message </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">mxbyt</td><td>&ndash; f77int*: Dimensioned size (in bytes) of bufr; used by the function to ensure that it doesn't overflow the BUFR array </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>crdbufr - f77int: return code<ul>
+<dl class="section return"><dt>Returns</dt><dd>crdbufr &ndash; f77int: return code<ul>
 <li>0 = normal return</li>
 <li>-1 = end-of-file encountered while reading</li>
 <li>-2 = I/O error encountered while reading</li>
 <li>-3 = overflow of bufr array</li>
 </ul>
 </dd></dl>
-<p><b>Program history log:</b></p>
-<ul>
-<li>2012-09-15 J. Woollen &ndash; Original author</li>
-<li>2014-11-07 J. Ator &ndash; Allow dynamic allocation of pb and lstpos arrays </li>
-</ul>
+<p><b>Program history log:</b> </p>
+<table class="doxtable">
+<tr>
+<th>Date </th><th>Programmer </th><th>Comments  </th></tr>
+<tr>
+<td>2012-09-15 </td><td>J. Woollen </td><td>Original author </td></tr>
+<tr>
+<td>2014-11-07 </td><td>J. Ator </td><td>Allow dynamic allocation of pb and lstpos arrays </td></tr>
+</table>
 
-<p>Definition at line <a class="el" href="cread_8c_source.html#l00126">126</a> of file <a class="el" href="cread_8c_source.html">cread.c</a>.</p>
+<p>Definition at line <a class="el" href="cread_8c_source.html#l00140">140</a> of file <a class="el" href="cread_8c_source.html">cread.c</a>.</p>
 
-<p>References <a class="el" href="iupbs01_8f.html#adcd6f7c2f898b4f938153c5cf79a9cf5">iupbs01()</a>, <a class="el" href="cread_8h.html#ae8fcf44cac11b6f7d97220c101c0318e">lstpos</a>, and <a class="el" href="cread_8h.html#a295878b87917249212597ed62f390038">pb</a>.</p>
+<p>References <a class="el" href="iupbs01_8f.html#adcd6f7c2f898b4f938153c5cf79a9cf5">iupbs01()</a>, <a class="el" href="cread_8h.html#af3681883f8ef0fe1771afc9aeb072eb0">lstpos</a>, and <a class="el" href="cread_8h.html#a58db779a0b3c7250a119069bd2e5106c">pb</a>.</p>
 
 <p>Referenced by <a class="el" href="rdmsgw_8f.html#aa1d21de28344723fc4848ec1cd14b094">rdmsgw()</a>.</p>
 
@@ -368,21 +384,25 @@ Variables</h2></td></tr>
 <dl class="section date"><dt>Date</dt><dd>2012-09-15</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">nfile</td><td>- f77int*: Internal Fortran I/O stream index associated with BUFR file </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">bufr</td><td>- f77int*: BUFR message </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">nwrd</td><td>- f77int*: Size (in f77ints) of bufr</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">nfile</td><td>&ndash; f77int*: Internal Fortran I/O stream index associated with BUFR file </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">bufr</td><td>&ndash; f77int*: BUFR message </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">nwrd</td><td>&ndash; f77int*: Size (in f77ints) of bufr</td></tr>
   </table>
   </dd>
 </dl>
-<p><b>Program history log:</b></p>
-<ul>
-<li>2012-09-15 J. Woollen &ndash; Original author</li>
-<li>2014-11-07 J. Ator &ndash; Allow dynamic allocation of pb array </li>
-</ul>
+<p><b>Program history log:</b> </p>
+<table class="doxtable">
+<tr>
+<th>Date </th><th>Programmer </th><th>Comments  </th></tr>
+<tr>
+<td>2012-09-15 </td><td>J. Woollen </td><td>Original author </td></tr>
+<tr>
+<td>2014-11-07 </td><td>J. Ator </td><td>Allow dynamic allocation of pb array </td></tr>
+</table>
 
-<p>Definition at line <a class="el" href="cread_8c_source.html#l00157">157</a> of file <a class="el" href="cread_8c_source.html">cread.c</a>.</p>
+<p>Definition at line <a class="el" href="cread_8c_source.html#l00173">173</a> of file <a class="el" href="cread_8c_source.html">cread.c</a>.</p>
 
-<p>References <a class="el" href="cread_8h.html#a295878b87917249212597ed62f390038">pb</a>.</p>
+<p>References <a class="el" href="cread_8h.html#a58db779a0b3c7250a119069bd2e5106c">pb</a>.</p>
 
 <p>Referenced by <a class="el" href="msgwrt_8f.html#ac95ecf1436ba14805a33efd29fab1e5d">msgwrt()</a>.</p>
 
@@ -417,22 +437,26 @@ Variables</h2></td></tr>
 <dl class="section date"><dt>Date</dt><dd>2012-09-15</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">nfile</td><td>- f77int*: Internal Fortran I/O stream index associated with ufile </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">ufile</td><td>- char*: [path/]name of system file to be opened</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">nfile</td><td>&ndash; f77int*: Internal Fortran I/O stream index associated with ufile </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">ufile</td><td>&ndash; char*: [path/]name of system file to be opened</td></tr>
   </table>
   </dd>
 </dl>
-<p><b>Program history log:</b></p>
-<ul>
-<li>2012-09-15 J. Woollen &ndash; Original author</li>
-<li>2014-11-07 J. Ator &ndash; Allow dynamic allocation of pb array </li>
-</ul>
+<p><b>Program history log:</b> </p>
+<table class="doxtable">
+<tr>
+<th>Date </th><th>Programmer </th><th>Comments  </th></tr>
+<tr>
+<td>2012-09-15 </td><td>J. Woollen </td><td>Original author </td></tr>
+<tr>
+<td>2014-11-07 </td><td>J. Ator </td><td>Allow dynamic allocation of pb array </td></tr>
+</table>
 
-<p>Definition at line <a class="el" href="cread_8c_source.html#l00062">62</a> of file <a class="el" href="cread_8c_source.html">cread.c</a>.</p>
+<p>Definition at line <a class="el" href="cread_8c_source.html#l00068">68</a> of file <a class="el" href="cread_8c_source.html">cread.c</a>.</p>
 
-<p>References <a class="el" href="cread_8h.html#a295878b87917249212597ed62f390038">pb</a>.</p>
+<p>References <a class="el" href="cread_8h.html#a58db779a0b3c7250a119069bd2e5106c">pb</a>.</p>
 
-<p>Referenced by <a class="el" href="openbf_8F.html#a9bea9aeada166bd9037b959ca8452b28">openbf()</a>.</p>
+<p>Referenced by <a class="el" href="openbf_8f.html#a9bea9aeada166bd9037b959ca8452b28">openbf()</a>.</p>
 
 </div>
 </div>
@@ -465,22 +489,26 @@ Variables</h2></td></tr>
 <dl class="section date"><dt>Date</dt><dd>2012-09-15</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">nfile</td><td>- f77int*: Internal Fortran I/O stream index associated with ufile </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">ufile</td><td>- char*: [path/]name of system file to be opened</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">nfile</td><td>&ndash; f77int*: Internal Fortran I/O stream index associated with ufile </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">ufile</td><td>&ndash; char*: [path/]name of system file to be opened</td></tr>
   </table>
   </dd>
 </dl>
-<p><b>Program history log:</b></p>
-<ul>
-<li>2012-09-15 J. Woollen &ndash; Original author</li>
-<li>2014-11-07 J. Ator &ndash; Allow dynamic allocation of pb array </li>
-</ul>
+<p><b>Program history log:</b> </p>
+<table class="doxtable">
+<tr>
+<th>Date </th><th>Programmer </th><th>Comments  </th></tr>
+<tr>
+<td>2012-09-15 </td><td>J. Woollen </td><td>Original author </td></tr>
+<tr>
+<td>2014-11-07 </td><td>J. Ator </td><td>Allow dynamic allocation of pb array </td></tr>
+</table>
 
-<p>Definition at line <a class="el" href="cread_8c_source.html#l00032">32</a> of file <a class="el" href="cread_8c_source.html">cread.c</a>.</p>
+<p>Definition at line <a class="el" href="cread_8c_source.html#l00034">34</a> of file <a class="el" href="cread_8c_source.html">cread.c</a>.</p>
 
-<p>References <a class="el" href="cread_8h.html#a295878b87917249212597ed62f390038">pb</a>.</p>
+<p>References <a class="el" href="cread_8h.html#a58db779a0b3c7250a119069bd2e5106c">pb</a>.</p>
 
-<p>Referenced by <a class="el" href="openbf_8F.html#a9bea9aeada166bd9037b959ca8452b28">openbf()</a>.</p>
+<p>Referenced by <a class="el" href="openbf_8f.html#a9bea9aeada166bd9037b959ca8452b28">openbf()</a>.</p>
 
 </div>
 </div>
@@ -513,27 +541,31 @@ Variables</h2></td></tr>
 <dl class="section date"><dt>Date</dt><dd>2012-09-15</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">nfile</td><td>- f77int*: Internal Fortran I/O stream index associated with ufile </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">ufile</td><td>- char*: [path/]name of system file to be opened</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">nfile</td><td>&ndash; f77int*: Internal Fortran I/O stream index associated with ufile </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">ufile</td><td>&ndash; char*: [path/]name of system file to be opened</td></tr>
   </table>
   </dd>
 </dl>
-<p><b>Program history log:</b></p>
-<ul>
-<li>2012-09-15 J. Woollen &ndash; Original author</li>
-<li>2014-11-07 J. Ator &ndash; Allow dynamic allocation of pb array </li>
-</ul>
+<p><b>Program history log:</b> </p>
+<table class="doxtable">
+<tr>
+<th>Date </th><th>Programmer </th><th>Comments  </th></tr>
+<tr>
+<td>2012-09-15 </td><td>J. Woollen </td><td>Original author </td></tr>
+<tr>
+<td>2014-11-07 </td><td>J. Ator </td><td>Allow dynamic allocation of pb array </td></tr>
+</table>
 
-<p>Definition at line <a class="el" href="cread_8c_source.html#l00047">47</a> of file <a class="el" href="cread_8c_source.html">cread.c</a>.</p>
+<p>Definition at line <a class="el" href="cread_8c_source.html#l00051">51</a> of file <a class="el" href="cread_8c_source.html">cread.c</a>.</p>
 
-<p>References <a class="el" href="cread_8h.html#a295878b87917249212597ed62f390038">pb</a>.</p>
+<p>References <a class="el" href="cread_8h.html#a58db779a0b3c7250a119069bd2e5106c">pb</a>.</p>
 
-<p>Referenced by <a class="el" href="openbf_8F.html#a9bea9aeada166bd9037b959ca8452b28">openbf()</a>.</p>
+<p>Referenced by <a class="el" href="openbf_8f.html#a9bea9aeada166bd9037b959ca8452b28">openbf()</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Variable Documentation</h2>
-<a class="anchor" id="ae8fcf44cac11b6f7d97220c101c0318e"></a>
+<a class="anchor" id="af3681883f8ef0fe1771afc9aeb072eb0"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -545,13 +577,11 @@ Variables</h2></td></tr>
 
 <p>Byte positions of last successful reads from files corresponding to pb, for files that were opened for reading. </p>
 
-<p>Definition at line <a class="el" href="cread_8h_source.html#l00059">59</a> of file <a class="el" href="cread_8h_source.html">cread.h</a>.</p>
-
 <p>Referenced by <a class="el" href="bufrlib_8h.html#a98efd59b32b1d2ed2c060d2564824e28">arallocc()</a>, <a class="el" href="bufrlib_8h.html#ac283516a1391fee0635b01beffdad7cb">ardllocc()</a>, <a class="el" href="cread_8h.html#ae9c022992af6584e7417bed0a783f7be">backbufr()</a>, and <a class="el" href="cread_8h.html#af7363f66f319c5f4dca3f2f5a01a353c">crdbufr()</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a295878b87917249212597ed62f390038"></a>
+<a class="anchor" id="a58db779a0b3c7250a119069bd2e5106c"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -562,8 +592,6 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 
 <p>File pointers. </p>
-
-<p>Definition at line <a class="el" href="cread_8h_source.html#l00058">58</a> of file <a class="el" href="cread_8h_source.html">cread.h</a>.</p>
 
 <p>Referenced by <a class="el" href="bufrlib_8h.html#a98efd59b32b1d2ed2c060d2564824e28">arallocc()</a>, <a class="el" href="bufrlib_8h.html#ac283516a1391fee0635b01beffdad7cb">ardllocc()</a>, <a class="el" href="cread_8h.html#ae9c022992af6584e7417bed0a783f7be">backbufr()</a>, <a class="el" href="cread_8h.html#a61e34de2efc69877d3fab8f2ce4c52bc">cewind()</a>, <a class="el" href="cread_8h.html#a6118e519b5b655f3a3ca54ad4ca1b540">closfb()</a>, <a class="el" href="cread_8h.html#af7363f66f319c5f4dca3f2f5a01a353c">crdbufr()</a>, <a class="el" href="cread_8h.html#a01bb7665b8031e3d10a402fa0670f9ac">cwrbufr()</a>, <a class="el" href="cread_8h.html#a5efb8a43667c802abf307b33314fd3d7">openab()</a>, <a class="el" href="cread_8h.html#a21affd5712b2336bf02e4dd7cb9af98b">openrb()</a>, and <a class="el" href="cread_8h.html#a47624e37a8dc7948ac37c35601c527ca">openwb()</a>.</p>
 

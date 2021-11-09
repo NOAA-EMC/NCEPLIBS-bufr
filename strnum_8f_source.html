@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.5.0</span>
+   &#160;<span id="projectnumber">11.6.0</span>
    </div>
   </td>
  </tr>
@@ -107,91 +107,79 @@ $(document).ready(function(){initNavTree('strnum_8f_source.html','');});
 </div><!--header-->
 <div class="contents">
 <a href="strnum_8f.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="comment">C&gt; @file</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment">C&gt; @author WOOLLEN @date 1994-01-06</span></div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;      </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="comment">C&gt; THIS SUBROUTINE DECODES AN INTEGER FROM A CHARACTER STRING.</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="comment">C&gt;   THE INPUT STRING SHOULD CONTAIN ONLY DIGITS AND (OPTIONAL) TRAILING</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="comment">C&gt;   BLANKS AND SHOULD NOT CONTAIN ANY SIGN CHARACTERS (E.G. &#39;+&#39;, &#39;-&#39;)</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="comment">C&gt;   NOR LEADING BLANKS NOR EMBEDDED BLANKS.</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment">C&gt; @brief Decode an integer from a character string</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="comment">C&gt; This subroutine decodes an integer from a character string.  The</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="comment">C&gt; string should contain only digits and (optional) trailing blanks.</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="comment">C&gt; It should not contain any sign (&#39;+&#39; or &#39;-&#39;) character nor any</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="comment">C&gt; leading blanks nor embedded blanks.</span></div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="comment">C&gt;</span></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="comment">C&gt; PROGRAM HISTORY LOG:</span></div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="comment">C&gt; 1994-01-06  J. WOOLLEN -- ORIGINAL AUTHOR</span></div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="comment">C&gt; 2003-11-04  J. ATOR    -- ADDED DOCUMENTATION</span></div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="comment">C&gt; 2003-11-04  S. BENDER  -- ADDED REMARKS/BUFRLIB ROUTINE</span></div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="comment">C&gt;                           INTERDEPENDENCIES</span></div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment">C&gt; 2003-11-04  D. KEYSER  -- UNIFIED/PORTABLE FOR WRF; ADDED HISTORY</span></div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="comment">C&gt;                           DOCUMENTATION</span></div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="comment">C&gt; 2009-04-21  J. ATOR    -- USE ERRWRT</span></div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="comment">C&gt;</span></div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="comment">C&gt; USAGE:    CALL STRNUM (STR, NUM)</span></div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment">C&gt;   INPUT ARGUMENT LIST:</span></div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="comment">C&gt;     STR      - CHARACTER*(*): STRING CONTAINING ENCODED INTEGER VALUE</span></div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="comment">C&gt;</span></div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="comment">C&gt;   OUTPUT ARGUMENT LIST:</span></div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="comment">C&gt;     NUM      - INTEGER: DECODED VALUE</span></div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="comment">C&gt;                      -1 = decode was unsuccessful</span></div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="comment">C&gt;</span></div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="comment">C&gt; REMARKS:</span></div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="comment">C&gt;    THIS ROUTINE CALLS:        ERRWRT   STRSUC</span></div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="comment">C&gt;    THIS ROUTINE IS CALLED BY: JSTNUM   PARUTG   SEQSDX   SNTBFE</span></div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="comment">C&gt;                               STSEQ</span></div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="comment">C&gt;                               Normally not called by any application</span></div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="comment">C&gt;                               programs but it could be.</span></div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="comment">C&gt;</span></div>
-<div class="line"><a name="l00033"></a><span class="lineno"><a class="line" href="strnum_8f.html#a3cb1ef014cf71b6456ec7fa46d51ed06">   33</a></span>&#160;<span class="keyword">      SUBROUTINE </span><a class="code" href="strnum_8f.html#a3cb1ef014cf71b6456ec7fa46d51ed06">strnum</a>(STR,NUM)</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="comment">C&gt; @author J. Woollen</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="comment">C&gt; @date 1994-01-06</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="comment">C&gt;</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="comment">C&gt; @param[in]  STR -- character*(*): String</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="comment">C&gt; @param[out] NUM -- integer: Value decoded from STR</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment">C&gt;                    - -1 = decode was unsuccessful</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="comment">C&gt;</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="comment">C&gt; &lt;b&gt;Program History Log:&lt;/b&gt;</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="comment">C&gt; | Date | Programmer | Comments |</span></div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="comment">C&gt; | -----|------------|----------|</span></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment">C&gt; | 1994-01-06 | J. Woollen | Original author |</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="comment">C&gt; | 2003-11-04 | J. Ator    | Added documentation |</span></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="comment">C&gt; | 2009-04-21 | J. Ator    | Use errwrt() |</span></div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="comment">C&gt;</span></div>
+<div class="line"><a name="l00023"></a><span class="lineno"><a class="line" href="strnum_8f.html#a3cb1ef014cf71b6456ec7fa46d51ed06">   23</a></span>&#160;<span class="keyword">      SUBROUTINE </span><a class="code" href="strnum_8f.html#a3cb1ef014cf71b6456ec7fa46d51ed06">strnum</a>(STR,NUM)</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;      <span class="keywordtype">CHARACTER*(*)</span> str</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;      <span class="keywordtype">CHARACTER*20</span>  str2</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;      <span class="keyword">COMMON</span> /quiet / iprt</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="comment">C-----------------------------------------------------------------------</span></div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="comment">C-----------------------------------------------------------------------</span></div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;      num = 0</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;      k = 0</div>
 <div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;      <span class="keywordtype">CHARACTER*(*)</span> str</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;      <span class="keywordtype">CHARACTER*20</span>  str2</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;      <span class="keyword">COMMON</span> /quiet / iprt</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="comment">C-----------------------------------------------------------------------</span></div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="comment">C-----------------------------------------------------------------------</span></div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;      num = 0</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;      k = 0</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<span class="comment">C     Note that, in the following call to subroutine STRSUC, the output</span></div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<span class="comment">C     string STR2 is not used anywhere else in this routine.  In fact,</span></div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;<span class="comment">C     the only reason that subroutine STRSUC is being called here is to</span></div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;<span class="comment">C     determine NUM, which, owing to the fact that the input string STR</span></div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="comment">C     cannot contain any leading blanks, is equal to the number of</span></div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;<span class="comment">C     digits to be decoded from the beginning of STR.</span></div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="comment">C     Note that, in the following call to subroutine STRSUC, the output</span></div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="comment">C     string STR2 is not used anywhere else in this routine.  In fact,</span></div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="comment">C     the only reason that subroutine STRSUC is being called here is to</span></div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="comment">C     determine NUM, which, owing to the fact that the input string STR</span></div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="comment">C     cannot contain any leading blanks, is equal to the number of</span></div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="comment">C     digits to be decoded from the beginning of STR.</span></div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;      CALL <a class="code" href="strsuc_8f.html#a0ad7f0b59d89e0bdd1e9d73947b19e7e">strsuc</a>(str,str2,num)</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;      <span class="keywordflow">IF</span>(num.EQ.-1) goto 100</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;      <span class="keywordflow">DO</span> i=1,num</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;      <span class="keyword">READ</span>(str(i:i),<span class="stringliteral">&#39;(I1)&#39;</span>,err=99) j</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;      <span class="keywordflow">IF</span>(j.EQ.0 .AND. str(i:i).NE.<span class="stringliteral">&#39;0&#39;</span>) goto 99</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;      k = k*10+j</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;      <span class="keywordflow">ENDDO</span></div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;      num = k</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;      goto 100</div>
 <div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;      CALL <a class="code" href="strsuc_8f.html#a0ad7f0b59d89e0bdd1e9d73947b19e7e">strsuc</a>(str,str2,num)</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;      <span class="keywordflow">IF</span>(num.EQ.-1) goto 100</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;      <span class="keywordflow">DO</span> i=1,num</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;      <span class="keyword">READ</span>(str(i:i),<span class="stringliteral">&#39;(I1)&#39;</span>,err=99) j</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;      <span class="keywordflow">IF</span>(j.EQ.0 .AND. str(i:i).NE.<span class="stringliteral">&#39;0&#39;</span>) goto 99</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;      k = k*10+j</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;      <span class="keywordflow">ENDDO</span></div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;      num = k</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;      goto 100</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;<span class="comment">C     Note that NUM = -1 unambiguously indicates a bad decode since</span></div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;<span class="comment">C     the input string cannot contain sign characters; thus, NUM is</span></div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;<span class="comment">C     always positive if the decode is successful.</span></div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;99    num = -1</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;      <span class="keywordflow">IF</span>(iprt.GE.0) <span class="keywordflow">THEN</span></div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;      CALL <a class="code" href="errwrt_8f.html#a65626d9a772648676146b62b596c2764">errwrt</a>(<span class="stringliteral">&#39;++++++++++++++BUFR ARCHIVE LIBRARY+++++++++++++++++&#39;</span>)</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;      CALL <a class="code" href="errwrt_8f.html#a65626d9a772648676146b62b596c2764">errwrt</a>(<span class="stringliteral">&#39;BUFRLIB: STRNUM - BAD DECODE; RETURN WITH NUM = -1&#39;</span>)</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;      CALL <a class="code" href="errwrt_8f.html#a65626d9a772648676146b62b596c2764">errwrt</a>(<span class="stringliteral">&#39;++++++++++++++BUFR ARCHIVE LIBRARY+++++++++++++++++&#39;</span>)</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;      CALL <a class="code" href="errwrt_8f.html#a65626d9a772648676146b62b596c2764">errwrt</a>(<span class="stringliteral">&#39; &#39;</span>)</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;      <span class="keywordflow">ENDIF</span></div>
 <div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;<span class="comment">C     Note that NUM = -1 unambiguously indicates a bad decode since</span></div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;<span class="comment">C     the input string cannot contain sign characters; thus, NUM is</span></div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;<span class="comment">C     always positive if the decode is successful.</span></div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;99    num = -1</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;      <span class="keywordflow">IF</span>(iprt.GE.0) <span class="keywordflow">THEN</span></div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;      CALL <a class="code" href="errwrt_8f.html#a65626d9a772648676146b62b596c2764">errwrt</a>(<span class="stringliteral">&#39;++++++++++++++BUFR ARCHIVE LIBRARY+++++++++++++++++&#39;</span>)</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;      CALL <a class="code" href="errwrt_8f.html#a65626d9a772648676146b62b596c2764">errwrt</a>(<span class="stringliteral">&#39;BUFRLIB: STRNUM - BAD DECODE; RETURN WITH NUM = -1&#39;</span>)</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;      CALL <a class="code" href="errwrt_8f.html#a65626d9a772648676146b62b596c2764">errwrt</a>(<span class="stringliteral">&#39;++++++++++++++BUFR ARCHIVE LIBRARY+++++++++++++++++&#39;</span>)</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;      CALL <a class="code" href="errwrt_8f.html#a65626d9a772648676146b62b596c2764">errwrt</a>(<span class="stringliteral">&#39; &#39;</span>)</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;      <span class="keywordflow">ENDIF</span></div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;<span class="comment">C  EXIT</span></div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;<span class="comment">C  ----</span></div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;100   <span class="keywordflow">RETURN</span></div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;      <span class="keywordflow">END</span></div>
-<div class="ttc" id="strsuc_8f_html_a0ad7f0b59d89e0bdd1e9d73947b19e7e"><div class="ttname"><a href="strsuc_8f.html#a0ad7f0b59d89e0bdd1e9d73947b19e7e">strsuc</a></div><div class="ttdeci">subroutine strsuc(STR1, STR2, LENS)</div><div class="ttdoc">THIS SUBROUTINE REMOVES LEADING AND TRAILING BLANKS FROM A STRING. </div><div class="ttdef"><b>Definition:</b> <a href="strsuc_8f_source.html#l00034">strsuc.f:34</a></div></div>
-<div class="ttc" id="strnum_8f_html_a3cb1ef014cf71b6456ec7fa46d51ed06"><div class="ttname"><a href="strnum_8f.html#a3cb1ef014cf71b6456ec7fa46d51ed06">strnum</a></div><div class="ttdeci">subroutine strnum(STR, NUM)</div><div class="ttdoc">THIS SUBROUTINE DECODES AN INTEGER FROM A CHARACTER STRING. </div><div class="ttdef"><b>Definition:</b> <a href="strnum_8f_source.html#l00033">strnum.f:33</a></div></div>
-<div class="ttc" id="errwrt_8f_html_a65626d9a772648676146b62b596c2764"><div class="ttname"><a href="errwrt_8f.html#a65626d9a772648676146b62b596c2764">errwrt</a></div><div class="ttdeci">subroutine errwrt(STR)</div><div class="ttdoc">This subroutine allows the user to specify a custom location for the logging of error and diagnostic ...</div><div class="ttdef"><b>Definition:</b> <a href="errwrt_8f_source.html#l00039">errwrt.f:39</a></div></div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;<span class="comment">C  EXIT</span></div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;<span class="comment">C  ----</span></div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;100   <span class="keywordflow">RETURN</span></div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;      <span class="keywordflow">END</span></div>
+<div class="ttc" id="strsuc_8f_html_a0ad7f0b59d89e0bdd1e9d73947b19e7e"><div class="ttname"><a href="strsuc_8f.html#a0ad7f0b59d89e0bdd1e9d73947b19e7e">strsuc</a></div><div class="ttdeci">subroutine strsuc(STR1, STR2, LENS)</div><div class="ttdoc">This subroutine removes leading and trailing blanks from a character string. </div><div class="ttdef"><b>Definition:</b> <a href="strsuc_8f_source.html#l00023">strsuc.f:23</a></div></div>
+<div class="ttc" id="strnum_8f_html_a3cb1ef014cf71b6456ec7fa46d51ed06"><div class="ttname"><a href="strnum_8f.html#a3cb1ef014cf71b6456ec7fa46d51ed06">strnum</a></div><div class="ttdeci">subroutine strnum(STR, NUM)</div><div class="ttdoc">This subroutine decodes an integer from a character string. </div><div class="ttdef"><b>Definition:</b> <a href="strnum_8f_source.html#l00023">strnum.f:23</a></div></div>
+<div class="ttc" id="errwrt_8f_html_a65626d9a772648676146b62b596c2764"><div class="ttname"><a href="errwrt_8f.html#a65626d9a772648676146b62b596c2764">errwrt</a></div><div class="ttdeci">subroutine errwrt(STR)</div><div class="ttdoc">This subroutine allows the user to specify a custom location for the logging of error and diagnostic ...</div><div class="ttdef"><b>Definition:</b> <a href="errwrt_8f_source.html#l00041">errwrt.f:41</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

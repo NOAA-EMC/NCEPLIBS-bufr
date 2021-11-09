@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.5.0</span>
+   &#160;<span id="projectnumber">11.6.0</span>
    </div>
   </td>
  </tr>
@@ -107,77 +107,76 @@ $(document).ready(function(){initNavTree('msgfull_8f_source.html','');});
 </div><!--header-->
 <div class="contents">
 <a href="msgfull_8f.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="comment">C&gt; @file</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment">C&gt; @author J @date 2009-03-23</span></div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;      </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="comment">C&gt; THIS LOGICAL FUNCTION DETERMINES WHETHER THE CURRENT SUBSET</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="comment">C&gt;   (OF LENGTH ITOADD BYTES) WILL FIT WITHIN THE CURRENT BUFR MESSAGE.</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="comment">C&gt;   A FINITE AMOUNT OF &quot;WIGGLE ROOM&quot; IS ALLOWED FOR AS SHOWN BELOW.</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="comment">C&gt;</span></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="comment">C&gt; PROGRAM HISTORY LOG:</span></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="comment">C&gt; 2009-03-23  J. ATOR    -- ORIGINAL AUTHOR</span></div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="comment">C&gt;</span></div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="comment">C&gt; USAGE:    MSGFULL (MSIZ,ITOADD,MXSIZ)</span></div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="comment">C&gt;   INPUT ARGUMENT LIST:</span></div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="comment">C&gt;     MSIZ     - INTEGER: SIZE OF CURRENT MESSAGE (IN BYTES)</span></div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment">C&gt;     ITOADD   - INTEGER: SIZE OF SUBSET TO BE ADDED (IN BYTES)</span></div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="comment">C&gt;     MXSIZ    - INTEGER: MAXIMUM SIZE OF A BUFR MESSAGE</span></div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="comment">C&gt;</span></div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="comment">C&gt;   OUTPUT ARGUMENT LIST:</span></div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="comment">C&gt;     MSGFULL  - LOGICAL: FALSE IF SUBSET WILL FIT; TRUE OTHERWISE</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment">C&gt; @brief Check whether a data subset will fit within a BUFR message</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="comment">C&gt; This function determines whether the current data subset in the</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="comment">C&gt; internal arrays will fit within the current BUFR message in the</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="comment">C&gt; internal arrays, based on the prescribed maximum size of a BUFR</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="comment">C&gt; message and the allowance of some extra &quot;wiggle room&quot; that may</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="comment">C&gt; be needed later when writing out the message.</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="comment">C&gt;</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="comment">C&gt; @author J. Ator</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="comment">C&gt; @date 2009-03-23</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="comment">C&gt;</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="comment">C&gt; @param[in] MSIZ -- integer: Size (in bytes) of current BUFR message</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment">C&gt; @param[in] ITOADD -- integer: Size (in bytes) of current data subset </span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="comment">C&gt; @param[in] MXSIZ -- integer: Maximum size of a BUFR message</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="comment">C&gt; @returns MSGFULL -- logical: Flag indicating whether the current</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="comment">C&gt;                     data subset will fit within the current BUFR</span></div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="comment">C&gt;                     message</span></div>
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment">C&gt;</span></div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="comment">C&gt; REMARKS:</span></div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="comment">C&gt;    THIS ROUTINE CALLS:        None</span></div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="comment">C&gt;    THIS ROUTINE IS CALLED BY: CPYUPD   MSGUPD   WRCMPS   WRDXTB</span></div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="comment">C&gt;                               Normally not called by any application</span></div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="comment">C&gt;                               programs.</span></div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="comment">C&gt;</span></div>
-<div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="msgfull_8f.html#af3f4d7d709cbf81165b5b3491a8f9cfb">   26</a></span>&#160;<span class="keyword">      LOGICAL </span><span class="keyword">FUNCTION </span><a class="code" href="msgfull_8f.html#af3f4d7d709cbf81165b5b3491a8f9cfb">msgfull</a>(MSIZ,ITOADD,MXSIZ)</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;      <span class="keywordtype">USE </span><a class="code" href="modv__MAXNC_8f90.html#classmodv__maxnc">modv_maxnc</a></div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;      <span class="keyword">COMMON</span> /msgstd/ csmf</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;      <span class="keyword">COMMON</span> /tnkrcp/ itryr,itrmo,itrdy,itrhr,itrmi,ctrt</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;      <span class="keywordtype">CHARACTER*1</span> csmf</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;      <span class="keywordtype">CHARACTER*1</span> ctrt</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="comment">C&gt; &lt;b&gt;Program history log:&lt;/b&gt;</span></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="comment">C&gt; | Date | Programmer | Comments |</span></div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="comment">C&gt; | -----|------------|----------|</span></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="comment">C&gt; | 2009-03-23 | J. Ator | Original author |</span></div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="comment">C&gt;</span></div>
+<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="msgfull_8f.html#af3f4d7d709cbf81165b5b3491a8f9cfb">   25</a></span>&#160;<span class="keyword">      LOGICAL </span><span class="keyword">FUNCTION </span><a class="code" href="msgfull_8f.html#af3f4d7d709cbf81165b5b3491a8f9cfb">msgfull</a>(MSIZ,ITOADD,MXSIZ)</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;      <span class="keywordtype">USE </span><a class="code" href="modv__MAXNC_8f90.html#classmodv__maxnc">modv_maxnc</a></div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;      <span class="keyword">COMMON</span> /msgstd/ csmf</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;      <span class="keyword">COMMON</span> /tnkrcp/ itryr,itrmo,itrdy,itrhr,itrmi,ctrt</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;      <span class="keywordtype">CHARACTER*1</span> csmf</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;      <span class="keywordtype">CHARACTER*1</span> ctrt</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="comment">C----------------------------------------------------------------------</span></div>
 <div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="comment">C----------------------------------------------------------------------</span></div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="comment">C----------------------------------------------------------------------</span></div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="comment">C     Allow for at least 11 additional bytes of &quot;wiggle room&quot; in the</span></div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="comment">C     message, because subroutine MSGWRT may do any or all of the</span></div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="comment">C     following:</span></div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="comment">C        3 bytes may be added by a call to subroutine CNVED4</span></div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="comment">C      + 1 byte (at most) of padding may be added to Section 4</span></div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="comment">C      + 7 bytes (at most) of padding may be added up to the next</span></div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<span class="comment">C          word boundary after Section 5</span></div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="comment">C     ----</span></div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;<span class="comment">C       11</span></div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;      iwgbyt = 11</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;<span class="comment">C     But subroutine MSGWRT may also do any of all of the following:</span></div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;<span class="comment">C        6 bytes may be added by a call to subroutine ATRCPT</span></div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;         <span class="keywordflow">IF</span>(ctrt.EQ.<span class="stringliteral">&#39;Y&#39;</span>) iwgbyt = iwgbyt + 6</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;<span class="comment">C        (MAXNC*2) bytes (at most) may be added by a call to</span></div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;<span class="comment">C        subroutine STNDRD</span></div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;         <span class="keywordflow">IF</span>(csmf.EQ.<span class="stringliteral">&#39;Y&#39;</span>) iwgbyt = iwgbyt + (maxnc*2)</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;<span class="comment">C     Determine whether the subset will fit.</span></div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;      <span class="keywordflow">IF</span> ( ( msiz + itoadd + iwgbyt ) .GT. mxsiz ) <span class="keywordflow">THEN</span></div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    <a class="code" href="msgfull_8f.html#af3f4d7d709cbf81165b5b3491a8f9cfb">msgfull</a> = .true.</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;      <span class="keywordflow">ELSE</span></div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    <a class="code" href="msgfull_8f.html#af3f4d7d709cbf81165b5b3491a8f9cfb">msgfull</a> = .false.</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;      <span class="keywordflow">ENDIF</span></div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;      <span class="keywordflow">RETURN</span></div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;      <span class="keywordflow">END</span></div>
-<div class="ttc" id="msgfull_8f_html_af3f4d7d709cbf81165b5b3491a8f9cfb"><div class="ttname"><a href="msgfull_8f.html#af3f4d7d709cbf81165b5b3491a8f9cfb">msgfull</a></div><div class="ttdeci">LOGICAL function msgfull(MSIZ, ITOADD, MXSIZ)</div><div class="ttdoc">THIS LOGICAL FUNCTION DETERMINES WHETHER THE CURRENT SUBSET (OF LENGTH ITOADD BYTES) WILL FIT WITHIN ...</div><div class="ttdef"><b>Definition:</b> <a href="msgfull_8f_source.html#l00026">msgfull.f:26</a></div></div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="comment">C     Allow for at least 11 additional bytes of &quot;wiggle room&quot; in the</span></div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="comment">C     message, because subroutine MSGWRT may do any or all of the</span></div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="comment">C     following:</span></div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="comment">C        3 bytes may be added by a call to subroutine CNVED4</span></div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="comment">C      + 1 byte (at most) of padding may be added to Section 4</span></div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="comment">C      + 7 bytes (at most) of padding may be added up to the next</span></div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="comment">C          word boundary after Section 5</span></div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<span class="comment">C     ----</span></div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="comment">C       11</span></div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;      iwgbyt = 11</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;<span class="comment">C     But subroutine MSGWRT may also do any of all of the following:</span></div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="comment">C        6 bytes may be added by a call to subroutine ATRCPT</span></div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;         <span class="keywordflow">IF</span>(ctrt.EQ.<span class="stringliteral">&#39;Y&#39;</span>) iwgbyt = iwgbyt + 6</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;<span class="comment">C        (MAXNC*2) bytes (at most) may be added by a call to</span></div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;<span class="comment">C        subroutine STNDRD</span></div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;         <span class="keywordflow">IF</span>(csmf.EQ.<span class="stringliteral">&#39;Y&#39;</span>) iwgbyt = iwgbyt + (maxnc*2)</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;<span class="comment">C     Determine whether the subset will fit.</span></div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;      <span class="keywordflow">IF</span> ( ( msiz + itoadd + iwgbyt ) .GT. mxsiz ) <span class="keywordflow">THEN</span></div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    <a class="code" href="msgfull_8f.html#af3f4d7d709cbf81165b5b3491a8f9cfb">msgfull</a> = .true.</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;      <span class="keywordflow">ELSE</span></div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    <a class="code" href="msgfull_8f.html#af3f4d7d709cbf81165b5b3491a8f9cfb">msgfull</a> = .false.</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;      <span class="keywordflow">ENDIF</span></div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;      <span class="keywordflow">RETURN</span></div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;      <span class="keywordflow">END</span></div>
+<div class="ttc" id="msgfull_8f_html_af3f4d7d709cbf81165b5b3491a8f9cfb"><div class="ttname"><a href="msgfull_8f.html#af3f4d7d709cbf81165b5b3491a8f9cfb">msgfull</a></div><div class="ttdeci">LOGICAL function msgfull(MSIZ, ITOADD, MXSIZ)</div><div class="ttdoc">This function determines whether the current data subset in the internal arrays will fit within the c...</div><div class="ttdef"><b>Definition:</b> <a href="msgfull_8f_source.html#l00025">msgfull.f:25</a></div></div>
 <div class="ttc" id="modv__MAXNC_8f90_html_classmodv__maxnc"><div class="ttname"><a href="modv__MAXNC_8f90.html#classmodv__maxnc">modv_maxnc</a></div><div class="ttdoc">This module declares and initializes the MAXNC variable. </div><div class="ttdef"><b>Definition:</b> <a href="modv__MAXNC_8f90_source.html#l00009">modv_MAXNC.f90:9</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->

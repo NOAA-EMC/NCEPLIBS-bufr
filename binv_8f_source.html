@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.5.0</span>
+   &#160;<span id="projectnumber">11.6.0</span>
    </div>
   </td>
  </tr>
@@ -135,7 +135,7 @@ $(document).ready(function(){initNavTree('binv_8f_source.html','');});
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="comment">C  COMPUTE AN MESSAGE INVENTORY BY SUBSETS</span></div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="comment">C  ---------------------------------------</span></div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;      CALL <a class="code" href="openbf_8F.html#a9bea9aeada166bd9037b959ca8452b28">openbf</a>(lunbf,<span class="stringliteral">&#39;IN&#39;</span>,lunbf)</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;      CALL <a class="code" href="openbf_8f.html#a9bea9aeada166bd9037b959ca8452b28">openbf</a>(lunbf,<span class="stringliteral">&#39;IN&#39;</span>,lunbf)</div>
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;      <span class="keywordflow">DO</span> <span class="keywordflow">WHILE</span>(<a class="code" href="ireadmg_8f.html#a08c0eaaa7c6f555ccdceb404772dd962">ireadmg</a>(lunbf,subset,idate).EQ.0)</div>
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;      isub = 0</div>
 <div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;      <span class="keywordflow">DO</span> i=1,nsub</div>
@@ -187,11 +187,11 @@ $(document).ready(function(){initNavTree('binv_8f_source.html','');});
 <div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;      nmbyt = <a class="code" href="iupvs01_8f.html#a7a770c2b160d5ff013a18de56204ad45">iupvs01</a>(lunit,<span class="stringliteral">&#39;LENM&#39;</span>)</div>
 <div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;      <span class="keywordflow">return</span></div>
 <div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;      <span class="keywordflow">end</span></div>
-<div class="ttc" id="ireadmg_8f_html_a08c0eaaa7c6f555ccdceb404772dd962"><div class="ttname"><a href="ireadmg_8f.html#a08c0eaaa7c6f555ccdceb404772dd962">ireadmg</a></div><div class="ttdeci">function ireadmg(LUNIT, SUBSET, IDATE)</div><div class="ttdoc">This function calls BUFRLIB subroutine readmg() and passes back its return code as the function value...</div><div class="ttdef"><b>Definition:</b> <a href="ireadmg_8f_source.html#l00043">ireadmg.f:43</a></div></div>
-<div class="ttc" id="openbf_8F_html_a9bea9aeada166bd9037b959ca8452b28"><div class="ttname"><a href="openbf_8F.html#a9bea9aeada166bd9037b959ca8452b28">openbf</a></div><div class="ttdeci">subroutine openbf(LUNIT, IO, LUNDX)</div><div class="ttdoc">This subroutine connects a new file to the BUFRLIB software for input or output operations. </div><div class="ttdef"><b>Definition:</b> <a href="openbf_8F_source.html#l00157">openbf.F:157</a></div></div>
-<div class="ttc" id="nmsub_8f_html_a536bd3da0a5f7305e5e1e12b6654967d"><div class="ttname"><a href="nmsub_8f.html#a536bd3da0a5f7305e5e1e12b6654967d">nmsub</a></div><div class="ttdeci">function nmsub(LUNIT)</div><div class="ttdoc">This function returns the total number of data subsets available within the BUFR message that was mos...</div><div class="ttdef"><b>Definition:</b> <a href="nmsub_8f_source.html#l00031">nmsub.f:31</a></div></div>
-<div class="ttc" id="bort_8f_html_a488d3a8cf930fb592a9fdaefcfa04ac4"><div class="ttname"><a href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort</a></div><div class="ttdeci">subroutine bort(STR)</div><div class="ttdoc">This subroutine calls subroutine errwrt() to log an error message, then calls subroutine bort_exit() ...</div><div class="ttdef"><b>Definition:</b> <a href="bort_8f_source.html#l00023">bort.f:23</a></div></div>
-<div class="ttc" id="iupvs01_8f_html_a7a770c2b160d5ff013a18de56204ad45"><div class="ttname"><a href="iupvs01_8f.html#a7a770c2b160d5ff013a18de56204ad45">iupvs01</a></div><div class="ttdeci">function iupvs01(LUNIT, S01MNEM)</div><div class="ttdoc">This function returns a specified value from within Section 0 or Section 1 of a BUFR message...</div><div class="ttdef"><b>Definition:</b> <a href="iupvs01_8f_source.html#l00071">iupvs01.f:71</a></div></div>
+<div class="ttc" id="ireadmg_8f_html_a08c0eaaa7c6f555ccdceb404772dd962"><div class="ttname"><a href="ireadmg_8f.html#a08c0eaaa7c6f555ccdceb404772dd962">ireadmg</a></div><div class="ttdeci">function ireadmg(LUNIT, SUBSET, IDATE)</div><div class="ttdoc">This function calls BUFRLIB subroutine readmg() and passes back its return code as the function value...</div><div class="ttdef"><b>Definition:</b> <a href="ireadmg_8f_source.html#l00039">ireadmg.f:39</a></div></div>
+<div class="ttc" id="openbf_8f_html_a9bea9aeada166bd9037b959ca8452b28"><div class="ttname"><a href="openbf_8f.html#a9bea9aeada166bd9037b959ca8452b28">openbf</a></div><div class="ttdeci">subroutine openbf(LUNIT, IO, LUNDX)</div><div class="ttdoc">This subroutine connects a new file to the BUFRLIB software for input or output operations. </div><div class="ttdef"><b>Definition:</b> <a href="openbf_8f_source.html#l00138">openbf.f:138</a></div></div>
+<div class="ttc" id="nmsub_8f_html_a536bd3da0a5f7305e5e1e12b6654967d"><div class="ttname"><a href="nmsub_8f.html#a536bd3da0a5f7305e5e1e12b6654967d">nmsub</a></div><div class="ttdeci">function nmsub(LUNIT)</div><div class="ttdoc">This function returns the total number of data subsets available within the BUFR message that was mos...</div><div class="ttdef"><b>Definition:</b> <a href="nmsub_8f_source.html#l00029">nmsub.f:29</a></div></div>
+<div class="ttc" id="bort_8f_html_a488d3a8cf930fb592a9fdaefcfa04ac4"><div class="ttname"><a href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort</a></div><div class="ttdeci">subroutine bort(STR)</div><div class="ttdoc">This subroutine calls subroutine errwrt() to log an error message, then calls subroutine bort_exit() ...</div><div class="ttdef"><b>Definition:</b> <a href="bort_8f_source.html#l00022">bort.f:22</a></div></div>
+<div class="ttc" id="iupvs01_8f_html_a7a770c2b160d5ff013a18de56204ad45"><div class="ttname"><a href="iupvs01_8f.html#a7a770c2b160d5ff013a18de56204ad45">iupvs01</a></div><div class="ttdeci">function iupvs01(LUNIT, S01MNEM)</div><div class="ttdoc">This function returns a specified value from within Section 0 or Section 1 of a BUFR message...</div><div class="ttdef"><b>Definition:</b> <a href="iupvs01_8f_source.html#l00073">iupvs01.f:73</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

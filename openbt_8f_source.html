@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.5.0</span>
+   &#160;<span id="projectnumber">11.6.0</span>
    </div>
   </td>
  </tr>
@@ -128,44 +128,46 @@ $(document).ready(function(){initNavTree('openbt_8f_source.html','');});
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="comment">C&gt; @author J. Woollen</span></div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="comment">C&gt; @date 1998-07-08</span></div>
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="comment">C&gt;</span></div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="comment">C&gt; @param[in] MTYP - integer: Data category of BUFR message for which</span></div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="comment">C&gt;                   subroutine cktaba() was unable to locate a</span></div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="comment">C&gt;                   DX BUFR table file</span></div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="comment">C&gt; @param[out] LUNDX - integer: Fortran logical unit number for file</span></div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="comment">C&gt;                   containing DX BUFR table information to be</span></div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="comment">C&gt;                   used in decoding message</span></div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="comment">C&gt;                     - 0 = No such file is available</span></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="comment">C&gt; @param[in] MTYP -- integer: Data category of BUFR message for which</span></div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="comment">C&gt;                    subroutine cktaba() was unable to locate a</span></div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="comment">C&gt;                    DX BUFR table file</span></div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="comment">C&gt; @param[out] LUNDX -- integer: Fortran logical unit number for file</span></div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="comment">C&gt;                      containing DX BUFR table information to be</span></div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="comment">C&gt;                      used in decoding message</span></div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="comment">C&gt;                      - 0 = No such file is available</span></div>
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="comment">C&gt;</span></div>
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="comment">C&gt; @remarks</span></div>
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="comment">C&gt; - See [DX BUFR Tables](@ref dfbftab) for more information about</span></div>
 <div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="comment">C&gt; the format and contents of DX BUFR table files.</span></div>
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="comment">C&gt;</span></div>
 <div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="comment">C&gt; &lt;b&gt;Program history log:&lt;/b&gt;</span></div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="comment">C&gt; - 1998-07-08  J. Woollen -- Original author</span></div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="comment">C&gt; - 2009-04-21  J. Ator    -- Use errwrt()</span></div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="comment">C&gt;</span></div>
-<div class="line"><a name="l00039"></a><span class="lineno"><a class="line" href="openbt_8f.html#ae6c14e3ca6c75e5ee54424817fdd6199">   39</a></span>&#160;<span class="keyword">      SUBROUTINE </span><a class="code" href="openbt_8f.html#ae6c14e3ca6c75e5ee54424817fdd6199">openbt</a>(LUNDX,MTYP)</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;      <span class="keyword">COMMON</span> /quiet / iprt</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="comment">C&gt; | Date | Programmer | Comments |</span></div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="comment">C&gt; | -----|------------|----------|</span></div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="comment">C&gt; | 1998-07-08 | J. Woollen | Original author |</span></div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="comment">C&gt; | 2009-04-21 | J. Ator    | Use errwrt() |</span></div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="comment">C&gt;</span></div>
+<div class="line"><a name="l00041"></a><span class="lineno"><a class="line" href="openbt_8f.html#ae6c14e3ca6c75e5ee54424817fdd6199">   41</a></span>&#160;<span class="keyword">      SUBROUTINE </span><a class="code" href="openbt_8f.html#ae6c14e3ca6c75e5ee54424817fdd6199">openbt</a>(LUNDX,MTYP)</div>
 <div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;      <span class="keywordtype">CHARACTER*128</span> errstr</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;      <span class="keyword">COMMON</span> /quiet / iprt</div>
 <div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;      <span class="keywordflow">IF</span>(iprt.GE.0) <span class="keywordflow">THEN</span></div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;      CALL <a class="code" href="errwrt_8f.html#a65626d9a772648676146b62b596c2764">errwrt</a>(<span class="stringliteral">&#39;+++++++++++++++++++++WARNING+++++++++++++++++++++++&#39;</span>)</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;      errstr = <span class="stringliteral">&#39;BUFRLIB: OPENBT - THIS IS A DUMMY BUFRLIB ROUTINE&#39;</span>//</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;     . <span class="stringliteral">&#39; CALLED BY CKTABA OR APPL. PGM; OPENBT SHOULD BE INCL.&#39;</span>//</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;     . <span class="stringliteral">&#39; IN-LINE IN APPL. PGM&#39;</span></div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;      CALL <a class="code" href="errwrt_8f.html#a65626d9a772648676146b62b596c2764">errwrt</a>(errstr)</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;      CALL <a class="code" href="errwrt_8f.html#a65626d9a772648676146b62b596c2764">errwrt</a>(<span class="stringliteral">&#39;+++++++++++++++++++++WARNING+++++++++++++++++++++++&#39;</span>)</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;      CALL <a class="code" href="errwrt_8f.html#a65626d9a772648676146b62b596c2764">errwrt</a>(<span class="stringliteral">&#39; &#39;</span>)</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;      <span class="keywordflow">ENDIF</span></div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;      lundx = 0</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;      <span class="keywordtype">CHARACTER*128</span> errstr</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;      <span class="keywordflow">IF</span>(iprt.GE.0) <span class="keywordflow">THEN</span></div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;      CALL <a class="code" href="errwrt_8f.html#a65626d9a772648676146b62b596c2764">errwrt</a>(<span class="stringliteral">&#39;+++++++++++++++++++++WARNING+++++++++++++++++++++++&#39;</span>)</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;      errstr = <span class="stringliteral">&#39;BUFRLIB: OPENBT - THIS IS A DUMMY BUFRLIB ROUTINE&#39;</span>//</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;     . <span class="stringliteral">&#39; CALLED BY CKTABA OR APPL. PGM; OPENBT SHOULD BE INCL.&#39;</span>//</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;     . <span class="stringliteral">&#39; IN-LINE IN APPL. PGM&#39;</span></div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;      CALL <a class="code" href="errwrt_8f.html#a65626d9a772648676146b62b596c2764">errwrt</a>(errstr)</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;      CALL <a class="code" href="errwrt_8f.html#a65626d9a772648676146b62b596c2764">errwrt</a>(<span class="stringliteral">&#39;+++++++++++++++++++++WARNING+++++++++++++++++++++++&#39;</span>)</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;      CALL <a class="code" href="errwrt_8f.html#a65626d9a772648676146b62b596c2764">errwrt</a>(<span class="stringliteral">&#39; &#39;</span>)</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;      <span class="keywordflow">ENDIF</span></div>
 <div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;      <span class="keywordflow">RETURN</span></div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;      <span class="keywordflow">END</span></div>
-<div class="ttc" id="errwrt_8f_html_a65626d9a772648676146b62b596c2764"><div class="ttname"><a href="errwrt_8f.html#a65626d9a772648676146b62b596c2764">errwrt</a></div><div class="ttdeci">subroutine errwrt(STR)</div><div class="ttdoc">This subroutine allows the user to specify a custom location for the logging of error and diagnostic ...</div><div class="ttdef"><b>Definition:</b> <a href="errwrt_8f_source.html#l00039">errwrt.f:39</a></div></div>
-<div class="ttc" id="openbt_8f_html_ae6c14e3ca6c75e5ee54424817fdd6199"><div class="ttname"><a href="openbt_8f.html#ae6c14e3ca6c75e5ee54424817fdd6199">openbt</a></div><div class="ttdeci">subroutine openbt(LUNDX, MTYP)</div><div class="ttdoc">This subroutine is called as a last resort from within subroutine cktaba(), in the event the latter s...</div><div class="ttdef"><b>Definition:</b> <a href="openbt_8f_source.html#l00039">openbt.f:39</a></div></div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;      lundx = 0</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;      <span class="keywordflow">RETURN</span></div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;      <span class="keywordflow">END</span></div>
+<div class="ttc" id="errwrt_8f_html_a65626d9a772648676146b62b596c2764"><div class="ttname"><a href="errwrt_8f.html#a65626d9a772648676146b62b596c2764">errwrt</a></div><div class="ttdeci">subroutine errwrt(STR)</div><div class="ttdoc">This subroutine allows the user to specify a custom location for the logging of error and diagnostic ...</div><div class="ttdef"><b>Definition:</b> <a href="errwrt_8f_source.html#l00041">errwrt.f:41</a></div></div>
+<div class="ttc" id="openbt_8f_html_ae6c14e3ca6c75e5ee54424817fdd6199"><div class="ttname"><a href="openbt_8f.html#ae6c14e3ca6c75e5ee54424817fdd6199">openbt</a></div><div class="ttdeci">subroutine openbt(LUNDX, MTYP)</div><div class="ttdoc">This subroutine is called as a last resort from within subroutine cktaba(), in the event the latter s...</div><div class="ttdef"><b>Definition:</b> <a href="openbt_8f_source.html#l00041">openbt.f:41</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.5.0</span>
+   &#160;<span id="projectnumber">11.6.0</span>
    </div>
   </td>
  </tr>
@@ -109,17 +109,19 @@ $(document).ready(function(){initNavTree('ifxy_8f.html','');});
 </div><!--header-->
 <div class="contents">
 
+<p>Convert an FXY value from its six character representation to its bit-wise (integer) representation.  
+<a href="#details">More...</a></p>
+
 <p><a href="ifxy_8f_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions/Subroutines</h2></td></tr>
 <tr class="memitem:ac971a6f6d644344a5b09d50175498074"><td class="memItemLeft" align="right" valign="top">function&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ifxy_8f.html#ac971a6f6d644344a5b09d50175498074">ifxy</a> (ADSC)</td></tr>
-<tr class="memdesc:ac971a6f6d644344a5b09d50175498074"><td class="mdescLeft">&#160;</td><td class="mdescRight">THIS FUNCTION RETURNS THE INTEGER CORRESPONDING TO THE BIT-WISE REPRESENTATION OF AN INPUT CHARACTER FXY VALUE OF LENGTH SIX.  <a href="#ac971a6f6d644344a5b09d50175498074">More...</a><br/></td></tr>
+<tr class="memdesc:ac971a6f6d644344a5b09d50175498074"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function converts an FXY value from its 6 character representation to its bit-wise (integer) representation.  <a href="#ac971a6f6d644344a5b09d50175498074">More...</a><br/></td></tr>
 <tr class="separator:ac971a6f6d644344a5b09d50175498074"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><dl class="section author"><dt>Author</dt><dd>WOOLLEN </dd></dl>
-<dl class="section date"><dt>Date</dt><dd>1994-01-06 </dd></dl>
+<div class="textblock"><p>Convert an FXY value from its six character representation to its bit-wise (integer) representation. </p>
 
 <p>Definition in file <a class="el" href="ifxy_8f_source.html">ifxy.f</a>.</p>
 </div><h2 class="groupheader">Function/Subroutine Documentation</h2>
@@ -137,28 +139,46 @@ Functions/Subroutines</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>THIS FUNCTION RETURNS THE INTEGER CORRESPONDING TO THE BIT-WISE REPRESENTATION OF AN INPUT CHARACTER FXY VALUE OF LENGTH SIX. </p>
-<p>PROGRAM HISTORY LOG: 1994-01-06 J. WOOLLEN &ndash; ORIGINAL AUTHOR 2003-11-04 J. ATOR &ndash; ADDED DOCUMENTATION 2003-11-04 S. BENDER &ndash; ADDED REMARKS/BUFRLIB ROUTINE INTERDEPENDENCIES 2003-11-04 D. KEYSER &ndash; UNIFIED/PORTABLE FOR WRF; ADDED HISTORY DOCUMENTATION</p>
-<p>USAGE: IFXY (ADSC) INPUT ARGUMENT LIST: ADSC - CHARACTER*6: CHARACTER FORM OF DESCRIPTOR (FXY VALUE)</p>
-<p>OUTPUT ARGUMENT LIST: IFXY - INTEGER: BIT-WISE REPRESENTATION OF DESCRIPTOR (FXY) VALUE</p>
-<p>REMARKS: </p>
-<pre class="fragment"> EXAMPLE:
+<p>This function converts an FXY value from its 6 character representation to its bit-wise (integer) representation. </p>
+<dl class="section author"><dt>Author</dt><dd>J. Woollen </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>1994-01-06</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">ADSC</td><td>&ndash; character*6: FXY value </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>ifxy &ndash; integer: Bit-wise representation of FXY value</dd></dl>
+<dl class="section remark"><dt>Remarks</dt><dd>Per the <a class="el" href="md__gpfs_dell2_emc_obsproc_noscrub_Jeff_8Ator_NCEPLIBS-bufr-GitHub_nceplibs-bufr_docs_UserGuide.html#manual">official WMO BUFR regulations</a>, an FXY value can be represented as a bit-wise integer in 16 bits, ordered from left (most significant) to right (least significant), and where the F value occupies the first 2 bits, the X value occupies the next 6 bits, and the Y value occupies the last 8 bits. <pre class="fragment">For example, if ADSC = '063022'
 
- If ADSC = '063022', then IFXY = 16150 since:
+   F |     X     |      Y
+   0 |     63    |      22
+  0 0 1 1 1 1 1 1 0 0 0 1 0 1 1 0
 
- 0       63           22
+then the corresponding ifxy
 
- F |     X     |       Y
-   |           |
-0 0 1 1 1 1 1 1 0 0 0 1 0 1 1 0  =
+  = ( 2**13 + 2**12 + 2**11 + 2**10 + 2**9 + 2**8 +
+      2**4 + 2**2 + 2**1 )
 
- ( 2**13 + 2**12 + 2**11 + 2**10 +
-         2**9 + 2**8 + 2**4 + 2**2 + 2**1 )  = 16150
-</pre><p>THIS ROUTINE CALLS: None THIS ROUTINE IS CALLED BY: BFRINI DXINIT GETNTBE GETCFMNG IDN30 IREADMT NEMTAB NEMTBB NEMTBD NUMTBD READS3 RESTD SNTBDE SNTBFE STBFDX STNTBI STSEQ UFBQCP Normally not called by any application programs but it could be. </p>
+  = 16150      
+</pre></dd></dl>
+<p><b>Program History Log:</b> </p>
+<table class="doxtable">
+<tr>
+<th>Date </th><th>Programmer </th><th>Comments  </th></tr>
+<tr>
+<td>1994-01-06 </td><td>J. Woollen </td><td>Original author </td></tr>
+<tr>
+<td>2003-11-04 </td><td>J. Ator </td><td>Added documentation </td></tr>
+<tr>
+<td>2003-11-04 </td><td>S. Bender </td><td>Added remarks and routine interdependencies </td></tr>
+<tr>
+<td>2003-11-04 </td><td>D. Keyser </td><td>Unified/portable for WRF; added history documentation </td></tr>
+</table>
 
-<p>Definition at line <a class="el" href="ifxy_8f_source.html#l00049">49</a> of file <a class="el" href="ifxy_8f_source.html">ifxy.f</a>.</p>
+<p>Definition at line <a class="el" href="ifxy_8f_source.html#l00042">42</a> of file <a class="el" href="ifxy_8f_source.html">ifxy.f</a>.</p>
 
-<p>Referenced by <a class="el" href="bfrini_8f90.html#ab3f045cc170403305543e34e30b87001">bfrini()</a>, <a class="el" href="dxinit_8f.html#a5a104b88a6655ba06336b2c8ab7fb98e">dxinit()</a>, <a class="el" href="getcfmng_8f.html#a702c0f19f868ae7dc76f03e2e224f526">getcfmng()</a>, <a class="el" href="getntbe_8f.html#a114eb13cc332b1a370f5d4bc81b43417">getntbe()</a>, <a class="el" href="idn30_8f.html#a69a1bd958e896bf2f1d6e23159d82713">idn30()</a>, <a class="el" href="ireadmt_8F.html#a0c3eff73be06d581b8b6ffcd47fede03">ireadmt()</a>, <a class="el" href="nemtab_8f.html#a3f3fb5a378c52dac83cb4fce27ceb712">nemtab()</a>, <a class="el" href="nemtbb_8f.html#a6a5cf8bb2726a59eeb87fbbef58764be">nemtbb()</a>, <a class="el" href="nemtbd_8f.html#ac3fb25908c829f741ccd1d440d6051d9">nemtbd()</a>, <a class="el" href="bufrlib_8h.html#a48d75b3c35724dafc2413994a4e679b4">nummtb()</a>, <a class="el" href="numtbd_8f.html#aae71d3919c5fc05ca4915e7b61aa3735">numtbd()</a>, <a class="el" href="reads3_8f.html#a57a4b386c104472c2df89ca9217d0d4b">reads3()</a>, <a class="el" href="restd_8c.html#aef3fbb522b92409bdc654d70b39daaa0">restd()</a>, <a class="el" href="sntbde_8f.html#ae7338a521f1a0879429886018b9c3e00">sntbde()</a>, <a class="el" href="sntbfe_8f.html#a99678d8b031a5f9c1b9c2cc1e8e42d8e">sntbfe()</a>, <a class="el" href="stbfdx_8f.html#a35d346baad722c9be56532c38d43f8a0">stbfdx()</a>, <a class="el" href="stntbi_8f.html#ad26b48825c877d44d1223a3f4e4051ed">stntbi()</a>, <a class="el" href="stseq_8c.html#a712e57cd19d1f94b87269d7dfc679c5e">stseq()</a>, and <a class="el" href="ufbqcp_8f.html#af84d124190b43a756a18312a2b20d3e9">ufbqcp()</a>.</p>
+<p>Referenced by <a class="el" href="bfrini_8f90.html#ab3f045cc170403305543e34e30b87001">bfrini()</a>, <a class="el" href="dxinit_8f.html#a5a104b88a6655ba06336b2c8ab7fb98e">dxinit()</a>, <a class="el" href="getcfmng_8f.html#a702c0f19f868ae7dc76f03e2e224f526">getcfmng()</a>, <a class="el" href="getntbe_8f.html#a114eb13cc332b1a370f5d4bc81b43417">getntbe()</a>, <a class="el" href="idn30_8f.html#a69a1bd958e896bf2f1d6e23159d82713">idn30()</a>, <a class="el" href="ireadmt_8f.html#a0c3eff73be06d581b8b6ffcd47fede03">ireadmt()</a>, <a class="el" href="nemtab_8f.html#a3f3fb5a378c52dac83cb4fce27ceb712">nemtab()</a>, <a class="el" href="nemtbb_8f.html#a6a5cf8bb2726a59eeb87fbbef58764be">nemtbb()</a>, <a class="el" href="nemtbd_8f.html#ac3fb25908c829f741ccd1d440d6051d9">nemtbd()</a>, <a class="el" href="bufrlib_8h.html#a48d75b3c35724dafc2413994a4e679b4">nummtb()</a>, <a class="el" href="numtbd_8f.html#aae71d3919c5fc05ca4915e7b61aa3735">numtbd()</a>, <a class="el" href="reads3_8f.html#a57a4b386c104472c2df89ca9217d0d4b">reads3()</a>, <a class="el" href="restd_8c.html#aef3fbb522b92409bdc654d70b39daaa0">restd()</a>, <a class="el" href="sntbde_8f.html#ae7338a521f1a0879429886018b9c3e00">sntbde()</a>, <a class="el" href="sntbfe_8f.html#a99678d8b031a5f9c1b9c2cc1e8e42d8e">sntbfe()</a>, <a class="el" href="stbfdx_8f.html#a35d346baad722c9be56532c38d43f8a0">stbfdx()</a>, <a class="el" href="stntbi_8f.html#ad26b48825c877d44d1223a3f4e4051ed">stntbi()</a>, <a class="el" href="stseq_8c.html#a712e57cd19d1f94b87269d7dfc679c5e">stseq()</a>, and <a class="el" href="ufbqcp_8f.html#af84d124190b43a756a18312a2b20d3e9">ufbqcp()</a>.</p>
 
 </div>
 </div>

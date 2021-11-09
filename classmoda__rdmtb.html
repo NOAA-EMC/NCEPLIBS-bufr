@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.5.0</span>
+   &#160;<span id="projectnumber">11.6.0</span>
    </div>
   </td>
  </tr>
@@ -111,77 +111,80 @@ $(document).ready(function(){initNavTree('classmoda__rdmtb.html','');});
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Data Fields</h2></td></tr>
-<tr class="memitem:a0a0baab615e3a0f4af7271c5703f006b"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a0a0baab615e3a0f4af7271c5703f006b"></a>
-character *120, dimension(mxmtbd, <br class="typebreak"/>
-maxcd)&#160;</td><td class="memItemRight" valign="bottom"><b>ceelem</b></td></tr>
-<tr class="separator:a0a0baab615e3a0f4af7271c5703f006b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4a0900b91e9ab5ac15ff2f0a8fd82763"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a4a0900b91e9ab5ac15ff2f0a8fd82763"></a>
-character *4, dimension(mxmtbb)&#160;</td><td class="memItemRight" valign="bottom"><b>cmdscb</b></td></tr>
-<tr class="separator:a4a0900b91e9ab5ac15ff2f0a8fd82763"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afcb3685da438acb58b776b24673bf085"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="afcb3685da438acb58b776b24673bf085"></a>
-character *4, dimension(mxmtbd)&#160;</td><td class="memItemRight" valign="bottom"><b>cmdscd</b></td></tr>
-<tr class="separator:afcb3685da438acb58b776b24673bf085"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a26ec7a3a1bb762d557d761aafcad3bdd"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a26ec7a3a1bb762d557d761aafcad3bdd"></a>
-integer, dimension(mxmtbd, maxcd)&#160;</td><td class="memItemRight" valign="bottom"><b>iefxyn</b></td></tr>
-<tr class="separator:a26ec7a3a1bb762d557d761aafcad3bdd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1152389e5fc9eadddbea89bd76abc653"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a1152389e5fc9eadddbea89bd76abc653"></a>
+character *120, dimension(:,:), <br class="typebreak"/>
+allocatable&#160;</td><td class="memItemRight" valign="bottom"><b>ceelem</b></td></tr>
+<tr class="separator:a1152389e5fc9eadddbea89bd76abc653"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a21983afeacfaf7e7755271343aca9055"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a21983afeacfaf7e7755271343aca9055"></a>
+character *4, dimension(:), <br class="typebreak"/>
+allocatable&#160;</td><td class="memItemRight" valign="bottom"><b>cmdscb</b></td></tr>
+<tr class="separator:a21983afeacfaf7e7755271343aca9055"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab8fe0a01ea7ba06916fd450273c1c38f"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab8fe0a01ea7ba06916fd450273c1c38f"></a>
+character *4, dimension(:), <br class="typebreak"/>
+allocatable&#160;</td><td class="memItemRight" valign="bottom"><b>cmdscd</b></td></tr>
+<tr class="separator:ab8fe0a01ea7ba06916fd450273c1c38f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab26bcc9dccfa0b250af20392755adf93"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab26bcc9dccfa0b250af20392755adf93"></a>
+integer, dimension(:,:), <br class="typebreak"/>
+allocatable&#160;</td><td class="memItemRight" valign="bottom"><b>iefxyn</b></td></tr>
+<tr class="separator:ab26bcc9dccfa0b250af20392755adf93"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock">
 <p>Definition at line <a class="el" href="moda__rdmtb_8F_source.html#l00001">1</a> of file <a class="el" href="moda__rdmtb_8F_source.html">moda_rdmtb.F</a>.</p>
 </div><h2 class="groupheader">Field Documentation</h2>
-<a class="anchor" id="a0a0baab615e3a0f4af7271c5703f006b"></a>
+<a class="anchor" id="a1152389e5fc9eadddbea89bd76abc653"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">character*120, dimension(mxmtbd,maxcd) moda_rdmtb::ceelem</td>
+          <td class="memname">character*120, dimension(:,:), allocatable moda_rdmtb::ceelem</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="moda__rdmtb_8F_source.html#l00027">27</a> of file <a class="el" href="moda__rdmtb_8F_source.html">moda_rdmtb.F</a>.</p>
+<p>Definition at line <a class="el" href="moda__rdmtb_8F_source.html#l00021">21</a> of file <a class="el" href="moda__rdmtb_8F_source.html">moda_rdmtb.F</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a4a0900b91e9ab5ac15ff2f0a8fd82763"></a>
+<a class="anchor" id="a21983afeacfaf7e7755271343aca9055"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">character*4, dimension(mxmtbb) moda_rdmtb::cmdscb</td>
+          <td class="memname">character*4, dimension(:), allocatable moda_rdmtb::cmdscb</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="moda__rdmtb_8F_source.html#l00025">25</a> of file <a class="el" href="moda__rdmtb_8F_source.html">moda_rdmtb.F</a>.</p>
+<p>Definition at line <a class="el" href="moda__rdmtb_8F_source.html#l00019">19</a> of file <a class="el" href="moda__rdmtb_8F_source.html">moda_rdmtb.F</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="afcb3685da438acb58b776b24673bf085"></a>
+<a class="anchor" id="ab8fe0a01ea7ba06916fd450273c1c38f"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">character*4, dimension(mxmtbd) moda_rdmtb::cmdscd</td>
+          <td class="memname">character*4, dimension(:), allocatable moda_rdmtb::cmdscd</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="moda__rdmtb_8F_source.html#l00026">26</a> of file <a class="el" href="moda__rdmtb_8F_source.html">moda_rdmtb.F</a>.</p>
+<p>Definition at line <a class="el" href="moda__rdmtb_8F_source.html#l00020">20</a> of file <a class="el" href="moda__rdmtb_8F_source.html">moda_rdmtb.F</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a26ec7a3a1bb762d557d761aafcad3bdd"></a>
+<a class="anchor" id="ab26bcc9dccfa0b250af20392755adf93"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">integer, dimension(mxmtbd,maxcd) moda_rdmtb::iefxyn</td>
+          <td class="memname">integer, dimension(:,:), allocatable moda_rdmtb::iefxyn</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="moda__rdmtb_8F_source.html#l00024">24</a> of file <a class="el" href="moda__rdmtb_8F_source.html">moda_rdmtb.F</a>.</p>
+<p>Definition at line <a class="el" href="moda__rdmtb_8F_source.html#l00018">18</a> of file <a class="el" href="moda__rdmtb_8F_source.html">moda_rdmtb.F</a>.</p>
 
 </div>
 </div>

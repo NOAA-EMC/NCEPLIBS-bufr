@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.5.0</span>
+   &#160;<span id="projectnumber">11.6.0</span>
    </div>
   </td>
  </tr>
@@ -122,72 +122,71 @@ $(document).ready(function(){initNavTree('ufbmns_8f_source.html','');});
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment">C&gt; @author J. Woollen</span></div>
 <div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="comment">C&gt; @date 1994-01-06</span></div>
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="comment">C&gt;</span></div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="comment">C&gt; @param[in] IREP    - integer: Number of data subset to be</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="comment">C&gt; @param[in] IREP   -- integer: Number of data subset to be</span></div>
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="comment">C&gt;                      read into scope for further processing,</span></div>
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment">C&gt;                      counting from the beginning of the</span></div>
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="comment">C&gt;                      internal arrays in memory</span></div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="comment">C&gt; @param[out] SUBSET - character*8: Table A mnemonic for type of BUFR</span></div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="comment">C&gt;                      message that was read into scope</span></div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="comment">C&gt;                      (see [DX BUFR Tables](@ref dfbftab) for</span></div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="comment">C&gt;                      further information about Table A mnemonics)</span></div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="comment">C&gt; @param[out] IDATE  - integer: Date-time stored within Section 1 of</span></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="comment">C&gt; @param[out] SUBSET -- character*8: Table A mnemonic for type of BUFR</span></div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="comment">C&gt;                       message that was read into scope</span></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="comment">C&gt;                       (see [DX BUFR Tables](@ref dfbftab) for</span></div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="comment">C&gt;                       further information about Table A mnemonics)</span></div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="comment">C&gt; @param[out] IDATE -- integer: Date-time stored within Section 1 of</span></div>
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="comment">C&gt;                      BUFR message that was read into scope,</span></div>
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="comment">C&gt;                      in format of either YYMMDDHH or YYYYMMDDHH,</span></div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="comment">C&gt;                      depending on the most</span></div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="comment">C&gt;                      recent call to subroutine datelen()</span></div>
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="comment">C&gt;</span></div>
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="comment">C&gt; &lt;b&gt;Program history log:&lt;/b&gt;</span></div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="comment">C&gt; - 1994-01-06  J. Woollen -- Original author</span></div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="comment">C&gt; - 1998-07-08  J. Woollen -- Replaced call to Cray library routine</span></div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="comment">C&gt;                           &quot;ABORT&quot; with call to new internal BUFRLIB</span></div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="comment">C&gt;                           routine &quot;BORT&quot;</span></div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="comment">C&gt; - 1999-11-18  J. Woollen -- Increased MAXMEM from 4 Mb to 8 Mb</span></div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="comment">C&gt; - 2001-08-15  D. Keyser  -- Increased MAXMEM from 8 Mb to 16 Mb</span></div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="comment">C&gt; - 2004-11-15  D. Keyser  -- Increased MAXMEM from 16 Mb to 50 Mb</span></div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="comment">C&gt; - 2009-03-23  J. Ator    -- Use ireadmm() instead of rdmemm();</span></div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="comment">C&gt;                           simplify logic</span></div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="comment">C&gt; - 2014-12-10  J. Ator    -- Use modules instead of COMMON blocks</span></div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="comment">C&gt;</span></div>
-<div class="line"><a name="l00043"></a><span class="lineno"><a class="line" href="ufbmns_8f.html#a790b8cbf5b6a9a6c22a0e7abb0b40443">   43</a></span>&#160;<span class="keyword">      SUBROUTINE </span><a class="code" href="ufbmns_8f.html#a790b8cbf5b6a9a6c22a0e7abb0b40443">ufbmns</a>(IREP,SUBSET,IDATE)</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;      <span class="keywordtype">USE </span><a class="code" href="moda__msgmem_8F.html#classmoda__msgmem">moda_msgmem</a></div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;      <span class="keywordtype">CHARACTER*128</span> bort_str</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;      <span class="keywordtype">CHARACTER*8</span>   subset</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="comment">C&gt; | Date | Programmer | Comments |</span></div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="comment">C&gt; | -----|------------|----------|</span></div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="comment">C&gt; | 1994-01-06 | J. Woollen | Original author |</span></div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="comment">C&gt; | 1998-07-08 | J. Woollen | Replaced call to Cray library routine &quot;ABORT&quot; with call to new internal routine bort() |</span></div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="comment">C&gt; | 1999-11-18 | J. Woollen | Increased MAXMEM from 4 Mb to 8 Mb |</span></div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="comment">C&gt; | 2001-08-15 | D. Keyser  | Increased MAXMEM from 8 Mb to 16 Mb |</span></div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="comment">C&gt; | 2004-11-15 | D. Keyser  | Increased MAXMEM from 16 Mb to 50 Mb |</span></div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="comment">C&gt; | 2009-03-23 | J. Ator    | Use ireadmm() instead of rdmemm(); simplify logic |</span></div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="comment">C&gt; | 2014-12-10 | J. Ator    | Use modules instead of COMMON blocks |</span></div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="comment">C&gt;</span></div>
+<div class="line"><a name="l00042"></a><span class="lineno"><a class="line" href="ufbmns_8f.html#a790b8cbf5b6a9a6c22a0e7abb0b40443">   42</a></span>&#160;<span class="keyword">      SUBROUTINE </span><a class="code" href="ufbmns_8f.html#a790b8cbf5b6a9a6c22a0e7abb0b40443">ufbmns</a>(IREP,SUBSET,IDATE)</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;      <span class="keywordtype">USE </span><a class="code" href="moda__msgmem_8F.html#classmoda__msgmem">moda_msgmem</a></div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;      <span class="keywordtype">CHARACTER*128</span> bort_str</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;      <span class="keywordtype">CHARACTER*8</span>   subset</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<span class="comment">C-----------------------------------------------------------------------</span></div>
 <div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;<span class="comment">C-----------------------------------------------------------------------</span></div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;<span class="comment">C-----------------------------------------------------------------------</span></div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;      jrep = 0</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;      imsg = 1</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;<span class="comment">C  READ SUBSET #ISUB FROM MEMORY MESSAGE #IMSG</span></div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;<span class="comment">C  -------------------------------------------</span></div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;      <span class="keywordflow">DO</span> <span class="keywordflow">WHILE</span>(<a class="code" href="ireadmm_8f.html#a1635043b8d41b6c87ca523e9b3959fdd">ireadmm</a>(imsg,subset,idate).EQ.0)</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;        <span class="keywordflow">IF</span>(jrep+<a class="code" href="nmsub_8f.html#a536bd3da0a5f7305e5e1e12b6654967d">nmsub</a>(munit).GE.irep) <span class="keywordflow">THEN</span></div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;           CALL <a class="code" href="rdmems_8f.html#a6056b938e6f893ec3f49ea579ceb4213">rdmems</a>(irep-jrep,iret)</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;           goto 100</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;        <span class="keywordflow">ENDIF</span></div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;        jrep = jrep+<a class="code" href="nmsub_8f.html#a536bd3da0a5f7305e5e1e12b6654967d">nmsub</a>(munit)</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;      <span class="keywordflow">ENDDO</span></div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;      goto 900</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;<span class="comment">C  EXITS</span></div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;<span class="comment">C  -----</span></div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;100   <span class="keywordflow">RETURN</span></div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;900   <span class="keyword">WRITE</span>(bort_str,<span class="stringliteral">&#39;(&quot;BUFRLIB: UFBMNS - REQ. SUBSET NO. TO READ IN &#39;</span>//</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;     . <span class="stringliteral">&#39;(&quot;,I5,&quot;) EXCEEDS TOTAL NO. OF SUBSETS IN THE COLLECTION OF &#39;</span>//</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;     . <span class="stringliteral">&#39;MEMORY MESSAGES (&quot;,I5,&quot;)&quot;)&#39;</span>) irep,jrep</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;      CALL <a class="code" href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort</a>(bort_str)</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;      <span class="keywordflow">END</span></div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;      jrep = 0</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;      imsg = 1</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;<span class="comment">C  READ SUBSET #ISUB FROM MEMORY MESSAGE #IMSG</span></div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;<span class="comment">C  -------------------------------------------</span></div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;      <span class="keywordflow">DO</span> <span class="keywordflow">WHILE</span>(<a class="code" href="ireadmm_8f.html#a1635043b8d41b6c87ca523e9b3959fdd">ireadmm</a>(imsg,subset,idate).EQ.0)</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;        <span class="keywordflow">IF</span>(jrep+<a class="code" href="nmsub_8f.html#a536bd3da0a5f7305e5e1e12b6654967d">nmsub</a>(munit).GE.irep) <span class="keywordflow">THEN</span></div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;           CALL <a class="code" href="rdmems_8f.html#a6056b938e6f893ec3f49ea579ceb4213">rdmems</a>(irep-jrep,iret)</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;           goto 100</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;        <span class="keywordflow">ENDIF</span></div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;        jrep = jrep+<a class="code" href="nmsub_8f.html#a536bd3da0a5f7305e5e1e12b6654967d">nmsub</a>(munit)</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;      <span class="keywordflow">ENDDO</span></div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;      goto 900</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;<span class="comment">C  EXITS</span></div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;<span class="comment">C  -----</span></div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;100   <span class="keywordflow">RETURN</span></div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;900   <span class="keyword">WRITE</span>(bort_str,<span class="stringliteral">&#39;(&quot;BUFRLIB: UFBMNS - REQ. SUBSET NO. TO READ IN &#39;</span>//</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;     . <span class="stringliteral">&#39;(&quot;,I5,&quot;) EXCEEDS TOTAL NO. OF SUBSETS IN THE COLLECTION OF &#39;</span>//</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;     . <span class="stringliteral">&#39;MEMORY MESSAGES (&quot;,I5,&quot;)&quot;)&#39;</span>) irep,jrep</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;      CALL <a class="code" href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort</a>(bort_str)</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;      <span class="keywordflow">END</span></div>
 <div class="ttc" id="moda__msgmem_8F_html_classmoda__msgmem"><div class="ttname"><a href="moda__msgmem_8F.html#classmoda__msgmem">moda_msgmem</a></div><div class="ttdoc">This module contains array and variable declarations used to store the contents of one or more BUFR f...</div><div class="ttdef"><b>Definition:</b> <a href="moda__msgmem_8F_source.html#l00014">moda_msgmem.F:14</a></div></div>
-<div class="ttc" id="rdmems_8f_html_a6056b938e6f893ec3f49ea579ceb4213"><div class="ttname"><a href="rdmems_8f.html#a6056b938e6f893ec3f49ea579ceb4213">rdmems</a></div><div class="ttdeci">subroutine rdmems(ISUB, IRET)</div><div class="ttdoc">This subroutine reads a specified data subset from the BUFR message that was most recently read via a...</div><div class="ttdef"><b>Definition:</b> <a href="rdmems_8f_source.html#l00048">rdmems.f:48</a></div></div>
-<div class="ttc" id="nmsub_8f_html_a536bd3da0a5f7305e5e1e12b6654967d"><div class="ttname"><a href="nmsub_8f.html#a536bd3da0a5f7305e5e1e12b6654967d">nmsub</a></div><div class="ttdeci">function nmsub(LUNIT)</div><div class="ttdoc">This function returns the total number of data subsets available within the BUFR message that was mos...</div><div class="ttdef"><b>Definition:</b> <a href="nmsub_8f_source.html#l00031">nmsub.f:31</a></div></div>
-<div class="ttc" id="ufbmns_8f_html_a790b8cbf5b6a9a6c22a0e7abb0b40443"><div class="ttname"><a href="ufbmns_8f.html#a790b8cbf5b6a9a6c22a0e7abb0b40443">ufbmns</a></div><div class="ttdeci">subroutine ufbmns(IREP, SUBSET, IDATE)</div><div class="ttdoc">This subroutine reads a specified data subset from internal arrays in memory, so that it is now in sc...</div><div class="ttdef"><b>Definition:</b> <a href="ufbmns_8f_source.html#l00043">ufbmns.f:43</a></div></div>
-<div class="ttc" id="bort_8f_html_a488d3a8cf930fb592a9fdaefcfa04ac4"><div class="ttname"><a href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort</a></div><div class="ttdeci">subroutine bort(STR)</div><div class="ttdoc">This subroutine calls subroutine errwrt() to log an error message, then calls subroutine bort_exit() ...</div><div class="ttdef"><b>Definition:</b> <a href="bort_8f_source.html#l00023">bort.f:23</a></div></div>
-<div class="ttc" id="ireadmm_8f_html_a1635043b8d41b6c87ca523e9b3959fdd"><div class="ttname"><a href="ireadmm_8f.html#a1635043b8d41b6c87ca523e9b3959fdd">ireadmm</a></div><div class="ttdeci">function ireadmm(IMSG, SUBSET, IDATE)</div><div class="ttdoc">This function calls BUFRLIB subroutine readmm() and passes back its return code as the function value...</div><div class="ttdef"><b>Definition:</b> <a href="ireadmm_8f_source.html#l00041">ireadmm.f:41</a></div></div>
+<div class="ttc" id="rdmems_8f_html_a6056b938e6f893ec3f49ea579ceb4213"><div class="ttname"><a href="rdmems_8f.html#a6056b938e6f893ec3f49ea579ceb4213">rdmems</a></div><div class="ttdeci">subroutine rdmems(ISUB, IRET)</div><div class="ttdoc">This subroutine reads a specified data subset from the BUFR message that was most recently read via a...</div><div class="ttdef"><b>Definition:</b> <a href="rdmems_8f_source.html#l00042">rdmems.f:42</a></div></div>
+<div class="ttc" id="nmsub_8f_html_a536bd3da0a5f7305e5e1e12b6654967d"><div class="ttname"><a href="nmsub_8f.html#a536bd3da0a5f7305e5e1e12b6654967d">nmsub</a></div><div class="ttdeci">function nmsub(LUNIT)</div><div class="ttdoc">This function returns the total number of data subsets available within the BUFR message that was mos...</div><div class="ttdef"><b>Definition:</b> <a href="nmsub_8f_source.html#l00029">nmsub.f:29</a></div></div>
+<div class="ttc" id="ufbmns_8f_html_a790b8cbf5b6a9a6c22a0e7abb0b40443"><div class="ttname"><a href="ufbmns_8f.html#a790b8cbf5b6a9a6c22a0e7abb0b40443">ufbmns</a></div><div class="ttdeci">subroutine ufbmns(IREP, SUBSET, IDATE)</div><div class="ttdoc">This subroutine reads a specified data subset from internal arrays in memory, so that it is now in sc...</div><div class="ttdef"><b>Definition:</b> <a href="ufbmns_8f_source.html#l00042">ufbmns.f:42</a></div></div>
+<div class="ttc" id="bort_8f_html_a488d3a8cf930fb592a9fdaefcfa04ac4"><div class="ttname"><a href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort</a></div><div class="ttdeci">subroutine bort(STR)</div><div class="ttdoc">This subroutine calls subroutine errwrt() to log an error message, then calls subroutine bort_exit() ...</div><div class="ttdef"><b>Definition:</b> <a href="bort_8f_source.html#l00022">bort.f:22</a></div></div>
+<div class="ttc" id="ireadmm_8f_html_a1635043b8d41b6c87ca523e9b3959fdd"><div class="ttname"><a href="ireadmm_8f.html#a1635043b8d41b6c87ca523e9b3959fdd">ireadmm</a></div><div class="ttdeci">function ireadmm(IMSG, SUBSET, IDATE)</div><div class="ttdoc">This function calls BUFRLIB subroutine readmm() and passes back its return code as the function value...</div><div class="ttdef"><b>Definition:</b> <a href="ireadmm_8f_source.html#l00042">ireadmm.f:42</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.5.0</span>
+   &#160;<span id="projectnumber">11.6.0</span>
    </div>
   </td>
  </tr>
@@ -154,28 +154,32 @@ Functions/Subroutines</h2></td></tr>
 <dl class="section date"><dt>Date</dt><dd>2009-07-09</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">LUNIT</td><td>- integer: Fortran logical unit number for BUFR file </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">SUBSET</td><td>- character*8: Table A mnemonic of message type to be checked </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">LUNIT</td><td>&ndash; integer: Fortran logical unit number for BUFR file </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">SUBSET</td><td>&ndash; character*8: Table A mnemonic of message type to be checked </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>lcmgdf - integer:<ul>
+<dl class="section return"><dt>Returns</dt><dd>lcmgdf &ndash; integer:<ul>
 <li>0 = SUBSET does not contain any long character strings</li>
 <li>1 = SUBSET contains at least one long character string</li>
 </ul>
 </dd></dl>
 <dl class="section remark"><dt>Remarks</dt><dd><ul>
-<li>LUNIT may be open for either input or output operations via a previous call to subroutine <a class="el" href="openbf_8F.html#a9bea9aeada166bd9037b959ca8452b28" title="This subroutine connects a new file to the BUFRLIB software for input or output operations. ">openbf()</a>. However, in either case, SUBSET must already be defined within the BUFR tables that are associated with LUNIT, typically as <a class="el" href="md__gpfs_dell2_emc_obsproc_noscrub_Jeff_8Ator_NCEPLIBS-bufr-GitHub_nceplibs-bufr_docs_dfbftab.html#dfbftab">DX BUFR tables</a> information supplied via argument LUNDX when <a class="el" href="openbf_8F.html#a9bea9aeada166bd9037b959ca8452b28" title="This subroutine connects a new file to the BUFRLIB software for input or output operations. ">openbf()</a> was called, or, if <a class="el" href="openbf_8F.html#a9bea9aeada166bd9037b959ca8452b28" title="This subroutine connects a new file to the BUFRLIB software for input or output operations. ">openbf()</a> was called with IO = 'SEC3', then as <a class="el" href="md__gpfs_dell2_emc_obsproc_noscrub_Jeff_8Ator_NCEPLIBS-bufr-GitHub_nceplibs-bufr_docs_dfbfmstab.html#dfbfmstab">master BUFR table</a> information during a previous call to one of the <a class="el" href="md__gpfs_dell2_emc_obsproc_noscrub_Jeff_8Ator_NCEPLIBS-bufr-GitHub_nceplibs-bufr_docs_UserGuide.html#hierarchy">message-reading subroutines</a>.</li>
+<li>LUNIT may be open for either input or output operations via a previous call to subroutine <a class="el" href="openbf_8f.html#a9bea9aeada166bd9037b959ca8452b28" title="This subroutine connects a new file to the BUFRLIB software for input or output operations. ">openbf()</a>. However, in either case, SUBSET must already be defined within the BUFR tables that are associated with LUNIT, typically as <a class="el" href="md__gpfs_dell2_emc_obsproc_noscrub_Jeff_8Ator_NCEPLIBS-bufr-GitHub_nceplibs-bufr_docs_dfbftab.html#dfbftab">DX BUFR tables</a> information supplied via argument LUNDX when <a class="el" href="openbf_8f.html#a9bea9aeada166bd9037b959ca8452b28" title="This subroutine connects a new file to the BUFRLIB software for input or output operations. ">openbf()</a> was called, or, if <a class="el" href="openbf_8f.html#a9bea9aeada166bd9037b959ca8452b28" title="This subroutine connects a new file to the BUFRLIB software for input or output operations. ">openbf()</a> was called with IO = 'SEC3', then as <a class="el" href="md__gpfs_dell2_emc_obsproc_noscrub_Jeff_8Ator_NCEPLIBS-bufr-GitHub_nceplibs-bufr_docs_dfbfmstab.html#dfbfmstab">master BUFR table</a> information during a previous call to one of the <a class="el" href="md__gpfs_dell2_emc_obsproc_noscrub_Jeff_8Ator_NCEPLIBS-bufr-GitHub_nceplibs-bufr_docs_UserGuide.html#hierarchy">message-reading subroutines</a>.</li>
 <li>Note that this function does not return mnemonic(s) associated with any long character string(s) found within SUBSET; rather, it only checks whether at least one such mnemonic exists. If any are found, the application program can process them via a separate call to subroutine <a class="el" href="readlc_8f.html#acf408b0943fc7a5040009cd9a9bc57a1" title="This subroutine reads a long character string (greater than 8 bytes) from a data subset. ">readlc()</a> (when reading BUFR data subsets) or subroutine <a class="el" href="writlc_8f.html#a7017d5359bb32ce5407499d7a1b16709" title="This subroutine writes a long character string (greater than 8 bytes) to a data subset. ">writlc()</a> (when writing BUFR data subsets).</li>
 </ul>
 </dd></dl>
-<p><b>Program history log:</b></p>
-<ul>
-<li>2009-07-09 J. Ator &ndash; Original author</li>
-<li>2014-12-10 J. Ator &ndash; Use modules instead of COMMON blocks </li>
-</ul>
+<p><b>Program history log:</b> </p>
+<table class="doxtable">
+<tr>
+<th>Date </th><th>Programmer </th><th>Comments  </th></tr>
+<tr>
+<td>2009-07-09 </td><td>J. Ator </td><td>Original author </td></tr>
+<tr>
+<td>2014-12-10 </td><td>J. Ator </td><td>Use modules instead of COMMON blocks </td></tr>
+</table>
 
-<p>Definition at line <a class="el" href="lcmgdf_8f_source.html#l00042">42</a> of file <a class="el" href="lcmgdf_8f_source.html">lcmgdf.f</a>.</p>
+<p>Definition at line <a class="el" href="lcmgdf_8f_source.html#l00044">44</a> of file <a class="el" href="lcmgdf_8f_source.html">lcmgdf.f</a>.</p>
 
 <p>References <a class="el" href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort()</a>, <a class="el" href="nemtba_8f.html#a1038fd60bc3fa89eff9ff79ed996a7e1">nemtba()</a>, and <a class="el" href="status_8f.html#a22292e7a69c411a961168198d259f336">status()</a>.</p>
 

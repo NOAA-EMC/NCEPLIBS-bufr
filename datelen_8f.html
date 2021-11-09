@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.5.0</span>
+   &#160;<span id="projectnumber">11.6.0</span>
    </div>
   </td>
  </tr>
@@ -144,7 +144,7 @@ Functions/Subroutines</h2></td></tr>
 <dl class="section date"><dt>Date</dt><dd>1998-07-08</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">LEN</td><td>- integer: Length of Section 1 date-time values to be output by all future calls to message-reading subroutines<ul>
+    <tr><td class="paramdir">[in]</td><td class="paramname">LEN</td><td>&ndash; integer: Length of Section 1 date-time values to be output by all future calls to message-reading subroutines<ul>
 <li>8 = YYMMDDHH format with 2-digit year (the default)</li>
 <li>10 = YYYYMMDDHH format with 4-digit year</li>
 </ul>
@@ -153,15 +153,21 @@ Functions/Subroutines</h2></td></tr>
   </dd>
 </dl>
 <p>This subroutine can be called at any time from within the application program, and the specified value for LEN will remain in effect for all future calls to any of the BUFRLIB subroutines which read BUFR messages, unless a subsequent call is made to this subroutine to reset the value of LEN again. If this subroutine is never called, a default value of 8 is used for LEN, as set within subroutine <a class="el" href="bfrini_8f90.html#ab3f045cc170403305543e34e30b87001" title="This subroutine initializes numerous global variables and arrays within internal modules and COMMON b...">bfrini()</a>.</p>
-<p><b>Program history log:</b></p>
-<ul>
-<li>1998-07-08 J. Woollen &ndash; Original author</li>
-<li>2002-05-14 J. Woollen &ndash; Changed from an entry point in <a class="el" href="readmg_8f.html#a9fb3da32fb87bc017d16b9f0f707be9b" title="This subroutine reads the next BUFR message from logical unit ABS(LUNXX) into internal arrays...">readmg()</a> to stand-alone subroutine, to increase portability to other platforms</li>
-<li>2003-11-04 J. Ator &ndash; Added documentation</li>
-<li>2004-12-20 D. Keyser &ndash; Calls <a class="el" href="wrdlen_8F.html#afb746f29272671c842018de69b277685" title="This subroutine figures out some important information about the local machine on which the BUFRLIB s...">wrdlen()</a> to initialize local machine information (in case it has not yet been called), this routine does not require it but it may someday call other routines that do require it </li>
-</ul>
+<p><b>Program history log:</b> </p>
+<table class="doxtable">
+<tr>
+<th>Date </th><th>Programmer </th><th>Comments  </th></tr>
+<tr>
+<td>1998-07-08 </td><td>J. Woollen </td><td>Original author </td></tr>
+<tr>
+<td>2002-05-14 </td><td>J. Woollen </td><td>Changed from an entry point in <a class="el" href="readmg_8f.html#a9fb3da32fb87bc017d16b9f0f707be9b" title="This subroutine reads the next BUFR message from logical unit ABS(LUNXX) into internal arrays...">readmg()</a> to stand-alone subroutine, to increase portability to other platforms </td></tr>
+<tr>
+<td>2003-11-04 </td><td>J. Ator </td><td>Added documentation </td></tr>
+<tr>
+<td>2004-12-20 </td><td>D. Keyser </td><td>Calls <a class="el" href="wrdlen_8F.html#afb746f29272671c842018de69b277685" title="This subroutine figures out some important information about the local machine on which the BUFRLIB s...">wrdlen()</a> to initialize local machine information, in case it has not yet been called </td></tr>
+</table>
 
-<p>Definition at line <a class="el" href="datelen_8f_source.html#l00039">39</a> of file <a class="el" href="datelen_8f_source.html">datelen.f</a>.</p>
+<p>Definition at line <a class="el" href="datelen_8f_source.html#l00035">35</a> of file <a class="el" href="datelen_8f_source.html">datelen.f</a>.</p>
 
 <p>References <a class="el" href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort()</a>, and <a class="el" href="wrdlen_8F.html#afb746f29272671c842018de69b277685">wrdlen()</a>.</p>
 

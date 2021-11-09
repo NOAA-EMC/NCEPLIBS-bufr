@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.5.0</span>
+   &#160;<span id="projectnumber">11.6.0</span>
    </div>
   </td>
  </tr>
@@ -176,8 +176,8 @@ Functions/Subroutines</h2></td></tr>
 <p>This subroutine reads or writes an entire sequence of data values from or to the BUFR data subset that is currently open within the BUFRLIB internal arrays. </p>
 <p>The direction of the data transfer is determined by the context of ABS(LUNIN):</p>
 <ul>
-<li>If ABS(LUNIN) points to a file that was previously opened for input using subroutine <a class="el" href="openbf_8F.html#a9bea9aeada166bd9037b959ca8452b28" title="This subroutine connects a new file to the BUFRLIB software for input or output operations. ">openbf()</a>, then data values are read from the current data subset.</li>
-<li>If ABS(LUNIN) points to a file that was previously opened for output using subroutine <a class="el" href="openbf_8F.html#a9bea9aeada166bd9037b959ca8452b28" title="This subroutine connects a new file to the BUFRLIB software for input or output operations. ">openbf()</a>, then data values are written to the current data subset.</li>
+<li>If ABS(LUNIN) points to a file that was previously opened for input using subroutine <a class="el" href="openbf_8f.html#a9bea9aeada166bd9037b959ca8452b28" title="This subroutine connects a new file to the BUFRLIB software for input or output operations. ">openbf()</a>, then data values are read from the current data subset.</li>
+<li>If ABS(LUNIN) points to a file that was previously opened for output using subroutine <a class="el" href="openbf_8f.html#a9bea9aeada166bd9037b959ca8452b28" title="This subroutine connects a new file to the BUFRLIB software for input or output operations. ">openbf()</a>, then data values are written to the current data subset.</li>
 </ul>
 <p>This subroutine is specifically designed for use with a single Table A or Table D mnemonic. In the latter case, the mnemonic may be replicated within the overall subset definition, and in which case the subroutine will return all data values within all replications of the sequence defined by the mnemonic. But in either case, the mnemonic itself may contain, within its own sequence definition, any number of data values defined by Table B mnemonics and/or subsequences of data values defined by other Table D mnemonics, and any such subsequences may themselves be replicated using any manner of fixed or delayed replication. See <a class="el" href="md__gpfs_dell2_emc_obsproc_noscrub_Jeff_8Ator_NCEPLIBS-bufr-GitHub_nceplibs-bufr_docs_dfbftab.html#ufbsubs">DX BUFR Tables</a> for more details including an example use case, and see also subroutines <a class="el" href="ufbint_8f.html#afe3364a491b49e0c9e5a526b009aaa75" title="This subroutine reads or writes one or more data values from or to the BUFR data subset that is curre...">ufbint()</a>, <a class="el" href="ufbrep_8f.html#adb981832bdbbb26903265fb946aac58c" title="This subroutine reads or writes one or more data values from or to the BUFR data subset that is curre...">ufbrep()</a> and <a class="el" href="ufbstp_8f.html#a8153bb675bd7b02b4a2a58b77ba9d581" title="This subroutine reads or writes one or more data values from or to the BUFR data subset that is curre...">ufbstp()</a> which are also used to read/write one or more data values from/to a data subset but cannot themselves be directly used with Table A or Table D mnemonics.</p>
 <dl class="section author"><dt>Authors</dt><dd>J. Woollen </dd>
@@ -186,20 +186,20 @@ J. Ator </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>2000-09-19</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">LUNIN</td><td>- integer: Absolute value is Fortran logical unit number for BUFR file </td></tr>
-    <tr><td class="paramdir">[in,out]</td><td class="paramname">USR</td><td>- real*8(*,*): Data values<ul>
+    <tr><td class="paramdir">[in]</td><td class="paramname">LUNIN</td><td>&ndash; integer: Absolute value is Fortran logical unit number for BUFR file </td></tr>
+    <tr><td class="paramdir">[in,out]</td><td class="paramname">USR</td><td>&ndash; real*8(*,*): Data values<ul>
 <li>If ABS(LUNIN) was opened for input, then USR is output from this subroutine and contains data values that were read from the current data subset.</li>
 <li>If ABS(LUNIN) was opened for output, then USR is input to this subroutine and contains data values that are to be written to the current data subset. </li>
 </ul>
 </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">I1</td><td>- integer: Actual first dimension of USR as allocated within the calling program </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">I2</td><td>- integer:<ul>
+    <tr><td class="paramdir">[in]</td><td class="paramname">I1</td><td>&ndash; integer: Actual first dimension of USR as allocated within the calling program </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">I2</td><td>&ndash; integer:<ul>
 <li>If ABS(LUNIN) was opened for input, then I2 must be set equal to the actual second dimension of USR as allocated within the calling program</li>
 <li>If ABS(LUNIN) was opened for output, then I2 must be set equal to the number of replications of STR that are to be written to the data subset </li>
 </ul>
 </td></tr>
-    <tr><td class="paramdir">[out]</td><td class="paramname">IRET</td><td>- integer: Number of replications of STR that were actually read/written from/to the data subset </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">STR</td><td>- character*(*): String consisting of a single Table A or Table D mnemonic whose sequence definition is in one-to-one correspondence with the number of data values that will be read/written from/to the data subset within the first dimension of USR (see <a class="el" href="md__gpfs_dell2_emc_obsproc_noscrub_Jeff_8Ator_NCEPLIBS-bufr-GitHub_nceplibs-bufr_docs_dfbftab.html#dfbftab">DX BUFR Tables</a> for further information about Table A and Table D mnemonics)</td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">IRET</td><td>&ndash; integer: Number of replications of STR that were actually read/written from/to the data subset </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">STR</td><td>&ndash; character*(*): String consisting of a single Table A or Table D mnemonic whose sequence definition is in one-to-one correspondence with the number of data values that will be read/written from/to the data subset within the first dimension of USR (see <a class="el" href="md__gpfs_dell2_emc_obsproc_noscrub_Jeff_8Ator_NCEPLIBS-bufr-GitHub_nceplibs-bufr_docs_dfbftab.html#dfbftab">DX BUFR Tables</a> for further information about Table A and Table D mnemonics)</td></tr>
   </table>
   </dd>
 </dl>
@@ -211,22 +211,35 @@ J. Ator </dd></dl>
 <li>If ABS(LUNIN) points to a file that is open for output (writing BUFR), and if the data values to be written are part of a sequence replicated using delayed replication, then a call to subroutine <a class="el" href="drfini_8f.html#ab9d63d7c2b99152be8e0809413adf621" title="This subroutine explicitly initializes delayed replication factors and allocates a corresponding amou...">drfini()</a> must be made prior to calling this subroutine, in order to pre-allocate the necessary internal array space for the number of replications of the sequence.</li>
 </ul>
 </dd></dl>
-<p><b>Program history log:</b></p>
-<ul>
-<li>2000-09-19 J. Woollen &ndash; Original author</li>
-<li>2002-05-14 J. Woollen &ndash; Improved generality; previously ufbseq would not recognize compressed delayed replication as a legitimate data structure</li>
-<li>2003-05-19 J. Woollen &ndash; Corrected the logic array of exit conditions for the subroutine; previously, in some cases, proper exits were missed, generating bogus error messages, because of several miscellaneous bugs which are now removed</li>
-<li>2003-11-04 S. Bender &ndash; Added remarks and routine interdependencies</li>
-<li>2003-11-04 D. Keyser &ndash; Unified/portable for WRF; added history documentation; outputs more complete diagnostic info when routine terminates abnormally, unusual things happen or for informational purposes</li>
-<li>2004-08-18 J. Ator &ndash; Added SAVE for IFIRST1 and IFIRST2 flags</li>
-<li>2007-01-19 J. Ator &ndash; Replaced call to parseq with call to <a class="el" href="parstr_8f.html#a3379a342ab3d92dd01eef1f3172f9b86" title="THIS SUBROUTINE PARSES A STRING CONTAINING ONE OR MORE SUBSTRINGS INTO AN ARRAY OF SUBSTRINGS...">parstr()</a></li>
-<li>2009-04-21 J. Ator &ndash; Use <a class="el" href="errwrt_8f.html#a65626d9a772648676146b62b596c2764" title="This subroutine allows the user to specify a custom location for the logging of error and diagnostic ...">errwrt()</a></li>
-<li>2014-09-10 J. Ator &ndash; Fix bug involving nested delayed replication where first replication of outer sequence does not contain a replication of the inner sequence</li>
-<li>2014-12-10 J. Ator &ndash; Use modules instead of COMMON blocks</li>
-<li>2020-03-06 J. Ator &ndash; No longer abort when reading data and number of available levels is greater than I2; instead just return first I2 levels and print a diagnostic message </li>
-</ul>
+<p><b>Program history log:</b> </p>
+<table class="doxtable">
+<tr>
+<th>Date </th><th>Programmer </th><th>Comments  </th></tr>
+<tr>
+<td>2000-09-19 </td><td>J. Woollen </td><td>Original author </td></tr>
+<tr>
+<td>2002-05-14 </td><td>J. Woollen </td><td>Improved generality; previously ufbseq would not recognize compressed delayed replication as a legitimate data structure </td></tr>
+<tr>
+<td>2003-05-19 </td><td>J. Woollen </td><td>Corrected the logic array of exit conditions for the subroutine; previously, in some cases, proper exits were missed, generating bogus error messages </td></tr>
+<tr>
+<td>2003-11-04 </td><td>S. Bender </td><td>Added remarks and routine interdependencies </td></tr>
+<tr>
+<td>2003-11-04 </td><td>D. Keyser </td><td>Unified/portable for WRF; added documentation; outputs more complete diagnostic info when routine terminates abnormally </td></tr>
+<tr>
+<td>2004-08-18 </td><td>J. Ator </td><td>Added SAVE for IFIRST1 and IFIRST2 flags </td></tr>
+<tr>
+<td>2007-01-19 </td><td>J. Ator </td><td>Replaced call to parseq with call to <a class="el" href="parstr_8f.html#a3379a342ab3d92dd01eef1f3172f9b86" title="THIS SUBROUTINE PARSES A STRING CONTAINING ONE OR MORE SUBSTRINGS INTO AN ARRAY OF SUBSTRINGS...">parstr()</a> </td></tr>
+<tr>
+<td>2009-04-21 </td><td>J. Ator </td><td>Use <a class="el" href="errwrt_8f.html#a65626d9a772648676146b62b596c2764" title="This subroutine allows the user to specify a custom location for the logging of error and diagnostic ...">errwrt()</a> </td></tr>
+<tr>
+<td>2014-09-10 </td><td>J. Ator </td><td>Fix bug involving nested delayed replication where first replication of outer sequence does not contain a replication of the inner sequence </td></tr>
+<tr>
+<td>2014-12-10 </td><td>J. Ator </td><td>Use modules instead of COMMON blocks </td></tr>
+<tr>
+<td>2020-03-06 </td><td>J. Ator </td><td>No longer abort when reading data and number of available levels is greater than I2; instead just return first I2 levels and print a diagnostic message </td></tr>
+</table>
 
-<p>Definition at line <a class="el" href="ufbseq_8f_source.html#l00157">157</a> of file <a class="el" href="ufbseq_8f_source.html">ufbseq.f</a>.</p>
+<p>Definition at line <a class="el" href="ufbseq_8f_source.html#l00142">142</a> of file <a class="el" href="ufbseq_8f_source.html">ufbseq.f</a>.</p>
 
 <p>References <a class="el" href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort()</a>, <a class="el" href="errwrt_8f.html#a65626d9a772648676146b62b596c2764">errwrt()</a>, <a class="el" href="invtag_8f.html#a307883c6492d9e7dab968c16ac0fb673">invtag()</a>, <a class="el" href="invwin_8f.html#ac26ae485efa93dee816efb648bdfcc8b">invwin()</a>, <a class="el" href="parstr_8f.html#a3379a342ab3d92dd01eef1f3172f9b86">parstr()</a>, and <a class="el" href="status_8f.html#a22292e7a69c411a961168198d259f336">status()</a>.</p>
 

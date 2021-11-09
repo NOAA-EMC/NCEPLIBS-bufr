@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.5.0</span>
+   &#160;<span id="projectnumber">11.6.0</span>
    </div>
   </td>
  </tr>
@@ -109,17 +109,19 @@ $(document).ready(function(){initNavTree('ufbpos_8f.html','');});
 </div><!--header-->
 <div class="contents">
 
+<p>Jump forwards or backwards to a specified data subset within a BUFR file.  
+<a href="#details">More...</a></p>
+
 <p><a href="ufbpos_8f_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions/Subroutines</h2></td></tr>
 <tr class="memitem:aa3c92084cc14aae8f61aad4c9f0d8680"><td class="memItemLeft" align="right" valign="top">subroutine&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ufbpos_8f.html#aa3c92084cc14aae8f61aad4c9f0d8680">ufbpos</a> (LUNIT, IREC, ISUB, SUBSET, JDATE)</td></tr>
-<tr class="memdesc:aa3c92084cc14aae8f61aad4c9f0d8680"><td class="mdescLeft">&#160;</td><td class="mdescRight">THIS SUBROUTINE SHOULD ONLY BE CALLED WHEN LOGICAL UNIT LUNIT HAS BEEN OPENED FOR INPUT OPERATIONS.  <a href="#aa3c92084cc14aae8f61aad4c9f0d8680">More...</a><br/></td></tr>
+<tr class="memdesc:aa3c92084cc14aae8f61aad4c9f0d8680"><td class="mdescLeft">&#160;</td><td class="mdescRight">This subroutine repositions the file pointer to the beginning of a specified data subset within a specified message of a BUFR file, then reads that data subset into internal arrays so that it can be further processed via subsequent calls to any of the <a class="el" href="md__gpfs_dell2_emc_obsproc_noscrub_Jeff_8Ator_NCEPLIBS-bufr-GitHub_nceplibs-bufr_docs_UserGuide.html#hierarchy">values-reading subroutines</a>.  <a href="#aa3c92084cc14aae8f61aad4c9f0d8680">More...</a><br/></td></tr>
 <tr class="separator:aa3c92084cc14aae8f61aad4c9f0d8680"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><dl class="section author"><dt>Author</dt><dd>WOOLLEN </dd></dl>
-<dl class="section date"><dt>Date</dt><dd>1995-11-22 </dd></dl>
+<div class="textblock"><p>Jump forwards or backwards to a specified data subset within a BUFR file. </p>
 
 <p>Definition in file <a class="el" href="ufbpos_8f_source.html">ufbpos.f</a>.</p>
 </div><h2 class="groupheader">Function/Subroutine Documentation</h2>
@@ -165,16 +167,46 @@ Functions/Subroutines</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>THIS SUBROUTINE SHOULD ONLY BE CALLED WHEN LOGICAL UNIT LUNIT HAS BEEN OPENED FOR INPUT OPERATIONS. </p>
-<p>IT POSITIONS THE MESSAGE POINTER TO A USER-SPECIFIED BUFR MESSAGE NUMBER IN THE FILE CONNECTED TO LUNIT AND THEN CALLS BUFR ARCHIVE LIBRARY SUBROUTINE READMG TO READ THIS BUFR MESSAGE INTO A MESSAGE BUFFER (ARRAY MBAY IN MODULE BITBUF). IT THEN POSITIONS THE SUBSET POINTER TO A USER-SPECIFIED SUBSET NUMBER WITHIN THE BUFR MESSAGE AND CALLS BUFR ARCHIVE LIBRARY SUBROUTINE READSB TO READ THIS SUBSET INTO INTERNAL SUBSET ARRAYS. THE BUFR MESSAGE HERE MAY BE EITHER COMPRESSED OR UNCOMPRESSED. THE USER-SPECIFIED MESSAGE NUMBER DOES NOT INCLUDE ANY DICTIONARY MESSAGES THAT MAY BE AT THE TOP OF THE FILE).</p>
-<p>PROGRAM HISTORY LOG: 1995-11-22 J. WOOLLEN &ndash; ORIGINAL AUTHOR (WAS IN-LINED IN PROGRAM NAM_STNMLIST) 2005-03-04 D. KEYSER &ndash; ADDED TO BUFR ARCHIVE LIBRARY; ADDED DOCUMENTATION 2005-11-29 J. ATOR &ndash; USE IUPBS01 AND RDMSGW 2006-04-14 J. ATOR &ndash; REMOVE UNNECESSARY MOIN INITIALIZATION 2009-03-23 J. ATOR &ndash; MODIFIED TO HANDLE EMBEDDED BUFR TABLE (DICTIONARY) MESSAGES 2014-12-10 J. ATOR &ndash; USE MODULES INSTEAD OF COMMON BLOCKS</p>
-<p>USAGE: CALL UFBPOS( LUNIT, IREC, ISUB, SUBSET, JDATE ) INPUT ARGUMENT LIST: LUNIT - INTEGER: FORTRAN LOGICAL UNIT NUMBER FOR BUFR FILE IREC - INTEGER: POINTER TO BUFR MESSAGE NUMBER (RECORD) IN FILE (DOES NOT INCLUDE ANY DICTIONARY MESSSAGES THAT MAY BE AT THE TOP OF THE FILE) ISUB - INTEGER: POINTER TO SUBSET NUMBER TO READ IN BUFR MESSAGE</p>
-<p>OUTPUT ARGUMENT LIST: SUBSET - CHARACTER*8: TABLE A MNEMONIC FOR TYPE OF BUFR MESSAGE BEING READ JDATE - INTEGER: DATE-TIME STORED WITHIN SECTION 1 OF BUFR MESSAGE BEING READ, IN FORMAT OF EITHER YYMMDDHH OR YYYYMMDDHH, DEPENDING ON DATELEN() VALUE</p>
-<p>REMARKS: THIS ROUTINE CALLS: BORT CEWIND NMSUB READMG READSB STATUS UFBCNT UPB THIS ROUTINE IS CALLED BY: None Normally called only by application programs. </p>
+<p>This subroutine repositions the file pointer to the beginning of a specified data subset within a specified message of a BUFR file, then reads that data subset into internal arrays so that it can be further processed via subsequent calls to any of the <a class="el" href="md__gpfs_dell2_emc_obsproc_noscrub_Jeff_8Ator_NCEPLIBS-bufr-GitHub_nceplibs-bufr_docs_UserGuide.html#hierarchy">values-reading subroutines</a>. </p>
+<p>The specified data subset may be before or after the current location of the file pointer within the BUFR file.</p>
+<dl class="section author"><dt>Author</dt><dd>J. Woollen </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>1995-11-22</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">LUNIT</td><td>&ndash; integer: Fortran logical unit number for BUFR file </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">IREC</td><td>&ndash; integer: Ordinal number of message to be read, counting from the beginning of the BUFR file, but not counting any messages which contain DX BUFR tables information </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">ISUB</td><td>&ndash; integer: Ordinal number of data subset to be read from (IREC)th message, counting from the beginning of the message </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">SUBSET</td><td>&ndash; character*8: Table A mnemonic for type of BUFR message that was read (see <a class="el" href="md__gpfs_dell2_emc_obsproc_noscrub_Jeff_8Ator_NCEPLIBS-bufr-GitHub_nceplibs-bufr_docs_dfbftab.html#dfbftab">DX BUFR Tables</a> for further information about Table A mnemonics) </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">JDATE</td><td>&ndash; integer: Date-time stored within Section 1 of BUFR message that was read, in format of either YYMMDDHH or YYYYMMDDHH, depending on the most recent call to subroutine <a class="el" href="datelen_8f.html#ac75cb362f84167ca65b058a97401efcd" title="This subroutine is used to specify the format of Section 1 date-time values that will be output by fu...">datelen()</a></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section remark"><dt>Remarks</dt><dd><ul>
+<li>Logical unit LUNIT should have already been opened for input operations via a previous call to subroutine <a class="el" href="openbf_8f.html#a9bea9aeada166bd9037b959ca8452b28" title="This subroutine connects a new file to the BUFRLIB software for input or output operations. ">openbf()</a>.</li>
+<li>The value specified for IREC should <b>not</b> include any messages which contain DX BUFR tables information.</li>
+</ul>
+</dd></dl>
+<p><b>Program history log:</b> </p>
+<table class="doxtable">
+<tr>
+<th>Date </th><th>Programmer </th><th>Comments  </th></tr>
+<tr>
+<td>1995-11-22 </td><td>J. Woollen </td><td>Original author </td></tr>
+<tr>
+<td>2005-03-04 </td><td>D. Keyser </td><td>Added documentation </td></tr>
+<tr>
+<td>2006-04-14 </td><td>J. Ator </td><td>Remove unnecessary MOIN initialization </td></tr>
+<tr>
+<td>2009-03-23 </td><td>J. Ator </td><td>Modified to handle embedded BUFR table (dictionary) messages </td></tr>
+<tr>
+<td>2014-12-10 </td><td>J. Ator </td><td>Use modules instead of COMMON blocks </td></tr>
+<tr>
+<td>2021-10-08 </td><td>J. Ator </td><td>Use <a class="el" href="readsb_8f.html#ae7619346ca59d008b4d6a646408876f5" title="This subroutine reads the next data subset from a BUFR message into internal arrays. ">readsb()</a> to read all subsets from IREC(th) message </td></tr>
+</table>
 
-<p>Definition at line <a class="el" href="ufbpos_8f_source.html#l00051">51</a> of file <a class="el" href="ufbpos_8f_source.html">ufbpos.f</a>.</p>
+<p>Definition at line <a class="el" href="ufbpos_8f_source.html#l00050">50</a> of file <a class="el" href="ufbpos_8f_source.html">ufbpos.f</a>.</p>
 
-<p>References <a class="el" href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort()</a>, <a class="el" href="cread_8c.html#a36a8ba0032660f65aadb84295bcccc41">cewind()</a>, <a class="el" href="nmsub_8f.html#a536bd3da0a5f7305e5e1e12b6654967d">nmsub()</a>, <a class="el" href="readmg_8f.html#a9fb3da32fb87bc017d16b9f0f707be9b">readmg()</a>, <a class="el" href="readsb_8f.html#ae7619346ca59d008b4d6a646408876f5">readsb()</a>, <a class="el" href="status_8f.html#a22292e7a69c411a961168198d259f336">status()</a>, <a class="el" href="ufbcnt_8f.html#a836b84a254c97ec3a032561e08e2d29a">ufbcnt()</a>, and <a class="el" href="upb_8f.html#aae09b58b06877db63e95889f67c146c0">upb()</a>.</p>
+<p>References <a class="el" href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort()</a>, <a class="el" href="cread_8c.html#a36a8ba0032660f65aadb84295bcccc41">cewind()</a>, <a class="el" href="readmg_8f.html#a9fb3da32fb87bc017d16b9f0f707be9b">readmg()</a>, <a class="el" href="readsb_8f.html#ae7619346ca59d008b4d6a646408876f5">readsb()</a>, <a class="el" href="status_8f.html#a22292e7a69c411a961168198d259f336">status()</a>, and <a class="el" href="ufbcnt_8f.html#a836b84a254c97ec3a032561e08e2d29a">ufbcnt()</a>.</p>
 
 </div>
 </div>

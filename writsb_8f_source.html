@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.5.0</span>
+   &#160;<span id="projectnumber">11.6.0</span>
    </div>
   </td>
  </tr>
@@ -115,7 +115,7 @@ $(document).ready(function(){initNavTree('writsb_8f_source.html','');});
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="comment">C&gt; @author J. Woollen</span></div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="comment">C&gt; @date 1994-01-06</span></div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="comment">C&gt;</span></div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="comment">C&gt; @param[in] LUNIT  - integer: Fortran logical unit number for BUFR file</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="comment">C&gt; @param[in] LUNIT -- integer: Fortran logical unit number for BUFR file</span></div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="comment">C&gt;</span></div>
 <div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="comment">C&gt; &lt;p&gt;This subroutine is called to indicate to the BUFRLIB software that</span></div>
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="comment">C&gt; all necessary values for a data subset (i.e. report) have been written,</span></div>
@@ -148,61 +148,58 @@ $(document).ready(function(){initNavTree('writsb_8f_source.html','');});
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="comment">C&gt; encode and pack the data subset into that new message.</span></div>
 <div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="comment">C&gt;</span></div>
 <div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="comment">C&gt; &lt;b&gt;Program history log:&lt;/b&gt;</span></div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="comment">C&gt; - 1994-01-06  J. Woollen -- Original author</span></div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="comment">C&gt; - 1998-07-08  J. Woollen -- Replaced call to Cray library routine</span></div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<span class="comment">C&gt;                           &quot;ABORT&quot; with call to new internal BUFRLIB</span></div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="comment">C&gt;                           routine &quot;BORT&quot;</span></div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;<span class="comment">C&gt; - 2003-11-04  J. Ator -- Added documentation</span></div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<span class="comment">C&gt; - 2003-11-04  S. Bender  -- Added remarks and routine interdependencies</span></div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<span class="comment">C&gt; - 2003-11-04  D. Keyser  -- Unified/portable for WRF; added history</span></div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;<span class="comment">C&gt;                           documentation; outputs more complete</span></div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;<span class="comment">C&gt;                           diagnostic info when routine terminates</span></div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="comment">C&gt;                           abnormally</span></div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;<span class="comment">C&gt; - 2005-03-09  J. Ator -- Added capability for compressed messages</span></div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;<span class="comment">C&gt;</span></div>
-<div class="line"><a name="l00055"></a><span class="lineno"><a class="line" href="writsb_8f.html#a02b3dbd97116388430f863f3e49fa47f">   55</a></span>&#160;<span class="keyword">      SUBROUTINE </span><a class="code" href="writsb_8f.html#a02b3dbd97116388430f863f3e49fa47f">writsb</a>(LUNIT)</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;      <span class="keyword">COMMON</span> /msgcmp/ ccmf</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;      <span class="keywordtype">CHARACTER*1</span> ccmf</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="comment">C&gt; | Date | Programmer | Comments |</span></div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="comment">C&gt; | -----|------------|----------|</span></div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<span class="comment">C&gt; | 1994-01-06 | J. Woollen | Original author |</span></div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="comment">C&gt; | 1998-07-08 | J. Woollen | Replaced call to Cray library routine &quot;ABORT&quot; with call to new internal routine bort() |</span></div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;<span class="comment">C&gt; | 2003-11-04 | J. Ator | Added documentation |</span></div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<span class="comment">C&gt; | 2003-11-04 | S. Bender | Added remarks and routine interdependencies |</span></div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<span class="comment">C&gt; | 2003-11-04 | D. Keyser | Unified/portable for WRF; added documentation; outputs more complete diagnostic info when routine terminates abnormally |</span></div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;<span class="comment">C&gt; | 2005-03-09 | J. Ator | Added capability for compressed messages |</span></div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;<span class="comment">C&gt;</span></div>
+<div class="line"><a name="l00052"></a><span class="lineno"><a class="line" href="writsb_8f.html#a02b3dbd97116388430f863f3e49fa47f">   52</a></span>&#160;<span class="keyword">      SUBROUTINE </span><a class="code" href="writsb_8f.html#a02b3dbd97116388430f863f3e49fa47f">writsb</a>(LUNIT)</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;      <span class="keyword">COMMON</span> /msgcmp/ ccmf</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;      <span class="keywordtype">CHARACTER*1</span> ccmf</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;<span class="comment">C-----------------------------------------------------------------------</span></div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;<span class="comment">C-----------------------------------------------------------------------</span></div>
 <div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;<span class="comment">C-----------------------------------------------------------------------</span></div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;<span class="comment">C-----------------------------------------------------------------------</span></div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;<span class="comment">C  CHECK THE FILE STATUS</span></div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;<span class="comment">C  ---------------------</span></div>
 <div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;<span class="comment">C  CHECK THE FILE STATUS</span></div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;<span class="comment">C  ---------------------</span></div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;      CALL <a class="code" href="status_8f.html#a22292e7a69c411a961168198d259f336">status</a>(lunit,lun,il,im)</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;      <span class="keywordflow">IF</span>(il.EQ.0) goto 900</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;      <span class="keywordflow">IF</span>(il.LT.0) goto 901</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;      <span class="keywordflow">IF</span>(im.EQ.0) goto 902</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;      CALL <a class="code" href="status_8f.html#a22292e7a69c411a961168198d259f336">status</a>(lunit,lun,il,im)</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;      <span class="keywordflow">IF</span>(il.EQ.0) goto 900</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;      <span class="keywordflow">IF</span>(il.LT.0) goto 901</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;      <span class="keywordflow">IF</span>(im.EQ.0) goto 902</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;<span class="comment">C  PACK UP THE SUBSET AND PUT IT INTO THE MESSAGE</span></div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;<span class="comment">C  ----------------------------------------------</span></div>
 <div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;<span class="comment">C  PACK UP THE SUBSET AND PUT IT INTO THE MESSAGE</span></div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;<span class="comment">C  ----------------------------------------------</span></div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;      CALL <a class="code" href="wrtree_8f.html#a0700f04d89a10a24b1acb184f6022c77">wrtree</a>(lun)</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;      <span class="keywordflow">IF</span>( ccmf.EQ.<span class="stringliteral">&#39;Y&#39;</span> ) <span class="keywordflow">THEN</span></div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;          CALL <a class="code" href="wrcmps_8f.html#a8b333832f77606059ec94ba8b80d4e8d">wrcmps</a>(lunit)</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;      <span class="keywordflow">ELSE</span></div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;          CALL <a class="code" href="msgupd_8f.html#adf75cb2bc2a217eb33ffc8e45b1a5350">msgupd</a>(lunit,lun)</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;      <span class="keywordflow">ENDIF</span></div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;      CALL <a class="code" href="wrtree_8f.html#a0700f04d89a10a24b1acb184f6022c77">wrtree</a>(lun)</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;      <span class="keywordflow">IF</span>( ccmf.EQ.<span class="stringliteral">&#39;Y&#39;</span> ) <span class="keywordflow">THEN</span></div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;          CALL <a class="code" href="wrcmps_8f.html#a8b333832f77606059ec94ba8b80d4e8d">wrcmps</a>(lunit)</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;      <span class="keywordflow">ELSE</span></div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;          CALL <a class="code" href="msgupd_8f.html#adf75cb2bc2a217eb33ffc8e45b1a5350">msgupd</a>(lunit,lun)</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;      <span class="keywordflow">ENDIF</span></div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;<span class="comment">C  EXITS</span></div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;<span class="comment">C  -----</span></div>
 <div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;<span class="comment">C  EXITS</span></div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;<span class="comment">C  -----</span></div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;      <span class="keywordflow">RETURN</span></div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;900   CALL <a class="code" href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort</a>(<span class="stringliteral">&#39;BUFRLIB: WRITSB - OUTPUT BUFR FILE IS CLOSED, IT &#39;</span>//</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;     . <span class="stringliteral">&#39;MUST BE OPEN FOR OUTPUT&#39;</span>)</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;901   CALL <a class="code" href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort</a>(<span class="stringliteral">&#39;BUFRLIB: WRITSB - OUTPUT BUFR FILE IS OPEN FOR &#39;</span>//</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;     . <span class="stringliteral">&#39;INPUT, IT MUST BE OPEN FOR OUTPUT&#39;</span>)</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;902   CALL <a class="code" href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort</a>(<span class="stringliteral">&#39;BUFRLIB: WRITSB - A MESSAGE MUST BE OPEN IN OUTPUT &#39;</span>//</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;     . <span class="stringliteral">&#39;BUFR FILE, NONE ARE&#39;</span>)</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;      <span class="keywordflow">END</span></div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;      <span class="keywordflow">RETURN</span></div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;900   CALL <a class="code" href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort</a>(<span class="stringliteral">&#39;BUFRLIB: WRITSB - OUTPUT BUFR FILE IS CLOSED, IT &#39;</span>//</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;     . <span class="stringliteral">&#39;MUST BE OPEN FOR OUTPUT&#39;</span>)</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;901   CALL <a class="code" href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort</a>(<span class="stringliteral">&#39;BUFRLIB: WRITSB - OUTPUT BUFR FILE IS OPEN FOR &#39;</span>//</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;     . <span class="stringliteral">&#39;INPUT, IT MUST BE OPEN FOR OUTPUT&#39;</span>)</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;902   CALL <a class="code" href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort</a>(<span class="stringliteral">&#39;BUFRLIB: WRITSB - A MESSAGE MUST BE OPEN IN OUTPUT &#39;</span>//</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;     . <span class="stringliteral">&#39;BUFR FILE, NONE ARE&#39;</span>)</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;      <span class="keywordflow">END</span></div>
 <div class="ttc" id="msgupd_8f_html_adf75cb2bc2a217eb33ffc8e45b1a5350"><div class="ttname"><a href="msgupd_8f.html#adf75cb2bc2a217eb33ffc8e45b1a5350">msgupd</a></div><div class="ttdeci">subroutine msgupd(LUNIT, LUN)</div><div class="ttdoc">THIS SUBROUTINE PACKS UP THE CURRENT SUBSET WITHIN MEMORY (ARRAY IBAY IN MODULE BITBUF) AND THEN TRIE...</div><div class="ttdef"><b>Definition:</b> <a href="msgupd_8f_source.html#l00059">msgupd.f:59</a></div></div>
 <div class="ttc" id="wrcmps_8f_html_a8b333832f77606059ec94ba8b80d4e8d"><div class="ttname"><a href="wrcmps_8f.html#a8b333832f77606059ec94ba8b80d4e8d">wrcmps</a></div><div class="ttdeci">subroutine wrcmps(LUNIX)</div><div class="ttdoc">THIS SUBROUTINE PACKS UP THE CURRENT SUBSET WITHIN MEMORY (ARRAY IBAY IN MODULE BITBUF), STORING IT FOR COMPRESSION. </div><div class="ttdef"><b>Definition:</b> <a href="wrcmps_8f_source.html#l00079">wrcmps.f:79</a></div></div>
-<div class="ttc" id="status_8f_html_a22292e7a69c411a961168198d259f336"><div class="ttname"><a href="status_8f.html#a22292e7a69c411a961168198d259f336">status</a></div><div class="ttdeci">subroutine status(LUNIT, LUN, IL, IM)</div><div class="ttdoc">This subroutine checks whether a specified Fortran logical unit number is currently connected to the ...</div><div class="ttdef"><b>Definition:</b> <a href="status_8f_source.html#l00061">status.f:61</a></div></div>
-<div class="ttc" id="writsb_8f_html_a02b3dbd97116388430f863f3e49fa47f"><div class="ttname"><a href="writsb_8f.html#a02b3dbd97116388430f863f3e49fa47f">writsb</a></div><div class="ttdeci">subroutine writsb(LUNIT)</div><div class="ttdoc">This subroutine writes a complete data subset into a BUFR message, for eventual output to logical uni...</div><div class="ttdef"><b>Definition:</b> <a href="writsb_8f_source.html#l00055">writsb.f:55</a></div></div>
-<div class="ttc" id="bort_8f_html_a488d3a8cf930fb592a9fdaefcfa04ac4"><div class="ttname"><a href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort</a></div><div class="ttdeci">subroutine bort(STR)</div><div class="ttdoc">This subroutine calls subroutine errwrt() to log an error message, then calls subroutine bort_exit() ...</div><div class="ttdef"><b>Definition:</b> <a href="bort_8f_source.html#l00023">bort.f:23</a></div></div>
+<div class="ttc" id="status_8f_html_a22292e7a69c411a961168198d259f336"><div class="ttname"><a href="status_8f.html#a22292e7a69c411a961168198d259f336">status</a></div><div class="ttdeci">subroutine status(LUNIT, LUN, IL, IM)</div><div class="ttdoc">This subroutine checks whether a specified Fortran logical unit number is currently connected to the ...</div><div class="ttdef"><b>Definition:</b> <a href="status_8f_source.html#l00055">status.f:55</a></div></div>
+<div class="ttc" id="writsb_8f_html_a02b3dbd97116388430f863f3e49fa47f"><div class="ttname"><a href="writsb_8f.html#a02b3dbd97116388430f863f3e49fa47f">writsb</a></div><div class="ttdeci">subroutine writsb(LUNIT)</div><div class="ttdoc">This subroutine writes a complete data subset into a BUFR message, for eventual output to logical uni...</div><div class="ttdef"><b>Definition:</b> <a href="writsb_8f_source.html#l00052">writsb.f:52</a></div></div>
+<div class="ttc" id="bort_8f_html_a488d3a8cf930fb592a9fdaefcfa04ac4"><div class="ttname"><a href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort</a></div><div class="ttdeci">subroutine bort(STR)</div><div class="ttdoc">This subroutine calls subroutine errwrt() to log an error message, then calls subroutine bort_exit() ...</div><div class="ttdef"><b>Definition:</b> <a href="bort_8f_source.html#l00022">bort.f:22</a></div></div>
 <div class="ttc" id="wrtree_8f_html_a0700f04d89a10a24b1acb184f6022c77"><div class="ttname"><a href="wrtree_8f.html#a0700f04d89a10a24b1acb184f6022c77">wrtree</a></div><div class="ttdeci">subroutine wrtree(LUN)</div><div class="ttdoc">THIS SUBROUTINE CONVERTS USER NUMBERS INTO SCALED INTEGERS AND PACKS THE USER ARRAY INTO THE SUBSET B...</div><div class="ttdef"><b>Definition:</b> <a href="wrtree_8f_source.html#l00049">wrtree.f:49</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->

@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.5.0</span>
+   &#160;<span id="projectnumber">11.6.0</span>
    </div>
   </td>
  </tr>
@@ -109,7 +109,7 @@ $(document).ready(function(){initNavTree('adn30_8f.html','');});
 </div><!--header-->
 <div class="contents">
 
-<p>Convert an FXY descriptor from its bit-wise (integer) representation to its five or six character ASCII representation.  
+<p>Convert an FXY value from its bit-wise (integer) representation to its five or six character representation.  
 <a href="#details">More...</a></p>
 
 <p><a href="adn30_8f_source.html">Go to the source code of this file.</a></p>
@@ -117,11 +117,11 @@ $(document).ready(function(){initNavTree('adn30_8f.html','');});
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions/Subroutines</h2></td></tr>
 <tr class="memitem:a1e96adbf45bd49facbf0ef30ae375db4"><td class="memItemLeft" align="right" valign="top">character *(*) function&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="adn30_8f.html#a1e96adbf45bd49facbf0ef30ae375db4">adn30</a> (IDN, L30)</td></tr>
-<tr class="memdesc:a1e96adbf45bd49facbf0ef30ae375db4"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function converts a descriptor from its bit-wise (integer) representation to its 5 or 6 character ASCII representation.  <a href="#a1e96adbf45bd49facbf0ef30ae375db4">More...</a><br/></td></tr>
+<tr class="memdesc:a1e96adbf45bd49facbf0ef30ae375db4"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function converts an FXY value from its bit-wise (integer) representation to its 5 or 6 character representation.  <a href="#a1e96adbf45bd49facbf0ef30ae375db4">More...</a><br/></td></tr>
 <tr class="separator:a1e96adbf45bd49facbf0ef30ae375db4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Convert an FXY descriptor from its bit-wise (integer) representation to its five or six character ASCII representation. </p>
+<div class="textblock"><p>Convert an FXY value from its bit-wise (integer) representation to its five or six character representation. </p>
 
 <p>Definition in file <a class="el" href="adn30_8f_source.html">adn30.f</a>.</p>
 </div><h2 class="groupheader">Function/Subroutine Documentation</h2>
@@ -149,26 +149,36 @@ Functions/Subroutines</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>This function converts a descriptor from its bit-wise (integer) representation to its 5 or 6 character ASCII representation. </p>
+<p>This function converts an FXY value from its bit-wise (integer) representation to its 5 or 6 character representation. </p>
 <dl class="section author"><dt>Author</dt><dd>J. Woollen </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>1994-01-06</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">IDN</td><td>- integer: bit-wise representation of descriptor (FXY) value </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">L30</td><td>- integer: length of string to be returned; can be either 5 or 6 characters </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">IDN</td><td>&ndash; integer: Bit-wise representation of FXY value </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">L30</td><td>&ndash; integer: Length of string to be returned; can be either 5 or 6 characters </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>adn30 - character*(*): ASCII form of descriptor (FXY) value</dd></dl>
-<p><b>Program History Log:</b></p>
-<ul>
-<li>1994-01-06 J. Woollen &ndash; Original author</li>
-<li>1998-07-08 J. Woollen &ndash; Replaced call to CRAY library routine "ABORT" with call to new internal BUFRLIB routine "BORT"</li>
-<li>2003-11-04 S. Bender &ndash; Added remarks and routine interdependencies</li>
-<li>2003-11-04 D. Keyser &ndash; Unified/portable for WRF; added history documentation </li>
+<dl class="section return"><dt>Returns</dt><dd>adn30 &ndash; character*(*): FXY value</dd></dl>
+<dl class="section remark"><dt>Remarks</dt><dd><ul>
+<li>This function is the logical inverse of function <a class="el" href="idn30_8f.html#a69a1bd958e896bf2f1d6e23159d82713" title="This function converts an FXY value from its 5 or 6 character representation to its bit-wise (integer...">idn30()</a>.</li>
 </ul>
+</dd></dl>
+<p><b>Program History Log:</b> </p>
+<table class="doxtable">
+<tr>
+<th>Date </th><th>Programmer </th><th>Comments  </th></tr>
+<tr>
+<td>1994-01-06 </td><td>J. Woollen </td><td>Original author </td></tr>
+<tr>
+<td>1998-07-08 </td><td>J. Woollen </td><td>Replaced call to CRAY library routine "ABORT" with call to new internal BUFRLIB routine <a class="el" href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4" title="This subroutine calls subroutine errwrt() to log an error message, then calls subroutine bort_exit() ...">bort()</a> </td></tr>
+<tr>
+<td>2003-11-04 </td><td>S. Bender </td><td>Added remarks and routine interdependencies </td></tr>
+<tr>
+<td>2003-11-04 </td><td>D. Keyser </td><td>Unified/portable for WRF; added history documentation </td></tr>
+</table>
 
-<p>Definition at line <a class="el" href="adn30_8f_source.html#l00027">27</a> of file <a class="el" href="adn30_8f_source.html">adn30.f</a>.</p>
+<p>Definition at line <a class="el" href="adn30_8f_source.html#l00028">28</a> of file <a class="el" href="adn30_8f_source.html">adn30.f</a>.</p>
 
 <p>References <a class="el" href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort()</a>.</p>
 

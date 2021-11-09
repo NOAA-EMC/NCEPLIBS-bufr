@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.5.0</span>
+   &#160;<span id="projectnumber">11.6.0</span>
    </div>
   </td>
  </tr>
@@ -117,15 +117,15 @@ $(document).ready(function(){initNavTree('lcmgdf_8f_source.html','');});
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="comment">C&gt; @author J. Ator</span></div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="comment">C&gt; @date 2009-07-09</span></div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="comment">C&gt;</span></div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="comment">C&gt; @param[in] LUNIT  - integer: Fortran logical unit number for</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="comment">C&gt; @param[in] LUNIT -- integer: Fortran logical unit number for</span></div>
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="comment">C&gt;                     BUFR file</span></div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment">C&gt; @param[in] SUBSET - character*8: Table A mnemonic of message</span></div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="comment">C&gt;                     type to be checked</span></div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="comment">C&gt; @returns lcmgdf - integer: </span></div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="comment">C&gt;                    -  0 = SUBSET does not contain any long</span></div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="comment">C&gt;                           character strings</span></div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment">C&gt;                    -  1 = SUBSET contains at least one long</span></div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="comment">C&gt;                           character string</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment">C&gt; @param[in] SUBSET -- character*8: Table A mnemonic of message</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="comment">C&gt;                      type to be checked</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="comment">C&gt; @returns lcmgdf -- integer: </span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="comment">C&gt;                     -  0 = SUBSET does not contain any long</span></div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="comment">C&gt;                            character strings</span></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment">C&gt;                     -  1 = SUBSET contains at least one long</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="comment">C&gt;                            character string</span></div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="comment">C&gt;</span></div>
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="comment">C&gt; @remarks</span></div>
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="comment">C&gt; - LUNIT may be open for either input or output operations via a</span></div>
@@ -144,49 +144,51 @@ $(document).ready(function(){initNavTree('lcmgdf_8f_source.html','');});
 <div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="comment">C&gt; subsets) or subroutine writlc() (when writing BUFR data subsets).</span></div>
 <div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="comment">C&gt;</span></div>
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="comment">C&gt; &lt;b&gt;Program history log:&lt;/b&gt;</span></div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="comment">C&gt; - 2009-07-09  J. Ator    -- Original author</span></div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="comment">C&gt; - 2014-12-10  J. Ator    -- Use modules instead of COMMON blocks</span></div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="comment">C&gt;</span></div>
-<div class="line"><a name="l00042"></a><span class="lineno"><a class="line" href="lcmgdf_8f.html#a33d52c1eb96e73eeeda80af11c938daf">   42</a></span>&#160;<span class="keyword">      INTEGER </span><span class="keyword">FUNCTION </span><a class="code" href="lcmgdf_8f.html#a33d52c1eb96e73eeeda80af11c938daf">lcmgdf</a>(LUNIT,SUBSET)</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;      <span class="keywordtype">USE </span><a class="code" href="moda__tables_8F.html#classmoda__tables">moda_tables</a></div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="comment">C&gt; | Date | Programmer | Comments |</span></div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="comment">C&gt; | -----|------------|----------|</span></div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="comment">C&gt; | 2009-07-09 | J. Ator | Original author |</span></div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="comment">C&gt; | 2014-12-10 | J. Ator | Use modules instead of COMMON blocks |</span></div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="comment">C&gt;</span></div>
+<div class="line"><a name="l00044"></a><span class="lineno"><a class="line" href="lcmgdf_8f.html#a33d52c1eb96e73eeeda80af11c938daf">   44</a></span>&#160;<span class="keyword">      INTEGER </span><span class="keyword">FUNCTION </span><a class="code" href="lcmgdf_8f.html#a33d52c1eb96e73eeeda80af11c938daf">lcmgdf</a>(LUNIT,SUBSET)</div>
 <div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;      <span class="keywordtype">CHARACTER*8</span>  subset</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;      <span class="keywordtype">USE </span><a class="code" href="moda__tables_8F.html#classmoda__tables">moda_tables</a></div>
 <div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<span class="comment">C-----------------------------------------------------------------------</span></div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<span class="comment">C-----------------------------------------------------------------------</span></div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;<span class="comment">C     Get LUN from LUNIT.</span></div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;      <span class="keywordtype">CHARACTER*8</span>  subset</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;<span class="comment">C-----------------------------------------------------------------------</span></div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;<span class="comment">C-----------------------------------------------------------------------</span></div>
 <div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;      CALL <a class="code" href="status_8f.html#a22292e7a69c411a961168198d259f336">status</a>(lunit,lun,il,im)</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;      <span class="keywordflow">IF</span> (il.EQ.0) goto 900</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160; </div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;<span class="comment">C     Confirm that SUBSET is defined for this logical unit.</span></div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;      CALL <a class="code" href="nemtba_8f.html#a1038fd60bc3fa89eff9ff79ed996a7e1">nemtba</a>(lun,subset,mtyp,msbt,inod)</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;<span class="comment">C     Get LUN from LUNIT.</span></div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;      CALL <a class="code" href="status_8f.html#a22292e7a69c411a961168198d259f336">status</a>(lunit,lun,il,im)</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;      <span class="keywordflow">IF</span> (il.EQ.0) goto 900</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;<span class="comment">C     Confirm that SUBSET is defined for this logical unit.</span></div>
 <div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;<span class="comment">C     Check if there&#39;s a long character string in the definition.</span></div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;      CALL <a class="code" href="nemtba_8f.html#a1038fd60bc3fa89eff9ff79ed996a7e1">nemtba</a>(lun,subset,mtyp,msbt,inod)</div>
 <div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;      nte = isc(inod)-inod</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;<span class="comment">C     Check if there&#39;s a long character string in the definition.</span></div>
 <div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;      <span class="keywordflow">DO</span> i = 1, nte</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;        <span class="keywordflow">IF</span> ( (typ(inod+i).EQ.<span class="stringliteral">&#39;CHR&#39;</span>) .AND. (ibt(inod+i).GT.64) ) <span class="keywordflow">THEN</span></div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;          <a class="code" href="lcmgdf_8f.html#a33d52c1eb96e73eeeda80af11c938daf">lcmgdf</a> = 1</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;          <span class="keywordflow">RETURN</span></div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;        <span class="keywordflow">ENDIF</span></div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;      <span class="keywordflow">ENDDO</span></div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;      <a class="code" href="lcmgdf_8f.html#a33d52c1eb96e73eeeda80af11c938daf">lcmgdf</a> = 0</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;      nte = isc(inod)-inod</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;      <span class="keywordflow">DO</span> i = 1, nte</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;        <span class="keywordflow">IF</span> ( (typ(inod+i).EQ.<span class="stringliteral">&#39;CHR&#39;</span>) .AND. (ibt(inod+i).GT.64) ) <span class="keywordflow">THEN</span></div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;          <a class="code" href="lcmgdf_8f.html#a33d52c1eb96e73eeeda80af11c938daf">lcmgdf</a> = 1</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;          <span class="keywordflow">RETURN</span></div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;        <span class="keywordflow">ENDIF</span></div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;      <span class="keywordflow">ENDDO</span></div>
 <div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;      <span class="keywordflow">RETURN</span></div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;900   CALL <a class="code" href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort</a>(<span class="stringliteral">&#39;BUFRLIB: LCMGDF - INPUT BUFR FILE IS CLOSED, IT MUST&#39;</span>//</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;     . <span class="stringliteral">&#39; BE OPEN&#39;</span>)</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;      <span class="keywordflow">END</span></div>
-<div class="ttc" id="lcmgdf_8f_html_a33d52c1eb96e73eeeda80af11c938daf"><div class="ttname"><a href="lcmgdf_8f.html#a33d52c1eb96e73eeeda80af11c938daf">lcmgdf</a></div><div class="ttdeci">INTEGER function lcmgdf(LUNIT, SUBSET)</div><div class="ttdoc">This function checks whether the subset definition for a given message type contains any long charact...</div><div class="ttdef"><b>Definition:</b> <a href="lcmgdf_8f_source.html#l00042">lcmgdf.f:42</a></div></div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;      <a class="code" href="lcmgdf_8f.html#a33d52c1eb96e73eeeda80af11c938daf">lcmgdf</a> = 0</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;      <span class="keywordflow">RETURN</span></div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;900   CALL <a class="code" href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort</a>(<span class="stringliteral">&#39;BUFRLIB: LCMGDF - INPUT BUFR FILE IS CLOSED, IT MUST&#39;</span>//</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;     . <span class="stringliteral">&#39; BE OPEN&#39;</span>)</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;      <span class="keywordflow">END</span></div>
+<div class="ttc" id="lcmgdf_8f_html_a33d52c1eb96e73eeeda80af11c938daf"><div class="ttname"><a href="lcmgdf_8f.html#a33d52c1eb96e73eeeda80af11c938daf">lcmgdf</a></div><div class="ttdeci">INTEGER function lcmgdf(LUNIT, SUBSET)</div><div class="ttdoc">This function checks whether the subset definition for a given message type contains any long charact...</div><div class="ttdef"><b>Definition:</b> <a href="lcmgdf_8f_source.html#l00044">lcmgdf.f:44</a></div></div>
 <div class="ttc" id="moda__tables_8F_html_classmoda__tables"><div class="ttname"><a href="moda__tables_8F.html#classmoda__tables">moda_tables</a></div><div class="ttdoc">This module contains array and variable declarations used to store the internal jump/link table...</div><div class="ttdef"><b>Definition:</b> <a href="moda__tables_8F_source.html#l00013">moda_tables.F:13</a></div></div>
-<div class="ttc" id="status_8f_html_a22292e7a69c411a961168198d259f336"><div class="ttname"><a href="status_8f.html#a22292e7a69c411a961168198d259f336">status</a></div><div class="ttdeci">subroutine status(LUNIT, LUN, IL, IM)</div><div class="ttdoc">This subroutine checks whether a specified Fortran logical unit number is currently connected to the ...</div><div class="ttdef"><b>Definition:</b> <a href="status_8f_source.html#l00061">status.f:61</a></div></div>
-<div class="ttc" id="bort_8f_html_a488d3a8cf930fb592a9fdaefcfa04ac4"><div class="ttname"><a href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort</a></div><div class="ttdeci">subroutine bort(STR)</div><div class="ttdoc">This subroutine calls subroutine errwrt() to log an error message, then calls subroutine bort_exit() ...</div><div class="ttdef"><b>Definition:</b> <a href="bort_8f_source.html#l00023">bort.f:23</a></div></div>
-<div class="ttc" id="nemtba_8f_html_a1038fd60bc3fa89eff9ff79ed996a7e1"><div class="ttname"><a href="nemtba_8f.html#a1038fd60bc3fa89eff9ff79ed996a7e1">nemtba</a></div><div class="ttdeci">subroutine nemtba(LUN, NEMO, MTYP, MSBT, INOD)</div><div class="ttdoc">THIS SUBROUTINE SEARCHES FOR MNEMONIC NEMO WITHIN THE INTERNAL TABLE A ARRAYS HOLDING THE DICTIONARY ...</div><div class="ttdef"><b>Definition:</b> <a href="nemtba_8f_source.html#l00050">nemtba.f:50</a></div></div>
+<div class="ttc" id="status_8f_html_a22292e7a69c411a961168198d259f336"><div class="ttname"><a href="status_8f.html#a22292e7a69c411a961168198d259f336">status</a></div><div class="ttdeci">subroutine status(LUNIT, LUN, IL, IM)</div><div class="ttdoc">This subroutine checks whether a specified Fortran logical unit number is currently connected to the ...</div><div class="ttdef"><b>Definition:</b> <a href="status_8f_source.html#l00055">status.f:55</a></div></div>
+<div class="ttc" id="bort_8f_html_a488d3a8cf930fb592a9fdaefcfa04ac4"><div class="ttname"><a href="bort_8f.html#a488d3a8cf930fb592a9fdaefcfa04ac4">bort</a></div><div class="ttdeci">subroutine bort(STR)</div><div class="ttdoc">This subroutine calls subroutine errwrt() to log an error message, then calls subroutine bort_exit() ...</div><div class="ttdef"><b>Definition:</b> <a href="bort_8f_source.html#l00022">bort.f:22</a></div></div>
+<div class="ttc" id="nemtba_8f_html_a1038fd60bc3fa89eff9ff79ed996a7e1"><div class="ttname"><a href="nemtba_8f.html#a1038fd60bc3fa89eff9ff79ed996a7e1">nemtba</a></div><div class="ttdeci">subroutine nemtba(LUN, NEMO, MTYP, MSBT, INOD)</div><div class="ttdoc">This subroutine searches for a descriptor within Table A of the internal DX BUFR tables. </div><div class="ttdef"><b>Definition:</b> <a href="nemtba_8f_source.html#l00035">nemtba.f:35</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

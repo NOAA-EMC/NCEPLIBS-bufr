@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.5.0</span>
+   &#160;<span id="projectnumber">11.6.0</span>
    </div>
   </td>
  </tr>
@@ -142,17 +142,20 @@ Functions/Subroutines</h2></td></tr>
 <dl class="section author"><dt>Author</dt><dd>J. Ator </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>2015-03-02</dd></dl>
 <dl class="section remark"><dt>Remarks</dt><dd><ul>
-<li>Calling this subroutine allows an application program to potentially resize arrays and reallocate memory all over again with a new subsequent series of calls to subroutines <a class="el" href="isetprm_8F.html#a366156765665bb1e1452635b12ff5093" title="This function sets a specified parameter to a specified value for use in dynamically allocating one o...">isetprm()</a> and <a class="el" href="openbf_8F.html#a9bea9aeada166bd9037b959ca8452b28" title="This subroutine connects a new file to the BUFRLIB software for input or output operations. ">openbf()</a>. However, if and when this subroutine is called, there is no longer any internal memory available within the BUFRLIB software, and the remainder of the library becomes essentially unusable within the application program, unless and until subroutine <a class="el" href="openbf_8F.html#a9bea9aeada166bd9037b959ca8452b28" title="This subroutine connects a new file to the BUFRLIB software for input or output operations. ">openbf()</a> is called once again to dynamically allocate new array space. This may be a useful capability for application programs that are finished with using the BUFRLIB software and wish to move on to other unrelated tasks without continuing to tie up all of the allocated memory space within the library. Otherwise, and unless there's a need to change parameter sizes following the first call to subroutine <a class="el" href="openbf_8F.html#a9bea9aeada166bd9037b959ca8452b28" title="This subroutine connects a new file to the BUFRLIB software for input or output operations. ">openbf()</a>, then there's no need to ever call this subroutine within an application program, since all allocated memory will automatically get freed anyway by the operating system once the application program terminates.</li>
+<li>Calling this subroutine allows an application program to potentially resize arrays and reallocate memory all over again with a new subsequent series of calls to subroutines <a class="el" href="isetprm_8f.html#a366156765665bb1e1452635b12ff5093" title="This function sets a specified parameter to a specified value for use in dynamically allocating one o...">isetprm()</a> and <a class="el" href="openbf_8f.html#a9bea9aeada166bd9037b959ca8452b28" title="This subroutine connects a new file to the BUFRLIB software for input or output operations. ">openbf()</a>. However, if and when this subroutine is called, there is no longer any internal memory available within the BUFRLIB software, and the remainder of the library becomes essentially unusable within the application program, unless and until subroutine <a class="el" href="openbf_8f.html#a9bea9aeada166bd9037b959ca8452b28" title="This subroutine connects a new file to the BUFRLIB software for input or output operations. ">openbf()</a> is called once again to dynamically allocate new array space. This may be a useful capability for application programs that are finished with using the BUFRLIB software and wish to move on to other unrelated tasks without continuing to tie up all of the allocated memory space within the library. Otherwise, and unless there's a need to change parameter sizes following the first call to subroutine <a class="el" href="openbf_8f.html#a9bea9aeada166bd9037b959ca8452b28" title="This subroutine connects a new file to the BUFRLIB software for input or output operations. ">openbf()</a>, then there's no need to ever call this subroutine within an application program, since all allocated memory will automatically get freed anyway by the operating system once the application program terminates.</li>
 </ul>
 </dd></dl>
-<p><b>Program history log:</b></p>
-<ul>
-<li>2015-03-02 J. Ator &ndash; Original author </li>
-</ul>
+<p><b>Program history log:</b> </p>
+<table class="doxtable">
+<tr>
+<th>Date </th><th>Programmer </th><th>Comments  </th></tr>
+<tr>
+<td>2015-03-02 </td><td>J. Ator </td><td>Original author </td></tr>
+</table>
 
-<p>Definition at line <a class="el" href="exitbufr_8f_source.html#l00036">36</a> of file <a class="el" href="exitbufr_8f_source.html">exitbufr.f</a>.</p>
+<p>Definition at line <a class="el" href="exitbufr_8f_source.html#l00038">38</a> of file <a class="el" href="exitbufr_8f_source.html">exitbufr.f</a>.</p>
 
-<p>References <a class="el" href="ardllocf_8F.html#a7b3e4d5498fedd9e94ac45b69fc04b58">ardllocf()</a>, <a class="el" href="closbf_8F.html#a00c94986037d2cf27d04de7a1f8a3ebc">closbf()</a>, and <a class="el" href="cfe_8h.html#a1242c4d43753a37cdb9abfb3f01e5583">dlloctbf()</a>.</p>
+<p>References <a class="el" href="ardllocf_8f.html#a7b3e4d5498fedd9e94ac45b69fc04b58">ardllocf()</a>, <a class="el" href="closbf_8f.html#a00c94986037d2cf27d04de7a1f8a3ebc">closbf()</a>, and <a class="el" href="cfe_8h.html#a1242c4d43753a37cdb9abfb3f01e5583">dlloctbf()</a>.</p>
 
 <p>Referenced by <a class="el" href="classbufr__c__interface__mod.html#aeabdf4108093f589b346a1f0b7d1f393">bufr_c_interface_mod::exitbufr_c()</a>.</p>
 

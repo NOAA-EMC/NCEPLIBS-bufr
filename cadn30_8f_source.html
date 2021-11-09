@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.5.0</span>
+   &#160;<span id="projectnumber">11.6.0</span>
    </div>
   </td>
  </tr>
@@ -107,46 +107,38 @@ $(document).ready(function(){initNavTree('cadn30_8f_source.html','');});
 </div><!--header-->
 <div class="contents">
 <a href="cadn30_8f.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="comment">C&gt; @file</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment">C&gt; @author ATOR @date 2004-08-18</span></div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;    </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="comment">C&gt; GIVEN THE BIT-WISE REPRESENTATION OF THE FXY VALUE</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="comment">C&gt;   FOR A DESCRIPTOR, THIS ROUTINE CALLS FUNCTION ADN30 AND STORES</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="comment">C&gt;   ITS RETURN VALUE (I.E. THE ASCII-EQUIVALENT FXY VALUE) AS THE</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="comment">C&gt;   ROUTINE OUTPUT VALUE.  THIS MECHANISM (I.E. A FORTRAN SUBROUTINE</span></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="comment">C&gt;   WRAPPER RETURNING ADN AS A CALL PARAMETER, RATHER THAN DIRECTLY</span></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="comment">C&gt;   CALLING THE FORTRAN FUNCTION ADN30 FROM WITHIN A C ROUTINE)</span></div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="comment">C&gt;   ALLOWS SAFE AND PORTABLE (ALBEIT INDIRECT) ACCESS TO THE ADN30</span></div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="comment">C&gt;   FUNCTION LOGIC FROM WITHIN A C ROUTINE.</span></div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="comment">C&gt;</span></div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="comment">C&gt; PROGRAM HISTORY LOG:</span></div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment">C&gt; 2004-08-18  J. ATOR    -- ORIGINAL AUTHOR</span></div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="comment">C&gt;</span></div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="comment">C&gt; USAGE:    CADN30( IDN, ADN )</span></div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="comment">C&gt;   INPUT ARGUMENT LIST:</span></div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="comment">C&gt;     IDN      - INTEGER: BIT-WISE REPRESENTATION OF FXY VALUE</span></div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment">C&gt;</span></div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="comment">C&gt;   OUTPUT ARGUMENT LIST:</span></div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="comment">C&gt;     ADN      - CHARACTER*(*): ASCII-CHARACTER FORM OF IDN</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment">C&gt; @brief Convert an FXY value from its bit-wise (integer)</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="comment">C&gt; representation to its six character representation</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="comment">C&gt; This subroutine converts an FXY value from its bit-wise (integer)</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="comment">C&gt; representation to its 6 character representation.  It is similar</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="comment">C&gt; to function adn30(), except that it always returns 6 characters,</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="comment">C&gt; and it always returns its output as a call parameter instead of a</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="comment">C&gt; function value, which in turn allows it to be more easily called</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="comment">C&gt; from within a C language function.</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="comment">C&gt;</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="comment">C&gt; @author J. Ator</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="comment">C&gt; @date 2004-08-18</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment">C&gt;</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="comment">C&gt; @param[in] IDN -- integer: Bit-wise representation of FXY value</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="comment">C&gt; @param[out] ADN -- character*6: FXY value</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="comment">C&gt;</span></div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="comment">C&gt; &lt;b&gt;Program History Log:&lt;/b&gt;</span></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment">C&gt; | Date | Programmer | Comments |</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="comment">C&gt; | -----|------------|----------|</span></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="comment">C&gt; | 2004-08-18 | J. Ator | Original author |</span></div>
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="comment">C&gt;</span></div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="comment">C&gt; REMARKS:</span></div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="comment">C&gt;    THIS ROUTINE CALLS:        ADN30</span></div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="comment">C&gt;    THIS ROUTINE IS CALLED BY: NUMMTB   RESTD    STSEQ</span></div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="comment">C&gt;                               Normally not called by application</span></div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="comment">C&gt;                               programs but it could be.</span></div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="comment">C&gt;</span></div>
-<div class="line"><a name="l00029"></a><span class="lineno"><a class="line" href="cadn30_8f.html#a62b50a0be6585c53b6604953e5f39ad1">   29</a></span>&#160;<span class="keyword">    SUBROUTINE </span><a class="code" href="cadn30_8f.html#a62b50a0be6585c53b6604953e5f39ad1">cadn30</a>( IDN, ADN )</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    character*(*)   adn</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    character*6 <a class="code" href="adn30_8f.html#a1e96adbf45bd49facbf0ef30ae375db4">adn30</a></div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    adn = <a class="code" href="adn30_8f.html#a1e96adbf45bd49facbf0ef30ae375db4">adn30</a>( idn, 6 )</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    <span class="keywordflow">RETURN</span></div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <span class="keywordflow">END</span></div>
-<div class="ttc" id="adn30_8f_html_a1e96adbf45bd49facbf0ef30ae375db4"><div class="ttname"><a href="adn30_8f.html#a1e96adbf45bd49facbf0ef30ae375db4">adn30</a></div><div class="ttdeci">character *(*) function adn30(IDN, L30)</div><div class="ttdoc">This function converts a descriptor from its bit-wise (integer) representation to its 5 or 6 characte...</div><div class="ttdef"><b>Definition:</b> <a href="adn30_8f_source.html#l00027">adn30.f:27</a></div></div>
-<div class="ttc" id="cadn30_8f_html_a62b50a0be6585c53b6604953e5f39ad1"><div class="ttname"><a href="cadn30_8f.html#a62b50a0be6585c53b6604953e5f39ad1">cadn30</a></div><div class="ttdeci">subroutine cadn30(IDN, ADN)</div><div class="ttdoc">GIVEN THE BIT-WISE REPRESENTATION OF THE FXY VALUE FOR A DESCRIPTOR, THIS ROUTINE CALLS FUNCTION ADN3...</div><div class="ttdef"><b>Definition:</b> <a href="cadn30_8f_source.html#l00029">cadn30.f:29</a></div></div>
+<div class="line"><a name="l00023"></a><span class="lineno"><a class="line" href="cadn30_8f.html#a62b50a0be6585c53b6604953e5f39ad1">   23</a></span>&#160;<span class="keyword">    SUBROUTINE </span><a class="code" href="cadn30_8f.html#a62b50a0be6585c53b6604953e5f39ad1">cadn30</a>( IDN, ADN )</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    character*(*)   adn</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    character*6 <a class="code" href="adn30_8f.html#a1e96adbf45bd49facbf0ef30ae375db4">adn30</a></div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    adn = <a class="code" href="adn30_8f.html#a1e96adbf45bd49facbf0ef30ae375db4">adn30</a>( idn, 6 )</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <span class="keywordflow">RETURN</span></div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    <span class="keywordflow">END</span></div>
+<div class="ttc" id="adn30_8f_html_a1e96adbf45bd49facbf0ef30ae375db4"><div class="ttname"><a href="adn30_8f.html#a1e96adbf45bd49facbf0ef30ae375db4">adn30</a></div><div class="ttdeci">character *(*) function adn30(IDN, L30)</div><div class="ttdoc">This function converts an FXY value from its bit-wise (integer) representation to its 5 or 6 characte...</div><div class="ttdef"><b>Definition:</b> <a href="adn30_8f_source.html#l00028">adn30.f:28</a></div></div>
+<div class="ttc" id="cadn30_8f_html_a62b50a0be6585c53b6604953e5f39ad1"><div class="ttname"><a href="cadn30_8f.html#a62b50a0be6585c53b6604953e5f39ad1">cadn30</a></div><div class="ttdeci">subroutine cadn30(IDN, ADN)</div><div class="ttdoc">This subroutine converts an FXY value from its bit-wise (integer) representation to its 6 character r...</div><div class="ttdef"><b>Definition:</b> <a href="cadn30_8f_source.html#l00023">cadn30.f:23</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
