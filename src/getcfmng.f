@@ -8,20 +8,20 @@ C>
 C> @author J. Ator
 C> @date 2018-01-11
 C>
-C> @param[in]  LUNIT    - integer: Fortran logical unit number for
+C> @param[in]  LUNIT   -- integer: Fortran logical unit number for
 C>                        BUFR file
-C> @param[in]  NEMOI    - character*(*): Mnemonic to search for
-C> @param[in]  IVALI    - integer: Value (code figure or bit number)
+C> @param[in]  NEMOI   -- character*(*): Mnemonic to search for
+C> @param[in]  IVALI   -- integer: Value (code figure or bit number)
 C>                        associated with NEMOI
-C> @param[in]  NEMOD    - character*(*): Optional second mnemonic upon
+C> @param[in]  NEMOD   -- character*(*): Optional second mnemonic upon
 C>                        which the values NEMOI and IVALI depend; set to
 C>                        all blank characters if the meanings of NEMOI and
 C>                        IVALI do not depend on the value of any other
 C>                        mnemonic
-C> @param[in]  IVALD    - integer: Value (code figure or bit number)
+C> @param[in]  IVALD   -- integer: Value (code figure or bit number)
 C>                        associated with NEMOD; set to (-1) whenever
 C>                        NEMOD is set to all blank characters
-C> @param[out] CMEANG   - character*(*): If the initial search of the
+C> @param[out] CMEANG  -- character*(*): If the initial search of the
 C>                        master Code/Flag tables was successful, then this
 C>                        string contains the meaning corresponding to NEMOI
 C>                        and IVALI (and to NEMOD and IVALD, if specified).
@@ -36,17 +36,17 @@ C.                        mnemonics are returned within this string, as a
 C>                        series of IRET successive 8-byte substrings. 
 C>                        An example of this scenario is included below
 C>                        within the Remarks.
-C> @param[out] LNMNG    - integer: Length (in bytes) of string returned in
+C> @param[out] LNMNG   -- integer: Length (in bytes) of string returned in
 C>                        CMEANG
-C> @param[out] IRET     - integer: return code
-C>                       -  0 = meaning found and stored in CMEANG string
-C>                       - -1 = meaning not found
-C>                       - >0 = meaning not found, <b>and</b> NEMOD and
-C>                              IVALD were not specified on input,
-C>                              <b>and</b> the meaning of NEMOI and IVALI
-C>                              depends on the value of one of the
-C>                              mnemonics stored in the first IRET 8-byte
-C>                              substrings of CMEANG
+C> @param[out] IRET    -- integer: return code
+C>                        -  0 = meaning found and stored in CMEANG string
+C>                        - -1 = meaning not found
+C>                        - >0 = meaning not found, <b>and</b> NEMOD and
+C>                               IVALD were not specified on input,
+C>                               <b>and</b> the meaning of NEMOI and IVALI
+C>                               depends on the value of one of the
+C>                               mnemonics stored in the first IRET 8-byte
+C>                               substrings of CMEANG
 C>
 C> <p>As noted above, this subroutine first does an initial search of
 C> the master Code/Flag tables based on the mnemonics and values provided.
@@ -101,9 +101,10 @@ C> that more information needs to be input to the subroutine in order to
 C> achieve the desired result.
 C>
 C> <b>Program history log:</b>
-C> - 2018-01-11  J. Ator    -- Original author
-C> - 2018-02-08  J. Ator    -- Add special handling for data types and
-C>                           subtypes in Section 1
+C> | Date | Programmer | Comments |
+C> | -----|------------|----------|
+C> | 2018-01-11 | J. Ator | Original author |
+C> | 2018-02-08 | J. Ator | Add special handling for data types and subtypes in Section 1 |
 C>
 	SUBROUTINE GETCFMNG ( LUNIT, NEMOI, IVALI, NEMOD, IVALD,
      .			      CMEANG, LNMNG, IRET )

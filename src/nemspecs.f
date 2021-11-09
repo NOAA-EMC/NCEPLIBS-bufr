@@ -16,22 +16,22 @@ C>
 C> @author J. Ator
 C> @date 2014-10-02
 C>
-C> @param[in] LUNIT  - integer: Fortran logical unit number for
-C>                     BUFR file
-C> @param[in] NEMO   - character*(*): Table B mnemonic
-C> @param[in] NNEMO  - integer: Ordinal occurrence of NEMO for
-C>                     which information is to be returned,
-C>                     counting from the beginning of the overall
-C>                     subset definition
-C> @param[out] NSCL  - integer: Scale factor in effect for
-C>                     (NNEMO)th occurrence of NEMO
-C> @param[out] NREF  - integer: Reference value in effect for
-C>                     (NNEMO)th occurrence of NEMO
-C> @param[out] NBTS  - integer: Bit width in effect for
-C>                     (NNEMO)th occurrence of NEMO
-C> @param[out] IRET  - integer: return code
-C>                     - 0 = normal return
-C>                     - -1 = NEMO could not be found, or some
+C> @param[in] LUNIT  -- integer: Fortran logical unit number for
+C>                      BUFR file
+C> @param[in] NEMO   -- character*(*): Table B mnemonic
+C> @param[in] NNEMO  -- integer: Ordinal occurrence of NEMO for
+C>                      which information is to be returned,
+C>                      counting from the beginning of the overall
+C>                      subset definition
+C> @param[out] NSCL  -- integer: Scale factor in effect for
+C>                      (NNEMO)th occurrence of NEMO
+C> @param[out] NREF  -- integer: Reference value in effect for
+C>                      (NNEMO)th occurrence of NEMO
+C> @param[out] NBTS  -- integer: Bit width in effect for
+C>                      (NNEMO)th occurrence of NEMO
+C> @param[out] IRET  -- integer: return code
+C>                      - 0 = normal return
+C>                      - -1 = NEMO could not be found, or some
 C>                            other error occurred
 C>
 C> <p>A data subset must already be in scope within the BUFRLIB
@@ -42,8 +42,10 @@ C> of the [message-writing subroutines](@ref hierarchy)
 C> (when writing BUFR data subsets).
 C>
 C> <b>Program history log:</b>
-C> - 2014-10-02  J. Ator    -- Original version
-C> - 2014-12-10  J. Ator    -- Use modules instead of COMMON blocks
+C> | Date | Programmer | Comments |
+C> | -----|------------|----------|
+C> | 2014-10-02 | J. Ator | Original version |
+C> | 2014-12-10 | J. Ator | Use modules instead of COMMON blocks |
 C>
 	SUBROUTINE NEMSPECS ( LUNIT, NEMO, NNEMO,
      .			      NSCL, NREF, NBTS, IRET )

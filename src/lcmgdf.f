@@ -9,15 +9,15 @@ C>
 C> @author J. Ator
 C> @date 2009-07-09
 C>
-C> @param[in] LUNIT  - integer: Fortran logical unit number for
+C> @param[in] LUNIT -- integer: Fortran logical unit number for
 C>                     BUFR file
-C> @param[in] SUBSET - character*8: Table A mnemonic of message
-C>                     type to be checked
-C> @returns lcmgdf - integer: 
-C>                    -  0 = SUBSET does not contain any long
-C>                           character strings
-C>                    -  1 = SUBSET contains at least one long
-C>                           character string
+C> @param[in] SUBSET -- character*8: Table A mnemonic of message
+C>                      type to be checked
+C> @returns lcmgdf -- integer: 
+C>                     -  0 = SUBSET does not contain any long
+C>                            character strings
+C>                     -  1 = SUBSET contains at least one long
+C>                            character string
 C>
 C> @remarks
 C> - LUNIT may be open for either input or output operations via a
@@ -36,8 +36,10 @@ C> separate call to subroutine readlc() (when reading BUFR data
 C> subsets) or subroutine writlc() (when writing BUFR data subsets).
 C>
 C> <b>Program history log:</b>
-C> - 2009-07-09  J. Ator    -- Original author
-C> - 2014-12-10  J. Ator    -- Use modules instead of COMMON blocks
+C> | Date | Programmer | Comments |
+C> | -----|------------|----------|
+C> | 2009-07-09 | J. Ator | Original author |
+C> | 2014-12-10 | J. Ator | Use modules instead of COMMON blocks |
 C>
       INTEGER FUNCTION LCMGDF(LUNIT,SUBSET)
 

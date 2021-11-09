@@ -14,19 +14,19 @@ C>
 C> @author J. Woollen
 C> @date 1995-11-22
 C>
-C> @param[in] LUNIT  - integer: Fortran logical unit number for BUFR file
-C> @param[in] IREC   - integer: Ordinal number of message to be read,
+C> @param[in] LUNIT -- integer: Fortran logical unit number for BUFR file
+C> @param[in] IREC  -- integer: Ordinal number of message to be read,
 C>                     counting from the beginning of the BUFR file, but
 C>                     not counting any messages which contain DX BUFR
 C>                     tables information
-C> @param[in] ISUB   - integer: Ordinal number of data subset to be
+C> @param[in] ISUB  -- integer: Ordinal number of data subset to be
 C>                     read from (IREC)th message, counting from the
 C>                     beginning of the message
-C> @param[out] SUBSET - character*8: Table A mnemonic for type of BUFR
-C>                      message that was read
-C>                      (see [DX BUFR Tables](@ref dfbftab)
-C>                      for further information about Table A mnemonics)
-C> @param[out] JDATE  - integer: Date-time stored within Section 1 of
+C> @param[out] SUBSET -- character*8: Table A mnemonic for type of BUFR
+C>                       message that was read
+C>                       (see [DX BUFR Tables](@ref dfbftab)
+C>                       for further information about Table A mnemonics)
+C> @param[out] JDATE -- integer: Date-time stored within Section 1 of
 C>                      BUFR message that was read, in format of either
 C>                      YYMMDDHH or YYYYMMDDHH, depending on the most
 C>                      recent call to subroutine datelen()
@@ -38,14 +38,14 @@ C> - The value specified for IREC should <b>not</b> include any messages
 C> which contain DX BUFR tables information.
 C>
 C> <b>Program history log:</b>
-C> - 1995-11-22  J. Woollen -- Original author
-C> - 2005-03-04  D. Keyser  -- Added documentation
-C> - 2006-04-14  J. Ator    -- Remove unnecessary MOIN initialization
-C> - 2009-03-23  J. Ator    -- Modified to handle embedded BUFR table
-C>                             (dictionary) messages
-C> - 2014-12-10  J. Ator    -- Use modules instead of COMMON blocks
-C> - 2021-10-08  J. Ator    -- Use readsb() to read all subsets from
-C>                             IREC(th) message
+C> | Date | Programmer | Comments |
+C> | -----|------------|----------|
+C> | 1995-11-22 | J. Woollen | Original author |
+C> | 2005-03-04 | D. Keyser  | Added documentation |
+C> | 2006-04-14 | J. Ator    | Remove unnecessary MOIN initialization |
+C> | 2009-03-23 | J. Ator    | Modified to handle embedded BUFR table (dictionary) messages |
+C> | 2014-12-10 | J. Ator    | Use modules instead of COMMON blocks |
+C> | 2021-10-08 | J. Ator    | Use readsb() to read all subsets from IREC(th) message |
 C>
       SUBROUTINE UFBPOS(LUNIT,IREC,ISUB,SUBSET,JDATE)
 

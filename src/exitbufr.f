@@ -31,7 +31,9 @@ C>   allocated memory will automatically get freed anyway by the
 C>   operating system once the application program terminates.
 C>
 C> <b>Program history log:</b>
-C> - 2015-03-02  J. Ator    -- Original author
+C> | Date | Programmer | Comments |
+C> | -----|------------|----------|
+C> | 2015-03-02 | J. Ator | Original author |
 C>
 	SUBROUTINE EXITBUFR
 

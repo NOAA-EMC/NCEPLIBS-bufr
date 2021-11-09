@@ -1,41 +1,34 @@
 C> @file
-C> @author WOOLLEN @date 1999-11-18
-      
-C> THIS SUBROUTINE SEARCHES FOR MNEMONIC NEMO WITHIN THE
-C>   INTERNAL TABLE A ARRAYS HOLDING THE DICTIONARY TABLE (ARRAYS IN
-C>   MODULE TABABD) AND, IF FOUND, RETURNS INFORMATION ABOUT
-C>   THAT MNEMONIC FROM WITHIN THESE ARRAYS.  IT IS IDENTICAL TO BUFR
-C>   ARCHIVE LIBRARY SUBROUTINE NEMTBA EXCEPT THAT, IF NEMO IS NOT
-C>   FOUND, THIS SUBROUTINE RETURNS WITH INOD EQUAL TO ZERO, WHEREAS
-C>   NEMTBA CALLS BUFR ARCHIVE LIBRARY SUBROUTINE BORT IN SUCH CASES.
+C> @brief Search for a Table A descriptor within the internal DX
+C> BUFR tables
+
+C> This subroutine searches for a descriptor within Table A of the
+C> internal DX BUFR tables.
 C>
-C> PROGRAM HISTORY LOG:
-C> 1999-11-18  J. WOOLLEN -- ORIGINAL AUTHOR
-C> 2003-11-04  S. BENDER  -- ADDED REMARKS/BUFRLIB ROUTINE
-C>                           INTERDEPENDENCIES
-C> 2003-11-04  D. KEYSER  -- UNIFIED/PORTABLE FOR WRF; ADDED
-C>                           DOCUMENTATION (INCLUDING HISTORY); OUTPUTS
-C>                           MORE COMPLETE DIAGNOSTIC INFO WHEN ROUTINE
-C>                           TERMINATES ABNORMALLY
-C> 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
+C> <p>It is similar to subroutine nemtba(), except it returns an INOD
+C> value of 0 if the descriptor is not found in Table A, whereas
+C> nemtba() will call subroutine bort() in such cases.
 C>
-C> USAGE:    CALL NEMTBAX (LUN, NEMO, MTYP, MSBT, INOD)
-C>   INPUT ARGUMENT LIST:
-C>     LUN      - INTEGER: I/O STREAM INDEX INTO INTERNAL MEMORY ARRAYS
-C>     NEMO     - CHARACTER*(*): TABLE A MNEMONIC TO SEARCH FOR
+C> @author J. Woollen
+C> @date 1999-11-18
 C>
-C>   OUTPUT ARGUMENT LIST:
-C>     MTYP     - INTEGER: MESSAGE TYPE CORRESPONDING TO NEMO
-C>     MSBT     - INTEGER: MESSAGE SUBTYPE CORRESPONDING TO NEMO
-C>     INOD     - INTEGER: POSITIONAL INDEX OF NEMO WITHIN INTERNAL
-C>                         JUMP/LINK TABLE IF NEMO FOUND
-C>                       0 = NEMO not found
+C> @param[in] LUN -- integer: Internal I/O stream index associated
+C>                   with DX BUFR tables
+C> @param[in] NEMO -- character*(*): Mnemonic for Table A descriptor
+C> @param[out] MTYP -- integer: Message type corresponding to NEMO
+C> @param[out] MSBT -- integer: Message subtype corresponding to NEMO
+C> @param[out] INOD -- integer:
+C>                     - Positional index of NEMO within internal
+C>                       Table A, if found
+C>                     - 0, otherwise
 C>
-C> REMARKS:
-C>    THIS ROUTINE CALLS:        BORT
-C>    THIS ROUTINE IS CALLED BY: CKTABA   IOK2CPY  NEMTBA   STNDRD
-C>                               Normally not called by any application
-C>                               programs.
+C> <b>Program history log:</b>
+C> | Date | Programmer | Comments |
+C> | -----|------------|----------|
+C> | 1999-11-18 | J. Woollen | Original author |
+C> | 2003-11-04 | S. Bender  | Added remarks/bufrlib routine interdependencies |
+C> | 2003-11-04 | D. Keyser  | Unified/portable for WRF; added documentation; outputs more complete diagnostic info when routine terminates abnormally |
+C> | 2014-12-10 | J. Ator    | Use modules instead of COMMON blocks |
 C>
       SUBROUTINE NEMTBAX(LUN,NEMO,MTYP,MSBT,INOD)
 

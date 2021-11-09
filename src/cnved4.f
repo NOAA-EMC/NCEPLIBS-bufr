@@ -14,11 +14,11 @@ C>
 C> @author J. Ator
 C> @date 2005-11-29
 C>
-C> @param[in] MSGIN    - integer(*): BUFR message
-C> @param[in] LMSGOT   - integer: Dimensioned size (in integers) of
+C> @param[in] MSGIN   -- integer(*): BUFR message
+C> @param[in] LMSGOT  -- integer: Dimensioned size (in integers) of
 C>                       MSGOT; used by the subroutine to ensure that
 C>                       it doesn't overflow the MSGOT array
-C> @param[out] MSGOT   - integer(*): Copy of MSGIN encoded using
+C> @param[out] MSGOT  -- integer(*): Copy of MSGIN encoded using
 C>                       BUFR edition 4
 C>
 C> @remarks
@@ -28,10 +28,10 @@ C> BUFR edition 3 counterparts, so it's usually a good idea to allow
 C> for extra space when allocating MSGOT within the application program.
 C>
 C> <b>Program history log:</b>
-C> - 2005-11-29  J. Ator    -- Original author
-C> - 2009-08-12  J. Ator    -- Allow silent return (instead of bort()
-C>                           return) if MSGIN is already encoded using
-C>                           edition 4
+C> | Date | Programmer | Comments |
+C> | -----|------------|----------|
+C> | 2005-11-29 | J. Ator | Original author |
+C> | 2009-08-12 | J. Ator | Allow silent return (instead of bort() return) if MSGIN is already encoded using edition 4 |
 C>
 	SUBROUTINE CNVED4(MSGIN,LMSGOT,MSGOT)
 

@@ -22,14 +22,14 @@ C> application program, or else it will be freed automatically by the
 C> operating system once the application program terminates.
 C>
 C> <b>Program history log:</b>
-C> - 2014-12-04  J. Ator    -- Original author
-C> - 2016-05-24  J. Ator    -- Added allocations for MODA_BITMAPS
-C>                             and MODA_NRV203
-C> - 2017-05-22  J. Ator    -- Added allocations for MODA_RLCCMN
-C> - 2019-05-09  J. Ator    -- Modified allocations for MODA_BUFRMG
-C> - 2021-01-08  J. Ator    -- Modified mstabs array declarations
-C>                             for GNUv10 portability
-C> - 2021-05-17  J. Ator    -- Allow up to 24 characters in cbunit
+C> | Date | Programmer | Comments |
+C> | -----|------------|----------|
+C> | 2014-12-04 | J. Ator | Original author |
+C> | 2016-05-24 | J. Ator | Added allocations for MODA_BITMAPS and MODA_NRV203 |
+C> | 2017-05-22 | J. Ator | Added allocations for MODA_RLCCMN |
+C> | 2019-05-09 | J. Ator | Modified allocations for MODA_BUFRMG |
+C> | 2021-01-08 | J. Ator | Modified mstabs array declarations for GNUv10 portability |
+C> | 2021-05-17 | J. Ator | Allow up to 24 characters in cbunit |
 C>
 	SUBROUTINE ARALLOCF
 

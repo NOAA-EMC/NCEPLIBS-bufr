@@ -20,54 +20,56 @@
  *  @author J. Ator
  *  @date 2018-01-11
  *
- *  @param[in] ifxyi - f77int*: Bit-wise representation of FXY number
- *                     to search for
- *  @param[in] ivali - f77int*: Value (code figure or bit number)
- *                     associated with ifxyi
- *  @param[in,out] ifxyd - f77int*:
- *                         - On input, ifxyd[0] is set to
- *                           the bit-wise representation of the FXY
- *                           number upon which ifxyi and ivali depend,
- *                           or else set to (-1) if ifxyi and ivali do
- *                           not depend on the value associated with
- *                           any other FXY number
- *                         - On output, if the initial search of the
- *                           master Code/Flag table was unsuccessful,
- *                           <b>and</b> if ifxyd[0] and ivald were both
- *                           set to (-1) on input, <b>and</b> if a
- *                           second search of the table determines that
- *                           the meaning of ifxyi and ivali indeed
- *                           depends on one or more other FXY numbers,
- *                           then the bit-wise representations of those
- *                           FXY numbers are returned within the first
- *                           iret elements of ifxyd
- *  @param[in] ivald - f77int*: Value (code figure or bit number)
- *                     associated with the FXY number in ifxyd[0]; set
- *                     to (-1) whenever ifxyd[0] is also set to (-1)
- *  @param[in] mxfxyd - f77int*: Dimensioned size (in f77ints) of
- *                      ifxyd; used by the subroutine to ensure that
- *                      it doesn't overflow the ifxyd array
- *  @param[in] mxmng - f77int*: Dimensioned size (in bytes) of meaning
- *                     string; used by the subroutine to ensure that
- *                     it doesn't overflow the meaning string
- *  @param[out] meaning - char*: Meaning corresponding to ifxyi and
- *                        ivali (and to ifxyd[0] and ivald, if
- *                        specified on input)
- *  @param[out] lnmng - f77int*: Length (in bytes) of string returned
- *                      in CMEANG
- *  @param[out] iret - f77int*: return code
- *                     -  0 = meaning found and stored in meaning string
- *                     - -1 = meaning not found
- *                     - >0 = meaning not found, <b>and</b> ifxyd[0] and
- *                            ivald were both set to (-1) on input,
- *                            <b>and</b> the meaning of ifxyi and ivali
- *                            depends on the the value associated with
- *                            one of the FXY numbers whose bit-wise
- *                            representation is stored in the first iret
- *                            elements of ifxyd
+ *  @param[in] ifxyi -- f77int*: Bit-wise representation of FXY number
+ *                      to search for
+ *  @param[in] ivali -- f77int*: Value (code figure or bit number)
+ *                      associated with ifxyi
+ *  @param[in,out] ifxyd -- f77int*:
+ *                          - On input, ifxyd[0] is set to
+ *                            the bit-wise representation of the FXY
+ *                            number upon which ifxyi and ivali depend,
+ *                            or else set to (-1) if ifxyi and ivali do
+ *                            not depend on the value associated with
+ *                            any other FXY number
+ *                          - On output, if the initial search of the
+ *                            master Code/Flag table was unsuccessful,
+ *                            <b>and</b> if ifxyd[0] and ivald were both
+ *                            set to (-1) on input, <b>and</b> if a
+ *                            second search of the table determines that
+ *                            the meaning of ifxyi and ivali indeed
+ *                            depends on one or more other FXY numbers,
+ *                            then the bit-wise representations of those
+ *                            FXY numbers are returned within the first
+ *                            iret elements of ifxyd
+ *  @param[in] ivald -- f77int*: Value (code figure or bit number)
+ *                      associated with the FXY number in ifxyd[0]; set
+ *                      to (-1) whenever ifxyd[0] is also set to (-1)
+ *  @param[in] mxfxyd -- f77int*: Dimensioned size (in f77ints) of
+ *                       ifxyd; used by the subroutine to ensure that
+ *                       it doesn't overflow the ifxyd array
+ *  @param[in] mxmng -- f77int*: Dimensioned size (in bytes) of meaning
+ *                      string; used by the subroutine to ensure that
+ *                      it doesn't overflow the meaning string
+ *  @param[out] meaning -- char*: Meaning corresponding to ifxyi and
+ *                         ivali (and to ifxyd[0] and ivald, if
+ *                         specified on input)
+ *  @param[out] lnmng -- f77int*: Length (in bytes) of string returned
+ *                       in CMEANG
+ *  @param[out] iret -- f77int*: return code
+ *                      -  0 = meaning found and stored in meaning string
+ *                      - -1 = meaning not found
+ *                      - >0 = meaning not found, <b>and</b> ifxyd[0] and
+ *                             ivald were both set to (-1) on input,
+ *                             <b>and</b> the meaning of ifxyi and ivali
+ *                             depends on the the value associated with
+ *                             one of the FXY numbers whose bit-wise
+ *                             representation is stored in the first iret
+ *                             elements of ifxyd
  *
  * <b>Program history log:</b>
- * - 2018-01-11  J. Ator    -- Original author
+ * | Date | Programmer | Comments |
+ * | -----|------------|----------|
+ * | 2018-01-11 | J. Ator | Original author |
  */
 void srchtbf( f77int *ifxyi, f77int *ivali, f77int *ifxyd, f77int *mxfxyd, f77int *ivald,
 	      char *meaning, f77int *mxmng, f77int *lnmng, f77int *iret )

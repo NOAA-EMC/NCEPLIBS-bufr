@@ -1,5 +1,6 @@
 C> @file
-C> @brief Search for a descriptor within the internal DX BUFR tables
+C> @brief Search for a Table B or Table D descriptor within the
+C> internal DX BUFR tables
 
 C> This subroutine searches for a descriptor within Table B and
 C> Table D of the internal DX BUFR tables.
@@ -7,15 +8,15 @@ C>
 C> @author J. Woollen
 C> @date 2002-05-14
 C>
-C> @param[in] LUN - integer: Internal I/O stream index associated
-C>                  with DX BUFR tables
-C> @param[in] IDN - integer: Bit-wise representation of FXY value
-C>                  for descriptor
-C> @param[out] NEMO - character*(*): Mnemonic associated with IDN
-C> @param[out] TAB - character: Type associated with IDN
+C> @param[in] LUN -- integer: Internal I/O stream index associated
+C>                   with DX BUFR tables
+C> @param[in] IDN -- integer: Bit-wise representation of FXY value
+C>                   for Table B or Table D descriptor
+C> @param[out] NEMO -- character*(*): Mnemonic associated with IDN
+C> @param[out] TAB -- character: Type associated with IDN
 C>                     - 'B' = Table B descriptor
 C>                     - 'D' = Table D descriptor
-C> @param[out] IRET - integer: 
+C> @param[out] IRET -- integer: 
 C>                     - Positional index of IDN within internal
 C>                       Table B, if TAB = 'B'
 C>                     - Positional index of IDN within internal
@@ -23,12 +24,13 @@ C>                       Table D, if TAB = 'D'
 C>                     - 0, otherwise
 C>
 C> <b>Program history log:</b>
-C> - 2002-05-14  J. Woollen -- Original author
-C> - 2003-11-04  S. Bender  -- Added remarks and routine interdependencies
-C> - 2003-11-04  D. Keyser  -- Unified/portable for WRF; added history
-C>                           documentation
-C> - 2009-04-21  J. Ator    -- Use ifxy() for more efficient searching
-C> - 2014-12-10  J. Ator    -- Use modules instead of COMMON blocks
+C> | Date | Programmer | Comments |
+C> | -----|------------|----------|
+C> | 2002-05-14 | J. Woollen | Original author |
+C> | 2003-11-04 | S. Bender  | Added remarks and routine interdependencies |
+C> | 2003-11-04 | D. Keyser  | Unified/portable for WRF; added history documentation |
+C> | 2009-04-21 | J. Ator    | Use ifxy() for more efficient searching |
+C> | 2014-12-10 | J. Ator    | Use modules instead of COMMON blocks |
 C>
       SUBROUTINE NUMTBD(LUN,IDN,NEMO,TAB,IRET)
 

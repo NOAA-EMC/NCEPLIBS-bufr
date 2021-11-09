@@ -9,14 +9,16 @@ C>
 C> @author J. Ator
 C> @date 2009-03-23
 C>
-C> @param[in] MESG      - integer(*): BUFR message
-C> @returns idxmsg      - integer: Flag indicating whether MESG
+C> @param[in] MESG     -- integer(*): BUFR message
+C> @returns idxmsg     -- integer: Flag indicating whether MESG
 C>                        contains DX BUFR tables information:
 C>                          - 0 = No
 C>                          - 1 = Yes
 C>
 C> <b>Program history log:</b>
-C> - 2009-03-23  J. Ator    -- Original author
+C> | Date | Programmer | Comments |
+C> | -----|------------|----------|
+C> | 2009-03-23 | J. Ator | Original author |
 C>
 	FUNCTION IDXMSG( MESG )
 

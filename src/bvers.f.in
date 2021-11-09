@@ -8,26 +8,27 @@ C>
 C> @author J. Ator
 C> @date 2009-03-23
 C>
-C> @param[out]    CVERSTR  - character*(*): Version string
+C> @param[out]    CVERSTR -- character*(*): Version string
 C>
 C> <b>Program history log:</b>
-C> - 2009-03-23  J. Ator    -- Original author
-C> - 2011-09-26  J. Ator    -- Updated to version 10.0.1
-C> - 2012-02-24  J. Ator    -- Updated to version 10.1.0
-C> - 2012-10-12  J. Ator    -- Updated to version 10.2.0
-C> - 2012-11-29  J. Ator    -- Updated to version 10.2.1
-C> - 2012-12-04  J. Ator    -- Updated to version 10.2.2
-C> - 2013-01-08  J. Ator    -- Updated to version 10.2.3
-C> - 2013-01-09  J. Ator    -- Updated to version 10.2.4
-C> - 2013-01-25  J. Ator    -- Updated to version 10.2.5
-C> - 2014-11-12  J. Ator    -- Updated to version 11.0.0
-C> - 2015-09-24  J. Ator    -- Updated to version 11.0.1
-C> - 2016-02-12  J. Ator    -- Updated to version 11.0.2
-C> - 2016-03-18  J. Ator    -- Updated to version 11.1.0
-C> - 2016-05-10  J. Ator    -- Updated to version 11.2.0
-C> - 2017-04-03  J. Ator    -- Updated to version 11.3.0
-C> - 2020-10-21  J. Ator    -- Updated to use PROJECT_VERSION
-C>                           macro from CMake
+C> | Date | Programmer | Comments |
+C> | -----|------------|----------|
+C> | 2009-03-23 | J. Ator | Original author |
+C> | 2011-09-26 | J. Ator | Updated to version 10.0.1 |
+C> | 2012-02-24 | J. Ator | Updated to version 10.1.0 |
+C> | 2012-10-12 | J. Ator | Updated to version 10.2.0 |
+C> | 2012-11-29 | J. Ator | Updated to version 10.2.1 |
+C> | 2012-12-04 | J. Ator | Updated to version 10.2.2 |
+C> | 2013-01-08 | J. Ator | Updated to version 10.2.3 |
+C> | 2013-01-09 | J. Ator | Updated to version 10.2.4 |
+C> | 2013-01-25 | J. Ator | Updated to version 10.2.5 |
+C> | 2014-11-12 | J. Ator | Updated to version 11.0.0 |
+C> | 2015-09-24 | J. Ator | Updated to version 11.0.1 |
+C> | 2016-02-12 | J. Ator | Updated to version 11.0.2 |
+C> | 2016-03-18 | J. Ator | Updated to version 11.1.0 |
+C> | 2016-05-10 | J. Ator | Updated to version 11.2.0 |
+C> | 2017-04-03 | J. Ator | Updated to version 11.3.0 |
+C> | 2020-10-21 | J. Ator | Updated to use PROJECT_VERSION macro from CMake |
 C>
 	SUBROUTINE BVERS (CVERSTR)
 

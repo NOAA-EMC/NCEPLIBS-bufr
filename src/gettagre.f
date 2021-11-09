@@ -10,22 +10,22 @@ C>
 C> @author J. Ator
 C> @date 2016-06-07
 C>
-C> @param[in] LUNIT  - integer: Fortran logical unit number for
-C>                     BUFR file
-C> @param[in] TAGI   - character*(*): Table B mnemonic
-C> @param[in] NTAGI  - integer: Ordinal occurrence of TAGI for
-C>                     which TAGRE is to be returned, counting from
-C>                     the beginning of the overall subset definition
-C> @param[out] TAGRE - character*(*): Table B mnemonic referenced by
-C>                     TAGI via an internal bitmap
-C> @param[out] NTAGRE - integer: Ordinal occurrence of TAGRE
-C>                      referenced by (NTAGI)th occurrence of TAGI,
-C>                      counting from the beginning of the overall
-C>                      subset definition
-C> @param[out] IRET  - integer: return code
-C>                     - 0 = normal return
-C>                     - -1 = TAGRE could not be found, or some
-C>                            other error occurred
+C> @param[in] LUNIT  -- integer: Fortran logical unit number for
+C>                      BUFR file
+C> @param[in] TAGI   -- character*(*): Table B mnemonic
+C> @param[in] NTAGI  -- integer: Ordinal occurrence of TAGI for
+C>                      which TAGRE is to be returned, counting from
+C>                      the beginning of the overall subset definition
+C> @param[out] TAGRE -- character*(*): Table B mnemonic referenced by
+C>                      TAGI via an internal bitmap
+C> @param[out] NTAGRE -- integer: Ordinal occurrence of TAGRE
+C>                       referenced by (NTAGI)th occurrence of TAGI,
+C>                       counting from the beginning of the overall
+C>                       subset definition
+C> @param[out] IRET  -- integer: return code
+C>                      - 0 = normal return
+C>                      - -1 = TAGRE could not be found, or some
+C>                             other error occurred
 C>
 C> <p>A data subset must already be in scope within the BUFRLIB
 C> internal arrays for LUNIT, either via a previous call to one
@@ -35,7 +35,9 @@ C> of the [message-writing subroutines](@ref hierarchy)
 C> (when writing BUFR data subsets).
 C>
 C> <b>Program history log:</b>
-C> - 2016-06-07  J. Ator    -- Original author
+C> | Date | Programmer | Comments |
+C> | -----|------------|----------|
+C> | 2016-06-07 | J. Ator | Original author |
 C>
 	SUBROUTINE GETTAGRE ( LUNIT, TAGI, NTAGI, TAGRE, NTAGRE, IRET )
 

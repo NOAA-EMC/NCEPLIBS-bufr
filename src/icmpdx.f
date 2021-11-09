@@ -13,11 +13,11 @@ C>
 C> @author J. Ator
 C> @date 2009-06-18
 C>
-C> @param[in]  LUD      - integer: Internal I/O stream index associated
+C> @param[in]  LUD     -- integer: Internal I/O stream index associated
 C>                        with first BUFR file
-C> @param[in]  LUN      - integer: Internal I/O stream index associated
+C> @param[in]  LUN     -- integer: Internal I/O stream index associated
 C>                        with second BUFR file
-C> @returns icmpdx      - integer: Flag indicating whether the 
+C> @returns icmpdx     -- integer: Flag indicating whether the 
 C>                        BUFR file associated with LUD and the BUFR
 C>                        file associated with LUN have the same DX
 C>                        BUFR table information
@@ -25,8 +25,10 @@ C>                        - 0 = No
 C>                        - 1 = Yes
 C>
 C> <b>Program history log:</b>
-C> - 2009-06-18  J. Ator    -- Original author
-C> - 2014-12-10  J. Ator    -- Use modules instead of COMMON blocks
+C> | Date | Programmer | Comments |
+C> | -----|------------|----------|
+C> | 2009-06-18 | J. Ator | Original author |
+C> | 2014-12-10 | J. Ator | Use modules instead of COMMON blocks |
 C>
       INTEGER FUNCTION ICMPDX(LUD,LUN)
 

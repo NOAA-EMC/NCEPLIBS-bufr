@@ -11,51 +11,52 @@ C>
 C> @author J. Ator
 C> @date 2007-01-19
 C>
-C> @param[in] LUNSTB  - integer: Fortran logical unit number for
+C> @param[in] LUNSTB -- integer: Fortran logical unit number for
 C>                      ASCII file containing standard Table B
 C>                      information
-C> @param[in] LUNLTB  - integer: Fortran logical unit number for
+C> @param[in] LUNLTB -- integer: Fortran logical unit number for
 C>                      ASCII file containing local Table B
 C>                      information
-C> @param[in] MXMTBB  - integer: Dimensioned size (in integers) of
+C> @param[in] MXMTBB -- integer: Dimensioned size (in integers) of
 C>                      merged output arrays; used by the subroutine
 C>                      to ensure that it doesn't overflow these
 C>                      arrays
-C> @param[out] IMT    - integer: Master table
+C> @param[out] IMT   -- integer: Master table
 C>                      - This value is read from both ASCII
 C>                        files and must be identical between them.
-C> @param[out] IMTV   - integer: Version number of master table
+C> @param[out] IMTV  -- integer: Version number of master table
 C>                      - This value is read from the standard ASCII
 C>                        file.
-C> @param[out] IOGCE  - integer: Originating center
+C> @param[out] IOGCE -- integer: Originating center
 C>                      - This value is read from the local ASCII
 C>                        file.
-C> @param[out] ILTV   - integer: Version number of local table
+C> @param[out] ILTV  -- integer: Version number of local table
 C>                      - This value is read from the local ASCII
 C>                        file.
-C> @param[out] NMTBB  - integer: Number of entries in merged output
+C> @param[out] NMTBB -- integer: Number of entries in merged output
 C>                      arrays
-C> @param[out] IMFXYN - integer(*): Merged array containing bit-wise
-C>                      representations of FXY numbers
-C> @param[out] CMSCL  - character*4(*): Merged array containing
+C> @param[out] IMFXYN -- integer(*): Merged array containing bit-wise
+C>                       representations of FXY numbers
+C> @param[out] CMSCL -- character*4(*): Merged array containing
 C>                      scale factors
-C> @param[out] CMSREF - character*12(*): Merged array containing
-C>                      reference values
-C> @param[out] CMBW   - character*4(*): Merged array containing
+C> @param[out] CMSREF -- character*12(*): Merged array containing
+C>                       reference values
+C> @param[out] CMBW  -- character*4(*): Merged array containing
 C>                      bit widths
-C> @param[out] CMUNIT - character*24(*): Merged array containing units
-C> @param[out] CMMNEM - character*8(*): Merged array containing
+C> @param[out] CMUNIT -- character*24(*): Merged array containing units
+C> @param[out] CMMNEM -- character*8(*): Merged array containing
 C>                      mnemonics
-C> @param[out] CMDSC  - character*4(*): Merged array containing
+C> @param[out] CMDSC -- character*4(*): Merged array containing
 C>                      descriptor codes
-C> @param[out] CMELEM - character*120(*): Merged array containing
-C>                      element names
+C> @param[out] CMELEM -- character*120(*): Merged array containing
+C>                       element names
 C>
 C> <b>Program history log:</b>
-C> - 2007-01-19  J. Ator    -- Original author
-C> - 2021-01-08  J. Ator    -- Modified mstabs array declarations
-C>                           for GNUv10 portability
-C> - 2021-05-17  J. Ator    -- Allow up to 24 characters in cmunit
+C> | Date | Programmer | Comments |
+C> | -----|------------|----------|
+C> | 2007-01-19 | J. Ator | Original author |
+C> | 2021-01-08 | J. Ator | Modified mstabs array declarations for GNUv10 portability |
+C> | 2021-05-17 | J. Ator | Allow up to 24 characters in cmunit |
 C>
 	SUBROUTINE RDMTBB ( LUNSTB, LUNLTB, MXMTBB,
      .			    IMT, IMTV, IOGCE, ILTV,

@@ -9,7 +9,7 @@ C>
 C> @author J. Ator
 C> @date 2017-10-13
 C>
-C> @param[in] CF    - character*1: Flag indicating whether
+C> @param[in] CF   -- character*1: Flag indicating whether
 C>                    or not to include code and flag table
 C>                    information during all future reads of
 C>                    master BUFR tables
@@ -38,7 +38,9 @@ C> CF again.  If this subroutine is never called, a default value of
 C> 'N' is used for CF, as set within subroutine bfrini().
 C>
 C> <b>Program history log:</b>
-C> - 2017-10-13  J. Ator    -- Original author
+C> | Date | Programmer | Comments |
+C> | -----|------------|----------|
+C> | 2017-10-13 | J. Ator  | Original author |
 C>
       SUBROUTINE CODFLG(CF)
 

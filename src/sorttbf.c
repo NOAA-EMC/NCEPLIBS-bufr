@@ -13,7 +13,9 @@
  *  @date 2017-11-16
  *
  *  <b>Program history log:</b>
- *  - 2017-11-16 J. Ator    -- Original author
+ *  | Date | Programmer | Comments |
+ *  | -----|------------|----------|
+ *  | 2017-11-16 | J. Ator | Original author |
 */
 void sorttbf( void )
 {

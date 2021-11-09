@@ -7,14 +7,15 @@ C>
 C> @author J. Ator
 C> @date 2009-03-23
 C>
-C> @param[in] LUNIT    - integer: Fortran logical unit number for BUFR
+C> @param[in] LUNIT   -- integer: Fortran logical unit number for BUFR
 C>                       file
 C>
 C> <b>Program history log:</b>
-C> - 2009-03-23  J. Ator    -- Original author
-C> - 2012-09-15  J. Woollen -- Modified for C/I/O/BUFR interface;
-C>                           replace Fortran BACKSPACE with C backbufr()
-C> - 2014-12-10  J. Ator    -- Use modules instead of COMMON blocks
+C> | Date | Programmer | Comments |
+C> | -----|------------|----------|
+C> | 2009-03-23 | J. Ator    | Original author |
+C> | 2012-09-15 | J. Woollen | Modified for C/I/O/BUFR interface; replace Fortran BACKSPACE with C backbufr() |
+C> | 2014-12-10 | J. Ator    | Use modules instead of COMMON blocks |
 C>
 	SUBROUTINE CPDXMM( LUNIT )
 

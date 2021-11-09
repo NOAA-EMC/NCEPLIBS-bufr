@@ -29,42 +29,27 @@ C>
 C> @author J. Woollen
 C> @date 1994-01-06
 C>
-C> @param[in] LUNIT  - integer: Fortran logical unit number for BUFR
+C> @param[in] LUNIT -- integer: Fortran logical unit number for BUFR
 C>                     file
-C> @param[in] MESG   - integer(*): BUFR message
-C> @param[in] MGBYT  - integer: Size (in bytes) of BUFR message
+C> @param[in] MESG  -- integer(*): BUFR message
+C> @param[in] MGBYT -- integer: Size (in bytes) of BUFR message
 C>
 C> <b>Program history log:</b>
-C> - 1994-01-06  J. Woollen -- Original author
-C> - 1997-07-29  J. Woollen -- Modified to update the current BUFR version
-C>                           written in Section 0 from 2 to 3
-C> - 1998-07-08  J. Woollen -- Replaced call to Cray library routine ABORT
-C>                             with call to new internal routine bort()
-C> - 1998-11-24  J. Woollen -- Modified to zero out the padding bytes
-C>                           written at the end of Section 4
-C> - 2000-09-19  J. Woollen -- Maximum message length increased
-C>                           from 10,000 to 20,000 bytes
-C> - 2003-11-04  J. Ator    -- Don't write to LUNIT if opened by
-C>                           openbf() using IO = 'NUL'
-C> - 2003-11-04  S. Bender  -- Added remarks and routine interdependencies
-C> - 2003-11-04  D. Keyser  -- Unified/portable for WRF; added history
-C>                             documentation; outputs more complete
-C>                             diagnostic info when routine terminates
-C>                             abnormally, unusual things happen or for
-C>                             informational purposes
-C> - 2005-11-29  J. Ator    -- Use getlens(), iupbs01(), padmsg(), pkbs1()
-C>                           and nmwrd(); added logic to call pkbs1()
-C>                           and/or cnved4() when necessary
-C> - 2009-03-23  J. Ator    -- Use idxmsg() and errwrt(); add call to
-C>                           atrcpt(); allow standardizing via
-C>                           COMMON /MSGSTD/ even if data is compressed;
-C>                           work on local copy of input message
-C> - 2012-09-15  J. Woollen -- Modified for C/I/O/BUFR interface;
-C>                           call new routine blocks() for file blocking
-C>                           and new C routine cwrbufr() to write BUFR
-C>                           message to disk file
-C> - 2014-12-10  J. Ator    -- Use modules instead of COMMON blocks
-C> - 2019-05-09  J. Ator    -- Added dimensions for MSGLEN and MSGTXT
+C> | Date | Programmer | Comments |
+C> | -----|------------|----------|
+C> | 1994-01-06 | J. Woollen | Original author |
+C> | 1997-07-29 | J. Woollen | Modified to update the current BUFR version written in Section 0 from 2 to 3 |
+C> | 1998-07-08 | J. Woollen | Replaced call to Cray library routine ABORT with call to new internal routine bort() |
+C> | 1998-11-24 | J. Woollen | Modified to zero out the padding bytes written at the end of Section 4 |
+C> | 2000-09-19 | J. Woollen | Maximum message length increased from 10,000 to 20,000 bytes |
+C> | 2003-11-04 | J. Ator    | Don't write to LUNIT if opened by openbf() using IO = 'NUL' |
+C> | 2003-11-04 | S. Bender  | Added remarks and routine interdependencies |
+C> | 2003-11-04 | D. Keyser  | Unified/portable for WRF; added documentation; outputs more complete diagnostic info when routine terminates abnormally |
+C> | 2005-11-29 | J. Ator    | Use getlens(), iupbs01(), padmsg(), pkbs1() and nmwrd(); added logic to call pkbs1() and/or cnved4() when necessary |
+C> | 2009-03-23 | J. Ator    | Use idxmsg() and errwrt(); add call to atrcpt(); allow standardizing even if data is compressed; work on local copy of input message |
+C> | 2012-09-15 | J. Woollen | Modified for C/I/O/BUFR interface; call new routine blocks() for file blocking and new C routine cwrbufr() to write BUFR message to disk file |
+C> | 2014-12-10 | J. Ator    | Use modules instead of COMMON blocks |
+C> | 2019-05-09 | J. Ator    | Added dimensions for MSGLEN and MSGTXT |
 C>
       SUBROUTINE MSGWRT(LUNIT,MESG,MGBYT)
 

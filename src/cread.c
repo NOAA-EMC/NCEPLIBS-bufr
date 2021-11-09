@@ -22,12 +22,14 @@
  * @author J. Woollen
  * @date 2012-09-15
  *
- * @param[in] nfile - f77int*: Internal Fortran I/O stream index associated with ufile
- * @param[in] ufile - char*: [path/]name of system file to be opened
+ * @param[in] nfile -- f77int*: Internal Fortran I/O stream index associated with ufile
+ * @param[in] ufile -- char*: [path/]name of system file to be opened
  *
  * <b>Program history log:</b>
- * - 2012-09-15  J. Woollen -- Original author
- * - 2014-11-07  J. Ator -- Allow dynamic allocation of pb array
+ * | Date | Programmer | Comments |
+ * | -----|------------|----------|
+ * | 2012-09-15 | J. Woollen | Original author |
+ * | 2014-11-07 | J. Ator | Allow dynamic allocation of pb array |
  */
 void openrb   (nfile,ufile) f77int *nfile; char *ufile; { pb[*nfile] = fopen( ufile , "rb " ); }
 
@@ -37,12 +39,14 @@ void openrb   (nfile,ufile) f77int *nfile; char *ufile; { pb[*nfile] = fopen( uf
  * @author J. Woollen
  * @date 2012-09-15
  *
- * @param[in] nfile - f77int*: Internal Fortran I/O stream index associated with ufile
- * @param[in] ufile - char*: [path/]name of system file to be opened
+ * @param[in] nfile -- f77int*: Internal Fortran I/O stream index associated with ufile
+ * @param[in] ufile -- char*: [path/]name of system file to be opened
  *
  * <b>Program history log:</b>
- * - 2012-09-15  J. Woollen -- Original author
- * - 2014-11-07  J. Ator -- Allow dynamic allocation of pb array
+ * | Date | Programmer | Comments |
+ * | -----|------------|----------|
+ * | 2012-09-15 | J. Woollen | Original author |
+ * | 2014-11-07 | J. Ator | Allow dynamic allocation of pb array |
  */
 void openwb   (nfile,ufile) f77int *nfile; char *ufile; { pb[*nfile] = fopen( ufile , "wb " ); }
 
@@ -52,12 +56,14 @@ void openwb   (nfile,ufile) f77int *nfile; char *ufile; { pb[*nfile] = fopen( uf
  * @author J. Woollen
  * @date 2012-09-15
  *
- * @param[in] nfile - f77int*: Internal Fortran I/O stream index associated with ufile
- * @param[in] ufile - char*: [path/]name of system file to be opened
+ * @param[in] nfile -- f77int*: Internal Fortran I/O stream index associated with ufile
+ * @param[in] ufile -- char*: [path/]name of system file to be opened
  *
  * <b>Program history log:</b>
- * - 2012-09-15  J. Woollen -- Original author
- * - 2014-11-07  J. Ator -- Allow dynamic allocation of pb array
+ * | Date | Programmer | Comments |
+ * | -----|------------|----------|
+ * | 2012-09-15 | J. Woollen | Original author |
+ * | 2014-11-07 | J. Ator | Allow dynamic allocation of pb array |
  */
 void openab   (nfile,ufile) f77int *nfile; char *ufile; { pb[*nfile] = fopen( ufile , "a+b" ); }
 
@@ -67,11 +73,13 @@ void openab   (nfile,ufile) f77int *nfile; char *ufile; { pb[*nfile] = fopen( uf
  * @author J. Woollen
  * @date 2012-09-15
  *
- * @param[in] nfile - f77int*: Internal Fortran I/O stream index associated with BUFR file
+ * @param[in] nfile -- f77int*: Internal Fortran I/O stream index associated with BUFR file
  *
  * <b>Program history log:</b>
- * - 2012-09-15  J. Woollen -- Original author
- * - 2014-11-07  J. Ator -- Allow dynamic allocation of pb and lstpos arrays
+ * | Date | Programmer | Comments |
+ * | -----|------------|----------|
+ * | 2012-09-15 | J. Woollen | Original author |
+ * | 2014-11-07 | J. Ator | Allow dynamic allocation of pb and lstpos arrays |
  */
 void backbufr (nfile      ) f77int *nfile;              { fsetpos(pb[*nfile],&lstpos[*nfile]);}
 
@@ -81,11 +89,13 @@ void backbufr (nfile      ) f77int *nfile;              { fsetpos(pb[*nfile],&ls
  * @author J. Woollen
  * @date 2012-09-15
  *
- * @param[in] nfile - f77int*: Internal Fortran I/O stream index associated with BUFR file
+ * @param[in] nfile -- f77int*: Internal Fortran I/O stream index associated with BUFR file
  *
  * <b>Program history log:</b>
- * - 2012-09-15  J. Woollen -- Original author
- * - 2014-11-07  J. Ator -- Allow dynamic allocation of pb array
+ * | Date | Programmer | Comments |
+ * | -----|------------|----------|
+ * | 2012-09-15 | J. Woollen | Original author |
+ * | 2014-11-07 | J. Ator | Allow dynamic allocation of pb array |
  */
 void cewind   (nfile      ) f77int *nfile;              { rewind(pb[*nfile]); }
 
@@ -95,11 +105,13 @@ void cewind   (nfile      ) f77int *nfile;              { rewind(pb[*nfile]); }
  * @author J. Woollen
  * @date 2012-09-15
  *
- * @param[in] nfile - f77int*: Internal Fortran I/O stream index associated with BUFR file
+ * @param[in] nfile -- f77int*: Internal Fortran I/O stream index associated with BUFR file
  *
  * <b>Program history log:</b>
- * - 2012-09-15  J. Woollen -- Original author
- * - 2014-11-07  J. Ator -- Allow dynamic allocation of pb array
+ * | Date | Programmer | Comments |
+ * | -----|------------|----------|
+ * | 2012-09-15 | J. Woollen | Original author |
+ * | 2014-11-07 | J. Ator | Allow dynamic allocation of pb array |
  */
 void closfb   (nfile      ) f77int *nfile;              { fclose(pb[*nfile]); }
 
@@ -109,19 +121,21 @@ void closfb   (nfile      ) f77int *nfile;              { fclose(pb[*nfile]); }
  * @author J. Woollen
  * @date 2012-09-15
  *
- * @param[in] nfile - f77int*: Internal Fortran I/O stream index associated with BUFR file
- * @param[out] bufr - char*: BUFR message
- * @param[in] mxbyt - f77int*: Dimensioned size (in bytes) of bufr; used by the function to
- *                    ensure that it doesn't overflow the BUFR array
- * @returns crdbufr - f77int: return code
- *                    - 0 = normal return
- *                    - -1 = end-of-file encountered while reading
- *                    - -2 = I/O error encountered while reading
- *                    - -3 = overflow of bufr array
+ * @param[in] nfile -- f77int*: Internal Fortran I/O stream index associated with BUFR file
+ * @param[out] bufr -- char*: BUFR message
+ * @param[in] mxbyt -- f77int*: Dimensioned size (in bytes) of bufr; used by the function to
+ *                     ensure that it doesn't overflow the BUFR array
+ * @returns crdbufr -- f77int: return code
+ *                     - 0 = normal return
+ *                     - -1 = end-of-file encountered while reading
+ *                     - -2 = I/O error encountered while reading
+ *                     - -3 = overflow of bufr array
  *
  * <b>Program history log:</b>
- * - 2012-09-15  J. Woollen -- Original author
- * - 2014-11-07  J. Ator -- Allow dynamic allocation of pb and lstpos arrays
+ * | Date | Programmer | Comments |
+ * | -----|------------|----------|
+ * | 2012-09-15 | J. Woollen | Original author |
+ * | 2014-11-07 | J. Ator | Allow dynamic allocation of pb and lstpos arrays |
  */
 f77int crdbufr (nfile,bufr,mxbyt)
 f77int *nfile; f77int *mxbyt; char *bufr;
@@ -146,13 +160,15 @@ f77int *nfile; f77int *mxbyt; char *bufr;
  * @author J. Woollen
  * @date 2012-09-15
  *
- * @param[in] nfile - f77int*: Internal Fortran I/O stream index associated with BUFR file
- * @param[in] bufr  - f77int*: BUFR message
- * @param[in] nwrd  - f77int*: Size (in f77ints) of bufr
+ * @param[in] nfile -- f77int*: Internal Fortran I/O stream index associated with BUFR file
+ * @param[in] bufr  -- f77int*: BUFR message
+ * @param[in] nwrd  -- f77int*: Size (in f77ints) of bufr
  *
  * <b>Program history log:</b>
- * - 2012-09-15  J. Woollen -- Original author
- * - 2014-11-07  J. Ator -- Allow dynamic allocation of pb array
+ * | Date | Programmer | Comments |
+ * | -----|------------|----------|
+ * | 2012-09-15 | J. Woollen | Original author |
+ * | 2014-11-07 | J. Ator | Allow dynamic allocation of pb array |
  */
 void cwrbufr (nfile,bufr,nwrd) 
 f77int *nfile; f77int *nwrd; f77int  *bufr;

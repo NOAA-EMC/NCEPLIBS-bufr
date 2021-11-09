@@ -22,21 +22,21 @@ C>
 C> @author J. Woollen
 C> @date 2012-01-26
 C>
-C> @param[in] LUNIT    - integer: Fortran logical unit number for BUFR
+C> @param[in] LUNIT   -- integer: Fortran logical unit number for BUFR
 C>                       file
-C> @param[in] LUNDX    - integer: Fortran logical unit number
+C> @param[in] LUNDX   -- integer: Fortran logical unit number
 C>                       containing DX BUFR table information
 C>                       associated with BUFR messages in LUNIT
-C> @param[in] INEW     - integer: Processing option
+C> @param[in] INEW    -- integer: Processing option
 C>                       - 0 = Initialize the internal arrays, then
 C>                             read all BUFR messages from LUNIT into
 C>                             internal arrays
 C>                       - Otherwise, read all BUFR messages from LUNIT
 C>                         and append them to the existing messages
 C>                         within the internal arrays
-C> @param[out] IRET    - integer: Number of BUFR messages that were
+C> @param[out] IRET   -- integer: Number of BUFR messages that were
 C>                       read from LUNIT and stored into internal arrays
-C> @param[out] MESG    - integer(*): Types of BUFR messages that were
+C> @param[out] MESG   -- integer(*): Types of BUFR messages that were
 C>                       read from LUNIT and stored into internal arrays
 C>
 C> <p>Logical unit numbers LUNIT and LUNDX must already be associated
@@ -44,9 +44,11 @@ C> with actual filenames on the local system, typically via a Fortran
 C> "OPEN" statement.
 C>      
 C> <b>Program history log:</b>
-C> - 2012-01-26  J. Woollen -- Original author
-C> - 2014-12-10  J. Ator    -- Use modules instead of COMMON blocks
-C> - 2015-09-24  D. Stokes  -- Fix missing declaration of COMMON /QUIET/
+C> | Date | Programmer | Comments |
+C> | -----|------------|----------|
+C> | 2012-01-26 | J. Woollen | Original author |
+C> | 2014-12-10 | J. Ator    | Use modules instead of COMMON blocks |
+C> | 2015-09-24 | D. Stokes  | Fix missing declaration of COMMON /QUIET/ |
 C>
       SUBROUTINE UFBMEX(LUNIT,LUNDX,INEW,IRET,MESG) 
 

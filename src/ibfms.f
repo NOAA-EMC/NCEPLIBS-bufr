@@ -9,9 +9,9 @@ C>
 C> @author J. Ator
 C> @date 2007-01-19
 C>
-C> @param[in] R8VAL - real*8: Data value to be tested
+C> @param[in] R8VAL -- real*8: Data value to be tested
 C>
-C> @returns ibfms  -  integer:
+C> @returns ibfms  -- integer:
 C>                    - 0 = R8VAL is not "missing"
 C>                    - 1 = R8VAL is "missing"
 C>
@@ -29,12 +29,11 @@ C> to be called in a logical context from application programs
 C> written in C as well as in Fortran.
 C>
 C> <b>Program history log:</b>
-C> - 2007-01-19  J. Ator    -- Original author
-C> - 2009-03-23  J. Ator    -- Increased value of BDIFD for better 
-C>                           test accuracy
-C> - 2012-10-05  J. Ator    -- Modified to reflect the fact that the
-C>                           "missing" value is now configurable by
-C>                           users (may be something other than 10E10)
+C> | Date | Programmer | Comments |
+C> | -----|------------|----------|
+C> | 2007-01-19 | J. Ator | Original author |
+C> | 2009-03-23 | J. Ator | Increased value of BDIFD for better test accuracy |
+C> | 2012-10-05 | J. Ator | Modified to reflect the fact that the "missing" value is now configurable by users (may be something other than 10E10) |
 C>
 	INTEGER FUNCTION IBFMS ( R8VAL )
 

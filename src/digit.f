@@ -7,14 +7,16 @@ C>
 C> @author J. Woollen
 C> @date 1994-01-06
 C>
-C> @param[in]  STR - character*(*): String
-C> @returns   digit - logical: .TRUE. if all characters in STR are
-C>                    numeric; .FALSE. otherwise
+C> @param[in]  STR -- character*(*): String
+C> @returns   digit -- logical: .TRUE. if all characters in STR are
+C>                     numeric; .FALSE. otherwise
 C>
 C> <b>Program History Log:</b>
-C> - 1994-01-06  J. Woollen -- Original author
-C> - 2007-01-19  J. Ator    -- Simplified logic
-C> - 2009-03-23  J. Ator    -- Fixed minor bug caused by typo
+C> | Date | Programmer | Comments |
+C> | -----|------------|----------|
+C> | 1994-01-06 | J. Woollen | Original author |
+C> | 2007-01-19 | J. Ator    | Simplified logic |
+C> | 2009-03-23 | J. Ator    | Fixed minor bug caused by typo |
 C>
       LOGICAL FUNCTION DIGIT(STR)
 

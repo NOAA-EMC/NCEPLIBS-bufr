@@ -8,13 +8,13 @@ C>
 C> @author J. Ator
 C> @date 2009-03-23
 C>
-C> @param[in] CMTDIR   - character*(*): Directory location of master
+C> @param[in] CMTDIR  -- character*(*): Directory location of master
 C>                          BUFR tables on local file system
 C>                          (up to 100 characters)
-C> @param[in] LUNMT1   - integer: First Fortran logical unit number
+C> @param[in] LUNMT1  -- integer: First Fortran logical unit number
 C>                          to use when reading master BUFR tables on
 C>                          local file system
-C> @param[in] LUNMT2   - integer: Second Fortran logical unit number
+C> @param[in] LUNMT2  -- integer: Second Fortran logical unit number
 C>                          to use when reading master BUFR tables on
 C>                          local file system
 C>
@@ -39,7 +39,9 @@ C> each other but should not already be assigned to any files on the
 C> local system.
 C>
 C> <b>Program history log:</b>
-C> - 2009-03-23  J. Ator    -- Original author
+C> | Date | Programmer | Comments |
+C> | -----|------------|----------|
+C> | 2009-03-23 | J. Ator | Original author |
 C>
       SUBROUTINE MTINFO ( CMTDIR, LUNMT1, LUNMT2 )
 

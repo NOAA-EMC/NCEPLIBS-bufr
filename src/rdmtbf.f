@@ -11,15 +11,17 @@ C>
 C> @author J. Ator
 C> @date 2017-10-17
 C>
-C> @param[in] LUNSTF  - integer: Fortran logical unit number for
+C> @param[in] LUNSTF -- integer: Fortran logical unit number for
 C>                      ASCII file containing standard Code/Flag table
 C>                      information
-C> @param[in] LUNLTF  - integer: Fortran logical unit number for
+C> @param[in] LUNLTF -- integer: Fortran logical unit number for
 C>                      ASCII file containing local Code/Flag table
 C>                      information
 C>
 C> <b>Program history log:</b>
-C> - 2017-10-17  J. Ator    -- Original author
+C> | Date | Programmer | Comments |
+C> | -----|------------|----------|
+C> | 2017-10-17 | J. Ator | Original author |
 C>
 	SUBROUTINE RDMTBF ( LUNSTF, LUNLTF )
 

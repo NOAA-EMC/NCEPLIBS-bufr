@@ -13,7 +13,9 @@
  *  @date 2005-11-29
  *
  *  <b>Program history log:</b>
- *  - 2005-11-29  J. Ator    -- Original author
+ * | Date | Programmer | Comments |
+ * | -----|------------|----------|
+ * | 2005-11-29 | J. Ator | Original author |
  */
 void ccbfl( void )
 {

@@ -10,12 +10,12 @@ C>
 C> @author J. Ator
 C> @date 2007-01-19
 C>
-C> @param[in] LUNT   - integer: Fortran logical unit number of 
+C> @param[in] LUNT   -- integer: Fortran logical unit number of 
 C>                     master table B, table D or Code/Flag table file
-C> @param[out] IFXYN - integer: Bit-wise representation of FXY number
+C> @param[out] IFXYN -- integer: Bit-wise representation of FXY number
 C>                     for next table entry
-C> @param[out] LINE  - character*(*): First line of next table entry
-C> @param[out] IRET  - integer: return code
+C> @param[out] LINE  -- character*(*): First line of next table entry
+C> @param[out] IRET  -- integer: return code
 C>                      -  0 = normal return
 C>                      -  -1 = end-of-file encountered while reading
 C>                              from LUNT
@@ -23,7 +23,9 @@ C>                      -  -2 = I/O error encountered while reading
 C>                              from LUNT
 C>
 C> <b>Program history log:</b>
-C> - 2007-01-19  J. Ator    -- Original author
+C> | Date | Programmer | Comments |
+C> | -----|------------|----------|
+C> | 2007-01-19 | J. Ator | Original author |
 C>
 	SUBROUTINE GETNTBE ( LUNT, IFXYN, LINE, IRET )
 

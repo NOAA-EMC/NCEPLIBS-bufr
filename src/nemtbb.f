@@ -1,50 +1,32 @@
 C> @file
-C> @author WOOLLEN @date 1994-01-06
-      
-C> THIS SUBROUTINE CHECKS ALL OF THE PROPERTIES (E.G. FXY
-C>   VALUE, UNITS, SCALE FACTOR, REFERENCE VALUE, ETC.) OF A SPECIFIED
-C>   MNEMONIC WITHIN THE INTERNAL BUFR TABLE B ARRAYS (IN MODULE
-C>   TABABD) IN ORDER TO VERIFY THAT THE VALUES OF THOSE PROPERTIES
-C>   ARE ALL LEGAL AND WELL-DEFINED.  IF ANY ERRORS ARE FOUND, THEN AN
-C>   APPROPRIATE CALL IS MADE TO BUFR ARCHIVE LIBRARY SUBROUTINE BORT.
+C> @brief Get information about a Table B descriptor
+
+C> This subroutine returns information about a Table B descriptor
+C> from the internal DX BUFR tables.
 C>
-C> PROGRAM HISTORY LOG:
-C> 1994-01-06  J. WOOLLEN -- ORIGINAL AUTHOR
-C> 1995-06-28  J. WOOLLEN -- INCREASED THE SIZE OF INTERNAL BUFR TABLE
-C>                           ARRAYS IN ORDER TO HANDLE BIGGER FILES
-C> 1998-07-08  J. WOOLLEN -- REPLACED CALL TO CRAY LIBRARY ROUTINE
-C>                           "ABORT" WITH CALL TO NEW INTERNAL BUFRLIB
-C>                           ROUTINE "BORT"; CORRECTED SOME MINOR ERRORS
-C> 1999-11-18  J. WOOLLEN -- CHANGED CALL TO FUNCTION "VAL$" TO "VALX"
-C>                           (IT HAS BEEN RENAMED TO REMOVE THE
-C>                           POSSIBILITY OF THE "$" SYMBOL CAUSING
-C>                           PROBLEMS ON OTHER PLATFORMS)
-C> 2003-11-04  J. ATOR    -- ADDED DOCUMENTATION
-C> 2003-11-04  S. BENDER  -- ADDED REMARKS/BUFRLIB ROUTINE
-C>                           INTERDEPENDENCIES
-C> 2003-11-04  D. KEYSER  -- UNIFIED/PORTABLE FOR WRF; ADDED HISTORY
-C>                           DOCUMENTATION; OUTPUTS MORE COMPLETE
-C>                           DIAGNOSTIC INFO WHEN ROUTINE TERMINATES
-C>                           ABNORMALLY
-C> 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
+C> @author J. Woollen
+C> @date 1994-01-06
 C>
-C> USAGE:    CALL NEMTBB (LUN, ITAB, UNIT, ISCL, IREF, IBIT)
-C>   INPUT ARGUMENT LIST:
-C>     LUN      - INTEGER: I/O STREAM INDEX INTO INTERNAL MEMORY ARRAYS
-C>     ITAB     - INTEGER: POSITIONAL INDEX INTO INTERNAL BUFR TABLE B
-C>                ARRAYS FOR MNEMONIC TO BE CHECKED
+C> @param[in] LUN -- integer: Internal I/O stream index associated
+C>                   with DX BUFR tables
+C> @param[in] ITAB -- integer: Positional index of descriptor within
+C>                    internal Table B
+C> @param[out] UNIT -- character*24: Units of descriptor
+C> @param[out] ISCL -- integer: Scale factor of descriptor
+C> @param[out] IREF -- integer: Reference value of descriptor
+C> @param[out] IBIT -- integer: Bit width of descriptor
 C>
-C>   OUTPUT ARGUMENT LIST:
-C>     UNIT     - CHARACTER*24: UNITS OF MNEMONIC
-C>     ISCL     - INTEGER: SCALE FACTOR OF MNEMONIC
-C>     IREF     - INTEGER: REFERENCE VALUE OF MNEMONIC
-C>     IBIT     - INTEGER: BIT WIDTH OF MNEMONIC
-C>
-C> REMARKS:
-C>    THIS ROUTINE CALLS:        BORT     IFXY     VALX
-C>    THIS ROUTINE IS CALLED BY: CHEKSTAB RESTD    TABENT
-C>                               Normally not called by any application
-C>                               programs.
+C> <b>Program history log:</b>
+C> | Date | Programmer | Comments |
+C> | -----|------------|----------|
+C> | 1994-01-06 | J. Woollen | Original author |
+C> | 1995-06-28 | J. Woollen | Increased the size of internal BUFR table arrays in order to handle bigger files |
+C> | 1998-07-08 | J. Woollen | Replaced call to Cray library routine "ABORT" with call to new internal routine bort() |
+C> | 1999-11-18 | J. Woollen | Changed call to function "val$" to valx() |
+C> | 2003-11-04 | J. Ator    | Added documentation |
+C> | 2003-11-04 | S. Bender  | Added remarks/bufrlib routine interdependencies |
+C> | 2003-11-04 | D. Keyser  | Unified/portable for WRF; added documentation; outputs more complete diagnostic info when routine terminates abnormally |
+C> | 2014-12-10 | J. Ator    | Use modules instead of COMMON blocks |
 C>
       SUBROUTINE NEMTBB(LUN,ITAB,UNIT,ISCL,IREF,IBIT)
 

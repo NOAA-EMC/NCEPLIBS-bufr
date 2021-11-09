@@ -7,8 +7,8 @@ C>
 C> @author J. Ator
 C> @date 2009-03-23
 C>
-C> @param[in]  MBAY    - integer(*): BUFR message
-C> @param[in]  S3MNEM   - character*(*): Value to be read from
+C> @param[in]  MBAY   -- integer(*): BUFR message
+C> @param[in]  S3MNEM  -- character*(*): Value to be read from
 C>                        Section 3 of MBAY
 C>                         - 'NSUB'  = Number of data subsets
 C>                         - 'IOBS'  = Flag indicating whether the
@@ -19,7 +19,7 @@ C>                         - 'ICMP'  = Flag indicating whether the
 C>                                     message contains compressed data:
 C>                                     - 0 = No
 C>                                     - 1 = Yes
-C> @returns iupbs3  - integer: Value corresponding to S3MNEM
+C> @returns iupbs3 -- integer: Value corresponding to S3MNEM
 C>                      - -1 = S3MNEM was invalid 
 C>
 C> @remarks
@@ -27,7 +27,9 @@ C> - The start of the BUFR message (i.e. the string 'BUFR') must be
 C>   aligned on the first 4 bytes of MBAY.
 C>
 C> <b>Program history log:</b>
-C> - 2009-03-23  J. Ator    -- Original author
+C> | Date | Programmer | Comments |
+C> | -----|------------|----------|
+C> | 2009-03-23 | J. Ator | Original author |
 C>
       FUNCTION IUPBS3(MBAY,S3MNEM)
 

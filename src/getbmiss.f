@@ -8,8 +8,8 @@ C>
 C> @author J. Woollen
 C> @date 2012-09-15
 C>
-C> @returns getbmiss - real*8: current placeholder value for
-C>                     "missing" data
+C> @returns getbmiss -- real*8: current placeholder value for
+C>                      "missing" data
 C>
 C> <p>This subroutine can be called at any time from within an
 C> application program, and the returned value can then be
@@ -21,7 +21,9 @@ C> This placeholder value can also be changed at any
 C> time via a separate call to subroutine setbmiss().
 C>
 C> <b>Program history log:</b>
-C> - 2012-09-15  J. Woollen -- Original author
+C> | Date | Programmer | Comments |
+C> | -----|------------|----------|
+C> | 2012-09-15 | J. Woollen | Original author |
 C>
       REAL*8 FUNCTION GETBMISS()
 

@@ -9,7 +9,7 @@ C>
 C> @author J. Woollen
 C> @date 1998-07-08
 C>
-C> @param[in] LEN -   integer: Length of Section 1 date-time
+C> @param[in] LEN --  integer: Length of Section 1 date-time
 C>                    values to be output by all future calls
 C>                    to message-reading subroutines
 C>                    -  8 = YYMMDDHH format with 2-digit year
@@ -25,16 +25,12 @@ C> never called, a default value of 8 is used for LEN, as set within
 C> subroutine bfrini().
 C>
 C> <b>Program history log:</b>
-C> - 1998-07-08  J. Woollen -- Original author
-C> - 2002-05-14  J. Woollen -- Changed from an entry point in readmg()
-C>                           to stand-alone subroutine, to increase
-C>                           portability to other platforms
-C> - 2003-11-04  J. Ator    -- Added documentation
-C> - 2004-12-20  D. Keyser  -- Calls wrdlen() to initialize local machine
-C>                           information (in case it has not yet been
-C>                           called), this routine does not require it
-C>                           but it may someday call other routines that
-C>                           do require it
+C> | Date | Programmer | Comments |
+C> | -----|------------|----------|
+C> | 1998-07-08 | J. Woollen | Original author |
+C> | 2002-05-14 | J. Woollen | Changed from an entry point in readmg() to stand-alone subroutine, to increase portability to other platforms |
+C> | 2003-11-04 | J. Ator    | Added documentation |
+C> | 2004-12-20 | D. Keyser  | Calls wrdlen() to initialize local machine information, in case it has not yet been called |
 C>
       SUBROUTINE DATELEN(LEN)
 

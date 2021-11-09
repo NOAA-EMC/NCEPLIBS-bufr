@@ -7,38 +7,37 @@ C>
 C> @author J. Ator
 C> @date 2007-01-19
 C>
-C> @param[in] IFXYN   - integer: Bit-wise representation of FXY number
-C> @param[in]  LINE   - character*(*): Table B entry
-C> @param[in] MXMTBB  - integer: Dimensioned size (in integers) of
+C> @param[in] IFXYN  -- integer: Bit-wise representation of FXY number
+C> @param[in]  LINE  -- character*(*): Table B entry
+C> @param[in] MXMTBB -- integer: Dimensioned size (in integers) of
 C>                      merged output arrays; used by the subroutine
 C>                      to ensure that it doesn't overflow these
 C>                      arrays
-C> @param[out] NMTBB  - integer: Number of entries in merged output
+C> @param[out] NMTBB -- integer: Number of entries in merged output
 C>                      arrays
-C> @param[out] IMFXYN - integer(*): Merged array containing bit-wise
+C> @param[out] IMFXYN-- integer(*): Merged array containing bit-wise
 C>                      representations of FXY numbers
-C> @param[out] CMSCL  - character*4(*): Merged array containing
+C> @param[out] CMSCL -- character*4(*): Merged array containing
 C>                      scale factors
-C> @param[out] CMSREF - character*12(*): Merged array containing
-C>                      reference values
-C> @param[out] CMBW   - character*4(*): Merged array containing
+C> @param[out] CMSREF -- character*12(*): Merged array containing
+C>                       reference values
+C> @param[out] CMBW  -- character*4(*): Merged array containing
 C>                      bit widths
-C> @param[out] CMUNIT - character*24(*): Merged array containing units
-C> @param[out] CMMNEM - character*8(*): Merged array containing
-C>                      mnemonics
-C> @param[out] CMDSC  - character*4(*): Merged array containing
+C> @param[out] CMUNIT -- character*24(*): Merged array containing units
+C> @param[out] CMMNEM -- character*8(*): Merged array containing
+C>                       mnemonics
+C> @param[out] CMDSC -- character*4(*): Merged array containing
 C>                      descriptor codes
-C> @param[out] CMELEM - character*120(*): Merged array containing
-C>                      element names
+C> @param[out] CMELEM -- character*120(*): Merged array containing
+C>                       element names
 C>
 C> <b>Program history log:</b>
-C> - 2007-01-19  J. Ator    -- Original author
-C> - 2021-01-08  J. Ator    -- Modified mstabs array declarations
-C>                           for GNUv10 portability
-C> - 2021-05-17  J. Ator    -- Allow up to 24 characters in cmunit
-C> - 2021-09-30  J. Ator    -- Replace jstchr with Fortran intrinsic
-C>                             adjustl; replace rjust with Fortran
-C>                             intrinsic adjustr
+C> | Date | Programmer | Comments |
+C> | -----|------------|----------|
+C> | 2007-01-19 | J. Ator | Original author |
+C> | 2021-01-08 | J. Ator | Modified mstabs array declarations for GNUv10 portability |
+C> | 2021-05-17 | J. Ator | Allow up to 24 characters in cmunit |
+C> | 2021-09-30 | J. Ator | Replace jstchr with Fortran intrinsic adjustl; replace rjust with Fortran intrinsic adjustr |
 C>
 	SUBROUTINE SNTBBE ( IFXYN, LINE, MXMTBB,
      .			    NMTBB, IMFXYN, CMSCL, CMSREF, CMBW,

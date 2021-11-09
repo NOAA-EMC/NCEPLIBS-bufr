@@ -18,82 +18,83 @@ C>
 C> @author J. Ator
 C> @date 2014-12-04
 C>
-C> @param[in] CPRMNM - character*(*): Parameter to be changed from its
-C>                     internal default value
-C>                    - 'MXMSGL' = Maximum length (in bytes) of a BUFR
-C>                                 message
-C>                    - 'MAXSS'  = Maximum number of data values in an
-C>                                 uncompressed BUFR subset
-C>                    - 'MXCDV'  = Maximum number of data values that
-C>                                 can be written into a compressed BUFR
-C>                                 subset
-C>                    - 'MXLCC'  = Maximum length (in bytes) of a
-C>                                 character string that can be written
-C>                                 into a compressed BUFR subset
-C>                    - 'MXCSB'  = Maximum number of subsets that can be
-C>                                 written into a compressed BUFR
-C>                                 message
-C>                    - 'NFILES' = Maximum number of BUFR files that can
-C>                                 be accessed for reading or writing at
-C>                                 any one time
-C>                    - 'MAXTBA' = Maximum number of entries in internal
-C>                                 BUFR Table A per BUFR file
-C>                    - 'MAXTBB' = Maximum number of entries in internal
-C>                                 BUFR Table B per BUFR file
-C>                    - 'MAXTBD' = Maximum number of entries in internal
-C>                                 BUFR Table D per BUFR file
-C>                    - 'MAXMEM' = Maximum number of bytes that can be
-C>                                 used to store BUFR messages in
-C>                                 internal memory
-C>                    - 'MAXMSG' = Maximum number of BUFR messages that
-C>                                 can be stored in internal memory
-C>                    - 'MXDXTS' = Maximum number of dictionary tables
-C>                                 that can be stored for use with BUFR
-C>                                 messages in internal memory
-C>                    - 'MXMTBB' = Maximum number of master Table B
+C> @param[in] CPRMNM -- character*(*): Parameter to be changed from its
+C>                      internal default value
+C>                     - 'MXMSGL' = Maximum length (in bytes) of a BUFR
+C>                                  message
+C>                     - 'MAXSS'  = Maximum number of data values in an
+C>                                  uncompressed BUFR subset
+C>                     - 'MXCDV'  = Maximum number of data values that
+C>                                  can be written into a compressed BUFR
+C>                                  subset
+C>                     - 'MXLCC'  = Maximum length (in bytes) of a
+C>                                  character string that can be written
+C>                                  into a compressed BUFR subset
+C>                     - 'MXCSB'  = Maximum number of subsets that can be
+C>                                  written into a compressed BUFR
+C>                                  message
+C>                     - 'NFILES' = Maximum number of BUFR files that can
+C>                                  be accessed for reading or writing at
+C>                                  any one time
+C>                     - 'MAXTBA' = Maximum number of entries in internal
+C>                                  BUFR Table A per BUFR file
+C>                     - 'MAXTBB' = Maximum number of entries in internal
+C>                                  BUFR Table B per BUFR file
+C>                     - 'MAXTBD' = Maximum number of entries in internal
+C>                                  BUFR Table D per BUFR file
+C>                     - 'MAXMEM' = Maximum number of bytes that can be
+C>                                  used to store BUFR messages in
+C>                                  internal memory
+C>                     - 'MAXMSG' = Maximum number of BUFR messages that
+C>                                  can be stored in internal memory
+C>                     - 'MXDXTS' = Maximum number of dictionary tables
+C>                                  that can be stored for use with BUFR
+C>                                  messages in internal memory
+C>                     - 'MXMTBB' = Maximum number of master Table B
+C>                                  entries
+C>                     - 'MXMTBD' = Maximum number of master Table D
+C>                                  entries
+C>                     - 'MXMTBF' = Maximum number of master Code/Flag
 C>                                 entries
-C>                    - 'MXMTBD' = Maximum number of master Table D
-C>                                 entries
-C>                    - 'MXMTBF' = Maximum number of master Code/Flag
-C>                                 entries
-C>                    - 'MAXCD'  = Maximum number of child descriptors
-C>                                 in a Table D descriptor sequence
-C>                                 definition
-C>                    - 'MAXJL'  = Maximum number of entries in the
-C>                                 internal jump/link table
-C>                    - 'MXS01V' = Maximum number of default Section 0
-C>                                 or Section 1 values that can be
-C>                                 overwritten within an output BUFR
-C>                                 message
-C>                    - 'MXBTM'  = Maximum number of bitmaps that can be
-C>			           stored internally for a BUFR subset
-C>                    - 'MXBTMSE' = Maximum number of entries that can
-C>			            be set within a bitmap
-C>                    - 'MXTAMC' = Maximum number of Table A mnemonics
-C>                                 in the internal jump/link table which
-C>                                 contain at least one Table C operator
-C>                                 with XX >= 21 in their subset definition
-C>                    - 'MXTCO'  = Maximum number of Table C operators
-C>                                 with XX >= 21 in the subset definition
-C>                                 of a Table A mnemonic
-C>                    - 'MXNRV'  = Maximum number of 2-03 reference
-C>			           values in the internal jump/link
-C>                                 table
-C>                    - 'MXRST'  = Maximum number of long character
-C>                                 strings that can be read from a
-C>                                 compressed subset
-C> @param[in] IPVAL - integer: Value to be set for CPRMNM
-C>
-C> @returns  isetprm  - integer: return code
+C>                     - 'MAXCD'  = Maximum number of child descriptors
+C>                                  in a Table D descriptor sequence
+C>                                  definition
+C>                     - 'MAXJL'  = Maximum number of entries in the
+C>                                  internal jump/link table
+C>                     - 'MXS01V' = Maximum number of default Section 0
+C>                                  or Section 1 values that can be
+C>                                  overwritten within an output BUFR
+C>                                  message
+C>                     - 'MXBTM'  = Maximum number of bitmaps that can be
+C>		  	            stored internally for a BUFR subset
+C>                     - 'MXBTMSE' = Maximum number of entries that can
+C>		 	             be set within a bitmap
+C>                     - 'MXTAMC' = Maximum number of Table A mnemonics
+C>                                  in the internal jump/link table which
+C>                                  contain at least one Table C operator
+C>                                  with XX >= 21 in their subset definition
+C>                     - 'MXTCO'  = Maximum number of Table C operators
+C>                                  with XX >= 21 in the subset definition
+C>                                  of a Table A mnemonic
+C>                     - 'MXNRV'  = Maximum number of 2-03 reference
+C>		 	            values in the internal jump/link
+C>                                  table
+C>                     - 'MXRST'  = Maximum number of long character
+C>                                  strings that can be read from a
+C>                                  compressed subset
+C> @param[in] IPVAL -- integer: Value to be set for CPRMNM
+C> @returns  isetprm -- integer: return code
 C>                      -  0 = normal return
 C>                      - -1 = Unknown CPRMNM
 C>
 C> <b>Program history log:</b>
-C> - 2014-12-04  J. Ator    -- Original author
-C> - 2016-05-24  J. Ator    -- Add MXNRV, MXBTM, MXBTMSE, MXTCO
-C> - 2017-04-03  J. Ator    -- Add MXTAMC
-C> - 2017-05-22  J. Ator    -- Add MXRST
-C> - 2017-10-17  J. Ator    -- Add MXMTBF
+C> | Date | Programmer | Comments |
+C> | -----|------------|----------|
+C> | 2014-12-04 | J. Ator | Original author |
+C> | 2016-05-24 | J. Ator | Add MXNRV, MXBTM, MXBTMSE, MXTCO |
+C> | 2017-04-03 | J. Ator | Add MXTAMC |
+C> | 2017-05-22 | J. Ator | Add MXRST |
+C> | 2017-10-17 | J. Ator | Add MXMTBF |
 C>
 	INTEGER FUNCTION ISETPRM ( CPRMNM, IPVAL )
 

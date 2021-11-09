@@ -24,9 +24,9 @@ C>
 C> @author J. Woollen
 C> @date 1994-01-06
 C>
-C> @param[in] LUNIN    - integer: Absolute value is Fortran logical
+C> @param[in] LUNIN   -- integer: Absolute value is Fortran logical
 C>                       unit number for BUFR file 
-C> @param[in,out] USR  - real*8(*,*): Data values
+C> @param[in,out] USR -- real*8(*,*): Data values
 C>                         - If ABS(LUNIN) was opened for input, then
 C>                           USR is output from this subroutine and
 C>                           contains data values that were read
@@ -35,24 +35,24 @@ C>                         - If ABS(LUNIN) was opened for output, then
 C>                           USR is input to this subroutine and
 C>                           contains data values that are to be
 C>                           written to the current data subset.
-C> @param[in] I1 - integer: Actual first dimension of USR as allocated
-C>                 within the calling program
-C> @param[in] I2 - integer:
+C> @param[in] I1 -- integer: Actual first dimension of USR as allocated
+C>                  within the calling program
+C> @param[in] I2 -- integer:
 C>                    - If ABS(LUNIN) was opened for input, then I2
 C>                      must be set equal to the actual second dimension
 C>                      of USR as allocated within the calling program
 C>                    - If ABS(LUNIN) was opened for output, then I2
 C>                      must be set equal to the number of replications
 C>                      of STR that are to be written to the data subset
-C> @param[out] IRET - integer: Number of replications of STR that were
-C>                    actually read/written from/to the data subset
-C> @param[in] STR - character*(*): String of blank-separated
-C>                  Table B mnemonics
-C>                  in one-to-one correspondence with the number of data
-C>                  values that will be read/written from/to the data
-C>                  subset within the first dimension of USR (see
-C>                  [DX BUFR Tables](@ref dfbftab) for further
-C>                  information about Table B mnemonics)
+C> @param[out] IRET -- integer: Number of replications of STR that were
+C>                     actually read/written from/to the data subset
+C> @param[in] STR -- character*(*): String of blank-separated
+C>                   Table B mnemonics
+C>                   in one-to-one correspondence with the number of data
+C>                   values that will be read/written from/to the data
+C>                   subset within the first dimension of USR (see
+C>                   [DX BUFR Tables](@ref dfbftab) for further
+C>                   information about Table B mnemonics)
 C>
 C> <p>It is the user's responsibility to ensure that USR is dimensioned
 C> sufficiently large enough to accommodate the number of data values
@@ -136,26 +136,18 @@ C>               the BUFR message pointed to by IREC, counting from
 C>               the beginning of the message
 C>
 C> <b>Program history log:</b>
-C> - 1994-01-06  J. Woollen -- Original author
-C> - 1996-11-25  J. Woollen -- Modified to add a return code when
-C>                            mnemonics are not found when reading
-C> - 1996-12-17  J. Woollen -- Modified to always initialize USR array
-C>                           to "missing" when BUFR file is being read
-C> - 1998-07-08  J. Woollen -- Replaced call to Cray library routine ABORT
-C>                             with call to new internal routine bort()
-C> - 1999-11-18  J. Woollen -- The number of BUFR files which can be
-C>                             opened at one time increased from 10 to 32
-C>                             (necessary in order to process multiple
-C>                             BUFR files under the MPI)
-C> - 2003-11-04  S. Bender  -- Added remarks and routine interdependencies
-C> - 2003-11-04  D. Keyser  -- Unified/portable for WRF; added history
-C>                             documentation; outputs more complete
-C>                             diagnostic info when routine terminates
-C>                             abnormally, unusual things happen or for
-C>                             informational purposes
-C> - 2004-08-18  J. Ator    -- Added SAVE for IFIRST1 and IFIRST2 flags
-C> - 2009-04-21  J. Ator    -- Use errwrt()
-C> - 2014-12-10  J. Ator    -- Use modules instead of COMMON blocks
+C> | Date | Programmer | Comments |
+C> | -----|------------|----------|
+C> | 1994-01-06 | J. Woollen | Original author |
+C> | 1996-11-25 | J. Woollen | Modified to add a return code when mnemonics are not found when reading |
+C> | 1996-12-17 | J. Woollen | Modified to always initialize USR array to "missing" when BUFR file is being read |
+C> | 1998-07-08 | J. Woollen | Replaced call to Cray library routine ABORT with call to new internal routine bort() |
+C> | 1999-11-18 | J. Woollen | The number of BUFR files which can be opened at one time increased from 10 to 32 |
+C> | 2003-11-04 | S. Bender  | Added remarks and routine interdependencies |
+C> | 2003-11-04 | D. Keyser  | Unified/portable for WRF; added documentation; outputs more complete diagnostic info when routine terminates abnormally |
+C> | 2004-08-18 | J. Ator    | Added SAVE for IFIRST1 and IFIRST2 flags |
+C> | 2009-04-21 | J. Ator    | Use errwrt() |
+C> | 2014-12-10 | J. Ator    | Use modules instead of COMMON blocks |
 C>
       SUBROUTINE UFBINT(LUNIN,USR,I1,I2,IRET,STR)
 

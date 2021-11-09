@@ -23,20 +23,21 @@
  * @author J. Ator
  * @date 2004-08-18
  *
- * @param[in] lun - f77int*: Internal Fortran I/O stream index
- *                  associated with BUFR file
- * @param[in] tddesc - f77int*: Bit-wise representation of FXY value
- *                     for local Table D descriptor
- * @param[out] nctddesc - f77int*: Number of WMO-standard child
- *                        descriptors returned in ctddesc
- * @param[out] ctddesc - f77int*: Array of WMO-standard child
- *                       descriptors equivalent to tddesc
+ * @param[in] lun -- f77int*: Internal Fortran I/O stream index
+ *                   associated with BUFR file
+ * @param[in] tddesc -- f77int*: Bit-wise representation of FXY value
+ *                      for local Table D descriptor
+ * @param[out] nctddesc -- f77int*: Number of WMO-standard child
+ *                         descriptors returned in ctddesc
+ * @param[out] ctddesc -- f77int*: Array of WMO-standard child
+ *                        descriptors equivalent to tddesc
  *
  * <b>Program history log:</b>
- * - 2004-08-18  J. Ator    -- Original author
- * - 2012-04-30  J. Ator    -- Use long cast for ibit in sprintf stmt
- * - 2021-08-18  J. Ator    -- Use cwork to silence superfluous GNU
- *                             compiler warnings
+ * | Date | Programmer | Comments |
+ * | -----|------------|----------|
+ * | 2004-08-18 | J. Ator | Original author |
+ * | 2012-04-30 | J. Ator | Use long cast for ibit in sprintf stmt |
+ * | 2021-08-18 | J. Ator | Use cwork to silence superfluous GNU compiler warnings |
 */
 
 void restd( f77int *lun, f77int *tddesc, f77int *nctddesc, f77int ctddesc[] )

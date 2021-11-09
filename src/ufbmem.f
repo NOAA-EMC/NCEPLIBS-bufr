@@ -14,18 +14,18 @@ C>
 C> @author J. Woollen
 C> @date 1994-01-06
 C>
-C> @param[in] LUNIT    - integer: Fortran logical unit number for BUFR
+C> @param[in] LUNIT   -- integer: Fortran logical unit number for BUFR
 C>                       file 
-C> @param[in] INEW     - integer: Processing option
+C> @param[in] INEW    -- integer: Processing option
 C>                       - 0 = Initialize the internal arrays, then
 C>                             read all BUFR messages from LUNIT into
 C>                             internal arrays
 C>                       - Otherwise, read all BUFR messages from LUNIT
 C>                         and append them to the existing messages
 C>                         within the internal arrays
-C> @param[out] IRET    - integer: Number of BUFR messages that were
+C> @param[out] IRET   -- integer: Number of BUFR messages that were
 C>                       read from LUNIT and stored into internal arrays
-C> @param[out] IUNIT   - integer: File status
+C> @param[out] IUNIT  -- integer: File status
 C>                       - 0 = LUNIT was empty, so no messages were read
 C>                       - Otherwise, the Fortran logical unit number to
 C>                         use for later access to any of the messages
@@ -45,33 +45,22 @@ C> all BUFR messages that were read and stored by all previous calls
 C> to this subroutine.  
 C>
 C> <b>Program history log:</b>
-C> - 1994-01-06  J. Woollen -- Original author
-C> - 1998-07-08  J. Woollen -- Replaced call to Cray library routine ABORT
-C>                             with call to new internal routine bort()
-C> - 1999-11-18  J. Woollen -- Increased MAXMEM from 4 Mb to 8 Mb
-C> - 2000-09-19  J. Woollen -- Maximum message length increased
-C>                             from 10,000 to 20,000 bytes
-C> - 2001-08-15  D. Keyser  -- Increased MAXMEM from 8 Mb to 16 Mb
-C> - 2003-11-04  S. Bender  -- Added remarks and routine interdependencies
-C> - 2003-11-04  D. Keyser  -- Unified/portable for WRF; added history
-C>                             documentation; outputs more complete
-C>                             diagnostic info when routine terminates
-C>                             abnormally; increased MAXMSG from 50000
-C>                             to 200000
-C> - 2004-08-09  J. Ator    -- Maximum message length increased 
-C>                             from 20,000 to 50,000 bytes
-C> - 2004-11-15  D. Keyser  -- Don't abort when there are either MAXMSG
-C>                             or MAXMEM is exceeded; instead, just
-C>                             store up to MAXMSG messages or MAXMEM
-C>                             bytes and print a diagnostic
-C> - 2005-11-29  J. Ator    -- Use rdmsgw() and nmwrd()
-C> - 2009-03-23  J. Ator    -- Modified to handle embedded DX tables
-C> - 2012-09-15  J. Woollen -- Modified for C/I/O/BUFR interface;
-C>                             call status() to get LUN; replace Fortran
-C>                             REWIND and BACKSPACE with C routines
-C>                             cewind() and backbufr()
-C> - 2014-12-10  J. Ator    -- Use modules instead of COMMON blocks
-C> - 2015-09-24  D. Stokes  -- Fix missing declaration of COMMON /QUIET/
+C> | Date | Programmer | Comments |
+C> | -----|------------|----------|
+C> | 1994-01-06 | J. Woollen | Original author |
+C> | 1998-07-08 | J. Woollen | Replaced call to Cray library routine ABORT with call to new internal routine bort() |
+C> | 1999-11-18 | J. Woollen | Increased MAXMEM from 4 Mb to 8 Mb |
+C> | 2000-09-19 | J. Woollen | Maximum message length increased from 10,000 to 20,000 bytes |
+C> | 2001-08-15 | D. Keyser  | Increased MAXMEM from 8 Mb to 16 Mb |
+C> | 2003-11-04 | S. Bender  | Added remarks and routine interdependencies |
+C> | 2003-11-04 | D. Keyser  | Unified/portable for WRF; added documentation; outputs more complete diagnostic info when routine terminates abnormally; increased MAXMSG from 50000 to 200000 |
+C> | 2004-08-09 | J. Ator    | Maximum message length increased from 20,000 to 50,000 bytes |
+C> | 2004-11-15 | D. Keyser  | Don't abort when there are either MAXMSG or MAXMEM is exceeded; instead, just store up to MAXMSG messages or MAXMEM bytes and print a diagnostic |
+C> | 2005-11-29 | J. Ator    | Use rdmsgw() and nmwrd() |
+C> | 2009-03-23 | J. Ator    | Modified to handle embedded DX tables |
+C> | 2012-09-15 | J. Woollen | Modified for C/I/O/BUFR interface; call status() to get LUN; replace Fortran REWIND and BACKSPACE with C routines cewind() and backbufr() |
+C> | 2014-12-10 | J. Ator    | Use modules instead of COMMON blocks |
+C> | 2015-09-24 | D. Stokes  | Fix missing declaration of COMMON /QUIET/ |
 C>
       SUBROUTINE UFBMEM(LUNIT,INEW,IRET,IUNIT)
 

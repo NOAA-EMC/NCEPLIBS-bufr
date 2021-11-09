@@ -15,22 +15,18 @@ C>
 C> @author J. Woollen
 C> @date 1998-07-08
 C>
-C> @param[in] IDATE - integer: Date-time in format of either YYMMDDHH
-C>                    (2-digit year) or YYYYMMDDHH (4-digit year)
-C> @returns i4dy - integer: Date-time in format of YYYYMMDDHH (4-digit
-C>                 year)
+C> @param[in] IDATE -- integer: Date-time in format of either YYMMDDHH
+C>                     (2-digit year) or YYYYMMDDHH (4-digit year)
+C> @returns i4dy -- integer: Date-time in format of YYYYMMDDHH (4-digit
+C>                  year)
 C>
 C> <b>Program History Log:</b>
-C> - 1998-07-08  J. Woollen -- Original author
-C> - 1998-12-14  J. Woollen -- Modified to use 20 as the 2-digit year for
-C>                           windowing to a 4-digit year (00-20 ==> add
-C>                           2000; 21-99 ==> ADD 1900)
-C> - 2003-11-04  D. Keyser  -- Modified date calculations to no longer use
-C>                           floating point arithmetic since this can
-C>                           lead to round off error and an improper
-C>                           resulting date on some machines
-C> - 2018-06-29  J. Ator    -- Changed 2-digit->4-digit year window range 
-C>                           to (00-40 ==> add 2000; 41-99 ==> add 1900)
+C> | Date | Programmer | Comments |
+C> | -----|------------|----------|
+C> | 1998-07-08 | J. Woollen | Original author |
+C> | 1998-12-14 | J. Woollen | Modified to use 20 as the 2-digit year for windowing to a 4-digit year (00-20 ==> add 2000; 21-99 ==> add 1900) |
+C> | 2003-11-04 | D. Keyser | Modified date calculations to stop using floating point arithmetic since this can lead to round off error and an improper result on some machines |
+C> | 2018-06-29 | J. Ator | Changed 2-digit->4-digit year window range to (00-40 ==> add 2000; 41-99 ==> add 1900) |
 C>
       FUNCTION I4DY(IDATE)
 

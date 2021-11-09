@@ -9,21 +9,21 @@ C>
 C> @author J. Woollen
 C> @date 1994-01-06
 C>
-C> @param[in] IMSG    - integer: Number of BUFR message to be
+C> @param[in] IMSG   -- integer: Number of BUFR message to be
 C>                      read into scope for further processing,
 C>                      counting from the beginning of the
 C>                      internal arrays in memory
-C> @param[in] ISUB    - integer: Number of data subset to be
+C> @param[in] ISUB   -- integer: Number of data subset to be
 C>                      read from the (IMSG)th BUFR message,
 C>                      counting from the beginning of the message
-C> @param[out] USR    - real*8(*,*): Data values
-C> @param[in] I1      - integer: Actual first dimension of USR as
+C> @param[out] USR   -- real*8(*,*): Data values
+C> @param[in] I1     -- integer: Actual first dimension of USR as
 C>                      allocated within the calling program
-C> @param[in] I2      - integer: Actual second dimension of USR as
+C> @param[in] I2     -- integer: Actual second dimension of USR as
 C>                      allocated within the calling program
-C> @param[out] IRET - integer: Number of replications of STR that were
-C>                    actually read from the data subset
-C> @param[in] STR   - character*(*): String of blank-separated
+C> @param[out] IRET -- integer: Number of replications of STR that were
+C>                     actually read from the data subset
+C> @param[in] STR  -- character*(*): String of blank-separated
 C>                    Table B mnemonics in one-to-one
 C>                    correspondence with the number of data
 C>                    values that will be read from the data
@@ -32,15 +32,15 @@ C>                    [DX BUFR Tables](@ref dfbftab) for further
 C>                    information about Table B mnemonics)
 C>
 C> <b>Program history log:</b>
-C> - 1994-01-06  J. Woollen -- Original author
-C> - 1998-07-08  J. Woollen -- Replaced call to Cray library routine
-C>                           "ABORT" with call to new internal BUFRLIB
-C>                           routine "BORT"
-C> - 1999-11-18  J. Woollen -- Increased MAXMEM from 4 Mb to 8 Mb
-C> - 2001-08-15  D. Keyser  -- Increased MAXMEM from 8 Mb to 16 Mb
-C> - 2004-11-15  D. Keyser  -- Increased MAXMEM from 16 Mb to 50 Mb
-C> - 2009-04-21  J. Ator    -- Use errwrt()
-C> - 2014-12-10  J. Ator    -- Use modules instead of COMMON blocks
+C> | Date | Programmer | Comments |
+C> | -----|------------|----------|
+C> | 1994-01-06 | J. Woollen | Original author |
+C> | 1998-07-08 | J. Woollen | Replaced call to Cray library routine "ABORT" with call to new internal routine bort() |
+C> | 1999-11-18 | J. Woollen | Increased MAXMEM from 4 Mb to 8 Mb |
+C> | 2001-08-15 | D. Keyser  | Increased MAXMEM from 8 Mb to 16 Mb |
+C> | 2004-11-15 | D. Keyser  | Increased MAXMEM from 16 Mb to 50 Mb |
+C> | 2009-04-21 | J. Ator    | Use errwrt() |
+C> | 2014-12-10 | J. Ator    | Use modules instead of COMMON blocks |
 C>
       SUBROUTINE UFBRMS(IMSG,ISUB,USR,I1,I2,IRET,STR)
 

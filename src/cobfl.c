@@ -15,11 +15,11 @@
  *  @author J. Ator
  *  @date 2005-11-29
  *
- *  @param[in] bfl   - char*: System file to be opened.
+ *  @param[in] bfl  -- char*: System file to be opened.
  *                     Inclusion of directory prefixes or other
  *                     local filesystem notation is allowed, up
  *                     to 200 total characters.
- *  @param[in]  io   - char: Flag indicating how bfl is to
+ *  @param[in]  io  -- char: Flag indicating how bfl is to
  *                     be opened:
  *                      - 'r' = input (for reading BUFR messages) 
  *                      - 'w' = output (for writing BUFR messages)
@@ -74,8 +74,10 @@
  *  location previously specified via a call to subroutine errwrt().
  *  
  *  <b>Program history log:</b>
- *  - 2005-11-29  J. Ator    -- Original author
- *  - 2021-10-20  J. Ator    -- Increase MXFNLEN to 200 characters
+ * | Date | Programmer | Comments |
+ * | -----|------------|----------|
+ * | 2005-11-29 | J. Ator | Original author |
+ * | 2021-10-20 | J. Ator | Increase MXFNLEN to 200 characters |
  */
 void cobfl( char *bfl, char *io )
 {

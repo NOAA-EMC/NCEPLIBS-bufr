@@ -8,8 +8,8 @@ C>
 C> @author J. Woollen
 C> @date 1994-01-06
 C>
-C> @param[in] ADSC - character*6: FXY value
-C> @returns ifxy - integer: Bit-wise representation of FXY value
+C> @param[in] ADSC -- character*6: FXY value
+C> @returns ifxy -- integer: Bit-wise representation of FXY value
 C>
 C> @remarks
 C> Per the [official WMO BUFR regulations](@ref manual), an FXY value
@@ -32,11 +32,12 @@ C>
 C>       = 16150      
 C>
 C> <b>Program History Log:</b>
-C> - 1994-01-06  J. Woollen -- Original author
-C> - 2003-11-04  J. Ator  -- Added documentation
-C> - 2003-11-04  S. Bender  -- Added remarks and routine interdependencies
-C> - 2003-11-04  D. Keyser  -- Unified/portable for WRF; added
-C>                           history documentation
+C> | Date | Programmer | Comments |
+C> | -----|------------|----------|
+C> | 1994-01-06 | J. Woollen | Original author |
+C> | 2003-11-04 | J. Ator    | Added documentation |
+C> | 2003-11-04 | S. Bender  | Added remarks and routine interdependencies |
+C> | 2003-11-04 | D. Keyser  | Unified/portable for WRF; added history documentation |
 C>
       FUNCTION IFXY(ADSC)
 

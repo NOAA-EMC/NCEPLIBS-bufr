@@ -8,7 +8,7 @@ C>
 C> @author J. Ator
 C> @date 2016-06-27
 C>
-C> @returns igetmxby  - integer: Maximum length of a BUFR message
+C> @returns igetmxby -- integer: Maximum length of a BUFR message
 C>                      that can be written to an output file by
 C>                      the BUFRLIB software
 C>
@@ -16,7 +16,9 @@ C> <p>This maximum length value can be changed at any time via a
 C> separate call to subroutine maxout().
 C>
 C> <b>Program history log:</b>
-C> - 2016-06-27  J. Ator -- Original author
+C> | Date | Programmer | Comments |
+C> | -----|------------|----------|
+C> | 2016-06-27 | J. Ator | Original author |
 C>
       INTEGER FUNCTION IGETMXBY()
 

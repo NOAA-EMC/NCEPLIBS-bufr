@@ -10,10 +10,10 @@ C> @authors J. Ator
 C> @authors D. Keyser
 C> @date 1994-01-06
 C>
-C> @param[in] LUNIT    - integer: Fortran logical unit number for BUFR
+C> @param[in] LUNIT   -- integer: Fortran logical unit number for BUFR
 C>                       file (unless IO is set to 'FIRST' or 'QUIET', in
 C>                       which case this is a dummy argument)
-C> @param[in] IO       - character*(*): flag indicating how LUNIT is to be
+C> @param[in] IO      -- character*(*): flag indicating how LUNIT is to be
 C>                       used by the software:
 C>                 -   'IN' = input operations with table processing
 C>                 -   'INX' = input operations w/o table processing
@@ -46,7 +46,7 @@ C>                 - 'FIRST' = LUNIT and LUNDX are ignored; this is an
 C>                             indicator to initialize the BUFRLIB
 C>                             software, in case this subroutine was
 C>                             never previously called
-C> @param[in] LUNDX    - integer:
+C> @param[in] LUNDX   -- integer:
 C>                 - If IO is not set to 'FIRST' or 'QUIET' =
 C>                   Fortran logical unit number
 C>                   containing DX BUFR table information to be used in
@@ -118,41 +118,22 @@ C> info.), but otherwise no prior knowledge is required of the contents of the
 C> messages to be decoded.
 C>
 C> <b>Program history log:</b>
-C> - 1994-01-06  J. Woollen -- Original author
-C> - 1998-07-08  J. Woollen -- Replaced call to Cray library routine ABORT
-C>                             with call to new internal routine bort()
-C> - 1999-11-18  J. Woollen -- The number of BUFR files which can be
-C>                             opened at one time increased from 10 to 32
-C>                             (necessary in order to process multiple
-C>                             BUFR files under the MPI)
-C> - 2003-11-04  J. Ator    -- Added IO='NUL' option in order to prevent
-C>                             later writing to BUFR file in LUNIT (was in
-C>                             decoder version); added documentation
-C> - 2003-11-04  S. Bender  -- Added remarks and routine interdependencies
-C> - 2003-11-04  D. Keyser  -- Unified/portable for WRF; added history
-C>                             documentation; outputs more complete
-C>                             diagnostic info when routine terminates
-C>                             abnormally, unusual things happen or for
-C>                             informational purposes
-C> - 2004-08-18  J. Ator    -- Added SAVE for IFIRST flag and IO="NODX"
-C>                             option 
-C> - 2005-11-29  J. Ator    -- Added COMMON /MSGFMT/ and ichkstr() call
-C> - 2009-03-23  J. Ator    -- Added IO='SEC3' option; removed call to
-C>                             posapn; clarified comments; use errwrt()
-C> - 2010-05-11  J. Ator    -- Added COMMON /STCODE/
-C> - 2012-06-18  J. Ator    -- Added IO='INUL' option
-C> - 2012-09-15  J. Woollen -- Modified for C/I/O/BUFR interface;
-C>                             use INQUIRE to obtain the filename;
-C>                             call C routines openrb(), openwb() and 
-C>                             openab() to connect BUFR files to C;
-C>                             added IO type 'INX' to enable open and
-C>                             close for C file without closing FORTRAN
-C>                             file; add IO type 'FIRST' to support calls   
-C>                             to bfrini() and wrdlen() prior to user reset
-C>                             of BUFRLIB parameters found in new routines 
-C>                             setbmiss() and setblock()
-C> - 2014-11-07  J. Ator    -- Allow dynamic allocation of certain arrays
-C> - 2015-03-03  J. Ator    -- Use MODA_IFOPBF instead of IFIRST
+C> | Date | Programmer | Comments |
+C> | -----|------------|----------|
+C> | 1994-01-06 | J. Woollen | Original author |
+C> | 1998-07-08 | J. Woollen | Replaced call to Cray library routine ABORT with call to new internal routine bort() |
+C> | 1999-11-18 | J. Woollen | The number of BUFR files which can be opened at one time increased from 10 to 32 |
+C> | 2003-11-04 | J. Ator    | Added IO='NUL' option to prevent later writing to BUFR file in LUNIT; added documentation |
+C> | 2003-11-04 | S. Bender  | Added remarks and routine interdependencies |
+C> | 2003-11-04 | D. Keyser  | Unified/portable for WRF; added documentation; outputs more complete diagnostic info when routine terminates abnormally |
+C> | 2004-08-18 | J. Ator    | Added SAVE for IFIRST flag and IO="NODX" option |
+C> | 2005-11-29 | J. Ator    | Added COMMON /MSGFMT/ and ichkstr() call |
+C> | 2009-03-23 | J. Ator    | Added IO='SEC3' option; removed call to posapn; clarified comments; use errwrt() |
+C> | 2010-05-11 | J. Ator    | Added COMMON /STCODE/ |
+C> | 2012-06-18 | J. Ator    | Added IO='INUL' option |
+C> | 2012-09-15 | J. Woollen | Modified for C/I/O/BUFR interface; use INQUIRE to obtain filename; use openrb(), openwb() and openab(); add IO types 'INX' and 'FIRST' |
+C> | 2014-11-07 | J. Ator    | Allow dynamic allocation of certain arrays |
+C> | 2015-03-03 | J. Ator    | Use MODA_IFOPBF instead of IFIRST |
 C>
       SUBROUTINE OPENBF(LUNIT,IO,LUNDX)
 

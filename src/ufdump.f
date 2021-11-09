@@ -15,9 +15,9 @@ C> @authors J. Woollen
 C> @authors J. Ator
 C> @date 2002-05-14
 C>
-C> @param[in] LUNIT    - integer: Fortran logical unit number for
+C> @param[in] LUNIT   -- integer: Fortran logical unit number for
 C>                       BUFR file
-C> @param[in] LUPRT    - integer: Fortran logical unit number for
+C> @param[in] LUPRT   -- integer: Fortran logical unit number for
 C>                       print output
 C>                       - 0 = Run interactively, printing to
 C>                             standard output
@@ -43,31 +43,22 @@ C> must have been made with argument CF = 'Y'.  Otherwise, only the
 C> code and flag table values themselves will be printed.
 C>
 C> <b>Program history log:</b>
-C> - 2002-05-14  J. Woollen -- Original author
-C> - 2003-11-04  J. Woollen -- Modified to handle print of character
-C>                             values greater than 8 bytes
-C> - 2003-11-04  S. Bender  -- Added remarks and routine interdependencies
-C> - 2003-11-04  D. Keyser  -- Increased MAXJL from 15000 to 16000;
-C>                             unified/portable for WRF; added history
-C>                             documentation; outputs more complete
-C>                             diagnostic info when routine terminates
-C>                             abnormally, unusual things happen or for
-C>                             informational purposes
-C> - 2004-08-18  J. Ator    -- Added fuzziness test and threshold for
-C>                             missing value; added interactive and
-C>                             scrolling capability similar to ufbdmp()
-C> - 2006-04-14  J. Ator    -- Add call to upftbv() for flag tables to get
-C>                             actual bits that were set to generate value
-C> - 2007-01-19  J. Ator    -- Use function ibfms()
-C> - 2009-03-23  J. Ator    -- Add level markers to output for sequences
-C>                             where the replication count is > 1; output
-C>                             all occurrences of long character strings
-C> - 2012-02-24  J. Ator    -- Fix missing check for long character strings
-C> - 2012-03-02  J. Ator    -- Label redefined reference values
-C> - 2014-12-10  J. Ator    -- Use modules instead of COMMON blocks
-C> - 2015-09-24  J. Woollen -- Print level identifiers for event stacks
-C> - 2020-08-18  J. Ator    -- Improve logic for sequence tracking
-C> - 2021-09-30  J. Ator    -- Replace rjust with Fortran intrinsic adjustr
+C> | Date | Programmer | Comments |
+C> | -----|------------|----------|
+C> | 2002-05-14 | J. Woollen | Original author |
+C> | 2003-11-04 | J. Woollen | Modified to handle print of character values greater than 8 bytes |
+C> | 2003-11-04 | S. Bender  | Added remarks and routine interdependencies |
+C> | 2003-11-04 | D. Keyser  | Increased MAXJL from 15000 to 16000; unified/portable for WRF; added documentation; outputs more complete diagnostic info when routine terminates abnormally |
+C> | 2004-08-18 | J. Ator    | Added fuzziness test and threshold for missing value; added interactive and scrolling capability similar to ufbdmp() |
+C> | 2006-04-14 | J. Ator    | Add call to upftbv() for flag tables to get actual bits that were set to generate value |
+C> | 2007-01-19 | J. Ator    | Use function ibfms() |
+C> | 2009-03-23 | J. Ator    | Add level markers to output for sequences where the replication count is > 1; output all occurrences of long character strings |
+C> | 2012-02-24 | J. Ator    | Fix missing check for long character strings |
+C> | 2012-03-02 | J. Ator    | Label redefined reference values |
+C> | 2014-12-10 | J. Ator    | Use modules instead of COMMON blocks |
+C> | 2015-09-24 | J. Woollen | Print level identifiers for event stacks |
+C> | 2020-08-18 | J. Ator    | Improve logic for sequence tracking |
+C> | 2021-09-30 | J. Ator    | Replace rjust with Fortran intrinsic adjustr |
 C>
       SUBROUTINE UFDUMP(LUNIT,LUPRT)
 

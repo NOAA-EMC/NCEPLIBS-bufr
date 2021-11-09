@@ -14,31 +14,30 @@ C>
 C> @author J. Woollen
 C> @date 1994-01-06
 C>
-C> @param[in] IREP    - integer: Number of data subset to be
+C> @param[in] IREP   -- integer: Number of data subset to be
 C>                      read into scope for further processing,
 C>                      counting from the beginning of the
 C>                      internal arrays in memory
-C> @param[out] SUBSET - character*8: Table A mnemonic for type of BUFR
-C>                      message that was read into scope
-C>                      (see [DX BUFR Tables](@ref dfbftab) for
-C>                      further information about Table A mnemonics)
-C> @param[out] IDATE  - integer: Date-time stored within Section 1 of
+C> @param[out] SUBSET -- character*8: Table A mnemonic for type of BUFR
+C>                       message that was read into scope
+C>                       (see [DX BUFR Tables](@ref dfbftab) for
+C>                       further information about Table A mnemonics)
+C> @param[out] IDATE -- integer: Date-time stored within Section 1 of
 C>                      BUFR message that was read into scope,
 C>                      in format of either YYMMDDHH or YYYYMMDDHH,
 C>                      depending on the most
 C>                      recent call to subroutine datelen()
 C>
 C> <b>Program history log:</b>
-C> - 1994-01-06  J. Woollen -- Original author
-C> - 1998-07-08  J. Woollen -- Replaced call to Cray library routine
-C>                           "ABORT" with call to new internal BUFRLIB
-C>                           routine "BORT"
-C> - 1999-11-18  J. Woollen -- Increased MAXMEM from 4 Mb to 8 Mb
-C> - 2001-08-15  D. Keyser  -- Increased MAXMEM from 8 Mb to 16 Mb
-C> - 2004-11-15  D. Keyser  -- Increased MAXMEM from 16 Mb to 50 Mb
-C> - 2009-03-23  J. Ator    -- Use ireadmm() instead of rdmemm();
-C>                           simplify logic
-C> - 2014-12-10  J. Ator    -- Use modules instead of COMMON blocks
+C> | Date | Programmer | Comments |
+C> | -----|------------|----------|
+C> | 1994-01-06 | J. Woollen | Original author |
+C> | 1998-07-08 | J. Woollen | Replaced call to Cray library routine "ABORT" with call to new internal routine bort() |
+C> | 1999-11-18 | J. Woollen | Increased MAXMEM from 4 Mb to 8 Mb |
+C> | 2001-08-15 | D. Keyser  | Increased MAXMEM from 8 Mb to 16 Mb |
+C> | 2004-11-15 | D. Keyser  | Increased MAXMEM from 16 Mb to 50 Mb |
+C> | 2009-03-23 | J. Ator    | Use ireadmm() instead of rdmemm(); simplify logic |
+C> | 2014-12-10 | J. Ator    | Use modules instead of COMMON blocks |
 C>
       SUBROUTINE UFBMNS(IREP,SUBSET,IDATE)
 

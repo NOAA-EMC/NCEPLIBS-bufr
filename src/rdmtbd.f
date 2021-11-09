@@ -11,53 +11,54 @@ C>
 C> @author J. Ator
 C> @date 2007-01-19
 C>
-C> @param[in] LUNSTD  - integer: Fortran logical unit number for
+C> @param[in] LUNSTD -- integer: Fortran logical unit number for
 C>                      ASCII file containing standard Table D
 C>                      information
-C> @param[in] LUNLTD  - integer: Fortran logical unit number for
+C> @param[in] LUNLTD -- integer: Fortran logical unit number for
 C>                      ASCII file containing local Table D
 C>                      information
-C> @param[in] MXMTBD  - integer: Dimensioned size (in integers) of
+C> @param[in] MXMTBD -- integer: Dimensioned size (in integers) of
 C>                      merged output arrays; used by the subroutine
 C>                      to ensure that it doesn't overflow these
 C>                      arrays
-C> @param[in] MXELEM  - integer: Maximum number of elements to be
+C> @param[in] MXELEM -- integer: Maximum number of elements to be
 C>                      stored per Table D sequence within merged
 C>                      output arrays; used by the subroutine to
 C>                      ensure that it doesn't overflow these arrays
-C> @param[out] IMT    - integer: Master table
+C> @param[out] IMT   -- integer: Master table
 C>                      - This value is read from both ASCII
 C>                        files and must be identical between them.
-C> @param[out] IMTV   - integer: Version number of master table
+C> @param[out] IMTV  -- integer: Version number of master table
 C>                      - This value is read from the standard ASCII
 C>                        file.
-C> @param[out] IOGCE  - integer: Originating center
+C> @param[out] IOGCE -- integer: Originating center
 C>                      - This value is read from the local ASCII
 C>                        file.
-C> @param[out] ILTV   - integer: Version number of local table
+C> @param[out] ILTV  -- integer: Version number of local table
 C>                      - This value is read from the local ASCII
 C>                        file.
-C> @param[out] NMTBD  - integer: Number of entries in merged output
+C> @param[out] NMTBD -- integer: Number of entries in merged output
 C>                      arrays
-C> @param[out] IMFXYN - integer(*): Merged array containing bit-wise
-C>                      representations of FXY numbers
-C> @param[out] CMMNEM - character*8(*): Merged array containing
-C>                      mnemonics
-C> @param[out] CMDSC  - character*4(*): Merged array containing
+C> @param[out] IMFXYN -- integer(*): Merged array containing bit-wise
+C>                       representations of FXY numbers
+C> @param[out] CMMNEM -- character*8(*): Merged array containing
+C>                       mnemonics
+C> @param[out] CMDSC -- character*4(*): Merged array containing
 C>                      descriptor codes
-C> @param[out] CMSEQ  - character*120(*): Merged array containing
+C> @param[out] CMSEQ -- character*120(*): Merged array containing
 C>                      sequence names
-C> @param[out] NMELEM - integer(*): Merged array containing number of
-C>                      elements stored for each sequence
-C> @param[out] IEFXYN - integer(*,*): Merged array containing bit-wise
-C>                      representations of element FXY numbers
-C> @param[out] CEELEM - character*120(*,*): Merged array containing
-C>                      element names
+C> @param[out] NMELEM -- integer(*): Merged array containing number of
+C>                       elements stored for each sequence
+C> @param[out] IEFXYN -- integer(*,*): Merged array containing bit-wise
+C>                       representations of element FXY numbers
+C> @param[out] CEELEM -- character*120(*,*): Merged array containing
+C>                       element names
 C>
 C> <b>Program history log:</b>
-C> - 2007-01-19  J. Ator    -- Original author
-C> - 2021-01-08  J. Ator    -- Modified mstabs array declarations
-C>                           for GNUv10 portability
+C> | Date | Programmer | Comments |
+C> | -----|------------|----------|
+C> | 2007-01-19 | J. Ator | Original author |
+C> | 2021-01-08 | J. Ator | Modified mstabs array declarations for GNUv10 portability |
 C>
 	SUBROUTINE RDMTBD ( LUNSTD, LUNLTD, MXMTBD, MXELEM,
      .			    IMT, IMTV, IOGCE, ILTV,

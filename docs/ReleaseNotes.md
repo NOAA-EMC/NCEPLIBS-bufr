@@ -3,7 +3,7 @@
 @brief Detailed description of changes included within each new release.
 
 
-### Version 11.6.0 - TBD
+### Version 11.6.0 - November 10, 2021
 
 * All of the library builds now use dynamic allocation, so the "_DA" suffix
 has now been correspondingly removed from the names of the library builds.

@@ -27,12 +27,12 @@ C>
 C> @author J. Woollen
 C> @date 2012-09-15
 C>
-C> @param[in]  IBLK - integer: Flag indicating whether future BUFR
-C>                    output messages should be encapsulated with
-C>                    control words
-C>                     - -1 = Yes, using little-endian control words      
-C>                     -  0 = No (the default)
-C>                     -  1 = Yes, using big-endian control words      
+C> @param[in]  IBLK -- integer: Flag indicating whether future BUFR
+C>                     output messages should be encapsulated with
+C>                     control words
+C>                      - -1 = Yes, using little-endian control words      
+C>                      -  0 = No (the default)
+C>                      -  1 = Yes, using big-endian control words      
 C>
 C> @remarks
 C> - This subroutine can be used to generate BUFR files consistent
@@ -48,7 +48,9 @@ C> necessary and are therefore now disabled by default when writing
 C> BUFR messages to output files.
 C>
 C> <b>Program history log:</b>
-C> - 2012-09-15  J. Woollen -- Original author
+C> | Date | Programmer | Comments |
+C> | -----|------------|----------|
+C> | 2012-09-15 | J. Woollen | Original author |
 C>
       SUBROUTINE SETBLOCK(IBLK) 
 

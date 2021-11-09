@@ -12,52 +12,39 @@ C>
 C> @author J. Woollen
 C> @date 1994-01-06
 C>
-C> @param[in] IMSG    - integer: Number of BUFR message to be
+C> @param[in] IMSG   -- integer: Number of BUFR message to be
 C>                      read into scope for further processing,
 C>                      counting from the beginning of the
 C>                      internal arrays in memory
-C> @param[out] SUBSET - character*8: Table A mnemonic for type of BUFR
-C>                      message that was read into scope
-C>                      (see [DX BUFR Tables](@ref dfbftab) for
-C>                      further information about Table A mnemonics)
-C> @param[out] JDATE  - integer: Date-time stored within Section 1 of
+C> @param[out] SUBSET -- character*8: Table A mnemonic for type of BUFR
+C>                       message that was read into scope
+C>                       (see [DX BUFR Tables](@ref dfbftab) for
+C>                       further information about Table A mnemonics)
+C> @param[out] JDATE -- integer: Date-time stored within Section 1 of
 C>                      BUFR message that was read into scope,
 C>                      in format of either YYMMDDHH or YYYYMMDDHH,
 C>                      depending on the most
 C>                      recent call to subroutine datelen()
-C> @param[out] IRET   - integer: return code
+C> @param[out] IRET  -- integer: return code
 C>                          - 0 = requested message was
 C>                                successfully read into scope
 C>                          - -1 = requested message number could not
 C>                                 be found in internal arrays
 C>      
 C> <b>Program history log:</b>
-C> - 1994-01-06  J. Woollen -- Original author
-C> - 1998-07-08  J. Woollen -- Replaced call to Cray library routine
-C>                           "ABORT" with call to new internal BUFRLIB
-C>                           routine "BORT"; modified to make Y2K
-C>                           compliant
-C> - 1999-11-18  J. Woollen -- The number of BUFR files which can be
-C>                           opened at one time increased from 10 to 32
-C>                           (necessary in order to process multiple
-C>                           BUFR files under the MPI); increased MAXMEM
-C>                           from 4 Mb to 8 Mb
-C> - 2000-09-19  J. Woollen -- Removed message decoding logic that had
-C>                           been replicated in this and other read
-C>                           routines and consolidated it into a new
-C>                           routine cktaba(); maximum message
-C>                           length increased from 10,000 to 20,000
-C>                           bytes
-C> - 2001-08-15  D. Keyser  -- Increased MAXMEM from 8 Mb to 16 Mb
-C> - 2003-11-04  S. Bender  -- Added remarks and routine interdependencies
-C> - 2003-11-04  D. Keyser  -- Unified/portable for WRF; added history
-C>                             documentation
-C> - 2004-08-09  J. Ator    -- Maximum message length increased
-C>                             from 20,000 to 50,000 bytes
-C> - 2004-11-15  D. Keyser  -- Increased MAXMEM from 16 Mb to 50 Mb
-C> - 2009-03-23  J. Ator    -- Modified to handle embedded BUFR table
-C>                           (dictionary) messages; use errwrt()
-C> - 2014-12-10  J. Ator    -- Use modules instead of COMMON blocks
+C> | Date | Programmer | Comments |
+C> | -----|------------|----------|
+C> | 1994-01-06 | J. Woollen | Original author |
+C> | 1998-07-08 | J. Woollen | Replaced call to Cray library routine "ABORT" with call to new internal routine bort(); modified to make Y2K compliant |
+C> | 1999-11-18 | J. Woollen | The number of BUFR files which can be opened at one time increased from 10 to 32; increased MAXMEM from 4 Mb to 8 Mb |
+C> | 2000-09-19 | J. Woollen | Removed logic that had been replicated in this and other read routines and consolidated it into a new routine cktaba(); maximum message length increased from 10,000 to 20,000 bytes |
+C> | 2001-08-15 | D. Keyser  | Increased MAXMEM from 8 Mb to 16 Mb |
+C> | 2003-11-04 | S. Bender  | Added remarks and routine interdependencies |
+C> | 2003-11-04 | D. Keyser  | Unified/portable for WRF; added documentation |
+C> | 2004-08-09 | J. Ator    | Maximum message length increased from 20,000 to 50,000 bytes |
+C> | 2004-11-15 | D. Keyser  | Increased MAXMEM from 16 Mb to 50 Mb |
+C> | 2009-03-23 | J. Ator    | Modified to handle embedded BUFR table (dictionary) messages; use errwrt() |
+C> | 2014-12-10 | J. Ator    | Use modules instead of COMMON blocks |
 C>
       SUBROUTINE RDMEMM(IMSG,SUBSET,JDATE,IRET)
 

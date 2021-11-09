@@ -16,9 +16,9 @@ C>
 C> @author J. Ator
 C> @date 2005-11-29
 C>
-C> @param[in]   LUNIT    - integer: Fortran logical unit number for
+C> @param[in]   LUNIT   -- integer: Fortran logical unit number for
 C>                         BUFR file
-C> @param[in]  S01MNEM   - character*(*): Value to be read from
+C> @param[in]  S01MNEM  -- character*(*): Value to be read from
 C>                         Section 0 or Section 1 of BUFR message in
 C>                         internal arrays for LUNIT
 C>                         - 'LENM'  = Length (in bytes) of BUFR message
@@ -47,7 +47,7 @@ C>                         - 'DAYS'  = Day
 C>                         - 'HOUR'  = Hour
 C>                         - 'MINU'  = Minute
 C>                         - 'SECO'  = Second
-C> @returns iupvs01  - integer: Value corresponding to S01MNEM
+C> @returns iupvs01 -- integer: Value corresponding to S01MNEM
 C>                      - -1 = S01MNEM was invalid for the edition of BUFR
 C>                             message in internal arrays for LUNIT, or some
 C>                             other error occurred
@@ -65,8 +65,10 @@ C> - Values corresponding to S01MNEM = 'SECO' or 'MSBTI' can only
 C>   be read from BUFR messages encoded using BUFR edition 4.
 C>
 C> <b>Program history log:</b>
-C> - 2005-11-29  J. Ator    -- Original author
-C> - 2014-12-10  J. Ator    -- Use modules instead of COMMON blocks
+C> | Date | Programmer | Comments |
+C> | -----|------------|----------|
+C> | 2005-11-29 | J. Ator | Original author |
+C> | 2014-12-10 | J. Ator | Use modules instead of COMMON blocks |
 C>
       FUNCTION IUPVS01(LUNIT,S01MNEM)
 

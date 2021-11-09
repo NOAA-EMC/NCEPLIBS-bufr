@@ -8,15 +8,15 @@ C>
 C> @author J. Woollen
 C> @date 1994-01-06
 C>
-C> @param[in] NVAL     - integer: Value to be encoded
-C> @param[in] NBITS    - integer: Number of bits of IBAY within
+C> @param[in] NVAL    -- integer: Value to be encoded
+C> @param[in] NBITS   -- integer: Number of bits of IBAY within
 C>                       which to encode NVAL
-C> @param[out] IBAY    - integer(*): Array containing encoded NVAL
-C> @param[in,out] IBIT - integer: Bit pointer within IBAY
-C>                       - On input, IBIT points to the bit within
-C>                         IBAY after which to begin encoding NVAL.
-C>                       - On output, IBIT points to the last bit
-C>                         of IBAY which contains the encoded NVAL.
+C> @param[out] IBAY   -- integer(*): Array containing encoded NVAL
+C> @param[in,out] IBIT -- integer: Bit pointer within IBAY
+C>                        - On input, IBIT points to the bit within
+C>                          IBAY after which to begin encoding NVAL.
+C>                        - On output, IBIT points to the last bit
+C>                          of IBAY which contains the encoded NVAL.
 C>
 C> @remarks
 C> - This subroutine is the logical inverse of subroutine upb().
@@ -27,15 +27,13 @@ C>   the user should switch to a compiled version of the BUFRLIB
 C>   software which has a larger integer size.
 C>
 C> <b>Program history log:</b>
-C> - 1994-01-06  J. Woollen -- Original author
-C> - 2003-11-04  J. Ator    -- Added documentation
-C> - 2003-11-04  S. Bender  -- Added remarks and routine interdependencies
-C> - 2003-11-04  D. Keyser  -- Unified/portable for WRF; added history
-C>                             documentation; outputs more complete
-C>                             diagnostic info when routine terminates
-C>                             abnormally, unusual things happen or for
-C>                             informational purposes
-C> - 2014-12-03  J. Ator    -- Call bort() if NBITS > NBITW
+C> | Date | Programmer | Comments |
+C> | -----|------------|----------|
+C> | 1994-01-06 | J. Woollen | Original author |
+C> | 2003-11-04 | J. Ator    | Added documentation |
+C> | 2003-11-04 | S. Bender  | Added remarks and routine interdependencies |
+C> | 2003-11-04 | D. Keyser  | Unified/portable for WRF; added documentation; outputs more complete diagnostic info when routine terminates abnormally |
+C> | 2014-12-03 | J. Ator    | Call bort() if NBITS > NBITW |
 C>
       SUBROUTINE PKB(NVAL,NBITS,IBAY,IBIT)
 

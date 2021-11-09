@@ -16,7 +16,7 @@ C> @authors J. Ator
 C> @authors D. Keyser
 C> @date 1994-01-06
 C>
-C> @param[in] LUNIN    - integer: Absolute value is Fortran logical
+C> @param[in] LUNIN   -- integer: Absolute value is Fortran logical
 C>                       unit number for BUFR file 
 C>                       - If LUNIN > 0, data values are printed to
 C>                         LUPRT using the format descriptor code
@@ -32,7 +32,7 @@ C>                         lined up with the decimal point in the
 C>                         same column, but values exceeding the
 C>                         format width of 15 characters will print
 C>                         as overflow (e.g. '***************')
-C> @param[in] LUPRT    - integer: Fortran logical unit number for
+C> @param[in] LUPRT   -- integer: Fortran logical unit number for
 C>                       print output
 C>                       - 0 = Run interactively, printing to
 C>                             standard output
@@ -52,33 +52,21 @@ C> application program (by typing 'q' then '<Enter>') or continue
 C> scrolling (by typing anything else).
 C>
 C> <b>Program history log:</b>
-C> - 1994-01-06  J. Woollen -- Original author
-C> - 1998-07-08  J. Woollen -- Replaced call to Cray library routine ABORT
-C>                             with call to new internal routine bort()
-C> - 1999-11-18  J. Woollen -- The number of BUFR files which can be
-C>                             opened at one time increased from 10 to 32
-C>                             (necessary in order to process multiple
-C>                             BUFR files under the MPI)
-C> - 2002-05-14  J. Woollen -- Removed old Cray compiler directives
-C> - 2003-11-04  S. Bender  -- Added remarks and routine interdependencies
-C> - 2003-11-04  D. Keyser  -- Increased MAXJL from 15000 to 16000;
-C>                             unified/portable for WRF; added history
-C>                             documentation; outputs more complete
-C>                             diagnostic info when routine terminates
-C>                             abnormally, unusual things happen or for
-C>                             informational purposes; allowed fuzziness
-C>                             in test for missing values; added option
-C>                             to print using either 'G15.6' or 'F15.6';
-C>                             added several jump/link table values to
-C>                             output
-C> - 2004-08-18  J. Ator    -- Modified fuzziness test; added readlc()
-C>                             option; restructured some logic for clarity
-C> - 2006-04-14  D. Keyser  -- Add call to upftbv() for flag tables to get
-C>                             actual bits that were set to generate value
-C> - 2007-01-19  J. Ator    -- Use function ibfms()
-C> - 2014-12-10  J. Ator    -- Use modules instead of COMMON blocks
-C> - 2020-09-09  J. Ator    -- Fix missing check for long character strings
-C> - 2021-09-30  J. Ator    -- Replace rjust with Fortran intrinsic adjustr
+C> | Date | Programmer | Comments |
+C> | -----|------------|----------|
+C> | 1994-01-06 | J. Woollen | Original author |
+C> | 1998-07-08 | J. Woollen | Replaced call to Cray library routine ABORT with call to new internal routine bort() |
+C> | 1999-11-18 | J. Woollen | The number of BUFR files which can be opened at one time increased from 10 to 32 |
+C> | 2002-05-14 | J. Woollen | Removed old Cray compiler directives |
+C> | 2003-11-04 | S. Bender  | Added remarks and routine interdependencies |
+C> | 2003-11-04 | D. Keyser  | Increased MAXJL from 15000 to 16000; unified/portable for WRF; added documentation; outputs more complete diagnostic info when routine terminates abnormally |
+C> | 2003-11-04 | D. Keyser  | Allowed fuzziness in test for missing values; added option to print using either 'G15.6' or 'F15.6'; added several jump/link table values to output |
+C> | 2004-08-18 | J. Ator    | Modified fuzziness test; added readlc() option; restructured some logic for clarity |
+C> | 2006-04-14 | D. Keyser  | Add call to upftbv() for flag tables to get actual bits that were set to generate value |
+C> | 2007-01-19 | J. Ator    | Use function ibfms() |
+C> | 2014-12-10 | J. Ator    | Use modules instead of COMMON blocks |
+C> | 2020-09-09 | J. Ator    | Fix missing check for long character strings |
+C> | 2021-09-30 | J. Ator    | Replace rjust with Fortran intrinsic adjustr |
 C>
       SUBROUTINE UFBDMP(LUNIN,LUPRT)
 

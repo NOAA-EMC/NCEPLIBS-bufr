@@ -25,10 +25,12 @@ void prtusage( char * );
  * @author J. Ator
  * @date 2018-03-01
  *
- * @param[in]  prgnam - char*: [path/]name of program executable
+ * @param[in]  prgnam -- char*: [path/]name of program executable
  *
  * <b>Program history log:</b>
- * - 2018-03-01  J. Ator  -- Original author
+ * | Date | Programmer | Comments |
+ * | -----|------------|----------|
+ * | 2018-03-01 | J. Ator | Original author |
  */
 void prtusage( char *prgnam ) {
 	printf( "\nUSAGE: %s [-v] [-h] [-g] bufrfile\n\n", prgnam );
@@ -98,9 +100,11 @@ void prtusage( char *prgnam ) {
  * </pre>
  *
  * <b>Program history log:</b>
- * - 2018-03-01  J. Ator  -- Original author
- * - 2021-09-29  J. Ator  -- Use basename instead of pid in output filenames
- * - 2021-10-08  J. Ator  -- Simplify bvstr instantiation and initialization
+ * | Date | Programmer | Comments |
+ * | -----|------------|----------|
+ * | 2018-03-01 | J. Ator |  Original author |
+ * | 2021-09-29 | J. Ator |  Use basename instead of pid in output filenames |
+ * | 2021-10-08 | J. Ator |  Simplify bvstr instantiation and initialization |
  */
 
 int main( int argc, char *argv[] ) {

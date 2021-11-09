@@ -15,32 +15,34 @@
  *  @author J. Ator
  *  @date 2014-12-04
  *
- *  @param[in] pnmtb - f77int*: Number of master Table B entries
- *  @param[in] pibfxyn - f77int*: Bit-wise representations of
- *                       master Table B FXY numbers
- *  @param[in] pcbscl - char(*)[4]: Master Table B scale factors
- *  @param[in] pcbsref - char(*)[12]: Master Table B reference
+ *  @param[in] pnmtb -- f77int*: Number of master Table B entries
+ *  @param[in] pibfxyn -- f77int*: Bit-wise representations of
+ *                        master Table B FXY numbers
+ *  @param[in] pcbscl -- char(*)[4]: Master Table B scale factors
+ *  @param[in] pcbsref -- char(*)[12]: Master Table B reference
  *                        values
- *  @param[in] pcbbw - char(*)[4]: Master Table B bit widths
- *  @param[in] pcbunit - char(*)[24]: Master Table B units
- *  @param[in] pcbmnem - char(*)[8]: Master Table B mnemonics
- *  @param[in] pcbelem - char(*)[120]: Master Table B element names
- *  @param[in] pnmtd - f77int*: Number of master Table D entries
- *  @param[in] pidfxyn - f77int*: Bit-wise representations of
- *                       master Table D FXY numbers
- *  @param[in] pcdseq - char(*)[120]: Master Table D sequence names
- *  @param[in] pcdmnem - char(*)[8]: Master Table D mnemonics
- *  @param[in] pndelem - f77int*: Number of child descriptors for
- *                       master Table D sequence
- *  @param[in] pidefxy - f77int*: Bit-wise representations of
- *                       child descriptors for master Table D
- *                       sequence
- *  @param[in] maxcd - f77int*: Maximum number of child descriptors
- *                     for a master Table D sequence
+ *  @param[in] pcbbw -- char(*)[4]: Master Table B bit widths
+ *  @param[in] pcbunit -- char(*)[24]: Master Table B units
+ *  @param[in] pcbmnem -- char(*)[8]: Master Table B mnemonics
+ *  @param[in] pcbelem -- char(*)[120]: Master Table B element names
+ *  @param[in] pnmtd -- f77int*: Number of master Table D entries
+ *  @param[in] pidfxyn -- f77int*: Bit-wise representations of
+ *                        master Table D FXY numbers
+ *  @param[in] pcdseq -- char(*)[120]: Master Table D sequence names
+ *  @param[in] pcdmnem -- char(*)[8]: Master Table D mnemonics
+ *  @param[in] pndelem -- f77int*: Number of child descriptors for
+ *                        master Table D sequence
+ *  @param[in] pidefxy -- f77int*: Bit-wise representations of
+ *                        child descriptors for master Table D
+ *                        sequence
+ *  @param[in] maxcd -- f77int*: Maximum number of child descriptors
+ *                      for a master Table D sequence
  *
  * <b>Program history log:</b>
- * - 2014-12-04  J. Ator    -- Original author
- * - 2021-05-17  J. Ator    -- Allow up to 24 characters in cbunit
+ * | Date | Programmer | Comments |
+ * | -----|------------|----------|
+ * | 2014-12-04 | J. Ator | Original author |
+ * | 2021-05-17 | J. Ator | Allow up to 24 characters in cbunit |
 */
 void cpmstabs(  f77int *pnmtb,
 		f77int *pibfxyn, char (*pcbscl)[4],

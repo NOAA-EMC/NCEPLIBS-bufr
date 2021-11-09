@@ -8,16 +8,16 @@ C>
 C> @author J. Woollen
 C> @date 1994-01-06
 C>
-C> @param[in] CHR      - character*(*): String to be encoded
-C> @param[in] NCHR     - integer: Number of bytes of IBAY within
+C> @param[in] CHR     -- character*(*): String to be encoded
+C> @param[in] NCHR    -- integer: Number of bytes of IBAY within
 C>                       which to encode CHR (i.e. the number of
 C>                       characters in CHR)
-C> @param[out] IBAY    - integer(*): Array containing encoded CHR
-C> @param[in,out] IBIT - integer: Bit pointer within IBAY
-C>                       - On input, IBIT points to the bit within
-C>                         IBAY after which to begin encoding CHR.
-C>                       - On output, IBIT points to the last bit
-C>                         of IBAY which contains the encoded CHR.
+C> @param[out] IBAY   -- integer(*): Array containing encoded CHR
+C> @param[in,out] IBIT -- integer: Bit pointer within IBAY
+C>                        - On input, IBIT points to the bit within
+C>                          IBAY after which to begin encoding CHR.
+C>                        - On output, IBIT points to the last bit
+C>                          of IBAY which contains the encoded CHR.
 C>
 C> @remarks
 C> - This subroutine is the logical inverse of subroutine upc().
@@ -27,17 +27,15 @@ C>   guarantee that the NCHR characters of CHR will be aligned on byte
 C>   boundaries when encoded within IBAY.
 C>
 C> <b>Program history log:</b>
-C> - 1994-01-06  J. Woollen -- Original author
-C> - 1998-07-08  J. Woollen -- Replaced call to Cray library routine ABORT
-C>                             with call to new internal routine bort()
-C> - 2003-11-04  J. Woollen -- Modified to be endian-independent
-C> - 2003-11-04  J. Ator    -- Added documentation
-C> - 2003-11-04  S. Bender  -- Added remarks and routine interdependencies
-C> - 2003-11-04  D. Keyser  -- Unified/portable for WRF; added history
-C>                             documentation; outputs more complete
-C>                             diagnostic info when routine terminates
-C>                             abnormally; use bort2() instead of bort()
-C> - 2004-08-18  J. Ator    -- Modified to be compatible with writlc()
+C> | Date | Programmer | Comments |
+C> | -----|------------|----------|
+C> | 1994-01-06 | J. Woollen | Original author |
+C> | 1998-07-08 | J. Woollen | Replaced call to Cray library routine ABORT with call to new internal routine bort() |
+C> | 2003-11-04 | J. Woollen | Modified to be endian-independent |
+C> | 2003-11-04 | J. Ator    | Added documentation |
+C> | 2003-11-04 | S. Bender  | Added remarks and routine interdependencies |
+C> | 2003-11-04 | D. Keyser  | Unified/portable for WRF; added documentation; outputs more complete diagnostic info when routine terminates abnormally; use bort2() instead of bort() |
+C> | 2004-08-18 | J. Ator    | Modified to be compatible with writlc() |
 C>
       SUBROUTINE PKC(CHR,NCHR,IBAY,IBIT)
 
