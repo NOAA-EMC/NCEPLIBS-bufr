@@ -11,6 +11,8 @@
 !> @authors J. Ator
 !> @date 1994-01-06
 !>
+!> <b>Usage:</b> call writsa( LUNXX, LMSGT, MSGT, MSGL )
+!>
 !> @param[in] LUNXX   -- integer: Absolute value is Fortran logical
 !>                       unit number for BUFR file
 !> @param[in] LMSGT   -- integer: Dimensioned size (in integers) of
@@ -102,6 +104,7 @@
 !> | 2014-12-10 | J. Ator    | Use modules instead of COMMON blocks |
 !> | 2019-05-09 | J. Ator    | Added dimensions for MSGLEN and MSGTXT |
 !> | 2020-09-22 | J. Ator    | Added capability to return two BUFR messages within MSGT during the same call to this routine, in the rare instances where this can occur |
+!> | 2022-02-01 | J. Ator    | Converted to module to consolidate _4, _d, and _8 variations into one build |
 !>
 
 module subroutine_writsa
@@ -116,6 +119,9 @@ module subroutine_writsa
     contains
 
     subroutine writsa_4_d( lunxx, lmsgt, msgt, msgl )
+!       used when call arguments to writsa are 4-byte integers
+
+        implicit none
 
         integer(kind=4), intent(in) :: lunxx
         integer(kind=4), intent(in) :: lmsgt
@@ -133,9 +139,12 @@ module subroutine_writsa
         msgt(1:lmsgt) = my_msgt(1:lmsgt)
         msgl = my_msgl
 
-    end subroutine
+    end subroutine writsa_4_d
 
     subroutine writsa_8( lunxx, lmsgt, msgt, msgl )
+!       used when call arguments to writsa are 8-byte integers
+
+        implicit none
 
         integer(kind=8), intent(in) :: lunxx
         integer(kind=8), intent(in) :: lmsgt
@@ -153,7 +162,7 @@ module subroutine_writsa
         msgt(1:lmsgt) = my_msgt(1:lmsgt)
         msgl = my_msgl
 
-    end subroutine
+    end subroutine writsa_8
 
     subroutine writsa_body( lunxx, lmsgt, msgt, msgl )
 
@@ -239,6 +248,6 @@ module subroutine_writsa
 902   CALL BORT('BUFRLIB: WRITSA - A MESSAGE MUST BE OPEN IN OUTPUT BUFR FILE, NONE ARE')
 904   CALL BORT('BUFRLIB: WRITSA - OVERFLOW OF OUTPUT BUFR MESSAGE ARRAY; TRY A LARGER DIMENSION FOR THIS ARRAY')
 
-    end subroutine
+    end subroutine writsa_body
 
 end module
