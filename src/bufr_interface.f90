@@ -16,6 +16,7 @@
 module bufr_c_interface_mod
 
   use iso_c_binding
+  use bufr_procedures
 
   implicit none
 
@@ -213,10 +214,10 @@ subroutine ufbint_c(bufr_unit, c_data, dim_1, dim_2, iret, table_b_mnemonic) bin
   integer(c_int), value, intent(in) :: dim_1, dim_2
   integer(c_int), intent(out) :: iret
   character(kind=c_char, len=1), intent(in) :: table_b_mnemonic
-  real, pointer :: f_data
+  real(c_double), pointer :: f_data
 
   call c_f_pointer(c_data, f_data)
-  call ufbint(bufr_unit, f_data, dim_1, dim_2, iret, c_f_string(table_b_mnemonic))
+  call ufbint_isoc(bufr_unit, f_data, dim_1, dim_2, iret, c_f_string(table_b_mnemonic))
 end subroutine ufbint_c
 
 
@@ -237,7 +238,7 @@ subroutine ufbrep_c(bufr_unit, c_data, dim_1, dim_2, iret, table_b_mnemonic) bin
   integer(c_int), value, intent(in) :: dim_1, dim_2
   integer(c_int), intent(out) :: iret
   character(kind=c_char, len=1), intent(in) :: table_b_mnemonic
-  real, pointer :: f_data
+  real(c_double), pointer :: f_data
 
   call c_f_pointer(c_data, f_data)
   call ufbrep(bufr_unit, f_data, dim_1, dim_2, iret, c_f_string(table_b_mnemonic))

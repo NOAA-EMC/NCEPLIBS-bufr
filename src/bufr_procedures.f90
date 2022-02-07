@@ -7,6 +7,7 @@
 
 module bufr_procedures
 
+  use subroutine_ufbint
   use subroutine_writsa
 
 end module

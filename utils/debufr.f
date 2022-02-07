@@ -86,7 +86,8 @@ C>
 	SUBROUTINE FDEBUFR ( ofile, tbldir, lentd, tblfil, prmstg,
      +			     basic, forcemt, cfms )
 
-	USE Share_Table_Info
+	use bufr_procedures
+	use Share_Table_Info
 
 	PARAMETER ( MXBF = 2500000 )
 	PARAMETER ( MXBFD4 = MXBF/4 )

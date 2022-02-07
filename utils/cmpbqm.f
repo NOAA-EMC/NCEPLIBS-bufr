@@ -6,12 +6,14 @@ C-----------------------------------------------------------------------
 C  MAIN PROGRAM CMPBQM
 C-----------------------------------------------------------------------
       PROGRAM CMPBQM
+
+      use bufr_procedures
  
       CHARACTER*200 FILE
       CHARACTER*50 HEADR,OBSTR,QMSTR,FCSTR,ERSTR,QMSFC
       CHARACTER*20 VARS(7)
       CHARACTER*8  SUBSET,DATE
-      DIMENSION    KNT(300,7,0:17),HDR(5),OBS(8,255),QMS(8,255)
+      DIMENSION    KNT(300,7,0:17),HDR(5,1),OBS(8,255),QMS(8,255)
       LOGICAL      SKIP
       REAL*8       HDR,OBS,QMS
  
@@ -65,7 +67,7 @@ C  ----------------------------
       CALL UFBINT(LUBFR,OBS,8,255,NLEV,OBSTR)
       CALL UFBINT(LUBFR,QMS,8,255,NLEV,QMSTR)
  
-      KX = HDR(5)
+      KX = HDR(5,1)
  
       DO L=1,NLEV
       DO K=1,7

@@ -1,3 +1,5 @@
+	use bufr_procedures
+
         INTEGER         jdate(5), jdump(5)
 
 	CHARACTER	cmgtag*8, tabdb(1000)*128

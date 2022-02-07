@@ -34,7 +34,8 @@ C>      generation of error messages from within the library.
 
 C>-------------------------------------------------------------------
 
-        USE Share_errstr
+	use bufr_procedures
+        use Share_errstr
 
 	PARAMETER	( MXR8PM = 15 )
 	PARAMETER	( MXR8LV = 5 )

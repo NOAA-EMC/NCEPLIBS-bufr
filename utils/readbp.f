@@ -6,12 +6,14 @@ C READ AND DISPLAY AN ON29BUFR FILE ONE REPORT AT A TIME
 C-----------------------------------------------------------------------
       PROGRAM READBP
 
+      use bufr_procedures
+
       CHARACTER*120 FILE
       CHARACTER*40 HSTR,OSTR,QSTR
       CHARACTER*8  YOU,SID,STA,SUBSET,MSG,cmc(17)
       CHARACTER*3  VARS(8)
-      DIMENSION    HDR(10),OBS(10,255),QMS(10,255),QMC(17)
-      EQUIVALENCE  (HDR(1),SID)
+      DIMENSION    HDR(10,1),OBS(10,255),QMS(10,255),QMC(17)
+      EQUIVALENCE  (HDR(1,1),SID)
       EQUIVALENCE  (qmc,cmc)        
       LOGICAL      WINDOW,STEAM,LEVEL
       real*8       hdr,obs,qms,qmc
@@ -74,11 +76,11 @@ C  MOVE SUBSET CONTENTS INTO THIS PROGRAM
 C  --------------------------------------
  
       CALL UFBINT(LUBFR,HDR,10,  1,IRET,HSTR)
-      XOB = HDR(2)
-      YOB = HDR(3)
-      jrt = hdr(6)
-      jtp = hdr(7)
-      jkx = hdr(8)
+      XOB = HDR(2,1)
+      YOB = HDR(3,1)
+      jrt = hdr(6,1)
+      jtp = hdr(7,1)
+      jkx = hdr(8,1)
       IF(STA.NE.' ' .AND. STA.NE.SID(1:nsta)) GOTO 10
       IF(irt.ne.0   .and. irt.ne.jrt) GOTO 10
       IF(itp.ne.0   .and. itp.ne.jtp) GOTO 10
@@ -109,18 +111,18 @@ C  ---------------------------------
 
       if(level) then
 
-      print'(1x,a8,7(f8.2,1x))',(hdr(i),i=1,8)
+      print'(1x,a8,7(f8.2,1x))',(hdr(i,1),i=1,8)
  
       else
 
       PRINT'(''MESSAGE: '',A8,2(2X,I4),i12 )' , SUBSET,IREC,ISUB,idate
-      PRINT'(''STATION: '',A8,1X,2(F8.2,1X))' , (HDR(I),I= 1,3)
-      PRINT'(''TIME:    '',I10,2x,F8.2     )' , IDATE,HDR(4) 
-      PRINT'(''ELV:     '',F8.2            )' , (HDR(5)       )
+      PRINT'(''STATION: '',A8,1X,2(F8.2,1X))' , (HDR(I,1),I= 1,3)
+      PRINT'(''TIME:    '',I10,2x,F8.2     )' , IDATE,HDR(4,1) 
+      PRINT'(''ELV:     '',F8.2            )' , (HDR(5,1)       )
       PRINT'(''PSL:     '',F8.2,1X,A1      )' ,  OBS(8,1),QMS(6,1)
-      PRINT'(''TYPE:    '',3(F8.0,1X)      )' , (HDR(I),I= 6,8)
-      PRINT'(''SOURCE:  '',3a8             )' , (HDR(I),I= 9,9)
-      PRINT'(''SEQUENCE '',F10.0           )' , (HDR(10)      )
+      PRINT'(''TYPE:    '',3(F8.0,1X)      )' , (HDR(I,1),I= 6,8)
+      PRINT'(''SOURCE:  '',3a8             )' , (HDR(I,1),I= 9,9)
+      PRINT'(''SEQUENCE '',F10.0           )' , (HDR(10,1)      )
       PRINT'(''DATA:    ''                 )'
 
       endif
@@ -185,134 +187,3 @@ C  -------------------------------------
  
 100   STOP
       END
-C-----------------------------------------------------------------------
-C  SUBROUTINE CAPIT CAPITALIZES A STRING OF CHARACTERS
-C-----------------------------------------------------------------------
-      SUBROUTINE CAPIT(STR)
- 
-      CHARACTER*(*) STR
-      CHARACTER*26  UPS,LOS
- 
-      DATA UPS /'ABCDEFGHIJKLMNOPQRSTUVWXYZ'/
-      DATA LOS /'abcdefghijklmnopqrstuvwxyz'/
- 
-C-----------------------------------------------------------------------
-C-----------------------------------------------------------------------
- 
-      N = LEN(STR)
- 
-      DO 20 I=1,N
-      DO 10 J=1,26
-      IF(STR(I:I).EQ.LOS(J:J)) THEN
-         STR(I:I) = UPS(J:J)
-         GOTO 20
-      ENDIF
-10    CONTINUE
-20    CONTINUE
- 
-      RETURN
-      END
-C---------------------------------------------------------------------- 
-C---------------------------------------------------------------------- 
-      SUBROUTINE XFDUMP(LUNIT,LUPRT)                                    
-                                                                        
-      PARAMETER ( MAXTBA = 120 )
-      PARAMETER ( MAXTBB = 500 )
-      PARAMETER ( MAXTBD = 500 )
-      PARAMETER ( MAXCD = 250  )
-      PARAMETER ( MAXJL = 20000)
-      PARAMETER ( NFILES = 32  )
-      PARAMETER ( NF     = 32  )
- 
-      COMMON /MSGCWD/ NMSG(NF),NSUB(NF),MSUB(NF),INODE(NF),IDATE(NF)    
-      COMMON /TABLES/ MAXTAB,NTAB,TAG(MAXJL),TYP(MAXJL),KNT(MAXJL),     
-     .                JUMP(MAXJL),LINK(MAXJL),JMPB(MAXJL),              
-     .                IBT(MAXJL),IRF(MAXJL),ISC(MAXJL),                 
-     .                ITP(MAXJL),VALI(MAXJL),KNTI(MAXJL),               
-     .                ISEQ(MAXJL,2),JSEQ(MAXJL)                         
-      COMMON /USRINT/ NVAL(NF),INV(MAXJL,NF),VAL(MAXJL,NF)              
-      COMMON /TABABD/ NTBA(0:NFILES),NTBB(0:NFILES),NTBD(0:NFILES),
-     .                MTAB(MAXTBA,NFILES),IDNA(MAXTBA,NFILES,2),
-     .                IDNB(MAXTBB,NFILES),IDND(MAXTBD,NFILES),
-     .                TABA(MAXTBA,NFILES),TABB(MAXTBB,NFILES),
-     .                TABD(MAXTBD,NFILES)
- 
-      CHARACTER*600 TABD
-      CHARACTER*128 TABB
-      CHARACTER*128 TABA
-
-      CHARACTER*80 FMT
-      CHARACTER*64 DESC
-      CHARACTER*24 UNIT
-      CHARACTER*8  LCHR
-      CHARACTER*10 TAG,NEMO                                             
-      CHARACTER*6  NUMB                                                 
-      CHARACTER*8  CVAL,PMISS                                            
-      CHARACTER*3  TYP
-      CHARACTER*1  TAB
-      EQUIVALENCE  (RVAL,CVAL)
-      REAL*8       VAL,RVAL,BMISS
-                                                                        
-      DATA BMISS /   10E10  /                                                
-      DATA PMISS /' MISSING'/                                            
-                                                                        
-C---------------------------------------------------------------------- 
-C---------------------------------------------------------------------- 
-                                                                        
-      if(luprt.eq.0) luout = 6                                          
-      if(luprt.ne.0) luout = luprt                                      
-                                                                        
-C  CHECK THE FILE STATUS AND I-NODE                                     
-C  --------------------------------                                     
-                                                                        
-      CALL STATUS(LUNIT,LUN,IL,IM)                                      
-      IF(IL.EQ.0) GOTO 900                                              
-      IF(IM.EQ.0) GOTO 901                                              
-      IF(INODE(LUN).NE.INV(1,LUN)) GOTO 902                             
-                                                                        
-      WRITE(LUOUT,*) 
-      WRITE(LUOUT,*) 'MESSAGE TYPE ',TAG(INODE(LUN))
-      WRITE(LUOUT,*) 
-
-C  DUMP THE CONTENTS OF COMMON /USRINT/ FOR UNIT LUNIT                  
-C  ---------------------------------------------------                  
-                                                                        
-      DO NV=1,NVAL(LUN)                                                 
-      NODE = INV (NV,LUN)                                                 
-      NEMO = TAG (NODE)                                                   
-      ITYP = ITP (NODE)                                                   
-      IF(ITYP.GE.1.AND.ITYP.LE.3) THEN                      
-         CALL NEMTAB(LUN,NEMO,IDN,TAB,N)
-C        if(ityp.eq.1) call NUMTBD(LUN,IDN,NEMO,TAB,N)
-C        IF(TAB.NE.'B') CALL BORT('UFBDMP - BAD ITYP!')
-         NUMB = TABB(N,LUN)(1:6)
-         DESC = TABB(N,LUN)(16:70)
-         UNIT = TABB(N,LUN)(71:94)
-         RVAL = VAL(NV,LUN)                                                 
-      ENDIF
-      IF(ITYP.EQ.1.OR.ITYP.EQ.2) THEN                      
-         IF(RVAL.NE.BMISS) THEN
-            FMT = '(A6,2X,A8,2X,F18.00,2X,A12,2x,a28)'
-            WRITE(FMT(18:19),'(I2)') MAX(1,ISC(NODE))
-            WRITE(LUOUT,FMT) NUMB,NEMO,RVAL,UNIT,DESC
-         ELSE
-            FMT = '(A6,2X,A8,2X,A18,2X,A12,2x,a28)'
-            WRITE(LUOUT,FMT) NUMB,NEMO,PMISS,UNIT,desc
-         ENDIF
-      ELSEIF(ITYP.EQ.3) THEN                                            
-         LCHR = ' '
-         NCHR = IBT(NODE)/8
-         LCHR = ADJUSTR(CVAL)
-         FMT = '(A6,2X,A8,2X,A18,2X,"(",i2,")",A8,2x,a28)'
-         WRITE(LUOUT,FMT) NUMB,NEMO,LCHR,NCHR,UNIT,DESC
-      ENDIF                                                             
-      ENDDO                                                             
-                                                                        
-C  EXITS                                                                
-C  -----                                                                
-                                                                        
-      RETURN                                                            
-900   CALL BORT('UFDUMP - FILE IS CLOSED                     ')        
-901   CALL BORT('UFDUMP - NO MESSAGE OPEN                    ')        
-902   CALL BORT('UFDUMP - I-NODE MISMATCH                    ')        
-      END                                                               

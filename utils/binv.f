@@ -4,6 +4,8 @@ C> @brief Print inventory of BUFR file by message type
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
       PROGRAM BINV
+
+      use bufr_procedures
  
       PARAMETER (MAXSUB=100)
  

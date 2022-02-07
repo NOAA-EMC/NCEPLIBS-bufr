@@ -5,6 +5,8 @@
 
 program gettab
 
+  use bufr_procedures
+
   implicit none
 
   character(len=255) :: finput      !> name of filename to read

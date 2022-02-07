@@ -1,4 +1,5 @@
-	
+	use bufr_procedures
+
 	REAL*8		r8ymd ( 3, 1 ),
      +			r8ltl ( 2, 1 ),
      +			r8flv ( 1, 5 ),

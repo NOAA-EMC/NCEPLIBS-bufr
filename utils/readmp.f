@@ -3,6 +3,7 @@ C> @brief Read BUFR file containing embedded DX BUFR tables,
 C> and print each report one at a time
 
       program readmp
+      use bufr_procedures 
       character*8 subset
       character*1 go     
       call openbf(20,'IN',20)

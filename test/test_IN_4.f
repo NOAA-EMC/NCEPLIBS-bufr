@@ -1,3 +1,4 @@
+	use bufr_procedures
 
 	PARAMETER	( MXBF = 20000 )
 	PARAMETER	( MXBFD4 = MXBF/4 )
