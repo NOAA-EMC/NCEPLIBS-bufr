@@ -39,7 +39,7 @@ if(ENABLE_PYTHON)
   find_package(Python3 REQUIRED COMPONENTS Interpreter)
 endif()
 
-if(APPLE)
+if(APPLE AND NOT "${CMAKE_RANLIB}" MATCHES "^.*(llvm-ranlib)$")
   # The linker on macOS does not include `common symbols` by default
   # Passing the -c flag includes them and fixes an error with undefined symbols
   set(CMAKE_Fortran_ARCHIVE_FINISH "<CMAKE_RANLIB> -c <TARGET>")
