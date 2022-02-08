@@ -156,18 +156,16 @@
 module subroutine_ufbint
 
     private
-!    public ufbint
-    public ufbint, ufbint_isoc
-!    public ufbint, ufbint_4_d, ufbint_8
+    public ufbint
 
     interface ufbint
-        module procedure ufbint_4_d, ufbint_8
+        module procedure ufbint_4_d, ufbint_8, ufbint_4_d_scalar, ufbint_8_scalar, ufbint_4_d_vector, ufbint_8_vector
     end interface
 
     contains
 
     subroutine ufbint_4_d( lunin, usr, i1, i2, iret, str )
-!       used when call arguments to ufbint are 4-byte integers
+!       used when call arguments to ufbint are 4-byte integers, and when usr is a i1 x i2 array
 
         implicit none
 
@@ -176,9 +174,6 @@ module subroutine_ufbint
         integer(kind=4), intent(out) :: iret
         real(kind=8), intent(inout) :: usr(i1,i2)
         character(len=*), intent(in) :: str
-
-!        real*8        usr(i1,i2)
-!        character*(*) str
         
         integer :: my_lunin, my_i1, my_i2, my_iret
 
@@ -192,8 +187,54 @@ module subroutine_ufbint
 
     end subroutine ufbint_4_d
 
+    subroutine ufbint_4_d_scalar( lunin, usr, i1, i2, iret, str )
+!       used when call arguments to ufbint are 4-byte integers, and when usr is a scalar value
+
+        implicit none
+
+        integer(kind=4), intent(in) :: lunin
+        integer(kind=4), intent(in) :: i1, i2
+        integer(kind=4), intent(out) :: iret
+        real(kind=8), intent(inout) :: usr
+        character(len=*), intent(in) :: str
+        
+        integer :: my_lunin, my_i1, my_i2, my_iret
+
+        my_lunin = lunin
+        my_i1 = i1
+        my_i2 = i2
+
+        call ufbint_body( my_lunin, usr, my_i1, my_i2, my_iret, str )
+
+        iret = my_iret
+
+    end subroutine ufbint_4_d_scalar
+
+    subroutine ufbint_4_d_vector( lunin, usr, i1, i2, iret, str )
+!       used when call arguments to ufbint are 4-byte integers, and when usr is a vector array
+
+        implicit none
+
+        integer(kind=4), intent(in) :: lunin
+        integer(kind=4), intent(in) :: i1, i2
+        integer(kind=4), intent(out) :: iret
+        real(kind=8), intent(inout) :: usr(i1)
+        character(len=*), intent(in) :: str
+        
+        integer :: my_lunin, my_i1, my_i2, my_iret
+
+        my_lunin = lunin
+        my_i1 = i1
+        my_i2 = i2
+
+        call ufbint_body( my_lunin, usr, my_i1, my_i2, my_iret, str )
+
+        iret = my_iret
+
+    end subroutine ufbint_4_d_vector
+
     subroutine ufbint_8( lunin, usr, i1, i2, iret, str )
-!       used when call arguments to ufbint are 8-byte integers
+!       used when call arguments to ufbint are 8-byte integers, and when usr is a i1 x i2 array
 
         implicit none
 
@@ -202,9 +243,6 @@ module subroutine_ufbint
         integer(kind=8), intent(out) :: iret
         real(kind=8), intent(inout) :: usr(i1,i2)
         character(len=*), intent(in) :: str
-
-!        real*8        usr(i1,i2)
-!        character*(*) str
         
         integer :: my_lunin, my_i1, my_i2, my_iret
 
@@ -218,20 +256,16 @@ module subroutine_ufbint
 
     end subroutine ufbint_8
 
-    subroutine ufbint_isoc( lunin, usr, i1, i2, iret, str )
-!       used when call arguments to ufbint are ISO C types
-
-        use iso_c_binding
+    subroutine ufbint_8_scalar( lunin, usr, i1, i2, iret, str )
+!       used when call arguments to ufbint are 8-byte integers, and when usr is a scalar value
 
         implicit none
 
-        integer(c_int), value, intent(in) :: lunin
-        integer(c_int), value, intent(in) :: i1, i2
-        integer(c_int), intent(out) :: iret
-        real(c_double), pointer, intent(inout) :: usr
-!        real(c_double), intent(inout) :: usr(i1,i2)
-        character(kind=c_char, len=1), intent(in) :: str
-!        character(len=*), intent(in) :: str
+        integer(kind=8), intent(in) :: lunin
+        integer(kind=8), intent(in) :: i1, i2
+        integer(kind=8), intent(out) :: iret
+        real(kind=8), intent(inout) :: usr
+        character(len=*), intent(in) :: str
         
         integer :: my_lunin, my_i1, my_i2, my_iret
 
@@ -243,9 +277,34 @@ module subroutine_ufbint
 
         iret = my_iret
 
-    end subroutine ufbint_isoc
+    end subroutine ufbint_8_scalar
 
-    subroutine ufbint_body( lunin, usr, i1, i2, iret, str )
+    subroutine ufbint_8_vector( lunin, usr, i1, i2, iret, str )
+!       used when call arguments to ufbint are 8-byte integers, and when usr is a vector array
+
+        implicit none
+
+        integer(kind=8), intent(in) :: lunin
+        integer(kind=8), intent(in) :: i1, i2
+        integer(kind=8), intent(out) :: iret
+        real(kind=8), intent(inout) :: usr(i1)
+        character(len=*), intent(in) :: str
+        
+        integer :: my_lunin, my_i1, my_i2, my_iret
+
+        my_lunin = lunin
+        my_i1 = i1
+        my_i2 = i2
+
+        call ufbint_body( my_lunin, usr, my_i1, my_i2, my_iret, str )
+
+        iret = my_iret
+
+    end subroutine ufbint_8_vector
+
+end module
+
+subroutine ufbint_body( lunin, usr, i1, i2, iret, str )
 
       USE MODV_BMISS
       USE MODA_USRINT
@@ -382,6 +441,4 @@ module subroutine_ufbint
       WRITE(BORT_STR2,'(18X,"THE NUMBER OF ''LEVELS'' ACTUALLY WRITTEN (",I3,") DOES NOT EQUAL THE NUMBER REQUESTED (",I3,") - INCOMPLETE WRITE")') IRET,I2
       CALL BORT2(BORT_STR1,BORT_STR2)
 
-    end subroutine ufbint_body
-
-end module
+end

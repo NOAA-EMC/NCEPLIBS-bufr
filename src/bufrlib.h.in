@@ -136,7 +136,6 @@ void restd( f77int *, f77int *, f77int *, f77int * );
 void stntbi( f77int *, f77int *, char *, char *, char *, size_t, size_t, size_t );
 void strnum( char *, f77int *, size_t );
 void stseq( f77int *, f77int *, f77int *, char *, char *, f77int *, f77int * );
-void ufbint( f77int *, f77r8 *, f77int *, f77int *, f77int *, char *, size_t );
 void ufbseq( f77int *, f77r8 *, f77int *, f77int *, f77int *, char *, size_t );
 void uptdd( f77int *, f77int *, f77int *, f77int * );
 void wrdesc( f77int, f77int *, f77int * );

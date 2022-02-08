@@ -16,7 +16,6 @@
 module bufr_c_interface_mod
 
   use iso_c_binding
-  use bufr_procedures
 
   implicit none
 
@@ -217,7 +216,7 @@ subroutine ufbint_c(bufr_unit, c_data, dim_1, dim_2, iret, table_b_mnemonic) bin
   real(c_double), pointer :: f_data
 
   call c_f_pointer(c_data, f_data)
-  call ufbint_isoc(bufr_unit, f_data, dim_1, dim_2, iret, c_f_string(table_b_mnemonic))
+  call ufbint_body(bufr_unit, f_data, dim_1, dim_2, iret, c_f_string(table_b_mnemonic))
 end subroutine ufbint_c
 
 

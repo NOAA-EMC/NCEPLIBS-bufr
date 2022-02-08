@@ -12,8 +12,8 @@ C-----------------------------------------------------------------------
       CHARACTER*40 HSTR,OSTR,QSTR
       CHARACTER*8  YOU,SID,STA,SUBSET,MSG,cmc(17)
       CHARACTER*3  VARS(8)
-      DIMENSION    HDR(10,1),OBS(10,255),QMS(10,255),QMC(17)
-      EQUIVALENCE  (HDR(1,1),SID)
+      DIMENSION    HDR(10),OBS(10,255),QMS(10,255),QMC(17)
+      EQUIVALENCE  (HDR(1),SID)
       EQUIVALENCE  (qmc,cmc)        
       LOGICAL      WINDOW,STEAM,LEVEL
       real*8       hdr,obs,qms,qmc
@@ -76,11 +76,11 @@ C  MOVE SUBSET CONTENTS INTO THIS PROGRAM
 C  --------------------------------------
  
       CALL UFBINT(LUBFR,HDR,10,  1,IRET,HSTR)
-      XOB = HDR(2,1)
-      YOB = HDR(3,1)
-      jrt = hdr(6,1)
-      jtp = hdr(7,1)
-      jkx = hdr(8,1)
+      XOB = HDR(2)
+      YOB = HDR(3)
+      jrt = hdr(6)
+      jtp = hdr(7)
+      jkx = hdr(8)
       IF(STA.NE.' ' .AND. STA.NE.SID(1:nsta)) GOTO 10
       IF(irt.ne.0   .and. irt.ne.jrt) GOTO 10
       IF(itp.ne.0   .and. itp.ne.jtp) GOTO 10
@@ -111,18 +111,18 @@ C  ---------------------------------
 
       if(level) then
 
-      print'(1x,a8,7(f8.2,1x))',(hdr(i,1),i=1,8)
+      print'(1x,a8,7(f8.2,1x))',(hdr(i),i=1,8)
  
       else
 
       PRINT'(''MESSAGE: '',A8,2(2X,I4),i12 )' , SUBSET,IREC,ISUB,idate
-      PRINT'(''STATION: '',A8,1X,2(F8.2,1X))' , (HDR(I,1),I= 1,3)
-      PRINT'(''TIME:    '',I10,2x,F8.2     )' , IDATE,HDR(4,1) 
-      PRINT'(''ELV:     '',F8.2            )' , (HDR(5,1)       )
+      PRINT'(''STATION: '',A8,1X,2(F8.2,1X))' , (HDR(I),I= 1,3)
+      PRINT'(''TIME:    '',I10,2x,F8.2     )' , IDATE,HDR(4) 
+      PRINT'(''ELV:     '',F8.2            )' , (HDR(5)       )
       PRINT'(''PSL:     '',F8.2,1X,A1      )' ,  OBS(8,1),QMS(6,1)
-      PRINT'(''TYPE:    '',3(F8.0,1X)      )' , (HDR(I,1),I= 6,8)
-      PRINT'(''SOURCE:  '',3a8             )' , (HDR(I,1),I= 9,9)
-      PRINT'(''SEQUENCE '',F10.0           )' , (HDR(10,1)      )
+      PRINT'(''TYPE:    '',3(F8.0,1X)      )' , (HDR(I),I= 6,8)
+      PRINT'(''SOURCE:  '',3a8             )' , (HDR(I),I= 9,9)
+      PRINT'(''SEQUENCE '',F10.0           )' , (HDR(10)      )
       PRINT'(''DATA:    ''                 )'
 
       endif
