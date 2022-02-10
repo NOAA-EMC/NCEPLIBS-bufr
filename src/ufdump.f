@@ -67,6 +67,7 @@ C>
       USE MODA_TABABD
       USE MODA_TABLES
       USE MODA_NRV203
+      use subroutine_upftbv
 
       COMMON /TABLEF/ CDMF
 

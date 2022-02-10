@@ -3052,7 +3052,7 @@ subroutine ufbin3(lunit,usr,i1,i2,i3,iret,jret,str) ! in ufbin3.f
     common /quiet/ iprt
     common /usrint/ nval,inv,val
 end subroutine ufbin3
-subroutine ufbint(lunin,usr,i1,i2,iret,str) ! in ufbint.f
+subroutine ufbint_body(lunin,usr,i1,i2,iret,str) ! in ufbint.f90
     integer,intent(in) :: lunin
     real*8, intent(inout), dimension(i1,i2) :: usr
     integer, intent(in) :: i1,i2
@@ -3079,7 +3079,7 @@ subroutine ufbint(lunin,usr,i1,i2,iret,str) ! in ufbint.f
     common /usrint/ nval,inv,val
     common /quiet/ iprt
     common /usrstr/ nnod,ncon,nods,nodc,ivls,kons
-end subroutine ufbint
+end subroutine ufbint_body
 subroutine ufbinx(lunit,imsg,isub,usr,i1,i2,iret,str) ! in ufbinx.f
     integer :: lunit
     integer :: imsg
@@ -3249,7 +3249,7 @@ subroutine ufbqcp(lunit,qcp,nemo) ! in ufbqcp.f
     real :: qcp
     character*(*) :: nemo
 end subroutine ufbqcp
-subroutine ufbrep(lunio,usr,i1,i2,iret,str) ! in ufbrep.f
+subroutine ufbrep_body(lunio,usr,i1,i2,iret,str) ! in ufbrep.f90
     integer,intent(in) :: lunio
     real*8, intent(inout), dimension(i1,i2) :: usr
     integer, intent(in) :: i1,i2
@@ -3271,7 +3271,7 @@ subroutine ufbrep(lunio,usr,i1,i2,iret,str) ! in ufbrep.f
     common /acmode/ iac
     common /quiet/ iprt
     common /usrint/ nval,inv,val
-end subroutine ufbrep
+end subroutine ufbrep_body
 subroutine ufbrms(imsg,isub,usr,i1,i2,iret,str) ! in ufbrms.f
     integer :: imsg
     integer :: isub
@@ -3655,7 +3655,7 @@ subroutine upds3(mbay,lcds3,cds3,nds3) ! in upds3.f
     character dimension(*,6),intent(c) :: cds3
     integer :: nds3
 end subroutine upds3
-subroutine upftbv(lunit,nemo,val,mxib,ibit,nib) ! in upftbv.f
+subroutine upftbv_body(lunit,nemo,val,mxib,ibit,nib) ! in upftbv.f90
     integer,intent(in) :: lunit
     character*(*),intent(in) :: nemo
     real*8, intent(in) :: val
@@ -3675,7 +3675,7 @@ subroutine upftbv(lunit,nemo,val,mxib,ibit,nib) ! in upftbv.f
     character dimension(500,32,600),intent(c) :: tabd
     common /bufrbmiss/ bmiss
     common /tababd/ ntba,ntbb,ntbd,mtab,idna,idnb,idnd,taba,tabb,tabd
-end subroutine upftbv
+end subroutine upftbv_body
 function ups(ival,node) ! in ups.f
     integer :: ival
     integer :: node
@@ -3827,7 +3827,7 @@ subroutine writdx(lunit,lun,lundx) ! in writdx.f
     integer :: lun
     integer :: lundx
 end subroutine writdx
-subroutine writsa(lunxx,lmsgt,msgt,msgl) ! in writsa.f
+subroutine writsa_body(lunxx,lmsgt,msgt,msgl) ! in writsa.f90
     integer :: lunxx
     integer :: lmsgt
     integer dimension(*) :: msgt
@@ -3839,7 +3839,7 @@ subroutine writsa(lunxx,lmsgt,msgt,msgl) ! in writsa.f
     common /bufrmg/ msglen,msgtxt
     common /bufrbmiss/ bmiss
     common /msgcmp/ ccmf
-end subroutine writsa
+end subroutine writsa_body
 subroutine writsb(lunit) ! in writsb.f
     integer :: lunit
     character*1 :: ccmf

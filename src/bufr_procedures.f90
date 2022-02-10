@@ -8,6 +8,8 @@
 module bufr_procedures
 
   use subroutine_ufbint
+  use subroutine_ufbrep
+  use subroutine_upftbv
   use subroutine_writsa
 
 end module

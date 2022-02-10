@@ -123,13 +123,10 @@ module subroutine_writsa
 
         implicit none
 
-        integer(kind=4), intent(in) :: lunxx
-        integer(kind=4), intent(in) :: lmsgt
-        integer(kind=4), intent(out) :: msgt(:)
-        integer(kind=4), intent(out) :: msgl
+        integer(kind=4), intent(in) :: lunxx, lmsgt
+        integer(kind=4), intent(out) :: msgt(:), msgl
 
-        integer :: my_lunxx, my_lmsgt, my_msgl
-        integer :: my_msgt(size(msgt))
+        integer :: my_lunxx, my_lmsgt, my_msgt(lmsgt), my_msgl
 
         my_lunxx = lunxx
         my_lmsgt = lmsgt
@@ -146,13 +143,10 @@ module subroutine_writsa
 
         implicit none
 
-        integer(kind=8), intent(in) :: lunxx
-        integer(kind=8), intent(in) :: lmsgt
-        integer(kind=8), intent(out) :: msgt(:)
-        integer(kind=8), intent(out) :: msgl
+        integer(kind=8), intent(in) :: lunxx, lmsgt
+        integer(kind=8), intent(out) :: msgt(:), msgl
 
-        integer :: my_lunxx, my_lmsgt, my_msgl
-        integer :: my_msgt(size(msgt))
+        integer :: my_lunxx, my_lmsgt, my_msgt(lmsgt), my_msgl
 
         my_lunxx = lunxx
         my_lmsgt = lmsgt
@@ -164,7 +158,9 @@ module subroutine_writsa
 
     end subroutine writsa_8
 
-    subroutine writsa_body( lunxx, lmsgt, msgt, msgl )
+end module
+
+subroutine writsa_body( lunxx, lmsgt, msgt, msgl )
 
       USE MODA_BUFRMG
 
@@ -248,6 +244,4 @@ module subroutine_writsa
 902   CALL BORT('BUFRLIB: WRITSA - A MESSAGE MUST BE OPEN IN OUTPUT BUFR FILE, NONE ARE')
 904   CALL BORT('BUFRLIB: WRITSA - OVERFLOW OF OUTPUT BUFR MESSAGE ARRAY; TRY A LARGER DIMENSION FOR THIS ARRAY')
 
-    end subroutine writsa_body
-
-end module
+end

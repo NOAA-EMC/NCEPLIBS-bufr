@@ -13,8 +13,10 @@
 !>   the current data subset.
 !>
 !> <p>This subroutine is specifically designed for use with Table B
-!> mnemonics which are part of a delayed-replication sequence, or for
-!> which there is no replication at all.  See also subroutines ufbrep(),
+!> mnemonics which are part of a fixed (i.e. non-delayed) replication
+!> sequence, or for mnemonics which are replicated by being directly
+!> listed more than once within an overall subset definition.
+!> See also subroutines ufbint(),
 !> ufbseq() and ufbstp(), which can also be used to read/write one or
 !> more data values from/to a data subset but are designed for
 !> different use cases.  A more detailed discussion of
@@ -24,10 +26,10 @@
 !> @author J. Woollen
 !> @date 1994-01-06
 !>
-!> <b>Usage:</b> call ufbint( LUNIN, USR, I1, I2, IRET, STR )
+!> <b>Usage:</b> call ufbrep( LUNIN, USR, I1, I2, IRET, STR )
 !>
 !> @param[in] LUNIN   -- integer: Absolute value is Fortran logical
-!>                       unit number for BUFR file 
+!>                       unit number for BUFR file
 !> @param[in,out] USR -- real*8(*,*): Data values
 !>                         - If ABS(LUNIN) was opened for input, then
 !>                           USR is output from this subroutine and
@@ -111,16 +113,6 @@
 !> that need to read certain values back out from a BUFR file during
 !> the same time that it is in the process of being written to.
 !> - If ABS(LUNIN) points to a file that is open for input (reading
-!> BUFR), STR may contain a Table D mnemonic that is replicated using
-!> either 8-bit or 16-bit delayed replication (as noted using
-!> replication indicators {} or (), respectively, within the
-!> assocated DX BUFR table), and the corresponding location in USR
-!> will contain the total number of replications of that mnemonic
-!> within the data subset.  Note that, when using this option, the
-!> applicable replication indicators must be included in STR 
-!> along with the mnemonic itself, as shown in an example in the
-!> discussion of [DX BUFR Tables](@ref ufbsubs).
-!> - If ABS(LUNIN) points to a file that is open for input (reading
 !> BUFR), there are a few additional special mnemonics that can be
 !> included within STR when calling this subroutine, and which in turn
 !> will result in special information being returned within the
@@ -141,31 +133,31 @@
 !> | Date | Programmer | Comments |
 !> | -----|------------|----------|
 !> | 1994-01-06 | J. Woollen | Original author |
-!> | 1996-11-25 | J. Woollen | Modified to add a return code when mnemonics are not found when reading |
-!> | 1996-12-17 | J. Woollen | Modified to always initialize USR array to "missing" when BUFR file is being read |
 !> | 1998-07-08 | J. Woollen | Replaced call to Cray library routine ABORT with call to new internal routine bort() |
-!> | 1999-11-18 | J. Woollen | The number of BUFR files which can be opened at one time increased from 10 to 32 |
+!> | 1999-11-18 | J. Woollen | The number of BUFR files which can be opened at one time increased from 10 to C32 |
+!> | 2003-05-19 | J. Woollen | Disabled the parsing switch which controls checking in the same replication group |
 !> | 2003-11-04 | S. Bender  | Added remarks and routine interdependencies |
 !> | 2003-11-04 | D. Keyser  | Unified/portable for WRF; added documentation; outputs more complete diagnostic info when routine terminates abnormally |
 !> | 2004-08-18 | J. Ator    | Added SAVE for IFIRST1 and IFIRST2 flags |
+!> | 2009-03-31 | J. Woollen | Add documentation |
 !> | 2009-04-21 | J. Ator    | Use errwrt() |
 !> | 2014-12-10 | J. Ator    | Use modules instead of COMMON blocks |
 !> | 2022-02-01 | J. Ator    | Converted to module to consolidate _4, _d, and _8 variations into one build |
 !>
 
-module subroutine_ufbint
+module subroutine_ufbrep
 
     private
-    public ufbint
+    public ufbrep
 
-    interface ufbint
-        module procedure ufbint_4_d, ufbint_8, ufbint_4_d_scalar, ufbint_8_scalar, ufbint_4_d_vector, ufbint_8_vector
+    interface ufbrep
+        module procedure ufbrep_4_d, ufbrep_8, ufbrep_4_d_scalar, ufbrep_8_scalar, ufbrep_4_d_vector, ufbrep_8_vector
     end interface
 
     contains
 
-    subroutine ufbint_4_d( lunin, usr, i1, i2, iret, str )
-!       used when call arguments to ufbint are 4-byte integers, and when usr is a i1 x i2 array
+    subroutine ufbrep_4_d( lunin, usr, i1, i2, iret, str )
+!       used when call arguments to ufbrep are 4-byte integers, and when usr is a i1 x i2 array
 
         implicit none
 
@@ -180,14 +172,14 @@ module subroutine_ufbint
         my_i1 = i1
         my_i2 = i2
 
-        call ufbint_body( my_lunin, usr, my_i1, my_i2, my_iret, str )
+        call ufbrep_body( my_lunin, usr, my_i1, my_i2, my_iret, str )
 
         iret = my_iret
 
-    end subroutine ufbint_4_d
+    end subroutine ufbrep_4_d
 
-    subroutine ufbint_4_d_scalar( lunin, usr, i1, i2, iret, str )
-!       used when call arguments to ufbint are 4-byte integers, and when usr is a scalar value
+    subroutine ufbrep_4_d_scalar( lunin, usr, i1, i2, iret, str )
+!       used when call arguments to ufbrep are 4-byte integers, and when usr is a scalar value
 
         implicit none
 
@@ -202,14 +194,14 @@ module subroutine_ufbint
         my_i1 = i1
         my_i2 = i2
 
-        call ufbint_body( my_lunin, usr, my_i1, my_i2, my_iret, str )
+        call ufbrep_body( my_lunin, usr, my_i1, my_i2, my_iret, str )
 
         iret = my_iret
 
-    end subroutine ufbint_4_d_scalar
+    end subroutine ufbrep_4_d_scalar
 
-    subroutine ufbint_4_d_vector( lunin, usr, i1, i2, iret, str )
-!       used when call arguments to ufbint are 4-byte integers, and when usr is a vector array
+    subroutine ufbrep_4_d_vector( lunin, usr, i1, i2, iret, str )
+!       used when call arguments to ufbrep are 4-byte integers, and when usr is a vector array
 
         implicit none
 
@@ -224,14 +216,14 @@ module subroutine_ufbint
         my_i1 = i1
         my_i2 = i2
 
-        call ufbint_body( my_lunin, usr, my_i1, my_i2, my_iret, str )
+        call ufbrep_body( my_lunin, usr, my_i1, my_i2, my_iret, str )
 
         iret = my_iret
 
-    end subroutine ufbint_4_d_vector
+    end subroutine ufbrep_4_d_vector
 
-    subroutine ufbint_8( lunin, usr, i1, i2, iret, str )
-!       used when call arguments to ufbint are 8-byte integers, and when usr is a i1 x i2 array
+    subroutine ufbrep_8( lunin, usr, i1, i2, iret, str )
+!       used when call arguments to ufbrep are 8-byte integers, and when usr is a i1 x i2 array
 
         implicit none
 
@@ -246,14 +238,14 @@ module subroutine_ufbint
         my_i1 = i1
         my_i2 = i2
 
-        call ufbint_body( my_lunin, usr, my_i1, my_i2, my_iret, str )
+        call ufbrep_body( my_lunin, usr, my_i1, my_i2, my_iret, str )
 
         iret = my_iret
 
-    end subroutine ufbint_8
+    end subroutine ufbrep_8
 
-    subroutine ufbint_8_scalar( lunin, usr, i1, i2, iret, str )
-!       used when call arguments to ufbint are 8-byte integers, and when usr is a scalar value
+    subroutine ufbrep_8_scalar( lunin, usr, i1, i2, iret, str )
+!       used when call arguments to ufbrep are 8-byte integers, and when usr is a scalar value
 
         implicit none
 
@@ -268,14 +260,14 @@ module subroutine_ufbint
         my_i1 = i1
         my_i2 = i2
 
-        call ufbint_body( my_lunin, usr, my_i1, my_i2, my_iret, str )
+        call ufbrep_body( my_lunin, usr, my_i1, my_i2, my_iret, str )
 
         iret = my_iret
 
-    end subroutine ufbint_8_scalar
+    end subroutine ufbrep_8_scalar
 
-    subroutine ufbint_8_vector( lunin, usr, i1, i2, iret, str )
-!       used when call arguments to ufbint are 8-byte integers, and when usr is a vector array
+    subroutine ufbrep_8_vector( lunin, usr, i1, i2, iret, str )
+!       used when call arguments to ufbrep are 8-byte integers, and when usr is a vector array
 
         implicit none
 
@@ -290,21 +282,21 @@ module subroutine_ufbint
         my_i1 = i1
         my_i2 = i2
 
-        call ufbint_body( my_lunin, usr, my_i1, my_i2, my_iret, str )
+        call ufbrep_body( my_lunin, usr, my_i1, my_i2, my_iret, str )
 
         iret = my_iret
 
-    end subroutine ufbint_8_vector
+    end subroutine ufbrep_8_vector
 
 end module
 
-subroutine ufbint_body( lunin, usr, i1, i2, iret, str )
+subroutine ufbrep_body(LUNIN,USR,I1,I2,IRET,STR)
 
       USE MODV_BMISS
       USE MODA_USRINT
       USE MODA_MSGCWD
 
-      COMMON /USRSTR/ NNOD,NCON,NODS(20),NODC(10),IVLS(10),KONS(10)
+      COMMON /ACMODE/ IAC
       COMMON /QUIET / IPRT
 
       CHARACTER*(*) STR
@@ -330,12 +322,12 @@ subroutine ufbint_body( lunin, usr, i1, i2, iret, str )
       IF(INODE(LUN).NE.INV(1,LUN)) GOTO 902
 
       IO = MIN(MAX(0,IL),1)
-      IF(LUNIT.NE.LUNIN) IO = 0
+      IF(LUNIN.NE.LUNIT) IO = 0
 
       IF(I1.LE.0) THEN
          IF(IPRT.GE.0) THEN
       CALL ERRWRT('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
-      ERRSTR = 'BUFRLIB: UFBINT - 3rd ARG. (INPUT) IS .LE. 0, SO RETURN WITH 5th ARG. (IRET) = 0; 6th ARG. (STR) ='
+      ERRSTR = 'BUFRLIB: UFBREP - 3rd ARG. (INPUT) IS .LE. 0, SO RETURN WITH 5th ARG. (IRET) = 0; 6th ARG. (STR) ='
       CALL ERRWRT(ERRSTR)
       CALL ERRWRT(STR)
       CALL ERRWRT('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
@@ -346,7 +338,7 @@ subroutine ufbint_body( lunin, usr, i1, i2, iret, str )
          IF(IPRT.EQ.-1)  IFIRST1 = 1
          IF(IO.EQ.0 .OR. IFIRST1.EQ.0 .OR. IPRT.GE.1)  THEN
       CALL ERRWRT('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
-      ERRSTR = 'BUFRLIB: UFBINT - 4th ARG. (INPUT) IS .LE. 0, SO RETURN WITH 5th ARG. (IRET) = 0; 6th ARG. (STR) ='
+      ERRSTR = 'BUFRLIB: UFBREP - 4th ARG. (INPUT) IS .LE. 0, SO RETURN WITH 5th ARG. (IRET) = 0; 6th ARG. (STR) ='
       CALL ERRWRT(ERRSTR)
       CALL ERRWRT(STR)
             IF(IPRT.EQ.0 .AND. IO.EQ.1) THEN
@@ -363,11 +355,6 @@ subroutine ufbint_body( lunin, usr, i1, i2, iret, str )
          GOTO 100
       ENDIF
 
-!  PARSE OR RECALL THE INPUT STRING
-!  --------------------------------
-
-      CALL STRING(STR,LUN,I1,IO)
-
 !  INITIALIZE USR ARRAY PRECEEDING AN INPUT OPERATION
 !  --------------------------------------------------
 
@@ -379,26 +366,26 @@ subroutine ufbint_body( lunin, usr, i1, i2, iret, str )
          ENDDO
       ENDIF
 
+!  PARSE OR RECALL THE INPUT STRING - READ/WRITE VALUES
+!  ----------------------------------------------------
+
+      IA2 = IAC
+      IAC = 1
+      CALL STRING(STR,LUN,I1,IO)
+
 !  CALL THE MNEMONIC READER/WRITER
 !  -------------------------------
 
-      CALL UFBRW(LUN,USR,I1,I2,IO,IRET)
+      CALL UFBRP(LUN,USR,I1,I2,IO,IRET)
+      IAC = IA2
 
-!  IF INCOMPLETE WRITE TRY TO INITIALIZE REPLICATION SEQUENCE OR RETURN
-!  ---------------------------------------------------------------------
-
-      IF(IO.EQ.1 .AND. IRET.NE.I2 .AND. IRET.GE.0) THEN
-         CALL TRYBUMP(LUNIT,LUN,USR,I1,I2,IO,IRET)
-         IF(IRET.NE.I2) GOTO 903
-      ELSEIF(IRET.EQ.-1) THEN
-         IRET = 0
-      ENDIF
+      IF(IO.EQ.1 .AND. IRET.LT.I2) GOTO 903
 
       IF(IRET.EQ.0)  THEN
          IF(IO.EQ.0) THEN
             IF(IPRT.GE.1)  THEN
       CALL ERRWRT('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
-      ERRSTR = 'BUFRLIB: UFBINT - NO SPECIFIED VALUES READ IN, SO RETURN WITH 5th ARG. (IRET) = 0; 6th ARG. (STR) ='
+      ERRSTR = 'BUFRLIB: UFBREP - NO SPECIFIED VALUES READ IN, SO RETURN WITH 5th ARG. (IRET) = 0; 6th ARG. (STR) ='
       CALL ERRWRT(ERRSTR)
       CALL ERRWRT(STR)
       CALL ERRWRT('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
@@ -408,7 +395,7 @@ subroutine ufbint_body( lunin, usr, i1, i2, iret, str )
             IF(IPRT.EQ.-1)  IFIRST2 = 1
             IF(IFIRST2.EQ.0 .OR. IPRT.GE.1)  THEN
       CALL ERRWRT('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
-      ERRSTR = 'BUFRLIB: UFBINT - NO SPECIFIED VALUES WRITTEN OUT, SO RETURN WITH 5th ARG. (IRET) = 0; 6th ARG. (STR) ='
+      ERRSTR = 'BUFRLIB: UFBREP - NO SPECIFIED VALUES WRITTEN OUT, SO RETURN WITH 5th ARG. (IRET) = 0; 6th ARG. (STR) ='
       CALL ERRWRT(ERRSTR)
       CALL ERRWRT(STR)
       CALL ERRWRT('MAY NOT BE IN THE BUFR TABLE(?)')
@@ -430,13 +417,13 @@ subroutine ufbint_body( lunin, usr, i1, i2, iret, str )
 !  -----
 
 100   RETURN
-900   CALL BORT('BUFRLIB: UFBINT - BUFR FILE IS CLOSED, IT MUST BE OPEN')
-901   CALL BORT('BUFRLIB: UFBINT - A MESSAGE MUST BE OPEN IN BUFR FILE, NONE ARE')
-902   CALL BORT('BUFRLIB: UFBINT - LOCATION OF INTERNAL TABLE FOR BUFR FILE DOES NOT AGREE WITH EXPECTED LOCATION IN' // &
+900   CALL BORT('BUFRLIB: UFBREP - BUFR FILE IS CLOSED, IT MUST BE OPEN')
+901   CALL BORT('BUFRLIB: UFBREP - A MESSAGE MUST BE OPEN IN BUFR FILE, NONE ARE')
+902   CALL BORT('BUFRLIB: UFBREP - LOCATION OF INTERNAL TABLE FOR BUFR FILE DOES NOT AGREE WITH EXPECTED LOCATION IN' // &
                 ' INTERNAL SUBSET ARRAY')
-903   WRITE(BORT_STR1,'("BUFRLIB: UFBINT - MNEMONIC STRING READ IN IS: ",A)') STR
-      WRITE(BORT_STR2,'(18X,"THE NUMBER OF ''LEVELS'' ACTUALLY WRITTEN (",I3,") DOES NOT EQUAL THE NUMBER REQUESTED' // &
-                ' (",I3,") - INCOMPLETE WRITE")') IRET,I2
+903   WRITE(BORT_STR1,'("BUFRLIB: UFBREP - MNEMONIC STRING READ IN IS: ",A)') STR
+      WRITE(BORT_STR2,'(18X,"THE NUMBER OF ''LEVELS'' ACTUALLY WRITTEN (",I3,") LESS THAN THE NUMBER REQUESTED' // &
+                ' (",I3,") - INCOMPLETE WRITE")')  IRET,I2
       CALL BORT2(BORT_STR1,BORT_STR2)
 
 end

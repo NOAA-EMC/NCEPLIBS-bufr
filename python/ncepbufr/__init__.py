@@ -386,9 +386,9 @@ class open:
         """
         return bit settings associated with
         a specifed value and flag table mnemonic
-        (see src/upftbv.f for more details)
+        (see src/upftbv.f90 for more details)
         """
-        ibits, nbits = _bufrlib.upftbv(self.lunit, mnemonic, float(val), _maxevents)
+        ibits, nbits = _bufrlib.upftbv_body(self.lunit, mnemonic, float(val), _maxevents)
         return ibits[:nbits]
     def checkpoint(self):
         """
@@ -479,14 +479,14 @@ class open:
         (e.g. `mnemonics='MNEMONIC1 MNEMONIC2 MNEMONIC3'`).
 
         By default, the mnemonics are assumed to be part of a delayed
-        replication sequence, or have no replication at all, and `ufbint`
+        replication sequence, or have no replication at all, and `ufbint_body`
         is used to read the data.
 
         `ncepbufr.open.load_subset` must be called before
         trying to decode a subset using `ncepbufr.open.read_subset`.
 
-        if `rep = True`, `ufbrep` is used to read data represented
-        a regular replication sequence.  See the comments in `src/ufbrep.f` for
+        if `rep = True`, `ufbrep_body` is used to read data represented
+        a regular replication sequence.  See the comments in `src/ufbrep.f90` for
         more details. Used for radiance data.
 
         if `seq=True`, `ufbseq` is used to read data represented by
@@ -515,14 +515,14 @@ class open:
             levs = _bufrlib.ufbseq(self.lunit,data,mnemonics,_nmaxseq,_maxdim)
         elif rep:
             data = np.empty((ndim,_maxdim),np.float,order='F')
-            levs = _bufrlib.ufbrep(self.lunit,data,mnemonics,ndim,_maxdim)
+            levs = _bufrlib.ufbrep_body(self.lunit,data,mnemonics,ndim,_maxdim)
         elif events:
             #data = np.empty((ndim,_maxdim,maxevents),np.float,order='F')
             data = np.empty((ndim,_maxdim,_maxevents),np.float,order='F')
             levs = _bufrlib.ufbevn(self.lunit,data,mnemonics,ndim,_maxdim,_maxevents)
         else:
             data = np.empty((ndim,_maxdim),np.float,order='F')
-            levs = _bufrlib.ufbint(self.lunit,data,mnemonics,ndim,_maxdim)
+            levs = _bufrlib.ufbint_body(self.lunit,data,mnemonics,ndim,_maxdim)
         if events:
             return np.ma.masked_values(data[:,:levs,:],self.missing_value)
         else:
@@ -536,11 +536,11 @@ class open:
         (e.g. `mnemonics='MNEMONIC1 MNEMONIC2 MNEMONIC3'`).
 
         By default, the mnemonics are assumed to be part of a delayed
-        replication sequence, or have no replication at all, and `ufbint`
+        replication sequence, or have no replication at all, and `ufbint_body`
         is used to write the data.
 
-        if `rep = True`, `ufbrep` is used to write data represented
-        a regular replication sequence.  See the comments in `src/ufbrep.f` for
+        if `rep = True`, `ufbrep_body` is used to write data represented
+        a regular replication sequence.  See the comments in `src/ufbrep.f90` for
         more details. Used for radiance data.
 
         if `seq=True`, `ufbseq` is used to write data represented by
@@ -571,13 +571,13 @@ class open:
             levs = _bufrlib.ufbseq(self.lunit,dataf,mnemonics,dataf.shape[0],\
                     dataf.shape[1])
         elif rep:
-            levs = _bufrlib.ufbrep(self.lunit,dataf,mnemonics,dataf.shape[0],\
+            levs = _bufrlib.ufbrep_body(self.lunit,dataf,mnemonics,dataf.shape[0],\
                     dataf.shape[1])
         elif events:
             levs = _bufrlib.ufbevn(self.lunit,dataf,mnemonics,dataf.shape[0],\
                     dataf.shape[1],dataf.shape[2])
         else:
-            levs = _bufrlib.ufbint(self.lunit,dataf,mnemonics,dataf.shape[0],\
+            levs = _bufrlib.ufbint_body(self.lunit,dataf,mnemonics,dataf.shape[0],\
                     dataf.shape[1])
         # end subset if desired.
         if end:

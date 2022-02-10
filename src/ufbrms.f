@@ -46,6 +46,7 @@ C>
 
       USE MODA_MSGCWD
       USE MODA_MSGMEM
+      use subroutine_ufbint
 
       COMMON /QUIET / IPRT
 

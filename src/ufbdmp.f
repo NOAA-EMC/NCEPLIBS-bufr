@@ -74,6 +74,7 @@ C>
       USE MODA_MSGCWD
       USE MODA_TABABD
       USE MODA_TABLES
+      use subroutine_upftbv
 
       CHARACTER*120 LCHR2
       CHARACTER*20 LCHR,PMISS

@@ -72,6 +72,7 @@ C>
 
       USE MODA_MSGCWD
       USE MODA_BITBUF
+      use subroutine_ufbint
 
       CHARACTER*(*) STR
       CHARACTER*128 BORT_STR
