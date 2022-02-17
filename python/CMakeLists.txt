@@ -20,11 +20,11 @@ install(CODE "if( NOT \$ENV{DESTDIR} STREQUAL \"\" )
               message(\"Installing Python modules:
                                       ${Python3_EXECUTABLE} -m pip install \${__root}
                                         --prefix=${CMAKE_INSTALL_PREFIX}
-                                        --install-option="--install-lib=${_install_dir}"
+                                        --install-option=\"--install-lib=${_install_dir}\"
                                         --record=${CMAKE_BINARY_DIR}/extra_install.txt\")
               execute_process(COMMAND ${Python3_EXECUTABLE} -m pip install \${__root}
                                         --prefix=${CMAKE_INSTALL_PREFIX}
-                                        --install-option="--install-lib=${_install_dir}"
+                                        --install-option=\"--install-lib=${_install_dir}\"
                                         --record=${CMAKE_BINARY_DIR}/extra_install.txt
                               WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR})")
 
