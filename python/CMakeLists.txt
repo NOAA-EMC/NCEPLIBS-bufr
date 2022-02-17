@@ -9,7 +9,7 @@ set(_install_dir "${CMAKE_INSTALL_FULL_LIBDIR}/python${_PYVER}/site-packages")
 
 # Build the extension module for use in install tree
 install(CODE "message(\"Building Python extension modules:
-${Python3_EXECUTABLE} setup.py build\")
+                                      ${Python3_EXECUTABLE} setup.py build\")
               execute_process(COMMAND ${Python3_EXECUTABLE} setup.py build
                               WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR})")
 
@@ -20,11 +20,11 @@ install(CODE "if( NOT \$ENV{DESTDIR} STREQUAL \"\" )
               message(\"Installing Python modules:
                                       ${Python3_EXECUTABLE} -m pip install \${__root}
                                         --prefix=${CMAKE_INSTALL_PREFIX}
-                                        --install-lib=${_install_dir}
+                                        --install-option="--install-lib=${_install_dir}"
                                         --record=${CMAKE_BINARY_DIR}/extra_install.txt\")
               execute_process(COMMAND ${Python3_EXECUTABLE} -m pip install \${__root}
                                         --prefix=${CMAKE_INSTALL_PREFIX}
-                                        --install-lib=${_install_dir}
+                                        --install-option="--install-lib=${_install_dir}"
                                         --record=${CMAKE_BINARY_DIR}/extra_install.txt
                               WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR})")
 
