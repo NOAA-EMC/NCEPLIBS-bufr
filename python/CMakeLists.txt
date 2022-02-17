@@ -18,12 +18,11 @@ install(CODE "if( NOT \$ENV{DESTDIR} STREQUAL \"\" )
                 set( __root \"--root=\$ENV{DESTDIR}\" )
               endif()
               message(\"Installing Python modules:
-${Python3_EXECUTABLE} setup.py install \${__root}
-                                       --install-lib=${_install_dir}
-                                       --prefix=${CMAKE_INSTALL_PREFIX}
-                                       --record=${CMAKE_BINARY_DIR}/extra_install.txt\")
-              execute_process(COMMAND ${Python3_EXECUTABLE} setup.py install
-                                        \${__root}
+                                      ${Python3_EXECUTABLE} -m pip install \${__root}
+                                        --prefix=${CMAKE_INSTALL_PREFIX}
+                                        --install-lib=${_install_dir}
+                                        --record=${CMAKE_BINARY_DIR}/extra_install.txt\")
+              execute_process(COMMAND ${Python3_EXECUTABLE} -m pip install \${__root}
                                         --prefix=${CMAKE_INSTALL_PREFIX}
                                         --install-lib=${_install_dir}
                                         --record=${CMAKE_BINARY_DIR}/extra_install.txt
