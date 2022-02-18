@@ -65,12 +65,13 @@ jobs:
         cd bufr
         mkdir build
         cd build
-        pyver=$(python3 -c 'import sys;print(sys.version_info[0],".",sys.version_info[1],sep="")')
-        pybufr_dir=`pwd`/install/lib/python$pyver/site-packages
-        export PYTHONPATH="${PYTHONPATH}:${pybufr_dir}"
+        #pyver=$(python3 -c 'import sys;print(sys.version_info[0],".",sys.version_info[1],sep="")')
+        #pybufr_dir=`pwd`/install/lib/python$pyver/site-packages
+        #export PYTHONPATH="${PYTHONPATH}:${pybufr_dir}"
         cmake -DCMAKE_INSTALL_PREFIX=./install -DENABLE_PYTHON=ON ..
         make -j2
         make install
+        ls -lR ./install/lib
         ctest --output-on-failure
 
 #    - name: test
