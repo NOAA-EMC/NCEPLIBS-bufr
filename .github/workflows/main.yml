@@ -68,8 +68,9 @@ jobs:
         cmake -DCMAKE_INSTALL_PREFIX=./install -DENABLE_PYTHON=ON ..
         make -j2
         make install
-
-    - name: test
-      run: |
-        cd $GITHUB_WORKSPACE/bufr/build
         ctest --output-on-failure
+
+#    - name: test
+#      run: |
+#        cd $GITHUB_WORKSPACE/bufr/build
+#        ctest --output-on-failure
