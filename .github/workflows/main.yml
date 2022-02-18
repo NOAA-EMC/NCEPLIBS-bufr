@@ -65,6 +65,8 @@ jobs:
         cd bufr
         mkdir build
         cd build
+        pybufr_dir=`pwd`/install/lib/python3.8/site-packages/py_ncepbufr-11.6.0-py3.8-linux-x86_64.egg
+        export PYTHONPATH="${PYTHONPATH}:${pybufr_dir}"
         cmake -DCMAKE_INSTALL_PREFIX=./install -DENABLE_PYTHON=ON ..
         make -j2
         make install
