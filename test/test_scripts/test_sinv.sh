@@ -1,7 +1,7 @@
 #!/bin/bash
 #> @file
-#> @brief Test script to test gettab utility
-#> @author aerorahul @date 2020-12-20
+#> @brief Test script to test sinv.x utility
+#> @author jack-woollen @date 2022-02-18
 
 set -eu
 

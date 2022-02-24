@@ -82,6 +82,11 @@ list(APPEND test_scripts
   test_wrapper_IN.sh
   test_wrapper_OUT.sh
   test_gettab.sh
+  test_binv.sh
+  test_sinv.sh
+  test_readbp.sh
+  test_readmp.sh
+  test_cmpbqm.sh
   test_split_by_subset.sh
   test_debufr.sh
   test_xbfmg.sh
@@ -190,14 +195,40 @@ foreach(db_num RANGE 1 2)
            "testrun/${db_case}.run" "testfiles/testoutput/${db_case}.out")
 endforeach()
 
-# Test gettab.x utility
+# Test gettab utility
 add_test(NAME test_gettab
-  COMMAND ${CMAKE_BINARY_DIR}/bin/test_gettab.sh "${CMAKE_BINARY_DIR}/utils/gettab.x testfiles/data/1bamua" "testrun/1bamua.table.run" "testfiles/testoutput/1bamua.table.out"
+  COMMAND ${CMAKE_BINARY_DIR}/bin/test_gettab.sh "${CMAKE_BINARY_DIR}/utils/gettab testfiles/data/1bamua" "testrun/1bamua.table.run" "testfiles/testoutput/1bamua.table.out"
   )
+
+# Test sinv utility
+add_test(NAME test_sinv 
+  COMMAND ${CMAKE_BINARY_DIR}/bin/test_sinv.sh "${CMAKE_BINARY_DIR}/utils/sinv testfiles/data/satwndbufr" "testrun/sinv.out"  "testfiles/testoutput/sinv.out"
+  )
+
+# Test binv utility
+add_test(NAME test_binv  
+  COMMAND ${CMAKE_BINARY_DIR}/bin/test_binv.sh "${CMAKE_BINARY_DIR}/utils/binv testfiles/data/satwndbufr" "testrun/binv.out"  "testfiles/testoutput/binv.out"
+  )
+
 
 # Test split_by_subset.x utility
 add_test(NAME test_split_by_subset
-  COMMAND ${CMAKE_BINARY_DIR}/bin/test_split_by_subset.sh "${CMAKE_BINARY_DIR}/utils/split_by_subset.x testfiles/data/satwndbufr" "testfiles/testoutput/satwndbufr_split"
+  COMMAND ${CMAKE_BINARY_DIR}/bin/test_split_by_subset.sh "${CMAKE_BINARY_DIR}/utils/split_by_subset testfiles/data/satwndbufr" "testfiles/testoutput/satwndbufr_split"
+  )
+
+# Test readbp utility
+add_test(NAME test_readbp 
+  COMMAND ${CMAKE_BINARY_DIR}/bin/test_readbp.sh "${CMAKE_BINARY_DIR}/utils/readbp -n testfiles/data/prepbufr2.ref" "testrun/readbp.out" "testfiles/testoutput/readbp.out"
+  )
+
+# Test readmp utility
+add_test(NAME test_readmp 
+  COMMAND ${CMAKE_BINARY_DIR}/bin/test_readmp.sh "${CMAKE_BINARY_DIR}/utils/readmp testfiles/data/prepbufr2.ref q" "testrun/readmp.out" "testfiles/testoutput/readmp.out"
+  )
+
+# Test cmpbqm utility
+add_test(NAME test_cmpbqm 
+  COMMAND ${CMAKE_BINARY_DIR}/bin/test_cmpbqm.sh "${CMAKE_BINARY_DIR}/utils/cmpbqm testfiles/data/prepbufr" "testrun/cmpbqm.out" "testfiles/testoutput/cmpbqm.out"
   )
 
 # Test xbfmg.x utility

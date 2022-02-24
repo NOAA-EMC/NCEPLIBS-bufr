@@ -1,13 +1,10 @@
-C> @file
-C> @brief Print inventory of BUFR file by message type
-
-C-----------------------------------------------------------------------
-C-----------------------------------------------------------------------
+!-----------------------------------------------------------------------
+!-----------------------------------------------------------------------
       PROGRAM BINV
  
       PARAMETER (MAXSUB=100)
  
-      CHARACTER*200 FILE   
+      CHARACTER*255 FILE   
       CHARACTER*8   SUBSET
       CHARACTER*8   SUB(MAXSUB)
       DIMENSION     NINV(3,MAXSUB)
@@ -15,17 +12,26 @@ C-----------------------------------------------------------------------
       DATA BMISS  /10E10/
       DATA LUNBF  /20/
  
-C-----------------------------------------------------------------------
-C-----------------------------------------------------------------------
+!-----------------------------------------------------------------------
+!-----------------------------------------------------------------------
  
+!  get filename
+
+      NARG=IARGC()
+      IF(NARG/=1) THEN
+        PRINT *,'Usage: binv <bufrfile> will print bufrfile inventory by message type'
+        CALL EXIT(2)
+      ENDIF
+      call getarg(1,file)
+      file = TRIM(file)//CHAR(0)
+      open(lunbf,file=file,form='unformatted')
+
       NINV = 0
       NSUB = 0
 
-      read(5,'(a)') file
-      open(lunbf,file=file,form='unformatted')
  
-C  COMPUTE AN MESSAGE INVENTORY BY SUBSETS
-C  ---------------------------------------
+!  COMPUTE AN MESSAGE INVENTORY BY SUBSETS
+!  ---------------------------------------
  
       CALL OPENBF(LUNBF,'IN',LUNBF)
       DO WHILE(IREADMG(LUNBF,SUBSET,IDATE).EQ.0)
@@ -43,18 +49,18 @@ C  ---------------------------------------
       NINV(2,ISUB) = NINV(2,ISUB)+NMSUB(LUNBF)
       NINV(3,ISUB) = NINV(3,ISUB)+NMBYT(LUNBF)
  
-c     IOFF = 1
-c     CALL STATUS(LUNBF,LUN,IL,IM)
-c     call ufbcnt(lunbf,irec,isub)
-c     DO I=1,NMSUB(LUNBF)
-c     NBYS = IUPB(MBAY(1,LUN),MBYT(LUN)+IOFF,16)
-c     print*,SUBSET,' m#',irec,' subt#',i,nbys
-c     IOFF = IOFF+NBYS
-c     ENDDO
+!     IOFF = 1
+!     CALL STATUS(LUNBF,LUN,IL,IM)
+!     call ufbcnt(lunbf,irec,isub)
+!     DO I=1,NMSUB(LUNBF)
+!     NBYS = IUPB(MBAY(1,LUN),MBYT(LUN)+IOFF,16)
+!     print*,SUBSET,' m#',irec,' subt#',i,nbys
+!     IOFF = IOFF+NBYS
+!     ENDDO
       ENDDO
 
-C  PRINT THE INVEBTORY
-C  -------------------
+!  PRINT THE INVEBTORY
+!  -------------------
  
       PRINT*
       PRINT'(a4,6x,3(a10,4x))','type','messages','subsets','bytes'

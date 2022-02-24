@@ -25,15 +25,12 @@ program split_by_subset
 
   !> get input filename from stdin, if not use 'fort.20'
   call getarg(1, finput)
-  if (trim(adjustl(finput)) == '') finput = 'fort.20'
-
-  !> check if file exists, then open it, else abort
   inquire(file=trim(adjustl(finput)), exist=file_exists)
   if (file_exists) then
     open(lunit, file=trim(adjustl(finput)), form='unformatted')
     call openbf(lunit,'IN',lunit)
   else
-    call bort('File ' // trim(adjustl(finput)) // ' does not exist')
+    call bort('Usage: "split_by_subset bufrfile" will split a BUFR file into subsets')
   endif
 
   !> initialize counters

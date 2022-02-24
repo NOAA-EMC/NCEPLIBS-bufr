@@ -7,27 +7,22 @@ program gettab
 
   implicit none
 
-  character(len=255) :: finput      !> name of filename to read
+  character(len=255) :: file        !> name of filename to read
   integer, parameter :: lunit = 20
-  logical :: file_exists
+  logical :: exist
 
-  !> get the name of filename to read as an input argument
-  call getarg(1, finput)
-  !> if no input argument, 'fort.20' is the default filename
-  if (trim(adjustl(finput)) == '') finput = 'fort.20'
-  !> ensure file exists; if not abort
-  inquire(file=trim(adjustl(finput)), exist=file_exists)
-  if (.not. file_exists) then
-    write(6,'(3(A,X))') "File", trim(adjustl(finput)), 'does not exist, ABORT!'
-    stop
-  endif
+! get the filename to open and read
 
-  !> open file
-  open(lunit,file=trim(adjustl(finput)), status='old', form='unformatted')
+  call getarg(1,file); file=trim(adjustl(file)) 
+  if (file == '') call bort('Usage: "gettab bufrfile" will print the internal BUFR table')
+  inquire(file=file,exist=exist)
+  if (.not.exist) call bort(file//' does not exist') 
+
+! open the file and dump the bufr table to standard outout
+
+  open(lunit,file=file,status='old', form='unformatted')
   call openbf(lunit, 'IN', lunit)
-  !> dump table to stdout (unit 6)
   call dxdump(lunit, 6)
-  !> close file
   call closbf(lunit)
   close(lunit)
 
