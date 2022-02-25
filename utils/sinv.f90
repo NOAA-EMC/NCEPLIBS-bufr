@@ -24,7 +24,6 @@
 
 !  get filename argument
 
-      open(6,recl=130)
       NARG=IARGC()
       IF(NARG/=1) THEN
         write(6,*)'Usage: sinv <satbufrfile> will print inventory of satellites by platform and instrument'
