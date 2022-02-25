@@ -21,12 +21,15 @@
       jsat=0  
       said=0
       ssid=0
+      close(6); open(6,recl=120)
 
 !  get filename argument
 
       NARG=IARGC()
       IF(NARG/=1) THEN
+        print*
         write(6,*)'Usage: sinv <satbufrfile> will print inventory of satellites by platform and instrument'
+        print*
         CALL EXIT(2)
       ENDIF
       call getarg(1,file)

@@ -9,6 +9,7 @@
       character(10)  ::  val
       character(8)   ::  sid,sta,subset,msg,cmc(17)
       character(3)   ::  vars(8)
+      integer        ::  iostat
       real(8)        ::  hdr(10),obs(10,255),qms(10,255),qmc(17)
       logical        ::  window,steam,level,dump,hedr,exists
 
@@ -39,10 +40,10 @@
 
       iprt = 0
       nsta = 8
+      close(6);open(6,recl=120)
 
 !  check for filename argument
 
-      !open(6,recl=130)
       narg=iargc()
 1     if(narg<1) THEN
         write(6,*)
@@ -204,7 +205,7 @@
 !  GO TO READ THE NEXT SUBSET IF NO 'Q' YOU
 !  ----------------------------------------
 
-99    READ(5,'(a50)') optarg
+99    READ(5,'(a)',iostat=iostat) optarg
       IF(optarg(1:1)=='q') then
          stop
       elseif(optarg(1:1)=='s') then
