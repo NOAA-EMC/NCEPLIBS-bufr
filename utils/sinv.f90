@@ -60,7 +60,9 @@
          print'(i3.3,2x,a16,2x,i10,2x,i3.3,a80)',i,ci,isat(i,j),j,trim(cj)
       endif
       enddo
-      enddo; print*; print'(23x,i10)',jsat; print*
+      enddo
+
+      print'(23x,i10)',jsat; print*
 
       stop
       end

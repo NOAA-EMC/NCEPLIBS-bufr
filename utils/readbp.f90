@@ -42,7 +42,7 @@
 
 !  check for filename argument
 
-      open(6,recl=130)
+      !open(6,recl=130)
       narg=iargc()
 1     if(narg<1) THEN
         write(6,*)
