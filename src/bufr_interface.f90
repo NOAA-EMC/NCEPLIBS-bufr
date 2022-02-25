@@ -127,7 +127,7 @@ subroutine openbf_c(bufr_unit, cio, table_file_id) bind(C, name='openbf_f')
   character(kind=c_char, len=1), intent(in) :: cio
   integer(c_int), value, intent(in) :: table_file_id
 
-  call openbf(bufr_unit, c_f_string(cio), table_file_id)
+  call openbf_body(bufr_unit, c_f_string(cio), table_file_id)
 end subroutine openbf_c
 
 
@@ -141,7 +141,7 @@ end subroutine openbf_c
 subroutine closbf_c(bufr_unit) bind(C, name='closbf_f')
   integer(c_int), value, intent(in) :: bufr_unit
 
-  call closbf(bufr_unit)
+  call closbf_body(bufr_unit)
 end subroutine closbf_c
 
 

@@ -84,6 +84,8 @@ C>
       USE MODA_MSGCWD
       USE MODA_BITBUF
       USE MODA_TABLES
+      use subroutine_closbf
+      use subroutine_openbf
 
       COMMON /USRSTR/ NNOD,NCON,NODS(20),NODC(10),IVLS(10),KONS(10)
       COMMON /ACMODE/ IAC

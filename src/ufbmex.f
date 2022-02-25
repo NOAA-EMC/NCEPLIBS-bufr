@@ -54,6 +54,8 @@ C>
 
       USE MODA_MGWA
       USE MODA_MSGMEM
+      use subroutine_closbf
+      use subroutine_openbf
 
       COMMON /QUIET / IPRT
 

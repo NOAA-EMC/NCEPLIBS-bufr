@@ -163,6 +163,7 @@ end module
 subroutine writsa_body( lunxx, lmsgt, msgt, msgl )
 
       USE MODA_BUFRMG
+      use subroutine_closmg
 
       COMMON /MSGCMP/ CCMF
 

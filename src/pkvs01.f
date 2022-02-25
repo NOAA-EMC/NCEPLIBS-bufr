@@ -72,6 +72,7 @@ C>
       SUBROUTINE PKVS01(S01MNEM,IVAL)
 
       USE MODA_S01CM
+      use subroutine_openbf
 
       CHARACTER*(*) S01MNEM
 

@@ -38,6 +38,8 @@ C> | 2012-09-15 | J. Woollen | Original author |
 C>
       SUBROUTINE SETBMISS(XMISS)
 
+      use subroutine_openbf
+
       USE MODV_BMISS
 
       REAL*8 XMISS

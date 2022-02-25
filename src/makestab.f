@@ -82,6 +82,7 @@ C>
       USE MODA_TABLES
       USE MODA_NRV203
       USE MODA_BITMAPS
+      use subroutine_closmg
 
       COMMON /QUIET/  IPRT
 

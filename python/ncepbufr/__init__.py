@@ -176,7 +176,7 @@ class open:
                 raise IOError(msg)
             if table is None:
                 # table embedded in bufr file
-                _bufrlib.openbf(self.lunit,self._ioflag,self.lunit)
+                _bufrlib.openbf_body(self.lunit,self._ioflag,self.lunit)
                 self.lundx = self.lunit # table unit number same as bufr unit number
             else:
                 try:
@@ -190,7 +190,7 @@ class open:
                         msg='error opening %s' % filename
                         raise IOError(msg)
                     _funits.remove(self.lundx)
-                _bufrlib.openbf(self.lunit,self._ioflag,self.lundx)
+                _bufrlib.openbf_body(self.lunit,self._ioflag,self.lundx)
         elif mode == 'w':
             try:
                 # share a bufr table with another instance
@@ -207,7 +207,7 @@ class open:
             if iret != 0:
                 msg='error opening %s' % filename
                 raise IOError(msg)
-            _bufrlib.openbf(self.lunit,self._ioflag,self.lundx)
+            _bufrlib.openbf_body(self.lunit,self._ioflag,self.lundx)
         # initialized message number counter
         self.msg_counter = 0
         '''current bufr message number'''
@@ -262,7 +262,7 @@ class open:
         """
         close the bufr file
         """
-        _bufrlib.closbf(self.lunit)
+        _bufrlib.closbf_body(self.lunit)
         # add fortran unit number back to pool
         bisect.insort_left(_funits,self.lunit)
         if self.lundx != self.lunit:
@@ -440,7 +440,7 @@ class open:
                 _bufrlib.strcpt('Y',yyyy,mm,dd,hh,mm)
             except IndexError:
                 pass # don't write receipt time
-        _bufrlib.openmb(self.lunit,msg_type,int(msg_date))
+        _bufrlib.openmb_body(self.lunit,msg_type,int(msg_date))
     def copy_message(self,bufrin):
         """
         copy the currently loaded message from the specified bufr file object
@@ -450,7 +450,7 @@ class open:
         """
         close bufr message
         """
-        _bufrlib.closmg(self.lunit)
+        _bufrlib.closmg_body(self.lunit)
     def load_subset(self):
         """
         load subset data from the current message

@@ -37,6 +37,8 @@ C>
       SUBROUTINE COPYBF(LUNIN,LUNOT)
 
       USE MODA_MGWA
+      use subroutine_closbf
+      use subroutine_openbf
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------

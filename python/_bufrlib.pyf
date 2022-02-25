@@ -241,14 +241,14 @@ subroutine cktaba(lun,subset,jdate,iret) ! in cktaba.f
     common /unptyp/ msgunp
     common /sc3bfr/ isc3,tamnem
 end subroutine cktaba
-subroutine closbf(lunit) ! in closbf.f
+subroutine closbf_body(lunit) ! in closbf.f90
     integer :: lunit
     real*8 :: bmiss
     integer dimension(32) :: null
     common /bufrbmiss/ bmiss
     common /nulbfr/ null
-end subroutine closbf
-subroutine closmg(lunin) ! in closmg.f
+end subroutine closbf_body
+subroutine closmg_body(lunin) ! in closmg.f90
     integer :: lunin
     integer dimension(32) :: nmsg
     integer dimension(32) :: nsub
@@ -264,7 +264,7 @@ subroutine closmg(lunin) ! in closmg.f
     common /msgcwd/ nmsg,nsub,msub,inode,idate
     common /bufrbmiss/ bmiss
     common /bitbuf/ maxbyt,ibit,ibay,mbyt,mbay
-end subroutine closmg
+end subroutine closmg_body
 subroutine cmpmsg(cf) ! in cmpmsg.f
     character*1 :: cf
     character*1 :: ccmf
@@ -1799,7 +1799,7 @@ subroutine nxtwin(lun,iwin,jwin) ! in nxtwin.f
     common /bufrbmiss/ bmiss
     common /usrint/ nval,inv,val
 end subroutine nxtwin
-subroutine openbf(lunit,io,lundx) ! in openbf.f
+subroutine openbf_body(lunit,io,lundx) ! in openbf.f90
     integer :: lunit
     character*(*) :: io
     integer :: lundx
@@ -1825,14 +1825,14 @@ subroutine openbf(lunit,io,lundx) ! in openbf.f
     common /quiet/ iprt
     common /lushr/ lus
     common /sc3bfr/ isc3,tamnem
-end subroutine openbf
+end subroutine openbf_body
 subroutine openbt(lundx,mtyp) ! in openbt.f
     integer :: lundx
     integer :: mtyp
     integer :: iprt
     common /quiet/ iprt
 end subroutine openbt
-subroutine openmb(lunit,subset,jdate) ! in openmb.f
+subroutine openmb_body(lunit,subset,jdate) ! in openmb.f90
     integer :: lunit
     character*(*) :: subset
     integer :: jdate
@@ -1844,8 +1844,8 @@ subroutine openmb(lunit,subset,jdate) ! in openmb.f
     real*8 :: bmiss
     common /msgcwd/ nmsg,nsub,msub,inode,idate
     common /bufrbmiss/ bmiss
-end subroutine openmb
-subroutine openmg(lunit,subset,jdate) ! in openmg.f
+end subroutine openmb_body
+subroutine openmg_body(lunit,subset,jdate) ! in openmg.f90
     integer :: lunit
     character*(*) :: subset
     integer :: jdate
@@ -1857,7 +1857,7 @@ subroutine openmg(lunit,subset,jdate) ! in openmg.f
     real*8 :: bmiss
     common /msgcwd/ nmsg,nsub,msub,inode,idate
     common /bufrbmiss/ bmiss
-end subroutine openmg
+end subroutine openmg_body
 subroutine pad(ibay,ibit,ibyt,ipadb) ! in pad.f
     integer dimension(*) :: ibay
     integer :: ibit

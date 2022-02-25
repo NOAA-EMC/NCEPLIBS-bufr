@@ -54,6 +54,8 @@ C> | 2012-09-15 | J. Woollen | Original author |
 C>
       SUBROUTINE SETBLOCK(IBLK) 
 
+      use subroutine_openbf
+
       COMMON /ENDORD/ IBLOCK,IORDBE(4),IORDLE(4)
 
 c-----------------------------------------------------------------------
