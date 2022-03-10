@@ -68,6 +68,7 @@ jobs:
         cmake -DCMAKE_INSTALL_PREFIX=./install -DENABLE_PYTHON=ON ..
         make -j2
         make install
+        pip install -e .
 
     - name: test
       run: |
