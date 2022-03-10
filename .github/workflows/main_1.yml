@@ -65,10 +65,13 @@ jobs:
         cd bufr
         mkdir build
         cd build
-        cmake -DCMAKE_INSTALL_PREFIX=./install -DENABLE_PYTHON=OFF ..
+        cmake -DCMAKE_INSTALL_PREFIX=./install -DENABLE_PYTHON=ON ..
         make -j2
         cd python
         make install
+        pip install -e .
+        cd ../..
+        pytest
 
     - name: test
       run: |
