@@ -43,10 +43,9 @@ jobs:
         cd build
         cmake -DCMAKE_INSTALL_PREFIX=./install -DENABLE_PYTHON=ON ..
         make -j2
-        cd python
         make install
+        cd python
+        pip install -e .
+        cd ../..
+        pytest
 
-    - name: test
-      run: |
-        cd $GITHUB_WORKSPACE/bufr/build
-        ctest --output-on-failure
