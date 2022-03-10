@@ -6,17 +6,10 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [macos-10.15,  ubuntu-20.04]
-        ccompiler: [clang, gcc-9, gcc-10]
-        fcompiler: [gfortran-9, gfortran-10]
-        exclude:
-          - os: ubuntu-20.04
-            ccompiler: clang
-          - ccompiler: gcc-9
-            fcompiler: gfortran-10
-          - ccompiler: gcc-10
-            fcompiler: gfortran-9
-
+        os: [ubuntu-20.04]
+        ccompiler: [gcc-10]
+        fcompiler: [gfortran-10]
+        
     steps:
 
     - name: install-deps
@@ -29,17 +22,6 @@ jobs:
           sudo python3 -m pip install -U numpy
           sudo python3 -m pip install -U netCDF4
           sudo python3 -m pip install -U pdoc pytest
-        elif [[ ${{ matrix.os }} == "macos-10.15" ]]; then
-          brew update
-          brew install doxygen
-          pip3 install setuptools
-          pip3 install numpy
-          pip3 install netCDF4
-          if [[ ${{ matrix.fcompiler }} == "gfortran-9" ]]; then
-            sudo ln -sf /usr/local/bin/gfortran-9 /usr/local/bin/gfortran
-          elif  [[ ${{ matrix.fcompiler }} == "gfortran-10" ]]; then
-            sudo ln -sf /usr/local/bin/gfortran-10 /usr/local/bin/gfortran
-          fi
         fi
 
     - name: checkout
@@ -50,22 +32,16 @@ jobs:
 
     - name: build
       run: |
-        if [[ ${{ matrix.ccompiler }} == "clang" ]]; then
-          export CC=clang
-        elif [[ ${{ matrix.ccompiler }} == "gcc-9" ]]; then
-          export CC=gcc-9
-        elif [[ ${{ matrix.ccompiler }} == "gcc-10" ]]; then
+        if [[ ${{ matrix.ccompiler }} == "gcc-10" ]]; then
           export CC=gcc-10
         fi
-        if [[ ${{ matrix.fcompiler }} == "gfortran-9" ]]; then
-          export FC=gfortran-9
-        elif [[ ${{ matrix.fcompiler }} == "gfortran-10" ]]; then
+        if [[ ${{ matrix.fcompiler }} == "gfortran-10" ]]; then
           export FC=gfortran-10
         fi
         cd bufr
         mkdir build
         cd build
-        cmake -DCMAKE_INSTALL_PREFIX=./install -DENABLE_PYTHON=OFF ..
+        cmake -DCMAKE_INSTALL_PREFIX=./install -DENABLE_PYTHON=ON ..
         make -j2
         cd python
         make install
