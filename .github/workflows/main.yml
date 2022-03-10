@@ -70,6 +70,7 @@ jobs:
         cd python
         make install
         pip install -e .
+        cd ..
         pytest
 
     - name: test
