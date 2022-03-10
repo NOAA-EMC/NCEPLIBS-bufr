@@ -28,7 +28,7 @@ jobs:
           sudo python3 -m pip install -U pip setuptools
           sudo python3 -m pip install -U numpy
           sudo python3 -m pip install -U netCDF4
-          sudo python3 -m pip install -U pdoc
+          sudo python3 -m pip install -U pdoc pytest
         elif [[ ${{ matrix.os }} == "macos-10.15" ]]; then
           brew update
           brew install doxygen
