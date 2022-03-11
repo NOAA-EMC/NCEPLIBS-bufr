@@ -73,7 +73,4 @@ jobs:
         cd ../..
         pytest
 
-    - name: test
-      run: |
-        cd $GITHUB_WORKSPACE/bufr/build
-        ctest --output-on-failure
+
