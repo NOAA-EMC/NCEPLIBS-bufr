@@ -225,17 +225,19 @@ C*	    Continue checking with the next subset.
      +		    ( IDNINT(r8ard(5,13)) .ne. 26 ) .or. 
      +		    ( IDNINT(r8ard(3,15)*100) .ne. 3766 ) )
      +		  decodeOK = .false.
+
+	    ELSE IF ( isct .eq. 10 ) THEN
+
+	        IF ( IFBGET ( 11 ) .ne. 0 ) THEN
+	            print *, '        IFBGET -> OK'
+	        ELSE
+	            print *, '        IFBGET -> FAILED!'
+	        ENDIF
 	    ENDIF
 
 	ENDDO
 
 C*	Verify that all available subsets were successfully read.
-
-        IF ( IFBGET ( 11 ) .ne. 0 ) THEN
-            print *, '        IFBGET -> OK'
-        ELSE
-            print *, '        IFBGET -> FAILED!'
-        ENDIF
 
 	IF ( ( decodeOK ) .and. ( isct .eq. 10 ) ) THEN
 	    print *, '       IREADNS -> OK'
