@@ -135,6 +135,24 @@ extern "C" {
 */
   void mtinfo_f(const char* path, int file_unit_1, int file_unit_2);
 
+
+  // Table Data
+  void status_f(int file_unit, int* lun, int* il, int* im);
+  void get_isc_f(int** data, int* len);
+  void get_link_f(int** data, int* len);
+  void get_itp_f(int** data, int* len);
+  void get_typ_f(char** data, int* str_len, int* size);
+  void get_tag_f(char** data, int* str_len, int* size);
+  void get_jmpb_f(int** data, int* len);
+
+  // Data
+  void get_inode_f(int lun, int* startNode);
+  void get_nval_f(int lun, int* numNodes);
+  void get_val_f(int lun, double** data, int* len);
+  void get_inv_f(int lun, int** data, int* len);
+
+  void delete_table_data_f();
+
 #ifdef __cplusplus
 }
 #endif

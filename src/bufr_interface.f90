@@ -29,6 +29,13 @@ module bufr_c_interface_mod
   public :: ufbrep_c
   public :: mtinfo_c
 
+  integer, allocatable, target, save :: isc_f(:)
+  integer, allocatable, target, save :: link_f(:)
+  integer, allocatable, target, save :: itp_f(:)
+  integer, allocatable, target, save :: jmpb_f(:)
+  character(len=10), allocatable, target, save :: tag_f(:)
+  character(len=3), allocatable, target, save :: typ_f(:)
+
 contains
 
 !Private
@@ -260,5 +267,140 @@ subroutine mtinfo_c(path, file_unit_1, file_unit_2) bind(C, name='mtinfo_f')
 
   call mtinfo(c_f_string(path), file_unit_1, file_unit_2)
 end subroutine mtinfo_c
+
+
+! ----------------------------------------------------------------------
+!> Get Raw BUFR data functions
+! ----------------------------------------------------------------------
+
+subroutine status_c(file_unit, lun, il, im) bind(C, name='status_f')
+  integer(c_int), value, intent(in) :: file_unit
+  integer(c_int), intent(out) :: lun
+  integer(c_int), intent(out) :: il
+  integer(c_int), intent(out) :: im
+
+  call status(file_unit, lun, il, im)
+end subroutine status_c
+
+
+subroutine get_isc_c(isc_ptr, isc_size) bind(C, name='get_isc_f')
+  use moda_tables
+  type(c_ptr), intent(inout) :: isc_ptr
+  integer(c_int), intent(out) :: isc_size
+
+  allocate(isc_f, source=isc)
+  isc_size = size(isc)
+  isc_ptr = c_loc(isc_f(1))
+end subroutine get_isc_c
+
+
+subroutine get_link_c(link_ptr, link_size) bind(C, name='get_link_f')
+  use moda_tables
+  type(c_ptr), intent(inout) :: link_ptr
+  integer(c_int), intent(out) :: link_size
+
+  allocate(link_f, source=link)
+  link_size = size(link)
+  link_ptr = c_loc(link_f(1))
+end subroutine get_link_c
+
+
+subroutine get_itp_c(itp_ptr, itp_size) bind(C, name='get_itp_f')
+  use moda_tables
+  type(c_ptr), intent(inout) :: itp_ptr
+  integer(c_int), intent(out) :: itp_size
+
+  allocate(itp_f, source=itp)
+  itp_size = size(itp)
+  itp_ptr = c_loc(itp_f(1))
+end subroutine get_itp_c
+
+
+subroutine get_typ_c(typ_ptr, typ_len, mem_size) bind(C, name='get_typ_f')
+  use moda_tables
+  type(c_ptr), intent(inout) :: typ_ptr
+  integer(c_int), intent(out) :: typ_len
+  integer(c_int), intent(out) :: mem_size
+
+  allocate(typ_f, source=typ)
+  typ_len = len(typ(1))
+  mem_size = size(typ)
+  typ_ptr = c_loc(typ_f(1))
+end subroutine get_typ_c
+
+
+subroutine get_tag_c(tag_ptr, tag_len, mem_size) bind(C, name='get_tag_f')
+  use moda_tables
+  type(c_ptr), intent(inout) :: tag_ptr
+  integer(c_int), intent(out) :: tag_len
+  integer(c_int), intent(out) :: mem_size
+
+  allocate(tag_f, source=tag)
+  tag_len = len(tag(1))
+  mem_size = size(tag)
+  tag_ptr = c_loc(tag_f(1))
+end subroutine get_tag_c
+
+
+subroutine get_jmpb_c(jmpb_ptr, jmpb_size) bind(C, name='get_jmpb_f')
+  use moda_tables
+  type(c_ptr), intent(inout) :: jmpb_ptr
+  integer(c_int), intent(out) :: jmpb_size
+
+  allocate(jmpb_f, source=jmpb)
+  jmpb_size = size(jmpb)
+  jmpb_ptr = c_loc(jmpb_f(1))
+end subroutine get_jmpb_c
+
+
+subroutine get_inode_c(lun, start_node) bind(C, name='get_inode_f')
+  use moda_msgcwd
+  integer(c_int), value, intent(in) :: lun
+  integer(c_int), intent(out) :: start_node
+
+  start_node = inode(lun)
+end subroutine get_inode_c
+
+
+subroutine get_nval_c(lun, numNodes) bind(C, name='get_nval_f')
+  use moda_usrint
+  integer(c_int), value, intent(in) :: lun
+  integer, intent(out) :: numNodes
+
+  numNodes = nval(lun)
+end subroutine get_nval_c
+
+
+subroutine get_val_c(lun, val_ptr, val_size) bind(C, name='get_val_f')
+  use moda_usrint
+  integer(c_int), value, intent(in) :: lun
+  type(c_ptr), intent(inout) :: val_ptr
+  integer(c_int), intent(out) :: val_size
+
+  val_size = size(val(:, lun))
+  val_ptr = c_loc(val(1, lun))
+end subroutine get_val_c
+
+
+subroutine get_inv_c(lun, inv_ptr, inv_size) bind(C, name='get_inv_f')
+  use moda_usrint
+  integer(c_int), value, intent(in) :: lun
+  type(c_ptr), intent(inout) :: inv_ptr
+  integer(c_int), intent(out) :: inv_size
+
+  inv_size = size(inv(:, lun))
+  inv_ptr = c_loc(inv(1, lun))
+end subroutine get_inv_c
+
+
+subroutine delete_table_data_c() bind(C, name='delete_table_data_f')
+  if (allocated(isc_f)) deallocate(isc_f)
+  if (allocated(link_f)) deallocate(link_f)
+  if (allocated(itp_f)) deallocate(itp_f)
+  if (allocated(typ_f)) deallocate(typ_f)
+  if (allocated(tag_f)) deallocate(tag_f)
+  if (allocated(jmpb_f)) deallocate(jmpb_f)
+end subroutine delete_table_data_c
+
 
 end module bufr_c_interface_mod
