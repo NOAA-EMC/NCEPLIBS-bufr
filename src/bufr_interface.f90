@@ -273,6 +273,16 @@ end subroutine mtinfo_c
 !> Get Raw BUFR data functions
 ! ----------------------------------------------------------------------
 
+!>  @author Ronald McLaren
+!>  @date 2022-03-23
+!>
+!>  @brief Wraps BUFRLIB "status" function.
+!>
+!>  @param[in] file_unit - c_int: the fortran file unit number to read from
+!>  @param[out] lun - c_int: pointer for the file stream
+!>  @param[out] il - c_int: file status
+!>  @param[out] im - c_int: message status
+!>
 subroutine status_c(file_unit, lun, il, im) bind(C, name='status_f')
   integer(c_int), value, intent(in) :: file_unit
   integer(c_int), intent(out) :: lun
@@ -283,6 +293,14 @@ subroutine status_c(file_unit, lun, il, im) bind(C, name='status_f')
 end subroutine status_c
 
 
+!>  @author Ronald McLaren
+!>  @date 2022-03-23
+!>
+!>  @brief Get copy of the moda_tables ISC array.
+!>
+!>  @param[out] isc_ptr - c_ptr: c style pointer to the ISC array
+!>  @param[out] isc_size - c_int: length of the array
+!>
 subroutine get_isc_c(isc_ptr, isc_size) bind(C, name='get_isc_f')
   use moda_tables
   type(c_ptr), intent(inout) :: isc_ptr
@@ -294,6 +312,14 @@ subroutine get_isc_c(isc_ptr, isc_size) bind(C, name='get_isc_f')
 end subroutine get_isc_c
 
 
+!>  @author Ronald McLaren
+!>  @date 2022-03-23
+!>
+!>  @brief Get copy of the moda_tables LINK array.
+!>
+!>  @param[out] link_ptr - c_ptr: c style pointer to the LINK array
+!>  @param[out] link_size - c_int: size of the LINK array
+!>
 subroutine get_link_c(link_ptr, link_size) bind(C, name='get_link_f')
   use moda_tables
   type(c_ptr), intent(inout) :: link_ptr
@@ -305,6 +331,14 @@ subroutine get_link_c(link_ptr, link_size) bind(C, name='get_link_f')
 end subroutine get_link_c
 
 
+!>  @author Ronald McLaren
+!>  @date 2022-03-23
+!>
+!>  @brief Get copy of the moda_tables ITP array.
+!>
+!>  @param[out] itp_ptr - c_ptr: c style pointer to the ITP array
+!>  @param[out] itp_size - c_int: size of the ITP array
+!>
 subroutine get_itp_c(itp_ptr, itp_size) bind(C, name='get_itp_f')
   use moda_tables
   type(c_ptr), intent(inout) :: itp_ptr
@@ -316,6 +350,15 @@ subroutine get_itp_c(itp_ptr, itp_size) bind(C, name='get_itp_f')
 end subroutine get_itp_c
 
 
+!>  @author Ronald McLaren
+!>  @date 2022-03-23
+!>
+!>  @brief Get copy of the moda_tables TYP array.
+!>
+!>  @param[out] typ_ptr - c_ptr: c style pointer to the TYP array
+!>  @param[out] typ_len - c_int: length of the TYP str
+!>  @param[out] mem_size - c_int: length of the TYP array
+!>
 subroutine get_typ_c(typ_ptr, typ_len, mem_size) bind(C, name='get_typ_f')
   use moda_tables
   type(c_ptr), intent(inout) :: typ_ptr
@@ -329,6 +372,15 @@ subroutine get_typ_c(typ_ptr, typ_len, mem_size) bind(C, name='get_typ_f')
 end subroutine get_typ_c
 
 
+!>  @author Ronald McLaren
+!>  @date 2022-03-23
+!>
+!>  @brief Get copy of the moda_tables TAG array.
+!>
+!>  @param[out] tag_ptr - c_ptr: c style pointer to the TAG array
+!>  @param[out] tag_len - c_int: length of the tag string
+!>  @param[out] mem_size - c_int: size of TAG array
+!>
 subroutine get_tag_c(tag_ptr, tag_len, mem_size) bind(C, name='get_tag_f')
   use moda_tables
   type(c_ptr), intent(inout) :: tag_ptr
@@ -342,6 +394,14 @@ subroutine get_tag_c(tag_ptr, tag_len, mem_size) bind(C, name='get_tag_f')
 end subroutine get_tag_c
 
 
+!>  @author Ronald McLaren
+!>  @date 2022-03-23
+!>
+!>  @brief Get copy of the moda_tables JMPB array.
+!>
+!>  @param[out] jmpb_ptr - c_ptr: c style pointer to the JMPB array
+!>  @param[out] jmpb_size - c_int: length of the array
+!>
 subroutine get_jmpb_c(jmpb_ptr, jmpb_size) bind(C, name='get_jmpb_f')
   use moda_tables
   type(c_ptr), intent(inout) :: jmpb_ptr
@@ -353,6 +413,14 @@ subroutine get_jmpb_c(jmpb_ptr, jmpb_size) bind(C, name='get_jmpb_f')
 end subroutine get_jmpb_c
 
 
+!>  @author Ronald McLaren
+!>  @date 2022-03-23
+!>
+!>  @brief Get the bufr node idx for the start node of the subset.
+!>
+!>  @param[out] lun - c_int: pointer for the file stream
+!>  @param[out] start_node - c_int: the start node of the subset
+!>
 subroutine get_inode_c(lun, start_node) bind(C, name='get_inode_f')
   use moda_msgcwd
   integer(c_int), value, intent(in) :: lun
@@ -362,15 +430,32 @@ subroutine get_inode_c(lun, start_node) bind(C, name='get_inode_f')
 end subroutine get_inode_c
 
 
+!>  @author Ronald McLaren
+!>  @date 2022-03-23
+!>
+!>  @brief Get the number of values in the current subset
+!>
+!>  @param[out] lun - c_int: pointer for the file stream
+!>  @param[out] numNodes - c_int: number of values in the subset
+!>
 subroutine get_nval_c(lun, numNodes) bind(C, name='get_nval_f')
   use moda_usrint
   integer(c_int), value, intent(in) :: lun
-  integer, intent(out) :: numNodes
+  integer(c_int), intent(out) :: numNodes
 
   numNodes = nval(lun)
 end subroutine get_nval_c
 
 
+!>  @author Ronald McLaren
+!>  @date 2022-03-23
+!>
+!>  @brief Get pointer to the moda_usrint VAL array.
+!>
+!>  @param[out] lun - c_int: pointer for the file stream
+!>  @param[out] val_ptr - c_ptr: c style pointer to the VAL array
+!>  @param[out] val_size - c_int: length of the array
+!>
 subroutine get_val_c(lun, val_ptr, val_size) bind(C, name='get_val_f')
   use moda_usrint
   integer(c_int), value, intent(in) :: lun
@@ -382,6 +467,15 @@ subroutine get_val_c(lun, val_ptr, val_size) bind(C, name='get_val_f')
 end subroutine get_val_c
 
 
+!>  @author Ronald McLaren
+!>  @date 2022-03-23
+!>
+!>  @brief Get pointer to the moda_usrint INV array.
+!>
+!>  @param[out] lun - c_int: pointer for the file stream
+!>  @param[out] inv_ptr - c_ptr: c style pointer to the INV array
+!>  @param[out] inv_size - c_int: length of the array
+!>
 subroutine get_inv_c(lun, inv_ptr, inv_size) bind(C, name='get_inv_f')
   use moda_usrint
   integer(c_int), value, intent(in) :: lun
@@ -393,6 +487,11 @@ subroutine get_inv_c(lun, inv_ptr, inv_size) bind(C, name='get_inv_f')
 end subroutine get_inv_c
 
 
+!>  @author Ronald McLaren
+!>  @date 2022-03-23
+!>
+!>  @brief Deletes the copies of the moda_tables arrays.
+!>
 subroutine delete_table_data_c() bind(C, name='delete_table_data_f')
   if (allocated(isc_f)) deallocate(isc_f)
   if (allocated(link_f)) deallocate(link_f)
@@ -401,6 +500,5 @@ subroutine delete_table_data_c() bind(C, name='delete_table_data_f')
   if (allocated(tag_f)) deallocate(tag_f)
   if (allocated(jmpb_f)) deallocate(jmpb_f)
 end subroutine delete_table_data_c
-
 
 end module bufr_c_interface_mod

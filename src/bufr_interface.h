@@ -137,20 +137,137 @@ extern "C" {
 
 
   // Table Data
+/** @author Ronald McLaren
+    @date 2022-03-23
+
+    @brief Wraps BUFRLIB "status" function.
+
+    @param[in] file_unit - int: the fortran file unit number to read from
+    @param[out] lun - int: pointer for the file stream
+    @param[out] il - int: file status
+    @param[out] im - int: message status
+*/
   void status_f(int file_unit, int* lun, int* il, int* im);
+
+
+/** @author Ronald McLaren
+    @date 2022-03-23
+
+    @brief Get copy of the moda_tables ISC array.
+
+    @param[out] data - int**: c style pointer to the ISC array
+    @param[out] len - int: length of the array
+*/
   void get_isc_f(int** data, int* len);
+
+
+/** @author Ronald McLaren
+    @date 2022-03-23
+
+    @brief Get copy of the moda_tables LINK array.
+
+    @param[out] data - int**: c style pointer to the ISC array
+    @param[out] len - int: length of the array
+*/
   void get_link_f(int** data, int* len);
+
+
+/** @author Ronald McLaren
+    @date 2022-03-23
+
+    @brief Get copy of the moda_tables ITP array.
+
+    @param[out] data - int**: c style pointer to the ITP array
+    @param[out] len - int: length of the array
+*/
   void get_itp_f(int** data, int* len);
+
+
+/** @author Ronald McLaren
+    @date 2022-03-23
+
+    @brief Get copy of the moda_tables TYP array.
+
+    @param[out] data - int**: c style pointer to the TYP array
+    @param[out] len - int: length of the array
+*/
   void get_typ_f(char** data, int* str_len, int* size);
+
+
+/** @author Ronald McLaren
+  @date 2022-03-23
+
+  @brief Get copy of the moda_tables TAG array.
+
+  @param[out] data - int**: c style pointer to the TAG array
+  @param[out] len - int: length of the array
+*/
   void get_tag_f(char** data, int* str_len, int* size);
+
+
+/** @author Ronald McLaren
+@date 2022-03-23
+
+@brief Get copy of the moda_tables JMPB array.
+
+@param[out] data - int**: c style pointer to the JMPB array
+@param[out] len - int: length of the array
+*/
   void get_jmpb_f(int** data, int* len);
 
+
   // Data
+/** @author Ronald McLaren
+@date 2022-03-23
+
+@brief Get the bufr node idx for the start node of the subset.
+
+@param[out] lun - int: pointer for the file stream
+@param[out] startNode - int*: the start node of the subset
+*/
   void get_inode_f(int lun, int* startNode);
+
+
+/** @author Ronald McLaren
+@date 2022-03-23
+
+@brief Get the number of values in the current subset
+
+@param[out] lun - int: pointer for the file stream
+@param[out] startNode - int*: number of values in the subset
+*/
   void get_nval_f(int lun, int* numNodes);
+
+
+/** @author Ronald McLaren
+@date 2022-03-23
+
+@brief Get pointer to the moda_usrint VAL array.
+
+@param[out] lun - int: pointer for the file stream
+@param[out] data - double**: c style pointer to the VAL array
+@param[out] len - int*: length of the array
+*/
   void get_val_f(int lun, double** data, int* len);
+
+
+/** @author Ronald McLaren
+@date 2022-03-23
+
+@brief Get pointer to the moda_usrint INV array.
+
+@param[out] lun - int: pointer for the file stream
+@param[out] data - int**: c style pointer to the INV array
+@param[out] len - int*: length of the array
+*/
   void get_inv_f(int lun, int** data, int* len);
 
+
+/** @author Ronald McLaren
+@date 2022-03-23
+
+@brief Deletes the copies of the moda_tables arrays.
+*/
   void delete_table_data_f();
 
 #ifdef __cplusplus
