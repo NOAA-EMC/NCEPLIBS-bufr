@@ -69,7 +69,7 @@ jobs:
         make -j2
         make install
         cd python
-        python setup.py install
+        sudo python3 setup.py install
 
     - name: test
       run: |
