@@ -80,7 +80,7 @@ subroutine copy_f_c_str(f_str, c_str, c_str_len)
   integer :: max_str_len
 
   if (c_str_len /= 0) then
-    max_str_len = min(c_str_len, len_trim(f_str) + 1)
+    max_str_len = c_str_len
     c_str(1)(1:max_str_len) = f_str(1:max_str_len)
     c_str(1)(max_str_len:max_str_len) = c_null_char
   end if
@@ -183,7 +183,10 @@ function ireadmg_c(bufr_unit, c_subset, iddate, subset_str_len) result(ires) bin
   integer :: ireadmg
 
   ires = ireadmg(bufr_unit, f_subset, iddate)
-  call copy_f_c_str(f_subset, c_subset, int(subset_str_len))
+
+  if (ires == 0) then
+    call copy_f_c_str(f_subset, c_subset, int(subset_str_len))
+  end if
 end function ireadmg_c
 
 
