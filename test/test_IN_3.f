@@ -168,13 +168,13 @@ C*	    Continue checking with the next subset.
                 IF ( IFBGET ( 11 ) .eq. 0 ) THEN
                     print *, '        IFBGET -> OK'
                 ELSE
-                    print *, '        IFBGET -> FAILED!'
+                    print *, '        IFBGET -> FAILED!!'
                 ENDIF
 
                 IF ( LCMGDF ( 11, cmgtag ) .eq. 0 ) THEN
                     print *, '        LCMGDF -> OK'
                 ELSE
-                    print *, '        LCMGDF -> FAILED!'
+                    print *, '        LCMGDF -> FAILED!!'
                 ENDIF
 
 		IF ( ( nr8rr .ne. 1 ) .or.
@@ -231,7 +231,7 @@ C*	    Continue checking with the next subset.
 	        IF ( IFBGET ( 11 ) .ne. 0 ) THEN
 	            print *, '        IFBGET -> OK'
 	        ELSE
-	            print *, '        IFBGET -> FAILED!'
+	            print *, '        IFBGET -> FAILED!!'
 	        ENDIF
 	    ENDIF
 
