@@ -19,8 +19,7 @@ option(BUILD_TESTS "Build tests" ON)
 set(MASTER_TABLE_DIR "${CMAKE_INSTALL_PREFIX}/tables" CACHE STRING "Installation location of Master BUFR Tables")
 
 string(LENGTH "${MASTER_TABLE_DIR}" _lenmtd)
-set(_lenslmax 120)  # max number of chars of ${MASTER_TABLE_DIR} to store in a single line
-                    # of a Fortran90 or C source code file
+set(_lenslmax 120)  # max number of chars of ${MASTER_TABLE_DIR} to store on a single line of a Fortran90 or C source code file
 if(${_lenmtd} LESS_EQUAL ${_lenslmax})
   set(MASTER_TABLE_DIR_F "${MASTER_TABLE_DIR}")
   set(MASTER_TABLE_DIR_C "${MASTER_TABLE_DIR}")

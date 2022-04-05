@@ -21,6 +21,7 @@ void fdebufr( char *, char *, f77int *, char *, char *, char *, char *, char *,
 void prtusage( char * );
 
 #define MXFLEN 500
+#define MXFLEN_TBLFIL (MXFLEN+50)
 
 /**
  * This function prints program usage information to standard output.
@@ -167,7 +168,7 @@ void prtusage( char *prgnam ) {
  * | 2018-09-05 | J. Ator | Add -p option to pass in one or more BUFRLIB dynamic allocation parameters to override default settings |
  * | 2019-02-01 | J. Ator | Remove limit on length of prmstg, and allow up to 20 PARAMETER=VALUE pairs |
  * | 2021-03-02 | J. Ator | Add missing #include files, remove unused errflg variable, and other general cleanup |
- * | 2022-02-03 | J. Ator | Increase MXFLEN to 500 |
+ * | 2022-04-05 | J. Ator | Increase MXFLEN to 500, use MXFLEN_TBLFIL |
  */
 
 int main( int argc, char *argv[ ] ) {
@@ -183,7 +184,7 @@ int main( int argc, char *argv[ ] ) {
 	char outfile[MXFLEN];
 	char wkstr[MXFLEN];
 	char wkstr2[MXFLEN];
-	char tblfil[MXFLEN+30];
+	char tblfil[MXFLEN_TBLFIL];
 	char prmstg[300] = "NULLPSTG";
 	char bvstr[9] = "        ";
 
