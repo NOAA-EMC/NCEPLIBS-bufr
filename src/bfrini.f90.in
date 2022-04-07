@@ -282,7 +282,7 @@ CTRT = 'N'
 !  -------------------
 
 CMTDIR = &
-'@MASTER_TABLE_DIR@'
+'@MASTER_TABLE_DIR_F@'
 call mtinfo(CMTDIR,98,99)
 
 return

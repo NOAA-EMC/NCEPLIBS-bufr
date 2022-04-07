@@ -18,6 +18,30 @@ option(BUILD_TESTS "Build tests" ON)
 
 set(MASTER_TABLE_DIR "${CMAKE_INSTALL_PREFIX}/tables" CACHE STRING "Installation location of Master BUFR Tables")
 
+string(LENGTH "${MASTER_TABLE_DIR}" _lenmtd)
+set(_lenslmax 120)  # max number of chars of ${MASTER_TABLE_DIR} to store on a single line of a Fortran90 or C source code file
+if(${_lenmtd} LESS_EQUAL ${_lenslmax})
+  set(MASTER_TABLE_DIR_F "${MASTER_TABLE_DIR}")
+  set(MASTER_TABLE_DIR_C "${MASTER_TABLE_DIR}")
+else() # generate source code lines in chunks of ${_lenslmax} chars each
+  set(_mtd_f "")
+  set(_mtd_c "")
+  set(_len2go ${_lenmtd})
+  set(_start 0)
+  while(${_len2go} GREATER ${_lenslmax})
+    string(SUBSTRING "${MASTER_TABLE_DIR}" ${_start} ${_lenslmax} _chunk)
+    string(APPEND _mtd_f "${_chunk}" "' // &\n'")
+    string(APPEND _mtd_c "${_chunk}" "\" \n\t\t\"")
+    math(EXPR _len2go "${_len2go} - ${_lenslmax}")
+    math(EXPR _start "${_start} + ${_lenslmax}")
+  endwhile()
+  string(SUBSTRING "${MASTER_TABLE_DIR}" ${_start} -1 _chunk)
+  string(APPEND _mtd_f "${_chunk}")
+  string(APPEND _mtd_c "${_chunk}")
+  set(MASTER_TABLE_DIR_F "${_mtd_f}")
+  set(MASTER_TABLE_DIR_C "${_mtd_c}")
+endif()
+
 if(NOT CMAKE_BUILD_TYPE MATCHES "^(Debug|Release|RelWithDebInfo|MinSizeRel)$")
   message(STATUS "Setting build type to 'Release' as none was specified.")
   set(CMAKE_BUILD_TYPE
@@ -39,7 +63,7 @@ if(ENABLE_PYTHON)
   find_package(Python3 REQUIRED COMPONENTS Interpreter)
 endif()
 
-if(APPLE)
+if(APPLE AND NOT "${CMAKE_RANLIB}" MATCHES "^.*(llvm-ranlib)$")
   # The linker on macOS does not include `common symbols` by default
   # Passing the -c flag includes them and fixes an error with undefined symbols
   set(CMAKE_Fortran_ARCHIVE_FINISH "<CMAKE_RANLIB> -c <TARGET>")
