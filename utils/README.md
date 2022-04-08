@@ -96,6 +96,7 @@ See the source code at debufr.c and debufr.f
 
 A utility to read prepbufr files which prints each report one at a time, or jumps to a report with characteristics defined by various keys such as report type, subset type, xy locagtion, station id, etc. Keys can be entered as arguments to the program or entered while the program is running. Basic operation is to print one report at a time with the default being starting at the beginning and continuing until the end or the user enters 'q'. The following summary is printed if the program is run without arguments.
  
+<pre>
  Usage: readbp <-s> <-w> <m> <-k> <-r> <-d> <-n> <-h>  prep bufrfile
  
  Search filter and/or print prepbufr reports in various ways
@@ -114,6 +115,7 @@ A utility to read prepbufr files which prints each report one at a time, or jump
  Optional arguments can also be applied in the pause between reports output without using  a dash
  
  Optional arguments will be applied in concert in most cases
+</pre>
 
 See the source code at readbp.f90
 
@@ -534,7 +536,8 @@ Sample output for: `gettab gdas.20200812/00/gdas.t00z.adpsfc.tm00.bufr_d`
 
 ### split_by_subset
  
-A utility to read any BUFR file and split it into separate BUFR files based on subset type
+A utility to read any BUFR file and split it into separate BUFR files based on message subset type.
+To preview which files will be produced (one for each m/s type) use binv (documented above).
 
 See the source code at split_by_subset.f90
 

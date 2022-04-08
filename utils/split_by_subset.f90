@@ -77,7 +77,7 @@ program split_by_subset
 
   !> close the output files and flush the buffers
   do ii = 1,nsub
-    call closbf(lsubunit(ii))
+    call closbf(lsubunit(50+ii))
   enddo
 
   !> print the inventory

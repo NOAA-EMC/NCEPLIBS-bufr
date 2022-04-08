@@ -1,5 +1,6 @@
 # Create the debufr.c file
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/debufr.c.in ${CMAKE_CURRENT_BINARY_DIR}/debufr.c @ONLY)
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/sinv.f.in   ${CMAKE_CURRENT_BINARY_DIR}/sinv.f90 @ONLY)
 
 list(APPEND _utils_srcs
   binv.f90
