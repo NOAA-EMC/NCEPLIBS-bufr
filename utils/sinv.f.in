@@ -37,7 +37,7 @@
 !  define master table directory
 
       IF(NARG==2) THEN ! arg 2 would be a user defined table dir
-         call getarg(1,tbldir)
+         call getarg(2,tbldir)
          call mtinfo(tbldir,3,4)
       else ! otherwise default table dir is used
          call mtinfo(           &
