@@ -48,15 +48,6 @@
       NINV(1,ISUB) = NINV(1,ISUB)+1
       NINV(2,ISUB) = NINV(2,ISUB)+NMSUB(LUNBF)
       NINV(3,ISUB) = NINV(3,ISUB)+NMBYT(LUNBF)
- 
-!     IOFF = 1
-!     CALL STATUS(LUNBF,LUN,IL,IM)
-!     call ufbcnt(lunbf,irec,isub)
-!     DO I=1,NMSUB(LUNBF)
-!     NBYS = IUPB(MBAY(1,LUN),MBYT(LUN)+IOFF,16)
-!     print*,SUBSET,' m#',irec,' subt#',i,nbys
-!     IOFF = IOFF+NBYS
-!     ENDDO
       ENDDO
 
 !  PRINT THE INVEBTORY

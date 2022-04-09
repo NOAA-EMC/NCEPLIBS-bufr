@@ -5,7 +5,7 @@
       PARAMETER (MAXA=16000000)
       PARAMETER (MAXS=1000)
  
-      CHARACTER(255) FILE   
+      CHARACTER(255) FILE,tbldir
       CHARACTER(100) cmtdir 
       CHARACTER(8)  SUBSET
       CHARACTER     ci*16,cj*80
@@ -27,14 +27,25 @@
 !  get filename argument
 
       NARG=IARGC()
-      IF(NARG/=1) THEN
+      IF(NARG<1) THEN
         write(6,*)'Usage: sinv <satbufrfile> will print inventory of satellites by platform and instrument'
         CALL EXIT(2)
       ENDIF
       call getarg(1,file)
       file = TRIM(adjustl(file))
+  
+!  define master table directory
 
-      call mtinfo("@MASTER_TABLE_DIR@",3,4)
+      IF(NARG==2) THEN ! arg 2 would be a user defined table dir
+         call getarg(1,tbldir)
+         call mtinfo(tbldir,3,4)
+      else ! otherwise default table dir is used
+         call mtinfo(           &
+         "@MASTER_TABLE_DIR_F@" &
+         ,3,4)
+      endif
+
+! read through the file and collect counts of satid and sat inst combinations
 
       open(lunbf,file=file,form='unformatted')
       CALL OPENBF(LUNBF,'IN',LUNBF)
@@ -55,8 +66,8 @@
       isat(i,j) = isat(i,j)+1
       enddo
 
-      !print1,'satellite     ','instrument    ','   count'
-      !print'(40("-"))'
+! print the summary of satid and sat inst combinations
+
       print*
 1     format(a14,2x,a14,2x,a8)
       do i=0,1000
@@ -71,8 +82,7 @@
 
       print*; print'(23x,i10)',jsat; print*
 
-      stop
-      end
+      end program 
 !-----------------------------------------------------------------------
 !  looks up BUFR code table values for SAID (said) and SIID (instrument)
 !-----------------------------------------------------------------------
@@ -87,20 +97,4 @@
       if(icode>0) call getcfmng(lunit,'SAID',icode,'  ',-1,csad,len,iret)
       if(jcode>0) call getcfmng(lunit,'SIID',jcode,'  ',-1,csid,len,iret)
 
-      return
-      end
-!-----------------------------------------------------------------------
-!-----------------------------------------------------------------------
-      SUBROUTINE BORT(STR)
-      CHARACTER*(*) STR
-      CALL ERRWRT(' ')
-      CALL ERRWRT('***********BUFR ARCHIVE LIBRARY ABORT**************')
-      CALL ERRWRT(STR)
-      CALL ERRWRT('***********BUFR ARCHIVE LIBRARY ABORT**************')
-      CALL ERRWRT(' ')
-      call tracebackqq()
-      CALL BORT_EXIT
-      ENd subroutine bort
-!-----------------------------------------------------------------------
-!-----------------------------------------------------------------------
-
+      end subroutine
