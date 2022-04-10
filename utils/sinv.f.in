@@ -38,7 +38,6 @@
 
       IF(NARG==2) THEN ! arg 2 would be a user defined table dir
          call getarg(2,tbldir)
-         print*,trim(tbldir)
          call mtinfo(tbldir,3,4)
       else ! otherwise default table dir is used
          call mtinfo(           &
@@ -71,7 +70,7 @@
 
 ! print the summary of satid and sat inst combinations
 
-      print*
+      write(6,*)
 1     format(a14,2x,a14,2x,a8)
       do i=0,1000
       do j=0,1000
@@ -83,7 +82,7 @@
       enddo
       enddo
 
-      print*; print'(23x,i10)',jsat; print*
+      write(6,'(/23x,i10/)',jsat
 
       end program 
 !-----------------------------------------------------------------------
