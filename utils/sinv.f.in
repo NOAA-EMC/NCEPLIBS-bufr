@@ -49,15 +49,17 @@
 ! read through the file and collect counts of satid and sat inst combinations
 
       open(lunbf,file=file,form='unformatted')
+      call ufbtab(lunbf,said,1,maxa,nret,'SAID')
+      call ufbtab(lunbf,siid,1,maxa,nrex,'SIID')
+
+! need to open the bufrfile with the satellites of interest
+
+      open(lunbf,file=file,form='unformatted')
       CALL OPENBF(LUNBF,'IN',LUNBF)
+      call readmg(lunbf,subset,idate,iret)
       call codflg('Y')
 
-      call ufbtab(lunbf,said,1,maxa,nret,'SAID')
-      !print*,nret
-      call ufbtab(lunbf,siid,1,maxa,nrex,'SIID')
-      !print*,nrex
-
-      call readmg(lunbf,subset,idate,iret)
+! make a table of sat ids and sat instruments 
 
       do n=1,max(nret,nrex)
       i = said(n)
