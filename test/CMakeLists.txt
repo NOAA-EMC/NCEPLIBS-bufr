@@ -202,7 +202,7 @@ add_test(NAME test_gettab
 
 # Test sinv utility
 add_test(NAME test_sinv 
-  COMMAND ${CMAKE_BINARY_DIR}/bin/test_sinv.sh "${CMAKE_BINARY_DIR}/utils/sinv testfiles/data/satwndbufr ../tables" "testrun/sinv.out"  "testfiles/testoutput/sinv.out"
+  COMMAND ${CMAKE_BINARY_DIR}/bin/test_sinv.sh "${CMAKE_BINARY_DIR}/utils/sinv testfiles/data/satwndbufr ${CMAKE_BINARY_DIR}/tables" "testrun/sinv.out"  "testfiles/testoutput/sinv.out"
   )
 
 # Test binv utility
