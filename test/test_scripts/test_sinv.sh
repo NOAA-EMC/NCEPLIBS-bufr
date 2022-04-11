@@ -10,7 +10,7 @@ outfile=$2
 reffile=$3
 
 rc="-1"
-$cmd > $outfile && diff -w $outfile $reffile
+$cmd  > $outfile;   diff -w $outfile $reffile
 rc=${?}
 
 exit $rc
