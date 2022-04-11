@@ -38,35 +38,31 @@
 !-----------------------------------------------------------------------
 !-----------------------------------------------------------------------
 
-      iprt = 0
-      nsta = 8
-      close(6);open(6,recl=120)
-
 !  check for filename argument
 
       narg=iargc()
 1     if(narg<1) THEN
-        write(6,*)
-        write(6,*)'Usage: readbp <-s> <-w> <m> <-k> <-r> <-d> <-n> <-h>  prep bufrfile'
-        write(6,*)
-        write(6,*)'Search filter and/or print prepbufr reports in various ways'
-        write(6,*)
-        write(6,*)'-s "station_id " print reports where "station_id" matches the report id up to the len of "station_id"'
-        write(6,*)'-w "x1 x2 y1 y2" print reports within a lon/lat box'
-        write(6,*)'-m "subset     " print reports with this subset name'
-        write(6,*)'-k "gsi  rtype " print reports with this gsi report type'
-        write(6,*)'-r "on29 rtype " print reports with this on29 report type'
-        write(6,*)'-d               print reports using ufdump - note: this works with any NCEP BUFR file'
-        write(6,*)'-n               no pause between reports output'
-        write(6,*)'-h               print only report headers'
-        write(6,*)
-        write(6,*)'Only a filename is required in which case step through the reports one at a time using "enter"'
-        write(6,*)
-        write(6,*)'Optional arguments can also be applied in the pause between reports output without using  a dash'
-        write(6,*)
-        write(6,*)'Optional arguments will be applied in concert in most cases'
-        write(6,*)
-        CALL EXIT(2)
+        call printx('                                                                                                        ')
+        call printx('Usage: readbp <-s> <-w> <m> <-k> <-r> <-d> <-n> <-h>  prep bufrfile                                     ')
+        call printx('                                                                                                        ')
+        call printx('Search filter and/or print prepbufr reports in various ways                                             ')
+        call printx('                                                                                                        ')
+        call printx('-s "station_id " print reports where "station_id" matches the report id up to the len of "station_id"   ')
+        call printx('-w "x1 x2 y1 y2" print reports within a lon/lat box                                                     ')
+        call printx('-m "subset     " print reports with this subset name                                                    ')
+        call printx('-k "gsi  rtype " print reports with this gsi report type                                                ')
+        call printx('-r "on29 rtype " print reports with this on29 report type                                               ')
+        call printx('-d               print reports using ufdump - note: this works with any NCEP BUFR file                  ')
+        call printx('-n               no pause between reports output                                                        ')
+        call printx('-h               print only report headers                                                              ')
+        call printx('                                                                                                        ')
+        call printx('Only a filename is required in which case step through the reports one at a time using "enter"          ')
+        call printx('                                                                                                        ')
+        call printx('Optional arguments can also be applied in the pause between reports output without using  a dash        ')
+        call printx('                                                                                                        ')
+        call printx('Optional arguments will be applied in concert in most cases                                             ')
+        call printx('                                                                                                        ')
+        call exit(2)
       ENDIF
 
       iarg=1
@@ -233,5 +229,16 @@
 !  -------------------------------------
 
 100   STOP
-      END
+      END program
+!-----------------------------------------------------------------------
+! print long lines to stdout using advance=no format clause
+!-----------------------------------------------------------------------
+      subroutine printx(str)
+      character(*) :: str
+      lens=len(str)
+      do i=1,lens-1             
+      write(*,'(a1)',advance="no")str(i:i)  
+      enddo
+      write(*,'(a1)')str(lens:lens)  
+      end subroutine
 
