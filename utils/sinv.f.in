@@ -22,13 +22,13 @@
       jsat=0  
       said=0
       ssid=0
-      close(6); open(6,recl=130)
+      !!close(6); open(6,recl=130)
 
 !  get filename argument
 
       NARG=IARGC()
       IF(NARG<1) THEN
-        write(6,*)'Usage: sinv <satbufrfile> will print inventory of satellites by platform and instrument'
+        write(*,*)'Usage: sinv <satbufrfile> will print inventory of satellites by platform and instrument'
         CALL EXIT(2)
       ENDIF
       call getarg(1,file)
@@ -70,19 +70,19 @@
 
 ! print the summary of satid and sat inst combinations
 
-      write(6,*)
+      write(*,*)
 1     format(a14,2x,a14,2x,a8)
       do i=0,1000
       do j=0,1000
       if(isat(i,j).gt.0) then 
          jsat=jsat+isat(i,j)
          call satcode(lunbf,i,ci,j,cj)
-         write(6,'(i3.3,2x,a16,2x,i10,2x,i3.3,a80)')i,ci,isat(i,j),j,trim(cj)
+         write(*,'(i3.3,2x,a16,2x,i10,2x,i3.3,a80)')i,ci,isat(i,j),j,trim(cj)
       endif
       enddo
       enddo
 
-      write(6,'(/23x,i10/)') jsat
+      write(*,'(/23x,i10/)') jsat
 
       end program 
 !-----------------------------------------------------------------------
