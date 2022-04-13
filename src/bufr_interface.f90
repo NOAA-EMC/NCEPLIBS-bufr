@@ -309,7 +309,8 @@ subroutine get_isc_c(isc_ptr, isc_size) bind(C, name='get_isc_f')
   type(c_ptr), intent(inout) :: isc_ptr
   integer(c_int), intent(out) :: isc_size
 
-  allocate(isc_f, source=isc)
+  allocate(isc_f(size(isc)))
+  isc_f = isc
   isc_size = size(isc)
   isc_ptr = c_loc(isc_f(1))
 end subroutine get_isc_c
@@ -328,7 +329,8 @@ subroutine get_link_c(link_ptr, link_size) bind(C, name='get_link_f')
   type(c_ptr), intent(inout) :: link_ptr
   integer(c_int), intent(out) :: link_size
 
-  allocate(link_f, source=link)
+  allocate(link_f(size(link)))
+  link_f = link
   link_size = size(link)
   link_ptr = c_loc(link_f(1))
 end subroutine get_link_c
@@ -347,7 +349,8 @@ subroutine get_itp_c(itp_ptr, itp_size) bind(C, name='get_itp_f')
   type(c_ptr), intent(inout) :: itp_ptr
   integer(c_int), intent(out) :: itp_size
 
-  allocate(itp_f, source=itp)
+  allocate(itp_f(size(itp)))
+  itp_f = itp
   itp_size = size(itp)
   itp_ptr = c_loc(itp_f(1))
 end subroutine get_itp_c
@@ -368,7 +371,8 @@ subroutine get_typ_c(typ_ptr, typ_len, mem_size) bind(C, name='get_typ_f')
   integer(c_int), intent(out) :: typ_len
   integer(c_int), intent(out) :: mem_size
 
-  allocate(typ_f, source=typ)
+  allocate(typ_f(size(typ)))
+  typ_f = typ
   typ_len = len(typ(1))
   mem_size = size(typ)
   typ_ptr = c_loc(typ_f(1))
@@ -390,7 +394,8 @@ subroutine get_tag_c(tag_ptr, tag_len, mem_size) bind(C, name='get_tag_f')
   integer(c_int), intent(out) :: tag_len
   integer(c_int), intent(out) :: mem_size
 
-  allocate(tag_f, source=tag)
+  allocate(tag_f(size(tag)))
+  tag_f = tag
   tag_len = len(tag(1))
   mem_size = size(tag)
   tag_ptr = c_loc(tag_f(1))
@@ -410,7 +415,8 @@ subroutine get_jmpb_c(jmpb_ptr, jmpb_size) bind(C, name='get_jmpb_f')
   type(c_ptr), intent(inout) :: jmpb_ptr
   integer(c_int), intent(out) :: jmpb_size
 
-  allocate(jmpb_f, source=jmpb)
+  allocate(jmpb_f(size(jmpb)))
+  jmpb_f = jmpb
   jmpb_size = size(jmpb)
   jmpb_ptr = c_loc(jmpb_f(1))
 end subroutine get_jmpb_c
