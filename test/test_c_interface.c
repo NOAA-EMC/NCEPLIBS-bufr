@@ -137,6 +137,7 @@ void test_intrusiveInterface()
 {
     const char* Subset = "NC021023";
     const int NumSubsetsToParse = 10;
+    int i;
 
     typedef struct
     {
@@ -162,7 +163,8 @@ void test_intrusiveInterface()
     target.numReps = 15;
 
     target.data = malloc(sizeof(double*) * NumSubsetsToParse);
-    for (int i = 0; i < NumSubsetsToParse; i++)
+
+    for (i = 0; i < NumSubsetsToParse; i++)
     {
         target.data[i] = malloc(sizeof(double) * target.numReps);
     }
@@ -237,7 +239,8 @@ void test_intrusiveInterface()
                 get_inv_f(bufrLoc, &invPtr, &invSize);
 
                 int repIdx = 0;
-                for (int dataCursor = 1; dataCursor <= nval; dataCursor++)
+                int dataCursor;
+                for (dataCursor = 1; dataCursor <= nval; dataCursor++)
                 {
                     int nodeIdx = invPtr[cIdx(dataCursor)];
 
@@ -311,7 +314,7 @@ void test_intrusiveInterface()
     }
 
     // Memory cleanup
-    for (int i = 0; i < NumSubsetsToParse; i++)
+    for (i = 0; i < NumSubsetsToParse; i++)
     {
         free(target.data[i]);
     }
