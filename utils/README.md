@@ -94,20 +94,32 @@ See the source code at debufr.c and debufr.f
 
 ### readbp
 
-A utility to read prepbufr files which prints each report one at a time, or jumps to a report with characteristics defined by various keys such as report type, subset type, xy locagtion, station id, etc. Keys can be entered as arguments to the script or entered while the program is running. Basic operation is to print one report at a time with the default being starting at the beginning and continuing until the end or the user enters 'q'. Summary of keys follows. A key is entered after a report is output. Most keys require an additional input after entering the key. The 'd' key dumps the BUFR contents of the report without further input.
+A utility to read prepbufr files which prints each report one at a time, or jumps to a report with characteristics defined by various keys such as report type, subset type, xy locagtion, station id, etc. Keys can be entered as arguments to the program or entered while the program is running. Basic operation is to print one report at a time with the default being starting at the beginning and continuing until the end or the user enters 'q'. The following summary is printed if the program is run without arguments.
+ 
+<pre>
+ Usage: readbp <-s> <-w> <m> <-k> <-r> <-d> <-n> <-h>  prep bufrfile
+ 
+ Search filter and/or print prepbufr reports in various ways
+ 
+ -s "station_id " print reports where "station_id" matches the report id up to the len of "station_id"
+ -w "x1 x2 y1 y2" print reports within a lon/lat box
+ -m "subset     " print reports with this subset name
+ -k "gsi  rtype " print reports with this gsi report type
+ -r "on29 rtype " print reports with this on29 report type
+ -d               print reports using ufdump - note: this works with any NCEP BUFR file
+ -n               no pause between reports output
+ -h               print only report headers
+ 
+ Only a filename is required in which case step through the reports one at a time using "enter"
+ 
+ Optional arguments can also be applied in the pause between reports output without using  a dash
+ 
+ Optional arguments will be applied in concert in most cases
+</pre>
 
-|key| description                               | sample input     |
-|:---:|-----------------------------------------|:----------------:|
-|  r  | ON29 report type and/or instrument type |    10 20         |
-|  k  | OI report type                          |      30          |
-|  m  | BUFR message type                       |     ADPUPA       |
-|  w  | lat/lon box                             |   x1, x2, y1, y2 |
-|  s  | station id                              |      72016       |
-|  d  | dump                                    | BUFR contents    |
+See the source code at readbp.f90
 
-See the source code at readbp.f
-
-Sample output for:  `./readbp gdas.20200812/00/gdas.t00z.prepbufr'`
+Sample output for:  `readbp gdas.20200812/00/gdas.t00z.prepbufr'`
 
 ~~~
 MESSAGE: ADPUPA       1     2    20081200
@@ -149,9 +161,9 @@ DATA:
 
 A utility to read any BUFR file with embedded DX tables, and print the contents of each subset one at a time.
 
-See the source code at readmp.f
+See the source code at readmp.f90
 
-Sample output for: `./readmp.x gdas.20200812/00/gdas.t00z.sfcshp.tm00.bufr_d`
+Sample output for: `readmp gdas.20200812/00/gdas.t00z.sfcshp.tm00.bufr_d`
 
 ~~~
  MESSAGE TYPE NC001001
@@ -238,9 +250,9 @@ Sample output for: `./readmp.x gdas.20200812/00/gdas.t00z.sfcshp.tm00.bufr_d`
 
 A utility to print a BUFR file inventory by message type.
 
-See the source code at binv.f
+See the source code at binv.f90
 
-Sample output for: `./binv.x gdas.20200812/00/gdas.t00z.prepbufr`
+Sample output for: `binv gdas.20200812/00/gdas.t00z.prepbufr`
 
 ~~~
 type        messages       subsets         bytes
@@ -270,9 +282,9 @@ TOTAL           6823        774888      67232740
 
 Utility to print an inventory of satellite data by platform and instrument type.
 
-See the source code at sinv.f
+See the source code at sinv.f90
 
-Sample output for: `./sinv.x gdas.20200812/00/gdas.t00z.satwnd.tm00.bufr_d`
+Sample output for: `sinv gdas.20200812/00/gdas.t00z.satwnd.tm00.bufr_d`
 ~~~
 003  METOP-1           7220
 004  METOP-2           8911
@@ -305,7 +317,7 @@ An inventory of prepbufr observations by variable, report type, and quality mark
 |1   |  passed checks and/or corrected by cqc|
 |2   |  not checked|
 |3   |  suspicious|
-|4-7 | rejected by oiqc (original mark + 4)|
+|4-7 |  rejected by oiqc (original mark + 4)|
 |8   |  Ps more than 100mb off|
 |9   |  filtered by missing ob errors in gsi error table|
 |10  |  rejected by gsi gross check|
@@ -314,10 +326,12 @@ An inventory of prepbufr observations by variable, report type, and quality mark
 |13  |  rejected by cqc or acqc|
 |14  |  sdm reject (manual purge)|
 |15  |  rejected by prepdata code (ie failed various sanity checks)|
+|cka |  a non-missing value with a missing quality mark|
+|ckb |  a missing value with a non-missing quality mark|
 
-See the source code at cmpbqm.f
+See the source code at cmpbqm.f90
 
-Sample output for: `./cmpbqm.x gdas.20200811/00/gdas.t00z.prepbufr`
+Sample output for: `cmpbqm gdas.20200811/00/gdas.t00z.prepbufr`
 ~~~
 DATA  VALID AT  2020081100
 
@@ -466,7 +480,7 @@ A utility to read any BUFR file with embedded DX tables, and print the table.
 
 See the source code at gettab.f90
 
-Sample output for: `./gettab.x gdas.20200812/00/gdas.t00z.adpsfc.tm00.bufr_d`
+Sample output for: `gettab gdas.20200812/00/gdas.t00z.adpsfc.tm00.bufr_d`
 
 ~~~
 .------------------------------------------------------------------------------.
@@ -522,11 +536,12 @@ Sample output for: `./gettab.x gdas.20200812/00/gdas.t00z.adpsfc.tm00.bufr_d`
 
 ### split_by_subset
  
-A utility to read any BUFR file and split it into separate BUFR files based on subset type
+A utility to read any BUFR file and split it into separate BUFR files based on message subset type.
+To preview which files will be produced (one for each m/s type) use binv (documented above).
 
 See the source code at split_by_subset.f90
 
-Usage: `./split_by_subset.x gdas.20200812/00/gdas.t00z.satwnd.tm00.bufr_d`
+Usage: `split_by_subset gdas.20200812/00/gdas.t00z.satwnd.tm00.bufr_d`
 
 <br>
 

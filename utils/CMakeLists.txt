@@ -1,21 +1,40 @@
 # Create the debufr.c file
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/debufr.c.in ${CMAKE_CURRENT_BINARY_DIR}/debufr.c @ONLY)
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/sinv.f90.in ${CMAKE_CURRENT_BINARY_DIR}/sinv.f90 @ONLY)
 
 list(APPEND _utils_srcs
-  binv.f
-  cmpbqm.f
-  readbp.f
-  readmp.f
-  sinv.f
+  binv.f90
+  cmpbqm.f90
+  ${CMAKE_CURRENT_BINARY_DIR}/sinv.f90
   gettab.f90
+  readbp.f90
+  readmp.f90
   split_by_subset.f90
   xbfmg.c
+)
+
+list(APPEND _no_x 
+  binv
+  sinv
+  readbp
+  readmp
+  cmpbqm
+  gettab
+  split_by_subset
 )
 
 foreach(_src ${_utils_srcs})
   get_filename_component(_name "${_src}" NAME_WE)
   get_filename_component(_ext "${_src}" LAST_EXT)
+
   set(_exec "${_name}.x")
+
+  foreach(_nox ${_no_x})
+    if(_name MATCHES ${_nox})
+    set(_exec "${_name}")
+    endif()
+  endforeach()
+  
   add_executable(${_exec} ${_src})
   add_dependencies(${_exec} bufr::bufr_4)
   if(${_ext} MATCHES ".c")

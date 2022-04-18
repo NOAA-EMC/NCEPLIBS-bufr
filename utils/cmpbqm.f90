@@ -1,45 +1,49 @@
-C> @file
-C> @brief Print inventory of observations from prepbufr file by
-C> variable, report type and quality mark
+!> @file
+!> @brief Print inventory of observations from prepbufr file by
+!> variable, report type and quality mark
 
-C-----------------------------------------------------------------------
-C  MAIN PROGRAM CMPBQM
-C-----------------------------------------------------------------------
+!-----------------------------------------------------------------------
+!  MAIN PROGRAM CMPBQM
+!-----------------------------------------------------------------------
       PROGRAM CMPBQM
  
-      CHARACTER*200 FILE
+      CHARACTER*255 FILE
       CHARACTER*50 HEADR,OBSTR,QMSTR,FCSTR,ERSTR,QMSFC
       CHARACTER*20 VARS(7)
       CHARACTER*8  SUBSET,DATE
       DIMENSION    KNT(300,7,0:17),HDR(5),OBS(8,255),QMS(8,255)
-      LOGICAL      SKIP
+      LOGICAL      SKIP,exist
       REAL*8       HDR,OBS,QMS
  
       DATA HEADR /'SID XOB YOB DHR TYP              '/
       DATA OBSTR /'POB QOB TOB ZOB UOB PWO RHO VOB  '/
       DATA QMSTR /'PQM QQM TQM ZQM WQM PWQ RHQ      '/
  
-      DATA VARS   /'PRESSURE        ',
-     .             'SPECIFIC HUMIDTY',
-     .             'TEMPERATURE     ',
-     .             'HEIGHT          ',
-     .             'WIND COMPONENTS ',
-     .             'PRECIPITABLE H2O',
-     .             'RELATIVE HUMIDTY'/
+      DATA VARS   /'PRESSURE        ',&
+                   'SPECIFIC HUMIDTY',&
+                   'TEMPERATURE     ',&
+                   'HEIGHT          ',&
+                   'WIND COMPONENTS ',&
+                   'PRECIPITABLE H2O',&
+                   'RELATIVE HUMIDTY'/
  
       DATA LUBFR /8    /
       DATA VMAX  /10E10/
  
-C-----------------------------------------------------------------------
-C-----------------------------------------------------------------------
+!-----------------------------------------------------------------------
+!-----------------------------------------------------------------------
  
       IREC = 0
       KNT = 0
  
-C  OPEN A FILE - GET A DATE
-C  ------------------------
+!  OPEN A FILE - GET A DATE
+!  ------------------------
  
-      read(5,'(a)',end=100) file
+      call getarg(1,file); file=trim(adjustl(file)) 
+      if (file == '') call bort('Usage: "cmpbqm prepbufrfile" will print prep inventory by variable, report type, and qc mark')
+      inquire(file=file,exist=exist)
+      if (.not.exist) call bort(trim(file)//' does not exist') 
+
       open(lubfr,file=file,form='unformatted')
       CALL OPENBF(LUBFR,'IN',LUBFR)
       CALL READMG(LUBFR,SUBSET,IDATE,IRET)
@@ -50,8 +54,8 @@ C  ------------------------
       ENDDO
       PRINT'(''DATA  VALID AT  '',A8)',DATE
  
-C  READ THRU THE PREPDA RECORDS
-C  ----------------------------
+!  READ THRU THE PREPDA RECORDS
+!  ----------------------------
  
 10    CALL READSB(LUBFR,IRET)
       IF(IRET.NE.0) THEN
@@ -84,8 +88,8 @@ C  ----------------------------
  
       GOTO 10
  
-C  FINISH UP
-C  ---------
+!  FINISH UP
+!  ---------
  
 100   DO K=1,7
       PRINT*,VARS(K)
@@ -100,11 +104,11 @@ C  ---------
          ifail=ifail+KNT(KX,K,IQ)   
       endif
       ENDDO
-      IF(ITOT.GT.0) PRINT101,KX,ITOT,igood,ifail,(KNT(KX,K,IQ),IQ=8,17)
-101   FORMAT(I3,I6,2('|', I6),
-     .             2('|', I6),
-     .             1('|',6I6),
-     .             2('|', I6))
+      IF(ITOT.GT.0) PRINT 101,KX,ITOT,igood,ifail,(KNT(KX,K,IQ),IQ=8,17)
+101   FORMAT(I3,I6,2('|', I6),& 
+                   2('|', I6),&
+                   1('|',6I6),&
+                   2('|', I6))
       ENDDO
       PRINT*
       ENDDO
