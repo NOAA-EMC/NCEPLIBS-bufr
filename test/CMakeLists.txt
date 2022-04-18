@@ -1,7 +1,7 @@
 # Fetch test data from: https://ftp.emc.ncep.noaa.gov/static_files/public/bufr.tar
 set(BUFR_URL "https://ftp.emc.ncep.noaa.gov/static_files/public")
 if(${PROJECT_VERSION} VERSION_GREATER_EQUAL 11.6.0)
-  set(BUFR_TAR "bufr-11.6.0.tar")
+  set(BUFR_TAR "bufr-11.6.0.tgz")
 else()
   set(BUFR_TAR "bufr.tar")
 endif()
@@ -31,7 +31,7 @@ add_custom_target(get_bufr_test_data ALL DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/${B
 add_custom_command(
   TARGET get_bufr_test_data
   POST_BUILD
-  COMMAND ${CMAKE_COMMAND} -E chdir ${CMAKE_CURRENT_BINARY_DIR} tar xvf ${BUFR_TAR}
+  COMMAND ${CMAKE_COMMAND} -E chdir ${CMAKE_CURRENT_BINARY_DIR} tar xzf ${BUFR_TAR}
   COMMAND ${CMAKE_COMMAND} -E chdir ${CMAKE_CURRENT_BINARY_DIR} rm -rf testfiles
   COMMAND ${CMAKE_COMMAND} -E chdir ${CMAKE_CURRENT_BINARY_DIR} mv bufr/testfiles testfiles
   COMMAND ${CMAKE_COMMAND} -E chdir ${CMAKE_CURRENT_BINARY_DIR} rm -rf bufr)
