@@ -7,10 +7,11 @@
  
       CHARACTER(255) FILE,tbldir
       CHARACTER(100) cmtdir 
-      CHARACTER(8)  SUBSET
-      CHARACTER     ci*16,cj*80
-      DIMENSION     isat(0:maxs,0:maxs)  
-      real(8)       arr(2,maxa),said(maxa),siid(maxa)
+      CHARACTER(8)   SUBSET
+      CHARACTER      ci*16,cj*80
+      DIMENSION      isat(0:maxs,0:maxs)  
+      real(8)        arr(2,maxa),said(maxa),siid(maxa)
+      logical        exist
  
       DATA BMISS  /10E10/
       DATA LUNBF  /20/
@@ -33,6 +34,9 @@
       ENDIF
       call getarg(1,file)
       file = TRIM(adjustl(file))
+      inquire(file=file,exist=exist)
+      if (.not.exist) call bort(trim(file)//' does not exist') 
+
   
 !  define master table directory
 

@@ -18,7 +18,7 @@
   call getarg(1,file); file=trim(adjustl(file)) 
   if (file == '') call bort('Usage: "gettab bufrfile" will print the internal BUFR table')
   inquire(file=file,exist=exist)
-  if (.not.exist) call bort(file//' does not exist') 
+  if (.not.exist) call bort(trim(file)//' does not exist') 
   call getarg(2,go); go=trim(adjustl(go)) ! this for testing !
   open(lunit,file=file,form='unformatted')
 

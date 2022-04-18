@@ -8,6 +8,7 @@
       CHARACTER*8   SUBSET
       CHARACTER*8   SUB(MAXSUB)
       DIMENSION     NINV(3,MAXSUB)
+      LOGICAL       EXIST
  
       DATA BMISS  /10E10/
       DATA LUNBF  /20/
@@ -22,8 +23,11 @@
         PRINT *,'Usage: binv <bufrfile> will print bufrfile inventory by message type'
         CALL EXIT(2)
       ENDIF
+
       call getarg(1,file)
       file = TRIM(file)//CHAR(0)
+      inquire(file=file,exist=exist)
+      if (.not.exist) call bort(trim(file)//' does not exist') 
       open(lunbf,file=file,form='unformatted')
 
       NINV = 0

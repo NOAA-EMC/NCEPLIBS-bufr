@@ -42,7 +42,7 @@
       call getarg(1,file); file=trim(adjustl(file)) 
       if (file == '') call bort('Usage: "cmpbqm prepbufrfile" will print prep inventory by variable, report type, and qc mark')
       inquire(file=file,exist=exist)
-      if (.not.exist) call bort(file//' does not exist') 
+      if (.not.exist) call bort(trim(file)//' does not exist') 
 
       open(lubfr,file=file,form='unformatted')
       CALL OPENBF(LUBFR,'IN',LUBFR)

@@ -11,7 +11,7 @@
       character(3)   ::  vars(8)
       integer        ::  iostat
       real(8)        ::  hdr(10),obs(10,255),qms(10,255),qmc(17)
-      logical        ::  window,steam,level,dump,hedr,exists
+      logical        ::  window,steam,level,dump,hedr,exist
 
       EQUIVALENCE    (HDR(1),SID)
       EQUIVALENCE    (qmc,cmc)
@@ -106,8 +106,8 @@
       narg=0
       if(file=='nofile') goto 1 
       file = trim(adjustl(file)) 
-      inquire(file=file, exist=exists)
-      if (.not.exists) goto 1
+      inquire(file=file,exist=exist)
+      if (.not.exist) call bort(trim(file)//' does not exist') 
 
 !  open the bufr input file
 !  ------------------------

@@ -23,14 +23,19 @@ program split_by_subset
   logical :: file_exists
   integer, dimension(maxsub) :: lsubunit
 
-  !> get input filename from stdin, if not use 'fort.20'
-  call getarg(1, finput)
-  inquire(file=trim(adjustl(finput)), exist=file_exists)
-  if (file_exists) then
-    open(lunit, file=trim(adjustl(finput)), form='unformatted')
-    call openbf(lunit,'IN',lunit)
+  !> get input filename from stdin
+
+  if(iargc()==1) then
+     call getarg(1, finput)
+     inquire(file=trim(adjustl(finput)), exist=file_exists)
+     if (file_exists) then
+        open(lunit, file=trim(adjustl(finput)), form='unformatted')
+        call openbf(lunit,'IN',lunit)
+     else
+        call bort('File ' // trim(adjustl(finput)) // ' does not exist')       
+     endif
   else
-    call bort('Usage: "split_by_subset bufrfile" will split a BUFR file into subsets')
+     call bort('Usage: "split_by_subset bufrfile" will split a BUFR file into subsets')
   endif
 
   !> initialize counters
