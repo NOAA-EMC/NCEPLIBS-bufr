@@ -1,4 +1,4 @@
-# Create the debufr.c file
+# Create the debufr.c and sinv.f90 files
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/debufr.c.in ${CMAKE_CURRENT_BINARY_DIR}/debufr.c @ONLY)
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/sinv.f90.in ${CMAKE_CURRENT_BINARY_DIR}/sinv.f90 @ONLY)
 
@@ -13,27 +13,9 @@ list(APPEND _utils_srcs
   xbfmg.c
 )
 
-list(APPEND _no_x 
-  binv
-  sinv
-  readbp
-  readmp
-  cmpbqm
-  gettab
-  split_by_subset
-)
-
 foreach(_src ${_utils_srcs})
-  get_filename_component(_name "${_src}" NAME_WE)
+  get_filename_component(_exec "${_src}" NAME_WE)
   get_filename_component(_ext "${_src}" LAST_EXT)
-
-  set(_exec "${_name}.x")
-
-  foreach(_nox ${_no_x})
-    if(_name MATCHES ${_nox})
-    set(_exec "${_name}")
-    endif()
-  endforeach()
   
   add_executable(${_exec} ${_src})
   add_dependencies(${_exec} bufr::bufr_4)
@@ -47,7 +29,7 @@ foreach(_src ${_utils_srcs})
 endforeach()
 
 # the debufr utility uses the "8" (8-byte integer, 8-byte real) build of the library
-set(_exec debufr.x)
+set(_exec debufr)
 add_executable(${_exec} ${CMAKE_CURRENT_BINARY_DIR}/debufr.c debufr.f)
 add_dependencies(${_exec} bufr::bufr_8)
 set_property(SOURCE ${CMAKE_CURRENT_BINARY_DIR}/debufr.c APPEND_STRING PROPERTY COMPILE_DEFINITIONS

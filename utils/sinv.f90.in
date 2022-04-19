@@ -40,6 +40,7 @@
   
 !  define master table directory
 
+      call openbf(lunbf,'FIRST',lunbf)  ! need to call openbf prior to calling mtinfo
       IF(NARG==2) THEN ! arg 2 would be a user defined table dir
          call getarg(2,tbldir)
          call mtinfo(tbldir,3,4)
