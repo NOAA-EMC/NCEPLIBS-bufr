@@ -56,7 +56,7 @@ C	      as positive integers with the left-most bit set to 1.
 	      NRV(JJ) = NINT(VAL)
 	      IF ( NRV(JJ) .LT. 0 ) THEN
 		IMASK = 2_8**(IBT(NODE)-1)
-		IPKS = IOR(IABS(NRV(JJ)),IMASK)
+		IPKS = IOR(ABS(NRV(JJ)),IMASK)
 	      ELSE
 		IPKS = NRV(JJ)
 	      END IF
