@@ -80,10 +80,11 @@ C>
       CHARACTER*(*) STR
       CHARACTER*8   CVAL
       EQUIVALENCE   (CVAL,RVAL)
+      integer*8     ival,int8
       REAL*8        RVAL,TAB(I1),UPS
 
 C-----------------------------------------------------------------------
-      MPS(NODE) = 2**(IBT(NODE))-1
+      int(int8) = int8                    
 C-----------------------------------------------------------------------
 
       IRET = 0
@@ -129,8 +130,8 @@ C  ---------------------------------------------------------
          NVAL(LUN) = N
          GOTO 20
       ELSEIF(ITP(NODE).EQ.1) THEN
-         CALL UPBB(IVAL,NBIT(N),MBIT(N),MBAY(1,LUN))
-         CALL USRTPL(LUN,N,IVAL)
+         CALL UPB8(IVAL,NBIT(N),MBIT(N),MBAY(1,LUN))
+         CALL USRTPL(LUN,N,int(IVAL))
          GOTO 10
       ENDIF
       ENDDO
@@ -143,11 +144,11 @@ C  -----------------------------------------
       NODE = NODS(I)
       INVN = INVWIN(NODE,LUN,1,NVAL(LUN))
       IF(INVN.GT.0) THEN
-         CALL UPBB(IVAL,NBIT(INVN),MBIT(INVN),MBAY(1,LUN))
+         CALL UPB8(IVAL,NBIT(INVN),MBIT(INVN),MBAY(1,LUN))
          IF(ITP(NODE).EQ.1) THEN
             TAB(I) = IVAL
          ELSEIF(ITP(NODE).EQ.2) THEN
-            IF(IVAL.LT.MPS(NODE)) TAB(I) = UPS(IVAL,NODE)
+            IF(IVAL.LT.2_8**(IBT(NODE))-1) TAB(I) = UPS(IVAL,NODE)
          ELSEIF(ITP(NODE).EQ.3) THEN
             CVAL = ' '
             KBIT = MBIT(INVN)

@@ -57,6 +57,7 @@ C>
       CHARACTER*120 LSTR
       CHARACTER*8   CVAL
       EQUIVALENCE   (CVAL,RVAL)
+      integer(8)    ipks
       REAL*8        RVAL
 
 C-----------------------------------------------------------------------
@@ -88,7 +89,7 @@ C  ------------------------------------------
 
 C	 The value to be packed is numeric.
 
-         CALL PKB(IVAL(N),IBT(NODE),IBAY,IBIT)
+         CALL PKB8(IVAL(N),IBT(NODE),IBAY,IBIT)
       ELSE
 
 C	 The value to be packed is a character string.

@@ -119,12 +119,14 @@ C>
       CHARACTER*10  TGS(100)
       CHARACTER*8   SUBSET,CVAL
       EQUIVALENCE   (CVAL,RVAL)
+      integer*8     mps,ival,int8
       REAL*8        TAB(I1,I2),RVAL,UPS
 
       DATA MAXTG /100/
 
 C-----------------------------------------------------------------------
-      MPS(NODE) = 2**(IBT(NODE))-1
+      MPS(NODE) = 2_8**(IBT(NODE))-1
+      int(int8) = int8
 C-----------------------------------------------------------------------
 
       IRET = 0
@@ -187,15 +189,15 @@ C  ---------------------------------------------
             NBIT = IBT(NODE)
             IF(ITP(NODE).EQ.1) THEN
                CALL UPBB(IVAL,NBIT,MBIT,MBAY(1,LUN))
-               CALL USRTPL(LUN,N,IVAL)
+               CALL USRTPL(LUN,N,INT(IVAL))
             ENDIF
             DO I=1,NNOD
             IF(NODS(I).EQ.NODE) THEN
                IF(ITP(NODE).EQ.1) THEN
-                  CALL UPBB(IVAL,NBIT,MBIT,MBAY(1,LUN))
+                  CALL UPB8(IVAL,NBIT,MBIT,MBAY(1,LUN))
                   TAB(I,IRET) = IVAL
                ELSEIF(ITP(NODE).EQ.2) THEN
-                  CALL UPBB(IVAL,NBIT,MBIT,MBAY(1,LUN))
+                  CALL UPB8(IVAL,NBIT,MBIT,MBAY(1,LUN))
                   IF(IVAL.LT.MPS(NODE)) TAB(I,IRET) = UPS(IVAL,NODE)
                ELSEIF(ITP(NODE).EQ.3) THEN
                   CVAL = ' '

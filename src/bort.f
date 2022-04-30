@@ -28,6 +28,7 @@ C>
       CALL ERRWRT(STR)
       CALL ERRWRT('***********BUFR ARCHIVE LIBRARY ABORT**************')
       CALL ERRWRT(' ')
+      print*,str
 
       CALL BORT_EXIT
 

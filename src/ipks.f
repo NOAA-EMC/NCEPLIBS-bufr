@@ -27,12 +27,13 @@ C>    THIS ROUTINE IS CALLED BY: WRTREE
 C>                               Normally not called by any application
 C>                               programs.
 C>
-	INTEGER FUNCTION IPKS(VAL,NODE)
+	FUNCTION IPKS(VAL,NODE)
 
 	USE MODA_TABLES
 	USE MODA_NRV203
 
-	REAL*8	TEN,VAL
+        integer(8) imask, ipks
+	REAL*8	   TEN,VAL
 
 	DATA TEN /10./
 
@@ -54,7 +55,7 @@ C	      as positive integers with the left-most bit set to 1.
 
 	      NRV(JJ) = NINT(VAL)
 	      IF ( NRV(JJ) .LT. 0 ) THEN
-		IMASK = 2**(IBT(NODE)-1)
+		IMASK = 2_8**(IBT(NODE)-1)
 		IPKS = IOR(IABS(NRV(JJ)),IMASK)
 	      ELSE
 		IPKS = NRV(JJ)

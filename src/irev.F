@@ -60,15 +60,11 @@ C>
 C----------------------------------------------------------------------
 C----------------------------------------------------------------------
 
-#ifdef BIG_ENDIAN
-      IREV = N
-#else
       INT = N
       DO I=1,NBYTW
         DINT(I:I) = CINT(IORD(I):IORD(I))
       ENDDO
       IREV = JNT
-#endif
 
       RETURN
       END

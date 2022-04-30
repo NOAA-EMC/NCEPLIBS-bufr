@@ -68,10 +68,6 @@ C>
       REAL*8       RVAL,UPS
 
 C-----------------------------------------------------------------------
-C     Statement function to compute BUFR "missing value" for field
-C     of length IBT(NODE)) bits (all bits "on"):
-
-      MPS(NODE) = 2**(IBT(NODE))-1
 C-----------------------------------------------------------------------
 
       IRET = 0
@@ -91,7 +87,7 @@ C  UNPACK A SUBSET INTO THE USER ARRAY IVAL
 C  ----------------------------------------
 
       DO N=1,NVAL(LUN)
-      CALL UPBB(IVAL(N),NBIT(N),MBIT(N),MBAY(1,LUN))
+      CALL UPB8(IVAL(N),NBIT(N),MBIT(N),MBAY(1,LUN))
       ENDDO
 
 C  LOOP THROUGH EACH ELEMENT OF THE SUBSET, CONVERTING THE UNPACKED
@@ -109,7 +105,7 @@ C	 The unpacked value is a delayed descriptor replication factor.
 
 C	 The unpacked value is a real.
 
-         IF (IVAL(N).LT.MPS(NODE)) THEN
+         IF (IVAL(N).LT.2_8**ibt(node)-1) THEN
             VAL(N,LUN) = UPS(IVAL(N),NODE)
          ELSE
             VAL(N,LUN) = BMISS
