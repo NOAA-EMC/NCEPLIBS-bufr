@@ -19,7 +19,7 @@
 !  get filename
 
       NARG=IARGC()
-      IF(NARG/=1) THEN
+      IF(NARG<1) THEN
         PRINT *,'Usage: binv <bufrfile> will print bufrfile inventory by message type'
         CALL EXIT(2)
       ENDIF
@@ -30,6 +30,18 @@
       if (.not.exist) call bort(trim(file)//' does not exist') 
       open(lunbf,file=file,form='unformatted')
 
+      if(narg==2) then ! supply a user bufrtab
+         call getarg(2,file)
+         file = TRIM(file)//CHAR(0)
+         inquire(file=file,exist=exist)
+         if (.not.exist) call bort(trim(file)//' does not exist')
+         open(21,file=file)
+         lundx=21
+      else
+         lundx=20
+      endif
+
+
       NINV = 0
       NSUB = 0
 
@@ -37,7 +49,7 @@
 !  COMPUTE AN MESSAGE INVENTORY BY SUBSETS
 !  ---------------------------------------
  
-      CALL OPENBF(LUNBF,'IN',LUNBF)
+      CALL OPENBF(LUNBF,'IN',LUNDX)
       DO WHILE(IREADMG(LUNBF,SUBSET,IDATE).EQ.0)
       ISUB = 0
       DO I=1,NSUB
