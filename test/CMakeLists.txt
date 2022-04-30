@@ -68,9 +68,9 @@ list(APPEND test_OUT_5_srcs
   test_OUT_5.f
 )
 
-list(APPEND test_OUT_6_srcs
-  test_OUT_6.f
-)
+#list(APPEND test_OUT_6_srcs
+#  test_OUT_6.f
+#)
 
 list(APPEND test_c_interface_srcs
   test_c_interface.c
