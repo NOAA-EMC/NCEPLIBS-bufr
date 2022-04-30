@@ -50,7 +50,7 @@
 
       integer(4) :: nval1
       integer(4) :: nval2
-      integer(8) :: nval3,irev8
+      integer(8) :: nval3
 
       if(nbits<0) call bort('BUFRLIB: UPB8 - nbits < zero !!!!!') 
       if(nbits>2*nbitw) nval=0
@@ -78,7 +78,7 @@
 
       integer(4) :: nval1
       integer(4) :: nval2
-      integer(8) :: nval3,irev8
+      integer(8) :: nval3
 
 
       if(nbits<0) call bort('BUFRLIB: UPB8 - nbits < zero !!!!!')
@@ -98,7 +98,7 @@
       nval8 = nval1
       call bits(nval8,64); print*,nval8
 
-      nval8 = ior(nval,nval3)
+      nval8 = ior(nval8,nval3)
       call bits(nval8,64); print*,nval8
 
       end subroutine
