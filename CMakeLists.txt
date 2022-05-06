@@ -75,9 +75,13 @@ list(APPEND kinds "4" "8" "d")
 
 # Set common to the package compiler flags
 if(CMAKE_C_COMPILER_ID MATCHES "^(Intel)$")
+  set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -g -traceback")
   set(CMAKE_C_FLAGS_DEBUG "-O0")
+  set(CMAKE_C_FLAGS_RELEASE "-O3")
 elseif(CMAKE_C_COMPILER_ID MATCHES "^(GNU)$")
+  set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -g -fbacktrace")
   set(CMAKE_C_FLAGS_DEBUG "-ggdb -Wall -O0")
+  set(CMAKE_C_FLAGS_RELEASE "-O3")
 endif()
 
 if(CMAKE_Fortran_COMPILER_ID MATCHES "^(Intel)$")
