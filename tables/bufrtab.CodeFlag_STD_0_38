@@ -1,7 +1,7 @@
 Table F STD |  0 | 38
 #
 # Standard BUFR Table CODE/FLAG, Master Table 0, Version 38
-# This file was generated: 2022/05/10 17:21:57
+# This file was generated: 2022/05/10 22:18:07
 #
 #========================================================================================================
 # F-XX-YYY | MNEMONIC ; CODE               <-- code table definition
@@ -34,6 +34,12 @@ Table F STD |  0 | 38
               | 21 > | SPOT2
               | 22 > | SPOT3
               | 23 > | SPOT4
+              | 24 > | Metop-D
+              | 25 > | Metop-E
+              | 26 > | Metop-F
+              | 27 > | Metop-G
+              | 28 > | Metop-H
+              | 29 > | Metop-I
               | 40 > | OERSTED
               | 41 > | CHAMP
               | 42 > | TerraSAR-X
@@ -61,6 +67,12 @@ Table F STD |  0 | 38
               | 66 > | Sentinel 6A
               | 67 > | Sentinel 6B
               | 70 > | METEOSAT 11
+              | 71 > | METEOSAT 12
+              | 72 > | METEOSAT 13
+              | 73 > | METEOSAT 14
+              | 74 > | METEOSAT 15
+              | 75 > | METEOSAT 16
+              | 76 > | METEOSAT 17
               | 120 > | ADEOS
               | 121 > | ADEOS II
               | 122 > | GCOM-W1
@@ -162,6 +174,7 @@ Table F STD |  0 | 38
               | 502 > | Hai Yang 2A (HY-2A, SOA/NSOAS China)
               | 503 > | Hai Yang 2B (HY-2B, SOA/NSOAS China)
               | 504 > | Hai Yang 2C (HY-2C, SOA/NSOAS China)
+              | 505 > | Hai Yang 2D (HY-2D, SOA/NSOAS China)
               | 510 > | FY-2
               | 512 > | FY-2B
               | 513 > | FY-2C
@@ -174,7 +187,9 @@ Table F STD |  0 | 38
               | 521 > | FY-3B
               | 522 > | FY-3C
               | 523 > | FY-3D
+              | 524 > | FY-3E
               | 530 > | FY-4A
+              | 531 > | FY-4B
               | 700 > | TIROS M (ITOS 1)
               | 701 > | NOAA 1
               | 702 > | NOAA 2
@@ -1443,7 +1458,8 @@ Table F STD |  0 | 38
               | 288 > | Togo (NMC)
               | 289 > | Zambia (NMC)
               | 290 > | EUMETNET E-Profile
-              | 291   | The Institute of Atmospheric Physics (IAP) of Chinese Academy of Sciences (CAS)
+              | 291 > | The Institute of Atmospheric Physics (IAP) of Chinese Academy of Sciences (CAS)
+              | 292   | Helmholtz Centre for Environmental Research (UFZ)
 
   0-01-036 | AOOP ; CODE
               | 36001 > | Australia, Bureau of Meteorology (BOM)
@@ -1943,6 +1959,7 @@ Table F STD |  0 | 38
               | 162 > | MARL-A or Vektor-M - MRZ-3MK (Russian Federation)
               | 163 > | Modem M20 radiosonde w/thermistor sensor, capacitance relative humidity sensor, and derived pressure from GPS height (France)
               | 164 > | Modem PilotSonde GPS radiosonde (France)
+              | 165 > | Meteosis MTS-01 (Turkey)
               | 173 > | MARL-A (Russian Federation) - ASPAN-15 (Kazakhstan)
               | 177 > | Modem GPSonde M10 (France)
               | 182 > | Lockheed Martin LMS-6 w/chip thermistor, external boom mounted polymer capacitive relative humidity sensor, capacitive pressure sensor and GPS wind
@@ -1954,7 +1971,8 @@ Table F STD |  0 | 38
               | 193 > | Vaisala/NCAR dropsonde RD41 with GPS and Vaisala RS41-based sensor module (Finland/USA)
               | 200 > | Nanjing GTS11 (China)
               | 201 > | Shanghai GTS12 (China)
-              | 202   | Taiyuan GTS13 (China)
+              | 202 > | Taiyuan GTS13 (China)
+              | 203   | Shanghai GTS14 (China)
 
   0-02-013 | SIRC ; CODE
               | 0 > | No correction
@@ -2062,6 +2080,7 @@ Table F STD |  0 | 38
               | 60 > | CNES Spectrometer VEGETATION (VEGETATION)
               | 61 > | CNES Spectrometer WINDII (WINDII)
               | 62 > | CNES Altimeter AltiKa (Ka band Radar Altimeter)
+              | 63 > | CNES Rotating multi-beam altimeter SWIM (Surface Waves Investigation and Monitoring)
               | 80 > | CSA Communications RADARSAT DTT
               | 81 > | CSA Communications RADARSAT TTC
               | 85 > | CSA Radar SAR (CSA) (Synthetic aperture radar (CSA))
@@ -2112,8 +2131,21 @@ Table F STD |  0 | 38
               | 205 > | EUMETSAT Radiometer MVIRI (METEOSAT visible and infrared imager)
               | 207 > | EUMETSAT Radiometer SEVIRI (Spinning enhanced visible and infrared imager)
               | 208 > | EUMETSAT Imaging multi-spectral radiometer (vis/IR) VIRI (VIRI)
+              | 210 > | ESA/EUMETSAT/Thales Alenia Space Imager FCI (Flexible Combined Imager)
+              | 211 > | ESA/EUMETSAT/Leonardo Imager LI (Lightning Imager)
+              | 212 > | EUMETSAT/OHB Interferometer IRS (Infrared Sounder)
+              | 213 > | ESA/EUMETSAT/Copernicus - Airbus Spectrometer S4 (Ultraviolet and Near-Infrared Multispectral Spectrometer (S4 UVN))
               | 220 > | ESA/EUMETSAT Spectrometer GOME-2 (Global ozone monitoring experiment - 2)
               | 221 > | CNES/EUMETSAT Atmospheric temperature and humidity sounder IASI (Infrared atmospheric sounding interferometer)
+              | 230 > | ESA/EUMETSAT Radiometer 3MI (Multi-viewing Multi-channel Multi-polarisation Imaging)
+              | 231 > | CNES/EUMETSAT Sounder-Interferometer IASI-NG (Infrared Atmospheric Sounding Interferometer - New Generation)
+              | 232 > | DLR/EUMETSAT Radiometer METimage (Meteorological Imager)
+              | 233 > | ESA/EUMETSAT Radiometer MWS (Microwave Sounder)
+              | 234 > | ESA/EUMETSAT Radio Occultation RO (Radio Occultation)
+              | 235 > | ESA/EUMETSAT Spectrometer S5/UVNS (Copernicus Sentinel-5 Ultraviolet Visible Near-infrared and Shortwave-infrared Spectrometer)
+              | 236 > | ESA/EUMETSAT Radiometer ICI (Ice Cloud Imager)
+              | 237 > | ESA/EUMETSAT Radiometer MWI (Microwave Imager)
+              | 238 > | ESA/EUMETSAT Radar SCA (Scatterometer)
               | 240 > | CAST Communications DCP (Data-collection platform transponder)
               | 245 > | CAST Radiometer CCD (High-resolution CCD camera)
               | 246 > | INPE Atmospheric temperature and humidity sounder HSB (Humidity sounder/Brazil)
@@ -4398,6 +4430,8 @@ Table F STD |  0 | 38
               | 30294 > | Cs-137 equivalent
               | 30295 > | Carbon 13
               | 30296 > | Lead (Pb)
+              | 30297 > | Tellurium 131
+              | 30298 > | Neodymium 137
               | 40000 > | Singlet sigma oxygen (dioxygen (sigma singlet))
               | 40001 > | Singlet delta oxygen (dioxygen (delta singlet))
               | 40002 > | Singlet excited oxygen atom
