@@ -25,6 +25,7 @@ list(APPEND bufr_tables
   bufrtab.CodeFlag_STD_0_35
   bufrtab.CodeFlag_STD_0_36
   bufrtab.CodeFlag_STD_0_37
+  bufrtab.CodeFlag_STD_0_38
   bufrtab.TableB_LOC_0_7_1
   bufrtab.TableB_STD_0_13
   bufrtab.TableB_STD_0_14
@@ -51,6 +52,7 @@ list(APPEND bufr_tables
   bufrtab.TableB_STD_0_35
   bufrtab.TableB_STD_0_36
   bufrtab.TableB_STD_0_37
+  bufrtab.TableB_STD_0_38
   bufrtab.TableD_LOC_0_7_1
   bufrtab.TableD_STD_0_13
   bufrtab.TableD_STD_0_14
@@ -77,6 +79,7 @@ list(APPEND bufr_tables
   bufrtab.TableD_STD_0_35
   bufrtab.TableD_STD_0_36
   bufrtab.TableD_STD_0_37
+  bufrtab.TableD_STD_0_38
 )
 
 # Link BUFR tables in the build area
