@@ -33,7 +33,7 @@ list(APPEND fortran_src
   ufbrw.f ufbseq.f ufbsp.f ufbstp.f ufbtab.f ufbtam.f ufdump.f upb.f upbb.f upc.f upds3.f upftbv.f
   ups.f uptdd.f usrtpl.f valx.f wrcmps.f wrdxtb.f writcp.f writdx.f writlc.f writsa.f writsb.f
   wrtree.f wtstat.f arallocf.f ardllocf.f closbf.f ireadmt.f irev.F isetprm.f openbf.f pkvs01.f
-  wrdlen.F fortran_open.f90 fortran_close.f90 bufr_interface.f90)
+  wrdlen.F fortran_open.f90 fortran_close.f90 bufr_interface.f90 pkb8.f upb8.f up8.f)
 
 list(APPEND c_src
   arallocc.c ardllocc.c bort_exit.c ccbfl.c cmpia.c cmpstia1.c cmpstia2.c cobfl.c cpmstabs.c

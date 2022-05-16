@@ -61,6 +61,8 @@ C>                           DICTIONARY TABLE NUMBER ASSOCIATED WITH
 C>                           EACH SUBSET IN INTERNAL MEMORY
 C> 2012-03-02  J. ATOR    -- USE FUNCTION UPS
 C> 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
+C> 2022-05-06  J. WOOLLEN -- REPLACE UPBB WITH UPB8 FOR 8BYTE INTEGERS
+C>                           AND ADD INT STATEMENT FUNCTION 
 C>
 C> USAGE:    CALL UFBTAM (TAB, I1, I2, IRET, STR)
 C>   INPUT ARGUMENT LIST:
@@ -97,7 +99,7 @@ C>    MESSAGES INTO INTERNAL MEMORY.
 C>
 C>    THIS ROUTINE CALLS:        BORT     ERRWRT   NMSUB    PARSTR
 C>                               RDMEMM   STATUS   STRING   UPB
-C>                               UPBB     UPC      UPS      USRTPL
+C>                               UPB8     UPC      UPS      USRTPL
 C>    THIS ROUTINE IS CALLED BY: None
 C>                               Normally called only by application
 C>                               programs.
@@ -119,12 +121,14 @@ C>
       CHARACTER*10  TGS(100)
       CHARACTER*8   SUBSET,CVAL
       EQUIVALENCE   (CVAL,RVAL)
+      integer*8     mps,ival,int8
       REAL*8        TAB(I1,I2),RVAL,UPS
 
       DATA MAXTG /100/
 
 C-----------------------------------------------------------------------
-      MPS(NODE) = 2**(IBT(NODE))-1
+      MPS(NODE) = 2_8**(IBT(NODE))-1
+      int(int8) = int8
 C-----------------------------------------------------------------------
 
       IRET = 0
@@ -186,16 +190,16 @@ C  ---------------------------------------------
             MBIT = MBIT+NBIT
             NBIT = IBT(NODE)
             IF(ITP(NODE).EQ.1) THEN
-               CALL UPBB(IVAL,NBIT,MBIT,MBAY(1,LUN))
-               CALL USRTPL(LUN,N,IVAL)
+               CALL UPB8(IVAL,NBIT,MBIT,MBAY(1,LUN))
+               CALL USRTPL(LUN,N,INT(IVAL))
             ENDIF
             DO I=1,NNOD
             IF(NODS(I).EQ.NODE) THEN
                IF(ITP(NODE).EQ.1) THEN
-                  CALL UPBB(IVAL,NBIT,MBIT,MBAY(1,LUN))
+                  CALL UPB8(IVAL,NBIT,MBIT,MBAY(1,LUN))
                   TAB(I,IRET) = IVAL
                ELSEIF(ITP(NODE).EQ.2) THEN
-                  CALL UPBB(IVAL,NBIT,MBIT,MBAY(1,LUN))
+                  CALL UPB8(IVAL,NBIT,MBIT,MBAY(1,LUN))
                   IF(IVAL.LT.MPS(NODE)) TAB(I,IRET) = UPS(IVAL,NODE)
                ELSEIF(ITP(NODE).EQ.3) THEN
                   CVAL = ' '

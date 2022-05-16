@@ -30,6 +30,7 @@ C> 2012-06-04  J. ATOR    -- SET DECODED REAL*8 VALUE TO "MISSING" WHEN
 C>                           CORRESPONDING CHARACTER FIELD HAS ALL BITS
 C>                           SET TO 1
 C> 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
+C> 2022-05-06  J. WOOLLEN -- USE UP8 FOR 8BYTE INTEGER OPERATION 
 C>
 C> USAGE:    CALL RDCMPS (LUN)
 C>   INPUT ARGUMENT LIST:
@@ -37,7 +38,7 @@ C>     LUN      - INTEGER: I/O STREAM INDEX INTO INTERNAL MEMORY ARRAYS
 C>
 C> REMARKS:
 C>    THIS ROUTINE CALLS:        BORT     ICBFMS   IGETRFEL STRBTM
-C>                               UPB      UPC      UPS      USRTPL
+C>                               UPB      UP8      UPC      UPS      USRTPL
 C>    THIS ROUTINE IS CALLED BY: READSB
 C>                               Normally not called by any application
 C>                               programs.
@@ -57,11 +58,13 @@ C>
       EQUIVALENCE   (CVAL,RVAL)
       REAL*8        RVAL,UPS
 
+      integer(8) :: ival,lref,ninc,lps
+
 C-----------------------------------------------------------------------
 C     Statement function to compute BUFR "missing value" for field
 C     of length LBIT bits (all bits "on"):
 
-      LPS(LBIT) = MAX(2**(LBIT)-1,1)
+      LPS(LBIT) = MAX(2_8**(LBIT)-1,1)
 C-----------------------------------------------------------------------
 
 C  SETUP THE SUBSET TEMPLATE
@@ -109,17 +112,17 @@ C     omitted from the message.
 
 C        This is a numeric element.
 
-         CALL UPB(LREF,NBIT,MBAY(1,LUN),IBIT)
+         CALL UP8(LREF,NBIT,MBAY(1,LUN),IBIT)
          CALL UPB(LINC,   6,MBAY(1,LUN),IBIT)
          JBIT = IBIT + LINC*(NSBS-1)
-         CALL UPB(NINC,LINC,MBAY(1,LUN),JBIT)
+         CALL UP8(NINC,LINC,MBAY(1,LUN),JBIT)
          IF(NINC.EQ.LPS(LINC)) THEN
             IVAL = LPS(NBIT)
          ELSE
             IVAL = LREF+NINC
          ENDIF
          IF(ITYP.EQ.1) THEN
-            CALL USRTPL(LUN,N,IVAL)
+            NBMP=IVAL; CALL USRTPL(LUN,N,NBMP)
             GOTO 1
          ENDIF
          IF(IVAL.LT.LPS(NBIT)) VAL(N,LUN) = UPS(IVAL,NODE)

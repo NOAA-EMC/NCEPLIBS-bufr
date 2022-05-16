@@ -12,6 +12,7 @@ C> PROGRAM HISTORY LOG:
 C> 2012-03-02  J. ATOR    -- ORIGINAL AUTHOR; ADAPTED FROM INTERNAL
 C>                           STATEMENT FUNCTION IN OTHER SUBROUTINES
 C> 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
+C> 2022-05-06  J. WOOLLEN -- MAKE IVAL AND IMASK 8BYTE INTEGERS  
 C>
 C> USAGE:    UPS (IVAL,NODE)
 C>   INPUT ARGUMENT LIST:
@@ -33,7 +34,8 @@ C>
 	USE MODA_TABLES
 	USE MODA_NRV203
 
-	REAL*8	TEN
+        integer*8 ival,imask
+	REAL*8	  TEN
 
 	DATA TEN /10./
 
@@ -53,7 +55,7 @@ C	      This node contains a redefined reference value.
 C	      Per the rules of BUFR, negative values may be encoded
 C	      as positive integers with the left-most bit set to 1.
 
-	      IMASK = 2**(IBT(NODE)-1)
+	      IMASK = 2_8**(IBT(NODE)-1)
 	      IF ( IAND(IVAL,IMASK) .GT. 0 ) THEN
 		NRV(JJ) = (-1) * ( IVAL - IMASK )
 	      ELSE

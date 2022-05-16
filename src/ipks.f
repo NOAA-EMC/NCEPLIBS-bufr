@@ -12,6 +12,7 @@ C> PROGRAM HISTORY LOG:
 C> 2012-03-02  J. ATOR    -- ORIGINAL AUTHOR; ADAPTED FROM INTERNAL
 C>                           STATEMENT FUNCTION IN WRTREE
 C> 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
+C> 2022-05-06  J. WOOLLEN -- MAKE IMASK AND IPKS 8BYTE INTEGERS  
 C>
 C> USAGE:    IPKS (VAL,NODE)
 C>   INPUT ARGUMENT LIST:
@@ -19,7 +20,7 @@ C>     VAL       - REAL*8: USER VALUE
 C>     NODE      - INTEGER: INDEX INTO INTERNAL JUMP/LINK TABLES
 C>
 C>   OUTPUT ARGUMENT LIST:
-C>     IPKS      - INTEGER: PACKED BUFR VALUE
+C>     IPKS      - 8BYTE INTEGER: PACKED BUFR VALUE
 C>
 C> REMARKS:
 C>    THIS ROUTINE CALLS:        None
@@ -27,12 +28,13 @@ C>    THIS ROUTINE IS CALLED BY: WRTREE
 C>                               Normally not called by any application
 C>                               programs.
 C>
-	INTEGER FUNCTION IPKS(VAL,NODE)
+	FUNCTION IPKS(VAL,NODE)
 
 	USE MODA_TABLES
 	USE MODA_NRV203
 
-	REAL*8	TEN,VAL
+        integer(8) imask, ipks
+	REAL*8	   TEN,VAL
 
 	DATA TEN /10./
 
@@ -54,8 +56,8 @@ C	      as positive integers with the left-most bit set to 1.
 
 	      NRV(JJ) = NINT(VAL)
 	      IF ( NRV(JJ) .LT. 0 ) THEN
-		IMASK = 2**(IBT(NODE)-1)
-		IPKS = IOR(IABS(NRV(JJ)),IMASK)
+		IMASK = 2_8**(IBT(NODE)-1)
+		IPKS = IOR(ABS(NRV(JJ)),IMASK)
 	      ELSE
 		IPKS = NRV(JJ)
 	      END IF
