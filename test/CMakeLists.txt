@@ -160,7 +160,7 @@ endforeach()
 # OUT_6 tests; these are for "8" (8-byte integer, 8-byte real) builds only
 foreach(test_src ${test_OUT_6_srcs})
   string(REPLACE ".f" "" testPref ${test_src})
-  foreach(kind ${test_kinds_8})
+  foreach(kind ${test_kinds_4} ${test_kinds_8})
     set(test     ${testPref}_${kind})
     set(test_exe ${test}.x)
     add_executable(${test_exe} ${test_src})

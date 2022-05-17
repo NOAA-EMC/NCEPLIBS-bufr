@@ -40,7 +40,7 @@ C>
 
 C-----------------------------------------------------------------------
 
-	IPKS = NINT( VAL * TEN**(ISC(NODE)) ) - IRF(NODE)
+	IPKS = VAL * TEN**ISC(NODE) - IRF(NODE) + .5
 
 	IF ( NNRV .GT. 0 ) THEN
 
@@ -69,7 +69,7 @@ C	      as positive integers with the left-most bit set to 1.
 C	      The corresponding redefinded reference value needs to
 C	      be used when encoding this value.
 
-	      IPKS = NINT( VAL * TEN**(ISC(NODE)) ) - NRV(JJ)
+	      IPKS = VAL * TEN**ISC(NODE) - NRV(JJ) + .5
 	      RETURN
 	    END IF
 	  END DO

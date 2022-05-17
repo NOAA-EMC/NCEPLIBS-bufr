@@ -32,30 +32,29 @@ C>
 !----------------------------------------------------------------------
 !----------------------------------------------------------------------
 
-      subroutine upb8(nval8,nbits,ibit,ibay)
+      subroutine upb8(nval,nbits,ibit,ibay)
 
       common /hrdwrd/ nbytw,nbitw,iord(8)
 
-      integer(8) :: nval8
+      integer(8) :: nval
       integer(4) :: nbits,ibit,ibay(*)
 
-      integer(4) :: nval1
-      integer(4) :: nval2
-      integer(8) :: nval3
+      integer(4) :: nvals(2)
+      integer(8) :: nval8
+      equivalence (nval8,nvals)
 
       if(nbits<0 ) call bort('BUFRLIB: UPB8 - nbits < zero !!!!!')
       if(nbits>64) nval=0
       if(nbits>64) return
 
       if(nbitw==32) then
-         jbit=ibit
-         call upb(nval1,max(nbits-nbitw,0),ibay,jbit)
-         call upb(nval2,min(nbitw,nbits  ),ibay,jbit)
-         nval3 = nval2
-         nval8 = nval1
-         nval8 = ior(nval8,nval3)
+         jbit=ibit; nvals=0
+         call upb(nvals(2),max(nbits-nbitw,0),ibay,jbit)
+         call upb(nvals(1),min(nbitw,nbits  ),ibay,jbit)
+         nval=nval8
       else
-         call upbb(nval8,nbits,ibit,ibay)
+         call upbb(nval,nbits,ibit,ibay)
       endif
 
       end subroutine
+
