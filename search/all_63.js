@@ -32,7 +32,7 @@ var searchData=
   ['closfb',['closfb',['../cread_8c.html#abbd928726a21a86c34e3bcea9213f304',1,'closfb(f77int *nfile):&#160;cread.c'],['../cread_8h.html#a6118e519b5b655f3a3ca54ad4ca1b540',1,'closfb(f77int *):&#160;cread.c']]],
   ['closmg',['closmg',['../closmg_8f.html#a3378111de0136710daec2ded25ed34e4',1,'closmg.f']]],
   ['closmg_2ef',['closmg.f',['../closmg_8f.html',1,'']]],
-  ['cmpbqm_2ef',['cmpbqm.f',['../cmpbqm_8f.html',1,'']]],
+  ['cmpbqm_2ef90',['cmpbqm.f90',['../cmpbqm_8f90.html',1,'']]],
   ['cmpia',['cmpia',['../cmpia_8c.html#afe9ff1cb9d09192a6d0c76f58c2e3f29',1,'cmpia(const void *pf1, const void *pf2):&#160;cmpia.c'],['../bufrlib_8h.html#a8eda0001bb7041111117d589f6176f99',1,'cmpia(const void *, const void *):&#160;cmpia.c']]],
   ['cmpia_2ec',['cmpia.c',['../cmpia_8c.html',1,'']]],
   ['cmpmsg',['cmpmsg',['../cmpmsg_8f.html#a75b2d1dfd1dedb519205399a8087fd56',1,'cmpmsg.f']]],

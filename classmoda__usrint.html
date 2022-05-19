@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.6.0</span>
+   &#160;<span id="projectnumber">11.7.0</span>
    </div>
   </td>
  </tr>
@@ -111,10 +111,10 @@ $(document).ready(function(){initNavTree('classmoda__usrint.html','');});
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Data Fields</h2></td></tr>
-<tr class="memitem:a6d9ac4e741252ad7aa3d99fff8b1daa9"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a6d9ac4e741252ad7aa3d99fff8b1daa9"></a>
+<tr class="memitem:a7e27d4bdf5a372fd7dac8ede033f969e"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a7e27d4bdf5a372fd7dac8ede033f969e"></a>
 integer, dimension(:,:), <br class="typebreak"/>
-allocatable&#160;</td><td class="memItemRight" valign="bottom"><b>inv</b></td></tr>
-<tr class="separator:a6d9ac4e741252ad7aa3d99fff8b1daa9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+allocatable, target&#160;</td><td class="memItemRight" valign="bottom"><b>inv</b></td></tr>
+<tr class="separator:a7e27d4bdf5a372fd7dac8ede033f969e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab05877244c7131b445de4326efd8aa8a"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab05877244c7131b445de4326efd8aa8a"></a>
 integer, dimension(:,:), <br class="typebreak"/>
 allocatable&#160;</td><td class="memItemRight" valign="bottom"><b>nrfelm</b></td></tr>
@@ -122,21 +122,21 @@ allocatable&#160;</td><td class="memItemRight" valign="bottom"><b>nrfelm</b></td
 <tr class="memitem:a2269ddd572fded029ca62080b38f6261"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a2269ddd572fded029ca62080b38f6261"></a>
 integer, dimension(:), allocatable&#160;</td><td class="memItemRight" valign="bottom"><b>nval</b></td></tr>
 <tr class="separator:a2269ddd572fded029ca62080b38f6261"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a228ecc3c6865d3c5e2d4266a39ac2db1"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a228ecc3c6865d3c5e2d4266a39ac2db1"></a>
+<tr class="memitem:a7ad9ef51fc135aad9fcecba2a636f486"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a7ad9ef51fc135aad9fcecba2a636f486"></a>
 real *8, dimension(:,:), <br class="typebreak"/>
-allocatable&#160;</td><td class="memItemRight" valign="bottom"><b>val</b></td></tr>
-<tr class="separator:a228ecc3c6865d3c5e2d4266a39ac2db1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+allocatable, target&#160;</td><td class="memItemRight" valign="bottom"><b>val</b></td></tr>
+<tr class="separator:a7ad9ef51fc135aad9fcecba2a636f486"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock">
 <p>Definition at line <a class="el" href="moda__usrint_8F_source.html#l00001">1</a> of file <a class="el" href="moda__usrint_8F_source.html">moda_usrint.F</a>.</p>
 </div><h2 class="groupheader">Field Documentation</h2>
-<a class="anchor" id="a6d9ac4e741252ad7aa3d99fff8b1daa9"></a>
+<a class="anchor" id="a7e27d4bdf5a372fd7dac8ede033f969e"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">integer, dimension(:,:), allocatable moda_usrint::inv</td>
+          <td class="memname">integer, dimension(:,:), allocatable, target moda_usrint::inv</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -173,12 +173,12 @@ allocatable&#160;</td><td class="memItemRight" valign="bottom"><b>val</b></td></
 
 </div>
 </div>
-<a class="anchor" id="a228ecc3c6865d3c5e2d4266a39ac2db1"></a>
+<a class="anchor" id="a7ad9ef51fc135aad9fcecba2a636f486"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">real*8, dimension(:,:), allocatable moda_usrint::val</td>
+          <td class="memname">real*8, dimension(:,:), allocatable, target moda_usrint::val</td>
         </tr>
       </table>
 </div><div class="memdoc">

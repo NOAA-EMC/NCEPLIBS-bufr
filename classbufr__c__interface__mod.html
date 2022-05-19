@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.6.0</span>
+   &#160;<span id="projectnumber">11.7.0</span>
    </div>
   </td>
  </tr>
@@ -120,9 +120,39 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a1c126c5d456d12168d2204845bc69589"><td class="memItemLeft" align="right" valign="top">subroutine, public&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbufr__c__interface__mod.html#a1c126c5d456d12168d2204845bc69589">close_c</a> (lunit)</td></tr>
 <tr class="memdesc:a1c126c5d456d12168d2204845bc69589"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wraps fortran "close" statement so we can close a Fortran file from a C program.  <a href="#a1c126c5d456d12168d2204845bc69589">More...</a><br/></td></tr>
 <tr class="separator:a1c126c5d456d12168d2204845bc69589"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a28cc3ca74d9288bba3b0df53325ec490"><td class="memItemLeft" align="right" valign="top">subroutine&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbufr__c__interface__mod.html#a28cc3ca74d9288bba3b0df53325ec490">delete_table_data_c</a> ()</td></tr>
+<tr class="memdesc:a28cc3ca74d9288bba3b0df53325ec490"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deletes the copies of the <a class="el" href="moda__tables_8F.html#classmoda__tables" title="This module contains array and variable declarations used to store the internal jump/link table...">moda_tables</a> arrays.  <a href="#a28cc3ca74d9288bba3b0df53325ec490">More...</a><br/></td></tr>
+<tr class="separator:a28cc3ca74d9288bba3b0df53325ec490"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aeabdf4108093f589b346a1f0b7d1f393"><td class="memItemLeft" align="right" valign="top">subroutine, public&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbufr__c__interface__mod.html#aeabdf4108093f589b346a1f0b7d1f393">exitbufr_c</a> ()</td></tr>
 <tr class="memdesc:aeabdf4108093f589b346a1f0b7d1f393"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wraps BUFRLIB "exitbufr" subroutine. Closes all open file units used by BUFRLIB.  <a href="#aeabdf4108093f589b346a1f0b7d1f393">More...</a><br/></td></tr>
 <tr class="separator:aeabdf4108093f589b346a1f0b7d1f393"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a35a1379394809e78afb30d1acb9a65be"><td class="memItemLeft" align="right" valign="top">subroutine&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbufr__c__interface__mod.html#a35a1379394809e78afb30d1acb9a65be">get_inode_c</a> (lun, start_node)</td></tr>
+<tr class="memdesc:a35a1379394809e78afb30d1acb9a65be"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the bufr node idx for the start node of the subset.  <a href="#a35a1379394809e78afb30d1acb9a65be">More...</a><br/></td></tr>
+<tr class="separator:a35a1379394809e78afb30d1acb9a65be"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a40cc35665b5010a83f923d0899feaa9b"><td class="memItemLeft" align="right" valign="top">subroutine&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbufr__c__interface__mod.html#a40cc35665b5010a83f923d0899feaa9b">get_inv_c</a> (lun, inv_ptr, inv_size)</td></tr>
+<tr class="memdesc:a40cc35665b5010a83f923d0899feaa9b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get pointer to the <a class="el" href="classmoda__usrint.html">moda_usrint</a> INV array.  <a href="#a40cc35665b5010a83f923d0899feaa9b">More...</a><br/></td></tr>
+<tr class="separator:a40cc35665b5010a83f923d0899feaa9b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af2a8b163242f31c614a25236321bc54c"><td class="memItemLeft" align="right" valign="top">subroutine&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbufr__c__interface__mod.html#af2a8b163242f31c614a25236321bc54c">get_itp_c</a> (itp_ptr, itp_size)</td></tr>
+<tr class="memdesc:af2a8b163242f31c614a25236321bc54c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get copy of the <a class="el" href="moda__tables_8F.html#classmoda__tables" title="This module contains array and variable declarations used to store the internal jump/link table...">moda_tables</a> ITP array.  <a href="#af2a8b163242f31c614a25236321bc54c">More...</a><br/></td></tr>
+<tr class="separator:af2a8b163242f31c614a25236321bc54c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5273bad82cf736d6b36139065f647ff0"><td class="memItemLeft" align="right" valign="top">subroutine&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbufr__c__interface__mod.html#a5273bad82cf736d6b36139065f647ff0">get_jmpb_c</a> (jmpb_ptr, jmpb_size)</td></tr>
+<tr class="memdesc:a5273bad82cf736d6b36139065f647ff0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get copy of the <a class="el" href="moda__tables_8F.html#classmoda__tables" title="This module contains array and variable declarations used to store the internal jump/link table...">moda_tables</a> JMPB array.  <a href="#a5273bad82cf736d6b36139065f647ff0">More...</a><br/></td></tr>
+<tr class="separator:a5273bad82cf736d6b36139065f647ff0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4efc045dfa6f314fe681932c719fcbc5"><td class="memItemLeft" align="right" valign="top">subroutine&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbufr__c__interface__mod.html#a4efc045dfa6f314fe681932c719fcbc5">get_link_c</a> (link_ptr, link_size)</td></tr>
+<tr class="memdesc:a4efc045dfa6f314fe681932c719fcbc5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get copy of the <a class="el" href="moda__tables_8F.html#classmoda__tables" title="This module contains array and variable declarations used to store the internal jump/link table...">moda_tables</a> LINK array.  <a href="#a4efc045dfa6f314fe681932c719fcbc5">More...</a><br/></td></tr>
+<tr class="separator:a4efc045dfa6f314fe681932c719fcbc5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af91664df42af9289b8c2e6824c248cae"><td class="memItemLeft" align="right" valign="top">subroutine&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbufr__c__interface__mod.html#af91664df42af9289b8c2e6824c248cae">get_nval_c</a> (lun, numNodes)</td></tr>
+<tr class="memdesc:af91664df42af9289b8c2e6824c248cae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the number of values in the current subset.  <a href="#af91664df42af9289b8c2e6824c248cae">More...</a><br/></td></tr>
+<tr class="separator:af91664df42af9289b8c2e6824c248cae"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a56c15973568c5dfe8b20160c6b9b6f21"><td class="memItemLeft" align="right" valign="top">subroutine&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbufr__c__interface__mod.html#a56c15973568c5dfe8b20160c6b9b6f21">get_tag_c</a> (tag_ptr, tag_len, mem_size)</td></tr>
+<tr class="memdesc:a56c15973568c5dfe8b20160c6b9b6f21"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get copy of the <a class="el" href="moda__tables_8F.html#classmoda__tables" title="This module contains array and variable declarations used to store the internal jump/link table...">moda_tables</a> TAG array.  <a href="#a56c15973568c5dfe8b20160c6b9b6f21">More...</a><br/></td></tr>
+<tr class="separator:a56c15973568c5dfe8b20160c6b9b6f21"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af6d7a8a9394e7baaa9e58d7a0749f0cc"><td class="memItemLeft" align="right" valign="top">subroutine&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbufr__c__interface__mod.html#af6d7a8a9394e7baaa9e58d7a0749f0cc">get_typ_c</a> (typ_ptr, typ_len, mem_size)</td></tr>
+<tr class="memdesc:af6d7a8a9394e7baaa9e58d7a0749f0cc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get copy of the <a class="el" href="moda__tables_8F.html#classmoda__tables" title="This module contains array and variable declarations used to store the internal jump/link table...">moda_tables</a> TYP array.  <a href="#af6d7a8a9394e7baaa9e58d7a0749f0cc">More...</a><br/></td></tr>
+<tr class="separator:af6d7a8a9394e7baaa9e58d7a0749f0cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab6bbd341e59d6d861aa6035501e7ad81"><td class="memItemLeft" align="right" valign="top">subroutine&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbufr__c__interface__mod.html#ab6bbd341e59d6d861aa6035501e7ad81">get_val_c</a> (lun, val_ptr, val_size)</td></tr>
+<tr class="memdesc:ab6bbd341e59d6d861aa6035501e7ad81"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get pointer to the <a class="el" href="classmoda__usrint.html">moda_usrint</a> VAL array.  <a href="#ab6bbd341e59d6d861aa6035501e7ad81">More...</a><br/></td></tr>
+<tr class="separator:ab6bbd341e59d6d861aa6035501e7ad81"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae4c70617eb7be9b4885faa3544c82611"><td class="memItemLeft" align="right" valign="top">integer(c_int) function, public&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbufr__c__interface__mod.html#ae4c70617eb7be9b4885faa3544c82611">ireadmg_c</a> (bufr_unit, c_subset, iddate, subset_str_len)</td></tr>
 <tr class="memdesc:ae4c70617eb7be9b4885faa3544c82611"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wraps BUFRLIB "ireadmg" subroutine.  <a href="#ae4c70617eb7be9b4885faa3544c82611">More...</a><br/></td></tr>
 <tr class="separator:ae4c70617eb7be9b4885faa3544c82611"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -177,7 +207,7 @@ Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="bufr__interface_8f90_source.html#l00141">141</a> of file <a class="el" href="bufr__interface_8f90_source.html">bufr_interface.f90</a>.</p>
+<p>Definition at line <a class="el" href="bufr__interface_8f90_source.html#l00148">148</a> of file <a class="el" href="bufr__interface_8f90_source.html">bufr_interface.f90</a>.</p>
 
 <p>References <a class="el" href="closbf_8f.html#a00c94986037d2cf27d04de7a1f8a3ebc">closbf()</a>.</p>
 
@@ -207,7 +237,28 @@ Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="bufr__interface_8f90_source.html#l00109">109</a> of file <a class="el" href="bufr__interface_8f90_source.html">bufr_interface.f90</a>.</p>
+<p>Definition at line <a class="el" href="bufr__interface_8f90_source.html#l00116">116</a> of file <a class="el" href="bufr__interface_8f90_source.html">bufr_interface.f90</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a28cc3ca74d9288bba3b0df53325ec490"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">subroutine bufr_c_interface_mod::delete_table_data_c </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Deletes the copies of the <a class="el" href="moda__tables_8F.html#classmoda__tables" title="This module contains array and variable declarations used to store the internal jump/link table...">moda_tables</a> arrays. </p>
+<dl class="section author"><dt>Author</dt><dd>Ronald McLaren </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2022-03-23 </dd></dl>
+
+<p>Definition at line <a class="el" href="bufr__interface_8f90_source.html#l00504">504</a> of file <a class="el" href="bufr__interface_8f90_source.html">bufr_interface.f90</a>.</p>
 
 </div>
 </div>
@@ -228,9 +279,388 @@ Public Member Functions</h2></td></tr>
 <dl class="section author"><dt>Author</dt><dd>Ronald McLaren </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>2020-07-29 </dd></dl>
 
-<p>Definition at line <a class="el" href="bufr__interface_8f90_source.html#l00154">154</a> of file <a class="el" href="bufr__interface_8f90_source.html">bufr_interface.f90</a>.</p>
+<p>Definition at line <a class="el" href="bufr__interface_8f90_source.html#l00161">161</a> of file <a class="el" href="bufr__interface_8f90_source.html">bufr_interface.f90</a>.</p>
 
 <p>References <a class="el" href="exitbufr_8f.html#a355f094d616febcea2820cf547cbff8e">exitbufr()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a35a1379394809e78afb30d1acb9a65be"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">subroutine bufr_c_interface_mod::get_inode_c </td>
+          <td>(</td>
+          <td class="paramtype">integer(c_int)&#160;</td>
+          <td class="paramname"><em>lun</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">integer(c_int), intent(out)&#160;</td>
+          <td class="paramname"><em>start_node</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get the bufr node idx for the start node of the subset. </p>
+<dl class="section author"><dt>Author</dt><dd>Ronald McLaren </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2022-03-23</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[out]</td><td class="paramname">lun</td><td>- c_int: pointer for the file stream </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">start_node</td><td>- c_int: the start node of the subset </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Definition at line <a class="el" href="bufr__interface_8f90_source.html#l00433">433</a> of file <a class="el" href="bufr__interface_8f90_source.html">bufr_interface.f90</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a40cc35665b5010a83f923d0899feaa9b"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">subroutine bufr_c_interface_mod::get_inv_c </td>
+          <td>(</td>
+          <td class="paramtype">integer(c_int)&#160;</td>
+          <td class="paramname"><em>lun</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">type(c_ptr), intent(inout)&#160;</td>
+          <td class="paramname"><em>inv_ptr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">integer(c_int), intent(out)&#160;</td>
+          <td class="paramname"><em>inv_size</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get pointer to the <a class="el" href="classmoda__usrint.html">moda_usrint</a> INV array. </p>
+<dl class="section author"><dt>Author</dt><dd>Ronald McLaren </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2022-03-23</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[out]</td><td class="paramname">lun</td><td>- c_int: pointer for the file stream </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">inv_ptr</td><td>- c_ptr: c style pointer to the INV array </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">inv_size</td><td>- c_int: length of the array </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Definition at line <a class="el" href="bufr__interface_8f90_source.html#l00488">488</a> of file <a class="el" href="bufr__interface_8f90_source.html">bufr_interface.f90</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="af2a8b163242f31c614a25236321bc54c"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">subroutine bufr_c_interface_mod::get_itp_c </td>
+          <td>(</td>
+          <td class="paramtype">type(c_ptr), intent(inout)&#160;</td>
+          <td class="paramname"><em>itp_ptr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">integer(c_int), intent(out)&#160;</td>
+          <td class="paramname"><em>itp_size</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get copy of the <a class="el" href="moda__tables_8F.html#classmoda__tables" title="This module contains array and variable declarations used to store the internal jump/link table...">moda_tables</a> ITP array. </p>
+<dl class="section author"><dt>Author</dt><dd>Ronald McLaren </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2022-03-23</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[out]</td><td class="paramname">itp_ptr</td><td>- c_ptr: c style pointer to the ITP array </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">itp_size</td><td>- c_int: size of the ITP array </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Definition at line <a class="el" href="bufr__interface_8f90_source.html#l00347">347</a> of file <a class="el" href="bufr__interface_8f90_source.html">bufr_interface.f90</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a5273bad82cf736d6b36139065f647ff0"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">subroutine bufr_c_interface_mod::get_jmpb_c </td>
+          <td>(</td>
+          <td class="paramtype">type(c_ptr), intent(inout)&#160;</td>
+          <td class="paramname"><em>jmpb_ptr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">integer(c_int), intent(out)&#160;</td>
+          <td class="paramname"><em>jmpb_size</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get copy of the <a class="el" href="moda__tables_8F.html#classmoda__tables" title="This module contains array and variable declarations used to store the internal jump/link table...">moda_tables</a> JMPB array. </p>
+<dl class="section author"><dt>Author</dt><dd>Ronald McLaren </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2022-03-23</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[out]</td><td class="paramname">jmpb_ptr</td><td>- c_ptr: c style pointer to the JMPB array </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">jmpb_size</td><td>- c_int: length of the array </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Definition at line <a class="el" href="bufr__interface_8f90_source.html#l00413">413</a> of file <a class="el" href="bufr__interface_8f90_source.html">bufr_interface.f90</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a4efc045dfa6f314fe681932c719fcbc5"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">subroutine bufr_c_interface_mod::get_link_c </td>
+          <td>(</td>
+          <td class="paramtype">type(c_ptr), intent(inout)&#160;</td>
+          <td class="paramname"><em>link_ptr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">integer(c_int), intent(out)&#160;</td>
+          <td class="paramname"><em>link_size</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get copy of the <a class="el" href="moda__tables_8F.html#classmoda__tables" title="This module contains array and variable declarations used to store the internal jump/link table...">moda_tables</a> LINK array. </p>
+<dl class="section author"><dt>Author</dt><dd>Ronald McLaren </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2022-03-23</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[out]</td><td class="paramname">link_ptr</td><td>- c_ptr: c style pointer to the LINK array </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">link_size</td><td>- c_int: size of the LINK array </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Definition at line <a class="el" href="bufr__interface_8f90_source.html#l00327">327</a> of file <a class="el" href="bufr__interface_8f90_source.html">bufr_interface.f90</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="af91664df42af9289b8c2e6824c248cae"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">subroutine bufr_c_interface_mod::get_nval_c </td>
+          <td>(</td>
+          <td class="paramtype">integer(c_int)&#160;</td>
+          <td class="paramname"><em>lun</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">integer(c_int), intent(out)&#160;</td>
+          <td class="paramname"><em>numNodes</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get the number of values in the current subset. </p>
+<dl class="section author"><dt>Author</dt><dd>Ronald McLaren </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2022-03-23</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[out]</td><td class="paramname">lun</td><td>- c_int: pointer for the file stream </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">numNodes</td><td>- c_int: number of values in the subset </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Definition at line <a class="el" href="bufr__interface_8f90_source.html#l00450">450</a> of file <a class="el" href="bufr__interface_8f90_source.html">bufr_interface.f90</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a56c15973568c5dfe8b20160c6b9b6f21"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">subroutine bufr_c_interface_mod::get_tag_c </td>
+          <td>(</td>
+          <td class="paramtype">type(c_ptr), intent(inout)&#160;</td>
+          <td class="paramname"><em>tag_ptr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">integer(c_int), intent(out)&#160;</td>
+          <td class="paramname"><em>tag_len</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">integer(c_int), intent(out)&#160;</td>
+          <td class="paramname"><em>mem_size</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get copy of the <a class="el" href="moda__tables_8F.html#classmoda__tables" title="This module contains array and variable declarations used to store the internal jump/link table...">moda_tables</a> TAG array. </p>
+<dl class="section author"><dt>Author</dt><dd>Ronald McLaren </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2022-03-23</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[out]</td><td class="paramname">tag_ptr</td><td>- c_ptr: c style pointer to the TAG array </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">tag_len</td><td>- c_int: length of the tag string </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">mem_size</td><td>- c_int: size of TAG array </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Definition at line <a class="el" href="bufr__interface_8f90_source.html#l00391">391</a> of file <a class="el" href="bufr__interface_8f90_source.html">bufr_interface.f90</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="af6d7a8a9394e7baaa9e58d7a0749f0cc"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">subroutine bufr_c_interface_mod::get_typ_c </td>
+          <td>(</td>
+          <td class="paramtype">type(c_ptr), intent(inout)&#160;</td>
+          <td class="paramname"><em>typ_ptr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">integer(c_int), intent(out)&#160;</td>
+          <td class="paramname"><em>typ_len</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">integer(c_int), intent(out)&#160;</td>
+          <td class="paramname"><em>mem_size</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get copy of the <a class="el" href="moda__tables_8F.html#classmoda__tables" title="This module contains array and variable declarations used to store the internal jump/link table...">moda_tables</a> TYP array. </p>
+<dl class="section author"><dt>Author</dt><dd>Ronald McLaren </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2022-03-23</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[out]</td><td class="paramname">typ_ptr</td><td>- c_ptr: c style pointer to the TYP array </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">typ_len</td><td>- c_int: length of the TYP str </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">mem_size</td><td>- c_int: length of the TYP array </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Definition at line <a class="el" href="bufr__interface_8f90_source.html#l00368">368</a> of file <a class="el" href="bufr__interface_8f90_source.html">bufr_interface.f90</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ab6bbd341e59d6d861aa6035501e7ad81"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">subroutine bufr_c_interface_mod::get_val_c </td>
+          <td>(</td>
+          <td class="paramtype">integer(c_int)&#160;</td>
+          <td class="paramname"><em>lun</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">type(c_ptr), intent(inout)&#160;</td>
+          <td class="paramname"><em>val_ptr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">integer(c_int), intent(out)&#160;</td>
+          <td class="paramname"><em>val_size</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get pointer to the <a class="el" href="classmoda__usrint.html">moda_usrint</a> VAL array. </p>
+<dl class="section author"><dt>Author</dt><dd>Ronald McLaren </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2022-03-23</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[out]</td><td class="paramname">lun</td><td>- c_int: pointer for the file stream </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">val_ptr</td><td>- c_ptr: c style pointer to the VAL array </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">val_size</td><td>- c_int: length of the array </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Definition at line <a class="el" href="bufr__interface_8f90_source.html#l00468">468</a> of file <a class="el" href="bufr__interface_8f90_source.html">bufr_interface.f90</a>.</p>
 
 </div>
 </div>
@@ -283,7 +713,7 @@ Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="bufr__interface_8f90_source.html#l00169">169</a> of file <a class="el" href="bufr__interface_8f90_source.html">bufr_interface.f90</a>.</p>
+<p>Definition at line <a class="el" href="bufr__interface_8f90_source.html#l00176">176</a> of file <a class="el" href="bufr__interface_8f90_source.html">bufr_interface.f90</a>.</p>
 
 <p>References <a class="el" href="ireadmg_8f.html#a08c0eaaa7c6f555ccdceb404772dd962">ireadmg()</a>.</p>
 
@@ -313,7 +743,7 @@ Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="bufr__interface_8f90_source.html#l00190">190</a> of file <a class="el" href="bufr__interface_8f90_source.html">bufr_interface.f90</a>.</p>
+<p>Definition at line <a class="el" href="bufr__interface_8f90_source.html#l00200">200</a> of file <a class="el" href="bufr__interface_8f90_source.html">bufr_interface.f90</a>.</p>
 
 <p>References <a class="el" href="ireadsb_8f.html#a28f7e78017ef9f00dcce7fb2c0bbab28">ireadsb()</a>.</p>
 
@@ -361,9 +791,9 @@ Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="bufr__interface_8f90_source.html#l00256">256</a> of file <a class="el" href="bufr__interface_8f90_source.html">bufr_interface.f90</a>.</p>
+<p>Definition at line <a class="el" href="bufr__interface_8f90_source.html#l00266">266</a> of file <a class="el" href="bufr__interface_8f90_source.html">bufr_interface.f90</a>.</p>
 
-<p>References <a class="el" href="mtinfo_8f.html#ad95cdae13646faad7b457f7c854bbfc7">mtinfo()</a>.</p>
+<p>References <a class="el" href="mtinfo_8f.html#ad95cdae13646faad7b457f7c854bbfc7">mtinfo()</a>, and <a class="el" href="status_8f.html#a22292e7a69c411a961168198d259f336">status()</a>.</p>
 
 </div>
 </div>
@@ -402,7 +832,7 @@ Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="bufr__interface_8f90_source.html#l00093">93</a> of file <a class="el" href="bufr__interface_8f90_source.html">bufr_interface.f90</a>.</p>
+<p>Definition at line <a class="el" href="bufr__interface_8f90_source.html#l00100">100</a> of file <a class="el" href="bufr__interface_8f90_source.html">bufr_interface.f90</a>.</p>
 
 </div>
 </div>
@@ -448,7 +878,7 @@ Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="bufr__interface_8f90_source.html#l00125">125</a> of file <a class="el" href="bufr__interface_8f90_source.html">bufr_interface.f90</a>.</p>
+<p>Definition at line <a class="el" href="bufr__interface_8f90_source.html#l00132">132</a> of file <a class="el" href="bufr__interface_8f90_source.html">bufr_interface.f90</a>.</p>
 
 <p>References <a class="el" href="openbf_8f.html#a9bea9aeada166bd9037b959ca8452b28">openbf()</a>.</p>
 
@@ -516,7 +946,7 @@ Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="bufr__interface_8f90_source.html#l00210">210</a> of file <a class="el" href="bufr__interface_8f90_source.html">bufr_interface.f90</a>.</p>
+<p>Definition at line <a class="el" href="bufr__interface_8f90_source.html#l00220">220</a> of file <a class="el" href="bufr__interface_8f90_source.html">bufr_interface.f90</a>.</p>
 
 <p>References <a class="el" href="ufbint_8f.html#afe3364a491b49e0c9e5a526b009aaa75">ufbint()</a>.</p>
 
@@ -584,7 +1014,7 @@ Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="bufr__interface_8f90_source.html#l00234">234</a> of file <a class="el" href="bufr__interface_8f90_source.html">bufr_interface.f90</a>.</p>
+<p>Definition at line <a class="el" href="bufr__interface_8f90_source.html#l00244">244</a> of file <a class="el" href="bufr__interface_8f90_source.html">bufr_interface.f90</a>.</p>
 
 <p>References <a class="el" href="ufbrep_8f.html#adb981832bdbbb26903265fb946aac58c">ufbrep()</a>.</p>
 

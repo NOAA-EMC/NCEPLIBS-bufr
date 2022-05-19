@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.6.0</span>
+   &#160;<span id="projectnumber">11.7.0</span>
    </div>
   </td>
  </tr>
@@ -124,154 +124,317 @@ $(document).ready(function(){initNavTree('bufr__interface_8f90_source.html','');
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;  <span class="keywordtype">public</span> :: <a class="code" href="classbufr__c__interface__mod.html#ab1b9e9ac5379560a7f38794f13dedc40">ufbrep_c</a></div>
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;  <span class="keywordtype">public</span> :: <a class="code" href="classbufr__c__interface__mod.html#a43d3a0015a83688cfea2a6a2ed3d5cb2">mtinfo_c</a></div>
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="keyword">contains</span></div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="comment">!Private</span></div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="keyword">function </span>c_f_string(c_str) result(f_str)</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;  <span class="keywordtype">character(kind=c_char,len=1)</span>, <span class="keywordtype">intent(in)</span> :: c_str(*)</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;  <span class="keywordtype">character(len=:)</span>, <span class="keywordtype">allocatable</span> :: f_str</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;  <span class="keywordtype">integer</span> :: nchars</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;  nchars = 1</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;  <span class="keywordflow">do</span> <span class="keywordflow">while</span> (c_str(nchars) /= c_null_char)</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;      nchars = nchars + 1</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;  <span class="keywordflow">end do</span></div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;  nchars = nchars - 1</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;  <span class="keyword">allocate</span>(<span class="keywordtype">character(len=nchars)</span> :: f_str)</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;  f_str = transfer(c_str(1:nchars), f_str)</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;<span class="keyword">end function </span>c_f_string</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;<span class="keyword">subroutine </span>copy_f_c_str(f_str, c_str, c_str_len)</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;  <span class="keywordtype">character(len=*)</span>, <span class="keywordtype">target</span>, <span class="keywordtype">intent(in)</span> :: f_str</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;  <span class="keywordtype">character(kind=c_char, len=1)</span>, <span class="keywordtype">intent(inout)</span> :: c_str(*)</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;  <span class="keywordtype">integer</span>, <span class="keywordtype">intent(in)</span> :: c_str_len</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;  <span class="keywordtype">integer</span> :: max_str_len</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;  <span class="keywordflow">if</span> (c_str_len /= 0) <span class="keywordflow">then</span></div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    max_str_len = min(c_str_len, len_trim(f_str) + 1)</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    c_str(1)(1:max_str_len) = f_str(1:max_str_len)</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    c_str(1)(max_str_len:max_str_len) = c_null_char</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;  <span class="keywordflow">end if</span></div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;<span class="keyword">end subroutine </span>copy_f_c_str</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;  <span class="keywordtype">integer</span>, <span class="keywordtype">allocatable</span>, <span class="keywordtype">target</span>, <span class="keywordtype">save</span> :: isc_f(:)</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;  <span class="keywordtype">integer</span>, <span class="keywordtype">allocatable</span>, <span class="keywordtype">target</span>, <span class="keywordtype">save</span> :: link_f(:)</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;  <span class="keywordtype">integer</span>, <span class="keywordtype">allocatable</span>, <span class="keywordtype">target</span>, <span class="keywordtype">save</span> :: itp_f(:)</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;  <span class="keywordtype">integer</span>, <span class="keywordtype">allocatable</span>, <span class="keywordtype">target</span>, <span class="keywordtype">save</span> :: jmpb_f(:)</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;  <span class="keywordtype">character(len=10)</span>, <span class="keywordtype">allocatable</span>, <span class="keywordtype">target</span>, <span class="keywordtype">save</span> :: tag_f(:)</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;  <span class="keywordtype">character(len=3)</span>, <span class="keywordtype">allocatable</span>, <span class="keywordtype">target</span>, <span class="keywordtype">save</span> :: typ_f(:)</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="keyword">contains</span></div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="comment">!Private</span></div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;<span class="keyword">function </span>c_f_string(c_str) result(f_str)</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;  <span class="keywordtype">character(kind=c_char,len=1)</span>, <span class="keywordtype">intent(in)</span> :: c_str(*)</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;  <span class="keywordtype">character(len=:)</span>, <span class="keywordtype">allocatable</span> :: f_str</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;  <span class="keywordtype">integer</span> :: nchars</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;  nchars = 1</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;  <span class="keywordflow">do</span> <span class="keywordflow">while</span> (c_str(nchars) /= c_null_char)</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;      nchars = nchars + 1</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;  <span class="keywordflow">end do</span></div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;  nchars = nchars - 1</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;  <span class="keyword">allocate</span>(<span class="keywordtype">character(len=nchars)</span> :: f_str)</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;  f_str = transfer(c_str(1:nchars), f_str)</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;<span class="keyword">end function </span>c_f_string</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;<span class="keyword">subroutine </span>copy_f_c_str(f_str, c_str, c_str_len)</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;  <span class="keywordtype">character(len=*)</span>, <span class="keywordtype">target</span>, <span class="keywordtype">intent(in)</span> :: f_str</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;  <span class="keywordtype">character(kind=c_char, len=1)</span>, <span class="keywordtype">intent(inout)</span> :: c_str(*)</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;  <span class="keywordtype">integer</span>, <span class="keywordtype">intent(in)</span> :: c_str_len</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;  <span class="keywordtype">integer</span> :: max_str_len</div>
 <div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;<span class="comment">!Public</span></div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;</div>
-<div class="line"><a name="l00093"></a><span class="lineno"><a class="line" href="classbufr__c__interface__mod.html#a0f20ed7d5f2a19163047e05f5780ce8f">   93</a></span>&#160;<span class="keyword">subroutine </span><a class="code" href="classbufr__c__interface__mod.html#a0f20ed7d5f2a19163047e05f5780ce8f">open_c</a>(lunit, filepath) bind(C, name=&#39;open_f&#39;)</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;  <span class="keywordtype">integer(c_int)</span>, value, <span class="keywordtype">intent(in)</span> :: lunit</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;  <span class="keywordtype">character(kind=c_char, len=1)</span> :: filepath</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;  <span class="keyword">open</span>(lunit, file=c_f_string(filepath))</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;<span class="keyword">end subroutine </span><a class="code" href="classbufr__c__interface__mod.html#a0f20ed7d5f2a19163047e05f5780ce8f">open_c</a></div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;</div>
-<div class="line"><a name="l00109"></a><span class="lineno"><a class="line" href="classbufr__c__interface__mod.html#a1c126c5d456d12168d2204845bc69589">  109</a></span>&#160;<span class="keyword">subroutine </span><a class="code" href="classbufr__c__interface__mod.html#a1c126c5d456d12168d2204845bc69589">close_c</a>(lunit) bind(C, name=&#39;close_f&#39;)</div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;  <span class="keywordtype">integer(c_int)</span>, value, <span class="keywordtype">intent(in)</span> :: lunit</div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;</div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;  <span class="keyword">close</span>(unit=lunit)</div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;<span class="keyword">end subroutine </span><a class="code" href="classbufr__c__interface__mod.html#a1c126c5d456d12168d2204845bc69589">close_c</a></div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;</div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;</div>
-<div class="line"><a name="l00125"></a><span class="lineno"><a class="line" href="classbufr__c__interface__mod.html#a06b9b9b76864aed6f463610a213501e4">  125</a></span>&#160;<span class="keyword">subroutine </span><a class="code" href="classbufr__c__interface__mod.html#a06b9b9b76864aed6f463610a213501e4">openbf_c</a>(bufr_unit, cio, table_file_id) bind(C, name=&#39;openbf_f&#39;)</div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;  <span class="keywordtype">integer(c_int)</span>, value, <span class="keywordtype">intent(in)</span> :: bufr_unit</div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;  <span class="keywordtype">character(kind=c_char, len=1)</span>, <span class="keywordtype">intent(in)</span> :: cio</div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;  <span class="keywordtype">integer(c_int)</span>, value, <span class="keywordtype">intent(in)</span> :: table_file_id</div>
-<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;</div>
-<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;  call <a class="code" href="openbf_8f.html#a9bea9aeada166bd9037b959ca8452b28">openbf</a>(bufr_unit, c_f_string(cio), table_file_id)</div>
-<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;<span class="keyword">end subroutine </span><a class="code" href="classbufr__c__interface__mod.html#a06b9b9b76864aed6f463610a213501e4">openbf_c</a></div>
-<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;</div>
-<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;</div>
-<div class="line"><a name="l00141"></a><span class="lineno"><a class="line" href="classbufr__c__interface__mod.html#a5c84dfd918e1785c075f9451dd2d2acb">  141</a></span>&#160;<span class="keyword">subroutine </span><a class="code" href="classbufr__c__interface__mod.html#a5c84dfd918e1785c075f9451dd2d2acb">closbf_c</a>(bufr_unit) bind(C, name=&#39;closbf_f&#39;)</div>
-<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;  <span class="keywordtype">integer(c_int)</span>, value, <span class="keywordtype">intent(in)</span> :: bufr_unit</div>
-<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;</div>
-<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;  call <a class="code" href="closbf_8f.html#a00c94986037d2cf27d04de7a1f8a3ebc">closbf</a>(bufr_unit)</div>
-<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;<span class="keyword">end subroutine </span><a class="code" href="classbufr__c__interface__mod.html#a5c84dfd918e1785c075f9451dd2d2acb">closbf_c</a></div>
-<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;</div>
-<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;</div>
-<div class="line"><a name="l00154"></a><span class="lineno"><a class="line" href="classbufr__c__interface__mod.html#aeabdf4108093f589b346a1f0b7d1f393">  154</a></span>&#160;<span class="keyword">subroutine </span><a class="code" href="classbufr__c__interface__mod.html#aeabdf4108093f589b346a1f0b7d1f393">exitbufr_c</a>() bind(C, name=&#39;exitbufr_f&#39;)</div>
-<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;  call <a class="code" href="exitbufr_8f.html#a355f094d616febcea2820cf547cbff8e">exitbufr</a>()</div>
-<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;<span class="keyword">end subroutine </span><a class="code" href="classbufr__c__interface__mod.html#aeabdf4108093f589b346a1f0b7d1f393">exitbufr_c</a></div>
-<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;</div>
-<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;</div>
-<div class="line"><a name="l00169"></a><span class="lineno"><a class="line" href="classbufr__c__interface__mod.html#ae4c70617eb7be9b4885faa3544c82611">  169</a></span>&#160;<span class="keyword">function </span><a class="code" href="classbufr__c__interface__mod.html#ae4c70617eb7be9b4885faa3544c82611">ireadmg_c</a>(bufr_unit, c_subset, iddate, subset_str_len) result(ires) bind(C, name=&#39;ireadmg_f&#39;)</div>
-<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;  <span class="keywordtype">integer(c_int)</span>, value, <span class="keywordtype">intent(in)</span> :: bufr_unit</div>
-<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;  <span class="keywordtype">character(kind=c_char, len=1)</span>, <span class="keywordtype">intent(inout)</span> :: c_subset(*)</div>
-<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;  <span class="keywordtype">integer(c_int)</span>, <span class="keywordtype">intent(out)</span> :: iddate</div>
-<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;  <span class="keywordtype">integer(c_int)</span>, value, <span class="keywordtype">intent(in)</span> :: subset_str_len</div>
-<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;  <span class="keywordtype">integer(c_int)</span> :: ires</div>
-<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;  <span class="keywordtype">character(len=25)</span> :: f_subset</div>
-<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;  <span class="keywordtype">integer</span> :: <a class="code" href="ireadmg_8f.html#a08c0eaaa7c6f555ccdceb404772dd962">ireadmg</a></div>
-<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;</div>
-<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;  ires = <a class="code" href="ireadmg_8f.html#a08c0eaaa7c6f555ccdceb404772dd962">ireadmg</a>(bufr_unit, f_subset, iddate)</div>
-<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;  call copy_f_c_str(f_subset, c_subset, int(subset_str_len))</div>
-<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;<span class="keyword">end function </span><a class="code" href="classbufr__c__interface__mod.html#ae4c70617eb7be9b4885faa3544c82611">ireadmg_c</a></div>
-<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;</div>
-<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;</div>
-<div class="line"><a name="l00190"></a><span class="lineno"><a class="line" href="classbufr__c__interface__mod.html#a6cc5a3eb953fe75c54ecf7ea95eb4a56">  190</a></span>&#160;<span class="keyword">function </span><a class="code" href="classbufr__c__interface__mod.html#a6cc5a3eb953fe75c54ecf7ea95eb4a56">ireadsb_c</a>(bufr_unit) result(ires) bind(C, name=&#39;ireadsb_f&#39;)</div>
-<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;  <span class="keywordtype">integer(c_int)</span>, value, <span class="keywordtype">intent(in)</span> :: bufr_unit</div>
-<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;  <span class="keywordtype">integer(c_int)</span> :: ires</div>
-<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;  <span class="keywordtype">integer</span> :: <a class="code" href="ireadsb_8f.html#a28f7e78017ef9f00dcce7fb2c0bbab28">ireadsb</a></div>
-<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;</div>
-<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;  ires = <a class="code" href="ireadsb_8f.html#a28f7e78017ef9f00dcce7fb2c0bbab28">ireadsb</a>(bufr_unit)</div>
-<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;<span class="keyword">end function </span><a class="code" href="classbufr__c__interface__mod.html#a6cc5a3eb953fe75c54ecf7ea95eb4a56">ireadsb_c</a></div>
-<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;</div>
-<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;</div>
-<div class="line"><a name="l00210"></a><span class="lineno"><a class="line" href="classbufr__c__interface__mod.html#a4ba25e289e99f210b2ae498ac2b11950">  210</a></span>&#160;<span class="keyword">subroutine </span><a class="code" href="classbufr__c__interface__mod.html#a4ba25e289e99f210b2ae498ac2b11950">ufbint_c</a>(bufr_unit, c_data, dim_1, dim_2, iret, table_b_mnemonic) bind(C, name=&#39;ufbint_f&#39;)</div>
-<div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;  <span class="keywordtype">integer(c_int)</span>, value, <span class="keywordtype">intent(in)</span> :: bufr_unit</div>
-<div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160;  <span class="keywordtype">type(</span>c_ptr<span class="keywordtype">)</span>, <span class="keywordtype">intent(inout)</span> ::  c_data</div>
-<div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160;  <span class="keywordtype">integer(c_int)</span>, value, <span class="keywordtype">intent(in)</span> :: dim_1, dim_2</div>
-<div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160;  <span class="keywordtype">integer(c_int)</span>, <span class="keywordtype">intent(out)</span> :: iret</div>
-<div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160;  <span class="keywordtype">character(kind=c_char, len=1)</span>, <span class="keywordtype">intent(in)</span> :: table_b_mnemonic</div>
-<div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160;  <span class="keywordtype">real</span>, <span class="keywordtype">pointer</span> :: f_data</div>
-<div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160;</div>
-<div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160;  call c_f_pointer(c_data, f_data)</div>
-<div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160;  call <a class="code" href="ufbint_8f.html#afe3364a491b49e0c9e5a526b009aaa75">ufbint</a>(bufr_unit, f_data, dim_1, dim_2, iret, c_f_string(table_b_mnemonic))</div>
-<div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160;<span class="keyword">end subroutine </span><a class="code" href="classbufr__c__interface__mod.html#a4ba25e289e99f210b2ae498ac2b11950">ufbint_c</a></div>
-<div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160;</div>
-<div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160;</div>
-<div class="line"><a name="l00234"></a><span class="lineno"><a class="line" href="classbufr__c__interface__mod.html#ab1b9e9ac5379560a7f38794f13dedc40">  234</a></span>&#160;<span class="keyword">subroutine </span><a class="code" href="classbufr__c__interface__mod.html#ab1b9e9ac5379560a7f38794f13dedc40">ufbrep_c</a>(bufr_unit, c_data, dim_1, dim_2, iret, table_b_mnemonic) bind(C, name=&#39;ufbrep_f&#39;)</div>
-<div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160;  <span class="keywordtype">integer(c_int)</span>, value, <span class="keywordtype">intent(in)</span> :: bufr_unit</div>
-<div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160;  <span class="keywordtype">type(</span>c_ptr<span class="keywordtype">)</span>, <span class="keywordtype">intent(inout)</span> :: c_data</div>
-<div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160;  <span class="keywordtype">integer(c_int)</span>, value, <span class="keywordtype">intent(in)</span> :: dim_1, dim_2</div>
-<div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160;  <span class="keywordtype">integer(c_int)</span>, <span class="keywordtype">intent(out)</span> :: iret</div>
-<div class="line"><a name="l00239"></a><span class="lineno">  239</span>&#160;  <span class="keywordtype">character(kind=c_char, len=1)</span>, <span class="keywordtype">intent(in)</span> :: table_b_mnemonic</div>
-<div class="line"><a name="l00240"></a><span class="lineno">  240</span>&#160;  <span class="keywordtype">real</span>, <span class="keywordtype">pointer</span> :: f_data</div>
-<div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160;</div>
-<div class="line"><a name="l00242"></a><span class="lineno">  242</span>&#160;  call c_f_pointer(c_data, f_data)</div>
-<div class="line"><a name="l00243"></a><span class="lineno">  243</span>&#160;  call <a class="code" href="ufbrep_8f.html#adb981832bdbbb26903265fb946aac58c">ufbrep</a>(bufr_unit, f_data, dim_1, dim_2, iret, c_f_string(table_b_mnemonic))</div>
-<div class="line"><a name="l00244"></a><span class="lineno">  244</span>&#160;<span class="keyword">end subroutine </span><a class="code" href="classbufr__c__interface__mod.html#ab1b9e9ac5379560a7f38794f13dedc40">ufbrep_c</a></div>
-<div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160;</div>
-<div class="line"><a name="l00246"></a><span class="lineno">  246</span>&#160;</div>
-<div class="line"><a name="l00256"></a><span class="lineno"><a class="line" href="classbufr__c__interface__mod.html#a43d3a0015a83688cfea2a6a2ed3d5cb2">  256</a></span>&#160;<span class="keyword">subroutine </span><a class="code" href="classbufr__c__interface__mod.html#a43d3a0015a83688cfea2a6a2ed3d5cb2">mtinfo_c</a>(path, file_unit_1, file_unit_2) bind(C, name=&#39;mtinfo_f&#39;)</div>
-<div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160;  <span class="keywordtype">character(kind=c_char, len=1)</span>, <span class="keywordtype">intent(in)</span> :: path</div>
-<div class="line"><a name="l00258"></a><span class="lineno">  258</span>&#160;  <span class="keywordtype">integer(c_int)</span>, value, <span class="keywordtype">intent(in)</span> :: file_unit_1</div>
-<div class="line"><a name="l00259"></a><span class="lineno">  259</span>&#160;  <span class="keywordtype">integer(c_int)</span>, value, <span class="keywordtype">intent(in)</span> :: file_unit_2</div>
-<div class="line"><a name="l00260"></a><span class="lineno">  260</span>&#160;</div>
-<div class="line"><a name="l00261"></a><span class="lineno">  261</span>&#160;  call <a class="code" href="mtinfo_8f.html#ad95cdae13646faad7b457f7c854bbfc7">mtinfo</a>(c_f_string(path), file_unit_1, file_unit_2)</div>
-<div class="line"><a name="l00262"></a><span class="lineno">  262</span>&#160;<span class="keyword">end subroutine </span><a class="code" href="classbufr__c__interface__mod.html#a43d3a0015a83688cfea2a6a2ed3d5cb2">mtinfo_c</a></div>
-<div class="line"><a name="l00263"></a><span class="lineno">  263</span>&#160;</div>
-<div class="line"><a name="l00264"></a><span class="lineno">  264</span>&#160;<span class="keyword">end module </span><a class="code" href="classbufr__c__interface__mod.html">bufr_c_interface_mod</a></div>
-<div class="ttc" id="classbufr__c__interface__mod_html_aeabdf4108093f589b346a1f0b7d1f393"><div class="ttname"><a href="classbufr__c__interface__mod.html#aeabdf4108093f589b346a1f0b7d1f393">bufr_c_interface_mod::exitbufr_c</a></div><div class="ttdeci">subroutine, public exitbufr_c()</div><div class="ttdoc">Wraps BUFRLIB &amp;quot;exitbufr&amp;quot; subroutine. Closes all open file units used by BUFRLIB. </div><div class="ttdef"><b>Definition:</b> <a href="bufr__interface_8f90_source.html#l00154">bufr_interface.f90:154</a></div></div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;  <span class="keywordflow">if</span> (c_str_len /= 0) <span class="keywordflow">then</span></div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    max_str_len = c_str_len</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    c_str(1)(1:max_str_len) = f_str(1:max_str_len)</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    c_str(1)(max_str_len:max_str_len) = c_null_char</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;  <span class="keywordflow">end if</span></div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;<span class="keyword">end subroutine </span>copy_f_c_str</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;<span class="comment">!Public</span></div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;</div>
+<div class="line"><a name="l00100"></a><span class="lineno"><a class="line" href="classbufr__c__interface__mod.html#a0f20ed7d5f2a19163047e05f5780ce8f">  100</a></span>&#160;<span class="keyword">subroutine </span><a class="code" href="classbufr__c__interface__mod.html#a0f20ed7d5f2a19163047e05f5780ce8f">open_c</a>(lunit, filepath) bind(C, name=&#39;open_f&#39;)</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;  <span class="keywordtype">integer(c_int)</span>, value, <span class="keywordtype">intent(in)</span> :: lunit</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;  <span class="keywordtype">character(kind=c_char, len=1)</span> :: filepath</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;  <span class="keyword">open</span>(lunit, file=c_f_string(filepath))</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;<span class="keyword">end subroutine </span><a class="code" href="classbufr__c__interface__mod.html#a0f20ed7d5f2a19163047e05f5780ce8f">open_c</a></div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;</div>
+<div class="line"><a name="l00116"></a><span class="lineno"><a class="line" href="classbufr__c__interface__mod.html#a1c126c5d456d12168d2204845bc69589">  116</a></span>&#160;<span class="keyword">subroutine </span><a class="code" href="classbufr__c__interface__mod.html#a1c126c5d456d12168d2204845bc69589">close_c</a>(lunit) bind(C, name=&#39;close_f&#39;)</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;  <span class="keywordtype">integer(c_int)</span>, value, <span class="keywordtype">intent(in)</span> :: lunit</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;  <span class="keyword">close</span>(unit=lunit)</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;<span class="keyword">end subroutine </span><a class="code" href="classbufr__c__interface__mod.html#a1c126c5d456d12168d2204845bc69589">close_c</a></div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;</div>
+<div class="line"><a name="l00132"></a><span class="lineno"><a class="line" href="classbufr__c__interface__mod.html#a06b9b9b76864aed6f463610a213501e4">  132</a></span>&#160;<span class="keyword">subroutine </span><a class="code" href="classbufr__c__interface__mod.html#a06b9b9b76864aed6f463610a213501e4">openbf_c</a>(bufr_unit, cio, table_file_id) bind(C, name=&#39;openbf_f&#39;)</div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;  <span class="keywordtype">integer(c_int)</span>, value, <span class="keywordtype">intent(in)</span> :: bufr_unit</div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;  <span class="keywordtype">character(kind=c_char, len=1)</span>, <span class="keywordtype">intent(in)</span> :: cio</div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;  <span class="keywordtype">integer(c_int)</span>, value, <span class="keywordtype">intent(in)</span> :: table_file_id</div>
+<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;</div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;  call <a class="code" href="openbf_8f.html#a9bea9aeada166bd9037b959ca8452b28">openbf</a>(bufr_unit, c_f_string(cio), table_file_id)</div>
+<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;<span class="keyword">end subroutine </span><a class="code" href="classbufr__c__interface__mod.html#a06b9b9b76864aed6f463610a213501e4">openbf_c</a></div>
+<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;</div>
+<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;</div>
+<div class="line"><a name="l00148"></a><span class="lineno"><a class="line" href="classbufr__c__interface__mod.html#a5c84dfd918e1785c075f9451dd2d2acb">  148</a></span>&#160;<span class="keyword">subroutine </span><a class="code" href="classbufr__c__interface__mod.html#a5c84dfd918e1785c075f9451dd2d2acb">closbf_c</a>(bufr_unit) bind(C, name=&#39;closbf_f&#39;)</div>
+<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;  <span class="keywordtype">integer(c_int)</span>, value, <span class="keywordtype">intent(in)</span> :: bufr_unit</div>
+<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;</div>
+<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;  call <a class="code" href="closbf_8f.html#a00c94986037d2cf27d04de7a1f8a3ebc">closbf</a>(bufr_unit)</div>
+<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;<span class="keyword">end subroutine </span><a class="code" href="classbufr__c__interface__mod.html#a5c84dfd918e1785c075f9451dd2d2acb">closbf_c</a></div>
+<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;</div>
+<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;</div>
+<div class="line"><a name="l00161"></a><span class="lineno"><a class="line" href="classbufr__c__interface__mod.html#aeabdf4108093f589b346a1f0b7d1f393">  161</a></span>&#160;<span class="keyword">subroutine </span><a class="code" href="classbufr__c__interface__mod.html#aeabdf4108093f589b346a1f0b7d1f393">exitbufr_c</a>() bind(C, name=&#39;exitbufr_f&#39;)</div>
+<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;  call <a class="code" href="exitbufr_8f.html#a355f094d616febcea2820cf547cbff8e">exitbufr</a>()</div>
+<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;<span class="keyword">end subroutine </span><a class="code" href="classbufr__c__interface__mod.html#aeabdf4108093f589b346a1f0b7d1f393">exitbufr_c</a></div>
+<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;</div>
+<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;</div>
+<div class="line"><a name="l00176"></a><span class="lineno"><a class="line" href="classbufr__c__interface__mod.html#ae4c70617eb7be9b4885faa3544c82611">  176</a></span>&#160;<span class="keyword">function </span><a class="code" href="classbufr__c__interface__mod.html#ae4c70617eb7be9b4885faa3544c82611">ireadmg_c</a>(bufr_unit, c_subset, iddate, subset_str_len) result(ires) bind(C, name=&#39;ireadmg_f&#39;)</div>
+<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;  <span class="keywordtype">integer(c_int)</span>, value, <span class="keywordtype">intent(in)</span> :: bufr_unit</div>
+<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;  <span class="keywordtype">character(kind=c_char, len=1)</span>, <span class="keywordtype">intent(inout)</span> :: c_subset(*)</div>
+<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;  <span class="keywordtype">integer(c_int)</span>, <span class="keywordtype">intent(out)</span> :: iddate</div>
+<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;  <span class="keywordtype">integer(c_int)</span>, value, <span class="keywordtype">intent(in)</span> :: subset_str_len</div>
+<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;  <span class="keywordtype">integer(c_int)</span> :: ires</div>
+<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;  <span class="keywordtype">character(len=25)</span> :: f_subset</div>
+<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;  <span class="keywordtype">integer</span> :: <a class="code" href="ireadmg_8f.html#a08c0eaaa7c6f555ccdceb404772dd962">ireadmg</a></div>
+<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;</div>
+<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;  ires = <a class="code" href="ireadmg_8f.html#a08c0eaaa7c6f555ccdceb404772dd962">ireadmg</a>(bufr_unit, f_subset, iddate)</div>
+<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;</div>
+<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;  <span class="keywordflow">if</span> (ires == 0) <span class="keywordflow">then</span></div>
+<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;    call copy_f_c_str(f_subset, c_subset, int(subset_str_len))</div>
+<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;  <span class="keywordflow">end if</span></div>
+<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;<span class="keyword">end function </span><a class="code" href="classbufr__c__interface__mod.html#ae4c70617eb7be9b4885faa3544c82611">ireadmg_c</a></div>
+<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;</div>
+<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;</div>
+<div class="line"><a name="l00200"></a><span class="lineno"><a class="line" href="classbufr__c__interface__mod.html#a6cc5a3eb953fe75c54ecf7ea95eb4a56">  200</a></span>&#160;<span class="keyword">function </span><a class="code" href="classbufr__c__interface__mod.html#a6cc5a3eb953fe75c54ecf7ea95eb4a56">ireadsb_c</a>(bufr_unit) result(ires) bind(C, name=&#39;ireadsb_f&#39;)</div>
+<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;  <span class="keywordtype">integer(c_int)</span>, value, <span class="keywordtype">intent(in)</span> :: bufr_unit</div>
+<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;  <span class="keywordtype">integer(c_int)</span> :: ires</div>
+<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;  <span class="keywordtype">integer</span> :: <a class="code" href="ireadsb_8f.html#a28f7e78017ef9f00dcce7fb2c0bbab28">ireadsb</a></div>
+<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;</div>
+<div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;  ires = <a class="code" href="ireadsb_8f.html#a28f7e78017ef9f00dcce7fb2c0bbab28">ireadsb</a>(bufr_unit)</div>
+<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;<span class="keyword">end function </span><a class="code" href="classbufr__c__interface__mod.html#a6cc5a3eb953fe75c54ecf7ea95eb4a56">ireadsb_c</a></div>
+<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;</div>
+<div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;</div>
+<div class="line"><a name="l00220"></a><span class="lineno"><a class="line" href="classbufr__c__interface__mod.html#a4ba25e289e99f210b2ae498ac2b11950">  220</a></span>&#160;<span class="keyword">subroutine </span><a class="code" href="classbufr__c__interface__mod.html#a4ba25e289e99f210b2ae498ac2b11950">ufbint_c</a>(bufr_unit, c_data, dim_1, dim_2, iret, table_b_mnemonic) bind(C, name=&#39;ufbint_f&#39;)</div>
+<div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160;  <span class="keywordtype">integer(c_int)</span>, value, <span class="keywordtype">intent(in)</span> :: bufr_unit</div>
+<div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160;  <span class="keywordtype">type(</span>c_ptr<span class="keywordtype">)</span>, <span class="keywordtype">intent(inout)</span> ::  c_data</div>
+<div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160;  <span class="keywordtype">integer(c_int)</span>, value, <span class="keywordtype">intent(in)</span> :: dim_1, dim_2</div>
+<div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160;  <span class="keywordtype">integer(c_int)</span>, <span class="keywordtype">intent(out)</span> :: iret</div>
+<div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160;  <span class="keywordtype">character(kind=c_char, len=1)</span>, <span class="keywordtype">intent(in)</span> :: table_b_mnemonic</div>
+<div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160;  <span class="keywordtype">real</span>, <span class="keywordtype">pointer</span> :: f_data</div>
+<div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160;</div>
+<div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160;  call c_f_pointer(c_data, f_data)</div>
+<div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160;  call <a class="code" href="ufbint_8f.html#afe3364a491b49e0c9e5a526b009aaa75">ufbint</a>(bufr_unit, f_data, dim_1, dim_2, iret, c_f_string(table_b_mnemonic))</div>
+<div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160;<span class="keyword">end subroutine </span><a class="code" href="classbufr__c__interface__mod.html#a4ba25e289e99f210b2ae498ac2b11950">ufbint_c</a></div>
+<div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160;</div>
+<div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160;</div>
+<div class="line"><a name="l00244"></a><span class="lineno"><a class="line" href="classbufr__c__interface__mod.html#ab1b9e9ac5379560a7f38794f13dedc40">  244</a></span>&#160;<span class="keyword">subroutine </span><a class="code" href="classbufr__c__interface__mod.html#ab1b9e9ac5379560a7f38794f13dedc40">ufbrep_c</a>(bufr_unit, c_data, dim_1, dim_2, iret, table_b_mnemonic) bind(C, name=&#39;ufbrep_f&#39;)</div>
+<div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160;  <span class="keywordtype">integer(c_int)</span>, value, <span class="keywordtype">intent(in)</span> :: bufr_unit</div>
+<div class="line"><a name="l00246"></a><span class="lineno">  246</span>&#160;  <span class="keywordtype">type(</span>c_ptr<span class="keywordtype">)</span>, <span class="keywordtype">intent(inout)</span> :: c_data</div>
+<div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160;  <span class="keywordtype">integer(c_int)</span>, value, <span class="keywordtype">intent(in)</span> :: dim_1, dim_2</div>
+<div class="line"><a name="l00248"></a><span class="lineno">  248</span>&#160;  <span class="keywordtype">integer(c_int)</span>, <span class="keywordtype">intent(out)</span> :: iret</div>
+<div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160;  <span class="keywordtype">character(kind=c_char, len=1)</span>, <span class="keywordtype">intent(in)</span> :: table_b_mnemonic</div>
+<div class="line"><a name="l00250"></a><span class="lineno">  250</span>&#160;  <span class="keywordtype">real</span>, <span class="keywordtype">pointer</span> :: f_data</div>
+<div class="line"><a name="l00251"></a><span class="lineno">  251</span>&#160;</div>
+<div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160;  call c_f_pointer(c_data, f_data)</div>
+<div class="line"><a name="l00253"></a><span class="lineno">  253</span>&#160;  call <a class="code" href="ufbrep_8f.html#adb981832bdbbb26903265fb946aac58c">ufbrep</a>(bufr_unit, f_data, dim_1, dim_2, iret, c_f_string(table_b_mnemonic))</div>
+<div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160;<span class="keyword">end subroutine </span><a class="code" href="classbufr__c__interface__mod.html#ab1b9e9ac5379560a7f38794f13dedc40">ufbrep_c</a></div>
+<div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160;</div>
+<div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160;</div>
+<div class="line"><a name="l00266"></a><span class="lineno"><a class="line" href="classbufr__c__interface__mod.html#a43d3a0015a83688cfea2a6a2ed3d5cb2">  266</a></span>&#160;<span class="keyword">subroutine </span><a class="code" href="classbufr__c__interface__mod.html#a43d3a0015a83688cfea2a6a2ed3d5cb2">mtinfo_c</a>(path, file_unit_1, file_unit_2) bind(C, name=&#39;mtinfo_f&#39;)</div>
+<div class="line"><a name="l00267"></a><span class="lineno">  267</span>&#160;  <span class="keywordtype">character(kind=c_char, len=1)</span>, <span class="keywordtype">intent(in)</span> :: path</div>
+<div class="line"><a name="l00268"></a><span class="lineno">  268</span>&#160;  <span class="keywordtype">integer(c_int)</span>, value, <span class="keywordtype">intent(in)</span> :: file_unit_1</div>
+<div class="line"><a name="l00269"></a><span class="lineno">  269</span>&#160;  <span class="keywordtype">integer(c_int)</span>, value, <span class="keywordtype">intent(in)</span> :: file_unit_2</div>
+<div class="line"><a name="l00270"></a><span class="lineno">  270</span>&#160;</div>
+<div class="line"><a name="l00271"></a><span class="lineno">  271</span>&#160;  call <a class="code" href="mtinfo_8f.html#ad95cdae13646faad7b457f7c854bbfc7">mtinfo</a>(c_f_string(path), file_unit_1, file_unit_2)</div>
+<div class="line"><a name="l00272"></a><span class="lineno">  272</span>&#160;<span class="keyword">end subroutine </span><a class="code" href="classbufr__c__interface__mod.html#a43d3a0015a83688cfea2a6a2ed3d5cb2">mtinfo_c</a></div>
+<div class="line"><a name="l00273"></a><span class="lineno">  273</span>&#160;</div>
+<div class="line"><a name="l00274"></a><span class="lineno">  274</span>&#160;</div>
+<div class="line"><a name="l00275"></a><span class="lineno">  275</span>&#160;<span class="comment">! ----------------------------------------------------------------------</span></div>
+<div class="line"><a name="l00277"></a><span class="lineno">  277</span>&#160;<span class="comment">! ----------------------------------------------------------------------</span></div>
+<div class="line"><a name="l00278"></a><span class="lineno">  278</span>&#160;</div>
+<div class="line"><a name="l00289"></a><span class="lineno">  289</span>&#160;<span class="keyword">subroutine </span>status_c(file_unit, lun, il, im) bind(C, name=&#39;status_f&#39;)</div>
+<div class="line"><a name="l00290"></a><span class="lineno">  290</span>&#160;  <span class="keywordtype">integer(c_int)</span>, value, <span class="keywordtype">intent(in)</span> :: file_unit</div>
+<div class="line"><a name="l00291"></a><span class="lineno">  291</span>&#160;  <span class="keywordtype">integer(c_int)</span>, <span class="keywordtype">intent(out)</span> :: lun</div>
+<div class="line"><a name="l00292"></a><span class="lineno">  292</span>&#160;  <span class="keywordtype">integer(c_int)</span>, <span class="keywordtype">intent(out)</span> :: il</div>
+<div class="line"><a name="l00293"></a><span class="lineno">  293</span>&#160;  <span class="keywordtype">integer(c_int)</span>, <span class="keywordtype">intent(out)</span> :: im</div>
+<div class="line"><a name="l00294"></a><span class="lineno">  294</span>&#160;</div>
+<div class="line"><a name="l00295"></a><span class="lineno">  295</span>&#160;  call <a class="code" href="status_8f.html#a22292e7a69c411a961168198d259f336">status</a>(file_unit, lun, il, im)</div>
+<div class="line"><a name="l00296"></a><span class="lineno">  296</span>&#160;<span class="keyword">end subroutine </span>status_c</div>
+<div class="line"><a name="l00297"></a><span class="lineno">  297</span>&#160;</div>
+<div class="line"><a name="l00298"></a><span class="lineno">  298</span>&#160;</div>
+<div class="line"><a name="l00307"></a><span class="lineno">  307</span>&#160;<span class="keyword">subroutine </span>get_isc_c(isc_ptr, isc_size) bind(C, name=&#39;get_isc_f&#39;)</div>
+<div class="line"><a name="l00308"></a><span class="lineno">  308</span>&#160;  <span class="keywordtype">use </span><a class="code" href="moda__tables_8F.html#classmoda__tables">moda_tables</a></div>
+<div class="line"><a name="l00309"></a><span class="lineno">  309</span>&#160;  <span class="keywordtype">type(</span>c_ptr<span class="keywordtype">)</span>, <span class="keywordtype">intent(inout)</span> :: isc_ptr</div>
+<div class="line"><a name="l00310"></a><span class="lineno">  310</span>&#160;  <span class="keywordtype">integer(c_int)</span>, <span class="keywordtype">intent(out)</span> :: isc_size</div>
+<div class="line"><a name="l00311"></a><span class="lineno">  311</span>&#160;</div>
+<div class="line"><a name="l00312"></a><span class="lineno">  312</span>&#160;  <span class="keyword">allocate</span>(isc_f(ntab))</div>
+<div class="line"><a name="l00313"></a><span class="lineno">  313</span>&#160;  isc_f(1:ntab) = isc(1:ntab)</div>
+<div class="line"><a name="l00314"></a><span class="lineno">  314</span>&#160;  isc_size = <span class="keyword">size</span>(isc_f)</div>
+<div class="line"><a name="l00315"></a><span class="lineno">  315</span>&#160;  isc_ptr = c_loc(isc_f(1))</div>
+<div class="line"><a name="l00316"></a><span class="lineno">  316</span>&#160;<span class="keyword">end subroutine </span>get_isc_c</div>
+<div class="line"><a name="l00317"></a><span class="lineno">  317</span>&#160;</div>
+<div class="line"><a name="l00318"></a><span class="lineno">  318</span>&#160;</div>
+<div class="line"><a name="l00327"></a><span class="lineno"><a class="line" href="classbufr__c__interface__mod.html#a4efc045dfa6f314fe681932c719fcbc5">  327</a></span>&#160;<span class="keyword">subroutine </span><a class="code" href="classbufr__c__interface__mod.html#a4efc045dfa6f314fe681932c719fcbc5">get_link_c</a>(link_ptr, link_size) bind(C, name=&#39;get_link_f&#39;)</div>
+<div class="line"><a name="l00328"></a><span class="lineno">  328</span>&#160;  <span class="keywordtype">use </span><a class="code" href="moda__tables_8F.html#classmoda__tables">moda_tables</a></div>
+<div class="line"><a name="l00329"></a><span class="lineno">  329</span>&#160;  <span class="keywordtype">type(</span>c_ptr<span class="keywordtype">)</span>, <span class="keywordtype">intent(inout)</span> :: link_ptr</div>
+<div class="line"><a name="l00330"></a><span class="lineno">  330</span>&#160;  <span class="keywordtype">integer(c_int)</span>, <span class="keywordtype">intent(out)</span> :: link_size</div>
+<div class="line"><a name="l00331"></a><span class="lineno">  331</span>&#160;</div>
+<div class="line"><a name="l00332"></a><span class="lineno">  332</span>&#160;  <span class="keyword">allocate</span>(link_f(ntab))</div>
+<div class="line"><a name="l00333"></a><span class="lineno">  333</span>&#160;  link_f(1:ntab) = link(1:ntab)</div>
+<div class="line"><a name="l00334"></a><span class="lineno">  334</span>&#160;  link_size = <span class="keyword">size</span>(link_f)</div>
+<div class="line"><a name="l00335"></a><span class="lineno">  335</span>&#160;  link_ptr = c_loc(link_f(1))</div>
+<div class="line"><a name="l00336"></a><span class="lineno">  336</span>&#160;<span class="keyword">end subroutine </span><a class="code" href="classbufr__c__interface__mod.html#a4efc045dfa6f314fe681932c719fcbc5">get_link_c</a></div>
+<div class="line"><a name="l00337"></a><span class="lineno">  337</span>&#160;</div>
+<div class="line"><a name="l00338"></a><span class="lineno">  338</span>&#160;</div>
+<div class="line"><a name="l00347"></a><span class="lineno"><a class="line" href="classbufr__c__interface__mod.html#af2a8b163242f31c614a25236321bc54c">  347</a></span>&#160;<span class="keyword">subroutine </span><a class="code" href="classbufr__c__interface__mod.html#af2a8b163242f31c614a25236321bc54c">get_itp_c</a>(itp_ptr, itp_size) bind(C, name=&#39;get_itp_f&#39;)</div>
+<div class="line"><a name="l00348"></a><span class="lineno">  348</span>&#160;  <span class="keywordtype">use </span><a class="code" href="moda__tables_8F.html#classmoda__tables">moda_tables</a></div>
+<div class="line"><a name="l00349"></a><span class="lineno">  349</span>&#160;  <span class="keywordtype">type(</span>c_ptr<span class="keywordtype">)</span>, <span class="keywordtype">intent(inout)</span> :: itp_ptr</div>
+<div class="line"><a name="l00350"></a><span class="lineno">  350</span>&#160;  <span class="keywordtype">integer(c_int)</span>, <span class="keywordtype">intent(out)</span> :: itp_size</div>
+<div class="line"><a name="l00351"></a><span class="lineno">  351</span>&#160;</div>
+<div class="line"><a name="l00352"></a><span class="lineno">  352</span>&#160;  <span class="keyword">allocate</span>(itp_f(ntab))</div>
+<div class="line"><a name="l00353"></a><span class="lineno">  353</span>&#160;  itp_f(1:ntab) = itp(1:ntab)</div>
+<div class="line"><a name="l00354"></a><span class="lineno">  354</span>&#160;  itp_size = <span class="keyword">size</span>(itp_f)</div>
+<div class="line"><a name="l00355"></a><span class="lineno">  355</span>&#160;  itp_ptr = c_loc(itp_f(1))</div>
+<div class="line"><a name="l00356"></a><span class="lineno">  356</span>&#160;<span class="keyword">end subroutine </span><a class="code" href="classbufr__c__interface__mod.html#af2a8b163242f31c614a25236321bc54c">get_itp_c</a></div>
+<div class="line"><a name="l00357"></a><span class="lineno">  357</span>&#160;</div>
+<div class="line"><a name="l00358"></a><span class="lineno">  358</span>&#160;</div>
+<div class="line"><a name="l00368"></a><span class="lineno"><a class="line" href="classbufr__c__interface__mod.html#af6d7a8a9394e7baaa9e58d7a0749f0cc">  368</a></span>&#160;<span class="keyword">subroutine </span><a class="code" href="classbufr__c__interface__mod.html#af6d7a8a9394e7baaa9e58d7a0749f0cc">get_typ_c</a>(typ_ptr, typ_len, mem_size) bind(C, name=&#39;get_typ_f&#39;)</div>
+<div class="line"><a name="l00369"></a><span class="lineno">  369</span>&#160;  <span class="keywordtype">use </span><a class="code" href="moda__tables_8F.html#classmoda__tables">moda_tables</a></div>
+<div class="line"><a name="l00370"></a><span class="lineno">  370</span>&#160;  <span class="keywordtype">type(</span>c_ptr<span class="keywordtype">)</span>, <span class="keywordtype">intent(inout)</span> :: typ_ptr</div>
+<div class="line"><a name="l00371"></a><span class="lineno">  371</span>&#160;  <span class="keywordtype">integer(c_int)</span>, <span class="keywordtype">intent(out)</span> :: typ_len</div>
+<div class="line"><a name="l00372"></a><span class="lineno">  372</span>&#160;  <span class="keywordtype">integer(c_int)</span>, <span class="keywordtype">intent(out)</span> :: mem_size</div>
+<div class="line"><a name="l00373"></a><span class="lineno">  373</span>&#160;</div>
+<div class="line"><a name="l00374"></a><span class="lineno">  374</span>&#160;  <span class="keyword">allocate</span>(typ_f(ntab))</div>
+<div class="line"><a name="l00375"></a><span class="lineno">  375</span>&#160;  typ_f(1:ntab) = typ(1:ntab)</div>
+<div class="line"><a name="l00376"></a><span class="lineno">  376</span>&#160;  typ_len = len(typ(1))</div>
+<div class="line"><a name="l00377"></a><span class="lineno">  377</span>&#160;  mem_size = <span class="keyword">size</span>(typ_f)</div>
+<div class="line"><a name="l00378"></a><span class="lineno">  378</span>&#160;  typ_ptr = c_loc(typ_f(1))</div>
+<div class="line"><a name="l00379"></a><span class="lineno">  379</span>&#160;<span class="keyword">end subroutine </span><a class="code" href="classbufr__c__interface__mod.html#af6d7a8a9394e7baaa9e58d7a0749f0cc">get_typ_c</a></div>
+<div class="line"><a name="l00380"></a><span class="lineno">  380</span>&#160;</div>
+<div class="line"><a name="l00381"></a><span class="lineno">  381</span>&#160;</div>
+<div class="line"><a name="l00391"></a><span class="lineno"><a class="line" href="classbufr__c__interface__mod.html#a56c15973568c5dfe8b20160c6b9b6f21">  391</a></span>&#160;<span class="keyword">subroutine </span><a class="code" href="classbufr__c__interface__mod.html#a56c15973568c5dfe8b20160c6b9b6f21">get_tag_c</a>(tag_ptr, tag_len, mem_size) bind(C, name=&#39;get_tag_f&#39;)</div>
+<div class="line"><a name="l00392"></a><span class="lineno">  392</span>&#160;  <span class="keywordtype">use </span><a class="code" href="moda__tables_8F.html#classmoda__tables">moda_tables</a></div>
+<div class="line"><a name="l00393"></a><span class="lineno">  393</span>&#160;  <span class="keywordtype">type(</span>c_ptr<span class="keywordtype">)</span>, <span class="keywordtype">intent(inout)</span> :: tag_ptr</div>
+<div class="line"><a name="l00394"></a><span class="lineno">  394</span>&#160;  <span class="keywordtype">integer(c_int)</span>, <span class="keywordtype">intent(out)</span> :: tag_len</div>
+<div class="line"><a name="l00395"></a><span class="lineno">  395</span>&#160;  <span class="keywordtype">integer(c_int)</span>, <span class="keywordtype">intent(out)</span> :: mem_size</div>
+<div class="line"><a name="l00396"></a><span class="lineno">  396</span>&#160;</div>
+<div class="line"><a name="l00397"></a><span class="lineno">  397</span>&#160;  <span class="keyword">allocate</span>(tag_f(ntab))</div>
+<div class="line"><a name="l00398"></a><span class="lineno">  398</span>&#160;  tag_f(1:ntab) = tag(1:ntab)</div>
+<div class="line"><a name="l00399"></a><span class="lineno">  399</span>&#160;  tag_len = len(tag(1))</div>
+<div class="line"><a name="l00400"></a><span class="lineno">  400</span>&#160;  mem_size = <span class="keyword">size</span>(tag_f)</div>
+<div class="line"><a name="l00401"></a><span class="lineno">  401</span>&#160;  tag_ptr = c_loc(tag_f(1))</div>
+<div class="line"><a name="l00402"></a><span class="lineno">  402</span>&#160;<span class="keyword">end subroutine </span><a class="code" href="classbufr__c__interface__mod.html#a56c15973568c5dfe8b20160c6b9b6f21">get_tag_c</a></div>
+<div class="line"><a name="l00403"></a><span class="lineno">  403</span>&#160;</div>
+<div class="line"><a name="l00404"></a><span class="lineno">  404</span>&#160;</div>
+<div class="line"><a name="l00413"></a><span class="lineno"><a class="line" href="classbufr__c__interface__mod.html#a5273bad82cf736d6b36139065f647ff0">  413</a></span>&#160;<span class="keyword">subroutine </span><a class="code" href="classbufr__c__interface__mod.html#a5273bad82cf736d6b36139065f647ff0">get_jmpb_c</a>(jmpb_ptr, jmpb_size) bind(C, name=&#39;get_jmpb_f&#39;)</div>
+<div class="line"><a name="l00414"></a><span class="lineno">  414</span>&#160;  <span class="keywordtype">use </span><a class="code" href="moda__tables_8F.html#classmoda__tables">moda_tables</a></div>
+<div class="line"><a name="l00415"></a><span class="lineno">  415</span>&#160;  <span class="keywordtype">type(</span>c_ptr<span class="keywordtype">)</span>, <span class="keywordtype">intent(inout)</span> :: jmpb_ptr</div>
+<div class="line"><a name="l00416"></a><span class="lineno">  416</span>&#160;  <span class="keywordtype">integer(c_int)</span>, <span class="keywordtype">intent(out)</span> :: jmpb_size</div>
+<div class="line"><a name="l00417"></a><span class="lineno">  417</span>&#160;</div>
+<div class="line"><a name="l00418"></a><span class="lineno">  418</span>&#160;  <span class="keyword">allocate</span>(jmpb_f(ntab))</div>
+<div class="line"><a name="l00419"></a><span class="lineno">  419</span>&#160;  jmpb_f(1:ntab) = jmpb(1:ntab)</div>
+<div class="line"><a name="l00420"></a><span class="lineno">  420</span>&#160;  jmpb_size = <span class="keyword">size</span>(jmpb_f)</div>
+<div class="line"><a name="l00421"></a><span class="lineno">  421</span>&#160;  jmpb_ptr = c_loc(jmpb_f(1))</div>
+<div class="line"><a name="l00422"></a><span class="lineno">  422</span>&#160;<span class="keyword">end subroutine </span><a class="code" href="classbufr__c__interface__mod.html#a5273bad82cf736d6b36139065f647ff0">get_jmpb_c</a></div>
+<div class="line"><a name="l00423"></a><span class="lineno">  423</span>&#160;</div>
+<div class="line"><a name="l00424"></a><span class="lineno">  424</span>&#160;</div>
+<div class="line"><a name="l00433"></a><span class="lineno"><a class="line" href="classbufr__c__interface__mod.html#a35a1379394809e78afb30d1acb9a65be">  433</a></span>&#160;<span class="keyword">subroutine </span><a class="code" href="classbufr__c__interface__mod.html#a35a1379394809e78afb30d1acb9a65be">get_inode_c</a>(lun, start_node) bind(C, name=&#39;get_inode_f&#39;)</div>
+<div class="line"><a name="l00434"></a><span class="lineno">  434</span>&#160;  <span class="keywordtype">use </span><a class="code" href="classmoda__msgcwd.html">moda_msgcwd</a></div>
+<div class="line"><a name="l00435"></a><span class="lineno">  435</span>&#160;  <span class="keywordtype">integer(c_int)</span>, value, <span class="keywordtype">intent(in)</span> :: lun</div>
+<div class="line"><a name="l00436"></a><span class="lineno">  436</span>&#160;  <span class="keywordtype">integer(c_int)</span>, <span class="keywordtype">intent(out)</span> :: start_node</div>
+<div class="line"><a name="l00437"></a><span class="lineno">  437</span>&#160;</div>
+<div class="line"><a name="l00438"></a><span class="lineno">  438</span>&#160;  start_node = inode(lun)</div>
+<div class="line"><a name="l00439"></a><span class="lineno">  439</span>&#160;<span class="keyword">end subroutine </span><a class="code" href="classbufr__c__interface__mod.html#a35a1379394809e78afb30d1acb9a65be">get_inode_c</a></div>
+<div class="line"><a name="l00440"></a><span class="lineno">  440</span>&#160;</div>
+<div class="line"><a name="l00441"></a><span class="lineno">  441</span>&#160;</div>
+<div class="line"><a name="l00450"></a><span class="lineno"><a class="line" href="classbufr__c__interface__mod.html#af91664df42af9289b8c2e6824c248cae">  450</a></span>&#160;<span class="keyword">subroutine </span><a class="code" href="classbufr__c__interface__mod.html#af91664df42af9289b8c2e6824c248cae">get_nval_c</a>(lun, numNodes) bind(C, name=&#39;get_nval_f&#39;)</div>
+<div class="line"><a name="l00451"></a><span class="lineno">  451</span>&#160;  <span class="keywordtype">use </span><a class="code" href="classmoda__usrint.html">moda_usrint</a></div>
+<div class="line"><a name="l00452"></a><span class="lineno">  452</span>&#160;  <span class="keywordtype">integer(c_int)</span>, value, <span class="keywordtype">intent(in)</span> :: lun</div>
+<div class="line"><a name="l00453"></a><span class="lineno">  453</span>&#160;  <span class="keywordtype">integer(c_int)</span>, <span class="keywordtype">intent(out)</span> :: numnodes</div>
+<div class="line"><a name="l00454"></a><span class="lineno">  454</span>&#160;</div>
+<div class="line"><a name="l00455"></a><span class="lineno">  455</span>&#160;  numnodes = nval(lun)</div>
+<div class="line"><a name="l00456"></a><span class="lineno">  456</span>&#160;<span class="keyword">end subroutine </span><a class="code" href="classbufr__c__interface__mod.html#af91664df42af9289b8c2e6824c248cae">get_nval_c</a></div>
+<div class="line"><a name="l00457"></a><span class="lineno">  457</span>&#160;</div>
+<div class="line"><a name="l00458"></a><span class="lineno">  458</span>&#160;</div>
+<div class="line"><a name="l00468"></a><span class="lineno"><a class="line" href="classbufr__c__interface__mod.html#ab6bbd341e59d6d861aa6035501e7ad81">  468</a></span>&#160;<span class="keyword">subroutine </span><a class="code" href="classbufr__c__interface__mod.html#ab6bbd341e59d6d861aa6035501e7ad81">get_val_c</a>(lun, val_ptr, val_size) bind(C, name=&#39;get_val_f&#39;)</div>
+<div class="line"><a name="l00469"></a><span class="lineno">  469</span>&#160;  <span class="keywordtype">use </span><a class="code" href="classmoda__usrint.html">moda_usrint</a></div>
+<div class="line"><a name="l00470"></a><span class="lineno">  470</span>&#160;  <span class="keywordtype">integer(c_int)</span>, value, <span class="keywordtype">intent(in)</span> :: lun</div>
+<div class="line"><a name="l00471"></a><span class="lineno">  471</span>&#160;  <span class="keywordtype">type(</span>c_ptr<span class="keywordtype">)</span>, <span class="keywordtype">intent(inout)</span> :: val_ptr</div>
+<div class="line"><a name="l00472"></a><span class="lineno">  472</span>&#160;  <span class="keywordtype">integer(c_int)</span>, <span class="keywordtype">intent(out)</span> :: val_size</div>
+<div class="line"><a name="l00473"></a><span class="lineno">  473</span>&#160;</div>
+<div class="line"><a name="l00474"></a><span class="lineno">  474</span>&#160;  val_size = <span class="keyword">size</span>(val(:, lun))</div>
+<div class="line"><a name="l00475"></a><span class="lineno">  475</span>&#160;  val_ptr = c_loc(val(1, lun))</div>
+<div class="line"><a name="l00476"></a><span class="lineno">  476</span>&#160;<span class="keyword">end subroutine </span><a class="code" href="classbufr__c__interface__mod.html#ab6bbd341e59d6d861aa6035501e7ad81">get_val_c</a></div>
+<div class="line"><a name="l00477"></a><span class="lineno">  477</span>&#160;</div>
+<div class="line"><a name="l00478"></a><span class="lineno">  478</span>&#160;</div>
+<div class="line"><a name="l00488"></a><span class="lineno"><a class="line" href="classbufr__c__interface__mod.html#a40cc35665b5010a83f923d0899feaa9b">  488</a></span>&#160;<span class="keyword">subroutine </span><a class="code" href="classbufr__c__interface__mod.html#a40cc35665b5010a83f923d0899feaa9b">get_inv_c</a>(lun, inv_ptr, inv_size) bind(C, name=&#39;get_inv_f&#39;)</div>
+<div class="line"><a name="l00489"></a><span class="lineno">  489</span>&#160;  <span class="keywordtype">use </span><a class="code" href="classmoda__usrint.html">moda_usrint</a></div>
+<div class="line"><a name="l00490"></a><span class="lineno">  490</span>&#160;  <span class="keywordtype">integer(c_int)</span>, value, <span class="keywordtype">intent(in)</span> :: lun</div>
+<div class="line"><a name="l00491"></a><span class="lineno">  491</span>&#160;  <span class="keywordtype">type(</span>c_ptr<span class="keywordtype">)</span>, <span class="keywordtype">intent(inout)</span> :: inv_ptr</div>
+<div class="line"><a name="l00492"></a><span class="lineno">  492</span>&#160;  <span class="keywordtype">integer(c_int)</span>, <span class="keywordtype">intent(out)</span> :: inv_size</div>
+<div class="line"><a name="l00493"></a><span class="lineno">  493</span>&#160;</div>
+<div class="line"><a name="l00494"></a><span class="lineno">  494</span>&#160;  inv_size = <span class="keyword">size</span>(inv(:, lun))</div>
+<div class="line"><a name="l00495"></a><span class="lineno">  495</span>&#160;  inv_ptr = c_loc(inv(1, lun))</div>
+<div class="line"><a name="l00496"></a><span class="lineno">  496</span>&#160;<span class="keyword">end subroutine </span><a class="code" href="classbufr__c__interface__mod.html#a40cc35665b5010a83f923d0899feaa9b">get_inv_c</a></div>
+<div class="line"><a name="l00497"></a><span class="lineno">  497</span>&#160;</div>
+<div class="line"><a name="l00498"></a><span class="lineno">  498</span>&#160;</div>
+<div class="line"><a name="l00504"></a><span class="lineno"><a class="line" href="classbufr__c__interface__mod.html#a28cc3ca74d9288bba3b0df53325ec490">  504</a></span>&#160;<span class="keyword">subroutine </span><a class="code" href="classbufr__c__interface__mod.html#a28cc3ca74d9288bba3b0df53325ec490">delete_table_data_c</a>() bind(C, name=&#39;delete_table_data_f&#39;)</div>
+<div class="line"><a name="l00505"></a><span class="lineno">  505</span>&#160;  <span class="keywordflow">if</span> (<span class="keyword">allocated</span>(isc_f)) <span class="keyword">deallocate</span>(isc_f)</div>
+<div class="line"><a name="l00506"></a><span class="lineno">  506</span>&#160;  <span class="keywordflow">if</span> (<span class="keyword">allocated</span>(link_f)) <span class="keyword">deallocate</span>(link_f)</div>
+<div class="line"><a name="l00507"></a><span class="lineno">  507</span>&#160;  <span class="keywordflow">if</span> (<span class="keyword">allocated</span>(itp_f)) <span class="keyword">deallocate</span>(itp_f)</div>
+<div class="line"><a name="l00508"></a><span class="lineno">  508</span>&#160;  <span class="keywordflow">if</span> (<span class="keyword">allocated</span>(typ_f)) <span class="keyword">deallocate</span>(typ_f)</div>
+<div class="line"><a name="l00509"></a><span class="lineno">  509</span>&#160;  <span class="keywordflow">if</span> (<span class="keyword">allocated</span>(tag_f)) <span class="keyword">deallocate</span>(tag_f)</div>
+<div class="line"><a name="l00510"></a><span class="lineno">  510</span>&#160;  <span class="keywordflow">if</span> (<span class="keyword">allocated</span>(jmpb_f)) <span class="keyword">deallocate</span>(jmpb_f)</div>
+<div class="line"><a name="l00511"></a><span class="lineno">  511</span>&#160;<span class="keyword">end subroutine </span><a class="code" href="classbufr__c__interface__mod.html#a28cc3ca74d9288bba3b0df53325ec490">delete_table_data_c</a></div>
+<div class="line"><a name="l00512"></a><span class="lineno">  512</span>&#160;</div>
+<div class="line"><a name="l00513"></a><span class="lineno">  513</span>&#160;<span class="keyword">end module </span><a class="code" href="classbufr__c__interface__mod.html">bufr_c_interface_mod</a></div>
+<div class="ttc" id="classbufr__c__interface__mod_html_aeabdf4108093f589b346a1f0b7d1f393"><div class="ttname"><a href="classbufr__c__interface__mod.html#aeabdf4108093f589b346a1f0b7d1f393">bufr_c_interface_mod::exitbufr_c</a></div><div class="ttdeci">subroutine, public exitbufr_c()</div><div class="ttdoc">Wraps BUFRLIB &amp;quot;exitbufr&amp;quot; subroutine. Closes all open file units used by BUFRLIB. </div><div class="ttdef"><b>Definition:</b> <a href="bufr__interface_8f90_source.html#l00161">bufr_interface.f90:161</a></div></div>
 <div class="ttc" id="ireadmg_8f_html_a08c0eaaa7c6f555ccdceb404772dd962"><div class="ttname"><a href="ireadmg_8f.html#a08c0eaaa7c6f555ccdceb404772dd962">ireadmg</a></div><div class="ttdeci">function ireadmg(LUNIT, SUBSET, IDATE)</div><div class="ttdoc">This function calls BUFRLIB subroutine readmg() and passes back its return code as the function value...</div><div class="ttdef"><b>Definition:</b> <a href="ireadmg_8f_source.html#l00039">ireadmg.f:39</a></div></div>
-<div class="ttc" id="classbufr__c__interface__mod_html_a0f20ed7d5f2a19163047e05f5780ce8f"><div class="ttname"><a href="classbufr__c__interface__mod.html#a0f20ed7d5f2a19163047e05f5780ce8f">bufr_c_interface_mod::open_c</a></div><div class="ttdeci">subroutine, public open_c(lunit, filepath)</div><div class="ttdoc">Wraps fortran &amp;quot;open&amp;quot; statement so we can open a Fortran file from a C program. </div><div class="ttdef"><b>Definition:</b> <a href="bufr__interface_8f90_source.html#l00093">bufr_interface.f90:93</a></div></div>
+<div class="ttc" id="classbufr__c__interface__mod_html_ab6bbd341e59d6d861aa6035501e7ad81"><div class="ttname"><a href="classbufr__c__interface__mod.html#ab6bbd341e59d6d861aa6035501e7ad81">bufr_c_interface_mod::get_val_c</a></div><div class="ttdeci">subroutine get_val_c(lun, val_ptr, val_size)</div><div class="ttdoc">Get pointer to the moda_usrint VAL array. </div><div class="ttdef"><b>Definition:</b> <a href="bufr__interface_8f90_source.html#l00468">bufr_interface.f90:468</a></div></div>
+<div class="ttc" id="classbufr__c__interface__mod_html_a0f20ed7d5f2a19163047e05f5780ce8f"><div class="ttname"><a href="classbufr__c__interface__mod.html#a0f20ed7d5f2a19163047e05f5780ce8f">bufr_c_interface_mod::open_c</a></div><div class="ttdeci">subroutine, public open_c(lunit, filepath)</div><div class="ttdoc">Wraps fortran &amp;quot;open&amp;quot; statement so we can open a Fortran file from a C program. </div><div class="ttdef"><b>Definition:</b> <a href="bufr__interface_8f90_source.html#l00100">bufr_interface.f90:100</a></div></div>
 <div class="ttc" id="ireadsb_8f_html_a28f7e78017ef9f00dcce7fb2c0bbab28"><div class="ttname"><a href="ireadsb_8f.html#a28f7e78017ef9f00dcce7fb2c0bbab28">ireadsb</a></div><div class="ttdeci">function ireadsb(LUNIT)</div><div class="ttdoc">This function calls BUFRLIB subroutine readsb() and passes back its return code as the function value...</div><div class="ttdef"><b>Definition:</b> <a href="ireadsb_8f_source.html#l00030">ireadsb.f:30</a></div></div>
 <div class="ttc" id="ufbrep_8f_html_adb981832bdbbb26903265fb946aac58c"><div class="ttname"><a href="ufbrep_8f.html#adb981832bdbbb26903265fb946aac58c">ufbrep</a></div><div class="ttdeci">subroutine ufbrep(LUNIN, USR, I1, I2, IRET, STR)</div><div class="ttdoc">This subroutine reads or writes one or more data values from or to the BUFR data subset that is curre...</div><div class="ttdef"><b>Definition:</b> <a href="ufbrep_8f_source.html#l00144">ufbrep.f:144</a></div></div>
-<div class="ttc" id="classbufr__c__interface__mod_html_a06b9b9b76864aed6f463610a213501e4"><div class="ttname"><a href="classbufr__c__interface__mod.html#a06b9b9b76864aed6f463610a213501e4">bufr_c_interface_mod::openbf_c</a></div><div class="ttdeci">subroutine, public openbf_c(bufr_unit, cio, table_file_id)</div><div class="ttdoc">Wraps BUFRLIB &amp;quot;openbf&amp;quot; subroutine. </div><div class="ttdef"><b>Definition:</b> <a href="bufr__interface_8f90_source.html#l00125">bufr_interface.f90:125</a></div></div>
-<div class="ttc" id="classbufr__c__interface__mod_html_a4ba25e289e99f210b2ae498ac2b11950"><div class="ttname"><a href="classbufr__c__interface__mod.html#a4ba25e289e99f210b2ae498ac2b11950">bufr_c_interface_mod::ufbint_c</a></div><div class="ttdeci">subroutine, public ufbint_c(bufr_unit, c_data, dim_1, dim_2, iret, table_b_mnemonic)</div><div class="ttdoc">Wraps BUFRLIB &amp;quot;ufbint&amp;quot; function. </div><div class="ttdef"><b>Definition:</b> <a href="bufr__interface_8f90_source.html#l00210">bufr_interface.f90:210</a></div></div>
+<div class="ttc" id="classbufr__c__interface__mod_html_a06b9b9b76864aed6f463610a213501e4"><div class="ttname"><a href="classbufr__c__interface__mod.html#a06b9b9b76864aed6f463610a213501e4">bufr_c_interface_mod::openbf_c</a></div><div class="ttdeci">subroutine, public openbf_c(bufr_unit, cio, table_file_id)</div><div class="ttdoc">Wraps BUFRLIB &amp;quot;openbf&amp;quot; subroutine. </div><div class="ttdef"><b>Definition:</b> <a href="bufr__interface_8f90_source.html#l00132">bufr_interface.f90:132</a></div></div>
+<div class="ttc" id="classbufr__c__interface__mod_html_a4ba25e289e99f210b2ae498ac2b11950"><div class="ttname"><a href="classbufr__c__interface__mod.html#a4ba25e289e99f210b2ae498ac2b11950">bufr_c_interface_mod::ufbint_c</a></div><div class="ttdeci">subroutine, public ufbint_c(bufr_unit, c_data, dim_1, dim_2, iret, table_b_mnemonic)</div><div class="ttdoc">Wraps BUFRLIB &amp;quot;ufbint&amp;quot; function. </div><div class="ttdef"><b>Definition:</b> <a href="bufr__interface_8f90_source.html#l00220">bufr_interface.f90:220</a></div></div>
 <div class="ttc" id="mtinfo_8f_html_ad95cdae13646faad7b457f7c854bbfc7"><div class="ttname"><a href="mtinfo_8f.html#ad95cdae13646faad7b457f7c854bbfc7">mtinfo</a></div><div class="ttdeci">subroutine mtinfo(CMTDIR, LUNMT1, LUNMT2)</div><div class="ttdoc">This subroutine allows the specification of the directory location and Fortran logical unit numbers t...</div><div class="ttdef"><b>Definition:</b> <a href="mtinfo_8f_source.html#l00046">mtinfo.f:46</a></div></div>
 <div class="ttc" id="closbf_8f_html_a00c94986037d2cf27d04de7a1f8a3ebc"><div class="ttname"><a href="closbf_8f.html#a00c94986037d2cf27d04de7a1f8a3ebc">closbf</a></div><div class="ttdeci">subroutine closbf(LUNIT)</div><div class="ttdoc">This subroutine closes the connection between logical unit LUNIT and the BUFRLIB software. </div><div class="ttdef"><b>Definition:</b> <a href="closbf_8f_source.html#l00034">closbf.f:34</a></div></div>
-<div class="ttc" id="classbufr__c__interface__mod_html_a6cc5a3eb953fe75c54ecf7ea95eb4a56"><div class="ttname"><a href="classbufr__c__interface__mod.html#a6cc5a3eb953fe75c54ecf7ea95eb4a56">bufr_c_interface_mod::ireadsb_c</a></div><div class="ttdeci">integer(c_int) function, public ireadsb_c(bufr_unit)</div><div class="ttdoc">Wraps BUFRLIB &amp;quot;ireadsb&amp;quot; function. </div><div class="ttdef"><b>Definition:</b> <a href="bufr__interface_8f90_source.html#l00190">bufr_interface.f90:190</a></div></div>
-<div class="ttc" id="classbufr__c__interface__mod_html_ab1b9e9ac5379560a7f38794f13dedc40"><div class="ttname"><a href="classbufr__c__interface__mod.html#ab1b9e9ac5379560a7f38794f13dedc40">bufr_c_interface_mod::ufbrep_c</a></div><div class="ttdeci">subroutine, public ufbrep_c(bufr_unit, c_data, dim_1, dim_2, iret, table_b_mnemonic)</div><div class="ttdoc">Wraps BUFRLIB &amp;quot;ufbrep&amp;quot; function. </div><div class="ttdef"><b>Definition:</b> <a href="bufr__interface_8f90_source.html#l00234">bufr_interface.f90:234</a></div></div>
+<div class="ttc" id="classbufr__c__interface__mod_html_a5273bad82cf736d6b36139065f647ff0"><div class="ttname"><a href="classbufr__c__interface__mod.html#a5273bad82cf736d6b36139065f647ff0">bufr_c_interface_mod::get_jmpb_c</a></div><div class="ttdeci">subroutine get_jmpb_c(jmpb_ptr, jmpb_size)</div><div class="ttdoc">Get copy of the moda_tables JMPB array. </div><div class="ttdef"><b>Definition:</b> <a href="bufr__interface_8f90_source.html#l00413">bufr_interface.f90:413</a></div></div>
+<div class="ttc" id="classbufr__c__interface__mod_html_a6cc5a3eb953fe75c54ecf7ea95eb4a56"><div class="ttname"><a href="classbufr__c__interface__mod.html#a6cc5a3eb953fe75c54ecf7ea95eb4a56">bufr_c_interface_mod::ireadsb_c</a></div><div class="ttdeci">integer(c_int) function, public ireadsb_c(bufr_unit)</div><div class="ttdoc">Wraps BUFRLIB &amp;quot;ireadsb&amp;quot; function. </div><div class="ttdef"><b>Definition:</b> <a href="bufr__interface_8f90_source.html#l00200">bufr_interface.f90:200</a></div></div>
+<div class="ttc" id="classbufr__c__interface__mod_html_ab1b9e9ac5379560a7f38794f13dedc40"><div class="ttname"><a href="classbufr__c__interface__mod.html#ab1b9e9ac5379560a7f38794f13dedc40">bufr_c_interface_mod::ufbrep_c</a></div><div class="ttdeci">subroutine, public ufbrep_c(bufr_unit, c_data, dim_1, dim_2, iret, table_b_mnemonic)</div><div class="ttdoc">Wraps BUFRLIB &amp;quot;ufbrep&amp;quot; function. </div><div class="ttdef"><b>Definition:</b> <a href="bufr__interface_8f90_source.html#l00244">bufr_interface.f90:244</a></div></div>
+<div class="ttc" id="moda__tables_8F_html_classmoda__tables"><div class="ttname"><a href="moda__tables_8F.html#classmoda__tables">moda_tables</a></div><div class="ttdoc">This module contains array and variable declarations used to store the internal jump/link table...</div><div class="ttdef"><b>Definition:</b> <a href="moda__tables_8F_source.html#l00013">moda_tables.F:13</a></div></div>
+<div class="ttc" id="status_8f_html_a22292e7a69c411a961168198d259f336"><div class="ttname"><a href="status_8f.html#a22292e7a69c411a961168198d259f336">status</a></div><div class="ttdeci">subroutine status(LUNIT, LUN, IL, IM)</div><div class="ttdoc">This subroutine checks whether a specified Fortran logical unit number is currently connected to the ...</div><div class="ttdef"><b>Definition:</b> <a href="status_8f_source.html#l00055">status.f:55</a></div></div>
 <div class="ttc" id="openbf_8f_html_a9bea9aeada166bd9037b959ca8452b28"><div class="ttname"><a href="openbf_8f.html#a9bea9aeada166bd9037b959ca8452b28">openbf</a></div><div class="ttdeci">subroutine openbf(LUNIT, IO, LUNDX)</div><div class="ttdoc">This subroutine connects a new file to the BUFRLIB software for input or output operations. </div><div class="ttdef"><b>Definition:</b> <a href="openbf_8f_source.html#l00138">openbf.f:138</a></div></div>
+<div class="ttc" id="classbufr__c__interface__mod_html_a4efc045dfa6f314fe681932c719fcbc5"><div class="ttname"><a href="classbufr__c__interface__mod.html#a4efc045dfa6f314fe681932c719fcbc5">bufr_c_interface_mod::get_link_c</a></div><div class="ttdeci">subroutine get_link_c(link_ptr, link_size)</div><div class="ttdoc">Get copy of the moda_tables LINK array. </div><div class="ttdef"><b>Definition:</b> <a href="bufr__interface_8f90_source.html#l00327">bufr_interface.f90:327</a></div></div>
+<div class="ttc" id="classbufr__c__interface__mod_html_af2a8b163242f31c614a25236321bc54c"><div class="ttname"><a href="classbufr__c__interface__mod.html#af2a8b163242f31c614a25236321bc54c">bufr_c_interface_mod::get_itp_c</a></div><div class="ttdeci">subroutine get_itp_c(itp_ptr, itp_size)</div><div class="ttdoc">Get copy of the moda_tables ITP array. </div><div class="ttdef"><b>Definition:</b> <a href="bufr__interface_8f90_source.html#l00347">bufr_interface.f90:347</a></div></div>
+<div class="ttc" id="classbufr__c__interface__mod_html_a35a1379394809e78afb30d1acb9a65be"><div class="ttname"><a href="classbufr__c__interface__mod.html#a35a1379394809e78afb30d1acb9a65be">bufr_c_interface_mod::get_inode_c</a></div><div class="ttdeci">subroutine get_inode_c(lun, start_node)</div><div class="ttdoc">Get the bufr node idx for the start node of the subset. </div><div class="ttdef"><b>Definition:</b> <a href="bufr__interface_8f90_source.html#l00433">bufr_interface.f90:433</a></div></div>
 <div class="ttc" id="ufbint_8f_html_afe3364a491b49e0c9e5a526b009aaa75"><div class="ttname"><a href="ufbint_8f.html#afe3364a491b49e0c9e5a526b009aaa75">ufbint</a></div><div class="ttdeci">subroutine ufbint(LUNIN, USR, I1, I2, IRET, STR)</div><div class="ttdoc">This subroutine reads or writes one or more data values from or to the BUFR data subset that is curre...</div><div class="ttdef"><b>Definition:</b> <a href="ufbint_8f_source.html#l00152">ufbint.f:152</a></div></div>
-<div class="ttc" id="classbufr__c__interface__mod_html_a5c84dfd918e1785c075f9451dd2d2acb"><div class="ttname"><a href="classbufr__c__interface__mod.html#a5c84dfd918e1785c075f9451dd2d2acb">bufr_c_interface_mod::closbf_c</a></div><div class="ttdeci">subroutine, public closbf_c(bufr_unit)</div><div class="ttdoc">Wraps BUFRLIB &amp;quot;closbf&amp;quot; subroutine. </div><div class="ttdef"><b>Definition:</b> <a href="bufr__interface_8f90_source.html#l00141">bufr_interface.f90:141</a></div></div>
+<div class="ttc" id="classbufr__c__interface__mod_html_a5c84dfd918e1785c075f9451dd2d2acb"><div class="ttname"><a href="classbufr__c__interface__mod.html#a5c84dfd918e1785c075f9451dd2d2acb">bufr_c_interface_mod::closbf_c</a></div><div class="ttdeci">subroutine, public closbf_c(bufr_unit)</div><div class="ttdoc">Wraps BUFRLIB &amp;quot;closbf&amp;quot; subroutine. </div><div class="ttdef"><b>Definition:</b> <a href="bufr__interface_8f90_source.html#l00148">bufr_interface.f90:148</a></div></div>
 <div class="ttc" id="exitbufr_8f_html_a355f094d616febcea2820cf547cbff8e"><div class="ttname"><a href="exitbufr_8f.html#a355f094d616febcea2820cf547cbff8e">exitbufr</a></div><div class="ttdeci">subroutine exitbufr</div><div class="ttdoc">This subroutine frees all dynamically-allocated memory, closes all logical units that are open within...</div><div class="ttdef"><b>Definition:</b> <a href="exitbufr_8f_source.html#l00038">exitbufr.f:38</a></div></div>
-<div class="ttc" id="classbufr__c__interface__mod_html_a43d3a0015a83688cfea2a6a2ed3d5cb2"><div class="ttname"><a href="classbufr__c__interface__mod.html#a43d3a0015a83688cfea2a6a2ed3d5cb2">bufr_c_interface_mod::mtinfo_c</a></div><div class="ttdeci">subroutine, public mtinfo_c(path, file_unit_1, file_unit_2)</div><div class="ttdoc">Wraps BUFRLIB &amp;quot;mtinfo&amp;quot; function. </div><div class="ttdef"><b>Definition:</b> <a href="bufr__interface_8f90_source.html#l00256">bufr_interface.f90:256</a></div></div>
+<div class="ttc" id="classmoda__usrint_html"><div class="ttname"><a href="classmoda__usrint.html">moda_usrint</a></div><div class="ttdef"><b>Definition:</b> <a href="moda__usrint_8F_source.html#l00001">moda_usrint.F:1</a></div></div>
+<div class="ttc" id="classmoda__msgcwd_html"><div class="ttname"><a href="classmoda__msgcwd.html">moda_msgcwd</a></div><div class="ttdef"><b>Definition:</b> <a href="moda__msgcwd_8F_source.html#l00001">moda_msgcwd.F:1</a></div></div>
+<div class="ttc" id="classbufr__c__interface__mod_html_a28cc3ca74d9288bba3b0df53325ec490"><div class="ttname"><a href="classbufr__c__interface__mod.html#a28cc3ca74d9288bba3b0df53325ec490">bufr_c_interface_mod::delete_table_data_c</a></div><div class="ttdeci">subroutine delete_table_data_c()</div><div class="ttdoc">Deletes the copies of the moda_tables arrays. </div><div class="ttdef"><b>Definition:</b> <a href="bufr__interface_8f90_source.html#l00504">bufr_interface.f90:504</a></div></div>
+<div class="ttc" id="classbufr__c__interface__mod_html_a43d3a0015a83688cfea2a6a2ed3d5cb2"><div class="ttname"><a href="classbufr__c__interface__mod.html#a43d3a0015a83688cfea2a6a2ed3d5cb2">bufr_c_interface_mod::mtinfo_c</a></div><div class="ttdeci">subroutine, public mtinfo_c(path, file_unit_1, file_unit_2)</div><div class="ttdoc">Wraps BUFRLIB &amp;quot;mtinfo&amp;quot; function. </div><div class="ttdef"><b>Definition:</b> <a href="bufr__interface_8f90_source.html#l00266">bufr_interface.f90:266</a></div></div>
+<div class="ttc" id="classbufr__c__interface__mod_html_af91664df42af9289b8c2e6824c248cae"><div class="ttname"><a href="classbufr__c__interface__mod.html#af91664df42af9289b8c2e6824c248cae">bufr_c_interface_mod::get_nval_c</a></div><div class="ttdeci">subroutine get_nval_c(lun, numNodes)</div><div class="ttdoc">Get the number of values in the current subset. </div><div class="ttdef"><b>Definition:</b> <a href="bufr__interface_8f90_source.html#l00450">bufr_interface.f90:450</a></div></div>
 <div class="ttc" id="classbufr__c__interface__mod_html"><div class="ttname"><a href="classbufr__c__interface__mod.html">bufr_c_interface_mod</a></div><div class="ttdoc">This module contains functions which wrap certain Fortran BUFRLIB functions so they can be called fro...</div><div class="ttdef"><b>Definition:</b> <a href="bufr__interface_8f90_source.html#l00016">bufr_interface.f90:16</a></div></div>
-<div class="ttc" id="classbufr__c__interface__mod_html_ae4c70617eb7be9b4885faa3544c82611"><div class="ttname"><a href="classbufr__c__interface__mod.html#ae4c70617eb7be9b4885faa3544c82611">bufr_c_interface_mod::ireadmg_c</a></div><div class="ttdeci">integer(c_int) function, public ireadmg_c(bufr_unit, c_subset, iddate, subset_str_len)</div><div class="ttdoc">Wraps BUFRLIB &amp;quot;ireadmg&amp;quot; subroutine. </div><div class="ttdef"><b>Definition:</b> <a href="bufr__interface_8f90_source.html#l00169">bufr_interface.f90:169</a></div></div>
-<div class="ttc" id="classbufr__c__interface__mod_html_a1c126c5d456d12168d2204845bc69589"><div class="ttname"><a href="classbufr__c__interface__mod.html#a1c126c5d456d12168d2204845bc69589">bufr_c_interface_mod::close_c</a></div><div class="ttdeci">subroutine, public close_c(lunit)</div><div class="ttdoc">Wraps fortran &amp;quot;close&amp;quot; statement so we can close a Fortran file from a C program. </div><div class="ttdef"><b>Definition:</b> <a href="bufr__interface_8f90_source.html#l00109">bufr_interface.f90:109</a></div></div>
+<div class="ttc" id="classbufr__c__interface__mod_html_af6d7a8a9394e7baaa9e58d7a0749f0cc"><div class="ttname"><a href="classbufr__c__interface__mod.html#af6d7a8a9394e7baaa9e58d7a0749f0cc">bufr_c_interface_mod::get_typ_c</a></div><div class="ttdeci">subroutine get_typ_c(typ_ptr, typ_len, mem_size)</div><div class="ttdoc">Get copy of the moda_tables TYP array. </div><div class="ttdef"><b>Definition:</b> <a href="bufr__interface_8f90_source.html#l00368">bufr_interface.f90:368</a></div></div>
+<div class="ttc" id="classbufr__c__interface__mod_html_a56c15973568c5dfe8b20160c6b9b6f21"><div class="ttname"><a href="classbufr__c__interface__mod.html#a56c15973568c5dfe8b20160c6b9b6f21">bufr_c_interface_mod::get_tag_c</a></div><div class="ttdeci">subroutine get_tag_c(tag_ptr, tag_len, mem_size)</div><div class="ttdoc">Get copy of the moda_tables TAG array. </div><div class="ttdef"><b>Definition:</b> <a href="bufr__interface_8f90_source.html#l00391">bufr_interface.f90:391</a></div></div>
+<div class="ttc" id="classbufr__c__interface__mod_html_ae4c70617eb7be9b4885faa3544c82611"><div class="ttname"><a href="classbufr__c__interface__mod.html#ae4c70617eb7be9b4885faa3544c82611">bufr_c_interface_mod::ireadmg_c</a></div><div class="ttdeci">integer(c_int) function, public ireadmg_c(bufr_unit, c_subset, iddate, subset_str_len)</div><div class="ttdoc">Wraps BUFRLIB &amp;quot;ireadmg&amp;quot; subroutine. </div><div class="ttdef"><b>Definition:</b> <a href="bufr__interface_8f90_source.html#l00176">bufr_interface.f90:176</a></div></div>
+<div class="ttc" id="classbufr__c__interface__mod_html_a40cc35665b5010a83f923d0899feaa9b"><div class="ttname"><a href="classbufr__c__interface__mod.html#a40cc35665b5010a83f923d0899feaa9b">bufr_c_interface_mod::get_inv_c</a></div><div class="ttdeci">subroutine get_inv_c(lun, inv_ptr, inv_size)</div><div class="ttdoc">Get pointer to the moda_usrint INV array. </div><div class="ttdef"><b>Definition:</b> <a href="bufr__interface_8f90_source.html#l00488">bufr_interface.f90:488</a></div></div>
+<div class="ttc" id="classbufr__c__interface__mod_html_a1c126c5d456d12168d2204845bc69589"><div class="ttname"><a href="classbufr__c__interface__mod.html#a1c126c5d456d12168d2204845bc69589">bufr_c_interface_mod::close_c</a></div><div class="ttdeci">subroutine, public close_c(lunit)</div><div class="ttdoc">Wraps fortran &amp;quot;close&amp;quot; statement so we can close a Fortran file from a C program. </div><div class="ttdef"><b>Definition:</b> <a href="bufr__interface_8f90_source.html#l00116">bufr_interface.f90:116</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

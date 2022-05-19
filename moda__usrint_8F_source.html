@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.6.0</span>
+   &#160;<span id="projectnumber">11.7.0</span>
    </div>
   </td>
  </tr>
@@ -119,9 +119,9 @@ $(document).ready(function(){initNavTree('moda__usrint_8F_source.html','');});
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor"></span></div>
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;      <span class="keywordtype">INTEGER</span>, <span class="keywordtype">ALLOCATABLE</span> :: nval(:)</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;      <span class="keywordtype">INTEGER</span>, <span class="keywordtype">ALLOCATABLE</span> :: inv(:,:)</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;      <span class="keywordtype">INTEGER</span>, <span class="keywordtype">TARGET</span>, <span class="keywordtype">ALLOCATABLE</span> :: inv(:,:)</div>
 <div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;      <span class="keywordtype">INTEGER</span>, <span class="keywordtype">ALLOCATABLE</span> :: nrfelm(:,:)</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;      <span class="keywordtype">REAL*8</span>, <span class="keywordtype">ALLOCATABLE</span> :: val(:,:)</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;      <span class="keywordtype">REAL*8</span>, <span class="keywordtype">TARGET</span>, <span class="keywordtype">ALLOCATABLE</span> :: val(:,:)</div>
 <div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;</div>
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keyword">    END MODULE</span></div>
 <div class="ttc" id="modv__NFILES_8f90_html_classmodv__nfiles"><div class="ttname"><a href="modv__NFILES_8f90.html#classmodv__nfiles">modv_nfiles</a></div><div class="ttdoc">This module declares and initializes the NFILES variable. </div><div class="ttdef"><b>Definition:</b> <a href="modv__NFILES_8f90_source.html#l00013">modv_NFILES.f90:13</a></div></div>

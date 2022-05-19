@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.6.0</span>
+   &#160;<span id="projectnumber">11.7.0</span>
    </div>
   </td>
  </tr>
@@ -128,7 +128,7 @@ $(document).ready(function(){initNavTree('md__gpfs_dell2_emc_obsproc_noscrub_Jef
 <hr/>
 <div id="debufr"></div><div id="debufr"><h3>debufr</h3>
 </div><div id="debufr"></div><div id="debufr">This program decodes a BUFR file and writes a verbose listing of the contents to the file specified via the -o option. If a <a class="el" href="md__gpfs_dell2_emc_obsproc_noscrub_Jeff_8Ator_NCEPLIBS-bufr-GitHub_nceplibs-bufr_docs_dfbftab.html#dfbftab">DX BUFR Tables</a> file is specified (using the -f option) or if the specified BUFR file contains an embedded DX BUFR tables message as the first message in the file, then this information is used to decode the data messages in the file. Otherwise, or whenever the -m option is specified, <a class="el" href="md__gpfs_dell2_emc_obsproc_noscrub_Jeff_8Ator_NCEPLIBS-bufr-GitHub_nceplibs-bufr_docs_dfbfmstab.html#dfbfmstab">master BUFR tables</a> are read and used to decode the data messages in the file.</div><div id="debufr"><pre>
-Usage:</pre></div><div id="debufr"><pre>   debufr.x [-v] [-h] [-b] [-c] [-m] [-o outfile] [-t tabledir] [-f tablefil] [-p prmstg] bufrfile</pre></div><div id="debufr"><pre>     where:
+Usage:</pre></div><div id="debufr"><pre>   debufr [-v] [-h] [-b] [-c] [-m] [-o outfile] [-t tabledir] [-f tablefil] [-p prmstg] bufrfile</pre></div><div id="debufr"><pre>     where:
        -v        prints version information and exits</pre></div><div id="debufr"><pre>       -h        prints program help and usage information and exits</pre></div><div id="debufr"><pre>       -b        specifies the "basic" option, meaning that only the
                  information in Sections 0-3 will be decoded from each
                  BUFR message in the bufrfile, and no attempt will be
@@ -162,23 +162,16 @@ Usage:</pre></div><div id="debufr"><pre>   debufr.x [-v] [-h] [-b] [-c] [-m] [-o
  </p>
 <hr/>
 </div><div id="debufr"><div id="readbp"></div></div><div id="debufr"><div id="readbp"><h3>readbp</h3>
-</div></div><div id="debufr"><div id="readbp"></div></div><div id="debufr"><div id="readbp">A utility to read prepbufr files which prints each report one at a time, or jumps to a report with characteristics defined by various keys such as report type, subset type, xy locagtion, station id, etc. Keys can be entered as arguments to the script or entered while the program is running. Basic operation is to print one report at a time with the default being starting at the beginning and continuing until the end or the user enters 'q'. Summary of keys follows. A key is entered after a report is output. Most keys require an additional input after entering the key. The 'd' key dumps the BUFR contents of the report without further input.</div></div><div id="debufr"><div id="readbp"><table class="doxtable">
-<tr>
-<th align="center">key</th><th>description </th><th align="center">sample input  </th></tr>
-<tr>
-<td align="center">r </td><td>ON29 report type and/or instrument type </td><td align="center">10 20 </td></tr>
-<tr>
-<td align="center">k </td><td>OI report type </td><td align="center">30 </td></tr>
-<tr>
-<td align="center">m </td><td>BUFR message type </td><td align="center">ADPUPA </td></tr>
-<tr>
-<td align="center">w </td><td>lat/lon box </td><td align="center">x1, x2, y1, y2 </td></tr>
-<tr>
-<td align="center">s </td><td>station id </td><td align="center">72016 </td></tr>
-<tr>
-<td align="center">d </td><td>dump </td><td align="center">BUFR contents </td></tr>
-</table>
-<p>See the source code at <a class="el" href="readbp_8f.html" title="Read prepbufr file and print each report one at a time. ">readbp.f</a></div></div><div id="debufr"><div id="readbp">Sample output for: <code>./readbp gdas.20200812/00/gdas.t00z.prepbufr'</code></div></div><div id="debufr"><div id="readbp"><div class="fragment"><div class="line">MESSAGE: ADPUPA       1     2    20081200</div>
+</div></div><div id="debufr"><div id="readbp"></div></div><div id="debufr"><div id="readbp">A utility to read prepbufr files which prints each report one at a time, or jumps to a report with characteristics defined by various keys such as report type, subset type, xy locagtion, station id, etc. Keys can be entered as arguments to the program or entered while the program is running. Basic operation is to print one report at a time with the default being starting at the beginning and continuing until the end or the user enters 'q'. The following summary is printed if the program is run without arguments.</div></div><div id="debufr"><div id="readbp"><pre>
+ Usage: readbp &lt;-s&gt; &lt;-w&gt; &lt;m&gt; &lt;-k&gt; &lt;-r&gt; &lt;-d&gt; &lt;-n&gt; &lt;-h&gt;  prep bufrfile</pre></div></div><div id="debufr"><div id="readbp"><pre> Search filter and/or print prepbufr reports in various ways</pre></div></div><div id="debufr"><div id="readbp"><pre> -s "station_id " print reports where "station_id" matches the report id up to the len of "station_id"
+ -w "x1 x2 y1 y2" print reports within a lon/lat box
+ -m "subset     " print reports with this subset name
+ -k "gsi  rtype " print reports with this gsi report type
+ -r "on29 rtype " print reports with this on29 report type
+ -d               print reports using ufdump - note: this works with any NCEP BUFR file
+ -n               no pause between reports output
+ -h               print only report headers</pre></div></div><div id="debufr"><div id="readbp"><pre> Only a filename is required in which case step through the reports one at a time using "enter"</pre></div></div><div id="debufr"><div id="readbp"><pre> Optional arguments can also be applied in the pause between reports output without using  a dash</pre></div></div><div id="debufr"><div id="readbp"><pre> Optional arguments will be applied in concert in most cases
+</pre></div></div><div id="debufr"><div id="readbp">See the source code at <a class="el" href="readbp_8f90_source.html">readbp.f90</a></div></div><div id="debufr"><div id="readbp">Sample output for: <code>readbp gdas.20200812/00/gdas.t00z.prepbufr'</code></div></div><div id="debufr"><div id="readbp"><div class="fragment"><div class="line">MESSAGE: ADPUPA       1     2    20081200</div>
 <div class="line">STATION: 89642      140.02   -66.67</div>
 <div class="line">TIME:      20081200      0.00</div>
 <div class="line">ELV:        43.00</div>
@@ -209,7 +202,7 @@ Usage:</pre></div><div id="debufr"><pre>   debufr.x [-v] [-h] [-b] [-c] [-m] [-o
  </p>
 <hr/>
 </div></div><div id="debufr"><div id="readbp"><div id="readmp"></div></div></div><div id="debufr"><div id="readbp"><div id="readmp"><h3>readmp</h3>
-</div></div></div><div id="debufr"><div id="readbp"><div id="readmp"></div></div></div><div id="debufr"><div id="readbp"><div id="readmp">A utility to read any BUFR file with embedded DX tables, and print the contents of each subset one at a time.</div></div></div><div id="debufr"><div id="readbp"><div id="readmp">See the source code at <a class="el" href="readmp_8f.html" title="Read BUFR file containing embedded DX BUFR tables, and print each report one at a time...">readmp.f</a></div></div></div><div id="debufr"><div id="readbp"><div id="readmp">Sample output for: <code>./readmp.x gdas.20200812/00/gdas.t00z.sfcshp.tm00.bufr_d</code></div></div></div><div id="debufr"><div id="readbp"><div id="readmp"><div class="fragment"><div class="line"> MESSAGE TYPE NC001001</div>
+</div></div></div><div id="debufr"><div id="readbp"><div id="readmp"></div></div></div><div id="debufr"><div id="readbp"><div id="readmp">A utility to read any BUFR file with embedded DX tables, and print the contents of each subset one at a time.</div></div></div><div id="debufr"><div id="readbp"><div id="readmp">See the source code at <a class="el" href="readmp_8f90.html" title="Read BUFR file containing embedded DX BUFR tables, and print each report one at a time...">readmp.f90</a></div></div></div><div id="debufr"><div id="readbp"><div id="readmp">Sample output for: <code>readmp gdas.20200812/00/gdas.t00z.sfcshp.tm00.bufr_d</code></div></div></div><div id="debufr"><div id="readbp"><div id="readmp"><div class="fragment"><div class="line"> MESSAGE TYPE NC001001</div>
 <div class="line"></div>
 <div class="line">004001  YEAR                      2020.0  YEAR                          YEAR</div>
 <div class="line">004002  MNTH                         8.0  MONTH                         MONTH</div>
@@ -284,7 +277,7 @@ Usage:</pre></div><div id="debufr"><pre>   debufr.x [-v] [-h] [-b] [-c] [-m] [-o
  </p>
 <hr/>
 </div></div></div><div id="debufr"><div id="readbp"><div id="readmp"><div id="binv"></div></div></div></div><div id="debufr"><div id="readbp"><div id="readmp"><div id="binv"><h3>binv</h3>
-</div></div></div></div><div id="debufr"><div id="readbp"><div id="readmp"><div id="binv"></div></div></div></div><div id="debufr"><div id="readbp"><div id="readmp"><div id="binv">A utility to print a BUFR file inventory by message type.</div></div></div></div><div id="debufr"><div id="readbp"><div id="readmp"><div id="binv">See the source code at <a class="el" href="binv_8f.html" title="Print inventory of BUFR file by message type. ">binv.f</a></div></div></div></div><div id="debufr"><div id="readbp"><div id="readmp"><div id="binv">Sample output for: <code>./binv.x gdas.20200812/00/gdas.t00z.prepbufr</code></div></div></div></div><div id="debufr"><div id="readbp"><div id="readmp"><div id="binv"><div class="fragment"><div class="line">type        messages       subsets         bytes</div>
+</div></div></div></div><div id="debufr"><div id="readbp"><div id="readmp"><div id="binv"></div></div></div></div><div id="debufr"><div id="readbp"><div id="readmp"><div id="binv">A utility to print a BUFR file inventory by message type.</div></div></div></div><div id="debufr"><div id="readbp"><div id="readmp"><div id="binv">See the source code at <a class="el" href="binv_8f90_source.html">binv.f90</a></div></div></div></div><div id="debufr"><div id="readbp"><div id="readmp"><div id="binv">Sample output for: <code>binv gdas.20200812/00/gdas.t00z.prepbufr</code></div></div></div></div><div id="debufr"><div id="readbp"><div id="readmp"><div id="binv"><div class="fragment"><div class="line">type        messages       subsets         bytes</div>
 <div class="line"></div>
 <div class="line">ADPUPA           363          1427       3091984        3.93</div>
 <div class="line">AIRCAR          1817        169107      18052250       93.07</div>
@@ -303,7 +296,7 @@ Usage:</pre></div><div id="debufr"><pre>   debufr.x [-v] [-h] [-b] [-c] [-m] [-o
  </p>
 <hr/>
 </div></div></div></div><div id="debufr"><div id="readbp"><div id="readmp"><div id="binv"><div id="sinv"></div></div></div></div></div><div id="debufr"><div id="readbp"><div id="readmp"><div id="binv"><div id="sinv"><h3>sinv</h3>
-</div></div></div></div></div><div id="debufr"><div id="readbp"><div id="readmp"><div id="binv"><div id="sinv"></div></div></div></div></div><div id="debufr"><div id="readbp"><div id="readmp"><div id="binv"><div id="sinv">Utility to print an inventory of satellite data by platform and instrument type.</div></div></div></div></div><div id="debufr"><div id="readbp"><div id="readmp"><div id="binv"><div id="sinv">See the source code at <a class="el" href="sinv_8f.html" title="Print inventory of BUFR satellite data file by platform and instrument type. ">sinv.f</a></div></div></div></div></div><div id="debufr"><div id="readbp"><div id="readmp"><div id="binv"><div id="sinv">Sample output for: <code>./sinv.x gdas.20200812/00/gdas.t00z.satwnd.tm00.bufr_d</code> </p>
+</div></div></div></div></div><div id="debufr"><div id="readbp"><div id="readmp"><div id="binv"><div id="sinv"></div></div></div></div></div><div id="debufr"><div id="readbp"><div id="readmp"><div id="binv"><div id="sinv">Utility to print an inventory of satellite data by platform and instrument type.</div></div></div></div></div><div id="debufr"><div id="readbp"><div id="readmp"><div id="binv"><div id="sinv">See the source code at <a class="el" href="sinv_8f90_source.html">sinv.f90</a></div></div></div></div></div><div id="debufr"><div id="readbp"><div id="readmp"><div id="binv"><div id="sinv">Sample output for: <code>sinv gdas.20200812/00/gdas.t00z.satwnd.tm00.bufr_d</code> </p>
 <div class="fragment"><div class="line">003  METOP-1           7220</div>
 <div class="line">004  METOP-2           8911</div>
 <div class="line">055  METEOSAT-8      172430</div>
@@ -352,8 +345,12 @@ Usage:</pre></div><div id="debufr"><pre>   debufr.x [-v] [-h] [-b] [-c] [-m] [-o
 <td align="center">14 </td><td>sdm reject (manual purge) </td></tr>
 <tr>
 <td align="center">15 </td><td>rejected by prepdata code (ie failed various sanity checks) </td></tr>
+<tr>
+<td align="center">cka </td><td>a non-missing value with a missing quality mark </td></tr>
+<tr>
+<td align="center">ckb </td><td>a missing value with a non-missing quality mark </td></tr>
 </table>
-<p>See the source code at <a class="el" href="cmpbqm_8f.html" title="Print inventory of observations from prepbufr file by variable, report type and quality mark...">cmpbqm.f</a></div></div></div></div></div></div><div id="debufr"><div id="readbp"><div id="readmp"><div id="binv"><div id="sinv"><div id="cmpbqm">Sample output for: <code>./cmpbqm.x gdas.20200811/00/gdas.t00z.prepbufr</code> </p>
+<p>See the source code at <a class="el" href="cmpbqm_8f90.html" title="Print inventory of observations from prepbufr file by variable, report type and quality mark...">cmpbqm.f90</a></div></div></div></div></div></div><div id="debufr"><div id="readbp"><div id="readmp"><div id="binv"><div id="sinv"><div id="cmpbqm">Sample output for: <code>cmpbqm gdas.20200811/00/gdas.t00z.prepbufr</code> </p>
 <div class="fragment"><div class="line">DATA  VALID AT  2020081100</div>
 <div class="line"></div>
 <div class="line"> PRESSURE</div>
@@ -491,7 +488,7 @@ Usage:</pre></div><div id="debufr"><pre>   debufr.x [-v] [-h] [-b] [-c] [-m] [-o
  </p>
 <hr/>
 </div></div></div></div></div></div><div id="debufr"><div id="readbp"><div id="readmp"><div id="binv"><div id="sinv"><div id="cmpbqm"><div id="gettab"></div></div></div></div></div></div></div><div id="debufr"><div id="readbp"><div id="readmp"><div id="binv"><div id="sinv"><div id="cmpbqm"><div id="gettab"><h3>gettab</h3>
-</div></div></div></div></div></div></div><div id="debufr"><div id="readbp"><div id="readmp"><div id="binv"><div id="sinv"><div id="cmpbqm"><div id="gettab"></div></div></div></div></div></div></div><div id="debufr"><div id="readbp"><div id="readmp"><div id="binv"><div id="sinv"><div id="cmpbqm"><div id="gettab">A utility to read any BUFR file with embedded DX tables, and print the table.</div></div></div></div></div></div></div><div id="debufr"><div id="readbp"><div id="readmp"><div id="binv"><div id="sinv"><div id="cmpbqm"><div id="gettab">See the source code at <a class="el" href="gettab_8f90.html" title="Read BUFR file containing embedded DX BUFR tables, and print the tables to stdout. ">gettab.f90</a></div></div></div></div></div></div></div><div id="debufr"><div id="readbp"><div id="readmp"><div id="binv"><div id="sinv"><div id="cmpbqm"><div id="gettab">Sample output for: <code>./gettab.x gdas.20200812/00/gdas.t00z.adpsfc.tm00.bufr_d</code></div></div></div></div></div></div></div><div id="debufr"><div id="readbp"><div id="readmp"><div id="binv"><div id="sinv"><div id="cmpbqm"><div id="gettab"><div class="fragment"><div class="line">.------------------------------------------------------------------------------.</div>
+</div></div></div></div></div></div></div><div id="debufr"><div id="readbp"><div id="readmp"><div id="binv"><div id="sinv"><div id="cmpbqm"><div id="gettab"></div></div></div></div></div></div></div><div id="debufr"><div id="readbp"><div id="readmp"><div id="binv"><div id="sinv"><div id="cmpbqm"><div id="gettab">A utility to read any BUFR file with embedded DX tables, and print the table.</div></div></div></div></div></div></div><div id="debufr"><div id="readbp"><div id="readmp"><div id="binv"><div id="sinv"><div id="cmpbqm"><div id="gettab">See the source code at <a class="el" href="gettab_8f90.html" title="Read BUFR file containing embedded DX BUFR tables, and print the tables to stdout. ">gettab.f90</a></div></div></div></div></div></div></div><div id="debufr"><div id="readbp"><div id="readmp"><div id="binv"><div id="sinv"><div id="cmpbqm"><div id="gettab">Sample output for: <code>gettab gdas.20200812/00/gdas.t00z.adpsfc.tm00.bufr_d</code></div></div></div></div></div></div></div><div id="debufr"><div id="readbp"><div id="readmp"><div id="binv"><div id="sinv"><div id="cmpbqm"><div id="gettab"><div class="fragment"><div class="line">.------------------------------------------------------------------------------.</div>
 <div class="line">| ------------   USER DEFINITIONS FOR TABLE-A TABLE-B TABLE D   -------------- |</div>
 <div class="line">|------------------------------------------------------------------------------|</div>
 <div class="line">| MNEMONIC | NUMBER | DESCRIPTION                                              |</div>
@@ -537,7 +534,7 @@ Usage:</pre></div><div id="debufr"><pre>   debufr.x [-v] [-h] [-b] [-c] [-m] [-o
  </p>
 <hr/>
 </div></div></div></div></div></div></div><div id="debufr"><div id="readbp"><div id="readmp"><div id="binv"><div id="sinv"><div id="cmpbqm"><div id="gettab"><div id="split"></div></div></div></div></div></div></div></div><div id="debufr"><div id="readbp"><div id="readmp"><div id="binv"><div id="sinv"><div id="cmpbqm"><div id="gettab"><div id="split"><h3>split_by_subset</h3>
-</div></div></div></div></div></div></div></div><div id="debufr"><div id="readbp"><div id="readmp"><div id="binv"><div id="sinv"><div id="cmpbqm"><div id="gettab"><div id="split"></div></div></div></div></div></div></div></div><div id="debufr"><div id="readbp"><div id="readmp"><div id="binv"><div id="sinv"><div id="cmpbqm"><div id="gettab"><div id="split">A utility to read any BUFR file and split it into separate BUFR files based on subset type</div></div></div></div></div></div></div></div><div id="debufr"><div id="readbp"><div id="readmp"><div id="binv"><div id="sinv"><div id="cmpbqm"><div id="gettab"><div id="split">See the source code at <a class="el" href="split__by__subset_8f90.html" title="Split a BUFR file into separate BUFR files by subset type. ">split_by_subset.f90</a></div></div></div></div></div></div></div></div><div id="debufr"><div id="readbp"><div id="readmp"><div id="binv"><div id="sinv"><div id="cmpbqm"><div id="gettab"><div id="split">Usage: <code>./split_by_subset.x gdas.20200812/00/gdas.t00z.satwnd.tm00.bufr_d</code></div></div></div></div></div></div></div></div><div id="debufr"><div id="readbp"><div id="readmp"><div id="binv"><div id="sinv"><div id="cmpbqm"><div id="gettab"><div id="split"><br/>
+</div></div></div></div></div></div></div></div><div id="debufr"><div id="readbp"><div id="readmp"><div id="binv"><div id="sinv"><div id="cmpbqm"><div id="gettab"><div id="split"></div></div></div></div></div></div></div></div><div id="debufr"><div id="readbp"><div id="readmp"><div id="binv"><div id="sinv"><div id="cmpbqm"><div id="gettab"><div id="split">A utility to read any BUFR file and split it into separate BUFR files based on message subset type. To preview which files will be produced (one for each m/s type) use binv (documented above).</div></div></div></div></div></div></div></div><div id="debufr"><div id="readbp"><div id="readmp"><div id="binv"><div id="sinv"><div id="cmpbqm"><div id="gettab"><div id="split">See the source code at <a class="el" href="split__by__subset_8f90.html" title="Split a BUFR file into separate BUFR files by subset type. ">split_by_subset.f90</a></div></div></div></div></div></div></div></div><div id="debufr"><div id="readbp"><div id="readmp"><div id="binv"><div id="sinv"><div id="cmpbqm"><div id="gettab"><div id="split">Usage: <code>split_by_subset gdas.20200812/00/gdas.t00z.satwnd.tm00.bufr_d</code></div></div></div></div></div></div></div></div><div id="debufr"><div id="readbp"><div id="readmp"><div id="binv"><div id="sinv"><div id="cmpbqm"><div id="gettab"><div id="split"><br/>
  </p>
 <hr/>
 </div></div></div></div></div></div></div></div><div id="debufr"><div id="readbp"><div id="readmp"><div id="binv"><div id="sinv"><div id="cmpbqm"><div id="gettab"><div id="split"><div id="xbfmg"></div></div></div></div></div></div></div></div></div><div id="debufr"><div id="readbp"><div id="readmp"><div id="binv"><div id="sinv"><div id="cmpbqm"><div id="gettab"><div id="split"><div id="xbfmg"><h3>xbfmg</h3>

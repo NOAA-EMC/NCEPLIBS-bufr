@@ -6,6 +6,8 @@ var searchData=
   ['datelen_2ef',['datelen.f',['../datelen_8f.html',1,'']]],
   ['debufr_2ec',['debufr.c',['../debufr_8c.html',1,'']]],
   ['debufr_2ef',['debufr.f',['../debufr_8f.html',1,'']]],
+  ['delete_5ftable_5fdata_5fc',['delete_table_data_c',['../classbufr__c__interface__mod.html#a28cc3ca74d9288bba3b0df53325ec490',1,'bufr_c_interface_mod']]],
+  ['delete_5ftable_5fdata_5ff',['delete_table_data_f',['../bufr__interface_8h.html#ad6cb83d29d8f619e380f8a098b2c6426',1,'bufr_interface.h']]],
   ['digit',['digit',['../digit_8f.html#a911ce57f596d20517e27ce91b6893ef1',1,'digit.f']]],
   ['digit_2ef',['digit.f',['../digit_8f.html',1,'']]],
   ['dlloctbf',['dlloctbf',['../cfe_8h.html#a1242c4d43753a37cdb9abfb3f01e5583',1,'dlloctbf(void):&#160;dlloctbf.c'],['../dlloctbf_8c.html#a1242c4d43753a37cdb9abfb3f01e5583',1,'dlloctbf(void):&#160;dlloctbf.c']]],

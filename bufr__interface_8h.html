@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.6.0</span>
+   &#160;<span id="projectnumber">11.7.0</span>
    </div>
   </td>
  </tr>
@@ -122,9 +122,42 @@ Functions</h2></td></tr>
 <tr class="memitem:ab0f41346d672e0fb0311bd658b867249"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="bufr__interface_8h.html#ab0f41346d672e0fb0311bd658b867249">close_f</a> (int unit)</td></tr>
 <tr class="memdesc:ab0f41346d672e0fb0311bd658b867249"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wraps fortran "close" statement so we can close a Fortran file from a C program.  <a href="#ab0f41346d672e0fb0311bd658b867249">More...</a><br/></td></tr>
 <tr class="separator:ab0f41346d672e0fb0311bd658b867249"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad6cb83d29d8f619e380f8a098b2c6426"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="bufr__interface_8h.html#ad6cb83d29d8f619e380f8a098b2c6426">delete_table_data_f</a> ()</td></tr>
+<tr class="memdesc:ad6cb83d29d8f619e380f8a098b2c6426"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deletes the copies of the <a class="el" href="moda__tables_8F.html#classmoda__tables" title="This module contains array and variable declarations used to store the internal jump/link table...">moda_tables</a> arrays.  <a href="#ad6cb83d29d8f619e380f8a098b2c6426">More...</a><br/></td></tr>
+<tr class="separator:ad6cb83d29d8f619e380f8a098b2c6426"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac29807d9e7404a4602d03a04a9d4f2a6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="bufr__interface_8h.html#ac29807d9e7404a4602d03a04a9d4f2a6">exitbufr_f</a> ()</td></tr>
 <tr class="memdesc:ac29807d9e7404a4602d03a04a9d4f2a6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wraps BUFRLIB "exitbufr" subroutine. Closes all open file units used by BUFRLIB.  <a href="#ac29807d9e7404a4602d03a04a9d4f2a6">More...</a><br/></td></tr>
 <tr class="separator:ac29807d9e7404a4602d03a04a9d4f2a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a27a99d47c281ce06f9f88367bd0b1b3b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="bufr__interface_8h.html#a27a99d47c281ce06f9f88367bd0b1b3b">get_inode_f</a> (int lun, int *startNode)</td></tr>
+<tr class="memdesc:a27a99d47c281ce06f9f88367bd0b1b3b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the bufr node idx for the start node of the subset.  <a href="#a27a99d47c281ce06f9f88367bd0b1b3b">More...</a><br/></td></tr>
+<tr class="separator:a27a99d47c281ce06f9f88367bd0b1b3b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1d360e3390fa9fb04c0fbcdf1c2b88dc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="bufr__interface_8h.html#a1d360e3390fa9fb04c0fbcdf1c2b88dc">get_inv_f</a> (int lun, int **data, int *len)</td></tr>
+<tr class="memdesc:a1d360e3390fa9fb04c0fbcdf1c2b88dc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get pointer to the <a class="el" href="classmoda__usrint.html">moda_usrint</a> INV array.  <a href="#a1d360e3390fa9fb04c0fbcdf1c2b88dc">More...</a><br/></td></tr>
+<tr class="separator:a1d360e3390fa9fb04c0fbcdf1c2b88dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a793e124adb6c56258781bdfba416105d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="bufr__interface_8h.html#a793e124adb6c56258781bdfba416105d">get_isc_f</a> (int **data, int *len)</td></tr>
+<tr class="memdesc:a793e124adb6c56258781bdfba416105d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get copy of the <a class="el" href="moda__tables_8F.html#classmoda__tables" title="This module contains array and variable declarations used to store the internal jump/link table...">moda_tables</a> ISC array.  <a href="#a793e124adb6c56258781bdfba416105d">More...</a><br/></td></tr>
+<tr class="separator:a793e124adb6c56258781bdfba416105d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac3d19fe6a2402e275050485b91ce931d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="bufr__interface_8h.html#ac3d19fe6a2402e275050485b91ce931d">get_itp_f</a> (int **data, int *len)</td></tr>
+<tr class="memdesc:ac3d19fe6a2402e275050485b91ce931d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get copy of the <a class="el" href="moda__tables_8F.html#classmoda__tables" title="This module contains array and variable declarations used to store the internal jump/link table...">moda_tables</a> ITP array.  <a href="#ac3d19fe6a2402e275050485b91ce931d">More...</a><br/></td></tr>
+<tr class="separator:ac3d19fe6a2402e275050485b91ce931d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a783c2995f89b67b6f5a68facff5619b3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="bufr__interface_8h.html#a783c2995f89b67b6f5a68facff5619b3">get_jmpb_f</a> (int **data, int *len)</td></tr>
+<tr class="memdesc:a783c2995f89b67b6f5a68facff5619b3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get copy of the <a class="el" href="moda__tables_8F.html#classmoda__tables" title="This module contains array and variable declarations used to store the internal jump/link table...">moda_tables</a> JMPB array.  <a href="#a783c2995f89b67b6f5a68facff5619b3">More...</a><br/></td></tr>
+<tr class="separator:a783c2995f89b67b6f5a68facff5619b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aea0623810ce191753f285a99ef024204"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="bufr__interface_8h.html#aea0623810ce191753f285a99ef024204">get_link_f</a> (int **data, int *len)</td></tr>
+<tr class="memdesc:aea0623810ce191753f285a99ef024204"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get copy of the <a class="el" href="moda__tables_8F.html#classmoda__tables" title="This module contains array and variable declarations used to store the internal jump/link table...">moda_tables</a> LINK array.  <a href="#aea0623810ce191753f285a99ef024204">More...</a><br/></td></tr>
+<tr class="separator:aea0623810ce191753f285a99ef024204"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae55b56fc4dcf36cded5def4f78ec4858"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="bufr__interface_8h.html#ae55b56fc4dcf36cded5def4f78ec4858">get_nval_f</a> (int lun, int *numNodes)</td></tr>
+<tr class="memdesc:ae55b56fc4dcf36cded5def4f78ec4858"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the number of values in the current subset.  <a href="#ae55b56fc4dcf36cded5def4f78ec4858">More...</a><br/></td></tr>
+<tr class="separator:ae55b56fc4dcf36cded5def4f78ec4858"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af67cb92c2b6c2228e35f8e1d006c92f3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="bufr__interface_8h.html#af67cb92c2b6c2228e35f8e1d006c92f3">get_tag_f</a> (char **data, int *str_len, int *size)</td></tr>
+<tr class="memdesc:af67cb92c2b6c2228e35f8e1d006c92f3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get copy of the <a class="el" href="moda__tables_8F.html#classmoda__tables" title="This module contains array and variable declarations used to store the internal jump/link table...">moda_tables</a> TAG array.  <a href="#af67cb92c2b6c2228e35f8e1d006c92f3">More...</a><br/></td></tr>
+<tr class="separator:af67cb92c2b6c2228e35f8e1d006c92f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6d8cab0229d0c7269abf7e0ee9f91c49"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="bufr__interface_8h.html#a6d8cab0229d0c7269abf7e0ee9f91c49">get_typ_f</a> (char **data, int *str_len, int *size)</td></tr>
+<tr class="memdesc:a6d8cab0229d0c7269abf7e0ee9f91c49"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get copy of the <a class="el" href="moda__tables_8F.html#classmoda__tables" title="This module contains array and variable declarations used to store the internal jump/link table...">moda_tables</a> TYP array.  <a href="#a6d8cab0229d0c7269abf7e0ee9f91c49">More...</a><br/></td></tr>
+<tr class="separator:a6d8cab0229d0c7269abf7e0ee9f91c49"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5ccf5fd053582472ffa3fba96ad50cc2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="bufr__interface_8h.html#a5ccf5fd053582472ffa3fba96ad50cc2">get_val_f</a> (int lun, double **data, int *len)</td></tr>
+<tr class="memdesc:a5ccf5fd053582472ffa3fba96ad50cc2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get pointer to the <a class="el" href="classmoda__usrint.html">moda_usrint</a> VAL array.  <a href="#a5ccf5fd053582472ffa3fba96ad50cc2">More...</a><br/></td></tr>
+<tr class="separator:a5ccf5fd053582472ffa3fba96ad50cc2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9217e24780915325fb8fdea549015c96"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="bufr__interface_8h.html#a9217e24780915325fb8fdea549015c96">ireadmg_f</a> (int bufr_unit, char *subset, int *iddate, int subset_len)</td></tr>
 <tr class="memdesc:a9217e24780915325fb8fdea549015c96"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wraps BUFRLIB "ireadmg" subroutine.  <a href="#a9217e24780915325fb8fdea549015c96">More...</a><br/></td></tr>
 <tr class="separator:a9217e24780915325fb8fdea549015c96"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -140,6 +173,9 @@ Functions</h2></td></tr>
 <tr class="memitem:a750d83d2c9745f46cccb75dc9fec3788"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="bufr__interface_8h.html#a750d83d2c9745f46cccb75dc9fec3788">openbf_f</a> (int bufr_unit, const char *cio, int table_file_id)</td></tr>
 <tr class="memdesc:a750d83d2c9745f46cccb75dc9fec3788"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wraps BUFRLIB "openbf" subroutine.  <a href="#a750d83d2c9745f46cccb75dc9fec3788">More...</a><br/></td></tr>
 <tr class="separator:a750d83d2c9745f46cccb75dc9fec3788"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8864263871383e72d19ac4a57031be7d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="bufr__interface_8h.html#a8864263871383e72d19ac4a57031be7d">status_f</a> (int file_unit, int *lun, int *il, int *im)</td></tr>
+<tr class="memdesc:a8864263871383e72d19ac4a57031be7d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wraps BUFRLIB "status" function.  <a href="#a8864263871383e72d19ac4a57031be7d">More...</a><br/></td></tr>
+<tr class="separator:a8864263871383e72d19ac4a57031be7d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab6cd4669f077cf7c939d9241614bc075"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="bufr__interface_8h.html#ab6cd4669f077cf7c939d9241614bc075">ufbint_f</a> (int bufr_unit, void **c_data, int dim_1, int dim_2, int *iret, const char *table_b_mnemonic)</td></tr>
 <tr class="memdesc:ab6cd4669f077cf7c939d9241614bc075"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wraps BUFRLIB "ufbint" function.  <a href="#ab6cd4669f077cf7c939d9241614bc075">More...</a><br/></td></tr>
 <tr class="separator:ab6cd4669f077cf7c939d9241614bc075"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -207,6 +243,25 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="ad6cb83d29d8f619e380f8a098b2c6426"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void delete_table_data_f </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Deletes the copies of the <a class="el" href="moda__tables_8F.html#classmoda__tables" title="This module contains array and variable declarations used to store the internal jump/link table...">moda_tables</a> arrays. </p>
+<pre class="fragment">@author Ronald McLaren
+</pre> <dl class="section date"><dt>Date</dt><dd>2022-03-23 </dd></dl>
+
+</div>
+</div>
 <a class="anchor" id="ac29807d9e7404a4602d03a04a9d4f2a6"></a>
 <div class="memitem">
 <div class="memproto">
@@ -223,6 +278,402 @@ Functions</h2></td></tr>
 <p>Wraps BUFRLIB "exitbufr" subroutine. Closes all open file units used by BUFRLIB. </p>
 <dl class="section author"><dt>Author</dt><dd>Ronald McLaren </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>2020-07-29 </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a27a99d47c281ce06f9f88367bd0b1b3b"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void get_inode_f </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>lun</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int *&#160;</td>
+          <td class="paramname"><em>startNode</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get the bufr node idx for the start node of the subset. </p>
+<pre class="fragment">@author Ronald McLaren
+</pre> <dl class="section date"><dt>Date</dt><dd>2022-03-23</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[out]</td><td class="paramname">lun</td><td>- int: pointer for the file stream </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">startNode</td><td>- int*: the start node of the subset </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="a1d360e3390fa9fb04c0fbcdf1c2b88dc"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void get_inv_f </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>lun</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int **&#160;</td>
+          <td class="paramname"><em>data</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int *&#160;</td>
+          <td class="paramname"><em>len</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get pointer to the <a class="el" href="classmoda__usrint.html">moda_usrint</a> INV array. </p>
+<pre class="fragment">@author Ronald McLaren
+</pre> <dl class="section date"><dt>Date</dt><dd>2022-03-23</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[out]</td><td class="paramname">lun</td><td>- int: pointer for the file stream </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">data</td><td>- int**: c style pointer to the INV array </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">len</td><td>- int*: length of the array </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="a793e124adb6c56258781bdfba416105d"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void get_isc_f </td>
+          <td>(</td>
+          <td class="paramtype">int **&#160;</td>
+          <td class="paramname"><em>data</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int *&#160;</td>
+          <td class="paramname"><em>len</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get copy of the <a class="el" href="moda__tables_8F.html#classmoda__tables" title="This module contains array and variable declarations used to store the internal jump/link table...">moda_tables</a> ISC array. </p>
+<dl class="section author"><dt>Author</dt><dd>Ronald McLaren </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2022-03-23</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[out]</td><td class="paramname">data</td><td>- int**: c style pointer to the ISC array </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">len</td><td>- int: length of the array </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="ac3d19fe6a2402e275050485b91ce931d"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void get_itp_f </td>
+          <td>(</td>
+          <td class="paramtype">int **&#160;</td>
+          <td class="paramname"><em>data</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int *&#160;</td>
+          <td class="paramname"><em>len</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get copy of the <a class="el" href="moda__tables_8F.html#classmoda__tables" title="This module contains array and variable declarations used to store the internal jump/link table...">moda_tables</a> ITP array. </p>
+<dl class="section author"><dt>Author</dt><dd>Ronald McLaren </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2022-03-23</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[out]</td><td class="paramname">data</td><td>- int**: c style pointer to the ITP array </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">len</td><td>- int: length of the array </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="a783c2995f89b67b6f5a68facff5619b3"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void get_jmpb_f </td>
+          <td>(</td>
+          <td class="paramtype">int **&#160;</td>
+          <td class="paramname"><em>data</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int *&#160;</td>
+          <td class="paramname"><em>len</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get copy of the <a class="el" href="moda__tables_8F.html#classmoda__tables" title="This module contains array and variable declarations used to store the internal jump/link table...">moda_tables</a> JMPB array. </p>
+<pre class="fragment">@author Ronald McLaren
+</pre> <dl class="section date"><dt>Date</dt><dd>2022-03-23</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[out]</td><td class="paramname">data</td><td>- int**: c style pointer to the JMPB array </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">len</td><td>- int: length of the array </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="aea0623810ce191753f285a99ef024204"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void get_link_f </td>
+          <td>(</td>
+          <td class="paramtype">int **&#160;</td>
+          <td class="paramname"><em>data</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int *&#160;</td>
+          <td class="paramname"><em>len</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get copy of the <a class="el" href="moda__tables_8F.html#classmoda__tables" title="This module contains array and variable declarations used to store the internal jump/link table...">moda_tables</a> LINK array. </p>
+<dl class="section author"><dt>Author</dt><dd>Ronald McLaren </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2022-03-23</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[out]</td><td class="paramname">data</td><td>- int**: c style pointer to the ISC array </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">len</td><td>- int: length of the array </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="ae55b56fc4dcf36cded5def4f78ec4858"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void get_nval_f </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>lun</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int *&#160;</td>
+          <td class="paramname"><em>numNodes</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get the number of values in the current subset. </p>
+<pre class="fragment">@author Ronald McLaren
+</pre> <dl class="section date"><dt>Date</dt><dd>2022-03-23</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[out]</td><td class="paramname">lun</td><td>- int: pointer for the file stream </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">startNode</td><td>- int*: number of values in the subset </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="af67cb92c2b6c2228e35f8e1d006c92f3"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void get_tag_f </td>
+          <td>(</td>
+          <td class="paramtype">char **&#160;</td>
+          <td class="paramname"><em>data</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int *&#160;</td>
+          <td class="paramname"><em>str_len</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int *&#160;</td>
+          <td class="paramname"><em>size</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get copy of the <a class="el" href="moda__tables_8F.html#classmoda__tables" title="This module contains array and variable declarations used to store the internal jump/link table...">moda_tables</a> TAG array. </p>
+<dl class="section author"><dt>Author</dt><dd>Ronald McLaren </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2022-03-23</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[out]</td><td class="paramname">data</td><td>- int**: c style pointer to the TAG array </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">len</td><td>- int: length of the array </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="a6d8cab0229d0c7269abf7e0ee9f91c49"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void get_typ_f </td>
+          <td>(</td>
+          <td class="paramtype">char **&#160;</td>
+          <td class="paramname"><em>data</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int *&#160;</td>
+          <td class="paramname"><em>str_len</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int *&#160;</td>
+          <td class="paramname"><em>size</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get copy of the <a class="el" href="moda__tables_8F.html#classmoda__tables" title="This module contains array and variable declarations used to store the internal jump/link table...">moda_tables</a> TYP array. </p>
+<dl class="section author"><dt>Author</dt><dd>Ronald McLaren </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2022-03-23</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[out]</td><td class="paramname">data</td><td>- int**: c style pointer to the TYP array </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">len</td><td>- int: length of the array </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="a5ccf5fd053582472ffa3fba96ad50cc2"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void get_val_f </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>lun</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double **&#160;</td>
+          <td class="paramname"><em>data</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int *&#160;</td>
+          <td class="paramname"><em>len</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get pointer to the <a class="el" href="classmoda__usrint.html">moda_usrint</a> VAL array. </p>
+<pre class="fragment">@author Ronald McLaren
+</pre> <dl class="section date"><dt>Date</dt><dd>2022-03-23</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[out]</td><td class="paramname">lun</td><td>- int: pointer for the file stream </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">data</td><td>- double**: c style pointer to the VAL array </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">len</td><td>- int*: length of the array </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -422,6 +873,57 @@ Functions</h2></td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">bufr_unit</td><td>- int: the fortran file unit number </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">cio</td><td>- const char*: cio string (ex "IN", "SEC3", and "OUT") </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">table_file_id</td><td>- int: table_file unit number </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="a8864263871383e72d19ac4a57031be7d"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void status_f </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>file_unit</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int *&#160;</td>
+          <td class="paramname"><em>lun</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int *&#160;</td>
+          <td class="paramname"><em>il</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int *&#160;</td>
+          <td class="paramname"><em>im</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Wraps BUFRLIB "status" function. </p>
+<dl class="section author"><dt>Author</dt><dd>Ronald McLaren </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2022-03-23</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">file_unit</td><td>- int: the fortran file unit number to read from </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">lun</td><td>- int: pointer for the file stream </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">il</td><td>- int: file status </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">im</td><td>- int: message status </td></tr>
   </table>
   </dd>
 </dl>

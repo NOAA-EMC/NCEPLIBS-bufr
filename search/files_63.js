@@ -9,7 +9,7 @@ var searchData=
   ['cktaba_2ef',['cktaba.f',['../cktaba_8f.html',1,'']]],
   ['closbf_2ef',['closbf.f',['../closbf_8f.html',1,'']]],
   ['closmg_2ef',['closmg.f',['../closmg_8f.html',1,'']]],
-  ['cmpbqm_2ef',['cmpbqm.f',['../cmpbqm_8f.html',1,'']]],
+  ['cmpbqm_2ef90',['cmpbqm.f90',['../cmpbqm_8f90.html',1,'']]],
   ['cmpia_2ec',['cmpia.c',['../cmpia_8c.html',1,'']]],
   ['cmpmsg_2ef',['cmpmsg.f',['../cmpmsg_8f.html',1,'']]],
   ['cmpstia1_2ec',['cmpstia1.c',['../cmpstia1_8c.html',1,'']]],

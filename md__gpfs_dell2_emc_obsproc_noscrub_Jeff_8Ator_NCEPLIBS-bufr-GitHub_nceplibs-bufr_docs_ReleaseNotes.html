@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">11.6.0</span>
+   &#160;<span id="projectnumber">11.7.0</span>
    </div>
   </td>
  </tr>
@@ -101,6 +101,12 @@ $(document).ready(function(){initNavTree('md__gpfs_dell2_emc_obsproc_noscrub_Jef
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p>Detailed description of changes included within each new release.</p>
+<h3>Version 11.7.0 - May 19, 2022</h3>
+<ul>
+<li>Extensions were added to support a new query interface for C++ IODA converters. [<a href="https://github.com/NOAA-EMC/NCEPLIBS-bufr/pull/198">Issue #198</a>]</li>
+<li>Updates and bug fixes were made to several utility programs within the library package. [<a href="https://github.com/NOAA-EMC/NCEPLIBS-bufr/issues/141">Issue #141</a>]</li>
+<li>A fix was made to prevent a line truncation error which occurs with certain compilers when the value of the MASTER_TABLE_DIR macro exceeds a certain length. [<a href="https://github.com/NOAA-EMC/NCEPLIBS-bufr/issues/182">Issue #182</a>]</li>
+</ul>
 <h3>Version 11.6.0 - November 10, 2021</h3>
 <ul>
 <li>All of the library builds now use dynamic allocation, so the "_DA" suffix has now been correspondingly removed from the names of the library builds. [<a href="https://github.com/NOAA-EMC/NCEPLIBS-bufr/issues/77">Issue #77</a>]</li>

@@ -1,7 +1,6 @@
 var searchData=
 [
   ['bfrini_2ef90',['bfrini.f90',['../bfrini_8f90.html',1,'']]],
-  ['binv_2ef',['binv.f',['../binv_8f.html',1,'']]],
   ['blocks_2ef',['blocks.f',['../blocks_8f.html',1,'']]],
   ['bort_2ef',['bort.f',['../bort_8f.html',1,'']]],
   ['bort2_2ef',['bort2.f',['../bort2_8f.html',1,'']]],

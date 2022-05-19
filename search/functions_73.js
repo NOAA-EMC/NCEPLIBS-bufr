@@ -11,6 +11,7 @@ var searchData=
   ['split_5fby_5fsubset',['split_by_subset',['../split__by__subset_8f90.html#ae5d45e2086aa783d8ca85e2fd47c8118',1,'split_by_subset.f90']]],
   ['srchtbf',['srchtbf',['../cfe_8h.html#acc1aa6de33a783e043e47e2522c688e3',1,'srchtbf(f77int *, f77int *, f77int *, f77int *, f77int *, char *, f77int *, f77int *, f77int *):&#160;srchtbf.c'],['../srchtbf_8c.html#a24478fa65ca9d41665e8526e12d41cf1',1,'srchtbf(f77int *ifxyi, f77int *ivali, f77int *ifxyd, f77int *mxfxyd, f77int *ivald, char *meaning, f77int *mxmng, f77int *lnmng, f77int *iret):&#160;srchtbf.c']]],
   ['status',['status',['../status_8f.html#a22292e7a69c411a961168198d259f336',1,'status.f']]],
+  ['status_5ff',['status_f',['../bufr__interface_8h.html#a8864263871383e72d19ac4a57031be7d',1,'bufr_interface.h']]],
   ['stbfdx',['stbfdx',['../stbfdx_8f.html#a35d346baad722c9be56532c38d43f8a0',1,'stbfdx.f']]],
   ['stdmsg',['stdmsg',['../stdmsg_8f.html#abcb573ae105505deb6d3c0ad55abbce2',1,'stdmsg.f']]],
   ['stndrd',['stndrd',['../stndrd_8f.html#a9a40fe96eef4a44c203f5e663fc47c4b',1,'stndrd.f']]],

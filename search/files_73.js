@@ -4,7 +4,6 @@ var searchData=
   ['setblock_2ef',['setblock.f',['../setblock_8f.html',1,'']]],
   ['setbmiss_2ef',['setbmiss.f',['../setbmiss_8f.html',1,'']]],
   ['setvalnb_2ef',['setvalnb.f',['../setvalnb_8f.html',1,'']]],
-  ['sinv_2ef',['sinv.f',['../sinv_8f.html',1,'']]],
   ['sntbbe_2ef',['sntbbe.f',['../sntbbe_8f.html',1,'']]],
   ['sntbde_2ef',['sntbde.f',['../sntbde_8f.html',1,'']]],
   ['sntbfe_2ef',['sntbfe.f',['../sntbfe_8f.html',1,'']]],

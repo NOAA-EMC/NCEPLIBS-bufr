@@ -3,7 +3,6 @@ var searchData=
   ['backbufr',['backbufr',['../cread_8c.html#aebebafa9eeb07f82fc60ae0a8b43533e',1,'backbufr(f77int *nfile):&#160;cread.c'],['../cread_8h.html#ae9c022992af6584e7417bed0a783f7be',1,'backbufr(f77int *):&#160;cread.c']]],
   ['bfrini',['bfrini',['../bfrini_8f90.html#ab3f045cc170403305543e34e30b87001',1,'bfrini.f90']]],
   ['bfrini_2ef90',['bfrini.f90',['../bfrini_8f90.html',1,'']]],
-  ['binv_2ef',['binv.f',['../binv_8f.html',1,'']]],
   ['blocks',['blocks',['../blocks_8f.html#a58e616c094fc6ddcdf5e33554105c3d4',1,'blocks.f']]],
   ['blocks_2ef',['blocks.f',['../blocks_8f.html',1,'']]],
   ['bmiss',['bmiss',['../modv__BMISS_8f90.html#a4e62f0091102c93beac0252bdd591641',1,'modv_bmiss']]],
