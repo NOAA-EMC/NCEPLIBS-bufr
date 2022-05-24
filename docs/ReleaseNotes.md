@@ -3,6 +3,22 @@
 @brief Detailed description of changes included within each new release.
 
 
+### Version 11.7.0 - May 19, 2022
+
+* Extensions were added to support a new query interface for C++ IODA
+converters.
+[[Issue #198](https://github.com/NOAA-EMC/NCEPLIBS-bufr/pull/198)]
+
+* Updates and bug fixes were made to several utility programs within
+the library package.
+[[Issue #141](https://github.com/NOAA-EMC/NCEPLIBS-bufr/issues/141)]
+
+* A fix was made to prevent a line truncation error which occurs with
+certain compilers when the value of the MASTER_TABLE_DIR macro exceeds a
+certain length.
+[[Issue #182](https://github.com/NOAA-EMC/NCEPLIBS-bufr/issues/182)]
+
+
 ### Version 11.6.0 - November 10, 2021
 
 * All of the library builds now use dynamic allocation, so the "_DA" suffix
