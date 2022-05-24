@@ -62,7 +62,7 @@ C>                           EACH SUBSET IN INTERNAL MEMORY
 C> 2012-03-02  J. ATOR    -- USE FUNCTION UPS
 C> 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
 C> 2022-05-06  J. WOOLLEN -- REPLACE UPBB WITH UPB8 FOR 8BYTE INTEGERS
-C>                           AND ADD INT STATEMENT FUNCTION 
+C>                           USE NBMP FOR USRTPL             
 C>
 C> USAGE:    CALL UFBTAM (TAB, I1, I2, IRET, STR)
 C>   INPUT ARGUMENT LIST:
@@ -121,14 +121,13 @@ C>
       CHARACTER*10  TGS(100)
       CHARACTER*8   SUBSET,CVAL
       EQUIVALENCE   (CVAL,RVAL)
-      integer*8     mps,ival,int8
+      integer*8     mps,ival
       REAL*8        TAB(I1,I2),RVAL,UPS
 
       DATA MAXTG /100/
 
 C-----------------------------------------------------------------------
       MPS(NODE) = 2_8**(IBT(NODE))-1
-      int(int8) = int8
 C-----------------------------------------------------------------------
 
       IRET = 0
@@ -191,7 +190,7 @@ C  ---------------------------------------------
             NBIT = IBT(NODE)
             IF(ITP(NODE).EQ.1) THEN
                CALL UPB8(IVAL,NBIT,MBIT,MBAY(1,LUN))
-               CALL USRTPL(LUN,N,INT(IVAL))
+               NBMP=IVAL; CALL USRTPL(LUN,N,NBMP)
             ENDIF
             DO I=1,NNOD
             IF(NODS(I).EQ.NODE) THEN

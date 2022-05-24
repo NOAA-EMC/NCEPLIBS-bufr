@@ -76,7 +76,7 @@ C> | 2012-09-15 | J. Woollen | Modified for C/I/O/BUFR interface; added IO type 
 C> | 2014-11-20 | J. Ator    | Ensure openbf() has been called at least once before calling status() |
 C> | 2014-12-10 | J. Ator    | Use modules instead of COMMON blocks |
 C> | 2016-12-19 | J. Woollen | Fix bug to prevent inventory overflow |
-C> | 2022-05-06 | J. Woollen | Use up8 and upb8 for 8byte integers, add int statement function, and add msgunp=1 option 
+C> | 2022-05-06 | J. Woollen | Use up8 and upb8 for 8byte integers, use nbmp for usrtpl, add msgunp=1 option |
 C>
       SUBROUTINE UFBTAB(LUNIN,TAB,I1,I2,IRET,STR)
 
@@ -97,7 +97,7 @@ C>
       CHARACTER*10  TGS(100)
       CHARACTER*8   SUBSET,CVAL
       EQUIVALENCE   (CVAL,RVAL)
-      integer*8     ival,lref,ninc,int8,mps,lps
+      integer*8     ival,lref,ninc,mps,lps
       LOGICAL       OPENIT,JUST_COUNT
       REAL*8        TAB(I1,I2),RVAL,UPS
 
@@ -106,7 +106,6 @@ C>
 C-----------------------------------------------------------------------
       MPS(NODE) = 2_8**(IBT(NODE))-1
       LPS(LBIT) = MAX(2_8**(LBIT)-1,1)
-      int(int8) = int8
 C-----------------------------------------------------------------------
 
 C  SET COUNTERS TO ZERO
@@ -221,7 +220,7 @@ C  ------------------------------------
          NBIT = IBT(NODE)
          IF(ITP(NODE).EQ.1) THEN
             CALL UPB8(IVAL,NBIT,MBIT,MBAY(1,LUN))
-            CALL USRTPL(LUN,N,int(IVAL))
+            NBMP=IVAL; CALL USRTPL(LUN,N,NBMP)
          ENDIF
          DO I=1,NNOD
          IF(NODS(I).EQ.NODE) THEN

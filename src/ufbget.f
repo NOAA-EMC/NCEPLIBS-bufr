@@ -81,11 +81,10 @@ C>
       CHARACTER*(*) STR
       CHARACTER*8   CVAL
       EQUIVALENCE   (CVAL,RVAL)
-      integer*8     ival,int8
+      integer*8     ival
       REAL*8        RVAL,TAB(I1),UPS
 
 C-----------------------------------------------------------------------
-      int(int8) = int8                    
 C-----------------------------------------------------------------------
 
       IRET = 0
@@ -132,7 +131,7 @@ C  ---------------------------------------------------------
          GOTO 20
       ELSEIF(ITP(NODE).EQ.1) THEN
          CALL UPB8(IVAL,NBIT(N),MBIT(N),MBAY(1,LUN))
-         CALL USRTPL(LUN,N,int(IVAL))
+         NBMP=IVAL; CALL USRTPL(LUN,N,NBMP)
          GOTO 10
       ENDIF
       ENDDO
