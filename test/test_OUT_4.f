@@ -112,9 +112,9 @@ C*      output file.
             nsub = nsub + 1
 
             CALL UFBSEQ ( 12, r8arr1, MXVAL1, 1, nlv, 'DATETMLN' )
-            ibfdt = ( IDNINT(r8arr1(2)) * 1000000 ) +
-     +              ( IDNINT(r8arr1(3)) * 10000 ) +
-     +              ( IDNINT(r8arr1(4)) * 100 ) + IDNINT(r8arr1(5))
+            ibfdt = ( NINT(r8arr1(2)) * 1000000 ) +
+     +              ( NINT(r8arr1(3)) * 10000 ) +
+     +              ( NINT(r8arr1(4)) * 100 ) + NINT(r8arr1(5))
 	    CALL OPENMB ( 13, 'MSTTB001', ibfdt )
             CALL UFBSEQ ( 13, r8arr1, MXVAL1, 1, nlv, 'DATETMLN' )
 

@@ -99,8 +99,8 @@ C>      2-03-YYY operator to change one of the reference values.
             IF ( ( nr8a .eq. 2 ) .and.
      +          ( nr8v .eq. 0 ) .and. ( nr8v2 .eq. 0 ) .and.
      +          ( idx1 .gt. 0 ) .and. ( idx2 .gt. 0 ) .and.
-     +          ( IDNINT ( r8arr(1,1) ) .eq. -10000 ) .and.
-     +          ( IDNINT ( r8arr(1,2) ) .eq. 16 ) ) THEN
+     +          ( NINT ( r8arr(1,1) ) .eq. -10000 ) .and.
+     +          ( NINT ( r8arr(1,2) ) .eq. 16 ) ) THEN
 	        print *, '        UFBREP -> OK'
             ELSE
 	        print *, '        UFBREP -> FAILED!!'
@@ -124,10 +124,10 @@ C>      some data values.
         IF ( ( nr8a .eq. 1 ) .and.
      +      ( nr8v .eq. 0 ) .and. ( nr8v2 .eq. 0 ) .and.
      +      ( idx1 .gt. 0 ) .and. ( idx2 .gt. 0 ) .and.
-     +      ( IDNINT ( r8arr(1,1)*100000 ) .eq. 2001191 ) .and.
-     +      ( IDNINT ( r8arr(2,1)*100000 ) .eq. -3785017 ) .and.
-     +      ( IDNINT ( r8arr(3,1)*100 ) .eq. 30035 ) .and.
-     +      ( IDNINT ( r8arr(4,1) ) .eq. 2187000 ) ) THEN
+     +      ( NINT ( r8arr(1,1)*100000 ) .eq. 2001191 ) .and.
+     +      ( NINT ( r8arr(2,1)*100000 ) .eq. -3785017 ) .and.
+     +      ( NINT ( r8arr(3,1)*100 ) .eq. 30035 ) .and.
+     +      ( NINT ( r8arr(4,1) ) .eq. 2187000 ) ) THEN
 	    print *, '        UFBPOS -> OK'
 	    print *, '        UFBINT -> OK'
         ELSE
@@ -152,9 +152,9 @@ C>      some data values.
         IF ( ( nr8a .eq. 1 ) .and.
      +      ( nr8v .eq. 0 ) .and. ( nr8v2 .eq. 0 ) .and.
      +      ( idx1 .gt. 0 ) .and. ( idx2 .gt. 0 ) .and.
-     +      ( IDNINT ( r8arr(1,1)*100 ) .eq. 3163 ) .and.
-     +      ( IDNINT ( r8arr(2,1)*100 ) .eq. -11017 ) .and.
-     +      ( IDNINT ( r8arr(3,1) ) .eq. 1205 ) ) THEN
+     +      ( NINT ( r8arr(1,1)*100 ) .eq. 3163 ) .and.
+     +      ( NINT ( r8arr(2,1)*100 ) .eq. -11017 ) .and.
+     +      ( NINT ( r8arr(3,1) ) .eq. 1205 ) ) THEN
 	    print *, '        UFBPOS -> OK'
 	    print *, '        UFBSTP -> OK'
         ELSE
@@ -179,9 +179,9 @@ C>      some data values.
         IF ( ( nr8a .eq. 1 ) .and.
      +      ( nr8v .eq. 0 ) .and. ( nr8v2 .eq. 0 ) .and.
      +      ( idx1 .gt. 0 ) .and. ( idx2 .gt. 0 ) .and.
-     +      ( IDNINT ( r8arr(6,1)*100000 ) .eq. 2967000 ) .and.
-     +      ( IDNINT ( r8arr(7,1)*100000 ) .eq. -9512833 ) .and.
-     +      ( IDNINT ( r8arr(5,1) ) .eq. 482011039 ) ) THEN
+     +      ( NINT ( r8arr(6,1)*100000 ) .eq. 2967000 ) .and.
+     +      ( NINT ( r8arr(7,1)*100000 ) .eq. -9512833 ) .and.
+     +      ( NINT ( r8arr(5,1) ) .eq. 482011039 ) ) THEN
 	    print *, '        UFBPOS -> OK'
 	    print *, '        UFBSEQ -> OK'
         ELSE

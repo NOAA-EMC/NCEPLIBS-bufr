@@ -48,29 +48,17 @@ list(APPEND test_IN_srcs
   test_IN_7.f
   )
 
-list(APPEND test_OUT_1_srcs
-  test_OUT_1.f
-  )
-
 list(APPEND test_OUT_2_srcs
   test_OUT_2.f
   )
 
-list(APPEND test_OUT_3_srcs
+list(APPEND test_OUT_13-6_srcs
+  test_OUT_1.f
   test_OUT_3.f
-)
-
-list(APPEND test_OUT_4_srcs
   test_OUT_4.f
-)
-
-list(APPEND test_OUT_5_srcs
   test_OUT_5.f
-)
-
-list(APPEND test_OUT_6_srcs
   test_OUT_6.f
-)
+  )
 
 list(APPEND test_c_interface_srcs
   test_c_interface.c
@@ -108,16 +96,12 @@ function(bufr_add_test_preAPX TESTNAME EXENAME)
            COMMAND ${CMAKE_BINARY_DIR}/bin/test_wrapper_OUT.sh ${EXENAME} "Y")
 endfunction()
 
-list(APPEND test_kinds_4 "4")
-
-list(APPEND test_kinds_8 "8")
-
-list(APPEND test_kinds_d "d")
+list(APPEND test_kinds 4 8 d)
 
 # IN tests
 foreach(test_src ${test_IN_srcs})
   string(REPLACE ".f" "" testPref ${test_src})
-  foreach(kind ${test_kinds_4} ${test_kinds_8} ${test_kinds_d})
+  foreach(kind ${test_kinds})
     set(test     ${testPref}_${kind})
     set(test_exe ${test}.x)
     add_executable(${test_exe} ${test_src})
@@ -129,25 +113,10 @@ foreach(test_src ${test_IN_srcs})
   endforeach()
 endforeach()
 
-# OUT_1, OUT_3, OUT_4, and OUT_5 tests
-foreach(test_src ${test_OUT_1_srcs} ${test_OUT_3_srcs} ${test_OUT_4_srcs} ${test_OUT_5_srcs})
-  string(REPLACE ".f" "" testPref ${test_src})
-  foreach(kind ${test_kinds_4} ${test_kinds_8} ${test_kinds_d})
-    set(test     ${testPref}_${kind})
-    set(test_exe ${test}.x)
-    add_executable(${test_exe} ${test_src})
-    set_target_properties(${test_exe} PROPERTIES COMPILE_FLAGS
-                                                 "${fortran_${kind}_flags}")
-    add_dependencies(${test_exe} bufr_${kind})
-    target_link_libraries(${test_exe} PRIVATE bufr::bufr_${kind})
-    bufr_add_test(${test} ${test_exe})
-  endforeach()
-endforeach()
-
 # OUT_2 tests; these use the bufr_add_test_preAPX function
 foreach(test_src ${test_OUT_2_srcs})
   string(REPLACE ".f" "" testPref ${test_src})
-  foreach(kind ${test_kinds_4} ${test_kinds_8} ${test_kinds_d})
+  foreach(kind ${test_kinds})
     set(test     ${testPref}_${kind})
     set(test_exe ${test}.x)
     add_executable(${test_exe} ${test_src})
@@ -159,10 +128,10 @@ foreach(test_src ${test_OUT_2_srcs})
   endforeach()
 endforeach()
 
-# OUT_6 tests; these are for "8" (8-byte integer, 8-byte real) builds only
-foreach(test_src ${test_OUT_6_srcs})
+# OUT_1, OUT_3, OUT_4, OUT_5, and OUT_6 tests
+foreach(test_src ${test_OUT_13-6_srcs})
   string(REPLACE ".f" "" testPref ${test_src})
-  foreach(kind ${test_kinds_4} ${test_kinds_8} ${test_kinds_d})
+  foreach(kind ${test_kinds})
     set(test     ${testPref}_${kind})
     set(test_exe ${test}.x)
     add_executable(${test_exe} ${test_src})
@@ -177,14 +146,12 @@ endforeach()
 # c_interface tests
 foreach(test_src ${test_c_interface_srcs})
   string(REPLACE ".c" "" testPref ${test_src})
-  foreach(kind ${test_kinds_4})
-    set(test     ${testPref}_${kind})
-    set(test_exe ${test}.x)
-    add_executable(${test_exe} ${test_src})
-    add_dependencies(${test_exe} bufr_${kind})
-    target_link_libraries(${test_exe} PRIVATE bufr::bufr_${kind})
-    add_test(NAME ${test} COMMAND ${CMAKE_BINARY_DIR}/test/${test_exe})
-  endforeach()
+  set(test     ${testPref}_4)
+  set(test_exe ${test}.x)
+  add_executable(${test_exe} ${test_src})
+  add_dependencies(${test_exe} bufr_4)
+  target_link_libraries(${test_exe} PRIVATE bufr::bufr_4)
+  add_test(NAME ${test} COMMAND ${CMAKE_BINARY_DIR}/test/${test_exe})
 endforeach()
 
 # Test debufr utility
@@ -211,7 +178,6 @@ add_test(NAME test_sinv
 add_test(NAME test_binv  
   COMMAND ${CMAKE_BINARY_DIR}/bin/test_binv.sh "${CMAKE_BINARY_DIR}/utils/binv testfiles/data/satwndbufr" "testrun/binv.out"  "testfiles/testoutput/binv.out"
   )
-
 
 # Test split_by_subset utility
 add_test(NAME test_split_by_subset
