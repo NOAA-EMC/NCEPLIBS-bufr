@@ -52,12 +52,13 @@ list(APPEND test_OUT_2_srcs
   test_OUT_2.f
   )
 
-list(APPEND test_OUT_13-6_srcs
+list(APPEND test_OUT_other_srcs
   test_OUT_1.f
   test_OUT_3.f
   test_OUT_4.f
   test_OUT_5.f
   test_OUT_6.f
+  test_OUT_7.f90
   )
 
 list(APPEND test_c_interface_srcs
@@ -128,8 +129,8 @@ foreach(test_src ${test_OUT_2_srcs})
   endforeach()
 endforeach()
 
-# OUT_1, OUT_3, OUT_4, OUT_5, and OUT_6 tests
-foreach(test_src ${test_OUT_13-6_srcs})
+# all other OUT tests
+foreach(test_src ${test_OUT_other_srcs})
   string(REPLACE ".f" "" testPref ${test_src})
   foreach(kind ${test_kinds})
     set(test     ${testPref}_${kind})
