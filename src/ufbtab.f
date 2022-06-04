@@ -76,12 +76,14 @@ C> | 2012-09-15 | J. Woollen | Modified for C/I/O/BUFR interface; added IO type 
 C> | 2014-11-20 | J. Ator    | Ensure openbf() has been called at least once before calling status() |
 C> | 2014-12-10 | J. Ator    | Use modules instead of COMMON blocks |
 C> | 2016-12-19 | J. Woollen | Fix bug to prevent inventory overflow |
+C> | 2022-05-06 | J. Woollen | Use up8 and upb8 for 8byte integers, use nbmp for usrtpl, add msgunp=1 option |
 C>
       SUBROUTINE UFBTAB(LUNIN,TAB,I1,I2,IRET,STR)
 
       USE MODV_BMISS
       USE MODA_USRINT
       USE MODA_MSGCWD
+      USE MODA_UNPTYP
       USE MODA_BITBUF
       USE MODA_TABLES
 
@@ -95,14 +97,15 @@ C>
       CHARACTER*10  TGS(100)
       CHARACTER*8   SUBSET,CVAL
       EQUIVALENCE   (CVAL,RVAL)
+      integer*8     ival,lref,ninc,mps,lps
       LOGICAL       OPENIT,JUST_COUNT
       REAL*8        TAB(I1,I2),RVAL,UPS
 
       DATA MAXTG /100/
 
 C-----------------------------------------------------------------------
-      MPS(NODE) = 2**(IBT(NODE))-1
-      LPS(LBIT) = MAX(2**(LBIT)-1,1)
+      MPS(NODE) = 2_8**(IBT(NODE))-1
+      LPS(LBIT) = MAX(2_8**(LBIT)-1,1)
 C-----------------------------------------------------------------------
 
 C  SET COUNTERS TO ZERO
@@ -185,14 +188,7 @@ C  ---------------------------------
 C  PARSE THE MESSAGE DEPENDING ON WHETHER COMPRESSED OR NOT
 C  --------------------------------------------------------
 
-      CALL MESGBC(-LUNIT,MTYP,ICMP)
-      IF(ICMP.EQ.0) THEN
-         GOTO 15
-      ELSEIF(ICMP.EQ.1) then
-         GOTO 115
-      ELSE
-         GOTO 900
-      ENDIF
+      if(msgunp(lun)==2) goto 115 
 
 C  ---------------------------------------------
 C  THIS BRANCH IS FOR UNCOMPRESSED MESSAGES
@@ -211,7 +207,9 @@ C  ---------------------------------------------
 C  PARSE THE STRING NODES FROM A SUBSET
 C  ------------------------------------
 
-      MBIT = MBYT(LUN)*8 + 16
+      if(msgunp(lun)==0) MBIT = MBYT(LUN)*8 + 16
+      if(msgunp(lun)==1) MBIT = MBYT(LUN)
+
       NBIT = 0
       N = 1
       CALL USRTPL(LUN,N,N)
@@ -221,16 +219,16 @@ C  ------------------------------------
          MBIT = MBIT+NBIT
          NBIT = IBT(NODE)
          IF(ITP(NODE).EQ.1) THEN
-            CALL UPBB(IVAL,NBIT,MBIT,MBAY(1,LUN))
-            CALL USRTPL(LUN,N,IVAL)
+            CALL UPB8(IVAL,NBIT,MBIT,MBAY(1,LUN))
+            NBMP=IVAL; CALL USRTPL(LUN,N,NBMP)
          ENDIF
          DO I=1,NNOD
          IF(NODS(I).EQ.NODE) THEN
             IF(ITP(NODE).EQ.1) THEN
-               CALL UPBB(IVAL,NBIT,MBIT,MBAY(1,LUN))
+               CALL UPB8(IVAL,NBIT,MBIT,MBAY(1,LUN))
                TAB(I,IRET) = IVAL
             ELSEIF(ITP(NODE).EQ.2) THEN
-               CALL UPBB(IVAL,NBIT,MBIT,MBAY(1,LUN))
+               CALL UPB8(IVAL,NBIT,MBIT,MBAY(1,LUN))
                IF(IVAL.LT.MPS(NODE)) TAB(I,IRET) = UPS(IVAL,NODE)
             ELSEIF(ITP(NODE).EQ.3) THEN
                CVAL = ' '
@@ -250,9 +248,14 @@ C  ------------------------------------
 C  UPDATE THE SUBSET POINTERS BEFORE NEXT READ
 C  -------------------------------------------
 
-      IBIT = MBYT(LUN)*8
-      CALL UPB(NBYT,16,MBAY(1,LUN),IBIT)
-      MBYT(LUN) = MBYT(LUN) + NBYT
+      if(msgunp(lun)==0) then
+         IBIT = MBYT(LUN)*8
+         CALL UPB(NBYT,16,MBAY(1,LUN),IBIT)
+         MBYT(LUN) = MBYT(LUN) + NBYT
+      elseif(msgunp(lun)==1) then
+         mbyt(lun)=mbit
+      endif
+
       NSUB(LUN) = NSUB(LUN) + 1
       IF(IREC.GT.0) TAB(IREC,IRET) = NMSG(LUN)
       IF(ISUB.GT.0) TAB(ISUB,IRET) = NSUB(LUN)
@@ -315,7 +318,7 @@ C  FIND THE EXTENT OF THE NEXT SUB-GROUP
 C  -------------------------------------
 
 125   IF(ITYP.EQ.1.OR.ITYP.EQ.2) THEN
-         CALL UPB(LREF,NBIT,MBAY(1,LUN),IBIT)
+         CALL UP8(LREF,NBIT,MBAY(1,LUN),IBIT)
          CALL UPB(LINC,   6,MBAY(1,LUN),IBIT)
          NIBIT = IBIT + LINC*MSUB(LUN)
       ELSEIF(ITYP.EQ.3) THEN
@@ -332,9 +335,9 @@ C  ------------------------------
 
       IF(ITYP.EQ.1) THEN
          JBIT = IBIT + LINC
-         CALL UPB(NINC,LINC,MBAY(1,LUN),JBIT)
+         CALL UP8(NINC,LINC,MBAY(1,LUN),JBIT)
          IVAL = LREF+NINC
-         CALL USRTPL(LUN,N,IVAL)
+         CALL USRTPL(LUN,N,int(IVAL))
          GOTO 120
       ENDIF
 
@@ -356,7 +359,7 @@ C  -----------------------------
       IF(ITYP.EQ.1.OR.ITYP.EQ.2) THEN
          DO NSB=1,MSUB(LUN)
          JBIT = IBIT + LINC*(NSB-1)
-         CALL UPB(NINC,LINC,MBAY(1,LUN),JBIT)
+         CALL UP8(NINC,LINC,MBAY(1,LUN),JBIT)
          IVAL = LREF+NINC
          LRET = LRET+1
          IF(NINC.LT.LPS(LINC)) TAB(I,LRET) = UPS(IVAL,NODE)
@@ -443,8 +446,4 @@ C  EXITS
 C  -----
 
       RETURN
-900   WRITE(BORT_STR,'("BUFRLIB: UFBTAB - INVALID COMPRESSION '//
-     . 'INDICATOR (ICMP=",I3," RETURNED FROM BUFR ARCHIVE LIBRARY '//
-     . 'ROUTINE MESGBC")') ICMP
-      CALL BORT(BORT_STR)
       END

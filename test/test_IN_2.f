@@ -62,10 +62,10 @@ C*	    Read the 5th data subset from the BUFR message.
 		CALL UFBINT ( 11, r8arr, MXR8PM, MXR8LV,
      +			      nr8lv, 'CLAT SAZA PRLC WDIR RPID SIDP' )
 		IF (  ( nr8lv .eq. 1 ) .and.
-     +			( IDNINT(r8arr(1,1)*100) .eq. 1260 ) .and.
-     +			( IDNINT(r8arr(2,1)*100) .eq. 2765 ) .and.
-     +			( IDNINT(r8arr(3,1)) .eq. 25540 ) .and.
-     +			( IDNINT(r8arr(4,1)) .eq. 218 ) .and.
+     +			( NINT(r8arr(1,1)*100) .eq. 1260 ) .and.
+     +			( NINT(r8arr(2,1)*100) .eq. 2765 ) .and.
+     +			( NINT(r8arr(3,1)) .eq. 25540 ) .and.
+     +			( NINT(r8arr(4,1)) .eq. 218 ) .and.
      +			( IBFMS(r8arr(5,1)) .eq. 1 ) ) THEN
 		    print *, '        UFBINT -> OK'
 		    print *, '         IBFMS -> OK'
@@ -84,21 +84,21 @@ C*	    Read the 5th data subset from the BUFR message.
 		CALL UFBREP ( 11, r8arr, MXR8PM, MXR8LV,
      +			      nr8lv, 'GNAP PCCF MAQC NCTH' )
 		IF (  ( nr8lv .eq. 12 ) .and.
-     +			( IDNINT(r8arr(1,2)) .eq. 2 ) .and.
-     +			( IDNINT(r8arr(2,4)) .eq. 86 ) .and.
-     +			( IDNINT(r8arr(2,6)) .eq. 0 ) .and.
+     +			( NINT(r8arr(1,2)) .eq. 2 ) .and.
+     +			( NINT(r8arr(2,4)) .eq. 86 ) .and.
+     +			( NINT(r8arr(2,6)) .eq. 0 ) .and.
      +			( IBFMS(r8arr(3,8)) .eq. 1 ) .and.
      +			( IBFMS(r8arr(4,9)) .eq. 1 ) .and.
-     +			( IDNINT(r8arr(2,11)) .eq. 97 ) .and.
-     +			( IDNINT(r8arr(1,12)) .eq. 3 ) ) THEN
+     +			( NINT(r8arr(2,11)) .eq. 97 ) .and.
+     +			( NINT(r8arr(1,12)) .eq. 3 ) ) THEN
 		    print *, '        UFBREP -> OK'
 		ELSE
 		    print *, '        UFBREP -> FAILED!!'
 		ENDIF
 
-		IF ( ( IDNINT(GETVALNB(11,'NCTH',3,'PCCF',-1)) .eq. 0 )
+		IF ( ( NINT(GETVALNB(11,'NCTH',3,'PCCF',-1)) .eq. 0 )
      +			.and.
-     +		     ( IDNINT(GETVALNB(11,'SSNX',1,'SWCM',1)) .eq. 1 ) )
+     +		     ( NINT(GETVALNB(11,'SSNX',1,'SWCM',1)) .eq. 1 ) )
      +		   THEN
 		    print *, '      GETVALNB -> OK'
 		ELSE

@@ -61,6 +61,7 @@ C> 2016-03-18  J. ATOR    -- FIX BUG INVOLVING ENCODING OF LONG CHARACTER
 C>                           STRINGS (VIA WRITLC) INTO MESSAGES WHICH
 C>                           ALSO CONTAIN DELAYED REPLICATION SEQUENCES
 C> 2021-02-24  J. ATOR    -- USE IPKM AND PKC INSTEAD OF PKX
+C> 2022-05-06  J. WOOLLEN -- USE PKB8 FOR PACKING 8BYTE INTEGERS 
 C>
 C> USAGE:    CALL WRCMPS (LUNIX)
 C>   INPUT ARGUMENT LIST:
@@ -72,7 +73,7 @@ C> REMARKS:
 C>    THIS ROUTINE CALLS:        BORT     CMSGINI  IUPBS01  MSGFULL
 C>                               MSGWRT   PKB      PKC      PKX
 C>                               STATUS   UPB      UPC      USRTPL
-C>    THIS ROUTINE IS CALLED BY: CLOSMG   WRITSA   WRITSB
+C>    THIS ROUTINE IS CALLED BY: CLOSMG   WRITSA   WRITSB   PKB8
 C>                               Normally not called by any application
 C>                               programs.
 C>
@@ -207,7 +208,7 @@ C     REFERENCE VALUES, INCREMENTS, ETC.)
       ITYP(I) = ITP(NODE)
       IWID(I) = IBT(NODE)
       IF(ITYP(I).EQ.1.OR.ITYP(I).EQ.2) THEN
-         CALL UPB(MATX(I,NCOL),IBT(NODE),IBAY,IBIT)
+         CALL UP8(MATX(I,NCOL),IBT(NODE),IBAY,IBIT)
       ELSEIF(ITYP(I).EQ.3) THEN
          CALL UPC(CATX(I,NCOL),IBT(NODE)/8,IBAY,IBIT,.TRUE.)
       ENDIF
@@ -370,16 +371,16 @@ C     NOW ADD THE SECTION 4 DATA.
       IBIT = IBYT*8
       DO I=1,NROW
       IF(ITYP(I).EQ.1.OR.ITYP(I).EQ.2) THEN
-         CALL PKB(KMIN(I),IWID(I),MGWA,IBIT)
+         CALL PKB8(KMIN(I),IWID(I),MGWA,IBIT)
          CALL PKB(KBIT(I),      6,MGWA,IBIT)
          IF(KBIT(I).GT.0) THEN
             DO J=1,NCOL
-            IF(MATX(I,J).LT.2**IWID(I)-1) THEN
+            IF(MATX(I,J).LT.2_8**IWID(I)-1) THEN
                INCR = MATX(I,J)-KMIN(I) 
             ELSE 
-               INCR = 2**KBIT(I)-1
+               INCR = 2_8**KBIT(I)-1
             ENDIF
-            CALL PKB(INCR,KBIT(I),MGWA,IBIT)
+            CALL PKB8(INCR,KBIT(I),MGWA,IBIT)
             ENDDO
          ENDIF
       ELSEIF(ITYP(I).EQ.3) THEN
