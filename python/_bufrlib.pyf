@@ -241,13 +241,11 @@ subroutine cktaba(lun,subset,jdate,iret) ! in cktaba.f
     common /unptyp/ msgunp
     common /sc3bfr/ isc3,tamnem
 end subroutine cktaba
-subroutine closbf(lunit) ! in closbf.f
+subroutine closbf_body(lunit) ! in closbf.f90
     integer :: lunit
     real*8 :: bmiss
     integer dimension(32) :: null
-    common /bufrbmiss/ bmiss
-    common /nulbfr/ null
-end subroutine closbf
+end subroutine closbf_body
 subroutine closmg(lunin) ! in closmg.f
     integer :: lunin
     integer dimension(32) :: nmsg
@@ -1799,33 +1797,11 @@ subroutine nxtwin(lun,iwin,jwin) ! in nxtwin.f
     common /bufrbmiss/ bmiss
     common /usrint/ nval,inv,val
 end subroutine nxtwin
-subroutine openbf(lunit,io,lundx) ! in openbf.f
+subroutine openbf_body(lunit,io,lundx) ! in openbf.f90
     integer :: lunit
     character*(*) :: io
     integer :: lundx
-    integer dimension(32) :: nmsg
-    integer dimension(32) :: nsub
-    integer dimension(32) :: msub
-    integer dimension(32) :: inode
-    integer dimension(32) :: idate
-    real*8 :: bmiss
-    integer dimension(32) :: iscodes
-    integer dimension(32) :: null
-    integer dimension(32) :: iolun
-    integer dimension(32) :: iomsg
-    integer :: iprt
-    integer dimension(32) :: lus
-    integer dimension(32) :: isc3
-    character dimension(32,8),intent(c) :: tamnem
-    common /msgcwd/ nmsg,nsub,msub,inode,idate
-    common /bufrbmiss/ bmiss
-    common /stcode/ iscodes
-    common /nulbfr/ null
-    common /stbfr/ iolun,iomsg
-    common /quiet/ iprt
-    common /lushr/ lus
-    common /sc3bfr/ isc3,tamnem
-end subroutine openbf
+end subroutine openbf_body
 subroutine openbt(lundx,mtyp) ! in openbt.f
     integer :: lundx
     integer :: mtyp

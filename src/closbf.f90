@@ -71,7 +71,9 @@ module subroutine_closbf
 
     end subroutine closbf_8
 
-    subroutine closbf_body( lunit )
+end module
+
+subroutine closbf_body( lunit )
 
       USE MODA_NULBFR
 
@@ -99,7 +101,4 @@ module subroutine_closbf
       IF(NULL(LUN).EQ.0) CLOSE(LUNIT)
 
       RETURN
-
-    end subroutine closbf_body
-
-end module
+end

@@ -163,7 +163,9 @@ module subroutine_openbf
 
     end subroutine openbf_8
 
-    subroutine openbf_body( lunit, io, lundx )
+end module
+
+subroutine openbf_body( lunit, io, lundx )
 
       USE MODV_IFOPBF
       USE MODA_MSGCWD
@@ -337,6 +339,4 @@ module subroutine_openbf
       CALL BORT(BORT_STR)
 904   CALL BORT('BUFRLIB: OPENBF - SECOND (INPUT) ARGUMENT MUST BE "IN", "OUT", "NODX", "NUL", "APN", "APX", "SEC3" OR "QUIET"')
 
-    end subroutine openbf_body
-
-end module
+end
