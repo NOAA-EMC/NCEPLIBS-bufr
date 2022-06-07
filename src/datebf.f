@@ -50,6 +50,9 @@ C>
 
       USE MODA_MGWA
 
+      use subroutine_closbf
+      use subroutine_openbf
+
       COMMON /QUIET / IPRT
 
       CHARACTER*128 ERRSTR

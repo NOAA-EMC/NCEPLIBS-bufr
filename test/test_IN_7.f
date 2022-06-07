@@ -19,7 +19,7 @@ C>      This subroutine supersedes the subroutine of the same name
 C>      from the BUFRLIB software, so that we can easily test the
 C>      generation of error messages from within the library.
 
-        USE Share_errstr
+        use Share_errstr
 
         CHARACTER*(*)   str
 
@@ -34,7 +34,8 @@ C>      generation of error messages from within the library.
 
 C>-------------------------------------------------------------------
 
-        USE Share_errstr
+	use bufr_procedures
+        use Share_errstr
 
 	PARAMETER	( MXR8PM = 15 )
 	PARAMETER	( MXR8LV = 5 )

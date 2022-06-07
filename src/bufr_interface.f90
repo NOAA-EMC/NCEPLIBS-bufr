@@ -130,6 +130,8 @@ end subroutine close_c
 !> @param[in] table_file_id - c_int: table_file unit number
 !>
 subroutine openbf_c(bufr_unit, cio, table_file_id) bind(C, name='openbf_f')
+  use subroutine_openbf
+
   integer(c_int), value, intent(in) :: bufr_unit
   character(kind=c_char, len=1), intent(in) :: cio
   integer(c_int), value, intent(in) :: table_file_id
@@ -146,6 +148,8 @@ end subroutine openbf_c
 !> @param[in] bufr_unit - c_int: the fortran file unit number to close
 !>
 subroutine closbf_c(bufr_unit) bind(C, name='closbf_f')
+  use subroutine_closbf
+
   integer(c_int), value, intent(in) :: bufr_unit
 
   call closbf(bufr_unit)

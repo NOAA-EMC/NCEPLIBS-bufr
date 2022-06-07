@@ -8,6 +8,8 @@
 
 program split_by_subset
 
+  use bufr_procedures
+
   implicit none
 
   integer, parameter :: maxsub = 100

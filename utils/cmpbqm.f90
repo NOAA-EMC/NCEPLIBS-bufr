@@ -6,6 +6,8 @@
 !  MAIN PROGRAM CMPBQM
 !-----------------------------------------------------------------------
       PROGRAM CMPBQM
+
+      use bufr_procedures
  
       CHARACTER*255 FILE
       CHARACTER*50 HEADR,OBSTR,QMSTR,FCSTR,ERSTR,QMSFC

@@ -41,6 +41,8 @@ C>
 	USE MODA_STBFR
 	USE MODA_S01CM
 
+        use subroutine_closbf
+
 	COMMON /TABLEF/ CDMF
 
 	CHARACTER*1 CDMF

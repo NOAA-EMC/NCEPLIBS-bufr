@@ -1,5 +1,7 @@
 program test_OUT_7
 
+  use bufr_procedures
+
   character cmgtag*8
 
   integer imesg(10), isub(3)

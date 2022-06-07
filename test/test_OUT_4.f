@@ -1,3 +1,5 @@
+	use bufr_procedures
+
         PARAMETER ( MXVAL1 = 200 )
         PARAMETER ( MXVAL2 = 12 )
         PARAMETER ( MXLVL = 4490 )

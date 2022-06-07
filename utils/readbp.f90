@@ -3,6 +3,8 @@
 !-----------------------------------------------------------------------
       PROGRAM READBP
 
+      use bufr_procedures
+
       character(120) ::  FILE
       character(50)  ::  optarg
       character(40)  ::  HSTR,OSTR,QSTR

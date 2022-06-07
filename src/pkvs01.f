@@ -73,6 +73,8 @@ C>
 
       USE MODA_S01CM
 
+      use subroutine_openbf
+
       CHARACTER*(*) S01MNEM
 
       CHARACTER*128 BORT_STR

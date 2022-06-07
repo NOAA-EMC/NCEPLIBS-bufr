@@ -1,3 +1,4 @@
+	use bufr_procedures
 
 	PARAMETER	( MXR8PM = 10 )
 	PARAMETER	( MXR8LV = 255 )

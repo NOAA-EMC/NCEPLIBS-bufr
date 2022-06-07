@@ -47,6 +47,8 @@ C>
       USE MODA_MSGCWD
       USE MODA_BITBUF
 
+      use subroutine_openbf
+
       CHARACTER*128 BORT_STR
       CHARACTER*8   SUBSET
 

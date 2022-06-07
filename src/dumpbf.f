@@ -81,6 +81,9 @@ C>
 
       USE MODA_MGWA
 
+      use subroutine_closbf
+      use subroutine_openbf
+
       COMMON /QUIET / IPRT
 
       DIMENSION     JDATE(5),JDUMP(5)

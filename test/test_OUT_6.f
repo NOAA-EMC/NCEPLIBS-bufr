@@ -1,3 +1,5 @@
+	use bufr_procedures
+
 	REAL*8		r8f5fc ( 8, 5 ), r8dbss ( 4, 3 ),
      +                  r8wind ( 2, 1 ), r8val
 

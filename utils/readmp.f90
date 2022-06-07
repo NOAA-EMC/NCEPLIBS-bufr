@@ -4,6 +4,8 @@
 
   program readmp
 
+  use bufr_procedures
+
   implicit none
 
   character(255)     :: file        !> name of filename to read

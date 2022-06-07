@@ -11,6 +11,8 @@ list(APPEND fortran_src
   moda_msglim.F moda_msgmem.F moda_mstabs.F moda_nmikrp.F moda_nrv203.F moda_nulbfr.F moda_rdmtb.F
   moda_rlccmn.F moda_s01cm.F moda_sc3bfr.F moda_stbfr.F moda_stcode.F moda_tababd.F moda_tables.F
   moda_ufbcpl.F moda_unptyp.F moda_usrbit.F moda_usrint.F moda_usrtmp.F moda_xtab.F
+  closbf.f90 openbf.f90
+  bufr_procedures.f90
   adn30.f atrcpt.f blocks.f bort.f bort2.f cadn30.f capit.f chekstab.f chrtrna.f cktaba.f closmg.f
   cmpmsg.f cmsgini.f cnved4.f codflg.f conwin.f copybf.f copymg.f copysb.f cpbfdx.f cpdxmm.f cpymem.f
   cpyupd.f datebf.f datelen.f digit.f drfini.f drstpl.f dumpbf.f dxdump.f dxinit.f dxmini.f elemdx.f
@@ -32,7 +34,7 @@ list(APPEND fortran_src
   ufbmem.f ufbmex.f ufbmms.f ufbmns.f ufbovr.f ufbpos.f ufbqcd.f ufbqcp.f ufbrep.f ufbrms.f ufbrp.f
   ufbrw.f ufbseq.f ufbsp.f ufbstp.f ufbtab.f ufbtam.f ufdump.f upb.f upbb.f upc.f upds3.f upftbv.f
   ups.f uptdd.f usrtpl.f valx.f wrcmps.f wrdxtb.f writcp.f writdx.f writlc.f writsa.f writsb.f
-  wrtree.f wtstat.f arallocf.f ardllocf.f closbf.f ireadmt.f irev.F isetprm.f openbf.f pkvs01.f
+  wrtree.f wtstat.f arallocf.f ardllocf.f ireadmt.f irev.F isetprm.f pkvs01.f
   wrdlen.F fortran_open.f90 fortran_close.f90 bufr_interface.f90 pkb8.f upb8.f up8.f)
 
 list(APPEND c_src
