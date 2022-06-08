@@ -327,10 +327,55 @@ void test_intrusiveInterface()
 }
 
 
+void test_getunit()
+{
+    static const int UNIT_STR_LEN = 20;
+    const char* subset = "NC021053";
+    const char* mnemonic = "CLAT";
+
+    int bufrLoc, il, im;
+    int iret;
+    int iddate;
+    char msg_subset[SUBSET_STRING_LEN];
+    unsigned int subset_cnt = countSubsets(subset);
+    unsigned int idx;
+
+    open_f(BUFR_FILE_UNIT, INPUT_FILE);
+    openbf_f(BUFR_FILE_UNIT, "IN", BUFR_FILE_UNIT);
+
+    double data_int = 0;
+    double data_rep = 0;
+    double* data_int_ptr = &data_int;
+    double* data_rep_ptr = &data_rep;
+    double data_int_buf[subset_cnt];
+    double data_rep_buf[subset_cnt];
+
+    int subset_idx = 0;
+    while (ireadmg_f(BUFR_FILE_UNIT, msg_subset, &iddate, SUBSET_STRING_LEN) == 0)
+    {
+        if (strncmp(subset, msg_subset, 8))
+        {
+            while ((ireadsb_f(BUFR_FILE_UNIT) == 0) && (subset_idx < MAX_SUBSETS))
+            {
+                status_f(BUFR_FILE_UNIT, &bufrLoc, &il, &im);
+
+                char res[UNIT_STR_LEN];
+                get_unit_f(bufrLoc, "SAID", res, UNIT_STR_LEN);
+                break;
+            }
+        }
+    }
+
+    closbf_f(BUFR_FILE_UNIT);
+    close_f(BUFR_FILE_UNIT);
+}
+
+
 int main()
 {
     test_basicInterface();
     test_intrusiveInterface();
+    test_getunit();
 
     return 0;
 }

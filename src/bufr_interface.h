@@ -262,6 +262,8 @@ extern "C" {
 */
   void get_inv_f(int lun, int** data, int* len);
 
+  void get_unit_f(int lun, const char* mnemonic, char* unit_c, int unit_str_len);
+
 
 /** @author Ronald McLaren
 @date 2022-03-23

@@ -499,6 +499,42 @@ end subroutine get_inv_c
 !>  @author Ronald McLaren
 !>  @date 2022-03-23
 !>
+!>  @brief Get pointer to the moda_usrint INV array.
+!>
+!>  @param[out] lun - c_int: pointer for the file stream
+!>  @param[out] inv_ptr - c_ptr: c style pointer to the INV array
+!>  @param[out] inv_size - c_int: length of the array
+!>
+subroutine get_unit_c(lun, mnemonic, unit_c, unit_str_len) bind(C, name='get_unit_f')
+  use moda_tababd
+  integer(c_int), value, intent(in) :: lun
+  character(kind=c_char,len=1), intent(in) :: mnemonic(*)
+  character(kind=c_char, len=1), intent(inout) :: unit_c(*)
+  integer(c_int), value, intent(in) :: unit_str_len
+
+  character(len=:), allocatable :: mnemonic_f
+  character(len=:), allocatable :: unit_f
+
+  integer :: idx
+
+  mnemonic_f = c_f_string(mnemonic)
+
+  do idx=1,ntbb(lun)
+    if (trim(tabb(idx, lun)(7:14)) == mnemonic_f) then
+      unit_f = trim(tabb(idx, lun)(71:94))
+      exit
+    end if
+  end do
+
+  if (allocated(unit_f)) then
+    call copy_f_c_str(unit_f, unit_c, int(unit_str_len))
+  end if
+end subroutine get_unit_c
+
+
+!>  @author Ronald McLaren
+!>  @date 2022-03-23
+!>
 !>  @brief Deletes the copies of the moda_tables arrays.
 !>
 subroutine delete_table_data_c() bind(C, name='delete_table_data_f')
