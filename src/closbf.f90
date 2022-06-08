@@ -48,11 +48,7 @@ module subroutine_closbf
 
         integer(kind=4), intent(in) :: lunit
 
-        integer :: my_lunit
-
-        my_lunit = lunit
-
-        call closbf_body( my_lunit )
+        call closbf_body( lunit )
 
     end subroutine closbf_4_d
 

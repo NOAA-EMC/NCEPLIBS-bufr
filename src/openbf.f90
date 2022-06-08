@@ -137,12 +137,7 @@ module subroutine_openbf
         integer(kind=4), intent(in) :: lunit, lundx
         character(len=*), intent(in) :: io
 
-        integer :: my_lunit, my_lundx 
-
-        my_lunit = lunit
-        my_lundx = lundx
-
-        call openbf_body( my_lunit, io, my_lundx )
+        call openbf_body( lunit, io, lundx )
 
     end subroutine openbf_4_d
 
