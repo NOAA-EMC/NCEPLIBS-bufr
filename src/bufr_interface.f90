@@ -527,7 +527,7 @@ subroutine get_unit_c(lun, mnemonic, unit_c, unit_str_len) bind(C, name='get_uni
   end do
 
   if (allocated(unit_f)) then
-    call copy_f_c_str(unit_f, unit_c, int(unit_str_len))
+    call copy_f_c_str(unit_f, unit_c, min(len(unit_f) + 1, int(unit_str_len)))
   end if
 end subroutine get_unit_c
 
