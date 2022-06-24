@@ -9,26 +9,6 @@ C> @date 2014-12-10
 
 	MODULE MODA_TABABD
 
-#ifndef MAXTBA_H
-#define MAXTBA_H
-	  USE MODV_MAXTBA
-#endif
-
-#ifndef MAXTBB_H
-#define MAXTBB_H
-	  USE MODV_MAXTBB
-#endif
-
-#ifndef MAXTBD_H
-#define MAXTBD_H
-	  USE MODV_MAXTBD
-#endif
-
-#ifndef NFILES_H
-#define NFILES_H
-	  USE MODV_NFILES
-#endif
-
 C>        @var ntba
 C>        Number of Table A entries for each internal I/O stream
 C>        (up to a maximum of MAXTBA, whose value is stored in

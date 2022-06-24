@@ -9,8 +9,7 @@
 module MODV_MXNAF
 
 !> @var mxnaf
-!> Maximum number of associated fields that can be in
-!> effect at any given time for a Table B descriptor.
+!> Maximum number of associated fields that can be in effect at any given time for a Table B descriptor.
 
   integer, parameter, public :: MXNAF = 4
 

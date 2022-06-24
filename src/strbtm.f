@@ -20,6 +20,9 @@ C>                               programs.
 C>
 	SUBROUTINE STRBTM ( N, LUN )
 
+        USE MODV_MXBTM
+        USE MODV_MXBTMSE
+
 	USE MODA_MSGCWD
 	USE MODA_USRINT
 	USE MODA_TABLES

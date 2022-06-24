@@ -78,6 +78,9 @@ C>                               Normally not called by any application
 C>                               programs.
 C>
       SUBROUTINE WRCMPS(LUNIX)
+
+      USE MODV_MXCDV
+      USE MODV_MXCSB
  
       USE MODA_USRINT
       USE MODA_MSGCWD

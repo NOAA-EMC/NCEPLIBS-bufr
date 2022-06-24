@@ -9,10 +9,8 @@
 module MODV_BMISS
 
 !> @var bmiss
-!> Current placeholder value to represent "missing"
-!> data when reading from or writing to BUFR files;
-!> this value can be changed at any time via a call
-!> to subroutine setbmiss().
+!> Current placeholder value to represent "missing" data when reading from or writing to BUFR files;
+!> this value can be changed at any time via a call to subroutine setbmiss().
 
   real*8, public :: BMISS = 10E10_8
 

@@ -1,10 +1,5 @@
 	MODULE MODA_USRTMP
 
-#ifndef MAXJL_H
-#define MAXJL_H
-	  USE MODV_MAXJL
-#endif
-
 	  PARAMETER ( MAXRCR = 100 )
 
 	  INTEGER, ALLOCATABLE :: IUTMP(:,:)

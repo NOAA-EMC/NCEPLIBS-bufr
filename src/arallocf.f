@@ -30,8 +30,33 @@ C> | 2017-05-22 | J. Ator | Added allocations for MODA_RLCCMN |
 C> | 2019-05-09 | J. Ator | Modified allocations for MODA_BUFRMG |
 C> | 2021-01-08 | J. Ator | Modified mstabs array declarations for GNUv10 portability |
 C> | 2021-05-17 | J. Ator | Allow up to 24 characters in cbunit |
+C> | 2022-06-24 | J. Ator | Remove MODV references from MODA files and include explicitly where needed |
 C>
 	SUBROUTINE ARALLOCF
+
+        USE MODV_MAXCD
+        USE MODV_MAXJL
+        USE MODV_MAXMEM
+        USE MODV_MAXMSG
+        USE MODV_MAXSS
+        USE MODV_MAXTBA
+        USE MODV_MAXTBB
+        USE MODV_MAXTBD
+        USE MODV_MXBTM
+        USE MODV_MXBTMSE
+        USE MODV_MXCDV
+        USE MODV_MXCSB
+        USE MODV_MXDXTS
+        USE MODV_MXLCC
+        USE MODV_MXMSGL
+        USE MODV_MXMTBB
+        USE MODV_MXMTBD
+        USE MODV_MXNRV
+        USE MODV_MXRST
+        USE MODV_MXS01V
+        USE MODV_MXTAMC
+        USE MODV_MXTCO
+        USE MODV_NFILES
 
 	USE MODA_USRINT
 	USE MODA_USRBIT
