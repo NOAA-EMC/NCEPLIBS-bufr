@@ -1,6 +1,9 @@
 python module _bufrlib
     interface
 
+subroutine bvers(cverstr) ! in bvers.f
+    character*12,intent(out) :: cverstr
+end subroutine bvers
 subroutine closbf(lunit) ! in closbf.f
     integer :: lunit
 end subroutine closbf
