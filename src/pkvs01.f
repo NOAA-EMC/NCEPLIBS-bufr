@@ -71,6 +71,8 @@ C> | 2015-03-03 | J. Ator    | Use module MODA_S01CM |
 C>
       SUBROUTINE PKVS01(S01MNEM,IVAL)
 
+      USE MODV_MXS01V
+
       USE MODA_S01CM
 
       CHARACTER*(*) S01MNEM

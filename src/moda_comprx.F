@@ -1,15 +1,5 @@
 	MODULE MODA_COMPRX
 
-#ifndef MXCDV_H
-#define MXCDV_H
-	  USE MODV_MXCDV
-#endif
-
-#ifndef MXLCC_H
-#define MXLCC_H
-	  USE MODV_MXLCC
-#endif
-
 	  INTEGER :: NROW
 	  INTEGER :: LUNC
 	  INTEGER :: KBYT

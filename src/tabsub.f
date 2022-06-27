@@ -45,6 +45,9 @@ C>                               programs.
 C>
       SUBROUTINE TABSUB(LUN,NEMO)
 
+      USE MODV_MXTAMC
+      USE MODV_MXTCO
+
       USE MODA_TABLES
       USE MODA_NMIKRP
       USE MODA_NRV203

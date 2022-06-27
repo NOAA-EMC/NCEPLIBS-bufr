@@ -14,15 +14,8 @@ C> @date 2012-03-02
 
 	MODULE MODA_DSCACH
 
-#ifndef MAXNC_H
-#define MAXNC_H
 	  USE MODV_MAXNC
-#endif
-
-#ifndef MXCNEM_H
-#define MXCNEM_H
 	  USE MODV_MXCNEM
-#endif
 
 C>        @var ncnem
 C>        Number of entries in the internal Table A mnemonic

@@ -53,6 +53,8 @@ C> | 2019-05-09 | J. Ator    | Added dimensions for MSGLEN and MSGTXT |
 C>
       SUBROUTINE MSGWRT(LUNIT,MESG,MGBYT)
 
+      USE MODV_MXMSGL
+
       USE MODA_NULBFR
       USE MODA_BUFRMG
       USE MODA_MGWA

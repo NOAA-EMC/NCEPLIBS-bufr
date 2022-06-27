@@ -1,10 +1,5 @@
 	MODULE MODA_IVAL
 
-#ifndef MAXSS_H
-#define MAXSS_H
-	  USE MODV_MAXSS
-#endif
-
 	  INTEGER(8), ALLOCATABLE :: IVAL(:)
 
 	END MODULE

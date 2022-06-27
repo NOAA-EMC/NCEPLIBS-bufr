@@ -49,6 +49,9 @@ C> | 2015-09-24 | D. Stokes  | Fix missing declaration of COMMON /QUIET/ |
 C>
       SUBROUTINE UFBMEX(LUNIT,LUNDX,INEW,IRET,MESG) 
 
+      USE MODV_MAXMEM
+      USE MODV_MAXMSG
+
       USE MODA_MGWA
       USE MODA_MSGMEM
 

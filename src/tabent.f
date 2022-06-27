@@ -50,6 +50,8 @@ C>                               programs.
 C>
       SUBROUTINE TABENT(LUN,NEMO,TAB,ITAB,IREP,IKNT,JUM0)
 
+      USE MODV_MXNRV
+
       USE MODA_TABLES
       USE MODA_NRV203
 

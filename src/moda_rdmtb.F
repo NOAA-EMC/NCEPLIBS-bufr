@@ -1,20 +1,5 @@
 	MODULE MODA_RDMTB
 
-#ifndef MAXCD_H
-#define MAXCD_H
-	  USE MODV_MAXCD
-#endif
-
-#ifndef MXMTBB_H
-#define MXMTBB_H
-	  USE MODV_MXMTBB
-#endif
-
-#ifndef MXMTBD_H
-#define MXMTBD_H
-	  USE MODV_MXMTBD
-#endif
-
 	  INTEGER, ALLOCATABLE :: IEFXYN(:,:)
 	  CHARACTER*4, ALLOCATABLE :: CMDSCB(:)
 	  CHARACTER*4, ALLOCATABLE :: CMDSCD(:)

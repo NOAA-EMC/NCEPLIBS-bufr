@@ -37,6 +37,8 @@ C> | 2015-09-24 | D. Stokes  | Correct typos in docblock |
 C>
       SUBROUTINE MAXOUT(MAXO)
 
+      USE MODV_MXMSGL
+
       USE MODA_BITBUF
 
       COMMON /MAXCMP/ MAXCMB,MAXROW,MAXCOL,NCMSGS,NCSUBS,NCBYTS

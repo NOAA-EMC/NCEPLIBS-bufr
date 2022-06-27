@@ -1,9 +1,6 @@
 	MODULE MODA_H4WLC
 
-#ifndef MXH4WLC_H
-#define MXH4WLC_H
 	  USE MODV_MXH4WLC
-#endif
 
 	  INTEGER :: NH4WLC
 
