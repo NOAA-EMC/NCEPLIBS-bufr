@@ -62,11 +62,11 @@ C>
 C--------------------------------------------------------------------------
 C--------------------------------------------------------------------------
       SUBROUTINE DRFINI_8(LUNIT_8,MDRF_8,NDRF_8,DRFTAG)
-      INTEGER*8 MDRF_8(NDRF_8),NDRF_8
-      INTEGER*8 MDRF(NDRF_8)
+      INTEGER*8 MDRF_8(*),NDRF_8
+      INTEGER*8 MDRF(INT(NDRF_8))
       LUNIT=LUNIT_8
-      MDRF=MDRF_8
       NDRF=NDRF_8
+      MDRF(1:NDRF)=MDRF_8(1:NDRF)
       CALL DRFINI(LUNIT,MDRF,NDRF,DRFTAG)
       END SUBROUTINE
 C--------------------------------------------------------------------------
