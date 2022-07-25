@@ -540,7 +540,7 @@ subroutine get_element_info_c(lun, mnemonic, scale, reference, bits, unit_c, uni
   end do
 
   if (allocated(unit_f)) then
-    call copy_f_c_str(unit_f, unit_c, len(unit_f) + 1)
+    call copy_f_c_str(unit_f, unit_c, min(len(unit_f) + 1, int(unit_str_len)))
   end if
 end subroutine get_element_info_c
 
