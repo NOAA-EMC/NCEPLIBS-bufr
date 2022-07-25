@@ -327,7 +327,7 @@ void test_intrusiveInterface()
 }
 
 
-void test_getunit()
+void test_getElementInfo()
 {
     static const int UNIT_STR_LEN = 20;
     const char* subset = "NC021053";
@@ -359,8 +359,11 @@ void test_getunit()
             {
                 status_f(BUFR_FILE_UNIT, &bufrLoc, &il, &im);
 
-                char res[UNIT_STR_LEN];
-                get_unit_f(bufrLoc, "SAID", res, UNIT_STR_LEN);
+                int scale;
+                int reference;
+                int bits;
+                char unit[UNIT_STR_LEN];
+                get_element_info_f(bufrLoc, "CLATH", &scale, &reference, &bits, unit, UNIT_STR_LEN);
                 break;
             }
         }
@@ -375,7 +378,7 @@ int main()
 {
     test_basicInterface();
     test_intrusiveInterface();
-    test_getunit();
+    test_getElementInfo();
 
     return 0;
 }

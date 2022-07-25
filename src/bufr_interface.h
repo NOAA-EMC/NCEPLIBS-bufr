@@ -262,11 +262,24 @@ extern "C" {
 */
   void get_inv_f(int lun, int** data, int* len);
 
-  void get_unit_f(int lun, const char* mnemonic, char* unit_c, int unit_str_len);
+
+/** @author Ronald McLaren
+@date 2022-06-30
+
+@brief Get meta data for a mnemonic (type info)
+
+@param[in] lun - int: pointer for the file stream
+@param[in] mnemonic - const char*: c str for mnemonic
+@param[out] scale - int*: scale of element
+@param[out] reference - int*: reference of element
+@param[inout] unit_c - char*: unit str
+@param[inout] unit_str_len - int: unit str length
+*/
+  void get_element_info_f(int lun, const char* mnemonic, int* scale, int* reference, int* bits, char* unit_c, int unit_str_len);
 
 
 /** @author Ronald McLaren
-@date 2022-03-23
+@date 2022-03-23x
 
 @brief Deletes the copies of the moda_tables arrays.
 */

@@ -505,15 +505,22 @@ end subroutine get_inv_c
 !>  @param[out] inv_ptr - c_ptr: c style pointer to the INV array
 !>  @param[out] inv_size - c_int: length of the array
 !>
-subroutine get_unit_c(lun, mnemonic, unit_c, unit_str_len) bind(C, name='get_unit_f')
+subroutine get_element_info_c(lun, mnemonic, scale, reference, bits, unit_c, unit_str_len) bind(C, name='get_element_info_f')
   use moda_tababd
   integer(c_int), value, intent(in) :: lun
   character(kind=c_char,len=1), intent(in) :: mnemonic(*)
+  integer(c_int), intent(out) :: scale
+  integer(c_int), intent(out) :: reference
+  integer(c_int), intent(out) :: bits
   character(kind=c_char, len=1), intent(inout) :: unit_c(*)
   integer(c_int), value, intent(in) :: unit_str_len
 
   character(len=:), allocatable :: mnemonic_f
+  character(len=:), allocatable :: scale_str_f
+  character(len=:), allocatable :: reference_str_f
+  character(len=:), allocatable :: bits_str_f
   character(len=:), allocatable :: unit_f
+  integer :: stat_f
 
   integer :: idx
 
@@ -521,15 +528,21 @@ subroutine get_unit_c(lun, mnemonic, unit_c, unit_str_len) bind(C, name='get_uni
 
   do idx=1,ntbb(lun)
     if (trim(tabb(idx, lun)(7:14)) == mnemonic_f) then
+      scale_str_f = trim(tabb(idx, lun)(95:98))
+      read(scale_str_f, *, iostat=stat_f) scale
+      reference_str_f = trim(tabb(idx, lun)(99:109))
+      read(reference_str_f, *, iostat=stat_f) reference
+      bits_str_f = trim(tabb(idx, lun)(110:112))
+      read(bits_str_f, *, iostat=stat_f) bits
       unit_f = trim(tabb(idx, lun)(71:94))
       exit
     end if
   end do
 
   if (allocated(unit_f)) then
-    call copy_f_c_str(unit_f, unit_c, int(unit_str_len))
+    call copy_f_c_str(unit_f, unit_c, len(unit_f) + 1)
   end if
-end subroutine get_unit_c
+end subroutine get_element_info_c
 
 
 !>  @author Ronald McLaren
