@@ -61,10 +61,11 @@ C> | 2018-06-07 | J. Ator | Increase NDRF limit from 200 to 2000 |
 C>
 C--------------------------------------------------------------------------
 C--------------------------------------------------------------------------
-      SUBROUTINE DRFINI_8(LUNIT_8,MDRF,NDRF_8,DRFTAG)
-      INTEGER   MDRF(NDRF_8)
-      INTEGER*8 NDRF_8
+      SUBROUTINE DRFINI_8(LUNIT_8,MDRF_8,NDRF_8,DRFTAG)
+      INTEGER*8 MDRF_8(NDRF_8),NDRF_8
+      INTEGER*8 MDRF(NDRF_8)
       LUNIT=LUNIT_8
+      MDRF=MDRF_8
       NDRF=NDRF_8
       CALL DRFINI(LUNIT,MDRF,NDRF,DRFTAG)
       END SUBROUTINE
