@@ -31,7 +31,19 @@ C> | Date | Programmer | Comments |
 C> | -----|------------|----------|
 C> | 2009-03-23 | J. Ator  | Original author |
 C>
+C--------------------------------------------------------------------------
+C--------------------------------------------------------------------------
+      SUBROUTINE ATRCPT_8(MSGIN,LMSGOT_8,MSGOT)
+      INTEGER*8 LMSGOT_8
+      LMSGOT = LMSGOT_8*2
+      call ATRCPT(MSGIN,LMSGOT,MSGOT)
+      END SUBROUTINE
+C--------------------------------------------------------------------------
+C--------------------------------------------------------------------------
+
 	SUBROUTINE ATRCPT(MSGIN,LMSGOT,MSGOT)
+
+        USE MODA_IM8B
 
 	DIMENSION MSGIN(*), MSGOT(*)
 
@@ -42,6 +54,16 @@ C>
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
+
+C  CHECK FOR I8 INTEGERS
+C  ---------------------
+
+      IF(IM8) THEN
+         IM8=.FALSE.
+         call ATRCPT_8(MSGIN,LMSGOT,MSGOT)
+         IM8=.TRUE.
+         RETURN
+      endif
 
 C	Get some section lengths and addresses from the input message.
 

@@ -70,11 +70,26 @@ C> | 2012-06-07 | J. Ator    | Don't respond to internal dictionary messages if 
 C> | 2012-09-15 | J. Woollen | Convert to C language I/O interface; remove code to reread message as bytes; replace Fortran BACKSPACE with C backbufr() |
 C> | 2014-12-10 | J. Ator    | Use modules instead of COMMON blocks |
 C>
-      SUBROUTINE READMG(LUNXX,SUBSET,JDATE,IRET)
+C--------------------------------------------------------------------------
+C--------------------------------------------------------------------------
+      SUBROUTINE READMG_8(LUNXX_8,SUBSET,JDATE_8,IRET_8)
+      INTEGER*8 LUNXX_8,JDATE_8,IRET_8
+      LUNXX=LUNXX_8 
+      JDATE=JDATE_8
+      call READMG(LUNXX,SUBSET,JDATE,IRET)
+      JDATE_8=JDATE
+      IRET_8=IRET
+      END SUBROUTINE
+C--------------------------------------------------------------------------
+C--------------------------------------------------------------------------
+
+      SUBROUTINE READMG(LUNXX,SUBSET,JDATE,IRET)   
+
 
       USE MODA_MSGCWD
       USE MODA_SC3BFR
       USE MODA_BITBUF
+      USE MODA_IM8B
 
       COMMON /QUIET / IPRT
 
@@ -83,6 +98,16 @@ C>
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
+
+!  CHECK FOR I8 INTEGERS
+!  ---------------------
+
+      IF(IM8) THEN
+         IM8=.FALSE.
+         call READMG_8(LUNXX,SUBSET,JDATE,IRET)
+         IM8=.TRUE.
+         RETURN
+      ENDIF
 
       IRET = 0
       LUNIT = ABS(LUNXX)

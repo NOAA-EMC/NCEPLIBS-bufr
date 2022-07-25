@@ -38,16 +38,39 @@ C> | 2012-09-12 | J. Ator | Original author |
 C> | 2014-10-02 | J. Ator | Modified to use fstag() |
 C> | 2014-12-10 | J. Ator | Use modules instead of COMMON blocks |
 C>
+C--------------------------------------------------------------------------
+C--------------------------------------------------------------------------
+      SUBROUTINE GETTAGPR_8(LUNIT_8,TAGCH,NTAGCH_8,TAGPR,IRET_8)
+      INTEGER*8 LUNIT_8,NTAGCH_8,IRET_8
+      LUNIT=LUNIT_8
+      NTAGCH=NTAGCH_8
+      IRET=IRET_8
+      CALL GETTAGPR ( LUNIT, TAGCH, NTAGCH, TAGPR, IRET )
+      IRET_8=IRET
+      END SUBROUTINE
+C--------------------------------------------------------------------------
+C--------------------------------------------------------------------------
+
 	SUBROUTINE GETTAGPR ( LUNIT, TAGCH, NTAGCH, TAGPR, IRET )
 
 	USE MODA_USRINT
 	USE MODA_MSGCWD
 	USE MODA_TABLES
+        USE MODA_IM8B
 
 	CHARACTER*(*) TAGCH, TAGPR
 
 C----------------------------------------------------------------------
 C----------------------------------------------------------------------
+
+C  CHECK FOR I8 INTEGERS
+C  ---------------------
+      IF(IM8) THEN
+         IM8=.FALSE.
+         CALL GETTAGPR_8 ( LUNIT, TAGCH, NTAGCH, TAGPR, IRET )
+         IM8=.TRUE.
+         RETURN
+      ENDIF
 
 	IRET = -1
 

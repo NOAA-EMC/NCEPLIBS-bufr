@@ -10,7 +10,7 @@ list(APPEND fortran_src
   moda_h4wlc.F moda_idrdm.F moda_ival.F moda_ivttmp.F moda_lushr.F moda_mgwa.F moda_mgwb.F moda_msgcwd.F
   moda_msglim.F moda_msgmem.F moda_mstabs.F moda_nmikrp.F moda_nrv203.F moda_nulbfr.F moda_rdmtb.F
   moda_rlccmn.F moda_s01cm.F moda_sc3bfr.F moda_stbfr.F moda_stcode.F moda_tababd.F moda_tables.F
-  moda_ufbcpl.F moda_unptyp.F moda_usrbit.F moda_usrint.F moda_usrtmp.F moda_xtab.F
+  moda_ufbcpl.F moda_unptyp.F moda_usrbit.F moda_usrint.F moda_usrtmp.F moda_xtab.F moda_im8b.F
   adn30.f atrcpt.f blocks.f bort.f bort2.f cadn30.f capit.f chekstab.f chrtrna.f cktaba.f closmg.f
   cmpmsg.f cmsgini.f cnved4.f codflg.f conwin.f copybf.f copymg.f copysb.f cpbfdx.f cpdxmm.f cpymem.f
   cpyupd.f datebf.f datelen.f digit.f drfini.f drstpl.f dumpbf.f dxdump.f dxinit.f dxmini.f elemdx.f

@@ -32,7 +32,19 @@ C> | 2002-05-14 | J. Woollen | Changed from an entry point in readmg() to stand-
 C> | 2003-11-04 | J. Ator    | Added documentation |
 C> | 2004-12-20 | D. Keyser  | Calls wrdlen() to initialize local machine information, in case it has not yet been called |
 C>
+C--------------------------------------------------------------------------
+C--------------------------------------------------------------------------
+      SUBROUTINE DATELEN_8(LEN_8)
+      INTEGER*8 LEN_8
+      LEN=LEN_8
+      CALL DATELEN(LEN)
+      END SUBROUTINE
+C--------------------------------------------------------------------------
+C--------------------------------------------------------------------------
+
       SUBROUTINE DATELEN(LEN)
+
+      USE MODA_IM8B
 
       COMMON /DATELN/ LENDAT
 
@@ -40,6 +52,16 @@ C>
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
+
+C  CHECK FOR I8 INTEGERS
+C  ---------------------
+
+      IF(IM8) THEN
+         IM8=.FALSE.
+         CALL DATELEN_8(LEN)
+         IM8=.TRUE.
+         RETURN
+      ENDIF
 
 C  CALL SUBROUTINE WRDLEN TO INITIALIZE SOME IMPORTANT INFORMATION
 C  ABOUT THE LOCAL MACHINE (IN CASE IT HAS NOT YET BEEN CALLED)

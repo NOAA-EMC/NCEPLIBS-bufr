@@ -26,9 +26,30 @@ C> | 2004-08-09 | J. Ator    | Maximum message length increased from 20,000 to 5
 C> | 2005-11-29 | J. Ator    | Use pkbs1() |
 C> | 2014-12-10 | J. Ator    | Use modules instead of COMMON blocks |
 C>
+C--------------------------------------------------------------------------
+C--------------------------------------------------------------------------
+      SUBROUTINE MINIMG_8(LUNIT_8,MINI_8)
+      INTEGER*8 LUNIT_8,MINI_8
+      LUNIT=LUNIT_8
+      MINI=MINI_8
+      CALL MINIMG(LUNIT,MINI)
+      END SUBROUTINE
+C--------------------------------------------------------------------------
+C--------------------------------------------------------------------------
+
       SUBROUTINE MINIMG(LUNIT,MINI)
 
       USE MODA_BITBUF
+      USE MODA_IM8B
+
+C  CHECK FOR I8 INTEGERS
+C  ---------------------
+      IF(IM8) THEN
+         IM8=.FALSE.
+         CALL MINIMG_8(LUNIT,MINI)
+         IM8=.TRUE.
+         RETURN
+      ENDIF
 
       CALL STATUS(LUNIT,LUN,IL,IM)
       IF(IL.EQ.0) GOTO 900

@@ -17,12 +17,23 @@ C> | 2009-03-23 | J. Ator    | Original author |
 C> | 2012-09-15 | J. Woollen | Modified for C/I/O/BUFR interface; replace Fortran BACKSPACE with C backbufr() |
 C> | 2014-12-10 | J. Ator    | Use modules instead of COMMON blocks |
 C>
+C--------------------------------------------------------------------------
+C--------------------------------------------------------------------------
+      SUBROUTINE CPDXMM_8( LUNIT_8 )
+      INTEGER*8 LUNIT_8
+      LUNIT=LUNIT_8
+      CALL CPDXMM( LUNIT )
+      END SUBROUTINE
+C--------------------------------------------------------------------------
+C--------------------------------------------------------------------------
+
 	SUBROUTINE CPDXMM( LUNIT )
 
         USE MODV_MXDXTS
 
 	USE MODA_MGWA
 	USE MODA_MSGMEM
+        USE MODA_IM8B
 
 	COMMON /QUIET/  IPRT
 
@@ -32,6 +43,16 @@ C>
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
+
+C  CHECK FOR I8 INTEGERS
+C-----------------------
+
+      IF(IM8) THEN
+         IM8=.FALSE.
+         CALL CPDXMM_8( LUNIT )
+         IM8=.TRUE.
+         RETURN
+      ENDIF
 
 	IF ( NDXTS .GE. MXDXTS ) GOTO 900
 

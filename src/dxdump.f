@@ -42,10 +42,22 @@ C> | 2004-08-18 | J. Ator | Original author |
 C> | 2007-01-19 | J. Ator | Corrected output for reference values longer than 8 digits |
 C> | 2014-12-10 | J. Ator | Use modules instead of COMMON blocks |
 C>
+C--------------------------------------------------------------------------
+C--------------------------------------------------------------------------
+      SUBROUTINE DXDUMP_8(LUNIT_8,LDXOT_8) 
+      INTEGER*8 LUNIT_8,LDXOT_8
+      LUNIT=LUNIT_8
+      LDXOT=LDXOT_8
+      CALL DXDUMP(LUNIT,LDXOT)
+      END SUBROUTINE
+C--------------------------------------------------------------------------
+C--------------------------------------------------------------------------
+
       SUBROUTINE DXDUMP(LUNIT,LDXOT)
 
       USE MODA_TABABD
       USE MODA_NMIKRP
+      USE MODA_IM8B
 
       COMMON /REPTAB/ IDNR(5,2),TYPS(5,2),REPS(5,2),LENS(5)
 
@@ -83,6 +95,15 @@ C-----------------------------------------------------------------------
       TDSKIP(ADN) = ((ADN.EQ.'360001').OR.(ADN.EQ.'360002').OR.
      .               (ADN.EQ.'360003').OR.(ADN.EQ.'360004'))
 C-----------------------------------------------------------------------
+
+C  CHECK FOR I8 INTEGERS
+C  ---------------------
+      IF(IM8) THEN
+         IM8=.FALSE.
+         CALL DXDUMP_8(LUNIT,LDXOT)
+         IM8=.TRUE.
+         RETURN
+      ENDIF
 
 C     DETERMINE LUN FROM LUNIT.
 

@@ -39,11 +39,27 @@ C> | Date | Programmer | Comments |
 C> | -----|------------|----------|
 C> | 2016-06-07 | J. Ator | Original author |
 C>
+C--------------------------------------------------------------------------
+C--------------------------------------------------------------------------
+      SUBROUTINE GETTAGRE_8(LUNIT_8,TAGI,NTAGI_8,TAGRE,NTAGRE_8,IRET_8)
+      INTEGER*8 LUNIT_8,NTAGI_8,NTAGRE_8,IRET_8
+      LUNIT=LUNIT_8
+      NTAGI=NTAGI_8
+      NTAGRE=NTAGRE_8
+      IRET=IRET_8
+      CALL GETTAGRE(LUNIT,TAGI,NTAGI,TAGRE,NTAGRE,IRET)
+      NTAGRE_8=NTAGRE
+      IRET_8=IRET
+      END SUBROUTINE
+C--------------------------------------------------------------------------
+C--------------------------------------------------------------------------
+
 	SUBROUTINE GETTAGRE ( LUNIT, TAGI, NTAGI, TAGRE, NTAGRE, IRET )
 
 	USE MODA_USRINT
 	USE MODA_MSGCWD
 	USE MODA_TABLES
+        USE MODA_IM8B
 
 	CHARACTER*(*) TAGI, TAGRE
 
@@ -51,6 +67,15 @@ C>
 
 C----------------------------------------------------------------------
 C----------------------------------------------------------------------
+
+C  CHECK FOR I8 INTEGERS
+C  ---------------------
+      IF(IM8) THEN
+         IM8=.FALSE.
+         CALL GETTAGRE_8(LUNIT,TAGI,NTAGI,TAGRE,NTAGRE,IRET)
+         IM8=.TRUE.
+         RETURN
+      ENDIF
 
 	IRET = -1
 

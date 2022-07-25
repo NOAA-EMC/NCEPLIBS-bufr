@@ -93,13 +93,37 @@ C>                               OPENBF   RDMSGW   STATUS
 C>    THIS ROUTINE IS CALLED BY: COPYSB   UFBTAB
 C>                               Also called by application programs.
 C>
+C--------------------------------------------------------------------------
+C--------------------------------------------------------------------------
+      SUBROUTINE MESGBC_8(LUNIN_8,MESGTYP_8,ICOMP_8)
+      INTEGER*8 LUNIN_8,MESGTYP_8,ICOMP_8
+      LUNIN=LUNIN_8
+      MESGTYP=MESGTYP_8
+      ICOMP=ICOMP_8
+      CALL MESGBC(LUNIN,MESGTYP,ICOMP)
+      MESGTYP_8=MESGTYP
+      ICOMP_8=ICOMP
+      END SUBROUTINE
+C--------------------------------------------------------------------------
+C--------------------------------------------------------------------------
+
       SUBROUTINE MESGBC(LUNIN,MESGTYP,ICOMP)
 
       USE MODA_BITBUF
       USE MODA_MGWA
+      USE MODA_IM8B
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
+
+C  CHECK FOR I8 INTEGERS
+C  ---------------------
+      IF(IM8) THEN
+         IM8=.FALSE.
+         CALL MESGBC_8(LUNIN,MESGTYP,ICOMP)
+         IM8=.TRUE.
+         RETURN
+      ENDIF
 
       LUNIT = ABS(LUNIN)
 

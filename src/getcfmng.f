@@ -106,10 +106,29 @@ C> | -----|------------|----------|
 C> | 2018-01-11 | J. Ator | Original author |
 C> | 2018-02-08 | J. Ator | Add special handling for data types and subtypes in Section 1 |
 C>
+C--------------------------------------------------------------------------
+C--------------------------------------------------------------------------
+      SUBROUTINE GETCFMNG_8( LUNIT_8, NEMOI, IVALI_8, NEMOD, IVALD_8,
+     .                       CMEANG, LNMNG_8, IRET_8 )
+
+      INTEGER*8 LUNIT_8,IVALI_8,IVALD_8,LNMNG_8,IRET_8
+      LUNIT=LUNIT_8
+      IVALI=IVALI_8
+      IVALD=IVALD_8
+      LNMNG=LNMNG_8
+      IRET=IRET_8
+      CALL GETCFMNG(LUNIT,NEMOI,IVALI,NEMOD,IVALD,CMEANG,LNMNG,IRET)
+      LNMNG_8=LNMNG
+      IRET_8=IRET
+      END SUBROUTINE
+C--------------------------------------------------------------------------
+C--------------------------------------------------------------------------
+
 	SUBROUTINE GETCFMNG ( LUNIT, NEMOI, IVALI, NEMOD, IVALD,
      .			      CMEANG, LNMNG, IRET )
 
 	USE MODA_TABABD
+        USE MODA_IM8B
 
 	COMMON /TABLEF/ CDMF
 
@@ -123,6 +142,17 @@ C>
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
+
+
+
+C  CHECK FOR I8 INTEGERS
+C  ---------------------
+      IF(IM8) THEN
+        IM8=.FALSE.
+        CALL GETCFMNG_8(LUNIT,NEMOI,IVALI,NEMOD,IVALD,CMEANG,LNMNG,IRET)
+        IM8=.TRUE.
+        RETURN
+      ENDIF
 
 	CALL STATUS ( LUNIT, LUN, IL, IM )
 	IF ( IL .EQ. 0 ) GOTO 900

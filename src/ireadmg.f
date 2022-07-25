@@ -36,10 +36,32 @@ C> | 2002-05-14 | J. Woollen | Removed entry points icopysb, ireadft, ireadibm, 
 C> | 2003-11-04 | S. Bender  | Added remarks and routine interdependencies |
 C> | 2003-11-04 | D. Keyser  | Unified/portable for WRF; added history documentation |
 C>
+C--------------------------------------------------------------------------
+C--------------------------------------------------------------------------
+      FUNCTION IREADMG_8(LUNIT_8,SUBSET,IDATE_8)
+      INTEGER*8 LUNIT_8,IDATE_8
+      LUNIT=LUNIT_8 
+      IREADMG_8=IREADMG(LUNIT,SUBSET,IDATE) 
+      IDATE_8=IDATE
+      END FUNCTION  
+C--------------------------------------------------------------------------
+C--------------------------------------------------------------------------
+
       FUNCTION IREADMG(LUNIT,SUBSET,IDATE)
 
+      USE MODA_IM8B
+
       CHARACTER*8 SUBSET
+
+      IF(IM8) THEN
+         IM8=.FALSE.
+         IREADMG=IREADMG_8(LUNIT,SUBSET,IDATE)
+         IM8=.TRUE.
+         RETURN
+      ENDIF
+
       CALL READMG(LUNIT,SUBSET,IDATE,IRET)
       IREADMG = IRET
-      RETURN
-      END
+
+      END FUNCTION
+

@@ -52,17 +52,38 @@ C> | 2005-11-29 | J. Ator    | Use iupbs01() |
 C> | 2009-06-26 | J. Ator    | Use iok2cpy() |
 C> | 2014-12-10 | J. Ator    | Use modules instead of COMMON blocks |
 C>
+C--------------------------------------------------------------------------
+C--------------------------------------------------------------------------
+      SUBROUTINE CPYMEM_8(LUNOT_8)
+      INTEGER*8 LUNOT_8
+      LUNOT=LUNOT_8
+      CALL CPYMEM(LUNOT)
+      END SUBROUTINE
+C--------------------------------------------------------------------------
+C--------------------------------------------------------------------------
+
       SUBROUTINE CPYMEM(LUNOT)
 
       USE MODA_MSGCWD
       USE MODA_BITBUF
       USE MODA_MSGMEM
       USE MODA_TABLES
+      USE MODA_IM8B
 
       CHARACTER*8  SUBSET
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
+
+C  CHECK FOR I8 INTEGERS
+C  ---------------------
+
+      IF(IM8) THEN
+         IM8=.FALSE.
+         CALL CPYMEM_8(LUNOT)
+         IM8=.TRUE.
+         RETURN
+      ENDIF
 
 C  CHECK THE FILE STATUSES
 C  -----------------------

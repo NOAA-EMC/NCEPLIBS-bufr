@@ -54,16 +54,40 @@ C> | 2009-06-26 | J. Ator    | Use iok2cpy() |
 C> | 2014-11-03 | J. Ator    | Handle oversized (>65530 bytes) subsets |
 C> | 2014-12-10 | J. Ator    | Use modules instead of COMMON blocks |
 C>
+C--------------------------------------------------------------------------
+C--------------------------------------------------------------------------
+      SUBROUTINE COPYSB_8(LUNIN_8,LUNOT_8,IRET_8)
+      INTEGER*8 LUNIN_8,LUNOT_8,IRET_8
+      LUNIN=LUNIN_8
+      LUNOT=LUNOT_8
+      IRET=IRET_8
+      CALL COPYSB(LUNIN,LUNOT,IRET)
+      IRET_8=IRET
+      END SUBROUTINE
+C--------------------------------------------------------------------------
+C--------------------------------------------------------------------------
+
       SUBROUTINE COPYSB(LUNIN,LUNOT,IRET)
 
       USE MODA_MSGCWD
       USE MODA_BITBUF
       USE MODA_TABLES
+      USE MODA_IM8B
 
       CHARACTER*128 BORT_STR
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
+
+C  CHECK FOR I8 INTEGERS
+C  ---------------------
+
+      IF(IM8) THEN
+         IM8=.FALSE.
+         CALL COPYSB_8(LUNIN,LUNOT,IRET)
+         IM8=.TRUE.
+         RETURN
+      ENDIF
 
       IRET = 0
 

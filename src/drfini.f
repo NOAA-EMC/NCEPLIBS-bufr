@@ -59,10 +59,23 @@ C> | 2014-09-08 | J. Ator | Increase NDRF limit from 100 to 200 |
 C> | 2014-12-10 | J. Ator | Use modules instead of COMMON blocks |
 C> | 2018-06-07 | J. Ator | Increase NDRF limit from 200 to 2000 |
 C>
+C--------------------------------------------------------------------------
+C--------------------------------------------------------------------------
+      SUBROUTINE DRFINI_8(LUNIT_8,MDRF,NDRF_8,DRFTAG)
+      INTEGER   MDRF(NDRF_8)
+      INTEGER*8 NDRF_8
+      LUNIT=LUNIT_8
+      NDRF=NDRF_8
+      CALL DRFINI(LUNIT,MDRF,NDRF,DRFTAG)
+      END SUBROUTINE
+C--------------------------------------------------------------------------
+C--------------------------------------------------------------------------
+
       SUBROUTINE DRFINI(LUNIT,MDRF,NDRF,DRFTAG)
 
       USE MODA_USRINT
       USE MODA_TABLES
+      USE MODA_IM8B
 
       CHARACTER*(*) DRFTAG
       CHARACTER*128 BORT_STR
@@ -70,6 +83,15 @@ C>
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
+
+C  CHECK FOR I8 INTEGERS
+C  ---------------------
+      IF(IM8) THEN
+         IM8=.FALSE.
+         CALL DRFINI_8(LUNIT,MDRF,NDRF,DRFTAG)
+         IM8=.TRUE.
+         RETURN
+      ENDIF
 
       IF(NDRF.GT.2000) GOTO 900
 

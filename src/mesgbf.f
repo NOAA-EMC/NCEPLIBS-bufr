@@ -54,12 +54,35 @@ C>    THIS ROUTINE IS CALLED BY: None
 C>                               Normally called only by application
 C>                               programs.
 C>
+C--------------------------------------------------------------------------
+C--------------------------------------------------------------------------
+      SUBROUTINE MESGBF_8(LUNIT_8,MESGTYP_8)
+      INTEGER*8 LUNIT_8,MESGTYP_8
+      LUNIT=LUNIT_8 
+      MESGTYP=MESGTYP_8
+      CALL MESGBF(LUNIT,MESGTYP)
+      MESGTYP_8=MESGTYP
+      END SUBROUTINE
+!--------------------------------------------------------------------------
+!--------------------------------------------------------------------------
+
       SUBROUTINE MESGBF(LUNIT,MESGTYP)
 
       USE MODA_MGWA
+      USE MODA_IM8B
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
+
+C  CHECK FOR I8 INTEGERS
+C  ---------------------
+
+      IF(IM8) THEN
+         IM8=.FALSE.
+         CALL MESGBF_8(LUNIT,MESGTYP)
+         IM8=.TRUE.
+         RETURN
+      ENDIf
 
       MESGTYP = -1
 

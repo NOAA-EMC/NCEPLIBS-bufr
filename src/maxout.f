@@ -35,11 +35,21 @@ C> | 2009-04-21 | J. Ator    | Use errwrt() |
 C> | 2014-12-10 | J. Ator    | Use modules instead of COMMON blocks |
 C> | 2015-09-24 | D. Stokes  | Correct typos in docblock |
 C>
+C--------------------------------------------------------------------------
+C--------------------------------------------------------------------------
+      SUBROUTINE MAXOUT_8(MAXO_8)
+      INTEGER*8 MAXO_8
+      MAXO=MAXO_8
+      CALL MAXOUT(MAXO)
+      END SUBROUTINE
+C--------------------------------------------------------------------------
+C--------------------------------------------------------------------------
+
       SUBROUTINE MAXOUT(MAXO)
 
       USE MODV_MXMSGL
-
       USE MODA_BITBUF
+      USE MODA_IM8B
 
       COMMON /MAXCMP/ MAXCMB,MAXROW,MAXCOL,NCMSGS,NCSUBS,NCBYTS
       COMMON /DXTAB / MAXDX,IDXV,NXSTR(10),LDXA(10),LDXB(10),LDXD(10),
@@ -51,6 +61,15 @@ C>
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
+
+C  CHECK FOR I8 INTEGERS
+C  ---------------------
+      IF(IM8) THEN
+         IM8=.FALSE.
+         CALL MAXOUT_8(MAXO)
+         IM8=.TRUE.
+         RETURN
+      ENDIF
 
       IF((MAXO.EQ.0).OR.(MAXO.GT.MXMSGL)) THEN
          NEWSIZ = MXMSGL

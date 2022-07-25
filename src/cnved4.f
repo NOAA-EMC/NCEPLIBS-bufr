@@ -33,14 +33,36 @@ C> | -----|------------|----------|
 C> | 2005-11-29 | J. Ator | Original author |
 C> | 2009-08-12 | J. Ator | Allow silent return (instead of bort() return) if MSGIN is already encoded using edition 4 |
 C>
-	SUBROUTINE CNVED4(MSGIN,LMSGOT,MSGOT)
+C--------------------------------------------------------------------------
+C--------------------------------------------------------------------------
+      SUBROUTINE CNVED4_8(MSGIN,LMSGOT_8,MSGOT)
+      INTEGER   MSGIN(*), MSGOT(*)
+      INTEGER*8 LMSGOT_8
+      LMSGOT=LMSGOT_8*2
+      CALL CNVED4(MSGIN,LMSGOT,MSGOT)
+      END SUBROUTINE
+C--------------------------------------------------------------------------
+C--------------------------------------------------------------------------
 
-	DIMENSION MSGIN(*), MSGOT(*)
+      SUBROUTINE CNVED4(MSGIN,LMSGOT,MSGOT)
 
-	COMMON /HRDWRD/ NBYTW,NBITW,IORD(8)
+      USE MODA_IM8B
+
+      DIMENSION MSGIN(*), MSGOT(*)
+
+      COMMON /HRDWRD/ NBYTW,NBITW,IORD(8)
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
+
+C  CHECK FOR I8 INTEGERS
+C  ---------------------
+      IF(IM8) THEN
+         IM8=.FALSE.
+         CALL  CNVED4_8(MSGIN,LMSGOT,MSGOT)
+         IM8=.TRUE.
+         RETURN
+      ENDIF
 
 	IF(IUPBS01(MSGIN,'BEN').EQ.4) THEN
 

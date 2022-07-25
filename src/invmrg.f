@@ -43,10 +43,22 @@ C>    THIS ROUTINE IS CALLED BY: None
 C>                               Normally called only by application
 C>                               programs.
 C>
+C--------------------------------------------------------------------------
+C--------------------------------------------------------------------------
+      SUBROUTINE INVMRG_8(LUBFI_8,LUBFJ_8)
+      INTEGER*8 LUBFI_8,LUBFJ_8
+      LUBFI=LUBFI_8
+      LUBFJ=LUBFJ_8
+      CALL INVMRG(LUBFI,LUBFJ)
+      END SUBROUTINE
+C--------------------------------------------------------------------------
+C--------------------------------------------------------------------------
+
       SUBROUTINE INVMRG(LUBFI,LUBFJ)
 
       USE MODA_USRINT
       USE MODA_TABLES
+      USE MODA_IM8B
 
       COMMON /MRGCOM/ NRPL,NMRG,NAMB,NTOT
 
@@ -55,6 +67,15 @@ C>
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
+
+C  CHECK FOR I8 INTEGERS
+C  ---------------------
+      IF(IM8) THEN
+         IM8=.FALSE.
+         CALL INVMRG_8(LUBFI,LUBFJ)
+         IM8=.TRUE.
+         RETURN
+      ENDIF
 
       IS = 1
       JS = 1

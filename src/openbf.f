@@ -135,6 +135,18 @@ C> | 2012-09-15 | J. Woollen | Modified for C/I/O/BUFR interface; use INQUIRE to
 C> | 2014-11-07 | J. Ator    | Allow dynamic allocation of certain arrays |
 C> | 2015-03-03 | J. Ator    | Use MODA_IFOPBF instead of IFIRST |
 C>
+C--------------------------------------------------------------------------
+C--------------------------------------------------------------------------
+      SUBROUTINE OPENBF_8(LUNIT_8,IO,LUNDX_8)             
+      CHARACTER*(*) IO
+      INTEGER*8 LUNIT_8,LUNDX_8       
+      LUNIT=LUNIT_8 
+      LUNDX=LUNDX_8
+      call OPENBF(LUNIT,IO,LUNDX)
+      END SUBROUTINE
+C--------------------------------------------------------------------------
+C--------------------------------------------------------------------------
+
       SUBROUTINE OPENBF(LUNIT,IO,LUNDX)
 
       USE MODV_IFOPBF
@@ -146,6 +158,7 @@ C>
       USE MODA_LUSHR
       USE MODA_NULBFR
       USE MODA_STCODE
+      USE MODA_IM8B
 
       COMMON /QUIET / IPRT
 
@@ -163,6 +176,16 @@ C>
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
+
+C  CHECK FOR I8 INTEGERS
+C  ---------------------
+      IF(IM8) THEN
+         IM8=.FALSE.
+         call OPENBF_8(LUNIT,IO,LUNDX)
+         IM8=.TRUE.
+         RETURN
+      ENDIF
+
 
 C     If this is the first call to this subroutine, initialize
 C     IPRT in /QUIET/ as 0 (limited printout - except for abort

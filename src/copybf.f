@@ -34,12 +34,33 @@ C> | 2005-11-29 | J. Ator    | Use rdmsgw() and iupbs01() |
 C> | 2012-09-15 | J. Woollen | Modified for C/I/O/BUFR interface; use status() |
 C> | 2014-12-10 | J. Ator    | Use modules instead of COMMON blocks |
 C>
+C--------------------------------------------------------------------------
+C--------------------------------------------------------------------------
+      SUBROUTINE COPYBF_8(LUNIN_8,LUNOT_8)
+      INTEGER*8 LUNIN_8,LUNOT_8
+      LUNIN=LUNIN_8
+      LUNIT=LUNOT_8
+      CALL COPYBF(LUNIN,LUNOT)
+      END SUBROUTINE
+C--------------------------------------------------------------------------
+C--------------------------------------------------------------------------
+
       SUBROUTINE COPYBF(LUNIN,LUNOT)
 
       USE MODA_MGWA
+      USE MODA_IM8B
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
+
+C  CHECK FOR I8 INTEGERS
+C  ---------------------
+      IF(IM8) THEN
+         IM8=.FALSE.
+         CALL  COPYBF_8(LUNIN,LUNOT)
+         IM8=.TRUE.
+         RETURN
+      ENDIF
 
 C  CALL SUBROUTINE WRDLEN TO INITIALIZE SOME IMPORTANT INFORMATION
 C  ABOUT THE LOCAL MACHINE (IN CASE IT HAS NOT YET BEEN CALLED)

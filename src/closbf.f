@@ -31,14 +31,35 @@ C> | 2012-09-15 | J. Woollen | Modified for C/I/O/BUFR interface; added call to 
 C> | 2014-12-10 | J. Ator    | Use modules instead of COMMON blocks |
 C> | 2020-07-16 | J. Ator    | Add sanity check to ensure that openbf() was previously called (needed for GSI) |
 C> 
+C--------------------------------------------------------------------------
+C--------------------------------------------------------------------------
+      SUBROUTINE CLOSBF_8(LUNIT_8)
+      INTEGER*8 LUNIT_8
+      LUNIT=LUNIT_8
+      CALL CLOSBF(LUNIT)
+      END SUBROUTINE
+C--------------------------------------------------------------------------
+C--------------------------------------------------------------------------
+
       SUBROUTINE CLOSBF(LUNIT)
 
       USE MODA_NULBFR
+      USE MODA_IM8B
 
       CHARACTER*128 ERRSTR
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
+
+C  CHECK FOR I8 INTEGERS
+C  ---------------------
+
+      IF(IM8) THEN
+         IM8=.FALSE.
+         CALL CLOSBF_8(LUNIT)
+         IM8=.TRUE.
+         RETURN
+      ENDIF
 
       IF ( .NOT. ALLOCATED(NULL) ) THEN
         CALL ERRWRT('++++++++++++++++++++WARNING++++++++++++++++++++++')

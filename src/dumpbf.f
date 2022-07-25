@@ -77,9 +77,25 @@ C>    THIS ROUTINE IS CALLED BY: None
 C>                               Normally called only by application
 C>                               programs.
 C>
+C--------------------------------------------------------------------------
+C--------------------------------------------------------------------------
+      SUBROUTINE DUMPBF_8(LUNIT_8,JDATE_8,JDUMP_8)
+      INTEGER*8  LUNIT_8,JDATE_8(5),JDUMP_8(5)
+      INTEGER    LUNIT  ,JDATE(5)  ,JDUMP(5)
+      LUNIT=LUNIT_8
+      JDATE=JDATE_8
+      JDUMP=JDUMP_8  
+      CALL DUMPBF(LUNIT,JDATE,JDUMP)
+      JDATE_8=JDATE
+      JDUMP_8=JDUMP
+      END SUBROUTINE
+C--------------------------------------------------------------------------
+C--------------------------------------------------------------------------
+
       SUBROUTINE DUMPBF(LUNIT,JDATE,JDUMP)
 
       USE MODA_MGWA
+      USE MODA_IM8B
 
       COMMON /QUIET / IPRT
 
@@ -89,6 +105,15 @@ C>
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
+
+C  CHECK FOR I8 INTEGERS
+C  ---------------------
+      IF(IM8) THEN
+         IM8=.FALSE.
+         CALL DUMPBF_8(LUNIT,JDATE,JDUMP)
+         IM8=.TRUE.
+         RETURN
+      ENDIF
 
 C  CALL SUBROUTINE WRDLEN TO INITIALIZE SOME IMPORTANT INFORMATION
 C  ABOUT THE LOCAL MACHINE (IN CASE IT HAS NOT YET BEEN CALLED)

@@ -37,14 +37,35 @@ C> | 2004-08-09 | J. Ator | Maximum message length increased from 20,000 to 50,0
 C> | 2005-05-26 | D. Keyser | Add LUNIN < 0 option to suppress writing of all future zero-subset messsages to ABS(LUNIN) |
 C> | 2014-12-10 | J. Ator | Use modules instead of COMMON blocks |
 C>
+C--------------------------------------------------------------------------
+C--------------------------------------------------------------------------
+      SUBROUTINE CLOSMG_8(LUNIN_8)
+      INTEGER*8 LUNIN_8
+      LUNIN=LUNIN_8
+      CALL CLOSBF(LUNIN)
+      END SUBROUTINE
+C--------------------------------------------------------------------------
+C--------------------------------------------------------------------------
+
       SUBROUTINE CLOSMG(LUNIN)
 
       USE MODA_MSGCWD
       USE MODA_MSGLIM
       USE MODA_BITBUF
+      USE MODA_IM8B
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
+
+C  CHECK FOR I8 INTEGERS
+C  ---------------------
+
+      IF(IM8) THEN
+         IM8=.FALSE.
+         CALL CLOSBF_8(LUNIN)
+         IM8=.TRUE.
+         RETURN
+      ENDIF
 
 C  CHECK THE FILE STATUS
 C  ---------------------

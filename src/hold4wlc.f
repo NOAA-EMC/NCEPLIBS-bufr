@@ -59,9 +59,20 @@ C> | Date | Programmer | Comments |
 C> | -----|------------|----------|
 C> | 2014-02-05 | J. Ator | Original author |
 C>
+C--------------------------------------------------------------------------
+C--------------------------------------------------------------------------
+      SUBROUTINE HOLD4WLC_8(LUNIT_8,CHR,STR)
+      INTEGER*8 LUNIT_8
+      LUNIT=LUNIT_8
+      CALL HOLD4WLC(LUNIT,CHR,STR)
+      END SUBROUTINE
+C--------------------------------------------------------------------------
+C--------------------------------------------------------------------------
+
       SUBROUTINE HOLD4WLC(LUNIT,CHR,STR)
 
       USE MODA_H4WLC
+      USE MODA_IM8B
 
       COMMON /QUIET/ IPRT
 
@@ -72,6 +83,15 @@ C>
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
+
+C  CHECK FOR I8 INTEGERS
+C  ---------------------
+      IF(IM8) THEN
+         IM8=.FALSE.
+         CALL HOLD4WLC_8(LUNIT,CHR,STR)
+         IM8=.TRUE.
+         RETURN
+      ENDIF
 
       CALL STRSUC( STR, MYSTR, LENS )
       IF ( LENS .EQ. -1 ) RETURN

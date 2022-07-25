@@ -54,12 +54,23 @@ C>    THIS ROUTINE IS CALLED BY: CPYUPD   MSGUPD   OPENMB   OPENMG
 C>                               Normally not called by any application
 C>                               programs.
 C>
+C--------------------------------------------------------------------------
+C--------------------------------------------------------------------------
+      SUBROUTINE MSGINI_8(LUN_8)
+      INTEGER*8 LUN_8
+      LUN=LUN_8
+      CALL MSGINI(LUN)
+      END SUBROUTINE
+C--------------------------------------------------------------------------
+C--------------------------------------------------------------------------
+
       SUBROUTINE MSGINI(LUN)
 
       USE MODA_MSGCWD
       USE MODA_UFBCPL
       USE MODA_BITBUF
       USE MODA_TABLES
+      USE MODA_IM8B
 
       COMMON /PADESC/ IBCT,IPD1,IPD2,IPD3,IPD4
       COMMON /MSGPTR/ NBY0,NBY1,NBY2,NBY3,NBY4,NBY5
@@ -74,6 +85,15 @@ C>
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
+
+C  CHECK FOR I8 INTEGERS
+C  ---------------------
+      IF(IM8) THEN
+         IM8=.FALSE.
+         CALL MSGINI_8(LUN)
+         IM8=.TRUE.
+         RETURN
+      ENDIF
 
 C  GET THE MESSAGE TAG AND TYPE, AND BREAK UP THE DATE
 C  ---------------------------------------------------

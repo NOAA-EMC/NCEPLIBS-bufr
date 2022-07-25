@@ -77,14 +77,39 @@ C>    THIS ROUTINE IS CALLED BY: CRBMG    IUPBS01  PKBS1
 C>                               Normally not called by any application
 C>                               programs.
 C>
+C--------------------------------------------------------------------------
+C--------------------------------------------------------------------------
+      SUBROUTINE GETS1LOC_8(S1MNEM,IBEN_8,ISBYT_8,IWID_8,IRET_8)
+      INTEGER*8 IBEN_8,ISBYT_8,IWID_8,IRET_8
+      IBEN=IBEN_8
+      ISBYT=ISBYT_8
+      IWID=IWID_8
+      IRET=IRET_8
+      CALL GETS1LOC(S1MNEM,IBEN,ISBYT,IWID,IRET)
+      ISBYT_8=ISBYT
+      IWID_8=IWID
+      IRET_8=IRET
+      END SUBROUTINE
+C--------------------------------------------------------------------------
+C--------------------------------------------------------------------------
+
       SUBROUTINE GETS1LOC(S1MNEM,IBEN,ISBYT,IWID,IRET)
 
+      USE MODA_IM8B
 
-
-	CHARACTER*(*)	S1MNEM
+      CHARACTER*(*) S1MNEM
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
+
+C  CHECK FOR I8 INTEGERS
+C  ---------------------
+      IF(IM8) THEN
+         IM8=.FALSE.
+         CALL GETS1LOC_8(S1MNEM,IBEN,ISBYT,IWID,IRET)
+         IM8=.TRUE.
+         RETURN
+      ENDIF
 
 	IRET = 0
 	IWID = 8

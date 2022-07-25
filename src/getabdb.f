@@ -25,16 +25,39 @@ C>    THIS ROUTINE IS CALLED BY: None
 C>                               Normally called only by application
 C>                               programs.
 C>
+C--------------------------------------------------------------------------
+C--------------------------------------------------------------------------
+      SUBROUTINE GETABDB_8(LUNIT_8,TABDB,ITAB_8,JTAB_8) 
+      INTEGER*8 LUNIT_8,ITAB_8,JTAB_8
+      LUNIT=LUNIT_8
+      ITAB=ITAB_8
+      JTAB=JTAB_8
+      CALL GETABDB(LUNIT,TABDB,ITAB,JTAB)
+      JTAB_8=JTAB
+      END SUBROUTINE
+C--------------------------------------------------------------------------
+C--------------------------------------------------------------------------
+
       SUBROUTINE GETABDB(LUNIT,TABDB,ITAB,JTAB)
 
       USE MODA_TABABD
       USE MODA_NMIKRP
+      USE MODA_IM8B
 
       CHARACTER*128 TABDB(*)
       CHARACTER*8   NEMO
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
+
+C  CHECK FOR I8 INTEGERS
+C  ---------------------
+      IF(IM8) THEN
+         IM8=.FALSE.
+         CALL GETABDB_8(LUNIT,TABDB,ITAB,JTAB)
+         IM8=.TRUE.
+         RETURN
+      ENDIF
 
       JTAB = 0
 
