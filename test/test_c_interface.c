@@ -327,7 +327,7 @@ void test_intrusiveInterface()
 }
 
 
-void test_getElementInfo()
+void test_getTypeInfo()
 {
     static const int UNIT_STR_LEN = 20;
     const char* subset = "NC021053";
@@ -363,7 +363,35 @@ void test_getElementInfo()
                 int reference;
                 int bits;
                 char unit[UNIT_STR_LEN];
-                get_element_info_f(bufrLoc, "CLATH", &scale, &reference, &bits, unit, UNIT_STR_LEN);
+                get_type_info_f(bufrLoc,
+                                "CLATH",
+                                &scale,
+                                &reference,
+                                &bits,
+                                unit,
+                                UNIT_STR_LEN);
+
+                if (reference != -9000000)
+                {
+                    printf("%s", "getTypeInfo: Wrong reference number found.");
+                    exit(1);
+                }
+                else if (scale != 5)
+                {
+                    printf("%s", "getTypeInfo: Wrong scale number found.");
+                    exit(1);
+                }
+                else if (bits != 25)
+                {
+                    printf("%s", "getTypeInfo: Wrong number of bits found.");
+                    exit(1);
+                }
+                else if (strncmp(unit, "DEGREE", 6) != 0)
+                {
+                    printf("%s", "getTypeInfo: Wrong Unit String.");
+                    exit(1);
+                }
+
                 break;
             }
         }
@@ -378,7 +406,7 @@ int main()
 {
     test_basicInterface();
     test_intrusiveInterface();
-    test_getElementInfo();
+    test_getTypeInfo();
 
     return 0;
 }

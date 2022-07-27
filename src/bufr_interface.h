@@ -275,7 +275,7 @@ extern "C" {
 @param[inout] unit_c - char*: unit str
 @param[inout] unit_str_len - int: unit str length
 */
-  void get_element_info_f(int lun, const char* mnemonic, int* scale, int* reference, int* bits, char* unit_c, int unit_str_len);
+  void get_type_info_f(int lun, const char* mnemonic, int* scale, int* reference, int* bits, char* unit_c, int unit_str_len);
 
 
 /** @author Ronald McLaren

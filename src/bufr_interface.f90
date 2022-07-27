@@ -499,13 +499,17 @@ end subroutine get_inv_c
 !>  @author Ronald McLaren
 !>  @date 2022-03-23
 !>
-!>  @brief Get pointer to the moda_usrint INV array.
+!>  @brief Gets Meta data associated with a BUFR mnemonic. The data returned can be used to
+!>  determine an appropriate type (string, float, int etc...) to store the data.
 !>
-!>  @param[out] lun - c_int: pointer for the file stream
-!>  @param[out] inv_ptr - c_ptr: c style pointer to the INV array
-!>  @param[out] inv_size - c_int: length of the array
+!>  @param[in] lun - c_int: pointer for the file stream
+!>  @param[in] mnemonic - const char*: c str for mnemonic
+!>  @param[out] scale - int*: scale of element
+!>  @param[out] reference - int*: reference of element
+!>  @param[inout] unit_c - char*: unit str
+!>  @param[inout] unit_str_len - int: unit str length
 !>
-subroutine get_element_info_c(lun, mnemonic, scale, reference, bits, unit_c, unit_str_len) bind(C, name='get_element_info_f')
+subroutine get_type_info_c(lun, mnemonic, scale, reference, bits, unit_c, unit_str_len) bind(C, name='get_type_info_f')
   use moda_tababd
   integer(c_int), value, intent(in) :: lun
   character(kind=c_char,len=1), intent(in) :: mnemonic(*)
@@ -542,7 +546,7 @@ subroutine get_element_info_c(lun, mnemonic, scale, reference, bits, unit_c, uni
   if (allocated(unit_f)) then
     call copy_f_c_str(unit_f, unit_c, min(len(unit_f) + 1, int(unit_str_len)))
   end if
-end subroutine get_element_info_c
+end subroutine get_type_info_c
 
 
 !>  @author Ronald McLaren
