@@ -497,7 +497,7 @@ end subroutine get_inv_c
 
 
 !>  @author Ronald McLaren
-!>  @date 2022-03-23
+!>  @date 2022-06-30
 !>
 !>  @brief Gets Meta data associated with a BUFR mnemonic. The data returned can be used to
 !>  determine an appropriate type (string, float, int etc...) to store the data.
