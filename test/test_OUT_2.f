@@ -105,7 +105,7 @@ C*	Second subset.
 	cpid = 'SUBSET#2'
 	CALL UFBINT ( 11, rpid, 1, 1, nlv, 'RPID' )
 
-	IF ( IDNINT(xmiss) .eq. IDNINT(GETBMISS()) ) THEN
+	IF ( NINT(xmiss) .eq. NINT(GETBMISS()) ) THEN
 	    print *, '        GETBMISS'
         ELSE
             CALL BORT ( 'GETBMISS FAILURE!' )

@@ -32,7 +32,7 @@ used to decode the data messages in the file.  Otherwise, or whenever the -m opt
 <pre>
 Usage:
 
-   debufr.x [-v] [-h] [-b] [-c] [-m] [-o outfile] [-t tabledir] [-f tablefil] [-p prmstg] bufrfile
+   debufr [-v] [-h] [-b] [-c] [-m] [-o outfile] [-t tabledir] [-f tablefil] [-p prmstg] bufrfile
 
      where:
        -v        prints version information and exits

@@ -50,6 +50,9 @@ C>                               programs.
 C>
       SUBROUTINE USRTPL(LUN,INVN,NBMP)
 
+      USE MODV_MAXJL
+      USE MODV_MAXSS
+
       USE MODA_USRINT
       USE MODA_MSGCWD
       USE MODA_TABLES

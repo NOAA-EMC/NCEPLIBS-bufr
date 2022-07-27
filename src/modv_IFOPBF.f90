@@ -9,8 +9,7 @@
 module MODV_IFOPBF
 
 !> @var ifopbf
-!> Status indicator to keep track of whether subroutine
-!> openbf() has already been called:
+!> Status indicator to keep track of whether subroutine openbf() has already been called:
 !> - 0 = No
 !> - 1 = Yes
 

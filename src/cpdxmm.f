@@ -19,6 +19,8 @@ C> | 2014-12-10 | J. Ator    | Use modules instead of COMMON blocks |
 C>
 	SUBROUTINE CPDXMM( LUNIT )
 
+        USE MODV_MXDXTS
+
 	USE MODA_MGWA
 	USE MODA_MSGMEM
 

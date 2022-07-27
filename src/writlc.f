@@ -58,6 +58,8 @@ C> | 2020-09-09 | J. Ator    | No longer abort if STR not available within subse
 C>
       SUBROUTINE WRITLC(LUNIT,CHR,STR)
 
+      USE MODV_MXLCC
+
       USE MODA_USRINT
       USE MODA_MSGCWD
       USE MODA_BITBUF

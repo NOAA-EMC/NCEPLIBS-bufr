@@ -14,21 +14,6 @@ C> @date 2014-12-10
 
 	MODULE MODA_MSTABS
 
-#ifndef MAXCD_H
-#define MAXCD_H
-	  USE MODV_MAXCD
-#endif
-
-#ifndef MXMTBB_H
-#define MXMTBB_H
-	  USE MODV_MXMTBB
-#endif
-
-#ifndef MXMTBD_H
-#define MXMTBD_H
-	  USE MODV_MXMTBD
-#endif
-
 C>        @var nmtb
 C>        Number of master Table B entries (up to a maximum of MXMTBB).
 C>

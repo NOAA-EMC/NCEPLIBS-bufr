@@ -14,11 +14,6 @@ C> @date 2012-03-02
 
 	MODULE MODA_NRV203
 
-#ifndef MXNRV_H
-#define MXNRV_H
-	  USE MODV_MXNRV
-#endif
-
 C>        @var nnrv
 C>        Number of entries in the jump/link table which contain
 C>        new reference values (up to a maximum of MXNRV).
@@ -62,9 +57,9 @@ C>        Table B mnemonic in tagnrv.
 	  INTEGER :: IBTNRV
 	  INTEGER :: IPFNRV
 	  CHARACTER*8, ALLOCATABLE :: TAGNRV(:)
-	  INTEGER, ALLOCATABLE :: INODNRV(:) 
-	  INTEGER, ALLOCATABLE :: NRV(:) 
-	  INTEGER, ALLOCATABLE :: ISNRV(:) 
-	  INTEGER, ALLOCATABLE :: IENRV(:) 
+	  INTEGER    , ALLOCATABLE :: INODNRV(:) 
+	  INTEGER*8  , ALLOCATABLE :: NRV(:) 
+	  INTEGER    , ALLOCATABLE :: ISNRV(:) 
+	  INTEGER    , ALLOCATABLE :: IENRV(:) 
 
 	END MODULE

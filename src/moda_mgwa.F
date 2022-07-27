@@ -1,10 +1,5 @@
 	MODULE MODA_MGWA
 
-#ifndef MXMSGL_H
-#define MXMSGL_H
-	  USE MODV_MXMSGL
-#endif
-
 	  INTEGER, ALLOCATABLE :: MGWA(:)
 
 	END MODULE

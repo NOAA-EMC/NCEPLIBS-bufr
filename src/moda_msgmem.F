@@ -13,26 +13,6 @@ C> @date 2014-12-10
 
 	MODULE MODA_MSGMEM
 
-#ifndef MAXMSG_H
-#define MAXMSG_H
-	  USE MODV_MAXMSG
-#endif
-
-#ifndef MAXMEM_H
-#define MAXMEM_H
-	  USE MODV_MAXMEM
-#endif
-
-#ifndef MXDXTS_H
-#define MXDXTS_H
-	  USE MODV_MXDXTS
-#endif
-
-#ifndef MXMSGL_H
-#define MXMSGL_H
-	  USE MODV_MXMSGL
-#endif
-
 C>        @var munit
 C>        Fortran logical unit number for use in accessing
 C>        contents of BUFR files within internal memory.

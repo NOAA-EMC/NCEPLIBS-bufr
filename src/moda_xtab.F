@@ -1,10 +1,5 @@
 	MODULE MODA_XTAB
 
-#ifndef NFILES_H
-#define NFILES_H
-	  USE MODV_NFILES
-#endif
-
 	  LOGICAL, ALLOCATABLE :: XTAB(:)
 
 	END MODULE

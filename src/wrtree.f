@@ -34,13 +34,14 @@ C> 2012-03-02  J. ATOR    -- USE IPKS TO HANDLE 2-03 OPERATOR CASES
 C> 2012-06-04  J. ATOR    -- ENSURE "MISSING" CHARACTER FIELDS ARE
 C>                           PROPERLY ENCODED WITH ALL BITS SET TO 1 
 C> 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
+C> 2022-05-06  J. WOOLLEN -- REPLACE PKB WITH PKB8 FOR 8BYTE INTEGERS
 C>
 C> USAGE:    CALL WRTREE (LUN)
 C>   INPUT ARGUMENT LIST:
 C>     LUN      - INTEGER: I/O STREAM INDEX INTO INTERNAL MEMORY ARRAYS
 C>
 C> REMARKS:
-C>    THIS ROUTINE CALLS:        IBFMS    IPKM     PKB      PKC
+C>    THIS ROUTINE CALLS:        IBFMS    IPKM     PKB8     PKC
 C>                               IPKS     READLC
 C>    THIS ROUTINE IS CALLED BY: WRITSA   WRITSB
 C>                               Normally not called by any application
@@ -57,6 +58,7 @@ C>
       CHARACTER*120 LSTR
       CHARACTER*8   CVAL
       EQUIVALENCE   (CVAL,RVAL)
+      integer(8)    ipks
       REAL*8        RVAL
 
 C-----------------------------------------------------------------------
@@ -88,7 +90,7 @@ C  ------------------------------------------
 
 C	 The value to be packed is numeric.
 
-         CALL PKB(IVAL(N),IBT(NODE),IBAY,IBIT)
+         CALL PKB8(IVAL(N),IBT(NODE),IBAY,IBIT)
       ELSE
 
 C	 The value to be packed is a character string.

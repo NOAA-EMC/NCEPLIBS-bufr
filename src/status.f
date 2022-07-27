@@ -54,6 +54,8 @@ C> | 2014-12-10 | J. Ator    | Use modules instead of COMMON blocks |
 C>
       SUBROUTINE STATUS(LUNIT,LUN,IL,IM)
 
+      USE MODV_NFILES
+
       USE MODA_STBFR
 
       CHARACTER*128 BORT_STR

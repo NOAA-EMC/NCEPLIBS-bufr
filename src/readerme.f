@@ -73,6 +73,8 @@ C> | 2014-12-10 | J. Ator    | Use modules instead of COMMON blocks |
 C>
       SUBROUTINE READERME(MESG,LUNIT,SUBSET,JDATE,IRET)
 
+      USE MODV_MXMSGL
+
       USE MODA_SC3BFR
       USE MODA_IDRDM
       USE MODA_BITBUF

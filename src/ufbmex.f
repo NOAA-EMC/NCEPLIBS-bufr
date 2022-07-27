@@ -9,13 +9,10 @@ C> later be accessed from memory, instead of having to read them one
 C> at a time sequentially from the system file.
 C>
 C> <p>This subroutine is similar to subroutine ufbmem(), except that
-C> after reading in all of the messages, it then sorts them according
-C> to their message types and returns a corresponding list of these
-C> types.  Furthermore, it does not process any embedded DX BUFR
-C> tables contained within the system file, since these tables are no
-C> longer relevant once the messages have been sorted and re-ordered
-C> from their original positions in the file.  Instead, this
-C> subroutine provides an additional call argument LUNDX to allow
+C> instead of a file status it returns an array of message types that
+C> were read in.  Furthermore, this subroutine doesn't process any
+C> embedded DX BUFR tables contained within the system file; instead,
+C> it provides an additional call argument LUNDX to allow
 C> for specification of the necessary DX BUFR table information
 C> associated with the messages in the file.
 C>
@@ -51,6 +48,9 @@ C> | 2014-12-10 | J. Ator    | Use modules instead of COMMON blocks |
 C> | 2015-09-24 | D. Stokes  | Fix missing declaration of COMMON /QUIET/ |
 C>
       SUBROUTINE UFBMEX(LUNIT,LUNDX,INEW,IRET,MESG) 
+
+      USE MODV_MAXMEM
+      USE MODV_MAXMSG
 
       USE MODA_MGWA
       USE MODA_MSGMEM
@@ -177,7 +177,6 @@ C  --------------------------------------------------
          IF(MUNIT.NE.0) CALL CLOSBF(LUNIT)
          IF(MUNIT.EQ.0) MUNIT = LUNIT
       ENDIF
-      IUNIT = MUNIT
 
 C  EXITS
 C  -----

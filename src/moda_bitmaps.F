@@ -12,26 +12,6 @@ C> @date 2016-05-27
 
 	MODULE MODA_BITMAPS
 
-#ifndef MXBTM_H
-#define MXBTM_H
-	  USE MODV_MXBTM
-#endif
-
-#ifndef MXBTMSE_H
-#define MXBTMSE_H
-	  USE MODV_MXBTMSE
-#endif
-
-#ifndef MXTCO_H
-#define MXTCO_H
-	  USE MODV_MXTCO
-#endif
-
-#ifndef MXTAMC_H
-#define MXTAMC_H
-	  USE MODV_MXTAMC
-#endif
-
 C>        @var nbtm
 C>        Number of stored bitmaps for the current data subset
 C>        (up to a maximum of MXBTM).

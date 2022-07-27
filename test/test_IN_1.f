@@ -117,9 +117,9 @@ C*	    Read the data subset from the BUFR message.
 		CALL UFBINT ( 11, r8arr, MXR8PM, MXR8LV,
      +			      nr8lv, 'CLONH A4ME HSMSL QCEVR' )
 		IF (  ( nr8lv .eq. 1 ) .and.
-     +			( IDNINT(r8arr(1,1)*100000) .eq. 10388797 ).and.
-     +			( IDNINT(r8arr(2,1)) .eq. 7 ) .and.
-     +			( IDNINT(r8arr(3,1)) .eq. 14 ) .and.
+     +			( NINT(r8arr(1,1)*100000) .eq. 10388797 ).and.
+     +			( NINT(r8arr(2,1)) .eq. 7 ) .and.
+     +			( NINT(r8arr(3,1)) .eq. 14 ) .and.
      +			( IBFMS(r8arr(4,1)) .eq. 1 ) ) THEN
 		    print *, '        UFBINT -> OK'
 		    print *, '         IBFMS -> OK'
@@ -131,11 +131,11 @@ C*	    Read the data subset from the BUFR message.
 		CALL UFBSEQ ( 11, r8arr, MXR8PM, MXR8LV,
      +			      nr8lv, 'TDWPRAOB' )
 		IF (  ( nr8lv .eq. 191 ) .and.
-     +			( IDNINT(r8arr(8,3)*100) .eq. 29416 ) .and.
-     +			( IDNINT(r8arr(10,11)*10) .eq. 55 ) .and.
-     +			( IDNINT(r8arr(2,12)) .eq. 2048 ) .and.
-     +			( IDNINT(r8arr(5,67)*100000) .eq. -1167 ) .and.
-     +			( IDNINT(r8arr(1,186)) .eq. 2523 ) ) THEN
+     +			( NINT(r8arr(8,3)*100) .eq. 29416 ) .and.
+     +			( NINT(r8arr(10,11)*10) .eq. 55 ) .and.
+     +			( NINT(r8arr(2,12)) .eq. 2048 ) .and.
+     +			( NINT(r8arr(5,67)*100000) .eq. -1167 ) .and.
+     +			( NINT(r8arr(1,186)) .eq. 2523 ) ) THEN
 		    print *, '        UFBSEQ -> OK'
 		ELSE
 		    print *, '        UFBSEQ -> FAILED!!'

@@ -9,16 +9,6 @@ C> @date 2014-12-10
 
 	MODULE MODA_BITBUF
 
-#ifndef MXMSGL_H
-#define MXMSGL_H
-	  USE MODV_MXMSGL
-#endif
-
-#ifndef NFILES_H
-#define NFILES_H
-	  USE MODV_NFILES
-#endif
-
 C>        @var maxbyt
 C>        Maximum length of an output BUFR message.
 C>

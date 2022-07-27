@@ -1,10 +1,5 @@
 	MODULE MODA_LUSHR
 
-#ifndef NFILES_H
-#define NFILES_H
-	  USE MODV_NFILES
-#endif
-
 	  INTEGER, ALLOCATABLE :: LUS(:)
 
 	END MODULE

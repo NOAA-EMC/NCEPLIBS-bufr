@@ -9,8 +9,7 @@
 module MODV_MXH4WLC
 
 !> @var mxh4wlc
-!> Maximum number of long character strings that can be held
-!> for writing into an uncompressed BUFR subset by future
+!> Maximum number of long character strings that can be held for writing into an uncompressed BUFR subset by future
 !> internal calls to subroutine writlc().
 
   integer, parameter, public :: MXH4WLC = 10

@@ -36,6 +36,7 @@ C>                           SET TO 1
 C> 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
 C> 2016-11-09  J. ATOR    -- ADDED IRET ARGUMENT AND CHECK FOR POSSIBLY
 C>                           CORRUPT SUBSETS
+C> 2022-05-06  J. WOOLLEN -- REPLACE UPBB WITH UPB8 FOR 8BYTE INTEGERS 
 C>
 C> USAGE:    CALL RDTREE (LUN,IRET)
 C>   INPUT ARGUMENT LIST:
@@ -48,7 +49,7 @@ C>                      -1 = AN ERROR OCCURRED, POSSIBLY DUE TO A
 C>                           CORRUPT SUBSET IN THE INPUT MESSAGE
 C>
 C> REMARKS:
-C>    THIS ROUTINE CALLS:        RCSTPL   ICBFMS   UPBB     UPC
+C>    THIS ROUTINE CALLS:        RCSTPL   ICBFMS   UPB8     UPC
 C>                               UPS
 C>    THIS ROUTINE IS CALLED BY: READSB
 C>                               Normally not called by any application
@@ -68,10 +69,6 @@ C>
       REAL*8       RVAL,UPS
 
 C-----------------------------------------------------------------------
-C     Statement function to compute BUFR "missing value" for field
-C     of length IBT(NODE)) bits (all bits "on"):
-
-      MPS(NODE) = 2**(IBT(NODE))-1
 C-----------------------------------------------------------------------
 
       IRET = 0
@@ -91,7 +88,7 @@ C  UNPACK A SUBSET INTO THE USER ARRAY IVAL
 C  ----------------------------------------
 
       DO N=1,NVAL(LUN)
-      CALL UPBB(IVAL(N),NBIT(N),MBIT(N),MBAY(1,LUN))
+      CALL UPB8(IVAL(N),NBIT(N),MBIT(N),MBAY(1,LUN))
       ENDDO
 
 C  LOOP THROUGH EACH ELEMENT OF THE SUBSET, CONVERTING THE UNPACKED
@@ -109,7 +106,7 @@ C	 The unpacked value is a delayed descriptor replication factor.
 
 C	 The unpacked value is a real.
 
-         IF (IVAL(N).LT.MPS(NODE)) THEN
+         IF (IVAL(N).LT.2_8**ibt(node)-1) THEN
             VAL(N,LUN) = UPS(IVAL(N),NODE)
          ELSE
             VAL(N,LUN) = BMISS

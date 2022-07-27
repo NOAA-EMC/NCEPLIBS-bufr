@@ -1,14 +1,11 @@
 !> @file
 !> @brief Initialize global variables and arrays within internal memory.
 
-!> This subroutine initializes numerous global variables and arrays
-!> within internal modules and COMMON blocks throughout the BUFRLIB
-!> software.
+!> This subroutine initializes numerous global variables and arrays within internal modules and COMMON blocks throughout the
+!> BUFRLIB software.
 !>
-!> <p>This subroutine isn't normally called directly by any
-!> application program, because it's automatically called internally
-!> from within subroutine openbf() during the first time that subroutine
-!> is called by any application program.
+!> <p>This subroutine isn't normally called directly by any application program, because it's automatically called internally
+!> from within subroutine openbf() during the first time that subroutine is called by any application program.
 !>
 !> @authors J. Woollen
 !> @authors J. Ator
@@ -38,6 +35,13 @@
 !> | 2021-03-23 | J. Ator    | Use mtinfo() with MASTER_TABLE_DIR macro from CMake |
 !>
 subroutine bfrini
+
+USE MODV_MAXJL
+USE MODV_MAXTBA
+USE MODV_MAXTBB
+USE MODV_MAXTBD
+USE MODV_MXMSGL
+USE MODV_NFILES
 
 USE MODA_STBFR
 USE MODA_IDRDM

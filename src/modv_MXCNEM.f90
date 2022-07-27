@@ -9,9 +9,7 @@
 module MODV_MXCNEM
 
 !> @var mxcnem
-!> Maximum number of entries in the internal Table A
-!> mnemonic cache that is used for Section 3 decoding
-!> of BUFR messages.
+!> Maximum number of entries in the internal Table A mnemonic cache that is used for Section 3 decoding of BUFR messages.
 
   integer, parameter, public :: MXCNEM = 450
 

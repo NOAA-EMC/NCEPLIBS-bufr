@@ -12,11 +12,6 @@ C> @date 2014-12-10
 
 	MODULE MODA_TABLES
 
-#ifndef MAXJL_H
-#define MAXJL_H
-	  USE MODV_MAXJL
-#endif
-
 C>        @var maxtab
 C>        Maximum number of entries in the jump/link table;
 C>        equivalent to MAXJL.

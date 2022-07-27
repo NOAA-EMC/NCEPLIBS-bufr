@@ -1,15 +1,5 @@
 	MODULE MODA_BUFRSR
 
-#ifndef MXMSGL_H
-#define MXMSGL_H
-	  USE MODV_MXMSGL
-#endif
-
-#ifndef NFILES_H
-#define NFILES_H
-	  USE MODV_NFILES
-#endif
-
 	  INTEGER :: JUNN
 	  INTEGER :: JILL
 	  INTEGER :: JIMM
