@@ -151,7 +151,7 @@ foreach(test_src ${test_c_interface_srcs})
   set(test_exe ${test}.x)
   add_executable(${test_exe} ${test_src})
   add_dependencies(${test_exe} bufr_4)
-  target_link_libraries(${test_exe} PRIVATE bufr::bufr_4)
+  target_link_libraries(${test_exe} PRIVATE bufr::bufr_4 m)
   add_test(NAME ${test} COMMAND ${CMAKE_BINARY_DIR}/test/${test_exe})
 endforeach()
 
