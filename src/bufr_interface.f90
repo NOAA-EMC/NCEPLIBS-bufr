@@ -499,7 +499,7 @@ end subroutine get_inv_c
 !>  @author Ronald McLaren
 !>  @date 2022-06-30
 !>
-!>  @brief Gets Meta data associated with a BUFR mnemonic. The data returned can be used to
+!>  @brief Gets Table B Meta data associated with a BUFR mnemonic. The data returned can be used to
 !>  determine an appropriate type (string, float, int etc...) to store the data.
 !>
 !>  @param[in] lun - c_int: pointer for the file stream
@@ -530,20 +530,31 @@ subroutine get_type_info_c(lun, mnemonic, scale, reference, bits, unit_c, unit_s
 
   mnemonic_f = c_f_string(mnemonic)
 
+  ! The table B data is stored in text table where the fields we want are stored in different
+  ! columns.
   do idx=1,ntbb(lun)
+    ! Read the value in mnemonic column and compare it to our target.
     if (trim(tabb(idx, lun)(7:14)) == mnemonic_f) then
+      ! Read the value in the Scale column and convert the string to an integer
       scale_str_f = trim(tabb(idx, lun)(95:98))
       read(scale_str_f, *, iostat=stat_f) scale
+
+      ! Read the value in the Reference column and convert the string to an integer
       reference_str_f = trim(tabb(idx, lun)(99:109))
       read(reference_str_f, *, iostat=stat_f) reference
+
+      ! Read the value in the Bits column and convert the string to an integer
       bits_str_f = trim(tabb(idx, lun)(110:112))
       read(bits_str_f, *, iostat=stat_f) bits
+
+      ! Read and store the Unit string.
       unit_f = trim(tabb(idx, lun)(71:94))
-      exit
+      exit  ! Found the target, so stop looping
     end if
   end do
 
   if (allocated(unit_f)) then
+    ! Copy the Unit fortran string into the resulting C style string.
     call copy_f_c_str(unit_f, unit_c, min(len(unit_f) + 1, int(unit_str_len)))
   end if
 end subroutine get_type_info_c
