@@ -44,6 +44,7 @@ module bufr_c_interface_mod
   public :: get_val_c
   public :: get_inv_c
   public :: get_type_info_c
+  public :: delete_table_data_c
 
   integer, allocatable, target, save :: isc_f(:)
   integer, allocatable, target, save :: link_f(:)
