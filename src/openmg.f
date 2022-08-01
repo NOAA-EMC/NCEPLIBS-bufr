@@ -38,14 +38,35 @@ C> | 2003-11-04 | S. Bender  | Added remarks and routine interdependencies |
 C> | 2003-11-04 | D. Keyser  | Unified/portable for WRF; added documentation; outputs more complete diagnostic info when routine terminates abnormally |
 C> | 2014-12-10 | J. Ator    | Use modules instead of COMMON blocks |
 C>
+C--------------------------------------------------------------------------
+C--------------------------------------------------------------------------
+      SUBROUTINE OPENMG_8(LUNIT_8,SUBSET,JDATE_8)
+      INTEGER*8 LUNIT_8, JDATE_8
+      LUNIT=LUNIT_8
+      jdate=LUNIT_8
+      CALL OPENMG(LUNIT,SUBSET,JDATE)
+      END SUBROUTINE
+C--------------------------------------------------------------------------
+C--------------------------------------------------------------------------
+
       SUBROUTINE OPENMG(LUNIT,SUBSET,JDATE)
 
       USE MODA_MSGCWD
+      USE MODA_IM8B
 
       CHARACTER*(*) SUBSET
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
+
+C  CHECK FOR I8 INTEGERS
+C  ---------------------
+      IF(IM8) THEN
+         IM8=.FALSE.
+         CALL OPENMG_8(LUNIT,SUBSET,JDATE)
+         IM8=.TRUE.
+         RETURN
+      ENDIF
 
 C  CHECK THE FILE STATUS
 C  ---------------------

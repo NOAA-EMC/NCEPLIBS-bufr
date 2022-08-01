@@ -42,16 +42,38 @@ C>    THIS ROUTINE IS CALLED BY: None
 C>                               Normally called only by application
 C>                               programs.
 C>
+C--------------------------------------------------------------------------
+C--------------------------------------------------------------------------
+      SUBROUTINE RDMGSB_8(LUNIT_8,IMSG_8,ISUB_8)
+      INTEGER*8 LUNIT_8,IMSG_8,ISUB_8
+      LUNIT=LUNIT_8
+      IMSG=IMSG_8
+      ISUB=ISUB_8
+      CALL RDMGSB(LUNIT,IMSG,ISUB)
+      END SUBROUTINE
+C--------------------------------------------------------------------------
+C--------------------------------------------------------------------------
+
       SUBROUTINE RDMGSB(LUNIT,IMSG,ISUB)
 
       USE MODA_MSGCWD
       USE MODA_BITBUF
+      USE MODA_IM8B
 
       CHARACTER*128 BORT_STR
       CHARACTER*8   SUBSET
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
+
+C  CHECK FOR I8 INTEGERS
+C  ---------------------
+      IF(IM8) THEN
+         IM8=.FALSE.
+         CALL RDMGSB_8(LUNIT,IMSG,ISUB)
+         IM8=.TRUE.
+         RETURN
+      ENDIF
 
 C  OPEN THE FILE AND SKIP TO MESSAGE # IMSG
 C  ----------------------------------------

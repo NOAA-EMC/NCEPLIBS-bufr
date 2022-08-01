@@ -46,12 +46,27 @@ C> | 2004-11-15 | D. Keyser  | Increased MAXMEM from 16 Mb to 50 Mb |
 C> | 2009-03-23 | J. Ator    | Modified to handle embedded BUFR table (dictionary) messages; use errwrt() |
 C> | 2014-12-10 | J. Ator    | Use modules instead of COMMON blocks |
 C>
+C--------------------------------------------------------------------------
+C--------------------------------------------------------------------------
+      SUBROUTINE RDMEMM_8(IMSG_8,SUBSET,JDATE_8,IRET_8)
+      INTEGER*8 IMSG_8,JDATE_8,IRET_8
+      IMSG=IMSG_8
+      JDATE=JDATE_8
+      IRET=IRET_8
+      CALL RDMEMM(IMSG,SUBSET,JDATE,IRET)
+      JDATE_8=JDATE
+      IRET_8=IRET
+      END SUBROUTINE
+C--------------------------------------------------------------------------
+C--------------------------------------------------------------------------
+
       SUBROUTINE RDMEMM(IMSG,SUBSET,JDATE,IRET)
 
       USE MODA_MSGCWD
       USE MODA_BITBUF
       USE MODA_MGWA
       USE MODA_MSGMEM
+      USE MODA_IM8B
 
       COMMON /QUIET / IPRT
 
@@ -62,6 +77,16 @@ C>
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
+
+C  CHECK FOR I8 INTEGERS
+C  ---------------------
+
+      IF(IM8) THEN
+         IM8=.FALSE.
+         CALL RDMEMM_8(IMSG,SUBSET,JDATE,IRET)
+         IM8=.TRUE.
+         RETURN
+      ENDIF
 
 C  CHECK THE MESSAGE REQUEST AND FILE STATUS
 C  -----------------------------------------

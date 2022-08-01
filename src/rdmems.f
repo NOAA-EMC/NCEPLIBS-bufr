@@ -39,12 +39,25 @@ C> | 2004-11-15 | D. Keyser  | Increased MAXMEM from 16 Mb to 50 Mb |
 C> | 2009-04-21 | J. Ator    | Use errwrt() |
 C> | 2014-12-10 | J. Ator    | Use modules instead of COMMON blocks |
 C>
+C--------------------------------------------------------------------------
+C--------------------------------------------------------------------------
+      SUBROUTINE RDMEMS_8(ISUB_8,IRET_8)
+      INTEGER*8 ISUB_8,IRET_8
+      ISUB=ISUB_8
+      IRET=IRET_8
+      CALL RDMEMS(ISUB,IRET)
+      IRET_8=IRET
+      END SUBROUTINE
+C--------------------------------------------------------------------------
+C--------------------------------------------------------------------------
+
       SUBROUTINE RDMEMS(ISUB,IRET)
 
       USE MODA_MSGCWD
       USE MODA_UNPTYP
       USE MODA_BITBUF
       USE MODA_MSGMEM
+      USE MODA_IM8B
 
       CHARACTER*128 BORT_STR,ERRSTR
 
@@ -52,6 +65,16 @@ C>
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
+
+C  CHECK FOR I8 INTEGERS
+C  ---------------------
+
+      IF(IM8) THEN
+         IM8=.FALSE.
+         CALL RDMEMS_8(ISUB,IRET)
+         IM8=.TRUE.
+         RETURN
+      ENDIF
 
 C  CHECK THE MESSAGE REQUEST AND FILE STATUS
 C  -----------------------------------------

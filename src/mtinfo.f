@@ -43,7 +43,20 @@ C> | Date | Programmer | Comments |
 C> | -----|------------|----------|
 C> | 2009-03-23 | J. Ator | Original author |
 C>
+C--------------------------------------------------------------------------
+C--------------------------------------------------------------------------
+      SUBROUTINE MTINFO_8 ( CMTDIR, LUNMT1_8, LUNMT2_8 )
+      INTEGER*8 LUNMT1_8, LUNMT2_8
+      LUNMT1=LUNMT1_8
+      LUNMT2=LUNMT2_8
+      CALL MTINFO ( CMTDIR, LUNMT1, LUNMT2 )
+      END SUBROUTINE
+C--------------------------------------------------------------------------
+C--------------------------------------------------------------------------
+
       SUBROUTINE MTINFO ( CMTDIR, LUNMT1, LUNMT2 )
+
+      USE MODA_IM8B
 
       COMMON /MSTINF/ LUN1, LUN2, LMTD, MTDIR
 
@@ -54,6 +67,15 @@ C>
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
+
+C  CHECK FOR I8 INTEGERS
+C  ---------------------
+      IF(IM8) THEN
+         IM8=.FALSE.
+         CALL MTINFO_8 ( CMTDIR, LUNMT1, LUNMT2 )
+         IM8=.TRUE.
+         RETURN
+      ENDIF
 
       CALL STRSUC ( CMTDIR, MTDIR, LMTD )
       IF ( LMTD .LT. 0 ) GOTO 900

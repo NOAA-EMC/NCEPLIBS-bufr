@@ -38,11 +38,34 @@ C> | -----|------------|----------|
 C> | 1998-07-08 | J. Woollen | Original author |
 C> | 2009-04-21 | J. Ator    | Use errwrt() |
 C>
+C--------------------------------------------------------------------------
+C--------------------------------------------------------------------------
+      SUBROUTINE OPENBT_8(LUNDX_8,MTYP_8)
+      INTEGER*8 LUNDX_8,MTYP_8
+      LUNDX=LUNDX_8
+      MTYP=MTYP_8
+      CALL OPENBT(LUNDX,MTYP)
+      MTYP_8=MTYP
+      END SUBROUTINE
+C--------------------------------------------------------------------------
+C--------------------------------------------------------------------------
+
       SUBROUTINE OPENBT(LUNDX,MTYP)
+
+      USE MODA_IM8B
 
       COMMON /QUIET / IPRT
 
       CHARACTER*128 ERRSTR
+
+C  CHECK FOR I8 INTEGERS
+C  ---------------------
+      IF(IM8) THEN
+         IM8=.FALSE.
+         CALL OPENBT_8(LUNDX,MTYP)
+         IM8=.TRUE.
+         RETURN
+      ENDIF
 
       IF(IPRT.GE.0) THEN
       CALL ERRWRT('+++++++++++++++++++++WARNING+++++++++++++++++++++++')

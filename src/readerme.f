@@ -71,6 +71,20 @@ C> | 2009-03-23 | J. Ator    | Add logic to allow Section 3 decoding; add logic 
 C> | 2012-06-07 | J. Ator    | Don't respond to DX table messages if Section 3 decoding is being used |
 C> | 2014-12-10 | J. Ator    | Use modules instead of COMMON blocks |
 C>
+C--------------------------------------------------------------------------
+C--------------------------------------------------------------------------
+      SUBROUTINE READERME_8(MESG,LUNIT,SUBSET,JDATE,IRET)
+      INTEGER*8 MESG,LUNIT,JDATE,IRET
+      LUNIT4=LUNIT
+      JDATE4=JDATE
+      IRET4=IRET
+      CALL READERME(MESG,LUNIT4,SUBSET,JDATE4,IRET4)
+      JDATE=JDATE4
+      IRET=IRET4
+      END SUBROUTINE
+C--------------------------------------------------------------------------
+C--------------------------------------------------------------------------
+
       SUBROUTINE READERME(MESG,LUNIT,SUBSET,JDATE,IRET)
 
       USE MODV_MXMSGL
@@ -78,6 +92,7 @@ C>
       USE MODA_SC3BFR
       USE MODA_IDRDM
       USE MODA_BITBUF
+      USE MODA_IM8B
 
       COMMON /HRDWRD/ NBYTW,NBITW,IORD(8)
       COMMON /QUIET/  IPRT
@@ -94,6 +109,15 @@ C>
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
+
+C  CHECK FOR I8 INTEGERS
+C  ---------------------
+      IF(IM8) THEN
+         IM8=.FALSE.
+         CALL READERME_8(MESG,LUNIT,SUBSET,JDATE,IRET)
+         IM8=.TRUE.
+         RETURN
+      ENDIF
 
       IRET = 0
 

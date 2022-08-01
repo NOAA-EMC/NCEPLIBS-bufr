@@ -55,6 +55,16 @@ C> | 2012-12-07 | J. Ator | Allow str mnemonic length of up to 14 chars when use
 C> | 2014-12-10 | J. Ator | Use modules instead of COMMON blocks |
 C> | 2020-09-09 | J. Ator | Set CHR to "missing" instead of all blanks if STR isn't found in subset |
 C>
+C--------------------------------------------------------------------------
+C--------------------------------------------------------------------------
+      SUBROUTINE READLC_8(LUNIT,CHR,STR)
+      INTEGER*8 LUNIT
+      LUNIT4=LUNIT
+      CALL READLC(LUNIT4,CHR,STR)
+      END SUBROUTINE
+C--------------------------------------------------------------------------
+C--------------------------------------------------------------------------
+
       SUBROUTINE READLC(LUNIT,CHR,STR)
 
       USE MODA_USRINT
@@ -63,6 +73,7 @@ C>
       USE MODA_BITBUF
       USE MODA_TABLES
       USE MODA_RLCCMN
+      USE MODA_IM8B
 
       COMMON /QUIET / IPRT
 
@@ -75,6 +86,15 @@ C>
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
+
+C  CHECK FOR I8 INTEGERS
+C  ---------------------
+      IF(IM8) THEN
+         IM8=.FALSE.
+         CALL READLC_8(LUNIT,CHR,STR)
+         IM8=.TRUE.
+         RETURN
+      ENDIF
 
       CHR = ' '
       LCHR=LEN(CHR)

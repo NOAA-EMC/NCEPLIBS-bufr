@@ -47,6 +47,26 @@ C> | -----|------------|----------|
 C> | 2014-10-02 | J. Ator | Original version |
 C> | 2014-12-10 | J. Ator | Use modules instead of COMMON blocks |
 C>
+C--------------------------------------------------------------------------
+C--------------------------------------------------------------------------
+      SUBROUTINE NEMSPECS_8 (LUNIT_8,NEMO,NNEMO_8,NSCL_8,NREF_8,
+     .                       NBTS_8,IRET_8)
+      INTEGER*8 LUNIT_8,NNEMO_8,NSCL_8,NREF_8,NBTS_8,IRET_8
+      LUNIT=LUNIT_8
+      NNEMO=NNEMO_8
+      NSCL=NSCL_8
+      NREF=NREF_8
+      NBTS=NBTS_8
+      IRET=IRET_8
+      CALL NEMSPECS(LUNIT,NEMO,NNEMO,NSCL,NREF,NBTS,IRET )
+      NSCL_8=NSCL
+      NREF_8=NREF
+      NBTS_8=NBTS
+      IRET_8=IRET
+      END SUBROUTINE
+C--------------------------------------------------------------------------
+C--------------------------------------------------------------------------
+
 	SUBROUTINE NEMSPECS ( LUNIT, NEMO, NNEMO,
      .			      NSCL, NREF, NBTS, IRET )
 
@@ -54,6 +74,7 @@ C>
 	USE MODA_MSGCWD
 	USE MODA_TABLES
 	USE MODA_NRV203
+        USE MODA_IM8B
 
 	CHARACTER*10  TAGN
 
@@ -61,6 +82,16 @@ C>
 
 C----------------------------------------------------------------------
 C----------------------------------------------------------------------
+
+C  CHECK FOR I8 INTEGERS
+C  ---------------------
+
+      IF(IM8) THEN
+         IM8=.FALSE.
+         CALL NEMSPECS_8(LUNIT,NEMO,NNEMO,NSCL,NREF,NBTS,IRET)
+         IM8=.TRUE.
+         RETURN
+      ENDIF
 
 	IRET = -1
 
