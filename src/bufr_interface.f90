@@ -1,14 +1,18 @@
 !> @file
-!> @brief Enable a number of BUFRLIB subprograms to be called
-!>        via wrapper functions from C and C++ application programs.
+!> @brief Enables a number of BUFRLIB functions and variables to be accessed
+!>        via wrapper functions from C and C++ based client programs.
 !>
 !> @author Ronald Mclaren
 !> @date 2020-07-29
 
-!> This module contains functions which wrap certain Fortran BUFRLIB
-!> functions so they can be called from C and C++. The signatures of
-!> the public functions match their Fortran equivalents, as shown within
-!> the documentation for each of the individual functions.
+!> This module contains functions which wrap Fortran BUFRLIB functions and
+!> variables so they can be used from within C and C++ based apps. The
+!> signatures of the public functions match their Fortran equivalents, as
+!> shown within the documentation for each of the individual functions.
+!> Local copies of some Fortran variables are stored as allocatable objects
+!> especially isc, link, jmpb, tag and typ. Its the clients responsibility
+!> to call delete_table_data_f in order to properly delete these variables.
+!>
 !>
 !> @author Ronald Mclaren
 !> @date 2020-07-29
@@ -28,6 +32,18 @@ module bufr_c_interface_mod
   public :: ufbint_c
   public :: ufbrep_c
   public :: mtinfo_c
+  public :: status_c
+  public :: get_isc_c
+  public :: get_link_c
+  public :: get_itp_c
+  public :: get_typ_c
+  public :: get_tag_c
+  public :: get_jmpb_c
+  public :: get_inode_c
+  public :: get_nval_c
+  public :: get_val_c
+  public :: get_inv_c
+  public :: get_type_info_c
 
   integer, allocatable, target, save :: isc_f(:)
   integer, allocatable, target, save :: link_f(:)
@@ -528,6 +544,7 @@ subroutine get_type_info_c(lun, mnemonic, scale, reference, bits, unit_c, unit_s
 
   integer :: idx
 
+  ! Convert c style string to Fortran string
   mnemonic_f = c_f_string(mnemonic)
 
   ! The table B data is stored in text table where the fields we want are stored in different
