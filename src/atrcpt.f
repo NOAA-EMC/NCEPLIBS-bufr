@@ -27,19 +27,11 @@ C> - MSGOT will be longer in length than MSGIN, so the user must allow
 C> for extra space when allocating MSGOT within the application program.
 C>
 C> <b>Program history log:</b>
-C> | Date | Programmer | Comments |
-C> | -----|------------|----------|
-C> | 2009-03-23 | J. Ator  | Original author |
+C> | Date       | Programmer | Comments             |
+C> | -----------|------------|----------------------|
+C> | 2009-03-23 | J. Ator    | Original author      |
+C> | 2022-08-04 | J. Woollen | added 8 byte wrapper |
 C>
-C--------------------------------------------------------------------------
-C--------------------------------------------------------------------------
-      SUBROUTINE ATRCPT_8(MSGIN,LMSGOT_8,MSGOT)
-      INTEGER*8 LMSGOT_8
-      LMSGOT = LMSGOT_8*2
-      call ATRCPT(MSGIN,LMSGOT,MSGOT)
-      END SUBROUTINE
-C--------------------------------------------------------------------------
-C--------------------------------------------------------------------------
 
 	SUBROUTINE ATRCPT(MSGIN,LMSGOT,MSGOT)
 
@@ -117,3 +109,16 @@ C	output array.
 900	CALL BORT('BUFRLIB: ATRCPT - OVERFLOW OF OUTPUT MESSAGE '//
      .    'ARRAY; TRY A LARGER DIMENSION FOR THIS ARRAY')
 	END
+C--------------------------------------------------------------------------
+C THIS SUBROUTINE IS A WRAPPER RECEIVING 8 BYTE INTEGER ARGUMENTS IN SUPPORT 
+C OF A SINGLE (4 BYTE) BUILD OF THE BUFRLIB. FOR DOCUMENTATION OF THE
+C FULL SUBROUTINE WHICH MAY USE THIS WRAPPER FROM AN 8 BYTE APPLICATION
+C SEE THE DOCUMENTATION AT THE TOP OF THIS SOURCVE FILE.
+C--------------------------------------------------------------------------
+      SUBROUTINE ATRCPT_8(MSGIN,LMSGOT,MSGOT)
+      INTEGER*8 LMSGOT
+      LMSGOT4 = LMSGOT*2
+      CALL ATRCPT(MSGIN,LMSGOT4,MSGOT)
+      END SUBROUTINE
+C--------------------------------------------------------------------------
+C--------------------------------------------------------------------------
