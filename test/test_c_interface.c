@@ -330,6 +330,7 @@ void test_intrusiveInterface()
 void test_getTypeInfo()
 {
     static const int UNIT_STR_LEN = 20;
+    static const int DESC_STR_LEN = 54;
     const char* subset = "NC021053";
     const char* mnemonic = "CLAT";
 
@@ -363,13 +364,16 @@ void test_getTypeInfo()
                 int reference;
                 int bits;
                 char unit[UNIT_STR_LEN];
+                char desc[DESC_STR_LEN];
                 get_type_info_f(bufrLoc,
                                 "CLATH",
                                 &scale,
                                 &reference,
                                 &bits,
                                 unit,
-                                UNIT_STR_LEN);
+                                UNIT_STR_LEN,
+                                desc,
+                                DESC_STR_LEN);
 
                 if (reference != -9000000)
                 {
@@ -389,6 +393,11 @@ void test_getTypeInfo()
                 else if (strncmp(unit, "DEGREE", 6) != 0)
                 {
                     printf("%s", "getTypeInfo: Wrong Unit String.");
+                    exit(1);
+                }
+                else if (strncmp(desc, "LATITUDE (HIGH ACCURACY)", 23) != 0)
+                {
+                    printf("%s", "getTypeInfo: Wrong Description String.");
                     exit(1);
                 }
 

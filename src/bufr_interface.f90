@@ -524,10 +524,13 @@ end subroutine get_inv_c
 !>  @param[out] scale - c_int: scale of element
 !>  @param[out] reference - c_int: reference of elemen
 !>  @param[out] bits - c_int: reference of element
-!>  @param[inout] unit_c - char*: unit str
-!>  @param[in] unit_str_len - int: unit str length
+!>  @param[inout] unit_c - c_char: unit str
+!>  @param[in] unit_str_len - c_int: unit str length
+!>  @param[inout] desc_c - c_char: unit str
+!>  @param[in] unit_str_len - c_int: description str length
 !>
-subroutine get_type_info_c(lun, mnemonic, scale, reference, bits, unit_c, unit_str_len) bind(C, name='get_type_info_f')
+subroutine get_type_info_c(lun, mnemonic, scale, reference, bits, unit_c, unit_str_len, desc_c, &
+                           desc_str_len) bind(C, name='get_type_info_f')
   use moda_tababd
   integer(c_int), value, intent(in) :: lun
   character(kind=c_char,len=1), intent(in) :: mnemonic(*)
@@ -536,14 +539,16 @@ subroutine get_type_info_c(lun, mnemonic, scale, reference, bits, unit_c, unit_s
   integer(c_int), intent(out) :: bits
   character(kind=c_char, len=1), intent(inout) :: unit_c(*)
   integer(c_int), value, intent(in) :: unit_str_len
+  character(kind=c_char, len=1), intent(inout) :: desc_c(*)
+  integer(c_int), value, intent(in) :: desc_str_len
 
   character(len=:), allocatable :: mnemonic_f
   character(len=:), allocatable :: scale_str_f
   character(len=:), allocatable :: reference_str_f
   character(len=:), allocatable :: bits_str_f
   character(len=:), allocatable :: unit_f
+  character(len=:), allocatable :: desc_f
   integer :: stat_f
-
   integer :: idx
 
   ! Convert c style string to Fortran string
@@ -569,6 +574,9 @@ subroutine get_type_info_c(lun, mnemonic, scale, reference, bits, unit_c, unit_s
       ! Read and store the Unit string.
       unit_f = trim(tabb(idx, lun)(71:94))
 
+      ! Read and store the Description
+      desc_f = trim(tabb(idx, lun)(16:70))
+
       exit  ! Found the target, so stop looping
     end if
   end do
@@ -576,6 +584,11 @@ subroutine get_type_info_c(lun, mnemonic, scale, reference, bits, unit_c, unit_s
   if (allocated(unit_f)) then
     ! Copy the Unit fortran string into the resulting C style string.
     call copy_f_c_str(unit_f, unit_c, min(len(unit_f) + 1, int(unit_str_len)))
+  end if
+
+  if (allocated(desc_f)) then
+    ! Copy the Unit fortran string into the resulting C style string.
+    call copy_f_c_str(desc_f, desc_c, min(len(desc_f) + 1, int(desc_str_len)))
   end if
 end subroutine get_type_info_c
 

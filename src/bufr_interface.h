@@ -275,6 +275,8 @@ extern "C" {
 @param[out] bits - int*: reference of element
 @param[inout] unit_c - char*: unit str
 @param[in] unit_str_len - int: unit str length
+@param[inout] desc_c - char*: unit str
+@param[in] desc_str_len - int: description str length
 */
   void get_type_info_f(int lun,
                        const char* mnemonic,
@@ -282,7 +284,9 @@ extern "C" {
                        int* reference,
                        int* bits,
                        char* unit_c,
-                       int unit_str_len);
+                       int unit_str_len,
+                       char* desc_c,
+                       int desc_str_len);
 
 
 /** @author Ronald McLaren
