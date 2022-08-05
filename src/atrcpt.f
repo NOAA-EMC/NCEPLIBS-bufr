@@ -47,15 +47,14 @@ C>
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
 
-C  CHECK FOR I8 INTEGERS
-C  ---------------------
+C       Check for I8 integers.
 
-      IF(IM8) THEN
-         IM8=.FALSE.
-         call ATRCPT_8(MSGIN,LMSGOT,MSGOT)
-         IM8=.TRUE.
-         RETURN
-      endif
+        IF(IM8) THEN
+           IM8=.FALSE.
+           CALL ATRCPT_8(MSGIN,LMSGOT,MSGOT)
+           IM8=.TRUE.
+           RETURN
+        ENDIF
 
 C	Get some section lengths and addresses from the input message.
 
@@ -109,16 +108,30 @@ C	output array.
 900	CALL BORT('BUFRLIB: ATRCPT - OVERFLOW OF OUTPUT MESSAGE '//
      .    'ARRAY; TRY A LARGER DIMENSION FOR THIS ARRAY')
 	END
-C--------------------------------------------------------------------------
-C THIS SUBROUTINE IS A WRAPPER RECEIVING 8 BYTE INTEGER ARGUMENTS IN SUPPORT 
-C OF A SINGLE (4 BYTE) BUILD OF THE BUFRLIB. FOR DOCUMENTATION OF THE
-C FULL SUBROUTINE WHICH MAY USE THIS WRAPPER FROM AN 8 BYTE APPLICATION
-C SEE THE DOCUMENTATION AT THE TOP OF THIS SOURCVE FILE.
-C--------------------------------------------------------------------------
+
+C> This subroutine is an internal wrapper for handling 8-byte integer
+C> arguments to subroutine atrcpt().
+C>
+C> <p>Application programs which use 8-byte integer arguments should
+C> never call this subroutine directly; instead, such programs should
+C> make an initial call to subroutine ...() with...
+C> and then call subroutine atrcpt() directly.
+C>
+C> @author J. Woollen
+C> @date 2022-08-04
+C>
+C> @param[in] MSGIN   -- integer(*): BUFR message
+C> @param[in] LMSGOT  -- integer*8: Dimensioned size (in integers) of
+C>                       MSGOT; used by the subroutine to ensure that
+C>                       it doesn't overflow the MSGOT array
+C> @param[out] MSGOT  -- integer(*): Copy of MSGIN with a tank
+C>                       receipt time added to Section 1
+
       SUBROUTINE ATRCPT_8(MSGIN,LMSGOT,MSGOT)
+
       INTEGER*8 LMSGOT
+
       LMSGOT4 = LMSGOT*2
       CALL ATRCPT(MSGIN,LMSGOT4,MSGOT)
+
       END SUBROUTINE
-C--------------------------------------------------------------------------
-C--------------------------------------------------------------------------
