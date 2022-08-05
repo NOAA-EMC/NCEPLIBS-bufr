@@ -266,14 +266,15 @@ extern "C" {
 /** @author Ronald McLaren
 @date 2022-06-30
 
-@brief Get meta data for a mnemonic (type info)
+@brief Get type info meta data for a mnemonic
 
 @param[in] lun - int: pointer for the file stream
 @param[in] mnemonic - const char*: c str for mnemonic
 @param[out] scale - int*: scale of element
 @param[out] reference - int*: reference of element
+@param[out] bits - int*: reference of element
 @param[inout] unit_c - char*: unit str
-@param[inout] unit_str_len - int: unit str length
+@param[in] unit_str_len - int: unit str length
 */
   void get_type_info_f(int lun,
                        const char* mnemonic,

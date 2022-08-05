@@ -520,11 +520,12 @@ end subroutine get_inv_c
 !>  determine an appropriate type (string, float, int etc...) to store the data.
 !>
 !>  @param[in] lun - c_int: pointer for the file stream
-!>  @param[in] mnemonic - const char*: c str for mnemonic
-!>  @param[out] scale - int*: scale of element
-!>  @param[out] reference - int*: reference of element
+!>  @param[in] mnemonic - string: c str for mnemonic
+!>  @param[out] scale - c_int: scale of element
+!>  @param[out] reference - c_int: reference of elemen
+!>  @param[out] bits - c_int: reference of element
 !>  @param[inout] unit_c - char*: unit str
-!>  @param[inout] unit_str_len - int: unit str length
+!>  @param[in] unit_str_len - int: unit str length
 !>
 subroutine get_type_info_c(lun, mnemonic, scale, reference, bits, unit_c, unit_str_len) bind(C, name='get_type_info_f')
   use moda_tababd
@@ -567,6 +568,7 @@ subroutine get_type_info_c(lun, mnemonic, scale, reference, bits, unit_c, unit_s
 
       ! Read and store the Unit string.
       unit_f = trim(tabb(idx, lun)(71:94))
+
       exit  ! Found the target, so stop looping
     end if
   end do
