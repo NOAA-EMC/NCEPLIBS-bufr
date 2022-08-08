@@ -365,27 +365,32 @@ void test_getTypeInfo()
                 int bits;
                 char unit[UNIT_STR_LEN];
                 char desc[DESC_STR_LEN];
-                get_type_info_f(bufrLoc,
-                                "CLATH",
-                                &scale,
-                                &reference,
-                                &bits,
+
+                nemdefs_f(BUFR_FILE_UNIT,
+                                "CLAT",
                                 unit,
                                 UNIT_STR_LEN,
                                 desc,
                                 DESC_STR_LEN);
 
-                if (reference != -9000000)
+                nemspecs_f(BUFR_FILE_UNIT,
+                                "CLAT",
+                                1,
+                                &scale,
+                                &reference,
+                                &bits);
+
+                if (reference != -900000)
                 {
                     printf("%s", "getTypeInfo: Wrong reference number found.");
                     exit(1);
                 }
-                else if (scale != 5)
+                else if (scale != 4)
                 {
                     printf("%s", "getTypeInfo: Wrong scale number found.");
                     exit(1);
                 }
-                else if (bits != 25)
+                else if (bits != 22)
                 {
                     printf("%s", "getTypeInfo: Wrong number of bits found.");
                     exit(1);
@@ -395,7 +400,7 @@ void test_getTypeInfo()
                     printf("%s", "getTypeInfo: Wrong Unit String.");
                     exit(1);
                 }
-                else if (strncmp(desc, "LATITUDE (HIGH ACCURACY)", 23) != 0)
+                else if (strncmp(desc, "LATITUDE (COARSE ACCURACY)", 26) != 0)
                 {
                     printf("%s", "getTypeInfo: Wrong Description String.");
                     exit(1);

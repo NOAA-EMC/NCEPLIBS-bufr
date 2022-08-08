@@ -151,6 +151,47 @@ extern "C" {
 
 
 /** @author Ronald McLaren
+    @date 2022-08-08
+
+    @brief Gets Table B Unit and Description strings for a mnemonic. Wraps BUFRLIB "nemdefs".
+
+    @param[in] file_unit - int: Fortran file ujit for the open file
+    @param[in] mnemonic - char*: c str for mnemonic
+    @param[inout] unit_c - char*: unit str
+    @param[in] unit_str_len - int: unit str length
+    @param[inout] desc_c - char*: description string
+    @param[in] desc_str_len - int: description str length
+*/
+    void nemdefs_f(int file_unit,
+                   const char* mnemonic,
+                   char* unit_c,
+                   int unit_str_len,
+                   char* desc_c,
+                   int desc_str_len);
+
+
+/** @author Ronald McLaren
+    @date 2022-08-08
+
+    @brief Gets Table B scale, reference, and bits values. Wraps BUFRLIB "nemspecs".
+
+    @param[in] file_unit - c_int: Fortran file ujit for the open file
+    @param[in] mnemonic - const char*: c str for mnemonic
+    @param[in] mnemonic_idx - int: indicates specific mnemonic element (if repeated)
+    @param[out] scale - int*: scale of element
+    @param[out] reference - int*: reference of element
+    @param[out] bits - int*: number of bits representing the element
+
+*/
+    void nemspecs_f(int file_unit,
+                    const char* mnemonic,
+                    int mnemonic_idx,
+                    int* scale,
+                    int* reference,
+                    int* bits);
+
+
+/** @author Ronald McLaren
     @date 2022-03-23
 
     @brief Get copy of the moda_tables ISC array.
@@ -261,32 +302,6 @@ extern "C" {
 @param[out] len - int*: length of the array
 */
   void get_inv_f(int lun, int** data, int* len);
-
-
-/** @author Ronald McLaren
-@date 2022-06-30
-
-@brief Get type info meta data for a mnemonic
-
-@param[in] lun - int: pointer for the file stream
-@param[in] mnemonic - const char*: c str for mnemonic
-@param[out] scale - int*: scale of element
-@param[out] reference - int*: reference of element
-@param[out] bits - int*: reference of element
-@param[inout] unit_c - char*: unit str
-@param[in] unit_str_len - int: unit str length
-@param[inout] desc_c - char*: unit str
-@param[in] desc_str_len - int: description str length
-*/
-  void get_type_info_f(int lun,
-                       const char* mnemonic,
-                       int* scale,
-                       int* reference,
-                       int* bits,
-                       char* unit_c,
-                       int unit_str_len,
-                       char* desc_c,
-                       int desc_str_len);
 
 
 /** @author Ronald McLaren

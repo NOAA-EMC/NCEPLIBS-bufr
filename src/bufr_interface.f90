@@ -33,6 +33,8 @@ module bufr_c_interface_mod
   public :: ufbrep_c
   public :: mtinfo_c
   public :: status_c
+  public :: nemdefs_c
+  public :: nemspecs_c
   public :: get_isc_c
   public :: get_link_c
   public :: get_itp_c
@@ -43,7 +45,6 @@ module bufr_c_interface_mod
   public :: get_nval_c
   public :: get_val_c
   public :: get_inv_c
-  public :: get_type_info_c
   public :: delete_table_data_c
 
   integer, allocatable, target, save :: isc_f(:)
@@ -314,6 +315,87 @@ end subroutine status_c
 
 
 !>  @author Ronald McLaren
+!>  @date 2022-08-08
+!>
+!>  @brief Gets Table B Unit and Description strings for a mnemonic. Wraps BUFRLIB "nemdefs".
+!>
+!>  @param[in] file_unit - c_int: Fortran file ujit for the open file
+!>  @param[in] mnemonic - c_char: c str for mnemonic
+!>  @param[inout] unit_c - c_char: unit str
+!>  @param[in] unit_str_len - c_int: unit str length
+!>  @param[inout] desc_c - c_char: unit str
+!>  @param[in] desc_str_len - c_int: description str length
+!>
+subroutine nemdefs_c(file_unit, mnemonic, unit_c, unit_str_len, desc_c, desc_str_len) &
+        bind(C, name='nemdefs_f')
+  use moda_tababd
+  integer(c_int), value, intent(in) :: file_unit
+  character(kind=c_char,len=1), intent(in) :: mnemonic(*)
+  character(kind=c_char, len=1), intent(inout) :: unit_c(*)
+  integer(c_int), value, intent(in) :: unit_str_len
+  character(kind=c_char, len=1), intent(inout) :: desc_c(*)
+  integer(c_int), value, intent(in) :: desc_str_len
+
+  character(len=:), allocatable :: mnemonic_f
+  character(len=24) :: unit_f
+  character(len=55) :: desc_f
+  integer :: iret
+
+  ! Convert c style string to Fortran string
+  mnemonic_f = c_f_string(mnemonic)
+
+  ! Get the unit and description strings
+  call nemdefs ( file_unit, mnemonic_f, desc_f, unit_f, iret)
+
+  if (iret == 0) then
+    ! Copy the Unit fortran string into the resulting C style string.
+    call copy_f_c_str(unit_f, unit_c, min(len(unit_f) + 1, int(unit_str_len)))
+    ! Copy the Unit fortran string into the resulting C style string.
+    call copy_f_c_str(desc_f, desc_c, min(len(desc_f) + 1, int(desc_str_len)))
+  else
+    call bort("Failed calling nemdefs for " // mnemonic_f)
+  end if
+end subroutine nemdefs_c
+
+
+!>  @author Ronald McLaren
+!>  @date 2022-08-08
+!>
+!>  @brief Gets Table B scale, reference, and bits values. Wraps BUFRLIB "nemspecs".
+!>
+!>  @param[in] file_unit - c_int: Fortran file ujit for the open file
+!>  @param[in] mnemonic - c_char: c str for mnemonic
+!>  @param[in] mnemonic_idx - c_int: indicates specific mnemonic element (if repeated)
+!>  @param[out] scale - c_int: scale of element
+!>  @param[out] reference - c_int: reference of element
+!>  @param[out] bits - c_int: number of bits representing the element
+!>
+subroutine nemspecs_c(file_unit, mnemonic,mnemonic_idx, scale, reference, bits) &
+        bind(C, name='nemspecs_f')
+  use moda_tababd
+  integer(c_int), value, intent(in) :: file_unit
+  character(kind=c_char,len=1), intent(in) :: mnemonic(*)
+  integer(c_int), intent(in) ::mnemonic_idx
+  integer(c_int), intent(out) :: scale
+  integer(c_int), intent(out) :: reference
+  integer(c_int), intent(out) :: bits
+
+  character(len=:), allocatable :: mnemonic_f
+  integer :: iret
+
+  ! Convert c style string to Fortran string
+  mnemonic_f = c_f_string(mnemonic)
+
+  ! Get the scale, reference and bits
+  call nemspecs( file_unit, mnemonic_f, 1, scale, reference, bits, iret)
+
+  if (iret /= 0) then
+    call bort("Failed calling nemspecs for " // mnemonic_f)
+  end if
+end subroutine nemspecs_c
+
+
+!>  @author Ronald McLaren
 !>  @date 2022-03-23
 !>
 !>  @brief Get copy of the moda_tables ISC array.
@@ -511,86 +593,6 @@ subroutine get_inv_c(lun, inv_ptr, inv_size) bind(C, name='get_inv_f')
   inv_size = size(inv(:, lun))
   inv_ptr = c_loc(inv(1, lun))
 end subroutine get_inv_c
-
-
-!>  @author Ronald McLaren
-!>  @date 2022-06-30
-!>
-!>  @brief Gets Table B Meta data associated with a BUFR mnemonic. The data returned can be used to
-!>  determine an appropriate type (string, float, int etc...) to store the data.
-!>
-!>  @param[in] lun - c_int: pointer for the file stream
-!>  @param[in] mnemonic - string: c str for mnemonic
-!>  @param[out] scale - c_int: scale of element
-!>  @param[out] reference - c_int: reference of elemen
-!>  @param[out] bits - c_int: reference of element
-!>  @param[inout] unit_c - c_char: unit str
-!>  @param[in] unit_str_len - c_int: unit str length
-!>  @param[inout] desc_c - c_char: unit str
-!>  @param[in] unit_str_len - c_int: description str length
-!>
-subroutine get_type_info_c(lun, mnemonic, scale, reference, bits, unit_c, unit_str_len, desc_c, &
-                           desc_str_len) bind(C, name='get_type_info_f')
-  use moda_tababd
-  integer(c_int), value, intent(in) :: lun
-  character(kind=c_char,len=1), intent(in) :: mnemonic(*)
-  integer(c_int), intent(out) :: scale
-  integer(c_int), intent(out) :: reference
-  integer(c_int), intent(out) :: bits
-  character(kind=c_char, len=1), intent(inout) :: unit_c(*)
-  integer(c_int), value, intent(in) :: unit_str_len
-  character(kind=c_char, len=1), intent(inout) :: desc_c(*)
-  integer(c_int), value, intent(in) :: desc_str_len
-
-  character(len=:), allocatable :: mnemonic_f
-  character(len=:), allocatable :: scale_str_f
-  character(len=:), allocatable :: reference_str_f
-  character(len=:), allocatable :: bits_str_f
-  character(len=:), allocatable :: unit_f
-  character(len=:), allocatable :: desc_f
-  integer :: stat_f
-  integer :: idx
-
-  ! Convert c style string to Fortran string
-  mnemonic_f = c_f_string(mnemonic)
-
-  ! The table B data is stored in text table where the fields we want are stored in different
-  ! columns.
-  do idx=1,ntbb(lun)
-    ! Read the value in mnemonic column and compare it to our target.
-    if (trim(tabb(idx, lun)(7:14)) == mnemonic_f) then
-      ! Read the value in the Scale column and convert the string to an integer
-      scale_str_f = trim(tabb(idx, lun)(95:98))
-      read(scale_str_f, *, iostat=stat_f) scale
-
-      ! Read the value in the Reference column and convert the string to an integer
-      reference_str_f = trim(tabb(idx, lun)(99:109))
-      read(reference_str_f, *, iostat=stat_f) reference
-
-      ! Read the value in the Bits column and convert the string to an integer
-      bits_str_f = trim(tabb(idx, lun)(110:112))
-      read(bits_str_f, *, iostat=stat_f) bits
-
-      ! Read and store the Unit string.
-      unit_f = trim(tabb(idx, lun)(71:94))
-
-      ! Read and store the Description
-      desc_f = trim(tabb(idx, lun)(16:70))
-
-      exit  ! Found the target, so stop looping
-    end if
-  end do
-
-  if (allocated(unit_f)) then
-    ! Copy the Unit fortran string into the resulting C style string.
-    call copy_f_c_str(unit_f, unit_c, min(len(unit_f) + 1, int(unit_str_len)))
-  end if
-
-  if (allocated(desc_f)) then
-    ! Copy the Unit fortran string into the resulting C style string.
-    call copy_f_c_str(desc_f, desc_c, min(len(desc_f) + 1, int(desc_str_len)))
-  end if
-end subroutine get_type_info_c
 
 
 !>  @author Ronald McLaren
