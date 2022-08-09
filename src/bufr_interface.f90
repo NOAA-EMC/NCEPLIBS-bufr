@@ -325,8 +325,9 @@ end subroutine status_c
 !>  @param[in] unit_str_len - c_int: unit str length
 !>  @param[inout] desc_c - c_char: description string
 !>  @param[in] desc_str_len - c_int: description str length
+!>  @param[out] iret - c_int: return value. 0 indicates success -1 indicates failure.
 !>
-subroutine nemdefs_c(file_unit, mnemonic, unit_c, unit_str_len, desc_c, desc_str_len) &
+subroutine nemdefs_c(file_unit, mnemonic, unit_c, unit_str_len, desc_c, desc_str_len, iret) &
         bind(C, name='nemdefs_f')
   integer(c_int), value, intent(in) :: file_unit
   character(kind=c_char,len=1), intent(in) :: mnemonic(*)
@@ -334,10 +335,10 @@ subroutine nemdefs_c(file_unit, mnemonic, unit_c, unit_str_len, desc_c, desc_str
   integer(c_int), value, intent(in) :: unit_str_len
   character(kind=c_char, len=1), intent(inout) :: desc_c(*)
   integer(c_int), value, intent(in) :: desc_str_len
+  integer(c_int), intent(out) :: iret
 
   character(len=24) :: unit_f
   character(len=55) :: desc_f
-  integer :: iret
 
   ! Get the unit and description strings
   call nemdefs ( file_unit, c_f_string(mnemonic), desc_f, unit_f, iret)
@@ -347,8 +348,6 @@ subroutine nemdefs_c(file_unit, mnemonic, unit_c, unit_str_len, desc_c, desc_str
     call copy_f_c_str(unit_f, unit_c, min(len(unit_f) + 1, unit_str_len))
     ! Copy the Unit fortran string into the resulting C style string.
     call copy_f_c_str(desc_f, desc_c, min(len(desc_f) + 1, desc_str_len))
-  else
-    call bort("Failed calling nemdefs for " // c_f_string(mnemonic))
   end if
 end subroutine nemdefs_c
 
@@ -364,8 +363,9 @@ end subroutine nemdefs_c
 !>  @param[out] scale - c_int: scale of element
 !>  @param[out] reference - c_int: reference of element
 !>  @param[out] bits - c_int: number of bits representing the element
+!>  @param[out] iret - c_int: return value. 0 indicates success -1 indicates failure.
 !>
-subroutine nemspecs_c(file_unit, mnemonic, mnemonic_idx, scale, reference, bits) &
+subroutine nemspecs_c(file_unit, mnemonic, mnemonic_idx, scale, reference, bits, iret) &
         bind(C, name='nemspecs_f')
   integer(c_int), value, intent(in) :: file_unit
   character(kind=c_char,len=1), intent(in) :: mnemonic(*)
@@ -373,15 +373,11 @@ subroutine nemspecs_c(file_unit, mnemonic, mnemonic_idx, scale, reference, bits)
   integer(c_int), intent(out) :: scale
   integer(c_int), intent(out) :: reference
   integer(c_int), intent(out) :: bits
-
-  integer :: iret
+  integer(c_int), intent(out) :: iret
 
   ! Get the scale, reference and bits
   call nemspecs( file_unit, c_f_string(mnemonic), mnemonic_idx, scale, reference, bits, iret)
 
-  if (iret /= 0) then
-    call bort("Failed calling nemspecs for " // c_f_string(mnemonic))
-  end if
 end subroutine nemspecs_c
 
 

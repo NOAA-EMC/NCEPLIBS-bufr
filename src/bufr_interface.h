@@ -161,13 +161,15 @@ extern "C" {
     @param[in] unit_str_len - int: unit str length
     @param[inout] desc_c - char*: description string
     @param[in] desc_str_len - int: description str length
+    @param[out] iret - int*: return value. 0 indicates success -1 indicates failure.
 */
     void nemdefs_f(int file_unit,
                    const char* mnemonic,
                    char* unit_c,
                    int unit_str_len,
                    char* desc_c,
-                   int desc_str_len);
+                   int desc_str_len,
+                   int* iret);
 
 
 /** @author Ronald McLaren
@@ -181,14 +183,15 @@ extern "C" {
     @param[out] scale - int*: scale of element
     @param[out] reference - int*: reference of element
     @param[out] bits - int*: number of bits representing the element
-
+    @param[out] iret - int*: return value. 0 indicates success -1 indicates failure.
 */
     void nemspecs_f(int file_unit,
                     const char* mnemonic,
                     int mnemonic_idx,
                     int* scale,
                     int* reference,
-                    int* bits);
+                    int* bits,
+                    int* iret);
 
 
 /** @author Ronald McLaren

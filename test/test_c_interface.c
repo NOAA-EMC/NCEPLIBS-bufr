@@ -360,6 +360,7 @@ void test_getTypeInfo()
             {
                 status_f(BUFR_FILE_UNIT, &bufrLoc, &il, &im);
 
+                int iret;
                 int scale;
                 int reference;
                 int bits;
@@ -371,38 +372,52 @@ void test_getTypeInfo()
                                 unit,
                                 UNIT_STR_LEN,
                                 desc,
-                                DESC_STR_LEN);
+                                DESC_STR_LEN,
+                                &iret);
+
+                if (iret != 0)
+                {
+                    printf("%s", "Call of nemdefs_f failed.");
+                    exit(1);
+                }
 
                 nemspecs_f(BUFR_FILE_UNIT,
                                 "CLAT",
                                 1,
                                 &scale,
                                 &reference,
-                                &bits);
+                                &bits,
+                                &iret);
+
+                if (iret != 0)
+                {
+                    printf("%s", "Call of nemspecs_f failed.");
+                    exit(1);
+                }
 
                 if (reference != -900000)
                 {
-                    printf("%s", "getTypeInfo: Wrong reference number found.");
+                    printf("%s", "Wrong reference number found.");
                     exit(1);
                 }
                 else if (scale != 4)
                 {
-                    printf("%s", "getTypeInfo: Wrong scale number found.");
+                    printf("%s", "Wrong scale number found.");
                     exit(1);
                 }
                 else if (bits != 22)
                 {
-                    printf("%s", "getTypeInfo: Wrong number of bits found.");
+                    printf("%s", "Wrong number of bits found.");
                     exit(1);
                 }
                 else if (strncmp(unit, "DEGREE", 6) != 0)
                 {
-                    printf("%s", "getTypeInfo: Wrong Unit String.");
+                    printf("%s", "Wrong Unit String.");
                     exit(1);
                 }
                 else if (strncmp(desc, "LATITUDE (COARSE ACCURACY)", 26) != 0)
                 {
-                    printf("%s", "getTypeInfo: Wrong Description String.");
+                    printf("%s", "Wrong Description String.");
                     exit(1);
                 }
 
