@@ -319,7 +319,7 @@ end subroutine status_c
 !>
 !>  @brief Gets Table B Unit and Description strings for a mnemonic. Wraps BUFRLIB "nemdefs".
 !>
-!>  @param[in] file_unit - c_int: Fortran file ujit for the open file
+!>  @param[in] file_unit - c_int: Fortran file unit for the open file
 !>  @param[in] mnemonic - c_char: c str for mnemonic
 !>  @param[inout] unit_c - c_char: unit str
 !>  @param[in] unit_str_len - c_int: unit str length

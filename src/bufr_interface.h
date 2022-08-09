@@ -175,7 +175,7 @@ extern "C" {
 
     @brief Gets Table B scale, reference, and bits values. Wraps BUFRLIB "nemspecs".
 
-    @param[in] file_unit - c_int: Fortran file ujit for the open file
+    @param[in] file_unit - c_int: Fortran file unit for the open file
     @param[in] mnemonic - const char*: c str for mnemonic
     @param[in] mnemonic_idx - int: indicates specific mnemonic element (if repeated)
     @param[out] scale - int*: scale of element
