@@ -155,7 +155,7 @@ extern "C" {
 
     @brief Gets Table B Unit and Description strings for a mnemonic. Wraps BUFRLIB "nemdefs".
 
-    @param[in] file_unit - int: Fortran file ujit for the open file
+    @param[in] file_unit - int: Fortran file unit for the open file
     @param[in] mnemonic - char*: c str for mnemonic
     @param[inout] unit_c - char*: unit str
     @param[in] unit_str_len - int: unit str length

@@ -323,12 +323,11 @@ end subroutine status_c
 !>  @param[in] mnemonic - c_char: c str for mnemonic
 !>  @param[inout] unit_c - c_char: unit str
 !>  @param[in] unit_str_len - c_int: unit str length
-!>  @param[inout] desc_c - c_char: unit str
+!>  @param[inout] desc_c - c_char: description string
 !>  @param[in] desc_str_len - c_int: description str length
 !>
 subroutine nemdefs_c(file_unit, mnemonic, unit_c, unit_str_len, desc_c, desc_str_len) &
         bind(C, name='nemdefs_f')
-  use moda_tababd
   integer(c_int), value, intent(in) :: file_unit
   character(kind=c_char,len=1), intent(in) :: mnemonic(*)
   character(kind=c_char, len=1), intent(inout) :: unit_c(*)
@@ -336,24 +335,20 @@ subroutine nemdefs_c(file_unit, mnemonic, unit_c, unit_str_len, desc_c, desc_str
   character(kind=c_char, len=1), intent(inout) :: desc_c(*)
   integer(c_int), value, intent(in) :: desc_str_len
 
-  character(len=:), allocatable :: mnemonic_f
   character(len=24) :: unit_f
   character(len=55) :: desc_f
   integer :: iret
 
-  ! Convert c style string to Fortran string
-  mnemonic_f = c_f_string(mnemonic)
-
   ! Get the unit and description strings
-  call nemdefs ( file_unit, mnemonic_f, desc_f, unit_f, iret)
+  call nemdefs ( file_unit, c_f_string(mnemonic), desc_f, unit_f, iret)
 
   if (iret == 0) then
     ! Copy the Unit fortran string into the resulting C style string.
-    call copy_f_c_str(unit_f, unit_c, min(len(unit_f) + 1, int(unit_str_len)))
+    call copy_f_c_str(unit_f, unit_c, min(len(unit_f) + 1, unit_str_len))
     ! Copy the Unit fortran string into the resulting C style string.
-    call copy_f_c_str(desc_f, desc_c, min(len(desc_f) + 1, int(desc_str_len)))
+    call copy_f_c_str(desc_f, desc_c, min(len(desc_f) + 1, desc_str_len))
   else
-    call bort("Failed calling nemdefs for " // mnemonic_f)
+    call bort("Failed calling nemdefs for " // c_f_string(mnemonic))
   end if
 end subroutine nemdefs_c
 
@@ -363,34 +358,29 @@ end subroutine nemdefs_c
 !>
 !>  @brief Gets Table B scale, reference, and bits values. Wraps BUFRLIB "nemspecs".
 !>
-!>  @param[in] file_unit - c_int: Fortran file ujit for the open file
+!>  @param[in] file_unit - c_int: Fortran file unit for the open file
 !>  @param[in] mnemonic - c_char: c str for mnemonic
 !>  @param[in] mnemonic_idx - c_int: indicates specific mnemonic element (if repeated)
 !>  @param[out] scale - c_int: scale of element
 !>  @param[out] reference - c_int: reference of element
 !>  @param[out] bits - c_int: number of bits representing the element
 !>
-subroutine nemspecs_c(file_unit, mnemonic,mnemonic_idx, scale, reference, bits) &
+subroutine nemspecs_c(file_unit, mnemonic, mnemonic_idx, scale, reference, bits) &
         bind(C, name='nemspecs_f')
-  use moda_tababd
   integer(c_int), value, intent(in) :: file_unit
   character(kind=c_char,len=1), intent(in) :: mnemonic(*)
-  integer(c_int), intent(in) ::mnemonic_idx
+  integer(c_int), value, intent(in) ::mnemonic_idx
   integer(c_int), intent(out) :: scale
   integer(c_int), intent(out) :: reference
   integer(c_int), intent(out) :: bits
 
-  character(len=:), allocatable :: mnemonic_f
   integer :: iret
 
-  ! Convert c style string to Fortran string
-  mnemonic_f = c_f_string(mnemonic)
-
   ! Get the scale, reference and bits
-  call nemspecs( file_unit, mnemonic_f, 1, scale, reference, bits, iret)
+  call nemspecs( file_unit, c_f_string(mnemonic), mnemonic_idx, scale, reference, bits, iret)
 
   if (iret /= 0) then
-    call bort("Failed calling nemspecs for " // mnemonic_f)
+    call bort("Failed calling nemspecs for " // c_f_string(mnemonic))
   end if
 end subroutine nemspecs_c
 
