@@ -308,7 +308,7 @@ extern "C" {
 
 
 /** @author Ronald McLaren
-@date 2022-03-23x
+@date 2022-03-23
 
 @brief Deletes the copies of the moda_tables arrays.
 */
