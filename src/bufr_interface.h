@@ -322,15 +322,15 @@ extern "C" {
 @param[inout] desc_c - char*: unit str
 @param[in] desc_str_len - int: description str length
 */
-void get_tabb_info_f(int lun,
-                     const char* mnemonic,
-                     int* scale,
-                     int* reference,
-                     int* bits,
-                     char* unit_c,
-                     int unit_str_len,
-                     char* desc_c,
-                     int desc_str_len);
+    void get_tabb_info_f(int lun,
+                         const char* mnemonic,
+                         int* scale,
+                         int* reference,
+                         int* bits,
+                         char* unit_c,
+                         int unit_str_len,
+                         char* desc_c,
+                         int desc_str_len);
 
 
 /** @author Ronald McLaren
