@@ -46,7 +46,6 @@ list(APPEND test_IN_srcs
   test_IN_5.f
   test_IN_6.f
   test_IN_7.f
-  demo_nemspecs_problem.f90
   )
 
 list(APPEND test_OUT_2_srcs
