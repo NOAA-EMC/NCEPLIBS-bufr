@@ -421,6 +421,42 @@ void test_getTypeInfo()
                     exit(1);
                 }
 
+                get_tabb_info_f(bufrLoc,
+                                "CLATH",
+                                &scale,
+                                &reference,
+                                &bits,
+                                unit,
+                                UNIT_STR_LEN,
+                                desc,
+                                DESC_STR_LEN);
+
+                if (reference != -9000000)
+                {
+                    printf("%s", "tabb info: Wrong reference number found.");
+                    exit(1);
+                }
+                else if (scale != 5)
+                {
+                    printf("%s", "tabb info: Wrong scale number found.");
+                    exit(1);
+                }
+                else if (bits != 25)
+                {
+                    printf("%s", "tabb info: Wrong number of bits found.");
+                    exit(1);
+                }
+                else if (strncmp(unit, "DEGREE", 6) != 0)
+                {
+                    printf("%s", "tabb info: Wrong Unit String.");
+                    exit(1);
+                }
+                else if (strncmp(desc, "LATITUDE (HIGH ACCURACY)", 23) != 0)
+                {
+                    printf("%s", "tabb info: Wrong Description String.");
+                    exit(1);
+                }
+
                 break;
             }
         }

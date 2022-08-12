@@ -308,6 +308,32 @@ extern "C" {
 
 
 /** @author Ronald McLaren
+@date 2022-06-30
+
+@brief Get type info meta data for a mnemonic
+
+@param[in] lun - int: pointer for the file stream
+@param[in] mnemonic - const char*: c str for mnemonic
+@param[out] scale - int*: scale of element
+@param[out] reference - int*: reference of element
+@param[out] bits - int*: reference of element
+@param[inout] unit_c - char*: unit str
+@param[in] unit_str_len - int: unit str length
+@param[inout] desc_c - char*: unit str
+@param[in] desc_str_len - int: description str length
+*/
+void get_tabb_info_f(int lun,
+                     const char* mnemonic,
+                     int* scale,
+                     int* reference,
+                     int* bits,
+                     char* unit_c,
+                     int unit_str_len,
+                     char* desc_c,
+                     int desc_str_len);
+
+
+/** @author Ronald McLaren
 @date 2022-03-23
 
 @brief Deletes the copies of the moda_tables arrays.
