@@ -316,7 +316,7 @@ extern "C" {
 @param[in] mnemonic - const char*: c str for mnemonic
 @param[out] scale - int*: scale of element
 @param[out] reference - int*: reference of element
-@param[out] bits - int*: reference of element
+@param[out] bits - int*: bits of element
 @param[inout] unit_c - char*: unit str
 @param[in] unit_str_len - int: unit str length
 @param[inout] desc_c - char*: unit str
