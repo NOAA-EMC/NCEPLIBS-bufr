@@ -483,8 +483,8 @@ class open:
             raise IOError('subset not loaded, call load_subset first')
         if len(mnemonic.split()) > 1:
             raise ValueError('only one mnemonic per call to read_long_string')
-        data = _bufrlib.readlc(self.lunit,data,mnemonic)
-        return data
+        long_string = _bufrlib.readlc(self.lunit,mnemonic)
+        return str(long_string, encoding='ascii').strip()
     def read_subset(self,mnemonics,rep=False,seq=False,events=False):
         """
         decode the data from the currently loaded message subset

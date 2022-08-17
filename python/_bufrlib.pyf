@@ -108,7 +108,7 @@ subroutine ufbint(lunin,usr,i1,i2,iret,str) ! in ufbint.f
 end subroutine ufbint
 subroutine readlc(lunit, chr, str) ! in readlc.f
     integer,intent(in) :: lunit
-    character*(*), intent(out) :: chr
+    character*120, intent(out) :: chr
     character*(*), intent(in) :: str
 end subroutine readlc
 subroutine ufbqcd(lunit,nemo,qcd) ! in ufbqcd.f
