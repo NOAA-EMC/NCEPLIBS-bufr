@@ -469,6 +469,22 @@ class open:
         if iret == 0:
             self.subset_loaded = True
         return iret
+    def read_long_string(self,mnemonic):
+        """
+        Decode character string from the currently loaded message subset
+        using the specified mnemonic (a 'mnemonic' is simply a
+        descriptive, alphanumeric name for a data value, like
+        a key in a python dictionary). The mnemonic string
+        must be a single mnemonic only.
+        
+        Returns the character string, if found, or "MISSING" if not.
+        """
+        if not self.subset_loaded:
+            raise IOError('subset not loaded, call load_subset first')
+        if len(mnemonic.split()) > 1:
+            raise ValueError('only one mnemonic per call to read_long_string')
+        data = _bufrlib.readlc(self.lunit,data,mnemonic)
+        return data
     def read_subset(self,mnemonics,rep=False,seq=False,events=False):
         """
         decode the data from the currently loaded message subset
