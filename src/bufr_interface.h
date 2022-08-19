@@ -194,6 +194,47 @@ extern "C" {
                     int* iret);
 
 
+/**  @author Ronald McLaren
+      @date 2022-08-16
+
+      @brief This subroutine returns information about a descriptor from the internal DX BUFR tables,
+             based on the mnemonic associated with that descriptor.
+
+      @param[in] bufr_unit - int: : the bufr file pointer
+      @param[in] mnemonic - char*: c str for mnemonic
+      @param[out] descriptor - int*: the binary descriptor for the mnemonic
+      @param[out] table_type char* - c_char: 'A', 'B', 'C', or 'D' depeninding on table type
+      @param[out] table_idx - int*: the table index, or 0 if not found
+*/
+    void nemtab_f(int bufr_unit,
+                  const char* mnemonic,
+                  int* descriptor,
+                  char* table_type,
+                  int* table_idx);
+
+
+/**  @author Ronald McLaren
+     @date 2022-08-16
+
+     @brief Get information about a Table B descriptor.
+
+     @param[in] bufr_unit - c_int: : the bufr file pointer
+     @param[in] table_idx - c_int : c str for mnemonic
+     @param[inout] unit_str - c_char: unit str
+     @param[in] unit_str_len - c_int: unit str length
+     @param[out] scale - c_int: scale of element
+     @param[out] reference - c_int: reference of elemen
+     @param[out] bits - c_int: bits of element
+*/
+    void nemtbb_f(int bufr_unit,
+                  int table_idx,
+                  char* unit_str,
+                  int unit_str_len,
+                  int* scale,
+                  int* reference,
+                  int* bits);
+
+
 /** @author Ronald McLaren
     @date 2022-03-23
 
@@ -305,32 +346,6 @@ extern "C" {
 @param[out] len - int*: length of the array
 */
   void get_inv_f(int lun, int** data, int* len);
-
-
-/** @author Ronald McLaren
-@date 2022-06-30
-
-@brief Get type info meta data for a mnemonic
-
-@param[in] lun - int: pointer for the file stream
-@param[in] mnemonic - const char*: c str for mnemonic
-@param[out] scale - int*: scale of element
-@param[out] reference - int*: reference of element
-@param[out] bits - int*: bits of element
-@param[inout] unit_c - char*: unit str
-@param[in] unit_str_len - int: unit str length
-@param[inout] desc_c - char*: unit str
-@param[in] desc_str_len - int: description str length
-*/
-    void get_tabb_info_f(int lun,
-                         const char* mnemonic,
-                         int* scale,
-                         int* reference,
-                         int* bits,
-                         char* unit_c,
-                         int unit_str_len,
-                         char* desc_c,
-                         int desc_str_len);
 
 
 /** @author Ronald McLaren

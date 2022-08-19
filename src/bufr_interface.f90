@@ -35,6 +35,8 @@ module bufr_c_interface_mod
   public :: status_c
   public :: nemdefs_c
   public :: nemspecs_c
+  public :: nemtab_c
+  public :: nemtbb_c
   public :: get_isc_c
   public :: get_link_c
   public :: get_itp_c
@@ -45,7 +47,6 @@ module bufr_c_interface_mod
   public :: get_nval_c
   public :: get_val_c
   public :: get_inv_c
-  public :: get_tabb_info_c
   public :: delete_table_data_c
 
   integer, allocatable, target, save :: isc_f(:)
@@ -377,9 +378,72 @@ subroutine nemspecs_c(file_unit, mnemonic, mnemonic_idx, scale, reference, bits,
   integer(c_int), intent(out) :: iret
 
   ! Get the scale, reference and bits
-  call nemspecs( file_unit, c_f_string(mnemonic), mnemonic_idx, scale, reference, bits, iret)
+  call nemspecs(file_unit, c_f_string(mnemonic), mnemonic_idx, scale, reference, bits, iret)
 
 end subroutine nemspecs_c
+
+
+!>  @author Ronald McLaren
+!>  @date 2022-08-16
+!>
+!>  @brief This subroutine returns information about a descriptor from the internal DX BUFR tables,
+!>         based on the mnemonic associated with that descriptor.
+!>
+!>  @param[in] bufr_unit - c_int: : the bufr file pointer
+!>  @param[in] mnemonic - c_char: c str for mnemonic
+!>  @param[out] descriptor - c_int: the binary descriptor for the mnemonic
+!>  @param[out] table type - c_char: 'A', 'B', 'C', or 'D' depeninding on table type
+!>  @param[out] table_idx - c_int: the table index, or 0 if not found
+!>
+subroutine nemtab_c(bufr_unit, mnemonic, descriptor, table_type, table_idx) &
+        bind(C, name='nemtab_f')
+  integer(c_int), value, intent(in) :: bufr_unit
+  character(kind=c_char,len=1), intent(in) :: mnemonic(*)
+  integer(c_int), intent(out) ::descriptor
+  character(kind=c_char,len=1), intent(out) :: table_type(*)
+  integer(c_int), intent(out) :: table_idx
+
+  character(len=1) :: table_type_f
+
+  ! Get the scale, reference and bits
+  call nemtab(bufr_unit, c_f_string(mnemonic), descriptor, table_type_f, table_idx)
+
+  table_type(1)(1:1) = table_type_f(1:1)
+
+!  call copy_f_c_str(table_type_f, table_type, 1)
+end subroutine nemtab_c
+
+
+!>  @author Ronald McLaren
+!>  @date 2022-08-16
+!>
+!>  @brief Get information about a Table B descriptor.
+!>
+!>  @param[in] bufr_unit - c_int: : the bufr file pointer
+!>  @param[in] table_idx - c_int : c str for mnemonic
+!>  @param[inout] unit_str - c_char: unit str
+!>  @param[in] unit_str_len - c_int: unit str length
+!>  @param[out] scale - c_int: scale of element
+!>  @param[out] reference - c_int: reference of elemen
+!>  @param[out] bits - c_int: bits of element
+!>
+subroutine nemtbb_c(bufr_unit, table_idx, unit_str, unit_str_len, scale, reference, bits) &
+        bind(C, name='nemtbb_f')
+  integer(c_int), intent(in), value :: bufr_unit
+  integer(c_int), intent(in), value :: table_idx
+  character(kind=c_char,len=1), intent(inout) :: unit_str(*)
+  integer(c_int), intent(in), value :: unit_str_len
+  integer(c_int), intent(out) :: scale
+  integer(c_int), intent(out) :: reference
+  integer(c_int), intent(out) :: bits
+
+  character(len=24) :: unit_str_f
+
+  ! Get the scale, reference and bits
+  call nemtbb( bufr_unit, table_idx, unit_str_f, scale, reference, bits)
+  call copy_f_c_str(unit_str_f, unit_str, min(len(unit_str_f) + 1, unit_str_len))
+
+end subroutine nemtbb_c
 
 
 !>  @author Ronald McLaren
@@ -580,86 +644,6 @@ subroutine get_inv_c(lun, inv_ptr, inv_size) bind(C, name='get_inv_f')
   inv_size = size(inv(:, lun))
   inv_ptr = c_loc(inv(1, lun))
 end subroutine get_inv_c
-
-
-!>  @author Ronald McLaren
-!>  @date 2022-06-30
-!>
-!>  @brief Gets Table B Meta data associated with a BUFR mnemonic. The data returned can be used to
-!>  determine an appropriate type (string, float, int etc...) to store the data.
-!>
-!>  @param[in] lun - c_int: pointer for the file stream
-!>  @param[in] mnemonic - string: c str for mnemonic
-!>  @param[out] scale - c_int: scale of element
-!>  @param[out] reference - c_int: reference of elemen
-!>  @param[out] bits - c_int: bits of element
-!>  @param[inout] unit_c - c_char: unit str
-!>  @param[in] unit_str_len - c_int: unit str length
-!>  @param[inout] desc_c - c_char: unit str
-!>  @param[in] desc_str_len - c_int: description str length
-!>
-subroutine get_tabb_info_c(lun, mnemonic, scale, reference, bits, unit_c, unit_str_len, desc_c, &
-        desc_str_len) bind(C, name='get_tabb_info_f')
-  use moda_tababd
-  integer(c_int), value, intent(in) :: lun
-  character(kind=c_char,len=1), intent(in) :: mnemonic(*)
-  integer(c_int), intent(out) :: scale
-  integer(c_int), intent(out) :: reference
-  integer(c_int), intent(out) :: bits
-  character(kind=c_char, len=1), intent(inout) :: unit_c(*)
-  integer(c_int), value, intent(in) :: unit_str_len
-  character(kind=c_char, len=1), intent(inout) :: desc_c(*)
-  integer(c_int), value, intent(in) :: desc_str_len
-
-  character(len=:), allocatable :: mnemonic_f
-  character(len=:), allocatable :: scale_str_f
-  character(len=:), allocatable :: reference_str_f
-  character(len=:), allocatable :: bits_str_f
-  character(len=:), allocatable :: unit_f
-  character(len=:), allocatable :: desc_f
-  integer :: stat_f
-  integer :: idx
-
-  ! Convert c style string to Fortran string
-  mnemonic_f = c_f_string(mnemonic)
-
-  ! The table B data is stored in text table where the fields we want are stored in different
-  ! columns.
-  do idx=1,ntbb(lun)
-    ! Read the value in mnemonic column and compare it to our target.
-    if (trim(tabb(idx, lun)(7:14)) == mnemonic_f) then
-      ! Read the value in the Scale column and convert the string to an integer
-      scale_str_f = trim(tabb(idx, lun)(95:98))
-      read(scale_str_f, *, iostat=stat_f) scale
-
-      ! Read the value in the Reference column and convert the string to an integer
-      reference_str_f = trim(tabb(idx, lun)(99:109))
-      read(reference_str_f, *, iostat=stat_f) reference
-
-      ! Read the value in the Bits column and convert the string to an integer
-      bits_str_f = trim(tabb(idx, lun)(110:112))
-      read(bits_str_f, *, iostat=stat_f) bits
-
-      ! Read and store the Unit string.
-      unit_f = trim(tabb(idx, lun)(71:94))
-
-      ! Read and store the Description
-      desc_f = trim(tabb(idx, lun)(16:70))
-
-      exit  ! Found the target, so stop looping
-    end if
-  end do
-
-  if (allocated(unit_f)) then
-    ! Copy the Unit fortran string into the resulting C style string.
-    call copy_f_c_str(unit_f, unit_c, min(len(unit_f) + 1, int(unit_str_len)))
-  end if
-
-  if (allocated(desc_f)) then
-    ! Copy the Unit fortran string into the resulting C style string.
-    call copy_f_c_str(desc_f, desc_c, min(len(desc_f) + 1, int(desc_str_len)))
-  end if
-end subroutine get_tabb_info_c
 
 
 !>  @author Ronald McLaren
