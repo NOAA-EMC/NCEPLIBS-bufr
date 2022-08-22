@@ -478,13 +478,35 @@ class open:
         must be a single mnemonic only.
         
         Returns the character string, if found, or "MISSING" if not.
+
+        Example:
+
+            :::python
+            >>> bufr = ncepbufr.open(filename)
+            >>> while bufr.advance() == 0:
+            >>>     while bufr.load_subset() == 0:
+            >>>         st_name = bufr.read_long_string(mnemonic='STSN')
         """
         if not self.subset_loaded:
             raise IOError('subset not loaded, call load_subset first')
         if len(mnemonic.split()) > 1:
             raise ValueError('only one mnemonic per call to read_long_string')
         long_string = _bufrlib.readlc(self.lunit,mnemonic)
-        return str(long_string, encoding='ascii').strip()
+        try:
+            result = str(long_string, encoding='ascii').strip()
+        except UnicodeDecodeError:
+            try:
+                if all([bt == int('0xff',16) for bt in long_string.strip()]):
+                    # All values set to 255 for missing data.
+                    result = 'MISSING'
+                else:
+                    # Extended ASCII for Roman alphabet accents.
+                    result = str(long_string, encoding='cp1252').strip()
+            except Exception as error:
+                print(f"An exception occurred {error}")
+        except Exception as error:
+            print(f"An exception occurred {error}")
+        return result
     def read_subset(self,mnemonics,rep=False,seq=False,events=False):
         """
         decode the data from the currently loaded message subset

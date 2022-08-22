@@ -187,3 +187,24 @@ np.testing.assert_array_almost_equal(obs_save.filled(), obs2.filled())
 np.testing.assert_array_almost_equal(oer_save.filled(), oer2.filled())
 np.testing.assert_array_almost_equal(qcf_save.filled(), qcf2.filled())
 bufr.close()
+
+# test reading long strings
+bufr = ncepbufr.open('data/xx103')
+test_station_names = ['BOUEE_LION', 'BOUEE_ANTILLES',
+                      'BOUEE_COTE D\'AZUR',
+                      'GULF OF MAINE', 'TENERIFE']
+test_report_ids = ['6100002', '4100300', '6100001', '4400005', '1300131']
+i_msg = 0
+while bufr.advance() == 0:
+    # Just read the first subset from each message.
+    if bufr.load_subset() == 0:
+        stsn = bufr.read_long_string(mnemonic='STSN')
+        rpid = bufr.read_long_string(mnemonic='RPID')
+        assert stsn == test_station_names[i_msg]
+        assert rpid == test_report_ids[i_msg]
+        i_msg = i_msg + 1
+    # only loop over first 5 subsets
+    if i_msg == 5: break
+bufr.close()
+    
+    
