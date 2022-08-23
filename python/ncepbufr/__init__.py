@@ -475,7 +475,11 @@ class open:
         using the specified mnemonic (a 'mnemonic' is simply a
         descriptive, alphanumeric name for a data value, like
         a key in a python dictionary). The mnemonic string
-        must be a single mnemonic only.
+        must be a single mnemonic only. If the subset contains more 
+        than one occurrence of the mnemonic, then can append '#X' to 
+        the mnemonic to request the character string corresponding to 
+        the Xth occurrence of the mnemonic, counting from the beginning 
+        of the subset. Otherwise, X is assumed to be 1.
         
         Returns the character string, if found, or "MISSING" if not.
 
