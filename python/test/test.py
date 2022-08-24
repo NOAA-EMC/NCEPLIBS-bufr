@@ -11,7 +11,7 @@ bufr = ncepbufr.open('data/prepbufr')
 while bufr.advance() == 0: # loop over messages.
     while bufr.load_subset() == 0: # loop over subsets in message.
         hdr = bufr.read_subset(hdstr).squeeze()
-        station_id = hdr[0].tostring()
+        station_id = hdr[0].tobytes()
         lon = hdr[1]; lat = hdr[2]
         station_type = int(hdr[4])
         obs = bufr.read_subset(obstr)
@@ -115,7 +115,7 @@ np.testing.assert_almost_equal(lat,37.6066)
 np.testing.assert_almost_equal(lon,-167.3253)
 obs_tst=np.array([1.4555e+02,1.4618e+02,2.1374e+02,2.4871e+02,2.4807e+02,2.3607e+02,\
  2.2802e+02,2.2255e+02,2.1699e+02,2.1880e+02,2.2440e+02,2.2970e+02,\
- 2.3407e+02,1.0000e+11,2.0008e+02],np.float)
+ 2.3407e+02,1.0000e+11,2.0008e+02],np.float64)
 np.testing.assert_array_almost_equal(obs,obs_tst)
 bufr.close()
 
@@ -158,7 +158,7 @@ nmsg = 0
 while bufr.advance() == 0:
     while bufr.load_subset() == 0:
         hdr = bufr.read_subset(hdstr).squeeze()
-        station_id = hdr[0].tostring()
+        station_id = hdr[0].tobytes()
         obs = bufr.read_subset(obstr)
         nlevs = obs.shape[-1]
         oer = bufr.read_subset(oestr)
@@ -174,7 +174,7 @@ while bufr.advance() == 0:
 bufr.restore()
 bufr.load_subset()
 hdr = bufr.read_subset(hdstr).squeeze()
-station_id = hdr[0].tostring()
+station_id = hdr[0].tobytes()
 obs2 = bufr.read_subset(obstr)
 nlevs = obs2.shape[-1]
 oer2 = bufr.read_subset(oestr)
@@ -206,5 +206,3 @@ while bufr.advance() == 0:
     # only loop over first 5 subsets
     if i_msg == 5: break
 bufr.close()
-    
-    
