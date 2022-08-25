@@ -7,7 +7,6 @@ var cfe_8h =
       [ "ifval", "cfe_8h.html#a4a7abbb73aaab68de079e3a2fdd49cc9", null ],
       [ "ifvald", "cfe_8h.html#a73c559bb313a335ee0125bab43307a65", null ]
     ] ],
-    [ "MAX_MEANING_LEN", "cfe_8h.html#a655e9465dd48c1e8a068b4689748e509", null ],
     [ "cmpstia1", "cfe_8h.html#a6184cab6384681f5f52c295fb6998216", null ],
     [ "cmpstia2", "cfe_8h.html#aa09810b363464d0f0b1e3a5b7f011a01", null ],
     [ "dlloctbf", "cfe_8h.html#a1242c4d43753a37cdb9abfb3f01e5583", null ],
