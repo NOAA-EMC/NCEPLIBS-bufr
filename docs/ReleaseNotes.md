@@ -2,6 +2,16 @@
 ## Release Notes
 @brief Detailed description of changes included within each new release.
 
+### Version 11.7.1 - August 26, 2022
+
+* More extensions were added to support the query interface for C++ IODA
+converters.
+[[Issue #225](https://github.com/NOAA-EMC/NCEPLIBS-bufr/issues/225)]
+
+* Several internal routines were modified to allow the encoding and
+decoding of values larger than 32 bits.
+[[Issue #195](https://github.com/NOAA-EMC/NCEPLIBS-bufr/issues/195)]
+
 
 ### Version 11.7.0 - May 19, 2022
 

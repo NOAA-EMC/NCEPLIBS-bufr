@@ -77,7 +77,7 @@ extern "C" {
     @brief Wraps BUFRLIB "ireadmg" subroutine.
 
     @param[in] bufr_unit - int: the fortran file unit number to read from
-    @param[inout] subset - char*: the subset string
+    @param[out] subset - char*: the subset string
     @param[out] iddate - int*: datetime of message
     @param[in] subset_len - int: length of the subset string
 */
@@ -156,10 +156,10 @@ extern "C" {
     @brief Gets Table B Unit and Description strings for a mnemonic. Wraps BUFRLIB "nemdefs".
 
     @param[in] file_unit - int: Fortran file unit for the open file
-    @param[in] mnemonic - char*: c str for mnemonic
-    @param[inout] unit_c - char*: unit str
+    @param[in] mnemonic - const char*: mnemonic
+    @param[out] unit_c - char*: unit str
     @param[in] unit_str_len - int: unit str length
-    @param[inout] desc_c - char*: description string
+    @param[out] desc_c - char*: description string
     @param[in] desc_str_len - int: description str length
     @param[out] iret - int*: return value. 0 indicates success -1 indicates failure.
 */
@@ -177,8 +177,8 @@ extern "C" {
 
     @brief Gets Table B scale, reference, and bits values. Wraps BUFRLIB "nemspecs".
 
-    @param[in] file_unit - c_int: Fortran file unit for the open file
-    @param[in] mnemonic - const char*: c str for mnemonic
+    @param[in] file_unit - int: Fortran file unit for the open file
+    @param[in] mnemonic - const char*: mnemonic
     @param[in] mnemonic_idx - int: indicates specific mnemonic element (if repeated)
     @param[out] scale - int*: scale of element
     @param[out] reference - int*: reference of element
@@ -200,10 +200,10 @@ extern "C" {
       @brief This subroutine returns information about a descriptor from the internal DX BUFR tables,
              based on the mnemonic associated with that descriptor.
 
-      @param[in] bufr_unit - int: : the bufr file pointer
-      @param[in] mnemonic - char*: c str for mnemonic
+      @param[in] bufr_unit - int: the bufr file pointer
+      @param[in] mnemonic - const char*: mnemonic
       @param[out] descriptor - int*: the binary descriptor for the mnemonic
-      @param[out] table_type char* - c_char: 'A', 'B', 'C', or 'D' depeninding on table type
+      @param[out] table_type char*: 'A', 'B', 'C', or 'D', depending on table type
       @param[out] table_idx - int*: the table index, or 0 if not found
 */
     void nemtab_f(int bufr_unit,
@@ -218,13 +218,13 @@ extern "C" {
 
      @brief Get information about a Table B descriptor.
 
-     @param[in] bufr_unit - c_int: : the bufr file pointer
-     @param[in] table_idx - c_int : c str for mnemonic
-     @param[inout] unit_str - c_char: unit str
-     @param[in] unit_str_len - c_int: unit str length
-     @param[out] scale - c_int: scale of element
-     @param[out] reference - c_int: reference of elemen
-     @param[out] bits - c_int: bits of element
+     @param[in] bufr_unit - int: the bufr file pointer
+     @param[in] table_idx - int: Table B index
+     @param[out] unit_str - char*: unit str
+     @param[in] unit_str_len - int: unit str length
+     @param[out] scale - int*: scale of element
+     @param[out] reference - int*: reference of element
+     @param[out] bits - int*: bits of element
 */
     void nemtbb_f(int bufr_unit,
                   int table_idx,
