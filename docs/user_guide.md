@@ -5,7 +5,10 @@ used to read (decode) and write (encode) data in BUFR, which is a
 meteorological data.
 
 Please see the [Related Pages](pages.html) tab for more details on this library,
-including a comprehensive user guide.
+including a comprehensive user guide.  For access to the full documentation of a
+prior version of this library, see the
+[Releases](https://github.com/NOAA-EMC/NCEPLIBS-bufr/releases) page, then scroll
+down and click on the corresponding "Release Notes" link for that version.
 
 The Python API documentation is available
 [here](https://noaa-emc.github.io/NCEPLIBS-bufr/python/index.html); however,

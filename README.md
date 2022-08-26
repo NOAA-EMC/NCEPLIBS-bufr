@@ -6,7 +6,10 @@ The BUFR library contains Fortran programs and command line utilites
 for working with the BUFR format. This is part of the
 [NCEPLIBS](https://github.com/NOAA-EMC/NCEPLIBS) project.
 
-For full documentation see https://noaa-emc.github.io/NCEPLIBS-bufr/.
+For full documentation, see https://noaa-emc.github.io/NCEPLIBS-bufr/.
+For access to the full documentation of a prior version of this library, see the
+[Releases](https://github.com/NOAA-EMC/NCEPLIBS-bufr/releases) page, then scroll down
+and click on the corresponding "Release Notes" link for that version.
 
 ## Authors
 
