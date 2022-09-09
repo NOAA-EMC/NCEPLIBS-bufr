@@ -1,3 +1,4 @@
+Documentation of previous versions: | [11.7.0](https://noaa-emc.github.io/NCEPLIBS-bufr/previous_versions/v11.7.0/md__gpfs_dell2_emc_obsproc_noscrub_Jeff_8Ator_NCEPLIBS-bufr-GitHub_nceplibs-bufr_docs_ReleaseNotes.html) | [11.6.0](https://noaa-emc.github.io/NCEPLIBS-bufr/previous_versions/v11.6.0/md__gpfs_dell2_emc_obsproc_noscrub_Jeff_8Ator_NCEPLIBS-bufr-GitHub_nceplibs-bufr_docs_ReleaseNotes.html) | [11.5.0](https://noaa-emc.github.io/NCEPLIBS-bufr/previous_versions/v11.5.0/md__gpfs_dell2_emc_obsproc_noscrub_Jeff_8Ator_NCEPLIBS-bufr-GitHub_nceplibs-bufr_docs_ReleaseNotes.html) |
 
 This library contains subroutines, functions and other utilities that can be
 used to read (decode) and write (encode) data in BUFR, which is a
@@ -5,10 +6,7 @@ used to read (decode) and write (encode) data in BUFR, which is a
 meteorological data.
 
 Please see the [Related Pages](pages.html) tab for more details on this library,
-including a comprehensive user guide.  For access to the full documentation of a
-prior version of this library, see the
-[Releases](https://github.com/NOAA-EMC/NCEPLIBS-bufr/releases) page, then scroll
-down and click on the corresponding "Release Notes" link for that version.
+including a comprehensive user guide.
 
 The Python API documentation is available
 [here](https://noaa-emc.github.io/NCEPLIBS-bufr/python/index.html); however,
