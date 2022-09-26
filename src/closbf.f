@@ -30,23 +30,16 @@ C> | 2003-11-04 | D. Keyser  | Unified/portable for WRF; added history documenta
 C> | 2012-09-15 | J. Woollen | Modified for C/I/O/BUFR interface; added call to closfb() to close C files |
 C> | 2014-12-10 | J. Ator    | Use modules instead of COMMON blocks |
 C> | 2020-07-16 | J. Ator    | Add sanity check to ensure that openbf() was previously called (needed for GSI) |
-C> 
-C--------------------------------------------------------------------------
-C--------------------------------------------------------------------------
-      SUBROUTINE CLOSBF_8(LUNIT_8)
-      INTEGER*8 LUNIT_8
-      LUNIT=LUNIT_8
-      CALL CLOSBF(LUNIT)
-      END SUBROUTINE
-C--------------------------------------------------------------------------
-C--------------------------------------------------------------------------
+C> | 2022-08-04 | J. Woollen | Added 8-byte wrapper |
 
       SUBROUTINE CLOSBF(LUNIT)
 
       USE MODA_NULBFR
-      USE MODA_IM8B
+      USE MODV_IM8B
 
       CHARACTER*128 ERRSTR
+
+      INTEGER*8 LUNIT_8
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
@@ -54,10 +47,13 @@ C-----------------------------------------------------------------------
 C  CHECK FOR I8 INTEGERS
 C  ---------------------
 
-      IF(IM8) THEN
-         IM8=.FALSE.
-         CALL CLOSBF_8(LUNIT)
-         IM8=.TRUE.
+      IF(IM8B) THEN
+         IM8B=.FALSE.
+
+         LUNIT_8=LUNIT
+         CALL CLOSBF_8(LUNIT_8)
+
+         IM8B=.TRUE.
          RETURN
       ENDIF
 
@@ -79,6 +75,35 @@ C  CLOSE fortran UNIT IF NULL(LUN) = 0
 C  -----------------------------------
 
       IF(NULL(LUN).EQ.0) CLOSE(LUNIT)
+
+      RETURN
+      END
+
+C> This subroutine is an internal wrapper for handling 8-byte integer
+C> arguments to subroutine closbf().
+C>
+C> <p>Application programs which use 8-byte integer arguments should
+C> never call this subroutine directly; instead, such programs should
+C> make an initial call to subroutine setim8b() with int8b=.TRUE. and
+C> then call subroutine closbf() directly.
+C>
+C> @author J. Woollen
+C> @date 2022-08-04
+C>
+C> @param[in] LUNIT_8  -- integer*8: Fortran logical unit number for
+C>                        BUFR file
+C>
+C> <b>Program history log:</b>
+C> | Date       | Programmer | Comments             |
+C> | -----------|------------|----------------------|
+C> | 2022-08-04 | J. Woollen | Original author      |
+
+      SUBROUTINE CLOSBF_8(LUNIT_8)
+
+      INTEGER*8 LUNIT_8
+
+      LUNIT=LUNIT_8
+      CALL CLOSBF(LUNIT)
 
       RETURN
       END

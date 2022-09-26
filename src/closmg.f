@@ -19,7 +19,7 @@ C>
 C> <p>If LUNIN < 0, then any message containing zero data subsets will
 C> not be written to logical unit ABS(LUNIN) for the remainder of the
 C> life of the application program.  This includes suppressing the
-C> writing of any dummy messages containing dump center and initiation
+C> writing of any "dummy" messages containing dump center and initiation
 C> times that normally appear in the first 2 messages of NCEP dump files.
 C>
 C> <b>Program history log:</b>
@@ -36,23 +36,16 @@ C> | 2003-11-04 | D. Keyser | Unified/portable for WRF; added history documentat
 C> | 2004-08-09 | J. Ator | Maximum message length increased from 20,000 to 50,000 bytes |
 C> | 2005-05-26 | D. Keyser | Add LUNIN < 0 option to suppress writing of all future zero-subset messsages to ABS(LUNIN) |
 C> | 2014-12-10 | J. Ator | Use modules instead of COMMON blocks |
-C>
-C--------------------------------------------------------------------------
-C--------------------------------------------------------------------------
-      SUBROUTINE CLOSMG_8(LUNIN_8)
-      INTEGER*8 LUNIN_8
-      LUNIN=LUNIN_8
-      CALL CLOSBF(LUNIN)
-      END SUBROUTINE
-C--------------------------------------------------------------------------
-C--------------------------------------------------------------------------
+C> | 2022-08-04 | J. Woollen | Added 8-byte wrapper |
 
       SUBROUTINE CLOSMG(LUNIN)
 
       USE MODA_MSGCWD
       USE MODA_MSGLIM
       USE MODA_BITBUF
-      USE MODA_IM8B
+      USE MODV_IM8B
+
+      INTEGER*8 LUNIN_8
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
@@ -60,10 +53,13 @@ C-----------------------------------------------------------------------
 C  CHECK FOR I8 INTEGERS
 C  ---------------------
 
-      IF(IM8) THEN
-         IM8=.FALSE.
-         CALL CLOSBF_8(LUNIN)
-         IM8=.TRUE.
+      IF(IM8B) THEN
+         IM8B=.FALSE.
+
+         LUNIN_8=LUNIN
+         CALL CLOSBF_8(LUNIN_8)
+
+         IM8B=.TRUE.
          RETURN
       ENDIF
 
@@ -94,4 +90,33 @@ C  -----
      . 'MUST BE OPEN FOR OUTPUT')
 901   CALL BORT('BUFRLIB: CLOSMG - OUTPUT BUFR FILE IS OPEN FOR '//
      . 'INPUT, IT MUST BE OPEN FOR OUTPUT')
+      END
+
+C> This subroutine is an internal wrapper for handling 8-byte integer
+C> arguments to subroutine closmg().
+C>
+C> <p>Application programs which use 8-byte integer arguments should
+C> never call this subroutine directly; instead, such programs should
+C> make an initial call to subroutine setim8b() with int8b=.TRUE. and
+C> then call subroutine closmg() directly.
+C>
+C> @author J. Woollen
+C> @date 2022-08-04
+C>
+C> @param[in] LUNIN_8 -- integer*8: Absolute value is Fortran logical
+C>                       unit number for BUFR file
+C>
+C> <b>Program history log:</b>
+C> | Date       | Programmer | Comments             |
+C> | -----------|------------|----------------------|
+C> | 2022-08-04 | J. Woollen | Original author      |
+
+      SUBROUTINE CLOSMG_8(LUNIN_8)
+
+      INTEGER*8 LUNIN_8
+
+      LUNIN=LUNIN_8
+      CALL CLOSBF(LUNIN)
+
+      RETURN
       END

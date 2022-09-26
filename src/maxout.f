@@ -34,22 +34,13 @@ C> | 2009-03-23 | D. Keyser  | No longer print record length change diagnostic i
 C> | 2009-04-21 | J. Ator    | Use errwrt() |
 C> | 2014-12-10 | J. Ator    | Use modules instead of COMMON blocks |
 C> | 2015-09-24 | D. Stokes  | Correct typos in docblock |
-C>
-C--------------------------------------------------------------------------
-C--------------------------------------------------------------------------
-      SUBROUTINE MAXOUT_8(MAXO_8)
-      INTEGER*8 MAXO_8
-      MAXO=MAXO_8
-      CALL MAXOUT(MAXO)
-      END SUBROUTINE
-C--------------------------------------------------------------------------
-C--------------------------------------------------------------------------
+C> | 2022-08-04 | J. Woollen | Added 8-byte wrapper |
 
       SUBROUTINE MAXOUT(MAXO)
 
       USE MODV_MXMSGL
       USE MODA_BITBUF
-      USE MODA_IM8B
+      USE MODV_IM8B
 
       COMMON /MAXCMP/ MAXCMB,MAXROW,MAXCOL,NCMSGS,NCSUBS,NCBYTS
       COMMON /DXTAB / MAXDX,IDXV,NXSTR(10),LDXA(10),LDXB(10),LDXD(10),
@@ -59,15 +50,20 @@ C--------------------------------------------------------------------------
       CHARACTER*128   ERRSTR
       CHARACTER*56    DXSTR
 
+      INTEGER*8 MAXO_8
+
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
 
-C  CHECK FOR I8 INTEGERS
-C  ---------------------
-      IF(IM8) THEN
-         IM8=.FALSE.
-         CALL MAXOUT_8(MAXO)
-         IM8=.TRUE.
+C     CHECK FOR I8 INTEGERS
+
+      IF(IM8B) THEN
+         IM8B=.FALSE.
+
+         MAXO_8=MAXO
+         CALL MAXOUT_8(MAXO_8)
+
+         IM8B=.TRUE.
          RETURN
       ENDIF
 
@@ -93,6 +89,35 @@ C  ---------------------
       MAXBYT = NEWSIZ
       MAXCMB = NEWSIZ
       MAXDX  = NEWSIZ
+
+      RETURN
+      END
+
+C> This subroutine is an internal wrapper for handling 8-byte integer
+C> arguments to subroutine maxout().
+C>
+C> <p>Application programs which use 8-byte integer arguments should
+C> never call this subroutine directly; instead, such programs should
+C> make an initial call to subroutine setim8b() with int8b=.TRUE. and
+C> then call subroutine maxout() directly.
+C>
+C> @author J. Woollen
+C> @date 2022-08-04
+C>
+C> @param[in] MAXO_8 -- integer*8: New maximum length (in bytes) for
+C>                      all BUFR messages written to all output files
+C>
+C> <b>Program history log:</b>
+C> | Date       | Programmer | Comments             |
+C> | -----------|------------|----------------------|
+C> | 2022-08-04 | J. Woollen | Original author      |
+
+      SUBROUTINE MAXOUT_8(MAXO_8)
+
+      INTEGER*8 MAXO_8
+
+      MAXO=MAXO_8
+      CALL MAXOUT(MAXO)
 
       RETURN
       END

@@ -37,34 +37,29 @@ C> | 2003-11-04 | J. Ator    | Added documentation |
 C> | 2003-11-04 | S. Bender  | Added remarks and routine interdependencies |
 C> | 2003-11-04 | D. Keyser  | Unified/portable for WRF; added documentation; outputs more complete diagnostic info when routine terminates abnormally |
 C> | 2014-12-10 | J. Ator    | Use modules instead of COMMON blocks |
-C>
-C--------------------------------------------------------------------------
-C--------------------------------------------------------------------------
-      SUBROUTINE OPENMG_8(LUNIT_8,SUBSET,JDATE_8)
-      INTEGER*8 LUNIT_8, JDATE_8
-      LUNIT=LUNIT_8
-      jdate=LUNIT_8
-      CALL OPENMG(LUNIT,SUBSET,JDATE)
-      END SUBROUTINE
-C--------------------------------------------------------------------------
-C--------------------------------------------------------------------------
 
       SUBROUTINE OPENMG(LUNIT,SUBSET,JDATE)
 
       USE MODA_MSGCWD
-      USE MODA_IM8B
+      USE MODV_IM8B
 
       CHARACTER*(*) SUBSET
+      INTEGER*8 LUNIT_8, JDATE_8
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
 
 C  CHECK FOR I8 INTEGERS
 C  ---------------------
-      IF(IM8) THEN
-         IM8=.FALSE.
-         CALL OPENMG_8(LUNIT,SUBSET,JDATE)
-         IM8=.TRUE.
+
+      IF(IM8B) THEN
+         IM8B=.FALSE.
+
+         LUNIT_8=LUNIT
+         JDATE_8=JDATE
+         CALL OPENMG_8(LUNIT_8,SUBSET,JDATE_8)
+
+         IM8B=.TRUE.
          RETURN
       ENDIF
 
@@ -101,4 +96,39 @@ C  -----
      . 'MUST BE OPEN FOR OUTPUT')
 901   CALL BORT('BUFRLIB: OPENMG - OUTPUT BUFR FILE IS OPEN FOR '//
      . 'INPUT, IT MUST BE OPEN FOR OUTPUT')
+      END
+
+C> This subroutine is an internal wrapper for handling 8-byte integer
+C> arguments to subroutine openmg().
+C>
+C> <p>Application programs which use 8-byte integer arguments should
+C> never call this subroutine directly; instead, such programs should
+C> make an initial call to subroutine setim8b() with int8b=.TRUE. and
+C> then call subroutine openmg() directly.
+C>
+C> @author J. Woollen
+C> @date 2022-08-04
+C>
+C> @param[in] LUNIT_8 -- integer*8: Fortran logical unit number for
+C>                       BUFR file
+C> @param[in] SUBSET -- character*(*): Table A mnemonic for type of
+C>                      BUFR message to be opened
+C> @param[in] JDATE_8 -- integer*8: Date-time to be stored within
+C>                       Section 1 of BUFR message being opened
+C>
+C> <b>Program history log:</b>
+C> | Date       | Programmer | Comments             |
+C> | -----------|------------|----------------------|
+C> | 2022-08-04 | J. Woollen | Original author      |
+
+      SUBROUTINE OPENMG_8(LUNIT_8,SUBSET,JDATE_8)
+
+      CHARACTER*(*) SUBSET
+      INTEGER*8 LUNIT_8, JDATE_8
+
+      LUNIT=LUNIT_8
+      JDATE=JDATE_8
+      CALL OPENMG(LUNIT,SUBSET,JDATE)
+
+      RETURN
       END

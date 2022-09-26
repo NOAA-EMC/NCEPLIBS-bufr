@@ -1,127 +1,86 @@
 C> @file
-C> @author KEYSER @date 2003-11-04
-      
-C> THIS SUBROUTINE EXAMINES A BUFR MESSAGE AND RETURNS BOTH
-C>  THE MESSAGE TYPE FROM SECTION 1 AND A MESSAGE COMPRESSION INDICATOR
-C>  UNPACKED FROM SECTION 3.  IT OBTAINS THE BUFR MESSAGE VIA TWO
-C>  DIFFERENT METHODS, BASED UPON THE SIGN OF LUNIN.
-C>     IF LUNIN IS GREATER THAN ZERO, THIS SUBROUTINE READS AND EXAMINES
-C>  SECTION 1 OF MESSAGES IN A BUFR FILE IN SEQUENCE UNTIL IT FINDS THE
-C>  FIRST MESSAGE THAT ACTUALLY CONTAINS REPORT DATA {I.E., BEYOND THE
-C>  BUFR TABLE (DICTIONARY) MESSAGES AT THE TOP AND, FOR DUMP FILES,
-C>  BEYOND THE TWO DUMMY MESSAGES CONTAINING THE CENTER TIME AND THE
-C>  DUMP TIME}.  IT THEN RETURNS THE MESSAGE TYPE AND COMPRESSION
-C>  INDICATOR FOR THIS FIRST DATA MESSAGE.  IN THIS CASE, THE BUFR FILE
-C>  SHOULD NOT BE OPENED VIA BUFR ARCHIVE LIBRARY SUBROUTINE OPENBF
-C>  PRIOR TO CALLING THIS SUBROUTINE.  HOWEVER, THE BUFR FILE MUST BE
-C>  CONNECTED TO UNIT ABS(LUNIN).  WHEN USED THIS WAY, THIS SUBROUTINE
-C>  IS IDENTICAL TO BUFR ARCHIVE LIBRARY SUBROUTINE MESGBF EXCEPT MESGBF
-C>  DOES NOT RETURN ANY INFORMATION ABOUT COMPRESSION AND MESGBF READS
-C>  UNTIL IT FINDS THE FIRST NON-DICTIONARY MESSAGE REGARDLESS OF
-C>  WHETHER OR NOT IT CONTAINS ANY REPORTS (I.E., IT WOULD STOP AT THE
-C>  DUMMY MESSAGE CONTAINING THE CENTER TIME FOR DUMP FILES).
-C>     THE SECOND METHOD IN WHICH THIS SUBROUTINE CAN BE USED OCCURS
-C>  WHEN LUNIN IS PASSED IN WITH A VALUE LESS THAN ZERO.  IN THIS CASE,
-C>  IT SIMPLY RETURNS THE MESSAGE TYPE AND COMPRESSION INDICATOR FOR THE
-C>  BUFR MESSAGE CURRENTLY STORED IN THE INTERNAL MESSAGE BUFFER (ARRAY
-C>  MBAY IN MODULE BITBUF).  IN THIS CASE, THE BUFR FILE
-C>  CONNECTED TO ABS(LUNIN) MUST HAVE BEEN PREVIOUSLY OPENED FOR INPUT
-C>  OPERATIONS BY BUFR ARCHIVE LIBRARY SUBROUTINE OPENBF, AND THE BUFR
-C>  MESSAGE MUST HAVE BEEN READ INTO MEMORY BY BUFR ARCHIVE LIBRARY
-C>  ROUTINE READMG OR EQUIVALENT.
+C> @brief Get information about a BUFR message
+
+C> This subroutine examines a BUFR message and returns both the
+C> message type (from Section 1) and message compression indicator
+C> (from Section 3).
 C>
-C> PROGRAM HISTORY LOG:
-C> 2003-11-04  D. KEYSER  -- ORIGINAL AUTHOR
-C> 2004-06-29  D. KEYSER  -- ADDED NEW OPTION TO RETURN MESSAGE TYPE AND
-C>                           COMPRESSION INDICATOR FOR BUFR MESSAGE
-C>                           CURRENTLY STORED IN MEMORY (TRIGGERED BY
-C>                           INPUT ARGUMENT LUNIN LESS THAN ZERO)
-C> 2004-08-09  J. ATOR    -- MAXIMUM MESSAGE LENGTH INCREASED FROM
-C>                           20,000 TO 50,000 BYTES
-C> 2005-11-29  J. ATOR    -- USE IUPBS01, GETLENS AND RDMSGW
-C> 2009-03-23  J. ATOR    -- USE IUPBS3 AND IDXMSG
-C> 2012-09-15  J. WOOLLEN -- CONVERT TO C LANGUAGE I/O INTERFACE
-C>                           ADD OPENBF AND CLOSBF FOR THE CASE
-C>                           WHEN LUNIN GT 0
-C> 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
+C> <p>The message to be examined is obtained in one of two different
+C> ways, depending on the sign of LUNIN:
+C> - If LUNIN > 0, the subroutine reads and examines Section 1 of each
+C> message in a BUFR file starting from the beginning of the file, and
+C> continuing until it reaches the first message which actually contains
+C> report data.  This means it will skip any messages containing DX BUFR
+C> table information, as well as any "dummy" messages containing the
+C> dump center time or dump initiation time within NCEP dump files.
+C> It then returns the message type and compression indicator from the
+C> first message containing report data.  When used this way, the
+C> BUFR file in question should not have already been opened via a call
+C> to subroutine openbf(), though it should already be associated with
+C> Fortran logical unit number LUNIN.  In this situation, the
+C> subroutine is similar to subroutine mesgbf(), except that mesgbf()
+C> doesn't skip past any "dummy" messages within NCEP dump files, nor
+C> does it return a compression indicator.
+C> - If LUNIN < 0, the subroutine simply returns the message type and
+C> compression indicator for the BUFR message currently stored in the
+C> internal arrays via the most recent call to one of the
+C> [message-reading subroutines](@ref hierarchy) for Fortran logical
+C> unit number ABS(LUNIN).
 C>
-C> USAGE:    CALL MESGBC (LUNIN, MESGTYP, ICOMP)
-C>   INPUT ARGUMENT LIST:
-C>     LUNIN    - INTEGER: ABSOLUTE VALUE IS FORTRAN LOGICAL UNIT NUMBER
-C>                FOR BUFR FILE
-C>                  - IF LUNIN IS GREATER THAN ZERO, THIS SUBROUTINE
-C>                    READS THROUGH ALL BUFR MESSAGES FROM BEGINNING OF
-C>                    FILE UNTIL IT FINDS THE FIRST MESSAGE CONTAINING
-C>                    REPORT DATA
-C>                  - IF LUNIN IS LESS THAN ZERO, THIS SUBROUTINE
-C>                    OPERATES ON THE BUFR MESSAGE CURRENTLY STORED IN
-C>                    MEMORY
+C> @author D. Keyser
+C> @date 2003-11-04
 C>
-C>   OUTPUT ARGUMENT LIST:
-C>     MESGTYP  - INTEGER: BUFR MESSAGE TYPE FOR EITHER THE FIRST
-C>                MESSAGE IN FILE CONTAINING REPORT DATA (IF LUNIN > 0),
-C>                OR FOR THE MESSAGE CURRENTLY IN MEMORY (IF LUNIN < 0)
-C>                    -256 = for LUNIN > 0 case only: no messages read
-C>                           or error reading file
-C>                     < 0 = for LUNIN > 0 case only: none of the
-C>                           messages read contain reports; this is the
-C>                           negative of the message type the last
-C>                           message read (i.e., -11 indicates the BUFR
-C>                           file contains only BUFR table messages)
-C>     ICOMP    - INTEGER: BUFR MESSAGE COMPRESSION SWITCH:
-C>                      -3 = for LUNIN > 0 case only: BUFR file does not
-C>                           exist
-C>                      -2 = for LUNIN > 0 case only: BUFR file does not
-C>                           contain any report messages
-C>                      -1 = for LUNIN > 0 case only: cannot determine
-C>                           if first BUFR message containing report
-C>                           data is compressed due to error reading
-C>                           file
-C>                       0 = BUFR message (either first containing
-C>                           report data if LUNIN > 0, or that currently
-C>                           in memory if LUNIN < 0) is NOT compressed
-C>                       1 = BUFR message (either first containing
-C>                           report data if LUNIN > 0, or that currently
-C>                           in memory if LUNIN < 0) IS compressed
+C> @param[in] LUNIN -- integer: Absolute value is Fortran logical unit
+C>                     number for BUFR file
+C> @param[out] MESGTYP -- integer: Message type
+C>                          - When LUNIN > 0, a MESGTYP value of -256
+C>                            means that there was an error reading the
+C>                            BUFR file, or that no messages were read from
+C>                            the file.  Otherwise, any other MESGTYP
+C>                            value < 0 means that none of the messages
+C>                            in the BUFR file contained any report data.
+C> @param[out] ICOMP -- integer: Message compression indicator
+C>                         - -3 = BUFR file does not exist
+C>                         - -2 = none of the messages in the BUFR file
+C>                                contained any report data
+C>                         - -1 = error reading the BUFR file
+C>                         -  0 = message is not compressed
+C>                         -  1 = message is compressed
 C>
-C>   INPUT FILES:
-C>     UNIT ABS(LUNIN) - BUFR FILE
-C>
-C> REMARKS:
-C>    THIS ROUTINE CALLS:        CLOSBF   IDXMSG   IUPBS01  IUPBS3
-C>                               OPENBF   RDMSGW   STATUS
-C>    THIS ROUTINE IS CALLED BY: COPYSB   UFBTAB
-C>                               Also called by application programs.
-C>
-C--------------------------------------------------------------------------
-C--------------------------------------------------------------------------
-      SUBROUTINE MESGBC_8(LUNIN_8,MESGTYP_8,ICOMP_8)
-      INTEGER*8 LUNIN_8,MESGTYP_8,ICOMP_8
-      LUNIN=LUNIN_8
-      MESGTYP=MESGTYP_8
-      ICOMP=ICOMP_8
-      CALL MESGBC(LUNIN,MESGTYP,ICOMP)
-      MESGTYP_8=MESGTYP
-      ICOMP_8=ICOMP
-      END SUBROUTINE
-C--------------------------------------------------------------------------
-C--------------------------------------------------------------------------
+C> <b>Program history log:</b>
+C> | Date | Programmer | Comments |
+C> | -----|------------|----------|
+C> | 2003-11-04 | D. Keyser | Original author |
+C> | 2004-06-29 | D. Keyser | Added LUNIN < 0 option |
+C> | 2004-08-09 | J. Ator   | Maximum message length increased from 20,000 to 50,000 bytes |
+C> | 2005-11-29 | J. Ator   | Use iupbs01(), getlens(), and rdmsgw() |
+C> | 2009-03-23 | J. Ator   | Use iupbs3() and idxmsg() |
+C> | 2012-09-15 | J. Woollen | Convert to C language I/O interface; add openbf() and closbf() for LUNIN > 0 option |
+C> | 2014-12-10 | J. Ator    | Use modules instead of COMMON blocks |
+C> | 2022-08-04 | J. Woollen | Added 8-byte wrapper |
 
       SUBROUTINE MESGBC(LUNIN,MESGTYP,ICOMP)
 
       USE MODA_BITBUF
       USE MODA_MGWA
-      USE MODA_IM8B
+      USE MODV_IM8B
+
+      INTEGER*8 LUNIN_8,MESGTYP_8,ICOMP_8
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
 
 C  CHECK FOR I8 INTEGERS
 C  ---------------------
-      IF(IM8) THEN
-         IM8=.FALSE.
-         CALL MESGBC_8(LUNIN,MESGTYP,ICOMP)
-         IM8=.TRUE.
+      IF(IM8B) THEN
+         IM8B=.FALSE.
+
+         LUNIN_8=LUNIN
+         CALL MESGBC_8(LUNIN_8,MESGTYP_8,ICOMP_8)
+         MESGTYP=MESGTYP_8
+         ICOMP=ICOMP_8
+
+         IM8B=.TRUE.
          RETURN
       ENDIF
 
@@ -201,5 +160,38 @@ C  EXIT
 C  ----
 
 100   IF(ITYPE.EQ.0) CALL CLOSBF(LUNIT)
+      RETURN
+      END
+
+C> This subroutine is an internal wrapper for handling 8-byte integer
+C> arguments to subroutine mesgbc().
+C>
+C> <p>Application programs which use 8-byte integer arguments should
+C> never call this subroutine directly; instead, such programs should
+C> make an initial call to subroutine setim8b() with int8b=.TRUE. and
+C> then call subroutine mesgbc() directly.
+C>
+C> @author J. Woollen
+C> @date 2022-08-04
+C>
+C> @param[in] LUNIN_8 -- integer*8: Absolute value is Fortran logical unit
+C>                       number for BUFR file
+C> @param[out] MESGTYP_8 -- integer*8: Message type
+C> @param[out] ICOMP_8 -- integer*8: Message compression indicator
+C>
+C> <b>Program history log:</b>
+C> | Date       | Programmer | Comments             |
+C> | -----------|------------|----------------------|
+C> | 2022-08-04 | J. Woollen | Original author      |
+
+      SUBROUTINE MESGBC_8(LUNIN_8,MESGTYP_8,ICOMP_8)
+
+      INTEGER*8 LUNIN_8,MESGTYP_8,ICOMP_8
+
+      LUNIN=LUNIN_8
+      CALL MESGBC(LUNIN,MESGTYP,ICOMP)
+      MESGTYP_8=MESGTYP
+      ICOMP_8=ICOMP
+
       RETURN
       END

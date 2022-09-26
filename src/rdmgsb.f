@@ -1,77 +1,73 @@
 C> @file
-C> @author WOOLLEN @date 2003-11-04
-      
-C> THIS SUBROUTINE OPENS A BUFR FILE IN LOGICAL UNIT LUNIT FOR
-C>   INPUT OPERATIONS, THEN READS A PARTICULAR SUBSET INTO INTERNAL
-C>   SUBSET ARRAYS FROM A PARTICULAR BUFR MESSAGE IN A MESSAGE BUFFER.
-C>   THIS IS BASED ON THE SUBSET NUMBER IN THE MESSAGE AND THE MESSAGE
-C>   NUMBER IN THE BUFR FILE.  THE MESSAGE NUMBER DOES NOT INCLUDE THE
-C>   DICTIONARY MESSAGES AT THE BEGINNING OF THE FILE.
+C> @brief Read a specified data subset from a BUFR file
+
+C> This subroutine provides a handy way to combine the functionality
+C> of subroutines openbf(), readmg(), and readsb() within a single
+C> subroutine call.
 C>
-C> PROGRAM HISTORY LOG:
-C> 2003-11-04  J. WOOLLEN -- ORIGINAL AUTHOR (WAS IN VERIFICATION
-C>                           VERSION BUT MAY HAVE BEEN IN THE PRODUCTION
-C>                           VERSION AT ONE TIME AND THEN REMOVED)
-C> 2003-11-04  D. KEYSER  -- INCORPORATED INTO "UNIFIED" BUFR ARCHIVE
-C>                           LIBRARY; UNIFIED/PORTABLE FOR WRF; ADDED
-C>                           DOCUMENTATION; OUTPUTS MORE COMPLETE
-C>                           DIAGNOSTIC INFO WHEN ROUTINE TERMINATES
-C>                           ABNORMALLY
-C> 2004-08-09  J. ATOR    -- MAXIMUM MESSAGE LENGTH INCREASED FROM
-C>                           20,000 TO 50,000 BYTES
-C> 2009-03-23  J. ATOR    -- MODIFY LOGIC TO HANDLE BUFR TABLE MESSAGES
-C>                           ENCOUNTERED ANYWHERE IN THE FILE (AND NOT
-C>                           JUST AT THE BEGINNING!)
-C> 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
+C> @author J. Woollen
+C> @date 2003-11-04
 C>
-C> USAGE:    CALL RDMGSB (LUNIT, IMSG, ISUB)
-C>   INPUT ARGUMENT LIST:
-C>     LUNIT    - INTEGER: FORTRAN LOGICAL UNIT NUMBER FOR BUFR FILE
-C>     IMSG     - INTEGER: POINTER TO BUFR MESSAGE NUMBER TO READ IN
-C>                BUFR FILE
-C>     ISUB     - INTEGER: POINTER TO SUBSET NUMBER TO READ IN BUFR
-C>                MESSAGE
+C> @param[in] LUNIT  -- integer: Fortran logical unit number for
+C>                      BUFR file
+C> @param[in] IMSG   -- integer: Number of BUFR message to be
+C>                      read from the BUFR file, counting from the
+C>                      beginning of the file, but <b>not</b>
+C>                      counting any DX BUFR table messages which
+C>                      may be present in the file
+C> @param[in] ISUB   -- integer: Number of data subset to be
+C>                      read from the (IMSG)th BUFR message,
+C>                      counting from the beginning of the message
 C>
-C>   INPUT FILES:
-C>     UNIT "LUNIT" - BUFR FILE
+C> <p>Logical unit LUNIT should not have already been opened via a
+C> previous call to subroutine openbf()
 C>
-C> REMARKS:
-C>    THIS ROUTINE CALLS:        BORT     OPENBF   READMG   READSB
-C>                               STATUS   UPB
-C>    THIS ROUTINE IS CALLED BY: None
-C>                               Normally called only by application
-C>                               programs.
+C> <p>Whenever this subroutine returns successfully, this indicates
+C> that a new data subset was successfully read into internal arrays
+C> within the BUFRLIB software, and that subsequent calls can
+C> immediately be made to any of the various
+C> [values-reading subroutines](@ref hierarchy).
 C>
-C--------------------------------------------------------------------------
-C--------------------------------------------------------------------------
-      SUBROUTINE RDMGSB_8(LUNIT_8,IMSG_8,ISUB_8)
-      INTEGER*8 LUNIT_8,IMSG_8,ISUB_8
-      LUNIT=LUNIT_8
-      IMSG=IMSG_8
-      ISUB=ISUB_8
-      CALL RDMGSB(LUNIT,IMSG,ISUB)
-      END SUBROUTINE
-C--------------------------------------------------------------------------
-C--------------------------------------------------------------------------
+C> <p>Note that the value specified for IMSG should not include any
+C> DX BUFR table messages which may be present in the file.
+C> In other words, a value of 12 for IMSG means to read the 12th
+C> message which contains actual report data.
+C>
+C> <b>Program history log:</b>
+C> | Date | Programmer | Comments |
+C> | -----|------------|----------|
+C> | 2003-11-04 | J. Woollen | Original author |
+C> | 2004-08-09 | J. Ator    | Maximum message length increased from 20,000 to 50,000 bytes |
+C> | 2009-03-23 | J. Ator    | Modify to skip past DX BUFR table messages anywhere in the file, and not just at the beginning |
+C> | 2014-12-10 | J. Ator    | Use modules instead of COMMON blocks |
+C> | 2022-08-04 | J. Woollen | Added 8-byte wrapper |
+C> | 2022-09-26 | J. Ator    | Modify to work with compressed data subsets |
 
       SUBROUTINE RDMGSB(LUNIT,IMSG,ISUB)
 
       USE MODA_MSGCWD
       USE MODA_BITBUF
-      USE MODA_IM8B
+      USE MODV_IM8B
 
       CHARACTER*128 BORT_STR
       CHARACTER*8   SUBSET
+
+      INTEGER*8 LUNIT_8,IMSG_8,ISUB_8
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
 
 C  CHECK FOR I8 INTEGERS
 C  ---------------------
-      IF(IM8) THEN
-         IM8=.FALSE.
-         CALL RDMGSB_8(LUNIT,IMSG,ISUB)
-         IM8=.TRUE.
+      IF(IM8B) THEN
+         IM8B=.FALSE.
+
+         LUNIT_8=LUNIT
+         IMSG_8=IMSG
+         ISUB_8=ISUB
+         CALL RDMGSB_8(LUNIT_8,IMSG_8,ISUB_8)
+
+         IM8B=.TRUE.
          RETURN
       ENDIF
 
@@ -93,16 +89,10 @@ C     case there are any embedded dictionary messages in the file.
 C  POSITION AT SUBSET # ISUB
 C  -------------------------
 
-      DO I=1,ISUB-1
-        IF(NSUB(LUN).GT.MSUB(LUN)) GOTO 902
-        IBIT = MBYT(LUN)*8
-        CALL UPB(NBYT,16,MBAY(1,LUN),IBIT)
-        MBYT(LUN) = MBYT(LUN) + NBYT
-        NSUB(LUN) = NSUB(LUN) + 1
+      DO I=1,ISUB
+        CALL READSB(LUNIT,IRET)
+        IF(IRET.LT.0) GOTO 902
       ENDDO
-
-      CALL READSB(LUNIT,IRET)
-      IF(IRET.NE.0) GOTO 902
 
 C  EXITS
 C  -----
@@ -120,4 +110,39 @@ C  -----
      . 'READING REQ. SUBSET NO.",I3," IN REQ. MSG NO.",I5," IN BUFR '//
      . 'FILE CONNECTED TO UNIT",I4)') ISUB,IMSG,LUNIT
       CALL BORT(BORT_STR)
+      END
+
+C> This subroutine is an internal wrapper for handling 8-byte integer
+C> arguments to subroutine rdmgsb().
+C>
+C> <p>Application programs which use 8-byte integer arguments should
+C> never call this subroutine directly; instead, such programs should
+C> make an initial call to subroutine setim8b() with int8b=.TRUE. and
+C> then call subroutine rdmgsb() directly.
+C>
+C> @author J. Woollen
+C> @date 2022-08-04
+C>
+C> @param[in] LUNIT_8 -- integer*8: Fortran logical unit number for
+C>                       BUFR file
+C> @param[in] IMSG_8  -- integer*8: Number of BUFR message to be
+C>                       read from the BUFR file
+C> @param[in] ISUB_8  -- integer*8: Number of data subset to be
+C>                       read from the (IMSG_8)th BUFR message
+C>
+C> <b>Program history log:</b>
+C> | Date       | Programmer | Comments             |
+C> | -----------|------------|----------------------|
+C> | 2022-08-04 | J. Woollen | Original author      |
+
+      SUBROUTINE RDMGSB_8(LUNIT_8,IMSG_8,ISUB_8)
+
+      INTEGER*8 LUNIT_8,IMSG_8,ISUB_8
+
+      LUNIT=LUNIT_8
+      IMSG=IMSG_8
+      ISUB=ISUB_8
+      CALL RDMGSB(LUNIT,IMSG,ISUB)
+
+      RETURN
       END

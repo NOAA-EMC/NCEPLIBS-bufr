@@ -38,18 +38,7 @@ C> | 2004-08-09 | J. Ator    | Maximum message length increased from 20,000 to 5
 C> | 2004-11-15 | D. Keyser  | Increased MAXMEM from 16 Mb to 50 Mb |
 C> | 2009-04-21 | J. Ator    | Use errwrt() |
 C> | 2014-12-10 | J. Ator    | Use modules instead of COMMON blocks |
-C>
-C--------------------------------------------------------------------------
-C--------------------------------------------------------------------------
-      SUBROUTINE RDMEMS_8(ISUB_8,IRET_8)
-      INTEGER*8 ISUB_8,IRET_8
-      ISUB=ISUB_8
-      IRET=IRET_8
-      CALL RDMEMS(ISUB,IRET)
-      IRET_8=IRET
-      END SUBROUTINE
-C--------------------------------------------------------------------------
-C--------------------------------------------------------------------------
+C> | 2022-08-04 | J. Woollen | Added 8-byte wrapper |
 
       SUBROUTINE RDMEMS(ISUB,IRET)
 
@@ -57,9 +46,10 @@ C--------------------------------------------------------------------------
       USE MODA_UNPTYP
       USE MODA_BITBUF
       USE MODA_MSGMEM
-      USE MODA_IM8B
+      USE MODV_IM8B
 
       CHARACTER*128 BORT_STR,ERRSTR
+      INTEGER*8 ISUB_8,IRET_8
 
       COMMON /QUIET / IPRT
 
@@ -69,10 +59,14 @@ C-----------------------------------------------------------------------
 C  CHECK FOR I8 INTEGERS
 C  ---------------------
 
-      IF(IM8) THEN
-         IM8=.FALSE.
-         CALL RDMEMS_8(ISUB,IRET)
-         IM8=.TRUE.
+      IF(IM8B) THEN
+         IM8B=.FALSE.
+
+         ISUB_8=ISUB
+         CALL RDMEMS_8(ISUB_8,IRET_8)
+         IRET=IRET_8
+
+         IM8B=.TRUE.
          RETURN
       ENDIF
 
@@ -152,4 +146,36 @@ C  -----
 904   CALL BORT('BUFRLIB: RDMEMS - CALL TO ROUTINE READSB RETURNED '//
      . 'WITH IRET = -1 (EITHER MEMORY MESSAGE NOT OPEN OR ALL '//
      . 'SUBSETS IN MESSAGE READ')
+      END
+
+C> This subroutine is an internal wrapper for handling 8-byte integer
+C> arguments to subroutine rdmems().
+C>
+C> <p>Application programs which use 8-byte integer arguments should
+C> never call this subroutine directly; instead, such programs should
+C> make an initial call to subroutine setim8b() with int8b=.TRUE. and
+C> then call subroutine rdmems() directly.
+C>
+C> @author J. Woollen
+C> @date 2022-08-04
+C>
+C> @param[in] ISUB_8 -- integer*8: Number of data subset to be
+C>                      read from BUFR message, counting from the
+C>                      beginning of the message
+C> @param[out] IRET_8 -- integer*8: return code
+C>
+C> <b>Program history log:</b>
+C> | Date       | Programmer | Comments             |
+C> | -----------|------------|----------------------|
+C> | 2022-08-04 | J. Woollen | Original author      |
+
+      SUBROUTINE RDMEMS_8(ISUB_8,IRET_8)
+
+      INTEGER*8 ISUB_8,IRET_8
+
+      ISUB=ISUB_8
+      CALL RDMEMS(ISUB,IRET)
+      IRET_8=IRET
+
+      RETURN
       END

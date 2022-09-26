@@ -31,24 +31,17 @@ C> | 1998-07-08 | J. Woollen | Original author |
 C> | 2002-05-14 | J. Woollen | Changed from an entry point in readmg() to stand-alone subroutine, to increase portability to other platforms |
 C> | 2003-11-04 | J. Ator    | Added documentation |
 C> | 2004-12-20 | D. Keyser  | Calls wrdlen() to initialize local machine information, in case it has not yet been called |
-C>
-C--------------------------------------------------------------------------
-C--------------------------------------------------------------------------
-      SUBROUTINE DATELEN_8(LEN_8)
-      INTEGER*8 LEN_8
-      LEN=LEN_8
-      CALL DATELEN(LEN)
-      END SUBROUTINE
-C--------------------------------------------------------------------------
-C--------------------------------------------------------------------------
+C> | 2022-08-04 | J. Woollen | Added 8-byte wrapper |
 
       SUBROUTINE DATELEN(LEN)
 
-      USE MODA_IM8B
+      USE MODV_IM8B
 
       COMMON /DATELN/ LENDAT
 
       CHARACTER*128 BORT_STR
+
+      INTEGER*8 LEN_8
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
@@ -56,10 +49,13 @@ C-----------------------------------------------------------------------
 C  CHECK FOR I8 INTEGERS
 C  ---------------------
 
-      IF(IM8) THEN
-         IM8=.FALSE.
-         CALL DATELEN_8(LEN)
-         IM8=.TRUE.
+      IF(IM8B) THEN
+         IM8B=.FALSE.
+
+         LEN_8=LEN
+         CALL DATELEN_8(LEN_8)
+
+         IM8B=.TRUE.
          RETURN
       ENDIF
 
@@ -79,4 +75,34 @@ C  -----
 900   WRITE(BORT_STR,'("BUFRLIB: DATELEN - INPUT ARGUMENT IS",I4," - '//
      . 'IT MUST BE EITHER 8 OR 10")') LEN
       CALL BORT(BORT_STR)
+      END
+
+C> This subroutine is an internal wrapper for handling 8-byte integer
+C> arguments to subroutine datelen().
+C>
+C> <p>Application programs which use 8-byte integer arguments should
+C> never call this subroutine directly; instead, such programs should
+C> make an initial call to subroutine setim8b() with int8b=.TRUE. and
+C> then call subroutine datelen() directly.
+C>
+C> @author J. Woollen
+C> @date 2022-08-04
+C>
+C> @param[in] LEN_8 --  integer*8: Length of Section 1 date-time
+C>                      values to be output by all future calls
+C>                      to message-reading subroutines
+C>
+C> <b>Program history log:</b>
+C> | Date       | Programmer | Comments             |
+C> | -----------|------------|----------------------|
+C> | 2022-08-04 | J. Woollen | Original author      |
+
+      SUBROUTINE DATELEN_8(LEN_8)
+
+      INTEGER*8 LEN_8
+
+      LEN=LEN_8
+      CALL DATELEN(LEN)
+
+      RETURN
       END

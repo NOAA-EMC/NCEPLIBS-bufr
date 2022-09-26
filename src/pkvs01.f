@@ -68,37 +68,31 @@ C> | -----|------------|----------|
 C> | 2005-11-29 | J. Ator    | Original author |
 C> | 2006-04-14 | D. Keyser  | Updated docblock |
 C> | 2015-03-03 | J. Ator    | Use module MODA_S01CM |
-C>
-C--------------------------------------------------------------------------
-C--------------------------------------------------------------------------
-      SUBROUTINE PKVS01_8(S01MNEM,IVAL_8) 
-      INTEGER*8 IVAL_8
-      IVAL=IVAL_8
-      CALL PKVS01(S01MNEM,IVAL)
-      END SUBROUTINE
-C--------------------------------------------------------------------------
-C--------------------------------------------------------------------------
+C> | 2022-08-04 | J. Woollen | Added 8-byte wrapper |
 
       SUBROUTINE PKVS01(S01MNEM,IVAL)
 
       USE MODV_MXS01V
       USE MODA_S01CM
-      USE MODA_IM8B
+      USE MODV_IM8B
 
       CHARACTER*(*) S01MNEM
+      INTEGER*8 IVAL_8
 
       CHARACTER*128 BORT_STR
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
 
-C  CHECK FOR I8 INTEGERS
-C  ---------------------
+C     CHECK FOR I8 INTEGERS
 
-      IF(IM8) THEN
-         IM8=.FALSE.
-         CALL PKVS01_8(S01MNEM,IVAL)
-         IM8=.TRUE.
+      IF(IM8B) THEN
+         IM8B=.FALSE.
+
+         IVAL_8=IVAL
+         CALL PKVS01_8(S01MNEM,IVAL_8)
+
+         IM8B=.TRUE.
          RETURN
       ENDIF
 
@@ -140,4 +134,36 @@ C  -----
      . '",I2," DIFFERENT LOCATIONS WITHIN SECTION 0 OR SECTION 1")')
      . MXS01V
       CALL BORT(BORT_STR)
+      END
+
+C> This subroutine is an internal wrapper for handling 8-byte integer
+C> arguments to subroutine pkvs01().
+C>
+C> <p>Application programs which use 8-byte integer arguments should
+C> never call this subroutine directly; instead, such programs should
+C> make an initial call to subroutine setim8b() with int8b=.TRUE. and
+C> then call subroutine pkvs01() directly.
+C>
+C> @author J. Woollen
+C> @date 2022-08-04
+C>
+C> @param[in]   IVAL_8   -- integer*8: Value to be stored
+C> @param[in]  S01MNEM   -- character*(*): Location where IVAL_8 is to
+C>                          be stored within Section 0 or Section 1 of
+C>                          all future output BUFR messages
+C>
+C> <b>Program history log:</b>
+C> | Date       | Programmer | Comments             |
+C> | -----------|------------|----------------------|
+C> | 2022-08-04 | J. Woollen | Original author      |
+
+      SUBROUTINE PKVS01_8(S01MNEM,IVAL_8) 
+
+      CHARACTER*(*) S01MNEM
+      INTEGER*8 IVAL_8
+
+      IVAL=IVAL_8
+      CALL PKVS01(S01MNEM,IVAL)
+
+      RETURN
       END

@@ -1,115 +1,90 @@
 C> @file
-C> @author ATOR @date 2005-11-29
-      
-C> THIS SUBROUTINE RETURNS THE LOCATION (I.E. STARTING BYTE
-C>   AND BIT WIDTH) OF A SPECIFIED VALUE WITHIN SECTION 1 OF A BUFR
-C>   MESSAGE ENCODED ACCORDING TO A SPECIFIED BUFR EDITION.  IT WILL
-C>   WORK ON ANY MESSAGE ENCODED USING BUFR EDITION 2, 3 OR 4.  THE
-C>   VALUE FOR WHICH THE LOCATION IS TO BE DETERMINED IS SPECIFIED VIA
-C>   THE MNEMONIC S1MNEM, AS EXPLAINED IN FURTHER DETAIL BELOW.
-C>
-C> PROGRAM HISTORY LOG:
-C> 2005-11-29  J. ATOR    -- ORIGINAL AUTHOR
-C> 2006-04-14  D. KEYSER  -- ADDED OPTIONS FOR 'YCEN' AND 'CENT'
-C>
-C> USAGE:    GETS1LOC ( S1MNEM, IBEN, ISBYT, IWID, IRET )
-C>   INPUT ARGUMENT LIST:
-C>     S1MNEM   - CHARACTER*(*): MNEMONIC SPECIFYING VALUE WHOSE
-C>                LOCATION WITHIN SECTION 1 IS TO BE DETERMINED:
-C>                  'LEN1'  = LENGTH (IN BYTES) OF SECTION 1
-C>                  'BMT'   = BUFR MASTER TABLE 
-C>                  'OGCE'  = ORIGINATING CENTER
-C>                  'GSES'  = ORIGINATING SUBCENTER
-C>                              (NOTE: THIS VALUE IS PRESENT ONLY IN
-C>                                     BUFR EDITION 3 OR 4 MESSAGES!)
-C>                  'USN'   = UPDATE SEQUENCE NUMBER 
-C>                  'ISC2'  = FLAG INDICATING ABSENCE/PRESENCE OF
-C>                            (OPTIONAL) SECTION 2 IN BUFR MESSAGE:
-C>                              0 = SECTION 2 ABSENT
-C>                              1 = SECTION 2 PRESENT
-C>                  'MTYP'  = DATA CATEGORY 
-C>                  'MSBTI' = DATA SUBCATEGORY (INTERNATIONAL)
-C>                              (NOTE: THIS VALUE IS PRESENT ONLY IN
-C>                                     BUFR EDITION 4 MESSAGES!)
-C>                  'MSBT'  = DATA SUBCATEGORY (LOCAL)
-C>                  'MTV'   = VERSION NUMBER OF MASTER TABLE
-C>                  'MTVL'  = VERSION NUMBER OF LOCAL TABLES
-C>                  'YCEN'  = YEAR OF CENTURY (1-100)
-C>                              (NOTE: THIS VALUE IS PRESENT ONLY IN
-C>                                     BUFR EDITION 2 AND 3 MESSAGES!)
-C>                  'CENT'  = CENTURY (I.E., 20 FOR YEARS 1901-2000,
-C>                                           21 FOR YEARS 2001-2100)
-C>                              (NOTE: THIS VALUE *MAY* BE PRESENT IN
-C>                                     BUFR EDITION 2 AND 3 MESSAGES,
-C>                                     BUT IT IS NEVER PRESENT IN ANY
-C>                                     BUFR EDITION 4 MESSAGES!)
-C>                  'YEAR'  = YEAR (4-DIGIT)
-C>                              (NOTE: THIS VALUE IS PRESENT ONLY IN
-C>                                     BUFR EDITION 4 MESSAGES!)
-C>                  'MNTH'  = MONTH
-C>                  'DAYS'  = DAY
-C>                  'HOUR'  = HOUR
-C>                  'MINU'  = MINUTE
-C>                  'SECO'  = SECOND
-C>                              (NOTE: THIS VALUE IS PRESENT ONLY IN
-C>                                     BUFR EDITION 4 MESSAGES!)
-C>     IBEN     - INTEGER: BUFR EDITION NUMBER
-C>
-C>
-C>   OUTPUT ARGUMENT LIST:
-C>     ISBYT    - INTEGER: NUMBER OF STARTING BYTE WITHIN SECTION 1
-C>                WHICH CONTAINS VALUE CORRESPONDING TO S1MNEM
-C>                   (NOTE: ISBYT IS ALWAYS RETURNED AS 18 WHENEVER
-C>                          S1MNEM = 'CENT' AND IBEN = 2 OR 3; IN SUCH
-C>                          CASES IT IS THEN UP TO THE CALLING ROUTINE
-C>                          TO DETERMINE WHETHER THIS LOCATION ACTUALLY
-C>                          CONTAINS A VALID CENTURY VALUE!)
-C>     IWID     - INTEGER: WIDTH (IN BITS) OF VALUE CORRESPONDING
-C>                TO S1MNEM
-C>     IRET     - INTEGER: RETURN CODE
-C>                   0 = NORMAL RETURN
-C>                  -1 = THE INPUT S1MNEM MNEMONIC IS INVALID FOR
-C>                       BUFR EDITION IBEN
-C>
-C> REMARKS:
-C>    THIS ROUTINE CALLS:        None
-C>    THIS ROUTINE IS CALLED BY: CRBMG    IUPBS01  PKBS1
-C>                               Normally not called by any application
-C>                               programs.
-C>
-C--------------------------------------------------------------------------
-C--------------------------------------------------------------------------
-      SUBROUTINE GETS1LOC_8(S1MNEM,IBEN_8,ISBYT_8,IWID_8,IRET_8)
-      INTEGER*8 IBEN_8,ISBYT_8,IWID_8,IRET_8
-      IBEN=IBEN_8
-      ISBYT=ISBYT_8
-      IWID=IWID_8
-      IRET=IRET_8
-      CALL GETS1LOC(S1MNEM,IBEN,ISBYT,IWID,IRET)
-      ISBYT_8=ISBYT
-      IWID_8=IWID
-      IRET_8=IRET
-      END SUBROUTINE
-C--------------------------------------------------------------------------
-C--------------------------------------------------------------------------
+C> @brief Get the location of a specified value within Section 1
+C> of a BUFR message
 
-      SUBROUTINE GETS1LOC(S1MNEM,IBEN,ISBYT,IWID,IRET)
+C> This subroutine returns the location of a specified value within
+C> Section 1 of a BUFR message.
+C>
+C> <p>The location and availability of any particular value within
+C> Section 1 of a BUFR message can vary depending on the edition
+C> number used to encode the message.  This subroutine will work
+C> for BUFR edition 2, 3, or 4.
+C>
+C> @author J. Ator
+C> @date 2005-11-29
+C>
+C> @param[in]  S1MNEM  -- character*(*): Value whose location within
+C>                        Section 1 is to be determined:
+C>                         - 'LEN1'  = Length (in bytes) of Section 1
+C>                         - 'BMT'   = BUFR master table
+C>                         - 'OGCE'  = Originating center
+C>                         - 'GSES'  = Originating subcenter
+C>                         - 'USN'   = Update sequence number
+C>                         - 'ISC2'  = Flag indicating absence/presence of
+C>                                     (optional) Section 2 in BUFR message:
+C>                                    - 0 = Section 2 absent
+C>                                    - 1 = Section 2 present
+C>                         - 'MTYP'  = Data category
+C>                         - 'MSBTI' = Data subcategory (international)
+C>                         - 'MSBT'  = Data subcategory (local)
+C>                         - 'MTV'   = Version number of master table
+C>                         - 'MTVL'  = Version number of local tables
+C>                         - 'YCEN'  = Year of century (1-100)
+C>                         - 'CENT'  = Century (e.g., 20 for years 1901-2000,
+C>                                     21 for years 2001-2100)
+C>                         - 'YEAR'  = Year (4-digit)
+C>                         - 'MNTH'  = Month
+C>                         - 'DAYS'  = Day
+C>                         - 'HOUR'  = Hour
+C>                         - 'MINU'  = Minute
+C>                         - 'SECO'  = Second
+C> @param[in]  IBEN    -- integer: BUFR edition number
+C> @param[out] ISBYT   -- integer: Number of starting byte within Section 1
+C>                        which contains value corresponding to S1MNEM
+C> @param[out] IWID    -- integer: Width (in bits) of value corresponding
+C>                        to S1MNEM, counting from the first bit of the
+C>                        byte pointed to by ISBYT
+C> @param[out] IRET    -- integer: Return code:
+C>                        - 0 = normal return
+C>                        - -1 = S1MNEM is invalid for BUFR edition IBEN
+C>
+C> @remarks
+C> - S1MNEM = 'GSES' is only valid for IBEN = 3 or 4.
+C> - S1MNEM = 'YCEN' or 'CENT' is only valid for IBEN = 2 or 3.
+C> - S1MNEM = 'YEAR', 'SECO', or 'MSBTI' is only valid for IBEN = 4.
+C>
+C> <b>Program history log:</b>
+C> | Date | Programmer | Comments |
+C> | -----|------------|----------|
+C> | 2005-11-29 | J. Ator | Original author |
+C> | 2006-04-14 | D. Keyser | Added options for 'YCEN' and 'CENT' |
+C> | 2022-08-04 | J. Woollen | Added 8-byte wrapper |
 
-      USE MODA_IM8B
+	SUBROUTINE GETS1LOC(S1MNEM,IBEN,ISBYT,IWID,IRET)
 
-      CHARACTER*(*) S1MNEM
+	USE MODV_IM8B
+
+	CHARACTER*(*) S1MNEM
+
+	INTEGER*8 IBEN_8,ISBYT_8,IWID_8,IRET_8
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
 
-C  CHECK FOR I8 INTEGERS
-C  ---------------------
-      IF(IM8) THEN
-         IM8=.FALSE.
-         CALL GETS1LOC_8(S1MNEM,IBEN,ISBYT,IWID,IRET)
-         IM8=.TRUE.
-         RETURN
-      ENDIF
+C	Check for I8 integers.
+
+	IF(IM8B) THEN
+	   IM8B=.FALSE.
+
+	   IBEN_8=IBEN
+	   CALL GETS1LOC_8(S1MNEM,IBEN_8,ISBYT_8,IWID_8,IRET_8)
+	   ISBYT=ISBYT_8
+	   IWID=IWID_8
+	   IRET=IRET_8
+
+	   IM8B=.TRUE.
+	   RETURN
+	ENDIF
 
 	IRET = 0
 	IWID = 8
@@ -234,6 +209,47 @@ C               Edition 2 *and* Edition 4 of BUFR!
 	ELSE
 	    IRET = -1
 	ENDIF
+
+	RETURN
+	END
+
+C> This subroutine is an internal wrapper for handling 8-byte integer
+C> arguments to subroutine gets1loc().
+C>
+C> <p>Application programs which use 8-byte integer arguments should
+C> never call this subroutine directly; instead, such programs should
+C> make an initial call to subroutine setim8b() with int8b=.TRUE. and
+C> then call subroutine gets1loc() directly.
+C>
+C> @author J. Woollen
+C> @date 2022-08-04
+C>
+C> @param[in]  S1MNEM  -- character*(*): Value whose location within
+C>                        Section 1 is to be determined:
+C> @param[in]  IBEN_8  -- integer*8: BUFR edition number
+C> @param[out] ISBYT_8 -- integer*8: Number of starting byte within Section 1
+C>                        which contains value corresponding to S1MNEM
+C> @param[out] IWID_8  -- integer*8: Width (in bits) of value corresponding
+C>                        to S1MNEM, counting from the first bit of the
+C>                        byte pointed to by ISBYT_8
+C> @param[out] IRET_8  -- integer*8: Return code:
+C>
+C> <b>Program history log:</b>
+C> | Date       | Programmer | Comments             |
+C> | -----------|------------|----------------------|
+C> | 2022-08-04 | J. Woollen | Original author      |
+
+	SUBROUTINE GETS1LOC_8(S1MNEM,IBEN_8,ISBYT_8,IWID_8,IRET_8)
+
+	CHARACTER*(*) S1MNEM
+
+	INTEGER*8 IBEN_8,ISBYT_8,IWID_8,IRET_8
+
+	IBEN=IBEN_8
+	CALL GETS1LOC(S1MNEM,IBEN,ISBYT,IWID,IRET)
+	ISBYT_8=ISBYT
+	IWID_8=IWID
+	IRET_8=IRET
 
 	RETURN
 	END

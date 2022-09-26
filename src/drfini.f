@@ -58,39 +58,33 @@ C> | 2005-03-04 | J. Ator | Updated documentation |
 C> | 2014-09-08 | J. Ator | Increase NDRF limit from 100 to 200 |
 C> | 2014-12-10 | J. Ator | Use modules instead of COMMON blocks |
 C> | 2018-06-07 | J. Ator | Increase NDRF limit from 200 to 2000 |
-C>
-C--------------------------------------------------------------------------
-C--------------------------------------------------------------------------
-      SUBROUTINE DRFINI_8(LUNIT_8,MDRF_8,NDRF_8,DRFTAG)
-      INTEGER*8 MDRF_8(*),NDRF_8
-      INTEGER*8 MDRF(INT(NDRF_8))
-      LUNIT=LUNIT_8
-      NDRF=NDRF_8
-      MDRF(1:NDRF)=MDRF_8(1:NDRF)
-      CALL DRFINI(LUNIT,MDRF,NDRF,DRFTAG)
-      END SUBROUTINE
-C--------------------------------------------------------------------------
-C--------------------------------------------------------------------------
+C> | 2022-08-04 | J. Woollen | Added 8-byte wrapper |
 
       SUBROUTINE DRFINI(LUNIT,MDRF,NDRF,DRFTAG)
 
       USE MODA_USRINT
       USE MODA_TABLES
-      USE MODA_IM8B
+      USE MODV_IM8B
 
       CHARACTER*(*) DRFTAG
       CHARACTER*128 BORT_STR
-      DIMENSION     MDRF(NDRF)
+      INTEGER*8     LUNIT_8,NDRF_8
+      DIMENSION     MDRF(*)
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
 
 C  CHECK FOR I8 INTEGERS
 C  ---------------------
-      IF(IM8) THEN
-         IM8=.FALSE.
-         CALL DRFINI_8(LUNIT,MDRF,NDRF,DRFTAG)
-         IM8=.TRUE.
+
+      IF(IM8B) THEN
+         IM8B=.FALSE.
+
+         LUNIT_8=LUNIT
+         NDRF_8=NDRF
+         CALL DRFINI_8(LUNIT_8,MDRF,NDRF_8,DRFTAG)
+
+         IM8B=.TRUE.
          RETURN
       ENDIF
 
@@ -120,4 +114,47 @@ C  -----
  900  WRITE(BORT_STR,'("BUFRLIB: DRFINI - THE NUMBER OF DELAYED '//
      . 'REPLICATION FACTORS (",I5,") EXCEEDS THE LIMIT (2000)")') NDRF
       CALL BORT(BORT_STR)
+      END
+
+C> This subroutine is an internal wrapper for handling 8-byte integer
+C> arguments to subroutine drfini().
+C>
+C> <p>Application programs which use 8-byte integer arguments should
+C> never call this subroutine directly; instead, such programs should
+C> make an initial call to subroutine setim8b() with int8b=.TRUE. and
+C> then call subroutine drfini() directly.
+C>
+C> @author J. Woollen
+C> @date 2022-08-04
+C>
+C> @param[in] LUNIT_8 -- integer*8: Fortran logical unit number for BUFR
+C>                       file
+C> @param[in] MDRF  -- integer(*): Array of delayed replication factors,
+C>                     in one-to-one correspondence with the number
+C>                     of occurrences of DRFTAG within the overall
+C>                     subset definition, and explicitly defining
+C>                     how much space (i.e. how many replications)
+C>                     to allocate within each successive occurrence
+C> @param[in] NDRF_8 -- integer*8: Number of delayed replication factors
+C>                      within MDRF
+C> @param[in] DRFTAG -- character*(*): Table D sequence mnemonic,
+C>                      bracketed by appropriate delayed replication
+C>                      notation (e.g. {}, () OR <>)
+C>
+C> <b>Program history log:</b>
+C> | Date       | Programmer | Comments             |
+C> | -----------|------------|----------------------|
+C> | 2022-08-04 | J. Woollen | Original author      |
+
+      SUBROUTINE DRFINI_8(LUNIT_8,MDRF,NDRF_8,DRFTAG)
+
+      DIMENSION MDRF(*)
+      CHARACTER*(*) DRFTAG
+      INTEGER*8 LUNIT_8,NDRF_8
+
+      LUNIT=LUNIT_8
+      NDRF=NDRF_8
+      CALL DRFINI(LUNIT,MDRF,NDRF,DRFTAG)
+
+      RETURN
       END

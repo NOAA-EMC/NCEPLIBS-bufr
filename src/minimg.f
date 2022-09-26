@@ -25,29 +25,25 @@ C> | 2003-11-04 | J. Ator    | Added documentation |
 C> | 2004-08-09 | J. Ator    | Maximum message length increased from 20,000 to 50,000 bytes |
 C> | 2005-11-29 | J. Ator    | Use pkbs1() |
 C> | 2014-12-10 | J. Ator    | Use modules instead of COMMON blocks |
-C>
-C--------------------------------------------------------------------------
-C--------------------------------------------------------------------------
-      SUBROUTINE MINIMG_8(LUNIT_8,MINI_8)
-      INTEGER*8 LUNIT_8,MINI_8
-      LUNIT=LUNIT_8
-      MINI=MINI_8
-      CALL MINIMG(LUNIT,MINI)
-      END SUBROUTINE
-C--------------------------------------------------------------------------
-C--------------------------------------------------------------------------
+C> | 2022-08-04 | J. Woollen | Added 8-byte wrapper |
 
       SUBROUTINE MINIMG(LUNIT,MINI)
 
       USE MODA_BITBUF
-      USE MODA_IM8B
+      USE MODV_IM8B
 
-C  CHECK FOR I8 INTEGERS
-C  ---------------------
-      IF(IM8) THEN
-         IM8=.FALSE.
-         CALL MINIMG_8(LUNIT,MINI)
-         IM8=.TRUE.
+      INTEGER*8 LUNIT_8,MINI_8
+
+C     Check for I8 integers.
+
+      IF(IM8B) THEN
+         IM8B=.FALSE.
+
+         LUNIT_8=LUNIT
+         MINI_8=MINI
+         CALL MINIMG_8(LUNIT_8,MINI_8)
+
+         IM8B=.TRUE.
          RETURN
       ENDIF
 
@@ -68,4 +64,35 @@ C  -----
      . 'INPUT, IT MUST BE OPEN FOR OUTPUT')
 902   CALL BORT('BUFRLIB: MINIMG - A MESSAGE MUST BE OPEN IN OUTPUT '//
      . 'BUFR FILE, NONE ARE')
+      END
+
+C> This subroutine is an internal wrapper for handling 8-byte integer
+C> arguments to subroutine minimg().
+C>
+C> <p>Application programs which use 8-byte integer arguments should
+C> never call this subroutine directly; instead, such programs should
+C> make an initial call to subroutine setim8b() with int8b=.TRUE. and
+C> then call subroutine minimg() directly.
+C>
+C> @author J. Woollen
+C> @date 2022-08-04
+C>
+C> @param[in] LUNIT_8 -- integer*8: Fortran logical unit number for
+C>                       BUFR file
+C> @param[in] MINI_8  -- integer*8: Minutes value
+C>
+C> <b>Program history log:</b>
+C> | Date       | Programmer | Comments             |
+C> | -----------|------------|----------------------|
+C> | 2022-08-04 | J. Woollen | Original author      |
+
+      SUBROUTINE MINIMG_8(LUNIT_8,MINI_8)
+
+      INTEGER*8 LUNIT_8,MINI_8
+
+      LUNIT=LUNIT_8
+      MINI=MINI_8
+      CALL MINIMG(LUNIT,MINI)
+
+      RETURN
       END

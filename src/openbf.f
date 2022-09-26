@@ -134,23 +134,13 @@ C> | 2012-06-18 | J. Ator    | Added IO='INUL' option |
 C> | 2012-09-15 | J. Woollen | Modified for C/I/O/BUFR interface; use INQUIRE to obtain filename; use openrb(), openwb() and openab(); add IO types 'INX' and 'FIRST' |
 C> | 2014-11-07 | J. Ator    | Allow dynamic allocation of certain arrays |
 C> | 2015-03-03 | J. Ator    | Use MODA_IFOPBF instead of IFIRST |
-C>
-C--------------------------------------------------------------------------
-C--------------------------------------------------------------------------
-      SUBROUTINE OPENBF_8(LUNIT_8,IO,LUNDX_8)             
-      CHARACTER*(*) IO
-      INTEGER*8 LUNIT_8,LUNDX_8       
-      LUNIT=LUNIT_8 
-      LUNDX=LUNDX_8
-      call OPENBF(LUNIT,IO,LUNDX)
-      END SUBROUTINE
-C--------------------------------------------------------------------------
-C--------------------------------------------------------------------------
+C> | 2022-08-04 | J. Woollen | Added 8-byte wrapper |
 
       SUBROUTINE OPENBF(LUNIT,IO,LUNDX)
 
       USE MODV_IFOPBF
       USE MODV_NFILES
+      USE MODV_IM8B
 
       USE MODA_MSGCWD
       USE MODA_STBFR
@@ -158,7 +148,6 @@ C--------------------------------------------------------------------------
       USE MODA_LUSHR
       USE MODA_NULBFR
       USE MODA_STCODE
-      USE MODA_IM8B
 
       COMMON /QUIET / IPRT
 
@@ -167,6 +156,8 @@ C--------------------------------------------------------------------------
       CHARACTER*128 BORT_STR,ERRSTR
       CHARACTER*28  CPRINT(0:3)
       CHARACTER*1   BSTR(4)
+
+      INTEGER*8 LUNIT_8,LUNDX_8
 
       DATA          CPRINT/
      . ' (only ABORTs)              ',
@@ -179,13 +170,17 @@ C-----------------------------------------------------------------------
 
 C  CHECK FOR I8 INTEGERS
 C  ---------------------
-      IF(IM8) THEN
-         IM8=.FALSE.
-         call OPENBF_8(LUNIT,IO,LUNDX)
-         IM8=.TRUE.
+
+      IF(IM8B) THEN
+         IM8B=.FALSE.
+
+         LUNIT_8=LUNIT 
+         LUNDX_8=LUNDX
+         CALL OPENBF_8(LUNIT_8,IO,LUNDX_8)
+
+         IM8B=.TRUE.
          RETURN
       ENDIF
-
 
 C     If this is the first call to this subroutine, initialize
 C     IPRT in /QUIET/ as 0 (limited printout - except for abort
@@ -340,4 +335,40 @@ C  -----
 904   CALL BORT('BUFRLIB: OPENBF - SECOND (INPUT) ARGUMENT MUST BE'//
      . ' "IN", "OUT", "NODX", "NUL", "APN", "APX", "SEC3"'//
      . ' OR "QUIET"')
+      END
+
+C> This subroutine is an internal wrapper for handling 8-byte integer
+C> arguments to subroutine openbf().
+C>
+C> <p>Application programs which use 8-byte integer arguments should
+C> never call this subroutine directly; instead, such programs should
+C> make an initial call to subroutine setim8b() with int8b=.TRUE. and
+C> then call subroutine openbf() directly.
+C>
+C> @author J. Woollen
+C> @date 2022-08-04
+C>
+C> @param[in] LUNIT_8 -- integer*8: Fortran logical unit number for BUFR
+C>                       file, unless IO is set to 'FIRST' or 'QUIET'
+C> @param[in] IO      -- character*(*): flag indicating how LUNIT is to be
+C>                       used by the software:
+C> @param[in] LUNDX_8 -- integer*8: Fortran logical unit number containing
+C>                       DX BUFR table information, unless IO is set to
+C>                       'FIRST' or 'QUIET'
+C>
+C> <b>Program history log:</b>
+C> | Date       | Programmer | Comments             |
+C> | -----------|------------|----------------------|
+C> | 2022-08-04 | J. Woollen | Original author      |
+
+      SUBROUTINE OPENBF_8(LUNIT_8,IO,LUNDX_8)
+
+      CHARACTER*(*) IO
+      INTEGER*8 LUNIT_8,LUNDX_8
+
+      LUNIT=LUNIT_8
+      LUNDX=LUNDX_8
+      CALL OPENBF(LUNIT,IO,LUNDX)
+
+      RETURN
       END

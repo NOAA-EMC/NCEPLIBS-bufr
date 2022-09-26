@@ -37,33 +37,28 @@ C> | Date | Programmer | Comments |
 C> | -----|------------|----------|
 C> | 1998-07-08 | J. Woollen | Original author |
 C> | 2009-04-21 | J. Ator    | Use errwrt() |
-C>
-C--------------------------------------------------------------------------
-C--------------------------------------------------------------------------
-      SUBROUTINE OPENBT_8(LUNDX_8,MTYP_8)
-      INTEGER*8 LUNDX_8,MTYP_8
-      LUNDX=LUNDX_8
-      MTYP=MTYP_8
-      CALL OPENBT(LUNDX,MTYP)
-      MTYP_8=MTYP
-      END SUBROUTINE
-C--------------------------------------------------------------------------
-C--------------------------------------------------------------------------
+C> | 2022-08-04 | J. Woollen | Added 8-byte wrapper |
 
       SUBROUTINE OPENBT(LUNDX,MTYP)
 
-      USE MODA_IM8B
+      USE MODV_IM8B
 
       COMMON /QUIET / IPRT
 
       CHARACTER*128 ERRSTR
 
-C  CHECK FOR I8 INTEGERS
-C  ---------------------
-      IF(IM8) THEN
-         IM8=.FALSE.
-         CALL OPENBT_8(LUNDX,MTYP)
-         IM8=.TRUE.
+      INTEGER*8 LUNDX_8,MTYP_8
+
+C     CHECK FOR I8 INTEGERS
+
+      IF(IM8B) THEN
+         IM8B=.FALSE.
+
+         LUNDX_8=LUNDX
+         CALL OPENBT_8(LUNDX_8,MTYP_8)
+         MTYP=MTYP_8
+
+         IM8B=.TRUE.
          RETURN
       ENDIF
 
@@ -78,6 +73,40 @@ C  ---------------------
       ENDIF
 
       LUNDX = 0
+
+      RETURN
+      END
+
+C> This subroutine is an internal wrapper for handling 8-byte integer
+C> arguments to subroutine openbt().
+C>
+C> <p>Application programs which use 8-byte integer arguments should
+C> never call this subroutine directly; instead, such programs should
+C> make an initial call to subroutine setim8b() with int8b=.TRUE. and
+C> then call subroutine openbt() directly.
+C>
+C> @author J. Woollen
+C> @date 2022-08-04
+C>
+C> @param[in] MTYP_8 -- integer*8: Data category of BUFR message for which
+C>                      subroutine cktaba() was unable to locate a
+C>                      DX BUFR table file
+C> @param[out] LUNDX_8 -- integer*8: Fortran logical unit number for file
+C>                        containing DX BUFR table information to be
+C>                        used in decoding message
+C>
+C> <b>Program history log:</b>
+C> | Date       | Programmer | Comments             |
+C> | -----------|------------|----------------------|
+C> | 2022-08-04 | J. Woollen | Original author      |
+
+      SUBROUTINE OPENBT_8(LUNDX_8,MTYP_8)
+
+      INTEGER*8 LUNDX_8,MTYP_8
+
+      LUNDX=LUNDX_8
+      CALL OPENBT(LUNDX,MTYP)
+      MTYP_8=MTYP
 
       RETURN
       END
