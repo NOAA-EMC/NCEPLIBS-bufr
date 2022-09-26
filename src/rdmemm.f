@@ -9,6 +9,11 @@ C> <p>BUFR messages should already be stored within internal
 C> arrays in memory via one or more previous calls to
 C> subroutine ufbmem().
 C>
+C> <p>This subroutine is similar to subroutine readmm(), except that
+C> readmm() also increments the value of IMSG prior to returning to
+C> the calling program, which in turn allows it to be easily called
+C> within an iterative program loop.
+C>
 C> @author J. Woollen
 C> @date 1994-01-06
 C>
@@ -45,20 +50,7 @@ C> | 2004-08-09 | J. Ator    | Maximum message length increased from 20,000 to 5
 C> | 2004-11-15 | D. Keyser  | Increased MAXMEM from 16 Mb to 50 Mb |
 C> | 2009-03-23 | J. Ator    | Modified to handle embedded BUFR table (dictionary) messages; use errwrt() |
 C> | 2014-12-10 | J. Ator    | Use modules instead of COMMON blocks |
-C>
-C--------------------------------------------------------------------------
-C--------------------------------------------------------------------------
-      SUBROUTINE RDMEMM_8(IMSG_8,SUBSET,JDATE_8,IRET_8)
-      INTEGER*8 IMSG_8,JDATE_8,IRET_8
-      IMSG=IMSG_8
-      JDATE=JDATE_8
-      IRET=IRET_8
-      CALL RDMEMM(IMSG,SUBSET,JDATE,IRET)
-      JDATE_8=JDATE
-      IRET_8=IRET
-      END SUBROUTINE
-C--------------------------------------------------------------------------
-C--------------------------------------------------------------------------
+C> | 2022-08-04 | J. Woollen | Added 8-byte wrapper |
 
       SUBROUTINE RDMEMM(IMSG,SUBSET,JDATE,IRET)
 
@@ -66,12 +58,13 @@ C--------------------------------------------------------------------------
       USE MODA_BITBUF
       USE MODA_MGWA
       USE MODA_MSGMEM
-      USE MODA_IM8B
+      USE MODV_IM8B
 
       COMMON /QUIET / IPRT
 
       CHARACTER*128 BORT_STR,ERRSTR
       CHARACTER*8   SUBSET
+      INTEGER*8 IMSG_8,JDATE_8,IRET_8
 
       LOGICAL KNOWN
 
@@ -81,10 +74,15 @@ C-----------------------------------------------------------------------
 C  CHECK FOR I8 INTEGERS
 C  ---------------------
 
-      IF(IM8) THEN
-         IM8=.FALSE.
-         CALL RDMEMM_8(IMSG,SUBSET,JDATE,IRET)
-         IM8=.TRUE.
+      IF(IM8B) THEN
+         IM8B=.FALSE.
+
+         IMSG_8=IMSG
+         CALL RDMEMM_8(IMSG_8,SUBSET,JDATE_8,IRET_8)
+         JDATE=JDATE_8
+         IRET=IRET_8
+
+         IM8B=.TRUE.
          RETURN
       ENDIF
 
@@ -203,4 +201,43 @@ C  -----
 902   WRITE(BORT_STR,'("BUFRLIB: RDMEMM - UNKNOWN DX TABLE FOR '//
      . 'REQUESTED MESSAGE #",I5)') IMSG
       CALL BORT(BORT_STR)
+      END
+
+C> This subroutine is an internal wrapper for handling 8-byte integer
+C> arguments to subroutine rdmemm().
+C>
+C> <p>Application programs which use 8-byte integer arguments should
+C> never call this subroutine directly; instead, such programs should
+C> make an initial call to subroutine setim8b() with int8b=.TRUE. and
+C> then call subroutine rdmemm() directly.
+C>
+C> @author J. Woollen
+C> @date 2022-08-04
+C>
+C> @param[in] IMSG_8   -- integer*8: Number of BUFR message to be
+C>                        read into scope for further processing,
+C>                        counting from the beginning of the
+C>                        internal arrays in memory
+C> @param[out] SUBSET -- character*8: Table A mnemonic for type of BUFR
+C>                       message that was read into scope
+C> @param[out] JDATE_8 -- integer*8: Date-time stored within Section 1 of
+C>                        BUFR message that was read into scope
+C> @param[out] IRET_8  -- integer*8: return code
+C>
+C> <b>Program history log:</b>
+C> | Date       | Programmer | Comments             |
+C> | -----------|------------|----------------------|
+C> | 2022-08-04 | J. Woollen | Original author      |
+
+      SUBROUTINE RDMEMM_8(IMSG_8,SUBSET,JDATE_8,IRET_8)
+
+      INTEGER*8 IMSG_8,JDATE_8,IRET_8
+      CHARACTER*8   SUBSET
+
+      IMSG=IMSG_8
+      CALL RDMEMM(IMSG,SUBSET,JDATE,IRET)
+      JDATE_8=JDATE
+      IRET_8=IRET
+
+      RETURN
       END

@@ -33,32 +33,28 @@ C> | 2004-08-09 | J. Ator    | Maximum message length increased from 20,000 to 5
 C> | 2005-11-29 | J. Ator    | Use rdmsgw() and iupbs01() |
 C> | 2012-09-15 | J. Woollen | Modified for C/I/O/BUFR interface; use status() |
 C> | 2014-12-10 | J. Ator    | Use modules instead of COMMON blocks |
-C>
-C--------------------------------------------------------------------------
-C--------------------------------------------------------------------------
-      SUBROUTINE COPYBF_8(LUNIN_8,LUNOT_8)
-      INTEGER*8 LUNIN_8,LUNOT_8
-      LUNIN=LUNIN_8
-      LUNIT=LUNOT_8
-      CALL COPYBF(LUNIN,LUNOT)
-      END SUBROUTINE
-C--------------------------------------------------------------------------
-C--------------------------------------------------------------------------
+C> | 2022-08-04 | J. Woollen | Added 8-byte wrapper |
 
       SUBROUTINE COPYBF(LUNIN,LUNOT)
 
       USE MODA_MGWA
-      USE MODA_IM8B
+      USE MODV_IM8B
+
+      INTEGER*8 LUNIN_8,LUNOT_8
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
 
 C  CHECK FOR I8 INTEGERS
 C  ---------------------
-      IF(IM8) THEN
-         IM8=.FALSE.
-         CALL  COPYBF_8(LUNIN,LUNOT)
-         IM8=.TRUE.
+      IF(IM8B) THEN
+         IM8B=.FALSE.
+
+         LUNIN_8=LUNIN
+         LUNOT_8=LUNOT
+         CALL COPYBF_8(LUNIN_8,LUNOT_8)
+
+         IM8B=.TRUE.
          RETURN
       ENDIF
 
@@ -105,4 +101,36 @@ C  -----
      . ('BUFRLIB: COPYBF - INPUT BUFR FILE IS OPEN, IT MUST BE CLOSED')
 901   CALL BORT
      . ('BUFRLIB: COPYBF - OUTPUT BUFR FILE IS OPEN, IT MUST BE CLOSED')
+      END
+
+C> This subroutine is an internal wrapper for handling 8-byte integer
+C> arguments to subroutine copybf().
+C>
+C> <p>Application programs which use 8-byte integer arguments should
+C> never call this subroutine directly; instead, such programs should
+C> make an initial call to subroutine setim8b() with int8b=.TRUE. and
+C> then call subroutine copybf() directly.
+C>
+C> @author J. Woollen
+C> @date 2022-08-04
+C>
+C> @param[in] LUNIN_8   -- integer*8: Fortran logical unit number for
+C>                         source BUFR file 
+C> @param[in] LUNOT_8   -- integer*8: Fortran logical unit number for
+C>                         target BUFR file 
+C>
+C> <b>Program history log:</b>
+C> | Date       | Programmer | Comments             |
+C> | -----------|------------|----------------------|
+C> | 2022-08-04 | J. Woollen | Original author      |
+
+      SUBROUTINE COPYBF_8(LUNIN_8,LUNOT_8)
+
+      INTEGER*8 LUNIN_8,LUNOT_8
+
+      LUNIN=LUNIN_8
+      LUNIT=LUNOT_8
+      CALL COPYBF(LUNIN,LUNOT)
+
+      RETURN
       END

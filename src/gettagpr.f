@@ -37,40 +37,35 @@ C> | -----|------------|----------|
 C> | 2012-09-12 | J. Ator | Original author |
 C> | 2014-10-02 | J. Ator | Modified to use fstag() |
 C> | 2014-12-10 | J. Ator | Use modules instead of COMMON blocks |
-C>
-C--------------------------------------------------------------------------
-C--------------------------------------------------------------------------
-      SUBROUTINE GETTAGPR_8(LUNIT_8,TAGCH,NTAGCH_8,TAGPR,IRET_8)
-      INTEGER*8 LUNIT_8,NTAGCH_8,IRET_8
-      LUNIT=LUNIT_8
-      NTAGCH=NTAGCH_8
-      IRET=IRET_8
-      CALL GETTAGPR ( LUNIT, TAGCH, NTAGCH, TAGPR, IRET )
-      IRET_8=IRET
-      END SUBROUTINE
-C--------------------------------------------------------------------------
-C--------------------------------------------------------------------------
+C> | 2022-08-04 | J. Woollen | Added 8-byte wrapper |
 
 	SUBROUTINE GETTAGPR ( LUNIT, TAGCH, NTAGCH, TAGPR, IRET )
 
 	USE MODA_USRINT
 	USE MODA_MSGCWD
 	USE MODA_TABLES
-        USE MODA_IM8B
+        USE MODV_IM8B
 
 	CHARACTER*(*) TAGCH, TAGPR
 
+	INTEGER*8 LUNIT_8,NTAGCH_8,IRET_8
+
 C----------------------------------------------------------------------
 C----------------------------------------------------------------------
 
-C  CHECK FOR I8 INTEGERS
-C  ---------------------
-      IF(IM8) THEN
-         IM8=.FALSE.
-         CALL GETTAGPR_8 ( LUNIT, TAGCH, NTAGCH, TAGPR, IRET )
-         IM8=.TRUE.
-         RETURN
-      ENDIF
+C	Check for I8 integers.
+
+	IF(IM8B) THEN
+	   IM8B=.FALSE.
+
+	   LUNIT_8=LUNIT
+	   NTAGCH_8=NTAGCH
+	   CALL GETTAGPR_8 ( LUNIT_8, TAGCH, NTAGCH_8, TAGPR, IRET_8 )
+	   IRET=IRET_8
+
+	   IM8B=.TRUE.
+	   RETURN
+	ENDIF
 
 	IRET = -1
 
@@ -86,6 +81,48 @@ C	Get TAGPR from the (NTAGCH)th occurrence of TAGCH.
 	IF ( IRET .NE. 0 ) RETURN
 
 	TAGPR = TAG(JMPB(INV(NCH,LUN)))
+
+	RETURN
+	END
+
+C> This subroutine is an internal wrapper for handling 8-byte integer
+C> arguments to subroutine gettagpr().
+C>
+C> <p>Application programs which use 8-byte integer arguments should
+C> never call this subroutine directly; instead, such programs should
+C> make an initial call to subroutine setim8b() with int8b=.TRUE. and
+C> then call subroutine gettagpr() directly.
+C>
+C> @author J. Woollen
+C> @date 2022-08-04
+C>
+C> @param[in] LUNIT_8  -- integer*8: Fortran logical unit number for
+C>                        BUFR file
+C> @param[in] TAGCH  -- character*(*): Table B or Table D mnemonic
+C> @param[in] NTAGCH_8 -- integer*8: Ordinal occurrence of TAGCH for
+C>                        which the parent Table D mnemonic is to be
+C>                        returned, counting from the beginning of the
+C>                        overall subset definition
+C> @param[out] TAGPR -- character*(*): Table D mnemonic corresponding
+C>                      to parent sequence of (NTAGCH_8)th occurrence
+C>                      of TAGCH
+C> @param[out] IRET_8  -- integer*8: return code
+C>
+C> <b>Program history log:</b>
+C> | Date       | Programmer | Comments             |
+C> | -----------|------------|----------------------|
+C> | 2022-08-04 | J. Woollen | Original author      |
+
+	SUBROUTINE GETTAGPR_8(LUNIT_8,TAGCH,NTAGCH_8,TAGPR,IRET_8)
+
+	CHARACTER*(*) TAGCH, TAGPR
+
+	INTEGER*8 LUNIT_8,NTAGCH_8,IRET_8
+
+	LUNIT=LUNIT_8
+	NTAGCH=NTAGCH_8
+	CALL GETTAGPR ( LUNIT, TAGCH, NTAGCH, TAGPR, IRET )
+	IRET_8=IRET
 
 	RETURN
 	END

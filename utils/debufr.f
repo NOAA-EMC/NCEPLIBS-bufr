@@ -480,7 +480,9 @@ C>                   reading/decoding the message
 C>                     - 0 = No such file is available
 C>
 C> <b>Program history log:</b>
-C> - 2012-12-07  J. Ator -- Original author
+C> | Date | Programmer | Comments |
+C> | -----|------------|----------|
+C> | 2012-12-07 | J. Ator | Original author |
 C>
 	SUBROUTINE OPENBT ( lundx, mtyp )
 

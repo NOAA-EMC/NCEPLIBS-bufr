@@ -30,14 +30,15 @@ C> <b>Program history log:</b>
 C> | Date       | Programmer | Comments             |
 C> | -----------|------------|----------------------|
 C> | 2009-03-23 | J. Ator    | Original author      |
-C> | 2022-08-04 | J. Woollen | added 8 byte wrapper |
-C>
+C> | 2022-08-04 | J. Woollen | Added 8-byte wrapper |
 
 	SUBROUTINE ATRCPT(MSGIN,LMSGOT,MSGOT)
 
-        USE MODA_IM8B
+        USE MODV_IM8B
 
 	DIMENSION MSGIN(*), MSGOT(*)
+
+	INTEGER*8 LMSGOT_8
 
 	COMMON /HRDWRD/ NBYTW,NBITW,IORD(8)
 	COMMON /TNKRCP/ ITRYR,ITRMO,ITRDY,ITRHR,ITRMI,CTRT
@@ -49,10 +50,13 @@ C-----------------------------------------------------------------------
 
 C       Check for I8 integers.
 
-        IF(IM8) THEN
-           IM8=.FALSE.
-           CALL ATRCPT_8(MSGIN,LMSGOT,MSGOT)
-           IM8=.TRUE.
+        IF(IM8B) THEN
+           IM8B=.FALSE.
+
+           LMSGOT_8=LMSGOT
+           CALL ATRCPT_8(MSGIN,LMSGOT_8,MSGOT)
+
+           IM8B=.TRUE.
            RETURN
         ENDIF
 
@@ -114,24 +118,32 @@ C> arguments to subroutine atrcpt().
 C>
 C> <p>Application programs which use 8-byte integer arguments should
 C> never call this subroutine directly; instead, such programs should
-C> make an initial call to subroutine ...() with...
-C> and then call subroutine atrcpt() directly.
+C> make an initial call to subroutine setim8b() with int8b=.TRUE. and
+C> then call subroutine atrcpt() directly.
 C>
 C> @author J. Woollen
 C> @date 2022-08-04
 C>
 C> @param[in] MSGIN   -- integer(*): BUFR message
-C> @param[in] LMSGOT  -- integer*8: Dimensioned size (in integers) of
+C> @param[in] LMSGOT_8  -- integer*8: Dimensioned size (in integers) of
 C>                       MSGOT; used by the subroutine to ensure that
 C>                       it doesn't overflow the MSGOT array
 C> @param[out] MSGOT  -- integer(*): Copy of MSGIN with a tank
 C>                       receipt time added to Section 1
+C>
+C> <b>Program history log:</b>
+C> | Date       | Programmer | Comments             |
+C> | -----------|------------|----------------------|
+C> | 2022-08-04 | J. Woollen | Original author      |
 
-      SUBROUTINE ATRCPT_8(MSGIN,LMSGOT,MSGOT)
+	SUBROUTINE ATRCPT_8(MSGIN,LMSGOT_8,MSGOT)
 
-      INTEGER*8 LMSGOT
+	DIMENSION MSGIN(*), MSGOT(*)
 
-      LMSGOT4 = LMSGOT*2
-      CALL ATRCPT(MSGIN,LMSGOT4,MSGOT)
+	INTEGER*8 LMSGOT_8
 
-      END SUBROUTINE
+	LMSGOT = LMSGOT_8 * 2
+	CALL ATRCPT(MSGIN,LMSGOT,MSGOT)
+
+	RETURN
+	END

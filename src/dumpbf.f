@@ -1,105 +1,74 @@
 C> @file
-C> @author WOOLLEN @date 1996-12-11
-      
-C> THIS SUBROUTINE RETURNS THE SECTION 1 DATE IN THE FIRST
-C>   TWO NON-DICTIONARY BUFR MESSAGES IN LOGICAL UNIT LUNIT WHICH
-C>   CONTAIN ZERO SUBSETS.  NORMALLY, THESE "DUMMY" MESSAGES APPEAR
-C>   ONLY IN DATA DUMP FILES AND ARE IMMEDIATELY AFTER THE DICTIONARY
-C>   MESSAGES.  THEY CONTAIN A DUMP "CENTER TIME" AND A DUMP FILE
-C>   "PROCESSING TIME", RESPECTIVELY.  LUNIT SHOULD NOT BE PREVIOUSLY
-C>   OPENED TO THE BUFR INTERFACE.
+C> @brief Read the Section 1 date-time from the first two "dummy"
+C> messages of a BUFR dump file
+
+C> This subroutine reads and returns the Section 1 date-time from
+C> the first two "dummy" messages of an NCEP dump file, bypassing any
+C> messages at the beginning of the file which may contain embedded DX
+C> BUFR table information.  Normally, the first of these two "dummy"
+C> messages contains the dump center date-time in Section 1, while the
+C> second message contains the dump initiation date-time in Section 1.
+C> Neither of these two "dummy" messages should contain any data
+C> subsets in Section 4.
 C>
-C> PROGRAM HISTORY LOG:
-C> 1996-12-11  J. WOOLLEN -- ORIGINAL AUTHOR
-C> 1996-12-17  J. WOOLLEN -- CORRECTED ERROR IN DUMP DATE READER
-C> 1998-07-08  J. WOOLLEN -- REPLACED CALL TO CRAY LIBRARY ROUTINE
-C>                           "ABORT" WITH CALL TO NEW INTERNAL BUFRLIB
-C>                           ROUTINE "BORT"; MODIFIED TO MAKE Y2K
-C>                           COMPLIANT
-C> 2003-05-19  M. SHIREY  -- REPLACED CALLS TO FORTRAN INSRINSIC
-C>                           FUNCTION ICHAR WITH THE NCEP W3LIB C-
-C>                           FUNCTION MOVA2I BECAUSE ICHAR DOES NOT WORK 
-C>                           PROPERLY ON SOME MACHINES (E.G., IBM FROST/
-C>                           SNOW) (NOTE: ON 2003-??-??, MOVA2I WAS
-C>                           ADDED TO THE BUFRLIB AS A FORTRAN FUNCTION)
-C> 2003-11-04  S. BENDER  -- ADDED REMARKS/BUFRLIB ROUTINE
-C>                           INTERDEPENDENCIES
-C> 2003-11-04  D. KEYSER  -- MODIFIED DATE CALCULATIONS TO NO LONGER
-C>                           USE FLOATING POINT ARITHMETIC SINCE THIS
-C>                           CAN LEAD TO ROUND OFF ERROR AND AN IMPROPER
-C>                           RESULTING DATE ON SOME MACHINES (E.G., NCEP
-C>                           IBM FROST/SNOW), INCREASES PORTABILITY;
-C>                           UNIFIED/PORTABLE FOR WRF; ADDED
-C>                           DOCUMENTATION (INCLUDING HISTORY); OUTPUTS
-C>                           MORE COMPLETE DIAGNOSTIC INFO WHEN ROUTINE
-C>                           TERMINATES ABNORMALLY OR UNUSUAL THINGS
-C>                           HAPPEN
-C> 2004-08-18  J. ATOR    -- MODIFIED 'BUFR' STRING TEST FOR PORTABILITY
-C>                           TO EBCDIC MACHINES
-C> 2004-12-20  D. KEYSER  -- CALLS WRDLEN TO INITIALIZE LOCAL MACHINE
-C>                           INFORMATION (IN CASE IT HAS NOT YET BEEN
-C>                           CALLED), THIS ROUTINE DOES NOT REQUIRE IT
-C>                           BUT 2004-08-18 CHANGE CALLS OTHER ROUTINES
-C>                           THAT DO REQUIRE IT
-C> 2005-11-29  J. ATOR    -- USE IUPBS01, IGETDATE, GETLENS AND RDMSGW
-C> 2009-03-23  J. ATOR    -- USE IDXMSG, IUPBS3 AND ERRWRT
-C> 2012-09-15  J. WOOLLEN -- MODIFIED FOR C/I/O/BUFR INTERFACE;
-C>                           USE NEW OPENBF TYPE 'INX' TO OPEN AND CLOSE
-C>                           THE C FILE WITHOUT CLOSING THE FORTRAN FILE
-C> 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
+C> @author J. Woollen
+C> @date 1996-12-11
 C>
-C> USAGE:    CALL DUMPBF (LUNIT, JDATE, JDUMP)
-C>   INPUT ARGUMENT LIST:
-C>     LUNIT    - INTEGER: FORTRAN LOGICAL UNIT NUMBER FOR BUFR FILE
+C> @param[in] LUNIT   -- integer: Fortran logical unit number for BUFR
+C>                       dump file
+C> @param[out] JDATE  -- integer(5): Dump center date-time stored
+C>                       within Section 1 of first "dummy" message:
+C>                       - Index 1 contains the year, in format of
+C>                         either YY or YYYY, depending on the most
+C>                         recent call to subroutine datelen()
+C>                       - Index 2 contains the month
+C>                       - Index 3 contains the day
+C>                       - Index 4 contains the hour
+C>                       - Index 5 contains the minute
+C> @param[out] JDUMP  -- integer(5): Dump initiation date-time stored
+C>                       within Section 1 of second "dummy" message:
+C>                       - Index 1 contains the year, in format of
+C>                         either YY or YYYY, depending on the most
+C>                         recent call to subroutine datelen()
+C>                       - Index 2 contains the month
+C>                       - Index 3 contains the day
+C>                       - Index 4 contains the hour
+C>                       - Index 5 contains the minute
 C>
-C>   OUTPUT ARGUMENT LIST:
-C>     JDATE    - INTEGER: 5-WORD ARRAY CONTAINING THE YEAR
-C>                (YYYY OR YY, DEPENDING ON DATELEN() VALUE),
-C>                MONTH, DAY, HOUR AND MINUTE FROM SECTION 1 OF THE
-C>                FIRST NON-DICTIONARY BUFR MESSAGE WITH ZERO SUBSETS
-C>                (NORMALLY THE DATA DUMP CENTER TIME IN A DATA DUMP
-C>                FILE); OR 5*-1 IF THIS COULD NOT BE LOCATED
-C>     JDUMP    - INTEGER: 5-WORD ARRAY CONTAINING THE YEAR
-C>                (YYYY OR YY, DEPENDING ON DATELEN() VALUE),
-C>                MONTH, DAY, HOUR AND MINUTE FROM SECTION 1 OF THE
-C>                SECOND NON-DICTIONARY BUFR MESSAGE WITH ZERO SUBSETS
-C>                (NORMALLY THE FILE PROCESSING TIME IN A DATA DUMP
-C>                FILE); OR 5*-1 IF THIS COULD NOT BE LOCATED
+C> <p>Logical unit LUNIT must already be associated with a filename
+C> on the local system, typically via a Fortran "OPEN" statement.
 C>
-C>   INPUT FILES:
-C>     UNIT "LUNIT" - BUFR FILE
+C> <p>If the subroutine fails to locate either of the two "dummy"
+C> messages within the file pointed to by LUNIT, then the corresponding
+C> JDATE or JDUMP array will be filled with all values set to (-1).
 C>
-C> REMARKS:
-C>    THIS ROUTINE CALLS:        BORT     ERRWRT   IDXMSG   IGETDATE
-C>                               IUPBS01  IUPBS3   RDMSGW   STATUS
-C>                               WRDLEN
-C>    THIS ROUTINE IS CALLED BY: None
-C>                               Normally called only by application
-C>                               programs.
-C>
-C--------------------------------------------------------------------------
-C--------------------------------------------------------------------------
-      SUBROUTINE DUMPBF_8(LUNIT_8,JDATE_8,JDUMP_8)
-      INTEGER*8  LUNIT_8,JDATE_8(5),JDUMP_8(5)
-      INTEGER    LUNIT  ,JDATE(5)  ,JDUMP(5)
-      LUNIT=LUNIT_8
-      JDATE=JDATE_8
-      JDUMP=JDUMP_8  
-      CALL DUMPBF(LUNIT,JDATE,JDUMP)
-      JDATE_8=JDATE
-      JDUMP_8=JDUMP
-      END SUBROUTINE
-C--------------------------------------------------------------------------
-C--------------------------------------------------------------------------
+C> <b>Program history log:</b>
+C> | Date | Programmer | Comments |
+C> | -----|------------|----------|
+C> | 1996-12-11 | J. Woollen | Original author |
+C> | 1996-12-17 | J. Woollen | Corrected error in dump date reader |
+C> | 1998-07-08 | J. Woollen | Replaced call to Cray library routine ABORT with call to new internal routine bort() |
+C> | 2003-05-19 | M. Shirey  | Replaced calls to Fortran insrinsic function ICHAR with the NCEP W3LIB function MOVA2I |
+C> | 2003-11-04 | S. Bender  | Added remarks and routine interdependencies |
+C> | 2003-11-04 | D. Keyser  | Modified date calculations to no longer use floating point arithmetic |
+C> | 2004-08-18 | J. Ator    | Modified 'BUFR' string test for portability to EBCDIC machines |
+C> | 2004-12-20 | D. Keyser  | Calls wrdlen() to initialize local machine information, in case it has not yet been called |
+C> | 2005-11-29 | J. Ator    | Use igetdate(), getlens(), iupbs01(), and rdmsgw() |
+C> | 2009-03-23 | J. Ator    | Use idxmsg(), iupbs3(), and errwrt() |
+C> | 2012-09-15 | J. Woollen | Modified for C/I/O/BUFR interface; use new openbf type 'INX' to open and close the C file without closing the Fortran file |
+C> | 2014-12-10 | J. Ator    | Use modules instead of COMMON blocks |
+C> | 2022-08-04 | J. Woollen | Added 8-byte wrapper |
 
       SUBROUTINE DUMPBF(LUNIT,JDATE,JDUMP)
 
       USE MODA_MGWA
-      USE MODA_IM8B
+      USE MODV_IM8B
 
       COMMON /QUIET / IPRT
 
-      DIMENSION     JDATE(5),JDUMP(5)
+      DIMENSION     JDATE(*),JDUMP(*)
+
+      INTEGER*8  LUNIT_8
 
       CHARACTER*128 ERRSTR
 
@@ -108,10 +77,14 @@ C-----------------------------------------------------------------------
 
 C  CHECK FOR I8 INTEGERS
 C  ---------------------
-      IF(IM8) THEN
-         IM8=.FALSE.
-         CALL DUMPBF_8(LUNIT,JDATE,JDUMP)
-         IM8=.TRUE.
+
+      IF(IM8B) THEN
+         IM8B=.FALSE.
+
+         LUNIT_8=LUNIT
+         CALL DUMPBF_8(LUNIT_8,JDATE,JDUMP)
+
+         IM8B=.TRUE.
          RETURN
       ENDIF
 
@@ -169,13 +142,13 @@ C  i.e. the second message containing zero subsets
       IF(JDATE(1).EQ.-1) THEN
         ERRSTR = 'BUFRLIB: DUMPBF - FIRST  EMPTY BUFR MESSAGE '//
      .    'SECTION 1 DATE COULD NOT BE LOCATED - RETURN WITH '//
-     .    'JDATE = 4*-1'
+     .    'JDATE = 5*-1'
         CALL ERRWRT(ERRSTR)
       ENDIF
       IF(JDUMP(1).EQ.-1) THEN
         ERRSTR = 'BUFRLIB: DUMPBF - SECOND EMPTY BUFR MESSAGE '//
      .    'SECTION 1 DATE COULD NOT BE LOCATED - RETURN WITH '//
-     .    'JDUMP = 4*-1'
+     .    'JDUMP = 5*-1'
         CALL ERRWRT(ERRSTR)
       ENDIF
       CALL ERRWRT('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
@@ -188,4 +161,38 @@ C  -----
 100   RETURN
 900   CALL BORT
      . ('BUFRLIB: DUMPBF - INPUT BUFR FILE IS OPEN, IT MUST BE CLOSED')
+      END
+
+C> This subroutine is an internal wrapper for handling 8-byte integer
+C> arguments to subroutine dumpbf().
+C>
+C> <p>Application programs which use 8-byte integer arguments should
+C> never call this subroutine directly; instead, such programs should
+C> make an initial call to subroutine setim8b() with int8b=.TRUE. and
+C> then call subroutine dumpbf() directly.
+C>
+C> @author J. Woollen
+C> @date 2022-08-04
+C>
+C> @param[in] LUNIT_8 -- integer*8: Fortran logical unit number for BUFR
+C>                       dumpfile
+C> @param[out] JDATE  -- integer(5): Dump center date-time stored
+C>                       within Section 1 of first "dummy" message
+C> @param[out] JDUMP  -- integer(5): Dump initiation date-time stored
+C>                       within Section 1 of second "dummy" message
+C>
+C> <b>Program history log:</b>
+C> | Date       | Programmer | Comments             |
+C> | -----------|------------|----------------------|
+C> | 2022-08-04 | J. Woollen | Original author      |
+
+      SUBROUTINE DUMPBF_8(LUNIT_8,JDATE,JDUMP)
+
+      INTEGER*8  LUNIT_8
+      DIMENSION  JDATE(*),JDUMP(*)
+
+      LUNIT=LUNIT_8
+      CALL DUMPBF(LUNIT,JDATE,JDUMP)
+
+      RETURN
       END

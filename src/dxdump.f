@@ -41,23 +41,13 @@ C> | -----|------------|----------|
 C> | 2004-08-18 | J. Ator | Original author |
 C> | 2007-01-19 | J. Ator | Corrected output for reference values longer than 8 digits |
 C> | 2014-12-10 | J. Ator | Use modules instead of COMMON blocks |
-C>
-C--------------------------------------------------------------------------
-C--------------------------------------------------------------------------
-      SUBROUTINE DXDUMP_8(LUNIT_8,LDXOT_8) 
-      INTEGER*8 LUNIT_8,LDXOT_8
-      LUNIT=LUNIT_8
-      LDXOT=LDXOT_8
-      CALL DXDUMP(LUNIT,LDXOT)
-      END SUBROUTINE
-C--------------------------------------------------------------------------
-C--------------------------------------------------------------------------
+C> | 2022-08-04 | J. Woollen | Added 8-byte wrapper |
 
       SUBROUTINE DXDUMP(LUNIT,LDXOT)
 
       USE MODA_TABABD
       USE MODA_NMIKRP
-      USE MODA_IM8B
+      USE MODV_IM8B
 
       COMMON /REPTAB/ IDNR(5,2),TYPS(5,2),REPS(5,2),LENS(5)
 
@@ -70,6 +60,8 @@ C--------------------------------------------------------------------------
       CHARACTER*1   REPS
 
       LOGICAL       TBSKIP, TDSKIP, XTRCI1
+
+      INTEGER*8     LUNIT_8,LDXOT_8
 
       DATA          CARDI1( 1:40)
      .              /'|          |        |                   '/
@@ -96,12 +88,16 @@ C-----------------------------------------------------------------------
      .               (ADN.EQ.'360003').OR.(ADN.EQ.'360004'))
 C-----------------------------------------------------------------------
 
-C  CHECK FOR I8 INTEGERS
-C  ---------------------
-      IF(IM8) THEN
-         IM8=.FALSE.
-         CALL DXDUMP_8(LUNIT,LDXOT)
-         IM8=.TRUE.
+C     CHECK FOR I8 INTEGERS
+
+      IF(IM8B) THEN
+         IM8B=.FALSE.
+
+         LUNIT_8=LUNIT
+         LDXOT_8=LDXOT
+         CALL DXDUMP_8(LUNIT_8,LDXOT_8)
+         IM8B=.TRUE.
+
          RETURN
       ENDIF
 
@@ -341,3 +337,36 @@ C     CREATE AND WRITE OUT (TO LDXOT) THE CLOSING CARD.
      . ' OPEN')
 
       END
+
+C> This subroutine is an internal wrapper for handling 8-byte integer
+C> arguments to subroutine dxdump().
+C>
+C> <p>Application programs which use 8-byte integer arguments should
+C> never call this subroutine directly; instead, such programs should
+C> make an initial call to subroutine setim8b() with int8b=.TRUE. and
+C> then call subroutine dxdump() directly.
+C>
+C> @author J. Woollen
+C> @date 2022-08-04
+C>
+C> @param[in] LUNIT_8 -- integer*8: Fortran logical unit number for
+C>                       BUFR file
+C> @param[in] LDXOT_8 -- integer*8: Fortran logical unit number for
+C>                       print output
+C>
+C> <b>Program history log:</b>
+C> | Date       | Programmer | Comments             |
+C> | -----------|------------|----------------------|
+C> | 2022-08-04 | J. Woollen | Original author      |
+
+      SUBROUTINE DXDUMP_8(LUNIT_8,LDXOT_8)
+
+      INTEGER*8 LUNIT_8,LDXOT_8
+
+      LUNIT=LUNIT_8
+      LDXOT=LDXOT_8
+      CALL DXDUMP(LUNIT,LDXOT)
+
+      RETURN
+      END
+

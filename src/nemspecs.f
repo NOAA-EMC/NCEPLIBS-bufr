@@ -46,26 +46,7 @@ C> | Date | Programmer | Comments |
 C> | -----|------------|----------|
 C> | 2014-10-02 | J. Ator | Original version |
 C> | 2014-12-10 | J. Ator | Use modules instead of COMMON blocks |
-C>
-C--------------------------------------------------------------------------
-C--------------------------------------------------------------------------
-      SUBROUTINE NEMSPECS_8 (LUNIT_8,NEMO,NNEMO_8,NSCL_8,NREF_8,
-     .                       NBTS_8,IRET_8)
-      INTEGER*8 LUNIT_8,NNEMO_8,NSCL_8,NREF_8,NBTS_8,IRET_8
-      LUNIT=LUNIT_8
-      NNEMO=NNEMO_8
-      NSCL=NSCL_8
-      NREF=NREF_8
-      NBTS=NBTS_8
-      IRET=IRET_8
-      CALL NEMSPECS(LUNIT,NEMO,NNEMO,NSCL,NREF,NBTS,IRET )
-      NSCL_8=NSCL
-      NREF_8=NREF
-      NBTS_8=NBTS
-      IRET_8=IRET
-      END SUBROUTINE
-C--------------------------------------------------------------------------
-C--------------------------------------------------------------------------
+C> | 2022-08-04 | J. Woollen | Added 8-byte wrapper |
 
 	SUBROUTINE NEMSPECS ( LUNIT, NEMO, NNEMO,
      .			      NSCL, NREF, NBTS, IRET )
@@ -74,24 +55,33 @@ C--------------------------------------------------------------------------
 	USE MODA_MSGCWD
 	USE MODA_TABLES
 	USE MODA_NRV203
-        USE MODA_IM8B
+        USE MODV_IM8B
 
 	CHARACTER*10  TAGN
 
 	CHARACTER*(*) NEMO
+	INTEGER*8 LUNIT_8,NNEMO_8,NSCL_8,NREF_8,NBTS_8,IRET_8
 
 C----------------------------------------------------------------------
 C----------------------------------------------------------------------
 
-C  CHECK FOR I8 INTEGERS
-C  ---------------------
+C	Check for I8 integers.
 
-      IF(IM8) THEN
-         IM8=.FALSE.
-         CALL NEMSPECS_8(LUNIT,NEMO,NNEMO,NSCL,NREF,NBTS,IRET)
-         IM8=.TRUE.
-         RETURN
-      ENDIF
+	IF(IM8B) THEN
+	   IM8B=.FALSE.
+
+	   LUNIT_8=LUNIT
+	   NNEMO_8=NNEMO
+	   CALL NEMSPECS_8(LUNIT_8,NEMO,NNEMO_8,NSCL_8,NREF_8,NBTS_8,
+     .	 		   IRET_8)
+	   NSCL=NSCL_8
+	   NREF=NREF_8
+	   NBTS=NBTS_8
+	   IRET=IRET_8
+
+	   IM8B=.TRUE.
+	   RETURN
+	ENDIF
 
 	IRET = -1
 
@@ -144,6 +134,54 @@ C	  need to check if this node is one of them.
 	  END DO
 
 	END IF
+
+	RETURN
+	END
+
+C> This subroutine is an internal wrapper for handling 8-byte integer
+C> arguments to subroutine nemspecs().
+C>
+C> <p>Application programs which use 8-byte integer arguments should
+C> never call this subroutine directly; instead, such programs should
+C> make an initial call to subroutine setim8b() with int8b=.TRUE. and
+C> then call subroutine nemspecs() directly.
+C>
+C> @author J. Woollen
+C> @date 2022-08-04
+C>
+C> @param[in] LUNIT_8 -- integer*8: Fortran logical unit number for
+C>                       BUFR file
+C> @param[in] NEMO   -- character*(*): Table B mnemonic
+C> @param[in] NNEMO_8 -- integer*8: Ordinal occurrence of NEMO for
+C>                       which information is to be returned,
+C>                       counting from the beginning of the overall
+C>                       subset definition
+C> @param[out] NSCL_8 -- integer*8: Scale factor in effect for
+C>                       (NNEMO)th occurrence of NEMO
+C> @param[out] NREF_8 -- integer*8: Reference value in effect for
+C>                       (NNEMO)th occurrence of NEMO
+C> @param[out] NBTS_8 -- integer*8: Bit width in effect for
+C>                       (NNEMO)th occurrence of NEMO
+C> @param[out] IRET_8 -- integer*8: return code
+C>
+C> <b>Program history log:</b>
+C> | Date       | Programmer | Comments             |
+C> | -----------|------------|----------------------|
+C> | 2022-08-04 | J. Woollen | Original author      |
+
+	SUBROUTINE NEMSPECS_8 (LUNIT_8,NEMO,NNEMO_8,NSCL_8,NREF_8,
+     .			       NBTS_8,IRET_8)
+
+	INTEGER*8 LUNIT_8,NNEMO_8,NSCL_8,NREF_8,NBTS_8,IRET_8
+	CHARACTER*(*) NEMO
+
+	LUNIT=LUNIT_8
+	NNEMO=NNEMO_8
+	CALL NEMSPECS(LUNIT,NEMO,NNEMO,NSCL,NREF,NBTS,IRET)
+	NSCL_8=NSCL
+	NREF_8=NREF
+	NBTS_8=NBTS
+	IRET_8=IRET
 
 	RETURN
 	END

@@ -70,29 +70,16 @@ C> | 2009-03-23 | D. Keyser  | Call bort() in case of MBAY overflow |
 C> | 2009-03-23 | J. Ator    | Add logic to allow Section 3 decoding; add logic to process dictionary messages |
 C> | 2012-06-07 | J. Ator    | Don't respond to DX table messages if Section 3 decoding is being used |
 C> | 2014-12-10 | J. Ator    | Use modules instead of COMMON blocks |
-C>
-C--------------------------------------------------------------------------
-C--------------------------------------------------------------------------
-      SUBROUTINE READERME_8(MESG,LUNIT,SUBSET,JDATE,IRET)
-      INTEGER*8 MESG,LUNIT,JDATE,IRET
-      LUNIT4=LUNIT
-      JDATE4=JDATE
-      IRET4=IRET
-      CALL READERME(MESG,LUNIT4,SUBSET,JDATE4,IRET4)
-      JDATE=JDATE4
-      IRET=IRET4
-      END SUBROUTINE
-C--------------------------------------------------------------------------
-C--------------------------------------------------------------------------
+C> | 2022-08-04 | J. Woollen | Added 8-byte wrapper |
 
       SUBROUTINE READERME(MESG,LUNIT,SUBSET,JDATE,IRET)
 
       USE MODV_MXMSGL
+      USE MODV_IM8B
 
       USE MODA_SC3BFR
       USE MODA_IDRDM
       USE MODA_BITBUF
-      USE MODA_IM8B
 
       COMMON /HRDWRD/ NBYTW,NBITW,IORD(8)
       COMMON /QUIET/  IPRT
@@ -112,10 +99,16 @@ C-----------------------------------------------------------------------
 
 C  CHECK FOR I8 INTEGERS
 C  ---------------------
-      IF(IM8) THEN
-         IM8=.FALSE.
-         CALL READERME_8(MESG,LUNIT,SUBSET,JDATE,IRET)
-         IM8=.TRUE.
+
+      IF(IM8B) THEN
+         IM8B=.FALSE.
+
+         LUNIT_8=LUNIT
+         CALL READERME_8(MESG,LUNIT_8,SUBSET,JDATE_8,IRET_8)
+         JDATE=JDATE_8
+         IRET=IRET_8
+
+         IM8B=.TRUE.
          RETURN
       ENDIF
 
@@ -230,4 +223,43 @@ C  -----
       CALL BORT(BORT_STR)
 903   CALL BORT('BUFRLIB: READERME - FIRST 4 BYTES READ FROM RECORD'//
      . ' NOT "BUFR", DOES NOT CONTAIN BUFR DATA')
+      END
+
+C> This subroutine is an internal wrapper for handling 8-byte integer
+C> arguments to subroutine readerme().
+C>
+C> <p>Application programs which use 8-byte integer arguments should
+C> never call this subroutine directly; instead, such programs should
+C> make an initial call to subroutine setim8b() with int8b=.TRUE. and
+C> then call subroutine readerme() directly.
+C>
+C> @author J. Woollen
+C> @date 2022-08-04
+C>
+C> @param[in] MESG    -- integer(*): BUFR message
+C> @param[in] LUNIT_8 -- integer*8: Fortran logical unit number for
+C>                       BUFR file
+C> @param[out] SUBSET  -- character*8: Table A mnemonic for type of BUFR
+C>                        message that was read
+C> @param[out] JDATE_8 -- integer*8: Date-time stored within Section 1 of
+C>                        BUFR message that was read
+C> @param[out] IRET_8  -- integer*8: return code
+C>
+C> <b>Program history log:</b>
+C> | Date       | Programmer | Comments             |
+C> | -----------|------------|----------------------|
+C> | 2022-08-04 | J. Woollen | Original author      |
+
+      SUBROUTINE READERME_8(MESG,LUNIT_8,SUBSET,JDATE_8,IRET_8)
+
+      DIMENSION MESG(*)
+      CHARACTER*8 SUBSET
+      INTEGER*8 LUNIT_8,JDATE_8,IRET_8
+
+      LUNIT=LUNIT_8
+      CALL READERME(MESG,LUNIT,SUBSET,JDATE,IRET)
+      JDATE_8=JDATE
+      IRET_8=IRET
+
+      RETURN
       END

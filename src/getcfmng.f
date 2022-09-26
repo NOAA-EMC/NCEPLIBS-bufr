@@ -105,30 +105,13 @@ C> | Date | Programmer | Comments |
 C> | -----|------------|----------|
 C> | 2018-01-11 | J. Ator | Original author |
 C> | 2018-02-08 | J. Ator | Add special handling for data types and subtypes in Section 1 |
-C>
-C--------------------------------------------------------------------------
-C--------------------------------------------------------------------------
-      SUBROUTINE GETCFMNG_8( LUNIT_8, NEMOI, IVALI_8, NEMOD, IVALD_8,
-     .                       CMEANG, LNMNG_8, IRET_8 )
-
-      INTEGER*8 LUNIT_8,IVALI_8,IVALD_8,LNMNG_8,IRET_8
-      LUNIT=LUNIT_8
-      IVALI=IVALI_8
-      IVALD=IVALD_8
-      LNMNG=LNMNG_8
-      IRET=IRET_8
-      CALL GETCFMNG(LUNIT,NEMOI,IVALI,NEMOD,IVALD,CMEANG,LNMNG,IRET)
-      LNMNG_8=LNMNG
-      IRET_8=IRET
-      END SUBROUTINE
-C--------------------------------------------------------------------------
-C--------------------------------------------------------------------------
+C> | 2022-08-04 | J. Woollen | Added 8-byte wrapper |
 
 	SUBROUTINE GETCFMNG ( LUNIT, NEMOI, IVALI, NEMOD, IVALD,
      .			      CMEANG, LNMNG, IRET )
 
 	USE MODA_TABABD
-        USE MODA_IM8B
+        USE MODV_IM8B
 
 	COMMON /TABLEF/ CDMF
 
@@ -138,21 +121,29 @@ C--------------------------------------------------------------------------
 	CHARACTER*8	NEMO
 	CHARACTER*1	CDMF, TAB
 
+	INTEGER*8 LUNIT_8,IVALI_8,IVALD_8,LNMNG_8,IRET_8
+
 	DIMENSION	IFXYD(10)
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
 
+C*	Check for I8 integers.
 
+	IF(IM8B) THEN
+	  IM8B=.FALSE.
 
-C  CHECK FOR I8 INTEGERS
-C  ---------------------
-      IF(IM8) THEN
-        IM8=.FALSE.
-        CALL GETCFMNG_8(LUNIT,NEMOI,IVALI,NEMOD,IVALD,CMEANG,LNMNG,IRET)
-        IM8=.TRUE.
-        RETURN
-      ENDIF
+	  LUNIT_8=LUNIT
+	  IVALI_8=IVALI
+	  IVALD_8=IVALD
+	  CALL GETCFMNG_8(LUNIT_8,NEMOI,IVALI_8,NEMOD,IVALD_8,CMEANG,
+     .			  LNMNG_8,IRET_8)
+	  LNMNG=LNMNG_8
+	  IRET=IRET_8
+
+	  IM8B=.TRUE.
+	  RETURN
+	ENDIF
 
 	CALL STATUS ( LUNIT, LUN, IL, IM )
 	IF ( IL .EQ. 0 ) GOTO 900
@@ -277,4 +268,53 @@ C*	mnemonic in the report.
 905     WRITE(BORT_STR,'("BUFRLIB: GETCFMNG - MNEMONIC ",A,'//
      .   '" IS NOT A CODE OR FLAG TABLE")') NEMO
 	CALL BORT(BORT_STR)
+	END
+
+C> This subroutine is an internal wrapper for handling 8-byte integer
+C> arguments to subroutine getcfmng().
+C>
+C> <p>Application programs which use 8-byte integer arguments should
+C> never call this subroutine directly; instead, such programs should
+C> make an initial call to subroutine setim8b() with int8b=.TRUE. and
+C> then call subroutine getcfmng() directly.
+C>
+C> @author J. Woollen
+C> @date 2022-08-04
+C>
+C> @param[in]  LUNIT_8 -- integer*8: Fortran logical unit number for
+C>                        BUFR file
+C> @param[in]  NEMOI   -- character*(*): Mnemonic to search for
+C> @param[in]  IVALI_8 -- integer*8: Value (code figure or bit number)
+C>                        associated with NEMOI
+C> @param[in]  NEMOD   -- character*(*): Optional second mnemonic upon
+C>                        which the values NEMOI and IVALI_8 depend
+C> @param[in]  IVALD_8 -- integer*8: Value (code figure or bit number)
+C>                        associated with NEMOD
+C> @param[out] CMEANG  -- character*(*): Meaning corresponding to NEMOI
+C>                        and IVALI_8 (and to NEMOD and IVALD_8,
+C>                        if specified)
+C> @param[out] LNMNG_8 -- integer*8: Length (in bytes) of string returned in
+C>                        CMEANG
+C> @param[out] IRET_8  -- integer*8: return code
+C>
+C> <b>Program history log:</b>
+C> | Date       | Programmer | Comments             |
+C> | -----------|------------|----------------------|
+C> | 2022-08-04 | J. Woollen | Original author      |
+
+	SUBROUTINE GETCFMNG_8( LUNIT_8, NEMOI, IVALI_8, NEMOD, IVALD_8,
+     .			       CMEANG, LNMNG_8, IRET_8 )
+
+	INTEGER*8 LUNIT_8,IVALI_8,IVALD_8,LNMNG_8,IRET_8
+
+	CHARACTER*(*)	NEMOI, NEMOD, CMEANG
+
+	LUNIT=LUNIT_8
+	IVALI=IVALI_8
+	IVALD=IVALD_8
+	CALL GETCFMNG(LUNIT,NEMOI,IVALI,NEMOD,IVALD,CMEANG,LNMNG,IRET)
+	LNMNG_8=LNMNG
+	IRET_8=IRET
+
+	RETURN
 	END

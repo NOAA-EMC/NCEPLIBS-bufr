@@ -33,25 +33,8 @@ C>    THIS ROUTINE IS CALLED BY: IREADMT
 C>                               Normally not called by any application
 C>                               programs.
 C>
-C--------------------------------------------------------------------------
-C--------------------------------------------------------------------------
-      SUBROUTINE MTFNAM_8(IMT_8, IMTV_8, IOGCE_8, IMTVL_8, TBLTYP,
-     .                    STDFIL, LOCFIL )
-
-      INTEGER*8 IMT_8, IMTV_8, IOGCE_8, IMTVL_8
-      IMT=IMT_8
-      IMTV=IMTV_8
-      IOGCE=IOGCE_8
-      IMTVL=IMTVL_8
-      CALL MTFNAM(IMT,IMTV,IOGCE,IMTVL,TBLTYP,STDFIL,LOCFIL)
-      END SUBROUTINE
-C--------------------------------------------------------------------------
-C--------------------------------------------------------------------------
-
 	SUBROUTINE MTFNAM ( IMT, IMTV, IOGCE, IMTVL, TBLTYP,
      .                      STDFIL, LOCFIL )
-
-        USE MODA_IM8B
 
 	COMMON /QUIET/  IPRT
 	COMMON /MSTINF/ LUN1, LUN2, LMTD, MTDIR
@@ -66,15 +49,6 @@ C--------------------------------------------------------------------------
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
-
-C  CHECK FOR I8 INTEGERS
-C  ---------------------
-      IF(IM8) THEN
-       IM8=.FALSE.
-       CALL  MTFNAM_8(IMT_8,IMTV_8,IOGCE_8,IMTVL_8,TBLTYP,STDFIL,LOCFIL)
-       IM8=.TRUE.
-       RETURN
-      ENDIF
 
 	CALL STRSUC ( TBLTYP, TBLTYP2, LTBT )
 

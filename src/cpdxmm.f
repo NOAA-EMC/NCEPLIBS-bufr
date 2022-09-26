@@ -16,16 +16,7 @@ C> | -----|------------|----------|
 C> | 2009-03-23 | J. Ator    | Original author |
 C> | 2012-09-15 | J. Woollen | Modified for C/I/O/BUFR interface; replace Fortran BACKSPACE with C backbufr() |
 C> | 2014-12-10 | J. Ator    | Use modules instead of COMMON blocks |
-C>
-C--------------------------------------------------------------------------
-C--------------------------------------------------------------------------
-      SUBROUTINE CPDXMM_8( LUNIT_8 )
-      INTEGER*8 LUNIT_8
-      LUNIT=LUNIT_8
-      CALL CPDXMM( LUNIT )
-      END SUBROUTINE
-C--------------------------------------------------------------------------
-C--------------------------------------------------------------------------
+C> | 2022-08-04 | J. Woollen | Added 8-byte wrapper |
 
 	SUBROUTINE CPDXMM( LUNIT )
 
@@ -33,26 +24,28 @@ C--------------------------------------------------------------------------
 
 	USE MODA_MGWA
 	USE MODA_MSGMEM
-        USE MODA_IM8B
+        USE MODV_IM8B
 
 	COMMON /QUIET/  IPRT
 
 	CHARACTER*128	ERRSTR
+
+	INTEGER*8 LUNIT_8
 
 	LOGICAL DONE
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
 
-C  CHECK FOR I8 INTEGERS
-C-----------------------
+C	Check for I8 integers
 
-      IF(IM8) THEN
-         IM8=.FALSE.
-         CALL CPDXMM_8( LUNIT )
-         IM8=.TRUE.
-         RETURN
-      ENDIF
+	IF(IM8B) THEN
+	   IM8B=.FALSE.
+	   LUNIT_8=LUNIT
+	   CALL CPDXMM_8( LUNIT_8 )
+	   IM8B=.TRUE.
+	   RETURN
+	ENDIF
 
 	IF ( NDXTS .GE. MXDXTS ) GOTO 900
 
@@ -133,4 +126,33 @@ C	Update the table information within MODULE MSGMEM.
  901	CALL BORT('BUFRLIB: CPDXMM - UNEXPECTED READ ERROR')
  902	CALL BORT('BUFRLIB: CPDXMM - MXDXM OVERFLOW')
  903	CALL BORT('BUFRLIB: CPDXMM - MXDXW OVERFLOW')
+	END
+
+C> This subroutine is an internal wrapper for handling 8-byte integer
+C> arguments to subroutine cpdxmm().
+C>
+C> <p>Application programs which use 8-byte integer arguments should
+C> never call this subroutine directly; instead, such programs should
+C> make an initial call to subroutine setim8b() with int8b=.TRUE. and
+C> then call subroutine cpdxmm() directly.
+C>
+C> @author J. Woollen
+C> @date 2022-08-04
+C>
+C> @param[in] LUNIT_8 -- integer*8: Fortran logical unit number for
+C>                       BUFR file
+C>
+C> <b>Program history log:</b>
+C> | Date       | Programmer | Comments             |
+C> | -----------|------------|----------------------|
+C> | 2022-08-04 | J. Woollen | Original author      |
+
+	SUBROUTINE CPDXMM_8( LUNIT_8 )
+
+	INTEGER*8 LUNIT_8
+
+	LUNIT=LUNIT_8
+	CALL CPDXMM( LUNIT )
+
+	RETURN
 	END
