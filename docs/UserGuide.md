@@ -6,10 +6,20 @@
 The BUFR format is officially documented in
 [WMO Manual 306, Volume I.2](https://library.wmo.int/index.php?lvl=notice_display&id=10684#.X68yu8hKiUn).
 The latest edition of BUFR is edition 4, although edition 3 is still in use in many parts of the world.
+A complete BUFR message consists of the following sections:
+
+| Section Number | Name | Contents |
+| -------------- | ---- | -------- |
+| 0 | Indicator section | "BUFR", length of message, edition number |
+| 1 | Identification section | Originating center and subcenter, data category and subcategory, master table and version number |
+| 2 | (Optional) Local Use section | (Optional) free-format additional information of potential interest to users | 
+| 3 | Data Description section | Number of data subsets, compression indicator, and list of descriptors defining the content of each data subset |
+| 4 | Data section | One or more data subsets, each containing values corresponding to the list of descriptors defined within Section 3 |
+| 5 | End section | "7777" |
 
 @anchor wmomstab
 BUFR is a table-driven format, meaning
-that new parameters can be encoded and decoded by adding them to tables which are read in by the software,
+that new descriptors can be encoded and decoded by adding them to tables which are read in by the software,
 rather than having to modify the software itself.  To that end, WMO periodically releases
 new versions of their
 [official WMO master BUFR tables](https://community.wmo.int/activity-areas/wmo-codes/manual-codes/latest-version),
