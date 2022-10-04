@@ -21,10 +21,10 @@ C> | 2022-08-04 | J. Woollen | Added 8-byte wrapper |
 	SUBROUTINE CPDXMM( LUNIT )
 
         USE MODV_MXDXTS
+        USE MODV_IM8B
 
 	USE MODA_MGWA
 	USE MODA_MSGMEM
-        USE MODV_IM8B
 
 	COMMON /QUIET/  IPRT
 

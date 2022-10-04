@@ -88,8 +88,8 @@ C> | 2022-08-04 | J. Woollen | Added 8-byte wrapper |
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
 
-!  CHECK FOR I8 INTEGERS
-!  ---------------------
+C  CHECK FOR I8 INTEGERS
+C  ---------------------
 
       IF(IM8B) THEN
          IM8B=.FALSE.
@@ -188,7 +188,7 @@ C>
 C> @author J. Woollen
 C> @date 2022-08-04
 C>
-C> @param[in] LUNIT_8 -- integer*8: Fortran logical unit number for
+C> @param[in] LUNXX_8 -- integer*8: Fortran logical unit number for
 C>                       BUFR file
 C> @param[out] SUBSET  -- character*8: Table A mnemonic for type of BUFR
 C>                        message that was read

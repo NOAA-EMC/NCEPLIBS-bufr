@@ -51,16 +51,60 @@ C> <b>Program history log:</b>
 C> | Date | Programmer | Comments |
 C> | -----|------------|----------|
 C> | 2012-09-15 | J. Woollen | Original author |
-C>
+C> | 2022-10-04 | J. Ator | Added 8-byte wrapper |
+
       SUBROUTINE SETBLOCK(IBLK) 
+
+      USE MODV_IM8B
+
+      INTEGER*8 IBLK_8
 
       COMMON /ENDORD/ IBLOCK,IORDBE(4),IORDLE(4)
 
-c-----------------------------------------------------------------------
-c-----------------------------------------------------------------------
+C-----------------------------------------------------------------------
+C-----------------------------------------------------------------------
+
+C     Check for I8 integers.
+
+      IF(IM8B) THEN
+         IM8B=.FALSE.
+
+         IBLK_8=IBLK
+         CALL SETBLOCK_8(IBLK_8)
+
+         IM8B=.TRUE.
+         RETURN
+      ENDIF
 
       CALL OPENBF(0,'FIRST',0)
       IBLOCK=IBLK  
+
+      RETURN
+      END
+
+C> This subroutine is an internal wrapper for handling 8-byte integer
+C> arguments to subroutine setblock().
+C>
+C> <p>Application programs which use 8-byte integer arguments should
+C> never call this subroutine directly; instead, such programs should
+C> make an initial call to subroutine setim8b() with int8b=.TRUE. and
+C> then call subroutine setblock() directly.
+C>
+C> @author J. Ator
+C> @date 2022-10-04
+C>
+C>
+C> <b>Program history log:</b>
+C> | Date       | Programmer | Comments             |
+C> | -----------|------------|----------------------|
+C> | 2022-10-04 | J. Ator    | Original author      |
+
+      SUBROUTINE SETBLOCK_8(IBLK_8)
+
+      INTEGER*8 IBLK_8
+
+      IBLK=IBLK_8
+      CALL SETBLOCK(IBLK)
 
       RETURN
       END
