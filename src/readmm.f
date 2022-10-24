@@ -52,12 +52,11 @@ C> | 2004-11-15 | D. Keyser  | Increased MAXMEM from 16 Mb to 50 Mb |
 C> | 2009-03-23 | J. Ator    | Rewrote to call rdmemm() |
 C> | 2022-08-04 | J. Ator    | Added 8-byte wrapper |
 
-      SUBROUTINE READMM(IMSG,SUBSET,JDATE,IRET)
+      RECURSIVE SUBROUTINE READMM(IMSG,SUBSET,JDATE,IRET)
 
       USE MODV_IM8B
 
       CHARACTER*8 SUBSET
-      INTEGER*8 IMSG_8,JDATE_8,IRET_8
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
@@ -67,11 +66,11 @@ C     Check for I8 integers.
       IF(IM8B) THEN
          IM8B=.FALSE.
 
-         IMSG_8=IMSG
-         CALL READMM_8(IMSG_8,SUBSET,JDATE_8,IRET_8)
-         IMSG=IMSG_8
-         JDATE=JDATE_8
-         IRET=IRET_8
+         CALL X84(IMSG,IMSG,1)
+         CALL READMM(IMSG,SUBSET,JDATE,IRET)
+         CALL X48(IMSG,IMSG,1)
+         CALL X48(JDATE,JDATE,1)
+         CALL X48(IRET,IRET,1)
 
          IM8B=.TRUE.
          RETURN
@@ -80,43 +79,6 @@ C     Check for I8 integers.
       CALL RDMEMM(IMSG,SUBSET,JDATE,IRET)
 
       IMSG = IMSG+1
-
-      RETURN
-      END
-
-C> This subroutine is an internal wrapper for handling 8-byte integer
-C> arguments to subroutine readmm().
-C>
-C> <p>Application programs which use 8-byte integer arguments should
-C> never call this subroutine directly; instead, such programs should
-C> make an initial call to subroutine setim8b() with int8b=.TRUE. and
-C> then call subroutine readmm() directly.
-C>
-C> @author J. Woollen
-C> @date 2022-08-04
-C>
-C> @param[in,out] IMSG_8 -- integer*8: Message pointer within internal arrays
-C> @param[out] SUBSET -- character*8: Table A mnemonic for type of BUFR
-C>                       message that was read into scope
-C> @param[out] JDATE_8 -- integer*8: Date-time stored within Section 1 of
-C>                        BUFR message that was read into scope
-C> @param[out] IRET_8  -- integer*8: return code
-C>
-C> <b>Program history log:</b>
-C> | Date       | Programmer | Comments             |
-C> | -----------|------------|----------------------|
-C> | 2022-08-04 | J. Ator    | Original author      |
-
-      SUBROUTINE READMM_8(IMSG_8,SUBSET,JDATE_8,IRET_8)
-
-      INTEGER*8 IMSG_8,JDATE_8,IRET_8
-      CHARACTER*8   SUBSET
-
-      IMSG=IMSG_8
-      CALL READMM(IMSG,SUBSET,JDATE,IRET)
-      IMSG_8=IMSG
-      JDATE_8=JDATE
-      IRET_8=IRET
 
       RETURN
       END

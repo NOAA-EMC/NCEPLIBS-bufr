@@ -35,12 +35,10 @@ C> | 2012-09-15 | J. Woollen | Modified for C/I/O/BUFR interface; use status() |
 C> | 2014-12-10 | J. Ator    | Use modules instead of COMMON blocks |
 C> | 2022-08-04 | J. Woollen | Added 8-byte wrapper |
 
-      SUBROUTINE COPYBF(LUNIN,LUNOT)
+      RECURSIVE SUBROUTINE COPYBF(LUNIN,LUNOT)
 
       USE MODA_MGWA
       USE MODV_IM8B
-
-      INTEGER*8 LUNIN_8,LUNOT_8
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
@@ -50,9 +48,9 @@ C  ---------------------
       IF(IM8B) THEN
          IM8B=.FALSE.
 
-         LUNIN_8=LUNIN
-         LUNOT_8=LUNOT
-         CALL COPYBF_8(LUNIN_8,LUNOT_8)
+         CALL X84(LUNIN,MY_LUNIN,1)
+         CALL X84(LUNOT,MY_LUNOT,1)
+         CALL COPYBF(MY_LUNIN,MY_LUNOT)
 
          IM8B=.TRUE.
          RETURN
@@ -101,36 +99,4 @@ C  -----
      . ('BUFRLIB: COPYBF - INPUT BUFR FILE IS OPEN, IT MUST BE CLOSED')
 901   CALL BORT
      . ('BUFRLIB: COPYBF - OUTPUT BUFR FILE IS OPEN, IT MUST BE CLOSED')
-      END
-
-C> This subroutine is an internal wrapper for handling 8-byte integer
-C> arguments to subroutine copybf().
-C>
-C> <p>Application programs which use 8-byte integer arguments should
-C> never call this subroutine directly; instead, such programs should
-C> make an initial call to subroutine setim8b() with int8b=.TRUE. and
-C> then call subroutine copybf() directly.
-C>
-C> @author J. Woollen
-C> @date 2022-08-04
-C>
-C> @param[in] LUNIN_8   -- integer*8: Fortran logical unit number for
-C>                         source BUFR file 
-C> @param[in] LUNOT_8   -- integer*8: Fortran logical unit number for
-C>                         target BUFR file 
-C>
-C> <b>Program history log:</b>
-C> | Date       | Programmer | Comments             |
-C> | -----------|------------|----------------------|
-C> | 2022-08-04 | J. Woollen | Original author      |
-
-      SUBROUTINE COPYBF_8(LUNIN_8,LUNOT_8)
-
-      INTEGER*8 LUNIN_8,LUNOT_8
-
-      LUNIN=LUNIN_8
-      LUNIT=LUNOT_8
-      CALL COPYBF(LUNIN,LUNOT)
-
-      RETURN
       END

@@ -52,7 +52,7 @@ C> | 2009-03-23 | J. Ator    | Modified to handle embedded BUFR table (dictionar
 C> | 2014-12-10 | J. Ator    | Use modules instead of COMMON blocks |
 C> | 2022-08-04 | J. Woollen | Added 8-byte wrapper |
 
-      SUBROUTINE RDMEMM(IMSG,SUBSET,JDATE,IRET)
+      RECURSIVE SUBROUTINE RDMEMM(IMSG,SUBSET,JDATE,IRET)
 
       USE MODA_MSGCWD
       USE MODA_BITBUF
@@ -64,7 +64,6 @@ C> | 2022-08-04 | J. Woollen | Added 8-byte wrapper |
 
       CHARACTER*128 BORT_STR,ERRSTR
       CHARACTER*8   SUBSET
-      INTEGER*8 IMSG_8,JDATE_8,IRET_8
 
       LOGICAL KNOWN
 
@@ -77,10 +76,10 @@ C  ---------------------
       IF(IM8B) THEN
          IM8B=.FALSE.
 
-         IMSG_8=IMSG
-         CALL RDMEMM_8(IMSG_8,SUBSET,JDATE_8,IRET_8)
-         JDATE=JDATE_8
-         IRET=IRET_8
+         CALL X84(IMSG,MY_IMSG,1)
+         CALL RDMEMM(MY_IMSG,SUBSET,JDATE,IRET)
+         CALL X48(JDATE,JDATE,1)
+         CALL X48(IRET,IRET,1)
 
          IM8B=.TRUE.
          RETURN
@@ -201,43 +200,4 @@ C  -----
 902   WRITE(BORT_STR,'("BUFRLIB: RDMEMM - UNKNOWN DX TABLE FOR '//
      . 'REQUESTED MESSAGE #",I5)') IMSG
       CALL BORT(BORT_STR)
-      END
-
-C> This subroutine is an internal wrapper for handling 8-byte integer
-C> arguments to subroutine rdmemm().
-C>
-C> <p>Application programs which use 8-byte integer arguments should
-C> never call this subroutine directly; instead, such programs should
-C> make an initial call to subroutine setim8b() with int8b=.TRUE. and
-C> then call subroutine rdmemm() directly.
-C>
-C> @author J. Woollen
-C> @date 2022-08-04
-C>
-C> @param[in] IMSG_8   -- integer*8: Number of BUFR message to be
-C>                        read into scope for further processing,
-C>                        counting from the beginning of the
-C>                        internal arrays in memory
-C> @param[out] SUBSET -- character*8: Table A mnemonic for type of BUFR
-C>                       message that was read into scope
-C> @param[out] JDATE_8 -- integer*8: Date-time stored within Section 1 of
-C>                        BUFR message that was read into scope
-C> @param[out] IRET_8  -- integer*8: return code
-C>
-C> <b>Program history log:</b>
-C> | Date       | Programmer | Comments             |
-C> | -----------|------------|----------------------|
-C> | 2022-08-04 | J. Woollen | Original author      |
-
-      SUBROUTINE RDMEMM_8(IMSG_8,SUBSET,JDATE_8,IRET_8)
-
-      INTEGER*8 IMSG_8,JDATE_8,IRET_8
-      CHARACTER*8   SUBSET
-
-      IMSG=IMSG_8
-      CALL RDMEMM(IMSG,SUBSET,JDATE,IRET)
-      JDATE_8=JDATE
-      IRET_8=IRET
-
-      RETURN
       END

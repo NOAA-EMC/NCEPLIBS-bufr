@@ -41,12 +41,10 @@ C> | 2013-01-25 | J. Woollen | Always call closbf() before exiting |
 C> | 2014-12-10 | J. Ator    | Use modules instead of COMMON blocks |
 C> | 2022-08-04 | J. Woollen | Added 8-byte wrapper |
 
-      SUBROUTINE MESGBF(LUNIT,MESGTYP)
+      RECURSIVE SUBROUTINE MESGBF(LUNIT,MESGTYP)
 
       USE MODA_MGWA
       USE MODV_IM8B
-
-      INTEGER*8 LUNIT_8,MESGTYP_8
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
@@ -57,9 +55,9 @@ C  ---------------------
       IF(IM8B) THEN
          IM8B=.FALSE.
 
-         LUNIT_8=LUNIT
-         CALL MESGBF_8(LUNIT_8,MESGTYP_8)
-         MESGTYP=MESGTYP_8
+         CALL X84(LUNIT,MY_LUNIT,1)
+         CALL MESGBF(MY_LUNIT,MESGTYP)
+         CALL X48(MESGTYP,MESGTYP,1)
 
          IM8B=.TRUE.
          RETURN
@@ -90,35 +88,4 @@ C  EXIT
 C  ----
 
 100   RETURN
-      END
-
-C> This subroutine is an internal wrapper for handling 8-byte integer
-C> arguments to subroutine mesgbf().
-C>
-C> <p>Application programs which use 8-byte integer arguments should
-C> never call this subroutine directly; instead, such programs should
-C> make an initial call to subroutine setim8b() with int8b=.TRUE. and
-C> then call subroutine mesgbf() directly.
-C>
-C> @author J. Woollen
-C> @date 2022-08-04
-C>
-C> @param[in] LUNIT_8 -- integer*8: Fortran logical unit number for
-C>                       BUFR file
-C> @param[out] MESGTYP_8 -- integer*8: Message type
-C>
-C> <b>Program history log:</b>
-C> | Date       | Programmer | Comments             |
-C> | -----------|------------|----------------------|
-C> | 2022-08-04 | J. Woollen | Original author      |
-
-      SUBROUTINE MESGBF_8(LUNIT_8,MESGTYP_8)
-
-      INTEGER*8 LUNIT_8,MESGTYP_8
-
-      LUNIT=LUNIT_8
-      CALL MESGBF(LUNIT,MESGTYP)
-      MESGTYP_8=MESGTYP
-
-      RETURN
       END

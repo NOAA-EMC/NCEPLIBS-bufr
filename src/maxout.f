@@ -36,7 +36,7 @@ C> | 2014-12-10 | J. Ator    | Use modules instead of COMMON blocks |
 C> | 2015-09-24 | D. Stokes  | Correct typos in docblock |
 C> | 2022-08-04 | J. Woollen | Added 8-byte wrapper |
 
-      SUBROUTINE MAXOUT(MAXO)
+      RECURSIVE SUBROUTINE MAXOUT(MAXO)
 
       USE MODV_MXMSGL
       USE MODV_IM8B
@@ -51,8 +51,6 @@ C> | 2022-08-04 | J. Woollen | Added 8-byte wrapper |
       CHARACTER*128   ERRSTR
       CHARACTER*56    DXSTR
 
-      INTEGER*8 MAXO_8
-
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
 
@@ -61,8 +59,8 @@ C     CHECK FOR I8 INTEGERS
       IF(IM8B) THEN
          IM8B=.FALSE.
 
-         MAXO_8=MAXO
-         CALL MAXOUT_8(MAXO_8)
+         CALL X84(MAXO,MY_MAXO,1)
+         CALL MAXOUT(MY_MAXO)
 
          IM8B=.TRUE.
          RETURN
@@ -90,35 +88,6 @@ C     CHECK FOR I8 INTEGERS
       MAXBYT = NEWSIZ
       MAXCMB = NEWSIZ
       MAXDX  = NEWSIZ
-
-      RETURN
-      END
-
-C> This subroutine is an internal wrapper for handling 8-byte integer
-C> arguments to subroutine maxout().
-C>
-C> <p>Application programs which use 8-byte integer arguments should
-C> never call this subroutine directly; instead, such programs should
-C> make an initial call to subroutine setim8b() with int8b=.TRUE. and
-C> then call subroutine maxout() directly.
-C>
-C> @author J. Woollen
-C> @date 2022-08-04
-C>
-C> @param[in] MAXO_8 -- integer*8: New maximum length (in bytes) for
-C>                      all BUFR messages written to all output files
-C>
-C> <b>Program history log:</b>
-C> | Date       | Programmer | Comments             |
-C> | -----------|------------|----------------------|
-C> | 2022-08-04 | J. Woollen | Original author      |
-
-      SUBROUTINE MAXOUT_8(MAXO_8)
-
-      INTEGER*8 MAXO_8
-
-      MAXO=MAXO_8
-      CALL MAXOUT(MAXO)
 
       RETURN
       END

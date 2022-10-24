@@ -1,5 +1,5 @@
 C> @file
-C> @brief Encode an 8 byte integer value within an integer array.
+C> @brief Encode an 8-byte integer value within an integer array.
 
 C> This subroutine encodes an 8-byte integer value within a specified
 C> number of bits of an integer array, starting at the bit
@@ -57,5 +57,3 @@ C>
       endif
 
       end subroutine
-
-

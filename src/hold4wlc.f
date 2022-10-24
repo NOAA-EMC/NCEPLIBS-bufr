@@ -60,7 +60,7 @@ C> | -----|------------|----------|
 C> | 2014-02-05 | J. Ator | Original author |
 C> | 2022-08-04 | J. Woollen | Added 8-byte wrapper |
 
-      SUBROUTINE HOLD4WLC(LUNIT,CHR,STR)
+      RECURSIVE SUBROUTINE HOLD4WLC(LUNIT,CHR,STR)
 
       USE MODA_H4WLC
       USE MODV_IM8B
@@ -68,8 +68,6 @@ C> | 2022-08-04 | J. Woollen | Added 8-byte wrapper |
       COMMON /QUIET/ IPRT
 
       CHARACTER*(*) CHR,STR
-
-      INTEGER*8 LUNIT_8
 
       CHARACTER*128 ERRSTR
       CHARACTER*14  MYSTR
@@ -82,8 +80,8 @@ C     CHECK FOR I8 INTEGERS
       IF(IM8B) THEN
          IM8B=.FALSE.
 
-         LUNIT_8=LUNIT
-         CALL HOLD4WLC_8(LUNIT_8,CHR,STR)
+         CALL X84(LUNIT,MY_LUNIT,1)
+         CALL HOLD4WLC(MY_LUNIT,CHR,STR)
 
          IM8B=.TRUE.
          RETURN
@@ -128,41 +126,6 @@ C     OTHERWISE, USE THE NEXT AVAILABLE UNUSED ENTRY IN THE HOLDING AREA.
          CHH4WLC(NH4WLC) = ''
          CHH4WLC(NH4WLC)(1:LENC) = CHR(1:LENC)
       ENDIF
-
-      RETURN
-      END
-
-C> This subroutine is an internal wrapper for handling 8-byte integer
-C> arguments to subroutine hold4wlc().
-C>
-C> <p>Application programs which use 8-byte integer arguments should
-C> never call this subroutine directly; instead, such programs should
-C> make an initial call to subroutine setim8b() with int8b=.TRUE. and
-C> then call subroutine hold4wlc() directly.
-C>
-C> @author J. Woollen
-C> @date 2022-08-04
-C>
-C> @param[in] LUNIT_8 -- integer*8: Fortran logical unit number for
-C>                       BUFR file
-C> @param[in] CHR  -- character*(*): Value corresponding to STR
-C> @param[in] STR   -- character*(*): Table B mnemonic of long character
-C>                     string to be written, possibly supplemented
-C>                     with an ordinal occurrence notation
-C>
-C> <b>Program history log:</b>
-C> | Date       | Programmer | Comments             |
-C> | -----------|------------|----------------------|
-C> | 2022-08-04 | J. Woollen | Original author      |
-
-      SUBROUTINE HOLD4WLC_8(LUNIT_8,CHR,STR)
-
-      CHARACTER*(*) CHR,STR
-
-      INTEGER*8 LUNIT_8
-
-      LUNIT=LUNIT_8
-      CALL HOLD4WLC(LUNIT,CHR,STR)
 
       RETURN
       END

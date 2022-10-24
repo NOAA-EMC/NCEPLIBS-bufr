@@ -53,15 +53,13 @@ C> | -----|------------|----------|
 C> | 2016-07-29 | J. Ator | Original author |
 C> | 2022-10-04 | J. Ator | Added 8-byte wrapper |
 
-	SUBROUTINE SETVALNB ( LUNIT, TAGPV, NTAGPV, TAGNB, NTAGNB,
-     .			      R8VAL, IRET )
+	RECURSIVE SUBROUTINE SETVALNB
+     .		( LUNIT, TAGPV, NTAGPV, TAGNB, NTAGNB, R8VAL, IRET )
 
 	USE MODA_USRINT
 	USE MODA_MSGCWD
 	USE MODA_TABLES
 	USE MODV_IM8B
-
-	INTEGER*8 LUNIT_8, NTAGPV_8, NTAGNB_8, IRET_8
 
 	CHARACTER*(*) TAGPV, TAGNB
 
@@ -75,12 +73,12 @@ C	Check for I8 integers.
 	IF(IM8B) THEN
 	   IM8B=.FALSE.
 
-	   LUNIT_8=LUNIT
-	   NTAGPV_8=NTAGPV
-	   NTAGNB_8=NTAGNB
-	   CALL SETVALNB_8(LUNIT_8,TAGPV,NTAGPV_8,TAGNB,NTAGNB_8,
-     .			   R8VAL,IRET_8)
-	   IRET=IRET_8
+	   CALL X84 ( LUNIT, MY_LUNIT, 1 )
+	   CALL X84 ( NTAGPV, MY_NTAGPV, 1 )
+	   CALL X84 ( NTAGNB, MY_NTAGNB, 1 )
+	   CALL SETVALNB ( MY_LUNIT, TAGPV, MY_NTAGPV, TAGNB, MY_NTAGNB,
+     .			   R8VAL, IRET )
+	   CALL X48 ( IRET, IRET, 1 )
 
 	   IM8B=.TRUE.
 	   RETURN
@@ -109,59 +107,5 @@ C	forward or backward for the (NTAGNB)th occurrence of TAGNB.
 	IRET = 0
 	VAL(NNB,LUN) = R8VAL
 	    
-	RETURN
-	END
-
-C> This subroutine is an internal wrapper for handling 8-byte integer
-C> arguments to subroutine setvalnb().
-C>
-C> <p>Application programs which use 8-byte integer arguments should
-C> never call this subroutine directly; instead, such programs should
-C> make an initial call to subroutine setim8b() with int8b=.TRUE. and
-C> then call subroutine setvalnb() directly.
-C>
-C> @author J. Ator
-C> @date 2022-10-04
-C>
-C> @param[in] LUNIT_8  -- integer*8: Fortran logical unit number for
-C>                        BUFR file
-C> @param[in] TAGPV  -- character*(*): Pivot mnemonic; the subroutine
-C>                      will first search for the (NTAGPV_8)th occurrence
-C>                      of this mnemonic, counting from the beginning
-C>                      of the overall subset definition
-C> @param[in] NTAGPV_8 -- integer*8: Ordinal occurrence of TAGPV to search for,
-C>                        counting from the beginning of the overall
-C>                        subset definition
-C> @param[in] TAGNB  -- character*(*): Nearby mnemonic; assuming TAGPV is
-C>                      successfully found, the subroutine will then search
-C>                      nearby for the (NTAGNB_8)th occurrence of TAGNB and
-C>                      store R8VAL as the corresponding value
-C> @param[in] NTAGNB_8 -- integer*8: Ordinal occurrence of TAGNB to search for,
-C>                        counting from the location of TAGPV within the
-C>                        overall subset definition.
-C> @param[in] R8VAL  -- real*8: Value to be stored corresponding to
-C>                      (NTAGNB_8)th occurrence of TAGNB within the subset
-C> @param[out] IRET_8  -- integer*8: return code
-C>
-C> <b>Program history log:</b>
-C> | Date       | Programmer | Comments             |
-C> | -----------|------------|----------------------|
-C> | 2022-10-04 | J. Ator    | Original author      |
-
-	SUBROUTINE SETVALNB_8 ( LUNIT_8, TAGPV, NTAGPV_8, TAGNB, NTAGNB_8,
-     .				R8VAL, IRET_8 )
-
-	INTEGER*8 LUNIT_8, NTAGPV_8, NTAGNB_8, IRET_8
-
-	CHARACTER*(*) TAGPV, TAGNB
-
-	REAL*8  R8VAL
-
-	LUNIT=LUNIT_8
-	NTAGPV=NTAGPV_8
-	NTAGNB=NTAGNB_8
-	CALL SETVALNB(LUNIT,TAGPV,NTAGPV,TAGNB,NTAGNB,R8VAL,IRET)
-	IRET_8=IRET
-
 	RETURN
 	END

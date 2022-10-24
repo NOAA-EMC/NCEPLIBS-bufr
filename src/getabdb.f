@@ -24,7 +24,7 @@ C> | 2005-11-29 | J. Ator    | Original author      |
 C> | 2014-12-10 | J. Ator    | Use modules instead of COMMON blocks |
 C> | 2022-08-04 | J. Woollen | Added 8-byte wrapper |
 
-      SUBROUTINE GETABDB(LUNIT,TABDB,ITAB,JTAB)
+      RECURSIVE SUBROUTINE GETABDB(LUNIT,TABDB,ITAB,JTAB)
 
       USE MODA_TABABD
       USE MODA_NMIKRP
@@ -32,7 +32,6 @@ C> | 2022-08-04 | J. Woollen | Added 8-byte wrapper |
 
       CHARACTER*128 TABDB(*)
       CHARACTER*8   NEMO
-      INTEGER*8 LUNIT_8,ITAB_8,JTAB_8
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
@@ -43,10 +42,10 @@ C  ---------------------
       IF(IM8B) THEN
          IM8B=.FALSE.
 
-         LUNIT_8=LUNIT
-         ITAB_8=ITAB
-         CALL GETABDB_8(LUNIT_8,TABDB,ITAB_8,JTAB_8)
-         JTAB=JTAB_8
+         CALL X84(LUNIT,MY_LUNIT,1)
+         CALL X84(ITAB,MY_ITAB,1)
+         CALL GETABDB(MY_LUNIT,TABDB,MY_ITAB,JTAB)
+         CALL X48(JTAB,JTAB,1)
 
          IM8B=.TRUE.
          RETURN
@@ -85,43 +84,6 @@ C  -----------------------
 2        FORMAT('B ',A8,1X,A42)
       ENDIF
       ENDDO
-
-      RETURN
-      END
-
-C> This subroutine is an internal wrapper for handling 8-byte integer
-C> arguments to subroutine getabdb().
-C>
-C> <p>Application programs which use 8-byte integer arguments should
-C> never call this subroutine directly; instead, such programs should
-C> make an initial call to subroutine setim8b() with int8b=.TRUE. and
-C> then call subroutine getabdb() directly.
-C>
-C> @author J. Woollen
-C> @date 2022-08-04
-C>
-C> @param[in] LUNIT_8 -- integer*8: Fortran logical unit number for BUFR file
-C> @param[in] ITAB_8  -- integer*8: Dimensioned size of TABDB array; used
-C>                       by the subroutine to ensure that it doesn't
-C>                       overflow the TABDB array
-C> @param[out] TABDB -- character*128(*): Internal Table B and Table D
-C>                      information
-C> @param[out] JTAB_8 -- integer*8: Number of entries stored within TABDB
-C>
-C> <b>Program history log:</b>
-C> | Date       | Programmer | Comments             |
-C> | -----------|------------|----------------------|
-C> | 2022-08-04 | J. Woollen | Original author      |
-
-      SUBROUTINE GETABDB_8(LUNIT_8,TABDB,ITAB_8,JTAB_8) 
-
-      CHARACTER*128 TABDB(*)
-      INTEGER*8 LUNIT_8,ITAB_8,JTAB_8
-
-      LUNIT=LUNIT_8
-      ITAB=ITAB_8
-      CALL GETABDB(LUNIT,TABDB,ITAB,JTAB)
-      JTAB_8=JTAB
 
       RETURN
       END

@@ -59,26 +59,25 @@ C> | 2012-09-15 | J. Woollen | Convert to C language I/O interface; add openbf()
 C> | 2014-12-10 | J. Ator    | Use modules instead of COMMON blocks |
 C> | 2022-08-04 | J. Woollen | Added 8-byte wrapper |
 
-      SUBROUTINE MESGBC(LUNIN,MESGTYP,ICOMP)
+      RECURSIVE SUBROUTINE MESGBC(LUNIN,MESGTYP,ICOMP)
 
       USE MODA_BITBUF
       USE MODA_MGWA
       USE MODV_IM8B
-
-      INTEGER*8 LUNIN_8,MESGTYP_8,ICOMP_8
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
 
 C  CHECK FOR I8 INTEGERS
 C  ---------------------
+
       IF(IM8B) THEN
          IM8B=.FALSE.
 
-         LUNIN_8=LUNIN
-         CALL MESGBC_8(LUNIN_8,MESGTYP_8,ICOMP_8)
-         MESGTYP=MESGTYP_8
-         ICOMP=ICOMP_8
+         CALL X84(LUNIN,MY_LUNIN,1)
+         CALL MESGBC(MY_LUNIN,MESGTYP,ICOMP)
+         CALL X48(MESGTYP,MESGTYP,1)
+         CALL X48(ICOMP,ICOMP,1)
 
          IM8B=.TRUE.
          RETURN
@@ -160,38 +159,5 @@ C  EXIT
 C  ----
 
 100   IF(ITYPE.EQ.0) CALL CLOSBF(LUNIT)
-      RETURN
-      END
-
-C> This subroutine is an internal wrapper for handling 8-byte integer
-C> arguments to subroutine mesgbc().
-C>
-C> <p>Application programs which use 8-byte integer arguments should
-C> never call this subroutine directly; instead, such programs should
-C> make an initial call to subroutine setim8b() with int8b=.TRUE. and
-C> then call subroutine mesgbc() directly.
-C>
-C> @author J. Woollen
-C> @date 2022-08-04
-C>
-C> @param[in] LUNIN_8 -- integer*8: Absolute value is Fortran logical unit
-C>                       number for BUFR file
-C> @param[out] MESGTYP_8 -- integer*8: Message type
-C> @param[out] ICOMP_8 -- integer*8: Message compression indicator
-C>
-C> <b>Program history log:</b>
-C> | Date       | Programmer | Comments             |
-C> | -----------|------------|----------------------|
-C> | 2022-08-04 | J. Woollen | Original author      |
-
-      SUBROUTINE MESGBC_8(LUNIN_8,MESGTYP_8,ICOMP_8)
-
-      INTEGER*8 LUNIN_8,MESGTYP_8,ICOMP_8
-
-      LUNIN=LUNIN_8
-      CALL MESGBC(LUNIN,MESGTYP,ICOMP)
-      MESGTYP_8=MESGTYP
-      ICOMP_8=ICOMP
-
       RETURN
       END

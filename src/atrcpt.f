@@ -32,13 +32,11 @@ C> | -----------|------------|----------------------|
 C> | 2009-03-23 | J. Ator    | Original author      |
 C> | 2022-08-04 | J. Woollen | Added 8-byte wrapper |
 
-	SUBROUTINE ATRCPT(MSGIN,LMSGOT,MSGOT)
+	RECURSIVE SUBROUTINE ATRCPT(MSGIN,LMSGOT,MSGOT)
 
         USE MODV_IM8B
 
 	DIMENSION MSGIN(*), MSGOT(*)
-
-	INTEGER*8 LMSGOT_8
 
 	COMMON /HRDWRD/ NBYTW,NBITW,IORD(8)
 	COMMON /TNKRCP/ ITRYR,ITRMO,ITRDY,ITRHR,ITRMI,CTRT
@@ -53,8 +51,8 @@ C       Check for I8 integers.
         IF(IM8B) THEN
            IM8B=.FALSE.
 
-           LMSGOT_8=LMSGOT
-           CALL ATRCPT_8(MSGIN,LMSGOT_8,MSGOT)
+           CALL X84 ( LMSGOT, MY_LMSGOT, 1 )
+           CALL ATRCPT ( MSGIN, MY_LMSGOT*2, MSGOT )
 
            IM8B=.TRUE.
            RETURN
@@ -111,39 +109,4 @@ C	output array.
 	RETURN
 900	CALL BORT('BUFRLIB: ATRCPT - OVERFLOW OF OUTPUT MESSAGE '//
      .    'ARRAY; TRY A LARGER DIMENSION FOR THIS ARRAY')
-	END
-
-C> This subroutine is an internal wrapper for handling 8-byte integer
-C> arguments to subroutine atrcpt().
-C>
-C> <p>Application programs which use 8-byte integer arguments should
-C> never call this subroutine directly; instead, such programs should
-C> make an initial call to subroutine setim8b() with int8b=.TRUE. and
-C> then call subroutine atrcpt() directly.
-C>
-C> @author J. Woollen
-C> @date 2022-08-04
-C>
-C> @param[in] MSGIN   -- integer(*): BUFR message
-C> @param[in] LMSGOT_8  -- integer*8: Dimensioned size (in integers) of
-C>                       MSGOT; used by the subroutine to ensure that
-C>                       it doesn't overflow the MSGOT array
-C> @param[out] MSGOT  -- integer(*): Copy of MSGIN with a tank
-C>                       receipt time added to Section 1
-C>
-C> <b>Program history log:</b>
-C> | Date       | Programmer | Comments             |
-C> | -----------|------------|----------------------|
-C> | 2022-08-04 | J. Woollen | Original author      |
-
-	SUBROUTINE ATRCPT_8(MSGIN,LMSGOT_8,MSGOT)
-
-	DIMENSION MSGIN(*), MSGOT(*)
-
-	INTEGER*8 LMSGOT_8
-
-	LMSGOT = LMSGOT_8 * 2
-	CALL ATRCPT(MSGIN,LMSGOT,MSGOT)
-
-	RETURN
 	END

@@ -33,12 +33,10 @@ C> | 2013-10-07 | J. Ator | Modified to call rtrcptb() |
 C> | 2014-12-10 | J. Ator | Use modules instead of COMMON blocks |
 C> | 2022-10-04 | J. Ator | Added 8-byte wrapper |
 
-      SUBROUTINE RTRCPT(LUNIT,IYR,IMO,IDY,IHR,IMI,IRET)
+      RECURSIVE SUBROUTINE RTRCPT(LUNIT,IYR,IMO,IDY,IHR,IMI,IRET)
 
       USE MODV_IM8B
       USE MODA_BITBUF
-
-      INTEGER*8 LUNIT_8,IYR_8,IMO_8,IDY_8,IHR_8,IMI_8,IRET_8
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
@@ -48,14 +46,14 @@ C     Check for I8 integers.
       IF(IM8B) THEN
          IM8B=.FALSE.
 
-         LUNIT_8=LUNIT
-         CALL RTRCPT_8(LUNIT_8,IYR_8,IMO_8,IDY_8,IHR_8,IMI_8,IRET_8)
-         IYR=IYR_8
-         IMO=IMO_8
-         IDY=IDY_8
-         IHR=IHR_8
-         IMI=IMI_8
-         IRET=IRET_8
+         CALL X84(LUNIT,MY_LUNIT,1)
+         CALL RTRCPT(MY_LUNIT,IYR,IMO,IDY,IHR,IMI,IRET)
+         CALL X48(IYR,IYR,1)
+         CALL X48(IMO,IMO,1)
+         CALL X48(IDY,IDY,1)
+         CALL X48(IHR,IHR,1)
+         CALL X48(IMI,IMI,1)
+         CALL X48(IRET,IRET,1)
 
          IM8B=.TRUE.
          RETURN
@@ -82,45 +80,4 @@ C  -----
      . 'OUTPUT; IT MUST BE OPEN FOR INPUT')
 902   CALL BORT('BUFRLIB: RTRCPT - A MESSAGE MUST BE OPEN IN INPUT '//
      . 'BUFR FILE; NONE ARE')
-      END
-
-C> This subroutine is an internal wrapper for handling 8-byte integer
-C> arguments to subroutine rtrcpt().
-C>
-C> <p>Application programs which use 8-byte integer arguments should
-C> never call this subroutine directly; instead, such programs should
-C> make an initial call to subroutine setim8b() with int8b=.TRUE. and
-C> then call subroutine rtrcpt() directly.
-C>
-C> @author J. Ator
-C> @date 2022-10-04
-C>
-C> @param[in] LUNIT_8 -- integer*8: Fortran logical unit number for
-C>                       BUFR file
-C> @param[out] IYR_8  -- integer*8: Tank receipt year
-C> @param[out] IMO_8  -- integer*8: Tank receipt month
-C> @param[out] IDY_8  -- integer*8: Tank receipt day
-C> @param[out] IHR_8  -- integer*8: Tank receipt hour
-C> @param[out] IMI_8  -- integer*8: Tank receipt minute
-C> @param[out] IRET_8  -- integer*8: return code
-C>
-C> <b>Program history log:</b>
-C> | Date       | Programmer | Comments             |
-C> | -----------|------------|----------------------|
-C> | 2022-10-04 | J. Ator    | Original author      |
-
-      SUBROUTINE RTRCPT_8(LUNIT_8,IYR_8,IMO_8,IDY_8,IHR_8,IMI_8,IRET_8)
-
-      INTEGER*8 LUNIT_8,IYR_8,IMO_8,IDY_8,IHR_8,IMI_8,IRET_8
-
-      LUNIT=LUNIT_8
-      CALL RTRCPT(LUNIT,IYR,IMO,IDY,IHR,IMI,IRET)
-      IYR_8=IYR
-      IMO_8=IMO
-      IDY_8=IDY
-      IHR_8=IHR
-      IMI_8=IMI
-      IRET_8=IRET
-
-      RETURN
       END

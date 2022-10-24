@@ -40,7 +40,8 @@ C> | -----|------------|----------|
 C> | 2016-06-07 | J. Ator | Original author |
 C> | 2022-08-04 | J. Woollen | Added 8-byte wrapper |
 
-	SUBROUTINE GETTAGRE ( LUNIT, TAGI, NTAGI, TAGRE, NTAGRE, IRET )
+	RECURSIVE SUBROUTINE GETTAGRE
+     .		( LUNIT, TAGI, NTAGI, TAGRE, NTAGRE, IRET )
 
 	USE MODA_USRINT
 	USE MODA_MSGCWD
@@ -48,8 +49,6 @@ C> | 2022-08-04 | J. Woollen | Added 8-byte wrapper |
         USE MODV_IM8B
 
 	CHARACTER*(*) TAGI, TAGRE
-
-	INTEGER*8 LUNIT_8,NTAGI_8,NTAGRE_8,IRET_8
 
 	CHARACTER*10 TAGTMP
 
@@ -61,11 +60,11 @@ C	Check for I8 integers.
 	IF(IM8B) THEN
 	   IM8B=.FALSE.
 
-	   LUNIT_8=LUNIT
-	   NTAGI_8=NTAGI
-	   CALL GETTAGRE_8(LUNIT_8,TAGI,NTAGI_8,TAGRE,NTAGRE_8,IRET_8)
-	   NTAGRE=NTAGRE_8
-	   IRET=IRET_8
+	   CALL X84(LUNIT,MY_LUNIT,1)
+	   CALL X84(NTAGI,MY_NTAGI,1)
+	   CALL GETTAGRE(MY_LUNIT,TAGI,MY_NTAGI,TAGRE,NTAGRE,IRET)
+	   CALL X48(NTAGRE,NTAGRE,1)
+	   CALL X48(IRET,IRET,1)
 
 	   IM8B=.TRUE.
 	   RETURN
@@ -95,49 +94,6 @@ C	Get TAGRE and NTAGRE from the (NTAGI)th occurrence of TAGI.
 		END IF
 	    END DO
 	END IF
-
-	RETURN
-	END
-
-C> This subroutine is an internal wrapper for handling 8-byte integer
-C> arguments to subroutine gettagre().
-C>
-C> <p>Application programs which use 8-byte integer arguments should
-C> never call this subroutine directly; instead, such programs should
-C> make an initial call to subroutine setim8b() with int8b=.TRUE. and
-C> then call subroutine gettagre() directly.
-C>
-C> @author J. Woollen
-C> @date 2022-08-04
-C>
-C> @param[in] LUNIT_8 -- integer*8: Fortran logical unit number for
-C>                       BUFR file
-C> @param[in] TAGI   -- character*(*): Table B mnemonic
-C> @param[in] NTAGI_8 -- integer*8: Ordinal occurrence of TAGI for
-C>                       which TAGRE is to be returned, counting from
-C>                       the beginning of the overall subset definition
-C> @param[out] TAGRE -- character*(*): Table B mnemonic referenced by
-C>                      TAGI via an internal bitmap
-C> @param[out] NTAGRE_8 -- integer*8: Ordinal occurrence of TAGRE
-C>                         referenced by (NTAGI_8)th occurrence of TAGI,
-C>                         counting from the beginning of the overall
-C>                         subset definition
-C> @param[out] IRET_8 -- integer*8: return code
-C>
-C> <b>Program history log:</b>
-C> | Date       | Programmer | Comments             |
-C> | -----------|------------|----------------------|
-C> | 2022-08-04 | J. Woollen | Original author      |
-
-	SUBROUTINE GETTAGRE_8(LUNIT_8,TAGI,NTAGI_8,TAGRE,NTAGRE_8,IRET_8)
-
-	INTEGER*8 LUNIT_8,NTAGI_8,NTAGRE_8,IRET_8
-
-	LUNIT=LUNIT_8
-	NTAGI=NTAGI_8
-	CALL GETTAGRE(LUNIT,TAGI,NTAGI,TAGRE,NTAGRE,IRET)
-	NTAGRE_8=NTAGRE
-	IRET_8=IRET
 
 	RETURN
 	END

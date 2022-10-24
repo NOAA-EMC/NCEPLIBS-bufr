@@ -53,7 +53,7 @@ C> | 2009-06-26 | J. Ator    | Use iok2cpy() |
 C> | 2014-12-10 | J. Ator    | Use modules instead of COMMON blocks |
 C> | 2022-08-04 | J. Woollen | Added 8-byte wrapper |
 
-      SUBROUTINE CPYMEM(LUNOT)
+      RECURSIVE SUBROUTINE CPYMEM(LUNOT)
 
       USE MODA_MSGCWD
       USE MODA_BITBUF
@@ -63,8 +63,6 @@ C> | 2022-08-04 | J. Woollen | Added 8-byte wrapper |
 
       CHARACTER*8  SUBSET
 
-      INTEGER*8 LUNOT_8
-
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
 
@@ -73,8 +71,10 @@ C  ---------------------
 
       IF(IM8B) THEN
          IM8B=.FALSE.
-         LUNOT_8=LUNOT
-         CALL CPYMEM_8(LUNOT_8)
+
+         CALL X84(LUNOT,MY_LUNOT,1)
+         CALL CPYMEM(MY_LUNOT)
+
          IM8B=.TRUE.
          RETURN
       ENDIF
@@ -139,33 +139,4 @@ C  -----
      . 'MEMORY AND OUTPUT BUFR FILE MUST HAVE SAME INTERNAL TABLES '//
      . '(DIFFERENT HERE)')
 
-      END
-
-C> This subroutine is an internal wrapper for handling 8-byte integer
-C> arguments to subroutine cpymem().
-C>
-C> <p>Application programs which use 8-byte integer arguments should
-C> never call this subroutine directly; instead, such programs should
-C> make an initial call to subroutine setim8b() with int8b=.TRUE. and
-C> then call subroutine cpymem() directly.
-C>
-C> @author J. Woollen
-C> @date 2022-08-04
-C>
-C> @param[in] LUNOT_8 -- integer*8: Fortran logical unit number for
-C>                       target BUFR file
-C>
-C> <b>Program history log:</b>
-C> | Date       | Programmer | Comments             |
-C> | -----------|------------|----------------------|
-C> | 2022-08-04 | J. Woollen | Original author      |
-
-      SUBROUTINE CPYMEM_8(LUNOT_8)
-
-      INTEGER*8 LUNOT_8
-
-      LUNOT=LUNOT_8
-      CALL CPYMEM(LUNOT)
-
-      RETURN
       END

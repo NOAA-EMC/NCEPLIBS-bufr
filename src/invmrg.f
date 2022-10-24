@@ -36,13 +36,11 @@ C> | 2007-01-19 | J. Ator    | Use ibfms() and simplify logic |
 C> | 2014-12-10 | J. Ator    | Use modules instead of COMMON blocks |
 C> | 2022-08-04 | J. Woollen | Added 8-byte wrapper |
 
-      SUBROUTINE INVMRG(LUBFI,LUBFJ)
+      RECURSIVE SUBROUTINE INVMRG(LUBFI,LUBFJ)
 
       USE MODA_USRINT
       USE MODA_TABLES
       USE MODV_IM8B
-
-      INTEGER*8 LUBFI_8,LUBFJ_8
 
       COMMON /MRGCOM/ NRPL,NMRG,NAMB,NTOT
 
@@ -58,9 +56,9 @@ C  ---------------------
       IF(IM8B) THEN
          IM8B=.FALSE.
 
-         LUBFI_8=LUBFI
-         LUBFJ_8=LUBFJ
-         CALL INVMRG_8(LUBFI_8,LUBFJ_8)
+         CALL X84(LUBFI,MY_LUBFI,1)
+         CALL X84(LUBFJ,MY_LUBFJ,1)
+         CALL INVMRG(MY_LUBFI,MY_LUBFJ)
 
          IM8B=.TRUE.
          RETURN
@@ -148,36 +146,4 @@ C  -----
      . '(",I7,") DOES NOT EQUAL NODE FROM OUTPUT BUFR FILE (",I7,"), '//
      . 'TABULAR MISMATCH")') NODE,NODJ
       CALL BORT(BORT_STR)
-      END
-
-C> This subroutine is an internal wrapper for handling 8-byte integer
-C> arguments to subroutine invmrg().
-C>
-C> <p>Application programs which use 8-byte integer arguments should
-C> never call this subroutine directly; instead, such programs should
-C> make an initial call to subroutine setim8b() with int8b=.TRUE. and
-C> then call subroutine invmrg() directly.
-C>
-C> @author J. Woollen
-C> @date 2022-08-04
-C>
-C> @param[in] LUBFI_8 -- integer*8: Fortran logical unit number for input
-C>                       BUFR file
-C> @param[in] LUBFJ_8 -- integer*8: Fortran logical unit number for output
-C>                       BUFR file
-C>
-C> <b>Program history log:</b>
-C> | Date       | Programmer | Comments             |
-C> | -----------|------------|----------------------|
-C> | 2022-08-04 | J. Woollen | Original author      |
-
-      SUBROUTINE INVMRG_8(LUBFI_8,LUBFJ_8)
-
-      INTEGER*8 LUBFI_8,LUBFJ_8
-
-      LUBFI=LUBFI_8
-      LUBFJ=LUBFJ_8
-      CALL INVMRG(LUBFI,LUBFJ)
-
-      RETURN
       END

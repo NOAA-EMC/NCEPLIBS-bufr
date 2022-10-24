@@ -55,7 +55,7 @@ C> | 2014-11-03 | J. Ator    | Handle oversized (>65530 bytes) subsets |
 C> | 2014-12-10 | J. Ator    | Use modules instead of COMMON blocks |
 C> | 2022-08-04 | J. Woollen | Added 8-byte wrapper |
 
-      SUBROUTINE COPYSB(LUNIN,LUNOT,IRET)
+      RECURSIVE SUBROUTINE COPYSB(LUNIN,LUNOT,IRET)
 
       USE MODA_MSGCWD
       USE MODA_BITBUF
@@ -63,8 +63,6 @@ C> | 2022-08-04 | J. Woollen | Added 8-byte wrapper |
       USE MODV_IM8B
 
       CHARACTER*128 BORT_STR
-
-      INTEGER*8 LUNIN_8,LUNOT_8,IRET_8
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
@@ -75,10 +73,10 @@ C  ---------------------
       IF(IM8B) THEN
          IM8B=.FALSE.
 
-         LUNIN_8=LUNIN
-         LUNOT_8=LUNOT
-         CALL COPYSB_8(LUNIN_8,LUNOT_8,IRET_8)
-         IRET=IRET_8
+         CALL X84(LUNIN,MY_LUNIN,1)
+         CALL X84(LUNOT,MY_LUNOT,1)
+         CALL COPYSB(MY_LUNIN,MY_LUNOT,IRET)
+         CALL X48(IRET,IRET,1)
 
          IM8B=.TRUE.
          RETURN
@@ -194,40 +192,4 @@ C  -----
      . 'INDICATOR (ICMP=",I3," RETURNED FROM BUFR ARCHIVE LIBRARY '//
      . 'ROUTINE MESGBC")') ICMP
       CALL BORT(BORT_STR)
-      END
-
-C> This subroutine is an internal wrapper for handling 8-byte integer
-C> arguments to subroutine copysb().
-C>
-C> <p>Application programs which use 8-byte integer arguments should
-C> never call this subroutine directly; instead, such programs should
-C> make an initial call to subroutine setim8b() with int8b=.TRUE. and
-C> then call subroutine copysb() directly.
-C>
-C> @author J. Woollen
-C> @date 2022-08-04
-C>
-C> @param[in] LUNIN_8 -- integer*8: Fortran logical unit number for
-C>                       source BUFR file
-C> @param[in] LUNOT_8 -- integer*8: Fortran logical unit number for
-C>                       target BUFR file
-C> @param[out] IRET_8   -- integer*8: return code
-C>
-C> <b>Program history log:</b>
-C> | Date       | Programmer | Comments             |
-C> | -----------|------------|----------------------|
-C> | 2022-08-04 | J. Woollen | Original author      |
-
-      SUBROUTINE COPYSB_8(LUNIN_8,LUNOT_8,IRET_8)
-
-      INTEGER*8 LUNIN_8,LUNOT_8,IRET_8
-
-      LUNIN=LUNIN_8
-      LUNOT=LUNOT_8
-
-      CALL COPYSB(LUNIN,LUNOT,IRET)
-
-      IRET_8=IRET
-
-      RETURN
       END

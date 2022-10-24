@@ -34,7 +34,7 @@ C> | 2014-02-04 | J. Ator | Account for subsets with byte count > 65530 |
 C> | 2020-07-16 | J. Ator | Fix bug in ISLEN computation when NSUB = 1 |
 C> | 2022-10-04 | J. Ator | Added 8-byte wrapper |
 
-      SUBROUTINE STNDRD(LUNIT,MSGIN,LMSGOT,MSGOT)
+      RECURSIVE SUBROUTINE STNDRD(LUNIT,MSGIN,LMSGOT,MSGOT)
 
       USE MODV_MAXNC
       USE MODV_IM8B
@@ -44,8 +44,6 @@ C> | 2022-10-04 | J. Ator | Added 8-byte wrapper |
       COMMON /HRDWRD/ NBYTW,NBITW,IORD(8)
 
       DIMENSION MSGIN(*),MSGOT(*)
-
-      INTEGER*8 LMSGOT_8, LUNIT_8
 
       CHARACTER*128 BORT_STR
       CHARACTER*8   SUBSET
@@ -63,9 +61,9 @@ C  ---------------------
       IF(IM8B) THEN
          IM8B=.FALSE.
 
-         LUNIT_8=LUNIT
-         LMSGOT_8=LMSGOT
-         CALL STNDRD_8(LUNIT_8,MSGIN,LMSGOT_8,MSGOT)
+         CALL X84 ( LUNIT, MY_LUNIT, 1 )
+         CALL X84 ( LMSGOT, MY_LMSGOT, 1 )
+         CALL STNDRD ( MY_LUNIT, MSGIN, MY_LMSGOT*2, MSGOT )
 
          IM8B=.TRUE.
          RETURN
@@ -287,42 +285,4 @@ C  -----
      . 'FROM INPUT TO OUTPUT (STANDARD) MESSAGE')
 905   CALL BORT('BUFRLIB: STNDRD - OVERFLOW OF OUTPUT (STANDARD) '//
      . 'MESSAGE ARRAY; TRY A LARGER DIMENSION FOR THIS ARRAY')
-      END
-
-C> This subroutine is an internal wrapper for handling 8-byte integer
-C> arguments to subroutine stndrd().
-C>
-C> <p>Application programs which use 8-byte integer arguments should
-C> never call this subroutine directly; instead, such programs should
-C> make an initial call to subroutine setim8b() with int8b=.TRUE. and
-C> then call subroutine stndrd() directly.
-C>
-C> @author J. Ator
-C> @date 2022-10-04
-C>
-C> @param[in] LUNIT_8  -- integer*8: Fortran logical unit number of
-C>                        BUFR file
-C> @param[in] MSGIN   -- integer(*): BUFR message
-C> @param[in] LMSGOT_8  -- integer*8: Dimensioned size (in integers) of
-C>                       MSGOT; used by the subroutine to ensure that
-C>                       it doesn't overflow the MSGOT array
-C> @param[out] MSGOT  -- integer(*): Copy of MSGIN with a tank
-C>                       receipt time added to Section 1
-C>
-C> <b>Program history log:</b>
-C> | Date       | Programmer | Comments             |
-C> | -----------|------------|----------------------|
-C> | 2022-10-04 | J. Ator | Original author      |
-
-      SUBROUTINE STNDRD_8(LUNIT_8,MSGIN,LMSGOT_8,MSGOT)
-
-      DIMENSION MSGIN(*), MSGOT(*)
-
-      INTEGER*8 LMSGOT_8, LUNIT_8
-
-      LUNIT = LUNIT_8
-      LMSGOT = LMSGOT_8 * 2
-      CALL STNDRD(LUNIT,MSGIN,LMSGOT,MSGOT)
-
-      RETURN
       END

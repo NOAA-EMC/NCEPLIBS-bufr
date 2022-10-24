@@ -59,7 +59,7 @@ C> | 2012-09-15 | J. Woollen | Modified for C/I/O/BUFR interface; use new openbf
 C> | 2014-12-10 | J. Ator    | Use modules instead of COMMON blocks |
 C> | 2022-08-04 | J. Woollen | Added 8-byte wrapper |
 
-      SUBROUTINE DUMPBF(LUNIT,JDATE,JDUMP)
+      RECURSIVE SUBROUTINE DUMPBF(LUNIT,JDATE,JDUMP)
 
       USE MODA_MGWA
       USE MODV_IM8B
@@ -67,8 +67,6 @@ C> | 2022-08-04 | J. Woollen | Added 8-byte wrapper |
       COMMON /QUIET / IPRT
 
       DIMENSION     JDATE(*),JDUMP(*)
-
-      INTEGER*8  LUNIT_8
 
       CHARACTER*128 ERRSTR
 
@@ -81,8 +79,10 @@ C  ---------------------
       IF(IM8B) THEN
          IM8B=.FALSE.
 
-         LUNIT_8=LUNIT
-         CALL DUMPBF_8(LUNIT_8,JDATE,JDUMP)
+         CALL X84(LUNIT,MY_LUNIT,1)
+         CALL DUMPBF(MY_LUNIT,JDATE,JDUMP)
+         CALL X48(JDATE,JDATE,5)
+         CALL X48(JDUMP,JDUMP,5)
 
          IM8B=.TRUE.
          RETURN
@@ -134,7 +134,7 @@ C  i.e. the second message containing zero subsets
       IGD = IGETDATE(MGWA,JDUMP(1),JDUMP(2),JDUMP(3),JDUMP(4))
       JDUMP(5) = IUPBS01(MGWA,'MINU')
 
-      call closbf(lunit)
+      CALL CLOSBF(LUNIT)
       GOTO 100
 
 200   IF(IPRT.GE.1 .AND. (JDATE(1).EQ.-1.OR.JDUMP(1).EQ.-1)) THEN
@@ -161,38 +161,4 @@ C  -----
 100   RETURN
 900   CALL BORT
      . ('BUFRLIB: DUMPBF - INPUT BUFR FILE IS OPEN, IT MUST BE CLOSED')
-      END
-
-C> This subroutine is an internal wrapper for handling 8-byte integer
-C> arguments to subroutine dumpbf().
-C>
-C> <p>Application programs which use 8-byte integer arguments should
-C> never call this subroutine directly; instead, such programs should
-C> make an initial call to subroutine setim8b() with int8b=.TRUE. and
-C> then call subroutine dumpbf() directly.
-C>
-C> @author J. Woollen
-C> @date 2022-08-04
-C>
-C> @param[in] LUNIT_8 -- integer*8: Fortran logical unit number for BUFR
-C>                       dumpfile
-C> @param[out] JDATE  -- integer(5): Dump center date-time stored
-C>                       within Section 1 of first "dummy" message
-C> @param[out] JDUMP  -- integer(5): Dump initiation date-time stored
-C>                       within Section 1 of second "dummy" message
-C>
-C> <b>Program history log:</b>
-C> | Date       | Programmer | Comments             |
-C> | -----------|------------|----------------------|
-C> | 2022-08-04 | J. Woollen | Original author      |
-
-      SUBROUTINE DUMPBF_8(LUNIT_8,JDATE,JDUMP)
-
-      INTEGER*8  LUNIT_8
-      DIMENSION  JDATE(*),JDUMP(*)
-
-      LUNIT=LUNIT_8
-      CALL DUMPBF(LUNIT,JDATE,JDUMP)
-
-      RETURN
       END

@@ -44,7 +44,7 @@ C> | -----|------------|----------|
 C> | 2009-03-23 | J. Ator | Original author |
 C> | 2022-08-04 | J. Woollen | Added 8-byte wrapper |
 
-      SUBROUTINE MTINFO ( CMTDIR, LUNMT1, LUNMT2 )
+      RECURSIVE SUBROUTINE MTINFO ( CMTDIR, LUNMT1, LUNMT2 )
 
       USE MODV_IM8B
 
@@ -54,7 +54,6 @@ C> | 2022-08-04 | J. Woollen | Added 8-byte wrapper |
 
       CHARACTER*128 BORT_STR
       CHARACTER*100 MTDIR
-      INTEGER*8 LUNMT1_8, LUNMT2_8
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
@@ -64,9 +63,9 @@ C  ---------------------
       IF(IM8B) THEN
          IM8B=.FALSE.
 
-         LUNMT1_8=LUNMT1
-         LUNMT2_8=LUNMT2
-         CALL MTINFO_8 ( CMTDIR, LUNMT1_8, LUNMT2_8 )
+         CALL X84 ( LUNMT1, MY_LUNMT1, 1 )
+         CALL X84 ( LUNMT2, MY_LUNMT2, 1 )
+         CALL MTINFO ( CMTDIR, MY_LUNMT1, MY_LUNMT2 )
 
          IM8B=.TRUE.
          RETURN
@@ -84,42 +83,4 @@ C  -----
       RETURN
 900   BORT_STR = 'BUFRLIB: MTINFO - BAD INPUT MASTER TABLE DIRECTORY:'
       CALL BORT2(BORT_STR,CMTDIR)
-      END
-
-C> This subroutine is an internal wrapper for handling 8-byte integer
-C> arguments to subroutine mtinfo().
-C>
-C> <p>Application programs which use 8-byte integer arguments should
-C> never call this subroutine directly; instead, such programs should
-C> make an initial call to subroutine setim8b() with int8b=.TRUE. and
-C> then call subroutine mtinfo() directly.
-C>
-C> @author J. Woollen
-C> @date 2022-08-04
-C>
-C> @param[in] CMTDIR  -- character*(*): Directory location of master
-C>                          BUFR tables on local file system
-C>                          (up to 100 characters)
-C> @param[in] LUNMT1_8 -- integer*8: First Fortran logical unit number
-C>                          to use when reading master BUFR tables on
-C>                          local file system
-C> @param[in] LUNMT2_8 -- integer*8: Second Fortran logical unit number
-C>                          to use when reading master BUFR tables on
-C>                          local file system
-C>
-C> <b>Program history log:</b>
-C> | Date       | Programmer | Comments             |
-C> | -----------|------------|----------------------|
-C> | 2022-08-04 | J. Woollen | Original author      |
-
-      SUBROUTINE MTINFO_8 ( CMTDIR, LUNMT1_8, LUNMT2_8 )
-
-      CHARACTER*(*) CMTDIR
-      INTEGER*8 LUNMT1_8, LUNMT2_8
-
-      LUNMT1=LUNMT1_8
-      LUNMT2=LUNMT2_8
-      CALL MTINFO ( CMTDIR, LUNMT1, LUNMT2 )
-
-      RETURN
       END

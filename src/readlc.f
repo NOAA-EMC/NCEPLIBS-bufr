@@ -56,7 +56,7 @@ C> | 2014-12-10 | J. Ator | Use modules instead of COMMON blocks |
 C> | 2020-09-09 | J. Ator | Set CHR to "missing" instead of all blanks if STR isn't found in subset |
 C> | 2022-08-04 | J. Woollen | Added 8-byte wrapper |
 
-      SUBROUTINE READLC(LUNIT,CHR,STR)
+      RECURSIVE SUBROUTINE READLC(LUNIT,CHR,STR)
 
       USE MODA_USRINT
       USE MODA_USRBIT
@@ -73,8 +73,6 @@ C> | 2022-08-04 | J. Woollen | Added 8-byte wrapper |
       CHARACTER*10  CTAG
       CHARACTER*14  TGS(10)
 
-      INTEGER*8 LUNIT_8
-
       DATA MAXTG /10/
 
 C-----------------------------------------------------------------------
@@ -85,8 +83,8 @@ C  ---------------------
       IF(IM8B) THEN
          IM8B=.FALSE.
 
-         LUNIT_8=LUNIT
-         CALL READLC_8(LUNIT_8,CHR,STR)
+         CALL X84(LUNIT,MY_LUNIT,1)
+         CALL READLC(MY_LUNIT,CHR,STR)
 
          IM8B=.TRUE.
          RETURN
@@ -211,37 +209,4 @@ C  -----
 906   WRITE(BORT_STR,'("BUFRLIB: READLC - MESSAGE UNPACK TYPE",I3,'//
      . '" IS NOT RECOGNIZED")') MSGUNP
       CALL BORT(BORT_STR)
-      END
-
-C> This subroutine is an internal wrapper for handling 8-byte integer
-C> arguments to subroutine readlc().
-C>
-C> <p>Application programs which use 8-byte integer arguments should
-C> never call this subroutine directly; instead, such programs should
-C> make an initial call to subroutine setim8b() with int8b=.TRUE. and
-C> then call subroutine readlc() directly.
-C>
-C> @author J. Woollen
-C> @date 2022-08-04
-C>
-C> @param[in] LUNIT_8 -- integer*8: Fortran logical unit number for BUFR file
-C> @param[out] CHR  -- character*(*): Value corresponding to STR
-C> @param[in] STR   -- character*(*): Table B mnemonic of long character
-C>                     string to be retrieved, possibly supplemented
-C>                     with an ordinal occurrence notation
-C>
-C> <b>Program history log:</b>
-C> | Date       | Programmer | Comments             |
-C> | -----------|------------|----------------------|
-C> | 2022-08-04 | J. Woollen | Original author      |
-
-      SUBROUTINE READLC_8(LUNIT_8,CHR,STR)
-
-      CHARACTER*(*) CHR,STR
-      INTEGER*8 LUNIT_8
-
-      LUNIT=LUNIT_8
-      CALL READLC(LUNIT,CHR,STR)
-
-      RETURN
       END

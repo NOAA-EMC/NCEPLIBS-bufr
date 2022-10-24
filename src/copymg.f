@@ -53,7 +53,7 @@ C> | 2009-06-26 | J. Ator | Use iok2cpy() |
 C> | 2014-12-10 | J. Ator | Use modules instead of COMMON blocks |
 C> | 2022-08-04 | J. Woollen | Added 8-byte wrapper |
 
-      SUBROUTINE COPYMG(LUNIN,LUNOT)
+      RECURSIVE SUBROUTINE COPYMG(LUNIN,LUNOT)
 
       USE MODA_MSGCWD
       USE MODA_BITBUF
@@ -62,7 +62,6 @@ C> | 2022-08-04 | J. Woollen | Added 8-byte wrapper |
 
       CHARACTER*8  SUBSET
 
-      INTEGER*8 LUNIN_8,LUNOT_8
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
 
@@ -72,9 +71,9 @@ C  ---------------------
       IF(IM8B) THEN
          IM8B=.FALSE.
 
-         LUNIN_8=LUNIN
-         LUNOT_8=LUNOT
-         CALL COPYMG_8(LUNIN_8,LUNOT_8)
+         CALL X84(LUNIN,MY_LUNIN,1)
+         CALL X84(LUNOT,MY_LUNOT,1)
+         CALL COPYMG(MY_LUNIN,MY_LUNOT)
 
          IM8B=.TRUE.  
          RETURN
@@ -136,36 +135,4 @@ C  -----
      . 'OUTPUT BUFR FILE, A MESSAGE IS OPEN')
 906   CALL BORT('BUFRLIB: COPYMG - INPUT AND OUTPUT BUFR FILES MUST '//
      . 'HAVE THE SAME INTERNAL TABLES, THEY ARE DIFFERENT HERE')
-      END
-
-C> This subroutine is an internal wrapper for handling 8-byte integer
-C> arguments to subroutine copymg().
-C>
-C> <p>Application programs which use 8-byte integer arguments should
-C> never call this subroutine directly; instead, such programs should
-C> make an initial call to subroutine setim8b() with int8b=.TRUE. and
-C> then call subroutine copymg() directly.
-C>
-C> @author J. Woollen
-C> @date 2022-08-04
-C>
-C> @param[in] LUNIN_8 -- integer*8: Fortran logical unit number for
-C>                       source BUFR file
-C> @param[in] LUNOT_8 -- integer*8: Fortran logical unit number for
-C>                       target BUFR file
-C>
-C> <b>Program history log:</b>
-C> | Date       | Programmer | Comments             |
-C> | -----------|------------|----------------------|
-C> | 2022-08-04 | J. Woollen | Original author      |
-
-      SUBROUTINE COPYMG_8(LUNIN_8,LUNOT_8)
-
-      INTEGER*8 LUNIN_8,LUNOT_8
-
-      LUNIN=LUNIN_8
-      LUNOT=LUNOT_8
-      CALL COPYMG(LUNIN,LUNOT)
-
-      RETURN
       END

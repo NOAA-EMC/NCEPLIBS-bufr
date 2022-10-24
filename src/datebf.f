@@ -47,14 +47,12 @@ C> | 2012-09-15 | J. Woollen | Modified for C/I/O/BUFR interface; use new openbf
 C> | 2014-12-10 | J. Ator    | Use modules instead of COMMON blocks |
 C> | 2022-08-04 | J. Woollen | Added 8-byte wrapper |
 
-      SUBROUTINE DATEBF(LUNIT,MEAR,MMON,MDAY,MOUR,IDATE)
+      RECURSIVE SUBROUTINE DATEBF(LUNIT,MEAR,MMON,MDAY,MOUR,IDATE)
 
       USE MODA_MGWA
       USE MODV_IM8B
 
       COMMON /QUIET / IPRT
-
-      INTEGER*8 LUNIT_8,MEAR_8,MMON_8,MDAY_8,MOUR_8,IDATE_8
 
       CHARACTER*128 ERRSTR
 
@@ -67,13 +65,13 @@ C  ---------------------
       IF(IM8B) THEN
          IM8B=.FALSE.
 
-         LUNIT_8=LUNIT
-         CALL DATEBF_8(LUNIT_8,MEAR_8,MMON_8,MDAY_8,MOUR_8,IDATE_8)
-         MEAR=MEAR_8
-         MMON=MMON_8
-         MDAY=MDAY_8
-         MOUR=MOUR_8
-         IDATE=IDATE_8
+         CALL X84(LUNIT,MY_LUNIT,1)
+         CALL DATEBF(MY_LUNIT,MEAR,MMON,MDAY,MOUR,IDATE)
+         CALL X48(MEAR,MEAR,1)
+         CALL X48(MMON,MMON,1)
+         CALL X48(MDAY,MDAY,1)
+         CALL X48(MOUR,MOUR,1)
+         CALL X48(IDATE,IDATE,1)
 
          IM8B=.TRUE.
          RETURN
@@ -120,52 +118,4 @@ C  -----
       RETURN
 900   CALL BORT
      . ('BUFRLIB: DATEBF - INPUT BUFR FILE IS OPEN, IT MUST BE CLOSED')
-      END
-
-C> This subroutine is an internal wrapper for handling 8-byte integer
-C> arguments to subroutine datebf().
-C>
-C> <p>Application programs which use 8-byte integer arguments should
-C> never call this subroutine directly; instead, such programs should
-C> make an initial call to subroutine setim8b() with int8b=.TRUE. and
-C> then call subroutine datebf() directly.
-C>
-C> @author J. Woollen
-C> @date 2022-08-04
-C>
-C> @param[in] LUNIT_8 -- integer*8: Fortran logical unit number for BUFR
-C>                       file
-C> @param[out] MEAR_8 -- integer*8: Year stored within Section 1 of
-C>                       first data message, in format of either
-C>                       YY or YYYY, depending on the most
-C>                       recent call to subroutine datelen()
-C> @param[out] MMON_8 -- integer*8: Month stored within Section 1 of
-C>                       first data message
-C> @param[out] MDAY_8 -- integer*8: Day stored within Section 1 of
-C>                       first data message
-C> @param[out] MOUR_8 -- integer*8: Hour stored within Section 1 of
-C>                       first data message
-C> @param[out] IDATE_8 -- integer*8: Date-time stored within Section 1 of
-C>                        first data message, in format of either
-C>                        YYMMDDHH or YYYYMMDDHH, depending on the most
-C>                        recent call to subroutine datelen()
-C>
-C> <b>Program history log:</b>
-C> | Date       | Programmer | Comments             |
-C> | -----------|------------|----------------------|
-C> | 2022-08-04 | J. Woollen | Original author      |
-
-      SUBROUTINE DATEBF_8(LUNIT_8,MEAR_8,MMON_8,MDAY_8,MOUR_8,IDATE_8) 
-
-      INTEGER*8 LUNIT_8,MEAR_8,MMON_8,MDAY_8,MOUR_8,IDATE_8
-
-      LUNIT=LUNIT_8
-      CALL DATEBF(LUNIT,MEAR,MMON,MDAY,MOUR,IDATE)
-      MEAR_8=MEAR
-      MMON_8=MMON
-      MDAY_8=MDAY
-      MOUR_8=MOUR
-      IDATE_8=IDATE
-
-      RETURN
       END

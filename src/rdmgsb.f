@@ -43,7 +43,7 @@ C> | 2014-12-10 | J. Ator    | Use modules instead of COMMON blocks |
 C> | 2022-08-04 | J. Woollen | Added 8-byte wrapper |
 C> | 2022-09-26 | J. Ator    | Modify to work with compressed data subsets |
 
-      SUBROUTINE RDMGSB(LUNIT,IMSG,ISUB)
+      RECURSIVE SUBROUTINE RDMGSB(LUNIT,IMSG,ISUB)
 
       USE MODA_MSGCWD
       USE MODA_BITBUF
@@ -51,8 +51,6 @@ C> | 2022-09-26 | J. Ator    | Modify to work with compressed data subsets |
 
       CHARACTER*128 BORT_STR
       CHARACTER*8   SUBSET
-
-      INTEGER*8 LUNIT_8,IMSG_8,ISUB_8
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
@@ -62,10 +60,10 @@ C  ---------------------
       IF(IM8B) THEN
          IM8B=.FALSE.
 
-         LUNIT_8=LUNIT
-         IMSG_8=IMSG
-         ISUB_8=ISUB
-         CALL RDMGSB_8(LUNIT_8,IMSG_8,ISUB_8)
+         CALL X84(LUNIT,MY_LUNIT,1)
+         CALL X84(IMSG,MY_IMSG,1)
+         CALL X84(ISUB,MY_ISUB,1)
+         CALL RDMGSB(MY_LUNIT,MY_IMSG,MY_ISUB)
 
          IM8B=.TRUE.
          RETURN
@@ -110,39 +108,4 @@ C  -----
      . 'READING REQ. SUBSET NO.",I3," IN REQ. MSG NO.",I5," IN BUFR '//
      . 'FILE CONNECTED TO UNIT",I4)') ISUB,IMSG,LUNIT
       CALL BORT(BORT_STR)
-      END
-
-C> This subroutine is an internal wrapper for handling 8-byte integer
-C> arguments to subroutine rdmgsb().
-C>
-C> <p>Application programs which use 8-byte integer arguments should
-C> never call this subroutine directly; instead, such programs should
-C> make an initial call to subroutine setim8b() with int8b=.TRUE. and
-C> then call subroutine rdmgsb() directly.
-C>
-C> @author J. Woollen
-C> @date 2022-08-04
-C>
-C> @param[in] LUNIT_8 -- integer*8: Fortran logical unit number for
-C>                       BUFR file
-C> @param[in] IMSG_8  -- integer*8: Number of BUFR message to be
-C>                       read from the BUFR file
-C> @param[in] ISUB_8  -- integer*8: Number of data subset to be
-C>                       read from the (IMSG_8)th BUFR message
-C>
-C> <b>Program history log:</b>
-C> | Date       | Programmer | Comments             |
-C> | -----------|------------|----------------------|
-C> | 2022-08-04 | J. Woollen | Original author      |
-
-      SUBROUTINE RDMGSB_8(LUNIT_8,IMSG_8,ISUB_8)
-
-      INTEGER*8 LUNIT_8,IMSG_8,ISUB_8
-
-      LUNIT=LUNIT_8
-      IMSG=IMSG_8
-      ISUB=ISUB_8
-      CALL RDMGSB(LUNIT,IMSG,ISUB)
-
-      RETURN
       END

@@ -60,13 +60,11 @@ C> | 2005-11-29 | J. Ator | Original author |
 C> | 2006-04-14 | D. Keyser | Added options for 'YCEN' and 'CENT' |
 C> | 2022-08-04 | J. Woollen | Added 8-byte wrapper |
 
-	SUBROUTINE GETS1LOC(S1MNEM,IBEN,ISBYT,IWID,IRET)
+	RECURSIVE SUBROUTINE GETS1LOC(S1MNEM,IBEN,ISBYT,IWID,IRET)
 
 	USE MODV_IM8B
 
 	CHARACTER*(*) S1MNEM
-
-	INTEGER*8 IBEN_8,ISBYT_8,IWID_8,IRET_8
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
@@ -76,11 +74,11 @@ C	Check for I8 integers.
 	IF(IM8B) THEN
 	   IM8B=.FALSE.
 
-	   IBEN_8=IBEN
-	   CALL GETS1LOC_8(S1MNEM,IBEN_8,ISBYT_8,IWID_8,IRET_8)
-	   ISBYT=ISBYT_8
-	   IWID=IWID_8
-	   IRET=IRET_8
+	   CALL X84(IBEN,MY_IBEN,1)
+	   CALL GETS1LOC(S1MNEM,MY_IBEN,ISBYT,IWID,IRET)
+	   CALL X48(ISBYT,ISBYT,1)
+	   CALL X48(IWID,IWID,1)
+	   CALL X48(IRET,IRET,1)
 
 	   IM8B=.TRUE.
 	   RETURN
@@ -209,47 +207,6 @@ C               Edition 2 *and* Edition 4 of BUFR!
 	ELSE
 	    IRET = -1
 	ENDIF
-
-	RETURN
-	END
-
-C> This subroutine is an internal wrapper for handling 8-byte integer
-C> arguments to subroutine gets1loc().
-C>
-C> <p>Application programs which use 8-byte integer arguments should
-C> never call this subroutine directly; instead, such programs should
-C> make an initial call to subroutine setim8b() with int8b=.TRUE. and
-C> then call subroutine gets1loc() directly.
-C>
-C> @author J. Woollen
-C> @date 2022-08-04
-C>
-C> @param[in]  S1MNEM  -- character*(*): Value whose location within
-C>                        Section 1 is to be determined:
-C> @param[in]  IBEN_8  -- integer*8: BUFR edition number
-C> @param[out] ISBYT_8 -- integer*8: Number of starting byte within Section 1
-C>                        which contains value corresponding to S1MNEM
-C> @param[out] IWID_8  -- integer*8: Width (in bits) of value corresponding
-C>                        to S1MNEM, counting from the first bit of the
-C>                        byte pointed to by ISBYT_8
-C> @param[out] IRET_8  -- integer*8: Return code:
-C>
-C> <b>Program history log:</b>
-C> | Date       | Programmer | Comments             |
-C> | -----------|------------|----------------------|
-C> | 2022-08-04 | J. Woollen | Original author      |
-
-	SUBROUTINE GETS1LOC_8(S1MNEM,IBEN_8,ISBYT_8,IWID_8,IRET_8)
-
-	CHARACTER*(*) S1MNEM
-
-	INTEGER*8 IBEN_8,ISBYT_8,IWID_8,IRET_8
-
-	IBEN=IBEN_8
-	CALL GETS1LOC(S1MNEM,IBEN,ISBYT,IWID,IRET)
-	ISBYT_8=ISBYT
-	IWID_8=IWID
-	IRET_8=IRET
 
 	RETURN
 	END

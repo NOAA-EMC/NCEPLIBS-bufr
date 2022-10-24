@@ -45,15 +45,13 @@ C> | 2004-08-09 | J. Ator    | Maximum message length increased from 20,000 to 5
 C> | 2014-12-10 | J. Ator    | Use modules instead of COMMON blocks |
 C> | 2022-10-04 | J. Ator    | Added 8-byte wrapper |
 
-      SUBROUTINE READSB(LUNIT,IRET)
+      RECURSIVE SUBROUTINE READSB(LUNIT,IRET)
 
       USE MODA_MSGCWD
       USE MODA_UNPTYP
       USE MODA_BITBUF
       USE MODA_BITMAPS
       USE MODV_IM8B
-
-      INTEGER*8 LUNIT_8,IRET_8
 
       CHARACTER*128 BORT_STR
 
@@ -66,9 +64,9 @@ C  ---------------------
       IF(IM8B) THEN
          IM8B=.FALSE.
 
-         LUNIT_8=LUNIT
-         CALL READSB_8(LUNIT_8,IRET_8)
-         IRET=IRET_8
+         CALL X84(LUNIT,MY_LUNIT,1)
+         CALL READSB(MY_LUNIT,IRET)
+         CALL X48(IRET,IRET,1)
 
          IM8B=.TRUE.
          RETURN
@@ -141,35 +139,4 @@ C  -----
 902   WRITE(BORT_STR,'("BUFRLIB: READSB - MESSAGE UNPACK TYPE",I3,"IS'//
      . ' NOT RECOGNIZED")') MSGUNP
       CALL BORT(BORT_STR)
-      END
-
-C> This subroutine is an internal wrapper for handling 8-byte integer
-C> arguments to subroutine readsb().
-C>
-C> <p>Application programs which use 8-byte integer arguments should
-C> never call this subroutine directly; instead, such programs should
-C> make an initial call to subroutine setim8b() with int8b=.TRUE. and
-C> then call subroutine readsb() directly.
-C>
-C> @author J. Ator
-C> @date 2022-10-04
-C>
-C> @param[in] LUNIT_8 -- integer*8: Fortran logical unit number for
-C>                       BUFR file
-C> @param[out] IRET_8  -- integer*8: return code
-C>
-C> <b>Program history log:</b>
-C> | Date       | Programmer | Comments             |
-C> | -----------|------------|----------------------|
-C> | 2022-10-04 | J. Ator    | Original author      |
-
-      SUBROUTINE READSB_8(LUNIT_8,IRET_8)
-
-      INTEGER*8 LUNIT_8,IRET_8
-
-      LUNIT=LUNIT_8
-      CALL READSB(LUNIT,IRET)
-      IRET_8=IRET
-
-      RETURN
       END

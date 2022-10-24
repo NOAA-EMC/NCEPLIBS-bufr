@@ -71,7 +71,7 @@ C> | 2012-09-15 | J. Woollen | Convert to C language I/O interface; remove code 
 C> | 2014-12-10 | J. Ator    | Use modules instead of COMMON blocks |
 C> | 2022-08-04 | J. Woollen | Added 8-byte wrapper |
 
-      SUBROUTINE READMG(LUNXX,SUBSET,JDATE,IRET)   
+      RECURSIVE SUBROUTINE READMG(LUNXX,SUBSET,JDATE,IRET)
 
       USE MODA_MSGCWD
       USE MODA_SC3BFR
@@ -83,8 +83,6 @@ C> | 2022-08-04 | J. Woollen | Added 8-byte wrapper |
       CHARACTER*128 ERRSTR
       CHARACTER*8 SUBSET
 
-      INTEGER*8 LUNXX_8,JDATE_8,IRET_8
-
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
 
@@ -94,10 +92,10 @@ C  ---------------------
       IF(IM8B) THEN
          IM8B=.FALSE.
 
-         LUNXX_8=LUNXX 
-         CALL READMG_8(LUNXX_8,SUBSET,JDATE_8,IRET_8)
-         JDATE=JDATE_8
-         IRET=IRET_8
+         CALL X84(LUNXX,MY_LUNXX,1)
+         CALL READMG(MY_LUNXX,SUBSET,JDATE,IRET)
+         CALL X48(JDATE,JDATE,1)
+         CALL X48(IRET,IRET,1)
 
          IM8B=.TRUE.
          RETURN
@@ -175,41 +173,4 @@ C  -----
      . ' BE OPEN FOR INPUT')
 901   CALL BORT('BUFRLIB: READMG - INPUT BUFR FILE IS OPEN FOR OUTPUT'//
      . ', IT MUST BE OPEN FOR INPUT')
-      END
-
-C> This subroutine is an internal wrapper for handling 8-byte integer
-C> arguments to subroutine readmg().
-C>
-C> <p>Application programs which use 8-byte integer arguments should
-C> never call this subroutine directly; instead, such programs should
-C> make an initial call to subroutine setim8b() with int8b=.TRUE. and
-C> then call subroutine readmg() directly.
-C>
-C> @author J. Woollen
-C> @date 2022-08-04
-C>
-C> @param[in] LUNXX_8 -- integer*8: Fortran logical unit number for
-C>                       BUFR file
-C> @param[out] SUBSET  -- character*8: Table A mnemonic for type of BUFR
-C>                        message that was read
-C> @param[out] JDATE_8 -- integer*8: Date-time stored within Section 1 of
-C>                        BUFR message that was read
-C> @param[out] IRET_8  -- integer*8: return code
-C>
-C> <b>Program history log:</b>
-C> | Date       | Programmer | Comments             |
-C> | -----------|------------|----------------------|
-C> | 2022-08-04 | J. Woollen | Original author      |
-
-      SUBROUTINE READMG_8(LUNXX_8,SUBSET,JDATE_8,IRET_8)
-
-      CHARACTER*8 SUBSET
-      INTEGER*8 LUNXX_8,JDATE_8,IRET_8
-
-      LUNXX=LUNXX_8
-      CALL READMG(LUNXX,SUBSET,JDATE,IRET)
-      JDATE_8=JDATE
-      IRET_8=IRET
-
-      RETURN
       END
