@@ -30,8 +30,8 @@ C> <b>Program history log:</b>
 C> | Date | Programmer | Comments |
 C> | -----|------------|----------|
 C> | 2009-03-23 | J. Ator | Original author |
-C>
-      FUNCTION IUPBS3(MBAY,S3MNEM)
+
+	FUNCTION IUPBS3(MBAY,S3MNEM)
 
 	DIMENSION	MBAY(*)
 

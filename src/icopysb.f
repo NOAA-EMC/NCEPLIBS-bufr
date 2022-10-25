@@ -26,10 +26,24 @@ C> | Date | Programmer | Comments |
 C> | -----|------------|----------|
 C> | 1994-01-06 | J. Woollen | Original author |
 C> | 2002-05-14 | J. Woollen | Changed from an entry point to increase portability to other platforms |
-C>
-      FUNCTION ICOPYSB(LUNIN,LUNOT)
+C> | 2022-10-04 | J. Ator | Added 8-byte wrapper |
+
+      RECURSIVE FUNCTION ICOPYSB(LUNIN,LUNOT) RESULT(IRET)
+
+      USE MODV_IM8B
+
+      IF(IM8B) THEN
+	IM8B=.FALSE.
+
+	CALL X84(LUNIT,MY_LUNIT,1)
+	CALL X84(LUNOT,MY_LUNOT,1)
+	IRET=ICOPYSB(MY_LUNIN,MY_LUNOT)
+
+	IM8B=.TRUE.
+	RETURN
+      ENDIF
 
       CALL COPYSB(LUNIN,LUNOT,IRET)
-      ICOPYSB = IRET
+
       RETURN
       END

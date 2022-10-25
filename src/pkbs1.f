@@ -53,8 +53,11 @@ C> | Date | Programmer | Comments |
 C> | -----|------------|----------|
 C> | 2005-11-29 | J. Ator    | Original author |
 C> | 2006-04-14 | D. Keyser  | Added options for 'MTYP', 'MSBT', 'YEAR', 'MNTH', 'DAYS', 'HOUR', 'YCEN' and 'CENT' |
-C>
-	SUBROUTINE PKBS1(IVAL,MBAY,S1MNEM)
+C> | 2022-10-04 | J. Ator    | Added 8-byte wrapper |
+
+	RECURSIVE SUBROUTINE PKBS1(IVAL,MBAY,S1MNEM)
+
+	USE MODV_IM8B
 
 	DIMENSION	MBAY(*)
 
@@ -64,6 +67,18 @@ C>
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
+
+C	Check for I8 integers.
+
+	IF (IM8B) THEN
+	    IM8B = .FALSE.
+
+	    CALL X84(IVAL,MY_IVAL,1)
+	    CALL PKBS1(MY_IVAL,MBAY,S1MNEM)
+
+	    IM8B = .TRUE.
+	    RETURN
+	END IF
 
 C	Note that the following call to function IUPBS01 will ensure
 C	that subroutine WRDLEN has been called.

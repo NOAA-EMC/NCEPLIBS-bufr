@@ -27,18 +27,35 @@ C> <b>Program history log:</b>
 C> | Date | Programmer | Comments |
 C> | -----|------------|----------|
 C> | 2005-11-29 | J. Ator | Original version |
-C>
-      REAL*8 FUNCTION PKFTBV(NBITS,IBIT)
+C> | 2022-10-04 | J. Ator | Added 8-byte wrapper |
+
+      RECURSIVE FUNCTION PKFTBV(NBITS,IBIT) RESULT(R8VAL)
 
       USE MODV_BMISS
+      USE MODV_IM8B
+
+      REAL*8 R8VAL
 
 C----------------------------------------------------------------------
 C----------------------------------------------------------------------
+
+C     Check for I8 integers.
+
+      IF(IM8B) THEN
+         IM8B=.FALSE.
+
+         CALL X84(NBITS,MY_NBITS,1)
+         CALL X84(IBIT,MY_IBIT,1)
+         R8VAL=PKFTBV(MY_NBITS,MY_IBIT)
+
+         IM8B=.TRUE.
+         RETURN
+      ENDIF
 
       IF((NBITS.LE.0).OR.(IBIT.LE.0).OR.(IBIT.GT.NBITS)) THEN
-          PKFTBV = BMISS
+          R8VAL = BMISS
       ELSE
-          PKFTBV = (2.)**(NBITS-IBIT)
+          R8VAL = (2.)**(NBITS-IBIT)
       ENDIF
 
       RETURN

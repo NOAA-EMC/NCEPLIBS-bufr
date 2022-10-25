@@ -1,5 +1,0 @@
-	MODULE MODA_IM8B
-
-	  LOGICAL :: IM8=.false.
-
-	END MODULE

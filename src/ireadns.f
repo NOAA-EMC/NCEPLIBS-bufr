@@ -34,11 +34,31 @@ C> | Date | Programmer | Comments |
 C> | -----|------------|----------|
 C> | 1994-01-06 | J. Woollen | Original author |
 C> | 2002-05-14 | J. Woollen | Changed from an entry point to increase portability to other platforms |
-C>
-      FUNCTION IREADNS(LUNIT,SUBSET,IDATE)
+C> | 2022-10-04 | J. Ator | Added 8-byte wrapper |
+
+      RECURSIVE FUNCTION IREADNS(LUNIT,SUBSET,IDATE) RESULT(IRET)
+
+      USE MODV_IM8B
 
       CHARACTER*8 SUBSET
+
+C-----------------------------------------------------------------------
+C-----------------------------------------------------------------------
+
+C     Check for I8 integers.
+
+      IF(IM8B) THEN
+         IM8B=.FALSE.
+
+         CALL X84(LUNIT,MY_LUNIT,1)
+         IRET=IREADNS(MY_LUNIT,SUBSET,IDATE)
+         CALL X48(IDATE,IDATE,1)
+
+         IM8B=.TRUE.
+         RETURN
+      ENDIF
+
       CALL READNS(LUNIT,SUBSET,IDATE,IRET)
-      IREADNS = IRET
+
       RETURN
       END

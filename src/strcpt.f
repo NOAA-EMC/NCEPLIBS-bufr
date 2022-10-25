@@ -45,8 +45,11 @@ C> <b>Program history log:</b>
 C> | Date | Programmer | Comments |
 C> | -----|------------|----------|
 C> | 2009-03-23 | J. Ator | Original author |
-C>
-      SUBROUTINE STRCPT(CF,IYR,IMO,IDY,IHR,IMI)
+C> | 2022-10-04 | J. Ator | Added 8-byte wrapper |
+
+      RECURSIVE SUBROUTINE STRCPT(CF,IYR,IMO,IDY,IHR,IMI)
+
+      USE MODV_IM8B
 
       COMMON /TNKRCP/ ITRYR,ITRMO,ITRDY,ITRHR,ITRMI,CTRT
 
@@ -55,6 +58,23 @@ C>
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
+
+C  CHECK FOR I8 INTEGERS
+C  ---------------------
+
+      IF(IM8B) THEN
+         IM8B=.FALSE.
+
+         CALL X84(IYR,MY_IYR,1)
+         CALL X84(IMO,MY_IMO,1)
+         CALL X84(IDY,MY_IDY,1)
+         CALL X84(IHR,MY_IHR,1)
+         CALL X84(IMI,MY_IMI,1)
+         CALL STRCPT(CF,MY_IYR,MY_IMO,MY_IDY,MY_IHR,MY_IMI)
+
+         IM8B=.TRUE.
+         RETURN
+      ENDIF
 
       CALL CAPIT(CF)
       IF(CF.NE.'Y'.AND. CF.NE.'N') GOTO 900

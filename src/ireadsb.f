@@ -26,10 +26,28 @@ C> | 1994-01-06 | J. Woollen | Original author |
 C> | 2002-05-14 | J. Woollen | Changed from an entry point to increase portability to other platforms |
 C> | 2003-11-04 | S. Bender | Added remarks and routine interdependencies |
 C> | 2003-11-04 | D. Keyser | Unified/portable for WRF; added documentation |
-C>
-      FUNCTION IREADSB(LUNIT)
+C> | 2022-10-04 | J. Ator | Added 8-byte wrapper |
+
+      RECURSIVE FUNCTION IREADSB(LUNIT) RESULT(IRET)
+
+      USE MODV_IM8B
+
+C-----------------------------------------------------------------------
+C-----------------------------------------------------------------------
+      
+C     Check for I8 integers.
+
+      IF(IM8B) THEN
+         IM8B=.FALSE.
+
+         CALL X84(LUNIT,MY_LUNIT,1)
+         IRET=IREADSB(MY_LUNIT)
+
+         IM8B=.TRUE.
+         RETURN
+      ENDIF
 
       CALL READSB(LUNIT,IRET)
-      IREADSB = IRET
+
       RETURN
       END

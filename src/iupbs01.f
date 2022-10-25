@@ -69,8 +69,8 @@ C> | Date | Programmer | Comments |
 C> | -----|------------|----------|
 C> | 2005-11-29 | J. Ator | Original author |
 C> | 2006-04-14 | J. Ator | Added options for 'YCEN' and 'CENT'; restructured logic |
-C>
-      FUNCTION IUPBS01(MBAY,S01MNEM)
+
+	FUNCTION IUPBS01(MBAY,S01MNEM)
 
 	DIMENSION	MBAY(*)
 
