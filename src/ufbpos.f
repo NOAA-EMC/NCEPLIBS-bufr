@@ -46,8 +46,11 @@ C> | 2006-04-14 | J. Ator    | Remove unnecessary MOIN initialization |
 C> | 2009-03-23 | J. Ator    | Modified to handle embedded BUFR table (dictionary) messages |
 C> | 2014-12-10 | J. Ator    | Use modules instead of COMMON blocks |
 C> | 2021-10-08 | J. Ator    | Use readsb() to read all subsets from IREC(th) message |
-C>
-      SUBROUTINE UFBPOS(LUNIT,IREC,ISUB,SUBSET,JDATE)
+C> | 2022-10-04 | J. Ator    | Added 8-byte wrapper |
+
+      RECURSIVE SUBROUTINE UFBPOS(LUNIT,IREC,ISUB,SUBSET,JDATE)
+
+      USE MODV_IM8B
 
       USE MODA_MSGCWD
       USE MODA_BITBUF
@@ -57,6 +60,22 @@ C>
  
 C-----------------------------------------------------------------------
 C----------------------------------------------------------------------
+
+C  CHECK FOR I8 INTEGERS
+C  ---------------------
+
+      IF(IM8B) THEN
+         IM8B=.FALSE.
+
+         CALL X84(LUNIT,MY_LUNIT,1)
+         CALL X84(IREC,MY_IREC,1)
+         CALL X84(ISUB,MY_ISUB,1)
+         CALL UFBPOS(MY_LUNIT,MY_IREC,MY_ISUB,SUBSET,JDATE)
+         CALL X48(JDATE,JDATE,1)
+
+         IM8B=.TRUE.
+         RETURN
+      ENDIF
 
 C  MAKE SURE A FILE IS OPEN FOR INPUT
 C  ----------------------------------

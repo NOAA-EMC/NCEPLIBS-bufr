@@ -1,54 +1,34 @@
 C> @file
-C> @author WOOLLEN @date 1994-01-06
-      
-C> THIS SUBROUTINE READS IN A FXY DESCRIPTOR ENTRY (Y) FOR A
-C>   SEQUENCE DESCRIPTOR (F=3) WITH TABLE D CATEGORY 63 (X=63) WHEN THE
-C>   DESCRIPTOR IS KNOWN TO BE IN THE BUFR TABLE IN LOGICAL UNIT LUNIT,
-C>   AND RETURNS THE MNEMONIC ASSOCIATED WITH IT.  THIS ROUTINE WILL NOT
-C>   WORK FOR ANY OTHER TYPE OF DESCRIPTOR OR ANY OTHER SEQUENCE
-C>   DESCRIPTOR TABLE D CATEGORY.  LUNIT MUST ALREADY BE OPENED FOR
-C>   INPUT OR OUTPUT VIA A CALL TO BUFR ARCHIVE LIBRARY SUBROUTINE
-C>   OPENBF.  THIS ROUTINE IS ESPECIALLY USEFUL WHEN THE CALLING PROGRAM
-C>   IS READING "EVENTS" FROM AN INPUT BUFR FILE IN LUNIT (USUALLY THE
-C>   "PREPBUFR" FILE) SINCE THE DESCRIPTOR ENTRY (Y) HERE DEFINES THE
-C>   EVENT PROGRAM CODE.  THUS, THE CALLING PROGRAM CAN OBTAIN THE
-C>   MNEMONIC NAME ASSOCIATED WITH AN EVENT PROGRAM CODE.
+C> @brief Get the Table D mnemonic associated with an event program
+C> code from an NCEP prepbufr file
+
+C> Given an event program code, which is equivalent to the Y value
+C> of a category 63 (i.e. X=63) Table D descriptor from an NCEP
+C> prepbufr file, this subroutine returns the corresponding
+C> mnemonic.
 C>
-C> PROGRAM HISTORY LOG:
-C> 1994-01-06  J. WOOLLEN -- ORIGINAL AUTHOR
-C> 1998-07-08  J. WOOLLEN -- REPLACED CALL TO CRAY LIBRARY ROUTINE
-C>                           "ABORT" WITH CALL TO NEW INTERNAL BUFRLIB
-C>                           ROUTINE "BORT"
-C> 2003-11-04  S. BENDER  -- ADDED REMARKS/BUFRLIB ROUTINE
-C>                           INTERDEPENDENCIES
-C> 2003-11-04  D. KEYSER  -- UNIFIED/PORTABLE FOR WRF; ADDED
-C>                           DOCUMENTATION (INCLUDING HISTORY); OUTPUTS
-C>                           MORE COMPLETE DIAGNOSTIC INFO WHEN ROUTINE
-C>                           TERMINATES ABNORMALLY
-C> 2022-10-04  J. ATOR    -- ADDED 8-BYTE WRAPPER
+C> @author J. Woollen
+C> @date 1994-01-06
 C>
-C> USAGE:    CALL UFBQCP (LUNIT, QCP, NEMO)
-C>   INPUT ARGUMENT LIST:
-C>     LUNIT    - INTEGER: FORTRAN LOGICAL UNIT NUMBER FOR BUFR FILE
-C>                (ASSOCIATED BUFR TABLE MAY BE INTERNAL OR EXTERNAL)
-C>     QCP      - REAL: SEQUENCE DESCRIPTOR ENTRY (I.E., EVENT PROGRAM
-C>                CODE) (Y IN FXY DESCRIPTOR)
+C> @param[in] LUNIT -- integer: Fortran logical unit number for
+C>                     NCEP prepbufr file
+C> @param[in] IQCP -- integer: Y value of a category 63 (i.e. X=63)
+C>                    Table D descriptor
+C> @param[out] NEMO  -- character*(*): Mnemonic associated with IQCP
 C>
-C>   OUTPUT ARGUMENT LIST:
-C>     NEMO     - CHARACTER*(*): MNEMONIC IN BUFR TABLE ASSOCIATED WITH
-C>                SEQUENCE DESCRIPTOR FXY WHERE F=3 AND X=63 AND
-C>                Y=INT(QCP)
+C> @remarks
+C> - Logical unit LUNIT should have already been opened via a previous
+C> call to subroutine openbf().
+C> - This subroutine is the logical inverse of subroutine ufbqcd().
 C>
-C> REMARKS:
-C>    THIS SUBROUTINE IS THE INVERSE OF BUFR ARCHIVE LIBRARY ROUTINE
-C>    UFBQCD.
-C>
-C>    THIS ROUTINE CALLS:        BORT     IFXY     NUMTAB   STATUS
-C>    THIS ROUTINE IS CALLED BY: None
-C>                               Normally called only by application
-C>                               programs.
-C>
-      RECURSIVE SUBROUTINE UFBQCP(LUNIT,QCP,NEMO)
+C> <b>Program history log:</b>
+C> | Date | Programmer | Comments |
+C> | -----|------------|----------|
+C> | 1994-01-06 | J. Woollen | Original author |
+C> | 1998-07-08 | J. Woollen | Replaced call to Cray library routine ABORT with call to new internal routine bort() |
+C> | 2022-10-04 | J. Ator    | Added 8-byte wrapper |
+
+      RECURSIVE SUBROUTINE UFBQCP(LUNIT,IQCP,NEMO)
 
       USE MODV_IM8B
 
@@ -65,7 +45,8 @@ C  ---------------------
          IM8B=.FALSE.
 
          CALL X84(LUNIT,MY_LUNIT,1)
-         CALL UFBQCP(MY_LUNIT,QCP,NEMO)
+         CALL X84(IQCP,MY_IQCP,1)
+         CALL UFBQCP(MY_LUNIT,MY_IQCP,NEMO)
 
          IM8B=.TRUE.
          RETURN
@@ -74,7 +55,7 @@ C  ---------------------
       CALL STATUS(LUNIT,LUN,IL,IM)
       IF(IL.EQ.0) GOTO 900
 
-      IDN = IFXY('363000')+IFIX(QCP)
+      IDN = IFXY('363000')+IQCP
 c  .... get NEMO from IDN
       CALL NUMTAB(LUN,IDN,NEMO,TAB,IRET)
 

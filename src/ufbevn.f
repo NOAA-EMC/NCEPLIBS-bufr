@@ -15,7 +15,8 @@ C>
 C> @author J. Woollen
 C> @date 1994-01-06
 C>
-C> @param[in] LUNIT -- integer: Fortran logical unit number for BUFR file
+C> @param[in] LUNIT -- integer: Fortran logical unit number for
+C>                     NCEP prepbufr file
 C> @param[out] USR -- real*8(*,*): Data values
 C> @param[in] I1 -- integer: First dimension of USR as allocated
 C>                  within the calling program

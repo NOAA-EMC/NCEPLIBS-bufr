@@ -95,8 +95,9 @@ C> | 2016-05-24 | J. Ator | Add MXNRV, MXBTM, MXBTMSE, MXTCO |
 C> | 2017-04-03 | J. Ator | Add MXTAMC |
 C> | 2017-05-22 | J. Ator | Add MXRST |
 C> | 2017-10-17 | J. Ator | Add MXMTBF |
-C>
-	INTEGER FUNCTION ISETPRM ( CPRMNM, IPVAL )
+C> | 2022-10-04 | J. Ator | Added 8-byte wrapper |
+
+	RECURSIVE FUNCTION ISETPRM ( CPRMNM, IPVAL ) RESULT ( IRET )
 
 	USE MODV_MAXSS
 	USE MODV_NFILES
@@ -122,6 +123,7 @@ C>
 	USE MODV_MXTCO
 	USE MODV_MXNRV
 	USE MODV_MXRST
+	USE MODV_IM8B
 
 	CHARACTER*(*)	CPRMNM
 	CHARACTER*128	ERRSTR
@@ -129,7 +131,19 @@ C>
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
 
-	ISETPRM = 0
+C       Check for I8 integers.
+
+	IF ( IM8B ) THEN
+	    IM8B = .FALSE.
+
+	    CALL X84 ( IPVAL, MY_IPVAL, 1 )
+	    IRET = ISETPRM ( CPRMNM, MY_IPVAL )
+
+	    IM8B = .TRUE.
+	    RETURN
+	ENDIF
+
+	IRET = 0
 	IF ( CPRMNM .EQ. 'MAXSS' ) THEN
 	    MAXSS = IPVAL
 	ELSE IF ( CPRMNM .EQ. 'NFILES' ) THEN
@@ -179,7 +193,7 @@ C-----------------------------------------------------------------------
 	ELSE IF ( CPRMNM .EQ. 'MXRST' ) THEN
 	    MXRST = IPVAL
 	ELSE
-	    ISETPRM = -1
+	    IRET = -1
 	    CALL ERRWRT('++++++++++++++++++WARNING+++++++++++++++++++')
 	    ERRSTR = 'BUFRLIB: ISETPRM - UNKNOWN INPUT PARAMETER '//
      .		CPRMNM // ' -- NO ACTION WAS TAKEN'
