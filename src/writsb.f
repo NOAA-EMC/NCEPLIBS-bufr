@@ -48,8 +48,11 @@ C> | 2003-11-04 | J. Ator | Added documentation |
 C> | 2003-11-04 | S. Bender | Added remarks and routine interdependencies |
 C> | 2003-11-04 | D. Keyser | Unified/portable for WRF; added documentation; outputs more complete diagnostic info when routine terminates abnormally |
 C> | 2005-03-09 | J. Ator | Added capability for compressed messages |
-C>
-      SUBROUTINE WRITSB(LUNIT)
+C> | 2022-10-04 | J. Ator | Added 8-byte wrapper |
+
+      RECURSIVE SUBROUTINE WRITSB(LUNIT)
+
+      USE MODV_IM8B
 
       COMMON /MSGCMP/ CCMF
 
@@ -57,6 +60,19 @@ C>
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
+
+C  CHECK FOR I8 INTEGERS
+C  ---------------------
+
+      IF(IM8B) THEN
+         IM8B=.FALSE.
+
+         CALL X84 ( LUNIT, MY_LUNIT, 1 )
+         CALL WRITSB ( MY_LUNIT )
+
+         IM8B=.TRUE.
+         RETURN
+      ENDIF
 
 C  CHECK THE FILE STATUS
 C  ---------------------

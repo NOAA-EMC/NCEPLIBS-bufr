@@ -26,6 +26,7 @@ C> 2003-11-04  D. KEYSER  -- UNIFIED/PORTABLE FOR WRF; ADDED
 C>                           DOCUMENTATION (INCLUDING HISTORY); OUTPUTS
 C>                           MORE COMPLETE DIAGNOSTIC INFO WHEN ROUTINE
 C>                           TERMINATES ABNORMALLY
+C> 2022-10-04  J. ATOR    -- ADDED 8-BYTE WRAPPER
 C>
 C> USAGE:    CALL UFBQCD (LUNIT, NEMO, QCD)
 C>   INPUT ARGUMENT LIST:
@@ -47,9 +48,9 @@ C>    THIS ROUTINE IS CALLED BY: None
 C>                               Normally called only by application
 C>                               programs.
 C>
-      SUBROUTINE UFBQCD(LUNIT,NEMO,QCD)
+      RECURSIVE SUBROUTINE UFBQCD(LUNIT,NEMO,QCD)
 
-
+      USE MODV_IM8B
 
       CHARACTER*(*) NEMO
       CHARACTER*128 BORT_STR
@@ -58,6 +59,19 @@ C>
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
+
+C  CHECK FOR I8 INTEGERS
+C  ---------------------
+
+      IF(IM8B) THEN
+         IM8B=.FALSE.
+
+         CALL X84(LUNIT,MY_LUNIT,1)
+         CALL UFBQCD(MY_LUNIT,NEMO,QCD)
+
+         IM8B=.TRUE.
+         RETURN
+      ENDIF
 
       CALL STATUS(LUNIT,LUN,IL,IM)
       IF(IL.EQ.0) GOTO 900

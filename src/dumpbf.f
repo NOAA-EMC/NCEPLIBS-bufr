@@ -1,6 +1,6 @@
 C> @file
 C> @brief Read the Section 1 date-time from the first two "dummy"
-C> messages of a BUFR dump file
+C> messages of an NCEP dump file
 
 C> This subroutine reads and returns the Section 1 date-time from
 C> the first two "dummy" messages of an NCEP dump file, bypassing any

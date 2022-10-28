@@ -1,110 +1,77 @@
 C> @file
-C> @author WOOLLEN @date 2003-11-04
-      
-C> THIS SUBROUTINE READS SPECIFIED VALUES FROM THE CURRENT
-C>   BUFR DATA SUBSET WITHIN INTERNAL ARRAYS.  THE DATA VALUES
-C>   CORRESPOND TO MNEMONICS WHICH ARE PART OF A MULTIPLE-REPLICATION
-C>   SEQUENCE WITHIN ANOTHER MULTIPLE-REPLICATION SEQUENCE.  THE INNER
-C>   SEQUENCE IS USUALLY ASSOCIATED WITH DATA "LEVELS" AND THE OUTER
-C>   SEQUENCE WITH DATA "EVENTS".  THE BUFR FILE IN LOGICAL UNIT LUNIT
-C>   MUST HAVE BEEN OPENED FOR INPUT VIA A PREVIOUS CALL TO BUFR ARCHIVE
-C>   LIBRARY SUBROUTINE OPENBF.  IN ADDITION, THE DATA SUBSET MUST HAVE
-C>   SUBSEQUENTLY BEEN READ INTO THE INTERNAL BUFR ARCHIVE LIBRARY
-C>   ARRAYS VIA CALLS TO BUFR ARCHIVE LIBRARY SUBROUTINE READMG OR
-C>   READERME FOLLOWED BY A CALL TO BUFR ARCHIVE LIBRARY SUBROUTINE
-C>   READSB (OR VIA A SINGLE CALL TO BUFR ARCHIVE LIBRARY
-C>   SUBROUTINE READNS).  THIS SUBROUTINE IS DESIGNED TO READ EVENT
-C>   INFORMATION FROM "PREPFITS" TYPE BUFR FILES (BUT NOT FROM
-C>   "PREPBUFR" TYPE FILES!!).  PREPFITS FILES HAVE THE FOLLOWING BUFR
-C>   TABLE EVENT STRUCTURE (NOTE SIXTEEN CHARACTERS HAVE BEEN REMOVED
-C>   FROM THE LAST COLUMN TO ALLOW THE TABLE TO FIT IN THIS DOCBLOCK):
-C>
-C>   | ADPUPA   | HEADR  {PLEVL}
-C>   |----------|----------------   
-C>   | HEADR    | SID XOB YOB DHR ELV TYP T29 ITP                   
-C>   | PLEVL    | CAT PRC PQM QQM TQM ZQM WQM CDTP_QM [OBLVL]       
-C>   | OBLVL    | SRC FHR \<PEVN> \<QEVN> \<TEVN> \<ZEVN> \<WEVN> \<CEVN> 
-C>   | OBLVL    | \<CTPEVN>                                          
-C>   | PEVN     | POB  PMO                                          
-C>   | QEVN     | QOB                                               
-C>   | TEVN     | TOB                                               
-C>   | ZEVN     | ZOB                                               
-C>   | WEVN     | UOB  VOB                                          
-C>   | CEVN     | CAPE CINH LI                                      
-C>   | CTPEVN   | CDTP GCDTT TOCC                                   
-C>
-C>   NOTE THAT THE ONE-BIT DELAYED REPLICATED SEQUENCES "<xxxx>" ARE
-C>   NESTED INSIDE THE EIGHT-BIT DELAYED REPLIATION EVENT SEQUENCES
-C>   "[yyyy]".  THE ANALOGOUS BUFR ARCHIVE LIBRARY SUBROUTINE UFBEVN
-C>   DOES NOT WORK PROPERLY ON THIS TYPE OF EVENT STRUCTURE.  IT WORKS
-C>   ONLY ON THE EVENT STRUCTURE FOUND IN "PREPBUFR" TYPE BUFR FILES
-C>   (SEE UFBEVN FOR MORE DETAILS).  IN TURN, UFBIN3 DOES NOT WORK
-C>   PROPERLY ON THE EVENT STRUCTURE FOUND IN PREPBUFR FILES (ALWAYS USE
-C>   UFBEVN IN THIS CASE).  ONE OTHER DIFFERENCE BETWEEN UFBIN3 AND
-C>   UFBEVN IS THAT UFBIN3 RETURNS THE MAXIMUM NUMBER OF EVENTS FOUND
-C>   FOR ALL DATA VALUES SPECIFIED AS AN OUTPUT ARGUMENT (JRET).  UFBEVN
-C>   DOES NOT DO THIS, BUT RATHER IT STORES THIS VALUE INTERNALLY IN
-C>   COMMON BLOCK /UFBN3C/.
-C>
-C> PROGRAM HISTORY LOG:
-C> 2003-11-04  J. WOOLLEN -- ORIGINAL AUTHOR (WAS IN VERIFICATION
-C>                           VERSION)
-C> 2003-11-04  D. KEYSER  -- UNIFIED/PORTABLE FOR WRF; ADDED
-C>                           DOCUMENTATION; OUTPUTS MORE COMPLETE
-C>                           DIAGNOSTIC INFO WHEN ROUTINE TERMINATES
-C>                           ABNORMALLY OR UNUSUAL THINGS HAPPEN
-C> 2009-04-21  J. ATOR    -- USE ERRWRT
-C> 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
-C>
-C> USAGE:    CALL UFBIN3 (LUNIT, USR, I1, I2, I3, IRET, JRET, STR)
-C>   INPUT ARGUMENT LIST:
-C>     LUNIT    - INTEGER: FORTRAN LOGICAL UNIT NUMBER FOR BUFR FILE
-C>     I1       - INTEGER: LENGTH OF FIRST DIMENSION OF USR (MUST BE AT
-C>                LEAST AS LARGE AS THE NUMBER OF BLANK-SEPARATED
-C>                MNEMONICS IN STR)
-C>     I2       - INTEGER: LENGTH OF SECOND DIMENSION OF USR
-C>     I3       - INTEGER: LENGTH OF THIRD DIMENSION OF USR (MAXIMUM
-C>                VALUE IS 255)
-C>     STR      - CHARACTER*(*): STRING OF BLANK-SEPARATED TABLE B
-C>                MNEMONICS IN ONE-TO-ONE CORRESPONDENCE WITH FIRST
-C>                DIMENSION OF USR
-C>                  - THERE ARE THREE "GENERIC" MNEMONICS NOT RELATED
-C>                     TO TABLE B, THESE RETURN THE FOLLOWING
-C>                     INFORMATION IN CORRESPONDING USR LOCATION:
-C>                     'NUL'  WHICH ALWAYS RETURNS BMISS ("MISSING")
-C>                     'IREC' WHICH ALWAYS RETURNS THE CURRENT BUFR
-C>                            MESSAGE (RECORD) NUMBER IN WHICH THIS
-C>                            SUBSET RESIDES
-C>                     'ISUB' WHICH ALWAYS RETURNS THE CURRENT SUBSET
-C>                            NUMBER OF THIS SUBSET WITHIN THE BUFR
-C>                            MESSAGE (RECORD) NUMBER 'IREC'
-C>
-C>   OUTPUT ARGUMENT LIST:
-C>     USR      - REAL*8: (I1,I2,I3) STARTING ADDRESS OF DATA VALUES
-C>                READ FROM DATA SUBSET
-C>     IRET     - INTEGER: NUMBER OF "LEVELS" OF DATA VALUES READ FROM
-C>                DATA SUBSET (MUST BE NO LARGER THAN I2)
-C>     JRET     - INTEGER: MAXIMUM NUMBER OF "EVENTS" FOUND FOR ALL DATA
-C>                VALUES SPECIFIED AMONGST ALL LEVELS READ FROM DATA
-C>                SUBSET (MUST BE NO LARGER THAN I3)
-C>
-C> REMARKS:
-C>    IMPORTANT: THIS ROUTINE SHOULD ONLY BE CALLED BY THE VERIFICATION
-C>               APPLICATION PROGRAM "GRIDTOBS", WHERE IT WAS PREVIOUSLY
-C>               AN IN-LINE SUBROUTINE.  IN GENERAL, UFBIN3 DOES NOT
-C>               WORK PROPERLY IN OTHER APPLICATION PROGRAMS (I.E, THOSE
-C>               THAT ARE READING PREPBUFR FILES) AT THIS TIME.  ALWAYS
-C>               USE UFBEVN INSTEAD!!
-C>
-C>    THIS ROUTINE CALLS:        BORT     CONWIN   ERRWRT   GETWIN
-C>                               NEVN     NXTWIN   STATUS   STRING
-C>    THIS ROUTINE IS CALLED BY: None
-C>                               SHOULD NOT BE CALLED BY ANY APPLICATION
-C>                               PROGRAMS EXCEPT GRIDTOBS!!
-C>
-      SUBROUTINE UFBIN3(LUNIT,USR,I1,I2,I3,IRET,JRET,STR)
+C> @brief Read one or more data values from an NCEP prepfits file.
 
+C> This subroutine reads one or more data values from the BUFR data
+C> subset that is currently open within the BUFRLIB internal arrays.
+C> It is specifically designed for use with NCEP prepfits files,
+C> which contain a third dimension of data events for every
+C> reported data value at every replicated vertical level.  It is
+C> similar to subroutine ufbevn(), except that ufbevn() is used
+C> for NCEP prepbufr files and stores the maximum number of data
+C> events for any data value within an internal COMMON block,
+C> whereas this subroutine is used for NCEP prepfits files and
+C> has one extra argument which returns the same information to
+C> the calling program.
+C>
+C> @author J. Woollen
+C> @date 2003-11-04
+C>
+C> @param[in] LUNIT -- integer: Fortran logical unit number for BUFR file
+C> @param[out] USR -- real*8(*,*): Data values
+C> @param[in] I1 -- integer: First dimension of USR as allocated
+C>                  within the calling program
+C> @param[in] I2 -- integer: Second dimension of USR as allocated
+C>                  within the calling program
+C> @param[in] I3 -- integer: Third dimension of USR as allocated
+C>                  within the calling program
+C> @param[out] IRET -- integer: Number of replications of STR that were
+C>                     read from the data subset, corresponding
+C>                     to the second dimension of USR
+C> @param[out] JRET -- integer: Maximum number of data events for any
+C>                     data value that was read from the data subset at
+C>                     any replicated vertical level, and
+C>                     corresponding to the third dimension of USR
+C> @param[in] STR -- character*(*): String of blank-separated
+C>                   Table B mnemonics
+C>                   in one-to-one correspondence with the number of data
+C>                   values that will be read from the data
+C>                   subset within the first dimension of USR (see
+C>                   [DX BUFR Tables](@ref dfbftab) for further
+C>                   information about Table B mnemonics)
+C>
+C> <p>It is the user's responsibility to ensure that USR is dimensioned
+C> sufficiently large enough to accommodate the number of data values
+C> that are to be read from the data subset.  Note also
+C> that USR is an array of real*8 values; therefore, any
+C> character (i.e. CCITT IA5) value in the data subset will be
+C> returned in real*8 format and must be converted back into character
+C> format by the application program before it can be used as such.
+C>
+C> <p>"Missing" values in USR are always denoted by a unique
+C> placeholder value.  This placeholder value is initially set
+C> to a default value of 10E10_8, but it can be reset to
+C> any substitute value of the user's choice via a separate
+C> call to subroutine setbmiss().  In any case, any
+C> returned value in USR can be easily checked for equivalence to the
+C> current placeholder value via a call to function ibfms(), and a
+C> positive result means that the value for the corresponding mnemonic
+C> was encoded as "missing" in BUFR (i.e. all bits set to 1) within the
+C> original data subset.
+C>
+C> <b>Program history log:</b>
+C> | Date | Programmer | Comments |
+C> | -----|------------|----------|
+C> | 2003-11-04 | J. Woollen | Original author |
+C> | 2003-11-04 | D. Keyser  | Unified/portable for WRF; added documentation; outputs more complete diagnostic info when routine terminates abnormally |
+C> | 2009-04-21 | J. Ator    | Use errwrt() |
+C> | 2014-12-10 | J. Ator    | Use modules instead of COMMON blocks |
+C> | 2022-10-04 | J. Ator    | Added 8-byte wrapper |
+
+      RECURSIVE SUBROUTINE UFBIN3(LUNIT,USR,I1,I2,I3,IRET,JRET,STR)
+
+      USE MODV_IM8B
       USE MODV_BMISS
+
       USE MODA_USRINT
       USE MODA_MSGCWD
 
@@ -117,6 +84,24 @@ C>
 
 C----------------------------------------------------------------------
 C----------------------------------------------------------------------
+
+C  CHECK FOR I8 INTEGERS
+C  ---------------------
+
+      IF(IM8B) THEN
+         IM8B=.FALSE.
+
+         CALL X84(LUNIT,MY_LUNIT,1)
+         CALL X84(I1,MY_I1,1)
+         CALL X84(I2,MY_I2,1)
+         CALL X84(I3,MY_I3,1)
+         CALL UFBIN3(MY_LUNIT,USR,MY_I1,MY_I2,MY_I3,IRET,JRET,STR)
+         CALL X48(IRET,IRET,1)
+         CALL X48(JRET,JRET,1)
+
+         IM8B=.TRUE.
+         RETURN
+      ENDIF
 
       IRET = 0
       JRET = 0

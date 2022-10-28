@@ -6,7 +6,9 @@ C> This subroutine reads through every data subset in a BUFR file
 C> and returns one or more specified data values from each subset.
 C>
 C> <p>This provides a useful way to scan the ranges of one or more
-C> specified data values across an entire BUFR file. 
+C> specified data values across all of the data subsets within an
+C> entire BUFR file.  It is similar to subroutine ufbtam(), except
+C> that ufbtam() works on data subsets within internal arrays.
 C>
 C> @author J. Woollen
 C> @date 1994-01-06
@@ -14,9 +16,9 @@ C>
 C> @param[in] LUNIN   -- integer: Absolute value is Fortran logical
 C>                       unit number for BUFR file
 C> @param[out] TAB    -- real*8(*,*): Data values
-C> @param[in] I1 -- integer: Actual first dimension of TAB as allocated
+C> @param[in] I1 -- integer: First dimension of TAB as allocated
 C>                  within the calling program
-C> @param[in] I2 -- integer: Actual second dimension of TAB as allocated
+C> @param[in] I2 -- integer: Second dimension of TAB as allocated
 C>                  within the calling program
 C> @param[out] IRET -- integer: Number of data subsets in BUFR file
 C> @param[in] STR -- character*(*): String of blank-separated
@@ -53,6 +55,17 @@ C> data subset definition for the BUFR file, then this subroutine will
 C> only return the value corresponding to the first occurrence of each
 C> such mnemonic (counting from the beginning of the data subset
 C> definition) within the corresponding row of TAB.
+C> - There are a few additional special mnemonics that can be
+C> included within STR when calling this subroutine, and which in turn
+C> will result in special information being returned within the
+C> corresponding location in TAB:
+C>      - IREC - returns the number of the BUFR message within the
+C>               file pointed to by ABS(LUNIN) (counting from the
+C>               beginning of the file) in which the current data
+C>               subset resides
+C>      - ISUB - returns the number of the current data subset within
+C>               the BUFR message pointed to by IREC, counting from
+C>               the beginning of the message
 C>
 C> <b>Program history log:</b>
 C> | Date | Programmer | Comments |
@@ -69,7 +82,7 @@ C> | 2005-09-16 | J. Woollen | upgraded to work for compressed BUFR messages, an
 C> | 2006-04-14 | J. Ator    | Add declaration for CREF |
 C> | 2007-01-19 | J. Ator    | Replaced call to parseq with call to parstr() |
 C> | 2009-04-21 | J. Ator    | Use errwrt() |
-C> | 2009-12-01 | J. Ator    | Fix bug for compressed character strings which are identical across all subsets in a single messagE |
+C> | 2009-12-01 | J. Ator    | Fix bug for compressed character strings which are identical across all subsets in a single message |
 C> | 2010-05-07 | J. Ator    | When calling ireadmg(), treat read error as EOF condition |
 C> | 2012-03-02 | J. Ator    | Use function ups() |
 C> | 2012-09-15 | J. Woollen | Modified for C/I/O/BUFR interface; added IO type 'INX' to enable open and close for C file without closing FORTRAN file |
@@ -77,10 +90,13 @@ C> | 2014-11-20 | J. Ator    | Ensure openbf() has been called at least once bef
 C> | 2014-12-10 | J. Ator    | Use modules instead of COMMON blocks |
 C> | 2016-12-19 | J. Woollen | Fix bug to prevent inventory overflow |
 C> | 2022-05-06 | J. Woollen | Use up8 and upb8 for 8byte integers, use nbmp for usrtpl, add msgunp=1 option |
-C>
-      SUBROUTINE UFBTAB(LUNIN,TAB,I1,I2,IRET,STR)
+C> | 2022-10-04 | J. Ator    | Added 8-byte wrapper |
+
+      RECURSIVE SUBROUTINE UFBTAB(LUNIN,TAB,I1,I2,IRET,STR)
 
       USE MODV_BMISS
+      USE MODV_IM8B
+
       USE MODA_USRINT
       USE MODA_MSGCWD
       USE MODA_UNPTYP
@@ -97,7 +113,7 @@ C>
       CHARACTER*10  TGS(100)
       CHARACTER*8   SUBSET,CVAL
       EQUIVALENCE   (CVAL,RVAL)
-      integer*8     ival,lref,ninc,mps,lps
+      INTEGER*8     IVAL,LREF,NINC,MPS,LPS
       LOGICAL       OPENIT,JUST_COUNT
       REAL*8        TAB(I1,I2),RVAL,UPS
 
@@ -107,6 +123,22 @@ C-----------------------------------------------------------------------
       MPS(NODE) = 2_8**(IBT(NODE))-1
       LPS(LBIT) = MAX(2_8**(LBIT)-1,1)
 C-----------------------------------------------------------------------
+
+C  CHECK FOR I8 INTEGERS
+C  ---------------------
+
+      IF(IM8B) THEN
+         IM8B=.FALSE.
+
+         CALL X84(LUNIN,MY_LUNIN,1)
+         CALL X84(I1,MY_I1,1)
+         CALL X84(I2,MY_I2,1)
+         CALL UFBTAB(MY_LUNIN,TAB,MY_I1,MY_I2,IRET,STR) 
+         CALL X48(IRET,IRET,1)
+
+         IM8B=.TRUE.
+         RETURN
+      ENDIF
 
 C  SET COUNTERS TO ZERO
 C  --------------------

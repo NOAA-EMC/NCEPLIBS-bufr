@@ -30,8 +30,11 @@ C> | 2003-11-04 | J. Ator | Original author |
 C> | 2004-08-18 | J. Ator | Removed IFIRST check, since wrdlen() now keeps track of whether it has been called |
 C> | 2005-11-29 | J. Ator | Use getlens() |
 C> | 2009-03-23 | J. Ator | Added LCDS3 argument and check |
-C>
-      SUBROUTINE UPDS3(MBAY,LCDS3,CDS3,NDS3)
+C> | 2022-10-04 | J. Ator | Added 8-byte wrapper |
+
+      RECURSIVE SUBROUTINE UPDS3(MBAY,LCDS3,CDS3,NDS3)
+
+      USE MODV_IM8B
 
       DIMENSION MBAY(*)
 
@@ -39,6 +42,19 @@ C>
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
+
+C     Check for I8 integers.
+
+      IF(IM8B) THEN
+         IM8B=.FALSE.
+
+         CALL X84(LCDS3,MY_LCDS3,1)
+         CALL UPDS3(MBAY,MY_LCDS3,CDS3,NDS3)
+         CALL X48(NDS3,NDS3,1)
+
+         IM8B=.TRUE.
+         RETURN
+      ENDIF
 
 C     Call subroutine WRDLEN to initialize some important information
 C     about the local machine, just in case subroutine OPENBF hasn't

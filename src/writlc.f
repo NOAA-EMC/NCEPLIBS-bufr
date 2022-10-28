@@ -55,9 +55,11 @@ C> | 2012-12-07 | J. Ator    | Allow str mnemonic length of up to 14 chars when 
 C> | 2014-10-22 | J. Ator    | No longer abort if no subset available for writing; just print a warning message |
 C> | 2014-12-10 | J. Ator    | USE modules instead of COMMON blocks |
 C> | 2020-09-09 | J. Ator    | No longer abort if STR not available within subset definition; instead, just print a warning message |
-C>
-      SUBROUTINE WRITLC(LUNIT,CHR,STR)
+C> | 2022-10-04 | J. Ator    | Added 8-byte wrapper |
 
+      RECURSIVE SUBROUTINE WRITLC(LUNIT,CHR,STR)
+
+      USE MODV_IM8B
       USE MODV_MXLCC
 
       USE MODA_USRINT
@@ -78,6 +80,18 @@ C>
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
+
+C     Check for I8 integers.
+
+      IF(IM8B) THEN
+         IM8B=.FALSE.
+
+         CALL X84(LUNIT,MY_LUNIT,1)
+         CALL WRITLC(MY_LUNIT,CHR,STR)
+
+         IM8B=.TRUE.
+         RETURN
+      ENDIF
 
 C     Check the file status.
 

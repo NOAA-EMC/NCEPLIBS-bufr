@@ -15,10 +15,10 @@ C> @param[in] LUNXX   -- integer: Absolute value is Fortran logical
 C>                       unit number for BUFR file
 C> @param[in] LMSGT   -- integer: Dimensioned size (in integers) of
 C>                       MSGT; used by the subroutine to ensure that
-C>                      it doesn't overflow the MSGT array
+C>                       it doesn't overflow the MSGT array
 C> @param[out] MSGT   -- integer(*): BUFR message
 C> @param[out] MSGL   -- integer: Size (in integers) of BUFR message
-C>                        in MSGT
+C>                       in MSGT
 C>                        - 0 = No BUFR message was returned within
 C>                              MSGT
 C> 
@@ -102,8 +102,11 @@ C> | 2009-03-23 | J. Ator    | Added LMSGT argument and check |
 C> | 2014-12-10 | J. Ator    | Use modules instead of COMMON blocks |
 C> | 2019-05-09 | J. Ator    | Added dimensions for MSGLEN and MSGTXT |
 C> | 2020-09-22 | J. Ator    | Added capability to return two BUFR messages within MSGT during the same call to this routine, in the rare instances where this can occur |
-C>
-      SUBROUTINE WRITSA(LUNXX,LMSGT,MSGT,MSGL)
+C> | 2022-10-04 | J. Ator    | Added 8-byte wrapper |
+
+      RECURSIVE SUBROUTINE WRITSA(LUNXX,LMSGT,MSGT,MSGL)
+
+      USE MODV_IM8B
 
       USE MODA_BUFRMG
 
@@ -115,6 +118,22 @@ C>
 
 C----------------------------------------------------------------------
 C----------------------------------------------------------------------
+
+C  CHECK FOR I8 INTEGERS 
+C  ---------------------
+
+      IF(IM8B) THEN
+         IM8B=.FALSE.
+
+         CALL X84 ( LUNXX, MY_LUNXX, 1 )
+         CALL X84 ( LMSGT, MY_LMSGT, 1 )
+         CALL WRITSA ( MY_LUNXX, MY_LMSGT*2, MSGT, MSGL )
+         MSGL = MSGL/2
+         CALL X48 ( MSGL, MSGL, 1 )
+
+         IM8B=.TRUE.
+         RETURN
+      ENDIF
 
       LUNIT = ABS(LUNXX)
 

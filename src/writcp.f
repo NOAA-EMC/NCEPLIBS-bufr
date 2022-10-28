@@ -27,8 +27,23 @@ C> | Date | Programmer | Comments |
 C> | -----|------------|----------|
 C> | 2002-05-14 | J. Woollen | Original author |
 C> | 2005-03-09 | J. Ator    | Modified to use cmpmsg() and writsb() |
+C> | 2022-10-04 | J. Ator    | Added 8-byte wrapper |
 C>
-      SUBROUTINE WRITCP(LUNIT)
+      RECURSIVE SUBROUTINE WRITCP(LUNIT)
+
+      USE MODV_IM8B
+
+C     Check for I8 integers.
+
+      IF(IM8B) THEN
+         IM8B=.FALSE.
+
+         CALL X84(LUNIT,MY_LUNIT,1)
+         CALL WRITCP(MY_LUNIT)
+
+         IM8B=.TRUE.
+         RETURN
+      ENDIF
 
       CALL CMPMSG('Y')
 

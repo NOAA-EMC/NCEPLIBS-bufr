@@ -59,8 +59,11 @@ C> | 2014-12-10 | J. Ator    | Use modules instead of COMMON blocks |
 C> | 2015-09-24 | J. Woollen | Print level identifiers for event stacks |
 C> | 2020-08-18 | J. Ator    | Improve logic for sequence tracking |
 C> | 2021-09-30 | J. Ator    | Replace rjust with Fortran intrinsic adjustr |
-C>
-      SUBROUTINE UFDUMP(LUNIT,LUPRT)
+C> | 2022-10-04 | J. Ator    | Added 8-byte wrapper |
+
+      RECURSIVE SUBROUTINE UFDUMP(LUNIT,LUPRT)
+
+      USE MODV_IM8B
 
       USE MODA_USRINT
       USE MODA_MSGCWD
@@ -109,6 +112,20 @@ C>
 
 C----------------------------------------------------------------------
 C----------------------------------------------------------------------
+
+C  CHECK FOR I8 INTEGERS
+C  ---------------------
+
+      IF(IM8B) THEN
+         IM8B=.FALSE.
+
+         CALL X84(LUNIT,MY_LUNIT,1)
+         CALL X84(LUPRT,MY_LUPRT,1)
+         CALL UFDUMP(MY_LUNIT,MY_LUPRT)
+
+         IM8B=.TRUE.
+         RETURN
+      ENDIF
 
       NSEQ = 0
       NLS = 0
