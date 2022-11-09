@@ -6,7 +6,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [macos-10.15,  ubuntu-20.04]
+        os: [macos-11,  ubuntu-20.04]
         ccompiler: [clang, gcc-9, gcc-10]
         fcompiler: [gfortran-9, gfortran-10]
         exclude:
@@ -29,7 +29,7 @@ jobs:
           sudo python3 -m pip install -U numpy
           sudo python3 -m pip install -U netCDF4
           sudo python3 -m pip install -U pdoc
-        elif [[ ${{ matrix.os }} == "macos-10.15" ]]; then
+        elif [[ ${{ matrix.os }} == "macos-11" ]]; then
           brew update
           brew install doxygen
           pip3 install setuptools
