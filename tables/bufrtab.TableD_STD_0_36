@@ -1,7 +1,7 @@
 Table D STD |  0 | 36
 #
 # Standard BUFR Table D, Master Table 0, Version 36
-# This file was generated: 2021/05/11 22:56:46
+# This file was generated: 2022/11/08 16:34:00
 #
 #========================================================================================================
 # F-XX-YYY | MNEMONIC   ;DCOD ; NAME           <-- sequence definition
@@ -8265,69 +8265,6 @@ Table D STD |  0 | 36
            | 0-08-043 > | Atmospheric chemical or physical constituent type
            | 0-08-044 > | CAS registry number
            | 0-15-021   | Integrated mass density
-
-  3-35-001 | SPECMSTN   ;     ; Specify monitoring station
-           | 0-08-035 > | Type of monitoring exercise
-           | 0-35-001 > | Time frame for monitoring
-           | 0-08-036 > | Type of centre or station performing monitoring
-           | 3-01-001   | WMO block and station numbers
-
-  3-35-002 | SPECMCTR   ;     ; Specify monitoring centre
-           | 0-08-035 > | Type of monitoring exercise
-           | 0-35-001 > | Time frame for monitoring
-           | 0-08-036 > | Type of centre or station performing monitoring
-           | 0-01-033   | Identification of originating/generating centre
-
-  3-35-003 | SPECMPER   ;     ; Specify monitoring period
-           | 0-08-021 > | Time significance
-           | 0-04-001 > | Year
-           | 0-04-002 > | Month
-           | 0-04-003 > | Day
-           | 0-04-004 > | Hour
-           | 0-04-073   | Short time period or displacement
-
-  3-35-004 | SPECRTSS   ;     ; Specify report type and single station being monitored
-           | 0-08-021 > | Time significance
-           | 0-04-004 > | Hour
-           | 0-08-021 > | Time significance
-           | 0-04-004 > | Hour
-           | 0-35-000 > | FM and regional code number
-           | 3-01-001 > | WMO block and station numbers
-           | 0-35-011   | Number of reports actually received
-
-  3-35-005 | SPECRTWB   ;     ; Specify report type and WMO block being monitored
-           | 0-08-021 > | Time significance
-           | 0-04-004 > | Hour
-           | 0-08-021 > | Time significance
-           | 0-04-004 > | Hour
-           | 0-35-000 > | FM and regional code number
-           | 0-01-001 > | WMO block number
-           | 0-35-011   | Number of reports actually received
-
-  3-35-006 | SPECRTWR   ;     ; Specify report type and WMO region being monitored
-           | 0-08-021 > | Time significance
-           | 0-04-004 > | Hour
-           | 0-08-021 > | Time significance
-           | 0-04-004 > | Hour
-           | 0-35-000 > | FM and regional code number
-           | 0-01-003 > | WMO Region number/geographical area
-           | 0-35-011   | Number of reports actually received
-
-  3-35-007 | RTYPMUMO   ;     ; Report type and multiple stations from one block being monitored
-           | 0-08-021 > | Time significance
-           | 0-04-004 > | Hour
-           | 0-08-021 > | Time significance
-           | 0-04-004 > | Hour
-           | 0-35-000 > | FM and regional code number
-           | 0-01-001 > | WMO block number
-           | 1-02-000 > | Delayed replication of 2 descriptors
-           | 0-01-002 > | WMO station number
-           | 0-35-011   | Number of reports actually received
-
-  3-35-010 | MONRTPMS   ;     ; Monitoring a report type from multiple stations
-           | 3-35-002 > | Specify monitoring centre
-           | 3-35-003 > | Specify monitoring period
-           | 3-35-007   | Report type and multiple stations from one block being monitored
 
   3-40-001 | IASIL1CD   ;     ; IASI Level 1c data
            | 0-01-007 > | Satellite identifier
