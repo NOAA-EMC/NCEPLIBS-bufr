@@ -26,6 +26,7 @@ list(APPEND bufr_tables
   bufrtab.CodeFlag_STD_0_36
   bufrtab.CodeFlag_STD_0_37
   bufrtab.CodeFlag_STD_0_38
+  bufrtab.CodeFlag_STD_0_39
   bufrtab.TableB_LOC_0_7_1
   bufrtab.TableB_STD_0_13
   bufrtab.TableB_STD_0_14
@@ -53,6 +54,7 @@ list(APPEND bufr_tables
   bufrtab.TableB_STD_0_36
   bufrtab.TableB_STD_0_37
   bufrtab.TableB_STD_0_38
+  bufrtab.TableB_STD_0_39
   bufrtab.TableD_LOC_0_7_1
   bufrtab.TableD_STD_0_13
   bufrtab.TableD_STD_0_14
@@ -80,6 +82,7 @@ list(APPEND bufr_tables
   bufrtab.TableD_STD_0_36
   bufrtab.TableD_STD_0_37
   bufrtab.TableD_STD_0_38
+  bufrtab.TableD_STD_0_39
 )
 
 # Link BUFR tables in the build area
@@ -91,4 +94,3 @@ endforeach(FILENAME)
 
 # Install BUFR tables during installation
 install(FILES ${bufr_tables} DESTINATION ${MASTER_TABLE_DIR})
-
