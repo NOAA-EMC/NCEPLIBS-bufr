@@ -31,6 +31,10 @@ C> | 2022-10-12 | J. Woollen  | Original author |
         INTEGER   ONES /-1/
         INTEGER   ZERO / 0/
 
+C       Call subroutine WRDLEN, in case it hasn't already been called.
+
+        CALL WRDLEN
+
 C       IHI points to the first byte of the high-order (i.e. most
 C       significant) 4-byte integer word within an 8-byte integer word.
 C       ILO points to the first byte of the low-order (i.e. least

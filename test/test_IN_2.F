@@ -1,3 +1,6 @@
+#ifdef INTSIZE_8
+	INTEGER*4	IREADMG, IUPVS01, NMSUB, IBFMS
+#endif
 
 	PARAMETER	( MXR8PM = 10 )
 	PARAMETER	( MXR8LV = 255 )
@@ -15,6 +18,10 @@ C*----------------------------------------------------------------------
 	print *, '  using OPENBF IO = ''IN'' and LUNIN != LUNDX'
 	print *, '----------------------------------------------------'
 
+#ifdef INTSIZE_8
+	CALL SETIM8B ( .true. )
+#endif
+
 C*	Open the test files.
 
 	OPEN  ( UNIT = 11, FILE = 'testfiles/IN_2', FORM ='UNFORMATTED')
@@ -26,13 +33,17 @@ C*	Open the test files.
 
 C*	Read the BUFR message from the BUFR file.
 
-	IF ( IREADMG ( 11, cmgtag, imgdt ) .eq. 0 ) THEN
+	IF ( IREADMG ( 11, cmgtag, imgdt ) .ne. 0 ) THEN
+
+	    print *, '       IREADMG -> FAILED!!'
+
+	ELSE
 
 	    IF ( ( cmgtag .eq. 'NC005064' ) .and.
      +		( imgdt .eq. 12101013 ) ) THEN
-		print *, '        READMG -> OK'
+		print *, '       IREADMG -> OK'
 	    ELSE
-		print *, '        READMG -> FAILED!!'
+		print *, '       IREADMG -> FAILED!!'
 	    ENDIF
 
 	    IF ( ( IUPVS01(11,'MSBT') .eq. 64 ) .and.
@@ -55,7 +66,11 @@ C*	    Read the 5th data subset from the BUFR message.
 	        CALL READSB (11, ierrsb)
 	    END DO
 
-	    IF ( ierrsb .eq. 0 ) THEN
+	    IF ( ierrsb .ne. 0 ) THEN
+
+		print *, '        READSB -> FAILED!!'
+
+	    ELSE
 
 		print *, '        READSB -> OK'
 

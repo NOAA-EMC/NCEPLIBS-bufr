@@ -1,8 +1,11 @@
-	
 	REAL*8		r8ymd ( 3, 1 ),
      +			r8ltl ( 2, 1 ),
      +			r8flv ( 1, 5 ),
      +			r8oth ( 10, 1 )
+
+#ifdef INTSIZE_8
+	INTEGER*4       LCMGDF
+#endif
 
 	INTEGER		nsc(5), nrf(5), nbt(5), ierns(5)
 
@@ -15,6 +18,10 @@ C*----------------------------------------------------------------------
 	print *, '  using OPENBF IO = ''OUT'' and LUNIN != LUNDX'
 	print *, '  using 2-03-YYY to change reference values'
 	print *, '----------------------------------------------------'
+
+#ifdef INTSIZE_8
+	CALL SETIM8B ( .true. )
+#endif
 
 	CALL BVERS ( libvrsn )
 	IF ( LGT( libvrsn, '10.1.1' ) ) THEN

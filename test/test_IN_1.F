@@ -1,3 +1,7 @@
+#ifdef INTSIZE_8
+	INTEGER*4	IREADSB, IUPBS01, IUPBS3, IBFMS
+	INTEGER*4	MXBF, nbyt, ierr
+#endif
 
 	PARAMETER	( MXBF = 20000 )
 	PARAMETER	( MXBFD4 = MXBF/4 )
@@ -26,6 +30,10 @@ C*----------------------------------------------------------------------
 	print *, '  using CRBMG with OPENBF IO = ''SEC3'''
 	print *, '----------------------------------------------------'
 
+#ifdef INTSIZE_8
+	CALL SETIM8B ( .true. )
+#endif
+
 C*	Open the test file.
 
 	CALL COBFL ( filnam, filost )
@@ -44,7 +52,9 @@ C*	Open the test file.
 C*	Read the BUFR message from the BUFR file.
 
 	CALL CRBMG ( bfmg, MXBF, nbyt, ierr )
-	IF ( ierr .eq. 0 ) THEN
+	IF ( ierr .ne. 0 ) THEN
+	    print *, '         CRBMG -> FAILED!!'
+	ELSE
 	    print *, '         CRBMG -> OK'
 
 	    IF ( ( IUPBS01 ( ibfmg, 'MTYP' ) .eq. 2 ) .and.
@@ -102,9 +112,10 @@ C*	Read the BUFR message from the BUFR file.
 
 C*	    Read the data subset from the BUFR message.
 
-	    IF ( IREADSB (11) .eq. 0 ) THEN
-
-		print *, '        READSB -> OK'
+	    IF ( IREADSB (11) .ne. 0 ) THEN
+		print *, '       IREADSB -> FAILED!!'
+	    ELSE
+		print *, '       IREADSB -> OK'
 
 		CALL GETTAGPR ( 11, 'PRLC', 192, tagpr, iertgp )
 		IF ( ( iertgp .eq. 0 ) .and. ( tagpr .eq. 'WSPLRAOB' ) )

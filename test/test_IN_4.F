@@ -1,3 +1,7 @@
+#ifdef INTSIZE_8
+	INTEGER*4	IREADSB, IUPBS01, IUPBS3, IBFMS
+	INTEGER*4	MXBF, nbyt, ierr
+#endif
 
 	PARAMETER	( MXBF = 20000 )
 	PARAMETER	( MXBFD4 = MXBF/4 )
@@ -27,6 +31,10 @@ C*----------------------------------------------------------------------
 	print *, '  using bitmap and marker operators'
 	print *, '----------------------------------------------------'
 
+#ifdef INTSIZE_8
+	CALL SETIM8B ( .true. )
+#endif
+
 C*	Open the test file.
 
 	CALL COBFL ( filnam, filost )
@@ -45,7 +53,9 @@ C*	Open the test file.
 C*	Read the BUFR message from the BUFR file.
 
 	CALL CRBMG ( bfmg, MXBF, nbyt, ierr )
-	IF ( ierr .eq. 0 ) THEN
+	IF ( ierr .ne. 0 ) THEN
+	    print *, '         CRBMG -> FAILED!!'
+	ELSE
 	    print *, '         CRBMG -> OK'
 
 	    IF ( ( IUPBS01 ( ibfmg, 'MTYP' ) .eq. 5 ) .and.
@@ -90,9 +100,10 @@ C*	Read the BUFR message from the BUFR file.
 
 C*	    Read the data subset from the BUFR message.
 
-	    IF ( IREADSB (11) .eq. 0 ) THEN
-
-		print *, '        READSB -> OK'
+	    IF ( IREADSB (11) .ne. 0 ) THEN
+		print *, '       IREADSB -> FAILED!!'
+	    ELSE
+		print *, '       IREADSB -> OK'
 
 		CALL UFBINT ( 11, r8arr, MXR8PM, MXR8LV,
      +			      nr8lv, 'CLONH SAID SAZA HITE' )

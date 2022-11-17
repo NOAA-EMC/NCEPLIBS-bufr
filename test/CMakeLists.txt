@@ -39,11 +39,14 @@ add_custom_command(
 file(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/testrun)
 
 list(APPEND test_IN_srcs
-  test_IN_1.f
-  test_IN_2.f
-  test_IN_3.f
-  test_IN_4.f
-  test_IN_5.f
+  test_IN_1.F
+  test_IN_2.F
+  test_IN_3.F
+  test_IN_4.F
+  test_IN_5.F
+  )
+
+list(APPEND test_IN_srcs_PREV
   test_IN_6.f
   test_IN_7.f
   )
@@ -53,7 +56,10 @@ list(APPEND test_OUT_2_srcs
   )
 
 list(APPEND test_OUT_other_srcs
-  test_OUT_1.f
+  test_OUT_1.F
+  )
+
+list(APPEND test_OUT_other_srcs_PREV
   test_OUT_3.f
   test_OUT_4.f
   test_OUT_5.f
@@ -99,8 +105,26 @@ endfunction()
 
 list(APPEND test_kinds 4 8 d)
 
+set(fortran_8_defs INTSIZE_8)
+
 # IN tests
 foreach(test_src ${test_IN_srcs})
+  string(REPLACE ".F" "" testPref ${test_src})
+  foreach(kind ${test_kinds})
+    set(test     ${testPref}_${kind})
+    set(test_exe ${test}.x)
+    add_executable(${test_exe} ${test_src})
+    set_target_properties(${test_exe} PROPERTIES COMPILE_FLAGS
+                                                 "${fortran_${kind}_flags}")
+    target_compile_definitions(${test_exe} PRIVATE "${fortran_${kind}_defs}")
+    add_dependencies(${test_exe} bufr_4)
+    target_link_libraries(${test_exe} PUBLIC bufr::bufr_4)
+    add_test(NAME ${test} COMMAND ${CMAKE_BINARY_DIR}/bin/test_wrapper_IN.sh ${test_exe})
+  endforeach()
+endforeach()
+
+# IN tests
+foreach(test_src ${test_IN_srcs_PREV})
   string(REPLACE ".f" "" testPref ${test_src})
   foreach(kind ${test_kinds})
     set(test     ${testPref}_${kind})
@@ -131,6 +155,22 @@ endforeach()
 
 # all other OUT tests
 foreach(test_src ${test_OUT_other_srcs})
+  string(REPLACE ".F" "" testPref ${test_src})
+  foreach(kind ${test_kinds})
+    set(test     ${testPref}_${kind})
+    set(test_exe ${test}.x)
+    add_executable(${test_exe} ${test_src})
+    set_target_properties(${test_exe} PROPERTIES COMPILE_FLAGS
+                                                 "${fortran_${kind}_flags}")
+    target_compile_definitions(${test_exe} PRIVATE "${fortran_${kind}_defs}")
+    add_dependencies(${test_exe} bufr_4)
+    target_link_libraries(${test_exe} PRIVATE bufr::bufr_4)
+    bufr_add_test(${test} ${test_exe})
+  endforeach()
+endforeach()
+
+# all other OUT tests
+foreach(test_src ${test_OUT_other_srcs_PREV})
   string(REPLACE ".f" "" testPref ${test_src})
   foreach(kind ${test_kinds})
     set(test     ${testPref}_${kind})

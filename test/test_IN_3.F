@@ -1,3 +1,6 @@
+#ifdef INTSIZE_8
+	INTEGER*4	IREADNS, IFBGET, LCMGDF, IBFMS
+#endif
 
 	PARAMETER	( MXR8PM = 6 )
 	PARAMETER	( MXR8LV = 50 )
@@ -20,6 +23,10 @@ C*----------------------------------------------------------------------
 	print *, '  using OPENBF IO = ''IN'' and LUNIN = LUNDX'
 	print *, '  using nested delayed replication'
 	print *, '----------------------------------------------------'
+
+#ifdef INTSIZE_8
+	CALL SETIM8B ( .true. )
+#endif
 
 	OPEN  ( UNIT = 11, FILE = 'testfiles/IN_3', FORM ='UNFORMATTED')
 

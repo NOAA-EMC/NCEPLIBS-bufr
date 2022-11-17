@@ -8,7 +8,11 @@
 integers.  It can still be linked to application codes which are compiled
 using 8-byte integers; however, such codes must now include a call to new
 subroutine setimb8() with a value of .true. before making any calls to
-any other library routines.
+any other library routines.  Furthermore, since all library functions
+which return integer values (e.g. iupbs01(), isetprm(), ibfms()) will now
+return 4-byte integer values, application codes which are compiled
+using 8-byte integers must now also explicitly declare such functions
+as 4-byte integers before calling them.
 [[Issue #78](https://github.com/NOAA-EMC/NCEPLIBS-bufr/issues/78)]
 
 * Subroutines ufbqcd() and ufbqcp() have been modified to pass call
