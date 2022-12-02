@@ -22,9 +22,7 @@ C> @remarks
 C> - This subroutine is the logical inverse of subroutine upb().
 C> - This subroutine will not work properly if NBITS is greater than
 C>   the number of bits in an integer, as determined via
-C>   an internal call to subroutine wrdlen().  In such cases,
-C>   the user should switch to a compiled version of the BUFRLIB
-C>   software which has a larger integer size.
+C>   an internal call to subroutine wrdlen().
 C>
 C> <b>Program history log:</b>
 C> | Date | Programmer | Comments |

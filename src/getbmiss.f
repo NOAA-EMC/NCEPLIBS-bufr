@@ -24,17 +24,32 @@ C> <b>Program history log:</b>
 C> | Date | Programmer | Comments |
 C> | -----|------------|----------|
 C> | 2012-09-15 | J. Woollen | Original author |
-C>
-      REAL*8 FUNCTION GETBMISS()
+C> | 2022-10-04 | J. Ator    | Added 8-byte wrapper |
 
+      RECURSIVE FUNCTION GETBMISS() RESULT(R8VAL)
+
+      USE MODV_IM8B
       USE MODV_BMISS
 
-c-----------------------------------------------------------------------
-c-----------------------------------------------------------------------
+      REAL*8 R8VAL
+
+C-----------------------------------------------------------------------
+C-----------------------------------------------------------------------
+
+C     Check for I8 integers.
+
+      IF(IM8B) THEN
+         IM8B=.FALSE.
+
+         R8VAL=GETBMISS()
+
+         IM8B=.TRUE.
+         RETURN
+      ENDIF
 
       CALL OPENBF(0,'FIRST',0)
 
-      GETBMISS = BMISS
+      R8VAL = BMISS
 
       RETURN
       END

@@ -19,17 +19,31 @@ C> <b>Program history log:</b>
 C> | Date | Programmer | Comments |
 C> | -----|------------|----------|
 C> | 2016-06-27 | J. Ator | Original author |
-C>
-      INTEGER FUNCTION IGETMXBY()
+C> | 2022-10-04 | J. Ator | Added 8-byte wrapper |
+
+      RECURSIVE FUNCTION IGETMXBY() RESULT(IRET)
+
+      USE MODV_IM8B
 
       USE MODA_BITBUF
 
 c-----------------------------------------------------------------------
 c-----------------------------------------------------------------------
 
+C     CHECK FOR I8 INTEGERS.
+
+      IF(IM8B) THEN
+          IM8B=.FALSE.
+
+          IRET = IGETMXBY()
+
+          IM8B=.TRUE.
+          RETURN
+      ENDIF
+
       CALL OPENBF(0,'FIRST',0)
 
-      IGETMXBY = MAXBYT
+      IRET = MAXBYT
 
       RETURN
       END

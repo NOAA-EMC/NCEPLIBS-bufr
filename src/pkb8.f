@@ -28,9 +28,6 @@ C> <b>Program history log:</b>
 C> | Date | Programmer | Comments |
 C> | -----|------------|----------|
 C> | 2022-05-06 | J. Woollen | Original author |
-C>
-!----------------------------------------------------------------------
-!----------------------------------------------------------------------
 
       subroutine pkb8(nval,nbits,ibay,ibit)
 
@@ -44,6 +41,9 @@ C>
       integer(4) :: nvals(2)
 
       equivalence (nval8,nvals)
+
+!----------------------------------------------------------------------
+!----------------------------------------------------------------------
 
       if(nbits<0 ) call bort('bufrlib: pkb8 - nbits < zero !!!!!')
       if(nbits>64) call bort('bufrlib: pkb8 - nbits > 64   !!!!!')

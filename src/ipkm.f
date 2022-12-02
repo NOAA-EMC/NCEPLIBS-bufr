@@ -23,8 +23,11 @@ C> | 2003-11-04 | J. Woollen | Modified to be endian-independent |
 C> | 2003-11-04 | J. Ator    | Added documentation |
 C> | 2003-11-04 | S. Bender  | Added remarks and routine interdependencies |
 C> | 2003-11-04 | D. Keyser  | Unified/portable for WRF; added documentation; outputs more complete diagnostic info when routine terminates abnormally |
-C>
-      SUBROUTINE IPKM(CBAY,NBYT,N)
+C> | 2022-10-04 | J. Ator    | Added 8-byte wrapper |
+
+      RECURSIVE SUBROUTINE IPKM(CBAY,NBYT,N)
+
+      USE MODV_IM8B
 
       COMMON /HRDWRD/ NBYTW,NBITW,IORD(8)
 
@@ -35,6 +38,19 @@ C>
 C----------------------------------------------------------------------
 C----------------------------------------------------------------------
 
+C     Check for I8 integers.
+
+      IF(IM8B) THEN
+          IM8B=.FALSE.
+
+          CALL X84(N,MY_N,1)
+          CALL X84(NBYT,MY_NBYT,1)
+          CALL IPKM(CBAY,MY_NBYT,MY_N)
+
+          IM8B=.TRUE.
+          RETURN
+      ENDIF
+
       IF(NBYT.GT.NBYTW) GOTO 900
 
 C     Note that the widths of input variable N and local variable INT
@@ -43,7 +59,7 @@ C     since they aren't specifically declared otherwise.
 
       INT = IREV(ISHFT(N,(NBYTW-NBYT)*8))
       DO I=1,NBYT
-      CBAY(I:I) = CINT(I:I)
+          CBAY(I:I) = CINT(I:I)
       ENDDO
 
 C  EXITS

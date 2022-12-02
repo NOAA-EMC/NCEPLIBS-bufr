@@ -208,7 +208,7 @@ int main( int argc, char *argv[ ] ) {
 			  break;
 			}
 		    }
-		    printf( "This is debufr v3.1.1, built with BUFRLIB v%s\n",
+		    printf( "This is debufr v3.1.2, built with BUFRLIB v%s\n",
 			    bvstr );
 		    return 0;
 		case 'h':

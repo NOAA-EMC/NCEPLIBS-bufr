@@ -35,15 +35,28 @@ C> <b>Program history log:</b>
 C> | Date | Programmer | Comments |
 C> | -----|------------|----------|
 C> | 2012-09-15 | J. Woollen | Original author |
-C>
-      SUBROUTINE SETBMISS(XMISS)
+C> | 2022-10-04 | J. Ator    | Added 8-byte wrapper |
 
+      RECURSIVE SUBROUTINE SETBMISS(XMISS)
+
+      USE MODV_IM8B
       USE MODV_BMISS
 
       REAL*8 XMISS
 
-c-----------------------------------------------------------------------
-c-----------------------------------------------------------------------
+C-----------------------------------------------------------------------
+C-----------------------------------------------------------------------
+
+C     Check for I8 integers.
+
+      IF(IM8B) THEN
+         IM8B=.FALSE.
+
+         CALL SETBMISS(XMISS)
+
+         IM8B=.TRUE.
+         RETURN
+      ENDIF
 
       CALL OPENBF(0,'FIRST',0)
 

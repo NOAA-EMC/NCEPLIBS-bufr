@@ -36,6 +36,10 @@ C>-------------------------------------------------------------------
 
         USE Share_errstr
 
+#ifdef INTSIZE_8
+	INTEGER*4	ISETPRM, IGETPRM, IREADNS
+#endif
+
 	PARAMETER	( MXR8PM = 15 )
 	PARAMETER	( MXR8LV = 5 )
 	
@@ -49,6 +53,10 @@ C>-------------------------------------------------------------------
 	print *, '  using inline ERRWRT to check error messages'
 	print *, '  using UFBPOS, UFBTAB, and VALX'
 	print *, '----------------------------------------------------'
+
+#ifdef INTSIZE_8
+	CALL SETIM8B ( .true. )
+#endif
 
         iret1 = ISETPRM ( 'MXNRV', 5 )
         errstr_len = 1

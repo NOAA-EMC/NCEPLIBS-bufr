@@ -1,4 +1,7 @@
-	
+#ifdef INTSIZE_8
+	INTEGER*4	NMSUB
+#endif
+
 	CHARACTER	cmgtag*8
 
 C*----------------------------------------------------------------------
@@ -7,6 +10,10 @@ C*----------------------------------------------------------------------
 	print *, 'testing BUFRLIB: reading IN_6'
 	print *, '  using UFBMEM, RDMEMM and UFBMNS'
 	print *, '----------------------------------------------------'
+
+#ifdef INTSIZE_8
+	CALL SETIM8B ( .true. )
+#endif
 
 	OPEN  ( UNIT = 21, FILE = 'testfiles/IN_6_infile1',
      +          FORM = 'UNFORMATTED')
