@@ -64,7 +64,7 @@ jobs:
         cd python
         sudo python3 setup.py install
 
-    - name: test-sp
+    - name: test-bufr
       run: |
-        cd sp/build
+        cd bufr/build
         ctest --verbose --output-on-failure --rerun-failed
