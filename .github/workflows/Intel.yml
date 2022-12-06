@@ -26,15 +26,6 @@ jobs:
 
     steps:
 
-    - name: install-deps
-      run: |
-       sudo apt-get update
-       sudo apt-get install python3-pip python3-dev python3-numpy
-       sudo python3 -m pip install -U pip setuptools
-       sudo python3 -m pip install -U numpy
-       sudo python3 -m pip install -U netCDF4
-       sudo python3 -m pip install -U pdoc
-
     # See https://software.intel.com/content/www/us/en/develop/articles/oneapi-repo-instructions.html
     - name: install-intel
       run: |
@@ -58,11 +49,9 @@ jobs:
         cd bufr
         mkdir build
         cd build
-        cmake -DCMAKE_INSTALL_PREFIX=./install -DENABLE_PYTHON=ON ..
+        cmake -DCMAKE_INSTALL_PREFIX=./install -DENABLE_PYTHON=OFF ..
         make -j2 VERBOSE=1
         make install
-        cd python
-        sudo python3 setup.py install
 
     - name: test-bufr
       run: |
