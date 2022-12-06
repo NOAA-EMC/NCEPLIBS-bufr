@@ -51,10 +51,13 @@ jobs:
       run: |
         cd $GITHUB_WORKSPACE/bufr/build
         ctest --verbose --output-on-failure --rerun-failed
-        gcovr -r .. --html-details -o test-coverage.html
+        gcovr --root .. -v  --html-details --exclude ../tests --exclude CMakeFiles --print-summary -o test-coverage.html &> /dev/null        
 
     - uses: actions/upload-artifact@v2
       with:
         name: test-coverage
-        path: bufr/build/*.html
+        path: |
+          bufr/build/*.html
+          bufr/build/*.css
+
       
