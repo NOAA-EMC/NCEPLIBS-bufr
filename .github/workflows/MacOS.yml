@@ -16,9 +16,6 @@ jobs:
     runs-on: macos-latest
     env:
       FC: gfortran-11
-    strategy:
-      matrix:
-        openmp: [ON, OFF]
 
     steps:
     
