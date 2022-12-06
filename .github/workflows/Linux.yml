@@ -17,7 +17,6 @@ jobs:
     strategy:
       matrix:
         ccompiler: [clang, gcc-9, gcc-10]
-        fcompiler: [gfortran-9, gfortran-10]
 
     steps:
 
@@ -43,12 +42,9 @@ jobs:
           export CC=clang
         elif [[ ${{ matrix.ccompiler }} == "gcc-9" ]]; then
           export CC=gcc-9
+          export FC=gfortran-9
         elif [[ ${{ matrix.ccompiler }} == "gcc-10" ]]; then
           export CC=gcc-10
-        fi
-        if [[ ${{ matrix.fcompiler }} == "gfortran-9" ]]; then
-          export FC=gfortran-9
-        elif [[ ${{ matrix.fcompiler }} == "gfortran-10" ]]; then
           export FC=gfortran-10
         fi
         cd bufr
