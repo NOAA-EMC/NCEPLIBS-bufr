@@ -43,7 +43,7 @@ jobs:
         cd bufr
         mkdir build
         cd build
-        cmake -DCMAKE_INSTALL_PREFIX=./install -DCMAKE_Fortran_FLAGS="-g -fprofile-arcs -ftest-coverage -fprofile-abs-path -O0" ..
+        cmake -DCMAKE_INSTALL_PREFIX=./install -DCMAKE_Fortran_FLAGS="-g -fprofile-arcs -ftest-coverage -fprofile-abs-path -O0 -fsanitize=address" ..
         make -j2
         make install
 
@@ -51,7 +51,7 @@ jobs:
       run: |
         cd $GITHUB_WORKSPACE/bufr/build
         ctest --verbose --output-on-failure --rerun-failed
-        gcovr --root .. -v  --html-details --exclude ../tests --exclude CMakeFiles --print-summary -o test-coverage.html &> /dev/null        
+        gcovr -r .. --html-details -o test-coverage.html
 
     - uses: actions/upload-artifact@v2
       with:
