@@ -44,7 +44,7 @@ jobs:
         mkdir build
         cd build
         cmake -DCMAKE_INSTALL_PREFIX=./install -DCMAKE_Fortran_FLAGS="-g -fprofile-arcs -ftest-coverage -fprofile-abs-path -O0" -DCMAKE_BUILD_TYPE=Debug ..
-        make -j2
+        make -j2 VERBOSE=1
         make install
 
     - name: test
