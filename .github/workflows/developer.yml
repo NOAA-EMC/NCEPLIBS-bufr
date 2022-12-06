@@ -1,8 +1,18 @@
-name: code coverage
-on: [push, pull_request]
+name: developer
+on:
+  push:
+    branches:
+    - develop
+    paths-ignore:
+    - README.md
+  pull_request:
+    branches:
+    - develop
+    paths-ignore:
+    - README.md
 
 jobs:
-  build:
+  developer:
     runs-on: ubuntu-latest
     env:
       FC: gfortran-10
@@ -40,7 +50,7 @@ jobs:
     - name: test
       run: |
         cd $GITHUB_WORKSPACE/bufr/build
-        ctest --output-on-failure
+        ctest --verbose --output-on-failure --rerun-failed
         gcovr -r .. --html-details -o test-coverage.html
 
     - uses: actions/upload-artifact@v2

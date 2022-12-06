@@ -1,0 +1,42 @@
+name: MacOS
+on:
+  push:
+    branches:
+    - develop
+    paths-ignore:
+    - README.md
+  pull_request:
+    branches:
+    - develop
+    paths-ignore:
+    - README.md
+
+jobs:
+  MacOS:
+    runs-on: macos-latest
+    env:
+      FC: gfortran-11
+    strategy:
+      matrix:
+        openmp: [ON, OFF]
+
+    steps:
+    
+    - name: checkout-bufr
+      uses: actions/checkout@v2
+      with: 
+        path: bufr
+
+    - name: build-bufr
+      run: |
+        cd bufr
+        mkdir build 
+        cd build
+        cmake ..
+        make -j2
+
+    - name: test-bufr
+      run: |
+        cd bufr/build
+        ctest --verbose --output-on-failure --rerun-failed
+
