@@ -19,6 +19,15 @@ jobs:
 
     steps:
     
+    - name: install-deps
+      run: |
+        brew update
+        brew install doxygen
+        pip3 install setuptools
+        pip3 install numpy
+        pip3 install netCDF4
+        sudo ln -sf /usr/local/bin/gfortran-11 /usr/local/bin/gfortran
+          
     - name: checkout-bufr
       uses: actions/checkout@v2
       with: 
@@ -31,6 +40,11 @@ jobs:
         cd build
         cmake ..
         make -j2 VERBOSE=1
+        cmake -DCMAKE_INSTALL_PREFIX=./install -DENABLE_PYTHON=ON ..
+        make -j2 VERBOSE=1
+        make install
+        cd python
+        sudo python3 setup.py install
 
     - name: test-bufr
       run: |

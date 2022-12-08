@@ -43,9 +43,11 @@ jobs:
         cd bufr
         mkdir build
         cd build
-        cmake -DCMAKE_INSTALL_PREFIX=./install -DCMAKE_Fortran_FLAGS="-g -fprofile-arcs -ftest-coverage -fprofile-abs-path -O0" -DCMAKE_BUILD_TYPE=Debug -DENABLE_DOCS=On ..
+        cmake -DCMAKE_INSTALL_PREFIX=./install -DCMAKE_Fortran_FLAGS="-g -fprofile-arcs -ftest-coverage -fprofile-abs-path -O0" -DCMAKE_BUILD_TYPE=Debug -DENABLE_DOCS=On -DENABLE_PYTHON=ON ..
         make -j2 VERBOSE=1
         make install
+        cd python
+        sudo python3 setup.py install
 
     - name: test
       run: |
