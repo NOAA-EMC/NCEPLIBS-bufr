@@ -1,0 +1,58 @@
+name: developer
+on:
+  push:
+    branches:
+    - develop
+    paths-ignore:
+    - README.md
+  pull_request:
+    branches:
+    - develop
+    paths-ignore:
+    - README.md
+
+jobs:
+  developer:
+    runs-on: ubuntu-latest
+    env:
+      FC: gfortran-10
+      CC: gcc-10
+
+    steps:
+    - name: install-deps
+      run: |
+          sudo apt-get update
+          sudo apt-get install doxygen
+          sudo python3 -m pip install -U gcovr
+
+    - name: checkout
+      uses: actions/checkout@v2
+      with:
+        path: bufr
+        submodules: true
+
+    - name: build
+      run: |
+        export CC=gcc-10
+        export FC=gfortran-10
+        cd bufr
+        mkdir build
+        cd build
+        cmake -DCMAKE_INSTALL_PREFIX=./install -DCMAKE_Fortran_FLAGS="-g -fprofile-arcs -ftest-coverage -fprofile-abs-path -O0" -DCMAKE_BUILD_TYPE=Debug -DENABLE_DOCS=On ..
+        make -j2 VERBOSE=1
+        make install
+
+    - name: test
+      run: |
+        cd bufr/build
+        ctest --verbose --output-on-failure --rerun-failed
+        gcovr --root .. -v  --html-details --exclude ../tests --exclude CMakeFiles --print-summary -o test-coverage.html
+
+    - uses: actions/upload-artifact@v2
+      with:
+        name: test-coverage
+        path: |
+          bufr/build/*.html
+          bufr/build/*.css
+
+      

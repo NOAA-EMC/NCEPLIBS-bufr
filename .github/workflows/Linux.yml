@@ -1,0 +1,61 @@
+name: Linux
+on:
+  push:
+    branches:
+    - develop
+    paths-ignore:
+    - README.md
+  pull_request:
+    branches:
+    - develop
+    paths-ignore:
+    - README.md
+
+jobs:
+  Linux:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        ccompiler: [clang, gcc-9, gcc-10]
+
+    steps:
+
+    - name: install-deps
+      run: |
+       sudo apt-get update
+       sudo apt-get install python3-pip python3-dev python3-numpy
+       sudo python3 -m pip install -U pip setuptools
+       sudo python3 -m pip install -U numpy
+       sudo python3 -m pip install -U netCDF4
+       sudo python3 -m pip install -U pdoc
+
+    - name: checkout
+      uses: actions/checkout@v2
+      with:
+        path: bufr
+        submodules: true
+
+    - name: build
+      run: |
+        if [[ ${{ matrix.ccompiler }} == "clang" ]]; then
+          export CC=clang
+        elif [[ ${{ matrix.ccompiler }} == "gcc-9" ]]; then
+          export CC=gcc-9
+          export FC=gfortran-9
+        elif [[ ${{ matrix.ccompiler }} == "gcc-10" ]]; then
+          export CC=gcc-10
+          export FC=gfortran-10
+        fi
+        cd bufr
+        mkdir build
+        cd build
+        cmake -DCMAKE_INSTALL_PREFIX=./install -DENABLE_PYTHON=ON ..
+        make -j2 VERBOSE=1
+        make install
+        cd python
+        sudo python3 setup.py install
+
+    - name: test
+      run: |
+        cd bufr/build
+        ctest --verbose --output-on-failure --rerun-failed
