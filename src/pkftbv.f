@@ -3,7 +3,7 @@ C> @brief Determine the numerical data value equivalent to the
 C> setting of a specified bit within a flag table.
 
 C> This function computes the numerical value equivalent to the
-C> setting of bit #IBIT within a flag table of NBITS bits.
+C> setting of bit #(IBIT) within a flag table of NBITS bits.
 C>
 C> <p>If the computation fails for any reason, then the function
 C> returns the current placeholder value for "missing" data.
@@ -15,7 +15,7 @@ C> @param[in] NBITS -- integer: Total number of bits in flag table
 C> @param[in] IBIT  -- integer: Number of bit to be set
 C>
 C> @returns pkftbv  -- real*8: Value equivalent to the setting of
-C>                     bit #IBIT within a flag table of NBITS bits
+C>                     bit #(IBIT) within a flag table of NBITS bits
 C>
 C> @remarks
 C> - This function is the logical inverse of subroutine upftbv().
