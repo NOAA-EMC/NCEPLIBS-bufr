@@ -57,5 +57,5 @@ jobs:
 
     - name: test
       run: |
-        cd $GITHUB_WORKSPACE/bufr/build
+        cd bufr/build
         ctest --verbose --output-on-failure --rerun-failed

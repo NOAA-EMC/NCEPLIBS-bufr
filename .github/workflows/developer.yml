@@ -44,7 +44,7 @@ jobs:
 
     - name: test
       run: |
-        cd $GITHUB_WORKSPACE/bufr/build
+        cd bufr/build
         ctest --verbose --output-on-failure --rerun-failed
         gcovr --root .. -v  --html-details --exclude ../tests --exclude CMakeFiles --print-summary -o test-coverage.html
 
