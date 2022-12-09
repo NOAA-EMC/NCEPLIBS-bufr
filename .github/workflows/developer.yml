@@ -38,7 +38,7 @@ jobs:
         cd bufr
         mkdir build
         cd build
-        cmake -DCMAKE_INSTALL_PREFIX=./install -DCMAKE_Fortran_FLAGS="-g -fprofile-arcs -ftest-coverage -fprofile-abs-path -O0" -DCMAKE_BUILD_TYPE=Debug -DENABLE_DOCS=On ..
+        cmake -DCMAKE_INSTALL_PREFIX=./install -DCMAKE_Fortran_FLAGS="-g -fprofile-arcs -ftest-coverage -fprofile-abs-path -O0" -DCMAKE_C_FLAGS="-g -fprofile-arcs -ftest-coverage -fprofile-abs-path -O0" -DCMAKE_BUILD_TYPE=Debug -DENABLE_DOCS=On ..
         make -j2 VERBOSE=1
         make install
 
@@ -46,7 +46,7 @@ jobs:
       run: |
         cd bufr/build
         ctest --verbose --output-on-failure --rerun-failed
-        gcovr --root .. -v  --html-details --exclude ../tests --exclude CMakeFiles --print-summary -o test-coverage.html
+        gcovr --root .. -v  --html-details --exclude ../test --exclude CMakeFiles --print-summary -o test-coverage.html
 
     - uses: actions/upload-artifact@v2
       with:
@@ -54,5 +54,3 @@ jobs:
         path: |
           bufr/build/*.html
           bufr/build/*.css
-
-      
