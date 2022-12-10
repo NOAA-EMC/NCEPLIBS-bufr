@@ -1,5 +1,9 @@
 program test_OUT_7
 
+#ifdef INTSIZE_8
+  integer*4	ireadmg, icopysb
+#endif
+
   character cmgtag*8
 
   integer imesg(10), isub(3)
@@ -14,6 +18,10 @@ program test_OUT_7
   print *, '  using FORTRAN_OPEN and FORTRAN_CLOSE'
   print *, '  reading integer values larger than 32 bits'
   print *, '----------------------------------------------------'
+
+#ifdef INTSIZE_8
+  call setim8b ( .true. )
+#endif
 
 ! Open the input and output files.
 

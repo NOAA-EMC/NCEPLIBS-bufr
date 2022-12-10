@@ -55,13 +55,10 @@ list(APPEND test_OUT_2_srcs
 list(APPEND test_OUT_other_srcs
   test_OUT_1.F
   test_OUT_3.F
-  )
-
-list(APPEND test_OUT_other_srcs_PREV
-  test_OUT_4.f
-  test_OUT_5.f
-  test_OUT_6.f
-  test_OUT_7.f90
+  test_OUT_4.F
+  test_OUT_5.F
+  test_OUT_6.F
+  test_OUT_7.F90
   )
 
 list(APPEND test_c_interface_srcs
@@ -148,21 +145,6 @@ foreach(test_src ${test_OUT_other_srcs})
     target_compile_definitions(${test_exe} PRIVATE "${fortran_${kind}_defs}")
     add_dependencies(${test_exe} bufr_4)
     target_link_libraries(${test_exe} PRIVATE bufr::bufr_4)
-    bufr_add_test(${test} ${test_exe})
-  endforeach()
-endforeach()
-
-# all other OUT tests
-foreach(test_src ${test_OUT_other_srcs_PREV})
-  string(REPLACE ".f" "" testPref ${test_src})
-  foreach(kind ${test_kinds})
-    set(test     ${testPref}_${kind})
-    set(test_exe ${test}.x)
-    add_executable(${test_exe} ${test_src})
-    set_target_properties(${test_exe} PROPERTIES COMPILE_FLAGS
-                                                 "${fortran_${kind}_flags}")
-    add_dependencies(${test_exe} bufr_${kind})
-    target_link_libraries(${test_exe} PRIVATE bufr::bufr_${kind})
     bufr_add_test(${test} ${test_exe})
   endforeach()
 endforeach()

@@ -1,3 +1,7 @@
+#ifdef INTSIZE_8
+	INTEGER*4	ISETPRM, IREADSB, IGETMXBY, ICBFMS
+#endif
+
         PARAMETER ( MXVAL1 = 200 )
         PARAMETER ( MXVAL2 = 12 )
         PARAMETER ( MXLVL = 4490 )
@@ -19,16 +23,23 @@ C*----------------------------------------------------------------------
 	print *, '  using STRCPT, WRDXTB and WRITSA'
 	print *, '----------------------------------------------------'
 
-        CALL ISETPRM ( 'NFILES', 4 )
-        CALL ISETPRM ( 'MXMSGL', 400000 )
-        CALL ISETPRM ( 'MAXSS', 250000 )
-        CALL ISETPRM ( 'MAXMEM', 100000 )
-        CALL ISETPRM ( 'MAXMSG', 100 )
-        CALL ISETPRM ( 'MXDXTS', 5 )
-        CALL ISETPRM ( 'MXCDV', 100 )
-        CALL ISETPRM ( 'MXCSB', 100 )
-        CALL ISETPRM ( 'MXLCC', 8 )
-	print *, '        ISETPRM'
+#ifdef INTSIZE_8
+	CALL SETIM8B ( .true. )
+#endif
+
+	IF ( ( ISETPRM ( 'NFILES', 4 ) .eq. 0 ) .and.
+     +	     ( ISETPRM ( 'MXMSGL', 400000 ) .eq. 0 ) .and.
+     +	     ( ISETPRM ( 'MAXSS', 250000 ) .eq. 0 ) .and.
+     +	     ( ISETPRM ( 'MAXMEM', 100000 ) .eq. 0 ) .and.
+     +	     ( ISETPRM ( 'MAXMSG', 100 ) .eq. 0 ) .and.
+     +	     ( ISETPRM ( 'MXDXTS', 5 ) .eq. 0 ) .and.
+     +	     ( ISETPRM ( 'MXCDV', 100 ) .eq. 0 ) .and.
+     +	     ( ISETPRM ( 'MXCSB', 100 ) .eq. 0 ) .and.
+     +	     ( ISETPRM ( 'MXLCC', 8 ) .eq. 0 ) ) THEN
+	  print *, '        ISETPRM'
+	ELSE
+	  CALL BORT ( 'ISETPRM FAILURE!' )
+	END IF
 
 C*	Open the BUFR input and output files.
 
@@ -49,9 +60,9 @@ C*	Open the BUFR input and output files.
 	print *, '        MAXOUT'
 
         IF ( IGETMXBY ( ) .eq. MXBFMG*4 ) THEN
-            print *, '        IGETMXBY'
+          print *, '        IGETMXBY'
         ELSE
-            CALL BORT ( 'IGETMXBY FAILURE!' )
+          CALL BORT ( 'IGETMXBY FAILURE!' )
         ENDIF
 
 C*      The following will ensure that subroutine STNDRD is called
@@ -68,13 +79,22 @@ C*      Append a (tank) receipt time to Section 1 of each output message
 C*	Process 1 message with 1 subset from infile1.
 
         CALL READMG ( 11, cmgtag, imgdt, iermg )
-	print *, '        READMG'
 
-        IF ( iermg .eq. 0 ) THEN
+        IF ( iermg .ne. 0 ) THEN
+
+          CALL BORT ( 'READMG FAILURE!' )
+
+        ELSE
+
+          print *, '        READMG'
+
           CALL READSB ( 11, iersb )
-	  print *, '        READSB'
 
-          IF ( iersb .eq. 0 ) THEN
+          IF ( iersb .ne. 0 ) THEN
+            CALL BORT ( 'READSB FAILURE!' )
+          ELSE
+            print *, '        READSB'
+
 	    CALL OPENMB ( 13, 'NC007000', 2020022514 )
 	    print *, '        OPENMB'
 
@@ -103,7 +123,11 @@ C*      output file.
         CALL WRDXTB ( 12, 13 )
 	print *, '        WRDXTB'
 
-        IF ( iermg .eq. 0 ) THEN
+        IF ( iermg .ne. 0 ) THEN
+
+          CALL BORT ( 'READMG FAILURE!' )
+
+        ELSE
 
           nsub = 0
 
@@ -115,7 +139,7 @@ C*      output file.
             ibfdt = ( NINT(r8arr1(2)) * 1000000 ) +
      +              ( NINT(r8arr1(3)) * 10000 ) +
      +              ( NINT(r8arr1(4)) * 100 ) + NINT(r8arr1(5))
-	    CALL OPENMB ( 13, 'MSTTB001', ibfdt )
+            CALL OPENMB ( 13, 'MSTTB001', ibfdt )
             CALL UFBSEQ ( 13, r8arr1, MXVAL1, 1, nlv, 'DATETMLN' )
 
             WRITE ( UNIT = smid, FMT = '(A,I1.1)' ) 'STATION#', nsub

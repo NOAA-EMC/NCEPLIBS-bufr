@@ -11,6 +11,10 @@ C*----------------------------------------------------------------------
 	print *, '  storing integer values larger than 32 bits'
 	print *, '----------------------------------------------------'
 
+#ifdef INTSIZE_8
+	CALL SETIM8B ( .true. )
+#endif
+
 C*	Open the BUFR table and output file.
 
 	OPEN  ( UNIT = 11, FILE = 'out6.bufr', FORM ='UNFORMATTED')

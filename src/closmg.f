@@ -55,7 +55,7 @@ C  ---------------------
          IM8B=.FALSE.
 
          CALL X84(LUNIN,MY_LUNIN,1)
-         CALL CLOSBF(MY_LUNIN)
+         CALL CLOSMG(MY_LUNIN)
 
          IM8B=.TRUE.
          RETURN

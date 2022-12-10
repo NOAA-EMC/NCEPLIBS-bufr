@@ -46,7 +46,7 @@ jobs:
       run: |
         cd bufr/build
         ctest --verbose --output-on-failure --rerun-failed
-        gcovr --root .. -v  --html-details --exclude ../test --exclude CMakeFiles --print-summary -o test-coverage.html
+        gcovr --root .. -v  --html-details --exclude ../tests --exclude CMakeFiles --print-summary -o test-coverage.html
 
     - uses: actions/upload-artifact@v2
       with:
@@ -54,3 +54,5 @@ jobs:
         path: |
           bufr/build/*.html
           bufr/build/*.css
+
+      

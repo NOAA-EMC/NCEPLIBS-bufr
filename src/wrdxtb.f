@@ -1,40 +1,40 @@
 C> @file
-C> @author J @date 2009-03-23
-      
-C> THIS SUBROUTINE WRITES BUFR TABLE (DICTIONARY) MESSAGES
-C>   ASSOCIATED WITH THE BUFR FILE IN LUNDX TO THE BUFR FILE IN LUNOT.
-C>   BOTH UNITS MUST BE OPENED VIA PREVIOUS CALLS TO BUFR ARCHIVE
-C>   LIBRARY SUBROUTINE OPENBF, AND IN PARTICULAR LUNOT MUST HAVE
-C>   BEEN OPENED FOR OUTPUT.  THE TABLE MESSAGES ARE GENERATED FROM
-C>   ARRAYS IN INTERNAL MEMORY (MODULE TABABD).  LUNDX CAN BE THE
-C>   SAME AS LUNOT IF IT IS DESIRED TO APPEND TO LUNOT WITH BUFR
-C>   MESSAGES GENERATED FROM ITS OWN INTERNAL TABLES.
-C>
-C> PROGRAM HISTORY LOG:
-C> 2009-03-23  J. ATOR    -- ORIGINAL AUTHOR, USING LOGIC FROM WRITDX
-C> 2012-04-06  J. ATOR    -- PREVENT STORING OF MORE THAN 255 TABLE A,
-C>                           TABLE B OR TABLE D DESCRIPTORS IN ANY
-C>                           SINGLE DX MESSAGE
-C> 2014-11-14  J. ATOR    -- REPLACE IPKM CALLS WITH PKB CALLS
-C> 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
-C>
-C> USAGE:    CALL WRDXTB (LUNDX,LUNOT)
-C>   INPUT ARGUMENT LIST:
-C>     LUNDX    - INTEGER: FORTRAN LOGICAL UNIT NUMBER ASSOCIATED
-C>                WITH DX (DICTIONARY) TABLES TO BE WRITTEN OUT;
-C>                CAN BE SAME AS LUNOT
-C>     LUNOT    - INTEGER: FORTRAN LOGICAL UNIT NUMBER FOR BUFR FILE
-C>                TO BE APPENDED WITH TABLES ASSOCIATED WITH LUNDX
-C>
-C> REMARKS:
-C>    THIS ROUTINE CALLS:        ADN30    BORT     CPBFDX   DXMINI
-C>                               GETLENS  IUPB     IUPM     MSGFULL
-C>                               MSGWRT   PKB      PKC      STATUS
-C>    THIS ROUTINE IS CALLED BY: MAKESTAB WRITDX
-C>                               Also called by application programs.
-C>
-      SUBROUTINE WRDXTB(LUNDX,LUNOT)
+C> @brief Write DX BUFR tables messages to a BUFR file.
 
+C> This subroutine generates one or more BUFR messages from the DX
+C> BUFR tables information associated with a given BUFR file, and
+C> it then writes the messages out to the same or possibly a
+C> different BUFR file.
+C>
+C> <p>Logical units LUNDX and LUNOT should have already been
+C> opened via previous calls to subroutine openbf(), and in
+C> particular logical unit LUNOT must have been opened for
+C> output operations.  LUNDX and LUNOT may be the same if it is
+C> desired to append to LUNOT with DX BUFR messages generated
+C> from its own internal tables.
+C>
+C> @author J. Ator
+C> @date 2009-03-23
+C>
+C> @param[in] LUNDX   -- integer: Fortran logical unit number
+C>                       associated with DX BUFR table information
+C>                       to be written out
+C> @param[in] LUNOT   -- integer: Fortran logical unit number of
+C>                       BUFR file to which messages are to be
+C>                       written
+C>
+C> <b>Program history log:</b>
+C> | Date | Programmer | Comments |
+C> | -----|------------|----------|
+C> | 2009-03-23 | J. Ator | Original author, using logic from writdx() |
+C> | 2012-04-06 | J. Ator | Prevent storing of more than 255 Table A, Table B, or Table D descriptors in any single DX BUFR tables message |
+C> | 2014-11-14 | J. Ator | Replace ipkm() calss with pkb() calls |
+C> | 2014-12-10 | J. Ator | Use modules instead of COMMON blocks |
+C> | 2022-10-04 | J. Ator | Added 8-byte wrapper |
+
+      RECURSIVE SUBROUTINE WRDXTB(LUNDX,LUNOT)
+
+      USE MODV_IM8B
       USE MODA_TABABD
       USE MODA_MGWA
 
@@ -49,6 +49,20 @@ C>
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
+
+C  CHECK FOR I8 INTEGERS
+C  ---------------------
+
+      IF(IM8B) THEN
+         IM8B=.FALSE.
+
+         CALL X84(LUNDX,MY_LUNDX,1)
+         CALL X84(LUNOT,MY_LUNOT,1)
+         CALL WRDXTB(MY_LUNDX,MY_LUNOT)
+
+         IM8B=.TRUE.
+         RETURN
+      ENDIF
 
 C  CHECK FILE STATUSES
 C  -------------------

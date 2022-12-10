@@ -1,3 +1,7 @@
+#ifdef INTSIZE_8
+	INTEGER*4	IREADNS
+#endif
+
         INTEGER         jdate(5), jdump(5)
 
 	CHARACTER	cmgtag*8, tabdb(1000)*128
@@ -9,6 +13,10 @@ C*----------------------------------------------------------------------
 	print *, '  using DUMPBF and GETABDB'
 	print *, '  using UFDUMP, UFBDMP and DXDUMP'
 	print *, '----------------------------------------------------'
+
+#ifdef INTSIZE_8
+	CALL SETIM8B ( .true. )
+#endif
 
 C*	Open the output log (ASCII) file.
 
