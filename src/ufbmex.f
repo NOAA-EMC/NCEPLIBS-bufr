@@ -75,7 +75,13 @@ C  ---------------------
          CALL X84(LUNIT,MY_LUNIT,1)
          CALL X84(LUNDX,MY_LUNDX,1)
          CALL X84(INEW,MY_INEW,1)
+	print *, 'in ufbmex im8b in, my_lunit, my_lundx, my_inew = ',
+     +		 MY_LUNIT,MY_LUNDX,MY_INEW
          CALL UFBMEX(MY_LUNIT,MY_LUNDX,MY_INEW,IRET,MESG)
+	print *, 'in ufbmex im8b out, iret(1) = ', IRET(1)
+	do jf = 1, iret(1)
+	  print *, 'in ufbmex im8b out, mesg#',jf, ' = ', MESG(jf)
+	enddo
          CALL X48(MESG,MESG,IRET(1))
          CALL X48(IRET,IRET,1)
 

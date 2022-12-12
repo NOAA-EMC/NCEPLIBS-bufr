@@ -135,7 +135,7 @@ endforeach()
 
 # all other OUT tests
 foreach(test_src ${test_OUT_other_srcs})
-  string(REPLACE ".F" "" testPref ${test_src})
+  string(REGEX REPLACE "(.F90|.F)" "" testPref ${test_src})
   foreach(kind ${test_kinds})
     set(test     ${testPref}_${kind})
     set(test_exe ${test}.x)
