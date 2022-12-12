@@ -79,9 +79,13 @@ C  ---------------------
      +		 MY_LUNIT,MY_LUNDX,MY_INEW
          CALL UFBMEX(MY_LUNIT,MY_LUNDX,MY_INEW,IRET,MESG)
 	print *, 'in ufbmex im8b out, iret(1) = ', IRET(1)
-	do jf = 1, iret(1)
-	  print *, 'in ufbmex im8b out, mesg#',jf, ' = ', MESG(jf)
-	enddo
+	if (iret(1).eq.1) then
+	  print *, 'in ufbmex im8b out, mesg# 1 = ', MESG(1)
+	else
+	  do jf = 2, (iret(1)+1)
+	    print *, 'in ufbmex im8b out, mesg#',jf, ' = ', MESG(jf)
+	  enddo
+	endif
          CALL X48(MESG,MESG,IRET(1))
          CALL X48(IRET,IRET,1)
 
