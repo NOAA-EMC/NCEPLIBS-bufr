@@ -75,6 +75,13 @@ C  ---------------------
          CALL X84(LUNIT,MY_LUNIT,1)
          CALL X84(LUNDX,MY_LUNDX,1)
          CALL X84(INEW,MY_INEW,1)
+         IF ( MY_INEW.EQ.0 ) THEN
+            NMESG = 0
+         ELSE
+            NMESG = MSGP(0)
+            CALL X84(MESG,MESG,NMESG)
+         ENDIF
+	   
 	print *, 'in ufbmex im8b in, my_lunit, my_lundx, my_inew = ',
      +		 MY_LUNIT,MY_LUNDX,MY_INEW
          CALL UFBMEX(MY_LUNIT,MY_LUNDX,MY_INEW,IRET,MESG)
@@ -86,7 +93,7 @@ C  ---------------------
 	    print *, 'in ufbmex im8b out, mesg#',jf, ' = ', MESG(jf)
 	  enddo
 	endif
-         CALL X48(MESG,MESG,IRET(1))
+         CALL X48(MESG,MESG,NMESG+IRET(1))
          CALL X48(IRET,IRET,1)
 
          IM8B=.TRUE.

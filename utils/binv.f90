@@ -54,7 +54,7 @@
       NINV(3,ISUB) = NINV(3,ISUB)+NMBYT(LUNBF)
       ENDDO
 
-!  PRINT THE INVEBTORY
+!  PRINT THE INVENTORY
 !  -------------------
  
       PRINT*
@@ -75,8 +75,9 @@
       PRINT*
  
       STOP
-      END
+      END PROGRAM
+
       function nmbyt(lunit)
       nmbyt = iupvs01(lunit,'LENM')
       return
-      end
+      end function

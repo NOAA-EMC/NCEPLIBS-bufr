@@ -15,8 +15,8 @@ C>                      to ensure that it doesn't overflow these
 C>                      arrays
 C> @param[out] NMTBB -- integer: Number of entries in merged output
 C>                      arrays
-C> @param[out] IMFXYN-- integer(*): Merged array containing bit-wise
-C>                      representations of FXY numbers
+C> @param[out] IMFXYN -- integer(*): Merged array containing bit-wise
+C>                       representations of FXY numbers
 C> @param[out] CMSCL -- character*4(*): Merged array containing
 C>                      scale factors
 C> @param[out] CMSREF -- character*12(*): Merged array containing

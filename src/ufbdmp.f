@@ -48,7 +48,7 @@ C> associated with a filename on the local system, typically via a
 C> Fortran "OPEN" statement.  When LUPRT = 0, the subroutine will run
 C> interactively and print to standard output, scrolling 20 lines at
 C> a time and prompting each time whether to quit and return to the
-C> application program (by typing 'q' then '<Enter>') or continue
+C> application program (by typing 'q' then '&lt;Enter&gt;') or continue
 C> scrolling (by typing anything else).
 C>
 C> <b>Program history log:</b>
