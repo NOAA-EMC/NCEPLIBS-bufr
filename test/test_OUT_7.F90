@@ -42,12 +42,7 @@ program test_OUT_7
 ! Read the input files into internal memory arrays.
 
   call ufbmex ( 21, 23, 0, icnt1, imesg )
-
-  print *, 'in test_out_7, icnt1, imesg(1)= ', icnt1, imesg(1)
-
   call ufbmex ( 22, 23, 1, icnt2, imesg )
-
-  print *, 'in test_out_7, icnt2, imesg(2), imesg(3), imesg(4) = ', icnt2, imesg(2), imesg(3), imesg(4)
 
   if ( ( icnt1 == 1 ) .and. ( icnt2 == 3 ) .and. &
        ( imesg(1) == 5 ) .and. ( imesg(2) == 8 ) .and. ( imesg(3) == 2 ) .and. ( imesg(4) == 0 ) ) then
