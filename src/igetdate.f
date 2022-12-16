@@ -30,8 +30,11 @@ C> <b>Program history log:</b>
 C> | Date | Programmer | Comments |
 C> | -----|------------|----------|
 C> | 2005-11-29 | J. Ator  | Original author |
-C>
-	FUNCTION IGETDATE(MBAY,IYR,IMO,IDY,IHR)
+C> | 2022-10-04 | J. Ator | Added 8-byte wrapper |
+
+	RECURSIVE FUNCTION IGETDATE(MBAY,IYR,IMO,IDY,IHR) RESULT(IRET)
+
+	USE MODV_IM8B
 
 	COMMON /DATELN/ LENDAT
 
@@ -40,6 +43,21 @@ C>
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
 
+C	Check for I8 integers.
+
+	IF(IM8B) THEN
+	   IM8B=.FALSE.
+
+	   IRET=IGETDATE(MBAY,IYR,IMO,IDY,IHR)
+	   CALL X48(IYR,IYR,1)
+	   CALL X48(IMO,IMO,1)
+	   CALL X48(IDY,IDY,1)
+	   CALL X48(IHR,IHR,1)
+
+	   IM8B=.TRUE.
+	   RETURN
+	ENDIF
+
 	IYR = IUPBS01(MBAY,'YEAR')
 	IMO = IUPBS01(MBAY,'MNTH')
 	IDY = IUPBS01(MBAY,'DAYS')
@@ -47,7 +65,7 @@ C-----------------------------------------------------------------------
 	IF(LENDAT.NE.10) THEN
 	    IYR = MOD(IYR,100)
 	ENDIF
-	IGETDATE = (IYR*1000000) + (IMO*10000) + (IDY*100) + IHR
+	IRET = (IYR*1000000) + (IMO*10000) + (IDY*100) + IHR
 
 	RETURN
 	END

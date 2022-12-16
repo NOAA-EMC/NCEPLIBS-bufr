@@ -34,10 +34,12 @@ C> | 2009-03-23 | D. Keyser  | No longer print record length change diagnostic i
 C> | 2009-04-21 | J. Ator    | Use errwrt() |
 C> | 2014-12-10 | J. Ator    | Use modules instead of COMMON blocks |
 C> | 2015-09-24 | D. Stokes  | Correct typos in docblock |
-C>
-      SUBROUTINE MAXOUT(MAXO)
+C> | 2022-08-04 | J. Woollen | Added 8-byte wrapper |
+
+      RECURSIVE SUBROUTINE MAXOUT(MAXO)
 
       USE MODV_MXMSGL
+      USE MODV_IM8B
 
       USE MODA_BITBUF
 
@@ -51,6 +53,18 @@ C>
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
+
+C     CHECK FOR I8 INTEGERS
+
+      IF(IM8B) THEN
+         IM8B=.FALSE.
+
+         CALL X84(MAXO,MY_MAXO,1)
+         CALL MAXOUT(MY_MAXO)
+
+         IM8B=.TRUE.
+         RETURN
+      ENDIF
 
       IF((MAXO.EQ.0).OR.(MAXO.GT.MXMSGL)) THEN
          NEWSIZ = MXMSGL

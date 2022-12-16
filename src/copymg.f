@@ -51,17 +51,33 @@ C> | 2004-08-09 | J. Ator | Maximum message length increased from 20,000 to 50,0
 C> | 2005-11-29 | J. Ator | Use iupbs01() |
 C> | 2009-06-26 | J. Ator | Use iok2cpy() |
 C> | 2014-12-10 | J. Ator | Use modules instead of COMMON blocks |
-C>
-      SUBROUTINE COPYMG(LUNIN,LUNOT)
+C> | 2022-08-04 | J. Woollen | Added 8-byte wrapper |
+
+      RECURSIVE SUBROUTINE COPYMG(LUNIN,LUNOT)
 
       USE MODA_MSGCWD
       USE MODA_BITBUF
       USE MODA_TABLES
+      USE MODV_IM8B
 
       CHARACTER*8  SUBSET
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
+
+C  CHECK FOR I8 INTEGERS
+C  ---------------------
+
+      IF(IM8B) THEN
+         IM8B=.FALSE.
+
+         CALL X84(LUNIN,MY_LUNIN,1)
+         CALL X84(LUNOT,MY_LUNOT,1)
+         CALL COPYMG(MY_LUNIN,MY_LUNOT)
+
+         IM8B=.TRUE.  
+         RETURN
+      ENDIF
 
 C  CHECK THE FILE STATUSES
 C  -----------------------

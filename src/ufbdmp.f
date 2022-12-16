@@ -48,7 +48,7 @@ C> associated with a filename on the local system, typically via a
 C> Fortran "OPEN" statement.  When LUPRT = 0, the subroutine will run
 C> interactively and print to standard output, scrolling 20 lines at
 C> a time and prompting each time whether to quit and return to the
-C> application program (by typing 'q' then '<Enter>') or continue
+C> application program (by typing 'q' then '&lt;Enter&gt;') or continue
 C> scrolling (by typing anything else).
 C>
 C> <b>Program history log:</b>
@@ -67,8 +67,11 @@ C> | 2007-01-19 | J. Ator    | Use function ibfms() |
 C> | 2014-12-10 | J. Ator    | Use modules instead of COMMON blocks |
 C> | 2020-09-09 | J. Ator    | Fix missing check for long character strings |
 C> | 2021-09-30 | J. Ator    | Replace rjust with Fortran intrinsic adjustr |
-C>
-      SUBROUTINE UFBDMP(LUNIN,LUPRT)
+C> | 2022-10-04 | J. Ator    | Added 8-byte wrapper |
+
+      RECURSIVE SUBROUTINE UFBDMP(LUNIN,LUPRT)
+
+      USE MODV_IM8B
 
       USE MODA_USRINT
       USE MODA_MSGCWD
@@ -94,6 +97,20 @@ C>
 
 C----------------------------------------------------------------------
 C----------------------------------------------------------------------
+
+C  CHECK FOR I8 INTEGERS
+C  ---------------------
+
+      IF(IM8B) THEN
+         IM8B=.FALSE.
+
+         CALL X84(LUNIN,MY_LUNIN,1)
+         CALL X84(LUPRT,MY_LUPRT,1)
+         CALL UFBDMP(MY_LUNIN,MY_LUPRT)
+
+         IM8B=.TRUE.
+         RETURN
+      ENDIF
 
       IF(LUPRT.EQ.0) THEN
          LUOUT = 6

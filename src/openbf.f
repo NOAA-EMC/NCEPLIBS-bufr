@@ -134,11 +134,13 @@ C> | 2012-06-18 | J. Ator    | Added IO='INUL' option |
 C> | 2012-09-15 | J. Woollen | Modified for C/I/O/BUFR interface; use INQUIRE to obtain filename; use openrb(), openwb() and openab(); add IO types 'INX' and 'FIRST' |
 C> | 2014-11-07 | J. Ator    | Allow dynamic allocation of certain arrays |
 C> | 2015-03-03 | J. Ator    | Use MODA_IFOPBF instead of IFIRST |
-C>
-      SUBROUTINE OPENBF(LUNIT,IO,LUNDX)
+C> | 2022-08-04 | J. Woollen | Added 8-byte wrapper |
+
+      RECURSIVE SUBROUTINE OPENBF(LUNIT,IO,LUNDX)
 
       USE MODV_IFOPBF
       USE MODV_NFILES
+      USE MODV_IM8B
 
       USE MODA_MSGCWD
       USE MODA_STBFR
@@ -163,6 +165,20 @@ C>
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
+
+C  CHECK FOR I8 INTEGERS
+C  ---------------------
+
+      IF(IM8B) THEN
+         IM8B=.FALSE.
+
+         CALL X84(LUNIT,MY_LUNIT,1)
+         CALL X84(LUNDX,MY_LUNDX,1)
+         CALL OPENBF(MY_LUNIT,IO,MY_LUNDX)
+
+         IM8B=.TRUE.
+         RETURN
+      ENDIF
 
 C     If this is the first call to this subroutine, initialize
 C     IPRT in /QUIET/ as 0 (limited printout - except for abort

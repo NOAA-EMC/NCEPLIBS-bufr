@@ -1,3 +1,7 @@
+#ifdef INTSIZE_8
+	INTEGER*4	ISETPRM, IGETPRM
+#endif
+
 	REAL*8		r8vals ( 11, 4 ), r8bitmap ( 26 )
 
 C*----------------------------------------------------------------------
@@ -9,11 +13,18 @@ C*----------------------------------------------------------------------
 	print *, '  using 2-22, 2-36 and 2-37 operators'
 	print *, '----------------------------------------------------'
 
+#ifdef INTSIZE_8
+	CALL SETIM8B ( .true. )
+#endif
+
 C*	First message.
 
-	CALL ISETPRM ( 'NFILES', 2 )
-	CALL ISETPRM ( 'MXMSGL', 8000 )
-	print *, '        ISETPRM'
+	IF ( ( ISETPRM ( 'NFILES', 2 ) .eq. 0 ) .and.
+     +       ( ISETPRM ( 'MXMSGL', 8000 ) .eq. 0 ) ) THEN
+	    print *, '        ISETPRM'
+	ELSE
+	    CALL BORT ( 'ISETPRM FAILURE!' )
+	END IF
 
 	CALL PKVS01 ( 'MTV', 18 )
 	CALL PKVS01 ( 'USN', 2 )
@@ -29,9 +40,9 @@ C*	Open the BUFR table and output file.
 
 	IF ( ( IGETPRM ( 'NFILES' ) .eq. 2 ) .and.
      +       ( IGETPRM ( 'MXMSGL' ) .eq. 8000 ) ) THEN
-	  print *, '        IGETPRM'
-        ELSE
-            CALL BORT ( 'IGETPRM FAILURE!' )
+	    print *, '        IGETPRM'
+	ELSE
+	    CALL BORT ( 'IGETPRM FAILURE!' )
 	END IF
 
 C*	Write a standard message.
@@ -60,7 +71,7 @@ C*	Store the data values.
 	print *, '        UFBINT'
 
 	DO ii = 1, 26
-	   r8bitmap(ii) = 0. 
+	    r8bitmap(ii) = 0. 
 	END DO
 	r8bitmap(16) = 1.
 	r8bitmap(17) = 1.
@@ -97,9 +108,12 @@ C*	Store the data values.
 
 C*	Second message.
 
-	CALL ISETPRM ( 'NFILES', 5 )
-	CALL ISETPRM ( 'MXMSGL', 12000 )
-	print *, '        ISETPRM'
+	IF ( ( ISETPRM ( 'NFILES', 5 ) .eq. 0 ) .and.
+     +       ( ISETPRM ( 'MXMSGL', 12000 ) .eq. 0 ) ) THEN
+	    print *, '        ISETPRM'
+	ELSE
+	    CALL BORT ( 'ISETPRM FAILURE!' )
+	END IF
 
 	CALL PKVS01 ( 'BEN', 4 )
 	CALL PKVS01 ( 'MSBTI', 40 )
@@ -116,7 +130,7 @@ C*	Open the BUFR table and output file.
 
 	IF ( ( IGETPRM ( 'NFILES' ) .eq. 5 ) .and.
      +       ( IGETPRM ( 'MXMSGL' ) .eq. 12000 ) ) THEN
-	  print *, '        IGETPRM'
+	    print *, '        IGETPRM'
         ELSE
             CALL BORT ( 'IGETPRM FAILURE!' )
 	END IF
@@ -147,7 +161,7 @@ C*	Store the data values.
 	print *, '        UFBINT'
 
 	DO ii = 1, 26
-	   r8bitmap(ii) = 0. 
+	    r8bitmap(ii) = 0. 
 	END DO
 	r8bitmap(16) = 1.
 	r8bitmap(17) = 1.

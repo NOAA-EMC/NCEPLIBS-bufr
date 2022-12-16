@@ -46,14 +46,16 @@ C> | Date | Programmer | Comments |
 C> | -----|------------|----------|
 C> | 2014-10-02 | J. Ator | Original version |
 C> | 2014-12-10 | J. Ator | Use modules instead of COMMON blocks |
-C>
-	SUBROUTINE NEMSPECS ( LUNIT, NEMO, NNEMO,
-     .			      NSCL, NREF, NBTS, IRET )
+C> | 2022-08-04 | J. Woollen | Added 8-byte wrapper |
+
+	RECURSIVE SUBROUTINE NEMSPECS
+     .		( LUNIT, NEMO, NNEMO, NSCL, NREF, NBTS, IRET )
 
 	USE MODA_USRINT
 	USE MODA_MSGCWD
 	USE MODA_TABLES
 	USE MODA_NRV203
+        USE MODV_IM8B
 
 	CHARACTER*10  TAGN
 
@@ -61,6 +63,23 @@ C>
 
 C----------------------------------------------------------------------
 C----------------------------------------------------------------------
+
+C	Check for I8 integers.
+
+	IF(IM8B) THEN
+	   IM8B=.FALSE.
+
+	   CALL X84(LUNIT,MY_LUNIT,1)
+	   CALL X84(NNEMO,MY_NNEMO,1)
+	   CALL NEMSPECS(MY_LUNIT,NEMO,MY_NNEMO,NSCL,NREF,NBTS,IRET)
+	   CALL X48(NSCL,NSCL,1)
+	   CALL X48(NREF,NREF,1)
+	   CALL X48(NBTS,NBTS,1)
+	   CALL X48(IRET,IRET,1)
+
+	   IM8B=.TRUE.
+	   RETURN
+	ENDIF
 
 	IRET = -1
 

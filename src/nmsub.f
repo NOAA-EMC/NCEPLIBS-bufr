@@ -25,15 +25,31 @@ C> | 1994-01-06 | J. Woollen | Original author |
 C> | 1998-07-08 | J. Woollen | Replaced call to Cray library routine ABORT with call to new internal routine bort() |
 C> | 1999-11-18 | J. Woollen | The number of BUFR files which can be opened at one time increased from 10 to 32 |
 C> | 2014-12-10 | J. Ator    | Use modules instead of COMMON blocks |
-C>
-      FUNCTION NMSUB(LUNIT)
+C> | 2022-10-04 | J. Ator    | Added 8-byte wrapper |
+
+      RECURSIVE FUNCTION NMSUB(LUNIT) RESULT(IRET)
+
+      USE MODV_IM8B
 
       USE MODA_MSGCWD
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
 
-      NMSUB = 0
+C  CHECK FOR I8 INTEGERS
+C  ---------------------
+
+      IF(IM8B) THEN
+         IM8B=.FALSE.
+
+         CALL X84(LUNIT,MY_LUNIT,1)
+         IRET=NMSUB(MY_LUNIT)
+
+         IM8B=.TRUE.
+         RETURN
+      ENDIF
+
+      IRET = 0
 
 C  CHECK THE FILE STATUS
 C  ---------------------
@@ -43,7 +59,7 @@ C  ---------------------
       IF(IL.GT.0) GOTO 901
       IF(IM.EQ.0) GOTO 902
 
-      NMSUB = MSUB(LUN)
+      IRET = MSUB(LUN)
 
 C  EXITS
 C  -----

@@ -33,14 +33,17 @@ C> | Date | Programmer | Comments |
 C> | -----|------------|----------|
 C> | 2005-11-29 | J. Ator | Original version |
 C> | 2014-12-10 | J. Ator | Use modules instead of COMMON blocks |
-C>
-      SUBROUTINE UPFTBV(LUNIT,NEMO,VAL,MXIB,IBIT,NIB)
+C> | 2022-10-04 | J. Ator | Added 8-byte wrapper |
+
+      RECURSIVE SUBROUTINE UPFTBV(LUNIT,NEMO,VAL,MXIB,IBIT,NIB)
+
+      USE MODV_IM8B
 
       USE MODA_TABABD
 
-      REAL*8  VAL,R8VAL,R82I
+      REAL*8  VAL, R8VAL, R82I
 
-      INTEGER IBIT (*)
+      INTEGER IBIT(*), NIB(*)
 
       CHARACTER*(*) NEMO
       CHARACTER*128 BORT_STR
@@ -48,6 +51,21 @@ C>
 
 C----------------------------------------------------------------------
 C----------------------------------------------------------------------
+
+C     Check for I8 integers.
+
+      IF(IM8B) THEN
+         IM8B=.FALSE.
+
+         CALL X84(LUNIT,MY_LUNIT,1)
+         CALL X84(MXIB,MY_MXIB,1)
+         CALL UPFTBV( MY_LUNIT, NEMO, VAL, MY_MXIB*2, IBIT, NIB )
+         CALL X48(IBIT,IBIT,NIB(1))
+         CALL X48(NIB,NIB,1)
+
+         IM8B=.TRUE.
+         RETURN
+      ENDIF
 
 C     Perform some sanity checks.
 
@@ -60,20 +78,20 @@ C     Perform some sanity checks.
 
 C     Figure out which bits are set.
       
-      NIB = 0
+      NIB(1) = 0
       R8VAL = VAL
       NBITS = VALX(TABB(N,LUN)(110:112))
       DO I=(NBITS-1),0,-1
           R82I = (2.)**I
           IF(ABS(R8VAL-R82I).LT.(0.005)) THEN
-              NIB = NIB + 1
-              IF(NIB.GT.MXIB) GOTO 903
-              IBIT(NIB) = NBITS-I
+              NIB(1) = NIB(1) + 1
+              IF(NIB(1).GT.MXIB) GOTO 903
+              IBIT(NIB(1)) = NBITS-I
               RETURN
           ELSEIF(R82I.LT.R8VAL) THEN
-              NIB = NIB + 1
-              IF(NIB.GT.MXIB) GOTO 903
-              IBIT(NIB) = NBITS-I
+              NIB(1) = NIB(1) + 1
+              IF(NIB(1).GT.MXIB) GOTO 903
+              IBIT(NIB(1)) = NBITS-I
               R8VAL = R8VAL - R82I
           ENDIF
       ENDDO

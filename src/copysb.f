@@ -53,17 +53,34 @@ C> | 2005-09-16 | J. Woollen | Now writes out compressed subset/message if input
 C> | 2009-06-26 | J. Ator    | Use iok2cpy() |
 C> | 2014-11-03 | J. Ator    | Handle oversized (>65530 bytes) subsets |
 C> | 2014-12-10 | J. Ator    | Use modules instead of COMMON blocks |
-C>
-      SUBROUTINE COPYSB(LUNIN,LUNOT,IRET)
+C> | 2022-08-04 | J. Woollen | Added 8-byte wrapper |
+
+      RECURSIVE SUBROUTINE COPYSB(LUNIN,LUNOT,IRET)
 
       USE MODA_MSGCWD
       USE MODA_BITBUF
       USE MODA_TABLES
+      USE MODV_IM8B
 
       CHARACTER*128 BORT_STR
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
+
+C  CHECK FOR I8 INTEGERS
+C  ---------------------
+
+      IF(IM8B) THEN
+         IM8B=.FALSE.
+
+         CALL X84(LUNIN,MY_LUNIN,1)
+         CALL X84(LUNOT,MY_LUNOT,1)
+         CALL COPYSB(MY_LUNIN,MY_LUNOT,IRET)
+         CALL X48(IRET,IRET,1)
+
+         IM8B=.TRUE.
+         RETURN
+      ENDIF
 
       IRET = 0
 

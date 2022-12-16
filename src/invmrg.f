@@ -1,52 +1,46 @@
 C> @file
-C> @author WOOLLEN @date 1996-10-09
-      
-C> THIS SUBROUTINE MERGES "PARTS" OF SUBSETS WHICH HAVE
-C>   DUPLICATE SPACE AND TIME COORDINATES BUT DIFFERENT OR UNIQUE
-C>   OBSERVATIONAL DATA.  IT CANNOT MERGE REPLICATED DATA.
+C> @brief Merge parts of data subsets
+
+C> This subroutine merges parts of data subsets which have duplicate
+C> space and time coordinates but different or unique observational data.
 C>
-C> PROGRAM HISTORY LOG:
-C> 1996-10-09  J. WOOLLEN -- ORIGINAL AUTHOR
-C> 1996-11-25  J. WOOLLEN -- MODIFIED FOR RADIOSONDE CALL SIGNS
-C> 1998-07-08  J. WOOLLEN -- REPLACED CALL TO CRAY LIBRARY ROUTINE
-C>                           "ABORT" WITH CALL TO NEW INTERNAL BUFRLIB
-C>                           ROUTINE "BORT"
-C> 1999-11-18  J. WOOLLEN -- THE NUMBER OF BUFR FILES WHICH CAN BE
-C>                           OPENED AT ONE TIME INCREASED FROM 10 TO 32
-C>                           (NECESSARY IN ORDER TO PROCESS MULTIPLE
-C>                           BUFR FILES UNDER THE MPI)
-C> 2002-05-14  J. WOOLLEN -- REMOVED OLD CRAY COMPILER DIRECTIVES;
-C>                           REMOVED ENTRY POINT MRGINV (IT BECAME A
-C>                           SEPARATE ROUTINE IN THE BUFRLIB TO
-C>                           INCREASE PORTABILITY TO OTHER PLATFORMS)
-C> 2003-11-04  S. BENDER  -- ADDED REMARKS/BUFRLIB ROUTINE
-C>                           INTERDEPENDENCIES
-C> 2003-11-04  D. KEYSER  -- MAXJL (MAXIMUM NUMBER OF JUMP/LINK ENTRIES)
-C>                           INCREASED FROM 15000 TO 16000 (WAS IN
-C>                           VERIFICATION VERSION); UNIFIED/PORTABLE FOR
-C>                           WRF; ADDED DOCUMENTATION (INCLUDING
-C>                           HISTORY); OUTPUTS MORE COMPLETE DIAGNOSTIC
-C>                           INFO WHEN ROUTINE TERMINATES ABNORMALLY
-C> 2007-01-19  J. ATOR    -- USE FUNCTION IBFMS AND SIMPLIFY LOGIC
-C> 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
+C> @author J. Woollen
+C> @date 1996-10-09
 C>
-C> USAGE:    CALL INVMRG (LUBFI, LUBFJ)
-C>   INPUT ARGUMENT LIST:
-C>     LUBFI    - INTEGER: FORTRAN LOGICAL UNIT NUMBER FOR INPUT BUFR
-C>                FILE
-C>     LUBFJ    - INTEGER: FORTRAN LOGICAL UNIT NUMBER FOR OUTPUT BUFR
-C>                FILE
+C> @param[in] LUBFI   -- integer: Fortran logical unit number for input
+C>                       BUFR file
+C> @param[in] LUBFJ   -- integer: Fortran logical unit number for output
+C>                       BUFR file
 C>
-C> REMARKS:
-C>    THIS ROUTINE CALLS:        BORT     IBFMS    NWORDS   STATUS
-C>    THIS ROUTINE IS CALLED BY: None
-C>                               Normally called only by application
-C>                               programs.
+C> <p>Logical unit LUBFI should have already been opened for input
+C> operations via a previous call to subroutine openbf().
 C>
-      SUBROUTINE INVMRG(LUBFI,LUBFJ)
+C> <p>Logical unit LUBFJ should have already been opened for output
+C> operations via a previous call to subroutine openbf().
+C>
+C> @remarks
+C> - This subroutine cannot merge parts of data subsets which are
+C> contained within replication sequences.
+C>
+C> <b>Program history log:</b>
+C> | Date | Programmer | Comments |
+C> | -----|------------|----------|
+C> | 1996-10-09 | J. Woollen | Original author |
+C> | 1996-11-25 | J. Woollen | Modified for radiosonde call signs |
+C> | 1998-07-08 | J. Woollen | Replaced call to Cray library routine ABORT with call to new internal routine bort() |
+C> | 1999-11-18 | J. Woollen | The number of BUFR files which can be opened at one time increased from 10 to 32 |
+C> | 2002-05-14 | J. Woollen | Removed old Cray compiler directives; removed entry point mrginv |
+C> | 2003-11-04 | S. Bender  | Added remarks and routine interdependencies |
+C> | 2003-11-04 | D. Keyser  | MAXJL (maximum number of jump/link entries) increased from 15000 to 16000 |
+C> | 2007-01-19 | J. Ator    | Use ibfms() and simplify logic |
+C> | 2014-12-10 | J. Ator    | Use modules instead of COMMON blocks |
+C> | 2022-08-04 | J. Woollen | Added 8-byte wrapper |
+
+      RECURSIVE SUBROUTINE INVMRG(LUBFI,LUBFJ)
 
       USE MODA_USRINT
       USE MODA_TABLES
+      USE MODV_IM8B
 
       COMMON /MRGCOM/ NRPL,NMRG,NAMB,NTOT
 
@@ -55,6 +49,20 @@ C>
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
+
+C  CHECK FOR I8 INTEGERS
+C  ---------------------
+
+      IF(IM8B) THEN
+         IM8B=.FALSE.
+
+         CALL X84(LUBFI,MY_LUBFI,1)
+         CALL X84(LUBFJ,MY_LUBFJ,1)
+         CALL INVMRG(MY_LUBFI,MY_LUBFJ)
+
+         IM8B=.TRUE.
+         RETURN
+      ENDIF
 
       IS = 1
       JS = 1

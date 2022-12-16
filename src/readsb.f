@@ -43,18 +43,34 @@ C> | 2003-11-04 | S. Bender  | Added remarks and routine interdependencies |
 C> | 2003-11-04 | D. Keyser  | Unified/portable for WRF; added documentation; outputs more complete diagnostic info when routine terminates abnormally |
 C> | 2004-08-09 | J. Ator    | Maximum message length increased from 20,000 to 50,000 bytes |
 C> | 2014-12-10 | J. Ator    | Use modules instead of COMMON blocks |
-C>
-      SUBROUTINE READSB(LUNIT,IRET)
+C> | 2022-10-04 | J. Ator    | Added 8-byte wrapper |
+
+      RECURSIVE SUBROUTINE READSB(LUNIT,IRET)
 
       USE MODA_MSGCWD
       USE MODA_UNPTYP
       USE MODA_BITBUF
       USE MODA_BITMAPS
+      USE MODV_IM8B
 
       CHARACTER*128 BORT_STR
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
+
+C  CHECK FOR I8 INTEGERS
+C  ---------------------
+
+      IF(IM8B) THEN
+         IM8B=.FALSE.
+
+         CALL X84(LUNIT,MY_LUNIT,1)
+         CALL READSB(MY_LUNIT,IRET)
+         CALL X48(IRET,IRET,1)
+
+         IM8B=.TRUE.
+         RETURN
+      ENDIF
 
       IRET = 0
 

@@ -51,18 +51,33 @@ C> | 2004-11-15 | D. Keyser  | Increased MAXMEM from 16 Mb to 50 Mb |
 C> | 2005-11-29 | J. Ator    | Use iupbs01() |
 C> | 2009-06-26 | J. Ator    | Use iok2cpy() |
 C> | 2014-12-10 | J. Ator    | Use modules instead of COMMON blocks |
-C>
-      SUBROUTINE CPYMEM(LUNOT)
+C> | 2022-08-04 | J. Woollen | Added 8-byte wrapper |
+
+      RECURSIVE SUBROUTINE CPYMEM(LUNOT)
 
       USE MODA_MSGCWD
       USE MODA_BITBUF
       USE MODA_MSGMEM
       USE MODA_TABLES
+      USE MODV_IM8B
 
       CHARACTER*8  SUBSET
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
+
+C  CHECK FOR I8 INTEGERS
+C  ---------------------
+
+      IF(IM8B) THEN
+         IM8B=.FALSE.
+
+         CALL X84(LUNOT,MY_LUNOT,1)
+         CALL CPYMEM(MY_LUNOT)
+
+         IM8B=.TRUE.
+         RETURN
+      ENDIF
 
 C  CHECK THE FILE STATUSES
 C  -----------------------

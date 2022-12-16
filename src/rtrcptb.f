@@ -27,13 +27,33 @@ C> <b>Program history log:</b>
 C> | Date | Programmer | Comments |
 C> | -----|------------|----------|
 C> | 2013-10-07 | J. Ator | Original author; adapted from rtrcpt() |
-C>
-      SUBROUTINE RTRCPTB(MBAY,IYR,IMO,IDY,IHR,IMI,IRET)
+C> | 2022-10-04 | J. Ator | Added 8-byte wrapper |
+
+      RECURSIVE SUBROUTINE RTRCPTB(MBAY,IYR,IMO,IDY,IHR,IMI,IRET)
+
+      USE MODV_IM8B
 
       DIMENSION	MBAY (*)
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
+
+C     Check for I8 integers.
+
+      IF(IM8B) THEN
+         IM8B=.FALSE.
+
+         CALL RTRCPTB(MBAY,IYR,IMO,IDY,IHR,IMI,IRET)
+         CALL X48(IYR,IYR,1)
+         CALL X48(IMO,IMO,1)
+         CALL X48(IDY,IDY,1)
+         CALL X48(IHR,IHR,1)
+         CALL X48(IMI,IMI,1)
+         CALL X48(IRET,IRET,1)
+
+         IM8B=.TRUE.
+         RETURN
+      ENDIF
 
       IRET = -1
 

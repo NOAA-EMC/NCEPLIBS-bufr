@@ -69,8 +69,11 @@ C> | Date | Programmer | Comments |
 C> | -----|------------|----------|
 C> | 2005-11-29 | J. Ator | Original author |
 C> | 2006-04-14 | J. Ator | Added options for 'YCEN' and 'CENT'; restructured logic |
-C>
-      FUNCTION IUPBS01(MBAY,S01MNEM)
+C> | 2022-10-04 | J. Ator | Added 8-byte wrapper |
+
+	RECURSIVE FUNCTION IUPBS01(MBAY,S01MNEM) RESULT(IRET)
+
+	USE MODV_IM8B
 
 	DIMENSION	MBAY(*)
 
@@ -85,6 +88,17 @@ C       a valid century value.
 	OK4CENT(IVAL) = ((IVAL.GE.19).AND.(IVAL.LE.21))
 C-----------------------------------------------------------------------
 
+C	Check for I8 integers.
+
+	IF(IM8B) THEN
+	    IM8B=.FALSE.
+
+	    IRET = IUPBS01(MBAY,S01MNEM)
+
+	    IM8B=.TRUE.
+	    RETURN
+	ENDIF
+
 C	Call subroutine WRDLEN to initialize some important information
 C	about the local machine, just in case subroutine OPENBF hasn't
 C	been called yet.
@@ -95,13 +109,13 @@ C	Handle some simple requests that do not depend on the BUFR
 C       edition number.
 
 	IF(S01MNEM.EQ.'LENM') THEN
-	    IUPBS01 = IUPB(MBAY,5,24)
+	    IRET = IUPB(MBAY,5,24)
 	    RETURN
 	ENDIF
 
 	LEN0 = 8
 	IF(S01MNEM.EQ.'LEN0') THEN
-	    IUPBS01 = LEN0
+	    IRET = LEN0
 	    RETURN
 	ENDIF
 
@@ -109,21 +123,21 @@ C	Get the BUFR edition number.
 
 	IBEN = IUPB(MBAY,8,8)
 	IF(S01MNEM.EQ.'BEN') THEN
-	    IUPBS01 = IBEN
+	    IRET = IBEN
 	    RETURN
 	ENDIF
 
 C	Use the BUFR edition number to handle any other requests.
 
-	CALL GETS1LOC(S01MNEM,IBEN,ISBYT,IWID,IRET)
-	IF(IRET.EQ.0) THEN
-	    IUPBS01 = IUPB(MBAY,LEN0+ISBYT,IWID)
+	CALL GETS1LOC(S01MNEM,IBEN,ISBYT,IWID,IRETGS)
+	IF(IRETGS.EQ.0) THEN
+	    IRET = IUPB(MBAY,LEN0+ISBYT,IWID)
 	    IF(S01MNEM.EQ.'CENT') THEN
 
 C		Test whether the returned value was a valid
 C		century value.
 
-		IF(.NOT.OK4CENT(IUPBS01)) IUPBS01 = -1
+		IF(.NOT.OK4CENT(IRET)) IRET = -1
             ENDIF
         ELSE IF( (S01MNEM.EQ.'YEAR') .AND. (IBEN.LT.4) ) THEN
 
@@ -141,16 +155,16 @@ C               by international convention, the year 2000 was the 100th
 C               year of the 20th century, and the year 2001 was the 1st
 C               year of the 21st century
 
-		IUPBS01 = (ICEN-1)*100 + IYOC
+		IRET = (ICEN-1)*100 + IYOC
 	    ELSE
 
 C               NO, so use a windowing technique to determine the
 C               4-digit year from the year of the century.
 
-		IUPBS01 = I4DY(MOD(IYOC,100)*1000000)/10**6
+		IRET = I4DY(MOD(IYOC,100)*1000000)/10**6
 	    ENDIF
 	ELSE
-	    IUPBS01 = -1
+	    IRET = -1
 	ENDIF
 
 	RETURN

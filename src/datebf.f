@@ -45,10 +45,12 @@ C> | 2005-11-29 | J. Ator    | Use igetdate(), iupbs01() and rdmsgw() |
 C> | 2009-03-23 | J. Ator    | Use idxmsg() and errwrt() |
 C> | 2012-09-15 | J. Woollen | Modified for C/I/O/BUFR interface; use new openbf type 'INX' to open and close the C file without closing the Fortran file |
 C> | 2014-12-10 | J. Ator    | Use modules instead of COMMON blocks |
-C>                           
-      SUBROUTINE DATEBF(LUNIT,MEAR,MMON,MDAY,MOUR,IDATE)
+C> | 2022-08-04 | J. Woollen | Added 8-byte wrapper |
+
+      RECURSIVE SUBROUTINE DATEBF(LUNIT,MEAR,MMON,MDAY,MOUR,IDATE)
 
       USE MODA_MGWA
+      USE MODV_IM8B
 
       COMMON /QUIET / IPRT
 
@@ -57,7 +59,26 @@ C>
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
 
+C  CHECK FOR I8 INTEGERS
+C  ---------------------
+
+      IF(IM8B) THEN
+         IM8B=.FALSE.
+
+         CALL X84(LUNIT,MY_LUNIT,1)
+         CALL DATEBF(MY_LUNIT,MEAR,MMON,MDAY,MOUR,IDATE)
+         CALL X48(MEAR,MEAR,1)
+         CALL X48(MMON,MMON,1)
+         CALL X48(MDAY,MDAY,1)
+         CALL X48(MOUR,MOUR,1)
+         CALL X48(IDATE,IDATE,1)
+
+         IM8B=.TRUE.
+         RETURN
+      ENDIF
+
 C  Initialization, in case OPENBF hasn't been called yet.
+C  ------------------------------------------------------
 
       IF ( .NOT. ALLOCATED(MGWA) ) THEN
         CALL OPENBF(LUNIT,'FIRST',LUNIT)

@@ -1,4 +1,7 @@
-	
+#ifdef INTSIZE_8
+        INTEGER*4	IGETSC
+#endif
+
 	REAL*8		r8ymd ( 3, 1 ),
      +			r8ltl ( 2, 1 ),
      +			r8oth ( 10, 1 )
@@ -15,6 +18,10 @@ C*----------------------------------------------------------------------
 	print *, 'testing BUFRLIB: writing OUT_2'
 	print *, '  using OPENBF IO = ''APX'' and embedded tables'
 	print *, '----------------------------------------------------'
+
+#ifdef INTSIZE_8
+	CALL SETIM8B ( .true. )
+#endif
 
 	CALL BVERS ( libvrsn )
 	print *, '        BVERS'
@@ -35,7 +42,6 @@ C*	Open the BUFR table and output file.
 
 	CALL OPENBF ( 11, 'APX', 12 )
 	print *, '        OPENBF'
-	print *, '        POSAPX'
 
 	IF ( IGETSC ( 11 ) .eq. 0 ) THEN
 	    print *, '        IGETSC'

@@ -35,13 +35,35 @@ C> <b>Program history log:</b>
 C> | Date | Programmer | Comments |
 C> | -----|------------|----------|
 C> | 2005-11-29 | J. Ator | Original author |
-C>
-	SUBROUTINE GETLENS(MBAY,LL,LEN0,LEN1,LEN2,LEN3,LEN4,LEN5)
+C> | 2022-08-04 | J. Woollen | Added 8-byte wrapper |
+
+	RECURSIVE SUBROUTINE GETLENS
+     .		(MBAY,LL,LEN0,LEN1,LEN2,LEN3,LEN4,LEN5)
+
+	USE MODV_IM8B
 
 	DIMENSION   MBAY(*)
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
+
+C       Check for I8 integers.
+
+	IF(IM8B) THEN
+	   IM8B=.FALSE.
+
+	   CALL X84(LL,MY_LL,1)
+	   CALL GETLENS(MBAY,MY_LL,LEN0,LEN1,LEN2,LEN3,LEN4,LEN5)
+	   CALL X48(LEN0,LEN0,1)
+	   CALL X48(LEN1,LEN1,1)
+	   CALL X48(LEN2,LEN2,1)
+	   CALL X48(LEN3,LEN3,1)
+	   CALL X48(LEN4,LEN4,1)
+	   CALL X48(LEN5,LEN5,1)
+
+	   IM8B=.TRUE.
+	   RETURN
+	ENDIF
 
 	LEN0 = -1
 	LEN1 = -1

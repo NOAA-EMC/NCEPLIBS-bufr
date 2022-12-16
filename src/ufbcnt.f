@@ -41,13 +41,30 @@ C> | 1994-01-06 | J. Woollen | Original author |
 C> | 1998-07-08 | J. Woollen | Replaced call to Cray library routine ABORT with call to new internal routine bort() |
 C> | 1999-11-18 | J. Woollen | The number of BUFR files which can be opened at one time increased from 10 to 32 |
 C> | 2014-12-10 | J. Ator    | Use modules instead of COMMON blocks |
-C>
-      SUBROUTINE UFBCNT(LUNIT,KMSG,KSUB)
+C> | 2022-10-04 | J. Ator    | Added 8-byte wrapper |
+
+      RECURSIVE SUBROUTINE UFBCNT(LUNIT,KMSG,KSUB)
 
       USE MODA_MSGCWD
+      USE MODV_IM8B
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
+
+C  CHECK FOR I8 INTEGERS
+C  ---------------------
+
+      IF(IM8B) THEN
+         IM8B=.FALSE.
+
+         CALL X84(LUNIT,MY_LUNIT,1)
+         CALL UFBCNT(MY_LUNIT,KMSG,KSUB)
+         CALL X48(KMSG,KMSG,1)
+         CALL X48(KSUB,KSUB,1)
+
+         IM8B=.TRUE.
+         RETURN
+      ENDIF
 
 C  CHECK THE FILE STATUS - RETURN THE MESSAGE AND SUBSET COUNTERS
 C  --------------------------------------------------------------
@@ -61,6 +78,6 @@ C  EXITS
 C  -----
 
       RETURN
-900   CALL BORT('BUFRLIB: STATUS - BUFR FILE IS CLOSED, IT MUST BE '//
+900   CALL BORT('BUFRLIB: UFBCNT - BUFR FILE IS CLOSED, IT MUST BE '//
      . 'OPEN FOR EITHER INPUT OR OUTPUT')
       END

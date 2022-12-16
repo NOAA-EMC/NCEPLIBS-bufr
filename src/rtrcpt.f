@@ -31,13 +31,33 @@ C> | -----|------------|----------|
 C> | 2009-03-23 | J. Ator | Original author |
 C> | 2013-10-07 | J. Ator | Modified to call rtrcptb() |
 C> | 2014-12-10 | J. Ator | Use modules instead of COMMON blocks |
-C>
-      SUBROUTINE RTRCPT(LUNIT,IYR,IMO,IDY,IHR,IMI,IRET)
+C> | 2022-10-04 | J. Ator | Added 8-byte wrapper |
 
+      RECURSIVE SUBROUTINE RTRCPT(LUNIT,IYR,IMO,IDY,IHR,IMI,IRET)
+
+      USE MODV_IM8B
       USE MODA_BITBUF
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
+
+C     Check for I8 integers.
+
+      IF(IM8B) THEN
+         IM8B=.FALSE.
+
+         CALL X84(LUNIT,MY_LUNIT,1)
+         CALL RTRCPT(MY_LUNIT,IYR,IMO,IDY,IHR,IMI,IRET)
+         CALL X48(IYR,IYR,1)
+         CALL X48(IMO,IMO,1)
+         CALL X48(IDY,IDY,1)
+         CALL X48(IHR,IHR,1)
+         CALL X48(IMI,IMI,1)
+         CALL X48(IRET,IRET,1)
+
+         IM8B=.TRUE.
+         RETURN
+      ENDIF
 
 C     Check the file status.
 

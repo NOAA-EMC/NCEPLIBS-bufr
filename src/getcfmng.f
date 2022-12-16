@@ -105,11 +105,13 @@ C> | Date | Programmer | Comments |
 C> | -----|------------|----------|
 C> | 2018-01-11 | J. Ator | Original author |
 C> | 2018-02-08 | J. Ator | Add special handling for data types and subtypes in Section 1 |
-C>
-	SUBROUTINE GETCFMNG ( LUNIT, NEMOI, IVALI, NEMOD, IVALD,
-     .			      CMEANG, LNMNG, IRET )
+C> | 2022-08-04 | J. Woollen | Added 8-byte wrapper |
+
+	RECURSIVE SUBROUTINE GETCFMNG
+     .      ( LUNIT, NEMOI, IVALI, NEMOD, IVALD, CMEANG, LNMNG, IRET )
 
 	USE MODA_TABABD
+        USE MODV_IM8B
 
 	COMMON /TABLEF/ CDMF
 
@@ -123,6 +125,23 @@ C>
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
+
+C*	Check for I8 integers.
+
+	IF(IM8B) THEN
+	  IM8B=.FALSE.
+
+	  CALL X84(LUNIT,MY_LUNIT,1)
+	  CALL X84(IVALI,MY_IVALI,1)
+	  CALL X84(IVALD,MY_IVALD,1)
+	  CALL GETCFMNG(MY_LUNIT,NEMOI,MY_IVALI,NEMOD,MY_IVALD,CMEANG,
+     .			LNMNG,IRET)
+	  CALL X48(LNMNG,LNMNG,1)
+	  CALL X48(IRET,IRET,1)
+
+	  IM8B=.TRUE.
+	  RETURN
+	ENDIF
 
 	CALL STATUS ( LUNIT, LUN, IL, IM )
 	IF ( IL .EQ. 0 ) GOTO 900

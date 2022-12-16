@@ -32,10 +32,12 @@ C> | Date | Programmer | Comments |
 C> | -----|------------|----------|
 C> | 2014-10-02 | J. Ator | Original version |
 C> | 2014-12-10 | J. Ator | Use modules instead of COMMON blocks |
-C>
-	SUBROUTINE NEMDEFS ( LUNIT, NEMO, CELEM, CUNIT, IRET )
+C> | 2022-08-04 | J. Woollen | Added 8-byte wrapper |
+
+	RECURSIVE SUBROUTINE NEMDEFS ( LUNIT, NEMO, CELEM, CUNIT, IRET )
 
 	USE MODA_TABABD
+        USE MODV_IM8B
 
 	CHARACTER*1   TAB
 
@@ -43,6 +45,19 @@ C>
 
 C----------------------------------------------------------------------
 C----------------------------------------------------------------------
+
+C	Check for I8 integers.
+
+	IF(IM8B) THEN
+	   IM8B=.FALSE.
+
+	   CALL X84 ( LUNIT, MY_LUNIT, 1 )
+	   CALL NEMDEFS ( MY_LUNIT, NEMO, CELEM, CUNIT, IRET )
+	   CALL X48 ( IRET, IRET, 1 )
+
+	   IM8B=.TRUE.
+	   RETURN
+	ENDIF
 
 	IRET = -1
 

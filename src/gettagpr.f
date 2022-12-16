@@ -37,17 +37,34 @@ C> | -----|------------|----------|
 C> | 2012-09-12 | J. Ator | Original author |
 C> | 2014-10-02 | J. Ator | Modified to use fstag() |
 C> | 2014-12-10 | J. Ator | Use modules instead of COMMON blocks |
-C>
-	SUBROUTINE GETTAGPR ( LUNIT, TAGCH, NTAGCH, TAGPR, IRET )
+C> | 2022-08-04 | J. Woollen | Added 8-byte wrapper |
+
+	RECURSIVE SUBROUTINE GETTAGPR
+     .		( LUNIT, TAGCH, NTAGCH, TAGPR, IRET )
 
 	USE MODA_USRINT
 	USE MODA_MSGCWD
 	USE MODA_TABLES
+        USE MODV_IM8B
 
 	CHARACTER*(*) TAGCH, TAGPR
 
 C----------------------------------------------------------------------
 C----------------------------------------------------------------------
+
+C	Check for I8 integers.
+
+	IF(IM8B) THEN
+	   IM8B=.FALSE.
+
+	   CALL X84 ( LUNIT, MY_LUNIT, 1 )
+	   CALL X84 ( NTAGCH, MY_NTAGCH, 1 )
+	   CALL GETTAGPR ( MY_LUNIT, TAGCH, MY_NTAGCH, TAGPR, IRET )
+	   CALL X48 ( IRET, IRET, 1 )
+
+	   IM8B=.TRUE.
+	   RETURN
+	ENDIF
 
 	IRET = -1
 

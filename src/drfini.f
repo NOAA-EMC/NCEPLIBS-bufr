@@ -58,20 +58,40 @@ C> | 2005-03-04 | J. Ator | Updated documentation |
 C> | 2014-09-08 | J. Ator | Increase NDRF limit from 100 to 200 |
 C> | 2014-12-10 | J. Ator | Use modules instead of COMMON blocks |
 C> | 2018-06-07 | J. Ator | Increase NDRF limit from 200 to 2000 |
-C>
-      SUBROUTINE DRFINI(LUNIT,MDRF,NDRF,DRFTAG)
+C> | 2022-08-04 | J. Woollen | Added 8-byte wrapper |
+
+      RECURSIVE SUBROUTINE DRFINI(LUNIT,MDRF,NDRF,DRFTAG)
 
       USE MODA_USRINT
       USE MODA_TABLES
+      USE MODV_IM8B
+
+      PARAMETER ( MXDRF = 2000 )
 
       CHARACTER*(*) DRFTAG
       CHARACTER*128 BORT_STR
-      DIMENSION     MDRF(NDRF)
+      DIMENSION     MDRF(*),LUNIT(*),NDRF(*)
+      DIMENSION     MY_MDRF(MXDRF),MY_LUNIT(1),MY_NDRF(1)
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
 
-      IF(NDRF.GT.2000) GOTO 900
+C  CHECK FOR I8 INTEGERS
+C  ---------------------
+
+      IF(IM8B) THEN
+         IM8B=.FALSE.
+
+         CALL X84(LUNIT,MY_LUNIT,1)
+         CALL X84(NDRF,MY_NDRF,1)
+         CALL X84(MDRF,MY_MDRF,MY_NDRF)
+         CALL DRFINI(MY_LUNIT,MY_MDRF,MY_NDRF,DRFTAG)
+
+         IM8B=.TRUE.
+         RETURN
+      ENDIF
+
+      IF(NDRF(1).GT.MXDRF) GOTO 900
 
       CALL STATUS(LUNIT,LUN,IL,IM)
 
@@ -95,6 +115,7 @@ C  -----
 
       RETURN
  900  WRITE(BORT_STR,'("BUFRLIB: DRFINI - THE NUMBER OF DELAYED '//
-     . 'REPLICATION FACTORS (",I5,") EXCEEDS THE LIMIT (2000)")') NDRF
+     . 'REPLICATION FACTORS (",I5,") EXCEEDS THE LIMIT (",I5,")")')
+     .  NDRF(1),MXDRF
       CALL BORT(BORT_STR)
       END

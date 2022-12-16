@@ -25,10 +25,25 @@ C> | 2003-11-04 | J. Ator    | Added documentation |
 C> | 2004-08-09 | J. Ator    | Maximum message length increased from 20,000 to 50,000 bytes |
 C> | 2005-11-29 | J. Ator    | Use pkbs1() |
 C> | 2014-12-10 | J. Ator    | Use modules instead of COMMON blocks |
-C>
-      SUBROUTINE MINIMG(LUNIT,MINI)
+C> | 2022-08-04 | J. Woollen | Added 8-byte wrapper |
+
+      RECURSIVE SUBROUTINE MINIMG(LUNIT,MINI)
 
       USE MODA_BITBUF
+      USE MODV_IM8B
+
+C     Check for I8 integers.
+
+      IF(IM8B) THEN
+         IM8B=.FALSE.
+
+         CALL X84(LUNIT,MY_LUNIT,1)
+         CALL X84(MINI,MY_MINI,1)
+         CALL MINIMG(MY_LUNIT,MY_MINI)
+
+         IM8B=.TRUE.
+         RETURN
+      ENDIF
 
       CALL STATUS(LUNIT,LUN,IL,IM)
       IF(IL.EQ.0) GOTO 900

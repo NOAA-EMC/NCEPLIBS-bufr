@@ -38,16 +38,32 @@ C> | Date | Programmer | Comments |
 C> | -----|------------|----------|
 C> | 1999-11-18 | J. Woollen | Original author |
 C> | 2002-05-14 | J. Woollen | Changed from an entry point to increase portability to other platforms |
-C>
-      FUNCTION IREADMM(IMSG,SUBSET,IDATE)
+C> | 2022-10-04 | J. Ator | Added 8-byte wrapper |
+
+      RECURSIVE FUNCTION IREADMM(IMSG,SUBSET,IDATE) RESULT(IRET)
+
+      USE MODV_IM8B
 
       CHARACTER*8 SUBSET
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
 
+C     Check for I8 integers.
+
+      IF(IM8B) THEN
+         IM8B=.FALSE.
+
+         CALL X84(IMSG,IMSG,1)
+         IRET=IREADMM(IMSG,SUBSET,IDATE)
+         CALL X48(IMSG,IMSG,1)
+         CALL X48(IDATE,IDATE,1)
+
+         IM8B=.TRUE.
+         RETURN
+      ENDIF
+
       CALL READMM(IMSG,SUBSET,IDATE,IRET)
-      IREADMM = IRET
 
       RETURN
       END

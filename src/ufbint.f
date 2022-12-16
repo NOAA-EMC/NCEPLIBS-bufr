@@ -35,17 +35,17 @@ C>                         - If ABS(LUNIN) was opened for output, then
 C>                           USR is input to this subroutine and
 C>                           contains data values that are to be
 C>                           written to the current data subset.
-C> @param[in] I1 -- integer: Actual first dimension of USR as allocated
+C> @param[in] I1 -- integer: First dimension of USR as allocated
 C>                  within the calling program
 C> @param[in] I2 -- integer:
 C>                    - If ABS(LUNIN) was opened for input, then I2
-C>                      must be set equal to the actual second dimension
+C>                      must be set equal to the second dimension
 C>                      of USR as allocated within the calling program
 C>                    - If ABS(LUNIN) was opened for output, then I2
 C>                      must be set equal to the number of replications
 C>                      of STR that are to be written to the data subset
 C> @param[out] IRET -- integer: Number of replications of STR that were
-C>                     actually read/written from/to the data subset
+C>                     read/written from/to the data subset
 C> @param[in] STR -- character*(*): String of blank-separated
 C>                   Table B mnemonics
 C>                   in one-to-one correspondence with the number of data
@@ -148,10 +148,13 @@ C> | 2003-11-04 | D. Keyser  | Unified/portable for WRF; added documentation; ou
 C> | 2004-08-18 | J. Ator    | Added SAVE for IFIRST1 and IFIRST2 flags |
 C> | 2009-04-21 | J. Ator    | Use errwrt() |
 C> | 2014-12-10 | J. Ator    | Use modules instead of COMMON blocks |
-C>
-      SUBROUTINE UFBINT(LUNIN,USR,I1,I2,IRET,STR)
+C> | 2022-10-04 | J. Ator    | Added 8-byte wrapper |
 
+      RECURSIVE SUBROUTINE UFBINT(LUNIN,USR,I1,I2,IRET,STR)
+
+      USE MODV_IM8B
       USE MODV_BMISS
+
       USE MODA_USRINT
       USE MODA_MSGCWD
 
@@ -168,6 +171,22 @@ C>
 
 C----------------------------------------------------------------------
 C----------------------------------------------------------------------
+
+C  CHECK FOR I8 INTEGERS
+C  ---------------------
+
+      IF(IM8B) THEN
+         IM8B=.FALSE.
+
+         CALL X84(LUNIN,MY_LUNIN,1)
+         CALL X84(I1,MY_I1,1)
+         CALL X84(I2,MY_I2,1)
+         CALL UFBINT(MY_LUNIN,USR,MY_I1,MY_I2,IRET,STR)
+         CALL X48(IRET,IRET,1)
+
+         IM8B=.TRUE.
+         RETURN
+      ENDIF
 
       IRET = 0
 

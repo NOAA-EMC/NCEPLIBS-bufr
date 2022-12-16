@@ -17,7 +17,7 @@ C> @param[out] IDATE   -- integer: date-time stored within Section 1 of
 C>                        BUFR message that was read, in format of either
 C>                        YYMMDDHH or YYYYMMDDHH, depending on the most
 C>                        recent call to subroutine datelen()
-C> @returns ireadmg -- integer:
+C> @returns ireadmg -- integer: Return code:
 C>                        - 0 = new BUFR message was successfully
 C>                              read into internal arrays
 C>                        - -1 = there are no more BUFR messages in the
@@ -35,11 +35,25 @@ C> | 1999-11-18 | J. Woollen | Added new function entry points ireadmm and iread
 C> | 2002-05-14 | J. Woollen | Removed entry points icopysb, ireadft, ireadibm, ireadmm, ireadns and ireadsb (they became separate routines in the BUFRLIB) |
 C> | 2003-11-04 | S. Bender  | Added remarks and routine interdependencies |
 C> | 2003-11-04 | D. Keyser  | Unified/portable for WRF; added history documentation |
-C>
-      FUNCTION IREADMG(LUNIT,SUBSET,IDATE)
+C> | 2022-08-04 | J. Woollen | Added 8-byte wrapper |
+
+      RECURSIVE FUNCTION IREADMG(LUNIT,SUBSET,IDATE) RESULT(IRET)
+
+      USE MODV_IM8B
 
       CHARACTER*8 SUBSET
+
+      IF(IM8B) THEN
+         IM8B=.FALSE.
+
+         CALL X84(LUNIT,MY_LUNIT,1)
+         IRET=IREADMG(MY_LUNIT,SUBSET,IDATE)
+         CALL X48(IDATE,IDATE,1)
+
+         IM8B=.TRUE.
+         RETURN
+      ENDIF
+
       CALL READMG(LUNIT,SUBSET,IDATE,IRET)
-      IREADMG = IRET
-      RETURN
-      END
+
+      END FUNCTION

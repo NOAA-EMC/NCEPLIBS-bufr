@@ -39,8 +39,11 @@ C> | 1999-11-18 | J. Woollen | Increased MAXMEM from 4 Mb to 8 Mb |
 C> | 2001-08-15 | D. Keyser  | Increased MAXMEM from 8 Mb to 16 Mb |
 C> | 2004-11-15 | D. Keyser  | Increased MAXMEM from 16 Mb to 50 Mb |
 C> | 2014-12-10 | J. Ator    | Use modules instead of COMMON blocks |
-C>
-      SUBROUTINE UFBMMS(IMSG,ISUB,SUBSET,JDATE)
+C> | 2022-10-04 | J. Ator    | Added 8-byte wrapper |
+
+      RECURSIVE SUBROUTINE UFBMMS(IMSG,ISUB,SUBSET,JDATE)
+
+      USE MODV_IM8B
 
       USE MODA_MSGCWD
       USE MODA_MSGMEM
@@ -50,6 +53,21 @@ C>
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
+
+C  CHECK FOR I8 INTEGERS
+C  ---------------------
+
+      IF(IM8B) THEN
+         IM8B=.FALSE.
+
+         CALL X84(IMSG,MY_IMSG,1)
+         CALL X84(ISUB,MY_ISUB,1)
+         CALL UFBMMS(MY_IMSG,MY_ISUB,SUBSET,JDATE)
+         CALL X48(JDATE,JDATE,1)
+
+         IM8B=.TRUE.
+         RETURN
+      ENDIF
 
 C  READ SUBSET #ISUB FROM MEMORY MESSAGE #IMSG
 C  -------------------------------------------

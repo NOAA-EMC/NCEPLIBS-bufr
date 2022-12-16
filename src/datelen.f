@@ -31,8 +31,11 @@ C> | 1998-07-08 | J. Woollen | Original author |
 C> | 2002-05-14 | J. Woollen | Changed from an entry point in readmg() to stand-alone subroutine, to increase portability to other platforms |
 C> | 2003-11-04 | J. Ator    | Added documentation |
 C> | 2004-12-20 | D. Keyser  | Calls wrdlen() to initialize local machine information, in case it has not yet been called |
-C>
-      SUBROUTINE DATELEN(LEN)
+C> | 2022-08-04 | J. Woollen | Added 8-byte wrapper |
+
+      RECURSIVE SUBROUTINE DATELEN(LEN)
+
+      USE MODV_IM8B
 
       COMMON /DATELN/ LENDAT
 
@@ -40,6 +43,19 @@ C>
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
+
+C  CHECK FOR I8 INTEGERS
+C  ---------------------
+
+      IF(IM8B) THEN
+         IM8B=.FALSE.
+
+         CALL X84(LEN,MY_LEN,1)
+         CALL DATELEN(MY_LEN)
+
+         IM8B=.TRUE.
+         RETURN
+      ENDIF
 
 C  CALL SUBROUTINE WRDLEN TO INITIALIZE SOME IMPORTANT INFORMATION
 C  ABOUT THE LOCAL MACHINE (IN CASE IT HAS NOT YET BEEN CALLED)

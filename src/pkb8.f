@@ -1,5 +1,5 @@
 C> @file
-C> @brief Encode an 8 byte integer value within an integer array.
+C> @brief Encode an 8-byte integer value within an integer array.
 
 C> This subroutine encodes an 8-byte integer value within a specified
 C> number of bits of an integer array, starting at the bit
@@ -28,9 +28,6 @@ C> <b>Program history log:</b>
 C> | Date | Programmer | Comments |
 C> | -----|------------|----------|
 C> | 2022-05-06 | J. Woollen | Original author |
-C>
-!----------------------------------------------------------------------
-!----------------------------------------------------------------------
 
       subroutine pkb8(nval,nbits,ibay,ibit)
 
@@ -45,6 +42,9 @@ C>
 
       equivalence (nval8,nvals)
 
+!----------------------------------------------------------------------
+!----------------------------------------------------------------------
+
       if(nbits<0 ) call bort('bufrlib: pkb8 - nbits < zero !!!!!')
       if(nbits>64) call bort('bufrlib: pkb8 - nbits > 64   !!!!!')
 
@@ -57,5 +57,3 @@ C>
       endif
 
       end subroutine
-
-

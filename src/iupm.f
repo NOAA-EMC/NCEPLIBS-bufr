@@ -1,45 +1,31 @@
 C> @file
-C> @author WOOLLEN @date 1994-01-06
-      
-C> THIS FUNCTION UNPACKS AND RETURNS A BINARY INTEGER WORD
-C>   CONTAINED WITHIN NBITS BITS OF A CHARACTER STRING CBAY, STARTING
-C>   WITH THE FIRST BIT OF THE FIRST BYTE OF CBAY.
-C>
-C> PROGRAM HISTORY LOG:
-C> 1994-01-06  J. WOOLLEN -- ORIGINAL AUTHOR
-C> 1998-07-08  J. WOOLLEN -- REPLACED CALL TO CRAY LIBRARY ROUTINE
-C>                           "ABORT" WITH CALL TO NEW INTERNAL BUFRLIB
-C>                           ROUTINE "BORT"
-C> 2003-11-04  J. ATOR    -- ADDED DOCUMENTATION
-C> 2003-11-04  J. WOOLLEN -- BIG-ENDIAN/LITTLE-ENDIAN INDEPENDENT (WAS
-C>                           IN DECODER VERSION)
-C> 2003-11-04  S. BENDER  -- ADDED REMARKS/BUFRLIB ROUTINE
-C>                           INTERDEPENDENCIES
-C> 2003-11-04  D. KEYSER  -- UNIFIED/PORTABLE FOR WRF; ADDED HISTORY
-C>                           DOCUMENTATION; OUTPUTS MORE COMPLETE
-C>                           DIAGNOSTIC INFO WHEN ROUTINE TERMINATES
-C>                           ABNORMALLY
-C>
-C> USAGE:    IUPM (CBAY, NBITS)
-C>   INPUT ARGUMENT LIST:
-C>     CBAY     - CHARACTER*8: CHARACTER STRING CONTAINING PACKED
-C>                INTEGER
-C>     NBITS    - INTEGER: NUMBER OF BITS WITHIN CBAY TO BE UNPACKED
-C>
-C>   OUTPUT ARGUMENT LIST:
-C>     IUPM     - INTEGER: UNPACKED INTEGER WORD
-C>
-C> REMARKS:
-C>    THIS ROUTINE CALLS:        BORT     IREV
-C>    THIS ROUTINE IS CALLED BY: CHRTRNA  CRBMG    DXMINI   ICBFMS
-C>                               PKC      PKTDD    UPC      UPTDD
-C>                               WRDLEN   WRDXTB
-C>                               Normally not called by any application
-C>                               programs.
-C>
-      FUNCTION IUPM(CBAY,NBITS)
+C> @brief Decode an integer value from a character string.
 
+C> This function decodes an integer value from within a
+C> specified number of bits of a character string, starting
+C> with the first bit of the first byte of the string.
+C>
+C> @author J. Woollen
+C> @date 1994-01-06
+C>
+C> @param[in] CBAY   -- character*(*): String
+C> @param[in] NBITS  -- integer: Number of bits from CBAY to be decoded
+C> @returns iupm     -- integer: Decoded value
+C>
+C> <b>Program history log:</b>
+C> | Date | Programmer | Comments |
+C> | -----|------------|----------|
+C> | 1994-01-06 | J. Woollen | Original author |
+C> | 1998-07-08 | J. Woollen | Replaced call to Cray library routine ABORT with call to new internal routine bort() |
+C> | 2003-11-04 | J. Woollen | Modified to be endian-independent |
+C> | 2003-11-04 | J. Ator    | Added documentation |
+C> | 2003-11-04 | S. Bender  | Added remarks and routine interdependencies |
+C> | 2003-11-04 | D. Keyser  | Unified/portable for WRF; added documentation; outputs more complete diagnostic info when routine terminates abnormally |
+C> | 2022-10-04 | J. Ator    | Added 8-byte wrapper |
 
+      RECURSIVE FUNCTION IUPM(CBAY,NBITS) RESULT(IRET)
+
+      USE MODV_IM8B
 
       COMMON /HRDWRD/ NBYTW,NBITW,IORD(8)
 
@@ -52,10 +38,22 @@ C>
 C----------------------------------------------------------------------
 C----------------------------------------------------------------------
 
+C     Check for I8 integers.
+
+      IF(IM8B) THEN
+         IM8B=.FALSE.
+
+         CALL X84(NBITS,MY_NBITS,1)
+         IRET = IUPM(CBAY,MY_NBITS)
+
+         IM8B=.TRUE.
+         RETURN
+      ENDIF
+
       IF(NBITS.GT.NBITW) GOTO 900
       CINT = CBAY
       INT(1) = IREV(INT(1))
-      IUPM = ISHFT(INT(1),NBITS-NBITW)
+      IRET = ISHFT(INT(1),NBITS-NBITW)
 
 C  EXITS
 C  -----

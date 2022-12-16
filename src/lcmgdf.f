@@ -40,8 +40,11 @@ C> | Date | Programmer | Comments |
 C> | -----|------------|----------|
 C> | 2009-07-09 | J. Ator | Original author |
 C> | 2014-12-10 | J. Ator | Use modules instead of COMMON blocks |
-C>
-      INTEGER FUNCTION LCMGDF(LUNIT,SUBSET)
+C> | 2022-10-04 | J. Ator | Added 8-byte wrapper |
+
+      RECURSIVE FUNCTION LCMGDF(LUNIT,SUBSET) RESULT(IRET)
+
+      USE MODV_IM8B
 
       USE MODA_TABLES
 
@@ -49,6 +52,18 @@ C>
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
+
+C     Check for I8 integers.
+
+      IF(IM8B) THEN
+         IM8B=.FALSE.
+
+         CALL X84(LUNIT,MY_LUNIT,1)
+         IRET=LCMGDF(MY_LUNIT,SUBSET)
+
+         IM8B=.TRUE.
+         RETURN
+      ENDIF
 
 C     Get LUN from LUNIT.
 
@@ -65,12 +80,12 @@ C     Check if there's a long character string in the definition.
 
       DO I = 1, NTE
         IF ( (TYP(INOD+I).EQ.'CHR') .AND. (IBT(INOD+I).GT.64) ) THEN
-          LCMGDF = 1
+          IRET = 1
           RETURN
         ENDIF
       ENDDO
 
-      LCMGDF = 0
+      IRET = 0
 
       RETURN
 900   CALL BORT('BUFRLIB: LCMGDF - INPUT BUFR FILE IS CLOSED, IT MUST'//

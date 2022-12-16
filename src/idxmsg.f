@@ -19,13 +19,27 @@ C> <b>Program history log:</b>
 C> | Date | Programmer | Comments |
 C> | -----|------------|----------|
 C> | 2009-03-23 | J. Ator | Original author |
-C>
-	FUNCTION IDXMSG( MESG )
+C> | 2022-10-04 | J. Ator | Added 8-byte wrapper |
+
+	RECURSIVE FUNCTION IDXMSG( MESG ) RESULT( IRET )
+
+	USE MODV_IM8B
 
 	DIMENSION MESG(*)
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
+
+C	Check for I8 integers.
+
+	IF(IM8B) THEN
+	    IM8B=.FALSE.
+
+	    IRET = IDXMSG( MESG )
+
+	    IM8B=.TRUE.
+	    RETURN
+	END IF
 
 C	Note that the following test relies upon logic within subroutine
 C	DXMINI which zeroes out the Section 1 date of all DX dictionary 
@@ -35,9 +49,9 @@ C	messages.
      .       (IUPBS01(MESG,'MNTH').EQ.0) .AND.
      .       (IUPBS01(MESG,'DAYS').EQ.0) .AND.
      .       (IUPBS01(MESG,'HOUR').EQ.0) ) THEN
-	   IDXMSG = 1
+	   IRET = 1
 	ELSE
-	   IDXMSG = 0
+	   IRET = 0
 	END IF
 
 	RETURN

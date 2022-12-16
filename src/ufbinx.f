@@ -33,6 +33,7 @@ C>                           JUST AT THE BEGINNING!)
 C> 2012-09-15  J. WOOLLEN -- MODIFIED FOR C/I/O/BUFR INTERFACE
 C>                           USE 'INX' ARGUMENT TO OPENBF
 C> 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
+C> 2022-10-04  J. ATOR    -- ADDED 8-BYTE WRAPPER
 C>
 C> USAGE:    CALL UFBINX (LUNIT, IMSG, ISUB, USR, I1, I2, IRET, STR)
 C>   INPUT ARGUMENT LIST:
@@ -68,7 +69,9 @@ C>    THIS ROUTINE IS CALLED BY: None
 C>                               Normally called only by application
 C>                               programs.
 C>
-      SUBROUTINE UFBINX(LUNIT,IMSG,ISUB,USR,I1,I2,IRET,STR)
+      RECURSIVE SUBROUTINE UFBINX(LUNIT,IMSG,ISUB,USR,I1,I2,IRET,STR)
+
+      USE MODV_IM8B
 
       USE MODA_MSGCWD
       USE MODA_BITBUF
@@ -81,6 +84,24 @@ C>
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
+
+C  CHECK FOR I8 INTEGERS
+C  ---------------------
+
+      IF(IM8B) THEN
+         IM8B=.FALSE.
+
+         CALL X84(LUNIT,MY_LUNIT,1)
+         CALL X84(IMSG,MY_IMSG,1)
+         CALL X84(ISUB,MY_ISUB,1)
+         CALL X84(I1,MY_I1,1)
+         CALL X84(I2,MY_I2,1)
+         CALL UFBINX(MY_LUNIT,MY_IMSG,MY_ISUB,USR,MY_I1,MY_I2,IRET,STR)
+         CALL X48(IRET,IRET,1)
+
+         IM8B=.TRUE.
+         RETURN
+      ENDIF
 
       CALL STATUS(LUNIT,LUN,IL,IM)
       OPENIT = IL.EQ.0

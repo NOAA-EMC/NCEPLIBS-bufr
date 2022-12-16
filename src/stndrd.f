@@ -32,10 +32,12 @@ C> | 2005-11-29 | J. Ator | Use getlens() and iupbs01(); ensure that byte 4 of S
 C> | 2009-03-23 | J. Ator | Use iupbs3() and nemtbax(); don't assume that compressed messages are already fully standardized within Section 3 |
 C> | 2014-02-04 | J. Ator | Account for subsets with byte count > 65530 |
 C> | 2020-07-16 | J. Ator | Fix bug in ISLEN computation when NSUB = 1 |
-C>
-      SUBROUTINE STNDRD(LUNIT,MSGIN,LMSGOT,MSGOT)
+C> | 2022-10-04 | J. Ator | Added 8-byte wrapper |
+
+      RECURSIVE SUBROUTINE STNDRD(LUNIT,MSGIN,LMSGOT,MSGOT)
 
       USE MODV_MAXNC
+      USE MODV_IM8B
 
       DIMENSION ICD(MAXNC)
 
@@ -52,6 +54,20 @@ C>
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
+
+C  CHECK FOR I8 INTEGERS
+C  ---------------------
+
+      IF(IM8B) THEN
+         IM8B=.FALSE.
+
+         CALL X84 ( LUNIT, MY_LUNIT, 1 )
+         CALL X84 ( LMSGOT, MY_LMSGOT, 1 )
+         CALL STNDRD ( MY_LUNIT, MSGIN, MY_LMSGOT*2, MSGOT )
+
+         IM8B=.TRUE.
+         RETURN
+      ENDIF
 
 C  LUNIT MUST POINT TO AN OPEN BUFR FILE
 C  -------------------------------------

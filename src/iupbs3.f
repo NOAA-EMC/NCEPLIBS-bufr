@@ -30,8 +30,11 @@ C> <b>Program history log:</b>
 C> | Date | Programmer | Comments |
 C> | -----|------------|----------|
 C> | 2009-03-23 | J. Ator | Original author |
-C>
-      FUNCTION IUPBS3(MBAY,S3MNEM)
+C> | 2022-10-04 | J. Ator | Added 8-byte wrapper |
+
+	RECURSIVE FUNCTION IUPBS3(MBAY,S3MNEM) RESULT(IRET)
+
+	USE MODV_IM8B
 
 	DIMENSION	MBAY(*)
 
@@ -39,6 +42,17 @@ C>
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
+
+C       Check for I8 integers.
+
+	IF(IM8B) THEN
+	    IM8B=.FALSE.
+
+	    IRET = IUPBS3(MBAY,S3MNEM)
+
+	    IM8B=.TRUE.
+	    RETURN
+	ENDIF
 
 C	Call subroutine WRDLEN to initialize some important information
 C	about the local machine, just in case subroutine OPENBF hasn't
@@ -54,7 +68,7 @@ C	Skip to the beginning of Section 3.
 C	Unpack the requested value.
 
 	IF(S3MNEM.EQ.'NSUB') THEN
-	    IUPBS3 = IUPB(MBAY,IPT+5,16)
+	    IRET = IUPB(MBAY,IPT+5,16)
 	ELSE IF( (S3MNEM.EQ.'IOBS') .OR. (S3MNEM.EQ.'ICMP') ) THEN
 	    IVAL = IUPB(MBAY,IPT+7,8)
 	    IF(S3MNEM.EQ.'IOBS') THEN
@@ -62,9 +76,9 @@ C	Unpack the requested value.
 	    ELSE
 		IMASK = 64
 	    ENDIF
-	    IUPBS3 = MIN(1,IAND(IVAL,IMASK))
+	    IRET = MIN(1,IAND(IVAL,IMASK))
 	ELSE
-	    IUPBS3 = -1
+	    IRET = -1
 	ENDIF
 
 	RETURN

@@ -1,40 +1,55 @@
 C> @file
-C> @author ATOR @date 2005-11-29
+C> @brief Get Table B and Table D information from the internal DX BUFR
+C> tables
       
-C> THIS SUBROUTINE RETURNS INTERNAL TABLE B AND TABLE D
-C>   INFORMATION FOR LOGICAL UNIT LUNIT IN A PRE-DEFINED ASCII FORMAT.
+C> This subroutine reads Table B and Table D information from the
+C> internal DX BUFR tables for a specified Fortran logical unit, then
+C> returns this information in a pre-defined ASCII format.
 C>
-C> PROGRAM HISTORY LOG:
-C> 2005-11-29  J. ATOR    -- ADDED TO BUFR ARCHIVE LIBRARY (WAS IN-LINED
-C>                           IN PROGRAM NAMSND)
-C> 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
+C> @author J. Ator
+C> @date 2005-11-29
 C>
-C> USAGE:    CALL GETABDB( LUNIT, TABDB, ITAB, JTAB )
-C>   INPUT ARGUMENT LIST:
-C>     LUNIT    - INTEGER: FORTRAN LOGICAL UNIT NUMBER FOR BUFR FILE
-C>     ITAB     - INTEGER: DIMENSIONED SIZE OF TABDB ARRAY
+C> @param[in] LUNIT -- integer: Fortran logical unit number for BUFR file
+C> @param[in] ITAB  -- integer: Dimensioned size of TABDB array; used
+C>                     by the subroutine to ensure that it doesn't
+C>                     overflow the TABDB array
+C> @param[out] TABDB -- character*128(*): Internal Table B and Table D
+C>                      information
+C> @param[out] JTAB -- integer: Number of entries stored within TABDB
 C>
-C>   OUTPUT ARGUMENT LIST:
-C>     TABDB    - CHARACTER*128: (JTAB)-WORD ARRAY OF INTERNAL TABLE B
-C>                AND TABLE D INFORMATION
-C>     JTAB     - INTEGER: NUMBER OF ENTRIES STORED WITHIN TABDB
-C>
-C> REMARKS:
-C>    THIS ROUTINE CALLS:        NEMTBD   STATUS
-C>    THIS ROUTINE IS CALLED BY: None
-C>                               Normally called only by application
-C>                               programs.
-C>
-      SUBROUTINE GETABDB(LUNIT,TABDB,ITAB,JTAB)
+C> <b>Program history log:</b>
+C> | Date       | Programmer | Comments             |
+C> | -----------|------------|----------------------|
+C> | 2005-11-29 | J. Ator    | Original author      |
+C> | 2014-12-10 | J. Ator    | Use modules instead of COMMON blocks |
+C> | 2022-08-04 | J. Woollen | Added 8-byte wrapper |
+
+      RECURSIVE SUBROUTINE GETABDB(LUNIT,TABDB,ITAB,JTAB)
 
       USE MODA_TABABD
       USE MODA_NMIKRP
+      USE MODV_IM8B
 
       CHARACTER*128 TABDB(*)
       CHARACTER*8   NEMO
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
+
+C  CHECK FOR I8 INTEGERS
+C  ---------------------
+
+      IF(IM8B) THEN
+         IM8B=.FALSE.
+
+         CALL X84(LUNIT,MY_LUNIT,1)
+         CALL X84(ITAB,MY_ITAB,1)
+         CALL GETABDB(MY_LUNIT,TABDB,MY_ITAB,JTAB)
+         CALL X48(JTAB,JTAB,1)
+
+         IM8B=.TRUE.
+         RETURN
+      ENDIF
 
       JTAB = 0
 

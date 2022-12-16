@@ -30,15 +30,30 @@ C> | 2003-11-04 | D. Keyser  | Unified/portable for WRF; added history documenta
 C> | 2012-09-15 | J. Woollen | Modified for C/I/O/BUFR interface; added call to closfb() to close C files |
 C> | 2014-12-10 | J. Ator    | Use modules instead of COMMON blocks |
 C> | 2020-07-16 | J. Ator    | Add sanity check to ensure that openbf() was previously called (needed for GSI) |
-C> 
-      SUBROUTINE CLOSBF(LUNIT)
+C> | 2022-08-04 | J. Woollen | Added 8-byte wrapper |
+
+      RECURSIVE SUBROUTINE CLOSBF(LUNIT)
 
       USE MODA_NULBFR
+      USE MODV_IM8B
 
       CHARACTER*128 ERRSTR
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
+
+C  CHECK FOR I8 INTEGERS
+C  ---------------------
+
+      IF(IM8B) THEN
+         IM8B=.FALSE.
+
+         CALL X84(LUNIT,MY_LUNIT,1)
+         CALL CLOSBF(MY_LUNIT)
+
+         IM8B=.TRUE.
+         RETURN
+      ENDIF
 
       IF ( .NOT. ALLOCATED(NULL) ) THEN
         CALL ERRWRT('++++++++++++++++++++WARNING++++++++++++++++++++++')

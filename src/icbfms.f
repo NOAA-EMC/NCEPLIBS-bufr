@@ -27,8 +27,11 @@ C> | -----|------------|----------|
 C> | 2012-06-07 | J. Ator | Original author |
 C> | 2015-03-10 | J. Woollen | Improved logic for testing legacy cases prior to BUFRLIB V10.2.0 |
 C> | 2016-02-12 | J. Ator | Modified for CRAYFTN compatibility |
-C>
-	INTEGER FUNCTION ICBFMS ( STR, LSTR )
+C> | 2022-10-04 | J. Ator | Added 8-byte wrapper |
+
+	RECURSIVE FUNCTION ICBFMS ( STR, LSTR ) RESULT ( IRET )
+
+	USE MODV_IM8B
 
 	CHARACTER*(*)	STR
 
@@ -49,7 +52,19 @@ C*		10E10 stored as hexadecimal on a little-endian system.
 
 C-----------------------------------------------------------------------
 
-	ICBFMS = 0
+C	Check for I8 integers.
+
+	IF ( IM8B ) THEN
+	    IM8B = .FALSE.
+
+	    CALL X84 ( LSTR, MY_LSTR, 1 )
+	    IRET = ICBFMS ( STR, MY_LSTR )
+
+	    IM8B = .TRUE.
+	    RETURN
+	END IF
+
+	IRET = 0
 
 	NUMCHR = MIN(LSTR,LEN(STR))
 
@@ -69,7 +84,7 @@ C	cases, at least for strings between 4 and 8 bytes in length.
 	    I = 2*(8-NUMCHR)+1
 	    N = 16
 	    IF ( ZZ(I:N).EQ.ZM_BE(I:N) .OR. ZZ(I:N).EQ.ZM_LE(I:N) ) THEN
-		ICBFMS = 1
+		IRET = 1
 		RETURN
 	    END IF
 	END IF
@@ -82,7 +97,7 @@ C*	including those encoded by BUFRLIB version 10.2.0 or later.
 	   IF ( IUPM(STR(I:I),8).NE.255 ) RETURN
 	ENDDO
 
-	ICBFMS = 1
+	IRET = 1
 
 	RETURN
 	END

@@ -1,54 +1,39 @@
 C> @file
-C> @author WOOLLEN @date 1994-01-06
-      
-C> THIS SUBROUTINE UNPACKS AND RETURNS A BINARY INTEGER
-C>   CONTAINED WITHIN NBITS BITS OF IBAY, STARTING WITH BIT (IBIT+1).
-C>   ON OUTPUT, IBIT IS UPDATED TO POINT TO THE LAST BIT THAT WAS
-C>   UNPACKED.  THIS IS SIMILAR TO BUFR ARCHIVE LIBRARY SUBROUTINE UPBB,
-C>   EXCEPT IN UPBB IBIT IS NOT UPDATED UPON OUTPUT (AND THE ORDER OF
-C>   ARGUMENTS IS DIFFERENT).
+C> @brief Decode an integer value from an integer array.
+
+C> This subroutine decodes an integer value from within a specified
+C> number of bits of an integer array, starting at the bit
+C> immediately after a specified bit within the array.
 C>
-C> PROGRAM HISTORY LOG:
-C> 1994-01-06  J. WOOLLEN -- ORIGINAL AUTHOR
-C> 2003-05-19  J. ATOR    -- ADDED CHECK FOR NBITS EQUAL TO ZERO
-C> 2003-11-04  J. ATOR    -- ADDED DOCUMENTATION
-C> 2003-11-04  J. WOOLLEN -- BIG-ENDIAN/LITTLE-ENDIAN INDEPENDENT (WAS
-C>                           IN DECODER VERSION)
-C> 2003-11-04  S. BENDER  -- ADDED REMARKS/BUFRLIB ROUTINE
-C>                           INTERDEPENDENCIES
-C> 2003-11-04  D. KEYSER  -- UNIFIED/PORTABLE FOR WRF; ADDED HISTORY
-C>                           DOCUMENTATION
-C> 2009-03-23  J. ATOR    -- REWROTE TO CALL UPBB
+C> <p>It is similar to subroutine upbb(), except that here IBIT is
+C> both an input and an output argument, and the overall order
+C> of the arguments is different.
 C>
-C> USAGE:    CALL UPB (NVAL, NBITS, IBAY, IBIT)
-C>   INPUT ARGUMENT LIST:
-C>     NBITS    - INTEGER: NUMBER OF BITS OF IBAY WITHIN WHICH TO UNPACK
-C>                NVAL
-C>     IBAY     - INTEGER: *-WORD PACKED BINARY ARRAY CONTAINING PACKED
-C>                NVAL
-C>     IBIT     - INTEGER: BIT POINTER WITHIN IBAY INDICATING BIT AFTER
-C>                WHICH TO START UNPACKING
+C> @author J. Woollen
+C> @date 1994-01-06
 C>
-C>   OUTPUT ARGUMENT LIST:
-C>     NVAL     - INTEGER: UNPACKED INTEGER
-C>     IBIT     - INTEGER: BIT POINTER WITHIN IBAY INDICATING LAST BIT
-C>                THAT WAS UNPACKED
+C> @param[in] IBAY    -- integer(*): Array containing encoded value
+C> @param[in,out] IBIT -- integer: Bit pointer within IBAY
+C>                        - On input, IBIT points to the bit within
+C>                          IBAY after which to begin decoding NVAL.
+C>                        - On output, IBIT points to the last bit
+C>                          of IBAY which contained the decoded NVAL.
+C> @param[in] NBITS   -- integer: Number of bits to be decoded
+C> @param[out] NVAL   -- integer: Decoded value
 C>
-C> REMARKS:
-C>    THIS SUBROUTINE IS THE INVERSE OF BUFR ARCHIVE LIBRARY ROUTINE
-C>    PKB.
+C> @remarks
+C> - This subroutine is the logical inverse of subroutine pkb().
 C>
-C>    THIS ROUTINE CALLS:        UPBB
-C>    THIS ROUTINE IS CALLED BY: COPYSB   IUPB     MVB      RDCMPS
-C>                               RDMGSB   READSB   STNDRD   UFBINX
-C>                               UFBPOS   UFBTAB   UFBTAM   UPC
-C>                               WRCMPS   WRITLC
-C>                               Normally not called by any application
-C>                               programs.
-C>
+C> <b>Program history log:</b>
+C> | Date | Programmer | Comments |
+C> | -----|------------|----------|
+C> | 1994-01-06 | J. Woollen | Original author |
+C> | 2003-11-04 | J. Ator    | Added documentation |
+C> | 2003-11-04 | J. Woollen | Modified to be endian-independent |
+C> | 2003-11-04 | D. Keyser  | Unified/portable for WRF; added documentation |
+C> | 2009-03-23 | J. Ator    | Rewrote to call upbb() |
+
       SUBROUTINE UPB(NVAL,NBITS,IBAY,IBIT)
-
-
 
       DIMENSION IBAY(*)
 

@@ -61,11 +61,13 @@ C> | 2009-03-23 | J. Ator    | Modified to handle embedded DX tables |
 C> | 2012-09-15 | J. Woollen | Modified for C/I/O/BUFR interface; call status() to get LUN; replace Fortran REWIND and BACKSPACE with C routines cewind() and backbufr() |
 C> | 2014-12-10 | J. Ator    | Use modules instead of COMMON blocks |
 C> | 2015-09-24 | D. Stokes  | Fix missing declaration of COMMON /QUIET/ |
-C>
-      SUBROUTINE UFBMEM(LUNIT,INEW,IRET,IUNIT)
+C> | 2022-10-04 | J. Ator    | Added 8-byte wrapper |
+
+      RECURSIVE SUBROUTINE UFBMEM(LUNIT,INEW,IRET,IUNIT)
 
       USE MODV_MAXMEM
       USE MODV_MAXMSG
+      USE MODV_IM8B
 
       USE MODA_MGWA
       USE MODA_MSGMEM
@@ -76,6 +78,22 @@ C>
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
+
+C  CHECK FOR I8 INTEGERS
+C  ---------------------
+
+      IF(IM8B) THEN
+         IM8B=.FALSE.
+
+         CALL X84(LUNIT,MY_LUNIT,1)
+         CALL X84(INEW,MY_INEW,1)
+         CALL UFBMEM(MY_LUNIT,MY_INEW,IRET,IUNIT)
+         CALL X48(IRET,IRET,1)
+         CALL X48(IUNIT,IUNIT,1)
+
+         IM8B=.TRUE.
+         RETURN
+      ENDIF
 
 C  TRY TO OPEN BUFR FILE AND SET TO INITIALIZE OR CONCATENATE
 C  ----------------------------------------------------------

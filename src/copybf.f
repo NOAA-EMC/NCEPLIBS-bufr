@@ -33,13 +33,28 @@ C> | 2004-08-09 | J. Ator    | Maximum message length increased from 20,000 to 5
 C> | 2005-11-29 | J. Ator    | Use rdmsgw() and iupbs01() |
 C> | 2012-09-15 | J. Woollen | Modified for C/I/O/BUFR interface; use status() |
 C> | 2014-12-10 | J. Ator    | Use modules instead of COMMON blocks |
-C>
-      SUBROUTINE COPYBF(LUNIN,LUNOT)
+C> | 2022-08-04 | J. Woollen | Added 8-byte wrapper |
+
+      RECURSIVE SUBROUTINE COPYBF(LUNIN,LUNOT)
 
       USE MODA_MGWA
+      USE MODV_IM8B
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
+
+C  CHECK FOR I8 INTEGERS
+C  ---------------------
+      IF(IM8B) THEN
+         IM8B=.FALSE.
+
+         CALL X84(LUNIN,MY_LUNIN,1)
+         CALL X84(LUNOT,MY_LUNOT,1)
+         CALL COPYBF(MY_LUNIN,MY_LUNOT)
+
+         IM8B=.TRUE.
+         RETURN
+      ENDIF
 
 C  CALL SUBROUTINE WRDLEN TO INITIALIZE SOME IMPORTANT INFORMATION
 C  ABOUT THE LOCAL MACHINE (IN CASE IT HAS NOT YET BEEN CALLED)

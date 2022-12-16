@@ -16,10 +16,12 @@ C> | -----|------------|----------|
 C> | 2009-03-23 | J. Ator    | Original author |
 C> | 2012-09-15 | J. Woollen | Modified for C/I/O/BUFR interface; replace Fortran BACKSPACE with C backbufr() |
 C> | 2014-12-10 | J. Ator    | Use modules instead of COMMON blocks |
-C>
-	SUBROUTINE CPDXMM( LUNIT )
+C> | 2022-08-04 | J. Woollen | Added 8-byte wrapper |
+
+	RECURSIVE SUBROUTINE CPDXMM( LUNIT )
 
         USE MODV_MXDXTS
+        USE MODV_IM8B
 
 	USE MODA_MGWA
 	USE MODA_MSGMEM
@@ -32,6 +34,18 @@ C>
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
+
+C	Check for I8 integers
+
+	IF(IM8B) THEN
+	   IM8B=.FALSE.
+
+	   CALL X84(LUNIT,MY_LUNIT,1)
+	   CALL CPDXMM(MY_LUNIT)
+
+	   IM8B=.TRUE.
+	   RETURN
+	ENDIF
 
 	IF ( NDXTS .GE. MXDXTS ) GOTO 900
 

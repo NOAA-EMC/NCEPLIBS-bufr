@@ -1,3 +1,6 @@
+#ifdef INTSIZE_8
+	INTEGER*4	IREADNS
+#endif
 
 	PARAMETER	( MXR8PM = 6 )
 	PARAMETER	( MXR8LV = 50 )
@@ -13,6 +16,10 @@ C*----------------------------------------------------------------------
 	print *, '  using PREPBUFR and code/flag table meaning strings'
 	print *, '----------------------------------------------------'
 
+#ifdef INTSIZE_8
+	CALL SETIM8B ( .true. )
+#endif
+
 	OPEN  ( UNIT = 11, FILE = 'testfiles/IN_5', FORM ='UNFORMATTED')
 
 	CALL OPENBF ( 11, 'IN', 11 )
@@ -26,7 +33,11 @@ C*----------------------------------------------------------------------
 
 	print *, '        CODFLG -> OK'
 
-	IF ( IREADNS ( 11, cmgtag, imgdt ) .eq. 0 ) THEN
+	IF ( IREADNS ( 11, cmgtag, imgdt ) .ne. 0 ) THEN
+
+	    print *, '       IREADNS -> FAILED!!'
+
+	ELSE
 
 	    print *, '       IREADNS -> OK'
 
@@ -56,6 +67,7 @@ C*	    Retrieve and check some code/flag meaning strings.
             ELSE
 	        print *, '      GETCFMNG -> FAILED!!'
             ENDIF
+
 	ENDIF
 
 	STOP

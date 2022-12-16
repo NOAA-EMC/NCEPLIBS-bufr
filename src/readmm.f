@@ -10,8 +10,8 @@ C> arrays in memory via one or more previous calls to
 C> subroutine ufbmem().
 C>
 C> <p>This subroutine is similar to subroutine rdmemm(), except that
-C> it increments the value of IMSG prior to returning to the calling
-C> program, which in turn allows the subroutine to be easily called
+C> this subroutine increments the value of IMSG prior to returning to
+C> the calling program, which in turn allows it to be easily called
 C> within an iterative program loop.
 C>
 C> @author J. Woollen
@@ -50,13 +50,31 @@ C> | 2003-11-04 | D. Keyser  | Unified/portable for WRF; added documentation; ou
 C> | 2004-08-09 | J. Ator    | Maximum message length increased from 20,000 to 50,000 bytes |
 C> | 2004-11-15 | D. Keyser  | Increased MAXMEM from 16 Mb to 50 Mb |
 C> | 2009-03-23 | J. Ator    | Rewrote to call rdmemm() |
-C>
-      SUBROUTINE READMM(IMSG,SUBSET,JDATE,IRET)
+C> | 2022-08-04 | J. Ator    | Added 8-byte wrapper |
+
+      RECURSIVE SUBROUTINE READMM(IMSG,SUBSET,JDATE,IRET)
+
+      USE MODV_IM8B
 
       CHARACTER*8 SUBSET
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
+
+C     Check for I8 integers.
+
+      IF(IM8B) THEN
+         IM8B=.FALSE.
+
+         CALL X84(IMSG,IMSG,1)
+         CALL READMM(IMSG,SUBSET,JDATE,IRET)
+         CALL X48(IMSG,IMSG,1)
+         CALL X48(JDATE,JDATE,1)
+         CALL X48(IRET,IRET,1)
+
+         IM8B=.TRUE.
+         RETURN
+      ENDIF
 
       CALL RDMEMM(IMSG,SUBSET,JDATE,IRET)
 

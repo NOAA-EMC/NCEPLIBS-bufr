@@ -130,8 +130,6 @@ int main( int argc, char *argv[] ) {
 
 	unsigned long i, filesize, noutfile;
 
-	unsigned short ii;
-
 	/*
 	**  Get the valid options from the command line:
 	*/

@@ -27,20 +27,35 @@ C> | Date | Programmer | Comments |
 C> | -----|------------|----------|
 C> | 2010-05-11 | J. Ator | Original author |
 C> | 2014-12-10 | J. Ator | Use modules instead of COMMON blocks |
-C>
-      FUNCTION IGETSC(LUNIT)
+C> | 2022-10-04 | J. Ator | Added 8-byte wrapper |
+
+      RECURSIVE FUNCTION IGETSC(LUNIT) RESULT(IRET)
+
+      USE MODV_IM8B
 
       USE MODA_STCODE
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
 
+C     Check for I8 integers.
+
+      IF (IM8B) THEN
+        IM8B = .FALSE.
+
+        CALL X84(LUNIT,MY_LUNIT,1)
+        IRET = IGETSC(MY_LUNIT)
+
+        IM8B = .TRUE.
+        RETURN
+      END IF
+
 C     Make sure the specified logical unit is connected to the library.
 
       CALL STATUS(LUNIT,LUN,IL,IM)
       IF(IL.EQ.0) GOTO 900
 
-      IGETSC = ISCODES(LUN)
+      IRET = ISCODES(LUN)
 
       RETURN
  900  CALL BORT('BUFRLIB: IGETSC - BUFR FILE IS CLOSED, IT MUST BE'//

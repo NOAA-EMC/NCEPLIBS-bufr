@@ -69,8 +69,11 @@ C> | Date | Programmer | Comments |
 C> | -----|------------|----------|
 C> | 2005-11-29 | J. Ator | Original author |
 C> | 2014-12-10 | J. Ator | Use modules instead of COMMON blocks |
-C>
-      FUNCTION IUPVS01(LUNIT,S01MNEM)
+C> | 2022-10-04 | J. Ator | Added 8-byte wrapper |
+
+      RECURSIVE FUNCTION IUPVS01(LUNIT,S01MNEM) RESULT(IRET)
+
+      USE MODV_IM8B
 
       USE MODA_BITBUF
 
@@ -78,6 +81,19 @@ C>
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
+
+C  CHECK FOR I8 INTEGERS
+C  ---------------------
+
+      IF(IM8B) THEN
+         IM8B=.FALSE.
+
+         CALL X84(LUNIT,MY_LUNIT,1)
+         IRET=IUPVS01(MY_LUNIT,S01MNEM)
+
+         IM8B=.TRUE.
+         RETURN
+      ENDIF
 
 C  CHECK THE FILE STATUS
 C  ---------------------
@@ -90,7 +106,7 @@ C  ---------------------
 C  UNPACK THE REQUESTED VALUE
 C  --------------------------
 
-      IUPVS01 = IUPBS01(MBAY(1,LUN),S01MNEM)
+      IRET = IUPBS01(MBAY(1,LUN),S01MNEM)
 
 C  EXITS
 C  -----

@@ -240,10 +240,10 @@ extern "C" {
 
     @brief Get copy of the moda_tables ISC array.
 
-    @param[out] data - int**: c style pointer to the ISC array
-    @param[out] len - int: length of the array
+    @param[out] isc_ptr - int**: c style pointer to the ISC array
+    @param[out] isc_size - int*: size of the ISC array
 */
-  void get_isc_f(int** data, int* len);
+  void get_isc_f(int** isc_ptr, int* isc_size);
 
 
 /** @author Ronald McLaren
@@ -251,10 +251,10 @@ extern "C" {
 
     @brief Get copy of the moda_tables LINK array.
 
-    @param[out] data - int**: c style pointer to the ISC array
-    @param[out] len - int: length of the array
+    @param[out] link_ptr - int**: c style pointer to the LINK array
+    @param[out] link_size - int*: size of the LINK array
 */
-  void get_link_f(int** data, int* len);
+  void get_link_f(int** link_ptr, int* link_size);
 
 
 /** @author Ronald McLaren
@@ -262,10 +262,10 @@ extern "C" {
 
     @brief Get copy of the moda_tables ITP array.
 
-    @param[out] data - int**: c style pointer to the ITP array
-    @param[out] len - int: length of the array
+    @param[out] itp_ptr - int**: c style pointer to the ITP array
+    @param[out] itp_size - int*: size of the ITP array
 */
-  void get_itp_f(int** data, int* len);
+  void get_itp_f(int** itp_ptr, int* itp_size);
 
 
 /** @author Ronald McLaren
@@ -273,10 +273,11 @@ extern "C" {
 
     @brief Get copy of the moda_tables TYP array.
 
-    @param[out] data - int**: c style pointer to the TYP array
-    @param[out] len - int: length of the array
+    @param[out] typ_ptr - char**: c style pointer to the TYP array
+    @param[out] typ_len - int*: size of each string within the TYP array
+    @param[out] mem_size - int*: size of the TYP array
 */
-  void get_typ_f(char** data, int* str_len, int* size);
+  void get_typ_f(char** typ_ptr, int* typ_len, int* mem_size);
 
 
 /** @author Ronald McLaren
@@ -284,10 +285,11 @@ extern "C" {
 
   @brief Get copy of the moda_tables TAG array.
 
-  @param[out] data - int**: c style pointer to the TAG array
-  @param[out] len - int: length of the array
+  @param[out] tag_ptr - char**: c style pointer to the TAG array
+  @param[out] tag_len - int*: size of each string within the TAG array
+  @param[out] mem_size - int*: size of the TAG array
 */
-  void get_tag_f(char** data, int* str_len, int* size);
+  void get_tag_f(char** tag_ptr, int* tag_len, int* mem_size);
 
 
 /** @author Ronald McLaren
@@ -295,10 +297,10 @@ extern "C" {
 
 @brief Get copy of the moda_tables JMPB array.
 
-@param[out] data - int**: c style pointer to the JMPB array
-@param[out] len - int: length of the array
+@param[out] jmpb_ptr - int**: c style pointer to the JMPB array
+@param[out] jmpb_size - int: size of the JMPB array
 */
-  void get_jmpb_f(int** data, int* len);
+  void get_jmpb_f(int** jmpb_ptr, int* jmpb_size);
 
 
   // Data
@@ -307,10 +309,10 @@ extern "C" {
 
 @brief Get the bufr node idx for the start node of the subset.
 
-@param[out] lun - int: pointer for the file stream
-@param[out] startNode - int*: the start node of the subset
+@param[in] lun - int: pointer for the file stream
+@param[out] start_node - int*: the start node of the subset
 */
-  void get_inode_f(int lun, int* startNode);
+  void get_inode_f(int lun, int* start_node);
 
 
 /** @author Ronald McLaren
@@ -318,10 +320,10 @@ extern "C" {
 
 @brief Get the number of values in the current subset
 
-@param[out] lun - int: pointer for the file stream
-@param[out] startNode - int*: number of values in the subset
+@param[in] lun - int: pointer for the file stream
+@param[out] num_nodes - int*: number of values in the subset
 */
-  void get_nval_f(int lun, int* numNodes);
+  void get_nval_f(int lun, int* num_nodes);
 
 
 /** @author Ronald McLaren
@@ -329,11 +331,11 @@ extern "C" {
 
 @brief Get pointer to the moda_usrint VAL array.
 
-@param[out] lun - int: pointer for the file stream
-@param[out] data - double**: c style pointer to the VAL array
-@param[out] len - int*: length of the array
+@param[in] lun - int: pointer for the file stream
+@param[out] val_ptr - double**: c style pointer to the VAL array
+@param[out] val_size - int*: size of the VAL array
 */
-  void get_val_f(int lun, double** data, int* len);
+  void get_val_f(int lun, double** val_ptr, int* val_size);
 
 
 /** @author Ronald McLaren
@@ -341,11 +343,11 @@ extern "C" {
 
 @brief Get pointer to the moda_usrint INV array.
 
-@param[out] lun - int: pointer for the file stream
-@param[out] data - int**: c style pointer to the INV array
-@param[out] len - int*: length of the array
+@param[in] lun - int: pointer for the file stream
+@param[out] inv_ptr - int**: c style pointer to the INV array
+@param[out] inv_size - int*: size of the INV array
 */
-  void get_inv_f(int lun, int** data, int* len);
+  void get_inv_f(int lun, int** inv_ptr, int* inv_size);
 
 
 /** @author Ronald McLaren

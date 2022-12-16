@@ -1,36 +1,32 @@
 C> @file
-C> @author WOOLLEN @date 1994-01-06
-      
-C> THIS SUBROUTINE UNPACKS AND RETURNS AN 8-BYTE INTEGER
-C>   CONTAINED WITHIN NBITS BITS OF IBAY, STARTING WITH BIT (IBIT+1).
-C>   IT IS SIMILAR TO BUFR ARCHIVE LIBRARY SUBROUTINE UP8, EXCEPT
-C>   HERE IBIT IS NOT UPDATED UPON OUTPUT (AND THE ORDER OF ARGUMENTS
-C>   IS DIFFERENT).
+C> @brief Decode an 8-byte integer value from an integer array.
+
+C> This subroutine decodes an 8-byte integer value from within a
+C> specified number of bits of an integer array, starting at the bit
+C> immediately after a specified bit within the array.
 C>
-C> PROGRAM HISTORY LOG:
-C> 2022-05-06  J. WOOLLEN -- ORIGINAL AUTHOR
+C> <p>It is similar to subroutine up8(), except that here IBIT is
+C> only an input argument, and the overall order of the arguments
+C> is different.
 C>
-C> USAGE:    CALL UPB8 (NVAL, NBITS, IBIT, IBAY)
-C>   INPUT ARGUMENT LIST:
-C>     NBITS    - INTEGER: NUMBER OF BITS OF IBAY WITHIN WHICH TO UNPACK
-C>                NVAL
-C>     IBIT     - INTEGER: BIT POINTER WITHIN IBAY TO START UNPACKING
-C>                FROM
-C>     IBAY     - INTEGER: *-WORD PACKED BINARY ARRAY CONTAINING PACKED
-C>                NVAL
+C> @author J. Woollen
+C> @date 2022-05-06
 C>
-C>   OUTPUT ARGUMENT LIST:
-C>     NVAL     - INTEGER*8: UNPACKED INTEGER
+C> @param[in] IBAY    -- integer(*): Array containing encoded value
+C> @param[in] IBIT  -- integer: Bit within IBAY after which to begin
+C>                     decoding NVAL
+C> @param[in] NBITS   -- integer: Number of bits to be decoded
+C> @param[out] NVAL   -- integer*8: Decoded value
 C>
-C> REMARKS:
-C>    THIS ROUTINE CALLS:        UPB      UPBB
-C>    THIS ROUTINE IS CALLED BY: RCSTPL   RDTREE   UFBGET   UFBTAB
-C>                               UFBTAM                         
-C>                               Normally not called by any application
-C>                               programs.
+C> @remarks
+C> - This subroutine will not work properly if NBITS is less than 0 or
+C>   greater than 64, as determined via an internal call to subroutine
+C>   wrdlen().
 C>
-!----------------------------------------------------------------------
-!----------------------------------------------------------------------
+C> <b>Program history log:</b>
+C> | Date | Programmer | Comments |
+C> | -----|------------|----------|
+C> | 2022-05-06 | J. Woollen | Original author |
 
       subroutine upb8(nval,nbits,ibit,ibay)
 
@@ -42,6 +38,9 @@ C>
       integer(4) :: nvals(2)
       integer(8) :: nval8
       equivalence (nval8,nvals)
+
+!----------------------------------------------------------------------
+!----------------------------------------------------------------------
 
       if(nbits<0 ) call bort('BUFRLIB: UPB8 - nbits < zero !!!!!')
       if(nbits>64) nval=0
@@ -57,4 +56,3 @@ C>
       endif
 
       end subroutine
-

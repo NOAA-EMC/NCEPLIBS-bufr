@@ -38,8 +38,11 @@ C> | 2001-08-15 | D. Keyser  | Increased MAXMEM from 8 Mb to 16 Mb |
 C> | 2004-11-15 | D. Keyser  | Increased MAXMEM from 16 Mb to 50 Mb |
 C> | 2009-03-23 | J. Ator    | Use ireadmm() instead of rdmemm(); simplify logic |
 C> | 2014-12-10 | J. Ator    | Use modules instead of COMMON blocks |
-C>
-      SUBROUTINE UFBMNS(IREP,SUBSET,IDATE)
+C> | 2022-10-04 | J. Ator    | Added 8-byte wrapper |
+
+      RECURSIVE SUBROUTINE UFBMNS(IREP,SUBSET,IDATE)
+
+      USE MODV_IM8B
 
       USE MODA_MSGMEM
 
@@ -48,6 +51,20 @@ C>
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
+
+C  CHECK FOR I8 INTEGERS
+C  ---------------------
+
+      IF(IM8B) THEN
+         IM8B=.FALSE.
+
+         CALL X84(IREP,MY_IREP,1)
+         CALL UFBMNS(MY_IREP,SUBSET,IDATE)
+         CALL X48(IDATE,IDATE,1)
+
+         IM8B=.TRUE.
+         RETURN
+      ENDIF
 
       JREP = 0
       IMSG = 1

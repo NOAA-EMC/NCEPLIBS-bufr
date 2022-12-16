@@ -44,16 +44,33 @@ C> | 1998-07-08 | J. Woollen | Replaced call to Cray library routine "ABORT" wit
 C> | 1999-11-18 | J. Woollen | The number of BUFR files which can be opened at one time increased from 10 to 32 |
 C> | 2003-11-04 | D. Keyser  | MAXJL (maximum number of jump/link entries) increased from 15000 to 16000 |
 C> | 2014-12-10 | J. Ator    | Use modules instead of COMMON blocks |
-C>
-      SUBROUTINE READNS(LUNIT,SUBSET,JDATE,IRET)
+C> | 2022-10-04 | J. Ator    | Added 8-byte wrapper |
+
+      RECURSIVE SUBROUTINE READNS(LUNIT,SUBSET,JDATE,IRET)
 
       USE MODA_MSGCWD
       USE MODA_TABLES
+      USE MODV_IM8B
 
       CHARACTER*8  SUBSET
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
+
+C  CHECK FOR I8 INTEGERS
+C  ---------------------
+
+      IF(IM8B) THEN
+         IM8B=.FALSE.
+
+         CALL X84(LUNIT,MY_LUNIT,1)
+         CALL READNS(MY_LUNIT,SUBSET,JDATE,IRET)
+         CALL X48(JDATE,JDATE,1)
+         CALL X48(IRET,IRET,1)
+
+         IM8B=.TRUE.
+         RETURN
+      ENDIF
 
 C  REFRESH THE SUBSET AND JDATE PARAMETERS
 C  ---------------------------------------

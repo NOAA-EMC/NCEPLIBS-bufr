@@ -23,6 +23,7 @@ C>                           WRF; ADDED DOCUMENTATION (INCLUDING
 C>                           HISTORY); OUTPUTS MORE COMPLETE DIAGNOSTIC
 C>                           INFO WHEN ROUTINE TERMINATES ABNORMALLY
 C> 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
+C> 2022-10-14  J. ATOR    -- ADDED 8-BYTE WRAPPER
 C>
 C> USAGE:    CALL UFBCUP (LUBIN, LUBOT)
 C>   INPUT ARGUMENT LIST:
@@ -37,7 +38,9 @@ C>    THIS ROUTINE IS CALLED BY: None
 C>                               Normally called only by application
 C>                               programs.
 C>
-      SUBROUTINE UFBCUP(LUBIN,LUBOT)
+      RECURSIVE SUBROUTINE UFBCUP(LUBIN,LUBOT)
+
+      USE MODV_IM8B
 
       USE MODA_USRINT
       USE MODA_MSGCWD
@@ -48,6 +51,20 @@ C>
 
 C----------------------------------------------------------------------
 C----------------------------------------------------------------------
+
+C  CHECK FOR I8 INTEGERS
+C  ---------------------
+
+      IF(IM8B) THEN
+         IM8B=.FALSE.
+
+         CALL X84(LUBIN,MY_LUBIN,1)
+         CALL X84(LUBOT,MY_LUBOT,1)
+         CALL UFBCUP(MY_LUBIN,MY_LUBOT)
+
+         IM8B=.TRUE.
+         RETURN
+      ENDIF
 
 C  CHECK THE FILE STATUSES AND I-NODE
 C  ----------------------------------

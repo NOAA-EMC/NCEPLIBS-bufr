@@ -42,8 +42,11 @@ C> <b>Program history log:</b>
 C> | Date | Programmer | Comments |
 C> | -----|------------|----------|
 C> | 2009-03-23 | J. Ator | Original author |
-C>
-      SUBROUTINE MTINFO ( CMTDIR, LUNMT1, LUNMT2 )
+C> | 2022-08-04 | J. Woollen | Added 8-byte wrapper |
+
+      RECURSIVE SUBROUTINE MTINFO ( CMTDIR, LUNMT1, LUNMT2 )
+
+      USE MODV_IM8B
 
       COMMON /MSTINF/ LUN1, LUN2, LMTD, MTDIR
 
@@ -54,6 +57,19 @@ C>
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
+
+C  CHECK FOR I8 INTEGERS
+C  ---------------------
+      IF(IM8B) THEN
+         IM8B=.FALSE.
+
+         CALL X84 ( LUNMT1, MY_LUNMT1, 1 )
+         CALL X84 ( LUNMT2, MY_LUNMT2, 1 )
+         CALL MTINFO ( CMTDIR, MY_LUNMT1, MY_LUNMT2 )
+
+         IM8B=.TRUE.
+         RETURN
+      ENDIF
 
       CALL STRSUC ( CMTDIR, MTDIR, LMTD )
       IF ( LMTD .LT. 0 ) GOTO 900

@@ -58,10 +58,12 @@ C> <b>Program history log:</b>
 C> | Date | Programmer | Comments |
 C> | -----|------------|----------|
 C> | 2014-02-05 | J. Ator | Original author |
-C>
-      SUBROUTINE HOLD4WLC(LUNIT,CHR,STR)
+C> | 2022-08-04 | J. Woollen | Added 8-byte wrapper |
+
+      RECURSIVE SUBROUTINE HOLD4WLC(LUNIT,CHR,STR)
 
       USE MODA_H4WLC
+      USE MODV_IM8B
 
       COMMON /QUIET/ IPRT
 
@@ -72,6 +74,18 @@ C>
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
+
+C     CHECK FOR I8 INTEGERS
+
+      IF(IM8B) THEN
+         IM8B=.FALSE.
+
+         CALL X84(LUNIT,MY_LUNIT,1)
+         CALL HOLD4WLC(MY_LUNIT,CHR,STR)
+
+         IM8B=.TRUE.
+         RETURN
+      ENDIF
 
       CALL STRSUC( STR, MYSTR, LENS )
       IF ( LENS .EQ. -1 ) RETURN

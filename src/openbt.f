@@ -37,12 +37,28 @@ C> | Date | Programmer | Comments |
 C> | -----|------------|----------|
 C> | 1998-07-08 | J. Woollen | Original author |
 C> | 2009-04-21 | J. Ator    | Use errwrt() |
-C>
-      SUBROUTINE OPENBT(LUNDX,MTYP)
+C> | 2022-08-04 | J. Woollen | Added 8-byte wrapper |
+
+      RECURSIVE SUBROUTINE OPENBT(LUNDX,MTYP)
+
+      USE MODV_IM8B
 
       COMMON /QUIET / IPRT
 
       CHARACTER*128 ERRSTR
+
+C     CHECK FOR I8 INTEGERS
+
+      IF(IM8B) THEN
+         IM8B=.FALSE.
+
+         CALL X84(MTYP,MY_MTYP,1)
+         CALL OPENBT(LUNDX,MY_MTYP)
+         CALL X48(LUNDX,LUNDX,1)
+
+         IM8B=.TRUE.
+         RETURN
+      ENDIF
 
       IF(IPRT.GE.0) THEN
       CALL ERRWRT('+++++++++++++++++++++WARNING+++++++++++++++++++++++')

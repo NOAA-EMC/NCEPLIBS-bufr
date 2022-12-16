@@ -82,7 +82,8 @@ C> | 2018-03-01 | J. Ator | Added print of data types and subtypes from code and
 C> | 2018-09-05 | J. Ator | Added prmstg argument |
 C> | 2019-02-01 | J. Ator | Remove limit on length of prmstg |
 C> | 2021-02-24 | J. Ator | Use all formatted writes, for consistent output between builds using 4-byte vs. 8-byte integers |
-C>
+C> | 2022-11-30 | J. Ator | Check return code from isetprm() |
+
 	SUBROUTINE FDEBUFR ( ofile, tbldir, lentd, tblfil, prmstg,
      +			     basic, forcemt, cfms )
 
@@ -169,10 +170,13 @@ C		Close the output file and return.
 
 	    IF ( opened .eq. 'N' ) THEN
 
-		CALL ISETPRM ( 'MAXCD', MXDS3 )
-		CALL ISETPRM ( 'MXMSGL', MXBF )
-		CALL ISETPRM ( 'MAXSS', 300000 )
-		CALL ISETPRM ( 'NFILES', 2 )
+		IF ( ( ISETPRM ( 'MAXCD', MXDS3 ) .ne. 0 ) .or.
+     +		     ( ISETPRM ( 'MXMSGL', MXBF ) .ne. 0 ) .or.
+     +		     ( ISETPRM ( 'MAXSS', 300000 ) .ne. 0 ) .or.
+     +		     ( ISETPRM ( 'NFILES', 2 ) .ne. 0 ) ) THEN
+		    PRINT *, 'ERROR: BAD RETURN FROM ISETPRM'
+		    RETURN
+		ENDIF
 
 C		Process any dynamic allocation parameters that were
 C		passed in on the command line.
@@ -188,8 +192,14 @@ C		passed in on the command line.
 			    CALL STRSUC ( pvtag(1), cprmnm, lcprmnm )
 			    CALL STRNUM ( pvtag(2), ipval )
 			    IF ( ( lcprmnm .gt. 0 ) .and.
-     +				 ( ipval .ne. -1 ) )
-     +			      CALL ISETPRM ( cprmnm(1:lcprmnm), ipval )
+     +				 ( ipval .ne. -1 ) ) THEN
+			      IF ( ISETPRM ( cprmnm(1:lcprmnm), ipval )
+     +				  .ne. 0 ) THEN
+			       PRINT *, 'ERROR: BAD RETURN FROM ISETPRM'
+     +                          // ' FOR PARAMETER: ', cprmnm(1:lcprmnm)
+			       RETURN
+			      ENDIF
+			    ENDIF
 			  ENDIF
 			ENDDO
 		   ENDIF
@@ -480,7 +490,9 @@ C>                   reading/decoding the message
 C>                     - 0 = No such file is available
 C>
 C> <b>Program history log:</b>
-C> - 2012-12-07  J. Ator -- Original author
+C> | Date | Programmer | Comments |
+C> | -----|------------|----------|
+C> | 2012-12-07 | J. Ator | Original author |
 C>
 	SUBROUTINE OPENBT ( lundx, mtyp )
 

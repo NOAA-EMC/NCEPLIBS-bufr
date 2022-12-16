@@ -38,13 +38,15 @@ C> | 2004-08-09 | J. Ator    | Maximum message length increased from 20,000 to 5
 C> | 2004-11-15 | D. Keyser  | Increased MAXMEM from 16 Mb to 50 Mb |
 C> | 2009-04-21 | J. Ator    | Use errwrt() |
 C> | 2014-12-10 | J. Ator    | Use modules instead of COMMON blocks |
-C>
-      SUBROUTINE RDMEMS(ISUB,IRET)
+C> | 2022-08-04 | J. Woollen | Added 8-byte wrapper |
+
+      RECURSIVE SUBROUTINE RDMEMS(ISUB,IRET)
 
       USE MODA_MSGCWD
       USE MODA_UNPTYP
       USE MODA_BITBUF
       USE MODA_MSGMEM
+      USE MODV_IM8B
 
       CHARACTER*128 BORT_STR,ERRSTR
 
@@ -52,6 +54,20 @@ C>
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
+
+C  CHECK FOR I8 INTEGERS
+C  ---------------------
+
+      IF(IM8B) THEN
+         IM8B=.FALSE.
+
+         CALL X84(ISUB,MY_ISUB,1)
+         CALL RDMEMS(MY_ISUB,IRET)
+         CALL X48(IRET,IRET,1)
+
+         IM8B=.TRUE.
+         RETURN
+      ENDIF
 
 C  CHECK THE MESSAGE REQUEST AND FILE STATUS
 C  -----------------------------------------

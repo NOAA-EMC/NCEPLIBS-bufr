@@ -33,6 +33,7 @@ C>                           20,000 TO 50,000 BYTES
 C> 2012-03-02  J. ATOR    -- USE FUNCTION UPS
 C> 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
 C> 2022-05-06  J. WOOLLEN -- REPLACE UPBB WITH UPB8 FOR 8BYTE INTEGERS
+C> 2022-10-04  J. ATOR    -- ADDED 8-BYTE WRAPPER
 C>
 C> USAGE:    CALL UFBGET (LUNIT, TAB, I1, IRET, STR)
 C>   INPUT ARGUMENT LIST:
@@ -67,9 +68,11 @@ C>    THIS ROUTINE IS CALLED BY: None
 C>                               Normally called only by application
 C>                               programs.
 C>
-      SUBROUTINE UFBGET(LUNIT,TAB,I1,IRET,STR)
+      RECURSIVE SUBROUTINE UFBGET(LUNIT,TAB,I1,IRET,STR)
 
       USE MODV_BMISS
+      USE MODV_IM8B
+
       USE MODA_USRINT
       USE MODA_USRBIT
       USE MODA_MSGCWD
@@ -81,11 +84,26 @@ C>
       CHARACTER*(*) STR
       CHARACTER*8   CVAL
       EQUIVALENCE   (CVAL,RVAL)
-      integer*8     ival
+      INTEGER*8     IVAL
       REAL*8        RVAL,TAB(I1),UPS
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
+
+C  CHECK FOR I8 INTEGERS
+C  ---------------------
+
+      IF(IM8B) THEN
+         IM8B=.FALSE.
+
+         CALL X84(LUNIT,MY_LUNIT,1)
+         CALL X84(I1,MY_I1,1)
+         CALL UFBGET(MY_LUNIT,TAB,MY_I1,IRET,STR)
+         CALL X48(IRET,IRET,1)
+
+         IM8B=.TRUE.
+         RETURN
+      ENDIF
 
       IRET = 0
 

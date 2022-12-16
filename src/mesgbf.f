@@ -1,65 +1,67 @@
 C> @file
-C> @author WOOLLEN @date 1994-01-06
-      
-C> THIS SUBROUTINE READS AND EXAMINES SECTION 1 OF MESSAGES
-C>  IN A BUFR FILE IN SEQUENCE UNTIL IT FINDS THE FIRST MESSAGE THAT
-C>  IS NOT A BUFR TABLE (DICTIONARY) MESSAGE.  IT THEN RETURNS THE
-C>  MESSAGE TYPE FOR THIS FIRST NON-DICTIONARY MESSAGE.  THE BUFR FILE
-C>  SHOULD NOT BE OPEN VIA BUFR ARCHIVE LIBRARY SUBROUTINE OPENBF PRIOR
-C>  TO CALLING THIS SUBROUTINE; HOWEVER, THE BUFR FILE MUST BE CONNECTED
-C>  TO UNIT LUNIT.  THIS SUBROUTINE IS IDENTICAL TO BUFR ARCHIVE LIBRARY
-C>  SUBROUTINE MESGBC EXCEPT THAT MESGBC RETURNS THE MESSAGE TYPE FOR
-C>  THE FIRST NON-DICTIONARY MESSAGE THAT ACTUALLY CONTAINS REPORT DATA
-C>  (WHEREAS MESGBF WOULD RETURN THE REPORT TYPE OF A DUMMY MESSAGE
-C>  CONTAINING THE CENTER TIME FOR DUMP FILES), AND MESGBC ALSO
-C>  INDICATES WHETHER OR NOT THE FIRST REPORT DATA MESSAGE IS BUFR
-C>  COMPRESSED.  MESGBC ALSO HAS AN OPTION TO OPERATE ON THE CURRENT
-C>  MESSAGE STORED IN MEMORY, WHICH IS SOMETHING THAT MESGBF CANNOT DO.
+C> @brief Get information about a BUFR message
+
+C> This subroutine reads through a BUFR file (starting from the beginning
+C> of the file) and returns the message type (from Section 1) of the
+C> first message it encounters which does not contain DX BUFR table
+C> information.
 C>
-C> PROGRAM HISTORY LOG:
-C> 1994-01-06  J. WOOLLEN -- ORIGINAL AUTHOR
-C> 2000-09-19  J. WOOLLEN -- MAXIMUM MESSAGE LENGTH INCREASED FROM
-C>                           10,000 TO 20,000 BYTES
-C> 2003-11-04  S. BENDER  -- ADDED REMARKS/BUFRLIB ROUTINE
-C>                           INTERDEPENDENCIES
-C> 2003-11-04  D. KEYSER  -- UNIFIED/PORTABLE FOR WRF; ADDED
-C>                           DOCUMENTATION (INCLUDING HISTORY)
-C> 2004-08-09  J. ATOR    -- MAXIMUM MESSAGE LENGTH INCREASED FROM
-C>                           20,000 TO 50,000 BYTES
-C> 2005-11-29  J. ATOR    -- USE IUPBS01 AND RDMSGW
-C> 2009-03-23  J. ATOR    -- USE IDXMSG
-C> 2012-09-15  J. WOOLLEN -- MODIFIED FOR C/I/O/BUFR INTERFACE;
-C>                           USE NEW OPENBF TYPE 'INX' TO OPEN AND CLOSE
-C>                           THE C FILE WITHOUT CLOSING THE FORTRAN FILE
-C> 2013-01-25  J. WOOLLEN -- ALWAYS CALL CLOSBF BEFORE EXITING
-C> 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
+C> <p>The BUFR file should not have already been opened via a call
+C> to subroutine openbf(); however, it should already be associated
+C> with Fortran logical unit number LUNIT.
 C>
-C> USAGE:    CALL MESGBF (LUNIT, MESGTYP)
-C>   INPUT ARGUMENT LIST:
-C>     LUNIT    - INTEGER: FORTRAN LOGICAL UNIT NUMBER FOR BUFR FILE
+C> <p>This subroutine is similar to subroutine mesgbc(), except that
+C> this subroutine will only skip past DX BUFR table messages at the
+C> beginning of a file, whereas mesgbc() will also skip past any "dummy"
+C> messages containing the dump center time or dump initiation time
+C> within NCEP dump files.  Furthermore, mesgbc() also returns a
+C> message compression indicator, and it also has an option to operate
+C> on a BUFR message that has already been read into the internal arrays.
 C>
-C>   OUTPUT ARGUMENT LIST:
-C>     MESGTYP  - INTEGER: BUFR MESSAGE TYPE FOR FIRST NON-DICTIONARY
-C>                MESSAGE
-C>                      -1 = no messages read or error
-C>                      11 = if only BUFR table messages in BUFR file
+C> @author J. Woollen
+C> @date 1994-01-06
 C>
-C>   INPUT FILES:
-C>     UNIT "LUNIT" - BUFR FILE
+C> @param[in] LUNIT -- integer: Fortran logical unit number for BUFR file
+C> @param[out] MESGTYP -- integer: Message type
+C>                        -1 = error reading the BUFR file, or no
+C>                             messages were read from the file
+C>                        11 = BUFR file only contained DX BUFR table
+C>                             messages
 C>
-C> REMARKS:
-C>    THIS ROUTINE CALLS:        CLOSBF   IDXMSG   IUPBS01  OPENBF
-C>                               RDMSGW
-C>    THIS ROUTINE IS CALLED BY: None
-C>                               Normally called only by application
-C>                               programs.
-C>
-      SUBROUTINE MESGBF(LUNIT,MESGTYP)
+C> <b>Program history log:</b>
+C> | Date | Programmer | Comments |
+C> | -----|------------|----------|
+C> | 1994-01-06 | J. Woollen | Original author |
+C> | 2000-09-19 | J. Woollen | Maximum message length increased from 10,000 to 20,000 bytes |
+C> | 2004-08-09 | J. Ator   | Maximum message length increased from 20,000 to 50,000 bytes |
+C> | 2005-11-29 | J. Ator   | Use iupbs01() and rdmsgw() |
+C> | 2009-03-23 | J. Ator   | Use idxmsg() |
+C> | 2012-09-15 | J. Woollen | Convert to C language I/O interface; use 'INX' option with openbf() |
+C> | 2013-01-25 | J. Woollen | Always call closbf() before exiting |
+C> | 2014-12-10 | J. Ator    | Use modules instead of COMMON blocks |
+C> | 2022-08-04 | J. Woollen | Added 8-byte wrapper |
+
+      RECURSIVE SUBROUTINE MESGBF(LUNIT,MESGTYP)
 
       USE MODA_MGWA
+      USE MODV_IM8B
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
+
+C  CHECK FOR I8 INTEGERS
+C  ---------------------
+
+      IF(IM8B) THEN
+         IM8B=.FALSE.
+
+         CALL X84(LUNIT,MY_LUNIT,1)
+         CALL MESGBF(MY_LUNIT,MESGTYP)
+         CALL X48(MESGTYP,MESGTYP,1)
+
+         IM8B=.TRUE.
+         RETURN
+      ENDIF
 
       MESGTYP = -1
 

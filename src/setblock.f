@@ -51,13 +51,28 @@ C> <b>Program history log:</b>
 C> | Date | Programmer | Comments |
 C> | -----|------------|----------|
 C> | 2012-09-15 | J. Woollen | Original author |
-C>
-      SUBROUTINE SETBLOCK(IBLK) 
+C> | 2022-10-04 | J. Ator | Added 8-byte wrapper |
+
+      RECURSIVE SUBROUTINE SETBLOCK(IBLK) 
+
+      USE MODV_IM8B
 
       COMMON /ENDORD/ IBLOCK,IORDBE(4),IORDLE(4)
 
-c-----------------------------------------------------------------------
-c-----------------------------------------------------------------------
+C-----------------------------------------------------------------------
+C-----------------------------------------------------------------------
+
+C     Check for I8 integers.
+
+      IF(IM8B) THEN
+         IM8B=.FALSE.
+
+         CALL X84(IBLK,MY_IBLK,1)
+         CALL SETBLOCK(MY_IBLK)
+
+         IM8B=.TRUE.
+         RETURN
+      ENDIF
 
       CALL OPENBF(0,'FIRST',0)
       IBLOCK=IBLK  

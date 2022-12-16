@@ -54,8 +54,9 @@ C> | 2009-04-21 | J. Ator | Use errwrt() |
 C> | 2012-12-07 | J. Ator | Allow str mnemonic length of up to 14 chars when used with '#' occurrence code |
 C> | 2014-12-10 | J. Ator | Use modules instead of COMMON blocks |
 C> | 2020-09-09 | J. Ator | Set CHR to "missing" instead of all blanks if STR isn't found in subset |
-C>
-      SUBROUTINE READLC(LUNIT,CHR,STR)
+C> | 2022-08-04 | J. Woollen | Added 8-byte wrapper |
+
+      RECURSIVE SUBROUTINE READLC(LUNIT,CHR,STR)
 
       USE MODA_USRINT
       USE MODA_USRBIT
@@ -63,6 +64,7 @@ C>
       USE MODA_BITBUF
       USE MODA_TABLES
       USE MODA_RLCCMN
+      USE MODV_IM8B
 
       COMMON /QUIET / IPRT
 
@@ -75,6 +77,18 @@ C>
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
+
+C  CHECK FOR I8 INTEGERS
+C  ---------------------
+      IF(IM8B) THEN
+         IM8B=.FALSE.
+
+         CALL X84(LUNIT,MY_LUNIT,1)
+         CALL READLC(MY_LUNIT,CHR,STR)
+
+         IM8B=.TRUE.
+         RETURN
+      ENDIF
 
       CHR = ' '
       LCHR=LEN(CHR)

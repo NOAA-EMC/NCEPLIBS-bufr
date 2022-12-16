@@ -17,12 +17,12 @@ C> @param[in] ISUB   -- integer: Number of data subset to be
 C>                      read from the (IMSG)th BUFR message,
 C>                      counting from the beginning of the message
 C> @param[out] USR   -- real*8(*,*): Data values
-C> @param[in] I1     -- integer: Actual first dimension of USR as
+C> @param[in] I1     -- integer: First dimension of USR as
 C>                      allocated within the calling program
-C> @param[in] I2     -- integer: Actual second dimension of USR as
+C> @param[in] I2     -- integer: Second dimension of USR as
 C>                      allocated within the calling program
 C> @param[out] IRET -- integer: Number of replications of STR that were
-C>                     actually read from the data subset
+C>                     read from the data subset
 C> @param[in] STR  -- character*(*): String of blank-separated
 C>                    Table B mnemonics in one-to-one
 C>                    correspondence with the number of data
@@ -41,8 +41,11 @@ C> | 2001-08-15 | D. Keyser  | Increased MAXMEM from 8 Mb to 16 Mb |
 C> | 2004-11-15 | D. Keyser  | Increased MAXMEM from 16 Mb to 50 Mb |
 C> | 2009-04-21 | J. Ator    | Use errwrt() |
 C> | 2014-12-10 | J. Ator    | Use modules instead of COMMON blocks |
-C>
-      SUBROUTINE UFBRMS(IMSG,ISUB,USR,I1,I2,IRET,STR)
+C> | 2022-10-04 | J. Ator    | Added 8-byte wrapper |
+
+      RECURSIVE SUBROUTINE UFBRMS(IMSG,ISUB,USR,I1,I2,IRET,STR)
+
+      USE MODV_IM8B
 
       USE MODA_MSGCWD
       USE MODA_MSGMEM
@@ -56,6 +59,23 @@ C>
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
+
+C  CHECK FOR I8 INTEGERS
+C  ---------------------
+
+      IF(IM8B) THEN
+         IM8B=.FALSE.
+
+         CALL X84(IMSG,MY_IMSG,1)
+         CALL X84(ISUB,MY_ISUB,1)
+         CALL X84(I1,MY_I1,1)
+         CALL X84(I2,MY_I2,1)
+         CALL UFBRMS(MY_IMSG,MY_ISUB,USR,MY_I1,MY_I2,IRET,STR)
+         CALL X48(IRET,IRET,1)
+
+         IM8B=.TRUE.
+         RETURN
+      ENDIF
 
       IRET = 0
       IF(I1.LE.0) THEN

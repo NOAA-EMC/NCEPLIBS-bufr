@@ -46,9 +46,11 @@ C> | -----|------------|----------|
 C> | 2012-01-26 | J. Woollen | Original author |
 C> | 2014-12-10 | J. Ator    | Use modules instead of COMMON blocks |
 C> | 2015-09-24 | D. Stokes  | Fix missing declaration of COMMON /QUIET/ |
-C>
-      SUBROUTINE UFBMEX(LUNIT,LUNDX,INEW,IRET,MESG) 
+C> | 2022-10-04 | J. Ator    | Added 8-byte wrapper |
 
+      RECURSIVE SUBROUTINE UFBMEX(LUNIT,LUNDX,INEW,IRET,MESG)
+
+      USE MODV_IM8B
       USE MODV_MAXMEM
       USE MODV_MAXMSG
 
@@ -59,10 +61,33 @@ C>
 
       CHARACTER*128 BORT_STR,ERRSTR
 
-      INTEGER       MESG(*)
+      INTEGER       MESG(*), IRET(*)
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
+
+C  CHECK FOR I8 INTEGERS
+C  ---------------------
+
+      IF(IM8B) THEN
+         IM8B=.FALSE.
+
+         CALL X84(LUNIT,MY_LUNIT,1)
+         CALL X84(LUNDX,MY_LUNDX,1)
+         CALL X84(INEW,MY_INEW,1)
+         IF (MY_INEW.EQ.0) THEN
+            NMESG = 0
+         ELSE
+            NMESG = MSGP(0)
+            CALL X84(MESG,MESG,NMESG)
+         ENDIF
+         CALL UFBMEX(MY_LUNIT,MY_LUNDX,MY_INEW,IRET,MESG)
+         CALL X48(MESG,MESG,NMESG+IRET(1))
+         CALL X48(IRET,IRET,1)
+
+         IM8B=.TRUE.
+         RETURN
+      ENDIF
 
 C  TRY TO OPEN BUFR FILE AND SET TO INITIALIZE OR CONCATENATE
 C  ----------------------------------------------------------
@@ -80,7 +105,7 @@ C  ----------------------------------------------------------
       ENDIF
 
       NMSG = MSGP(0)
-      IRET = 0
+      IRET(1) = 0
       IFLG = 0
       ITIM = 0
 
@@ -105,7 +130,7 @@ C  ------------------------------------------------------------
       IF(LMEM+MLAST.GT.MAXMEM) IFLG = 2
 
       IF(IFLG.EQ.0) THEN
-         IRET = IRET+1
+         IRET(1) = IRET(1)+1
          DO I=1,LMEM
             MSGS(MLAST+I) = MGWA(I)
          ENDDO
@@ -171,7 +196,7 @@ C  --------------------------------------------------
       MLAST=MLAST0
       ENDIF
 
-      IF(IRET.EQ.0) THEN
+      IF(IRET(1).EQ.0) THEN
          CALL CLOSBF(LUNIT)
       ELSE
          IF(MUNIT.NE.0) CALL CLOSBF(LUNIT)

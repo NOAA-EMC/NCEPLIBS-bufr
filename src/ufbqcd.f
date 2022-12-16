@@ -1,55 +1,41 @@
 C> @file
-C> @author WOOLLEN @date 1994-01-06
-      
-C> THIS SUBROUTINE READS IN A MNEMONIC KNOWN TO BE IN THE BUFR
-C>   TABLE ASSOCIATED WITH THE BUFR FILE IN LOGICAL UNIT LUNIT, AND
-C>   RETURNS THE DESCRIPTOR ENTRY (Y) ASSOCIATED WITH IT WHEN THE FXY
-C>   DESCRIPTOR IS A SEQUENCE DESCRIPTOR (F=3) WITH TABLE D CATEGORY 63
-C>   (X=63).  THIS ROUTINE WILL NOT WORK FOR ANY OTHER TYPE OF
-C>   DESCRIPTOR OR ANY OTHER SEQUENCE DESCRIPTOR TABLE D CATEGORY.
-C>   LUNIT MUST ALREADY BE OPENED FOR INPUT OR OUTPUT VIA A CALL TO
-C>   OPENBF.  THIS ROUTINE IS ESPECIALLY USEFUL WHEN THE CALLING PROGRAM
-C>   IS WRITING "EVENTS" TO AN OUTPUT BUFR FILE (USUALLY THE "PREPBUFR"
-C>   FILE) USING THE SAME BUFR TABLE SINCE THE DESCRIPTOR ENTRY (Y) HERE
-C>   DEFINES THE EVENT PROGRAM CODE.  THUS, THE CALLING PROGRAM CAN PASS
-C>   THE PROGRAM CODE INTO VARIOUS EVENTS WITHOUT ACTUALLY KNOWING ITS
-C>   VALUE AS LONG AS IT KNOWS THE MNEMONIC NAME ASSOCIATED WITH IT.
-C>
-C> PROGRAM HISTORY LOG:
-C> 1994-01-06  J. WOOLLEN -- ORIGINAL AUTHOR
-C> 1998-07-08  J. WOOLLEN -- REPLACED CALL TO CRAY LIBRARY ROUTINE
-C>                           "ABORT" WITH CALL TO NEW INTERNAL BUFRLIB
-C>                           ROUTINE "BORT"
-C> 2003-11-04  S. BENDER  -- ADDED REMARKS/BUFRLIB ROUTINE
-C>                           INTERDEPENDENCIES
-C> 2003-11-04  D. KEYSER  -- UNIFIED/PORTABLE FOR WRF; ADDED
-C>                           DOCUMENTATION (INCLUDING HISTORY); OUTPUTS
-C>                           MORE COMPLETE DIAGNOSTIC INFO WHEN ROUTINE
-C>                           TERMINATES ABNORMALLY
-C>
-C> USAGE:    CALL UFBQCD (LUNIT, NEMO, QCD)
-C>   INPUT ARGUMENT LIST:
-C>     LUNIT    - INTEGER: FORTRAN LOGICAL UNIT NUMBER FOR BUFR FILE
-C>                (ASSOCIATED BUFR TABLE MAY BE INTERNAL OR EXTERNAL)
-C>     NEMO     - CHARACTER*(*): MNEMONIC
-C>
-C>   OUTPUT ARGUMENT LIST:
-C>     QCD      - REAL: SEQUENCE DESCRIPTOR ENTRY (I.E., EVENT PROGRAM
-C>                CODE) IN BUFR TABLE ASSOCIATED WITH NEMO (Y IN FXY
-C>                DESCRIPTOR, WHERE F=3 AND X=63)
-C>
-C> REMARKS:
-C>    THIS SUBROUTINE IS THE INVERSE OF BUFR ARCHIVE LIBRARY ROUTINE
-C>    UFBQCP.
-C>
-C>    THIS ROUTINE CALLS:        ADN30    BORT     NEMTAB   STATUS
-C>    THIS ROUTINE IS CALLED BY: None
-C>                               Normally called only by application
-C>                               programs.
-C>
-      SUBROUTINE UFBQCD(LUNIT,NEMO,QCD)
+C> @brief Get the event program code associated with a Table D mnemonic
+C> from an NCEP prepbufr file
 
+C> Given a mnemonic associated with a category 63 (i.e. X=63) Table D
+C> descriptor from an NCEP prepbufr file, this subroutine returns the
+C> corresponding event program code.
+C>
+C> <p>The event program code is equivalent to the Y value of the
+C> category 63 (i.e. X=63) Table D descriptor.  Knowledge of this value
+C> is especially useful for application programs which are writing data
+C> events to NCEP prepbufr files.
+C>
+C> @author J. Woollen
+C> @date 1994-01-06
+C>
+C> @param[in] LUNIT -- integer: Fortran logical unit number for
+C>                     NCEP prepbufr file
+C> @param[in] NEMO  -- character*(*): Mnemonic associated with a
+C>                     category 63 (i.e. X=63) Table D descriptor
+C> @param[out] IQCD -- integer: Y value of descriptor associated
+C>                     with NEMO
+C>
+C> @remarks
+C> - Logical unit LUNIT should have already been opened via a previous
+C> call to subroutine openbf().
+C> - This subroutine is the logical inverse of subroutine ufbqcp().
+C>
+C> <b>Program history log:</b>
+C> | Date | Programmer | Comments |
+C> | -----|------------|----------|
+C> | 1994-01-06 | J. Woollen | Original author |
+C> | 1998-07-08 | J. Woollen | Replaced call to Cray library routine ABORT with call to new internal routine bort() |
+C> | 2022-10-04 | J. Ator    | Added 8-byte wrapper |
 
+      RECURSIVE SUBROUTINE UFBQCD(LUNIT,NEMO,IQCD)
+
+      USE MODV_IM8B
 
       CHARACTER*(*) NEMO
       CHARACTER*128 BORT_STR
@@ -59,6 +45,20 @@ C>
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
 
+C  CHECK FOR I8 INTEGERS
+C  ---------------------
+
+      IF(IM8B) THEN
+         IM8B=.FALSE.
+
+         CALL X84(LUNIT,MY_LUNIT,1)
+         CALL UFBQCD(MY_LUNIT,NEMO,IQCD)
+         CALL X48(IQCD,IQCD,1)
+
+         IM8B=.TRUE.
+         RETURN
+      ENDIF
+
       CALL STATUS(LUNIT,LUN,IL,IM)
       IF(IL.EQ.0) GOTO 900
 
@@ -67,7 +67,7 @@ C-----------------------------------------------------------------------
 
       FXY = ADN30(IDN,6)
       IF(FXY(2:3).NE.'63') GOTO 902
-      READ(FXY(4:6),'(F3.0)',ERR=903) QCD
+      READ(FXY(4:6),'(I3)',ERR=903) IQCD
 
 C  EXITS
 C  -----

@@ -1,51 +1,48 @@
 C> @file
-C> @author WOOLLEN @date 1994-01-06
-      
-C> THIS SUBROUTINE COPIES A COMPLETE SUBSET BUFFER, UNPACKED
-C>   INTO INTERNAL MEMORY FROM LOGICAL UNIT LUBIN BY A PREVIOUS CALL
-C>   TO BUFR ARCHIVE LIBRARY SUBROUTINE READSB OR READNS, TO
-C>   LOGICAL UNIT LUBOT.  BUFR ARCHIVE LIBRARY SUBROUTINE OPENMG OR
-C>   OPENMB MUST HAVE BEEN PREVIOUSLY CALLED TO OPEN AND INITIALIZE A
-C>   BUFR MESSAGE WITHIN MEMORY FOR LOGICAL UNIT LUBOT.  BOTH FILES MUST
-C>   HAVE BEEN OPENED TO THE INTERFACE (VIA A CALL TO BUFR ARCHIVE
-C>   LIBRARY SUBROUTINE OPENBF) WITH IDENTICAL BUFR TABLES.
+C> @brief Copy a BUFR data subset.
+
+C> This subroutine copies a BUFR data subset from one Fortran logical
+C> unit to another.
 C>
-C> PROGRAM HISTORY LOG:
-C> 1994-01-06  J. WOOLLEN -- ORIGINAL AUTHOR
-C> 1998-07-08  J. WOOLLEN -- REPLACED CALL TO CRAY LIBRARY ROUTINE
-C>                           "ABORT" WITH CALL TO NEW INTERNAL BUFRLIB
-C>                           ROUTINE "BORT"
-C> 1999-11-18  J. WOOLLEN -- THE NUMBER OF BUFR FILES WHICH CAN BE
-C>                           OPENED AT ONE TIME INCREASED FROM 10 TO 32
-C>                           (NECESSARY IN ORDER TO PROCESS MULTIPLE
-C>                           BUFR FILES UNDER THE MPI)
-C> 2003-11-04  S. BENDER  -- ADDED REMARKS/BUFRLIB ROUTINE
-C>                           INTERDEPENDENCIES
-C> 2003-11-04  D. KEYSER  -- MAXJL (MAXIMUM NUMBER OF JUMP/LINK ENTRIES)
-C>                           INCREASED FROM 15000 TO 16000 (WAS IN
-C>                           VERIFICATION VERSION); UNIFIED/PORTABLE FOR
-C>                           WRF; ADDED DOCUMENTATION (INCLUDING
-C>                           HISTORY); OUTPUTS MORE COMPLETE DIAGNOSTIC
-C>                           INFO WHEN ROUTINE TERMINATES ABNORMALLY
-C> 2009-06-26  J. ATOR    -- USE IOK2CPY
-C> 2009-08-11  J. WOOLLEN -- ADD COMMON UFBCPL TO REMEMBER WHICH UNIT 
-C>                           IS COPIED TO WHAT SUBSET BUFFER IN ORDER TO
-C>                           TRANSFER LONG STRINGS VIA UFBCPY AND WRTREE
-C> 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
+C> <p>It is similar to subroutine copysb(), except that here a
+C> BUFR data subset should have already been read into internal arrays
+C> for logical unit LUBIN via a previous call to one of the
+C> [subset-reading subroutines](@ref hierarchy), whereas copysb()
+C> only requires that a BUFR message should have already been read
+C> into internal arrays via a previous call to one of the
+C> [message-reading subroutines](@ref hierarchy).
 C>
-C> USAGE:    CALL UFBCPY (LUBIN, LUBOT)
-C>   INPUT ARGUMENT LIST:
-C>     LUBIT    - INTEGER: FORTRAN LOGICAL UNIT NUMBER FOR INPUT BUFR
-C>                FILE
-C>     LUBOT    - INTEGER: FORTRAN LOGICAL UNIT NUMBER FOR OUTPUT BUFR
-C>                FILE
+C> <p>For logical unit LUBOT, a BUFR message should already be open
+C> for output within internal arrays via a previous call to one of
+C> the [message-writing subroutines](@ref hierarchy).
 C>
-C> REMARKS:
-C>    THIS ROUTINE CALLS:        BORT     IOK2CPY  STATUS
-C>    THIS ROUTINE IS CALLED BY: COPYSB
-C>                               Also called by application programs.
+C> <p> The [DX BUFR Table information](@ref dfbftab) associated with
+C> each of the logical units LUBIN and LUBOT must contain identical
+C> definitions for the data subset to be copied.
 C>
-      SUBROUTINE UFBCPY(LUBIN,LUBOT)
+C> @author J. Woollen
+C> @date 1994-01-06
+C>
+C> @param[in] LUBIN   -- integer: Fortran logical unit number for
+C>                       source BUFR file
+C> @param[in] LUBOT   -- integer: Fortran logical unit number for
+C>                       target BUFR file
+C>
+C> <b>Program history log:</b>
+C> | Date | Programmer | Comments |
+C> | -----|------------|----------|
+C> | 1994-01-06 | J. Woollen | Original author |
+C> | 1998-07-08 | J. Woollen | Replaced call to Cray library routine ABORT with call to new internal routine bort() |
+C> | 1999-11-18 | J. Woollen | The number of BUFR files which can be opened at one time increased from 10 to 32 (necessary in order to process multiple BUFR files under the MPI) |
+C> | 2003-11-04 | D. Keyser  | Increased MAXJL from 15000 to 16000; unified/portable for WRF; added documentation; outputs more complete diagnostic info when routine terminates abnormally |
+C> | 2009-06-26 | J. Ator    | Use iok2cpy() |
+C> | 2009-08-11 | J. Woollen | Use COMMON UFBCPL to transfer long character strings via wrtree() |
+C> | 2014-12-10 | J. Ator    | Use modules instead of COMMON blocks |
+C> | 2022-10-04 | J. Ator    | Added 8-byte wrapper |
+
+      RECURSIVE SUBROUTINE UFBCPY(LUBIN,LUBOT)
+
+      USE MODV_IM8B
 
       USE MODA_USRINT
       USE MODA_MSGCWD
@@ -54,6 +51,20 @@ C>
 
 C----------------------------------------------------------------------
 C----------------------------------------------------------------------
+
+C  CHECK FOR I8 INTEGERS
+C  ---------------------
+
+      IF(IM8B) THEN
+         IM8B=.FALSE.
+
+         CALL X84(LUBIN,MY_LUBIN,1)
+         CALL X84(LUBOT,MY_LUBOT,1)
+         CALL UFBCPY(MY_LUBIN,MY_LUBOT)
+
+         IM8B=.TRUE.
+         RETURN
+      ENDIF
 
 C  CHECK THE FILE STATUSES AND I-NODE
 C  ----------------------------------

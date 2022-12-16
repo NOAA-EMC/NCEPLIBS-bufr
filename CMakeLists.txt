@@ -70,8 +70,8 @@ if(APPLE AND NOT "${CMAKE_RANLIB}" MATCHES "^.*(llvm-ranlib)$")
   set(CMAKE_C_ARCHIVE_FINISH "<CMAKE_RANLIB> -c <TARGET>")
 endif()
 
-# Determine the kinds upfront (both src/ and test/ need them).
-list(APPEND kinds "4" "8" "d")
+# Only build the _4 version of the library
+list(APPEND kinds "4")
 
 # Set common to the package compiler flags
 if(CMAKE_C_COMPILER_ID MATCHES "^(Intel)$")
@@ -84,6 +84,7 @@ elseif(CMAKE_C_COMPILER_ID MATCHES "^(GNU)$")
   set(CMAKE_C_FLAGS_RELEASE "-O3")
 endif()
 
+# Even if we only build _4 version of the library, we still need the _8 and _d flags when building the test codes
 if(CMAKE_Fortran_COMPILER_ID MATCHES "^(Intel)$")
   set(fortran_8_flags "-r8 -i8")
   set(fortran_d_flags "-r8")

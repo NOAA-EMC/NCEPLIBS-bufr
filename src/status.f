@@ -51,10 +51,12 @@ C> | 2003-11-04 | J. Ator    | Added documentation |
 C> | 2003-11-04 | S. Bender  | Added remarks and routine interdependencies |
 C> | 2003-11-04 | D. Keyser  | Unified/portable for WRF; added documentation; outputs more complete diagnostic info when routine terminates abnormally |
 C> | 2014-12-10 | J. Ator    | Use modules instead of COMMON blocks |
-C>
-      SUBROUTINE STATUS(LUNIT,LUN,IL,IM)
+C> | 2022-10-04 | J. Ator    | Added 8-byte wrapper |
+
+      RECURSIVE SUBROUTINE STATUS(LUNIT,LUN,IL,IM)
 
       USE MODV_NFILES
+      USE MODV_IM8B
 
       USE MODA_STBFR
 
@@ -62,6 +64,22 @@ C>
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
+
+C  CHECK FOR I8 INTEGERS
+C  ---------------------
+
+      IF(IM8B) THEN
+         IM8B=.FALSE.
+
+         CALL X84(LUNIT,MY_LUNIT,1)
+         CALL STATUS(MY_LUNIT,LUN,IL,IM)
+         CALL X48(LUN,LUN,1)
+         CALL X48(IL,IL,1)
+         CALL X48(IM,IM,1)
+
+         IM8B=.TRUE.
+         RETURN
+      ENDIF
 
       IF(LUNIT.LE.0 .OR. LUNIT.GT.99) GOTO 900
 

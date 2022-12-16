@@ -38,12 +38,15 @@ C> <b>Program history log:</b>
 C> | Date | Programmer | Comments |
 C> | -----|------------|----------|
 C> | 2016-06-07 | J. Ator | Original author |
-C>
-	SUBROUTINE GETTAGRE ( LUNIT, TAGI, NTAGI, TAGRE, NTAGRE, IRET )
+C> | 2022-08-04 | J. Woollen | Added 8-byte wrapper |
+
+	RECURSIVE SUBROUTINE GETTAGRE
+     .		( LUNIT, TAGI, NTAGI, TAGRE, NTAGRE, IRET )
 
 	USE MODA_USRINT
 	USE MODA_MSGCWD
 	USE MODA_TABLES
+        USE MODV_IM8B
 
 	CHARACTER*(*) TAGI, TAGRE
 
@@ -51,6 +54,21 @@ C>
 
 C----------------------------------------------------------------------
 C----------------------------------------------------------------------
+
+C	Check for I8 integers.
+
+	IF(IM8B) THEN
+	   IM8B=.FALSE.
+
+	   CALL X84(LUNIT,MY_LUNIT,1)
+	   CALL X84(NTAGI,MY_NTAGI,1)
+	   CALL GETTAGRE(MY_LUNIT,TAGI,MY_NTAGI,TAGRE,NTAGRE,IRET)
+	   CALL X48(NTAGRE,NTAGRE,1)
+	   CALL X48(IRET,IRET,1)
+
+	   IM8B=.TRUE.
+	   RETURN
+	ENDIF
 
 	IRET = -1
 

@@ -51,13 +51,15 @@ C> <b>Program history log:</b>
 C> | Date | Programmer | Comments |
 C> | -----|------------|----------|
 C> | 2016-07-29 | J. Ator | Original author |
-C>
-	SUBROUTINE SETVALNB ( LUNIT, TAGPV, NTAGPV, TAGNB, NTAGNB,
-     .                        R8VAL, IRET )
+C> | 2022-10-04 | J. Ator | Added 8-byte wrapper |
+
+	RECURSIVE SUBROUTINE SETVALNB
+     .		( LUNIT, TAGPV, NTAGPV, TAGNB, NTAGNB, R8VAL, IRET )
 
 	USE MODA_USRINT
 	USE MODA_MSGCWD
 	USE MODA_TABLES
+	USE MODV_IM8B
 
 	CHARACTER*(*) TAGPV, TAGNB
 
@@ -65,6 +67,22 @@ C>
 
 C----------------------------------------------------------------------
 C----------------------------------------------------------------------
+
+C	Check for I8 integers.
+
+	IF(IM8B) THEN
+	   IM8B=.FALSE.
+
+	   CALL X84 ( LUNIT, MY_LUNIT, 1 )
+	   CALL X84 ( NTAGPV, MY_NTAGPV, 1 )
+	   CALL X84 ( NTAGNB, MY_NTAGNB, 1 )
+	   CALL SETVALNB ( MY_LUNIT, TAGPV, MY_NTAGPV, TAGNB, MY_NTAGNB,
+     .			   R8VAL, IRET )
+	   CALL X48 ( IRET, IRET, 1 )
+
+	   IM8B=.TRUE.
+	   RETURN
+	ENDIF
 
 	IRET = -1
 

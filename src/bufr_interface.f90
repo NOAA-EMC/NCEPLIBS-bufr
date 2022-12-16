@@ -393,7 +393,7 @@ end subroutine nemspecs_c
 !>  @param[in] bufr_unit - c_int: the bufr file pointer
 !>  @param[in] mnemonic - c_char: mnemonic
 !>  @param[out] descriptor - c_int: the binary descriptor for the mnemonic
-!>  @param[out] table type - c_char: 'A', 'B', 'C', or 'D', depending on table type
+!>  @param[out] table_type - c_char: 'A', 'B', 'C', or 'D', depending on table type
 !>  @param[out] table_idx - c_int: the table index, or 0 if not found
 !>
 subroutine nemtab_c(bufr_unit, mnemonic, descriptor, table_type, table_idx) &
@@ -451,7 +451,7 @@ end subroutine nemtbb_c
 !>  @brief Get copy of the moda_tables ISC array.
 !>
 !>  @param[out] isc_ptr - c_ptr: c style pointer to the ISC array
-!>  @param[out] isc_size - c_int: length of the array
+!>  @param[out] isc_size - c_int: size of the ISC array
 !>
 subroutine get_isc_c(isc_ptr, isc_size) bind(C, name='get_isc_f')
   use moda_tables
@@ -511,8 +511,8 @@ end subroutine get_itp_c
 !>  @brief Get copy of the moda_tables TYP array.
 !>
 !>  @param[out] typ_ptr - c_ptr: c style pointer to the TYP array
-!>  @param[out] typ_len - c_int: length of the TYP str
-!>  @param[out] mem_size - c_int: length of the TYP array
+!>  @param[out] typ_len - c_int: size of each string within the TYP array
+!>  @param[out] mem_size - c_int: size of the TYP array
 !>
 subroutine get_typ_c(typ_ptr, typ_len, mem_size) bind(C, name='get_typ_f')
   use moda_tables
@@ -576,7 +576,7 @@ end subroutine get_jmpb_c
 !>
 !>  @brief Get the bufr node idx for the start node of the subset.
 !>
-!>  @param[out] lun - c_int: pointer for the file stream
+!>  @param[in] lun - c_int: pointer for the file stream
 !>  @param[out] start_node - c_int: the start node of the subset
 !>
 subroutine get_inode_c(lun, start_node) bind(C, name='get_inode_f')
@@ -593,15 +593,15 @@ end subroutine get_inode_c
 !>
 !>  @brief Get the number of values in the current subset
 !>
-!>  @param[out] lun - c_int: pointer for the file stream
-!>  @param[out] numNodes - c_int: number of values in the subset
+!>  @param[in] lun - c_int: pointer for the file stream
+!>  @param[out] num_nodes - c_int: number of values in the subset
 !>
-subroutine get_nval_c(lun, numNodes) bind(C, name='get_nval_f')
+subroutine get_nval_c(lun, num_nodes) bind(C, name='get_nval_f')
   use moda_usrint
   integer(c_int), value, intent(in) :: lun
-  integer(c_int), intent(out) :: numNodes
+  integer(c_int), intent(out) :: num_nodes
 
-  numNodes = nval(lun)
+  num_nodes = nval(lun)
 end subroutine get_nval_c
 
 
@@ -610,7 +610,7 @@ end subroutine get_nval_c
 !>
 !>  @brief Get pointer to the moda_usrint VAL array.
 !>
-!>  @param[out] lun - c_int: pointer for the file stream
+!>  @param[in] lun - c_int: pointer for the file stream
 !>  @param[out] val_ptr - c_ptr: c style pointer to the VAL array
 !>  @param[out] val_size - c_int: length of the array
 !>
@@ -630,7 +630,7 @@ end subroutine get_val_c
 !>
 !>  @brief Get pointer to the moda_usrint INV array.
 !>
-!>  @param[out] lun - c_int: pointer for the file stream
+!>  @param[in] lun - c_int: pointer for the file stream
 !>  @param[out] inv_ptr - c_ptr: c style pointer to the INV array
 !>  @param[out] inv_size - c_int: length of the array
 !>

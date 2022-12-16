@@ -34,9 +34,11 @@ C> <b>Program history log:</b>
 C> | Date | Programmer | Comments |
 C> | -----|------------|----------|
 C> | 2015-03-02 | J. Ator | Original author |
-C>
-	SUBROUTINE EXITBUFR
+C> | 2022-10-04 | J. Ator | Added 8-byte wrapper |
 
+	RECURSIVE SUBROUTINE EXITBUFR
+
+	USE MODV_IM8B
 	USE MODV_IFOPBF
         USE MODV_NFILES
 
@@ -49,6 +51,17 @@ C>
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
+
+C	Check for I8 integers.
+
+	IF (IM8B) THEN
+	  IM8B = .FALSE.
+
+	  CALL EXITBUFR
+
+	  IM8B = .TRUE.
+	  RETURN
+	END IF
 
 C	Close any logical units that are open to the library.
 

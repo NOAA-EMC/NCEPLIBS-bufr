@@ -32,8 +32,11 @@ C> | Date | Programmer | Comments |
 C> | -----|------------|----------|
 C> | 2005-11-29 | J. Ator | Original author |
 C> | 2009-08-12 | J. Ator | Allow silent return (instead of bort() return) if MSGIN is already encoded using edition 4 |
-C>
-	SUBROUTINE CNVED4(MSGIN,LMSGOT,MSGOT)
+C> | 2022-08-04 | J. Woollen | Added 8-byte wrapper |
+
+	RECURSIVE SUBROUTINE CNVED4(MSGIN,LMSGOT,MSGOT)
+
+	USE MODV_IM8B
 
 	DIMENSION MSGIN(*), MSGOT(*)
 
@@ -41,6 +44,18 @@ C>
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
+
+C	Check for I8 integers.
+
+	IF(IM8B) THEN
+	   IM8B=.FALSE.
+
+	   CALL X84 ( LMSGOT, MY_LMSGOT, 1 )
+	   CALL CNVED4 ( MSGIN, MY_LMSGOT*2, MSGOT )
+
+	   IM8B=.TRUE.
+	   RETURN
+	ENDIF
 
 	IF(IUPBS01(MSGIN,'BEN').EQ.4) THEN
 

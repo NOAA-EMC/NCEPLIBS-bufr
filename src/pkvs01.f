@@ -68,12 +68,13 @@ C> | -----|------------|----------|
 C> | 2005-11-29 | J. Ator    | Original author |
 C> | 2006-04-14 | D. Keyser  | Updated docblock |
 C> | 2015-03-03 | J. Ator    | Use module MODA_S01CM |
-C>
-      SUBROUTINE PKVS01(S01MNEM,IVAL)
+C> | 2022-08-04 | J. Woollen | Added 8-byte wrapper |
+
+      RECURSIVE SUBROUTINE PKVS01(S01MNEM,IVAL)
 
       USE MODV_MXS01V
-
       USE MODA_S01CM
+      USE MODV_IM8B
 
       CHARACTER*(*) S01MNEM
 
@@ -81,6 +82,18 @@ C>
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
+
+C     CHECK FOR I8 INTEGERS
+
+      IF(IM8B) THEN
+         IM8B=.FALSE.
+
+         CALL X84(IVAL,MY_IVAL,1)
+         CALL PKVS01(S01MNEM,MY_IVAL)
+
+         IM8B=.TRUE.
+         RETURN
+      ENDIF
 
 C     CONFIRM THAT THE ARRAYS NEEDED BY THIS SUBROUTINE HAVE ALREADY
 C     BEEN ALLOCATED (AND IF NOT, GO AHEAD AND ALLOCATE THEM NOW), SINCE

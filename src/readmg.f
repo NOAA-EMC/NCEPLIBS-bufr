@@ -69,12 +69,14 @@ C> | 2009-03-23 | J. Ator    | Add logic to allow Section 3 decoding; add logic 
 C> | 2012-06-07 | J. Ator    | Don't respond to internal dictionary messages if Section 3 decoding is being used |
 C> | 2012-09-15 | J. Woollen | Convert to C language I/O interface; remove code to reread message as bytes; replace Fortran BACKSPACE with C backbufr() |
 C> | 2014-12-10 | J. Ator    | Use modules instead of COMMON blocks |
-C>
-      SUBROUTINE READMG(LUNXX,SUBSET,JDATE,IRET)
+C> | 2022-08-04 | J. Woollen | Added 8-byte wrapper |
+
+      RECURSIVE SUBROUTINE READMG(LUNXX,SUBSET,JDATE,IRET)
 
       USE MODA_MSGCWD
       USE MODA_SC3BFR
       USE MODA_BITBUF
+      USE MODV_IM8B
 
       COMMON /QUIET / IPRT
 
@@ -83,6 +85,21 @@ C>
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
+
+C  CHECK FOR I8 INTEGERS
+C  ---------------------
+
+      IF(IM8B) THEN
+         IM8B=.FALSE.
+
+         CALL X84(LUNXX,MY_LUNXX,1)
+         CALL READMG(MY_LUNXX,SUBSET,JDATE,IRET)
+         CALL X48(JDATE,JDATE,1)
+         CALL X48(IRET,IRET,1)
+
+         IM8B=.TRUE.
+         RETURN
+      ENDIF
 
       IRET = 0
       LUNIT = ABS(LUNXX)

@@ -70,10 +70,12 @@ C> | 2009-03-23 | D. Keyser  | Call bort() in case of MBAY overflow |
 C> | 2009-03-23 | J. Ator    | Add logic to allow Section 3 decoding; add logic to process dictionary messages |
 C> | 2012-06-07 | J. Ator    | Don't respond to DX table messages if Section 3 decoding is being used |
 C> | 2014-12-10 | J. Ator    | Use modules instead of COMMON blocks |
-C>
-      SUBROUTINE READERME(MESG,LUNIT,SUBSET,JDATE,IRET)
+C> | 2022-08-04 | J. Woollen | Added 8-byte wrapper |
+
+      RECURSIVE SUBROUTINE READERME(MESG,LUNIT,SUBSET,JDATE,IRET)
 
       USE MODV_MXMSGL
+      USE MODV_IM8B
 
       USE MODA_SC3BFR
       USE MODA_IDRDM
@@ -94,6 +96,21 @@ C>
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
+
+C  CHECK FOR I8 INTEGERS
+C  ---------------------
+
+      IF(IM8B) THEN
+         IM8B=.FALSE.
+
+         CALL X84(LUNIT,MY_LUNIT,1)
+         CALL READERME(MESG,MY_LUNIT,SUBSET,JDATE,IRET)
+         CALL X48(JDATE,JDATE,1)
+         CALL X48(IRET,IRET,1)
+
+         IM8B=.TRUE.
+         RETURN
+      ENDIF
 
       IRET = 0
 

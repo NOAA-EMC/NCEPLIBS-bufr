@@ -1,112 +1,81 @@
 C> @file
-C> @author WOOLLEN @date 1994-01-06
-      
-C> THIS SUBROUTINE READS SPECIFIED VALUES INTO INTERNAL ARRAYS
-C>   FROM ALL DATA SUBSETS IN BUFR MESSAGES STORED IN INTERNAL MEMORY.
-C>   THE DATA VALUES CORRESPOND TO MNEMONICS, NORMALLY WHERE THERE IS NO
-C>   REPLICATION (THERE CAN BE REGULAR OR DELAYED REPLICATION, BUT THIS
-C>   SUBROUTINE WILL ONLY READ THE FIRST OCCURRENCE OF THE MNEMONIC IN
-C>   EACH SUBSET).  UFBTAM PROVIDES A MECHANISM WHEREBY A USER CAN DO A
-C>   QUICK SCAN OF THE RANGE OF VALUES CORRESPONDING TO ONE OR MORE
-C>   MNEMNONICS AMONGST ALL DATA SUBSETS FOR A GROUP OF BUFR MESSAGES
-C>   STORED IN INTERNAL MEMORY, NO OTHER BUFR ARCHIVE LIBRARY ROUTINES
-C>   HAVE TO BE CALLED.  THIS SUBROUTINE IS SIMILAR TO BUFR ARCHIVE
-C>   LIBRARY SUBROUTINE UFBTAB EXCEPT UFBTAB READS SUBSETS FROM MESSAGES
-C>   IN A PHYSICAL BUFR FILE.  UFBTAM CURRENTLY CANNOT READ DATA FROM
-C>   COMPRESSED BUFR MESSAGES.
+C> @brief Read one or more data values from every data subset in
+C> internal arrays
+
+C> This subroutine reads through every data subset in internal arrays
+C> and returns one or more specified data values from each subset.
 C>
-C> PROGRAM HISTORY LOG:
-C> 1994-01-06  J. WOOLLEN -- ORIGINAL AUTHOR
-C> 1998-07-08  J. WOOLLEN -- REPLACED CALL TO CRAY LIBRARY ROUTINE
-C>                           "ABORT" WITH CALL TO NEW INTERNAL BUFRLIB
-C>                           ROUTINE "BORT"
-C> 1998-10-27  J. WOOLLEN -- MODIFIED TO CORRECT PROBLEMS CAUSED BY IN-
-C>                           LINING CODE WITH FPP DIRECTIVES
-C> 1999-11-18  J. WOOLLEN -- THE NUMBER OF BUFR FILES WHICH CAN BE
-C>                           OPENED AT ONE TIME INCREASED FROM 10 TO 32
-C>                           (NECESSARY IN ORDER TO PROCESS MULTIPLE
-C>                           BUFR FILES UNDER THE MPI)
-C> 2000-09-19  J. WOOLLEN -- MAXIMUM MESSAGE LENGTH INCREASED FROM
-C>                           10,000 TO 20,000 BYTES
-C> 2001-08-15  D. KEYSER  -- PARAMETER MAXMEM (THE MAXIMUM NUMBER OF
-C>                           BYTES REQUIRED TO STORE ALL MESSAGES
-C>                           INTERNALLY) WAS INCREASED FROM 8 MBYTES TO
-C>                           16 MBYTES; MODIFIED TO NOT ABORT WHEN THERE
-C>                           ARE TOO MANY SUBSETS COMING IN (I.E., .GT.
-C>                           I2), BUT RATHER JUST PROCESS I2 REPORTS AND
-C>                           PRINT A DIAGNOSTIC
-C> 2002-05-14  J. WOOLLEN -- REMOVED OLD CRAY COMPILER DIRECTIVES
-C> 2003-11-04  S. BENDER  -- ADDED REMARKS/BUFRLIB ROUTINE
-C>                           INTERDEPENDENCIES
-C> 2003-11-04  D. KEYSER  -- PARAMETER MAXMSG (THE MAXIMUM NUMBER OF
-C>                           BUFR MESSAGES WHICH CAN BE STORED
-C>                           INTERNALLY) INCREASED FROM 50000 TO 200000;
-C>                           MAXJL (MAXIMUM NUMBER OF JUMP/LINK ENTRIES)
-C>                           INCREASED FROM 15000 TO 16000 (WAS IN
-C>                           VERIFICATION VERSION); UNIFIED/PORTABLE FOR
-C>                           WRF; ADDED DOCUMENTATION (INCLUDING
-C>                           HISTORY); OUTPUTS MORE COMPLETE DIAGNOSTIC
-C>                           INFO WHEN ROUTINE TERMINATES ABNORMALLY
-C> 2004-08-09  J. ATOR    -- MAXIMUM MESSAGE LENGTH INCREASED FROM
-C>                           20,000 TO 50,000 BYTES
-C> 2004-11-15  D. KEYSER  -- PARAMETER MAXMEM (THE MAXIMUM NUMBER OF
-C>                           BYTES REQUIRED TO STORE ALL MESSAGES
-C>                           INTERNALLY) WAS INCREASED FROM 16 MBYTES TO
-C>                           50 MBYTES
-C> 2007-01-19  J. ATOR    -- REPLACED CALL TO PARSEQ WITH CALL TO PARSTR
-C> 2009-04-21  J. ATOR    -- USE ERRWRT
-C> 2009-10-21  D. KEYSER  -- ADDED OPTION TO INPUT NEW MNEMONIC "ITBL"
-C>                           IN ARGUMENT STR, RETURNS THE BUFR
-C>                           DICTIONARY TABLE NUMBER ASSOCIATED WITH
-C>                           EACH SUBSET IN INTERNAL MEMORY
-C> 2012-03-02  J. ATOR    -- USE FUNCTION UPS
-C> 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
-C> 2022-05-06  J. WOOLLEN -- REPLACE UPBB WITH UPB8 FOR 8BYTE INTEGERS
-C>                           USE NBMP FOR USRTPL             
+C> <p>This provides a useful way to scan the ranges of one or more
+C> specified data values across all of the data subsets in the
+C> internal arrays.  It is similar to subroutine ufbtab(), except
+C> that ufbtab() works on data subsets in a BUFR file.
 C>
-C> USAGE:    CALL UFBTAM (TAB, I1, I2, IRET, STR)
-C>   INPUT ARGUMENT LIST:
-C>     I1       - INTEGER: LENGTH OF FIRST DIMENSION OF TAB (MUST BE AT
-C>                LEAST AS LARGE AS THE NUMBER OF BLANK-SEPARATED
-C>                MNEMONICS IN STR)
-C>     I2       - INTEGER: LENGTH OF SECOND DIMENSION OF TAB
-C>     STR      - CHARACTER*(*): STRING OF BLANK-SEPARATED TABLE B
-C>                MNEMONICS IN ONE-TO-ONE CORRESPONDENCE WITH FIRST
-C>                DIMENSION OF TAB
-C>                  - THERE ARE THREE "GENERIC" MNEMONICS NOT RELATED
-C>                     TO TABLE B, THESE RETURN THE FOLLOWING
-C>                     INFORMATION IN CORRESPONDING TAB LOCATION:
-C>                     'NUL'  WHICH ALWAYS RETURNS BMISS ("MISSING")
-C>                     'IREC' WHICH ALWAYS RETURNS THE BUFR MESSAGE
-C>                            (RECORD) NUMBER IN WHICH EACH SUBSET IN
-C>                            INTERNAL MEMORY RESIDES
-C>                     'ISUB' WHICH ALWAYS RETURNS THE LOCATION WITHIN
-C>                            MESSAGE "IREC" (I.E., THE SUBSET NUMBER)
-C>                            FOR EACH SUBSET IN INTERNAL MEMORY
-C>                     'ITBL' WHICH ALWAYS RETURNS THE BUFR DICTIONARY
-C>                            TABLE NUMBER ASSOCIATED WITH EACH SUBSET
-C>                            IN INTERNAL MEMORY
+C> @author J. Woollen
+C> @date 1994-01-06
 C>
-C>   OUTPUT ARGUMENT LIST:
-C>     TAB      - REAL*8: (I1,I2) STARTING ADDRESS OF DATA VALUES READ
-C>                FROM INTERNAL MEMORY
-C>     IRET     - INTEGER: NUMBER OF DATA SUBSETS IN INTERNAL MEMORY
-C>                (MUST BE NO LARGER THAN I2)
+C> @param[out] TAB    -- real*8(*,*): Data values
+C> @param[in] I1 -- integer: First dimension of TAB as allocated
+C>                  within the calling program
+C> @param[in] I2 -- integer: Second dimension of TAB as allocated
+C>                  within the calling program
+C> @param[out] IRET -- integer: Number of data subsets in internal arrays
+C> @param[in] STR -- character*(*): String of blank-separated
+C>                   Table B mnemonics, in one-to-one correspondence
+C>                   with the number of data values that will be read
+C>                   from each data subset within the first dimension of
+C>                   TAB (see [DX BUFR Tables](@ref dfbftab) for further
+C>                   information about Table B mnemonics)
 C>
-C> REMARKS:
-C>    NOTE THAT UFBMEM IS CALLED PRIOR TO THIS TO STORE THE BUFR
-C>    MESSAGES INTO INTERNAL MEMORY.
+C> <p>It is the user's responsibility to ensure that TAB is dimensioned
+C> sufficiently large enough to accommodate the number of data values
+C> that are to be read from the internal arrays.  Specifically, each row of
+C> TAB will contain the data values read from a different data subset,
+C> so the value I2 must be at least as large as the total number of data
+C> subsets in the internal arrays.
 C>
-C>    THIS ROUTINE CALLS:        BORT     ERRWRT   NMSUB    PARSTR
-C>                               RDMEMM   STATUS   STRING   UPB
-C>                               UPB8     UPC      UPS      USRTPL
-C>    THIS ROUTINE IS CALLED BY: None
-C>                               Normally called only by application
-C>                               programs.
+C> <p>The internal arrays must have already been populated via a previous
+C> call to subroutine ufbmem().
 C>
-      SUBROUTINE UFBTAM(TAB,I1,I2,IRET,STR)
+C> @remarks
+C> - This subroutine will not work on compressed data subsets.
+C> - There are a few additional special mnemonics that can be
+C> included within STR when calling this subroutine, and which in turn
+C> will result in special information being returned within the
+C> corresponding location in TAB:
+C>      - IREC - returns the number of the BUFR message within the
+C>               internal arrays (counting from the beginning of the
+C>               internal arrays) in which the current data
+C>               subset resides
+C>      - ISUB - returns the number of the current data subset within
+C>               the BUFR message pointed to by IREC, counting from
+C>               the beginning of the message
+C>      - ITBL - returns the number of the DX BUFR table that is
+C>               in scope for the current data subset
+C>
+C> <b>Program history log:</b>
+C> | Date | Programmer | Comments |
+C> | -----|------------|----------|
+C> | 1994-01-06 | J. Woollen | Original author |
+C> | 1998-07-08 | J. Woollen | Replaced call to Cray library routine "ABORT" with call to new internal routine bort(); modified to make Y2K compliant |
+C> | 1999-11-18 | J. Woollen | The number of BUFR files which can be opened at one time increased from 10 to 32 |
+C> | 2000-09-19 | J. Woollen | Maximum message length increased from 10,000 to 20,000 bytes |
+C> | 2001-08-15 | D. Keyser  | Increased MAXMEM from 8 Mb to 16 Mb |
+C> | 2003-11-04 | S. Bender  | Added remarks and routine interdependencies |
+C> | 2003-11-04 | D. Keyser  | Unified/portable for WRF; added documentation; increased MAXJL from 15000 to 16000; increased MAXMSG from 50000 to 200000 |
+C> | 2004-08-09 | J. Ator    | Maximum message length increased from 20,000 to 50,000 bytes |
+C> | 2004-11-15 | D. Keyser  | Increased MAXMEM from 16 Mb to 50 Mb |
+C> | 2007-01-19 | J. Ator    | Replaced call to parseq with call to parstr() |
+C> | 2009-04-21 | J. Ator    | Use errwrt() |
+C> | 2012-03-02 | J. Ator    | Use ups() |
+C> | 2014-12-10 | J. Ator    | Use modules instead of COMMON blocks |
+C> | 2022-05-06 | J. Woollen | Replaced call to upbb() with call to upb8() for 8-byte integers; use NBMP for usrtpl() |
+C> | 2022-10-04 | J. Ator    | Added 8-byte wrapper |
+
+      RECURSIVE SUBROUTINE UFBTAM(TAB,I1,I2,IRET,STR)
 
       USE MODV_BMISS
+      USE MODV_IM8B
+
       USE MODA_USRINT
       USE MODA_MSGCWD
       USE MODA_BITBUF
@@ -129,6 +98,21 @@ C>
 C-----------------------------------------------------------------------
       MPS(NODE) = 2_8**(IBT(NODE))-1
 C-----------------------------------------------------------------------
+
+C  CHECK FOR I8 INTEGERS
+C  ---------------------
+
+      IF(IM8B) THEN
+         IM8B=.FALSE.
+
+         CALL X84(I1,MY_I1,1)
+         CALL X84(I2,MY_I2,1)
+         CALL UFBTAM(TAB,MY_I1,MY_I2,IRET,STR)
+         CALL X48(IRET,IRET,1)
+
+         IM8B=.TRUE.
+         RETURN
+      ENDIF
 
       IRET = 0
 

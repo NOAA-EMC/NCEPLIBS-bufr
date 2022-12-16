@@ -9,6 +9,11 @@ C> <p>BUFR messages should already be stored within internal
 C> arrays in memory via one or more previous calls to
 C> subroutine ufbmem().
 C>
+C> <p>This subroutine is similar to subroutine readmm(), except that
+C> readmm() also increments the value of IMSG prior to returning to
+C> the calling program, which in turn allows it to be easily called
+C> within an iterative program loop.
+C>
 C> @author J. Woollen
 C> @date 1994-01-06
 C>
@@ -45,13 +50,15 @@ C> | 2004-08-09 | J. Ator    | Maximum message length increased from 20,000 to 5
 C> | 2004-11-15 | D. Keyser  | Increased MAXMEM from 16 Mb to 50 Mb |
 C> | 2009-03-23 | J. Ator    | Modified to handle embedded BUFR table (dictionary) messages; use errwrt() |
 C> | 2014-12-10 | J. Ator    | Use modules instead of COMMON blocks |
-C>
-      SUBROUTINE RDMEMM(IMSG,SUBSET,JDATE,IRET)
+C> | 2022-08-04 | J. Woollen | Added 8-byte wrapper |
+
+      RECURSIVE SUBROUTINE RDMEMM(IMSG,SUBSET,JDATE,IRET)
 
       USE MODA_MSGCWD
       USE MODA_BITBUF
       USE MODA_MGWA
       USE MODA_MSGMEM
+      USE MODV_IM8B
 
       COMMON /QUIET / IPRT
 
@@ -62,6 +69,21 @@ C>
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
+
+C  CHECK FOR I8 INTEGERS
+C  ---------------------
+
+      IF(IM8B) THEN
+         IM8B=.FALSE.
+
+         CALL X84(IMSG,MY_IMSG,1)
+         CALL RDMEMM(MY_IMSG,SUBSET,JDATE,IRET)
+         CALL X48(JDATE,JDATE,1)
+         CALL X48(IRET,IRET,1)
+
+         IM8B=.TRUE.
+         RETURN
+      ENDIF
 
 C  CHECK THE MESSAGE REQUEST AND FILE STATUS
 C  -----------------------------------------

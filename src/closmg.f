@@ -19,7 +19,7 @@ C>
 C> <p>If LUNIN < 0, then any message containing zero data subsets will
 C> not be written to logical unit ABS(LUNIN) for the remainder of the
 C> life of the application program.  This includes suppressing the
-C> writing of any dummy messages containing dump center and initiation
+C> writing of any "dummy" messages containing dump center and initiation
 C> times that normally appear in the first 2 messages of NCEP dump files.
 C>
 C> <b>Program history log:</b>
@@ -36,15 +36,30 @@ C> | 2003-11-04 | D. Keyser | Unified/portable for WRF; added history documentat
 C> | 2004-08-09 | J. Ator | Maximum message length increased from 20,000 to 50,000 bytes |
 C> | 2005-05-26 | D. Keyser | Add LUNIN < 0 option to suppress writing of all future zero-subset messsages to ABS(LUNIN) |
 C> | 2014-12-10 | J. Ator | Use modules instead of COMMON blocks |
-C>
-      SUBROUTINE CLOSMG(LUNIN)
+C> | 2022-08-04 | J. Woollen | Added 8-byte wrapper |
+
+      RECURSIVE SUBROUTINE CLOSMG(LUNIN)
 
       USE MODA_MSGCWD
       USE MODA_MSGLIM
       USE MODA_BITBUF
+      USE MODV_IM8B
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
+
+C  CHECK FOR I8 INTEGERS
+C  ---------------------
+
+      IF(IM8B) THEN
+         IM8B=.FALSE.
+
+         CALL X84(LUNIN,MY_LUNIN,1)
+         CALL CLOSMG(MY_LUNIN)
+
+         IM8B=.TRUE.
+         RETURN
+      ENDIF
 
 C  CHECK THE FILE STATUS
 C  ---------------------

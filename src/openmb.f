@@ -48,16 +48,32 @@ C> | 2003-11-04 | J. Ator    | Added documentation |
 C> | 2003-11-04 | S. Bender  | Added remarks and routine interdependencies |
 C> | 2003-11-04 | D. Keyser  | Unified/portable for WRF; added documentation; outputs more complete diagnostic info when routine terminates abnormally |
 C> | 2014-12-10 | J. Ator    | Use modules instead of COMMON blocks |
-C>
-      SUBROUTINE OPENMB(LUNIT,SUBSET,JDATE)
+C> | 2022-08-04 | J. Woollen | Added 8-byte wrapper |
+
+      RECURSIVE SUBROUTINE OPENMB(LUNIT,SUBSET,JDATE)
 
       USE MODA_MSGCWD
+      USE MODV_IM8B
 
       CHARACTER*(*) SUBSET
       LOGICAL       OPEN
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
+
+C  CHECK FOR I8 INTEGERS
+C  ---------------------
+
+      IF(IM8B) THEN
+         IM8B=.FALSE.
+
+         CALL X84(LUNIT,MY_LUNIT,1)
+         CALL X84(JDATE,MY_JDATE,1)
+         CALL OPENMB(MY_LUNIT,SUBSET,MY_JDATE)
+
+         IM8B=.TRUE.
+         RETURN
+      ENDIF
 
 C  CHECK THE FILE STATUS
 C  ---------------------

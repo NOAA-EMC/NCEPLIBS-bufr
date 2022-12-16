@@ -44,17 +44,17 @@ C>                         - If ABS(LUNIN) was opened for output, then
 C>                           USR is input to this subroutine and
 C>                           contains data values that are to be
 C>                           written to the current data subset.
-C> @param[in] I1 -- integer: Actual first dimension of USR as allocated
+C> @param[in] I1 -- integer: First dimension of USR as allocated
 C>                  within the calling program
 C> @param[in] I2 -- integer:
 C>                    - If ABS(LUNIN) was opened for input, then I2
-C>                      must be set equal to the actual second dimension
+C>                      must be set equal to the second dimension
 C>                      of USR as allocated within the calling program
 C>                    - If ABS(LUNIN) was opened for output, then I2
 C>                      must be set equal to the number of replications
 C>                      of STR that are to be written to the data subset
 C> @param[out] IRET -- integer: Number of replications of STR that were
-C>                     actually read/written from/to the data subset
+C>                     read/written from/to the data subset
 C> @param[in] STR -- character*(*): String consisting of a single Table A
 C>                   or Table D mnemonic whose sequence definition is
 C>                   in one-to-one correspondence with the number of data
@@ -138,10 +138,13 @@ C> | 2009-04-21 | J. Ator    | Use errwrt() |
 C> | 2014-09-10 | J. Ator    | Fix bug involving nested delayed replication where first replication of outer sequence does not contain a replication of the inner sequence |
 C> | 2014-12-10 | J. Ator    | Use modules instead of COMMON blocks |
 C> | 2020-03-06 | J. Ator    | No longer abort when reading data and number of available levels is greater than I2; instead just return first I2 levels and print a diagnostic message |
-C>
-      SUBROUTINE UFBSEQ(LUNIN,USR,I1,I2,IRET,STR)
+C> | 2022-10-04 | J. Ator    | Added 8-byte wrapper |
+
+      RECURSIVE SUBROUTINE UFBSEQ(LUNIN,USR,I1,I2,IRET,STR)
 
       USE MODV_BMISS
+      USE MODV_IM8B
+
       USE MODA_USRINT
       USE MODA_MSGCWD
       USE MODA_TABLES
@@ -162,6 +165,22 @@ C>
 
 C----------------------------------------------------------------------
 C----------------------------------------------------------------------
+
+C  CHECK FOR I8 INTEGERS
+C  ---------------------
+
+      IF(IM8B) THEN
+         IM8B=.FALSE.
+
+         CALL X84(LUNIN,MY_LUNIN,1)
+         CALL X84(I1,MY_I1,1)
+         CALL X84(I2,MY_I2,1)
+         CALL UFBSEQ(MY_LUNIN,USR,MY_I1,MY_I2,IRET,STR)
+         CALL X48(IRET,IRET,1)
+
+         IM8B=.TRUE.
+         RETURN
+      ENDIF
 
       IRET = 0
 

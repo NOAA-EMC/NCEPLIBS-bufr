@@ -53,10 +53,14 @@ C> | -----|------------|----------|
 C> | 2012-09-12 | J. Ator | Original author |
 C> | 2014-10-02 | J. Ator | Modified to use fstag() |
 C> | 2014-12-10 | J. Ator | Use modules instead of COMMON blocks |
-C>
-	REAL*8 FUNCTION GETVALNB ( LUNIT, TAGPV, NTAGPV, TAGNB, NTAGNB )
+C> | 2022-10-04 | J. Ator | Added 8-byte wrapper |
+
+	RECURSIVE FUNCTION GETVALNB
+     .		( LUNIT, TAGPV, NTAGPV, TAGNB, NTAGNB )
+     .		RESULT ( R8VAL )
 
         USE MODV_BMISS
+	USE MODV_IM8B
 
 	USE MODA_USRINT
 	USE MODA_MSGCWD
@@ -64,10 +68,26 @@ C>
 
 	CHARACTER*(*) TAGPV, TAGNB
 
+	REAL*8 R8VAL
+
 C----------------------------------------------------------------------
 C----------------------------------------------------------------------
 
-	GETVALNB = BMISS
+C	Check for I8 integers.
+
+	IF(IM8B) THEN
+	   IM8B=.FALSE.
+
+	   CALL X84(LUNIT,MY_LUNIT,1)
+	   CALL X84(NTAGPV,MY_NTAGPV,1)
+	   CALL X84(NTAGNB,MY_NTAGNB,1)
+	   R8VAL=GETVALNB(MY_LUNIT,TAGPV,MY_NTAGPV,TAGNB,MY_NTAGNB)
+
+	   IM8B=.TRUE.
+	   RETURN
+	ENDIF
+
+	R8VAL = BMISS
 
 C	Get LUN from LUNIT.
 
@@ -87,7 +107,7 @@ C	forward or backward for the (NTAGNB)th occurrence of TAGNB.
 	CALL FSTAG( LUN, TAGNB, NTAGNB, NPV, NNB, IRET )
 	IF ( IRET .NE. 0 ) RETURN
 
-	GETVALNB = VAL(NNB,LUN)
+	R8VAL = VAL(NNB,LUN)
 	    
 	RETURN
 	END
