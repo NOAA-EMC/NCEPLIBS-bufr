@@ -3,7 +3,7 @@
 @brief Description and format of DX BUFR tables files for use with the library
 @anchor dfbftab
 
-<div id="bftab"/>
+<div id="bftab">
 This document describes the format and contents of a DX BUFR tables file for use
 with the BUFRLIB software.  Any such file consists of three distinct sections [Section 1](#section1),
 [Section 2](#section2) and [Section 3](#section3), each of which is described in
@@ -221,12 +221,12 @@ and refer back to it at several points throughout the remainder of the discussio
 |          |                                                                   |
 | NC001003 | MRPSC0  BID    {RCPTIM} RPSEC1  WNDSQ1  XS10    XS20     TMPSQ1   |
 | NC001003 | PRSSQ1  MPCPSQ                                                    |
-| NC001003 | <PPWSQ1>   <WAVSQ1>   <WAVSQ2>  {WAVSQ3}    WNDSQ3   {CTWNDS}     |
+| NC001003 | &lt;PPWSQ1&gt;   &lt;WAVSQ1&gt;   &lt;WAVSQ2&gt;  {WAVSQ3}    WNDSQ3   {CTWNDS}     |
 | NC001003 | {RAWRPT}                                                          |
 |          |                                                                   |
 | NC002001 | UARTM  {RCPTIM}  {BID}  UASID  {UARID}                            |
-| NC002001 | {UARLV}  <UASDG>  {UARDCS}  {RAWRPT}                              |
-| NC002001 | {UACLD}  <UAADF>                                                  |
+| NC002001 | {UARLV}  &lt;UASDG&gt;  {UARDCS}  {RAWRPT}                              |
+| NC002001 | {UACLD}  &lt;UAADF&gt;                                                  |
 | NC002001 | WMOB  WMOS  WMOR                                                  |
 |          |                                                                   |
 | NC002007 | WMOB     WMOS     CLAT     CLON     SELV     YEAR     MNTH        |
@@ -253,13 +253,13 @@ and refer back to it at several points throughout the remainder of the discussio
 | RPSEC1   | ITSO    TOST    INPC    HOVI                                      |
 |          |                                                                   |
 | TMPSQ1   | QMAT    TMDB    QMDD    TMDP    MSST   QMST  SST1                 |
-| TMPSQ1   | <TMPSQ2>   <TMPSQ3>                                               |
+| TMPSQ1   | &lt;TMPSQ2&gt;   &lt;TMPSQ3&gt;                                               |
 |          |                                                                   |
 | TMPSQ2   | MWBT    TMWB    REHU                                              |
 |          |                                                                   |
 | TMPSQ3   | .DTHMXTM   MXTM   .DTHMITM   MITM                                 |
 |          |                                                                   |
-| WNDSQ1   | SUWS    QMWN    WDIR    WSPD    <WNDSQ2>                          |
+| WNDSQ1   | SUWS    QMWN    WDIR    WSPD    &lt;WNDSQ2&gt;                          |
 |          |                                                                   |
 | WNDSQ2   | .DTMMXGS  MXGS                                                    |
 |          |                                                                   |
@@ -282,7 +282,7 @@ and refer back to it at several points throughout the remainder of the discussio
 | MRPSC0   | YEAR    MNTH    DAYS    HOUR    MINU    RPID   MRPIDS CLON        |
 | MRPSC0   | CLAT    SELV    CORN                                              |
 |          |                                                                   |
-| MRPIDS   | <ID1SQ> <ID2SQ> <ID3SQ>                                           |
+| MRPIDS   | &lt;ID1SQ&gt; &lt;ID2SQ&gt; &lt;ID3SQ&gt;                                           |
 |          |                                                                   |
 | ID1SQ    | SHPC8                                                             |
 |          |                                                                   |
@@ -292,7 +292,7 @@ and refer back to it at several points throughout the remainder of the discussio
 |          |                                                                   |
 | CTWNDS   | TPMI    WDRC    WDSC                                              |
 |          |                                                                   |
-| MPCPSQ   | TP06    <PCPSQ2>   <PCPSQ3>                                       |
+| MPCPSQ   | TP06    &lt;PCPSQ2&gt;   &lt;PCPSQ3&gt;                                       |
 |          |                                                                   |
 | BID      | SEQNUM  BUHD  ICLI  BULTIM  BBB                                   |
 |          |                                                                   |
@@ -306,8 +306,8 @@ and refer back to it at several points throughout the remainder of the discussio
 |          |                                                                   |
 | UARTM    | YEAR  MNTH  DAYS  HOUR                                            |
 |          |                                                                   |
-| UARLV    | VSIG  QMPR  PRLC  QMGP  <UAGP07>  <UAGP10>                        |
-| UARLV    | <UATMP>  <UAWND>  <UAWSH>                                         |
+| UARLV    | VSIG  QMPR  PRLC  QMGP  &lt;UAGP07&gt;  &lt;UAGP10&gt;                        |
+| UARLV    | &lt;UATMP&gt;  &lt;UAWND&gt;  &lt;UAWSH&gt;                                         |
 |          |                                                                   |
 | UAGP07   | GP07                                                              |
 |          |                                                                   |
@@ -536,7 +536,7 @@ in terms of their scale factor, reference value, bit width, and units.
 Now, as we delve into the details of each of the three sections, we'll constantly refer back to
 our [sample DX BUFR tables file](#bftab) in order to better illustrate the concepts that are discussed.
 
-<div id="section1"/>
+<div id="section1">
 ### Section 1
 
 As previously mentioned, the first section of a BUFR tables file is where all Table A, B and D
@@ -612,7 +612,7 @@ file. Put another way, the "A" that appears within the FXY number corresponding 
 mnemonic within the tables file is only there so that such mnemonics can be easily distinguished
 from Table D mnemonics by the software.
 
-<div id="section2"/>
+<div id="section2">
 ### Section 2
 
 Now, let's move on to the second section of a DX BUFR tables file. As already stated, this section
@@ -642,7 +642,7 @@ in question:
 
 | Symbol | Meaning |
 |--------|---------|
-| < >  | The enclosed mnemonic is replicated using 1-bit delayed replication (either 0 or 1 replications) |
+| &lt; &gt;  | The enclosed mnemonic is replicated using 1-bit delayed replication (either 0 or 1 replications) |
 | { }  | The enclosed mnemonic is replicated using 8-bit delayed replication (between 0 and 255 replications) |
 | ( )  | The enclosed mnemonic is replicated using 16-bit delayed replication (between 0 and 65535 replications) |
 | " "n | The enclosed mnemonic is replicated using regular (non-delayed) replication, with a fixed replication factor of n |
@@ -681,10 +681,10 @@ where, e.g., the constituent Table D mnemonic UARLV itself consists of the follo
 
 and where, in turn, UAGP07, UAGP10, UATMP, etc. are also Table D mnemonics which can themselves be
 further resolved. So we can even nest certain replication sequences inside of other replication sequences,
-and, further, via the judicious use of the < > indicator, even turn on/off entire sequences of data values
+and, further, via the judicious use of the &lt; &gt; indicator, even turn on/off entire sequences of data values
 simply and efficiently. An example of this is the UAWSH (i.e. "RADIOSONDE WIND SHEAR DATA") sequence,
 whose constituent data values are only ever present in a rawinsonde report when a level of maximum wind is
-being reported (and, even then, not always!). In this case, enclosing the entire sequence within a < >
+being reported (and, even then, not always!). In this case, enclosing the entire sequence within a &lt; &gt; 
 indicator allows the lack of such data within a report level to be noted by the use of a single bit set to "0"
 (i.e. 0 replications), rather than having to otherwise store the appropriate "missing" value for every
 constituent data value. Over the course of many data levels within many data subsets within a single BUFR
@@ -961,7 +961,7 @@ to access all such values simultaneously, even if we weren't interested in all o
 intuitiveness provided by having available, within the mnemonic itself, the name of the mnemonic to which the
 corresponding value applies.
 
-<div id="section3"/>
+<div id="section3">
 ### Section 3
 
 It's now time to move on to the third and final section of a DX BUFR tables file. As we mentioned earlier,

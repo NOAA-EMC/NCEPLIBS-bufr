@@ -53,7 +53,7 @@ the above values, see the discussion on Section 1 within the official
 Now that we've discussed the content and naming conventions for master BUFR table files, let's turn our
 attention to the actual format of these files:
 
-<div id="TableB"/>
+<div id="TableB">
 ### Table B
 
 As described above, two master Table B files (one standard and one local) are required for each BUFR message
@@ -152,7 +152,7 @@ the tables subdirectory:
 - [Standard Table B for Master Table 0 (WMO), Version 38](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.TableB_STD_0_38)
 - [Local Table B for Master Table 0 (WMO), Originating Center 7 (NCEP), Version 1](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.TableB_LOC_0_7_1)
 
-<div id="TableD"/>
+<div id="TableD">
 ### Table D
 
 As was the case for [Table B](#TableB), two master Table D files (one standard and one local) are also
@@ -272,7 +272,7 @@ distribution package for the software, within the tables subdirectory:
 - [Local Table D for Master Table 0 (WMO), Originating Center 7 (NCEP), Version 1](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.TableD_LOC_0_7_1)
 
 
-<div id="CodeFlag"/>
+<div id="CodeFlag">
 ### Code/Flag Tables
 
 Unlike for [Table B](#TableB) and [Table D](#TableD), master Code/Flag tables are optional when

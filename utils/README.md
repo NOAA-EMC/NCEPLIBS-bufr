@@ -18,7 +18,7 @@
 
 ---
 
-<div id="debufr"/>
+<div id="debufr">
 
 ### debufr
 
@@ -90,14 +90,14 @@ See the source code at debufr.c and debufr.f
 
 ---
 
-<div id="readbp"/>
+<div id="readbp">
 
 ### readbp
 
 A utility to read prepbufr files which prints each report one at a time, or jumps to a report with characteristics defined by various keys such as report type, subset type, xy locagtion, station id, etc. Keys can be entered as arguments to the program or entered while the program is running. Basic operation is to print one report at a time with the default being starting at the beginning and continuing until the end or the user enters 'q'. The following summary is printed if the program is run without arguments.
  
 <pre>
- Usage: readbp <-s> <-w> <m> <-k> <-r> <-d> <-n> <-h>  prep bufrfile
+ Usage: readbp <-s> <-w> <-m> <-k> <-r> <-d> <-n> <-h>  prep bufrfile
  
  Search filter and/or print prepbufr reports in various ways
  
@@ -155,7 +155,7 @@ DATA:
 
 ---
 
-<div id="readmp"/>
+<div id="readmp">
 
 ### readmp
 
@@ -244,7 +244,7 @@ Sample output for: `readmp gdas.20200812/00/gdas.t00z.sfcshp.tm00.bufr_d`
 
 ---
 
-<div id="binv"/>
+<div id="binv">
 
 ### binv
 
@@ -276,7 +276,7 @@ TOTAL           6823        774888      67232740
 
 ---
 
-<div id="sinv"/>
+<div id="sinv">
 
 ### sinv
 
@@ -306,7 +306,7 @@ Sample output for: `sinv gdas.20200812/00/gdas.t00z.satwnd.tm00.bufr_d`
 
 ---
 
-<div id="cmpbqm"/>
+<div id="cmpbqm">
 
 ### cmpbqm
 
@@ -472,7 +472,7 @@ typ   tot    0-3    4-7      8      9    10     11    12    13    14    15    ck
 
 ---
 
-<div id="gettab"/>
+<div id="gettab">
 
 ### gettab
 
@@ -532,7 +532,7 @@ Sample output for: `gettab gdas.20200812/00/gdas.t00z.adpsfc.tm00.bufr_d`
 
 ---
 
-<div id="split"/>
+<div id="split">
 
 ### split_by_subset
  
@@ -547,7 +547,7 @@ Usage: `split_by_subset gdas.20200812/00/gdas.t00z.satwnd.tm00.bufr_d`
 
 ---
 
-<div id="xbfmg"/>
+<div id="xbfmg">
 
 ### xbfmg 
 
