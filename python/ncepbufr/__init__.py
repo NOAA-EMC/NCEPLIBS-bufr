@@ -553,17 +553,17 @@ class open:
         if np.array([rep,seq,events]).sum() > 1:
             raise ValueError('only one of rep, seq and events cannot be True')
         if seq:
-            data = np.empty((_nmaxseq,_maxdim),np.float,order='F')
+            data = np.empty((_nmaxseq,_maxdim),np.float64,order='F')
             levs = _bufrlib.ufbseq(self.lunit,data,mnemonics,_nmaxseq,_maxdim)
         elif rep:
-            data = np.empty((ndim,_maxdim),np.float,order='F')
+            data = np.empty((ndim,_maxdim),np.float64,order='F')
             levs = _bufrlib.ufbrep(self.lunit,data,mnemonics,ndim,_maxdim)
         elif events:
-            #data = np.empty((ndim,_maxdim,maxevents),np.float,order='F')
-            data = np.empty((ndim,_maxdim,_maxevents),np.float,order='F')
+            #data = np.empty((ndim,_maxdim,maxevents),np.float64,order='F')
+            data = np.empty((ndim,_maxdim,_maxevents),np.float64,order='F')
             levs = _bufrlib.ufbevn(self.lunit,data,mnemonics,ndim,_maxdim,_maxevents)
         else:
-            data = np.empty((ndim,_maxdim),np.float,order='F')
+            data = np.empty((ndim,_maxdim),np.float64,order='F')
             levs = _bufrlib.ufbint(self.lunit,data,mnemonics,ndim,_maxdim)
         if events:
             return np.ma.masked_values(data[:,:levs,:],self.missing_value)
@@ -598,11 +598,11 @@ class open:
         """
         # make a fortran contiguous copy of input data.
         if len(data.shape) in [2,3]:
-            dataf = np.empty(data.shape, np.float, order='F')
+            dataf = np.empty(data.shape, np.float64, order='F')
             dataf[:] = data[:]
         elif len(data.shape) == 1:
             # make 1d array into 2d array with 1 level
-            dataf = np.empty((data.shape[0],1), np.float, order='F')
+            dataf = np.empty((data.shape[0],1), np.float64, order='F')
             dataf[:,0] = data[:]
         else:
             msg = 'data in write_subset must be 1,2 or 3d'
