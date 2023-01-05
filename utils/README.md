@@ -86,6 +86,8 @@ Usage:
 
 See the source code at debufr.c and debufr.f
 
+</div>
+
 <br>
 
 ---
@@ -150,6 +152,8 @@ DATA:
   16   1    30.0(2) *******(*) *******(*) *******(*)    70.5(2)    18.9(2)
   17   1    20.0(2) *******(*) *******(*) *******(*)    83.1(2)    22.3(2)
 ~~~
+
+</div>
 
 <br>
 
@@ -240,6 +244,8 @@ Sample output for: `readmp gdas.20200812/00/gdas.t00z.sfcshp.tm00.bufr_d`
 
 ~~~
 
+</div>
+
 <br>
 
 ---
@@ -272,6 +278,8 @@ SYNDAT             2           102         13234       51.00
 TOTAL           6823        774888      67232740
 ~~~
 
+</div>
+
 <br>
 
 ---
@@ -301,6 +309,8 @@ Sample output for: `sinv gdas.20200812/00/gdas.t00z.satwnd.tm00.bufr_d`
 473  INSAT-3DR        79427
 784  AQUA              2850
 ~~~
+
+</div>
 
 <br>
 
@@ -468,6 +478,8 @@ typ   tot    0-3    4-7      8      9    10     11    12    13    14    15    ck
  ******CMPBQM PROCESSED         7066  BUFR RECORDS******
 ~~~
 
+</div>
+
 <br>
 
 ---
@@ -528,6 +540,8 @@ Sample output for: `gettab gdas.20200812/00/gdas.t00z.adpsfc.tm00.bufr_d`
 
 ~~~
 
+</div>
+
 <br>
 
 ---
@@ -542,6 +556,8 @@ To preview which files will be produced (one for each m/s type) use binv (docume
 See the source code at split_by_subset.f90
 
 Usage: `split_by_subset gdas.20200812/00/gdas.t00z.satwnd.tm00.bufr_d`
+
+</div>
 
 <br>
 
@@ -589,5 +605,7 @@ Usage:
 </pre>
 
 See the source code at xbfmg.c
+
+</div>
 
 <br>

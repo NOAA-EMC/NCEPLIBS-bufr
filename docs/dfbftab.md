@@ -535,6 +535,7 @@ in terms of their scale factor, reference value, bit width, and units.
 
 Now, as we delve into the details of each of the three sections, we'll constantly refer back to
 our [sample DX BUFR tables file](#bftab) in order to better illustrate the concepts that are discussed.
+</div>
 
 <div id="section1">
 ### Section 1
@@ -611,6 +612,7 @@ into a BUFR message, a "3" is actually encoded in place of the "A" which is used
 file. Put another way, the "A" that appears within the FXY number corresponding to each Table A
 mnemonic within the tables file is only there so that such mnemonics can be easily distinguished
 from Table D mnemonics by the software.
+</div>
 
 <div id="section2">
 ### Section 2
@@ -960,6 +962,7 @@ of the same places within the same Table A data subset definition, but then we'd
 to access all such values simultaneously, even if we weren't interested in all of them. And we'd also lose the
 intuitiveness provided by having available, within the mnemonic itself, the name of the mnemonic to which the
 corresponding value applies.
+</div>
 
 <div id="section3">
 ### Section 3
@@ -983,3 +986,4 @@ human-readability, and, for the same reason, it's also recommended to list the m
 which they were declared within the first section, although this is by no means a requirement of the software.
 However, note that any mnemonic whose corresponding data values are to be treated as character data must have
 its units listed as "CCITT IA5", which is basically just a formal synonym for ASCII.
+</div>
