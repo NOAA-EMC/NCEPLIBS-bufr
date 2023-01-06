@@ -16,15 +16,15 @@ idate=2010050700 # cycle time: YYYYMMDDHH
 subset='ADPSFC'  # surface land (SYNOPTIC, METAR) reports
 bufr.open_message(subset, idate)
 
-hdr = bufr.missing_value*np.ones(len(hdstr.split()),np.float)
-hdr[0] = np.fromstring('KTKI    ',dtype=np.float)[0]
+hdr = bufr.missing_value*np.ones(len(hdstr.split()),np.float64)
+hdr[0] = np.fromstring('KTKI    ',dtype=np.float64)[0]
 hdr[1]=263.4; hdr[2]=33.2; hdr[3] = -0.1; hdr[4]=287; hdr[5]=179
 # encode header for wind obs
 bufr.write_subset(hdr,hdstr)
 # set obs, qcf, oer for  wind
-obs = bufr.missing_value*np.ones(len(obstr.split()),np.float)
-oer = bufr.missing_value*np.ones(len(oestr.split()),np.float)
-qcf = bufr.missing_value*np.ones(len(qcstr.split()),np.float)
+obs = bufr.missing_value*np.ones(len(obstr.split()),np.float64)
+oer = bufr.missing_value*np.ones(len(oestr.split()),np.float64)
+qcf = bufr.missing_value*np.ones(len(qcstr.split()),np.float64)
 obs[0]=985.2; obs[4]=-2.8; obs[5]=-7.7; obs[7]=6.0
 qcf[0]=2.0  ; qcf[4]=2.0; oer[4] = 1.6
 # encode wind obs
@@ -53,15 +53,15 @@ bufr.open_message(subset, idate)
 
 # set header
 hdr[:]=bufr.missing_value
-hdr[0] = np.fromstring('72293   ',dtype=np.float)[0]
+hdr[0] = np.fromstring('72293   ',dtype=np.float64)[0]
 hdr[1]=242.9; hdr[2]=32.9; hdr[3]=0.0; hdr[5]=134.0
 
 # set obs, qcf, oer for  wind
 nlvl=3
 hdr[4]=220          # report type: sounding
-obs = bufr.missing_value*np.ones((len(obstr.split()),nlvl),np.float)
-oer = bufr.missing_value*np.ones((len(oestr.split()),nlvl),np.float)
-qcf = bufr.missing_value*np.ones((len(qcstr.split()),nlvl),np.float)
+obs = bufr.missing_value*np.ones((len(obstr.split()),nlvl),np.float64)
+oer = bufr.missing_value*np.ones((len(oestr.split()),nlvl),np.float64)
+qcf = bufr.missing_value*np.ones((len(qcstr.split()),nlvl),np.float64)
 obs[0,0]=998.0; obs[4,0]=4.6 ;obs[5,0]=2.2 ;obs[7,0]=3.0
 qcf[0,0]=2.0  ; qcf[4,0]=2.0
 oer[4,0]=2.3
@@ -78,9 +78,9 @@ bufr.write_subset(oer,oestr)
 bufr.write_subset(qcf,qcstr,end=True) # end subset
 # set obs, qcf, oer for  temperature and moisture
 nlvl=4
-obs = bufr.missing_value*np.ones((len(obstr.split()),nlvl),np.float)
-oer = bufr.missing_value*np.ones((len(oestr.split()),nlvl),np.float)
-qcf = bufr.missing_value*np.ones((len(qcstr.split()),nlvl),np.float)
+obs = bufr.missing_value*np.ones((len(obstr.split()),nlvl),np.float64)
+oer = bufr.missing_value*np.ones((len(oestr.split()),nlvl),np.float64)
+qcf = bufr.missing_value*np.ones((len(qcstr.split()),nlvl),np.float64)
 hdr[4]=120          # report type: sounding
 obs[0,0]=998.0;obs[1,0]=8112.0;obs[2,0]=22.3;obs[3,0]=134.0;obs[7,0]=0.0
 qcf[0,0]=2.0  ;qcf[1,0]=2.0   ;qcf[2,0]=2.0 ;qcf[3,0]=2.0
@@ -107,11 +107,11 @@ bufr.close()
 # open bufr file, append another message to it.
 bufr = ncepbufr.open('data/prepbufr2','a')
 # set data values
-hdr = bufr.missing_value*np.ones(len(hdstr.split()),np.float)
-obs = bufr.missing_value*np.ones(len(obstr.split()),np.float)
-oer = bufr.missing_value*np.ones(len(oestr.split()),np.float)
-qcf = bufr.missing_value*np.ones(len(qcstr.split()),np.float)
-hdr[0] = np.fromstring('KBOU    ',dtype=np.float)[0]
+hdr = bufr.missing_value*np.ones(len(hdstr.split()),np.float64)
+obs = bufr.missing_value*np.ones(len(obstr.split()),np.float64)
+oer = bufr.missing_value*np.ones(len(oestr.split()),np.float64)
+qcf = bufr.missing_value*np.ones(len(qcstr.split()),np.float64)
+hdr[0] = np.fromstring('KBOU    ',dtype=np.float64)[0]
 hdr[1]=-105.0;hdr[2]=40.0;hdr[3]=-1.0;hdr[4]=181
 obs[0]=300.0
 idate=2008120101  # YYYYMMDDHH
