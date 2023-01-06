@@ -1,4 +1,4 @@
-Documentation of previous versions: | [11.7.0](previous_versions/v11.7.0/index.html) | [11.6.0](previous_versions/v11.6.0/index.html) | [11.5.0](previous_versions/v11.5.0/index.html) |
+Documentation of previous versions: | [11.7.0](https://noaa-emc.github.io/NCEPLIBS-bufr/previous_versions/v11.7.0/index.html) | [11.6.0](https://noaa-emc.github.io/NCEPLIBS-bufr/previous_versions/v11.6.0/index.html) | [11.5.0](https://noaa-emc.github.io/NCEPLIBS-bufr/previous_versions/v11.5.0/index.html) |
 
 This library contains subroutines, functions and other utilities that can be
 used to read (decode) and write (encode) data in BUFR, which is a
@@ -9,7 +9,7 @@ Please see the [Related Pages](pages.html) tab for more details on this library,
 including a comprehensive user guide.
 
 The Python API documentation is available
-[here](python/index.html); however,
+[here](https://noaa-emc.github.io/NCEPLIBS-bufr/python/index.html); however,
 note that this functionality is only available if the library was built using
 the -DENABLE_PYTHON=ON option during the cmake step.
 
