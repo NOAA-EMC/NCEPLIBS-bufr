@@ -41,9 +41,9 @@ C>
 C> Function conwin() works with function invcon() to identify subset
 C> buffer segments which conform to the set of conditions.
 C>	
-C> @param[in] LUN I/O stream index into internal memory arrays.
-C> @param[inout] INC1 subset buffer start index 
-C> @param[inout] INC2 subset buffer ending index
+C> @param[in] LUN integer I/O stream index into internal memory arrays.
+C> @param[inout] INC1 integer subset buffer start index 
+C> @param[inout] INC2 integer subset buffer ending index
 C>
 C> @author Woollen @date 1994-01-06      
       SUBROUTINE CONWIN(LUN,INC1,INC2)
