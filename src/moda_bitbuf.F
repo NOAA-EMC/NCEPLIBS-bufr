@@ -12,17 +12,13 @@ C> @date 2014-12-10
 
 C>        Maximum length of an output BUFR message.
 	  INTEGER :: MAXBYT
-	
 C>        ???
 	  INTEGER :: IBIT
-	
 C>        ???
 	  INTEGER, ALLOCATABLE :: IBAY(:)
-	
 C>        Length (in bytes) of current BUFR message for each internal
 C>        I/O stream.
 	  INTEGER, ALLOCATABLE :: MBYT(:)
-	
 C>        Current BUFR message for each internal I/O stream.
 	  INTEGER, ALLOCATABLE :: MBAY(:,:)
 
