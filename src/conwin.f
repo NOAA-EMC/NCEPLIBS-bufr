@@ -15,10 +15,10 @@ C> 2014-12-10 | J. Ator    | use modules instead of common blocks.
 C>
 C> @author Woollen @date 1994-01-06
       
-C> This subroutine searches consecutive subset buffer segments
-C> for an element identified in the user string as a conditional node
-C> (i.e. an element which must meet a condition in order to be read
-C> from or written to a data subset). If a conditional element is
+C> This subroutine searches consecutive subset buffer segments for an
+C> element identified in the user string as a conditional node. A conditional
+C> node is an element which must meet a condition in order to be read
+C> from or written to a data subset. If a conditional element is
 C> found and it conforms to the condition, then the internal subset
 C> buffer indices of the "window" (see below remarks) are returned to
 C> the caller for processing.
