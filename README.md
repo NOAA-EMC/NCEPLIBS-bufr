@@ -9,7 +9,7 @@ For full documentation of the library, see https://noaa-emc.github.io/NCEPLIBS-b
 
 ## Authors
 
-NCEP/EMC developers.
+Jeff Ator, Jack Woolen, other NCEP/EMC developers.
 
 Code manager: Jeff Ator
 
