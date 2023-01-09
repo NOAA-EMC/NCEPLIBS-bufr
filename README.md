@@ -9,7 +9,7 @@ For full documentation of the library, see https://noaa-emc.github.io/NCEPLIBS-b
 
 ## Authors
 
-Jeff Ator, Jack Woolen,  Dennis Keyser, and Stacey Bender.
+Jeff Ator, Jack Woollen,  Dennis Keyser, and Stacey Bender.
 
 Code manager: Jeff Ator
 
