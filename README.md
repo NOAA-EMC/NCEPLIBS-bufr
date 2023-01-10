@@ -5,7 +5,10 @@
 The NCEPLIBS-bufr library contains routines and utilites for working with the WMO BUFR format.
 It is part of the [NCEPLIBS](https://github.com/NOAA-EMC/NCEPLIBS) project.
 
-For full documentation of the library, see https://noaa-emc.github.io/NCEPLIBS-bufr/.
+For full documentation of the library, see
+https://noaa-emc.github.io/NCEPLIBS-bufr/. For more information about
+BUFR see the WMO [Manual on
+Codes](https://library.wmo.int/index.php?lvl=notice_display&id=10684#.Y70OSNLMJH7).
 
 ## Authors
 
@@ -15,7 +18,9 @@ Code manager: Jeff Ator
 
 ## How to Build and Install
 
-Download and unpack tarball.
+Download tarball from
+[Releases](https://github.com/NOAA-EMC/NCEPLIBS-bufr/releases) and
+unpack.
 
 <pre>
 mkdir build && cd build
