@@ -1,15 +1,17 @@
+# This is a GitHub CI workflow for the NCEPLIBS-bufr project.
+#
+# This workflow runs the developer build, with test code coverage,
+# address sanitizer, and documentation build.
+#
+# Ed Hartnett, 1/10/23
 name: developer
 on:
   push:
     branches:
     - develop
-    paths-ignore:
-    - README.md
   pull_request:
     branches:
     - develop
-    paths-ignore:
-    - README.md
 
 jobs:
   developer:
