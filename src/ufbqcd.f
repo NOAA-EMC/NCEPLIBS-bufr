@@ -2,7 +2,7 @@ C> @file
 C> @brief Get the event program code associated with a Table D mnemonic
 C> from an NCEP prepbufr file
 
-C> Given a mnemonic associated with a category 63 (i.e. X=63) Table D
+C> Given a mnemonic associated with a category 63 Table D
 C> descriptor from an NCEP prepbufr file, this subroutine returns the
 C> corresponding event program code.
 C>
