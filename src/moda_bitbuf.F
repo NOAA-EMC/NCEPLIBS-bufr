@@ -12,9 +12,9 @@ C> @date 2014-12-10
 
 C>        Maximum length of an output BUFR message.
 	  INTEGER :: MAXBYT
-C>        ???
+C>        Bit pointer within IBAY.
 	  INTEGER :: IBIT
-C>        ???
+C>        Current data subset.
 	  INTEGER, ALLOCATABLE :: IBAY(:)
 C>        Length (in bytes) of current BUFR message for each internal
 C>        I/O stream.
