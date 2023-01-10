@@ -1,15 +1,16 @@
+# This is a GitHub CI workflow for the NCEPLIBS-bufr project.
+#
+# This workflow tests on MacOS.
+#
+# Ed Hartnett, 1/10/23
 name: MacOS
 on:
   push:
     branches:
     - develop
-    paths-ignore:
-    - README.md
   pull_request:
     branches:
     - develop
-    paths-ignore:
-    - README.md
 
 jobs:
   MacOS:

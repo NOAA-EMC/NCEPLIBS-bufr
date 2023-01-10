@@ -1,5 +1,6 @@
 C> @file
 C> @brief Declare arrays for internal storage of BUFR messages.
+C> @author J. Ator @date 2014-12-10
 
 C> This module contains array and variable declarations used to
 C> store BUFR messages internally for multiple I/O streams.
@@ -9,20 +10,16 @@ C> @date 2014-12-10
 
 	MODULE MODA_BITBUF
 
-C>        @var maxbyt
 C>        Maximum length of an output BUFR message.
-C>
-C>        @var mbyt
+	  INTEGER :: MAXBYT
+C>        Bit pointer within IBAY.
+	  INTEGER :: IBIT
+C>        Current data subset.
+	  INTEGER, ALLOCATABLE :: IBAY(:)
 C>        Length (in bytes) of current BUFR message for each internal
 C>        I/O stream.
-C>
-C>        @var mbay
-C>        Current BUFR message for each internal I/O stream.
-
-	  INTEGER :: MAXBYT
-	  INTEGER :: IBIT
-	  INTEGER, ALLOCATABLE :: IBAY(:)
 	  INTEGER, ALLOCATABLE :: MBYT(:)
+C>        Current BUFR message for each internal I/O stream.
 	  INTEGER, ALLOCATABLE :: MBAY(:,:)
 
 	END MODULE
