@@ -2,29 +2,27 @@
 
 ## NCEPLIBS-bufr library
 
-The NCEPLIBS-bufr library contains routines and utilites for working with the WMO BUFR format.
+The NCEPLIBS-bufr library contains routines and utilites for working with the
+[WMO BUFR](https://library.wmo.int/index.php?lvl=notice_display&id=10684#.Y70OSNLMJH7) format.
 It is part of the [NCEPLIBS](https://github.com/NOAA-EMC/NCEPLIBS) project.
 
 For full documentation of the library, see https://noaa-emc.github.io/NCEPLIBS-bufr/.
 
 ## Authors
 
-NCEP/EMC developers.
+Jack Woollen, Jeff Ator, Dennis Keyser, Stacey Bender, Diane Stokes, and Ron McLaren.
 
 Code manager: Jeff Ator
 
-## Supported Compilers
-
-- GNU
-- Intel
-- Clang
-
 ## How to Build and Install
 
+Download tarball from
+[Releases](https://github.com/NOAA-EMC/NCEPLIBS-bufr/releases) and
+unpack.
+
 <pre>
-git clone https://github.com/noaa-emc/nceplibs-bufr
 mkdir build && cd build
-cmake -DCMAKE_INSTALL_PREFIX=path1 -DMASTER_TABLE_DIR=path2 ../nceplibs-bufr
+cmake -DCMAKE_INSTALL_PREFIX=path1 -DMASTER_TABLE_DIR=path2 ..
 make -j4
 ctest
 make install
@@ -37,15 +35,6 @@ Installation of the library and utilities will be under `path1`.
 Installation of the master BUFR tables will be under `path2`, or
 under `path1` if `-DMASTER_TABLE_DIR=path2` is omitted
 from the above cmake command.
-
-For Intel and GNU compilers, the library is built with three different
-type/size combinations:
-
-- "4" = 4-byte integers and 4-byte reals
-- "8" = 8-byte integers and 8-byte reals
-- "d" = 4-byte integers and 8-byte reals
-
-All type/size combinations are built and installed.
 
 If Python interoperability is desired, `-DENABLE_PYTHON=ON` can also
 be added to the above cmake command.  However, version 3 of Python
