@@ -1,66 +1,51 @@
 C> @file
-C> @author WOOLLEN @date 1994-01-06
+C> @brief Search consecutive subset buffer segments
+C> for an element identified in the user string as a conditional node.
+C>
+C> ### Program History Log
+C> Date | Programmer | Comments
+C> -----|------------|---------
+C> 1994-01-06 | J. Woollen | Original author.
+C> 1998-07-08 | J. Woollen | Improved machine portability.
+C> 1999-11-18 | J. Woollen | Increase number of open BUFR FILES.
+C> 2003-11-04 | S. Bender  | Added remarks/bufrlib routine interdependencies.
+C> 2003-11-04 | D. Keyser  | MAXJL increased from 15000 to 16000; unified/portable for WRF.
+C> 2010-04-27 | J. Woollen | correct logical flaw and add documentation.
+C> 2014-12-10 | J. Ator    | use modules instead of common blocks.
+C>
+C> @author Woollen @date 1994-01-06
       
-C> THIS SUBROUTINE SEARCHES CONSECUTIVE SUBSET BUFFER SEGMENTS
-C>   FOR AN ELEMENT IDENTIFIED IN THE USER STRING AS A CONDITIONAL NODE
-C>   (I.E. AN ELEMENT WHICH MUST MEET A CONDITION IN ORDER TO BE READ
-C>   FROM OR WRITTEN TO A DATA SUBSET).  IF A CONDITIONAL ELEMENT IS
-C>   FOUND AND IT CONFORMS TO THE CONDITION, THEN THE INTERNAL SUBSET
-C>   BUFFER INDICES OF THE "WINDOW" (SEE BELOW REMARKS) ARE RETURNED TO
-C>   THE CALLER FOR PROCESSING.
+C> This subroutine searches consecutive subset buffer segments for an
+C> element identified in the user string as a conditional node. A conditional
+C> node is an element which must meet a condition in order to be read
+C> from or written to a data subset. If a conditional element is
+C> found and it conforms to the condition, then the internal subset
+C> buffer indices of the "window" (see below remarks) are returned to
+C> the caller for processing.
 C> 
-C>   THE FOUR CONDITIONS WHICH CAN BE EXERCISED ARE:
-C>   '<' - LESS THAN
-C>   '>' - GREATER THAN
-C>   '=' - EQUAL 
-C>   '!' - NOT EQUAL
+C> The four conditions which can be exercised are:
+C> - '<' - less than
+C> - '>' - greater than
+C> - '=' - equal 
+C> - '!' - not equal
 C>
-C>   EACH CONDITION IN A STRING IS APPLIED TO ONE ELEMENT, AND ALL
-C>   CONDITIONS ARE 'AND'ED TO EVALUATE AN OUTCOME. FOR EXAMPLE, IF THE
-C>   CONDITION STRING IS: "POB<500 TOB>30 TQM<4" THEN THE ONLY LEVELS OF
-C>   DATA READ OR WRITTEN ARE THOSE WITH PRESSURE LT 500 MB, TEMPERATURE
-C>   GT 30 DEG, AND TEMPERATURE QUALITY MARK < 4.
+C> Each condition in a string is applied to one element, and all
+C> conditions are 'and'ed to evaluate an outcome. For example, if the
+C> condition string is: "POB<500 TOB>30 TQM<4" then the only levels of
+C> data read or written are those with pressure lt 500 mb, temperature
+C> gt 30 deg, and temperature quality mark < 4.
 C>
-C> PROGRAM HISTORY LOG:
-C> 1994-01-06  J. WOOLLEN -- ORIGINAL AUTHOR
-C> 1998-07-08  J. WOOLLEN -- IMPROVED MACHINE PORTABILITY
-C> 1999-11-18  J. WOOLLEN -- THE NUMBER OF BUFR FILES WHICH CAN BE
-C>                           OPENED AT ONE TIME INCREASED FROM 10 TO 32
-C>                           (NECESSARY IN ORDER TO PROCESS MULTIPLE
-C>                           BUFR FILES UNDER THE MPI)
-C> 2003-11-04  S. BENDER  -- ADDED REMARKS/BUFRLIB ROUTINE
-C>                           INTERDEPENDENCIES
-C> 2003-11-04  D. KEYSER  -- MAXJL (MAXIMUM NUMBER OF JUMP/LINK ENTRIES)
-C>                           INCREASED FROM 15000 TO 16000 (WAS IN
-C>                           VERIFICATION VERSION); UNIFIED/PORTABLE FOR
-C>                           WRF; ADDED DOCUMENTATION (INCLUDING
-C>                           HISTORY) 
-C> 2010-04-27  J. WOOLLEN -- CORRECT LOGICAL FLAW AND ADD DOCUMENTATION
-C> 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
-C>
-C> USAGE:    CALL CONWIN (LUN, INC1, INC2)
-C>   INPUT ARGUMENT LIST:
-C>     LUN      - INTEGER: I/O STREAM INDEX INTO INTERNAL MEMORY ARRAYS
-C>     INC1     - INTEGER: SUBSET BUFFER START INDEX 
-C>     INC2     - INTEGER: SUBSET BUFFER ENDING INDEX
-C>
-C>   OUTPUT ARGUMENT LIST:
-C>     INC1     - INTEGER: SUBSET BUFFER START INDEX 
-C>     INC2     - INTEGER: SUBSET BUFFER ENDING INDEX 
-C>
-C> REMARKS:
-C>
-C>    SEE THE DOCBLOCK IN BUFR ARCHIVE LIBRARY SUBROUTINE GETWIN FOR AN
-C>    EXPLANATION OF "WINDOWS" WITHIN THE CONTEXT OF A BUFR DATA SUBSET.
+C> See getwin() for an explanation of "windows" within the context of a
+C> BUFR data subset.
 C>	
-C>    FUNCTION CONWIN WORKS WITH FUNCTION INVCON TO IDENTIFY SUBSET
-C>    BUFFER SEGMENTS WHICH CONFORM TO THE SET OF CONDITIONS.  
+C> Function conwin() works with function invcon() to identify subset
+C> buffer segments which conform to the set of conditions.
+C>	
+C> @param[in] LUN integer I/O stream index into internal memory arrays.
+C> @param[out] INC1 integer subset buffer start index 
+C> @param[inout] INC2 integer subset buffer ending index
 C>
-C>    THIS ROUTINE CALLS:        GETWIN   INVCON
-C>    THIS ROUTINE IS CALLED BY: UFBEVN   UFBIN3   UFBRW
-C>                               Normally not called by any application
-C>                               programs.
-C>
+C> @author Woollen @date 1994-01-06      
       SUBROUTINE CONWIN(LUN,INC1,INC2)
 
       USE MODA_USRINT
