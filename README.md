@@ -13,18 +13,13 @@ Jeff Ator, Jack Woollen,  Dennis Keyser, Stacey Bender, and Ron McLaren.
 
 Code manager: Jeff Ator
 
-## Supported Compilers
-
-- GNU
-- Intel
-- Clang
-
 ## How to Build and Install
 
+Download and unpack tarball.
+
 <pre>
-git clone https://github.com/noaa-emc/nceplibs-bufr
 mkdir build && cd build
-cmake -DCMAKE_INSTALL_PREFIX=path1 -DMASTER_TABLE_DIR=path2 ../nceplibs-bufr
+cmake -DCMAKE_INSTALL_PREFIX=path1 -DMASTER_TABLE_DIR=path2 ..
 make -j4
 ctest
 make install
