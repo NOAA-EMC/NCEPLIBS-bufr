@@ -46,6 +46,7 @@ list(APPEND test_IN_srcs
   test_IN_5.F
   test_IN_6.F
   test_IN_7.F
+  test_IN_8.F90
   )
 
 list(APPEND test_OUT_2_srcs
@@ -103,7 +104,7 @@ set(fortran_8_defs INTSIZE_8)
 
 # IN tests
 foreach(test_src ${test_IN_srcs})
-  string(REPLACE ".F" "" testPref ${test_src})
+  string(REGEX REPLACE "(.F90|.F)" "" testPref ${test_src})
   foreach(kind ${test_kinds})
     set(test     ${testPref}_${kind})
     set(test_exe ${test}.x)

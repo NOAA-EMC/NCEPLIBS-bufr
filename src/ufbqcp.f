@@ -3,7 +3,7 @@ C> @brief Get the Table D mnemonic associated with an event program
 C> code from an NCEP prepbufr file
 
 C> Given an event program code, which is equivalent to the Y value
-C> of a category 63 (i.e. X=63) Table D descriptor from an NCEP
+C> of a category 63 Table D descriptor from an NCEP
 C> prepbufr file, this subroutine returns the corresponding
 C> mnemonic.
 C>
