@@ -1,45 +1,26 @@
 /** @file
-    @author ATOR @date 2009-03-23
+ * @brief Search for an entry corresponding to IDN in the bufr
+ * master table.
+ * @author J Ator @date 2009-03-23
 */
-
 
 #include "bufrlib.h"
 #include "mstabs.h"
 
 /**
-C
-C SUBPROGRAM:   NUMMTB
-C   PRGMMR: ATOR             ORG: NP12       DATE: 2009-03-23
-C
-C ABSTRACT:  THIS ROUTINE SEARCHES FOR AN ENTRY CORRESPONDING TO IDN
-C   IN THE BUFR MASTER TABLE (EITHER 'B' OR 'D', DEPENDING ON THE VALUE
-C   OF IDN).  THE SEARCH USES BINARY SEARCH LOGIC, SO ALL OF THE ENTRIES
-C   IN THE TABLE MUST BE SORTED IN ASCENDING ORDER (BY FXY NUMBER) IN
-C   ORDER FOR THIS ROUTINE TO WORK PROPERLY.
-C
-C PROGRAM HISTORY LOG:
-C 2009-03-23  J. ATOR    -- ORIGINAL AUTHOR
-C
-C USAGE:    CALL NUMMTB( IDN, TAB, IPT )
-C   INPUT ARGUMENT LIST:
-C     IDN      - INTEGER:  BIT-WISE REPRESENTATION OF FXY VALUE TO BE
-C                SEARCHED FOR
-C
-C   OUTPUT ARGUMENT LIST:
-C     TAB      - CHARACTER: TABLE IN WHICH IDN WAS FOUND ('B' OR 'D')
-C     IPT      - INTEGER: INDEX OF ENTRY FOR IDN IN MASTER TABLE TAB
-C
-C REMARKS:
-C    THIS ROUTINE CALLS:        BORT     CADN30   CMPIA
-C    THIS ROUTINE IS CALLED BY: STSEQ
-C                               Normally not called by any application
-C                               programs.
-C
-C ATTRIBUTES:
-C   LANGUAGE: C
-C   MACHINE:  PORTABLE TO ALL PLATFORMS
-C
-C$$$*/
+ * This routine searches for an entry corresponding to IDN in the bufr
+ * master table (either 'B' or 'D', depending on the value of IDN).
+ *
+ * The search uses binary search logic, so all of the entries in the
+ * table must be sorted in ascending order (by fxy number) in order
+ * for this routine to work properly.
+ *
+ * @param idn  bit-wise representation of fxy value to be searched for.
+ * @param tab table in which idn was found ('B' or 'D').
+ * @param ipt index of entry for idn in master table tab.
+ *
+ * @author J Ator @date 2009-03-23
+*/
 void nummtb( f77int *idn, char *tab, f77int *ipt )
 {
 	f77int *pifxyn, *pbs,  nmt;
