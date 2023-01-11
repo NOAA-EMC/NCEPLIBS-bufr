@@ -18,10 +18,10 @@
 #include <string.h>
 #include <ctype.h>
 
-#define NFILES @NFILES@ 
-#define MAXCD @MAXCD@
-#define MAXNC @MAXNC@
-#define MXNAF @MXNAF@
+#define NFILES @NFILES@ /**< ??? */
+#define MAXCD @MAXCD@ /**< ??? */
+#define MAXNC @MAXNC@ /**< ??? */
+#define MXNAF @MXNAF@ /**< ??? */
 
 /*
 ** On certain operating systems, the FORTRAN compiler appends an underscore
