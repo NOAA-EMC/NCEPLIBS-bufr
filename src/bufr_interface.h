@@ -18,7 +18,7 @@ extern "C" {
 #endif
 
 /**
-   Wraps fortran "open" statement so we can open a Fortran file
+   Wraps fortran "open" function so we can open a Fortran file
    from a C program.
 
    @param unit the integer to use as the fortran file unit.
@@ -30,7 +30,7 @@ extern "C" {
 
 
 /**
-   Wraps fortran "close" statement so we can close a Fortran file
+   Wraps fortran "close" function so we can close a Fortran file
    from a C program.
 
    @param unit the integer to use as the fortran file unit.
@@ -41,7 +41,7 @@ extern "C" {
 
 
 /**
-   Wraps BUFRLIB "openbf" subroutine.
+   Wraps BUFRLIB openbf() subroutine.
 
    @param bufr_unit the fortran file unit number.
    @param cio cio string (ex "IN", "SEC3", and "OUT").
@@ -53,7 +53,7 @@ extern "C" {
 
 
 /**
-   Wraps BUFRLIB "closbf" subroutine.
+   Wraps BUFRLIB closbf() subroutine.
 
    @param bufr_unit the fortran file unit number to close.
 
@@ -63,7 +63,7 @@ extern "C" {
 
 
 /**
-   Wraps BUFRLIB "exitbufr" subroutine. Closes all open file units
+   Wraps BUFRLIB exitbufr() subroutine. Closes all open file units
    used by BUFRLIB.
 
    @author Ronald Mclaren @date 2020-07-29
@@ -72,7 +72,7 @@ extern "C" {
 
 
 /**
-   Wraps BUFRLIB "ireadmg" subroutine.
+   Wraps BUFRLIB ireadmg() subroutine.
 
    @param bufr_unit the fortran file unit number to read from.
    @param subset the subset string.
@@ -87,7 +87,7 @@ extern "C" {
 
 
 /**
-   Wraps BUFRLIB "ireadsb" function.
+   Wraps BUFRLIB ireadsb() function.
 
    @param bufr_unit the fortran file unit number to read from.
 
@@ -99,7 +99,7 @@ extern "C" {
 
 
 /**
-   Wraps BUFRLIB "ufbint" function.
+   Wraps BUFRLIB ufbint() function.
 
    @param bufr_unit the fortran file unit number to read from.
    @param c_data pointer to a pointer to a pre-allocated buffer.
@@ -115,7 +115,7 @@ extern "C" {
 
 
 /**
-   Wraps BUFRLIB "ufbrep" function.
+   Wraps BUFRLIB ufbrep() function.
 
    @param bufr_unit the fortran file unit number to read from.
    @param c_data pointer to a pointer to a pre-allocated buffer.
@@ -131,7 +131,7 @@ extern "C" {
 
 
 /**
-   Wraps BUFRLIB "mtinfo" function.
+   Wraps BUFRLIB mtinfo() function.
 
    @param path the path where the WMO tables are stored.
    @param file_unit_1 number to use for first file unit.
@@ -144,7 +144,7 @@ extern "C" {
 
   // Table Data
 /**
-   Wraps BUFRLIB "status" function.
+   Wraps BUFRLIB status() function.
 
    @param file_unit the fortran file unit number to read from.
    @param lun pointer for the file stream.
@@ -157,7 +157,8 @@ extern "C" {
 
 
 /**
-   Gets Table B Unit and Description strings for a mnemonic. Wraps BUFRLIB "nemdefs".
+   Gets Table B Unit and Description strings for a mnemonic. Wraps
+   BUFRLIB nemdefs().
 
    @param file_unit Fortran file unit for the open file.
    @param mnemonic mnemonic.
@@ -179,7 +180,8 @@ extern "C" {
 
 
 /**
-   Gets Table B scale, reference, and bits values. Wraps BUFRLIB "nemspecs".
+   Gets Table B scale, reference, and bits values. Wraps BUFRLIB
+   nemspecs().
 
    @param file_unit Fortran file unit for the open file.
    @param mnemonic: mnemonic.
