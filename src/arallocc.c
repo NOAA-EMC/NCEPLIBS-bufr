@@ -1,5 +1,13 @@
 /** @file
  *  @brief Dynamically allocate C language arrays within internal memory.
+ *
+ * ### Program History Log
+ * Date | Programmer | Comments 
+ * -----|------------|----------
+ * 2014-12-04 | J. Ator | Original author.
+ * 2021-05-17 | J. Ator | Allow up to 24 characters in cbunit.
+ *
+ * @author J. Ator @date 2014-12-04
 */
 
 #include "bufrlib.h"
@@ -13,24 +21,17 @@
  * dynamically allocate internal C language arrays based on parameter
  * values set during one or more previous calls to function isetprm().
  *
- * <p>This subroutine isn't normally called directly from an application
+ * This subroutine isn't normally called directly from an application
  * program, since it's automatically called internally during the first
  * call to subroutine openbf() from an application program.
  *
- * @author J. Ator
- * @date 2014-12-04
- *
  * @remarks
- * - All memory allocated within this subroutine can be freed via a
- *   subsequent call to subroutine exitbufr() from within the
- *   application program, or else it will be freed automatically by the
- *   operating system once the application program terminates.
+ * All memory allocated within this subroutine can be freed via a
+ * subsequent call to subroutine exitbufr() from within the
+ * application program, or else it will be freed automatically by the
+ * operating system once the application program terminates.
  *
- * <b>Program history log:</b>
- * | Date | Programmer | Comments |
- * | -----|------------|----------|
- * | 2014-12-04 | J. Ator | Original author |
- * | 2021-05-17 | J. Ator | Allow up to 24 characters in cbunit |
+ * @author J. Ator @date 2014-12-04
  */
 
 void arallocc( void )

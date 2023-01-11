@@ -1,6 +1,13 @@
 /** @file
  *  @brief Free all dynamically-allocated memory within
  *  internal C language arrays.
+ *
+ * ### Program History Log
+ * Date | Programmer | Comments
+ * -----|------------|----------
+ * 2014-12-04 | J. Ator | Original author.
+ *
+ * @author J. Ator @date 2014-12-04
  */
 
 #include "bufrlib.h"
@@ -11,13 +18,7 @@
  * This subroutine frees any memory that was dynamically allocated
  * during a previous call to subroutine arallocc().
  *
- * @author J. Ator
- * @date 2014-12-04
- *
- * <b>Program history log:</b>
- * | Date | Programmer | Comments |
- * | -----|------------|----------|
- * | 2014-12-04 | J. Ator | Original author |
+ * @author J. Ator @date 2014-12-04
  */
 
 void ardllocc( void )
