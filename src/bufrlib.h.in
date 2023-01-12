@@ -18,10 +18,10 @@
 #include <string.h>
 #include <ctype.h>
 
-#define NFILES @NFILES@ /**< ??? */
-#define MAXCD @MAXCD@ /**< ??? */
-#define MAXNC @MAXNC@ /**< ??? */
-#define MXNAF @MXNAF@ /**< ??? */
+#define NFILES @NFILES@ /* Maximum number of BUFR files that can be connected to the BUFRLIB software (for reading or writing) at any one time. */
+#define MAXCD @MAXCD@ /* Maximum number of child descriptors that can be included within the sequence definition of a Table D descriptor, not counting the recursive resolution of any child descriptors which may themselves be Table D descriptors. */
+#define MAXNC @MAXNC@ /* Maximum number of descriptors within Section 3 of a BUFR message. */
+#define MXNAF @MXNAF@ /* Maximum number of associated fields that can be in effect at any given time for a Table B descriptor.*/
 
 /*
 ** On certain operating systems, the FORTRAN compiler appends an underscore

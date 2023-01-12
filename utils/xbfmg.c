@@ -26,12 +26,12 @@
 
 void prtusage( char * );
 
-#define MXFLEN 125 /**< ??? */
+#define MXFLEN 125 /* Maximum length of bufrfile [path/]name. */
 
 /**
  * This function prints program usage information to standard output.
  *   
- * @param prgnam - path/name of program executable.
+ * @param prgnam - [path/]name of program executable.
  *
  * @author J. Ator @date 2018-03-01
  */

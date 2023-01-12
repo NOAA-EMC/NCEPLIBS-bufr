@@ -94,8 +94,8 @@ extern "C" {
    @param bufr_unit - the fortran file unit number to read from.
 
    @return
-   - 0 new BUFR message was successfully read into internal arrays.
-   - -1 there are no more BUFR messages in bufr_unit.
+   - 0 new BUFR data subset was successfully read into internal arrays.
+   - -1 there are no more BUFR data subsets in the BUFR message associated with bufr_unit
 
    @author Ronald Mclaren @date 2020-07-29
 */
