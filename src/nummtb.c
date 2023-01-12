@@ -15,9 +15,9 @@
  * table must be sorted in ascending order (by fxy number) in order
  * for this routine to work properly.
  *
- * @param idn  bit-wise representation of fxy value to be searched for.
- * @param tab table in which idn was found ('B' or 'D').
- * @param ipt index of entry for idn in master table tab.
+ * @param idn- bit-wise representation of fxy value to be searched for.
+ * @param tab - table in which idn was found ('B' or 'D').
+ * @param ipt - index of entry for idn in master table tab.
  *
  * @author J Ator @date 2009-03-23
 */

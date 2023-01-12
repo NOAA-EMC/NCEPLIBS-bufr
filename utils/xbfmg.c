@@ -31,7 +31,7 @@ void prtusage( char * );
 /**
  * This function prints program usage information to standard output.
  *   
- * @param prgnam path/name of program executable.
+ * @param prgnam - path/name of program executable.
  *
  * @author J. Ator @date 2018-03-01
  */
@@ -99,12 +99,12 @@ void prtusage( char *prgnam ) {
  *      (last#) = total number of BUFR messages in bufrfile
  * </pre>
  *
- * @param argc argument count.
- * @param argv argument array.
+ * @param argc - argument count.
+ * @param argv - argument array.
  *
  * @returns 0 for success, error code otherwise.
  *
- *  @author J. Ator @date 2018-03-01
+ * @author J. Ator @date 2018-03-01
  */
 
 int main( int argc, char *argv[] ) {

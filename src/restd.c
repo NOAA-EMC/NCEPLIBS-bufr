@@ -29,13 +29,13 @@
  * in order to interpret the same data values as were represented by
  * the input local Table D descriptor.
  *
- * @param lun Internal Fortran I/O stream index associated with BUFR
+ * @param lun - Internal Fortran I/O stream index associated with BUFR
  * file
- * @param tddesc Bit-wise representation of FXY value for local Table
+ * @param tddesc - Bit-wise representation of FXY value for local Table
  * D descriptor
- * @param nctddesc Number of WMO-standard child descriptors returned
+ * @param nctddesc - Number of WMO-standard child descriptors returned
  * in ctddesc
- * @param ctddesc Array of WMO-standard child descriptors equivalent
+ * @param ctddesc - Array of WMO-standard child descriptors equivalent
  * to tddesc
  *
  * @author J. Ator @date 2004-08-18
