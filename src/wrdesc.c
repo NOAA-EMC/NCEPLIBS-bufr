@@ -1,48 +1,29 @@
 /** @file
-    @author ATOR @date 2004-08-18
+ * @brief Given the bit-wise representation of a descriptor,
+ * this routine adds it to an ongoing array of descriptors, after
+ * first making sure that there is enough room in the array.
+ * @author J. Ator @date 2004-08-18
 */
-
 
 #include "bufrlib.h"
 
 /**
-C
-C SUBPROGRAM:    WRDESC
-C   PRGMMR: ATOR             ORG: NP12       DATE: 2004-08-18
-C
-C ABSTRACT:  GIVEN THE BIT-WISE REPRESENTATION OF A DESCRIPTOR,
-C   THIS ROUTINE ADDS IT TO AN ONGOING ARRAY OF DESCRIPTORS, AFTER
-C   FIRST MAKING SURE THAT THERE IS ENOUGH ROOM IN THE ARRAY.
-C   IF AN ARRAY OVERFLOW OCCURS, THEN AN APPROPRIATE ERROR MESSAGE
-C   WILL BE WRITTEN VIA BORT.
-C
-C PROGRAM HISTORY LOG:
-C 2004-08-18  J. ATOR    -- ORIGINAL AUTHOR
-C
-C USAGE:    CALL WRDESC( DESC, DESCARY, NDESCARY )
-C   INPUT ARGUMENT LIST:
-C     DESC     - INTEGER: BIT-WISE REPRESENTATION OF DESCRIPTOR
-C		 TO BE WRITTEN INTO DESCARY
-C     DESCARY  - INTEGER: ARRAY OF DESCRIPTORS
-C     NDESCARY - INTEGER: NUMBER OF DESCRIPTORS WRITTEN SO FAR
-C		 INTO DESCARY
-C
-C   OUTPUT ARGUMENT LIST:
-C     DESCARY  - INTEGER: ARRAY OF DESCRIPTORS
-C     NDESCARY - INTEGER: NUMBER OF DESCRIPTORS WRITTEN SO FAR
-C		 INTO DESCARY
-C
-C REMARKS:
-C    THIS ROUTINE CALLS:        BORT
-C    THIS ROUTINE IS CALLED BY: RESTD
-C                               Normally not called by application
-C                               programs but it could be.
-C
-C ATTRIBUTES:
-C   LANGUAGE: C
-C   MACHINE:  PORTABLE TO ALL PLATFORMS
-C
-C$$$*/
+ * Given the bit-wise representation of a descriptor,
+ * this routine adds it to an ongoing array of descriptors, after
+ * first making sure that there is enough room in the array.
+ * 
+ * If an array overflow occurs, then an appropriate error message
+ * will be written via bort().
+ *
+ * @param desc - bit-wise representation of descriptor to be written
+ * into descary.
+ * @param descary - array of descriptors.
+ *
+ * @param ndescary - number of descriptors written so far into
+ * descary.
+ *
+ * @author J. Ator @date 2004-08-18
+ */
 void wrdesc( f77int desc, f77int descary[], f77int *ndescary )
 {
     char errstr[129];

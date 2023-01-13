@@ -1,5 +1,14 @@
 /** @file
- *  @brief Split a BUFR file into separate BUFR files by message
+ *  @brief Split a BUFR file into separate BUFR files by message.
+ *
+ * ### Program History Log
+ * Date | Programmer | Comments 
+ * -----|------------|----------
+ * 2018-03-01 | J. Ator | Original author. 
+ * 2021-09-29 | J. Ator |  Use basename instead of pid in output filenames.
+ * 2021-10-08 | J. Ator |  Simplify bvstr instantiation and initialization.
+ *
+ *  @author J. Ator @date 2018-03-01
  */
 
 #include <stdio.h>
@@ -17,20 +26,14 @@
 
 void prtusage( char * );
 
-#define MXFLEN 125
+#define MXFLEN 125 /* Maximum length of bufrfile [path/]name. */
 
 /**
  * This function prints program usage information to standard output.
  *   
- * @author J. Ator
- * @date 2018-03-01
+ * @param prgnam - [path/]name of program executable.
  *
- * @param[in]  prgnam -- char*: [path/]name of program executable
- *
- * <b>Program history log:</b>
- * | Date | Programmer | Comments |
- * | -----|------------|----------|
- * | 2018-03-01 | J. Ator | Original author |
+ * @author J. Ator @date 2018-03-01
  */
 void prtusage( char *prgnam ) {
 	printf( "\nUSAGE: %s [-v] [-h] [-g] bufrfile\n\n", prgnam );
@@ -60,11 +63,8 @@ void prtusage( char *prgnam ) {
  * This program splits a single file containing one or more BUFR messages
  * into one or more BUFR files each containing a single BUFR message.
  *
- * <p>The output BUFR files are written to the current working directory,
+ * The output BUFR files are written to the current working directory,
  * according to a pre-defined naming convention as described below.
- *
- * @author J. Ator
- * @date 2018-03-01
  *
  * <b>Usage</b><br>
  * <pre>
@@ -99,12 +99,12 @@ void prtusage( char *prgnam ) {
  *      (last#) = total number of BUFR messages in bufrfile
  * </pre>
  *
- * <b>Program history log:</b>
- * | Date | Programmer | Comments |
- * | -----|------------|----------|
- * | 2018-03-01 | J. Ator |  Original author |
- * | 2021-09-29 | J. Ator |  Use basename instead of pid in output filenames |
- * | 2021-10-08 | J. Ator |  Simplify bvstr instantiation and initialization |
+ * @param argc - argument count.
+ * @param argv - argument array.
+ *
+ * @returns 0 for success, error code otherwise.
+ *
+ * @author J. Ator @date 2018-03-01
  */
 
 int main( int argc, char *argv[] ) {

@@ -1,43 +1,31 @@
 /** @file
-    @author ATOR @date 2009-03-23
+ * @brief Defines a comparison between two integers for use by the
+ * binary search function bsearch.
+ *
+ * ### Program History Log
+ * Date | Programmer | Comments
+ * -----|------------|---------
+ * 2009-03-23 | J. Ator | Initial.
+ *
+ * @author Ator @date 2009-03-23
 */
-
 
 #include "bufrlib.h"
 
 /**
-C
-C SUBPROGRAM:   CMPIA 
-C   PRGMMR: ATOR             ORG: NP12       DATE: 2009-03-23
-C
-C ABSTRACT:  THIS ROUTINE DEFINES A COMPARISON BETWEEN TWO INTEGERS
-C   FOR USE BY THE BINARY SEARCH FUNCTION BSEARCH.
-C
-C PROGRAM HISTORY LOG:
-C 2009-03-23  J. ATOR    -- ORIGINAL AUTHOR
-C
-C USAGE:    CALL CMPIA( PF1, PF2 )
-C   INPUT ARGUMENT LIST:
-C     PF1      - INTEGER: FIRST INTEGER TO BE COMPARED
-C     PF2      - INTEGER: SECOND INTEGER TO BE COMPARED
-C
-C   OUTPUT ARGUMENT LIST:
-C     CMPIA    - INTEGER: RESULT OF COMPARISON:
-C                      -1 = PF1 is less than PF2
-C                       0 = PF1 is equal to PF2
-C                       1 = PF1 is greater than PF2
-C
-C REMARKS:
-C    THIS ROUTINE CALLS:        None
-C    THIS ROUTINE IS CALLED BY: NUMMTB
-C                               Normally not called by any application
-C                               programs.
-C
-C ATTRIBUTES:
-C   LANGUAGE: C
-C   MACHINE:  PORTABLE TO ALL PLATFORMS
-C
-C$$$*/
+ * This routine defines a comparison between two integers
+ * for use by the binary search function bsearch.
+ *
+ * @param pf1 - first integer to be compared.
+ * @param pf2 - second integer to be compared.
+ *
+ * @return 
+ * - -1 PF1 is less than PF2
+ * - 0 PF1 is equal to PF2
+ * - 1 PF1 is greater than PF2
+ *
+ * @author Ator @date 2009-03-23
+ */
 int cmpia( const void *pf1, const void *pf2 )
 {
 	f77int *mypf1 = ( f77int * ) pf1;

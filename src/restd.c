@@ -1,5 +1,14 @@
 /** @file
  *  @brief Standardize a local Table D descriptor.
+ *
+ * ### Program History Log
+ * Date | Programmer | Comments
+ * -----|------------|---------
+ * 2004-08-18 | J. Ator | Original author.
+ * 2012-04-30 | J. Ator | Use long cast for ibit in sprintf stmt.
+ * 2021-08-18 | J. Ator | Use cwork to silence superfluous GNU compiler warnings.
+ *
+ * @author J. Ator @date 2004-08-18
 */
 
 #include "bufrlib.h"
@@ -9,35 +18,27 @@
  * WMO-standard) Table D descriptor, this subroutine returns an
  * equivalent array of WMO-standard child descriptors.
  *
- * <p>Any child descriptors which are themselves local Table D
- * descriptors are automatically resolved via a recursive call to
- * this same subroutine.  This recursive process continues until all
- * child descriptors are either WMO-standard descriptors (from Table B,
+ * Any child descriptors which are themselves local Table D
+ * descriptors are automatically resolved via a recursive call to this
+ * same subroutine.  This recursive process continues until all child
+ * descriptors are either WMO-standard descriptors (from Table B,
  * Table C, Table D, or replication descriptors) or else are local
  * Table B descriptors, in which case they are preceded with an
- * appropriate 2-06-YYY Table C operator in the output array.
- * The output array is then useable by any standard BUFR decoder program
+ * appropriate 2-06-YYY Table C operator in the output array.  The
+ * output array is then useable by any standard BUFR decoder program
  * in order to interpret the same data values as were represented by
  * the input local Table D descriptor.
  *
- * @author J. Ator
- * @date 2004-08-18
+ * @param lun - Internal Fortran I/O stream index associated with BUFR
+ * file
+ * @param tddesc - Bit-wise representation of FXY value for local Table
+ * D descriptor
+ * @param nctddesc - Number of WMO-standard child descriptors returned
+ * in ctddesc
+ * @param ctddesc - Array of WMO-standard child descriptors equivalent
+ * to tddesc
  *
- * @param[in] lun -- f77int*: Internal Fortran I/O stream index
- *                   associated with BUFR file
- * @param[in] tddesc -- f77int*: Bit-wise representation of FXY value
- *                      for local Table D descriptor
- * @param[out] nctddesc -- f77int*: Number of WMO-standard child
- *                         descriptors returned in ctddesc
- * @param[out] ctddesc -- f77int*: Array of WMO-standard child
- *                        descriptors equivalent to tddesc
- *
- * <b>Program history log:</b>
- * | Date | Programmer | Comments |
- * | -----|------------|----------|
- * | 2004-08-18 | J. Ator | Original author |
- * | 2012-04-30 | J. Ator | Use long cast for ibit in sprintf stmt |
- * | 2021-08-18 | J. Ator | Use cwork to silence superfluous GNU compiler warnings |
+ * @author J. Ator @date 2004-08-18
 */
 
 void restd( f77int *lun, f77int *tddesc, f77int *nctddesc, f77int ctddesc[] )
