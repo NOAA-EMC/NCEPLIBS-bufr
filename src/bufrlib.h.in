@@ -9,8 +9,7 @@
  *  This header file also contains macros used throughout the C
  *  portion of the BUFRLIB.
  *
- *  @author J.Ator
- *  @date 2003-11-04
+ *  @author J.Ator @date 2003-11-04
  */
 
 #include <stdio.h>
@@ -117,42 +116,439 @@ typedef double f77r8;
 */
 void arallocc( void );
 void ardllocc( void );
-void bort( char *, size_t );
+
+/**
+ * Abort.
+ *
+ * @param c
+ * @param s
+ *
+ * @author J.Ator @date 2003-11-04
+ */
+void bort( char *c, size_t s);
 void bort_exit( void );
-void bvers( char *, size_t ); 
-void cadn30( f77int *, char *, size_t ); 
-void closbf( f77int * );
-int cmpia( const void *, const void * );
-void cmpmsg( char *, size_t );
-void elemdx( char *, f77int *, size_t );
-void gets1loc( char *, f77int *, f77int *, f77int *, f77int *, size_t );
-f77int ibfms( f77r8 * );
-f77int ichkstr ( char *, char *, f77int *, size_t, size_t );
-f77int icvidx ( f77int *, f77int *, f77int * );
-f77int ifxy( char *, size_t );
-f77int igetntbi( f77int *, char *, size_t );
-f77int igetprm( char *, size_t );
-f77int igettdi( f77int * );
-f77int imrkopr( char *, size_t );
-void ipkm( char *, f77int *, f77int *, size_t );
-f77int ireadns( f77int *, char *, f77int *, size_t );
-f77int istdesc( f77int * );
-f77int iupb( f77int *, f77int *, f77int * );
-f77int iupbs01 ( f77int *, char *, size_t );
-f77int iupm ( char *, f77int *, size_t );
-void maxout( f77int * );
-void nemtab( f77int *, char *, f77int *, char *, f77int *, size_t, size_t );
-void nemtbb( f77int *, f77int *, char *, f77int *, f77int *, f77int *, size_t );
-void nummtb( f77int *, char *, f77int * );
-void numtbd( f77int *, f77int *, char *, char *, f77int *, size_t, size_t );
-void openmb( f77int *, char *, f77int *, size_t );
-void pktdd( f77int *, f77int *, f77int *, f77int * );
-void restd( f77int *, f77int *, f77int *, f77int * );
-void stntbi( f77int *, f77int *, char *, char *, char *, size_t, size_t, size_t );
-void strnum( char *, f77int *, size_t );
-void stseq( f77int *, f77int *, f77int *, char *, char *, f77int *, f77int * );
-void ufbint( f77int *, f77r8 *, f77int *, f77int *, f77int *, char *, size_t );
-void ufbseq( f77int *, f77r8 *, f77int *, f77int *, f77int *, char *, size_t );
-void uptdd( f77int *, f77int *, f77int *, f77int * );
-void wrdesc( f77int, f77int *, f77int * );
+
+/**
+ * ???
+ *
+ * @param c
+ * @param s
+ *
+ * @author J.Ator @date 2003-11-04
+ */
+void bvers( char *c, size_t s); 
+
+/**
+ * ???
+ *
+ * @param f
+ * @param c
+ * @param s
+ *
+ * @author J.Ator @date 2003-11-04
+ */
+void cadn30( f77int *f, char *c, size_t s); 
+
+/**
+ * ???
+ *
+ * @param f
+ *
+ * @author J.Ator @date 2003-11-04
+ */
+void closbf( f77int *f );
+
+int cmpia( const void *v1, const void *v2 );
+
+/**
+ * ???
+ *
+ * @param c
+ * @param s
+ *
+ * @author J.Ator @date 2003-11-04
+ */
+void cmpmsg( char *c, size_t s);
+
+/**
+ * ???
+ *
+ * @param c
+ * @param f
+ * @param s
+ *
+ * @author J.Ator @date 2003-11-04
+ */
+void elemdx( char *c, f77int *f, size_t s);
+
+/**
+ * ???
+ *
+ * @param c
+ * @param f1
+ * @param f2
+ * @param f3
+ * @param f4
+ * @param s
+ *
+ * @author J.Ator @date 2003-11-04
+ */
+void gets1loc( char *c, f77int *f1, f77int *f2, f77int *f3, f77int *f4, size_t s);
+
+/**
+ * ???
+ *
+ * @param f
+ *
+ * @return ???
+ *
+ * @author J.Ator @date 2003-11-04
+ */
+f77int ibfms( f77r8 *f );
+
+/**
+ * ???
+ *
+ * @param c1
+ * @param c2
+ * @param f
+ * @param s1
+ * @param s2
+ *
+ * @return ???
+ *
+ * @author J.Ator @date 2003-11-04
+ */
+f77int ichkstr ( char *c1, char *c2, f77int *f, size_t s1, size_t s2);
+
+f77int icvidx ( f77int *f1, f77int *f2, f77int *f3 );
+
+/**
+ * ???
+ *
+ * @param c
+ * @param s
+ *
+ * @return ???
+ *
+ * @author J.Ator @date 2003-11-04
+ */
+f77int ifxy( char *c, size_t s);
+
+/**
+ * ???
+ *
+ * @param f
+ * @param c
+ * @param s
+ *
+ * @return ???
+ *
+ * @author J.Ator @date 2003-11-04
+ */
+f77int igetntbi( f77int *f, char *c, size_t s);
+
+/**
+ * ???
+ *
+ * @param c
+ * @param s
+ *
+ * @return ???
+ *
+ * @author J.Ator @date 2003-11-04
+ */
+f77int igetprm( char *c, size_t s);
+
+/**
+ * ???
+ *
+ * @param f
+ *
+ * @return ???
+ *
+ * @author J.Ator @date 2003-11-04
+ */
+f77int igettdi( f77int *f );
+
+/**
+ * ???
+ *
+ * @param c
+ * @param s
+ *
+ * @return ???
+ *
+ * @author J.Ator @date 2003-11-04
+ */
+f77int imrkopr( char *c, size_t s);
+
+/**
+ * ???
+ *
+ * @param c
+ * @param f1
+ * @param f2
+ * @param s
+ *
+ * @author J.Ator @date 2003-11-04
+ */
+void ipkm( char *c, f77int *f1, f77int *f2, size_t s);
+
+/**
+ * ???
+ *
+ * @param f1
+ * @param c
+ * @param f2
+ * @param s
+ *
+ * @return ???
+ *
+ * @author J.Ator @date 2003-11-04
+ */
+f77int ireadns( f77int *f1, char *c, f77int *f2, size_t s);
+
+/**
+ * ???
+ *
+ * @param f
+ *
+ * @return ???
+ *
+ * @author J.Ator @date 2003-11-04
+ */
+f77int istdesc( f77int *f );
+
+/**
+ * ???
+ *
+ * @param f1
+ * @param f2
+ * @param f3
+ *
+ * @return ???
+ *
+ * @author J.Ator @date 2003-11-04
+ */
+f77int iupb( f77int *f1, f77int *f2, f77int *f3 );
+
+/**
+ * ???
+ *
+ * @param f
+ * @param c
+ * @param s
+ *
+ * @return ???
+ *
+ * @author J.Ator @date 2003-11-04
+ */
+f77int iupbs01 ( f77int *f, char *c, size_t s);
+
+/**
+ * ???
+ *
+ * @param c
+ * @param f
+ * @param s
+ *
+ * @return ???
+ *
+ * @author J.Ator @date 2003-11-04
+ */
+f77int iupm ( char *c, f77int *f, size_t s);
+
+/**
+ * ???
+ *
+ * @param f
+ *
+ * @author J.Ator @date 2003-11-04
+ */
+void maxout( f77int *f );
+
+/**
+ * ???
+ *
+ * @param f1
+ * @param c1
+ * @param f2
+ * @param c2
+ * @param f3
+ * @param s1
+ * @param s2
+ *
+ * @author J.Ator @date 2003-11-04
+ */
+void nemtab( f77int *f1, char *c1, f77int *f2, char *c2, f77int *f3, size_t s1, size_t s2);
+
+/**
+ * ???
+ *
+ * @param f1
+ * @param f2
+ * @param c
+ * @param f3
+ * @param f4
+ * @param f5
+ * @param s
+ *
+ * @author J.Ator @date 2003-11-04
+ */
+void nemtbb( f77int *f1, f77int *f2, char *c, f77int *f3, f77int *f4, f77int *f5, size_t s);
+
+void nummtb( f77int *f1, char *c, f77int *f2);
+
+/**
+ * ???
+ *
+ * @param f1
+ * @param f2
+ * @param c1
+ * @param c2
+ * @param f3
+ * @param s1
+ * @param s2
+ *
+ * @author J.Ator @date 2003-11-04
+ */
+void numtbd( f77int *f1, f77int *f2, char *c1, char *c2, f77int *f3, size_t s1, size_t s2);
+
+/**
+ * ???
+ *
+ * @param f1
+ * @param c
+ * @param f2
+ * @param s
+ *
+ * @author J.Ator @date 2003-11-04
+ */
+void openmb( f77int *f1, char *c, f77int *f2, size_t s);
+
+/**
+ * ???
+ *
+ * @param f1
+ * @param f2
+ * @param f3
+ * @param f4
+ *
+ * @author J.Ator @date 2003-11-04
+ */
+void pktdd( f77int *f1, f77int *f2, f77int *f3, f77int *f4 );
+
+/**
+ * ???
+ *
+ * @param f1
+ * @param f2
+ * @param f3
+ * @param f4
+ *
+ * @author J.Ator @date 2003-11-04
+ */
+void restd( f77int *f1, f77int *f2, f77int *f3, f77int *f4 );
+
+/**
+ * ???
+ *
+ * @param f1
+ * @param f2
+ * @param c1
+ * @param c2
+ * @param c3
+ * @param s1
+ * @param s2
+ * @param s3
+ *
+ * @author J.Ator @date 2003-11-04
+ */
+void stntbi( f77int *f1, f77int *f2, char *c1, char *c2, char *c3, size_t s1, size_t s2, size_t s3);
+
+/**
+ * ???
+ *
+ * @param c
+ * @param f
+ * @param s
+ *
+ * @author J.Ator @date 2003-11-04
+ */
+void strnum( char *c, f77int *f, size_t s);
+
+/**
+ * ???
+ *
+ * @param f1
+ * @param f2
+ * @param f3
+ * @param c1
+ * @param c2
+ * @param f4
+ * @param f5
+ *
+ * @author J.Ator @date 2003-11-04
+ */
+void stseq( f77int *f1, f77int *f2, f77int *f3, char *c1, char *c2, f77int *f4, f77int *f5 );
+
+/**
+ * ???
+ *
+ * @param f1
+ * @param f2
+ * @param f3
+ * @param f4
+ * @param f5
+ * @param c
+ * @param s
+ *
+ * @author J.Ator @date 2003-11-04
+ */
+void ufbint( f77int *f1, f77r8 *f2, f77int *f3, f77int *f4, f77int *f5, char *c, size_t s);
+
+/**
+ * ???
+ *
+ * @param f1
+ * @param f2
+ * @param f3
+ * @param f4
+ * @param f5
+ * @param c
+ * @param s
+ *
+ * @author J.Ator @date 2003-11-04
+ */
+void ufbseq( f77int *f1, f77r8 *f2, f77int *f3, f77int *f4, f77int *f5, char *c, size_t s);
+
+/**
+ * ???
+ *
+ * @param f1
+ * @param f2
+ * @param f3
+ * @param f4
+ *
+ * @author J.Ator @date 2003-11-04
+ */
+void uptdd( f77int *f1, f77int *f2, f77int *f3, f77int * f4);
+
+/**
+ * ???
+ *
+ * @param f1
+ * @param f2
+ * @param f3
+ *
+ * @author J.Ator @date 2003-11-04
+ */
+void wrdesc( f77int f1, f77int *f2, f77int *f3 );
+
+/**
+ * ???
+ *
+ * @author J.Ator @date 2003-11-04
+ */
 void wrdlen( void );
