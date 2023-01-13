@@ -18,10 +18,23 @@
 #include <string.h>
 #include <ctype.h>
 
-#define NFILES @NFILES@ /* Maximum number of BUFR files that can be connected to the BUFRLIB software (for reading or writing) at any one time. */
-#define MAXCD @MAXCD@ /* Maximum number of child descriptors that can be included within the sequence definition of a Table D descriptor, not counting the recursive resolution of any child descriptors which may themselves be Table D descriptors. */
-#define MAXNC @MAXNC@ /* Maximum number of descriptors within Section 3 of a BUFR message. */
-#define MXNAF @MXNAF@ /* Maximum number of associated fields that can be in effect at any given time for a Table B descriptor.*/
+/** Maximum number of BUFR files that can be connected to the BUFRLIB
+ * software (for reading or writing) at any one time. */
+#define NFILES @NFILES@
+
+/** Maximum number of child descriptors that can be included within
+ * the sequence definition of a Table D descriptor, not counting the
+ * recursive resolution of any child descriptors which may themselves
+ * be Table D descriptors. */
+#define MAXCD @MAXCD@
+
+/** Maximum number of descriptors within Section 3 of a BUFR
+ * message. */
+#define MAXNC @MAXNC@
+
+/** Maximum number of associated fields that can be in effect at any
+ * given time for a Table B descriptor.*/
+#define MXNAF @MXNAF@
 
 /*
 ** On certain operating systems, the FORTRAN compiler appends an underscore
@@ -34,65 +47,67 @@
 **   2) a FORTRAN subprogram called from C
 */
 #ifdef UNDERSCORE
-#define arallocc   arallocc_
-#define ardllocc   ardllocc_
-#define bort	   bort_
-#define bort_exit  bort_exit_
-#define bvers      bvers_
-#define cadn30	   cadn30_
-#define closbf     closbf_
-#define cmpia	   cmpia_
-#define cmpmsg     cmpmsg_
-#define elemdx	   elemdx_
-#define gets1loc   gets1loc_
-#define ibfms      ibfms_
-#define ichkstr	   ichkstr_
-#define icvidx	   icvidx_
-#define ifxy	   ifxy_
-#define igetntbi   igetntbi_
-#define igetprm    igetprm_
-#define igettdi	   igettdi_
-#define imrkopr	   imrkopr_
-#define ipkm	   ipkm_
-#define ireadns    ireadns_
-#define istdesc	   istdesc_
-#define iupb       iupb_
-#define iupbs01	   iupbs01_
-#define iupm	   iupm_
-#define maxout     maxout_
-#define nemtab	   nemtab_
-#define nemtbb	   nemtbb_
-#define nummtb	   nummtb_
-#define numtbd	   numtbd_
-#define openmb     openmb_
-#define pktdd	   pktdd_
-#define restd	   restd_
-#define stntbi	   stntbi_
-#define strnum	   strnum_
-#define stseq	   stseq_
-#define ufbint     ufbint_
-#define ufbseq     ufbseq_
-#define uptdd	   uptdd_
-#define wrdesc	   wrdesc_
-#define wrdlen	   wrdlen_
+#define arallocc   arallocc_ /** arallocc function. */
+#define ardllocc   ardllocc_ /** ardllocc function. */
+#define bort       bort_ /** bort function. */
+#define bort_exit  bort_exit_ /** exit function. */
+#define bvers      bvers_ /** bvers function. */
+#define cadn30     cadn30_ /** cadn30 function. */
+#define closbf     closbf_ /** closbf function. */
+#define cmpia      cmpia_ /** cmpia function. */
+#define cmpmsg     cmpmsg_ /** cmpmsg function. */
+#define elemdx     elemdx_ /** elemdx function. */
+#define gets1loc   gets1loc_ /** gets1loc function. */
+#define ibfms      ibfms_ /** ibfms function. */
+#define ichkstr    ichkstr_ /** ichkstr function. */
+#define icvidx     icvidx_ /** icvidx function. */
+#define ifxy       ifxy_ /** ifxy function. */
+#define igetntbi   igetntbi_ /** igetntbi function. */
+#define igetprm    igetprm_ /** igetprm function. */
+#define igettdi    igettdi_ /** igettdi function. */
+#define imrkopr    imrkopr_ /** imrkopr function. */
+#define ipkm       ipkm_ /** ipkm function. */
+#define ireadns    ireadns_ /** ireadns function. */
+#define istdesc    istdesc_ /** istdesc function. */
+#define iupb       iupb_ /** iupb function. */
+#define iupbs01    iupbs01_ /** iupbs01 function. */
+#define iupm       iupm_ /** iupm function. */
+#define maxout     maxout_ /** maxout function. */
+#define nemtab     nemtab_ /** nemtab function. */
+#define nemtbb     nemtbb_ /** nemtbb function. */
+#define nummtb     nummtb_ /** nummtb function. */
+#define numtbd     numtbd_ /** numtbd function. */
+#define openmb     openmb_ /** openmb function. */
+#define pktdd      pktdd_ /** pktdd function. */
+#define restd      restd_ /** restd function. */
+#define stntbi     stntbi_ /** stntbi function. */
+#define strnum     strnum_ /** strnum function. */
+#define stseq      stseq_ /** stseq function. */
+#define ufbint     ufbint_ /** ufbint function. */
+#define ufbseq     ufbseq_ /** ufbseq function. */
+#define uptdd      uptdd_ /** uptdd function. */
+#define wrdesc     wrdesc_ /** wrdesc function. */
+#define wrdlen     wrdlen_ /** wrdlen function. */
 #endif
 
-/*
-** In order to ensure that the C <-> FORTRAN interface works properly (and
-** portably!), the default size of an "INTEGER" declared in FORTRAN must be 
-** identical to that of an "int" declared in C.  If this is not the case (e.g.
-** some FORTRAN compilers, most notably AIX via the -qintsize= option, allow the
-** sizes of INTEGERs to be definitively prescribed outside of the source code
-** itself!), then the following conditional directive (or a variant of it) can
-** be used to ensure that the size of an "int" in C remains identical to that
-** of an "INTEGER" in FORTRAN.
-*/ 
+/**
+ * In order to ensure that the C <-> FORTRAN interface works properly (and
+ * portably!), the default size of an "INTEGER" declared in FORTRAN must be 
+ * identical to that of an "int" declared in C.  If this is not the case (e.g.
+ * some FORTRAN compilers, most notably AIX via the -qintsize= option, allow the
+ * sizes of INTEGERs to be definitively prescribed outside of the source code
+ * itself!), then the following conditional directive (or a variant of it) can
+ * be used to ensure that the size of an "int" in C remains identical to that
+ * of an "INTEGER" in FORTRAN. */ 
 #ifdef F77_INTSIZE_8
     typedef long f77int;
 #else
     typedef int f77int;
 #endif
-typedef double f77r8; /* define the C object type that is equivalent to a REAL*8 in Fortran */
+
+/** Define the C object type that is equivalent to a REAL*8 in
+ * Fortran. */
+typedef double f77r8; 
 
 /*
 ** Declare prototypes for ANSI C compatibility.  This should be done for any
