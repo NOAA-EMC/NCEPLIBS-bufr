@@ -5,7 +5,7 @@
  *  @author J. Ator
  *  @date 2017-11-16
  */
-#define MAX_MEANING_LEN 150
+#define MAX_MEANING_LEN 150 /**< ??? */
 
 #ifdef UNDERSCORE
 #define cmpstia1   cmpstia1_
