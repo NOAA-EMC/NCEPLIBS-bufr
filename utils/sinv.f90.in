@@ -1,26 +1,34 @@
-!-----------------------------------------------------------------------
-!-----------------------------------------------------------------------
+!> @file
+!> @brief ???
+!>
+!> @author J Ator
+
+!> ???
+!>
+!> @return 0 for success, error code otherwise.
+!>
+!> @author J Ator
       PROGRAM SINV
- 
+
       PARAMETER (MAXA=16000000)
       PARAMETER (MAXS=1000)
- 
+
       CHARACTER(255) FILE,tbldir
-      CHARACTER(100) cmtdir 
+      CHARACTER(100) cmtdir
       CHARACTER(8)   SUBSET
       CHARACTER      ci*16,cj*80
-      DIMENSION      isat(0:maxs,0:maxs)  
+      DIMENSION      isat(0:maxs,0:maxs)
       real(8)        arr(2,maxa),said(maxa),siid(maxa)
       logical        exist
- 
+
       DATA BMISS  /10E10/
       DATA LUNBF  /20/
- 
+
 !-----------------------------------------------------------------------
 !-----------------------------------------------------------------------
- 
-      isat=0  
-      jsat=0  
+
+      isat=0
+      jsat=0
       said=0
       ssid=0
       !!close(6); open(6,recl=130)
@@ -35,9 +43,9 @@
       call getarg(1,file)
       file = TRIM(adjustl(file))
       inquire(file=file,exist=exist)
-      if (.not.exist) call bort(trim(file)//' does not exist') 
+      if (.not.exist) call bort(trim(file)//' does not exist')
 
-  
+
 !  define master table directory
 
       call openbf(lunbf,'FIRST',lunbf)  ! need to call openbf prior to calling mtinfo
@@ -63,13 +71,13 @@
       call readmg(lunbf,subset,idate,iret)
       call codflg('Y')
 
-! make a table of sat ids and sat instruments 
+! make a table of sat ids and sat instruments
 
       do n=1,max(nret,nrex)
       i = said(n)
-      j = siid(n)  
-      if(i>maxs.or.i<0) i=0                 
-      if(j>maxs.or.j<0) j=0                 
+      j = siid(n)
+      if(i>maxs.or.i<0) i=0
+      if(j>maxs.or.j<0) j=0
       isat(i,j) = isat(i,j)+1
       enddo
 
@@ -79,7 +87,7 @@
 1     format(a14,2x,a14,2x,a8)
       do i=0,1000
       do j=0,1000
-      if(isat(i,j).gt.0) then 
+      if(isat(i,j).gt.0) then
          jsat=jsat+isat(i,j)
          call satcode(lunbf,i,ci,j,cj)
          write(*,'(i3.3,2x,a16,2x,i10,2x,i3.3,a80)')i,ci,isat(i,j),j,trim(cj)
@@ -89,7 +97,7 @@
 
       write(*,'(/23x,i10/)') jsat
 
-      end program 
+      end program
 !-----------------------------------------------------------------------
 !  looks up BUFR code table values for SAID (said) and SIID (instrument)
 !-----------------------------------------------------------------------
@@ -101,7 +109,7 @@
 
       csad(1:16)=' '; csid(1:80)=' '
 
-!  call routines to look  up the said and siid 
+!  call routines to look  up the said and siid
 
       if(icode>0) then
          str=repeat(' ',255)
