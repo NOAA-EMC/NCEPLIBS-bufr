@@ -1,59 +1,37 @@
 C> @file
-C> @author WOOLLEN @date 2002-05-14
-      
-C> THIS SUBROUTINE INITIALIZES A NEW BUFR MESSAGE FOR OUTPUT
-C>   IN COMPRESSED BUFR.  THE ACTUAL LENGTH OF SECTION 4 (CONTAINING
-C>   COMPRESSED DATA) IS ALREADY KNOWN.
+C> @brief Initialize a new bufr message for output
+c> in compressed bufr.
 C>
-C> PROGRAM HISTORY LOG:
-C> 2002-05-14  J. WOOLLEN -- ORIGINAL AUTHOR
-C> 2003-11-04  S. BENDER  -- ADDED REMARKS/BUFRLIB ROUTINE
-C>                           INTERDEPENDENCIES
-C> 2003-11-04  D. KEYSER  -- UNIFIED/PORTABLE FOR WRF; ADDED
-C>                           DOCUMENTATION (INCLUDING HISTORY); OUTPUTS
-C>                           MORE COMPLETE DIAGNOSTIC INFO WHEN ROUTINE
-C>                           TERMINATES ABNORMALLY; LEN3 INITIALIZED AS
-C>                           ZERO (BEFORE WAS UNDEFINED WHEN FIRST
-C>                           REFERENCED)
-C> 2004-08-18  J. ATOR    -- ADDED COMMON /MSGSTD/ AND OTHER LOGIC TO
-C>                           ALLOW OPTION OF CREATING A SECTION 3 THAT IS
-C>                           FULLY WMO-STANDARD; IMPROVED DOCUMENTATION;
-C>                           MAXIMUM MESSAGE LENGTH INCREASED FROM
-C>                           20,000 TO 50,000 BYTES
-C> 2005-11-29  J. ATOR    -- CHANGED DEFAULT MASTER TABLE VERSION TO 12
-C> 2009-05-07  J. ATOR    -- CHANGED DEFAULT MASTER TABLE VERSION TO 13;
-C>                           REMOVED STANDARDIZATION LOGIC FOR SECTION 3
-C> 2019-05-21  J. ATOR    -- CHANGED DEFAULT MASTER TABLE VERSION TO 29
-C> 2021-05-14  J. ATOR    -- CHANGED DEFAULT MASTER TABLE VERSION TO 36
+C> ### Program History Log
+C> Date | Programmer | Comments
+C> -----|------------|----------
+C> 2002-05-14 | J. Woollen | Original author.
+C> 2003-11-04 | S. Bender  | Added remarks/bufrlib routine interdependencies.
+C> 2003-11-04 | D. Keyser  | Unified/portable for wrf; documentation; more diagnostic info; len3 initialized as zero.
+C> 2004-08-18 | J. Ator    | Added common /msgstd/ and other logic to create a wmo-standard section 3; max msg len increased to 50,000 bytes.
+C> 2005-11-29 | J. Ator    | Changed default master table version to 12.
+C> 2009-05-07 | J. Ator    | Changed default master table version to 13; removed standardization logic for section 3.
+C> 2019-05-21 | J. Ator    | Changed default master table version to 29.
+C> 2021-05-14 | J. Ator    | Changed default master table version to 36.
 C>
-C> USAGE:    CALL CMSGINI (LUN, MESG, SUBSET, IDATE, NSUB, NBYT)
-C>   INPUT ARGUMENT LIST:
-C>     LUN      - INTEGER: I/O STREAM INDEX INTO INTERNAL MEMORY ARRAYS
-C>     SUBSET   - CHARACTER*8: TABLE A MNEMONIC FOR TYPE OF BUFR MESSAGE
-C>                BEING WRITTEN 
-C>     IDATE    - INTEGER: DATE-TIME STORED WITHIN SECTION 1 OF BUFR
-C>                MESSAGE BEING WRITTEN, IN FORMAT OF EITHER YYMMDDHH OR
-C>                YYYYMMDDHH, DEPENDING ON DATELEN() VALUE
-C>     NSUB     - INTEGER: NUMBER OF SUBSETS, STORED IN SECTION 3 OF
-C>                BUFR MESSAGE BEING WRITTEN
-C>     NBYT     - INTEGER: ACTUAL LENGTH (IN BYTES) OF "COMPRESSED DATA
-C>                PORTION" OF SECTION 4 (I.E. ALL OF SECTION 4 EXCEPT
-C>                FOR THE FIRST FOUR BYTES)
+C> @author Woollen @date 2002-05-14
+
+C> This subroutine initializes a new bufr message for output
+c> in compressed bufr. The actual length of section 4 (containing
+c> compressed data) is already known.
 C>
-C>   OUTPUT ARGUMENT LIST:
-C>     MESG     - INTEGER: *-WORD PACKED BINARY ARRAY CONTAINING BUFR
-C>                MESSAGE
-C>     NBYT     - INTEGER: ACTUAL LENGTH OF BUFR MESSAGE (IN BYTES) UP
-C>                TO THE POINT IN SECTION 4 WHERE COMPRESSED DATA ARE
-C>                TO BE WRITTEN 
+C> @param[in] LUN - integer: i/o stream index into internal memory arrays.
+C> @param[in] SUBSET - character*8: table a mnemonic for type of bufr message being written.
+C> @param[in] IDATE - integer: date-time stored within section 1 of bufr message being written,
+C> in format of either yymmddhh or yyyymmddhh, depending on datelen() value.
+C> @param[in] NSUB - integer: number of subsets, stored in section 3 of bufr message being written.
+C> @param[in] NBYT - integer: actual length (in bytes) of "compressed data portion" of section 4
+C> (i.e. all of section 4 except for the first four bytes).
+C> @param[out] MESG - integer: *-word packed binary array containing bufr message.
+C> @param[out] NBYT - integer: actual length of bufr message (in bytes) up to the point in
+C> section 4 where compressed data are to be written.
 C>
-C> REMARKS:
-C>    THIS ROUTINE CALLS:        BORT     I4DY     NEMTAB   NEMTBA
-C>                               PKB      PKC
-C>    THIS ROUTINE IS CALLED BY: WRCMPS
-C>                               Normally not called by any application
-C>                               programs.
-C>
+C> @author Woollen @date 2002-05-14
       SUBROUTINE CMSGINI(LUN,MESG,SUBSET,IDATE,NSUB,NBYT)
 
       CHARACTER*128 BORT_STR
