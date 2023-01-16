@@ -17,8 +17,8 @@ C> 2004-08-09 | J. Ator    | Maximum message length increased from 20,000 to 50,
 C> 2009-03-23 | J. Ator    | Use msgfull.
 C> 2014-10-27 | J. Woollen | Account for subsets with byte count > 65530 (these must be written into their own one-subset message).
 C> 2014-10-27 | D. Keyser  | For case above, do not write "current" message if it contains zero subsets.
-C> 2014-12-10 | J. ATOR    | Use modules instead of common blocks.
-C> 2015-09-24 | D. STOKES  | Fix missing declaration OF COMMON QUIET.
+C> 2014-12-10 | J. Ator    | Use modules instead of common blocks.
+C> 2015-09-24 | D. Stokes  | Fix missing declaration OF COMMON QUIET.
 C>
 C> @author Woollen @date 1994-01-06
       
