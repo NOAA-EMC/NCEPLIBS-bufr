@@ -6,7 +6,7 @@ C>
 C> ### Program History Log
 C> Date | Programmer | Comments
 C> -----|------------|----------
-C> 2000-09-19 | J. Woollen | Consolidated message decoding logic that had been replicated in readmg, readft, readerme, rdmemm and readibm (cktaba is now called by these codes); logic enhanced here to allow compressed and standard bufr messages to be read.
+C> 2000-09-19 | J. Woollen | Consolidated logic in readmg(), readft(), readerme(), rdmemm() and readibm(); allow compressed messages.
 C> 2003-11-04 | S. Bender  | Added remarks/bufrlib routine interdependencies.
 C> 2003-11-04 | D. Keyser  | See below.
 C> 2004-08-09 | J. Ator    | Maximum message length increased from 20,000 to 50,000 bytes.
