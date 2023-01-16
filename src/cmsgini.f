@@ -1,6 +1,6 @@
 C> @file
 C> @brief Initialize a new bufr message for output
-c> in compressed bufr.
+C> in compressed bufr.
 C>
 C> ### Program History Log
 C> Date | Programmer | Comments
@@ -17,19 +17,17 @@ C>
 C> @author Woollen @date 2002-05-14
 
 C> This subroutine initializes a new bufr message for output
-c> in compressed bufr. The actual length of section 4 (containing
-c> compressed data) is already known.
+C> in compressed bufr. The actual length of section 4 (containing
+C> compressed data) is already known.
 C>
 C> @param[in] LUN - integer: i/o stream index into internal memory arrays.
+C> @param[out] MESG - integer: *-word packed binary array containing bufr message.
 C> @param[in] SUBSET - character*8: table a mnemonic for type of bufr message being written.
 C> @param[in] IDATE - integer: date-time stored within section 1 of bufr message being written,
 C> in format of either yymmddhh or yyyymmddhh, depending on datelen() value.
 C> @param[in] NSUB - integer: number of subsets, stored in section 3 of bufr message being written.
-C> @param[in] NBYT - integer: actual length (in bytes) of "compressed data portion" of section 4
+C> @param[inout] NBYT - integer: actual length (in bytes) of "compressed data portion" of section 4
 C> (i.e. all of section 4 except for the first four bytes).
-C> @param[out] MESG - integer: *-word packed binary array containing bufr message.
-C> @param[out] NBYT - integer: actual length of bufr message (in bytes) up to the point in
-C> section 4 where compressed data are to be written.
 C>
 C> @author Woollen @date 2002-05-14
       SUBROUTINE CMSGINI(LUN,MESG,SUBSET,IDATE,NSUB,NBYT)

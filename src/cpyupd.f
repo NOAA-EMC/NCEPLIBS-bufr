@@ -1,62 +1,46 @@
 C> @file
-C> @author WOOLLEN @date 1994-01-06
+C> @brief Copy a subset from one message buffer
+C> (array mbay in module bitbuf) to another and/or resets the
+C> pointers. 
+C>
+C> ### Program History Log
+C> Date | Programmer | Comments
+C> -----|------------|----------
+C> 1994-01-06 | J. Woollen | Original author.
+C> 1998-07-08 | J. Woollen | Replaced call to cray library routine "abort" with call to bort().
+C> 1999-11-18 | J. Woollen | Increased num open files from 10 to 32 (necessary for mpi).
+C> 2000-09-19 | J. Woollen | Maximum message length increased from 10,000 to 20,000 bytes.
+C> 2002-05-14 | J. Woollen | Removed old cray compiler directives.
+C> 2003-11-04 | S. Bender  | Added remarks/bufrlib routine interdependencies.
+C> 2003-11-04 | D. Keyser  | Unified/portable for wrf; documentation; more complete diagnostic when routine terminates abnormally.
+C> 2004-08-09 | J. Ator    | Maximum message length increased from 20,000 to 50,000 bytes.
+C> 2009-03-23 | J. Ator    | Use msgfull.
+C> 2014-10-27 | J. Woollen | Account for subsets with byte count > 65530 (these must be written into their own one-subset message).
+C> 2014-10-27 | D. Keyser  | For case above, do not write "current" message if it contains zero subsets.
+C> 2014-12-10 | J. ATOR    | Use modules instead of common blocks.
+C> 2015-09-24 | D. STOKES  | Fix missing declaration OF COMMON QUIET.
+C>
+C> @author Woollen @date 1994-01-06
       
-C> THIS SUBROUTINE COPIES A SUBSET FROM ONE MESSAGE BUFFER
-C>   (ARRAY MBAY IN MODULE BITBUF) TO ANOTHER AND/OR RESETS THE
-C>   POINTERS.  IF THE SUBSET WILL NOT FIT INTO THE OUTPUT MESSAGE, OR
-C>   IF THE SUBSET BYTE COUNT EXCEEDS 65530 (SUFFICIENTLY CLOSE TO THE
-C>   16-BIT BYTE COUNTER UPPER LIMIT OF 65535), THEN THAT MESSAGE IS
-C>   FLUSHED TO LUNIT AND A NEW ONE IS CREATED IN ORDER TO HOLD THE
-C>   COPIED SUBSET.  ANY SUBSET WITH BYTE COUNT > 65530 WILL BE WRITTEN
-C>   INTO ITS OWN ONE-SUBSET MESSAGE.  IF THE SUBSET TO BE COPIED IS
-C>   LARGER THAN THE MAXIMUM MESSAGE LENGTH, THEN A CALL IS ISSUED TO
-C>   BUFR ARCHIVE LIBRARY SUBROUTINE BORT.
+C> This subroutine copies a subset from one message buffer
+C> (array mbay in module bitbuf) to another and/or resets the
+C> pointers. If the subset will not fit into the output message, or
+C> if the subset byte count exceeds 65530 (sufficiently close to the
+C> 16-bit byte counter upper limit of 65535), then that message is
+C> flushed to lunit and a new one is created in order to hold the
+C> copied subset. Any subset with byte count > 65530 will be written
+C> into its own one-subset message. If the subset to be copied is
+C> larger than the maximum message length, then a call is issued to
+C> subroutine bort().
 C>
-C> PROGRAM HISTORY LOG:
-C> 1994-01-06  J. WOOLLEN -- ORIGINAL AUTHOR
-C> 1998-07-08  J. WOOLLEN -- REPLACED CALL TO CRAY LIBRARY ROUTINE
-C>                           "ABORT" WITH CALL TO NEW INTERNAL BUFRLIB
-C>                           ROUTINE "BORT"
-C> 1999-11-18  J. WOOLLEN -- THE NUMBER OF BUFR FILES WHICH CAN BE
-C>                           OPENED AT ONE TIME INCREASED FROM 10 TO 32
-C>                           (NECESSARY IN ORDER TO PROCESS MULTIPLE
-C>                           BUFR FILES UNDER THE MPI)
-C> 2000-09-19  J. WOOLLEN -- MAXIMUM MESSAGE LENGTH INCREASED FROM
-C>                           10,000 TO 20,000 BYTES
-C> 2002-05-14  J. WOOLLEN -- REMOVED OLD CRAY COMPILER DIRECTIVES
-C> 2003-11-04  S. BENDER  -- ADDED REMARKS/BUFRLIB ROUTINE
-C>                           INTERDEPENDENCIES
-C> 2003-11-04  D. KEYSER  -- UNIFIED/PORTABLE FOR WRF; ADDED
-C>                           DOCUMENTATION (INCLUDING HISTORY); OUTPUTS
-C>                           MORE COMPLETE DIAGNOSTIC INFO WHEN ROUTINE
-C>                           TERMINATES ABNORMALLY
-C> 2004-08-09  J. ATOR    -- MAXIMUM MESSAGE LENGTH INCREASED FROM
-C>                           20,000 TO 50,000 BYTES
-C> 2009-03-23  J. ATOR    -- USE MSGFULL
-C> 2014-10-27  J. WOOLLEN -- ACCOUNT FOR SUBSETS WITH BYTE COUNT > 65530
-C>                           (THESE MUST BE WRITTEN INTO THEIR OWN
-C>                           ONE-SUBSET MESSAGE)
-C> 2014-10-27  D. KEYSER  -- FOR CASE ABOVE, DO NOT WRITE "CURRENT"
-C>                           MESSAGE IF IT CONTAINS ZERO SUBSETS
-C> 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
-C> 2015-09-24  D. STOKES  -- FIX MISSING DECLARATION OF COMMON /QUIET/
+C> @param[in] LUNIT - integer: fortran logical unit number for bufr file.
+C> @param[in] LIN - integer: i/o stream index into internal memory arrays
+C> for input message location.
+C> @param[in] LUN - integer: i/o stream index into internal memory arrays
+C> for output message location.
+C> @param[in] IBYT - integer: number of bytes occupied by this subset.
 C>
-C> USAGE:    CALL CPYUPD (LUNIT, LIN, LUN, IBYT)
-C>   INPUT ARGUMENT LIST:
-C>     LUNIT    - INTEGER: FORTRAN LOGICAL UNIT NUMBER FOR BUFR FILE
-C>     LIN      - INTEGER: I/O STREAM INDEX INTO INTERNAL MEMORY ARRAYS
-C>                FOR INPUT MESSAGE LOCATION
-C>     LUN      - INTEGER: I/O STREAM INDEX INTO INTERNAL MEMORY ARRAYS
-C>                FOR OUTPUT MESSAGE LOCATION
-C>     IBYT     - INTEGER: NUMBER OF BYTES OCCUPIED BY THIS SUBSET
-C>
-C> REMARKS:
-C>    THIS ROUTINE CALLS:        BORT     ERRWRT   IUPB     MSGFULL
-C>                               MSGINI   MSGWRT   MVB      PKB
-C>    THIS ROUTINE IS CALLED BY: COPYSB
-C>                               Normally not called by any application
-C>                               programs.
-C>
+C> @author Woollen @date 1994-01-06
       SUBROUTINE CPYUPD(LUNIT,LIN,LUN,IBYT)
 
       USE MODA_MSGCWD
