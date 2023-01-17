@@ -1,59 +1,45 @@
 C> @file
-C> @author WOOLLEN @date 1994-01-06
-      
-C> THIS SUBROUTINE IS CALLED BY BUFR ARCHIVE LIBRARY SUBROUTINE
-C>   UFBRW WHENEVER IT CAN'T FIND A MNEMONIC IT WANTS TO WRITE WITHIN THE
-C>   CURRENT SUBSET BUFFER.  IT LOOKS FOR THE MNEMONIC WITHIN ANY
-C>   UNEXPANDED "DRS" (STACK) OR "DRB" (1-BIT DELAYED REPLICATION)
-C>   SEQUENCES INSIDE OF THE PORTION OF THE SUBSET BUFFER BOUNDED BY THE
-C>   INDICES INV1 AND INV2.  IF FOUND, IT EXPANDS THE APPLICABLE "DRS" OR
-C>   "DRB" SEQUENCE TO THE POINT WHERE THE MNEMONIC IN QUESTION NOW
-C>   APPEARS IN THE SUBSET BUFFER, AND IN DOING SO IT WILL ALSO RETURN
-C>   A NEW VALUE FOR INV2.
+C> @brief Called by subroutine ufbrw() whenever it can't find a mnemonic it wants to write within the
+C> current subset buffer.
 C>
-C> PROGRAM HISTORY LOG:
-C> 1994-01-06  J. WOOLLEN -- ORIGINAL AUTHOR
-C> 1998-07-08  J. WOOLLEN -- REPLACED CALL TO CRAY LIBRARY ROUTINE
-C>                           "ABORT" WITH CALL TO NEW INTERNAL BUFRLIB
-C>                           ROUTINE "BORT" (LATER REMOVED, UNKNOWN
-C>                           WHEN)
-C> 2002-05-14  J. WOOLLEN -- REMOVED OLD CRAY COMPILER DIRECTIVES
-C> 2003-11-04  S. BENDER  -- ADDED REMARKS/BUFRLIB ROUTINE
-C>                           INTERDEPENDENCIES
-C> 2003-11-04  D. KEYSER  -- MAXJL (MAXIMUM NUMBER OF JUMP/LINK ENTRIES)
-C>                           INCREASED FROM 15000 TO 16000 (WAS IN
-C>                           VERIFICATION VERSION); UNIFIED/PORTABLE FOR
-C>                           WRF; ADDED DOCUMENTATION (INCLUDING
-C>                           HISTORY) 
-C> 2009-03-31  J. WOOLLEN -- ADDED ADDITIONAL DOCUMENTATION
-C> 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
+C> ### Program History Log
+C> Date | Programmer | Comments
+C> -----|------------|----------
+C> 1994-01-06 | J. Woollen | Original author.
+C> 1998-07-08 | J. Woollen | Replaced cray "abort" with routine bort() (later removed, unknown when).
+C> 2002-05-14 | J. Woollen | Removed old cray compiler directives.
+C> 2003-11-04 | S. Bender  | Added remarks/bufrlib routine interdependencies.
+C> 2003-11-04 | D. Keyser  | maxjl (maximum jump/link entries) increased to 16000; unified/portable for wrf.
+C> 2009-03-31 | J. Woollen | Added additional documentation.
+C> 2014-12-10 | J. Ator    | Use modules instead of common blocks.
 C>
-C> USAGE:    CALL DRSTPL (INOD, LUN, INV1, INV2, INVN)
+C> @author Woollen @date 1994-01-06
+
+C> This subroutine is called by subroutine
+C> ufbrw() whenever it can't find a mnemonic it wants to write within the
+C> current subset buffer. It looks for the mnemonic within any
+C> unexpanded "drs" (stack) or "drb" (1-bit delayed replication)
+C> sequences inside of the portion of the subset buffer bounded by the
+C> indices inv1 and inv2. If found, it expands the applicable "drs" or
+C> "drb" sequence to the point where the mnemonic in question now
+C> appears in the subset buffer, and in doing so it will also return
+C> a new value for inv2.
 C>
-C>   INPUT ARGUMENT LIST:
-C>     INOD     - INTEGER: JUMP/LINK TABLE INDEX OF MNEMONIC TO LOOK FOR 
-C>     LUN      - INTEGER: I/O STREAM INDEX INTO INTERNAL MEMORY ARRAYS
-C>     INV1     - INTEGER: STARTING INDEX OF THE PORTION OF THE SUBSET
-C>                BUFFER CURRENTLY BEING PROCESSED BY UFBRW
-C>     INV2     - INTEGER: ENDING INDEX OF THE PORTION OF THE SUBSET
-C>                BUFFER CURRENTLY BEING PROCESSED BY UFBRW
+C> @param[in] INOD - integer: jump/link table index of mnemonic to look for.
+C> @param[in] LUN - integer: i/o stream index into internal memory arrays.
+C> @param[in] INV1 - integer: starting index of the portion of the subset
+C> buffer currently being processed by ufbrw.
+C> @param[inout] INV2 - integer: on input, ending index of the portion
+C> of the subset buffer currently being processed by ufbrw. Onn output:
+C> if invn = 0, then inv2 is unchanged from its.  input value. Otherwise,
+C> it contains the redefined ending index of the portion of the subset
+C> buffer currently being processed by ufbrw, since expanding a delayed
+C> replication sequence will have necessarily increased the size of this
+C> buffer.
+C> @param[out] INVN - integer: location index of inod within subset buffer:.
+C> 0 not found.
 C>
-C>   OUTPUT ARGUMENT LIST:
-C>     INVN     - INTEGER: LOCATION INDEX OF INOD WITHIN SUBSET BUFFER:
-C>                  0 = NOT FOUND
-C>     INV2     - INTEGER: IF INVN = 0, THEN INV2 IS UNCHANGED FROM ITS
-C>                INPUT VALUE.  OTHERWISE, IT CONTAINS THE REDEFINED
-C>                ENDING INDEX OF THE PORTION OF THE SUBSET BUFFER
-C>                CURRENTLY BEING PROCESSED BY UFBRW, SINCE EXPANDING A
-C>                DELAYED REPLICATION SEQUENCE WILL HAVE NECESSARILY
-C>                INCREASED THE SIZE OF THIS BUFFER.
-C>
-C> REMARKS:
-C>    THIS ROUTINE CALLS:        INVWIN   NEWWIN   USRTPL
-C>    THIS ROUTINE IS CALLED BY: UFBRW
-C>                               Normally not called by any application
-C>                               programs.
-C>
+C> @author Woollen @date 1994-01-06
       SUBROUTINE DRSTPL(INOD,LUN,INV1,INV2,INVN)
 
       USE MODA_TABLES
