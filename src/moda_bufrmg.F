@@ -1,15 +1,18 @@
 C> @file
-C> @brief ???
-C> @author ??? @date ???
+C> @brief Declare arrays for internal storage of BUFR messages.
+C> @author J. Ator @date 2014-12-10
 
-C> (description)
-C> @author ??? @date ???
+C> This module contains arrays used to store, for each output I/O stream,
+C> a copy of the BUFR message that was most recently written to that
+C> stream, for possible later retrieval via subroutine writsa().
+C>
+C> @author J. Ator @date 2014-12-10
 
 	MODULE MODA_BUFRMG
 
-C>    MSGLEN description
+C>        Length (in integers) of BUFR message most recently written to each output I/O stream.
 	  INTEGER, ALLOCATABLE :: MSGLEN(:)
-C>    MSGTXT description
+C>        BUFR message most recently written to each output I/O stream.
 	  INTEGER, ALLOCATABLE :: MSGTXT(:,:)
 
 	END MODULE

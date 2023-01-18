@@ -1,35 +1,43 @@
 C> @file
-C> @brief ???
-C> @author ??? @date ???
+C> @brief Declare arrays and variables for internal storage of file rewind values.
+C> @author J. Ator @date 2014-12-10
 
-C> (description)
-C> @author ??? @date ???
+C> This module contains arrays and variables needed to store the current position within
+C> a BUFR file.  This allows a rewind back to the first message within the file, while
+C> retaining the capability to return to the original file position at a later point within
+C> the application program.
+C>
+C> The current position can be stored for only one BUFR file at a time.
+C>
+C> @author J. Ator @date 2014-12-10
 
 	MODULE MODA_BUFRSR
 
-C>    JUNN description
+C>        Internal I/O stream index of BUFR file.
 	  INTEGER :: JUNN
-C>    JILL description
+C>        File status indicator of BUFR file.
 	  INTEGER :: JILL
-C>    JIMM description
+C>        Message status indicator of BUFR file.
 	  INTEGER :: JIMM
-C>    JBIT description
+C>        Bit pointer within BUFR message.
 	  INTEGER :: JBIT
-C>    JBYT description
+C>        Length (in bytes) of BUFR message.
 	  INTEGER :: JBYT
-C>    JMSG description
+C>        Sequential number of BUFR message, counting from the beginning of the file.
 	  INTEGER :: JMSG
-C>    JSUB description
+C>        Sequential number of BUFR data subset, counting from the beginning of the
+C>        current BUFR message.
 	  INTEGER :: JSUB
-C>    KSUB description
+C>        Bit-wise (integer) representation of FXY value associated with Table A
+C>        mnemonic for BUFR message.
 	  INTEGER :: KSUB
-C>    JNOD description
+C>        Positional index of Table A mnemonic within internal Table A.
 	  INTEGER :: JNOD
-C>    JDAT description
+C>        Section 1 date-time of BUFR message.
 	  INTEGER :: JDAT
-C>    JSR description
+C>        ???
 	  INTEGER, ALLOCATABLE :: JSR(:)
-C>    JBAY description
+C>        BUFR message.
 	  INTEGER, ALLOCATABLE :: JBAY(:)
 
 	END MODULE
