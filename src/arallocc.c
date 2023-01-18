@@ -6,6 +6,7 @@
  * -----|------------|----------
  * 2014-12-04 | J. Ator | Original author.
  * 2021-05-17 | J. Ator | Allow up to 24 characters in cbunit.
+ * 2023-01-18 | J. Ator | Remove MSTABS_BASE macro.
  *
  * @author J. Ator @date 2014-12-04
 */
@@ -70,62 +71,62 @@ void arallocc( void )
     mxmtbd = igetprm( "MXMTBD", 6 );
     maxcd = igetprm( "MAXCD", 5 );
 
-    if ( ( MSTABS_BASE(ibfxyn) = malloc( mxmtbb * sizeof(f77int) ) ) == NULL ) {
+    if ( ( ibfxyn_c = malloc( mxmtbb * sizeof(f77int) ) ) == NULL ) {
 	strcat( brtstr, "IBFXYN" );
         bort( brtstr, ( f77int ) strlen( brtstr ) );
     }
 
-    if ( ( MSTABS_BASE(cbscl) = malloc( mxmtbb * 4 * sizeof(char) ) ) == NULL ) {
+    if ( ( cbscl_c = malloc( mxmtbb * 4 * sizeof(char) ) ) == NULL ) {
 	strcat( brtstr, "CBSCL" );
         bort( brtstr, ( f77int ) strlen( brtstr ) );
     }
 
-    if ( ( MSTABS_BASE(cbsref) = malloc( mxmtbb * 12 * sizeof(char) ) ) == NULL ) {
+    if ( ( cbsref_c = malloc( mxmtbb * 12 * sizeof(char) ) ) == NULL ) {
 	strcat( brtstr, "CBSREF" );
         bort( brtstr, ( f77int ) strlen( brtstr ) );
     }
 
-    if ( ( MSTABS_BASE(cbbw) = malloc( mxmtbb * 4 * sizeof(char) ) ) == NULL ) {
+    if ( ( cbbw_c = malloc( mxmtbb * 4 * sizeof(char) ) ) == NULL ) {
 	strcat( brtstr, "CBBW" );
         bort( brtstr, ( f77int ) strlen( brtstr ) );
     }
 
-    if ( ( MSTABS_BASE(cbunit) = malloc( mxmtbb * 24 * sizeof(char) ) ) == NULL ) {
+    if ( ( cbunit_c = malloc( mxmtbb * 24 * sizeof(char) ) ) == NULL ) {
 	strcat( brtstr, "CBUNIT" );
         bort( brtstr, ( f77int ) strlen( brtstr ) );
     }
 
-    if ( ( MSTABS_BASE(cbmnem) = malloc( mxmtbb * 8 * sizeof(char) ) ) == NULL ) {
+    if ( ( cbmnem_c = malloc( mxmtbb * 8 * sizeof(char) ) ) == NULL ) {
 	strcat( brtstr, "CBMNEM" );
         bort( brtstr, ( f77int ) strlen( brtstr ) );
     }
 
-    if ( ( MSTABS_BASE(cbelem) = malloc( mxmtbb * 120 * sizeof(char) ) ) == NULL ) {
+    if ( ( cbelem_c = malloc( mxmtbb * 120 * sizeof(char) ) ) == NULL ) {
 	strcat( brtstr, "CBELEM" );
         bort( brtstr, ( f77int ) strlen( brtstr ) );
     }
 
-    if ( ( MSTABS_BASE(idfxyn) = malloc( mxmtbd * sizeof(f77int) ) ) == NULL ) {
+    if ( ( idfxyn_c = malloc( mxmtbd * sizeof(f77int) ) ) == NULL ) {
 	strcat( brtstr, "IDFXYN" );
         bort( brtstr, ( f77int ) strlen( brtstr ) );
     }
 
-    if ( ( MSTABS_BASE(cdseq) = malloc( mxmtbd * 120 * sizeof(char) ) ) == NULL ) {
+    if ( ( cdseq_c = malloc( mxmtbd * 120 * sizeof(char) ) ) == NULL ) {
 	strcat( brtstr, "CDSEQ" );
         bort( brtstr, ( f77int ) strlen( brtstr ) );
     }
 
-    if ( ( MSTABS_BASE(cdmnem) = malloc( mxmtbd * 8 * sizeof(char) ) ) == NULL ) {
+    if ( ( cdmnem_c = malloc( mxmtbd * 8 * sizeof(char) ) ) == NULL ) {
 	strcat( brtstr, "CDMNEM" );
         bort( brtstr, ( f77int ) strlen( brtstr ) );
     }
 
-    if ( ( MSTABS_BASE(ndelem) = malloc( mxmtbd * sizeof(f77int) ) ) == NULL ) {
+    if ( ( ndelem_c = malloc( mxmtbd * sizeof(f77int) ) ) == NULL ) {
 	strcat( brtstr, "NDELEM" );
         bort( brtstr, ( f77int ) strlen( brtstr ) );
     }
 
-    if ( ( MSTABS_BASE(idefxy) = malloc( mxmtbd * maxcd * sizeof(f77int) ) ) == NULL ) {
+    if ( ( idefxy_c = malloc( mxmtbd * maxcd * sizeof(f77int) ) ) == NULL ) {
 	strcat( brtstr, "IDEFXY" );
         bort( brtstr, ( f77int ) strlen( brtstr ) );
     }
