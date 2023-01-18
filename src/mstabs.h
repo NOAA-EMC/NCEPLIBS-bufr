@@ -17,19 +17,15 @@
 #define cpmstabs   cpmstabs_
 #endif
 
+/** Function prototype. */
 void cpmstabs( f77int *, f77int *, char (*)[4], char (*)[12], char (*)[4],
         char (*)[24], char (*)[8], char (*)[120], f77int *, f77int *,
         char (*)[120], char (*)[8], f77int *, f77int *, f77int * );
 
-/** ??? @return ??? */
+/** Macro for text substitution within this file. */
 #define MSTABS_BASE(var) mstabs_newCarr_ ## var 
 
 #ifdef IN_ARALLOCC
-/**
- * ???
- *
- * @return ???
- */
 	f77int MSTABS_BASE(nmtb); 
 	f77int *MSTABS_BASE(ibfxyn); /**< ??? */
 	char   (*MSTABS_BASE(cbscl))[4]; /**< ??? */
@@ -45,11 +41,6 @@ void cpmstabs( f77int *, f77int *, char (*)[4], char (*)[12], char (*)[4],
 	f77int *MSTABS_BASE(ndelem); /**< ??? */
 	f77int *MSTABS_BASE(idefxy); /**< ??? */
 #else
-/**
- * ???
- *
- * @return ???
- */
 	extern f77int MSTABS_BASE(nmtb); /**< ??? */
 	extern f77int *MSTABS_BASE(ibfxyn); /**< ???  @return ???*/
 	extern char   (*MSTABS_BASE(cbscl))[4]; /**< ???  @return ???*/

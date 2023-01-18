@@ -11,10 +11,12 @@
  *  @author J. Ator @date 2005-11-29
  */
 #include "bufrlib.h"
-#define IN_COBFL /**< ??? */
+/** Macro to control whether certain variables are explicitly declared or referenced as extern. */
+#define IN_COBFL
 #include "cobfl.h"
 
-#define MXFNLEN 200 /**< ??? */
+/** Maximum length of a system file, including any directory prefixes or other local filesystem notation. */
+#define MXFNLEN 200
 
 /**
  *  This subroutine opens a new file for reading or writing BUFR
@@ -72,7 +74,7 @@
  *  @param bfl - System file to be opened. Inclusion of directory
  *  prefixes or other local filesystem notation is allowed, up to 200
  *  total characters.
- *  @param[in] io - Flag indicating how bfl is to be opened:
+ *  @param io - Flag indicating how bfl is to be opened:
  * - 'r' input (for reading BUFR messages) 
  * - 'w' output (for writing BUFR messages)
  *
@@ -85,8 +87,7 @@ void cobfl( char *bfl, char *io )
 
     char errstr[MXFNLEN+50];
 
-    char foparg[3] = " b";  /* 3rd character will automatically
-			       initialize to NULL */
+    char foparg[3] = " b";  /* 3rd character will automatically initialize to NULL */
     unsigned short i, j;
 
 /*
@@ -120,8 +121,7 @@ void cobfl( char *bfl, char *io )
     }
 
 /*
-**  If a file of this type is already open, then close it before
-**  opening the new one.
+**  If a file of this type is already open, then close it before opening the new one.
 */
     if ( pbf[j] != NULL ) fclose( pbf[j] );
 

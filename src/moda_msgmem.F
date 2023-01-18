@@ -39,10 +39,12 @@ C>        Number of DX BUFR tables represented by the
 C>        messages within mdx (up to a maximum of MXDXTS).
 	  INTEGER :: NDXTS
 
-C>        ???	  
+C>        Maximum number of DX BUFR table messages that can
+C>        be stored within mdx.
 	  INTEGER :: MXDXM
 
-C>        ???	  
+C>        Maximum number of entries that can be stored
+C>        within mdx.
 	  INTEGER :: MXDXW
 
 C>        Pointers to the beginning of each message within

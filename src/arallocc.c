@@ -11,6 +11,7 @@
 */
 
 #include "bufrlib.h"
+/** Macro to control whether certain variables are explicitly declared or referenced as extern. */
 #define IN_ARALLOCC
 #include "cread.h"
 #include "mstabs.h"
