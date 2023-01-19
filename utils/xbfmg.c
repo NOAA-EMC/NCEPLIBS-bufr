@@ -20,17 +20,16 @@
 
 #include "bufrlib.h"
 
-#ifdef UNDERSCORE
-#define prtusage prtusage_
-#endif
+void prtusage( char *prgnam );
 
-void prtusage( char * );
-
-#define MXFLEN 125 /**< Maximum length of bufrfile [path/]name. */
+/** Maximum length of bufrfile [path/]name. */
+#define MXFLEN 125
 
 /**
  * This function prints program usage information to standard output.
  *   
+ * @param prgnam - [path/]name of program executable.
+ *
  * @author J. Ator @date 2018-03-01
  */
 void prtusage( char *prgnam ) {

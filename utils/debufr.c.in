@@ -31,45 +31,25 @@
 
 #ifdef UNDERSCORE
 #define fdebufr fdebufr_
-#define prtusage prtusage_
 #endif
 
-/**
- * ???
- *
- * @param c1 - ???
- * @param c2 - ???
- * @param f1 - ???
- * @param c3 - ???
- * @param c4 - ???
- * @param c5 - ???
- * @param c6 - ???
- * @param c7 - ???
- * @param s1 - ???
- * @param s2 - ???
- * @param s3 - ???
- * @param s4 - ???
- * @param s5 - ???
- * @param s6 - ???
- * @param s7 - ???
- *
- * @author J. Ator @date 2018-03-01 
- */ 
-void fdebufr( char *c1, char *c2, f77int *f1, char *c3, char *c4, char *c5, char *c6, char *c7,
+void fdebufr( char *ofile, char *tbldir, f77int *lentd, char *tblfil, char *prmstg, char *basic, char *forcemt, char *cfms,
               size_t s1, size_t s2, size_t s3, size_t s4, size_t s5, size_t s6, size_t s7);
-void prtusage( char * );
 
-#define MXFLEN 500 /**< ??? */
-#define MXFLEN_TBLFIL (MXFLEN+50) /**< ??? */
+void prtusage( char *prgnam );
+
+/** Maximum length of the [path/]name passed in for bufrfile. */
+#define MXFLEN 500
+/** Maximum length of the [path/]name for a BUFR tables file, based on the value of MXFLEN. */
+#define MXFLEN_TBLFIL (MXFLEN+50)
 
 /**
  * This function prints program usage information to standard output.
  *   
- * @param prgnam - path/name of program executable
+ * @param prgnam - [path/]name of program executable.
  *
  * @author J. Ator @date 2018-03-01 
  */
-
 void prtusage( char *prgnam ) {
 	printf( "\nUSAGE:\n" );
 	printf( "  %s [-v] [-h] [-b] [-c] [-m] [-o outfile] [-t tabledir] [-f tablefil] [-p prmstg] bufrfile\n\n", prgnam );
@@ -114,8 +94,7 @@ void prtusage( char *prgnam ) {
 }
 
 /**
- * This program decodes a BUFR file and generates a verbose
- * listing of the contents.
+ * This program decodes a BUFR file and generates a verbose listing of the contents.
  *
  * If a [DX BUFR Tables](@ref dfbftab) file is
  * specified (using the -f option) or if the specified BUFR file
@@ -181,8 +160,7 @@ void prtusage( char *prgnam ) {
  * </pre>
  *
  * @remarks
- * - Fortran logical unit numbers 51, 90, 91, 92 and 93 are reserved
- * for use within this program.
+ * - Fortran logical unit numbers 51, 90, 91, 92 and 93 are reserved for use within this program.
  *
  * @param argc - argument count.
  * @param argv - argument array.
@@ -191,7 +169,6 @@ void prtusage( char *prgnam ) {
  *
  * @author J. Ator @date 2018-03-01 
  */
-
 int main( int argc, char *argv[ ] ) {
 
 	int ch;

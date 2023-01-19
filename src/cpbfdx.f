@@ -1,37 +1,28 @@
 C> @file
-C> @author WOOLLEN @date 1994-01-06
-      
-C> THIS SUBROUTINE COPIES BUFR TABLE (DICTIONARY) MESSAGES
-C>   FROM ONE LOCATION TO ANOTHER WITHIN INTERNAL MEMORY (ARRAYS IN
-C>   MODULE MSGCWD AND TABABD).
+C> @brief Copy BUFR DX table information within internal memory.
 C>
-C> PROGRAM HISTORY LOG:
-C> 1994-01-06  J. WOOLLEN -- ORIGINAL AUTHOR
-C> 1995-06-28  J. WOOLLEN -- INCREASED THE SIZE OF INTERNAL BUFR TABLE
-C>                           ARRAYS IN ORDER TO HANDLE BIGGER FILES
-C> 1999-11-18  J. WOOLLEN -- THE NUMBER OF BUFR FILES WHICH CAN BE
-C>                           OPENED AT ONE TIME INCREASED FROM 10 TO 32
-C>                           (NECESSARY IN ORDER TO PROCESS MULTIPLE
-C>                           BUFR FILES UNDER THE MPI)
-C> 2003-11-04  S. BENDER  -- ADDED REMARKS/BUFRLIB ROUTINE
-C>                           INTERDEPENDENCIES
-C> 2003-11-04  D. KEYSER  -- UNIFIED/PORTABLE FOR WRF; ADDED
-C>                           DOCUMENTATION (INCLUDING HISTORY)
-C> 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
+C> ### Program History Log
+C> Date | Programmer | Comments
+C> -----|------------|----------
+C> 1994-01-06 | J. Woollen | Original author.
+C> 1995-06-28 | J. Woollen | Increased the size of internal bufr table arrays in order to handle bigger files.
+C> 1999-11-18 | J. Woollen | Increased open files from 10 to 32 (necessary for mpi).
+C> 2003-11-04 | S. Bender  | Added remarks/bufrlib routine interdependencies.
+C> 2003-11-04 | D. Keyser  | Unified/portable for wrf; added documentation (including history).
+C> 2014-12-10 | J. Ator    | Use modules instead of common blocks.
 C>
-C> USAGE:    CALL CPBFDX (LUD, LUN)
-C>   INPUT ARGUMENT LIST:
-C>     LUD      - INTEGER: I/O STREAM INDEX INTO INTERNAL MEMORY ARRAYS
-C>                FOR INPUT TABLE LOCATION
-C>     LUN      - INTEGER: I/O STREAM INDEX INTO INTERNAL MEMORY ARRAYS
-C>                FOR OUTPUT TABLE LOCATION
+C> @author Woollen @date 1994-01-06
+
+C> This subroutine copies all of the BUFR DX table information from
+C> one unit to another within internal memory.
 C>
-C> REMARKS:
-C>    THIS ROUTINE CALLS:        DXINIT
-C>    THIS ROUTINE IS CALLED BY: MAKESTAB READDX   WRDXTB
-C>                               Normally not called by any application
-C>                               programs.
+C> @param[in] LUD - integer: I/O stream index into internal memory
+C>                  arrays for input unit.
+C> @param[in] LUN - integer: I/O stream index into internal memory
+C>                  arrays for output unit.
 C>
+C> @author Woollen @date 1994-01-06
+
       SUBROUTINE CPBFDX(LUD,LUN)
 
       USE MODA_MSGCWD
