@@ -1,14 +1,14 @@
 C> @file
 C> @brief Declare arrays for internal storage of jump/link table.
+C> @author J. Ator @date 2014-12-10
 
 C> This module contains array and variable declarations used to
 C> store the internal jump/link table.
 C>
-C> <p>Data values within this module are stored by subroutines
+C> Data values within this module are stored by subroutines
 C> makestab(), tabsub() and tabent().
 C>
-C> @author J. Ator
-C> @date 2014-12-10
+C> @author J. Ator @date 2014-12-10
 
 	MODULE MODA_TABLES
 
@@ -127,21 +127,52 @@ C>          mnemonic referenced by corresponding jump entry, if
 C>          corresponding typ entry is "REP"
 C>        - 1, otherwise
 
-	  INTEGER :: MAXTAB
+C> ???
+	  INTEGER :: MAXTAB 
+
+C> ???
 	  INTEGER :: NTAB
+
+C> ???
 	  CHARACTER*10, ALLOCATABLE :: TAG(:)
+
+C> ???
 	  CHARACTER*3, ALLOCATABLE :: TYP(:)
+
+C> ???
 	  INTEGER, ALLOCATABLE :: KNT(:)
+
+C> ???
 	  INTEGER, ALLOCATABLE :: JUMP(:) 
+
+C> ???
 	  INTEGER, ALLOCATABLE :: LINK(:)
+
+C> ???
 	  INTEGER, ALLOCATABLE :: JMPB(:)
+
+C> ???
 	  INTEGER, ALLOCATABLE :: IBT(:)
+
+C> ???
 	  INTEGER, ALLOCATABLE :: IRF(:)
+
+C> ???
 	  INTEGER, ALLOCATABLE :: ISC(:)
+
+C> ???
 	  INTEGER, ALLOCATABLE :: ITP(:)
+
+C> ???
 	  REAL*8, ALLOCATABLE :: VALI(:)
+
+C> ???
 	  INTEGER, ALLOCATABLE :: KNTI(:)
+
+C> ???
 	  INTEGER, ALLOCATABLE :: ISEQ(:,:)
+
+C> ???
 	  INTEGER, ALLOCATABLE :: JSEQ(:)
 
 	END MODULE
