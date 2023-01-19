@@ -1,49 +1,38 @@
 C> @file
+C> @brief Decode the scale factor, reference value,
+c> bit width and units (i.e., the "elements") from a table b mnemonic
+c> definition card that was previously read from a user-supplied bufr
+c> dictionary table file in character format by subroutine rdusdx().
+C>
+C> ### Program History Log
+C> Date | Programmer | Comments
+C> -----|------------|----------
+C> 1994-01-06 | J. Woollen | Original author.
+C> 1995-06-28 | J. Woollen | Increased the size of internal bufr table arrays in order to handle bigger files.
+C> 1998-07-08 | J. Woollen | Replaced call to cray library routine "abort" with call to routine bort(0.
+C> 1999-11-18 | J. Woollen | The number of bufr files which can be opened at one time increased from 10 to 32 (necessary for mpi).
+C> 2003-11-04 | J. Ator    | Added documentation.
+C> 2003-11-04 | S. Bender  | Added remarks/bufrlib routine interdependencies.
+C> 2003-11-04 | D. Keyser  | Unified/portable for wrf; documentation; outputs more info when routine terminates; changed  bort() to bort2().
+C> 2007-01-19 | J. Ator    | Added extra argument for call to jstchr().
+C> 2014-12-10 | J. Ator    | Use modules instead of common blocks.
+C> 2021-09-30 | J. Ator    | Replace jstchr with Fortran intrinsic adjustl.
+C>
 C> @author WOOLLEN @date 1994-01-06
       
-C> THIS SUBROUTINE DECODES THE SCALE FACTOR, REFERENCE VALUE,
-C>   BIT WIDTH AND UNITS (I.E., THE "ELEMENTS") FROM A TABLE B MNEMONIC
-C>   DEFINITION CARD THAT WAS PREVIOUSLY READ FROM A USER-SUPPLIED BUFR
-C>   DICTIONARY TABLE FILE IN CHARACTER FORMAT BY BUFR ARCHIVE LIBRARY
-C>   SUBROUTINE RDUSDX.  THESE DECODED VALUES ARE THEN ADDED TO THE
-C>   ALREADY-EXISTING ENTRY FOR THAT MNEMONIC WITHIN THE INTERNAL BUFR
-C>   TABLE B ARRAY TABB(*,LUN) IN MODULE TABABD.
+C> This subroutine decodes the scale factor, reference value,
+c> bit width and units (i.e., the "elements") from a table b mnemonic
+c> definition card that was previously read from a user-supplied bufr
+c> dictionary table file in character format by subroutine rdusdx().
+C> These decoded values are then added to the
+c> already-existing entry for that mnemonic within the internal bufr
+c> table B array TABB(*,LUN) in module tababd.
 C>
-C> PROGRAM HISTORY LOG:
-C> 1994-01-06  J. WOOLLEN -- ORIGINAL AUTHOR
-C> 1995-06-28  J. WOOLLEN -- INCREASED THE SIZE OF INTERNAL BUFR TABLE
-C>                           ARRAYS IN ORDER TO HANDLE BIGGER FILES
-C> 1998-07-08  J. WOOLLEN -- REPLACED CALL TO CRAY LIBRARY ROUTINE
-C>                           "ABORT" WITH CALL TO NEW INTERNAL BUFRLIB
-C>                           ROUTINE "BORT"
-C> 1999-11-18  J. WOOLLEN -- THE NUMBER OF BUFR FILES WHICH CAN BE
-C>                           OPENED AT ONE TIME INCREASED FROM 10 TO 32
-C>                           (NECESSARY IN ORDER TO PROCESS MULTIPLE
-C>                           BUFR FILES UNDER THE MPI)
-C> 2003-11-04  J. ATOR    -- ADDED DOCUMENTATION
-C> 2003-11-04  S. BENDER  -- ADDED REMARKS/BUFRLIB ROUTINE
-C>                           INTERDEPENDENCIES
-C> 2003-11-04  D. KEYSER  -- UNIFIED/PORTABLE FOR WRF; ADDED HISTORY
-C>                           DOCUMENTATION; OUTPUTS MORE COMPLETE
-C>                           DIAGNOSTIC INFO WHEN ROUTINE TERMINATES
-C>                           ABNORMALLY; CHANGED CALL FROM BORT TO BORT2
-C> 2007-01-19  J. ATOR    -- ADDED EXTRA ARGUMENT FOR CALL TO JSTCHR
-C> 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
-C> - 2021-09-30  J. Ator    -- Replace jstchr with Fortran intrinsic
-C>                             adjustl
+C> @param[in] CARD - character*80: mnemonic definition card that was read
+C> from a user-supplied bufr dictionary table.
+C> @param[in] LUN - integer: i/o stream index into internal memory arrays .
 C>
-C> USAGE:    CALL ELEMDX (CARD, LUN)
-C>   INPUT ARGUMENT LIST:
-C>     CARD     - CHARACTER*80: MNEMONIC DEFINITION CARD THAT WAS READ
-C>                FROM A USER-SUPPLIED BUFR DICTIONARY TABLE
-C>     LUN      - INTEGER: I/O STREAM INDEX INTO INTERNAL MEMORY ARRAYS 
-C>
-C> REMARKS:
-C>    THIS ROUTINE CALLS:        BORT2    CAPIT    JSTNUM    NEMTAB
-C>    THIS ROUTINE IS CALLED BY: RDUSDX   STSEQ
-C>                               Normally not called by any application
-C>                               programs.
-C>
+C> @author WOOLLEN @date 1994-01-06
       SUBROUTINE ELEMDX(CARD,LUN)
 
       USE MODA_TABABD

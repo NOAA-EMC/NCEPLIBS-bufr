@@ -1,59 +1,39 @@
 C> @file
-C> @author WOOLLEN @date 1994-01-06
+C>
+C> ### Program History Log
+C> Date | Programmer | Comments
+C> -----|------------|----------
+C> 1994-01-06 | J. Woollen | Original author.
+C> 1997-07-29 | J. Woollen | Modified to update the current bufr version written in section 0 from 2 to 3.
+C> 1998-07-08 | J. Woollen | Replaced call to cray library routine "abort" with call to new internal bufrlib routine bort().
+C> 2000-09-19 | J. Woollen | Maximum message length increased from 10,000 to 20,000 bytes.
+C> 2003-11-04 | S. Bender  | Added remarks/bufrlib routine interdependencies.
+C> 2003-11-04 | D. Keyser  | Unified/portable for wrf; added documentation (including history); more diagnostic info.
+C> 2004-08-09 | J. Ator    | Maximum message length increased from 20,000 to 50,000 bytes.
+C> 2005-11-29 | J. Ator    | Changed default master table version to 12.
+C> 2009-05-07 | J. Ator    | Changed default master table version to 13.
+C> 2019-05-21 | J. Ator    | Changed default master table version to 29.
+C> 2021-05-14 | J. Ator    | Changed default master table version to 36.
+C>
+C> @author Woollen @date 1994-01-06
       
-C> THIS SUBROUTINE INITIALIZES A BUFR TABLE (DICTIONARY)
-C>   MESSAGE, WRITING ALL THE PRELIMINARY INFORMATION INTO SECTIONS 0,
-C>   1, 3, 4.  BUFR ARCHIVE LIBRARY SUBROUTINE WRDXTB WILL WRITE THE
-C>   ACTUAL TABLE INFORMATION INTO THE MESSAGE.
+C> This subroutine initializes a bufr table (dictionary)
+C> message, writing all the preliminary information into sections 0,
+C> 1, 3, 4.  Subroutine wrdxtb() will write the
+C> actual table information into the message.
 C>
-C> PROGRAM HISTORY LOG:
-C> 1994-01-06  J. WOOLLEN -- ORIGINAL AUTHOR
-C> 1997-07-29  J. WOOLLEN -- MODIFIED TO UPDATE THE CURRENT BUFR VERSION
-C>                           WRITTEN IN SECTION 0 FROM 2 TO 3
-C> 1998-07-08  J. WOOLLEN -- REPLACED CALL TO CRAY LIBRARY ROUTINE
-C>                           "ABORT" WITH CALL TO NEW INTERNAL BUFRLIB
-C>                           ROUTINE "BORT"
-C> 2000-09-19  J. WOOLLEN -- MAXIMUM MESSAGE LENGTH INCREASED FROM
-C>                           10,000 TO 20,000 BYTES
-C> 2003-11-04  S. BENDER  -- ADDED REMARKS/BUFRLIB ROUTINE
-C>                           INTERDEPENDENCIES
-C> 2003-11-04  D. KEYSER  -- UNIFIED/PORTABLE FOR WRF; ADDED
-C>                           DOCUMENTATION (INCLUDING HISTORY); OUTPUTS
-C>                           MORE COMPLETE DIAGNOSTIC INFO WHEN ROUTINE
-C>                           TERMINATES ABNORMALLY
-C> 2004-08-09  J. ATOR    -- MAXIMUM MESSAGE LENGTH INCREASED FROM
-C>                           20,000 TO 50,000 BYTES
-C> 2005-11-29  J. ATOR    -- CHANGED DEFAULT MASTER TABLE VERSION TO 12
-C> 2009-05-07  J. ATOR    -- CHANGED DEFAULT MASTER TABLE VERSION TO 13
-C> 2019-05-21  J. ATOR    -- CHANGED DEFAULT MASTER TABLE VERSION TO 29 
-C> 2021-05-14  J. ATOR    -- CHANGED DEFAULT MASTER TABLE VERSION TO 36
+C> @note: Argument LUN is not referenced in this subroutine. It is left
+C> here in case an application program calls this subroutine.
 C>
-C> USAGE:    CALL DXMINI (LUN, MBAY, MBYT, MB4, MBA, MBB, MBD)
-C>   INPUT ARGUMENT LIST:
-C>     LUN      - INTEGER: I/O STREAM INDEX INTO INTERNAL MEMORY ARRAYS
+C> @param[in] LUN - integer: i/o stream index into internal memory arrays.
+C> @param[out] MBAY - integer: (mxmsgld4)-word packed binary array containing bufr message.
+C> @param[out] MBYT - integer: length of bufr message (bytes).
+C> @param[out] MB4 - integer: byte number in message of first byte in section 4.
+C> @param[out] MBA - integer: byte number in message of fourth byte in section 4.
+C> @param[out] MBB - integer: byte number in message of fifth byte in section 4.
+C> @param[out] MBD - integer: byte number in message of sixth byte in section 4.
 C>
-C>   OUTPUT ARGUMENT LIST:
-C>     MBAY     - INTEGER: (MXMSGLD4)-WORD PACKED BINARY ARRAY
-C>                CONTAINING BUFR MESSAGE
-C>     MBYT     - INTEGER: LENGTH OF BUFR MESSAGE (BYTES)
-C>     MB4      - INTEGER: BYTE NUMBER IN MESSAGE OF FIRST BYTE IN
-C>                SECTION 4
-C>     MBA      - INTEGER: BYTE NUMBER IN MESSAGE OF FOURTH BYTE IN
-C>                SECTION 4
-C>     MBB      - INTEGER: BYTE NUMBER IN MESSAGE OF FIFTH BYTE IN
-C>                SECTION 4
-C>     MBD      - INTEGER: BYTE NUMBER IN MESSAGE OF SIXTH BYTE IN
-C>                SECTION 4
-C>
-C> REMARKS:
-C>    ARGUMENT LUN IS NOT REFERENCED IN THIS SUBROUTINE.  IT IS LEFT
-C>    HERE IN CASE AN APPLICATION PROGRAM CALLS THIS SUBROUTINE.
-C>
-C>    THIS ROUTINE CALLS:        BORT     IUPM     PKB      PKC
-C>    THIS ROUTINE IS CALLED BY: WRDXTB
-C>                               Normally not called by any application
-C>                               programs.
-C>
+C> @author Woollen @date 1994-01-06
       SUBROUTINE DXMINI(LUN,MBAY,MBYT,MB4,MBA,MBB,MBD)
 
       USE MODV_MXMSGL

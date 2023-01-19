@@ -1,83 +1,62 @@
 C> @file
-C> @author WOOLLEN @date 1994-01-06
+C>
+C> ### Program History Log
+C> Date | Programmer | Comments
+C> -----|------------|----------
+C> 1994-01-06 | J. Woollen | Original author.
+C> 1998-07-08 | J. Woollen | Replaced call to cray "abort" with call to routine bort().
+C> 1999-11-18 | J. Woollen | The number of bufr files which can be opened at one time increased from 10 to 32 (necessary for mpi).
+C> 2002-05-14 | J. Woollen | Removed old cray compiler directives.
+C> 2003-11-04 | S. Bender  | Added remarks/bufrlib routine interdependencies.
+C> 2003-11-04 | D. Keyser  | maxjl increased to 16000; unified/portable for wrf; documentation; outputs more diagnostic info.
+C> 2009-03-31 | J. Woollen | Added additional documentation.
+C> 2009-05-07 | J. Ator    | Use lstjpb instead of lstrpc.
+C> 2014-12-10 | J. Ator    | Use modules instead of common blocks.
+C>
+C> @author Woollen @date 1994-01-06
       
-C> GIVEN A NODE INDEX WITHIN THE INTERNAL JUMP/LINK TABLE, THIS
-C>   SUBROUTINE LOOKS WITHIN THE CURRENT SUBSET BUFFER FOR A "WINDOW"
-C>   (SEE BELOW REMARKS) WHICH CONTAINS THIS NODE.  IF FOUND, IT RETURNS
-C>   THE STARTING AND ENDING INDICES OF THIS WINDOW WITHIN THE CURRENT
-C>   SUBSET BUFFER.  FOR EXAMPLE, IF THE NODE IS FOUND WITHIN THE SUBSET
-C>   BUT IS NOT PART OF A DELAYED REPLICATION SEQUENCE, THEN THE RETURNED
-C>   INDICES DEFINE THE START AND END OF THE ENTIRE SUBSET BUFFER.
-C>   OTHERWISE, THE RETURNED INDICES DEFINE THE START AND END OF THE NEXT
-C>   AVAILABLE DELAYED REPLICATION SEQUENCE ITERATION WHICH CONTAINS THE
-C>   NODE.  IF NO FURTHER ITERATIONS OF THE SEQUENCE CAN BE FOUND, THEN
-C>   THE STARTING INDEX IS RETURNED WITH A VALUE OF ZERO.
+C> Given a node index within the internal jump/link table, this
+C> subroutine looks within the current subset buffer for a "window"
+C> (see below remarks) which contains this node. If found, it returns
+C> the starting and ending indices of this window within the current
+C> subset buffer. For example, if the node is found within the subset
+C> but is not part of a delayed replication sequence, then the returned
+C> indices define the start and end of the entire subset buffer.
+C> Otherwise, the returned indices define the start and end of the next
+C> available delayed replication sequence iteration which contains the
+C> node. If no further iterations of the sequence can be found, then
+C> the starting index is returned with a value of zero.
 C>
-C> PROGRAM HISTORY LOG:
-C> 1994-01-06  J. WOOLLEN -- ORIGINAL AUTHOR
-C> 1998-07-08  J. WOOLLEN -- REPLACED CALL TO CRAY LIBRARY ROUTINE
-C>                           "ABORT" WITH CALL TO NEW INTERNAL BUFRLIB
-C>                           ROUTINE "BORT"
-C> 1999-11-18  J. WOOLLEN -- THE NUMBER OF BUFR FILES WHICH CAN BE
-C>                           OPENED AT ONE TIME INCREASED FROM 10 TO 32
-C>                           (NECESSARY IN ORDER TO PROCESS MULTIPLE
-C>                           BUFR FILES UNDER THE MPI)
-C> 2002-05-14  J. WOOLLEN -- REMOVED OLD CRAY COMPILER DIRECTIVES
-C> 2003-11-04  S. BENDER  -- ADDED REMARKS/BUFRLIB ROUTINE
-C>                           INTERDEPENDENCIES
-C> 2003-11-04  D. KEYSER  -- MAXJL (MAXIMUM NUMBER OF JUMP/LINK ENTRIES)
-C>                           INCREASED FROM 15000 TO 16000 (WAS IN
-C>                           VERIFICATION VERSION); UNIFIED/PORTABLE FOR
-C>                           WRF; ADDED DOCUMENTATION (INCLUDING
-C>                           HISTORY) (INCOMPLETE); OUTPUTS MORE
-C>                           COMPLETE DIAGNOSTIC INFO WHEN ROUTINE
-C>                           TERMINATES ABNORMALLY
-C> 2009-03-31  J. WOOLLEN -- ADDED ADDITIONAL DOCUMENTATION
-C> 2009-05-07  J. ATOR    -- USE LSTJPB INSTEAD OF LSTRPC
-C> 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
+C> @note
+C> This is one of a number of subroutines which operate on "windows"
+C> (i.e. contiguous portions) of the internal subset buffer. The
+C> subset buffer is an array of values arranged according to the
+C> overall template definition for a subset. A window can be any
+C> contiguous portion of the subset buffer up to and including the
+C> entire subset buffer itself. For the purposes of these "window
+C> operator" subroutines, a window essentially consists of all of the
+C> elements within a particular delayed replication group, since such
+C> groups effectively define the dimensions within a bufr subset for
+C> the bufr archive library subroutines such as ufbint, ufbin3, etc.
+C> which read/write individual data values. A bufr subset with no
+C> delayed replication groups is considered to have only one
+C> dimension, and therefore only one "window" which spans the entire
+C> subset. On the other hand, each delayed replication sequence
+C> within a bufr subset consists of some number of "windows", which
+C> are a de-facto second dimension of the subset and where the number
+C> of windows is the delayed descriptor replication factor (i.e. the
+C> number of iterations) of the sequence. If nested delayed
+C> replication is used, then there may be three or more dimensions
+C> within the subset.
 C>
-C> USAGE:    CALL GETWIN (NODE, LUN, IWIN, JWIN)
-C>   INPUT ARGUMENT LIST:
-C>     NODE     - INTEGER: JUMP/LINK TABLE INDEX OF MNEMONIC TO LOOK FOR
-C>     LUN      - INTEGER: I/O STREAM INDEX INTO INTERNAL MEMORY ARRAYS
-C>     JWIN     - INTEGER: ENDING INDEX OF THE PREVIOUS WINDOW ITERATION
-C>                WHICH CONTAINED NODE
+C> @param[in] NODE - integer: jump/link table index of mnemonic to look for.
+C> @param[in] LUN - integer: i/o stream index into internal memory arrays.
+C> @param[out] JWIN - integer: ending index of the previous window iteration which contained node.
+C> @param[out] IWIN - integer: starting index of the current window iteration which
+C> ontains node 0 = not found or no more iterations available.
+C> @param[out] JWIN - integer: ending index of the current window iteration which contains node .
 C>
-C>   OUTPUT ARGUMENT LIST:
-C>     IWIN     - INTEGER: STARTING INDEX OF THE CURRENT WINDOW ITERATION
-C>                WHICH CONTAINS NODE 
-C>                  0 = NOT FOUND OR NO MORE ITERATIONS AVAILABLE
-C>     JWIN     - INTEGER: ENDING INDEX OF THE CURRENT WINDOW ITERATION
-C>                WHICH CONTAINS NODE 
-C>
-C> REMARKS:
-C>
-C>    THIS IS ONE OF A NUMBER OF SUBROUTINES WHICH OPERATE ON "WINDOWS"
-C>    (I.E. CONTIGUOUS PORTIONS) OF THE INTERNAL SUBSET BUFFER.  THE
-C>    SUBSET BUFFER IS AN ARRAY OF VALUES ARRANGED ACCORDING TO THE
-C>    OVERALL TEMPLATE DEFINITION FOR A SUBSET.  A WINDOW CAN BE ANY
-C>    CONTIGUOUS PORTION OF THE SUBSET BUFFER UP TO AND INCLUDING THE
-C>    ENTIRE SUBSET BUFFER ITSELF.  FOR THE PURPOSES OF THESE "WINDOW
-C>    OPERATOR" SUBROUTINES, A WINDOW ESSENTIALLY CONSISTS OF ALL OF THE
-C>    ELEMENTS WITHIN A PARTICULAR DELAYED REPLICATION GROUP, SINCE SUCH
-C>    GROUPS EFFECTIVELY DEFINE THE DIMENSIONS WITHIN A BUFR SUBSET FOR
-C>    THE BUFR ARCHIVE LIBRARY SUBROUTINES SUCH AS UFBINT, UFBIN3, ETC.
-C>    WHICH READ/WRITE INDIVIDUAL DATA VALUES.  A BUFR SUBSET WITH NO
-C>    DELAYED REPLICATION GROUPS IS CONSIDERED TO HAVE ONLY ONE
-C>    DIMENSION, AND THEREFORE ONLY ONE "WINDOW" WHICH SPANS THE ENTIRE
-C>    SUBSET.  ON THE OTHER HAND, EACH DELAYED REPLICATION SEQUENCE
-C>    WITHIN A BUFR SUBSET CONSISTS OF SOME NUMBER OF "WINDOWS", WHICH
-C>    ARE A DE-FACTO SECOND DIMENSION OF THE SUBSET AND WHERE THE NUMBER
-C>    OF WINDOWS IS THE DELAYED DESCRIPTOR REPLICATION FACTOR (I.E. THE
-C>    NUMBER OF ITERATIONS) OF THE SEQUENCE.  IF NESTED DELAYED
-C>    REPLICATION IS USED, THEN THERE MAY BE THREE OR MORE DIMENSIONS
-C>    WITHIN THE SUBSET.
-C>
-C>    THIS ROUTINE CALLS:        BORT     INVWIN   LSTJPB
-C>    THIS ROUTINE IS CALLED BY: CONWIN   UFBEVN   UFBIN3   UFBRW
-C>                               Normally not called by any application
-C>                               programs.
-C>
+C> @author Woollen @date 1994-01-06
       SUBROUTINE GETWIN(NODE,LUN,IWIN,JWIN)
 
       USE MODA_USRINT

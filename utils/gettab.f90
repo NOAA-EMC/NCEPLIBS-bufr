@@ -1,8 +1,15 @@
 !> @file
 !> @brief Read BUFR file containing embedded DX BUFR tables,
-!> and print the tables to stdout
-!> @author WOOLLEN @date 2000-01-01
+!> and print the tables to stdout.
+!>
+!> @author Woollen @date 2000-01-01
 
+!> Read BUFR file containing embedded DX BUFR tables,
+!> and print the tables to stdout.
+!>
+!> @return 0 for success, error code otherwise.
+!>
+!> @author Woollen @date 2000-01-01
 program gettab
 
   implicit none
