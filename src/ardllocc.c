@@ -6,6 +6,7 @@
  * Date | Programmer | Comments
  * -----|------------|----------
  * 2014-12-04 | J. Ator | Original author.
+ * 2023-01-18 | J. Ator | Remove MSTABS_BASE macro.
  *
  * @author J. Ator @date 2014-12-04
  */
@@ -35,18 +36,18 @@ void ardllocc( void )
 **  mstabs arrays
 */
 
-    free( MSTABS_BASE(ibfxyn) );
-    free( MSTABS_BASE(cbscl) );
-    free( MSTABS_BASE(cbsref) );
-    free( MSTABS_BASE(cbbw) );
-    free( MSTABS_BASE(cbunit) );
-    free( MSTABS_BASE(cbmnem) );
-    free( MSTABS_BASE(cbelem) );
-    free( MSTABS_BASE(idfxyn) );
-    free( MSTABS_BASE(cdseq) );
-    free( MSTABS_BASE(cdmnem) );
-    free( MSTABS_BASE(ndelem) );
-    free( MSTABS_BASE(idefxy) );
+    free( ibfxyn_c );
+    free( cbscl_c );
+    free( cbsref_c );
+    free( cbbw_c );
+    free( cbunit_c );
+    free( cbmnem_c );
+    free( cbelem_c );
+    free( idfxyn_c );
+    free( cdseq_c );
+    free( cdmnem_c );
+    free( ndelem_c );
+    free( idefxy_c );
 
 }
 

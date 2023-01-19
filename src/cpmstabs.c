@@ -1,6 +1,13 @@
 /** @file
  *  @brief Copy master Table B and Table D information from
  *  Fortran arrays to C arrays within internal memory.
+ *
+ * ### Program history log
+ * Date | Programmer | Comments
+ * -----|------------|---------
+ * 2014-12-04 | J. Ator | Original author.
+ * 2021-05-17 | J. Ator | Allow up to 24 characters in cbunit.
+ * 2023-01-18 | J. Ator | Remove MSTABS_BASE macro.
  */
 #include "bufrlib.h"
 #include "mstabs.h"
@@ -8,41 +15,30 @@
 /**
  *  This subroutine copies relevant information from the Fortran
  *  module MODA_MSTABS arrays to new arrays within C, for use
- *  whenever arrays are dynamically allocated at run time and in
+ *  whenever arrays are dynamically allocated at run time, and in
  *  which case we can't directly access the Fortran module
  *  MODA_MSTABS arrays from within C.
+ *
+ *  All arguments to this subroutine are input.
  *
  *  @author J. Ator
  *  @date 2014-12-04
  *
- *  @param[in] pnmtb -- f77int*: Number of master Table B entries
- *  @param[in] pibfxyn -- f77int*: Bit-wise representations of
- *                        master Table B FXY numbers
- *  @param[in] pcbscl -- char(*)[4]: Master Table B scale factors
- *  @param[in] pcbsref -- char(*)[12]: Master Table B reference
- *                        values
- *  @param[in] pcbbw -- char(*)[4]: Master Table B bit widths
- *  @param[in] pcbunit -- char(*)[24]: Master Table B units
- *  @param[in] pcbmnem -- char(*)[8]: Master Table B mnemonics
- *  @param[in] pcbelem -- char(*)[120]: Master Table B element names
- *  @param[in] pnmtd -- f77int*: Number of master Table D entries
- *  @param[in] pidfxyn -- f77int*: Bit-wise representations of
- *                        master Table D FXY numbers
- *  @param[in] pcdseq -- char(*)[120]: Master Table D sequence names
- *  @param[in] pcdmnem -- char(*)[8]: Master Table D mnemonics
- *  @param[in] pndelem -- f77int*: Number of child descriptors for
- *                        master Table D sequence
- *  @param[in] pidefxy -- f77int*: Bit-wise representations of
- *                        child descriptors for master Table D
- *                        sequence
- *  @param[in] maxcd -- f77int*: Maximum number of child descriptors
- *                      for a master Table D sequence
- *
- * <b>Program history log:</b>
- * | Date | Programmer | Comments |
- * | -----|------------|----------|
- * | 2014-12-04 | J. Ator | Original author |
- * | 2021-05-17 | J. Ator | Allow up to 24 characters in cbunit |
+ *  @param pnmtb - Number of master Table B entries
+ *  @param pibfxyn - Bit-wise representations of master Table B FXY numbers
+ *  @param pcbscl - Master Table B scale factors
+ *  @param pcbsref - Master Table B reference values
+ *  @param pcbbw - Master Table B bit widths
+ *  @param pcbunit - Master Table B units
+ *  @param pcbmnem - Master Table B mnemonics
+ *  @param pcbelem - Master Table B element names
+ *  @param pnmtd - Number of master Table D entries
+ *  @param pidfxyn - Bit-wise representations of master Table D FXY numbers
+ *  @param pcdseq - Master Table D sequence names
+ *  @param pcdmnem - Master Table D mnemonics
+ *  @param pndelem - Number of child descriptors for master Table D sequence
+ *  @param pidefxy - Bit-wise representations of child descriptors for master Table D sequence
+ *  @param maxcd - Maximum number of child descriptors for a master Table D sequence
 */
 void cpmstabs(  f77int *pnmtb,
 		f77int *pibfxyn, char (*pcbscl)[4],
@@ -57,40 +53,40 @@ void cpmstabs(  f77int *pnmtb,
 
     f77int ii, jj, idx;
 
-    MSTABS_BASE(nmtb) = *pnmtb;
+    nmtb_c = *pnmtb;
     for ( ii = 0; ii < *pnmtb; ii++ ) {
-	MSTABS_BASE(ibfxyn)[ii] = pibfxyn[ii];
+	ibfxyn_c[ii] = pibfxyn[ii];
 	for ( jj = 0; jj < 4; jj++ ) {
-	    MSTABS_BASE(cbscl)[ii][jj] = pcbscl[ii][jj];
-	    MSTABS_BASE(cbbw)[ii][jj] = pcbbw[ii][jj];
+	    cbscl_c[ii][jj] = pcbscl[ii][jj];
+	    cbbw_c[ii][jj] = pcbbw[ii][jj];
 	}
 	for ( jj = 0; jj < 8; jj++ ) {
-	    MSTABS_BASE(cbmnem)[ii][jj] = pcbmnem[ii][jj];
+	    cbmnem_c[ii][jj] = pcbmnem[ii][jj];
 	}
 	for ( jj = 0; jj < 12; jj++ ) {
-	    MSTABS_BASE(cbsref)[ii][jj] = pcbsref[ii][jj];
+	    cbsref_c[ii][jj] = pcbsref[ii][jj];
 	}
 	for ( jj = 0; jj < 24; jj++ ) {
-	    MSTABS_BASE(cbunit)[ii][jj] = pcbunit[ii][jj];
+	    cbunit_c[ii][jj] = pcbunit[ii][jj];
 	}
 	for ( jj = 0; jj < 120; jj++ ) {
-	    MSTABS_BASE(cbelem)[ii][jj] = pcbelem[ii][jj];
+	    cbelem_c[ii][jj] = pcbelem[ii][jj];
 	}
     }
 
-    MSTABS_BASE(nmtd) = *pnmtd;
+    nmtd_c = *pnmtd;
     for ( ii = 0; ii < *pnmtd; ii++ ) {
-	MSTABS_BASE(idfxyn)[ii] = pidfxyn[ii];
-	MSTABS_BASE(ndelem)[ii] = pndelem[ii];
+	idfxyn_c[ii] = pidfxyn[ii];
+	ndelem_c[ii] = pndelem[ii];
 	for ( jj = 0; jj < pndelem[ii]; jj++ ) {
 	    idx = icvidx( &ii, &jj, maxcd );
-	    MSTABS_BASE(idefxy)[idx] = pidefxy[idx];
+	    idefxy_c[idx] = pidefxy[idx];
 	}
 	for ( jj = 0; jj < 8; jj++ ) {
-	    MSTABS_BASE(cdmnem)[ii][jj] = pcdmnem[ii][jj];
+	    cdmnem_c[ii][jj] = pcdmnem[ii][jj];
 	}
 	for ( jj = 0; jj < 120; jj++ ) {
-	    MSTABS_BASE(cdseq)[ii][jj] = pcdseq[ii][jj];
+	    cdseq_c[ii][jj] = pcdseq[ii][jj];
 	}
     }
 
