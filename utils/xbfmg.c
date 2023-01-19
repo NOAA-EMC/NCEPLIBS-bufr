@@ -20,11 +20,6 @@
 
 #include "bufrlib.h"
 
-#ifdef UNDERSCORE
-#define prtusage prtusage_
-#endif
-
-/** Function prototype. */ 
 void prtusage( char *prgnam );
 
 /** Maximum length of bufrfile [path/]name. */

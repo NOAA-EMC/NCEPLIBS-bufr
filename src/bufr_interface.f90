@@ -144,7 +144,7 @@ end subroutine close_c
 !> @author Ronald McLaren
 !> @date 2020-07-29
 !>
-!> @brief Wraps BUFRLIB "openbf" subroutine.
+!> @brief Wraps BUFRLIB openbf() subroutine.
 !>
 !> @param[in] bufr_unit - c_int: the fortran file unit number
 !> @param[in] cio - c_char: cio string
@@ -162,7 +162,7 @@ end subroutine openbf_c
 !> @author Ronald McLaren
 !> @date 2020-07-29
 !>
-!> @brief Wraps BUFRLIB "closbf" subroutine.
+!> @brief Wraps BUFRLIB closbf() subroutine.
 !>
 !> @param[in] bufr_unit - c_int: the fortran file unit number to close
 !>
@@ -176,7 +176,7 @@ end subroutine closbf_c
 !> @author Ronald McLaren
 !> @date 2020-07-29
 !>
-!> @brief Wraps BUFRLIB "exitbufr" subroutine. Closes
+!> @brief Wraps BUFRLIB exitbufr() subroutine. Closes
 !>        all open file units used by BUFRLIB.
 !>
 subroutine exitbufr_c() bind(C, name='exitbufr_f')
@@ -187,7 +187,7 @@ end subroutine exitbufr_c
 !> @author Ronald McLaren
 !> @date 2020-07-29
 !>
-!> @brief Wraps BUFRLIB "ireadmg" subroutine.
+!> @brief Wraps BUFRLIB ireadmg() function.
 !>
 !> @param[in] bufr_unit - c_int: the fortran file unit number to read from
 !> @param[out] c_subset - c_char: the subset string
@@ -214,7 +214,7 @@ end function ireadmg_c
 !> @author Ronald McLaren
 !> @date 2020-07-29
 !>
-!> @brief Wraps BUFRLIB "ireadsb" function.
+!> @brief Wraps BUFRLIB ireadsb() function.
 !>
 !> @param[in] bufr_unit - c_int: the fortran file unit number to read from
 !>
@@ -230,7 +230,7 @@ end function ireadsb_c
 !> @author Ronald McLaren
 !> @date 2020-07-29
 !>
-!> @brief Wraps BUFRLIB "ufbint" function.
+!> @brief Wraps BUFRLIB ufbint() subroutine.
 !>
 !> @param[in] bufr_unit - c_int: the fortran file unit number to read from
 !> @param[inout] c_data - c_ptr: c style pointer to a pre-allocated buffer
@@ -254,7 +254,7 @@ end subroutine ufbint_c
 !> @author Ronald McLaren
 !> @date 2020-07-29
 !>
-!> @brief Wraps BUFRLIB "ufbrep" function.
+!> @brief Wraps BUFRLIB ufbrep() subroutine.
 !>
 !> @param[in] bufr_unit - c_int: the fortran file unit number to read from
 !> @param[inout] c_data - c_ptr: c style pointer to a pre-allocated buffer
@@ -278,7 +278,7 @@ end subroutine ufbrep_c
 !> @author Ronald McLaren
 !> @date 2021-02-24
 !>
-!> @brief Wraps BUFRLIB "mtinfo" function.
+!> @brief Wraps BUFRLIB mtinfo() subroutine.
 !>
 !> @param[in] path - c_char: the path where the WMO tables are stored
 !> @param[in] file_unit_1 - c_int: number to use for first file unit
@@ -293,14 +293,10 @@ subroutine mtinfo_c(path, file_unit_1, file_unit_2) bind(C, name='mtinfo_f')
 end subroutine mtinfo_c
 
 
-! ----------------------------------------------------------------------
-!> Get Raw BUFR data functions
-! ----------------------------------------------------------------------
-
 !>  @author Ronald McLaren
 !>  @date 2022-03-23
 !>
-!>  @brief Wraps BUFRLIB "status" function.
+!>  @brief Wraps BUFRLIB status() subroutine.
 !>
 !>  @param[in] file_unit - c_int: the fortran file unit number to read from
 !>  @param[out] lun - c_int: pointer for the file stream
@@ -320,8 +316,8 @@ end subroutine status_c
 !>  @author Ronald McLaren
 !>  @date 2022-08-08
 !>
-!>  @brief Gets Table B Unit and Description strings for a mnemonic. Wraps BUFRLIB "nemdefs".
-!>
+!>  @brief Gets Table B Unit and Description strings for a mnemonic. Wraps BUFRLIB nemdefs() subroutine.
+!
 !>  @param[in] file_unit - c_int: Fortran file unit for the open file
 !>  @param[in] mnemonic - c_char: mnemonic
 !>  @param[out] unit_c - c_char: unit str
@@ -358,7 +354,7 @@ end subroutine nemdefs_c
 !>  @author Ronald McLaren
 !>  @date 2022-08-08
 !>
-!>  @brief Gets Table B scale, reference, and bits values. Wraps BUFRLIB "nemspecs".
+!>  @brief Gets Table B scale, reference, and bits values. Wraps BUFRLIB nemspecs() subroutine.
 !>
 !>  @param[in] file_unit - c_int: Fortran file unit for the open file
 !>  @param[in] mnemonic - c_char: mnemonic
@@ -388,7 +384,7 @@ end subroutine nemspecs_c
 !>  @date 2022-08-16
 !>
 !>  @brief This subroutine returns information about a descriptor from the internal DX BUFR tables,
-!>         based on the mnemonic associated with that descriptor.  Wraps BUFRLIB "nemtab".
+!>         based on the mnemonic associated with that descriptor.  Wraps BUFRLIB nemtab() subroutine.
 !>
 !>  @param[in] bufr_unit - c_int: the bufr file pointer
 !>  @param[in] mnemonic - c_char: mnemonic
@@ -416,7 +412,7 @@ end subroutine nemtab_c
 !>  @author Ronald McLaren
 !>  @date 2022-08-16
 !>
-!>  @brief Get information about a Table B descriptor. Wraps BUFRLIB "nemtbb".
+!>  @brief Get information about a Table B descriptor. Wraps BUFRLIB nemtbb() subroutine.
 !>
 !>  @param[in] bufr_unit - c_int: the bufr file pointer
 !>  @param[in] table_idx - c_int: Table B index

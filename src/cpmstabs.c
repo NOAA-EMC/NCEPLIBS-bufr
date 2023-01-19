@@ -15,7 +15,7 @@
 /**
  *  This subroutine copies relevant information from the Fortran
  *  module MODA_MSTABS arrays to new arrays within C, for use
- *  whenever arrays are dynamically allocated at run time and in
+ *  whenever arrays are dynamically allocated at run time, and in
  *  which case we can't directly access the Fortran module
  *  MODA_MSTABS arrays from within C.
  *
