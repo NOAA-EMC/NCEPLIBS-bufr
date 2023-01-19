@@ -1,13 +1,13 @@
 !> @file
 !> @brief ???
 !>
-!> @author J Ator @date 2021
+!> @author J Woollen @date 2021
 
 !> ???
 !>
 !> @return 0 for success, error code otherwise.
 !>
-!> @author J Ator @date 2021
+!> @author J Woollen @date 2021
 PROGRAM BINV
 
   PARAMETER (MAXSUB=100)
