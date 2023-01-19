@@ -2,6 +2,13 @@
  * @brief Search for an entry corresponding to IDN in the bufr
  * master table.
  * @author J Ator @date 2009-03-23
+ *
+ * ### Program history log
+ * Date | Programmer | Comments
+ * -----|------------|---------
+ * 2009-03-23 | J. Ator | Original author.
+ * 2023-01-18 | J. Ator | Remove MSTABS_BASE macro.
+
 */
 
 #include "bufrlib.h"
@@ -15,7 +22,7 @@
  * table must be sorted in ascending order (by fxy number) in order
  * for this routine to work properly.
  *
- * @param idn- bit-wise representation of fxy value to be searched for.
+ * @param idn - bit-wise representation of fxy value to be searched for.
  * @param tab - table in which idn was found ('B' or 'D').
  * @param ipt - index of entry for idn in master table tab.
  *
@@ -29,13 +36,13 @@ void nummtb( f77int *idn, char *tab, f77int *ipt )
 
 	if ( *idn >= ifxy( "300000", 6 ) ) {
 	    *tab = 'D';
-	    pifxyn = &MSTABS_BASE(idfxyn)[0];
-	    nmt = MSTABS_BASE(nmtd);
+	    pifxyn = &idfxyn_c[0];
+	    nmt = nmtd_c;
 	}
 	else {
 	    *tab = 'B';
-	    pifxyn = &MSTABS_BASE(ibfxyn)[0];
-	    nmt = MSTABS_BASE(nmtb);
+	    pifxyn = &ibfxyn_c[0];
+	    nmt = nmtb_c;
 	}
 
         pbs = ( f77int * ) bsearch( idn, pifxyn, ( size_t ) nmt, sizeof( f77int ),
