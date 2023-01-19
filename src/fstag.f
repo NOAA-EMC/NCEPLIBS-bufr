@@ -1,42 +1,31 @@
 C> @file
-C> @author J @date 2014-10-02
+C>
+C> ### Program History Log
+C> Date | Programmer | Comments
+C> -----|------------|----------
+C> 2014-10-02 | J. Ator | Original author.
+C> 2014-12-10 | J. Ator | Use modules instead of common blocks.
+C>
+C> @author J Ator @date 2014-10-02
 	
-C> THIS SUBROUTINE FINDS THE (NUTAG)th OCCURRENCE OF MNEMONIC
-C>  UTAG WITHIN THE CURRENT OVERALL SUBSET DEFINITION, STARTING FROM
-C>  PARAMETER #(NIN) WITHIN THE SUBSET.  THE SUBROUTINE SEARCHES FORWARD
-C>  FROM NIN IF NUTAG IS POSITIVE OR ELSE BACKWARD IF NUTAG IS NEGATIVE.
+C> This subroutine finds the (nutag)th occurrence of mnemonic
+C> utag within the current overall subset definition, starting from
+C> parameter #(nin) within the subset. The subroutine searches forward
+C> from nin if nutag is positive or else backward if nutag is negative.
 C>
-C> PROGRAM HISTORY LOG:
-C> 2014-10-02  J. ATOR    -- ORIGINAL AUTHOR
-C> 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
+C> @param[in] LUN - integer: i/o stream index into internal memory arrays.
+C> @param[in] UTAG - character*(*): mnemonic.
+C> @param[in] NUTAG - integer: ordinal occurrence of utag to search for within
+C> the overall subset definition, counting from parameter #(nin) within the subset.
+C> The subroutine will search in a forward direction from parameter #(nin) if
+C> nutag is positive or else in a backward direction if nutag is negative..
+C> @param[in] NIN - integer: location within the overall subset definition from which to begin searching for utag..
+C> @param[out] NOUT - integer: location of (nutag)th occurrence of utag.
+C> @param[out] IRET - integer: return code.
+C> - 0 Normal return.
+C> - -1 Requested mnemonic could not be found, or some other error occurred.
 C>
-C> USAGE:    CALL FSTAG (LUN, UTAG, NUTAG, NIN, NOUT, IRET)
-C>   INPUT ARGUMENT LIST:
-C>     LUN      - INTEGER: I/O STREAM INDEX INTO INTERNAL MEMORY ARRAYS
-C>     UTAG     - CHARACTER*(*): MNEMONIC
-C>     NUTAG    - INTEGER: ORDINAL OCCURRENCE OF UTAG TO SEARCH FOR
-C>                WITHIN THE OVERALL SUBSET DEFINITION, COUNTING FROM
-C>                PARAMETER #(NIN) WITHIN THE SUBSET.  THE SUBROUTINE
-C>                WILL SEARCH IN A FORWARD DIRECTION FROM PARAMETER
-C>                #(NIN) IF NUTAG IS POSITIVE OR ELSE IN A BACKWARD
-C>                DIRECTION IF NUTAG IS NEGATIVE.
-C>     NIN      - INTEGER: LOCATION WITHIN THE OVERALL SUBSET DEFINITION
-C>                FROM WHICH TO BEGIN SEARCHING FOR UTAG.
-C>
-C>   OUTPUT ARGUMENT LIST:
-C>     NOUT     - INTEGER: LOCATION OF (NUTAG)th OCCURRENCE OF UTAG
-C>     IRET     - INTEGER: RETURN CODE
-C>                   0 = NORMAL RETURN
-C>                  -1 = REQUESTED MNEMONIC COULD NOT BE FOUND, OR SOME
-C>                       OTHER ERROR OCCURRED
-C>
-C> REMARKS:
-C>    THIS ROUTINE CALLS:        PARSTR
-C>    THIS ROUTINE IS CALLED BY: GETTAGPR GETTAGRE GETVALNB NEMSPECS
-C>                               SETVALNB UFDUMP
-C>                               Normally not called by any application
-C>                               programs.
-C>
+C> @author J Ator @date 2014-10-02
 	SUBROUTINE FSTAG ( LUN, UTAG, NUTAG, NIN, NOUT, IRET )
 
 	USE MODA_USRINT
