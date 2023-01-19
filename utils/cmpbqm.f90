@@ -2,13 +2,13 @@
 !> @brief Print inventory of observations from prepbufr file by
 !> variable, report type and quality mark
 !>
-!> @author J Ator
+!> @author J Woollen
 
 !> ???
 !>
 !> @return 0 for success, error code otherwise.
 !>
-!> @author J Ator
+!> @author J Woollen
       PROGRAM CMPBQM
 
       CHARACTER*255 FILE

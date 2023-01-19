@@ -1,13 +1,13 @@
 !> @file
 !> @brief ???
 !>
-!> @author J Ator
+!> @author J Woollen
 
 !> ???
 !>
 !> @return 0 for success, error code otherwise.
 !>
-!> @author J Ator
+!> @author J Woollen
       PROGRAM SINV
 
       PARAMETER (MAXA=16000000)
