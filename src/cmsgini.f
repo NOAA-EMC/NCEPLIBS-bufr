@@ -1,6 +1,5 @@
 C> @file
-C> @brief Initialize a new bufr message for output
-C> in compressed bufr.
+C> @brief Initialize a new BUFR message for output using compression.
 C>
 C> ### Program History Log
 C> Date | Programmer | Comments
@@ -16,20 +15,22 @@ C> 2021-05-14 | J. Ator    | Changed default master table version to 36.
 C>
 C> @author Woollen @date 2002-05-14
 
-C> This subroutine initializes a new bufr message for output
-C> in compressed bufr. The actual length of section 4 (containing
-C> compressed data) is already known.
+C> This subroutine initializes a new BUFR message for output in compressed format.
 C>
-C> @param[in] LUN - integer: i/o stream index into internal memory arrays.
-C> @param[out] MESG - integer: *-word packed binary array containing bufr message.
-C> @param[in] SUBSET - character*8: table a mnemonic for type of bufr message being written.
-C> @param[in] IDATE - integer: date-time stored within section 1 of bufr message being written,
-C> in format of either yymmddhh or yyyymmddhh, depending on datelen() value.
-C> @param[in] NSUB - integer: number of subsets, stored in section 3 of bufr message being written.
-C> @param[inout] NBYT - integer: actual length (in bytes) of "compressed data portion" of section 4
-C> (i.e. all of section 4 except for the first four bytes).
+C> @param[in] LUN - integer: I/O stream index into internal memory arrays.
+C> @param[out] MESG - integer(*): BUFR message.
+C> @param[in] SUBSET - character*8: Table A mnemonic for type of BUFR message being written.
+C> @param[in] IDATE - integer: date-time stored within Section 1 of BUFR message being written,
+C>                    in format of either YYMMDDHH or YYYYMMDDHH, depending on datelen() value.
+C> @param[in] NSUB - integer: number of subsetsa in MESG
+C> @param[inout] NBYT - integer:
+C>                      - On input, contains the length (in bytes) of Section 4, except for
+C>                        the first 4 bytes
+C>                      - On output, contains the length (in bytes) of the entire BUFR message, up
+C>                        to the point in Section 4 where compressed data are to be written
 C>
 C> @author Woollen @date 2002-05-14
+
       SUBROUTINE CMSGINI(LUN,MESG,SUBSET,IDATE,NSUB,NBYT)
 
       CHARACTER*128 BORT_STR

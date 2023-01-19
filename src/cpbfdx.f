@@ -1,6 +1,5 @@
 C> @file
-C> @brief Copy bufr table (dictionary) messages
-C> from one location to another within internal memory.
+C> @brief Copy BUFR DX table information within internal memory.
 C>
 C> ### Program History Log
 C> Date | Programmer | Comments
@@ -14,16 +13,16 @@ C> 2014-12-10 | J. Ator    | Use modules instead of common blocks.
 C>
 C> @author Woollen @date 1994-01-06
 
-C> This subroutine copies bufr table (dictionary) messages
-C> from one location to another within internal memory (arrays in
-C> module msgcwd and tababd).
+C> This subroutine copies all of the BUFR DX table information from
+C> one unit to another within internal memory.
 C>
-C> @param[in] LUD - integer: i/o stream index into internal memory
-C> arrays for input table location.
-C> @param[in] LUN - integer: i/o stream index into internal memory
-C> arrays for output table location.
+C> @param[in] LUD - integer: I/O stream index into internal memory
+C>                  arrays for input unit.
+C> @param[in] LUN - integer: I/O stream index into internal memory
+C>                  arrays for output unit.
 C>
 C> @author Woollen @date 1994-01-06
+
       SUBROUTINE CPBFDX(LUD,LUN)
 
       USE MODA_MSGCWD

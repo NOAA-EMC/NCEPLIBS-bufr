@@ -1,5 +1,5 @@
 C> @file
-C> @brief Check that an internal bufr table
+C> @brief Check that an internal BUFR table
 C> representation is self-consistent and fully defined.
 C>
 C> ### Program History Log
@@ -16,10 +16,10 @@ C> 2014-12-10 | J. Ator    | Use modules instead of common blocks.
 C>
 C> @author Woollen @date 1994-01-06
 
-C> This subroutine checks that an internal bufr table
+C> This subroutine checks that an internal BUFR table
 C> representation is self-consistent and fully defined. If any errors
 C> are found, then an appropriate call is made to bufr archive library
-C> subroutine bort.
+C> subroutine bort().
 C>
 C> @param LUN I/O stream index into internal memory arrays.
 C>

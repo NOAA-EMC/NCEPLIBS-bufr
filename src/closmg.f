@@ -1,7 +1,6 @@
 C> @file
 C> @brief Close and write the current message to a BUFR file that was
 C> previously opened for writing.
-C> <b>Program history log:</b>
 C>
 C> ### Program History Log
 C> Date | Programmer | Comments

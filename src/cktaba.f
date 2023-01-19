@@ -1,56 +1,39 @@
 C> @file
-C> @brief Parse the table A mnemonic and the date
-c> out of section 1 of a bufr message previously read from unit lunit
-c> using subroutine readmg() or equivalent.
+C> @brief Parse the Table A mnemonic and date out of Section 1 of a
+C> BUFR message.
 C>      
 C> ### Program History Log
 C> Date | Programmer | Comments
 C> -----|------------|----------
 C> 2000-09-19 | J. Woollen | Consolidated logic in readmg(), readft(), readerme(), rdmemm() and readibm(); allow compressed messages.
 C> 2003-11-04 | S. Bender  | Added remarks/bufrlib routine interdependencies.
-C> 2003-11-04 | D. Keyser  | See below.
+C> 2003-11-04 | D. Keyser  | Numerous updates.
 C> 2004-08-09 | J. Ator    | Maximum message length increased from 20,000 to 50,000 bytes.
 C> 2005-11-29 | J. Ator    | Use iupbs01(), igetdate() and getlens().
 C> 2006-04-14 | J. Ator    | Allow "frtttsss" and "fntttsss" as possible table a mnemonics, where ttt is the bufr type and sss is the bufr subtype
 C> 2009-03-23 | J. Ator    | Add logic to allow section 3 decoding; use iupbs3() and errwrt().
 C> 2014-12-10 | J. Ator    | Use modules instead of common blocks.
 C>
-C> @note 2003-11-04 modifications included: Modified to not abort
-C> when the section 1 message subtype does not agree with the section
-C> 1 message subtype in the dictionary if the message type mnemonic
-C> is not of the form "nctttsss", where ttt is the bufr type and sss
-C> is the bufr subtype (e.g., in "prepbufr" files); modified date
-C> calculations to no longer use floating point arithmetic since this
-C> can lead to round off error and an improper resulting date on some
-C> machines (e.g., ncep ibm frost/snow), increases portability;
-C> unified/portable for wrf; added documentation (including history);
-C> outputs more complete diagnostic info when routine terminates
-C> abnormally or unusual things happen; subset defined as " " if iret
-C> returned as 11 (before was undefined).
-C>
 C> @author Woollen @date 2000-09-19
       
-C> This subroutine parses the table a mnemonic and the date
-c> out of section 1 of a bufr message previously read from unit lunit
-c> using bufr archive library subroutine readmg() or equivalent (and now
-c> stored in the internal message buffer, array mbay in module
-c> bitbuf). The table a mnemonic is associated with the bufr
-c> message type/subtype in section 1. It also fills in the message
-c> control word partition arrays in module msgcwd.
+C> This subroutine parses the Table A mnemonic and date
+C> out of Section 1 of a BUFR message that was previously read from lun
+C> using one of the [message-reading subroutines](@ref hierarchy).
 C>
-C> @param[in] LUN - integer: i/o stream index into internal memory arrays.
-C> @param[out] SUBSET - character*8: table a mnemonic for type of bufr message
-C> being checked:
-C> "        " = IRET equal to 11 (see IRET below) and not using Section 3 decoding.
-C> @param[out] JDATE    - integer: date-time stored within section 1 of bufr
-c> message being checked, in format of either yymmddhh or
-c> yyyymmddhh, depending on datelen() value.
+C> @param[in] LUN - integer: I/O stream index into internal memory arrays.
+C> @param[out] SUBSET - character*8: Table A mnemonic
+C>                      - "        " = IRET equal to 11 (see below) and not
+C>                                     using Section 3 decoding.
+C> @param[out] JDATE    - integer: date-time stored within Section 1 of BUFR
+C>                        in format of either YYMMDDHH or
+C>                        YYYYMMDDHH, depending on datelen() value.
 C> @param[out] IRET - integer: return code:
-C> - 0 normal return
-C> - -1 unrecognized Table A (message type) value
-C> - 11 this is a BUFR table (dictionary) message
+C>                      - 0 normal return
+C>                      - -1 unrecognized Table A (message type) value
+C>                      - 11 this is a BUFR table (dictionary) message
 C>
 C> @author Woollen @date 2000-09-19
+
       SUBROUTINE CKTABA(LUN,SUBSET,JDATE,IRET)
 
       USE MODA_MSGCWD

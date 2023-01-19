@@ -1,6 +1,5 @@
 C> @file
-C> @brief Copy a subset from one message buffer
-C> (array mbay in module bitbuf) to another and/or resets the
+C> @brief Copy a BUFR data subset.
 C> pointers. 
 C>
 C> ### Program History Log
@@ -22,9 +21,9 @@ C> 2015-09-24 | D. Stokes  | Fix missing declaration OF COMMON QUIET.
 C>
 C> @author Woollen @date 1994-01-06
       
-C> This subroutine copies a subset from one message buffer
-C> (array mbay in module bitbuf) to another and/or resets the
-C> pointers. If the subset will not fit into the output message, or
+C> This subroutine copies a BUFR data subset from one unit
+C> to another within internal memory and resets the pointers.
+C> If the subset will not fit into the output message, or
 C> if the subset byte count exceeds 65530 (sufficiently close to the
 C> 16-bit byte counter upper limit of 65535), then that message is
 C> flushed to lunit and a new one is created in order to hold the
@@ -33,14 +32,16 @@ C> into its own one-subset message. If the subset to be copied is
 C> larger than the maximum message length, then a call is issued to
 C> subroutine bort().
 C>
-C> @param[in] LUNIT - integer: fortran logical unit number for bufr file.
-C> @param[in] LIN - integer: i/o stream index into internal memory arrays
-C> for input message location.
-C> @param[in] LUN - integer: i/o stream index into internal memory arrays
-C> for output message location.
-C> @param[in] IBYT - integer: number of bytes occupied by this subset.
+C> @param[in] LUNIT - integer: Fortran logical unit number for BUFR file
+C>                    associated with output unit.
+C> @param[in] LIN - integer: I/O stream index into internal memory arrays
+C>                  for input unit
+C> @param[in] LUN - integer: I/O stream index into internal memory arrays
+C>                  for output unit.
+C> @param[in] IBYT - integer: length (in bytes) of data subset
 C>
 C> @author Woollen @date 1994-01-06
+
       SUBROUTINE CPYUPD(LUNIT,LIN,LUN,IBYT)
 
       USE MODA_MSGCWD
