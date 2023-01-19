@@ -1,3 +1,6 @@
+# This is the CMake build file for the src directory of NCEPLIBS-bufr.
+#
+# Kyle Gerheiser, Jeff Ator
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
 list(APPEND fortran_src

@@ -1,10 +1,14 @@
 !> @file
-!> @brief Split a BUFR file into separate BUFR files by subset type
-!> @author WOOLLEN
-!> @date 2000-01-01
+!> @brief Split a BUFR file into separate BUFR files by subset type.
+!>
+!> @author Woollen @date 2000-01-01
 
-!> Read BUFR file messages, collating them into output files by message type/subtype (eg NC001002, aka subset type)
-!> This is the opposite of combfr.f, which concatenates BUFR messages from listed input files
+!> Read BUFR file messages, collating them into output files by
+!> message type/subtype (eg NC001002, aka subset type). This is the
+!> opposite of combfr.f, which concatenates BUFR messages from listed
+!> input files.
+!>
+!> @author Woollen @date 2000-01-01
 
 program split_by_subset
 

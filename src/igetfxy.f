@@ -1,32 +1,28 @@
 C> @file
-C> @author ATOR @date 2007-01-19
+C> @brief looks for and returns a valid fxy number
+C> from within the given input string.	
+C>
+C> ### Program History Log
+C> Date | Programmer | Comments
+C> -----|------------|----------
+C> 2007-01-19 | J. Ator | Original author.
+C> 2021-09-30 | J. Ator | Replace jstchr with Fortran intrinsic adjustl.
+C>
+C> @author Ator @date 2007-01-19
 	
-C> THIS FUNCTION LOOKS FOR AND RETURNS A VALID FXY NUMBER
-C>   FROM WITHIN THE GIVEN INPUT STRING.  THE FXY NUMBER MAY BE IN
-C>   FORMAT OF EITHER FXXYYY OR F-XX-YYY WITHIN THE INPUT STRING, BUT
-C>   IT IS ALWAYS RETURNED IN FORMAT FXXYYY UPON OUTPUT.
+C> This function looks for and returns a valid fxy number
+C> from within the given input string. The FXY number may be in
+C> format of either FXXYYY or F-XX-YYY within the input string, but
+C> it is always returned in format FXXYYY upon output.
 C>
-C> PROGRAM HISTORY LOG:
-C> 2007-01-19  J. ATOR    -- ORIGINAL AUTHOR
-C> - 2021-09-30  J. Ator    -- Replace jstchr with Fortran intrinsic
-C>                             adjustl
+C> @param[in] STR - character*(*): input string.
+C> @param[in] CFXY - character*6: FXY number in format FXXYYY.
 C>
-C> USAGE:    IGETFXY ( STR, CFXY )
-C>   INPUT ARGUMENT LIST:
-C>     STR      - CHARACTER*(*): INPUT STRING
+C> @return
+C> - 0 normal return.
+C> - -1 could not find a valid FXY number in STR.
 C>
-C>   OUTPUT ARGUMENT LIST:
-C>     CFXY     - CHARACTER*6: FXY NUMBER IN FORMAT FXXYYY
-C>     IGETFXY  - INTEGER: RETURN CODE:
-C>                       0 = normal return
-C>                      -1 = could not find a valid FXY number in STR
-C>
-C> REMARKS:
-C>    THIS ROUTINE CALLS:        NUMBCK
-C>    THIS ROUTINE IS CALLED BY: GETNTBE  SNTBDE   SNTBFE
-C>                               Normally not called by any application
-C>                               programs.
-C>
+C> @author Ator @date 2007-01-19
 	FUNCTION IGETFXY ( STR, CFXY )
 
 

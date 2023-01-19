@@ -1,41 +1,29 @@
 C> @file
-C> @author WOOLLEN @date 1994-01-06
-      
-C> THIS SUBROUTINE CHECKS THAT AN INTERNAL BUFR TABLE
-C>   REPRESENTATION IS SELF-CONSISTENT AND FULLY DEFINED.  IF ANY ERRORS
-C>   ARE FOUND, THEN AN APPROPRIATE CALL IS MADE TO BUFR ARCHIVE LIBRARY
-C>   SUBROUTINE BORT.
+C> @brief Check that an internal BUFR table
+C> representation is self-consistent and fully defined.
 C>
-C> PROGRAM HISTORY LOG:
-C> 1994-01-06  J. WOOLLEN -- ORIGINAL AUTHOR
-C> 1995-06-28  J. WOOLLEN -- INCREASED THE SIZE OF INTERNAL BUFR TABLE
-C>                           ARRAYS IN ORDER TO HANDLE BIGGER FILES
-C> 1998-07-08  J. WOOLLEN -- REPLACED CALL TO CRAY LIBRARY ROUTINE
-C>                           "ABORT" WITH CALL TO NEW INTERNAL BUFRLIB
-C>                           ROUTINE "BORT"
-C> 1999-11-18  J. WOOLLEN -- THE NUMBER OF BUFR FILES WHICH CAN BE
-C>                           OPENED AT ONE TIME INCREASED FROM 10 TO 32
-C>                           (NECESSARY IN ORDER TO PROCESS MULTIPLE
-C>                           BUFR FILES UNDER THE MPI)
-C> 2003-11-04  J. ATOR    -- ADDED DOCUMENTATION
-C> 2003-11-04  S. BENDER  -- ADDED REMARKS/BUFRLIB ROUTINE
-C>                           INTERDEPENDENCIES
-C> 2003-11-04  D. KEYSER  -- UNIFIED/PORTABLE FOR WRF; ADDED HISTORY
-C>                           DOCUMENTATION; OUTPUTS MORE COMPLETE
-C>                           DIAGNOSTIC INFO WHEN ROUTINE TERMINATES
-C>                           ABNORMALLY
-C> 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
+C> ### Program History Log
+C> Date | Programmer | Comments
+C> -----|------------|----------
+C> 1994-01-06 | J. Woollen | Original author.
+C> 1995-06-28 | J. Woollen | Increased bufr table arrays to handle bigger files.
+C> 1998-07-08 | J. Woollen | Replaced cray routine "abort" with internal routine bort().
+C> 1999-11-18 | J. Woollen | Increased num open bufr files to 32 (for mpi).
+C> 2003-11-04 | J. Ator    | Added documentation.
+C> 2003-11-04 | S. Bender  | Added remarks/bufrlib routine interdependencies.
+C> 2003-11-04 | D. Keyser  | Unified/portable for WRF; documentation; outputs more diagnostic info.
+C> 2014-12-10 | J. Ator    | Use modules instead of common blocks.
 C>
-C> USAGE:    CALL CHEKSTAB (LUN)
-C>   INPUT ARGUMENT LIST:
-C>     LUN      - INTEGER: I/O STREAM INDEX INTO INTERNAL MEMORY ARRAYS
+C> @author Woollen @date 1994-01-06
+
+C> This subroutine checks that an internal BUFR table
+C> representation is self-consistent and fully defined. If any errors
+C> are found, then an appropriate call is made to bufr archive library
+C> subroutine bort().
 C>
-C> REMARKS:
-C>    THIS ROUTINE CALLS:        BORT     NEMTAB   NEMTBB   NEMTBD
-C>    THIS ROUTINE IS CALLED BY: MAKESTAB
-C>                               Normally not called by any application
-C>                               programs.
+C> @param LUN I/O stream index into internal memory arrays.
 C>
+C> @author Woollen @date 1994-01-06
       SUBROUTINE CHEKSTAB(LUN)
 
       USE MODA_TABABD
