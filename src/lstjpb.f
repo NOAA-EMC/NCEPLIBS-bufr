@@ -1,59 +1,41 @@
 C> @file
-C> @author WOOLLEN @date 1994-01-06
+C> @brief Search backwards from a specified node of the jump/link table
+C> for a node of a specified type.
+C>
+C> ### Program History Log
+C> Date | Programmer | Comments
+C> -----|------------|----------
+C> 1994-01-06 | J. Woollen | Original author.
+C> 1998-07-08 | J. Woollen | Replaced call to cray library routine "abort" with call to bort().
+C> 1999-11-18 | J. Woollen | The number of bufr files which can be opened at one time increased from 10 to 32.
+C> 2003-11-04 | S. Bender  | Added remarks/bufrlib routine interdependencies.
+C> 2003-11-04 | D. Keyser  | maxjl increased to 16000; unified/portable for wrf; documentation; outputs more info.
+C> 2009-03-31 | J. Woollen | Added additional documentation.
+C> 2014-12-10 | J. Ator    | Use modules instead of common blocks.
+C>
+C> @author Woollen @date 1994-01-06
       
-C> THIS FUNCTION SEARCHES BACKWARDS, BEGINNING FROM A GIVEN
-C>   NODE WITHIN THE JUMP/LINK TABLE, UNTIL IT FINDS THE MOST RECENT
-C>   NODE OF TYPE JBTYP.  THE INTERNAL JMPB ARRAY IS USED TO JUMP
-C>   BACKWARDS WITHIN THE JUMP/LINK TABLE, AND THE FUNCTION RETURNS
-C>   THE TABLE INDEX OF THE FOUND NODE.  IF THE INPUT NODE ITSELF IS
-C>   OF TYPE JBTYP, THEN THE FUNCTION SIMPLY RETURNS THE INDEX OF THAT
-C>   SAME NODE. 
+C> This function searches backwards, beginning from a given
+C> node within the jump/link table, until it finds the most recent
+C> node of type jbtyp. The internal jmpb array is used to jump
+C> backwards within the jump/link table, and the function returns
+C> the table index of the found node. If the input node itself is
+C> of type jbtyp, then the function simply returns the index of that
+C> same node. 
 C>
-C> PROGRAM HISTORY LOG:
-C> 1994-01-06  J. WOOLLEN -- ORIGINAL AUTHOR
-C> 1998-07-08  J. WOOLLEN -- REPLACED CALL TO CRAY LIBRARY ROUTINE
-C>                           "ABORT" WITH CALL TO NEW INTERNAL BUFRLIB
-C>                           ROUTINE "BORT"
-C> 1999-11-18  J. WOOLLEN -- THE NUMBER OF BUFR FILES WHICH CAN BE
-C>                           OPENED AT ONE TIME INCREASED FROM 10 TO 32
-C>                           (NECESSARY IN ORDER TO PROCESS MULTIPLE
-C>                           BUFR FILES UNDER THE MPI)
-C> 2003-11-04  S. BENDER  -- ADDED REMARKS/BUFRLIB ROUTINE
-C>                           INTERDEPENDENCIES
-C> 2003-11-04  D. KEYSER  -- MAXJL (MAXIMUM NUMBER OF JUMP/LINK ENTRIES)
-C>                           INCREASED FROM 15000 TO 16000 (WAS IN
-C>                           VERIFICATION VERSION); UNIFIED/PORTABLE FOR
-C>                           WRF; ADDED DOCUMENTATION (INCLUDING
-C>                           HISTORY); OUTPUTS MORE COMPLETE DIAGNOSTIC
-C>                           INFO WHEN ROUTINE TERMINATES ABNORMALLY
-C> 2009-03-31  J. WOOLLEN -- ADDED ADDITIONAL DOCUMENTATION
-C> 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
+C> @note See tabsub() for an
+C> explanation of the various node types present within an internal
+C> jump/link table. 
 C>
-C> USAGE:    LSTJPB (NODE, LUN, JBTYP)
-C>   INPUT ARGUMENT LIST:
-C>     NODE     - INTEGER: JUMP/LINK TABLE INDEX OF ENTRY TO BEGIN
-C>                SEARCHING BACKWARDS FROM
-C>     LUN      - INTEGER: I/O STREAM INDEX INTO INTERNAL MEMORY ARRAYS
-C>     JBTYP    - CHARACTER*(*): TYPE OF NODE FOR WHICH TO SEARCH
+C> @param[in] NODE - integer: jump/link table index of entry to begin
+C> searching backwards from
+C> @param[in] LUN - integer: i/o stream index into internal memory arrays
+C> @param[in] JBTYP - character*(*): type of node for which to search
 C>
-C>   OUTPUT ARGUMENT LIST:
-C>     LSTJPB   - INTEGER: INDEX OF FIRST NODE OF TYPE JBTYP FOUND BY
-C>                JUMPING BACKWARDS FROM INPUT NODE 
-C>                  0 = NO SUCH NODE FOUND
+C> @return - integer: index of first node of type jbtyp found by
+C> jumping backwards from input node, 0 = no such node found.
 C>
-C> REMARKS:
-C>
-C>    SEE THE DOCBLOCK IN BUFR ARCHIVE LIBRARY SUBROUTINE TABSUB FOR AN
-C>    EXPLANATION OF THE VARIOUS NODE TYPES PRESENT WITHIN AN INTERNAL
-C>    JUMP/LINK TABLE 
-C>
-C>    THIS ROUTINE CALLS:        BORT
-C>    THIS ROUTINE IS CALLED BY: GETWIN   IGETRFEL NEVN     NEWWIN
-C>                               NXTWIN   PARUSR   STRBTM   TRYBUMP
-C>                               UFBRW
-C>                               Normally not called by any application
-C>                               programs.
-C>
+C> @author Woollen @date 1994-01-06
       FUNCTION LSTJPB(NODE,LUN,JBTYP)
 
       USE MODA_MSGCWD

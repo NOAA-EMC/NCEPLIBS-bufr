@@ -1,59 +1,36 @@
 C> @file
-C> @author WOOLLEN @date 1994-01-06
+C> @brief Initialize a new uncompressed BUFR message for output.
+C>
+C> ### Program History Log
+C> Date | Programmer | Comments
+C> -----|------------|----------
+C> 1994-01-06 | J. Woollen | Original author.
+C> 1996-12-11 | J. Woollen | Modified to allow inclusion of minutes in writing the message date into a bufr message.
+C> 1997-07-29 | J. Woollen | Modified to update the current bufr version written in section 0 from 2 to 3.
+C> 1998-07-08 | J. Woollen | Replaced call to cray routine "abort" with bort(); make y2k compliant.
+C> 1999-11-18 | J. Woollen | Increased number of open BUFR to 32.
+C> 2000-09-19 | J. Woollen | Maximum message length increased from 10,000 to 20,000 bytes.
+C> 2002-05-14 | J. Woollen | Removed entry point minimg.
+C> 2003-11-04 | J. Ator    | Added documentation.
+C> 2003-11-04 | S. Bender  | Added remarks/bufrlib routine interdependencies.
+C> 2003-11-04 | D. Keyser  | maxjl increased from 16000; unified/portable for wrf; documentation; more dia|gnostic info.
+C> 2004-08-09 | J. Ator    | Maximum message length increased from 20,000 to 50,000 bytes.
+C> 2005-11-29 | J. Ator    | Changed default master table version to 12.
+C> 2009-05-07 | J. Ator    | Changed default master table version to 13.
+C> 2009-08-11 | J. Woollen | Add common ufbcpl to initialize luncpy.
+C> 2014-12-10 | J. Ator    | Use modules instead of common blocks.
+C> 2019-05-21 | J. Ator    | Changed default master table version to 29.
+C> 2021-05-14 | J. Ator    | Changed default master table version to 36.
+C>
+C> @author Woollen @date 1994-01-06
       
-C> THIS SUBROUTINE INITIALIZES, WITHIN THE INTERNAL ARRAYS, A
-C>   NEW BUFR MESSAGE FOR OUTPUT.  ARRAYS ARE FILLED IN COMMON BLOCKS
-C>   /MSGPTR/ AND MODULES MSGCWD AND BITBUF.
+C> This subroutine initializes, within the internal arrays, a new
+C> uncompressed BUFR message for output. Arrays are filled in common blocks
+C> msgptr and modules msgcwd and bitbuf.
 C>
-C> PROGRAM HISTORY LOG:
-C> 1994-01-06  J. WOOLLEN -- ORIGINAL AUTHOR
-C> 1996-12-11  J. WOOLLEN -- MODIFIED TO ALLOW INCLUSION OF MINUTES IN
-C>                           WRITING THE MESSAGE DATE INTO A BUFR
-C>                           MESSAGE
-C> 1997-07-29  J. WOOLLEN -- MODIFIED TO UPDATE THE CURRENT BUFR VERSION
-C>                           WRITTEN IN SECTION 0 FROM 2 TO 3
-C> 1998-07-08  J. WOOLLEN -- REPLACED CALL TO CRAY LIBRARY ROUTINE
-C>                           "ABORT" WITH CALL TO NEW INTERNAL BUFRLIB
-C>                           ROUTINE "BORT"; MODIFIED TO MAKE Y2K
-C>                           COMPLIANT
-C> 1999-11-18  J. WOOLLEN -- THE NUMBER OF BUFR FILES WHICH CAN BE
-C>                           OPENED AT ONE TIME INCREASED FROM 10 TO 32
-C>                           (NECESSARY IN ORDER TO PROCESS MULTIPLE
-C>                           BUFR FILES UNDER THE MPI)
-C> 2000-09-19  J. WOOLLEN -- MAXIMUM MESSAGE LENGTH INCREASED FROM
-C>                           10,000 TO 20,000 BYTES
-C> 2002-05-14  J. WOOLLEN -- REMOVED ENTRY POINT MINIMG (IT BECAME A
-C>                           SEPARATE ROUTINE IN THE BUFRLIB TO
-C>                           INCREASE PORTABILITY TO OTHER PLATFORMS)
-C> 2003-11-04  J. ATOR    -- ADDED DOCUMENTATION
-C> 2003-11-04  S. BENDER  -- ADDED REMARKS/BUFRLIB ROUTINE
-C>                           INTERDEPENDENCIES
-C> 2003-11-04  D. KEYSER  -- MAXJL (MAXIMUM NUMBER OF JUMP/LINK ENTRIES)
-C>                           INCREASED FROM 15000 TO 16000 (WAS IN
-C>                           VERIFICATION VERSION); UNIFIED/PORTABLE FOR
-C>                           WRF; ADDED HISTORY DOCUMENTATION; OUTPUTS
-C>                           MORE COMPLETE DIAGNOSTIC INFO WHEN ROUTINE
-C>                           TERMINATES ABNORMALLY
-C> 2004-08-09  J. ATOR    -- MAXIMUM MESSAGE LENGTH INCREASED FROM
-C>                           20,000 TO 50,000 BYTES
-C> 2005-11-29  J. ATOR    -- CHANGED DEFAULT MASTER TABLE VERSION TO 12
-C> 2009-05-07  J. ATOR    -- CHANGED DEFAULT MASTER TABLE VERSION TO 13
-C> 2009-08-11  J. WOOLLEN -- ADD COMMON UFBCPL TO INITIALIZE LUNCPY
-C> 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
-C> 2019-05-21  J. ATOR    -- CHANGED DEFAULT MASTER TABLE VERSION TO 29
-C> 2021-05-14  J. ATOR    -- CHANGED DEFAULT MASTER TABLE VERSION TO 36
+C> @param[in] LUN - integer: I/O stream index into internal memory arrays.
 C>
-C> USAGE:    CALL MSGINI (LUN)
-C>   INPUT ARGUMENT LIST:
-C>     LUN      - INTEGER: I/O STREAM INDEX INTO INTERNAL MEMORY ARRAYS
-C>
-C> REMARKS:
-C>    THIS ROUTINE CALLS:        BORT     NEMTAB   NEMTBA   PKB
-C>                               PKC
-C>    THIS ROUTINE IS CALLED BY: CPYUPD   MSGUPD   OPENMB   OPENMG
-C>                               Normally not called by any application
-C>                               programs.
-C>
+C> @author Woollen @date 1994-01-06
       SUBROUTINE MSGINI(LUN)
 
       USE MODA_MSGCWD
