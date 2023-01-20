@@ -1,50 +1,34 @@
 C> @file
-C> @author WOOLLEN @date 1994-01-06
+C> @brief Look for a specified node within the portion
+c> of the current subset buffer bounded by the indices inv1 and inv2.
+C>
+C> ### Program History Log
+C> Date | Programmer | Comments
+C> -----|------------|----------
+C> 1994-01-06 | J. Woollen | Original author.
+C> 1999-11-18 | J. Woollen | Increased number of open bufr files to 32 (necessary for mpi).
+C> 2003-11-04 | S. Bender  | Added remarks/bufrlib routine interdependencies.
+C> 2003-11-04 | D. Keyser  | maxjl increased to 16000; unified/portable for wrf; documentation); outputs more info when unusual things happen.
+C> 2009-03-31 | J. Woollen | Added documentation.
+C> 2009-04-21 | J. Ator    | Use errwrt().
+C> 2014-12-10 | J. Ator    | Use modules instead of common blocks.
+C>
+C> @author Woollen @date 1994-01-06
       
-C> THIS FUNCTION LOOKS FOR A SPECIFIED NODE WITHIN THE PORTION
-C>   OF THE CURRENT SUBSET BUFFER BOUNDED BY THE INDICES INV1 AND INV2.
-C>   IT IS SIMILAR TO BUFR ARCHIVE LIBRARY FUNCTION INVTAG, EXCEPT THAT
-C>   INVTAG SEARCHES BASED ON THE MNEMONIC CORRESPONDING TO THE NODE.
+C> This function looks for a specified node within the portion
+c> of the current subset buffer bounded by the indices inv1 and inv2.
+C> IT IS SIMILAR TO BUFR ARCHIVE LIBRARY FUNCTION INVTAG, EXCEPT THAT
+C> INVTAG SEARCHES BASED ON THE MNEMONIC CORRESPONDING TO THE NODE.
 C>
-C> PROGRAM HISTORY LOG:
-C> 1994-01-06  J. WOOLLEN -- ORIGINAL AUTHOR
-C> 1999-11-18  J. WOOLLEN -- THE NUMBER OF BUFR FILES WHICH CAN BE
-C>                           OPENED AT ONE TIME INCREASED FROM 10 TO 32
-C>                           (NECESSARY IN ORDER TO PROCESS MULTIPLE
-C>                           BUFR FILES UNDER THE MPI)
-C> 2003-11-04  S. BENDER  -- ADDED REMARKS/BUFRLIB ROUTINE
-C>                           INTERDEPENDENCIES
-C> 2003-11-04  D. KEYSER  -- MAXJL (MAXIMUM NUMBER OF JUMP/LINK ENTRIES)
-C>                           INCREASED FROM 15000 TO 16000 (WAS IN
-C>                           VERIFICATION VERSION); UNIFIED/PORTABLE FOR
-C>                           WRF; ADDED DOCUMENTATION (INCLUDING
-C>                           HISTORY); OUTPUTS MORE  COMPLETE DIAGNOSTIC
-C>                           INFO WHEN UNUSUAL THINGS HAPPEN
-C> 2009-03-31  J. WOOLLEN -- ADDED DOCUMENTATION
-C> 2009-04-21  J. ATOR    -- USE ERRWRT
-C> 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
+C> @param[in] NODE - integer: jump/link table index to look for
+C> @param[in] LUN - integer: i/o stream index into internal memory arrays
+C> @param[in] INV1 - integer: starting index of the portion of the subset buffer in which to look
+C> @param[in] INV2 - integer: ending index of the portion of the subset buffer in which to look
 C>
-C> USAGE:    INVWIN (NODE, LUN, INV1, INV2)
-C>   INPUT ARGUMENT LIST:
-C>     NODE     - INTEGER: JUMP/LINK TABLE INDEX TO LOOK FOR
-C>     LUN      - INTEGER: I/O STREAM INDEX INTO INTERNAL MEMORY ARRAYS
-C>     INV1     - INTEGER: STARTING INDEX OF THE PORTION OF THE SUBSET
-C>                BUFFER IN WHICH TO LOOK
-C>     INV2     - INTEGER: ENDING INDEX OF THE PORTION OF THE SUBSET
-C>                BUFFER IN WHICH TO LOOK
+C> @return - integer: location index of node within specified
+c> portion of subset buffer, 0 = not found.
 C>
-C>   OUTPUT ARGUMENT LIST:
-C>     INVWIN   - INTEGER: LOCATION INDEX OF NODE WITHIN SPECIFIED
-C>                PORTION OF SUBSET BUFFER
-C>                  0 = NOT FOUND
-C>
-C> REMARKS:
-C>    THIS ROUTINE CALLS:        ERRWRT
-C>    THIS ROUTINE IS CALLED BY: DRSTPL   GETWIN   NEVN     TRYBUMP
-C>                               UFBGET   UFBRW    UFBSEQ
-C>                               Normally not called by any application
-C>                               programs.
-C>
+C> @author Woollen @date 1994-01-06
       FUNCTION INVWIN(NODE,LUN,INV1,INV2)
 
       USE MODA_USRINT
