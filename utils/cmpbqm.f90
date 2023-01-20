@@ -1,14 +1,13 @@
 !> @file
-!> @brief Print inventory of observations from prepbufr file by
-!> variable, report type and quality mark
+!> @brief Print inventory of observations from prepbufr file by variable, report type and quality mark.
 !>
-!> @author J Woollen
+!> @author J Woollen @date 1997
 
-!> ???
+!> Usage: "cmpbqm prepbufrfile" will print prep inventory by variable, report type, and qc mark.
 !>
-!> @return 0 for success, error code otherwise.
+!> @return 0 for success, error message otherwise.
 !>
-!> @author J Woollen
+!> @author J Woollen @date 1997
       PROGRAM CMPBQM
 
       CHARACTER*255 FILE

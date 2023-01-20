@@ -1,13 +1,13 @@
 !> @file
-!> @brief ???
+!> @brief Produces an BUFR file inventory by satellite type.
 !>
-!> @author J Woollen
+!> @author J Woollen @date 2010
 
-!> ???
+!> Usage: sinv <satbufrfile> will print inventory of satellites by platform and instrument.
 !>
-!> @return 0 for success, error code otherwise.
+!> @return 0 for success, error message otherwise.
 !>
-!> @author J Woollen
+!> @author J Woollen @date 2010
       PROGRAM SINV
 
       PARAMETER (MAXA=16000000)

@@ -35,7 +35,7 @@ C>        Positional index of Table A mnemonic within internal Table A.
 	  INTEGER :: JNOD
 C>        Section 1 date-time of BUFR message.
 	  INTEGER :: JDAT
-C>        ???
+C>        Indicator of stack status when entering subroutine rewnbf.
 	  INTEGER, ALLOCATABLE :: JSR(:)
 C>        BUFR message.
 	  INTEGER, ALLOCATABLE :: JBAY(:)
