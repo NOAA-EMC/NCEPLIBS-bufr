@@ -1,8 +1,6 @@
 C> @file
 C> @brief Return the next available positional index
-C> for writing into the internal jump/link table in module tables,
-C> and it also uses that index to store atag and atyp within,
-C> respectively, the internal jump/link table arrays tag(*) and typ(*).
+C> for writing into the internal jump/link table.
 C>
 C> ### Program History Log
 C> Date | Programmer | Comments

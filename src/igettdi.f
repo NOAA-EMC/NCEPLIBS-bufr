@@ -1,26 +1,23 @@
 C> @file
-C> @brief Returns the next usable scratch table D index for the
-C> current master table or else resets the index back to its
-C> minimum value.	
+C> @brief Return the next usable Table D index for the
+C> current master table, or reset the index.
 C> @author Ator @date 2009-03-23
 	
 C> Depending on the value of the input flag, this function
-C> either returns the next usable scratch table D index for the
+C> either returns the next usable scratch Table D index for the
 C> current master table or else resets the index back to its
 C> minimum value.
 C>
-C> @param IFLAG - integer: flag: if set to 0, then the function will
-C>                reset the scratch table d index back to its minimum
+C> @param[in] IFLAG - integer: flag: if set to 0, then the function will
+C>                reset the scratch Table D index back to its minimum
 C>                value; otherwise, it will return the next usable
-C>                scratch table d index for the current master table.
+C>                scratch Table D index for the current master table.
 C>
-C> @return - integer: next usable scratch table d index for the
+C> @return - integer: next usable scratch Table D index for the
 C> current master table, or -1 if function was called with iflag=0.
 C>
 C> @author Ator @date 2009-03-23
 	FUNCTION IGETTDI ( IFLAG )
-
-
 
 	PARAMETER ( IDXMIN = 62976 )
 C*			   = IFXY('354000')

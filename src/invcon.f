@@ -35,7 +35,7 @@ C> @param[in] LUN - integer: i/o stream index into internal memory arrays
 C> @param[in] INV1 - integer: first index of window to search
 C> @param[in] INV2 - integer: last index of window to search
 C>
-C> @return -n integer: index within window of conditional node
+C> @return integer: index within window of conditional node
 C> conforming to specified condition. 0 = none found.
 C>
 C> @author Woollen @date 1994-01-06

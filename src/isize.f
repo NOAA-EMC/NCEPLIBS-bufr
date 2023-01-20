@@ -1,6 +1,6 @@
 C> @file
-C> @brief Computes the number of characters
-C> needed to encode the input integer num as a string.	
+C> @brief Compute the number of characters
+C> needed to encode an integer as a string.
 C>
 C> ### Program History Log
 C> Date | Programmer | Comments
@@ -11,19 +11,17 @@ C>
 C> @author Ator @date 2009-03-23
 	
 C> This function computes and returns the number of characters
-C> needed to encode the input integer num as a string. It does not
+C> needed to encode the input integer NUM as a string. It does not
 C> actually encode the string but rather only figures out the required
 C> size. NUM must be an integer in the range of 0 to 99999.
 C>
 C> @param[in] NUM - integer: number to be encoded
 C>
-C> @return - integer: number of characters necessary to encode num
+C> @return - integer: number of characters necessary to encode NUM
 C> as a string
 C>
 C> @author Ator @date 2009-03-23
 	INTEGER FUNCTION ISIZE (NUM)
-
-
 
 	CHARACTER*128 BORT_STR
 

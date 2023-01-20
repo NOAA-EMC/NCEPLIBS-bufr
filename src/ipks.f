@@ -1,6 +1,6 @@
 C> @file
-C> @brief Pack a real*8 user value into a bufr
-C> integer by applying the proper scale and reference values.
+C> @brief Pack a real*8 value into an integer
+C> by applying the proper scale and reference values.
 C>
 C> ### Program History Log
 C> Date | Programmer | Comments
@@ -11,7 +11,7 @@ C> 2022-05-06 | J. Woollen | Make imask and ipks 8byte integers.
 C>
 C> @author J @date 2012-03-02
 
-C> This function packs a real*8 user value into a bufr
+C> This function packs a real*8 user value into an
 C> integer by applying the proper scale and reference values.
 C> Normally the scale and reference values are obtained from index
 C> node of the internal jump/link table arrays isc(*) and irf(*);
@@ -21,7 +21,7 @@ C>
 C> @param[in] VAL - real*8: user value
 C> @param[in] NODE - integer: index into internal jump/link tables
 C>
-C> @return - integer*8: packed bufr value.
+C> @return - integer*8: packed value
 C>
 C> @author J @date 2012-03-02
 	FUNCTION IPKS(VAL,NODE)

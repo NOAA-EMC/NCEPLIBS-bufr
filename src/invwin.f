@@ -1,6 +1,6 @@
 C> @file
-C> @brief Look for a specified node within the portion
-c> of the current subset buffer bounded by the indices inv1 and inv2.
+C> @brief Look for a specified node within a specified portion
+C> of the current data subset.
 C>
 C> ### Program History Log
 C> Date | Programmer | Comments
@@ -17,8 +17,8 @@ C> @author Woollen @date 1994-01-06
       
 C> This function looks for a specified node within the portion
 c> of the current subset buffer bounded by the indices inv1 and inv2.
-C> IT IS SIMILAR TO BUFR ARCHIVE LIBRARY FUNCTION INVTAG, EXCEPT THAT
-C> INVTAG SEARCHES BASED ON THE MNEMONIC CORRESPONDING TO THE NODE.
+C> It is similar to BUFR archive library function invtag(), except that
+C> invtag() searches based on the mnemonic corresponding to the node.
 C>
 C> @param[in] NODE - integer: jump/link table index to look for
 C> @param[in] LUN - integer: i/o stream index into internal memory arrays
@@ -26,7 +26,7 @@ C> @param[in] INV1 - integer: starting index of the portion of the subset buffer
 C> @param[in] INV2 - integer: ending index of the portion of the subset buffer in which to look
 C>
 C> @return - integer: location index of node within specified
-c> portion of subset buffer, 0 = not found.
+C> portion of subset buffer, 0 = not found.
 C>
 C> @author Woollen @date 1994-01-06
       FUNCTION INVWIN(NODE,LUN,INV1,INV2)
