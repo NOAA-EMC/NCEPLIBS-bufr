@@ -1,45 +1,31 @@
 C> @file
-C> @author WOOLLEN @date 1994-01-06
+C> @brief Copy a specified number of bytes from
+C> one packed binary array to another.      
+C>
+C> ### Program History Log
+C> Date | Programmer | Comments
+C> -----|------------|----------
+C> 1994-01-06 | J. Woollen | Original author.
+C> 1998-07-08 | J. Woollen | Replaced call to cray routine "abort" with bort().
+C> 1998-10-27 | J. Woollen | Modified to correct problems caused by in- lining code with fpp directives.
+C> 2002-05-14 | J. Woollen | Removed old cray compiler directives.
+C> 2003-11-04 | S. Bender  | Added remarks/bufrlib routine interdependencies.
+C> 2003-11-04 | D. Keyser  | Unified/portable for wrf; documentation; outputs more diagnostic info.
+C> 2005-11-29 | J. Ator    | Maximum number of bytes to copy increased from 24000 to mximb.
+C> 2014-10-22 | J. Ator    | Merge two do loops into one, and remove mximb parameter and dimensioning of nval.
+C>
+C> @author Woollen @date 1994-01-06
       
-C> THIS SUBROUTINE COPIES A SPECIFIED NUMBER OF BYTES FROM
-C>   ONE PACKED BINARY ARRAY TO ANOTHER.
+C> This subroutine copies a specified number of bytes from
+C> one packed binary array to another.
 C>
-C> PROGRAM HISTORY LOG:
-C> 1994-01-06  J. WOOLLEN -- ORIGINAL AUTHOR
-C> 1998-07-08  J. WOOLLEN -- REPLACED CALL TO CRAY LIBRARY ROUTINE
-C>                           "ABORT" WITH CALL TO NEW INTERNAL BUFRLIB
-C>                           ROUTINE "BORT"
-C> 1998-10-27  J. WOOLLEN -- MODIFIED TO CORRECT PROBLEMS CAUSED BY IN-
-C>                           LINING CODE WITH FPP DIRECTIVES
-C> 2002-05-14  J. WOOLLEN -- REMOVED OLD CRAY COMPILER DIRECTIVES
-C> 2003-11-04  S. BENDER  -- ADDED REMARKS/BUFRLIB ROUTINE
-C>                           INTERDEPENDENCIES
-C> 2003-11-04  D. KEYSER  -- UNIFIED/PORTABLE FOR WRF; ADDED
-C>                           DOCUMENTATION (INCLUDING HISTORY); OUTPUTS
-C>                           MORE COMPLETE DIAGNOSTIC INFO WHEN ROUTINE
-C>                           TERMINATES ABNORMALLY
-C> 2005-11-29  J. ATOR    -- MAXIMUM NUMBER OF BYTES TO COPY INCREASED
-C>                           FROM 24000 TO MXIMB
-C> 2014-10-22  J. ATOR    -- MERGE TWO DO LOOPS INTO ONE, AND REMOVE
-C>                           MXIMB PARAMETER AND DIMENSIONING OF NVAL
+C> @param[in] IB1 - integer: *-word packed input binary array.
+C> @param[in] NB1 - integer: pointer to first byte in ib1 to copy from.
+C> @param[out] IB2 - integer: *-word packed output binary array.
+C> @param[in] NB2 - integer: pointer to first byte in ib2 to copy to.
+C> @param[in] NBM - integer: number of bytes to copy .
 C>
-C> USAGE:    CALL MVB (IB1, NB1, IB2, NB2, NBM)
-C>   INPUT ARGUMENT LIST:
-C>     IB1      - INTEGER: *-WORD PACKED INPUT BINARY ARRAY
-C>     NB1      - INTEGER: POINTER TO FIRST BYTE IN IB1 TO COPY FROM
-C>     NB2      - INTEGER: POINTER TO FIRST BYTE IN IB2 TO COPY TO
-C>     NBM      - INTEGER: NUMBER OF BYTES TO COPY 
-C>
-C>   OUTPUT ARGUMENT LIST:
-C>     IB2      - INTEGER: *-WORD PACKED OUTPUT BINARY ARRAY
-C>
-C> REMARKS:
-C>    THIS ROUTINE CALLS:        PKB      UPB
-C>    THIS ROUTINE IS CALLED BY: ATRCPT   CNVED4   CPYUPD   MSGUPD
-C>                               STNDRD
-C>                               Normally not called by any application
-C>                               programs.
-C>
+C> @author Woollen @date 1994-01-06
       SUBROUTINE MVB(IB1,NB1,IB2,NB2,NBM)
 
       CHARACTER*128 BORT_STR

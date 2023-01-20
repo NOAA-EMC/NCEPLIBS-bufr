@@ -1,38 +1,27 @@
 C> @file
-C> @author ATOR @date 2017-10-16
+C> @brief Determine the names of the corresponding standard and local master table
+c> files.
+C> @author Ator @date 2017-10-16
 	
-C> BASED ON THE INPUT ARGUMENTS, THIS SUBROUTINE DETERMINES
-C>   THE NAMES OF THE CORRESPONDING STANDARD AND LOCAL MASTER TABLE
-C>   FILES.  IT THEN CONFIRMS THE EXISTENCE OF THESE FILES ON THE
-C>   FILESYSTEM, USING ADDITIONAL INFORMATION OBTAINED FROM THE MOST
-C>   RECENT CALL TO SUBROUTINE MTINFO, OR ELSE AS DEFINED WITHIN
-C>   SUBROUTINE BFRINI IF SUBROUTINE MTINFO WAS NEVER CALLED.
+C> Based on the input arguments, this subroutine determines
+c> the names of the corresponding standard and local master table
+c> files. It then confirms the existence of these files on the
+c> filesystem, using additional information obtained from the most
+c> recent call to subroutine mtinfo, or else as defined within
+c> subroutine bfrini if subroutine mtinfo was never called.
 C>
-C> PROGRAM HISTORY LOG:
-C> 2017-10-16  J. ATOR    -- ORIGINAL AUTHOR
+C> @param[in] IMT - integer: master table number.
+C> @param[in] IMTV - integer: master table version number.
+C> @param[in] IOGCE - integer: originating center.
+C> @param[in] IMTVL - integer: local table version number.
+C> @param[in] TBLTYP - character*(*): table type:.
+C> - 'TableB' Table B
+C> - 'TableD' Table D
+C> - 'CodeFlag' Code and Flag Tables 
+C> @param[out] STDFIL - character*(*): standard master table path/filename.
+C> @param[out] LOCFIL - character*(*): local master table path/filename.
 C>
-C> USAGE:    CALL MTFNAM ( IMT, IMTV, IOGCE, IMTVL, TBLTYP,
-C>                         STDFIL, LOCFIL )
-C>   INPUT ARGUMENT LIST:
-C>     IMT      - INTEGER: MASTER TABLE NUMBER
-C>     IMTV     - INTEGER: MASTER TABLE VERSION NUMBER
-C>     IOGCE    - INTEGER: ORIGINATING CENTER
-C>     IMTVL    - INTEGER: LOCAL TABLE VERSION NUMBER
-C>     TBLTYP   - CHARACTER*(*): TABLE TYPE:
-C>                  'TableB'   = Table B
-C>                  'TableD'   = Table D
-C>                  'CodeFlag' = Code and Flag Tables 
-C>
-C>   OUTPUT ARGUMENT LIST:
-C>     STDFIL   - CHARACTER*(*): STANDARD MASTER TABLE PATH/FILENAME
-C>     LOCFIL   - CHARACTER*(*): LOCAL MASTER TABLE PATH/FILENAME
-C>
-C> REMARKS:
-C>    THIS ROUTINE CALLS:        BORT2    ERRWRT   ISIZE   STRSUC
-C>    THIS ROUTINE IS CALLED BY: IREADMT
-C>                               Normally not called by any application
-C>                               programs.
-C>
+C> @author Ator @date 2017-10-16
 	SUBROUTINE MTFNAM ( IMT, IMTV, IOGCE, IMTVL, TBLTYP,
      .                      STDFIL, LOCFIL )
 
