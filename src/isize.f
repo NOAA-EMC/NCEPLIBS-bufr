@@ -1,32 +1,27 @@
 C> @file
-C> @author ATOR @date 2009-03-23
+C> @brief Compute the number of characters
+C> needed to encode an integer as a string.
+C>
+C> ### Program History Log
+C> Date | Programmer | Comments
+C> -----|------------|----------
+C> 2009-03-23 | J. Ator | Original author.
+C> 2016-02-12 | J. Ator | Modified for crayftn compatibility.
+C>
+C> @author Ator @date 2009-03-23
 	
-C> THIS FUNCTION COMPUTES AND RETURNS THE NUMBER OF CHARACTERS
-C>   NEEDED TO ENCODE THE INPUT INTEGER NUM AS A STRING.  IT DOES NOT
-C>   ACTUALLY ENCODE THE STRING BUT RATHER ONLY FIGURES OUT THE REQUIRED
-C>   SIZE.  NUM MUST BE AN INTEGER IN THE RANGE OF 0 TO 99999.
+C> This function computes and returns the number of characters
+C> needed to encode the input integer NUM as a string. It does not
+C> actually encode the string but rather only figures out the required
+C> size. NUM must be an integer in the range of 0 to 99999.
 C>
-C> PROGRAM HISTORY LOG:
-C> 2009-03-23  J. ATOR    -- ORIGINAL AUTHOR
-C> 2016-02-12  J. ATOR    -- MODIFIED FOR CRAYFTN COMPATIBILITY
+C> @param[in] NUM - integer: number to be encoded
 C>
-C> USAGE:    CALL ISIZE ( NUM )
-C>   INPUT ARGUMENT LIST:
-C>     NUM      - INTEGER: NUMBER TO BE ENCODED
+C> @return - integer: number of characters necessary to encode NUM
+C> as a string
 C>
-C>   OUTPUT ARGUMENT LIST:
-C>     ISIZE    - INTEGER: NUMBER OF CHARACTERS NECESSARY TO ENCODE NUM
-C>                AS A STRING
-C>
-C> REMARKS:
-C>    THIS ROUTINE CALLS:        BORT
-C>    THIS ROUTINE IS CALLED BY: MTFNAM   UFBDMP   UFDUMP
-C>                               Normally not called by any application
-C>                               programs but it could be.
-C>
+C> @author Ator @date 2009-03-23
 	INTEGER FUNCTION ISIZE (NUM)
-
-
 
 	CHARACTER*128 BORT_STR
 
