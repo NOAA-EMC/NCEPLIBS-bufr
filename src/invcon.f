@@ -1,59 +1,44 @@
 C> @file
-C> @author WOOLLEN @date 1994-01-06
+C> @brief Search a "window" for an
+c> element identified in the user string as a conditional node.
+C>
+C> ### Program History Log
+C> Date | Programmer | Comments
+C> -----|------------|----------
+C> 1994-01-06 | J. Woollen | Original author.
+C> 1998-07-08 | J. Woollen | Improved machine portability.
+C> 1999-11-18 | J. Woollen | Increased open BUFR file to 32 (necessary for mpi).
+C> 2003-11-04 | S. Bender  | Added remarks/bufrlib routine interdependencies.
+C> 2003-11-04 | D. Keyser  | maxjl increased to 16000; unified/portable for wrf; documentation); outputs more diagnostic info.
+C> 2009-04-21 | J. Ator    | Use errwrt().
+C> 2010-04-27 | J. Woollen | Add documentation.
+C> 2014-12-10 | J. Ator    | Use modules instead of common blocks.
+C>
+C> @author Woollen @date 1994-01-06
       
-C> THIS FUNCTION SEARCHES A "WINDOW" (SEE BELOW REMARKS) FOR AN
-C>   ELEMENT IDENTIFIED IN THE USER STRING AS A CONDITIONAL NODE (I.E. AN
-C>   ELEMENT WHICH MUST MEET A CONDITION IN ORDER TO BE READ FROM OR WRITTEN TO
-C>   A DATA SUBSET).  IF A CONDITIONAL ELEMENT IS FOUND AND IT CONFORMS TO THE
-C>   CONDITION, THEN THE INDEX OF THE ELEMENT WITHIN THE WINDOW IS RETURNED.
-C>   OTHERWISE A VALUE OF ZERO IS RETURNED.
+C> This function searches a "window" (see below remarks) for an
+c> element identified in the user string as a conditional node (i.e. an
+c> element which must meet a condition in order to be read from or written to
+c> a data subset). If a conditional element is found and it conforms to the
+c> condition, then the index of the element within the window is returned.
+c> otherwise a value of zero is returned.
 C>
-C> PROGRAM HISTORY LOG:
-C> 1994-01-06  J. WOOLLEN -- ORIGINAL AUTHOR
-C> 1998-07-08  J. WOOLLEN -- IMPROVED MACHINE PORTABILITY
-C> 1999-11-18  J. WOOLLEN -- THE NUMBER OF BUFR FILES WHICH CAN BE
-C>                           OPENED AT ONE TIME INCREASED FROM 10 TO 32
-C>                           (NECESSARY IN ORDER TO PROCESS MULTIPLE
-C>                           BUFR FILES UNDER THE MPI)
-C> 2003-11-04  S. BENDER  -- ADDED REMARKS/BUFRLIB ROUTINE
-C>                           INTERDEPENDENCIES
-C> 2003-11-04  D. KEYSER  -- MAXJL (MAXIMUM NUMBER OF JUMP/LINK ENTRIES)
-C>                           INCREASED FROM 15000 TO 16000 (WAS IN
-C>                           VERIFICATION VERSION); UNIFIED/PORTABLE FOR
-C>                           WRF; ADDED DOCUMENTATION (INCLUDING
-C>                           HISTORY) (INCOMPLETE);  OUTPUTS MORE
-C>                           COMPLETE DIAGNOSTIC INFO WHEN UNUSUAL
-C>                           THINGS HAPPEN
-C> 2009-04-21  J. ATOR    -- USE ERRWRT
-C> 2010-04-27  J. WOOLLEN -- ADD DOCUMENTATION
-C> 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
+C> @note: See getwin() for an explanation of "windows" within the context
+C> of a bufr data subset.
+C>      
+C> @param[in] NC - integer: condition code:
+C> - 1 '=' (equal)
+C> - 2 '!' (not equal)
+C> - 3 '<' (less than)
+C> - 4 '>' (greater than)
+C> @param[in] LUN - integer: i/o stream index into internal memory arrays
+C> @param[in] INV1 - integer: first index of window to search
+C> @param[in] INV2 - integer: last index of window to search
 C>
-C> USAGE:    INVCON (NC, LUN, INV1, INV2)
-C>   INPUT ARGUMENT LIST:
-C>     NC       - INTEGER: CONDITION CODE:
-C>                  1 = '=' (EQUAL)
-C>                  2 = '!' (NOT EQUAL)
-C>                  3 = '<' (LESS THAN)
-C>                  4 = '>' (GREATER THAN)
-C>     LUN      - INTEGER: I/O STREAM INDEX INTO INTERNAL MEMORY ARRAYS
-C>     INV1     - INTEGER: FIRST INDEX OF WINDOW TO SEARCH
-C>     INV2     - INTEGER: LAST INDEX OF WINDOW TO SEARCH
+C> @return -n integer: index within window of conditional node
+C> conforming to specified condition. 0 = none found.
 C>
-C>   OUTPUT ARGUMENT LIST:
-C>     INVCON   - INTEGER: INDEX WITHIN WINDOW OF CONDITIONAL NODE CONFORMING
-C>                TO SPECIFIED CONDITION
-C>                  0 = NONE FOUND
-C>
-C> REMARKS:
-C>
-C>    SEE THE DOCBLOCK IN BUFR ARCHIVE LIBRARY SUBROUTINE GETWIN FOR AN
-C>    EXPLANATION OF "WINDOWS" WITHIN THE CONTEXT OF A BUFR DATA SUBSET.
-C>
-C>    THIS ROUTINE CALLS:        ERRWRT
-C>    THIS ROUTINE IS CALLED BY: CONWIN
-C>                               Normally not called by any application
-C>                               programs.
-C>
+C> @author Woollen @date 1994-01-06
       FUNCTION INVCON(NC,LUN,INV1,INV2)
 
       USE MODA_USRINT

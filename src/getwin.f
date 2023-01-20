@@ -51,7 +51,6 @@ C> within the subset.
 C>
 C> @param[in] NODE - integer: jump/link table index of mnemonic to look for.
 C> @param[in] LUN - integer: i/o stream index into internal memory arrays.
-C> @param[out] JWIN - integer: ending index of the previous window iteration which contained node.
 C> @param[out] IWIN - integer: starting index of the current window iteration which
 C> ontains node 0 = not found or no more iterations available.
 C> @param[out] JWIN - integer: ending index of the current window iteration which contains node .

@@ -1,32 +1,23 @@
 C> @file
-C> @author ATOR @date 2009-03-23
+C> @brief Returns the next usable scratch table D index for the
+C> current master table or else resets the index back to its
+C> minimum value.	
+C> @author Ator @date 2009-03-23
 	
-C> DEPENDING ON THE VALUE OF THE INPUT FLAG, THIS FUNCTION
-C>   EITHER RETURNS THE NEXT USABLE SCRATCH TABLE D INDEX FOR THE
-C>   CURRENT MASTER TABLE OR ELSE RESETS THE INDEX BACK TO ITS
-C>   MINIMUM VALUE.
+C> Depending on the value of the input flag, this function
+C> either returns the next usable scratch table D index for the
+C> current master table or else resets the index back to its
+C> minimum value.
 C>
-C> PROGRAM HISTORY LOG:
-C> 2009-03-23  J. ATOR    -- ORIGINAL AUTHOR
+C> @param IFLAG - integer: flag: if set to 0, then the function will
+C>                reset the scratch table d index back to its minimum
+C>                value; otherwise, it will return the next usable
+C>                scratch table d index for the current master table.
 C>
-C> USAGE:    IGETTDI ( IFLAG )
-C>   INPUT ARGUMENT LIST:
-C>     IFLAG    - INTEGER: FLAG: IF SET TO 0, THEN THE FUNCTION WILL
-C>                RESET THE SCRATCH TABLE D INDEX BACK TO ITS MINIMUM
-C>                VALUE; OTHERWISE, IT WILL RETURN THE NEXT USABLE
-C>                SCRATCH TABLE D INDEX FOR THE CURRENT MASTER TABLE
+C> @return - integer: next usable scratch table d index for the
+C> current master table, or -1 if function was called with iflag=0.
 C>
-C>   OUTPUT ARGUMENT LIST:
-C>     IGETTDI  - INTEGER: NEXT USABLE SCRATCH TABLE D INDEX FOR THE
-C>                CURRENT MASTER TABLE
-C>                  -1 = FUNCTION WAS CALLED WITH IFLAG=0
-C>
-C> REMARKS:
-C>    THIS ROUTINE CALLS:        BORT
-C>    THIS ROUTINE IS CALLED BY: READS3   STSEQ
-C>                               Not normally called by application
-C>                               programs.
-C>
+C> @author Ator @date 2009-03-23
 	FUNCTION IGETTDI ( IFLAG )
 
 

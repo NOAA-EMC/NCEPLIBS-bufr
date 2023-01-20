@@ -1,45 +1,34 @@
 C> @file
-C> @author WOOLLEN @date 1994-01-06
+C> @brief Return the next available positional index
+C> for writing into the internal jump/link table in module tables,
+C> and it also uses that index to store atag and atyp within,
+C> respectively, the internal jump/link table arrays tag(*) and typ(*).
+C>
+C> ### Program History Log
+C> Date | Programmer | Comments
+C> -----|------------|----------
+C> 1994-01-06 | J. Woollen | Original author.
+C> 1998-07-08 | J. Woollen | Replaced call to cray library routine "abort" with call to new internal bufrlib routine bort().
+C> 2003-11-04 | J. Ator    | Added documentation.
+C> 2003-11-04 | S. Bender  | Added remarks/bufrlib routine interdependencies.
+C> 2003-11-04 | D. Keyser  | maxjl increased to 16000; unified/portable for wrf; documentation; outputs more info when routine terminates abnormally.
+C> 2014-12-10 | J. Ator    | Use modules instead of common blocks.
+C>
+C> @author Woollen @date 1994-01-06
       
-C> THIS SUBROUTINE RETURNS THE NEXT AVAILABLE POSITIONAL INDEX
-C>   FOR WRITING INTO THE INTERNAL JUMP/LINK TABLE IN MODULE TABLES,
-C>   AND IT ALSO USES THAT INDEX TO STORE ATAG AND ATYP WITHIN,
-C>   RESPECTIVELY, THE INTERNAL JUMP/LINK TABLE ARRAYS TAG(*) AND TYP(*).
-C>   IF THERE IS NO MORE ROOM FOR ADDITIONAL ENTRIES WITHIN THE INTERNAL
-C>   JUMP/LINK TABLE, THEN AN APPROPRIATE CALL IS MADE TO BUFR ARCHIVE
-C>   LIBRARY SUBROUTINE BORT.
+C> This subroutine returns the next available positional index
+C> for writing into the internal jump/link table in module tables,
+C> and it also uses that index to store atag and atyp within,
+C> respectively, the internal jump/link table arrays tag(*) and typ(*).
+C> If there is no more room for additional entries within the internal
+C> jump/link table, then an appropriate call is made to subroutine bort().
 C>
-C> PROGRAM HISTORY LOG:
-C> 1994-01-06  J. WOOLLEN -- ORIGINAL AUTHOR
-C> 1998-07-08  J. WOOLLEN -- REPLACED CALL TO CRAY LIBRARY ROUTINE
-C>                           "ABORT" WITH CALL TO NEW INTERNAL BUFRLIB
-C>                           ROUTINE "BORT"
-C> 2003-11-04  J. ATOR    -- ADDED DOCUMENTATION
-C> 2003-11-04  S. BENDER  -- ADDED REMARKS/BUFRLIB ROUTINE
-C>                           INTERDEPENDENCIES
-C> 2003-11-04  D. KEYSER  -- MAXJL (MAXIMUM NUMBER OF JUMP/LINK ENTRIES)
-C>                           INCREASED FROM 15000 TO 16000 (WAS IN
-C>                           VERIFICATION VERSION); UNIFIED/PORTABLE FOR
-C>                           WRF; ADDED HISTORY DOCUMENTATION; OUTPUTS
-C>                           MORE COMPLETE DIAGNOSTIC INFO WHEN ROUTINE
-C>                           TERMINATES ABNORMALLY
-C> 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
+C> @param[in] ATAG - character*(*): mnemonic name.
+C> @param[in] ATYP - character*(*): mnemonic type.
+C> @param[in] NODE - integer: next available positional index for writing
+C> into the internal jump/link table.
 C>
-C> USAGE:    CALL INCTAB (ATAG, ATYP, NODE)
-C>   INPUT ARGUMENT LIST:
-C>     ATAG     - CHARACTER*(*): MNEMONIC NAME
-C>     ATYP     - CHARACTER*(*): MNEMONIC TYPE
-C>
-C>   OUTPUT ARGUMENT LIST:
-C>     NODE     - INTEGER: NEXT AVAILABLE POSITIONAL INDEX FOR WRITING
-C>                INTO THE INTERNAL JUMP/LINK TABLE
-C>
-C> REMARKS:
-C>    THIS ROUTINE CALLS:        BORT
-C>    THIS ROUTINE IS CALLED BY: TABENT   TABSUB
-C>                               Normally not called by any application
-C>                               programs.
-C>
+C> @author Woollen @date 1994-01-06
       SUBROUTINE INCTAB(ATAG,ATYP,NODE)
 
       USE MODA_TABLES

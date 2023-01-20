@@ -33,6 +33,27 @@
 #define fdebufr fdebufr_
 #endif
 
+/**
+ * ???
+ *
+ * @param ofile ???
+ * @param tbldir ???
+ * @param lentd ???
+ * @param tblfil ???
+ * @param prmstg ???
+ * @param basic ???
+ * @param forcemt ???
+ * @param cfms ???
+ * @param s1 ???
+ * @param s2 ???
+ * @param s3 ???
+ * @param s4 ???
+ * @param s5 ???
+ * @param s6 ???
+ * @param s7 ???
+ * 
+ * @author J. Ator @date 2018-03-01 
+ */
 void fdebufr( char *ofile, char *tbldir, f77int *lentd, char *tblfil, char *prmstg, char *basic, char *forcemt, char *cfms,
               size_t s1, size_t s2, size_t s3, size_t s4, size_t s5, size_t s6, size_t s7);
 
