@@ -1,7 +1,6 @@
 C> @file
-C> @brief Search backwards, beginning from a given
-C> node within the jump/link table, until we find the most recent
-C> node of type jbtyp.      
+C> @brief Search backwards from a specified node of the jump/link table
+C> for a node of a specified type.
 C>
 C> ### Program History Log
 C> Date | Programmer | Comments

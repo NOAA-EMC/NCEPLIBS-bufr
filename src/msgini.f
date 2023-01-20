@@ -1,6 +1,5 @@
 C> @file
-C> @brief Initialize, within the internal arrays, a
-C> new bufr message for output.
+C> @brief Initialize a new uncompressed BUFR message for output.
 C>
 C> ### Program History Log
 C> Date | Programmer | Comments
@@ -25,11 +24,11 @@ C> 2021-05-14 | J. Ator    | Changed default master table version to 36.
 C>
 C> @author Woollen @date 1994-01-06
       
-C> This subroutine initializes, within the internal arrays, a
-C> new bufr message for output. Arrays are filled in common blocks
+C> This subroutine initializes, within the internal arrays, a new
+C> uncompressed BUFR message for output. Arrays are filled in common blocks
 C> msgptr and modules msgcwd and bitbuf.
 C>
-C> @param[in] LUN - integer: i/o stream index into internal memory arrays.
+C> @param[in] LUN - integer: I/O stream index into internal memory arrays.
 C>
 C> @author Woollen @date 1994-01-06
       SUBROUTINE MSGINI(LUN)

@@ -1,5 +1,5 @@
 C> @file
-C> @brief Initialize a new BUFR message for output using compression.
+C> @brief Initialize a new compressed BUFR message for output.
 C>
 C> ### Program History Log
 C> Date | Programmer | Comments

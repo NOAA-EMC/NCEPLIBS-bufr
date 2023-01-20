@@ -1,7 +1,6 @@
 C> @file
-C> @brief Pack up the current subset within memory
-C> (array ibay in module bitbuf) and then tries to add it to
-C> the bufr message that is currently open within memory for lunit.
+C> @brief Pack up the current BUFR data subset for output
+C> and check whether it will fit within the current BUFR message.
 C>
 C> ### Program History Log
 C> Date | Programmer | Comments
@@ -25,7 +24,7 @@ C> @author Woollen @date 1994-01-06
       
 C> This subroutine packs up the current subset within memory
 C> (array ibay in module bitbuf) and then tries to add it to
-C> the bufr message that is currently open within memory for lunit
+C> the BUFR message that is currently open within memory for lunit
 C> (array mbay in module bitbuf). If the subset will not fit
 C> into the currently open message, or if the subset byte count exceeds
 C> 65530 (sufficiently close to the 16-bit byte counter upper limit of
@@ -35,7 +34,7 @@ C> count > 65530 will be written into its own one-subset message.
 C> if the current subset is larger than the maximum message length,
 C> then the subset is discarded and a diagnostic is printed.
 C>
-C> @param[in] LUNIT - integer: fortran logical unit number for bufr file.
+C> @param[in] LUNIT - integer: fortran logical unit number for BUFR file.
 C> @param[in] LUN - integer: i/o stream index into internal memory arrays
 C> (associated with file connected to logical unit lunit).
 C>
