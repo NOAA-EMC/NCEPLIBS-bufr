@@ -33,6 +33,32 @@
 #define fdebufr fdebufr_
 #endif
 
+/**
+ * Read, decode, and print a verbose output listing of the contents of a BUFR file.
+ *
+ * All arguments are input.
+ *
+ * @param ofile - File to contain verbose output listing
+ * @param tbldir - Directory containing DX and/or master BUFR tables for decoding
+ * @param lentd - Length of tbldir string
+ * @param tblfil - File containing DX BUFR table information for decoding
+ * @param prmstg - String of up to 20 comma-separated PARAMETER=VALUE pairs to be
+ *                 used for dynamically allocating memory withint the BUFRLIB
+ * @param basic  - Indicates whether to only decode and print the contents of Sections 0-3
+ * @param forcemt - Indicates whether to ignore embedded DX BUFR tables and force the
+ *                  use of master BUFR tables for decoding
+ * @param cfms - Indicates whether code and flag table meanings should be read from
+ *               master BUFR tables and included in the output
+ * @param s1 - Extra C-Fortran interface argument containing length of ofile variable.
+ * @param s2 - Extra C-Fortran interface argument containing length of tbldir variable.
+ * @param s3 - Extra C-Fortran interface argument containing length of tblfil variable.
+ * @param s4 - Extra C-Fortran interface argument containing length of prmstg variable.
+ * @param s5 - Extra C-Fortran interface argument containing length of basic variable.
+ * @param s6 - Extra C-Fortran interface argument containing length of forcemt variable.
+ * @param s7 - Extra C-Fortran interface argument containing length of cfms variable.
+ * 
+ * @author J. Ator @date 2018-03-01 
+ */
 void fdebufr( char *ofile, char *tbldir, f77int *lentd, char *tblfil, char *prmstg, char *basic, char *forcemt, char *cfms,
               size_t s1, size_t s2, size_t s3, size_t s4, size_t s5, size_t s6, size_t s7);
 
