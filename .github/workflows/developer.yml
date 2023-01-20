@@ -40,6 +40,7 @@ jobs:
         cd bufr
         mkdir build
         cd build
+        sleep 5
         cmake -DCMAKE_INSTALL_PREFIX=./install -DCMAKE_Fortran_FLAGS="-g -fprofile-arcs -ftest-coverage -fprofile-abs-path -O0" -DCMAKE_C_FLAGS="-g -fprofile-arcs -ftest-coverage -fprofile-abs-path -O0" -DCMAKE_BUILD_TYPE=Debug -DENABLE_DOCS=On ..
         make -j2 VERBOSE=1
         make install

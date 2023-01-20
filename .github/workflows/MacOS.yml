@@ -37,6 +37,7 @@ jobs:
         cd bufr
         mkdir build 
         cd build
+        sleep 15
         cmake -DCMAKE_INSTALL_PREFIX=./install -DENABLE_PYTHON=ON ..
         make -j2 VERBOSE=1
         make install
