@@ -1,5 +1,14 @@
+C> @file
+C> @brief ???
+C> @author ??? @date ???
+
+C> ??? ~description~
+C>
+C> @author ??? @date ???
+
 	MODULE MODA_IVAL
 
+C>  ??? description of IVAL
 	  INTEGER(8), ALLOCATABLE :: IVAL(:)
 
 	END MODULE

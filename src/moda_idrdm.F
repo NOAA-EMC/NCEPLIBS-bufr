@@ -1,5 +1,14 @@
+C> @file
+C> @brief ???
+C> @author ??? @date ???
+
+C> ??? ~description~
+C>
+C> @author ??? @date ???
+
 	MODULE MODA_IDRDM
 
+C>  ??? description of IDRDM
 	  INTEGER, ALLOCATABLE :: IDRDM(:)
 
 	END MODULE
