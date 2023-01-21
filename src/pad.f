@@ -1,54 +1,40 @@
 C> @file
-C> @author WOOLLEN @date 1994-01-06
+C>
+C> ### Program History Log
+C> Date | Programmer | Comments
+C> -----|------------|----------
+C> 1994-01-06 | J. Woollen | Original author.
+C> 1998-07-08 | J. Woollen | Replaced cray routine "abort" with bort().
+C> 2003-11-04 | S. Bender  | Added remarks/bufrlib routine interdependencies.
+C> 2003-11-04 | D. Keyser  | Unified/portable for wrf; documentation; outputs more info.
+C>
+C> @author Woollen @date 1994-01-06
       
-C> THIS SUBROUTINE FIRST PACKS THE VALUE FOR THE NUMBER OF
-C>   BITS BEING "PADDED" (WE'LL GET TO THAT LATER), STARTING WITH BIT
-C>   IBIT+1 AND USING EIGHT BITS IN THE PACKED ARRAY IBAY (WHICH
-C>   REPRESENTS A SUBSET PACKED INTO IBIT BITS).  THEN, STARTING WITH
-C>   IBIT+9, IT PACKS ZEROES (I.E., "PADS") TO THE SPECIFIED BIT
-C>   BOUNDARY (IPADB).  (NOTE: IT'S THE NUMBER OF BITS PADDED HERE THAT
-C>   WAS PACKED IN BITS IBIT+1 THROUGH IBIT+8 - THIS IS ACTUALLY A
-C>   DELAYED REPLICATION FACTOR).  IPADB MUST BE A MULTIPLE OF EIGHT AND
-C>   REPRESENTS THE BIT BOUNDARY ON WHICH THE PACKED SUBSET IN IBAY
-C>   SHOULD END AFTER PADDING.  FOR EXAMPLE, IF IPABD IS "8", THEN THE
-C>   NUMBER OF BITS IN IBAY ACTUALLY CONSUMED BY PACKED DATA (INCLUDING
-C>   THE PADDING) WILL BE A MULTIPLE OF EIGHT.  IF IPADB IS "16", IT
-C>   WILL BE A MULTIPLE OF SIXTEEN.  IN EITHER (OR ANY) CASE, THIS
-C>   ENSURES THAT THE PACKED SUBSET WILL ALWAYS END ON A FULL BYTE
-C>   BOUNDARY.
+C> This subroutine first packs the value for the number of
+C> bits being "padded" (we'll get to that later), starting with bit
+C> ibit+1 and using eight bits in the packed array ibay (which
+C> represents a subset packed into ibit bits). Then, starting with
+C> ibit+9, it packs zeroes (i.e., "pads") to the specified bit
+C> boundary (ipadb). (Note: it's the number of bits padded here that
+C> was packed in bits ibit+1 through ibit+8 - this is actually a
+C> delayed replication factor). IPADB must be a multiple of eight and
+C> represents the bit boundary on which the packed subset in ibay
+C> should end after padding. For example, if ipabd is "8", then the
+C> number of bits in ibay actually consumed by packed data (including
+C> the padding) will be a multiple of eight. If ipadb is "16", it
+C> will be a multiple of sixteen.  in either (or any) case, this
+C> ensures that the packed subset will always end on a full byte
+C> boundary.
 C>
-C> PROGRAM HISTORY LOG:
-C> 1994-01-06  J. WOOLLEN -- ORIGINAL AUTHOR
-C> 1998-07-08  J. WOOLLEN -- REPLACED CALL TO CRAY LIBRARY ROUTINE
-C>                           "ABORT" WITH CALL TO NEW INTERNAL BUFRLIB
-C>                           ROUTINE "BORT"
-C> 2003-11-04  S. BENDER  -- ADDED REMARKS/BUFRLIB ROUTINE
-C>                           INTERDEPENDENCIES
-C> 2003-11-04  D. KEYSER  -- UNIFIED/PORTABLE FOR WRF; ADDED
-C>                           DOCUMENTATION (INCLUDING HISTORY); OUTPUTS
-C>                           MORE COMPLETE DIAGNOSTIC INFO WHEN ROUTINE
-C>                           TERMINATES ABNORMALLY
+C> @param[inout] IBAY - integer: *-word packed binary array not yet padded.
+C> Out: *-word packed binary array now padded.
+C> @param[inout] IBIT - integer: bit pointer within ibay to start padding from.
+C> Out: number of bits within ibay containing packed data (including padding, must be a multiple of 8).
+C> @param[out] IBYT - integer: number of bytes within ibay containing packed data
+C> (including padding) (i.e., ibit/8).
+C> @param[in] IPADB - integer: bit boundary to pad to (must be a multiple of 8).
 C>
-C> USAGE:    CALL PAD (IBAY, IBIT, IBYT, IPADB)
-C>   INPUT ARGUMENT LIST:
-C>     IBAY     - INTEGER: *-WORD PACKED BINARY ARRAY NOT YET PADDED
-C>     IBIT     - INTEGER: BIT POINTER WITHIN IBAY TO START PADDING FROM
-C>     IPADB    - INTEGER: BIT BOUNDARY TO PAD TO (MUST BE A MULTIPLE OF
-C>                8)
-C>
-C>   OUTPUT ARGUMENT LIST:
-C>     IBAY     - INTEGER: *-WORD PACKED BINARY ARRAY NOW PADDED
-C>     IBIT     - INTEGER: NUMBER OF BITS WITHIN IBAY CONTAINING PACKED
-C>                DATA (INCLUDING PADDING, MUST BE A MULTIPLE OF 8)
-C>     IBYT     - INTEGER: NUMBER OF BYTES WITHIN IBAY CONTAINING PACKED
-C>                DATA (INCLUDING PADDING) (I.E., IBIT/8)
-C>
-C> REMARKS:
-C>    THIS ROUTINE CALLS:        BORT     PKB
-C>    THIS ROUTINE IS CALLED BY: MSGUPD
-C>                               Normally not called by any application
-C>                               programs.
-C>
+C> @author Woollen @date 1994-01-06
       SUBROUTINE PAD(IBAY,IBIT,IBYT,IPADB)
 
 

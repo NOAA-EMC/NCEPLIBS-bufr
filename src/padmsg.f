@@ -1,30 +1,19 @@
 C> @file
-C> @author ATOR @date 2005-11-29
+C> @brief Pad a bufr message with zeroed-out bytes
+C> from the end of the message up to the next 8-byte boundary.	
+C> @author Ator @date 2005-11-29
 	
-C> THIS SUBROUTINE PADS A BUFR MESSAGE WITH ZEROED-OUT BYTES
-C>  FROM THE END OF THE MESSAGE UP TO THE NEXT 8-BYTE BOUNDARY.
+C> This subroutine pads a bufr message with zeroed-out bytes
+C> from the end of the message up to the next 8-byte boundary.
 C>
-C> PROGRAM HISTORY LOG:
-C> 2005-11-29  J. ATOR    -- ORIGINAL AUTHOR
+C> @param[inout] MESG - integer: *-word packed binary array containing
+C> bufr message out: *-word packed binary array containing bufr message
+C> with npbyt zeroed-out bytes appendebbbd to the end.
+C> @param[in] LMESG - integer: dimensioned size (in integer words) of mesg;
+C> used by the subroutine to ensure that it does not overflow the mesg array.
+C> @param[inout] NPBYT - integer: number of zeroed-out bytes appended to mesg.
 C>
-C> USAGE:    CALL PADMSG (MESG, LMESG, NPBYT )
-C>   INPUT ARGUMENT LIST:
-C>     MESG     - INTEGER: *-WORD PACKED BINARY ARRAY CONTAINING BUFR
-C>                MESSAGE 
-C>     LMESG    - INTEGER: DIMENSIONED SIZE (IN INTEGER WORDS) OF MESG;
-C>                USED BY THE SUBROUTINE TO ENSURE THAT IT DOES NOT
-C>                OVERFLOW THE MESG ARRAY
-C>
-C>   OUTPUT ARGUMENT LIST:
-C>     MESG     - INTEGER: *-WORD PACKED BINARY ARRAY CONTAINING BUFR
-C>                MESSAGE WITH NPBYT ZEROED-OUT BYTES APPENDED TO THE END
-C>     NPBYT    - INTEGER: NUMBER OF ZEROED-OUT BYTES APPENDED TO MESG
-C>
-C> REMARKS:
-C>    THIS ROUTINE CALLS:        BORT     IUPBS01  NMWRD    PKB
-C>    THIS ROUTINE IS CALLED BY: MSGWRT
-C>                               Also called by application programs.
-C>
+C> @author Ator @date 2005-11-29
 	SUBROUTINE PADMSG(MESG,LMESG,NPBYT)
 
 

@@ -1,39 +1,24 @@
 C> @file
+C> @brief Parse a string containing one or more
+C> substrings into an array of substrings.      
 C> @author J @date 2007-01-19
       
-C> THIS SUBROUTINE PARSES A STRING CONTAINING ONE OR MORE
-C>   SUBSTRINGS INTO AN ARRAY OF SUBSTRINGS.  THE SEPARATOR FOR THE
-C>   SUBSTRINGS IS SPECIFIED DURING INPUT, AND MULTIPLE ADJACENT
-C>   OCCURRENCES OF THIS CHARACTER WILL BE TREATED AS A SINGLE
-C>   OCCURRENCE WHEN THE STRING IS ACTUALLY PARSED.
+C> This subroutine parses a string containing one or more
+C> substrings into an array of substrings. The separator for the
+C> substrings is specified during input, and multiple adjacent
+C> occurrences of this character will be treated as a single
+C> occurrence when the string is actually parsed.
 C>
-C> PROGRAM HISTORY LOG:
-C> 2007-01-19  J. ATOR    -- BASED UPON SUBROUTINE PARSEQ
+C> @param[in] STR - character*(*): string.
+C> @param[out] TAGS - character*(*): mtag-word array of substrings (first.
+C> ntag words filled)
+C> @param[in] MTAG - integer: maximum number of substrings to be parsed from string.
+C> @param[out] NTAG - integer: number of substrings returned.
+C> @param[in] SEP - character*1: separator character for substrings.
+C> @param[in] LIMIT80 - logical: .true. if an abort should occur when str is
+C> longer than 80 characters; included for historical consistency with old subroutine parseq.
 C>
-C> USAGE:    CALL PARSTR (STR, TAGS, MTAG, NTAG, SEP, LIMIT80)
-C>   INPUT ARGUMENT LIST:
-C>     STR      - CHARACTER*(*): STRING
-C>     MTAG     - INTEGER: MAXIMUM NUMBER OF SUBSTRINGS TO BE PARSED
-C>                FROM STRING
-C>     SEP      - CHARACTER*1: SEPARATOR CHARACTER FOR SUBSTRINGS
-C>     LIMIT80  - LOGICAL: .TRUE. IF AN ABORT SHOULD OCCUR WHEN STR IS
-C>                LONGER THAN 80 CHARACTERS; INCLUDED FOR HISTORICAL
-C>                CONSISTENCY WITH OLD SUBROUTINE PARSEQ
-C>
-C>   OUTPUT ARGUMENT LIST:
-C>     TAGS     - CHARACTER*(*): MTAG-WORD ARRAY OF SUBSTRINGS (FIRST
-C>                NTAG WORDS FILLED)
-C>     NTAG     - INTEGER: NUMBER OF SUBSTRINGS RETURNED
-C>
-C> REMARKS:
-C>    THIS ROUTINE CALLS:        BORT2
-C>    THIS ROUTINE IS CALLED BY: FSTAG    GETCFMNG GETNTBE  GETTBH
-C>                               PARUSR   READLC   SEQSDX   SNTBBE
-C>                               SNTBDE   SNTBFE   UFBSEQ   UFBTAB
-C>                               UFBTAM   WRITLC
-C>                               Normally not called by any application
-C>                               programs but it could be.
-C>
+C> @author J @date 2007-01-19
       SUBROUTINE PARSTR(STR,TAGS,MTAG,NTAG,SEP,LIMIT80)
 
 
