@@ -1,5 +1,5 @@
 C> @file
-C> @brief Return the next available positional index
+C> @brief Get the next available positional index
 C> for writing into the internal jump/link table.
 C>
 C> ### Program History Log

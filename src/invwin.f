@@ -1,5 +1,5 @@
 C> @file
-C> @brief Look for a specified node within a specified portion
+C> @brief Search for a specified node within a specified portion
 C> of the current data subset.
 C>
 C> ### Program History Log
@@ -25,8 +25,8 @@ C> @param[in] LUN - integer: i/o stream index into internal memory arrays
 C> @param[in] INV1 - integer: starting index of the portion of the subset buffer in which to look
 C> @param[in] INV2 - integer: ending index of the portion of the subset buffer in which to look
 C>
-C> @return - integer: location index of node within specified
-C> portion of subset buffer, 0 = not found.
+C> @return - integer: location index of node within specified portion of subset buffer
+C> - 0 not found
 C>
 C> @author Woollen @date 1994-01-06
       FUNCTION INVWIN(NODE,LUN,INV1,INV2)

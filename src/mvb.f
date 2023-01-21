@@ -19,11 +19,11 @@ C> @author Woollen @date 1994-01-06
 C> This subroutine copies a specified number of bytes from
 C> one packed binary array to another.
 C>
-C> @param[in] IB1 - integer: *-word packed input binary array.
-C> @param[in] NB1 - integer: pointer to first byte in ib1 to copy from.
-C> @param[out] IB2 - integer: *-word packed output binary array.
-C> @param[in] NB2 - integer: pointer to first byte in ib2 to copy to.
-C> @param[in] NBM - integer: number of bytes to copy .
+C> @param[in] IB1 - integer: packed input binary array.
+C> @param[in] NB1 - integer: pointer to first byte in IB1 to copy from.
+C> @param[out] IB2 - integer: packed output binary array.
+C> @param[in] NB2 - integer: pointer to first byte in IB2 to copy to.
+C> @param[in] NBM - integer: number of bytes to copy.
 C>
 C> @author Woollen @date 1994-01-06
       SUBROUTINE MVB(IB1,NB1,IB2,NB2,NBM)

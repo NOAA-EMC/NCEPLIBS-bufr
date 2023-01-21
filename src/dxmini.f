@@ -1,4 +1,5 @@
 C> @file
+C> @brief Initialize a BUFR DX tables message.
 C>
 C> ### Program History Log
 C> Date | Programmer | Comments
@@ -17,21 +18,21 @@ C> 2021-05-14 | J. Ator    | Changed default master table version to 36.
 C>
 C> @author Woollen @date 1994-01-06
       
-C> This subroutine initializes a bufr table (dictionary)
-C> message, writing all the preliminary information into sections 0,
+C> This subroutine initializes a BUFR DX tables (dictionary)
+C> message, writing all the preliminary information into Sections 0,
 C> 1, 3, 4.  Subroutine wrdxtb() will write the
 C> actual table information into the message.
 C>
 C> @note: Argument LUN is not referenced in this subroutine. It is left
 C> here in case an application program calls this subroutine.
 C>
-C> @param[in] LUN - integer: i/o stream index into internal memory arrays.
-C> @param[out] MBAY - integer: (mxmsgld4)-word packed binary array containing bufr message.
-C> @param[out] MBYT - integer: length of bufr message (bytes).
-C> @param[out] MB4 - integer: byte number in message of first byte in section 4.
-C> @param[out] MBA - integer: byte number in message of fourth byte in section 4.
-C> @param[out] MBB - integer: byte number in message of fifth byte in section 4.
-C> @param[out] MBD - integer: byte number in message of sixth byte in section 4.
+C> @param[in] LUN - integer: I/O stream index into internal memory arrays.
+C> @param[out] MBAY - integer: BUFR message.
+C> @param[out] MBYT - integer: length (in bytes) of BUFR message.
+C> @param[out] MB4 - integer: byte number in message of first byte in Section 4.
+C> @param[out] MBA - integer: byte number in message of fourth byte in Section 4.
+C> @param[out] MBB - integer: byte number in message of fifth byte in Section 4.
+C> @param[out] MBD - integer: byte number in message of sixth byte in Section 4.
 C>
 C> @author Woollen @date 1994-01-06
       SUBROUTINE DXMINI(LUN,MBAY,MBYT,MB4,MBA,MBB,MBD)

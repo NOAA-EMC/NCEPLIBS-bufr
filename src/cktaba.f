@@ -22,8 +22,9 @@ C> using one of the [message-reading subroutines](@ref hierarchy).
 C>
 C> @param[in] LUN - integer: I/O stream index into internal memory arrays.
 C> @param[out] SUBSET - character*8: Table A mnemonic
-C>                      - "        " = IRET equal to 11 (see below) and not
-C>                                     using Section 3 decoding.
+C>                      - returned as a string of all blank characters
+C>                        if IRET is equal to 11 (see below) and if Section 3
+C>                        isn't being used for decoding  
 C> @param[out] JDATE    - integer: date-time stored within Section 1 of BUFR
 C>                        in format of either YYMMDDHH or
 C>                        YYYYMMDDHH, depending on datelen() value.

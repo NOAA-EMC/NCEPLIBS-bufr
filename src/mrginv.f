@@ -1,29 +1,21 @@
 C> @file
-C> @author WOOLLEN @date 1996-10-09
-      
-C> THIS SUBROUTINE PRINTS A SUMMARY OF MERGE ACTIVITY.
+C> @brief Print a summary of merge activity.
 C>
-C> PROGRAM HISTORY LOG:
-C> 1996-10-09  J. WOOLLEN -- ORIGINAL AUTHOR (ENTRY POINT IN INVMRG)
-C> 2002-05-14  J. WOOLLEN -- CHANGED FROM AN ENTRY POINT TO INCREASE
-C>                           PORTABILITY TO OTHER PLATFORMS
-C> 2003-11-04  S. BENDER  -- ADDED REMARKS/BUFRLIB ROUTINE
-C>                           INTERDEPENDENCIES
-C> 2003-11-04  D. KEYSER  -- UNIFIED/PORTABLE FOR WRF; ADDED
-C>                           DOCUMENTATION (INCLUDING HISTORY)
-C> 2009-04-21  J. ATOR    -- USE ERRWRT
+C> ### Program History Log
+C> Date | Programmer | Comments
+C> -----|------------|----------
+C> 1996-10-09 | J. Woollen | Original author.
+C> 2002-05-14 | J. Woollen | Changed from an entry point to increase portability to other platforms.
+C> 2003-11-04 | S. Bender  | Added remarks/bufrlib routine interdependencies.
+C> 2003-11-04 | D. Keyser  | Added documentation.
+C> 2009-04-21 | J. Ator    | Use errwrt()
 C>
-C> USAGE:    CALL MRGINV
+C> @author J. Woollen @date 1996-10-09
+
+C> This subroutine prints a summary of merge activity.
 C>
-C> REMARKS:
-C>    THIS ROUTINE CALLS:        ERRWRT
-C>    THIS ROUTINE IS CALLED BY: None
-C>                               Normally called only by application
-C>                               programs.
-C>
+C> @author J. Woollen @date 1996-10-09
       SUBROUTINE MRGINV
-
-
 
       COMMON /MRGCOM/ NRPL,NMRG,NAMB,NTOT
       COMMON /QUIET / IPRT
