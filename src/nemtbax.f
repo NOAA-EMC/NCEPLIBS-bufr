@@ -1,35 +1,35 @@
 C> @file
 C> @brief Search for a Table A descriptor within the internal DX
 C> BUFR tables
+C>
+C> ### Program history log
+C> Date | Programmer | Comments
+C> -----|------------|---------
+C> 1999-11-18 | J. Woollen | Original author
+C> 2003-11-04 | S. Bender  | Added remarks/bufrlib routine interdependencies
+C> 2003-11-04 | D. Keyser  | Unified/portable for WRF; added documentation; outputs more complete diagnostic info when routine terminates abnormally
+C> 2014-12-10 | J. Ator    | Use modules instead of COMMON blocks
+C>
+C> @author J. Woollen @date 1999-11-18
 
 C> This subroutine searches for a descriptor within Table A of the
 C> internal DX BUFR tables.
 C>
-C> <p>It is similar to subroutine nemtba(), except it returns an INOD
+C> It is similar to subroutine nemtba(), except it returns an INOD
 C> value of 0 if the descriptor is not found in Table A, whereas
 C> nemtba() will call subroutine bort() in such cases.
 C>
-C> @author J. Woollen
-C> @date 1999-11-18
-C>
-C> @param[in] LUN -- integer: Internal I/O stream index associated
+C> @param[in] LUN - integer: Internal I/O stream index associated
 C>                   with DX BUFR tables
-C> @param[in] NEMO -- character*(*): Mnemonic for Table A descriptor
-C> @param[out] MTYP -- integer: Message type corresponding to NEMO
-C> @param[out] MSBT -- integer: Message subtype corresponding to NEMO
-C> @param[out] INOD -- integer:
+C> @param[in] NEMO - character*(*): Mnemonic for Table A descriptor
+C> @param[out] MTYP - integer: Message type corresponding to NEMO
+C> @param[out] MSBT - integer: Message subtype corresponding to NEMO
+C> @param[out] INOD - integer:
 C>                     - Positional index of NEMO within internal
 C>                       Table A, if found
 C>                     - 0, otherwise
 C>
-C> <b>Program history log:</b>
-C> | Date | Programmer | Comments |
-C> | -----|------------|----------|
-C> | 1999-11-18 | J. Woollen | Original author |
-C> | 2003-11-04 | S. Bender  | Added remarks/bufrlib routine interdependencies |
-C> | 2003-11-04 | D. Keyser  | Unified/portable for WRF; added documentation; outputs more complete diagnostic info when routine terminates abnormally |
-C> | 2014-12-10 | J. Ator    | Use modules instead of COMMON blocks |
-C>
+C> @author J. Woollen @date 1999-11-18
       SUBROUTINE NEMTBAX(LUN,NEMO,MTYP,MSBT,INOD)
 
       USE MODA_TABABD

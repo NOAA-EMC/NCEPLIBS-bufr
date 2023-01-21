@@ -1,55 +1,44 @@
 C> @file
-C> @author WOOLLEN @date 1994-01-06
+C> @brief Return a copy of an input integer word with
+C> the bytes reversed.      
+C>
+C> ### Program History Log
+C> Date | Programmer | Comments
+C> -----|------------|----------
+C> 1994-01-06 | J. Woollen | Original author.
+C> 2003-11-04 | J. Ator    | Added documentation.
+C> 2003-11-04 | S. Bender  | Added remarks/bufrlib routine interdependencies.
+C> 2003-11-04 | D. Keyser  | Unified/portable for wrf; added history documentation.
+C> 2007-01-19 | J. Ator    | Big-endian vs. little-endian determined at compile time.
+C>
+C> @author Woollen @date 1994-01-06
       
-C> THIS FUNCTION WILL, WHEN THE LOCAL MACHINE IS "LITTLE-
-C>   ENDIAN" (I.E., USES A RIGHT TO LEFT SCHEME FOR NUMBERING THE BYTES
-C>   WITHIN A MACHINE WORD), RETURN A COPY OF AN INPUT INTEGER WORD WITH
-C>   THE BYTES REVERSED.  ALTHOUGH, BY DEFINITION (WITHIN WMO MANUAL
-C>   306), A BUFR MESSAGE IS A STREAM OF INDIVIDUAL OCTETS (I.E., BYTES)
-C>   THAT IS INDEPENDENT OF ANY PARTICULAR MACHINE REPRESENTATION, THE
-C>   BUFR ARCHIVE LIBRARY SOFTWARE OFTEN NEEDS TO INTERPRET ALL OR PARTS
-C>   OF TWO OR MORE ADJACENT BYTES IN ORDER TO CONSTRUCT AN INTEGER
-C>   WORD.  BY DEFAULT, THE SOFTWARE USES THE "BIG-ENDIAN" (LEFT TO
-C>   RIGHT) SCHEME FOR NUMBERING BYTES.  BY REVERSING THE BYTES, IREV
-C>   ALLOWS THE INTEGER WORD TO BE PROPERLY READ OR WRITTEN (DEPENDING
-C>   ON WHETHER INPUT OR OUTPUT OPERATIONS, RESPECTIVELY, ARE BEING
-C>   PERFORMED) ON LITTLE-ENDIAN MACHINES.  IF THE LOCAL MACHINE IS
-C>   BIG-ENDIAN, IREV SIMPLY RETURNS A COPY OF THE SAME INTEGER THAT WAS
-C>   INPUT.
+C> This function will, when the local machine is "little-endian" (i.e.,
+C> when it uses a right to left scheme for numbering the bytes
+C> within a machine word), return a copy of an input integer word with
+C> the bytes reversed. Although, by definition (within WMO Manual
+C> 306), a BUFR message is a stream of individual octets (i.e., bytes)
+C> that is independent of any particular machine representation, the
+C> BUFR archive library software often needs to interpret all or parts
+C> of two or more adjacent bytes in order to construct an integer
+C> word. By default, the software uses the "big-endian" (left to
+C> right) scheme for numbering bytes. By reversing the bytes, irev()
+C> allows the integer word to be properly read or written (depending
+C> on whether input or output operations, respectively, are being
+C> performed) on "little-endian" machines. If the local machine is
+C> "big-endian", irev() simply returns a copy of the same integer that was
+C> input.
 C>
-C> PROGRAM HISTORY LOG:
-C> 1994-01-06  J. WOOLLEN -- ORIGINAL AUTHOR
-C> 2003-11-04  J. ATOR    -- ADDED DOCUMENTATION
-C> 2003-11-04  S. BENDER  -- ADDED REMARKS/BUFRLIB ROUTINE
-C>                           INTERDEPENDENCIES
-C> 2003-11-04  D. KEYSER  -- UNIFIED/PORTABLE FOR WRF; ADDED HISTORY
-C>                           DOCUMENTATION
-C> 2007-01-19  J. ATOR    -- BIG-ENDIAN VS. LITTLE-ENDIAN IS NOW
-C>                           DETERMINED AT COMPILE TIME AND CONFIGURED
-C>                           WITHIN BUFRLIB VIA CONDITIONAL COMPILATION
-C>                           DIRECTIVES
+C> @param[in] N - integer: integer word with bytes ordered according
+C> to the "big-endian" numbering scheme
 C>
-C> USAGE:    IREV (N)
-C>   INPUT ARGUMENT LIST:
-C>     N        - INTEGER: INTEGER WORD WITH BYTES ORDERED ACCORDING TO
-C>                THE "BIG-ENDIAN" NUMBERING SCHEME
+C> @return - integer: integer word with bytes ordered according to
+C> the numbering scheme of the local machine (either
+C> "big-endian" or "little-endian"; if "big-endian" then
+C> this is just a direct copy of N).
 C>
-C>   OUTPUT ARGUMENT LIST:
-C>     IREV     - INTEGER: INTEGER WORD WITH BYTES ORDERED ACCORDING TO
-C>                THE NUMBERING SCHEME OF THE LOCAL MACHINE (EITHER
-C>                "BIG-ENDIAN" OR "LITTLE-ENDIAN", IF "BIG-ENDIAN THEN
-C>                THIS IS JUST A DIRECT COPY OF N)
-C>
-C> REMARKS:
-C>    THIS ROUTINE CALLS:        None
-C>    THIS ROUTINE IS CALLED BY: IPKM     IUPM     PKB      PKC
-C>                               UPBB
-C>                               Normally not called by any application
-C>                               programs.
-C>
+C> @author Woollen @date 1994-01-06
       FUNCTION IREV(N)
-
-
 
       COMMON /HRDWRD/ NBYTW,NBITW,IORD(8)
 
