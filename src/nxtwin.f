@@ -1,54 +1,36 @@
 C> @file
+C> @brief Computes the start and end indices of the next window.      
+C>
+C> ### Program History Log
+C> Date | Programmer | Comments
+C> -----|------------|----------
+C> 1994-01-06 | J. Woollen | Original author.
+C> 1998-07-08 | J. Woollen | Replaced cray "abort" with bort().
+C> 1999-11-18 | J. Woollen | Increased the number of open bufr files to 32.
+C> 2002-05-14 | J. Woollen | Removed old cray compiler directives.
+C> 2003-11-04 | S. Bender  | Added remarks/bufrlib routine interdependencies.
+C> 2003-11-04 | D. Keyser  | maxjl increased to 16000; unified/portable for wrf; documentation.
+C> 2009-03-31 | J. Woollen | Added additional documentation.
+C> 2009-05-07 | J. Ator    | Use lstjpb instead of lstrpc.
+C> 2014-12-10 | J. Ator    | Use modules instead of common blocks.
+C>
 C> @author WOOLLEN @date 1994-01-06
       
-C> GIVEN INDICES WITHIN THE INTERNAL JUMP/LINK TABLE WHICH
-C>   POINT TO THE START AND END OF AN "RPC" WINDOW (I.E. ITERATION OF
-C>   AN 8-BIT OR 16-BIT DELAYED REPLICATION SEQUENCE), THIS SUBROUTINE
-C>   COMPUTES THE START AND END INDICES OF THE NEXT WINDOW.
+C> Given indices within the internal jump/link table which
+C> point to the start and end of an "rpc" window (i.e. iteration of
+C> an 8-bit or 16-bit delayed replication sequence), this subroutine
+C> computes the start and end indices of the next window.
 C>
-C> PROGRAM HISTORY LOG:
-C> 1994-01-06  J. WOOLLEN -- ORIGINAL AUTHOR
-C> 1998-07-08  J. WOOLLEN -- REPLACED CALL TO CRAY LIBRARY ROUTINE
-C>                           "ABORT" WITH CALL TO NEW INTERNAL BUFRLIB
-C>                           ROUTINE "BORT"
-C> 1999-11-18  J. WOOLLEN -- THE NUMBER OF BUFR FILES WHICH CAN BE
-C>                           OPENED AT ONE TIME INCREASED FROM 10 TO 32
-C>                           (NECESSARY IN ORDER TO PROCESS MULTIPLE
-C>                           BUFR FILES UNDER THE MPI)
-C> 2002-05-14  J. WOOLLEN -- REMOVED OLD CRAY COMPILER DIRECTIVES
-C> 2003-11-04  S. BENDER  -- ADDED REMARKS/BUFRLIB ROUTINE
-C>                           INTERDEPENDENCIES
-C> 2003-11-04  D. KEYSER  -- MAXJL (MAXIMUM NUMBER OF JUMP/LINK ENTRIES)
-C>                           INCREASED FROM 15000 TO 16000 (WAS IN
-C>                           VERIFICATION VERSION); UNIFIED/PORTABLE FOR
-C>                           WRF; ADDED DOCUMENTATION (INCLUDING
-C>                           HISTORY) (INCOMPLETE); OUTPUTS MORE
-C>                           COMPLETE DIAGNOSTIC INFO WHEN ROUTINE
-C>                           TERMINATES ABNORMALLY
-C> 2009-03-31  J. WOOLLEN -- ADDED ADDITIONAL DOCUMENTATION
-C> 2009-05-07  J. ATOR    -- USE LSTJPB INSTEAD OF LSTRPC
-C> 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
+C> @note See getwin() for an explanation of "windows" within the
+C> context of a bufr data subset.
 C>
-C> USAGE:    CALL NXTWIN (LUN, IWIN, JWIN)
-C>   INPUT ARGUMENT LIST:
-C>     LUN      - INTEGER: I/O STREAM INDEX INTO INTERNAL MEMORY ARRAYS
-C>     IWIN     - INTEGER: STARTING INDEX OF CURRENT WINDOW ITERATION
-C>     JWIN     - INTEGER: ENDING INDEX OF CURRENT WINDOW ITERATION
+C> @param[in] LUN - integer: i/o stream index into internal memory arrays.
+C> @param[in] IWIN - integer: starting index of current window iteration.
+C> @param[in] JWIN - integer: ending index of current window iteration.
+C> @param[out] IWIN - integer: starting index of next window iteration.
+C> @param[out] JWIN - integer: ending index of next window iteration.
 C>
-C>   OUTPUT ARGUMENT LIST:
-C>     IWIN     - INTEGER: STARTING INDEX OF NEXT WINDOW ITERATION
-C>     JWIN     - INTEGER: ENDING INDEX OF NEXT WINDOW ITERATION
-C>
-C> REMARKS:
-C>
-C>    SEE THE DOCBLOCK IN BUFR ARCHIVE LIBRARY SUBROUTINE GETWIN FOR AN
-C>    EXPLANATION OF "WINDOWS" WITHIN THE CONTEXT OF A BUFR DATA SUBSET.
-C>
-C>    THIS ROUTINE CALLS:        BORT     LSTJPB
-C>    THIS ROUTINE IS CALLED BY: UFBEVN   UFBIN3   UFBRW
-C>                               Normally not called by any application
-C>                               programs.
-C>
+C> @author WOOLLEN @date 1994-01-06
       SUBROUTINE NXTWIN(LUN,IWIN,JWIN)
 
       USE MODA_USRINT

@@ -1,56 +1,35 @@
 C> @file
-C> @author WOOLLEN @date 1994-01-06
+C>
+C> ### Program History Log
+C> Date | Programmer | Comments
+C> -----|------------|----------
+C> 1994-01-06 | J. Woollen | Original author.
+C> 1998-07-08 | J. Woollen | Replaced call to cray "abort" with call to bort().
+C> 1999-11-18 | J. Woollen | Increased number of open bufr files to 32.
+C> 2003-11-04 | S. Bender  | Added remarks/bufrlib routine interdependencies.
+C> 2003-11-04 | D. Keyser  | maxjl increased to 16000; unified/portable for wrf; documentation; outputs more info.
+C> 2009-03-23 | J. Ator    | Use 1e9 to prevent overflow when initializing invn; use errwrt.
+C> 2009-03-31 | J. Woollen | Added documentation.
+C> 2014-12-10 | J. Ator    | Use modules instead of common blocks.
+C>
+C> @author Woollen @date 1994-01-06
       
-C> THIS FUNCTION LOOKS FOR AND RETURNS ALL OCCURRENCES OF A
-C>   SPECIFIED NODE WITHIN THE PORTION OF THE CURRENT SUBSET BUFFER
-C>   BOUNDED BY THE INDICES INV1 AND INV2.  THE RESULTING LIST IS A
-C>   STACK OF "EVENT" INDICES FOR THE REQUESTED NODE. 
+C> This function looks for and returns all occurrences of a
+C> specified node within the portion of the current subset buffer
+C> bounded by the indices inv1 and inv2. The resulting list is a
+C> stack of "event" indices for the requested node. 
 C>
-C> PROGRAM HISTORY LOG:
-C> 1994-01-06  J. WOOLLEN -- ORIGINAL AUTHOR
-C> 1998-07-08  J. WOOLLEN -- REPLACED CALL TO CRAY LIBRARY ROUTINE
-C>                           "ABORT" WITH CALL TO NEW INTERNAL BUFRLIB
-C>                           ROUTINE "BORT"
-C> 1999-11-18  J. WOOLLEN -- THE NUMBER OF BUFR FILES WHICH CAN BE
-C>                           OPENED AT ONE TIME INCREASED FROM 10 TO 32
-C>                           (NECESSARY IN ORDER TO PROCESS MULTIPLE
-C>                           BUFR FILES UNDER THE MPI)
-C> 2003-11-04  S. BENDER  -- ADDED REMARKS/BUFRLIB ROUTINE
-C>                           INTERDEPENDENCIES
-C> 2003-11-04  D. KEYSER  -- MAXJL (MAXIMUM NUMBER OF JUMP/LINK ENTRIES)
-C>                           INCREASED FROM 15000 TO 16000 (WAS IN
-C>                           VERIFICATION VERSION); UNIFIED/PORTABLE FOR
-C>                           WRF; ADDED DOCUMENTATION (INCLUDING
-C>                           HISTORY); OUTPUTS MORE COMPLETE DIAGNOSTIC
-C>                           INFO WHEN ROUTINE TERMINATES ABNORMALLY OR
-C>                           UNUSUAL THINGS HAPPEN
-C> 2009-03-23  J. ATOR    -- USE 1E9 TO PREVENT OVERFLOW WHEN
-C>                           INITIALIZING INVN; USE ERRWRT
-C> 2009-03-31  J. WOOLLEN -- ADDED DOCUMENTATION
-C> 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
+C> @param[in] NODE - integer: jump/link table index to look for.
+C> @param[in] LUN - integer: i/o stream index into internal memory arrays.
+C> @param[in] INV1 - integer: starting index of the portion of the subset buffer in which to look.
+C> @param[in] INV2 - integer: ending index of the portion of the subset buffer in which to look.
+C> @param[out] INVN - integer: array of stack "event" indices for node.
+C> @param[in] NMAX - integer: dimensioned size of invn; used by the function to ensure
+C> that it does not overflow the invn array.
 C>
-C> USAGE:    NVNWIN (NODE, LUN, INV1, INV2, INVN, NMAX)
-C>   INPUT ARGUMENT LIST:
-C>     NODE     - INTEGER: JUMP/LINK TABLE INDEX TO LOOK FOR
-C>     LUN      - INTEGER: I/O STREAM INDEX INTO INTERNAL MEMORY ARRAYS
-C>     INV1     - INTEGER: STARTING INDEX OF THE PORTION OF THE SUBSET
-C>                BUFFER IN WHICH TO LOOK
-C>     INV2     - INTEGER: ENDING INDEX OF THE PORTION OF THE SUBSET
-C>                BUFFER IN WHICH TO LOOK
-C>     NMAX     - INTEGER: DIMENSIONED SIZE OF INVN; USED BY THE
-C>                FUNCTION TO ENSURE THAT IT DOES NOT OVERFLOW THE
-C>                INVN ARRAY
+C> @return number of indices returned within invn.
 C>
-C>   OUTPUT ARGUMENT LIST:
-C>     INVN     - INTEGER: ARRAY OF STACK "EVENT" INDICES FOR NODE
-C>     NVNWIN   - INTEGER: NUMBER OF INDICES RETURNED WITHIN INVN
-C>
-C> REMARKS:
-C>    THIS ROUTINE CALLS:        BORT     ERRWRT
-C>    THIS ROUTINE IS CALLED BY: UFBEVN
-C>                               Normally not called by any application
-C>                               programs.
-C>
+C> @author Woollen @date 1994-01-06
       FUNCTION NVNWIN(NODE,LUN,INV1,INV2,INVN,NMAX)
 
       USE MODA_USRINT

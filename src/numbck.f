@@ -1,48 +1,31 @@
 C> @file
-C> @author WOOLLEN @date 1994-01-06
+C> @brief Check the input character string to determine
+C> whether it contains a valid FXY (descriptor) value.
+C>
+C> ### Program History Log
+C> Date | Programmer | Comments
+C> -----|------------|----------
+C> 1994-01-06 | J. Woollen | Original author.
+C> 2003-11-04 | J. Ator    | Added documentation.
+C> 2003-11-04 | S. Bender  | Added remarks/bufrlib routine interdependencies.
+C> 2003-11-04 | D. Keyser  | Split non-zero return; unified/ portable for wrf; documentation.
+C> 2007-01-19 | J. Ator    | Cleaned up and simplified logic.
+C>
+C> @author Woollen @date 1994-01-06
       
-C> THIS FUNCTION CHECKS THE INPUT CHARACTER STRING TO DETERMINE
-C>   WHETHER IT CONTAINS A VALID FXY (DESCRIPTOR) VALUE.
+C> This function checks the input character string to determine
+C> whether it contains a valid FXY (descriptor) value.
 C>
-C> PROGRAM HISTORY LOG:
-C> 1994-01-06  J. WOOLLEN -- ORIGINAL AUTHOR
-C> 2003-11-04  J. ATOR    -- ADDED DOCUMENTATION
-C> 2003-11-04  S. BENDER  -- ADDED REMARKS/BUFRLIB ROUTINE
-C>                           INTERDEPENDENCIES
-C> 2003-11-04  D. KEYSER  -- SPLIT NON-ZERO RETURN INTO -1 FOR INVALID
-C>                           CHARACTER IN POSITION 1, -2 FOR INVALID
-C>                           CHARACTERS IN POSITIONS 2 THROUGH 6, -3 FOR
-C>                           INVALID CHARACTERS IN POSITIONS 2 AND 3 DUE
-C>                           TO BEING OUT OF RANGE, AND -4 FOR INVALID
-C>                           CHARACTERS IN POSITIONS 4 THROUGH 6 DUE TO
-C>                           BEING OUT OF RANGE (RETURN ONLY -1 BEFORE
-C>                           FOR ALL PROBLEMATIC CASES); UNIFIED/
-C>                           PORTABLE FOR WRF; ADDED HISTORY
-C>                           DOCUMENTATION
-C> 2007-01-19  J. ATOR    -- CLEANED UP AND SIMPLIFIED LOGIC
+C> @param[in] NUMB - character*6: fxy value to be checked.
 C>
-C> USAGE:   NUMBCK (NUMB)
-C>   INPUT ARGUMENT LIST:
-C>     NUMB     - CHARACTER*6: FXY VALUE TO BE CHECKED
+C> @return indicator as to whether numb is valid:.
+C> - 0 YES
+C> - -1 NO - first character ("F" value) is not '0',- '1', '2' OR '3'
+C> - -2 NO - remaining characters (2-6) ("X" and "Y" values) are not all numeric
+C> - -3 NO - characters 2-3 ("X" value) are not between '00' and '63'
+C> - -4 NO - characters 4-6 ("Y" value) are not between '000' and '255'
 C>
-C>   OUTPUT ARGUMENT LIST:
-C>     NUMBCK   - INTEGER: INDICATOR AS TO WHETHER NUMB IS VALID:
-C>                       0 = YES
-C>                      -1 = NO - first character ("F" value) is not '0',
-C>                           '1', '2' OR '3'
-C>                      -2 = NO - remaining characters (2-6) ("X" and "Y"
-C>                           values) are not all numeric
-C>                      -3 = NO - characters 2-3 ("X" value) are not
-C>                           between '00' and '63'
-C>                      -4 = NO - characters 4-6 ("Y" value) are not
-C>                           between '000' and '255'
-C>
-C> REMARKS:
-C>    THIS ROUTINE CALLS:        DIGIT
-C>    THIS ROUTINE IS CALLED BY: IGETFXY  RDUSDX
-C>                               Normally not called by any application
-C>                               programs.
-C>
+C> @author Woollen @date 1994-01-06
       FUNCTION NUMBCK(NUMB)
 
 
