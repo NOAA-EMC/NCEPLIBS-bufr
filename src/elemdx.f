@@ -1,8 +1,6 @@
 C> @file
 C> @brief Decode the scale factor, reference value,
-c> bit width and units (i.e., the "elements") from a table b mnemonic
-c> definition card that was previously read from a user-supplied bufr
-c> dictionary table file in character format by subroutine rdusdx().
+C> bit width, and units from a Table B mnemonic definition.
 C>
 C> ### Program History Log
 C> Date | Programmer | Comments
@@ -18,10 +16,10 @@ C> 2007-01-19 | J. Ator    | Added extra argument for call to jstchr().
 C> 2014-12-10 | J. Ator    | Use modules instead of common blocks.
 C> 2021-09-30 | J. Ator    | Replace jstchr with Fortran intrinsic adjustl.
 C>
-C> @author WOOLLEN @date 1994-01-06
+C> @author Woollen @date 1994-01-06
       
 C> This subroutine decodes the scale factor, reference value,
-c> bit width and units (i.e., the "elements") from a table b mnemonic
+c> bit width and units (i.e., the "elements") from a table B mnemonic
 c> definition card that was previously read from a user-supplied bufr
 c> dictionary table file in character format by subroutine rdusdx().
 C> These decoded values are then added to the
@@ -30,9 +28,9 @@ c> table B array TABB(*,LUN) in module tababd.
 C>
 C> @param[in] CARD - character*80: mnemonic definition card that was read
 C> from a user-supplied bufr dictionary table.
-C> @param[in] LUN - integer: i/o stream index into internal memory arrays .
+C> @param[in] LUN - integer: I/O stream index into internal memory arrays.
 C>
-C> @author WOOLLEN @date 1994-01-06
+C> @author Woollen @date 1994-01-06
       SUBROUTINE ELEMDX(CARD,LUN)
 
       USE MODA_TABABD

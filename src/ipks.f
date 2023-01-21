@@ -9,7 +9,7 @@ C> 2012-03-02 | J. Ator    | Original author; adapted from internal statement fu
 C> 2014-12-10 | J. Ator    | Use modules instead of common blocks.
 C> 2022-05-06 | J. Woollen | Make imask and ipks 8byte integers.
 C>
-C> @author J @date 2012-03-02
+C> @author J. Ator @date 2012-03-02
 
 C> This function packs a real*8 user value into an
 C> integer by applying the proper scale and reference values.
@@ -23,7 +23,7 @@ C> @param[in] NODE - integer: index into internal jump/link tables
 C>
 C> @return - integer*8: packed value
 C>
-C> @author J @date 2012-03-02
+C> @author J. Ator @date 2012-03-02
 	FUNCTION IPKS(VAL,NODE)
 
 	USE MODA_TABLES

@@ -1,41 +1,28 @@
 C> @file
-C> @author WOOLLEN @date 1994-01-06
-      
-C> THIS FUNCTION CHECKS A MNEMONIC TO VERIFY THAT IT HAS A
-C>   LENGTH OF BETWEEN ONE AND EIGHT CHARACTERS AND THAT IT ONLY
-C>   CONTAINS CHARACTERS FROM THE ALLOWABLE CHARACTER SET.
+C> @brief Check the validity of a mnemonic.
 C>
-C> PROGRAM HISTORY LOG:
-C> 1994-01-06  J. WOOLLEN -- ORIGINAL AUTHOR
-C> 2003-11-04  J. ATOR    -- ADDED DOCUMENTATION
-C> 2003-11-04  S. BENDER  -- ADDED REMARKS/BUFRLIB ROUTINE
-C>                           INTERDEPENDENCIES
-C> 2003-11-04  D. KEYSER  -- SPLIT NON-ZERO RETURN INTO -1 FOR LENGTH
-C>                           NOT 1-8 CHARACTERS AND -2 FOR INVALID
-C>                           CHARACTERS (RETURN ONLY -1 BEFORE FOR ALL
-C>                           PROBLEMATIC CASES); UNIFIED/PORTABLE FOR
-C>                           WRF; ADDED HISTORY DOCUMENTATION
+C> ### Program History Log
+C> Date | Programmer | Comments
+C> -----|------------|----------
+C> 1994-01-06 | J. Woollen | Original author.
+C> 2003-11-04 | J. Ator    | Added documentation.
+C> 2003-11-04 | S. Bender  | Added remarks/bufrlib routine interdependencies.
+C> 2003-11-04 | D. Keyser  | Split non-zero return into multiple options.
 C>
-C> USAGE:    NEMOCK (NEMO)
-C>   INPUT ARGUMENT LIST:
-C>     NEMO     - CHARACTER*(*): MNEMONIC TO BE CHECKED
+C> @author J. Woollen @date 1994-01-06
+
+C> This function checks a mnemonic to verify that it has a
+C> length of between 1 and 8 characters and that it only
+C> contains characters from the allowable character set.
 C>
-C>   OUTPUT ARGUMENT LIST:
-C>     NEMOCK   - INTEGER: INDICATOR AS TO WHETHER NEMO IS VALID:
-C>                       0 = yes
-C>                      -1 = no, length not between 1 and 8 characters
-C>                      -2 = no, it does not contain characters from the
-C>                           allowable character set
+C> @param[in] NEMO - character*(*): mnemonic to be checked
+C> @returns - integer: indicator as to whether NEMO is valid:
+C>  - 0 yes
+C>  - -1 no, the length is not between 1 and 8 characters
+C>  - -2 no, it contains characters from outside of the allowable character set
 C>
-C> REMARKS:
-C>    THIS ROUTINE CALLS:        None
-C>    THIS ROUTINE IS CALLED BY: RDUSDX   SEQSDX   SNTBBE   SNTBDE
-C>                               Normally not called by any application
-C>                               programs.
-C>
+C> @author J. Woollen @date 1994-01-06
       FUNCTION NEMOCK(NEMO)
-
-
 
       CHARACTER*(*) NEMO
       CHARACTER*38  CHRSET

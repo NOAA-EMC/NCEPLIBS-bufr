@@ -1,6 +1,5 @@
 C> @file
-C> @brief Search a "window" for an
-c> element identified in the user string as a conditional node.
+C> @brief Search a specified window for a conditional node.
 C>
 C> ### Program History Log
 C> Date | Programmer | Comments
@@ -17,11 +16,12 @@ C>
 C> @author Woollen @date 1994-01-06
       
 C> This function searches a "window" (see below remarks) for an
-c> element identified in the user string as a conditional node (i.e. an
-c> element which must meet a condition in order to be read from or written to
-c> a data subset). If a conditional element is found and it conforms to the
-c> condition, then the index of the element within the window is returned.
-c> otherwise a value of zero is returned.
+C> element identified in the user string as a conditional node.
+C> A conditional node is an element which must meet a condition in order to be
+C> read from or written to a data subset.
+C> If a conditional element is found and it conforms to the
+C> condition, then the index of the element within the window is returned;
+C> otherwise a value of zero is returned.
 C>
 C> @note: See getwin() for an explanation of "windows" within the context
 C> of a bufr data subset.
@@ -36,7 +36,8 @@ C> @param[in] INV1 - integer: first index of window to search
 C> @param[in] INV2 - integer: last index of window to search
 C>
 C> @return integer: index within window of conditional node
-C> conforming to specified condition. 0 = none found.
+C> conforming to specified condition.
+C> - 0 none found.
 C>
 C> @author Woollen @date 1994-01-06
       FUNCTION INVCON(NC,LUN,INV1,INV2)

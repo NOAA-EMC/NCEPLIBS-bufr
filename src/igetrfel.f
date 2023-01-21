@@ -1,6 +1,6 @@
 C> @file
-C> @brief Check whether the input element refers to
-c> a previous element within the same subset via an internal bitmap.
+C> @brief Check whether a specified element refers to
+C> a previous element within the same subset via an internal bitmap.
 C>
 C> ### Program History Log
 C> Date | Programmer | Comments
@@ -11,18 +11,18 @@ C>
 C> @author J Ator @date 2016-05-27
 	
 C> This function checks whether the input element refers to
-c> a previous element within the same subset via an internal bitmap.
+C> a previous element within the same subset via an internal bitmap.
 C> If so, then the referenced element is returned. In addition, if
-c> the input element is a 2-xx-255 marker operator, its scale factor,
-c> bit width and reference value are set internally to match those
-c> of the referenced element.
+C> the input element is a 2-XX-255 marker operator, its scale factor,
+C> bit width and reference value are set internally to match those
+C> of the referenced element.
 C>
 C> @param[in] N - integer: subset element.
-C> @param[in] LUN - integer: i/o stream index into internal memory arrays.
+C> @param[in] LUN - integer: I/O stream index into internal memory arrays.
 C>
-C> @return Subset element referenced by element n
-c> within the same subset. 0 = input element does not refer to a previous
-c> element, or referenced element not found.
+C> @return Subset element referenced by element N within the same subset.
+C> - 0 input element does not refer to a previous element, or referenced
+C> element not found.
 C>
 C> @author J Ator @date 2016-05-27
 	INTEGER FUNCTION IGETRFEL ( N, LUN )

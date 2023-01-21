@@ -29,11 +29,12 @@ C> jump/link table.
 C>
 C> @param[in] NODE - integer: jump/link table index of entry to begin
 C> searching backwards from
-C> @param[in] LUN - integer: i/o stream index into internal memory arrays
+C> @param[in] LUN - integer: I/O stream index into internal memory arrays
 C> @param[in] JBTYP - character*(*): type of node for which to search
 C>
 C> @return - integer: index of first node of type jbtyp found by
-C> jumping backwards from input node, 0 = no such node found.
+C> jumping backwards from input node
+C> - 0 no such node found
 C>
 C> @author Woollen @date 1994-01-06
       FUNCTION LSTJPB(NODE,LUN,JBTYP)

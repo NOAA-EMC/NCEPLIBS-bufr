@@ -1,4 +1,6 @@
 C> @file
+C> @brief Look for a window containing a specified node within
+C> the internal jump/link table.
 C>
 C> ### Program History Log
 C> Date | Programmer | Comments
@@ -37,7 +39,7 @@ C> entire subset buffer itself. For the purposes of these "window
 C> operator" subroutines, a window essentially consists of all of the
 C> elements within a particular delayed replication group, since such
 C> groups effectively define the dimensions within a bufr subset for
-C> the bufr archive library subroutines such as ufbint, ufbin3, etc.
+C> the BUFR archive library subroutines such as ufbint(), ufbin3(), etc.
 C> which read/write individual data values. A bufr subset with no
 C> delayed replication groups is considered to have only one
 C> dimension, and therefore only one "window" which spans the entire
@@ -51,9 +53,9 @@ C> within the subset.
 C>
 C> @param[in] NODE - integer: jump/link table index of mnemonic to look for.
 C> @param[in] LUN - integer: i/o stream index into internal memory arrays.
-C> @param[out] IWIN - integer: starting index of the current window iteration which
-C> ontains node 0 = not found or no more iterations available.
-C> @param[out] JWIN - integer: ending index of the current window iteration which contains node .
+C> @param[out] IWIN - integer: starting index of the current window iteration which contains node
+C>                    - 0 = not found or no more iterations available.
+C> @param[out] JWIN - integer: ending index of the current window iteration which contains node.
 C>
 C> @author Woollen @date 1994-01-06
       SUBROUTINE GETWIN(NODE,LUN,IWIN,JWIN)
