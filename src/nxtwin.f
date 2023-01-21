@@ -25,10 +25,10 @@ C> @note See getwin() for an explanation of "windows" within the
 C> context of a bufr data subset.
 C>
 C> @param[in] LUN - integer: i/o stream index into internal memory arrays.
-C> @param[in] IWIN - integer: starting index of current window iteration.
-C> @param[in] JWIN - integer: ending index of current window iteration.
-C> @param[out] IWIN - integer: starting index of next window iteration.
-C> @param[out] JWIN - integer: ending index of next window iteration.
+C> @param[inout] IWIN - integer: in: starting index of current window iteration.
+C> out: starting index of next window iteration.
+C> @param[inout] JWIN - integer: ending index of current window iteration.
+C> out: ending index of next window iteration.
 C>
 C> @author WOOLLEN @date 1994-01-06
       SUBROUTINE NXTWIN(LUN,IWIN,JWIN)
