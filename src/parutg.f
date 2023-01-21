@@ -1,122 +1,93 @@
 C> @file
-C> @author WOOLLEN @date 1994-01-06
+C> 
+C> ### Program History Log
+C> Date | Programmer | Comments
+C> -----|------------|----------
+C> 1994-01-06 | J. Woollen | Original author.
+C> 1998-07-08 | J. Woollen | Replaced call to cray "abort" with bort(); improved machine portability.
+C> 1999-11-18 | J. Woollen | Increased number of open bufr files to 32.
+C> 2003-11-04 | S. Bender  | Added remarks/bufrlib routine interdependencies.
+C> 2003-11-04 | D. Keyser  | Unified/portable for wrf; documentation; more diagnostic info; changed to bort2().
+C> 2005-04-22 | J. Ator    | Handled situation where input tag contains 1-bit delayed replication, and improved documentation.
+C> 2009-03-23 | J. Ator    | Added '#' condition code.
+C> 2014-12-10 | J. Ator    | Use modules instead of common blocks.
+C>
+C> @author Woollen @date 1994-01-06
       
-C> THIS SUBROUTINE PARSES A USER-SPECIFIED TAG (MNEMONIC)
-C>   (UTG) THAT REPRESENTS A VALUE EITHER BEING DECODED FROM A BUFR FILE
-C>   (IF IT IS BEING READ) OR ENCODED INTO A BUFR FILE (IF IT IS BEING
-C>   WRITTEN).  THIS SUBROUTINE FIRST CHECKS TO SEE IF THE TAG CONTAINS
-C>   A CONDITION CHARACTER ('=', '!', '<', '>', '^' OR '#').  IF IT DOES
-C>   NOT, NOTHING HAPPENS AT THIS POINT.  IF IT DOES, THEN THE TYPE OF
-C>   CONDITION CHARACTER IS NOTED AND THE TAG IS STRIPPED OF ALL
-C>   CHARACTERS AT AND BEYOND THE CONDITION CHARACTER.  IN EITHER EVENT,
-C>   THE RESULTANT TAG IS CHECKED AGAINST THOSE IN THE INTERNAL JUMP/
-C>   LINK SUBSET TABLE (IN MODULE TABLES).  IF FOUND, THE NODE
-C>   ASSOCIATED WITH THE TAG IS RETURNED (AND IT IS EITHER A "CONDITION"
-C>   NODE OR A "STORE" NODE DEPENDING OF THE PRESENCE OR ABSENCE OF A
-C>   CONDITION CHARACTER IN UTG).  OTHERWISE THE NODE IS RETURNED AS
-C>   ZERO.  IF THE TAG REPRESENTS A CONDITION NODE, THEN THE CONDITION
-C>   VALUE (NUMERIC CHARACTERS BEYOND THE CONDITION CHARACTER IN THE
-C>   USER-SPECIFIED TAG INPUT HERE) IS RETURNED.
+C> This subroutine parses a user-specified tag (mnemonic)
+C> (UTG) that represents a value either being decoded from a bufr file
+C> (if it is being read) or encoded into a bufr file (if it is being
+C> written). This subroutine first checks to see if the tag contains
+C> a condition character ('=', '!', '<', '>', '^' or '#'). If it does
+C> not, nothing happens at this point. If it does, then the type of
+C> condition character is noted and the tag is stripped of all
+C> characters at and beyond the condition character. In either event,
+C> the resultant tag is checked against those in the internal jump/
+C> link subset table (in module tables). If found, the node
+C> associated with the tag is returned (and it is either a "condition"
+C> node or a "store" node depending of the presence or absence of a
+C> condition character in UTG). Otherwise the node is returned as
+C> zero.  if the tag represents a condition node, then the condition
+C> value (numeric characters beyond the condition character in the
+C> user-specified tag input here) is returned.
 C>
-C>   AS AN EXAMPLE OF CONDITION CHARACTER USAGE, CONSIDER THE FOLLOWING
-C>   EXAMPLE OF A CALL TO UFBINT:
+C> As an example of condition character usage, consider the following
+C> example of a call to ufbint:
 C>
+C> @code
 C>      REAL*8 USR(4,50)
 C>             ....
 C>             ....
 C>      CALL UFBINT(LUNIN,USR,4,50,IRET,'PRLC<50000 TMDB WDIR WSPD')
+C> @endcode
 C>
-C>   ASSUMING THAT LUNIN POINTS TO A BUFR FILE OPEN FOR INPUT (READING),
-C>   THEN THE USR ARRAY NOW CONTAINS IRET LEVELS OF DATA (UP TO A MAXIMUM
-C>   OF 50!) WHERE THE VALUE OF PRLC IS/WAS LESS THAN 50000, ALONG WITH
-C>   THE CORRESPONDING VALUES FOR TMDB, WDIR AND WSPD AT THOSE LEVELS. 
+C> Assuming that lunin points to a bufr file open for input (reading),
+C> then the usr array now contains iret levels of data (up to a maximum
+C> of 50!) where the value of prlc is/was less than 50000, along with
+C> the corresponding values for tmdb, wdir and wspd at those levels.
 C>
-C>   AS ANOTHER EXAMPLE, CONSIDER THE FOLLOWING EXAMPLE OF A CALL TO
-C>   READLC FOR A LONG CHARACTER STRING:
+C> As another example, consider the following example of a call to
+C> readlc for a long character string:
 C>
+C> @code
 C>      CHARACTER*200 LCHR
 C>             ....
 C>             ....
 C>      CALL READLC(LUNIN,LCHR,'NUMID#3')
+C> @endcode
 C>
-C>   ASSUMING THAT LUNIN POINTS TO A BUFR FILE OPEN FOR INPUT (READING),
-C>   THEN THE LCHR STRING NOW CONTAINS THE VALUE CORRESPONDING TO THE 
-C>   THIRD OCCURRENCE OF NUMID WITHIN THE CURRENT SUBSET.
+C> Assuming that lunin points to a bufr file open for input (reading),
+C> then the lchr string now contains the value corresponding to the 
+C> third occurrence of numid within the current subset.
 C>
-C>   VALID CONDITION CODES INCLUDE:
-C>	'<' - LESS THAN
-C>       '>' - GREATER THAN
-C>       '=' - EQUAL TO
-C>       '!' - NOT EQUAL TO
-C>       '#' - ORDINAL IDENTIFIER FOR A PARTICULAR OCCURRENCE OF A LONG
-C>             CHARACTER STRING
+C> Valid condition codes include:
+C> - '<' - less than
+C> - '>' - greater than
+C> - '=' - equal to
+C> - '!' - not equal to
+C> - '#' - ordinal identifier for a particular occurrence of a long character string
 C>
-C> PROGRAM HISTORY LOG:
-C> 1994-01-06  J. WOOLLEN -- ORIGINAL AUTHOR
-C> 1998-07-08  J. WOOLLEN -- REPLACED CALL TO CRAY LIBRARY ROUTINE
-C>                           "ABORT" WITH CALL TO NEW INTERNAL BUFRLIB
-C>                           ROUTINE "BORT"
-C> 1999-11-18  J. WOOLLEN -- THE NUMBER OF BUFR FILES WHICH CAN BE
-C>                           OPENED AT ONE TIME INCREASED FROM 10 TO 32
-C>                           (NECESSARY IN ORDER TO PROCESS MULTIPLE
-C>                           BUFR FILES UNDER THE MPI)
-C> 2003-11-04  S. BENDER  -- ADDED REMARKS/BUFRLIB ROUTINE
-C>                           INTERDEPENDENCIES
-C> 2003-11-04  D. KEYSER  -- MAXJL (MAXIMUM NUMBER OF JUMP/LINK ENTRIES)
-C>                           INCREASED FROM 15000 TO 16000 (WAS IN
-C>                           VERIFICATION VERSION); UNIFIED/PORTABLE FOR
-C>                           WRF; ADDED DOCUMENTATION (INCLUDING
-C>                           HISTORY); OUTPUTS MORE COMPLETE DIAGNOSTIC
-C>                           INFO WHEN ROUTINE TERMINATES ABNORMALLY;
-C>                           CHANGED CALL FROM BORT TO BORT2 IN SOME
-C>                           CASES; REPLACED PREVIOUS "RETURN 1"
-C>                           STATEMENT WITH "GOTO 900" (AND CALL TO
-C>                           BORT) SINCE THE ONLY ROUTINE THAT CALLS
-C>                           THIS ROUTINE, PARUSR, USED THIS ALTERNATE
-C>                           RETURN TO GO TO A STATEMENT WHICH CALLED
-C>                           BORT
-C> 2005-04-22  J. ATOR    -- HANDLED SITUATION WHERE INPUT TAG CONTAINS
-C>                           1-BIT DELAYED REPLICATION, AND IMPROVED
-C>                           DOCUMENTATION
-C> 2009-03-23  J. ATOR    -- ADDED '#' CONDITION CODE
-C> 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
+C> @param[in] LUN - integer: i/o stream index into internal memory arrays.
+C> @param[in] IO - integer: status indicator for bufr file associated with lun:.
+C> - 0 input file
+C> - 1 output file
+C> @param[in] UTG character*(*): user-supplied tag representing a value to be
+C> encoded/decoded to/from bufr file.
+C> @param[out] NOD - integer: positional index in internal jump/link subset
+C> table for tag. 0 = tag not found in table
+C> @param[out] KON - integer: indicator for type of condition character found in utg:.
+C> - 0 = no condition character found (NOD is a store node)
+C> - 1 = character '=' found
+C> - 2 = character '!' found
+C> - 3 = character '<' found
+C> - 4 = character '>' found
+C> - 5 = character '^' found
+C> - 6 = character '#' found
+C> - (1-6 means NOD is a condition node, and specifically 5 is a "bump" node)
+C> @param[out] VAL - real: condition value associated with condition character found in utg.
+C> 0 = UTG does not have a condition character
 C>
-C> USAGE:    CALL PARUTG (LUN, IO, UTG, NOD, KON, VAL)
-C>   INPUT ARGUMENT LIST:
-C>     LUN      - INTEGER: I/O STREAM INDEX INTO INTERNAL MEMORY ARRAYS
-C>     IO       - INTEGER: STATUS INDICATOR FOR BUFR FILE ASSOCIATED
-C>                WITH LUN:
-C>                       0 = input file
-C>                       1 = output file
-C>     UTG      CHARACTER*(*): USER-SUPPLIED TAG REPRESENTING A VALUE TO
-C>              BE ENCODED/DECODED TO/FROM BUFR FILE
-C>
-C>   OUTPUT ARGUMENT LIST:
-C>     NOD      - INTEGER: POSITIONAL INDEX IN INTERNAL JUMP/LINK SUBSET
-C>                TABLE FOR TAG
-C>                       0 = tag not found in table
-C>     KON      - INTEGER: INDICATOR FOR TYPE OF CONDITION CHARACTER
-C>                FOUND IN UTG:
-C>                      0 = no condition character found (NOD is a store
-C>                          node)
-C>                      1 = character '=' found
-C>                      2 = character '!' found
-C>                      3 = character '<' found
-C>                      4 = character '>' found
-C>                      5 = character '^' found
-C>                      6 = character '#' found
-C>                      (1-6 means NOD is a condition node, and
-C>                       specifically 5 is a "bump" node)
-C>     VAL      - REAL: CONDITION VALUE ASSOCIATED WITH CONDITION
-C>                CHARACTER FOUND IN UTG
-C>                      0 = UTG does not have a condition character
-C>
-C> REMARKS:
-C>    THIS ROUTINE CALLS:        BORT     BORT2    STRNUM
-C>    THIS ROUTINE IS CALLED BY: PARUSR   READLC   WRITLC
-C>                               Normally not called by any application
-C>                               programs.
-C>
+C> @author Woollen @date 1994-01-06
       SUBROUTINE PARUTG(LUN,IO,UTG,NOD,KON,VAL)
 
       USE MODA_MSGCWD

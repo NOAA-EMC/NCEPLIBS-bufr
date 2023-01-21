@@ -1,51 +1,37 @@
 C> @file
-C> @author WOOLLEN @date 1994-01-06
+C> @brief Initate the process to parse out mnemonics
+C> (nodes) from a user-specified character string, and separates them
+C> into store and condition nodes.      
+C>
+C> ### Program History Log
+C> Date | Programmer | Comments
+C> -----|------------|----------
+C> 1994-01-06 | J. Woollen | Original author.
+C> 1998-07-08 | J. Woollen | Replaced call to cray "abort" with bort(); improved machine portability.
+C> 2003-11-04 | S. Bender  | Added remarks/bufrlib routine interdependencies.
+C> 2003-11-04 | D. Keyser  | Unified/portable for wrf; documentation; more diagnostic info; changed to bort2(); change parutg().
+C> 2007-01-19 | J. Ator    | Replaced call to parseq with call to parstr.
+C> 2009-05-07 | J. Ator    | Use lstjpb instead of lstrpc.
+C>
+C> @author Woollen @date 1994-01-06
       
-C> THIS SUBROUTINE INITATES THE PROCESS TO PARSE OUT MNEMONICS
-C>   (NODES) FROM A USER-SPECIFIED CHARACTER STRING, AND SEPARATES THEM
-C>   INTO STORE AND CONDITION NODES.  INFORMATION ABOUT THE STRING
-C>   "PIECES" (I.E., THE MNEMONICS) IS STORED IN ARRAYS IN COMMON BLOCK
-C>   /USRSTR/.  CONDITION NODES ARE SORTED IN THE ORDER EXPECTED IN THE
-C>   INTERNAL JUMP/LINK TABLES AND SEVERAL CHECKS ARE PERFORMED ON THE
-C>   NODES.
+C> This subroutine initates the process to parse out mnemonics
+C> (nodes) from a user-specified character string, and separates them
+C> into store and condition nodes. Information about the string
+C> "pieces" (i.e., the mnemonics) is stored in arrays in common block
+C> /usrstr/. Condition nodes are sorted in the order expected in the
+C> internal jump/link tables and several checks are performed on the
+C> nodes.
 C>
-C> PROGRAM HISTORY LOG:
-C> 1994-01-06  J. WOOLLEN -- ORIGINAL AUTHOR
-C> 1998-07-08  J. WOOLLEN -- REPLACED CALL TO CRAY LIBRARY ROUTINE
-C>                           "ABORT" WITH CALL TO NEW INTERNAL BUFRLIB
-C>                           ROUTINE "BORT"; IMPROVED MACHINE
-C>                           PORTABILITY
-C> 2003-11-04  S. BENDER  -- ADDED REMARKS/BUFRLIB ROUTINE
-C>                           INTERDEPENDENCIES
-C> 2003-11-04  D. KEYSER  -- UNIFIED/PORTABLE FOR WRF; ADDED
-C>                           DOCUMENTATION (INCLUDING HISTORY); OUTPUTS
-C>                           MORE COMPLETE DIAGNOSTIC INFO WHEN ROUTINE
-C>                           TERMINATES ABNORMALLY; CHANGED CALL FROM
-C>                           BORT TO BORT2; RESPONDED TO CHANGE IN
-C>                           PARUTG (WHICH THIS ROUTINE CALLS) TO NO
-C>                           LONGER EXPECT AN ALTERNATE RETURN TO A
-C>                           STATEMENT NUMBER IN THIS ROUTINE WHICH
-C>                           CALLED BORT (BORT IS NOW CALLED IN PARUTG)
-C> 2007-01-19  J. ATOR    -- REPLACED CALL TO PARSEQ WITH CALL TO PARSTR
-C> 2009-05-07  J. ATOR    -- USE LSTJPB INSTEAD OF LSTRPC
+C> @param[in] STR - character*(*): string of blank-separated mnemonics.
+C> @param[in] LUN - integer: i/o stream index into internal memory arrays.
+C> @param[in] I1 - integer: a number greater than or equal to the number of
+C> blank-separated mnemonics in str.
+C> @param[in] IO - integer: status indicator for bufr file associated with lun:.
+C> - 0 input file
+C> - 1 output file
 C>
-C> USAGE:    CALL PARUSR (STR, LUN, I1, IO)
-C>   INPUT ARGUMENT LIST:
-C>     STR      - CHARACTER*(*): STRING OF BLANK-SEPARATED MNEMONICS
-C>     LUN      - INTEGER: I/O STREAM INDEX INTO INTERNAL MEMORY ARRAYS
-C>     I1       - INTEGER: A NUMBER GREATER THAN OR EQUAL TO THE NUMBER
-C>                OF BLANK-SEPARATED MNEMONICS IN STR
-C>     IO       - INTEGER: STATUS INDICATOR FOR BUFR FILE ASSOCIATED
-C>                WITH LUN:
-C>                       0 = input file
-C>                       1 = output file
-C>
-C> REMARKS:
-C>    THIS ROUTINE CALLS:        BORT2    LSTJPB   PARSTR   PARUTG
-C>    THIS ROUTINE IS CALLED BY: STRING
-C>                               Normally not called by any application
-C>                               programs.
-C>
+C> @author Woollen @date 1994-01-06
       SUBROUTINE PARUSR(STR,LUN,I1,IO)
 
 
