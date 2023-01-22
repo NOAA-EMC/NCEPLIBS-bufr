@@ -1,6 +1,6 @@
 # This is a GitHub CI workflow for the NCEPLIBS-bufr project.
 #
-# This workflow tests on MacOS. 
+# This workflow tests on MacOS.
 #
 # Ed Hartnett, 1/10/23
 name: MacOS
