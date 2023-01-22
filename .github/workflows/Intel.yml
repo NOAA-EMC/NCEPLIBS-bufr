@@ -57,7 +57,7 @@ jobs:
         cd bufr
         mkdir build
         cd build
-        cmake -DCMAKE_INSTALL_PREFIX=./install -DENABLE_PYTHON=OFF ..
+        cmake -DTEST_FILE_DIR=/home/runner/data -DCMAKE_INSTALL_PREFIX=./install -DENABLE_PYTHON=OFF ..
         make -j2 VERBOSE=1
         make install
 
