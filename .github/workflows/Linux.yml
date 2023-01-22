@@ -36,6 +36,13 @@ jobs:
         path: bufr
         submodules: true
 
+    - name: cache-data
+      id: cache-data
+      uses: actions/cache@v2
+      with:
+        path: ~/data
+        key: data-1
+
     - name: build
       run: |
         if [[ ${{ matrix.ccompiler }} == "clang" ]]; then
@@ -60,3 +67,10 @@ jobs:
       run: |
         cd bufr/build
         ctest --verbose --output-on-failure --rerun-failed
+
+    - name: cache-data
+      if: steps.cache-data.outputs.cache-hit != 'true'
+      run: |
+        mkdir ~/data
+        cp $GITHUB_WORKSPACE/bufr/build/test/bufr-11.6.0.tgz ~/data
+        
