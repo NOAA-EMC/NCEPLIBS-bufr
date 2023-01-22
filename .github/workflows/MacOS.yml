@@ -41,7 +41,9 @@ jobs:
 
     - name: build-bufr
       run: |
-        ls -l /home/runner/data
+        ls -l ~/data
+        cd ~
+        pwd
         cd bufr
         mkdir build 
         cd build
