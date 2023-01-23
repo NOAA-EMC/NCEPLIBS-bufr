@@ -1,24 +1,5 @@
 C> @file
 C> @brief Determine important information about the local machine.
-
-C> This subroutine figures out some important information about the
-C> local machine on which the BUFRLIB software is being run, including
-C> the native endianness, the number of bytes in an integer, and
-C> whether the machine uses the ASCII or EBCDIC character set.
-C>
-C> <p>This subroutine isn't normally called directly by any
-C> application program, because it's automatically called internally
-C> from within subroutine openbf() during the first time that subroutine
-C> is called by any application program.  It's also called as needed
-C> from within several other subroutines, but it always keeps track of
-C> its results as well as whether it has already been called during
-C> the life of an application program, and that way if it does end
-C> up being called more than once, it will just quietly return without
-C> having to recompute all of its results from the first call.
-C>
-C> @authors J. Woollen
-C> @authors J. Ator
-C> @date 1994-01-06
 C>
 C> <b>Program history log:</b>
 C> | Date | Programmer | Comments |
@@ -32,6 +13,25 @@ C> | 2004-08-18 | J. Ator    | Added SAVE For IFIRST flag and immediate return i
 C> | 2007-01-19 | J. Ator    | Big-endian vs. little-endian is now determined at compile time and configured within BUFRLIB via conditional compilation directives |
 C> | 2009-03-23 | J. Ator    | Call bvers() to get version number |
 C>
+C> @author J. Woollen @author J. Ator @date 1994-01-06
+
+C> This subroutine figures out some important information about the
+C> local machine on which the BUFRLIB software is being run, including
+C> the native endianness, the number of bytes in an integer, and
+C> whether the machine uses the ASCII or EBCDIC character set.
+C>
+C> This subroutine isn't normally called directly by any
+C> application program, because it's automatically called internally
+C> from within subroutine openbf() during the first time that subroutine
+C> is called by any application program.  It's also called as needed
+C> from within several other subroutines, but it always keeps track of
+C> its results as well as whether it has already been called during
+C> the life of an application program, and that way if it does end
+C> up being called more than once, it will just quietly return without
+C> having to recompute all of its results from the first call.
+C>
+C> @author J. Woollen @author J. Ator @date 1994-01-06
+
       SUBROUTINE WRDLEN
 
       COMMON /HRDWRD/ NBYTW,NBITW,IORD(8)
