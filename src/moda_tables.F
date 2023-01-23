@@ -1,10 +1,11 @@
 C> @file
 C> @brief Declare arrays for internal storage of jump/link table.
+C> @author J. Ator @date 2014-12-10
 
 C> This module contains array and variable declarations used to
 C> store the internal jump/link table.
 C>
-C> <p>Data values within this module are stored by subroutines
+C> Data values within this module are stored by subroutines
 C> makestab(), tabsub() and tabent().
 C>
 C> @author J. Ator
@@ -15,13 +16,10 @@ C> @date 2014-12-10
 C>        Maximum number of entries in the jump/link table;
 C>        equivalent to MAXJL.
 	  INTEGER :: MAXTAB
-C>
 C>        Number of entries in the jump/link table.
 	  INTEGER :: NTAB
-C>
 C>        Mnemonics in the jump/link table.
 	  CHARACTER*10, ALLOCATABLE :: TAG(:)
-C>
 C>        Type indicators corresponding to tag:
 C>        - "SUB", if corresponding tag entry is a Table A mnemonic
 C>        - "SEQ", if corresponding tag entry is a Table D mnemonic
@@ -45,7 +43,6 @@ C>          with units of CCITT IA5
 C>        - "NUM", if corresponding tag entry is a Table B mnemonic
 C>          with any units other than CCITT IA5
 	  CHARACTER*3, ALLOCATABLE :: TYP(:)
-C>
 C>        Initialized replication counts corresponding to typ and jump:
 C>        - 0, if corresponding typ entry is "RPC", "RPS" or "DRB"
 C>        - Number of regular (non-delayed) replications of Table D
@@ -53,7 +50,6 @@ C>          mnemonic referenced by corresponding jump entry, if
 C>          corresponding typ entry is "REP"
 C>        - 1, otherwise
 	  INTEGER, ALLOCATABLE :: KNT(:)
-C>
 C>        Jump forward indices corresponding to tag and typ:
 C>        - 0, if corresponding typ entry is "CHR" or "NUM"
 C>        - Jump/link table entry for Table D mnemonic whose replication
@@ -63,7 +59,6 @@ C>        - Jump/link table entry for Table B or D mnemonic which is
 C>          the first sequential child descriptor of the corresponding
 C>          tag entry, otherwise
 	  INTEGER, ALLOCATABLE :: JUMP(:) 
-C>
 C>        Link indices corresponding to tag, typ and jmpb:
 C>        - 0, if corresponding typ entry is "SUB" or "RPC", or if
 C>          corresponding typ entry is "SEQ" and corresponding tag
@@ -76,7 +71,6 @@ C>          follows the corresponding tag entry as the next sequential
 C>          child descriptor of the Table A or D mnemonic referenced 
 C>          by corresponding jmpb entry, otherwise
 	  INTEGER, ALLOCATABLE :: LINK(:)
-C>
 C>        Jump backward indices corresponding to tag and typ:
 C>        - 0, if corresponding typ entry is "SUB"
 C>        - Jump/link table entry denoting the replication of
@@ -88,13 +82,11 @@ C>        - Jump/link table entry for Table A or D mnemonic of
 C>          which corresponding tag entry is a child descriptor,
 C>          otherwise
 	  INTEGER, ALLOCATABLE :: JMPB(:)
-C>          
 C>        Bit widths corresponding to tag and typ:
 C>        - Bit width of corresponding tag entry, if corresponding
 C>          typ entry is "CHR", "NUM", "DRB" or "DRP"
 C>        - 0, otherwise
 	  INTEGER, ALLOCATABLE :: IBT(:)
-C>
 C>        Reference values corresponding to tag and typ:
 C>        - Reference value of corresponding tag entry, if
 C>          corresponding typ entry is "NUM"
@@ -103,7 +95,6 @@ C>          mnemonic referenced by corresponding jump entry, if
 C>          corresponding typ entry is "REP"
 C>        - 0, otherwise
 	  INTEGER, ALLOCATABLE :: IRF(:)
-C>
 C>        Scale factors corresponding to tag and typ:
 C>        - Scale factor of corresponding tag entry, if
 C>          corresponding typ entry is "NUM"
@@ -113,14 +104,12 @@ C>          corresponding tag entry, if the corresponding typ entry
 C>          is "SUB"
 C>        - 0, otherwise
 	  INTEGER, ALLOCATABLE :: ISC(:)
-C>
 C>        Integer type values corresponding to typ:
 C>        - 1, if corresponding typ entry is "DRS", "DRP" or "DRB"
 C>        - 2, if corresponding typ entry is "NUM"
 C>        - 3, if corresponding typ entry is "CHR"
 C>        - 0, otherwise
 	  INTEGER, ALLOCATABLE :: ITP(:)
-C>
 C>        Initialized data values corresponding to typ:
 C>        - Current placeholder value for "missing" data, if
 C>          corresponding typ entry is "REP", "NUM" or "CHR"
