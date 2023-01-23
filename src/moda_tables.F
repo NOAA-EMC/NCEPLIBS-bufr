@@ -12,17 +12,16 @@ C> @date 2014-12-10
 
 	MODULE MODA_TABLES
 
-C>        @var maxtab
 C>        Maximum number of entries in the jump/link table;
 C>        equivalent to MAXJL.
+	  INTEGER :: MAXTAB
 C>
-C>        @var ntab
 C>        Number of entries in the jump/link table.
+	  INTEGER :: NTAB
 C>
-C>        @var tag
 C>        Mnemonics in the jump/link table.
+	  CHARACTER*10, ALLOCATABLE :: TAG(:)
 C>
-C>        @var typ
 C>        Type indicators corresponding to tag:
 C>        - "SUB", if corresponding tag entry is a Table A mnemonic
 C>        - "SEQ", if corresponding tag entry is a Table D mnemonic
@@ -45,8 +44,16 @@ C>        - "CHR", if corresponding tag entry is a Table B mnemonic
 C>          with units of CCITT IA5
 C>        - "NUM", if corresponding tag entry is a Table B mnemonic
 C>          with any units other than CCITT IA5
+	  CHARACTER*3, ALLOCATABLE :: TYP(:)
 C>
-C>        @var jump
+C>        Initialized replication counts corresponding to typ and jump:
+C>        - 0, if corresponding typ entry is "RPC", "RPS" or "DRB"
+C>        - Number of regular (non-delayed) replications of Table D
+C>          mnemonic referenced by corresponding jump entry, if
+C>          corresponding typ entry is "REP"
+C>        - 1, otherwise
+	  INTEGER, ALLOCATABLE :: KNT(:)
+C>
 C>        Jump forward indices corresponding to tag and typ:
 C>        - 0, if corresponding typ entry is "CHR" or "NUM"
 C>        - Jump/link table entry for Table D mnemonic whose replication
@@ -55,20 +62,8 @@ C>          entry is "DRB", "DRP" or "REP"
 C>        - Jump/link table entry for Table B or D mnemonic which is
 C>          the first sequential child descriptor of the corresponding
 C>          tag entry, otherwise
+	  INTEGER, ALLOCATABLE :: JUMP(:) 
 C>
-C>        @var jmpb
-C>        Jump backward indices corresponding to tag and typ:
-C>        - 0, if corresponding typ entry is "SUB"
-C>        - Jump/link table entry denoting the replication of
-C>          corresponding tag entry, if corresponding typ entry is
-C>          "RPC", or if corresponding typ entry is "SEQ" and 
-C>          corresponding tag entry uses either short (1-bit) or
-C>          regular (non-delayed) replication
-C>        - Jump/link table entry for Table A or D mnemonic of
-C>          which corresponding tag entry is a child descriptor,
-C>          otherwise
-C>
-C>        @var link
 C>        Link indices corresponding to tag, typ and jmpb:
 C>        - 0, if corresponding typ entry is "SUB" or "RPC", or if
 C>          corresponding typ entry is "SEQ" and corresponding tag
@@ -80,14 +75,26 @@ C>        - Jump/link table entry for Table B or D mnemonic which
 C>          follows the corresponding tag entry as the next sequential
 C>          child descriptor of the Table A or D mnemonic referenced 
 C>          by corresponding jmpb entry, otherwise
+	  INTEGER, ALLOCATABLE :: LINK(:)
+C>
+C>        Jump backward indices corresponding to tag and typ:
+C>        - 0, if corresponding typ entry is "SUB"
+C>        - Jump/link table entry denoting the replication of
+C>          corresponding tag entry, if corresponding typ entry is
+C>          "RPC", or if corresponding typ entry is "SEQ" and 
+C>          corresponding tag entry uses either short (1-bit) or
+C>          regular (non-delayed) replication
+C>        - Jump/link table entry for Table A or D mnemonic of
+C>          which corresponding tag entry is a child descriptor,
+C>          otherwise
+	  INTEGER, ALLOCATABLE :: JMPB(:)
 C>          
-C>        @var ibt
 C>        Bit widths corresponding to tag and typ:
 C>        - Bit width of corresponding tag entry, if corresponding
 C>          typ entry is "CHR", "NUM", "DRB" or "DRP"
 C>        - 0, otherwise
+	  INTEGER, ALLOCATABLE :: IBT(:)
 C>
-C>        @var irf
 C>        Reference values corresponding to tag and typ:
 C>        - Reference value of corresponding tag entry, if
 C>          corresponding typ entry is "NUM"
@@ -95,8 +102,8 @@ C>        - Number of regular (non-delayed) replications of Table D
 C>          mnemonic referenced by corresponding jump entry, if
 C>          corresponding typ entry is "REP"
 C>        - 0, otherwise
+	  INTEGER, ALLOCATABLE :: IRF(:)
 C>
-C>        @var isc
 C>        Scale factors corresponding to tag and typ:
 C>        - Scale factor of corresponding tag entry, if
 C>          corresponding typ entry is "NUM"
@@ -105,43 +112,25 @@ C>          which is the last sequential child descriptor of the
 C>          corresponding tag entry, if the corresponding typ entry
 C>          is "SUB"
 C>        - 0, otherwise
+	  INTEGER, ALLOCATABLE :: ISC(:)
 C>
-C>        @var itp
 C>        Integer type values corresponding to typ:
 C>        - 1, if corresponding typ entry is "DRS", "DRP" or "DRB"
 C>        - 2, if corresponding typ entry is "NUM"
 C>        - 3, if corresponding typ entry is "CHR"
 C>        - 0, otherwise
+	  INTEGER, ALLOCATABLE :: ITP(:)
 C>
-C>        @var vali
 C>        Initialized data values corresponding to typ:
 C>        - Current placeholder value for "missing" data, if
 C>          corresponding typ entry is "REP", "NUM" or "CHR"
 C>        - 0, otherwise
-C>
-C>        @var knti
-C>        Initialized replication counts corresponding to typ and jump:
-C>        - 0, if corresponding typ entry is "RPC", "RPS" or "DRB"
-C>        - Number of regular (non-delayed) replications of Table D
-C>          mnemonic referenced by corresponding jump entry, if
-C>          corresponding typ entry is "REP"
-C>        - 1, otherwise
-
-	  INTEGER :: MAXTAB
-	  INTEGER :: NTAB
-	  CHARACTER*10, ALLOCATABLE :: TAG(:)
-	  CHARACTER*3, ALLOCATABLE :: TYP(:)
-	  INTEGER, ALLOCATABLE :: KNT(:)
-	  INTEGER, ALLOCATABLE :: JUMP(:) 
-	  INTEGER, ALLOCATABLE :: LINK(:)
-	  INTEGER, ALLOCATABLE :: JMPB(:)
-	  INTEGER, ALLOCATABLE :: IBT(:)
-	  INTEGER, ALLOCATABLE :: IRF(:)
-	  INTEGER, ALLOCATABLE :: ISC(:)
-	  INTEGER, ALLOCATABLE :: ITP(:)
 	  REAL*8, ALLOCATABLE :: VALI(:)
+C>    ??? description for KNTI
 	  INTEGER, ALLOCATABLE :: KNTI(:)
+C>    ??? description for ISEQ
 	  INTEGER, ALLOCATABLE :: ISEQ(:,:)
+C>    ??? description for JSEQ
 	  INTEGER, ALLOCATABLE :: JSEQ(:)
 
 	END MODULE
