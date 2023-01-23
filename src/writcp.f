@@ -1,5 +1,14 @@
 C> @file
 C> @brief Write a data subset into a BUFR message using compression
+C>
+C> ### Program history log
+C> | Date | Programmer | Comments |
+C> | -----|------------|----------|
+C> | 2002-05-14 | J. Woollen | Original author |
+C> | 2005-03-09 | J. Ator    | Modified to use cmpmsg() and writsb() |
+C> | 2022-10-04 | J. Ator    | Added 8-byte wrapper |
+C>
+C> @author J. Woollen @date 2002-05-14
 
 C> This subroutine is similar to subroutine writsb(), except that 
 C> when the subset is encoded and packed into the current message
@@ -7,13 +16,8 @@ C> for the BUFR file associated with logical unit LUNIT, it is
 C> packed using compression as prescribed within the
 C> [official WMO BUFR regulations](@ref manual).
 C>
-C> @author J. Woollen
-C> @date 2002-05-14
-C>
-C> @param[in] LUNIT -- integer: Fortran logical unit number for BUFR file
-C>
 C> @remarks
-C> - This subroutine activates compression via an internal call to
+C> This subroutine activates compression via an internal call to
 C> subroutine cmpmsg(), followed by an internal call to subroutine
 C> writsb(), followed by a second internal call to subroutine
 C> cmpmsg() to deactivate compression.  For this reason, most
@@ -22,13 +26,10 @@ C> call subroutines cmpmsg() and writsb() directly; however, this
 C> subroutine is still supported within the BUFRLIB software for
 C> backwards-compatibility with certain legacy application programs.
 C>
-C> <b>Program history log:</b>
-C> | Date | Programmer | Comments |
-C> | -----|------------|----------|
-C> | 2002-05-14 | J. Woollen | Original author |
-C> | 2005-03-09 | J. Ator    | Modified to use cmpmsg() and writsb() |
-C> | 2022-10-04 | J. Ator    | Added 8-byte wrapper |
+C> @param[in] lunit - integer: Fortran logical unit number for BUFR file
 C>
+C> @author J. Woollen @date 2002-05-14
+
       RECURSIVE SUBROUTINE WRITCP(LUNIT)
 
       USE MODV_IM8B
