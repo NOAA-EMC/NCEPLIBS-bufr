@@ -3,7 +3,7 @@
 !>
 !> @author J Woollen @date 1997
 
-!> Usage: "cmpbqm prepbufrfile" will print prep inventory by variable, report type, and qc mark.
+!> Usage: cmpbqm <prepbufrfile> will print prep inventory by variable, report type, and qc mark.
 !>
 !> @return 0 for success, error message otherwise.
 !>
@@ -43,7 +43,7 @@ PROGRAM CMPBQM
   !  ------------------------
 
   call getarg(1,file); file=trim(adjustl(file))
-  if (file == '') call bort('Usage: "cmpbqm prepbufrfile" will print prep inventory by variable, report type, and qc mark')
+  if (file == '') call bort('Usage: "cmpbqm <prepbufrfile>" will print prep inventory by variable, report type, and qc mark')
   inquire(file=file,exist=exist)
   if (.not.exist) call bort(trim(file)//' does not exist')
 

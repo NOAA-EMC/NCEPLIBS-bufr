@@ -2,8 +2,8 @@ C> @file
 C> @brief Write a data subset into a BUFR message.
 C>
 C> ### Program History Log
-C> Date | Programmer | Comments |
-C> -----|------------|----------|
+C> Date | Programmer | Comments
+C> -----|------------|---------
 C> 1994-01-06 | J. Woollen | Original author 
 C> 1998-07-08 | J. Woollen | Replaced call to Cray library routine "ABORT" with call to new internal routine bort() 
 C> 2003-11-04 | J. Ator    | Added documentation 
@@ -16,7 +16,7 @@ C> @author J. Woollen @date 1994-01-06
       
 C> This subroutine writes a complete data subset into a BUFR message, for eventual output to logical unit LUNIT.
 C>
-C> @note This subroutine is called to indicate to the BUFRLIB software that
+C> This subroutine is called to indicate to the BUFRLIB software that
 C> all necessary values for a data subset (i.e. report) have been written,
 C> and thus that the subset is ready to be encoded and packed into the
 C> current message for the BUFR file associated with logical unit LUNIT.
@@ -27,7 +27,7 @@ C> arrays via a previous call to one of the BUFRLIB
 C> [message-writing subroutines](@ref hierarchy).
 C> Furthermore, all of the values for the data subset should have
 C> already been written into internal arrays via calls to any of the
-C> BUFRLIB [values-writing subroutines](@ref hierarchy)
+C> BUFRLIB [values-writing subroutines](@ref hierarchy).
 C>
 C> @remarks
 C> - There is a maximum size for any BUFR message that can be written

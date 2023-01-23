@@ -1,9 +1,9 @@
 C> @file
-C> @brief Writes bufr table (dictionary) messages to the beginning of an output bufr file
+C> @brief Write DX BUFR tables messages to the beginning of an output BUFR file
 c>
-C> <b>Program History Log:</b>
-C> Date | Programmer | Comments |
-C> -----|------------|----------|
+C> ### Program History Log
+C> Date | Programmer | Comments
+C> -----|------------|---------
 C> 1994-01-06 | J. Woollen  |  original author 
 C> 1995-06-28 | J. Woollen  |  increased the size of internal bufr table arrays in order to handle bigger files 
 C> 1998-07-08 | J. Woollen  |  replaced call to cray library routine "abort" with call to new internal bufrlib routine "bort" 
@@ -16,19 +16,19 @@ C> 2009-03-23 | J. Ator     |  use wrdxtb
 C>
 C> @author Woollen @date 1994-01-06
 
-C> This subroutine writes bufr table (dictionary) messages to
-C> the beginning of an output bufr file in lunit.  the table messages
+C> This subroutine writes BUFR table (dictionary) messages to
+C> the beginning of an output BUFR file in lunit.  The table messages
 C> are read from arrays in internal memory (module tababd).
-C> an initial call to bufr archive library subroutine readdx generates
+C> An initial call to BUFR archive library subroutine readdx() generates
 C> these internal arrays.
 C>
 C>
-C> @param[in]  lunit -- integer: fortran logical unit number for bufr file being written
+C> @param[in]  lunit -- integer: fortran logical unit number for BUFR file being written
 C> @param[in]  lun   -- integer: i/o stream index into internal memory arrays
 C> @param[in]  lundx -- integer: fortran logical unit number containing
-C>                               dictionary table information to be used (by readdx) to
-C>                               create internal tables written to lunit (see readdx);
-C>                               if set equal to lunit, this subroutine calls bort
+C>                               dictionary table information to be used (by readdx()) to
+C>                               create internal tables written to lunit;
+C>                               if set equal to lunit, this subroutine calls bort()
 C>
 C> @author Woollen @date 1994-01-06
 

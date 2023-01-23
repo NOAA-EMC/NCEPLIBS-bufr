@@ -28,10 +28,18 @@ C> in connecting it.  Once a file is connected, the corresponding
 C> LUNIT and LUN values remain linked to each other for as
 C> long as the file is connected to the software.
 C>
-C> @param[in] lunit - integer: Fortran logical unit number for BUFR file
-C> @param[in] lun - integer: Internal I/O stream index associated with LUNIT
-C> @param[in] il  - integer: File status update option (0=close 1=open for output -1=open for input)
-C> @param[in] im - integer: Message status indicator (1=open 2=closed)
+C> @param[in] LUNIT - integer: Fortran logical unit number for BUFR file
+C> @param[in] LUN - integer: Internal I/O stream index associated with LUNIT
+C> @param[in] IL - integer: File status update option
+C>  - 0 Disconnect LUNIT from the software
+C>  - 1 Connect LUNIT to the software for output operations
+C>      (i.e. writing/encoding BUFR), if not already connected
+C>  - -1 Connect LUNIT to the software for input operations
+C>      (i.e. reading/decoding BUFR), if not already connected
+C> @param[in] IM - integer: Message status update option, indicating
+C> whether a message is currently open within the internal arrays for LUNIT
+C>  - 0 No
+C>  - 1 Yes
 C>
 C> @author J. Woollen @date 1994-01-06
 

@@ -1,5 +1,5 @@
 C> @file
-C> @brief writes a BUFR subset in compressed form into the output buffer.
+C> @brief Writes a compressed BUFR data subset into the output buffer.
 C>
 C> ### Program History Log
 C> Date | Programmer | Comments |
@@ -24,13 +24,13 @@ C> @author Woollen @date 2002-05-14
 
 C> This subroutine packs up the current subset within memory
 C> (array ibay in module bitbuf), storing it for compression.
-C> It then tries to add it to the compressed bufr message that is
+C> It then tries to add it to the compressed BUFR message that is
 C> currently open within memory for abs(lunix) (array mgwa).  If the
 C> subset will not fit into the currently open message, then that
 C> compressed message is flushed to lunix and a new one is created in
 C> order to hold the current subset (still stored for compression).
-C> This subroutine performs functions similar to bufr archive library
-C> subroutine msgupd except that it acts on compressed bufr messages.
+C> This subroutine performs functions similar to BUFR archive library
+C> subroutine msgupd() except that it acts on compressed bufr messages.
 C>
 C>
 C> @param[in] lunix -- integer: absolute value is fortran logical unit number

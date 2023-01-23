@@ -1,7 +1,7 @@
 C> @file
 C> @brief Write a data subset into a BUFR message using compression
 C>
-C> <b>Program history log:</b>
+C> ### Program history log
 C> | Date | Programmer | Comments |
 C> | -----|------------|----------|
 C> | 2002-05-14 | J. Woollen | Original author |

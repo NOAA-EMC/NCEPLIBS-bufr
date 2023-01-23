@@ -1,5 +1,5 @@
 !> @file
-!> @brief Produces an BUFR file inventory by satellite type.
+!> @brief Produces a BUFR file inventory by satellite type.
 !>
 !> @author J Woollen @date 2010
 
@@ -99,13 +99,18 @@ PROGRAM SINV
 
 end program SINV
 !> @file
-!> @brief Looks in the BUFR tables to get satellite platform and instrument codes
+!> @brief Looks in the BUFR tables to get meaning strings for satellite platform and instrument codes
 !>
 !> @author J Woollen @date 2010
 
-!> Usage: sinv <satbufrfile> will print inventory of satellites by platform and instrument.
+!> This subroutine looks in the master BUFR tables for meaning strings associated with specified
+!> code figures for the satellite platform and instrument.
 !>
-!> @return codes for success, blanks otherwise.
+!> @param[in] lunit - integer: Fortran logical unit number for BUFR file
+!> @param[in] icode - integer: satellite platform code
+!> @param[out] csad - character*16: meaning string associatd with icode
+!> @param[in] jcode - integer: satellite instrument code
+!> @param[out] csid - character*80: meaning string associatd with jcode
 !>
 !> @author J Woollen @date 2010
 
@@ -117,7 +122,7 @@ subroutine satcode(lunit,icode,csad,jcode,csid)
 
   csad(1:16)=' '; csid(1:80)=' '
 
-  !  call routines to look  up the said and siid
+  !  call routines to look up the said and siid
 
   if(icode>0) then
      str=repeat(' ',255)

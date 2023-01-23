@@ -22,9 +22,8 @@ C> This subroutine writes a long character string (greater than 8 bytes)to a dat
 C>
 C> The data subset should have already been written into a BUFR message before
 C> calling this subroutine to write a long character string into the subset.
-C>                     with an ordinal occurrence notation
 C>
-C> <p>If there is more than one occurrence of STR within the data subset
+C> If there is more than one occurrence of STR within the data subset
 C> definition, then each occurrence can be written via a separate call
 C> to this subroutine, and by appending the ordinal number of the
 C> occurrence to STR in each case.  For example, if there are 5
@@ -47,10 +46,11 @@ C> [subset-writing subroutines](@ref hierarchy)
 C> for the data subset.
 C>
 C>
-C> @param[in] lunit - integer: Fortran logical unit number for BUFR file
-C> @param[in] chr - character*(*): Value corresponding to STR
-C> @param[in] str - character*(*): Table B mnemonic of long character
+C> @param[in] LUNIT - integer: Fortran logical unit number for BUFR file
+C> @param[in] CHR - character*(*): Value corresponding to STR
+C> @param[in] STR - character*(*): Table B mnemonic of long character
 C>                     string to be written, possibly supplemented
+C>                     with an ordinal occurrence notation
 C>
 C> @author J. Woollen @author J. Ator @date 2003-11-04
 

@@ -91,11 +91,10 @@ C> for ABS(LUNXX).  In such cases, the logical unit number ABS(LUNXX)
 C> does not even need to be associated with an actual file on the
 C> local system.
 C>
-C>
-C> @param[in] lunxx - integer: Absolute value is Fortran logical unit number for BUFR file
-C> @param[in] lmsgt - integer: Dimensioned size (in integers) of MSGT; used by the subroutine to ensure that it doesn't overflow the MSGT array
-C> @param[out] msgt - integer: BUFR message
-C> @param[out] msgl - integer: Size (in integers) of BUFR message in MSGT (0=no message)
+C> @param[in] LUNXX - integer: Absolute value is Fortran logical unit number for BUFR file
+C> @param[in] LMSGT - integer: Dimensioned size (in integers) of MSGT; used by the subroutine to ensure that it doesn't overflow the MSGT array
+C> @param[out] MSGT - integer: BUFR message
+C> @param[out] MSGL - integer: Size (in integers) of BUFR message in MSGT (0=no message)
 C>
 C> @author J. Woollen @author J. Ator @date 1994-01-06
 
