@@ -1,6 +1,5 @@
 C> @file
-C> @brief looks for and returns a valid fxy number
-C> from within the given input string.	
+C> @brief Search for a valid FXY number within a character string.
 C>
 C> ### Program History Log
 C> Date | Programmer | Comments
@@ -10,7 +9,7 @@ C> 2021-09-30 | J. Ator | Replace jstchr with Fortran intrinsic adjustl.
 C>
 C> @author Ator @date 2007-01-19
 	
-C> This function looks for and returns a valid fxy number
+C> This function looks for and returns a valid FXY number
 C> from within the given input string. The FXY number may be in
 C> format of either FXXYYY or F-XX-YYY within the input string, but
 C> it is always returned in format FXXYYY upon output.
@@ -24,8 +23,6 @@ C> - -1 could not find a valid FXY number in STR.
 C>
 C> @author Ator @date 2007-01-19
 	FUNCTION IGETFXY ( STR, CFXY )
-
-
 
 	CHARACTER*(*)	STR
 	CHARACTER*6	CFXY

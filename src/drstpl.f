@@ -1,6 +1,6 @@
 C> @file
-C> @brief Called by subroutine ufbrw() whenever it can't find a mnemonic it wants to write within the
-C> current subset buffer.
+C> @brief Search for a specified mnemonic within unexpanded sequences
+C> of the internal jump/link table.
 C>
 C> ### Program History Log
 C> Date | Programmer | Comments
@@ -26,18 +26,18 @@ C> appears in the subset buffer, and in doing so it will also return
 C> a new value for inv2.
 C>
 C> @param[in] INOD - integer: jump/link table index of mnemonic to look for.
-C> @param[in] LUN - integer: i/o stream index into internal memory arrays.
+C> @param[in] LUN - integer: I/O stream index into internal memory arrays.
 C> @param[in] INV1 - integer: starting index of the portion of the subset
-C> buffer currently being processed by ufbrw.
-C> @param[inout] INV2 - integer: on input, ending index of the portion
-C> of the subset buffer currently being processed by ufbrw. Onn output:
-C> if invn = 0, then inv2 is unchanged from its.  input value. Otherwise,
-C> it contains the redefined ending index of the portion of the subset
-C> buffer currently being processed by ufbrw, since expanding a delayed
-C> replication sequence will have necessarily increased the size of this
-C> buffer.
-C> @param[out] INVN - integer: location index of inod within subset buffer:.
-C> 0 not found.
+C> buffer currently being processed by ufbrw().
+C> @param[inout] INV2 - integer:
+C>  - on input, ending index of the portion of the subset buffer currently
+C>    being processed by ufbrw().
+C>  - on output, if invn = 0 then inv2 is unchanged from its input value.
+C>    Otherwise, it contains the redefined ending index of the portion of the subset
+C>    buffer currently being processed by ufbrw(), since expanding a delayed
+C>    replication sequence will have necessarily increased the size of this buffer.
+C> @param[out] INVN - integer: location index of inod within subset buffer.
+C>  - 0 not found.
 C>
 C> @author Woollen @date 1994-01-06
       SUBROUTINE DRSTPL(INOD,LUN,INV1,INV2,INVN)

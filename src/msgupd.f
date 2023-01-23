@@ -5,38 +5,38 @@ C>
 C> ### Program History Log
 C> Date | Programmer | Comments
 C> -----|------------|----------
-C> 1994-01-06  J. Woollen | Original author.
-C> 1998-07-08  J. Woollen | Replaced call to cray library routine "abort" with call to new internal bufrlib routine "bort".
-C> 1998-12-14  J. Woollen | No longer calls bort if a subset is larger than a message, just discards the subset.
-C> 1999-11-18  J. Woollen | Increased number of open bufr files to 32.
-C> 2000-09-19  J. Woollen | Maximum message length increased from 10,000 to 20,000 bytes.
-C> 2003-11-04  J. Ator    | Added documentation.
-C> 2003-11-04  S. Bender  | Added remarks/bufrlib routine interdependencies.
-C> 2003-11-04  D. Keyser  | Unified/portable for wrf; added history documentation.
-C> 2004-08-09  J. Ator    | Maximum message length increased from 20,000 to 50,000 bytes.
-C> 2009-03-23  J. Ator    | Use msgfull and errwrt.
-C> 2014-10-20  J. Woollen | Account for subsets with byte count > 65530.
-C> 2014-10-20  D. Keyser  | For case above, do not write "current" message if it contains zero subsets.
-C> 2014-12-10  J. Ator    | Use modules instead of common blocks.
-C> 2016-03-21  D. Stokes  | Call usrtpl for overlarge subsets.
+C> 1994-01-06 | J. Woollen | Original author.
+C> 1998-07-08 | J. Woollen | Replaced call to cray library routine "abort" with call to new internal bufrlib routine "bort".
+C> 1998-12-14 | J. Woollen | No longer calls bort if a subset is larger than a message, just discards the subset.
+C> 1999-11-18 | J. Woollen | Increased number of open bufr files to 32.
+C> 2000-09-19 | J. Woollen | Maximum message length increased from 10,000 to 20,000 bytes.
+C> 2003-11-04 | J. Ator    | Added documentation.
+C> 2003-11-04 | S. Bender  | Added remarks/bufrlib routine interdependencies.
+C> 2003-11-04 | D. Keyser  | Unified/portable for wrf; added history documentation.
+C> 2004-08-09 | J. Ator    | Maximum message length increased from 20,000 to 50,000 bytes.
+C> 2009-03-23 | J. Ator    | Use msgfull and errwrt.
+C> 2014-10-20 | J. Woollen | Account for subsets with byte count > 65530.
+C> 2014-10-20 | D. Keyser  | For case above, do not write "current" message if it contains zero subsets.
+C> 2014-12-10 | J. Ator    | Use modules instead of common blocks.
+C> 2016-03-21 | D. Stokes  | Call usrtpl for overlarge subsets.
 C>
 C> @author Woollen @date 1994-01-06
       
 C> This subroutine packs up the current subset within memory
 C> (array ibay in module bitbuf) and then tries to add it to
-C> the BUFR message that is currently open within memory for lunit
+C> the BUFR message that is currently open within memory for LUNIT
 C> (array mbay in module bitbuf). If the subset will not fit
 C> into the currently open message, or if the subset byte count exceeds
 C> 65530 (sufficiently close to the 16-bit byte counter upper limit of
-C> 65535), then that message is flushed to lunit and a new one is
+C> 65535), then that message is flushed to LUNIT and a new one is
 C> created in order to hold the current subset. Any subset with byte
 C> count > 65530 will be written into its own one-subset message.
 C> if the current subset is larger than the maximum message length,
 C> then the subset is discarded and a diagnostic is printed.
 C>
 C> @param[in] LUNIT - integer: fortran logical unit number for BUFR file.
-C> @param[in] LUN - integer: i/o stream index into internal memory arrays
-C> (associated with file connected to logical unit lunit).
+C> @param[in] LUN - integer: I/O stream index into internal memory arrays
+C> (associated with file connected to logical unit LUNIT).
 C>
 C> @author Woollen @date 1994-01-06
       SUBROUTINE MSGUPD(LUNIT,LUN)

@@ -13,7 +13,7 @@ C> 2000-09-19 | J. Woollen | Maximum message length increased from 10,000 to 20,
 C> 2002-05-14 | J. Woollen | Removed entry point minimg.
 C> 2003-11-04 | J. Ator    | Added documentation.
 C> 2003-11-04 | S. Bender  | Added remarks/bufrlib routine interdependencies.
-C> 2003-11-04 | D. Keyser  | maxjl increased from 16000; unified/portable for wrf; documentation; more dia|gnostic info.
+C> 2003-11-04 | D. Keyser  | maxjl increased from 16000; unified/portable for wrf; documentation; more diagnostic info.
 C> 2004-08-09 | J. Ator    | Maximum message length increased from 20,000 to 50,000 bytes.
 C> 2005-11-29 | J. Ator    | Changed default master table version to 12.
 C> 2009-05-07 | J. Ator    | Changed default master table version to 13.

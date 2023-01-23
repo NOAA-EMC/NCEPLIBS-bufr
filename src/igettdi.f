@@ -1,6 +1,12 @@
 C> @file
-C> @brief Return the next usable Table D index for the
+C> @brief Get the next usable Table D index for the
 C> current master table, or reset the index.
+C>
+C> ### Program History Log
+C> Date | Programmer | Comments
+C> -----|------------|----------
+C> 2009-03-23 | J. Ator | Original author.
+C>
 C> @author Ator @date 2009-03-23
 	
 C> Depending on the value of the input flag, this function
@@ -8,13 +14,16 @@ C> either returns the next usable scratch Table D index for the
 C> current master table or else resets the index back to its
 C> minimum value.
 C>
-C> @param[in] IFLAG - integer: flag: if set to 0, then the function will
-C>                reset the scratch Table D index back to its minimum
-C>                value; otherwise, it will return the next usable
-C>                scratch Table D index for the current master table.
+C> @param[in] IFLAG - integer:
+C>   - if set to 0, then the function will reset the scratch Table D index
+C>     back to its minimum value
+C>   - otherwise, the function will return the next usable scratch Table D
+C>     index for the current master table
 C>
-C> @return - integer: next usable scratch Table D index for the
-C> current master table, or -1 if function was called with iflag=0.
+C> @return - integer:
+C>   - -1 if function was called with IFLAG=0
+C>   - otherwise, the next usable scratch Table D index for the
+C>     current master table
 C>
 C> @author Ator @date 2009-03-23
 	FUNCTION IGETTDI ( IFLAG )

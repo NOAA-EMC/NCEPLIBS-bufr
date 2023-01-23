@@ -1,6 +1,15 @@
 C> @file
 C> @brief Get the element name and units associated with a
 C> Table B mnemonic.
+C>
+C> ### Program history log
+C> Date | Programmer | Comments
+C> -----|------------|---------
+C> 2014-10-02 | J. Ator | Original version
+C> 2014-12-10 | J. Ator | Use modules instead of COMMON blocks
+C> 2022-08-04 | J. Woollen | Added 8-byte wrapper
+C>
+C> @author J. Ator @date 2014-10-02
 
 C> Given a Table B mnemonic defined in the
 C> [DX BUFR Tables](@ref dfbftab) associated with a BUFR file
@@ -9,30 +18,22 @@ C> was opened in subroutine openbf() with IO = 'SEC3'), this
 C> subroutine returns the element name and units associated
 C> with that mnemonic.
 C>
-C> @author J. Ator
-C> @date 2014-10-02
-C>
-C> @param[in] LUNIT  -- integer: Fortran logical unit number for
-C>                      BUFR file
-C> @param[in] NEMO   -- character*(*): Table B mnemonic
-C> @param[out] CELEM -- character*55: Element name associated
+C> @param[in] LUNIT  - integer: Fortran logical unit number for
+C>                     BUFR file
+C> @param[in] NEMO   - character*(*): Table B mnemonic
+C> @param[out] CELEM - character*55: Element name associated
 C>                      with NEMO
-C> @param[out] CUNIT -- character*24: Units associated with NEMO
-C> @param[out] IRET  -- integer: return code
-C>                      - 0 = normal return
-C>                      - -1 = NEMO could not be found, or some
-C>                             other error occurred
+C> @param[out] CUNIT - character*24: Units associated with NEMO
+C> @param[out] IRET  - integer: return code
+C>                      - 0 normal return
+C>                      - -1 NEMO could not be found, or some
+C>                           other error occurred
 C>
-C> <p>Logical unit LUNIT should have already been opened for
+C> Logical unit LUNIT should have already been opened for
 C> input or output operations via a previous call to subroutine
 C> openbf().
 C>
-C> <b>Program history log:</b>
-C> | Date | Programmer | Comments |
-C> | -----|------------|----------|
-C> | 2014-10-02 | J. Ator | Original version |
-C> | 2014-12-10 | J. Ator | Use modules instead of COMMON blocks |
-C> | 2022-08-04 | J. Woollen | Added 8-byte wrapper |
+C> @author J. Ator @date 2014-10-02
 
 	RECURSIVE SUBROUTINE NEMDEFS ( LUNIT, NEMO, CELEM, CUNIT, IRET )
 

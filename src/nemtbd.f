@@ -1,19 +1,30 @@
 C> @file
 C> @brief Get information about a Table D descriptor
+C>
+C> ### Program history log
+C> Date | Programmer | Comments
+C> -----|------------|---------
+C> 1994-01-06 | J. Woollen | Original author
+C> 1995-06-28 | J. Woollen | Increased the size of internal BUFR table arrays in order to handle bigger files
+C> 1998-07-08 | J. Woollen | Replaced call to Cray library routine "ABORT" with call to new internal routine bort()
+C> 1999-11-18 | J. Woollen | The number of BUFR files which can be opened at one time increased from 10 to 32
+C> 2000-09-19 | J. Woollen | Handle child mnemonics which are Table C operators
+C> 2003-11-04 | S. Bender  | Added remarks/bufrlib routine interdependencies
+C> 2003-11-04 | D. Keyser  | Unified/portable for WRF; added documentation; outputs more complete diagnostic info when routine terminates abnormally
+C> 2014-12-10 | J. Ator    | Use modules instead of COMMON blocks
+C>
+C> @author J. Woollen @date 1994-01-06
 
 C> This subroutine returns information about a Table D descriptor
 C> from the internal DX BUFR tables.
 C>
-C> @author J. Woollen
-C> @date 1994-01-06
-C>
-C> @param[in] LUN -- integer: Internal I/O stream index associated
+C> @param[in] LUN - integer: Internal I/O stream index associated
 C>                   with DX BUFR tables
-C> @param[in] ITAB -- integer: Positional index of descriptor within
+C> @param[in] ITAB - integer: Positional index of descriptor within
 C>                    internal Table D
-C> @param[out] NSEQ -- integer: Number of child mnemonics for descriptor
-C> @param[out] NEMS -- character*8(*): Child mnemonics
-C> @param[out] IRPS -- integer(*): Array of values corresponding to NEMS
+C> @param[out] NSEQ - integer: Number of child mnemonics for descriptor
+C> @param[out] NEMS - character*8(*): Child mnemonics
+C> @param[out] IRPS - integer(*): Array of values corresponding to NEMS
 C>                     - 5, if corresponding NEMS value is a Table D
 C>                       mnemonic using 1-bit delayed replication
 C>                     - 4, if corresponding NEMS value is a Table D
@@ -39,18 +50,8 @@ C> descriptor referenced by ITAB.  This information should have already
 C> been stored into internal arrays via previous calls to subroutine
 C> pktdd().
 C>
-C> <b>Program history log:</b>
-C> | Date | Programmer | Comments |
-C> | -----|------------|----------|
-C> | 1994-01-06 | J. Woollen | Original author |
-C> | 1995-06-28 | J. Woollen | Increased the size of internal BUFR table arrays in order to handle bigger files |
-C> | 1998-07-08 | J. Woollen | Replaced call to Cray library routine "ABORT" with call to new internal routine bort() |
-C> | 1999-11-18 | J. Woollen | The number of BUFR files which can be opened at one time increased from 10 to 32 |
-C> | 2000-09-19 | J. Woollen | Handle child mnemonics which are Table C operators |
-C> | 2003-11-04 | S. Bender  | Added remarks/bufrlib routine interdependencies |
-C> | 2003-11-04 | D. Keyser  | Unified/portable for WRF; added documentation; outputs more complete diagnostic info when routine terminates abnormally |
-C> | 2014-12-10 | J. Ator    | Use modules instead of COMMON blocks |
-C>
+C> @author J. Woollen @date 1994-01-06
+
       SUBROUTINE NEMTBD(LUN,ITAB,NSEQ,NEMS,IRPS,KNTS)
 
       USE MODV_MAXCD
