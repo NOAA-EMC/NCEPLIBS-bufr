@@ -1,22 +1,21 @@
 C> @file
-C> @brief Pad a bufr message with zeroed-out bytes
-C> from the end of the message up to the next 8-byte boundary.	
+C> @brief Pad a BUFR message with zeroed-out bytes up to the
+C> next 8-byte boundary.
 C> @author Ator @date 2005-11-29
 	
-C> This subroutine pads a bufr message with zeroed-out bytes
+C> This subroutine pads a BUFR message with zeroed-out bytes
 C> from the end of the message up to the next 8-byte boundary.
 C>
-C> @param[inout] MESG - integer: *-word packed binary array containing
-C> bufr message out: *-word packed binary array containing bufr message
-C> with npbyt zeroed-out bytes appendebbbd to the end.
-C> @param[in] LMESG - integer: dimensioned size (in integer words) of mesg;
-C> used by the subroutine to ensure that it does not overflow the mesg array.
-C> @param[inout] NPBYT - integer: number of zeroed-out bytes appended to mesg.
+C> @param[inout] MESG - integer(*):
+C>  - on input, contains BUFR message to be padded
+C>  - on output, contains BUFR message with NPBYT zeroed-out bytes appended
+C>    to the end
+C> @param[in] LMESG - integer: dimensioned size (in integer words) of MESG;
+C> used by the subroutine to ensure that it does not overflow the MESG array.
+C> @param[out] NPBYT - integer: number of zeroed-out bytes appended to MESG.
 C>
 C> @author Ator @date 2005-11-29
 	SUBROUTINE PADMSG(MESG,LMESG,NPBYT)
-
-
 
 	COMMON /HRDWRD/ NBYTW,NBITW,IORD(8)
 

@@ -17,13 +17,13 @@ C>
 C> @author Woollen @date 1994-01-06
       
 C> Given an index within the internal jump/link table which
-C> points to the start of an "rpc" window (i.e. iteration of an 8-bit
+C> points to the start of an "rpc" window (which is the iteration of an 8-bit
 C> or 16-bit delayed replication sequence), this subroutine computes
 C> the ending index of the window. Alternatively, if the given index
-C> points to the start of a "sub" window (i.e. the first node of a
-C> subset), the subroutine returns the index of the last node.
+C> points to the start of a "sub" window (which is the first node of a
+C> subset), then the subroutine returns the index of the last node.
 C>
-C> @note See the docblock in bufr archive library subroutine getwin for an
+C> @note See the docblock in bufr archive library subroutine getwin() for an
 C> explanation of "windows" within the context of a bufr data subset.
 C>
 C> @param[in] LUN - integer: i/o stream index into internal memory arrays.

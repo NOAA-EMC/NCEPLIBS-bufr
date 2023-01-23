@@ -1,4 +1,6 @@
 C> @file
+C> @brief Pad a BUFR data subset with zeroed-out bits up to the
+C> next byte boundary.
 C>
 C> ### Program History Log
 C> Date | Programmer | Comments
@@ -26,18 +28,18 @@ C> will be a multiple of sixteen.  in either (or any) case, this
 C> ensures that the packed subset will always end on a full byte
 C> boundary.
 C>
-C> @param[inout] IBAY - integer: *-word packed binary array not yet padded.
-C> Out: *-word packed binary array now padded.
-C> @param[inout] IBIT - integer: bit pointer within ibay to start padding from.
-C> Out: number of bits within ibay containing packed data (including padding, must be a multiple of 8).
-C> @param[out] IBYT - integer: number of bytes within ibay containing packed data
-C> (including padding) (i.e., ibit/8).
+C> @param[inout] IBAY - integer(*):
+C>  - on input, contains BUFR data subset to be padded
+C>  - on output, contains BUFR data subset padded with zeroed-out bits up to IPADB
+C> @param[inout] IBIT - integer:
+C>  - on input, contains bit pointer within IBAY after which to begin padding.
+C>  - on output, contains bit pointer within IBAY to last bit that was padded. 
+C> @param[out] IBYT - integer: number of bytes within IBAY containing packed data,
+C> including padding
 C> @param[in] IPADB - integer: bit boundary to pad to (must be a multiple of 8).
 C>
 C> @author Woollen @date 1994-01-06
       SUBROUTINE PAD(IBAY,IBIT,IBYT,IPADB)
-
-
 
       CHARACTER*128 BORT_STR
       DIMENSION     IBAY(*)

@@ -1,7 +1,5 @@
 C> @file
-C> @brief Initate the process to parse out mnemonics
-C> (nodes) from a user-specified character string, and separates them
-C> into store and condition nodes.      
+C> @brief Initate the process to parse out mnemonics from a character string.
 C>
 C> ### Program History Log
 C> Date | Programmer | Comments
@@ -24,17 +22,15 @@ C> internal jump/link tables and several checks are performed on the
 C> nodes.
 C>
 C> @param[in] STR - character*(*): string of blank-separated mnemonics.
-C> @param[in] LUN - integer: i/o stream index into internal memory arrays.
+C> @param[in] LUN - integer: I/O stream index into internal memory arrays.
 C> @param[in] I1 - integer: a number greater than or equal to the number of
-C> blank-separated mnemonics in str.
-C> @param[in] IO - integer: status indicator for bufr file associated with lun:.
+C> blank-separated mnemonics in STR.
+C> @param[in] IO - integer: status indicator for BUFR file associated with LUN:
 C> - 0 input file
 C> - 1 output file
 C>
 C> @author Woollen @date 1994-01-06
       SUBROUTINE PARUSR(STR,LUN,I1,IO)
-
-
 
       COMMON /USRSTR/ NNOD,NCON,NODS(20),NODC(10),IVLS(10),KONS(10)
       COMMON /ACMODE/ IAC

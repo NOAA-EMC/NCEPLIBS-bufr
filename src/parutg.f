@@ -1,4 +1,5 @@
 C> @file
+C> @brief Parse a mnemonic from a character string.
 C> 
 C> ### Program History Log
 C> Date | Programmer | Comments
@@ -32,7 +33,7 @@ C> value (numeric characters beyond the condition character in the
 C> user-specified tag input here) is returned.
 C>
 C> As an example of condition character usage, consider the following
-C> example of a call to ufbint:
+C> example of a call to ufbint():
 C>
 C> @code
 C>      REAL*8 USR(4,50)
@@ -41,13 +42,13 @@ C>             ....
 C>      CALL UFBINT(LUNIN,USR,4,50,IRET,'PRLC<50000 TMDB WDIR WSPD')
 C> @endcode
 C>
-C> Assuming that lunin points to a bufr file open for input (reading),
-C> then the usr array now contains iret levels of data (up to a maximum
-C> of 50!) where the value of prlc is/was less than 50000, along with
-C> the corresponding values for tmdb, wdir and wspd at those levels.
+C> Assuming that LUNIN points to a BUFR file open for input (reading),
+C> then the USR array now contains IRET levels of data (up to a maximum
+C> of 50) where the value of PRLC is/was less than 50000, along with
+C> the corresponding values for TMDB, WDIR and WSPD at those levels.
 C>
 C> As another example, consider the following example of a call to
-C> readlc for a long character string:
+C> readlc() for a long character string:
 C>
 C> @code
 C>      CHARACTER*200 LCHR
@@ -56,9 +57,9 @@ C>             ....
 C>      CALL READLC(LUNIN,LCHR,'NUMID#3')
 C> @endcode
 C>
-C> Assuming that lunin points to a bufr file open for input (reading),
-C> then the lchr string now contains the value corresponding to the 
-C> third occurrence of numid within the current subset.
+C> Assuming that LUNIN points to a BUFR file open for input (reading),
+C> then the LCHR string now contains the value corresponding to the 
+C> third occurrence of NUMID within the current subset.
 C>
 C> Valid condition codes include:
 C> - '<' - less than
@@ -67,25 +68,25 @@ C> - '=' - equal to
 C> - '!' - not equal to
 C> - '#' - ordinal identifier for a particular occurrence of a long character string
 C>
-C> @param[in] LUN - integer: i/o stream index into internal memory arrays.
-C> @param[in] IO - integer: status indicator for bufr file associated with lun:.
+C> @param[in] LUN - integer: I/O stream index into internal memory arrays.
+C> @param[in] IO - integer: status indicator for BUFR file associated with LUN:
 C> - 0 input file
 C> - 1 output file
 C> @param[in] UTG character*(*): user-supplied tag representing a value to be
-C> encoded/decoded to/from bufr file.
+C> encoded/decoded to/from BUFR file.
 C> @param[out] NOD - integer: positional index in internal jump/link subset
-C> table for tag. 0 = tag not found in table
-C> @param[out] KON - integer: indicator for type of condition character found in utg:.
-C> - 0 = no condition character found (NOD is a store node)
-C> - 1 = character '=' found
-C> - 2 = character '!' found
-C> - 3 = character '<' found
-C> - 4 = character '>' found
-C> - 5 = character '^' found
-C> - 6 = character '#' found
-C> - (1-6 means NOD is a condition node, and specifically 5 is a "bump" node)
-C> @param[out] VAL - real: condition value associated with condition character found in utg.
-C> 0 = UTG does not have a condition character
+C> table for TAG.
+C> - 0 TAG not found in table
+C> @param[out] KON - integer: indicator for type of condition character found in UTG:
+C> - 0 no condition character found (NOD is a store node)
+C> - 1 character '=' found (NOD is a condition node)
+C> - 2 character '!' found (NOD is a condition node)
+C> - 3 character '<' found (NOD is a condition node)
+C> - 4 character '>' found (NOD is a condition node)
+C> - 5 character '^' found (NOD is a condition node; specifically, a "bump" node)
+C> - 6 character '#' found (NOD is a condition node)
+C> @param[out] VAL - real: condition value associated with condition character found in utg:
+C> - 0 = UTG does not have a condition character
 C>
 C> @author Woollen @date 1994-01-06
       SUBROUTINE PARUTG(LUN,IO,UTG,NOD,KON,VAL)

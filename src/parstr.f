@@ -1,7 +1,6 @@
 C> @file
-C> @brief Parse a string containing one or more
-C> substrings into an array of substrings.      
-C> @author J @date 2007-01-19
+C> @brief Parse a string containing one or more substrings into an array of substrings.
+C> @author J. Ator @date 2007-01-19
       
 C> This subroutine parses a string containing one or more
 C> substrings into an array of substrings. The separator for the
@@ -10,18 +9,16 @@ C> occurrences of this character will be treated as a single
 C> occurrence when the string is actually parsed.
 C>
 C> @param[in] STR - character*(*): string.
-C> @param[out] TAGS - character*(*): mtag-word array of substrings (first.
-C> ntag words filled)
-C> @param[in] MTAG - integer: maximum number of substrings to be parsed from string.
-C> @param[out] NTAG - integer: number of substrings returned.
+C> @param[out] TAGS - character*(*): array of substrings
+C> @param[in] MTAG - integer: dimensioned size of TAGS within calling program;
+C> used by the subroutine to make sure it doesn't overflow the TAGS array.
+C> @param[out] NTAG - integer: number of substrings returned in TAGS
 C> @param[in] SEP - character*1: separator character for substrings.
-C> @param[in] LIMIT80 - logical: .true. if an abort should occur when str is
+C> @param[in] LIMIT80 - logical: .true. if an abort should occur when STR is
 C> longer than 80 characters; included for historical consistency with old subroutine parseq.
 C>
-C> @author J @date 2007-01-19
+C> @author J. Ator @date 2007-01-19
       SUBROUTINE PARSTR(STR,TAGS,MTAG,NTAG,SEP,LIMIT80)
-
-
 
       CHARACTER*(*) STR,TAGS(MTAG)
       CHARACTER*128 BORT_STR1,BORT_STR2

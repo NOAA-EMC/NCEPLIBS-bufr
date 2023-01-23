@@ -17,7 +17,7 @@ C>
 C> @author WOOLLEN @date 1994-01-06
       
 C> Given indices within the internal jump/link table which
-C> point to the start and end of an "rpc" window (i.e. iteration of
+C> point to the start and end of an "rpc" window (which is an iteration of
 C> an 8-bit or 16-bit delayed replication sequence), this subroutine
 C> computes the start and end indices of the next window.
 C>
@@ -25,10 +25,12 @@ C> @note See getwin() for an explanation of "windows" within the
 C> context of a bufr data subset.
 C>
 C> @param[in] LUN - integer: i/o stream index into internal memory arrays.
-C> @param[inout] IWIN - integer: in: starting index of current window iteration.
-C> out: starting index of next window iteration.
-C> @param[inout] JWIN - integer: ending index of current window iteration.
-C> out: ending index of next window iteration.
+C> @param[inout] IWIN - integer:
+C>  - on input, contains starting index of current window iteration.
+C>  - on output, contains starting index of next window iteration.
+C> @param[inout] JWIN - integer:
+C>  - on input, contains ending index of current window iteration.
+C>  - on output, contains ending index of next window iteration.
 C>
 C> @author WOOLLEN @date 1994-01-06
       SUBROUTINE NXTWIN(LUN,IWIN,JWIN)

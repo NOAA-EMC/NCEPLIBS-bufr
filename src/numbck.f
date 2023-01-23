@@ -1,6 +1,5 @@
 C> @file
-C> @brief Check the input character string to determine
-C> whether it contains a valid FXY (descriptor) value.
+C> @brief Check the validity of an FXY value
 C>
 C> ### Program History Log
 C> Date | Programmer | Comments
@@ -16,19 +15,17 @@ C> @author Woollen @date 1994-01-06
 C> This function checks the input character string to determine
 C> whether it contains a valid FXY (descriptor) value.
 C>
-C> @param[in] NUMB - character*6: fxy value to be checked.
+C> @param[in] NUMB - character*6: FXY value to be checked.
 C>
 C> @return indicator as to whether numb is valid:.
-C> - 0 YES
-C> - -1 NO - first character ("F" value) is not '0',- '1', '2' OR '3'
-C> - -2 NO - remaining characters (2-6) ("X" and "Y" values) are not all numeric
-C> - -3 NO - characters 2-3 ("X" value) are not between '00' and '63'
-C> - -4 NO - characters 4-6 ("Y" value) are not between '000' and '255'
+C> - 0 yes
+C> - -1 no, the first character ("F" value) is not '0', '1', '2', or '3'
+C> - -2 no, characters 2-6 ("X" and "Y" values) are not all numeric
+C> - -3 no, characters 2-3 ("X" value) are not between '00' and '63'
+C> - -4 no, characters 4-6 ("Y" value) are not between '000' and '255'
 C>
 C> @author Woollen @date 1994-01-06
       FUNCTION NUMBCK(NUMB)
-
-
 
       CHARACTER*6  NUMB
       LOGICAL      DIGIT

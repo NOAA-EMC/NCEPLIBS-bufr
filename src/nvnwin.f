@@ -1,4 +1,6 @@
 C> @file
+C> @brief Search for all occurrences of a specified node within a
+C> specified portion of the current data subset.
 C>
 C> ### Program History Log
 C> Date | Programmer | Comments
@@ -27,7 +29,7 @@ C> @param[out] INVN - integer: array of stack "event" indices for node.
 C> @param[in] NMAX - integer: dimensioned size of invn; used by the function to ensure
 C> that it does not overflow the invn array.
 C>
-C> @return number of indices returned within invn.
+C> @return number of indices within invn.
 C>
 C> @author Woollen @date 1994-01-06
       FUNCTION NVNWIN(NODE,LUN,INV1,INV2,INVN,NMAX)
