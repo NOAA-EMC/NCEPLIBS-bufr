@@ -1,9 +1,5 @@
 C> @file
-C> @brief Store information about a "child"
-C> mnemonic within the internal bufr table D entry (in module
-C> tababd) for a table D sequence ("parent") mnemonic when the
-C> "child" mnemonic is contained within the sequence represented by
-C> the "parent" mnemonic.
+C> @brief Store information about a child mnemonic within the internal arrays
 C>
 C> ### Program History Log
 C> Date | Programmer | Comments
