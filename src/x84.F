@@ -1,26 +1,25 @@
 C> @file
 C> @brief Encode one or more 8-byte integer values as 4-byte integer
 C> values.
-
+C>
+C> ### Program history log
+C> Date | Programmer | Comments |
+C> -----|------------|----------|
+C> 2022-10-12 | J. Woollen  | Original author 
+C>
+C> @author J. Woollen @date 2022-10-12
+  
 C> This subroutine reads an array containing a specified number
 C> of 8-byte integer values and then re-encodes them as a corresponding
 C> array of 4-byte integer values.
 C>
-C> <p>IIN8 and IOUT4 may be the same array.
+C> @note IIN8 and IOUT4 may be the same array.
 C>
-C> @author J. Woollen
-C> @date 2022-10-12
+C> @param[in] IIN8 - integer(*): Value(s) encoded as 8-byte integers
+C> @param[out] IOUT4 - integer(*): Value(s) from IIN8 now re-encoded as 4-byte integers
+C> @param[in] NVAL - integer: Number of values in IIN8 to be re-encoded
 C>
-C> @param[in] IIN8  -- integer(*): Value(s) encoded as 8-byte integers
-C> @param[out] IOUT4  -- integer(*): Value(s) from IIN8 now
-C>                       re-encoded as 4-byte integers
-C> @param[in] NVAL  -- integer: Number of values in IIN8 to be
-C>                     re-encoded
-C>
-C> <b>Program history log:</b>
-C> | Date | Programmer | Comments |
-C> | -----|------------|----------|
-C> | 2022-10-12 | J. Woollen  | Original author |
+C> @author J. Woollen @date 2022-10-12
 
         SUBROUTINE X84(IIN8,IOUT4,NVAL)
 

@@ -1,15 +1,22 @@
 C> @file
 C> @brief Write a data subset into a BUFR message.
+C>
+C> ### Program History Log
+C> Date | Programmer | Comments |
+C> -----|------------|----------|
+C> 1994-01-06 | J. Woollen | Original author 
+C> 1998-07-08 | J. Woollen | Replaced call to Cray library routine "ABORT" with call to new internal routine bort() 
+C> 2003-11-04 | J. Ator    | Added documentation 
+C> 2003-11-04 | S. Bender  | Added remarks and routine interdependencies
+C> 2003-11-04 | D. Keyser  | Unified/portable for WRF; added documentation; outputs more complete diagnostic info when routine terminates abnormally 
+C> 2005-03-09 | J. Ator    | Added capability for compressed messages 
+C> 2022-10-04 | J. Ator    | Added 8-byte wrapper 
+C>
+C> @author J. Woollen @date 1994-01-06
       
-C> This subroutine writes a complete data subset
-C> into a BUFR message, for eventual output to logical unit LUNIT.
+C> This subroutine writes a complete data subset into a BUFR message, for eventual output to logical unit LUNIT.
 C>
-C> @author J. Woollen
-C> @date 1994-01-06
-C>
-C> @param[in] LUNIT -- integer: Fortran logical unit number for BUFR file
-C>
-C> <p>This subroutine is called to indicate to the BUFRLIB software that
+C> @note This subroutine is called to indicate to the BUFRLIB software that
 C> all necessary values for a data subset (i.e. report) have been written,
 C> and thus that the subset is ready to be encoded and packed into the
 C> current message for the BUFR file associated with logical unit LUNIT.
@@ -39,16 +46,9 @@ C> JDATE values that were specified in the most recent call to one of
 C> the [message-writing subroutines](@ref hierarchy) for LUNIT, then
 C> encode and pack the data subset into that new message.
 C>
-C> <b>Program history log:</b>
-C> | Date | Programmer | Comments |
-C> | -----|------------|----------|
-C> | 1994-01-06 | J. Woollen | Original author |
-C> | 1998-07-08 | J. Woollen | Replaced call to Cray library routine "ABORT" with call to new internal routine bort() |
-C> | 2003-11-04 | J. Ator | Added documentation |
-C> | 2003-11-04 | S. Bender | Added remarks and routine interdependencies |
-C> | 2003-11-04 | D. Keyser | Unified/portable for WRF; added documentation; outputs more complete diagnostic info when routine terminates abnormally |
-C> | 2005-03-09 | J. Ator | Added capability for compressed messages |
-C> | 2022-10-04 | J. Ator | Added 8-byte wrapper |
+C> @param[in] LUNIT -- integer: Fortran logical unit number for BUFR file
+C>
+C> @author J. Woollen @date 1994-01-06
 
       RECURSIVE SUBROUTINE WRITSB(LUNIT)
 

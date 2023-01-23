@@ -1,28 +1,31 @@
 C> @file
 C> @brief Write a data subset into a BUFR message, and return each
 C> completed message within a memory array.
+C>
+C> ### Program History Log
+C> Date | Programmer | Comments |
+C> -----|------------|----------|
+C> 1994-01-06 | J. Woollen | Original author |
+C> 1998-07-08 | J. Woollen | Replaced call to Cray library routine "ABORT" with call to new internal routine bort(); modified to make Y2K compliant |
+C> 2000-09-19 | J. Woollen | Maximum message length increased from 10,000 to 20,000 bytes |
+C> 2003-11-04 | S. Bender  | Added remarks and routine interdependencies |
+C> 2003-11-04 | D. Keyser  | Unified/portable for WRF; added documentation; outputs more complete diagnostic info when routine terminates abnormally |
+C> 2004-08-18 | J. Ator    | Add post msgupd() check for and return of message within MSGT in order to prevent loss of message in certain situations; maximum message length increased from 20,000 to 50,000 bytes |
+C> 2005-03-09 | J. Ator    | Added capability for compressed messages |
+C> 2009-03-23 | J. Ator    | Added LMSGT argument and check |
+C> 2014-12-10 | J. Ator    | Use modules instead of COMMON blocks |
+C> 2019-05-09 | J. Ator    | Added dimensions for MSGLEN and MSGTXT |
+C> 2020-09-22 | J. Ator    | Added capability to return two BUFR messages within MSGT during the same call to this routine, in the rare instances where this can occur |
+C> 2022-10-04 | J. Ator    | Added 8-byte wrapper |
+C>
+C> @author J. Woollen @author J. Ator @date 1994-01-06
 
 C> This subroutine is similar to subroutine writsb(), except that in
 C> addition to writing each completed message to a specified Fortran
 C> logical unit, it also returns a copy of each completed message to
 C> the application program within a memory array.
-C>
-C> @authors J. Woollen
-C> @authors J. Ator
-C> @date 1994-01-06
-C>
-C> @param[in] LUNXX   -- integer: Absolute value is Fortran logical
-C>                       unit number for BUFR file
-C> @param[in] LMSGT   -- integer: Dimensioned size (in integers) of
-C>                       MSGT; used by the subroutine to ensure that
-C>                       it doesn't overflow the MSGT array
-C> @param[out] MSGT   -- integer(*): BUFR message
-C> @param[out] MSGL   -- integer: Size (in integers) of BUFR message
-C>                       in MSGT
-C>                        - 0 = No BUFR message was returned within
-C>                              MSGT
 C> 
-C> <p>This subroutine looks and behaves a lot like subroutine writsb().
+C> This subroutine looks and behaves a lot like subroutine writsb().
 C> Specifically, it is called to indicate to the BUFRLIB software that
 C> all necessary values for a data subset (i.e. report) have been written,
 C> and thus that the subset is ready to be encoded and packed into the
@@ -36,7 +39,7 @@ C> Furthermore, all of the values for the data subset should have
 C> already been written into internal arrays via calls to any of the
 C> BUFRLIB [values-writing subroutines](@ref hierarchy)
 C>
-C> <p>Where this subroutine differs from writsb() is that, in addition
+C> Where this subroutine differs from writsb() is that, in addition
 C> to doing all of the above, it also returns a copy of each completed
 C> BUFR message to the application program within a memory array.
 C> When using this subroutine, it is important to note that the BUFRLIB
@@ -46,7 +49,7 @@ C> subroutine will result in a message being returned in MSGT. In
 C> such cases, MSGL will contain the value 0, indicating that no
 C> message was returned.
 C>
-C> <p>In other words, only when MSGL contains a value
+C> In other words, only when MSGL contains a value
 C> greater than 0 is there an actual BUFR message within MSGT; otherwise,
 C> the message into which the data subset was packed remains internally
 C> within BUFRLIB so that future data subsets can be packed into it as
@@ -88,21 +91,13 @@ C> for ABS(LUNXX).  In such cases, the logical unit number ABS(LUNXX)
 C> does not even need to be associated with an actual file on the
 C> local system.
 C>
-C> <b>Program history log:</b>
-C> | Date | Programmer | Comments |
-C> | -----|------------|----------|
-C> | 1994-01-06 | J. Woollen | Original author |
-C> | 1998-07-08 | J. Woollen | Replaced call to Cray library routine "ABORT" with call to new internal routine bort(); modified to make Y2K compliant |
-C> | 2000-09-19 | J. Woollen | Maximum message length increased from 10,000 to 20,000 bytes |
-C> | 2003-11-04 | S. Bender  | Added remarks and routine interdependencies |
-C> | 2003-11-04 | D. Keyser  | Unified/portable for WRF; added documentation; outputs more complete diagnostic info when routine terminates abnormally |
-C> | 2004-08-18 | J. Ator    | Add post msgupd() check for and return of message within MSGT in order to prevent loss of message in certain situations; maximum message length increased from 20,000 to 50,000 bytes |
-C> | 2005-03-09 | J. Ator    | Added capability for compressed messages |
-C> | 2009-03-23 | J. Ator    | Added LMSGT argument and check |
-C> | 2014-12-10 | J. Ator    | Use modules instead of COMMON blocks |
-C> | 2019-05-09 | J. Ator    | Added dimensions for MSGLEN and MSGTXT |
-C> | 2020-09-22 | J. Ator    | Added capability to return two BUFR messages within MSGT during the same call to this routine, in the rare instances where this can occur |
-C> | 2022-10-04 | J. Ator    | Added 8-byte wrapper |
+C>
+C> @param[in] lunxx - integer: Absolute value is Fortran logical unit number for BUFR file
+C> @param[in] lmsgt - integer: Dimensioned size (in integers) of MSGT; used by the subroutine to ensure that it doesn't overflow the MSGT array
+C> @param[out] msgt - integer: BUFR message
+C> @param[out] msgl - integer: Size (in integers) of BUFR message in MSGT (0=no message)
+C>
+C> @author J. Woollen @author J. Ator @date 1994-01-06
 
       RECURSIVE SUBROUTINE WRITSA(LUNXX,LMSGT,MSGT,MSGL)
 
