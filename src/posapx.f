@@ -1,51 +1,33 @@
 C> @file
-C> @author WOOLLEN @date 1994-01-06
+C> @brief Position an output BUFR file for appending.
+C> 
+C> ### Program History Log
+C> Date | Programmer | Comments
+C> -----|------------|----------
+C> 1994-01-06 | J. Woollen | Original author.
+C> 1998-07-08 | J. Woollen | Replaced call to cray library routine "abort" with bort().
+C> 2000-09-19 | J. Woollen | Maximum message length increased from 10,000 to 20,000 bytes.
+C> 2003-11-04 | S. Bender  | Added remarks/bufrlib routine interdependencies.
+C> 2003-11-04 | D. Keyser  | Unified/portable for wrf; added documentation (including history); outputs more.
+C> 2004-08-09 | J. Ator    | Maximum message length increased from 20,000 to 50,000 bytes.
+C> 2009-03-23 | J. Ator    | Modified to handle embedded bufr table (dictionary) messages; added lunxx < 0 option to simulate posapn.
+C> 2010-05-11 | J. Ator    | Set iscodes to -1 if unsuccessful.
+C> 2012-09-15 | J. Woollen | Modified for c/i/o/bufr interface; replace fortran backspace with c backbufr remove unecessary error checking logic.
+C> 2014-12-10 | J. Ator    | Use modules instead of common blocks.
+C> 
+C> @author Woollen @date 1994-01-06
       
-C> THIS SUBROUTINE READS TO THE END OF THE FILE POINTED TO BY
-C>   ABS(LUNXX) AND POSITIONS IT FOR APPENDING.  THE FILE MUST HAVE
-C>   ALREADY BEEN OPENED FOR OUTPUT OPERATIONS.  IF LUNXX > 0, THE FILE
-C>   IS BACKSPACED BEFORE BEING POSITIONED FOR APPEND.
+C> This subroutine reads to the end of the file pointed to by
+C> abs(LUNXX) and positions it for appending. The file must have
+C> already been opened for output operations.
+C> 
+C< If LUNXX > 0, then the file is backspaced before being positioned for append.
+C> If LUNXX < 0, then the file is not backspaced before being positioned for append.
 C>
-C> PROGRAM HISTORY LOG:
-C> 1994-01-06  J. WOOLLEN -- ORIGINAL AUTHOR
-C> 1998-07-08  J. WOOLLEN -- REPLACED CALL TO CRAY LIBRARY ROUTINE
-C>                           "ABORT" WITH CALL TO NEW INTERNAL BUFRLIB
-C>                           ROUTINE "BORT"
-C> 2000-09-19  J. WOOLLEN -- MAXIMUM MESSAGE LENGTH INCREASED FROM
-C>                           10,000 TO 20,000 BYTES
-C> 2003-11-04  S. BENDER  -- ADDED REMARKS/BUFRLIB ROUTINE
-C>                           INTERDEPENDENCIES
-C> 2003-11-04  D. KEYSER  -- UNIFIED/PORTABLE FOR WRF; ADDED
-C>                           DOCUMENTATION (INCLUDING HISTORY); OUTPUTS
-C>                           MORE COMPLETE DIAGNOSTIC INFO WHEN ROUTINE
-C>                           TERMINATES ABNORMALLY
-C> 2004-08-09  J. ATOR    -- MAXIMUM MESSAGE LENGTH INCREASED FROM
-C>                           20,000 TO 50,000 BYTES
-C> 2009-03-23  J. ATOR    -- MODIFIED TO HANDLE EMBEDDED BUFR TABLE
-C>                           (DICTIONARY) MESSAGES; ADDED LUNXX < 0
-C>                           OPTION TO SIMULATE POSAPN
-C> 2010-05-11  J. ATOR    -- SET ISCODES TO -1 IF UNSUCCESSFUL
-C> 2012-09-15  J. WOOLLEN -- MODIFIED FOR C/I/O/BUFR INTERFACE;
-C>                           REPLACE FORTRAN BACKSPACE WITH C BACKBUFR
-C>                           REMOVE UNECESSARY ERROR CHECKING LOGIC    
-C> 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
+C> @param[in] LUNXX - integer: absolute value is fortran logical unit number
+C> for BUFR file
 C>
-C> USAGE:    CALL POSAPX (LUNXX)
-C>   INPUT ARGUMENT LIST:
-C>     LUNXX    - INTEGER: ABSOLUTE VALUE IS FORTRAN LOGICAL UNIT NUMBER
-C>                FOR BUFR FILE (IF LUNXX < 0, THEN THE FILE IS NOT
-C>                BACKSPACED BEFORE POSITIONING FOR APPEND)
-C>
-C>   INPUT FILES:
-C>     UNIT "LUNIT" - BUFR FILE
-C>
-C> REMARKS:
-C>    THIS ROUTINE CALLS:        BORT     IDXMSG   RDBFDX   RDMSGW
-C>                               STATUS   BACKBUFR
-C>    THIS ROUTINE IS CALLED BY: OPENBF
-C>                               Normally not called by any application
-C>                               programs.
-C>
+C> @author Woollen @date 1994-01-06
       SUBROUTINE POSAPX(LUNXX)
 
       USE MODA_MGWA
