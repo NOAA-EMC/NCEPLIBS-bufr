@@ -1,6 +1,5 @@
 C> @file
-C> @brief Read to the end of the file pointed to by
-C> abs(lunxx) and positions it for appending.
+C> @brief Position an output BUFR file for appending.
 C> 
 C> ### Program History Log
 C> Date | Programmer | Comments
@@ -19,13 +18,14 @@ C>
 C> @author Woollen @date 1994-01-06
       
 C> This subroutine reads to the end of the file pointed to by
-C> abs(lunxx) and positions it for appending. The file must have
-C> already been opened for output operations. If LUNXX > 0, the file
-C> is backspaced before being positioned for append.
+C> abs(LUNXX) and positions it for appending. The file must have
+C> already been opened for output operations.
+C> 
+C< If LUNXX > 0, then the file is backspaced before being positioned for append.
+C> If LUNXX < 0, then the file is not backspaced before being positioned for append.
 C>
 C> @param[in] LUNXX - integer: absolute value is fortran logical unit number
-C> for bufr file (if lunxx < 0, then the file is not
-C> backspaced before positioning for append).
+C> for BUFR file
 C>
 C> @author Woollen @date 1994-01-06
       SUBROUTINE POSAPX(LUNXX)

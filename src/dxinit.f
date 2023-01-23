@@ -71,8 +71,6 @@ C  ---------------------------
       NTBD(LUN) = 0
       DO I=1,NTBD(0)
       TABD(I,LUN) = ' '
-c  .... This zeroes the counter in TABD array, IRET returns as 0 and
-c       is not tested
       CALL PKTDD(I,LUN,0,IRET)
       ENDDO
 
@@ -100,9 +98,7 @@ C  ---------------------------------------------------
       IDND(N,LUN) = IDNR(I,1)
       TABD(N,LUN)(1: 6) = ADN30(IDNR(I,1),6)
       TABD(N,LUN)(7:70) = INID(I)
-c  .... DK: what if IRET = -1 ???
       CALL PKTDD(N,LUN,IDNR(1,1),IRET)
-c  .... DK: what if IRET = -1 ???
       CALL PKTDD(N,LUN,IDNR(I,2),IRET)
       NTBD(LUN) = N
       ENDDO

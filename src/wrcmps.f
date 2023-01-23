@@ -1,82 +1,44 @@
 C> @file
-C> @author WOOLLEN @date 2002-05-14
-      
-C> THIS SUBROUTINE PACKS UP THE CURRENT SUBSET WITHIN MEMORY
-C>   (ARRAY IBAY IN MODULE BITBUF), STORING IT FOR COMPRESSION.
-C>   IT THEN TRIES TO ADD IT TO THE COMPRESSED BUFR MESSAGE THAT IS
-C>   CURRENTLY OPEN WITHIN MEMORY FOR ABS(LUNIX) (ARRAY MGWA).  IF THE
-C>   SUBSET WILL NOT FIT INTO THE CURRENTLY OPEN MESSAGE, THEN THAT
-C>   COMPRESSED MESSAGE IS FLUSHED TO LUNIX AND A NEW ONE IS CREATED IN
-C>   ORDER TO HOLD THE CURRENT SUBSET (STILL STORED FOR COMPRESSION).
-C>   THIS SUBROUTINE PERFORMS FUNCTIONS SIMILAR TO BUFR ARCHIVE LIBRARY
-C>   SUBROUTINE MSGUPD EXCEPT THAT IT ACTS ON COMPRESSED BUFR MESSAGES.
+C> @brief Writes a compressed BUFR data subset into the output buffer.
 C>
-C> PROGRAM HISTORY LOG:
-C> 2002-05-14  J. WOOLLEN -- ORIGINAL AUTHOR
-C> 2003-11-04  S. BENDER  -- ADDED REMARKS/BUFRLIB ROUTINE
-C>                           INTERDEPENDENCIES
-C> 2003-11-04  D. KEYSER  -- MAXJL (MAXIMUM NUMBER OF JUMP/LINK ENTRIES)
-C>                           INCREASED FROM 15000 TO 16000 (WAS IN
-C>                           VERIFICATION VERSION); LOGICAL VARIABLES
-C>                           "WRIT1" AND "FLUSH" NOW SAVED IN GLOBAL
-C>                           MEMORY (IN COMMON BLOCK /COMPRS/), THIS
-C>                           FIXED A BUG IN THIS ROUTINE WHICH CAN LEAD
-C>                           TO MESSAGES BEING WRITTEN OUT BEFORE THEY
-C>                           ARE FULL; UNIFIED/PORTABLE FOR WRF; ADDED
-C>                           DOCUMENTATION (INCLUDING HISTORY); OUTPUTS
-C>                           MORE COMPLETE DIAGNOSTIC INFO WHEN ROUTINE
-C>                           TERMINATES ABNORMALLY
-C> 2004-08-18  J. ATOR    -- REMOVE CALL TO XMSGINI (CMSGINI NOW HAS
-C>                           SAME CAPABILITY); IMPROVE DOCUMENTATION;
-C>                           CORRECT LOGIC FOR WHEN A CHARACTER VALUE IS
-C>                           THE SAME FOR ALL SUBSETS IN A MESSAGE;
-C>                           MAXIMUM MESSAGE LENGTH INCREASED FROM
-C>                           20,000 TO 50,000 BYTES
-C> 2004-08-18  J. WOOLLEN -- 1) ADDED SAVE FOR LOGICAL 'FIRST'
-C>                           2) ADDED 'KMISS' TO FIX BUG WHICH WOULD
-C>                              OCCASIONALLY SKIP OVER SUBSETS
-C>                           3) ADDED LOGIC TO MAKE SURE MISSING VALUES
-C>                              ARE REPRESENTED BY INCREMENTS WITH ALL
-C>                              BITS ON
-C>                           4) REMOVED TWO UNECESSARY REFERENCES TO
-C>                              'WRIT1'
-C> 2005-11-29  J. ATOR    -- FIX INITIALIZATION BUG FOR CHARACTER
-C>                           COMPRESSION; INCREASE MXCSB TO 4000;
-C>                           USE IUPBS01; CHECK EDITION NUMBER OF BUFR
-C>                           MESSAGE BEFORE PADDING TO AN EVEN BYTE COUNT
-C> 2009-03-23  J. ATOR    -- ADDED SAVE FOR IBYT AND JBIT; USE MSGFULL
-C> 2009-08-11  J. WOOLLEN -- MADE CATX AND CSTR BIGGER TO HANDLE LONGER
-C>                           STRINGS.  ALSO SEPARATED MATX,CATX,NCOL FROM
-C>                           OTHER VARS IN COMMON COMPRS FOR USE IN
-C>                           SUBROUTINE WRITLC.  ALSO PASSED MBAY(1,LUN)
-C>                           AS ARRAY TO INITIAL CALL TO CMSGINI IN ORDER
-C>                           FOR USE BY WRITLC.
-C> 2012-02-17  J. ATOR    -- FIXED A BUG INVOLVING COMPRESSED FILES WITH
-C>                           EMBEDDED DICTIONARY MESSAGES
-C> 2014-12-03  J. ATOR    -- USE PKX TO PACK LOCAL REFERENCE VALUE FOR
-C>                           CHARACTER STRINGS
-C> 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
-C> 2015-09-24  D. STOKES  -- INCLUDE EDGE4 IN SAVE LIST
-C> 2016-03-18  J. ATOR    -- FIX BUG INVOLVING ENCODING OF LONG CHARACTER
-C>                           STRINGS (VIA WRITLC) INTO MESSAGES WHICH
-C>                           ALSO CONTAIN DELAYED REPLICATION SEQUENCES
-C> 2021-02-24  J. ATOR    -- USE IPKM AND PKC INSTEAD OF PKX
-C> 2022-05-06  J. WOOLLEN -- USE PKB8 FOR PACKING 8BYTE INTEGERS 
+C> ### Program History Log
+C> Date | Programmer | Comments |
+C> -----|------------|----------|
+C> 2002-05-14 | J. Woollen  | original author
+C> 2003-11-04 | S. Bender   | added remarks/bufrlib routine interdependencies 
+C> 2003-11-04 | D. Keyser   | maxjl  increased from 15k to 16000; writ1 and flush now saved;unified/portable for wrf; added documentation and abort info 
+C> 2004-08-18 | J. Ator     | remove call to xmsgini; improve documentation; correct character value logic; maximum message length 20k TO 50k 
+C> 2004-08-18 | J. Woollen  | save 'first'; added 'kmiss'; added logic to correct missing values; removed unecessary references to writ1 
+C> 2005-11-29 | J. Ator     | fix initialization bug for character compression; increase mxcsb to 4k; check edition number before padding message 
+C> 2009-03-23 | J. Ator     | added save for ibyt and jbit; use msgfull 
+C> 2009-08-11 | J. Woollen  | made catx and cstr bigger; separated matx,catx,ncol for use in subroutine writlc; passed mbay(1,lun) to cmsgini for use in writlc 
+C> 2012-02-17 | J. Ator     | fixed a bug involving compressed files with embedded dictionary messages
+C> 2014-12-03 | J. Ator     | use pkx to pack local reference value for character strings
+C> 2014-12-10 | J. Ator     | use modules instead of common blocks
+C> 2015-09-24 | D. Stokes   | include edge4 in save list
+C> 2016-03-18 | J. Ator     | fix bug involving encoding long character strings (via writlc) into messages which contain delayed replication 
+C> 2021-02-24 | J. Ator     | use ipkm and pkc instead of pkx
+C> 2022-05-06 | J. Woollen  | use pkb8 for packing 8byte integers
 C>
-C> USAGE:    CALL WRCMPS (LUNIX)
-C>   INPUT ARGUMENT LIST:
-C>     LUNIX    - INTEGER: ABSOLUTE VALUE IS FORTRAN LOGICAL UNIT NUMBER
-C>                FOR BUFR FILE (IF LUNIX IS LESS THAN ZERO, THIS IS A
-C>                "FLUSH" CALL AND THE BUFFER MUST BE CLEARED OUT)
+C> @author Woollen @date 2002-05-14
+
+C> This subroutine packs up the current subset within memory
+C> (array ibay in module bitbuf), storing it for compression.
+C> It then tries to add it to the compressed BUFR message that is
+C> currently open within memory for abs(lunix) (array mgwa).  If the
+C> subset will not fit into the currently open message, then that
+C> compressed message is flushed to lunix and a new one is created in
+C> order to hold the current subset (still stored for compression).
+C> This subroutine performs functions similar to BUFR archive library
+C> subroutine msgupd() except that it acts on compressed bufr messages.
 C>
-C> REMARKS:
-C>    THIS ROUTINE CALLS:        BORT     CMSGINI  IUPBS01  MSGFULL
-C>                               MSGWRT   PKB      PKC      PKX
-C>                               STATUS   UPB      UPC      USRTPL
-C>    THIS ROUTINE IS CALLED BY: CLOSMG   WRITSA   WRITSB   PKB8
-C>                               Normally not called by any application
-C>                               programs.
 C>
+C> @param[in] lunix -- integer: absolute value is fortran logical unit number
+C>                     for bufr file (if lunix is less than zero, this is a
+C>                     "flush" call and the buffer must be cleared out)
+C>
+C> @author Woollen @date 2002-05-14
+
       SUBROUTINE WRCMPS(LUNIX)
 
       USE MODV_MXCDV

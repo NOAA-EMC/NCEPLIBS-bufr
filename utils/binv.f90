@@ -1,13 +1,13 @@
 !> @file
-!> @brief ???
+!> @brief  Produce an inventory of subsets in a bufr file.
 !>
-!> @author J Woollen @date 2021
+!> @author J Woollen @date 1994
 
-!> ???
+!> Usage: binv <bufrfile> will print bufrfile inventory by message type.
 !>
-!> @return 0 for success, error code otherwise.
+!> @return 0 for success, error message otherwise.
 !>
-!> @author J Woollen @date 2021
+!> @author J Woollen @date 1994
 PROGRAM BINV
 
   PARAMETER (MAXSUB=100)
@@ -22,6 +22,7 @@ PROGRAM BINV
   DATA LUNBF  /20/
 
   !-----------------------------------------------------------------------
+  nmbyt(lunit)= iupvs01(lunit,'LENM')
   !-----------------------------------------------------------------------
 
   !  get filename
@@ -84,15 +85,3 @@ PROGRAM BINV
 
   STOP
 END PROGRAM BINV
-
-!> ???
-!>
-!> @param lunit ???
-!>
-!> @return ???
-!>
-!> @author J Ator @date 2021
-function nmbyt(lunit)
-  nmbyt = iupvs01(lunit,'LENM')
-  return
-end function nmbyt
