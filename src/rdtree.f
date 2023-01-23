@@ -11,7 +11,7 @@ C> 1999-11-18 | J. Woollen | the number of bufr files which can be opened at one
 C> 2000-09-19 | J. Woollen | maximum message length increased from 10,000 to 20,000 bytes
 C> 2003-11-04 | J. Woollen | fixed a bug which could only occur when the last element in a subset is a character
 C> 2003-11-04 | S. Bender  | added remarks/bufrlib routine interdependencies
-C> 2003-11-04 | D. Keyser  | maxjl (maximum number of jump/link entries) increased from 15000 to 16000 (was in verification version); unified/portable for wrf; added documentation (including history)
+C> 2003-11-04 | D. Keyser  | maxjl increased to 16000; unified/portable for wrf; added documentation (including history)
 C> 2004-08-09 | J. Ator    | maximum message length increased from 20,000 to 50,000 bytes
 C> 2007-01-19 | J. Ator    | prevent overflow of cval for strings longer than 8 characters
 C> 2012-03-02 | J. Ator    | use function ups

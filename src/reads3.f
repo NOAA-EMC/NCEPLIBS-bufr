@@ -1,32 +1,24 @@
 C> @file
-C> @author ATOR @date 2009-03-23
+C> @brief Read the section 3 descriptors from the
+C> bufr message in mbay(1,lun).
+C> 
+C> ### Program History Log
+C> Date | Programmer | Comments 
+C> -----|------------|----------
+C> 2009-03-23 | J. Ator    | original author
+C> 2014-12-10 | J. Ator    | use modules instead of common blocks
+C> 2017-10-13 | J. Ator    | remove functionality to check whether new master tables need to be read
+C> 
+C> @author Ator @date 2009-03-23
 	
-C> THIS SUBROUTINE READS THE SECTION 3 DESCRIPTORS FROM THE
-C>   BUFR MESSAGE IN MBAY(1,LUN).  IT THEN USES THE BUFR MASTER TABLES
-C>   TO GENERATE THE NECESSARY INFORMATION FOR THESE DESCRIPTORS WITHIN
-C>   THE INTERNAL BUFR TABLE ARRAYS.
+C> This subroutine reads the section 3 descriptors from the
+C> bufr message in mbay(1,lun). It then uses the bufr master tables
+C> to generate the necessary information for these descriptors within
+C> the internal bufr table arrays.
 C>
-C> PROGRAM HISTORY LOG:
-C> 2009-03-23  J. ATOR    -- ORIGINAL AUTHOR
-C> 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
-C> 2017-10-13  J. ATOR    -- REMOVE FUNCTIONALITY TO CHECK WHETHER NEW
-C>                           MASTER TABLES NEED TO BE READ (THIS
-C>                           FUNCTIONALITY IS NOW PART OF FUNCTION
-C>                           IREADMT)
-
+C> @param[in] LUN - integer: i/o stream index into internal memory arrays.
 C>
-C> USAGE:    CALL READS3 ( LUN )
-C>   INPUT ARGUMENT LIST:
-C>     LUN      - INTEGER: I/O STREAM INDEX INTO INTERNAL MEMORY ARRAYS
-C>
-C> REMARKS:
-C>    THIS ROUTINE CALLS:        ADN30    BORT     DXINIT   ERRWRT
-C>                               IFXY     IGETNTBI IGETTDI  IREADMT
-C>                               MAKESTAB STNTBIA  STSEQ    UPDS3
-C>    THIS ROUTINE IS CALLED BY: READERME READMG
-C>                               Normally not called by any application
-C>                               programs.
-C>
+C> @author Ator @date 2009-03-23
 	SUBROUTINE READS3 ( LUN )
 
 	USE MODA_SC3BFR

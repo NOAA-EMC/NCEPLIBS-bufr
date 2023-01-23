@@ -1,66 +1,40 @@
 C> @file
-C> @author WOOLLEN @date 1994-01-06
+C> @brief Read and parses a file containing a user-
+c> supplied bufr dictionary table in character format, and then stores
+c> this information into internal arrays in module tababd.
+C> 
+C> ### Program History Log
+C> Date | Programmer | Comments 
+C> -----|------------|----------
+C> 1994-01-06 | J. Woollen | original author
+C> 1995-06-28 | J. Woollen | increased the size of internal bufr table arrays in order to handle bigger files
+C> 1996-12-17 | J. Woollen | fixed for some mvs compiler's treatment of internal reads (increases portability)
+C> 1998-07-08 | J. Woollen | replaced call to cray library routine "abort" with call to new internal bufrlib routine "bort"; corrected some minor errors
+C> 1999-11-18 | J. Woollen | the number of bufr files which can be opened at one time increased from 10 to 32
+C> 2003-11-04 | J. Ator    | added documentation
+C> 2003-11-04 | S. Bender  | added remarks/bufrlib routine interdependencies
+C> 2003-11-04 | D. Keyser  | unified/portable for wrf; documentation; outputs diagnostic info; changed call from bort to bort2
+C> 2006-04-14 | D. Keyser  | aborts if a user-defined message type "011" is read.
+C> 2007-01-19 | J. Ator    | modified in response to numbck changes
+C> 2009-03-23 | J. Ator    | increase size of bort_str2; use stntbia
+C> 2013-01-08 | J. Whiting | add err= option to read statement
+C> 2014-12-10 | J. Ator    | use modules instead of common blocks
+C>
+C> @author Woollen @date 1994-01-06
       
-C> THIS SUBROUTINE READS AND PARSES A FILE CONTAINING A USER-
-C>   SUPPLIED BUFR DICTIONARY TABLE IN CHARACTER FORMAT, AND THEN STORES
-C>   THIS INFORMATION INTO INTERNAL ARRAYS IN MODULE TABABD (SEE REMARKS
-C>   FOR CONTENTS OF INTERNAL ARRAYS).  THIS SUBROUTINE PERFORMS
-C>   A FUNCTION SIMILAR TO BUFR ARCHIVE LIBRARY SUBROUTINE RDBFDX,
-C>   EXECPT THAT RDBFDX READS THE BUFR TABLE DIRECTLY FROM MESSAGES AT
-C>   BEGINNING OF AN INPUT BUFR FILE.
+C> This subroutine reads and parses a file containing a user-
+c> supplied bufr dictionary table in character format, and then stores
+c> this information into internal arrays in module tababd (see remarks
+c> for contents of internal arrays). This subroutine performs
+c> a function similar to bufr archive library subroutine rdbfdx,
+c> execpt that rdbfdx reads the bufr table directly from messages at
+c> beginning of an input bufr file.
 C>
-C> PROGRAM HISTORY LOG:
-C> 1994-01-06  J. WOOLLEN -- ORIGINAL AUTHOR
-C> 1995-06-28  J. WOOLLEN -- INCREASED THE SIZE OF INTERNAL BUFR TABLE
-C>                           ARRAYS IN ORDER TO HANDLE BIGGER FILES
-C> 1996-12-17  J. WOOLLEN -- FIXED FOR SOME MVS COMPILER'S TREATMENT OF
-C>                           INTERNAL READS (INCREASES PORTABILITY)
-C> 1998-07-08  J. WOOLLEN -- REPLACED CALL TO CRAY LIBRARY ROUTINE
-C>                           "ABORT" WITH CALL TO NEW INTERNAL BUFRLIB
-C>                           ROUTINE "BORT"; CORRECTED SOME MINOR ERRORS
-C> 1999-11-18  J. WOOLLEN -- THE NUMBER OF BUFR FILES WHICH CAN BE
-C>                           OPENED AT ONE TIME INCREASED FROM 10 TO 32
-C>                           (NECESSARY IN ORDER TO PROCESS MULTIPLE
-C>                           BUFR FILES UNDER THE MPI)
-C> 2003-11-04  J. ATOR    -- ADDED DOCUMENTATION
-C> 2003-11-04  S. BENDER  -- ADDED REMARKS/BUFRLIB ROUTINE
-C>                           INTERDEPENDENCIES
-C> 2003-11-04  D. KEYSER  -- UNIFIED/PORTABLE FOR WRF; ADDED HISTORY
-C>                           DOCUMENTATION; OUTPUTS MORE COMPLETE
-C>                           DIAGNOSTIC INFO WHEN ROUTINE TERMINATES
-C>                           ABNORMALLY; CHANGED CALL FROM BORT TO BORT2
-C> 2006-04-14  D. KEYSER  -- ABORTS IF A USER-DEFINED MESSAGE TYPE "011"
-C>                           IS READ (EITHER DIRECTLY FROM A TABLE A
-C>                           MNEMONIC OR FROM THE "Y" VALUE OF A TABLE A
-C>                           FXY SEQUENCE DESCRIPTOR), MESSAGE TYPE
-C>                           "011" IS RESERVED FOR DICTIONARY MESSAGES
-C>                           (PREVIOUSLY WOULD STORE DATA WITH MESSAGE
-C>                           TYPE "011" BUT SUCH MESSAGES WOULD BE
-C>                           SKIPPED OVER WHEN READ)
-C> 2007-01-19  J. ATOR    -- MODIFIED IN RESPONSE TO NUMBCK CHANGES
-C> 2009-03-23  J. ATOR    -- INCREASE SIZE OF BORT_STR2; USE STNTBIA
-C> 2013-01-08  J. WHITING -- ADD ERR= OPTION TO READ STATEMENT
-C> 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
+C> @param[in] LUNDX - integer: fortran logical unit number for user-
+C> supplied bufr dictionary table in character format.
+C> @param[in] LUN - integer: i/o stream index into internal memory arrays.
 C>
-C> USAGE:    CALL RDUSDX (LUNDX, LUN)
-C>   INPUT ARGUMENT LIST:
-C>     LUNDX    - INTEGER: FORTRAN LOGICAL UNIT NUMBER FOR USER-
-C>                SUPPLIED BUFR DICTIONARY TABLE IN CHARACTER FORMAT
-C>     LUN      - INTEGER: I/O STREAM INDEX INTO INTERNAL MEMORY ARRAYS
-C>
-C>   INPUT FILES:
-C>     UNIT "LUNDX" - USER-SUPPLIED BUFR DICTIONARY TABLE IN CHARACTER
-C>                    FORMAT
-C>
-C> REMARKS:
-C>
-C>    THIS ROUTINE CALLS:        BORT2    DXINIT   ELEMDX   IGETNTBI
-C>                               MAKESTAB NEMOCK   NUMBCK   SEQSDX
-C>                               STNTBI   STNTBIA
-C>    THIS ROUTINE IS CALLED BY: CKTABA   READDX
-C>                               Normally not called by any application
-C>                               programs.
-C>
+C> @author Woollen @date 1994-01-06
       SUBROUTINE RDUSDX(LUNDX,LUN)
 
       USE MODA_TABABD
