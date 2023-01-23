@@ -1,6 +1,13 @@
 /** @file
  *  @brief Read the next message from a BUFR file that was
  *  previously opened for reading via a C language interface.
+ *  
+ *  <b>Program history log:</b>
+ *  | Date | Programmer | Comments |
+ *  | -----|------------|----------|
+ *  | 2005-11-29 | J. Ator | Original author |
+ *
+ *  @author J. Ator @date 2005-11-29
  */
 #include "bufrlib.h"
 #include "cobfl.h"
@@ -9,9 +16,6 @@
  *  This subroutine reads the next BUFR message from the system
  *  file that was opened via the most recent call to subroutine
  *  cobfl() with io = 'r'.
- *  
- *  @author J. Ator
- *  @date 2005-11-29
  *
  *  @param[in] mxmb    -- f77int*: Dimensioned size (in bytes) of
  *                        bmg; used by the subroutine to ensure that
@@ -28,22 +32,18 @@
  *                               reading
  *                         - -2 = I/O error encountered while reading
  *
- * <p>This subroutine is designed to be easily callable from
+ * This subroutine is designed to be easily callable from
  * application program written in either C or Fortran.
  *
- * <p>The file from which messages are to be read must have already
+ * The file from which messages are to be read must have already
  * been opened for reading via a previous call to subroutine cobfl()
  * with io = 'r'.
  *
- * <p>Any messages read that were encoded according to BUFR edition 0
+ * Any messages read that were encoded according to BUFR edition 0
  * or BUFR edition 1 are automatically converted to BUFR edition 2
  * before being returned by this subroutine.
- *
- *  <b>Program history log:</b>
- *  | Date | Programmer | Comments |
- *  | -----|------------|----------|
- *  | 2005-11-29 | J. Ator | Original author |
- *
+ *  
+ *  @author J. Ator @date 2005-11-29
  */
 void crbmg( char *bmg, f77int *mxmb, f77int *nmb, f77int *iret )
 {
