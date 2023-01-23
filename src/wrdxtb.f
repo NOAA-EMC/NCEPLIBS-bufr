@@ -1,36 +1,33 @@
 C> @file
 C> @brief Write DX BUFR tables messages to a BUFR file.
+C>
+C> ### Program History Log
+C> Date | Programmer | Comments |
+C> -----|------------|----------|
+C> 2009-03-23 | J. Ator | Original author, using logic from writdx() 
+C> 2012-04-06 | J. Ator | Prevent storing of more than 255 Table A, Table B, or Table D descriptors in any single DX BUFR tables message 
+C> 2014-11-14 | J. Ator | Replace ipkm() calss with pkb() calls 
+C> 2014-12-10 | J. Ator | Use modules instead of COMMON blocks 
+C> 2022-10-04 | J. Ator | Added 8-byte wrapper 
+C>
+C> @author J. Ator @date 2009-03-23
 
 C> This subroutine generates one or more BUFR messages from the DX
 C> BUFR tables information associated with a given BUFR file, and
 C> it then writes the messages out to the same or possibly a
 C> different BUFR file.
 C>
-C> <p>Logical units LUNDX and LUNOT should have already been
+C> Logical units LUNDX and LUNOT should have already been
 C> opened via previous calls to subroutine openbf(), and in
 C> particular logical unit LUNOT must have been opened for
 C> output operations.  LUNDX and LUNOT may be the same if it is
 C> desired to append to LUNOT with DX BUFR messages generated
 C> from its own internal tables.
 C>
-C> @author J. Ator
-C> @date 2009-03-23
+C> @param[in] lundx - integer: Fortran logical unit number associated with DX BUFR table information to be written out
+C> @param[in] lunot - integer: Fortran logical unit number of BUFR file to which messages are to be written
 C>
-C> @param[in] LUNDX   -- integer: Fortran logical unit number
-C>                       associated with DX BUFR table information
-C>                       to be written out
-C> @param[in] LUNOT   -- integer: Fortran logical unit number of
-C>                       BUFR file to which messages are to be
-C>                       written
-C>
-C> <b>Program history log:</b>
-C> | Date | Programmer | Comments |
-C> | -----|------------|----------|
-C> | 2009-03-23 | J. Ator | Original author, using logic from writdx() |
-C> | 2012-04-06 | J. Ator | Prevent storing of more than 255 Table A, Table B, or Table D descriptors in any single DX BUFR tables message |
-C> | 2014-11-14 | J. Ator | Replace ipkm() calss with pkb() calls |
-C> | 2014-12-10 | J. Ator | Use modules instead of COMMON blocks |
-C> | 2022-10-04 | J. Ator | Added 8-byte wrapper |
+C> @author J. Ator @date 2009-03-23
 
       RECURSIVE SUBROUTINE WRDXTB(LUNDX,LUNOT)
 
