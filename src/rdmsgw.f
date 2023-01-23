@@ -1,39 +1,27 @@
 C> @file
-C> @author ATOR @date 2005-11-29
+C> @brief Read the next bufr message from logical
+c> unit lunit as an array of integer words.
+C>
+C> ### Program History Log
+C> Date | Programmer | Comments 
+C> -----|------------|----------
+C> 2005-11-29 | J. Ator    | Original author.
+C> 2009-03-23 | D. Keyser  | Call bort in case of mesg overflow.
+C> 2012-09-15 | J. Woollen | C i/o interface; use C routine crdbufr(); remove code which checks sec0 and message length.
+C>
+C> @author Ator @date 2005-11-29
       
-C> THIS SUBROUTINE READS THE NEXT BUFR MESSAGE FROM LOGICAL
-C>   UNIT LUNIT AS AN ARRAY OF INTEGER WORDS.
+C> This subroutine reads the next bufr message from logical
+c> unit lunit as an array of integer words.
 C>
-C> PROGRAM HISTORY LOG:
-C> 2005-11-29  J. ATOR    -- ORIGINAL AUTHOR
-C> 2009-03-23  D. KEYSER  -- CALL BORT IN CASE OF MESG OVERFLOW
-C> 2012-09-15  J. WOOLLEN -- CONVERT TO C LANGUAGE I/O INTERFACE;
-C>                           USE C ROUTINE CRDBUFR TO OBTAIN BUFR 
-C>                           MESSAGE; REMOVE CODE WHICH CHECKS SEC0
-C>                           AND MESSAGE LENGTH AS CRDBUFR DOES THAT
+C> @param[in] LUNIT - integer: fortran logical unit number for bufr file.
 C>
-C> USAGE:    CALL RDMSGW (LUNIT, MESG, IRET)
-C>   INPUT ARGUMENT LIST:
-C>     LUNIT    - INTEGER: FORTRAN LOGICAL UNIT NUMBER FOR BUFR FILE
+C> @param[out] MESG - *-word array containing bufr message read from lunit.
+C> @param[out] IRET - integer: return code:.
+C> - 0 normal return
+C> - -1 end-of-file encountered while reading from LUNIT
 C>
-C>   OUTPUT ARGUMENT LIST:
-C>     MESG     - *-WORD ARRAY CONTAINING BUFR MESSAGE READ FROM LUNIT
-C>     IRET     - INTEGER: RETURN CODE:
-C>                       0 = normal return
-C>                      -1 = end-of-file encountered while reading
-C>                           from LUNIT
-C>
-C>   INPUT FILES:
-C>     UNIT "LUNIT" - BUFR FILE
-C>
-C> REMARKS:
-C>    THIS ROUTINE CALLS:        CRDBUFR  ERRWRT   STATUS
-C>    THIS ROUTINE IS CALLED BY: COPYBF   CPDXMM   DATEBF   DUMPBF
-C>                               MESGBC   MESGBF   POSAPX   RDBFDX
-C>                               READMG   UFBMEM   UFBMEX
-C>                               Normally not called by any application
-C>                               programs.
-C>
+C> @author Ator @date 2005-11-29
       SUBROUTINE RDMSGW(LUNIT,MESG,IRET)
 
       USE MODV_MXMSGL
