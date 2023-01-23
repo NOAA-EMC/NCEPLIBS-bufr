@@ -1,42 +1,39 @@
 C> @file
-C> @author WOOLLEN @date 1994-01-06
+C> @brief Step through the "following value"
+C> mnemonic nem1 and, for each "." character encountered (except for
+C> the initial one), overwrites it with the next corresponding
+C> character from nem2.
+C>
+C> ### Program History Log
+C> Date | Programmer | Comments 
+C> -----|------------|----------
+C> 1994-01-06 | J. Woollen | original author
+C> 2003-11-04 | J. Ator    | added documentation
+C> 2003-11-04 | S. Bender  | added remarks/bufrlib routine interdependencies
+C> 2003-11-04 | D. Keyser  | unified/portable for wrf; added history documentation
+C>
+C> @author Woollen @date 1994-01-06
       
-C> THIS SUBROUTINE STEPS THROUGH THE "FOLLOWING VALUE"
-C>   MNEMONIC NEM1 AND, FOR EACH "." CHARACTER ENCOUNTERED (EXCEPT FOR
-C>   THE INITIAL ONE), OVERWRITES IT WITH THE NEXT CORRESPONDING
-C>   CHARACTER FROM NEM2 (SEE REMARKS).
+C> This subroutine steps through the "following value"
+C> mnemonic nem1 and, for each "." character encountered (except for
+C> the initial one), overwrites it with the next corresponding
+C> character from nem2.
 C>
-C> PROGRAM HISTORY LOG:
-C> 1994-01-06  J. WOOLLEN -- ORIGINAL AUTHOR
-C> 2003-11-04  J. ATOR    -- ADDED DOCUMENTATION
-C> 2003-11-04  S. BENDER  -- ADDED REMARKS/BUFRLIB ROUTINE
-C>                           INTERDEPENDENCIES
-C> 2003-11-04  D. KEYSER  -- UNIFIED/PORTABLE FOR WRF; ADDED HISTORY
-C>                           DOCUMENTATION
-C>
-C> USAGE:    CALL RSVFVM (NEM1, NEM2)
-C>   INPUT ARGUMENT LIST:
-C>     NEM1     - CHARACTER*8: "FOLLOWING VALUE" MNEMONIC
-C>     NEM2     - CHARACTER*8: MNEMONIC IMMEDIATELY FOLLOWING NEM1
-C>                WITHIN USER DICTIONARY TABLE
-C>
-C>   OUTPUT ARGUMENT LIST:
-C>     NEM1     - CHARACTER*8: COPY OF INPUT NEM1 WITH ALL "."
-C>                CHARACTERS (EXCEPT INITIAL ONE) OVERWRITTEN WITH
-C>                CORRESPONDING CHARACTERS FROM NEM2
-C>
-C> REMARKS:
-C>    FOR EXAMPLE:
+C> For example:
+C> <pre>
 C>     if, on input:    NEM1 = ".DTH...."
 C>                      NEM2 = "MXTM    "
 C>     then, on output: NEM1 = ".DTHMXTM"
+C> </pre>
 C>
+C> @param[inout] NEM1 - character*8: in: "following value" mnemonic.
+C> out: copy of input nem1 with all ".".
+C> characters (except initial one) overwritten with
+C> corresponding characters from nem2.
+C> @param[in] NEM2 - character*8: mnemonic immediately following nem1
+C> within user dictionary table.
 C>
-C>    THIS ROUTINE CALLS:        None
-C>    THIS ROUTINE IS CALLED BY: NEMTBD   SEQSDX
-C>                               Normally not called by any application
-C>                               programs.
-C>
+C> @author Woollen @date 1994-01-06
       SUBROUTINE RSVFVM(NEM1,NEM2)
 
 
