@@ -16,6 +16,12 @@ option(ENABLE_PYTHON "Enable building python module 'ncepbufr'" OFF)
 option(BUILD_SHARED_LIBS "Enable building shared libraries" OFF)
 option(BUILD_TESTS "Build tests" ON)
 
+# Developers can use this option to specify a local directory which
+# holds the test files. They will be copied instead of fetching the
+# files via FTP.
+SET(TEST_FILE_DIR "." CACHE STRING "Check this directory for test files before using FTP.")
+message(STATUS "Finding test data files in directory ${TEST_FILE_DIR}.")
+
 set(MASTER_TABLE_DIR "${CMAKE_INSTALL_PREFIX}/tables" CACHE STRING "Installation location of Master BUFR Tables")
 
 string(LENGTH "${MASTER_TABLE_DIR}" _lenmtd)

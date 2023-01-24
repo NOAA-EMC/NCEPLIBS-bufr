@@ -1,40 +1,27 @@
 C> @file
-C> @author WOOLLEN @date 1996-10-09
+C> @brief Compute the length of a delayed replication sequence
+C>
+C> ### Program History Log
+C> Date | Programmer | Comments
+C> -----|------------|----------
+C> 1996-10-09 | J. Woollen | Original author.
+C> 1999-11-18 | J. Woollen | Increased the number of open bufr files to 32.
+C> 2003-11-04 | S. Bender  | Added remarks/bufrlib routine interdependencies.
+C> 2003-11-04 | D. Keyser  | maxjl increased to 16000; unified/portable for wrf; documentation.
+C> 2009-03-31 | J. Woollen | Added documentation.
+C> 2014-12-10 | J. Ator    | Use modules instead of common blocks.
+C>
+C> @author Woollen @date 1996-10-09
       
-C> THIS FUNCTION ADDS UP THE COMPLETE LENGTH OF THE DELAYED
-C>   REPLICATION SEQUENCE BEGINNING AT INDEX N OF THE DATA SUBSET.
+C> This function adds up the complete length of the delayed
+C> replication sequence beginning at index N of the data subset.
 C>
-C> PROGRAM HISTORY LOG:
-C> 1996-10-09  J. WOOLLEN -- ORIGINAL AUTHOR
-C> 1999-11-18  J. WOOLLEN -- THE NUMBER OF BUFR FILES WHICH CAN BE
-C>                           OPENED AT ONE TIME INCREASED FROM 10 TO 32
-C>                           (NECESSARY IN ORDER TO PROCESS MULTIPLE
-C>                           BUFR FILES UNDER THE MPI)
-C> 2003-11-04  S. BENDER  -- ADDED REMARKS/BUFRLIB ROUTINE
-C>                           INTERDEPENDENCIES
-C> 2003-11-04  D. KEYSER  -- MAXJL (MAXIMUM NUMBER OF JUMP/LINK ENTRIES)
-C>                           INCREASED FROM 15000 TO 16000 (WAS IN
-C>                           VERIFICATION VERSION); UNIFIED/PORTABLE FOR
-C>                           WRF; ADDED DOCUMENTATION (INCLUDING
-C>                           HISTORY) (INCOMPLETE)
-C> 2009-03-31  J. WOOLLEN -- ADDED DOCUMENTATION
-C> 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
+C> @param[in] N - integer: index to start of delayed replication sequence.
+C> @param[in] LUN - integer: I/O stream index into internal memory arrays.
 C>
-C> USAGE:    NWORDS (N, LUN)
-C>   INPUT ARGUMENT LIST:
-C>     N        - INTEGER: INDEX TO START OF DELAYED REPLICATION SEQUENCE
-C>     LUN      - INTEGER: I/O STREAM INDEX INTO INTERNAL MEMORY ARRAYS
+C> @return complete length of delayed replication sequence within data subset.
 C>
-C>   OUTPUT ARGUMENT LIST:
-C>     NWORDS   - INTEGER: COMPLETE LENGTH OF DELAYED REPLICATION
-C>                SEQUENCE WITHIN DATA SUBSET
-C>
-C> REMARKS:
-C>    THIS ROUTINE CALLS:        None
-C>    THIS ROUTINE IS CALLED BY: INVMRG
-C>                               Normally not called by any application
-C>                               programs.
-C>
+C> @author Woollen @date 1996-10-09
       FUNCTION NWORDS(N,LUN)
 
       USE MODA_USRINT

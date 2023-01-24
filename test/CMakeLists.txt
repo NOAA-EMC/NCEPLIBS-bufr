@@ -1,9 +1,25 @@
+# This is the cmake build file for the tests directory of the
+# NCEPLIBS-bufr project.
+#
+# Rahul, Jeff Ator, Ed Hartnett
+
 # Fetch test data from: https://ftp.emc.ncep.noaa.gov/static_files/public/bufr.tar
 set(BUFR_URL "https://ftp.emc.ncep.noaa.gov/static_files/public")
 if(${PROJECT_VERSION} VERSION_GREATER_EQUAL 11.6.0)
   set(BUFR_TAR "bufr-11.6.0.tgz")
 else()
   set(BUFR_TAR "bufr.tar")
+endif()
+
+# If the TEST_FILE_DIR was specified, look for our test data files
+# there before FTPing them. Developers can keep all test files on
+# their machines, and save the time of downloading them every time.
+if(NOT ${TEST_FILE_DIR} STREQUAL ".")
+  if (EXISTS ${TEST_FILE_DIR}/${BUFR_TAR})
+    message(STATUS "Copying file ${TEST_FILE_DIR}/${BUFR_TAR} to test data directory.")
+    FILE(COPY ${TEST_FILE_DIR}/${BUFR_TAR}
+      DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
+  endif()
 endif()
 
 if(NOT EXISTS "${CMAKE_CURRENT_BINARY_DIR}/${BUFR_TAR}")
