@@ -1,4 +1,7 @@
 #!/bin/bash
+# This is a test for NCEPLIBS-bufr.
+# Test script to ???.
+# jack-woollen 2022-02-18
 
 exename=$1
 preAPX=${2:-"NO"}

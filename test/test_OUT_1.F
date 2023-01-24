@@ -1,3 +1,8 @@
+C       This is a test for NCEPLIBS-bufr.
+C
+C       This tests ???
+C
+C       Jeff Ator
 	REAL*8		r8ymd ( 3, 1 ),
      +			r8ltl ( 2, 1 ),
      +			r8flv ( 1, 5 ),

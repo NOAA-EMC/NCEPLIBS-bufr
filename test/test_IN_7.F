@@ -1,3 +1,8 @@
+C       This is a test for NCEPLIBS-bufr.
+C
+C       This tests ???
+C
+C       Jeff Ator
         MODULE Share_errstr
 
 C>          This module is needed in order to share information

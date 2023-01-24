@@ -1,3 +1,8 @@
+!       This is a test for NCEPLIBS-bufr.
+!
+!       This tests ???
+!
+!       Jeff Ator
 program test_IN_8
 
   integer, parameter :: MXR8PM = 15

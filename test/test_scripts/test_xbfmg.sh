@@ -1,7 +1,7 @@
 #!/bin/bash
-
-# test the xbfmg utility
-
+# This is a test for NCEPLIBS-bufr.
+# test the xbfmg utility.
+# jack-woollen 2022-02-18
 set -eu
 
 cmd=$1

@@ -1,7 +1,7 @@
 #!/bin/bash
-#> @file
-#> @brief Test script to test split_by_subset.x utility
-#> @author aerorahul @date 2020-12-22
+# This is a test for NCEPLIBS-bufr.
+# Test script to test split_by_subset.x utility.
+# jack-woollen 2022-02-18
 
 set -eu
 

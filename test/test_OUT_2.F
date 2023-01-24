@@ -1,3 +1,8 @@
+C       This is a test for NCEPLIBS-bufr.
+C
+C       This tests ???
+C
+C       Jeff Ator
 #ifdef INTSIZE_8
         INTEGER*4	IGETSC
 #endif
