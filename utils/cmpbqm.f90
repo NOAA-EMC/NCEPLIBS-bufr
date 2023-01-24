@@ -3,7 +3,7 @@
 !>
 !> @author J Woollen @date 1997
 
-!> Usage: cmpbqm <prepbufrfile> will print prep inventory by variable, report type, and qc mark.
+!> Usage: cmpbqm \<prepbufrfile\> will print prep inventory by variable, report type, and qc mark.
 !>
 !> @return 0 for success, error message otherwise.
 !>
