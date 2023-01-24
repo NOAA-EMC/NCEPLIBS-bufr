@@ -16,9 +16,9 @@ C>
 C> @author Woollen @date 1994-01-06
 
 C> This subroutine returns the bit-wise representation of the fxy value corresponding to, sequentially, 
-C> a particular (ient'th) C>   "child" mnemonic of a table d sequence ("parent") mnemonic.
+C> a particular (ient'th) "child" mnemonic of a table d sequence ("parent") mnemonic.
 C>
-C> @remarks The interpretation of the return value iret depends upon the input value ient, as follows:
+C> @remark The interpretation of the return value iret depends upon the input value ient, as follows:
 C> ient=0 - iret = a count of the total number of child mnemonics within tabd(id,lun)
 C> ient>0 - iret = the bit-wise representation of the fxy value corresponding to the ient'th child mnemonic of tabd(id,lun)
 C>
@@ -27,7 +27,7 @@ C> @param[in] lun - integer: i/o stream index into internal memory arrays
 C> @param[in] ient - integer: ordinal indicator of child mnemonic to return from within tabd(id,lun) sequence
 C> @param[out] iret - integer: return value (see remarks)
 C>
-C> @author Woollen @date 1994-01-06
+C> @author woollen @date 1994-01-06
 
 
       SUBROUTINE UPTDD(ID,LUN,IENT,IRET)

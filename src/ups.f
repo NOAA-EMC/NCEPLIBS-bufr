@@ -1,5 +1,5 @@
 C> @file
-C> $brief Unpacks a real*8 user value from a packed bufr integer.
+C> @brief Unpacks a real*8 user value from a packed bufr integer.
 C>
 C> ### Program History Log
 C> | Date | Programmer | Comments |
