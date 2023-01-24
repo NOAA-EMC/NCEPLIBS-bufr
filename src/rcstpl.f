@@ -1,6 +1,5 @@
 C> @file
-C> @brief Store the subset template into internal
-C> subset arrays in modules usrint and usrbit.
+C> @brief Store the subset template into internal arrays.
 C>
 C> ### Program History Log
 C> Date | Programmer | Comments

@@ -1,27 +1,28 @@
 C> @file
 C> @brief Decode a real number from a character string
+C>
+C> ### Program History Log
+C> Date | Programmer | Comments |
+C> -----|------------|----------|
+C> 1994-01-06 | J. Woollen | Original author 
+C> 1998-07-08 | J. Woollen | Replaced call to CRAY library routine "ABORT" with call to new internal routine bort() 
+C> 1999-11-18 | J. Woollen | Renamed from val$ to valx because the $ symbol causes problems on certain platforms 
+C> 2003-11-04 | D. Keyser  | Use bort2() instead of bort() 
+C> 2009-04-21 | J. Ator    | Use errwrt() 
+C> 2021-09-30 | J. Ator    | Replace rjust with Fortran intrinsic adjustr 
+C>
+C> @author J. Woollen @date 1994-01-06
 
 C> This function decodes a real number from a character string.
 C> The string may contain a leading sign ('+' or '-') character.
 C> If the decode fails for any reason, then the current placeholder
 C> value for "missing" data is returned.
 C>
-C> @author J. Woollen
-C> @date 1994-01-06
-C>
 C> @param[in] STR -- character*(*): String
 C> @returns  VALX -- real: Value decoded from STR
 C>
-C> <b>Program History Log:</b>
-C> | Date | Programmer | Comments |
-C> | -----|------------|----------|
-C> | 1994-01-06 | J. Woollen | Original author |
-C> | 1998-07-08 | J. Woollen | Replaced call to CRAY library routine "ABORT" with call to new internal routine bort() |
-C> | 1999-11-18 | J. Woollen | Renamed from val$ to valx because the $ symbol causes problems on certain platforms |
-C> | 2003-11-04 | D. Keyser  | Use bort2() instead of bort() |
-C> | 2009-04-21 | J. Ator    | Use errwrt() |
-C> | 2021-09-30 | J. Ator    | Replace rjust with Fortran intrinsic adjustr |
-C>
+C> @author J. Woollen @date 1994-01-06
+
       FUNCTION VALX(STR)
 
       USE MODV_BMISS
