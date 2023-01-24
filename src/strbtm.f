@@ -1,23 +1,22 @@
 C> @file
-C> @author J @date 2016-05-27
+C> @brief Store internal information in
+c> module bitmaps if the input element is part of a bitmap.
+C>
+C> ### Program History Log
+C> Date | Programmer | Comments
+C> -----|------------|---------
+C> 2016-05-27 | J. Ator | original author
+C> 2019-05-22 | J. Ator | add confirmation check
+C>
+C> @author J Ator @date 2016-05-27
 	
-C> THIS SUBROUTINE STORES INTERNAL INFORMATION IN
-C>   MODULE BITMAPS IF THE INPUT ELEMENT IS PART OF A BITMAP.
+C> This subroutine stores internal information in
+c> module bitmaps if the input element is part of a bitmap.
 C>
-C> PROGRAM HISTORY LOG:
-C> 2016-05-27  J. ATOR    -- ORIGINAL AUTHOR
-C> 2019-05-22  J. ATOR    -- ADD CONFIRMATION CHECK
+C> @param[in] N - integer: subset element.
+C> @param[in] LUN - integer: i/o stream index into internal memory arrays.
 C>
-C> USAGE:    CALL STRBTM ( N, LUN )
-C>   INPUT ARGUMENT LIST:
-C>     N        - INTEGER: SUBSET ELEMENT
-C>     LUN      - INTEGER: I/O STREAM INDEX INTO INTERNAL MEMORY ARRAYS
-C>
-C>    THIS ROUTINE CALLS:        BORT     IBFMS    LSTJPB
-C>    THIS ROUTINE IS CALLED BY: RCSTPL   RDCMPS
-C>                               Normally not called by any application
-C>                               programs.
-C>
+C> @author J Ator @date 2016-05-27
 	SUBROUTINE STRBTM ( N, LUN )
 
         USE MODV_MXBTM

@@ -1,60 +1,41 @@
 C> @file
-C> @author WOOLLEN @date 1994-01-06
+C> @brief Check to see if a user-specified character
+c> string is in the string cache.
+C>
+C> ### Program History Log
+C> Date | Programmer | Comments
+C> -----|------------|---------
+C> 1994-01-06 | J. Woollen | original author
+C> 1998-04-02 | J. Woollen | modified to enlarge the cache from 50 elements to 1000, maximum; optimization of the cache search algorithm in support of a bigger cache
+C> 1998-07-08 | J. Woollen | replaced call to cray library routine "abort" with call to new internal bufrlib routine "bort"; corrected some minor errors
+C> 1999-11-18 | J. Woollen | the number of bufr files which can be opened at one time increased from 10 to 32
+C> 2003-11-04 | S. Bender  | added remarks/bufrlib routine interdependencies
+C> 2003-11-04 | D. Keyser  | unified/portable for wrf; documentation; more info; changed call to bort2()
+C> 2014-12-10 | J. Ator    | use modules instead of common blocks
+C>
+C> @author Woollen @date 1994-01-06
       
-C> THIS SUBROUTINE CHECKS TO SEE IF A USER-SPECIFIED CHARACTER
-C>   STRING IS IN THE STRING CACHE (ARRAYS IN COMMON BLOCKS /STCACH/ AND
-C>   /STORDS/).  IF IT IS NOT IN THE CACHE, IT MUST CALL THE BUFR
-C>   ARCHIVE LIBRARY PARSING SUBROUTINE PARUSR TO PERFORM THE TASK OF
-C>   SEPARATING AND CHECKING THE INDIVIDUAL "PIECES" (I.E., MNEMONICS)
-C>   SO THAT IT CAN THEN BE ADDED TO THE CACHE.  IF IT IS ALREADY IN THE
-C>   CACHE, THEN THIS EXTRA WORK DOES NOT NEED TO BE PERFORMED.  THE
-C>   MNEMONIC STRING CACHE IS A PERFORMANCE ENHANCING DEVICE WHICH SAVES
-C>   TIME WHEN THE SAME MNEMONIC STRINGS ARE ENCOUNTERED IN A USER
-C>   PROGRAM, OVER AND OVER AGAIN (THE TYPICAL SCENARIO).
+C> This subroutine checks to see if a user-specified character
+c> string is in the string cache (arrays in common blocks /stcach/ and
+c> /stords/). If it is not in the cache, it must call the bufr
+c> archive library parsing subroutine parusr to perform the task of
+c> separating and checking the individual "pieces" (i.e., mnemonics)
+c> so that it can then be added to the cache. If it is already in the
+c> cache, then this extra work does not need to be performed. The
+c> mnemonic string cache is a performance enhancing device which saves
+c> time when the same mnemonic strings are encountered in a user
+c> program, over and over again (the typical scenario).
 C>
-C> PROGRAM HISTORY LOG:
-C> 1994-01-06  J. WOOLLEN -- ORIGINAL AUTHOR
-C> 1998-04-02  J. WOOLLEN -- MODIFIED TO ENLARGE THE CACHE FROM 50
-C>                           ELEMENTS TO 1000, MAXIMUM; OPTIMIZATION OF
-C>                           THE CACHE SEARCH ALGORITHM IN SUPPORT OF A
-C>                           BIGGER CACHE
-C> 1998-07-08  J. WOOLLEN -- REPLACED CALL TO CRAY LIBRARY ROUTINE
-C>                           "ABORT" WITH CALL TO NEW INTERNAL BUFRLIB
-C>                           ROUTINE "BORT"; CORRECTED SOME MINOR ERRORS
-C> 1999-11-18  J. WOOLLEN -- THE NUMBER OF BUFR FILES WHICH CAN BE
-C>                           OPENED AT ONE TIME INCREASED FROM 10 TO 32
-C>                           (NECESSARY IN ORDER TO PROCESS MULTIPLE
-C>                           BUFR FILES UNDER THE MPI)
-C> 2003-11-04  S. BENDER  -- ADDED REMARKS/BUFRLIB ROUTINE
-C>                           INTERDEPENDENCIES
-C> 2003-11-04  D. KEYSER  -- UNIFIED/PORTABLE FOR WRF; ADDED
-C>                           DOCUMENTATION (INCLUDING HISTORY); OUTPUTS
-C>                           MORE COMPLETE DIAGNOSTIC INFO WHEN ROUTINE
-C>                           TERMINATES ABNORMALLY; CHANGED CALL FROM
-C>                           BORT TO BORT2
-C> 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
+C> @param[in] STR - character*(*): string of blank-separated mnemonics.
+C> @param[in] LUN - integer: i/o stream index into internal memory arrays.
+C> @param[out] I1 - integer: a number greater than or equal to the number
+C> of blank-separated mnemonics in str.
+C> @param[out] IO - integer: status indicator for bufr file associated
+C> with lun:
+C> - 0 input file
+C> - 1 output file
 C>
-C> USAGE:    CALL STRING (STR, LUN, I1, IO)
-C>   INPUT ARGUMENT LIST:
-C>     STR      - CHARACTER*(*): STRING OF BLANK-SEPARATED MNEMONICS
-C>     LUN      - INTEGER: I/O STREAM INDEX INTO INTERNAL MEMORY ARRAYS
-C>
-C>   OUTPUT ARGUMENT LIST:
-C>     I1       - INTEGER: A NUMBER GREATER THAN OR EQUAL TO THE NUMBER
-C>                OF BLANK-SEPARATED MNEMONICS IN STR
-C>     IO       - INTEGER: STATUS INDICATOR FOR BUFR FILE ASSOCIATED
-C>                WITH LUN:
-C>                       0 = input file
-C>                       1 = output file
-C>
-C> REMARKS:
-C>    THIS ROUTINE CALLS:        BORT2    PARUSR
-C>    THIS ROUTINE IS CALLED BY: UFBEVN   UFBGET   UFBIN3   UFBINT
-C>                               UFBOVR   UFBREP   UFBSTP   UFBTAB
-C>                               UFBTAM
-C>                               Normally not called by any application
-C>                               programs.
-C>
+C> @author Woollen @date 1994-01-06
       SUBROUTINE STRING(STR,LUN,I1,IO)
 
       USE MODV_MXS
