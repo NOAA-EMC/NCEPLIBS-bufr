@@ -1,53 +1,37 @@
 C> @file
-C> @author WOOLLEN @date 1994-01-06
+C> @brief Build and stores an entry for a table b or
+c> table d mnemonic (nemo) within the internal jump/link table.
+C>
+C> ### Program History Log
+C> Date | Programmer | Comments
+C> -----|------------|---------
+C> 1994-01-06 | J. Woollen | original author
+C> 1998-07-08 | J. Woollen | replaced call to cray library routine "abort" with call to new internal bufrlib routine "bort"; corrected some minor errors
+C> 2003-11-04 | J. Ator    | added documentation
+C> 2003-11-04 | S. Bender  | added remarks/bufrlib routine interdependencies
+C> 2003-11-04 | D. Keyser  | maxjl increased to 16000; unified/portable for wrf; documentation; outputs more.
+C> 2005-11-29 | J. Ator    | added support for 207 and 208 operators
+C> 2010-03-19 | J. Ator    | added support for 204 operator
+C> 2012-03-02 | J. Ator    | added support for 203 operator
+C> 2014-12-10 | J. Ator    | use modules instead of common blocks
+C>
+C> @author Woollen @date 1994-01-06
       
-C> THIS SUBROUTINE BUILDS AND STORES AN ENTRY FOR A TABLE B OR
-C>   TABLE D MNEMONIC (NEMO) WITHIN THE INTERNAL JUMP/LINK TABLE.
+C> This subroutine builds and stores an entry for a table b or
+c> table d mnemonic (nemo) within the internal jump/link table.
 C>
-C> PROGRAM HISTORY LOG:
-C> 1994-01-06  J. WOOLLEN -- ORIGINAL AUTHOR
-C> 1998-07-08  J. WOOLLEN -- REPLACED CALL TO CRAY LIBRARY ROUTINE
-C>                           "ABORT" WITH CALL TO NEW INTERNAL BUFRLIB
-C>                           ROUTINE "BORT"; CORRECTED SOME MINOR ERRORS
-C> 2003-11-04  J. ATOR    -- ADDED DOCUMENTATION
-C> 2003-11-04  S. BENDER  -- ADDED REMARKS/BUFRLIB ROUTINE
-C>                           INTERDEPENDENCIES
-C> 2003-11-04  D. KEYSER  -- MAXJL (MAXIMUM NUMBER OF JUMP/LINK ENTRIES)
-C>                           INCREASED FROM 15000 TO 16000 (WAS IN
-C>                           VERIFICATION VERSION); UNIFIED/PORTABLE FOR
-C>                           WRF; ADDED HISTORY DOCUMENTATION; OUTPUTS
-C>                           MORE COMPLETE DIAGNOSTIC INFO WHEN ROUTINE
-C>                           TERMINATES ABNORMALLY
-C> 2005-11-29  J. ATOR    -- ADDED SUPPORT FOR 207 AND 208 OPERATORS
-C> 2010-03-19  J. ATOR    -- ADDED SUPPORT FOR 204 OPERATOR
-C> 2012-03-02  J. ATOR    -- ADDED SUPPORT FOR 203 OPERATOR
-C> 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
+C> @param[in] LUN - integer: i/o stream index into internal memory arrays.
+C> @param[in] NEMO - character*8: table b or d mnemonic to store in jump/ link table.
+C> @param[in] TAB - character*1: internal bufr table array ('b' or 'd') in which nemo is defined.
+C> @param[in] ITAB - integer: positional index of nemo within tab.
+C> @param[in] IREP - integer: positional index within common /reptab/ arrays,
+C> for use when nemo is replicated: 0 = nemo is not replicated.
+C> @param[in] IKNT - integer: number of replications, for use when nemo is
+C> replicated using f=1 regular (i.e., non-delayed) replication:
+C> - 0 = NEMO is not replicated using F=1 regular (i.e., non-delayed) replication
+C> @param[in] JUM0 - integer: index value to be stored for nemo within internal jump/link table array jmpb(*).
 C>
-C> USAGE:    CALL TABENT (LUN, NEMO, TAB, ITAB, IREP, IKNT, JUM0)
-C>   INPUT ARGUMENT LIST:
-C>     LUN      - INTEGER: I/O STREAM INDEX INTO INTERNAL MEMORY ARRAYS
-C>     NEMO     - CHARACTER*8: TABLE B OR D MNEMONIC TO STORE IN JUMP/
-C>                LINK TABLE
-C>     TAB      - CHARACTER*1: INTERNAL BUFR TABLE ARRAY ('B' OR 'D') IN
-C>                WHICH NEMO IS DEFINED
-C>     ITAB     - INTEGER: POSITIONAL INDEX OF NEMO WITHIN TAB
-C>     IREP     - INTEGER: POSITIONAL INDEX WITHIN COMMON /REPTAB/
-C>                ARRAYS, FOR USE WHEN NEMO IS REPLICATED:
-C>                       0 = NEMO is not replicated
-C>     IKNT     - INTEGER: NUMBER OF REPLICATIONS, FOR USE WHEN NEMO IS
-C>                REPLICATED USING F=1 REGULAR (I.E., NON-DELAYED)
-C>                REPLICATION:
-C>                       0 = NEMO is not replicated using F=1 regular
-C>                           (i.e., non-delayed) replication
-C>     JUM0     - INTEGER: INDEX VALUE TO BE STORED FOR NEMO WITHIN
-C>                INTERNAL JUMP/LINK TABLE ARRAY JMPB(*)
-C>
-C> REMARKS:
-C>    THIS ROUTINE CALLS:        BORT     INCTAB   NEMTBB
-C>    THIS ROUTINE IS CALLED BY: TABSUB
-C>                               Normally not called by any application
-C>                               programs.
-C>
+C> @author Woollen @date 1994-01-06
       SUBROUTINE TABENT(LUN,NEMO,TAB,ITAB,IREP,IKNT,JUM0)
 
       USE MODV_MXNRV

@@ -1,48 +1,34 @@
 C> @file
-C> @author WOOLLEN @date 1994-01-06
+C> @brief Build the entire jump/link tree (i.e.,
+C> including recursively resolving all "child" mnemonics) for a table
+C> a mnemonic (nemo) within the internal jump/link table.      
+C>
+C> ### Program History Log
+C> Date | Programmer | Comments
+C> -----|------------|---------
+C> 1994-01-06 | J. Woollen | original author
+C> 1998-07-08 | J. Woollen | replaced call to cray library routine "abort" with call to new internal bufrlib routine "bort"
+C> 2000-09-19 | J. Woollen | added capability to encode and decode data using the operator descriptors (bufr table c) for changing width and changing scale
+C> 2003-11-04 | J. Ator    | added documentation
+C> 2003-11-04 | S. Bender  | added remarks/bufrlib routine interdependencies
+C> 2003-11-04 | D. Keyser  | maxjl increased to 16000; unified/portable for wrf; documentation; outputs more diagnostic info.
+C> 2005-11-29 | J. Ator    | added support for 207 and 208 operators
+C> 2012-03-02 | J. Ator    | added support for 203 operator
+C> 2012-04-19 | J. Ator    | fixed bug for cases where a table c operator immediately follows a table d sequence
+C> 2014-12-10 | J. Ator    | use modules instead of common blocks
+C> 2016-05-24 | J. Ator    | store table c operators in module bitmaps
+C> 2017-04-03 | J. Ator    | add a dimension to all tco arrays so that each subset definition in the jump/link table has its own set of table c operators
+C>
+C> @author Woollen @date 1994-01-06
       
-C> THIS SUBROUTINE BUILDS THE ENTIRE JUMP/LINK TREE (I.E.,
-C>   INCLUDING RECURSIVELY RESOLVING ALL "CHILD" MNEMONICS) FOR A TABLE
-C>   A MNEMONIC (NEMO) WITHIN THE INTERNAL JUMP/LINK TABLE.
+C> This subroutine builds the entire jump/link tree (i.e.,
+C> including recursively resolving all "child" mnemonics) for a table
+C> a mnemonic (nemo) within the internal jump/link table.
 C>
-C> PROGRAM HISTORY LOG:
-C> 1994-01-06  J. WOOLLEN -- ORIGINAL AUTHOR
-C> 1998-07-08  J. WOOLLEN -- REPLACED CALL TO CRAY LIBRARY ROUTINE
-C>                           "ABORT" WITH CALL TO NEW INTERNAL BUFRLIB
-C>                           ROUTINE "BORT"
-C> 2000-09-19  J. WOOLLEN -- ADDED CAPABILITY TO ENCODE AND DECODE DATA
-C>                           USING THE OPERATOR DESCRIPTORS (BUFR TABLE
-C>                           C) FOR CHANGING WIDTH AND CHANGING SCALE
-C> 2003-11-04  J. ATOR    -- ADDED DOCUMENTATION
-C> 2003-11-04  S. BENDER  -- ADDED REMARKS/BUFRLIB ROUTINE
-C>                           INTERDEPENDENCIES
-C> 2003-11-04  D. KEYSER  -- MAXJL (MAXIMUM NUMBER OF JUMP/LINK ENTRIES)
-C>                           INCREASED FROM 15000 TO 16000 (WAS IN
-C>                           VERIFICATION VERSION); UNIFIED/PORTABLE FOR
-C>                           WRF; ADDED HISTORY DOCUMENTATION; OUTPUTS
-C>                           MORE COMPLETE DIAGNOSTIC INFO WHEN ROUTINE
-C>                           TERMINATES ABNORMALLY
-C> 2005-11-29  J. ATOR    -- ADDED SUPPORT FOR 207 AND 208 OPERATORS
-C> 2012-03-02  J. ATOR    -- ADDED SUPPORT FOR 203 OPERATOR
-C> 2012-04-19  J. ATOR    -- FIXED BUG FOR CASES WHERE A TABLE C OPERATOR
-C>                           IMMEDIATELY FOLLOWS A TABLE D SEQUENCE
-C> 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
-C> 2016-05-24  J. ATOR    -- STORE TABLE C OPERATORS IN MODULE BITMAPS
-C> 2017-04-03  J. ATOR    -- ADD A DIMENSION TO ALL TCO ARRAYS SO THAT
-C>                           EACH SUBSET DEFINITION IN THE JUMP/LINK
-C>                           TABLE HAS ITS OWN SET OF TABLE C OPERATORS
+C> @param[in] LUN - integer: i/o stream index into internal memory arrays.
+C> @param[in] NEMO - character*8: table a mnemonic.
 C>
-C> USAGE:    CALL TABSUB (LUN, NEMO)
-C>   INPUT ARGUMENT LIST:
-C>     LUN      - INTEGER: I/O STREAM INDEX INTO INTERNAL MEMORY ARRAYS
-C>     NEMO     - CHARACTER*8: TABLE A MNEMONIC
-C>
-C>    THIS ROUTINE CALLS:        BORT     INCTAB   IOKOPER   NEMTAB
-C>                               NEMTBD   TABENT
-C>    THIS ROUTINE IS CALLED BY: MAKESTAB
-C>                               Normally not called by any application
-C>                               programs.
-C>
+C> @author Woollen @date 1994-01-06
       SUBROUTINE TABSUB(LUN,NEMO)
 
       USE MODV_MXTAMC
