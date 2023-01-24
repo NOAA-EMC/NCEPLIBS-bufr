@@ -1,72 +1,56 @@
 C> @file
-C> @author WOOLLEN @date 1994-01-06
+C> @brief Check the first node associated with a
+C> character string to determine if it represents a delayed replication sequence.
+C>
+C> ### Program History Log
+C> Date | Programmer | Comments
+C> -----|------------|---------
+C> 1994-01-06 | J. Woollen | original author
+C> 1998-07-08 | J. Woollen | improved machine portability
+C> 1999-11-18 | J. Woollen | the number of bufr files which can be opened at one time increased from 10 to 32
+C> 2003-11-04 | S. Bender  | added remarks/bufrlib routine interdependencies
+C> 2003-11-04 | D. Keyser  | maxjl increased to 16000; unified/portable for wrf; documentation; outputs more diagnostic info.
+C> 2009-03-31 | J. Woollen | added documentation
+C> 2014-12-10 | J. Ator    | use modules instead of common blocks
+C>
+C> @author Woollen @date 1994-01-06
       
-C> THIS SUBROUTINE CHECKS THE FIRST NODE ASSOCIATED WITH A
-C>   CHARACTER STRING (PARSED INTO ARRAYS IN COMMON BLOCK /USRSTR/) IN
-C>   ORDER TO DETERMINE IF IT REPRESENTS A DELAYED REPLICATION SEQUENCE.
-C>   IF SO, THEN THE DELAYED REPLICATION SEQUENCE IS INITIALIZED AND
-C>   EXPANDED (I.E. "BUMPED") TO THE VALUE OF INPUT ARGUMENT I2.
-C>   A CALL IS THEN MADE TO SUBROUTINE UFBRW IN ORDER TO WRITE USER DATA
-C>   INTO THE NEWLY EXPANDED REPLICATION SEQUENCE.
+C> This subroutine checks the first node associated with a
+C> character string (parsed into arrays in common block /usrstr/) in
+C> order to determine if it represents a delayed replication sequence.
+C> If so, then the delayed replication sequence is initialized and
+C> expanded (i.e. "bumped") to the value of input argument i2.
+C> A call is then made to subroutine ufbrw in order to write user data
+C> into the newly expanded replication sequence.
 C>
-C>   TRYBUMP IS USUALLY CALLED FROM UFBINT AFTER UFBINT RECEIVES A
-C>   NON-ZERO RETURN CODE FROM UFBRW.  THE CAUSE OF A BAD RETURN FROM
-C>   UFBRW IS USUALLY A DELAYED REPLICATION SEQUENCE WHICH ISN'T
-C>   EXPANDED ENOUGH TO HOLD THE ARRAY OF DATA THE USER IS TRYING TO
-C>   WRITE.  SO TRYBUMP IS ONE LAST CHANCE TO RESOLVE THAT SITUATION.
+C> trybump() is usually called from ufbint() after ufbint() receives a
+C> non-zero return code from ufbrw(). The cause of a bad return from
+C> ufbrw() is usually a delayed replication sequence which isn't
+C> expanded enough to hold the array of data the user is trying to
+C> write. So trybump is one last chance to resolve that situation.
 C>
-C> PROGRAM HISTORY LOG:
-C> 1994-01-06  J. WOOLLEN -- ORIGINAL AUTHOR
-C> 1998-07-08  J. WOOLLEN -- IMPROVED MACHINE PORTABILITY
-C> 1999-11-18  J. WOOLLEN -- THE NUMBER OF BUFR FILES WHICH CAN BE
-C>                           OPENED AT ONE TIME INCREASED FROM 10 TO 32
-C>                           (NECESSARY IN ORDER TO PROCESS MULTIPLE
-C>                           BUFR FILES UNDER THE MPI)
-C> 2003-11-04  S. BENDER  -- ADDED REMARKS/BUFRLIB ROUTINE
-C>                           INTERDEPENDENCIES
-C> 2003-11-04  D. KEYSER  -- MAXJL (MAXIMUM NUMBER OF JUMP/LINK ENTRIES)
-C>                           INCREASED FROM 15000 TO 16000 (WAS IN
-C>                           VERIFICATION VERSION); UNIFIED/PORTABLE FOR
-C>                           WRF; ADDED DOCUMENTATION (INCLUDING
-C>                           HISTORY) (INCOMPLETE); OUTPUTS MORE
-C>                           COMPLETE DIAGNOSTIC INFO WHEN ROUTINE
-C>                           TERMINATES ABNORMALLY
-C> 2009-03-31  J. WOOLLEN -- ADDED DOCUMENTATION
-C> 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
+C> @note Argument lunit is not referenced in this subroutine. It was 
+C> included only for potential future expansion of the subroutine.
 C>
-C> USAGE:    CALL TRYBUMP (LUNIT, LUN, USR, I1, I2, IO, IRET)
-C>   INPUT ARGUMENT LIST:
-C>     LUNIT    - INTEGER: FORTRAN LOGICAL UNIT NUMBER FOR BUFR FILE
-C>                (SEE REMARKS)
-C>     LUN      - INTEGER: I/O STREAM INDEX INTO INTERNAL MEMORY ARRAYS
-C>                (ASSOCIATED WITH FILE CONNECTED TO LOGICAL UNIT LUNIT)
-C>     USR      - REAL*8: (I1,I2) STARTING ADDRESS OF DATA VALUES TO BE
-C>                WRITTEN TO DATA SUBSET
-C>     I1       - INTEGER: LENGTH OF FIRST DIMENSION OF USR
-C>     I2       - INTEGER: NUMBER OF "LEVELS" OF DATA VALUES TO BE
-C>                WRITTEN TO DATA SUBSET
-C>     IO       - INTEGER: STATUS INDICATOR FOR BUFR FILE ASSOCIATED
-C>                WITH LUNIT (SEE REMARKS):
-C>                       0 = INPUT FILE (POSSIBLE FUTURE USE)
-C>                       1 = OUTPUT FILE
+C> @note Argument io is always passed in with a value of 1 at the present
+C> time. In the future the subroutine may be expanded to allow it
+C> to operate on input files.
 C>
-C>   OUTPUT ARGUMENT LIST:
-C>     IRET     - INTEGER: RETURN CODE FROM CALL TO SUBROUTINE UFBRW
+C> @param[in] LUNIT - integer: fortran logical unit number for bufr file (see remarks).
+C> @param[in] LUN - integer: i/o stream index into internal memory arrays
+C> (associated with file connected to logical unit lunit).
+C> @param[in] USR - real*8: (i1,i2) starting address of data values to be
+C> written to data subset.
+C> @param[in] I1 - integer: length of first dimension of usr.
+C> @param[in] I2 - integer: number of "levels" of data values to be
+C> written to data subset.
+C> @param[in] IO - integer: status indicator for bufr file associated
+C> with lunit (see remarks):
+C> - 0 Input file (possible future use)
+C> - 1 Output file
+C> @param IRET Return value. ???
 C>
-C> REMARKS:
-C>    ARGUMENT LUNIT IS NOT REFERENCED IN THIS SUBROUTINE.  IT WAS 
-C>    INCLUDED ONLY FOR POTENTIAL FUTURE EXPANSION OF THE SUBROUTINE.
-C>
-C>    ARGUMENT IO IS ALWAYS PASSED IN WITH A VALUE OF 1 AT THE PRESENT
-C>    TIME.  IN THE FUTURE THE SUBROUTINE MAY BE EXPANDED TO ALLOW IT
-C>    TO OPERATE ON INPUT FILES.
-C>
-C>    THIS ROUTINE CALLS:        BORT     INVWIN   LSTJPB   UFBRW
-C>                               USRTPL
-C>    THIS ROUTINE IS CALLED BY: UFBINT   UFBOVR
-C>                               Normally not called by any application
-C>                               programs.
-C>
+C> @author Woollen @date 1994-01-06
       SUBROUTINE TRYBUMP(LUNIT,LUN,USR,I1,I2,IO,IRET)
 
       USE MODA_USRINT
