@@ -1,5 +1,23 @@
 /** @file
  *  @brief C language code for debufr utility.
+ *
+ * ### Program History Log
+ * Date | Programmer | Comments
+ * -----|------------|----------
+ * 2009-07-01 | J. Ator | Original author |
+ * 2012-06-18 | J. Ator | Modified to allow decoding of BUFR files based on NCEP DX dictionary table information. The program can now process any files that previously required the use of ckbufr.
+ * 2012-12-07 | J. Ator | Modified to add -m and -v options and inline version of OPENBT subroutine for mixed BUFR files.
+ * 2013-10-07 | J. Ator | Print Section 1 tank receipt time information for NCEP/NCO BUFR messages if available.
+ * 2013-11-15 | J. Ator | Add -h option and check for non-existent tablefil.
+ * 2014-09-15 | J. Ator | Change default path for tabledir, change default name for outfile, and confirm outfile is writeable.
+ * 2018-01-19 | J. Ator | Add print of code and flag table meanings.
+ * 2018-04-09 | J. Ator | Add -c option to turn off print of code and flag table meanings (default is "on").
+ * 2018-09-05 | J. Ator | Add -p option to pass in one or more BUFRLIB dynamic allocation parameters to override default settings.
+ * 2019-02-01 | J. Ator | Remove limit on length of prmstg, and allow up to 20 PARAMETER=VALUE pairs.
+ * 2021-03-02 | J. Ator | Add missing include files, remove unused errflg variable, and other general cleanup.
+ * 2022-04-05 | J. Ator | Increase MXFLEN to 500, use MXFLEN_TBLFIL.
+ *
+ * @author J. Ator @date 2018-03-01 
  */
 
 #include <ctype.h>
@@ -13,30 +31,51 @@
 
 #ifdef UNDERSCORE
 #define fdebufr fdebufr_
-#define prtusage prtusage_
 #endif
 
-void fdebufr( char *, char *, f77int *, char *, char *, char *, char *, char *,
-              size_t, size_t, size_t, size_t, size_t, size_t, size_t );
-void prtusage( char * );
+/**
+ * Read, decode, and print a verbose output listing of the contents of a BUFR file.
+ *
+ * All arguments are input.
+ *
+ * @param ofile - File to contain verbose output listing
+ * @param tbldir - Directory containing DX and/or master BUFR tables for decoding
+ * @param lentd - Length of tbldir string
+ * @param tblfil - File containing DX BUFR table information for decoding
+ * @param prmstg - String of up to 20 comma-separated PARAMETER=VALUE pairs to be
+ *                 used for dynamically allocating memory withint the BUFRLIB
+ * @param basic  - Indicates whether to only decode and print the contents of Sections 0-3
+ * @param forcemt - Indicates whether to ignore embedded DX BUFR tables and force the
+ *                  use of master BUFR tables for decoding
+ * @param cfms - Indicates whether code and flag table meanings should be read from
+ *               master BUFR tables and included in the output
+ * @param s1 - Extra C-Fortran interface argument containing length of ofile variable.
+ * @param s2 - Extra C-Fortran interface argument containing length of tbldir variable.
+ * @param s3 - Extra C-Fortran interface argument containing length of tblfil variable.
+ * @param s4 - Extra C-Fortran interface argument containing length of prmstg variable.
+ * @param s5 - Extra C-Fortran interface argument containing length of basic variable.
+ * @param s6 - Extra C-Fortran interface argument containing length of forcemt variable.
+ * @param s7 - Extra C-Fortran interface argument containing length of cfms variable.
+ * 
+ * @author J. Ator @date 2018-03-01 
+ */
+void fdebufr( char *ofile, char *tbldir, f77int *lentd, char *tblfil, char *prmstg, char *basic, char *forcemt, char *cfms,
+              size_t s1, size_t s2, size_t s3, size_t s4, size_t s5, size_t s6, size_t s7);
 
+void prtusage( char *prgnam );
+
+/** Maximum length of the [path/]name passed in for bufrfile. */
 #define MXFLEN 500
+/** Maximum length of the [path/]name for a BUFR tables file, based on the value of MXFLEN. */
 #define MXFLEN_TBLFIL (MXFLEN+50)
 
 /**
  * This function prints program usage information to standard output.
  *   
- * @author J. Ator
- * @date 2018-03-01
+ * @param prgnam - [path/]name of program executable.
  *
- * @param[in]  prgnam -- char*: [path/]name of program executable
- *
- * <b>Program history log:</b>
- * | Date | Programmer | Comments |
- * | -----|------------|----------|
- * | 2018-03-01 |  J. Ator | Original author |
+ * @author J. Ator @date 2018-03-01 
  */
-
 void prtusage( char *prgnam ) {
 	printf( "\nUSAGE:\n" );
 	printf( "  %s [-v] [-h] [-b] [-c] [-m] [-o outfile] [-t tabledir] [-f tablefil] [-p prmstg] bufrfile\n\n", prgnam );
@@ -81,10 +120,9 @@ void prtusage( char *prgnam ) {
 }
 
 /**
- * This program decodes a BUFR file and generates a verbose
- * listing of the contents.
+ * This program decodes a BUFR file and generates a verbose listing of the contents.
  *
- * <p>If a [DX BUFR Tables](@ref dfbftab) file is
+ * If a [DX BUFR Tables](@ref dfbftab) file is
  * specified (using the -f option) or if the specified BUFR file
  * contains an embedded DX BUFR tables message as the first
  * message in the file, then this information is used to decode
@@ -92,9 +130,6 @@ void prtusage( char *prgnam ) {
  * is specified, [master BUFR tables](@ref dfbfmstab) are read and used
  * to decode the data messages in the file.
  *   
- * @author J. Ator
- * @date 2009-07-01
- *
  * <b>Usage</b><br>
  * <pre>
  *
@@ -151,26 +186,15 @@ void prtusage( char *prgnam ) {
  * </pre>
  *
  * @remarks
- * - Fortran logical unit numbers 51, 90, 91, 92 and 93 are reserved
- * for use within this program.
+ * - Fortran logical unit numbers 51, 90, 91, 92 and 93 are reserved for use within this program.
  *
- * <b>Program history log:</b>
- * | Date | Programmer | Comments |
- * | -----|------------|----------|
- * | 2009-07-01 | J. Ator | Original author |
- * | 2012-06-18 | J. Ator | Modified to allow decoding of BUFR files based on NCEP DX dictionary table information.  The program can now process any files that previously required the use of ckbufr. |
- * | 2012-12-07 | J. Ator | Modified to add -m and -v options and inline version of OPENBT subroutine for mixed BUFR files |
- * | 2013-10-07 | J. Ator | Print Section 1 tank receipt time information for NCEP/NCO BUFR messages if available |
- * | 2013-11-15 | J. Ator | Add -h option and check for non-existent tablefil |
- * | 2014-09-15 | J. Ator | Change default path for tabledir, change default name for outfile, and confirm outfile is writeable |
- * | 2018-01-19 | J. Ator | Add print of code and flag table meanings |
- * | 2018-04-09 | J. Ator | Add -c option to turn off print of code and flag table meanings (default is "on") |
- * | 2018-09-05 | J. Ator | Add -p option to pass in one or more BUFRLIB dynamic allocation parameters to override default settings |
- * | 2019-02-01 | J. Ator | Remove limit on length of prmstg, and allow up to 20 PARAMETER=VALUE pairs |
- * | 2021-03-02 | J. Ator | Add missing #include files, remove unused errflg variable, and other general cleanup |
- * | 2022-04-05 | J. Ator | Increase MXFLEN to 500, use MXFLEN_TBLFIL |
+ * @param argc - argument count.
+ * @param argv - argument array.
+ *
+ * @return 0 for successs, error code otherwise.
+ *
+ * @author J. Ator @date 2018-03-01 
  */
-
 int main( int argc, char *argv[ ] ) {
 
 	int ch;

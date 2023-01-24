@@ -1,15 +1,23 @@
 C> @file
 C> @brief Close a previously opened system file and disconnect it from
 C> the BUFRLIB software.
+C>
+C> ### Program History Log
+C> Date | Programmer | Comments
+C> -----|------------|----------
+C> 1994-01-06 | J. Woollen | Original author.
+C> 2003-11-04 | J. Ator    | Don't close lunit if opened as a NULL file by openbf().
+C> 2003-11-04 | S. Bender  | Added remarks and routine interdependencies.
+C> 2003-11-04 | D. Keyser  | Unified/portable for WRF; added history documentation.
+C> 2012-09-15 | J. Woollen | Modified for C/I/O/BUFR interface; added call to closfb() to close C files.
+C> 2014-12-10 | J. Ator    | Use modules instead of COMMON blocks.
+C> 2020-07-16 | J. Ator    | Add sanity check to ensure that openbf() was previously called (needed for GSI).
+C> 2022-08-04 | J. Woollen | Added 8-byte wrapper.
+C>
+C> @author J. Woollen, J. Ator @date 1994-01-06
 
 C> This subroutine closes the connection between logical unit
 C> LUNIT and the BUFRLIB software.
-C>
-C> @authors J. Woollen
-C> @authors J. Ator
-C> @date 1994-01-06
-C>
-C> @param[in] LUNIT   -- integer: Fortran logical unit number for BUFR file
 C>
 C> @remarks
 C> - This subroutine will execute a Fortran "CLOSE" on logical unit LUNIT,
@@ -20,17 +28,9 @@ C> opened to the software via openbf(); however, it's especially
 C> important to do so when writing/encoding a BUFR file, in order to
 C> ensure that all output is properly flushed to LUNIT.
 C>
-C> <b>Program history log:</b>
-C> | Date | Programmer | Comments |
-C> | -----|------------|----------|
-C> | 1994-01-06 | J. Woollen | Original author |
-C> | 2003-11-04 | J. Ator    | Don't close lunit if opened as a NULL file by openbf() |
-C> | 2003-11-04 | S. Bender  | Added remarks and routine interdependencies |
-C> | 2003-11-04 | D. Keyser  | Unified/portable for WRF; added history documentation |
-C> | 2012-09-15 | J. Woollen | Modified for C/I/O/BUFR interface; added call to closfb() to close C files |
-C> | 2014-12-10 | J. Ator    | Use modules instead of COMMON blocks |
-C> | 2020-07-16 | J. Ator    | Add sanity check to ensure that openbf() was previously called (needed for GSI) |
-C> | 2022-08-04 | J. Woollen | Added 8-byte wrapper |
+C> @param[in] LUNIT - integer: Fortran logical unit number for BUFR file.
+C>
+C> @author J. Woollen, J. Ator @date 1994-01-06
 
       RECURSIVE SUBROUTINE CLOSBF(LUNIT)
 

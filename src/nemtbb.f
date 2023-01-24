@@ -1,33 +1,34 @@
 C> @file
 C> @brief Get information about a Table B descriptor
+C>
+C> ### Program history log
+C> Date | Programmer | Comments
+C> -----|------------|---------
+C> 1994-01-06 | J. Woollen | Original author
+C> 1995-06-28 | J. Woollen | Increased the size of internal BUFR table arrays in order to handle bigger files
+C> 1998-07-08 | J. Woollen | Replaced call to Cray library routine "ABORT" with call to new internal routine bort()
+C> 1999-11-18 | J. Woollen | Changed call to function "val$" to valx()
+C> 2003-11-04 | J. Ator    | Added documentation
+C> 2003-11-04 | S. Bender  | Added remarks/bufrlib routine interdependencies
+C> 2003-11-04 | D. Keyser  | Unified/portable for WRF; added documentation; outputs more complete diagnostic info when routine terminates abnormally
+C> 2014-12-10 | J. Ator    | Use modules instead of COMMON blocks
+C>
+C> @author J. Woollen @date 1994-01-06
 
 C> This subroutine returns information about a Table B descriptor
 C> from the internal DX BUFR tables.
 C>
-C> @author J. Woollen
-C> @date 1994-01-06
-C>
-C> @param[in] LUN -- integer: Internal I/O stream index associated
+C> @param[in] LUN - integer: Internal I/O stream index associated
 C>                   with DX BUFR tables
-C> @param[in] ITAB -- integer: Positional index of descriptor within
+C> @param[in] ITAB - integer: Positional index of descriptor within
 C>                    internal Table B
-C> @param[out] UNIT -- character*24: Units of descriptor
-C> @param[out] ISCL -- integer: Scale factor of descriptor
-C> @param[out] IREF -- integer: Reference value of descriptor
-C> @param[out] IBIT -- integer: Bit width of descriptor
+C> @param[out] UNIT - character*24: Units of descriptor
+C> @param[out] ISCL - integer: Scale factor of descriptor
+C> @param[out] IREF - integer: Reference value of descriptor
+C> @param[out] IBIT - integer: Bit width of descriptor
 C>
-C> <b>Program history log:</b>
-C> | Date | Programmer | Comments |
-C> | -----|------------|----------|
-C> | 1994-01-06 | J. Woollen | Original author |
-C> | 1995-06-28 | J. Woollen | Increased the size of internal BUFR table arrays in order to handle bigger files |
-C> | 1998-07-08 | J. Woollen | Replaced call to Cray library routine "ABORT" with call to new internal routine bort() |
-C> | 1999-11-18 | J. Woollen | Changed call to function "val$" to valx() |
-C> | 2003-11-04 | J. Ator    | Added documentation |
-C> | 2003-11-04 | S. Bender  | Added remarks/bufrlib routine interdependencies |
-C> | 2003-11-04 | D. Keyser  | Unified/portable for WRF; added documentation; outputs more complete diagnostic info when routine terminates abnormally |
-C> | 2014-12-10 | J. Ator    | Use modules instead of COMMON blocks |
-C>
+C> @author J. Woollen @date 1994-01-06
+
       SUBROUTINE NEMTBB(LUN,ITAB,UNIT,ISCL,IREF,IBIT)
 
       USE MODA_TABABD

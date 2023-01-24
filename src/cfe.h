@@ -5,6 +5,8 @@
  *  @author J. Ator
  *  @date 2017-11-16
  */
+
+/** Maximum length of a meaning string for a Code/Flag table entry. */
 #define MAX_MEANING_LEN 150
 
 #ifdef UNDERSCORE

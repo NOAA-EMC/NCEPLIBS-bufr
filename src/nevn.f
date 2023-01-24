@@ -1,56 +1,48 @@
 C> @file
-C> @author WOOLLEN @date 2003-11-04
-      
-C> THIS FUNCTION LOOKS FOR ALL STACKED DATA EVENTS FOR A
-C>   SPECIFIED DATA VALUE AND LEVEL WITHIN THE PORTION OF THE CURRENT
-C>   SUBSET BUFFER BOUNDED BY THE INDICES INV1 AND INV2.  ALL SUCH
-C>   EVENTS ARE ACCUMULATED AND RETURNED TO THE CALLING PROGRAM WITHIN
-C>   ARRAY USR.  THE VALUE OF THE FUNCTION ITSELF IS THE TOTAL NUMBER
-C>   OF EVENTS FOUND.
+C> @brief Search for stacked data events within a specified portion
+C> of the current data subset.
 C>
-C> PROGRAM HISTORY LOG:
-C> 2003-11-04  J. WOOLLEN -- ORIGINAL AUTHOR (WAS IN VERIFICATION
-C>                           VERSION)
-C> 2003-11-04  D. KEYSER  -- UNIFIED/PORTABLE FOR WRF; ADDED
-C>                           DOCUMENTATION (INCLUDING HISTORY); OUTPUTS
-C>                           MORE COMPLETE DIAGNOSTIC INFO WHEN ROUTINE
-C>                           TERMINATES ABNORMALLY
-C> 2009-03-31  J. WOOLLEN -- ADDED ADDITIONAL DOCUMENTATION
-C> 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
+C> ### Program history log
+C> Date | Programmer | Comments
+C> -----|------------|---------
+C> 2003-11-04 | J. Woollen | Original author.
+C> 2003-11-04 | D. Keyser  | Unified/portable for WRF; added documentation; outputs more complete diagnostic info when routine terminates abnormally
+C> 2009-03-31 | J. Woollen | Added documentation.
+C> 2014-12-10 | J. Ator    | Use modules instead of COMMON blocks.
 C>
-C> USAGE:    NEVN (NODE, LUN, INV1, INV2, I1, I2, I3, USR)
-C>   INPUT ARGUMENT LIST:
-C>     NODE     - INTEGER: JUMP/LINK TABLE INDEX OF NODE TO RETURN
-C>                STACKED VALUES FOR
-C>     LUN      - INTEGER: I/O STREAM INDEX INTO INTERNAL MEMORY ARRAYS
-C>     INV1     - INTEGER: STARTING INDEX OF THE PORTION OF THE SUBSET
-C>                BUFFER IN WHICH TO LOOK FOR STACK VALUES
-C>     INV2     - INTEGER: ENDING INDEX OF THE PORTION OF THE SUBSET
-C>                BUFFER IN WHICH TO LOOK FOR STACK VALUES
-C>     I1       - INTEGER: LENGTH OF FIRST DIMENSION OF USR
-C>     I2       - INTEGER: LENGTH OF SECOND DIMENSION OF USR
-C>     I3       - INTEGER: LENGTH OF THIRD DIMENSION OF USR
+C> @author J. Woollen @date 2003-11-04
+
+C> This function looks for all stacked data events for a
+C> specified data value and level within the portion of the current
+C> subset buffer bounded by the indices INV1 and INV2.  All such
+C> events are accumulated and returned to the calling program within
+C> array USR.  The value of the function itself is the total number
+C> of events found.
 C>
-C>   OUTPUT ARGUMENT LIST:
-C>     USR      - REAL*8:(I1,I2,I3) STARTING ADDRESS OF DATA VALUES READ
-C>                FROM DATA SUBSET, EVENTS ARE RETURNED IN THE THIRD
-C>                DIMENSION FOR A PARTICULAR DATA VALUE AND LEVEL IN THE
-C>                FIRST AND SECOND DIMENSIONS
-C>     NEVN     - INTEGER: NUMBER OF EVENTS IN STACK (MUST BE LESS THAN
-C>                OR EQUAL TO I3)
+C> @param[in] NODE - integer: jump/link table index of node for which
+C>                   to return stacked values
+C> @param[in] LUN  - integer: I/O stream index into internal memory arrays
+C> @param[in] INV1 - integer: Starting index of the portion of the subset
+C>                   buffer in which to look for stack values
+C> @param[in] INV2 - integer: ending index of the portion of the subset
+C>                   buffer in which to look for stack values
+C> @param[in] I1   - integer: Length of first dimension of USR
+C> @param[in] I2   - integer: Length of second dimension of USR
+C> @param[in] I3   - integer: Length of third dimension of USR
+C> @param[out] USR - real*8(*,*,*): Starting address of data values read
+C>                   from data subset; events are returned in the third
+C>                   dimension for a particular data value and level in the
+C>                   first and second dimensions
+C> @returns NEVN   - integer: Number of events in stack (must be less than
+C>                   or equal to I3)
 C>
-C> REMARKS:
-C>    IMPORTANT: THIS ROUTINE SHOULD ONLY BE CALLED BY ROUTINE UFBIN3,
-C>               WHICH, ITSELF, IS CALLED ONLY BY VERIFICATION
-C>               APPLICATION PROGRAM GRIDTOBS, WHERE IT WAS PREVIOUSLY
-C>               AN IN-LINE SUBROUTINE.  IN GENERAL, NEVN DOES NOT WORK
-C>               PROPERLY IN OTHER APPLICATION PROGRAMS AT THIS TIME.
+C> @note: This routine should only be called by routine ufbin3(),
+C> which itself is called only by verification
+C> application program gridtobs, where it was previously
+C> an in-line subroutine.  In general, nevn() does not work
+C> properly in other application programs at this time.
 C>
-C>    THIS ROUTINE CALLS:        BORT     INVWIN   LSTJPB
-C>    THIS ROUTINE IS CALLED BY: UFBIN3
-C>                               Should NOT be called by any
-C>                               application programs!!!
-C>
+C> @author J. Woollen @date 2003-11-04
       FUNCTION NEVN(NODE,LUN,INV1,INV2,I1,I2,I3,USR)
 
       USE MODA_USRINT
