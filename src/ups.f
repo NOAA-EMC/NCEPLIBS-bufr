@@ -1,34 +1,29 @@
 C> @file
-C> @author J @date 2012-03-02
+C> @brief Unpacks a real*8 user value from a packed
+C> bufr integer by applying the proper scale and reference values.
+C>
+C> ### Program History Log
+C> Date | Programmer | Comments |
+C> -----|------------|----------|
+C> 2012-03-02 | J. Ator    | original author; adapted from internal statement function in other subroutines
+C> 2014-12-10 | J. Ator    | use modules instead of common blocks
+C> 2022-05-06 | J. Woollen | make ival and imask 8byte integers  
+C>
+C> @author J Ator @date 2012-03-02
 	
-C> THIS FUNCTION UNPACKS A REAL*8 USER VALUE FROM A PACKED
-C>   BUFR INTEGER BY APPLYING THE PROPER SCALE AND REFERENCE VALUES.
-C>   NORMALLY THE SCALE AND REFERENCE VALUES ARE OBTAINED FROM INDEX
-C>   NODE OF THE INTERNAL JUMP/LINK TABLE ARRAYS ISC(*) AND IRF(*);
-C>   HOWEVER, THE REFERENCE VALUE IN IRF(*) WILL BE OVERRIDDEN IF A
-C>   2-03 OPERATOR IS IN EFFECT FOR THIS NODE.
+C> This function unpacks a real*8 user value from a packed
+C> bufr integer by applying the proper scale and reference values.
+C> Normally the scale and reference values are obtained from index
+C> node of the internal jump/link table arrays isc(*) and irf(*);
+C> however, the reference value in irf(*) will be overridden if a
+C> 2-03 operator is in effect for this node.
 C>
-C> PROGRAM HISTORY LOG:
-C> 2012-03-02  J. ATOR    -- ORIGINAL AUTHOR; ADAPTED FROM INTERNAL
-C>                           STATEMENT FUNCTION IN OTHER SUBROUTINES
-C> 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
-C> 2022-05-06  J. WOOLLEN -- MAKE IVAL AND IMASK 8BYTE INTEGERS  
+C> @param[in] IVAL - integer: packed bufr integer.
+C> @param[in] NODE - integer: index into internal jump/link tables.
 C>
-C> USAGE:    UPS (IVAL,NODE)
-C>   INPUT ARGUMENT LIST:
-C>     IVAL      - INTEGER: PACKED BUFR INTEGER
-C>     NODE      - INTEGER: INDEX INTO INTERNAL JUMP/LINK TABLES
+C> @return user value.
 C>
-C>   OUTPUT ARGUMENT LIST:
-C>     UPS       - REAL*8: USER VALUE
-C>
-C> REMARKS:
-C>    THIS ROUTINE CALLS:        None
-C>    THIS ROUTINE IS CALLED BY: RDCMPS   RDTREE   UFBGET   UFBTAB
-C>                               UFBTAM
-C>                               Normally not called by any application
-C>                               programs.
-C>
+C> @author J Ator @date 2012-03-02
 	REAL*8 FUNCTION UPS(IVAL,NODE)
 
 	USE MODA_TABLES
