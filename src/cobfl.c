@@ -1,30 +1,28 @@
 /** @file
  *  @brief Open a new system file for reading or writing BUFR
  *  messages via a C language interface.
+ *
+ * ### Program History Log
+ * Date | Programmer | Comments
+ * -----|------------|----------
+ * 005-11-29 | J. Ator | Original author.
+ * 2021-10-20 | J. Ator | Increase MXFNLEN to 200 characters.
+ *
+ *  @author J. Ator @date 2005-11-29
  */
 #include "bufrlib.h"
+/** Macro to control whether certain variables are explicitly declared or referenced as extern. */
 #define IN_COBFL
 #include "cobfl.h"
 
+/** Maximum length of a system file, including any directory prefixes or other local filesystem notation. */
 #define MXFNLEN 200
 
 /**
  *  This subroutine opens a new file for reading or writing BUFR
  *  messages via a C language interface.
  *
- *  @author J. Ator
- *  @date 2005-11-29
- *
- *  @param[in] bfl  -- char*: System file to be opened.
- *                     Inclusion of directory prefixes or other
- *                     local filesystem notation is allowed, up
- *                     to 200 total characters.
- *  @param[in]  io  -- char: Flag indicating how bfl is to
- *                     be opened:
- *                      - 'r' = input (for reading BUFR messages) 
- *                      - 'w' = output (for writing BUFR messages)
- *
- *  <p>This subroutine is designed to be easily callable from
+ *  This subroutine is designed to be easily callable from
  *  application program written in either C or Fortran. 
  *  It is functionally equivalent to subroutine
  *  openbf(); however, there are some important differences:
@@ -69,15 +67,18 @@
  *    array, which in turn can then be written directly to the file
  *    via a subsequent call to cwbmg().
  *
- *  <p>Any errors encountered when using this subroutine are
+ *  Any errors encountered when using this subroutine are
  *  automatically logged to standard output, or to an alternate
  *  location previously specified via a call to subroutine errwrt().
  *  
- *  <b>Program history log:</b>
- * | Date | Programmer | Comments |
- * | -----|------------|----------|
- * | 2005-11-29 | J. Ator | Original author |
- * | 2021-10-20 | J. Ator | Increase MXFNLEN to 200 characters |
+ *  @param bfl - System file to be opened. Inclusion of directory
+ *  prefixes or other local filesystem notation is allowed, up to 200
+ *  total characters.
+ *  @param io - Flag indicating how bfl is to be opened:
+ * - 'r' input (for reading BUFR messages) 
+ * - 'w' output (for writing BUFR messages)
+ *
+ *  @author J. Ator @date 2005-11-29
  */
 void cobfl( char *bfl, char *io )
 {
@@ -86,8 +87,7 @@ void cobfl( char *bfl, char *io )
 
     char errstr[MXFNLEN+50];
 
-    char foparg[3] = " b";  /* 3rd character will automatically
-			       initialize to NULL */
+    char foparg[3] = " b";  /* 3rd character will automatically initialize to NULL */
     unsigned short i, j;
 
 /*
@@ -121,8 +121,7 @@ void cobfl( char *bfl, char *io )
     }
 
 /*
-**  If a file of this type is already open, then close it before
-**  opening the new one.
+**  If a file of this type is already open, then close it before opening the new one.
 */
     if ( pbf[j] != NULL ) fclose( pbf[j] );
 

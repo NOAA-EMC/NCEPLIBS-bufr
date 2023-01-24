@@ -34,15 +34,16 @@
  * @param[in] ncdesc -- f77int*: Number of WMO-standard child descriptors
  *                      in cdesc
  *
- * <b>Program history log:</b>
- * | Date | Programmer | Comments |
- * | -----|------------|----------|
- * | 2009-03-23 | J. Ator | Original author |
- * | 2010-03-19 | J. Ator | Added processing for 2-04 associated fields |
- * | 2010-04-05 | J. Ator | Added processing for 2-2X, 2-3X and 2-4X non-marker operators |
- * | 2015-03-04 | J. Ator | Handle special case when associated fields are in effect for a Table D descriptor |
- * | 2021-05-17 | J. Ator | Allow up to 24 characters in cbunit |
- * | 2021-08-18 | J. Ator | Use strcpy instead of strncpy and then overwrite trailing null, in order to silence superfluous GNU compiler warnings |
+ * ### Program history log
+ * Date | Programmer | Comments
+ * -----|------------|---------
+ * 2009-03-23 | J. Ator | Original author.
+ * 2010-03-19 | J. Ator | Added processing for 2-04 associated fields.
+ * 2010-04-05 | J. Ator | Added processing for 2-2X, 2-3X and 2-4X non-marker operators.
+ * 2015-03-04 | J. Ator | Handle special case when associated fields are in effect for a Table D descriptor.
+ * 2021-05-17 | J. Ator | Allow up to 24 characters in cbunit.
+ * 2021-08-18 | J. Ator | Use strcpy instead of strncpy and then overwrite trailing null, in order to silence superfluous GNU compiler warnings.
+ * 2023-01-18 | J. Ator | Remove MSTABS_BASE macro.
 */
 
 void stseq( f77int *lun, f77int *irepct, f77int *idn, char nemo[8],
@@ -112,8 +113,8 @@ void stseq( f77int *lun, f77int *irepct, f77int *idn, char nemo[8],
 		sprintf( nemo2, "RPSEQ%.3lu", ( unsigned long ) *irepct );
 
 		stseq( lun, irepct, &rpidn, nemo2, rpseq,
-		    &MSTABS_BASE(idefxy)[icvidx(&ipt,&i0,&imxcd)],
-		    &MSTABS_BASE(ndelem)[ipt] );
+		    &idefxy_c[icvidx(&ipt,&i0,&imxcd)],
+		    &ndelem_c[ipt] );
 		pkint = rpidn;
 
 	    }
@@ -121,10 +122,10 @@ void stseq( f77int *lun, f77int *irepct, f77int *idn, char nemo[8],
 /*
 **		Store cdesc[i] as is directly within the internal Table D.
 */
-		stseq( lun, irepct, &cdesc[i], &MSTABS_BASE(cdmnem)[ipt][0],
-		    &MSTABS_BASE(cdseq)[ipt][0],
-		    &MSTABS_BASE(idefxy)[icvidx(&ipt,&i0,&imxcd)],
-		    &MSTABS_BASE(ndelem)[ipt] );
+		stseq( lun, irepct, &cdesc[i], &cdmnem_c[ipt][0],
+		    &cdseq_c[ipt][0],
+		    &idefxy_c[icvidx(&ipt,&i0,&imxcd)],
+		    &ndelem_c[ipt] );
 		pkint = cdesc[i];
 	    }
         }
@@ -330,10 +331,10 @@ void stseq( f77int *lun, f77int *irepct, f77int *idn, char nemo[8],
 **		(this is a special case!)
 */
 		nummtb( &cdesc[i], &tab, &ipt );
-	    	stseq( lun, irepct, &cdesc[i], &MSTABS_BASE(cdmnem)[ipt][0],
-		       &MSTABS_BASE(cdseq)[ipt][0],
-		       &MSTABS_BASE(idefxy)[icvidx(&ipt,&i0,&imxcd)],
-		       &MSTABS_BASE(ndelem)[ipt] );
+	    	stseq( lun, irepct, &cdesc[i], &cdmnem_c[ipt][0],
+		       &cdseq_c[ipt][0],
+		       &idefxy_c[icvidx(&ipt,&i0,&imxcd)],
+		       &ndelem_c[ipt] );
 		pkint = cdesc[i];
 	    }
 	    else {
@@ -386,17 +387,17 @@ void stseq( f77int *lun, f77int *irepct, f77int *idn, char nemo[8],
 */
 		nb = igetntbi( lun, &tab, sizeof( tab ) );
 		cadn30( &cdesc[i], adn2, sizeof( adn2 ) ); 
-		stntbi( &nb, lun, adn2, &MSTABS_BASE(cbmnem)[ipt][0],
-			&MSTABS_BASE(cbelem)[ipt][0], sizeof( adn2 ), 8, 55 );
+		stntbi( &nb, lun, adn2, &cbmnem_c[ipt][0],
+			&cbelem_c[ipt][0], sizeof( adn2 ), 8, 55 );
 
 		/* Initialize card to all blanks. */
 		memset( card, (int) cblk, sizeof( card ) );
 
-		strncpy( &card[2], &MSTABS_BASE(cbmnem)[ipt][0], 8 );
-		strncpy( &card[13], &MSTABS_BASE(cbscl)[ipt][0], 4 );
-		strncpy( &card[19], &MSTABS_BASE(cbsref)[ipt][0], 12 );
-		strncpy( &card[33], &MSTABS_BASE(cbbw)[ipt][0], 4 );
-		strncpy( &card[40], &MSTABS_BASE(cbunit)[ipt][0], 24 );
+		strncpy( &card[2], &cbmnem_c[ipt][0], 8 );
+		strncpy( &card[13], &cbscl_c[ipt][0], 4 );
+		strncpy( &card[19], &cbsref_c[ipt][0], 12 );
+		strncpy( &card[33], &cbbw_c[ipt][0], 4 );
+		strncpy( &card[40], &cbunit_c[ipt][0], 24 );
 		elemdx( card, lun, sizeof( card ) );
 	    }
 	    pkint = cdesc[i];

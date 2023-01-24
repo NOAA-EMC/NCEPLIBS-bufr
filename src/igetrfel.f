@@ -1,37 +1,30 @@
 C> @file
-C> @author J @date 2016-05-27
+C> @brief Check whether a specified element refers to
+C> a previous element within the same subset via an internal bitmap.
+C>
+C> ### Program History Log
+C> Date | Programmer | Comments
+C> -----|------------|----------
+C> 2016-05-27 | J. Ator | Original author.
+C> 2017-04-03 | J. Ator | Add a dimension to all tco arrays so each subset definition in the jump/link table has its own set of table c operators.
+C>
+C> @author J Ator @date 2016-05-27
 	
-C> THIS FUNCTION CHECKS WHETHER THE INPUT ELEMENT REFERS TO
-C>   A PREVIOUS ELEMENT WITHIN THE SAME SUBSET VIA AN INTERNAL BITMAP.
-C>   IF SO, THEN THE REFERENCED ELEMENT IS RETURNED.  IN ADDITION, IF
-C>   THE INPUT ELEMENT IS A 2-XX-255 MARKER OPERATOR, ITS SCALE FACTOR,
-C>   BIT WIDTH AND REFERENCE VALUE ARE SET INTERNALLY TO MATCH THOSE
-C>   OF THE REFERENCED ELEMENT.
+C> This function checks whether the input element refers to
+C> a previous element within the same subset via an internal bitmap.
+C> If so, then the referenced element is returned. In addition, if
+C> the input element is a 2-XX-255 marker operator, its scale factor,
+C> bit width and reference value are set internally to match those
+C> of the referenced element.
 C>
-C> PROGRAM HISTORY LOG:
-C> 2016-05-27  J. ATOR    -- ORIGINAL AUTHOR
-C> 2017-04-03  J. ATOR    -- ADD A DIMENSION TO ALL TCO ARRAYS SO THAT
-C>                           EACH SUBSET DEFINITION IN THE JUMP/LINK
-C>                           TABLE HAS ITS OWN SET OF TABLE C OPERATORS
+C> @param[in] N - integer: subset element.
+C> @param[in] LUN - integer: I/O stream index into internal memory arrays.
 C>
-C> USAGE:    CALL IGETRFEL ( N, LUN )
-C>   INPUT ARGUMENT LIST:
-C>     N        - INTEGER: SUBSET ELEMENT
-C>     LUN      - INTEGER: I/O STREAM INDEX INTO INTERNAL MEMORY ARRAYS
+C> @return Subset element referenced by element N within the same subset.
+C> - 0 input element does not refer to a previous element, or referenced
+C> element not found.
 C>
-C>   OUTPUT ARGUMENT LIST:
-C>     IGETRFEL - INTEGER: SUBSET ELEMENT REFERENCED BY ELEMENT N
-C>                WITHIN THE SAME SUBSET
-C>                  0 = INPUT ELEMENT DOES NOT REFER TO A PREVIOUS
-C>                      ELEMENT, OR REFERENCED ELEMENT NOT FOUND
-C>
-C> REMARKS:
-C>    THIS ROUTINE CALLS:        ADN30    BORT     IBFMS    IMRKOPR
-C>                               LSTJPB   NEMTAB
-C>    THIS ROUTINE IS CALLED BY: RCSTPL   RDCMPS
-C>                               Normally not called by any application
-C>                               programs.
-C>
+C> @author J Ator @date 2016-05-27
 	INTEGER FUNCTION IGETRFEL ( N, LUN )
 
 	USE MODA_MSGCWD

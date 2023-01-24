@@ -1,56 +1,37 @@
 C> @file
-C> @author WOOLLEN @date 1994-01-06
+C> @brief Store information about a child mnemonic within the internal arrays
+C>
+C> ### Program History Log
+C> Date | Programmer | Comments
+C> -----|------------|----------
+C> 1994-01-06 | J. Woollen | Original author.
+C> 1995-06-28 | J. Woollen | increased the size of internal bufr table arrays in order to handle bigger files.
+C> 1999-11-18 | J. Woollen | The number of bufr files which can be opened at one time increased from 10 to 32.
+C> 2003-11-04 | J. Ator    | Added documentation.
+C> 2003-11-04 | S. Bender  | Added remarks/bufrlib routine interdependencies.
+C> 2003-11-04 | D. Keyser  | Unified/portable for wrf; added history documentation; more diagnostic info.
+C> 2009-04-21 | J. Ator    | Use errwrt().
+C> 2014-12-10 | J. Ator    | Use modules instead of common blocks.
+C>
+C> @author Woollen @date 1994-01-06
       
-C> THIS SUBROUTINE STORES INFORMATION ABOUT A "CHILD"
-C>   MNEMONIC WITHIN THE INTERNAL BUFR TABLE D ENTRY (IN MODULE
-C>   TABABD) FOR A TABLE D SEQUENCE ("PARENT") MNEMONIC WHEN THE
-C>   "CHILD" MNEMONIC IS CONTAINED WITHIN THE SEQUENCE REPRESENTED BY
-C>   THE "PARENT" MNEMONIC (AS DETERMINED WITHIN BUFR ARCHIVE LIBRARY
-C>   SUBROUTINE SEQSDX).
+C> This subroutine stores information about a "child"
+C> mnemonic within the internal bufr table D entry (in module
+C> tababd) for a table D sequence ("parent") mnemonic when the
+C> "child" mnemonic is contained within the sequence represented by
+C> the "parent" mnemonic (as determined within seqsdx()).
 C>
-C> PROGRAM HISTORY LOG:
-C> 1994-01-06  J. WOOLLEN -- ORIGINAL AUTHOR
-C> 1995-06-28  J. WOOLLEN -- INCREASED THE SIZE OF INTERNAL BUFR TABLE
-C>                           ARRAYS IN ORDER TO HANDLE BIGGER FILES
-C> 1999-11-18  J. WOOLLEN -- THE NUMBER OF BUFR FILES WHICH CAN BE
-C>                           OPENED AT ONE TIME INCREASED FROM 10 TO 32
-C>                           (NECESSARY IN ORDER TO PROCESS MULTIPLE
-C>                           BUFR FILES UNDER THE MPI)
-C> 2003-11-04  J. ATOR    -- ADDED DOCUMENTATION
-C> 2003-11-04  S. BENDER  -- ADDED REMARKS/BUFRLIB ROUTINE
-C>                           INTERDEPENDENCIES
-C> 2003-11-04  D. KEYSER  -- UNIFIED/PORTABLE FOR WRF; ADDED HISTORY
-C>                           DOCUMENTATION; ADDED MORE COMPLETE
-C>                           DIAGNOSTIC INFO WHEN UNUSUAL THINGS HAPPEN
-C> 2009-04-21  J. ATOR    -- USE ERRWRT
-C> 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
+C> @param[in] ID - integer: positional index of parent mnemonic within internal bufr table d array tabd(*,*).
+C> @param[in] LUN - integer: i/o stream index into internal memory arrays.
+C> @param[in] IDN - integer: bit-wise representation of fxy value corresponding to child mnemonic.
+C> - 0 = delete all information about all child mnemonics from within TABD(ID,LUN).
+C> @param[out] IRET - integer: total number of child mnemonics stored thus far
+C> (including idn) for the parent mnemonic given by tabd(id,lun).
+C> - 0 information was cleared from TABD(ID,LUN) because input IDN value was 0
+C> - -1 bad counter value or maximum number of child mnemonics already stored
+C> for this parent mnemonic
 C>
-C> USAGE:    CALL PKTDD (ID, LUN, IDN, IRET)
-C>   INPUT ARGUMENT LIST:
-C>     ID       - INTEGER: POSITIONAL INDEX OF PARENT MNEMONIC WITHIN
-C>                INTERNAL BUFR TABLE D ARRAY TABD(*,*)
-C>     LUN      - INTEGER: I/O STREAM INDEX INTO INTERNAL MEMORY ARRAYS
-C>     IDN      - INTEGER: BIT-WISE REPRESENTATION OF FXY VALUE
-C>                CORRESPONDING TO CHILD MNEMONIC
-C>                       0 = delete all information about all child
-C>                           mnemonics from within TABD(ID,LUN)
-C>
-C>   OUTPUT ARGUMENT LIST:
-C>     IRET     - INTEGER: TOTAL NUMBER OF CHILD MNEMONICS STORED THUS
-C>                FAR (INCLUDING IDN) FOR THE PARENT MNEMONIC GIVEN BY
-C>                TABD(ID,LUN)
-C>                       0 = information was cleared from TABD(ID,LUN)
-C>                           because input IDN value was 0
-C>                      -1 = bad counter value or maximum number of
-C>                           child mnemonics already stored for this
-C>                           parent mnemonic
-C>
-C> REMARKS:
-C>    THIS ROUTINE CALLS:        ERRWRT   IPKM     IUPM
-C>    THIS ROUTINE IS CALLED BY: DXINIT   SEQSDX   STBFDX   STSEQ
-C>                               Normally not called by any application
-C>                               programs.
-C>
+C> @author Woollen @date 1994-01-06
       SUBROUTINE PKTDD(ID,LUN,IDN,IRET)
 
       USE MODV_MAXCD

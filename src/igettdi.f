@@ -1,35 +1,32 @@
 C> @file
-C> @author ATOR @date 2009-03-23
+C> @brief Get the next usable Table D index for the
+C> current master table, or reset the index.
+C>
+C> ### Program History Log
+C> Date | Programmer | Comments
+C> -----|------------|----------
+C> 2009-03-23 | J. Ator | Original author.
+C>
+C> @author Ator @date 2009-03-23
 	
-C> DEPENDING ON THE VALUE OF THE INPUT FLAG, THIS FUNCTION
-C>   EITHER RETURNS THE NEXT USABLE SCRATCH TABLE D INDEX FOR THE
-C>   CURRENT MASTER TABLE OR ELSE RESETS THE INDEX BACK TO ITS
-C>   MINIMUM VALUE.
+C> Depending on the value of the input flag, this function
+C> either returns the next usable scratch Table D index for the
+C> current master table or else resets the index back to its
+C> minimum value.
 C>
-C> PROGRAM HISTORY LOG:
-C> 2009-03-23  J. ATOR    -- ORIGINAL AUTHOR
+C> @param[in] IFLAG - integer:
+C>   - if set to 0, then the function will reset the scratch Table D index
+C>     back to its minimum value
+C>   - otherwise, the function will return the next usable scratch Table D
+C>     index for the current master table
 C>
-C> USAGE:    IGETTDI ( IFLAG )
-C>   INPUT ARGUMENT LIST:
-C>     IFLAG    - INTEGER: FLAG: IF SET TO 0, THEN THE FUNCTION WILL
-C>                RESET THE SCRATCH TABLE D INDEX BACK TO ITS MINIMUM
-C>                VALUE; OTHERWISE, IT WILL RETURN THE NEXT USABLE
-C>                SCRATCH TABLE D INDEX FOR THE CURRENT MASTER TABLE
+C> @return - integer:
+C>   - -1 if function was called with IFLAG=0
+C>   - otherwise, the next usable scratch Table D index for the
+C>     current master table
 C>
-C>   OUTPUT ARGUMENT LIST:
-C>     IGETTDI  - INTEGER: NEXT USABLE SCRATCH TABLE D INDEX FOR THE
-C>                CURRENT MASTER TABLE
-C>                  -1 = FUNCTION WAS CALLED WITH IFLAG=0
-C>
-C> REMARKS:
-C>    THIS ROUTINE CALLS:        BORT
-C>    THIS ROUTINE IS CALLED BY: READS3   STSEQ
-C>                               Not normally called by application
-C>                               programs.
-C>
+C> @author Ator @date 2009-03-23
 	FUNCTION IGETTDI ( IFLAG )
-
-
 
 	PARAMETER ( IDXMIN = 62976 )
 C*			   = IFXY('354000')

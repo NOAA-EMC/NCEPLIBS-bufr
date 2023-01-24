@@ -1,5 +1,5 @@
 C> @file
-C> @brief Initialize the internal arrays (in module tababd) holding the dictionary table.
+C> @brief Initialize the internal arrays which contain the dictionary table.
 C>
 C> ### Program History Log
 C> Date | Programmer | Comments
@@ -15,12 +15,12 @@ C>
 C> @author Woollen @date 1994-01-06
       
 C> This subroutine initializes the internal arrays
-c> (in module tababd) holding the dictionary table. It then
-c> initializes the table with apriori table b and d entries
-c> (optional).
+C> (in module tababd) holding the dictionary table. It then
+C> initializes the table with apriori Table B and D entries
+C> (optional).
 C>
-C> @param[in] LUN - integer: i/o stream index into internal memory arrays.
-C> @param[in] IOI - integer: switch:.
+C> @param[in] LUN - integer: I/O stream index into internal memory arrays.
+C> @param[in] IOI - integer: switch:
 C> - 0 do not initialize the table with apriori Table B and D entries.
 C> - else initialize the table with apriori Table B and D entries.
 C>
@@ -71,8 +71,6 @@ C  ---------------------------
       NTBD(LUN) = 0
       DO I=1,NTBD(0)
       TABD(I,LUN) = ' '
-c  .... This zeroes the counter in TABD array, IRET returns as 0 and
-c       is not tested
       CALL PKTDD(I,LUN,0,IRET)
       ENDDO
 
@@ -100,9 +98,7 @@ C  ---------------------------------------------------
       IDND(N,LUN) = IDNR(I,1)
       TABD(N,LUN)(1: 6) = ADN30(IDNR(I,1),6)
       TABD(N,LUN)(7:70) = INID(I)
-c  .... DK: what if IRET = -1 ???
       CALL PKTDD(N,LUN,IDNR(1,1),IRET)
-c  .... DK: what if IRET = -1 ???
       CALL PKTDD(N,LUN,IDNR(I,2),IRET)
       NTBD(LUN) = N
       ENDDO

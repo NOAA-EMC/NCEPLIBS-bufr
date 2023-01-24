@@ -1,114 +1,135 @@
-!-----------------------------------------------------------------------
-!-----------------------------------------------------------------------
-      PROGRAM SINV
- 
-      PARAMETER (MAXA=16000000)
-      PARAMETER (MAXS=1000)
- 
-      CHARACTER(255) FILE,tbldir
-      CHARACTER(100) cmtdir 
-      CHARACTER(8)   SUBSET
-      CHARACTER      ci*16,cj*80
-      DIMENSION      isat(0:maxs,0:maxs)  
-      real(8)        arr(2,maxa),said(maxa),siid(maxa)
-      logical        exist
- 
-      DATA BMISS  /10E10/
-      DATA LUNBF  /20/
- 
-!-----------------------------------------------------------------------
-!-----------------------------------------------------------------------
- 
-      isat=0  
-      jsat=0  
-      said=0
-      ssid=0
-      !!close(6); open(6,recl=130)
+!> @file
+!> @brief Produces a BUFR file inventory by satellite type.
+!>
+!> @author J Woollen @date 2010
 
-!  get filename argument
+!> Usage: sinv <satbufrfile> will print inventory of satellites by platform and instrument.
+!>
+!> @return 0 for success, error message otherwise.
+!>
+!> @author J Woollen @date 2010
+PROGRAM SINV
 
-      NARG=IARGC()
-      IF(NARG<1) THEN
-        write(*,*)'Usage: sinv <satbufrfile> will print inventory of satellites by platform and instrument'
-        CALL EXIT(2)
-      ENDIF
-      call getarg(1,file)
-      file = TRIM(adjustl(file))
-      inquire(file=file,exist=exist)
-      if (.not.exist) call bort(trim(file)//' does not exist') 
+  PARAMETER (MAXA=16000000)
+  PARAMETER (MAXS=1000)
 
-  
-!  define master table directory
+  CHARACTER(255) FILE,tbldir
+  CHARACTER(100) cmtdir
+  CHARACTER(8)   SUBSET
+  CHARACTER      ci*16,cj*80
+  DIMENSION      isat(0:maxs,0:maxs)
+  real(8)        arr(2,maxa),said(maxa),siid(maxa)
+  logical        exist
 
-      call openbf(lunbf,'FIRST',lunbf)  ! need to call openbf prior to calling mtinfo
-      IF(NARG==2) THEN ! arg 2 would be a user defined table dir
-         call getarg(2,tbldir)
-         call mtinfo(tbldir,3,4)
-      else ! otherwise default table dir is used
-         call mtinfo(           &
-         "@MASTER_TABLE_DIR_F@" &
-         ,3,4)
-      endif
+  DATA BMISS  /10E10/
+  DATA LUNBF  /20/
 
-! read through the file and collect counts of satid and sat inst combinations
+  !-----------------------------------------------------------------------
+  !-----------------------------------------------------------------------
 
-      open(lunbf,file=file,form='unformatted')
-      call ufbtab(lunbf,said,1,maxa,nret,'SAID')
-      call ufbtab(lunbf,siid,1,maxa,nrex,'SIID')
+  isat=0
+  jsat=0
+  said=0
+  ssid=0
+  !!close(6); open(6,recl=130)
 
-! need to open the bufrfile with the satellites of interest
+  !  get filename argument
 
-      open(lunbf,file=file,form='unformatted')
-      CALL OPENBF(LUNBF,'IN',LUNBF)
-      call readmg(lunbf,subset,idate,iret)
-      call codflg('Y')
+  NARG=IARGC()
+  IF(NARG<1) THEN
+     write(*,*)'Usage: sinv <satbufrfile> will print inventory of satellites by platform and instrument'
+     CALL EXIT(2)
+  ENDIF
+  call getarg(1,file)
+  file = TRIM(adjustl(file))
+  inquire(file=file,exist=exist)
+  if (.not.exist) call bort(trim(file)//' does not exist')
 
-! make a table of sat ids and sat instruments 
 
-      do n=1,max(nret,nrex)
-      i = said(n)
-      j = siid(n)  
-      if(i>maxs.or.i<0) i=0                 
-      if(j>maxs.or.j<0) j=0                 
-      isat(i,j) = isat(i,j)+1
-      enddo
+  !  define master table directory
 
-! print the summary of satid and sat inst combinations
+  call openbf(lunbf,'FIRST',lunbf)  ! need to call openbf prior to calling mtinfo
+  IF(NARG==2) THEN ! arg 2 would be a user defined table dir
+     call getarg(2,tbldir)
+     call mtinfo(tbldir,3,4)
+  else ! otherwise default table dir is used
+     call mtinfo(           &
+          "@MASTER_TABLE_DIR_F@" &
+          ,3,4)
+  endif
 
-      write(*,*)
-1     format(a14,2x,a14,2x,a8)
-      do i=0,1000
-      do j=0,1000
-      if(isat(i,j).gt.0) then 
-         jsat=jsat+isat(i,j)
-         call satcode(lunbf,i,ci,j,cj)
-         write(*,'(i3.3,2x,a16,2x,i10,2x,i3.3,a80)')i,ci,isat(i,j),j,trim(cj)
-      endif
-      enddo
-      enddo
+  ! read through the file and collect counts of satid and sat inst combinations
 
-      write(*,'(/23x,i10/)') jsat
+  open(lunbf,file=file,form='unformatted')
+  call ufbtab(lunbf,said,1,maxa,nret,'SAID')
+  call ufbtab(lunbf,siid,1,maxa,nrex,'SIID')
 
-      end program 
-!-----------------------------------------------------------------------
-!  looks up BUFR code table values for SAID (said) and SIID (instrument)
-!-----------------------------------------------------------------------
-      subroutine satcode(lunit,icode,csad,jcode,csid)
+  ! need to open the bufrfile with the satellites of interest
 
-      character(16)  :: csad
-      character(80)  :: csid
-      character(255) :: str
+  open(lunbf,file=file,form='unformatted')
+  CALL OPENBF(LUNBF,'IN',LUNBF)
+  call readmg(lunbf,subset,idate,iret)
+  call codflg('Y')
 
-      csad(1:16)=' '; csid(1:80)=' '
+  ! make a table of sat ids and sat instruments
 
-!  call routines to look  up the said and siid 
+  do n=1,max(nret,nrex)
+     i = said(n)
+     j = siid(n)
+     if(i>maxs.or.i<0) i=0
+     if(j>maxs.or.j<0) j=0
+     isat(i,j) = isat(i,j)+1
+  enddo
 
-      if(icode>0) then
-         str=repeat(' ',255)
-         call getcfmng(lunit,'SAID',icode,'  ',-1,str,len,iret); csad=str(1:16)
-      elseif(jcode>0) then
-         str=repeat(' ',255)
-         call getcfmng(lunit,'SIID',jcode,'  ',-1,str,len,iret); csid=str(1:80)
-      endif
+  ! print the summary of satid and sat inst combinations
 
-      end subroutine
+  write(*,*)
+1 format(a14,2x,a14,2x,a8)
+  do i=0,1000
+     do j=0,1000
+        if(isat(i,j).gt.0) then
+           jsat=jsat+isat(i,j)
+           call satcode(lunbf,i,ci,j,cj)
+           write(*,'(i3.3,2x,a16,2x,i10,2x,i3.3,a80)')i,ci,isat(i,j),j,trim(cj)
+        endif
+     enddo
+  enddo
+
+  write(*,'(/23x,i10/)') jsat
+
+end program SINV
+!> @file
+!> @brief Looks in the BUFR tables to get meaning strings for satellite platform and instrument codes
+!>
+!> @author J Woollen @date 2010
+
+!> This subroutine looks in the master BUFR tables for meaning strings associated with specified
+!> code figures for the satellite platform and instrument.
+!>
+!> @param[in] lunit - integer: Fortran logical unit number for BUFR file
+!> @param[in] icode - integer: satellite platform code
+!> @param[out] csad - character*16: meaning string associatd with icode
+!> @param[in] jcode - integer: satellite instrument code
+!> @param[out] csid - character*80: meaning string associatd with jcode
+!>
+!> @author J Woollen @date 2010
+
+subroutine satcode(lunit,icode,csad,jcode,csid)
+
+  character(16)  :: csad
+  character(80)  :: csid
+  character(255) :: str
+
+  csad(1:16)=' '; csid(1:80)=' '
+
+  !  call routines to look up the said and siid
+
+  if(icode>0) then
+     str=repeat(' ',255)
+     call getcfmng(lunit,'SAID',icode,'  ',-1,str,len,iret); csad=str(1:16)
+  elseif(jcode>0) then
+     str=repeat(' ',255)
+     call getcfmng(lunit,'SIID',jcode,'  ',-1,str,len,iret); csid=str(1:80)
+  endif
+
+end subroutine satcode

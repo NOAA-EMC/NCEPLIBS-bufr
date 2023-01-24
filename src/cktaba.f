@@ -1,77 +1,40 @@
 C> @file
-C> @author WOOLLEN @date 2000-09-19
+C> @brief Parse the Table A mnemonic and date out of Section 1 of a
+C> BUFR message.
+C>      
+C> ### Program History Log
+C> Date | Programmer | Comments
+C> -----|------------|----------
+C> 2000-09-19 | J. Woollen | Consolidated logic in readmg(), readft(), readerme(), rdmemm() and readibm(); allow compressed messages.
+C> 2003-11-04 | S. Bender  | Added remarks/bufrlib routine interdependencies.
+C> 2003-11-04 | D. Keyser  | Numerous updates.
+C> 2004-08-09 | J. Ator    | Maximum message length increased from 20,000 to 50,000 bytes.
+C> 2005-11-29 | J. Ator    | Use iupbs01(), igetdate() and getlens().
+C> 2006-04-14 | J. Ator    | Allow "frtttsss" and "fntttsss" as possible table a mnemonics, where ttt is the bufr type and sss is the bufr subtype
+C> 2009-03-23 | J. Ator    | Add logic to allow section 3 decoding; use iupbs3() and errwrt().
+C> 2014-12-10 | J. Ator    | Use modules instead of common blocks.
+C>
+C> @author Woollen @date 2000-09-19
       
-C> THIS SUBROUTINE PARSES THE TABLE A MNEMONIC AND THE DATE
-C>   OUT OF SECTION 1 OF A BUFR MESSAGE PREVIOUSLY READ FROM UNIT LUNIT
-C>   USING BUFR ARCHIVE LIBRARY SUBROUTINE READMG OR EQUIVALENT (AND NOW
-C>   STORED IN THE INTERNAL MESSAGE BUFFER, ARRAY MBAY IN MODULE
-C>   BITBUF).  THE TABLE A MNEMONIC IS ASSOCIATED WITH THE BUFR
-C>   MESSAGE TYPE/SUBTYPE IN SECTION 1.  IT ALSO FILLS IN THE MESSAGE
-C>   CONTROL WORD PARTITION ARRAYS IN MODULE MSGCWD.
+C> This subroutine parses the Table A mnemonic and date
+C> out of Section 1 of a BUFR message that was previously read from lun
+C> using one of the [message-reading subroutines](@ref hierarchy).
 C>
-C> PROGRAM HISTORY LOG:
-C> 2000-09-19  J. WOOLLEN -- ORIGINAL AUTHOR - CONSOLIDATED MESSAGE
-C>                           DECODING LOGIC THAT HAD BEEN REPLICATED IN
-C>                           READMG, READFT, READERME, RDMEMM AND READIBM
-C>                           (CKTABA IS NOW CALLED BY THESE CODES);
-C>                           LOGIC ENHANCED HERE TO ALLOW COMPRESSED AND
-C>                           STANDARD BUFR MESSAGES TO BE READ
-C> 2003-11-04  S. BENDER  -- ADDED REMARKS/BUFRLIB ROUTINE
-C>                           INTERDEPENDENCIES
-C> 2003-11-04  D. KEYSER  -- MODIFIED TO NOT ABORT WHEN THE SECTION 1
-C>                           MESSAGE SUBTYPE DOES NOT AGREE WITH THE
-C>                           SECTION 1 MESSAGE SUBTYPE IN THE DICTIONARY
-C>                           IF THE MESSAGE TYPE MNEMONIC IS NOT OF THE
-C>                           FORM "NCtttsss", WHERE ttt IS THE BUFR TYPE
-C>                           AND sss IS THE BUFR SUBTYPE (E.G., IN
-C>                           "PREPBUFR" FILES); MODIFIED DATE
-C>                           CALCULATIONS TO NO LONGER USE FLOATING
-C>                           POINT ARITHMETIC SINCE THIS CAN LEAD TO
-C>                           ROUND OFF ERROR AND AN IMPROPER RESULTING
-C>                           DATE ON SOME MACHINES (E.G., NCEP IBM
-C>                           FROST/SNOW), INCREASES PORTABILITY;
-C>                           UNIFIED/PORTABLE FOR WRF; ADDED
-C>                           DOCUMENTATION (INCLUDING HISTORY); OUTPUTS
-C>                           MORE COMPLETE DIAGNOSTIC INFO WHEN ROUTINE
-C>                           TERMINATES ABNORMALLY OR UNUSUAL THINGS
-C>                           HAPPEN; SUBSET DEFINED AS "        " IF
-C>                           IRET RETURNED AS 11 (BEFORE WAS UNDEFINED)
-C> 2004-08-09  J. ATOR    -- MAXIMUM MESSAGE LENGTH INCREASED FROM
-C>                           20,000 TO 50,000 BYTES
-C> 2005-11-29  J. ATOR    -- USE IUPBS01, IGETDATE AND GETLENS
-C> 2006-04-14  J. ATOR    -- ALLOW "FRtttsss" AND "FNtttsss" AS POSSIBLE
-C>                           TABLE A MNEMONICS, WHERE ttt IS THE BUFR
-C>                           TYPE AND sss IS THE BUFR SUBTYPE
-C> 2009-03-23  J. ATOR    -- ADD LOGIC TO ALLOW SECTION 3 DECODING;
-C>                           USE IUPBS3 AND ERRWRT
-C> 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
+C> @param[in] LUN - integer: I/O stream index into internal memory arrays.
+C> @param[out] SUBSET - character*8: Table A mnemonic
+C>                      - returned as a string of all blank characters
+C>                        if IRET is equal to 11 (see below) and if Section 3
+C>                        isn't being used for decoding  
+C> @param[out] JDATE    - integer: date-time stored within Section 1 of BUFR
+C>                        in format of either YYMMDDHH or
+C>                        YYYYMMDDHH, depending on datelen() value.
+C> @param[out] IRET - integer: return code:
+C>                      - 0 normal return
+C>                      - -1 unrecognized Table A (message type) value
+C>                      - 11 this is a BUFR table (dictionary) message
 C>
-C> USAGE:    CALL CKTABA (LUN, SUBSET, JDATE, IRET)
-C>   INPUT ARGUMENT LIST:
-C>     LUN      - INTEGER: I/O STREAM INDEX INTO INTERNAL MEMORY ARRAYS
-C>
-C>   OUTPUT ARGUMENT LIST:
-C>     SUBSET   - CHARACTER*8: TABLE A MNEMONIC FOR TYPE OF BUFR MESSAGE
-C>                BEING CHECKED:
-C>                       "        " = IRET equal to 11 (see IRET below)
-C>                                    and not using Section 3 decoding
-C>     JDATE    - INTEGER: DATE-TIME STORED WITHIN SECTION 1 OF BUFR
-C>                MESSAGE BEING CHECKED, IN FORMAT OF EITHER YYMMDDHH OR
-C>                YYYYMMDDHH, DEPENDING ON DATELEN() VALUE 
-C>     IRET     - INTEGER: RETURN CODE:
-C>                       0 = normal return
-C>                      -1 = unrecognized Table A (message type) value
-C>                      11 = this is a BUFR table (dictionary) message
-C>
-C> REMARKS:
-C>    THIS ROUTINE CALLS:        BORT     DIGIT    ERRWRT   GETLENS
-C>                               I4DY     IGETDATE IUPB     IUPBS01
-C>                               IUPBS3   NEMTBAX  NUMTAB   OPENBT
-C>                               RDUSDX
-C>    THIS ROUTINE IS CALLED BY: RDMEMM   READERME READMG
-C>                               Normally not called by any application
-C>                               programs.
-C>
+C> @author Woollen @date 2000-09-19
+
       SUBROUTINE CKTABA(LUN,SUBSET,JDATE,IRET)
 
       USE MODA_MSGCWD

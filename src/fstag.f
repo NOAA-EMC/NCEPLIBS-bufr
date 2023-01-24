@@ -1,4 +1,6 @@
 C> @file
+C> @brief Search for a specified occurrence of a specified mnemonic within
+C> a data subset definition, starting from a specified location.
 C>
 C> ### Program History Log
 C> Date | Programmer | Comments
@@ -8,19 +10,19 @@ C> 2014-12-10 | J. Ator | Use modules instead of common blocks.
 C>
 C> @author J Ator @date 2014-10-02
 	
-C> This subroutine finds the (nutag)th occurrence of mnemonic
-C> utag within the current overall subset definition, starting from
-C> parameter #(nin) within the subset. The subroutine searches forward
-C> from nin if nutag is positive or else backward if nutag is negative.
+C> This subroutine finds the (NUTAG)th occurrence of mnemonic
+C> UTAG within the current overall subset definition, starting from
+C> parameter #(NIN) within the subset. The subroutine searches forward
+C> from NIN if NUTAG is positive or else backward if NUTAG is negative.
 C>
-C> @param[in] LUN - integer: i/o stream index into internal memory arrays.
+C> @param[in] LUN - integer: I/O stream index into internal memory arrays.
 C> @param[in] UTAG - character*(*): mnemonic.
-C> @param[in] NUTAG - integer: ordinal occurrence of utag to search for within
-C> the overall subset definition, counting from parameter #(nin) within the subset.
-C> The subroutine will search in a forward direction from parameter #(nin) if
-C> nutag is positive or else in a backward direction if nutag is negative..
-C> @param[in] NIN - integer: location within the overall subset definition from which to begin searching for utag..
-C> @param[out] NOUT - integer: location of (nutag)th occurrence of utag.
+C> @param[in] NUTAG - integer: ordinal occurrence of UTAG to search for within
+C>     the overall subset definition, counting from parameter #(NIN) within the subset.
+C>     The subroutine will search in a forward direction from parameter #(NIN) if
+C>     NUTAG is positive or else in a backward direction if NUTAG is negative.
+C> @param[in] NIN - integer: location within the overall subset definition from which to begin searching for UTAG.
+C> @param[out] NOUT - integer: location of (NUTAG)th occurrence of UTAG.
 C> @param[out] IRET - integer: return code.
 C> - 0 Normal return.
 C> - -1 Requested mnemonic could not be found, or some other error occurred.

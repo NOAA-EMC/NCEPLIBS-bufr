@@ -1,61 +1,33 @@
 C> @file
-C> @author WOOLLEN @date 1994-01-06
+C> @brief Store the subset template into internal arrays.
+C>
+C> ### Program History Log
+C> Date | Programmer | Comments
+C> -----|------------|----------
+C> 1994-01-06 | J. Woollen | Original author.
+C> 1998-07-08 | J. Woollen | Replaced call to cray library routine "abort" with call to new internal bufrlib routine "bort".
+C> 1998-10-27 | J. Woollen | Modified to correct problems caused by in- lining code with fpp directives.
+C> 1999-11-18 | J. Woollen | The number of bufr files which can be opened at one time increased from 10 to 32.
+C> 2000-09-19 | J. Woollen | Maximum message length increased from 10,000 to 20,000 bytes.
+C> 2002-05-14 | J. Woollen | Removed old cray compiler directives.
+C> 2003-11-04 | S. Bender  | Added remarks/bufrlib routine interdependencies.
+C> 2003-11-04 | D. Keyser  | maxjl increased to 16000; maxrcr increased to 100; unified/portable for wrf; documentation; more diagnostic info.
+C> 2004-08-09 | J. Ator    | Maximum message length increased from 20,000 to 50,000 bytes.
+C> 2014-12-10 | J. Ator    | Use modules instead of common blocks.
+C> 2016-11-09 | J. Ator    | Added iret argument and check for possibly corrupt subsets.
+C>
+C> @author Woollen @date 1994-01-06
       
-C> THIS SUBROUTINE STORES THE SUBSET TEMPLATE INTO INTERNAL
-C>   SUBSET ARRAYS IN MODULES USRINT AND USRBIT.  THIS IS IN
-C>   PREPARATION FOR THE ACTUAL UNPACKING OF THE SUBSET IN BUFR ARCHIVE
-C>   LIBRARY SUBROUTINE RDTREE.
+C> This subroutine stores the subset template into internal
+C> subset arrays in modules usrint and usrbit. This is in
+C> preparation for the actual unpacking of the subset in rdtree().
 C>
-C> PROGRAM HISTORY LOG:
-C> 1994-01-06  J. WOOLLEN -- ORIGINAL AUTHOR
-C> 1998-07-08  J. WOOLLEN -- REPLACED CALL TO CRAY LIBRARY ROUTINE
-C>                           "ABORT" WITH CALL TO NEW INTERNAL BUFRLIB
-C>                           ROUTINE "BORT"
-C> 1998-10-27  J. WOOLLEN -- MODIFIED TO CORRECT PROBLEMS CAUSED BY IN-
-C>                           LINING CODE WITH FPP DIRECTIVES
-C> 1999-11-18  J. WOOLLEN -- THE NUMBER OF BUFR FILES WHICH CAN BE
-C>                           OPENED AT ONE TIME INCREASED FROM 10 TO 32
-C>                           (NECESSARY IN ORDER TO PROCESS MULTIPLE
-C>                           BUFR FILES UNDER THE MPI)
-C> 2000-09-19  J. WOOLLEN -- MAXIMUM MESSAGE LENGTH INCREASED FROM
-C>                           10,000 TO 20,000 BYTES
-C> 2002-05-14  J. WOOLLEN -- REMOVED OLD CRAY COMPILER DIRECTIVES
-C> 2003-11-04  S. BENDER  -- ADDED REMARKS/BUFRLIB ROUTINE
-C>                           INTERDEPENDENCIES
-C> 2003-11-04  D. KEYSER  -- MAXJL (MAXIMUM NUMBER OF JUMP/LINK ENTRIES)
-C>                           INCREASED FROM 15000 TO 16000 (WAS IN
-C>                           VERIFICATION VERSION); MAXRCR (MAXIMUM
-C>                           NUMBER OF RECURSION LEVELS) INCREASED FROM
-C>                           50 TO 100  (WAS IN VERIFICATION VERSION);
-C>                           UNIFIED/PORTABLE FOR WRF; ADDED
-C>                           DOCUMENTATION (INCLUDING HISTORY); OUTPUTS
-C>                           MORE COMPLETE DIAGNOSTIC INFO WHEN ROUTINE
-C>                           TERMINATES ABNORMALLY; COMMENTED OUT
-C>                           HARDWIRE OF VTMP TO "BMISS" (10E10) WHEN IT
-C>                           IS > 10E9 (CAUSED PROBLEMS ON SOME FOREIGN
-C>                           MACHINES)
-C> 2004-08-09  J. ATOR    -- MAXIMUM MESSAGE LENGTH INCREASED FROM
-C>                           20,000 TO 50,000 BYTES
-C> 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
-C> 2016-11-09  J. ATOR    -- ADDED IRET ARGUMENT AND CHECK FOR POSSIBLY
-C>                           CORRUPT SUBSETS
+C> @param[in] LUN - integer: i/o stream index into internal memory arrays.
+C> @param[out] IRET - integer: return code:.
+C> - 0 Normal return.
+C> - -1 An error occurred, possibly due to a corrupt subset in the input message.
 C>
-C> USAGE:    CALL RCSTPL (LUN,IRET)
-C>   INPUT ARGUMENT LIST:
-C>     LUN      - INTEGER: I/O STREAM INDEX INTO INTERNAL MEMORY ARRAYS
-C>
-C>   OUTPUT ARGUMENT LIST:
-C>     IRET     - INTEGER: RETURN CODE:
-C>                       0 = NORMAL RETURN
-C>                      -1 = AN ERROR OCCURRED, POSSIBLY DUE TO A
-C>                           CORRUPT SUBSET IN THE INPUT MESSAGE
-C>
-C> REMARKS:
-C>    THIS ROUTINE CALLS:        BORT     IGETRFEL STRBTM   UPBB
-C>    THIS ROUTINE IS CALLED BY: RDTREE
-C>                               Normally not called by any application
-C>                               programs.
-C>
+C> @author Woollen @date 1994-01-06
       SUBROUTINE RCSTPL(LUN,IRET)
 
       USE MODV_BMISS
