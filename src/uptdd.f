@@ -1,5 +1,5 @@
 C> @file
-C> @brief this subroutine returns the fxy value of an element in a sequence 
+C> @brief This subroutine returns the fxy value of an element in a sequence.
 C>
 C> ### Program History Log
 C> | Date | Programmer | Comments |
@@ -13,21 +13,21 @@ C> 2003-11-04 | S. Bender   |  added remarks/bufrlib routine interdependencies
 C> 2003-11-04 | D. Keyser   |  unified/portable for wrf; added history documentation; outputs more complete diagnostic info 
 C> 2014-12-10 | J. Ator     |  use modules instead of common blocks
 C>
-C> @author woollen @date 1994-01-06
+C> @author Woollen @date 1994-01-06
 
 C> This subroutine returns the bit-wise representation of the fxy value corresponding to, sequentially, 
 C> a particular (ient'th) C>   "child" mnemonic of a table d sequence ("parent") mnemonic.
 C>
-C> @remark The interpretation of the return value iret depends upon the input value ient, as follows:
+C> @remarks The interpretation of the return value iret depends upon the input value ient, as follows:
 C> ient=0 - iret = a count of the total number of child mnemonics within tabd(id,lun)
 C> ient>0 - iret = the bit-wise representation of the fxy value corresponding to the ient'th child mnemonic of tabd(id,lun)
 C>
 C> @param[in] id - integer: positional index of parent mnemonic within internal bufr table d array tabd
 C> @param[in] lun - integer: i/o stream index into internal memory arrays
-C> @param[in] ient - integer: ordinal indicator of child mnemonic to return from within tabd(id,lun) sequence:
+C> @param[in] ient - integer: ordinal indicator of child mnemonic to return from within tabd(id,lun) sequence
 C> @param[out] iret - integer: return value (see remarks)
 C>
-C> @author woollen @date 1994-01-06
+C> @author Woollen @date 1994-01-06
 
 
       SUBROUTINE UPTDD(ID,LUN,IENT,IRET)
