@@ -3,7 +3,7 @@
 !>
 !> @author J Woollen @date 1994
 
-!> Usage: binv <bufrfile> will print bufrfile inventory by message type.
+!> Usage: binv \<bufrfile\> will print bufrfile inventory by message type.
 !>
 !> @return 0 for success, error message otherwise.
 !>

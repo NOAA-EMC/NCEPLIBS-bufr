@@ -22,7 +22,7 @@ C> @param[out] MESG - integer(*): BUFR message.
 C> @param[in] SUBSET - character*8: Table A mnemonic for type of BUFR message being written.
 C> @param[in] IDATE - integer: date-time stored within Section 1 of BUFR message being written,
 C>                    in format of either YYMMDDHH or YYYYMMDDHH, depending on datelen() value.
-C> @param[in] NSUB - integer: number of subsetsa in MESG
+C> @param[in] NSUB - integer: number of subsets in MESG
 C> @param[inout] NBYT - integer:
 C>                      - On input, contains the length (in bytes) of Section 4, except for
 C>                        the first 4 bytes
