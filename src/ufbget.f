@@ -1,73 +1,49 @@
 C> @file
-C> @author WOOLLEN @date 1994-01-06
+C> @brief Unpack and return the values for one-
+C> dimensional descriptors in the input string without advancing the
+C> subset pointer.
+C>
+C> ### Program History Log
+C> Date | Programmer | Comments |
+C> -----|------------|----------|
+C> 1994-01-06 | J. Woollen | original author
+C> 1998-07-08 | J. Woollen | replaced call to cray library routine "abort" with call to new internal bufrlib routine "bort"; improved machine portability
+C> 1998-10-27 | J. Woollen | modified to correct problems caused by in- lining code with fpp directives
+C> 1999-11-18 | J. Woollen | the number of bufr files which can be opened at one time increased from 10 to 32 
+C> 2000-09-19 | J. Woollen | maximum message length increased from 10,000 to 20,000 bytes
+C> 2002-05-14 | J. Woollen | removed old cray compiler directives
+C> 2003-11-04 | S. Bender  | added remarks/bufrlib routine interdependencies
+C> 2003-11-04 | D. Keyser  | maxjl increased to 16000; unified/portable for wrf; documentation; outputs more info
+C> 2004-08-09 | J. Ator    | maximum message length increased from 20,000 to 50,000 bytes
+C> 2012-03-02 | J. Ator    | use function ups
+C> 2014-12-10 | J. Ator    | use modules instead of common blocks
+C> 2022-05-06 | j. Woollen | replace upbb with upb8 for 8byte integers
+C> 2022-10-04 | J. Ator    | added 8-byte wrapper
+C>
+C> @author Woollen @date 1994-01-06
       
-C> THIS SUBROUTINE UNPACKS AND RETURNS THE VALUES FOR ONE-
-C>   DIMENSIONAL DESCRIPTORS IN THE INPUT STRING WITHOUT ADVANCING THE
-C>   SUBSET POINTER.
+C> This subroutine unpacks and returns the values for one-
+C> dimensional descriptors in the input string without advancing the
+C> subset pointer.
 C>
-C> PROGRAM HISTORY LOG:
-C> 1994-01-06  J. WOOLLEN -- ORIGINAL AUTHOR
-C> 1998-07-08  J. WOOLLEN -- REPLACED CALL TO CRAY LIBRARY ROUTINE
-C>                           "ABORT" WITH CALL TO NEW INTERNAL BUFRLIB
-C>                           ROUTINE "BORT"; IMPROVED MACHINE
-C>                           PORTABILITY
-C> 1998-10-27  J. WOOLLEN -- MODIFIED TO CORRECT PROBLEMS CAUSED BY IN-
-C>                           LINING CODE WITH FPP DIRECTIVES
-C> 1999-11-18  J. WOOLLEN -- THE NUMBER OF BUFR FILES WHICH CAN BE
-C>                           OPENED AT ONE TIME INCREASED FROM 10 TO 32
-C>                           (NECESSARY IN ORDER TO PROCESS MULTIPLE
-C>                           BUFR FILES UNDER THE MPI)
-C> 2000-09-19  J. WOOLLEN -- MAXIMUM MESSAGE LENGTH INCREASED FROM
-C>                           10,000 TO 20,000 BYTES
-C> 2002-05-14  J. WOOLLEN -- REMOVED OLD CRAY COMPILER DIRECTIVES
-C> 2003-11-04  S. BENDER  -- ADDED REMARKS/BUFRLIB ROUTINE
-C>                           INTERDEPENDENCIES
-C> 2003-11-04  D. KEYSER  -- MAXJL (MAXIMUM NUMBER OF JUMP/LINK ENTRIES)
-C>                           INCREASED FROM 15000 TO 16000 (WAS IN
-C>                           VERIFICATION VERSION); UNIFIED/PORTABLE FOR
-C>                           WRF; ADDED DOCUMENTATION (INCLUDING
-C>                           HISTORY); OUTPUTS MORE COMPLETE DIAGNOSTIC
-C>                           INFO WHEN ROUTINE TERMINATES ABNORMALLY
-C> 2004-08-09  J. ATOR    -- MAXIMUM MESSAGE LENGTH INCREASED FROM
-C>                           20,000 TO 50,000 BYTES
-C> 2012-03-02  J. ATOR    -- USE FUNCTION UPS
-C> 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
-C> 2022-05-06  J. WOOLLEN -- REPLACE UPBB WITH UPB8 FOR 8BYTE INTEGERS
-C> 2022-10-04  J. ATOR    -- ADDED 8-BYTE WRAPPER
+C> @param[in] LUNIT - integer: fortran logical unit number for bufr file.
+C> @param[out] TAB - real*8: (i1) starting address of data values read from data subset.
+C> @param[in] I1 - integer: length of tab.
+C> @param[out] IRET - integer: return code:.
+C> - 0 normal return
+C> - -1 there are no more subsets in the BUFR message
+C> @param[in] STR - character*(*): string of blank-separated table B
+C> mnemonics in one-to-one correspondence with the words
+C> in the array tab. There are three "generic" mnemonics not related
+C> to table B, these return the following
+C> information in corresponding tab location:
+C> - 'NUL'  which always returns bmiss ("MISSING")
+C> - 'IREC' which always returns the current bufr message (record) number
+C>    in which this subset resides.
+C> - 'ISUB' which always returns the current subset number of this subset within the bufr
+C>   message (record) number 'IREC'.
 C>
-C> USAGE:    CALL UFBGET (LUNIT, TAB, I1, IRET, STR)
-C>   INPUT ARGUMENT LIST:
-C>     LUNIT    - INTEGER: FORTRAN LOGICAL UNIT NUMBER FOR BUFR FILE
-C>     I1       - INTEGER: LENGTH OF TAB
-C>     STR      - CHARACTER*(*): STRING OF BLANK-SEPARATED TABLE B
-C>                MNEMONICS IN ONE-TO-ONE CORRESPONDENCE WITH THE WORDS
-C>                IN THE ARRAY TAB
-C>                  - THERE ARE THREE "GENERIC" MNEMONICS NOT RELATED
-C>                     TO TABLE B, THESE RETURN THE FOLLOWING
-C>                     INFORMATION IN CORRESPONDING TAB LOCATION:
-C>                     'NUL'  WHICH ALWAYS RETURNS BMISS ("MISSING")
-C>                     'IREC' WHICH ALWAYS RETURNS THE CURRENT BUFR
-C>                            MESSAGE (RECORD) NUMBER IN WHICH THIS
-C>                            SUBSET RESIDES
-C>                     'ISUB' WHICH ALWAYS RETURNS THE CURRENT SUBSET
-C>                            NUMBER OF THIS SUBSET WITHIN THE BUFR
-C>                            MESSAGE (RECORD) NUMBER 'IREC'
-C>
-C>   OUTPUT ARGUMENT LIST:
-C>     TAB      - REAL*8: (I1) STARTING ADDRESS OF DATA VALUES READ FROM
-C>                DATA SUBSET
-C>     IRET     - INTEGER: RETURN CODE:
-C>                       0 = normal return
-C>                      -1 = there are no more subsets in the BUFR
-C>                           message
-C>
-C> REMARKS:
-C>    THIS ROUTINE CALLS:        BORT     INVWIN   STATUS   STRING
-C>                               UPB8     UPC      UPS      USRTPL
-C>    THIS ROUTINE IS CALLED BY: None
-C>                               Normally called only by application
-C>                               programs.
-C>
+C> @author Woollen @date 1994-01-06
       RECURSIVE SUBROUTINE UFBGET(LUNIT,TAB,I1,IRET,STR)
 
       USE MODV_BMISS

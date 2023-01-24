@@ -1,74 +1,56 @@
 C> @file
-C> @author WOOLLEN @date 2003-11-04
+C> @brief Either open a bufr file connected to
+C> logical unit lunit for input operations (if it is not already
+C> opened as such), or saves its position and rewinds it to the first
+C> data message.
+C>
+C> ### Program History Log
+C> Date | Programmer | Comments 
+C> -----|------------|----------
+C> 2003-11-04 | J. Woollen | original author (was in verification version but may have been in the production version at one time and then removed)
+C> 2003-11-04 | D. Keyser  | unified/portable for wrf; added documentation; outputs more complete diagnostic info
+C> 2004-08-09 | J. Ator    | maximum message length increased from 20,000 to 50,000 bytes
+C> 2009-03-23 | J. Ator    | modify logic to handle bufr table messages encountered anywhere in the file (and not just at the beginning!)
+C> 2012-09-15 | J. Woollen | modified for c/i/o/bufr interface use 'inx' argument to openbf
+C> 2014-12-10 | J. Ator    | use modules instead of common blocks
+C> 2022-10-04 | J. Ator    | added 8-byte wrapper
+C>
+C> @author Woollen @date 2003-11-04
       
-C> THIS SUBROUTINE EITHER OPENS A BUFR FILE CONNECTED TO
-C>   LOGICAL UNIT LUNIT FOR INPUT OPERATIONS (IF IT IS NOT ALREADY
-C>   OPENED AS SUCH), OR SAVES ITS POSITION AND REWINDS IT TO THE FIRST
-C>   DATA MESSAGE (IF BUFR FILE ALREADY OPENED), THEN (VIA A CALL TO
-C>   BUFR ARCHIVE LIBRARY SUBROUTINE UFBINT) READS SPECIFIED VALUES FROM
-C>   INTERNAL SUBSET ARRAYS ASSOCIATED WITH A PARTICULAR SUBSET FROM A
-C>   PARTICULAR BUFR MESSAGE IN A MESSAGE BUFFER.  THE PARTICULAR SUBSET
-C>   AND BUFR MESSAGE ARE BASED BASED ON THE SUBSET NUMBER IN THE
-C>   MESSAGE AND THE MESSAGE NUMBER IN THE BUFR FILE.  FINALLY, THIS
-C>   SUBROUTINE EITHER CLOSES THE BUFR FILE IN LUNIT (IF IS WAS OPENED
-C>   HERE) OR RESTORES IT TO ITS PREVIOUS READ/WRITE STATUS AND POSITION
-C>   (IF IT WAS NOT OPENED HERE).  SEE UFBINT FOR MORE INFORMATION ON
-C>   THE READING OF VALUES OUT OF A BUFR MESSAGE SUBSET.  NOTE: THE
-C>   MESSAGE NUMBER HERE DOES NOT INCLUDE THE DICTIONARY MESSAGES AT THE
-C>   BEGINNING OF THE FILE.
+C> This subroutine either opens a bufr file connected to
+C> logical unit lunit for input operations (if it is not already
+C> opened as such), or saves its position and rewinds it to the first
+C> data message (if bufr file already opened), then (via a call to
+C> bufr archive library subroutine ufbint) reads specified values from
+C> internal subset arrays associated with a particular subset from a
+C> particular bufr message in a message buffer. The particular subset
+C> and bufr message are based based on the subset number in the
+C> message and the message number in the bufr file. Finally, this
+C> subroutine either closes the bufr file in lunit (if is was opened
+C> here) or restores it to its previous read/write status and position
+C> (if it was not opened here). See ufbint for more information on
+C> the reading of values out of a bufr message subset. @note The
+C> message number here does not include the dictionary messages at the
+C> beginning of the file.
 C>
-C> PROGRAM HISTORY LOG:
-C> 2003-11-04  J. WOOLLEN -- ORIGINAL AUTHOR (WAS IN VERIFICATION
-C>                           VERSION BUT MAY HAVE BEEN IN THE PRODUCTION
-C>                           VERSION AT ONE TIME AND THEN REMOVED)
-C> 2003-11-04  D. KEYSER  -- UNIFIED/PORTABLE FOR WRF; ADDED
-C>                           DOCUMENTATION; OUTPUTS MORE COMPLETE
-C>                           DIAGNOSTIC INFO WHEN ROUTINE TERMINATES
-C>                           ABNORMALLY
-C> 2004-08-09  J. ATOR    -- MAXIMUM MESSAGE LENGTH INCREASED FROM
-C>                           20,000 TO 50,000 BYTES
-C> 2009-03-23  J. ATOR    -- MODIFY LOGIC TO HANDLE BUFR TABLE MESSAGES
-C>                           ENCOUNTERED ANYWHERE IN THE FILE (AND NOT
-C>                           JUST AT THE BEGINNING!)
-C> 2012-09-15  J. WOOLLEN -- MODIFIED FOR C/I/O/BUFR INTERFACE
-C>                           USE 'INX' ARGUMENT TO OPENBF
-C> 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
-C> 2022-10-04  J. ATOR    -- ADDED 8-BYTE WRAPPER
+C> @param[in] LUNIT - integer: fortran logical unit number for bufr file.
+C> @param[in] IMSG - integer: pointer to bufr message number to read in bufr file.
+C> @param[in] ISUB - integer: pointer to subset number to read in bufr message.
+C> @param[out] USR - real*8: (i1,i2) starting address of data values read
+C> from data subset.
+C> @param[in] I1 - integer: length of first dimension of usr (must be at
+C> least as large as the number of blank-separated
+C> mnemonics in str).
+C> @param[in] I2 - integer: length of second dimension of usr.
+C> @param[out] IRET - integer: number of "levels" of data values read from
+C> data subset (must be no larger than i2).
+C> @param[in] STR - character*(*): string of blank-separated table b.
+C> mnemonics in one-to-one correspondence with first
+C> dimension of usr {this can also be a single table d
+C> (sequence) mnemonic with either 8- or 16-bit delayed
+C> replication (see remarks 1 in ufbint docblock)}.
 C>
-C> USAGE:    CALL UFBINX (LUNIT, IMSG, ISUB, USR, I1, I2, IRET, STR)
-C>   INPUT ARGUMENT LIST:
-C>     LUNIT    - INTEGER: FORTRAN LOGICAL UNIT NUMBER FOR BUFR FILE
-C>     IMSG     - INTEGER: POINTER TO BUFR MESSAGE NUMBER TO READ IN
-C>                BUFR FILE
-C>     ISUB     - INTEGER: POINTER TO SUBSET NUMBER TO READ IN BUFR
-C>                MESSAGE
-C>     I1       - INTEGER: LENGTH OF FIRST DIMENSION OF USR (MUST BE AT
-C>                LEAST AS LARGE AS THE NUMBER OF BLANK-SEPARATED
-C>                MNEMONICS IN STR)
-C>     I2       - INTEGER: LENGTH OF SECOND DIMENSION OF USR
-C>     STR      - CHARACTER*(*): STRING OF BLANK-SEPARATED TABLE B
-C>                MNEMONICS IN ONE-TO-ONE CORRESPONDENCE WITH FIRST
-C>                DIMENSION OF USR {THIS CAN ALSO BE A SINGLE TABLE D
-C>                (SEQUENCE) MNEMONIC WITH EITHER 8- OR 16-BIT DELAYED
-C>                REPLICATION (SEE REMARKS 1 IN UFBINT DOCBLOCK)}
-C>
-C>   OUTPUT ARGUMENT LIST:
-C>     USR      - REAL*8: (I1,I2) STARTING ADDRESS OF DATA VALUES READ
-C>                FROM DATA SUBSET
-C>     IRET     - INTEGER: NUMBER OF "LEVELS" OF DATA VALUES READ FROM
-C>                DATA SUBSET (MUST BE NO LARGER THAN I2)
-C>
-C>   INPUT FILES:
-C>     UNIT "LUNIT" - BUFR FILE
-C>
-C> REMARKS:
-C>    THIS ROUTINE CALLS:        BORT     CLOSBF   OPENBF   READMG
-C>                               READSB   REWNBF   STATUS   UFBINT
-C>                               UPB
-C>    THIS ROUTINE IS CALLED BY: None
-C>                               Normally called only by application
-C>                               programs.
-C>
+C> @author Woollen @date 2003-11-04
       RECURSIVE SUBROUTINE UFBINX(LUNIT,IMSG,ISUB,USR,I1,I2,IRET,STR)
 
       USE MODV_IM8B

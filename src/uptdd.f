@@ -1,11 +1,11 @@
 C> @file
 C> @brief Return the bit-wise representation of the
-c> fxy value corresponding to, sequentially, a particular (ient'th)
-c> "child" mnemonic of a table d sequence ("parent") mnemonic.      
+C> fxy value corresponding to, sequentially, a particular (ient'th)
+C> "child" mnemonic of a table d sequence ("parent") mnemonic.      
 C> 
 C> ### Program History Log
-C> Date | Programmer | Comments |
-C> -----|------------|----------|
+C> Date | Programmer | Comments 
+C> -----|------------|----------
 C> 1994-01-06 | J. Woollen | original author
 C> 1995-06-28 | J. Woollen | increased the size of internal bufr table arrays in order to handle bigger files
 C> 1998-07-08 | J. Woollen | replaced call to cray library routine "abort" with "bort"
@@ -18,11 +18,11 @@ C>
 C> @author Woollen @date 1994-01-06
       
 C> This subroutine returns the bit-wise representation of the
-c> fxy value corresponding to, sequentially, a particular (ient'th)
-c> "child" mnemonic of a table d sequence ("parent") mnemonic.
+C> fxy value corresponding to, sequentially, a particular (ient'th)
+C> "child" mnemonic of a table d sequence ("parent") mnemonic.
 C>
 C> @note The interpretation of the return value iret depends upon the input
-c> value ient, as follows:
+C> value ient, as follows:
 C> <pre>
 C>    IF ( IENT = 0 ) THEN
 C>       IRET = a count of the total number of child mnemonics within
