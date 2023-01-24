@@ -1,19 +1,19 @@
 C> @file
 C> @brief Read data descriptors from Section 3 of a BUFR message.
+C>
+C> ### Program History Log
+C> Date | Programmer | Comments |
+C> -----|------------|----------|
+C> 2003-11-04 | J. Ator | Original author |
+C> 2004-08-18 | J. Ator | Removed IFIRST check, since wrdlen() now keeps track of whether it has been called |
+C> 2005-11-29 | J. Ator | Use getlens() |
+C> 2009-03-23 | J. Ator | Added LCDS3 argument and check |
+C> 2022-10-04 | J. Ator | Added 8-byte wrapper |
+C>
+C> @author J. Ator @date 2003-11-04
 
 C> This subroutine returns the sequence of data descriptors
 C> contained within Section 3 of a BUFR message.
-C>
-C> @author J. Ator
-C> @date 2003-11-04
-C>
-C> @param[in]  MBAY   -- integer(*): BUFR message
-C> @param[in] LCDS3   -- integer: Dimensioned size of CDS3;
-C>                       used by the subroutine to ensure that
-C>                       it doesn't overflow the CDS3 array
-C> @param[out] CDS3   -- character*6(*): Data descriptor sequence
-C>                       within Section 3 of MBAY
-C> @param[out] NDS3   -- integer: Number of data descriptors in CDS3
 C>
 C> @remarks
 C> - The start of the BUFR message (i.e. the string 'BUFR') must be
@@ -23,14 +23,12 @@ C>   descriptors from within Section 3; rather, what is returned in
 C>   CDS3 is the exact list of data descriptors as it appears within
 C>   Section 3 of MBAY.
 C>
-C> <b>Program history log:</b>
-C> | Date | Programmer | Comments |
-C> | -----|------------|----------|
-C> | 2003-11-04 | J. Ator | Original author |
-C> | 2004-08-18 | J. Ator | Removed IFIRST check, since wrdlen() now keeps track of whether it has been called |
-C> | 2005-11-29 | J. Ator | Use getlens() |
-C> | 2009-03-23 | J. Ator | Added LCDS3 argument and check |
-C> | 2022-10-04 | J. Ator | Added 8-byte wrapper |
+C> @param[in]  MBAY - integer(*): BUFR message
+C> @param[in]  LCDS3 - integer: Maximum dimensione of CDS3
+C> @param[out] CDS3 - character*6(*): Data descriptor sequence within Section 3 of MBAY
+C> @param[out] NDS3 - integer: Number of data descriptors in CDS3
+C>
+C> @author J. Ator @date 2003-11-04
 
       RECURSIVE SUBROUTINE UPDS3(MBAY,LCDS3,CDS3,NDS3)
 
