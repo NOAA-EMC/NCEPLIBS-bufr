@@ -1,8 +1,8 @@
-C       This is a test for NCEPLIBS-bufr.
-C
-C       This tests ???
-C
-C       Jeff Ator
+! This is a test for NCEPLIBS-bufr.
+!
+! This tests ???
+!
+! Jeff Ator
 program test_OUT_7
 
 #ifdef INTSIZE_8
