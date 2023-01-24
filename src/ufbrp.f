@@ -1,71 +1,57 @@
 C> @file
-C> @author WOOLLEN @date 1994-01-06
+C> @brief Write or read specified values to or
+c> from the current bufr data subset within internal arrays
+C>
+C> ### Program History Log
+C> Date | Programmer | Comments |
+C> -----|------------|----------|
+C> 1994-01-06 | J. Woollen | original author.
+C> 1998-07-08 | J. Woollen | improved machine portability.
+C> 1999-11-18 | J. Woollen | the number of bufr files which can be opened at one time increased from 10 to 32.
+C> 2003-11-04 | S. Bender  | added remarks/bufrlib routine interdependencies.
+C> 2003-11-04 | D. Keyser  | maxjl increased to 16000; unified/portable for wrf; documentation
+C> 2009-03-31 | J. Woollen | add documentation
+C> 2014-12-10 | J. Ator    | use modules instead of common blocks
+C>
+C> @author Woollen @date 1994-01-06
       
-C> THIS SUBROUTINE WRITES OR READS SPECIFIED VALUES TO OR
-C>   FROM THE CURRENT BUFR DATA SUBSET WITHIN INTERNAL ARRAYS, WITH THE
-C>   DIRECTION OF THE DATA TRANSFER DETERMINED BY THE CONTEXT OF IO
-C>   (I.E., IF IO INDICATES LUN POINTS TO A BUFR FILE THAT IS OPEN FOR
-C>   INPUT, THEN DATA VALUES ARE READ FROM THE INTERNAL DATA SUBSET;
-C>   OTHERWISE, DATA VALUES ARE WRITTEN TO THE INTERNAL DATA SUBSET).
-C>   THE DATA VALUES CORRESPOND TO INTERNAL ARRAYS REPRESENTING PARSED
-C>   STRINGS OF MNEMONICS WHICH ARE EITHER:
-C>       1) PART OF A REGULAR (I.E., NON-DELAYED) REPLICATION SEQUENCE
-C>                OR
-C>       2) REPLICATED BY BEING DIRECTLY LISTED MORE THAN ONCE WITHIN AN
-C>          OVERALL SUBSET DEFINITION
+C> This subroutine writes or reads specified values to or
+c> from the current bufr data subset within internal arrays, with the
+c> direction of the data transfer determined by the context of io
+c> (i.e., if io indicates lun points to a bufr file that is open for
+c> input, then data values are read from the internal data subset;
+c> otherwise, data values are written to the internal data subset).
+C> The data values correspond to internal arrays representing parsed
+c> strings of mnemonics which are either:
+C> 1. part of a regular (i.e., non-delayed) replication sequence
+c> 2. replicated by being directly listed more than once within an
+c> overall subset definition
+c>
+C> This subroutine should never be called by any application program;
+c> instead, application programs should always call ufbrep().
 C>
-C>   THIS SUBROUTINE SHOULD NEVER BE CALLED BY ANY APPLICATION PROGRAM;
-C>   INSTEAD, APPLICATION PROGRAMS SHOULD ALWAYS CALL BUFR ARCHIVE
-C>   LIBRARY SUBROUTINE UFBREP.
+C> @param[in] LUN - integer: i/o stream index into internal memory arrays.
+C> @param[inout] USR - only if bufr file open for output:.
+C> real*8: (i1,i2) starting address of data values
+c> written to data subset.
+C> Out: - only if bufr file open for input:
+c> real*8: (i1,i2) starting address of data values
+c> read from data subset
+C> @param[in] I1 - integer: length of first dimension of usr.
+C> @param[in] I2 - integer: length of second dimension of usr.
+C> @param[in] IO - integer: status indicator for bufr file associated
+C> with lun:
+C> - 0 input file
+C> - 1 output file
+C> @param[out] IRET - integer:.
+C> - if bufr file open for input: number of "levels" of
+c> data values read from data subset (must be no
+c> larger than i2)
+c> - if bufr file open for output: number of "levels"
+c> of data values written to data subset (should be
+c> same as i2)
 C>
-C> PROGRAM HISTORY LOG:
-C> 1994-01-06  J. WOOLLEN -- ORIGINAL AUTHOR
-C> 1998-07-08  J. WOOLLEN -- IMPROVED MACHINE PORTABILITY
-C> 1999-11-18  J. WOOLLEN -- THE NUMBER OF BUFR FILES WHICH CAN BE
-C>                           OPENED AT ONE TIME INCREASED FROM 10 TO 32
-C>                           (NECESSARY IN ORDER TO PROCESS MULTIPLE
-C>                           BUFR FILES UNDER THE MPI)
-C> 2003-11-04  S. BENDER  -- ADDED REMARKS/BUFRLIB ROUTINE
-C>                           INTERDEPENDENCIES
-C> 2003-11-04  D. KEYSER  -- MAXJL (MAXIMUM NUMBER OF JUMP/LINK ENTRIES)
-C>                           INCREASED FROM 15000 TO 16000 (WAS IN
-C>                           VERIFICATION VERSION); UNIFIED/PORTABLE FOR
-C>                           WRF; ADDED DOCUMENTATION (INCLUDING
-C>                           HISTORY)
-C> 2009-03-31  J. WOOLLEN -- ADD DOCUMENTATION
-C> 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
-C>
-C> USAGE:    CALL UFBRP (LUN, USR, I1, I2, IO, IRET)
-C>   INPUT ARGUMENT LIST:
-C>     LUN      - INTEGER: I/O STREAM INDEX INTO INTERNAL MEMORY ARRAYS
-C>     USR      - ONLY IF BUFR FILE OPEN FOR OUTPUT:
-C>                   REAL*8: (I1,I2) STARTING ADDRESS OF DATA VALUES
-C>                   WRITTEN TO DATA SUBSET
-C>     I1       - INTEGER: LENGTH OF FIRST DIMENSION OF USR
-C>     I2       - INTEGER: LENGTH OF SECOND DIMENSION OF USR
-C>     IO       - INTEGER: STATUS INDICATOR FOR BUFR FILE ASSOCIATED
-C>                WITH LUN:
-C>                       0 = input file
-C>                       1 = output file
-C>
-C>   OUTPUT ARGUMENT LIST:
-C>     USR      - ONLY IF BUFR FILE OPEN FOR INPUT:
-C>                   REAL*8: (I1,I2) STARTING ADDRESS OF DATA VALUES
-C>                   READ FROM DATA SUBSET
-C>     IRET     - INTEGER:
-C>                  - IF BUFR FILE OPEN FOR INPUT: NUMBER OF "LEVELS" OF
-C>                    DATA VALUES READ FROM DATA SUBSET (MUST BE NO
-C>                    LARGER THAN I2)
-C>                  - IF BUFR FILE OPEN FOR OUTPUT: NUMBER OF "LEVELS"
-C>                    OF DATA VALUES WRITTEN TO DATA SUBSET (SHOULD BE
-C>                    SAME AS I2)
-C>
-C> REMARKS:
-C>    THIS ROUTINE CALLS:        INVTAG
-C>    THIS ROUTINE IS CALLED BY: UFBREP
-C>                               Normally not called by any application
-C>                               programs (they should call UFBREP).
-C>
+C> @author Woollen @date 1994-01-06
       SUBROUTINE UFBRP(LUN,USR,I1,I2,IO,IRET)
 
       USE MODA_USRINT
