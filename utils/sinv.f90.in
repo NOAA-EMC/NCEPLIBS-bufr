@@ -3,7 +3,7 @@
 !>
 !> @author J Woollen @date 2010
 
-!> Usage: sinv <satbufrfile> will print inventory of satellites by platform and instrument.
+!> Usage: sinv \<satbufrfile\> will print inventory of satellites by platform and instrument.
 !>
 !> @return 0 for success, error message otherwise.
 !>
