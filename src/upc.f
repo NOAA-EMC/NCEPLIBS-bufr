@@ -1,6 +1,6 @@
 C> @file
 C> @brief Unpack and return a character string of
-c> length nchr contained within nchr bytes of ibay, starting with bit
+C> length nchr contained within nchr bytes of ibay, starting with bit
 C> (IBIT+1).
 C> 
 C> ### Program History Log
@@ -16,23 +16,22 @@ C>
 C> @author Woollen @date 1994-01-06
       
 C> This subroutine unpacks and returns a character string of
-c> length nchr contained within nchr bytes of ibay, starting with bit
+C> length nchr contained within nchr bytes of ibay, starting with bit
 C> (IBIT+1). On output, IBIT is updated to point to the last bit that
-c> was unpacked. Note that the string to be unpacked does not
-c> necessarily need to be aligned on a byte boundary within ibay.
+C> was unpacked. Note that the string to be unpacked does not
+C> necessarily need to be aligned on a byte boundary within ibay.
 C>
 C> @note: This subroutine is the inverse of pkc().
 C>
+C> @param[out] CHR - character*(*): unpacked character string of length NCHR.
 C> @param[in] NCHR - integer: number of bytes of ibay within which to
 C> unpack chr (i,e, the number of characters in chr)
 C> @param[in] IBAY - integer: *-word packed binary array containing packed CHR.
-C> @param[in] IBIT - integer: bit pointer within ibay indicating bit after
-C> which to start unpacking.
+C> @param[inout] IBIT - integer: bit pointer within ibay indicating bit after
+C> which to start unpacking. Out: bit pointer within ibay indicating last bit
+C> that was unpacked.
 C> @param[in] CNVNULL - logical: .true. if null characters should be.
 C> converted to blanks.
-C> @param[out] CHR - character*(*): unpacked character string of length NCHR.
-C> @param[out] IBIT - integer: bit pointer within ibay indicating last bit
-C> that was unpacked.
 C>
 C> @author Woollen @date 1994-01-06
       SUBROUTINE UPC(CHR,NCHR,IBAY,IBIT,CNVNULL)
