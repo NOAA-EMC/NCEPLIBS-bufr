@@ -1,23 +1,22 @@
 !> @file
-!> @brief Enable a number of BUFRLIB subprograms and variables to be accessed
-!>        via wrapper functions from C and C++ based application programs.
+!> @brief Enable a number of BUFRLIB subprograms and variables to be
+!> accessed via wrapper functions from C and C++ based application
+!> programs.
 !>
-!> @author Ronald Mclaren
-!> @date 2020-07-29
+!> @author Ronald Mclaren @date 2020-07-29
 
-!> This module contains functions which wrap Fortran BUFRLIB functions and
-!> variables so they can be used from within C and C++ based apps. The
-!> signatures of the public functions match their Fortran equivalents, as
-!> shown within the documentation for each of the individual functions.
+!> This module contains functions which wrap Fortran BUFRLIB functions
+!> and variables so they can be used from within C and C++ based
+!> apps. The signatures of the public functions match their Fortran
+!> equivalents, as shown within the documentation for each of the
+!> individual functions.
 !>
-!> <p>Local copies of some Fortran variables are stored as allocatable objects,
-!> especially isc, link, jmpb, tag and typ. It's the application program's responsibility
-!> to call delete_table_data_f in order to properly delete these variables.
+!> Local copies of some Fortran variables are stored as allocatable
+!> objects, especially isc, link, jmpb, tag and typ. It's the
+!> application program's responsibility to call delete_table_data_f in
+!> order to properly delete these variables.
 !>
-!>
-!> @author Ronald Mclaren
-!> @date 2020-07-29
-!>
+!> @author Ronald Mclaren @date 2020-07-29
 module bufr_c_interface_mod
 
   use iso_c_binding
@@ -61,14 +60,12 @@ contains
 
 !Private
 
-!> @author Ronald McLaren
-!> @date 2020-07-29
-!>
-!> @brief This function turns a c string into a fortran string.
+!> This function turns a c string into a fortran string.
 !>
 !> @param[in] c_str - c_char: pointer to a \0 (null) terminated c string
 !> @param[out] f_str - character(:): fortran string
 !>
+!> @author Ronald McLaren @date 2020-07-29
 function c_f_string(c_str) result(f_str)
   character(kind=c_char,len=1), intent(in) :: c_str(*)
   character(len=:), allocatable :: f_str
@@ -85,15 +82,13 @@ function c_f_string(c_str) result(f_str)
 end function c_f_string
 
 
-!> @author Ronald McLaren
-!> @date 2020-07-29
-!>
-!> @brief This subroutine copies a fortran string into a c string buffer.
+!> This subroutine copies a fortran string into a c string buffer.
 !>
 !> @param[in] f_str - character(*): fortran string to be copied
 !> @param[inout] c_str - c_char: c pointer to the target buffer
 !> @param[in] c_str_len - integer: length of the c target buffer
 !>
+!> @author Ronald McLaren @date 2020-07-29
 subroutine copy_f_c_str(f_str, c_str, c_str_len)
   character(len=*), target, intent(in) :: f_str
   character(kind=c_char, len=1), intent(inout) :: c_str(*)
@@ -109,15 +104,13 @@ end subroutine copy_f_c_str
 
 !Public
 
-!> @author Ronald McLaren
-!> @date 2020-07-29
-!>
-!> @brief Wraps fortran "open" statement so we can open a Fortran file
-!>        from a C program.
+!> Wraps fortran "open" statement so we can open a Fortran file
+!> from a C program.
 !>
 !> @param[in] lunit - c_int: the integer to use as the fortran file unit
 !> @param[in] filepath - c_char: path to the file we want to open.
 !>
+!> @author Ronald McLaren @date 2020-07-29
 subroutine open_c(lunit, filepath) bind(C, name='open_f')
   integer(c_int), value, intent(in) :: lunit
   character(kind=c_char, len=1) :: filepath
@@ -126,14 +119,12 @@ subroutine open_c(lunit, filepath) bind(C, name='open_f')
 end subroutine open_c
 
 
-!> @author Ronald McLaren
-!> @date 2020-07-29
-!>
-!> @brief Wraps fortran "close" statement so we can close a Fortran file
-!>        from a C program.
+!> Wraps fortran "close" statement so we can close a Fortran file
+!> from a C program.
 !>
 !> @param[in] lunit - c_int: the integer to use as the fortran file unit
 !>
+!> @author Ronald McLaren @date 2020-07-29
 subroutine close_c(lunit) bind(C, name='close_f')
   integer(c_int), value, intent(in) :: lunit
 
@@ -141,15 +132,13 @@ subroutine close_c(lunit) bind(C, name='close_f')
 end subroutine close_c
 
 
-!> @author Ronald McLaren
-!> @date 2020-07-29
-!>
-!> @brief Wraps BUFRLIB openbf() subroutine.
+!> Wraps BUFRLIB openbf() subroutine.
 !>
 !> @param[in] bufr_unit - c_int: the fortran file unit number
 !> @param[in] cio - c_char: cio string
 !> @param[in] table_file_id - c_int: table_file unit number
 !>
+!> @author Ronald McLaren @date 2020-07-29
 subroutine openbf_c(bufr_unit, cio, table_file_id) bind(C, name='openbf_f')
   integer(c_int), value, intent(in) :: bufr_unit
   character(kind=c_char, len=1), intent(in) :: cio
@@ -159,13 +148,11 @@ subroutine openbf_c(bufr_unit, cio, table_file_id) bind(C, name='openbf_f')
 end subroutine openbf_c
 
 
-!> @author Ronald McLaren
-!> @date 2020-07-29
-!>
-!> @brief Wraps BUFRLIB closbf() subroutine.
+!> Wraps BUFRLIB closbf() subroutine.
 !>
 !> @param[in] bufr_unit - c_int: the fortran file unit number to close
 !>
+!> @author Ronald McLaren @date 2020-07-29
 subroutine closbf_c(bufr_unit) bind(C, name='closbf_f')
   integer(c_int), value, intent(in) :: bufr_unit
 
@@ -173,27 +160,25 @@ subroutine closbf_c(bufr_unit) bind(C, name='closbf_f')
 end subroutine closbf_c
 
 
-!> @author Ronald McLaren
-!> @date 2020-07-29
+!> Wraps BUFRLIB exitbufr() subroutine. Closes
+!> all open file units used by BUFRLIB.
 !>
-!> @brief Wraps BUFRLIB exitbufr() subroutine. Closes
-!>        all open file units used by BUFRLIB.
-!>
+!> @author Ronald McLaren @date 2020-07-29
 subroutine exitbufr_c() bind(C, name='exitbufr_f')
   call exitbufr()
 end subroutine exitbufr_c
 
 
-!> @author Ronald McLaren
-!> @date 2020-07-29
-!>
-!> @brief Wraps BUFRLIB ireadmg() function.
+!> Wraps BUFRLIB ireadmg() function.
 !>
 !> @param[in] bufr_unit - c_int: the fortran file unit number to read from
 !> @param[out] c_subset - c_char: the subset string
 !> @param[out] iddate - c_int: datetime of message
 !> @param[in] subset_str_len - c_int: length of the subset string
 !>
+!> @return ???
+!>
+!> @author Ronald McLaren @date 2020-07-29
 function ireadmg_c(bufr_unit, c_subset, iddate, subset_str_len) result(ires) bind(C, name='ireadmg_f')
   integer(c_int), value, intent(in) :: bufr_unit
   character(kind=c_char, len=1), intent(out) :: c_subset(*)
@@ -211,13 +196,13 @@ function ireadmg_c(bufr_unit, c_subset, iddate, subset_str_len) result(ires) bin
 end function ireadmg_c
 
 
-!> @author Ronald McLaren
-!> @date 2020-07-29
-!>
-!> @brief Wraps BUFRLIB ireadsb() function.
+!> Wraps BUFRLIB ireadsb() function.
 !>
 !> @param[in] bufr_unit - c_int: the fortran file unit number to read from
 !>
+!> @return ???
+!>
+!> @author Ronald McLaren @date 2020-07-29
 function ireadsb_c(bufr_unit) result(ires) bind(C, name='ireadsb_f')
   integer(c_int), value, intent(in) :: bufr_unit
   integer(c_int) :: ires
@@ -227,10 +212,7 @@ function ireadsb_c(bufr_unit) result(ires) bind(C, name='ireadsb_f')
 end function ireadsb_c
 
 
-!> @author Ronald McLaren
-!> @date 2020-07-29
-!>
-!> @brief Wraps BUFRLIB ufbint() subroutine.
+!> Wraps BUFRLIB ufbint() subroutine.
 !>
 !> @param[in] bufr_unit - c_int: the fortran file unit number to read from
 !> @param[inout] c_data - c_ptr: c style pointer to a pre-allocated buffer
@@ -238,6 +220,7 @@ end function ireadsb_c
 !> @param[out] iret - c_int: return value, length of data read
 !> @param[in] table_b_mnemonic - c_char: string of mnemonics
 !>
+!> @author Ronald McLaren @date 2020-07-29
 subroutine ufbint_c(bufr_unit, c_data, dim_1, dim_2, iret, table_b_mnemonic) bind(C, name='ufbint_f')
   integer(c_int), value, intent(in) :: bufr_unit
   type(c_ptr), intent(inout) ::  c_data
@@ -251,10 +234,7 @@ subroutine ufbint_c(bufr_unit, c_data, dim_1, dim_2, iret, table_b_mnemonic) bin
 end subroutine ufbint_c
 
 
-!> @author Ronald McLaren
-!> @date 2020-07-29
-!>
-!> @brief Wraps BUFRLIB ufbrep() subroutine.
+!> Wraps BUFRLIB ufbrep() subroutine.
 !>
 !> @param[in] bufr_unit - c_int: the fortran file unit number to read from
 !> @param[inout] c_data - c_ptr: c style pointer to a pre-allocated buffer
@@ -262,6 +242,7 @@ end subroutine ufbint_c
 !> @param[out] iret - c_int: return value, length of data read
 !> @param[in] table_b_mnemonic - c_char: string of mnemonics
 !>
+!> @author Ronald McLaren @date 2020-07-29
 subroutine ufbrep_c(bufr_unit, c_data, dim_1, dim_2, iret, table_b_mnemonic) bind(C, name='ufbrep_f')
   integer(c_int), value, intent(in) :: bufr_unit
   type(c_ptr), intent(inout) :: c_data
@@ -275,15 +256,13 @@ subroutine ufbrep_c(bufr_unit, c_data, dim_1, dim_2, iret, table_b_mnemonic) bin
 end subroutine ufbrep_c
 
 
-!> @author Ronald McLaren
-!> @date 2021-02-24
-!>
-!> @brief Wraps BUFRLIB mtinfo() subroutine.
+!> Wraps BUFRLIB mtinfo() subroutine.
 !>
 !> @param[in] path - c_char: the path where the WMO tables are stored
 !> @param[in] file_unit_1 - c_int: number to use for first file unit
 !> @param[in] file_unit_2 - c_int: number to use for second file unit
 !>
+!> @author Ronald McLaren @date 2020-07-29
 subroutine mtinfo_c(path, file_unit_1, file_unit_2) bind(C, name='mtinfo_f')
   character(kind=c_char, len=1), intent(in) :: path
   integer(c_int), value, intent(in) :: file_unit_1
@@ -293,16 +272,14 @@ subroutine mtinfo_c(path, file_unit_1, file_unit_2) bind(C, name='mtinfo_f')
 end subroutine mtinfo_c
 
 
-!>  @author Ronald McLaren
-!>  @date 2022-03-23
+!> Wraps BUFRLIB status() subroutine.
 !>
-!>  @brief Wraps BUFRLIB status() subroutine.
+!> @param[in] file_unit - c_int: the fortran file unit number to read from
+!> @param[out] lun - c_int: pointer for the file stream
+!> @param[out] il - c_int: file status
+!> @param[out] im - c_int: message status
 !>
-!>  @param[in] file_unit - c_int: the fortran file unit number to read from
-!>  @param[out] lun - c_int: pointer for the file stream
-!>  @param[out] il - c_int: file status
-!>  @param[out] im - c_int: message status
-!>
+!> @author Ronald McLaren  @date 2022-03-23
 subroutine status_c(file_unit, lun, il, im) bind(C, name='status_f')
   integer(c_int), value, intent(in) :: file_unit
   integer(c_int), intent(out) :: lun
@@ -313,19 +290,18 @@ subroutine status_c(file_unit, lun, il, im) bind(C, name='status_f')
 end subroutine status_c
 
 
-!>  @author Ronald McLaren
-!>  @date 2022-08-08
+!> Gets Table B Unit and Description strings for a mnemonic. Wraps
+!> BUFRLIB nemdefs() subroutine.
 !>
-!>  @brief Gets Table B Unit and Description strings for a mnemonic. Wraps BUFRLIB nemdefs() subroutine.
-!
-!>  @param[in] file_unit - c_int: Fortran file unit for the open file
-!>  @param[in] mnemonic - c_char: mnemonic
-!>  @param[out] unit_c - c_char: unit str
-!>  @param[in] unit_str_len - c_int: unit str length
-!>  @param[out] desc_c - c_char: description string
-!>  @param[in] desc_str_len - c_int: description str length
-!>  @param[out] iret - c_int: return value. 0 indicates success -1 indicates failure.
+!> @param[in] file_unit - c_int: Fortran file unit for the open file
+!> @param[in] mnemonic - c_char: mnemonic
+!> @param[out] unit_c - c_char: unit str
+!> @param[in] unit_str_len - c_int: unit str length
+!> @param[out] desc_c - c_char: description string
+!> @param[in] desc_str_len - c_int: description str length
+!> @param[out] iret - c_int: return value. 0 indicates success -1 indicates failure.
 !>
+!> @author Ronald McLaren @date 2022-08-08
 subroutine nemdefs_c(file_unit, mnemonic, unit_c, unit_str_len, desc_c, desc_str_len, iret) &
         bind(C, name='nemdefs_f')
   integer(c_int), value, intent(in) :: file_unit
@@ -351,10 +327,8 @@ subroutine nemdefs_c(file_unit, mnemonic, unit_c, unit_str_len, desc_c, desc_str
 end subroutine nemdefs_c
 
 
-!>  @author Ronald McLaren
-!>  @date 2022-08-08
-!>
-!>  @brief Gets Table B scale, reference, and bits values. Wraps BUFRLIB nemspecs() subroutine.
+!> Gets Table B scale, reference, and bits values. Wraps BUFRLIB
+!> nemspecs() subroutine.
 !>
 !>  @param[in] file_unit - c_int: Fortran file unit for the open file
 !>  @param[in] mnemonic - c_char: mnemonic
@@ -364,6 +338,7 @@ end subroutine nemdefs_c
 !>  @param[out] bits - c_int: number of bits representing the element
 !>  @param[out] iret - c_int: return value. 0 indicates success -1 indicates failure.
 !>
+!>  @author Ronald McLaren  @date 2022-08-08
 subroutine nemspecs_c(file_unit, mnemonic, mnemonic_idx, scale, reference, bits, iret) &
         bind(C, name='nemspecs_f')
   integer(c_int), value, intent(in) :: file_unit
@@ -380,11 +355,9 @@ subroutine nemspecs_c(file_unit, mnemonic, mnemonic_idx, scale, reference, bits,
 end subroutine nemspecs_c
 
 
-!>  @author Ronald McLaren
-!>  @date 2022-08-16
-!>
-!>  @brief This subroutine returns information about a descriptor from the internal DX BUFR tables,
-!>         based on the mnemonic associated with that descriptor.  Wraps BUFRLIB nemtab() subroutine.
+!> This subroutine returns information about a descriptor from the
+!> internal DX BUFR tables, based on the mnemonic associated with that
+!> descriptor.  Wraps BUFRLIB nemtab() subroutine.
 !>
 !>  @param[in] bufr_unit - c_int: the bufr file pointer
 !>  @param[in] mnemonic - c_char: mnemonic
@@ -392,6 +365,7 @@ end subroutine nemspecs_c
 !>  @param[out] table_type - c_char: 'A', 'B', 'C', or 'D', depending on table type
 !>  @param[out] table_idx - c_int: the table index, or 0 if not found
 !>
+!>  @author Ronald McLaren  @date 2022-08-16
 subroutine nemtab_c(bufr_unit, mnemonic, descriptor, table_type, table_idx) &
         bind(C, name='nemtab_f')
   integer(c_int), value, intent(in) :: bufr_unit
@@ -409,10 +383,8 @@ subroutine nemtab_c(bufr_unit, mnemonic, descriptor, table_type, table_idx) &
 end subroutine nemtab_c
 
 
-!>  @author Ronald McLaren
-!>  @date 2022-08-16
-!>
-!>  @brief Get information about a Table B descriptor. Wraps BUFRLIB nemtbb() subroutine.
+!> Get information about a Table B descriptor. Wraps BUFRLIB nemtbb()
+!> subroutine.
 !>
 !>  @param[in] bufr_unit - c_int: the bufr file pointer
 !>  @param[in] table_idx - c_int: Table B index
@@ -422,6 +394,7 @@ end subroutine nemtab_c
 !>  @param[out] reference - c_int: reference of element
 !>  @param[out] bits - c_int: bits of element
 !>
+!>  @author Ronald McLaren @date 2022-08-16
 subroutine nemtbb_c(bufr_unit, table_idx, unit_str, unit_str_len, scale, reference, bits) &
         bind(C, name='nemtbb_f')
   integer(c_int), intent(in), value :: bufr_unit
@@ -441,14 +414,12 @@ subroutine nemtbb_c(bufr_unit, table_idx, unit_str, unit_str_len, scale, referen
 end subroutine nemtbb_c
 
 
-!>  @author Ronald McLaren
-!>  @date 2022-03-23
+!> Get copy of the moda_tables ISC array.
 !>
-!>  @brief Get copy of the moda_tables ISC array.
+!> @param[out] isc_ptr - c_ptr: c style pointer to the ISC array
+!> @param[out] isc_size - c_int: size of the ISC array
 !>
-!>  @param[out] isc_ptr - c_ptr: c style pointer to the ISC array
-!>  @param[out] isc_size - c_int: size of the ISC array
-!>
+!>  @author Ronald McLaren  @date 2022-03-23
 subroutine get_isc_c(isc_ptr, isc_size) bind(C, name='get_isc_f')
   use moda_tables
   type(c_ptr), intent(inout) :: isc_ptr
@@ -461,14 +432,12 @@ subroutine get_isc_c(isc_ptr, isc_size) bind(C, name='get_isc_f')
 end subroutine get_isc_c
 
 
-!>  @author Ronald McLaren
-!>  @date 2022-03-23
+!> Get copy of the moda_tables LINK array.
 !>
-!>  @brief Get copy of the moda_tables LINK array.
+!> @param[out] link_ptr - c_ptr: c style pointer to the LINK array
+!> @param[out] link_size - c_int: size of the LINK array
 !>
-!>  @param[out] link_ptr - c_ptr: c style pointer to the LINK array
-!>  @param[out] link_size - c_int: size of the LINK array
-!>
+!> @author Ronald McLaren @date 2022-03-23
 subroutine get_link_c(link_ptr, link_size) bind(C, name='get_link_f')
   use moda_tables
   type(c_ptr), intent(inout) :: link_ptr
@@ -481,14 +450,12 @@ subroutine get_link_c(link_ptr, link_size) bind(C, name='get_link_f')
 end subroutine get_link_c
 
 
-!>  @author Ronald McLaren
-!>  @date 2022-03-23
+!> Get copy of the moda_tables ITP array.
 !>
-!>  @brief Get copy of the moda_tables ITP array.
+!> @param[out] itp_ptr - c_ptr: c style pointer to the ITP array
+!> @param[out] itp_size - c_int: size of the ITP array
 !>
-!>  @param[out] itp_ptr - c_ptr: c style pointer to the ITP array
-!>  @param[out] itp_size - c_int: size of the ITP array
-!>
+!> @author Ronald McLaren @date 2022-03-23
 subroutine get_itp_c(itp_ptr, itp_size) bind(C, name='get_itp_f')
   use moda_tables
   type(c_ptr), intent(inout) :: itp_ptr
@@ -501,15 +468,13 @@ subroutine get_itp_c(itp_ptr, itp_size) bind(C, name='get_itp_f')
 end subroutine get_itp_c
 
 
-!>  @author Ronald McLaren
-!>  @date 2022-03-23
+!> Get copy of the moda_tables TYP array.
 !>
-!>  @brief Get copy of the moda_tables TYP array.
+!> @param[out] typ_ptr - c_ptr: c style pointer to the TYP array
+!> @param[out] typ_len - c_int: size of each string within the TYP array
+!> @param[out] mem_size - c_int: size of the TYP array
 !>
-!>  @param[out] typ_ptr - c_ptr: c style pointer to the TYP array
-!>  @param[out] typ_len - c_int: size of each string within the TYP array
-!>  @param[out] mem_size - c_int: size of the TYP array
-!>
+!> @author Ronald McLaren @date 2022-03-23
 subroutine get_typ_c(typ_ptr, typ_len, mem_size) bind(C, name='get_typ_f')
   use moda_tables
   type(c_ptr), intent(inout) :: typ_ptr
@@ -524,15 +489,13 @@ subroutine get_typ_c(typ_ptr, typ_len, mem_size) bind(C, name='get_typ_f')
 end subroutine get_typ_c
 
 
-!>  @author Ronald McLaren
-!>  @date 2022-03-23
+!> Get copy of the moda_tables TAG array.
 !>
-!>  @brief Get copy of the moda_tables TAG array.
+!> @param[out] tag_ptr - c_ptr: c style pointer to the TAG array
+!> @param[out] tag_len - c_int: length of the tag string
+!> @param[out] mem_size - c_int: size of TAG array
 !>
-!>  @param[out] tag_ptr - c_ptr: c style pointer to the TAG array
-!>  @param[out] tag_len - c_int: length of the tag string
-!>  @param[out] mem_size - c_int: size of TAG array
-!>
+!> @author Ronald McLaren @date 2022-03-23
 subroutine get_tag_c(tag_ptr, tag_len, mem_size) bind(C, name='get_tag_f')
   use moda_tables
   type(c_ptr), intent(inout) :: tag_ptr
@@ -547,14 +510,12 @@ subroutine get_tag_c(tag_ptr, tag_len, mem_size) bind(C, name='get_tag_f')
 end subroutine get_tag_c
 
 
-!>  @author Ronald McLaren
-!>  @date 2022-03-23
+!> Get copy of the moda_tables JMPB array.
 !>
-!>  @brief Get copy of the moda_tables JMPB array.
+!> @param[out] jmpb_ptr - c_ptr: c style pointer to the JMPB array
+!> @param[out] jmpb_size - c_int: length of the array
 !>
-!>  @param[out] jmpb_ptr - c_ptr: c style pointer to the JMPB array
-!>  @param[out] jmpb_size - c_int: length of the array
-!>
+!> @author Ronald McLaren @date 2022-03-23
 subroutine get_jmpb_c(jmpb_ptr, jmpb_size) bind(C, name='get_jmpb_f')
   use moda_tables
   type(c_ptr), intent(inout) :: jmpb_ptr
@@ -567,14 +528,12 @@ subroutine get_jmpb_c(jmpb_ptr, jmpb_size) bind(C, name='get_jmpb_f')
 end subroutine get_jmpb_c
 
 
-!>  @author Ronald McLaren
-!>  @date 2022-03-23
+!> Get the bufr node idx for the start node of the subset.
 !>
-!>  @brief Get the bufr node idx for the start node of the subset.
+!> @param[in] lun - c_int: pointer for the file stream
+!> @param[out] start_node - c_int: the start node of the subset
 !>
-!>  @param[in] lun - c_int: pointer for the file stream
-!>  @param[out] start_node - c_int: the start node of the subset
-!>
+!> @author Ronald McLaren @date 2022-03-23
 subroutine get_inode_c(lun, start_node) bind(C, name='get_inode_f')
   use moda_msgcwd
   integer(c_int), value, intent(in) :: lun
@@ -584,14 +543,12 @@ subroutine get_inode_c(lun, start_node) bind(C, name='get_inode_f')
 end subroutine get_inode_c
 
 
-!>  @author Ronald McLaren
-!>  @date 2022-03-23
+!> Get the number of values in the current subset
 !>
-!>  @brief Get the number of values in the current subset
+!> @param[in] lun - c_int: pointer for the file stream
+!> @param[out] num_nodes - c_int: number of values in the subset
 !>
-!>  @param[in] lun - c_int: pointer for the file stream
-!>  @param[out] num_nodes - c_int: number of values in the subset
-!>
+!> @author Ronald McLaren @date 2022-03-23
 subroutine get_nval_c(lun, num_nodes) bind(C, name='get_nval_f')
   use moda_usrint
   integer(c_int), value, intent(in) :: lun
@@ -601,15 +558,13 @@ subroutine get_nval_c(lun, num_nodes) bind(C, name='get_nval_f')
 end subroutine get_nval_c
 
 
-!>  @author Ronald McLaren
-!>  @date 2022-03-23
+!> Get pointer to the moda_usrint VAL array.
 !>
-!>  @brief Get pointer to the moda_usrint VAL array.
+!> @param[in] lun - c_int: pointer for the file stream
+!> @param[out] val_ptr - c_ptr: c style pointer to the VAL array
+!> @param[out] val_size - c_int: length of the array
 !>
-!>  @param[in] lun - c_int: pointer for the file stream
-!>  @param[out] val_ptr - c_ptr: c style pointer to the VAL array
-!>  @param[out] val_size - c_int: length of the array
-!>
+!> @author Ronald McLaren @date 2022-03-23
 subroutine get_val_c(lun, val_ptr, val_size) bind(C, name='get_val_f')
   use moda_usrint
   integer(c_int), value, intent(in) :: lun
@@ -621,15 +576,13 @@ subroutine get_val_c(lun, val_ptr, val_size) bind(C, name='get_val_f')
 end subroutine get_val_c
 
 
-!>  @author Ronald McLaren
-!>  @date 2022-03-23
+!> Get pointer to the moda_usrint INV array.
 !>
-!>  @brief Get pointer to the moda_usrint INV array.
+!> @param[in] lun - c_int: pointer for the file stream
+!> @param[out] inv_ptr - c_ptr: c style pointer to the INV array
+!> @param[out] inv_size - c_int: length of the array
 !>
-!>  @param[in] lun - c_int: pointer for the file stream
-!>  @param[out] inv_ptr - c_ptr: c style pointer to the INV array
-!>  @param[out] inv_size - c_int: length of the array
-!>
+!> @author Ronald McLaren @date 2022-03-23
 subroutine get_inv_c(lun, inv_ptr, inv_size) bind(C, name='get_inv_f')
   use moda_usrint
   integer(c_int), value, intent(in) :: lun
@@ -641,11 +594,9 @@ subroutine get_inv_c(lun, inv_ptr, inv_size) bind(C, name='get_inv_f')
 end subroutine get_inv_c
 
 
-!>  @author Ronald McLaren
-!>  @date 2022-03-23
+!> Deletes the copies of the moda_tables arrays.
 !>
-!>  @brief Deletes the copies of the moda_tables arrays.
-!>
+!> @author Ronald McLaren @date 2022-03-23
 subroutine delete_table_data_c() bind(C, name='delete_table_data_f')
   if (allocated(isc_f)) deallocate(isc_f)
   if (allocated(link_f)) deallocate(link_f)

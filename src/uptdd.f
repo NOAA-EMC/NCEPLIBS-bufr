@@ -1,47 +1,29 @@
 C> @file
-C> @author WOOLLEN @date 1994-01-06
+C> @brief Return the bit-wise representation of the
+c> fxy value corresponding to, sequentially, a particular (ient'th)
+c> "child" mnemonic of a table d sequence ("parent") mnemonic.      
+C> 
+C> ### Program History Log
+C> Date | Programmer | Comments |
+C> -----|------------|----------|
+C> 1994-01-06 | J. Woollen | original author
+C> 1995-06-28 | J. Woollen | increased the size of internal bufr table arrays in order to handle bigger files
+C> 1998-07-08 | J. Woollen | replaced call to cray library routine "abort" with "bort"
+C> 1999-11-18 | J. Woollen | the number of bufr files which can be opened at one time increased from 10 to 32
+C> 2003-11-04 | J. Ator    | added documentation
+C> 2003-11-04 | S. Bender  | added remarks/bufrlib routine interdependencies
+C> 2003-11-04 | D. Keyser  | unified/portable for wrf; documentation; outputs more info 
+C> 2014-12-10 | J. Ator    | use modules instead of common blocks
+C>
+C> @author Woollen @date 1994-01-06
       
-C> THIS SUBROUTINE RETURNS THE BIT-WISE REPRESENTATION OF THE
-C>   FXY VALUE CORRESPONDING TO, SEQUENTIALLY, A PARTICULAR (IENT'th)
-C>   "CHILD" MNEMONIC OF A TABLE D SEQUENCE ("PARENT") MNEMONIC.
+C> This subroutine returns the bit-wise representation of the
+c> fxy value corresponding to, sequentially, a particular (ient'th)
+c> "child" mnemonic of a table d sequence ("parent") mnemonic.
 C>
-C> PROGRAM HISTORY LOG:
-C> 1994-01-06  J. WOOLLEN -- ORIGINAL AUTHOR
-C> 1995-06-28  J. WOOLLEN -- INCREASED THE SIZE OF INTERNAL BUFR TABLE
-C>                           ARRAYS IN ORDER TO HANDLE BIGGER FILES
-C> 1998-07-08  J. WOOLLEN -- REPLACED CALL TO CRAY LIBRARY ROUTINE
-C>                           "ABORT" WITH CALL TO NEW INTERNAL BUFRLIB
-C>                           ROUTINE "BORT"
-C> 1999-11-18  J. WOOLLEN -- THE NUMBER OF BUFR FILES WHICH CAN BE
-C>                           OPENED AT ONE TIME INCREASED FROM 10 TO 32
-C>                           (NECESSARY IN ORDER TO PROCESS MULTIPLE
-C>                           BUFR FILES UNDER THE MPI)
-C> 2003-11-04  J. ATOR    -- ADDED DOCUMENTATION
-C> 2003-11-04  S. BENDER  -- ADDED REMARKS/BUFRLIB ROUTINE
-C>                           INTERDEPENDENCIES
-C> 2003-11-04  D. KEYSER  -- UNIFIED/PORTABLE FOR WRF; ADDED HISTORY
-C>                           DOCUMENTATION; OUTPUTS MORE COMPLETE
-C>                           DIAGNOSTIC INFO WHEN ROUTINE TERMINATES
-C>                           ABNORMALLY
-C> 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
-C>
-C> USAGE:    CALL UPTDD (ID, LUN, IENT, IRET)
-C>   INPUT ARGUMENT LIST:
-C>     ID       - INTEGER: POSITIONAL INDEX OF PARENT MNEMONIC WITHIN
-C>                INTERNAL BUFR TABLE D ARRAY TABD
-C>     LUN      - INTEGER: I/O STREAM INDEX INTO INTERNAL MEMORY ARRAYS
-C>     IENT     - INTEGER: ORDINAL INDICATOR OF CHILD MNEMONIC TO RETURN
-C>                FROM WITHIN TABD(ID,LUN) SEQUENCE:
-C>                       0 = return a count of the total number of child
-C>                           mnemonics within TABD(ID,LUN)
-C>
-C>   OUTPUT ARGUMENT LIST:
-C>     IRET     - INTEGER: RETURN VALUE (SEE REMARKS)
-C>
-C> REMARKS:
-C>    THE INTERPRETATION OF THE RETURN VALUE IRET DEPENDS UPON THE INPUT
-C>    VALUE IENT, AS FOLLOWS:
-C>
+C> @note The interpretation of the return value iret depends upon the input
+c> value ient, as follows:
+C> <pre>
 C>    IF ( IENT = 0 ) THEN
 C>       IRET = a count of the total number of child mnemonics within
 C>              TABD(ID,LUN)
@@ -50,13 +32,18 @@ C>       IRET = the bit-wise representation of the FXY value
 C>              corresponding to the IENT'th child mnemonic of
 C>              TABD(ID,LUN)
 C>    END IF
+C> </pre>
 C>
+C> @param[in] ID - integer: positional index of parent mnemonic within
+C> internal bufr table d array tabd.
+C> @param[in] LUN - integer: i/o stream index into internal memory arrays.
+C> @param[in] IENT - integer: ordinal indicator of child mnemonic to return
+C> from within tabd(id,lun) sequence:
+C> - 0 return a count of the total number of child
+C> mnemonics within TABD(ID,LUN).
+C> @param[out] IRET - integer: return value (see remarks).
 C>
-C>    THIS ROUTINE CALLS:        BORT     IUPM
-C>    THIS ROUTINE IS CALLED BY: NEMTBD   RESTD
-C>                               Normally not called by any application
-C>                               programs.
-C>
+C> @author Woollen @date 1994-01-06
       SUBROUTINE UPTDD(ID,LUN,IENT,IRET)
 
       USE MODA_TABABD

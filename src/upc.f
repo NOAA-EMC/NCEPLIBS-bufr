@@ -1,51 +1,40 @@
 C> @file
-C> @author WOOLLEN @date 1994-01-06
+C> @brief Unpack and return a character string of
+c> length nchr contained within nchr bytes of ibay, starting with bit
+C> (IBIT+1).
+C> 
+C> ### Program History Log
+C> Date | Programmer | Comments |
+C> -----|------------|----------|
+C> 1994-01-06 | J. Woollen | original author
+C> 2003-11-04 | J. Ator    | added documentation
+C> 2003-11-04 | S. Bender  | added remarks/bufrlib routine interdependencies
+C> 2003-11-04 | D. Keyser  | unified/portable for wrf; added history documentation
+C> 2009-03-23 | J. Ator    | treat null characters as blanks; prevent overflow of chr
+C> 2014-11-19 | J. Ator    | add cnvnull argument
+C>
+C> @author Woollen @date 1994-01-06
       
-C> THIS SUBROUTINE UNPACKS AND RETURNS A CHARACTER STRING OF
-C>   LENGTH NCHR CONTAINED WITHIN NCHR BYTES OF IBAY, STARTING WITH BIT
-C>   (IBIT+1).  ON OUTPUT, IBIT IS UPDATED TO POINT TO THE LAST BIT THAT
-C>   WAS UNPACKED.  NOTE THAT THE STRING TO BE UNPACKED DOES NOT
-C>   NECESSARILY NEED TO BE ALIGNED ON A BYTE BOUNDARY WITHIN IBAY.
+C> This subroutine unpacks and returns a character string of
+c> length nchr contained within nchr bytes of ibay, starting with bit
+C> (IBIT+1). On output, IBIT is updated to point to the last bit that
+c> was unpacked. Note that the string to be unpacked does not
+c> necessarily need to be aligned on a byte boundary within ibay.
 C>
-C> PROGRAM HISTORY LOG:
-C> 1994-01-06  J. WOOLLEN -- ORIGINAL AUTHOR
-C> 2003-11-04  J. ATOR    -- ADDED DOCUMENTATION
-C> 2003-11-04  S. BENDER  -- ADDED REMARKS/BUFRLIB ROUTINE
-C>                           INTERDEPENDENCIES
-C> 2003-11-04  D. KEYSER  -- UNIFIED/PORTABLE FOR WRF; ADDED HISTORY
-C>                           DOCUMENTATION
-C> 2009-03-23  J. ATOR    -- TREAT NULL CHARACTERS AS BLANKS;
-C>                           PREVENT OVERFLOW OF CHR
-C> 2014-11-19  J. ATOR    -- ADD CNVNULL ARGUMENT
+C> @note: This subroutine is the inverse of pkc().
 C>
-C> USAGE:    CALL UPC (CHR, NCHR, IBAY, IBIT, CNVNULL)
-C>   INPUT ARGUMENT LIST:
-C>     NCHR     - INTEGER: NUMBER OF BYTES OF IBAY WITHIN WHICH TO
-C>                UNPACK CHR (I,E, THE NUMBER OF CHARACTERS IN CHR)
-C>     IBAY     - INTEGER: *-WORD PACKED BINARY ARRAY CONTAINING PACKED
-C>                CHR
-C>     IBIT     - INTEGER: BIT POINTER WITHIN IBAY INDICATING BIT AFTER
-C>                WHICH TO START UNPACKING
-C>     CNVNULL  - LOGICAL: .TRUE. IF NULL CHARACTERS SHOULD BE
-C>                CONVERTED TO BLANKS
+C> @param[in] NCHR - integer: number of bytes of ibay within which to
+C> unpack chr (i,e, the number of characters in chr)
+C> @param[in] IBAY - integer: *-word packed binary array containing packed CHR.
+C> @param[in] IBIT - integer: bit pointer within ibay indicating bit after
+C> which to start unpacking.
+C> @param[in] CNVNULL - logical: .true. if null characters should be.
+C> converted to blanks.
+C> @param[out] CHR - character*(*): unpacked character string of length NCHR.
+C> @param[out] IBIT - integer: bit pointer within ibay indicating last bit
+C> that was unpacked.
 C>
-C>   OUTPUT ARGUMENT LIST:
-C>     CHR      - CHARACTER*(*): UNPACKED CHARACTER STRING OF LENGTH
-C>                NCHR
-C>     IBIT     - INTEGER: BIT POINTER WITHIN IBAY INDICATING LAST BIT
-C>                THAT WAS UNPACKED
-C>
-C> REMARKS:
-C>    THIS SUBROUTINE IS THE INVERSE OF BUFR ARCHIVE LIBRARY ROUTINE
-C>    PKC.
-C>
-C>    THIS ROUTINE CALLS:        IPKM     IUPM     UPB
-C>    THIS ROUTINE IS CALLED BY: RDCMPS   RDTREE   READLC   STBFDX
-C>                               STNDRD   UFBGET   UFBTAB   UFBTAM
-C>                               WRCMPS   
-C>                               Normally not called by any application
-C>                               programs.
-C>
+C> @author Woollen @date 1994-01-06
       SUBROUTINE UPC(CHR,NCHR,IBAY,IBIT,CNVNULL)
 
 
