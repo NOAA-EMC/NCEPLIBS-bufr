@@ -45,12 +45,19 @@ jobs:
         path: bufr
         submodules: true
 
+    - name: cache-data
+      id: cache-data
+      uses: actions/cache@v2
+      with:
+        path: ~/data
+        key: data-1
+
     - name: build
       run: |
         cd bufr
         mkdir build
         cd build
-        cmake -DCMAKE_INSTALL_PREFIX=./install -DENABLE_PYTHON=OFF ..
+        cmake -DTEST_FILE_DIR=/home/runner/data -DCMAKE_INSTALL_PREFIX=./install -DENABLE_PYTHON=OFF ..
         make -j2 VERBOSE=1
         make install
 
@@ -58,3 +65,11 @@ jobs:
       run: |
         cd bufr/build
         ctest --verbose --output-on-failure --rerun-failed
+
+    - name: cache-data
+      if: steps.cache-data.outputs.cache-hit != 'true'
+      run: |
+        mkdir ~/data
+        cp $GITHUB_WORKSPACE/bufr/build/test/bufr-11.6.0.tgz ~/data
+        
+        
