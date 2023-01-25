@@ -1,6 +1,5 @@
 C> @file
-C> @brief Uncompress and unpack the next subset
-c> from the internal compressed message buffer.
+C> @brief Read the next compressed BUFR data subset into internal arrays.
 C>
 C> ### Program History Log
 C> Date | Programmer | Comments 
@@ -24,7 +23,7 @@ c> from the internal compressed message buffer (array mbay in module
 c> bitbuf) and stores the unpacked subset within the internal
 c> array val(*,lun) in module usrint.
 C>
-C> @param[in] LUN - integer: i/o stream index into internal memory arrays.
+C> @param[in] LUN - integer: I/O stream index into internal memory arrays.
 C>
 C> @author Woollen @date 2000-09-19
       SUBROUTINE RDCMPS(LUN)

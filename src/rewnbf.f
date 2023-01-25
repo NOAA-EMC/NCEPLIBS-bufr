@@ -1,5 +1,5 @@
 C> @file
-C> @brief Store or restore parameters associated with BUFR file.
+C> @brief Store or restore parameters associated with a BUFR file.
 C> 
 C> ### Program History Log
 C> Date | Programmer | Comments 
@@ -14,33 +14,35 @@ C> 2014-12-10 | J. Ator    | use modules instead of common blocks
 C>
 C> @author Woollen @date 2003-11-04
       
-C> This subroutine, depending on the value of isr, will
+C> This subroutine, depending on the value of ISR, will
 C> either:
-C> 1. Store the current parameters associated with a bufr file
-C> connected to lunit (read/write pointers, etc.), set the file status
-C> to read, then rewind the bufr file and position it such that the
-C> next bufr message read will be the first message in the file
+C> - store the current parameters associated with a BUFR file
+C> connected to LUNIT (read/write pointers, etc.), set the file status
+C> to read, then rewind the BUFR file and position it such that the
+C> next BUFR message read will be the first message in the file
 C> containing actual subsets with data; or
-C> 2. restore the bufr file connected to lunit to the parameters
-C> it had prior to 1) above using the information saved in 1) above.
+C> - restore the BUFR file connected to LUNIT to the parameters
+C> it had prior to the previous call, and using the information that
+C> was saved previously
 C>
 C> This allows information to be extracted from a particular subset in
-C> a bufr file which is in the midst of being read from or written to
-C> by an application program. Note that for a particular bufr file 1)
-C> above must precede 2) above. An application program might first
-C> call this subroutine with isr = 0, then call either bufr archive
-C> library subroutine rdmgsb or ufbinx to get info from a subset, then
-C> call this routine again with isr = 1 to restore the pointers in the
-C> bufr file to their original location. Also, bufr archive library
-C> subroutine ufbtab will call this routine if the bufr file it is
-C> acting upon is already open for input or output.
+C> a BUFR file which is in the midst of being read from or written to
+C> by an application program.  Note that, for any given BUFR file, a call
+C> to this subroutine with ISR = 0 must precede a call to this same
+C> subroutine with ISR = 1.  An application program might first
+C> call this subroutine with ISR = 0, then call either BUFR archive
+C> library subroutine rdmgsb() or ufbinx() to get info from a subset, then
+C> call this routine again with ISR = 1 to restore the pointers in the
+C> BUFR file to their original location.  For example, this subroutine is
+C> called internally by BUFR archive library subroutine ufbtab() whenever
+C> the BUFR file it is acting upon is already open for input or output.
 C>
-C> @param[in] LUNIT - integer: fortran logical unit number for bufr file.
-C> @param[in] ISR - integer: switch:.
-C> - 0 store current parameters associated with BUFR file, set file status to read, rewind
+C> @param[in] LUNIT - integer: fortran logical unit number for BUFR file.
+C> @param[in] ISR - integer: switch:
+C> - 0 store current parameters associated with BUFR file, set file status to read, and rewind
 C> file such that next message read is first message containing subset data
 C> - 1 restore BUFR file with parameters saved from the previous call to this routine with
-C> ISR=0
+C> ISR = 0
 C>
 C> @author Woollen @date 2003-11-04
       SUBROUTINE REWNBF(LUNIT,ISR)

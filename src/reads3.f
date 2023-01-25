@@ -1,6 +1,5 @@
 C> @file
-C> @brief Read the section 3 descriptors from the
-C> bufr message in mbay(1,lun).
+C> @brief Read the Section 3 descriptors from a BUFR message.
 C> 
 C> ### Program History Log
 C> Date | Programmer | Comments 
@@ -9,16 +8,16 @@ C> 2009-03-23 | J. Ator    | original author
 C> 2014-12-10 | J. Ator    | use modules instead of common blocks
 C> 2017-10-13 | J. Ator    | remove functionality to check whether new master tables need to be read
 C> 
-C> @author Ator @date 2009-03-23
+C> @author J. Ator @date 2009-03-23
 	
-C> This subroutine reads the section 3 descriptors from the
-C> bufr message in mbay(1,lun). It then uses the bufr master tables
+C> This subroutine reads the Section 3 descriptors from the
+C> BUFR message in mbay(1,lun). It then uses the BUFR master tables
 C> to generate the necessary information for these descriptors within
-C> the internal bufr table arrays.
+C> the internal BUFR table arrays.
 C>
-C> @param[in] LUN - integer: i/o stream index into internal memory arrays.
+C> @param[in] LUN - integer: I/O stream index into internal memory arrays.
 C>
-C> @author Ator @date 2009-03-23
+C> @author J. Ator @date 2009-03-23
 	SUBROUTINE READS3 ( LUN )
 
 	USE MODA_SC3BFR

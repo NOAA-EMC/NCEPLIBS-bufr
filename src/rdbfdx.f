@@ -1,7 +1,5 @@
 C> @file
-C> @brief Read a complete dictionary table (i.e. one or more
-C> adjacent bufr dx (dictionary) messages) into internal memory arrays
-C> in module tababd.
+C> @brief Read a complete DX BUFR table.
 C>
 C> ### Program History
 C> Date | Programmer | Comments 
@@ -22,25 +20,25 @@ C> 2014-12-10 | J. Ator    | Use modules instead of common blocks.
 C>
 C> @author Woollen @date 1994-01-06
       
-C> Beginning at the current file pointer location within lunit,
-C> this subroutine reads a complete dictionary table (i.e. one or more
-C> adjacent bufr dx (dictionary) messages) into internal memory arrays
-C> in module tababd.
+C> Beginning at the current file pointer location within LUNIT,
+C> this subroutine reads a complete DX BUFR table into internal memory arrays
+C> in module tababd.  A DX BUFR table consists of one or more consecutive
+C> DX BUFR messages.
 C>
 C> This subroutine performs a function similar to 
 C> rdusdx(), except that rdusdx() reads from a file containing
-C> a user-supplied bufr dictionary table in character format. See rdusdx()
+C> a user-supplied DX BUFR table in character format. See rdusdx()
 C> for a description of the arrays that are filled
 C> in module tababd.
 C>
 C> This subroutine performs a function similar to
 C> cpdxmm(), except that cpdxmm() writes to the internal memory
-C> arrays in module msgmem, for use with a file of bufr messages that
-C> is being read and stored into internal memory ufbmem().
+C> arrays in module msgmem, for use with a file of BUFR messages that
+C> is being read and stored into internal memory via subroutine ufbmem().
 C>
-C> @param[in] LUNIT - integer: fortran logical unit number for bufr file.
-C> @param[in] LUN - integer: i/o stream index into internal memory arrays
-C> (associated with file connected to logical unit lunit).
+C> @param[in] LUNIT - integer: fortran logical unit number for BUFR file.
+C> @param[in] LUN - integer: I/O stream index into internal memory arrays
+C> (associated with file connected to logical unit LUNIT).
 C>
 C> @author Woollen @date 1994-01-06
       SUBROUTINE RDBFDX(LUNIT,LUN)

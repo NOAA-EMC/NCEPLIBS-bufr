@@ -1,6 +1,5 @@
 C> @file
-C> @brief Unpack the next subset from the internal
-c> uncompressed message buffer.
+C> @brief Read the next uncompressed BUFR data subset into internal arrays.
 C>
 C> ### Program History Log
 C> Date | Programmer | Comments 
@@ -27,9 +26,9 @@ c> uncompressed message buffer (array mbay in module bitbuf) and
 c> stores the unpacked subset within the internal array val(*,lun)
 c> in module usrint.
 C>
-C> @param[in] LUN - integer: i/o stream index into internal memory arrays.
+C> @param[in] LUN - integer: I/O stream index into internal memory arrays.
 C>
-C> @param[out] IRET - integer: return code:.
+C> @param[out] IRET - integer: return code:
 C> - 0 normal return
 C> - -1 An error occurred, possibly due to a corrupt subset in the input message.
 C>

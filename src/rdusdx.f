@@ -1,7 +1,5 @@
 C> @file
-C> @brief Read and parses a file containing a user-
-c> supplied bufr dictionary table in character format, and then stores
-c> this information into internal arrays in module tababd.
+C> @brief Read a complete DX BUFR table.
 C> 
 C> ### Program History Log
 C> Date | Programmer | Comments 
@@ -23,16 +21,16 @@ C>
 C> @author Woollen @date 1994-01-06
       
 C> This subroutine reads and parses a file containing a user-
-c> supplied bufr dictionary table in character format, and then stores
-c> this information into internal arrays in module tababd (see remarks
-c> for contents of internal arrays). This subroutine performs
-c> a function similar to bufr archive library subroutine rdbfdx,
-c> execpt that rdbfdx reads the bufr table directly from messages at
-c> beginning of an input bufr file.
+c> supplied DX BUFR table in character format, and then stores
+c> this information into internal arrays in module tababd.
+c> This subroutine performs
+c> a function similar to BUFR archive library subroutine rdbfdx(),
+c> except that rdbfdx() reads the DX BUFR table directly from messages at
+c> the beginning of an input BUFR file.
 C>
 C> @param[in] LUNDX - integer: fortran logical unit number for user-
-C> supplied bufr dictionary table in character format.
-C> @param[in] LUN - integer: i/o stream index into internal memory arrays.
+C> supplied DX BUFR table in character format.
+C> @param[in] LUN - integer: I/O stream index into internal memory arrays.
 C>
 C> @author Woollen @date 1994-01-06
       SUBROUTINE RDUSDX(LUNDX,LUN)

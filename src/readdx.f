@@ -1,7 +1,5 @@
 C> @file
-C> @brief Generate internal arrays containing bufr
-C> dictionary tables which are needed to read, write, initialize or
-C> append a bufr file.
+C> @brief Read DX BUFR table information into internal arrays.
 C>
 C> ### Program History Log
 C> Date | Programmer | Comments 
@@ -14,36 +12,34 @@ C> 2009-04-21 | J. Ator    | use errwrt
 C>
 C> @author Woollen @date 1994-01-06
       
-C> This subroutine generates internal arrays containing bufr
-C> dictionary tables which are needed to read, write, initialize or
-C> append a bufr file. The information used to create the internal
+C> This subroutine generates internal arrays containing DX BUFR
+C> (dictionary) tables which are needed to read, write, initialize or
+C> append a BUFR file. The information used to create the internal
 C> dictionary table arrays (in module tababd) and the dictionary
 C> message control word partition arrays (in module msgcwd)
-C> (which are always then associated with the bufr file in lunit)
-C> may come from an external, user-supplied, bufr dictionary
-C> table file in character format (i.e., a bufr mnemonic table), from
-C> the bufr file being acted upon (in which case the file must be
+C> (which are always then associated with the BUFR file in LUNIT)
+C> may come from an external, user-supplied, BUFR dictionary
+C> table file in character format (i.e., a BUFR mnemonic table), from
+C> the BUFR file being acted upon (in which case the file must be
 C> opened for input processing and positioned at a dictionary table
 C> message somewhere in the file), or from another currently opened
-C> and defined bufr file.  in this latter case, the bufr file would
+C> and defined BUFR file.  In this latter case, the BUFR file would
 C> most likely be opened for input, however there is nothing
 C> preventing the use of a file open for output as long as it is
 C> associated with internal dictionary arrays that can be used.
 C>
-C> @param[in] LUNIT - integer: fortran logical unit number for bufr file
+C> @param[in] LUNIT - integer: Fortran logical unit number for BUFR file
 C> being read, written, initialized or appended.
-C> @param[in] LUN - integer: i/o stream index into internal memory arrays
-C> (associated with file connected to logical unit lunit).b
-C> @param[in] LUNDX - integer: fortran logical unit number
-C> containing dictionary table information to be used in reading/.
-C> writing from/to lunit (depending on the case); may be
-C> set equal to lunit if dictionary table information is
-C> already embedded in lunit (but only if lunit is being read).
+C> @param[in] LUN - integer: I/O stream index into internal memory arrays
+C> (associated with file connected to logical unit LUNIT)
+C> @param[in] LUNDX - integer: Fortran logical unit number
+C> containing dictionary table information to be used in reading/
+C> writing from/to LUNIT (depending on the case); may be
+C> set equal to LUNIT if dictionary table information is
+C> already embedded in LUNIT (but only if LUNIT is being read).
 C>
 C> @author Woollen @date 1994-01-06
       SUBROUTINE READDX(LUNIT,LUN,LUNDX)
-
-
 
       COMMON /QUIET/ IPRT
 
