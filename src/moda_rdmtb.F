@@ -1,20 +1,29 @@
 C> @file
-C> @brief ???
-C> @author ??? @date ???
+C> @brief Declare arrays for internal storage of master Table B
+C> and Table D entries.
+C> @author J. Ator @date 2014-12-10
 
-C> ??? ~description~
+C> This module contains array and variable declarations used to
+C> store master Table B and Table D entries within internal
+C> memory.
 C>
-C> @author ??? @date
+C> Data values within this module are stored by subroutine
+C> ireadmt().
+C>
+C> @author J. Ator
+C> @date 2014-12-10
+
 
 	MODULE MODA_RDMTB
 
-C> ??? description of IEFXYN
+C>    Bit-wise representations of child descriptors of
+C>    Table D sequences.
 	  INTEGER, ALLOCATABLE :: IEFXYN(:,:)
-C> ??? description of CMDSCB
+C>    Descriptor codes for Table B elements.
 	  CHARACTER*4, ALLOCATABLE :: CMDSCB(:)
-C> ??? description of CMDSCD
+C>    Descriptor codes for Table D sequences.
 	  CHARACTER*4, ALLOCATABLE :: CMDSCD(:)
-C> ??? description of CEELEM
+C>    Element names corresponding to iefxyn.
 	  CHARACTER*120, ALLOCATABLE :: CEELEM(:,:)
 
 	END MODULE
