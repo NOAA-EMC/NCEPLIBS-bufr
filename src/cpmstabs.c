@@ -8,6 +8,8 @@
  * 2014-12-04 | J. Ator | Original author.
  * 2021-05-17 | J. Ator | Allow up to 24 characters in cbunit.
  * 2023-01-18 | J. Ator | Remove MSTABS_BASE macro.
+ *
+ *  @author J. Ator @date 2014-12-04
  */
 #include "bufrlib.h"
 #include "mstabs.h"
@@ -20,9 +22,6 @@
  *  MODA_MSTABS arrays from within C.
  *
  *  All arguments to this subroutine are input.
- *
- *  @author J. Ator
- *  @date 2014-12-04
  *
  *  @param pnmtb - Number of master Table B entries
  *  @param pibfxyn - Bit-wise representations of master Table B FXY numbers
@@ -39,6 +38,8 @@
  *  @param pndelem - Number of child descriptors for master Table D sequence
  *  @param pidefxy - Bit-wise representations of child descriptors for master Table D sequence
  *  @param maxcd - Maximum number of child descriptors for a master Table D sequence
+ *
+ *  @author J. Ator @date 2014-12-04
 */
 void cpmstabs(  f77int *pnmtb,
 		f77int *pibfxyn, char (*pcbscl)[4],

@@ -1,7 +1,15 @@
 !> @file
 !> @brief Read BUFR file containing embedded DX BUFR tables,
-!> and print each report one at a time
+!> and print each report one at a time.
+!>
+!> @author J. Woollen @date 2/24/22
 
+!> Read BUFR file containing embedded DX BUFR tables,
+!> and print each report one at a time.
+!>
+!> @return 0 for success, error code otherwise.
+!>
+!> @author J. Woollen @date 2/24/22
   program readmp
 
   implicit none

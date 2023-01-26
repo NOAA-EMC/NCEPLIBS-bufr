@@ -1,48 +1,31 @@
 C> @file
-C> @author WOOLLEN @date 2000-09-19
+C> @brief Read the next compressed BUFR data subset into internal arrays.
+C>
+C> ### Program History Log
+C> Date | Programmer | Comments 
+C> -----|------------|----------
+C> 2000-09-19 | J. Woollen | Original author.
+C> 2002-05-14 | J. Woollen | Improved generality, previously rdcmps would not recognize compressed delayed replication as a legitimate data structure.
+C> 2003-11-04 | J. Ator    | Added documentation.
+C> 2003-11-04 | S. Bender  | Added remarks/bufrlib routine interdependencies.
+C> 2003-11-04 | D. Keyser  | maxjl (maximum number of jump/link entries) increased from 15000 to 16000 (was in verification version); unified/portable for wrf; added history documentation.
+C> 2004-08-18 | J. Ator    | Initialize cval; logic for when a character value is the same for all subsets in a message; maximum message length increased from 20,000 to 50,000 bytes.
+C> 2009-03-23 | J. Ator    | Prevent overflow of cval and cref for strings longer than 8 characters.
+C> 2012-03-02 | J. Ator    | Use function ups.
+C> 2012-06-04 | J. Ator    | Set decoded real*8 value to "missing" when corresponding character field has all bits set to 1.
+C> 2014-12-10 | J. Ator    | Use modules instead of common blocks.
+C> 2022-05-06 | J. Woollen | Use up8 for 8byte integer operation.
+C>
+C> @author Woollen @date 2000-09-19
       
-C> THIS SUBROUTINE UNCOMPRESSES AND UNPACKS THE NEXT SUBSET
-C>   FROM THE INTERNAL COMPRESSED MESSAGE BUFFER (ARRAY MBAY IN MODULE
-C>   BITBUF) AND STORES THE UNPACKED SUBSET WITHIN THE INTERNAL
-C>   ARRAY VAL(*,LUN) IN MODULE USRINT.
+C> This subroutine uncompresses and unpacks the next subset
+c> from the internal compressed message buffer (array mbay in module
+c> bitbuf) and stores the unpacked subset within the internal
+c> array val(*,lun) in module usrint.
 C>
-C> PROGRAM HISTORY LOG:
-C> 2000-09-19  J. WOOLLEN -- ORIGINAL AUTHOR
-C> 2002-05-14  J. WOOLLEN -- IMPROVED GENERALITY, PREVIOUSLY RDCMPS
-C>                           WOULD NOT RECOGNIZE COMPRESSED DELAYED
-C>                           REPLICATION AS A LEGITIMATE DATA STRUCTURE
-C> 2003-11-04  J. ATOR    -- ADDED DOCUMENTATION
-C> 2003-11-04  S. BENDER  -- ADDED REMARKS/BUFRLIB ROUTINE
-C>                           INTERDEPENDENCIES
-C> 2003-11-04  D. KEYSER  -- MAXJL (MAXIMUM NUMBER OF JUMP/LINK ENTRIES)
-C>                           INCREASED FROM 15000 TO 16000 (WAS IN
-C>                           VERIFICATION VERSION); UNIFIED/PORTABLE FOR
-C>                           WRF; ADDED HISTORY DOCUMENTATION
-C> 2004-08-18  J. ATOR    -- INITIALIZE CVAL TO EMPTY BEFORE CALLING UPC;
-C>                           CORRECT LOGIC FOR WHEN A CHARACTER VALUE IS
-C>                           THE SAME FOR ALL SUBSETS IN A MESSAGE;
-C>                           MAXIMUM MESSAGE LENGTH INCREASED FROM
-C>                           20,000 TO 50,000 BYTES
-C> 2009-03-23  J. ATOR    -- PREVENT OVERFLOW OF CVAL AND CREF FOR
-C>                           STRINGS LONGER THAN 8 CHARACTERS
-C> 2012-03-02  J. ATOR    -- USE FUNCTION UPS
-C> 2012-06-04  J. ATOR    -- SET DECODED REAL*8 VALUE TO "MISSING" WHEN
-C>                           CORRESPONDING CHARACTER FIELD HAS ALL BITS
-C>                           SET TO 1
-C> 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
-C> 2022-05-06  J. WOOLLEN -- USE UP8 FOR 8BYTE INTEGER OPERATION 
+C> @param[in] LUN - integer: I/O stream index into internal memory arrays.
 C>
-C> USAGE:    CALL RDCMPS (LUN)
-C>   INPUT ARGUMENT LIST:
-C>     LUN      - INTEGER: I/O STREAM INDEX INTO INTERNAL MEMORY ARRAYS
-C>
-C> REMARKS:
-C>    THIS ROUTINE CALLS:        BORT     ICBFMS   IGETRFEL STRBTM
-C>                               UPB      UP8      UPC      UPS      USRTPL
-C>    THIS ROUTINE IS CALLED BY: READSB
-C>                               Normally not called by any application
-C>                               programs.
-C>
+C> @author Woollen @date 2000-09-19
       SUBROUTINE RDCMPS(LUN)
 
       USE MODV_BMISS

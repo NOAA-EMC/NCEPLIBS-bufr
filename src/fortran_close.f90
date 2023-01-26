@@ -1,18 +1,20 @@
 !> @file
-!> @brief Close a Fortran file on the local system
-
-!> @authors Jeff Whitaker
-!> @date 2015-08-30
+!> @brief Close a Fortran file on the local system.
 !>
-!> @param[in] lunit    - integer: Fortran logical unit number for Fortran file
-!> @param[out] iret    - integer: return code from the Fortran close statement
+!> ### Program History
+!> Date | Programmer | Comments 
+!> -----|------------|----------
+!> 2015-08-30 | J. Whitaker | Original author
+!> 2022-09-01 | J. Ator | Added 8-byte wrapper
 !>
-!> <b>Program history log:</b>
-!> | Date | Programmer | Comments |
-!> | -----|------------|----------|
-!> | 2015-08-30 | J. Whitaker | Original author |
-!> | 2022-09-01 | J. Ator | Added 8-byte wrapper |
+!> @author Jeff Whitaker @date 2015-08-30
 
+!> Close a Fortran file on the local system.
+!>
+!> @param[in] lunit - integer: Fortran logical unit number for Fortran file
+!> @param[out] iret - integer: return code from the Fortran close statement
+!>
+!> @author Jeff Whitaker @date 2015-08-30
 recursive subroutine fortran_close(lunit, iret)
 
   use modv_im8b

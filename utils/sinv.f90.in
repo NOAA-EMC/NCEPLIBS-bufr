@@ -3,7 +3,7 @@
 !>
 !> @author J Woollen @date 2010
 
-!> Usage: sinv <satbufrfile> will print inventory of satellites by platform and instrument.
+!> Usage: sinv \<satbufrfile\> will print inventory of satellites by platform and instrument.
 !>
 !> @return 0 for success, error message otherwise.
 !>
@@ -108,9 +108,9 @@ end program SINV
 !>
 !> @param[in] lunit - integer: Fortran logical unit number for BUFR file
 !> @param[in] icode - integer: satellite platform code
-!> @param[out] csad - character*16: meaning string associatd with icode
+!> @param[out] csad - character*16: meaning string associated with icode
 !> @param[in] jcode - integer: satellite instrument code
-!> @param[out] csid - character*80: meaning string associatd with jcode
+!> @param[out] csid - character*80: meaning string associated with jcode
 !>
 !> @author J Woollen @date 2010
 
