@@ -9,54 +9,43 @@ C> @date 2014-12-10
 
 	MODULE MODA_TABABD
 
-C>        @var ntba
 C>        Number of Table A entries for each internal I/O stream
 C>        (up to a maximum of MAXTBA, whose value is stored in
 C>        array element 0).
+	  INTEGER, ALLOCATABLE :: NTBA(:)
 C>
-C>        @var taba
-C>        Table A entries for each internal I/O stream.
-C>
-C>        @var idna
-C>        Message types (in array element 1) and subtypes (in array
-C>        element 2) corresponding to taba.
-C>
-C>        @var mtab
-C>        Entries within jump/link table corresponding to taba.
-C>
-C>        @var ntbb
 C>        Number of Table B entries for each internal I/O stream
 C>        (up to a maximum of MAXTBB, whose value is stored in
 C>        array element 0).
+	  INTEGER, ALLOCATABLE :: NTBB(:)
 C>
-C>        @var tabb
-C>        Table B entries for each internal I/O stream.
-C>
-C>        @var idnb
-C>        Bit-wise representations of the FXY values corresponding
-C>        to tabb.
-C>
-C>        @var ntbd
 C>        Number of Table D entries for each internal I/O stream
 C>        (up to a maximum of MAXTBD, whose value is stored in
 C>        array element 0).
+	  INTEGER, ALLOCATABLE :: NTBD(:)
 C>
-C>        @var tabd
-C>        Table D entries for each internal I/O stream.
+C>        Entries within jump/link table corresponding to taba.
+	  INTEGER, ALLOCATABLE :: MTAB(:,:)
 C>
-C>        @var idnd
+C>        Message types (in array element 1) and subtypes (in array
+C>        element 2) corresponding to taba.
+	  INTEGER, ALLOCATABLE :: IDNA(:,:,:)
+C>
+C>        Bit-wise representations of the FXY values corresponding
+C>        to tabb.
+	  INTEGER, ALLOCATABLE :: IDNB(:,:)
+C>
 C>        Bit-wise representations of the FXY values corresponding
 C>        to tabd.
-
-	  INTEGER, ALLOCATABLE :: NTBA(:)
-	  INTEGER, ALLOCATABLE :: NTBB(:)
-	  INTEGER, ALLOCATABLE :: NTBD(:)
-	  INTEGER, ALLOCATABLE :: MTAB(:,:)
-	  INTEGER, ALLOCATABLE :: IDNA(:,:,:)
-	  INTEGER, ALLOCATABLE :: IDNB(:,:)
 	  INTEGER, ALLOCATABLE :: IDND(:,:)
+C>
+C>        Table A entries for each internal I/O stream.
 	  CHARACTER*128, ALLOCATABLE :: TABA(:,:)
+C>
+C>        Table B entries for each internal I/O stream.
 	  CHARACTER*128, ALLOCATABLE :: TABB(:,:)
+C>
+C>        Table D entries for each internal I/O stream.
 	  CHARACTER*600, ALLOCATABLE :: TABD(:,:)
 
 	END MODULE
