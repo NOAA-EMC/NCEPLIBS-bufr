@@ -8,6 +8,8 @@
 !> opposite of combfr.f, which concatenates BUFR messages from listed
 !> input files.
 !>
+!> @return 0 for success, error code otherwise.
+!>
 !> @author Woollen @date 2000-01-01
 
 program split_by_subset
