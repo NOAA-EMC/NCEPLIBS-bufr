@@ -1,7 +1,5 @@
 /** @file
- * @brief Given the bit-wise representation of a descriptor,
- * this routine adds it to an ongoing array of descriptors, after
- * first making sure that there is enough room in the array.
+ * @brief Maintain an array of descriptors.
  * @author J. Ator @date 2004-08-18
 */
 

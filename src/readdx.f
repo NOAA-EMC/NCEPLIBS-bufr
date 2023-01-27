@@ -1,59 +1,45 @@
 C> @file
-C> @author WOOLLEN @date 1994-01-06
+C> @brief Read DX BUFR table information into internal arrays.
+C>
+C> ### Program History Log
+C> Date | Programmer | Comments 
+C> -----|------------|----------
+C> 1994-01-06 | J. Woollen | original author
+C> 1998-07-08 | J. Woollen | replaced call to cray library routine "abort" with call to bort()
+C> 2003-11-04 | S. Bender  | added remarks/bufrlib routine interdependencies
+C> 2003-11-04 | D. Keyser  | unified/portable for wrf; documentation; more diagnostic info
+C> 2009-04-21 | J. Ator    | use errwrt
+C>
+C> @author Woollen @date 1994-01-06
       
-C> THIS SUBROUTINE GENERATES INTERNAL ARRAYS CONTAINING BUFR
-C>   DICTIONARY TABLES WHICH ARE NEEDED TO READ, WRITE, INITIALIZE OR
-C>   APPEND A BUFR FILE.  THE INFORMATION USED TO CREATE THE INTERNAL
-C>   DICTIONARY TABLE ARRAYS (IN MODULE TABABD) AND THE DICTIONARY
-C>   MESSAGE CONTROL WORD PARTITION ARRAYS (IN MODULE MSGCWD)
-C>   (WHICH ARE ALWAYS THEN ASSOCIATED WITH THE BUFR FILE IN LUNIT)
-C>   MAY COME FROM AN EXTERNAL, USER-SUPPLIED, BUFR DICTIONARY
-C>   TABLE FILE IN CHARACTER FORMAT (I.E., A BUFR MNEMONIC TABLE), FROM
-C>   THE BUFR FILE BEING ACTED UPON (IN WHICH CASE THE FILE MUST BE
-C>   OPENED FOR INPUT PROCESSING AND POSITIONED AT A DICTIONARY TABLE
-C>   MESSAGE SOMEWHERE IN THE FILE), OR FROM ANOTHER CURRENTLY OPENED
-C>   AND DEFINED BUFR FILE.  IN THIS LATTER CASE, THE BUFR FILE WOULD
-C>   MOST LIKELY BE OPENED FOR INPUT, HOWEVER THERE IS NOTHING
-C>   PREVENTING THE USE OF A FILE OPEN FOR OUTPUT AS LONG AS IT IS
-C>   ASSOCIATED WITH INTERNAL DICTIONARY ARRAYS THAT CAN BE USED.
+C> This subroutine generates internal arrays containing DX BUFR
+C> (dictionary) tables which are needed to read, write, initialize or
+C> append a BUFR file. The information used to create the internal
+C> dictionary table arrays (in module tababd) and the dictionary
+C> message control word partition arrays (in module msgcwd)
+C> (which are always then associated with the BUFR file in LUNIT)
+C> may come from an external, user-supplied, BUFR dictionary
+C> table file in character format (i.e., a BUFR mnemonic table), from
+C> the BUFR file being acted upon (in which case the file must be
+C> opened for input processing and positioned at a dictionary table
+C> message somewhere in the file), or from another currently opened
+C> and defined BUFR file.  In this latter case, the BUFR file would
+C> most likely be opened for input, however there is nothing
+C> preventing the use of a file open for output as long as it is
+C> associated with internal dictionary arrays that can be used.
 C>
-C> PROGRAM HISTORY LOG:
-C> 1994-01-06  J. WOOLLEN -- ORIGINAL AUTHOR
-C> 1998-07-08  J. WOOLLEN -- REPLACED CALL TO CRAY LIBRARY ROUTINE
-C>                           "ABORT" WITH CALL TO NEW INTERNAL BUFRLIB
-C>                           ROUTINE "BORT"
-C> 2003-11-04  S. BENDER  -- ADDED REMARKS/BUFRLIB ROUTINE
-C>                           INTERDEPENDENCIES
-C> 2003-11-04  D. KEYSER  -- UNIFIED/PORTABLE FOR WRF; ADDED
-C>                           DOCUMENTATION (INCLUDING HISTORY); OUTPUTS
-C>                           MORE COMPLETE DIAGNOSTIC INFO WHEN ROUTINE
-C>                           TERMINATES ABNORMALLY OR FOR INFORMATIONAL
-C>                           PURPOSES
-C> 2009-04-21  J. ATOR    -- USE ERRWRT
+C> @param[in] LUNIT - integer: Fortran logical unit number for BUFR file
+C> being read, written, initialized or appended.
+C> @param[in] LUN - integer: I/O stream index into internal memory arrays
+C> (associated with file connected to logical unit LUNIT)
+C> @param[in] LUNDX - integer: Fortran logical unit number
+C> containing dictionary table information to be used in reading/
+C> writing from/to LUNIT (depending on the case); may be
+C> set equal to LUNIT if dictionary table information is
+C> already embedded in LUNIT (but only if LUNIT is being read).
 C>
-C> USAGE:    CALL READDX (LUNIT, LUN, LUNDX)
-C>   INPUT ARGUMENT LIST:
-C>     LUNIT    - INTEGER: FORTRAN LOGICAL UNIT NUMBER FOR BUFR FILE
-C>                BEING READ, WRITTEN, INITIALIZED OR APPENDED
-C>     LUN      - INTEGER: I/O STREAM INDEX INTO INTERNAL MEMORY ARRAYS
-C>                (ASSOCIATED WITH FILE CONNECTED TO LOGICAL UNIT LUNIT)
-C>     LUNDX    - INTEGER: FORTRAN LOGICAL UNIT NUMBER CONTAINING
-C>                DICTIONARY TABLE INFORMATION TO BE USED IN READING/
-C>                WRITING FROM/TO LUNIT (DEPENDING ON THE CASE); MAY BE
-C>                SET EQUAL TO LUNIT IF DICTIONARY TABLE INFORMATION IS
-C>                ALREADY EMBEDDED IN LUNIT (BUT ONLY IF LUNIT IS BEING
-C>                READ)
-C>
-C> REMARKS:
-C>    THIS ROUTINE CALLS:        BORT     CPBFDX   ERRWRT   MAKESTAB
-C>                               RDBFDX   RDUSDX   STATUS
-C>    THIS ROUTINE IS CALLED BY: OPENBF   WRITDX
-C>                               Normally not called by any application
-C>                               programs.
-C>
+C> @author Woollen @date 1994-01-06
       SUBROUTINE READDX(LUNIT,LUN,LUNDX)
-
-
 
       COMMON /QUIET/ IPRT
 

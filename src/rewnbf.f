@@ -1,66 +1,50 @@
 C> @file
-C> @author WOOLLEN @date 2003-11-04
+C> @brief Store or restore parameters associated with a BUFR file.
+C> 
+C> ### Program History Log
+C> Date | Programmer | Comments 
+C> -----|------------|----------
+C> 2003-11-04 | J. Woollen | original author (was in verification version but may have been in the production version at one time and then removed)
+C> 2003-11-04 | D. Keyser  | unified/portable for wrf; added documentation; outputs more complete diagnostic info when routine terminates abnormally
+C> 2004-08-09 | J. Ator    | maximum message length increased from 20,000 to 50,000 bytes
+C> 2009-03-23 | J. Ator    | modified to handle embedded bufr table (dictionary) messages
+C> 2011-09-26 | J. Woollen | fixed bug to prevent skip of first data message after rewind
+C> 2012-09-15 | J. Woollen | modified for c/i/o/bufr interface; replace fortran rewind with c cewind
+C> 2014-12-10 | J. Ator    | use modules instead of common blocks
+C>
+C> @author Woollen @date 2003-11-04
       
-C> THIS SUBROUTINE, DEPENDING ON THE VALUE OF ISR, WILL
-C>   EITHER:
-C>        1) STORE THE CURRENT PARAMETERS ASSOCIATED WITH A BUFR FILE
-C>   CONNECTED TO LUNIT (READ/WRITE POINTERS, ETC.), SET THE FILE STATUS
-C>   TO READ, THEN REWIND THE BUFR FILE AND POSITION IT SUCH THAT THE
-C>   NEXT BUFR MESSAGE READ WILL BE THE FIRST MESSAGE IN THE FILE
-C>   CONTAINING ACTUAL SUBSETS WITH DATA; OR
-C>        2) RESTORE THE BUFR FILE CONNECTED TO LUNIT TO THE PARAMETERS
-C>   IT HAD PRIOR TO 1) ABOVE USING THE INFORMATION SAVED IN 1) ABOVE.
+C> This subroutine, depending on the value of ISR, will
+C> either:
+C> - store the current parameters associated with a BUFR file
+C> connected to LUNIT (read/write pointers, etc.), set the file status
+C> to read, then rewind the BUFR file and position it such that the
+C> next BUFR message read will be the first message in the file
+C> containing actual subsets with data; or
+C> - restore the BUFR file connected to LUNIT to the parameters
+C> it had prior to the previous call, and using the information that
+C> was saved previously
 C>
-C>   THIS ALLOWS INFORMATION TO BE EXTRACTED FROM A PARTICULAR SUBSET IN
-C>   A BUFR FILE WHICH IS IN THE MIDST OF BEING READ FROM OR WRITTEN TO
-C>   BY AN APPLICATION PROGRAM.  NOTE THAT FOR A PARTICULAR BUFR FILE 1)
-C>   ABOVE MUST PRECEDE 2) ABOVE.  AN APPLICATION PROGRAM MIGHT FIRST
-C>   CALL THIS SUBROUTINE WITH ISR = 0, THEN CALL EITHER BUFR ARCHIVE
-C>   LIBRARY SUBROUTINE RDMGSB OR UFBINX TO GET INFO FROM A SUBSET, THEN
-C>   CALL THIS ROUTINE AGAIN WITH ISR = 1 TO RESTORE THE POINTERS IN THE
-C>   BUFR FILE TO THEIR ORIGINAL LOCATION.  ALSO, BUFR ARCHIVE LIBRARY
-C>   SUBROUTINE UFBTAB WILL CALL THIS ROUTINE IF THE BUFR FILE IT IS
-C>   ACTING UPON IS ALREADY OPEN FOR INPUT OR OUTPUT.
+C> This allows information to be extracted from a particular subset in
+C> a BUFR file which is in the midst of being read from or written to
+C> by an application program.  Note that, for any given BUFR file, a call
+C> to this subroutine with ISR = 0 must precede a call to this same
+C> subroutine with ISR = 1.  An application program might first
+C> call this subroutine with ISR = 0, then call either BUFR archive
+C> library subroutine rdmgsb() or ufbinx() to get info from a subset, then
+C> call this routine again with ISR = 1 to restore the pointers in the
+C> BUFR file to their original location.  For example, this subroutine is
+C> called internally by BUFR archive library subroutine ufbtab() whenever
+C> the BUFR file it is acting upon is already open for input or output.
 C>
-C> PROGRAM HISTORY LOG:
-C> 2003-11-04  J. WOOLLEN -- ORIGINAL AUTHOR (WAS IN VERIFICATION
-C>                           VERSION BUT MAY HAVE BEEN IN THE PRODUCTION
-C>                           VERSION AT ONE TIME AND THEN REMOVED)
-C> 2003-11-04  D. KEYSER  -- UNIFIED/PORTABLE FOR WRF; ADDED
-C>                           DOCUMENTATION; OUTPUTS MORE COMPLETE
-C>                           DIAGNOSTIC INFO WHEN ROUTINE TERMINATES
-C>                           ABNORMALLY
-C> 2004-08-09  J. ATOR    -- MAXIMUM MESSAGE LENGTH INCREASED FROM
-C>                           20,000 TO 50,000 BYTES
-C> 2009-03-23  J. ATOR    -- MODIFIED TO HANDLE EMBEDDED BUFR TABLE
-C>                           (DICTIONARY) MESSAGES
-C> 2011-09-26  J. WOOLLEN -- FIXED BUG TO PREVENT SKIP OF FIRST DATA
-C>                           MESSAGE AFTER REWIND
-C> 2012-09-15  J. WOOLLEN -- MODIFIED FOR C/I/O/BUFR INTERFACE;
-C>                           REPLACE FORTRAN REWIND WITH C CEWIND
-C> 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
+C> @param[in] LUNIT - integer: fortran logical unit number for BUFR file.
+C> @param[in] ISR - integer: switch:
+C> - 0 store current parameters associated with BUFR file, set file status to read, and rewind
+C> file such that next message read is first message containing subset data
+C> - 1 restore BUFR file with parameters saved from the previous call to this routine with
+C> ISR = 0
 C>
-C> USAGE:    CALL REWNBF (LUNIT, ISR)
-C>   INPUT ARGUMENT LIST:
-C>     LUNIT    - INTEGER: FORTRAN LOGICAL UNIT NUMBER FOR BUFR FILE
-C>     ISR      - INTEGER: SWITCH:
-C>                       0 = store current parameters associated with
-C>                           BUFR file, set file status to read, rewind
-C>                           file such that next message read is first
-C>                           message containing subset data
-C>                       1 = restore BUFR file with parameters saved
-C>                           from the previous call to this routine with
-C>                           ISR=0
-C>
-C>   INPUT FILES:
-C>     UNIT "LUNIT" - BUFR FILE
-C>
-C> REMARKS:
-C>    THIS ROUTINE CALLS:        BORT     I4DY     READMG   STATUS
-C>                               WTSTAT   CEWIND
-C>    THIS ROUTINE IS CALLED BY: UFBINX   UFBTAB
-C>                               Also called by application programs.
-C>
+C> @author Woollen @date 2003-11-04
       SUBROUTINE REWNBF(LUNIT,ISR)
 
       USE MODA_MSGCWD
