@@ -1,5 +1,5 @@
 C> @file
-C> @brief Packs a BUFR subset from array form into bit string output format.
+C> @brief Pack a BUFR data subset.
 C>
 C> ### Program History Log
 C> Date | Programmer | Comments |
@@ -27,7 +27,6 @@ C>
 C> @param[in] lun -- integer: i/o stream index into internal memory arrays
 C>
 C> @author J. Woollen @date 1994-01-06
-
 
       SUBROUTINE WRTREE(LUN)
 

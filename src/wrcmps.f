@@ -1,5 +1,5 @@
 C> @file
-C> @brief Writes a compressed BUFR data subset into the output buffer.
+C> @brief Write a compressed BUFR data subset.
 C>
 C> ### Program History Log
 C> Date | Programmer | Comments |

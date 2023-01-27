@@ -1,18 +1,18 @@
 C> @file
 C> @brief Free all dynamically-allocated memory within internal
 C> Fortran language arrays.
+C>
+C> ### Program History
+C> Date | Programmer | Comments 
+C> -----|------------|----------
+C> 2014-12-04 | J. Ator | Original author 
+C>
+C> @author J. Ator @date 2014-12-04
 
 C> This subroutine frees any memory that was dynamically allocated
 C> during a previous call to subroutine arallocf().
 C>
-C> @author J. Ator
-C> @date 2014-12-04
-C>
-C> <b>Program history log:</b>
-C> | Date | Programmer | Comments |
-C> | -----|------------|----------|
-C> | 2014-12-04 | J. Ator | Original author |
-C>
+C> @author J. Ator @date 2014-12-04
 	SUBROUTINE ARDLLOCF
 
 	USE MODA_USRINT

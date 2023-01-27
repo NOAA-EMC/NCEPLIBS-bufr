@@ -1,8 +1,15 @@
 !> @file
 !> @brief Open a Fortran file on the local system
+!>
+!> ### Program History
+!> Date | Programmer | Comments 
+!> -----|------------|----------
+!> 2015-08-30 | J. Whitaker | Original author
+!> 2022-08-04 | J. Woollen | Added 8-byte wrapper
+!>
+!> @author Jeff Whitaker @date 2015-08-30
 
-!> @authors Jeff Whitaker
-!> @date 2015-08-30
+!> Open a Fortran file on the local system.
 !>
 !> @param[in] filename - character*(*): name of the file to be opened
 !> @param[in] lunit    - integer: Fortran logical unit number for Fortran file
@@ -10,12 +17,7 @@
 !> @param[in] position - character*(*): to rewind or continue with open file
 !> @param[out] iret    - integer: return code from the Fortran open statement
 !>
-!> <b>Program history log:</b>
-!> | Date | Programmer | Comments |
-!> | -----|------------|----------|
-!> | 2015-08-30 | J. Whitaker | Original author |
-!> | 2022-08-04 | J. Woollen | Added 8-byte wrapper |
-
+!> @author Jeff Whitaker @date 2015-08-30
    recursive subroutine fortran_open(filename, lunit, format, position, iret)
 
       use modv_im8b
