@@ -1,6 +1,5 @@
 C> @file
-C> @brief Check to see if a user-specified character
-c> string is in the string cache.
+C> @brief Check whether a string is in the string cache.
 C>
 C> ### Program History Log
 C> Date | Programmer | Comments
@@ -18,7 +17,7 @@ C> @author Woollen @date 1994-01-06
 C> This subroutine checks to see if a user-specified character
 c> string is in the string cache (arrays in common blocks /stcach/ and
 c> /stords/). If it is not in the cache, it must call the bufr
-c> archive library parsing subroutine parusr to perform the task of
+c> archive library parsing subroutine parusr() to perform the task of
 c> separating and checking the individual "pieces" (i.e., mnemonics)
 c> so that it can then be added to the cache. If it is already in the
 c> cache, then this extra work does not need to be performed. The
@@ -27,11 +26,11 @@ c> time when the same mnemonic strings are encountered in a user
 c> program, over and over again (the typical scenario).
 C>
 C> @param[in] STR - character*(*): string of blank-separated mnemonics.
-C> @param[in] LUN - integer: i/o stream index into internal memory arrays.
+C> @param[in] LUN - integer: I/O stream index into internal memory arrays.
 C> @param[out] I1 - integer: a number greater than or equal to the number
-C> of blank-separated mnemonics in str.
-C> @param[out] IO - integer: status indicator for bufr file associated
-C> with lun:
+C> of blank-separated mnemonics in STR.
+C> @param[in] IO - integer: status indicator for BUFR file associated
+C> with LUN:
 C> - 0 input file
 C> - 1 output file
 C>

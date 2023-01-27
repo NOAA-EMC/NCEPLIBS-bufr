@@ -1,7 +1,5 @@
 C> @file
-C> @brief Decode the table d sequence information
-C> from a mnemonic definition card that was previously read from a
-C> user-supplied bufr dictionary table in character format by rdusdx().
+C> @brief Decode the sequence information from a Table D mnemonic definition.
 C>
 C> ### Program History Log
 C> Date | Programmer | Comments |
@@ -15,21 +13,19 @@ C> 2007-01-19 | J. Ator    | replaced call to parseq with call to parstr
 C>
 C> @author Woollen @date 1994-01-06
       
-C> This subroutine decodes the table d sequence information
+C> This subroutine decodes the Table D sequence information
 C> from a mnemonic definition card that was previously read from a
-C> user-supplied bufr dictionary table in character format by rdusdx().
+C> user-supplied DX BUFR table in character format by rdusdx().
 C> These are then added to the
-C> already-existing entry for that mnemonic (built in rdusdx) within
-C> the internal bufr table d array tabd(*,lun) in module tababd.
+C> already-existing entry for that mnemonic (built in rdusdx()) within
+C> the internal BUFR Table D array tabd(*,lun) in module tababd.
 C>
 C> @param[in] CARD - character*80: mnemonic definition card that was read
-C> from a user-supplied bufr dictionary table.
-C> @param[in] LUN - integer: i/o stream index into internal memory arrays.
+C> from a user-supplied DX BUFR table.
+C> @param[in] LUN - integer: I/O stream index into internal memory arrays.
 C>
 C> @author Woollen @date 1994-01-06
       SUBROUTINE SEQSDX(CARD,LUN)
-
-
 
       COMMON /REPTAB/ IDNR(5,2),TYPS(5,2),REPS(5,2),LENS(5)
 

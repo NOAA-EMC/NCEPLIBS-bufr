@@ -1,15 +1,13 @@
 C> @file
-C> @brief Store a new entry within internal bufr
-c> table A.	
+C> @brief Store a new entry within the internal BUFR Table A.
 C> @author Ator @date 2009-03-23
 	
-C> This subroutine stores a new entry within internal bufr
-c> table A.
+C> This subroutine stores a new entry within internal BUFR Table A.
 C>
-C> @param[in] N - integer: storage index into internal table a.
-C> @param[in] LUN - integer: i/o stream index into internal table a.
-C> @param[in] NUMB - character*6: fxy number for new table a entry (in format fxxyyy).
-C> @param[in] NEMO - character*8: mnemonic corresponding to numb.
+C> @param[in] N - integer: storage index into internal Table A.
+C> @param[in] LUN - integer: I/O stream index into internal Table A.
+C> @param[in] NUMB - character*6: FXY number for new Table A entry (in format FXXYYY).
+C> @param[in] NEMO - character*8: mnemonic corresponding to NUMB.
 C> @param[in] CELSQ - character*55: sequence description corresponding to NUMB.
 C>
 C> @author Ator @date 2009-03-23

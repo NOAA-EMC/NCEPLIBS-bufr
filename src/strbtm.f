@@ -1,6 +1,5 @@
 C> @file
-C> @brief Store internal information in
-c> module bitmaps if the input element is part of a bitmap.
+C> @brief Store information about a bitmap element.
 C>
 C> ### Program History Log
 C> Date | Programmer | Comments
@@ -14,7 +13,7 @@ C> This subroutine stores internal information in
 c> module bitmaps if the input element is part of a bitmap.
 C>
 C> @param[in] N - integer: subset element.
-C> @param[in] LUN - integer: i/o stream index into internal memory arrays.
+C> @param[in] LUN - integer: I/O stream index into internal memory arrays.
 C>
 C> @author J Ator @date 2016-05-27
 	SUBROUTINE STRBTM ( N, LUN )

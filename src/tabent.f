@@ -1,6 +1,5 @@
 C> @file
-C> @brief Build and stores an entry for a table b or
-c> table d mnemonic (nemo) within the internal jump/link table.
+C> @brief Store an entry for a Table B or D mnemonic within the internal jump/link table.
 C>
 C> ### Program History Log
 C> Date | Programmer | Comments
@@ -17,19 +16,20 @@ C> 2014-12-10 | J. Ator    | use modules instead of common blocks
 C>
 C> @author Woollen @date 1994-01-06
       
-C> This subroutine builds and stores an entry for a table b or
-c> table d mnemonic (nemo) within the internal jump/link table.
+C> This subroutine builds and stores an entry for a Table B or
+c> Table D mnemonic within the internal jump/link table.
 C>
-C> @param[in] LUN - integer: i/o stream index into internal memory arrays.
-C> @param[in] NEMO - character*8: table b or d mnemonic to store in jump/ link table.
-C> @param[in] TAB - character*1: internal bufr table array ('b' or 'd') in which nemo is defined.
-C> @param[in] ITAB - integer: positional index of nemo within tab.
+C> @param[in] LUN - integer: I/O stream index into internal memory arrays.
+C> @param[in] NEMO - character*8: Table B or D mnemonic to store in jump/link table.
+C> @param[in] TAB - character*1: internal BUFR table array ('B' or 'D') in which NEMO is defined.
+C> @param[in] ITAB - integer: positional index of NEMO within TAB.
 C> @param[in] IREP - integer: positional index within common /reptab/ arrays,
-C> for use when nemo is replicated: 0 = nemo is not replicated.
-C> @param[in] IKNT - integer: number of replications, for use when nemo is
-C> replicated using f=1 regular (i.e., non-delayed) replication:
-C> - 0 = NEMO is not replicated using F=1 regular (i.e., non-delayed) replication
-C> @param[in] JUM0 - integer: index value to be stored for nemo within internal jump/link table array jmpb(*).
+C> for use when NEMO is replicated:
+C> - 0, if NEMO is not replicated.
+C> @param[in] IKNT - integer: number of replications, for use when NEMO is
+C> replicated using F=1 regular (i.e., non-delayed) replication:
+C> - 0, if NEMO is not replicated using F=1 regular (i.e., non-delayed) replication
+C> @param[in] JUM0 - integer: index value to be stored for NEMO within internal jump/link table array jmpb(*).
 C>
 C> @author Woollen @date 1994-01-06
       SUBROUTINE TABENT(LUN,NEMO,TAB,ITAB,IREP,IKNT,JUM0)

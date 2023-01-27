@@ -1,7 +1,5 @@
 C> @file
-C> @brief Copy a bufr table (dictionary) message
-C> from the input array mesg into the internal memory arrays in
-C> module tababd.      
+C> @brief Store a DX BUFR tables message into internal arrays.
 C>
 C> ### Program History Log
 C> Date | Programmer | Comments |
@@ -12,13 +10,12 @@ C> 2014-12-10 | J. Ator | use modules instead of common blocks
 C>
 C> @author J Ator @date 2009-03-23
       
-C> This subroutine copies a bufr table (dictionary) message
+C> This subroutine copies a DX BUFR tables message
 C> from the input array mesg into the internal memory arrays in
 C> module tababd.
 C>
-C> @param[in] LUN - integer: i/o stream index into internal memory arrays.
-C> @param[in] MESG - integer: *-word packed binary array containing
-C> bufr table (dictionary) message.
+C> @param[in] LUN - integer: I/O stream index into internal memory arrays.
+C> @param[in] MESG - integer(*): DX BUFR tables message
 C>
 C> @author J Ator @date 2009-03-23
       SUBROUTINE STBFDX(LUN,MESG)

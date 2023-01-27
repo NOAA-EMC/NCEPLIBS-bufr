@@ -1,7 +1,5 @@
 C> @file
-C> @brief Build the entire jump/link tree (i.e.,
-C> including recursively resolving all "child" mnemonics) for a table
-C> a mnemonic (nemo) within the internal jump/link table.      
+C> @brief Store an entry for a Table A mnemonic within the internal jump/link table.
 C>
 C> ### Program History Log
 C> Date | Programmer | Comments
@@ -21,12 +19,12 @@ C> 2017-04-03 | J. Ator    | add a dimension to all tco arrays so that each subs
 C>
 C> @author Woollen @date 1994-01-06
       
-C> This subroutine builds the entire jump/link tree (i.e.,
-C> including recursively resolving all "child" mnemonics) for a table
-C> a mnemonic (nemo) within the internal jump/link table.
+C> This subroutine builds the entire jump/link tree
+C> (including recursively resolving all "child" mnemonics) for a Table A
+C> mnemonic within the internal jump/link table.
 C>
-C> @param[in] LUN - integer: i/o stream index into internal memory arrays.
-C> @param[in] NEMO - character*8: table a mnemonic.
+C> @param[in] LUN - integer: I/O stream index into internal memory arrays.
+C> @param[in] NEMO - character*8: Table A mnemonic.
 C>
 C> @author Woollen @date 1994-01-06
       SUBROUTINE TABSUB(LUN,NEMO)
