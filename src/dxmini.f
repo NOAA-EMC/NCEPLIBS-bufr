@@ -1,5 +1,5 @@
 C> @file
-C> @brief Initialize a BUFR DX tables message.
+C> @brief Initialize a DX BUFR tables message.
 C>
 C> ### Program History Log
 C> Date | Programmer | Comments
@@ -18,7 +18,7 @@ C> 2021-05-14 | J. Ator    | Changed default master table version to 36.
 C>
 C> @author Woollen @date 1994-01-06
       
-C> This subroutine initializes a BUFR DX tables (dictionary)
+C> This subroutine initializes a DX BUFR tables (dictionary)
 C> message, writing all the preliminary information into Sections 0,
 C> 1, 3, 4.  Subroutine wrdxtb() will write the
 C> actual table information into the message.
