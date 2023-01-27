@@ -1,7 +1,7 @@
 #!/bin/bash
-#> @file
-#> @brief Test script to test gettab utility
-#> @author aerorahul @date 2020-12-20
+# This is a test for NCEPLIBS-bufr.
+# Test script to test gettab utility.
+# Jack Woollen 2022-02-18
 
 set -eu
 

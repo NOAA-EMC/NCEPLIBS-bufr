@@ -1,7 +1,7 @@
 #!/bin/bash
-#> @file
-#> @brief Test script to test sinv.x utility
-#> @author jack-woollen @date 2022-02-18
+# This is a test for NCEPLIBS-bufr.
+# Test script to test sinv utility.
+# Jack Woollen 2022-02-18
 
 set -eu
 

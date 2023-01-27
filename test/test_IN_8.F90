@@ -1,3 +1,11 @@
+!       This is a test for NCEPLIBS-bufr.
+!
+!       This tests a number of library routines and functionality
+!       involved in reading input BUFR messages, as noted in the
+!       comments and print statements below.
+!
+!       Jeff Ator
+
 program test_IN_8
 
   integer, parameter :: MXR8PM = 15

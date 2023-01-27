@@ -1,8 +1,8 @@
-/** @file
- *  @author J. Ator
- *  @date 2021-03-01
+/* This is a test for NCEPLIBS-bufr.
  *
- *  @brief Test some of the bufr_c_interface.mod functions.
+ * Test some of the bufr_c_interface.mod functions.
+ *
+ * J. Ator 2021-03-01
  */
 #include <math.h>
 #include <stdio.h>

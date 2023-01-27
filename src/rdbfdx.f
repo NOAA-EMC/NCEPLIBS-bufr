@@ -1,72 +1,46 @@
 C> @file
-C> @author WOOLLEN @date 1994-01-06
+C> @brief Read a complete DX BUFR table.
+C>
+C> ### Program History
+C> Date | Programmer | Comments 
+C> -----|------------|----------
+C> 1994-01-06 | J. Woollen | Original author.
+C> 1995-06-28 | J. Woollen | Increased the size of internal bufr table arrays in order to handle bigger files
+C> 1996-12-17 | J. Woollen | Fixed for some mvs compiler's treatment of internal reads (increases portability).
+C> 1998-07-08 | J. Woollen | Replaced cray routine "abort" with bort(); corrected some minor errors
+C> 1999-11-18 | J. Woollen | The number of bufr files which can be opened at one time increased from 10 to 32.
+C> 2000-09-19 | J. Woollen | Maximum message length increased from 10,000 to 20,000 bytes.
+C> 2003-11-04 | S. Bender  | Added remarks/bufrlib routine interdependencies.
+C> 2003-11-04 | D. Keyser  | Unified/portable for wrf; added documentation (including history); outputs more complete diagnostic info when routine terminates abnormally.
+C> 2004-08-09 | J. Ator    | Maximum message length increased from 20,000 to 50,000 bytes.
+C> 2005-11-29 | J. Ator    | Use getlens, iupbs01 and rdmsgw.
+C> 2009-03-23 | J. Ator    | Use stntbia; modify logic to handle bufr table messages encountered anywhere in the file (and not just at the beginning!).
+C> 2012-09-15 | J. Woollen | Modified for c/i/o/bufr interface; replace fortran backspace with c backbufr.
+C> 2014-12-10 | J. Ator    | Use modules instead of common blocks.
+C>
+C> @author Woollen @date 1994-01-06
       
-C> BEGINNING AT THE CURRENT FILE POINTER LOCATION WITHIN LUNIT,
-C>   THIS SUBROUTINE READS A COMPLETE DICTIONARY TABLE (I.E. ONE OR MORE
-C>   ADJACENT BUFR DX (DICTIONARY) MESSAGES) INTO INTERNAL MEMORY ARRAYS
-C>   IN MODULE TABABD.
+C> Beginning at the current file pointer location within LUNIT,
+C> this subroutine reads a complete DX BUFR table into internal memory arrays
+C> in module tababd.  A DX BUFR table consists of one or more consecutive
+C> DX BUFR messages.
 C>
-C> PROGRAM HISTORY LOG:
-C> 1994-01-06  J. WOOLLEN -- ORIGINAL AUTHOR
-C> 1995-06-28  J. WOOLLEN -- INCREASED THE SIZE OF INTERNAL BUFR TABLE
-C>                           ARRAYS IN ORDER TO HANDLE BIGGER FILES
-C> 1996-12-17  J. WOOLLEN -- FIXED FOR SOME MVS COMPILER'S TREATMENT OF
-C>                           INTERNAL READS (INCREASES PORTABILITY)
-C> 1998-07-08  J. WOOLLEN -- REPLACED CALL TO CRAY LIBRARY ROUTINE
-C>                           "ABORT" WITH CALL TO NEW INTERNAL BUFRLIB
-C>                           ROUTINE "BORT"; CORRECTED SOME MINOR ERRORS
-C> 1999-11-18  J. WOOLLEN -- THE NUMBER OF BUFR FILES WHICH CAN BE
-C>                           OPENED AT ONE TIME INCREASED FROM 10 TO 32
-C>                           (NECESSARY IN ORDER TO PROCESS MULTIPLE
-C>                           BUFR FILES UNDER THE MPI)
-C> 2000-09-19  J. WOOLLEN -- MAXIMUM MESSAGE LENGTH INCREASED FROM
-C>                           10,000 TO 20,000 BYTES
-C> 2003-11-04  S. BENDER  -- ADDED REMARKS/BUFRLIB ROUTINE
-C>                           INTERDEPENDENCIES
-C> 2003-11-04  D. KEYSER  -- UNIFIED/PORTABLE FOR WRF; ADDED
-C>                           DOCUMENTATION (INCLUDING HISTORY); OUTPUTS
-C>                           MORE COMPLETE DIAGNOSTIC INFO WHEN ROUTINE
-C>                           TERMINATES ABNORMALLY
-C> 2004-08-09  J. ATOR    -- MAXIMUM MESSAGE LENGTH INCREASED FROM
-C>                           20,000 TO 50,000 BYTES
-C> 2005-11-29  J. ATOR    -- USE GETLENS, IUPBS01 AND RDMSGW
-C> 2009-03-23  J. ATOR    -- USE STNTBIA; MODIFY LOGIC TO HANDLE BUFR
-C>                           TABLE MESSAGES ENCOUNTERED ANYWHERE IN THE
-C>                           FILE (AND NOT JUST AT THE BEGINNING!)
-C> 2012-09-15  J. WOOLLEN -- MODIFIED FOR C/I/O/BUFR INTERFACE;
-C>                           REPLACE FORTRAN BACKSPACE WITH C BACKBUFR
-C> 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
+C> This subroutine performs a function similar to 
+C> rdusdx(), except that rdusdx() reads from a file containing
+C> a user-supplied DX BUFR table in character format. See rdusdx()
+C> for a description of the arrays that are filled
+C> in module tababd.
 C>
-C> USAGE:    CALL RDBFDX (LUNIT, LUN)
-C>   INPUT ARGUMENT LIST:
-C>     LUNIT    - INTEGER: FORTRAN LOGICAL UNIT NUMBER FOR BUFR FILE
-C>     LUN      - INTEGER: I/O STREAM INDEX INTO INTERNAL MEMORY ARRAYS
-C>                (ASSOCIATED WITH FILE CONNECTED TO LOGICAL UNIT LUNIT)
+C> This subroutine performs a function similar to
+C> cpdxmm(), except that cpdxmm() writes to the internal memory
+C> arrays in module msgmem, for use with a file of BUFR messages that
+C> is being read and stored into internal memory via subroutine ufbmem().
 C>
-C>   INPUT FILES:
-C>     UNIT "LUNIT" - BUFR FILE
+C> @param[in] LUNIT - integer: fortran logical unit number for BUFR file.
+C> @param[in] LUN - integer: I/O stream index into internal memory arrays
+C> (associated with file connected to logical unit LUNIT).
 C>
-C> REMARKS:
-C>
-C>   THIS SUBROUTINE PERFORMS A FUNCTION SIMILAR TO BUFR ARCHIVE LIBRARY
-C>   SUBROUTINE RDUSDX, EXCEPT THAT RDUSDX READS FROM A FILE CONTAINING
-C>   A USER-SUPPLIED BUFR DICTIONARY TABLE IN CHARACTER FORMAT.  SEE THE
-C>   DOCBLOCK IN RDUSDX FOR A DESCRIPTION OF THE ARRAYS THAT ARE FILLED
-C>   IN MODULE TABABD.
-C>
-C>   THIS SUBROUTINE PERFORMS A FUNCTION SIMILAR TO BUFR ARCHIVE LIBRARY
-C>   SUBROUTINE CPDXMM, EXCEPT THAT CPDXMM WRITES TO THE INTERNAL MEMORY
-C>   ARRAYS IN MODULE MSGMEM, FOR USE WITH A FILE OF BUFR MESSAGES THAT
-C>   IS BEING READ AND STORED INTO INTERNAL MEMORY BY BUFR ARCHIVE
-C>   LIBRARY SUBROUTINE UFBMEM.
-C>
-C>    THIS ROUTINE CALLS:        BORT     DXINIT   ERRWRT   IDXMSG
-C>                               IUPBS3   MAKESTAB RDMSGW   STBFDX
-C>                               BACKBUFR
-C>    THIS ROUTINE IS CALLED BY: POSAPX   READDX   READMG
-C>                               Normally not called by any application
-C>                               programs.
-C>
+C> @author Woollen @date 1994-01-06
       SUBROUTINE RDBFDX(LUNIT,LUN)
 
 	USE MODA_MGWA

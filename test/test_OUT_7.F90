@@ -1,3 +1,11 @@
+! This is a test for NCEPLIBS-bufr.
+!
+! This tests a number of library routines and functionality
+! involved in writing output BUFR messages, as noted in the
+! comments and print statements below.
+!
+! Jeff Ator
+
 program test_OUT_7
 
 #ifdef INTSIZE_8

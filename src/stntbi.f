@@ -1,29 +1,19 @@
 C> @file
-C> @author ATOR @date 2009-03-23
+C> @brief Store a new entry within the internal BUFR Table B or D.
+C> @author Ator @date 2009-03-23
 	
-C> THIS SUBROUTINE STORES A NEW ENTRY WITHIN INTERNAL BUFR
-C>   TABLE B OR D, DEPENDING ON THE VALUE OF NUMB.
+C> This subroutine stores a new entry within internal BUFR
+C> Table B or D, depending on the value of NUMB.
 C>
-C> PROGRAM HISTORY LOG:
-C> 2009-03-23  J. ATOR    -- ORIGINAL AUTHOR
-C> 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
+C> @param[in] N - integer: storage index into internal Table B or D.
+C> @param[in] LUN - integer: i/o stream index into internal Table B or D.
+C> @param[in] NUMB - character*6: FXY number for new Table B or D entry
+C> (in format FXXYYY).
+C> @param[in] NEMO - character*8: mnemonic corresponding to NUMB.
+C> @param[in] CELSQ - character*55: element or sequence description
+C> corresponding to NUMB.
 C>
-C> USAGE:    CALL STNTBI ( N, LUN, NUMB, NEMO, CELSQ )
-C>   INPUT ARGUMENT LIST:
-C>       N      - INTEGER: STORAGE INDEX INTO INTERNAL TABLE B OR D 
-C>     LUN      - INTEGER: I/O STREAM INDEX INTO INTERNAL TABLE B OR D
-C>    NUMB      - CHARACTER*6: FXY NUMBER FOR NEW TABLE B OR D ENTRY
-C>                (IN FORMAT FXXYYY)
-C>    NEMO      - CHARACTER*8: MNEMONIC CORRESPONDING TO NUMB
-C>   CELSQ      - CHARACTER*55: ELEMENT OR SEQUENCE DESCRIPTION
-C>                CORRESPONDING TO NUMB
-C>
-C> REMARKS:
-C>    THIS ROUTINE CALLS:        IFXY     NENUBD
-C>    THIS ROUTINE IS CALLED BY: RDUSDX   STSEQ
-C>                               Not normally called by application
-C>                               programs.
-C>
+C> @author Ator @date 2009-03-23
 	SUBROUTINE STNTBI ( N, LUN, NUMB, NEMO, CELSQ )
 
 	USE MODA_TABABD

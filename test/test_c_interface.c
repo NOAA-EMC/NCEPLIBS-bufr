@@ -1,8 +1,6 @@
-/** @file
-    @author Ronald Mclaren
-    @date 2021-02-26
-
-    @brief This file is a quick test of bufr_c_interface_mod.
+/* This is a test for NCEPLIBS-bufr.
+   This file is a quick test of bufr_c_interface_mod.
+   Ronald Mclaren 2021-02-26
 */
 
 #include <math.h>
