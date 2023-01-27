@@ -1,60 +1,38 @@
 C> @file
-C> @author WOOLLEN @date 1994-01-06
+C> @brief Read the next uncompressed BUFR data subset into internal arrays.
+C>
+C> ### Program History Log
+C> Date | Programmer | Comments 
+C> -----|------------|----------
+C> 1994-01-06 | J. Woollen | original author
+C> 1998-10-27 | J. Woollen | modified to correct problems caused by in- lining code with fpp directives
+C> 1999-11-18 | J. Woollen | the number of bufr files which can be opened at one time increased from 10 to 32.
+C> 2000-09-19 | J. Woollen | maximum message length increased from 10,000 to 20,000 bytes
+C> 2003-11-04 | J. Woollen | fixed a bug which could only occur when the last element in a subset is a character
+C> 2003-11-04 | S. Bender  | added remarks/bufrlib routine interdependencies
+C> 2003-11-04 | D. Keyser  | maxjl increased to 16000; unified/portable for wrf; added documentation (including history)
+C> 2004-08-09 | J. Ator    | maximum message length increased from 20,000 to 50,000 bytes
+C> 2007-01-19 | J. Ator    | prevent overflow of cval for strings longer than 8 characters
+C> 2012-03-02 | J. Ator    | use function ups
+C> 2012-06-04 | J. Ator    | set decoded real*8 value to "missing" when corresponding character field has all bits set to 1
+C> 2014-12-10 | J. Ator    | use modules instead of common blocks
+C> 2016-11-09 | J. Ator    | added iret argument and check for possibly corrupt subsets
+C> 2022-05-06 | J. Woollen | replace upbb with upb8 for 8byte integers 
+C>
+C> @author Woollen @date 1994-01-06
       
-C> THIS SUBROUTINE UNPACKS THE NEXT SUBSET FROM THE INTERNAL
-C>   UNCOMPRESSED MESSAGE BUFFER (ARRAY MBAY IN MODULE BITBUF) AND
-C>   STORES THE UNPACKED SUBSET WITHIN THE INTERNAL ARRAY VAL(*,LUN)
-C>   IN MODULE USRINT.
+C> This subroutine unpacks the next subset from the internal
+c> uncompressed message buffer (array mbay in module bitbuf) and
+c> stores the unpacked subset within the internal array val(*,lun)
+c> in module usrint.
 C>
-C> PROGRAM HISTORY LOG:
-C> 1994-01-06  J. WOOLLEN -- ORIGINAL AUTHOR
-C> 1998-10-27  J. WOOLLEN -- MODIFIED TO CORRECT PROBLEMS CAUSED BY IN-
-C>                           LINING CODE WITH FPP DIRECTIVES
-C> 1999-11-18  J. WOOLLEN -- THE NUMBER OF BUFR FILES WHICH CAN BE
-C>                           OPENED AT ONE TIME INCREASED FROM 10 TO 32
-C>                           (NECESSARY IN ORDER TO PROCESS MULTIPLE
-C>                           BUFR FILES UNDER THE MPI)
-C> 2000-09-19  J. WOOLLEN -- MAXIMUM MESSAGE LENGTH INCREASED FROM
-C>                           10,000 TO 20,000 BYTES
-C> 2003-11-04  J. WOOLLEN -- FIXED A BUG WHICH COULD ONLY OCCUR WHEN
-C>                           THE LAST ELEMENT IN A SUBSET IS A CHARACTER
-C> 2003-11-04  S. BENDER  -- ADDED REMARKS/BUFRLIB ROUTINE
-C>                           INTERDEPENDENCIES
-C> 2003-11-04  D. KEYSER  -- MAXJL (MAXIMUM NUMBER OF JUMP/LINK ENTRIES)
-C>                           INCREASED FROM 15000 TO 16000 (WAS IN
-C>                           VERIFICATION VERSION); UNIFIED/PORTABLE FOR
-C>                           WRF; ADDED DOCUMENTATION (INCLUDING
-C>                           HISTORY)
-C> 2004-08-09  J. ATOR    -- MAXIMUM MESSAGE LENGTH INCREASED FROM
-C>                           20,000 TO 50,000 BYTES
-C> 2007-01-19  J. ATOR    -- PREVENT OVERFLOW OF CVAL FOR STRINGS LONGER
-C>                           THAN 8 CHARACTERS
-C> 2012-03-02  J. ATOR    -- USE FUNCTION UPS
-C> 2012-06-04  J. ATOR    -- SET DECODED REAL*8 VALUE TO "MISSING" WHEN
-C>                           CORRESPONDING CHARACTER FIELD HAS ALL BITS
-C>                           SET TO 1
-C> 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
-C> 2016-11-09  J. ATOR    -- ADDED IRET ARGUMENT AND CHECK FOR POSSIBLY
-C>                           CORRUPT SUBSETS
-C> 2022-05-06  J. WOOLLEN -- REPLACE UPBB WITH UPB8 FOR 8BYTE INTEGERS 
+C> @param[in] LUN - integer: I/O stream index into internal memory arrays.
 C>
-C> USAGE:    CALL RDTREE (LUN,IRET)
-C>   INPUT ARGUMENT LIST:
-C>     LUN      - INTEGER: I/O STREAM INDEX INTO INTERNAL MEMORY ARRAYS
+C> @param[out] IRET - integer: return code:
+C> - 0 normal return
+C> - -1 An error occurred, possibly due to a corrupt subset in the input message.
 C>
-C>   OUTPUT ARGUMENT LIST:
-C>     IRET     - INTEGER: RETURN CODE:
-C>                       0 = NORMAL RETURN
-C>                      -1 = AN ERROR OCCURRED, POSSIBLY DUE TO A
-C>                           CORRUPT SUBSET IN THE INPUT MESSAGE
-C>
-C> REMARKS:
-C>    THIS ROUTINE CALLS:        RCSTPL   ICBFMS   UPB8     UPC
-C>                               UPS
-C>    THIS ROUTINE IS CALLED BY: READSB
-C>                               Normally not called by any application
-C>                               programs.
-C>
+C> @author Woollen @date 1994-01-06
       SUBROUTINE RDTREE(LUN,IRET)
 
       USE MODV_BMISS

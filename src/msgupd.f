@@ -1,6 +1,5 @@
 C> @file
-C> @brief Pack up the current BUFR data subset for output
-C> and check whether it will fit within the current BUFR message.
+C> @brief Write an uncompressed BUFR data subset.
 C>
 C> ### Program History Log
 C> Date | Programmer | Comments

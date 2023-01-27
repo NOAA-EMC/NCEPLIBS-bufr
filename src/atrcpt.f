@@ -1,36 +1,37 @@
 C> @file
 C> @brief Add a tank receipt time to a BUFR message.
+C>
+C> ### Program History
+C> Date       | Programmer | Comments             
+C> -----------|------------|----------------------
+C> 2009-03-23 | J. Ator    | Original author      
+C> 2022-08-04 | J. Woollen | Added 8-byte wrapper 
+C>
+C> @author J. Ator @date 2009-03-23
 
 C> This subroutine reads an input message and outputs an equivalent
 C> BUFR message with a tank receipt time added to Section 1.
 C>
-C> <p>The tank receipt time to be added must have been specified via
-C> a previous call to subroutine strcpt().  This subroutine performs
+C> The tank receipt time to be added must have been specified via
+C> a previous call to subroutine strcpt(). This subroutine performs
 C> the same function as subroutine strcpt() when the latter is called
 C> with CF = 'Y', except that the latter subroutine operates on BUFR
 C> messages internally within the software, whereas this subroutine
 C> operates on a single BUFR message passed in via a memory array.
-C>
-C> @author J. Ator
-C> @date 2009-03-23
-C>
-C> @param[in] MSGIN   -- integer(*): BUFR message
-C> @param[in] LMSGOT  -- integer: Dimensioned size (in integers) of
-C>                       MSGOT; used by the subroutine to ensure that
-C>                       it doesn't overflow the MSGOT array
-C> @param[out] MSGOT  -- integer(*): Copy of MSGIN with a tank
-C>                       receipt time added to Section 1
 C>
 C> @remarks
 C> - MSGIN and MSGOT must be separate arrays.
 C> - MSGOT will be longer in length than MSGIN, so the user must allow
 C> for extra space when allocating MSGOT within the application program.
 C>
-C> <b>Program history log:</b>
-C> | Date       | Programmer | Comments             |
-C> | -----------|------------|----------------------|
-C> | 2009-03-23 | J. Ator    | Original author      |
-C> | 2022-08-04 | J. Woollen | Added 8-byte wrapper |
+C> @param[in] MSGIN - integer(*): BUFR message
+C> @param[in] LMSGOT - integer: Dimensioned size (in integers) of
+C> MSGOT; used by the subroutine to ensure that
+C> it doesn't overflow the MSGOT array
+C> @param[out] MSGOT - integer(*): Copy of MSGIN with a tank
+C> receipt time added to Section 1
+C>
+C> @author J. Ator @date 2009-03-23
 
 	RECURSIVE SUBROUTINE ATRCPT(MSGIN,LMSGOT,MSGOT)
 
