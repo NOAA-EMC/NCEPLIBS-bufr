@@ -19,15 +19,15 @@ C>
 C> @author Woollen @date 1994-01-06
       
 C> This subroutine decodes the scale factor, reference value,
-c> bit width and units (i.e., the "elements") from a table B mnemonic
-c> definition card that was previously read from a user-supplied bufr
-c> dictionary table file in character format by subroutine rdusdx().
+C> bit width and units (i.e., the "elements") from a Table B mnemonic
+C> definition card that was previously read from a user-supplied DX BUFR
+C> table file in character format by subroutine rdusdx().
 C> These decoded values are then added to the
-c> already-existing entry for that mnemonic within the internal bufr
-c> table B array TABB(*,LUN) in module tababd.
+C> already-existing entry for that mnemonic within the internal BUFR
+C> Table B array TABB(*,LUN) in module tababd.
 C>
 C> @param[in] CARD - character*80: mnemonic definition card that was read
-C> from a user-supplied bufr dictionary table.
+C> from a user-supplied DX BUFR table.
 C> @param[in] LUN - integer: I/O stream index into internal memory arrays.
 C>
 C> @author Woollen @date 1994-01-06

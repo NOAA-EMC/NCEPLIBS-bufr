@@ -1,44 +1,31 @@
 C> @file
-C> @author WOOLLEN @date 1994-01-06
+C> @brief Decode the sequence information from a Table D mnemonic definition.
+C>
+C> ### Program History Log
+C> Date | Programmer | Comments |
+C> -----|------------|----------|
+C> 1994-01-06 | J. Woollen | original author
+C> 1998-07-08 | J. Woollen | replaced call to cray library routine "abort" with call to new internal bufrlib routine "bort"
+C> 2003-11-04 | J. Ator    | added documentation
+C> 2003-11-04 | S. Bender  | added remarks/bufrlib routine interdependencies
+C> 2003-11-04 | D. Keyser  | unified/portable for wrf; added history documentation; outputs more complete diagnostic info when routine terminates abnormally; changed call from bort to bort2
+C> 2007-01-19 | J. Ator    | replaced call to parseq with call to parstr
+C>
+C> @author Woollen @date 1994-01-06
       
-C> THIS SUBROUTINE DECODES THE TABLE D SEQUENCE INFORMATION
-C>   FROM A MNEMONIC DEFINITION CARD THAT WAS PREVIOUSLY READ FROM A
-C>   USER-SUPPLIED BUFR DICTIONARY TABLE IN CHARACTER FORMAT BY BUFR
-C>   ARCHIVE LIBRARY SUBROUTINE RDUSDX.  THESE ARE THEN ADDED TO THE
-C>   ALREADY-EXISTING ENTRY FOR THAT MNEMONIC (BUILT IN RDUSDX) WITHIN
-C>   THE INTERNAL BUFR TABLE D ARRAY TABD(*,LUN) IN MODULE TABABD.
+C> This subroutine decodes the Table D sequence information
+C> from a mnemonic definition card that was previously read from a
+C> user-supplied DX BUFR table in character format by rdusdx().
+C> These are then added to the
+C> already-existing entry for that mnemonic (built in rdusdx()) within
+C> the internal BUFR Table D array tabd(*,lun) in module tababd.
 C>
-C> PROGRAM HISTORY LOG:
-C> 1994-01-06  J. WOOLLEN -- ORIGINAL AUTHOR
-C> 1998-07-08  J. WOOLLEN -- REPLACED CALL TO CRAY LIBRARY ROUTINE
-C>                           "ABORT" WITH CALL TO NEW INTERNAL BUFRLIB
-C>                           ROUTINE "BORT"
-C> 2003-11-04  J. ATOR    -- ADDED DOCUMENTATION
-C> 2003-11-04  S. BENDER  -- ADDED REMARKS/BUFRLIB ROUTINE
-C>                           INTERDEPENDENCIES
-C> 2003-11-04  D. KEYSER  -- UNIFIED/PORTABLE FOR WRF; ADDED HISTORY
-C>                           DOCUMENTATION; OUTPUTS MORE COMPLETE
-C>                           DIAGNOSTIC INFO WHEN ROUTINE TERMINATES
-C>                           ABNORMALLY; CHANGED CALL FROM BORT TO BORT2
-C> 2007-01-19  J. ATOR    -- REPLACED CALL TO PARSEQ WITH CALL TO PARSTR
+C> @param[in] CARD - character*80: mnemonic definition card that was read
+C> from a user-supplied DX BUFR table.
+C> @param[in] LUN - integer: I/O stream index into internal memory arrays.
 C>
-C> USAGE:    CALL SEQSDX (CARD, LUN)
-C>   INPUT ARGUMENT LIST:
-C>     CARD     - CHARACTER*80: MNEMONIC DEFINITION CARD THAT WAS READ
-C>                FROM A USER-SUPPLIED BUFR DICTIONARY TABLE
-C>     LUN      - INTEGER: I/O STREAM INDEX INTO INTERNAL MEMORY ARRAYS
-C>
-C> REMARKS:
-C>    THIS ROUTINE CALLS:        ADN30    BORT2    NEMOCK   NEMTAB
-C>                               NUMTAB   PARSTR   PKTDD    RSVFVM
-C>                               STRNUM
-C>    THIS ROUTINE IS CALLED BY: RDUSDX
-C>                               Normally not called by any application
-C>                               programs.
-C>
+C> @author Woollen @date 1994-01-06
       SUBROUTINE SEQSDX(CARD,LUN)
-
-
 
       COMMON /REPTAB/ IDNR(5,2),TYPS(5,2),REPS(5,2),LENS(5)
 

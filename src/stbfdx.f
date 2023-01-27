@@ -1,30 +1,23 @@
 C> @file
-C> @author J @date 2009-03-23
+C> @brief Store a DX BUFR tables message into internal arrays.
+C>
+C> ### Program History Log
+C> Date | Programmer | Comments |
+C> -----|------------|----------|
+C> 2009-03-23 | J. Ator | original author, using logic copied from previous version of rdbfdx
+C> 2014-11-14 | J. Ator | replace chrtrna calls with upc calls
+C> 2014-12-10 | J. Ator | use modules instead of common blocks
+C>
+C> @author J Ator @date 2009-03-23
       
-C> THIS SUBROUTINE COPIES A BUFR TABLE (DICTIONARY) MESSAGE
-C>   FROM THE INPUT ARRAY MESG INTO THE INTERNAL MEMORY ARRAYS IN
-C>   MODULE TABABD.
+C> This subroutine copies a DX BUFR tables message
+C> from the input array mesg into the internal memory arrays in
+C> module tababd.
 C>
-C> PROGRAM HISTORY LOG:
-C> 2009-03-23  J. ATOR    -- ORIGINAL AUTHOR, USING LOGIC COPIED
-C>                           FROM PREVIOUS VERSION OF RDBFDX
-C> 2014-11-14  J. ATOR    -- REPLACE CHRTRNA CALLS WITH UPC CALLS
-C> 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
+C> @param[in] LUN - integer: I/O stream index into internal memory arrays.
+C> @param[in] MESG - integer(*): DX BUFR tables message
 C>
-C> USAGE:    CALL STBFDX (LUN,MESG)
-C>   INPUT ARGUMENT LIST:
-C>     LUN      - INTEGER: I/O STREAM INDEX INTO INTERNAL MEMORY ARRAYS
-C>     MESG     - INTEGER: *-WORD PACKED BINARY ARRAY CONTAINING
-C>                BUFR TABLE (DICTIONARY) MESSAGE
-C>
-C> REMARKS:
-C>    THIS ROUTINE CALLS:        BORT     CAPIT    GETLENS  IGETNTBI
-C>                               IDN30    IFXY     IUPB     IUPBS01
-C>                               NENUBD   PKTDD    STNTBIA  UPC
-C>    THIS ROUTINE IS CALLED BY: RDBFDX   RDMEMM   READERME
-C>                               Normally not called by any application
-C>                               programs.
-C>
+C> @author J Ator @date 2009-03-23
       SUBROUTINE STBFDX(LUN,MESG)
 
       USE MODV_MAXCD

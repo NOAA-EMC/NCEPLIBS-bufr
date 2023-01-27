@@ -1,6 +1,7 @@
 #!/bin/bash
-
-# test the xbfmg utility
+# This is a test for NCEPLIBS-bufr.
+# Test script to test xbfmg utility
+# Jeff Ator 2022-02-18
 
 set -eu
 
