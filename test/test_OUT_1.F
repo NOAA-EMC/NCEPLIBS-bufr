@@ -1,8 +1,11 @@
 C       This is a test for NCEPLIBS-bufr.
 C
-C       This tests ???
+C       This tests a number of library routines and functionality
+C       involved in writing output BUFR messages, as noted in the
+C       comments and print statements below.
 C
 C       Jeff Ator
+
 	REAL*8		r8ymd ( 3, 1 ),
      +			r8ltl ( 2, 1 ),
      +			r8flv ( 1, 5 ),

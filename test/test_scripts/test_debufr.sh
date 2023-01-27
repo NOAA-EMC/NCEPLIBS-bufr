@@ -1,7 +1,7 @@
 #!/bin/bash
 # This is a test for NCEPLIBS-bufr.
-# test the debufr.x utility
-# jack-woollen 2022-02-18
+# Test script to test debufr utility
+# Jeff Ator 2022-02-18
 
 set -eu
 

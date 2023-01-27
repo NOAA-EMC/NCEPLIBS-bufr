@@ -1,7 +1,7 @@
 #!/bin/bash
 # This is a test for NCEPLIBS-bufr.
-# Test script to ???.
-# jack-woollen 2022-02-18
+# Test script to run each test_IN code and verify its output.
+# Jeff Ator 2022-02-18
 
 set -eu
 

@@ -1,7 +1,7 @@
 #!/bin/bash
 # This is a test for NCEPLIBS-bufr.
-# Test script to test split_by_subset.x utility.
-# jack-woollen 2022-02-18
+# Test script to test split_by_subset utility.
+# Jack Woollen 2022-02-18
 
 set -eu
 

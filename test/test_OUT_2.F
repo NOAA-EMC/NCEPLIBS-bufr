@@ -1,8 +1,11 @@
 C       This is a test for NCEPLIBS-bufr.
 C
-C       This tests ???
+C       This tests a number of library routines and functionality
+C       involved in writing output BUFR messages, as noted in the
+C       comments and print statements below.
 C
 C       Jeff Ator
+
 #ifdef INTSIZE_8
         INTEGER*4	IGETSC
 #endif

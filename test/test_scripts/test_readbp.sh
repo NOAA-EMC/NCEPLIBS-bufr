@@ -1,7 +1,7 @@
 #!/bin/bash
 # This is a test for NCEPLIBS-bufr.
 # Test script to test readbp utility.
-# jack-woollen 2022-02-18
+# Jack Woollen 2022-02-18
 
 set -eu
 
