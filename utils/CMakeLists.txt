@@ -1,7 +1,13 @@
+# This is the cmake build file for the utils directory of the
+# NCEPLIBS-bufr project.
+#
+# Rahul, Jeff Ator, Ed Hartnett
+
 # Create the debufr.c and sinv.f90 files
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/debufr.c.in ${CMAKE_CURRENT_BINARY_DIR}/debufr.c @ONLY)
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/sinv.f90.in ${CMAKE_CURRENT_BINARY_DIR}/sinv.f90 @ONLY)
 
+# Source code for utilities.
 list(APPEND _utils_srcs
   binv.f90
   cmpbqm.f90
@@ -13,6 +19,7 @@ list(APPEND _utils_srcs
   xbfmg.c
 )
 
+# Build each utility.
 foreach(_src ${_utils_srcs})
   get_filename_component(_exec "${_src}" NAME_WE)
   get_filename_component(_ext "${_src}" LAST_EXT)
@@ -28,7 +35,7 @@ foreach(_src ${_utils_srcs})
   list(APPEND _utils_execs ${_exec})
 endforeach()
 
-# the debufr utility consists of both a C source file and a Fortran source file
+# The debufr utility consists of both a C source file and a Fortran source file.
 set(_exec debufr)
 add_executable(${_exec} ${CMAKE_CURRENT_BINARY_DIR}/debufr.c debufr.f)
 add_dependencies(${_exec} bufr::bufr_4)
@@ -38,6 +45,7 @@ set_property(TARGET ${_exec} PROPERTY LINKER_LANGUAGE C)
 target_link_libraries(${_exec} PRIVATE bufr::bufr_4)
 list(APPEND _utils_execs ${_exec})
 
+# Install the utilities.
 install(TARGETS ${_utils_execs}
         RUNTIME
         DESTINATION bin
