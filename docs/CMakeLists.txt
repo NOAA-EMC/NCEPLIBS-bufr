@@ -1,4 +1,6 @@
 # This is the CMake file for building the docs directory of NCEPLIBS-bufr.
+#
+# Ed Hartnett, Jeff Ator
 
 set(package_base "${PROJECT_SOURCE_DIR}")
 set(build_base "${PROJECT_BINARY_DIR}")
