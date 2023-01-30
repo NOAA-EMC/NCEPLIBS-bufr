@@ -13,18 +13,18 @@ C> 2009-03-31 | J. Woollen | add documentation
 C> 2009-04-21 | J. Ator    | use errwrt
 C> 2014-12-10 | J. Ator    | use modules instead of common blocks
 C>
-C> @author Woollen @date 1994-01-06
+C> @author J. Woollen @date 1994-01-06
 C>
 C> This subroutine stores the subset template into internal
 C> subset arrays in module usrint for cases of node expansion
 C> (i.e. when the node is either a table a mnemonic or a delayed
 C> replication factor).
 C>
-C> @param lun - integer: i/o stream index into internal memory arrays
-C> @param invn - integer: starting jump/link table index of the node to be expanded within the subset template
-C> @param nbmp - integer: number of times by which invn is to be expanded (i.e. number of replications of node)
+C> @param lun - integer: i/o stream index into internal memory arrays.
+C> @param invn - integer: starting jump/link table index of the node to be expanded within the subset template.
+C> @param nbmp - integer: number of times by which invn is to be expanded (i.e. number of replications of node).
 C>
-C> @author woollen @date 1994-01-06
+C> @author J. Woollen @date 1994-01-06
 
       SUBROUTINE USRTPL(LUN,INVN,NBMP)
 

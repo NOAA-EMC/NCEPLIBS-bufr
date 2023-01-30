@@ -19,12 +19,12 @@ C> This subroutine returns the bit-wise representation of the fxy value correspo
 C> a particular (ient'th) "child" mnemonic of a table d sequence ("parent") mnemonic.
 C>
 C> @remark The interpretation of the return value iret depends upon the input value ient, as follows:
-C> ient=0 - iret = a count of the total number of child mnemonics within tabd(id,lun)
-C> ient>0 - iret = the bit-wise representation of the fxy value corresponding to the ient'th child mnemonic of tabd(id,lun)
+C> - ient=0 - iret = a count of the total number of child mnemonics within tabd(id,lun)
+C> - ient>0 - iret = the bit-wise representation of the fxy value corresponding to the ient'th child mnemonic of tabd(id,lun)
 C>
-C> @param[in] id - integer: positional index of parent mnemonic within internal bufr table d array tabd
-C> @param[in] lun - integer: i/o stream index into internal memory arrays
-C> @param[in] ient - integer: ordinal indicator of child mnemonic to return from within tabd(id,lun) sequence
+C> @param[in] id - integer: positional index of parent mnemonic within internal bufr table d array tabd.
+C> @param[in] lun - integer: i/o stream index into internal memory arrays.
+C> @param[in] ient - integer: ordinal indicator of child mnemonic to return from within tabd(id,lun) sequence.
 C> @param[out] iret - integer: return value (see remarks)
 C>
 C> @author woollen @date 1994-01-06

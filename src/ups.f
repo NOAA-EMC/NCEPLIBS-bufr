@@ -17,9 +17,9 @@ C> node of the internal jump/link table arrays isc(*) and irf(*);
 C> however, the reference value in irf(*) will be overridden if a
 C> 2-03 operator is in effect for this node.
 C>
-C> @param[in] ival - integer: packed bufr integer
-C> @param[in] node - integer: index into internal jump/link tables
-C> @param[out] ups - real*8: user value
+C> @param[in] ival - integer: packed bufr integer.
+C> @param[in] node - integer: index into internal jump/link tables.
+C> @param[out] ups - real*8: user value.
 C>
 C> @author J. Ator @date 2012-03-02
 

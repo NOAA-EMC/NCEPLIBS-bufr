@@ -7,16 +7,16 @@ C> ufbcup) which manipulate the contents of the internal subset buffers
 C> where the contents of an evolving BUFR message are sccumulated and 
 C> stored under user control prior to being written out.
 C>
-C>  TTMP - space used to store TAG elementS for new sections of a growing subset buffer
-C>  ITMP - space used to store INV elements for new sections of a growing subset buffer
-C>  VTMP - space used to store VAL elements  for new sections of a growing subset buffer
 C>
 C> @author Woollen @date 1994-01-06
 
 	MODULE MODA_IVTTMP
 
+C>  TTMP - space used to store TAG elementS for new sections of a growing subset buffer
         CHARACTER*10, ALLOCATABLE :: TTMP(:)
+C>  ITMP - space used to store INV elements for new sections of a growing subset buffer
         INTEGER, ALLOCATABLE :: ITMP(:) 
+C>  VTMP - space used to store VAL elements  for new sections of a growing subset buffer
         REAL*8, ALLOCATABLE :: VTMP(:)
 
 	END MODULE

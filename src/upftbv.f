@@ -19,14 +19,13 @@ C> - This subroutine is the logical inverse of function pkftbv().
 C> - According to the WMO standard, bits within a bit field are
 C> numbered from left to right, so bit #1 is always the high-order
 C> (i.e. most significant) bit in any bit field.
-C> @author J. Ator @date 2005-11-29
 C>
-C> @param[in]  LUNIT - integer: Fortran logical unit number for BUFR file
-C> @param[in]  NEMO - character*(*): Table B mnemonic with flag table units
-C> @param[in]  VAL - real*8: Value corresponding to NEMO
-C> @param[in]  MXIB - integer: Maximum dimension of IBIT
-C> @param[out] IBIT - integer: Bit numbers which were set to "On" (i.e. set to "1") in VAL
-C> @param[out] NIB - integer: Number of bit numbers returned in IBIT
+C> @param[in]  LUNIT - integer: Fortran logical unit number for BUFR file.
+C> @param[in]  NEMO - character*(*): Table B mnemonic with flag table units.
+C> @param[in]  VAL - real*8: Value corresponding to NEMO.
+C> @param[in]  MXIB - integer: Maximum dimension of IBIT.
+C> @param[out] IBIT - integer: Bit numbers which were set to "On" (i.e. set to "1") in VAL.
+C> @param[out] NIB - integer: Number of bit numbers returned in IBIT.
 C>
 C> @author J. Ator @date 2005-11-29
 

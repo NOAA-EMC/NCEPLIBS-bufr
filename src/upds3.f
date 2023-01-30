@@ -23,10 +23,10 @@ C>   descriptors from within Section 3; rather, what is returned in
 C>   CDS3 is the exact list of data descriptors as it appears within
 C>   Section 3 of MBAY.
 C>
-C> @param[in]  MBAY - integer(*): BUFR message
-C> @param[in]  LCDS3 - integer: Maximum dimensione of CDS3
-C> @param[out] CDS3 - character*6(*): Data descriptor sequence within Section 3 of MBAY
-C> @param[out] NDS3 - integer: Number of data descriptors in CDS3
+C> @param[in]  MBAY - integer(*): BUFR message.
+C> @param[in]  LCDS3 - integer: Maximum dimensione of CDS3.
+C> @param[out] CDS3 - character*6(*): Data descriptor sequence within Section 3 of MBAY.
+C> @param[out] NDS3 - integer: Number of data descriptors in CDS3.
 C>
 C> @author J. Ator @date 2003-11-04
 
