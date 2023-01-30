@@ -1,5 +1,5 @@
 C> @file
-C> @brief Provide storage for expansion in the user defined subset template buffer.
+C> @brief Store the subset template into internal arrays.
 C>
 C> | Date | Programmer | Comments |
 C> | -----|------------|----------|
@@ -14,15 +14,15 @@ C> 2009-04-21 | J. Ator    | use errwrt
 C> 2014-12-10 | J. Ator    | use modules instead of common blocks
 C>
 C> @author J. Woollen @date 1994-01-06
-C>
+
 C> This subroutine stores the subset template into internal
 C> subset arrays in module usrint for cases of node expansion
-C> (i.e. when the node is either a table a mnemonic or a delayed
+C> (i.e. when the node is either a Table A mnemonic or a delayed
 C> replication factor).
 C>
-C> @param lun - integer: i/o stream index into internal memory arrays.
-C> @param invn - integer: starting jump/link table index of the node to be expanded within the subset template.
-C> @param nbmp - integer: number of times by which invn is to be expanded (i.e. number of replications of node).
+C> @param LUN - integer: I/O stream index into internal memory arrays.
+C> @param INVN - integer: starting jump/link table index of the node to be expanded within the subset template.
+C> @param NBMP - integer: number of times by which INVN is to be expanded (i.e. number of replications of node).
 C>
 C> @author J. Woollen @date 1994-01-06
 

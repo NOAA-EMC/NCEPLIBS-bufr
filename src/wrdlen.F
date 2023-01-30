@@ -1,7 +1,7 @@
 C> @file
 C> @brief Determine important information about the local machine.
 C>
-C> <b>Program history log:</b>
+C> ### Program history log
 C> | Date | Programmer | Comments |
 C> | -----|------------|----------|
 C> | 1994-01-06 | J. Woollen | Original author

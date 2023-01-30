@@ -24,8 +24,10 @@ C> output operations.  LUNDX and LUNOT may be the same if it is
 C> desired to append to LUNOT with DX BUFR messages generated
 C> from its own internal tables.
 C>
-C> @param[in] lundx - integer: Unit of DX BUFR table information to be written out.
-C> @param[in] lunot - integer: Unit of BUFR file to which messages are to be written.
+C> @param[in] LUNDX - integer: Fortran logical unit number associated with
+C> DX BUFR table information to be written out.
+C> @param[in] LUNOT - integer: Fortran logical unit number of BUFR file to
+C> which messages are to be written.
 C>
 C> @author J. Ator @date 2009-03-23
 

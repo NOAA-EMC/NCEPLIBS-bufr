@@ -23,8 +23,10 @@ C>
 C> @param[in]  LUNIT - integer: Fortran logical unit number for BUFR file.
 C> @param[in]  NEMO - character*(*): Table B mnemonic with flag table units.
 C> @param[in]  VAL - real*8: Value corresponding to NEMO.
-C> @param[in]  MXIB - integer: Maximum dimension of IBIT.
-C> @param[out] IBIT - integer: Bit numbers which were set to "On" (i.e. set to "1") in VAL.
+C> @param[in]  MXIB - integer: Dimensioned size (in integers) of IBIT in the calling
+C> program; used by the subroutine to ensure that it doesn't overflow the IBIT array.
+C> @param[out] IBIT - integer: Bit numbers which were set to "On" (i.e. set to "1")
+C> in VAL.
 C> @param[out] NIB - integer: Number of bit numbers returned in IBIT.
 C>
 C> @author J. Ator @date 2005-11-29

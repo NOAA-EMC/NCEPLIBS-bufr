@@ -1,5 +1,6 @@
 C> @file
-C> @brief Unpacks a real*8 user value from a packed bufr integer.
+C> @brief Unpack a real*8 value from an integer by applying the
+C> proper scale and reference values.
 C>
 C> ### Program History Log
 C> | Date | Programmer | Comments |
@@ -11,15 +12,15 @@ C>
 C> @author J. Ator @date 2012-03-02
 
 C> This function unpacks a real*8 user value from a packed
-C> bufr integer by applying the proper scale and reference values.
+C> BUFR integer by applying the proper scale and reference values.
 C> Normally the scale and reference values are obtained from index
 C> node of the internal jump/link table arrays isc(*) and irf(*);
 C> however, the reference value in irf(*) will be overridden if a
 C> 2-03 operator is in effect for this node.
 C>
-C> @param[in] ival - integer: packed bufr integer.
-C> @param[in] node - integer: index into internal jump/link tables.
-C> @param[out] ups - real*8: user value.
+C> @param[in] IVAL - integer: packed BUFR integer.
+C> @param[in] NODE - integer: index into internal jump/link tables.
+C> @returns UPS - real*8: user value.
 C>
 C> @author J. Ator @date 2012-03-02
 
