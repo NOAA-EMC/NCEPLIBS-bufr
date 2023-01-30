@@ -1,7 +1,7 @@
 # This is the cmake build file for the python directory of the
 # NCEPLIBS-bufr project.
 #
-# Jeff Ator
+# Rahul Mahajan
 
 configure_file(setup.py.in setup.py @ONLY)
 

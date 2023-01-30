@@ -1,7 +1,7 @@
 # This is the cmake build file for the utils directory of the
 # NCEPLIBS-bufr project.
 #
-# Rahul, Jeff Ator, Ed Hartnett
+# Rahul Mahajan, Jeff Ator, Ed Hartnett
 
 # Create the debufr.c and sinv.f90 files
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/debufr.c.in ${CMAKE_CURRENT_BINARY_DIR}/debufr.c @ONLY)
