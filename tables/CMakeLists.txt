@@ -1,3 +1,9 @@
+# This is the cmake build file for the tables directory of the
+# NCEPLIBS-bufr project.
+#
+# Jeff Ator
+
+# This is the list of tables.
 list(APPEND bufr_tables
   bufrtab.CodeFlag_LOC_0_7_1
   bufrtab.CodeFlag_STD_0_13
