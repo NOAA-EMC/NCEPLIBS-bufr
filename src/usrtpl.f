@@ -1,53 +1,31 @@
 C> @file
-C> @author WOOLLEN @date 1994-01-06
-      
-C> THIS SUBROUTINE STORES THE SUBSET TEMPLATE INTO INTERNAL
-C>   SUBSET ARRAYS IN MODULE USRINT FOR CASES OF NODE EXPANSION
-C>   (I.E. WHEN THE NODE IS EITHER A TABLE A MNEMONIC OR A DELAYED
-C>   REPLICATION FACTOR).
+C> @brief Store the subset template into internal arrays.
 C>
-C> PROGRAM HISTORY LOG:
-C> 1994-01-06  J. WOOLLEN -- ORIGINAL AUTHOR
-C> 1998-07-08  J. WOOLLEN -- REPLACED CALL TO CRAY LIBRARY ROUTINE
-C>                           "ABORT" WITH CALL TO NEW INTERNAL BUFRLIB
-C>                           ROUTINE "BORT"
-C> 1999-11-18  J. WOOLLEN -- THE NUMBER OF BUFR FILES WHICH CAN BE
-C>                           OPENED AT ONE TIME INCREASED FROM 10 TO 32
-C>                           (NECESSARY IN ORDER TO PROCESS MULTIPLE
-C>                           BUFR FILES UNDER THE MPI)
-C> 2002-05-14  J. WOOLLEN -- REMOVED OLD CRAY COMPILER DIRECTIVES
-C> 2003-11-04  S. BENDER  -- ADDED REMARKS/BUFRLIB ROUTINE
-C>                           INTERDEPENDENCIES
-C> 2003-11-04  D. KEYSER  -- MAXJL (MAXIMUM NUMBER OF JUMP/LINK ENTRIES)
-C>                           INCREASED FROM 15000 TO 16000 (WAS IN
-C>                           VERIFICATION VERSION); UNIFIED/PORTABLE FOR
-C>                           WRF; ADDED DOCUMENTATION (INCLUDING
-C>                           HISTORY) (INCOMPLETE); OUTPUTS MORE
-C>                           COMPLETE DIAGNOSTIC INFO WHEN ROUTINE
-C>                           TERMINATES ABNORMALLY OR UNUSUAL THINGS
-C>                           HAPPEN; COMMENTED OUT HARDWIRE OF VTMP TO
-C>                           "BMISS" (10E10) WHEN IT IS > 10E9 (CAUSED
-C>                           PROBLEMS ON SOME FOREIGN MACHINES)
-C> 2009-03-31  J. WOOLLEN -- ADD DOCUMENTATION
-C> 2009-04-21  J. ATOR    -- USE ERRWRT
-C> 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
+C> | Date | Programmer | Comments |
+C> | -----|------------|----------|
+C> 1994-01-06 | J. Woollen | original author
+C> 1998-07-08 | J. Woollen | replaced call to cray library routine "abort" with bufrlib routine "bort"
+C> 1999-11-18 | J. Woollen | the number of bufr files which can be opened at one time increased from 10 to 32
+C> 2002-05-14 | J. Woollen | removed old cray compiler directives
+C> 2003-11-04 | S. Bender  | added remarks/bufrlib routine interdependencies
+C> 2003-11-04 | D. Keyser  | maxjl increased from 15K to 16K; unified/portable for wrf; added documentation
+C> 2009-03-31 | J. Woollen | add documentation
+C> 2009-04-21 | J. Ator    | use errwrt
+C> 2014-12-10 | J. Ator    | use modules instead of common blocks
 C>
-C> USAGE:    CALL USRTPL (LUN, INVN, NBMP)
-C>   INPUT ARGUMENT LIST:
-C>     LUN      - INTEGER: I/O STREAM INDEX INTO INTERNAL MEMORY ARRAYS
-C>     INVN     - INTEGER: STARTING JUMP/LINK TABLE INDEX OF THE NODE
-C>                TO BE EXPANDED WITHIN THE SUBSET TEMPLATE
-C>     NBMP     - INTEGER: NUMBER OF TIMES BY WHICH INVN IS TO BE
-C>                EXPANDED (I.E. NUMBER OF REPLICATIONS OF NODE)
+C> @author J. Woollen @date 1994-01-06
+
+C> This subroutine stores the subset template into internal
+C> subset arrays in module usrint for cases of node expansion
+C> (i.e. when the node is either a Table A mnemonic or a delayed
+C> replication factor).
 C>
-C> REMARKS:
-C>    THIS ROUTINE CALLS:        BORT     ERRWRT
-C>    THIS ROUTINE IS CALLED BY: DRFINI   DRSTPL   MSGUPD   OPENMB
-C>                               OPENMG   RDCMPS   TRYBUMP  UFBGET
-C>                               UFBTAB   UFBTAM   WRCMPS   WRITLC
-C>                               Normally not called by any application
-C>                               programs.
+C> @param LUN - integer: I/O stream index into internal memory arrays.
+C> @param INVN - integer: starting jump/link table index of the node to be expanded within the subset template.
+C> @param NBMP - integer: number of times by which INVN is to be expanded (i.e. number of replications of node).
 C>
+C> @author J. Woollen @date 1994-01-06
+
       SUBROUTINE USRTPL(LUN,INVN,NBMP)
 
       USE MODV_MAXJL
