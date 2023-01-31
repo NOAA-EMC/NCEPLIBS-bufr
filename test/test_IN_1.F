@@ -1,8 +1,7 @@
 C       This is a test for NCEPLIBS-bufr.
 C
-C       This tests a number of library routines and functionality
-C       involved in reading input BUFR messages, as noted in the
-C       comments and print statements below.
+C       Read test file 'testfiles/IN_1' using crbmsg() with OPENBF IO =
+C       ''SEC3'''.
 C
 C       Jeff Ator
 
