@@ -1,34 +1,31 @@
 C> @file
-C> @brief Store the subset template into internal
-C> subset arrays in module usrint for cases of node expansion.
+C> @brief Store the subset template into internal arrays.
 C>
-C> ### Program History Log
-C> Date | Programmer | Comments |
-C> -----|------------|----------|
+C> | Date | Programmer | Comments |
+C> | -----|------------|----------|
 C> 1994-01-06 | J. Woollen | original author
-C> 1998-07-08 | J. Woollen | replaced call to cray library routine "abort" with call to new internal bufrlib routine "bort"
+C> 1998-07-08 | J. Woollen | replaced call to cray library routine "abort" with bufrlib routine "bort"
 C> 1999-11-18 | J. Woollen | the number of bufr files which can be opened at one time increased from 10 to 32
 C> 2002-05-14 | J. Woollen | removed old cray compiler directives
 C> 2003-11-04 | S. Bender  | added remarks/bufrlib routine interdependencies
-C> 2003-11-04 | D. Keyser  | maxjl increased to 16000; unified/portable for wrf; documentation; outputs more info; commented out hardwire of vtmp to "bmiss" (10e10) when it is > 10e9
+C> 2003-11-04 | D. Keyser  | maxjl increased from 15K to 16K; unified/portable for wrf; added documentation
 C> 2009-03-31 | J. Woollen | add documentation
 C> 2009-04-21 | J. Ator    | use errwrt
 C> 2014-12-10 | J. Ator    | use modules instead of common blocks
 C>
-C> @author Woollen @date 1994-01-06
-      
+C> @author J. Woollen @date 1994-01-06
+
 C> This subroutine stores the subset template into internal
 C> subset arrays in module usrint for cases of node expansion
-C> (i.e. when the node is either a table a mnemonic or a delayed
+C> (i.e. when the node is either a Table A mnemonic or a delayed
 C> replication factor).
 C>
-C> @param[in] LUN - integer: i/o stream index into internal memory arrays.
-C> @param[in] INVN - integer: starting jump/link table index of the node
-C> to be expanded within the subset template.
-C> @param[in] NBMP - integer: number of times by which invn is to be
-C> expanded (i.e. number of replications of node).
+C> @param LUN - integer: I/O stream index into internal memory arrays.
+C> @param INVN - integer: starting jump/link table index of the node to be expanded within the subset template.
+C> @param NBMP - integer: number of times by which INVN is to be expanded (i.e. number of replications of node).
 C>
-C> @author Woollen @date 1994-01-06
+C> @author J. Woollen @date 1994-01-06
+
       SUBROUTINE USRTPL(LUN,INVN,NBMP)
 
       USE MODV_MAXJL

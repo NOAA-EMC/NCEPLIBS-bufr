@@ -1,29 +1,28 @@
 C> @file
-C> @brief Unpacks a real*8 user value from a packed
-C> bufr integer by applying the proper scale and reference values.
+C> @brief Unpack a real*8 value from an integer by applying the
+C> proper scale and reference values.
 C>
 C> ### Program History Log
-C> Date | Programmer | Comments |
-C> -----|------------|----------|
-C> 2012-03-02 | J. Ator    | original author; adapted from internal statement function in other subroutines
-C> 2014-12-10 | J. Ator    | use modules instead of common blocks
-C> 2022-05-06 | J. Woollen | make ival and imask 8byte integers  
+C> | Date | Programmer | Comments |
+C> | -----|------------|----------|
+C> 2012-03-02 | J. Ator    |  original author; adapted from internal statement function in other subroutines
+C> 2014-12-10 | J. Ator    |  use modules instead of common blocks
+C> 2022-05-06 | J. Woollen |  make ival and imask 8byte integers
 C>
-C> @author J Ator @date 2012-03-02
-	
+C> @author J. Ator @date 2012-03-02
+
 C> This function unpacks a real*8 user value from a packed
-C> bufr integer by applying the proper scale and reference values.
+C> BUFR integer by applying the proper scale and reference values.
 C> Normally the scale and reference values are obtained from index
 C> node of the internal jump/link table arrays isc(*) and irf(*);
 C> however, the reference value in irf(*) will be overridden if a
 C> 2-03 operator is in effect for this node.
 C>
-C> @param[in] IVAL - integer: packed bufr integer.
+C> @param[in] IVAL - integer: packed BUFR integer.
 C> @param[in] NODE - integer: index into internal jump/link tables.
+C> @returns UPS - real*8: user value.
 C>
-C> @return user value.
-C>
-C> @author J Ator @date 2012-03-02
+C> @author J. Ator @date 2012-03-02
 	REAL*8 FUNCTION UPS(IVAL,NODE)
 
 	USE MODA_TABLES

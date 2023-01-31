@@ -1,49 +1,33 @@
 C> @file
-C> @brief Return the bit-wise representation of the
-C> fxy value corresponding to, sequentially, a particular (ient'th)
-C> "child" mnemonic of a table d sequence ("parent") mnemonic.      
-C> 
+C> @brief Get the FXY value of an element in a Table D sequence.
+C>
 C> ### Program History Log
-C> Date | Programmer | Comments 
-C> -----|------------|----------
-C> 1994-01-06 | J. Woollen | original author
-C> 1995-06-28 | J. Woollen | increased the size of internal bufr table arrays in order to handle bigger files
-C> 1998-07-08 | J. Woollen | replaced call to cray library routine "abort" with "bort"
-C> 1999-11-18 | J. Woollen | the number of bufr files which can be opened at one time increased from 10 to 32
-C> 2003-11-04 | J. Ator    | added documentation
-C> 2003-11-04 | S. Bender  | added remarks/bufrlib routine interdependencies
-C> 2003-11-04 | D. Keyser  | unified/portable for wrf; documentation; outputs more info 
-C> 2014-12-10 | J. Ator    | use modules instead of common blocks
+C> | Date | Programmer | Comments |
+C> | -----|------------|----------|
+C> 1994-01-06 | J. Woollen  |  original author
+C> 1995-06-28 | J. Woollen  |  increased the size of internal bufr table arrays 
+C> 1998-07-08 | J. Woollen  |  replaced call to cray library routine "abort" with bufrlib routine "bort"
+C> 1999-11-18 | J. Woollen  |  the number of bufr files which can be opened at one time increased from 10 to 32
+C> 2003-11-04 | J. Ator     |  added documentation
+C> 2003-11-04 | S. Bender   |  added remarks/bufrlib routine interdependencies
+C> 2003-11-04 | D. Keyser   |  unified/portable for wrf; added history documentation; outputs more complete diagnostic info 
+C> 2014-12-10 | J. Ator     |  use modules instead of common blocks
 C>
-C> @author Woollen @date 1994-01-06
-      
-C> This subroutine returns the bit-wise representation of the
-C> fxy value corresponding to, sequentially, a particular (ient'th)
-C> "child" mnemonic of a table d sequence ("parent") mnemonic.
+C> @author J. Woollen @date 1994-01-06
+
+C> This subroutine returns the bit-wise representation of the FXY value corresponding to, sequentially, 
+C> a particular (IENT'th) "child" mnemonic of a Table D sequence ("parent") mnemonic.
 C>
-C> @note The interpretation of the return value iret depends upon the input
-C> value ient, as follows:
-C> <pre>
-C>    IF ( IENT = 0 ) THEN
-C>       IRET = a count of the total number of child mnemonics within
-C>              TABD(ID,LUN)
-C>    ELSE
-C>       IRET = the bit-wise representation of the FXY value
-C>              corresponding to the IENT'th child mnemonic of
-C>              TABD(ID,LUN)
-C>    END IF
-C> </pre>
+C> @param[in] ID - integer: positional index of parent mnemonic within internal BUFR Table D array tabd.
+C> @param[in] LUN - integer: I/O stream index into internal memory arrays.
+C> @param[in] IENT - integer: ordinal indicator of child mnemonic to return from within tabd(id,lun) sequence.
+C> - 0 return a count of the total number of child mnemonics within the sequence
+C> @param[out] IRET - integer: return value
+C> - bit-wise representation of FXY value corresponding to IENT'th child mnemonic, if input IENT was > 0
+C> - total number of child mnemonics, if input IENT was 0
 C>
-C> @param[in] ID - integer: positional index of parent mnemonic within
-C> internal bufr table d array tabd.
-C> @param[in] LUN - integer: i/o stream index into internal memory arrays.
-C> @param[in] IENT - integer: ordinal indicator of child mnemonic to return
-C> from within tabd(id,lun) sequence:
-C> - 0 return a count of the total number of child
-C> mnemonics within TABD(ID,LUN).
-C> @param[out] IRET - integer: return value (see remarks).
-C>
-C> @author Woollen @date 1994-01-06
+C> @author J. Woollen @date 1994-01-06
+
       SUBROUTINE UPTDD(ID,LUN,IENT,IRET)
 
       USE MODA_TABABD
