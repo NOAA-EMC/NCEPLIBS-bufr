@@ -42,28 +42,32 @@ C*----------------------------------------------------------------------
 #endif
 
 C*	Open the test file.
-
 	CALL COBFL ( filnam, filost )
 	print *, '         COBFL -> OK'
 
+C	Speecify format of date/time when reading.
 	CALL DATELEN  ( 10 )
 
+C	Connect a new system file ???
 	OPEN ( UNIT = 11, FILE = '/dev/null' )
 	CALL OPENBF  ( 11, 'SEC3', 11 )
 
 	print *, '        OPENBF -> OK'
 
+C	Specify location of master BUFR tables.
 	CALL MTINFO ( '../tables', 90, 91 )
 	print *, '        MTINFO -> OK'
 
 C*	Read the BUFR message from the BUFR file.
 
+C	Open the BUFR file ???
 	CALL CRBMG ( bfmg, MXBF, nbyt, ierr )
 	IF ( ierr .ne. 0 ) THEN
 	    print *, '         CRBMG -> FAILED!!'
 	ELSE
 	    print *, '         CRBMG -> OK'
 
+C           Read a data value from section 0 or 1. 
 	    IF ( ( IUPBS01 ( ibfmg, 'MTYP' ) .eq. 2 ) .and.
      +		 ( IUPBS01 ( ibfmg, 'MTV'  ) .eq. 14 ) .and.
      +		 ( IUPBS01 ( ibfmg, 'LENM' ) .eq. 4169 ) ) THEN
@@ -72,6 +76,7 @@ C*	Read the BUFR message from the BUFR file.
 		print *, '       IUPBS01 -> FAILED!!'
 	    ENDIF
 
+C           Read a data value from section 0 or 1. How is this different from call above ???
 	    IF ( ( IUPBS3 ( ibfmg, 'NSUB' ) .eq. 1 ) .and.
      +		 ( IUPBS3 ( ibfmg, 'ICMP' ) .eq. 0 ) )  THEN
 		print *, '        IUPBS3 -> OK'
@@ -79,6 +84,7 @@ C*	Read the BUFR message from the BUFR file.
 		print *, '        IUPBS3 -> FAILED!!'
 	    ENDIF
 
+C           Read data descriptors from section 3.
 	    CALL UPDS3 ( ibfmg, MXDS3, cds3, nds3 )
 	    IF ( ( nds3 .eq. 8 ) .and.
      +		( cds3(1) .eq. '309052' ) .and.
@@ -88,6 +94,7 @@ C*	Read the BUFR message from the BUFR file.
 		print *, '         UPDS3 -> FAILED!!'
 	    ENDIF
 
+C           Read a BUFR message from a memory array. How did it get into memory???
 	    CALL READERME ( ibfmg, 11, cmgtag, imgdt, ierme )
 	    IF ( ( ierme .eq. 0 ) .and.
      +		( cmgtag .eq. 'MSTTB001' ) ) THEN
@@ -96,6 +103,7 @@ C*	Read the BUFR message from the BUFR file.
 		print *, '      READERME -> FAILED!!'
 	    ENDIF
 
+C           Get name and units associated with Table B mnemonic.
 	    CALL NEMDEFS ( 11, 'VSIGX', celem(1), cunit(1), ierndv )
 	    CALL NEMDEFS ( 11, 'SMID', celem(2), cunit(2), iernds )
 	    IF ( ( ierndv .eq. 0 ) .and. ( iernds .eq. 0 ) .and.
@@ -124,6 +132,7 @@ C*	    Read the data subset from the BUFR message.
 	    ELSE
 		print *, '       IREADSB -> OK'
 
+C               Get the parent.
 		CALL GETTAGPR ( 11, 'PRLC', 192, tagpr, iertgp )
 		IF ( ( iertgp .eq. 0 ) .and. ( tagpr .eq. 'WSPLRAOB' ) )
      +		  THEN
@@ -132,6 +141,7 @@ C*	    Read the data subset from the BUFR message.
 		    print *, '      GETTAGPR -> FAILED!!'
 		ENDIF
 
+C               Read/write one or more data values - is this a read or a write ???
 		CALL UFBINT ( 11, r8arr, MXR8PM, MXR8LV,
      +			      nr8lv, 'CLONH A4ME HSMSL QCEVR' )
 		IF (  ( nr8lv .eq. 1 ) .and.
@@ -146,6 +156,7 @@ C*	    Read the data subset from the BUFR message.
 		    print *, '         IBFMS -> FAILED!!'
 		ENDIF
 
+C               Read/write a sequence of data values.
 		CALL UFBSEQ ( 11, r8arr, MXR8PM, MXR8LV,
      +			      nr8lv, 'TDWPRAOB' )
 		IF (  ( nr8lv .eq. 191 ) .and.
@@ -159,6 +170,7 @@ C*	    Read the data subset from the BUFR message.
 		    print *, '        UFBSEQ -> FAILED!!'
 		ENDIF
 
+C               Read some long character strings.
 		CALL READLC ( 11, smidstg, 'SMID' )
 		CALL READLC ( 11, softvstg, 'SOFTV' )
 		IF ( ( smidstg(7:9) .eq. 'UAO' ) .and.
@@ -172,6 +184,7 @@ C*	    Read the data subset from the BUFR message.
 
 	ENDIF
 
+C	Close all system files. -- What do we mean "system" file???
 	CALL CCBFL( )
 	print *, '         CCBFL -> OK'
 

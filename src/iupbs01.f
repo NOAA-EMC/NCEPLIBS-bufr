@@ -1,11 +1,20 @@
 C> @file
 C> @brief Read a data value from Section 0 or Section 1 of a BUFR
 C> message.
+C>
+C> <b>Program history log:</b>
+C> | Date | Programmer | Comments |
+C> | -----|------------|----------|
+C> | 2005-11-29 | J. Ator | Original author |
+C> | 2006-04-14 | J. Ator | Added options for 'YCEN' and 'CENT'; restructured logic |
+C> | 2022-10-04 | J. Ator | Added 8-byte wrapper |
+C>
+C> @author J. Ator @date 2005-11-29
 
 C> This function returns a specified value from within Section 0 or
 C> Section 1 of a BUFR message.
 C>
-C> <p>This function will work on any BUFR message encoded using BUFR
+C> This function will work on any BUFR message encoded using BUFR
 C> edition 2, 3, or 4.  It is similar to function iupvs01(), except
 C> that it operates on a BUFR message passed in via a memory array,
 C> whereas iupvs01() operates on the BUFR message that was read into
@@ -13,8 +22,19 @@ C> internal arrays via the most recent call to any of the other
 C> [message-reading subroutines](@ref hierarchy) for a specified
 C> Fortran logical unit.
 C>
-C> @author J. Ator
-C> @date 2005-11-29
+C> @remarks
+C> - The start of the BUFR message (i.e. the string 'BUFR') must be
+C>   aligned on the first 4 bytes of MBAY.
+C> - Values corresponding to S01MNEM = 'GSES' can only be read from
+C>   BUFR messages encoded using BUFR edition 3 or 4.
+C> - Values corresponding to S01MNEM = 'YCEN' or 'CENT' can only be
+C>   read from BUFR messages encoded using BUFR edition 2 or 3.
+C> - When reading from BUFR messages encoded using BUFR edition 2
+C>   or 3, values corresponding to S01MNEM = 'YEAR' will be
+C>   calculated internally using the values for 'YCEN' and 'CENT',
+C>   or inferred using a windowing technique
+C> - Values corresponding to S01MNEM = 'SECO' or 'MSBTI' can only
+C>   be read from BUFR messages encoded using BUFR edition 4.
 C>
 C> @param[in]  MBAY   -- integer(*): BUFR message
 C> @param[in]  S01MNEM  -- character*(*): Value to be read from
@@ -50,26 +70,7 @@ C>                      - -1 = S01MNEM was invalid for the edition of BUFR
 C>                             message in MBAY, or some other error 
 C>                             occurred
 C>
-C> @remarks
-C> - The start of the BUFR message (i.e. the string 'BUFR') must be
-C>   aligned on the first 4 bytes of MBAY.
-C> - Values corresponding to S01MNEM = 'GSES' can only be read from
-C>   BUFR messages encoded using BUFR edition 3 or 4.
-C> - Values corresponding to S01MNEM = 'YCEN' or 'CENT' can only be
-C>   read from BUFR messages encoded using BUFR edition 2 or 3.
-C> - When reading from BUFR messages encoded using BUFR edition 2
-C>   or 3, values corresponding to S01MNEM = 'YEAR' will be
-C>   calculated internally using the values for 'YCEN' and 'CENT',
-C>   or inferred using a windowing technique
-C> - Values corresponding to S01MNEM = 'SECO' or 'MSBTI' can only
-C>   be read from BUFR messages encoded using BUFR edition 4.
-C>
-C> <b>Program history log:</b>
-C> | Date | Programmer | Comments |
-C> | -----|------------|----------|
-C> | 2005-11-29 | J. Ator | Original author |
-C> | 2006-04-14 | J. Ator | Added options for 'YCEN' and 'CENT'; restructured logic |
-C> | 2022-10-04 | J. Ator | Added 8-byte wrapper |
+C> @author J. Ator @date 2005-11-29
 
 	RECURSIVE FUNCTION IUPBS01(MBAY,S01MNEM) RESULT(IRET)
 

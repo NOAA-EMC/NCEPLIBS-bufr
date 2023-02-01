@@ -1,6 +1,24 @@
 C> @file
 C> @brief Read/write an entire sequence of data values from/to
 C> a data subset.
+C>
+C> <b>Program history log:</b>
+C> | Date | Programmer | Comments |
+C> | -----|------------|----------|
+C> | 2000-09-19 | J. Woollen | Original author |
+C> | 2002-05-14 | J. Woollen | Improved generality; previously ufbseq would not recognize compressed delayed replication as a legitimate data structure |
+C> | 2003-05-19 | J. Woollen | Corrected the logic array of exit conditions for the subroutine; previously, in some cases, proper exits were missed, generating bogus error messages |
+C> | 2003-11-04 | S. Bender  | Added remarks and routine interdependencies |
+C> | 2003-11-04 | D. Keyser  | Unified/portable for WRF; added documentation; outputs more complete diagnostic info when routine terminates abnormally |
+C> | 2004-08-18 | J. Ator    | Added SAVE for IFIRST1 and IFIRST2 flags |
+C> | 2007-01-19 | J. Ator    | Replaced call to parseq with call to parstr() |
+C> | 2009-04-21 | J. Ator    | Use errwrt() |
+C> | 2014-09-10 | J. Ator    | Fix bug involving nested delayed replication where first replication of outer sequence does not contain a replication of the inner sequence |
+C> | 2014-12-10 | J. Ator    | Use modules instead of COMMON blocks |
+C> | 2020-03-06 | J. Ator    | No longer abort when reading data and number of available levels is greater than I2; instead just return first I2 levels and print a diagnostic message |
+C> | 2022-10-04 | J. Ator    | Added 8-byte wrapper |
+C>
+C> @authors J. Woollen @authors J. Ator @date 2000-09-19
 
 C> This subroutine reads or writes an entire sequence of data values
 C> from or to the BUFR data subset that is currently open within the
@@ -13,7 +31,7 @@ C> - If ABS(LUNIN) points to a file that was previously opened for
 C>   output using subroutine openbf(), then data values are written to
 C>   the current data subset.
 C>
-C> <p>This subroutine is specifically designed for use with a single
+C> This subroutine is specifically designed for use with a single
 C> Table A or Table D mnemonic.  In the latter case, the mnemonic
 C> may be replicated within the overall subset definition, and in
 C> which case the subroutine will return all data values within all
@@ -29,41 +47,7 @@ C> and ufbstp() which are also used to read/write one or more data
 C> values from/to a data subset but cannot themselves be directly
 C> used with Table A or Table D mnemonics.
 C>
-C> @authors J. Woollen
-C> @authors J. Ator
-C> @date 2000-09-19
-C>
-C> @param[in] LUNIN   -- integer: Absolute value is Fortran logical
-C>                       unit number for BUFR file
-C> @param[in,out] USR -- real*8(*,*): Data values
-C>                         - If ABS(LUNIN) was opened for input, then
-C>                           USR is output from this subroutine and
-C>                           contains data values that were read
-C>                           from the current data subset.
-C>                         - If ABS(LUNIN) was opened for output, then
-C>                           USR is input to this subroutine and
-C>                           contains data values that are to be
-C>                           written to the current data subset.
-C> @param[in] I1 -- integer: First dimension of USR as allocated
-C>                  within the calling program
-C> @param[in] I2 -- integer:
-C>                    - If ABS(LUNIN) was opened for input, then I2
-C>                      must be set equal to the second dimension
-C>                      of USR as allocated within the calling program
-C>                    - If ABS(LUNIN) was opened for output, then I2
-C>                      must be set equal to the number of replications
-C>                      of STR that are to be written to the data subset
-C> @param[out] IRET -- integer: Number of replications of STR that were
-C>                     read/written from/to the data subset
-C> @param[in] STR -- character*(*): String consisting of a single Table A
-C>                   or Table D mnemonic whose sequence definition is
-C>                   in one-to-one correspondence with the number of data
-C>                   values that will be read/written from/to the data
-C>                   subset within the first dimension of USR
-C>                   (see [DX BUFR Tables](@ref dfbftab) for further
-C>                   information about Table A and Table D mnemonics)
-C>
-C> <p>It is the user's responsibility to ensure that USR is dimensioned
+C> It is the user's responsibility to ensure that USR is dimensioned
 C> sufficiently large enough to accommodate the number of data values
 C> that are to be read from or written to the data subset.  Note also
 C> that USR is an array of real*8 values; therefore, any data that are
@@ -79,7 +63,7 @@ C> used to read/write character data directly from/to a data subset
 C> without the need to convert from/to real*8 format as an intermediate
 C> step.
 C>
-C> <p>Numeric (i.e. non-character) data values within USR are always in
+C> Numeric (i.e. non-character) data values within USR are always in
 C> the exact units specified for the corresponding mnemonic within the
 C> relevant DX or master BUFR table, without any scale or reference
 C> values applied.  Specifically, this means that, when writing
@@ -92,7 +76,7 @@ C> values returned in USR are already de-scaled and de-referenced and,
 C> thus, are already in the exact units that were defined for the
 C> corresponding mnemonics within the table.
 C>
-C> <p>"Missing" values in USR are always denoted by a unique
+C> "Missing" values in USR are always denoted by a unique
 C> placeholder value.  This placeholder value is initially set
 C> to a default value of 10E10_8, but it can be reset to
 C> any substitute value of the user's choice via a separate
@@ -124,21 +108,37 @@ C> subroutine drfini() must be made prior to calling this subroutine,
 C> in order to pre-allocate the necessary internal array space for
 C> the number of replications of the sequence.
 C>
-C> <b>Program history log:</b>
-C> | Date | Programmer | Comments |
-C> | -----|------------|----------|
-C> | 2000-09-19 | J. Woollen | Original author |
-C> | 2002-05-14 | J. Woollen | Improved generality; previously ufbseq would not recognize compressed delayed replication as a legitimate data structure |
-C> | 2003-05-19 | J. Woollen | Corrected the logic array of exit conditions for the subroutine; previously, in some cases, proper exits were missed, generating bogus error messages |
-C> | 2003-11-04 | S. Bender  | Added remarks and routine interdependencies |
-C> | 2003-11-04 | D. Keyser  | Unified/portable for WRF; added documentation; outputs more complete diagnostic info when routine terminates abnormally |
-C> | 2004-08-18 | J. Ator    | Added SAVE for IFIRST1 and IFIRST2 flags |
-C> | 2007-01-19 | J. Ator    | Replaced call to parseq with call to parstr() |
-C> | 2009-04-21 | J. Ator    | Use errwrt() |
-C> | 2014-09-10 | J. Ator    | Fix bug involving nested delayed replication where first replication of outer sequence does not contain a replication of the inner sequence |
-C> | 2014-12-10 | J. Ator    | Use modules instead of COMMON blocks |
-C> | 2020-03-06 | J. Ator    | No longer abort when reading data and number of available levels is greater than I2; instead just return first I2 levels and print a diagnostic message |
-C> | 2022-10-04 | J. Ator    | Added 8-byte wrapper |
+C> @param[in] LUNIN   -- integer: Absolute value is Fortran logical
+C>                       unit number for BUFR file
+C> @param[in,out] USR -- real*8(*,*): Data values
+C>                         - If ABS(LUNIN) was opened for input, then
+C>                           USR is output from this subroutine and
+C>                           contains data values that were read
+C>                           from the current data subset.
+C>                         - If ABS(LUNIN) was opened for output, then
+C>                           USR is input to this subroutine and
+C>                           contains data values that are to be
+C>                           written to the current data subset.
+C> @param[in] I1 -- integer: First dimension of USR as allocated
+C>                  within the calling program
+C> @param[in] I2 -- integer:
+C>                    - If ABS(LUNIN) was opened for input, then I2
+C>                      must be set equal to the second dimension
+C>                      of USR as allocated within the calling program
+C>                    - If ABS(LUNIN) was opened for output, then I2
+C>                      must be set equal to the number of replications
+C>                      of STR that are to be written to the data subset
+C> @param[out] IRET -- integer: Number of replications of STR that were
+C>                     read/written from/to the data subset
+C> @param[in] STR -- character*(*): String consisting of a single Table A
+C>                   or Table D mnemonic whose sequence definition is
+C>                   in one-to-one correspondence with the number of data
+C>                   values that will be read/written from/to the data
+C>                   subset within the first dimension of USR
+C>                   (see [DX BUFR Tables](@ref dfbftab) for further
+C>                   information about Table A and Table D mnemonics)
+C>
+C> @authors J. Woollen @authors J. Ator @date 2000-09-19
 
       RECURSIVE SUBROUTINE UFBSEQ(LUNIN,USR,I1,I2,IRET,STR)
 
