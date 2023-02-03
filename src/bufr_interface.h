@@ -63,8 +63,7 @@ extern "C" {
 
 
 /**
-   Wraps BUFRLIB exitbufr() subroutine. Closes all open file units
-   used by BUFRLIB.
+   Wraps BUFRLIB exitbufr() subroutine.
 
    @author Ronald Mclaren @date 2020-07-29
 */
@@ -72,7 +71,7 @@ extern "C" {
 
 
 /**
-   Wraps BUFRLIB ireadmg() subroutine.
+   Wraps BUFRLIB ireadmg() function.
 
    @param bufr_unit - the fortran file unit number to read from.
    @param subset - the subset string.
@@ -103,7 +102,7 @@ extern "C" {
 
 
 /**
-   Wraps BUFRLIB ufbint() function.
+   Wraps BUFRLIB ufbint() subroutine.
 
    @param bufr_unit - the fortran file unit number to read from.
    @param c_data - pointer to a pointer to a pre-allocated buffer.
@@ -119,7 +118,7 @@ extern "C" {
 
 
 /**
-   Wraps BUFRLIB ufbrep() function.
+   Wraps BUFRLIB ufbrep() subroutine.
 
    @param bufr_unit - the fortran file unit number to read from.
    @param c_data - pointer to a pointer to a pre-allocated buffer.
@@ -135,7 +134,7 @@ extern "C" {
 
 
 /**
-   Wraps BUFRLIB mtinfo() function.
+   Wraps BUFRLIB mtinfo() subroutine.
 
    @param path - the path where the WMO tables are stored.
    @param file_unit_1 - number to use for first file unit.
@@ -148,7 +147,7 @@ extern "C" {
 
   // Table Data
 /**
-   Wraps BUFRLIB status() function.
+   Wraps BUFRLIB status() subroutine.
 
    @param file_unit - the fortran file unit number to read from.
    @param lun - pointer for the file stream.
@@ -161,8 +160,7 @@ extern "C" {
 
 
 /**
-   Gets Table B Unit and Description strings for a mnemonic. Wraps
-   BUFRLIB nemdefs().
+   Wraps BUFRLIB nemdefs() subroutine.
 
    @param file_unit - Fortran file unit for the open file.
    @param mnemonic - mnemonic.
@@ -184,8 +182,7 @@ extern "C" {
 
 
 /**
-   Gets Table B scale, reference, and bits values. Wraps BUFRLIB
-   nemspecs().
+   Wraps BUFRLIB nemspecs() subroutine.
 
    @param file_unit - Fortran file unit for the open file.
    @param mnemonic: - mnemonic.
@@ -207,9 +204,7 @@ extern "C" {
 
 
 /**
-   This subroutine returns information about a descriptor from the
-   internal DX BUFR tables, based on the mnemonic associated with that
-   descriptor.
+   Wraps BUFRLIB nemtab() subroutine.
    
    @param bufr_unit - the bufr file pointer.
    @param mnemonic - mnemonic.
@@ -227,7 +222,7 @@ extern "C" {
 
 
 /**  
-     Get information about a Table B descriptor.
+     Wraps BUFRLIB nemtbb() subroutine.
      
      @param bufr_unit - the bufr file pointer.
      @param table_idx - Table B index.

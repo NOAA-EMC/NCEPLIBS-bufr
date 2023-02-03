@@ -2,7 +2,7 @@ C> @file
 C> @brief Encode a character string within an integer array.
 
 C> This subroutine encodes a character string within a specified
-C> number of bits of an integer array, starting at the bit
+C> number of bytes of an integer array, starting at the bit
 C> immediately after a specified bit within the array.
 C>
 C> @author J. Woollen

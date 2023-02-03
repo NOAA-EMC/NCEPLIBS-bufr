@@ -46,8 +46,8 @@
  * 2023-01-18 | J. Ator | Remove MSTABS_BASE macro.
 */
 
-void stseq( f77int *lun, f77int *irepct, f77int *idn, char nemo[8],
-	    char cseq[55], f77int cdesc[], f77int *ncdesc )
+void stseq( f77int *lun, f77int *irepct, f77int *idn, char *nemo,
+	    char *cseq, f77int cdesc[], f77int *ncdesc )
 {
     f77int i, j, nb, nd, ipt, ix, iy, iret, nbits;
     f77int i0 = 0, imxcd, rpidn, pkint, ilen;
