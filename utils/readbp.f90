@@ -1,3 +1,17 @@
+!> @file
+!> @brief Read PREPBUFR file containing embedded DX BUFR tables,
+!> and print each report one at a time.
+!>
+!> @author J. Woollen @date 1994-01-06
+
+!> Read PREPBUFR file containing embedded DX BUFR tables,
+!> and print each report one at a time. Options are listed 
+!> by running "readbp" without argumets.
+!>
+!> @return 0 for success, error code otherwise.
+!>
+!> @author J. Woollen @date 1994-01-06
+
 !-----------------------------------------------------------------------
 ! READ AND DISPLAY AN ON29BUFR FILE ONE REPORT AT A TIME
 !-----------------------------------------------------------------------

@@ -18,8 +18,9 @@ C> 2016-11-09 | J. Ator    | Added iret argument and check for possibly corrupt 
 C>
 C> @author Woollen @date 1994-01-06
       
-C> This subroutine stores the subset template into internal
-C> subset arrays in modules usrint and usrbit. This is in
+C> This subroutine initializes space in internal subset array      
+C> space (inv and val) in modules usrint and usrbit, according
+C> to the subset definition from subroutine maksetab. This is in
 C> preparation for the actual unpacking of the subset in rdtree().
 C>
 C> @param[in] LUN - integer: i/o stream index into internal memory arrays.
