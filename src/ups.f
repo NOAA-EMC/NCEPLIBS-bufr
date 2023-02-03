@@ -22,8 +22,10 @@ C> @param[in] IVAL - integer: packed BUFR integer.
 C> @param[in] NODE - integer: index into internal jump/link tables.
 C> @returns UPS - real*8: user value.
 C>
+C> @remarks
+C> - This function is the logical inverse of function ipks().
+C>
 C> @author J. Ator @date 2012-03-02
-
 	REAL*8 FUNCTION UPS(IVAL,NODE)
 
 	USE MODA_TABLES

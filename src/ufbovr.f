@@ -1,67 +1,45 @@
 C> @file
-C> @author WOOLLEN @date 1994-01-06
+C> @brief Overwrite one or more data values within a data subset.
+C>
+C> ### Program History Log
+C> Date | Programmer | Comments |
+C> -----|------------|----------|
+C> 1994-01-06 | J. Woollen | original author
+C> 1998-07-08 | J. Woollen | replaced call to cray library routine "abort" with call to new internal bufrlib routine "bort"
+C> 1999-11-18 | J. Woollen | the number of bufr files which can be opened at one time increased from 10 to 32
+C> 2002-05-14 | J. Woollen | removed old cray compiler directives
+C> 2003-11-04 | S. Bender  | added remarks/bufrlib routine interdependencies
+C> 2003-11-04 | D. Keyser  | maxjl increased to 16000; unified/portable for wrf; documentation; outputs more 
+C> 2004-08-18 | J. Ator    | added save for ifirst1 and ifirst2 flags
+C> 2009-04-21 | J. Ator    | use errwrt
+C> 2014-12-10 | J. Ator    | use modules instead of common blocks
+C> 2015-09-24 | D. Stokes  | fix missing declaration of common /quiet/
+C> 2022-10-04 | J. Ator    | added 8-byte wrapper
+C>
+C> @author Woollen @date 1994-01-06
       
-C> THIS SUBROUTINE WRITES OVER SPECIFIED VALUES WHICH EXIST
-C>   IN CURRENT INTERNAL BUFR SUBSET ARRAYS IN A FILE OPEN FOR OUTPUT.
-C>   THE DATA VALUES CORRESPOND TO MNEMONICS WHICH ARE PART OF A
-C>   DELAYED-REPLICATION SEQUENCE, OR FOR WHICH THERE IS NO REPLICATION
-C>   AT ALL.  EITHER BUFR ARCHIVE LIBRARY SUBROUTINE OPENMG OR OPENMB
-C>   MUST HAVE BEEN PREVIOUSLY CALLED TO OPEN AND INITIALIZE A BUFR
-C>   MESSAGE WITHIN MEMORY FOR THIS LUNIT.  IN ADDITION, BUFR ARCHIVE
-C>   LIBRARY SUBROUTINE WRITSB OR INVMRG MUST HAVE BEEN CALLED TO STORE
-C>   DATA IN THE INTERNAL OUTPUT SUBSET ARRAYS.
+C> This subroutine writes over specified values which exist
+C> in current internal BUFR subset arrays in a file open for output.
+C> The data values correspond to mnemonics which are part of a
+C> delayed-replication sequence, or for which there is no replication
+C> at all. Either BUFR archive library subroutine openmg() or openmb()
+C> must have been previously called to open and initialize a BUFR
+C> message within memory for this lunit. In addition, BUFR archive
+C> library subroutine writsb() or invmrg() must have been called to
+C> store data in the internal output subset arrays.
 C>
-C> PROGRAM HISTORY LOG:
-C> 1994-01-06  J. WOOLLEN -- ORIGINAL AUTHOR
-C> 1998-07-08  J. WOOLLEN -- REPLACED CALL TO CRAY LIBRARY ROUTINE
-C>                           "ABORT" WITH CALL TO NEW INTERNAL BUFRLIB
-C>                           ROUTINE "BORT"
-C> 1999-11-18  J. WOOLLEN -- THE NUMBER OF BUFR FILES WHICH CAN BE
-C>                           OPENED AT ONE TIME INCREASED FROM 10 TO 32
-C>                           (NECESSARY IN ORDER TO PROCESS MULTIPLE
-C>                           BUFR FILES UNDER THE MPI)
-C> 2002-05-14  J. WOOLLEN -- REMOVED OLD CRAY COMPILER DIRECTIVES
-C> 2003-11-04  S. BENDER  -- ADDED REMARKS/BUFRLIB ROUTINE
-C>                           INTERDEPENDENCIES
-C> 2003-11-04  D. KEYSER  -- MAXJL (MAXIMUM NUMBER OF JUMP/LINK ENTRIES)
-C>                           INCREASED FROM 15000 TO 16000 (WAS IN
-C>                           VERIFICATION VERSION); UNIFIED/PORTABLE FOR
-C>                           WRF; ADDED DOCUMENTATION (INCLUDING
-C>                           HISTORY); OUTPUTS MORE COMPLETE DIAGNOSTIC
-C>                           INFO WHEN ROUTINE TERMINATES ABNORMALLY OR
-C>                           UNUSUAL THINGS HAPPEN; CHANGED CALL FROM
-C>                           BORT TO BORT2 IN SOME CASES
-C> 2004-08-18  J. ATOR    -- ADDED SAVE FOR IFIRST1 AND IFIRST2 FLAGS
-C> 2009-04-21  J. ATOR    -- USE ERRWRT
-C> 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
-C> 2015-09-24  D. STOKES  -- FIX MISSING DECLARATION OF COMMON /QUIET/
-C> 2022-10-04  J. ATOR    -- ADDED 8-BYTE WRAPPER
+C> @param[in] LUNIT - integer: Fortran logical unit number for BUFR file.
+C> @param[in] USR - real*8(*,*): data values
+C> @param[in] I1 - integer: First dimension of USR as allocated within
+C> the calling program.
+C> @param[in] I2 - integer: Number of replications of STR that are to
+C> be written into the data subset.
+C> @param[out] IRET - integer: Number of replications of STR that were
+C> written into the data subset.
+C> @param[in] STR - character*(*): string of blank-separated Table B
+C> mnemonics in one-to-one correspondence with first dimension of USR.
 C>
-C> USAGE:    CALL UFBOVR (LUNIT, USR, I1, I2, IRET, STR)
-C>   INPUT ARGUMENT LIST:
-C>     LUNIT    - INTEGER: FORTRAN LOGICAL UNIT NUMBER FOR BUFR FILE
-C>     USR      - REAL*8: (I1,I2) STARTING ADDRESS OF DATA VALUES
-C>                WRITTEN TO DATA SUBSET
-C>     I1       - INTEGER: LENGTH OF FIRST DIMENSION OF USR (MUST BE AT
-C>                LEAST AS LARGE AS THE NUMBER OF BLANK-SEPARATED
-C>                MNEMONICS IN STR)
-C>     I2       - INTEGER: NUMBER OF "LEVELS" OF DATA VALUES TO BE
-C>                WRITTEN TO DATA SUBSET
-C>     STR      - CHARACTER*(*): STRING OF BLANK-SEPARATED TABLE B
-C>                MNEMONICS IN ONE-TO-ONE CORRESPONDENCE WITH FIRST
-C>                DIMENSION OF USR
-C>
-C>   OUTPUT ARGUMENT LIST:
-C>     IRET     - INTEGER: NUMBER OF "LEVELS" OF DATA VALUES WRITTEN TO
-C>                DATA SUBSET (SHOULD BE SAME AS I2)
-C>
-C> REMARKS:
-C>    THIS ROUTINE CALLS:        BORT     BORT2    ERRWRT   STATUS
-C>                               STRING   TRYBUMP
-C>    THIS ROUTINE IS CALLED BY: None
-C>                               Normally called only by application
-C>                               programs.
-C>
+C> @author Woollen @date 1994-01-06
       RECURSIVE SUBROUTINE UFBOVR(LUNIT,USR,I1,I2,IRET,STR)
 
       USE MODV_IM8B

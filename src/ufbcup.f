@@ -1,43 +1,27 @@
 C> @file
-C> @author WOOLLEN @date 1994-01-06
+C> @brief Copy unique elements of a data subset.
+C>
+C> ### Program History Log
+C> Date | Programmer | Comments 
+C> -----|------------|----------
+C> 1994-01-06 | J. Woollen | original author
+C> 1998-07-08 | J. Woollen | replaced call to cray library routine "abort" with call to new internal bufrlib routine "bort"
+C> 1999-11-18 | J. Woollen | the number of bufr files which can be opened at one time increased from 10 to 32
+C> 2003-11-04 | S. Bender  | added remarks/bufrlib routine interdependencies
+C> 2003-11-04 | D. Keyser  | maxjl increased to 16000; unified/portable for wrf; documentation; outputs more diagnostic
+C> 2014-12-10 | J. Ator    | use modules instead of common blocks
+C> 2022-10-14 | J. Ator    | added 8-byte wrapper
+C>
+C> @author Woollen @date 1994-01-06
       
-C> THIS SUBROUTINE MAKES ONE COPY OF EACH UNIQUE ELEMENT IN AN
-C>   INPUT SUBSET BUFFER INTO THE IDENTICAL MNEMONIC SLOT IN THE OUTPUT
-C>   SUBSET BUFFER.
+C> This subroutine makes one copy of each unique element in an
+C> input subset buffer into the identical mnemonic slot in the output
+C> subset buffer.
 C>
-C> PROGRAM HISTORY LOG:
-C> 1994-01-06  J. WOOLLEN -- ORIGINAL AUTHOR
-C> 1998-07-08  J. WOOLLEN -- REPLACED CALL TO CRAY LIBRARY ROUTINE
-C>                           "ABORT" WITH CALL TO NEW INTERNAL BUFRLIB
-C>                           ROUTINE "BORT"
-C> 1999-11-18  J. WOOLLEN -- THE NUMBER OF BUFR FILES WHICH CAN BE
-C>                           OPENED AT ONE TIME INCREASED FROM 10 TO 32
-C>                           (NECESSARY IN ORDER TO PROCESS MULTIPLE
-C>                           BUFR FILES UNDER THE MPI)
-C> 2003-11-04  S. BENDER  -- ADDED REMARKS/BUFRLIB ROUTINE
-C>                           INTERDEPENDENCIES
-C> 2003-11-04  D. KEYSER  -- MAXJL (MAXIMUM NUMBER OF JUMP/LINK ENTRIES)
-C>                           INCREASED FROM 15000 TO 16000 (WAS IN
-C>                           VERIFICATION VERSION); UNIFIED/PORTABLE FOR
-C>                           WRF; ADDED DOCUMENTATION (INCLUDING
-C>                           HISTORY); OUTPUTS MORE COMPLETE DIAGNOSTIC
-C>                           INFO WHEN ROUTINE TERMINATES ABNORMALLY
-C> 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
-C> 2022-10-14  J. ATOR    -- ADDED 8-BYTE WRAPPER
+C> @param[in] LUBIN - integer: fortran logical unit number for input BUFR file.
+C> @param[in] LUBOT - integer: fortran logical unit number for output BUFR file.
 C>
-C> USAGE:    CALL UFBCUP (LUBIN, LUBOT)
-C>   INPUT ARGUMENT LIST:
-C>     LUBIN    - INTEGER: FORTRAN LOGICAL UNIT NUMBER FOR INPUT BUFR 
-C>                FILE
-C>     LUBOT    - INTEGER: FORTRAN LOGICAL UNIT NUMBER FOR OUTPUT BUFR 
-C>                FILE
-C>
-C> REMARKS:
-C>    THIS ROUTINE CALLS:        BORT     STATUS
-C>    THIS ROUTINE IS CALLED BY: None
-C>                               Normally called only by application
-C>                               programs.
-C>
+C> @author Woollen @date 1994-01-06
       RECURSIVE SUBROUTINE UFBCUP(LUBIN,LUBOT)
 
       USE MODV_IM8B
