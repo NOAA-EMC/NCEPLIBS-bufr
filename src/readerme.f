@@ -1,58 +1,5 @@
 C> @file
 C> @brief Read a BUFR message from a memory array.
-
-C> This subroutine is similar to subroutine readmg(), except that it
-C> reads a BUFR message from an array already in memory, whereas
-C> readmg() reads a BUFR message from a file on the local system.
-C>
-C> @authors J. Woollen
-C> @authors J. Ator
-C> @date 1995-06-28
-C>
-C> @param[in] MESG    -- integer(*): BUFR message
-C> @param[in] LUNIT   -- integer: Fortran logical unit number for
-C>                       BUFR file
-C> @param[out] SUBSET  -- character*8: Table A mnemonic for type of BUFR
-C>                        message that was read
-C>                        (see [DX BUFR Tables](@ref dfbftab)
-C>                        for further information about Table A mnemonics)
-C> @param[out] JDATE   -- integer: Date-time stored within Section 1 of
-C>                        BUFR message that was read, in format of either
-C>                        YYMMDDHH or YYYYMMDDHH, depending on the most
-C>                        recent call to subroutine datelen()
-C> @param[out] IRET    -- integer: return code
-C>                           - 0 = MESG was successfully read
-C>                           - 11 = MESG contained a DX BUFR table message
-C>                           - -1 = MESG contained an unrecognized
-C>                                  Table A message type
-C>
-C> <p>This subroutine looks and behaves a lot like subroutine readmg() 
-C> except that here we have one additional input argument MESG which
-C> contains the BUFR message to be read by the BUFRLIB software.
-C> As such, this subroutine can be used in any context in which readmg()
-C> might otherwise be used, and from that point on, the application
-C> program can proceed with a call to one of the
-C> [subset-reading subroutines](@ref hierarchy) (and then,
-C> subsequently, to any of the
-C> [values-reading subroutines](@ref hierarchy)), just
-C> like if readmg() had been called instead.
-C>
-C> <p>When using this subroutine, it's still necessary for the
-C> application program to have previously called subroutine openbf() in
-C> order to associate a DX BUFR tables file with the messages that are
-C> being input via MESG, and it's still also necessary to pass in the
-C> relevant LUNIT value as a call argument, even though in this case
-C> the subroutine will not actually try to read from the associated
-C> Fortran logical unit.
-C>
-C> <p>If MESG contains a DX BUFR table message, the subroutine will
-C> store the contents internally and use them to process any
-C> future BUFR messages associated with LUNIT.  In this case, the
-C> subroutine will return with IRET = 11, and any number of
-C> DX BUFR table messages passed in via consecutive calls to this
-C> subroutine will accumulate internally and be treated as a single DX
-C> BUFR table, up until a call is made where MESG no longer contains a
-C> DX BUFR table message.
 C>
 C> <b>Program history log:</b>
 C> | Date | Programmer | Comments |
@@ -71,6 +18,56 @@ C> | 2009-03-23 | J. Ator    | Add logic to allow Section 3 decoding; add logic 
 C> | 2012-06-07 | J. Ator    | Don't respond to DX table messages if Section 3 decoding is being used |
 C> | 2014-12-10 | J. Ator    | Use modules instead of COMMON blocks |
 C> | 2022-08-04 | J. Woollen | Added 8-byte wrapper |
+C>
+C> @authors J. Woollen J. Ator @date 1995-06-28
+
+C> This subroutine is similar to subroutine readmg(), except that it
+C> reads a BUFR message from an array passed as input, whereas
+C> readmg() reads a BUFR message from a file on the local system.
+C>
+C> This subroutine can be used in any context in which readmg()
+C> might otherwise be used, and from that point on, the application
+C> program can proceed with a call to one of the
+C> [subset-reading subroutines](@ref hierarchy) (and then,
+C> subsequently, to any of the
+C> [values-reading subroutines](@ref hierarchy)), just
+C> like if readmg() had been called instead.
+C>
+C> When using this subroutine, it's still necessary for the
+C> application program to have previously called subroutine openbf() in
+C> order to associate a DX BUFR tables file with the message that is
+C> being input via MESG, and it's still also necessary to pass in the
+C> relevant LUNIT value as a call argument, even though in this case
+C> the subroutine will not actually try to read from the associated
+C> Fortran logical unit.
+C>
+C> If MESG contains a DX BUFR table message, the subroutine will
+C> store the contents internally and use them to process any
+C> future BUFR messages associated with LUNIT.  In this case, the
+C> subroutine will return with IRET = 11, and any number of
+C> DX BUFR table messages passed in via consecutive calls to this
+C> subroutine will accumulate internally and be treated as a single DX
+C> BUFR table, up until a call is made where MESG no longer contains a
+C> DX BUFR table message.
+C>
+C> @param[in] MESG    -- integer(*): BUFR message
+C> @param[in] LUNIT   -- integer: Fortran logical unit number for
+C>                       BUFR file
+C> @param[out] SUBSET  -- character*8: Table A mnemonic for type of BUFR
+C>                        message that was read
+C>                        (see [DX BUFR Tables](@ref dfbftab)
+C>                        for further information about Table A mnemonics)
+C> @param[out] JDATE   -- integer: Date-time stored within Section 1 of
+C>                        BUFR message that was read, in format of either
+C>                        YYMMDDHH or YYYYMMDDHH, depending on the most
+C>                        recent call to subroutine datelen()
+C> @param[out] IRET    -- integer: return code
+C>                           - 0 = MESG was successfully read
+C>                           - 11 = MESG contained a DX BUFR table message
+C>                           - -1 = MESG contained an unrecognized
+C>                                  Table A message type
+C>
+C> @authors J. Woollen J. Ator @date 1995-06-28
 
       RECURSIVE SUBROUTINE READERME(MESG,LUNIT,SUBSET,JDATE,IRET)
 

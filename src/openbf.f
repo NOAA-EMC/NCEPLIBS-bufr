@@ -1,14 +1,88 @@
 C> @file
 C> @brief Connect a new system file to the BUFRLIB software for
 C> reading or writing BUFR messages.
+C>
+C> <b>Program history log:</b>
+C> | Date | Programmer | Comments |
+C> | -----|------------|----------|
+C> | 1994-01-06 | J. Woollen | Original author |
+C> | 1998-07-08 | J. Woollen | Replaced call to Cray library routine ABORT with call to new internal routine bort() |
+C> | 1999-11-18 | J. Woollen | The number of BUFR files which can be opened at one time increased from 10 to 32 |
+C> | 2003-11-04 | J. Ator    | Added IO='NUL' option to prevent later writing to BUFR file in LUNIT; added documentation |
+C> | 2003-11-04 | S. Bender  | Added remarks and routine interdependencies |
+C> | 2003-11-04 | D. Keyser  | Unified/portable for WRF; added documentation; outputs more complete diagnostic info when routine terminates abnormally |
+C> | 2004-08-18 | J. Ator    | Added SAVE for IFIRST flag and IO="NODX" option |
+C> | 2005-11-29 | J. Ator    | Added COMMON /MSGFMT/ and ichkstr() call |
+C> | 2009-03-23 | J. Ator    | Added IO='SEC3' option; removed call to posapn; clarified comments; use errwrt() |
+C> | 2010-05-11 | J. Ator    | Added COMMON /STCODE/ |
+C> | 2012-06-18 | J. Ator    | Added IO='INUL' option |
+C> | 2012-09-15 | J. Woollen | Modified for C/I/O/BUFR interface; use INQUIRE to obtain filename; use openrb(), openwb() and openab(); add IO types 'INX' and 'FIRST' |
+C> | 2014-11-07 | J. Ator    | Allow dynamic allocation of certain arrays |
+C> | 2015-03-03 | J. Ator    | Use MODA_IFOPBF instead of IFIRST |
+C> | 2022-08-04 | J. Woollen | Added 8-byte wrapper |
+C>
+C> @authors J. Woollen, J. Ator,  D. Keyser @date 1994-01-06
 
 C> This subroutine connects a new file to the BUFRLIB software for
 C> input or output operations.
 C>
-C> @authors J. Woollen
-C> @authors J. Ator
-C> @authors D. Keyser
-C> @date 1994-01-06
+C> The logical unit numbers LUNIT and LUNDX must already be associated
+C> with actual filenames on the local system, typically via a Fortran "OPEN"
+C> statement. Multiple logical units can be connected to the BUFRLIB software
+C> at any one time.
+C>
+C> The argument IO is a character string describing how the file connected to
+C> LUNIT will be used, e.g. 'IN' is used to access an existing file of BUFR
+C> messages for input (i.e. reading/decoding BUFR), and 'OUT' is used to access
+C> a new file for output (i.e. writing/encoding BUFR). An option 'APX' is also
+C> available which behaves like 'OUT', except that output is then appended to
+C> an existing BUFR file rather than creating a new one from scratch, and there
+C> are also some additional options 'NUL' and 'NODX' which can likewise be used
+C> instead of 'OUT' for some very special cases as needed. There's also an
+C> option 'SEC3' which can be used in place of 'IN' for certain cases when the
+C> user is attempting to read BUFR messages whose content and descriptor layout
+C> are unknown in advance. However, all of these additional options are
+C> basically just variations of 'IN' or 'OUT', again depending on whether the
+C> intent is to read or write BUFR messages from the file connected to LUNIT.
+C> The only exceptions are when IO = 'FIRST' or 'QUIET'.  When IO = 'FIRST',
+C> the subroutine simply checks whether it has already been called from within
+C> the application program and, if not, goes ahead and initializes the library
+C> without actually connecting any files in LUNIT or LUNDX.
+C>
+C> Alternatively, when IO = 'QUIET', the subroutine simply sets or resets the
+C> internal print verbosity switch to the value of input argument LUNDX,
+C> overriding its previous value and/or its internal default value of 0.
+C>
+C> The third and final call argument LUNDX identifies the logical unit which
+C> contains the definition of the DX BUFR tables to be associated with unit
+C> LUNIT.  Except when IO = 'SEC3', every BUFR file that is linked to the BUFRLIB
+C> software must have a DX BUFR tables file associated with it, and these tables
+C> may be defined within a separate ASCII text file
+C> (see [Description and Format of DX BUFR Tables](@ref dfbftab) for more info.)
+C> or, in the case of an existing BUFR file, may be embedded within the first few
+C> BUFR messages of the file itself, and in which case the user can denote this
+C> to the subroutine by setting LUNDX to the same value as LUBFR.
+C>
+C> @remarks
+C> - When an existing BUFR file is accessed for input (i.e. reading/decoding BUFR),
+C> the associated DX BUFR tables defined by LUNDX are stored internally within
+C> the BUFRLIB software and are referenced during all subsequent processing of
+C> the file. Likewise, when a file is accessed for output (i.e. writing/encoding
+C> BUFR), the associated DX BUFR tables are still stored internally for subsequent
+C> reference; however, the output file itself is also initialized by writing the
+C> BUFR table information (as one or more BUFR messages) to the beginning of the
+C> file, except when IO = 'NODX', and in which case the writing of these
+C> additional messages is suppressed.
+C> - As noted above, 'SEC3' is the only value of IO (other than 'QUIET') where it's
+C> not necessary to provide pre-defined DX BUFR tables via LUNDX.  Instead, this
+C> option instructs the BUFRLIB software to unpack the data description section
+C> (Section 3) from each BUFR message it reads and then decode the contents
+C> accordingly. In this case, it's necessary to provide a set of BUFR master
+C> tables containing listings of all possible BUFR descriptors
+C> (see [Description and Format of master BUFR Tables](@ref dfbfmstab) for more
+C> info.), but otherwise no prior knowledge is required of the contents of the
+C> messages to be decoded.
+C>
 C>
 C> @param[in] LUNIT   -- integer: Fortran logical unit number for BUFR
 C>                       file (unless IO is set to 'FIRST' or 'QUIET', in
@@ -61,80 +135,7 @@ C>                      -  1 = all warning messages are printed out
 C>                      -  2 = all warning and informational messages are
 C>                             printed out
 C>
-C> <p>The logical unit numbers LUNIT and LUNDX must already be associated
-C> with actual filenames on the local system, typically via a Fortran "OPEN"
-C> statement. Multiple logical units can be connected to the BUFRLIB software
-C> at any one time.
-C>
-C> <p>The argument IO is a character string describing how the file connected to
-C> LUNIT will be used, e.g. 'IN' is used to access an existing file of BUFR
-C> messages for input (i.e. reading/decoding BUFR), and 'OUT' is used to access
-C> a new file for output (i.e. writing/encoding BUFR). An option 'APX' is also
-C> available which behaves like 'OUT', except that output is then appended to
-C> an existing BUFR file rather than creating a new one from scratch, and there
-C> are also some additional options 'NUL' and 'NODX' which can likewise be used
-C> instead of 'OUT' for some very special cases as needed. There's also an
-C> option 'SEC3' which can be used in place of 'IN' for certain cases when the
-C> user is attempting to read BUFR messages whose content and descriptor layout
-C> are unknown in advance. However, all of these additional options are
-C> basically just variations of 'IN' or 'OUT', again depending on whether the
-C> intent is to read or write BUFR messages from the file connected to LUNIT.
-C> The only exceptions are when IO = 'FIRST' or 'QUIET'.  When IO = 'FIRST',
-C> the subroutine simply checks whether it has already been called from within
-C> the application program and, if not, goes ahead and initializes the library
-C> without actually connecting any files in LUNIT or LUNDX.
-C> Alternatively, when IO = 'QUIET', the subroutine simply sets or resets the
-C> internal print verbosity switch to the value of input argument LUNDX,
-C> overriding its previous value and/or its internal default value of 0.
-C>
-C> <p>The third and final call argument LUNDX identifies the logical unit which
-C> contains the definition of the DX BUFR tables to be associated with unit
-C> LUNIT.  Except when IO = 'SEC3', every BUFR file that is linked to the BUFRLIB
-C> software must have a DX BUFR tables file associated with it, and these tables
-C> may be defined within a separate ASCII text file
-C> (see [Description and Format of DX BUFR Tables](@ref dfbftab) for more info.)
-C> or, in the case of an existing BUFR file, may be embedded within the first few
-C> BUFR messages of the file itself, and in which case the user can denote this
-C> to the subroutine by setting LUNDX to the same value as LUBFR.
-C>
-C> @remarks
-C> - When an existing BUFR file is accessed for input (i.e. reading/decoding BUFR),
-C> the associated DX BUFR tables defined by LUNDX are stored internally within
-C> the BUFRLIB software and are referenced during all subsequent processing of
-C> the file. Likewise, when a file is accessed for output (i.e. writing/encoding
-C> BUFR), the associated DX BUFR tables are still stored internally for subsequent
-C> reference; however, the output file itself is also initialized by writing the
-C> BUFR table information (as one or more BUFR messages) to the beginning of the
-C> file, except when IO = 'NODX', and in which case the writing of these
-C> additional messages is suppressed.
-C> - As noted above, 'SEC3' is the only value of IO (other than 'QUIET') where it's
-C> not necessary to provide pre-defined DX BUFR tables via LUNDX.  Instead, this
-C> option instructs the BUFRLIB software to unpack the data description section
-C> (Section 3) from each BUFR message it reads and then decode the contents
-C> accordingly. In this case, it's necessary to provide a set of BUFR master
-C> tables containing listings of all possible BUFR descriptors
-C> (see [Description and Format of master BUFR Tables](@ref dfbfmstab) for more
-C> info.), but otherwise no prior knowledge is required of the contents of the
-C> messages to be decoded.
-C>
-C> <b>Program history log:</b>
-C> | Date | Programmer | Comments |
-C> | -----|------------|----------|
-C> | 1994-01-06 | J. Woollen | Original author |
-C> | 1998-07-08 | J. Woollen | Replaced call to Cray library routine ABORT with call to new internal routine bort() |
-C> | 1999-11-18 | J. Woollen | The number of BUFR files which can be opened at one time increased from 10 to 32 |
-C> | 2003-11-04 | J. Ator    | Added IO='NUL' option to prevent later writing to BUFR file in LUNIT; added documentation |
-C> | 2003-11-04 | S. Bender  | Added remarks and routine interdependencies |
-C> | 2003-11-04 | D. Keyser  | Unified/portable for WRF; added documentation; outputs more complete diagnostic info when routine terminates abnormally |
-C> | 2004-08-18 | J. Ator    | Added SAVE for IFIRST flag and IO="NODX" option |
-C> | 2005-11-29 | J. Ator    | Added COMMON /MSGFMT/ and ichkstr() call |
-C> | 2009-03-23 | J. Ator    | Added IO='SEC3' option; removed call to posapn; clarified comments; use errwrt() |
-C> | 2010-05-11 | J. Ator    | Added COMMON /STCODE/ |
-C> | 2012-06-18 | J. Ator    | Added IO='INUL' option |
-C> | 2012-09-15 | J. Woollen | Modified for C/I/O/BUFR interface; use INQUIRE to obtain filename; use openrb(), openwb() and openab(); add IO types 'INX' and 'FIRST' |
-C> | 2014-11-07 | J. Ator    | Allow dynamic allocation of certain arrays |
-C> | 2015-03-03 | J. Ator    | Use MODA_IFOPBF instead of IFIRST |
-C> | 2022-08-04 | J. Woollen | Added 8-byte wrapper |
+C> @authors J. Woollen, J. Ator,  D. Keyser @date 1994-01-06
 
       RECURSIVE SUBROUTINE OPENBF(LUNIT,IO,LUNDX)
 

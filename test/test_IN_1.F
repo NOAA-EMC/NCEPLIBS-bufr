@@ -1,8 +1,7 @@
 C       This is a test for NCEPLIBS-bufr.
 C
-C       This tests a number of library routines and functionality
-C       involved in reading input BUFR messages, as noted in the
-C       comments and print statements below.
+C       Reads test file 'testfiles/IN_1' using CRBMG with
+C       OPENBF IO = 'SEC3'.
 C
 C       Jeff Ator
 
@@ -43,28 +42,29 @@ C*----------------------------------------------------------------------
 #endif
 
 C*	Open the test file.
-
 	CALL COBFL ( filnam, filost )
 	print *, '         COBFL -> OK'
 
+C	Specify format of Section 1 date/time when reading.
 	CALL DATELEN  ( 10 )
 
+C       Specify the use of Section 3 decoding.
 	OPEN ( UNIT = 11, FILE = '/dev/null' )
 	CALL OPENBF  ( 11, 'SEC3', 11 )
-
 	print *, '        OPENBF -> OK'
 
+C	Specify location of master BUFR tables.
 	CALL MTINFO ( '../tables', 90, 91 )
 	print *, '        MTINFO -> OK'
 
-C*	Read the BUFR message from the BUFR file.
-
+C	Read a BUFR message from the test file into a memory array.
 	CALL CRBMG ( bfmg, MXBF, nbyt, ierr )
 	IF ( ierr .ne. 0 ) THEN
 	    print *, '         CRBMG -> FAILED!!'
 	ELSE
 	    print *, '         CRBMG -> OK'
 
+C           Read and check some values from Section 1.
 	    IF ( ( IUPBS01 ( ibfmg, 'MTYP' ) .eq. 2 ) .and.
      +		 ( IUPBS01 ( ibfmg, 'MTV'  ) .eq. 14 ) .and.
      +		 ( IUPBS01 ( ibfmg, 'LENM' ) .eq. 4169 ) ) THEN
@@ -73,6 +73,7 @@ C*	Read the BUFR message from the BUFR file.
 		print *, '       IUPBS01 -> FAILED!!'
 	    ENDIF
 
+C           Read and check some values from Section 3.
 	    IF ( ( IUPBS3 ( ibfmg, 'NSUB' ) .eq. 1 ) .and.
      +		 ( IUPBS3 ( ibfmg, 'ICMP' ) .eq. 0 ) )  THEN
 		print *, '        IUPBS3 -> OK'
@@ -80,6 +81,7 @@ C*	Read the BUFR message from the BUFR file.
 		print *, '        IUPBS3 -> FAILED!!'
 	    ENDIF
 
+C           Read and check some data descriptors from Section 3.
 	    CALL UPDS3 ( ibfmg, MXDS3, cds3, nds3 )
 	    IF ( ( nds3 .eq. 8 ) .and.
      +		( cds3(1) .eq. '309052' ) .and.
@@ -89,6 +91,7 @@ C*	Read the BUFR message from the BUFR file.
 		print *, '         UPDS3 -> FAILED!!'
 	    ENDIF
 
+C           Pass the BUFR message from the memory array into the library.
 	    CALL READERME ( ibfmg, 11, cmgtag, imgdt, ierme )
 	    IF ( ( ierme .eq. 0 ) .and.
      +		( cmgtag .eq. 'MSTTB001' ) ) THEN
@@ -97,6 +100,8 @@ C*	Read the BUFR message from the BUFR file.
 		print *, '      READERME -> FAILED!!'
 	    ENDIF
 
+C           Get and check the element names and units associated with
+C           some Table B mnemonics.
 	    CALL NEMDEFS ( 11, 'VSIGX', celem(1), cunit(1), ierndv )
 	    CALL NEMDEFS ( 11, 'SMID', celem(2), cunit(2), iernds )
 	    IF ( ( ierndv .eq. 0 ) .and. ( iernds .eq. 0 ) .and.
@@ -106,25 +111,25 @@ C*	Read the BUFR message from the BUFR file.
      +		   'Ship or mobile land station identifier ' ) .and.
      +		( cunit(1)(1:12) .eq. 'FLAG TABLE  ' ) .and.
      +		( cunit(2)(1:10) .eq. 'CCITT IA5 ' ) )  THEN
-
 		print *, '       NEMDEFS -> OK'
 	    ELSE
 		print *, '       NEMDEFS -> FAILED!!'
 	    ENDIF
 
+C           Read and check the Section 1 date-time.
 	    IF ( imgdt .eq. 2012093012 ) THEN
 		print *, '       DATELEN -> OK'
 	    ELSE
 		print *, '       DATELEN -> FAILED!!'
 	    ENDIF
 
-C*	    Read the data subset from the BUFR message.
-
+C*	    Read a data subset from the BUFR message.
 	    IF ( IREADSB (11) .ne. 0 ) THEN
 		print *, '       IREADSB -> FAILED!!'
 	    ELSE
 		print *, '       IREADSB -> OK'
 
+C               Get and check the parent of a Table B mnemonic.
 		CALL GETTAGPR ( 11, 'PRLC', 192, tagpr, iertgp )
 		IF ( ( iertgp .eq. 0 ) .and. ( tagpr .eq. 'WSPLRAOB' ) )
      +		  THEN
@@ -133,6 +138,7 @@ C*	    Read the data subset from the BUFR message.
 		    print *, '      GETTAGPR -> FAILED!!'
 		ENDIF
 
+C               Read and check some data values.
 		CALL UFBINT ( 11, r8arr, MXR8PM, MXR8LV,
      +			      nr8lv, 'CLONH A4ME HSMSL QCEVR' )
 		IF (  ( nr8lv .eq. 1 ) .and.
@@ -147,6 +153,7 @@ C*	    Read the data subset from the BUFR message.
 		    print *, '         IBFMS -> FAILED!!'
 		ENDIF
 
+C               Read and check a sequence of data values.
 		CALL UFBSEQ ( 11, r8arr, MXR8PM, MXR8LV,
      +			      nr8lv, 'TDWPRAOB' )
 		IF (  ( nr8lv .eq. 191 ) .and.
@@ -160,6 +167,7 @@ C*	    Read the data subset from the BUFR message.
 		    print *, '        UFBSEQ -> FAILED!!'
 		ENDIF
 
+C               Read and check some long character strings.
 		CALL READLC ( 11, smidstg, 'SMID' )
 		CALL READLC ( 11, softvstg, 'SOFTV' )
 		IF ( ( smidstg(7:9) .eq. 'UAO' ) .and.
@@ -173,6 +181,7 @@ C*	    Read the data subset from the BUFR message.
 
 	ENDIF
 
+C	Close the test file.
 	CALL CCBFL( )
 	print *, '         CCBFL -> OK'
 

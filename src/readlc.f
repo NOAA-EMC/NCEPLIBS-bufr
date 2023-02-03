@@ -1,25 +1,30 @@
 C> @file
 C> @brief Read a long character string (greater than 8 bytes) from
 C> a data subset.
+C>
+C> <b>Program history log:</b>
+C> | Date | Programmer | Comments |
+C> | -----|------------|----------|
+C> | 2003-11-04 | J. Woollen | Original author |
+C> | 2004-08-09 | J. Ator | Maximum message length increased from 20,000 to 50,000 bytes |
+C> | 2007-01-19 | J. Ator | Replaced call to parseq with call to parstr() |
+C> | 2009-03-23 | J. Ator | Added capability for compressed messages; added check for overflow of chr; added '#' option for more than one occurrence of STR |
+C> | 2009-04-21 | J. Ator | Use errwrt() |
+C> | 2012-12-07 | J. Ator | Allow str mnemonic length of up to 14 chars when used with '#' occurrence code |
+C> | 2014-12-10 | J. Ator | Use modules instead of COMMON blocks |
+C> | 2020-09-09 | J. Ator | Set CHR to "missing" instead of all blanks if STR isn't found in subset |
+C> | 2022-08-04 | J. Woollen | Added 8-byte wrapper |
+C>
+C> @authors J. Woollen J. Ator @date 2003-11-04
 
 C> This subroutine reads a long character string (greater than 8 bytes)
 C> from a data subset.
 C>
-C> <p>The data subset should have already been read into internal arrays
+C> The data subset should have already been read into internal arrays
 C> via a previous call to one of the
 C> [subset-reading subroutines](@ref hierarchy).
 C>
-C> @authors J. Woollen
-C> @authors J. Ator
-C> @date 2003-11-04
-C>
-C> @param[in] LUNIT -- integer: Fortran logical unit number for BUFR file
-C> @param[out] CHR  -- character*(*): Value corresponding to STR
-C> @param[in] STR   -- character*(*): Table B mnemonic of long character
-C>                     string to be retrieved, possibly supplemented
-C>                     with an ordinal occurrence notation
-C>
-C> <p>If there is more than one occurrence of STR within the data subset
+C> If there is more than one occurrence of STR within the data subset
 C> definition, then each occurrence can be retrieved via a separate call
 C> to this subroutine, and by appending the ordinal number of the
 C> occurrence to STR in each case.  For example, if there are 5
@@ -43,18 +48,13 @@ C> for "missing" data.  Any CHR value returned by this subroutine can be
 C> checked for equivalence to this "missing" value via a call to
 C> function icbfms().
 C>
-C> <b>Program history log:</b>
-C> | Date | Programmer | Comments |
-C> | -----|------------|----------|
-C> | 2003-11-04 | J. Woollen | Original author |
-C> | 2004-08-09 | J. Ator | Maximum message length increased from 20,000 to 50,000 bytes |
-C> | 2007-01-19 | J. Ator | Replaced call to parseq with call to parstr() |
-C> | 2009-03-23 | J. Ator | Added capability for compressed messages; added check for overflow of chr; added '#' option for more than one occurrence of STR |
-C> | 2009-04-21 | J. Ator | Use errwrt() |
-C> | 2012-12-07 | J. Ator | Allow str mnemonic length of up to 14 chars when used with '#' occurrence code |
-C> | 2014-12-10 | J. Ator | Use modules instead of COMMON blocks |
-C> | 2020-09-09 | J. Ator | Set CHR to "missing" instead of all blanks if STR isn't found in subset |
-C> | 2022-08-04 | J. Woollen | Added 8-byte wrapper |
+C> @param[in] LUNIT -- integer: Fortran logical unit number for BUFR file
+C> @param[out] CHR  -- character*(*): Value corresponding to STR
+C> @param[in] STR   -- character*(*): Table B mnemonic of long character
+C>                     string to be retrieved, possibly supplemented
+C>                     with an ordinal occurrence notation
+C>
+C> @authors J. Woollen J. Ator @date 2003-11-04
 
       RECURSIVE SUBROUTINE READLC(LUNIT,CHR,STR)
 
