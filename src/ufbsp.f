@@ -10,7 +10,7 @@ C> 2003-11-04 | D. Keyser  | maxjl increased to 16000; unified/portable for wrf;
 C> 2009-03-31 | J. Woollen | add documentation
 C> 2014-12-10 | J. Ator    | use modules instead of common blocks
 C> 
-C> @author Woollen @date 1999-11-18
+C> @author J. Woollen @date 1999-11-18
       
 C> This subroutine writes or reads specified values to or
 C> from the current BUFR data subset within internal arrays, with the
@@ -41,7 +41,7 @@ C> - 1 output file
 C> @param[out] IRET - integer: number of "levels" of data values read
 C> from or written to data subset
 C>
-C> @author Woollen @date 1999-11-18
+C> @author J. Woollen @date 1999-11-18
       SUBROUTINE UFBSP(LUN,USR,I1,I2,IO,IRET)
 
       USE MODA_USRINT

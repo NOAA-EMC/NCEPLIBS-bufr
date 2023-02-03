@@ -17,7 +17,7 @@ C> 2009-03-31 | J. Woollen | add documentation.
 C> 2009-04-21 | J. Ator    | use errwrt; use lstjpb instead of lstrps
 C> 2014-12-10 | J. Ator    | use modules instead of common blocks
 C>
-C> @author Woollen @date 1994-01-06
+C> @author J. Woollen @date 1994-01-06
       
 C> This subroutine writes or reads specified values to or from
 C> the current BUFR data subset within internal arrays, with the
@@ -43,7 +43,7 @@ C> from or written to data subset
 C> - -1 none of the mnemonics in the string passed to ufbint() were found
 C> in the data subset template
 C>
-C> @author Woollen @date 1994-01-06
+C> @author J. Woollen @date 1994-01-06
       SUBROUTINE UFBRW(LUN,USR,I1,I2,IO,IRET)
 
       USE MODV_BMISS

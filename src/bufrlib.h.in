@@ -115,18 +115,7 @@ typedef double f77r8;
 **   2) a FORTRAN subprogram called from C
 */
 
-/**
- * Prototype for arallocc() subroutine.
- *
- * @author J.Ator @date 2014-12-04
- */
 void arallocc( void );
-
-/**
- * Prototype for ardllocc() subroutine.
- *
- * @author J.Ator @date 2014-12-04
- */
 void ardllocc( void );
 
 /**
@@ -176,14 +165,6 @@ void cadn30( f77int *idn, char *adn, size_t s1 );
  */
 void closbf( f77int *lunit );
 
-/**
- * Prototype for cmpia() function.
- *
- * @param pf1 - first integer to be compared.
- * @param pf2 - second integer to be compared.
- *
- * @author J.Ator @date 2009-03-23
- */
 int cmpia( const void *pf1, const void *pf2 );
 
 /**
@@ -251,17 +232,6 @@ f77int ibfms( f77r8 *r8val );
  */
 f77int ichkstr ( char *str, char *chr, f77int *n, size_t s1, size_t s2 );
 
-/**
- * Prototype for icvidx() function.
- *
- * @param ii - row index.
- * @param jj - column index.
- * @param numjj - maximum number of column indices.
- *
- * @return 1-dimensional index.
- *
- * @author J.Ator @date 2009-03-23
- */
 f77int icvidx ( f77int *ii, f77int *jj, f77int *numjj );
 
 /**
@@ -447,15 +417,6 @@ void nemtab( f77int *lun, char *nemo, f77int *idn, char *tab, f77int *iret, size
  */
 void nemtbb( f77int *lun, f77int *itab, char *unit, f77int *iscl, f77int *iref, f77int *ibit, size_t s1 );
 
-/**
- * Prototype for nummtb() subroutine.
- *
- * @param idn - bit-wise representation of FXY value to search for.
- * @param tab - table in which idn was found.
- * @param ipt - index of entry for idn in master table tab.
- *
- * @author J.Ator @date 2009-03-23
- */
 void nummtb( f77int *idn, char *tab, f77int *ipt );
 
 /**
