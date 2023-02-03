@@ -453,16 +453,6 @@ void openmb( f77int *lunit, char *subset, f77int *jdate, size_t s1 );
  */
 void pktdd( f77int *id, f77int *lun, f77int *idn, f77int *iret );
 
-/**
- * Prototype for restd() subroutine.
- *
- * @param lun - I/O stream index into internal arrays.
- * @param tddesc - Bit-wise representation of FXY value for local Table D descriptor.
- * @param nctddesc - Number of descriptors returned in ctddesc.
- * @param ctddesc - Array of WMO-standard child descriptors equivalent to tddesc.
- *
- * @author J.Ator @date 2004-08-18
- */
 void restd( f77int *lunb, f77int *tddesc, f77int *nctddesc, f77int *ctddesc );
 
 /**
@@ -549,15 +539,6 @@ void ufbseq( f77int *lunit, f77r8 *usr, f77int *i1, f77int *i2, f77int *iret, ch
  */
 void uptdd( f77int *id, f77int *lun, f77int *ient, f77int *iret );
 
-/**
- * Prototype for wrdesc() subroutine.
- *
- * @param desc - Bit-wise representation of descriptor to be stored in descary.
- * @param descary - Array of descriptors.
- * @param ndescary - Number of descriptors written so far into descary.
- *
- * @author J.Ator @date 2004-08-18
- */
 void wrdesc( f77int desc, f77int *descary, f77int *ndescary );
 
 /**
