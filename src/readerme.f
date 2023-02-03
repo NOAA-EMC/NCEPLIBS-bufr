@@ -22,13 +22,10 @@ C>
 C> @authors J. Woollen J. Ator @date 1995-06-28
 
 C> This subroutine is similar to subroutine readmg(), except that it
-C> reads a BUFR message from an array already in memory, whereas
+C> reads a BUFR message from an array passed as input, whereas
 C> readmg() reads a BUFR message from a file on the local system.
 C>
-C> This subroutine looks and behaves a lot like subroutine readmg() 
-C> except that here we have one additional input argument MESG which
-C> contains the BUFR message to be read by the BUFRLIB software.
-C> As such, this subroutine can be used in any context in which readmg()
+C> This subroutine can be used in any context in which readmg()
 C> might otherwise be used, and from that point on, the application
 C> program can proceed with a call to one of the
 C> [subset-reading subroutines](@ref hierarchy) (and then,
@@ -38,7 +35,7 @@ C> like if readmg() had been called instead.
 C>
 C> When using this subroutine, it's still necessary for the
 C> application program to have previously called subroutine openbf() in
-C> order to associate a DX BUFR tables file with the messages that are
+C> order to associate a DX BUFR tables file with the message that is
 C> being input via MESG, and it's still also necessary to pass in the
 C> relevant LUNIT value as a call argument, even though in this case
 C> the subroutine will not actually try to read from the associated
