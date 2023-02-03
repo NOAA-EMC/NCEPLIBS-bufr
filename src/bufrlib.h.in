@@ -128,11 +128,6 @@ void ardllocc( void );
  */
 void bort( char *str, size_t s1 );
 
-/**
- * Prototype for bort_exit() subroutine.
- *
- * @author J.Ator @date 2003-11-04
- */
 void bort_exit( void );
 
 /**
