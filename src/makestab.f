@@ -1,76 +1,41 @@
 C> @file
-C> @author WOOLLEN @date 1994-01-06
-      
-C> THIS SUBROUTINE CONSTRUCTS AN INTERNAL JUMP/LINK TABLE
-C>  WITHIN MODULE TABLES, USING THE INFORMATION WITHIN THE
-C>  INTERNAL BUFR TABLE ARRAYS (WITHIN MODULE TABABD) FOR ALL OF
-C>  THE LUN (I.E., I/O STREAM INDEX) VALUES THAT ARE CURRENTLY DEFINED TO
-C>  THE BUFR ARCHIVE LIBRARY SOFTWARE.  NOTE THAT THE ENTIRE JUMP/LINK
-C>  TABLE WILL ALWAYS BE COMPLETELY RECONSTRUCTED FROM SCRATCH, EVEN IF
-C>  SOME OF THE INFORMATION WITHIN THE INTERNAL BUFR TABLE ARRAYS
-C>  ALREADY EXISTED THERE AT THE TIME OF THE PREVIOUS CALL TO THIS
-C>  SUBROUTINE, BECAUSE THERE MAY HAVE BEEN OTHER EVENTS THAT HAVE TAKEN
-C>  PLACE SINCE THE PREVIOUS CALL TO THIS SUBROUTINE THAT HAVE NOT YET
-C>  BEEN REFLECTED WITHIN THE INTERNAL JUMP/LINK TABLE, SUCH AS, E.G.
-C>  THE UNLINKING OF AN LUN VALUE FROM THE BUFR ARCHIVE LIBRARY SOFTWARE
-C>  VIA A CALL TO BUFR ARCHIVE LIBRARY SUBROUTINE CLOSBF.
+C> @brief Build the internal jump/link table.
 C>
-C> PROGRAM HISTORY LOG:
-C> 1994-01-06  J. WOOLLEN -- ORIGINAL AUTHOR
-C> 1995-06-28  J. WOOLLEN -- INCREASED THE SIZE OF INTERNAL BUFR TABLE
-C>                           ARRAYS IN ORDER TO HANDLE BIGGER FILES
-C> 1998-07-08  J. WOOLLEN -- REPLACED CALL TO CRAY LIBRARY ROUTINE
-C>                           "ABORT" WITH CALL TO NEW INTERNAL BUFRLIB
-C>                           ROUTINE "BORT"
-C> 1999-11-18  J. WOOLLEN -- THE NUMBER OF BUFR FILES WHICH CAN BE
-C>                           OPENED AT ONE TIME INCREASED FROM 10 TO 32
-C>                           (NECESSARY IN ORDER TO PROCESS MULTIPLE
-C>                           BUFR FILES UNDER THE MPI)
-C> 2003-11-04  J. ATOR    -- ADDED DOCUMENTATION
-C> 2003-11-04  S. BENDER  -- ADDED REMARKS/BUFRLIB ROUTINE
-C>                           INTERDEPENDENCIES
-C> 2003-11-04  D. KEYSER  -- MAXJL (MAXIMUM NUMBER OF JUMP/LINK ENTRIES)
-C>                           INCREASED FROM 15000 TO 16000 (WAS IN
-C>                           VERIFICATION VERSION); UNIFIED/PORTABLE FOR
-C>                           WRF; ADDED HISTORY DOCUMENTATION; OUTPUTS
-C>                           MORE COMPLETE DIAGNOSTIC INFO WHEN ROUTINE
-C>                           TERMINATES ABNORMALLY; NOW ALLOWS FOR THE
-C>                           POSSIBILITY THAT A CONNECTED FILE MAY NOT
-C>                           CONTAIN ANY DICTIONARY TABLE INFO (E.G.,
-C>                           AN EMPTY FILE), SUBSEQUENT CONNECTED FILES
-C>                           WHICH ARE NOT EMPTY WILL NO LONGER GET
-C>                           TRIPPED UP BY THIS (THIS AVOIDS THE NEED
-C>                           FOR AN APPLICATION PROGRAM TO DISCONNECT
-C>                           ANY EMPTY FILES VIA A CALL TO CLOSBF)
-C> 2009-03-18  J. WOOLLEN -- ADDED LOGIC TO RESPOND TO THE CASES WHERE  
-C>                           AN INPUT FILE'S TABLES CHANGE IN MIDSTREAM.
-C>                           THE NEW LOGIC MOSTLY ADDRESSES CASES WHERE
-C>                           OTHER FILES ARE CONNECTED TO THE TABLES OF
-C>                           THE FILE WHOSE TABLES HAVE CHANGED.
-C> 2009-06-25  J. ATOR    -- TWEAK WOOLLEN LOGIC TO HANDLE SPECIAL CASE
-C>                           WHERE TABLE WAS RE-READ FOR A PARTICULAR
-C>                           LOGICAL UNIT BUT IS STILL THE SAME ACTUAL
-C>                           TABLE AS BEFORE AND IS STILL SHARING THAT
-C>                           TABLE WITH A DIFFERENT LOGICAL UNIT
-C> 2009-11-17  J. ATOR    -- ADDED CHECK TO PREVENT WRITING OUT OF TABLE
-C>                           INFORMATION WHEN A TABLE HAS BEEN RE-READ
-C>                           WITHIN A SHARED LOGICAL UNIT BUT HASN'T
-C>                           REALLY CHANGED
-C> 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
-C> 2017-04-03  J. ATOR    -- INCLUDE MODULE BITMAPS AND INITIALIZATION
-C>                           OF NTAMC
+C> ### Program history log
+C> | Date | Programmer | Comments |
+C> | -----|------------|----------|
+C> | 1994-01-06 | J. Woollen | Original author |
+C> | 1995-06-28 | J. Woollen | Increase the size of internal arrays to handle bigger files |
+C> | 1998-07-08 | J. Woollen | Replaced call to Cray library routine ABORT with call to new internal routine bort() |
+C> | 1999-11-18 | J. Woollen | The number of BUFR files which can be opened at one time increased from 10 to 32 |
+C> | 2003-11-04 | J. Ator    | added documentation |
+C> | 2003-11-04 | S. Bender  | added remarks and routine interdependencies |
+C> | 2003-11-04 | D. Keyser  | MAXJL increased from 15000 to 16000; added documentation; allow for LUN to not contain any DX BUFR tables information |
+C> | 2009-03-18 | J. Woollen | add logic to respond to cases where DX BUFR tables for an LUN change in midstream |
+C> | 2009-06-25 | J. Ator    | tweak logic to handle special case where new DX BUFR tables were read for an LUN but haven't actually changed |
+C> | 2009-11-17 | J. Ator    | prevent writing of table information when new DX BUFR tables were read for an LUN but haven't actually changed |
+C> | 2014-12-10 | J. Ator    | use modules instead of COMMON blocks |
+C> | 2017-04-03 | J. Ator    | include module bitmaps and initialization of ntamc |
 C>
-C> USAGE:    CALL MAKESTAB
+C> @author J. Woollen @date 1994-01-06
+
+C> This subroutine constructs the internal jump/link table within
+C> module tables, using all of the internal BUFR table array information
+C> from module tababd for all of the internal I/O streams that are
+C> currently defined to the library in module stbfr.
 C>
-C> REMARKS:
-C>    THIS ROUTINE CALLS:        BORT     CHEKSTAB CLOSMG   CPBFDX
-C>                               ERRWRT   ICMPDX   ISHRDX   STRCLN
-C>                               TABSUB   WRDXTB
-C>    THIS ROUTINE IS CALLED BY: RDBFDX   RDMEMM   RDUSDX   READDX
-C>                               READERME READS3
-C>                               Normally not called by any application
-C>                               programs.
+C> The entire jump/link table will always be completely reconstructed
+C> from scratch, even if some of the information within the internal
+C> BUFR table arrays already existed there at the time of the previous
+C> call to this subroutine, because there may have been other events
+C> that have taken place since the previous call to this subroutine and
+C> which haven't yet been reflected within the internal jump/link table.
+C> For example, an I/O stream may have recently been unlinked from the
+C> library via an internal call to subroutine closbf(), or the DX BUFR
+C> tables associated with an I/O stream may have changed.
 C>
+C> @author J. Woollen @date 1994-01-06
+
       SUBROUTINE MAKESTAB
 
       USE MODV_BMISS

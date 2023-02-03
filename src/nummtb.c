@@ -17,12 +17,11 @@
 /**
  * This routine searches for an entry corresponding to IDN in the bufr
  * master table (either 'B' or 'D', depending on the value of IDN).
- *
  * The search uses binary search logic, so all of the entries in the
- * table must be sorted in ascending order (by fxy number) in order
+ * table must be sorted in ascending order (by FXY number) in order
  * for this routine to work properly.
  *
- * @param idn - bit-wise representation of fxy value to be searched for.
+ * @param idn - bit-wise representation of FXY number to be searched for.
  * @param tab - table in which idn was found ('B' or 'D').
  * @param ipt - index of entry for idn in master table tab.
  *

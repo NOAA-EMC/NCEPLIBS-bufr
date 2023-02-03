@@ -1,81 +1,49 @@
 C> @file
-C> @author WOOLLEN @date 1994-01-06
+C> @brief Read/write one or more data values from/to a data subset.
+C>
+C> ### Program History Log
+C> Date | Programmer | Comments |
+C> -----|------------|----------|
+C> 1994-01-06 | J. Woollen | original author
+C> 1996-12-11 | J. Woollen | removed a hard abort for users who try to write non-existing mnemonics
+C> 1998-07-08 | J. Woollen | improved machine portability
+C> 1998-10-27 | J. Woollen | modified to correct problems caused by in- lining code with fpp directives
+C> 1999-11-18 | J. Woollen | the number of bufr files which can be opened at one time increased from 10 to 32
+C> 2002-05-14 | J. Woollen | removed old cray compiler directives
+C> 2003-11-04 | S. Bender  | added remarks/bufrlib routine interdependencies
+C> 2003-11-04 | D. Keyser  | maxjl increased to 16000; unified/portable for wrf; documentation
+C> 2007-01-19 | J. Ator    | use function ibfms
+C> 2009-03-31 | J. Woollen | add documentation.
+C> 2009-04-21 | J. Ator    | use errwrt; use lstjpb instead of lstrps
+C> 2014-12-10 | J. Ator    | use modules instead of common blocks
+C>
+C> @author J. Woollen @date 1994-01-06
       
-C> THIS SUBROUTINE WRITES OR READS SPECIFIED VALUES TO OR FROM
-C>   THE CURRENT BUFR DATA SUBSET WITHIN INTERNAL ARRAYS, WITH THE
-C>   DIRECTION OF THE DATA TRANSFER DETERMINED BY THE CONTEXT OF IO
-C>   (I.E., IF IO INDICATES LUN POINTS TO A BUFR FILE THAT IS OPEN FOR
-C>   INPUT, THEN DATA VALUES ARE READ FROM THE INTERNAL DATA SUBSET;
-C>   OTHERWISE, DATA VALUES ARE WRITTEN TO THE INTERNAL DATA SUBSET).
-C>   THE DATA VALUES CORRESPOND TO INTERNAL ARRAYS REPRESENTING PARSED
-C>   STRINGS OF MNEMONICS WHICH ARE PART OF A DELAYED-REPLICATION
-C>   SEQUENCE, OR FOR WHICH THERE IS NO REPLICATION AT ALL.
+C> This subroutine writes or reads specified values to or from
+C> the current BUFR data subset within internal arrays, with the
+C> direction of the data transfer determined by the context of IO.
+C> The data values correspond to internal arrays representing parsed
+C> strings of mnemonics which are part of a delayed-replication
+C> sequence, or for which there is no replication at all.
 C>
-C>   THIS SUBROUTINE SHOULD NEVER BE CALLED BY ANY APPLICATION PROGRAM;
-C>   INSTEAD, APPLICATION PROGRAMS SHOULD ALWAYS CALL BUFR ARCHIVE
-C>   LIBRARY SUBROUTINE UFBINT.
+C> This subroutine should never be directly called by an application
+C> program; instead, an application program should directly call ufbint()
+C> which will internally call this subroutine.
 C>
-C> PROGRAM HISTORY LOG:
-C> 1994-01-06  J. WOOLLEN -- ORIGINAL AUTHOR
-C> 1996-12-11  J. WOOLLEN -- REMOVED A HARD ABORT FOR USERS WHO TRY TO
-C>                           WRITE NON-EXISTING MNEMONICS
-C> 1998-07-08  J. WOOLLEN -- IMPROVED MACHINE PORTABILITY
-C> 1998-10-27  J. WOOLLEN -- MODIFIED TO CORRECT PROBLEMS CAUSED BY IN-
-C>                           LINING CODE WITH FPP DIRECTIVES
-C> 1999-11-18  J. WOOLLEN -- THE NUMBER OF BUFR FILES WHICH CAN BE
-C>                           OPENED AT ONE TIME INCREASED FROM 10 TO 32
-C>                           (NECESSARY IN ORDER TO PROCESS MULTIPLE
-C>                           BUFR FILES UNDER THE MPI)
-C> 2002-05-14  J. WOOLLEN -- REMOVED OLD CRAY COMPILER DIRECTIVES
-C> 2003-11-04  S. BENDER  -- ADDED REMARKS/BUFRLIB ROUTINE
-C>                           INTERDEPENDENCIES
-C> 2003-11-04  D. KEYSER  -- MAXJL (MAXIMUM NUMBER OF JUMP/LINK ENTRIES)
-C>                           INCREASED FROM 15000 TO 16000 (WAS IN
-C>                           VERIFICATION VERSION); UNIFIED/PORTABLE FOR
-C>                           WRF; ADDED DOCUMENTATION (INCLUDING
-C>                           HISTORY)
-C> 2007-01-19  J. ATOR    -- USE FUNCTION IBFMS
-C> 2009-03-31  J. WOOLLEN -- ADD DOCUMENTATION
-C> 2009-04-21  J. ATOR    -- USE ERRWRT; USE LSTJPB INSTEAD OF LSTRPS
-C> 2014-12-10  J. ATOR    -- USE MODULES INSTEAD OF COMMON BLOCKS
+C> @param[in] LUN - integer: I/O stream index into internal memory arrays.
+C> @param[inout] USR - real*8(*,*): Data values
+C> @param[in] I1 - integer: length of first dimension of USR.
+C> @param[in] I2 - integer: length of second dimension of USR.
+C> @param[in] IO - integer: status indicator for BUFR file associated
+C> with LUN:
+C> - 0 input file
+C> - 1 output file
+C> @param[out] IRET - integer: number of "levels" of data values read
+C> from or written to data subset
+C> - -1 none of the mnemonics in the string passed to ufbint() were found
+C> in the data subset template
 C>
-C> USAGE:    CALL UFBRW (LUN, USR, I1, I2, IO, IRET)
-C>   INPUT ARGUMENT LIST:
-C>     LUN      - INTEGER: I/O STREAM INDEX INTO INTERNAL MEMORY ARRAYS
-C>     USR      - ONLY IF BUFR FILE OPEN FOR OUTPUT:
-C>                   REAL*8: (I1,I2) STARTING ADDRESS OF DATA VALUES
-C>                   WRITTEN TO DATA SUBSET
-C>     I1       - INTEGER: LENGTH OF FIRST DIMENSION OF USR
-C>     I2       - INTEGER: LENGTH OF SECOND DIMENSION OF USR
-C>     IO       - INTEGER: STATUS INDICATOR FOR BUFR FILE ASSOCIATED
-C>                WITH LUN:
-C>                       0 = input file
-C>                       1 = output file
-C>
-C>   OUTPUT ARGUMENT LIST:
-C>     USR      - ONLY IF BUFR FILE OPEN FOR INPUT:
-C>                   REAL*8: (I1,I2) STARTING ADDRESS OF DATA VALUES
-C>                   READ FROM DATA SUBSET
-C>     IRET     - INTEGER:
-C>                  - IF BUFR FILE OPEN FOR INPUT: NUMBER OF "LEVELS" OF
-C>                    DATA VALUES READ FROM DATA SUBSET (MUST BE NO
-C>                    LARGER THAN I2)
-C>                      -1 = NONE OF THE MNEMONICS IN THE STRING PASSED
-C>                           TO UFBINT WERE FOUND IN THE SUBSET TEMPLATE
-C>                  - IF BUFR FILE OPEN FOR OUTPUT: NUMBER OF "LEVELS"
-C>                    OF DATA VALUES WRITTEN TO DATA SUBSET (SHOULD BE
-C>                    SAME AS I2)
-C>                      -1 = NONE OF THE MNEMONICS IN THE STRING PASSED
-C>                           TO UFBINT WERE FOUND IN THE SUBSET TEMPLATE
-C>
-C> REMARKS:
-C>    THIS ROUTINE CALLS:        CONWIN   DRSTPL   ERRWRT   GETWIN
-C>                               IBFMS    INVWIN   LSTJPB   NEWWIN
-C>                               NXTWIN
-C>    THIS ROUTINE IS CALLED BY: TRYBUMP  UFBINT
-C>                               Normally not called by any application
-C>                               programs (they should call UFBINT).
-C>
+C> @author J. Woollen @date 1994-01-06
       SUBROUTINE UFBRW(LUN,USR,I1,I2,IO,IRET)
 
       USE MODV_BMISS

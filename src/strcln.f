@@ -1,30 +1,21 @@
 C> @file
-C> @author WOOLLEN @date 1994-01-06
-      
-C> THIS SUBROUTINE RESETS THE MNEMONIC STRING CACHE IN THE
-C>   BUFR INTERFACE (ARRAYS IN COMMON BLOCK /STCACH/).  THE MNEMONIC
-C>   STRING CACHE IS A PERFORMANCE ENHANCING DEVICE WHICH SAVES TIME
-C>   WHEN THE SAME MNEMONIC STRINGS ARE ENCOUNTERED IN A PROGRAM, OVER
-C>   AND OVER AGAIN (THE TYPICAL SCENARIO).
+C> @brief Reset the string cache.
 C>
-C> PROGRAM HISTORY LOG:
-C> 1994-01-06  J. WOOLLEN -- ORIGINAL AUTHOR
-C> 1998-04-02  J. WOOLLEN -- MODIFIED TO ENLARGE THE CACHE FROM 50
-C>                           ELEMENTS TO 1000, MAXIMUM
-C> 1998-07-08  J. WOOLLEN -- CORRECTED SOME MINOR ERRORS
-C> 2003-11-04  S. BENDER  -- ADDED REMARKS/BUFRLIB ROUTINE
-C>                           INTERDEPENDENCIES
-C> 2003-11-04  D. KEYSER  -- UNIFIED/PORTABLE FOR WRF; ADDED
-C>                           DOCUMENTATION (INCLUDING HISTORY)
+C> ### Program History Log
+C> Date | Programmer | Comments
+C> -----|------------|---------
+C> 1994-01-06 | J. Woollen | original author
+C> 1998-04-02 | J. Woollen | enlarge cache from 50 to 1000
+C> 1998-07-08 | J. Woollen | correct some minor errors
 C>
-C> USAGE:    CALL STRCLN
+C> @author J. Woollen @date 1994-01-06
+
+C> This subroutine resets the internal mnemonic string cache.
+C> The string cache is a performance-enhancing feature which saves
+C> processing time when the same mnemonics are encountered repeatedly.
 C>
-C> REMARKS:
-C>    THIS ROUTINE CALLS:        None
-C>    THIS ROUTINE IS CALLED BY: MAKESTAB
-C>                               Normally not called by any application
-C>                               programs.
-C>
+C> @author J. Woollen @date 1994-01-06
+
       SUBROUTINE STRCLN
 
       USE MODV_MXS
