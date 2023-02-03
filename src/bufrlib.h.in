@@ -2,7 +2,7 @@
  *  @brief Define signatures to enable a number of BUFRLIB
  *  subprograms to be called directly from C application programs.
  *
- *  <p>This header file defines the signatures for all
+ *  This header file defines the signatures for all
  *  BUFRLIB subprograms which are native C functions, or which are
  *  native Fortran subroutines but can be called directly from C
  *  application programs without the use of wrapper functions.
@@ -114,440 +114,498 @@ typedef double f77r8;
 **   1) a C function, or
 **   2) a FORTRAN subprogram called from C
 */
+
+/**
+ * Prototype for arallocc() subroutine.
+ *
+ * @author J.Ator @date 2014-12-04
+ */
 void arallocc( void );
+
+/**
+ * Prototype for ardllocc() subroutine.
+ *
+ * @author J.Ator @date 2014-12-04
+ */
 void ardllocc( void );
 
 /**
- * Abort.
+ * Wraps BUFRLIB bort() subroutine.
  *
- * @param c
- * @param s
+ * @param str - Error message.
+ * @param s1 - Extra C-Fortran interface argument containing length of str variable.
  *
  * @author J.Ator @date 2003-11-04
  */
-void bort( char *c, size_t s);
+void bort( char *str, size_t s1 );
+
+/**
+ * Prototype for bort_exit() subroutine.
+ *
+ * @author J.Ator @date 2003-11-04
+ */
 void bort_exit( void );
 
 /**
- * ???
+ * Wraps BUFRLIB bvers() subroutine.
  *
- * @param c
- * @param s
+ * @param cverstr - Version string.
+ * @param s1 - Extra C-Fortran interface argument containing length of cverstr variable.
+ *
+ * @author J.Ator @date 2009-03-23
+ */
+void bvers( char *cverstr, size_t s1 );
+
+/**
+ * Wraps BUFRLIB cadn30() subroutine.
+ *
+ * @param idn - Bit-wise representation of FXY value.
+ * @param adn - FXY value.
+ * @param s1 - Extra C-Fortran interface argument containing length of adn variable.
+ *
+ * @author J.Ator @date 2004-08-18
+ */
+void cadn30( f77int *idn, char *adn, size_t s1 );
+
+/**
+ * Wraps BUFRLIB closbf() subroutine.
+ *
+ * @param lunit - Fortran logical unit number for BUFR file.
  *
  * @author J.Ator @date 2003-11-04
  */
-void bvers( char *c, size_t s); 
+void closbf( f77int *lunit );
 
 /**
- * ???
+ * Prototype for cmpia() function.
  *
- * @param f
- * @param c
- * @param s
+ * @param pf1 - first integer to be compared.
+ * @param pf2 - second integer to be compared.
+ *
+ * @author J.Ator @date 2009-03-23
+ */
+int cmpia( const void *pf1, const void *pf2 );
+
+/**
+ * Wraps BUFRLIB cmpmsg() subroutine.
+ *
+ * @param cf - Flag indicating whether future BUFR output messages are to be compressed.
+ * @param s1 - Extra C-Fortran interface argument containing length of cf variable.
+ *
+ * @author J.Ator @date 2005-03-09
+ */
+void cmpmsg( char *cf, size_t s1 );
+
+/**
+ * Wraps BUFRLIB elemdx() subroutine.
+ *
+ * @param card - mnemonic definition card.
+ * @param lun - I/O stream index into internal arrays.
+ * @param s1 - Extra C-Fortran interface argument containing length of card variable.
  *
  * @author J.Ator @date 2003-11-04
  */
-void cadn30( f77int *f, char *c, size_t s); 
+void elemdx( char *card, f77int *lun, size_t s1 );
 
 /**
- * ???
+ * Wraps BUFRLIB gets1loc() subroutine.
  *
- * @param f
+ * @param s1mnem - Value whose location within Section 1 is to be determined.
+ * @param iben - BUFR edition number. 
+ * @param isbyt - Number of starting byte within Section 1 for s1mnem.
+ * @param iwid - Bit width for s1mnem.
+ * @param iret - Return code.
+ * @param s1 - Extra C-Fortran interface argument containing length of s1mnem variable.
+ *
+ * @author J.Ator @date 2005-11-29
+ */
+void gets1loc( char *s1mnem, f77int *iben, f77int *isbyt, f77int *iwid, f77int *iret, size_t s1 );
+
+/**
+ * Wraps BUFRLIB ibfms() function.
+ *
+ * @param r8val - Data value.
+ *
+ * @return
+ * - 0 r8val is not "missing"
+ * - 1 r8val is "missing"
+ *
+ * @author J.Ator @date 2007-01-19
+ */
+f77int ibfms( f77r8 *r8val );
+
+/**
+ * Wraps BUFRLIB ichkstr() function.
+ *
+ * @param str - Character string.
+ * @param chr - Character array.
+ * @param n - Number of characters to be compared.
+ * @param s1 - Extra C-Fortran interface argument containing length of str variable.
+ * @param s2 - Extra C-Fortran interface argument containing length of chr variable.
+ *
+ * @return
+ * - 0 first n characters of str and chr are equivalent
+ * - 1 first n characters of str and chr are not equivalent
+ *
+ * @author J.Ator @date 2005-11-29
+ */
+f77int ichkstr ( char *str, char *chr, f77int *n, size_t s1, size_t s2 );
+
+/**
+ * Prototype for icvidx() function.
+ *
+ * @param ii - row index.
+ * @param jj - column index.
+ * @param numjj - maximum number of column indices.
+ *
+ * @return 1-dimensional index.
+ *
+ * @author J.Ator @date 2009-03-23
+ */
+f77int icvidx ( f77int *ii, f77int *jj, f77int *numjj );
+
+/**
+ * Wraps BUFRLIB ifxy() function.
+ *
+ * @param adsc - FXY value.
+ * @param s1 - Extra C-Fortran interface argument containing length of adsc variable.
+ *
+ * @return Bit-wise representation of FXY value.
  *
  * @author J.Ator @date 2003-11-04
  */
-void closbf( f77int *f );
-
-int cmpia( const void *v1, const void *v2 );
+f77int ifxy( char *adsc, size_t s1 );
 
 /**
- * ???
+ * Wraps BUFRLIB igetntbi() function.
  *
- * @param c
- * @param s
+ * @param lun - I/O stream index into internal arrays.
+ * @param ctb - Type of internal DX BUFR table.
+ * @param s1 - Extra C-Fortran interface argument containing length of ctb variable.
+ *
+ * @return Next available index within ctb.
+ *
+ * @author J.Ator @date 2009-03-23
+ */
+f77int igetntbi( f77int *lun, char *ctb, size_t s1 );
+
+/**
+ * Wraps BUFRLIB igetprm() function.
+ *
+ * @param cprmnm - Parameter.
+ * @param s1 - Extra C-Fortran interface argument containing length of cprmnm variable.
+ *
+ * @return Value of cprmnm.
+ *
+ * @author J.Ator @date 2014-12-04
+ */
+f77int igetprm( char *cprmnm, size_t s1 );
+
+/**
+ * Wraps BUFRLIB igettdi() function.
+ *
+ * @param iflag - Processing flag.
+ *
+ * @return
+ * - -1, if iflag was input as 0.
+ * - next usable scratch Table D index, otherwise.
+ *
+ * @author J.Ator @date 2009-03-23
+ */
+f77int igettdi( f77int *iflag );
+
+/**
+ * Wraps BUFRLIB imrkopr() function.
+ *
+ * @param nemo - Mnemonic.
+ * @param s1 - Extra C-Fortran interface argument containing length of nemo variable.
+ *
+ * @return
+ * - 0 nemo is not a Table C marker operator.
+ * - 1 nemo is a Table C marker operator.
+ *
+ * @author J.Ator @date 2016-05-04
+ */
+f77int imrkopr( char *nemo, size_t s1 );
+
+/**
+ * Wraps BUFRLIB ipkm() subroutine.
+ *
+ * @param cbay - String.
+ * @param nbyt - Number of bytes to encode within cbay.
+ * @param n - Value to be encoded into cbay.
+ * @param s1 - Extra C-Fortran interface argument containing length of cbay variable.
  *
  * @author J.Ator @date 2003-11-04
  */
-void cmpmsg( char *c, size_t s);
+void ipkm( char *cbay, f77int *nbyt, f77int *n, size_t s1 );
 
 /**
- * ???
+ * Wraps BUFRLIB ireadns() function.
  *
- * @param c
- * @param f
- * @param s
+ * @param lunit - Fortran logical unit number for BUFR file.
+ * @param subset - Table A mnemonic.
+ * @param idate - Date-time stored within Section 1.
+ * @param s1 - Extra C-Fortran interface argument containing length of subset variable.
+ *
+ * @return
+ * - 0 new BUFR data subset was successfully read
+ * - -1 there are no more BUFR data subsets in lunit
  *
  * @author J.Ator @date 2003-11-04
  */
-void elemdx( char *c, f77int *f, size_t s);
+f77int ireadns( f77int *lunit, char *subset, f77int *idate, size_t s1 );
 
 /**
- * ???
+ * Wraps BUFRLIB istdesc() function.
  *
- * @param c
- * @param f1
- * @param f2
- * @param f3
- * @param f4
- * @param s
+ * @param idn - Bit-wise representation of FXY value.
+ *
+ * @return
+ * - 0 idn is not a WMO-standard descriptor.
+ * - 1 idn is a WMO-standard descriptor.
+ *
+ * @author J.Ator @date 2004-08-18
+ */
+f77int istdesc( f77int *idn );
+
+/**
+ * Wraps BUFRLIB iupb() function.
+ *
+ * @param mbay - Array containing encoded value.
+ * @param nbyt - Starting byte within mbay.
+ * @param nbit - Number of bits to decode.
+ *
+ * @return Decoded value.
  *
  * @author J.Ator @date 2003-11-04
  */
-void gets1loc( char *c, f77int *f1, f77int *f2, f77int *f3, f77int *f4, size_t s);
+f77int iupb( f77int *mbay, f77int *nbyt, f77int *nbit );
 
 /**
- * ???
+ * Wraps BUFRLIB iupbs01() function.
  *
- * @param f
+ * @param mbay - BUFR message.
+ * @param s01mnem - Value to be read from mbay.
+ * @param s1 - Extra C-Fortran interface argument containing length of s01mnem variable.
  *
- * @return ???
+ * @return Decoded value.
+ *
+ * @author J.Ator @date 2005-11-29
+ */
+f77int iupbs01( f77int *mbay, char *s01mnem, size_t s1 );
+
+/**
+ * Wraps BUFRLIB iupm() function.
+ *
+ * @param cbay - String.
+ * @param nbits - Number of bits to decode from within cbay.
+ * @param s1 - Extra C-Fortran interface argument containing length of cbay variable.
+ *
+ * @return Decoded value.
  *
  * @author J.Ator @date 2003-11-04
  */
-f77int ibfms( f77r8 *f );
+f77int iupm( char *cbay, f77int *nbits, size_t s1 );
 
 /**
- * ???
+ * Wraps BUFRLIB maxout() subroutine.
  *
- * @param c1
- * @param c2
- * @param f
- * @param s1
- * @param s2
- *
- * @return ???
+ * @param max0 - New maximum length for all BUFR messages written to output.
  *
  * @author J.Ator @date 2003-11-04
  */
-f77int ichkstr ( char *c1, char *c2, f77int *f, size_t s1, size_t s2);
-
-f77int icvidx ( f77int *f1, f77int *f2, f77int *f3 );
+void maxout( f77int *max0 );
 
 /**
- * ???
+ * Wraps BUFRLIB nemtab() subroutine.
  *
- * @param c
- * @param s
- *
- * @return ???
+ * @param lun - I/O stream index into internal arrays.
+ * @param nemo - Mnemonic.
+ * @param idn - Bit-wise representation of FXY value for nemo.
+ * @param tab - Table type associated with nemo.
+ * @param iret - Return code.
+ * @param s1 - Extra C-Fortran interface argument containing length of nemo variable.
+ * @param s2 - Extra C-Fortran interface argument containing length of tab variable.
  *
  * @author J.Ator @date 2003-11-04
  */
-f77int ifxy( char *c, size_t s);
+void nemtab( f77int *lun, char *nemo, f77int *idn, char *tab, f77int *iret, size_t s1, size_t s2 );
 
 /**
- * ???
+ * Wraps BUFRLIB nemtbb() subroutine.
  *
- * @param f
- * @param c
- * @param s
- *
- * @return ???
+ * @param lun - I/O stream index into internal arrays.
+ * @param itab - Index within internal Table B.
+ * @param unit - Units of descriptor.
+ * @param iscl - Scale factor of descriptor.
+ * @param iref - Reference value of descriptor.
+ * @param ibit - Bit width of descriptor.
+ * @param s1 - Extra C-Fortran interface argument containing length of unit variable.
  *
  * @author J.Ator @date 2003-11-04
  */
-f77int igetntbi( f77int *f, char *c, size_t s);
+void nemtbb( f77int *lun, f77int *itab, char *unit, f77int *iscl, f77int *iref, f77int *ibit, size_t s1 );
 
 /**
- * ???
+ * Prototype for nummtb() subroutine.
  *
- * @param c
- * @param s
+ * @param idn - bit-wise representation of FXY value to search for.
+ * @param tab - table in which idn was found.
+ * @param ipt - index of entry for idn in master table tab.
  *
- * @return ???
+ * @author J.Ator @date 2009-03-23
+ */
+void nummtb( f77int *idn, char *tab, f77int *ipt );
+
+/**
+ * Wraps BUFRLIB numtbd() subroutine.
+ *
+ * @param lun - I/O stream index into internal arrays.
+ * @param idn - Bit-wise representation of FXY value for nemo.
+ * @param nemo - Mnemonic.
+ * @param tab - Table type associated with nemo.
+ * @param iret - Return code.
+ * @param s1 - Extra C-Fortran interface argument containing length of nemo variable.
+ * @param s2 - Extra C-Fortran interface argument containing length of tab variable.
  *
  * @author J.Ator @date 2003-11-04
  */
-f77int igetprm( char *c, size_t s);
+void numtbd( f77int *lun, f77int *idn, char *nemo, char *tab, f77int *iret, size_t s1, size_t s2 );
 
 /**
- * ???
+ * Wraps BUFRLIB openmb() subroutine.
  *
- * @param f
- *
- * @return ???
+ * @param lunit - Fortran logical unit number for BUFR file.
+ * @param subset - Table A mnemonic.
+ * @param jdate - Date-time to be stored within Section 1.
+ * @param s1 - Extra C-Fortran interface argument containing length of subset variable.
  *
  * @author J.Ator @date 2003-11-04
  */
-f77int igettdi( f77int *f );
+void openmb( f77int *lunit, char *subset, f77int *jdate, size_t s1 );
 
 /**
- * ???
+ * Wraps BUFRLIB pktdd() subroutine.
  *
- * @param c
- * @param s
- *
- * @return ???
+ * @param id - Index of parent mnemonic within internal arrays.
+ * @param lun - I/O stream index into internal arrays.
+ * @param idn - Bit-wise representation of FXY value for child mnemonic.
+ * @param iret - Return code.
  *
  * @author J.Ator @date 2003-11-04
  */
-f77int imrkopr( char *c, size_t s);
+void pktdd( f77int *id, f77int *lun, f77int *idn, f77int *iret );
 
 /**
- * ???
+ * Prototype for restd() subroutine.
  *
- * @param c
- * @param f1
- * @param f2
- * @param s
+ * @param lun - I/O stream index into internal arrays.
+ * @param tddesc - Bit-wise representation of FXY value for local Table D descriptor.
+ * @param nctddesc - Number of descriptors returned in ctddesc.
+ * @param ctddesc - Array of WMO-standard child descriptors equivalent to tddesc.
+ *
+ * @author J.Ator @date 2004-08-18
+ */
+void restd( f77int *lunb, f77int *tddesc, f77int *nctddesc, f77int *ctddesc );
+
+/**
+ * Wraps BUFRLIB stntbi() subroutine.
+ *
+ * @param n - Index into internal Table B or D for new entry.
+ * @param lun - I/O stream index into internal arrays.
+ * @param numb - FXY number for new entry.
+ * @param nemo - mnemonic corresponding to numb.
+ * @param celsq - Element or sequence definition corresponding to numb.
+ * @param s1 - Extra C-Fortran interface argument containing length of numb variable.
+ * @param s2 - Extra C-Fortran interface argument containing length of nemo variable.
+ * @param s3 - Extra C-Fortran interface argument containing length of celsq variable.
+ *
+ * @author J.Ator @date 2009-03-23
+ */
+void stntbi( f77int *n, f77int *lun, char *numb, char *nemo, char *celsq, size_t s1, size_t s2, size_t s3 );
+
+/**
+ * Wraps BUFRLIB strnum() subroutine.
+ *
+ * @param str - String.
+ * @param num - Value decoded from str.
+ * @param s1 - Extra C-Fortran interface argument containing length of str variable.
  *
  * @author J.Ator @date 2003-11-04
  */
-void ipkm( char *c, f77int *f1, f77int *f2, size_t s);
+void strnum( char *str, f77int *num, size_t s1 );
 
 /**
- * ???
+ * Prototype for stseq() subroutine.
  *
- * @param f1
- * @param c
- * @param f2
- * @param s
+ * @param lun - I/O stream index into internal arrays.
+ * @param irepct - Replication sequence counter. 
+ * @param idn - Bit-wise representation of FXY value for WMO-standard Table D descriptor.
+ * @param nemo - Mnemonic corresponding to idn.
+ * @param cseq - Description corresponding to idn.
+ * @param cdesc - Array of WMO-standard child descriptors equivalent to idn.
+ * @param ncdesc - Number of descriptors in cdesc.
  *
- * @return ???
+ * @author J.Ator @date 2009-03-23
+ */
+void stseq( f77int *lun, f77int *irepct, f77int *idn, char *nemo, char *cseq, f77int *cdesc, f77int *ncdesc );
+
+/**
+ * Wraps BUFRLIB ufbint() subroutine.
+ *
+ * @param lunit - Fortran logical unit number for BUFR file.
+ * @param usr - Data values.
+ * @param i1 - First dimension of usr. 
+ * @param i2 - Second dimension of usr. 
+ * @param iret - Number of replications of str read or written.
+ * @param str - Mnemonic string.
+ * @param s1 - Extra C-Fortran interface argument containing length of str variable.
  *
  * @author J.Ator @date 2003-11-04
  */
-f77int ireadns( f77int *f1, char *c, f77int *f2, size_t s);
+void ufbint( f77int *lunit, f77r8 *usr, f77int *i1, f77int *i2, f77int *iret, char *str, size_t s1 );
 
 /**
- * ???
+ * Wraps BUFRLIB ufbseq() subroutine.
  *
- * @param f
- *
- * @return ???
+ * @param lunit - Fortran logical unit number for BUFR file.
+ * @param usr - Data values.
+ * @param i1 - First dimension of usr. 
+ * @param i2 - Second dimension of usr. 
+ * @param iret - Number of replications of str read or written.
+ * @param str - Mnemonic string.
+ * @param s1 - Extra C-Fortran interface argument containing length of str variable.
  *
  * @author J.Ator @date 2003-11-04
  */
-f77int istdesc( f77int *f );
+void ufbseq( f77int *lunit, f77r8 *usr, f77int *i1, f77int *i2, f77int *iret, char *str, size_t s1 );
 
 /**
- * ???
+ * Wraps BUFRLIB uptdd() subroutine.
  *
- * @param f1
- * @param f2
- * @param f3
- *
- * @return ???
+ * @param id - Index of parent mnemonic within internal arrays.
+ * @param lun - I/O stream index into internal arrays.
+ * @param ient - Ordinal indicator of child mnemonic to be returned.
+ * @param iret - Return value.
  *
  * @author J.Ator @date 2003-11-04
  */
-f77int iupb( f77int *f1, f77int *f2, f77int *f3 );
+void uptdd( f77int *id, f77int *lun, f77int *ient, f77int *iret );
 
 /**
- * ???
+ * Prototype for wrdesc() subroutine.
  *
- * @param f
- * @param c
- * @param s
+ * @param desc - Bit-wise representation of descriptor to be stored in descary.
+ * @param descary - Array of descriptors.
+ * @param ndescary - Number of descriptors written so far into descary.
  *
- * @return ???
- *
- * @author J.Ator @date 2003-11-04
+ * @author J.Ator @date 2004-08-18
  */
-f77int iupbs01 ( f77int *f, char *c, size_t s);
+void wrdesc( f77int desc, f77int *descary, f77int *ndescary );
 
 /**
- * ???
- *
- * @param c
- * @param f
- * @param s
- *
- * @return ???
- *
- * @author J.Ator @date 2003-11-04
- */
-f77int iupm ( char *c, f77int *f, size_t s);
-
-/**
- * ???
- *
- * @param f
- *
- * @author J.Ator @date 2003-11-04
- */
-void maxout( f77int *f );
-
-/**
- * ???
- *
- * @param f1
- * @param c1
- * @param f2
- * @param c2
- * @param f3
- * @param s1
- * @param s2
- *
- * @author J.Ator @date 2003-11-04
- */
-void nemtab( f77int *f1, char *c1, f77int *f2, char *c2, f77int *f3, size_t s1, size_t s2);
-
-/**
- * ???
- *
- * @param f1
- * @param f2
- * @param c
- * @param f3
- * @param f4
- * @param f5
- * @param s
- *
- * @author J.Ator @date 2003-11-04
- */
-void nemtbb( f77int *f1, f77int *f2, char *c, f77int *f3, f77int *f4, f77int *f5, size_t s);
-
-void nummtb( f77int *f1, char *c, f77int *f2);
-
-/**
- * ???
- *
- * @param f1
- * @param f2
- * @param c1
- * @param c2
- * @param f3
- * @param s1
- * @param s2
- *
- * @author J.Ator @date 2003-11-04
- */
-void numtbd( f77int *f1, f77int *f2, char *c1, char *c2, f77int *f3, size_t s1, size_t s2);
-
-/**
- * ???
- *
- * @param f1
- * @param c
- * @param f2
- * @param s
- *
- * @author J.Ator @date 2003-11-04
- */
-void openmb( f77int *f1, char *c, f77int *f2, size_t s);
-
-/**
- * ???
- *
- * @param f1
- * @param f2
- * @param f3
- * @param f4
- *
- * @author J.Ator @date 2003-11-04
- */
-void pktdd( f77int *f1, f77int *f2, f77int *f3, f77int *f4 );
-
-/**
- * ???
- *
- * @param f1
- * @param f2
- * @param f3
- * @param f4
- *
- * @author J.Ator @date 2003-11-04
- */
-void restd( f77int *f1, f77int *f2, f77int *f3, f77int *f4 );
-
-/**
- * ???
- *
- * @param f1
- * @param f2
- * @param c1
- * @param c2
- * @param c3
- * @param s1
- * @param s2
- * @param s3
- *
- * @author J.Ator @date 2003-11-04
- */
-void stntbi( f77int *f1, f77int *f2, char *c1, char *c2, char *c3, size_t s1, size_t s2, size_t s3);
-
-/**
- * ???
- *
- * @param c
- * @param f
- * @param s
- *
- * @author J.Ator @date 2003-11-04
- */
-void strnum( char *c, f77int *f, size_t s);
-
-/**
- * ???
- *
- * @param f1
- * @param f2
- * @param f3
- * @param c1
- * @param c2
- * @param f4
- * @param f5
- *
- * @author J.Ator @date 2003-11-04
- */
-void stseq( f77int *f1, f77int *f2, f77int *f3, char *c1, char *c2, f77int *f4, f77int *f5 );
-
-/**
- * ???
- *
- * @param f1
- * @param f2
- * @param f3
- * @param f4
- * @param f5
- * @param c
- * @param s
- *
- * @author J.Ator @date 2003-11-04
- */
-void ufbint( f77int *f1, f77r8 *f2, f77int *f3, f77int *f4, f77int *f5, char *c, size_t s);
-
-/**
- * ???
- *
- * @param f1
- * @param f2
- * @param f3
- * @param f4
- * @param f5
- * @param c
- * @param s
- *
- * @author J.Ator @date 2003-11-04
- */
-void ufbseq( f77int *f1, f77r8 *f2, f77int *f3, f77int *f4, f77int *f5, char *c, size_t s);
-
-/**
- * ???
- *
- * @param f1
- * @param f2
- * @param f3
- * @param f4
- *
- * @author J.Ator @date 2003-11-04
- */
-void uptdd( f77int *f1, f77int *f2, f77int *f3, f77int * f4);
-
-/**
- * ???
- *
- * @param f1
- * @param f2
- * @param f3
- *
- * @author J.Ator @date 2003-11-04
- */
-void wrdesc( f77int f1, f77int *f2, f77int *f3 );
-
-/**
- * ???
+ * Wraps BUFRLIB wrdlen() subroutine.
  *
  * @author J.Ator @date 2003-11-04
  */

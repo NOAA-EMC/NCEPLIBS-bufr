@@ -1,7 +1,5 @@
 C> @file
-C> @brief Unpack and return a character string of
-C> length nchr contained within nchr bytes of ibay, starting with bit
-C> (IBIT+1).
+C> @brief Decode a character string from an integer array.
 C> 
 C> ### Program History Log
 C> Date | Programmer | Comments |
@@ -15,28 +13,30 @@ C> 2014-11-19 | J. Ator    | add cnvnull argument
 C>
 C> @author Woollen @date 1994-01-06
       
-C> This subroutine unpacks and returns a character string of
-C> length nchr contained within nchr bytes of ibay, starting with bit
-C> (IBIT+1). On output, IBIT is updated to point to the last bit that
-C> was unpacked. Note that the string to be unpacked does not
-C> necessarily need to be aligned on a byte boundary within ibay.
+C> This subroutine decodes a character string from within a specified
+C> number of bytes of an integer array, starting at the bit immediately
+C> after a specified bit within the array.
 C>
-C> @note: This subroutine is the inverse of pkc().
+C> @remarks
+C> - This subroutine is the logical inverse of subroutine pkc().
+C> - On input, there is no requirement that IBIT must point to the first
+C>   bit of a byte within IBAY.  In other words, the NCHR characters to
+C>   be decoded do not necessarily need to be aligned on byte boundaries
+C>   within IBAY.
 C>
-C> @param[out] CHR - character*(*): unpacked character string of length NCHR.
-C> @param[in] NCHR - integer: number of bytes of ibay within which to
-C> unpack chr (i,e, the number of characters in chr)
-C> @param[in] IBAY - integer: *-word packed binary array containing packed CHR.
-C> @param[inout] IBIT - integer: bit pointer within ibay indicating bit after
-C> which to start unpacking. Out: bit pointer within ibay indicating last bit
-C> that was unpacked.
-C> @param[in] CNVNULL - logical: .true. if null characters should be.
-C> converted to blanks.
+C> @param[out] CHR - character*(*): Decoded string
+C> @param[in] NCHR - integer: Number of bytes of IBAY from within
+C> which to decode CHR (i.e. the number of characters in CHR).
+C> @param[in] IBAY - integer(*): Array from which to decode CHR.
+C> @param[inout] IBIT - integer: Bit pointer within IBAY
+C> - On input, IBIT points to the bit within IBAY after which to begin
+C> decoding CHR.
+C> - On output, IBIT points to the last bit of IBAY which was decoded.
+C> @param[in] CNVNULL - logical: .true. if null characters in IBAY
+C> should be converted to blanks within CHR; .false. otherwise
 C>
 C> @author Woollen @date 1994-01-06
       SUBROUTINE UPC(CHR,NCHR,IBAY,IBIT,CNVNULL)
-
-
 
       COMMON /CHARAC/ IASCII,IATOE(0:255),IETOA(0:255)
       COMMON /HRDWRD/ NBYTW,NBITW,IORD(8)

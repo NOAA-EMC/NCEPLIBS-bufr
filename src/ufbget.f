@@ -1,7 +1,5 @@
 C> @file
-C> @brief Unpack and return the values for one-
-C> dimensional descriptors in the input string without advancing the
-C> subset pointer.
+C> @brief Read one or more data values from a data subset.
 C>
 C> ### Program History Log
 C> Date | Programmer | Comments |
@@ -22,26 +20,30 @@ C> 2022-10-04 | J. Ator    | added 8-byte wrapper
 C>
 C> @author Woollen @date 1994-01-06
       
-C> This subroutine unpacks and returns the values for one-
-C> dimensional descriptors in the input string without advancing the
-C> subset pointer.
+C> This subroutine unpacks and returns the values for one-dimensional
+C> descriptors in the input string without advancing the subset pointer.
 C>
-C> @param[in] LUNIT - integer: fortran logical unit number for bufr file.
-C> @param[out] TAB - real*8: (i1) starting address of data values read from data subset.
-C> @param[in] I1 - integer: length of tab.
-C> @param[out] IRET - integer: return code:.
+C> @param[in] LUNIT - integer: fortran logical unit number for BUFR file.
+C> @param[out] TAB - real*8(*): data values
+C> @param[in] I1 - integer: size of TAB as allocated within the calling program.
+C> @param[out] IRET - integer: return code:
 C> - 0 normal return
 C> - -1 there are no more subsets in the BUFR message
-C> @param[in] STR - character*(*): string of blank-separated table B
-C> mnemonics in one-to-one correspondence with the words
-C> in the array tab. There are three "generic" mnemonics not related
-C> to table B, these return the following
-C> information in corresponding tab location:
-C> - 'NUL'  which always returns bmiss ("MISSING")
-C> - 'IREC' which always returns the current bufr message (record) number
-C>    in which this subset resides.
-C> - 'ISUB' which always returns the current subset number of this subset within the bufr
-C>   message (record) number 'IREC'.
+C> @param[in] STR - character*(*): string of blank-separated Table B
+C> mnemonics in one-to-one correspondence with the number of data values
+C> that will be read from the data subset into TAB.
+C>
+C> @remarks
+C> - There are three "generic" mnemonics not related to Table B which can be
+C> specified within STR and return the following information in the
+C> corresponding TAB location:
+C>    - 'NUL' returns the "missing" value
+C>    - 'IREC' returns the number of the BUFR message within the
+C>      file pointed to by LUNIT (counting from the beginning of the file)
+C>      in which the current data subset resides
+C>    - 'ISUB' returns the number of the current data subset within
+C>      the BUFR message pointed to by IREC, counting from
+C>      the beginning of the message
 C>
 C> @author Woollen @date 1994-01-06
       RECURSIVE SUBROUTINE UFBGET(LUNIT,TAB,I1,IRET,STR)

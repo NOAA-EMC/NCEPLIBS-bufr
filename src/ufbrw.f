@@ -1,6 +1,5 @@
 C> @file
-C> @brief Write or read specified values to or from
-c> the current bufr data subset within internal arrays.
+C> @brief Read/write one or more data values from/to a data subset.
 C>
 C> ### Program History Log
 C> Date | Programmer | Comments |
@@ -21,42 +20,29 @@ C>
 C> @author Woollen @date 1994-01-06
       
 C> This subroutine writes or reads specified values to or from
-c> the current bufr data subset within internal arrays, with the
-c> direction of the data transfer determined by the context of io
-c> (i.e., if io indicates lun points to a bufr file that is open for
-c> input, then data values are read from the internal data subset;
-C> otherwise, data values are written to the internal data subset).
+C> the current BUFR data subset within internal arrays, with the
+C> direction of the data transfer determined by the context of IO.
 C> The data values correspond to internal arrays representing parsed
-c> strings of mnemonics which are part of a delayed-replication
-c> sequence, or for which there is no replication at all.
+C> strings of mnemonics which are part of a delayed-replication
+C> sequence, or for which there is no replication at all.
 C>
-C> This subroutine should never be called by any application program;
-c> instead, application programs should always call ufbint().
+C> This subroutine should never be directly called by an application
+C> program; instead, an application program should directly call ufbint()
+C> which will internally call this subroutine.
 C>
-C> @param[in] LUN - integer: i/o stream index into internal memory arrays.
-C> @param[inout] USR - only if bufr file open for output:.
-C> real*8: (i1,i2) starting address of data values
-c> written to data subset
-C> Out: only if bufr file open for input: real*8: (i1,i2) starting
-C> address of data values read from data subset.
-C> @param[in] I1 - integer: length of first dimension of usr.
-C> @param[in] I2 - integer: length of second dimension of usr.
-C> @param[in] IO - integer: status indicator for bufr file associated.
-C> with lun:
-c> - 0 input file
+C> @param[in] LUN - integer: I/O stream index into internal memory arrays.
+C> @param[inout] USR - real*8(*,*): Data values
+C> @param[in] I1 - integer: length of first dimension of USR.
+C> @param[in] I2 - integer: length of second dimension of USR.
+C> @param[in] IO - integer: status indicator for BUFR file associated
+C> with LUN:
+C> - 0 input file
 C> - 1 output file
-C> @param[out] IRET - integer:.
-C> - if bufr file open for input: number of "levels" of
-c> data values read from data subset (must be no
-c> larger than i2)
-c> - -1 = none of the mnemonics in the string passed
-c> to ufbint were found in the subset template
-c> - if bufr file open for output: number of "levels"
-c> of data values written to data subset (should be
-c> same as i2)
-c> - -1 = none of the mnemonics in the string passed
-c> to ufbint were found in the subset template.
-c>
+C> @param[out] IRET - integer: number of "levels" of data values read
+C> from or written to data subset
+C> - -1 none of the mnemonics in the string passed to ufbint() were found
+C> in the data subset template
+C>
 C> @author Woollen @date 1994-01-06
       SUBROUTINE UFBRW(LUN,USR,I1,I2,IO,IRET)
 

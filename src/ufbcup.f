@@ -1,7 +1,5 @@
 C> @file
-C> @brief Make one copy of each unique element in an
-C> input subset buffer into the identical mnemonic slot in the output
-C> subset buffer.
+C> @brief Copy unique elements of a data subset.
 C>
 C> ### Program History Log
 C> Date | Programmer | Comments 
@@ -20,8 +18,8 @@ C> This subroutine makes one copy of each unique element in an
 C> input subset buffer into the identical mnemonic slot in the output
 C> subset buffer.
 C>
-C> @param[in] LUBIN - integer: fortran logical unit number for input bufr file.
-C> @param[in] LUBOT - integer: fortran logical unit number for output bufr file.
+C> @param[in] LUBIN - integer: fortran logical unit number for input BUFR file.
+C> @param[in] LUBOT - integer: fortran logical unit number for output BUFR file.
 C>
 C> @author Woollen @date 1994-01-06
       RECURSIVE SUBROUTINE UFBCUP(LUBIN,LUBOT)

@@ -1,8 +1,5 @@
 C> @file
-C> @brief Either open a bufr file connected to
-C> logical unit lunit for input operations (if it is not already
-C> opened as such), or saves its position and rewinds it to the first
-C> data message.
+C> @brief Read one or more data values from a data subset.
 C>
 C> ### Program History Log
 C> Date | Programmer | Comments 
@@ -17,38 +14,39 @@ C> 2022-10-04 | J. Ator    | added 8-byte wrapper
 C>
 C> @author Woollen @date 2003-11-04
       
-C> This subroutine either opens a bufr file connected to
-C> logical unit lunit for input operations (if it is not already
-C> opened as such), or saves its position and rewinds it to the first
-C> data message (if bufr file already opened), then (via a call to
-C> bufr archive library subroutine ufbint) reads specified values from
-C> internal subset arrays associated with a particular subset from a
-C> particular bufr message in a message buffer. The particular subset
-C> and bufr message are based based on the subset number in the
-C> message and the message number in the bufr file. Finally, this
-C> subroutine either closes the bufr file in lunit (if is was opened
-C> here) or restores it to its previous read/write status and position
-C> (if it was not opened here). See ufbint for more information on
-C> the reading of values out of a bufr message subset. @note The
-C> message number here does not include the dictionary messages at the
-C> beginning of the file.
+C> If logical unit LUNIT has already been opened for input operations
+C> via a previous call to subroutine openbf(), then this subroutine
+C> will save the current file position, rewind the file to the
+C> beginning, reposition the file to a specified data subset
+C> within a specified message, read one or more specified data values
+C> from that data subset via an internal call to ufbint(), and then
+C> restore the file to its previous position.
 C>
-C> @param[in] LUNIT - integer: fortran logical unit number for bufr file.
-C> @param[in] IMSG - integer: pointer to bufr message number to read in bufr file.
-C> @param[in] ISUB - integer: pointer to subset number to read in bufr message.
-C> @param[out] USR - real*8: (i1,i2) starting address of data values read
-C> from data subset.
-C> @param[in] I1 - integer: length of first dimension of usr (must be at
-C> least as large as the number of blank-separated
-C> mnemonics in str).
-C> @param[in] I2 - integer: length of second dimension of usr.
-C> @param[out] IRET - integer: number of "levels" of data values read from
-C> data subset (must be no larger than i2).
-C> @param[in] STR - character*(*): string of blank-separated table b.
-C> mnemonics in one-to-one correspondence with first
-C> dimension of usr {this can also be a single table d
-C> (sequence) mnemonic with either 8- or 16-bit delayed
-C> replication (see remarks 1 in ufbint docblock)}.
+C> Otherwise, if logical unit LUNIT has not already been opened for
+C> input operations via a previous call to subroutine openbf(),
+C> then this subroutine will open it via an internal call to
+C> subroutine openbf(), position the file to a specified data subset
+C> within a specified message, read one or more specified data values
+C> from that data subset via an internal call to ufbint(), and then
+C> close the file via an internal call to subroutine closbf().
+C>
+C> @param[in] LUNIT - integer: Fortran logical unit number for BUFR file.
+C> @param[in] IMSG  - integer: Number of BUFR message to be read from
+C> the BUFR file, counting from the beginning of the file, but <b>not</b>
+C> counting any DX BUFR table messages which may be present in the file
+C> @param[in] ISUB  - integer: Number of data subset to be read from
+C> read from the (IMSG)th BUFR message, counting from the beginning of
+C> the message
+C> @param[out] USR - real*8(*,*): Data values
+C> @param[in] I1 - integer: First dimension of USR as allocated within the
+C> calling program
+C> @param[in] I2 - integer: Second dimension of USR as allocated within the
+C> calling program
+C> @param[out] IRET - integer: Number of replications of STR that were read
+C> from the data subset
+C> @param[in] STR - character*(*): string of blank-separated Table B
+C> mnemonics in one-to-one correspondence with the number of data values
+C> that will be read from the data subset into the first dimension of USR
 C>
 C> @author Woollen @date 2003-11-04
       RECURSIVE SUBROUTINE UFBINX(LUNIT,IMSG,ISUB,USR,I1,I2,IRET,STR)

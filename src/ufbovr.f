@@ -1,5 +1,5 @@
 C> @file
-C>
+C> @brief Overwrite one or more data values within a data subset.
 C>
 C> ### Program History Log
 C> Date | Programmer | Comments |
@@ -19,28 +19,25 @@ C>
 C> @author Woollen @date 1994-01-06
       
 C> This subroutine writes over specified values which exist
-c> in current internal bufr subset arrays in a file open for output.
+C> in current internal BUFR subset arrays in a file open for output.
 C> The data values correspond to mnemonics which are part of a
-c> delayed-replication sequence, or for which there is no replication
-c> at all. Either bufr archive library subroutine openmg or openmb
-c> must have been previously called to open and initialize a bufr
-c> message within memory for this lunit. In addition, bufr archive
-c> library subroutine writsb or invmrg must have been called to store
-c> data in the internal output subset arrays.
+C> delayed-replication sequence, or for which there is no replication
+C> at all. Either BUFR archive library subroutine openmg() or openmb()
+C> must have been previously called to open and initialize a BUFR
+C> message within memory for this lunit. In addition, BUFR archive
+C> library subroutine writsb() or invmrg() must have been called to
+C> store data in the internal output subset arrays.
 C>
-C> @param[in] LUNIT - integer: fortran logical unit number for bufr file.
-C> @param[in] USR - real*8: (i1,i2) starting address of data values
-C> written to data subset.
-C> @param[in] I1 - integer: length of first dimension of usr (must be at
-C> least as large as the number of blank-separated
-c> mnemonics in str).
-C> @param[in] I2 - integer: number of "levels" of data values to be
-C> written to data subset.
-C> @param[out] IRET - integer: number of "levels" of data values written to
-C> data subset (should be same as i2).
-C> @param[in] STR - character*(*): string of blank-separated table b
-C> mnemonics in one-to-one correspondence with first
-c> dimension of usr.
+C> @param[in] LUNIT - integer: Fortran logical unit number for BUFR file.
+C> @param[in] USR - real*8(*,*): data values
+C> @param[in] I1 - integer: First dimension of USR as allocated within
+C> the calling program.
+C> @param[in] I2 - integer: Number of replications of STR that are to
+C> be written into the data subset.
+C> @param[out] IRET - integer: Number of replications of STR that were
+C> written into the data subset.
+C> @param[in] STR - character*(*): string of blank-separated Table B
+C> mnemonics in one-to-one correspondence with first dimension of USR.
 C>
 C> @author Woollen @date 1994-01-06
       RECURSIVE SUBROUTINE UFBOVR(LUNIT,USR,I1,I2,IRET,STR)

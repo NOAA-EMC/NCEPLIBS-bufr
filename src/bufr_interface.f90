@@ -176,7 +176,9 @@ end subroutine exitbufr_c
 !> @param[out] iddate - c_int: datetime of message
 !> @param[in] subset_str_len - c_int: length of the subset string
 !>
-!> @return ???
+!> @return ireadmg_c - c_int: return code
+!>  - 0 new BUFR message was successfully read into internal arrays.
+!>  - -1 there are no more BUFR messages in bufr_unit.
 !>
 !> @author Ronald McLaren @date 2020-07-29
 function ireadmg_c(bufr_unit, c_subset, iddate, subset_str_len) result(ires) bind(C, name='ireadmg_f')
@@ -200,7 +202,9 @@ end function ireadmg_c
 !>
 !> @param[in] bufr_unit - c_int: the fortran file unit number to read from
 !>
-!> @return ???
+!> @return ireadsb_c - c_int: return code
+!>  - 0 new BUFR data subset was successfully read into internal arrays.
+!>  - -1 there are no more BUFR data subsets in the BUFR message associated with bufr_unit
 !>
 !> @author Ronald McLaren @date 2020-07-29
 function ireadsb_c(bufr_unit) result(ires) bind(C, name='ireadsb_f')
@@ -290,8 +294,7 @@ subroutine status_c(file_unit, lun, il, im) bind(C, name='status_f')
 end subroutine status_c
 
 
-!> Gets Table B Unit and Description strings for a mnemonic. Wraps
-!> BUFRLIB nemdefs() subroutine.
+!> Wraps BUFRLIB nemdefs() subroutine.
 !>
 !> @param[in] file_unit - c_int: Fortran file unit for the open file
 !> @param[in] mnemonic - c_char: mnemonic
@@ -327,8 +330,7 @@ subroutine nemdefs_c(file_unit, mnemonic, unit_c, unit_str_len, desc_c, desc_str
 end subroutine nemdefs_c
 
 
-!> Gets Table B scale, reference, and bits values. Wraps BUFRLIB
-!> nemspecs() subroutine.
+!> Wraps BUFRLIB nemspecs() subroutine.
 !>
 !>  @param[in] file_unit - c_int: Fortran file unit for the open file
 !>  @param[in] mnemonic - c_char: mnemonic
@@ -355,9 +357,7 @@ subroutine nemspecs_c(file_unit, mnemonic, mnemonic_idx, scale, reference, bits,
 end subroutine nemspecs_c
 
 
-!> This subroutine returns information about a descriptor from the
-!> internal DX BUFR tables, based on the mnemonic associated with that
-!> descriptor.  Wraps BUFRLIB nemtab() subroutine.
+!>  Wraps BUFRLIB nemtab() subroutine.
 !>
 !>  @param[in] bufr_unit - c_int: the bufr file pointer
 !>  @param[in] mnemonic - c_char: mnemonic
@@ -383,8 +383,7 @@ subroutine nemtab_c(bufr_unit, mnemonic, descriptor, table_type, table_idx) &
 end subroutine nemtab_c
 
 
-!> Get information about a Table B descriptor. Wraps BUFRLIB nemtbb()
-!> subroutine.
+!> Wraps BUFRLIB nemtbb() subroutine.
 !>
 !>  @param[in] bufr_unit - c_int: the bufr file pointer
 !>  @param[in] table_idx - c_int: Table B index

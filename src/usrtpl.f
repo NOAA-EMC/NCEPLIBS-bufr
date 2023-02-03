@@ -16,9 +16,9 @@ C>
 C> @author J. Woollen @date 1994-01-06
 
 C> This subroutine stores the subset template into internal
-C> subset arrays in module usrint for cases of node expansion
-C> (i.e. when the node is either a Table A mnemonic or a delayed
-C> replication factor).
+C> subset arrays in module usrint for cases of node expansion,
+C> such as when the node is either a Table A mnemonic or a delayed
+C> replication factor.
 C>
 C> @param LUN - integer: I/O stream index into internal memory arrays.
 C> @param INVN - integer: starting jump/link table index of the node to be expanded within the subset template.
