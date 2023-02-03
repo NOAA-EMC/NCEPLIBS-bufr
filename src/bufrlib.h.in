@@ -482,19 +482,6 @@ void stntbi( f77int *n, f77int *lun, char *numb, char *nemo, char *celsq, size_t
  */
 void strnum( char *str, f77int *num, size_t s1 );
 
-/**
- * Prototype for stseq() subroutine.
- *
- * @param lun - I/O stream index into internal arrays.
- * @param irepct - Replication sequence counter. 
- * @param idn - Bit-wise representation of FXY value for WMO-standard Table D descriptor.
- * @param nemo - Mnemonic corresponding to idn.
- * @param cseq - Description corresponding to idn.
- * @param cdesc - Array of WMO-standard child descriptors equivalent to idn.
- * @param ncdesc - Number of descriptors in cdesc.
- *
- * @author J.Ator @date 2009-03-23
- */
 void stseq( f77int *lun, f77int *irepct, f77int *idn, char *nemo, char *cseq, f77int *cdesc, f77int *ncdesc );
 
 /**
