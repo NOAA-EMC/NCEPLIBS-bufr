@@ -246,9 +246,12 @@
 
 100   STOP
       END program
-!-----------------------------------------------------------------------
-! print long lines to stdout using advance=no format clause
-!-----------------------------------------------------------------------
+
+      !> Print long lines to stdout using advance=no format clause.
+      !>
+      !> @param str String to print.
+      !>
+      !> @author J. Woollen @date 1994-01-06
       subroutine printx(str)
       character(*) :: str
       lens=len(str)

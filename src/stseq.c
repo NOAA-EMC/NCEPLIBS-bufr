@@ -1,6 +1,19 @@
 /** @file
  *  @brief Store information about a standard Table D descriptor
  *  within internal DX BUFR tables.
+ *
+ * ### Program history log
+ * Date | Programmer | Comments
+ * -----|------------|---------
+ * 2009-03-23 | J. Ator | Original author.
+ * 2010-03-19 | J. Ator | Added processing for 2-04 associated fields.
+ * 2010-04-05 | J. Ator | Added processing for 2-2X, 2-3X and 2-4X non-marker operators.
+ * 2015-03-04 | J. Ator | Handle special case when associated fields are in effect for a Table D descriptor.
+ * 2021-05-17 | J. Ator | Allow up to 24 characters in cbunit.
+ * 2021-08-18 | J. Ator | Use strcpy instead of strncpy and then overwrite trailing null, in order to silence superfluous GNU compiler warnings.
+ * 2023-01-18 | J. Ator | Remove MSTABS_BASE macro.
+ *
+ * @author J. Ator @date 2009-03-23
  */
 
 #include "bufrlib.h"
@@ -13,9 +26,6 @@
  * within the internal DX BUFR tables.  Any child descriptors which
  * are themselves Table D descriptors are automatically resolved via
  * a recursive call to this same subroutine.
- *
- * @author J. Ator
- * @date 2009-03-23
  *
  * @param[in] lun -- f77int*: Internal Fortran I/O stream index
  *                   associated with BUFR file
@@ -34,20 +44,10 @@
  * @param[in] ncdesc -- f77int*: Number of WMO-standard child descriptors
  *                      in cdesc
  *
- * ### Program history log
- * Date | Programmer | Comments
- * -----|------------|---------
- * 2009-03-23 | J. Ator | Original author.
- * 2010-03-19 | J. Ator | Added processing for 2-04 associated fields.
- * 2010-04-05 | J. Ator | Added processing for 2-2X, 2-3X and 2-4X non-marker operators.
- * 2015-03-04 | J. Ator | Handle special case when associated fields are in effect for a Table D descriptor.
- * 2021-05-17 | J. Ator | Allow up to 24 characters in cbunit.
- * 2021-08-18 | J. Ator | Use strcpy instead of strncpy and then overwrite trailing null, in order to silence superfluous GNU compiler warnings.
- * 2023-01-18 | J. Ator | Remove MSTABS_BASE macro.
+ * @author J. Ator @date 2009-03-23
 */
-
 void stseq( f77int *lun, f77int *irepct, f77int *idn, char *nemo,
-	    char *cseq, f77int cdesc[], f77int *ncdesc )
+	    char *cseq, f77int *cdesc, f77int *ncdesc )
 {
     f77int i, j, nb, nd, ipt, ix, iy, iret, nbits;
     f77int i0 = 0, imxcd, rpidn, pkint, ilen;
