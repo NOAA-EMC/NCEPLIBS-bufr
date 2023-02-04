@@ -35,54 +35,54 @@ C> openbf().
 C>
 C> @author J. Ator @date 2014-10-02
 
-	RECURSIVE SUBROUTINE NEMDEFS ( LUNIT, NEMO, CELEM, CUNIT, IRET )
+        RECURSIVE SUBROUTINE NEMDEFS ( LUNIT, NEMO, CELEM, CUNIT, IRET )
 
-	USE MODA_TABABD
+        USE MODA_TABABD
         USE MODV_IM8B
 
-	CHARACTER*1   TAB
+        CHARACTER*1   TAB
 
-	CHARACTER*(*) NEMO, CELEM, CUNIT
+        CHARACTER*(*) NEMO, CELEM, CUNIT
 
 C----------------------------------------------------------------------
 C----------------------------------------------------------------------
 
-C	Check for I8 integers.
+C       Check for I8 integers.
 
-	IF(IM8B) THEN
-	   IM8B=.FALSE.
+        IF(IM8B) THEN
+           IM8B=.FALSE.
 
-	   CALL X84 ( LUNIT, MY_LUNIT, 1 )
-	   CALL NEMDEFS ( MY_LUNIT, NEMO, CELEM, CUNIT, IRET )
-	   CALL X48 ( IRET, IRET, 1 )
+           CALL X84 ( LUNIT, MY_LUNIT, 1 )
+           CALL NEMDEFS ( MY_LUNIT, NEMO, CELEM, CUNIT, IRET )
+           CALL X48 ( IRET, IRET, 1 )
 
-	   IM8B=.TRUE.
-	   RETURN
-	ENDIF
+           IM8B=.TRUE.
+           RETURN
+        ENDIF
 
-	IRET = -1
+        IRET = -1
 
-C	Get LUN from LUNIT.
+C       Get LUN from LUNIT.
 
-	CALL STATUS( LUNIT, LUN, IL, IM )
-	IF ( IL .EQ. 0 ) RETURN
+        CALL STATUS( LUNIT, LUN, IL, IM )
+        IF ( IL .EQ. 0 ) RETURN
 
-C	Find the requested mnemonic in the internal Table B arrays.
+C       Find the requested mnemonic in the internal Table B arrays.
 
-	CALL NEMTAB( LUN, NEMO, IDN, TAB, ILOC )
-	IF ( ( ILOC .EQ. 0 ) .OR. ( TAB .NE. 'B' ) ) RETURN
+        CALL NEMTAB( LUN, NEMO, IDN, TAB, ILOC )
+        IF ( ( ILOC .EQ. 0 ) .OR. ( TAB .NE. 'B' ) ) RETURN
 
-C	Get the element name and units of the requested mnemonic.
+C       Get the element name and units of the requested mnemonic.
 
-	CELEM = ' '
-	LS = MIN(LEN(CELEM),55)
-	CELEM(1:LS) = TABB(ILOC,LUN)(16:15+LS)
+        CELEM = ' '
+        LS = MIN(LEN(CELEM),55)
+        CELEM(1:LS) = TABB(ILOC,LUN)(16:15+LS)
 
-	CUNIT = ' '
-	LS = MIN(LEN(CUNIT),24)
-	CUNIT(1:LS) = TABB(ILOC,LUN)(71:70+LS)
+        CUNIT = ' '
+        LS = MIN(LEN(CUNIT),24)
+        CUNIT(1:LS) = TABB(ILOC,LUN)(71:70+LS)
 
-	IRET = 0
+        IRET = 0
 
-	RETURN
-	END
+        RETURN
+        END

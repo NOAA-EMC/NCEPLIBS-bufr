@@ -10,13 +10,13 @@ C>
 C> @author J. Ator
 C> @date 2014-12-10
 
-	MODULE MODV_MXLCC
+        MODULE MODV_MXLCC
 
 C>        @var mxlcc
 C>        Maximum length (in bytes) of a character string that can be
 C>        written into a data subset of a compressed BUFR message by
 C>        the BUFRLIB software.
 
-	  INTEGER :: MXLCC = 32
+          INTEGER :: MXLCC = 32
 
-	END MODULE
+        END MODULE

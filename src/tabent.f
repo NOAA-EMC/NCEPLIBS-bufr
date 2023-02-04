@@ -15,7 +15,7 @@ C> 2012-03-02 | J. Ator    | added support for 203 operator
 C> 2014-12-10 | J. Ator    | use modules instead of common blocks
 C>
 C> @author Woollen @date 1994-01-06
-      
+
 C> This subroutine builds and stores an entry for a Table B or
 c> Table D mnemonic within the internal jump/link table.
 C>

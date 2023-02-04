@@ -10,9 +10,9 @@ C> | 2022-10-04 | J. Ator    | Added 8-byte wrapper |
 C>
 C> @author J. Woollen @date 2002-05-14
 
-C> This subroutine is similar to subroutine writsb(), except that 
+C> This subroutine is similar to subroutine writsb(), except that
 C> when the subset is encoded and packed into the current message
-C> for the BUFR file associated with logical unit LUNIT, it is 
+C> for the BUFR file associated with logical unit LUNIT, it is
 C> packed using compression as prescribed within the
 C> [official WMO BUFR regulations](@ref manual).
 C>

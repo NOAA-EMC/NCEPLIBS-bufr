@@ -117,7 +117,7 @@ C              as before, and therefore it can continue to share with
 C              logical unit IOLUN(LUS(LUN)).
 
                IF(ICMPDX(LUS(LUN),LUN).EQ.1) THEN
-                 XTAB(LUN) = .FALSE. 
+                 XTAB(LUN) = .FALSE.
                  CALL CPBFDX(LUS(LUN),LUN)
                ELSE
                  LUS(LUN) = (-1)*LUS(LUN)
@@ -131,7 +131,7 @@ C              logical unit.  Since the two units shared table
 C              information at one point in the past, allow them to do
 C              so again.
 
-               XTAB(LUN) = .FALSE. 
+               XTAB(LUN) = .FALSE.
                LUS(LUN) = ABS(LUS(LUN))
                CALL CPBFDX(LUS(LUN),LUN)
              ENDIF
@@ -145,7 +145,7 @@ C          unit is still defined to the BUFRLIB.
            IF(IOLUN(LUS(LUN)).EQ.0) THEN
              LUS(LUN) = 0
            ELSE IF( XTAB(LUS(LUN)) .AND.
-     +             (ICMPDX(LUS(LUN),LUN).EQ.0) ) THEN 
+     +             (ICMPDX(LUS(LUN),LUN).EQ.0) ) THEN
 
 C            The table information for logical unit IOLUN(LUS(LUN))
 C            just changed (in midstream).  If IOLUN(LUN) is an output
@@ -192,14 +192,14 @@ C        Reset any existing inventory pointers.
             ENDDO
          ENDIF
 
-         IF(LUS(LUN).LE.0) THEN   
+         IF(LUS(LUN).LE.0) THEN
 
 C           The dictionary table information corresponding to logical
 C           unit IOLUN(LUN) has not yet been written into the internal
 C           jump/link table, so add it in now.
 
-            CALL CHEKSTAB(LUN)  
-            DO ITBA=1,NTBA(LUN) 
+            CALL CHEKSTAB(LUN)
+            DO ITBA=1,NTBA(LUN)
               INOD = NTAB+1
               NEMO = TABA(ITBA,LUN)(4:11)
               CALL TABSUB(LUN,NEMO)
@@ -207,7 +207,7 @@ C           jump/link table, so add it in now.
               ISC(INOD)      = NTAB
             ENDDO
          ELSE IF( XTAB(LUS(LUN)) .AND.
-     +           (ICMPDX(LUS(LUN),LUN).EQ.0) ) THEN 
+     +           (ICMPDX(LUS(LUN),LUN).EQ.0) ) THEN
 
 C           Logical unit IOLUN(LUN) is an output file that is sharing
 C           table information with logical unit IOLUN(LUS(LUN)) whose
@@ -218,10 +218,10 @@ C           information from IOLUN(LUS(LUN)), then update IOLUN(LUN)
 C           itself with a copy of the new table information.
 
             LUNIT = ABS(IOLUN(LUN))
-            IF(IOMSG(LUN).NE.0) CALL CLOSMG(LUNIT)    
+            IF(IOMSG(LUN).NE.0) CALL CLOSMG(LUNIT)
             CALL CPBFDX(LUS(LUN),LUN)
             LUNDX = ABS(IOLUN(LUS(LUN)))
-            CALL WRDXTB(LUNDX,LUNIT) 
+            CALL WRDXTB(LUNDX,LUNIT)
          ENDIF
 
        ENDIF

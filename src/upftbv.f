@@ -4,9 +4,9 @@ C>
 C> ### Program History Log
 C> Date | Programmer | Comments |
 C> -----|------------|----------|
-C> 2005-11-29 | J. Ator | Original version 
-C> 2014-12-10 | J. Ator | Use modules instead of COMMON blocks 
-C> 2022-10-04 | J. Ator | Added 8-byte wrapper 
+C> 2005-11-29 | J. Ator | Original version
+C> 2014-12-10 | J. Ator | Use modules instead of COMMON blocks
+C> 2022-10-04 | J. Ator | Added 8-byte wrapper
 C>
 C> @author J. Ator @date 2005-11-29
 
@@ -73,7 +73,7 @@ C     Perform some sanity checks.
       IF(TABB(N,LUN)(71:74).NE.'FLAG') GOTO 902
 
 C     Figure out which bits are set.
-      
+
       NIB(1) = 0
       R8VAL = VAL
       NBITS = VALX(TABB(N,LUN)(110:112))

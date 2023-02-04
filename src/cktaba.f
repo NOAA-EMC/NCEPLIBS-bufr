@@ -1,7 +1,7 @@
 C> @file
 C> @brief Parse the Table A mnemonic and date out of Section 1 of a
 C> BUFR message.
-C>      
+C>
 C> ### Program History Log
 C> Date | Programmer | Comments
 C> -----|------------|----------
@@ -15,7 +15,7 @@ C> 2009-03-23 | J. Ator    | Add logic to allow section 3 decoding; use iupbs3()
 C> 2014-12-10 | J. Ator    | Use modules instead of common blocks.
 C>
 C> @author Woollen @date 2000-09-19
-      
+
 C> This subroutine parses the Table A mnemonic and date
 C> out of Section 1 of a BUFR message that was previously read from lun
 C> using one of the [message-reading subroutines](@ref hierarchy).
@@ -24,7 +24,7 @@ C> @param[in] LUN - integer: I/O stream index into internal memory arrays.
 C> @param[out] SUBSET - character*8: Table A mnemonic
 C>                      - returned as a string of all blank characters
 C>                        if IRET is equal to 11 (see below) and if Section 3
-C>                        isn't being used for decoding  
+C>                        isn't being used for decoding
 C> @param[out] JDATE    - integer: date-time stored within Section 1 of BUFR
 C>                        in format of either YYMMDDHH or
 C>                        YYYYMMDDHH, depending on datelen() value.
@@ -103,15 +103,15 @@ C  FIRST CHECK WHETHER SECTION 3 IS BEING USED FOR DECODING
 C  --------------------------------------------------------
 
       IF(ISC3(LUN).NE.0) THEN
-	SUBSET = TAMNEM(LUN)
+        SUBSET = TAMNEM(LUN)
 c  .... is SUBSET from Table A?
-	CALL NEMTBAX(LUN,SUBSET,MTY1,MSB1,INOD)
-	IF(INOD.GT.0) THEN
-c  ....	  yes it is
-	  MBYT(LUN) = 8*(IAD4+4)
-	  MSGUNP(LUN) = 1
-	  GOTO 10
-	ENDIF
+        CALL NEMTBAX(LUN,SUBSET,MTY1,MSB1,INOD)
+        IF(INOD.GT.0) THEN
+c  ....   yes it is
+          MBYT(LUN) = 8*(IAD4+4)
+          MSGUNP(LUN) = 1
+          GOTO 10
+        ENDIF
       ENDIF
 
 C  IF ISUB FROM SECTION 3 DEFINES TABLE A THEN MSGUNP=0

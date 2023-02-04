@@ -9,7 +9,7 @@ C> 1998-07-08 | J. Woollen | replaced call to cray library routine "abort" with 
 C> 1999-11-18 | J. Woollen | the number of bufr files which can be opened at one time increased from 10 to 32
 C> 2002-05-14 | J. Woollen | removed old cray compiler directives
 C> 2003-11-04 | S. Bender  | added remarks/bufrlib routine interdependencies
-C> 2003-11-04 | D. Keyser  | maxjl increased to 16000; unified/portable for wrf; documentation; outputs more 
+C> 2003-11-04 | D. Keyser  | maxjl increased to 16000; unified/portable for wrf; documentation; outputs more
 C> 2004-08-18 | J. Ator    | added save for ifirst1 and ifirst2 flags
 C> 2009-04-21 | J. Ator    | use errwrt
 C> 2014-12-10 | J. Ator    | use modules instead of common blocks
@@ -17,7 +17,7 @@ C> 2015-09-24 | D. Stokes  | fix missing declaration of common /quiet/
 C> 2022-10-04 | J. Ator    | added 8-byte wrapper
 C>
 C> @author Woollen @date 1994-01-06
-      
+
 C> This subroutine writes over specified values which exist
 C> in current internal BUFR subset arrays in a file open for output.
 C> The data values correspond to mnemonics which are part of a

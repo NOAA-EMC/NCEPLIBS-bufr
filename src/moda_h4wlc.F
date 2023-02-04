@@ -10,17 +10,17 @@ C> subset via future internal calls to subroutine writlc().
 C>
 C> @author J. Ator @date 2014-02-05
 
-	MODULE MODA_H4WLC
+        MODULE MODA_H4WLC
 
-	  USE MODV_MXH4WLC
+          USE MODV_MXH4WLC
 
 C>    Number of long character strings being stored.
-	  INTEGER :: NH4WLC
+          INTEGER :: NH4WLC
 C>    I/O stream index into internal arrays for associated output file.
-	  INTEGER :: LUH4WLC(MXH4WLC)
+          INTEGER :: LUH4WLC(MXH4WLC)
 C>    Table B mnemonics associated with long character strings.
-	  CHARACTER*14 :: STH4WLC(MXH4WLC)
+          CHARACTER*14 :: STH4WLC(MXH4WLC)
 C>    Long character strings.
-	  CHARACTER*120 :: CHH4WLC(MXH4WLC)
+          CHARACTER*120 :: CHH4WLC(MXH4WLC)
 
-	END MODULE
+        END MODULE

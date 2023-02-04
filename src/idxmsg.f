@@ -21,38 +21,38 @@ C> | -----|------------|----------|
 C> | 2009-03-23 | J. Ator | Original author |
 C> | 2022-10-04 | J. Ator | Added 8-byte wrapper |
 
-	RECURSIVE FUNCTION IDXMSG( MESG ) RESULT( IRET )
+        RECURSIVE FUNCTION IDXMSG( MESG ) RESULT( IRET )
 
-	USE MODV_IM8B
+        USE MODV_IM8B
 
-	DIMENSION MESG(*)
+        DIMENSION MESG(*)
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
 
-C	Check for I8 integers.
+C       Check for I8 integers.
 
-	IF(IM8B) THEN
-	    IM8B=.FALSE.
+        IF(IM8B) THEN
+            IM8B=.FALSE.
 
-	    IRET = IDXMSG( MESG )
+            IRET = IDXMSG( MESG )
 
-	    IM8B=.TRUE.
-	    RETURN
-	END IF
+            IM8B=.TRUE.
+            RETURN
+        END IF
 
-C	Note that the following test relies upon logic within subroutine
-C	DXMINI which zeroes out the Section 1 date of all DX dictionary 
-C	messages.
+C       Note that the following test relies upon logic within subroutine
+C       DXMINI which zeroes out the Section 1 date of all DX dictionary
+C       messages.
 
-	IF ( (IUPBS01(MESG,'MTYP').EQ.11) .AND.
+        IF ( (IUPBS01(MESG,'MTYP').EQ.11) .AND.
      .       (IUPBS01(MESG,'MNTH').EQ.0) .AND.
      .       (IUPBS01(MESG,'DAYS').EQ.0) .AND.
      .       (IUPBS01(MESG,'HOUR').EQ.0) ) THEN
-	   IRET = 1
-	ELSE
-	   IRET = 0
-	END IF
+           IRET = 1
+        ELSE
+           IRET = 0
+        END IF
 
-	RETURN
-	END
+        RETURN
+        END

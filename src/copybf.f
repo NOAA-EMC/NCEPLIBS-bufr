@@ -8,9 +8,9 @@ C> @author J. Woollen
 C> @date 1994-01-06
 C>
 C> @param[in] LUNIN   -- integer: Fortran logical unit number for
-C>                       source BUFR file 
+C>                       source BUFR file
 C> @param[in] LUNOT   -- integer: Fortran logical unit number for
-C>                       target BUFR file 
+C>                       target BUFR file
 C>
 C> <p>The logical unit numbers LUNIN and LUNOT must already be
 C> associated with actual filenames on the local system, typically
@@ -70,7 +70,7 @@ C  ------------------------
       CALL STATUS(LUNOT,LUN,IL,IM)
       IF(IL.NE.0) GOTO 901
 
-C  CONNECT THE FILES FOR READING/WRITING TO THE C-I-O INTERFACE 
+C  CONNECT THE FILES FOR READING/WRITING TO THE C-I-O INTERFACE
 C  ------------------------------------------------------------
 
       CALL OPENBF(LUNIN,'INX',LUNIN)
@@ -80,7 +80,7 @@ C  READ AND COPY A BUFR FILE ON UNIT LUNIN TO UNIT LUNOT
 C  -----------------------------------------------------
 
 1     CALL RDMSGW(LUNIN,MGWA,IER)
-      IF(IER.EQ.0) THEN      
+      IF(IER.EQ.0) THEN
          CALL MSGWRT(LUNOT,MGWA,IUPBS01(MGWA,'LENM'))
          GOTO 1
       ENDIF
@@ -89,7 +89,7 @@ C  FREE UP THE FILE CONNECTIONS FOR THE TWO FILES
 C  ----------------------------------------------
 
       CALL CLOSBF(LUNIN)
-      CALL CLOSBF(LUNOT) 
+      CALL CLOSBF(LUNOT)
 
 C  EXITS
 C  -----

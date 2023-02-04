@@ -20,7 +20,7 @@ C> 2014-12-10 | J. Ator    | Use modules instead of common blocks.
 C> 2016-03-21 | D. Stokes  | Call usrtpl for overlarge subsets.
 C>
 C> @author Woollen @date 1994-01-06
-      
+
 C> This subroutine packs up the current subset within memory
 C> (array ibay in module bitbuf) and then tries to add it to
 C> the BUFR message that is currently open within memory for LUNIT

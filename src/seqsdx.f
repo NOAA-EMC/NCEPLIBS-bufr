@@ -12,7 +12,7 @@ C> 2003-11-04 | D. Keyser  | unified/portable for wrf; added history documentati
 C> 2007-01-19 | J. Ator    | replaced call to parseq with call to parstr
 C>
 C> @author Woollen @date 1994-01-06
-      
+
 C> This subroutine decodes the Table D sequence information
 C> from a mnemonic definition card that was previously read from a
 C> user-supplied DX BUFR table in character format by rdusdx().

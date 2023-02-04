@@ -2,7 +2,7 @@
  *  @brief Dynamically allocate C language arrays within internal memory.
  *
  * ### Program History Log
- * Date | Programmer | Comments 
+ * Date | Programmer | Comments
  * -----|------------|----------
  * 2014-12-04 | J. Ator | Original author.
  * 2021-05-17 | J. Ator | Allow up to 24 characters in cbunit.
@@ -54,12 +54,12 @@ void arallocc( void )
     nfiles = igetprm( "NFILES", 6 );
 
     if ( ( pb = malloc( (nfiles+1) * sizeof(FILE *) ) ) == NULL ) {
-	strcat( brtstr, "PB" );
+        strcat( brtstr, "PB" );
         bort( brtstr, ( f77int ) strlen( brtstr ) );
     }
 
     if ( ( lstpos = malloc( (nfiles+1) * sizeof(fpos_t) ) ) == NULL ) {
-	strcat( brtstr, "LSTPOS" );
+        strcat( brtstr, "LSTPOS" );
         bort( brtstr, ( f77int ) strlen( brtstr ) );
     }
 
@@ -72,62 +72,62 @@ void arallocc( void )
     maxcd = igetprm( "MAXCD", 5 );
 
     if ( ( ibfxyn_c = malloc( mxmtbb * sizeof(f77int) ) ) == NULL ) {
-	strcat( brtstr, "IBFXYN" );
+        strcat( brtstr, "IBFXYN" );
         bort( brtstr, ( f77int ) strlen( brtstr ) );
     }
 
     if ( ( cbscl_c = malloc( mxmtbb * 4 * sizeof(char) ) ) == NULL ) {
-	strcat( brtstr, "CBSCL" );
+        strcat( brtstr, "CBSCL" );
         bort( brtstr, ( f77int ) strlen( brtstr ) );
     }
 
     if ( ( cbsref_c = malloc( mxmtbb * 12 * sizeof(char) ) ) == NULL ) {
-	strcat( brtstr, "CBSREF" );
+        strcat( brtstr, "CBSREF" );
         bort( brtstr, ( f77int ) strlen( brtstr ) );
     }
 
     if ( ( cbbw_c = malloc( mxmtbb * 4 * sizeof(char) ) ) == NULL ) {
-	strcat( brtstr, "CBBW" );
+        strcat( brtstr, "CBBW" );
         bort( brtstr, ( f77int ) strlen( brtstr ) );
     }
 
     if ( ( cbunit_c = malloc( mxmtbb * 24 * sizeof(char) ) ) == NULL ) {
-	strcat( brtstr, "CBUNIT" );
+        strcat( brtstr, "CBUNIT" );
         bort( brtstr, ( f77int ) strlen( brtstr ) );
     }
 
     if ( ( cbmnem_c = malloc( mxmtbb * 8 * sizeof(char) ) ) == NULL ) {
-	strcat( brtstr, "CBMNEM" );
+        strcat( brtstr, "CBMNEM" );
         bort( brtstr, ( f77int ) strlen( brtstr ) );
     }
 
     if ( ( cbelem_c = malloc( mxmtbb * 120 * sizeof(char) ) ) == NULL ) {
-	strcat( brtstr, "CBELEM" );
+        strcat( brtstr, "CBELEM" );
         bort( brtstr, ( f77int ) strlen( brtstr ) );
     }
 
     if ( ( idfxyn_c = malloc( mxmtbd * sizeof(f77int) ) ) == NULL ) {
-	strcat( brtstr, "IDFXYN" );
+        strcat( brtstr, "IDFXYN" );
         bort( brtstr, ( f77int ) strlen( brtstr ) );
     }
 
     if ( ( cdseq_c = malloc( mxmtbd * 120 * sizeof(char) ) ) == NULL ) {
-	strcat( brtstr, "CDSEQ" );
+        strcat( brtstr, "CDSEQ" );
         bort( brtstr, ( f77int ) strlen( brtstr ) );
     }
 
     if ( ( cdmnem_c = malloc( mxmtbd * 8 * sizeof(char) ) ) == NULL ) {
-	strcat( brtstr, "CDMNEM" );
+        strcat( brtstr, "CDMNEM" );
         bort( brtstr, ( f77int ) strlen( brtstr ) );
     }
 
     if ( ( ndelem_c = malloc( mxmtbd * sizeof(f77int) ) ) == NULL ) {
-	strcat( brtstr, "NDELEM" );
+        strcat( brtstr, "NDELEM" );
         bort( brtstr, ( f77int ) strlen( brtstr ) );
     }
 
     if ( ( idefxy_c = malloc( mxmtbd * maxcd * sizeof(f77int) ) ) == NULL ) {
-	strcat( brtstr, "IDEFXY" );
+        strcat( brtstr, "IDEFXY" );
         bort( brtstr, ( f77int ) strlen( brtstr ) );
     }
 

@@ -33,14 +33,14 @@
 */
 int cmpstia2( const void *pe1, const void *pe2 )
 {
-	struct code_flag_entry *mype1 = ( struct code_flag_entry * ) pe1;
-	struct code_flag_entry *mype2 = ( struct code_flag_entry * ) pe2;
+        struct code_flag_entry *mype1 = ( struct code_flag_entry * ) pe1;
+        struct code_flag_entry *mype2 = ( struct code_flag_entry * ) pe2;
 
-	if ( mype1->iffxyn == mype2->iffxyn ) {
-	    if ( mype1->ifval == mype2->ifval ) return 0;
-	    return ( mype1->ifval < mype2->ifval ? -1 : 1 );
-	}
-	else {
-	    return ( mype1->iffxyn < mype2->iffxyn ? -1 : 1 );
-	}
+        if ( mype1->iffxyn == mype2->iffxyn ) {
+            if ( mype1->ifval == mype2->ifval ) return 0;
+            return ( mype1->ifval < mype2->ifval ? -1 : 1 );
+        }
+        else {
+            return ( mype1->iffxyn < mype2->iffxyn ? -1 : 1 );
+        }
 }

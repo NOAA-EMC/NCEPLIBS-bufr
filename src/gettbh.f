@@ -37,57 +37,57 @@ C> | Date | Programmer | Comments |
 C> | -----|------------|----------|
 C> | 2007-01-19 | J. Ator | Original author |
 C>
-	SUBROUTINE GETTBH ( LUNS, LUNL, TAB, IMT, IMTV, IOGCE, ILTV )
+        SUBROUTINE GETTBH ( LUNS, LUNL, TAB, IMT, IMTV, IOGCE, ILTV )
 
-	CHARACTER*128	BORT_STR
-	CHARACTER*40	HEADER
-	CHARACTER*30	TAGS(5), LABEL
-	CHARACTER*3	CFTYP
-	CHARACTER*2	CTTYP
-	CHARACTER*1	TAB
+        CHARACTER*128   BORT_STR
+        CHARACTER*40    HEADER
+        CHARACTER*30    TAGS(5), LABEL
+        CHARACTER*3     CFTYP
+        CHARACTER*2     CTTYP
+        CHARACTER*1     TAB
 
-	LOGICAL	BADLABEL
+        LOGICAL BADLABEL
 
 C-----------------------------------------------------------------------
-C	Statement function to check for bad header line label:
+C       Statement function to check for bad header line label:
 
-	BADLABEL ( LABEL ) = ( ( INDEX ( LABEL, CTTYP ) .EQ. 0 ) .OR.
-     .			       ( INDEX ( LABEL, CFTYP ) .EQ. 0 ) )
+        BADLABEL ( LABEL ) = ( ( INDEX ( LABEL, CTTYP ) .EQ. 0 ) .OR.
+     .                         ( INDEX ( LABEL, CFTYP ) .EQ. 0 ) )
 C-----------------------------------------------------------------------
 
-	CTTYP = TAB // ' '
+        CTTYP = TAB // ' '
 
-C	Read and parse the header line of the standard file.
+C       Read and parse the header line of the standard file.
 
-	CFTYP = 'STD'
-	IF ( IGETNTBL ( LUNS, HEADER ) .NE. 0 ) GOTO 900
-	CALL PARSTR ( HEADER, TAGS, 5, NTAG, '|', .FALSE. )
-	IF ( NTAG .LT. 3 ) GOTO 900
-	IF ( BADLABEL ( TAGS(1) ) ) GOTO 900
-	IMT = VALX ( TAGS(2) )
-	IMTV = VALX ( TAGS(3) )
-	
-C	Read and parse the header line of the local file.
+        CFTYP = 'STD'
+        IF ( IGETNTBL ( LUNS, HEADER ) .NE. 0 ) GOTO 900
+        CALL PARSTR ( HEADER, TAGS, 5, NTAG, '|', .FALSE. )
+        IF ( NTAG .LT. 3 ) GOTO 900
+        IF ( BADLABEL ( TAGS(1) ) ) GOTO 900
+        IMT = VALX ( TAGS(2) )
+        IMTV = VALX ( TAGS(3) )
 
-	CFTYP = 'LOC'
-	IF ( IGETNTBL ( LUNL, HEADER ) .NE. 0 ) GOTO 900
-	CALL PARSTR ( HEADER, TAGS, 5, NTAG, '|', .FALSE. )
-	IF ( NTAG .LT. 4 ) GOTO 900
-	IF ( BADLABEL ( TAGS(1) ) ) GOTO 900
-	IMT2 = VALX ( TAGS(2) )
-	IOGCE = VALX ( TAGS(3) )
-	ILTV = VALX ( TAGS(4) )
-	
-C	Verify that both files are for the same master table.
+C       Read and parse the header line of the local file.
 
-	IF ( IMT .NE. IMT2 ) GOTO 901
+        CFTYP = 'LOC'
+        IF ( IGETNTBL ( LUNL, HEADER ) .NE. 0 ) GOTO 900
+        CALL PARSTR ( HEADER, TAGS, 5, NTAG, '|', .FALSE. )
+        IF ( NTAG .LT. 4 ) GOTO 900
+        IF ( BADLABEL ( TAGS(1) ) ) GOTO 900
+        IMT2 = VALX ( TAGS(2) )
+        IOGCE = VALX ( TAGS(3) )
+        ILTV = VALX ( TAGS(4) )
 
-	RETURN
+C       Verify that both files are for the same master table.
 
- 900	WRITE(BORT_STR,'("BUFRLIB: GETTBH - BAD OR MISSING HEADER '//
+        IF ( IMT .NE. IMT2 ) GOTO 901
+
+        RETURN
+
+ 900    WRITE(BORT_STR,'("BUFRLIB: GETTBH - BAD OR MISSING HEADER '//
      .    'WITHIN ",A," TABLE ",A)') CFTYP, TAB
-	CALL BORT(BORT_STR)
- 901	WRITE(BORT_STR,'("BUFRLIB: GETTBH - MASTER TABLE NUMBER '//
+        CALL BORT(BORT_STR)
+ 901    WRITE(BORT_STR,'("BUFRLIB: GETTBH - MASTER TABLE NUMBER '//
      .    'MISMATCH BETWEEN STD AND LOC TABLE ",A)') TAB
-	CALL BORT(BORT_STR)
-	END
+        CALL BORT(BORT_STR)
+        END

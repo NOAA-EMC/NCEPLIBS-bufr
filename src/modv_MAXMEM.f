@@ -10,12 +10,12 @@ C>
 C> @author J. Ator
 C> @date 2014-12-10
 
-	MODULE MODV_MAXMEM
+        MODULE MODV_MAXMEM
 
 C>        @var maxmem
 C>        Maximum number of bytes that can be used to store BUFR
 C>        messages within internal memory.
 
-	  INTEGER :: MAXMEM = 50000000
+          INTEGER :: MAXMEM = 50000000
 
-	END MODULE
+        END MODULE

@@ -12,7 +12,7 @@ C> that ufbtam() works on data subsets within internal arrays.
 C>
 C> @author J. Woollen
 C> @date 1994-01-06
-C>      
+C>
 C> @param[in] LUNIN   -- integer: Absolute value is Fortran logical
 C>                       unit number for BUFR file
 C> @param[out] TAB    -- real*8(*,*): Data values
@@ -133,7 +133,7 @@ C  ---------------------
          CALL X84(LUNIN,MY_LUNIN,1)
          CALL X84(I1,MY_I1,1)
          CALL X84(I2,MY_I2,1)
-         CALL UFBTAB(MY_LUNIN,TAB,MY_I1,MY_I2,IRET,STR) 
+         CALL UFBTAB(MY_LUNIN,TAB,MY_I1,MY_I2,IRET,STR)
          CALL X48(IRET,IRET,1)
 
          IM8B=.TRUE.
@@ -174,7 +174,7 @@ C  ----------------------------------------------------------------
 C  IF BUFR FILE ALREADY OPENED, SAVE POSITION & REWIND TO FIRST DATA MSG
 C  ---------------------------------------------------------------------
 
-         CALL REWNBF(LUNIT,0)        
+         CALL REWNBF(LUNIT,0)
       ENDIF
 
       IAC = 1
@@ -220,7 +220,7 @@ C  ---------------------------------
 C  PARSE THE MESSAGE DEPENDING ON WHETHER COMPRESSED OR NOT
 C  --------------------------------------------------------
 
-      if(msgunp(lun)==2) goto 115 
+      if(msgunp(lun)==2) goto 115
 
 C  ---------------------------------------------
 C  THIS BRANCH IS FOR UNCOMPRESSED MESSAGES

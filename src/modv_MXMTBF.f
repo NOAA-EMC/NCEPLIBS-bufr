@@ -10,7 +10,7 @@ C>
 C> @author J. Ator
 C> @date 2018-01-11
 
-	MODULE MODV_MXMTBF
+        MODULE MODV_MXMTBF
 
 C>        @var mxmtbf
 C>        Maximum number of entries in a master BUFR Code/Flag
@@ -19,6 +19,6 @@ C>        and counting each defined code figure (within each
 C>        individual Code table) or defined bit number (within
 C>        each individual Flag table) as a separate entry.
 
-	  INTEGER :: MXMTBF = 25000
+          INTEGER :: MXMTBF = 25000
 
-	END MODULE
+        END MODULE

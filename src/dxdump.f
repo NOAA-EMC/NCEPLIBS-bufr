@@ -7,7 +7,7 @@ C>
 C> This subroutine is especially useful for learning the structure
 C> of existing BUFR files which contain DX BUFR table information
 C> embedded as BUFR messages within those files.
-C> The DX BUFR table is printed using the same ASCII format 
+C> The DX BUFR table is printed using the same ASCII format
 C> described in the documentation for
 C> [DX BUFR Tables](@ref dfbftab), so the output file is suitable
 C> for use as Fortran logical unit LUNDX in subsequent calls to
@@ -30,7 +30,7 @@ C>
 C> @remarks
 C> - This subroutine only prints the DX BUFR table that is currently
 C> in scope for logical unit LUNIT.  Therefore, if logical unit LUNIT
-C> contains multiple embedded DX BUFR tables, then multiple calls to 
+C> contains multiple embedded DX BUFR tables, then multiple calls to
 C> this subroutine must be made to print out all of the tables,
 C> once while each table is in scope for a data subset defined
 C> within that particular table.
@@ -121,8 +121,8 @@ C     DESCRIPTOR DEFINITION SECTION.
       WRITE (LDXOT,'(A)') CARDI4
 
       CARD=CARDI1
-      CARD( 3:10)='MNEMONIC' 
-      CARD(14:19)='NUMBER' 
+      CARD( 3:10)='MNEMONIC'
+      CARD(14:19)='NUMBER'
       CARD(23:33)='DESCRIPTION'
       WRITE (LDXOT,'(A)') CARD
 
@@ -140,8 +140,8 @@ C     DEFINITION CARDS.
       DO N=1,NTBD(LUN)
         IF(.NOT.TDSKIP(TABD(N,LUN)(1:6))) THEN
           CARD=CARDI1
-          CARD( 3:10)=TABD(N,LUN)( 7:14) 
-          CARD(14:19)=TABD(N,LUN)( 1: 6) 
+          CARD( 3:10)=TABD(N,LUN)( 7:14)
+          CARD(14:19)=TABD(N,LUN)( 1: 6)
           CARD(23:77)=TABD(N,LUN)(16:70)
 
 C         CHECK IF THIS TABLE D MNEMONIC IS ALSO A TABLE A MNEMONIC.
@@ -173,8 +173,8 @@ C     DEFINITION CARDS.
       DO N=1,NTBB(LUN)
         IF(.NOT.TBSKIP(TABB(N,LUN)(1:6))) THEN
           CARD=CARDI1
-          CARD( 3:10)=TABB(N,LUN)( 7:14) 
-          CARD(14:19)=TABB(N,LUN)( 1: 6) 
+          CARD( 3:10)=TABB(N,LUN)( 7:14)
+          CARD(14:19)=TABB(N,LUN)( 1: 6)
           CARD(23:77)=TABB(N,LUN)(16:70)
           WRITE (LDXOT,'(A)') CARD
         END IF
@@ -188,8 +188,8 @@ C     SEQUENCE DEFINITION SECTION.
       WRITE (LDXOT,'(A)') CARDI4
 
       CARD=CARDI2
-      CARD( 3:10)='MNEMONIC' 
-      CARD(14:21)='SEQUENCE' 
+      CARD( 3:10)='MNEMONIC'
+      CARD(14:21)='SEQUENCE'
       WRITE (LDXOT,'(A)') CARD
 
       CARD=CARDI4
@@ -204,13 +204,13 @@ C     DEFINITION CARDS.
       DO N=1,NTBD(LUN)
         IF(.NOT.TDSKIP(TABD(N,LUN)(1:6))) THEN
           CARD=CARDI2
-          CARD( 3:10)=TABD(N,LUN)( 7:14) 
+          CARD( 3:10)=TABD(N,LUN)( 7:14)
           IC = 14
 
 C         GET THE LIST OF CHILD MNEMONICS FOR THIS TABLE D DESCRIPTOR,
 C         AND THEN ADD EACH ONE (INCLUDING ANY REPLICATION TAGS) TO
 C         THE SEQUENCE DEFINITION CARD FOR THIS TABLE D DESCRIPTOR.
- 
+
           CALL NEMTBD(LUN,N,NSEQ,NEM(1,1),IRP(1,1),KRP(1,1))
           IF(NSEQ.GT.0) THEN
             DO NC=1,NSEQ
@@ -252,7 +252,7 @@ C             NEW ONE TO HOLD THIS CHILD.
               IF(IC.GT.(79-ICMS)) THEN
                 WRITE (LDXOT,'(A)') CARD
                 CARD=CARDI2
-                CARD( 3:10)=TABD(N,LUN)( 7:14) 
+                CARD( 3:10)=TABD(N,LUN)( 7:14)
                 IC = 14
               END IF
               CARD(IC:IC+ICMS-1)=CMSTR(1:ICMS)
@@ -275,11 +275,11 @@ C     ELEMENT DEFINITION SECTION.
       WRITE (LDXOT,'(A)') CARDI4
 
       CARD=CARDI3
-      CARD( 3:10)='MNEMONIC' 
-      CARD(14:17)='SCAL' 
-      CARD(21:29)='REFERENCE' 
-      CARD(35:37)='BIT' 
-      CARD(41:45)='UNITS' 
+      CARD( 3:10)='MNEMONIC'
+      CARD(14:17)='SCAL'
+      CARD(21:29)='REFERENCE'
+      CARD(35:37)='BIT'
+      CARD(41:45)='UNITS'
       WRITE (LDXOT,'(A)') CARD
 
       CARD=CARDI4
@@ -298,25 +298,25 @@ C     DEFINITION CARDS.
       DO N=1,NTBB(LUN)
         IF(.NOT.TBSKIP(TABB(N,LUN)(1:6))) THEN
           CARD=CARDI3
-          CARD( 3:10)=TABB(N,LUN)( 7:14) 
-          CARD(41:64)=TABB(N,LUN)(71:94) 
+          CARD( 3:10)=TABB(N,LUN)( 7:14)
+          CARD(41:64)=TABB(N,LUN)(71:94)
 
 C         ADD THE SCALE FACTOR.
 
           CALL STRSUC(TABB(N,LUN)(96:98),WRK2,NCH)
-          CARD(17-NCH+1:17)=WRK2 
+          CARD(17-NCH+1:17)=WRK2
           IF(TABB(N,LUN)(95:95).EQ.'-') CARD(17-NCH:17-NCH)='-'
 
 C         ADD THE REFERENCE VALUE.
 
           CALL STRSUC(TABB(N,LUN)(100:109),WRK3,NCH)
-          CARD(31-NCH+1:31)=WRK3 
+          CARD(31-NCH+1:31)=WRK3
           IF(TABB(N,LUN)(99:99).EQ.'-') CARD(31-NCH:31-NCH)='-'
 
 C         ADD THE BIT WIDTH.
 
           CALL STRSUC(TABB(N,LUN)(110:112),WRK2,NCH)
-          CARD(37-NCH+1:37)=WRK2 
+          CARD(37-NCH+1:37)=WRK2
           WRITE (LDXOT,'(A)') CARD
         END IF
       END DO

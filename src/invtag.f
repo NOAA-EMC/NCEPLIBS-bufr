@@ -14,7 +14,7 @@ C> 2009-04-21 | J. Ator    | use errwrt().
 C> 2014-12-10 | J. Ator    | Use modules instead of common blocks.
 C>
 C> @author Woollen @date 1994-01-06
-      
+
 C> This function looks for a specified mnemonic within the
 C> portion of the current subset buffer bounded by the indices inv1
 C> and inv2. It is similar to BUFR archive library function invwin(),

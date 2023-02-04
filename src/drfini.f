@@ -44,7 +44,7 @@ C> In contrast, the use of this subroutine is not required when
 C> ufbint() or ufbrep() are to be called to store data values
 C> for a delayed replication sequence which only occurs one time
 C> within an overall subset definition, because in that case the
-C> same type of initialization and space allocation functionality 
+C> same type of initialization and space allocation functionality
 C> will be automatically handled internally within subroutine
 C> ufbint() or ufbrep().
 C>

@@ -29,31 +29,31 @@
 */
 void nummtb( f77int *idn, char *tab, f77int *ipt )
 {
-	f77int *pifxyn, *pbs,  nmt;
+        f77int *pifxyn, *pbs,  nmt;
 
-	char adn[7], errstr[129];
+        char adn[7], errstr[129];
 
-	if ( *idn >= ifxy( "300000", 6 ) ) {
-	    *tab = 'D';
-	    pifxyn = &idfxyn_c[0];
-	    nmt = nmtd_c;
-	}
-	else {
-	    *tab = 'B';
-	    pifxyn = &ibfxyn_c[0];
-	    nmt = nmtb_c;
-	}
+        if ( *idn >= ifxy( "300000", 6 ) ) {
+            *tab = 'D';
+            pifxyn = &idfxyn_c[0];
+            nmt = nmtd_c;
+        }
+        else {
+            *tab = 'B';
+            pifxyn = &ibfxyn_c[0];
+            nmt = nmtb_c;
+        }
 
         pbs = ( f77int * ) bsearch( idn, pifxyn, ( size_t ) nmt, sizeof( f77int ),
-				( int (*) ( const void *, const void * ) ) cmpia );
+                                ( int (*) ( const void *, const void * ) ) cmpia );
         if ( pbs == NULL ) {
-	    cadn30( idn, adn, sizeof( adn ) );
-	    adn[6] = '\0';
-	    sprintf( errstr, "BUFRLIB: NUMMTB - COULD NOT FIND DESCRIPTOR "
-			     "%s IN MASTER TABLE %c", adn, *tab );
-	    bort( errstr, ( f77int ) strlen( errstr ) );
-	}
-	*ipt = pbs - pifxyn;
+            cadn30( idn, adn, sizeof( adn ) );
+            adn[6] = '\0';
+            sprintf( errstr, "BUFRLIB: NUMMTB - COULD NOT FIND DESCRIPTOR "
+                             "%s IN MASTER TABLE %c", adn, *tab );
+            bort( errstr, ( f77int ) strlen( errstr ) );
+        }
+        *ipt = pbs - pifxyn;
 
-	return;
+        return;
 }

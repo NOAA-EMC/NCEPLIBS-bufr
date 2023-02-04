@@ -2,7 +2,7 @@ C> @file
 C> @brief Read the next uncompressed BUFR data subset into internal arrays.
 C>
 C> ### Program History Log
-C> Date | Programmer | Comments 
+C> Date | Programmer | Comments
 C> -----|------------|----------
 C> 1994-01-06 | J. Woollen | original author
 C> 1998-10-27 | J. Woollen | modified to correct problems caused by in- lining code with fpp directives
@@ -17,10 +17,10 @@ C> 2012-03-02 | J. Ator    | use function ups
 C> 2012-06-04 | J. Ator    | set decoded real*8 value to "missing" when corresponding character field has all bits set to 1
 C> 2014-12-10 | J. Ator    | use modules instead of common blocks
 C> 2016-11-09 | J. Ator    | added iret argument and check for possibly corrupt subsets
-C> 2022-05-06 | J. Woollen | replace upbb with upb8 for 8byte integers 
+C> 2022-05-06 | J. Woollen | replace upbb with upb8 for 8byte integers
 C>
 C> @author Woollen @date 1994-01-06
-      
+
 C> This subroutine unpacks the next subset from the internal
 c> uncompressed message buffer (array mbay in module bitbuf) and
 c> stores the unpacked subset within the internal array val(*,lun)
@@ -77,12 +77,12 @@ C  ----------------------------------------------------------------
       NODE = INV(N,LUN)
       IF(ITP(NODE).EQ.1) THEN
 
-C	 The unpacked value is a delayed descriptor replication factor.
+C        The unpacked value is a delayed descriptor replication factor.
 
          VAL(N,LUN) = IVAL(N)
       ELSEIF(ITP(NODE).EQ.2) THEN
 
-C	 The unpacked value is a real.
+C        The unpacked value is a real.
 
          IF (IVAL(N).LT.2_8**ibt(node)-1) THEN
             VAL(N,LUN) = UPS(IVAL(N),NODE)

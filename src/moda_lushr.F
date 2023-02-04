@@ -9,12 +9,12 @@ C> table information.
 C>
 C> @author J. Woollen @date 1994-01-06
 
-	MODULE MODA_LUSHR
+        MODULE MODA_LUSHR
 
 C>    Tracking index for each I/O internal stream index.  Set to a value
 C>    of zero if the corresponding logical unit does not share DX BUFR
 C>    table information with any other logical unit.  Otherwise set to a
 C>    non-zero value within subroutine makestab().
-	  INTEGER, ALLOCATABLE :: LUS(:)
+          INTEGER, ALLOCATABLE :: LUS(:)
 
-	END MODULE
+        END MODULE

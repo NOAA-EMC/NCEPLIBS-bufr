@@ -42,54 +42,53 @@
  *  @author J. Ator @date 2014-12-04
 */
 void cpmstabs(  f77int *pnmtb,
-		f77int *pibfxyn, char (*pcbscl)[4],
-		char (*pcbsref)[12], char (*pcbbw)[4],
-		char (*pcbunit)[24], char (*pcbmnem)[8],
-		char (*pcbelem)[120],
-		f77int *pnmtd,
-		f77int *pidfxyn, char (*pcdseq)[120],
-		char (*pcdmnem)[8], f77int *pndelem,
-		f77int *pidefxy, f77int *maxcd )
+                f77int *pibfxyn, char (*pcbscl)[4],
+                char (*pcbsref)[12], char (*pcbbw)[4],
+                char (*pcbunit)[24], char (*pcbmnem)[8],
+                char (*pcbelem)[120],
+                f77int *pnmtd,
+                f77int *pidfxyn, char (*pcdseq)[120],
+                char (*pcdmnem)[8], f77int *pndelem,
+                f77int *pidefxy, f77int *maxcd )
 {
 
     f77int ii, jj, idx;
 
     nmtb_c = *pnmtb;
     for ( ii = 0; ii < *pnmtb; ii++ ) {
-	ibfxyn_c[ii] = pibfxyn[ii];
-	for ( jj = 0; jj < 4; jj++ ) {
-	    cbscl_c[ii][jj] = pcbscl[ii][jj];
-	    cbbw_c[ii][jj] = pcbbw[ii][jj];
-	}
-	for ( jj = 0; jj < 8; jj++ ) {
-	    cbmnem_c[ii][jj] = pcbmnem[ii][jj];
-	}
-	for ( jj = 0; jj < 12; jj++ ) {
-	    cbsref_c[ii][jj] = pcbsref[ii][jj];
-	}
-	for ( jj = 0; jj < 24; jj++ ) {
-	    cbunit_c[ii][jj] = pcbunit[ii][jj];
-	}
-	for ( jj = 0; jj < 120; jj++ ) {
-	    cbelem_c[ii][jj] = pcbelem[ii][jj];
-	}
+        ibfxyn_c[ii] = pibfxyn[ii];
+        for ( jj = 0; jj < 4; jj++ ) {
+            cbscl_c[ii][jj] = pcbscl[ii][jj];
+            cbbw_c[ii][jj] = pcbbw[ii][jj];
+        }
+        for ( jj = 0; jj < 8; jj++ ) {
+            cbmnem_c[ii][jj] = pcbmnem[ii][jj];
+        }
+        for ( jj = 0; jj < 12; jj++ ) {
+            cbsref_c[ii][jj] = pcbsref[ii][jj];
+        }
+        for ( jj = 0; jj < 24; jj++ ) {
+            cbunit_c[ii][jj] = pcbunit[ii][jj];
+        }
+        for ( jj = 0; jj < 120; jj++ ) {
+            cbelem_c[ii][jj] = pcbelem[ii][jj];
+        }
     }
 
     nmtd_c = *pnmtd;
     for ( ii = 0; ii < *pnmtd; ii++ ) {
-	idfxyn_c[ii] = pidfxyn[ii];
-	ndelem_c[ii] = pndelem[ii];
-	for ( jj = 0; jj < pndelem[ii]; jj++ ) {
-	    idx = icvidx( &ii, &jj, maxcd );
-	    idefxy_c[idx] = pidefxy[idx];
-	}
-	for ( jj = 0; jj < 8; jj++ ) {
-	    cdmnem_c[ii][jj] = pcdmnem[ii][jj];
-	}
-	for ( jj = 0; jj < 120; jj++ ) {
-	    cdseq_c[ii][jj] = pcdseq[ii][jj];
-	}
+        idfxyn_c[ii] = pidfxyn[ii];
+        ndelem_c[ii] = pndelem[ii];
+        for ( jj = 0; jj < pndelem[ii]; jj++ ) {
+            idx = icvidx( &ii, &jj, maxcd );
+            idefxy_c[idx] = pidefxy[idx];
+        }
+        for ( jj = 0; jj < 8; jj++ ) {
+            cdmnem_c[ii][jj] = pcdmnem[ii][jj];
+        }
+        for ( jj = 0; jj < 120; jj++ ) {
+            cdseq_c[ii][jj] = pcdseq[ii][jj];
+        }
     }
 
 }
-

@@ -23,7 +23,7 @@
  *  messages via a C language interface.
  *
  *  This subroutine is designed to be easily callable from
- *  application program written in either C or Fortran. 
+ *  application program written in either C or Fortran.
  *  It is functionally equivalent to subroutine
  *  openbf(); however, there are some important differences:
  *  - When using openbf(), the underlying file must already be
@@ -70,12 +70,12 @@
  *  Any errors encountered when using this subroutine are
  *  automatically logged to standard output, or to an alternate
  *  location previously specified via a call to subroutine errwrt().
- *  
+ *
  *  @param bfl - System file to be opened. Inclusion of directory
  *  prefixes or other local filesystem notation is allowed, up to 200
  *  total characters.
  *  @param io - Flag indicating how bfl is to be opened:
- * - 'r' input (for reading BUFR messages) 
+ * - 'r' input (for reading BUFR messages)
  * - 'w' output (for writing BUFR messages)
  *
  *  @author J. Ator @date 2005-11-29
@@ -97,27 +97,27 @@ void cobfl( char *bfl, char *io )
 **  NULL character.
 */
     for ( i = 0; ( ! isspace( bfl[i] ) && ! iscntrl( bfl[i] ) ); i++ ) {
-	if ( i == MXFNLEN ) {
-	    sprintf( errstr, "BUFRLIB: COBFL - INPUT FILENAME CONTAINS"
-			    " MORE THAN %hu CHARACTERS",
-			    ( unsigned short ) MXFNLEN );
-	    bort( errstr, ( f77int ) strlen( errstr ) );
-	}
-	lbf[i] = bfl[i];
+        if ( i == MXFNLEN ) {
+            sprintf( errstr, "BUFRLIB: COBFL - INPUT FILENAME CONTAINS"
+                            " MORE THAN %hu CHARACTERS",
+                            ( unsigned short ) MXFNLEN );
+            bort( errstr, ( f77int ) strlen( errstr ) );
+        }
+        lbf[i] = bfl[i];
     }
     lbf[i] = '\0';
 
     lio = io[0];
     if ( ( foparg[0] = (char) tolower( lio ) ) == 'r' ) {
-	j = 0;
+        j = 0;
     }
     else if ( foparg[0] == 'w' ) {
-	j = 1;
+        j = 1;
     }
     else {
-	sprintf( errstr, "BUFRLIB: COBFL - SECOND ARGUMENT WAS (%c),"
-			" WHICH IS AN ILLEGAL VALUE", lio );
-	bort( errstr, ( f77int ) strlen( errstr ) );
+        sprintf( errstr, "BUFRLIB: COBFL - SECOND ARGUMENT WAS (%c),"
+                        " WHICH IS AN ILLEGAL VALUE", lio );
+        bort( errstr, ( f77int ) strlen( errstr ) );
     }
 
 /*
@@ -129,8 +129,8 @@ void cobfl( char *bfl, char *io )
 **  Open the requested file.
 */
     if ( ( pbf[j] = fopen( lbf, foparg ) ) == NULL ) {
-	sprintf( errstr, "BUFRLIB: COBFL - COULD NOT OPEN FILE %s", lbf );
-	bort( errstr, ( f77int ) strlen( errstr ) );
+        sprintf( errstr, "BUFRLIB: COBFL - COULD NOT OPEN FILE %s", lbf );
+        bort( errstr, ( f77int ) strlen( errstr ) );
     }
 
 /*
@@ -138,6 +138,6 @@ void cobfl( char *bfl, char *io )
 **  local machine, just in case it hasn't already been called.
 */
     wrdlen( );
-    
+
     return;
 }

@@ -20,12 +20,12 @@ C> | Date | Programmer | Comments |
 C> | -----|------------|----------|
 C> | 2004-08-18 | J. Ator | Original author |
 C>
-	SUBROUTINE CADN30( IDN, ADN )
+        SUBROUTINE CADN30( IDN, ADN )
 
-	CHARACTER*(*)	ADN
-	CHARACTER*6	ADN30
+        CHARACTER*(*)   ADN
+        CHARACTER*6     ADN30
 
-	ADN = ADN30( IDN, 6 )
+        ADN = ADN30( IDN, 6 )
 
-	RETURN
-	END
+        RETURN
+        END

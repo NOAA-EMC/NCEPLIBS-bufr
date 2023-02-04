@@ -9,7 +9,7 @@ C> 2014-11-14 | J. Ator | replace chrtrna calls with upc calls
 C> 2014-12-10 | J. Ator | use modules instead of common blocks
 C>
 C> @author J Ator @date 2009-03-23
-      
+
 C> This subroutine copies a DX BUFR tables message
 C> from the input array mesg into the internal memory arrays in
 C> module tababd.

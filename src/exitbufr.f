@@ -6,7 +6,7 @@ C> This subroutine frees all dynamically-allocated memory,
 C> closes all logical units that are open within the
 C> BUFRLIB software, and resets the library to all of its
 C> default settings as though it had never been called.
-C>   
+C>
 C> @author J. Ator
 C> @date 2015-03-02
 C>
@@ -36,49 +36,49 @@ C> | -----|------------|----------|
 C> | 2015-03-02 | J. Ator | Original author |
 C> | 2022-10-04 | J. Ator | Added 8-byte wrapper |
 
-	RECURSIVE SUBROUTINE EXITBUFR
+        RECURSIVE SUBROUTINE EXITBUFR
 
-	USE MODV_IM8B
-	USE MODV_IFOPBF
+        USE MODV_IM8B
+        USE MODV_IFOPBF
         USE MODV_NFILES
 
-	USE MODA_STBFR
-	USE MODA_S01CM
+        USE MODA_STBFR
+        USE MODA_S01CM
 
-	COMMON /TABLEF/ CDMF
+        COMMON /TABLEF/ CDMF
 
-	CHARACTER*1 CDMF
+        CHARACTER*1 CDMF
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
 
-C	Check for I8 integers.
+C       Check for I8 integers.
 
-	IF (IM8B) THEN
-	  IM8B = .FALSE.
+        IF (IM8B) THEN
+          IM8B = .FALSE.
 
-	  CALL EXITBUFR
+          CALL EXITBUFR
 
-	  IM8B = .TRUE.
-	  RETURN
-	END IF
+          IM8B = .TRUE.
+          RETURN
+        END IF
 
-C	Close any logical units that are open to the library.
+C       Close any logical units that are open to the library.
 
-	DO JJ = 1, NFILES
-	  IF ( IOLUN(JJ) .NE. 0 ) CALL CLOSBF( ABS(IOLUN(JJ)) )
-	END DO
+        DO JJ = 1, NFILES
+          IF ( IOLUN(JJ) .NE. 0 ) CALL CLOSBF( ABS(IOLUN(JJ)) )
+        END DO
 
-C	Deallocate all allocated memory.
+C       Deallocate all allocated memory.
 
-	CALL ARDLLOCF
+        CALL ARDLLOCF
 
-	IF ( CDMF .EQ. 'Y' ) CALL DLLOCTBF
+        IF ( CDMF .EQ. 'Y' ) CALL DLLOCTBF
 
-C	Reset the library.
+C       Reset the library.
 
-	NS01V = 0
-	IFOPBF = 0
+        NS01V = 0
+        IFOPBF = 0
 
-	RETURN
-	END
+        RETURN
+        END

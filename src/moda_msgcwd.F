@@ -10,17 +10,17 @@ C> index.
 C>
 C> @author J. Woollen @date 1994-01-06
 
-	MODULE MODA_MSGCWD
+        MODULE MODA_MSGCWD
 
 C>    Current message pointer within logical unit.
-	  INTEGER, ALLOCATABLE :: NMSG(:)
+          INTEGER, ALLOCATABLE :: NMSG(:)
 C>    Current subset pointer within message.
-	  INTEGER, ALLOCATABLE :: NSUB(:)
+          INTEGER, ALLOCATABLE :: NSUB(:)
 C>    Total number of data subsets in message.
-	  INTEGER, ALLOCATABLE :: MSUB(:)
+          INTEGER, ALLOCATABLE :: MSUB(:)
 C>    Table A mnemonic for type of BUFR message.
-	  INTEGER, ALLOCATABLE :: INODE(:)
+          INTEGER, ALLOCATABLE :: INODE(:)
 C>    Section 1 date-time of message.
-	  INTEGER, ALLOCATABLE :: IDATE(:)
+          INTEGER, ALLOCATABLE :: IDATE(:)
 
-	END MODULE
+        END MODULE

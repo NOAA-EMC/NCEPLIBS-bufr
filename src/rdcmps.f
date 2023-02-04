@@ -2,7 +2,7 @@ C> @file
 C> @brief Read the next compressed BUFR data subset into internal arrays.
 C>
 C> ### Program History Log
-C> Date | Programmer | Comments 
+C> Date | Programmer | Comments
 C> -----|------------|----------
 C> 2000-09-19 | J. Woollen | Original author.
 C> 2002-05-14 | J. Woollen | Improved generality, previously rdcmps would not recognize compressed delayed replication as a legitimate data structure.
@@ -17,7 +17,7 @@ C> 2014-12-10 | J. Ator    | Use modules instead of common blocks.
 C> 2022-05-06 | J. Woollen | Use up8 for 8byte integer operation.
 C>
 C> @author Woollen @date 2000-09-19
-      
+
 C> This subroutine uncompresses and unpacks the next subset
 c> from the internal compressed message buffer (array mbay in module
 c> bitbuf) and stores the unpacked subset within the internal

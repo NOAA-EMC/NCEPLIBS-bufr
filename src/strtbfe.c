@@ -31,7 +31,7 @@
  * | 2017-11-13 | J. Ator | Original author |
 */
 void strtbfe( f77int *ifxyn, f77int *ival, char *meaning, f77int *lmeaning,
-	      f77int *idfxy, f77int *idval )
+              f77int *idfxy, f77int *idval )
 {
     unsigned int mnlen;
 

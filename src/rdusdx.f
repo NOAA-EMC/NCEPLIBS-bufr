@@ -1,8 +1,8 @@
 C> @file
 C> @brief Read a complete DX BUFR table.
-C> 
+C>
 C> ### Program History Log
-C> Date | Programmer | Comments 
+C> Date | Programmer | Comments
 C> -----|------------|----------
 C> 1994-01-06 | J. Woollen | original author
 C> 1995-06-28 | J. Woollen | increased the size of internal bufr table arrays in order to handle bigger files
@@ -19,7 +19,7 @@ C> 2013-01-08 | J. Whiting | add err= option to read statement
 C> 2014-12-10 | J. Ator    | use modules instead of common blocks
 C>
 C> @author Woollen @date 1994-01-06
-      
+
 C> This subroutine reads and parses a file containing a user-
 c> supplied DX BUFR table in character format, and then stores
 c> this information into internal arrays in module tababd.
@@ -99,19 +99,19 @@ C  TABLE A DESCRIPTOR FOUND
 C  ------------------------
 
          IF(NUMB(1:1).EQ.'A') THEN
-	   N = IGETNTBI ( LUN, 'A' )
-	   CALL STNTBIA ( N, LUN, NUMB, NEMO, CARD(23:) )
-	   IF ( IDNA(N,LUN,1) .EQ. 11 ) GOTO 906
+           N = IGETNTBI ( LUN, 'A' )
+           CALL STNTBIA ( N, LUN, NUMB, NEMO, CARD(23:) )
+           IF ( IDNA(N,LUN,1) .EQ. 11 ) GOTO 906
 c  .... Replace "A" with "3" so Table D descriptor will be found in
 c  .... card as well (see below)
-	   NUMB(1:1) = '3'
+           NUMB(1:1) = '3'
          ENDIF
 
 C  TABLE B DESCRIPTOR FOUND
 C  ------------------------
 
          IF(NUMB(1:1).EQ.'0') THEN
-	   CALL STNTBI ( IGETNTBI(LUN,'B'), LUN, NUMB, NEMO, CARD(23:) )
+           CALL STNTBI ( IGETNTBI(LUN,'B'), LUN, NUMB, NEMO, CARD(23:) )
            GOTO 1
          ENDIF
 
@@ -119,7 +119,7 @@ C  TABLE D DESCRIPTOR FOUND
 C  ------------------------
 
          IF(NUMB(1:1).EQ.'3') THEN
-	   CALL STNTBI ( IGETNTBI(LUN,'D'), LUN, NUMB, NEMO, CARD(23:) )
+           CALL STNTBI ( IGETNTBI(LUN,'D'), LUN, NUMB, NEMO, CARD(23:) )
            GOTO 1
          ENDIF
 

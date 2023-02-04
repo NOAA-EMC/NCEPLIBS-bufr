@@ -18,7 +18,7 @@ C> 2016-05-24 | J. Ator    | store table c operators in module bitmaps
 C> 2017-04-03 | J. Ator    | add a dimension to all tco arrays so that each subset definition in the jump/link table has its own set of table c operators
 C>
 C> @author Woollen @date 1994-01-06
-      
+
 C> This subroutine builds the entire jump/link tree
 C> (including recursively resolving all "child" mnemonics) for a Table A
 C> mnemonic within the internal jump/link table.
@@ -129,7 +129,7 @@ C             Stop applying new reference values to subset nodes.
 C             Instead, revert to the use of standard Table B values.
 
               IF(IPFNRV.EQ.0) GOTO 911
-	      DO JJ=IPFNRV,NNRV
+              DO JJ=IPFNRV,NNRV
                 IENRV(JJ) = NTAB
               ENDDO
               IPFNRV = 0
@@ -213,7 +213,7 @@ C             Note that, if there had been a subsequent 2-03-000
 C             operator, then these IENRV(*) values would have already
 C             been properly set above.
 
-	      DO JJ=IPFNRV,NNRV
+              DO JJ=IPFNRV,NNRV
                 IENRV(JJ) = NTAB
               ENDDO
             ENDIF

@@ -1,6 +1,6 @@
 C> @file
 C> @brief Copy a specified number of bytes from
-C> one packed binary array to another.      
+C> one packed binary array to another.
 C>
 C> ### Program History Log
 C> Date | Programmer | Comments
@@ -15,7 +15,7 @@ C> 2005-11-29 | J. Ator    | Maximum number of bytes to copy increased from 2400
 C> 2014-10-22 | J. Ator    | Merge two do loops into one, and remove mximb parameter and dimensioning of nval.
 C>
 C> @author Woollen @date 1994-01-06
-      
+
 C> This subroutine copies a specified number of bytes from
 C> one packed binary array to another.
 C>

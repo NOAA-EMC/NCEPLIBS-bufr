@@ -23,62 +23,62 @@ C> | Date | Programmer | Comments |
 C> | -----|------------|----------|
 C> | 2017-10-17 | J. Ator | Original author |
 C>
-	SUBROUTINE RDMTBF ( LUNSTF, LUNLTF )
+        SUBROUTINE RDMTBF ( LUNSTF, LUNLTF )
 
-	CHARACTER*160	STLINE, LTLINE
-	CHARACTER*128	BORT_STR
-	CHARACTER*6	CMATCH, ADN30
+        CHARACTER*160   STLINE, LTLINE
+        CHARACTER*128   BORT_STR
+        CHARACTER*6     CMATCH, ADN30
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
 
-C	Call WRDLEN to initialize some important information about the
-C	local machine, just in case it hasn't already been called.
+C       Call WRDLEN to initialize some important information about the
+C       local machine, just in case it hasn't already been called.
 
-	CALL WRDLEN
+        CALL WRDLEN
 
-C	Initialize the internal memory structure, including allocating
-C	space for it in case this hasn't already been done.
+C       Initialize the internal memory structure, including allocating
+C       space for it in case this hasn't already been done.
 
-	CALL INITTBF
+        CALL INITTBF
 
-C	Read and parse the header lines of both files.
+C       Read and parse the header lines of both files.
 
-	CALL GETTBH ( LUNSTF, LUNLTF, 'F', IMT, IMTV, IOGCE, ILTV )
-	
-C	Read through the remainder of both files, merging the
-C	contents into a unified internal memory structure.
+        CALL GETTBH ( LUNSTF, LUNLTF, 'F', IMT, IMTV, IOGCE, ILTV )
 
-	CALL GETNTBE ( LUNSTF, ISFXYN, STLINE, IERS )
-	CALL GETNTBE ( LUNLTF, ILFXYN, LTLINE, IERL )
-	DO WHILE ( ( IERS .EQ. 0 ) .OR. ( IERL .EQ. 0 ) )
-	  IF ( ( IERS .EQ. 0 ) .AND. ( IERL .EQ. 0 ) ) THEN
-	    IF ( ISFXYN .EQ. ILFXYN ) THEN
-	      CMATCH = ADN30 ( ISFXYN, 6 )
-	      GOTO 900
-	    ELSE IF ( ISFXYN .LT. ILFXYN ) THEN
-	      CALL SNTBFE ( LUNSTF, ISFXYN, STLINE )
-	      CALL GETNTBE ( LUNSTF, ISFXYN, STLINE, IERS )
-	    ELSE
-	      CALL SNTBFE ( LUNLTF, ILFXYN, LTLINE )
-	      CALL GETNTBE ( LUNLTF, ILFXYN, LTLINE, IERL )
-	    ENDIF
-	  ELSE IF ( IERS .EQ. 0 ) THEN
-	    CALL SNTBFE ( LUNSTF, ISFXYN, STLINE )
-	    CALL GETNTBE ( LUNSTF, ISFXYN, STLINE, IERS )
-	  ELSE IF ( IERL .EQ. 0 ) THEN
-	    CALL SNTBFE ( LUNLTF, ILFXYN, LTLINE )
-	    CALL GETNTBE ( LUNLTF, ILFXYN, LTLINE, IERL )
-	  ENDIF
-	ENDDO
+C       Read through the remainder of both files, merging the
+C       contents into a unified internal memory structure.
 
-C	Sort the contents of the internal memory structure.
+        CALL GETNTBE ( LUNSTF, ISFXYN, STLINE, IERS )
+        CALL GETNTBE ( LUNLTF, ILFXYN, LTLINE, IERL )
+        DO WHILE ( ( IERS .EQ. 0 ) .OR. ( IERL .EQ. 0 ) )
+          IF ( ( IERS .EQ. 0 ) .AND. ( IERL .EQ. 0 ) ) THEN
+            IF ( ISFXYN .EQ. ILFXYN ) THEN
+              CMATCH = ADN30 ( ISFXYN, 6 )
+              GOTO 900
+            ELSE IF ( ISFXYN .LT. ILFXYN ) THEN
+              CALL SNTBFE ( LUNSTF, ISFXYN, STLINE )
+              CALL GETNTBE ( LUNSTF, ISFXYN, STLINE, IERS )
+            ELSE
+              CALL SNTBFE ( LUNLTF, ILFXYN, LTLINE )
+              CALL GETNTBE ( LUNLTF, ILFXYN, LTLINE, IERL )
+            ENDIF
+          ELSE IF ( IERS .EQ. 0 ) THEN
+            CALL SNTBFE ( LUNSTF, ISFXYN, STLINE )
+            CALL GETNTBE ( LUNSTF, ISFXYN, STLINE, IERS )
+          ELSE IF ( IERL .EQ. 0 ) THEN
+            CALL SNTBFE ( LUNLTF, ILFXYN, LTLINE )
+            CALL GETNTBE ( LUNLTF, ILFXYN, LTLINE, IERL )
+          ENDIF
+        ENDDO
 
-	CALL SORTTBF
+C       Sort the contents of the internal memory structure.
 
-	RETURN
- 900	WRITE(BORT_STR,'("BUFRLIB: RDMTBF - STANDARD AND LOCAL'//
+        CALL SORTTBF
+
+        RETURN
+ 900    WRITE(BORT_STR,'("BUFRLIB: RDMTBF - STANDARD AND LOCAL'//
      . ' CODE/FLAG TABLE FILES BOTH CONTAIN SAME FXY NUMBER: ",5A)')
-     .	 CMATCH(1:1), '-', CMATCH(2:3), '-', CMATCH(4:6)	
-	CALL BORT(BORT_STR)
-	END
+     .   CMATCH(1:1), '-', CMATCH(2:3), '-', CMATCH(4:6)
+        CALL BORT(BORT_STR)
+        END

@@ -1,7 +1,7 @@
 C> @file
 C> @brief Read the tank receipt time from Section 1 of a BUFR message.
 
-C> This subroutine reads the tank receipt time (if one exists) from 
+C> This subroutine reads the tank receipt time (if one exists) from
 C> Section 1 of a BUFR message.  It is similar to subroutine rtrcptb(),
 C> except that rtrcptb() operates on a BUFR message passed in via a
 C> memory array, whereas this subroutine operates on the BUFR message
@@ -24,7 +24,7 @@ C>                     - 0 = normal return
 C>                     - -1 = no tank receipt time exists within the
 C>                            BUFR message currently open for input
 C>                            within internal arrays
-C> 
+C>
 C> <b>Program history log:</b>
 C> | Date | Programmer | Comments |
 C> | -----|------------|----------|
@@ -69,7 +69,7 @@ C     Check the file status.
 C     Unpack the tank receipt time.
 
       CALL RTRCPTB(MBAY(1,LUN),IYR,IMO,IDY,IHR,IMI,IRET)
-	
+
 C  EXITS
 C  -----
 

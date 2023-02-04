@@ -12,7 +12,7 @@ C> 2009-03-31 | J. Woollen | Added documentation.
 C> 2014-12-10 | J. Ator    | Use modules instead of common blocks.
 C>
 C> @author Woollen @date 1996-10-09
-      
+
 C> This function adds up the complete length of the delayed
 C> replication sequence beginning at index N of the data subset.
 C>

@@ -80,95 +80,95 @@ C> | Date | Programmer | Comments |
 C> | -----|------------|----------|
 C> | 2014-12-04 | J. Ator | Original author |
 C>
-	INTEGER FUNCTION IGETPRM ( CPRMNM )
+        INTEGER FUNCTION IGETPRM ( CPRMNM )
 
-	USE MODV_MAXSS
-	USE MODV_NFILES
-	USE MODV_MXMSGL
-	USE MODV_MXDXTS
-	USE MODV_MAXMSG
-	USE MODV_MAXMEM
-	USE MODV_MAXTBA
-	USE MODV_MAXTBB
-	USE MODV_MAXTBD
-	USE MODV_MAXJL
-	USE MODV_MXCDV
-	USE MODV_MXLCC
-	USE MODV_MXCSB
-	USE MODV_MXMTBB
-	USE MODV_MXMTBD
-	USE MODV_MXMTBF
-	USE MODV_MAXCD
-	USE MODV_MXS01V
-	USE MODV_MXBTM
-	USE MODV_MXBTMSE
-	USE MODV_MXTAMC
-	USE MODV_MXTCO
-	USE MODV_MXNRV
-	USE MODV_MXRST
+        USE MODV_MAXSS
+        USE MODV_NFILES
+        USE MODV_MXMSGL
+        USE MODV_MXDXTS
+        USE MODV_MAXMSG
+        USE MODV_MAXMEM
+        USE MODV_MAXTBA
+        USE MODV_MAXTBB
+        USE MODV_MAXTBD
+        USE MODV_MAXJL
+        USE MODV_MXCDV
+        USE MODV_MXLCC
+        USE MODV_MXCSB
+        USE MODV_MXMTBB
+        USE MODV_MXMTBD
+        USE MODV_MXMTBF
+        USE MODV_MAXCD
+        USE MODV_MXS01V
+        USE MODV_MXBTM
+        USE MODV_MXBTMSE
+        USE MODV_MXTAMC
+        USE MODV_MXTCO
+        USE MODV_MXNRV
+        USE MODV_MXRST
 
-	CHARACTER*(*)	CPRMNM
-	CHARACTER*64	ERRSTR
+        CHARACTER*(*)   CPRMNM
+        CHARACTER*64    ERRSTR
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
 
-	IF ( CPRMNM .EQ. 'MAXSS' ) THEN
-	    IGETPRM = MAXSS
-	ELSE IF ( CPRMNM .EQ. 'NFILES' ) THEN
-	    IGETPRM = NFILES
-	ELSE IF ( CPRMNM .EQ. 'MXMSGL' ) THEN
-	    IGETPRM = MXMSGL
-	ELSE IF ( CPRMNM .EQ. 'MXDXTS' ) THEN
-	    IGETPRM = MXDXTS
-	ELSE IF ( CPRMNM .EQ. 'MAXMSG' ) THEN
-	    IGETPRM = MAXMSG
-	ELSE IF ( CPRMNM .EQ. 'MAXMEM' ) THEN
-	    IGETPRM = MAXMEM
-	ELSE IF ( CPRMNM .EQ. 'MAXTBA' ) THEN
-	    IGETPRM = MAXTBA
-	ELSE IF ( CPRMNM .EQ. 'MAXTBB' ) THEN
-	    IGETPRM = MAXTBB
-	ELSE IF ( CPRMNM .EQ. 'MAXTBD' ) THEN
-	    IGETPRM = MAXTBD
-	ELSE IF ( CPRMNM .EQ. 'MAXJL' ) THEN
-	    IGETPRM = MAXJL
-	ELSE IF ( CPRMNM .EQ. 'MXCDV' ) THEN
-	    IGETPRM = MXCDV
-	ELSE IF ( CPRMNM .EQ. 'MXLCC' ) THEN
-	    IGETPRM = MXLCC
-	ELSE IF ( CPRMNM .EQ. 'MXCSB' ) THEN
-	    IGETPRM = MXCSB
-	ELSE IF ( CPRMNM .EQ. 'MXMTBB' ) THEN
-	    IGETPRM = MXMTBB
-	ELSE IF ( CPRMNM .EQ. 'MXMTBD' ) THEN
-	    IGETPRM = MXMTBD
-	ELSE IF ( CPRMNM .EQ. 'MXMTBF' ) THEN
-	    IGETPRM = MXMTBF
-	ELSE IF ( CPRMNM .EQ. 'MAXCD' ) THEN
-	    IGETPRM = MAXCD
-	ELSE IF ( CPRMNM .EQ. 'MXS01V' ) THEN
-	    IGETPRM = MXS01V
-	ELSE IF ( CPRMNM .EQ. 'MXBTM' ) THEN
-	    IGETPRM = MXBTM
-	ELSE IF ( CPRMNM .EQ. 'MXBTMSE' ) THEN
-	    IGETPRM = MXBTMSE
-	ELSE IF ( CPRMNM .EQ. 'MXTAMC' ) THEN
-	    IGETPRM = MXTAMC
-	ELSE IF ( CPRMNM .EQ. 'MXTCO' ) THEN
-	    IGETPRM = MXTCO
-	ELSE IF ( CPRMNM .EQ. 'MXNRV' ) THEN
-	    IGETPRM = MXNRV
-	ELSE IF ( CPRMNM .EQ. 'MXRST' ) THEN
-	    IGETPRM = MXRST
-	ELSE
-	    IGETPRM = -1
-	    CALL ERRWRT('++++++++++++++++++WARNING+++++++++++++++++++')
-	    ERRSTR = 'BUFRLIB: IGETPRM - UNKNOWN INPUT PARAMETER '//
-     .		CPRMNM
-	    CALL ERRWRT(ERRSTR)
-	    CALL ERRWRT('++++++++++++++++++WARNING+++++++++++++++++++')
-	ENDIF
+        IF ( CPRMNM .EQ. 'MAXSS' ) THEN
+            IGETPRM = MAXSS
+        ELSE IF ( CPRMNM .EQ. 'NFILES' ) THEN
+            IGETPRM = NFILES
+        ELSE IF ( CPRMNM .EQ. 'MXMSGL' ) THEN
+            IGETPRM = MXMSGL
+        ELSE IF ( CPRMNM .EQ. 'MXDXTS' ) THEN
+            IGETPRM = MXDXTS
+        ELSE IF ( CPRMNM .EQ. 'MAXMSG' ) THEN
+            IGETPRM = MAXMSG
+        ELSE IF ( CPRMNM .EQ. 'MAXMEM' ) THEN
+            IGETPRM = MAXMEM
+        ELSE IF ( CPRMNM .EQ. 'MAXTBA' ) THEN
+            IGETPRM = MAXTBA
+        ELSE IF ( CPRMNM .EQ. 'MAXTBB' ) THEN
+            IGETPRM = MAXTBB
+        ELSE IF ( CPRMNM .EQ. 'MAXTBD' ) THEN
+            IGETPRM = MAXTBD
+        ELSE IF ( CPRMNM .EQ. 'MAXJL' ) THEN
+            IGETPRM = MAXJL
+        ELSE IF ( CPRMNM .EQ. 'MXCDV' ) THEN
+            IGETPRM = MXCDV
+        ELSE IF ( CPRMNM .EQ. 'MXLCC' ) THEN
+            IGETPRM = MXLCC
+        ELSE IF ( CPRMNM .EQ. 'MXCSB' ) THEN
+            IGETPRM = MXCSB
+        ELSE IF ( CPRMNM .EQ. 'MXMTBB' ) THEN
+            IGETPRM = MXMTBB
+        ELSE IF ( CPRMNM .EQ. 'MXMTBD' ) THEN
+            IGETPRM = MXMTBD
+        ELSE IF ( CPRMNM .EQ. 'MXMTBF' ) THEN
+            IGETPRM = MXMTBF
+        ELSE IF ( CPRMNM .EQ. 'MAXCD' ) THEN
+            IGETPRM = MAXCD
+        ELSE IF ( CPRMNM .EQ. 'MXS01V' ) THEN
+            IGETPRM = MXS01V
+        ELSE IF ( CPRMNM .EQ. 'MXBTM' ) THEN
+            IGETPRM = MXBTM
+        ELSE IF ( CPRMNM .EQ. 'MXBTMSE' ) THEN
+            IGETPRM = MXBTMSE
+        ELSE IF ( CPRMNM .EQ. 'MXTAMC' ) THEN
+            IGETPRM = MXTAMC
+        ELSE IF ( CPRMNM .EQ. 'MXTCO' ) THEN
+            IGETPRM = MXTCO
+        ELSE IF ( CPRMNM .EQ. 'MXNRV' ) THEN
+            IGETPRM = MXNRV
+        ELSE IF ( CPRMNM .EQ. 'MXRST' ) THEN
+            IGETPRM = MXRST
+        ELSE
+            IGETPRM = -1
+            CALL ERRWRT('++++++++++++++++++WARNING+++++++++++++++++++')
+            ERRSTR = 'BUFRLIB: IGETPRM - UNKNOWN INPUT PARAMETER '//
+     .          CPRMNM
+            CALL ERRWRT(ERRSTR)
+            CALL ERRWRT('++++++++++++++++++WARNING+++++++++++++++++++')
+        ENDIF
 
-	RETURN
-	END
+        RETURN
+        END

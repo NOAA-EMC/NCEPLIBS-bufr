@@ -10,7 +10,7 @@ C> | 2002-05-14 | J. Woollen | Changed from an entry point in readmg() to stand-
 C> | 2003-11-04 | J. Ator    | Added documentation |
 C> | 2004-12-20 | D. Keyser  | Calls wrdlen() to initialize local machine information, in case it has not yet been called |
 C> | 2022-08-04 | J. Woollen | Added 8-byte wrapper |
-C> 
+C>
 C> @author J. Woollen @date 1998-07-08
 
 C> This subroutine is used to specify the format of Section 1
@@ -24,7 +24,7 @@ C> which read BUFR messages, unless a subsequent call is made to this
 C> subroutine to reset the value of LEN again.  If this subroutine is
 C> never called, a default value of 8 is used for LEN, as set within
 C> subroutine bfrini().
-C> 
+C>
 C> @param[in] LEN --  integer: Length of Section 1 date-time
 C>                    values to be output by all future calls
 C>                    to message-reading subroutines

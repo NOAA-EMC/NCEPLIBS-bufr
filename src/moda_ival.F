@@ -10,9 +10,9 @@ C> unpacking an input data subset via subroutine rdtree().
 C>
 C> @author J. Woollen @date 1994-01-06
 
-	MODULE MODA_IVAL
+        MODULE MODA_IVAL
 
 C>    BUFR data subset values.
-	  INTEGER(8), ALLOCATABLE :: IVAL(:)
+          INTEGER(8), ALLOCATABLE :: IVAL(:)
 
-	END MODULE
+        END MODULE

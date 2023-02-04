@@ -11,69 +11,69 @@ C> ufbmem() and cpdxmm().
 C>
 C> @author J. Ator @date 2014-12-10
 
-	MODULE MODA_MSGMEM
+        MODULE MODA_MSGMEM
 
 C>        Fortran logical unit number for use in accessing
 C>        contents of BUFR files within internal memory.
-	  INTEGER :: MUNIT
+          INTEGER :: MUNIT
 
 C>        Number of array elements filled within msgs (up
 C>        to a maximum of MAXMEM).
-	  INTEGER :: MLAST
+          INTEGER :: MLAST
 
 C>        Number of array elements filled within mdx (up
 C>        to a maximum of MXDXW).
-	  INTEGER :: LDXM
+          INTEGER :: LDXM
 
 C>        Number of DX BUFR table messages stored within mdx
 C>        (up to a maximum of MXDXM).
-	  INTEGER :: NDXM
+          INTEGER :: NDXM
 
 C>        Number of DX BUFR table that is currently in scope,
 C>        depending on which BUFR message within msgs is
 C>        currently in scope from the most recent call to
 C>        subroutine rdmemm() or readmm().
-	  INTEGER :: LDXTS
+          INTEGER :: LDXTS
 
 C>        Number of DX BUFR tables represented by the
 C>        messages within mdx (up to a maximum of MXDXTS).
-	  INTEGER :: NDXTS
+          INTEGER :: NDXTS
 
 C>        Maximum number of DX BUFR table messages that can
 C>        be stored within mdx.
-	  INTEGER :: MXDXM
+          INTEGER :: MXDXM
 
 C>        Maximum number of entries that can be stored
 C>        within mdx.
-	  INTEGER :: MXDXW
+          INTEGER :: MXDXW
 
 C>        Pointers to the beginning of each message within
 C>        msgs (up to a maximum of MAXMSG, and where array
 C>        element 0 contains the actual number of messages
 C>        stored within msgs).
-	  INTEGER, ALLOCATABLE :: MSGP(:)
+          INTEGER, ALLOCATABLE :: MSGP(:)
 
 C>        BUFR messages read from one or more BUFR files.
-	  INTEGER, ALLOCATABLE :: MSGS(:)
+          INTEGER, ALLOCATABLE :: MSGS(:)
 
 C>        DX BUFR table messages read from one or more BUFR
 C>        files, for use in decoding the messages in msgs.
-	  INTEGER, ALLOCATABLE :: MDX(:)
+          INTEGER, ALLOCATABLE :: MDX(:)
 
 C>        Pointers to the beginning of each message within mdx.
-	  INTEGER, ALLOCATABLE :: IPDXM(:)
+          INTEGER, ALLOCATABLE :: IPDXM(:)
 
 C>        Pointers to the beginning of each DX BUFR table
 C>        within mdx.
-	  INTEGER, ALLOCATABLE :: IFDXTS(:)
+          INTEGER, ALLOCATABLE :: IFDXTS(:)
 
 C>        Number of consecutive messages within mdx which
 C>        constitute each DX BUFR table, beginning with the
 C>        corresponding ifdxts.
-	  INTEGER, ALLOCATABLE :: ICDXTS(:)
+          INTEGER, ALLOCATABLE :: ICDXTS(:)
 
 C>        Pointers to first message within msgs for which each
 C>        DX BUFR table applies.
-	  INTEGER, ALLOCATABLE :: IPMSGS(:)
+          INTEGER, ALLOCATABLE :: IPMSGS(:)
 
-	END MODULE
+        END MODULE

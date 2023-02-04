@@ -4,12 +4,12 @@ C>
 C> ### Program History Log
 C> Date | Programmer | Comments |
 C> -----|------------|----------|
-C> 1994-01-06 | J. Woollen | Original author 
-C> 1998-07-08 | J. Woollen | Replaced call to CRAY library routine "ABORT" with call to new internal routine bort() 
-C> 1999-11-18 | J. Woollen | Renamed from val$ to valx because the $ symbol causes problems on certain platforms 
-C> 2003-11-04 | D. Keyser  | Use bort2() instead of bort() 
-C> 2009-04-21 | J. Ator    | Use errwrt() 
-C> 2021-09-30 | J. Ator    | Replace rjust with Fortran intrinsic adjustr 
+C> 1994-01-06 | J. Woollen | Original author
+C> 1998-07-08 | J. Woollen | Replaced call to CRAY library routine "ABORT" with call to new internal routine bort()
+C> 1999-11-18 | J. Woollen | Renamed from val$ to valx because the $ symbol causes problems on certain platforms
+C> 2003-11-04 | D. Keyser  | Use bort2() instead of bort()
+C> 2009-04-21 | J. Ator    | Use errwrt()
+C> 2021-09-30 | J. Ator    | Replace rjust with Fortran intrinsic adjustr
 C>
 C> @author J. Woollen @date 1994-01-06
 

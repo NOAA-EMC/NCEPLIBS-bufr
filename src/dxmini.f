@@ -17,7 +17,7 @@ C> 2019-05-21 | J. Ator    | Changed default master table version to 29.
 C> 2021-05-14 | J. Ator    | Changed default master table version to 36.
 C>
 C> @author Woollen @date 1994-01-06
-      
+
 C> This subroutine initializes a DX BUFR tables (dictionary)
 C> message, writing all the preliminary information into Sections 0,
 C> 1, 3, 4.  Subroutine wrdxtb() will write the

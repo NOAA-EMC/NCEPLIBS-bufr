@@ -10,13 +10,13 @@ C>
 C> @author J. Ator
 C> @date 2014-12-10
 
-	MODULE MODV_MXRST
+        MODULE MODV_MXRST
 
 C>        @var mxrst
 C>        Maximum number of "long" character strings (greater than 8
 C>        bytes) that can be read from a data subset of a compressed
 C>        BUFR message.
 
-	  INTEGER :: MXRST = 50
+          INTEGER :: MXRST = 50
 
-	END MODULE
+        END MODULE

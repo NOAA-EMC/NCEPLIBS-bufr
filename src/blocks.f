@@ -4,7 +4,7 @@ C> words.
 
 C> This subroutine encapsulates a BUFR message with IEEE Fortran
 C> control words as specified via the most recent call to
-C> subroutine setblock(). 
+C> subroutine setblock().
 C>
 C> <p>A previous call to subroutine setblock() is required in
 C> order to activate encapsulation with control words, and to
@@ -67,13 +67,13 @@ c        Initialize some arrays for later use.  Note that Fortran
 c        record control words are always 4 bytes.
 
          iint=0; cint(1)=char(1)
-         do i=1,4 
-         if(cint(1).eq.char(01)) then 
+         do i=1,4
+         if(cint(1).eq.char(01)) then
             iordbe(i)=4-i+1
-            iordle(i)=i 
+            iordle(i)=i
          else
             iordle(i)=4-i+1
-            iordbe(i)=i 
+            iordbe(i)=i
          endif
          enddo
          ifirst=1
@@ -85,15 +85,15 @@ c  -------------------------------------------------------------------
       if(nbytw.eq.8) mwrd=mwrd*2
 
       do m=mwrd,1,-1
-      mbay(m+1) = mbay(m)  
+      mbay(m+1) = mbay(m)
       enddo
 
 c  store the endianized control word in bytes in dint/jint
 c  -------------------------------------------------------
 
-      iint=mwrd*4        
+      iint=mwrd*4
 
-      do i=1,4         
+      do i=1,4
       if(iblock.eq.+1) dint(i)=cint(iordbe(i))
       if(iblock.eq.-1) dint(i)=cint(iordle(i))
       enddo

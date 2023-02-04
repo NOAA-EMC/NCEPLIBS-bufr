@@ -22,29 +22,29 @@ C> | Date | Programmer | Comments |
 C> | -----|------------|----------|
 C> | 2004-08-18 | J. Ator | Original author |
 C>
-	FUNCTION ISTDESC( IDN )
+        FUNCTION ISTDESC( IDN )
 
-	CHARACTER*6	ADSC, ADN30
+        CHARACTER*6     ADSC, ADN30
 
-	ADSC = ADN30( IDN, 6 )
+        ADSC = ADN30( IDN, 6 )
 
-	READ(ADSC,'(I1,I2,I3)') IF,IX,IY
-	IF ( IF .EQ. 1 ) THEN
+        READ(ADSC,'(I1,I2,I3)') IF,IX,IY
+        IF ( IF .EQ. 1 ) THEN
 
-C	    ADSC IS A REPLICATION DESCRIPTOR AND THEREFORE STANDARD
-C	    BY DEFAULT.
+C           ADSC IS A REPLICATION DESCRIPTOR AND THEREFORE STANDARD
+C           BY DEFAULT.
 
-	    ISTDESC = 1
-	ELSE IF ( IF .EQ. 2 ) THEN
+            ISTDESC = 1
+        ELSE IF ( IF .EQ. 2 ) THEN
 
-C	    ADSC IS AN OPERATOR DESCRIPTOR
+C           ADSC IS AN OPERATOR DESCRIPTOR
 
-	    ISTDESC = IOKOPER( ADSC )
-	ELSE IF ( ( IX .LT. 48 ) .AND. ( IY .LT. 192 ) ) THEN
-	    ISTDESC = 1
-	ELSE
-	    ISTDESC = 0
-	END IF
+            ISTDESC = IOKOPER( ADSC )
+        ELSE IF ( ( IX .LT. 48 ) .AND. ( IY .LT. 192 ) ) THEN
+            ISTDESC = 1
+        ELSE
+            ISTDESC = 0
+        END IF
 
-	RETURN
-	END
+        RETURN
+        END

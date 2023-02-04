@@ -13,7 +13,7 @@ C> @param[in] LUNIT -- integer: Fortran logical unit number for
 C>                     BUFR file
 C> @param[in] SUBSET -- character*8: Table A mnemonic of message
 C>                      type to be checked
-C> @returns lcmgdf -- integer: 
+C> @returns lcmgdf -- integer:
 C>                     -  0 = SUBSET does not contain any long
 C>                            character strings
 C>                     -  1 = SUBSET contains at least one long
@@ -69,7 +69,7 @@ C     Get LUN from LUNIT.
 
       CALL STATUS(LUNIT,LUN,IL,IM)
       IF (IL.EQ.0) GOTO 900
- 
+
 C     Confirm that SUBSET is defined for this logical unit.
 
       CALL NEMTBA(LUN,SUBSET,MTYP,MSBT,INOD)

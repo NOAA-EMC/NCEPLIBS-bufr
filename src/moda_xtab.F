@@ -15,12 +15,12 @@ C> changed for any I/O stream index since the last time it was called.
 C>
 C> @author J. Woollen @date 2009-03-18
 
-	MODULE MODA_XTAB
+        MODULE MODA_XTAB
 
 C>      Tracking index for each internal I/O stream index.
 C>      Set to .true. if the DX BUFR table for the corresponding
 C>      logical unit has changed since the previous call to
 C>      subroutine makestab(); set to .false. otherwise.
-	  LOGICAL, ALLOCATABLE :: XTAB(:)
+          LOGICAL, ALLOCATABLE :: XTAB(:)
 
-	END MODULE
+        END MODULE

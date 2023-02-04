@@ -9,7 +9,7 @@
 module MODV_MAXNC
 
 !> @var maxnc
-!> Maximum number of descriptors within Section 3 of a BUFR message. 
+!> Maximum number of descriptors within Section 3 of a BUFR message.
 
   integer, parameter, public :: MAXNC = 600
 

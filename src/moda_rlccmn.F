@@ -10,15 +10,15 @@ C> subroutines rdcmps() and readlc().
 C>
 C> @author J. Woollen @date 2009-03-23
 
-	MODULE MODA_RLCCMN
+        MODULE MODA_RLCCMN
 
 C>    Number of long character strings in data subset.
-	  INTEGER :: NRST
+          INTEGER :: NRST
 C>    Lengths (in bytes) of long character strings.
-	  INTEGER, ALLOCATABLE :: IRNCH(:) 
+          INTEGER, ALLOCATABLE :: IRNCH(:)
 C>    Pointers in data subset to first bits of long character strings.
-	  INTEGER, ALLOCATABLE :: IRBIT(:) 
+          INTEGER, ALLOCATABLE :: IRBIT(:)
 C>    Table B mnemonics associated with long character strings.
-	  CHARACTER*10, ALLOCATABLE :: CRTAG(:)
+          CHARACTER*10, ALLOCATABLE :: CRTAG(:)
 
-	END MODULE
+        END MODULE

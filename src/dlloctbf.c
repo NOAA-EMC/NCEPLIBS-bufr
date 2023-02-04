@@ -8,10 +8,10 @@
 /**
  * This subroutine frees any memory that was dynamically allocated
  * during a previous call to subroutine inittbf().
- * 
+ *
  * @author J. Ator
  * @date 2017-11-03
- * 
+ *
  * <b>Program history log:</b>
  * | Date | Programmer | Comments |
  * | -----|------------|----------|

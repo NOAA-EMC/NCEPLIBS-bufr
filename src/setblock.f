@@ -30,9 +30,9 @@ C>
 C> @param[in]  IBLK -- integer: Flag indicating whether future BUFR
 C>                     output messages should be encapsulated with
 C>                     control words
-C>                      - -1 = Yes, using little-endian control words      
+C>                      - -1 = Yes, using little-endian control words
 C>                      -  0 = No (the default)
-C>                      -  1 = Yes, using big-endian control words      
+C>                      -  1 = Yes, using big-endian control words
 C>
 C> @remarks
 C> - This subroutine can be used to generate BUFR files consistent
@@ -53,7 +53,7 @@ C> | -----|------------|----------|
 C> | 2012-09-15 | J. Woollen | Original author |
 C> | 2022-10-04 | J. Ator | Added 8-byte wrapper |
 
-      RECURSIVE SUBROUTINE SETBLOCK(IBLK) 
+      RECURSIVE SUBROUTINE SETBLOCK(IBLK)
 
       USE MODV_IM8B
 
@@ -75,7 +75,7 @@ C     Check for I8 integers.
       ENDIF
 
       CALL OPENBF(0,'FIRST',0)
-      IBLOCK=IBLK  
+      IBLOCK=IBLK
 
       RETURN
       END

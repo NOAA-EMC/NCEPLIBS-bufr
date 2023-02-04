@@ -13,7 +13,7 @@ C> 2003-11-04 | D. Keyser  | maxjl increased to 16000; unified/portable for wrf;
 C> 2014-12-10 | J. Ator    | Use modules instead of common blocks.
 C>
 C> @author Woollen @date 1994-01-06
-      
+
 C> This subroutine returns the next available positional index
 C> for writing into the internal jump/link table in module tables,
 C> and it also uses that index to store atag and atyp within,

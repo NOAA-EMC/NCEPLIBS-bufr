@@ -66,9 +66,9 @@ C>                                  or Section 1 values that can be
 C>                                  overwritten within an output BUFR
 C>                                  message
 C>                     - 'MXBTM'  = Maximum number of bitmaps that can be
-C>		  	            stored internally for a BUFR subset
+C>                                  stored internally for a BUFR subset
 C>                     - 'MXBTMSE' = Maximum number of entries that can
-C>		 	             be set within a bitmap
+C>                                   be set within a bitmap
 C>                     - 'MXTAMC' = Maximum number of Table A mnemonics
 C>                                  in the internal jump/link table which
 C>                                  contain at least one Table C operator
@@ -77,7 +77,7 @@ C>                     - 'MXTCO'  = Maximum number of Table C operators
 C>                                  with XX >= 21 in the subset definition
 C>                                  of a Table A mnemonic
 C>                     - 'MXNRV'  = Maximum number of 2-03 reference
-C>		 	            values in the internal jump/link
+C>                                  values in the internal jump/link
 C>                                  table
 C>                     - 'MXRST'  = Maximum number of long character
 C>                                  strings that can be read from a
@@ -97,109 +97,109 @@ C> | 2017-05-22 | J. Ator | Add MXRST |
 C> | 2017-10-17 | J. Ator | Add MXMTBF |
 C> | 2022-10-04 | J. Ator | Added 8-byte wrapper |
 
-	RECURSIVE FUNCTION ISETPRM ( CPRMNM, IPVAL ) RESULT ( IRET )
+        RECURSIVE FUNCTION ISETPRM ( CPRMNM, IPVAL ) RESULT ( IRET )
 
-	USE MODV_MAXSS
-	USE MODV_NFILES
-	USE MODV_MXMSGL
-	USE MODV_MXDXTS
-	USE MODV_MAXMSG
-	USE MODV_MAXMEM
-	USE MODV_MAXTBA
-	USE MODV_MAXTBB
-	USE MODV_MAXTBD
-	USE MODV_MAXJL
-	USE MODV_MXCDV
-	USE MODV_MXLCC
-	USE MODV_MXCSB
-	USE MODV_MXMTBB
-	USE MODV_MXMTBD
-	USE MODV_MXMTBF
-	USE MODV_MAXCD
-	USE MODV_MXS01V
-	USE MODV_MXBTM
-	USE MODV_MXBTMSE
-	USE MODV_MXTAMC
-	USE MODV_MXTCO
-	USE MODV_MXNRV
-	USE MODV_MXRST
-	USE MODV_IM8B
+        USE MODV_MAXSS
+        USE MODV_NFILES
+        USE MODV_MXMSGL
+        USE MODV_MXDXTS
+        USE MODV_MAXMSG
+        USE MODV_MAXMEM
+        USE MODV_MAXTBA
+        USE MODV_MAXTBB
+        USE MODV_MAXTBD
+        USE MODV_MAXJL
+        USE MODV_MXCDV
+        USE MODV_MXLCC
+        USE MODV_MXCSB
+        USE MODV_MXMTBB
+        USE MODV_MXMTBD
+        USE MODV_MXMTBF
+        USE MODV_MAXCD
+        USE MODV_MXS01V
+        USE MODV_MXBTM
+        USE MODV_MXBTMSE
+        USE MODV_MXTAMC
+        USE MODV_MXTCO
+        USE MODV_MXNRV
+        USE MODV_MXRST
+        USE MODV_IM8B
 
-	CHARACTER*(*)	CPRMNM
-	CHARACTER*128	ERRSTR
+        CHARACTER*(*)   CPRMNM
+        CHARACTER*128   ERRSTR
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
 
 C       Check for I8 integers.
 
-	IF ( IM8B ) THEN
-	    IM8B = .FALSE.
+        IF ( IM8B ) THEN
+            IM8B = .FALSE.
 
-	    CALL X84 ( IPVAL, MY_IPVAL, 1 )
-	    IRET = ISETPRM ( CPRMNM, MY_IPVAL )
+            CALL X84 ( IPVAL, MY_IPVAL, 1 )
+            IRET = ISETPRM ( CPRMNM, MY_IPVAL )
 
-	    IM8B = .TRUE.
-	    RETURN
-	ENDIF
+            IM8B = .TRUE.
+            RETURN
+        ENDIF
 
-	IRET = 0
-	IF ( CPRMNM .EQ. 'MAXSS' ) THEN
-	    MAXSS = IPVAL
-	ELSE IF ( CPRMNM .EQ. 'NFILES' ) THEN
-	    NFILES = IPVAL
-	ELSE IF ( CPRMNM .EQ. 'MXMSGL' ) THEN
-	    MXMSGL = IPVAL
-	ELSE IF ( CPRMNM .EQ. 'MXDXTS' ) THEN
-	    MXDXTS = IPVAL
-	ELSE IF ( CPRMNM .EQ. 'MAXMSG' ) THEN
-	    MAXMSG = IPVAL
-	ELSE IF ( CPRMNM .EQ. 'MAXMEM' ) THEN
-	    MAXMEM = IPVAL
-	ELSE IF ( CPRMNM .EQ. 'MAXTBA' ) THEN
-	    MAXTBA = IPVAL
-	ELSE IF ( CPRMNM .EQ. 'MAXTBB' ) THEN
-	    MAXTBB = IPVAL
-	ELSE IF ( CPRMNM .EQ. 'MAXTBD' ) THEN
-	    MAXTBD = IPVAL
-	ELSE IF ( CPRMNM .EQ. 'MAXJL' ) THEN
-	    MAXJL = IPVAL
-	ELSE IF ( CPRMNM .EQ. 'MXCDV' ) THEN
-	    MXCDV = IPVAL
-	ELSE IF ( CPRMNM .EQ. 'MXLCC' ) THEN
-	    MXLCC = IPVAL
-	ELSE IF ( CPRMNM .EQ. 'MXCSB' ) THEN
-	    MXCSB = IPVAL
-	ELSE IF ( CPRMNM .EQ. 'MXMTBB' ) THEN
-	    MXMTBB = IPVAL
-	ELSE IF ( CPRMNM .EQ. 'MXMTBD' ) THEN
-	    MXMTBD = IPVAL
-	ELSE IF ( CPRMNM .EQ. 'MXMTBF' ) THEN
-	    MXMTBF = IPVAL
-	ELSE IF ( CPRMNM .EQ. 'MAXCD' ) THEN
-	    MAXCD = IPVAL
-	ELSE IF ( CPRMNM .EQ. 'MXS01V' ) THEN
-	    MXS01V = IPVAL
-	ELSE IF ( CPRMNM .EQ. 'MXBTM' ) THEN
-	    MXBTM = IPVAL
-	ELSE IF ( CPRMNM .EQ. 'MXBTMSE' ) THEN
-	    MXBTMSE = IPVAL
-	ELSE IF ( CPRMNM .EQ. 'MXTAMC' ) THEN
-	    MXTAMC = IPVAL
-	ELSE IF ( CPRMNM .EQ. 'MXTCO' ) THEN
-	    MXTCO = IPVAL
-	ELSE IF ( CPRMNM .EQ. 'MXNRV' ) THEN
-	    MXNRV = IPVAL
-	ELSE IF ( CPRMNM .EQ. 'MXRST' ) THEN
-	    MXRST = IPVAL
-	ELSE
-	    IRET = -1
-	    CALL ERRWRT('++++++++++++++++++WARNING+++++++++++++++++++')
-	    ERRSTR = 'BUFRLIB: ISETPRM - UNKNOWN INPUT PARAMETER '//
-     .		CPRMNM // ' -- NO ACTION WAS TAKEN'
-	    CALL ERRWRT(ERRSTR)
-	    CALL ERRWRT('++++++++++++++++++WARNING+++++++++++++++++++')
-	ENDIF
+        IRET = 0
+        IF ( CPRMNM .EQ. 'MAXSS' ) THEN
+            MAXSS = IPVAL
+        ELSE IF ( CPRMNM .EQ. 'NFILES' ) THEN
+            NFILES = IPVAL
+        ELSE IF ( CPRMNM .EQ. 'MXMSGL' ) THEN
+            MXMSGL = IPVAL
+        ELSE IF ( CPRMNM .EQ. 'MXDXTS' ) THEN
+            MXDXTS = IPVAL
+        ELSE IF ( CPRMNM .EQ. 'MAXMSG' ) THEN
+            MAXMSG = IPVAL
+        ELSE IF ( CPRMNM .EQ. 'MAXMEM' ) THEN
+            MAXMEM = IPVAL
+        ELSE IF ( CPRMNM .EQ. 'MAXTBA' ) THEN
+            MAXTBA = IPVAL
+        ELSE IF ( CPRMNM .EQ. 'MAXTBB' ) THEN
+            MAXTBB = IPVAL
+        ELSE IF ( CPRMNM .EQ. 'MAXTBD' ) THEN
+            MAXTBD = IPVAL
+        ELSE IF ( CPRMNM .EQ. 'MAXJL' ) THEN
+            MAXJL = IPVAL
+        ELSE IF ( CPRMNM .EQ. 'MXCDV' ) THEN
+            MXCDV = IPVAL
+        ELSE IF ( CPRMNM .EQ. 'MXLCC' ) THEN
+            MXLCC = IPVAL
+        ELSE IF ( CPRMNM .EQ. 'MXCSB' ) THEN
+            MXCSB = IPVAL
+        ELSE IF ( CPRMNM .EQ. 'MXMTBB' ) THEN
+            MXMTBB = IPVAL
+        ELSE IF ( CPRMNM .EQ. 'MXMTBD' ) THEN
+            MXMTBD = IPVAL
+        ELSE IF ( CPRMNM .EQ. 'MXMTBF' ) THEN
+            MXMTBF = IPVAL
+        ELSE IF ( CPRMNM .EQ. 'MAXCD' ) THEN
+            MAXCD = IPVAL
+        ELSE IF ( CPRMNM .EQ. 'MXS01V' ) THEN
+            MXS01V = IPVAL
+        ELSE IF ( CPRMNM .EQ. 'MXBTM' ) THEN
+            MXBTM = IPVAL
+        ELSE IF ( CPRMNM .EQ. 'MXBTMSE' ) THEN
+            MXBTMSE = IPVAL
+        ELSE IF ( CPRMNM .EQ. 'MXTAMC' ) THEN
+            MXTAMC = IPVAL
+        ELSE IF ( CPRMNM .EQ. 'MXTCO' ) THEN
+            MXTCO = IPVAL
+        ELSE IF ( CPRMNM .EQ. 'MXNRV' ) THEN
+            MXNRV = IPVAL
+        ELSE IF ( CPRMNM .EQ. 'MXRST' ) THEN
+            MXRST = IPVAL
+        ELSE
+            IRET = -1
+            CALL ERRWRT('++++++++++++++++++WARNING+++++++++++++++++++')
+            ERRSTR = 'BUFRLIB: ISETPRM - UNKNOWN INPUT PARAMETER '//
+     .          CPRMNM // ' -- NO ACTION WAS TAKEN'
+            CALL ERRWRT(ERRSTR)
+            CALL ERRWRT('++++++++++++++++++WARNING+++++++++++++++++++')
+        ENDIF
 
-	RETURN
-	END
+        RETURN
+        END

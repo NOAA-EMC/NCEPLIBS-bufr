@@ -11,7 +11,7 @@ C> 2003-11-04 | S. Bender  | Added remarks/bufrlib routine interdependencies.
 C> 2003-11-04 | D. Keyser  | Unified/portable for wrf; documentation; outputs more info.
 C>
 C> @author Woollen @date 1994-01-06
-      
+
 C> This subroutine first packs the value for the number of
 C> bits being "padded" (we'll get to that later), starting with bit
 C> ibit+1 and using eight bits in the packed array ibay (which
@@ -33,7 +33,7 @@ C>  - on input, contains BUFR data subset to be padded
 C>  - on output, contains BUFR data subset padded with zeroed-out bits up to IPADB
 C> @param[inout] IBIT - integer:
 C>  - on input, contains bit pointer within IBAY after which to begin padding.
-C>  - on output, contains bit pointer within IBAY to last bit that was padded. 
+C>  - on output, contains bit pointer within IBAY to last bit that was padded.
 C> @param[out] IBYT - integer: number of bytes within IBAY containing packed data,
 C> including padding
 C> @param[in] IPADB - integer: bit boundary to pad to (must be a multiple of 8).

@@ -23,5 +23,5 @@
  */
 f77int icvidx( f77int *ii, f77int *jj, f77int *numjj )
 {
-	return ( *numjj * (*ii) ) + *jj;
+        return ( *numjj * (*ii) ) + *jj;
 }

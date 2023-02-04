@@ -39,47 +39,47 @@ C> | 2014-10-02 | J. Ator | Modified to use fstag() |
 C> | 2014-12-10 | J. Ator | Use modules instead of COMMON blocks |
 C> | 2022-08-04 | J. Woollen | Added 8-byte wrapper |
 
-	RECURSIVE SUBROUTINE GETTAGPR
-     .		( LUNIT, TAGCH, NTAGCH, TAGPR, IRET )
+        RECURSIVE SUBROUTINE GETTAGPR
+     .          ( LUNIT, TAGCH, NTAGCH, TAGPR, IRET )
 
-	USE MODA_USRINT
-	USE MODA_MSGCWD
-	USE MODA_TABLES
+        USE MODA_USRINT
+        USE MODA_MSGCWD
+        USE MODA_TABLES
         USE MODV_IM8B
 
-	CHARACTER*(*) TAGCH, TAGPR
+        CHARACTER*(*) TAGCH, TAGPR
 
 C----------------------------------------------------------------------
 C----------------------------------------------------------------------
 
-C	Check for I8 integers.
+C       Check for I8 integers.
 
-	IF(IM8B) THEN
-	   IM8B=.FALSE.
+        IF(IM8B) THEN
+           IM8B=.FALSE.
 
-	   CALL X84 ( LUNIT, MY_LUNIT, 1 )
-	   CALL X84 ( NTAGCH, MY_NTAGCH, 1 )
-	   CALL GETTAGPR ( MY_LUNIT, TAGCH, MY_NTAGCH, TAGPR, IRET )
-	   CALL X48 ( IRET, IRET, 1 )
+           CALL X84 ( LUNIT, MY_LUNIT, 1 )
+           CALL X84 ( NTAGCH, MY_NTAGCH, 1 )
+           CALL GETTAGPR ( MY_LUNIT, TAGCH, MY_NTAGCH, TAGPR, IRET )
+           CALL X48 ( IRET, IRET, 1 )
 
-	   IM8B=.TRUE.
-	   RETURN
-	ENDIF
+           IM8B=.TRUE.
+           RETURN
+        ENDIF
 
-	IRET = -1
+        IRET = -1
 
-C	Get LUN from LUNIT.
+C       Get LUN from LUNIT.
 
-	CALL STATUS( LUNIT, LUN, IL, IM )
-	IF ( IL .EQ. 0 ) RETURN
-	IF ( INODE(LUN) .NE. INV(1,LUN) ) RETURN
+        CALL STATUS( LUNIT, LUN, IL, IM )
+        IF ( IL .EQ. 0 ) RETURN
+        IF ( INODE(LUN) .NE. INV(1,LUN) ) RETURN
 
-C	Get TAGPR from the (NTAGCH)th occurrence of TAGCH.
+C       Get TAGPR from the (NTAGCH)th occurrence of TAGCH.
 
-	CALL FSTAG( LUN, TAGCH, NTAGCH, 1, NCH, IRET )
-	IF ( IRET .NE. 0 ) RETURN
+        CALL FSTAG( LUN, TAGCH, NTAGCH, 1, NCH, IRET )
+        IF ( IRET .NE. 0 ) RETURN
 
-	TAGPR = TAG(JMPB(INV(NCH,LUN)))
+        TAGPR = TAG(JMPB(INV(NCH,LUN)))
 
-	RETURN
-	END
+        RETURN
+        END

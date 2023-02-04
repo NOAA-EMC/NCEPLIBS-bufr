@@ -9,7 +9,7 @@ C> 2009-03-23 | J. Ator | Original author.
 C> 2016-02-12 | J. Ator | Modified for crayftn compatibility.
 C>
 C> @author Ator @date 2009-03-23
-	
+
 C> This function computes and returns the number of characters
 C> needed to encode the input integer NUM as a string. It does not
 C> actually encode the string but rather only figures out the required
@@ -21,21 +21,21 @@ C> @return - integer: number of characters necessary to encode NUM
 C> as a string
 C>
 C> @author Ator @date 2009-03-23
-	INTEGER FUNCTION ISIZE (NUM)
+        INTEGER FUNCTION ISIZE (NUM)
 
-	CHARACTER*128 BORT_STR
+        CHARACTER*128 BORT_STR
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
 
-	IF ( NUM .GE. 0 ) THEN
-	  DO ISIZE = 1, 5
-	    IF ( NUM .LT. 10**ISIZE ) RETURN
-	  ENDDO
-	ENDIF
-	WRITE(BORT_STR,'("BUFRLIB: ISIZE - INPUT NUMBER (",I7,'//
-     .	  '") IS OUT OF RANGE")') NUM
-	CALL BORT(BORT_STR)
+        IF ( NUM .GE. 0 ) THEN
+          DO ISIZE = 1, 5
+            IF ( NUM .LT. 10**ISIZE ) RETURN
+          ENDDO
+        ENDIF
+        WRITE(BORT_STR,'("BUFRLIB: ISIZE - INPUT NUMBER (",I7,'//
+     .    '") IS OUT OF RANGE")') NUM
+        CALL BORT(BORT_STR)
 
-	RETURN
-	END
+        RETURN
+        END

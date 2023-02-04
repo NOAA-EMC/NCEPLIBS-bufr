@@ -10,12 +10,12 @@ C>
 C> @author J. Ator
 C> @date 2014-12-10
 
-	MODULE MODV_MXNRV
+        MODULE MODV_MXNRV
 
 C>        @var mxnrv
 C>        Maximum number of entries in the internal jump/link table
 C>        that can contain new reference values.
 
-	  INTEGER :: MXNRV = 15
+          INTEGER :: MXNRV = 15
 
-	END MODULE
+        END MODULE

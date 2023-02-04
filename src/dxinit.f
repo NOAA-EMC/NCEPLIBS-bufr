@@ -13,7 +13,7 @@ C> 2009-03-23 | J. Ator    | Remove initialization of common msgcwd.
 C> 2014-12-10 | J. Ator    | Use modules instead of common blocks
 C>
 C> @author Woollen @date 1994-01-06
-      
+
 C> This subroutine initializes the internal arrays
 C> (in module tababd) holding the DX BUFR table. It then
 C> initializes the table with apriori Table B and D entries

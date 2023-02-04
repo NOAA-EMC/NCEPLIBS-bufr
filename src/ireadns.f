@@ -18,7 +18,7 @@ C> @param[out] IDATE   -- integer: Date-time stored within Section 1 of
 C>                        BUFR message containing data subset that
 C>                        was read, in format of either
 C>                        YYMMDDHH or YYYYMMDDHH, depending on the most
-C>                        recent call to subroutine datelen()      
+C>                        recent call to subroutine datelen()
 C> @returns ireadns -- integer:
 C>                     - 0 = new BUFR data subset was successfully
 C>                           read into internal arrays

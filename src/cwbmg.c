@@ -5,11 +5,11 @@
 #include "bufrlib.h"
 #include "cobfl.h"
 
-/** 
+/**
  *  This subroutine writes a BUFR message to the system
  *  file that was opened via the most recent call to subroutine
  *  cobfl() with io = 'w'.
- *  
+ *
  *  @author J. Ator
  *  @date 2005-11-29
  *
@@ -40,7 +40,7 @@ void cwbmg( char *bmg, f77int *nmb, f77int *iret )
 **  Make sure that a file is open for writing.
 */
     if ( pbf[1] == NULL ) {
-	sprintf( errstr, "BUFRLIB: CWBMG - NO FILE IS OPEN FOR WRITING" );
+        sprintf( errstr, "BUFRLIB: CWBMG - NO FILE IS OPEN FOR WRITING" );
         bort( errstr, ( f77int ) strlen( errstr ) );
     }
 /*

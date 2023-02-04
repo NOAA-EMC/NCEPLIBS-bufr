@@ -116,7 +116,7 @@ C  ---------------------------------
 C  DUMP CENTER YY,MM,DD,HH,MM IS IN THE FIRST EMPTY MESSAGE
 C  --------------------------------------------------------
 C  i.e. the first message containing zero subsets
-     
+
       IF(IUPBS3(MGWA,'NSUB').NE.0) GOTO 200
 
       IGD = IGETDATE(MGWA,JDATE(1),JDATE(2),JDATE(3),JDATE(4))
@@ -128,7 +128,7 @@ C  i.e. the second message containing zero subsets
 
       CALL RDMSGW(LUNIT,MGWA,IER)
       IF(IER.LT.0) GOTO 200
-     
+
       IF(IUPBS3(MGWA,'NSUB').NE.0) GOTO 200
 
       IGD = IGETDATE(MGWA,JDUMP(1),JDUMP(2),JDUMP(3),JDUMP(4))

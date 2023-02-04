@@ -54,7 +54,7 @@ C-----------------------------------------------------------------------
 
       CALL CAPIT(CF)
       IF(CF.NE.'Y'.AND. CF.NE.'N') GOTO 900
-      CDMF = CF 
+      CDMF = CF
 
 C  EXITS
 C  -----

@@ -13,13 +13,13 @@ C> application program for that particular logical unit.
 C>
 C> @author D. Keyser @date 2005-05-26
 
-	MODULE MODA_MSGLIM
+        MODULE MODA_MSGLIM
 
 C>    Tracking index for each I/O stream index.  Initialized to a value of 3
 C>    within subroutine bfrini(), and then reset to a value of 0 within
 C>    subroutine closmg() if the corresponding logical unit should not have
 C>    any empty (zero data subset) BUFR messages written to it.
 C>
-	  INTEGER, ALLOCATABLE :: MSGLIM(:)
+          INTEGER, ALLOCATABLE :: MSGLIM(:)
 
-	END MODULE
+        END MODULE

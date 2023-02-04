@@ -14,16 +14,16 @@ C> @author J. Ator
 C> @date 2014-12-10
 
 
-	MODULE MODA_RDMTB
+        MODULE MODA_RDMTB
 
 C>    Bit-wise representations of child descriptors of
 C>    Table D sequences.
-	  INTEGER, ALLOCATABLE :: IEFXYN(:,:)
+          INTEGER, ALLOCATABLE :: IEFXYN(:,:)
 C>    Descriptor codes for Table B elements.
-	  CHARACTER*4, ALLOCATABLE :: CMDSCB(:)
+          CHARACTER*4, ALLOCATABLE :: CMDSCB(:)
 C>    Descriptor codes for Table D sequences.
-	  CHARACTER*4, ALLOCATABLE :: CMDSCD(:)
+          CHARACTER*4, ALLOCATABLE :: CMDSCD(:)
 C>    Element names corresponding to iefxyn.
-	  CHARACTER*120, ALLOCATABLE :: CEELEM(:,:)
+          CHARACTER*120, ALLOCATABLE :: CEELEM(:,:)
 
-	END MODULE
+        END MODULE
