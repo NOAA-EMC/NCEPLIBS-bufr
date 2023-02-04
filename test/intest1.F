@@ -7,7 +7,8 @@ C       Ed Hartnett, 2/3/23
         program intest1
         implicit none
         integer mxbf, mxbfd4, mxds3, nds3, nbyt, ierme, imgdt
-        integer ierndv, iernds
+        integer ierndv, iernds, mxr8pm, mxr8lv, ierr, iertgp, nr8lv
+        integer iupbs01, iupbs3, ireadsb, ibfms
         parameter (mxbf = 20000)
         parameter (mxbfd4 = mxbf/4)
         parameter (mxds3 = 20)
