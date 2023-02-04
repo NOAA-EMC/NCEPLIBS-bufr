@@ -112,13 +112,8 @@ C       Read and check a sequence of data values.
 C       Read and check some long character strings.
         call readlc(11, smidstg, 'SMID' )
         call readlc(11, softvstg, 'SOFTV' )
-        IF ( ( smidstg(7:9) .eq. 'UAO' ) .and.
-     +               ( softvstg(5:12) .eq. '5.8.5.10' ) ) THEN
-           print *, '        READLC -> OK'
-        ELSE
-           print *, '        READLC -> FAILED!!'
-        ENDIF
-
+        IF (smidstg(7:9) .ne. 'UAO' .or.
+     +               softvstg(5:12) .ne. '5.8.5.10') stop 13
 
 C       Close the test file.
         call ccbfl()
