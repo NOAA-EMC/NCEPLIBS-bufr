@@ -57,7 +57,7 @@ C       Read and check some data descriptors from Section 3.
 
 C       Pass the BUFR message from the memory array into the library.
         call readerme(ibfmg, 11, cmgtag, imgdt, ierme)
-        if (ierme .ne. 0 .or. cmgtag .ne. 'MSTTB001') stop 5
+        if (ierme .ne. 0 .or. cmgtag .ne. 'MSTTB001') stop 6
 
 C       Get and check the element names and units associated with
 C       some Table B mnemonics.
@@ -68,46 +68,35 @@ C       some Table B mnemonics.
      +          celem(2)(1:39) .ne.
      +             'Ship or mobile land station identifier ' .or.
      +          cunit(1)(1:12) .ne. 'FLAG TABLE  ' .or.
-     +          cunit(2)(1:10) .ne. 'CCITT IA5 ') stop 6
+     +          cunit(2)(1:10) .ne. 'CCITT IA5 ') stop 7
 
 C       Read and check the Section 1 date-time.
-        if (imgdt .ne. 2012093012) stop 7
+        if (imgdt .ne. 2012093012) stop 8
 
 C       Read a data subset from the BUFR message.
-        if (ireadsb(11) .ne. 0 ) stop 8
+        if (ireadsb(11) .ne. 0 ) stop 9
 
 C       Get and check the parent of a Table B mnemonic.
         call gettagpr(11, 'PRLC', 192, tagpr, iertgp)
-        if (iertgp .ne. 0 .or. tagpr .ne. 'WSPLRAOB') stop 9
+        if (iertgp .ne. 0 .or. tagpr .ne. 'WSPLRAOB') stop 10
 
 C       Read and check some data values.
         call ufbint(11, r8arr, MXR8PM, MXR8LV,
      +                        nr8lv, 'CLONH A4ME HSMSL QCEVR')
-        IF (  ( nr8lv .eq. 1 ) .and.
-     +                  ( NINT(r8arr(1,1)*100000) .eq. 10388797 ).and.
-     +                  ( NINT(r8arr(2,1)) .eq. 7 ) .and.
-     +                  ( NINT(r8arr(3,1)) .eq. 14 ) .and.
-     +                  ( IBFMS(r8arr(4,1)) .eq. 1 ) ) THEN
-           print *, '        UFBINT -> OK'
-           print *, '         IBFMS -> OK'
-        ELSE
-           print *, '        UFBINT -> FAILED!!'
-           print *, '         IBFMS -> FAILED!!'
-        ENDIF
+        IF (nr8lv .ne. 1 .or.
+     +                  NINT(r8arr(1,1)*100000) .ne. 10388797 .or.
+     +                  NINT(r8arr(2,1)) .ne. 7 .or.
+     +                  NINT(r8arr(3,1)) .ne. 14 .or.
+     +                  ibfms(r8arr(4,1)) .ne. 1) stop 11
 
 C       Read and check a sequence of data values.
-        CALL UFBSEQ ( 11, r8arr, MXR8PM, MXR8LV,
-     +                        nr8lv, 'TDWPRAOB' )
-        IF (  ( nr8lv .eq. 191 ) .and.
-     +                  ( NINT(r8arr(8,3)*100) .eq. 29416 ) .and.
-     +                  ( NINT(r8arr(10,11)*10) .eq. 55 ) .and.
-     +                  ( NINT(r8arr(2,12)) .eq. 2048 ) .and.
-     +                  ( NINT(r8arr(5,67)*100000) .eq. -1167 ) .and.
-     +                  ( NINT(r8arr(1,186)) .eq. 2523 ) ) THEN
-           print *, '        UFBSEQ -> OK'
-        ELSE
-           print *, '        UFBSEQ -> FAILED!!'
-        ENDIF
+        call ufbseq(11, r8arr, MXR8PM, MXR8LV, nr8lv, 'TDWPRAOB')
+        IF (nr8lv .ne. 191 .or.
+     +                  NINT(r8arr(8,3)*100) .ne. 29416 .or.
+     +                  NINT(r8arr(10,11)*10) .ne. 55 .or.
+     +                  NINT(r8arr(2,12)) .ne. 2048 .or.
+     +                  NINT(r8arr(5,67)*100000) .ne. -1167 .or.
+     +                  NINT(r8arr(1,186)) .ne. 2523) stop 12
 
 C       Read and check some long character strings.
         call readlc(11, smidstg, 'SMID' )
