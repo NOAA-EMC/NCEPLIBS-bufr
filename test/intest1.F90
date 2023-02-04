@@ -77,8 +77,7 @@ program intest1
   if (iertgp .ne. 0 .or. tagpr .ne. 'WSPLRAOB') stop 10
 
   ! Read and check some data values.
-  call ufbint(11, r8arr, MXR8PM, MXR8LV, &
-       nr8lv, 'CLONH A4ME HSMSL QCEVR')
+  call ufbint(11, r8arr, MXR8PM, MXR8LV, nr8lv, 'CLONH A4ME HSMSL QCEVR')
   IF (nr8lv .ne. 1 .or. NINT(r8arr(1,1)*100000) .ne. 10388797 .or. &
        NINT(r8arr(2,1)) .ne. 7 .or. NINT(r8arr(3,1)) .ne. 14 .or. &
        ibfms(r8arr(4,1)) .ne. 1) stop 11
