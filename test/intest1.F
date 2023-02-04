@@ -110,8 +110,8 @@ C       Read and check a sequence of data values.
         ENDIF
 
 C       Read and check some long character strings.
-        CALL READLC(11, smidstg, 'SMID' )
-        CALL READLC(11, softvstg, 'SOFTV' )
+        call readlc(11, smidstg, 'SMID' )
+        call readlc(11, softvstg, 'SOFTV' )
         IF ( ( smidstg(7:9) .eq. 'UAO' ) .and.
      +               ( softvstg(5:12) .eq. '5.8.5.10' ) ) THEN
            print *, '        READLC -> OK'
