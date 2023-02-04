@@ -7,65 +7,65 @@ C
 C       Jeff Ator
 
 #ifdef INTSIZE_8
-	INTEGER*4	ISETPRM, IREADSB, IGETMXBY, ICBFMS
+        INTEGER*4       ISETPRM, IREADSB, IGETMXBY, ICBFMS
 #endif
 
         PARAMETER ( MXVAL1 = 200 )
         PARAMETER ( MXVAL2 = 12 )
         PARAMETER ( MXLVL = 4490 )
 
-	REAL*8		r8arr1 ( MXVAL1 ), r8arr2 ( MXVAL2, MXLVL )
+        REAL*8          r8arr1 ( MXVAL1 ), r8arr2 ( MXVAL2, MXLVL )
 
         PARAMETER ( MXBFMG = 50000 )
 
         INTEGER         mgbf ( MXBFMG )
 
-	CHARACTER	cmgtag*8, smid*9, dummystr*9
+        CHARACTER       cmgtag*8, smid*9, dummystr*9
 
 C*----------------------------------------------------------------------
 
-	print *, '----------------------------------------------------'
-	print *, 'testing BUFRLIB: writing OUT_4'
+        print *, '----------------------------------------------------'
+        print *, 'testing BUFRLIB: writing OUT_4'
         print *, '  using dynamic allocation'
-	print *, '  using OPENBF IO = ''NODX'' and IO = ''QUIET'''
-	print *, '  using STRCPT, WRDXTB and WRITSA'
-	print *, '----------------------------------------------------'
+        print *, '  using OPENBF IO = ''NODX'' and IO = ''QUIET'''
+        print *, '  using STRCPT, WRDXTB and WRITSA'
+        print *, '----------------------------------------------------'
 
 #ifdef INTSIZE_8
-	CALL SETIM8B ( .true. )
+        CALL SETIM8B ( .true. )
 #endif
 
-	IF ( ( ISETPRM ( 'NFILES', 4 ) .eq. 0 ) .and.
-     +	     ( ISETPRM ( 'MXMSGL', 400000 ) .eq. 0 ) .and.
-     +	     ( ISETPRM ( 'MAXSS', 250000 ) .eq. 0 ) .and.
-     +	     ( ISETPRM ( 'MAXMEM', 100000 ) .eq. 0 ) .and.
-     +	     ( ISETPRM ( 'MAXMSG', 100 ) .eq. 0 ) .and.
-     +	     ( ISETPRM ( 'MXDXTS', 5 ) .eq. 0 ) .and.
-     +	     ( ISETPRM ( 'MXCDV', 100 ) .eq. 0 ) .and.
-     +	     ( ISETPRM ( 'MXCSB', 100 ) .eq. 0 ) .and.
-     +	     ( ISETPRM ( 'MXLCC', 8 ) .eq. 0 ) ) THEN
-	  print *, '        ISETPRM'
-	ELSE
-	  CALL BORT ( 'ISETPRM FAILURE!' )
-	END IF
+        IF ( ( ISETPRM ( 'NFILES', 4 ) .eq. 0 ) .and.
+     +       ( ISETPRM ( 'MXMSGL', 400000 ) .eq. 0 ) .and.
+     +       ( ISETPRM ( 'MAXSS', 250000 ) .eq. 0 ) .and.
+     +       ( ISETPRM ( 'MAXMEM', 100000 ) .eq. 0 ) .and.
+     +       ( ISETPRM ( 'MAXMSG', 100 ) .eq. 0 ) .and.
+     +       ( ISETPRM ( 'MXDXTS', 5 ) .eq. 0 ) .and.
+     +       ( ISETPRM ( 'MXCDV', 100 ) .eq. 0 ) .and.
+     +       ( ISETPRM ( 'MXCSB', 100 ) .eq. 0 ) .and.
+     +       ( ISETPRM ( 'MXLCC', 8 ) .eq. 0 ) ) THEN
+          print *, '        ISETPRM'
+        ELSE
+          CALL BORT ( 'ISETPRM FAILURE!' )
+        END IF
 
-C*	Open the BUFR input and output files.
+C*      Open the BUFR input and output files.
 
-	OPEN ( UNIT = 11, FILE = 'testfiles/OUT_4_infile1' )
-	OPEN ( UNIT = 12, FILE = 'testfiles/OUT_4_infile2' )
-	OPEN ( UNIT = 13, FILE = 'out4.bufr', FORM ='UNFORMATTED' )
+        OPEN ( UNIT = 11, FILE = 'testfiles/OUT_4_infile1' )
+        OPEN ( UNIT = 12, FILE = 'testfiles/OUT_4_infile2' )
+        OPEN ( UNIT = 13, FILE = 'out4.bufr', FORM ='UNFORMATTED' )
 
-	CALL OPENBF ( 11, 'IN', 11 )
-	CALL OPENBF ( 12, 'SEC3', 12 )
-	CALL OPENBF ( 13, 'NODX', 11 )
-	CALL OPENBF ( 13, 'QUIET', -1 )
-	print *, '        OPENBF'
+        CALL OPENBF ( 11, 'IN', 11 )
+        CALL OPENBF ( 12, 'SEC3', 12 )
+        CALL OPENBF ( 13, 'NODX', 11 )
+        CALL OPENBF ( 13, 'QUIET', -1 )
+        print *, '        OPENBF'
 
         CALL MTINFO ( '../tables', 90, 91 )
-	print *, '        MTINFO'
+        print *, '        MTINFO'
 
         CALL MAXOUT ( MXBFMG*4 )
-	print *, '        MAXOUT'
+        print *, '        MAXOUT'
 
         IF ( IGETMXBY ( ) .eq. MXBFMG*4 ) THEN
           print *, '        IGETMXBY'
@@ -81,10 +81,10 @@ C*      internally during the subsequent calls to WRITSB and CLOSMG.
 
 C*      Append a (tank) receipt time to Section 1 of each output message
 
-	CALL STRCPT ( 'Y', 2020, 11, 4, 15, 29 )
-	print *, '        STRCPT'
+        CALL STRCPT ( 'Y', 2020, 11, 4, 15, 29 )
+        print *, '        STRCPT'
 
-C*	Process 1 message with 1 subset from infile1.
+C*      Process 1 message with 1 subset from infile1.
 
         CALL READMG ( 11, cmgtag, imgdt, iermg )
 
@@ -103,21 +103,21 @@ C*	Process 1 message with 1 subset from infile1.
           ELSE
             print *, '        READSB'
 
-	    CALL OPENMB ( 13, 'NC007000', 2020022514 )
-	    print *, '        OPENMB'
+            CALL OPENMB ( 13, 'NC007000', 2020022514 )
+            print *, '        OPENMB'
 
             CALL UFBSEQ ( 11, r8arr1, MXVAL1, 1, nlv, 'NC007000' )
             CALL UFBSEQ ( 13, r8arr1, MXVAL1, 1, nlv, 'NC007000' )
-	    print *, '        UFBSEQ'
+            print *, '        UFBSEQ'
 
             CALL WRITSB ( 13 )
           END IF
         END IF
 
-	CALL CLOSMG ( 13 )
-	print *, '        CLOSMG'
+        CALL CLOSMG ( 13 )
+        print *, '        CLOSMG'
 
-C*	Process 1 message with 4 subset from infile2.
+C*      Process 1 message with 4 subset from infile2.
 
         CALL READMG ( 12, cmgtag, imgdt, iermg )
 
@@ -129,7 +129,7 @@ C*      Write DX table information for this message into the
 C*      output file.
 
         CALL WRDXTB ( 12, 13 )
-	print *, '        WRDXTB'
+        print *, '        WRDXTB'
 
         IF ( iermg .ne. 0 ) THEN
 
@@ -187,5 +187,5 @@ C*      output file.
         CALL CLOSBF ( 13 )
         print *, '        CLOSBF'
 
-	STOP
-	END
+        STOP
+        END

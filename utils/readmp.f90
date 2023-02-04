@@ -15,18 +15,18 @@
   implicit none
 
   character(255)     :: file        !> name of filename to read
-  character(8)       :: subset      
-  character(1)       :: go          
+  character(8)       :: subset
+  character(1)       :: go
   integer, parameter :: lunit = 20
   integer            :: idate,ireadmg,ireadsb,i4dy
   logical            :: exist
 
 ! get the filename to open and read
 
-  call getarg(1,file); file=trim(adjustl(file)) 
+  call getarg(1,file); file=trim(adjustl(file))
   if (file == '') call bort('Usage: "gettab bufrfile" will print the internal BUFR table')
   inquire(file=file,exist=exist)
-  if (.not.exist) call bort(trim(file)//' does not exist') 
+  if (.not.exist) call bort(trim(file)//' does not exist')
   call getarg(2,go); go=trim(adjustl(go)) ! this for testing !
   open(lunit,file=file,form='unformatted')
 
@@ -42,4 +42,4 @@
   enddo
   enddo
 
-  end program readmp 
+  end program readmp

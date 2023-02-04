@@ -5,7 +5,7 @@
 !> @author J. Woollen @date 1994-01-06
 
 !> Read PREPBUFR file containing embedded DX BUFR tables,
-!> and print each report one at a time. Options are listed 
+!> and print each report one at a time. Options are listed
 !> by running "readbp" without argumets.
 !>
 !> @return 0 for success, error code otherwise.
@@ -118,10 +118,10 @@
 ! check if file exists, then open it, else abort
 
       narg=0
-      if(file=='nofile') goto 1 
-      file = trim(adjustl(file)) 
+      if(file=='nofile') goto 1
+      file = trim(adjustl(file))
       inquire(file=file,exist=exist)
-      if (.not.exist) call bort(trim(file)//' does not exist') 
+      if (.not.exist) call bort(trim(file)//' does not exist')
 
 !  open the bufr input file
 !  ------------------------
@@ -255,9 +255,9 @@
       subroutine printx(str)
       character(*) :: str
       lens=len(str)
-      do i=1,lens-1             
-      write(*,'(a1)',advance="no")str(i:i)  
+      do i=1,lens-1
+      write(*,'(a1)',advance="no")str(i:i)
       enddo
-      write(*,'(a1)')str(lens:lens)  
+      write(*,'(a1)')str(lens:lens)
       end subroutine
 
