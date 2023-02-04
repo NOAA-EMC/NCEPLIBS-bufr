@@ -7,7 +7,7 @@ C       Jeff Ator
         program intest1
 
         integer mxbf, mxbfd4, mxds3, nds3, nbyt, ierme, imgdt
-	integer ierndv, iernds
+        integer ierndv, iernds
         parameter (mxbf = 20000)
         parameter (mxbfd4 = mxbf/4)
         parameter (mxds3 = 20)
@@ -74,64 +74,54 @@ C       Read and check the Section 1 date-time.
         if (imgdt .ne. 2012093012) stop 7
 
 C       Read a data subset from the BUFR message.
-        IF ( IREADSB (11) .ne. 0 ) THEN
-           print *, '       IREADSB -> FAILED!!'
-        ELSE
-           print *, '       IREADSB -> OK'
+        if (ireadsb(11) .ne. 0 ) stop 8
 
 C       Get and check the parent of a Table B mnemonic.
-           CALL GETTAGPR ( 11, 'PRLC', 192, tagpr, iertgp )
-           IF ( ( iertgp .eq. 0 ) .and. ( tagpr .eq. 'WSPLRAOB' ) )
-     +            THEN
-              print *, '      GETTAGPR -> OK'
-           ELSE
-              print *, '      GETTAGPR -> FAILED!!'
-           ENDIF
+        call gettagpr(11, 'PRLC', 192, tagpr, iertgp)
+        if (iertgp .ne. 0 .or. tagpr .ne. 'WSPLRAOB') stop 9
 
 C       Read and check some data values.
-           CALL UFBINT ( 11, r8arr, MXR8PM, MXR8LV,
-     +                        nr8lv, 'CLONH A4ME HSMSL QCEVR' )
-           IF (  ( nr8lv .eq. 1 ) .and.
+        call ufbint(11, r8arr, MXR8PM, MXR8LV,
+     +                        nr8lv, 'CLONH A4ME HSMSL QCEVR')
+        IF (  ( nr8lv .eq. 1 ) .and.
      +                  ( NINT(r8arr(1,1)*100000) .eq. 10388797 ).and.
      +                  ( NINT(r8arr(2,1)) .eq. 7 ) .and.
      +                  ( NINT(r8arr(3,1)) .eq. 14 ) .and.
      +                  ( IBFMS(r8arr(4,1)) .eq. 1 ) ) THEN
-              print *, '        UFBINT -> OK'
-              print *, '         IBFMS -> OK'
-           ELSE
-              print *, '        UFBINT -> FAILED!!'
-              print *, '         IBFMS -> FAILED!!'
-           ENDIF
+           print *, '        UFBINT -> OK'
+           print *, '         IBFMS -> OK'
+        ELSE
+           print *, '        UFBINT -> FAILED!!'
+           print *, '         IBFMS -> FAILED!!'
+        ENDIF
 
 C       Read and check a sequence of data values.
-           CALL UFBSEQ ( 11, r8arr, MXR8PM, MXR8LV,
+        CALL UFBSEQ ( 11, r8arr, MXR8PM, MXR8LV,
      +                        nr8lv, 'TDWPRAOB' )
-           IF (  ( nr8lv .eq. 191 ) .and.
+        IF (  ( nr8lv .eq. 191 ) .and.
      +                  ( NINT(r8arr(8,3)*100) .eq. 29416 ) .and.
      +                  ( NINT(r8arr(10,11)*10) .eq. 55 ) .and.
      +                  ( NINT(r8arr(2,12)) .eq. 2048 ) .and.
      +                  ( NINT(r8arr(5,67)*100000) .eq. -1167 ) .and.
      +                  ( NINT(r8arr(1,186)) .eq. 2523 ) ) THEN
-              print *, '        UFBSEQ -> OK'
-           ELSE
-              print *, '        UFBSEQ -> FAILED!!'
-           ENDIF
-
-C       Read and check some long character strings.
-           CALL READLC ( 11, smidstg, 'SMID' )
-           CALL READLC ( 11, softvstg, 'SOFTV' )
-           IF ( ( smidstg(7:9) .eq. 'UAO' ) .and.
-     +               ( softvstg(5:12) .eq. '5.8.5.10' ) ) THEN
-              print *, '        READLC -> OK'
-           ELSE
-              print *, '        READLC -> FAILED!!'
-           ENDIF
-
+           print *, '        UFBSEQ -> OK'
+        ELSE
+           print *, '        UFBSEQ -> FAILED!!'
         ENDIF
 
+C       Read and check some long character strings.
+        CALL READLC ( 11, smidstg, 'SMID' )
+        CALL READLC ( 11, softvstg, 'SOFTV' )
+        IF ( ( smidstg(7:9) .eq. 'UAO' ) .and.
+     +               ( softvstg(5:12) .eq. '5.8.5.10' ) ) THEN
+           print *, '        READLC -> OK'
+        ELSE
+           print *, '        READLC -> FAILED!!'
+        ENDIF
+
+
 C       Close the test file.
-        CALL CCBFL( )
-        print *, '         CCBFL -> OK'
+        call ccbfl()
 
         print *, 'SUCCESS!'
         end program
