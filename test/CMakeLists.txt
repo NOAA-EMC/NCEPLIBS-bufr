@@ -5,7 +5,7 @@
 
 # This function builds, links, and runs a test program.
 function(create_test name kind)
-  add_executable(${name}_${kind} ${name}.F90)
+  add_executable(${name}_${kind} ${name}.F)
   target_link_libraries(${name}_${kind} PRIVATE bufr_${kind})
   set_target_properties(${name}_${kind} PROPERTIES COMPILE_FLAGS "${fortran_${kind}_flags}")
   set_target_properties(${name}_${kind} PROPERTIES Fortran_MODULE_DIRECTORY
