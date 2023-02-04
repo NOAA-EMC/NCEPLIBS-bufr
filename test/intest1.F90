@@ -3,7 +3,7 @@
 ! Reads test file 'testfiles/IN_1' using CRBMG with
 ! OPENBF IO = 'SEC3'. This is based on test test_IN_1.F.
 !
-! Ed Hartnett, 2/3/23
+! Ed Hartnett, J. Ator, 2/3/23
 program intest1
   implicit none
   integer mxbf, mxbfd4, mxds3, nds3, nbyt, ierme, imgdt
