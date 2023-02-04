@@ -3,6 +3,17 @@
 #
 # Rahul, Jeff Ator, Ed Hartnett
 
+# This function builds, links, and runs a test program.
+function(create_test name kind)
+  add_executable(${name}_${kind} ${name}.F90)
+  target_link_libraries(${name}_${kind} PRIVATE bufr_${kind})
+  set_target_properties(${name}_${kind} PROPERTIES COMPILE_FLAGS "${fortran_${kind}_flags}")
+  set_target_properties(${name}_${kind} PROPERTIES Fortran_MODULE_DIRECTORY
+    ${CMAKE_CURRENT_BINARY_DIR}/include_${kind})
+  add_test(NAME ${name}_${kind} COMMAND ${name}_${kind})
+  target_compile_definitions(${name}_${kind} PUBLIC -DKIND_${kind})  
+endfunction()
+
 # Fetch test data from: https://ftp.emc.ncep.noaa.gov/static_files/public/bufr.tar
 set(BUFR_URL "https://ftp.emc.ncep.noaa.gov/static_files/public")
 if(${PROJECT_VERSION} VERSION_GREATER_EQUAL 11.6.0)
@@ -22,6 +33,7 @@ if(NOT ${TEST_FILE_DIR} STREQUAL ".")
   endif()
 endif()
 
+# Get the test data if we don't have it.
 if(NOT EXISTS "${CMAKE_CURRENT_BINARY_DIR}/${BUFR_TAR}")
   message(STATUS "Downloading bufr test files...")
   file(DOWNLOAD
@@ -230,4 +242,9 @@ foreach(xb_num RANGE 1 2)
   add_test(NAME test_${xb_case} COMMAND ${CMAKE_BINARY_DIR}/bin/test_xbfmg.sh
            "${CMAKE_BINARY_DIR}/utils/xbfmg ${xb_flags_${xb_num}}" "testfiles/data"
            "testfiles/testoutput/xbfmg" "${xb_case}")
+endforeach()
+
+# More tests.
+foreach(kind ${kinds})
+  create_test(intest1 ${kind})
 endforeach()
