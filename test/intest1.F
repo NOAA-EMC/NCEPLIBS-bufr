@@ -5,7 +5,7 @@ C       OPENBF IO = 'SEC3'. This is based on test test_IN_1.F.
 C
 C       Ed Hartnett, 2/3/23
         program intest1
-
+        implicit none
         integer mxbf, mxbfd4, mxds3, nds3, nbyt, ierme, imgdt
         integer ierndv, iernds
         parameter (mxbf = 20000)
