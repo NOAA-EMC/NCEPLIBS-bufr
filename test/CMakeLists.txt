@@ -5,7 +5,7 @@
 
 # This function builds, links, and runs a test program.
 function(create_test name kind)
-  add_executable(${name}_${kind} ${name}.F)
+  add_executable(${name}_${kind} ${name}.F90)
   target_link_libraries(${name}_${kind} PRIVATE bufr_${kind})
   set_target_properties(${name}_${kind} PROPERTIES COMPILE_FLAGS "${fortran_${kind}_flags}")
   set_target_properties(${name}_${kind} PROPERTIES Fortran_MODULE_DIRECTORY
@@ -130,6 +130,11 @@ list(APPEND test_kinds 4 8 d)
 
 set(fortran_8_defs INTSIZE_8)
 
+# Add tests which don't require output log processing.
+foreach(kind ${kinds})
+  create_test(intest1 ${kind})
+endforeach()
+
 # IN tests
 foreach(test_src ${test_IN_srcs})
   string(REGEX REPLACE "(.F90|.F)" "" testPref ${test_src})
@@ -244,7 +249,3 @@ foreach(xb_num RANGE 1 2)
            "testfiles/testoutput/xbfmg" "${xb_case}")
 endforeach()
 
-# More tests.
-foreach(kind ${kinds})
-  create_test(intest1 ${kind})
-endforeach()
