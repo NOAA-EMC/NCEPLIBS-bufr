@@ -63,7 +63,7 @@ C       Get and check the element names and units associated with
 C       some Table B mnemonics.
         call nemdefs(11, 'VSIGX', celem(1), cunit(1), ierndv)
         call nemdefs(11, 'SMID', celem(2), cunit(2), iernds)
-        IF (ierndv .ne. 0 .or. iernds .ne. 0 .or. celem(1)(1:40) .ne.
+        if (ierndv .ne. 0 .or. iernds .ne. 0 .or. celem(1)(1:40) .ne.
      +             'Extended vertical sounding significance ' .or.
      +          celem(2)(1:39) .ne.
      +             'Ship or mobile land station identifier ' .or.
@@ -71,11 +71,7 @@ C       some Table B mnemonics.
      +          cunit(2)(1:10) .ne. 'CCITT IA5 ') stop 6
 
 C       Read and check the Section 1 date-time.
-        IF ( imgdt .eq. 2012093012 ) THEN
-           print *, '       DATELEN -> OK'
-        ELSE
-           print *, '       DATELEN -> FAILED!!'
-        ENDIF
+        if (imgdt .ne. 2012093012) stop 7
 
 C       Read a data subset from the BUFR message.
         IF ( IREADSB (11) .ne. 0 ) THEN
