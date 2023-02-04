@@ -1,9 +1,9 @@
 C       This is a test for NCEPLIBS-bufr.
 C
 C       Reads test file 'testfiles/IN_1' using CRBMG with
-C       OPENBF IO = 'SEC3'.
+C       OPENBF IO = 'SEC3'. This is based on test test_IN_1.F.
 C
-C       Jeff Ator
+C       Ed Hartnett, 2/3/23
         program intest1
 
         integer mxbf, mxbfd4, mxds3, nds3, nbyt, ierme, imgdt
@@ -99,8 +99,8 @@ C       Read and check a sequence of data values.
      +                  NINT(r8arr(1,186)) .ne. 2523) stop 12
 
 C       Read and check some long character strings.
-        call readlc(11, smidstg, 'SMID' )
-        call readlc(11, softvstg, 'SOFTV' )
+        call readlc(11, smidstg, 'SMID')
+        call readlc(11, softvstg, 'SOFTV')
         IF (smidstg(7:9) .ne. 'UAO' .or.
      +               softvstg(5:12) .ne. '5.8.5.10') stop 13
 
