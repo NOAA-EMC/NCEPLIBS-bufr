@@ -11,7 +11,7 @@
 
 module MODV_NFILES
 
-!>	  @var nfiles
+!>        @var nfiles
 !>        Maximum number of BUFR files that can be connected to the BUFRLIB software (for reading or writing) at any one time.
 
   integer, public :: NFILES = 32

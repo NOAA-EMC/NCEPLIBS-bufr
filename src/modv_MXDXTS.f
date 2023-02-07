@@ -10,12 +10,12 @@ C>
 C> @author J. Ator
 C> @date 2014-12-10
 
-	MODULE MODV_MXDXTS
+        MODULE MODV_MXDXTS
 
 C>        @var mxdxts
 C>        Maximum number of dictionary tables that can be stored
 C>        for use with BUFR messages in internal memory.
 
-	  INTEGER :: MXDXTS = 200
+          INTEGER :: MXDXTS = 200
 
-	END MODULE
+        END MODULE

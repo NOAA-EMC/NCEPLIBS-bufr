@@ -10,12 +10,12 @@ C>
 C> @author J. Ator
 C> @date 2014-12-10
 
-	MODULE MODV_MXBTM
+        MODULE MODV_MXBTM
 
 C>        @var mxbtm
 C>        Maximum number of bitmaps that can be stored internally
 C>        for a data subset.
 
-	  INTEGER :: MXBTM = 5
+          INTEGER :: MXBTM = 5
 
-	END MODULE
+        END MODULE

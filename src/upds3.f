@@ -4,11 +4,11 @@ C>
 C> ### Program History Log
 C> Date | Programmer | Comments |
 C> -----|------------|----------|
-C> 2003-11-04 | J. Ator | Original author 
-C> 2004-08-18 | J. Ator | Removed IFIRST check, since wrdlen() now keeps track of whether it has been called 
-C> 2005-11-29 | J. Ator | Use getlens() 
-C> 2009-03-23 | J. Ator | Added LCDS3 argument and check 
-C> 2022-10-04 | J. Ator | Added 8-byte wrapper 
+C> 2003-11-04 | J. Ator | Original author
+C> 2004-08-18 | J. Ator | Removed IFIRST check, since wrdlen() now keeps track of whether it has been called
+C> 2005-11-29 | J. Ator | Use getlens()
+C> 2009-03-23 | J. Ator | Added LCDS3 argument and check
+C> 2022-10-04 | J. Ator | Added 8-byte wrapper
 C>
 C> @author J. Ator @date 2003-11-04
 

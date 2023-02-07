@@ -11,10 +11,10 @@ C> subroutine igetsc().
 C>
 C> @author J. Ator @date 2010-05-11
 
-	MODULE MODA_STCODE
+        MODULE MODA_STCODE
 
 C>    Abnormal status codes.
 C>    - 0 all is normal; no error occurred
-	  INTEGER, ALLOCATABLE :: ISCODES(:)
+          INTEGER, ALLOCATABLE :: ISCODES(:)
 
-	END MODULE
+        END MODULE

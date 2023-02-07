@@ -10,11 +10,11 @@ C>
 C> @author J. Ator
 C> @date 2014-12-10
 
-	MODULE MODV_MXMTBD
+        MODULE MODV_MXMTBD
 
 C>        @var mxmtbd
 C>        Maximum number of entries in a master BUFR Table D.
 
-	  INTEGER :: MXMTBD = 1000
+          INTEGER :: MXMTBD = 1000
 
-	END MODULE
+        END MODULE

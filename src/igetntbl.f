@@ -25,24 +25,24 @@ C> | Date | Programmer | Comments |
 C> | -----|------------|----------|
 C> | 2007-01-19 | J. Ator | Original author |
 C>
-	FUNCTION IGETNTBL ( LUNT, LINE )
+        FUNCTION IGETNTBL ( LUNT, LINE )
 
-	CHARACTER*(*)	LINE
+        CHARACTER*(*)   LINE
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
 
-  10	READ ( LUNT, '(A)', END=100, ERR=200 ) LINE
-	IF ( ( LINE .EQ. ' ' ) .OR. ( LINE(1:1) .EQ. '#' ) ) GOTO 10
-	IF ( LINE(1:3) .EQ. 'END' ) GOTO 100
+  10    READ ( LUNT, '(A)', END=100, ERR=200 ) LINE
+        IF ( ( LINE .EQ. ' ' ) .OR. ( LINE(1:1) .EQ. '#' ) ) GOTO 10
+        IF ( LINE(1:3) .EQ. 'END' ) GOTO 100
 
-	IGETNTBL = 0
-	RETURN
+        IGETNTBL = 0
+        RETURN
 
- 100	IGETNTBL = -1
-	RETURN
+ 100    IGETNTBL = -1
+        RETURN
 
- 200	IGETNTBL = -2
-	RETURN
+ 200    IGETNTBL = -2
+        RETURN
 
-	END
+        END

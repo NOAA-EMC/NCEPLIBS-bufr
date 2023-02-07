@@ -1,6 +1,6 @@
 C> @file
 C> @brief Return a copy of an input integer word with
-C> the bytes reversed.      
+C> the bytes reversed.
 C>
 C> ### Program History Log
 C> Date | Programmer | Comments
@@ -12,7 +12,7 @@ C> 2003-11-04 | D. Keyser  | Unified/portable for wrf; added history documentati
 C> 2007-01-19 | J. Ator    | Big-endian vs. little-endian determined at compile time.
 C>
 C> @author Woollen @date 1994-01-06
-      
+
 C> This function will, when the local machine is "little-endian" (i.e.,
 C> when it uses a right to left scheme for numbering the bytes
 C> within a machine word), return a copy of an input integer word with

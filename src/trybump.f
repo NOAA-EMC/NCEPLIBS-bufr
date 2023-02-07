@@ -13,7 +13,7 @@ C> 2009-03-31 | J. Woollen | added documentation
 C> 2014-12-10 | J. Ator    | use modules instead of common blocks
 C>
 C> @author Woollen @date 1994-01-06
-      
+
 C> This subroutine checks the first node associated with a
 C> character string (parsed into arrays in common block /usrstr/) in
 C> order to determine if it represents a delayed replication sequence.

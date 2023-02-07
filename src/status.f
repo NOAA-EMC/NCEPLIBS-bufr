@@ -13,7 +13,7 @@ C> subsequent call to subroutine wtstat().
 C>
 C> @author J. Woollen
 C> @date 1994-01-06
-C>       
+C>
 C> @param[in]  LUNIT   -- integer: Fortran logical unit number for
 C>                        BUFR file
 C> @param[out]  LUN    -- integer: Internal I/O stream index associated

@@ -22,7 +22,7 @@ C> @remarks
 C> - This subroutine is the logical inverse of subroutine up8().
 C> - This subroutine will not work properly if NBITS is less than 0 or
 C>   greater than 64, as determined via an internal call to subroutine
-C>   wrdlen().  
+C>   wrdlen().
 C>
 C> <b>Program history log:</b>
 C> | Date | Programmer | Comments |

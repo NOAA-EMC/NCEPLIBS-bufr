@@ -4,15 +4,15 @@ c>
 C> ### Program History Log
 C> Date | Programmer | Comments
 C> -----|------------|---------
-C> 1994-01-06 | J. Woollen  |  original author 
-C> 1995-06-28 | J. Woollen  |  increased the size of internal bufr table arrays in order to handle bigger files 
-C> 1998-07-08 | J. Woollen  |  replaced call to cray library routine "abort" with call to new internal bufrlib routine "bort" 
-C> 1999-11-18 | J. Woollen  |  the number of bufr files which can be opened at one time increased from 10 to 32 
-C> 2000-09-19 | J. Woollen  |  maximum message length increased from 10,000 to 20,000 bytes 
-C> 2003-11-04 | S. Bender   |  added remarks/bufrlib routine interdependencies 
-C> 2003-11-04 | D. Keyser   |  unified/portable for wrf 
-C> 2004-08-09 | J. Ator     |  maximum message length increased from 20,000 to 50,000 bytes 
-C> 2009-03-23 | J. Ator     |  use wrdxtb 
+C> 1994-01-06 | J. Woollen  |  original author
+C> 1995-06-28 | J. Woollen  |  increased the size of internal bufr table arrays in order to handle bigger files
+C> 1998-07-08 | J. Woollen  |  replaced call to cray library routine "abort" with call to new internal bufrlib routine "bort"
+C> 1999-11-18 | J. Woollen  |  the number of bufr files which can be opened at one time increased from 10 to 32
+C> 2000-09-19 | J. Woollen  |  maximum message length increased from 10,000 to 20,000 bytes
+C> 2003-11-04 | S. Bender   |  added remarks/bufrlib routine interdependencies
+C> 2003-11-04 | D. Keyser   |  unified/portable for wrf
+C> 2004-08-09 | J. Ator     |  maximum message length increased from 20,000 to 50,000 bytes
+C> 2009-03-23 | J. Ator     |  use wrdxtb
 C>
 C> @author Woollen @date 1994-01-06
 

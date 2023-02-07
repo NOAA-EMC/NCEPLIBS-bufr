@@ -15,7 +15,7 @@
  * ### Program History
  * Date | Programmer | Comments
  * -----|------------|----------
- * 2012-09-15 | J. Woollen | Original author 
+ * 2012-09-15 | J. Woollen | Original author
  * 2014-11-07 | J. Ator | Allow dynamic allocation of pb array
  *
  * @author J. Woollen @date 2012-09-15
@@ -122,7 +122,7 @@ f77int *nfile; f77int *mxbyt; char *bufr;
  *
  * @author J. Woollen @date 2012-09-15
  */
-void cwrbufr (nfile,bufr,nwrd) 
+void cwrbufr (nfile,bufr,nwrd)
 f77int *nfile; f77int *nwrd; f77int  *bufr;
 {  f77int  nb; nb = sizeof(*bufr);
    fwrite(bufr,nb,*nwrd,pb[*nfile]);

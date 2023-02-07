@@ -11,7 +11,7 @@ C> @author J. Ator
 C> @date 2009-03-23
 C>
 C> @param[in] MSIZ -- integer: Size (in bytes) of current BUFR message
-C> @param[in] ITOADD -- integer: Size (in bytes) of current data subset 
+C> @param[in] ITOADD -- integer: Size (in bytes) of current data subset
 C> @param[in] MXSIZ -- integer: Maximum size of a BUFR message
 C> @returns MSGFULL -- logical: Flag indicating whether the current
 C>                     data subset will fit within the current BUFR
@@ -61,9 +61,9 @@ C        subroutine STNDRD
 C     Determine whether the subset will fit.
 
       IF ( ( MSIZ + ITOADD + IWGBYT ) .GT. MXSIZ ) THEN
-	MSGFULL = .TRUE.
+        MSGFULL = .TRUE.
       ELSE
-	MSGFULL = .FALSE.
+        MSGFULL = .FALSE.
       ENDIF
 
       RETURN

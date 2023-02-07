@@ -100,7 +100,7 @@ C  ---------------------------------------------------------------
 
          IREC    =    0
 
-C  CALL OPENBF SINCE FILE IS NOT OPEN TO THE C INTERFACE YET 
+C  CALL OPENBF SINCE FILE IS NOT OPEN TO THE C INTERFACE YET
 C  ---------------------------------------------------------
 
          CALL OPENBF(LUNIT,'INX',LUNIT)
@@ -114,7 +114,7 @@ C  -----------------------------------------------------------------
 
          IREC = IREC + 1
 
-         MESGTYP = IUPBS01(MGWA,'MTYP') 
+         MESGTYP = IUPBS01(MGWA,'MTYP')
 
          IF((IDXMSG(MGWA).EQ.1).OR.(IUPBS3(MGWA,'NSUB').EQ.0)) GOTO 1
 
@@ -129,7 +129,7 @@ C  ----------------------------------------------------------
            MGWA(I) = MBAY(I,LUN)
          ENDDO
 
-         MESGTYP = IUPBS01(MGWA,'MTYP') 
+         MESGTYP = IUPBS01(MGWA,'MTYP')
 
       END IF
 

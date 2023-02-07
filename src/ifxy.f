@@ -29,7 +29,7 @@ C>
 C>       = ( 2**13 + 2**12 + 2**11 + 2**10 + 2**9 + 2**8 +
 C>           2**4 + 2**2 + 2**1 )
 C>
-C>       = 16150      
+C>       = 16150
 C>
 C> <b>Program History Log:</b>
 C> | Date | Programmer | Comments |

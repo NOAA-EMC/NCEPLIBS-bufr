@@ -15,7 +15,7 @@ C> @author J. Woollen
 C> @date 1994-01-06
 C>
 C> @param[in] LUNIT   -- integer: Fortran logical unit number for BUFR
-C>                       file 
+C>                       file
 C> @param[in] INEW    -- integer: Processing option
 C>                       - 0 = Initialize the internal arrays, then
 C>                             read all BUFR messages from LUNIT into
@@ -42,7 +42,7 @@ C> called with INEW = 0, and the system file connected to LUNIT will be
 C> closed via an internal call to subroutine closbf() before exiting
 C> this subroutine.  In either case, IUNIT can now be used to access
 C> all BUFR messages that were read and stored by all previous calls
-C> to this subroutine.  
+C> to this subroutine.
 C>
 C> <b>Program history log:</b>
 C> | Date | Programmer | Comments |
@@ -124,7 +124,7 @@ C     for this table.
 
       ITEMP = NDXTS
       CALL STATUS(LUNIT,LUN,IL,IM)
-      CALL CEWIND(LUN)   
+      CALL CEWIND(LUN)
       CALL CPDXMM(LUNIT)
 
 C     If a table was indeed present at the beginning of the file,
@@ -141,12 +141,12 @@ C  ------------------------------------------------------------
 
       IF(IDXMSG(MGWA).EQ.1) THEN
 
-C	New "embedded" BUFR dictionary table messages have been found in
-C	this file.  Copy them into MODULE MSGMEM for later use.
+C       New "embedded" BUFR dictionary table messages have been found in
+C       this file.  Copy them into MODULE MSGMEM for later use.
 
-	CALL BACKBUFR(LUN) !BACKSPACE LUNIT
-	CALL CPDXMM(LUNIT)
-	GOTO 1
+        CALL BACKBUFR(LUN) !BACKSPACE LUNIT
+        CALL CPDXMM(LUNIT)
+        GOTO 1
       ENDIF
 
       NMSG = NMSG+1
@@ -182,7 +182,7 @@ C  --------------------------------------------------
       CALL ERRWRT('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
       WRITE ( UNIT=ERRSTR, FMT='(A,A,I8,A)' )
      . 'BUFRLIB: UFBMEM - THE NO. OF MESSAGES REQUIRED TO STORE ',
-     . 'ALL MESSAGES INTERNALLY EXCEEDS MAXIMUM (', MAXMSG, 
+     . 'ALL MESSAGES INTERNALLY EXCEEDS MAXIMUM (', MAXMSG,
      . ') - INCOMPLETE READ'
       CALL ERRWRT(ERRSTR)
       WRITE ( UNIT=ERRSTR, FMT='(A,I8,A,I8,A)' )
@@ -206,7 +206,7 @@ C  --------------------------------------------------
       CALL ERRWRT('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
       WRITE ( UNIT=ERRSTR, FMT='(A,A,I8,A)' )
      . 'BUFRLIB: UFBMEM - THE NO. OF BYTES REQUIRED TO STORE ',
-     . 'ALL MESSAGES INTERNALLY EXCEEDS MAXIMUM (', MAXMEM, 
+     . 'ALL MESSAGES INTERNALLY EXCEEDS MAXIMUM (', MAXMEM,
      . ') - INCOMPLETE READ'
       CALL ERRWRT(ERRSTR)
       WRITE ( UNIT=ERRSTR, FMT='(A,I8,A,I8,A)' )

@@ -15,7 +15,7 @@ C> 2009-05-07 | J. Ator    | Use lstjpb instead of lstrpc.
 C> 2014-12-10 | J. Ator    | Use modules instead of common blocks.
 C>
 C> @author Woollen @date 1994-01-06
-      
+
 C> Given an index within the internal jump/link table which
 C> points to the start of an "rpc" window (which is the iteration of an 8-bit
 C> or 16-bit delayed replication sequence), this subroutine computes
@@ -43,7 +43,7 @@ C----------------------------------------------------------------------
       IF(IWIN.EQ.1) THEN
 
 C        This is a "SUB" (subset) node, so return JWIN as pointing to
-C        the last value of the entire subset. 
+C        the last value of the entire subset.
 
          JWIN = NVAL(LUN)
          GOTO 100

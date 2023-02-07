@@ -12,21 +12,21 @@ C>
 C> @author J. Ator
 C> @date 2012-03-02
 
-	MODULE MODA_DSCACH
+        MODULE MODA_DSCACH
 
-	  USE MODV_MAXNC
-	  USE MODV_MXCNEM
+          USE MODV_MAXNC
+          USE MODV_MXCNEM
 
 C>    Number of entries in the internal Table A mnemonic
 C>    cache (up to a maximum of MXCNEM).
-	  INTEGER :: NCNEM
+          INTEGER :: NCNEM
 C>    Table A mnemonics.
-	  CHARACTER*8 :: CNEM(MXCNEM)
+          CHARACTER*8 :: CNEM(MXCNEM)
 C>    Number of child descriptors for the corresponding
 C>    Table A mnemonic in cnem.
-	  INTEGER :: NDC(MXCNEM)
+          INTEGER :: NDC(MXCNEM)
 C>    Bit-wise representations of the child descriptors
 C>    for the corresponding Table A mnemonic in cnem.
-	  INTEGER :: IDCACH(MXCNEM,MAXNC)
+          INTEGER :: IDCACH(MXCNEM,MAXNC)
 
-	END MODULE
+        END MODULE

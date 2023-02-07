@@ -41,19 +41,19 @@ C     two different LUx values, then the associated logical units are
 C     sharing table information.
 
       IF ( ( NTBA(LUD) .GE. 1 ) .AND.
-     +	    ( NTBA(LUD) .EQ. NTBA(LUN) ) ) THEN
-	II = 1
-	ISHRDX = 1
-	DO WHILE ( ( II .LE. NTBA(LUD) ) .AND. ( ISHRDX .EQ. 1 ) )
-	  IF ( ( MTAB(II,LUD) .NE. 0 ) .AND.
-     +		( MTAB(II,LUD) .EQ. MTAB(II,LUN) ) ) THEN
-	    II = II + 1
-	  ELSE
-	    ISHRDX = 0
-	  ENDIF
-	ENDDO
+     +      ( NTBA(LUD) .EQ. NTBA(LUN) ) ) THEN
+        II = 1
+        ISHRDX = 1
+        DO WHILE ( ( II .LE. NTBA(LUD) ) .AND. ( ISHRDX .EQ. 1 ) )
+          IF ( ( MTAB(II,LUD) .NE. 0 ) .AND.
+     +          ( MTAB(II,LUD) .EQ. MTAB(II,LUN) ) ) THEN
+            II = II + 1
+          ELSE
+            ISHRDX = 0
+          ENDIF
+        ENDDO
       ELSE
-	ISHRDX = 0
+        ISHRDX = 0
       ENDIF
 
       RETURN

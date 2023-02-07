@@ -30,18 +30,18 @@ C> | 2016-05-10 | J. Ator | Updated to version 11.2.0 |
 C> | 2017-04-03 | J. Ator | Updated to version 11.3.0 |
 C> | 2020-10-21 | J. Ator | Updated to use PROJECT_VERSION macro from CMake |
 C>
-	SUBROUTINE BVERS (CVERSTR)
+        SUBROUTINE BVERS (CVERSTR)
 
-	CHARACTER*(*)	CVERSTR
+        CHARACTER*(*)   CVERSTR
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
 
-	IF (LEN(CVERSTR).LT.8) GOTO 900
+        IF (LEN(CVERSTR).LT.8) GOTO 900
 
-	CVERSTR = '@PROJECT_VERSION@'
+        CVERSTR = '@PROJECT_VERSION@'
 
-	RETURN
-900	CALL BORT('BUFRLIB: BVERS - INPUT STRING MUST CONTAIN SPACE '//
+        RETURN
+900     CALL BORT('BUFRLIB: BVERS - INPUT STRING MUST CONTAIN SPACE '//
      .    'FOR AT LEAST 8 CHARACTERS')
-	END
+        END

@@ -8,18 +8,18 @@ C>
 C> @author J. Ator
 C> @date 2014-12-10
 
-	MODULE MODA_BITBUF
+        MODULE MODA_BITBUF
 
 C>        Maximum length of an output BUFR message.
-	  INTEGER :: MAXBYT
+          INTEGER :: MAXBYT
 C>        Bit pointer within IBAY.
-	  INTEGER :: IBIT
+          INTEGER :: IBIT
 C>        Current data subset.
-	  INTEGER, ALLOCATABLE :: IBAY(:)
+          INTEGER, ALLOCATABLE :: IBAY(:)
 C>        Length (in bytes) of current BUFR message for each internal
 C>        I/O stream.
-	  INTEGER, ALLOCATABLE :: MBYT(:)
+          INTEGER, ALLOCATABLE :: MBYT(:)
 C>        Current BUFR message for each internal I/O stream.
-	  INTEGER, ALLOCATABLE :: MBAY(:,:)
+          INTEGER, ALLOCATABLE :: MBAY(:,:)
 
-	END MODULE
+        END MODULE

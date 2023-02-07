@@ -2,7 +2,7 @@
  *  @brief Sort entries within the master Code/Flag table.
  *
  * ### Program History Log
- * Date | Programmer | Comments 
+ * Date | Programmer | Comments
  * -----|------------|----------
  * 2017-11-16 | J. Ator | Original author.
  *
@@ -21,5 +21,5 @@
 void sorttbf( void )
 {
     qsort( &cfe[0], ( size_t ) nmtf, sizeof( struct code_flag_entry ),
-	( int (*) ( const void *, const void * ) ) cmpstia1 );
+        ( int (*) ( const void *, const void * ) ) cmpstia1 );
 }

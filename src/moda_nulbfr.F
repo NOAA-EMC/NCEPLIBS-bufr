@@ -18,11 +18,11 @@ C> and does not want to also have them automatically written out to a file.
 C>
 C> @author J. Woollen @date 2003-11-04
 
-	MODULE MODA_NULBFR
+        MODULE MODA_NULBFR
 
 C>    Output switch for each internal I/O stream index:
 C>    - 0 BUFR messages will be written to corresponding logical unit (default)
 C>    - 1 no BUFR messages will be written to corresponding logical unit
-	  INTEGER, ALLOCATABLE :: NULL(:)
+          INTEGER, ALLOCATABLE :: NULL(:)
 
-	END MODULE
+        END MODULE

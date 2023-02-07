@@ -49,7 +49,7 @@ C> LUNXX < 0 was an indicator to the subroutine to treat any read error
 C> from ABS(LUNXX) the same as an end-of-file condition.  This option is
 C> no longer supported, but the capability to call this subroutine with
 C> LUNXX < 0 is itself still supported for backwards-compatibility with
-C> certain legacy application programs. 
+C> certain legacy application programs.
 C>
 C> <b>Program history log:</b>
 C> | Date | Programmer | Comments |
@@ -139,7 +139,7 @@ C     file pointer and then use subroutine RDBFDX to read in
 C     all such dictionary messages (they should be stored
 C     consecutively!) and reset the internal tables.
 
-      CALL BACKBUFR(LUN) 
+      CALL BACKBUFR(LUN)
       CALL RDBFDX(LUNIT,LUN)
 
       IF(IPRT.GE.1) THEN

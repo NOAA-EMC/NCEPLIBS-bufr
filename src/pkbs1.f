@@ -14,7 +14,7 @@ C>
 C> @authors J. Ator
 C> @authors D. Keyser
 C> @date 2005-11-29
-C>	
+C>
 C> @param[in]     IVAL   -- integer: Value to be stored
 C> @param[in,out] MBAY   -- integer(*): BUFR message
 C> @param[in]   S1MNEM   -- character*(*): Location in Section 1 of
@@ -55,61 +55,61 @@ C> | 2005-11-29 | J. Ator    | Original author |
 C> | 2006-04-14 | D. Keyser  | Added options for 'MTYP', 'MSBT', 'YEAR', 'MNTH', 'DAYS', 'HOUR', 'YCEN' and 'CENT' |
 C> | 2022-10-04 | J. Ator    | Added 8-byte wrapper |
 
-	RECURSIVE SUBROUTINE PKBS1(IVAL,MBAY,S1MNEM)
+        RECURSIVE SUBROUTINE PKBS1(IVAL,MBAY,S1MNEM)
 
-	USE MODV_IM8B
+        USE MODV_IM8B
 
-	DIMENSION	MBAY(*)
+        DIMENSION       MBAY(*)
 
-	CHARACTER*(*)	S1MNEM
+        CHARACTER*(*)   S1MNEM
 
-	CHARACTER*128	BORT_STR
+        CHARACTER*128   BORT_STR
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
 
-C	Check for I8 integers.
+C       Check for I8 integers.
 
-	IF (IM8B) THEN
-	    IM8B = .FALSE.
+        IF (IM8B) THEN
+            IM8B = .FALSE.
 
-	    CALL X84(IVAL,MY_IVAL,1)
-	    CALL PKBS1(MY_IVAL,MBAY,S1MNEM)
+            CALL X84(IVAL,MY_IVAL,1)
+            CALL PKBS1(MY_IVAL,MBAY,S1MNEM)
 
-	    IM8B = .TRUE.
-	    RETURN
-	END IF
+            IM8B = .TRUE.
+            RETURN
+        END IF
 
-C	Note that the following call to function IUPBS01 will ensure
-C	that subroutine WRDLEN has been called.
+C       Note that the following call to function IUPBS01 will ensure
+C       that subroutine WRDLEN has been called.
 
-	IBEN = IUPBS01(MBAY,'BEN')
+        IBEN = IUPBS01(MBAY,'BEN')
 
-C	Determine where to store the value.
+C       Determine where to store the value.
 
-	CALL GETS1LOC(S1MNEM,IBEN,ISBYT,IWID,IRET)
-	IF ( (IRET.EQ.0) .AND.
-     .	     ( (S1MNEM.EQ.'USN') .OR. (S1MNEM.EQ.'BMT')   .OR.
-     .	       (S1MNEM.EQ.'OGCE') .OR. (S1MNEM.EQ.'GSES')  .OR.
-     .	       (S1MNEM.EQ.'MTYP') .OR. (S1MNEM.EQ.'MSBTI') .OR.
-     .	       (S1MNEM.EQ.'MSBT') .OR. (S1MNEM.EQ.'MTV')   .OR.
-     .	       (S1MNEM.EQ.'MTVL') .OR. (S1MNEM.EQ.'YCEN')  .OR.
-     .	       (S1MNEM.EQ.'CENT') .OR. (S1MNEM.EQ.'YEAR')  .OR.
-     .	       (S1MNEM.EQ.'MNTH') .OR. (S1MNEM.EQ.'DAYS')  .OR.
-     .	       (S1MNEM.EQ.'HOUR') .OR. (S1MNEM.EQ.'MINU')  .OR.
-     .	       (S1MNEM.EQ.'SECO') ) ) THEN
+        CALL GETS1LOC(S1MNEM,IBEN,ISBYT,IWID,IRET)
+        IF ( (IRET.EQ.0) .AND.
+     .       ( (S1MNEM.EQ.'USN') .OR. (S1MNEM.EQ.'BMT')   .OR.
+     .         (S1MNEM.EQ.'OGCE') .OR. (S1MNEM.EQ.'GSES')  .OR.
+     .         (S1MNEM.EQ.'MTYP') .OR. (S1MNEM.EQ.'MSBTI') .OR.
+     .         (S1MNEM.EQ.'MSBT') .OR. (S1MNEM.EQ.'MTV')   .OR.
+     .         (S1MNEM.EQ.'MTVL') .OR. (S1MNEM.EQ.'YCEN')  .OR.
+     .         (S1MNEM.EQ.'CENT') .OR. (S1MNEM.EQ.'YEAR')  .OR.
+     .         (S1MNEM.EQ.'MNTH') .OR. (S1MNEM.EQ.'DAYS')  .OR.
+     .         (S1MNEM.EQ.'HOUR') .OR. (S1MNEM.EQ.'MINU')  .OR.
+     .         (S1MNEM.EQ.'SECO') ) ) THEN
 
-C	    Store the value.
+C           Store the value.
 
-	    IBIT = (IUPBS01(MBAY,'LEN0')+ISBYT-1)*8
-	    CALL PKB(IVAL,IWID,MBAY,IBIT)
-	ELSE
-	    GOTO 900
-	ENDIF
+            IBIT = (IUPBS01(MBAY,'LEN0')+ISBYT-1)*8
+            CALL PKB(IVAL,IWID,MBAY,IBIT)
+        ELSE
+            GOTO 900
+        ENDIF
 
-	RETURN
-900	WRITE(BORT_STR,'("BUFRLIB: PKBS1 - CANNOT OVERWRITE LOCATION '//
-     .	    'CORRESPONDING TO MNEMONIC (",A,") WITHIN BUFR EDITION '//
-     .	    '(",I1,")")') S1MNEM, IBEN
-      	CALL BORT(BORT_STR)
-	END
+        RETURN
+900     WRITE(BORT_STR,'("BUFRLIB: PKBS1 - CANNOT OVERWRITE LOCATION '//
+     .      'CORRESPONDING TO MNEMONIC (",A,") WITHIN BUFR EDITION '//
+     .      '(",I1,")")') S1MNEM, IBEN
+        CALL BORT(BORT_STR)
+        END

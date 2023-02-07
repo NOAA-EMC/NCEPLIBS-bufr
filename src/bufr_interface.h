@@ -1,13 +1,13 @@
 /**
    @file
-   @brief Define signatures to enable a number of BUFRLIB 
+   @brief Define signatures to enable a number of BUFRLIB
    subprograms to be called via wrapper functions from C and C++
    application programs.
-   
+
    This header file defines the signatures for the functions
    in bufr_interface.f90 which wrap a number of native Fortran
    subroutines in the BUFRLIB.
-   
+
    @author Ronald Mclaren @date 2020-07-29
 */
 
@@ -23,7 +23,7 @@ extern "C" {
 
    @param unit - the integer to use as the fortran file unit.
    @param filepath - path to the file we want to open.
-   
+
    @author Ronald Mclaren @date 2020-07-29
 */
   void open_f(int unit, const char* filepath);
@@ -191,7 +191,7 @@ extern "C" {
    @param reference - reference of element.
    @param bits - number of bits representing the element.
    @param iret - 0 indicates success -1 indicates failure.
-   
+
    @author Ronald Mclaren @date 2022-08-08
 */
     void nemspecs_f(int file_unit,
@@ -205,13 +205,13 @@ extern "C" {
 
 /**
    Wraps BUFRLIB nemtab() subroutine.
-   
+
    @param bufr_unit - the bufr file pointer.
    @param mnemonic - mnemonic.
    @param descriptor - the binary descriptor for the mnemonic.
    @param table_type - 'A', 'B', 'C', or 'D', depending on table type.
    @param table_idx - the table index, or 0 if not found.
-   
+
    @author Ronald Mclaren @date 2022-08-16
 */
     void nemtab_f(int bufr_unit,
@@ -221,9 +221,9 @@ extern "C" {
                   int* table_idx);
 
 
-/**  
+/**
      Wraps BUFRLIB nemtbb() subroutine.
-     
+
      @param bufr_unit - the bufr file pointer.
      @param table_idx - Table B index.
      @param unit_str - unit str.
@@ -231,9 +231,9 @@ extern "C" {
      @param scale - scale of element.
      @param reference - reference of element.
      @param bits - bits of element.
-     
+
      @author Ronald McLaren @date 2022-08-16
-     
+
 */
     void nemtbb_f(int bufr_unit,
                   int table_idx,
@@ -246,76 +246,76 @@ extern "C" {
 
 /**
    Get copy of the moda_tables ISC array.
-   
+
    @param isc_ptr - pointer to a pointer to the ISC array.
    @param isc_size - size of the ISC array.
-   
-   @author Ronald McLaren @date 2022-03-23    
+
+   @author Ronald McLaren @date 2022-03-23
 */
   void get_isc_f(int** isc_ptr, int* isc_size);
 
 
-/** 
+/**
     Get copy of the moda_tables LINK array.
-    
+
     @param link_ptr - pointer to a pointer to the LINK array.
     @param link_size - size of the LINK array.
-    
-    @author Ronald McLaren @date 2022-03-23    
+
+    @author Ronald McLaren @date 2022-03-23
 */
   void get_link_f(int** link_ptr, int* link_size);
 
 
-/** 
+/**
     Get copy of the moda_tables ITP array.
 
     @param itp_ptr - pointer to a pointer to the ITP array.
     @param itp_size - size of the ITP array.
-    
+
     @author Ronald McLaren @date 2022-03-23
-    
+
 */
   void get_itp_f(int** itp_ptr, int* itp_size);
 
 
-/** 
+/**
     Get copy of the moda_tables TYP array.
 
     @param typ_ptr - pointer to a pointer to the TYP array.
     @param typ_len - size of each string within the TYP array.
     @param mem_size - size of the TYP array.
-    
+
     @author Ronald McLaren @date 2022-03-23
 */
   void get_typ_f(char** typ_ptr, int* typ_len, int* mem_size);
 
 
-/** 
+/**
     Get copy of the moda_tables TAG array.
 
     @param tag_ptr - pointer to a pointer to the TAG array.
     @param tag_len - size of each string within the TAG array.
     @param mem_size - size of the TAG array.
-    
+
     @author Ronald McLaren @date 2022-03-23
-  
+
 */
   void get_tag_f(char** tag_ptr, int* tag_len, int* mem_size);
 
 
-/** 
+/**
     Get copy of the moda_tables JMPB array.
 
     @param jmpb_ptr - pointer to a pointer to the JMPB array.
     @param jmpb_size - size of the JMPB array.
-    
+
     @author Ronald McLaren @date 2022-03-23
 */
   void get_jmpb_f(int** jmpb_ptr, int* jmpb_size);
 
 
   // Data
-/** 
+/**
     Get the bufr node idx for the start node of the subset.
 
     @param lun - pointer for the file stream.
@@ -326,7 +326,7 @@ extern "C" {
   void get_inode_f(int lun, int* start_node);
 
 
-/** 
+/**
     Get the number of values in the current subset
 
     @param lun - pointer for the file stream.
@@ -337,7 +337,7 @@ extern "C" {
   void get_nval_f(int lun, int* num_nodes);
 
 
-/** 
+/**
     Get pointer to the moda_usrint VAL array.
 
     @param lun - pointer for the file stream.
@@ -349,19 +349,19 @@ extern "C" {
   void get_val_f(int lun, double** val_ptr, int* val_size);
 
 
-/** 
+/**
     Get pointer to the moda_usrint INV array.
 
     @param lun - pointer for the file stream.
     @param inv_ptr - pointer to a pointer to the INV array.
     @param inv_size - size of the INV array.
-    
+
     @author Ronald McLaren @date 2022-03-23
 */
   void get_inv_f(int lun, int** inv_ptr, int* inv_size);
 
 
-/** 
+/**
     Deletes the copies of the moda_tables arrays.
 
     @author Ronald McLaren @date 2022-03-23

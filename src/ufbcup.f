@@ -2,7 +2,7 @@ C> @file
 C> @brief Copy unique elements of a data subset.
 C>
 C> ### Program History Log
-C> Date | Programmer | Comments 
+C> Date | Programmer | Comments
 C> -----|------------|----------
 C> 1994-01-06 | J. Woollen | original author
 C> 1998-07-08 | J. Woollen | replaced call to cray library routine "abort" with call to new internal bufrlib routine "bort"
@@ -13,7 +13,7 @@ C> 2014-12-10 | J. Ator    | use modules instead of common blocks
 C> 2022-10-14 | J. Ator    | added 8-byte wrapper
 C>
 C> @author Woollen @date 1994-01-06
-      
+
 C> This subroutine makes one copy of each unique element in an
 C> input subset buffer into the identical mnemonic slot in the output
 C> subset buffer.

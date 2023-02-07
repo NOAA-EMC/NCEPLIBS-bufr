@@ -23,7 +23,7 @@ C> 2019-05-21 | J. Ator    | Changed default master table version to 29.
 C> 2021-05-14 | J. Ator    | Changed default master table version to 36.
 C>
 C> @author Woollen @date 1994-01-06
-      
+
 C> This subroutine initializes, within the internal arrays, a new
 C> uncompressed BUFR message for output. Arrays are filled in common blocks
 C> msgptr and modules msgcwd and bitbuf.

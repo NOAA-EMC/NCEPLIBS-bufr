@@ -35,7 +35,7 @@ C> <p>Whenever this subroutine is called with CF = 'N', the values in
 C> IYR, IMO, IDY, IHR, and IMI are ignored.
 C>
 C> @remarks
-C> - Tank receipt time is an NCEP extension to Section 1 of the 
+C> - Tank receipt time is an NCEP extension to Section 1 of the
 C> [official WMO BUFR regulations](@ref manual).
 C> However, it's encoded by the BUFRLIB software in such a way that
 C> its inclusion within an output BUFR message is still fully
@@ -79,13 +79,13 @@ C  ---------------------
       CALL CAPIT(CF)
       IF(CF.NE.'Y'.AND. CF.NE.'N') GOTO 900
 
-      CTRT = CF 
+      CTRT = CF
       IF(CTRT.EQ.'Y') THEN
-	ITRYR = IYR
-	ITRMO = IMO
-	ITRDY = IDY
-	ITRHR = IHR
-	ITRMI = IMI
+        ITRYR = IYR
+        ITRMO = IMO
+        ITRDY = IDY
+        ITRHR = IHR
+        ITRMI = IMI
       ENDIF
 
 C  EXITS

@@ -28,11 +28,11 @@ void inittbf( void )
     **  allocated yet?
     */
     if ( cfe == NULL ) {
-	
+
         mxmtbf = igetprm( "MXMTBF", 6 );
 
         if ( ( cfe = malloc( mxmtbf * sizeof(struct code_flag_entry) ) )
-			== NULL ) {
+                        == NULL ) {
             bort( brtstr, ( f77int ) strlen( brtstr ) );
         }
     }

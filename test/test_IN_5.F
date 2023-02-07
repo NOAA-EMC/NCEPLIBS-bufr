@@ -7,49 +7,49 @@ C
 C       Jeff Ator
 
 #ifdef INTSIZE_8
-	INTEGER*4	IREADNS
+        INTEGER*4       IREADNS
 #endif
 
-	PARAMETER	( MXR8PM = 6 )
-	PARAMETER	( MXR8LV = 50 )
-	
-	CHARACTER	cmgtag*8,
-     +                  cmeang1*40, cmeang2*40, cmeang3*40, cmeang4*40 
+        PARAMETER       ( MXR8PM = 6 )
+        PARAMETER       ( MXR8LV = 50 )
+
+        CHARACTER       cmgtag*8,
+     +                  cmeang1*40, cmeang2*40, cmeang3*40, cmeang4*40
 
 C*----------------------------------------------------------------------
 
-	print *, '----------------------------------------------------'
-	print *, 'testing BUFRLIB: reading IN_5'
-	print *, '  using OPENBF IO = ''IN'' and LUNIN = LUNDX'
-	print *, '  using PREPBUFR and code/flag table meaning strings'
-	print *, '----------------------------------------------------'
+        print *, '----------------------------------------------------'
+        print *, 'testing BUFRLIB: reading IN_5'
+        print *, '  using OPENBF IO = ''IN'' and LUNIN = LUNDX'
+        print *, '  using PREPBUFR and code/flag table meaning strings'
+        print *, '----------------------------------------------------'
 
 #ifdef INTSIZE_8
-	CALL SETIM8B ( .true. )
+        CALL SETIM8B ( .true. )
 #endif
 
-	OPEN  ( UNIT = 11, FILE = 'testfiles/IN_5', FORM ='UNFORMATTED')
+        OPEN  ( UNIT = 11, FILE = 'testfiles/IN_5', FORM ='UNFORMATTED')
 
-	CALL OPENBF ( 11, 'IN', 11 )
+        CALL OPENBF ( 11, 'IN', 11 )
 
-	print *, '        OPENBF -> OK'
+        print *, '        OPENBF -> OK'
 
         CALL MTINFO ( '../tables', 90, 91 )
         print *, '        MTINFO -> OK'
 
         CALL CODFLG ( 'Y' )
 
-	print *, '        CODFLG -> OK'
+        print *, '        CODFLG -> OK'
 
-	IF ( IREADNS ( 11, cmgtag, imgdt ) .ne. 0 ) THEN
+        IF ( IREADNS ( 11, cmgtag, imgdt ) .ne. 0 ) THEN
 
-	    print *, '       IREADNS -> FAILED!!'
+            print *, '       IREADNS -> FAILED!!'
 
-	ELSE
+        ELSE
 
-	    print *, '       IREADNS -> OK'
+            print *, '       IREADNS -> OK'
 
-C*	    Retrieve and check some code/flag meaning strings.
+C*          Retrieve and check some code/flag meaning strings.
 
             CALL GETCFMNG
      +          ( 11, 'PRC', 106, ' ', -1, cmeang1, lcmg1, ier1 )
@@ -71,12 +71,12 @@ C*	    Retrieve and check some code/flag meaning strings.
      +           ( ier4 .eq. 0 ) .and. ( lcmg4 .eq. 20 ) .and.
      +                  ( cmeang4(1:lcmg4) .eq.
      +                    'Stennis Space Center' ) ) THEN
-	        print *, '      GETCFMNG -> OK'
+                print *, '      GETCFMNG -> OK'
             ELSE
-	        print *, '      GETCFMNG -> FAILED!!'
+                print *, '      GETCFMNG -> FAILED!!'
             ENDIF
 
-	ENDIF
+        ENDIF
 
-	STOP
-	END
+        STOP
+        END

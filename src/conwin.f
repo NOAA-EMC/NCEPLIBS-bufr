@@ -14,7 +14,7 @@ C> 2010-04-27 | J. Woollen | correct logical flaw and add documentation.
 C> 2014-12-10 | J. Ator    | use modules instead of common blocks.
 C>
 C> @author Woollen @date 1994-01-06
-      
+
 C> This subroutine searches consecutive subset buffer segments for an
 C> element identified in the user string as a conditional node. A conditional
 C> node is an element which must meet a condition in order to be read
@@ -22,11 +22,11 @@ C> from or written to a data subset. If a conditional element is
 C> found and it conforms to the condition, then the internal subset
 C> buffer indices of the "window" (see below remarks) are returned to
 C> the caller for processing.
-C> 
+C>
 C> The four conditions which can be exercised are:
 C> - '<' - less than
 C> - '>' - greater than
-C> - '=' - equal 
+C> - '=' - equal
 C> - '!' - not equal
 C>
 C> Each condition in a string is applied to one element, and all
@@ -37,15 +37,15 @@ C> gt 30 deg, and temperature quality mark < 4.
 C>
 C> See getwin() for an explanation of "windows" within the context of a
 C> BUFR data subset.
-C>	
+C>
 C> Function conwin() works with function invcon() to identify subset
 C> buffer segments which conform to the set of conditions.
-C>	
+C>
 C> @param[in] LUN integer I/O stream index into internal memory arrays.
-C> @param[out] INC1 integer subset buffer start index 
+C> @param[out] INC1 integer subset buffer start index
 C> @param[inout] INC2 integer subset buffer ending index
 C>
-C> @author Woollen @date 1994-01-06      
+C> @author Woollen @date 1994-01-06
       SUBROUTINE CONWIN(LUN,INC1,INC2)
 
       USE MODA_USRINT

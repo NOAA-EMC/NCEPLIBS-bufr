@@ -10,13 +10,13 @@ C>
 C> @author J. Ator
 C> @date 2014-12-10
 
-	MODULE MODV_MXTAMC
+        MODULE MODV_MXTAMC
 
 C>        @var mxtamc
 C>        Maximum number of Table A mnemonics in the internal
 C>        jump/link table which contain at least one Table C operator
 C>        with an XX value of 21 or greater in their definition.
 
-	  INTEGER :: MXTAMC = 15
+          INTEGER :: MXTAMC = 15
 
-	END MODULE
+        END MODULE

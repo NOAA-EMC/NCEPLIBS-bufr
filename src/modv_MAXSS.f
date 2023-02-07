@@ -10,12 +10,12 @@ C>
 C> @author J. Ator
 C> @date 2014-12-10
 
-	MODULE MODV_MAXSS
+        MODULE MODV_MAXSS
 
 C>        @var maxss
 C>        Maximum number of data values that can be read from or
 C>        written into a data subset by the BUFRLIB software.
 
-	  INTEGER :: MAXSS = 120000
+          INTEGER :: MAXSS = 120000
 
-	END MODULE
+        END MODULE

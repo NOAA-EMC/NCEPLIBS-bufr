@@ -7,25 +7,25 @@ C
 C       Jeff Ator
 
 #ifdef INTSIZE_8
-	INTEGER*4	NMSUB
+        INTEGER*4       NMSUB
 #endif
 
-	CHARACTER	cmgtag*8
+        CHARACTER       cmgtag*8
 
 C*----------------------------------------------------------------------
 
-	print *, '----------------------------------------------------'
-	print *, 'testing BUFRLIB: reading IN_6'
-	print *, '  using UFBMEM, RDMEMM and UFBMNS'
-	print *, '----------------------------------------------------'
+        print *, '----------------------------------------------------'
+        print *, 'testing BUFRLIB: reading IN_6'
+        print *, '  using UFBMEM, RDMEMM and UFBMNS'
+        print *, '----------------------------------------------------'
 
 #ifdef INTSIZE_8
-	CALL SETIM8B ( .true. )
+        CALL SETIM8B ( .true. )
 #endif
 
-	OPEN  ( UNIT = 21, FILE = 'testfiles/IN_6_infile1',
+        OPEN  ( UNIT = 21, FILE = 'testfiles/IN_6_infile1',
      +          FORM = 'UNFORMATTED')
-	OPEN  ( UNIT = 22, FILE = 'testfiles/IN_6_infile2',
+        OPEN  ( UNIT = 22, FILE = 'testfiles/IN_6_infile2',
      +          FORM = 'UNFORMATTED')
 
         CALL DATEBF ( 22, iyr, imon, iday, ihour, imgdt )
@@ -36,7 +36,7 @@ C*----------------------------------------------------------------------
             print *, '        DATEBF -> FAILED!!'
         END IF
         REWIND ( 22 )
-        
+
 C*      Open the input files.
 
         CALL UFBMEM ( 21, 0, icnt1, iunt1 )
@@ -77,5 +77,5 @@ C*      Read subset #18364 into internal arrays.
             print *, '         NMSUB -> FAILED!!'
         END IF
 
-	STOP
-	END
+        STOP
+        END

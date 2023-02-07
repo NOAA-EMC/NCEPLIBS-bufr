@@ -99,7 +99,7 @@ C> replication indicators {} or (), respectively, within the
 C> assocated DX BUFR table), and the corresponding location in USR
 C> will contain the total number of replications of that mnemonic
 C> within the data subset.  Note that, when using this option, the
-C> applicable replication indicators must be included in STR 
+C> applicable replication indicators must be included in STR
 C> along with the mnemonic itself, as shown in an example in the
 C> discussion of [DX BUFR Tables](@ref ufbsubs).
 C> - If ABS(LUNIN) points to a file that is open for input (reading
@@ -120,7 +120,7 @@ C>               the BUFR message pointed to by IREC, counting from
 C>               the beginning of the message
 C>
 C> @param[in] LUNIN   -- integer: Absolute value is Fortran logical
-C>                       unit number for BUFR file 
+C>                       unit number for BUFR file
 C> @param[in,out] USR -- real*8(*,*): Data values
 C>                         - If ABS(LUNIN) was opened for input, then
 C>                           USR is output from this subroutine and

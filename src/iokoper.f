@@ -34,18 +34,18 @@ C-----------------------------------------------------------------------
       ELSE IF ( NEMO(1:3).EQ.'221') THEN
         IOKOPER = 1
       ELSE IF ( ( ( NEMO(4:6).EQ.'000' ) .OR. ( NEMO(4:6).EQ.'255' ) )
-     +			.AND.
-     +	       ( ( NEMO(1:3).EQ.'237' ) .OR. ( NEMO(1:3).EQ.'241' ) .OR.
-     +	         ( NEMO(1:3).EQ.'242' ) .OR. ( NEMO(1:3).EQ.'243' ) ) )
-     +			THEN
+     +                  .AND.
+     +         ( ( NEMO(1:3).EQ.'237' ) .OR. ( NEMO(1:3).EQ.'241' ) .OR.
+     +           ( NEMO(1:3).EQ.'242' ) .OR. ( NEMO(1:3).EQ.'243' ) ) )
+     +                  THEN
         IOKOPER = 1
-      ELSE IF ( ( NEMO(4:6).EQ.'000' ) 
-     +			.AND.
-     +	       ( ( NEMO(1:3).EQ.'222' ) .OR. ( NEMO(1:3).EQ.'223' ) .OR.
-     +	         ( NEMO(1:3).EQ.'224' ) .OR. ( NEMO(1:3).EQ.'225' ) .OR.
+      ELSE IF ( ( NEMO(4:6).EQ.'000' )
+     +                  .AND.
+     +         ( ( NEMO(1:3).EQ.'222' ) .OR. ( NEMO(1:3).EQ.'223' ) .OR.
+     +           ( NEMO(1:3).EQ.'224' ) .OR. ( NEMO(1:3).EQ.'225' ) .OR.
      +           ( NEMO(1:3).EQ.'232' ) .OR. ( NEMO(1:3).EQ.'235' ) .OR.
      +           ( NEMO(1:3).EQ.'236' ) ) )
-     +			THEN
+     +                  THEN
         IOKOPER = 1
       ELSE
         IOKOPER = IMRKOPR(NEMO)

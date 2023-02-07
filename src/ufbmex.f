@@ -39,7 +39,7 @@ C>
 C> <p>Logical unit numbers LUNIT and LUNDX must already be associated
 C> with actual filenames on the local system, typically via a Fortran
 C> "OPEN" statement.
-C>      
+C>
 C> <b>Program history log:</b>
 C> | Date | Programmer | Comments |
 C> | -----|------------|----------|
@@ -157,7 +157,7 @@ C  --------------------------------------------------
       CALL ERRWRT('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
       WRITE ( UNIT=ERRSTR, FMT='(A,A,I8,A)' )
      . 'BUFRLIB: UFBMEX - THE NO. OF MESSAGES REQUIRED TO STORE ',
-     . 'ALL MESSAGES INTERNALLY EXCEEDS MAXIMUM (', MAXMSG, 
+     . 'ALL MESSAGES INTERNALLY EXCEEDS MAXIMUM (', MAXMSG,
      . ') - INCOMPLETE READ'
       CALL ERRWRT(ERRSTR)
       WRITE ( UNIT=ERRSTR, FMT='(A,I8,A,I8,A)' )
@@ -181,7 +181,7 @@ C  --------------------------------------------------
       CALL ERRWRT('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
       WRITE ( UNIT=ERRSTR, FMT='(A,A,I8,A)' )
      . 'BUFRLIB: UFBMEX - THE NO. OF BYTES REQUIRED TO STORE ',
-     . 'ALL MESSAGES INTERNALLY EXCEEDS MAXIMUM (', MAXMEM, 
+     . 'ALL MESSAGES INTERNALLY EXCEEDS MAXIMUM (', MAXMEM,
      . ') - INCOMPLETE READ'
       CALL ERRWRT(ERRSTR)
       WRITE ( UNIT=ERRSTR, FMT='(A,I8,A,I8,A)' )

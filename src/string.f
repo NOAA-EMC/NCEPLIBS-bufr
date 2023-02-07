@@ -13,7 +13,7 @@ C> 2003-11-04 | D. Keyser  | unified/portable for wrf; documentation; more info;
 C> 2014-12-10 | J. Ator    | use modules instead of common blocks
 C>
 C> @author Woollen @date 1994-01-06
-      
+
 C> This subroutine checks to see if a user-specified character
 c> string is in the string cache (arrays in common blocks /stcach/ and
 c> /stords/). If it is not in the cache, it must call the bufr

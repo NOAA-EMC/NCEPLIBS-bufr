@@ -14,7 +14,7 @@ C> 2009-04-21 | J. Ator    | Use errwrt().
 C> 2014-12-10 | J. Ator    | Use modules instead of common blocks.
 C>
 C> @author Woollen @date 1994-01-06
-      
+
 C> This subroutine stores information about a "child"
 C> mnemonic within the internal bufr table D entry (in module
 C> tababd) for a table D sequence ("parent") mnemonic when the

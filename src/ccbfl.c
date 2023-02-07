@@ -14,7 +14,7 @@
 
 /**
  *  This subroutine closes all system files that were opened via
- *  previous calls to subroutine cobfl(). 
+ *  previous calls to subroutine cobfl().
  *
  *  @author J. Ator  @date 2005-11-29
  */

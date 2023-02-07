@@ -137,7 +137,7 @@ C  --------------------------------
          IF(IPRT.GE.0) THEN
       CALL ERRWRT('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
       ERRSTR = 'BUFRLIB: UFBEVN - 3rd ARG. (INPUT) IS .LE. 0, ' //
-     .   'SO RETURN WITH 6th ARG. (IRET) = 0; 7th ARG. (STR) =' 
+     .   'SO RETURN WITH 6th ARG. (IRET) = 0; 7th ARG. (STR) ='
       CALL ERRWRT(ERRSTR)
       CALL ERRWRT(STR)
       CALL ERRWRT('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
@@ -148,7 +148,7 @@ C  --------------------------------
          IF(IPRT.GE.0) THEN
       CALL ERRWRT('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
       ERRSTR = 'BUFRLIB: UFBEVN - 4th ARG. (INPUT) IS .LE. 0, ' //
-     .   'SO RETURN WITH 6th ARG. (IRET) = 0; 7th ARG. (STR) =' 
+     .   'SO RETURN WITH 6th ARG. (IRET) = 0; 7th ARG. (STR) ='
       CALL ERRWRT(ERRSTR)
       CALL ERRWRT(STR)
       CALL ERRWRT('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
@@ -159,7 +159,7 @@ C  --------------------------------
          IF(IPRT.GE.0) THEN
       CALL ERRWRT('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
       ERRSTR = 'BUFRLIB: UFBEVN - 5th ARG. (INPUT) IS .LE. 0, ' //
-     .   'SO RETURN WITH 6th ARG. (IRET) = 0; 7th ARG. (STR) =' 
+     .   'SO RETURN WITH 6th ARG. (IRET) = 0; 7th ARG. (STR) ='
       CALL ERRWRT(ERRSTR)
       CALL ERRWRT(STR)
       CALL ERRWRT('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
@@ -236,7 +236,7 @@ C  ----------------------
          IF(IPRT.GE.1)  THEN
       CALL ERRWRT('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
       ERRSTR = 'BUFRLIB: UFBEVN - NO SPECIFIED VALUES READ IN, ' //
-     .   'SO RETURN WITH 6th ARG. (IRET) = 0; 7th ARG. (STR) =' 
+     .   'SO RETURN WITH 6th ARG. (IRET) = 0; 7th ARG. (STR) ='
       CALL ERRWRT(ERRSTR)
       CALL ERRWRT(STR)
       CALL ERRWRT('+++++++++++++++++++++WARNING+++++++++++++++++++++++')

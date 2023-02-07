@@ -26,34 +26,34 @@ C> | -----|------------|----------|
 C> | 2005-11-29 | J. Ator | Original author |
 C> | 2022-10-04 | J. Ator | Added 8-byte wrapper |
 
-	RECURSIVE FUNCTION NMWRD(MBAY) RESULT(IRET)
+        RECURSIVE FUNCTION NMWRD(MBAY) RESULT(IRET)
 
-	USE MODV_IM8B
-	
-	COMMON /HRDWRD/ NBYTW,NBITW,IORD(8)
+        USE MODV_IM8B
 
-	DIMENSION MBAY(*)
+        COMMON /HRDWRD/ NBYTW,NBITW,IORD(8)
+
+        DIMENSION MBAY(*)
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
 
-C	Check for I8 integers.
+C       Check for I8 integers.
 
-	IF (IM8B) THEN
-	    IM8B = .FALSE.
+        IF (IM8B) THEN
+            IM8B = .FALSE.
 
-	    IRET = NMWRD(MBAY)
+            IRET = NMWRD(MBAY)
 
-	    IM8B = .TRUE.
-	    RETURN
-	END IF
+            IM8B = .TRUE.
+            RETURN
+        END IF
 
-	LENM = IUPBS01(MBAY,'LENM')
-	IF(LENM.EQ.0) THEN
-	    IRET = 0
-	ELSE
-	    IRET = ((LENM/8)+1)*(8/NBYTW)
-	ENDIF
+        LENM = IUPBS01(MBAY,'LENM')
+        IF(LENM.EQ.0) THEN
+            IRET = 0
+        ELSE
+            IRET = ((LENM/8)+1)*(8/NBYTW)
+        ENDIF
 
-	RETURN
-	END
+        RETURN
+        END

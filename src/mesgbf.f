@@ -66,7 +66,7 @@ C  ---------------------
 
       MESGTYP = -1
 
-C  SINCE OPENBF HAS NOT YET BEEN CALLED, CALL IT 
+C  SINCE OPENBF HAS NOT YET BEEN CALLED, CALL IT
 C  ---------------------------------------------
 
       CALL OPENBF(LUNIT,'INX',LUNIT)
@@ -82,7 +82,7 @@ C  -----------------------------------------------------------------
 
 C  CLOSE THE FILE
 C  --------------
-  
+
       CALL CLOSBF(LUNIT)
 
 C  EXIT

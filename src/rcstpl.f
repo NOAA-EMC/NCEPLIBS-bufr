@@ -17,8 +17,8 @@ C> 2014-12-10 | J. Ator    | Use modules instead of common blocks.
 C> 2016-11-09 | J. Ator    | Added iret argument and check for possibly corrupt subsets.
 C>
 C> @author Woollen @date 1994-01-06
-      
-C> This subroutine initializes space in internal subset array      
+
+C> This subroutine initializes space in internal subset array
 C> space (inv and val) in modules usrint and usrbit, according
 C> to the subset definition from subroutine maksetab. This is in
 C> preparation for the actual unpacking of the subset in rdtree().

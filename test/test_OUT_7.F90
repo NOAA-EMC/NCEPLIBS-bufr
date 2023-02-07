@@ -9,7 +9,7 @@
 program test_OUT_7
 
 #ifdef INTSIZE_8
-  integer*4	ireadmg, icopysb
+  integer*4     ireadmg, icopysb
 #endif
 
   character cmgtag*8
@@ -46,7 +46,7 @@ program test_OUT_7
 
   open ( unit = 50, file = 'out7.bufr', form = 'unformatted')
   call openbf ( 50, 'OUT', 23 )
-        
+
 ! Read the input files into internal memory arrays.
 
   call ufbmex ( 21, 23, 0, icnt1, imesg )
@@ -117,7 +117,7 @@ program test_OUT_7
     do while ( istart < isub(ii) )
       ! calling copysb (or icopysb) with the 2nd argument negative prevents writing to that output file, but
       ! the read pointer in the input (1st argument) file is still advanced to the next subset
-      call copysb ( 21, -50, ier ) 
+      call copysb ( 21, -50, ier )
       istart = istart + 1
     end do
     if ( ( icopysb ( 21, 50 ) ) /= 0 ) call bort ( 'ICOPYSB FAILURE!!' )

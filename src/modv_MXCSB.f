@@ -10,12 +10,12 @@ C>
 C> @author J. Ator
 C> @date 2014-12-10
 
-	MODULE MODV_MXCSB
+        MODULE MODV_MXCSB
 
 C>        @var mxcsb
 C>        Maximum number of data subsets that can be written into
-C>	  a compressed BUFR message by the BUFRLIB software.
+C>        a compressed BUFR message by the BUFRLIB software.
 
-	  INTEGER :: MXCSB = 4000
+          INTEGER :: MXCSB = 4000
 
-	END MODULE
+        END MODULE

@@ -16,7 +16,7 @@ C> @param[out] NEMO -- character*(*): Mnemonic associated with IDN
 C> @param[out] TAB -- character: Type associated with IDN
 C>                     - 'B' = Table B descriptor
 C>                     - 'D' = Table D descriptor
-C> @param[out] IRET -- integer: 
+C> @param[out] IRET -- integer:
 C>                     - Positional index of IDN within internal
 C>                       Table B, if TAB = 'B'
 C>                     - Positional index of IDN within internal

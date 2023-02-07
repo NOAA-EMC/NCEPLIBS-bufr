@@ -10,12 +10,12 @@ C>
 C> @author J. Ator
 C> @date 2014-12-10
 
-	MODULE MODV_MAXTBA
+        MODULE MODV_MAXTBA
 
 C>        @var maxtba
 C>        Maximum number of entries in the internal BUFR Table A for
 C>        each BUFR file that is connected to the BUFRLIB software.
 
-	  INTEGER :: MAXTBA = 150
+          INTEGER :: MAXTBA = 150
 
-	END MODULE
+        END MODULE

@@ -2,7 +2,7 @@
 !> @brief Open a Fortran file on the local system
 !>
 !> ### Program History
-!> Date | Programmer | Comments 
+!> Date | Programmer | Comments
 !> -----|------------|----------
 !> 2015-08-30 | J. Whitaker | Original author
 !> 2022-08-04 | J. Woollen | Added 8-byte wrapper

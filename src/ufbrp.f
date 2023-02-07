@@ -13,7 +13,7 @@ C> 2009-03-31 | J. Woollen | add documentation
 C> 2014-12-10 | J. Ator    | use modules instead of common blocks
 C>
 C> @author J. Woollen @date 1994-01-06
-      
+
 C> This subroutine writes or reads specified data values to or
 C> from the current BUFR data subset within internal arrays, with the
 C> direction of the data transfer determined by the context of IO.

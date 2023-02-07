@@ -17,7 +17,7 @@ C> @authors D. Keyser
 C> @date 1994-01-06
 C>
 C> @param[in] LUNIN   -- integer: Absolute value is Fortran logical
-C>                       unit number for BUFR file 
+C>                       unit number for BUFR file
 C>                       - If LUNIN > 0, data values are printed to
 C>                         LUPRT using the format descriptor code
 C>                         'G15.6', meaning that all values will be
@@ -90,7 +90,7 @@ C> | 2022-10-04 | J. Ator    | Added 8-byte wrapper |
       REAL*8       VL
 
       PARAMETER (MXFV=31)
-      INTEGER	IFV(MXFV)
+      INTEGER   IFV(MXFV)
 
       DATA PMISS /'             MISSING'/
       DATA YOU /'Y'/

@@ -13,14 +13,14 @@ C> within subroutines msgini(), cmsgini(), or dxmini().
 C>
 C> @author J. Ator @date 2015-03-03
 
-	MODULE MODA_S01CM
+        MODULE MODA_S01CM
 
 C>    Custom values for use within Sections 0 and 1 of all future
 C>    output BUFR messages written to all Fortran logical units.
-	  INTEGER, ALLOCATABLE :: IVMNEM(:)
+          INTEGER, ALLOCATABLE :: IVMNEM(:)
 C>    Section 0 and 1 mnemonics corresponding to ivmnem.
-	  CHARACTER*8, ALLOCATABLE :: CMNEM(:)
+          CHARACTER*8, ALLOCATABLE :: CMNEM(:)
 C>    Number of custom values stored.
-	  INTEGER :: NS01V = 0
+          INTEGER :: NS01V = 0
 
-	END MODULE
+        END MODULE

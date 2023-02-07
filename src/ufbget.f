@@ -7,7 +7,7 @@ C> -----|------------|----------|
 C> 1994-01-06 | J. Woollen | original author
 C> 1998-07-08 | J. Woollen | replaced call to cray library routine "abort" with call to new internal bufrlib routine "bort"; improved machine portability
 C> 1998-10-27 | J. Woollen | modified to correct problems caused by in- lining code with fpp directives
-C> 1999-11-18 | J. Woollen | the number of bufr files which can be opened at one time increased from 10 to 32 
+C> 1999-11-18 | J. Woollen | the number of bufr files which can be opened at one time increased from 10 to 32
 C> 2000-09-19 | J. Woollen | maximum message length increased from 10,000 to 20,000 bytes
 C> 2002-05-14 | J. Woollen | removed old cray compiler directives
 C> 2003-11-04 | S. Bender  | added remarks/bufrlib routine interdependencies
@@ -19,7 +19,7 @@ C> 2022-05-06 | j. Woollen | replace upbb with upb8 for 8byte integers
 C> 2022-10-04 | J. Ator    | added 8-byte wrapper
 C>
 C> @author Woollen @date 1994-01-06
-      
+
 C> This subroutine unpacks and returns the values for one-dimensional
 C> descriptors in the input string without advancing the subset pointer.
 C>

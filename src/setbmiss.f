@@ -30,7 +30,7 @@ C> represent "missing" data values within the scope of the
 C> application program.  In any actual BUFR data subset, "missing"
 C> values are always encoded as all bits set to 1, per WMO
 C> regulations.
-C> 
+C>
 C> <b>Program history log:</b>
 C> | Date | Programmer | Comments |
 C> | -----|------------|----------|

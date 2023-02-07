@@ -1,7 +1,7 @@
 /** @file
  *  @brief Read the next message from a BUFR file that was
  *  previously opened for reading via a C language interface.
- *  
+ *
  *  ### Program history log
  *  Date | Programmer | Comments
  *  -----|------------|---------
@@ -12,7 +12,7 @@
 #include "bufrlib.h"
 #include "cobfl.h"
 
-/** 
+/**
  *  This subroutine reads the next BUFR message from the system
  *  file that was opened via the most recent call to subroutine
  *  cobfl() with io = 'r'.
@@ -27,7 +27,7 @@
  *                         - 0 = normal return
  *                         - 1 = overflow of bmg array
  *                         - 2 = "7777" indicator not found in
- *                               expected location 
+ *                               expected location
  *                         - -1 = end-of-file encountered while
  *                               reading
  *                         - -2 = I/O error encountered while reading
@@ -42,7 +42,7 @@
  * Any messages read that were encoded according to BUFR edition 0
  * or BUFR edition 1 are automatically converted to BUFR edition 2
  * before being returned by this subroutine.
- *  
+ *
  *  @author J. Ator @date 2005-11-29
  */
 void crbmg( char *bmg, f77int *mxmb, f77int *nmb, f77int *iret )
@@ -53,21 +53,21 @@ void crbmg( char *bmg, f77int *mxmb, f77int *nmb, f77int *iret )
 
     char errstr[129];
 
-    unsigned short i, nsecs; 
+    unsigned short i, nsecs;
     unsigned int lsec;
 /*
 **  Make sure that a file is open for reading.
 */
     if ( pbf[0] == NULL ) {
-	sprintf( errstr, "BUFRLIB: CRBMG - NO FILE IS OPEN FOR READING" );
+        sprintf( errstr, "BUFRLIB: CRBMG - NO FILE IS OPEN FOR READING" );
         bort( errstr, ( f77int ) strlen( errstr ) );
     }
 /*
 **  Initialize the first 4 characters of the output array to blanks.
 */
     if ( *mxmb < 4 ) {
-	*iret = 1;
-	return;
+        *iret = 1;
+        return;
     }
     strncpy( bmg, "    ", 4);
 /*
@@ -75,7 +75,7 @@ void crbmg( char *bmg, f77int *mxmb, f77int *nmb, f77int *iret )
 */
     while ( ichkstr( "BUFR", bmg, &i4, 4, 4 ) != 0 ) {
         memmove( bmg, &bmg[1], 3 );
-	if ( ( *iret = rbytes( bmg, mxmb, 3, 1 ) ) != 0 ) return;
+        if ( ( *iret = rbytes( bmg, mxmb, 3, 1 ) ) != 0 ) return;
     }
 /*
 **  Read the next 4 bytes and determine the BUFR edition number that was used
@@ -87,62 +87,62 @@ void crbmg( char *bmg, f77int *mxmb, f77int *nmb, f77int *iret )
 
     if ( iben >= 2 ) {
 /*
-**	Get the length of the BUFR message.
+**      Get the length of the BUFR message.
 */
         *nmb = iupbs01( wkint, "LENM", 4 );
 /*
-**	Read the remainder of the BUFR message.
+**      Read the remainder of the BUFR message.
 */
-	if ( ( *iret = rbytes( bmg, mxmb, 8, *nmb-8 ) ) != 0 ) return;
+        if ( ( *iret = rbytes( bmg, mxmb, 8, *nmb-8 ) ) != 0 ) return;
     }
     else {
 /*
-**	Read the remainder of the BUFR message and then convert it to BUFR
-**	edition 2.  The message length isn't encoded in Section 0, so we need
-**	to compute it by unpacking and summing the lengths of the individual
-**	sections.
+**      Read the remainder of the BUFR message and then convert it to BUFR
+**      edition 2.  The message length isn't encoded in Section 0, so we need
+**      to compute it by unpacking and summing the lengths of the individual
+**      sections.
 */
-	lsec = 4;   /* length of Section 0 */
+        lsec = 4;   /* length of Section 0 */
 /*
-**	Get the length of Section 1 and add it to the total.
+**      Get the length of Section 1 and add it to the total.
 */
-	gets1loc( "LEN1", &iben, &isbyt, &iwid, &wkint[0], 4 );
-	*nmb = lsec + iupm( &bmg[lsec+isbyt-1], &iwid, 3 );
+        gets1loc( "LEN1", &iben, &isbyt, &iwid, &wkint[0], 4 );
+        *nmb = lsec + iupm( &bmg[lsec+isbyt-1], &iwid, 3 );
 /*
-**	Read up through the end of Section 1.
+**      Read up through the end of Section 1.
 */
-	if ( ( *iret = rbytes( bmg, mxmb, 8, *nmb-8 ) ) != 0 ) return;
+        if ( ( *iret = rbytes( bmg, mxmb, 8, *nmb-8 ) ) != 0 ) return;
 /*
-**	Is there a Section 2?
+**      Is there a Section 2?
 */
-	gets1loc( "ISC2", &iben, &isbyt, &iwid, &wkint[0], 4 );
-	nsecs = iupm( &bmg[lsec+isbyt-1], &iwid, 1 ) + 2;
+        gets1loc( "ISC2", &iben, &isbyt, &iwid, &wkint[0], 4 );
+        nsecs = iupm( &bmg[lsec+isbyt-1], &iwid, 1 ) + 2;
 /*
-**	Read up through the end of Section 4.
+**      Read up through the end of Section 4.
 */
-	for ( i = 1; i <= nsecs; i++ ) {
-	    if ( ( *iret = rbytes( bmg, mxmb, *nmb, 3 ) ) != 0 ) return;
-	    lsec = iupm( &bmg[*nmb], &i24, 3 );
-	    if ( ( *iret = rbytes( bmg, mxmb, *nmb+3, lsec-3 ) ) != 0 ) return;
-	    *nmb += lsec;
-	}
-/*
-**	Read Section 5.
-*/
-	if ( ( *iret = rbytes( bmg, mxmb, *nmb, 4 ) ) != 0 ) return;
-	*nmb += 4;
-/*
-**	Expand Section 0 from 4 bytes to 8 bytes, then encode the message length
-**	and new edition number (i.e. 2) into the new (expanded) Section 0.
-*/
-	if ( *nmb + 4 > *mxmb ) {
-	    *iret = 1;
-	    return;
+        for ( i = 1; i <= nsecs; i++ ) {
+            if ( ( *iret = rbytes( bmg, mxmb, *nmb, 3 ) ) != 0 ) return;
+            lsec = iupm( &bmg[*nmb], &i24, 3 );
+            if ( ( *iret = rbytes( bmg, mxmb, *nmb+3, lsec-3 ) ) != 0 ) return;
+            *nmb += lsec;
         }
-	memmove( &bmg[8], &bmg[4], *nmb-4 );
-	*nmb += 4;
-	ipkm( &bmg[4], &i3, nmb, 3 );
-	ipkm( &bmg[7], &i1, &i2, 1 );
+/*
+**      Read Section 5.
+*/
+        if ( ( *iret = rbytes( bmg, mxmb, *nmb, 4 ) ) != 0 ) return;
+        *nmb += 4;
+/*
+**      Expand Section 0 from 4 bytes to 8 bytes, then encode the message length
+**      and new edition number (i.e. 2) into the new (expanded) Section 0.
+*/
+        if ( *nmb + 4 > *mxmb ) {
+            *iret = 1;
+            return;
+        }
+        memmove( &bmg[8], &bmg[4], *nmb-4 );
+        *nmb += 4;
+        ipkm( &bmg[4], &i3, nmb, 3 );
+        ipkm( &bmg[7], &i1, &i2, 1 );
     }
 /*
 **  Check that the "7777" is in the expected location.

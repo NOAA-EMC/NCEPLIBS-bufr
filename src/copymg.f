@@ -75,7 +75,7 @@ C  ---------------------
          CALL X84(LUNOT,MY_LUNOT,1)
          CALL COPYMG(MY_LUNIN,MY_LUNOT)
 
-         IM8B=.TRUE.  
+         IM8B=.TRUE.
          RETURN
       ENDIF
 
