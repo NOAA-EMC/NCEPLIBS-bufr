@@ -1,41 +1,50 @@
 C> @file
 C> @brief Read one or more data values from every data subset in a
 C> BUFR file
+C>
+C> <b>Program history log:</b>
+C> | Date | Programmer | Comments |
+C> | -----|------------|----------|
+C> | 1994-01-06 | J. Woollen | Original author |
+C> | 1998-07-08 | J. Woollen | Replaced call to Cray library routine "ABORT" with call to new internal routine bort() |
+C> | 1999-11-18 | J. Woollen | The number of BUFR files which can be opened at one time increased from 10 to 32 |
+C> | 2000-09-19 | J. Woollen | Maximum length increased from 10,000 to 20,000 bytes |
+C> | 2002-05-14 | J. Woollen | Removed old Cray compiler directives |
+C> | 2003-11-04 | D. Keyser  | Modified to not abort when there are more than I2 data subsets, but instead just process first I2 subsets and print a diagnostic |
+C> | 2003-11-04 | D. Keyser  | Increased MAXJL from 15000 to 16000; modified to use rewnbf(); upgraded to allow reading from a file that has already been opened via openbf() |
+C> | 2004-08-09 | J. Ator    | Maximum message length increased from 20,000 to 50,000 bytes |
+C> | 2005-09-16 | J. Woollen | upgraded to work for compressed BUFR messages, and to allow for LUNIN < 0 option |
+C> | 2006-04-14 | J. Ator    | Add declaration for CREF |
+C> | 2007-01-19 | J. Ator    | Replaced call to parseq with call to parstr() |
+C> | 2009-04-21 | J. Ator    | Use errwrt() |
+C> | 2009-12-01 | J. Ator    | Fix bug for compressed character strings which are identical across all subsets in a single message |
+C> | 2010-05-07 | J. Ator    | When calling ireadmg(), treat read error as EOF condition |
+C> | 2012-03-02 | J. Ator    | Use function ups() |
+C> | 2012-09-15 | J. Woollen | Modified for C/I/O/BUFR interface; added IO type 'INX' to enable open and close for C file without closing FORTRAN file |
+C> | 2014-11-20 | J. Ator    | Ensure openbf() has been called at least once before calling status() |
+C> | 2014-12-10 | J. Ator    | Use modules instead of COMMON blocks |
+C> | 2016-12-19 | J. Woollen | Fix bug to prevent inventory overflow |
+C> | 2022-05-06 | J. Woollen | Use up8 and upb8 for 8byte integers, use nbmp for usrtpl, add msgunp=1 option |
+C> | 2022-10-04 | J. Ator    | Added 8-byte wrapper |
+C>
+C> @author J. Woollen @date 1994-01-06
 
 C> This subroutine reads through every data subset in a BUFR file
 C> and returns one or more specified data values from each subset.
 C>
-C> <p>This provides a useful way to scan the ranges of one or more
+C> This provides a useful way to scan the ranges of one or more
 C> specified data values across all of the data subsets within an
 C> entire BUFR file.  It is similar to subroutine ufbtam(), except
 C> that ufbtam() works on data subsets within internal arrays.
 C>
-C> @author J. Woollen
-C> @date 1994-01-06
-C>
-C> @param[in] LUNIN   -- integer: Absolute value is Fortran logical
-C>                       unit number for BUFR file
-C> @param[out] TAB    -- real*8(*,*): Data values
-C> @param[in] I1 -- integer: First dimension of TAB as allocated
-C>                  within the calling program
-C> @param[in] I2 -- integer: Second dimension of TAB as allocated
-C>                  within the calling program
-C> @param[out] IRET -- integer: Number of data subsets in BUFR file
-C> @param[in] STR -- character*(*): String of blank-separated
-C>                   Table B mnemonics, in one-to-one correspondence
-C>                   with the number of data values that will be read
-C>                   from each data subset within the first dimension of
-C>                   TAB (see [DX BUFR Tables](@ref dfbftab) for further
-C>                   information about Table B mnemonics)
-C>
-C> <p>It is the user's responsibility to ensure that TAB is dimensioned
+C> It is the user's responsibility to ensure that TAB is dimensioned
 C> sufficiently large enough to accommodate the number of data values
 C> that are to be read from the BUFR file.  Specifically, each row of
 C> TAB will contain the data values read from a different data subset,
 C> so the value I2 must be at least as large as the total number of data
 C> subsets in the BUFR file.
 C>
-C> <p>If logical unit ABS(LUNIN) has already been opened
+C> If logical unit ABS(LUNIN) has already been opened
 C> via a previous call to subroutine openbf(), then this subroutine
 C> will save the current file position, rewind the file to the
 C> beginning, read through the entire file, and then restore it to its
@@ -67,30 +76,22 @@ C>      - ISUB - returns the number of the current data subset within
 C>               the BUFR message pointed to by IREC, counting from
 C>               the beginning of the message
 C>
-C> <b>Program history log:</b>
-C> | Date | Programmer | Comments |
-C> | -----|------------|----------|
-C> | 1994-01-06 | J. Woollen | Original author |
-C> | 1998-07-08 | J. Woollen | Replaced call to Cray library routine "ABORT" with call to new internal routine bort() |
-C> | 1999-11-18 | J. Woollen | The number of BUFR files which can be opened at one time increased from 10 to 32 |
-C> | 2000-09-19 | J. Woollen | Maximum length increased from 10,000 to 20,000 bytes |
-C> | 2002-05-14 | J. Woollen | Removed old Cray compiler directives |
-C> | 2003-11-04 | D. Keyser  | Modified to not abort when there are more than I2 data subsets, but instead just process first I2 subsets and print a diagnostic |
-C> | 2003-11-04 | D. Keyser  | Increased MAXJL from 15000 to 16000; modified to use rewnbf(); upgraded to allow reading from a file that has already been opened via openbf() |
-C> | 2004-08-09 | J. Ator    | Maximum message length increased from 20,000 to 50,000 bytes |
-C> | 2005-09-16 | J. Woollen | upgraded to work for compressed BUFR messages, and to allow for LUNIN < 0 option |
-C> | 2006-04-14 | J. Ator    | Add declaration for CREF |
-C> | 2007-01-19 | J. Ator    | Replaced call to parseq with call to parstr() |
-C> | 2009-04-21 | J. Ator    | Use errwrt() |
-C> | 2009-12-01 | J. Ator    | Fix bug for compressed character strings which are identical across all subsets in a single message |
-C> | 2010-05-07 | J. Ator    | When calling ireadmg(), treat read error as EOF condition |
-C> | 2012-03-02 | J. Ator    | Use function ups() |
-C> | 2012-09-15 | J. Woollen | Modified for C/I/O/BUFR interface; added IO type 'INX' to enable open and close for C file without closing FORTRAN file |
-C> | 2014-11-20 | J. Ator    | Ensure openbf() has been called at least once before calling status() |
-C> | 2014-12-10 | J. Ator    | Use modules instead of COMMON blocks |
-C> | 2016-12-19 | J. Woollen | Fix bug to prevent inventory overflow |
-C> | 2022-05-06 | J. Woollen | Use up8 and upb8 for 8byte integers, use nbmp for usrtpl, add msgunp=1 option |
-C> | 2022-10-04 | J. Ator    | Added 8-byte wrapper |
+C> @param[in] LUNIN   -- integer: Absolute value is Fortran logical
+C>                       unit number for BUFR file
+C> @param[out] TAB    -- real*8(*,*): Data values
+C> @param[in] I1 -- integer: First dimension of TAB as allocated
+C>                  within the calling program
+C> @param[in] I2 -- integer: Second dimension of TAB as allocated
+C>                  within the calling program
+C> @param[out] IRET -- integer: Number of data subsets in BUFR file
+C> @param[in] STR -- character*(*): String of blank-separated
+C>                   Table B mnemonics, in one-to-one correspondence
+C>                   with the number of data values that will be read
+C>                   from each data subset within the first dimension of
+C>                   TAB (see [DX BUFR Tables](@ref dfbftab) for further
+C>                   information about Table B mnemonics)
+C>
+C> @author J. Woollen @date 1994-01-06
 
       RECURSIVE SUBROUTINE UFBTAB(LUNIN,TAB,I1,I2,IRET,STR)
 
@@ -108,7 +109,7 @@ C> | 2022-10-04 | J. Ator    | Added 8-byte wrapper |
       COMMON /QUIET / IPRT
 
       CHARACTER*(*) STR
-      CHARACTER*128 BORT_STR,ERRSTR
+      CHARACTER*128 ERRSTR
       CHARACTER*40  CREF
       CHARACTER*10  TGS(100)
       CHARACTER*8   SUBSET,CVAL
