@@ -57,7 +57,7 @@ C> | 2022-10-04 | J. Ator    | Added 8-byte wrapper |
 
       CHARACTER*128 BORT_STR
       CHARACTER*8   SUBSET
- 
+
 C-----------------------------------------------------------------------
 C----------------------------------------------------------------------
 
@@ -91,10 +91,10 @@ C  SEE WHERE POINTERS ARE CURRENTLY LOCATED
 C  ----------------------------------------
 
       CALL UFBCNT(LUNIT,JREC,JSUB)
- 
+
 C  REWIND FILE IF REQUESTED POINTERS ARE BEHIND CURRENT POINTERS
 C  -------------------------------------------------------------
- 
+
       IF(IREC.LT.JREC .OR. (IREC.EQ.JREC.AND.ISUB.LT.JSUB)) THEN
          CALL CEWIND(LUN)
          NMSG(LUN) = 0

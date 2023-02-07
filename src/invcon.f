@@ -14,7 +14,7 @@ C> 2010-04-27 | J. Woollen | Add documentation.
 C> 2014-12-10 | J. Ator    | Use modules instead of common blocks.
 C>
 C> @author Woollen @date 1994-01-06
-      
+
 C> This function searches a "window" (see below remarks) for an
 C> element identified in the user string as a conditional node.
 C> A conditional node is an element which must meet a condition in order to be
@@ -25,7 +25,7 @@ C> otherwise a value of zero is returned.
 C>
 C> @note: See getwin() for an explanation of "windows" within the context
 C> of a bufr data subset.
-C>      
+C>
 C> @param[in] NC - integer: condition code:
 C> - 1 '=' (equal)
 C> - 2 '!' (not equal)

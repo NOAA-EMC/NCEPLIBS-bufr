@@ -6,7 +6,7 @@ C> except that it operates on a BUFR message passed in via a memory array
 C> and returns its output via a separate memory array,
 C> whereas stdmsg() operates on BUFR messages stored internally
 C> within the software.
-C> 
+C>
 C> @author J. Ator
 C> @date 2004-08-18
 C>
@@ -23,7 +23,7 @@ C> - MSGIN and MSGOT must be separate arrays.
 C> - Standardized messages are usually longer in length than their
 C> non-standard counterparts, so it's usually a good idea to allow
 C> for extra space when allocating MSGOT within the application program.
-C> 
+C>
 C> <b>Program history log:</b>
 C> | Date | Programmer | Comments |
 C> | -----|------------|----------|
@@ -123,7 +123,7 @@ C     LOCATE THE TOP-LEVEL TABLE A DESCRIPTOR
       IF (ISTDESC(ISUB).EQ.0) THEN
 
 C         ISUB IS A NON-STANDARD TABLE A DESCRIPTOR AND NEEDS
-C         TO BE EXPANDED INTO AN EQUIVALENT STANDARD SEQUENCE  
+C         TO BE EXPANDED INTO AN EQUIVALENT STANDARD SEQUENCE
 
           CALL RESTD(LUN,ISUB,NCD,ICD)
       ELSE

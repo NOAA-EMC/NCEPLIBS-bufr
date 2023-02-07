@@ -26,14 +26,14 @@ C> cases, any call to this subroutine must be made prior to any
 C> subsequent calls to any of the BUFR
 C> [message-reading subroutines](@ref hierarchy) for the associated BUFR
 C> file; otherwise, default values for CMTDIR, LUNMT1 and LUNMT2 will be
-C> used as defined within subroutine bfrini().  
+C> used as defined within subroutine bfrini().
 C>
 C> <p>For CMTDIR, any full or relative directory pathname that is legal
 C> on the local filesystem is permissible, up to a total maximum length
 C> of 100 characters.  The BUFRLIB software will then automatically search
 C> within this directory for any necessary master table files and open and
 C> read them as needed.
-C> 
+C>
 C> <p>The logical unit numbers LUNMT1 and LUNMT2 should be distinct from
 C> each other but should not already be assigned to any files on the
 C> local system.

@@ -24,7 +24,7 @@ C> | 1994-01-06 | J. Woollen | Original author |
 C> | 1998-07-08 | J. Woollen | Replaced call to CRAY library routine "ABORT" with call to new internal BUFRLIB routine bort() |
 C> | 2003-11-04 | S. Bender  | Added remarks and routine interdependencies |
 C> | 2003-11-04 | D. Keyser  | Unified/portable for WRF; added history documentation |
-      
+
       FUNCTION ADN30(IDN,L30)
 
       COMMON /HRDWRD/ NBYTW,NBITW,IORD(8)

@@ -33,7 +33,7 @@ C> | 2022-10-04 | J. Ator | Added 8-byte wrapper |
 
       USE MODV_IM8B
 
-      DIMENSION	MBAY (*)
+      DIMENSION MBAY (*)
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
@@ -60,9 +60,9 @@ C     Check for I8 integers.
 C     Check whether the message contains a tank receipt time.
 
       IF(IUPBS01(MBAY,'BEN').EQ.4) THEN
-	IS1BYT = 23
+        IS1BYT = 23
       ELSE
-	IS1BYT = 19
+        IS1BYT = 19
       ENDIF
       IF( (IS1BYT+5) .GT. IUPBS01(MBAY,'LEN1') ) RETURN
 

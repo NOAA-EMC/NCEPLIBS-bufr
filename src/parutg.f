@@ -1,6 +1,6 @@
 C> @file
 C> @brief Parse a mnemonic from a character string.
-C> 
+C>
 C> ### Program History Log
 C> Date | Programmer | Comments
 C> -----|------------|----------
@@ -14,7 +14,7 @@ C> 2009-03-23 | J. Ator    | Added '#' condition code.
 C> 2014-12-10 | J. Ator    | Use modules instead of common blocks.
 C>
 C> @author Woollen @date 1994-01-06
-      
+
 C> This subroutine parses a user-specified tag (mnemonic)
 C> (UTG) that represents a value either being decoded from a bufr file
 C> (if it is being read) or encoded into a bufr file (if it is being
@@ -58,7 +58,7 @@ C>      CALL READLC(LUNIN,LCHR,'NUMID#3')
 C> @endcode
 C>
 C> Assuming that LUNIN points to a BUFR file open for input (reading),
-C> then the LCHR string now contains the value corresponding to the 
+C> then the LCHR string now contains the value corresponding to the
 C> third occurrence of NUMID within the current subset.
 C>
 C> Valid condition codes include:
@@ -172,7 +172,7 @@ C     possible type/subtype that is being written by the application.
 C     In such cases, by not being "picky", we could just allow BUFRLIB
 C     to subsequently (and quietly, if IPRT happened to be set to -1
 C     in COMMON /QUIET/!) not actually store the value corresponding
-C     to such mnemonics, rather than loudly complaining and aborting. 
+C     to such mnemonics, rather than loudly complaining and aborting.
 
       IF(KON.EQ.0 .AND. (IO.EQ.0.OR.ATAG.EQ.'NUL'.OR..NOT.PICKY)) THEN
 C        i.e. (if this tag does not contain any condition characters)

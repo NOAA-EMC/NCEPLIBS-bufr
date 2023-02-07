@@ -12,15 +12,15 @@ C> compressed BUFR message at any given time.
 C>
 C> @author J. Woollen @date 2002-05-14
 
-	MODULE MODA_COMPRS
+        MODULE MODA_COMPRS
 
 C>    Number of data subsets in message.
-	  INTEGER                    :: NCOL
+          INTEGER                    :: NCOL
 C>    Increment used when compressing non-character data values.
-	  INTEGER(8)                 :: INCR
+          INTEGER(8)                 :: INCR
 C>    Non-character data values for all data subsets in message.
-	  INTEGER(8)   , ALLOCATABLE :: MATX(:,:) 
+          INTEGER(8)   , ALLOCATABLE :: MATX(:,:)
 C>    Character data values for all data subsets in message.
-	  CHARACTER*(:), ALLOCATABLE :: CATX(:,:)
+          CHARACTER*(:), ALLOCATABLE :: CATX(:,:)
 
-	END MODULE
+        END MODULE

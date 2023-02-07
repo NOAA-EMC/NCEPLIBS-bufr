@@ -7,10 +7,10 @@ C> being copied from a subset template created in subroutine
 C> makestab into internal subset arrays inv and val during a subset
 C> input  being done in subroutine rdtree.
 C>
-C> @author J. Woollen 1994-01-06 
+C> @author J. Woollen 1994-01-06
 
 
-	MODULE MODA_USRTMP
+        MODULE MODA_USRTMP
 
         PARAMETER ( MAXRCR = 100 )
 

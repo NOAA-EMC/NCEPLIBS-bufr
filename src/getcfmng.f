@@ -33,7 +33,7 @@ C>                        determines that the meaning of NEMOI and IVALI
 C>                        indeed depends on one or more other possible
 C>                        second mnemonics, then those possible second
 C.                        mnemonics are returned within this string, as a
-C>                        series of IRET successive 8-byte substrings. 
+C>                        series of IRET successive 8-byte substrings.
 C>                        An example of this scenario is included below
 C>                        within the Remarks.
 C> @param[out] LNMNG   -- integer: Length (in bytes) of string returned in
@@ -107,151 +107,151 @@ C> | 2018-01-11 | J. Ator | Original author |
 C> | 2018-02-08 | J. Ator | Add special handling for data types and subtypes in Section 1 |
 C> | 2022-08-04 | J. Woollen | Added 8-byte wrapper |
 
-	RECURSIVE SUBROUTINE GETCFMNG
+        RECURSIVE SUBROUTINE GETCFMNG
      .      ( LUNIT, NEMOI, IVALI, NEMOD, IVALD, CMEANG, LNMNG, IRET )
 
-	USE MODA_TABABD
+        USE MODA_TABABD
         USE MODV_IM8B
 
-	COMMON /TABLEF/ CDMF
+        COMMON /TABLEF/ CDMF
 
-	CHARACTER*(*)	NEMOI, NEMOD, CMEANG
+        CHARACTER*(*)   NEMOI, NEMOD, CMEANG
 
-	CHARACTER*128	BORT_STR
-	CHARACTER*8	NEMO
-	CHARACTER*1	CDMF, TAB
+        CHARACTER*128   BORT_STR
+        CHARACTER*8     NEMO
+        CHARACTER*1     CDMF, TAB
 
-	DIMENSION	IFXYD(10)
+        DIMENSION       IFXYD(10)
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
 
-C*	Check for I8 integers.
+C*      Check for I8 integers.
 
-	IF(IM8B) THEN
-	  IM8B=.FALSE.
+        IF(IM8B) THEN
+          IM8B=.FALSE.
 
-	  CALL X84(LUNIT,MY_LUNIT,1)
-	  CALL X84(IVALI,MY_IVALI,1)
-	  CALL X84(IVALD,MY_IVALD,1)
-	  CALL GETCFMNG(MY_LUNIT,NEMOI,MY_IVALI,NEMOD,MY_IVALD,CMEANG,
-     .			LNMNG,IRET)
-	  CALL X48(LNMNG,LNMNG,1)
-	  CALL X48(IRET,IRET,1)
+          CALL X84(LUNIT,MY_LUNIT,1)
+          CALL X84(IVALI,MY_IVALI,1)
+          CALL X84(IVALD,MY_IVALD,1)
+          CALL GETCFMNG(MY_LUNIT,NEMOI,MY_IVALI,NEMOD,MY_IVALD,CMEANG,
+     .                  LNMNG,IRET)
+          CALL X48(LNMNG,LNMNG,1)
+          CALL X48(IRET,IRET,1)
 
-	  IM8B=.TRUE.
-	  RETURN
-	ENDIF
+          IM8B=.TRUE.
+          RETURN
+        ENDIF
 
-	CALL STATUS ( LUNIT, LUN, IL, IM )
-	IF ( IL .EQ. 0 ) GOTO 900
-	IF ( IL .GT. 0 ) GOTO 901
-	IF ( IM .EQ. 0 ) GOTO 902
+        CALL STATUS ( LUNIT, LUN, IL, IM )
+        IF ( IL .EQ. 0 ) GOTO 900
+        IF ( IL .GT. 0 ) GOTO 901
+        IF ( IM .EQ. 0 ) GOTO 902
 
-C*	Make sure the appropriate code/flag information has already been
-C*	read into internal memory.
+C*      Make sure the appropriate code/flag information has already been
+C*      read into internal memory.
 
-	IF ( CDMF .NE. 'Y' ) GOTO 903
+        IF ( CDMF .NE. 'Y' ) GOTO 903
 
-	ITMP = IREADMT ( LUN )
+        ITMP = IREADMT ( LUN )
 
-C*	Check the validity of the input mnemonic(s).  Include special
-C*	handling for originating centers, originating subcenters, data
-C*	types and data subtypes, since those can be reported in
-C*	Section 1 of a BUFR message as well as in Section 3, so if a
-C*	user requests those mnemonics we can't necessarily assume they
-C*	came from within Section 3.
+C*      Check the validity of the input mnemonic(s).  Include special
+C*      handling for originating centers, originating subcenters, data
+C*      types and data subtypes, since those can be reported in
+C*      Section 1 of a BUFR message as well as in Section 3, so if a
+C*      user requests those mnemonics we can't necessarily assume they
+C*      came from within Section 3.
 
-	LCMG = LEN ( CMEANG )
+        LCMG = LEN ( CMEANG )
 
-	IF ( NEMOI(1:4) .EQ. 'GSES' ) THEN
-	    IF ( ( NEMOD(1:6) .EQ. 'GCLONG' ) .OR.
-     .		 ( NEMOD(1:4) .EQ. 'OGCE' ) .OR.
-     .		 ( NEMOD(1:5) .EQ. 'ORIGC' ) )  THEN
-		IFXYI = IFXY ( '001034' )
-		IFXYD(1) = IFXY ( '001035' )
-	    ELSE
-		LNMNG = MIN ( 24, LCMG )
-		IF ( LNMNG .EQ. 24 ) THEN
-		    IRET = 3
-		    CMEANG(1:24) = 'GCLONG  OGCE    ORIGC   '
-		ELSE
-		    IRET = -1
-		END IF
-		RETURN
-	    END IF
-	ELSE IF ( NEMOI(1:6) .EQ. 'GCLONG' ) THEN
-	    IFXYI = IFXY ( '001031' )
-	    IFXYD(1) = (-1)
-	ELSE IF ( NEMOI(1:4) .EQ. 'OGCE' ) THEN
-	    IFXYI = IFXY ( '001033' )
-	    IFXYD(1) = (-1)
-	ELSE IF ( NEMOI(1:5) .EQ. 'ORIGC' ) THEN
-	    IFXYI = IFXY ( '001035' )
-	    IFXYD(1) = (-1)
-	ELSE IF ( ( NEMOI(1:7) .EQ. 'TABLASS' ) .OR.
-     +		  ( NEMOI(1:7) .EQ. 'TABLASL' ) ) THEN
-	    IF ( ( NEMOD(1:6) .EQ. 'TABLAT' ) ) THEN
-		IF ( NEMOI(1:7) .EQ. 'TABLASS' ) THEN
-		    IFXYI = IFXY ( '055021' )
-		ELSE
-		    IFXYI = IFXY ( '055022' )
-		ENDIF
-		IFXYD(1) = IFXY ( '055020' )
-	    ELSE
-		LNMNG = MIN ( 8, LCMG )
-		IF ( LNMNG .EQ. 8 ) THEN
-		    IRET = 1
-		    CMEANG(1:8) = 'TABLAT  '
-		ELSE
-		    IRET = -1
-		END IF
-		RETURN
-	    END IF
-	ELSE IF ( NEMOI(1:6) .EQ. 'TABLAT' ) THEN
-	    IFXYI = IFXY ( '055020' )
-	    IFXYD(1) = (-1)
-	ELSE
-	    CALL PARSTR ( NEMOI, NEMO, 1, NTG, ' ', .TRUE. )
-	    CALL NEMTAB ( LUN, NEMO, IFXYI, TAB, N )
-	    IF ( ( N .EQ. 0 ) .OR. ( TAB .NE. 'B' ) ) GOTO 904
-	    IF ( ( TABB ( N, LUN )(71:74) .NE. 'CODE' ) .AND.
-     .		 ( TABB ( N, LUN )(71:74) .NE. 'FLAG' ) ) GOTO 905
-	    IF ( NEMOD(1:1) .NE. ' ' ) THEN
-		CALL PARSTR ( NEMOD, NEMO, 1, NTG, ' ', .TRUE. )
-		CALL NEMTAB ( LUN, NEMO, IFXYD(1), TAB, N )
-		IF ( ( N .EQ. 0 ) .OR. ( TAB .NE. 'B' ) ) GOTO 904
-		IF ( ( TABB ( N, LUN )(71:74) .NE. 'CODE' ) .AND.
-     .		     ( TABB ( N, LUN )(71:74) .NE. 'FLAG' ) ) GOTO 905
-	    ELSE
-	        IFXYD(1) = (-1)
-	    END IF
-	END IF
+        IF ( NEMOI(1:4) .EQ. 'GSES' ) THEN
+            IF ( ( NEMOD(1:6) .EQ. 'GCLONG' ) .OR.
+     .           ( NEMOD(1:4) .EQ. 'OGCE' ) .OR.
+     .           ( NEMOD(1:5) .EQ. 'ORIGC' ) )  THEN
+                IFXYI = IFXY ( '001034' )
+                IFXYD(1) = IFXY ( '001035' )
+            ELSE
+                LNMNG = MIN ( 24, LCMG )
+                IF ( LNMNG .EQ. 24 ) THEN
+                    IRET = 3
+                    CMEANG(1:24) = 'GCLONG  OGCE    ORIGC   '
+                ELSE
+                    IRET = -1
+                END IF
+                RETURN
+            END IF
+        ELSE IF ( NEMOI(1:6) .EQ. 'GCLONG' ) THEN
+            IFXYI = IFXY ( '001031' )
+            IFXYD(1) = (-1)
+        ELSE IF ( NEMOI(1:4) .EQ. 'OGCE' ) THEN
+            IFXYI = IFXY ( '001033' )
+            IFXYD(1) = (-1)
+        ELSE IF ( NEMOI(1:5) .EQ. 'ORIGC' ) THEN
+            IFXYI = IFXY ( '001035' )
+            IFXYD(1) = (-1)
+        ELSE IF ( ( NEMOI(1:7) .EQ. 'TABLASS' ) .OR.
+     +            ( NEMOI(1:7) .EQ. 'TABLASL' ) ) THEN
+            IF ( ( NEMOD(1:6) .EQ. 'TABLAT' ) ) THEN
+                IF ( NEMOI(1:7) .EQ. 'TABLASS' ) THEN
+                    IFXYI = IFXY ( '055021' )
+                ELSE
+                    IFXYI = IFXY ( '055022' )
+                ENDIF
+                IFXYD(1) = IFXY ( '055020' )
+            ELSE
+                LNMNG = MIN ( 8, LCMG )
+                IF ( LNMNG .EQ. 8 ) THEN
+                    IRET = 1
+                    CMEANG(1:8) = 'TABLAT  '
+                ELSE
+                    IRET = -1
+                END IF
+                RETURN
+            END IF
+        ELSE IF ( NEMOI(1:6) .EQ. 'TABLAT' ) THEN
+            IFXYI = IFXY ( '055020' )
+            IFXYD(1) = (-1)
+        ELSE
+            CALL PARSTR ( NEMOI, NEMO, 1, NTG, ' ', .TRUE. )
+            CALL NEMTAB ( LUN, NEMO, IFXYI, TAB, N )
+            IF ( ( N .EQ. 0 ) .OR. ( TAB .NE. 'B' ) ) GOTO 904
+            IF ( ( TABB ( N, LUN )(71:74) .NE. 'CODE' ) .AND.
+     .           ( TABB ( N, LUN )(71:74) .NE. 'FLAG' ) ) GOTO 905
+            IF ( NEMOD(1:1) .NE. ' ' ) THEN
+                CALL PARSTR ( NEMOD, NEMO, 1, NTG, ' ', .TRUE. )
+                CALL NEMTAB ( LUN, NEMO, IFXYD(1), TAB, N )
+                IF ( ( N .EQ. 0 ) .OR. ( TAB .NE. 'B' ) ) GOTO 904
+                IF ( ( TABB ( N, LUN )(71:74) .NE. 'CODE' ) .AND.
+     .               ( TABB ( N, LUN )(71:74) .NE. 'FLAG' ) ) GOTO 905
+            ELSE
+                IFXYD(1) = (-1)
+            END IF
+        END IF
 
-C*	Search the internal table for the requested meaning.
+C*      Search the internal table for the requested meaning.
 
-	CALL SRCHTBF ( IFXYI, IVALI, IFXYD, 10, IVALD,
-     .		       CMEANG, LCMG, LNMNG, IRET )
-	IF ( IRET .LE. 0 ) RETURN
+        CALL SRCHTBF ( IFXYI, IVALI, IFXYD, 10, IVALD,
+     .                 CMEANG, LCMG, LNMNG, IRET )
+        IF ( IRET .LE. 0 ) RETURN
 
-C*	The meaning of this value is dependent on the value of another
-C*	mnemonic in the report.
+C*      The meaning of this value is dependent on the value of another
+C*      mnemonic in the report.
 
-	IRET2 = IRET
-	LNMNG = 0
-	IRET = 0
-	DO II = 1, IRET2
-	    CALL NUMTBD ( LUN, IFXYD(II), NEMO, TAB, IERBD )
-	    IF ( ( IERBD .GT. 0 ) .AND. ( TAB .EQ. 'B' ) .AND.
-     .		   ( LCMG .GE. ( LNMNG + 8 ) ) ) THEN
-		IRET = IRET + 1
-		CMEANG(LNMNG+1:LNMNG+8) = NEMO
-		LNMNG = LNMNG + 8
-	    END IF
-	END DO
-	IF ( IRET .EQ. 0 ) IRET = -1
+        IRET2 = IRET
+        LNMNG = 0
+        IRET = 0
+        DO II = 1, IRET2
+            CALL NUMTBD ( LUN, IFXYD(II), NEMO, TAB, IERBD )
+            IF ( ( IERBD .GT. 0 ) .AND. ( TAB .EQ. 'B' ) .AND.
+     .             ( LCMG .GE. ( LNMNG + 8 ) ) ) THEN
+                IRET = IRET + 1
+                CMEANG(LNMNG+1:LNMNG+8) = NEMO
+                LNMNG = LNMNG + 8
+            END IF
+        END DO
+        IF ( IRET .EQ. 0 ) IRET = -1
 
-	RETURN
+        RETURN
 900     CALL BORT('BUFRLIB: GETCFMNG - INPUT BUFR FILE IS CLOSED, IT '//
      .   'MUST BE OPEN FOR INPUT')
 901     CALL BORT('BUFRLIB: GETCFMNG - INPUT BUFR FILE IS OPEN FOR '//
@@ -260,10 +260,10 @@ C*	mnemonic in the report.
      .   'INPUT BUFR FILE, NONE ARE')
 903     CALL BORT('BUFRLIB: GETCFMNG - TO USE THIS SUBROUTINE, MUST '//
      .   'FIRST CALL SUBROUTINE CODFLG WITH INPUT ARGUMENT SET TO Y')
-904	WRITE(BORT_STR,'("BUFRLIB: GETCFMNG - MNEMONIC ",A,'//
+904     WRITE(BORT_STR,'("BUFRLIB: GETCFMNG - MNEMONIC ",A,'//
      .   '" NOT FOUND IN TABLE B")') NEMO
-	CALL BORT(BORT_STR)
+        CALL BORT(BORT_STR)
 905     WRITE(BORT_STR,'("BUFRLIB: GETCFMNG - MNEMONIC ",A,'//
      .   '" IS NOT A CODE OR FLAG TABLE")') NEMO
-	CALL BORT(BORT_STR)
-	END
+        CALL BORT(BORT_STR)
+        END

@@ -22,60 +22,60 @@ void cpmstabs( f77int *pnmtb, f77int *pibfxyn, char (*pcbscl)[4], char (*pcbsref
 
 #ifdef IN_ARALLOCC
         /** Number of master Table B entries; copied from Fortran nmtb variable. */
-	f77int nmtb_c; 
+        f77int nmtb_c;
         /** Bit-wise representations of master Table B FXY numbers; copied from Fortran ibfxyn array. */
-	f77int *ibfxyn_c;
+        f77int *ibfxyn_c;
         /** Master Table B scale factors; copied from Fortran cbscl array. */
-	char   (*cbscl_c)[4];
+        char   (*cbscl_c)[4];
         /** Master Table B reference value; copied from Fortran cbsref array. */
-	char   (*cbsref_c)[12];
+        char   (*cbsref_c)[12];
         /** Master Table B bit widths; copied from Fortran cbbw array. */
-	char   (*cbbw_c)[4];
+        char   (*cbbw_c)[4];
         /** Master Table B units; copied from Fortran cbunit array. */
-	char   (*cbunit_c)[24];
+        char   (*cbunit_c)[24];
         /** Master Table B mnemonics; copied from Fortran cbmnem array. */
-	char   (*cbmnem_c)[8];
+        char   (*cbmnem_c)[8];
         /** Master Table B element names; copied from Fortran cbelem array. */
-	char   (*cbelem_c)[120];
+        char   (*cbelem_c)[120];
         /** Number of master Table D entries; copied from Fortran nmtd variable. */
-	f77int nmtd_c;
+        f77int nmtd_c;
         /** Bit-wise representations of master Table D FXY numbers; copied from Fortran idfxyn array. */
-	f77int *idfxyn_c;
+        f77int *idfxyn_c;
         /** Master Table D sequence names; copied from Fortran cdseq array. */
-	char   (*cdseq_c)[120];
+        char   (*cdseq_c)[120];
         /** Master Table D mnemonics; copied from Fortran cdmnem array. */
-	char   (*cdmnem_c)[8];
+        char   (*cdmnem_c)[8];
         /** Number of child descriptors for master Table D sequence; copied from Fortran ndelem array. */
-	f77int *ndelem_c;
+        f77int *ndelem_c;
         /** Bit-wise representations of child descriptors for master Table D sequence; copied from Fortran idefxy array. */
-	f77int *idefxy_c;
+        f77int *idefxy_c;
 #else
         /** Number of master Table B entries; copied from Fortran nmtb variable. */
-	extern f77int nmtb_c;
+        extern f77int nmtb_c;
         /** Bit-wise representations of master Table B FXY numbers; copied from Fortran ibfxyn array. */
-	extern f77int *ibfxyn_c;
+        extern f77int *ibfxyn_c;
         /** Master Table B scale factors; copied from Fortran cbscl array. */
-	extern char   (*cbscl_c)[4];
+        extern char   (*cbscl_c)[4];
         /** Master Table B reference value; copied from Fortran cbsref array. */
-	extern char   (*cbsref_c)[12];
+        extern char   (*cbsref_c)[12];
         /** Master Table B bit widths; copied from Fortran cbbw array. */
-	extern char   (*cbbw_c)[4];
+        extern char   (*cbbw_c)[4];
         /** Master Table B units; copied from Fortran cbunit array. */
-	extern char   (*cbunit_c)[24];
+        extern char   (*cbunit_c)[24];
         /** Master Table B mnemonics; copied from Fortran cbmnem array. */
-	extern char   (*cbmnem_c)[8];
+        extern char   (*cbmnem_c)[8];
         /** Master Table B element names; copied from Fortran cbelem array. */
-	extern char   (*cbelem_c)[120];
+        extern char   (*cbelem_c)[120];
         /** Number of master Table D entries; copied from Fortran nmtd variable. */
-	extern f77int nmtd_c;
+        extern f77int nmtd_c;
         /** Bit-wise representations of master Table D FXY numbers; copied from Fortran idfxyn array. */
-	extern f77int *idfxyn_c;
+        extern f77int *idfxyn_c;
         /** Master Table D sequence names; copied from Fortran cdseq array. */
-	extern char   (*cdseq_c)[120];
+        extern char   (*cdseq_c)[120];
         /** Master Table D mnemonics; copied from Fortran cdmnem array. */
-	extern char   (*cdmnem_c)[8];
+        extern char   (*cdmnem_c)[8];
         /** Number of child descriptors for master Table D sequence; copied from Fortran ndelem array. */
-	extern f77int *ndelem_c;
+        extern f77int *ndelem_c;
         /** Bit-wise representations of child descriptors for master Table D sequence; copied from Fortran idefxy array. */
-	extern f77int *idefxy_c;
+        extern f77int *idefxy_c;
 #endif

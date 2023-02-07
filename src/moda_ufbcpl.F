@@ -14,10 +14,10 @@ C> strings (greater than 8 bytes) between the two logical units.
 C>
 C> @author J. Woollen @date 2009-08-11
 
-	MODULE MODA_UFBCPL
+        MODULE MODA_UFBCPL
 
 C>        Logical unit numbers used to copy long character strings
 C>        between BUFR data subsets.
-	  INTEGER, ALLOCATABLE :: LUNCPY(:)
+          INTEGER, ALLOCATABLE :: LUNCPY(:)
 
-	END MODULE
+        END MODULE

@@ -1,6 +1,6 @@
 C> @file
 C> @brief Decode a character string from an integer array.
-C> 
+C>
 C> ### Program History Log
 C> Date | Programmer | Comments |
 C> -----|------------|----------|
@@ -12,7 +12,7 @@ C> 2009-03-23 | J. Ator    | treat null characters as blanks; prevent overflow o
 C> 2014-11-19 | J. Ator    | add cnvnull argument
 C>
 C> @author Woollen @date 1994-01-06
-      
+
 C> This subroutine decodes a character string from within a specified
 C> number of bytes of an integer array, starting at the bit immediately
 C> after a specified bit within the array.
@@ -59,7 +59,7 @@ C----------------------------------------------------------------------
         CALL UPB(IVAL(1),8,IBAY,IBIT)
         IF((IVAL(1).EQ.0).AND.(CNVNULL)) THEN
           CHR(I:I) = ' '
-        ELSE 
+        ELSE
           CHR(I:I) = CVAL(LB:LB)
         ENDIF
         IF(IASCII.EQ.0) CALL IPKM(CHR(I:I),1,IATOE(IUPM(CHR(I:I),8)))

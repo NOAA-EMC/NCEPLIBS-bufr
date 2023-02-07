@@ -12,7 +12,7 @@ C> 2007-01-19 | J. Ator    | Replaced call to parseq with call to parstr.
 C> 2009-05-07 | J. Ator    | Use lstjpb instead of lstrpc.
 C>
 C> @author Woollen @date 1994-01-06
-      
+
 C> This subroutine initates the process to parse out mnemonics
 C> (nodes) from a user-specified character string, and separates them
 C> into store and condition nodes. Information about the string

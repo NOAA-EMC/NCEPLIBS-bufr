@@ -24,30 +24,30 @@ C> | -----|------------|----------|
 C> | 2009-03-23 | J. Ator | Original author |
 C> | 2014-12-10 | J. Ator | Use modules instead of COMMON blocks |
 C>
-	FUNCTION IGETNTBI ( LUN, CTB )
+        FUNCTION IGETNTBI ( LUN, CTB )
 
-	USE MODA_TABABD
+        USE MODA_TABABD
 
-	CHARACTER*128 BORT_STR
-	CHARACTER*1   CTB
+        CHARACTER*128 BORT_STR
+        CHARACTER*1   CTB
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
 
-	IF ( CTB .EQ. 'A' ) THEN
-	  IGETNTBI = NTBA(LUN) + 1
-	  IMAX = NTBA(0)
-	ELSE IF ( CTB .EQ. 'B' ) THEN
-	  IGETNTBI = NTBB(LUN) + 1
-	  IMAX = NTBB(0)
-	ELSE IF ( CTB .EQ. 'D' ) THEN
-	  IGETNTBI = NTBD(LUN) + 1
-	  IMAX = NTBD(0)
-	ENDIF
-	IF ( IGETNTBI .GT. IMAX ) GOTO 900
+        IF ( CTB .EQ. 'A' ) THEN
+          IGETNTBI = NTBA(LUN) + 1
+          IMAX = NTBA(0)
+        ELSE IF ( CTB .EQ. 'B' ) THEN
+          IGETNTBI = NTBB(LUN) + 1
+          IMAX = NTBB(0)
+        ELSE IF ( CTB .EQ. 'D' ) THEN
+          IGETNTBI = NTBD(LUN) + 1
+          IMAX = NTBD(0)
+        ENDIF
+        IF ( IGETNTBI .GT. IMAX ) GOTO 900
 
-	RETURN
-900	WRITE(BORT_STR,'("BUFRLIB: IGETNTBI - NUMBER OF INTERNAL TABLE'
+        RETURN
+900     WRITE(BORT_STR,'("BUFRLIB: IGETNTBI - NUMBER OF INTERNAL TABLE'
      .    //'",A1," ENTRIES EXCEEDS THE LIMIT (",I4,")")') CTB, IMAX
-	CALL BORT(BORT_STR)
-	END
+        CALL BORT(BORT_STR)
+        END

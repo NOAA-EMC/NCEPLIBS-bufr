@@ -15,11 +15,11 @@ C> 2009-03-31 | J. Woollen | Added documentation.
 C> 2014-12-10 | J. Ator    | Use modules instead of common blocks.
 C>
 C> @author Woollen @date 1994-01-06
-      
+
 C> This function looks for and returns all occurrences of a
 C> specified node within the portion of the current subset buffer
 C> bounded by the indices inv1 and inv2. The resulting list is a
-C> stack of "event" indices for the requested node. 
+C> stack of "event" indices for the requested node.
 C>
 C> @param[in] NODE - integer: jump/link table index to look for.
 C> @param[in] LUN - integer: i/o stream index into internal memory arrays.

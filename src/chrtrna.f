@@ -1,13 +1,13 @@
 C> @file
 C> @brief Copy a specified number of characters from an array into
 C> a string.
-C>      
+C>
 C> ### Program History Log
 C> Date | Programmer | Comments
 C> -----|------------|----------
 C> 1994-01-06 | J. Woollen | Original author.
 C> 2003-11-04 | J. Ator    | Added documentation.
-C>      
+C>
 C> @author J. Woollen @date 1994-01-06
 
 C> This subroutine copies a specified number of characters from an

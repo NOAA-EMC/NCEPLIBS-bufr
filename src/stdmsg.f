@@ -5,7 +5,7 @@ C> This subroutine is used to specify whether BUFR messages output by
 C> future calls to [message-writing subroutines](@ref hierarchy) and
 C> [subset-writing subroutines](@ref hierarchy) should be internally
 C> reformatted to remove all BUFRLIB software extensions to the
-C> WMO standard, prior to actually writing each message. 
+C> WMO standard, prior to actually writing each message.
 C>
 C> <p>It is strongly recommended to use this subroutine (or,
 C> alternatively, subroutine stndrd() for messages which already exist
@@ -19,7 +19,7 @@ C> packages.
 C>
 C> <p>This subroutine can be called at any time after the first call
 C> to subroutine openbf(), and the specified value for CF will remain
-C> in effect for all future calls to 
+C> in effect for all future calls to
 C> [message-writing subroutines](@ref hierarchy) and
 C> [subset-writing subroutines](@ref hierarchy) for all Fortran logical
 C> units that are open for output within the application program,
@@ -52,7 +52,7 @@ C-----------------------------------------------------------------------
 
       CALL CAPIT(CF)
       IF(CF.NE.'Y'.AND. CF.NE.'N') GOTO 900
-      CSMF = CF 
+      CSMF = CF
 
 C  EXITS
 C  -----

@@ -8,11 +8,11 @@ C> stream, for possible later retrieval via subroutine writsa().
 C>
 C> @author J. Ator @date 2014-12-10
 
-	MODULE MODA_BUFRMG
+        MODULE MODA_BUFRMG
 
 C>        Length (in integers) of BUFR message most recently written to each output I/O stream.
-	  INTEGER, ALLOCATABLE :: MSGLEN(:)
+          INTEGER, ALLOCATABLE :: MSGLEN(:)
 C>        BUFR message most recently written to each output I/O stream.
-	  INTEGER, ALLOCATABLE :: MSGTXT(:,:)
+          INTEGER, ALLOCATABLE :: MSGTXT(:,:)
 
-	END MODULE
+        END MODULE

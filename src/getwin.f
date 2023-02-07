@@ -16,7 +16,7 @@ C> 2009-05-07 | J. Ator    | Use lstjpb instead of lstrpc.
 C> 2014-12-10 | J. Ator    | Use modules instead of common blocks.
 C>
 C> @author Woollen @date 1994-01-06
-      
+
 C> Given a node index within the internal jump/link table, this
 C> subroutine looks within the current subset buffer for a "window"
 C> (see below remarks) which contains this node. If found, it returns

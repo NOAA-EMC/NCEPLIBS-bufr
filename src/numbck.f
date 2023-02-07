@@ -11,7 +11,7 @@ C> 2003-11-04 | D. Keyser  | Split non-zero return; unified/ portable for wrf; d
 C> 2007-01-19 | J. Ator    | Cleaned up and simplified logic.
 C>
 C> @author Woollen @date 1994-01-06
-      
+
 C> This function checks the input character string to determine
 C> whether it contains a valid FXY (descriptor) value.
 C>

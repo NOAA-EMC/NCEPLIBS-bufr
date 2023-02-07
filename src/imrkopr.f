@@ -28,10 +28,10 @@ C-----------------------------------------------------------------------
       IF (LEN(NEMO).LT.6) THEN
         IMRKOPR = 0
       ELSE IF ( ( NEMO(4:6).EQ.'255' )
-     +			.AND.
-     +	       ( ( NEMO(1:3).EQ.'223' ) .OR. ( NEMO(1:3).EQ.'224' ) .OR.
-     +	         ( NEMO(1:3).EQ.'225' ) .OR. ( NEMO(1:3).EQ.'232' ) ) )
-     +			THEN
+     +                  .AND.
+     +         ( ( NEMO(1:3).EQ.'223' ) .OR. ( NEMO(1:3).EQ.'224' ) .OR.
+     +           ( NEMO(1:3).EQ.'225' ) .OR. ( NEMO(1:3).EQ.'232' ) ) )
+     +                  THEN
         IMRKOPR = 1
       ELSE
         IMRKOPR = 0

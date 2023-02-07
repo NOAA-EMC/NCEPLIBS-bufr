@@ -93,10 +93,10 @@ C>                 -   'IN' = input operations with table processing
 C>                 -   'INX' = input operations w/o table processing
 C>                 -   'OUX' = output operations w/o table processing
 C>                 -   'OUT' = output operations with table processing
-C>                 -  'SEC3' = same as 'IN', except use Section 3 of input 
+C>                 -  'SEC3' = same as 'IN', except use Section 3 of input
 C>                              messages for decoding rather than DX BUFR
 C>                              table information from LUNDX; in this case
-C>                              LUNDX is ignored, and user must provide 
+C>                              LUNDX is ignored, and user must provide
 C>                              appropriate [master BUFR tables](@ref dfbfmstab)
 C>                              within the directory specified by a subsequent
 C>                              call to subroutine mtinfo()
@@ -153,7 +153,7 @@ C> @authors J. Woollen, J. Ator,  D. Keyser @date 1994-01-06
       COMMON /QUIET / IPRT
 
       CHARACTER*(*) IO
-      CHARACTER*255 FILENAME,FILEACC   
+      CHARACTER*255 FILENAME,FILEACC
       CHARACTER*128 BORT_STR,ERRSTR
       CHARACTER*28  CPRINT(0:3)
       CHARACTER*1   BSTR(4)
@@ -215,7 +215,7 @@ C        Allocate any arrays which are being dynamically sized.
 
 C        Figure out some important information about the local machine.
          CALL WRDLEN
-       
+
 C        Initialize some global variables.
          CALL BFRINI
 

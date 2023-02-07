@@ -9,7 +9,7 @@
  * Given the bit-wise representation of a descriptor,
  * this routine adds it to an ongoing array of descriptors, after
  * first making sure that there is enough room in the array.
- * 
+ *
  * If an array overflow occurs, then an appropriate error message
  * will be written via bort().
  *
@@ -29,12 +29,12 @@ void wrdesc( f77int desc, f77int *descary, f77int *ndescary )
 **  Is there room in descary for desc?
 */
     if ( ( *ndescary + 1 ) < MAXNC ) {
-	descary[(*ndescary)++] = desc;
+        descary[(*ndescary)++] = desc;
     }
     else {
-	sprintf( errstr, "BUFRLIB: WRDESC - EXPANDED SECTION 3 CONTAINS"
-			" MORE THAN %d DESCRIPTORS", MAXNC );
-	bort( errstr, ( f77int ) strlen( errstr ) );
+        sprintf( errstr, "BUFRLIB: WRDESC - EXPANDED SECTION 3 CONTAINS"
+                        " MORE THAN %d DESCRIPTORS", MAXNC );
+        bort( errstr, ( f77int ) strlen( errstr ) );
     }
 
     return;

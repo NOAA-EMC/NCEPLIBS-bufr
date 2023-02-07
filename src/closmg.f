@@ -19,7 +19,7 @@ C> 2014-12-10 | J. Ator | Use modules instead of COMMON blocks.
 C> 2022-08-04 | J. Woollen | Added 8-byte wrapper.
 C>
 C> @author J. Woollen, D. Keyser @date 1994-01-06
-      
+
 C> This subroutine closes the BUFR message that is currently open for
 C> writing within internal arrays associated with logical unit
 C> ABS(LUNIN), and it then writes the message to that logical unit.

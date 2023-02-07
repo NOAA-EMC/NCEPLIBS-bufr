@@ -10,11 +10,11 @@ C>
 C> @author J. Ator
 C> @date 2014-12-10
 
-	MODULE MODV_MAXJL
+        MODULE MODV_MAXJL
 
 C>        @var maxjl
 C>        Maximum number of entries in the internal jump/link table.
 
-	  INTEGER :: MAXJL = 96000
+          INTEGER :: MAXJL = 96000
 
-	END MODULE
+        END MODULE

@@ -58,73 +58,73 @@ C> | 2007-01-19 | J. Ator | Original author |
 C> | 2021-01-08 | J. Ator | Modified mstabs array declarations for GNUv10 portability |
 C> | 2021-05-17 | J. Ator | Allow up to 24 characters in cmunit |
 C>
-	SUBROUTINE RDMTBB ( LUNSTB, LUNLTB, MXMTBB,
-     .			    IMT, IMTV, IOGCE, ILTV,
-     .			    NMTBB, IMFXYN, CMSCL, CMSREF, CMBW,
-     .			    CMUNIT, CMMNEM, CMDSC, CMELEM )
+        SUBROUTINE RDMTBB ( LUNSTB, LUNLTB, MXMTBB,
+     .                      IMT, IMTV, IOGCE, ILTV,
+     .                      NMTBB, IMFXYN, CMSCL, CMSREF, CMBW,
+     .                      CMUNIT, CMMNEM, CMDSC, CMELEM )
 
-	CHARACTER*200	STLINE, LTLINE
-	CHARACTER*128	BORT_STR
-	CHARACTER*6	CMATCH, ADN30
-	CHARACTER*4	CMDSC(*)
-	CHARACTER	CMELEM(120,*)
-	CHARACTER	CMUNIT(24,*)
-	CHARACTER	CMSREF(12,*)
-	CHARACTER	CMMNEM(8,*)
-	CHARACTER	CMSCL(4,*), CMBW(4,*)
+        CHARACTER*200   STLINE, LTLINE
+        CHARACTER*128   BORT_STR
+        CHARACTER*6     CMATCH, ADN30
+        CHARACTER*4     CMDSC(*)
+        CHARACTER       CMELEM(120,*)
+        CHARACTER       CMUNIT(24,*)
+        CHARACTER       CMSREF(12,*)
+        CHARACTER       CMMNEM(8,*)
+        CHARACTER       CMSCL(4,*), CMBW(4,*)
 
-	INTEGER		IMFXYN(*)
+        INTEGER         IMFXYN(*)
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
 
-C	Call WRDLEN to initialize some important information about the
-C	local machine, just in case it hasn't already been called.
+C       Call WRDLEN to initialize some important information about the
+C       local machine, just in case it hasn't already been called.
 
-	CALL WRDLEN
+        CALL WRDLEN
 
-C	Read and parse the header lines of both files.
+C       Read and parse the header lines of both files.
 
-	CALL GETTBH ( LUNSTB, LUNLTB, 'B', IMT, IMTV, IOGCE, ILTV )
-	
-C	Read through the remainder of both files, merging the
-C	contents into a unified set of master Table B arrays.
+        CALL GETTBH ( LUNSTB, LUNLTB, 'B', IMT, IMTV, IOGCE, ILTV )
 
-	NMTBB = 0
-	CALL GETNTBE ( LUNSTB, ISFXYN, STLINE, IERS )
-	CALL GETNTBE ( LUNLTB, ILFXYN, LTLINE, IERL )
-	DO WHILE ( ( IERS .EQ. 0 ) .OR. ( IERL .EQ. 0 ) )
-	  IF ( ( IERS .EQ. 0 ) .AND. ( IERL .EQ. 0 ) ) THEN
-	    IF ( ISFXYN .EQ. ILFXYN ) THEN
-	      CMATCH = ADN30 ( ISFXYN, 6 )
-	      GOTO 900
-	    ELSE IF ( ISFXYN .LT. ILFXYN ) THEN
-	      CALL SNTBBE ( ISFXYN, STLINE, MXMTBB,
-     .			    NMTBB, IMFXYN, CMSCL, CMSREF, CMBW,
-     .			    CMUNIT, CMMNEM, CMDSC, CMELEM )
-	      CALL GETNTBE ( LUNSTB, ISFXYN, STLINE, IERS )
-	    ELSE
-	      CALL SNTBBE ( ILFXYN, LTLINE, MXMTBB,
-     .			    NMTBB, IMFXYN, CMSCL, CMSREF, CMBW,
-     .			    CMUNIT, CMMNEM, CMDSC, CMELEM )
-	      CALL GETNTBE ( LUNLTB, ILFXYN, LTLINE, IERL )
-	    ENDIF
-	  ELSE IF ( IERS .EQ. 0 ) THEN
-	    CALL SNTBBE ( ISFXYN, STLINE, MXMTBB,
-     .			  NMTBB, IMFXYN, CMSCL, CMSREF, CMBW,
-     .			  CMUNIT, CMMNEM, CMDSC, CMELEM )
-	    CALL GETNTBE ( LUNSTB, ISFXYN, STLINE, IERS )
-	  ELSE IF ( IERL .EQ. 0 ) THEN
-	    CALL SNTBBE ( ILFXYN, LTLINE, MXMTBB,
-     .			  NMTBB, IMFXYN, CMSCL, CMSREF, CMBW,
-     .			  CMUNIT, CMMNEM, CMDSC, CMELEM )
-	    CALL GETNTBE ( LUNLTB, ILFXYN, LTLINE, IERL )
-	  ENDIF
-	ENDDO
+C       Read through the remainder of both files, merging the
+C       contents into a unified set of master Table B arrays.
 
-	RETURN
- 900	WRITE(BORT_STR,'("BUFRLIB: RDMTBB - STANDARD AND LOCAL'//
+        NMTBB = 0
+        CALL GETNTBE ( LUNSTB, ISFXYN, STLINE, IERS )
+        CALL GETNTBE ( LUNLTB, ILFXYN, LTLINE, IERL )
+        DO WHILE ( ( IERS .EQ. 0 ) .OR. ( IERL .EQ. 0 ) )
+          IF ( ( IERS .EQ. 0 ) .AND. ( IERL .EQ. 0 ) ) THEN
+            IF ( ISFXYN .EQ. ILFXYN ) THEN
+              CMATCH = ADN30 ( ISFXYN, 6 )
+              GOTO 900
+            ELSE IF ( ISFXYN .LT. ILFXYN ) THEN
+              CALL SNTBBE ( ISFXYN, STLINE, MXMTBB,
+     .                      NMTBB, IMFXYN, CMSCL, CMSREF, CMBW,
+     .                      CMUNIT, CMMNEM, CMDSC, CMELEM )
+              CALL GETNTBE ( LUNSTB, ISFXYN, STLINE, IERS )
+            ELSE
+              CALL SNTBBE ( ILFXYN, LTLINE, MXMTBB,
+     .                      NMTBB, IMFXYN, CMSCL, CMSREF, CMBW,
+     .                      CMUNIT, CMMNEM, CMDSC, CMELEM )
+              CALL GETNTBE ( LUNLTB, ILFXYN, LTLINE, IERL )
+            ENDIF
+          ELSE IF ( IERS .EQ. 0 ) THEN
+            CALL SNTBBE ( ISFXYN, STLINE, MXMTBB,
+     .                    NMTBB, IMFXYN, CMSCL, CMSREF, CMBW,
+     .                    CMUNIT, CMMNEM, CMDSC, CMELEM )
+            CALL GETNTBE ( LUNSTB, ISFXYN, STLINE, IERS )
+          ELSE IF ( IERL .EQ. 0 ) THEN
+            CALL SNTBBE ( ILFXYN, LTLINE, MXMTBB,
+     .                    NMTBB, IMFXYN, CMSCL, CMSREF, CMBW,
+     .                    CMUNIT, CMMNEM, CMDSC, CMELEM )
+            CALL GETNTBE ( LUNLTB, ILFXYN, LTLINE, IERL )
+          ENDIF
+        ENDDO
+
+        RETURN
+ 900    WRITE(BORT_STR,'("BUFRLIB: RDMTBB - STANDARD AND LOCAL'//
      . ' TABLE B FILES BOTH CONTAIN SAME FXY NUMBER: ",5A)')
-     .	 CMATCH(1:1), '-', CMATCH(2:3), '-', CMATCH(4:6)	
-	CALL BORT(BORT_STR)
-	END
+     .   CMATCH(1:1), '-', CMATCH(2:3), '-', CMATCH(4:6)
+        CALL BORT(BORT_STR)
+        END

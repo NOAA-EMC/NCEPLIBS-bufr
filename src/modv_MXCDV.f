@@ -10,13 +10,13 @@ C>
 C> @author J. Ator
 C> @date 2014-12-10
 
-	MODULE MODV_MXCDV
+        MODULE MODV_MXCDV
 
 C>        @var mxcdv
 C>        Maximum number of data values that can be written into
 C>        a data subset of a compressed BUFR message by the
 C>        BUFRLIB software.
 
-	  INTEGER :: MXCDV = 3000
+          INTEGER :: MXCDV = 3000
 
-	END MODULE
+        END MODULE

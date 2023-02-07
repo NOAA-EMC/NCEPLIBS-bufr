@@ -4,7 +4,7 @@ C>
 C> ### Program history log
 C> Date | Programmer | Comments |
 C> -----|------------|----------|
-C> 2022-10-12 | J. Woollen  | Original author 
+C> 2022-10-12 | J. Woollen  | Original author
 C>
 C> @author J. Woollen @date 2022-10-12
 

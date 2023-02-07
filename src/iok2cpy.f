@@ -49,10 +49,10 @@ C-----------------------------------------------------------------------
 C     Do both logical units have the same internal table information?
 
       IF ( ICMPDX(LUI,LUO) .EQ. 1 ) THEN
-	IOK2CPY = 1
-	RETURN
+        IOK2CPY = 1
+        RETURN
       ENDIF
- 
+
 C     No, so get the Table A mnemonic from the message to be copied,
 C     then check whether that mnemonic is defined within the dictionary
 C     tables for the logical unit to be copied to.

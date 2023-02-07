@@ -10,12 +10,12 @@ C>
 C> @author J. Ator
 C> @date 2014-12-10
 
-	MODULE MODV_MXBTMSE
+        MODULE MODV_MXBTMSE
 
 C>        @var mxbtmse
 C>        Maximum number of "set" entries (set to a value of 0)
 C>        within a bitmap.
 
-	  INTEGER :: MXBTMSE = 500 
+          INTEGER :: MXBTMSE = 500
 
-	END MODULE
+        END MODULE

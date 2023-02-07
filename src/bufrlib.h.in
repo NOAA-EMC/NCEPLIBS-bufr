@@ -91,13 +91,13 @@
 
 /**
  * In order to ensure that the C <-> FORTRAN interface works properly (and
- * portably!), the default size of an "INTEGER" declared in FORTRAN must be 
+ * portably!), the default size of an "INTEGER" declared in FORTRAN must be
  * identical to that of an "int" declared in C.  If this is not the case (e.g.
  * some FORTRAN compilers, most notably AIX via the -qintsize= option, allow the
  * sizes of INTEGERs to be definitively prescribed outside of the source code
  * itself!), then the following conditional directive (or a variant of it) can
  * be used to ensure that the size of an "int" in C remains identical to that
- * of an "INTEGER" in FORTRAN. */ 
+ * of an "INTEGER" in FORTRAN. */
 #ifdef F77_INTSIZE_8
     typedef long f77int;
 #else
@@ -106,7 +106,7 @@
 
 /** Define the C object type that is equivalent to a REAL*8 in
  * Fortran. */
-typedef double f77r8; 
+typedef double f77r8;
 
 /*
 ** Declare prototypes for ANSI C compatibility.  This should be done for any
@@ -187,7 +187,7 @@ void elemdx( char *card, f77int *lun, size_t s1 );
  * Wraps BUFRLIB gets1loc() subroutine.
  *
  * @param s1mnem - Value whose location within Section 1 is to be determined.
- * @param iben - BUFR edition number. 
+ * @param iben - BUFR edition number.
  * @param isbyt - Number of starting byte within Section 1 for s1mnem.
  * @param iwid - Bit width for s1mnem.
  * @param iret - Return code.
@@ -489,8 +489,8 @@ void stseq( f77int *lun, f77int *irepct, f77int *idn, char *nemo, char *cseq, f7
  *
  * @param lunit - Fortran logical unit number for BUFR file.
  * @param usr - Data values.
- * @param i1 - First dimension of usr. 
- * @param i2 - Second dimension of usr. 
+ * @param i1 - First dimension of usr.
+ * @param i2 - Second dimension of usr.
  * @param iret - Number of replications of str read or written.
  * @param str - Mnemonic string.
  * @param s1 - Extra C-Fortran interface argument containing length of str variable.
@@ -504,8 +504,8 @@ void ufbint( f77int *lunit, f77r8 *usr, f77int *i1, f77int *i2, f77int *iret, ch
  *
  * @param lunit - Fortran logical unit number for BUFR file.
  * @param usr - Data values.
- * @param i1 - First dimension of usr. 
- * @param i2 - Second dimension of usr. 
+ * @param i1 - First dimension of usr.
+ * @param i2 - Second dimension of usr.
  * @param iret - Number of replications of str read or written.
  * @param str - Mnemonic string.
  * @param s1 - Extra C-Fortran interface argument containing length of str variable.

@@ -1,6 +1,6 @@
 C> @file
 C> @brief Read the next data subset from a BUFR message.
-      
+
 C> This subroutine reads the next data subset from a BUFR
 C> message into internal arrays.
 C>
@@ -17,7 +17,7 @@ C>
 C> <p>Logical unit LUNIT should have already been opened for
 C> input operations via a previous call to subroutine openbf(), and a
 C> BUFR message should have already been read into internal arrays via
-C> a previous call to one of the 
+C> a previous call to one of the
 C> [message-reading subroutines](@ref hierarchy).
 C>
 C> <p>Whenever this subroutine returns with IRET = 0, this indicates

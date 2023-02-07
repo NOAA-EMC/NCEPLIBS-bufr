@@ -35,7 +35,7 @@ C>                          - 0 = requested message was
 C>                                successfully read into scope
 C>                          - -1 = requested message number could not
 C>                                 be found in internal arrays
-C>      
+C>
 C> <b>Program history log:</b>
 C> | Date | Programmer | Comments |
 C> | -----|------------|----------|
@@ -124,11 +124,11 @@ C     Determine which table applies to this message.
       KNOWN = .FALSE.
       JJ = NDXTS
       DO WHILE ((.NOT.KNOWN).AND.(JJ.GE.1))
-	 IF (IPMSGS(JJ).LE.IMSG) THEN
-	    KNOWN = .TRUE.
-	 ELSE
-	    JJ = JJ - 1
-	 ENDIF
+         IF (IPMSGS(JJ).LE.IMSG) THEN
+            KNOWN = .TRUE.
+         ELSE
+            JJ = JJ - 1
+         ENDIF
       ENDDO
       IF (.NOT.KNOWN) GOTO 902
 
@@ -136,39 +136,39 @@ C     Is this table the one that is currently in scope?
 
       IF (JJ.NE.LDXTS) THEN
 
-C	 No, so reset the software to use the proper table.
+C        No, so reset the software to use the proper table.
 
-	 IF(IPRT.GE.2) THEN
+         IF(IPRT.GE.2) THEN
             CALL ERRWRT('+++++++++++++++++++++++++++++++++++++++++++++')
             WRITE ( UNIT=ERRSTR, FMT='(A,I3,A,I3,A,I6)' )
-     .	      'BUFRLIB: RDMEMM - RESETTING TO USE DX TABLE #', JJ,
-     .	      ' INSTEAD OF DX TABLE #', LDXTS,
+     .        'BUFRLIB: RDMEMM - RESETTING TO USE DX TABLE #', JJ,
+     .        ' INSTEAD OF DX TABLE #', LDXTS,
      .        ' FOR REQUESTED MESSAGE #', IMSG
             CALL ERRWRT(ERRSTR)
             CALL ERRWRT('+++++++++++++++++++++++++++++++++++++++++++++')
             CALL ERRWRT(' ')
-	 ENDIF
-	 CALL DXINIT(LUN,0)
+         ENDIF
+         CALL DXINIT(LUN,0)
 
-C	 Store each of the DX dictionary messages which constitute
-C	 this table.
+C        Store each of the DX dictionary messages which constitute
+C        this table.
 
-	 DO II = IFDXTS(JJ), (IFDXTS(JJ)+ICDXTS(JJ)-1)
-	    IF (II.EQ.NDXM) THEN
-	       NWRD = LDXM - IPDXM(II) + 1
-	    ELSE
-	       NWRD = IPDXM(II+1) - IPDXM(II)
-	    ENDIF
-	    DO KK = 1, NWRD
-	       MGWA(KK) = MDX(IPDXM(II)+KK-1)
-	    ENDDO
-	    CALL STBFDX(LUN,MGWA)
-	 ENDDO
+         DO II = IFDXTS(JJ), (IFDXTS(JJ)+ICDXTS(JJ)-1)
+            IF (II.EQ.NDXM) THEN
+               NWRD = LDXM - IPDXM(II) + 1
+            ELSE
+               NWRD = IPDXM(II+1) - IPDXM(II)
+            ENDIF
+            DO KK = 1, NWRD
+               MGWA(KK) = MDX(IPDXM(II)+KK-1)
+            ENDDO
+            CALL STBFDX(LUN,MGWA)
+         ENDDO
 
-C	 Rebuild the internal jump/link table.
+C        Rebuild the internal jump/link table.
 
-	 CALL MAKESTAB
-	 LDXTS = JJ
+         CALL MAKESTAB
+         LDXTS = JJ
       ENDIF
 
 C  READ MEMORY MESSAGE NUMBER IMSG INTO A MESSAGE BUFFER

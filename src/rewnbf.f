@@ -1,8 +1,8 @@
 C> @file
 C> @brief Store or restore parameters associated with a BUFR file.
-C> 
+C>
 C> ### Program History Log
-C> Date | Programmer | Comments 
+C> Date | Programmer | Comments
 C> -----|------------|----------
 C> 2003-11-04 | J. Woollen | original author (was in verification version but may have been in the production version at one time and then removed)
 C> 2003-11-04 | D. Keyser  | unified/portable for wrf; added documentation; outputs more complete diagnostic info when routine terminates abnormally
@@ -13,7 +13,7 @@ C> 2012-09-15 | J. Woollen | modified for c/i/o/bufr interface; replace fortran 
 C> 2014-12-10 | J. Ator    | use modules instead of common blocks
 C>
 C> @author Woollen @date 2003-11-04
-      
+
 C> This subroutine, depending on the value of ISR, will
 C> either:
 C> - store the current parameters associated with a BUFR file

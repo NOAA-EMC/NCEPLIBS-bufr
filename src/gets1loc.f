@@ -60,153 +60,153 @@ C> | 2005-11-29 | J. Ator | Original author |
 C> | 2006-04-14 | D. Keyser | Added options for 'YCEN' and 'CENT' |
 C> | 2022-08-04 | J. Woollen | Added 8-byte wrapper |
 
-	RECURSIVE SUBROUTINE GETS1LOC(S1MNEM,IBEN,ISBYT,IWID,IRET)
+        RECURSIVE SUBROUTINE GETS1LOC(S1MNEM,IBEN,ISBYT,IWID,IRET)
 
-	USE MODV_IM8B
+        USE MODV_IM8B
 
-	CHARACTER*(*) S1MNEM
+        CHARACTER*(*) S1MNEM
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
 
-C	Check for I8 integers.
+C       Check for I8 integers.
 
-	IF(IM8B) THEN
-	   IM8B=.FALSE.
+        IF(IM8B) THEN
+           IM8B=.FALSE.
 
-	   CALL X84(IBEN,MY_IBEN,1)
-	   CALL GETS1LOC(S1MNEM,MY_IBEN,ISBYT,IWID,IRET)
-	   CALL X48(ISBYT,ISBYT,1)
-	   CALL X48(IWID,IWID,1)
-	   CALL X48(IRET,IRET,1)
+           CALL X84(IBEN,MY_IBEN,1)
+           CALL GETS1LOC(S1MNEM,MY_IBEN,ISBYT,IWID,IRET)
+           CALL X48(ISBYT,ISBYT,1)
+           CALL X48(IWID,IWID,1)
+           CALL X48(IRET,IRET,1)
 
-	   IM8B=.TRUE.
-	   RETURN
-	ENDIF
+           IM8B=.TRUE.
+           RETURN
+        ENDIF
 
-	IRET = 0
-	IWID = 8
+        IRET = 0
+        IWID = 8
 
-	IF(S1MNEM.EQ.'LEN1') THEN
-	    ISBYT = 1 
-	    IWID = 24 
-	ELSE IF(S1MNEM.EQ.'BMT') THEN
-	    ISBYT = 4 
-	ELSE IF(S1MNEM.EQ.'OGCE') THEN
-	    IF(IBEN.EQ.3) THEN
-		ISBYT = 6 
-	    ELSE
+        IF(S1MNEM.EQ.'LEN1') THEN
+            ISBYT = 1
+            IWID = 24
+        ELSE IF(S1MNEM.EQ.'BMT') THEN
+            ISBYT = 4
+        ELSE IF(S1MNEM.EQ.'OGCE') THEN
+            IF(IBEN.EQ.3) THEN
+                ISBYT = 6
+            ELSE
 
 C               Note that this location is actually the same for both
 C               Edition 2 *and* Edition 4 of BUFR!
 
-		ISBYT = 5
-		IWID = 16
-	    ENDIF
-	ELSE IF(S1MNEM.EQ.'GSES') THEN
-	    IF(IBEN.EQ.3) THEN
-		ISBYT = 5
-	    ELSE IF(IBEN.EQ.4) THEN
-		ISBYT = 7
-		IWID = 16
-	    ELSE
-		IRET = -1
-	    ENDIF
-	ELSE IF(S1MNEM.EQ.'USN') THEN
-	    IF(IBEN.EQ.4) THEN
-		ISBYT = 9
-	    ELSE
-		ISBYT = 7
-	    ENDIF
-	ELSE IF(S1MNEM.EQ.'ISC2') THEN
-	    IWID = 1
-	    IF(IBEN.EQ.4) THEN
-		ISBYT = 10
-	    ELSE
-		ISBYT = 8
-	    ENDIF
-	ELSE IF(S1MNEM.EQ.'MTYP') THEN
-	    IF(IBEN.EQ.4) THEN
-		ISBYT = 11
-	    ELSE
-		ISBYT = 9
-	    ENDIF
-	ELSE IF(S1MNEM.EQ.'MSBTI') THEN
-	    IF(IBEN.EQ.4) THEN
-	        ISBYT = 12 
-	    ELSE
-		IRET = -1
-	    ENDIF
-	ELSE IF(S1MNEM.EQ.'MSBT') THEN
-	    IF(IBEN.EQ.4) THEN
-		ISBYT = 13 
-	    ELSE
-		ISBYT = 10
-	    ENDIF
-	ELSE IF(S1MNEM.EQ.'MTV') THEN
-	    IF(IBEN.EQ.4) THEN
-		ISBYT = 14 
-	    ELSE
-		ISBYT = 11 
-	    ENDIF
-	ELSE IF(S1MNEM.EQ.'MTVL') THEN
-	    IF(IBEN.EQ.4) THEN
-		ISBYT = 15 
-	    ELSE
-		ISBYT = 12 
-	    ENDIF
-	ELSE IF(S1MNEM.EQ.'YEAR') THEN
-	    IF(IBEN.EQ.4) THEN
-		ISBYT = 16
-		IWID = 16
-	    ELSE
-		IRET = -1
-	    ENDIF
-	ELSE IF(S1MNEM.EQ.'YCEN') THEN
-	    IF(IBEN.LT.4) THEN
-		ISBYT = 13
-	    ELSE
-		IRET = -1
-	    ENDIF
-	ELSE IF(S1MNEM.EQ.'CENT') THEN
-	    IF(IBEN.LT.4) THEN
-		ISBYT = 18
-	    ELSE
-		IRET = -1
-	    ENDIF
-	ELSE IF(S1MNEM.EQ.'MNTH') THEN
-	    IF(IBEN.EQ.4) THEN
-		ISBYT = 18 
-	    ELSE
-		ISBYT = 14 
-	    ENDIF
-	ELSE IF(S1MNEM.EQ.'DAYS') THEN
-	    IF(IBEN.EQ.4) THEN
-		ISBYT = 19 
-	    ELSE
-		ISBYT = 15 
-	    ENDIF
-	ELSE IF(S1MNEM.EQ.'HOUR') THEN
-	    IF(IBEN.EQ.4) THEN
-		ISBYT = 20 
-	    ELSE
-		ISBYT = 16 
-	    ENDIF
-	ELSE IF(S1MNEM.EQ.'MINU') THEN
-	    IF(IBEN.EQ.4) THEN
-		ISBYT = 21 
-	    ELSE
-		ISBYT = 17 
-	    ENDIF
-	ELSE IF(S1MNEM.EQ.'SECO') THEN
-	    IF(IBEN.EQ.4) THEN
-		ISBYT = 22 
-	    ELSE
-		IRET = -1 
-	    ENDIF
-	ELSE
-	    IRET = -1
-	ENDIF
+                ISBYT = 5
+                IWID = 16
+            ENDIF
+        ELSE IF(S1MNEM.EQ.'GSES') THEN
+            IF(IBEN.EQ.3) THEN
+                ISBYT = 5
+            ELSE IF(IBEN.EQ.4) THEN
+                ISBYT = 7
+                IWID = 16
+            ELSE
+                IRET = -1
+            ENDIF
+        ELSE IF(S1MNEM.EQ.'USN') THEN
+            IF(IBEN.EQ.4) THEN
+                ISBYT = 9
+            ELSE
+                ISBYT = 7
+            ENDIF
+        ELSE IF(S1MNEM.EQ.'ISC2') THEN
+            IWID = 1
+            IF(IBEN.EQ.4) THEN
+                ISBYT = 10
+            ELSE
+                ISBYT = 8
+            ENDIF
+        ELSE IF(S1MNEM.EQ.'MTYP') THEN
+            IF(IBEN.EQ.4) THEN
+                ISBYT = 11
+            ELSE
+                ISBYT = 9
+            ENDIF
+        ELSE IF(S1MNEM.EQ.'MSBTI') THEN
+            IF(IBEN.EQ.4) THEN
+                ISBYT = 12
+            ELSE
+                IRET = -1
+            ENDIF
+        ELSE IF(S1MNEM.EQ.'MSBT') THEN
+            IF(IBEN.EQ.4) THEN
+                ISBYT = 13
+            ELSE
+                ISBYT = 10
+            ENDIF
+        ELSE IF(S1MNEM.EQ.'MTV') THEN
+            IF(IBEN.EQ.4) THEN
+                ISBYT = 14
+            ELSE
+                ISBYT = 11
+            ENDIF
+        ELSE IF(S1MNEM.EQ.'MTVL') THEN
+            IF(IBEN.EQ.4) THEN
+                ISBYT = 15
+            ELSE
+                ISBYT = 12
+            ENDIF
+        ELSE IF(S1MNEM.EQ.'YEAR') THEN
+            IF(IBEN.EQ.4) THEN
+                ISBYT = 16
+                IWID = 16
+            ELSE
+                IRET = -1
+            ENDIF
+        ELSE IF(S1MNEM.EQ.'YCEN') THEN
+            IF(IBEN.LT.4) THEN
+                ISBYT = 13
+            ELSE
+                IRET = -1
+            ENDIF
+        ELSE IF(S1MNEM.EQ.'CENT') THEN
+            IF(IBEN.LT.4) THEN
+                ISBYT = 18
+            ELSE
+                IRET = -1
+            ENDIF
+        ELSE IF(S1MNEM.EQ.'MNTH') THEN
+            IF(IBEN.EQ.4) THEN
+                ISBYT = 18
+            ELSE
+                ISBYT = 14
+            ENDIF
+        ELSE IF(S1MNEM.EQ.'DAYS') THEN
+            IF(IBEN.EQ.4) THEN
+                ISBYT = 19
+            ELSE
+                ISBYT = 15
+            ENDIF
+        ELSE IF(S1MNEM.EQ.'HOUR') THEN
+            IF(IBEN.EQ.4) THEN
+                ISBYT = 20
+            ELSE
+                ISBYT = 16
+            ENDIF
+        ELSE IF(S1MNEM.EQ.'MINU') THEN
+            IF(IBEN.EQ.4) THEN
+                ISBYT = 21
+            ELSE
+                ISBYT = 17
+            ENDIF
+        ELSE IF(S1MNEM.EQ.'SECO') THEN
+            IF(IBEN.EQ.4) THEN
+                ISBYT = 22
+            ELSE
+                IRET = -1
+            ENDIF
+        ELSE
+            IRET = -1
+        ENDIF
 
-	RETURN
-	END
+        RETURN
+        END

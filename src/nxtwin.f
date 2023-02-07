@@ -1,5 +1,5 @@
 C> @file
-C> @brief Computes the start and end indices of the next window.      
+C> @brief Computes the start and end indices of the next window.
 C>
 C> ### Program History Log
 C> Date | Programmer | Comments
@@ -15,7 +15,7 @@ C> 2009-05-07 | J. Ator    | Use lstjpb instead of lstrpc.
 C> 2014-12-10 | J. Ator    | Use modules instead of common blocks.
 C>
 C> @author WOOLLEN @date 1994-01-06
-      
+
 C> Given indices within the internal jump/link table which
 C> point to the start and end of an "rpc" window (which is an iteration of
 C> an 8-bit or 16-bit delayed replication sequence), this subroutine

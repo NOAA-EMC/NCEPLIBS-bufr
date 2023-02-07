@@ -13,49 +13,49 @@ C>
 C> @author J. Ator
 C> @date 2014-12-10
 
-	MODULE MODA_MSTABS
+        MODULE MODA_MSTABS
 
 C>        Number of master Table B entries (up to a maximum of MXMTBB).
-	  INTEGER :: NMTB
+          INTEGER :: NMTB
 C>
 C>        Number of master Table D entries (up to a maximum of MXMTBD).
-	  INTEGER :: NMTD
+          INTEGER :: NMTD
 C>
 C>        Bit-wise representations of FXY numbers for master Table B.
-	  INTEGER, ALLOCATABLE :: IBFXYN(:)
+          INTEGER, ALLOCATABLE :: IBFXYN(:)
 C>
 C>        Scale factors corresponding to ibfxyn.
-	  CHARACTER, ALLOCATABLE :: CBSCL(:,:)
+          CHARACTER, ALLOCATABLE :: CBSCL(:,:)
 C>
 C>        Reference values corresponding to ibfxyn.
-	  CHARACTER, ALLOCATABLE :: CBSREF(:,:)
+          CHARACTER, ALLOCATABLE :: CBSREF(:,:)
 C>
 C>        Bit widths corresponding to ibfxyn.
-	  CHARACTER, ALLOCATABLE :: CBBW(:,:)
+          CHARACTER, ALLOCATABLE :: CBBW(:,:)
 C>
 C>        Units corresponding to ibfxyn.
-	  CHARACTER, ALLOCATABLE :: CBUNIT(:,:)
+          CHARACTER, ALLOCATABLE :: CBUNIT(:,:)
 C>
 C>        Mnemonics corresponding to ibfxyn.
-	  CHARACTER, ALLOCATABLE :: CBMNEM(:,:)
+          CHARACTER, ALLOCATABLE :: CBMNEM(:,:)
 C>
 C>        Element names corresponding to ibfxyn.
-	  CHARACTER, ALLOCATABLE :: CBELEM(:,:)
+          CHARACTER, ALLOCATABLE :: CBELEM(:,:)
 C>
 C>        Bit-wise representations of FXY numbers for master Table D.
-	  INTEGER, ALLOCATABLE :: IDFXYN(:)
+          INTEGER, ALLOCATABLE :: IDFXYN(:)
 C>
 C>        Sequence names corresponding to idfxyn.
-	  CHARACTER, ALLOCATABLE :: CDSEQ(:,:)
+          CHARACTER, ALLOCATABLE :: CDSEQ(:,:)
 C>
 C>        Mnemonics corresponding to idfxyn.
-	  CHARACTER, ALLOCATABLE :: CDMNEM(:,:)
+          CHARACTER, ALLOCATABLE :: CDMNEM(:,:)
 C>
 C>        Numbers of child descriptors corresponding to idfxyn.
-	  INTEGER, ALLOCATABLE :: NDELEM(:)
+          INTEGER, ALLOCATABLE :: NDELEM(:)
 C>
 C>        Bit-wise representations of child descriptors corresponding
 C>        to idfxyn.
-	  INTEGER, ALLOCATABLE :: IDEFXY(:)
+          INTEGER, ALLOCATABLE :: IDEFXY(:)
 
-	END MODULE
+        END MODULE

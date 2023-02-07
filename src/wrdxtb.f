@@ -4,11 +4,11 @@ C>
 C> ### Program History Log
 C> Date | Programmer | Comments |
 C> -----|------------|----------|
-C> 2009-03-23 | J. Ator | Original author, using logic from writdx() 
-C> 2012-04-06 | J. Ator | Prevent storing of more than 255 Table A, Table B, or Table D descriptors in any single DX BUFR tables message 
-C> 2014-11-14 | J. Ator | Replace ipkm() calss with pkb() calls 
-C> 2014-12-10 | J. Ator | Use modules instead of COMMON blocks 
-C> 2022-10-04 | J. Ator | Added 8-byte wrapper 
+C> 2009-03-23 | J. Ator | Original author, using logic from writdx()
+C> 2012-04-06 | J. Ator | Prevent storing of more than 255 Table A, Table B, or Table D descriptors in any single DX BUFR tables message
+C> 2014-11-14 | J. Ator | Replace ipkm() calss with pkb() calls
+C> 2014-12-10 | J. Ator | Use modules instead of COMMON blocks
+C> 2022-10-04 | J. Ator | Added 8-byte wrapper
 C>
 C> @author J. Ator @date 2009-03-23
 

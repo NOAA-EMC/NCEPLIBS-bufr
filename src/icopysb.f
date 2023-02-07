@@ -1,6 +1,6 @@
 C> @file
 C> @brief Copy a BUFR data subset.
-      
+
 C> This function calls BUFRLIB subroutine copysb() and passes
 C> back its return code as the function value.
 C>
@@ -33,14 +33,14 @@ C> | 2022-10-04 | J. Ator | Added 8-byte wrapper |
       USE MODV_IM8B
 
       IF(IM8B) THEN
-	IM8B=.FALSE.
+        IM8B=.FALSE.
 
-	CALL X84(LUNIN,MY_LUNIN,1)
-	CALL X84(LUNOT,MY_LUNOT,1)
-	IRET=ICOPYSB(MY_LUNIN,MY_LUNOT)
+        CALL X84(LUNIN,MY_LUNIN,1)
+        CALL X84(LUNOT,MY_LUNOT,1)
+        IRET=ICOPYSB(MY_LUNIN,MY_LUNOT)
 
-	IM8B=.TRUE.
-	RETURN
+        IM8B=.TRUE.
+        RETURN
       ENDIF
 
       CALL COPYSB(LUNIN,LUNOT,IRET)

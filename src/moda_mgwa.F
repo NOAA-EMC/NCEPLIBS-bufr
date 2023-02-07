@@ -9,9 +9,9 @@ C> BUFR message.
 C>
 C> @author J. Woollen @date 1994-01-06
 
-	MODULE MODA_MGWA
+        MODULE MODA_MGWA
 
 C>    Temporary working copy of BUFR message.
-	  INTEGER, ALLOCATABLE :: MGWA(:)
+          INTEGER, ALLOCATABLE :: MGWA(:)
 
-	END MODULE
+        END MODULE

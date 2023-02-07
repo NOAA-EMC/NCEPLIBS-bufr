@@ -14,7 +14,7 @@
  *  and associated value upon which the first FXY number and its
  *  associated value depend, for example when the meaning of an
  *  originating sub-center value depends on the identity of the
- *  originating center for which the sub-center in question is a 
+ *  originating center for which the sub-center in question is a
  *  member.
  *
  *  @author J. Ator
@@ -72,104 +72,104 @@
  * | 2018-01-11 | J. Ator | Original author |
  */
 void srchtbf( f77int *ifxyi, f77int *ivali, f77int *ifxyd, f77int *mxfxyd, f77int *ivald,
-	      char *meaning, f77int *mxmng, f77int *lnmng, f77int *iret )
+              char *meaning, f77int *mxmng, f77int *lnmng, f77int *iret )
 {
-	struct code_flag_entry key, *pkey, *pcfe, *pbs;
+        struct code_flag_entry key, *pkey, *pcfe, *pbs;
 
-	int ipt, ii, slmng;
+        int ipt, ii, slmng;
 
-	*iret = -1;
+        *iret = -1;
 
-	/*
-	**  Initialize some values for searching the internal table.
-	*/
+        /*
+        **  Initialize some values for searching the internal table.
+        */
 
-	key.iffxyn = *ifxyi;
-	key.ifval = *ivali;
-	key.iffxynd = ifxyd[0];
-	key.ifvald = *ivald;
+        key.iffxyn = *ifxyi;
+        key.ifval = *ivali;
+        key.iffxynd = ifxyd[0];
+        key.ifvald = *ivald;
 
-	pkey = &key;
-	pcfe = &cfe[0];
+        pkey = &key;
+        pcfe = &cfe[0];
 
-	/*
-	**  Search for a matching entry.
-	*/
+        /*
+        **  Search for a matching entry.
+        */
         pbs = ( struct code_flag_entry * ) bsearch( pkey, pcfe, ( size_t ) nmtf,
-			sizeof( struct code_flag_entry ),
-			( int (*) ( const void *, const void * ) ) cmpstia1 );
+                        sizeof( struct code_flag_entry ),
+                        ( int (*) ( const void *, const void * ) ) cmpstia1 );
         if ( pbs != NULL ) {
-	    /*
-	    **  A matching entry was found, so set the appropriate output
-	    **  values and return.
-	    */
-	    ipt = pbs - pcfe;
-	    slmng = strlen( cfe[ipt].ifmeaning );
-	    *lnmng = ( *mxmng > slmng ? slmng : *mxmng );
-	    strncpy( meaning, &cfe[ipt].ifmeaning[0], *lnmng );
-	    *iret = 0;
-	    return;
-	}
+            /*
+            **  A matching entry was found, so set the appropriate output
+            **  values and return.
+            */
+            ipt = pbs - pcfe;
+            slmng = strlen( cfe[ipt].ifmeaning );
+            *lnmng = ( *mxmng > slmng ? slmng : *mxmng );
+            strncpy( meaning, &cfe[ipt].ifmeaning[0], *lnmng );
+            *iret = 0;
+            return;
+        }
 
-	/*
-	**  Was a particular dependency specified in the input?
-	*/
-	if ( key.iffxynd != -1 ) {
-	    /*
-	    **  YES, so there's nothing else to do.
-	    */
-	    return;
-	}
-	
-	/*
-	**  NO, so check whether the given Table B descriptor and value have any
-	**  dependencies, and if so then return a list of those dependencies.
-	*/
+        /*
+        **  Was a particular dependency specified in the input?
+        */
+        if ( key.iffxynd != -1 ) {
+            /*
+            **  YES, so there's nothing else to do.
+            */
+            return;
+        }
+
+        /*
+        **  NO, so check whether the given Table B descriptor and value have any
+        **  dependencies, and if so then return a list of those dependencies.
+        */
         pbs = ( struct code_flag_entry * ) bsearch( pkey, pcfe, ( size_t ) nmtf,
-			sizeof( struct code_flag_entry ),
-			( int (*) ( const void *, const void * ) ) cmpstia2 );
+                        sizeof( struct code_flag_entry ),
+                        ( int (*) ( const void *, const void * ) ) cmpstia2 );
         if ( pbs == NULL ) {
-	    /*
-	    **  There are no dependencies.
-	    */
-	    return;
-	}
+            /*
+            **  There are no dependencies.
+            */
+            return;
+        }
 
-	/*
-	**  Store the dependency that was returned by the secondary search.
-	**  However, there may be others within the internal table, so we'll
-	**  also need to check for those.
-	*/
-	ipt = pbs - pcfe;
-	*iret = 0;
-	ifxyd[(*iret)++] = cfe[ipt].iffxynd;
+        /*
+        **  Store the dependency that was returned by the secondary search.
+        **  However, there may be others within the internal table, so we'll
+        **  also need to check for those.
+        */
+        ipt = pbs - pcfe;
+        *iret = 0;
+        ifxyd[(*iret)++] = cfe[ipt].iffxynd;
 
-	/*
-	**  Since the internal table is sorted, check immediately before and
-	**  after the returned dependency for any additional table entries which
-	**  correspond to the same Table B descriptor and value, but for which the
-	**  dependency is different.  If any such additional dependencies are
-	**  found, return those as well.
-	*/
-	ii = ipt - 1;
-	while ( ( ii >= 0 ) &&
-		( *iret < *mxfxyd ) &&
-		( cfe[ii].iffxyn == key.iffxyn ) &&
-		( cfe[ii].ifval == key.ifval ) ) {
-	    if ( cfe[ii].iffxynd < ifxyd[(*iret)-1] )
-		    ifxyd[(*iret)++] = cfe[ii].iffxynd;
-	    ii--;
-	}
-	ii = ipt + 1;
-	while ( ( ii < nmtf ) &&
-		( *iret < *mxfxyd ) &&
-		( cfe[ii].iffxyn == key.iffxyn ) &&
-		( cfe[ii].ifval == key.ifval ) ) {
-	    if ( ( cfe[ii].iffxynd > ifxyd[(*iret)-1] ) &&
-		 ( cfe[ii].iffxynd > cfe[ipt].iffxynd ) )
-		    ifxyd[(*iret)++] = cfe[ii].iffxynd;
-	    ii++;
-	}
+        /*
+        **  Since the internal table is sorted, check immediately before and
+        **  after the returned dependency for any additional table entries which
+        **  correspond to the same Table B descriptor and value, but for which the
+        **  dependency is different.  If any such additional dependencies are
+        **  found, return those as well.
+        */
+        ii = ipt - 1;
+        while ( ( ii >= 0 ) &&
+                ( *iret < *mxfxyd ) &&
+                ( cfe[ii].iffxyn == key.iffxyn ) &&
+                ( cfe[ii].ifval == key.ifval ) ) {
+            if ( cfe[ii].iffxynd < ifxyd[(*iret)-1] )
+                    ifxyd[(*iret)++] = cfe[ii].iffxynd;
+            ii--;
+        }
+        ii = ipt + 1;
+        while ( ( ii < nmtf ) &&
+                ( *iret < *mxfxyd ) &&
+                ( cfe[ii].iffxyn == key.iffxyn ) &&
+                ( cfe[ii].ifval == key.ifval ) ) {
+            if ( ( cfe[ii].iffxynd > ifxyd[(*iret)-1] ) &&
+                 ( cfe[ii].iffxynd > cfe[ipt].iffxynd ) )
+                    ifxyd[(*iret)++] = cfe[ii].iffxynd;
+            ii++;
+        }
 
-	return;
+        return;
 }

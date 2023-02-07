@@ -10,7 +10,7 @@ C> mnemonic, counting from the beginning of the subset.  From there,
 C> it then searches in either a forward or backward direction for a
 C> specific occurrence of a nearby mnemonic, and if found
 C> stores the specified data value in the corresponding location
-C> within the subset.  
+C> within the subset.
 C>
 C> @author J. Ator
 C> @date 2016-07-29
@@ -53,59 +53,59 @@ C> | -----|------------|----------|
 C> | 2016-07-29 | J. Ator | Original author |
 C> | 2022-10-04 | J. Ator | Added 8-byte wrapper |
 
-	RECURSIVE SUBROUTINE SETVALNB
-     .		( LUNIT, TAGPV, NTAGPV, TAGNB, NTAGNB, R8VAL, IRET )
+        RECURSIVE SUBROUTINE SETVALNB
+     .          ( LUNIT, TAGPV, NTAGPV, TAGNB, NTAGNB, R8VAL, IRET )
 
-	USE MODA_USRINT
-	USE MODA_MSGCWD
-	USE MODA_TABLES
-	USE MODV_IM8B
+        USE MODA_USRINT
+        USE MODA_MSGCWD
+        USE MODA_TABLES
+        USE MODV_IM8B
 
-	CHARACTER*(*) TAGPV, TAGNB
+        CHARACTER*(*) TAGPV, TAGNB
 
-	REAL*8  R8VAL
+        REAL*8  R8VAL
 
 C----------------------------------------------------------------------
 C----------------------------------------------------------------------
 
-C	Check for I8 integers.
+C       Check for I8 integers.
 
-	IF(IM8B) THEN
-	   IM8B=.FALSE.
+        IF(IM8B) THEN
+           IM8B=.FALSE.
 
-	   CALL X84 ( LUNIT, MY_LUNIT, 1 )
-	   CALL X84 ( NTAGPV, MY_NTAGPV, 1 )
-	   CALL X84 ( NTAGNB, MY_NTAGNB, 1 )
-	   CALL SETVALNB ( MY_LUNIT, TAGPV, MY_NTAGPV, TAGNB, MY_NTAGNB,
-     .			   R8VAL, IRET )
-	   CALL X48 ( IRET, IRET, 1 )
+           CALL X84 ( LUNIT, MY_LUNIT, 1 )
+           CALL X84 ( NTAGPV, MY_NTAGPV, 1 )
+           CALL X84 ( NTAGNB, MY_NTAGNB, 1 )
+           CALL SETVALNB ( MY_LUNIT, TAGPV, MY_NTAGPV, TAGNB, MY_NTAGNB,
+     .                     R8VAL, IRET )
+           CALL X48 ( IRET, IRET, 1 )
 
-	   IM8B=.TRUE.
-	   RETURN
-	ENDIF
+           IM8B=.TRUE.
+           RETURN
+        ENDIF
 
-	IRET = -1
+        IRET = -1
 
-C	Get LUN from LUNIT.
+C       Get LUN from LUNIT.
 
-	CALL STATUS (LUNIT, LUN, IL, IM )
-	IF ( IL .LE. 0 ) RETURN
-	IF ( INODE(LUN) .NE. INV(1,LUN) ) RETURN
+        CALL STATUS (LUNIT, LUN, IL, IM )
+        IF ( IL .LE. 0 ) RETURN
+        IF ( INODE(LUN) .NE. INV(1,LUN) ) RETURN
 
-C	Starting from the beginning of the subset, locate the (NTAGPV)th
-C	occurrence of TAGPV.
+C       Starting from the beginning of the subset, locate the (NTAGPV)th
+C       occurrence of TAGPV.
 
-	CALL FSTAG( LUN, TAGPV, NTAGPV, 1, NPV, IERFT )
-	IF ( IERFT .NE. 0 ) RETURN
+        CALL FSTAG( LUN, TAGPV, NTAGPV, 1, NPV, IERFT )
+        IF ( IERFT .NE. 0 ) RETURN
 
-C	Now, starting from the (NTAGPV)th occurrence of TAGPV, search
-C	forward or backward for the (NTAGNB)th occurrence of TAGNB.
+C       Now, starting from the (NTAGPV)th occurrence of TAGPV, search
+C       forward or backward for the (NTAGNB)th occurrence of TAGNB.
 
-	CALL FSTAG( LUN, TAGNB, NTAGNB, NPV, NNB, IERFT )
-	IF ( IERFT .NE. 0 ) RETURN
+        CALL FSTAG( LUN, TAGNB, NTAGNB, NPV, NNB, IERFT )
+        IF ( IERFT .NE. 0 ) RETURN
 
-	IRET = 0
-	VAL(NNB,LUN) = R8VAL
-	    
-	RETURN
-	END
+        IRET = 0
+        VAL(NNB,LUN) = R8VAL
+
+        RETURN
+        END

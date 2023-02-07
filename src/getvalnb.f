@@ -55,59 +55,59 @@ C> | 2014-10-02 | J. Ator | Modified to use fstag() |
 C> | 2014-12-10 | J. Ator | Use modules instead of COMMON blocks |
 C> | 2022-10-04 | J. Ator | Added 8-byte wrapper |
 
-	RECURSIVE FUNCTION GETVALNB
-     .		( LUNIT, TAGPV, NTAGPV, TAGNB, NTAGNB )
-     .		RESULT ( R8VAL )
+        RECURSIVE FUNCTION GETVALNB
+     .          ( LUNIT, TAGPV, NTAGPV, TAGNB, NTAGNB )
+     .          RESULT ( R8VAL )
 
         USE MODV_BMISS
-	USE MODV_IM8B
+        USE MODV_IM8B
 
-	USE MODA_USRINT
-	USE MODA_MSGCWD
-	USE MODA_TABLES
+        USE MODA_USRINT
+        USE MODA_MSGCWD
+        USE MODA_TABLES
 
-	CHARACTER*(*) TAGPV, TAGNB
+        CHARACTER*(*) TAGPV, TAGNB
 
-	REAL*8 R8VAL
+        REAL*8 R8VAL
 
 C----------------------------------------------------------------------
 C----------------------------------------------------------------------
 
-C	Check for I8 integers.
+C       Check for I8 integers.
 
-	IF(IM8B) THEN
-	   IM8B=.FALSE.
+        IF(IM8B) THEN
+           IM8B=.FALSE.
 
-	   CALL X84(LUNIT,MY_LUNIT,1)
-	   CALL X84(NTAGPV,MY_NTAGPV,1)
-	   CALL X84(NTAGNB,MY_NTAGNB,1)
-	   R8VAL=GETVALNB(MY_LUNIT,TAGPV,MY_NTAGPV,TAGNB,MY_NTAGNB)
+           CALL X84(LUNIT,MY_LUNIT,1)
+           CALL X84(NTAGPV,MY_NTAGPV,1)
+           CALL X84(NTAGNB,MY_NTAGNB,1)
+           R8VAL=GETVALNB(MY_LUNIT,TAGPV,MY_NTAGPV,TAGNB,MY_NTAGNB)
 
-	   IM8B=.TRUE.
-	   RETURN
-	ENDIF
+           IM8B=.TRUE.
+           RETURN
+        ENDIF
 
-	R8VAL = BMISS
+        R8VAL = BMISS
 
-C	Get LUN from LUNIT.
+C       Get LUN from LUNIT.
 
-	CALL STATUS (LUNIT, LUN, IL, IM )
-	IF ( IL .GE. 0 ) RETURN
-	IF ( INODE(LUN) .NE. INV(1,LUN) ) RETURN
+        CALL STATUS (LUNIT, LUN, IL, IM )
+        IF ( IL .GE. 0 ) RETURN
+        IF ( INODE(LUN) .NE. INV(1,LUN) ) RETURN
 
-C	Starting from the beginning of the subset, locate the (NTAGPV)th
-C	occurrence of TAGPV.
+C       Starting from the beginning of the subset, locate the (NTAGPV)th
+C       occurrence of TAGPV.
 
-	CALL FSTAG( LUN, TAGPV, NTAGPV, 1, NPV, IRET )
-	IF ( IRET .NE. 0 ) RETURN
+        CALL FSTAG( LUN, TAGPV, NTAGPV, 1, NPV, IRET )
+        IF ( IRET .NE. 0 ) RETURN
 
-C	Now, starting from the (NTAGPV)th occurrence of TAGPV, search
-C	forward or backward for the (NTAGNB)th occurrence of TAGNB.
+C       Now, starting from the (NTAGPV)th occurrence of TAGPV, search
+C       forward or backward for the (NTAGNB)th occurrence of TAGNB.
 
-	CALL FSTAG( LUN, TAGNB, NTAGNB, NPV, NNB, IRET )
-	IF ( IRET .NE. 0 ) RETURN
+        CALL FSTAG( LUN, TAGNB, NTAGNB, NPV, NNB, IRET )
+        IF ( IRET .NE. 0 ) RETURN
 
-	R8VAL = VAL(NNB,LUN)
-	    
-	RETURN
-	END
+        R8VAL = VAL(NNB,LUN)
+
+        RETURN
+        END

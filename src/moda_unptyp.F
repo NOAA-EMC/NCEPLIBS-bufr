@@ -9,7 +9,7 @@ C> as input, the type of the BUFR message.
 C>
 C> @author J. Woollen @date 1994-01-06
 
-	MODULE MODA_UNPTYP
+        MODULE MODA_UNPTYP
 
 C>      BUFR message types:
 C>      - 0 message contains data subset byte counters and other
@@ -17,6 +17,6 @@ C>      non-standard enhancements
 C>      - 1 message is fully standard and contains no
 C>      non-standard enhancements
 C>      - 2 message is compressed
-	  INTEGER, ALLOCATABLE :: MSGUNP(:)
+          INTEGER, ALLOCATABLE :: MSGUNP(:)
 
-	END MODULE
+        END MODULE

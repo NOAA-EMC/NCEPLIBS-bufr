@@ -1,6 +1,6 @@
 C> @file
 C> @brief Copy a BUFR data subset.
-C> pointers. 
+C> pointers.
 C>
 C> ### Program History Log
 C> Date | Programmer | Comments
@@ -20,7 +20,7 @@ C> 2014-12-10 | J. Ator    | Use modules instead of common blocks.
 C> 2015-09-24 | D. Stokes  | Fix missing declaration OF COMMON QUIET.
 C>
 C> @author Woollen @date 1994-01-06
-      
+
 C> This subroutine copies a BUFR data subset from one unit
 C> to another within internal memory and resets the pointers.
 C> If the subset will not fit into the output message, or

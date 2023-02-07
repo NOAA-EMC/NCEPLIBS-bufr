@@ -18,112 +18,112 @@ C> | 2012-09-15 | J. Woollen | Modified for C/I/O/BUFR interface; replace Fortra
 C> | 2014-12-10 | J. Ator    | Use modules instead of COMMON blocks |
 C> | 2022-08-04 | J. Woollen | Added 8-byte wrapper |
 
-	RECURSIVE SUBROUTINE CPDXMM( LUNIT )
+        RECURSIVE SUBROUTINE CPDXMM( LUNIT )
 
         USE MODV_MXDXTS
         USE MODV_IM8B
 
-	USE MODA_MGWA
-	USE MODA_MSGMEM
+        USE MODA_MGWA
+        USE MODA_MSGMEM
 
-	COMMON /QUIET/  IPRT
+        COMMON /QUIET/  IPRT
 
-	CHARACTER*128	ERRSTR
+        CHARACTER*128   ERRSTR
 
-	LOGICAL DONE
+        LOGICAL DONE
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
 
-C	Check for I8 integers
+C       Check for I8 integers
 
-	IF(IM8B) THEN
-	   IM8B=.FALSE.
+        IF(IM8B) THEN
+           IM8B=.FALSE.
 
-	   CALL X84(LUNIT,MY_LUNIT,1)
-	   CALL CPDXMM(MY_LUNIT)
+           CALL X84(LUNIT,MY_LUNIT,1)
+           CALL CPDXMM(MY_LUNIT)
 
-	   IM8B=.TRUE.
-	   RETURN
-	ENDIF
+           IM8B=.TRUE.
+           RETURN
+        ENDIF
 
-	IF ( NDXTS .GE. MXDXTS ) GOTO 900
+        IF ( NDXTS .GE. MXDXTS ) GOTO 900
 
-	ICT = 0
-	DONE = .FALSE.
+        ICT = 0
+        DONE = .FALSE.
         CALL STATUS(LUNIT,LUN,IL,IM)
 
-C	Read a complete dictionary table from LUNIT, as a set of one or
-C	more DX dictionary messages.
+C       Read a complete dictionary table from LUNIT, as a set of one or
+C       more DX dictionary messages.
 
-	DO WHILE ( .NOT. DONE )
+        DO WHILE ( .NOT. DONE )
           CALL RDMSGW ( LUNIT, MGWA, IER )
           IF ( IER .EQ. -1 ) THEN
 
-C	    Don't abort for an end-of-file condition, since it may be
-C	    possible for a file to end with dictionary messages.
-C	    Instead, backspace the file pointer and let the calling
-C	    routine diagnose the end-of-file condition and deal with
-C	    it as it sees fit.
+C           Don't abort for an end-of-file condition, since it may be
+C           possible for a file to end with dictionary messages.
+C           Instead, backspace the file pointer and let the calling
+C           routine diagnose the end-of-file condition and deal with
+C           it as it sees fit.
 
-	    CALL BACKBUFR(LUN) 
-	    DONE = .TRUE.
+            CALL BACKBUFR(LUN)
+            DONE = .TRUE.
           ELSE IF ( IER .EQ. -2 ) THEN
-	    GOTO 901
-	  ELSE IF ( IDXMSG(MGWA) .NE. 1 ) THEN
+            GOTO 901
+          ELSE IF ( IDXMSG(MGWA) .NE. 1 ) THEN
 
-C	    This is a non-DX dictionary message.  Assume we've reached
-C	    the end of the dictionary table, and backspace LUNIT so that
-C	    the next read (e.g. in the calling routine) will get this
-C	    same message.
+C           This is a non-DX dictionary message.  Assume we've reached
+C           the end of the dictionary table, and backspace LUNIT so that
+C           the next read (e.g. in the calling routine) will get this
+C           same message.
 
-	    CALL BACKBUFR(LUN) 
-	    DONE = .TRUE.
-	  ELSE IF ( IUPBS3(MGWA,'NSUB') .EQ. 0 ) THEN
+            CALL BACKBUFR(LUN)
+            DONE = .TRUE.
+          ELSE IF ( IUPBS3(MGWA,'NSUB') .EQ. 0 ) THEN
 
-C	    This is a DX dictionary message, but it doesn't contain any
-C	    actual dictionary information.  Assume we've reached the end
-C	    of the dictionary table.
+C           This is a DX dictionary message, but it doesn't contain any
+C           actual dictionary information.  Assume we've reached the end
+C           of the dictionary table.
 
-	    DONE = .TRUE.
-	  ELSE
+            DONE = .TRUE.
+          ELSE
 
-C	    Store this message into MODULE MSGMEM.
+C           Store this message into MODULE MSGMEM.
 
             ICT = ICT + 1
-	    IF ( ( NDXM + ICT ) .GT. MXDXM ) GOTO 902
+            IF ( ( NDXM + ICT ) .GT. MXDXM ) GOTO 902
             IPDXM(NDXM+ICT) = LDXM + 1
             LMEM = NMWRD(MGWA)
-	    IF ( ( LDXM + LMEM ) .GT. MXDXW ) GOTO 903
+            IF ( ( LDXM + LMEM ) .GT. MXDXW ) GOTO 903
             DO J = 1, LMEM
               MDX(LDXM+J) = MGWA(J)
             ENDDO
             LDXM = LDXM + LMEM
           ENDIF
-	ENDDO
+        ENDDO
 
-C	Update the table information within MODULE MSGMEM.
+C       Update the table information within MODULE MSGMEM.
 
-	IF ( ICT .GT. 0 ) THEN
+        IF ( ICT .GT. 0 ) THEN
           IFDXTS(NDXTS+1) = NDXM + 1
           ICDXTS(NDXTS+1) = ICT
           IPMSGS(NDXTS+1) = MSGP(0) + 1
           NDXM = NDXM + ICT
           NDXTS = NDXTS + 1
-	  IF ( IPRT .GE. 2 ) THEN
-	    CALL ERRWRT('+++++++++++++++++++++++++++++++++++++++++++++')
-	    WRITE ( UNIT=ERRSTR, FMT='(A,I3,A,I3,A)') 
-     .		'BUFRLIB: CPDXMM - STORED NEW DX TABLE #', NDXTS,
-     .		' CONSISTING OF ', ICT, ' MESSAGES'
-	    CALL ERRWRT(ERRSTR)
-	    CALL ERRWRT('+++++++++++++++++++++++++++++++++++++++++++++')
+          IF ( IPRT .GE. 2 ) THEN
+            CALL ERRWRT('+++++++++++++++++++++++++++++++++++++++++++++')
+            WRITE ( UNIT=ERRSTR, FMT='(A,I3,A,I3,A)')
+     .          'BUFRLIB: CPDXMM - STORED NEW DX TABLE #', NDXTS,
+     .          ' CONSISTING OF ', ICT, ' MESSAGES'
+            CALL ERRWRT(ERRSTR)
+            CALL ERRWRT('+++++++++++++++++++++++++++++++++++++++++++++')
             CALL ERRWRT(' ')
-	  ENDIF
-	ENDIF
+          ENDIF
+        ENDIF
 
-	RETURN
- 900	CALL BORT('BUFRLIB: CPDXMM - MXDXTS OVERFLOW')
- 901	CALL BORT('BUFRLIB: CPDXMM - UNEXPECTED READ ERROR')
- 902	CALL BORT('BUFRLIB: CPDXMM - MXDXM OVERFLOW')
- 903	CALL BORT('BUFRLIB: CPDXMM - MXDXW OVERFLOW')
-	END
+        RETURN
+ 900    CALL BORT('BUFRLIB: CPDXMM - MXDXTS OVERFLOW')
+ 901    CALL BORT('BUFRLIB: CPDXMM - UNEXPECTED READ ERROR')
+ 902    CALL BORT('BUFRLIB: CPDXMM - MXDXM OVERFLOW')
+ 903    CALL BORT('BUFRLIB: CPDXMM - MXDXW OVERFLOW')
+        END

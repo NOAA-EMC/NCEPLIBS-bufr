@@ -17,7 +17,7 @@ C> 2014-12-10 | J. Ator    | Use modules instead of common blocks.
 C> 2021-09-30 | J. Ator    | Replace jstchr with Fortran intrinsic adjustl.
 C>
 C> @author Woollen @date 1994-01-06
-      
+
 C> This subroutine decodes the scale factor, reference value,
 C> bit width and units (i.e., the "elements") from a Table B mnemonic
 C> definition card that was previously read from a user-supplied DX BUFR

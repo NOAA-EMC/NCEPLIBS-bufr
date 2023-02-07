@@ -2,7 +2,7 @@ C> @file
 C> @brief Read DX BUFR table information into internal arrays.
 C>
 C> ### Program History Log
-C> Date | Programmer | Comments 
+C> Date | Programmer | Comments
 C> -----|------------|----------
 C> 1994-01-06 | J. Woollen | original author
 C> 1998-07-08 | J. Woollen | replaced call to cray library routine "abort" with call to bort()
@@ -11,7 +11,7 @@ C> 2003-11-04 | D. Keyser  | unified/portable for wrf; documentation; more diagn
 C> 2009-04-21 | J. Ator    | use errwrt
 C>
 C> @author Woollen @date 1994-01-06
-      
+
 C> This subroutine generates internal arrays containing DX BUFR
 C> (dictionary) tables which are needed to read, write, initialize or
 C> append a BUFR file. The information used to create the internal

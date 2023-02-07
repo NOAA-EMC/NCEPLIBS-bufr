@@ -40,60 +40,60 @@ C> | -----|------------|----------|
 C> | 2016-06-07 | J. Ator | Original author |
 C> | 2022-08-04 | J. Woollen | Added 8-byte wrapper |
 
-	RECURSIVE SUBROUTINE GETTAGRE
-     .		( LUNIT, TAGI, NTAGI, TAGRE, NTAGRE, IRET )
+        RECURSIVE SUBROUTINE GETTAGRE
+     .          ( LUNIT, TAGI, NTAGI, TAGRE, NTAGRE, IRET )
 
-	USE MODA_USRINT
-	USE MODA_MSGCWD
-	USE MODA_TABLES
+        USE MODA_USRINT
+        USE MODA_MSGCWD
+        USE MODA_TABLES
         USE MODV_IM8B
 
-	CHARACTER*(*) TAGI, TAGRE
+        CHARACTER*(*) TAGI, TAGRE
 
-	CHARACTER*10 TAGTMP
+        CHARACTER*10 TAGTMP
 
 C----------------------------------------------------------------------
 C----------------------------------------------------------------------
 
-C	Check for I8 integers.
+C       Check for I8 integers.
 
-	IF(IM8B) THEN
-	   IM8B=.FALSE.
+        IF(IM8B) THEN
+           IM8B=.FALSE.
 
-	   CALL X84(LUNIT,MY_LUNIT,1)
-	   CALL X84(NTAGI,MY_NTAGI,1)
-	   CALL GETTAGRE(MY_LUNIT,TAGI,MY_NTAGI,TAGRE,NTAGRE,IRET)
-	   CALL X48(NTAGRE,NTAGRE,1)
-	   CALL X48(IRET,IRET,1)
+           CALL X84(LUNIT,MY_LUNIT,1)
+           CALL X84(NTAGI,MY_NTAGI,1)
+           CALL GETTAGRE(MY_LUNIT,TAGI,MY_NTAGI,TAGRE,NTAGRE,IRET)
+           CALL X48(NTAGRE,NTAGRE,1)
+           CALL X48(IRET,IRET,1)
 
-	   IM8B=.TRUE.
-	   RETURN
-	ENDIF
+           IM8B=.TRUE.
+           RETURN
+        ENDIF
 
-	IRET = -1
+        IRET = -1
 
-C	Get LUN from LUNIT.
+C       Get LUN from LUNIT.
 
-	CALL STATUS( LUNIT, LUN, IL, IM )
-	IF ( IL .EQ. 0 ) RETURN
-	IF ( INODE(LUN) .NE. INV(1,LUN) ) RETURN
+        CALL STATUS( LUNIT, LUN, IL, IM )
+        IF ( IL .EQ. 0 ) RETURN
+        IF ( INODE(LUN) .NE. INV(1,LUN) ) RETURN
 
-C	Get TAGRE and NTAGRE from the (NTAGI)th occurrence of TAGI.
+C       Get TAGRE and NTAGRE from the (NTAGI)th occurrence of TAGI.
 
-	CALL FSTAG( LUN, TAGI, NTAGI, 1, NI, IRET )
-	IF ( IRET .NE. 0 ) RETURN
-	NRE = NRFELM(NI,LUN)
-	IF ( NRE .GT. 0 ) THEN
-	    IRET = 0
-	    TAGRE = TAG(INV(NRE,LUN))
-	    CALL STRSUC( TAGRE, TAGTMP, LTRE )
-	    NTAGRE = 0
-	    DO II = 1, NRE
-		IF ( TAG(INV(II,LUN))(1:LTRE) .EQ. TAGRE(1:LTRE) ) THEN
-		  NTAGRE = NTAGRE + 1
-		END IF
-	    END DO
-	END IF
+        CALL FSTAG( LUN, TAGI, NTAGI, 1, NI, IRET )
+        IF ( IRET .NE. 0 ) RETURN
+        NRE = NRFELM(NI,LUN)
+        IF ( NRE .GT. 0 ) THEN
+            IRET = 0
+            TAGRE = TAG(INV(NRE,LUN))
+            CALL STRSUC( TAGRE, TAGTMP, LTRE )
+            NTAGRE = 0
+            DO II = 1, NRE
+                IF ( TAG(INV(II,LUN))(1:LTRE) .EQ. TAGRE(1:LTRE) ) THEN
+                  NTAGRE = NTAGRE + 1
+                END IF
+            END DO
+        END IF
 
-	RETURN
-	END
+        RETURN
+        END

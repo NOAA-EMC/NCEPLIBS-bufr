@@ -49,90 +49,90 @@ C> (when writing BUFR data subsets).
 C>
 C> @author J. Ator @date 2014-10-02
 
-	RECURSIVE SUBROUTINE NEMSPECS
-     .		( LUNIT, NEMO, NNEMO, NSCL, NREF, NBTS, IRET )
+        RECURSIVE SUBROUTINE NEMSPECS
+     .          ( LUNIT, NEMO, NNEMO, NSCL, NREF, NBTS, IRET )
 
-	USE MODA_USRINT
-	USE MODA_MSGCWD
-	USE MODA_TABLES
-	USE MODA_NRV203
+        USE MODA_USRINT
+        USE MODA_MSGCWD
+        USE MODA_TABLES
+        USE MODA_NRV203
         USE MODV_IM8B
 
-	CHARACTER*10  TAGN
+        CHARACTER*10  TAGN
 
-	CHARACTER*(*) NEMO
+        CHARACTER*(*) NEMO
 
 C----------------------------------------------------------------------
 C----------------------------------------------------------------------
 
-C	Check for I8 integers.
+C       Check for I8 integers.
 
-	IF(IM8B) THEN
-	   IM8B=.FALSE.
+        IF(IM8B) THEN
+           IM8B=.FALSE.
 
-	   CALL X84(LUNIT,MY_LUNIT,1)
-	   CALL X84(NNEMO,MY_NNEMO,1)
-	   CALL NEMSPECS(MY_LUNIT,NEMO,MY_NNEMO,NSCL,NREF,NBTS,IRET)
-	   CALL X48(NSCL,NSCL,1)
-	   CALL X48(NREF,NREF,1)
-	   CALL X48(NBTS,NBTS,1)
-	   CALL X48(IRET,IRET,1)
+           CALL X84(LUNIT,MY_LUNIT,1)
+           CALL X84(NNEMO,MY_NNEMO,1)
+           CALL NEMSPECS(MY_LUNIT,NEMO,MY_NNEMO,NSCL,NREF,NBTS,IRET)
+           CALL X48(NSCL,NSCL,1)
+           CALL X48(NREF,NREF,1)
+           CALL X48(NBTS,NBTS,1)
+           CALL X48(IRET,IRET,1)
 
-	   IM8B=.TRUE.
-	   RETURN
-	ENDIF
+           IM8B=.TRUE.
+           RETURN
+        ENDIF
 
-	IRET = -1
+        IRET = -1
 
-C	Get LUN from LUNIT.
+C       Get LUN from LUNIT.
 
-	CALL STATUS( LUNIT, LUN, IL, IM )
-	IF ( IL .EQ. 0 ) RETURN
-	IF ( INODE(LUN) .NE. INV(1,LUN) ) RETURN
+        CALL STATUS( LUNIT, LUN, IL, IM )
+        IF ( IL .EQ. 0 ) RETURN
+        IF ( INODE(LUN) .NE. INV(1,LUN) ) RETURN
 
-C	Starting from the beginning of the subset, locate the (NNEMO)th
-C	occurrence of NEMO.
+C       Starting from the beginning of the subset, locate the (NNEMO)th
+C       occurrence of NEMO.
 
-	CALL FSTAG( LUN, NEMO, NNEMO, 1, NIDX, IERFST )
-	IF ( IERFST .NE. 0 ) RETURN
+        CALL FSTAG( LUN, NEMO, NNEMO, 1, NIDX, IERFST )
+        IF ( IERFST .NE. 0 ) RETURN
 
-C	Confirm that NEMO is a Table B mnemonic.
+C       Confirm that NEMO is a Table B mnemonic.
 
-	NODE = INV(NIDX,LUN)
-	IF ( ( TYP(NODE) .NE. 'NUM' ) .AND. ( TYP(NODE) .NE. 'CHR' ) )
-     .	    RETURN
+        NODE = INV(NIDX,LUN)
+        IF ( ( TYP(NODE) .NE. 'NUM' ) .AND. ( TYP(NODE) .NE. 'CHR' ) )
+     .      RETURN
 
-C	Get the scale factor, reference value and bit width, including
-C	accounting for any Table C operators which may be in scope for
-C	this particular occurrence of NEMO.
+C       Get the scale factor, reference value and bit width, including
+C       accounting for any Table C operators which may be in scope for
+C       this particular occurrence of NEMO.
 
         IRET = 0
 
-	NSCL = ISC(NODE)
-	NBTS = IBT(NODE)
-	NREF = IRF(NODE)
+        NSCL = ISC(NODE)
+        NBTS = IBT(NODE)
+        NREF = IRF(NODE)
 
-	IF ( NNRV .GT. 0 ) THEN
+        IF ( NNRV .GT. 0 ) THEN
 
-C	  There are nodes containing redefined reference values (from
-C	  one or more 2-03-YYY operators) in the jump/link table, so we
-C	  need to check if this node is one of them.
+C         There are nodes containing redefined reference values (from
+C         one or more 2-03-YYY operators) in the jump/link table, so we
+C         need to check if this node is one of them.
 
-	  TAGN = ' '
-	  CALL STRSUC( NEMO, TAGN, LTN ) 
-	  IF ( ( LTN .LE. 0 ) .OR. ( LTN .GT. 8 ) ) RETURN
+          TAGN = ' '
+          CALL STRSUC( NEMO, TAGN, LTN )
+          IF ( ( LTN .LE. 0 ) .OR. ( LTN .GT. 8 ) ) RETURN
 
-	  DO JJ = 1, NNRV
-	    IF ( ( NODE .NE. INODNRV(JJ) ) .AND.
-     .		( TAGN(1:8) .EQ. TAGNRV(JJ) ) .AND.
-     .		( NODE .GE. ISNRV(JJ) ) .AND.
-     .		( NODE .LE. IENRV(JJ) ) ) THEN
-	      NREF = NRV(JJ)
-	      RETURN
-	    END IF
-	  END DO
+          DO JJ = 1, NNRV
+            IF ( ( NODE .NE. INODNRV(JJ) ) .AND.
+     .          ( TAGN(1:8) .EQ. TAGNRV(JJ) ) .AND.
+     .          ( NODE .GE. ISNRV(JJ) ) .AND.
+     .          ( NODE .LE. IENRV(JJ) ) ) THEN
+              NREF = NRV(JJ)
+              RETURN
+            END IF
+          END DO
 
-	END IF
+        END IF
 
-	RETURN
-	END
+        RETURN
+        END

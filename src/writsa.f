@@ -24,7 +24,7 @@ C> This subroutine is similar to subroutine writsb(), except that in
 C> addition to writing each completed message to a specified Fortran
 C> logical unit, it also returns a copy of each completed message to
 C> the application program within a memory array.
-C> 
+C>
 C> This subroutine looks and behaves a lot like subroutine writsb().
 C> Specifically, it is called to indicate to the BUFRLIB software that
 C> all necessary values for a data subset (i.e. report) have been written,
@@ -113,7 +113,7 @@ C> @author J. Woollen @author J. Ator @date 1994-01-06
 C----------------------------------------------------------------------
 C----------------------------------------------------------------------
 
-C  CHECK FOR I8 INTEGERS 
+C  CHECK FOR I8 INTEGERS
 C  ---------------------
 
       IF(IM8B) THEN

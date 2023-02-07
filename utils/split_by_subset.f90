@@ -38,7 +38,7 @@ program split_by_subset
         open(lunit, file=trim(adjustl(finput)), form='unformatted')
         call openbf(lunit,'IN',lunit)
      else
-        call bort('File ' // trim(adjustl(finput)) // ' does not exist')       
+        call bort('File ' // trim(adjustl(finput)) // ' does not exist')
      endif
   else
      call bort('Usage: "split_by_subset bufrfile" will split a BUFR file into subsets')

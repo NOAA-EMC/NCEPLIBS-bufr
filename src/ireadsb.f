@@ -11,8 +11,8 @@ C> | 2003-11-04 | D. Keyser | Unified/portable for WRF; added documentation |
 C> | 2022-10-04 | J. Ator | Added 8-byte wrapper |
 C>
 C> @author J. Woollen @date 1994-01-06
-      
-C> This function calls BUFRLIB subroutine readsb() and 
+
+C> This function calls BUFRLIB subroutine readsb() and
 C> passes back its return code as the function value.
 C>
 C> @remarks
@@ -35,7 +35,7 @@ C> @author J. Woollen @date 1994-01-06
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
-      
+
 C     Check for I8 integers.
 
       IF(IM8B) THEN

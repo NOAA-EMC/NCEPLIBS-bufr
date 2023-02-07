@@ -95,7 +95,7 @@ C> | 2022-10-04 | J. Ator    | Added 8-byte wrapper |
       INTEGER   ICFDP(MXCFDP)
 
       PARAMETER (MXFV=31)
-      INTEGER	IFV(MXFV)
+      INTEGER   IFV(MXFV)
 
       PARAMETER (MXSEQ=10)
       INTEGER   IDXREP(MXSEQ)
@@ -191,15 +191,15 @@ C  -------------------------------------------------------------------
          UNIT = TABB(N,LUN)(71:94)
          RVAL = VAL(NV,LUN)
       ENDIF
-      
+
       IF((ITYP.EQ.0).OR.(ITYP.EQ.1)) THEN
 
 C        Sequence descriptor or delayed descriptor replication factor
 
          IF((TYPE.EQ.'REP').OR.(TYPE.EQ.'DRP').OR.
-     .	    (TYPE.EQ.'DRB').OR.(TYPE.EQ.'DRS')) THEN
+     .      (TYPE.EQ.'DRB').OR.(TYPE.EQ.'DRS')) THEN
 
-C	   Print the number of replications
+C          Print the number of replications
 
            NSEQ = NSEQ+1
            IF(NSEQ.GT.MXSEQ) GOTO 904
@@ -305,7 +305,7 @@ C           The value is "missing".
             FMT = '(A6,2X,A10,2X,F20.00,2X,A24,6X,A48)'
 
 C           Based upon the corresponding scale factor, select an
-C           appropriate format for the printing of this value. 
+C           appropriate format for the printing of this value.
 
             WRITE(FMT(19:20),'(I2)') MAX(1,ISC(NODE))
             IF(UNIT(1:4).EQ.'FLAG') THEN
@@ -330,7 +330,7 @@ C              this value.
                   ENDDO
                   UNIT(IPT-1:IPT-1) = ')'
                ENDIF
-            ENDIF         
+            ENDIF
 
             WRITE(LUOUT,FMT) NUMB,NEMO,RVAL,UNIT,DESC
 
@@ -346,7 +346,7 @@ C              Print the meanings of the code and flag values.
                ENDIF
                DO II=1,NIFV
                   ICFDP(1) = (-1)
-		  IFVD = (-1)
+                  IFVD = (-1)
                   CALL SRCHTBF(IDN,IFV(II),ICFDP,MXCFDP,IFVD,
      .                         CFMEANG,LCFMEANG,LCFMG,IERSF)
                   IF(IERSF.EQ.0) THEN
@@ -372,7 +372,7 @@ C                    the proper meaning from the code/flag tables.
                         ENDIF
                      ENDDO
                      IF(IERFT.EQ.0) THEN
-                        IFVD = NINT(VAL(NOUT,LUN)) 
+                        IFVD = NINT(VAL(NOUT,LUN))
                         IF(JJ.GT.1) ICFDP(1) = ICFDP(JJ)
                         CALL SRCHTBF(IDN,IFV(II),ICFDP,MXCFDP,IFVD,
      .                               CFMEANG,LCFMEANG,LCFMG,IERSF)

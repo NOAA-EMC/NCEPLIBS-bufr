@@ -35,20 +35,20 @@ C> | 2007-01-19 | J. Ator | Original author |
 C> | 2009-03-23 | J. Ator | Increased value of BDIFD for better test accuracy |
 C> | 2012-10-05 | J. Ator | Modified to reflect the fact that the "missing" value is now configurable by users (may be something other than 10E10) |
 C>
-	INTEGER FUNCTION IBFMS ( R8VAL )
+        INTEGER FUNCTION IBFMS ( R8VAL )
 
         USE MODV_BMISS
 
-	REAL*8		R8VAL
+        REAL*8          R8VAL
 
 C----------------------------------------------------------------------
 C----------------------------------------------------------------------
 
-	IF ( R8VAL .EQ. BMISS ) THEN
-	    IBFMS = 1
-	ELSE
-	    IBFMS = 0
-	ENDIF
+        IF ( R8VAL .EQ. BMISS ) THEN
+            IBFMS = 1
+        ELSE
+            IBFMS = 0
+        ENDIF
 
-	RETURN
-	END
+        RETURN
+        END

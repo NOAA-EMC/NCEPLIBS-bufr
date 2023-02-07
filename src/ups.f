@@ -26,53 +26,53 @@ C> @remarks
 C> - This function is the logical inverse of function ipks().
 C>
 C> @author J. Ator @date 2012-03-02
-	REAL*8 FUNCTION UPS(IVAL,NODE)
+        REAL*8 FUNCTION UPS(IVAL,NODE)
 
-	USE MODA_TABLES
-	USE MODA_NRV203
+        USE MODA_TABLES
+        USE MODA_NRV203
 
         integer*8 ival,imask
-	REAL*8	  TEN
+        REAL*8    TEN
 
-	DATA TEN /10./
+        DATA TEN /10./
 
 C-----------------------------------------------------------------------
 
-	UPS = ( IVAL + IRF(NODE) ) * TEN**(-ISC(NODE))
+        UPS = ( IVAL + IRF(NODE) ) * TEN**(-ISC(NODE))
 
-	IF ( NNRV .GT. 0 ) THEN
+        IF ( NNRV .GT. 0 ) THEN
 
-C	  There are redefined reference values in the jump/link table,
-C	  so we need to check if this node is affected by any of them.
+C         There are redefined reference values in the jump/link table,
+C         so we need to check if this node is affected by any of them.
 
-	  DO JJ = 1, NNRV
-	    IF ( NODE .EQ. INODNRV(JJ) ) THEN
+          DO JJ = 1, NNRV
+            IF ( NODE .EQ. INODNRV(JJ) ) THEN
 
-C	      This node contains a redefined reference value.
-C	      Per the rules of BUFR, negative values may be encoded
-C	      as positive integers with the left-most bit set to 1.
+C             This node contains a redefined reference value.
+C             Per the rules of BUFR, negative values may be encoded
+C             as positive integers with the left-most bit set to 1.
 
-	      IMASK = 2_8**(IBT(NODE)-1)
-	      IF ( IAND(IVAL,IMASK) .GT. 0 ) THEN
-		NRV(JJ) = (-1) * ( IVAL - IMASK )
-	      ELSE
-		NRV(JJ) = IVAL
-	      END IF
-	      UPS = NRV(JJ)
-	      RETURN
-	    ELSE IF ( ( TAG(NODE)(1:8) .EQ. TAGNRV(JJ) ) .AND.	    
-     .		      ( NODE .GE. ISNRV(JJ) ) .AND.
-     .		      ( NODE .LE. IENRV(JJ) ) ) THEN
+              IMASK = 2_8**(IBT(NODE)-1)
+              IF ( IAND(IVAL,IMASK) .GT. 0 ) THEN
+                NRV(JJ) = (-1) * ( IVAL - IMASK )
+              ELSE
+                NRV(JJ) = IVAL
+              END IF
+              UPS = NRV(JJ)
+              RETURN
+            ELSE IF ( ( TAG(NODE)(1:8) .EQ. TAGNRV(JJ) ) .AND.
+     .                ( NODE .GE. ISNRV(JJ) ) .AND.
+     .                ( NODE .LE. IENRV(JJ) ) ) THEN
 
-C	      The corresponding redefinded reference value needs to
-C	      be used when decoding this value.
+C             The corresponding redefinded reference value needs to
+C             be used when decoding this value.
 
-	      UPS = ( IVAL + NRV(JJ) ) * TEN**(-ISC(NODE))
-	      RETURN
-	    END IF
-	  END DO
+              UPS = ( IVAL + NRV(JJ) ) * TEN**(-ISC(NODE))
+              RETURN
+            END IF
+          END DO
 
-	END IF
+        END IF
 
-	RETURN
-	END
+        RETURN
+        END

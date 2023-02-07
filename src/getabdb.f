@@ -1,7 +1,7 @@
 C> @file
 C> @brief Get Table B and Table D information from the internal DX BUFR
 C> tables
-      
+
 C> This subroutine reads Table B and Table D information from the
 C> internal DX BUFR tables for a specified Fortran logical unit, then
 C> returns this information in a pre-defined ASCII format.

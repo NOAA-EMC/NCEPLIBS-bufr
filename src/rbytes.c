@@ -42,13 +42,13 @@ f77int rbytes( char *bmg, f77int *mxmb, f77int isloc, f77int newbytes )
     short iret;
 
     if ( ( isloc + newbytes ) > *mxmb ) {
-	iret = 1;
+        iret = 1;
     }
     else if ( fread( &bmg[isloc], 1, newbytes, pbf[0] ) != newbytes ) {
-	iret = ( feof(pbf[0]) ? -1 : -2 );
+        iret = ( feof(pbf[0]) ? -1 : -2 );
     }
     else {
-	iret = 0;
+        iret = 0;
     }
 
     return (f77int) iret;

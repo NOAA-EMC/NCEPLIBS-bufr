@@ -1,7 +1,7 @@
 /** @file
  *  @brief Define signatures and declare variables for reading or writing BUFR
  *  messages via a C language interface.
- *  
+ *
  *  These signatures and variables are used by the C language interface which
  *  encompasses subroutines openrb(), openwb(), openab(), backbufr(), cewind(),
  *  closfb(), crdbufr() and cwrbufr().

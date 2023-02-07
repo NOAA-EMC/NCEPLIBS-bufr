@@ -14,18 +14,18 @@ C> 2009-03-31 | J. Woollen | Added additional documentation.
 C> 2014-12-10 | J. Ator    | Use modules instead of common blocks.
 C>
 C> @author Woollen @date 1994-01-06
-      
+
 C> This function searches backwards, beginning from a given
 C> node within the jump/link table, until it finds the most recent
 C> node of type jbtyp. The internal jmpb array is used to jump
 C> backwards within the jump/link table, and the function returns
 C> the table index of the found node. If the input node itself is
 C> of type jbtyp, then the function simply returns the index of that
-C> same node. 
+C> same node.
 C>
 C> @note See tabsub() for an
 C> explanation of the various node types present within an internal
-C> jump/link table. 
+C> jump/link table.
 C>
 C> @param[in] NODE - integer: jump/link table index of entry to begin
 C> searching backwards from

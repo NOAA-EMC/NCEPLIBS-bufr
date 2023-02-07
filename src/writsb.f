@@ -4,16 +4,16 @@ C>
 C> ### Program History Log
 C> Date | Programmer | Comments
 C> -----|------------|---------
-C> 1994-01-06 | J. Woollen | Original author 
-C> 1998-07-08 | J. Woollen | Replaced call to Cray library routine "ABORT" with call to new internal routine bort() 
-C> 2003-11-04 | J. Ator    | Added documentation 
+C> 1994-01-06 | J. Woollen | Original author
+C> 1998-07-08 | J. Woollen | Replaced call to Cray library routine "ABORT" with call to new internal routine bort()
+C> 2003-11-04 | J. Ator    | Added documentation
 C> 2003-11-04 | S. Bender  | Added remarks and routine interdependencies
-C> 2003-11-04 | D. Keyser  | Unified/portable for WRF; added documentation; outputs more complete diagnostic info when routine terminates abnormally 
-C> 2005-03-09 | J. Ator    | Added capability for compressed messages 
-C> 2022-10-04 | J. Ator    | Added 8-byte wrapper 
+C> 2003-11-04 | D. Keyser  | Unified/portable for WRF; added documentation; outputs more complete diagnostic info when routine terminates abnormally
+C> 2005-03-09 | J. Ator    | Added capability for compressed messages
+C> 2022-10-04 | J. Ator    | Added 8-byte wrapper
 C>
 C> @author J. Woollen @date 1994-01-06
-      
+
 C> This subroutine writes a complete data subset into a BUFR message, for eventual output to logical unit LUNIT.
 C>
 C> This subroutine is called to indicate to the BUFRLIB software that
@@ -34,7 +34,7 @@ C> - There is a maximum size for any BUFR message that can be written
 C> by the BUFRLIB software.  This maximum message size is initially set
 C> to an internal default value within subroutine bfrini(), but it can
 C> be changed to a different value via a separate prior call to
-C> subroutine maxout().  
+C> subroutine maxout().
 C> - This subroutine will always check to ensure that the data subset,
 C> when encoded and packed, will fit into the current BUFR message that
 C> is already open within the internal arrays associated with logical

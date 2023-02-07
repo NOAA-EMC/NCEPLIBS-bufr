@@ -62,7 +62,7 @@ program test_IN_8
     print *, '        UFBEVN -> FAILED!!'
   endif
 
-! now, get all of the temperature data from this subset which meets the conditions of being on 
+! now, get all of the temperature data from this subset which meets the conditions of being on
 ! a level where the pressure is between 490mb and 44mb, and check some of those values
 
   call ufbevn ( 11, r8vals, MXR8PM, MXR8LV, MXR8EN, ilv, 'POB<490 POB>44 POB TOB TQM TPC TRC' )

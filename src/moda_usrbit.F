@@ -9,11 +9,11 @@ C> input data subset via subroutines rcstpl() and rdtree().
 C>
 C> @author J. Woollen @date 1994-01-06
 
-	MODULE MODA_USRBIT
+        MODULE MODA_USRBIT
 
 C>        Length (in bits) of each packed value in mbit.
-	  INTEGER, ALLOCATABLE :: NBIT(:)
+          INTEGER, ALLOCATABLE :: NBIT(:)
 C>        Pointer in data subset to first bit of each packed data value.
-	  INTEGER, ALLOCATABLE :: MBIT(:)
+          INTEGER, ALLOCATABLE :: MBIT(:)
 
-	END MODULE
+        END MODULE
