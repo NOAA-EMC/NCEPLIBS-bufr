@@ -29,7 +29,6 @@ C> @author J. Ator @date 2005-11-29
 
       DIMENSION   MESG(*)
 
-      CHARACTER*128 BORT_STR
       INTEGER CRDBUFR
 
 C-----------------------------------------------------------------------

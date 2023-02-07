@@ -156,7 +156,6 @@ C> @authors J. Woollen, J. Ator,  D. Keyser @date 1994-01-06
       CHARACTER*255 FILENAME,FILEACC
       CHARACTER*128 BORT_STR,ERRSTR
       CHARACTER*28  CPRINT(0:3)
-      CHARACTER*1   BSTR(4)
 
       DATA          CPRINT/
      . ' (only ABORTs)              ',

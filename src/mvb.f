@@ -28,7 +28,6 @@ C>
 C> @author Woollen @date 1994-01-06
       SUBROUTINE MVB(IB1,NB1,IB2,NB2,NBM)
 
-      CHARACTER*128 BORT_STR
       DIMENSION     IB1(*),IB2(*)
 
 C-----------------------------------------------------------------------
