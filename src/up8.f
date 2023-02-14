@@ -7,7 +7,7 @@ C> This subroutine decodes an 8-byte integer value from within a
 C> specified number of bits of an integer array, starting at the bit
 C> immediately after a specified bit within the array.
 C>
-C> <p>It is similar to subroutine upb8(), except that here IBIT is
+C> It is similar to subroutine upb8(), except that here IBIT is
 C> both an input and an output argument, and the overall order
 C> of the arguments is different.
 C>

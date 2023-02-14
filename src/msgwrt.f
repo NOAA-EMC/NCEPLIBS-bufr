@@ -7,7 +7,7 @@ C> @author J. Woollen @date 1994-01-06
 C> This subroutine performs final checks and updates on a BUFR message
 C> before writing it to a specified Fortran logical unit.
 C>
-C> <p>These final checks and updates include:
+C> These final checks and updates include:
 C> - Standardizing the BUFR message, if requested via a previous call
 C> subroutine stdmsg()
 C> - Converting the BUFR message from edition 3 to edition 4, if

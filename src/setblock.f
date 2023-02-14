@@ -9,7 +9,7 @@ C> future calls to [message-writing subroutines](@ref hierarchy)
 C> should be encapsulated with IEEE Fortran control words when being
 C> written to output files.
 C>
-C> <p>If control words are requested, then one 4-byte control word is
+C> If control words are requested, then one 4-byte control word is
 C> written to the output file prior to the start of each BUFR message,
 C> and a second 4-byte control word is written to the output file after
 C> the end of each BUFR message.  Each of these control words contains
@@ -17,7 +17,7 @@ C> the byte count for the enclosed BUFR message, and they can be
 C> written using either big-endian or little-endian byte ordering,
 C> regardless of the native endianness of the local machine.
 C>
-C> <p>This subroutine can be called at any time after the first call
+C> This subroutine can be called at any time after the first call
 C> to subroutine openbf(), and the specified value for IBLK will remain
 C> in effect for all future calls to
 C> [message-writing subroutines](@ref hierarchy) for all Fortran logical

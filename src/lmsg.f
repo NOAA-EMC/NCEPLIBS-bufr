@@ -7,7 +7,7 @@ C> Given a character string containing Section 0 from a BUFR
 C> message, this function determines the array size (in integers)
 C> needed to store the entire BUFR message.
 C>
-C> <p>This function is similar to function nmwrd(), except that it
+C> This function is similar to function nmwrd(), except that it
 C> takes a character string as input rather than an integer array.
 C>
 C> @param[in]  SEC0  -- character*8: Section 0 from a BUFR message

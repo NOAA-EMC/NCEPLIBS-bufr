@@ -6,7 +6,7 @@ C> @author J. Ator @date 2004-08-18
 C> Given the bit-wise (integer) representation of a descriptor, this
 C> function determines whether the descriptor is WMO-standard.
 C>
-C> <p>If a descriptor is not WMO-standard, then by definition it is a
+C> If a descriptor is not WMO-standard, then by definition it is a
 C> local descriptor.
 C>
 C> @param[in] IDN -- integer: Bit-wise representation of FXY value for

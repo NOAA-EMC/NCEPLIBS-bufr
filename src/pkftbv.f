@@ -7,7 +7,7 @@ C> @author J. Ator @date 2005-11-29
 C> This function computes the numerical value equivalent to the
 C> setting of bit #(IBIT) within a flag table of NBITS bits.
 C>
-C> <p>If the computation fails for any reason, then the function
+C> If the computation fails for any reason, then the function
 C> returns the current placeholder value for "missing" data.
 C>
 C> @param[in] NBITS -- integer: Total number of bits in flag table

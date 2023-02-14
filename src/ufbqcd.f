@@ -8,7 +8,7 @@ C> Given a mnemonic associated with a category 63 Table D
 C> descriptor from an NCEP prepbufr file, this subroutine returns the
 C> corresponding event program code.
 C>
-C> <p>The event program code is equivalent to the Y value of the
+C> The event program code is equivalent to the Y value of the
 C> category 63 (i.e. X=63) Table D descriptor.  Knowledge of this value
 C> is especially useful for application programs which are writing data
 C> events to NCEP prepbufr files.

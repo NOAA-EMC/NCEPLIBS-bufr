@@ -20,7 +20,7 @@ C> @param[in] IDY  -- integer: Tank receipt day
 C> @param[in] IHR  -- integer: Tank receipt hour
 C> @param[in] IMI  -- integer: Tank receipt minute
 C>
-C> <p>This subroutine can be called at any time after the first call
+C> This subroutine can be called at any time after the first call
 C> to subroutine openbf(), and the specified value for CF will remain
 C> in effect for all future calls to
 C> [message-writing subroutines](@ref hierarchy) and
@@ -30,7 +30,7 @@ C> unless a subsequent call is made to this subroutine to reset the
 C> value of CF again.  If this subroutine is never called, a default
 C> value of 'N' is used for CF, as set within subroutine bfrini().
 C>
-C> <p>Whenever this subroutine is called with CF = 'N', the values in
+C> Whenever this subroutine is called with CF = 'N', the values in
 C> IYR, IMO, IDY, IHR, and IMI are ignored.
 C>
 C> @remarks

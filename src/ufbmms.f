@@ -23,7 +23,7 @@ C>                      (IMSG)th BUFR message, in format of either
 C>                      YYMMDDHH or YYYYMMDDHH, depending on the most
 C>                      recent call to subroutine datelen()
 C>
-C> <p>Whenever this subroutine returns successfully, the requested data
+C> Whenever this subroutine returns successfully, the requested data
 C> subset can now be easily manipulated or further parsed via calls to
 C> any of the [values-reading subroutines](@ref hierarchy) using the
 C> Fortran logical unit number IUNIT that was returned from the most

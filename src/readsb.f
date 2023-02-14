@@ -13,13 +13,13 @@ C>                                 read into internal arrays
 C>                           - -1 = there are no more BUFR data subsets in
 C>                                 the BUFR message
 C>
-C> <p>Logical unit LUNIT should have already been opened for
+C> Logical unit LUNIT should have already been opened for
 C> input operations via a previous call to subroutine openbf(), and a
 C> BUFR message should have already been read into internal arrays via
 C> a previous call to one of the
 C> [message-reading subroutines](@ref hierarchy).
 C>
-C> <p>Whenever this subroutine returns with IRET = 0, this indicates
+C> Whenever this subroutine returns with IRET = 0, this indicates
 C> that a new BUFR data subset (i.e. report) was successfully read into
 C> internal arrays within the BUFRLIB software, and from where it can
 C> then be easily manipulated or further parsed via calls to any of the

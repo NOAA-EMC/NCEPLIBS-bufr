@@ -14,7 +14,7 @@ C> @returns ibfms  -- integer:
 C>                    - 0 = R8VAL is not "missing"
 C>                    - 1 = R8VAL is "missing"
 C>
-C> <p>The current placeholder value for "missing" data
+C> The current placeholder value for "missing" data
 C> is always equal to the value XMISS as specified during the
 C> most recent call to subroutine setbmiss(), or to a default
 C> value of 10E10 if setbmiss() was never called.  In either

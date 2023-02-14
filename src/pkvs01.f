@@ -10,7 +10,7 @@ C> output by future calls to other
 C> [message-writing subroutines](@ref hierarchy) and
 C> [subset-writing subroutines](@ref hierarchy).
 C>
-C> <p>This subroutine is similar to subroutine pkbs1(), except that
+C> This subroutine is similar to subroutine pkbs1(), except that
 C> pkbs1() operates on a single BUFR message passed in via a memory
 C> array.  Alternatively, whenever this subroutine is called, the
 C> specified IVAL will be written into all BUFR messages output by all

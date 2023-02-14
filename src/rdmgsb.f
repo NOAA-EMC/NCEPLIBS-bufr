@@ -22,16 +22,16 @@ C> @param[in] ISUB   -- integer: Number of data subset to be
 C>                      read from the (IMSG)th BUFR message,
 C>                      counting from the beginning of the message
 C>
-C> <p>Logical unit LUNIT should not have already been opened via a
+C> Logical unit LUNIT should not have already been opened via a
 C> previous call to subroutine openbf()
 C>
-C> <p>Whenever this subroutine returns successfully, this indicates
+C> Whenever this subroutine returns successfully, this indicates
 C> that a new data subset was successfully read into internal arrays
 C> within the BUFRLIB software, and that subsequent calls can
 C> immediately be made to any of the various
 C> [values-reading subroutines](@ref hierarchy).
 C>
-C> <p>Note that the value specified for IMSG should not include any
+C> Note that the value specified for IMSG should not include any
 C> DX BUFR table messages which may be present in the file.
 C> In other words, a value of 12 for IMSG means to read the 12th
 C> message which contains actual report data.

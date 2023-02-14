@@ -10,7 +10,7 @@ C> dynamically allocate internal Fortran language arrays based on
 C> parameter values set during one or more previous calls to function
 C> isetprm().
 C>
-C> <p>This subroutine isn't normally called directly from an application
+C> This subroutine isn't normally called directly from an application
 C> program, since it's automatically called internally during the first
 C> call to subroutine openbf() from an application program.
 C>

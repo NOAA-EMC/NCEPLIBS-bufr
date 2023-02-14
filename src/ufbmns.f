@@ -9,7 +9,7 @@ C> via calls to any of the [values-reading subroutines](@ref hierarchy)
 C> using the Fortran logical unit number IUNIT that was returned from
 C> the most recent call to subroutine ufbmem().
 C>
-C> <p>This subroutine does not return any information about which
+C> This subroutine does not return any information about which
 C> BUFR message within the internal arrays contained the specified data
 C> subset.
 C>

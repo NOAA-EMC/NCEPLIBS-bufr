@@ -34,10 +34,10 @@ C>                       - Index 3 contains the day
 C>                       - Index 4 contains the hour
 C>                       - Index 5 contains the minute
 C>
-C> <p>Logical unit LUNIT must already be associated with a filename
+C> Logical unit LUNIT must already be associated with a filename
 C> on the local system, typically via a Fortran "OPEN" statement.
 C>
-C> <p>If the subroutine fails to locate either of the two "dummy"
+C> If the subroutine fails to locate either of the two "dummy"
 C> messages within the file pointed to by LUNIT, then the corresponding
 C> JDATE or JDUMP array will be filled with all values set to (-1).
 C>

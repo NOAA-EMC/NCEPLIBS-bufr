@@ -6,7 +6,7 @@ C> @author J. Woollen @date 1994-01-06
 C> This subroutine copies a BUFR data subset from one Fortran logical
 C> unit to another.
 C>
-C> <p>It is similar to subroutine copysb(), except that here a
+C> It is similar to subroutine copysb(), except that here a
 C> BUFR data subset should have already been read into internal arrays
 C> for logical unit LUBIN via a previous call to one of the
 C> [subset-reading subroutines](@ref hierarchy), whereas copysb()
@@ -14,11 +14,11 @@ C> only requires that a BUFR message should have already been read
 C> into internal arrays via a previous call to one of the
 C> [message-reading subroutines](@ref hierarchy).
 C>
-C> <p>For logical unit LUBOT, a BUFR message should already be open
+C> For logical unit LUBOT, a BUFR message should already be open
 C> for output within internal arrays via a previous call to one of
 C> the [message-writing subroutines](@ref hierarchy).
 C>
-C> <p> The [DX BUFR Table information](@ref dfbftab) associated with
+C> The [DX BUFR Table information](@ref dfbftab) associated with
 C> each of the logical units LUBIN and LUBOT must contain identical
 C> definitions for the data subset to be copied.
 C>

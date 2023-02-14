@@ -16,7 +16,7 @@ C>                               successfully read
 C>                         - -1 = requested subset number could not
 C>                                be found in the message
 C>
-C> <p>Whenever this subroutine returns with IRET = 0, this indicates
+C> Whenever this subroutine returns with IRET = 0, this indicates
 C> that a new BUFR data subset (i.e. report) was successfully read into
 C> internal arrays within the BUFRLIB software, and from where it can
 C> now be easily manipulated or further parsed via calls to any of the

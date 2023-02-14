@@ -7,7 +7,7 @@ C> This subroutine is called as a last resort from within subroutine
 C> cktaba(), in the event the latter subroutine is unable to locate
 C> a DX BUFR table for use in reading/decoding a given BUFR message.
 C>
-C> <p>Within the BUFRLIB distribution package, this subroutine
+C> Within the BUFRLIB distribution package, this subroutine
 C> is a default placeholder which always returns LUNDX = 0
 C> and is only included to allow application programs to compile
 C> without generating a link error for an unresolved external

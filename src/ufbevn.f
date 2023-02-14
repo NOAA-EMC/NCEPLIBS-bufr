@@ -34,7 +34,7 @@ C>                   subset within the first dimension of USR (see
 C>                   [DX BUFR Tables](@ref dfbftab) for further
 C>                   information about Table B mnemonics)
 C>
-C> <p>It is the user's responsibility to ensure that USR is dimensioned
+C> It is the user's responsibility to ensure that USR is dimensioned
 C> sufficiently large enough to accommodate the number of data values
 C> that are to be read from the data subset.  Note also
 C> that USR is an array of real*8 values; therefore, any
@@ -42,7 +42,7 @@ C> character (i.e. CCITT IA5) value in the data subset will be
 C> returned in real*8 format and must be converted back into character
 C> format by the application program before it can be used as such.
 C>
-C> <p>"Missing" values in USR are always denoted by a unique
+C> "Missing" values in USR are always denoted by a unique
 C> placeholder value.  This placeholder value is initially set
 C> to a default value of 10E10_8, but it can be reset to
 C> any substitute value of the user's choice via a separate

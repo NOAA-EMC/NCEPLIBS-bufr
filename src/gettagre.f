@@ -26,7 +26,7 @@ C>                      - 0 = normal return
 C>                      - -1 = TAGRE could not be found, or some
 C>                             other error occurred
 C>
-C> <p>A data subset must already be in scope within the BUFRLIB
+C> A data subset must already be in scope within the BUFRLIB
 C> internal arrays for LUNIT, either via a previous call to one
 C> of the [subset-reading subroutines](@ref hierarchy)
 C> (when reading BUFR data subsets) or via a previous call to one

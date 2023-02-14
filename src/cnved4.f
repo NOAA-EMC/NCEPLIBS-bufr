@@ -7,7 +7,7 @@ C> This subroutine reads an input BUFR message encoded using BUFR
 C> edition 3 and outputs an equivalent BUFR message encoded using
 C> BUFR edition 4.
 C>
-C> <p>This subroutine performs the same function as subroutine pkvs01()
+C> This subroutine performs the same function as subroutine pkvs01()
 C> when the latter is called with S01MNEM = 'BEN' and IVAL = 4, except
 C> that the latter subroutine operates on BUFR messages internally
 C> within the software, whereas this subroutine operates on a single

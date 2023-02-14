@@ -11,10 +11,10 @@ C>                       BUFR file
 C> @param[in] LUBFJ   -- integer: Fortran logical unit number for output
 C>                       BUFR file
 C>
-C> <p>Logical unit LUBFI should have already been opened for input
+C> Logical unit LUBFI should have already been opened for input
 C> operations via a previous call to subroutine openbf().
 C>
-C> <p>Logical unit LUBFJ should have already been opened for output
+C> Logical unit LUBFJ should have already been opened for output
 C> operations via a previous call to subroutine openbf().
 C>
 C> @remarks

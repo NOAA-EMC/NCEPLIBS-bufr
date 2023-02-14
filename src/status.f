@@ -7,7 +7,7 @@ C> @author J. Woollen @date 1994-01-06
 C> This subroutine checks whether a specified Fortran logical unit
 C> number is currently connected to the BUFRLIB software.
 C>
-C> <p>If the unit number is already connected, then the subroutine
+C> If the unit number is already connected, then the subroutine
 C> returns information about the associated file.  Otherwise, it
 C> returns the next available internal I/O stream index that could
 C> be used to connect the associated file to the software via a

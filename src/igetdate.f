@@ -6,7 +6,7 @@ C> @author J. Ator @date 2005-11-29
 C> This function returns the date-time from within Section 1 of a
 C> BUFR message.
 C>
-C> <p>The function will work on any BUFR message encoded using BUFR
+C> The function will work on any BUFR message encoded using BUFR
 C> edition 2, 3, or 4.
 C>
 C> @param[in]  MBAY   -- integer(*): BUFR message

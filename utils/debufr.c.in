@@ -1,7 +1,7 @@
 /** @file
  *  @brief C language code for debufr utility.
  *
- * @author J. Ator @date 2018-03-01
+ * @author J. Ator @date 2009-07-01
  */
 
 #include <ctype.h>
@@ -41,7 +41,7 @@
  * @param s6 - Extra C-Fortran interface argument containing length of forcemt variable.
  * @param s7 - Extra C-Fortran interface argument containing length of cfms variable.
  *
- * @author J. Ator @date 2018-03-01
+ * @author J. Ator @date 2009-07-01
  */
 void fdebufr( char *ofile, char *tbldir, f77int *lentd, char *tblfil, char *prmstg, char *basic, char *forcemt, char *cfms,
               size_t s1, size_t s2, size_t s3, size_t s4, size_t s5, size_t s6, size_t s7);
@@ -58,7 +58,7 @@ void prtusage( char *prgnam );
  *
  * @param prgnam - [path/]name of program executable.
  *
- * @author J. Ator @date 2018-03-01
+ * @author J. Ator @date 2009-07-01
  */
 void prtusage( char *prgnam ) {
         printf( "\nUSAGE:\n" );
@@ -177,7 +177,7 @@ void prtusage( char *prgnam ) {
  *
  * @return 0 for successs, error code otherwise.
  *
- * @author J. Ator @date 2018-03-01
+ * @author J. Ator @date 2009-07-01
  */
 int main( int argc, char *argv[ ] ) {
 

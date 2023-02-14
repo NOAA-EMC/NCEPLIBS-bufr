@@ -12,7 +12,7 @@
  *  structure for storage of master Code/Flag table entries, and if
  *  found returns the associated meaning as a character string.
  *
- *  <p>The search may optionally include a specified second FXY number
+ *  The search may optionally include a specified second FXY number
  *  and associated value upon which the first FXY number and its
  *  associated value depend, for example when the meaning of an
  *  originating sub-center value depends on the identity of the

@@ -7,7 +7,7 @@ C> (from Section 3).
 C>
 C> @author D. Keyser @date 2003-11-04
 C>
-C> <p>The message to be examined is obtained in one of two different
+C> The message to be examined is obtained in one of two different
 C> ways, depending on the sign of LUNIN:
 C> - If LUNIN > 0, the subroutine reads and examines Section 1 of each
 C> message in a BUFR file starting from the beginning of the file, and

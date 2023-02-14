@@ -5,7 +5,7 @@ C> @author D. Keyser @date 2003-11-04
 C> This subroutine calls subroutine errwrt() to log two error messages,
 C> then calls subroutine bort_exit() to abort the application program.
 C>
-C> <p>It is similar to subroutine bort(), except that bort() logs
+C> It is similar to subroutine bort(), except that bort() logs
 C> one error message instead of two.
 C>
 C> @param[in] STR1  -- character*(*): First error message

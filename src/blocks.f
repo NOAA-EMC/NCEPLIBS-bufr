@@ -7,7 +7,7 @@ C> This subroutine encapsulates a BUFR message with IEEE Fortran
 C> control words as specified via the most recent call to
 C> subroutine setblock().
 C>
-C> <p>A previous call to subroutine setblock() is required in
+C> A previous call to subroutine setblock() is required in
 C> order to activate encapsulation with control words, and to
 C> specify whether the control words should be encoded using
 C> big-endian or little-endian byte ordering.  In such cases,
@@ -16,7 +16,7 @@ C> add the specified control words to the existing BUFR message
 C> whenever this subroutine is called, and MWRD is also
 C> modified accordingly.
 C>
-C> <p>Alternatively, if subroutine setblock() was never previously
+C> Alternatively, if subroutine setblock() was never previously
 C> called, or if no encapsulation was specified during the most
 C> recent call to subroutine setblock(), then this subroutine
 C> simply returns without modifying either of its input parameters.

@@ -10,7 +10,7 @@ C> [message-reading subroutines](@ref hierarchy) and determines
 C> whether the appropriate corresponding BUFR master tables have
 C> already been read into internal memory.
 C>
-C> <p>If not, then it opens the appropriate master BUFR tables on the
+C> If not, then it opens the appropriate master BUFR tables on the
 C> local file system and then reads the contents into internal
 C> memory, clearing any previous master BUFR table information that
 C> may have previously been stored there.
@@ -23,7 +23,7 @@ C>                        memory:
 C>                        - 0 = No
 C>                        - 1 = Yes
 C>
-C> <p>Information about the location of master BUFR tables on the
+C> Information about the location of master BUFR tables on the
 C> local file system is obtained from the most recent call to
 C> subroutine mtinfo(), or else from subroutine bfrini() if
 C> subroutine mtinfo() was never called, and in which case Fortran

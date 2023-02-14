@@ -8,7 +8,7 @@ C> This function determines whether a BUFR message, or a data subset
 C> from within a BUFR message, can be copied from one Fortran logical
 C> unit to another.
 C>
-C> <p>The decision is based on whether both logical units contain
+C> The decision is based on whether both logical units contain
 C> identical definitions for the BUFR message type in question within
 C> their associated [DX BUFR Table information](@ref dfbftab).
 C> Note that it's possible for a BUFR message type to be identically

@@ -21,7 +21,7 @@ C>                       BUFR file
 C> @param[in] LDXOT   -- integer: Fortran logical unit number for
 C>                       print output
 C>
-C> <p>Logical unit LUNIT must be open for either input or output
+C> Logical unit LUNIT must be open for either input or output
 C> operations via a previous call to subroutine openbf().
 C> Logical unit LDXOT must already be associated with a filename
 C> on the local system, typically via a Fortran "OPEN" statement.

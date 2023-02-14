@@ -7,7 +7,7 @@ C> @author J. Woollen @date 1994-01-06
 C> This subroutine reads through every data subset in internal arrays
 C> and returns one or more specified data values from each subset.
 C>
-C> <p>This provides a useful way to scan the ranges of one or more
+C> This provides a useful way to scan the ranges of one or more
 C> specified data values across all of the data subsets in the
 C> internal arrays.  It is similar to subroutine ufbtab(), except
 C> that ufbtab() works on data subsets in a BUFR file.
@@ -25,14 +25,14 @@ C>                   from each data subset within the first dimension of
 C>                   TAB (see [DX BUFR Tables](@ref dfbftab) for further
 C>                   information about Table B mnemonics)
 C>
-C> <p>It is the user's responsibility to ensure that TAB is dimensioned
+C> It is the user's responsibility to ensure that TAB is dimensioned
 C> sufficiently large enough to accommodate the number of data values
 C> that are to be read from the internal arrays.  Specifically, each row of
 C> TAB will contain the data values read from a different data subset,
 C> so the value I2 must be at least as large as the total number of data
 C> subsets in the internal arrays.
 C>
-C> <p>The internal arrays must have already been populated via a previous
+C> The internal arrays must have already been populated via a previous
 C> call to subroutine ufbmem().
 C>
 C> @remarks

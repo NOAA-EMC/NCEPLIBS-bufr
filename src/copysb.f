@@ -16,22 +16,22 @@ C>                       - -1 = a BUFR data subset could not be
 C>                              read from the BUFR message in
 C>                              internal arrays for LUNIN
 C>
-C> <p>Logical unit LUNIN should have already been opened for input
+C> Logical unit LUNIN should have already been opened for input
 C> operations via a previous call to subroutine openbf(), and a BUFR
 C> message should have already been read into internal arrays for
 C> LUNIN via a previous call to one of the
 C> [message-reading subroutines](@ref hierarchy).
 C>
-C> <p>Logical unit LUNOT should have already been opened for output
+C> Logical unit LUNOT should have already been opened for output
 C> operations via a previous call to subroutine openbf(), and a BUFR
 C> message should already be open for output within internal arrays
 C> via a previous call to one of the BUFRLIB
 C> [message-writing subroutines](@ref hierarchy).
 C>
-C> <p>The compression status of the data subset (i.e. compressed or
+C> The compression status of the data subset (i.e. compressed or
 C> uncompressed) will be preserved when copying from LUNIN to LUNOT.
 C>
-C> <p>If LUNOT < 0, then a data subset is read from the BUFR message
+C> If LUNOT < 0, then a data subset is read from the BUFR message
 C> in internal arrays for LUNIN but is not copied to the BUFR
 C> message in internal arrays for LUNOT.  Otherwise, the
 C> [DX BUFR Table information](@ref dfbftab) associated with

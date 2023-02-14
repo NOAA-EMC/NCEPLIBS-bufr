@@ -11,7 +11,7 @@ C> @returns igetmxby -- integer: Maximum length of a BUFR message
 C>                      that can be written to an output file by
 C>                      the BUFRLIB software
 C>
-C> <p>This maximum length value can be changed at any time via a
+C> This maximum length value can be changed at any time via a
 C> separate call to subroutine maxout().
 C>
 C> @author J. Ator @date 2016-06-27

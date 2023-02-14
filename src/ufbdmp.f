@@ -7,7 +7,7 @@ C> This subroutine prints a verbose listing of the contents of a data
 C> subset, including all data values and replicated sequences, as well
 C> as jump/link table information and other internal subset pointers.
 C>
-C> <p>This subroutine is similar to subroutine ufdump(), but it prints
+C> This subroutine is similar to subroutine ufdump(), but it prints
 C> different characteristics of each data subset, and in a slightly
 C> different format.  However, both subroutines can be useful for
 C> different diagnostic purposes, and both can also be run
@@ -34,13 +34,13 @@ C>                       print output
 C>                       - 0 = Run interactively, printing to
 C>                             standard output
 C>
-C> <p>Logical unit ABS(LUNIN) should have already been opened for
+C> Logical unit ABS(LUNIN) should have already been opened for
 C> input operations via a previous call to subroutine openbf(), and a
 C> BUFR data subset should have already been read into internal arrays
 C> via a previous call to one of the
 C> [subset-reading subroutines](@ref hierarchy).
 C>
-C> <p>Except when LUPRT = 0, logical unit LUPRT must already be
+C> Except when LUPRT = 0, logical unit LUPRT must already be
 C> associated with a filename on the local system, typically via a
 C> Fortran "OPEN" statement.  When LUPRT = 0, the subroutine will run
 C> interactively and print to standard output, scrolling 20 lines at

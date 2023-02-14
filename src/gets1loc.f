@@ -7,7 +7,7 @@ C> @author J. Ator @date 2005-11-29
 C> This subroutine returns the location of a specified value within
 C> Section 1 of a BUFR message.
 C>
-C> <p>The location and availability of any particular value within
+C> The location and availability of any particular value within
 C> Section 1 of a BUFR message can vary depending on the edition
 C> number used to encode the message.  This subroutine will work
 C> for BUFR edition 2, 3, or 4.

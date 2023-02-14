@@ -7,11 +7,11 @@ C> This subroutine reads a specified BUFR message from internal
 C> arrays in memory, so that it is now in scope for processing
 C> via a subsequent call to subroutine rdmems().
 C>
-C> <p>BUFR messages should already be stored within internal
+C> BUFR messages should already be stored within internal
 C> arrays in memory via one or more previous calls to
 C> subroutine ufbmem().
 C>
-C> <p>This subroutine is similar to subroutine rdmemm(), except that
+C> This subroutine is similar to subroutine rdmemm(), except that
 C> this subroutine increments the value of IMSG prior to returning to
 C> the calling program, which in turn allows it to be easily called
 C> within an iterative program loop.

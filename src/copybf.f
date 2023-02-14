@@ -11,7 +11,7 @@ C>                       source BUFR file
 C> @param[in] LUNOT   -- integer: Fortran logical unit number for
 C>                       target BUFR file
 C>
-C> <p>The logical unit numbers LUNIN and LUNOT must already be
+C> The logical unit numbers LUNIN and LUNOT must already be
 C> associated with actual filenames on the local system, typically
 C> via a Fortran "OPEN" statement.
 C>

@@ -9,7 +9,7 @@ C>
 C> @param[in] XMISS -- real*8: New placeholder value to represent
 C>                     "missing" data
 C>
-C> <p>This subroutine can be called at any time from within an
+C> This subroutine can be called at any time from within an
 C> application program, and the value XMISS will then be treated as
 C> "missing" when reading or writing BUFR data during all future
 C> calls to any of the other BUFRLIB
@@ -18,7 +18,7 @@ C> [values-writing subroutines](@ref hierarchy).
 C> Otherwise, if this subroutine is never called, a default
 C> placeholder value of 10E10_8 is used for "missing".
 C>
-C> <p>Any data value can always be checked for equivalence to the
+C> Any data value can always be checked for equivalence to the
 C> current "missing" value via a call to function ibfms().  See also
 C> function getbmiss().
 C>

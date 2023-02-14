@@ -7,7 +7,7 @@ C> This subroutine can be used to write a data value corresponding to
 C> a specific occurrence of a mnemonic within a data subset, based on
 C> its position relative to a different mnemonic within the subset.
 C>
-C> <p>The subroutine first searches for a specific occurrence of a pivot
+C> The subroutine first searches for a specific occurrence of a pivot
 C> mnemonic, counting from the beginning of the subset.  From there,
 C> it then searches in either a forward or backward direction for a
 C> specific occurrence of a nearby mnemonic, and if found
@@ -42,7 +42,7 @@ C>                        - -1 = the (NTAGNB)th occurence of mnemonic TAGNB
 C>                               could not be found, or some other error
 C>                               occurred
 C>
-C> <p>Before calling this subroutine, a BUFR message should already be
+C> Before calling this subroutine, a BUFR message should already be
 C> opened and initialized for output via a previous call to one of the
 C> BUFRLIB [message-writing subroutines](@ref hierarchy).
 C>

@@ -7,7 +7,7 @@ C> @author J. Ator @date 2005-11-29
 C> This function returns a specified value from within Section 0 or
 C> Section 1 of a BUFR message.
 C>
-C> <p>This function will work on any BUFR message encoded using BUFR
+C> This function will work on any BUFR message encoded using BUFR
 C> edition 2, 3, or 4.  It is similar to function iupbs01(), except
 C> that iupbs01() operates on a BUFR message passed in via a memory
 C> array, whereas this function operates on the BUFR message that was

@@ -7,7 +7,7 @@ C> This function can be used to read a data value corresponding to
 C> a specific occurrence of a mnemonic within a data subset, based on
 C> its position relative to a different mnemonic within the subset.
 C>
-C> <p>The function first searches for a specific occurrence of a pivot
+C> The function first searches for a specific occurrence of a pivot
 C> mnemonic, counting from the beginning of the subset.  From there,
 C> it then searches in either a forward or backward direction for a
 C> specific occurrence of a nearby mnemonic, and if found
@@ -39,10 +39,10 @@ C>                      of TAGNB.  If for any reason this value cannot be
 C>                      located, then the current placeholder value for
 C>                      "missing" data will be returned instead.
 C>
-C> <p>The current placeholder value for "missing" data can be determined
+C> The current placeholder value for "missing" data can be determined
 C> via a separate call to function getbmiss().
 C>
-C> <p>Before calling this function, a BUFR data subset should already be
+C> Before calling this function, a BUFR data subset should already be
 C> open for reading via a previous call to one of the BUFRLIB
 C> [subset-reading subroutines](@ref hierarchy).
 C>

@@ -17,7 +17,7 @@ C> @param[in] LUNMT2  -- integer: Second Fortran logical unit number
 C>                          to use when reading master BUFR tables on
 C>                          local file system
 C>
-C> <p>See [Master BUFR Tables](@ref dfbfmstab)
+C> See [Master BUFR Tables](@ref dfbfmstab)
 C> for more information about master BUFR tables.  In particular, note
 C> that this subroutine is normally only ever called after a prior call
 C> has been made to subroutine openbf() with IO = 'SEC3'.  But in such
@@ -27,13 +27,13 @@ C> [message-reading subroutines](@ref hierarchy) for the associated BUFR
 C> file; otherwise, default values for CMTDIR, LUNMT1 and LUNMT2 will be
 C> used as defined within subroutine bfrini().
 C>
-C> <p>For CMTDIR, any full or relative directory pathname that is legal
+C> For CMTDIR, any full or relative directory pathname that is legal
 C> on the local filesystem is permissible, up to a total maximum length
 C> of 100 characters.  The BUFRLIB software will then automatically search
 C> within this directory for any necessary master table files and open and
 C> read them as needed.
 C>
-C> <p>The logical unit numbers LUNMT1 and LUNMT2 should be distinct from
+C> The logical unit numbers LUNMT1 and LUNMT2 should be distinct from
 C> each other but should not already be assigned to any files on the
 C> local system.
 C>

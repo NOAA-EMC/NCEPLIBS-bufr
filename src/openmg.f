@@ -17,10 +17,10 @@ C> @param[in] JDATE -- integer: Date-time to be stored within Section 1
 C>                     of BUFR message being opened, in format of either
 C>                     YYMMDDHH or YYYYMMDDHH
 C>
-C> <p>Logical unit LUNIT should have already been opened for output
+C> Logical unit LUNIT should have already been opened for output
 C> operations via a previous call to subroutine openbf().
 C>
-C> <p>This subroutine is similar to subroutine openmb(), except that it
+C> This subroutine is similar to subroutine openmb(), except that it
 C> will always open a new message for output, regardless of the values
 C> of SUBSET and JDATE.  Any existing message within the internal
 C> arrays will be automatically flushed and written to logical unit LUNIT

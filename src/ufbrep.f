@@ -14,7 +14,7 @@ C> - If ABS(LUNIN) points to a file that was previously opened for
 C>   output using subroutine openbf(), then data values are written to
 C>   the current data subset.
 C>
-C> <p>This subroutine is specifically designed for use with Table B
+C> This subroutine is specifically designed for use with Table B
 C> mnemonics which are part of a fixed (i.e. non-delayed) replication
 C> sequence, or for mnemonics which are replicated by being directly
 C> listed more than once within an overall subset definition.
@@ -55,7 +55,7 @@ C>                   subset within the first dimension of USR (see
 C>                   [DX BUFR Tables](@ref dfbftab) for further
 C>                   information about Table B mnemonics)
 C>
-C> <p>It is the user's responsibility to ensure that USR is dimensioned
+C> It is the user's responsibility to ensure that USR is dimensioned
 C> sufficiently large enough to accommodate the number of data values
 C> that are to be read from or written to the data subset.  Note also
 C> that USR is an array of real*8 values; therefore, any data that are
@@ -71,7 +71,7 @@ C> used to read/write character data directly from/to a data subset
 C> without the need to convert from/to real*8 format as an intermediate
 C> step.
 C>
-C> <p>Numeric (i.e. non-character) data values within USR are always in
+C> Numeric (i.e. non-character) data values within USR are always in
 C> the exact units specified for the corresponding mnemonic within the
 C> relevant DX or master BUFR table, without any scale or reference
 C> values applied.  Specifically, this means that, when writing
@@ -84,7 +84,7 @@ C> values returned in USR are already de-scaled and de-referenced and,
 C> thus, are already in the exact units that were defined for the
 C> corresponding mnemonics within the table.
 C>
-C> <p>"Missing" values in USR are always denoted by a unique
+C> "Missing" values in USR are always denoted by a unique
 C> placeholder value.  This placeholder value is initially set
 C> to a default value of 10E10_8, but it can be reset to
 C> any substitute value of the user's choice via a separate

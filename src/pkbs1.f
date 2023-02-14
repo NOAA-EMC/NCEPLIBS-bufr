@@ -7,7 +7,7 @@ C> This subroutines writes a specified value into a specified location
 C> within Section 1 of a BUFR message, overwriting the value previously
 C> stored in that location.
 C>
-C> <p>This subroutine will work on any BUFR message encoded using BUFR
+C> This subroutine will work on any BUFR message encoded using BUFR
 C> edition 2, 3, or 4.  It is similar to subroutine pkvs01(), except
 C> that it operates on a BUFR message passed in via a memory array,
 C> whereas pkvs01() operates on BUFR messages stored internally within

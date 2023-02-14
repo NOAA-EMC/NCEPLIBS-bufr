@@ -6,7 +6,7 @@ C> @author J. Woollen @date 1994-01-06
 C> This subroutine copies a BUFR message from internal arrays in
 C> memory to a specified Fortran logical unit.
 C>
-C> <p>This subroutine is similar to subroutine copymg(), except that
+C> This subroutine is similar to subroutine copymg(), except that
 C> it copies a BUFR message from internal arrays in memory to a
 C> specified Fortran logical unit, whereas copymg() copies a BUFR
 C> message from one Fortran logical unit to another.
@@ -14,19 +14,19 @@ C>
 C> @param[in] LUNOT   -- integer: Fortran logical unit number for
 C>                       target BUFR file
 C>
-C> <p>One or more files of BUFR messages should have already been
+C> One or more files of BUFR messages should have already been
 C> read into internal arrays in memory via one or more previous
 C> calls to subroutine ufbmem(), and a BUFR message should already
 C> be in scope for processing from these arrays via a previous call
 C> to subroutine rdmemm() or readmm().
 C>
-C> <p>Logical unit LUNOT should have already been opened for output
+C> Logical unit LUNOT should have already been opened for output
 C> operations via a previous call to subroutine openbf(), but there
 C> should not be any BUFR message already open for output within the
 C> internal arrays for LUNOT via a previous call to one of the BUFRLIB
 C> [message-writing subroutines](@ref hierarchy).
 C>
-C> <p>The [DX BUFR Table information](@ref dfbftab) associated with
+C> The [DX BUFR Table information](@ref dfbftab) associated with
 C> the internal arrays in memory and with logical unit LUNOT must
 C> contain identical definitions for the type of BUFR message to be
 C> copied from the former to the latter.

@@ -16,19 +16,19 @@ C>                       source BUFR file
 C> @param[in] LUNOT   -- integer: Fortran logical unit number for
 C>                       target BUFR file
 C>
-C> <p>Logical unit LUNIN should have already been opened for input
+C> Logical unit LUNIN should have already been opened for input
 C> operations via a previous call to subroutine openbf(), and a BUFR
 C> message should have already been read into internal arrays for
 C> LUNIN via a previous call to one of the
 C> [message-reading subroutines](@ref hierarchy).
 C>
-C> <p>Logical unit LUNOT should have already been opened for output
+C> Logical unit LUNOT should have already been opened for output
 C> operations via a previous call to subroutine openbf(), but there
 C> should not be any BUFR message already open for output within the
 C> internal arrays for LUNOT via a previous call to one of the BUFRLIB
 C> [message-writing subroutines](@ref hierarchy).
 C>
-C> <p>The [DX BUFR Table information](@ref dfbftab) associated with
+C> The [DX BUFR Table information](@ref dfbftab) associated with
 C> each of the logical units LUNIN and LUNOT must contain identical
 C> definitions for the type of BUFR message to be copied from LUNIN
 C> to LUNOT.

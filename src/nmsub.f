@@ -9,7 +9,7 @@ C> via a call to one of the other
 C> [message-reading subroutines](@ref hierarchy)
 C> for a specified Fortran logical unit.
 C>
-C> <p>The data subsets themselves do not need to have already been
+C> The data subsets themselves do not need to have already been
 C> read via previous calls to any of the
 C> [subset-reading subroutines](@ref hierarchy).
 C>

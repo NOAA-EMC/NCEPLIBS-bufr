@@ -10,7 +10,7 @@ C> internal arrays so that any of the individual BUFR messages can
 C> later be accessed from memory, instead of having to read them one
 C> at a time sequentially from the system file.
 C>
-C> <p>This subroutine is similar to subroutine ufbmem(), except that
+C> This subroutine is similar to subroutine ufbmem(), except that
 C> instead of a file status it returns an array of message types that
 C> were read in.  Furthermore, this subroutine doesn't process any
 C> embedded DX BUFR tables contained within the system file; instead,
@@ -35,7 +35,7 @@ C>                       read from LUNIT and stored into internal arrays
 C> @param[out] MESG   -- integer(*): Types of BUFR messages that were
 C>                       read from LUNIT and stored into internal arrays
 C>
-C> <p>Logical unit numbers LUNIT and LUNDX must already be associated
+C> Logical unit numbers LUNIT and LUNDX must already be associated
 C> with actual filenames on the local system, typically via a Fortran
 C> "OPEN" statement.
 C>

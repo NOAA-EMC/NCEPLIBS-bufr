@@ -7,7 +7,7 @@ C> @author J. Ator @date 2014-02-05
 C> This subroutine writes a long character string (greater than 8 bytes)
 C> to a data subset.
 C>
-C> <p>Normally, subroutine writlc() is used to write a long character
+C> Normally, subroutine writlc() is used to write a long character
 C> string to a data subset.  However, subroutine writlc() can only be
 C> called <b>after</b> a call to one of the
 C> [subset-writing subroutines](@ref hierarchy), so it will not work
@@ -31,7 +31,7 @@ C> @param[in] STR   -- character*(*): Table B mnemonic of long character
 C>                     string to be written, possibly supplemented
 C>                     with an ordinal occurrence notation
 C>
-C> <p>If there is more than one occurrence of STR within the data subset
+C> If there is more than one occurrence of STR within the data subset
 C> definition, then each occurrence can be written via a separate call
 C> to this subroutine, and by appending the ordinal number of the
 C> occurrence to STR in each case.  For example, if there are 5

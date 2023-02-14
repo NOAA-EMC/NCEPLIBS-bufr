@@ -17,10 +17,10 @@ C> @param[in] JDATE -- integer: Date-time to be stored within Section 1
 C>                     of BUFR message being opened, in format of either
 C>                     YYMMDDHH or YYYYMMDDHH
 C>
-C> <p>Logical unit LUNIT should have already been opened for output
+C> Logical unit LUNIT should have already been opened for output
 C> operations via a previous call to subroutine openbf().
 C>
-C> <p>This subroutine is similar to subroutine openmg(), except that it
+C> This subroutine is similar to subroutine openmg(), except that it
 C> will only open a new message if either SUBSET or JDATE has changed
 C> since the previous call to this subroutine.  Otherwise, it will
 C> leave the existing internal message unchanged so that the next data
@@ -29,7 +29,7 @@ C> improving overall storage efficiency by allowing the maximum number
 C> of data subsets to be stored within each output BUFR message.  For
 C> this reason, openmb() is much more widely used than openmg().
 C>
-C> <p>If this subroutine does need to open and initialize a new BUFR
+C> If this subroutine does need to open and initialize a new BUFR
 C> message for output (e.g. if the value of SUBSET or JDATE has changed
 C> since the previous call to this subroutine), then any existing
 C> message within the internal arrays will be automatically flushed and

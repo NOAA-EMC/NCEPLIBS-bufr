@@ -26,7 +26,7 @@ C>                           - -1 = there are no more BUFR data subsets
 C>                                 in the file connected to logical unit
 C>                                 LUNIT
 C>
-C> <p>Logical unit LUNIT should have already been opened for
+C> Logical unit LUNIT should have already been opened for
 C> input operations via a previous call to subroutine openbf().
 C> But once that is done, the application program can immediately call
 C> this subroutine to read each new data subset from the

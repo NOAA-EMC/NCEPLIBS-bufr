@@ -10,7 +10,7 @@ C> internal arrays so that any of the individual BUFR messages can
 C> later be accessed from memory, instead of having to read them one
 C> at a time sequentially from the system file.
 C>
-C> <p>Any embedded DX BUFR tables contained within the file are also
+C> Any embedded DX BUFR tables contained within the file are also
 C> read and processed into separate internal arrays for later use.
 C>
 C> @param[in] LUNIT   -- integer: Fortran logical unit number for BUFR
@@ -30,11 +30,11 @@ C>                       - Otherwise, the Fortran logical unit number to
 C>                         use for later access to any of the messages
 C>                         from the internal arrays
 C>
-C> <p>Logical unit number LUNIT must already be associated with an
+C> Logical unit number LUNIT must already be associated with an
 C> actual filename on the local system, typically via a Fortran "OPEN"
 C> statement.
 C>
-C> <p>When INEW = 0, the output value IUNIT will be set equal to the
+C> When INEW = 0, the output value IUNIT will be set equal to the
 C> input value LUNIT.  Otherwise, the output value IUNIT will be set to
 C> the value of LUNIT that was input when this subroutine was previously
 C> called with INEW = 0, and the system file connected to LUNIT will be

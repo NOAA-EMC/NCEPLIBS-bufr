@@ -7,7 +7,7 @@ C> This subroutine reads the lengths of all of the individual
 C> sections of a given BUFR message, up to a specified point in
 C> the message.
 C>
-C> <p>This subroutine will work on any BUFR message encoded using
+C> This subroutine will work on any BUFR message encoded using
 C> BUFR edition 2, 3, or 4
 C>
 C> @param[in]  MBAY -- integer(*): BUFR message

@@ -7,7 +7,7 @@ C> This subroutine reads master Table D information from two separate
 C> ASCII files (one standard and one local) and then merges the
 C> output into a single set of arrays.
 C>
-C> <p>Each of the two ASCII files must already be individually sorted
+C> Each of the two ASCII files must already be individually sorted
 C> in ascending order with respect to the FXY numbers.
 C>
 C> @param[in] LUNSTD -- integer: Fortran logical unit number for

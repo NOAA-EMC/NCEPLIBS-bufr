@@ -7,7 +7,7 @@ C> @authors J. Woollen, J. Ator @date 1994-01-06
 C> This subroutine reads the next BUFR message from logical unit
 C> ABS(LUNXX) into internal arrays.
 C>
-C> <p>Logical unit ABS(LUNXX) should have already been opened for
+C> Logical unit ABS(LUNXX) should have already been opened for
 C> input operations via a previous call to subroutine openbf().
 C>
 C> @param[in] LUNXX   -- integer: Absolute value is Fortran logical unit
@@ -27,7 +27,7 @@ C>                           - -1 = there are no more BUFR messages in
 C>                                 the file connected to logical unit
 C>                                 ABS(LUNXX)
 C>
-C> <p>Whenever this subroutine returns with IRET = 0, this indicates
+C> Whenever this subroutine returns with IRET = 0, this indicates
 C> that a new BUFR message of type SUBSET and date-time JDATE was
 C> successfully read into internal arrays within the BUFRLIB
 C> software, and from where it can then be easily manipulated or further
