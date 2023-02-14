@@ -4,16 +4,7 @@
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
 list(APPEND fortran_src
-  modv_BMISS.f90 modv_IFOPBF.f90 modv_MAXCD.f90 modv_MAXJL.f modv_MAXMEM.f modv_MAXMSG.f modv_MAXNC.f90
-  modv_MAXSS.f modv_MAXTBA.f modv_MAXTBB.f modv_MAXTBD.f modv_MXBTM.f modv_MXBTMSE.f modv_MXCDV.f
-  modv_MXCNEM.f90 modv_MXCSB.f modv_MXDXTS.f modv_MXH4WLC.f90 modv_MXLCC.f modv_MXMSGL.f modv_MXMTBB.f
-  modv_MXMTBD.f modv_MXMTBF.f modv_MXNAF.f90 modv_MXNRV.f modv_MXRST.f modv_MXS.f90 modv_MXS01V.f
-  modv_MXTAMC.f modv_MXTCO.f modv_NFILES.f90 modv_IM8B.f90
-  moda_bitbuf.F moda_bitmaps.F moda_bufrmg.F moda_bufrsr.F moda_comprs.F moda_comprx.F moda_dscach.F
-  moda_h4wlc.F moda_idrdm.F moda_ival.F moda_ivttmp.F moda_lushr.F moda_mgwa.F moda_mgwb.F moda_msgcwd.F
-  moda_msglim.F moda_msgmem.F moda_mstabs.F moda_nmikrp.F moda_nrv203.F moda_nulbfr.F moda_rdmtb.F
-  moda_rlccmn.F moda_s01cm.F moda_sc3bfr.F moda_stbfr.F moda_stcode.F moda_tababd.F moda_tables.F
-  moda_ufbcpl.F moda_unptyp.F moda_usrbit.F moda_usrint.F moda_usrtmp.F moda_xtab.F
+  modules_vars.F90 modules_arrs.F90
   adn30.f atrcpt.f blocks.f bort.f bort2.f cadn30.f capit.f chekstab.f chrtrna.f cktaba.f closmg.f
   cmpmsg.f cmsgini.f cnved4.f codflg.f conwin.f copybf.f copymg.f copysb.f cpbfdx.f cpdxmm.f cpymem.f
   cpyupd.f datebf.f datelen.f digit.f drfini.f drstpl.f dumpbf.f dxdump.f dxinit.f dxmini.f elemdx.f
@@ -54,11 +45,11 @@ list(APPEND fortran_src ${CMAKE_CURRENT_BINARY_DIR}/bvers.f ${CMAKE_CURRENT_BINA
 
 # Create the bufrlib.h file
 foreach(_var IN ITEMS MAXNC MXNAF MAXCD NFILES)
-  file(STRINGS modv_${_var}.f90 _${_var}_tempstr REGEX "integer,")
+  file(STRINGS modules_vars.F90 _${_var}_tempstr REGEX "integer[a-z ,]*:: ${_var}")
   if(_${_var}_tempstr MATCHES "${_var} = ([0-9]+)")
     set(${_var} ${CMAKE_MATCH_1})
   else()
-    message(FATAL_ERROR "Unable to parse variable ${_var} value from file: modv_${_var}.f90")
+    message(FATAL_ERROR "Unable to parse variable ${_var} value from file: modules_vars.F90")
   endif()
 endforeach()
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/bufrlib.h.in ${CMAKE_CURRENT_BINARY_DIR}/bufrlib.h @ONLY)
