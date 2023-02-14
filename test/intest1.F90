@@ -24,6 +24,10 @@ program intest1
 
   print *, 'Testing reading IN_1, CRBMG with OPENBF IO = SEC3'
 
+#ifdef KIND_8
+  call setim8b(.true.)
+#endif
+
   ! Open the test file.
   call cobfl(filnam, filost)
 
