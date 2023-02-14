@@ -1,7 +1,7 @@
 # This is the cmake build file for the tests directory of the
 # NCEPLIBS-bufr project.
 #
-# Rahul, Jeff Ator, Ed Hartnett
+# Rahul Mahajan, Jeff Ator, Ed Hartnett
 
 # This function builds, links, and runs a test program.
 function(create_test name kind)
