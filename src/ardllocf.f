@@ -2,11 +2,6 @@ C> @file
 C> @brief Free all dynamically-allocated memory within internal
 C> Fortran language arrays.
 C>
-C> ### Program History
-C> Date | Programmer | Comments
-C> -----|------------|----------
-C> 2014-12-04 | J. Ator | Original author
-C>
 C> @author J. Ator @date 2014-12-04
 
 C> This subroutine frees any memory that was dynamically allocated

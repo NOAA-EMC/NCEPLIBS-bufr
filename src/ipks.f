@@ -2,13 +2,6 @@ C> @file
 C> @brief Pack a real*8 value into an integer
 C> by applying the proper scale and reference values.
 C>
-C> ### Program History Log
-C> Date | Programmer | Comments
-C> -----|------------|----------
-C> 2012-03-02 | J. Ator    | Original author; adapted from internal statement function in wrtree.
-C> 2014-12-10 | J. Ator    | Use modules instead of common blocks.
-C> 2022-05-06 | J. Woollen | Make imask and ipks 8byte integers.
-C>
 C> @author J. Ator @date 2012-03-02
 
 C> This function packs a real*8 user value into a BUFR

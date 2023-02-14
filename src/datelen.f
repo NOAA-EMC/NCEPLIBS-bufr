@@ -1,16 +1,6 @@
 C> @file
 C> @brief Specify format of Section 1 date-time when reading
 C> BUFR messages.
-C>
-C> <b>Program history log:</b>
-C> | Date | Programmer | Comments |
-C> | -----|------------|----------|
-C> | 1998-07-08 | J. Woollen | Original author |
-C> | 2002-05-14 | J. Woollen | Changed from an entry point in readmg() to stand-alone subroutine, to increase portability to other platforms |
-C> | 2003-11-04 | J. Ator    | Added documentation |
-C> | 2004-12-20 | D. Keyser  | Calls wrdlen() to initialize local machine information, in case it has not yet been called |
-C> | 2022-08-04 | J. Woollen | Added 8-byte wrapper |
-C>
 C> @author J. Woollen @date 1998-07-08
 
 C> This subroutine is used to specify the format of Section 1

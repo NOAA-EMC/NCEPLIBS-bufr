@@ -1,12 +1,11 @@
 C> @file
 C> @brief Specify location of master BUFR tables on local file system
+C>
+C> @author J. Ator @date 2009-03-23
 
 C> This subroutine allows the specification of the directory location
 C> and Fortran logical unit numbers to be used when reading master
 C> BUFR tables on the local file system.
-C>
-C> @author J. Ator
-C> @date 2009-03-23
 C>
 C> @param[in] CMTDIR  -- character*(*): Directory location of master
 C>                          BUFR tables on local file system
@@ -38,12 +37,7 @@ C> <p>The logical unit numbers LUNMT1 and LUNMT2 should be distinct from
 C> each other but should not already be assigned to any files on the
 C> local system.
 C>
-C> <b>Program history log:</b>
-C> | Date | Programmer | Comments |
-C> | -----|------------|----------|
-C> | 2009-03-23 | J. Ator | Original author |
-C> | 2022-08-04 | J. Woollen | Added 8-byte wrapper |
-
+C> @author J. Ator @date 2009-03-23
       RECURSIVE SUBROUTINE MTINFO ( CMTDIR, LUNMT1, LUNMT2 )
 
       USE MODV_IM8B

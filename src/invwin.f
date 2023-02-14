@@ -2,17 +2,6 @@ C> @file
 C> @brief Search for a specified node within a specified portion
 C> of the current data subset.
 C>
-C> ### Program History Log
-C> Date | Programmer | Comments
-C> -----|------------|----------
-C> 1994-01-06 | J. Woollen | Original author.
-C> 1999-11-18 | J. Woollen | Increased number of open bufr files to 32 (necessary for mpi).
-C> 2003-11-04 | S. Bender  | Added remarks/bufrlib routine interdependencies.
-C> 2003-11-04 | D. Keyser  | maxjl increased to 16000; unified/portable for wrf; documentation); outputs more info when unusual things happen.
-C> 2009-03-31 | J. Woollen | Added documentation.
-C> 2009-04-21 | J. Ator    | Use errwrt().
-C> 2014-12-10 | J. Ator    | Use modules instead of common blocks.
-C>
 C> @author Woollen @date 1994-01-06
 
 C> This function looks for a specified node within the portion

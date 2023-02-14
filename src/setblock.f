@@ -1,6 +1,8 @@
 C> @file
 C> @brief Specify the use of IEEE Fortran control words when writing
 C> BUFR messages.
+C>
+C> @author J. Woollen @date 2012-09-15
 
 C> This subroutine is used to specify whether BUFR messages output by
 C> future calls to [message-writing subroutines](@ref hierarchy)
@@ -24,9 +26,6 @@ C> unless a subsequent call is made to this subroutine to reset the
 C> value of IBLK again.  If this subroutine is never called, a default
 C> value of 0 is used for IBLK, as set within subroutine bfrini().
 C>
-C> @author J. Woollen
-C> @date 2012-09-15
-C>
 C> @param[in]  IBLK -- integer: Flag indicating whether future BUFR
 C>                     output messages should be encapsulated with
 C>                     control words
@@ -47,12 +46,7 @@ C> (including historical archives), so control words are no longer
 C> necessary and are therefore now disabled by default when writing
 C> BUFR messages to output files.
 C>
-C> <b>Program history log:</b>
-C> | Date | Programmer | Comments |
-C> | -----|------------|----------|
-C> | 2012-09-15 | J. Woollen | Original author |
-C> | 2022-10-04 | J. Ator | Added 8-byte wrapper |
-
+C> @author J. Woollen @date 2012-09-15
       RECURSIVE SUBROUTINE SETBLOCK(IBLK)
 
       USE MODV_IM8B

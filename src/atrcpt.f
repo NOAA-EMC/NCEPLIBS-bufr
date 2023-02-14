@@ -1,12 +1,5 @@
 C> @file
 C> @brief Add a tank receipt time to a BUFR message.
-C>
-C> ### Program History
-C> Date       | Programmer | Comments
-C> -----------|------------|----------------------
-C> 2009-03-23 | J. Ator    | Original author
-C> 2022-08-04 | J. Woollen | Added 8-byte wrapper
-C>
 C> @author J. Ator @date 2009-03-23
 
 C> This subroutine reads an input message and outputs an equivalent

@@ -2,13 +2,6 @@ C> @file
 C> @brief Get the scale factor, reference value and bit width
 C> associated with a specified occurrence of a Table B mnemonic.
 C>
-C> ### Program history log
-C> Date | Programmer | Comments
-C> -----|------------|---------
-C> 2014-10-02 | J. Ator | Original version
-C> 2014-12-10 | J. Ator | Use modules instead of COMMON blocks
-C> 2022-08-04 | J. Woollen | Added 8-byte wrapper
-C>
 C> @author J. Ator @date 2014-10-02
 
 C> Given a Table B mnemonic defined within a data subset, this

@@ -1,16 +1,6 @@
 C> @file
 C> @brief Initate the process to parse out mnemonics from a character string.
 C>
-C> ### Program History Log
-C> Date | Programmer | Comments
-C> -----|------------|----------
-C> 1994-01-06 | J. Woollen | Original author.
-C> 1998-07-08 | J. Woollen | Replaced call to cray "abort" with bort(); improved machine portability.
-C> 2003-11-04 | S. Bender  | Added remarks/bufrlib routine interdependencies.
-C> 2003-11-04 | D. Keyser  | Unified/portable for wrf; documentation; more diagnostic info; changed to bort2(); change parutg().
-C> 2007-01-19 | J. Ator    | Replaced call to parseq with call to parstr.
-C> 2009-05-07 | J. Ator    | Use lstjpb instead of lstrpc.
-C>
 C> @author Woollen @date 1994-01-06
 
 C> This subroutine initates the process to parse out mnemonics

@@ -1,11 +1,10 @@
 C> @file
 C> @brief Merge parts of data subsets
+C>
+C> @author J. Woollen @date 1996-10-09
 
 C> This subroutine merges parts of data subsets which have duplicate
 C> space and time coordinates but different or unique observational data.
-C>
-C> @author J. Woollen
-C> @date 1996-10-09
 C>
 C> @param[in] LUBFI   -- integer: Fortran logical unit number for input
 C>                       BUFR file
@@ -22,20 +21,7 @@ C> @remarks
 C> - This subroutine cannot merge parts of data subsets which are
 C> contained within replication sequences.
 C>
-C> <b>Program history log:</b>
-C> | Date | Programmer | Comments |
-C> | -----|------------|----------|
-C> | 1996-10-09 | J. Woollen | Original author |
-C> | 1996-11-25 | J. Woollen | Modified for radiosonde call signs |
-C> | 1998-07-08 | J. Woollen | Replaced call to Cray library routine ABORT with call to new internal routine bort() |
-C> | 1999-11-18 | J. Woollen | The number of BUFR files which can be opened at one time increased from 10 to 32 |
-C> | 2002-05-14 | J. Woollen | Removed old Cray compiler directives; removed entry point mrginv |
-C> | 2003-11-04 | S. Bender  | Added remarks and routine interdependencies |
-C> | 2003-11-04 | D. Keyser  | MAXJL (maximum number of jump/link entries) increased from 15000 to 16000 |
-C> | 2007-01-19 | J. Ator    | Use ibfms() and simplify logic |
-C> | 2014-12-10 | J. Ator    | Use modules instead of COMMON blocks |
-C> | 2022-08-04 | J. Woollen | Added 8-byte wrapper |
-
+C> @author J. Woollen @date 1996-10-09
       RECURSIVE SUBROUTINE INVMRG(LUBFI,LUBFJ)
 
       USE MODA_USRINT

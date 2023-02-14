@@ -1,5 +1,7 @@
 C> @file
 C> @brief Read the tank receipt time from Section 1 of a BUFR message.
+C>
+C> @author J. Ator @date 2009-03-23
 
 C> This subroutine reads the tank receipt time (if one exists) from
 C> Section 1 of a BUFR message.  It is similar to subroutine rtrcptb(),
@@ -8,9 +10,6 @@ C> memory array, whereas this subroutine operates on the BUFR message
 C> that was read into internal arrays via the most recent call to any
 C> of the other [message-reading subroutines](@ref hierarchy) for a
 C> specified Fortran logical unit.
-C>
-C> @author J. Ator
-C> @date 2009-03-23
 C>
 C> @param[in] LUNIT -- integer: Fortran logical unit number for
 C>                     BUFR file
@@ -25,14 +24,7 @@ C>                     - -1 = no tank receipt time exists within the
 C>                            BUFR message currently open for input
 C>                            within internal arrays
 C>
-C> <b>Program history log:</b>
-C> | Date | Programmer | Comments |
-C> | -----|------------|----------|
-C> | 2009-03-23 | J. Ator | Original author |
-C> | 2013-10-07 | J. Ator | Modified to call rtrcptb() |
-C> | 2014-12-10 | J. Ator | Use modules instead of COMMON blocks |
-C> | 2022-10-04 | J. Ator | Added 8-byte wrapper |
-
+C> @author J. Ator @date 2009-03-23
       RECURSIVE SUBROUTINE RTRCPT(LUNIT,IYR,IMO,IDY,IHR,IMI,IRET)
 
       USE MODV_IM8B

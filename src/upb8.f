@@ -1,5 +1,7 @@
 C> @file
 C> @brief Decode an 8-byte integer value from an integer array.
+C>
+C> @author J. Woollen @date 2022-05-06
 
 C> This subroutine decodes an 8-byte integer value from within a
 C> specified number of bits of an integer array, starting at the bit
@@ -8,9 +10,6 @@ C>
 C> <p>It is similar to subroutine up8(), except that here IBIT is
 C> only an input argument, and the overall order of the arguments
 C> is different.
-C>
-C> @author J. Woollen
-C> @date 2022-05-06
 C>
 C> @param[in] IBAY    -- integer(*): Array containing encoded value
 C> @param[in] IBIT  -- integer: Bit within IBAY after which to begin
@@ -23,11 +22,7 @@ C> - This subroutine will not work properly if NBITS is less than 0 or
 C>   greater than 64, as determined via an internal call to subroutine
 C>   wrdlen().
 C>
-C> <b>Program history log:</b>
-C> | Date | Programmer | Comments |
-C> | -----|------------|----------|
-C> | 2022-05-06 | J. Woollen | Original author |
-
+C> @author J. Woollen @date 2022-05-06
       subroutine upb8(nval,nbits,ibit,ibay)
 
       common /hrdwrd/ nbytw,nbitw,iord(8)

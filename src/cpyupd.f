@@ -2,23 +2,6 @@ C> @file
 C> @brief Copy a BUFR data subset.
 C> pointers.
 C>
-C> ### Program History Log
-C> Date | Programmer | Comments
-C> -----|------------|----------
-C> 1994-01-06 | J. Woollen | Original author.
-C> 1998-07-08 | J. Woollen | Replaced call to cray library routine "abort" with call to bort().
-C> 1999-11-18 | J. Woollen | Increased num open files from 10 to 32 (necessary for mpi).
-C> 2000-09-19 | J. Woollen | Maximum message length increased from 10,000 to 20,000 bytes.
-C> 2002-05-14 | J. Woollen | Removed old cray compiler directives.
-C> 2003-11-04 | S. Bender  | Added remarks/bufrlib routine interdependencies.
-C> 2003-11-04 | D. Keyser  | Unified/portable for wrf; documentation; more complete diagnostic when routine terminates abnormally.
-C> 2004-08-09 | J. Ator    | Maximum message length increased from 20,000 to 50,000 bytes.
-C> 2009-03-23 | J. Ator    | Use msgfull.
-C> 2014-10-27 | J. Woollen | Account for subsets with byte count > 65530 (these must be written into their own one-subset message).
-C> 2014-10-27 | D. Keyser  | For case above, do not write "current" message if it contains zero subsets.
-C> 2014-12-10 | J. Ator    | Use modules instead of common blocks.
-C> 2015-09-24 | D. Stokes  | Fix missing declaration OF COMMON QUIET.
-C>
 C> @author Woollen @date 1994-01-06
 
 C> This subroutine copies a BUFR data subset from one unit

@@ -1,6 +1,8 @@
 C> @file
 C> @brief Connect a new system file to the BUFRLIB software, and read
 C> the entire file contents into internal arrays.
+C>
+C> @author J. Woollen @date 2012-01-26
 
 C> This subroutine connects a new system file to the BUFRLIB software
 C> for input operations, then reads the entire file contents into
@@ -15,9 +17,6 @@ C> embedded DX BUFR tables contained within the system file; instead,
 C> it provides an additional call argument LUNDX to allow
 C> for specification of the necessary DX BUFR table information
 C> associated with the messages in the file.
-C>
-C> @author J. Woollen
-C> @date 2012-01-26
 C>
 C> @param[in] LUNIT   -- integer: Fortran logical unit number for BUFR
 C>                       file
@@ -40,14 +39,7 @@ C> <p>Logical unit numbers LUNIT and LUNDX must already be associated
 C> with actual filenames on the local system, typically via a Fortran
 C> "OPEN" statement.
 C>
-C> <b>Program history log:</b>
-C> | Date | Programmer | Comments |
-C> | -----|------------|----------|
-C> | 2012-01-26 | J. Woollen | Original author |
-C> | 2014-12-10 | J. Ator    | Use modules instead of COMMON blocks |
-C> | 2015-09-24 | D. Stokes  | Fix missing declaration of COMMON /QUIET/ |
-C> | 2022-10-04 | J. Ator    | Added 8-byte wrapper |
-
+C> @author J. Woollen @date 2012-01-26
       RECURSIVE SUBROUTINE UFBMEX(LUNIT,LUNDX,INEW,IRET,MESG)
 
       USE MODV_IM8B

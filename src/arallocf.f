@@ -1,6 +1,8 @@
 C> @file
 C> @brief Dynamically allocate Fortran language arrays within internal
 C> memory.
+C>
+C> @author J. Ator @date 2014-12-04
 
 C> This subroutine is called internally during the first call to
 C> subroutine openbf() from an application program, in order to
@@ -12,26 +14,13 @@ C> <p>This subroutine isn't normally called directly from an application
 C> program, since it's automatically called internally during the first
 C> call to subroutine openbf() from an application program.
 C>
-C> @author J. Ator
-C> @date 2014-12-04
-C>
 C> @remarks
 C> - All memory allocated within this subroutine can be freed via a
 C> subsequent call to subroutine exitbufr() from within the
 C> application program, or else it will be freed automatically by the
 C> operating system once the application program terminates.
 C>
-C> <b>Program history log:</b>
-C> | Date | Programmer | Comments |
-C> | -----|------------|----------|
-C> | 2014-12-04 | J. Ator | Original author |
-C> | 2016-05-24 | J. Ator | Added allocations for MODA_BITMAPS and MODA_NRV203 |
-C> | 2017-05-22 | J. Ator | Added allocations for MODA_RLCCMN |
-C> | 2019-05-09 | J. Ator | Modified allocations for MODA_BUFRMG |
-C> | 2021-01-08 | J. Ator | Modified mstabs array declarations for GNUv10 portability |
-C> | 2021-05-17 | J. Ator | Allow up to 24 characters in cbunit |
-C> | 2022-06-24 | J. Ator | Remove MODV references from MODA files and include explicitly where needed |
-C>
+C> @author J. Ator @date 2014-12-04
         SUBROUTINE ARALLOCF
 
         USE MODV_MAXCD

@@ -1,17 +1,6 @@
 C> @file
 C> @brief Check whether a string is in the string cache.
 C>
-C> ### Program History Log
-C> Date | Programmer | Comments
-C> -----|------------|---------
-C> 1994-01-06 | J. Woollen | original author
-C> 1998-04-02 | J. Woollen | modified to enlarge the cache from 50 elements to 1000, maximum; optimization of the cache search algorithm in support of a bigger cache
-C> 1998-07-08 | J. Woollen | replaced call to cray library routine "abort" with call to new internal bufrlib routine "bort"; corrected some minor errors
-C> 1999-11-18 | J. Woollen | the number of bufr files which can be opened at one time increased from 10 to 32
-C> 2003-11-04 | S. Bender  | added remarks/bufrlib routine interdependencies
-C> 2003-11-04 | D. Keyser  | unified/portable for wrf; documentation; more info; changed call to bort2()
-C> 2014-12-10 | J. Ator    | use modules instead of common blocks
-C>
 C> @author Woollen @date 1994-01-06
 
 C> This subroutine checks to see if a user-specified character

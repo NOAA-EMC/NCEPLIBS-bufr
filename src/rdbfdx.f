@@ -1,23 +1,6 @@
 C> @file
 C> @brief Read a complete DX BUFR table.
 C>
-C> ### Program History
-C> Date | Programmer | Comments
-C> -----|------------|----------
-C> 1994-01-06 | J. Woollen | Original author.
-C> 1995-06-28 | J. Woollen | Increased the size of internal bufr table arrays in order to handle bigger files
-C> 1996-12-17 | J. Woollen | Fixed for some mvs compiler's treatment of internal reads (increases portability).
-C> 1998-07-08 | J. Woollen | Replaced cray routine "abort" with bort(); corrected some minor errors
-C> 1999-11-18 | J. Woollen | The number of bufr files which can be opened at one time increased from 10 to 32.
-C> 2000-09-19 | J. Woollen | Maximum message length increased from 10,000 to 20,000 bytes.
-C> 2003-11-04 | S. Bender  | Added remarks/bufrlib routine interdependencies.
-C> 2003-11-04 | D. Keyser  | Unified/portable for wrf; added documentation (including history); outputs more complete diagnostic info when routine terminates abnormally.
-C> 2004-08-09 | J. Ator    | Maximum message length increased from 20,000 to 50,000 bytes.
-C> 2005-11-29 | J. Ator    | Use getlens, iupbs01 and rdmsgw.
-C> 2009-03-23 | J. Ator    | Use stntbia; modify logic to handle bufr table messages encountered anywhere in the file (and not just at the beginning!).
-C> 2012-09-15 | J. Woollen | Modified for c/i/o/bufr interface; replace fortran backspace with c backbufr.
-C> 2014-12-10 | J. Ator    | Use modules instead of common blocks.
-C>
 C> @author Woollen @date 1994-01-06
 
 C> Beginning at the current file pointer location within LUNIT,

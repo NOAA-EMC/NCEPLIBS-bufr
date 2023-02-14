@@ -1,5 +1,7 @@
 /** @file
  *  @brief Search for a specified master Code/Flag table entry.
+ *
+ *  @author J. Ator  @date 2018-01-11
  */
 #include "bufrlib.h"
 #include "cfe.h"
@@ -16,9 +18,6 @@
  *  originating sub-center value depends on the identity of the
  *  originating center for which the sub-center in question is a
  *  member.
- *
- *  @author J. Ator
- *  @date 2018-01-11
  *
  *  @param[in] ifxyi -- f77int*: Bit-wise representation of FXY number
  *                      to search for
@@ -66,10 +65,7 @@
  *                             representation is stored in the first iret
  *                             elements of ifxyd
  *
- * <b>Program history log:</b>
- * | Date | Programmer | Comments |
- * | -----|------------|----------|
- * | 2018-01-11 | J. Ator | Original author |
+ *  @author J. Ator  @date 2018-01-11
  */
 void srchtbf( f77int *ifxyi, f77int *ivali, f77int *ifxyd, f77int *mxfxyd, f77int *ivald,
               char *meaning, f77int *mxmng, f77int *lnmng, f77int *iret )

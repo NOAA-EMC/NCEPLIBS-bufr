@@ -1,20 +1,6 @@
 C> @file
 C> @brief Position an output BUFR file for appending.
 C>
-C> ### Program History Log
-C> Date | Programmer | Comments
-C> -----|------------|----------
-C> 1994-01-06 | J. Woollen | Original author.
-C> 1998-07-08 | J. Woollen | Replaced call to cray library routine "abort" with bort().
-C> 2000-09-19 | J. Woollen | Maximum message length increased from 10,000 to 20,000 bytes.
-C> 2003-11-04 | S. Bender  | Added remarks/bufrlib routine interdependencies.
-C> 2003-11-04 | D. Keyser  | Unified/portable for wrf; added documentation (including history); outputs more.
-C> 2004-08-09 | J. Ator    | Maximum message length increased from 20,000 to 50,000 bytes.
-C> 2009-03-23 | J. Ator    | Modified to handle embedded bufr table (dictionary) messages; added lunxx < 0 option to simulate posapn.
-C> 2010-05-11 | J. Ator    | Set iscodes to -1 if unsuccessful.
-C> 2012-09-15 | J. Woollen | Modified for c/i/o/bufr interface; replace fortran backspace with c backbufr remove unecessary error checking logic.
-C> 2014-12-10 | J. Ator    | Use modules instead of common blocks.
-C>
 C> @author Woollen @date 1994-01-06
 
 C> This subroutine reads to the end of the file pointed to by

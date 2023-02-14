@@ -2,17 +2,6 @@ C> @file
 C> @brief Search backwards from a specified node of the jump/link table
 C> for a node of a specified type.
 C>
-C> ### Program History Log
-C> Date | Programmer | Comments
-C> -----|------------|----------
-C> 1994-01-06 | J. Woollen | Original author.
-C> 1998-07-08 | J. Woollen | Replaced call to cray library routine "abort" with call to bort().
-C> 1999-11-18 | J. Woollen | The number of bufr files which can be opened at one time increased from 10 to 32.
-C> 2003-11-04 | S. Bender  | Added remarks/bufrlib routine interdependencies.
-C> 2003-11-04 | D. Keyser  | maxjl increased to 16000; unified/portable for wrf; documentation; outputs more info.
-C> 2009-03-31 | J. Woollen | Added additional documentation.
-C> 2014-12-10 | J. Ator    | Use modules instead of common blocks.
-C>
 C> @author Woollen @date 1994-01-06
 
 C> This function searches backwards, beginning from a given

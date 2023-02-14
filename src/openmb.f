@@ -1,12 +1,11 @@
 C> @file
 C> @brief Open a new message for output in a BUFR file that was
 C> previously opened for writing.
+C>
+C> @author J. Woollen @date 1994-01-06
 
 C> This subroutine opens and initializes a new BUFR message within
 C> internal arrays, for eventual output to logical unit LUNIT.
-C>
-C> @author J. Woollen
-C> @date 1994-01-06
 C>
 C> @param[in] LUNIT -- integer: Fortran logical unit number for BUFR
 C>                     file
@@ -38,18 +37,7 @@ C> written to logical unit LUNIT via an internal call to subroutine
 C> closmg().  In this case, the behavior of this subroutine then
 C> becomes exactly like that of subroutine openmg().
 C>
-C> <b>Program history log:</b>
-C> | Date | Programmer | Comments |
-C> | -----|------------|----------|
-C> | 1994-01-06 | J. Woollen | Original author |
-C> | 1998-07-08 | J. Woollen | Replaced call to Cray library routine "ABORT" with call to new internal routine bort(); modified to make Y2K compliant |
-C> | 1999-11-18 | J. Woollen | The number of BUFR files which can be opened at one time increased from 10 to 32 |
-C> | 2003-11-04 | J. Ator    | Added documentation |
-C> | 2003-11-04 | S. Bender  | Added remarks and routine interdependencies |
-C> | 2003-11-04 | D. Keyser  | Unified/portable for WRF; added documentation; outputs more complete diagnostic info when routine terminates abnormally |
-C> | 2014-12-10 | J. Ator    | Use modules instead of COMMON blocks |
-C> | 2022-08-04 | J. Woollen | Added 8-byte wrapper |
-
+C> @author J. Woollen @date 1994-01-06
       RECURSIVE SUBROUTINE OPENMB(LUNIT,SUBSET,JDATE)
 
       USE MODA_MSGCWD

@@ -1,14 +1,13 @@
 C> @file
 C> @brief Standardize a BUFR message.
+C>
+C> @author J. Ator @date 2004-08-18
 
 C> This subroutine performs the same function as subroutine stdmsg(),
 C> except that it operates on a BUFR message passed in via a memory array
 C> and returns its output via a separate memory array,
 C> whereas stdmsg() operates on BUFR messages stored internally
 C> within the software.
-C>
-C> @author J. Ator
-C> @date 2004-08-18
 C>
 C> @param[in] LUNIT   -- integer: Fortran logical unit number for
 C>                       BUFR file
@@ -24,16 +23,7 @@ C> - Standardized messages are usually longer in length than their
 C> non-standard counterparts, so it's usually a good idea to allow
 C> for extra space when allocating MSGOT within the application program.
 C>
-C> <b>Program history log:</b>
-C> | Date | Programmer | Comments |
-C> | -----|------------|----------|
-C> | 2004-08-18 | J. Ator | Original author |
-C> | 2005-11-29 | J. Ator | Use getlens() and iupbs01(); ensure that byte 4 of Section 4 is zeroed out in MSGOT; check edition number of BUFR message before padding to an even byte count |
-C> | 2009-03-23 | J. Ator | Use iupbs3() and nemtbax(); don't assume that compressed messages are already fully standardized within Section 3 |
-C> | 2014-02-04 | J. Ator | Account for subsets with byte count > 65530 |
-C> | 2020-07-16 | J. Ator | Fix bug in ISLEN computation when NSUB = 1 |
-C> | 2022-10-04 | J. Ator | Added 8-byte wrapper |
-
+C> @author J. Ator @date 2004-08-18
       RECURSIVE SUBROUTINE STNDRD(LUNIT,MSGIN,LMSGOT,MSGOT)
 
       USE MODV_MAXNC

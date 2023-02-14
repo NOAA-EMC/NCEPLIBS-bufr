@@ -1,22 +1,6 @@
 C> @file
 C> @brief Build the internal jump/link table.
 C>
-C> ### Program history log
-C> | Date | Programmer | Comments |
-C> | -----|------------|----------|
-C> | 1994-01-06 | J. Woollen | Original author |
-C> | 1995-06-28 | J. Woollen | Increase the size of internal arrays to handle bigger files |
-C> | 1998-07-08 | J. Woollen | Replaced call to Cray library routine ABORT with call to new internal routine bort() |
-C> | 1999-11-18 | J. Woollen | The number of BUFR files which can be opened at one time increased from 10 to 32 |
-C> | 2003-11-04 | J. Ator    | added documentation |
-C> | 2003-11-04 | S. Bender  | added remarks and routine interdependencies |
-C> | 2003-11-04 | D. Keyser  | MAXJL increased from 15000 to 16000; added documentation; allow for LUN to not contain any DX BUFR tables information |
-C> | 2009-03-18 | J. Woollen | add logic to respond to cases where DX BUFR tables for an LUN change in midstream |
-C> | 2009-06-25 | J. Ator    | tweak logic to handle special case where new DX BUFR tables were read for an LUN but haven't actually changed |
-C> | 2009-11-17 | J. Ator    | prevent writing of table information when new DX BUFR tables were read for an LUN but haven't actually changed |
-C> | 2014-12-10 | J. Ator    | use modules instead of COMMON blocks |
-C> | 2017-04-03 | J. Ator    | include module bitmaps and initialization of ntamc |
-C>
 C> @author J. Woollen @date 1994-01-06
 
 C> This subroutine constructs the internal jump/link table within

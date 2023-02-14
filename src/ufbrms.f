@@ -1,13 +1,12 @@
 C> @file
 C> @brief Read one or more data values from a data subset in
 C> internal arrays.
+C>
+C> @author J. Woollen @date 1994-01-06
 
 C> This subroutine provides a handy way to combine the functionality
 C> of subroutines rdmemm(), rdmems() and ufbint() within a single
 C> subroutine call.
-C>
-C> @author J. Woollen
-C> @date 1994-01-06
 C>
 C> @param[in] IMSG   -- integer: Number of BUFR message to be
 C>                      read into scope for further processing,
@@ -31,18 +30,7 @@ C>                    subset within the first dimension of USR (see
 C>                    [DX BUFR Tables](@ref dfbftab) for further
 C>                    information about Table B mnemonics)
 C>
-C> <b>Program history log:</b>
-C> | Date | Programmer | Comments |
-C> | -----|------------|----------|
-C> | 1994-01-06 | J. Woollen | Original author |
-C> | 1998-07-08 | J. Woollen | Replaced call to Cray library routine "ABORT" with call to new internal routine bort() |
-C> | 1999-11-18 | J. Woollen | Increased MAXMEM from 4 Mb to 8 Mb |
-C> | 2001-08-15 | D. Keyser  | Increased MAXMEM from 8 Mb to 16 Mb |
-C> | 2004-11-15 | D. Keyser  | Increased MAXMEM from 16 Mb to 50 Mb |
-C> | 2009-04-21 | J. Ator    | Use errwrt() |
-C> | 2014-12-10 | J. Ator    | Use modules instead of COMMON blocks |
-C> | 2022-10-04 | J. Ator    | Added 8-byte wrapper |
-
+C> @author J. Woollen @date 1994-01-06
       RECURSIVE SUBROUTINE UFBRMS(IMSG,ISUB,USR,I1,I2,IRET,STR)
 
       USE MODV_IM8B

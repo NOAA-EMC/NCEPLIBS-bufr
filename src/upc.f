@@ -1,16 +1,6 @@
 C> @file
 C> @brief Decode a character string from an integer array.
 C>
-C> ### Program History Log
-C> Date | Programmer | Comments |
-C> -----|------------|----------|
-C> 1994-01-06 | J. Woollen | original author
-C> 2003-11-04 | J. Ator    | added documentation
-C> 2003-11-04 | S. Bender  | added remarks/bufrlib routine interdependencies
-C> 2003-11-04 | D. Keyser  | unified/portable for wrf; added history documentation
-C> 2009-03-23 | J. Ator    | treat null characters as blanks; prevent overflow of chr
-C> 2014-11-19 | J. Ator    | add cnvnull argument
-C>
 C> @author Woollen @date 1994-01-06
 
 C> This subroutine decodes a character string from within a specified

@@ -1,5 +1,7 @@
 C> @file
 C> @brief Read/write one or more data values from/to a data subset.
+C>
+C> @author J. Woollen @date 1994-01-06
 
 C> This subroutine reads or writes one or more data values from or to
 C> the BUFR data subset that is currently open within the BUFRLIB
@@ -23,9 +25,6 @@ C> See also subroutines ufbint() and ufbseq(), which can also be used
 C> to read/write one or more data values from/to a data subset but are
 C> also designed for different use cases as noted in
 C> [DX BUFR Tables](@ref ufbsubs).
-C>
-C> @author J. Woollen
-C> @date 1994-01-06
 C>
 C> @param[in] LUNIN   -- integer: Absolute value is Fortran logical
 C>                       unit number for BUFR file
@@ -112,17 +111,7 @@ C> BUFR).  This is a special capability for use by some applications
 C> that need to read certain values back out from a BUFR file during
 C> the same time that it is in the process of being written to.
 C>
-C> <b>Program history log:</b>
-C> | Date | Programmer | Comments |
-C> | -----|------------|----------|
-C> | 1994-01-06 | J. Woollen | Original author |
-C> | 2003-11-04 | S. Bender  | Added remarks and routine interdependencies |
-C> | 2003-11-04 | D. Keyser  | Unified/portable for WRF; added documentation; outputs more complete diagnostic info when routine terminates abnormally |
-C> | 2004-08-18 | J. Ator    | Added SAVE for IFIRST1 and IFIRST2 flags |
-C> | 2009-04-21 | J. Ator    | Use errwrt() |
-C> | 2014-12-10 | J. Ator    | Use modules instead of COMMON blocks |
-C> | 2022-10-04 | J. Ator    | Added 8-byte wrapper |
-
+C> @author J. Woollen @date 1994-01-06
       RECURSIVE SUBROUTINE UFBSTP(LUNIN,USR,I1,I2,IRET,STR)
 
       USE MODV_IM8B

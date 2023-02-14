@@ -1,14 +1,13 @@
 C> @file
 C> @brief Specify a tank receipt time to be included in Section 1
 C> when writing BUFR messages.
+C>
+C> @author J. Ator @date 2009-03-23
 
 C> This subroutine is used to specify a tank receipt time to be
 C> included within Section 1 of all BUFR messages output by future calls
 C> to [message-writing subroutines](@ref hierarchy) and
 C> [subset-writing subroutines](@ref hierarchy).
-C>
-C> @author J. Ator
-C> @date 2009-03-23
 C>
 C> @param[in] CF   -- character*1: Flag indicating whether future BUFR
 C>                    output messages should include the tank receipt
@@ -41,12 +40,7 @@ C> However, it's encoded by the BUFRLIB software in such a way that
 C> its inclusion within an output BUFR message is still fully
 C> compliant with the regulations.
 C>
-C> <b>Program history log:</b>
-C> | Date | Programmer | Comments |
-C> | -----|------------|----------|
-C> | 2009-03-23 | J. Ator | Original author |
-C> | 2022-10-04 | J. Ator | Added 8-byte wrapper |
-
+C> @author J. Ator @date 2009-03-23
       RECURSIVE SUBROUTINE STRCPT(CF,IYR,IMO,IDY,IHR,IMI)
 
       USE MODV_IM8B

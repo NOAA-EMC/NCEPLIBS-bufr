@@ -2,13 +2,6 @@
  * @brief Search for an entry corresponding to IDN in the bufr
  * master table.
  * @author J Ator @date 2009-03-23
- *
- * ### Program history log
- * Date | Programmer | Comments
- * -----|------------|---------
- * 2009-03-23 | J. Ator | Original author.
- * 2023-01-18 | J. Ator | Remove MSTABS_BASE macro.
-
 */
 
 #include "bufrlib.h"

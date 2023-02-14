@@ -1,6 +1,8 @@
 C> @file
 C> @brief Write a long character string (greater than 8 bytes) to
 C> a data subset
+C>
+C> @author J. Ator @date 2014-02-05
 
 C> This subroutine writes a long character string (greater than 8 bytes)
 C> to a data subset.
@@ -22,9 +24,6 @@ C> [subset-writing subroutines](@ref hierarchy), and the string value
 C> will be held and stored automatically (via an internal call to
 C> subroutine writlc()) at the proper time during the subsequent call
 C> to the [subset-writing subroutines](@ref hierarchy).
-C>
-C> @author J. Ator
-C> @date 2014-02-05
 C>
 C> @param[in] LUNIT -- integer: Fortran logical unit number for BUFR file
 C> @param[in] CHR  -- character*(*): Value corresponding to STR
@@ -54,12 +53,7 @@ C> prior to calling one of the
 C> [subset-writing subroutines](@ref hierarchy)
 C> for the data subset.
 C>
-C> <b>Program history log:</b>
-C> | Date | Programmer | Comments |
-C> | -----|------------|----------|
-C> | 2014-02-05 | J. Ator | Original author |
-C> | 2022-08-04 | J. Woollen | Added 8-byte wrapper |
-
+C> @author J. Ator @date 2014-02-05
       RECURSIVE SUBROUTINE HOLD4WLC(LUNIT,CHR,STR)
 
       USE MODA_H4WLC

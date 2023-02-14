@@ -1,14 +1,13 @@
 C> @file
 C> @brief Check whether a Table B mnemonic references another
 C> Table B mnemonic via an internal bitmap.
+C>
+C> @author J. Ator @date 2016-06-07
 
 C> This subroutine determines whether a specified Table B mnemonic
 C> references another Table B mnemonic within the same data subset
 C> via an internal bitmap, and if so returns the referenced
 C> mnemonic and its location within the subset.
-C>
-C> @author J. Ator
-C> @date 2016-06-07
 C>
 C> @param[in] LUNIT  -- integer: Fortran logical unit number for
 C>                      BUFR file
@@ -34,12 +33,7 @@ C> (when reading BUFR data subsets) or via a previous call to one
 C> of the [message-writing subroutines](@ref hierarchy)
 C> (when writing BUFR data subsets).
 C>
-C> <b>Program history log:</b>
-C> | Date | Programmer | Comments |
-C> | -----|------------|----------|
-C> | 2016-06-07 | J. Ator | Original author |
-C> | 2022-08-04 | J. Woollen | Added 8-byte wrapper |
-
+C> @author J. Ator @date 2016-06-07
         RECURSIVE SUBROUTINE GETTAGRE
      .          ( LUNIT, TAGI, NTAGI, TAGRE, NTAGRE, IRET )
 

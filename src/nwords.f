@@ -1,16 +1,6 @@
 C> @file
 C> @brief Compute the length of a delayed replication sequence
 C>
-C> ### Program History Log
-C> Date | Programmer | Comments
-C> -----|------------|----------
-C> 1996-10-09 | J. Woollen | Original author.
-C> 1999-11-18 | J. Woollen | Increased the number of open bufr files to 32.
-C> 2003-11-04 | S. Bender  | Added remarks/bufrlib routine interdependencies.
-C> 2003-11-04 | D. Keyser  | maxjl increased to 16000; unified/portable for wrf; documentation.
-C> 2009-03-31 | J. Woollen | Added documentation.
-C> 2014-12-10 | J. Ator    | Use modules instead of common blocks.
-C>
 C> @author Woollen @date 1996-10-09
 
 C> This function adds up the complete length of the delayed

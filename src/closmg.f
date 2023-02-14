@@ -2,22 +2,6 @@ C> @file
 C> @brief Close and write the current message to a BUFR file that was
 C> previously opened for writing.
 C>
-C> ### Program History Log
-C> Date | Programmer | Comments
-C> -----|------------|----------
-C> 1994-01-06 | J. Woollen | Original author.
-C> 1998-07-08 | J. Woollen | Replaced call to Cray library routine "ABORT" with call to new internal routine bort(); modified to make Y2K compliant.
-C> 1999-11-18 | J. Woollen | The number of BUFR files which can be opened at one time increased from 10 to 32 (necessary in order to process multiple BUFR files under the MPI).
-C> 2000-09-19 | J. Woollen | Maximum message length increased from 10,000 to 20,000 bytes.
-C> 2003-05-19 | J. Woollen | Corrected a bug which prevented the dump center and initiation time messages from being written out.
-C> 2003-11-04 | J. Ator  | Added documentation.
-C> 2003-11-04 | S. Bender | Added remarks and routine interdependencies.
-C> 2003-11-04 | D. Keyser | Unified/portable for WRF; added history documentation; outputs more complete diagnostic info when routine terminates abnormally.
-C> 2004-08-09 | J. Ator | Maximum message length increased from 20,000 to 50,000 bytes.
-C> 2005-05-26 | D. Keyser | Add LUNIN < 0 option to suppress writing of all future zero-subset messsages to ABS(LUNIN).
-C> 2014-12-10 | J. Ator | Use modules instead of COMMON blocks.
-C> 2022-08-04 | J. Woollen | Added 8-byte wrapper.
-C>
 C> @author J. Woollen, D. Keyser @date 1994-01-06
 
 C> This subroutine closes the BUFR message that is currently open for

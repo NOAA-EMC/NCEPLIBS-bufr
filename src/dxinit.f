@@ -1,17 +1,6 @@
 C> @file
 C> @brief Initialize the internal arrays which contain the DX BUFR table.
 C>
-C> ### Program History Log
-C> Date | Programmer | Comments
-C> -----|------------|----------
-C> 1994-01-06 | J. Woollen | Original author.
-C> 1995-06-28 | J. Woollen | Increased the size of internal bufr table arrays in order to handle bigger files.
-C> 1999-11-18 | J. Woollen | The number of bufr files which can be opened at one time increased from 10 to 32 (necessary for mpi).
-C> 2003-11-04 | S. Bender  | Added remarks/bufrlib routine interdependencies.
-C> 2003-11-04 | D. Keyser  | Unified/portable for wrf; added documentation (including history).
-C> 2009-03-23 | J. Ator    | Remove initialization of common msgcwd.
-C> 2014-12-10 | J. Ator    | Use modules instead of common blocks
-C>
 C> @author Woollen @date 1994-01-06
 
 C> This subroutine initializes the internal arrays

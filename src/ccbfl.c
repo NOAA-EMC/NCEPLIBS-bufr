@@ -1,12 +1,6 @@
 /** @file
  *  @brief Close all system files previously opened via a C language
  *  interface.
- *
- *  ### Program History
- * | Date | Programmer | Comments |
- * | -----|------------|----------|
- * | 2005-11-29 | J. Ator | Original author |
- *
  *  @author J. Ator  @date 2005-11-29
  */
 #include "bufrlib.h"

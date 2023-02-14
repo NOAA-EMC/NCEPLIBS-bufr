@@ -1,12 +1,11 @@
 C> @file
 C> @brief Get the current placeholder value for "missing" data
+C>
+C> @author J. Woollen @date 2012-09-15
 
 C> This function returns the current placeholder value which
 C> represents "missing" data when reading from or writing to
 C> BUFR files.
-C>
-C> @author J. Woollen
-C> @date 2012-09-15
 C>
 C> @returns getbmiss -- real*8: current placeholder value for
 C>                      "missing" data
@@ -20,12 +19,7 @@ C> [values-writing subroutines](@ref hierarchy).
 C> This placeholder value can also be changed at any
 C> time via a separate call to subroutine setbmiss().
 C>
-C> <b>Program history log:</b>
-C> | Date | Programmer | Comments |
-C> | -----|------------|----------|
-C> | 2012-09-15 | J. Woollen | Original author |
-C> | 2022-10-04 | J. Ator    | Added 8-byte wrapper |
-
+C> @author J. Woollen @date 2012-09-15
       RECURSIVE FUNCTION GETBMISS() RESULT(R8VAL)
 
       USE MODV_IM8B

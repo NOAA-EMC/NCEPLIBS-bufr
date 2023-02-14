@@ -1,5 +1,7 @@
 C> @file
 C> @brief Read the section lengths of a BUFR message.
+C>
+C> @author J. Ator @date 2005-11-29
 
 C> This subroutine reads the lengths of all of the individual
 C> sections of a given BUFR message, up to a specified point in
@@ -7,9 +9,6 @@ C> the message.
 C>
 C> <p>This subroutine will work on any BUFR message encoded using
 C> BUFR edition 2, 3, or 4
-C>
-C> @author J. Ator
-C> @date 2005-11-29
 C>
 C> @param[in]  MBAY -- integer(*): BUFR message
 C> @param[in]   LL  -- integer: Number of last section for
@@ -31,12 +30,7 @@ C> @remarks
 C> - The start of the BUFR message (i.e. the string 'BUFR') must be
 C>   aligned on the first 4 bytes of MBAY.
 C>
-C> <b>Program history log:</b>
-C> | Date | Programmer | Comments |
-C> | -----|------------|----------|
-C> | 2005-11-29 | J. Ator | Original author |
-C> | 2022-08-04 | J. Woollen | Added 8-byte wrapper |
-
+C> @author J. Ator @date 2005-11-29
         RECURSIVE SUBROUTINE GETLENS
      .          (MBAY,LL,LEN0,LEN1,LEN2,LEN3,LEN4,LEN5)
 

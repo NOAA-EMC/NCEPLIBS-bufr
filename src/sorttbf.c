@@ -1,11 +1,6 @@
 /** @file
  *  @brief Sort entries within the master Code/Flag table.
  *
- * ### Program History Log
- * Date | Programmer | Comments
- * -----|------------|----------
- * 2017-11-16 | J. Ator | Original author.
- *
  *  @author J. Ator @date 2017-11-16
  */
 #include "bufrlib.h"

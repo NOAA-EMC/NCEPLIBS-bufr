@@ -1,6 +1,8 @@
 C> @file
 C> @brief Read a data value from Section 0 or Section 1 of a BUFR
 C> message.
+C>
+C> @author J. Ator @date 2005-11-29
 
 C> This function returns a specified value from within Section 0 or
 C> Section 1 of a BUFR message.
@@ -12,9 +14,6 @@ C> array, whereas this function operates on the BUFR message that was
 C> read into internal arrays via the most recent call to any of the
 C> other [message-reading subroutines](@ref hierarchy) for a specified
 C> Fortran logical unit.
-C>
-C> @author J. Ator
-C> @date 2005-11-29
 C>
 C> @param[in]   LUNIT   -- integer: Fortran logical unit number for
 C>                         BUFR file
@@ -64,13 +63,7 @@ C>   or inferred using a windowing technique
 C> - Values corresponding to S01MNEM = 'SECO' or 'MSBTI' can only
 C>   be read from BUFR messages encoded using BUFR edition 4.
 C>
-C> <b>Program history log:</b>
-C> | Date | Programmer | Comments |
-C> | -----|------------|----------|
-C> | 2005-11-29 | J. Ator | Original author |
-C> | 2014-12-10 | J. Ator | Use modules instead of COMMON blocks |
-C> | 2022-10-04 | J. Ator | Added 8-byte wrapper |
-
+C> @author J. Ator @date 2005-11-29
       RECURSIVE FUNCTION IUPVS01(LUNIT,S01MNEM) RESULT(IRET)
 
       USE MODV_IM8B

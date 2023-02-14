@@ -1,5 +1,7 @@
 C> @file
 C> @brief Define a customized parameter value for dynamic allocation.
+C>
+C> @author J. Ator @date 2014-12-04
 
 C> This function sets a specified parameter to a specified value for
 C> use in dynamically allocating one or more internal arrays within
@@ -14,9 +16,6 @@ C> allocated based on the parameter values in effect at the time.
 C> Otherwise, if this function is never called for a particular
 C> parameter, then an internal default value for that parameter is
 C> used instead.
-C>
-C> @author J. Ator
-C> @date 2014-12-04
 C>
 C> @param[in] CPRMNM -- character*(*): Parameter to be changed from its
 C>                      internal default value
@@ -87,16 +86,7 @@ C> @returns  isetprm -- integer: return code
 C>                      -  0 = normal return
 C>                      - -1 = Unknown CPRMNM
 C>
-C> <b>Program history log:</b>
-C> | Date | Programmer | Comments |
-C> | -----|------------|----------|
-C> | 2014-12-04 | J. Ator | Original author |
-C> | 2016-05-24 | J. Ator | Add MXNRV, MXBTM, MXBTMSE, MXTCO |
-C> | 2017-04-03 | J. Ator | Add MXTAMC |
-C> | 2017-05-22 | J. Ator | Add MXRST |
-C> | 2017-10-17 | J. Ator | Add MXMTBF |
-C> | 2022-10-04 | J. Ator | Added 8-byte wrapper |
-
+C> @author J. Ator @date 2014-12-04
         RECURSIVE FUNCTION ISETPRM ( CPRMNM, IPVAL ) RESULT ( IRET )
 
         USE MODV_MAXSS

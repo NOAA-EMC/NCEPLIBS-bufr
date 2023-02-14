@@ -1,5 +1,7 @@
 C> @file
 C> @brief Specify DX BUFR table file of last resort.
+C>
+C> @author J. Woollen @date 1998-07-08
 
 C> This subroutine is called as a last resort from within subroutine
 C> cktaba(), in the event the latter subroutine is unable to locate
@@ -17,9 +19,6 @@ C> subroutine.  In such cases, subroutine cktaba() will then use
 C> the inline version of this subroutine as a last resort when
 C> attempting to locate the required DX BUFR table file.
 C>
-C> @author J. Woollen
-C> @date 1998-07-08
-C>
 C> @param[in] MTYP -- integer: Data category of BUFR message for which
 C>                    subroutine cktaba() was unable to locate a
 C>                    DX BUFR table file
@@ -32,13 +31,7 @@ C> @remarks
 C> - See [DX BUFR Tables](@ref dfbftab) for more information about
 C> the format and contents of DX BUFR table files.
 C>
-C> <b>Program history log:</b>
-C> | Date | Programmer | Comments |
-C> | -----|------------|----------|
-C> | 1998-07-08 | J. Woollen | Original author |
-C> | 2009-04-21 | J. Ator    | Use errwrt() |
-C> | 2022-08-04 | J. Woollen | Added 8-byte wrapper |
-
+C> @author J. Woollen @date 1998-07-08
       RECURSIVE SUBROUTINE OPENBT(LUNDX,MTYP)
 
       USE MODV_IM8B

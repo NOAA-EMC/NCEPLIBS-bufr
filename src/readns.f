@@ -1,13 +1,12 @@
 C> @file
 C> @brief Read the next data subset from a BUFR file that was
 C> previously opened for reading.
+C>
+C> @author J. Woollen @date 1994-01-06
 
 C> This subroutine provides a handy way to combine the functionality
 C> of subroutines readmg() and readsb() within a single subroutine
 C> call.
-C>
-C> @author J. Woollen
-C> @date 1994-01-06
 C>
 C> @param[in] LUNIT   -- integer: Fortran logical unit number for
 C>                       BUFR file
@@ -36,16 +35,7 @@ C> and close each new BUFR message internally as needed, so that
 C> subsequent calls can immediately be made to any of the various
 C> [values-reading subroutines](@ref hierarchy).
 C>
-C> <b>Program history log:</b>
-C> | Date | Programmer | Comments |
-C> | -----|------------|----------|
-C> | 1994-01-06 | J. Woollen | Original author |
-C> | 1998-07-08 | J. Woollen | Replaced call to Cray library routine "ABORT" with call to new internal routine bort(); modified to make Y2K compliant |
-C> | 1999-11-18 | J. Woollen | The number of BUFR files which can be opened at one time increased from 10 to 32 |
-C> | 2003-11-04 | D. Keyser  | MAXJL (maximum number of jump/link entries) increased from 15000 to 16000 |
-C> | 2014-12-10 | J. Ator    | Use modules instead of COMMON blocks |
-C> | 2022-10-04 | J. Ator    | Added 8-byte wrapper |
-
+C> @author J. Woollen @date 1994-01-06
       RECURSIVE SUBROUTINE READNS(LUNIT,SUBSET,JDATE,IRET)
 
       USE MODA_MSGCWD

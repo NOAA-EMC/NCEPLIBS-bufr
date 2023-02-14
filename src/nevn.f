@@ -2,14 +2,6 @@ C> @file
 C> @brief Search for stacked data events within a specified portion
 C> of the current data subset.
 C>
-C> ### Program history log
-C> Date | Programmer | Comments
-C> -----|------------|---------
-C> 2003-11-04 | J. Woollen | Original author.
-C> 2003-11-04 | D. Keyser  | Unified/portable for WRF; added documentation; outputs more complete diagnostic info when routine terminates abnormally
-C> 2009-03-31 | J. Woollen | Added documentation.
-C> 2014-12-10 | J. Ator    | Use modules instead of COMMON blocks.
-C>
 C> @author J. Woollen @date 2003-11-04
 
 C> This function looks for all stacked data events for a

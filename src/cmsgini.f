@@ -1,18 +1,6 @@
 C> @file
 C> @brief Initialize a new compressed BUFR message for output.
 C>
-C> ### Program History Log
-C> Date | Programmer | Comments
-C> -----|------------|----------
-C> 2002-05-14 | J. Woollen | Original author.
-C> 2003-11-04 | S. Bender  | Added remarks/bufrlib routine interdependencies.
-C> 2003-11-04 | D. Keyser  | Unified/portable for wrf; documentation; more diagnostic info; len3 initialized as zero.
-C> 2004-08-18 | J. Ator    | Added common /msgstd/ and other logic to create a wmo-standard section 3; max msg len increased to 50,000 bytes.
-C> 2005-11-29 | J. Ator    | Changed default master table version to 12.
-C> 2009-05-07 | J. Ator    | Changed default master table version to 13; removed standardization logic for section 3.
-C> 2019-05-21 | J. Ator    | Changed default master table version to 29.
-C> 2021-05-14 | J. Ator    | Changed default master table version to 36.
-C>
 C> @author Woollen @date 2002-05-14
 
 C> This subroutine initializes a new BUFR message for output in compressed format.

@@ -1,11 +1,10 @@
 C> @file
 C> @brief Check whether a mnemonic is a Table C operator.
+C>
+C> @author J. Ator @date 2015-03-06
 
 C> This function determines whether a specified mnemonic is a
 C> Table C operator supported by the BUFRLIB software.
-C>
-C> @author J. Ator
-C> @date 2015-03-06
 C>
 C> @param[in] NEMO  -- character*(*): Mnemonic
 C> @returns iokoper -- integer: Flag indicating whether NEMO is a
@@ -14,12 +13,7 @@ C>                     software
 C>                        - 0 = No
 C>                        - 1 = Yes
 C>
-C> <b>Program history log:</b>
-C> | Date | Programmer | Comments |
-C> | -----|------------|----------|
-C> | 2015-03-06 | J. Ator | Original author |
-C> | 2016-05-04 | J. Ator | Use imrkopr() and allow additional operators |
-C>
+C> @author J. Ator @date 2015-03-06
       INTEGER FUNCTION IOKOPER(NEMO)
 
       CHARACTER*(*)  NEMO

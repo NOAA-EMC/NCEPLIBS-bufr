@@ -1,6 +1,8 @@
 C> @file
 C> @brief Read one or more data values from every data subset in
 C> internal arrays
+C>
+C> @author J. Woollen @date 1994-01-06
 
 C> This subroutine reads through every data subset in internal arrays
 C> and returns one or more specified data values from each subset.
@@ -9,9 +11,6 @@ C> <p>This provides a useful way to scan the ranges of one or more
 C> specified data values across all of the data subsets in the
 C> internal arrays.  It is similar to subroutine ufbtab(), except
 C> that ufbtab() works on data subsets in a BUFR file.
-C>
-C> @author J. Woollen
-C> @date 1994-01-06
 C>
 C> @param[out] TAB    -- real*8(*,*): Data values
 C> @param[in] I1 -- integer: First dimension of TAB as allocated
@@ -52,25 +51,7 @@ C>               the beginning of the message
 C>      - ITBL - returns the number of the DX BUFR table that is
 C>               in scope for the current data subset
 C>
-C> <b>Program history log:</b>
-C> | Date | Programmer | Comments |
-C> | -----|------------|----------|
-C> | 1994-01-06 | J. Woollen | Original author |
-C> | 1998-07-08 | J. Woollen | Replaced call to Cray library routine "ABORT" with call to new internal routine bort(); modified to make Y2K compliant |
-C> | 1999-11-18 | J. Woollen | The number of BUFR files which can be opened at one time increased from 10 to 32 |
-C> | 2000-09-19 | J. Woollen | Maximum message length increased from 10,000 to 20,000 bytes |
-C> | 2001-08-15 | D. Keyser  | Increased MAXMEM from 8 Mb to 16 Mb |
-C> | 2003-11-04 | S. Bender  | Added remarks and routine interdependencies |
-C> | 2003-11-04 | D. Keyser  | Unified/portable for WRF; added documentation; increased MAXJL from 15000 to 16000; increased MAXMSG from 50000 to 200000 |
-C> | 2004-08-09 | J. Ator    | Maximum message length increased from 20,000 to 50,000 bytes |
-C> | 2004-11-15 | D. Keyser  | Increased MAXMEM from 16 Mb to 50 Mb |
-C> | 2007-01-19 | J. Ator    | Replaced call to parseq with call to parstr() |
-C> | 2009-04-21 | J. Ator    | Use errwrt() |
-C> | 2012-03-02 | J. Ator    | Use ups() |
-C> | 2014-12-10 | J. Ator    | Use modules instead of COMMON blocks |
-C> | 2022-05-06 | J. Woollen | Replaced call to upbb() with call to upb8() for 8-byte integers; use NBMP for usrtpl() |
-C> | 2022-10-04 | J. Ator    | Added 8-byte wrapper |
-
+C> @author J. Woollen @date 1994-01-06
       RECURSIVE SUBROUTINE UFBTAM(TAB,I1,I2,IRET,STR)
 
       USE MODV_BMISS

@@ -1,12 +1,11 @@
 C> @file
 C> @brief Get the current value of a parameter
+C>
+C> @author J. Ator @date 2014-12-04
 
 C> This function returns the current value of a parameter used
 C> for allocating one or more internal arrays within the
 C> BUFRLIB software.
-C>
-C> @author J. Ator
-C> @date 2014-12-04
 C>
 C> @param[in] CPRMNM -- character*(*): Parameter
 C>                     - 'MXMSGL' = Maximum length (in bytes) of a BUFR
@@ -75,11 +74,7 @@ C>
 C> @returns igetprm  -- integer: Value of CPRMNM
 C>                       - -1 = Unknown CPRMNM
 C>
-C> <b>Program history log:</b>
-C> | Date | Programmer | Comments |
-C> | -----|------------|----------|
-C> | 2014-12-04 | J. Ator | Original author |
-C>
+C> @author J. Ator @date 2014-12-04
         INTEGER FUNCTION IGETPRM ( CPRMNM )
 
         USE MODV_MAXSS

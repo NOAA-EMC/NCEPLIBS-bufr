@@ -1,15 +1,6 @@
 C> @file
 C> @brief Read/write one or more data values from/to a data subset.
 C>
-C> ### Program History Log
-C> Date | Programmer | Comments |
-C> -----|------------|----------|
-C> 1999-11-18 | J. Woollen | original author
-C> 2003-11-04 | S. Bender  | added remarks/bufrlib routine interdependencies
-C> 2003-11-04 | D. Keyser  | maxjl increased to 16000; unified/portable for wrf; documentation
-C> 2009-03-31 | J. Woollen | add documentation
-C> 2014-12-10 | J. Ator    | use modules instead of common blocks
-C>
 C> @author J. Woollen @date 1999-11-18
 
 C> This subroutine writes or reads specified values to or

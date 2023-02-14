@@ -1,6 +1,8 @@
 C> @file
 C> @brief Connect a new system file to the BUFRLIB software, and read
 C> the entire file contents into internal arrays.
+C>
+C> @author J. Woollen @date 1994-01-06
 
 C> This subroutine connects a new system file to the BUFRLIB software
 C> for input operations, then reads the entire file contents into
@@ -10,9 +12,6 @@ C> at a time sequentially from the system file.
 C>
 C> <p>Any embedded DX BUFR tables contained within the file are also
 C> read and processed into separate internal arrays for later use.
-C>
-C> @author J. Woollen
-C> @date 1994-01-06
 C>
 C> @param[in] LUNIT   -- integer: Fortran logical unit number for BUFR
 C>                       file
@@ -44,25 +43,7 @@ C> this subroutine.  In either case, IUNIT can now be used to access
 C> all BUFR messages that were read and stored by all previous calls
 C> to this subroutine.
 C>
-C> <b>Program history log:</b>
-C> | Date | Programmer | Comments |
-C> | -----|------------|----------|
-C> | 1994-01-06 | J. Woollen | Original author |
-C> | 1998-07-08 | J. Woollen | Replaced call to Cray library routine ABORT with call to new internal routine bort() |
-C> | 1999-11-18 | J. Woollen | Increased MAXMEM from 4 Mb to 8 Mb |
-C> | 2000-09-19 | J. Woollen | Maximum message length increased from 10,000 to 20,000 bytes |
-C> | 2001-08-15 | D. Keyser  | Increased MAXMEM from 8 Mb to 16 Mb |
-C> | 2003-11-04 | S. Bender  | Added remarks and routine interdependencies |
-C> | 2003-11-04 | D. Keyser  | Unified/portable for WRF; added documentation; outputs more complete diagnostic info when routine terminates abnormally; increased MAXMSG from 50000 to 200000 |
-C> | 2004-08-09 | J. Ator    | Maximum message length increased from 20,000 to 50,000 bytes |
-C> | 2004-11-15 | D. Keyser  | Don't abort when there are either MAXMSG or MAXMEM is exceeded; instead, just store up to MAXMSG messages or MAXMEM bytes and print a diagnostic |
-C> | 2005-11-29 | J. Ator    | Use rdmsgw() and nmwrd() |
-C> | 2009-03-23 | J. Ator    | Modified to handle embedded DX tables |
-C> | 2012-09-15 | J. Woollen | Modified for C/I/O/BUFR interface; call status() to get LUN; replace Fortran REWIND and BACKSPACE with C routines cewind() and backbufr() |
-C> | 2014-12-10 | J. Ator    | Use modules instead of COMMON blocks |
-C> | 2015-09-24 | D. Stokes  | Fix missing declaration of COMMON /QUIET/ |
-C> | 2022-10-04 | J. Ator    | Added 8-byte wrapper |
-
+C> @author J. Woollen @date 1994-01-06
       RECURSIVE SUBROUTINE UFBMEM(LUNIT,INEW,IRET,IUNIT)
 
       USE MODV_MAXMEM

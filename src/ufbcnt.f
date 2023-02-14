@@ -1,14 +1,13 @@
 C> @file
 C> @brief Get the current message number and data subset number within
 C> a BUFR file
+C>
+C> @author J. Woollen @date 1994-01-06
 
 C> This subroutine returns the current location of the file pointer
 C> within a BUFR file, in terms of a message number counting from the
 C> beginning of the file, and a data subset number counting from the
 C> beginning of that message.
-C>
-C> @author J. Woollen
-C> @date 1994-01-06
 C>
 C> @param[in] LUNIT -- integer: Fortran logical unit number for BUFR file
 C> @param[out] KMSG -- integer: Ordinal number of current message,
@@ -34,15 +33,7 @@ C> [subset-writing subroutines](@ref hierarchy) for that message.
 C> - The value returned for KMSG does <b>not</b> include any messages
 C> which contain DX BUFR tables information.
 C>
-C> <b>Program history log:</b>
-C> | Date | Programmer | Comments |
-C> | -----|------------|----------|
-C> | 1994-01-06 | J. Woollen | Original author |
-C> | 1998-07-08 | J. Woollen | Replaced call to Cray library routine ABORT with call to new internal routine bort() |
-C> | 1999-11-18 | J. Woollen | The number of BUFR files which can be opened at one time increased from 10 to 32 |
-C> | 2014-12-10 | J. Ator    | Use modules instead of COMMON blocks |
-C> | 2022-10-04 | J. Ator    | Added 8-byte wrapper |
-
+C> @author J. Woollen @date 1994-01-06
       RECURSIVE SUBROUTINE UFBCNT(LUNIT,KMSG,KSUB)
 
       USE MODA_MSGCWD

@@ -1,6 +1,8 @@
 C> @file
 C> @brief Check whether master BUFR tables need to be read from the
 C> local file system
+C>
+C> @author J. Ator @date 2009-03-23
 
 C> This function checks the most recent BUFR message that was read
 C> via a call to one of the
@@ -12,9 +14,6 @@ C> <p>If not, then it opens the appropriate master BUFR tables on the
 C> local file system and then reads the contents into internal
 C> memory, clearing any previous master BUFR table information that
 C> may have previously been stored there.
-C>
-C> @author J. Ator
-C> @date 2009-03-23
 C>
 C> @param[in]  LUN     -- integer: Internal I/O stream index associated
 C>                        with BUFR file
@@ -31,14 +30,7 @@ C> subroutine mtinfo() was never called, and in which case Fortran
 C> logical unit numbers 98 and 99 will be used by this function
 C> for opening and reading master BUFR table files.
 C>
-C> <b>Program history log:</b>
-C> | Date | Programmer | Comments |
-C> | -----|------------|----------|
-C> | 2009-03-23 | J. Ator  | Original author |
-C> | 2014-11-25 | J. Ator  | Add call to cpmstabs() for access to master table information within C when using dynamically-allocated arrays |
-C> | 2017-10-13 | J. Ator  | Add functionality to check whether new master tables need to be read (this functionality was previously part of subroutine reads3()) |
-C> | 2018-04-09 | J. Ator  | Only read master B and D tables when Section 3 is being used for decoding |
-C>
+C> @author J. Ator @date 2009-03-23
         INTEGER FUNCTION IREADMT ( LUN )
 
         USE MODV_MAXNC

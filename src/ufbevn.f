@@ -1,5 +1,7 @@
 C> @file
 C> @brief Read one or more data values from an NCEP prepbufr file.
+C>
+C> @author J. Woollen @date 1994-01-06
 
 C> This subroutine reads one or more data values from the BUFR data
 C> subset that is currently open within the BUFRLIB internal arrays.
@@ -11,9 +13,6 @@ C> for NCEP prepfits files and has one extra argument containing
 C> the maximum number of data events for any data value, whereas
 C> this subroutine is used for NCEP prepbufr files and stores the
 C> same information internally within a COMMON block.
-C>
-C> @author J. Woollen
-C> @date 1994-01-06
 C>
 C> @param[in] LUNIT -- integer: Fortran logical unit number for
 C>                     NCEP prepbufr file
@@ -71,19 +70,7 @@ C>      - ISUB - returns the number of the current data subset within
 C>               the BUFR message pointed to by IREC, counting from
 C>               the beginning of the message
 C>
-C> <b>Program history log:</b>
-C> | Date | Programmer | Comments |
-C> | -----|------------|----------|
-C> | 1994-01-06 | J. Woollen | Original author |
-C> | 1998-07-08 | J. Woollen | Replaced call to Cray library routine ABORT with call to new internal routine bort() |
-C> | 1999-11-18 | J. Woollen | The number of BUFR files which can be opened at one time increased from 10 to 32 |
-C> | 2003-11-04 | J. Woollen | Save the maximum number of events for any data value within COMMON /UFBN3C/ |
-C> | 2003-11-04 | S. Bender  | Added remarks and routine interdependencies |
-C> | 2003-11-04 | D. Keyser  | Increased MAXJL from 15000 to 16000; unified/portable for WRF; added documentation; outputs more complete diagnostic info when routine terminates abnormally |
-C> | 2009-04-21 | J. Ator    | Use errwrt() |
-C> | 2014-12-10 | J. Ator    | Use modules instead of COMMON blocks |
-C> | 2022-10-04 | J. Ator    | Added 8-byte wrapper |
-
+C> @author J. Woollen @date 1994-01-06
       RECURSIVE SUBROUTINE UFBEVN(LUNIT,USR,I1,I2,I3,IRET,STR)
 
       USE MODV_IM8B

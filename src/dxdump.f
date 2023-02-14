@@ -1,5 +1,7 @@
 C> @file
 C> @brief Print the contents of a DX BUFR table.
+C>
+C> @author J. Ator @date 2004-08-18
 
 C> This subroutine prints a copy of the DX BUFR table associated
 C> with a specified Fortran logical unit.
@@ -13,9 +15,6 @@ C> [DX BUFR Tables](@ref dfbftab), so the output file is suitable
 C> for use as Fortran logical unit LUNDX in subsequent calls to
 C> subroutine openbf() for reading or writing additional BUFR
 C> files with the same structure.
-C>
-C> @author J. Ator
-C> @date 2004-08-18
 C>
 C> @param[in] LUNIT   -- integer: Fortran logical unit number for
 C>                       BUFR file
@@ -35,14 +34,7 @@ C> this subroutine must be made to print out all of the tables,
 C> once while each table is in scope for a data subset defined
 C> within that particular table.
 C>
-C> <b>Program history log:</b>
-C> | Date | Programmer | Comments |
-C> | -----|------------|----------|
-C> | 2004-08-18 | J. Ator | Original author |
-C> | 2007-01-19 | J. Ator | Corrected output for reference values longer than 8 digits |
-C> | 2014-12-10 | J. Ator | Use modules instead of COMMON blocks |
-C> | 2022-08-04 | J. Woollen | Added 8-byte wrapper |
-
+C> @author J. Ator @date 2004-08-18
       RECURSIVE SUBROUTINE DXDUMP(LUNIT,LDXOT)
 
       USE MODA_TABABD

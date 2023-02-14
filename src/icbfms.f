@@ -1,13 +1,12 @@
 C> @file
 C> @brief Test whether a character string is "missing"
+C>
+C> @author J. Ator @date 2012-06-07
 
 C> This function provides a handy way to check whether a
 C> character string returned from a previous call to subroutine
 C> readlc() was encoded as "missing" (all bits set to 1)
 C> within the actual BUFR data subset.
-C>
-C> @author J. Ator
-C> @date 2012-06-07
 C>
 C> @param[in] STR -- character*(*): String
 C> @param[in] LSTR -- integer: Length of string, i.e. number of
@@ -21,14 +20,7 @@ C> - The use of an integer return code allows this function
 C> to be called in a logical context from application programs
 C> written in C as well as in Fortran.
 C>
-C> <b>Program history log:</b>
-C> | Date | Programmer | Comments |
-C> | -----|------------|----------|
-C> | 2012-06-07 | J. Ator | Original author |
-C> | 2015-03-10 | J. Woollen | Improved logic for testing legacy cases prior to BUFRLIB V10.2.0 |
-C> | 2016-02-12 | J. Ator | Modified for CRAYFTN compatibility |
-C> | 2022-10-04 | J. Ator | Added 8-byte wrapper |
-
+C> @author J. Ator @date 2012-06-07
         RECURSIVE FUNCTION ICBFMS ( STR, LSTR ) RESULT ( IRET )
 
         USE MODV_IM8B

@@ -1,12 +1,11 @@
 C> @file
 C> @brief Read the next message from a BUFR file that was previously
 C> opened for reading.
+C>
+C> @author J. Woollen @date 1994-01-06
 
 C> This function calls BUFRLIB subroutine readmg() and passes
 C> back its return code as the function value.
-C>
-C> @author J. Woollen
-C> @date 1994-01-06
 C>
 C> @param[in] LUNIT -- integer: Fortran logical unit number for BUFR file
 C> @param[out] SUBSET  -- character*8: Table A mnemonic for type of BUFR
@@ -27,16 +26,7 @@ C> @remarks
 C> - The use of this function allows the return code from readmg() to be
 C> used as the target variable within an iterative program loop.
 C>
-C> <b>Program history log:</b>
-C> | Date | Programmer | Comments |
-C> | -----|------------|----------|
-C> | 1994-01-06 | J. Woollen | Original author |
-C> | 1999-11-18 | J. Woollen | Added new function entry points ireadmm and ireadibm |
-C> | 2002-05-14 | J. Woollen | Removed entry points icopysb, ireadft, ireadibm, ireadmm, ireadns and ireadsb (they became separate routines in the BUFRLIB) |
-C> | 2003-11-04 | S. Bender  | Added remarks and routine interdependencies |
-C> | 2003-11-04 | D. Keyser  | Unified/portable for WRF; added history documentation |
-C> | 2022-08-04 | J. Woollen | Added 8-byte wrapper |
-
+C> @author J. Woollen @date 1994-01-06
       RECURSIVE FUNCTION IREADMG(LUNIT,SUBSET,IDATE) RESULT(IRET)
 
       USE MODV_IM8B

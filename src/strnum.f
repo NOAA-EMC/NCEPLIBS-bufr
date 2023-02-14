@@ -1,25 +1,18 @@
 C> @file
 C> @brief Decode an integer from a character string
+C>
+C> @author J. Woollen @date 1994-01-06
 
 C> This subroutine decodes an integer from a character string.  The
 C> string should contain only digits and (optional) trailing blanks.
 C> It should not contain any sign ('+' or '-') character nor any
 C> leading blanks nor embedded blanks.
 C>
-C> @author J. Woollen
-C> @date 1994-01-06
-C>
 C> @param[in]  STR -- character*(*): String
 C> @param[out] NUM -- integer: Value decoded from STR
 C>                    - -1 = decode was unsuccessful
 C>
-C> <b>Program History Log:</b>
-C> | Date | Programmer | Comments |
-C> | -----|------------|----------|
-C> | 1994-01-06 | J. Woollen | Original author |
-C> | 2003-11-04 | J. Ator    | Added documentation |
-C> | 2009-04-21 | J. Ator    | Use errwrt() |
-C>
+C> @author J. Woollen @date 1994-01-06
       SUBROUTINE STRNUM(STR,NUM)
 
       CHARACTER*(*) STR

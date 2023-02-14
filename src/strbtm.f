@@ -1,12 +1,6 @@
 C> @file
 C> @brief Store information about a bitmap element.
 C>
-C> ### Program History Log
-C> Date | Programmer | Comments
-C> -----|------------|---------
-C> 2016-05-27 | J. Ator | original author
-C> 2019-05-22 | J. Ator | add confirmation check
-C>
 C> @author J Ator @date 2016-05-27
 
 C> This subroutine stores internal information in

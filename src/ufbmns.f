@@ -1,5 +1,7 @@
 C> @file
 C> @brief Read a specified data subset from internal arrays.
+C>
+C> @author J. Woollen @date 1994-01-06
 
 C> This subroutine reads a specified data subset from internal
 C> arrays in memory, so that it is now in scope for processing
@@ -10,9 +12,6 @@ C>
 C> <p>This subroutine does not return any information about which
 C> BUFR message within the internal arrays contained the specified data
 C> subset.
-C>
-C> @author J. Woollen
-C> @date 1994-01-06
 C>
 C> @param[in] IREP   -- integer: Number of data subset to be
 C>                      read into scope for further processing,
@@ -28,18 +27,7 @@ C>                      in format of either YYMMDDHH or YYYYMMDDHH,
 C>                      depending on the most
 C>                      recent call to subroutine datelen()
 C>
-C> <b>Program history log:</b>
-C> | Date | Programmer | Comments |
-C> | -----|------------|----------|
-C> | 1994-01-06 | J. Woollen | Original author |
-C> | 1998-07-08 | J. Woollen | Replaced call to Cray library routine "ABORT" with call to new internal routine bort() |
-C> | 1999-11-18 | J. Woollen | Increased MAXMEM from 4 Mb to 8 Mb |
-C> | 2001-08-15 | D. Keyser  | Increased MAXMEM from 8 Mb to 16 Mb |
-C> | 2004-11-15 | D. Keyser  | Increased MAXMEM from 16 Mb to 50 Mb |
-C> | 2009-03-23 | J. Ator    | Use ireadmm() instead of rdmemm(); simplify logic |
-C> | 2014-12-10 | J. Ator    | Use modules instead of COMMON blocks |
-C> | 2022-10-04 | J. Ator    | Added 8-byte wrapper |
-
+C> @author J. Woollen @date 1994-01-06
       RECURSIVE SUBROUTINE UFBMNS(IREP,SUBSET,IDATE)
 
       USE MODV_IM8B

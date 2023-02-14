@@ -1,5 +1,7 @@
 C> @file
 C> @brief Write one data value to a data subset.
+C>
+C> @author J. Ator @date 2016-07-29
 
 C> This subroutine can be used to write a data value corresponding to
 C> a specific occurrence of a mnemonic within a data subset, based on
@@ -11,9 +13,6 @@ C> it then searches in either a forward or backward direction for a
 C> specific occurrence of a nearby mnemonic, and if found
 C> stores the specified data value in the corresponding location
 C> within the subset.
-C>
-C> @author J. Ator
-C> @date 2016-07-29
 C>
 C> @param[in] LUNIT  -- integer: Fortran logical unit number for
 C>                      BUFR file
@@ -47,12 +46,7 @@ C> <p>Before calling this subroutine, a BUFR message should already be
 C> opened and initialized for output via a previous call to one of the
 C> BUFRLIB [message-writing subroutines](@ref hierarchy).
 C>
-C> <b>Program history log:</b>
-C> | Date | Programmer | Comments |
-C> | -----|------------|----------|
-C> | 2016-07-29 | J. Ator | Original author |
-C> | 2022-10-04 | J. Ator | Added 8-byte wrapper |
-
+C> @author J. Ator @date 2016-07-29
         RECURSIVE SUBROUTINE SETVALNB
      .          ( LUNIT, TAGPV, NTAGPV, TAGNB, NTAGNB, R8VAL, IRET )
 

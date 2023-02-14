@@ -2,18 +2,6 @@ C> @file
 C> @brief Search for all occurrences of a specified node within a
 C> specified portion of the current data subset.
 C>
-C> ### Program History Log
-C> Date | Programmer | Comments
-C> -----|------------|----------
-C> 1994-01-06 | J. Woollen | Original author.
-C> 1998-07-08 | J. Woollen | Replaced call to cray "abort" with call to bort().
-C> 1999-11-18 | J. Woollen | Increased number of open bufr files to 32.
-C> 2003-11-04 | S. Bender  | Added remarks/bufrlib routine interdependencies.
-C> 2003-11-04 | D. Keyser  | maxjl increased to 16000; unified/portable for wrf; documentation; outputs more info.
-C> 2009-03-23 | J. Ator    | Use 1e9 to prevent overflow when initializing invn; use errwrt.
-C> 2009-03-31 | J. Woollen | Added documentation.
-C> 2014-12-10 | J. Ator    | Use modules instead of common blocks.
-C>
 C> @author Woollen @date 1994-01-06
 
 C> This function looks for and returns all occurrences of a

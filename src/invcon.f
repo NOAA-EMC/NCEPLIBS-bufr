@@ -1,18 +1,6 @@
 C> @file
 C> @brief Search a specified window for a conditional node.
 C>
-C> ### Program History Log
-C> Date | Programmer | Comments
-C> -----|------------|----------
-C> 1994-01-06 | J. Woollen | Original author.
-C> 1998-07-08 | J. Woollen | Improved machine portability.
-C> 1999-11-18 | J. Woollen | Increased open BUFR file to 32 (necessary for mpi).
-C> 2003-11-04 | S. Bender  | Added remarks/bufrlib routine interdependencies.
-C> 2003-11-04 | D. Keyser  | maxjl increased to 16000; unified/portable for wrf; documentation); outputs more diagnostic info.
-C> 2009-04-21 | J. Ator    | Use errwrt().
-C> 2010-04-27 | J. Woollen | Add documentation.
-C> 2014-12-10 | J. Ator    | Use modules instead of common blocks.
-C>
 C> @author Woollen @date 1994-01-06
 
 C> This function searches a "window" (see below remarks) for an

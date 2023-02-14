@@ -1,5 +1,7 @@
 C> @file
 C> @brief Specify the use of standardization when writing BUFR messages.
+C>
+C> @author J. Ator @date 2004-08-18
 
 C> This subroutine is used to specify whether BUFR messages output by
 C> future calls to [message-writing subroutines](@ref hierarchy) and
@@ -27,19 +29,12 @@ C> unless a subsequent call is made to this subroutine to reset the
 C> value of CF again.  If this subroutine is never called, a default
 C> value of 'N' is used for CF, as set within subroutine bfrini().
 C>
-C> @author J. Ator
-C> @date 2004-08-18
-C>
 C> @param[in] CF   -- character*1: Flag indicating whether future BUFR
 C>                    output messages are to be standardized
 C>                     - 'N' = No (the default)
 C>                     - 'Y' = Yes
 C>
-C> <b>Program history log:</b>
-C> | Date | Programmer | Comments |
-C> | -----|------------|----------|
-C> | 2004-08-18 | J. Ator | Original author |
-C>
+C> @author J. Ator @date 2004-08-18
       SUBROUTINE STDMSG(CF)
 
       COMMON /MSGSTD/ CSMF
