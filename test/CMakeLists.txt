@@ -6,7 +6,7 @@
 # This function builds, links, and runs a test program.
 function(create_test name kind)
   add_executable(${name}_${kind} ${name}.F90)
-  target_link_libraries(${name}_${kind} PRIVATE bufr_${kind})
+  target_link_libraries(${name}_${kind} PRIVATE bufr_4
   set_target_properties(${name}_${kind} PROPERTIES COMPILE_FLAGS "${fortran_${kind}_flags}")
   set_target_properties(${name}_${kind} PROPERTIES Fortran_MODULE_DIRECTORY
     ${CMAKE_CURRENT_BINARY_DIR}/include_${kind})
@@ -130,7 +130,7 @@ list(APPEND test_kinds 4 8 d)
 set(fortran_8_defs INTSIZE_8)
 
 # Add tests which don't require output log processing.
-foreach(kind ${kinds})
+foreach(kind ${test_kinds})
   create_test(intest1 ${kind})
 endforeach()
 
