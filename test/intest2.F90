@@ -42,9 +42,9 @@ program intest2
 
   IF (ierrsb .ne. 0) stop 5
 
-  CALL UFBINT ( 11, r8arr, MXR8PM, MXR8LV, nr8lv, 'CLAT SAZA PRLC WDIR RPID SIDP' )
-  IF (nr8lv .eq. 1 .and. NINT(r8arr(1,1)*100) .eq. 1260 .and. NINT(r8arr(2,1)*100) .eq. 2765 .and. &
-       NINT(r8arr(3,1)) .eq. 25540 .and. NINT(r8arr(4,1)) .eq. 218 .and. IBFMS(r8arr(5,1)) .eq. 1) THEN
+  call ufbint(11, r8arr, mxr8pm, mxr8lv, nr8lv, 'CLAT SAZA PRLC WDIR RPID SIDP')
+  if (nr8lv .eq. 1 .and. nint(r8arr(1,1)*100) .eq. 1260 .and. nint(r8arr(2,1)*100) .eq. 2765 .and. &
+       nint(r8arr(3,1)) .eq. 25540 .and. nint(r8arr(4,1)) .eq. 218 .and. ibfms(r8arr(5,1)) .eq. 1) then
      print *, '        UFBINT -> OK'
      print *, '         IBFMS -> OK'
   ELSE
