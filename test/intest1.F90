@@ -1,7 +1,7 @@
 ! This is a test for NCEPLIBS-bufr.
 !
 ! Reads test file 'testfiles/IN_1' using CRBMG with
-! OPENBF IO = 'SEC3'. This is based on test test_IN_1.F.
+! OPENBF IO = 'SEC3'.
 !
 ! Ed Hartnett, J. Ator, 2/3/23
 program intest1
