@@ -45,7 +45,7 @@ jobs:
         mkdir build 
         cd build
         cmake -DTEST_FILE_DIR=/Users/runner/data -DCMAKE_INSTALL_PREFIX=./install -DENABLE_PYTHON=ON ..
-        make -j2 VERBOSE=1
+        make VERBOSE=1
         make install
         cd python
         sudo python3 setup.py install

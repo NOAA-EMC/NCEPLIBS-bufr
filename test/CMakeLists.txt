@@ -1,7 +1,18 @@
 # This is the cmake build file for the tests directory of the
 # NCEPLIBS-bufr project.
 #
-# Rahul, Jeff Ator, Ed Hartnett
+# Rahul Mahajan, Jeff Ator, Ed Hartnett
+
+# This function builds, links, and runs a test program.
+function(create_test name kind)
+  add_executable(${name}_${kind} ${name}.F90)
+  target_link_libraries(${name}_${kind} PRIVATE bufr_4)
+  set_target_properties(${name}_${kind} PROPERTIES COMPILE_FLAGS "${fortran_${kind}_flags}")
+  set_target_properties(${name}_${kind} PROPERTIES Fortran_MODULE_DIRECTORY
+    ${CMAKE_CURRENT_BINARY_DIR}/include_${kind})
+  add_test(NAME ${name}_${kind} COMMAND ${name}_${kind})
+  target_compile_definitions(${name}_${kind} PUBLIC -DKIND_${kind})
+endfunction()
 
 # Fetch test data from: https://ftp.emc.ncep.noaa.gov/static_files/public/bufr.tar
 set(BUFR_URL "https://ftp.emc.ncep.noaa.gov/static_files/public")
@@ -22,6 +33,7 @@ if(NOT ${TEST_FILE_DIR} STREQUAL ".")
   endif()
 endif()
 
+# Get the test data if we don't have it.
 if(NOT EXISTS "${CMAKE_CURRENT_BINARY_DIR}/${BUFR_TAR}")
   message(STATUS "Downloading bufr test files...")
   file(DOWNLOAD
@@ -55,7 +67,6 @@ add_custom_command(
 file(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/testrun)
 
 list(APPEND test_IN_srcs
-  test_IN_1.F
   test_IN_2.F
   test_IN_3.F
   test_IN_4.F
@@ -117,6 +128,11 @@ endfunction()
 list(APPEND test_kinds 4 8 d)
 
 set(fortran_8_defs INTSIZE_8)
+
+# Add tests which don't require output log processing.
+foreach(kind ${test_kinds})
+  create_test(intest1 ${kind})
+endforeach()
 
 # IN tests
 foreach(test_src ${test_IN_srcs})
@@ -231,3 +247,4 @@ foreach(xb_num RANGE 1 2)
            "${CMAKE_BINARY_DIR}/utils/xbfmg ${xb_flags_${xb_num}}" "testfiles/data"
            "testfiles/testoutput/xbfmg" "${xb_case}")
 endforeach()
+
