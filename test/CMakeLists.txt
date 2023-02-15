@@ -25,6 +25,7 @@ endif()
 # If the TEST_FILE_DIR was specified, look for our test data files
 # there before FTPing them. Developers can keep all test files on
 # their machines, and save the time of downloading them every time.
+message(STATUS "${TEST_FILE_DIR}")
 if(NOT ${TEST_FILE_DIR} STREQUAL ".")
   if (EXISTS ${TEST_FILE_DIR}/${BUFR_TAR})
     message(STATUS "Copying file ${TEST_FILE_DIR}/${BUFR_TAR} to test data directory.")
@@ -132,6 +133,7 @@ set(fortran_8_defs INTSIZE_8)
 # Add tests which don't require output log processing.
 foreach(kind ${test_kinds})
   create_test(intest1 ${kind})
+  create_test(intest2 ${kind})
 endforeach()
 
 # IN tests
