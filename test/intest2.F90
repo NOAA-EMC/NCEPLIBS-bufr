@@ -43,21 +43,11 @@ program intest2
   IF (ierrsb .ne. 0) stop 5
 
   call ufbint(11, r8arr, mxr8pm, mxr8lv, nr8lv, 'CLAT SAZA PRLC WDIR RPID SIDP')
-  if (nr8lv .eq. 1 .and. nint(r8arr(1,1)*100) .eq. 1260 .and. nint(r8arr(2,1)*100) .eq. 2765 .and. &
-       nint(r8arr(3,1)) .eq. 25540 .and. nint(r8arr(4,1)) .eq. 218 .and. ibfms(r8arr(5,1)) .eq. 1) then
-     print *, '        UFBINT -> OK'
-     print *, '         IBFMS -> OK'
-  ELSE
-     print *, '        UFBINT -> FAILED!!'
-     print *, '         IBFMS -> FAILED!!'
-  ENDIF
+  if (nr8lv .ne. 1 .or. nint(r8arr(1,1)*100) .ne. 1260 .or. nint(r8arr(2,1)*100) .ne. 2765 .or. &
+       nint(r8arr(3,1)) .ne. 25540 .or. nint(r8arr(4,1)) .ne. 218 .or. ibfms(r8arr(5,1)) .ne. 1) stop 6
 
-  CALL UPFTBV ( 11, 'SIDP', r8arr(6,1), 32, ibit, nib )
-  IF ( ( nib .eq. 1 ) .and. ( ibit(1) .eq. 9 ) ) THEN
-     print *, '        UPFTBV -> OK'
-  ELSE
-     print *, '        UPFTBV -> FAILED!!'
-  ENDIF
+  call upftbv(11, 'SIDP', r8arr(6,1), 32, ibit, nib)
+  IF (nib .ne. 1 .or. ibit(1) .ne. 9) stop 7
 
   CALL UFBREP ( 11, r8arr, MXR8PM, MXR8LV, nr8lv, 'GNAP PCCF MAQC NCTH' )
   IF (nr8lv .eq. 12 .and. NINT(r8arr(1,2)) .eq. 2 .and. NINT(r8arr(2,4)) .eq. 86 .and. &
