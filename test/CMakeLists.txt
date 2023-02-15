@@ -25,7 +25,6 @@ endif()
 # If the TEST_FILE_DIR was specified, look for our test data files
 # there before FTPing them. Developers can keep all test files on
 # their machines, and save the time of downloading them every time.
-message(STATUS "${TEST_FILE_DIR}")
 if(NOT ${TEST_FILE_DIR} STREQUAL ".")
   if (EXISTS ${TEST_FILE_DIR}/${BUFR_TAR})
     message(STATUS "Copying file ${TEST_FILE_DIR}/${BUFR_TAR} to test data directory.")
