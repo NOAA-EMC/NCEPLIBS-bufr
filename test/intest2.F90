@@ -28,28 +28,17 @@ program intest2
   ! Read the BUFR message from the BUFR file.
   if (ireadmg(11, cmgtag, imgdt) .ne. 0 ) stop 1
 
-  IF (cmgtag .eq. 'NC005064' .and. imgdt .eq. 12101013) THEN
-     print *, '       IREADMG -> OK'
-  ELSE
-     print *, '       IREADMG -> FAILED!!'
-  ENDIF
+  if (cmgtag .ne. 'NC005064' .or. imgdt .ne. 12101013) stop 2
 
-  IF (IUPVS01(11,'MSBT') .eq. 64 .and. IUPVS01(11,'OGCE') .eq. 7 .and. IUPVS01(11,'LENM') .eq. 19926) THEN
-     print *, '       IUPVS01 -> OK'
-  ELSE
-     print *, '       IUPVS01 -> FAILED!!'
-  ENDIF
+  if (iupvs01(11,'MSBT') .ne. 64 .or. iupvs01(11,'OGCE') .ne. 7 .or. &
+       iupvs01(11,'LENM') .ne. 19926) stop 3
 
-  IF ( NMSUB(11) .eq. 154 ) THEN
-     print *, '         NMSUB -> OK'
-  ELSE
-     print *, '         NMSUB -> FAILED!!'
-  ENDIF
+  if (nmsub(11) .ne. 154) stop 4
 
   ! Read the 5th data subset from the BUFR message.
-  DO ii = 1, 5
-     CALL READSB (11, ierrsb)
-  END DO
+  do ii = 1, 5
+     call readsb(11, ierrsb)
+  end do
 
   IF ( ierrsb .ne. 0 ) THEN
      print *, '        READSB -> FAILED!!'
