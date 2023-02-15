@@ -46,8 +46,6 @@
 void fdebufr( char *ofile, char *tbldir, f77int *lentd, char *tblfil, char *prmstg, char *basic, char *forcemt, char *cfms,
               size_t s1, size_t s2, size_t s3, size_t s4, size_t s5, size_t s6, size_t s7);
 
-void prtusage( char *prgnam );
-
 /** Maximum length of the [path/]name passed in for bufrfile. */
 #define MXFLEN 500
 /** Maximum length of the [path/]name for a BUFR tables file, based on the value of MXFLEN. */

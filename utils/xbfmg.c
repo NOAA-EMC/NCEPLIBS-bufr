@@ -13,8 +13,6 @@
 
 #include "bufrlib.h"
 
-void prtusage( char *prgnam );
-
 /** Maximum length of bufrfile [path/]name. */
 #define MXFLEN 125
 
