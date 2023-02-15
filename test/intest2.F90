@@ -6,12 +6,15 @@
 ! Ed Hartnett, J. Ator, 2/15/23
 
 program intest2
+  implicit none
   integer*4 ireadmg, iupvs01, nmsub, ibfms
+  integer mxr8pm, mxr8lv
   parameter (mxr8pm = 10)
   parameter (mxr8lv = 255)
   real*8 r8arr(mxr8pm, mxr8lv), getvalnb
-  integer ibit (32)
+  integer ibit(32)
   character cmgtag*8
+  integer ierrsb, ii, imgdt, nib, nr8lv
 
   print *, 'Testing reading IN_2, OPENBF IO = IN and LUNIN != LUNDX'
 
@@ -57,5 +60,5 @@ program intest2
   if (nint(getvalnb(11,'NCTH',3,'PCCF',-1)) .ne. 0 .or. nint(getvalnb(11,'SSNX',1,'SWCM',1)) .ne. 1) stop 9
 
   print *, 'SUCCESS!'
-END program
+end program
 
