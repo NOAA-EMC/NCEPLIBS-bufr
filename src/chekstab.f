@@ -2,18 +2,6 @@ C> @file
 C> @brief Check that an internal BUFR table
 C> representation is self-consistent and fully defined.
 C>
-C> ### Program History Log
-C> Date | Programmer | Comments
-C> -----|------------|----------
-C> 1994-01-06 | J. Woollen | Original author.
-C> 1995-06-28 | J. Woollen | Increased bufr table arrays to handle bigger files.
-C> 1998-07-08 | J. Woollen | Replaced cray routine "abort" with internal routine bort().
-C> 1999-11-18 | J. Woollen | Increased num open bufr files to 32 (for mpi).
-C> 2003-11-04 | J. Ator    | Added documentation.
-C> 2003-11-04 | S. Bender  | Added remarks/bufrlib routine interdependencies.
-C> 2003-11-04 | D. Keyser  | Unified/portable for WRF; documentation; outputs more diagnostic info.
-C> 2014-12-10 | J. Ator    | Use modules instead of common blocks.
-C>
 C> @author Woollen @date 1994-01-06
 
 C> This subroutine checks that an internal BUFR table

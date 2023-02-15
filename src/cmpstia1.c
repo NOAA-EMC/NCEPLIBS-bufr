@@ -1,6 +1,7 @@
 /** @file
  *  @brief Define a comparison between two master Code/Flag table
  *  entries.
+ * @author J. Ator @date 2017-11-13
  */
 #include "bufrlib.h"
 #include "cfe.h"
@@ -14,9 +15,6 @@
  * iffxynd and ifvald components of the structure, whereas
  * cmpstia2() only compares the iffxyn and ifval components.
  *
- * @author J. Ator
- * @date 2017-11-13
- *
  * @param[in] pe1 -- struct code_flag_entry*: First master Code/Flag
  *                   table entry
  * @param[in] pe2 -- struct code_flag_entry*: Second master Code/Flag
@@ -26,10 +24,7 @@
  *                      -  0 = pe1 is equal to pe2
  *                      -  1 = pe1 is greater than pe2
  *
- * <b>Program history log:</b>
- * | Date | Programmer | Comments |
- * | -----|------------|----------|
- * | 2017-11-13 | J. Ator | Original author |
+ * @author J. Ator @date 2017-11-13
 */
 int cmpstia1( const void *pe1, const void *pe2 )
 {

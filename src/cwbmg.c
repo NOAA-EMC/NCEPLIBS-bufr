@@ -1,6 +1,7 @@
 /** @file
  *  @brief Write a message to a BUFR file that was
  *  previously opened for writing via a C language interface.
+ * @author J. Ator @date 2005-11-29
  */
 #include "bufrlib.h"
 #include "cobfl.h"
@@ -20,17 +21,14 @@
  *                         - 0 = normal return
  *                         - -1 = I/O error encountered while writing
  *
- * <p>This subroutine is designed to be easily callable from
+ * This subroutine is designed to be easily callable from
  * application program written in either C or Fortran.
  *
- * <p>The file to which the message is to be written must have already
+ * The file to which the message is to be written must have already
  * been opened for writing via a previous call to subroutine cobfl()
  * with io = 'w'.
  *
- *  <b>Program history log:</b>
- *  | Date | Programmer | Comments |
- *  | -----|------------|----------|
- *  | 2005-11-29 | J. Ator | Original author |
+ * @author J. Ator @date 2005-11-29
  */
 void cwbmg( char *bmg, f77int *nmb, f77int *iret )
 {

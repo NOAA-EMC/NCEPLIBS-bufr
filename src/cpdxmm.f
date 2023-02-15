@@ -1,23 +1,15 @@
 C> @file
 C> Read embedded DX BUFR table into internal arrays.
+C>
+C> @author J. Ator @date 2009-03-23
 
 C> This subroutine reads an entire DX BUFR table from a specified
 C> file into internal arrays.
 C>
-C> @author J. Ator
-C> @date 2009-03-23
-C>
 C> @param[in] LUNIT   -- integer: Fortran logical unit number for BUFR
 C>                       file
 C>
-C> <b>Program history log:</b>
-C> | Date | Programmer | Comments |
-C> | -----|------------|----------|
-C> | 2009-03-23 | J. Ator    | Original author |
-C> | 2012-09-15 | J. Woollen | Modified for C/I/O/BUFR interface; replace Fortran BACKSPACE with C backbufr() |
-C> | 2014-12-10 | J. Ator    | Use modules instead of COMMON blocks |
-C> | 2022-08-04 | J. Woollen | Added 8-byte wrapper |
-
+C> @author J. Ator @date 2009-03-23
         RECURSIVE SUBROUTINE CPDXMM( LUNIT )
 
         USE MODV_MXDXTS

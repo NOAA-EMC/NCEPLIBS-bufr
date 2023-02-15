@@ -1,6 +1,8 @@
 C> @file
 C> @brief Read the Section 1 date-time from the first two "dummy"
 C> messages of an NCEP dump file
+C>
+C> @author J. Woollen @date 1996-12-11
 
 C> This subroutine reads and returns the Section 1 date-time from
 C> the first two "dummy" messages of an NCEP dump file, bypassing any
@@ -10,9 +12,6 @@ C> messages contains the dump center date-time in Section 1, while the
 C> second message contains the dump initiation date-time in Section 1.
 C> Neither of these two "dummy" messages should contain any data
 C> subsets in Section 4.
-C>
-C> @author J. Woollen
-C> @date 1996-12-11
 C>
 C> @param[in] LUNIT   -- integer: Fortran logical unit number for BUFR
 C>                       dump file
@@ -35,30 +34,14 @@ C>                       - Index 3 contains the day
 C>                       - Index 4 contains the hour
 C>                       - Index 5 contains the minute
 C>
-C> <p>Logical unit LUNIT must already be associated with a filename
+C> Logical unit LUNIT must already be associated with a filename
 C> on the local system, typically via a Fortran "OPEN" statement.
 C>
-C> <p>If the subroutine fails to locate either of the two "dummy"
+C> If the subroutine fails to locate either of the two "dummy"
 C> messages within the file pointed to by LUNIT, then the corresponding
 C> JDATE or JDUMP array will be filled with all values set to (-1).
 C>
-C> <b>Program history log:</b>
-C> | Date | Programmer | Comments |
-C> | -----|------------|----------|
-C> | 1996-12-11 | J. Woollen | Original author |
-C> | 1996-12-17 | J. Woollen | Corrected error in dump date reader |
-C> | 1998-07-08 | J. Woollen | Replaced call to Cray library routine ABORT with call to new internal routine bort() |
-C> | 2003-05-19 | M. Shirey  | Replaced calls to Fortran insrinsic function ICHAR with the NCEP W3LIB function MOVA2I |
-C> | 2003-11-04 | S. Bender  | Added remarks and routine interdependencies |
-C> | 2003-11-04 | D. Keyser  | Modified date calculations to no longer use floating point arithmetic |
-C> | 2004-08-18 | J. Ator    | Modified 'BUFR' string test for portability to EBCDIC machines |
-C> | 2004-12-20 | D. Keyser  | Calls wrdlen() to initialize local machine information, in case it has not yet been called |
-C> | 2005-11-29 | J. Ator    | Use igetdate(), getlens(), iupbs01(), and rdmsgw() |
-C> | 2009-03-23 | J. Ator    | Use idxmsg(), iupbs3(), and errwrt() |
-C> | 2012-09-15 | J. Woollen | Modified for C/I/O/BUFR interface; use new openbf type 'INX' to open and close the C file without closing the Fortran file |
-C> | 2014-12-10 | J. Ator    | Use modules instead of COMMON blocks |
-C> | 2022-08-04 | J. Woollen | Added 8-byte wrapper |
-
+C> @author J. Woollen @date 1996-12-11
       RECURSIVE SUBROUTINE DUMPBF(LUNIT,JDATE,JDUMP)
 
       USE MODA_MGWA

@@ -2,14 +2,6 @@ C> @file
 C> @brief Search for a Table A descriptor within the internal DX
 C> BUFR tables
 C>
-C> ### Program history log
-C> Date | Programmer | Comments
-C> -----|------------|---------
-C> 1999-11-18 | J. Woollen | Original author
-C> 2003-11-04 | S. Bender  | Added remarks/bufrlib routine interdependencies
-C> 2003-11-04 | D. Keyser  | Unified/portable for WRF; added documentation; outputs more complete diagnostic info when routine terminates abnormally
-C> 2014-12-10 | J. Ator    | Use modules instead of COMMON blocks
-C>
 C> @author J. Woollen @date 1999-11-18
 
 C> This subroutine searches for a descriptor within Table A of the

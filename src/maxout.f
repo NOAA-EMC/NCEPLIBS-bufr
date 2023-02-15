@@ -1,5 +1,7 @@
 C> @file
 C> @brief Define a customized maximum length for output BUFR messages.
+C>
+C> @authors J. Woollen, J. Ator @date 2002-05-14
 
 C> This subroutine allows the user to define the maximum length of a
 C> BUFR message that can be written to an output file by the BUFRLIB
@@ -15,27 +17,12 @@ C> is never called, a default maximum message length is used for all
 C> output files, as set via an initial internal call to subroutine
 C> bfrini().
 C>
-C> @authors J. Woollen
-C> @authors J. Ator
-C> @date 2002-05-14
-C>
 C> @param[in] MAXO --  integer: New maximum length (in bytes) for
 C>                     all BUFR messages written to all output files
 C>                     - 0 = Set MAXO to the maximum value allowed
 C>                           by the BUFRLIB software
 C>
-C> <b>Program history log:</b>
-C> | Date | Programmer | Comments |
-C> | -----|------------|----------|
-C> | 2002-05-14 | J. Woollen | Original author |
-C> | 2004-08-09 | J. Ator    | Maximum message length increased from 20,000 to 50,000 bytes |
-C> | 2006-04-14 | J. Ator    | Added MAXO=0 option and overflow check |
-C> | 2009-03-23 | D. Keyser  | No longer print record length change diagnostic if requested record length is the same as the previous value |
-C> | 2009-04-21 | J. Ator    | Use errwrt() |
-C> | 2014-12-10 | J. Ator    | Use modules instead of COMMON blocks |
-C> | 2015-09-24 | D. Stokes  | Correct typos in docblock |
-C> | 2022-08-04 | J. Woollen | Added 8-byte wrapper |
-
+C> @authors J. Woollen, J. Ator @date 2002-05-14
       RECURSIVE SUBROUTINE MAXOUT(MAXO)
 
       USE MODV_MXMSGL

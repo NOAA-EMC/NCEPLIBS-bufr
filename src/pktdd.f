@@ -1,18 +1,6 @@
 C> @file
 C> @brief Store information about a child mnemonic within the internal arrays
 C>
-C> ### Program History Log
-C> Date | Programmer | Comments
-C> -----|------------|----------
-C> 1994-01-06 | J. Woollen | Original author.
-C> 1995-06-28 | J. Woollen | increased the size of internal bufr table arrays in order to handle bigger files.
-C> 1999-11-18 | J. Woollen | The number of bufr files which can be opened at one time increased from 10 to 32.
-C> 2003-11-04 | J. Ator    | Added documentation.
-C> 2003-11-04 | S. Bender  | Added remarks/bufrlib routine interdependencies.
-C> 2003-11-04 | D. Keyser  | Unified/portable for wrf; added history documentation; more diagnostic info.
-C> 2009-04-21 | J. Ator    | Use errwrt().
-C> 2014-12-10 | J. Ator    | Use modules instead of common blocks.
-C>
 C> @author Woollen @date 1994-01-06
 
 C> This subroutine stores information about a "child"

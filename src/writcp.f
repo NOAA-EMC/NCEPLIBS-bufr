@@ -1,13 +1,6 @@
 C> @file
 C> @brief Write a data subset into a BUFR message using compression
 C>
-C> ### Program history log
-C> | Date | Programmer | Comments |
-C> | -----|------------|----------|
-C> | 2002-05-14 | J. Woollen | Original author |
-C> | 2005-03-09 | J. Ator    | Modified to use cmpmsg() and writsb() |
-C> | 2022-10-04 | J. Ator    | Added 8-byte wrapper |
-C>
 C> @author J. Woollen @date 2002-05-14
 
 C> This subroutine is similar to subroutine writsb(), except that

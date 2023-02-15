@@ -1,15 +1,14 @@
 C> @file
 C> @brief Determine the numerical data value equivalent to the
 C> setting of a specified bit within a flag table.
+C>
+C> @author J. Ator @date 2005-11-29
 
 C> This function computes the numerical value equivalent to the
 C> setting of bit #(IBIT) within a flag table of NBITS bits.
 C>
-C> <p>If the computation fails for any reason, then the function
+C> If the computation fails for any reason, then the function
 C> returns the current placeholder value for "missing" data.
-C>
-C> @author J. Ator
-C> @date 2005-11-29
 C>
 C> @param[in] NBITS -- integer: Total number of bits in flag table
 C> @param[in] IBIT  -- integer: Number of bit to be set
@@ -23,12 +22,7 @@ C> - According to the WMO standard, bits within a bit field are
 C> numbered from left to right, so bit #1 is always the high-order
 C> (i.e. most significant) bit in any bit field.
 C>
-C> <b>Program history log:</b>
-C> | Date | Programmer | Comments |
-C> | -----|------------|----------|
-C> | 2005-11-29 | J. Ator | Original version |
-C> | 2022-10-04 | J. Ator | Added 8-byte wrapper |
-
+C> @author J. Ator @date 2005-11-29
       RECURSIVE FUNCTION PKFTBV(NBITS,IBIT) RESULT(R8VAL)
 
       USE MODV_BMISS

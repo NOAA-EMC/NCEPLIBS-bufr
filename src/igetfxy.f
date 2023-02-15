@@ -1,12 +1,6 @@
 C> @file
 C> @brief Search for a valid FXY number within a character string.
 C>
-C> ### Program History Log
-C> Date | Programmer | Comments
-C> -----|------------|----------
-C> 2007-01-19 | J. Ator | Original author.
-C> 2021-09-30 | J. Ator | Replace jstchr with Fortran intrinsic adjustl.
-C>
 C> @author Ator @date 2007-01-19
 
 C> This function looks for and returns a valid FXY number

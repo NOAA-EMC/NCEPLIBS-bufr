@@ -1,5 +1,7 @@
 C> @file
 C> @brief Left-justify a character string containing an encoded integer
+C>
+C> @author J. Woollen @date 1994-01-06
 
 C> This subroutine left-justifies a character string containing an
 C> encoded integer, by removing all leading blanks and any leading
@@ -7,9 +9,6 @@ C> sign ('+' or '-') character.  The string is modified in place, and
 C> the sign is returned as a separate parameter.  If the input string
 C> contains only blank characters, then a call is made to subroutine
 C> bort().
-C>
-C> @author J. Woollen
-C> @date 1994-01-06
 C>
 C> @param[in,out] STR -- character*(*): String
 C> @param[out]   SIGN -- character*1: Sign of encoded integer value
@@ -20,16 +19,7 @@ C>                       - 0 = normal return
 C>                       - -1 = input string contained non-blank
 C>                              characters which were also non-numeric
 C>
-C> <b>Program History Log:</b>
-C> | Date | Programmer | Comments |
-C> | -----|------------|----------|
-C> | 1994-01-06 | J. Woollen | Original author |
-C> | 1998-07-08 | J. Woollen | Replaced call to Cray library routine ABORT with call to new internal routine bort() |
-C> | 2002-05-14 | J. Woollen | Changed from an entry point to increase portability to other platforms |
-C> | 2003-11-04 | J. Ator    | Added documentation |
-C> | 2009-04-21 | J. Ator    | Use errwrt() |
-C> | 2021-09-30 | J. Ator    | Use Fortran intrinsic adjustl |
-C>
+C> @author J. Woollen @date 1994-01-06
       SUBROUTINE JSTNUM(STR,SIGN,IRET)
 
       CHARACTER*(*) STR

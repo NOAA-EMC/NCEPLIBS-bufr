@@ -1,12 +1,11 @@
 C> @file
 C> @brief Encode an 8-byte integer value within an integer array.
+C>
+C> @author J. Woollen @date 2022-05-06
 
 C> This subroutine encodes an 8-byte integer value within a specified
 C> number of bits of an integer array, starting at the bit
 C> immediately after a specified bit within the array.
-C>
-C> @author J. Woollen
-C> @date 2022-05-06
 C>
 C> @param[in] NVAL    -- integer*8: Value to be encoded
 C> @param[in] NBITS   -- integer: Number of bits of IBAY within
@@ -24,11 +23,7 @@ C> - This subroutine will not work properly if NBITS is less than 0 or
 C>   greater than 64, as determined via an internal call to subroutine
 C>   wrdlen().
 C>
-C> <b>Program history log:</b>
-C> | Date | Programmer | Comments |
-C> | -----|------------|----------|
-C> | 2022-05-06 | J. Woollen | Original author |
-
+C> @author J. Woollen @date 2022-05-06
       subroutine pkb8(nval,nbits,ibay,ibit)
 
       common /hrdwrd/ nbytw,nbitw,iord(8)

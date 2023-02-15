@@ -1,13 +1,12 @@
 C> @file
 C> @brief Get the parent for a specified occurrence of a Table B or
 C> Table D mnemonic.
+C>
+C> @author J. Ator @date 2012-09-12
 
 C> This subroutine returns the Table D mnemonic corresponding to the
 C> parent sequence of a specified Table B or Table D mnemonic within
 C> a data subset definition.
-C>
-C> @author J. Ator
-C> @date 2012-09-12
 C>
 C> @param[in] LUNIT  -- integer: Fortran logical unit number for
 C>                      BUFR file
@@ -24,21 +23,14 @@ C>                      - 0 = normal return
 C>                      - -1 = TAGPR could not be found, or some
 C>                            other error occurred
 C>
-C> <p>A data subset must already be in scope within the BUFRLIB
+C> A data subset must already be in scope within the BUFRLIB
 C> internal arrays for LUNIT, either via a previous call to one
 C> of the [subset-reading subroutines](@ref hierarchy)
 C> (when reading BUFR data subsets) or via a previous call to one
 C> of the [message-writing subroutines](@ref hierarchy)
 C> (when writing BUFR data subsets).
 C>
-C> <b>Program history log:</b>
-C> | Date | Programmer | Comments |
-C> | -----|------------|----------|
-C> | 2012-09-12 | J. Ator | Original author |
-C> | 2014-10-02 | J. Ator | Modified to use fstag() |
-C> | 2014-12-10 | J. Ator | Use modules instead of COMMON blocks |
-C> | 2022-08-04 | J. Woollen | Added 8-byte wrapper |
-
+C> @author J. Ator @date 2012-09-12
         RECURSIVE SUBROUTINE GETTAGPR
      .          ( LUNIT, TAGCH, NTAGCH, TAGPR, IRET )
 

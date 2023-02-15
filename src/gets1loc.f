@@ -1,17 +1,16 @@
 C> @file
 C> @brief Get the location of a specified value within Section 1
 C> of a BUFR message
+C>
+C> @author J. Ator @date 2005-11-29
 
 C> This subroutine returns the location of a specified value within
 C> Section 1 of a BUFR message.
 C>
-C> <p>The location and availability of any particular value within
+C> The location and availability of any particular value within
 C> Section 1 of a BUFR message can vary depending on the edition
 C> number used to encode the message.  This subroutine will work
 C> for BUFR edition 2, 3, or 4.
-C>
-C> @author J. Ator
-C> @date 2005-11-29
 C>
 C> @param[in]  S1MNEM  -- character*(*): Value whose location within
 C>                        Section 1 is to be determined:
@@ -53,13 +52,7 @@ C> - S1MNEM = 'GSES' is only valid for IBEN = 3 or 4.
 C> - S1MNEM = 'YCEN' or 'CENT' is only valid for IBEN = 2 or 3.
 C> - S1MNEM = 'YEAR', 'SECO', or 'MSBTI' is only valid for IBEN = 4.
 C>
-C> <b>Program history log:</b>
-C> | Date | Programmer | Comments |
-C> | -----|------------|----------|
-C> | 2005-11-29 | J. Ator | Original author |
-C> | 2006-04-14 | D. Keyser | Added options for 'YCEN' and 'CENT' |
-C> | 2022-08-04 | J. Woollen | Added 8-byte wrapper |
-
+C> @author J. Ator @date 2005-11-29
         RECURSIVE SUBROUTINE GETS1LOC(S1MNEM,IBEN,ISBYT,IWID,IRET)
 
         USE MODV_IM8B

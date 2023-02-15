@@ -1,13 +1,6 @@
 /** @file
  *  @brief Split a BUFR file into separate BUFR files by message.
  *
- * ### Program History Log
- * Date | Programmer | Comments
- * -----|------------|----------
- * 2018-03-01 | J. Ator | Original author.
- * 2021-09-29 | J. Ator |  Use basename instead of pid in output filenames.
- * 2021-10-08 | J. Ator |  Simplify bvstr instantiation and initialization.
- *
  *  @author J. Ator @date 2018-03-01
  */
 
@@ -19,8 +12,6 @@
 #include <sys/stat.h>
 
 #include "bufrlib.h"
-
-void prtusage( char *prgnam );
 
 /** Maximum length of bufrfile [path/]name. */
 #define MXFLEN 125

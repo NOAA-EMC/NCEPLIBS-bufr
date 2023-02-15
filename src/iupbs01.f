@@ -2,13 +2,6 @@ C> @file
 C> @brief Read a data value from Section 0 or Section 1 of a BUFR
 C> message.
 C>
-C> <b>Program history log:</b>
-C> | Date | Programmer | Comments |
-C> | -----|------------|----------|
-C> | 2005-11-29 | J. Ator | Original author |
-C> | 2006-04-14 | J. Ator | Added options for 'YCEN' and 'CENT'; restructured logic |
-C> | 2022-10-04 | J. Ator | Added 8-byte wrapper |
-C>
 C> @author J. Ator @date 2005-11-29
 
 C> This function returns a specified value from within Section 0 or

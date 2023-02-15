@@ -1,17 +1,6 @@
 C> @file
 C> @brief Store or restore parameters associated with a BUFR file.
 C>
-C> ### Program History Log
-C> Date | Programmer | Comments
-C> -----|------------|----------
-C> 2003-11-04 | J. Woollen | original author (was in verification version but may have been in the production version at one time and then removed)
-C> 2003-11-04 | D. Keyser  | unified/portable for wrf; added documentation; outputs more complete diagnostic info when routine terminates abnormally
-C> 2004-08-09 | J. Ator    | maximum message length increased from 20,000 to 50,000 bytes
-C> 2009-03-23 | J. Ator    | modified to handle embedded bufr table (dictionary) messages
-C> 2011-09-26 | J. Woollen | fixed bug to prevent skip of first data message after rewind
-C> 2012-09-15 | J. Woollen | modified for c/i/o/bufr interface; replace fortran rewind with c cewind
-C> 2014-12-10 | J. Ator    | use modules instead of common blocks
-C>
 C> @author Woollen @date 2003-11-04
 
 C> This subroutine, depending on the value of ISR, will

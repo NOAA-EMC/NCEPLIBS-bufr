@@ -1,12 +1,11 @@
 C> @file
 C> @brief Get information about a descriptor, based on the FXY value
+C>
+C> @author J. Woollen @date 1994-01-06
 
 C> This subroutine returns information about a descriptor from the
 C> internal DX BUFR tables, based on the bit-wise representation of
 C> the FXY value associated with that descriptor.
-C>
-C> @author J. Woollen
-C> @date 1994-01-06
 C>
 C> @param[in] LUN -- integer: Internal I/O stream index associated
 C>                   with DX BUFR tables
@@ -39,22 +38,7 @@ C>                     - 2, if TAB = 'R' or TAB = 'F' and the
 C>                       replication is 16-bit delayed
 C>                     - 0, otherwise
 C>
-C> <b>Program history log:</b>
-C> | Date | Programmer | Comments |
-C> | -----|------------|----------|
-C> | 1994-01-06 | J. Woollen | Original author |
-C> | 1995-06-28 | J. Woollen | Increased the size of internal BUFR table arrays in order to handle bigger files |
-C> | 1999-11-18 | J. Woollen | The number of BUFR files which can be opened at one time increased from 10 to 32 |
-C> | 2000-09-19 | J. Woollen | Added capability to encode and decode data using the operator descriptors (BUFR table C) for changing width and changing scale |
-C> | 2003-11-04 | J. Ator    | Added documentation |
-C> | 2003-11-04 | S. Bender  | Added remarks and routine interdependencies |
-C> | 2003-11-04 | D. Keyser  | Unified/portable for WRF; added history documentation; corrected typo |
-C> | 2005-11-29 | J. Ator    | Added support for 207 and 208 operators |
-C> | 2009-04-21 | J. Ator    | Use numtbd() |
-C> | 2010-03-19 | J. Ator    | Added support for 204 and 205 operators |
-C> | 2012-03-02 | J. Ator    | Added support for 203 operator |
-C> | 2015-02-25 | J. Ator    | Allow processing of 2-2x, 2-3x and 2-4X non-marker operators in DX tables |
-C>
+C> @author J. Woollen @date 1994-01-06
       SUBROUTINE NUMTAB(LUN,IDN,NEMO,TAB,IRET)
 
 C     Note that the values within the COMMON /REPTAB/ arrays were

@@ -2,14 +2,6 @@ C> @file
 C> @brief Pad a BUFR data subset with zeroed-out bits up to the
 C> next byte boundary.
 C>
-C> ### Program History Log
-C> Date | Programmer | Comments
-C> -----|------------|----------
-C> 1994-01-06 | J. Woollen | Original author.
-C> 1998-07-08 | J. Woollen | Replaced cray routine "abort" with bort().
-C> 2003-11-04 | S. Bender  | Added remarks/bufrlib routine interdependencies.
-C> 2003-11-04 | D. Keyser  | Unified/portable for wrf; documentation; outputs more info.
-C>
 C> @author Woollen @date 1994-01-06
 
 C> This subroutine first packs the value for the number of

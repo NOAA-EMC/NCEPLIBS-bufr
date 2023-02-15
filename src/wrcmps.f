@@ -1,25 +1,6 @@
 C> @file
 C> @brief Write a compressed BUFR data subset.
 C>
-C> ### Program History Log
-C> Date | Programmer | Comments |
-C> -----|------------|----------|
-C> 2002-05-14 | J. Woollen  | original author
-C> 2003-11-04 | S. Bender   | added remarks/bufrlib routine interdependencies
-C> 2003-11-04 | D. Keyser   | maxjl  increased from 15k to 16000; writ1 and flush now saved;unified/portable for wrf; added documentation and abort info
-C> 2004-08-18 | J. Ator     | remove call to xmsgini; improve documentation; correct character value logic; maximum message length 20k TO 50k
-C> 2004-08-18 | J. Woollen  | save 'first'; added 'kmiss'; added logic to correct missing values; removed unecessary references to writ1
-C> 2005-11-29 | J. Ator     | fix initialization bug for character compression; increase mxcsb to 4k; check edition number before padding message
-C> 2009-03-23 | J. Ator     | added save for ibyt and jbit; use msgfull
-C> 2009-08-11 | J. Woollen  | made catx and cstr bigger; separated matx,catx,ncol for use in subroutine writlc; passed mbay(1,lun) to cmsgini for use in writlc
-C> 2012-02-17 | J. Ator     | fixed a bug involving compressed files with embedded dictionary messages
-C> 2014-12-03 | J. Ator     | use pkx to pack local reference value for character strings
-C> 2014-12-10 | J. Ator     | use modules instead of common blocks
-C> 2015-09-24 | D. Stokes   | include edge4 in save list
-C> 2016-03-18 | J. Ator     | fix bug involving encoding long character strings (via writlc) into messages which contain delayed replication
-C> 2021-02-24 | J. Ator     | use ipkm and pkc instead of pkx
-C> 2022-05-06 | J. Woollen  | use pkb8 for packing 8byte integers
-C>
 C> @author Woollen @date 2002-05-14
 
 C> This subroutine packs up the current subset within memory

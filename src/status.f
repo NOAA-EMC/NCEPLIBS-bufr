@@ -1,18 +1,17 @@
 C> @file
 C> @brief Check whether a system file is connected to the BUFRLIB
 C> software.
+C>
+C> @author J. Woollen @date 1994-01-06
 
 C> This subroutine checks whether a specified Fortran logical unit
 C> number is currently connected to the BUFRLIB software.
 C>
-C> <p>If the unit number is already connected, then the subroutine
+C> If the unit number is already connected, then the subroutine
 C> returns information about the associated file.  Otherwise, it
 C> returns the next available internal I/O stream index that could
 C> be used to connect the associated file to the software via a
 C> subsequent call to subroutine wtstat().
-C>
-C> @author J. Woollen
-C> @date 1994-01-06
 C>
 C> @param[in]  LUNIT   -- integer: Fortran logical unit number for
 C>                        BUFR file
@@ -40,19 +39,7 @@ C>                        internal arrays for LUNIT
 C>                        - 0 = No
 C>                        - 1 = Yes
 C>
-C> <b>Program history log:</b>
-C> | Date | Programmer | Comments |
-C> | -----|------------|----------|
-C> | 1994-01-06 | J. Woollen | Original author |
-C> | 1996-12-11 | J. Woollen | Fixed a long standing bug which occurs in unusual situations, very low impact |
-C> | 1998-07-08 | J. Woollen | Replaced call to Cray library routine ABORT with call to new internal routine bort() |
-C> | 1999-11-18 | J. Woollen | The number of BUFR files which can be opened at one time increased from 10 to 32 |
-C> | 2003-11-04 | J. Ator    | Added documentation |
-C> | 2003-11-04 | S. Bender  | Added remarks and routine interdependencies |
-C> | 2003-11-04 | D. Keyser  | Unified/portable for WRF; added documentation; outputs more complete diagnostic info when routine terminates abnormally |
-C> | 2014-12-10 | J. Ator    | Use modules instead of COMMON blocks |
-C> | 2022-10-04 | J. Ator    | Added 8-byte wrapper |
-
+C> @author J. Woollen @date 1994-01-06
       RECURSIVE SUBROUTINE STATUS(LUNIT,LUN,IL,IM)
 
       USE MODV_NFILES

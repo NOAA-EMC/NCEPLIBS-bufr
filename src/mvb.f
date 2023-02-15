@@ -2,18 +2,6 @@ C> @file
 C> @brief Copy a specified number of bytes from
 C> one packed binary array to another.
 C>
-C> ### Program History Log
-C> Date | Programmer | Comments
-C> -----|------------|----------
-C> 1994-01-06 | J. Woollen | Original author.
-C> 1998-07-08 | J. Woollen | Replaced call to cray routine "abort" with bort().
-C> 1998-10-27 | J. Woollen | Modified to correct problems caused by in- lining code with fpp directives.
-C> 2002-05-14 | J. Woollen | Removed old cray compiler directives.
-C> 2003-11-04 | S. Bender  | Added remarks/bufrlib routine interdependencies.
-C> 2003-11-04 | D. Keyser  | Unified/portable for wrf; documentation; outputs more diagnostic info.
-C> 2005-11-29 | J. Ator    | Maximum number of bytes to copy increased from 24000 to mximb.
-C> 2014-10-22 | J. Ator    | Merge two do loops into one, and remove mximb parameter and dimensioning of nval.
-C>
 C> @author Woollen @date 1994-01-06
 
 C> This subroutine copies a specified number of bytes from

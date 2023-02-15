@@ -1,14 +1,13 @@
 C> @file
 C> @brief Check whether a data subset will fit within a BUFR message
+C>
+C> @author J. Ator @date 2009-03-23
 
 C> This function determines whether the current data subset in the
 C> internal arrays will fit within the current BUFR message in the
 C> internal arrays, based on the prescribed maximum size of a BUFR
 C> message and the allowance of some extra "wiggle room" that may
 C> be needed later when writing out the message.
-C>
-C> @author J. Ator
-C> @date 2009-03-23
 C>
 C> @param[in] MSIZ -- integer: Size (in bytes) of current BUFR message
 C> @param[in] ITOADD -- integer: Size (in bytes) of current data subset
@@ -17,11 +16,7 @@ C> @returns MSGFULL -- logical: Flag indicating whether the current
 C>                     data subset will fit within the current BUFR
 C>                     message
 C>
-C> <b>Program history log:</b>
-C> | Date | Programmer | Comments |
-C> | -----|------------|----------|
-C> | 2009-03-23 | J. Ator | Original author |
-C>
+C> @author J. Ator @date 2009-03-23
       LOGICAL FUNCTION MSGFULL(MSIZ,ITOADD,MXSIZ)
 
       USE MODV_MAXNC

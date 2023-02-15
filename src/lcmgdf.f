@@ -1,13 +1,12 @@
 C> @file
 C> @brief Check for the existence of any long character strings
 C> (greater than 8 bytes) within a data subset definition.
+C>
+C> @author J. Ator @date 2009-07-09
 
 C> This function checks whether the subset definition for a given
 C> message type contains any long character strings (greater
 C> than 8 bytes).
-C>
-C> @author J. Ator
-C> @date 2009-07-09
 C>
 C> @param[in] LUNIT -- integer: Fortran logical unit number for
 C>                     BUFR file
@@ -35,13 +34,7 @@ C> are found, the application program can process them via a
 C> separate call to subroutine readlc() (when reading BUFR data
 C> subsets) or subroutine writlc() (when writing BUFR data subsets).
 C>
-C> <b>Program history log:</b>
-C> | Date | Programmer | Comments |
-C> | -----|------------|----------|
-C> | 2009-07-09 | J. Ator | Original author |
-C> | 2014-12-10 | J. Ator | Use modules instead of COMMON blocks |
-C> | 2022-10-04 | J. Ator | Added 8-byte wrapper |
-
+C> @author J. Ator @date 2009-07-09
       RECURSIVE FUNCTION LCMGDF(LUNIT,SUBSET) RESULT(IRET)
 
       USE MODV_IM8B

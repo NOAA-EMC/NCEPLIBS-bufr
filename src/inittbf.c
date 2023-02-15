@@ -1,6 +1,7 @@
 /** @file
  *  @brief Initialize memory for internal storage of master
  *  Code/Flag table entries.
+ *  @author J. Ator  @date 2017-11-03
  */
 #include "bufrlib.h"
 #define IN_INITTBF
@@ -11,13 +12,7 @@
  *  for storage of master Code/Flag table entries, including
  *  dynamically allocating space for this structure if needed.
  *
- *  @author J. Ator
- *  @date 2017-11-03
- *
- *  <b>Program history log:</b>
- *  | Date | Programmer | Comments |
- *  | -----|------------|----------|
- *  | 2017-11-03 | J. Ator | Original author |
+ *  @author J. Ator  @date 2017-11-03
 */
 void inittbf( void )
 {

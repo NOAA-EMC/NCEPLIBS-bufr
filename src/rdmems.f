@@ -1,12 +1,11 @@
 C> @file
 C> @brief Read a specified data subset from a BUFR message.
+C>
+C> @author J. Woollen @date 1994-01-06
 
 C> This subroutine reads a specified data subset from the BUFR message
 C> that was most recently read via a call to subroutine rdmemm() or
 C> readmm().
-C>
-C> @author J. Woollen
-C> @date 1994-01-06
 C>
 C> @param[in] ISUB   -- integer: Number of data subset to be
 C>                      read from BUFR message, counting from the
@@ -17,7 +16,7 @@ C>                               successfully read
 C>                         - -1 = requested subset number could not
 C>                                be found in the message
 C>
-C> <p>Whenever this subroutine returns with IRET = 0, this indicates
+C> Whenever this subroutine returns with IRET = 0, this indicates
 C> that a new BUFR data subset (i.e. report) was successfully read into
 C> internal arrays within the BUFRLIB software, and from where it can
 C> now be easily manipulated or further parsed via calls to any of the
@@ -25,21 +24,7 @@ C> [values-reading subroutines](@ref hierarchy) using the Fortran
 C> logical unit number IUNIT that was returned from the most recent
 C> call to subroutine ufbmem().
 C>
-C> <b>Program history log:</b>
-C> | Date | Programmer | Comments |
-C> | -----|------------|----------|
-C> | 1994-01-06 | J. Woollen | Original author |
-C> | 1998-07-08 | J. Woollen | Replaced call to Cray library routine "ABORT" with call to new internal routine bort() |
-C> | 1998-10-27 | J. Woollen | Modified to correct problems caused by in-lining code with fpp directives |
-C> | 1999-11-18 | J. Woollen | The number of BUFR files which can be opened at one time increased from 10 to 32 |
-C> | 2000-09-19 | J. Woollen | Maximum message length increased from 10,000 to 20,000 bytes |
-C> | 2001-08-15 | D. Keyser  | Increased MAXMEM from 8 Mb to 16 Mb |
-C> | 2004-08-09 | J. Ator    | Maximum message length increased from 20,000 to 50,000 bytes |
-C> | 2004-11-15 | D. Keyser  | Increased MAXMEM from 16 Mb to 50 Mb |
-C> | 2009-04-21 | J. Ator    | Use errwrt() |
-C> | 2014-12-10 | J. Ator    | Use modules instead of COMMON blocks |
-C> | 2022-08-04 | J. Woollen | Added 8-byte wrapper |
-
+C> @author J. Woollen @date 1994-01-06
       RECURSIVE SUBROUTINE RDMEMS(ISUB,IRET)
 
       USE MODA_MSGCWD

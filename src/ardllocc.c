@@ -1,13 +1,6 @@
 /** @file
  *  @brief Free all dynamically-allocated memory within
  *  internal C language arrays.
- *
- * ### Program History Log
- * Date | Programmer | Comments
- * -----|------------|----------
- * 2014-12-04 | J. Ator | Original author.
- * 2023-01-18 | J. Ator | Remove MSTABS_BASE macro.
- *
  * @author J. Ator @date 2014-12-04
  */
 

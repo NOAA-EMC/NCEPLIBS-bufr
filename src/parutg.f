@@ -1,18 +1,6 @@
 C> @file
 C> @brief Parse a mnemonic from a character string.
 C>
-C> ### Program History Log
-C> Date | Programmer | Comments
-C> -----|------------|----------
-C> 1994-01-06 | J. Woollen | Original author.
-C> 1998-07-08 | J. Woollen | Replaced call to cray "abort" with bort(); improved machine portability.
-C> 1999-11-18 | J. Woollen | Increased number of open bufr files to 32.
-C> 2003-11-04 | S. Bender  | Added remarks/bufrlib routine interdependencies.
-C> 2003-11-04 | D. Keyser  | Unified/portable for wrf; documentation; more diagnostic info; changed to bort2().
-C> 2005-04-22 | J. Ator    | Handled situation where input tag contains 1-bit delayed replication, and improved documentation.
-C> 2009-03-23 | J. Ator    | Added '#' condition code.
-C> 2014-12-10 | J. Ator    | Use modules instead of common blocks.
-C>
 C> @author Woollen @date 1994-01-06
 
 C> This subroutine parses a user-specified tag (mnemonic)

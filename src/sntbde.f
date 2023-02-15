@@ -1,13 +1,12 @@
 C> @file
 C> @brief Store a master Table D entry into Fortran arrays
+C>
+C> @author J. Ator @date 2007-01-19
 
 C> This subroutine stores the first line of an entry that was
 C> previously read from an ASCII master Table D file into a set of
 C> merged Fortran arrays.  It then reads and stores all remaining
 C> lines of that same entry into the same merged Fortran arrays.
-C>
-C> @author J. Ator
-C> @date 2007-01-19
 C>
 C> @param[in] LUNT   -- integer: Fortran logical unit number for
 C>                      ASCII file containing Table D information
@@ -38,13 +37,7 @@ C>                       representations of element FXY numbers
 C> @param[out] CEELEM -- character*120(*,*): Merged array containing
 C>                       element names
 C>
-C> <b>Program history log:</b>
-C> | Date | Programmer | Comments |
-C> | -----|------------|----------|
-C> | 2007-01-19 | J. Ator | Original author |
-C> | 2021-01-08 | J. Ator | Modified mstabs array declarations for GNUv10 portability |
-C> | 2021-09-30 | J. Ator | Replace jstchr with Fortran intrinsic adjustl |
-C>
+C> @author J. Ator @date 2007-01-19
         SUBROUTINE SNTBDE ( LUNT, IFXYN, LINE, MXMTBD, MXELEM,
      .                      NMTBD, IMFXYN, CMMNEM, CMDSC, CMSEQ,
      .                      NMELEM, IEFXYN, CEELEM )

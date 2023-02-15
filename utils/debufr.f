@@ -1,35 +1,32 @@
 C> @file
 C> @brief Fortran language code for debufr utility.
+C>
+C> @author J. Ator @date 2009-07-01
 
 C> This module is used within the debufr utility to share
 C> information between subroutine fdebufr() and subroutine
 C> openbt(), since the latter is not called by the former but
 C> rather is called directly from within the BUFRLIB software.
-
+C>
+C> @author J. Ator @date 2009-07-01
         MODULE Share_Table_Info
 
-C>          @var ctbldir
 C>          Directory containing DX BUFR tables to be used for
 C>          decoding.
-C>
-C>          @var ltbd
+            CHARACTER*120       ctbldir
+
 C>          Length (in characters) of ctbldir.
-C>
-C>          @var ludx
+            INTEGER             ltbd
+
 C>          Fortran logical unit number to use for referencing
 C>          a DX table.
-
-            CHARACTER*120       ctbldir
-            INTEGER             ltbd, ludx
+            INTEGER             ludx
         END MODULE
 
 C> This subroutine reads, decodes, and generates a verbose output
 C> listing of the contents of every BUFR message from within the
 C> input file that was previously opened via a call to subroutine
 C> cobfl() with io = 'r'.
-C>
-C> @author J. Ator
-C> @date 2009-07-01
 C>
 C> @param[in] ofile   -- character*(*): File to contain verbose output
 C>                       listing of contents of each decoded BUFR message
@@ -68,22 +65,7 @@ C> that can be dynamically sized via prmstg.
 C> - Fortran logical unit numbers 51, 90, 91, 92 and 93 are reserved
 C> for use within this subroutine.
 C>
-C> <b>Program history log:</b>
-C> | Date | Programmer | Comments |
-C> | -----|------------|----------|
-C> | 2009-07-01 | J. Ator | Original author |
-C> | 2012-06-18 | J. Ator | Added tblfil argument and options to decode files according to DX dictionary information |
-C> | 2012-12-07 | J. Ator | Added forcemt and lentd arguments |
-C> | 2013-10-07 | J. Ator | Print Section 1 tank receipt time information for NCEP/NCO BUFR messages if available |
-C> | 2013-11-15 | J. Ator | Added check for missing or unreadable tblfil |
-C> | 2014-09-15 | J. Ator | Confirm BUFR file was opened (i.e. at least one good return from crbmg() before calling dxdump() |
-C> | 2018-01-19 | J. Ator | Added print of code and flag table meanings |
-C> | 2018-03-01 | J. Ator | Added print of data types and subtypes from code and flag tables |
-C> | 2018-09-05 | J. Ator | Added prmstg argument |
-C> | 2019-02-01 | J. Ator | Remove limit on length of prmstg |
-C> | 2021-02-24 | J. Ator | Use all formatted writes, for consistent output between builds using 4-byte vs. 8-byte integers |
-C> | 2022-11-30 | J. Ator | Check return code from isetprm() |
-
+C> @author J. Ator @date 2009-07-01
         SUBROUTINE FDEBUFR ( ofile, tbldir, lentd, tblfil, prmstg,
      +                       basic, forcemt, cfms )
 

@@ -1,24 +1,6 @@
 C> @file
 C> @brief Read a BUFR message from a memory array.
 C>
-C> <b>Program history log:</b>
-C> | Date | Programmer | Comments |
-C> | -----|------------|----------|
-C> | 1995-06-28 | J. Woollen | Original author |
-C> | 1997-07-29 | J. Woollen | Modified to process GOES soundings from NESDIS |
-C> | 1998-07-08 | J. Woollen | Replaced call to Cray library routine "ABORT" with call to new internal routine bort(); modified to make Y2K compliant; improved machine portability |
-C> | 1999-11-18 | J. Woollen | The number of BUFR files which can be opened at one time increased from 10 to 32; increased the maximum number of possible descriptors in a subset from 1000 to 3000 |
-C> | 2000-09-19 | J. Woollen | Removed logic that had been replicated in this and other read routines and consolidated it into a new routine cktaba(); maximum message length increased from 10,000 to 20,000 bytes |
-C> | 2003-11-04 | S. Bender  | Added remarks and routine interdependencies |
-C> | 2003-11-04 | D. Keyser  | Unified/portable for WRF; added documentation; outputs more complete diagnostic info when routine terminates abnormally |
-C> | 2004-08-18 | J. Ator    | Modified 'BUFR' string test for portability to EBCDIC machines; maximum message length increased from 20,000 to 50,000 bytes |
-C> | 2005-11-29 | J. Ator    | Use ichkstr() |
-C> | 2009-03-23 | D. Keyser  | Call bort() in case of MBAY overflow |
-C> | 2009-03-23 | J. Ator    | Add logic to allow Section 3 decoding; add logic to process dictionary messages |
-C> | 2012-06-07 | J. Ator    | Don't respond to DX table messages if Section 3 decoding is being used |
-C> | 2014-12-10 | J. Ator    | Use modules instead of COMMON blocks |
-C> | 2022-08-04 | J. Woollen | Added 8-byte wrapper |
-C>
 C> @authors J. Woollen J. Ator @date 1995-06-28
 
 C> This subroutine is similar to subroutine readmg(), except that it

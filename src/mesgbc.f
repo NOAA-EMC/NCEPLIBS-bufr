@@ -5,7 +5,9 @@ C> This subroutine examines a BUFR message and returns both the
 C> message type (from Section 1) and message compression indicator
 C> (from Section 3).
 C>
-C> <p>The message to be examined is obtained in one of two different
+C> @author D. Keyser @date 2003-11-04
+C>
+C> The message to be examined is obtained in one of two different
 C> ways, depending on the sign of LUNIN:
 C> - If LUNIN > 0, the subroutine reads and examines Section 1 of each
 C> message in a BUFR file starting from the beginning of the file, and
@@ -27,9 +29,6 @@ C> internal arrays via the most recent call to one of the
 C> [message-reading subroutines](@ref hierarchy) for Fortran logical
 C> unit number ABS(LUNIN).
 C>
-C> @author D. Keyser
-C> @date 2003-11-04
-C>
 C> @param[in] LUNIN -- integer: Absolute value is Fortran logical unit
 C>                     number for BUFR file
 C> @param[out] MESGTYP -- integer: Message type
@@ -47,18 +46,7 @@ C>                         - -1 = error reading the BUFR file
 C>                         -  0 = message is not compressed
 C>                         -  1 = message is compressed
 C>
-C> <b>Program history log:</b>
-C> | Date | Programmer | Comments |
-C> | -----|------------|----------|
-C> | 2003-11-04 | D. Keyser | Original author |
-C> | 2004-06-29 | D. Keyser | Added LUNIN < 0 option |
-C> | 2004-08-09 | J. Ator   | Maximum message length increased from 20,000 to 50,000 bytes |
-C> | 2005-11-29 | J. Ator   | Use iupbs01(), getlens(), and rdmsgw() |
-C> | 2009-03-23 | J. Ator   | Use iupbs3() and idxmsg() |
-C> | 2012-09-15 | J. Woollen | Convert to C language I/O interface; add openbf() and closbf() for LUNIN > 0 option |
-C> | 2014-12-10 | J. Ator    | Use modules instead of COMMON blocks |
-C> | 2022-08-04 | J. Woollen | Added 8-byte wrapper |
-
+C> @author D. Keyser @date 2003-11-04
       RECURSIVE SUBROUTINE MESGBC(LUNIN,MESGTYP,ICOMP)
 
       USE MODA_BITBUF

@@ -1,13 +1,6 @@
 /** @file
  *  @brief Standardize a local Table D descriptor.
  *
- * ### Program History Log
- * Date | Programmer | Comments
- * -----|------------|---------
- * 2004-08-18 | J. Ator | Original author.
- * 2012-04-30 | J. Ator | Use long cast for ibit in sprintf stmt.
- * 2021-08-18 | J. Ator | Use cwork to silence superfluous GNU compiler warnings.
- *
  * @author J. Ator @date 2004-08-18
 */
 

@@ -2,12 +2,6 @@ C> @file
 C> @brief Search for a specified occurrence of a specified mnemonic within
 C> a data subset definition, starting from a specified location.
 C>
-C> ### Program History Log
-C> Date | Programmer | Comments
-C> -----|------------|----------
-C> 2014-10-02 | J. Ator | Original author.
-C> 2014-12-10 | J. Ator | Use modules instead of common blocks.
-C>
 C> @author J Ator @date 2014-10-02
 
 C> This subroutine finds the (NUTAG)th occurrence of mnemonic

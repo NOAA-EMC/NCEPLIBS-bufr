@@ -1,18 +1,17 @@
 C> @file
 C> @brief Get the event program code associated with a Table D mnemonic
 C> from an NCEP prepbufr file
+C>
+C> @author J. Woollen @date 1994-01-06
 
 C> Given a mnemonic associated with a category 63 Table D
 C> descriptor from an NCEP prepbufr file, this subroutine returns the
 C> corresponding event program code.
 C>
-C> <p>The event program code is equivalent to the Y value of the
+C> The event program code is equivalent to the Y value of the
 C> category 63 (i.e. X=63) Table D descriptor.  Knowledge of this value
 C> is especially useful for application programs which are writing data
 C> events to NCEP prepbufr files.
-C>
-C> @author J. Woollen
-C> @date 1994-01-06
 C>
 C> @param[in] LUNIT -- integer: Fortran logical unit number for
 C>                     NCEP prepbufr file
@@ -26,13 +25,7 @@ C> - Logical unit LUNIT should have already been opened via a previous
 C> call to subroutine openbf().
 C> - This subroutine is the logical inverse of subroutine ufbqcp().
 C>
-C> <b>Program history log:</b>
-C> | Date | Programmer | Comments |
-C> | -----|------------|----------|
-C> | 1994-01-06 | J. Woollen | Original author |
-C> | 1998-07-08 | J. Woollen | Replaced call to Cray library routine ABORT with call to new internal routine bort() |
-C> | 2022-10-04 | J. Ator    | Added 8-byte wrapper |
-
+C> @author J. Woollen @date 1994-01-06
       RECURSIVE SUBROUTINE UFBQCD(LUNIT,NEMO,IQCD)
 
       USE MODV_IM8B

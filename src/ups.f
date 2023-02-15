@@ -2,13 +2,6 @@ C> @file
 C> @brief Unpack a real*8 value from an integer by applying the
 C> proper scale and reference values.
 C>
-C> ### Program History Log
-C> | Date | Programmer | Comments |
-C> | -----|------------|----------|
-C> 2012-03-02 | J. Ator    |  original author; adapted from internal statement function in other subroutines
-C> 2014-12-10 | J. Ator    |  use modules instead of common blocks
-C> 2022-05-06 | J. Woollen |  make ival and imask 8byte integers
-C>
 C> @author J. Ator @date 2012-03-02
 
 C> This function unpacks a real*8 user value from a packed

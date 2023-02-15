@@ -1,14 +1,6 @@
 /** @file
  *  @brief Copy master Table B and Table D information from
  *  Fortran arrays to C arrays within internal memory.
- *
- * ### Program history log
- * Date | Programmer | Comments
- * -----|------------|---------
- * 2014-12-04 | J. Ator | Original author.
- * 2021-05-17 | J. Ator | Allow up to 24 characters in cbunit.
- * 2023-01-18 | J. Ator | Remove MSTABS_BASE macro.
- *
  *  @author J. Ator @date 2014-12-04
  */
 #include "bufrlib.h"

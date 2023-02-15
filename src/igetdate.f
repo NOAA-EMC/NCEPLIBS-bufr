@@ -1,14 +1,13 @@
 C> @file
 C> @brief Read the date-time from Section 1 of a BUFR message.
+C>
+C> @author J. Ator @date 2005-11-29
 
 C> This function returns the date-time from within Section 1 of a
 C> BUFR message.
 C>
-C> <p>The function will work on any BUFR message encoded using BUFR
+C> The function will work on any BUFR message encoded using BUFR
 C> edition 2, 3, or 4.
-C>
-C> @author J. Ator
-C> @date 2005-11-29
 C>
 C> @param[in]  MBAY   -- integer(*): BUFR message
 C> @param[out] IYR   -- integer: Year stored within Section 1 of MBAY,
@@ -26,12 +25,7 @@ C> @remarks
 C> - The start of the BUFR message (i.e. the string 'BUFR') must be
 C>   aligned on the first 4 bytes of MBAY.
 C>
-C> <b>Program history log:</b>
-C> | Date | Programmer | Comments |
-C> | -----|------------|----------|
-C> | 2005-11-29 | J. Ator  | Original author |
-C> | 2022-10-04 | J. Ator | Added 8-byte wrapper |
-
+C> @author J. Ator @date 2005-11-29
         RECURSIVE FUNCTION IGETDATE(MBAY,IYR,IMO,IDY,IHR) RESULT(IRET)
 
         USE MODV_IM8B

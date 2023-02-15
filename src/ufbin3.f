@@ -1,5 +1,7 @@
 C> @file
 C> @brief Read one or more data values from an NCEP prepfits file.
+C>
+C> @author J. Woollen @date 2003-11-04
 
 C> This subroutine reads one or more data values from the BUFR data
 C> subset that is currently open within the BUFRLIB internal arrays.
@@ -12,9 +14,6 @@ C> events for any data value within an internal COMMON block,
 C> whereas this subroutine is used for NCEP prepfits files and
 C> has one extra argument which returns the same information to
 C> the calling program.
-C>
-C> @author J. Woollen
-C> @date 2003-11-04
 C>
 C> @param[in] LUNIT -- integer: Fortran logical unit number for
 C>                     NCEP prepfits file
@@ -40,7 +39,7 @@ C>                   subset within the first dimension of USR (see
 C>                   [DX BUFR Tables](@ref dfbftab) for further
 C>                   information about Table B mnemonics)
 C>
-C> <p>It is the user's responsibility to ensure that USR is dimensioned
+C> It is the user's responsibility to ensure that USR is dimensioned
 C> sufficiently large enough to accommodate the number of data values
 C> that are to be read from the data subset.  Note also
 C> that USR is an array of real*8 values; therefore, any
@@ -48,7 +47,7 @@ C> character (i.e. CCITT IA5) value in the data subset will be
 C> returned in real*8 format and must be converted back into character
 C> format by the application program before it can be used as such.
 C>
-C> <p>"Missing" values in USR are always denoted by a unique
+C> "Missing" values in USR are always denoted by a unique
 C> placeholder value.  This placeholder value is initially set
 C> to a default value of 10E10_8, but it can be reset to
 C> any substitute value of the user's choice via a separate
@@ -59,15 +58,7 @@ C> positive result means that the value for the corresponding mnemonic
 C> was encoded as "missing" in BUFR (i.e. all bits set to 1) within the
 C> original data subset.
 C>
-C> <b>Program history log:</b>
-C> | Date | Programmer | Comments |
-C> | -----|------------|----------|
-C> | 2003-11-04 | J. Woollen | Original author |
-C> | 2003-11-04 | D. Keyser  | Unified/portable for WRF; added documentation; outputs more complete diagnostic info when routine terminates abnormally |
-C> | 2009-04-21 | J. Ator    | Use errwrt() |
-C> | 2014-12-10 | J. Ator    | Use modules instead of COMMON blocks |
-C> | 2022-10-04 | J. Ator    | Added 8-byte wrapper |
-
+C> @author J. Woollen @date 2003-11-04
       RECURSIVE SUBROUTINE UFBIN3(LUNIT,USR,I1,I2,I3,IRET,JRET,STR)
 
       USE MODV_IM8B

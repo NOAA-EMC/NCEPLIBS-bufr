@@ -1,5 +1,7 @@
 C> @file
 C> @brief Get the number of data subsets from a BUFR message.
+C>
+C> @author J. Woollen @date 1994-01-06
 
 C> This function returns the total number of data subsets available
 C> within the BUFR message that was most recently opened for reading
@@ -7,26 +9,15 @@ C> via a call to one of the other
 C> [message-reading subroutines](@ref hierarchy)
 C> for a specified Fortran logical unit.
 C>
-C> <p>The data subsets themselves do not need to have already been
+C> The data subsets themselves do not need to have already been
 C> read via previous calls to any of the
 C> [subset-reading subroutines](@ref hierarchy).
-C>
-C> @author J. Woollen
-C> @date 1994-01-06
 C>
 C> @param[in] LUNIT -- integer: Fortran logical unit number for
 C>                     BUFR file
 C> @returns nmsub   -- integer: Number of data subsets
 C>
-C> <b>Program history log:</b>
-C> | Date | Programmer | Comments |
-C> | -----|------------|----------|
-C> | 1994-01-06 | J. Woollen | Original author |
-C> | 1998-07-08 | J. Woollen | Replaced call to Cray library routine ABORT with call to new internal routine bort() |
-C> | 1999-11-18 | J. Woollen | The number of BUFR files which can be opened at one time increased from 10 to 32 |
-C> | 2014-12-10 | J. Ator    | Use modules instead of COMMON blocks |
-C> | 2022-10-04 | J. Ator    | Added 8-byte wrapper |
-
+C> @author J. Woollen @date 1994-01-06
       RECURSIVE FUNCTION NMSUB(LUNIT) RESULT(IRET)
 
       USE MODV_IM8B

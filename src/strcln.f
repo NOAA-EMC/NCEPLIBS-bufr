@@ -1,13 +1,6 @@
 C> @file
 C> @brief Reset the string cache.
 C>
-C> ### Program History Log
-C> Date | Programmer | Comments
-C> -----|------------|---------
-C> 1994-01-06 | J. Woollen | original author
-C> 1998-04-02 | J. Woollen | enlarge cache from 50 to 1000
-C> 1998-07-08 | J. Woollen | correct some minor errors
-C>
 C> @author J. Woollen @date 1994-01-06
 
 C> This subroutine resets the internal mnemonic string cache.
