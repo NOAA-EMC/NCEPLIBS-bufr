@@ -49,20 +49,12 @@ program intest2
   call upftbv(11, 'SIDP', r8arr(6,1), 32, ibit, nib)
   IF (nib .ne. 1 .or. ibit(1) .ne. 9) stop 7
 
-  CALL UFBREP ( 11, r8arr, MXR8PM, MXR8LV, nr8lv, 'GNAP PCCF MAQC NCTH' )
-  IF (nr8lv .eq. 12 .and. NINT(r8arr(1,2)) .eq. 2 .and. NINT(r8arr(2,4)) .eq. 86 .and. &
-       NINT(r8arr(2,6)) .eq. 0 .and. IBFMS(r8arr(3,8)) .eq. 1 .and. &
-       IBFMS(r8arr(4,9)) .eq. 1 .and. NINT(r8arr(2,11)) .eq. 97 .and. NINT(r8arr(1,12)) .eq. 3) THEN
-     print *, '        UFBREP -> OK'
-  ELSE
-     print *, '        UFBREP -> FAILED!!'
-  ENDIF
+  call ufbrep(11, r8arr, mxr8pm, mxr8lv, nr8lv, 'GNAP PCCF MAQC NCTH')
+  if (nr8lv .ne. 12 .or. nint(r8arr(1,2)) .ne. 2 .or. nint(r8arr(2,4)) .ne. 86 .or. &
+       nint(r8arr(2,6)) .ne. 0 .or. ibfms(r8arr(3,8)) .ne. 1 .or. &
+       ibfms(r8arr(4,9)) .ne. 1 .or. nint(r8arr(2,11)) .ne. 97 .or. nint(r8arr(1,12)) .ne. 3) stop 8
 
-  IF (NINT(GETVALNB(11,'NCTH',3,'PCCF',-1)) .eq. 0 .and. NINT(GETVALNB(11,'SSNX',1,'SWCM',1)) .eq. 1) THEN
-     print *, '      GETVALNB -> OK'
-  ELSE
-     print *, '      GETVALNB -> FAILED!!'
-  ENDIF
+  if (nint(getvalnb(11,'NCTH',3,'PCCF',-1)) .ne. 0 .or. nint(getvalnb(11,'SSNX',1,'SWCM',1)) .ne. 1) stop 9
 
   print *, 'SUCCESS!'
 END program
