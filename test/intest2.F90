@@ -40,42 +40,40 @@ program intest2
      call readsb(11, ierrsb)
   end do
 
-  IF ( ierrsb .ne. 0 ) THEN
-     print *, '        READSB -> FAILED!!'
+  IF (ierrsb .ne. 0) stop 5
+
+  CALL UFBINT ( 11, r8arr, MXR8PM, MXR8LV, nr8lv, 'CLAT SAZA PRLC WDIR RPID SIDP' )
+  IF (nr8lv .eq. 1 .and. NINT(r8arr(1,1)*100) .eq. 1260 .and. NINT(r8arr(2,1)*100) .eq. 2765 .and. &
+       NINT(r8arr(3,1)) .eq. 25540 .and. NINT(r8arr(4,1)) .eq. 218 .and. IBFMS(r8arr(5,1)) .eq. 1) THEN
+     print *, '        UFBINT -> OK'
+     print *, '         IBFMS -> OK'
   ELSE
-     print *, '        READSB -> OK'
-     CALL UFBINT ( 11, r8arr, MXR8PM, MXR8LV, nr8lv, 'CLAT SAZA PRLC WDIR RPID SIDP' )
-     IF (nr8lv .eq. 1 .and. NINT(r8arr(1,1)*100) .eq. 1260 .and. NINT(r8arr(2,1)*100) .eq. 2765 .and. &
-          NINT(r8arr(3,1)) .eq. 25540 .and. NINT(r8arr(4,1)) .eq. 218 .and. IBFMS(r8arr(5,1)) .eq. 1) THEN
-        print *, '        UFBINT -> OK'
-        print *, '         IBFMS -> OK'
-     ELSE
-        print *, '        UFBINT -> FAILED!!'
-        print *, '         IBFMS -> FAILED!!'
-     ENDIF
-
-     CALL UPFTBV ( 11, 'SIDP', r8arr(6,1), 32, ibit, nib )
-     IF ( ( nib .eq. 1 ) .and. ( ibit(1) .eq. 9 ) ) THEN
-        print *, '        UPFTBV -> OK'
-     ELSE
-        print *, '        UPFTBV -> FAILED!!'
-     ENDIF
-
-     CALL UFBREP ( 11, r8arr, MXR8PM, MXR8LV, nr8lv, 'GNAP PCCF MAQC NCTH' )
-     IF (nr8lv .eq. 12 .and. NINT(r8arr(1,2)) .eq. 2 .and. NINT(r8arr(2,4)) .eq. 86 .and. &
-          NINT(r8arr(2,6)) .eq. 0 .and. IBFMS(r8arr(3,8)) .eq. 1 .and. &
-          IBFMS(r8arr(4,9)) .eq. 1 .and. NINT(r8arr(2,11)) .eq. 97 .and. NINT(r8arr(1,12)) .eq. 3) THEN
-        print *, '        UFBREP -> OK'
-     ELSE
-        print *, '        UFBREP -> FAILED!!'
-     ENDIF
-
-     IF (NINT(GETVALNB(11,'NCTH',3,'PCCF',-1)) .eq. 0 .and. NINT(GETVALNB(11,'SSNX',1,'SWCM',1)) .eq. 1) THEN
-        print *, '      GETVALNB -> OK'
-     ELSE
-        print *, '      GETVALNB -> FAILED!!'
-     ENDIF
+     print *, '        UFBINT -> FAILED!!'
+     print *, '         IBFMS -> FAILED!!'
   ENDIF
+
+  CALL UPFTBV ( 11, 'SIDP', r8arr(6,1), 32, ibit, nib )
+  IF ( ( nib .eq. 1 ) .and. ( ibit(1) .eq. 9 ) ) THEN
+     print *, '        UPFTBV -> OK'
+  ELSE
+     print *, '        UPFTBV -> FAILED!!'
+  ENDIF
+
+  CALL UFBREP ( 11, r8arr, MXR8PM, MXR8LV, nr8lv, 'GNAP PCCF MAQC NCTH' )
+  IF (nr8lv .eq. 12 .and. NINT(r8arr(1,2)) .eq. 2 .and. NINT(r8arr(2,4)) .eq. 86 .and. &
+       NINT(r8arr(2,6)) .eq. 0 .and. IBFMS(r8arr(3,8)) .eq. 1 .and. &
+       IBFMS(r8arr(4,9)) .eq. 1 .and. NINT(r8arr(2,11)) .eq. 97 .and. NINT(r8arr(1,12)) .eq. 3) THEN
+     print *, '        UFBREP -> OK'
+  ELSE
+     print *, '        UFBREP -> FAILED!!'
+  ENDIF
+
+  IF (NINT(GETVALNB(11,'NCTH',3,'PCCF',-1)) .eq. 0 .and. NINT(GETVALNB(11,'SSNX',1,'SWCM',1)) .eq. 1) THEN
+     print *, '      GETVALNB -> OK'
+  ELSE
+     print *, '      GETVALNB -> FAILED!!'
+  ENDIF
+
   print *, 'SUCCESS!'
 END program
 

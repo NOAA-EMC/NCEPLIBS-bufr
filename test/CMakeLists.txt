@@ -68,7 +68,6 @@ add_custom_command(
 file(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/testrun)
 
 list(APPEND test_IN_srcs
-  test_IN_2.F
   test_IN_3.F
   test_IN_4.F
   test_IN_5.F
