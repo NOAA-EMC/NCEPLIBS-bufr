@@ -85,8 +85,9 @@ C*      Otherwise, the logic below will check for "missing" strings of
 C*      any length which are correctly encoded with all bits set to 1,
 C*      including those encoded by BUFRLIB version 10.2.0 or later.
 
-        DO I=1,NUMCHR
-           IF ( IUPM(STR(I:I),8).NE.255 ) RETURN
+        DO II=1,NUMCHR
+           STRZ(1:1) = STR(II:II)
+           IF ( IUPM(STRZ(1:1),8).NE.255 ) RETURN
         ENDDO
 
         IRET = 1

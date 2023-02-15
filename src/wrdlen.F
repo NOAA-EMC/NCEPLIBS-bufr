@@ -27,7 +27,7 @@ C> @author J. Woollen @author J. Ator @date 1994-01-06
       COMMON /QUIET / IPRT
 
       CHARACTER*128 BORT_STR,ERRSTR
-      CHARACTER*8   CINT,DINT,CVSTR
+      CHARACTER*8   CINT,DINT,CVSTR,CA8
       CHARACTER*6   CNDIAN,CLANG
       EQUIVALENCE   (CINT,INT)
       EQUIVALENCE   (DINT,JNT)
@@ -95,7 +95,8 @@ c  .... DK: Can the below ever happen since upper loop bounds is NBYTW?
 C  SETUP AN ASCII/EBCDIC TRANSLATOR AND DETERMINE WHICH IS NATIVE
 C  --------------------------------------------------------------
 
-      IA = IUPM('A',8)
+      CA8(1:1) = 'A'
+      IA = IUPM(CA8(1:1),8)
       IF(IA.EQ. 65) THEN
          IASCII = 1
          CLANG  = 'ASCII '
