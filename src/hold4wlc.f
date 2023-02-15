@@ -1,11 +1,13 @@
 C> @file
 C> @brief Write a long character string (greater than 8 bytes) to
 C> a data subset
+C>
+C> @author J. Ator @date 2014-02-05
 
 C> This subroutine writes a long character string (greater than 8 bytes)
 C> to a data subset.
 C>
-C> <p>Normally, subroutine writlc() is used to write a long character
+C> Normally, subroutine writlc() is used to write a long character
 C> string to a data subset.  However, subroutine writlc() can only be
 C> called <b>after</b> a call to one of the
 C> [subset-writing subroutines](@ref hierarchy), so it will not work
@@ -23,16 +25,13 @@ C> will be held and stored automatically (via an internal call to
 C> subroutine writlc()) at the proper time during the subsequent call
 C> to the [subset-writing subroutines](@ref hierarchy).
 C>
-C> @author J. Ator
-C> @date 2014-02-05
-C>
 C> @param[in] LUNIT -- integer: Fortran logical unit number for BUFR file
 C> @param[in] CHR  -- character*(*): Value corresponding to STR
 C> @param[in] STR   -- character*(*): Table B mnemonic of long character
 C>                     string to be written, possibly supplemented
 C>                     with an ordinal occurrence notation
 C>
-C> <p>If there is more than one occurrence of STR within the data subset
+C> If there is more than one occurrence of STR within the data subset
 C> definition, then each occurrence can be written via a separate call
 C> to this subroutine, and by appending the ordinal number of the
 C> occurrence to STR in each case.  For example, if there are 5
@@ -54,12 +53,7 @@ C> prior to calling one of the
 C> [subset-writing subroutines](@ref hierarchy)
 C> for the data subset.
 C>
-C> <b>Program history log:</b>
-C> | Date | Programmer | Comments |
-C> | -----|------------|----------|
-C> | 2014-02-05 | J. Ator | Original author |
-C> | 2022-08-04 | J. Woollen | Added 8-byte wrapper |
-
+C> @author J. Ator @date 2014-02-05
       RECURSIVE SUBROUTINE HOLD4WLC(LUNIT,CHR,STR)
 
       USE MODA_H4WLC

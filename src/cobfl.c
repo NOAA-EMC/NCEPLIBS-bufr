@@ -1,13 +1,6 @@
 /** @file
  *  @brief Open a new system file for reading or writing BUFR
  *  messages via a C language interface.
- *
- * ### Program History Log
- * Date | Programmer | Comments
- * -----|------------|----------
- * 005-11-29 | J. Ator | Original author.
- * 2021-10-20 | J. Ator | Increase MXFNLEN to 200 characters.
- *
  *  @author J. Ator @date 2005-11-29
  */
 #include "bufrlib.h"

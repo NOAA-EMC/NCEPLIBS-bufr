@@ -1,11 +1,10 @@
 C> @file
 C> @brief Store a master Table B entry into Fortran arrays
+C>
+C> @author J. Ator @date 2007-01-19
 
 C> This subroutine stores an entry that was previously read from an
 C> ASCII master Table B file into a set of merged Fortran arrays.
-C>
-C> @author J. Ator
-C> @date 2007-01-19
 C>
 C> @param[in] IFXYN  -- integer: Bit-wise representation of FXY number
 C> @param[in]  LINE  -- character*(*): Table B entry
@@ -31,14 +30,7 @@ C>                      descriptor codes
 C> @param[out] CMELEM -- character*120(*): Merged array containing
 C>                       element names
 C>
-C> <b>Program history log:</b>
-C> | Date | Programmer | Comments |
-C> | -----|------------|----------|
-C> | 2007-01-19 | J. Ator | Original author |
-C> | 2021-01-08 | J. Ator | Modified mstabs array declarations for GNUv10 portability |
-C> | 2021-05-17 | J. Ator | Allow up to 24 characters in cmunit |
-C> | 2021-09-30 | J. Ator | Replace jstchr with Fortran intrinsic adjustl; replace rjust with Fortran intrinsic adjustr |
-C>
+C> @author J. Ator @date 2007-01-19
         SUBROUTINE SNTBBE ( IFXYN, LINE, MXMTBB,
      .                      NMTBB, IMFXYN, CMSCL, CMSREF, CMBW,
      .                      CMUNIT, CMMNEM, CMDSC, CMELEM )

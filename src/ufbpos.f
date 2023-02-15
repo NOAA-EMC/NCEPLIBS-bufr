@@ -1,6 +1,8 @@
 C> @file
 C> @brief Jump forwards or backwards to a specified data subset within
 C> a BUFR file
+C>
+C> @author J. Woollen @date 1995-11-22
 
 C> This subroutine repositions the file pointer to the beginning of a
 C> specified data subset within a specified message of a BUFR file,
@@ -10,9 +12,6 @@ C> [values-reading subroutines](@ref hierarchy).
 C>
 C> The specified data subset may be before or after the current location
 C> of the file pointer within the BUFR file.
-C>
-C> @author J. Woollen
-C> @date 1995-11-22
 C>
 C> @param[in] LUNIT -- integer: Fortran logical unit number for BUFR file
 C> @param[in] IREC  -- integer: Ordinal number of message to be read,
@@ -37,17 +36,7 @@ C> operations via a previous call to subroutine openbf().
 C> - The value specified for IREC should <b>not</b> include any messages
 C> which contain DX BUFR tables information.
 C>
-C> <b>Program history log:</b>
-C> | Date | Programmer | Comments |
-C> | -----|------------|----------|
-C> | 1995-11-22 | J. Woollen | Original author |
-C> | 2005-03-04 | D. Keyser  | Added documentation |
-C> | 2006-04-14 | J. Ator    | Remove unnecessary MOIN initialization |
-C> | 2009-03-23 | J. Ator    | Modified to handle embedded BUFR table (dictionary) messages |
-C> | 2014-12-10 | J. Ator    | Use modules instead of COMMON blocks |
-C> | 2021-10-08 | J. Ator    | Use readsb() to read all subsets from IREC(th) message |
-C> | 2022-10-04 | J. Ator    | Added 8-byte wrapper |
-
+C> @author J. Woollen @date 1995-11-22
       RECURSIVE SUBROUTINE UFBPOS(LUNIT,IREC,ISUB,SUBSET,JDATE)
 
       USE MODV_IM8B

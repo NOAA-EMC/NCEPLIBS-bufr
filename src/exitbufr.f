@@ -1,14 +1,13 @@
 C> @file
 C> @brief Reset the BUFRLIB software for potential dynamic
 C> reallocation of memory.
+C>
+C> @author J. Ator @date 2015-03-02
 
 C> This subroutine frees all dynamically-allocated memory,
 C> closes all logical units that are open within the
 C> BUFRLIB software, and resets the library to all of its
 C> default settings as though it had never been called.
-C>
-C> @author J. Ator
-C> @date 2015-03-02
 C>
 C> @remarks
 C> - Calling this subroutine allows an application program to
@@ -30,12 +29,7 @@ C>   call this subroutine within an application program, since all
 C>   allocated memory will automatically get freed anyway by the
 C>   operating system once the application program terminates.
 C>
-C> <b>Program history log:</b>
-C> | Date | Programmer | Comments |
-C> | -----|------------|----------|
-C> | 2015-03-02 | J. Ator | Original author |
-C> | 2022-10-04 | J. Ator | Added 8-byte wrapper |
-
+C> @author J. Ator @date 2015-03-02
         RECURSIVE SUBROUTINE EXITBUFR
 
         USE MODV_IM8B

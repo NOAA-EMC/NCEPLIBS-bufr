@@ -1,13 +1,11 @@
 C> @file
 C> @brief Get Table B and Table D information from the internal DX BUFR
 C> tables
+C> @author J. Ator @date 2005-11-29
 
 C> This subroutine reads Table B and Table D information from the
 C> internal DX BUFR tables for a specified Fortran logical unit, then
 C> returns this information in a pre-defined ASCII format.
-C>
-C> @author J. Ator
-C> @date 2005-11-29
 C>
 C> @param[in] LUNIT -- integer: Fortran logical unit number for BUFR file
 C> @param[in] ITAB  -- integer: Dimensioned size of TABDB array; used
@@ -17,13 +15,7 @@ C> @param[out] TABDB -- character*128(*): Internal Table B and Table D
 C>                      information
 C> @param[out] JTAB -- integer: Number of entries stored within TABDB
 C>
-C> <b>Program history log:</b>
-C> | Date       | Programmer | Comments             |
-C> | -----------|------------|----------------------|
-C> | 2005-11-29 | J. Ator    | Original author      |
-C> | 2014-12-10 | J. Ator    | Use modules instead of COMMON blocks |
-C> | 2022-08-04 | J. Woollen | Added 8-byte wrapper |
-
+C> @author J. Ator @date 2005-11-29
       RECURSIVE SUBROUTINE GETABDB(LUNIT,TABDB,ITAB,JTAB)
 
       USE MODA_TABABD

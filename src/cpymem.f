@@ -1,33 +1,32 @@
 C> @file
 C> @brief Copy a BUFR message.
+C>
+C> @author J. Woollen @date 1994-01-06
 
 C> This subroutine copies a BUFR message from internal arrays in
 C> memory to a specified Fortran logical unit.
 C>
-C> <p>This subroutine is similar to subroutine copymg(), except that
+C> This subroutine is similar to subroutine copymg(), except that
 C> it copies a BUFR message from internal arrays in memory to a
 C> specified Fortran logical unit, whereas copymg() copies a BUFR
 C> message from one Fortran logical unit to another.
 C>
-C> @author J. Woollen
-C> @date 1994-01-06
-C>
 C> @param[in] LUNOT   -- integer: Fortran logical unit number for
 C>                       target BUFR file
 C>
-C> <p>One or more files of BUFR messages should have already been
+C> One or more files of BUFR messages should have already been
 C> read into internal arrays in memory via one or more previous
 C> calls to subroutine ufbmem(), and a BUFR message should already
 C> be in scope for processing from these arrays via a previous call
 C> to subroutine rdmemm() or readmm().
 C>
-C> <p>Logical unit LUNOT should have already been opened for output
+C> Logical unit LUNOT should have already been opened for output
 C> operations via a previous call to subroutine openbf(), but there
 C> should not be any BUFR message already open for output within the
 C> internal arrays for LUNOT via a previous call to one of the BUFRLIB
 C> [message-writing subroutines](@ref hierarchy).
 C>
-C> <p>The [DX BUFR Table information](@ref dfbftab) associated with
+C> The [DX BUFR Table information](@ref dfbftab) associated with
 C> the internal arrays in memory and with logical unit LUNOT must
 C> contain identical definitions for the type of BUFR message to be
 C> copied from the former to the latter.
@@ -38,21 +37,7 @@ C> therefore, it can be used to transform a copy of the
 C> original BUFR message from memory with any or all of the updates
 C> described in the documentation for subroutine msgwrt().
 C>
-C> <b>Program history log:</b>
-C> | Date | Programmer | Comments |
-C> | -----|------------|----------|
-C> | 1994-01-06 | J. Woollen | Original author |
-C> | 1998-07-08 | J. Woollen | Replaced call to Cray library routine ABORT with call to new internal routine bort() |
-C> | 1999-11-18 | J. Woollen | The number of BUFR files which can be opened at one time increased from 10 to 32 (necessary in order to process multiple BUFR files under the MPI) |
-C> | 2000-09-19 | J. Woollen | Maximum message length increased from 10,000 to 20,000 bytes |
-C> | 2001-08-15 | D. Keyser  | Increased MAXMEM from 8 Mb to 16 Mb |
-C> | 2004-08-09 | J. Ator    | Maximum message length increased from 20,000 to 50,000 bytes |
-C> | 2004-11-15 | D. Keyser  | Increased MAXMEM from 16 Mb to 50 Mb |
-C> | 2005-11-29 | J. Ator    | Use iupbs01() |
-C> | 2009-06-26 | J. Ator    | Use iok2cpy() |
-C> | 2014-12-10 | J. Ator    | Use modules instead of COMMON blocks |
-C> | 2022-08-04 | J. Woollen | Added 8-byte wrapper |
-
+C> @author J. Woollen @date 1994-01-06
       RECURSIVE SUBROUTINE CPYMEM(LUNOT)
 
       USE MODA_MSGCWD

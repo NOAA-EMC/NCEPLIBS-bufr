@@ -1,21 +1,6 @@
 C> @file
 C> @brief Store the subset template into internal arrays.
 C>
-C> ### Program History Log
-C> Date | Programmer | Comments
-C> -----|------------|----------
-C> 1994-01-06 | J. Woollen | Original author.
-C> 1998-07-08 | J. Woollen | Replaced call to cray library routine "abort" with call to new internal bufrlib routine "bort".
-C> 1998-10-27 | J. Woollen | Modified to correct problems caused by in- lining code with fpp directives.
-C> 1999-11-18 | J. Woollen | The number of bufr files which can be opened at one time increased from 10 to 32.
-C> 2000-09-19 | J. Woollen | Maximum message length increased from 10,000 to 20,000 bytes.
-C> 2002-05-14 | J. Woollen | Removed old cray compiler directives.
-C> 2003-11-04 | S. Bender  | Added remarks/bufrlib routine interdependencies.
-C> 2003-11-04 | D. Keyser  | maxjl increased to 16000; maxrcr increased to 100; unified/portable for wrf; documentation; more diagnostic info.
-C> 2004-08-09 | J. Ator    | Maximum message length increased from 20,000 to 50,000 bytes.
-C> 2014-12-10 | J. Ator    | Use modules instead of common blocks.
-C> 2016-11-09 | J. Ator    | Added iret argument and check for possibly corrupt subsets.
-C>
 C> @author Woollen @date 1994-01-06
 
 C> This subroutine initializes space in internal subset array

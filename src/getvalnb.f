@@ -1,19 +1,18 @@
 C> @file
 C> @brief Read one data value from a data subset.
+C>
+C> @author J. Ator @date 2012-09-12
 
 C> This function can be used to read a data value corresponding to
 C> a specific occurrence of a mnemonic within a data subset, based on
 C> its position relative to a different mnemonic within the subset.
 C>
-C> <p>The function first searches for a specific occurrence of a pivot
+C> The function first searches for a specific occurrence of a pivot
 C> mnemonic, counting from the beginning of the subset.  From there,
 C> it then searches in either a forward or backward direction for a
 C> specific occurrence of a nearby mnemonic, and if found
 C> returns the data value from the corresponding location
 C> within the subset.
-C>
-C> @author J. Ator
-C> @date 2012-09-12
 C>
 C> @param[in] LUNIT  -- integer: Fortran logical unit number for
 C>                      BUFR file
@@ -40,21 +39,14 @@ C>                      of TAGNB.  If for any reason this value cannot be
 C>                      located, then the current placeholder value for
 C>                      "missing" data will be returned instead.
 C>
-C> <p>The current placeholder value for "missing" data can be determined
+C> The current placeholder value for "missing" data can be determined
 C> via a separate call to function getbmiss().
 C>
-C> <p>Before calling this function, a BUFR data subset should already be
+C> Before calling this function, a BUFR data subset should already be
 C> open for reading via a previous call to one of the BUFRLIB
 C> [subset-reading subroutines](@ref hierarchy).
 C>
-C> <b>Program history log:</b>
-C> | Date | Programmer | Comments |
-C> | -----|------------|----------|
-C> | 2012-09-12 | J. Ator | Original author |
-C> | 2014-10-02 | J. Ator | Modified to use fstag() |
-C> | 2014-12-10 | J. Ator | Use modules instead of COMMON blocks |
-C> | 2022-10-04 | J. Ator | Added 8-byte wrapper |
-
+C> @author J. Ator @date 2012-09-12
         RECURSIVE FUNCTION GETVALNB
      .          ( LUNIT, TAGPV, NTAGPV, TAGNB, NTAGNB )
      .          RESULT ( R8VAL )

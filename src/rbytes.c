@@ -2,6 +2,7 @@
  *  @brief Read a specified number of bytes from a BUFR file
  *  that was previously opened for reading via a C language
  *  interface.
+ *  @author J. Ator  @date 2005-11-29
  */
 #include "bufrlib.h"
 #include "cobfl.h"
@@ -10,9 +11,6 @@
  *  This function reads a specified number of bytes from the
  *  system file that was opened via the most recent call to
  *  subroutine cobfl() with io = 'r'.
- *
- *  @author J. Ator
- *  @date 2005-11-29
  *
  *  @param[in] mxmb    -- f77int*: Dimensioned size (in bytes) of
  *                        bmg; used by the function to ensure that
@@ -32,10 +30,7 @@
  *                               reading
  *                        - -2 = I/O error encountered while reading
  *
- * <b>Program history log:</b>
- * | Date | Programmer | Comments |
- * | -----|------------|----------|
- * | 2005-11-29 | J. Ator | Original author |
+ *  @author J. Ator  @date 2005-11-29
  */
 f77int rbytes( char *bmg, f77int *mxmb, f77int isloc, f77int newbytes )
 {

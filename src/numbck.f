@@ -1,15 +1,6 @@
 C> @file
 C> @brief Check the validity of an FXY value
 C>
-C> ### Program History Log
-C> Date | Programmer | Comments
-C> -----|------------|----------
-C> 1994-01-06 | J. Woollen | Original author.
-C> 2003-11-04 | J. Ator    | Added documentation.
-C> 2003-11-04 | S. Bender  | Added remarks/bufrlib routine interdependencies.
-C> 2003-11-04 | D. Keyser  | Split non-zero return; unified/ portable for wrf; documentation.
-C> 2007-01-19 | J. Ator    | Cleaned up and simplified logic.
-C>
 C> @author Woollen @date 1994-01-06
 
 C> This function checks the input character string to determine

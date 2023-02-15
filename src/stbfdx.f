@@ -1,13 +1,6 @@
 C> @file
 C> @brief Store a DX BUFR tables message into internal arrays.
 C>
-C> ### Program History Log
-C> Date | Programmer | Comments |
-C> -----|------------|----------|
-C> 2009-03-23 | J. Ator | original author, using logic copied from previous version of rdbfdx
-C> 2014-11-14 | J. Ator | replace chrtrna calls with upc calls
-C> 2014-12-10 | J. Ator | use modules instead of common blocks
-C>
 C> @author J Ator @date 2009-03-23
 
 C> This subroutine copies a DX BUFR tables message

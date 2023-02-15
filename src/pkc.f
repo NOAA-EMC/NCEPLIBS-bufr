@@ -1,12 +1,11 @@
 C> @file
 C> @brief Encode a character string within an integer array.
+C>
+C> @author J. Woollen @date 1994-01-06
 
 C> This subroutine encodes a character string within a specified
 C> number of bytes of an integer array, starting at the bit
 C> immediately after a specified bit within the array.
-C>
-C> @author J. Woollen
-C> @date 1994-01-06
 C>
 C> @param[in] CHR     -- character*(*): String to be encoded
 C> @param[in] NCHR    -- integer: Number of bytes of IBAY within
@@ -26,17 +25,7 @@ C>   bit of a byte within IBAY.  Correspondingly, on output there is no
 C>   guarantee that the NCHR characters of CHR will be aligned on byte
 C>   boundaries when encoded within IBAY.
 C>
-C> <b>Program history log:</b>
-C> | Date | Programmer | Comments |
-C> | -----|------------|----------|
-C> | 1994-01-06 | J. Woollen | Original author |
-C> | 1998-07-08 | J. Woollen | Replaced call to Cray library routine ABORT with call to new internal routine bort() |
-C> | 2003-11-04 | J. Woollen | Modified to be endian-independent |
-C> | 2003-11-04 | J. Ator    | Added documentation |
-C> | 2003-11-04 | S. Bender  | Added remarks and routine interdependencies |
-C> | 2003-11-04 | D. Keyser  | Unified/portable for WRF; added documentation; outputs more complete diagnostic info when routine terminates abnormally; use bort2() instead of bort() |
-C> | 2004-08-18 | J. Ator    | Modified to be compatible with writlc() |
-C>
+C> @author J. Woollen @date 1994-01-06
       SUBROUTINE PKC(CHR,NCHR,IBAY,IBIT)
 
       COMMON /CHARAC/ IASCII,IATOE(0:255),IETOA(0:255)

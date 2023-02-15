@@ -1,12 +1,11 @@
 C> @file
 C> @brief Encode an integer value within an integer array.
+C>
+C> @author J. Woollen @date 1994-01-06
 
 C> This subroutine encodes an integer value within a specified
 C> number of bits of an integer array, starting at the bit
 C> immediately after a specified bit within the array.
-C>
-C> @author J. Woollen
-C> @date 1994-01-06
 C>
 C> @param[in] NVAL    -- integer: Value to be encoded
 C> @param[in] NBITS   -- integer: Number of bits of IBAY within
@@ -24,15 +23,7 @@ C> - This subroutine will not work properly if NBITS is greater than
 C>   the number of bits in an integer, as determined via
 C>   an internal call to subroutine wrdlen().
 C>
-C> <b>Program history log:</b>
-C> | Date | Programmer | Comments |
-C> | -----|------------|----------|
-C> | 1994-01-06 | J. Woollen | Original author |
-C> | 2003-11-04 | J. Ator    | Added documentation |
-C> | 2003-11-04 | S. Bender  | Added remarks and routine interdependencies |
-C> | 2003-11-04 | D. Keyser  | Unified/portable for WRF; added documentation; outputs more complete diagnostic info when routine terminates abnormally |
-C> | 2014-12-03 | J. Ator    | Call bort() if NBITS > NBITW |
-C>
+C> @author J. Woollen @date 1994-01-06
       SUBROUTINE PKB(NVAL,NBITS,IBAY,IBIT)
 
       COMMON /HRDWRD/ NBYTW,NBITW,IORD(8)

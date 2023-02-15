@@ -1,18 +1,6 @@
 C> @file
 C> @brief Determine important information about the local machine.
 C>
-C> ### Program history log
-C> | Date | Programmer | Comments |
-C> | -----|------------|----------|
-C> | 1994-01-06 | J. Woollen | Original author
-C> | 1998-07-08 | J. Woollen | Replaced call to Cray library routine ABORT with call to bort()
-C> | 2003-11-04 | J. Ator    | Added documentation
-C> | 2003-11-04 | S. Bender  | Added remarks and routine interdependencies
-C> | 2003-11-04 | D. Keyser  | Unified for WRF; added documentation and diagnostic info
-C> | 2004-08-18 | J. Ator    | Added SAVE For IFIRST flag and immediate return if IFIRST=1
-C> | 2007-01-19 | J. Ator    | Big-endian vs. little-endian is now determined at compile time
-C> | 2009-03-23 | J. Ator    | Call bvers() to get version number
-C>
 C> @author J. Woollen @author J. Ator @date 1994-01-06
 
 C> This subroutine figures out some important information about the

@@ -1,6 +1,8 @@
 C> @file
 C> @brief Check whether two BUFR files have the same DX BUFR table
 C> information.
+C>
+C> @author J. Ator @date 2009-06-18
 
 C> This function determines whether the full set of associated
 C> [DX BUFR Table information](@ref dfbftab) is identical between
@@ -9,9 +11,6 @@ C>
 C> Note that two different logical units can have identical DX BUFR
 C> Table information associated with them even if they aren't actually
 C> sharing the same DX BUFR table.
-C>
-C> @author J. Ator
-C> @date 2009-06-18
 C>
 C> @param[in]  LUD     -- integer: Internal I/O stream index associated
 C>                        with first BUFR file
@@ -24,12 +23,7 @@ C>                        BUFR table information
 C>                        - 0 = No
 C>                        - 1 = Yes
 C>
-C> <b>Program history log:</b>
-C> | Date | Programmer | Comments |
-C> | -----|------------|----------|
-C> | 2009-06-18 | J. Ator | Original author |
-C> | 2014-12-10 | J. Ator | Use modules instead of COMMON blocks |
-C>
+C> @author J. Ator @date 2009-06-18
       INTEGER FUNCTION ICMPDX(LUD,LUN)
 
       USE MODA_TABABD

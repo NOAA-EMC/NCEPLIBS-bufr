@@ -1,24 +1,6 @@
 C> @file
 C> @brief Pack a BUFR data subset.
 C>
-C> ### Program History Log
-C> Date | Programmer | Comments |
-C> -----|------------|----------|
-C> 1994-01-06 | J. Woollen  |  original author
-C> 1998-07-08 | J. Woollen  |  corrected some minor errors
-C> 1999-11-18 | J. Woollen  |  the number of bufr files which can be opened at one time increased from 10 to 32
-C> 2000-09-19 | J. Woollen  |  maximum message length increased from 10k TO 20k bytes
-C> 2003-11-04 | S. Bender   |  added remarks/bufrlib routine
-C> 2003-11-04 | D. Keyser   |  maxjl (maximum number of jump/link entries) increased from 15K to 16K
-C> 2004-03-10 | J. Woollen  |  converted packing function 'pks' to real*8
-C> 2004-08-09 | J. Ator     |  maximum message length increased from 20K TO 50K
-C> 2007-01-19 | J. Ator     |  prevent overflow of cval for strings longer than 8 characters; use function ibfms
-C> 2009-08-03 | J. Woollen  |  added capability to copy long strings via ufbcpy using file pointer stored in new common ufbcpl
-C> 2012-03-02 | J. Ator     |  use ipks to handle 2-03 operator cases
-C> 2012-06-04 | J. Ator     |  ensure "missing" character fields are properly encoded with all bits set to 1
-C> 2014-12-10 | J. Ator     |  use modules instead of common blocks
-C> 2022-05-06 | J. Woollen  |  replace pkb with pkb8 for 8byte integers
-C>
 C> @author J. Woollen @date 1994-01-06
 
 C> This subroutine converts user numbers in the val array into scaled integers

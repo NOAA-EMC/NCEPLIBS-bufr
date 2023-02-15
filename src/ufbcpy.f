@@ -1,10 +1,12 @@
 C> @file
 C> @brief Copy a BUFR data subset.
+C>
+C> @author J. Woollen @date 1994-01-06
 
 C> This subroutine copies a BUFR data subset from one Fortran logical
 C> unit to another.
 C>
-C> <p>It is similar to subroutine copysb(), except that here a
+C> It is similar to subroutine copysb(), except that here a
 C> BUFR data subset should have already been read into internal arrays
 C> for logical unit LUBIN via a previous call to one of the
 C> [subset-reading subroutines](@ref hierarchy), whereas copysb()
@@ -12,34 +14,20 @@ C> only requires that a BUFR message should have already been read
 C> into internal arrays via a previous call to one of the
 C> [message-reading subroutines](@ref hierarchy).
 C>
-C> <p>For logical unit LUBOT, a BUFR message should already be open
+C> For logical unit LUBOT, a BUFR message should already be open
 C> for output within internal arrays via a previous call to one of
 C> the [message-writing subroutines](@ref hierarchy).
 C>
-C> <p> The [DX BUFR Table information](@ref dfbftab) associated with
+C> The [DX BUFR Table information](@ref dfbftab) associated with
 C> each of the logical units LUBIN and LUBOT must contain identical
 C> definitions for the data subset to be copied.
-C>
-C> @author J. Woollen
-C> @date 1994-01-06
 C>
 C> @param[in] LUBIN   -- integer: Fortran logical unit number for
 C>                       source BUFR file
 C> @param[in] LUBOT   -- integer: Fortran logical unit number for
 C>                       target BUFR file
 C>
-C> <b>Program history log:</b>
-C> | Date | Programmer | Comments |
-C> | -----|------------|----------|
-C> | 1994-01-06 | J. Woollen | Original author |
-C> | 1998-07-08 | J. Woollen | Replaced call to Cray library routine ABORT with call to new internal routine bort() |
-C> | 1999-11-18 | J. Woollen | The number of BUFR files which can be opened at one time increased from 10 to 32 (necessary in order to process multiple BUFR files under the MPI) |
-C> | 2003-11-04 | D. Keyser  | Increased MAXJL from 15000 to 16000; unified/portable for WRF; added documentation; outputs more complete diagnostic info when routine terminates abnormally |
-C> | 2009-06-26 | J. Ator    | Use iok2cpy() |
-C> | 2009-08-11 | J. Woollen | Use COMMON UFBCPL to transfer long character strings via wrtree() |
-C> | 2014-12-10 | J. Ator    | Use modules instead of COMMON blocks |
-C> | 2022-10-04 | J. Ator    | Added 8-byte wrapper |
-
+C> @author J. Woollen @date 1994-01-06
       RECURSIVE SUBROUTINE UFBCPY(LUBIN,LUBOT)
 
       USE MODV_IM8B

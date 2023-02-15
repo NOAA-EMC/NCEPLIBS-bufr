@@ -1,18 +1,17 @@
 C> @file
 C> @brief Copy an entire BUFR file.
+C>
+C> @author J. Woollen @date 1994-01-06
 
 C> This subroutine copies an entire BUFR file from one Fortran
 C> logical unit to another.
-C>
-C> @author J. Woollen
-C> @date 1994-01-06
 C>
 C> @param[in] LUNIN   -- integer: Fortran logical unit number for
 C>                       source BUFR file
 C> @param[in] LUNOT   -- integer: Fortran logical unit number for
 C>                       target BUFR file
 C>
-C> <p>The logical unit numbers LUNIN and LUNOT must already be
+C> The logical unit numbers LUNIN and LUNOT must already be
 C> associated with actual filenames on the local system, typically
 C> via a Fortran "OPEN" statement.
 C>
@@ -23,18 +22,7 @@ C> used to create a copy of LUNIN where each corresponding message
 C> in LUNOT contains any or all of the updates described in the
 C> documentation for subroutine msgwrt().
 C>
-C> <b>Program history log:</b>
-C> | Date | Programmer | Comments |
-C> | -----|------------|----------|
-C> | 1994-01-06 | J. Woollen | Original author |
-C> | 1998-07-08 | J. Woollen | Replaced call to Cray library routine ABORT with call to new internal routine bort() |
-C> | 2000-09-19 | J. Woollen | Maximum message length increased from 10,000 to 20,000 bytes |
-C> | 2004-08-09 | J. Ator    | Maximum message length increased from 20,000 to 50,000 bytes |
-C> | 2005-11-29 | J. Ator    | Use rdmsgw() and iupbs01() |
-C> | 2012-09-15 | J. Woollen | Modified for C/I/O/BUFR interface; use status() |
-C> | 2014-12-10 | J. Ator    | Use modules instead of COMMON blocks |
-C> | 2022-08-04 | J. Woollen | Added 8-byte wrapper |
-
+C> @author J. Woollen @date 1994-01-06
       RECURSIVE SUBROUTINE COPYBF(LUNIN,LUNOT)
 
       USE MODA_MGWA

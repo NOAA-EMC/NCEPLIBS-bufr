@@ -1,11 +1,10 @@
 C> @file
 C> @brief Read the next data subset from a BUFR message.
+C>
+C> @author J. Woollen @date 1994-01-06
 
 C> This subroutine reads the next data subset from a BUFR
 C> message into internal arrays.
-C>
-C> @author J. Woollen
-C> @date 1994-01-06
 C>
 C> @param[in] LUNIT   -- integer: Fortran logical unit number for BUFR file
 C> @param[out] IRET   -- integer: return code
@@ -14,13 +13,13 @@ C>                                 read into internal arrays
 C>                           - -1 = there are no more BUFR data subsets in
 C>                                 the BUFR message
 C>
-C> <p>Logical unit LUNIT should have already been opened for
+C> Logical unit LUNIT should have already been opened for
 C> input operations via a previous call to subroutine openbf(), and a
 C> BUFR message should have already been read into internal arrays via
 C> a previous call to one of the
 C> [message-reading subroutines](@ref hierarchy).
 C>
-C> <p>Whenever this subroutine returns with IRET = 0, this indicates
+C> Whenever this subroutine returns with IRET = 0, this indicates
 C> that a new BUFR data subset (i.e. report) was successfully read into
 C> internal arrays within the BUFRLIB software, and from where it can
 C> then be easily manipulated or further parsed via calls to any of the
@@ -31,20 +30,7 @@ C> current message, and therefore that a new call needs to be made to
 C> one of the [message-reading subroutines](@ref hierarchy) in order
 C> to read in the next message from logical unit LUNIT.
 C>
-C> <b>Program history log:</b>
-C> | Date | Programmer | Comments |
-C> | -----|------------|----------|
-C> | 1994-01-06 | J. Woollen | Original author |
-C> | 1998-07-08 | J. Woollen | Replaced call to Cray library routine "ABORT" with call to new internal routine bort() |
-C> | 1999-11-18 | J. Woollen | The number of BUFR files which can be opened at one time increased from 10 to 32 |
-C> | 2000-09-19 | J. Woollen | Added call to new routine rdcmps() allowing subsets to also be decoded from compressed BUFR messages; maximum length increased from 10,000 to 20,000 bytes |
-C> | 2002-05-14 | J. Woollen | Corrected error relating to certain foreign file types; removed old Cray compiler directives |
-C> | 2003-11-04 | S. Bender  | Added remarks and routine interdependencies |
-C> | 2003-11-04 | D. Keyser  | Unified/portable for WRF; added documentation; outputs more complete diagnostic info when routine terminates abnormally |
-C> | 2004-08-09 | J. Ator    | Maximum message length increased from 20,000 to 50,000 bytes |
-C> | 2014-12-10 | J. Ator    | Use modules instead of COMMON blocks |
-C> | 2022-10-04 | J. Ator    | Added 8-byte wrapper |
-
+C> @author J. Woollen @date 1994-01-06
       RECURSIVE SUBROUTINE READSB(LUNIT,IRET)
 
       USE MODA_MSGCWD

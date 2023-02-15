@@ -1,23 +1,6 @@
 C> @file
 C> @brief Read a complete DX BUFR table.
 C>
-C> ### Program History Log
-C> Date | Programmer | Comments
-C> -----|------------|----------
-C> 1994-01-06 | J. Woollen | original author
-C> 1995-06-28 | J. Woollen | increased the size of internal bufr table arrays in order to handle bigger files
-C> 1996-12-17 | J. Woollen | fixed for some mvs compiler's treatment of internal reads (increases portability)
-C> 1998-07-08 | J. Woollen | replaced call to cray library routine "abort" with call to new internal bufrlib routine "bort"; corrected some minor errors
-C> 1999-11-18 | J. Woollen | the number of bufr files which can be opened at one time increased from 10 to 32
-C> 2003-11-04 | J. Ator    | added documentation
-C> 2003-11-04 | S. Bender  | added remarks/bufrlib routine interdependencies
-C> 2003-11-04 | D. Keyser  | unified/portable for wrf; documentation; outputs diagnostic info; changed call from bort to bort2
-C> 2006-04-14 | D. Keyser  | aborts if a user-defined message type "011" is read.
-C> 2007-01-19 | J. Ator    | modified in response to numbck changes
-C> 2009-03-23 | J. Ator    | increase size of bort_str2; use stntbia
-C> 2013-01-08 | J. Whiting | add err= option to read statement
-C> 2014-12-10 | J. Ator    | use modules instead of common blocks
-C>
 C> @author Woollen @date 1994-01-06
 
 C> This subroutine reads and parses a file containing a user-

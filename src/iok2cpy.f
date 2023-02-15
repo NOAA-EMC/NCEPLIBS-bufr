@@ -1,21 +1,20 @@
 C> @file
 C> @brief Check whether a BUFR message or data subset can be copied
 C> from one BUFR file to another.
+C>
+C> @author J. Ator @date 2009-06-26
 
 C> This function determines whether a BUFR message, or a data subset
 C> from within a BUFR message, can be copied from one Fortran logical
 C> unit to another.
 C>
-C> <p>The decision is based on whether both logical units contain
+C> The decision is based on whether both logical units contain
 C> identical definitions for the BUFR message type in question within
 C> their associated [DX BUFR Table information](@ref dfbftab).
 C> Note that it's possible for a BUFR message type to be identically
 C> defined for two different logical units even if the full set of
 C> associated DX BUFR table information isn't identical between both
 C> units.
-C>
-C> @author J. Ator
-C> @date 2009-06-26
 C>
 C> @param[in]  LUI     -- integer: Internal I/O stream index associated
 C>                        with source BUFR file
@@ -28,12 +27,7 @@ C>                        associated with LUO
 C>                        - 0 = No
 C>                        - 1 = Yes
 C>
-C> <b>Program history log:</b>
-C> | Date | Programmer | Comments |
-C> | -----|------------|----------|
-C> | 2009-06-26 | J. Ator | Original author |
-C> | 2014-12-10 | J. Ator | Use modules instead of COMMON blocks |
-C>
+C> @author J. Ator @date 2009-06-26
       INTEGER FUNCTION IOK2CPY(LUI,LUO)
 
       USE MODA_MSGCWD

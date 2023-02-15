@@ -1,13 +1,12 @@
 C> @file
 C> @brief Read the header lines from a master table B, table D or
 C> Code/Flag table
+C>
+C> @author J. Ator @date 2007-01-19
 
 C> This subroutine reads the header lines from two separate ASCII
 C> files (one standard and one local) containing master table B,
 C> table D or Code/Flag table information.
-C>
-C> @author J. Ator
-C> @date 2007-01-19
 C>
 C> @param[in] LUNS   -- integer: Fortran logical unit number for
 C>                      ASCII file containing standard table
@@ -32,11 +31,7 @@ C> @param[out] ILTV  -- integer: Version number of local table
 C>                      - This value is read from the local ASCII
 C>                        file.
 C>
-C> <b>Program history log:</b>
-C> | Date | Programmer | Comments |
-C> | -----|------------|----------|
-C> | 2007-01-19 | J. Ator | Original author |
-C>
+C> @author J. Ator @date 2007-01-19
         SUBROUTINE GETTBH ( LUNS, LUNL, TAB, IMT, IMTV, IOGCE, ILTV )
 
         CHARACTER*128   BORT_STR

@@ -1,12 +1,11 @@
 C> @file
 C> @brief Read a specified data subset from internal arrays.
+C>
+C> @author J. Woollen @date 1994-01-06
 
 C> This subroutine provides a handy way to combine the functionality
 C> of subroutines rdmemm() and rdmems() within a single subroutine
 C> call.
-C>
-C> @author J. Woollen
-C> @date 1994-01-06
 C>
 C> @param[in] IMSG   -- integer: Number of BUFR message to be
 C>                      read into scope for further processing,
@@ -24,23 +23,13 @@ C>                      (IMSG)th BUFR message, in format of either
 C>                      YYMMDDHH or YYYYMMDDHH, depending on the most
 C>                      recent call to subroutine datelen()
 C>
-C> <p>Whenever this subroutine returns successfully, the requested data
+C> Whenever this subroutine returns successfully, the requested data
 C> subset can now be easily manipulated or further parsed via calls to
 C> any of the [values-reading subroutines](@ref hierarchy) using the
 C> Fortran logical unit number IUNIT that was returned from the most
 C> recent call to subroutine ufbmem().
 C>
-C> <b>Program history log:</b>
-C> | Date | Programmer | Comments |
-C> | -----|------------|----------|
-C> | 1994-01-06 | J. Woollen | Original author |
-C> | 1998-07-08 | J. Woollen | Replaced call to Cray library routine "ABORT" with call to new internal routine bort() |
-C> | 1999-11-18 | J. Woollen | Increased MAXMEM from 4 Mb to 8 Mb |
-C> | 2001-08-15 | D. Keyser  | Increased MAXMEM from 8 Mb to 16 Mb |
-C> | 2004-11-15 | D. Keyser  | Increased MAXMEM from 16 Mb to 50 Mb |
-C> | 2014-12-10 | J. Ator    | Use modules instead of COMMON blocks |
-C> | 2022-10-04 | J. Ator    | Added 8-byte wrapper |
-
+C> @author J. Woollen @date 1994-01-06
       RECURSIVE SUBROUTINE UFBMMS(IMSG,ISUB,SUBSET,JDATE)
 
       USE MODV_IM8B

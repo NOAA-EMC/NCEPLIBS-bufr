@@ -1,18 +1,6 @@
 C> @file
 C> @brief Get the FXY value of an element in a Table D sequence.
 C>
-C> ### Program History Log
-C> | Date | Programmer | Comments |
-C> | -----|------------|----------|
-C> 1994-01-06 | J. Woollen  |  original author
-C> 1995-06-28 | J. Woollen  |  increased the size of internal bufr table arrays
-C> 1998-07-08 | J. Woollen  |  replaced call to cray library routine "abort" with bufrlib routine "bort"
-C> 1999-11-18 | J. Woollen  |  the number of bufr files which can be opened at one time increased from 10 to 32
-C> 2003-11-04 | J. Ator     |  added documentation
-C> 2003-11-04 | S. Bender   |  added remarks/bufrlib routine interdependencies
-C> 2003-11-04 | D. Keyser   |  unified/portable for wrf; added history documentation; outputs more complete diagnostic info
-C> 2014-12-10 | J. Ator     |  use modules instead of common blocks
-C>
 C> @author J. Woollen @date 1994-01-06
 
 C> This subroutine returns the bit-wise representation of the FXY value corresponding to, sequentially,

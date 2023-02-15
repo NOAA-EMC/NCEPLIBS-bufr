@@ -1,11 +1,10 @@
 C> @file
 C> @brief Read a specified BUFR message from internal arrays.
+C>
+C> @author J. Woollen @date 1999-11-18
 
 C> This function calls BUFRLIB subroutine readmm() and passes
 C> back its return code as the function value.
-C>
-C> @author J. Woollen
-C> @date 1999-11-18
 C>
 C> @param[in,out] IMSG -- integer: Message pointer within internal arrays
 C>                        - On input, IMSG is the number of the BUFR
@@ -33,13 +32,7 @@ C> @remarks
 C> - The use of this function allows the return code from readmm() to be
 C> used as the target variable within an iterative program loop.
 C>
-C> <b>Program history log:</b>
-C> | Date | Programmer | Comments |
-C> | -----|------------|----------|
-C> | 1999-11-18 | J. Woollen | Original author |
-C> | 2002-05-14 | J. Woollen | Changed from an entry point to increase portability to other platforms |
-C> | 2022-10-04 | J. Ator | Added 8-byte wrapper |
-
+C> @author J. Woollen @date 1999-11-18
       RECURSIVE FUNCTION IREADMM(IMSG,SUBSET,IDATE) RESULT(IRET)
 
       USE MODV_IM8B

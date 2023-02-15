@@ -1,15 +1,14 @@
 C> @file
 C> @brief Check whether there are any more data subsets available to be
 C> read from a BUFR message.
+C>
+C> @author J. Woollen @date 1994-01-06
 
 C> This function checks whether there are any more data subsets
 C> available to be read from within the BUFR message that is
 C> open for reading via the most recent call to any of the
 C> [message-reading subroutines](@ref hierarchy) for a specified
 C> Fortran logical unit.
-C>
-C> @author J. Woollen
-C> @date 1994-01-06
 C>
 C> @param[in] LUNIT -- integer: Fortran logical unit number for
 C>                     BUFR file
@@ -19,15 +18,7 @@ C>                            to be read from the BUFR message
 C>                     - -1 = there are no more data subsets
 C>                            to be read from the BUFR message
 C>
-C> <b>Program history log:</b>
-C> | Date | Programmer | Comments |
-C> | -----|------------|----------|
-C> | 1994-01-06 | J. Woollen | Original author |
-C> | 1998-07-08 | J. Woollen | Replaced call to Cray library routine ABORT with call to new internal routine bort() |
-C> | 1999-11-18 | J. Woollen | The number of BUFR files which can be opened at one time increased from 10 to 32 (necessary in order to process multiple BUFR files under the MPI) |
-C> | 2014-12-10 | J. Ator | Use modules instead of COMMON blocks |
-C> | 2022-10-04 | J. Ator | Added 8-byte wrapper |
-
+C> @author J. Woollen @date 1994-01-06
       RECURSIVE FUNCTION IFBGET(LUNIT) RESULT(IRET)
 
       USE MODV_IM8B
