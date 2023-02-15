@@ -1,10 +1,9 @@
 ! This is a test for NCEPLIBS-bufr.
 !
-! Reads test file 'testfiles/IN_1' using CRBMG with
-! OPENBF IO = 'SEC3'. This is based on test test_IN_1.F.
+! Reads test file 'testfiles/IN_2' with OPENBF IO = IN and LUNIN !=
+! LUNDX. This is based on test test_IN_2.F.
 !
 ! Ed Hartnett, J. Ator, 2/15/23
-
 program intest2
   implicit none
   integer*4 ireadmg, iupvs01, nmsub, ibfms
