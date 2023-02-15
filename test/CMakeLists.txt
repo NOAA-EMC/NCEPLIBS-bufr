@@ -6,12 +6,11 @@
 # This function builds, links, and runs a test program.
 function(create_test name kind)
   add_executable(${name}_${kind} ${name}.F90)
-  target_link_libraries(${name}_${kind} PRIVATE bufr_4)
   set_target_properties(${name}_${kind} PROPERTIES COMPILE_FLAGS "${fortran_${kind}_flags}")
-  set_target_properties(${name}_${kind} PROPERTIES Fortran_MODULE_DIRECTORY
-    ${CMAKE_CURRENT_BINARY_DIR}/include_${kind})
-  add_test(NAME ${name}_${kind} COMMAND ${name}_${kind})
   target_compile_definitions(${name}_${kind} PUBLIC -DKIND_${kind})
+  target_link_libraries(${name}_${kind} PRIVATE bufr_4)
+  add_dependencies(${name}_${kind} bufr_4)
+  add_test(NAME ${name}_${kind} COMMAND ${name}_${kind})
 endfunction()
 
 # Fetch test data from: https://ftp.emc.ncep.noaa.gov/static_files/public/bufr.tar

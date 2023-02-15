@@ -1,7 +1,7 @@
 ! This is a test for NCEPLIBS-bufr.
 !
 ! Reads test file 'testfiles/IN_2' with OPENBF IO = IN and LUNIN !=
-! LUNDX. This is based on test test_IN_2.F.
+! LUNDX.
 !
 ! Ed Hartnett, J. Ator, 2/15/23
 program intest2
