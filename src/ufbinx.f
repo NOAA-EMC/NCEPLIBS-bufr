@@ -1,17 +1,6 @@
 C> @file
 C> @brief Read one or more data values from a data subset.
 C>
-C> ### Program History Log
-C> Date | Programmer | Comments
-C> -----|------------|----------
-C> 2003-11-04 | J. Woollen | original author (was in verification version but may have been in the production version at one time and then removed)
-C> 2003-11-04 | D. Keyser  | unified/portable for wrf; added documentation; outputs more complete diagnostic info
-C> 2004-08-09 | J. Ator    | maximum message length increased from 20,000 to 50,000 bytes
-C> 2009-03-23 | J. Ator    | modify logic to handle bufr table messages encountered anywhere in the file (and not just at the beginning!)
-C> 2012-09-15 | J. Woollen | modified for c/i/o/bufr interface use 'inx' argument to openbf
-C> 2014-12-10 | J. Ator    | use modules instead of common blocks
-C> 2022-10-04 | J. Ator    | added 8-byte wrapper
-C>
 C> @author Woollen @date 2003-11-04
 
 C> If logical unit LUNIT has already been opened for input operations

@@ -1,13 +1,15 @@
 C> @file
 C> @brief Specify the use of IEEE Fortran control words when writing
 C> BUFR messages.
+C>
+C> @author J. Woollen @date 2012-09-15
 
 C> This subroutine is used to specify whether BUFR messages output by
 C> future calls to [message-writing subroutines](@ref hierarchy)
 C> should be encapsulated with IEEE Fortran control words when being
 C> written to output files.
 C>
-C> <p>If control words are requested, then one 4-byte control word is
+C> If control words are requested, then one 4-byte control word is
 C> written to the output file prior to the start of each BUFR message,
 C> and a second 4-byte control word is written to the output file after
 C> the end of each BUFR message.  Each of these control words contains
@@ -15,7 +17,7 @@ C> the byte count for the enclosed BUFR message, and they can be
 C> written using either big-endian or little-endian byte ordering,
 C> regardless of the native endianness of the local machine.
 C>
-C> <p>This subroutine can be called at any time after the first call
+C> This subroutine can be called at any time after the first call
 C> to subroutine openbf(), and the specified value for IBLK will remain
 C> in effect for all future calls to
 C> [message-writing subroutines](@ref hierarchy) for all Fortran logical
@@ -23,9 +25,6 @@ C> units that are open for output within the application program,
 C> unless a subsequent call is made to this subroutine to reset the
 C> value of IBLK again.  If this subroutine is never called, a default
 C> value of 0 is used for IBLK, as set within subroutine bfrini().
-C>
-C> @author J. Woollen
-C> @date 2012-09-15
 C>
 C> @param[in]  IBLK -- integer: Flag indicating whether future BUFR
 C>                     output messages should be encapsulated with
@@ -47,12 +46,7 @@ C> (including historical archives), so control words are no longer
 C> necessary and are therefore now disabled by default when writing
 C> BUFR messages to output files.
 C>
-C> <b>Program history log:</b>
-C> | Date | Programmer | Comments |
-C> | -----|------------|----------|
-C> | 2012-09-15 | J. Woollen | Original author |
-C> | 2022-10-04 | J. Ator | Added 8-byte wrapper |
-
+C> @author J. Woollen @date 2012-09-15
       RECURSIVE SUBROUTINE SETBLOCK(IBLK)
 
       USE MODV_IM8B

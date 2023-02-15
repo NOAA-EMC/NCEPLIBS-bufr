@@ -1,16 +1,6 @@
 C> @file
 C> @brief Decode the sequence information from a Table D mnemonic definition.
 C>
-C> ### Program History Log
-C> Date | Programmer | Comments |
-C> -----|------------|----------|
-C> 1994-01-06 | J. Woollen | original author
-C> 1998-07-08 | J. Woollen | replaced call to cray library routine "abort" with call to new internal bufrlib routine "bort"
-C> 2003-11-04 | J. Ator    | added documentation
-C> 2003-11-04 | S. Bender  | added remarks/bufrlib routine interdependencies
-C> 2003-11-04 | D. Keyser  | unified/portable for wrf; added history documentation; outputs more complete diagnostic info when routine terminates abnormally; changed call from bort to bort2
-C> 2007-01-19 | J. Ator    | replaced call to parseq with call to parstr
-C>
 C> @author Woollen @date 1994-01-06
 
 C> This subroutine decodes the Table D sequence information

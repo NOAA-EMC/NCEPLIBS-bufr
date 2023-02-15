@@ -1,5 +1,7 @@
 /** @file
  *  @brief Store a new master Code/Flag table entry.
+ *
+ *  @author J. Ator  @date 2017-11-13
  */
 #include "bufrlib.h"
 #include "cfe.h"
@@ -7,9 +9,6 @@
 /**
  *  This subroutine adds a new entry to the internal memory
  *  structure for storage of master Code/Flag table entries.
- *
- *  @author J. Ator
- *  @date 2017-11-13
  *
  *  @param[in] ifxyn -- f77int*: Bit-wise representation of FXY number
  *                      for which ival is a defined code or flag
@@ -25,10 +24,7 @@
  *                      (if any), or else set to (-1) whenever idfxy is
  *                      also set to (-1)
  *
- * <b>Program history log:</b>
- * | Date | Programmer | Comments |
- * | -----|------------|----------|
- * | 2017-11-13 | J. Ator | Original author |
+ *  @author J. Ator  @date 2017-11-13
 */
 void strtbfe( f77int *ifxyn, f77int *ival, char *meaning, f77int *lmeaning,
               f77int *idfxy, f77int *idval )

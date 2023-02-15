@@ -2,17 +2,6 @@
  *  @brief Store information about a standard Table D descriptor
  *  within internal DX BUFR tables.
  *
- * ### Program history log
- * Date | Programmer | Comments
- * -----|------------|---------
- * 2009-03-23 | J. Ator | Original author.
- * 2010-03-19 | J. Ator | Added processing for 2-04 associated fields.
- * 2010-04-05 | J. Ator | Added processing for 2-2X, 2-3X and 2-4X non-marker operators.
- * 2015-03-04 | J. Ator | Handle special case when associated fields are in effect for a Table D descriptor.
- * 2021-05-17 | J. Ator | Allow up to 24 characters in cbunit.
- * 2021-08-18 | J. Ator | Use strcpy instead of strncpy and then overwrite trailing null, in order to silence superfluous GNU compiler warnings.
- * 2023-01-18 | J. Ator | Remove MSTABS_BASE macro.
- *
  * @author J. Ator @date 2009-03-23
  */
 

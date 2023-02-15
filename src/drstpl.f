@@ -1,18 +1,6 @@
 C> @file
 C> @brief Search for a specified mnemonic within unexpanded sequences
 C> of the internal jump/link table.
-C>
-C> ### Program History Log
-C> Date | Programmer | Comments
-C> -----|------------|----------
-C> 1994-01-06 | J. Woollen | Original author.
-C> 1998-07-08 | J. Woollen | Replaced cray "abort" with routine bort() (later removed, unknown when).
-C> 2002-05-14 | J. Woollen | Removed old cray compiler directives.
-C> 2003-11-04 | S. Bender  | Added remarks/bufrlib routine interdependencies.
-C> 2003-11-04 | D. Keyser  | maxjl (maximum jump/link entries) increased to 16000; unified/portable for wrf.
-C> 2009-03-31 | J. Woollen | Added additional documentation.
-C> 2014-12-10 | J. Ator    | Use modules instead of common blocks.
-C>
 C> @author Woollen @date 1994-01-06
 
 C> This subroutine is called by subroutine

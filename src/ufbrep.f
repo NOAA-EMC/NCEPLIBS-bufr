@@ -1,5 +1,7 @@
 C> @file
 C> @brief Read/write one or more data values from/to a data subset.
+C>
+C> @author J. Woollen @date 1994-01-06
 
 C> This subroutine reads or writes one or more data values from or to
 C> the BUFR data subset that is currently open within the BUFRLIB
@@ -12,7 +14,7 @@ C> - If ABS(LUNIN) points to a file that was previously opened for
 C>   output using subroutine openbf(), then data values are written to
 C>   the current data subset.
 C>
-C> <p>This subroutine is specifically designed for use with Table B
+C> This subroutine is specifically designed for use with Table B
 C> mnemonics which are part of a fixed (i.e. non-delayed) replication
 C> sequence, or for mnemonics which are replicated by being directly
 C> listed more than once within an overall subset definition.
@@ -22,9 +24,6 @@ C> more data values from/to a data subset but are designed for
 C> different use cases.  A more detailed discussion of
 C> these different use cases, including examples, is available in
 C> [DX BUFR Tables](@ref ufbsubs).
-C>
-C> @author J. Woollen
-C> @date 1994-01-06
 C>
 C> @param[in] LUNIN   -- integer: Absolute value is Fortran logical
 C>                       unit number for BUFR file
@@ -56,7 +55,7 @@ C>                   subset within the first dimension of USR (see
 C>                   [DX BUFR Tables](@ref dfbftab) for further
 C>                   information about Table B mnemonics)
 C>
-C> <p>It is the user's responsibility to ensure that USR is dimensioned
+C> It is the user's responsibility to ensure that USR is dimensioned
 C> sufficiently large enough to accommodate the number of data values
 C> that are to be read from or written to the data subset.  Note also
 C> that USR is an array of real*8 values; therefore, any data that are
@@ -72,7 +71,7 @@ C> used to read/write character data directly from/to a data subset
 C> without the need to convert from/to real*8 format as an intermediate
 C> step.
 C>
-C> <p>Numeric (i.e. non-character) data values within USR are always in
+C> Numeric (i.e. non-character) data values within USR are always in
 C> the exact units specified for the corresponding mnemonic within the
 C> relevant DX or master BUFR table, without any scale or reference
 C> values applied.  Specifically, this means that, when writing
@@ -85,7 +84,7 @@ C> values returned in USR are already de-scaled and de-referenced and,
 C> thus, are already in the exact units that were defined for the
 C> corresponding mnemonics within the table.
 C>
-C> <p>"Missing" values in USR are always denoted by a unique
+C> "Missing" values in USR are always denoted by a unique
 C> placeholder value.  This placeholder value is initially set
 C> to a default value of 10E10_8, but it can be reset to
 C> any substitute value of the user's choice via a separate
@@ -127,21 +126,8 @@ C>      - ISUB - returns the number of the current data subset within
 C>               the BUFR message pointed to by IREC, counting from
 C>               the beginning of the message
 C>
-C> <b>Program history log:</b>
-C> | Date | Programmer | Comments |
-C> | -----|------------|----------|
-C> | 1994-01-06 | J. Woollen | Original author |
-C> | 1998-07-08 | J. Woollen | Replaced call to Cray library routine ABORT with call to new internal routine bort() |
-C> | 1999-11-18 | J. Woollen | The number of BUFR files which can be opened at one time increased from 10 to C32 |
-C> | 2003-05-19 | J. Woollen | Disabled the parsing switch which controls checking in the same replication group |
-C> | 2003-11-04 | S. Bender  | Added remarks and routine interdependencies |
-C> | 2003-11-04 | D. Keyser  | Unified/portable for WRF; added documentation; outputs more complete diagnostic info when routine terminates abnormally |
-C> | 2004-08-18 | J. Ator    | Added SAVE for IFIRST1 and IFIRST2 flags |
-C> | 2009-03-31 | J. Woollen | Add documentation |
-C> | 2009-04-21 | J. Ator    | Use errwrt() |
-C> | 2014-12-10 | J. Ator    | Use modules instead of COMMON blocks |
-C> | 2022-10-04 | J. Ator    | Added 8-byte wrapper |
-
+C>
+C> @author J. Woollen @date 1994-01-06
       RECURSIVE SUBROUTINE UFBREP(LUNIN,USR,I1,I2,IRET,STR)
 
       USE MODV_IM8B

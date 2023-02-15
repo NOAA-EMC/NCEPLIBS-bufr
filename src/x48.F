@@ -1,11 +1,6 @@
 C> @file
 C> @brief Encode one or more 4-byte integer values as 8-byte integer values.
 C>
-C> ### Program history log
-C> Date | Programmer | Comments |
-C> -----|------------|----------|
-C> 2022-10-12 | J. Woollen  | Original author
-C>
 C> @author J. Woollen @date 2022-10-12
 
 C> This subroutine reads an array containing a specified number

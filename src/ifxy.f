@@ -1,12 +1,11 @@
 C> @file
 C> @brief Convert an FXY value from its six character representation
 C> to its bit-wise (integer) representation
+C>
+C> @author J. Woollen @date 1994-01-06
 
 C> This function converts an FXY value from its 6 character
 C> representation to its bit-wise (integer) representation.
-C>
-C> @author J. Woollen
-C> @date 1994-01-06
 C>
 C> @param[in] ADSC -- character*6: FXY value
 C> @returns ifxy -- integer: Bit-wise representation of FXY value
@@ -31,14 +30,7 @@ C>           2**4 + 2**2 + 2**1 )
 C>
 C>       = 16150
 C>
-C> <b>Program History Log:</b>
-C> | Date | Programmer | Comments |
-C> | -----|------------|----------|
-C> | 1994-01-06 | J. Woollen | Original author |
-C> | 2003-11-04 | J. Ator    | Added documentation |
-C> | 2003-11-04 | S. Bender  | Added remarks and routine interdependencies |
-C> | 2003-11-04 | D. Keyser  | Unified/portable for WRF; added history documentation |
-C>
+C> @author J. Woollen @date 1994-01-06
       FUNCTION IFXY(ADSC)
 
       CHARACTER*6 ADSC

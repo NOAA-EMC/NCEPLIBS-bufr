@@ -2,11 +2,6 @@ C> @file
 C> @brief Get the next usable Table D index for the
 C> current master table, or reset the index.
 C>
-C> ### Program History Log
-C> Date | Programmer | Comments
-C> -----|------------|----------
-C> 2009-03-23 | J. Ator | Original author.
-C>
 C> @author Ator @date 2009-03-23
 
 C> Depending on the value of the input flag, this function

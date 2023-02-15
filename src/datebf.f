@@ -1,14 +1,12 @@
 C> @file
 C> @brief Read the Section 1 date-time from the first data message
 C> of a BUFR file.
+C> @author J. Woollen @date 1994-01-06
 
 C> This subroutine reads and returns the Section 1 date-time from
 C> the first data message of a BUFR file, bypassing any messages
 C> at the beginning of the file which may contain embedded DX BUFR
 C> table information.
-C>
-C> @author J. Woollen
-C> @date 1994-01-06
 C>
 C> @param[in] LUNIT   -- integer: Fortran logical unit number for BUFR
 C>                       file
@@ -27,26 +25,11 @@ C>                        first data message, in format of either
 C>                        YYMMDDHH or YYYYMMDDHH, depending on the most
 C>                        recent call to subroutine datelen()
 C>
-C> <p>Logical unit LUNIT must already be associated with a filename
+C> Logical unit LUNIT must already be associated with a filename
 C> on the local system, typically via a Fortran "OPEN" statement.
 C>
-C> <b>Program history log:</b>
-C> | Date | Programmer | Comments |
-C> | -----|------------|----------|
-C> | 1994-01-06 | J. Woollen | Original author |
-C> | 1998-07-08 | J. Woollen | Replaced call to Cray library routine ABORT with call to new internal routine bort() |
-C> | 1998-08-31 | J. Woollen | Modified to correct an error which led to MEAR being returned as 2-digit when it was requested as 4-digit via a prior call to datelen() |
-C> | 1998-10-27 | J. Woollen | Modified to correct problems caused by in-lining code with fpp directives |
-C> | 2003-05-19 | M. Shirey  | Replaced calls to Fortran insrinsic function ICHAR with the NCEP W3LIB function MOVA2I |
-C> | 2003-11-04 | D. Keyser  | Modified date calculations to no longer use floating point arithmetic |
-C> | 2004-08-18 | J. Ator    | Modified 'BUFR' string test for portability to EBCDIC machines |
-C> | 2004-12-20 | D. Keyser  | Calls wrdlen() to initialize local machine information, in case it has not yet been called |
-C> | 2005-11-29 | J. Ator    | Use igetdate(), iupbs01() and rdmsgw() |
-C> | 2009-03-23 | J. Ator    | Use idxmsg() and errwrt() |
-C> | 2012-09-15 | J. Woollen | Modified for C/I/O/BUFR interface; use new openbf type 'INX' to open and close the C file without closing the Fortran file |
-C> | 2014-12-10 | J. Ator    | Use modules instead of COMMON blocks |
-C> | 2022-08-04 | J. Woollen | Added 8-byte wrapper |
-
+C>
+C> @author J. Woollen @date 1994-01-06
       RECURSIVE SUBROUTINE DATEBF(LUNIT,MEAR,MMON,MDAY,MOUR,IDATE)
 
       USE MODA_MGWA

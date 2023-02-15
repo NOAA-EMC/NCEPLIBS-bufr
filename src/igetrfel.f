@@ -2,12 +2,6 @@ C> @file
 C> @brief Check whether a specified element refers to
 C> a previous element within the same subset via an internal bitmap.
 C>
-C> ### Program History Log
-C> Date | Programmer | Comments
-C> -----|------------|----------
-C> 2016-05-27 | J. Ator | Original author.
-C> 2017-04-03 | J. Ator | Add a dimension to all tco arrays so each subset definition in the jump/link table has its own set of table c operators.
-C>
 C> @author J Ator @date 2016-05-27
 
 C> This function checks whether the input element refers to

@@ -2,18 +2,6 @@ C> @file
 C> @brief Parse the Table A mnemonic and date out of Section 1 of a
 C> BUFR message.
 C>
-C> ### Program History Log
-C> Date | Programmer | Comments
-C> -----|------------|----------
-C> 2000-09-19 | J. Woollen | Consolidated logic in readmg(), readft(), readerme(), rdmemm() and readibm(); allow compressed messages.
-C> 2003-11-04 | S. Bender  | Added remarks/bufrlib routine interdependencies.
-C> 2003-11-04 | D. Keyser  | Numerous updates.
-C> 2004-08-09 | J. Ator    | Maximum message length increased from 20,000 to 50,000 bytes.
-C> 2005-11-29 | J. Ator    | Use iupbs01(), igetdate() and getlens().
-C> 2006-04-14 | J. Ator    | Allow "frtttsss" and "fntttsss" as possible table a mnemonics, where ttt is the bufr type and sss is the bufr subtype
-C> 2009-03-23 | J. Ator    | Add logic to allow section 3 decoding; use iupbs3() and errwrt().
-C> 2014-12-10 | J. Ator    | Use modules instead of common blocks.
-C>
 C> @author Woollen @date 2000-09-19
 
 C> This subroutine parses the Table A mnemonic and date

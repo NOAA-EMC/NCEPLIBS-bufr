@@ -1,6 +1,8 @@
 C> @file
 C> @brief Specify a value to be included in Section 0 or Section 1 when
 C> writing BUFR messages.
+C>
+C> @authors J. Ator @date 2005-11-29
 
 C> This subroutine is used to specify a value to be written into a
 C> specified location within Section 0 or Section 1 of all BUFR messages
@@ -8,7 +10,7 @@ C> output by future calls to other
 C> [message-writing subroutines](@ref hierarchy) and
 C> [subset-writing subroutines](@ref hierarchy).
 C>
-C> <p>This subroutine is similar to subroutine pkbs1(), except that
+C> This subroutine is similar to subroutine pkbs1(), except that
 C> pkbs1() operates on a single BUFR message passed in via a memory
 C> array.  Alternatively, whenever this subroutine is called, the
 C> specified IVAL will be written into all BUFR messages output by all
@@ -21,9 +23,6 @@ C> reset the corresponding IVAL again.  Otherwise, if this subroutine
 C> is never called for a particular value of S01MNEM, then a default
 C> value is used for the corresponding IVAL, as set within subroutine
 C> msgini(), cmsgini() or dxmini().
-C>
-C> @authors J. Ator
-C> @date 2005-11-29
 C>
 C> @param[in]     IVAL   -- integer: Value to be stored
 C> @param[in]  S01MNEM   -- character*(*): Location where IVAL is to
@@ -62,14 +61,7 @@ C>   within BUFR messages encoded using BUFR edition 3.
 C> - Values corresponding to S01MNEM = 'YEAR', 'SECO' or 'MSBTI' can only
 C>   be stored within BUFR messages encoded using BUFR edition 4.
 C>
-C> <b>Program history log:</b>
-C> | Date | Programmer | Comments |
-C> | -----|------------|----------|
-C> | 2005-11-29 | J. Ator    | Original author |
-C> | 2006-04-14 | D. Keyser  | Updated docblock |
-C> | 2015-03-03 | J. Ator    | Use module MODA_S01CM |
-C> | 2022-08-04 | J. Woollen | Added 8-byte wrapper |
-
+C> @authors J. Ator @date 2005-11-29
       RECURSIVE SUBROUTINE PKVS01(S01MNEM,IVAL)
 
       USE MODV_MXS01V

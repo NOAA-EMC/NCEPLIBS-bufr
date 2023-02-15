@@ -1,21 +1,6 @@
 C> @file
 C> @brief Read the next compressed BUFR data subset into internal arrays.
 C>
-C> ### Program History Log
-C> Date | Programmer | Comments
-C> -----|------------|----------
-C> 2000-09-19 | J. Woollen | Original author.
-C> 2002-05-14 | J. Woollen | Improved generality, previously rdcmps would not recognize compressed delayed replication as a legitimate data structure.
-C> 2003-11-04 | J. Ator    | Added documentation.
-C> 2003-11-04 | S. Bender  | Added remarks/bufrlib routine interdependencies.
-C> 2003-11-04 | D. Keyser  | maxjl (maximum number of jump/link entries) increased from 15000 to 16000 (was in verification version); unified/portable for wrf; added history documentation.
-C> 2004-08-18 | J. Ator    | Initialize cval; logic for when a character value is the same for all subsets in a message; maximum message length increased from 20,000 to 50,000 bytes.
-C> 2009-03-23 | J. Ator    | Prevent overflow of cval and cref for strings longer than 8 characters.
-C> 2012-03-02 | J. Ator    | Use function ups.
-C> 2012-06-04 | J. Ator    | Set decoded real*8 value to "missing" when corresponding character field has all bits set to 1.
-C> 2014-12-10 | J. Ator    | Use modules instead of common blocks.
-C> 2022-05-06 | J. Woollen | Use up8 for 8byte integer operation.
-C>
 C> @author Woollen @date 2000-09-19
 
 C> This subroutine uncompresses and unpacks the next subset

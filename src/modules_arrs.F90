@@ -37,7 +37,7 @@ module moda_bitmaps
   integer :: LSTNOD
 !>  Current count of consecutive occurrences of lstnod.
   integer :: LSTNODCT
-!>  .true. if a bitmap is in the process of being read for the current data subset.
+!>  true if a bitmap is in the process of being read for the current data subset; false otherwise.
   logical :: LINBTM
 !>  Entries within jump/link table which contain Table A mnemonics.
   integer, allocatable :: INODTAMC(:)
@@ -105,7 +105,7 @@ module moda_bufrsr
 end module moda_bufrsr
 
 !> This module contains arrays and variable declarations for the storage of data values needed when writing compressed
-!> data subsets to a BUFR message for output (i.e. writing/encoding BUFR).
+!> data subsets to a BUFR message for output.
 !>
 !> This module can only be used to store the information for one compressed BUFR message at any given time.
 !>
@@ -122,7 +122,7 @@ module moda_comprs
 end module moda_comprs
 
 !> This module contains arrays and variable declarations for the storage of data values needed when writing compressed
-!> data subsets to a BUFR message for output (i.e. writing/encoding BUFR).
+!> data subsets to a BUFR message for output.
 !>
 !> This module can only be used to store the information for one compressed BUFR message at any given time.
 !>
@@ -677,7 +677,7 @@ end module moda_unptyp
 !>
 !> @author J. Woollen @date 1994-01-06
 module moda_usrbit
-!>  Length (in bits) of each packed value in mbit.
+!>  Length (in bits) of each packed data value in data subset.
   integer, allocatable :: NBIT(:)
 !>  Pointer in data subset to first bit of each packed data value.
   integer, allocatable :: MBIT(:)
@@ -706,7 +706,6 @@ end module moda_usrint
 !>
 !> @author J. Woollen 1994-01-06
 module moda_usrtmp
-!>  Maximum number of recursions.
   parameter ( MAXRCR = 100 )
 !>  inv array elements for new sections of a growing subset buffer.
   integer, allocatable :: IUTMP(:,:)

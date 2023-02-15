@@ -1,13 +1,12 @@
 C> @file
 C> @brief Read the next line from a master table B, table D or Code/Flag
 C> table file
+C>
+C> @author J. Ator @date 2007-01-19
 
 C> This subroutine reads the next line from an ASCII master table B,
 C> table D or Code/Flag table file, ignoring any blank lines or comment
 C> lines in the process.
-C>
-C> @author J. Ator
-C> @date 2007-01-19
 C>
 C> @param[in] LUNT   -- integer: Fortran logical unit number for
 C>                      ASCII file containing table information
@@ -20,11 +19,7 @@ C>                               from LUNT
 C>                        - -2 = I/O error encountered while reading
 C>                               from LUNT
 C>
-C> <b>Program history log:</b>
-C> | Date | Programmer | Comments |
-C> | -----|------------|----------|
-C> | 2007-01-19 | J. Ator | Original author |
-C>
+C> @author J. Ator @date 2007-01-19
         FUNCTION IGETNTBL ( LUNT, LINE )
 
         CHARACTER*(*)   LINE

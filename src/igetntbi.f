@@ -1,12 +1,11 @@
 C> @file
 C> @brief Get the next index for storing an entry within an internal
 C> DX BUFR table
+C>
+C> @author J. Ator @date 2009-03-23
 
 C> This function returns the next available index for storing an
 C> entry within a specified internal DX BUFR table.
-C>
-C> @author J. Ator
-C> @date 2009-03-23
 C>
 C> @param[in]  LUN   -- integer: Internal I/O stream index associated
 C>                      with BUFR file
@@ -18,12 +17,7 @@ C>                        - 'D' = Table D
 C> @returns igetntbi -- integer: Next available index for storing an
 C>                      entry within CTB
 C>
-C> <b>Program history log:</b>
-C> | Date | Programmer | Comments |
-C> | -----|------------|----------|
-C> | 2009-03-23 | J. Ator | Original author |
-C> | 2014-12-10 | J. Ator | Use modules instead of COMMON blocks |
-C>
+C> @author J. Ator @date 2009-03-23
         FUNCTION IGETNTBI ( LUN, CTB )
 
         USE MODA_TABABD

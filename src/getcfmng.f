@@ -1,12 +1,11 @@
 C> @file
 C> @brief Decode the meaning of a numerical value from a code or flag table
+C>
+C> @author J. Ator @date 2018-01-11
 
 C> This subroutine searches for a specified Table B mnemonic and associated
 C> value (code figure or bit number) within the master Code/Flag tables,
 C> and if found returns the associated meaning as a character string.
-C>
-C> @author J. Ator
-C> @date 2018-01-11
 C>
 C> @param[in]  LUNIT   -- integer: Fortran logical unit number for
 C>                        BUFR file
@@ -48,7 +47,7 @@ C>                               depends on the value of one of the
 C>                               mnemonics stored in the first IRET 8-byte
 C>                               substrings of CMEANG
 C>
-C> <p>As noted above, this subroutine first does an initial search of
+C> As noted above, this subroutine first does an initial search of
 C> the master Code/Flag tables based on the mnemonics and values provided.
 C> The input parameters NEMOI and IVALI specify the mnemonic and
 C> corresponding numerical code or flag table value for which the meaning
@@ -60,11 +59,11 @@ C> does not depend on the value associated with any other mnemonic, then
 C> NEMOD should be set to a field of all blank characters, and IVALD
 C> should be set to a value of (-1).
 C>
-C> <p>Subroutine codflg() must be called with a CF value of 'Y' prior to
+C> Subroutine codflg() must be called with a CF value of 'Y' prior to
 C> calling this subroutine, in order to ensure that master Code/Flag
 C> tables have been read into internal memory.
 C>
-C> <p>This subroutine can be called at any time after a BUFR message
+C> This subroutine can be called at any time after a BUFR message
 C> has been read into internal arrays by one of the BUFRLIB
 C> [message-reading subroutines](@ref hierarchy), and it
 C> can be called for any code or flag table mnemonic defined within that
@@ -75,7 +74,7 @@ C> originating subcenters, data types and data subtypes, since those can
 C> also be contained within the identification section (Section 1) of a
 C> BUFR message.
 C>
-C> <p>It is the user's responsibility to provide sufficient allocated
+C> It is the user's responsibility to provide sufficient allocated
 C> space in CMEANG for the returned meaning string; otherwise, the
 C> returned string will be truncated.
 C>
@@ -100,13 +99,7 @@ C> corresponding value of 24 returned for LNMNG), as a hint to the user
 C> that more information needs to be input to the subroutine in order to
 C> achieve the desired result.
 C>
-C> <b>Program history log:</b>
-C> | Date | Programmer | Comments |
-C> | -----|------------|----------|
-C> | 2018-01-11 | J. Ator | Original author |
-C> | 2018-02-08 | J. Ator | Add special handling for data types and subtypes in Section 1 |
-C> | 2022-08-04 | J. Woollen | Added 8-byte wrapper |
-
+C> @author J. Ator @date 2018-01-11
         RECURSIVE SUBROUTINE GETCFMNG
      .      ( LUNIT, NEMOI, IVALI, NEMOD, IVALD, CMEANG, LNMNG, IRET )
 

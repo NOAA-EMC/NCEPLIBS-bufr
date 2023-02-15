@@ -1,21 +1,6 @@
 C> @file
 C> @brief Read/write one or more data values from/to a data subset.
 C>
-C> <b>Program history log:</b>
-C> | Date | Programmer | Comments |
-C> | -----|------------|----------|
-C> | 1994-01-06 | J. Woollen | Original author |
-C> | 1996-11-25 | J. Woollen | Modified to add a return code when mnemonics are not found when reading |
-C> | 1996-12-17 | J. Woollen | Modified to always initialize USR array to "missing" when BUFR file is being read |
-C> | 1998-07-08 | J. Woollen | Replaced call to Cray library routine ABORT with call to new internal routine bort() |
-C> | 1999-11-18 | J. Woollen | The number of BUFR files which can be opened at one time increased from 10 to 32 |
-C> | 2003-11-04 | S. Bender  | Added remarks and routine interdependencies |
-C> | 2003-11-04 | D. Keyser  | Unified/portable for WRF; added documentation; outputs more complete diagnostic info when routine terminates abnormally |
-C> | 2004-08-18 | J. Ator    | Added SAVE for IFIRST1 and IFIRST2 flags |
-C> | 2009-04-21 | J. Ator    | Use errwrt() |
-C> | 2014-12-10 | J. Ator    | Use modules instead of COMMON blocks |
-C> | 2022-10-04 | J. Ator    | Added 8-byte wrapper |
-C>
 C> @author J. Woollen @date 1994-01-06
 
 C> This subroutine reads or writes one or more data values from or to

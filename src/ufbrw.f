@@ -1,22 +1,6 @@
 C> @file
 C> @brief Read/write one or more data values from/to a data subset.
 C>
-C> ### Program History Log
-C> Date | Programmer | Comments |
-C> -----|------------|----------|
-C> 1994-01-06 | J. Woollen | original author
-C> 1996-12-11 | J. Woollen | removed a hard abort for users who try to write non-existing mnemonics
-C> 1998-07-08 | J. Woollen | improved machine portability
-C> 1998-10-27 | J. Woollen | modified to correct problems caused by in- lining code with fpp directives
-C> 1999-11-18 | J. Woollen | the number of bufr files which can be opened at one time increased from 10 to 32
-C> 2002-05-14 | J. Woollen | removed old cray compiler directives
-C> 2003-11-04 | S. Bender  | added remarks/bufrlib routine interdependencies
-C> 2003-11-04 | D. Keyser  | maxjl increased to 16000; unified/portable for wrf; documentation
-C> 2007-01-19 | J. Ator    | use function ibfms
-C> 2009-03-31 | J. Woollen | add documentation.
-C> 2009-04-21 | J. Ator    | use errwrt; use lstjpb instead of lstrps
-C> 2014-12-10 | J. Ator    | use modules instead of common blocks
-C>
 C> @author J. Woollen @date 1994-01-06
 
 C> This subroutine writes or reads specified values to or from

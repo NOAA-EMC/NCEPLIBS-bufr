@@ -1,27 +1,6 @@
 C> @file
 C> @brief Initialize a new uncompressed BUFR message for output.
 C>
-C> ### Program History Log
-C> Date | Programmer | Comments
-C> -----|------------|----------
-C> 1994-01-06 | J. Woollen | Original author.
-C> 1996-12-11 | J. Woollen | Modified to allow inclusion of minutes in writing the message date into a bufr message.
-C> 1997-07-29 | J. Woollen | Modified to update the current bufr version written in section 0 from 2 to 3.
-C> 1998-07-08 | J. Woollen | Replaced call to cray routine "abort" with bort(); make y2k compliant.
-C> 1999-11-18 | J. Woollen | Increased number of open BUFR to 32.
-C> 2000-09-19 | J. Woollen | Maximum message length increased from 10,000 to 20,000 bytes.
-C> 2002-05-14 | J. Woollen | Removed entry point minimg.
-C> 2003-11-04 | J. Ator    | Added documentation.
-C> 2003-11-04 | S. Bender  | Added remarks/bufrlib routine interdependencies.
-C> 2003-11-04 | D. Keyser  | maxjl increased from 16000; unified/portable for wrf; documentation; more diagnostic info.
-C> 2004-08-09 | J. Ator    | Maximum message length increased from 20,000 to 50,000 bytes.
-C> 2005-11-29 | J. Ator    | Changed default master table version to 12.
-C> 2009-05-07 | J. Ator    | Changed default master table version to 13.
-C> 2009-08-11 | J. Woollen | Add common ufbcpl to initialize luncpy.
-C> 2014-12-10 | J. Ator    | Use modules instead of common blocks.
-C> 2019-05-21 | J. Ator    | Changed default master table version to 29.
-C> 2021-05-14 | J. Ator    | Changed default master table version to 36.
-C>
 C> @author Woollen @date 1994-01-06
 
 C> This subroutine initializes, within the internal arrays, a new

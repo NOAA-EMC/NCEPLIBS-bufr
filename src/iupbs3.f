@@ -1,12 +1,6 @@
 C> @file
 C> @brief Read a data value from Section 3 of a BUFR message.
 C>
-C> ### Program History Log
-C> Date | Programmer | Comments
-C> -----|------------|----------
-C> 2009-03-23 | J. Ator | Original author.
-C> 2022-10-04 | J. Ator | Added 8-byte wrapper.
-C>
 C> @author J. Ator @date 2009-03-23
 
 C> This function returns a specified value from within Section 3

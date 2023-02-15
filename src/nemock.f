@@ -1,14 +1,6 @@
 C> @file
 C> @brief Check the validity of a mnemonic.
 C>
-C> ### Program History Log
-C> Date | Programmer | Comments
-C> -----|------------|----------
-C> 1994-01-06 | J. Woollen | Original author.
-C> 2003-11-04 | J. Ator    | Added documentation.
-C> 2003-11-04 | S. Bender  | Added remarks/bufrlib routine interdependencies.
-C> 2003-11-04 | D. Keyser  | Split non-zero return into multiple options.
-C>
 C> @author J. Woollen @date 1994-01-06
 
 C> This function checks a mnemonic to verify that it has a

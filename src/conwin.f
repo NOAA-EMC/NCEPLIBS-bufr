@@ -1,18 +1,6 @@
 C> @file
 C> @brief Search consecutive subset buffer segments
 C> for an element identified in the user string as a conditional node.
-C>
-C> ### Program History Log
-C> Date | Programmer | Comments
-C> -----|------------|---------
-C> 1994-01-06 | J. Woollen | Original author.
-C> 1998-07-08 | J. Woollen | Improved machine portability.
-C> 1999-11-18 | J. Woollen | Increase number of open BUFR FILES.
-C> 2003-11-04 | S. Bender  | Added remarks/bufrlib routine interdependencies.
-C> 2003-11-04 | D. Keyser  | MAXJL increased from 15000 to 16000; unified/portable for WRF.
-C> 2010-04-27 | J. Woollen | correct logical flaw and add documentation.
-C> 2014-12-10 | J. Ator    | use modules instead of common blocks.
-C>
 C> @author Woollen @date 1994-01-06
 
 C> This subroutine searches consecutive subset buffer segments for an

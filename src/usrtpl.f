@@ -1,18 +1,6 @@
 C> @file
 C> @brief Store the subset template into internal arrays.
 C>
-C> | Date | Programmer | Comments |
-C> | -----|------------|----------|
-C> 1994-01-06 | J. Woollen | original author
-C> 1998-07-08 | J. Woollen | replaced call to cray library routine "abort" with bufrlib routine "bort"
-C> 1999-11-18 | J. Woollen | the number of bufr files which can be opened at one time increased from 10 to 32
-C> 2002-05-14 | J. Woollen | removed old cray compiler directives
-C> 2003-11-04 | S. Bender  | added remarks/bufrlib routine interdependencies
-C> 2003-11-04 | D. Keyser  | maxjl increased from 15K to 16K; unified/portable for wrf; added documentation
-C> 2009-03-31 | J. Woollen | add documentation
-C> 2009-04-21 | J. Ator    | use errwrt
-C> 2014-12-10 | J. Ator    | use modules instead of common blocks
-C>
 C> @author J. Woollen @date 1994-01-06
 
 C> This subroutine stores the subset template into internal

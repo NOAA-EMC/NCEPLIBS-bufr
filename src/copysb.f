@@ -1,11 +1,10 @@
 C> @file
 C> @brief Copy a BUFR data subset.
+C>
+C> @author J. Woollen @date 1994-01-06
 
 C> This subroutine copies a BUFR data subset from one Fortran logical
 C> unit to another.
-C>
-C> @author J. Woollen
-C> @date 1994-01-06
 C>
 C> @param[in] LUNIN   -- integer: Fortran logical unit number for
 C>                       source BUFR file
@@ -17,22 +16,22 @@ C>                       - -1 = a BUFR data subset could not be
 C>                              read from the BUFR message in
 C>                              internal arrays for LUNIN
 C>
-C> <p>Logical unit LUNIN should have already been opened for input
+C> Logical unit LUNIN should have already been opened for input
 C> operations via a previous call to subroutine openbf(), and a BUFR
 C> message should have already been read into internal arrays for
 C> LUNIN via a previous call to one of the
 C> [message-reading subroutines](@ref hierarchy).
 C>
-C> <p>Logical unit LUNOT should have already been opened for output
+C> Logical unit LUNOT should have already been opened for output
 C> operations via a previous call to subroutine openbf(), and a BUFR
 C> message should already be open for output within internal arrays
 C> via a previous call to one of the BUFRLIB
 C> [message-writing subroutines](@ref hierarchy).
 C>
-C> <p>The compression status of the data subset (i.e. compressed or
+C> The compression status of the data subset (i.e. compressed or
 C> uncompressed) will be preserved when copying from LUNIN to LUNOT.
 C>
-C> <p>If LUNOT < 0, then a data subset is read from the BUFR message
+C> If LUNOT < 0, then a data subset is read from the BUFR message
 C> in internal arrays for LUNIN but is not copied to the BUFR
 C> message in internal arrays for LUNOT.  Otherwise, the
 C> [DX BUFR Table information](@ref dfbftab) associated with
@@ -40,21 +39,7 @@ C> each of the logical units LUNIN and LUNOT must contain identical
 C> definitions for the type of BUFR message containing the data
 C> subset to be copied from LUNIN to LUNOT.
 C>
-C> <b>Program history log:</b>
-C> | Date | Programmer | Comments |
-C> | -----|------------|----------|
-C> | 1994-01-06 | J. Woollen | Original author |
-C> | 1998-07-08 | J. Woollen | Replaced call to Cray library routine ABORT with call to new internal routine bort() |
-C> | 1999-11-18 | J. Woollen | The number of BUFR files which can be opened at one time increased from 10 to 32 (necessary in order to process multiple BUFR files under the MPI) |
-C> | 2000-09-19 | J. Woollen | Maximum message length increased from 10,000 to 20,000 bytes |
-C> | 2002-05-14 | J. Woollen | Removed old Cray compiler directives |
-C> | 2004-08-09 | J. Ator    | Maximum message length increased from 20,000 to 50,000 bytes |
-C> | 2005-09-16 | J. Woollen | Now writes out compressed subset/message if input subset/message is compressed |
-C> | 2009-06-26 | J. Ator    | Use iok2cpy() |
-C> | 2014-11-03 | J. Ator    | Handle oversized (>65530 bytes) subsets |
-C> | 2014-12-10 | J. Ator    | Use modules instead of COMMON blocks |
-C> | 2022-08-04 | J. Woollen | Added 8-byte wrapper |
-
+C> @author J. Woollen @date 1994-01-06
       RECURSIVE SUBROUTINE COPYSB(LUNIN,LUNOT,IRET)
 
       USE MODA_MSGCWD

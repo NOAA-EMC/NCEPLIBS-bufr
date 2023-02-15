@@ -1,20 +1,14 @@
 C> @file
 C> @brief Capitalize a character string
+C>
+C> @author J. Woollen @date 2002-05-14
 
 C> This subroutine capitalizes all of the alphabetic characters in
 C> a string.  The string is modified in place.
 C>
-C> @author J. Woollen
-C> @date 2002-05-14
-C>
 C> @param[in,out] STR -- character*(*): String
 C>
-C> <b>Program History Log:</b>
-C> | Date | Programmer | Comments |
-C> | -----|------------|----------|
-C> | 2002-05-14 | J. Woollen | Original author |
-C> | 2012-03-02 | J. Ator | Changed name of ups array to upcs to avoid namespace contention with function ups() |
-C>
+C> @author J. Woollen @date 2002-05-14
       SUBROUTINE CAPIT(STR)
 
       CHARACTER*(*) STR

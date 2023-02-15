@@ -2,11 +2,6 @@
  *  @brief Read the next message from a BUFR file that was
  *  previously opened for reading via a C language interface.
  *
- *  ### Program history log
- *  Date | Programmer | Comments
- *  -----|------------|---------
- *  2005-11-29 | J. Ator | Original author
- *
  *  @author J. Ator @date 2005-11-29
  */
 #include "bufrlib.h"

@@ -2,22 +2,6 @@ C> @file
 C> @brief Read/write an entire sequence of data values from/to
 C> a data subset.
 C>
-C> <b>Program history log:</b>
-C> | Date | Programmer | Comments |
-C> | -----|------------|----------|
-C> | 2000-09-19 | J. Woollen | Original author |
-C> | 2002-05-14 | J. Woollen | Improved generality; previously ufbseq would not recognize compressed delayed replication as a legitimate data structure |
-C> | 2003-05-19 | J. Woollen | Corrected the logic array of exit conditions for the subroutine; previously, in some cases, proper exits were missed, generating bogus error messages |
-C> | 2003-11-04 | S. Bender  | Added remarks and routine interdependencies |
-C> | 2003-11-04 | D. Keyser  | Unified/portable for WRF; added documentation; outputs more complete diagnostic info when routine terminates abnormally |
-C> | 2004-08-18 | J. Ator    | Added SAVE for IFIRST1 and IFIRST2 flags |
-C> | 2007-01-19 | J. Ator    | Replaced call to parseq with call to parstr() |
-C> | 2009-04-21 | J. Ator    | Use errwrt() |
-C> | 2014-09-10 | J. Ator    | Fix bug involving nested delayed replication where first replication of outer sequence does not contain a replication of the inner sequence |
-C> | 2014-12-10 | J. Ator    | Use modules instead of COMMON blocks |
-C> | 2020-03-06 | J. Ator    | No longer abort when reading data and number of available levels is greater than I2; instead just return first I2 levels and print a diagnostic message |
-C> | 2022-10-04 | J. Ator    | Added 8-byte wrapper |
-C>
 C> @authors J. Woollen @authors J. Ator @date 2000-09-19
 
 C> This subroutine reads or writes an entire sequence of data values

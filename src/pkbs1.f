@@ -1,19 +1,17 @@
 C> @file
 C> @brief Write a data value into Section 1 of a BUFR message.
+C>
+C> @authors J. Ator, D. Keyser @date 2005-11-29
 
 C> This subroutines writes a specified value into a specified location
 C> within Section 1 of a BUFR message, overwriting the value previously
 C> stored in that location.
 C>
-C> <p>This subroutine will work on any BUFR message encoded using BUFR
+C> This subroutine will work on any BUFR message encoded using BUFR
 C> edition 2, 3, or 4.  It is similar to subroutine pkvs01(), except
 C> that it operates on a BUFR message passed in via a memory array,
 C> whereas pkvs01() operates on BUFR messages stored internally within
 C> the software.
-C>
-C> @authors J. Ator
-C> @authors D. Keyser
-C> @date 2005-11-29
 C>
 C> @param[in]     IVAL   -- integer: Value to be stored
 C> @param[in,out] MBAY   -- integer(*): BUFR message
@@ -48,13 +46,7 @@ C>   within BUFR messages encoded using BUFR edition 2 or 3.
 C> - Values corresponding to S1MNEM = 'YEAR', 'SECO' or 'MSBTI' can only
 C>   be stored within BUFR messages encoded using BUFR edition 4.
 C>
-C> <b>Program history log:</b>
-C> | Date | Programmer | Comments |
-C> | -----|------------|----------|
-C> | 2005-11-29 | J. Ator    | Original author |
-C> | 2006-04-14 | D. Keyser  | Added options for 'MTYP', 'MSBT', 'YEAR', 'MNTH', 'DAYS', 'HOUR', 'YCEN' and 'CENT' |
-C> | 2022-10-04 | J. Ator    | Added 8-byte wrapper |
-
+C> @authors J. Ator, D. Keyser @date 2005-11-29
         RECURSIVE SUBROUTINE PKBS1(IVAL,MBAY,S1MNEM)
 
         USE MODV_IM8B

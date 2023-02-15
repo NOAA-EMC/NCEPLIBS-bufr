@@ -1,13 +1,12 @@
 C> @file
 C> @brief Check whether two BUFR files are sharing the same DX BUFR
 C> table.
+C>
+C> @author J. Ator @date 2009-06-18
 
 C> This function determines whether the same
 C> [DX BUFR Table](@ref dfbftab) is being shared between two
 C> Fortran logical units.
-C>
-C> @author J. Ator
-C> @date 2009-06-18
 C>
 C> @param[in]  LUD     -- integer: Internal I/O stream index associated
 C>                        with first BUFR file
@@ -20,12 +19,7 @@ C>                        file associated with LUN
 C>                        - 0 = No
 C>                        - 1 = Yes
 C>
-C> <b>Program history log:</b>
-C> | Date | Programmer | Comments |
-C> | -----|------------|----------|
-C> | 2009-06-18 | J. Ator | Original author |
-C> | 2014-12-10 | J. Ator | Use modules instead of COMMON blocks |
-C>
+C> @author J. Ator @date 2009-06-18
       INTEGER FUNCTION ISHRDX(LUD,LUN)
 
       USE MODA_TABABD

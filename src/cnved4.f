@@ -1,18 +1,17 @@
 C> @file
 C> @brief Convert a BUFR edition 3 message to BUFR edition 4.
+C>
+C> @author J. Ator @date 2005-11-29
 
 C> This subroutine reads an input BUFR message encoded using BUFR
 C> edition 3 and outputs an equivalent BUFR message encoded using
 C> BUFR edition 4.
 C>
-C> <p>This subroutine performs the same function as subroutine pkvs01()
+C> This subroutine performs the same function as subroutine pkvs01()
 C> when the latter is called with S01MNEM = 'BEN' and IVAL = 4, except
 C> that the latter subroutine operates on BUFR messages internally
 C> within the software, whereas this subroutine operates on a single
 C> BUFR message passed in via a memory array.
-C>
-C> @author J. Ator
-C> @date 2005-11-29
 C>
 C> @param[in] MSGIN   -- integer(*): BUFR message
 C> @param[in] LMSGOT  -- integer: Dimensioned size (in integers) of
@@ -27,13 +26,7 @@ C> - BUFR edition 4 messages are usually longer in length than their
 C> BUFR edition 3 counterparts, so it's usually a good idea to allow
 C> for extra space when allocating MSGOT within the application program.
 C>
-C> <b>Program history log:</b>
-C> | Date | Programmer | Comments |
-C> | -----|------------|----------|
-C> | 2005-11-29 | J. Ator | Original author |
-C> | 2009-08-12 | J. Ator | Allow silent return (instead of bort() return) if MSGIN is already encoded using edition 4 |
-C> | 2022-08-04 | J. Woollen | Added 8-byte wrapper |
-
+C> @author J. Ator @date 2005-11-29
         RECURSIVE SUBROUTINE CNVED4(MSGIN,LMSGOT,MSGOT)
 
         USE MODV_IM8B

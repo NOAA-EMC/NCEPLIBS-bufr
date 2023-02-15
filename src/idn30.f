@@ -1,12 +1,11 @@
 C> @file
 C> @brief Convert an FXY value from its five or six character
 C> representation to its bit-wise (integer) representation
+C>
+C> @author J. Woollen @date 1994-01-06
 
 C> This function converts an FXY value from its 5 or 6 character
 C> representation to its bit-wise (integer) representation.
-C>
-C> @author J. Woollen
-C> @date 1994-01-06
 C>
 C> @param[in] ADN30 -- character*(*): FXY value
 C> @param[in] L30 -- integer: Length of ADN30; can be either 5 or 6
@@ -16,14 +15,7 @@ C>
 C> @remarks
 C> - This function is the logical inverse of function adn30().
 C>
-C> <b>Program History Log:</b>
-C> | Date | Programmer | Comments |
-C> | -----|------------|----------|
-C> | 1994-01-06 | J. Woollen | Original author |
-C> | 1998-07-08 | J. Woollen | Replaced call to CRAY library routine "ABORT" with call to new internal BUFRLIB routine bort() |
-C> | 2003-11-04 | S. Bender  | Added remarks and routine interdependencies |
-C> | 2003-11-04 | D. Keyser  | Unified/portable for WRF; added history documentation |
-C>
+C> @author J. Woollen @date 1994-01-06
       FUNCTION IDN30(ADN30,L30)
 
       COMMON /HRDWRD/ NBYTW,NBITW,IORD(8)

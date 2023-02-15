@@ -2,11 +2,6 @@
  * @brief Defines a comparison between two integers for use by the
  * binary search function bsearch.
  *
- * ### Program History Log
- * Date | Programmer | Comments
- * -----|------------|---------
- * 2009-03-23 | J. Ator | Initial.
- *
  * @author Ator @date 2009-03-23
 */
 

@@ -1,15 +1,14 @@
 C> @file
 C> @brief Read master Code/Flag table information from local file system
+C>
+C> @author J. Ator @date 2017-10-17
 
 C> This subroutine reads master Code/Flag table information from two
 C> separate ASCII files (one standard and one local) and then merges the
 C> output into a single set of arrays.
 C>
-C> <p>Each of the two ASCII files must already be individually sorted
+C> Each of the two ASCII files must already be individually sorted
 C> in ascending order with respect to the FXY numbers.
-C>
-C> @author J. Ator
-C> @date 2017-10-17
 C>
 C> @param[in] LUNSTF -- integer: Fortran logical unit number for
 C>                      ASCII file containing standard Code/Flag table
@@ -18,11 +17,7 @@ C> @param[in] LUNLTF -- integer: Fortran logical unit number for
 C>                      ASCII file containing local Code/Flag table
 C>                      information
 C>
-C> <b>Program history log:</b>
-C> | Date | Programmer | Comments |
-C> | -----|------------|----------|
-C> | 2017-10-17 | J. Ator | Original author |
-C>
+C> @author J. Ator @date 2017-10-17
         SUBROUTINE RDMTBF ( LUNSTF, LUNLTF )
 
         CHARACTER*160   STLINE, LTLINE

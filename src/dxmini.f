@@ -1,21 +1,5 @@
 C> @file
 C> @brief Initialize a DX BUFR tables message.
-C>
-C> ### Program History Log
-C> Date | Programmer | Comments
-C> -----|------------|----------
-C> 1994-01-06 | J. Woollen | Original author.
-C> 1997-07-29 | J. Woollen | Modified to update the current bufr version written in section 0 from 2 to 3.
-C> 1998-07-08 | J. Woollen | Replaced call to cray library routine "abort" with call to new internal bufrlib routine bort().
-C> 2000-09-19 | J. Woollen | Maximum message length increased from 10,000 to 20,000 bytes.
-C> 2003-11-04 | S. Bender  | Added remarks/bufrlib routine interdependencies.
-C> 2003-11-04 | D. Keyser  | Unified/portable for wrf; added documentation (including history); more diagnostic info.
-C> 2004-08-09 | J. Ator    | Maximum message length increased from 20,000 to 50,000 bytes.
-C> 2005-11-29 | J. Ator    | Changed default master table version to 12.
-C> 2009-05-07 | J. Ator    | Changed default master table version to 13.
-C> 2019-05-21 | J. Ator    | Changed default master table version to 29.
-C> 2021-05-14 | J. Ator    | Changed default master table version to 36.
-C>
 C> @author Woollen @date 1994-01-06
 
 C> This subroutine initializes a DX BUFR tables (dictionary)

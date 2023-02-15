@@ -4,7 +4,6 @@
  * @author Ator @date 2009-03-23
  */
 
-
 #include "bufrlib.h"
 
 /**

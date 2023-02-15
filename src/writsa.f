@@ -2,22 +2,6 @@ C> @file
 C> @brief Write a data subset into a BUFR message, and return each
 C> completed message within a memory array.
 C>
-C> ### Program History Log
-C> Date | Programmer | Comments |
-C> -----|------------|----------|
-C> 1994-01-06 | J. Woollen | Original author |
-C> 1998-07-08 | J. Woollen | Replaced call to Cray library routine "ABORT" with call to new internal routine bort(); modified to make Y2K compliant |
-C> 2000-09-19 | J. Woollen | Maximum message length increased from 10,000 to 20,000 bytes |
-C> 2003-11-04 | S. Bender  | Added remarks and routine interdependencies |
-C> 2003-11-04 | D. Keyser  | Unified/portable for WRF; added documentation; outputs more complete diagnostic info when routine terminates abnormally |
-C> 2004-08-18 | J. Ator    | Add post msgupd() check for and return of message within MSGT in order to prevent loss of message in certain situations; maximum message length increased from 20,000 to 50,000 bytes |
-C> 2005-03-09 | J. Ator    | Added capability for compressed messages |
-C> 2009-03-23 | J. Ator    | Added LMSGT argument and check |
-C> 2014-12-10 | J. Ator    | Use modules instead of COMMON blocks |
-C> 2019-05-09 | J. Ator    | Added dimensions for MSGLEN and MSGTXT |
-C> 2020-09-22 | J. Ator    | Added capability to return two BUFR messages within MSGT during the same call to this routine, in the rare instances where this can occur |
-C> 2022-10-04 | J. Ator    | Added 8-byte wrapper |
-C>
 C> @author J. Woollen @author J. Ator @date 1994-01-06
 
 C> This subroutine is similar to subroutine writsb(), except that in

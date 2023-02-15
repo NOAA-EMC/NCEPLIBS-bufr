@@ -1,12 +1,11 @@
 C> @file
 C> @brief Specify location of master BUFR tables on local file system
+C>
+C> @author J. Ator @date 2009-03-23
 
 C> This subroutine allows the specification of the directory location
 C> and Fortran logical unit numbers to be used when reading master
 C> BUFR tables on the local file system.
-C>
-C> @author J. Ator
-C> @date 2009-03-23
 C>
 C> @param[in] CMTDIR  -- character*(*): Directory location of master
 C>                          BUFR tables on local file system
@@ -18,7 +17,7 @@ C> @param[in] LUNMT2  -- integer: Second Fortran logical unit number
 C>                          to use when reading master BUFR tables on
 C>                          local file system
 C>
-C> <p>See [Master BUFR Tables](@ref dfbfmstab)
+C> See [Master BUFR Tables](@ref dfbfmstab)
 C> for more information about master BUFR tables.  In particular, note
 C> that this subroutine is normally only ever called after a prior call
 C> has been made to subroutine openbf() with IO = 'SEC3'.  But in such
@@ -28,22 +27,17 @@ C> [message-reading subroutines](@ref hierarchy) for the associated BUFR
 C> file; otherwise, default values for CMTDIR, LUNMT1 and LUNMT2 will be
 C> used as defined within subroutine bfrini().
 C>
-C> <p>For CMTDIR, any full or relative directory pathname that is legal
+C> For CMTDIR, any full or relative directory pathname that is legal
 C> on the local filesystem is permissible, up to a total maximum length
 C> of 100 characters.  The BUFRLIB software will then automatically search
 C> within this directory for any necessary master table files and open and
 C> read them as needed.
 C>
-C> <p>The logical unit numbers LUNMT1 and LUNMT2 should be distinct from
+C> The logical unit numbers LUNMT1 and LUNMT2 should be distinct from
 C> each other but should not already be assigned to any files on the
 C> local system.
 C>
-C> <b>Program history log:</b>
-C> | Date | Programmer | Comments |
-C> | -----|------------|----------|
-C> | 2009-03-23 | J. Ator | Original author |
-C> | 2022-08-04 | J. Woollen | Added 8-byte wrapper |
-
+C> @author J. Ator @date 2009-03-23
       RECURSIVE SUBROUTINE MTINFO ( CMTDIR, LUNMT1, LUNMT2 )
 
       USE MODV_IM8B

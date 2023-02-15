@@ -1,15 +1,14 @@
 C> @file
 C> @brief Read master Table D information from local file system
+C>
+C> @author J. Ator @date 2007-01-19
 
 C> This subroutine reads master Table D information from two separate
 C> ASCII files (one standard and one local) and then merges the
 C> output into a single set of arrays.
 C>
-C> <p>Each of the two ASCII files must already be individually sorted
+C> Each of the two ASCII files must already be individually sorted
 C> in ascending order with respect to the FXY numbers.
-C>
-C> @author J. Ator
-C> @date 2007-01-19
 C>
 C> @param[in] LUNSTD -- integer: Fortran logical unit number for
 C>                      ASCII file containing standard Table D
@@ -54,12 +53,7 @@ C>                       representations of element FXY numbers
 C> @param[out] CEELEM -- character*120(*,*): Merged array containing
 C>                       element names
 C>
-C> <b>Program history log:</b>
-C> | Date | Programmer | Comments |
-C> | -----|------------|----------|
-C> | 2007-01-19 | J. Ator | Original author |
-C> | 2021-01-08 | J. Ator | Modified mstabs array declarations for GNUv10 portability |
-C>
+C> @author J. Ator @date 2007-01-19
         SUBROUTINE RDMTBD ( LUNSTD, LUNLTD, MXMTBD, MXELEM,
      .                      IMT, IMTV, IOGCE, ILTV,
      .                      NMTBD, IMFXYN, CMMNEM, CMDSC, CMSEQ,

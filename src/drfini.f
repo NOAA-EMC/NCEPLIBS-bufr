@@ -1,14 +1,13 @@
 C> @file
 C> @brief Initialize replication factors for delayed replication
 C> sequences.
+C>
+C> @author J. Woollen @date 2002-05-14
 
 C> This subroutine explicitly initializes delayed replication factors
 C> and allocates a corresponding amount of space within internal arrays,
 C> thereby allowing the subsequent use of subroutine ufbseq() to write
 C> data into delayed replication sequences.
-C>
-C> @author J. Woollen
-C> @date 2002-05-14
 C>
 C> @param[in] LUNIT -- integer: Fortran logical unit number for BUFR
 C>                     file
@@ -24,13 +23,13 @@ C> @param[in] DRFTAG -- character*(*): Table D sequence mnemonic,
 C>                      bracketed by appropriate delayed replication
 C>                      notation (e.g. {}, () OR <>)
 C>
-C> <p>Logical unit LUNIT should have already been opened for output
+C> Logical unit LUNIT should have already been opened for output
 C> operations (i.e. writing/encoding BUFR) via a previous call to
 C> subroutine openbf(), and a message for output should have already
 C> been opened via a previous call to one of the
 C> [message-writing subroutines].
 C>
-C> <p>The use of this subroutine is only required when writing data
+C> The use of this subroutine is only required when writing data
 C> into delayed replication sequences using ufbseq(), or for cases
 C> where ufbint() or ufbrep() are being used to write data into
 C> delayed replication sequences which occur more than once within
@@ -48,18 +47,7 @@ C> same type of initialization and space allocation functionality
 C> will be automatically handled internally within subroutine
 C> ufbint() or ufbrep().
 C>
-C> <b>Program history log:</b>
-C> | Date | Programmer | Comments |
-C> | -----|------------|----------|
-C> | 2002-05-14 | J. Woollen | Original author |
-C> | 2003-11-04 | S. Bender | Added remarks and routine interdependencies
-C> | 2003-11-04 | D. Keyser | Unified/portable for WRF; added history documentation; outputs more complete diagnostic info when routine terminates abnormally |
-C> | 2005-03-04 | J. Ator | Updated documentation |
-C> | 2014-09-08 | J. Ator | Increase NDRF limit from 100 to 200 |
-C> | 2014-12-10 | J. Ator | Use modules instead of COMMON blocks |
-C> | 2018-06-07 | J. Ator | Increase NDRF limit from 200 to 2000 |
-C> | 2022-08-04 | J. Woollen | Added 8-byte wrapper |
-
+C> @author J. Woollen @date 2002-05-14
       RECURSIVE SUBROUTINE DRFINI(LUNIT,MDRF,NDRF,DRFTAG)
 
       USE MODA_USRINT

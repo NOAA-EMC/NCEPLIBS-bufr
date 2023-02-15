@@ -1,18 +1,12 @@
 /** @file
  *  @brief Dynamically allocate C language arrays within internal memory.
- *
- * ### Program History Log
- * Date | Programmer | Comments
- * -----|------------|----------
- * 2014-12-04 | J. Ator | Original author.
- * 2021-05-17 | J. Ator | Allow up to 24 characters in cbunit.
- * 2023-01-18 | J. Ator | Remove MSTABS_BASE macro.
- *
  * @author J. Ator @date 2014-12-04
 */
 
 #include "bufrlib.h"
-/** Macro to control whether certain variables are explicitly declared or referenced as extern. */
+
+/** Macro to control whether certain variables are explicitly declared
+ * or referenced as extern. */
 #define IN_ARALLOCC
 #include "cread.h"
 #include "mstabs.h"

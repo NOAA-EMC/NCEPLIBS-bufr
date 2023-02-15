@@ -2,12 +2,6 @@ C> @file
 C> @brief Compute the number of characters
 C> needed to encode an integer as a string.
 C>
-C> ### Program History Log
-C> Date | Programmer | Comments
-C> -----|------------|----------
-C> 2009-03-23 | J. Ator | Original author.
-C> 2016-02-12 | J. Ator | Modified for crayftn compatibility.
-C>
 C> @author Ator @date 2009-03-23
 
 C> This function computes and returns the number of characters

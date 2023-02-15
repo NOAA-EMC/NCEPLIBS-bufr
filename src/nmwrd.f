@@ -1,15 +1,14 @@
 C> @file
 C> @brief Determine the array size needed to store a BUFR message.
+C>
+C> @author J. Ator @date 2005-11-29
 
 C> Given an integer array containing Section 0 from a BUFR
 C> message, this function determines the array size (in integers)
 C> needed to store the entire BUFR message.
 C>
-C> <p>This function is similar to function lmsg(), except that it
+C> This function is similar to function lmsg(), except that it
 C> takes an integer array as input rather than a character string.
-C>
-C> @author J. Ator
-C> @date 2005-11-29
 C>
 C> @param[in]  MBAY  -- integer(*): Section 0 from a BUFR message
 C> @returns   nmwrd  -- integer: Array size (in integers) needed to
@@ -20,12 +19,7 @@ C> - In some cases, the value returned may be slightly larger than
 C> the minimum number of integers needed to store the entire BUFR
 C> message.
 C>
-C> <b>Program history log:</b>
-C> | Date | Programmer | Comments |
-C> | -----|------------|----------|
-C> | 2005-11-29 | J. Ator | Original author |
-C> | 2022-10-04 | J. Ator | Added 8-byte wrapper |
-
+C> @author J. Ator @date 2005-11-29
         RECURSIVE FUNCTION NMWRD(MBAY) RESULT(IRET)
 
         USE MODV_IM8B

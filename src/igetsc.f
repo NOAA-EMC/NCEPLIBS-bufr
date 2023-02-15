@@ -1,14 +1,13 @@
 C> @file
 C> @brief Check for an abnormal status code associated with the
 C> processing of a file
+C>
+C> @author J. Ator @date 2010-05-11
 
 C> This function returns a status code associated with any file that
 C> was previously opened via a call to subroutine openbf(), so that
 C> the application program can check whether the BUFRLIB software
 C> encountered any specific problems while processing the file.
-C>
-C> @author J. Ator
-C> @date 2010-05-11
 C>
 C> @param[in] LUNIT -- integer: Fortran logical unit number for
 C>                         BUFR file
@@ -22,13 +21,7 @@ C> the remainder of the life of the application program.  However, it
 C> is most typically called immediately prior to exiting an application
 C> program.
 C>
-C> <b>Program history log:</b>
-C> | Date | Programmer | Comments |
-C> | -----|------------|----------|
-C> | 2010-05-11 | J. Ator | Original author |
-C> | 2014-12-10 | J. Ator | Use modules instead of COMMON blocks |
-C> | 2022-10-04 | J. Ator | Added 8-byte wrapper |
-
+C> @author J. Ator @date 2010-05-11
       RECURSIVE FUNCTION IGETSC(LUNIT) RESULT(IRET)
 
       USE MODV_IM8B

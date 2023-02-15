@@ -2,25 +2,6 @@ C> @file
 C> @brief Connect a new system file to the BUFRLIB software for
 C> reading or writing BUFR messages.
 C>
-C> <b>Program history log:</b>
-C> | Date | Programmer | Comments |
-C> | -----|------------|----------|
-C> | 1994-01-06 | J. Woollen | Original author |
-C> | 1998-07-08 | J. Woollen | Replaced call to Cray library routine ABORT with call to new internal routine bort() |
-C> | 1999-11-18 | J. Woollen | The number of BUFR files which can be opened at one time increased from 10 to 32 |
-C> | 2003-11-04 | J. Ator    | Added IO='NUL' option to prevent later writing to BUFR file in LUNIT; added documentation |
-C> | 2003-11-04 | S. Bender  | Added remarks and routine interdependencies |
-C> | 2003-11-04 | D. Keyser  | Unified/portable for WRF; added documentation; outputs more complete diagnostic info when routine terminates abnormally |
-C> | 2004-08-18 | J. Ator    | Added SAVE for IFIRST flag and IO="NODX" option |
-C> | 2005-11-29 | J. Ator    | Added COMMON /MSGFMT/ and ichkstr() call |
-C> | 2009-03-23 | J. Ator    | Added IO='SEC3' option; removed call to posapn; clarified comments; use errwrt() |
-C> | 2010-05-11 | J. Ator    | Added COMMON /STCODE/ |
-C> | 2012-06-18 | J. Ator    | Added IO='INUL' option |
-C> | 2012-09-15 | J. Woollen | Modified for C/I/O/BUFR interface; use INQUIRE to obtain filename; use openrb(), openwb() and openab(); add IO types 'INX' and 'FIRST' |
-C> | 2014-11-07 | J. Ator    | Allow dynamic allocation of certain arrays |
-C> | 2015-03-03 | J. Ator    | Use MODA_IFOPBF instead of IFIRST |
-C> | 2022-08-04 | J. Woollen | Added 8-byte wrapper |
-C>
 C> @authors J. Woollen, J. Ator,  D. Keyser @date 1994-01-06
 
 C> This subroutine connects a new file to the BUFRLIB software for

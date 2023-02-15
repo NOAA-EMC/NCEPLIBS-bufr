@@ -1,19 +1,6 @@
 C> @file
 C> @brief Store an entry for a Table B or D mnemonic within the internal jump/link table.
 C>
-C> ### Program History Log
-C> Date | Programmer | Comments
-C> -----|------------|---------
-C> 1994-01-06 | J. Woollen | original author
-C> 1998-07-08 | J. Woollen | replaced call to cray library routine "abort" with call to new internal bufrlib routine "bort"; corrected some minor errors
-C> 2003-11-04 | J. Ator    | added documentation
-C> 2003-11-04 | S. Bender  | added remarks/bufrlib routine interdependencies
-C> 2003-11-04 | D. Keyser  | maxjl increased to 16000; unified/portable for wrf; documentation; outputs more.
-C> 2005-11-29 | J. Ator    | added support for 207 and 208 operators
-C> 2010-03-19 | J. Ator    | added support for 204 operator
-C> 2012-03-02 | J. Ator    | added support for 203 operator
-C> 2014-12-10 | J. Ator    | use modules instead of common blocks
-C>
 C> @author Woollen @date 1994-01-06
 
 C> This subroutine builds and stores an entry for a Table B or

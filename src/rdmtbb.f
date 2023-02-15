@@ -1,15 +1,14 @@
 C> @file
 C> @brief Read master Table B information from local file system
+C>
+C> @author J. Ator @date 2007-01-19
 
 C> This subroutine reads master Table B information from two separate
 C> ASCII files (one standard and one local) and then merges the
 C> output into a single set of arrays.
 C>
-C> <p>Each of the two ASCII files must already be individually sorted
+C> Each of the two ASCII files must already be individually sorted
 C> in ascending order with respect to the FXY numbers.
-C>
-C> @author J. Ator
-C> @date 2007-01-19
 C>
 C> @param[in] LUNSTB -- integer: Fortran logical unit number for
 C>                      ASCII file containing standard Table B
@@ -51,13 +50,7 @@ C>                      descriptor codes
 C> @param[out] CMELEM -- character*120(*): Merged array containing
 C>                       element names
 C>
-C> <b>Program history log:</b>
-C> | Date | Programmer | Comments |
-C> | -----|------------|----------|
-C> | 2007-01-19 | J. Ator | Original author |
-C> | 2021-01-08 | J. Ator | Modified mstabs array declarations for GNUv10 portability |
-C> | 2021-05-17 | J. Ator | Allow up to 24 characters in cmunit |
-C>
+C> @author J. Ator @date 2007-01-19
         SUBROUTINE RDMTBB ( LUNSTB, LUNLTB, MXMTBB,
      .                      IMT, IMTV, IOGCE, ILTV,
      .                      NMTBB, IMFXYN, CMSCL, CMSREF, CMBW,

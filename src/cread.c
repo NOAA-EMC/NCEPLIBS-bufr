@@ -12,12 +12,6 @@
  *  included when writing BUFR messages to system files (if desired)
  *  via a previous call to subroutine setblock().
  *
- * ### Program History
- * Date | Programmer | Comments
- * -----|------------|----------
- * 2012-09-15 | J. Woollen | Original author
- * 2014-11-07 | J. Ator | Allow dynamic allocation of pb array
- *
  * @author J. Woollen @date 2012-09-15
  */
 

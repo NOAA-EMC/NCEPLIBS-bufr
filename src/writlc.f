@@ -1,21 +1,6 @@
 C> @file
 C> @brief Write a long character string (greater than 8 bytes) to a data subset.
 C>
-C> ### Program History Log
-C> Date | Programmer | Comments |
-C> -----|------------|----------|
-C> 2003-11-04 | J. Woollen | Original author
-C> 2004-08-09 | J. Ator    | Maximum message length increased from 20K to 50K bytes
-C> 2005-11-29 | J. Ator    | Use getlens()
-C> 2007-01-19 | J. Ator    | Replaced call to parseq with call to parstr()
-C> 2009-03-23 | J. Ator    | Added '#' option for more than one occurrence of STR
-C> 2009-08-11 | J. Woollen | Added COMMON COMPRS along with logic to write long strings into compressed subsets
-C> 2012-12-07 | J. Ator    | Allow str mnemonic length of up to 14 chars when used with '#' occurrence code
-C> 2014-10-22 | J. Ator    | No longer abort if no subset available for writing; just print a warning message
-C> 2014-12-10 | J. Ator    | USE modules instead of COMMON blocks
-C> 2020-09-09 | J. Ator    | No longer abort if STR not available within subset definition; instead, just print a warning message
-C> 2022-10-04 | J. Ator    | Added 8-byte wrapper
-C>
 C> @author J. Woollen @author J. Ator @date 2003-11-04
 
 C> This subroutine writes a long character string (greater than 8 bytes)to a data subset.

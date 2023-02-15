@@ -1,18 +1,6 @@
 C> @file
 C> @brief Get information about a Table D descriptor
 C>
-C> ### Program history log
-C> Date | Programmer | Comments
-C> -----|------------|---------
-C> 1994-01-06 | J. Woollen | Original author
-C> 1995-06-28 | J. Woollen | Increased the size of internal BUFR table arrays in order to handle bigger files
-C> 1998-07-08 | J. Woollen | Replaced call to Cray library routine "ABORT" with call to new internal routine bort()
-C> 1999-11-18 | J. Woollen | The number of BUFR files which can be opened at one time increased from 10 to 32
-C> 2000-09-19 | J. Woollen | Handle child mnemonics which are Table C operators
-C> 2003-11-04 | S. Bender  | Added remarks/bufrlib routine interdependencies
-C> 2003-11-04 | D. Keyser  | Unified/portable for WRF; added documentation; outputs more complete diagnostic info when routine terminates abnormally
-C> 2014-12-10 | J. Ator    | Use modules instead of COMMON blocks
-C>
 C> @author J. Woollen @date 1994-01-06
 
 C> This subroutine returns information about a Table D descriptor
