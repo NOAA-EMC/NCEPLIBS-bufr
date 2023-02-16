@@ -111,7 +111,7 @@ C> @author J. Ator @date 2018-01-11
         CHARACTER*(*)   NEMOI, NEMOD, CMEANG
 
         CHARACTER*128   BORT_STR
-        CHARACTER*8     NEMO
+        CHARACTER*8     NEMO, MY_NEMOI, MY_NEMOD
         CHARACTER*1     CDMF, TAB
 
         DIMENSION       IFXYD(10)
@@ -157,10 +157,18 @@ C*      came from within Section 3.
 
         LCMG = LEN ( CMEANG )
 
-        IF ( NEMOI(1:4) .EQ. 'GSES' ) THEN
-            IF ( ( NEMOD(1:6) .EQ. 'GCLONG' ) .OR.
-     .           ( NEMOD(1:4) .EQ. 'OGCE' ) .OR.
-     .           ( NEMOD(1:5) .EQ. 'ORIGC' ) )  THEN
+        MY_NEMOI = '        '
+        DO II = 1, MIN ( 8, LEN( NEMOI ) )
+            MY_NEMOI(II:II) = NEMOI(II:II)
+        END DO
+        MY_NEMOD = '        '
+        DO II = 1, MIN ( 8, LEN( NEMOD ) )
+            MY_NEMOD(II:II) = NEMOD(II:II)
+        END DO
+        IF ( MY_NEMOI(1:4) .EQ. 'GSES' ) THEN
+            IF ( ( MY_NEMOD(1:6) .EQ. 'GCLONG' ) .OR.
+     .           ( MY_NEMOD(1:4) .EQ. 'OGCE' ) .OR.
+     .           ( MY_NEMOD(1:5) .EQ. 'ORIGC' ) )  THEN
                 IFXYI = IFXY ( '001034' )
                 IFXYD(1) = IFXY ( '001035' )
             ELSE
@@ -173,19 +181,19 @@ C*      came from within Section 3.
                 END IF
                 RETURN
             END IF
-        ELSE IF ( NEMOI(1:6) .EQ. 'GCLONG' ) THEN
+        ELSE IF ( MY_NEMOI(1:6) .EQ. 'GCLONG' ) THEN
             IFXYI = IFXY ( '001031' )
             IFXYD(1) = (-1)
-        ELSE IF ( NEMOI(1:4) .EQ. 'OGCE' ) THEN
+        ELSE IF ( MY_NEMOI(1:4) .EQ. 'OGCE' ) THEN
             IFXYI = IFXY ( '001033' )
             IFXYD(1) = (-1)
-        ELSE IF ( NEMOI(1:5) .EQ. 'ORIGC' ) THEN
+        ELSE IF ( MY_NEMOI(1:5) .EQ. 'ORIGC' ) THEN
             IFXYI = IFXY ( '001035' )
             IFXYD(1) = (-1)
-        ELSE IF ( ( NEMOI(1:7) .EQ. 'TABLASS' ) .OR.
-     +            ( NEMOI(1:7) .EQ. 'TABLASL' ) ) THEN
-            IF ( ( NEMOD(1:6) .EQ. 'TABLAT' ) ) THEN
-                IF ( NEMOI(1:7) .EQ. 'TABLASS' ) THEN
+        ELSE IF ( ( MY_NEMOI(1:7) .EQ. 'TABLASS' ) .OR.
+     +            ( MY_NEMOI(1:7) .EQ. 'TABLASL' ) ) THEN
+            IF ( ( MY_NEMOD(1:6) .EQ. 'TABLAT' ) ) THEN
+                IF ( MY_NEMOI(1:7) .EQ. 'TABLASS' ) THEN
                     IFXYI = IFXY ( '055021' )
                 ELSE
                     IFXYI = IFXY ( '055022' )
@@ -201,17 +209,17 @@ C*      came from within Section 3.
                 END IF
                 RETURN
             END IF
-        ELSE IF ( NEMOI(1:6) .EQ. 'TABLAT' ) THEN
+        ELSE IF ( MY_NEMOI(1:6) .EQ. 'TABLAT' ) THEN
             IFXYI = IFXY ( '055020' )
             IFXYD(1) = (-1)
         ELSE
-            CALL PARSTR ( NEMOI, NEMO, 1, NTG, ' ', .TRUE. )
+            CALL PARSTR ( MY_NEMOI, NEMO, 1, NTG, ' ', .TRUE. )
             CALL NEMTAB ( LUN, NEMO, IFXYI, TAB, N )
             IF ( ( N .EQ. 0 ) .OR. ( TAB .NE. 'B' ) ) GOTO 904
             IF ( ( TABB ( N, LUN )(71:74) .NE. 'CODE' ) .AND.
      .           ( TABB ( N, LUN )(71:74) .NE. 'FLAG' ) ) GOTO 905
-            IF ( NEMOD(1:1) .NE. ' ' ) THEN
-                CALL PARSTR ( NEMOD, NEMO, 1, NTG, ' ', .TRUE. )
+            IF ( MY_NEMOD(1:1) .NE. ' ' ) THEN
+                CALL PARSTR ( MY_NEMOD, NEMO, 1, NTG, ' ', .TRUE. )
                 CALL NEMTAB ( LUN, NEMO, IFXYD(1), TAB, N )
                 IF ( ( N .EQ. 0 ) .OR. ( TAB .NE. 'B' ) ) GOTO 904
                 IF ( ( TABB ( N, LUN )(71:74) .NE. 'CODE' ) .AND.

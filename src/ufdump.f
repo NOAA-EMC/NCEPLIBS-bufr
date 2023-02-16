@@ -166,9 +166,11 @@ C  -------------------------------------------------------------------
 
       IF(ITYP.GE.1.AND.ITYP.LE.3) THEN
          CALL NEMTAB(LUN,NEMO,IDN,TAB,N)
-         NUMB = TABB(N,LUN)(1:6)
-         DESC = TABB(N,LUN)(16:70)
-         UNIT = TABB(N,LUN)(71:94)
+         if(n>0) then
+            NUMB = TABB(N,LUN)(1:6)
+            DESC = TABB(N,LUN)(16:70)
+            UNIT = TABB(N,LUN)(71:94)
+         endif
          RVAL = VAL(NV,LUN)
       ENDIF
 
