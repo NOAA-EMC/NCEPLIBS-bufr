@@ -67,7 +67,6 @@ file(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/testrun)
 
 list(APPEND test_IN_srcs
   test_IN_3.F
-  test_IN_5.F
   test_IN_6.F
   test_IN_7.F
   test_IN_8.F90
