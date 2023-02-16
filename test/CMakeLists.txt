@@ -79,7 +79,6 @@ list(APPEND test_OUT_2_srcs
   )
 
 list(APPEND test_OUT_other_srcs
-  test_OUT_1.F
   test_OUT_3.F
   test_OUT_4.F
   test_OUT_5.F
@@ -131,6 +130,7 @@ set(fortran_8_defs INTSIZE_8)
 foreach(kind ${test_kinds})
   create_test(intest1 ${kind})
   create_test(intest2 ${kind})
+  create_test(outtest1 ${kind})
 endforeach()
 
 # IN tests
