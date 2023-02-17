@@ -74,14 +74,6 @@ list(APPEND test_IN_srcs
   test_IN_8.F90
   )
 
-list(APPEND test_OUT_srcs
-  test_OUT_3.F
-  test_OUT_4.F
-  test_OUT_5.F
-  test_OUT_6.F
-  test_OUT_7.F90
-  )
-
 list(APPEND test_c_interface_srcs
   test_c_interface.c
   test_c_interface_2.c
@@ -90,7 +82,6 @@ list(APPEND test_c_interface_srcs
 # Install testing scripts
 list(APPEND test_scripts
   test_wrapper_IN.sh
-  test_wrapper_OUT.sh
   test_gettab.sh
   test_binv.sh
   test_sinv.sh
@@ -108,11 +99,6 @@ foreach(test_script ${test_scripts})
     ${CMAKE_BINARY_DIR}/bin/${test_script} )
 endforeach()
 
-function(bufr_add_test TESTNAME EXENAME)
-  add_test(NAME ${TESTNAME}
-           COMMAND ${CMAKE_BINARY_DIR}/bin/test_wrapper_OUT.sh ${EXENAME})
-endfunction()
-
 list(APPEND test_kinds 4 8 d)
 
 set(fortran_8_defs INTSIZE_8)
@@ -123,6 +109,11 @@ foreach(kind ${test_kinds})
   create_test(intest2 ${kind})
   create_test(outtest1 ${kind})
   create_test(outtest2 ${kind})
+  create_test(outtest3 ${kind})
+  create_test(outtest4 ${kind})
+  create_test(outtest5 ${kind})
+  create_test(outtest6 ${kind})
+  create_test(outtest7 ${kind})
 endforeach()
 
 # IN tests
@@ -138,22 +129,6 @@ foreach(test_src ${test_IN_srcs})
     add_dependencies(${test_exe} bufr_4)
     target_link_libraries(${test_exe} PUBLIC bufr::bufr_4)
     add_test(NAME ${test} COMMAND ${CMAKE_BINARY_DIR}/bin/test_wrapper_IN.sh ${test_exe})
-  endforeach()
-endforeach()
-
-# OUT tests
-foreach(test_src ${test_OUT_srcs})
-  string(REGEX REPLACE "(.F90|.F)" "" testPref ${test_src})
-  foreach(kind ${test_kinds})
-    set(test     ${testPref}_${kind})
-    set(test_exe ${test}.x)
-    add_executable(${test_exe} ${test_src})
-    set_target_properties(${test_exe} PROPERTIES COMPILE_FLAGS
-                                                 "${fortran_${kind}_flags}")
-    target_compile_definitions(${test_exe} PRIVATE "${fortran_${kind}_defs}")
-    add_dependencies(${test_exe} bufr_4)
-    target_link_libraries(${test_exe} PRIVATE bufr::bufr_4)
-    bufr_add_test(${test} ${test_exe})
   endforeach()
 endforeach()
 
