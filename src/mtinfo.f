@@ -1,5 +1,5 @@
 C> @file
-C> @brief Specify location of master BUFR tables on local file system
+C> @brief Specify location of master BUFR tables on local file system.
 C>
 C> @author J. Ator @date 2009-03-23
 

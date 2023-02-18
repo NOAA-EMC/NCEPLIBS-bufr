@@ -1,7 +1,7 @@
 ! This is a test for NCEPLIBS-bufr.
 !
-! Reads test file 'testfiles/IN_1' using CRBMG with
-! OPENBF IO = 'SEC3'.
+! Reads test file 'testfiles/IN_4' using CRBMG with OPENBF IO = 'SEC3'
+! using bitmap and marker operators.
 !
 ! Ed Hartnett, J. Ator, 2/16/23
 program intest4
@@ -24,7 +24,7 @@ program intest4
   equivalence (bfmg (1), ibfmg (1))
 
   print *, 'Testing reading IN_1, CRBMG with OPENBF IO = SEC3 ', &
-       'using bitmap and marker operators'
+       'using bitmap and marker operators.'
 
 #ifdef KIND_8
   call setim8b(.true.)
@@ -33,17 +33,21 @@ program intest4
   ! Open the test file.
   call cobfl(filnam, filost)
 
+  ! Set date format.
   call datelen(10)
 
+  ! Open /dev/null for output. ???
   open(unit = 11, file = '/dev/null')
   call openbf(11, 'SEC3', 11)
 
+  ! Specify location of master BUFR tables on local file system.  
   call mtinfo('../tables', 90, 91)
 
   ! Read the BUFR message from the BUFR file.
   call crbmg(bfmg, mxbf, nbyt, ierr)
   if (ierr .ne. 0) stop 1
-  
+
+  ! Check some values from the message.
   if (iupbs01(ibfmg, 'MTYP') .ne. 5 .or. iupbs01(ibfmg, 'MTV' ) .ne. 12 &
        .or. iupbs01(ibfmg, 'LENM') .ne. 3588) stop 2
 
