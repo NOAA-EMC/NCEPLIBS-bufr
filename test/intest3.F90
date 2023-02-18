@@ -13,8 +13,8 @@ program intest3
   CHARACTER cmgtag*8, celem(3)*40, cunit(3)*20
   LOGICAL decodeOK
 
-#ifdef INTSIZE_8
-  CALL SETIM8B ( .true. )
+#ifdef KIND_8
+  call setim8b(.true.)
 #endif
 
   OPEN(UNIT = 11, FILE = 'testfiles/IN_3', FORM ='UNFORMATTED')
