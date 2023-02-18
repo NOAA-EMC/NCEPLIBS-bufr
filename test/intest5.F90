@@ -7,8 +7,11 @@
 program intest5
   implicit none
   integer*4 ireadns
-  parameter (mxr8pm = 6)
-  parameter (mxr8lv = 50)
+  integer mxr8pm, mxr8lv
+  integer ier1, ier2, ier3, ier4
+  integer lcmg1, lcmg2, lcmg3, lcmg4, imgdt
+  parameter(mxr8pm = 6)
+  parameter(mxr8lv = 50)
   character cmgtag*8, cmeang1*40, cmeang2*40, cmeang3*40, cmeang4*40
 
   print *, 'Testing reading IN_5, with OPENBF IO = IN and LUNIN = LUNDX', & 

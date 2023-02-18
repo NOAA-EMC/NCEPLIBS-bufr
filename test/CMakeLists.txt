@@ -129,7 +129,7 @@ set(fortran_8_defs INTSIZE_8)
 foreach(kind ${test_kinds})
   create_test(intest1 ${kind})
   create_test(intest2 ${kind})
-  create_test(intest4 ${kind})
+  create_test(intest5 ${kind})
 endforeach()
 
 # IN tests
