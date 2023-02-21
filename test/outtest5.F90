@@ -19,7 +19,11 @@ program outtest5
 #endif
 
   ! Open the output log (ASCII) file.
+#ifdef KIND_8
+  open ( unit = 13, file = 'out5_8.txt' )
+#else
   open ( unit = 13, file = 'out5.txt' )
+#endif
 
   ! Make a "FIRST" call to subroutine OPENBF to dynamically allocate internal arrays.  Otherwise, the below call to
   ! subroutine DUMPBF will fail when trying to call subroutine STATUS, because subroutine OPENBF won't yet have been
@@ -69,7 +73,11 @@ program outtest5
   close ( 13 )
 
   ! Compare the output file to the baseline output file.
+#ifdef KIND_8
+  call execute_command_line ( 'cmp -s out5_8.txt testfiles/OUT_5', exitstat = xrc )
+#else
   call execute_command_line ( 'cmp -s out5.txt testfiles/OUT_5', exitstat = xrc )
+#endif
   if ( xrc .ne. 0 ) stop 1
 
   print *, 'SUCCESS!'
