@@ -6,7 +6,7 @@
 program outtest5
   implicit none
 
-  integer*4 ireadns, xrc
+  integer*4 ireadns
 
   integer jdate(5), jdump(5), ii, jtab, nsub, imgdt
 
@@ -74,7 +74,7 @@ program outtest5
 
   ! Compare the output file to the baseline output file.
 #ifdef KIND_8
-  call execute_command_line ( 'diff -w out5_8.txt testfiles/OUT_5 > out5diffs', exitstat = xrc )
+  call execute_command_line ( 'cmp -s out5_8.txt testfiles/OUT_5', exitstat = xrc )
   print *, 'xrc = ', xrc
 #else
   call execute_command_line ( 'cmp -s out5.txt testfiles/OUT_5', exitstat = xrc )
