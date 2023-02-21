@@ -8,7 +8,7 @@ program outtest5
 
   integer*4 ireadns
 
-  integer jdate(5), jdump(5), ii, jtab, nsub, imgdt
+  integer jdate(5), jdump(5), ii, jtab, nsub, imgdt, xrc
 
   character cmgtag*8, tabdb(1000)*128
 
