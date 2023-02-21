@@ -6,9 +6,9 @@
 program outtest5
   implicit none
 
-  integer*4 ireadns
+  integer*4 ireadns, xrc
 
-  integer jdate(5), jdump(5), ii, jtab, nsub, imgdt, xrc
+  integer jdate(5), jdump(5), ii, jtab, nsub, imgdt
 
   character cmgtag*8, tabdb(1000)*128
 
