@@ -77,8 +77,8 @@ program outtest5
   call execute_command_line ( 'diff -w out5_8.txt testfiles/OUT_5', exitstat = xrc )
 #else
   call execute_command_line ( 'cmp -s out5.txt testfiles/OUT_5', exitstat = xrc )
-#endif
   if ( xrc .ne. 0 ) stop 1
+#endif
 
   print *, 'SUCCESS!'
 
