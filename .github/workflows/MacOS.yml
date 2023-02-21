@@ -66,3 +66,4 @@ jobs:
         name: test_out5_8
         path: |
           bufr/build/test/out5_8.txt
+          bufr/build/test/out5diffs
