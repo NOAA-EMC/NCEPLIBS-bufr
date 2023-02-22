@@ -66,7 +66,7 @@ add_custom_command(
 file(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/testrun)
 
 list(APPEND test_IN_srcs
-  test_IN_3.F
+  test_IN_4.F
   test_IN_5.F
   test_IN_6.F
   test_IN_7.F
@@ -130,7 +130,7 @@ set(fortran_8_defs INTSIZE_8)
 foreach(kind ${test_kinds})
   create_test(intest1 ${kind})
   create_test(intest2 ${kind})
-  create_test(intest4 ${kind})
+  create_test(intest3 ${kind})
 endforeach()
 
 # IN tests
