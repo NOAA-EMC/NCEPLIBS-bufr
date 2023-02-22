@@ -62,5 +62,4 @@ program intest2
        nint(getvalnb(11,'SSNX',1,'SWCM',1)) .ne. 1) stop 9
 
   print *, 'SUCCESS!'
-end program
-
+end program intest2
