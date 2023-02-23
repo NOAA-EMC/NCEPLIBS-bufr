@@ -8,9 +8,9 @@ program outtest5
 
   integer*4 ireadns
 
-  integer jdate(5), jdump(5), ii, jtab, nsub, imgdt, xrc
+  integer jdate(5), jdump(5), ii, jtab, nsub, imgdt, xrc, cstat
 
-  character cmgtag*8, tabdb(1000)*128
+  character cmgtag*8, tabdb(1000)*128, cmsg*100
 
   print *, 'Testing writing OUT_5 using DUMPBF, GETABDB, UFDUMP, UFBDMP, and DXDUMP'
 
@@ -74,8 +74,10 @@ program outtest5
 
   ! Compare the output file to the baseline output file.
 #ifdef KIND_8
-  call execute_command_line ( 'cmp -s out5_8.bufr testfiles/OUT_5', exitstat = xrc )
+  call execute_command_line ( 'cmp -s out5_8.bufr testfiles/OUT_5', exitstat = xrc, cmdstat = cstat, cmdmsg = cmsg )
   print *, 'xrc = ', xrc
+  print *, 'cstat = ', cstat
+  print *, 'cmsg = ', trim(cmsg)
 #else
   call execute_command_line ( 'cmp -s out5.bufr testfiles/OUT_5', exitstat = xrc )
   if ( xrc .ne. 0 ) stop 1
