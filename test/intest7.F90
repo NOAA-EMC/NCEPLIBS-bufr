@@ -3,7 +3,7 @@
 ! Reads test file 'testfiles/IN_7' containing 2-03-YYY changed reference values, using inline ERRWRT to
 ! check error messages, and using UFBPOS, UFBTAB, and VALX
 !
-! J. Ator, 2/23/23
+! J. Ator, 2/23/2023
 
 module Share_errstr
   ! This module is needed in order to share information between the test program and subroutine errwrt, because

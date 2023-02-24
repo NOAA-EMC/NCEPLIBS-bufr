@@ -2,7 +2,7 @@
 !
 ! Reads test file 'testfiles/IN_6' using UFBMEM, RDMEMM, UFBMNS, and UFBTAM
 !
-! J. Ator, 2/23/23
+! J. Ator, 2/23/2023
 program intest6
   implicit none
  

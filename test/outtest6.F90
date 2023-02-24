@@ -2,7 +2,7 @@
 !
 ! Writes test file 'testfiles/OUT_6' using OPENMG and UFBSTP, and storing integer values larger than 32 bits.
 !
-! J. Ator, 2/17/23
+! J. Ator, 2/17/2023
 program outtest6
   implicit none
 

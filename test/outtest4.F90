@@ -2,7 +2,7 @@
 !
 ! Writes test file 'testfiles/OUT_4' using OPENBF IO = 'NODX' and IO = 'QUIET', and using STRCPT, WRDXTB and WRITSA
 !
-! J. Ator, 2/17/23
+! J. Ator, 2/17/2023
 program outtest4
   implicit none
 

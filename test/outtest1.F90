@@ -3,7 +3,7 @@
 ! Writes test file 'testfiles/OUT_1' using OPENBF IO = 'OUT' and LUNIN != LUNDX,
 ! and using 2-03-YYY to change reference values.
 !
-! J. Ator, 2/16/23
+! J. Ator, 2/16/2023
 program outtest1
   implicit none
 

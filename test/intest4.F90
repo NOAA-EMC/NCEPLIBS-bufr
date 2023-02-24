@@ -3,7 +3,7 @@
 ! Reads test file 'testfiles/IN_4' using CRBMG with OPENBF IO = 'SEC3'
 ! using bitmap and marker operators.
 !
-! Ed Hartnett, J. Ator, 2/22/23
+! Ed Hartnett, J. Ator, 2/22/2023
 program intest4
   implicit none
 

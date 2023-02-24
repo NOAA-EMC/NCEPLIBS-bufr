@@ -3,7 +3,7 @@
 ! Reads test file 'testfiles/IN_3' using nested delayed
 ! replication, OPENBF IO = IN, and LUNIN = LUNDX.
 !
-! Ed Hartnett, J. Ator, 2/22/23
+! Ed Hartnett, J. Ator, 2/22/2023
 program intest3
   implicit none
 

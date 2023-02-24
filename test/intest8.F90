@@ -2,7 +2,7 @@
 !
 ! Reads test file 'testfiles/IN_8' using RDMGSB, UFBEVN, UFBQCD, and UFBQCP to read prepbufr file
 !
-! J. Ator, 2/24/23
+! J. Ator, 2/24/2023
 program intest8
   implicit none
 

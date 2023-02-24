@@ -3,7 +3,7 @@
 ! Writes test file 'testfiles/OUT_3' using ISETPRM and IGETPRM, using EXITBUFR with multiple allocations,
 ! and using 2-22, 2-36 and 2-37 operators.
 !
-! J. Ator, 2/17/23
+! J. Ator, 2/17/2023
 program outtest3
   implicit none
 

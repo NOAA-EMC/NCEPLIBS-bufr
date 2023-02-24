@@ -3,7 +3,7 @@
 ! Writes test file 'testfiles/OUT_7' using UFBMEX, UFBRMS, UFBMMS, CPYMEM, ICOPYSB, FORTRAN_OPEN and FORTRAN_CLOSE,
 ! and reading integer values larger than 32 bits.
 !
-! J. Ator, 2/17/23
+! J. Ator, 2/17/2023
 program outtest7
   implicit none
 

@@ -2,7 +2,7 @@
 !
 ! Writes test file 'testfiles/OUT_2' using using OPENBF IO = 'APX' and embedded tables
 !
-! J. Ator, 2/16/23
+! J. Ator, 2/16/2023
 program outtest2
   implicit none
 

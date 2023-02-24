@@ -2,7 +2,7 @@
 !
 ! Writes test file 'testfiles/OUT_5' using DUMPBF, GETABDB, UFDUMP, UFBDMP, and DXDUMP
 !
-! J. Ator, 2/17/23
+! J. Ator, 2/17/2023
 program outtest5
   implicit none
 
