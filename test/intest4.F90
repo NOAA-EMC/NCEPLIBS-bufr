@@ -30,7 +30,7 @@ program intest4
 
   equivalence (bfmg (1), ibfmg (1))
 
-  print *, 'Testing reading IN_1, using CRBMG with OPENBF IO = SEC3, and using bitmap and marker operators.'
+  print *, 'Testing reading IN_4, using CRBMG with OPENBF IO = SEC3, and using bitmap and marker operators.'
 
 #ifdef KIND_8
   call setim8b(.true.)
