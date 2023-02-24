@@ -70,13 +70,6 @@ function(create_test name kind num)
   endif()
 endfunction()
 
-list(APPEND test_IN_srcs
-  test_IN_5.F
-  test_IN_6.F
-  test_IN_7.F
-  test_IN_8.F90
-  )
-
 list(APPEND test_c_interface_srcs
   test_c_interface.c
   test_c_interface_2.c
@@ -84,7 +77,6 @@ list(APPEND test_c_interface_srcs
 
 # Install testing scripts
 list(APPEND test_scripts
-  test_wrapper_IN.sh
   test_outtest.sh
   test_gettab.sh
   test_binv.sh
@@ -105,30 +97,12 @@ endforeach()
 
 list(APPEND test_kinds 4 8 d)
 
-set(fortran_8_defs INTSIZE_8)
-
 foreach(kind ${test_kinds})
-  foreach(innum RANGE 1 4)
+  foreach(innum RANGE 1 8)
     create_test(intest ${kind} ${innum})
   endforeach()
   foreach(outnum RANGE 1 7)
     create_test(outtest ${kind} ${outnum})
-  endforeach()
-endforeach()
-
-# IN tests
-foreach(test_src ${test_IN_srcs})
-  string(REGEX REPLACE "(.F90|.F)" "" testPref ${test_src})
-  foreach(kind ${test_kinds})
-    set(test     ${testPref}_${kind})
-    set(test_exe ${test}.x)
-    add_executable(${test_exe} ${test_src})
-    set_target_properties(${test_exe} PROPERTIES COMPILE_FLAGS
-                                                 "${fortran_${kind}_flags}")
-    target_compile_definitions(${test_exe} PRIVATE "${fortran_${kind}_defs}")
-    add_dependencies(${test_exe} bufr_4)
-    target_link_libraries(${test_exe} PUBLIC bufr::bufr_4)
-    add_test(NAME ${test} COMMAND ${CMAKE_BINARY_DIR}/bin/test_wrapper_IN.sh ${test_exe})
   endforeach()
 endforeach()
 
@@ -197,4 +171,3 @@ foreach(xb_num RANGE 1 2)
            "${CMAKE_BINARY_DIR}/utils/xbfmg ${xb_flags_${xb_num}}" "testfiles/data"
            "testfiles/testoutput/xbfmg" "${xb_case}")
 endforeach()
-
