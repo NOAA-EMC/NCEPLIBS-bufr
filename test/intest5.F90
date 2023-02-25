@@ -42,4 +42,5 @@ program intest5
   call getcfmng(11, 'GSES', 10, 'GCLONG', 173, cmeang4, lcmg4, ier4)
   if (ier4 .ne. 0 .or. lcmg4 .ne. 20 .or. cmeang4(1:lcmg4) .ne. 'Stennis Space Center') stop 5
 
+  print *, 'SUCCESS!'
 end program intest5
