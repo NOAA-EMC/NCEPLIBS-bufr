@@ -24,7 +24,7 @@ program outtest8
 
   character cmgtag*8
 
-  print *, 'Testing writing OUT_7 using UFBCPY and CWBMG'
+  print *, 'Testing writing OUT_8 using UFBCPY and CWBMG'
 
 #ifdef KIND_8
   call setim8b ( .true. )
