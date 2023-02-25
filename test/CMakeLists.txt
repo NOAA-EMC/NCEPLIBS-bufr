@@ -66,7 +66,6 @@ add_custom_command(
 file(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/testrun)
 
 list(APPEND test_IN_srcs
-  test_IN_7.F
   test_IN_8.F90
   )
 
@@ -131,6 +130,7 @@ foreach(kind ${test_kinds})
   create_test(intest4 ${kind})
   create_test(intest5 ${kind})
   create_test(intest6 ${kind})
+  create_test(intest7 ${kind})
 endforeach()
 
 # IN tests
