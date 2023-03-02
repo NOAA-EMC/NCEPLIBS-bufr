@@ -11,11 +11,11 @@ program intest5
   integer, parameter :: mxr8pm = 6
   integer, parameter :: mxr8lv = 10
 
-  integer imgdt, lcmg1, lcmg2, lcmg3, lcmg4, ier1, ier2, ier3, ier4, nlv
+  integer imgdt, lcmg, ier, nlv
 
   real*8 r8vals ( mxr8pm, mxr8lv ), r81dvals ( mxr8pm )
 
-  character cmgtag*8, cmeang1*40, cmeang2*40, cmeang3*40, cmeang4*40
+  character cmgtag*8, cmeang*40
 
   print *, 'Testing reading IN_5, using UFBGET and UFBINX, and checking PREPBUFR code/flag table meaning strings.'
 
@@ -43,21 +43,20 @@ program intest5
       ( nint(r81dvals(6)) .ne. 44 ) ) stop 2
 
   ! Retrieve and check some code/flag meaning strings.
-  call getcfmng ( 11, 'PRC', 106, ' ', -1, cmeang1, lcmg1, ier1 )
-  call getcfmng ( 11, 'PRC', 106, 'PPC', 5, cmeang2, lcmg2, ier2 )
-  call getcfmng ( 11, 'GSES', 10, ' ', -1, cmeang3, lcmg3, ier3 )
-  call getcfmng ( 11, 'GSES', 10, 'GCLONG', 173, cmeang4, lcmg4, ier4 )
-
-  if ( ( ier1 .ne. 1 ) .or. ( lcmg1 .ne. 8 ) .or. ( cmeang1(1:lcmg1) .ne. 'PPC     ' ) .or. &
-       ( ier2 .ne. 0 ) .or. ( lcmg2 .ne. 34 ) .or. &
-              ( cmeang2(1:lcmg2) .ne. 'Surface pressure observation error' ) .or. &
-       ( ier3 .ne. 3 ) .or. ( lcmg3 .ne. 24 ) .or. ( cmeang3(1:lcmg3) .ne. 'GCLONG  OGCE    ORIGC   ' ) .or. &
-       ( ier4 .ne. 0 ) .or. ( lcmg4 .ne. 20 ) .or. ( cmeang4(1:lcmg4) .ne. 'Stennis Space Center' ) ) stop 3
+  call getcfmng ( 11, 'PRC', 106, ' ', -1, cmeang, lcmg, ier )
+  if ( ( ier .ne. 1 ) .or. ( lcmg .ne. 8 ) .or. ( cmeang(1:lcmg) .ne. 'PPC     ' ) ) stop 3
+  call getcfmng ( 11, 'PRC', 106, 'PPC', 5, cmeang, lcmg, ier )
+  if ( ( ier .ne. 0 ) .or. ( lcmg .ne. 34 ) .or. &
+              ( cmeang(1:lcmg) .ne. 'Surface pressure observation error' ) ) stop 4
+  call getcfmng ( 11, 'GSES', 10, ' ', -1, cmeang, lcmg, ier )
+  if ( ( ier .ne. 3 ) .or. ( lcmg .ne. 24 ) .or. ( cmeang(1:lcmg) .ne. 'GCLONG  OGCE    ORIGC   ' ) ) stop 5
+  call getcfmng ( 11, 'GSES', 10, 'GCLONG', 173, cmeang, lcmg, ier )
+  if ( ( ier .ne. 0 ) .or. ( lcmg .ne. 20 ) .or. ( cmeang(1:lcmg) .ne. 'Stennis Space Center' ) ) stop 6
 
   ! Read and verify some values from the 2nd data subset of the 2nd message.
   call ufbinx ( 11, 2, 2, r8vals, mxr8pm, mxr8lv, nlv, 'CLAM CLTP' )
   if ( ( nlv .ne. 3 ) .or. ( nint(r8vals(1,1)) .ne. 7 ) .or. ( nint(r8vals(2,1)) .ne. 38 ) .or. &
-      ( nint(r8vals(2,2)) .ne. 61 ) .or. ( nint(r8vals(2,3)) .ne. 60 ) ) stop 4
+      ( nint(r8vals(2,2)) .ne. 61 ) .or. ( nint(r8vals(2,3)) .ne. 60 ) ) stop 7
 
   ! Free the memory that was dynamically allocated when reading the code and flag tables.
   call dlloctbf()

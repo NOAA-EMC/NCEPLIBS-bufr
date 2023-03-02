@@ -38,7 +38,7 @@ program intest7
 
   integer*4 isetprm, igetprm, ireadns, ibfms
 
-  integer imgdt, iret1, iret2, jdate, nr8a, nr8v, nr8v2, idx1, idx2, nsub
+  integer imgdt, iret, jdate, nr8v, idx, nsub
 
   integer mxr8pm, mxr8lv
   parameter ( mxr8pm = 15 )
@@ -58,11 +58,12 @@ program intest7
 #endif
 
   ! Check error messages in ISETPRM.
-  iret1 = isetprm ( 'MXNRV', 5 )
+  iret = isetprm ( 'MXNRV', 5 )
+  if ( iret .ne. 0 ) stop 1
   errstr_len = 1
-  iret2 = isetprm ( 'DUMMY', 20 )
-  if ( ( iret1 .ne. 0 ) .or. ( iret2 .ne. -1 ) .or. &
-      ( index( errstr(1:errstr_len), 'ISETPRM - UNKNOWN INPUT PARAMETER DUMMY' ) .eq. 0 ) ) stop 1
+  iret = isetprm ( 'DUMMY', 20 )
+  if ( ( iret .ne. -1 ) .or. &
+      ( index( errstr(1:errstr_len), 'ISETPRM - UNKNOWN INPUT PARAMETER DUMMY' ) .eq. 0 ) ) stop 2
 
   ! Open the input file and DX table.
   open ( unit = 11, file = 'testfiles/IN_7', form ='unformatted')
@@ -71,72 +72,81 @@ program intest7
   call openbf ( 11, 'QUIET', 1 )
 
   ! Check error messages in IGETPRM.
-  iret1 = igetprm ( 'MXNRV' )
+  iret = igetprm ( 'MXNRV' )
+  if ( iret .ne. 5 ) stop 3
   errstr_len = 1
-  iret2 = igetprm ( 'DUMMY' )
-  if ( ( iret1 .ne. 5 ) .or. ( iret2 .ne. -1 ) .or. &
-      ( index( errstr(1:errstr_len), 'IGETPRM - UNKNOWN INPUT PARAMETER DUMMY' ) .eq. 0 ) ) stop 2
+  iret = igetprm ( 'DUMMY' )
+  if ( ( iret .ne. -1 ) .or. &
+      ( index( errstr(1:errstr_len), 'IGETPRM - UNKNOWN INPUT PARAMETER DUMMY' ) .eq. 0 ) ) stop 4
 
   ! Read some data values from the 1st messaage, which uses the 2-03-YYY operator to change one of the
   ! reference values.
-  if ( ireadns ( 11, cmgtag, imgdt ) .ne. 0 ) stop 3
-  call ufbrep ( 11, r8arr, mxr8pm, mxr8lv, nr8a, 'TIDER' )
+  if ( ireadns ( 11, cmgtag, imgdt ) .ne. 0 ) stop 5
+  call ufbrep ( 11, r8arr, mxr8pm, mxr8lv, nr8v, 'TIDER' )
+  if ( ( nr8v .ne. 2 ) .or. &
+      ( nint ( r8arr(1,1) ) .ne. -10000 ) .or. ( nint ( r8arr(1,2) ) .ne. 16 ) ) stop 6
   errstr_len = 1
   call ufbrep ( 11, r8val, 1, 1, nr8v, 'DUMMY' )
-  idx1 = index( errstr(1:errstr_len), 'UFBREP - NO SPECIFIED VALUES READ IN' )
+  idx = index( errstr(1:errstr_len), 'UFBREP - NO SPECIFIED VALUES READ IN' )
+  if ( ( nr8v .ne. 0 ) .or. ( idx .eq. 0 ) ) stop 7
   errstr_len = 1
-  call ufbrep ( 11, r8val, 0, 1, nr8v2, 'TIDER' )
-  idx2 = index( errstr(1:errstr_len), 'UFBREP - 3rd ARG. (INPUT) IS .LE. 0' )
-  if ( ( nr8a .ne. 2 ) .or. ( nr8v .ne. 0 ) .or. ( nr8v2 .ne. 0 ) .or. ( idx1 .eq. 0 ) .or. ( idx2 .eq. 0 ) &
-       .or. ( nint ( r8arr(1,1) ) .ne. -10000 ) .or. ( nint ( r8arr(1,2) ) .ne. 16 ) ) stop 4
+  call ufbrep ( 11, r8val, 0, 1, nr8v, 'TIDER' )
+  idx = index( errstr(1:errstr_len), 'UFBREP - 3rd ARG. (INPUT) IS .LE. 0' )
+  if ( ( nr8v .ne. 0 ) .or. ( idx .eq. 0 ) ) stop 8
 
   ! Jump ahead to the 5th subset of the 23rd message and read some data values.
   call ufbpos ( 11, 23, 5, cmgtag, jdate )
-  call ufbint ( 11, r8arr, mxr8pm, mxr8lv, nr8a, 'CLATH CLONH TMDB SWRAD' )
+  call ufbint ( 11, r8arr, mxr8pm, mxr8lv, nr8v, 'CLATH CLONH TMDB SWRAD' )
+  if ( ( nr8v .ne. 1 ) .or.  &
+      ( nint ( r8arr(1,1)*100000 ) .ne. 2001191 ) .or. ( nint ( r8arr(2,1)*100000 ) .ne. -3785017 ) .or. &
+      ( nint ( r8arr(3,1)*100 ) .ne. 30035 ) .or. ( nint ( r8arr(4,1) ) .ne. 2187000 ) ) stop 9
   errstr_len = 1
   call ufbint ( 11, r8val, 1, 1, nr8v, 'DUMMY' )
-  idx1 = index( errstr(1:errstr_len), 'UFBINT - NO SPECIFIED VALUES READ IN' )
+  idx = index( errstr(1:errstr_len), 'UFBINT - NO SPECIFIED VALUES READ IN' )
+  if ( ( nr8v .ne. 0 ) .or. ( idx .eq. 0 ) ) stop 10
   errstr_len = 1
-  call ufbint ( 11, r8val, 1, 0, nr8v2, 'TMDB' )
-  idx2 = index( errstr(1:errstr_len), 'UFBINT - 4th ARG. (INPUT) IS .LE. 0' )
-  if ( ( nr8a .ne. 1 ) .or. ( nr8v .ne. 0 ) .or. ( nr8v2 .ne. 0 ) .or. ( idx1 .eq. 0 ) .or. ( idx2 .eq. 0 ) &
-       .or. ( nint ( r8arr(1,1)*100000 ) .ne. 2001191 ) .or. ( nint ( r8arr(2,1)*100000 ) .ne. -3785017 ) &
-       .or. ( nint ( r8arr(3,1)*100 ) .ne. 30035 ) .or. ( nint ( r8arr(4,1) ) .ne. 2187000 ) ) stop 5
+  call ufbint ( 11, r8val, 1, 0, nr8v, 'TMDB' )
+  idx = index( errstr(1:errstr_len), 'UFBINT - 4th ARG. (INPUT) IS .LE. 0' )
+  if ( ( nr8v .ne. 0 ) .or. ( idx .eq. 0 ) ) stop 11
 
   ! Jump ahead to the 2nd subset of the 30th message and read some data values.
   call ufbpos ( 11, 30, 2, cmgtag, jdate )
-  call ufbstp ( 11, r8arr, mxr8pm, mxr8lv, nr8a, 'CLAT CLON HSMSL' )
+  call ufbstp ( 11, r8arr, mxr8pm, mxr8lv, nr8v, 'CLAT CLON HSMSL' )
+  if ( ( nr8v .ne. 1 ) .or. &
+      ( nint ( r8arr(1,1)*100 ) .ne. 3163 ) .or. ( nint ( r8arr(2,1)*100 ) .ne. -11017 ) .or. &
+      ( nint ( r8arr(3,1) ) .ne. 1205 ) ) stop 12
   errstr_len = 1
   call ufbstp ( 11, r8val, 1, 1, nr8v, 'DUMMY' )
-  idx1 = index( errstr(1:errstr_len), 'UFBSTP - NO SPECIFIED VALUES READ IN' )
+  idx = index( errstr(1:errstr_len), 'UFBSTP - NO SPECIFIED VALUES READ IN' )
+  if ( ( nr8v .ne. 0 ) .or. ( idx .eq. 0 ) ) stop 13
   errstr_len = 1
-  call ufbstp ( 11, r8val, 1, 0, nr8v2, 'CLON' )
-  idx2 = index( errstr(1:errstr_len), 'UFBSTP - 4th ARG. (INPUT) IS .LE. 0' )
-  if ( ( nr8a .ne. 1 ) .or. ( nr8v .ne. 0 ) .or. ( nr8v2 .ne. 0 ) .or. ( idx1 .eq. 0 ) .or. ( idx2 .eq. 0 ) &
-       .or. ( nint ( r8arr(1,1)*100 ) .ne. 3163 ) .or. ( nint ( r8arr(2,1)*100 ) .ne. -11017 ) &
-       .or. ( nint ( r8arr(3,1) ) .ne. 1205 ) ) stop 6
+  call ufbstp ( 11, r8val, 1, 0, nr8v, 'CLON' )
+  idx = index( errstr(1:errstr_len), 'UFBSTP - 4th ARG. (INPUT) IS .LE. 0' )
+  if ( ( nr8v .ne. 0 ) .or. ( idx .eq. 0 ) ) stop 14
 
   ! Jump backwards to the 88th subset of the 29th message and read some data values.
   call ufbpos ( 11, 29, 88, cmgtag, jdate )
-  call ufbseq ( 11, r8arr, mxr8pm, mxr8lv, nr8a, 'NC008023' )
+  call ufbseq ( 11, r8arr, mxr8pm, mxr8lv, nr8v, 'NC008023' )
+  if ( ( nr8v .ne. 1 ) .or. &
+      ( nint ( r8arr(6,1)*100000 ) .ne. 2967000 ) .or. ( nint ( r8arr(7,1)*100000 ) .ne. -9512833 ) .or. &
+      ( nint ( r8arr(5,1) ) .ne. 482011039 ) ) stop 15
   errstr_len = 1
   call ufbseq ( 11, r8val, 1, 1, nr8v, 'DUMMY' )
-  idx1 = index( errstr(1:errstr_len), 'UFBSEQ - NO SPECIFIED VALUES READ IN' )
+  idx = index( errstr(1:errstr_len), 'UFBSEQ - NO SPECIFIED VALUES READ IN' )
+  if ( ( nr8v .ne. 0 ) .or. ( idx .eq. 0 ) ) stop 16
   errstr_len = 1
-  call ufbseq ( 11, r8val, 0, 1, nr8v2, 'CLON' )
-  idx2 = index( errstr(1:errstr_len), 'UFBSEQ - 3rd ARG. (INPUT) IS .LE. 0' )
-  if ( ( nr8a .ne. 1 ) .or. ( nr8v .ne. 0 ) .or. ( nr8v2 .ne. 0 ) .or. ( idx1 .eq. 0 ) .or. ( idx2 .eq. 0 ) &
-       .or. ( nint ( r8arr(6,1)*100000 ) .ne. 2967000 ) .or. ( nint ( r8arr(7,1)*100000 ) .ne. -9512833 ) &
-       .or. ( nint ( r8arr(5,1) ) .ne. 482011039 ) ) stop 7
+  call ufbseq ( 11, r8val, 0, 1, nr8v, 'CLON' )
+  idx = index( errstr(1:errstr_len), 'UFBSEQ - 3rd ARG. (INPUT) IS .LE. 0' )
+  if ( ( nr8v .ne. 0 ) .or. ( idx .eq. 0 ) ) stop 17
 
   ! Rewind the file and get a total count of the subsets.
   call ufbtab ( -11, r8val, 1, 1, nsub, ' ' )
-  if ( ( nsub .ne. 402 ) .or. ( ibfms ( r8val ) .ne. 1 ) ) stop 8
+  if ( ( nsub .ne. 402 ) .or. ( ibfms ( r8val ) .ne. 1 ) ) stop 18
 
   ! Test the error handling inside of VALX.
   errstr_len = 1
   r8val = valx ( '75.DUMMY' )
-  if ( ( index( errstr(1:errstr_len), 'VALX - ERROR READING STRING' ) .eq. 0 ) ) stop 9
+  if ( ( index( errstr(1:errstr_len), 'VALX - ERROR READING STRING' ) .eq. 0 ) ) stop 19
 
   print *, 'SUCCESS!'
 end program intest7

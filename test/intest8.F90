@@ -10,11 +10,11 @@ program intest8
   integer, parameter :: mxr8lv = 500
   integer, parameter :: mxr8en = 10
 
-  integer ibit1(6), ibit2(6), nib1, nib2, ier, ilv, iqcd1, iqcd2
+  integer ibit(6), nib, ier, ilv, iqcd
 
-  real*8 hdr(6,1), r8vals( mxr8pm, mxr8lv, mxr8en ), r8v1, r8v2
+  real*8 hdr(6,1), r8vals( mxr8pm, mxr8lv, mxr8en ), r8v
 
-  character*8 mnem1, mnem2
+  character*8 mnem
 
   print *, 'Testing reading IN_8 using RDMGSB, UFBEVN, UFBQCD, and UFBQCP to read prepbufr file.'
 
@@ -52,20 +52,22 @@ program intest8
 
   ! Other checks.
 
-  call ufbqcd ( 11, 'RADCOR', iqcd1 )
-  call ufbqcd ( 11, 'ACARSQC', iqcd2 )
-  if ( ( iqcd1 /= 6 ) .or. ( iqcd2 /= 14 ) ) stop 4
+  call ufbqcd ( 11, 'RADCOR', iqcd )
+  if ( iqcd /= 6 ) stop 4
+  call ufbqcd ( 11, 'ACARSQC', iqcd )
+  if ( iqcd /= 14 ) stop 5
 
-  call ufbqcp ( 11, 2, mnem1 )
-  call ufbqcp ( 11, 8, mnem2 )
-  if ( ( mnem1(1:7) .ne. 'SYNDATA' ) .or. ( mnem2(1:6) .ne. 'VIRTMP' ) ) stop 5
+  call ufbqcp ( 11, 2, mnem )
+  if ( mnem(1:7) .ne. 'SYNDATA' ) stop 6
+  call ufbqcp ( 11, 8, mnem )
+  if ( mnem(1:6) .ne. 'VIRTMP' ) stop 7
 
-  r8v1 = 224.
-  call upftbv ( 11, 'RSRD', r8v1, 6, ibit1, nib1 )
-  r8v2 = 264192.
-  call upftbv ( 11, 'WVCQ', r8v2, 6, ibit2, nib2 )
-  if ( ( nib1 /= 3 ) .or. ( ibit1(1) /= 2 ) .or. ( ibit1(2) /= 3 ) .or. ( ibit1(3) /= 4 ) .or. &
-       ( nib2 /= 2 ) .or. ( ibit2(1) /= 6 ) .or. ( ibit2(2) /= 13 ) ) stop 6
+  r8v = 224.
+  call upftbv ( 11, 'RSRD', r8v, 6, ibit, nib )
+  if ( ( nib /= 3 ) .or. ( ibit(1) /= 2 ) .or. ( ibit(2) /= 3 ) .or. ( ibit(3) /= 4 ) ) stop 8
+  r8v = 264192.
+  call upftbv ( 11, 'WVCQ', r8v, 6, ibit, nib )
+  if ( ( nib /= 2 ) .or. ( ibit(1) /= 6 ) .or. ( ibit(2) /= 13 ) ) stop 9
 
   print *, 'SUCCESS!'
 end program intest8

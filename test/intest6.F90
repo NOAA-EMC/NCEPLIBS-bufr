@@ -8,7 +8,7 @@ program intest6
  
   integer*4 nmsub
 
-  integer iyr, imon, iday, ihour, imgdt, ier, icnt1, icnt2, iunt1, iunt2, nsub
+  integer iyr, imon, iday, ihour, imgdt, ier, icnt, iunt, nsub
 
   integer mxr8pm, mxr8lv
   parameter ( mxr8pm = 2 )
@@ -35,24 +35,25 @@ program intest6
   rewind ( 22 )
 
   ! Open both input files and read the contents into internal arrays.
-  call ufbmem ( 21, 0, icnt1, iunt1 )
-  call ufbmem ( 22, 1, icnt2, iunt2 )
-  if ( ( icnt1 .ne. 926 ) .or. ( icnt2 .ne. 344 ) .or. ( iunt1 .ne. 21 ) .or. ( iunt2 .ne. 21 ) ) stop 2
+  call ufbmem ( 21, 0, icnt, iunt )
+  if ( ( icnt .ne. 926 ) .or. ( iunt .ne. 21 ) ) stop 2
+  call ufbmem ( 22, 1, icnt, iunt )
+  if ( ( icnt .ne. 344 ) .or. ( iunt .ne. 21 ) ) stop 3
 
   ! Locate message #167 within the internal arrays and verify some values.
   call rdmemm ( 167, cmgtag, imgdt, ier )
-  if ( ( cmgtag .ne. 'NC004002' ) .or. ( imgdt .ne. 21031713 ) .or. ( nmsub(iunt2) .ne. 3 ) ) stop 3
+  if ( ( cmgtag .ne. 'NC004002' ) .or. ( imgdt .ne. 21031713 ) .or. ( nmsub(iunt) .ne. 3 ) ) stop 4
 
   ! Locate subset #18364 within the internal arrays and verify some values.
   call ufbmns ( 18364, cmgtag, imgdt )
-  if ( ( cmgtag .ne. 'NC002003' ) .or. ( imgdt .ne. 21031900 ) .or. ( nmsub(iunt2) .ne. 2 ) ) stop 4
+  if ( ( cmgtag .ne. 'NC002003' ) .or. ( imgdt .ne. 21031900 ) .or. ( nmsub(iunt) .ne. 2 ) ) stop 5
 
   ! Scan for certain values across all of the data subsets in the internal arrays, and verify some of them.
   call ufbtam ( r8vals, mxr8pm, mxr8lv, nsub, 'CLAT CLON' )
   if ( ( nsub .ne. 18447 ) .or. &
       ( nint(r8vals(1,1285)*100) .ne. 4328 ) .or. ( nint(r8vals(2,1285)*100) .ne. -7910 ) .or. &
       ( nint(r8vals(1,5189)*100) .ne. 3918 ) .or. ( nint(r8vals(2,5189)*100) .ne. 11638 ) .or. &
-      ( nint(r8vals(1,17961)*100) .ne. 3070 ) .or. ( nint(r8vals(2,17961)*100) .ne. 10383 ) ) stop 5
+      ( nint(r8vals(1,17961)*100) .ne. 3070 ) .or. ( nint(r8vals(2,17961)*100) .ne. 10383 ) ) stop 6
 
   print *, 'SUCCESS!'
 end program intest6
