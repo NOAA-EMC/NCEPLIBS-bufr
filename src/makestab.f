@@ -166,7 +166,7 @@ C  -----------------------------------------------------------
 C        Reset any existing inventory pointers.
 
          IF(IOMSG(LUN).NE.0) THEN
-            IF(LUS(LUN).EQ.0) THEN
+            IF(LUS(LUN).LE.0) THEN
               INC = (NTAB+1)-MTAB(1,LUN)
             ELSE
               INC = MTAB(1,LUS(LUN))-MTAB(1,LUN)
