@@ -3,7 +3,7 @@
 ! Reads test file 'testfiles/IN_2' with OPENBF IO = IN and LUNIN !=
 ! LUNDX.
 !
-! Ed Hartnett, J. Ator, 2/15/23
+! Ed Hartnett, J. Ator, 2/15/2023
 program intest2
   implicit none
   integer*4 ireadmg, iupvs01, nmsub, ibfms

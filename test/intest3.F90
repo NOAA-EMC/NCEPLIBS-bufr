@@ -3,7 +3,7 @@
 ! Reads test file 'testfiles/IN_3' using nested delayed
 ! replication, OPENBF IO = IN, and LUNIN = LUNDX.
 !
-! Ed Hartnett, J. Ator, 2/22/23
+! Ed Hartnett, J. Ator, 2/22/2023
 program intest3
   implicit none
 
@@ -14,13 +14,12 @@ program intest3
   parameter (mxr8lv = 50)
 
   integer isct, imgdt, ityr, itmo, itdy, ithr, itmi, ier, &
-        nr8lv, nr8rr, nr8rf, nr8rhr, nr8rh, nr8rdr, nr8rd, &
-        ierndh, iernds, ierndd
+        nr8lv, nr8rr, nr8rf, nr8rhr, nr8rh, nr8rdr, nr8rd
 
   real*8 r8arr(mxr8pm, mxr8lv), r8arf(mxr8pm, mxr8lv), r8arhr(1, mxr8lv), &
        r8arh(mxr8pm, mxr8lv), r8ardr(1, mxr8lv), r8ard (mxr8pm, mxr8lv)
 
-  character cmgtag*8, celem(3)*40, cunit(3)*20
+  character cmgtag*8, celem*40, cunit*20
 
   print *, 'Testing reading IN_3, using nested delayed replication, OPENBF IO = IN, and LUNIN = LUNDX'
 
@@ -131,16 +130,18 @@ program intest3
   enddo
 
   ! Verify that all available subsets were successfully read.
-  if ( isct .ne. 10 ) stop 102
+  if ( isct .ne. 10 ) stop 112
 
   ! Check some mnemonic definitions.
-  call nemdefs ( 11, 'HSMSL', celem(1), cunit(1), ierndh )
-  call nemdefs ( 11, 'SHRV', celem(2), cunit(2), iernds )
-  call nemdefs ( 11, 'DCHG', celem(3), cunit(3), ierndd )
-  if ( ( ierndh .ne. 0 ) .or. ( iernds .ne. 0 ) .or. ( ierndd .ne. 0 ) .or. ( celem(1)(1:36) .ne. &
-       'HEIGHT OF STATION GROUND ABOVE MSL  ' ) .or. ( cunit(1)(1:9) .ne. 'METERS   ' ) .or. &
-       ( celem(2)(1:24) .ne. 'SHEF DATA REVISION FLAG ' ) .or. ( cunit(2)(1:12) .ne. 'CODE TABLE  ' ) .or. &
-       ( celem(3)(1:15) .ne. 'DISCHARGE      ' ) .or. ( cunit(3)(1:20) .ne. 'METERS**3/SECOND    ' ) ) stop 103
+  call nemdefs ( 11, 'HSMSL', celem, cunit, ier )
+  if ( ( ier .ne. 0 ) .or. ( celem(1:36) .ne. 'HEIGHT OF STATION GROUND ABOVE MSL  ' ) .or. &
+      ( cunit(1:9) .ne. 'METERS   ' ) ) stop 113
+  call nemdefs ( 11, 'SHRV', celem, cunit, ier )
+  if ( ( ier .ne. 0 ) .or. ( celem(1:24) .ne. 'SHEF DATA REVISION FLAG ' ) .or. &
+      ( cunit(1:12) .ne. 'CODE TABLE  ' ) ) stop 114
+  call nemdefs ( 11, 'DCHG', celem, cunit, ier )
+  if ( ( ier .ne. 0 ) .or. ( celem(1:15) .ne. 'DISCHARGE      ' ) .or. &
+      ( cunit(1:20) .ne. 'METERS**3/SECOND    ' ) ) stop 115
 
   print *, 'SUCCESS!'
 end program intest3
