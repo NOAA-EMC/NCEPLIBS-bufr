@@ -13,43 +13,30 @@
 #include "bufrlib.h"
 #include "cobfl.h"
 
-#ifdef UNDERSCORE
-#define fdebufr fdebufr_
-#endif
-
 /**
  * Read, decode, and print a verbose output listing of the contents of a BUFR file.
  *
  * All arguments are input.
  *
  * @param ofile - File to contain verbose output listing
+ * @param lenof - Length of ofile string
  * @param tbldir - Directory containing DX and/or master BUFR tables for decoding
  * @param lentd - Length of tbldir string
  * @param tblfil - File containing DX BUFR table information for decoding
+ * @param lentf - Length of tblfil string
  * @param prmstg - String of up to 20 comma-separated PARAMETER=VALUE pairs to be
  *                 used for dynamically allocating memory withint the BUFRLIB
+ * @param lenps - Length of prmstg string
  * @param basic  - Indicates whether to only decode and print the contents of Sections 0-3
  * @param forcemt - Indicates whether to ignore embedded DX BUFR tables and force the
  *                  use of master BUFR tables for decoding
  * @param cfms - Indicates whether code and flag table meanings should be read from
  *               master BUFR tables and included in the output
- * @param s1 - Extra C-Fortran interface argument containing length of ofile variable.
- * @param s2 - Extra C-Fortran interface argument containing length of tbldir variable.
- * @param s3 - Extra C-Fortran interface argument containing length of tblfil variable.
- * @param s4 - Extra C-Fortran interface argument containing length of prmstg variable.
- * @param s5 - Extra C-Fortran interface argument containing length of basic variable.
- * @param s6 - Extra C-Fortran interface argument containing length of forcemt variable.
- * @param s7 - Extra C-Fortran interface argument containing length of cfms variable.
  *
  * @author J. Ator @date 2009-07-01
  */
-void fdebufr( char *ofile, char *tbldir, f77int *lentd, char *tblfil, char *prmstg, char *basic, char *forcemt, char *cfms,
-              size_t s1, size_t s2, size_t s3, size_t s4, size_t s5, size_t s6, size_t s7);
-
-/** Maximum length of the [path/]name passed in for bufrfile. */
-#define MXFLEN 500
-/** Maximum length of the [path/]name for a BUFR tables file, based on the value of MXFLEN. */
-#define MXFLEN_TBLFIL (MXFLEN+50)
+void fdebufr_f( char *ofile, int lenof, char *tbldir, int lentd, char *tblfil, int lentf, char *prmstg, int lenps,
+                char basic, char forcemt, char cfms );
 
 /**
  * This function prints program usage information to standard output.
@@ -59,46 +46,46 @@ void fdebufr( char *ofile, char *tbldir, f77int *lentd, char *tblfil, char *prms
  * @author J. Ator @date 2009-07-01
  */
 void prtusage( char *prgnam ) {
-        printf( "\nUSAGE:\n" );
-        printf( "  %s [-v] [-h] [-b] [-c] [-m] [-o outfile] [-t tabledir] [-f tablefil] [-p prmstg] bufrfile\n\n", prgnam );
-        printf( "\nWHERE:\n" );
-        printf( "    -v        prints program version information and exits\n\n" );
-        printf( "    -h        prints program help and usage information and exits\n\n" );
-        printf( "    -b        specifies the \"basic\" option, meaning that only the\n" );
-        printf( "              information in Sections 0-3 will be decoded from each\n" );
-        printf( "              BUFR message in the bufrfile, and no attempt will be\n" );
-        printf( "              made to decode the data in Section 4\n\n" );
-        printf( "    -c        specifies that code and flag table meanings should not\n" );
-        printf( "              be read from master BUFR tables and included in the output;\n" );
-        printf( "              otherwise this feature is enabled by default\n\n" );
-        printf( "    -m        specifies that master BUFR tables will be used to\n" );
-        printf( "              decode the data messages in the file, regardless of\n" );
-        printf( "              whether it contains any embedded DX BUFR table messages.\n" );
-        printf( "              This option can be used to view the actual contents of\n" );
-        printf( "              DX BUFR table messages, which otherwise would not be\n" );
-        printf( "              printed in the output listing.\n\n" );
-        printf( "    outfile   [path/]name of file to contain verbose output listing.\n" );
-        printf( "              The default is \"bufrfilename.debufr.out\" in the current\n" );
-        printf( "              working directory, where bufrfilename is the basename of\n" );
-        printf( "              the bufrfile (i.e. bufrfile with any preceding [path/]\n" );
-        printf( "              removed).\n\n" );
-        printf( "    tabledir  [path/]name of directory containing tables to be used\n" );
-        printf( "              for decoding.  This directory contains the DX BUFR tables\n" );
-        printf( "              file to be used (if one was specified via the -f option),\n" );
-        printf( "              or it may contain all of the master BUFR tables when these\n" );
-        printf( "              are being used to decode a file.  If unspecified, the\n" );
-        printf( "              default directory location is\n" );
-        printf( "              \"@MASTER_TABLE_DIR@\"\n\n" );
-        printf( "    tablefil  file within tabledir containing DX BUFR tables to be used\n" );
-        printf( "              for decoding.\n\n" );
-        printf( "     prmstg   string of comma-separated PARAMETER=VALUE pairs, up to a\n" );
-        printf( "              maximum of 20.  For each pair, the dynamic allocation\n" );
-        printf( "              PARAMETER will be set to VALUE within the underlying\n" );
-        printf( "              BUFRLIB software, overriding the default value that would\n" );
-        printf( "              otherwise be used.  A complete list of parameters that can\n" );
-        printf( "              be dynamically sized is included within the documentation\n" );
-        printf( "              for BUFRLIB function isetprm.\n\n" );
-        printf( "    bufrfile  [path/]name of BUFR file to be decoded\n\n" );
+    printf( "\nUSAGE:\n" );
+    printf( "  %s [-v] [-h] [-b] [-c] [-m] [-o outfile] [-t tabledir] [-f tablefil] [-p prmstg] bufrfile\n\n", prgnam );
+    printf( "\nWHERE:\n" );
+    printf( "    -v        prints program version information and exits\n\n" );
+    printf( "    -h        prints program help and usage information and exits\n\n" );
+    printf( "    -b        specifies the \"basic\" option, meaning that only the\n" );
+    printf( "              information in Sections 0-3 will be decoded from each\n" );
+    printf( "              BUFR message in the bufrfile, and no attempt will be\n" );
+    printf( "              made to decode the data in Section 4\n\n" );
+    printf( "    -c        specifies that code and flag table meanings should not\n" );
+    printf( "              be read from master BUFR tables and included in the output;\n" );
+    printf( "              otherwise this feature is enabled by default\n\n" );
+    printf( "    -m        specifies that master BUFR tables will be used to\n" );
+    printf( "              decode the data messages in the file, regardless of\n" );
+    printf( "              whether it contains any embedded DX BUFR table messages.\n" );
+    printf( "              This option can be used to view the actual contents of\n" );
+    printf( "              DX BUFR table messages, which otherwise would not be\n" );
+    printf( "              printed in the output listing.\n\n" );
+    printf( "    outfile   [path/]name of file to contain verbose output listing.\n" );
+    printf( "              The default is \"bufrfilename.debufr.out\" in the current\n" );
+    printf( "              working directory, where bufrfilename is the basename of\n" );
+    printf( "              the bufrfile (i.e. bufrfile with any preceding [path/]\n" );
+    printf( "              removed).\n\n" );
+    printf( "    tabledir  [path/]name of directory containing tables to be used\n" );
+    printf( "              for decoding.  This directory contains the DX BUFR tables\n" );
+    printf( "              file to be used (if one was specified via the -f option),\n" );
+    printf( "              or it may contain all of the master BUFR tables when these\n" );
+    printf( "              are being used to decode a file.  If unspecified, the\n" );
+    printf( "              default directory location is\n" );
+    printf( "              \"@MASTER_TABLE_DIR@\"\n\n" );
+    printf( "    tablefil  file within tabledir containing DX BUFR tables to be used\n" );
+    printf( "              for decoding.\n\n" );
+    printf( "     prmstg   string of comma-separated PARAMETER=VALUE pairs, up to a\n" );
+    printf( "              maximum of 20.  For each pair, the dynamic allocation\n" );
+    printf( "              PARAMETER will be set to VALUE within the underlying\n" );
+    printf( "              BUFRLIB software, overriding the default value that would\n" );
+    printf( "              otherwise be used.  A complete list of parameters that can\n" );
+    printf( "              be dynamically sized is included within the documentation\n" );
+    printf( "              for BUFRLIB function isetprm.\n\n" );
+    printf( "    bufrfile  [path/]name of BUFR file to be decoded\n\n" );
 }
 
 /**
@@ -179,140 +166,201 @@ void prtusage( char *prgnam ) {
  */
 int main( int argc, char *argv[ ] ) {
 
-        int ch;
+    int ch;
 
-        char basic = 'N';
-        char forcemt = 'N';
-        char cfms = 'Y';
-        char io = 'r';
-        char tbldir[MXFLEN] =
-                "@MASTER_TABLE_DIR_C@";
-        char outfile[MXFLEN];
-        char wkstr[MXFLEN];
-        char wkstr2[MXFLEN];
-        char tblfil[MXFLEN_TBLFIL];
-        char prmstg[300] = "NULLPSTG";
-        char bvstr[9] = "        ";
+    unsigned short ii;
 
-        unsigned short ii;
+    char basic = 'N';
+    char forcemt = 'N';
+    char cfms = 'Y';
+    char io = 'r';
+    char tbldir_default[500] =
+            "@MASTER_TABLE_DIR_C@";
+    char bvstr[9] = "        ";
 
-        f77int lentd;
+    char *ofile = NULL;
+    char *tbldir = NULL;
+    char *tblfil = NULL;
+    char *prmstg = NULL;
+    char *wkstr = NULL;
 
-        /*
-        **  Get and process the valid options from the command line:
-        */
-        wkstr[0] = '\0';  /* initialize to empty string */
-        outfile[0] = '\0';  /* initialize to empty string */
-        while ( ( ch = getopt ( argc, argv, "vhbcmo:t:f:p:" ) ) != EOF ) {
-            switch ( ch ) {
-                case 'v':
-                    bvers ( bvstr, sizeof(bvstr) );
-                    /* append a trailing NULL to bvstr for printf */
-                    for ( ii = 0; ii < sizeof(bvstr); ii++ ) {
-                        if ( ( bvstr[ii] != '.' ) && ( !isdigit(bvstr[ii]) ) ) {
-                          bvstr[ii] = '\0';
-                          break;
-                        }
+    char *bcopy, *bname, *dcopy, *dname;
+
+    int lenof, lentd, lentf, lenps;
+
+    /*
+    **  Get and process the valid options from the command line:
+    */
+    while ( ( ch = getopt ( argc, argv, "vhbcmo:t:f:p:" ) ) != EOF ) {
+        switch ( ch ) {
+            case 'v':
+                bvers ( bvstr, sizeof(bvstr) );
+                /* append a trailing NULL to bvstr for printf */
+                for ( ii = 0; ii < sizeof(bvstr); ii++ ) {
+                    if ( ( bvstr[ii] != '.' ) && ( !isdigit(bvstr[ii]) ) ) {
+                        bvstr[ii] = '\0';
+                        break;
                     }
-                    printf( "This is debufr v3.1.2, built with BUFRLIB v%s\n",
-                            bvstr );
-                    return 0;
-                case 'h':
-                    printf( "\nPROGRAM %s\n", argv[0] );
-                    printf( "\nABSTRACT: This program decodes a BUFR file and generates a verbose\n" );
-                    printf( "  listing of the contents.  If a DX BUFR tables file is specified\n" );
-                    printf( "  (using the -f option) or if the specified BUFR file contains an\n" );
-                    printf( "  embedded DX BUFR tables message as the first message in the file,\n" );
-                    printf( "  then this DX BUFR tables information is used to decode the data\n" );
-                    printf( "  messages in the file.  Otherwise, or whenever the -m option is\n" );
-                    printf( "  specified, master BUFR tables are read and used to decode the\n" );
-                    printf( "  data messages in the file.\n" );
-                    prtusage( argv[0] );
-                    return 0;
-                    break;
-                case 'b':
-                    basic = 'Y';
-                    break;
-                case 'm':
-                    forcemt = 'Y';
-                    break;
-                case 'c':
-                    cfms = 'N';
-                    break;
-                case 'o':
-                    strcpy ( outfile, optarg );
-                    break;
-                case 't':
-                    strcpy ( tbldir, optarg );
-                    break;
-                case 'f':
-                    strcpy ( wkstr, optarg );
-                    break;
-                case 'p':
-                    strcpy ( prmstg, optarg );
-                    break;
-            }
+                }
+                printf( "This is debufr v4.0.0, built with BUFRLIB v%s\n", bvstr );
+                return 0;
+            case 'h':
+                printf( "\nPROGRAM %s\n", argv[0] );
+                printf( "\nABSTRACT: This program decodes a BUFR file and generates a verbose\n" );
+                printf( "  listing of the contents.  If a DX BUFR tables file is specified\n" );
+                printf( "  (using the -f option) or if the specified BUFR file contains an\n" );
+                printf( "  embedded DX BUFR tables message as the first message in the file,\n" );
+                printf( "  then this DX BUFR tables information is used to decode the data\n" );
+                printf( "  messages in the file.  Otherwise, or whenever the -m option is\n" );
+                printf( "  specified, master BUFR tables are read and used to decode the\n" );
+                printf( "  data messages in the file.\n" );
+                prtusage( argv[0] );
+                return 0;
+                break;
+            case 'b':
+                basic = 'Y';
+                break;
+            case 'm':
+                forcemt = 'Y';
+                break;
+            case 'c':
+                cfms = 'N';
+                break;
+            case 'o':
+                if ( ( ofile = malloc( strlen( optarg ) + 1 ) ) == NULL ) {
+                    printf( "\nERROR: Could not allocate memory for output file name!\n" );
+                    return -1;
+                }
+                strcpy ( ofile, optarg );
+                break;
+            case 't':
+                if ( ( tbldir = malloc( strlen( optarg ) + 1 ) ) == NULL ) {
+                    printf( "\nERROR: Could not allocate memory for tables directory!\n" );
+                    return -1;
+                }
+                strcpy ( tbldir, optarg );
+                break;
+            case 'f':
+                if ( ( wkstr = malloc( strlen( optarg ) + 1 ) ) == NULL ) {
+                    printf( "\nERROR: Could not allocate memory for DX BUFR tables file!\n" );
+                    return -1;
+                }
+                strcpy ( wkstr, optarg );
+                break;
+            case 'p':
+                if ( ( prmstg = malloc( strlen( optarg ) + 1 ) ) == NULL ) {
+                    printf( "\nERROR: Could not allocate memory for PARAMETER(S)=VALUE(S) string!\n" );
+                    return -1;
+                }
+                strcpy ( prmstg, optarg );
+                break;
         }
+    }
 
-        /*
-        **  There should be one remaining command line argument specifying the
-        **  input BUFR file.
-        */
-        if ( (optind+1) != argc ) {
-            printf( "\nERROR: You must specify an input BUFR file to be decoded!\n" );
-            prtusage( argv[0] );
+    /*
+    **  There should be one remaining command line argument specifying the
+    **  input BUFR file.
+    */
+    if ( (optind+1) != argc ) {
+        printf( "\nERROR: You must specify an input BUFR file to be decoded!\n" );
+        prtusage( argv[0] );
+        return -1;
+    }
+
+    /*
+    **  Open the input BUFR file.
+    */
+    cobfl( argv[optind], &io );
+        
+    /*
+    **  Check whether a PARAMETER(S)=VALUE(S) string was specified.
+    */
+    if ( prmstg == NULL ) {  // no, so set a default value
+        if ( ( prmstg = malloc( 9 ) ) == NULL ) {
+            printf( "\nERROR: Could not allocate memory for PARAMETER(S)=VALUE(S) string!\n" );
             return -1;
         }
+        strcpy( prmstg, "NULLPSTG" );
+    }
 
-        /*
-        **  Open the input BUFR file.
-        */
-        cobfl( argv[optind], &io );
-
-        /*
-        **  Check whether a DX tables file was specified.
-        */
-        if ( strlen( wkstr ) > 0 ) {
-            sprintf( tblfil, "%s%c%s", tbldir, '/', wkstr );
-        }
-        else {
-            strcpy( tblfil, "NULLFILE" );
-        }
-
-        /*
-        **  Check whether an output file was specified.  If not, make a default
-        **  filename in the current working directory using the basename of the
-        **  input BUFR file.
-        */
-        if ( strlen( outfile ) == 0 ) {
-            strcpy( wkstr2, argv[optind] );
-            strcpy( outfile, basename( wkstr2 ) );
-            strcat( outfile, ".debufr.out" );
-        }
-
-        /*
-        **  Confirm that the output directory is writeable.
-        */
-        strcpy( wkstr2, outfile );
-        strcpy( wkstr, dirname( wkstr2 ) );
-        if ( access( wkstr, W_OK ) != 0 ) {
-            printf( "\nERROR: Cannot write output file to directory %s\n",
-                ( strcmp( wkstr, "." ) == 0 ? getcwd( wkstr2, MXFLEN ) : wkstr ) );
-            prtusage( argv[0] );
+    /*
+    **  Check whether a tables directory was specified.
+    */
+    if ( tbldir == NULL ) {  // no, so use the default directory
+        if ( ( tbldir = malloc( strlen( tbldir_default ) + 1 ) ) == NULL ) {
+            printf( "\nERROR: Could not allocate memory for tables directory!\n" );
             return -1;
         }
+        strcpy ( tbldir, tbldir_default );
+    }
+        
+    /*
+    **  Check whether a DX tables file was specified.
+    */
+    if ( wkstr == NULL ) {  // no, so set a default value
+        if ( ( tblfil = malloc( 9 ) ) == NULL ) {
+            printf( "\nERROR: Could not allocate memory for DX BUFR tables file!\n" );
+            return -1;
+        }
+        strcpy( tblfil, "NULLFILE" );
+    }
+    else {
+        if ( ( tblfil = malloc( strlen( tbldir ) + strlen( wkstr ) + 2 ) ) == NULL ) {
+            printf( "\nERROR: Could not allocate memory for DX BUFR tables file!\n" );
+            return -1;
+        }
+        sprintf( tblfil, "%s%c%s", tbldir, '/', wkstr );
+    }
+    free( wkstr );
 
-        /*
-        **  Read and decode each message from the input BUFR file.
-        */
-        lentd = (f77int) strlen(tbldir);
-        fdebufr( outfile, tbldir, &lentd, tblfil, prmstg, &basic, &forcemt, &cfms,
-                 strlen(outfile), strlen(tbldir), strlen(tblfil), strlen(prmstg), 1, 1, 1 );
+    /*
+    **  Check whether an output file was specified.  If not, make a default
+    **  filename in the current working directory using the basename of the
+    **  input BUFR file.
+    */
+    if ( ofile == NULL ) {
+        bcopy = strdup( argv[optind] );
+        bname = basename( bcopy );
+        if ( ( ofile = malloc( strlen( bname ) + 15 ) ) == NULL ) {
+            printf( "\nERROR: Could not allocate memory for output file name!\n" );
+            return -1;
+        }
+        strcpy( ofile, bname );
+        strcat( ofile, ".debufr.out" );
+        free( bcopy );
+    }
 
-        /*
-        **  Close the input BUFR file.
-        */
-        ccbfl( );
+    /*
+    **  Confirm that the output directory is writeable.
+    */
+    dcopy = strdup( ofile );
+    dname = dirname( dcopy );
+    if ( access( dname, W_OK ) != 0 ) {
+        printf( "\nERROR: Cannot write output file to %s\n",
+            ( strcmp( dname, "." ) == 0 ? "current working directory" : dname ) );
+        prtusage( argv[0] );
+        return -1;
+    }
+    free( dcopy );
 
-        return 0;
+    /*
+    **  Read and decode each message from the input BUFR file.
+    */
+    lenof = strlen( ofile );
+    lentd = strlen( tbldir );
+    lentf = strlen( tblfil );
+    lenps = strlen( prmstg );
+    fdebufr_f( ofile, lenof, tbldir, lentd, tblfil, lentf, prmstg, lenps, basic, forcemt, cfms );
+
+    free( ofile );
+    free( tbldir );
+    free( tblfil );
+    free( prmstg );
+
+    /*
+    **  Close the input BUFR file.
+    */
+    ccbfl( );
+
+    return 0;
 }

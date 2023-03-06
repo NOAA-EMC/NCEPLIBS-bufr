@@ -37,7 +37,7 @@ endforeach()
 
 # The debufr utility consists of both a C source file and a Fortran source file.
 set(_exec debufr)
-add_executable(${_exec} ${CMAKE_CURRENT_BINARY_DIR}/debufr.c debufr.f)
+add_executable(${_exec} ${CMAKE_CURRENT_BINARY_DIR}/debufr.c debufr.F90)
 add_dependencies(${_exec} bufr::bufr_4)
 set_property(SOURCE ${CMAKE_CURRENT_BINARY_DIR}/debufr.c APPEND_STRING PROPERTY COMPILE_DEFINITIONS "${underscore_def}")
 target_include_directories(${_exec} PRIVATE "${PROJECT_BINARY_DIR}/src")

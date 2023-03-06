@@ -42,7 +42,7 @@ void stseq( f77int *lun, f77int *irepct, f77int *idn, char *nemo,
     f77int i0 = 0, imxcd, rpidn, pkint, ilen;
 
     char tab, adn[7], adn2[7], nemo2[9], units[10], errstr[129];
-    char rpseq[56], card[80], cblk = ' ';
+    char rpseq[56], card[80], cblk = ' ', czero = '0';
 
 /*
 **  The following variable is declared as automatic so that a local
@@ -215,8 +215,8 @@ void stseq( f77int *lun, f77int *irepct, f77int *idn, char *nemo,
                     memset( card, (int) cblk, sizeof( card ) );
 
                     strncpy( &card[2], nemo2, 8 );
-                    strncpy( &card[16], "0", 1 );
-                    strncpy( &card[30], "0", 1 );
+                    memcpy( &card[16], &czero, 1 );
+                    memcpy( &card[30], &czero, 1 );
                     sprintf( &card[33], "%4lu", ( unsigned long ) nbits );
                     strcpy( &card[40], units );
                     card[40+strlen(units)] = cblk;  /* overwrite trailing null */
