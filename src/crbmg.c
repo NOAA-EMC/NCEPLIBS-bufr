@@ -47,6 +47,7 @@ void crbmg( char *bmg, f77int *mxmb, f77int *nmb, f77int *iret )
     f77int iben, isbyt, iwid;
 
     char errstr[129];
+    char blanks[5] = "    ";
 
     unsigned short i, nsecs;
     unsigned int lsec;
@@ -60,11 +61,11 @@ void crbmg( char *bmg, f77int *mxmb, f77int *nmb, f77int *iret )
 /*
 **  Initialize the first 4 characters of the output array to blanks.
 */
-    if ( *mxmb < 4 ) {
+    if ( *mxmb < 5 ) {
         *iret = 1;
         return;
     }
-    strncpy( bmg, "    ", 4);
+    strcpy( bmg, blanks);
 /*
 **  Look for the start of the next BUFR message.
 */
