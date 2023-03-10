@@ -4,13 +4,19 @@
 
 The NCEPLIBS-bufr library contains routines and utilites for working with the
 [WMO BUFR](https://library.wmo.int/index.php?lvl=notice_display&id=10684#.Y70OSNLMJH7) format.
-It is part of the [NCEPLIBS](https://github.com/NOAA-EMC/NCEPLIBS) project.
+It is part of the [NCEPLIBS](https://github.com/NOAA-EMC/NCEPLIBS) project, and it is used by
+numerous other projects including [gfs-utils](https://github.com/NOAA-EMC/gfs-utils),
+[GSI](https://github.com/NOAA-EMC/GSI), [obsproc](https://github.com/NOAA-EMC/obsproc),
+[prepobs](https://github.com/NOAA-EMC/prepobs), [bufr-dump](https://github.com/NOAA-EMC/bufr-dump),
+[GEFS](https://github.com/NOAA-EMC/GEFS), [HRRR](https://github.com/NOAA-EMC/HRRR),
+and [RAP](https://github.com/NOAA-EMC/RAP).
 
 For full documentation of the library, see https://noaa-emc.github.io/NCEPLIBS-bufr/.
 
 ## Authors
 
-Jack Woollen, Jeff Ator, Dennis Keyser, Stacey Bender, Diane Stokes, Jeff Whitaker, Rahul Mahajan, and Ron McLaren.
+Jack Woollen, Jeff Ator, Dennis Keyser, Stacey Bender, Diane Stokes, Edward Hartnett,
+Jeff Whitaker, Rahul Mahajan, and Ron McLaren.
 
 Code manager: Jeff Ator
 
