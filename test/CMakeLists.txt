@@ -86,7 +86,7 @@ endforeach()
 file(COPY "${CMAKE_SOURCE_DIR}/test/run_test_bort.sh"
     DESTINATION ${CMAKE_BINARY_DIR}/test
     FILE_PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE GROUP_READ GROUP_EXECUTE WORLD_READ WORLD_EXECUTE)
-add_test(NAME test_bort COMMAND ${CMAKE_BINARY_DIR}/test/run_test_bort.sh)
+add_test(NAME run_test_bort COMMAND ${CMAKE_BINARY_DIR}/test/run_test_bort.sh)
 
 # These are the C API tests.
 list(APPEND test_c_interface_srcs
