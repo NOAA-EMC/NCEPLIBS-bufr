@@ -31,8 +31,12 @@
 ./test_bort_4 writdx 1
 [ $? != 1 ] &&  exit 1
 
+# Check writlc().
+./test_bort_4 writlc 1
+[ $? != 1 ] &&  exit 1
+
 # Check writsa().
-./test_bort_4 writdx 1
+./test_bort_4 writsa 1
 [ $? != 1 ] &&  exit 1
 
 # If we made it here, all error codes were correctly returned, and the
