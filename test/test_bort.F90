@@ -1,6 +1,7 @@
 ! This is a test for NCEPLIBS-bufr library.
 !
-! This tests the bort() calls of openbf().
+! This tests the bort() and bort2() subroutines. It will also test the
+! bort() calls of other subroutines.
 !
 ! Ed Hartnett 3/12/23
 program test_bort
