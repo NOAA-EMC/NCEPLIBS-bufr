@@ -1,3 +1,4 @@
+#!/bin/sh
 # This is a test script for NCEPLIBS-bufr.
 #
 # This script tests aborts.
