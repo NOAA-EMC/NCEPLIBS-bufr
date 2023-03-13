@@ -48,6 +48,9 @@ program test_bort
      elseif (test_case .eq. '4') then
         call wtstat(1, 1, 0, -1)
      endif
+  elseif (sub_name .eq. 'writdx') then
+     if (test_case .eq. '1') then
+        call writdx(0, 0)
   endif
   
 end program test_bort

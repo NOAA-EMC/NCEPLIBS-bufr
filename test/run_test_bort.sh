@@ -27,6 +27,10 @@
 ./test_bort_4 wtstat 4
 [ $? != 1 ] &&  exit 1
 
+# Check writdx().
+./test_bort_4 writdx 4
+[ $? != 1 ] &&  exit 1
+
 # If we made it here, all error codes were correctly returned, and the
 # test passed!
 exit 0
