@@ -51,6 +51,7 @@ program test_bort
   elseif (sub_name .eq. 'writdx') then
      if (test_case .eq. '1') then
         call writdx(0, 0)
+     endif
   endif
   
 end program test_bort
