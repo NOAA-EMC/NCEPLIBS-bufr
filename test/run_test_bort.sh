@@ -5,16 +5,10 @@
 # Ed Hartnett 3/12/23
 
 ./test_bort_4 bort 1
-if [[ $? != 1 ]]
-then
-    exit 1
-fi
+[ $? != 1 ] &&  exit 1
 
 ./test_bort_4 bort 2
-if [[ $? != 1 ]]
-then
-    exit 1
-fi
+[ $? != 1 ] && exit 1
 
 # If we made it here, all error codes were correctly returned, and the
 # test passed!
