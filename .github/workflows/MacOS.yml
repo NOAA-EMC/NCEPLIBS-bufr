@@ -44,7 +44,7 @@ jobs:
         cd bufr
         mkdir build 
         cd build
-        cmake -DTEST_FILE_DIR=/Users/runner/data -DCMAKE_INSTALL_PREFIX=./install -DENABLE_PYTHON=OFF ..
+        cmake -DTEST_FILE_DIR=/Users/runner/data -DCMAKE_INSTALL_PREFIX=./install -DENABLE_PYTHON=ON ..
         make VERBOSE=1
         make install
         cd python
