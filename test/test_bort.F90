@@ -6,6 +6,7 @@
 ! Ed Hartnett 3/12/23
 program test_bort
   implicit none
+  character*2 char_short
 
   integer :: num_args, len, status
   character(len=32) :: sub_name, test_case
@@ -28,8 +29,14 @@ program test_bort
   if (sub_name .eq. 'bort') then
      if (test_case .eq. '1') then
         call bort('goodbye!')
-     else if (test_case .eq. '2') then
+     endif
+  elseif (sub_name .eq. 'bort2') then
+     if (test_case .eq. '1') then
         call bort2('goodbye!', 'goodbye again!')
+     endif
+  elseif (sub_name .eq. 'bvers') then
+     if (test_case .eq. '1') then
+        call bvers(char_short)
      endif
   endif
   
