@@ -17,6 +17,16 @@
 ./test_bort_4 bvers 1
 [ $? != 1 ] &&  exit 1
 
+# Check wtstat().
+./test_bort_4 wtstat 1
+[ $? != 1 ] &&  exit 1
+./test_bort_4 wtstat 2
+[ $? != 1 ] &&  exit 1
+./test_bort_4 wtstat 3
+[ $? != 1 ] &&  exit 1
+./test_bort_4 wtstat 4
+[ $? != 1 ] &&  exit 1
+
 # If we made it here, all error codes were correctly returned, and the
 # test passed!
 exit 0

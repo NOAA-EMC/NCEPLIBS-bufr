@@ -38,6 +38,16 @@ program test_bort
      if (test_case .eq. '1') then
         call bvers(char_short)
      endif
+  elseif (sub_name .eq. 'wtstat') then
+     if (test_case .eq. '1') then
+        call wtstat(0, 0, 0, 0)
+     elseif (test_case .eq. '2') then
+        call wtstat(1, 0, 0, 0)
+     elseif (test_case .eq. '3') then
+        call wtstat(1, 1, -2, 0)
+     elseif (test_case .eq. '4') then
+        call wtstat(1, 1, 0, 0)
+     endif
   endif
   
 end program test_bort

@@ -1,6 +1,6 @@
 C> @file
 C> @brief Convert an FXY value from its bit-wise (integer)
-C> representation to its five or six character representation
+C> representation to its five or six character representation.
 C>
 C> @author J. Woollen @date 1994-01-06
 
@@ -8,13 +8,12 @@ C> This function converts an FXY value from its bit-wise
 C> (integer) representation to its 5 or 6 character
 C> representation.
 C>
+C> This function is the logical inverse of function idn30().
+C>
 C> @param[in] IDN -- integer: Bit-wise representation of FXY value
 C> @param[in] L30 -- integer: Length of string to be returned; can be
-C>                either 5 or 6 characters
+C> either 5 or 6 characters
 C> @returns adn30 -- character*(*): FXY value
-C>
-C> @remarks
-C> - This function is the logical inverse of function idn30().
 C>
 C> @author J. Woollen @date 1994-01-06
 
