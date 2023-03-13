@@ -28,7 +28,7 @@
 [ $? != 1 ] &&  exit 1
 
 # Check writdx().
-./test_bort_4 writdx 4
+./test_bort_4 writdx 1
 [ $? != 1 ] &&  exit 1
 
 # If we made it here, all error codes were correctly returned, and the
