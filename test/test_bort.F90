@@ -46,7 +46,7 @@ program test_bort
      elseif (test_case .eq. '3') then
         call wtstat(1, 1, -2, 0)
      elseif (test_case .eq. '4') then
-        call wtstat(1, 1, 0, 0)
+        call wtstat(1, 1, 0, -1)
      endif
   endif
   
