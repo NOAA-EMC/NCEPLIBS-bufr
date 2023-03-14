@@ -56,7 +56,8 @@ program test_bort
      endif
   elseif (sub_name .eq. 'ufbcpy') then
      if (test_case .eq. '1') then
-        call ufbcpy(0, 0)
+        call ufbcnt(0, 1, 1)
+`!        call ufbcpy(0, 0)
      endif
   elseif (sub_name .eq. 'ufbcup') then
      if (test_case .eq. '1') then
