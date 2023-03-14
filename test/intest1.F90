@@ -8,6 +8,7 @@ program intest1
   implicit none
   integer mxbfd4, mxds3, nds3, ierme, imgdt
   integer ierndv, iernds, mxr8pm, mxr8lv, iertgp, nr8lv
+  integer l0, l1, l2, l3, l4, l5, l6
   integer*4 mxbf, nbyt, ierr
   integer*4 iupbs01, iupbs3, ireadsb, ibfms
   parameter (mxbf = 20000)
@@ -99,6 +100,9 @@ program intest1
   IF (smidstg(7:9) .ne. 'UAO') stop 16
   call readlc(11, softvstg, 'SOFTV')
   IF (softvstg(5:12) .ne. '5.8.5.10') stop 17
+
+  call getlens(ibfmg,3,l0,l1,l2,l3,l4,l5)
+  if (.not. all((/l0, l1, l2, l3, l4, l5/) .eq. (/8,22,0,24,-1,-1/))) stop 18
 
   ! Close the test file.
   call ccbfl()
