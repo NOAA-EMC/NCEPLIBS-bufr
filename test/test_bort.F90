@@ -11,7 +11,7 @@ program test_bort
 
   integer :: num_args, len, status
   character(len=32) :: sub_name, test_case
-  CHARACTER ADN30
+  character adn30
   
   num_args = command_argument_count()
   if (num_args /= 2) then
@@ -56,7 +56,7 @@ program test_bort
      endif
   elseif (sub_name .eq. 'writlc') then
      if (test_case .eq. '1') then
-        call writlc(0, 0, 0, 0)
+        call writlc(0, char_30, char_30)
      endif
   elseif (sub_name .eq. 'writsa') then
      if (test_case .eq. '1') then
@@ -64,7 +64,7 @@ program test_bort
      endif
   elseif (sub_name .eq. 'writsb') then
      if (test_case .eq. '1') then
-        call writsb(0, 0, 0, 0)
+        call writsb(0)
      endif
   elseif (sub_name .eq. 'wtstat') then
      if (test_case .eq. '1') then
