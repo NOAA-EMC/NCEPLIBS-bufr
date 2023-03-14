@@ -101,6 +101,7 @@ program intest1
   call readlc(11, softvstg, 'SOFTV')
   IF (softvstg(5:12) .ne. '5.8.5.10') stop 17
 
+  ! Get lengths of section 0-3 (returns 8-byte ints for KIND_8)
   call getlens(ibfmg,3,l0,l1,l2,l3,l4,l5)
   if (.not. all((/l0,l1,l2,l3,l4,l5/) .eq. (/8,22,0,24,-1,-1/))) stop 18
 
