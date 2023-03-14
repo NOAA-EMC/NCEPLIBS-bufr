@@ -27,6 +27,18 @@
 ./test_bort_4 cmpmsg 1
 [ $? != 1 ] &&  exit 1
 
+# Check ufbcpy().
+./test_bort_4 ufbcpy 1
+[ $? != 1 ] &&  exit 1
+
+# Check ufbcup().
+./test_bort_4 ufbcup 1
+[ $? != 1 ] &&  exit 1
+
+# Check ufbdmp().
+./test_bort_4 ufbdmp 1
+[ $? != 1 ] &&  exit 1
+
 # Check ufbevn().
 ./test_bort_4 ufbevn 1
 [ $? != 1 ] &&  exit 1

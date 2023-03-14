@@ -54,6 +54,18 @@ program test_bort
      if (test_case .eq. '1') then
         call cmpmsg('W')
      endif
+  elseif (sub_name .eq. 'ufbcpy') then
+     if (test_case .eq. '1') then
+        call ufbcpy(0, 0)
+     endif
+  elseif (sub_name .eq. 'ufbcup') then
+     if (test_case .eq. '1') then
+        call ufbcup(0, 0)
+     endif
+  elseif (sub_name .eq. 'ufbdmp') then
+     if (test_case .eq. '1') then
+        call ufbdmp(0, 0)
+     endif
   elseif (sub_name .eq. 'ufbevn') then
      if (test_case .eq. '1') then
         call ufbevn(0, real_2d, 1, 2, 3, iret, 'c')
