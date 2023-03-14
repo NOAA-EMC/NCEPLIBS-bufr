@@ -53,6 +53,10 @@ program test_bort
      if (test_case .eq. '1') then
         call cmpmsg('W')
      endif
+  elseif (sub_name .eq. 'ufbint') then
+     if (test_case .eq. '1') then
+        call ufbint(0, real_2d, 1, 2, iret, 'c')
+     endif
   elseif (sub_name .eq. 'ufbqcp') then
      if (test_case .eq. '1') then
         call ufbqcp(0, 0, 'c')

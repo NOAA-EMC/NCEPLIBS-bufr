@@ -27,6 +27,10 @@
 ./test_bort_4 cmpmsg 1
 [ $? != 1 ] &&  exit 1
 
+# Check ufbint().
+./test_bort_4 ufbint 1
+[ $? != 1 ] &&  exit 1
+
 # Check ufbqcp().
 ./test_bort_4 ufbqcp 1
 [ $? != 1 ] &&  exit 1
