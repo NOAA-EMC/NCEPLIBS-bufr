@@ -7,9 +7,11 @@
 program test_bort
   implicit none
   character*2 char_short
+  character*30 char_30
 
   integer :: num_args, len, status
   character(len=32) :: sub_name, test_case
+  CHARACTER ADN30
   
   num_args = command_argument_count()
   if (num_args /= 2) then
@@ -26,7 +28,13 @@ program test_bort
   print *, 'Testing ', sub_name, ' case ', test_case
 
   ! Run the test for the subroutine and test case.
-  if (sub_name .eq. 'bort') then
+  if (sub_name .eq. 'adn30') then
+     if (test_case .eq. '1') then
+        char_short = adn30(0, 5)
+     elseif (test_case .eq. '2') then
+        char_30 = adn30(0, 9)
+     endif
+  elseif (sub_name .eq. 'bort') then
      if (test_case .eq. '1') then
         call bort('goodbye!')
      endif
@@ -38,15 +46,9 @@ program test_bort
      if (test_case .eq. '1') then
         call bvers(char_short)
      endif
-  elseif (sub_name .eq. 'wtstat') then
+  elseif (sub_name .eq. 'cmpmsg') then
      if (test_case .eq. '1') then
-        call wtstat(0, 0, 0, 0)
-     elseif (test_case .eq. '2') then
-        call wtstat(1, 0, 0, 0)
-     elseif (test_case .eq. '3') then
-        call wtstat(1, 1, -2, 0)
-     elseif (test_case .eq. '4') then
-        call wtstat(1, 1, 0, -1)
+        call cmpmsg('W')
      endif
   elseif (sub_name .eq. 'writdx') then
      if (test_case .eq. '1') then
@@ -60,6 +62,23 @@ program test_bort
      if (test_case .eq. '1') then
         call writsa(0, 0, 0, 0)
      endif
+  elseif (sub_name .eq. 'writsb') then
+     if (test_case .eq. '1') then
+        call writsb(0, 0, 0, 0)
+     endif
+  elseif (sub_name .eq. 'wtstat') then
+     if (test_case .eq. '1') then
+        call wtstat(0, 0, 0, 0)
+     elseif (test_case .eq. '2') then
+        call wtstat(1, 0, 0, 0)
+     elseif (test_case .eq. '3') then
+        call wtstat(1, 1, -2, 0)
+     elseif (test_case .eq. '4') then
+        call wtstat(1, 1, 0, -1)
+     endif
+  else
+     print *, "Unknown test function"
+     stop 2
   endif
   
 end program test_bort

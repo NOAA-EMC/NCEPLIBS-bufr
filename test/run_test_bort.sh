@@ -5,16 +5,26 @@
 #
 # Ed Hartnett 3/12/23
 
+# Check adn30().
+./test_bort_4 adn30 1
+[ $? != 1 ] &&  exit 1
+./test_bort_4 adn30 2
+[ $? != 1 ] &&  exit 1
+
 # Check bort().
 ./test_bort_4 bort 1
 [ $? != 1 ] &&  exit 1
 
 # Check bort2().
-./test_bort_4 bort 1
+./test_bort_4 bort2 1
 [ $? != 1 ] && exit 1
 
 # Check bvers().
 ./test_bort_4 bvers 1
+[ $? != 1 ] &&  exit 1
+
+# Check cmpmsg().
+./test_bort_4 cmpmsg 1
 [ $? != 1 ] &&  exit 1
 
 # Check wtstat().
@@ -37,6 +47,10 @@
 
 # Check writsa().
 ./test_bort_4 writsa 1
+[ $? != 1 ] &&  exit 1
+
+# Check writsb().
+./test_bort_4 writsb 1
 [ $? != 1 ] &&  exit 1
 
 # If we made it here, all error codes were correctly returned, and the

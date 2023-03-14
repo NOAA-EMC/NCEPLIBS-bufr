@@ -1,5 +1,5 @@
 C> @file
-C> @brief Get information about a descriptor, based on the mnemonic
+C> @brief Get information about a descriptor, based on the mnemonic.
 C>
 C> @author J. Woollen @date 1994-01-06
 
