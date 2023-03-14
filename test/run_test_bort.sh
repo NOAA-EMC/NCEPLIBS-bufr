@@ -27,6 +27,10 @@
 ./test_bort_4 cmpmsg 1
 [ $? != 1 ] &&  exit 1
 
+# Check sntbbe().
+./test_bort_4 sntbbe 1
+[ $? != 1 ] &&  exit 1
+
 # Check sntbde().
 ./test_bort_4 sntbde 1
 [ $? != 1 ] &&  exit 1
