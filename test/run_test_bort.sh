@@ -27,6 +27,22 @@
 ./test_bort_4 cmpmsg 1
 [ $? != 1 ] &&  exit 1
 
+# Check codflg().
+./test_bort_4 codflg 1
+[ $? != 1 ] &&  exit 1
+
+# Check copybf().
+./test_bort_4 copybf 1
+[ $? != 1 ] &&  exit 1
+
+# Check copymg().
+./test_bort_4 copymg 1
+[ $? != 1 ] &&  exit 1
+
+# Check copysb().
+./test_bort_4 copysb 1
+[ $? != 1 ] &&  exit 1
+
 # Check sntbbe().
 ./test_bort_4 sntbbe 1
 [ $? != 1 ] &&  exit 1

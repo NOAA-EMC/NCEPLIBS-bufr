@@ -6,16 +6,6 @@ C> @author J. Woollen @date 1994-01-06
 C> This subroutine copies a BUFR data subset from one Fortran logical
 C> unit to another.
 C>
-C> @param[in] LUNIN   -- integer: Fortran logical unit number for
-C>                       source BUFR file
-C> @param[in] LUNOT   -- integer: Fortran logical unit number for
-C>                       target BUFR file
-C> @param[out] IRET   -- integer: return code
-C>                       - 0 = normal return
-C>                       - -1 = a BUFR data subset could not be
-C>                              read from the BUFR message in
-C>                              internal arrays for LUNIN
-C>
 C> Logical unit LUNIN should have already been opened for input
 C> operations via a previous call to subroutine openbf(), and a BUFR
 C> message should have already been read into internal arrays for
@@ -38,6 +28,16 @@ C> [DX BUFR Table information](@ref dfbftab) associated with
 C> each of the logical units LUNIN and LUNOT must contain identical
 C> definitions for the type of BUFR message containing the data
 C> subset to be copied from LUNIN to LUNOT.
+C>
+C> @param[in] LUNIN   -- integer: Fortran logical unit number for
+C>                       source BUFR file
+C> @param[in] LUNOT   -- integer: Fortran logical unit number for
+C>                       target BUFR file
+C> @param[out] IRET   -- integer: return code
+C>                       - 0 = normal return
+C>                       - -1 = a BUFR data subset could not be
+C>                              read from the BUFR message in
+C>                              internal arrays for LUNIN
 C>
 C> @author J. Woollen @date 1994-01-06
       RECURSIVE SUBROUTINE COPYSB(LUNIN,LUNOT,IRET)

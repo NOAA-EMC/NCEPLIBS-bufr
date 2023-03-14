@@ -61,6 +61,22 @@ program test_bort
      if (test_case .eq. '1') then
         call cmpmsg('W')
      endif
+  elseif (sub_name .eq. 'codflg') then
+     if (test_case .eq. '1') then
+        call codflg('W')
+     endif
+  elseif (sub_name .eq. 'copybf') then
+     if (test_case .eq. '1') then
+        call copybf(0, 0)
+     endif
+  elseif (sub_name .eq. 'copymg') then
+     if (test_case .eq. '1') then
+        call copymg(0, 0)     
+     endif
+  elseif (sub_name .eq. 'copysb') then
+     if (test_case .eq. '1') then
+        call copysb(0, 0, iret)     
+     endif
   elseif (sub_name .eq. 'sntbbe') then
      if (test_case .eq. '1') then
         call sntbbe(0, 'c', 1, 2, int_1d, char_4, char_12, char_4, char_24, char_8, char_4, char_120)        
