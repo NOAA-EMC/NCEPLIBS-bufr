@@ -6,8 +6,11 @@
 ! Ed Hartnett 3/12/23
 program test_bort
   implicit none
+  integer iret
   character*2 char_short
   character*30 char_30
+  real r, valx
+  real*8 real_2d(1,1)
 
   integer :: num_args, len, status
   character(len=32) :: sub_name, test_case
@@ -50,6 +53,38 @@ program test_bort
      if (test_case .eq. '1') then
         call cmpmsg('W')
      endif
+  elseif (sub_name .eq. 'ufbqcp') then
+     if (test_case .eq. '1') then
+        call ufbqcp(0, 0, 'c')
+     endif
+  elseif (sub_name .eq. 'ufbrep') then
+     if (test_case .eq. '1') then
+        call ufbrep(0, real_2d, 1, 2, iret, 'c')
+     endif
+  elseif (sub_name .eq. 'ufbrms') then
+     if (test_case .eq. '1') then
+        call ufbrms(1, 1, real_2d, 1, 2, iret, 'c')
+     endif
+  elseif (sub_name .eq. 'ufbseq') then
+     if (test_case .eq. '1') then
+        call ufbseq(0, real_2d, 1, 2, iret, 'c')
+     endif
+  elseif (sub_name .eq. 'ufdump') then
+     if (test_case .eq. '1') then
+        call ufdump(0, 0)
+     endif
+  elseif (sub_name .eq. 'upftbv') then
+     if (test_case .eq. '1') then
+        call upftbv(0, 'n', 1.0, 1, 1, 1)
+     endif
+  elseif (sub_name .eq. 'valx') then
+     if (test_case .eq. '1') then
+        r = valx('0123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789')
+     endif
+  elseif (sub_name .eq. 'wrdxtb') then
+     if (test_case .eq. '1') then
+        call wrdxtb(0, 0)        
+     endif
   elseif (sub_name .eq. 'writdx') then
      if (test_case .eq. '1') then
         call writdx(0, 0, 0)
@@ -64,7 +99,8 @@ program test_bort
      endif
   elseif (sub_name .eq. 'writsb') then
      if (test_case .eq. '1') then
-        call writsb(0, 0, 0, 0)
+        call WRDXTB(0, 0)        
+!        call writsb(0, 0, 0, 0)
      endif
   elseif (sub_name .eq. 'wtstat') then
      if (test_case .eq. '1') then

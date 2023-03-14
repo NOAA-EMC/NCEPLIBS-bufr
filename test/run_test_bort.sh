@@ -27,6 +27,38 @@
 ./test_bort_4 cmpmsg 1
 [ $? != 1 ] &&  exit 1
 
+# Check ufbqcp().
+./test_bort_4 ufbqcp 1
+[ $? != 1 ] &&  exit 1
+
+# Check ufbrep().
+./test_bort_4 ufbrep 1
+[ $? != 1 ] &&  exit 1
+
+# Check ufbrms().
+./test_bort_4 ufbrms 1
+[ $? != 1 ] &&  exit 1
+
+# Check ufbseq().
+./test_bort_4 ufbseq 1
+[ $? != 1 ] &&  exit 1
+
+# Check ufdump().
+./test_bort_4 ufdump 1
+[ $? != 1 ] &&  exit 1
+
+# Check upftbv().
+./test_bort_4 upftbv 1
+[ $? != 1 ] &&  exit 1
+
+# Check valx().
+./test_bort_4 valx 1
+[ $? != 1 ] &&  exit 1
+
+# Check wrdxtb().
+./test_bort_4 wrdxtb 1
+[ $? != 1 ] &&  exit 1
+
 # Check wtstat().
 ./test_bort_4 wtstat 1
 [ $? != 1 ] &&  exit 1
