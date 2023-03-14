@@ -10,6 +10,7 @@ program test_bort
   character*2 char_short
   character*30 char_30
   real r, valx
+  real*8 real_1d(1)
   real*8 real_2d(1,1)
 
   integer :: num_args, len, status
@@ -52,6 +53,14 @@ program test_bort
   elseif (sub_name .eq. 'cmpmsg') then
      if (test_case .eq. '1') then
         call cmpmsg('W')
+     endif
+  elseif (sub_name .eq. 'ufbevn') then
+     if (test_case .eq. '1') then
+        call ufbevn(0, real_2d, 1, 2, 3, iret, 'c')
+     endif
+  elseif (sub_name .eq. 'ufbget') then
+     if (test_case .eq. '1') then
+        call ufbget(0, real_1d, 1, iret, 's')
      endif
   elseif (sub_name .eq. 'ufbint') then
      if (test_case .eq. '1') then
