@@ -3,6 +3,9 @@
 #
 # Rahul Mahajan, Jeff Ator, Ed Hartnett
 
+# These are the kinds of tests we're going to build and run.
+list(APPEND test_kinds 4 8 d)
+
 # Fetch test data from: https://ftp.emc.ncep.noaa.gov/static_files/public/bufr.tar
 set(BUFR_URL "https://ftp.emc.ncep.noaa.gov/static_files/public")
 if(${PROJECT_VERSION} VERSION_GREATER_EQUAL 11.6.0)
@@ -70,6 +73,22 @@ function(create_test name kind num)
   endif()
 endfunction()
 
+# This is for testing bort().
+foreach(kind ${test_kinds})
+  add_executable(test_bort_${kind} test_bort.F90)
+  set_target_properties(test_bort_${kind} PROPERTIES COMPILE_FLAGS "${fortran_${kind}_flags}")
+  target_compile_definitions(test_bort_${kind} PUBLIC -DKIND_${kind})
+  target_link_libraries(test_bort_${kind} PRIVATE bufr_4)
+  add_dependencies(test_bort_${kind} bufr_4)
+endforeach()
+
+# Test the borts.
+file(COPY "${CMAKE_SOURCE_DIR}/test/run_test_bort.sh"
+    DESTINATION ${CMAKE_BINARY_DIR}/test
+    FILE_PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE GROUP_READ GROUP_EXECUTE WORLD_READ WORLD_EXECUTE)
+add_test(NAME run_test_bort COMMAND ${CMAKE_BINARY_DIR}/test/run_test_bort.sh)
+
+# These are the C API tests.
 list(APPEND test_c_interface_srcs
   test_c_interface.c
   test_c_interface_2.c
@@ -94,8 +113,6 @@ foreach(test_script ${test_scripts})
     ${CMAKE_CURRENT_SOURCE_DIR}/test_scripts/${test_script}
     ${CMAKE_BINARY_DIR}/bin/${test_script} )
 endforeach()
-
-list(APPEND test_kinds 4 8 d)
 
 foreach(kind ${test_kinds})
   foreach(innum RANGE 1 9)
