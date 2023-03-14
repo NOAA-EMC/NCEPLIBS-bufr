@@ -7,6 +7,8 @@
 program test_bort
   implicit none
   integer iret
+  ! integer i1
+  integer int_1d(1), int_1d_2(1)
   character*2 char_short
   character*30 char_30
   real r, valx
@@ -54,6 +56,20 @@ program test_bort
      if (test_case .eq. '1') then
         call cmpmsg('W')
      endif
+  elseif (sub_name .eq. 'stndrd') then
+     if (test_case .eq. '1') then
+        call stndrd(0, int_1d, 1, int_1d_2)
+     endif
+  elseif (sub_name .eq. 'strcpt') then
+     if (test_case .eq. '1') then
+        call strcpt('W', 1960, 12, 15, 12, 0)
+     endif
+  ! Next test commented out until
+  ! https://github.com/NOAA-EMC/NCEPLIBS-bufr/issues/384 is resolved.
+  ! elseif (sub_name .eq. 'string') then if (test_case .eq. '1') then
+  ! call
+  ! STRING('0123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789',
+  ! & 1, i1, 0) endif
   elseif (sub_name .eq. 'ufbcnt') then
      if (test_case .eq. '1') then
         call ufbcnt(0, 1, 1)

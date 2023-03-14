@@ -27,6 +27,20 @@
 ./test_bort_4 cmpmsg 1
 [ $? != 1 ] &&  exit 1
 
+# Check stndrd().
+./test_bort_4 stndrd 1
+[ $? != 1 ] &&  exit 1
+
+# Check strcpt().
+./test_bort_4 strcpt 1
+[ $? != 1 ] &&  exit 1
+
+# Commented out until https://github.com/NOAA-EMC/NCEPLIBS-bufr/issues/384
+# is resolved.
+# Check string().
+#./test_bort_4 string 1
+#[ $? != 1 ] &&  exit 1
+
 # Check ufbcnt().
 ./test_bort_4 ufbcnt 1
 [ $? != 1 ] &&  exit 1
