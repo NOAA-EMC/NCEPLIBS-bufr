@@ -11,6 +11,9 @@ program test_bort
   integer int_1d(1), int_1d_2(1)
   character*2 char_short
   character*30 char_30
+  character*4 char_4(1)
+  character*8 char_8(1)
+  character*120 char_120(1)
   real r, valx
   real*8 real_1d(1)
   real*8 real_2d(1,1)
@@ -55,6 +58,14 @@ program test_bort
   elseif (sub_name .eq. 'cmpmsg') then
      if (test_case .eq. '1') then
         call cmpmsg('W')
+     endif
+  elseif (sub_name .eq. 'sntbde') then
+     if (test_case .eq. '1') then
+        call sntbde(0, 0, 'c', 1, 1, 2, int_1d, char_8, char_4, char_120, int_1d_2, int_1d, char_120)        
+     endif
+  elseif (sub_name .eq. 'stdmsg') then
+     if (test_case .eq. '1') then
+        call stdmsg('W')
      endif
   elseif (sub_name .eq. 'stndrd') then
      if (test_case .eq. '1') then

@@ -27,6 +27,14 @@
 ./test_bort_4 cmpmsg 1
 [ $? != 1 ] &&  exit 1
 
+# Check sntbde().
+./test_bort_4 sntbde 1
+[ $? != 1 ] &&  exit 1
+
+# Check stdmsg().
+./test_bort_4 stdmsg 1
+[ $? != 1 ] &&  exit 1
+
 # Check stndrd().
 ./test_bort_4 stndrd 1
 [ $? != 1 ] &&  exit 1
