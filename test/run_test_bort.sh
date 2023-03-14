@@ -27,6 +27,10 @@
 ./test_bort_4 cmpmsg 1
 [ $? != 1 ] &&  exit 1
 
+# Check ufbcnt().
+./test_bort_4 ufbcnt 1
+[ $? != 1 ] &&  exit 1
+
 # Check ufbcpy().
 ./test_bort_4 ufbcpy 1
 [ $? != 1 ] &&  exit 1
