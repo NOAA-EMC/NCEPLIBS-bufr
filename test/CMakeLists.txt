@@ -127,13 +127,13 @@ foreach(test_script ${test_scripts})
 endforeach()
 
 foreach(kind ${test_kinds})
+  create_test2(newwint ${kind})
   foreach(innum RANGE 1 9)
     create_test(intest ${kind} ${innum})
   endforeach()
   foreach(outnum RANGE 1 9)
     create_test(outtest ${kind} ${outnum})
   endforeach()
-  create_test2(newwint ${kind})
 endforeach()
 
 # c_interface tests
