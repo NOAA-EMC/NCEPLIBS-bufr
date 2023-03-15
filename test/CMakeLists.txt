@@ -17,6 +17,7 @@ endif()
 # If the TEST_FILE_DIR was specified, look for our test data files
 # there before FTPing them. Developers can keep all test files on
 # their machines, and save the time of downloading them every time.
+message(STATUS "TEST_FILE_DIR ${TEST_FILE_DIR}.")
 if(NOT ${TEST_FILE_DIR} STREQUAL ".")
   if (EXISTS ${TEST_FILE_DIR}/${BUFR_TAR})
     message(STATUS "Copying file ${TEST_FILE_DIR}/${BUFR_TAR} to test data directory.")
@@ -73,6 +74,17 @@ function(create_test name kind num)
   endif()
 endfunction()
 
+# This function builds, links, and runs an intest or outtest program.
+function(create_test2 name kind)
+  set(testID "${name}_${kind}")
+  add_executable(${testID} ${name}.F90)
+  set_target_properties(${testID} PROPERTIES COMPILE_FLAGS "${fortran_${kind}_flags}")
+  target_compile_definitions(${testID} PUBLIC -DKIND_${kind})
+  target_link_libraries(${testID} PRIVATE bufr_4)
+  add_dependencies(${testID} bufr_4)
+  add_test(NAME ${testID} COMMAND ${testID})
+endfunction()
+
 # This is for testing bort().
 foreach(kind ${test_kinds})
   add_executable(test_bort_${kind} test_bort.F90)
@@ -121,6 +133,7 @@ foreach(kind ${test_kinds})
   foreach(outnum RANGE 1 9)
     create_test(outtest ${kind} ${outnum})
   endforeach()
+  create_test2(newwint ${kind})
 endforeach()
 
 # c_interface tests
