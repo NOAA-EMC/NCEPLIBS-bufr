@@ -37,7 +37,7 @@ program intest10
 
   integer*4 isetprm
 
-  integer icnt, iunt, imesg(150), idate, iret, ios1, ios2
+  integer icnt, iunt, imesg(150), idate, iret, ios1, ios2, lundx
 
   character cmgtag*8
 
@@ -87,10 +87,13 @@ program intest10
   if ( ( icnt .ne. 97 ) .or. & 
       ( index( errstr(1:errstr_len), 'UFBMEX - THE NO. OF BYTES REQUIRED TO STORE ALL MESSAGES' ) .eq. 0 ) ) stop 8
 
-  ! Test the errwrt branch in openbt.
+  ! Test the errwrt branch in openbt, both indirectly and directly.
   errstr_len = 0
   call rdmemm ( 50, cmgtag, idate, iret )
   if ( index( errstr(1:errstr_len), 'OPENBT - THIS IS A DUMMY BUFRLIB ROUTINE' ) .eq. 0 ) stop 9
+  errstr_len = 0
+  call openbt ( lundx, 255 )
+  if ( index( errstr(1:errstr_len), 'OPENBT - THIS IS A DUMMY BUFRLIB ROUTINE' ) .eq. 0 ) stop 10
 
   print *, 'SUCCESS!'
 end program intest10
