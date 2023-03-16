@@ -6,8 +6,19 @@
 ! Ed Hartnett 3/12/23
 program test_bort
   implicit none
+  integer iret
+  ! integer i1
+  integer int_1d(1), int_1d_2(1)
   character*2 char_short
   character*30 char_30
+  character*4 char_4(1)
+  character*8 char_8(1)
+  character*12 char_12(1)
+  character*24 char_24(1)
+  character*120 char_120(1)
+  real r, valx
+  real*8 real_1d(1)
+  real*8 real_2d(1,1)
 
   integer :: num_args, len, status
   character(len=32) :: sub_name, test_case
@@ -49,6 +60,108 @@ program test_bort
   elseif (sub_name .eq. 'cmpmsg') then
      if (test_case .eq. '1') then
         call cmpmsg('W')
+     endif
+  elseif (sub_name .eq. 'codflg') then
+     if (test_case .eq. '1') then
+        call codflg('W')
+     endif
+  elseif (sub_name .eq. 'copybf') then
+     if (test_case .eq. '1') then
+        call copybf(0, 0)
+     endif
+  elseif (sub_name .eq. 'copymg') then
+     if (test_case .eq. '1') then
+        call copymg(0, 0)     
+     endif
+  elseif (sub_name .eq. 'copysb') then
+     if (test_case .eq. '1') then
+        call copysb(0, 0, iret)     
+     endif
+  elseif (sub_name .eq. 'sntbbe') then
+     if (test_case .eq. '1') then
+        call sntbbe(0, 'c', 1, 2, int_1d, char_4, char_12, char_4, char_24, char_8, char_4, char_120)        
+     endif
+  elseif (sub_name .eq. 'sntbde') then
+     if (test_case .eq. '1') then
+        call sntbde(0, 0, 'c', 1, 1, 2, int_1d, char_8, char_4, char_120, int_1d_2, int_1d, char_120)        
+     endif
+  elseif (sub_name .eq. 'stdmsg') then
+     if (test_case .eq. '1') then
+        call stdmsg('W')
+     endif
+  elseif (sub_name .eq. 'stndrd') then
+     if (test_case .eq. '1') then
+        call stndrd(0, int_1d, 1, int_1d_2)
+     endif
+  elseif (sub_name .eq. 'strcpt') then
+     if (test_case .eq. '1') then
+        call strcpt('W', 1960, 12, 15, 12, 0)
+     endif
+  ! Next test commented out until
+  ! https://github.com/NOAA-EMC/NCEPLIBS-bufr/issues/384 is resolved.
+  ! elseif (sub_name .eq. 'string') then if (test_case .eq. '1') then
+  ! call
+  ! STRING('0123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789',
+  ! & 1, i1, 0) endif
+  elseif (sub_name .eq. 'ufbcnt') then
+     if (test_case .eq. '1') then
+        call ufbcnt(0, 1, 1)
+     endif
+  elseif (sub_name .eq. 'ufbcpy') then
+     if (test_case .eq. '1') then
+        call ufbcpy(0, 0)
+     endif
+  elseif (sub_name .eq. 'ufbcup') then
+     if (test_case .eq. '1') then
+        call ufbcup(0, 0)
+     endif
+  elseif (sub_name .eq. 'ufbdmp') then
+     if (test_case .eq. '1') then
+        call ufbdmp(0, 0)
+     endif
+  elseif (sub_name .eq. 'ufbevn') then
+     if (test_case .eq. '1') then
+        call ufbevn(0, real_2d, 1, 2, 3, iret, 'c')
+     endif
+  elseif (sub_name .eq. 'ufbget') then
+     if (test_case .eq. '1') then
+        call ufbget(0, real_1d, 1, iret, 's')
+     endif
+  elseif (sub_name .eq. 'ufbint') then
+     if (test_case .eq. '1') then
+        call ufbint(0, real_2d, 1, 2, iret, 'c')
+     endif
+  elseif (sub_name .eq. 'ufbqcp') then
+     if (test_case .eq. '1') then
+        call ufbqcp(0, 0, 'c')
+     endif
+  elseif (sub_name .eq. 'ufbrep') then
+     if (test_case .eq. '1') then
+        call ufbrep(0, real_2d, 1, 2, iret, 'c')
+     endif
+  elseif (sub_name .eq. 'ufbrms') then
+     if (test_case .eq. '1') then
+        call ufbrms(1, 1, real_2d, 1, 2, iret, 'c')
+     endif
+  elseif (sub_name .eq. 'ufbseq') then
+     if (test_case .eq. '1') then
+        call ufbseq(0, real_2d, 1, 2, iret, 'c')
+     endif
+  elseif (sub_name .eq. 'ufdump') then
+     if (test_case .eq. '1') then
+        call ufdump(0, 0)
+     endif
+  elseif (sub_name .eq. 'upftbv') then
+     if (test_case .eq. '1') then
+        call upftbv(0, 'n', 1.0, 1, 1, 1)
+     endif
+  elseif (sub_name .eq. 'valx') then
+     if (test_case .eq. '1') then
+        r = valx('0123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789')
+     endif
+  elseif (sub_name .eq. 'wrdxtb') then
+     if (test_case .eq. '1') then
+        call wrdxtb(0, 0)        
      endif
   elseif (sub_name .eq. 'writdx') then
      if (test_case .eq. '1') then

@@ -9,6 +9,12 @@ C> and returns its output via a separate memory array,
 C> whereas stdmsg() operates on BUFR messages stored internally
 C> within the software.
 C>
+C> @remarks
+C> - MSGIN and MSGOT must be separate arrays.
+C> - Standardized messages are usually longer in length than their
+C> non-standard counterparts, so it's usually a good idea to allow
+C> for extra space when allocating MSGOT within the application program.
+C>
 C> @param[in] LUNIT   -- integer: Fortran logical unit number for
 C>                       BUFR file
 C> @param[in] MSGIN   -- integer(*): BUFR message
@@ -16,12 +22,6 @@ C> @param[in] LMSGOT  -- integer: Dimensioned size (in integers) of
 C>                       MSGOT; used by the subroutine to ensure that
 C>                       it doesn't overflow the MSGOT array
 C> @param[out] MSGOT  -- integer(*): Standardized copy of MSGIN
-C>
-C> @remarks
-C> - MSGIN and MSGOT must be separate arrays.
-C> - Standardized messages are usually longer in length than their
-C> non-standard counterparts, so it's usually a good idea to allow
-C> for extra space when allocating MSGOT within the application program.
 C>
 C> @author J. Ator @date 2004-08-18
       RECURSIVE SUBROUTINE STNDRD(LUNIT,MSGIN,LMSGOT,MSGOT)

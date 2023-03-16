@@ -1,5 +1,5 @@
 C> @file
-C> @brief Decode a real number from a character string
+C> @brief Decode a real number from a character string.
 C>
 C> @author J. Woollen @date 1994-01-06
 
