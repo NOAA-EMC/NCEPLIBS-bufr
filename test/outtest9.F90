@@ -108,6 +108,7 @@ program outtest9
   call closmg (21)
 
   ! Check the invmrg output.
+  errstr_len = 0
   call mrginv
   if ( ( index( errstr(1:errstr_len), 'NUMBER OF DRB EXPANSIONS  =        3' ) .eq. 0 ) .or. &
        ( index( errstr(1:errstr_len), 'NUMBER OF MERGES          =       42' ) .eq. 0 ) ) stop 10
