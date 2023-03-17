@@ -152,14 +152,7 @@ foreach(test_src ${test_c_interface_srcs})
 endforeach()
 
 # Test debufr utility
-set(db_flags_1 "-t ../tables")
-set(db_flags_2 "-t testfiles/data -f bufrtab.031 -c")
-foreach(db_num RANGE 1 2)
-  set(db_case debufr_${db_num})
-  add_test(NAME test_${db_case} COMMAND ${CMAKE_BINARY_DIR}/bin/test_debufr.sh
-           "${CMAKE_BINARY_DIR}/utils/debufr ${db_flags_${db_num}}" "testfiles/data/${db_case}"
-           "testrun/${db_case}.run" "testfiles/testoutput/${db_case}.out")
-endforeach()
+add_test(NAME test_debufr COMMAND ${CMAKE_BINARY_DIR}/bin/test_debufr.sh)
 
 # Test gettab utility
 add_test(NAME test_gettab
@@ -167,14 +160,10 @@ add_test(NAME test_gettab
   )
 
 # Test sinv utility
-add_test(NAME test_sinv 
-  COMMAND ${CMAKE_BINARY_DIR}/bin/test_sinv.sh "${CMAKE_BINARY_DIR}/utils/sinv testfiles/data/satwndbufr ../tables" "testrun/sinv.out"  "testfiles/testoutput/sinv.out"
-  )
+add_test(NAME test_sinv COMMAND ${CMAKE_BINARY_DIR}/bin/test_sinv.sh)
 
 # Test binv utility
-add_test(NAME test_binv  
-  COMMAND ${CMAKE_BINARY_DIR}/bin/test_binv.sh "${CMAKE_BINARY_DIR}/utils/binv testfiles/data/satwndbufr" "testrun/binv.out"  "testfiles/testoutput/binv.out"
-  )
+add_test(NAME test_binv COMMAND ${CMAKE_BINARY_DIR}/bin/test_binv.sh)
 
 # Test split_by_subset utility
 add_test(NAME test_split_by_subset
@@ -197,11 +186,4 @@ add_test(NAME test_cmpbqm
   )
 
 # Test xbfmg utility
-set(xb_flags_1 "-g")
-set(xb_flags_2 "")
-foreach(xb_num RANGE 1 2)
-  set(xb_case xbfmg_${xb_num})
-  add_test(NAME test_${xb_case} COMMAND ${CMAKE_BINARY_DIR}/bin/test_xbfmg.sh
-           "${CMAKE_BINARY_DIR}/utils/xbfmg ${xb_flags_${xb_num}}" "testfiles/data"
-           "testfiles/testoutput/xbfmg" "${xb_case}")
-endforeach()
+add_test(NAME test_xbfmg COMMAND ${CMAKE_BINARY_DIR}/bin/test_xbfmg.sh)

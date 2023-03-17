@@ -102,7 +102,7 @@ int main( int argc, char *argv[] ) {
 
     char *outfile, *outfile_temp;
 
-    char *bvstr;
+    char bvstr[10] = "         ";
 
     int ch;
 
@@ -119,8 +119,8 @@ int main( int argc, char *argv[] ) {
     while ( ( ch = getopt ( argc, argv, "vgh" ) ) != EOF ) {
         switch ( ch ) {
             case 'v':
-                bvstr = ( char * ) calloc( 9, sizeof(char) );  /* allocate bvstr and initialize to all nulls */
                 bvers( bvstr, sizeof(bvstr) );
+                bvstr[9] = '\0';
                 printf( "This is xbfmg v3.3.0, built with BUFRLIB v%s\n", bvstr );
                 return 0;
             case 'g':

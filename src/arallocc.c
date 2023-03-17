@@ -1,5 +1,5 @@
 /** @file
- *  @brief Dynamically allocate C language arrays within internal memory.
+ *  @brief Dynamically allocate C language arrays.
  * @author J. Ator @date 2014-12-04
 */
 
