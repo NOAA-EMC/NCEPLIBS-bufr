@@ -3,6 +3,10 @@
 ! This tests the bort() and bort2() subroutines. It will also test the
 ! bort() calls of other subroutines.
 !
+! This program is called (repeatedly) by run_test_bort.sh, which
+! passes in a series of subroutine names and test case numbers, and
+! expects each case to cause an abort.
+!
 ! Ed Hartnett 3/12/23
 program test_bort
   implicit none
@@ -16,13 +20,14 @@ program test_bort
   character*12 char_12(1)
   character*24 char_24(1)
   character*120 char_120(1)
+  character*5 adn30_val_5
   real r, valx
   real*8 real_1d(1)
   real*8 real_2d(1,1)
-
+  integer idn30, idn30_val
   integer :: num_args, len, status
   character(len=32) :: sub_name, test_case
-  character adn30
+  character*5 adn30
   
   num_args = command_argument_count()
   if (num_args /= 2) then
@@ -41,9 +46,15 @@ program test_bort
   ! Run the test for the subroutine and test case.
   if (sub_name .eq. 'adn30') then
      if (test_case .eq. '1') then
-        char_short = adn30(0, 5)
+        char_short = adn30(0, 6)
      elseif (test_case .eq. '2') then
         char_30 = adn30(0, 9)
+     elseif (test_case .eq. '3') then
+        char_30 = adn30(-1, 5)
+     elseif (test_case .eq. '4') then
+        char_30 = adn30(65536, 5)
+     elseif (test_case .eq. '5') then
+        char_30 = adn30(0, 3)
      endif
   elseif (sub_name .eq. 'bort') then
      if (test_case .eq. '1') then
@@ -76,6 +87,16 @@ program test_bort
   elseif (sub_name .eq. 'copysb') then
      if (test_case .eq. '1') then
         call copysb(0, 0, iret)     
+     endif
+  elseif (sub_name .eq. 'idn30') then
+     if (test_case .eq. '1') then
+        idn30_val = idn30(adn30_val_5, 6)
+     elseif (test_case .eq. '2') then
+        idn30_val = idn30(adn30_val_5, 2)
+     elseif (test_case .eq. '3') then
+        idn30_val = idn30('-0042', 5)
+     elseif (test_case .eq. '4') then
+        idn30_val = idn30('65536', 5)
      endif
   elseif (sub_name .eq. 'sntbbe') then
      if (test_case .eq. '1') then
@@ -193,5 +214,5 @@ program test_bort
      print *, "Unknown test function"
      stop 2
   endif
-  
+
 end program test_bort

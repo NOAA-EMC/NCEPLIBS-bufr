@@ -7,19 +7,9 @@
 #include "cobfl.h"
 
 /**
- *  This subroutine writes a BUFR message to the system
- *  file that was opened via the most recent call to subroutine
- *  cobfl() with io = 'w'.
- *
- *  @author J. Ator
- *  @date 2005-11-29
- *
- *  @param[in] bmg    -- char*: BUFR message to be written
- *  @param[in] nmb    -- f77int*: Size (in bytes) of BUFR message
- *                        in bmg
- *  @param[out] iret  -- f77int*: return code
- *                         - 0 = normal return
- *                         - -1 = I/O error encountered while writing
+ * This subroutine writes a BUFR message to the system
+ * file that was opened via the most recent call to subroutine
+ * cobfl() with io = 'w'.
  *
  * This subroutine is designed to be easily callable from
  * application program written in either C or Fortran.
@@ -27,6 +17,13 @@
  * The file to which the message is to be written must have already
  * been opened for writing via a previous call to subroutine cobfl()
  * with io = 'w'.
+ *
+ * @param bmg - char *: pointer to BUFR message to be written.
+ * @param nmb - f77int *: pointer to the size (in bytes) of BUFR message
+ * in bmg
+ * @param iret - f77int *: pointer that gets the return code:
+ * - 0 normal return
+ * - -1 I/O error encountered while writing
  *
  * @author J. Ator @date 2005-11-29
  */

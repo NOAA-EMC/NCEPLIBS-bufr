@@ -17,15 +17,8 @@
  * dynamically allocate internal C language arrays based on parameter
  * values set during one or more previous calls to function isetprm().
  *
- * This subroutine isn't normally called directly from an application
- * program, since it's automatically called internally during the first
- * call to subroutine openbf() from an application program.
- *
- * @remarks
  * All memory allocated within this subroutine can be freed via a
- * subsequent call to subroutine exitbufr() from within the
- * application program, or else it will be freed automatically by the
- * operating system once the application program terminates.
+ * subsequent call to subroutine exitbufr().
  *
  * @author J. Ator @date 2014-12-04
  */
