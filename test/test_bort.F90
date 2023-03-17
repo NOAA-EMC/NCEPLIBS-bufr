@@ -50,6 +50,8 @@ program test_bort
         char_30 = adn30(0, 9)
      elseif (test_case .eq. '3') then
         char_30 = adn30(-1, 5)
+     elseif (test_case .eq. '4') then
+        char_30 = adn30(0, 3)
      endif
   elseif (sub_name .eq. 'bort') then
      if (test_case .eq. '1') then
@@ -199,5 +201,5 @@ program test_bort
      print *, "Unknown test function"
      stop 2
   endif
-  
+
 end program test_bort

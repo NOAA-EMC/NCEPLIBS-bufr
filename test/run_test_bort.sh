@@ -16,6 +16,8 @@
 [ $? != 1 ] &&  exit 1
 ./test_bort_4 adn30 3
 [ $? != 1 ] &&  exit 1
+./test_bort_4 adn30 4
+[ $? != 1 ] &&  exit 1
 
 # Check bort().
 ./test_bort_4 bort 1
