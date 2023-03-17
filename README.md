@@ -2,16 +2,30 @@
 
 ## NCEPLIBS-bufr library
 
-The NCEPLIBS-bufr library contains routines and utilites for working with the
-[WMO BUFR](https://library.wmo.int/index.php?lvl=notice_display&id=10684#.Y70OSNLMJH7) format.
-It is part of the [NCEPLIBS](https://github.com/NOAA-EMC/NCEPLIBS) project, and it is used by
-numerous other projects including [gfs-utils](https://github.com/NOAA-EMC/gfs-utils),
-[GSI](https://github.com/NOAA-EMC/GSI), [obsproc](https://github.com/NOAA-EMC/obsproc),
-[prepobs](https://github.com/NOAA-EMC/prepobs), [bufr-dump](https://github.com/NOAA-EMC/bufr-dump),
-[GEFS](https://github.com/NOAA-EMC/GEFS), [HRRR](https://github.com/NOAA-EMC/HRRR),
-and [RAP](https://github.com/NOAA-EMC/RAP).
+The NCEPLIBS-bufr library contains routines and utilites for working
+with the [WMO
+BUFR](https://library.wmo.int/index.php?lvl=notice_display&id=10684#.Y70OSNLMJH7)
+format. It is part of the
+[NCEPLIBS](https://github.com/NOAA-EMC/NCEPLIBS) project.
 
 For full documentation of the library, see https://noaa-emc.github.io/NCEPLIBS-bufr/.
+
+NCEPLIBS-bufr is used by numerous other projects including:
+- [gfs-utils](https://github.com/NOAA-EMC/gfs-utils) from NOAA's global
+  workflow.
+- NCAR's [Gridpoint Statistical Interpolation
+  (GSI)](https://ral.ucar.edu/solutions/products/gridpoint-statistical-interpolation-gsi).
+- [obsproc](https://github.com/NOAA-EMC/obsproc) in the [NOAA
+  Operational Model Archive and Distribution System (NOMADS)](https://nomads.ncep.noaa.gov/).
+- [prepobs](https://github.com/NOAA-EMC/prepobs) from the [The NCEP Production Suite](https://www.nco.ncep.noaa.gov/pmb/prod_overview/).
+- [bufr-dump](https://github.com/NOAA-EMC/bufr-dump) which is run by
+  all of the NOAA model data assimilation systems when it's time to
+  collect data for use in the analyses.
+- the [Global Ensemble Forecast
+  System(GEFS)](https://www.ncei.noaa.gov/products/weather-climate-models/global-ensemble-forecast).
+- the [High-Resolution Rapid Refresh model
+  (HRRR)](https://rapidrefresh.noaa.gov/hrrr/).
+- NOAA's [Rapid Refresh (RAP)](https://rapidrefresh.noaa.gov/) assimilation/modeling system.
 
 ## Authors
 
