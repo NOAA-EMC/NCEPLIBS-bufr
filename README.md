@@ -15,8 +15,8 @@ NCEPLIBS-bufr is used by numerous other projects including:
   workflow.
 - NCAR's [Gridpoint Statistical Interpolation
   (GSI)](https://ral.ucar.edu/solutions/products/gridpoint-statistical-interpolation-gsi).
-- [obsproc](https://github.com/NOAA-EMC/obsproc) in the NOAA
-  Operational Model Archive and Distribution System (NOMADS).
+- [obsproc](https://github.com/NOAA-EMC/obsproc) in the [NOAA
+  Operational Model Archive and Distribution System (NOMADS)](https://nomads.ncep.noaa.gov/).
 - [prepobs](https://github.com/NOAA-EMC/prepobs) from the [The NCEP Production Suite](https://www.nco.ncep.noaa.gov/pmb/prod_overview/).
 - [bufr-dump](https://github.com/NOAA-EMC/bufr-dump).
 - [the Global Ensemble Forecast
