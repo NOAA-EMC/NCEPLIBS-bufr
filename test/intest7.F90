@@ -60,7 +60,7 @@ program intest7
   ! Check error messages in ISETPRM.
   iret = isetprm ( 'MXNRV', 5 )
   if ( iret .ne. 0 ) stop 1
-  errstr_len = 1
+  errstr_len = 0
   iret = isetprm ( 'DUMMY', 20 )
   if ( ( iret .ne. -1 ) .or. &
       ( index( errstr(1:errstr_len), 'ISETPRM - UNKNOWN INPUT PARAMETER DUMMY' ) .eq. 0 ) ) stop 2
@@ -74,7 +74,7 @@ program intest7
   ! Check error messages in IGETPRM.
   iret = igetprm ( 'MXNRV' )
   if ( iret .ne. 5 ) stop 3
-  errstr_len = 1
+  errstr_len = 0
   iret = igetprm ( 'DUMMY' )
   if ( ( iret .ne. -1 ) .or. &
       ( index( errstr(1:errstr_len), 'IGETPRM - UNKNOWN INPUT PARAMETER DUMMY' ) .eq. 0 ) ) stop 4
@@ -85,11 +85,11 @@ program intest7
   call ufbrep ( 11, r8arr, mxr8pm, mxr8lv, nr8v, 'TIDER' )
   if ( ( nr8v .ne. 2 ) .or. &
       ( nint ( r8arr(1,1) ) .ne. -10000 ) .or. ( nint ( r8arr(1,2) ) .ne. 16 ) ) stop 6
-  errstr_len = 1
+  errstr_len = 0
   call ufbrep ( 11, r8val, 1, 1, nr8v, 'DUMMY' )
   idx = index( errstr(1:errstr_len), 'UFBREP - NO SPECIFIED VALUES READ IN' )
   if ( ( nr8v .ne. 0 ) .or. ( idx .eq. 0 ) ) stop 7
-  errstr_len = 1
+  errstr_len = 0
   call ufbrep ( 11, r8val, 0, 1, nr8v, 'TIDER' )
   idx = index( errstr(1:errstr_len), 'UFBREP - 3rd ARG. (INPUT) IS .LE. 0' )
   if ( ( nr8v .ne. 0 ) .or. ( idx .eq. 0 ) ) stop 8
@@ -100,11 +100,11 @@ program intest7
   if ( ( nr8v .ne. 1 ) .or.  &
       ( nint ( r8arr(1,1)*100000 ) .ne. 2001191 ) .or. ( nint ( r8arr(2,1)*100000 ) .ne. -3785017 ) .or. &
       ( nint ( r8arr(3,1)*100 ) .ne. 30035 ) .or. ( nint ( r8arr(4,1) ) .ne. 2187000 ) ) stop 9
-  errstr_len = 1
+  errstr_len = 0
   call ufbint ( 11, r8val, 1, 1, nr8v, 'DUMMY' )
   idx = index( errstr(1:errstr_len), 'UFBINT - NO SPECIFIED VALUES READ IN' )
   if ( ( nr8v .ne. 0 ) .or. ( idx .eq. 0 ) ) stop 10
-  errstr_len = 1
+  errstr_len = 0
   call ufbint ( 11, r8val, 1, 0, nr8v, 'TMDB' )
   idx = index( errstr(1:errstr_len), 'UFBINT - 4th ARG. (INPUT) IS .LE. 0' )
   if ( ( nr8v .ne. 0 ) .or. ( idx .eq. 0 ) ) stop 11
@@ -115,11 +115,11 @@ program intest7
   if ( ( nr8v .ne. 1 ) .or. &
       ( nint ( r8arr(1,1)*100 ) .ne. 3163 ) .or. ( nint ( r8arr(2,1)*100 ) .ne. -11017 ) .or. &
       ( nint ( r8arr(3,1) ) .ne. 1205 ) ) stop 12
-  errstr_len = 1
+  errstr_len = 0
   call ufbstp ( 11, r8val, 1, 1, nr8v, 'DUMMY' )
   idx = index( errstr(1:errstr_len), 'UFBSTP - NO SPECIFIED VALUES READ IN' )
   if ( ( nr8v .ne. 0 ) .or. ( idx .eq. 0 ) ) stop 13
-  errstr_len = 1
+  errstr_len = 0
   call ufbstp ( 11, r8val, 1, 0, nr8v, 'CLON' )
   idx = index( errstr(1:errstr_len), 'UFBSTP - 4th ARG. (INPUT) IS .LE. 0' )
   if ( ( nr8v .ne. 0 ) .or. ( idx .eq. 0 ) ) stop 14
@@ -130,11 +130,11 @@ program intest7
   if ( ( nr8v .ne. 1 ) .or. &
       ( nint ( r8arr(6,1)*100000 ) .ne. 2967000 ) .or. ( nint ( r8arr(7,1)*100000 ) .ne. -9512833 ) .or. &
       ( nint ( r8arr(5,1) ) .ne. 482011039 ) ) stop 15
-  errstr_len = 1
+  errstr_len = 0
   call ufbseq ( 11, r8val, 1, 1, nr8v, 'DUMMY' )
   idx = index( errstr(1:errstr_len), 'UFBSEQ - NO SPECIFIED VALUES READ IN' )
   if ( ( nr8v .ne. 0 ) .or. ( idx .eq. 0 ) ) stop 16
-  errstr_len = 1
+  errstr_len = 0
   call ufbseq ( 11, r8val, 0, 1, nr8v, 'CLON' )
   idx = index( errstr(1:errstr_len), 'UFBSEQ - 3rd ARG. (INPUT) IS .LE. 0' )
   if ( ( nr8v .ne. 0 ) .or. ( idx .eq. 0 ) ) stop 17
@@ -144,7 +144,7 @@ program intest7
   if ( ( nsub .ne. 402 ) .or. ( ibfms ( r8val ) .ne. 1 ) ) stop 18
 
   ! Test the error handling inside of VALX.
-  errstr_len = 1
+  errstr_len = 0
   r8val = valx ( '75.DUMMY' )
   if ( ( index( errstr(1:errstr_len), 'VALX - ERROR READING STRING' ) .eq. 0 ) ) stop 19
 

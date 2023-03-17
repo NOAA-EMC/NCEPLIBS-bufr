@@ -26,36 +26,6 @@ C> to read/write one or more data values from/to a data subset but are
 C> also designed for different use cases as noted in
 C> [DX BUFR Tables](@ref ufbsubs).
 C>
-C> @param[in] LUNIN   -- integer: Absolute value is Fortran logical
-C>                       unit number for BUFR file
-C> @param[in,out] USR -- real*8(*,*): Data values
-C>                         - If ABS(LUNIN) was opened for input, then
-C>                           USR is output from this subroutine and
-C>                           contains data values that were read
-C>                           from the current data subset.
-C>                         - If ABS(LUNIN) was opened for output, then
-C>                           USR is input to this subroutine and
-C>                           contains data values that are to be
-C>                           written to the current data subset.
-C> @param[in] I1 -- integer: First dimension of USR as allocated
-C>                  within the calling program
-C> @param[in] I2 -- integer:
-C>                    - If ABS(LUNIN) was opened for input, then I2
-C>                      must be set equal to the second dimension
-C>                      of USR as allocated within the calling program
-C>                    - If ABS(LUNIN) was opened for output, then I2
-C>                      must be set equal to the number of replications
-C>                      of STR that are to be written to the data subset
-C> @param[out] IRET -- integer: Number of replications of STR that were
-C>                     read/written from/to the data subset
-C> @param[in] STR -- character*(*): String of blank-separated
-C>                   Table B mnemonics
-C>                   in one-to-one correspondence with the number of data
-C>                   values that will be read/written from/to the data
-C>                   subset within the first dimension of USR (see
-C>                   [DX BUFR Tables](@ref dfbftab) for further
-C>                   information about Table B mnemonics)
-C>
 C> It is the user's responsibility to ensure that USR is dimensioned
 C> sufficiently large enough to accommodate the number of data values
 C> that are to be read from or written to the data subset.  Note also
@@ -110,6 +80,36 @@ C> pointed to by ABS(LUNIN) as though it was open for input (reading
 C> BUFR).  This is a special capability for use by some applications
 C> that need to read certain values back out from a BUFR file during
 C> the same time that it is in the process of being written to.
+C>
+C> @param[in] LUNIN   -- integer: Absolute value is Fortran logical
+C>                       unit number for BUFR file
+C> @param[in,out] USR -- real*8(*,*): Data values
+C>                         - If ABS(LUNIN) was opened for input, then
+C>                           USR is output from this subroutine and
+C>                           contains data values that were read
+C>                           from the current data subset.
+C>                         - If ABS(LUNIN) was opened for output, then
+C>                           USR is input to this subroutine and
+C>                           contains data values that are to be
+C>                           written to the current data subset.
+C> @param[in] I1 -- integer: First dimension of USR as allocated
+C>                  within the calling program
+C> @param[in] I2 -- integer:
+C>                    - If ABS(LUNIN) was opened for input, then I2
+C>                      must be set equal to the second dimension
+C>                      of USR as allocated within the calling program
+C>                    - If ABS(LUNIN) was opened for output, then I2
+C>                      must be set equal to the number of replications
+C>                      of STR that are to be written to the data subset
+C> @param[out] IRET -- integer: Number of replications of STR that were
+C>                     read/written from/to the data subset
+C> @param[in] STR -- character*(*): String of blank-separated
+C>                   Table B mnemonics
+C>                   in one-to-one correspondence with the number of data
+C>                   values that will be read/written from/to the data
+C>                   subset within the first dimension of USR (see
+C>                   [DX BUFR Tables](@ref dfbftab) for further
+C>                   information about Table B mnemonics)
 C>
 C> @author J. Woollen @date 1994-01-06
       RECURSIVE SUBROUTINE UFBSTP(LUNIN,USR,I1,I2,IRET,STR)
