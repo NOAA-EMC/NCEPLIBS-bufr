@@ -88,6 +88,8 @@ endfunction()
 foreach(kind ${test_kinds})
   add_executable(test_bort_${kind} test_bort.F90)
   set_target_properties(test_bort_${kind} PROPERTIES COMPILE_FLAGS "${fortran_${kind}_flags}")
+  # Need to turn off a warning for test_bort, so it can do stupid things needed to fail.
+  set_target_properties(test_bort_${kind} PROPERTIES COMPILE_FLAGS -Wno-character-truncation)
   target_compile_definitions(test_bort_${kind} PUBLIC -DKIND_${kind})
   target_link_libraries(test_bort_${kind} PRIVATE bufr_4)
   add_dependencies(test_bort_${kind} bufr_4)

@@ -26,7 +26,7 @@ program test_bort
 
   integer :: num_args, len, status
   character(len=32) :: sub_name, test_case
-  character adn30
+  character*5 adn30
   
   num_args = command_argument_count()
   if (num_args /= 2) then
@@ -45,9 +45,11 @@ program test_bort
   ! Run the test for the subroutine and test case.
   if (sub_name .eq. 'adn30') then
      if (test_case .eq. '1') then
-        char_short = adn30(0, 5)
+        char_short = adn30(0, 6)
      elseif (test_case .eq. '2') then
         char_30 = adn30(0, 9)
+     elseif (test_case .eq. '3') then
+        char_30 = adn30(-1, 5)
      endif
   elseif (sub_name .eq. 'bort') then
      if (test_case .eq. '1') then
