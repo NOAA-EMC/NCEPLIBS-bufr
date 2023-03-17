@@ -9,7 +9,7 @@ C> BUFR tables on the local file system.
 C>
 C> @param[in] CMTDIR  -- character*(*): Directory location of master
 C>                          BUFR tables on local file system
-C>                          (up to 100 characters)
+C>                          (up to 240 characters)
 C> @param[in] LUNMT1  -- integer: First Fortran logical unit number
 C>                          to use when reading master BUFR tables on
 C>                          local file system
@@ -29,7 +29,7 @@ C> used as defined within subroutine bfrini().
 C>
 C> For CMTDIR, any full or relative directory pathname that is legal
 C> on the local filesystem is permissible, up to a total maximum length
-C> of 100 characters.  The BUFRLIB software will then automatically search
+C> of 240 characters.  The BUFRLIB software will then automatically search
 C> within this directory for any necessary master table files and open and
 C> read them as needed.
 C>
@@ -47,7 +47,7 @@ C> @author J. Ator @date 2009-03-23
       CHARACTER*(*) CMTDIR
 
       CHARACTER*128 BORT_STR
-      CHARACTER*100 MTDIR
+      CHARACTER*240 MTDIR
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------

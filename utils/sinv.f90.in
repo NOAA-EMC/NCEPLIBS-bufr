@@ -14,6 +14,7 @@ PROGRAM SINV
   PARAMETER (MAXS=1000)
 
   CHARACTER(255) FILE,tbldir
+  CHARACTER(240) cmtdir
   CHARACTER(8)   SUBSET
   CHARACTER      ci*16,cj*80
   DIMENSION      isat(0:maxs,0:maxs)
@@ -30,7 +31,6 @@ PROGRAM SINV
   jsat=0
   said=0
   ssid=0
-  !!close(6); open(6,recl=130)
 
   !  get filename argument
 
@@ -44,7 +44,6 @@ PROGRAM SINV
   inquire(file=file,exist=exist)
   if (.not.exist) call bort(trim(file)//' does not exist')
 
-
   !  define master table directory
 
   call openbf(lunbf,'FIRST',lunbf)  ! need to call openbf prior to calling mtinfo
@@ -52,9 +51,8 @@ PROGRAM SINV
      call getarg(2,tbldir)
      call mtinfo(tbldir,3,4)
   else ! otherwise default table dir is used
-     call mtinfo(           &
-          "@MASTER_TABLE_DIR_F@" &
-          ,3,4)
+     cmtdir = '@MASTER_TABLE_DIR_F@'
+     call mtinfo(cmtdir,3,4) 
   endif
 
   ! read through the file and collect counts of satid and sat inst combinations
@@ -83,13 +81,14 @@ PROGRAM SINV
   ! print the summary of satid and sat inst combinations
 
   write(*,*)
-1 format(a14,2x,a14,2x,a8)
+  write(*,'(a14,12x,a14,4x,a10)') 'id   satellite', 'subsets  id   ', 'instrument'
+  write(*,*)
   do i=0,1000
      do j=0,1000
         if(isat(i,j).gt.0) then
            jsat=jsat+isat(i,j)
            call satcode(lunbf,i,ci,j,cj)
-           write(*,'(i3.3,2x,a16,2x,i10,2x,i3.3,a80)')i,ci,isat(i,j),j,trim(cj)
+           write(*,'(i3.3,2x,a,2x,i10,2x,i3.3,6x,a)')i,ci,isat(i,j),j,adjustl(trim(cj))
         endif
      enddo
   enddo
@@ -126,7 +125,8 @@ subroutine satcode(lunit,icode,csad,jcode,csid)
   if(icode>0) then
      str=repeat(' ',255)
      call getcfmng(lunit,'SAID',icode,'  ',-1,str,len,iret); csad=str(1:16)
-  elseif(jcode>0) then
+  endif
+  if(jcode>0) then
      str=repeat(' ',255)
      call getcfmng(lunit,'SIID',jcode,'  ',-1,str,len,iret); csid=str(1:80)
   endif
