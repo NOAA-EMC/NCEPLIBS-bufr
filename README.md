@@ -12,17 +12,17 @@ For full documentation of the library, see https://noaa-emc.github.io/NCEPLIBS-b
 
 NCEPLIBS-bufr is used by numerous other projects including:
 - [gfs-utils](https://github.com/NOAA-EMC/gfs-utils) from NOAA's global
-  workflow
+  workflow.
 - NCAR's [Gridpoint Statistical Interpolation
-  (GSI)](https://ral.ucar.edu/solutions/products/gridpoint-statistical-interpolation-gsi)
+  (GSI)](https://ral.ucar.edu/solutions/products/gridpoint-statistical-interpolation-gsi).
 - [obsproc](https://github.com/NOAA-EMC/obsproc) in the NOAA
-  Operational Model Archive and Distribution System (NOMADS),
-- [prepobs](https://github.com/NOAA-EMC/prepobs) from the [The NCEP Production Suite](https://www.nco.ncep.noaa.gov/pmb/prod_overview/)
-- [bufr-dump](https://github.com/NOAA-EMC/bufr-dump)
+  Operational Model Archive and Distribution System (NOMADS).
+- [prepobs](https://github.com/NOAA-EMC/prepobs) from the [The NCEP Production Suite](https://www.nco.ncep.noaa.gov/pmb/prod_overview/).
+- [bufr-dump](https://github.com/NOAA-EMC/bufr-dump).
 - [the Global Ensemble Forecast
-  System(GEFS)](https://www.ncei.noaa.gov/products/weather-climate-models/global-ensemble-forecast),
+  System(GEFS)](https://www.ncei.noaa.gov/products/weather-climate-models/global-ensemble-forecast).
 - [the High-Resolution Rapid Refresh model
-  (HRRR)](https://rapidrefresh.noaa.gov/hrrr/)
+  (HRRR)](https://rapidrefresh.noaa.gov/hrrr/).
 - NOAA's [Rapid Refresh (RAP)](https://rapidrefresh.noaa.gov/) assimilation/modeling system.
 
 ## Authors
