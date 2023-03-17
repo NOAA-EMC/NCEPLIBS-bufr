@@ -3,6 +3,10 @@
 ! This tests the bort() and bort2() subroutines. It will also test the
 ! bort() calls of other subroutines.
 !
+! This program is called (repeatedly) by run_test_bort.sh, which
+! passes in a series of subroutine names and test case numbers, and
+! expects each case to cause an abort.
+!
 ! Ed Hartnett 3/12/23
 program test_bort
   implicit none
