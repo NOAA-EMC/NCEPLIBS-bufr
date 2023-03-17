@@ -14,26 +14,6 @@ C> the maximum number of data events for any data value, whereas
 C> this subroutine is used for NCEP prepbufr files and stores the
 C> same information internally within a COMMON block.
 C>
-C> @param[in] LUNIT -- integer: Fortran logical unit number for
-C>                     NCEP prepbufr file
-C> @param[out] USR -- real*8(*,*): Data values
-C> @param[in] I1 -- integer: First dimension of USR as allocated
-C>                  within the calling program
-C> @param[in] I2 -- integer: Second dimension of USR as allocated
-C>                  within the calling program
-C> @param[in] I3 -- integer: Third dimension of USR as allocated
-C>                  within the calling program
-C> @param[out] IRET -- integer: Number of replications of STR that were
-C>                     read from the data subset, corresponding
-C>                     to the second dimension of USR
-C> @param[in] STR -- character*(*): String of blank-separated
-C>                   Table B mnemonics
-C>                   in one-to-one correspondence with the number of data
-C>                   values that will be read from the data
-C>                   subset within the first dimension of USR (see
-C>                   [DX BUFR Tables](@ref dfbftab) for further
-C>                   information about Table B mnemonics)
-C>
 C> It is the user's responsibility to ensure that USR is dimensioned
 C> sufficiently large enough to accommodate the number of data values
 C> that are to be read from the data subset.  Note also
@@ -69,6 +49,26 @@ C>               subset resides
 C>      - ISUB - returns the number of the current data subset within
 C>               the BUFR message pointed to by IREC, counting from
 C>               the beginning of the message
+C>
+C> @param[in] LUNIT -- integer: Fortran logical unit number for
+C>                     NCEP prepbufr file
+C> @param[out] USR -- real*8(*,*): Data values
+C> @param[in] I1 -- integer: First dimension of USR as allocated
+C>                  within the calling program
+C> @param[in] I2 -- integer: Second dimension of USR as allocated
+C>                  within the calling program
+C> @param[in] I3 -- integer: Third dimension of USR as allocated
+C>                  within the calling program
+C> @param[out] IRET -- integer: Number of replications of STR that were
+C>                     read from the data subset, corresponding
+C>                     to the second dimension of USR
+C> @param[in] STR -- character*(*): String of blank-separated
+C>                   Table B mnemonics
+C>                   in one-to-one correspondence with the number of data
+C>                   values that will be read from the data
+C>                   subset within the first dimension of USR (see
+C>                   [DX BUFR Tables](@ref dfbftab) for further
+C>                   information about Table B mnemonics)
 C>
 C> @author J. Woollen @date 1994-01-06
       RECURSIVE SUBROUTINE UFBEVN(LUNIT,USR,I1,I2,I3,IRET,STR)

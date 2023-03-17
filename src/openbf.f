@@ -168,18 +168,19 @@ C     messages)
 
       IF(IO.EQ.'QUIET') THEN
 c  .... override previous IPRT value (printout indicator)
-         IF(LUNDX.LT.-1)  LUNDX = -1
-         IF(LUNDX.GT. 2)  LUNDX =  2
-         IF(LUNDX.GE.0) THEN
+         IPRTPRV = IPRT
+         IPRT = LUNDX
+         IF(IPRT.LT.-1) IPRT = -1
+         IF(IPRT.GT. 2) IPRT =  2
+         IF(IPRT.GE.0) THEN
       CALL ERRWRT('++++++++++++++BUFR ARCHIVE LIBRARY+++++++++++++++++')
       WRITE ( UNIT=ERRSTR, FMT='(A,I3,A,A,I3,A)' )
      . 'BUFRLIB: OPENBF - DEGREE OF MESSAGE PRINT INDICATOR '//
-     . 'CHNGED FROM',IPRT,CPRINT(IPRT+1),' TO',LUNDX,CPRINT(LUNDX+1)
+     . 'CHNGED FROM',IPRTPRV,CPRINT(IPRTPRV+1),' TO',IPRT,CPRINT(IPRT+1)
       CALL ERRWRT(ERRSTR)
       CALL ERRWRT('++++++++++++++BUFR ARCHIVE LIBRARY+++++++++++++++++')
       CALL ERRWRT(' ')
          ENDIF
-         IPRT = LUNDX
       ENDIF
 
       IF(IFOPBF.EQ.0) THEN
