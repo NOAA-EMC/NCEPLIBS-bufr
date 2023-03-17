@@ -1,6 +1,5 @@
 C> @file
-C> @brief Dynamically allocate Fortran language arrays within internal
-C> memory.
+C> @brief Dynamically allocate Fortran language arrays.
 C>
 C> @author J. Ator @date 2014-12-04
 
@@ -10,15 +9,8 @@ C> dynamically allocate internal Fortran language arrays based on
 C> parameter values set during one or more previous calls to function
 C> isetprm().
 C>
-C> This subroutine isn't normally called directly from an application
-C> program, since it's automatically called internally during the first
-C> call to subroutine openbf() from an application program.
-C>
-C> @remarks
-C> - All memory allocated within this subroutine can be freed via a
-C> subsequent call to subroutine exitbufr() from within the
-C> application program, or else it will be freed automatically by the
-C> operating system once the application program terminates.
+C> All memory allocated within this subroutine can be freed via a
+C> subsequent call to subroutine exitbufr(). 
 C>
 C> @author J. Ator @date 2014-12-04
         SUBROUTINE ARALLOCF

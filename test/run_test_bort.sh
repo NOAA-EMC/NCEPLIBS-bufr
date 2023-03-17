@@ -1,7 +1,11 @@
 #!/bin/sh
 # This is a test script for NCEPLIBS-bufr.
 #
-# This script tests aborts.
+# This script tests aborts. It does this by calling the program
+# test_bort.F90 with two arguments, the subroutine name and the test
+# case (a number). The program test_bort.F90 has code for each
+# subroutine name and test case, which causes an abort. This script
+# then checks that test_bort.F90 aborted as expected.
 #
 # Ed Hartnett 3/12/23
 
@@ -9,6 +13,12 @@
 ./test_bort_4 adn30 1
 [ $? != 1 ] &&  exit 1
 ./test_bort_4 adn30 2
+[ $? != 1 ] &&  exit 1
+./test_bort_4 adn30 3
+[ $? != 1 ] &&  exit 1
+./test_bort_4 adn30 4
+[ $? != 1 ] &&  exit 1
+./test_bort_4 adn30 5
 [ $? != 1 ] &&  exit 1
 
 # Check bort().
@@ -41,6 +51,16 @@
 
 # Check copysb().
 ./test_bort_4 copysb 1
+[ $? != 1 ] &&  exit 1
+
+# Check idn30().
+./test_bort_4 idn30 1
+[ $? != 1 ] &&  exit 1
+./test_bort_4 idn30 2
+[ $? != 1 ] &&  exit 1
+./test_bort_4 idn30 3
+[ $? != 1 ] &&  exit 1
+./test_bort_4 idn30 4
 [ $? != 1 ] &&  exit 1
 
 # Check sntbbe().

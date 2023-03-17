@@ -58,6 +58,17 @@ add_custom_command(
 
 file(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/testrun)
 
+# This function builds, links, and runs an ordinary Fortran test.
+function(create_test_plain name kind)
+  set(testID "${name}_${kind}")
+  add_executable(${testID} ${name}.F90)
+  set_target_properties(${testID} PROPERTIES COMPILE_FLAGS "${fortran_${kind}_flags}")
+  target_compile_definitions(${testID} PUBLIC -DKIND_${kind})
+  target_link_libraries(${testID} PRIVATE bufr_4)
+  add_dependencies(${testID} bufr_4)
+  add_test(NAME ${testID} COMMAND ${testID})
+endfunction()
+
 # This function builds, links, and runs an intest or outtest program.
 function(create_test name kind num)
   set(testID "${name}${num}_${kind}")
@@ -77,12 +88,16 @@ endfunction()
 foreach(kind ${test_kinds})
   add_executable(test_bort_${kind} test_bort.F90)
   set_target_properties(test_bort_${kind} PROPERTIES COMPILE_FLAGS "${fortran_${kind}_flags}")
+  # Need to turn off a warning for test_bort, so it can do stupid things needed to fail.
+  set_target_properties(test_bort_${kind} PROPERTIES COMPILE_FLAGS -Wno-character-truncation)
   target_compile_definitions(test_bort_${kind} PUBLIC -DKIND_${kind})
   target_link_libraries(test_bort_${kind} PRIVATE bufr_4)
   add_dependencies(test_bort_${kind} bufr_4)
 endforeach()
 
-# Test the borts.
+# Test the borts. This runs test script run_test_bort.sh, which
+# repeatedly calls program test_bort, and expects each time for the
+# program to be aborted.
 file(COPY "${CMAKE_SOURCE_DIR}/test/run_test_bort.sh"
     DESTINATION ${CMAKE_BINARY_DIR}/test
     FILE_PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE GROUP_READ GROUP_EXECUTE WORLD_READ WORLD_EXECUTE)
@@ -114,7 +129,9 @@ foreach(test_script ${test_scripts})
     ${CMAKE_BINARY_DIR}/bin/${test_script} )
 endforeach()
 
+# Create our IN and OUT tests, plus any other tests we want to run.
 foreach(kind ${test_kinds})
+  create_test_plain(test_misc ${kind})
   foreach(innum RANGE 1 10)
     create_test(intest ${kind} ${innum})
   endforeach()
