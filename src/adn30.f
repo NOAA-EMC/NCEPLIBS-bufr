@@ -1,12 +1,11 @@
 C> @file
-C> @brief Convert an FXY value from its bit-wise (integer)
-C> representation to its five or six character representation.
+C> @brief Convert an FXY value from an integer
+C> to a character string of length 5 or 6.
 C>
 C> @author J. Woollen @date 1994-01-06
 
-C> This function converts an FXY value from its bit-wise
-C> (integer) representation to its 5 or 6 character
-C> representation.
+C> This function converts an FXY value from an integer
+C> to a character string of length 5 or 6.
 C>
 C> This function is the logical inverse of function idn30().
 C>
@@ -26,7 +25,6 @@ C> @author J. Woollen @date 1994-01-06
 
 C----------------------------------------------------------------------
 C----------------------------------------------------------------------
-
       IF(LEN(ADN30).LT.L30         ) GOTO 900
       IF(IDN.LT.0 .OR. IDN.GT.65535) GOTO 901
       IF(L30.EQ.5) THEN

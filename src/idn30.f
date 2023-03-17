@@ -1,19 +1,18 @@
 C> @file
-C> @brief Convert an FXY value from its five or six character
-C> representation to its bit-wise (integer) representation
+C> @brief Convert an FXY value from a character string of length 5
+C> or 6 to an integer.
 C>
 C> @author J. Woollen @date 1994-01-06
 
-C> This function converts an FXY value from its 5 or 6 character
-C> representation to its bit-wise (integer) representation.
+C> This function converts an FXY value from a character string of length 5
+C> or 6 to an integer.
 C>
-C> @param[in] ADN30 -- character*(*): FXY value
+C> This function is the logical inverse of function adn30().
+C>
+C> @param[in] ADN30 -- character*(*): FXY value. Must be of length 5 or 6.
 C> @param[in] L30 -- integer: Length of ADN30; can be either 5 or 6
-C>                   characters
-C> @returns idn30 -- integer: Bit-wise representation of FXY value
-C>
-C> @remarks
-C> - This function is the logical inverse of function adn30().
+C>                   characters.
+C> @returns idn30 -- integer: FXY integer value.
 C>
 C> @author J. Woollen @date 1994-01-06
       FUNCTION IDN30(ADN30,L30)
