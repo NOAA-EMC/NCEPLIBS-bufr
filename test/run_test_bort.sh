@@ -51,6 +51,14 @@
 ./test_bort_4 copysb 1
 [ $? != 1 ] &&  exit 1
 
+# Check idn30().
+./test_bort_4 idn30 1
+[ $? != 1 ] &&  exit 1
+./test_bort_4 idn30 2
+[ $? != 1 ] &&  exit 1
+./test_bort_4 idn30 3
+[ $? != 1 ] &&  exit 1
+
 # Check sntbbe().
 ./test_bort_4 sntbbe 1
 [ $? != 1 ] &&  exit 1

@@ -20,10 +20,11 @@ program test_bort
   character*12 char_12(1)
   character*24 char_24(1)
   character*120 char_120(1)
+  character*5 adn30_val_5
   real r, valx
   real*8 real_1d(1)
   real*8 real_2d(1,1)
-
+  integer idn30, idn30_val
   integer :: num_args, len, status
   character(len=32) :: sub_name, test_case
   character*5 adn30
@@ -84,6 +85,14 @@ program test_bort
   elseif (sub_name .eq. 'copysb') then
      if (test_case .eq. '1') then
         call copysb(0, 0, iret)     
+     endif
+  elseif (sub_name .eq. 'idn30') then
+     if (test_case .eq. '1') then
+        idn30_val = idn30(adn30_val_5, 6)
+     elseif (test_case .eq. '2') then
+        idn30_val = idn30(adn30_val_5, 2)
+     elseif (test_case .eq. '3') then
+        idn30_val = idn30('-0042', 2)
      endif
   elseif (sub_name .eq. 'sntbbe') then
      if (test_case .eq. '1') then
