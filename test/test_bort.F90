@@ -52,6 +52,8 @@ program test_bort
      elseif (test_case .eq. '3') then
         char_30 = adn30(-1, 5)
      elseif (test_case .eq. '4') then
+        char_30 = adn30(65536, 5)
+     elseif (test_case .eq. '5') then
         char_30 = adn30(0, 3)
      endif
   elseif (sub_name .eq. 'bort') then
@@ -92,7 +94,9 @@ program test_bort
      elseif (test_case .eq. '2') then
         idn30_val = idn30(adn30_val_5, 2)
      elseif (test_case .eq. '3') then
-        idn30_val = idn30('-0042', 2)
+        idn30_val = idn30('-0042', 5)
+     elseif (test_case .eq. '4') then
+        idn30_val = idn30('65536', 5)
      endif
   elseif (sub_name .eq. 'sntbbe') then
      if (test_case .eq. '1') then
