@@ -19,9 +19,9 @@ NCEPLIBS-bufr is used by numerous other projects including:
   Operational Model Archive and Distribution System (NOMADS)](https://nomads.ncep.noaa.gov/).
 - [prepobs](https://github.com/NOAA-EMC/prepobs) from the [The NCEP Production Suite](https://www.nco.ncep.noaa.gov/pmb/prod_overview/).
 - [bufr-dump](https://github.com/NOAA-EMC/bufr-dump).
-- [the Global Ensemble Forecast
+- the [Global Ensemble Forecast
   System(GEFS)](https://www.ncei.noaa.gov/products/weather-climate-models/global-ensemble-forecast).
-- [the High-Resolution Rapid Refresh model
+- the [High-Resolution Rapid Refresh model
   (HRRR)](https://rapidrefresh.noaa.gov/hrrr/).
 - NOAA's [Rapid Refresh (RAP)](https://rapidrefresh.noaa.gov/) assimilation/modeling system.
 
