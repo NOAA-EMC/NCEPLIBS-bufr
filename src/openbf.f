@@ -64,7 +64,6 @@ C> (see [Description and Format of master BUFR Tables](@ref dfbfmstab) for more
 C> info.), but otherwise no prior knowledge is required of the contents of the
 C> messages to be decoded.
 C>
-C>
 C> @param[in] LUNIT   -- integer: Fortran logical unit number for BUFR
 C>                       file (unless IO is set to 'FIRST' or 'QUIET', in
 C>                       which case this is a dummy argument)
