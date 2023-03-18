@@ -4,7 +4,7 @@ C>
 C> @author Woollen @date 1994-01-06
 
 C> This subroutine initializes the internal arrays
-C> (in module tababd) holding the DX BUFR table. It then
+C> (in module @ref moda_tababd) holding the DX BUFR table. It then
 C> initializes the table with apriori Table B and D entries
 C> (optional).
 C>

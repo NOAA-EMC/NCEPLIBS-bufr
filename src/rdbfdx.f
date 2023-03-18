@@ -5,18 +5,18 @@ C> @author Woollen @date 1994-01-06
 
 C> Beginning at the current file pointer location within LUNIT,
 C> this subroutine reads a complete DX BUFR table into internal memory arrays
-C> in module tababd.  A DX BUFR table consists of one or more consecutive
+C> in module @ref moda_tababd. A DX BUFR table consists of one or more consecutive
 C> DX BUFR messages.
 C>
 C> This subroutine performs a function similar to
 C> rdusdx(), except that rdusdx() reads from a file containing
 C> a user-supplied DX BUFR table in character format. See rdusdx()
 C> for a description of the arrays that are filled
-C> in module tababd.
+C> in module @ref moda_tababd.
 C>
 C> This subroutine performs a function similar to
 C> cpdxmm(), except that cpdxmm() writes to the internal memory
-C> arrays in module msgmem, for use with a file of BUFR messages that
+C> arrays in module @ref moda_msgmem, for use with a file of BUFR messages that
 C> is being read and stored into internal memory via subroutine ufbmem().
 C>
 C> @param[in] LUNIT - integer: fortran logical unit number for BUFR file.

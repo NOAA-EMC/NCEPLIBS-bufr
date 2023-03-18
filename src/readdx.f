@@ -3,9 +3,9 @@ C> @brief Read DX BUFR table information into internal arrays.
 C>
 C> @author Woollen @date 1994-01-06
 
-C> This subroutine initializes modules tababd and msgcwd with DX BUFR
-C> (dictionary) tables. These tables are needed to read, write,
-C> initialize or append a BUFR file.
+C> This subroutine initializes modules @ref moda_tababd and @ref
+C> moda_msgcwd with DX BUFR (dictionary) tables. These tables are needed
+C> to read, write, initialize or append a BUFR file.
 C>
 C> The modules are initialized from:
 C> 1. an external, user-supplied BURF dictionary table file (i.e., a
