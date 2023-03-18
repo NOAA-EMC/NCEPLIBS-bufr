@@ -104,6 +104,8 @@ program test_bort
   elseif (sub_name .eq. 'status') then
      if (test_case .eq. '1') then
         call status(0, 0, 0, 0)        
+     elseif (test_case .eq. '2') then
+        call status(100, 0, 0, 0)        
      endif
   elseif (sub_name .eq. 'sntbbe') then
      if (test_case .eq. '1') then

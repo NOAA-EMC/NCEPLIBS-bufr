@@ -66,8 +66,10 @@
 ./test_bort_4 idn30 4
 [ $? != 1 ] &&  exit 1
 
-# Check sntbbe().
+# Check status().
 ./test_bort_4 status 1
+[ $? != 1 ] &&  exit 1
+./test_bort_4 status 2
 [ $? != 1 ] &&  exit 1
 
 # Check sntbde().
