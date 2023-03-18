@@ -25,7 +25,7 @@ program test_bort
   real*8 real_1d(1)
   real*8 real_2d(1,1)
   integer idn30, idn30_val
-  integer :: num_args, len, stat
+  integer :: num_args, len, stat, ios
   character(len=32) :: sub_name, test_case
   character*5 adn30
   
@@ -103,7 +103,9 @@ program test_bort
      endif
   elseif (sub_name .eq. 'openbf') then
      if (test_case .eq. '1') then
-
+        open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        call openbf(11, 'BBB', 11)
      endif
   elseif (sub_name .eq. 'status') then
      if (test_case .eq. '1') then
