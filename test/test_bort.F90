@@ -101,6 +101,10 @@ program test_bort
      elseif (test_case .eq. '4') then
         idn30_val = idn30('65536', 5)
      endif
+  elseif (sub_name .eq. 'openbf') then
+     if (test_case .eq. '1') then
+
+     endif
   elseif (sub_name .eq. 'status') then
      if (test_case .eq. '1') then
         call status(0, 0, 0, 0)        
