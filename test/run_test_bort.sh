@@ -49,9 +49,12 @@
 ./test_bort_4 copymg 1
 [ $? != 1 ] &&  exit 1
 
+# Commented out until
+# https://github.com/NOAA-EMC/NCEPLIBS-bufr/issues/395 can be
+# resolved.
 # Check copysb().
-./test_bort_4 copysb 1
-[ $? != 1 ] &&  exit 1
+#./test_bort_4 copysb 1
+#[ $? != 1 ] &&  exit 1
 
 # Check idn30().
 ./test_bort_4 idn30 1
@@ -63,8 +66,10 @@
 ./test_bort_4 idn30 4
 [ $? != 1 ] &&  exit 1
 
-# Check sntbbe().
-./test_bort_4 sntbbe 1
+# Check status().
+./test_bort_4 status 1
+[ $? != 1 ] &&  exit 1
+./test_bort_4 status 2
 [ $? != 1 ] &&  exit 1
 
 # Check sntbde().
