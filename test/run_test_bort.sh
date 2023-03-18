@@ -53,6 +53,7 @@ for kind in "4" "d" "8"; do
 
     # Check openbf().
     (./test_bort_$kind openbf 1) && exit 1
+    (./test_bort_$kind openbf 1) && exit 2
 
     # Check status().
     (./test_bort_$kind status 1) && exit 1
