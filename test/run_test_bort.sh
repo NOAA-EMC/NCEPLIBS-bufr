@@ -58,6 +58,7 @@ for kind in "4" "d" "8"; do
 
     # Check openmg().
     (./test_bort_$kind openmg 1) && exit 1
+    (./test_bort_$kind openmg 2) && exit 1
 
     # Check pkb().
     (./test_bort_$kind pkb 1) && exit 1
