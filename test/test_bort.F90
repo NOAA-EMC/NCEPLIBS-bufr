@@ -84,10 +84,13 @@ program test_bort
      if (test_case .eq. '1') then
         call copymg(0, 0)     
      endif
-  elseif (sub_name .eq. 'copysb') then
-     if (test_case .eq. '1') then
-        call copysb(0, 0, iret)     
-     endif
+  ! This is commented out until
+  ! https://github.com/NOAA-EMC/NCEPLIBS-bufr/issues/395 is
+  ! resolved.
+  ! elseif (sub_name .eq. 'copysb') then
+  !    if (test_case .eq. '1') then
+  !       call copysb(1, 1, iret)     
+  !    endif
   elseif (sub_name .eq. 'idn30') then
      if (test_case .eq. '1') then
         idn30_val = idn30(adn30_val_5, 6)
