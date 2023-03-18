@@ -56,6 +56,9 @@ for kind in "4" "d" "8"; do
     (./test_bort_$kind openbf 2) && exit 1
     (./test_bort_$kind openbf 3) && exit 1
 
+    # Check openmg().
+    (./test_bort_$kind openmg 1) && exit 1
+
     # Check status().
     (./test_bort_$kind status 1) && exit 1
     (./test_bort_$kind status 2) && exit 1

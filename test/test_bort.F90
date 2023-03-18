@@ -118,6 +118,13 @@ program test_bort
            call openbf(u, 'IN', 11)
         end do
      endif
+  elseif (sub_name .eq. 'openmg') then
+     if (test_case .eq. '1') then
+        open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        call openbf(11, 'IN', 11)
+        call openmg(11, 'F5FCMESG', 2021022312)        
+     endif
   elseif (sub_name .eq. 'status') then
      if (test_case .eq. '1') then
         call status(0, 0, 0, 0)        
