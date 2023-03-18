@@ -40,10 +40,15 @@ program test_bort
   if (lun .ne. 1 .or. il .ne. -1 .or. im .ne. 0) stop 4
   call closbf(11)
 
-  ! ! Open for OUT.
-  ! open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
+  ! Open for OUT.
+  ! This fails but I don't know why yet. I get a bort() message that contains:
+  ! BUFRLIB: RDUSDX
+  ! THIS CARD HAS A BAD FORMAT - IT IS NOT RECOGNIZED BY THIS SUBROUTINE
+  ! open(unit = 11, file = 'test_misc.bufr', form = 'UNFORMATTED', iostat = ios)
   ! if (ios .ne. 0) stop 3
-  ! call openbf(11, 'OUT', 11)
+  ! open(unit = 12, file = 'testfiles/IN_1', iostat = ios)
+  ! if (ios .ne. 0) stop 4
+  ! call openbf(11, 'OUT', 12)
   ! call status(11, lun, il, im)
   ! print *, lun, il, im
   ! if (lun .ne. 1 .or. il .ne. -1 .or. im .ne. 0) stop 4
