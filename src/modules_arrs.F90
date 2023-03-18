@@ -3,7 +3,8 @@
 !>
 !> @author J. Ator @date 2023-02-10
 
-!> This module contains array and variable declarations used to store BUFR messages internally for multiple I/O streams.
+!> This module contains array and variable declarations used to store
+!> BUFR messages internally for multiple I/O streams.
 !>
 !> @author J. Ator @date 2014-12-10
 module moda_bitbuf
@@ -19,30 +20,38 @@ module moda_bitbuf
   integer, allocatable :: MBAY(:,:)
 end module moda_bitbuf
 
-!> This module contains array and variable declarations used to store bitmaps internally within a data subset definition.
+!> This module contains array and variable declarations used to store
+!> bitmaps internally within a data subset definition.
 !>
-!> Data values within this module are stored by subprograms strbtm(), igetrfel(), makestab() and tabsub().
+!> Data values within this module are stored by subprograms strbtm(),
+!> igetrfel(), makestab() and tabsub().
 !>
 !> @author J. Ator @date 2016-05-27
 module moda_bitmaps
-!>  Number of stored bitmaps for the current data subset (up to a maximum of MXBTM).
+!>  Number of stored bitmaps for the current data subset (up to a
+!>  maximum of MXBTM).
   integer :: NBTM
-!>  Number of Table A mnemonics in jump/link table (up to a maximum of MXTAMC) which contain at least one Table C
-!>  operator with an XX value of 21 or greater in their data subset definition; only Table C operators with an XX
-!>  value of 21 or greater are tracked within this module, since all others are automatically processed within
+!>  Number of Table A mnemonics in jump/link table (up to a maximum of
+!>  MXTAMC) which contain at least one Table C operator with an XX
+!>  value of 21 or greater in their data subset definition; only Table
+!>  C operators with an XX value of 21 or greater are tracked within
+!>  this module, since all others are automatically processed within
 !>  subroutines tabsub() and tabent().
   integer :: NTAMC
-!>  Most recent jump/link table entry that was processed by function igetrfel() and whose corresponding value type
-!>  was either numeric or CCITT IA5.
+!>  Most recent jump/link table entry that was processed by function
+!>  igetrfel() and whose corresponding value type was either numeric
+!>  or CCITT IA5.
   integer :: LSTNOD
 !>  Current count of consecutive occurrences of lstnod.
   integer :: LSTNODCT
-!>  true if a bitmap is in the process of being read for the current data subset; false otherwise.
+!>  true if a bitmap is in the process of being read for the current
+!>  data subset; false otherwise.
   logical :: LINBTM
 !>  Entries within jump/link table which contain Table A mnemonics.
   integer, allocatable :: INODTAMC(:)
-!>  Number of Table C operators (with an XX value of 21 or greater) within the data subset definition of the
-!>  corresponding Table A mnemonic in inodtamc.
+!>  Number of Table C operators (with an XX value of 21 or greater)
+!>  within the data subset definition of the corresponding Table A
+!>  mnemonic in inodtamc.
   integer, allocatable :: NTCO(:)
 !>  Table C operators corresponding to inodtco.
   character*6, allocatable :: CTCO(:,:)
@@ -50,29 +59,37 @@ module moda_bitmaps
   integer, allocatable :: INODTCO(:,:)
 !>  Number of "set" entries (set to a value of 0) in the bitmap.
   integer, allocatable :: NBTMSE(:)
-!>  Ordinal position in data subset definition corresponding to the first entry of the bitmap.
+!>  Ordinal position in data subset definition corresponding to the
+!>  first entry of the bitmap.
   integer, allocatable :: ISTBTM(:)
-!>  Size of bitmap (total number of entries, whether "set" (set to a value of 0) or not).
+!>  Size of bitmap (total number of entries, whether "set" (set to a
+!>  value of 0) or not).
   integer, allocatable :: ISZBTM(:)
-!>  Ordinal positions in bitmap of bits that were "set" (set to a value of 0); these ordinal positions can range in
-!>  value from 1 to iszbtm for each stored bitmap.
+!>  Ordinal positions in bitmap of bits that were "set" (set to a
+!>  value of 0); these ordinal positions can range in value from 1 to
+!>  iszbtm for each stored bitmap.
   integer, allocatable :: IBTMSE(:,:)
 end module moda_bitmaps
 
-!> This module contains arrays used to store, for each output I/O stream, a copy of the BUFR message that was most
-!> recently written to that stream, for possible later retrieval via subroutine writsa().
+!> This module contains arrays used to store, for each output I/O
+!> stream, a copy of the BUFR message that was most recently written
+!> to that stream, for possible later retrieval via subroutine
+!> writsa().
 !>
 !> @author J. Ator @date 2014-12-10
 module moda_bufrmg
-!>  Length (in integers) of BUFR message most recently written to each output I/O stream.
+!>  Length (in integers) of BUFR message most recently written to each
+!>  output I/O stream.
   integer, allocatable :: MSGLEN(:)
 !>  BUFR message most recently written to each output I/O stream.
   integer, allocatable :: MSGTXT(:,:)
 end module moda_bufrmg
 
-!> This module contains arrays and variables needed to store the current position within a BUFR file.  This allows a
-!> rewind back to the first message within the file, while retaining the capability to return to the original file
-!> position at a later point within the application program.
+!> This module contains arrays and variables needed to store the
+!> current position within a BUFR file. This allows a rewind back to
+!> the first message within the file, while retaining the capability
+!> to return to the original file position at a later point within the
+!> application program.
 !>
 !> The current position can be stored for only one BUFR file at a time.
 !>
@@ -88,11 +105,14 @@ module moda_bufrsr
   integer :: JBIT
 !>  Length (in bytes) of BUFR message.
   integer :: JBYT
-!>  Sequential number of BUFR message, counting from the beginning of the file.
+!>  Sequential number of BUFR message, counting from the beginning of
+!>  the file.
   integer :: JMSG
-!>  Sequential number of BUFR data subset, counting from the beginning of the current BUFR message.
+!>  Sequential number of BUFR data subset, counting from the beginning
+!>  of the current BUFR message.
   integer :: JSUB
-!>  Bit-wise (integer) representation of FXY value associated with Table A mnemonic for BUFR message.
+!>  Bit-wise (integer) representation of FXY value associated with
+!>  Table A mnemonic for BUFR message.
   integer :: KSUB
 !>  Positional index of Table A mnemonic within internal Table A.
   integer :: JNOD
@@ -104,10 +124,12 @@ module moda_bufrsr
   integer, allocatable :: JBAY(:)
 end module moda_bufrsr
 
-!> This module contains arrays and variable declarations for the storage of data values needed when writing compressed
-!> data subsets to a BUFR message for output.
+!> This module contains arrays and variable declarations for the
+!> storage of data values needed when writing compressed data subsets
+!> to a BUFR message for output.
 !>
-!> This module can only be used to store the information for one compressed BUFR message at any given time.
+!> This module can only be used to store the information for one
+!> compressed BUFR message at any given time.
 !>
 !> @author J. Woollen @date 2002-05-14
 module moda_comprs
@@ -121,10 +143,12 @@ module moda_comprs
   character*(:), allocatable :: CATX(:,:)
 end module moda_comprs
 
-!> This module contains arrays and variable declarations for the storage of data values needed when writing compressed
-!> data subsets to a BUFR message for output.
+!> This module contains arrays and variable declarations for the
+!> storage of data values needed when writing compressed data subsets
+!> to a BUFR message for output.
 !>
-!> This module can only be used to store the information for one compressed BUFR message at any given time.
+!> This module can only be used to store the information for one
+!> compressed BUFR message at any given time.
 !>
 !> @author J. Woollen @date 2002-05-14
 module moda_comprx
@@ -134,34 +158,40 @@ module moda_comprx
   integer :: LUNC
 !>  Number of bytes required to store Sections 0, 1, 2, and 3 of message.
   integer :: KBYT
-!>  Flush flag.  Set to .true. if a subroutine call was made to force the writing of the message to the corresponding
-!>  output file, even if there may still be room in the message for additional data subsets.  Otherwise set to .false.
+!>  Flush flag. Set to .true. if a subroutine call was made to force
+!>  the writing of the message to the corresponding output file, even
+!>  if there may still be room in the message for additional data
+!>  subsets. Otherwise set to .false.
   logical :: FLUSH
-!>  Write-out flag.  Set to .true. if the message needs to be written to the corresponding output file.  Otherwise
-!>  set to .false.
+!>  Write-out flag. Set to .true. if the message needs to be written
+!>  to the corresponding output file. Otherwise set to .false.
   logical :: WRIT1
 !>  Minimum of each data value across all data subsets in message.
   integer(8), allocatable :: KMIN(:)
 !>  Maximum of each data value across all data subsets in message.
   integer(8), allocatable :: KMAX(:)
-!>  "Missing" values flag.  Set to .true. if at least one occurrence of this data value is "missing" within any data
-!>  subset of the message. Otherwise set to .false.
+!>  "Missing" values flag. Set to .true. if at least one occurrence
+!>  of this data value is "missing" within any data subset of the
+!>  message. Otherwise set to .false.
   logical, allocatable :: KMIS(:)
-!>  Number of bits needed to hold the increments for this data value within each data subset of the message.
+!>  Number of bits needed to hold the increments for this data value
+!>  within each data subset of the message.
   integer, allocatable :: KBIT(:)
 !>  Type of each data value:
 !>  - 1 Delayed descriptor replication factor.
 !>  - 2 Other non-character data.
 !>  - 3 Character data.
   integer, allocatable :: ITYP(:)
-!>  Bit width of underlying data descriptor as defined within Table B for each data value.
+!>  Bit width of underlying data descriptor as defined within Table B
+!>  for each data value.
   integer, allocatable :: IWID(:)
 !>  Character data value, if corresponding ityp value is set to 3.
   character*(:), allocatable :: CSTR(:)
 end module moda_comprx
 
-!> This module contains array and variable declarations for the internal Table A mnemonic cache that is used for
-!> Section 3 decoding of BUFR messages.
+!> This module contains array and variable declarations for the
+!> internal Table A mnemonic cache that is used for Section 3 decoding
+!> of BUFR messages.
 !>
 !> Data values within this module are stored by subroutine reads3().
 !>
@@ -170,19 +200,24 @@ end module moda_comprx
 module moda_dscach
   use modv_maxnc
   use modv_mxcnem
-!>  Number of entries in the internal Table A mnemonic cache (up to a maximum of MXCNEM).
+!>  Number of entries in the internal Table A mnemonic cache (up to a
+!>  maximum of MXCNEM).
   integer :: NCNEM
 !>  Table A mnemonics.
   character*8 :: CNEM(MXCNEM)
-!>  Number of child descriptors for the corresponding Table A mnemonic in cnem.
+!>  Number of child descriptors for the corresponding Table A mnemonic
+!>  in cnem.
   integer :: NDC(MXCNEM)
-!>  Bit-wise representations of the child descriptors for the corresponding Table A mnemonic in cnem.
+!>  Bit-wise representations of the child descriptors for the
+!>  corresponding Table A mnemonic in cnem.
   integer :: IDCACH(MXCNEM,MAXNC)
 end module moda_dscach
 
-!> This module contains array and variable declarations needed to store long character strings (greater than 8 bytes) via
-!> subroutine hold4wlc().  These strings can be held for writing into an uncompressed BUFR data subset via future internal
-!> calls to subroutine writlc().
+!> This module contains array and variable declarations needed to
+!> store long character strings (greater than 8 bytes) via subroutine
+!> hold4wlc(). These strings can be held for writing into an
+!> uncompressed BUFR data subset via future internal calls to
+!> subroutine writlc().
 !>
 !> @author J. Ator @date 2014-02-05
 module moda_h4wlc
@@ -197,20 +232,24 @@ module moda_h4wlc
   character*120 :: CHH4WLC(MXH4WLC)
 end module moda_h4wlc
 
-!> This module contains a declaration for an array used by subroutine readerme() to read in a new DX dictionary table as a
-!> consecutive set of one or more DX BUFR tables messages.
+!> This module contains a declaration for an array used by subroutine
+!> readerme() to read in a new DX dictionary table as a consecutive
+!> set of one or more DX BUFR tables messages.
 !>
 !> @author J. Ator @date 2009-03-23
 module moda_idrdm
-!>  DX BUFR tables message count for each I/O internal stream index.  Set to a value of zero unless a new DX dictionary
-!>  table is in the process of being read in by subroutine readerme() for the associated logical unit, and in which case
-!>  it keeps track of how many such messages have been read in so far.
+!>  DX BUFR tables message count for each I/O internal stream index.
+!>  Set to a value of zero unless a new DX dictionary table is in the
+!>  process of being read in by subroutine readerme() for the
+!>  associated logical unit, and in which case it keeps track of how
+!>  many such messages have been read in so far.
   integer, allocatable :: IDRDM(:)
 end module moda_idrdm
 
-!> This module contains a declaration for an array used to pack or unpack all of the values of a BUFR data subset.  It is
-!> used when packing a data subset for output via subroutine wrtree(), or when unpacking an input data subset via
-!> subroutine rdtree().
+!> This module contains a declaration for an array used to pack or
+!> unpack all of the values of a BUFR data subset. It is used when
+!> packing a data subset for output via subroutine wrtree(), or when
+!> unpacking an input data subset via subroutine rdtree().
 !>
 !> @author J. Woollen @date 1994-01-06
 module moda_ival
@@ -218,9 +257,11 @@ module moda_ival
   integer(8), allocatable :: IVAL(:)
 end module moda_ival
 
-!> This module contains arrays which provide working space in several subprograms (usrtpl() and ufbcup()) which manipulate
-!> the contents of the internal subset buffers where the contents of an evolving BUFR message are sccumulated and stored
-!> under user control prior to being written out.
+!> This module contains arrays which provide working space in several
+!> subprograms (usrtpl() and ufbcup()) which manipulate the contents
+!> of the internal subset buffers where the contents of an evolving
+!> BUFR message are sccumulated and stored under user control prior to
+!> being written out.
 !>
 !> @author J. Woollen @date 1994-01-06
 module moda_ivttmp
@@ -232,19 +273,22 @@ module moda_ivttmp
    real*8, allocatable :: VTMP(:)
 end module moda_ivttmp
 
-!> This module contains a declaration for an array used by subroutine makestab() to keep track of which logical units
-!> share DX BUFR table information.
+!> This module contains a declaration for an array used by subroutine
+!> makestab() to keep track of which logical units share DX BUFR table
+!> information.
 !>
 !> @author J. Woollen @date 1994-01-06
 module moda_lushr
-!>  Tracking index for each I/O internal stream index.  Set to a value of zero if the corresponding logical unit does not
-!>  share DX BUFR table information with any other logical unit.  Otherwise set to a non-zero value within subroutine
-!>  makestab().
+!>  Tracking index for each I/O internal stream index. Set to a value
+!>  of zero if the corresponding logical unit does not share DX BUFR
+!>  table information with any other logical unit. Otherwise set to a
+!>  non-zero value within subroutine makestab().
   integer, allocatable :: LUS(:)
 end module moda_lushr
 
-!> This module contains a declaration for an array used by various subroutines and functions to hold a temporary working
-!> copy of a BUFR message.
+!> This module contains a declaration for an array used by various
+!> subroutines and functions to hold a temporary working copy of a
+!> BUFR message.
 !>
 !> @author J. Woollen @date 1994-01-06
 module moda_mgwa
@@ -252,8 +296,9 @@ module moda_mgwa
   integer, allocatable :: MGWA(:)
 end module moda_mgwa
 
-!> This module contains a declaration for an array used by various subroutines and functions to hold a temporary working
-!> copy of a BUFR message.
+!> This module contains a declaration for an array used by various
+!> subroutines and functions to hold a temporary working qcopy of a
+!> BUFR message.
 !>
 !> @author J. Woollen @date 1994-01-06
 module moda_mgwb
@@ -261,8 +306,10 @@ module moda_mgwb
   integer, allocatable :: MGWB(:)
 end module moda_mgwb
 
-!> This module contains declarations for arrays used to store information about the current BUFR message that is in the
-!> process of being read from or written to the logical unit associated with each internal I/O stream index.
+!> This module contains declarations for arrays used to store
+!> information about the current BUFR message that is in the process
+!> of being read from or written to the logical unit associated with
+!> each internal I/O stream index.
 !>
 !> @author J. Woollen @date 1994-01-06
 module moda_msgcwd
@@ -278,62 +325,74 @@ module moda_msgcwd
   integer, allocatable :: IDATE(:)
 end module moda_msgcwd
 
-!> This module contains a declaration for an array used to keep track of which logical units should not have any empty
-!> (zero data subset) BUFR messages written to them.  This setting is turned on via a call to subroutine closmg() with
-!> LUNIN < 0 for the logical unit in question, and once set it remains in effect for the remainder of the life of the
-!> application program for that particular logical unit.
+!> This module contains a declaration for an array used to keep track
+!> of which logical units should not have any empty (zero data subset)
+!> BUFR messages written to them. This setting is turned on via a
+!> call to subroutine closmg() with LUNIN < 0 for the logical unit in
+!> question, and once set it remains in effect for the remainder of
+!> the life of the application program for that particular logical
+!> unit.
 !>
 !> @author D. Keyser @date 2005-05-26
 module moda_msglim
-!>  Tracking index for each I/O stream index.  Initialized to a value of 3 within subroutine bfrini(), and then reset
-!>  to a value of 0 within subroutine closmg() if the corresponding logical unit should not have any empty (zero data
-!>  subset) BUFR messages written to it.
+!>  Tracking index for each I/O stream index. Initialized to a value
+!>  of 3 within subroutine bfrini(), and then reset to a value of 0
+!>  within subroutine closmg() if the corresponding logical unit
+!>  should not have any empty (zero data subset) BUFR messages written
+!>  to it.
   integer, allocatable :: MSGLIM(:)
 end module moda_msglim
 
-!> This module contains array and variable declarations used to store the contents of one or more BUFR files within
-!> internal memory.
+!> This module contains array and variable declarations used to store
+!> the contents of one or more BUFR files within internal memory.
 !>
 !> Data values within this module are stored by subroutines ufbmem() and cpdxmm().
 !>
 !> @author J. Ator @date 2014-12-10
 module moda_msgmem
-!>  Fortran logical unit number for use in accessing contents of BUFR files within internal memory.
+!>  Fortran logical unit number for use in accessing contents of BUFR
+!>  files within internal memory.
   integer :: MUNIT
 !>  Number of array elements filled within msgs (up to a maximum of MAXMEM).
   integer :: MLAST
 !>  Number of array elements filled within mdx (up to a maximum of MXDXW).
   integer :: LDXM
-!>  Number of DX BUFR table messages stored within mdx (up to a maximum of MXDXM).
+!>  Number of DX BUFR table messages stored within mdx (up to a
+!>  maximum of MXDXM).
   integer :: NDXM
-!>  Number of DX BUFR table that is currently in scope, depending on which BUFR message within msgs is currently in scope
-!>  from the most recent call to subroutine rdmemm() or readmm().
+!>  Number of DX BUFR table that is currently in scope, depending on
+!>  which BUFR message within msgs is currently in scope from the most
+!>  recent call to subroutine rdmemm() or readmm().
   integer :: LDXTS
-!>  Number of DX BUFR tables represented by the messages within mdx (up to a maximum of MXDXTS).
+!>  Number of DX BUFR tables represented by the messages within mdx
+!>  (up to a maximum of MXDXTS).
   integer :: NDXTS
 !>  Maximum number of DX BUFR table messages that can be stored within mdx.
   integer :: MXDXM
 !>  Maximum number of entries that can be stored within mdx.
   integer :: MXDXW
-!>  Pointers to the beginning of each message within msgs (up to a maximum of MAXMSG, and where array element 0 contains
-!>  the actual number of messages stored within msgs).
+!>  Pointers to the beginning of each message within msgs (up to a
+!>  maximum of MAXMSG, and where array element 0 contains the actual
+!>  number of messages stored within msgs).
   integer, allocatable :: MSGP(:)
 !>  BUFR messages read from one or more BUFR files.
   integer, allocatable :: MSGS(:)
-!>  DX BUFR table messages read from one or more BUFR files, for use in decoding the messages in msgs.
+!>  DX BUFR table messages read from one or more BUFR files, for use
+!>  in decoding the messages in msgs.
   integer, allocatable :: MDX(:)
 !>  Pointers to the beginning of each message within mdx.
   integer, allocatable :: IPDXM(:)
 !>  Pointers to the beginning of each DX BUFR table within mdx.
   integer, allocatable :: IFDXTS(:)
-!>  Number of consecutive messages within mdx which constitute each DX BUFR table, beginning with the corresponding ifdxts.
+!>  Number of consecutive messages within mdx which constitute each DX
+!>  BUFR table, beginning with the corresponding ifdxts.
   integer, allocatable :: ICDXTS(:)
 !>  Pointers to first message within msgs for which each DX BUFR table applies.
   integer, allocatable :: IPMSGS(:)
 end module moda_msgmem
 
-!> This module contains array and variable declarations used to store master Table B and Table D entries within internal
-!> memory.
+!> This module contains array and variable declarations used to store
+!> master Table B and Table D entries within internal memory.
 !>
 !> Data values within this module are stored by subroutine ireadmt().
 !>
@@ -369,8 +428,9 @@ module moda_mstabs
   integer, allocatable :: IDEFXY(:)
 end module moda_mstabs
 
-!> This module contains declarations for arrays used by various subroutines to hold information about Table D sequences.
-!> These values are set via an internal call to subroutine nemtbd().
+!> This module contains declarations for arrays used by various
+!> subroutines to hold information about Table D sequences. These
+!> values are set via an internal call to subroutine nemtbd().
 !>
 !> @author J. Woollen @date 1994-01-06
 module moda_nmikrp
@@ -384,49 +444,64 @@ module moda_nmikrp
 !>  - 1, if corresponding nem is a Table D mnemonic using regular (non-delayed) replication
 !>  - 0, otherwise
   integer, allocatable :: IRP(:,:)
-!>  Replication counts corresponding to nem:
-!>  - Number of replications, if corresponding nem is a Table D mnemonic using regular (non-delayed) replication
-!>  - 0, otherwise
+  !>  Replication counts corresponding to nem:
+  !>  - Number of replications, if corresponding nem is a Table D
+  !>    mnemonic using regular (non-delayed) replication
+  !>  - 0, otherwise
   integer, allocatable :: KRP(:,:)
 end module moda_nmikrp
 
-!> This module contains array and variable declarations for use with any 2-03-YYY (change reference value) operators
-!> present within the internal jump/link table.
+!> This module contains array and variable declarations for use with
+!> any 2-03-YYY (change reference value) operators present within the
+!> internal jump/link table.
 !>
 !> Data values within this module are stored by subroutine tabsub().
 !>
 !> @author J. Ator @date 2012-03-02
 module moda_nrv203
-!>  Number of entries in the jump/link table which contain new reference values (up to a maximum of MXNRV).
+!>  Number of entries in the jump/link table which contain new
+!>  reference values (up to a maximum of MXNRV).
   integer :: NNRV
-!>  Number of bits in Section 4 occupied by each new reference value for the current 2-03-YYY operator in scope;
-!>  set to 0 if no such operator is currently in scope.
+!>  Number of bits in Section 4 occupied by each new reference value
+!>  for the current 2-03-YYY operator in scope; set to 0 if no such
+!>  operator is currently in scope.
   integer :: IBTNRV
-!>  A number between 1 and nnrv, denoting the first entry within the module arrays which applies to the current data
-!>  subset in scope; set to 0 if no 2-03-YYY operators have been applied to the current data subset in scope.
+!>  A number between 1 and nnrv, denoting the first entry within the
+!>  module arrays which applies to the current data subset in scope;
+!>  set to 0 if no 2-03-YYY operators have been applied to the current
+!>  data subset in scope.
   integer :: IPFNRV
-!>  Table B mnemonic to which the corresponding new reference value in nrv applies.
+!>  Table B mnemonic to which the corresponding new reference value in
+!>  nrv applies.
   character*8, allocatable :: TAGNRV(:)
 !>  Entries within jump/link table which contain new reference values.
   integer, allocatable :: INODNRV(:)
 !>  New reference values corresponding to inodnrv.
   integer*8, allocatable :: NRV(:)
-!>  Start of entry range in jump/link table, within which the corresponding new reference value in nrv will be applied
-!>  to all occurrences of the corresponding Table B mnemonic in tagnrv.
+!>  Start of entry range in jump/link table, within which the
+!>  corresponding new reference value in nrv will be applied to all
+!>  occurrences of the corresponding Table B mnemonic in tagnrv.
   integer, allocatable :: ISNRV(:)
-!>  End of entry range in jump/link table, within which the corresponding new reference value in nrv will be applied
-!>  to all occurrences of the corresponding Table B mnemonic in tagnrv.
+!>  End of entry range in jump/link table, within which the
+!>  corresponding new reference value in nrv will be applied to all
+!>  occurrences of the corresponding Table B mnemonic in tagnrv.
   integer, allocatable :: IENRV(:)
 end module moda_nrv203
 
-!> This module contains an array declaration used to store a switch for each internal I/O stream index, indicating whether
-!> any BUFR messages should actually be written to the corresponding logical unit.
+!> This module contains an array declaration used to store a switch
+!> for each internal I/O stream index, indicating whether any BUFR
+!> messages should actually be written to the corresponding logical
+!> unit.
 !>
-!> The default value is "on", indicating that BUFR messages should be written to the corresponding logical unit, but it
-!> can be switched to a value of "off" if it is connected to the library via a call to subroutine openbf() with IO = 'NUL',
-!> and in which case no output will actually be written to the corresponding logical unit.  This can be useful if, for
-!> example, an application program is planning to use subroutine writsa() to return output BUFR messages via a memory array
-!> and doesn't want to also have them automatically written out to a file.
+!> The default value is "on", indicating that BUFR messages should be
+!> written to the corresponding logical unit, but it can be switched
+!> to a value of "off" if it is connected to the library via a call to
+!> subroutine openbf() with IO = 'NUL', and in which case no output
+!> will actually be written to the corresponding logical unit. This
+!> can be useful if, for example, an application program is planning
+!> to use subroutine writsa() to return output BUFR messages via a
+!> memory array and doesn't want to also have them automatically
+!> written out to a file.
 !>
 !> @author J. Woollen @date 2003-11-04
 module moda_nulbfr
@@ -436,8 +511,8 @@ module moda_nulbfr
   integer, allocatable :: NULL(:)
 end module moda_nulbfr
 
-!> This module contains array and variable declarations used to store master Table B and Table D entries within internal
-!> memory.
+!> This module contains array and variable declarations used to store
+!> master Table B and Table D entries within internal memory.
 !>
 !> Data values within this module are stored by subroutine ireadmt().
 !>
@@ -453,9 +528,10 @@ module moda_rdmtb
   character*120, allocatable :: CEELEM(:,:)
 end module moda_rdmtb
 
-!> This module contains array and variable declarations needed to store information about long character strings
-!> (greater than 8 bytes) when reading them from input data subsets in compressed BUFR messages via subroutines
-!> rdcmps() and readlc().
+!> This module contains array and variable declarations needed to
+!> store information about long character strings (greater than 8
+!> bytes) when reading them from input data subsets in compressed BUFR
+!> messages via subroutines rdcmps() and readlc().
 !>
 !> @author J. Woollen @date 2009-03-23
 module moda_rlccmn
@@ -469,10 +545,12 @@ module moda_rlccmn
   character*10, allocatable :: CRTAG(:)
 end module moda_rlccmn
 
-!> This module contains array and variable declarations used to store custom values for certain mnemonics within
-!> Sections 0 and 1 of all future output BUFR messages written to all Fortran logical units.  These values are specified
-!> via one or more calls to subroutine pkvs01(). Otherwise, default values for these mnemonics are used as defined
-!> within subroutines msgini(), cmsgini(), or dxmini().
+!> This module contains array and variable declarations used to store
+!> custom values for certain mnemonics within Sections 0 and 1 of all
+!> future output BUFR messages written to all Fortran logical units.
+!> These values are specified via one or more calls to subroutine
+!> pkvs01(). Otherwise, default values for these mnemonics are used as
+!> defined within subroutines msgini(), cmsgini(), or dxmini().
 !>
 !> @author J. Ator @date 2015-03-03
 module moda_s01cm
@@ -484,14 +562,19 @@ module moda_s01cm
   integer :: NS01V = 0
 end module moda_s01cm
 
-!> This module contains an array declaration used to store a switch for each internal I/O stream index, indicating whether
-!> BUFR messages read from the corresponding logical unit should be decoded according to the contents of Section 3 and
-!> using master BUFR tables, rather than using DX BUFR tables.
+!> This module contains an array declaration used to store a switch
+!> for each internal I/O stream index, indicating whether BUFR
+!> messages read from the corresponding logical unit should be decoded
+!> according to the contents of Section 3 and using master BUFR
+!> tables, rather than using DX BUFR tables.
 !>
-!> The default value is "off", indicating that BUFR messages read from the corresponding logical unit should be decoded
-!> using DX BUFR tables, but it can be switched to a value of "on" if the corresponding logical unit is connected to the
-!> library via a call to subroutine openbf() with IO = 'SEC3', and in which case each BUFR message will be decoded
-!> according to the contents of Section 3 and using master BUFR tables.
+!> The default value is "off", indicating that BUFR messages read from
+!> the corresponding logical unit should be decoded using DX BUFR
+!> tables, but it can be switched to a value of "on" if the
+!> corresponding logical unit is connected to the library via a call
+!> to subroutine openbf() with IO = 'SEC3', and in which case each
+!> BUFR message will be decoded according to the contents of Section 3
+!> and using master BUFR tables.
 !>
 !> @author J. Ator @date 2009-03-23
 module moda_sc3bfr
@@ -499,16 +582,19 @@ module moda_sc3bfr
 !>  - 0 BUFR messages read from corresponding logical unit will be decoded using DX BUFR tables (default)
 !>  - 1 BUFR messages read from corresponding logical unit will be decoded using master BUFR tables
   integer, allocatable :: ISC3(:)
-!>  Table A mnemonic most recently read from each internal I/O stream index, if isc3 = 1 for that stream
+!>  Table A mnemonic most recently read from each internal I/O stream
+!>  index, if isc3 = 1 for that stream
   character*8, allocatable :: TAMNEM(:)
 end module moda_sc3bfr
 
-!> This module contains array declarations used to store file and message status indicators for all logical units that
-!> have been connected to the library via previous calls to subroutine openbf().
+!> This module contains array declarations used to store file and
+!> message status indicators for all logical units that have been
+!> connected to the library via previous calls to subroutine openbf().
 !>
 !> @author J. Woollen @date 1994-01-06
 module moda_stbfr
-!>  File status indicators.  Every connected I/O stream index has a non-zero value in this array:
+!>  File status indicators. Every connected I/O stream index has a
+!>  non-zero value in this array:
 !>  - if the value is positive, then the logical unit number of this same value is connected for output
 !>    (i.e. writing/encoding) BUFR
 !>  - if the value is negative, then the logical unit number of the absolute value of this same value is
@@ -521,9 +607,11 @@ module moda_stbfr
   integer, allocatable :: IOMSG(:)
 end module moda_stbfr
 
-!> This module contains an array declaration used to store a status code for each internal I/O stream index if an error or
-!> other abnormal result occurs while processing a BUFR message within the associated logical unit.  The status code can be
-!> retrieved at any time by the application program via a call to subroutine igetsc().
+!> This module contains an array declaration used to store a status
+!> code for each internal I/O stream index if an error or other
+!> abnormal result occurs while processing a BUFR message within the
+!> associated logical unit. The status code can be retrieved at any
+!> time by the application program via a call to subroutine igetsc().
 !>
 !> @author J. Ator @date 2010-05-11
 module moda_stcode
@@ -532,22 +620,24 @@ module moda_stcode
   integer, allocatable :: ISCODES(:)
 end module moda_stcode
 
-!> This module contains array and variable declarations used to store DX BUFR tables internally for multiple I/O streams.
+!> This module contains array and variable declarations used to store
+!> DX BUFR tables internally for multiple I/O streams.
 !>
 !> @author J. Ator @date 2014-12-10
 module moda_tababd
-!>  Number of Table A entries for each internal I/O stream (up to a maximum of MAXTBA, whose value is stored in
-!>  array element 0).
+!>  Number of Table A entries for each internal I/O stream (up to a
+!>  maximum of MAXTBA, whose value is stored in array element 0).
   integer, allocatable :: NTBA(:)
-!>  Number of Table B entries for each internal I/O stream (up to a maximum of MAXTBB, whose value is stored in
-!>  array element 0).
+!>  Number of Table B entries for each internal I/O stream (up to a
+!>  maximum of MAXTBB, whose value is stored in array element 0).
   integer, allocatable :: NTBB(:)
-!>  Number of Table D entries for each internal I/O stream (up to a maximum of MAXTBD, whose value is stored in
-!>  array element 0).
+!>  Number of Table D entries for each internal I/O stream (up to a
+!>  maximum of MAXTBD, whose value is stored in array element 0).
   integer, allocatable :: NTBD(:)
 !>  Entries within jump/link table corresponding to taba.
   integer, allocatable :: MTAB(:,:)
-!>  Message types (in array element 1) and subtypes (in array element 2) corresponding to taba.
+!>  Message types (in array element 1) and subtypes (in array element
+!>  2) corresponding to taba.
   integer, allocatable :: IDNA(:,:,:)
 !>  Bit-wise representations of the FXY values corresponding to tabb.
   Integer, allocatable :: IDNB(:,:)
@@ -561,9 +651,11 @@ module moda_tababd
   character*600, allocatable :: TABD(:,:)
 end module moda_tababd
 
-!> This module contains array and variable declarations used to store the internal jump/link table.
+!> This module contains array and variable declarations used to store
+!> the internal jump/link table.
 !>
-!> Data values within this module are stored by subroutines makestab(), tabsub() and tabent().
+!> Data values within this module are stored by subroutines
+!> makestab(), tabsub() and tabent().
 !>
 !> @author J. Ator @date 2014-12-10
 module moda_tables
@@ -649,19 +741,25 @@ module moda_tables
   integer, allocatable :: JSEQ(:)
 end module moda_tables
 
-!> This module contains an array declaration used to store, for each I/O stream index, the logical unit number
-!> corresponding to a separate I/O stream index whenever BUFR data subsets are being copied from the latter to the former
-!> via subroutine ufbcpy().  In such cases, this stored logical unit number is later accessed within subroutine wrtree()
-!> to enable the copying of long character strings (greater than 8 bytes) between the two logical units.
+!> This module contains an array declaration used to store, for each
+!> I/O stream index, the logical unit number corresponding to a
+!> separate I/O stream index whenever BUFR data subsets are being
+!> copied from the latter to the former via subroutine ufbcpy(). In
+!> such cases, this stored logical unit number is later accessed
+!> within subroutine wrtree() to enable the copying of long character
+!> strings (greater than 8 bytes) between the two logical units.
 !>
 !> @author J. Woollen @date 2009-08-11
 module moda_ufbcpl
-!>  Logical unit numbers used to copy long character strings between BUFR data subsets.
+!>  Logical unit numbers used to copy long character strings between
+!>  BUFR data subsets.
   integer, allocatable :: LUNCPY(:)
 end module moda_ufbcpl
 
-!> This module contains an array declaration used to store, for each I/O stream index from which a BUFR message is
-!> currently being read as input, a flag indicating how to unpack the data subsets from the message.
+!> This module contains an array declaration used to store, for each
+!> I/O stream index from which a BUFR message is currently being read
+!> as input, a flag indicating how to unpack the data subsets from the
+!> message.
 !>
 !> @author J. Woollen @date 1994-01-06
 module moda_unptyp
@@ -672,8 +770,9 @@ module moda_unptyp
   integer, allocatable :: MSGUNP(:)
 end module moda_unptyp
 
-!> This module contains array declarations for internal storage of pointers to BUFR data subset values.  They are
-!> used when unpacking an input data subset via subroutines rcstpl() and rdtree().
+!> This module contains array declarations for internal storage of
+!> pointers to BUFR data subset values. They are used when unpacking
+!> an input data subset via subroutines rcstpl() and rdtree().
 !>
 !> @author J. Woollen @date 1994-01-06
 module moda_usrbit
@@ -683,8 +782,9 @@ module moda_usrbit
   integer, allocatable :: MBIT(:)
 end module moda_usrbit
 
-!> This module contains declarations for arrays used to store data values and associated metadata for the current BUFR
-!> data subset in scope for each I/O stream index.
+!> This module contains declarations for arrays used to store data
+!> values and associated metadata for the current BUFR data subset in
+!> scope for each I/O stream index.
 !>
 !> This module is used by numerous subroutines throughout the library which read or write BUFR data subsets.
 !>
@@ -701,8 +801,9 @@ module moda_usrint
   real*8, target, allocatable :: VAL(:,:)
 end module moda_usrint
 
-!> This module contains arrays used in subroutine rcstpl() to store subset segments that are being copied from a subset
-!> template into internal subset arrays.
+!> This module contains arrays used in subroutine rcstpl() to store
+!> subset segments that are being copied from a subset template into
+!> internal subset arrays.
 !>
 !> @author J. Woollen 1994-01-06
 module moda_usrtmp
@@ -713,15 +814,21 @@ module moda_usrtmp
   real*8, allocatable :: VUTMP(:,:)
 end module moda_usrtmp
 
-!> This module contains an array declaration used to track, for each I/O stream index, whether the DX BUFR table associated
-!> with the corresponding logical unit has changed during the life of the application program.
+!> This module contains an array declaration used to track, for each
+!> I/O stream index, whether the DX BUFR table associated with the
+!> corresponding logical unit has changed during the life of the
+!> application program.
 !>
-!> This information is stored and tracked within subroutine makestab(), which checks each time it is called to see if the
-!> DX BUFR table has changed for any I/O stream index since the last time it was called.
+!> This information is stored and tracked within subroutine
+!> makestab(), which checks each time it is called to see if the DX
+!> BUFR table has changed for any I/O stream index since the last time
+!> it was called.
 !>
 !> @author J. Woollen @date 2009-03-18
 module moda_xtab
-!>  Tracking index for each internal I/O stream index.  Set to .true. if the DX BUFR table for the corresponding logical
-!>  unit has changed since the previous call to subroutine makestab(); set to .false. otherwise.
+!>  Tracking index for each internal I/O stream index. Set to
+!>  .true. if the DX BUFR table for the corresponding logical unit has
+!>  changed since the previous call to subroutine makestab(); set to
+!>  .false. otherwise.
   logical, allocatable :: XTAB(:)
 end module moda_xtab

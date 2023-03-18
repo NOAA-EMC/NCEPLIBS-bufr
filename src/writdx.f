@@ -1,10 +1,10 @@
 C> @file
-C> @brief Write DX BUFR tables messages to the beginning of an output BUFR file
+C> @brief Write DX BUFR tables messages to the beginning of an output BUFR file.
 c>
 C> @author Woollen @date 1994-01-06
 
 C> This subroutine writes BUFR table (dictionary) messages to
-C> the beginning of an output BUFR file in lunit.  The table messages
+C> the beginning of an output BUFR file in lunit. The table messages
 C> are read from arrays in internal memory (module tababd).
 C> An initial call to BUFR archive library subroutine readdx() generates
 C> these internal arrays.
