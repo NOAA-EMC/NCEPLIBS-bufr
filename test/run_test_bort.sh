@@ -59,6 +59,13 @@ for kind in "4" "d" "8"; do
     # Check openmg().
     (./test_bort_$kind openmg 1) && exit 1
 
+    # Check pkb().
+    (./test_bort_$kind pkb 1) && exit 1
+
+    # Check pkb8().
+    (./test_bort_$kind pkb8 1) && exit 1
+    (./test_bort_$kind pkb8 2) && exit 1
+
     # Check status().
     (./test_bort_$kind status 1) && exit 1
     (./test_bort_$kind status 2) && exit 1

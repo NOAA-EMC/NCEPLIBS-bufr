@@ -28,6 +28,7 @@ program test_bort
   integer :: num_args, len, stat, ios, u
   character(len=32) :: sub_name, test_case
   character*5 adn30
+  integer ibay(1), ibit
   
   num_args = command_argument_count()
   if (num_args /= 2) then
@@ -124,6 +125,16 @@ program test_bort
         if (ios .ne. 0) stop 3
         call openbf(11, 'IN', 11)
         call openmg(11, 'F5FCMESG', 2021022312)        
+     endif
+  elseif (sub_name .eq. 'pkb') then
+     if (test_case .eq. '1') then
+        call pkb(1, 65, ibay, ibit)        
+     endif
+  elseif (sub_name .eq. 'pkb8') then
+     if (test_case .eq. '1') then
+        call pkb(1, -1, ibay, ibit)        
+     elseif (test_case .eq. '2') then
+        call pkb(1, 65, ibay, ibit)        
      endif
   elseif (sub_name .eq. 'status') then
      if (test_case .eq. '1') then
