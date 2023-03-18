@@ -25,7 +25,7 @@ program test_bort
   real*8 real_1d(1)
   real*8 real_2d(1,1)
   integer idn30, idn30_val
-  integer :: num_args, len, status
+  integer :: num_args, len, stat
   character(len=32) :: sub_name, test_case
   character*5 adn30
   
@@ -37,10 +37,10 @@ program test_bort
 
   ! Read the command line arguments, a name of subroutine, and a test
   ! case number.
-  call get_command_argument(1, sub_name, len, status)
-  if (status .ne. 0) stop 3
-  call get_command_argument(2, test_case, len, status)
-  if (status .ne. 0) stop 4
+  call get_command_argument(1, sub_name, len, stat)
+  if (stat .ne. 0) stop 3
+  call get_command_argument(2, test_case, len, stat)
+  if (stat .ne. 0) stop 4
   print *, 'Testing ', sub_name, ' case ', test_case
 
   ! Run the test for the subroutine and test case.
@@ -97,6 +97,10 @@ program test_bort
         idn30_val = idn30('-0042', 5)
      elseif (test_case .eq. '4') then
         idn30_val = idn30('65536', 5)
+     endif
+  elseif (sub_name .eq. 'status') then
+     if (test_case .eq. '1') then
+        call status(0, 0, 0, 0)        
      endif
   elseif (sub_name .eq. 'sntbbe') then
      if (test_case .eq. '1') then

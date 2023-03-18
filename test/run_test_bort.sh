@@ -64,7 +64,7 @@
 [ $? != 1 ] &&  exit 1
 
 # Check sntbbe().
-./test_bort_4 sntbbe 1
+./test_bort_4 status 1
 [ $? != 1 ] &&  exit 1
 
 # Check sntbde().
