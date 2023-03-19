@@ -67,6 +67,9 @@ for kind in "4" "d" "8"; do
     (./test_bort_$kind pkb8 1) && exit 1
     (./test_bort_$kind pkb8 2) && exit 1
 
+    # Check posapx().
+    (./test_bort_$kind posapx 1) && exit 1
+
     # Check status().
     (./test_bort_$kind status 1) && exit 1
     (./test_bort_$kind status 2) && exit 1

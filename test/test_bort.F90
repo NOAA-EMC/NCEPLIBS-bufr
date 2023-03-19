@@ -138,6 +138,10 @@ program test_bort
      elseif (test_case .eq. '2') then
         call pkb(1, 65, ibay, ibit)        
      endif
+  elseif (sub_name .eq. 'posapx') then
+     if (test_case .eq. '1') then
+        call posapx(1)        
+     endif
   elseif (sub_name .eq. 'status') then
      if (test_case .eq. '1') then
         call status(0, 0, 0, 0)        
