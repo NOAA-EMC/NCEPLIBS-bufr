@@ -28,7 +28,7 @@ program test_bort
   integer :: num_args, len, stat, ios, u
   character(len=32) :: sub_name, test_case
   character*5 adn30
-  integer ibay(1), ibit
+  integer ibay(1), ibit, subset, jdate
   
   num_args = command_argument_count()
   if (num_args /= 2) then
@@ -141,6 +141,13 @@ program test_bort
   elseif (sub_name .eq. 'posapx') then
      if (test_case .eq. '1') then
         call posapx(1)        
+     endif
+  elseif (sub_name .eq. 'rdmemm') then
+     if (test_case .eq. '1') then
+        open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        call openbf(11, 'IN', 11)
+        call rdmemm(1, subset, jdate, iret)        
      endif
   elseif (sub_name .eq. 'status') then
      if (test_case .eq. '1') then
