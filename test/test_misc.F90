@@ -4,13 +4,13 @@
 ! test code coverage.
 !
 ! Ed Hartnett 3/17/23
-program test_bort
+program test_misc
   implicit none
   character*5 char5
   character*5 adn30
   integer a, idn30
   integer lun, il, im
-  integer ios
+  integer ios, ierr, nemock
 
   print *, 'Testing misc subroutines.'
 
@@ -53,6 +53,15 @@ program test_bort
   ! print *, lun, il, im
   ! if (lun .ne. 1 .or. il .ne. -1 .or. im .ne. 0) stop 4
   ! call closbf(11)
+
+  ! Testing nemock(). Commented out until this issue is resolved:
+  ! https://github.com/NOAA-EMC/NCEPLIBS-bufr/issues/400
+  ! ierr = nemock('')
+  ! if (ierr .ne. -1) stop 100
+  ! ierr = nemock('012345678')
+  ! if (ierr .ne. -1) stop 100
+  ! ierr = nemock('???')
+  ! if (ierr .ne. -2) stop 100
   
   print *, 'SUCCESS'
-end program test_bort
+end program test_misc
