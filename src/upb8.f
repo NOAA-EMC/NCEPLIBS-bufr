@@ -11,16 +11,15 @@ C> It is similar to subroutine up8(), except that here IBIT is
 C> only an input argument, and the overall order of the arguments
 C> is different.
 C>
-C> @param[in] IBAY    -- integer(*): Array containing encoded value
-C> @param[in] IBIT  -- integer: Bit within IBAY after which to begin
-C>                     decoding NVAL
-C> @param[in] NBITS   -- integer: Number of bits to be decoded
-C> @param[out] NVAL   -- integer*8: Decoded value
+C> This subroutine will not work properly if NBITS is less than 0 or
+C> greater than 64, as determined via an internal call to subroutine
+C> wrdlen().
 C>
-C> @remarks
-C> - This subroutine will not work properly if NBITS is less than 0 or
-C>   greater than 64, as determined via an internal call to subroutine
-C>   wrdlen().
+C> @param[in] IBAY - integer(*): Array containing encoded value.
+C> @param[in] IBIT - integer: Bit within IBAY after which to begin
+C> decoding NVAL.
+C> @param[in] NBITS - integer: Number of bits to be decoded.
+C> @param[out] NVAL - integer*8: Decoded value.
 C>
 C> @author J. Woollen @date 2022-05-06
       subroutine upb8(nval,nbits,ibit,ibay)

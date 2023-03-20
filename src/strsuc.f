@@ -1,5 +1,5 @@
 C> @file
-C> @brief Remove leading and trailing blanks from a character string
+C> @brief Remove leading and trailing blanks from a character string.
 C>
 C> @author J. Woollen @date 1994-01-06
 

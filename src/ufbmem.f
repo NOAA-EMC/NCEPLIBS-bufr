@@ -13,6 +13,19 @@ C>
 C> Any embedded DX BUFR tables contained within the file are also
 C> read and processed into separate internal arrays for later use.
 C>
+C> Logical unit number LUNIT must already be associated with an
+C> actual filename on the local system, typically via a Fortran "OPEN"
+C> statement.
+C>
+C> When INEW = 0, the output value IUNIT will be set equal to the
+C> input value LUNIT.  Otherwise, the output value IUNIT will be set to
+C> the value of LUNIT that was input when this subroutine was previously
+C> called with INEW = 0, and the system file connected to LUNIT will be
+C> closed via an internal call to subroutine closbf() before exiting
+C> this subroutine.  In either case, IUNIT can now be used to access
+C> all BUFR messages that were read and stored by all previous calls
+C> to this subroutine.
+C>
 C> @param[in] LUNIT   -- integer: Fortran logical unit number for BUFR
 C>                       file
 C> @param[in] INEW    -- integer: Processing option
@@ -29,19 +42,6 @@ C>                       - 0 = LUNIT was empty, so no messages were read
 C>                       - Otherwise, the Fortran logical unit number to
 C>                         use for later access to any of the messages
 C>                         from the internal arrays
-C>
-C> Logical unit number LUNIT must already be associated with an
-C> actual filename on the local system, typically via a Fortran "OPEN"
-C> statement.
-C>
-C> When INEW = 0, the output value IUNIT will be set equal to the
-C> input value LUNIT.  Otherwise, the output value IUNIT will be set to
-C> the value of LUNIT that was input when this subroutine was previously
-C> called with INEW = 0, and the system file connected to LUNIT will be
-C> closed via an internal call to subroutine closbf() before exiting
-C> this subroutine.  In either case, IUNIT can now be used to access
-C> all BUFR messages that were read and stored by all previous calls
-C> to this subroutine.
 C>
 C> @author J. Woollen @date 1994-01-06
       RECURSIVE SUBROUTINE UFBMEM(LUNIT,INEW,IRET,IUNIT)

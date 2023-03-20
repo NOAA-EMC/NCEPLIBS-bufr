@@ -7,9 +7,9 @@ C> Given a Table B mnemonic with flag table units and a
 C> corresponding numerical data value, this subroutine determines
 C> the bit settings equivalent to that numerical value.
 C>
-C> @remarks
-C> - This subroutine is the logical inverse of function pkftbv().
-C> - According to the WMO standard, bits within a bit field are
+C> This subroutine is the logical inverse of function pkftbv().
+C>
+C> According to the WMO standard, bits within a bit field are
 C> numbered from left to right, so bit #1 is always the high-order
 C> (i.e. most significant) bit in any bit field.
 C>

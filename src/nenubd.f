@@ -6,8 +6,8 @@ C> @author J. Woollen @date 1994-01-06
 C> This subroutine checks a mnemonic and FXY value pair that were read
 C> from a user-supplied BUFR DX dictionary table in character format,
 C> in order to make sure that neither value has already been
-C> defined within internal BUFR table B or D (in module tababd) for
-C> the given LUN.  If either value has already been defined for this
+C> defined within internal BUFR table B or D (in module @ref moda_tababd) for
+C> the given LUN. If either value has already been defined for this
 C> LUN, then an appropriate call is made to BUFR archive library
 C> subroutine bort().
 C>

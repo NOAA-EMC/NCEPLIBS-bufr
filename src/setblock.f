@@ -12,7 +12,7 @@ C>
 C> If control words are requested, then one 4-byte control word is
 C> written to the output file prior to the start of each BUFR message,
 C> and a second 4-byte control word is written to the output file after
-C> the end of each BUFR message.  Each of these control words contains
+C> the end of each BUFR message. Each of these control words contains
 C> the byte count for the enclosed BUFR message, and they can be
 C> written using either big-endian or little-endian byte ordering,
 C> regardless of the native endianness of the local machine.
@@ -23,8 +23,21 @@ C> in effect for all future calls to
 C> [message-writing subroutines](@ref hierarchy) for all Fortran logical
 C> units that are open for output within the application program,
 C> unless a subsequent call is made to this subroutine to reset the
-C> value of IBLK again.  If this subroutine is never called, a default
+C> value of IBLK again. If this subroutine is never called, a default
 C> value of 0 is used for IBLK, as set within subroutine bfrini().
+C>
+C> @remarks
+C> - This subroutine can be used to generate BUFR files consistent
+C> with historical archives, dating back to older versions of the
+C> BUFRLIB software which used Fortran to directly read/write
+C> BUFR messages from/to system files. Standard Fortran historically
+C> didn't have a way to read/write binary data streams without
+C> control words, so as a result many historical archives contain
+C> these by default. However, newer versions of the BUFRLIB software
+C> use C to directly read/write BUFR messages from/to system files
+C> (including historical archives), so control words are no longer
+C> necessary and are therefore now disabled by default when writing
+C> BUFR messages to output files.
 C>
 C> @param[in]  IBLK -- integer: Flag indicating whether future BUFR
 C>                     output messages should be encapsulated with
@@ -32,19 +45,6 @@ C>                     control words
 C>                      - -1 = Yes, using little-endian control words
 C>                      -  0 = No (the default)
 C>                      -  1 = Yes, using big-endian control words
-C>
-C> @remarks
-C> - This subroutine can be used to generate BUFR files consistent
-C> with historical archives, dating back to older versions of the
-C> BUFRLIB software which used Fortran to directly read/write
-C> BUFR messages from/to system files.  Standard Fortran historically
-C> didn't have a way to read/write binary data streams without
-C> control words, so as a result many historical archives contain
-C> these by default.  However, newer versions of the BUFRLIB software
-C> use C to directly read/write BUFR messages from/to system files
-C> (including historical archives), so control words are no longer
-C> necessary and are therefore now disabled by default when writing
-C> BUFR messages to output files.
 C>
 C> @author J. Woollen @date 2012-09-15
       RECURSIVE SUBROUTINE SETBLOCK(IBLK)

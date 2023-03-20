@@ -11,12 +11,11 @@ C> node of the internal jump/link table arrays isc(*) and irf(*);
 C> however, the reference value in irf(*) will be overridden if a
 C> 2-03 operator is in effect for this node.
 C>
+C> This function is the logical inverse of function ipks().
+C>
 C> @param[in] IVAL - integer: packed BUFR integer.
 C> @param[in] NODE - integer: index into internal jump/link tables.
 C> @returns UPS - real*8: user value.
-C>
-C> @remarks
-C> - This function is the logical inverse of function ipks().
 C>
 C> @author J. Ator @date 2012-03-02
         REAL*8 FUNCTION UPS(IVAL,NODE)

@@ -14,6 +14,10 @@ C> specific occurrence of a nearby mnemonic, and if found
 C> stores the specified data value in the corresponding location
 C> within the subset.
 C>
+C> Before calling this subroutine, a BUFR message should already be
+C> opened and initialized for output via a previous call to one of the
+C> BUFRLIB [message-writing subroutines](@ref hierarchy).
+C>
 C> @param[in] LUNIT  -- integer: Fortran logical unit number for
 C>                      BUFR file
 C> @param[in] TAGPV  -- character*(*): Pivot mnemonic; the subroutine
@@ -41,10 +45,6 @@ C>                        - 0 = R8VAL was successfully stored
 C>                        - -1 = the (NTAGNB)th occurence of mnemonic TAGNB
 C>                               could not be found, or some other error
 C>                               occurred
-C>
-C> Before calling this subroutine, a BUFR message should already be
-C> opened and initialized for output via a previous call to one of the
-C> BUFRLIB [message-writing subroutines](@ref hierarchy).
 C>
 C> @author J. Ator @date 2016-07-29
         RECURSIVE SUBROUTINE SETVALNB

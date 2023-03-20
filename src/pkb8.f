@@ -7,21 +7,21 @@ C> This subroutine encodes an 8-byte integer value within a specified
 C> number of bits of an integer array, starting at the bit
 C> immediately after a specified bit within the array.
 C>
-C> @param[in] NVAL    -- integer*8: Value to be encoded
-C> @param[in] NBITS   -- integer: Number of bits of IBAY within
-C>                       which to encode NVAL
-C> @param[out] IBAY   -- integer(*): Array containing encoded NVAL
-C> @param[in,out] IBIT -- integer: Bit pointer within IBAY
-C>                        - On input, IBIT points to the bit within
-C>                          IBAY after which to begin encoding NVAL.
-C>                        - On output, IBIT points to the last bit
-C>                          of IBAY which contains the encoded NVAL.
+C> This subroutine will not work properly if NBITS is less than 0 or
+C> greater than 64, as determined via an internal call to subroutine
+C> wrdlen().
+C>      
+C> This subroutine is the logical inverse of subroutine up8().
 C>
-C> @remarks
-C> - This subroutine is the logical inverse of subroutine up8().
-C> - This subroutine will not work properly if NBITS is less than 0 or
-C>   greater than 64, as determined via an internal call to subroutine
-C>   wrdlen().
+C> @param[in] NVAL - integer*8: Value to be encoded.
+C> @param[in] NBITS - integer: Number of bits of IBAY within
+C> which to encode NVAL. Must be between 0 and 64.
+C> @param[out] IBAY - integer(*): Array containing encoded NVAL.
+C> @param[in,out] IBIT - integer: Bit pointer within IBAY
+C> - On input, IBIT points to the bit within
+C>   IBAY after which to begin encoding NVAL.
+C> - On output, IBIT points to the last bit
+C>   of IBAY which contains the encoded NVAL.
 C>
 C> @author J. Woollen @date 2022-05-06
       subroutine pkb8(nval,nbits,ibay,ibit)

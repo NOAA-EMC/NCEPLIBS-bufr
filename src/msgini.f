@@ -5,7 +5,7 @@ C> @author Woollen @date 1994-01-06
 
 C> This subroutine initializes, within the internal arrays, a new
 C> uncompressed BUFR message for output. Arrays are filled in common blocks
-C> msgptr and modules msgcwd and bitbuf.
+C> msgptr and modules @ref moda_msgcwd and @ref moda_bitbuf.
 C>
 C> @param[in] LUN - integer: I/O stream index into internal memory arrays.
 C>

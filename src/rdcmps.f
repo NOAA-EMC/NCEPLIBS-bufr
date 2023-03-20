@@ -5,8 +5,8 @@ C> @author Woollen @date 2000-09-19
 
 C> This subroutine uncompresses and unpacks the next subset
 c> from the internal compressed message buffer (array mbay in module
-c> bitbuf) and stores the unpacked subset within the internal
-c> array val(*,lun) in module usrint.
+c> @ref moda_bitbuf) and stores the unpacked subset within the internal
+c> array val(*,lun) in module @ref moda_usrint.
 C>
 C> @param[in] LUN - integer: I/O stream index into internal memory arrays.
 C>
