@@ -17,8 +17,8 @@ jobs:
   developer:
     runs-on: ubuntu-latest
     env:
-      FC: gfortran-10
-      CC: gcc-10
+      FC: gfortran-12
+      CC: gcc-12
 
     steps:
     - name: install-deps
@@ -42,8 +42,6 @@ jobs:
 
     - name: build
       run: |
-        export CC=gcc-10
-        export FC=gfortran-10
         cd bufr
         mkdir build
         cd build
