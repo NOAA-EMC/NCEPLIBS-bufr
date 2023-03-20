@@ -45,7 +45,7 @@ jobs:
         cd bufr
         mkdir build
         cd build
-        cmake -DTEST_FILE_DIR=/home/runner/data -DCMAKE_INSTALL_PREFIX=./install -DCMAKE_Fortran_FLAGS="-Wall -Werror -g -fprofile-arcs -ftest-coverage -fprofile-abs-path -O0 -fsanitize=address" -DCMAKE_C_FLAGS="-Wall -Werror -g -fprofile-arcs -ftest-coverage -fprofile-abs-path -O0 -fsanitize=address" -DCMAKE_BUILD_TYPE=Debug -DENABLE_DOCS=On ..
+        cmake -DTEST_FILE_DIR=/home/runner/data -DCMAKE_INSTALL_PREFIX=./install -DCMAKE_Fortran_FLAGS="-Werror -g -fprofile-arcs -ftest-coverage -fprofile-abs-path -O0 -fsanitize=address" -DCMAKE_C_FLAGS="-Werror -g -fprofile-arcs -ftest-coverage -fprofile-abs-path -O0 -fsanitize=address" -DCMAKE_BUILD_TYPE=Debug -DENABLE_DOCS=On ..
         make -j2 VERBOSE=1
         make install
 
