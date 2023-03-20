@@ -9,7 +9,7 @@ C> definition card that was previously read from a user-supplied DX BUFR
 C> table file in character format by subroutine rdusdx().
 C> These decoded values are then added to the
 C> already-existing entry for that mnemonic within the internal BUFR
-C> Table B array TABB(*,LUN) in module tababd.
+C> Table B array TABB(*,LUN) in module @ref moda_tababd.
 C>
 C> @param[in] CARD - character*80: mnemonic definition card that was read
 C> from a user-supplied DX BUFR table.

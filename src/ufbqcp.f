@@ -9,16 +9,16 @@ C> of a category 63 Table D descriptor from an NCEP
 C> prepbufr file, this subroutine returns the corresponding
 C> mnemonic.
 C>
+C> Logical unit LUNIT should have already been opened via a previous
+C> call to subroutine openbf().
+C>
+C> This subroutine is the logical inverse of subroutine ufbqcd().
+C>
 C> @param[in] LUNIT -- integer: Fortran logical unit number for
 C>                     NCEP prepbufr file
 C> @param[in] IQCP -- integer: Y value of a category 63 (i.e. X=63)
 C>                    Table D descriptor
 C> @param[out] NEMO  -- character*(*): Mnemonic associated with IQCP
-C>
-C> @remarks
-C> - Logical unit LUNIT should have already been opened via a previous
-C> call to subroutine openbf().
-C> - This subroutine is the logical inverse of subroutine ufbqcd().
 C>
 C> @author J. Woollen @date 1994-01-06
       RECURSIVE SUBROUTINE UFBQCP(LUNIT,IQCP,NEMO)

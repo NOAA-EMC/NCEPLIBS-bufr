@@ -6,27 +6,26 @@ C> @author Woollen @date 1994-01-06
 C> This subroutine unpacks and returns the values for one-dimensional
 C> descriptors in the input string without advancing the subset pointer.
 C>
+C> There are three "generic" mnemonics not related to Table B which can be
+C> specified within STR and return the following information in the
+C> corresponding TAB location:
+C> - 'NUL' returns the "missing" value.
+C> - 'IREC' returns the number of the BUFR message within the
+C>   file pointed to by LUNIT (counting from the beginning of the file)
+C>   in which the current data subset resides.
+C> - 'ISUB' returns the number of the current data subset within
+C>    the BUFR message pointed to by IREC, counting from
+C>    the beginning of the message.
+C>
 C> @param[in] LUNIT - integer: fortran logical unit number for BUFR file.
-C> @param[out] TAB - real*8(*): data values
+C> @param[out] TAB - real*8(*): data values.
 C> @param[in] I1 - integer: size of TAB as allocated within the calling program.
 C> @param[out] IRET - integer: return code:
-C> - 0 normal return
-C> - -1 there are no more subsets in the BUFR message
+C> - 0 normal return.
+C> - -1 there are no more subsets in the BUFR message.
 C> @param[in] STR - character*(*): string of blank-separated Table B
 C> mnemonics in one-to-one correspondence with the number of data values
 C> that will be read from the data subset into TAB.
-C>
-C> @remarks
-C> - There are three "generic" mnemonics not related to Table B which can be
-C> specified within STR and return the following information in the
-C> corresponding TAB location:
-C>    - 'NUL' returns the "missing" value
-C>    - 'IREC' returns the number of the BUFR message within the
-C>      file pointed to by LUNIT (counting from the beginning of the file)
-C>      in which the current data subset resides
-C>    - 'ISUB' returns the number of the current data subset within
-C>      the BUFR message pointed to by IREC, counting from
-C>      the beginning of the message
 C>
 C> @author Woollen @date 1994-01-06
       RECURSIVE SUBROUTINE UFBGET(LUNIT,TAB,I1,IRET,STR)

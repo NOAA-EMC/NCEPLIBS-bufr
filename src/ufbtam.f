@@ -12,19 +12,6 @@ C> specified data values across all of the data subsets in the
 C> internal arrays.  It is similar to subroutine ufbtab(), except
 C> that ufbtab() works on data subsets in a BUFR file.
 C>
-C> @param[out] TAB    -- real*8(*,*): Data values
-C> @param[in] I1 -- integer: First dimension of TAB as allocated
-C>                  within the calling program
-C> @param[in] I2 -- integer: Second dimension of TAB as allocated
-C>                  within the calling program
-C> @param[out] IRET -- integer: Number of data subsets in internal arrays
-C> @param[in] STR -- character*(*): String of blank-separated
-C>                   Table B mnemonics, in one-to-one correspondence
-C>                   with the number of data values that will be read
-C>                   from each data subset within the first dimension of
-C>                   TAB (see [DX BUFR Tables](@ref dfbftab) for further
-C>                   information about Table B mnemonics)
-C>
 C> It is the user's responsibility to ensure that TAB is dimensioned
 C> sufficiently large enough to accommodate the number of data values
 C> that are to be read from the internal arrays.  Specifically, each row of
@@ -35,21 +22,33 @@ C>
 C> The internal arrays must have already been populated via a previous
 C> call to subroutine ufbmem().
 C>
-C> @remarks
-C> - This subroutine will not work on compressed data subsets.
-C> - There are a few additional special mnemonics that can be
+C> There are a few additional special mnemonics that can be
 C> included within STR when calling this subroutine, and which in turn
 C> will result in special information being returned within the
 C> corresponding location in TAB:
-C>      - IREC - returns the number of the BUFR message within the
-C>               internal arrays (counting from the beginning of the
-C>               internal arrays) in which the current data
-C>               subset resides
-C>      - ISUB - returns the number of the current data subset within
-C>               the BUFR message pointed to by IREC, counting from
-C>               the beginning of the message
-C>      - ITBL - returns the number of the DX BUFR table that is
-C>               in scope for the current data subset
+C> - IREC - returns the number of the BUFR message within the
+C>   internal arrays (counting from the beginning of the
+C>   internal arrays) in which the current data subset resides.
+C> - ISUB - returns the number of the current data subset within
+C>   the BUFR message pointed to by IREC, counting from
+C>   the beginning of the message.
+C> - ITBL - returns the number of the DX BUFR table that is
+C>   in scope for the current data subset.
+C>
+C> This subroutine will not work on compressed data subsets.
+C>
+C> @param[out] TAB    -- real*8(*,*): Data values.
+C> @param[in] I1 -- integer: First dimension of TAB as allocated
+C>                  within the calling program.
+C> @param[in] I2 -- integer: Second dimension of TAB as allocated
+C>                  within the calling program.
+C> @param[out] IRET -- integer: Number of data subsets in internal arrays.
+C> @param[in] STR -- character*(*): String of blank-separated
+C>                   Table B mnemonics, in one-to-one correspondence
+C>                   with the number of data values that will be read
+C>                   from each data subset within the first dimension of
+C>                   TAB (see [DX BUFR Tables](@ref dfbftab) for further
+C>                   information about Table B mnemonics).
 C>
 C> @author J. Woollen @date 1994-01-06
       RECURSIVE SUBROUTINE UFBTAM(TAB,I1,I2,IRET,STR)

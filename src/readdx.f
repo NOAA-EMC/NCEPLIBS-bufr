@@ -3,21 +3,22 @@ C> @brief Read DX BUFR table information into internal arrays.
 C>
 C> @author Woollen @date 1994-01-06
 
-C> This subroutine generates internal arrays containing DX BUFR
-C> (dictionary) tables which are needed to read, write, initialize or
-C> append a BUFR file. The information used to create the internal
-C> dictionary table arrays (in module tababd) and the dictionary
-C> message control word partition arrays (in module msgcwd)
-C> (which are always then associated with the BUFR file in LUNIT)
-C> may come from an external, user-supplied, BUFR dictionary
-C> table file in character format (i.e., a BUFR mnemonic table), from
-C> the BUFR file being acted upon (in which case the file must be
-C> opened for input processing and positioned at a dictionary table
-C> message somewhere in the file), or from another currently opened
-C> and defined BUFR file.  In this latter case, the BUFR file would
-C> most likely be opened for input, however there is nothing
-C> preventing the use of a file open for output as long as it is
-C> associated with internal dictionary arrays that can be used.
+C> This subroutine initializes modules @ref moda_tababd and @ref
+C> moda_msgcwd with DX BUFR (dictionary) tables. These tables are needed
+C> to read, write, initialize or append a BUFR file.
+C>
+C> The modules are initialized from:
+C> 1. an external, user-supplied BURF dictionary table file (i.e., a
+C> BUFR mnemonic table).
+C> 2. the BUFR file indicated by LUNIT.
+C> 3. another currently opened BUFR file.
+C>
+C> If the modules are initialized by the BUFF file indicated by LUNIT,
+C> then it must have been opened for input processing and positioned at a
+C> dictionary table > message somewhere in the file.
+C>
+C> Once initialzed, the dictionary arrays are associated with the BUFR
+C> file indicated by LUNIT, until the file is closed with closbf().
 C>
 C> @param[in] LUNIT - integer: Fortran logical unit number for BUFR file
 C> being read, written, initialized or appended.

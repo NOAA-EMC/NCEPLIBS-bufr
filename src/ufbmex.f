@@ -18,6 +18,10 @@ C> it provides an additional call argument LUNDX to allow
 C> for specification of the necessary DX BUFR table information
 C> associated with the messages in the file.
 C>
+C> Logical unit numbers LUNIT and LUNDX must already be associated
+C> with actual filenames on the local system, typically via a Fortran
+C> "OPEN" statement.
+C>
 C> @param[in] LUNIT   -- integer: Fortran logical unit number for BUFR
 C>                       file
 C> @param[in] LUNDX   -- integer: Fortran logical unit number
@@ -34,10 +38,6 @@ C> @param[out] IRET   -- integer: Number of BUFR messages that were
 C>                       read from LUNIT and stored into internal arrays
 C> @param[out] MESG   -- integer(*): Types of BUFR messages that were
 C>                       read from LUNIT and stored into internal arrays
-C>
-C> Logical unit numbers LUNIT and LUNDX must already be associated
-C> with actual filenames on the local system, typically via a Fortran
-C> "OPEN" statement.
 C>
 C> @author J. Woollen @date 2012-01-26
       RECURSIVE SUBROUTINE UFBMEX(LUNIT,LUNDX,INEW,IRET,MESG)
