@@ -155,9 +155,7 @@ endforeach()
 add_test(NAME test_debufr COMMAND ${CMAKE_BINARY_DIR}/bin/test_debufr.sh)
 
 # Test gettab utility
-add_test(NAME test_gettab
-  COMMAND ${CMAKE_BINARY_DIR}/bin/test_gettab.sh "${CMAKE_BINARY_DIR}/utils/gettab testfiles/data/1bamua" "testrun/1bamua.table.run" "testfiles/testoutput/1bamua.table.out"
-  )
+add_test(NAME test_gettab COMMAND ${CMAKE_BINARY_DIR}/bin/test_gettab.sh)
 
 # Test sinv utility
 add_test(NAME test_sinv COMMAND ${CMAKE_BINARY_DIR}/bin/test_sinv.sh)
@@ -166,9 +164,7 @@ add_test(NAME test_sinv COMMAND ${CMAKE_BINARY_DIR}/bin/test_sinv.sh)
 add_test(NAME test_binv COMMAND ${CMAKE_BINARY_DIR}/bin/test_binv.sh)
 
 # Test split_by_subset utility
-add_test(NAME test_split_by_subset
-  COMMAND ${CMAKE_BINARY_DIR}/bin/test_split_by_subset.sh "${CMAKE_BINARY_DIR}/utils/split_by_subset testfiles/data/satwndbufr" "testfiles/testoutput/satwndbufr_split"
-  )
+add_test(NAME test_split_by_subset COMMAND ${CMAKE_BINARY_DIR}/bin/test_split_by_subset.sh)
 
 # Test readbp utility
 add_test(NAME test_readbp 

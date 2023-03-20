@@ -39,7 +39,7 @@ args_5="-b -o ${outfile_5}"
 ../utils/debufr ${args_5} testfiles/data/debufr_4 && cmp -s ${outfile_5} testfiles/testoutput/debufr_5.out
 [[ ${?} -ne 0 ]] && exit 5
 
-# We expect the following tests to return a non-zero exit code, but we don't want
+# We expect some of the following tests may return a non-zero exit code, but we don't want
 # to immediately exit the script when that happens.
 set +e
 
@@ -57,6 +57,11 @@ outfile_7=testrun/debufr_7.out
 outfile_8=testrun/debufr_8.out
 ../utils/debufr -h > ${outfile_8}
 [[ ${?} -ne 0 || `egrep -c "(ABSTRACT|USAGE|WHERE):" ${outfile_8}` -ne 3 ]] && exit 8
+
+# Test #9, for non-existent DX tables file.
+outfile_9=testrun/debufr_9.out
+../utils/debufr -t. -f BUFRLIB_DUMMY testfiles/data/debufr_1 > ${outfile_9}
+[[ ${?} -ne 0 || `egrep -c "Error: Could not find file" ${outfile_9}` -ne 1 ]] && exit 9
 
 # Success!
 exit 0

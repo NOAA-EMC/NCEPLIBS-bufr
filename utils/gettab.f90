@@ -21,9 +21,16 @@ program gettab
 ! get the filename to open and read
 
   call getarg(1,file); file=trim(adjustl(file))
-  if (file == '') call bort('Usage: "gettab bufrfile" will print the internal BUFR table')
-  inquire(file=file,exist=exist)
-  if (.not.exist) call bort(trim(file)//' does not exist')
+  if (file == '') then
+    print *,'Usage: gettab <bufrfile> will print the internal BUFR table'
+    call exit(2)
+  else
+    inquire(file=file,exist=exist)
+    if (.not.exist) then
+      print *,trim(file)//' does not exist'
+      call exit(3)
+    endif
+  endif
 
 ! open the file and dump the bufr table to standard outout
 
