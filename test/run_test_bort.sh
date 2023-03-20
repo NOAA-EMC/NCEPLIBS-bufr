@@ -51,6 +51,9 @@ for kind in "4" "d" "8"; do
     (./test_bort_$kind idn30 3) && exit 1
     (./test_bort_$kind idn30 4) && exit 1
 
+    # Check nemtba().
+    (./test_bort_$kind nemtba 1) && exit 1
+    
     # Check openbf().
     (./test_bort_$kind openbf 1) && exit 1
     (./test_bort_$kind openbf 2) && exit 1

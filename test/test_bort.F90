@@ -29,6 +29,7 @@ program test_bort
   character(len=32) :: sub_name, test_case
   character*5 adn30
   integer ibay(1), ibit, subset, jdate
+  integer mtyp, msbt, inod
   
   num_args = command_argument_count()
   if (num_args /= 2) then
@@ -101,6 +102,14 @@ program test_bort
         idn30_val = idn30('-0042', 5)
      elseif (test_case .eq. '4') then
         idn30_val = idn30('65536', 5)
+     endif
+  elseif (sub_name .eq. 'nemtba') then
+     if (test_case .eq. '1') then
+        open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        call openbf(11, 'IN', 11)
+        call nemtba(11, 'SPOCK', mtyp, msbt, inod)
+
      endif
   elseif (sub_name .eq. 'openbf') then
      if (test_case .eq. '1') then
