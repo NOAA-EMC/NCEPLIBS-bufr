@@ -30,6 +30,8 @@ program test_bort
   character*5 adn30
   integer ibay(1), ibit, subset, jdate
   integer mtyp, msbt, inod
+  character*28 unit
+  integer iscl, iref, nseq, nmsub
   
   num_args = command_argument_count()
   if (num_args /= 2) then
@@ -110,14 +112,34 @@ program test_bort
         call openbf(11, 'IN', 11)
         call nemtba(11, 'SPOCK', mtyp, msbt, inod)
      endif
-  ! Commented out until issue is resolved: https://github.com/NOAA-EMC/NCEPLIBS-bufr/issues/401
-  ! elseif (sub_name .eq. 'nemtbax') then
-  !    if (test_case .eq. '1') then
-  !       open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
-  !       if (ios .ne. 0) stop 3
-  !       call openbf(11, 'IN', 11)
-  !       call nemtbax(11, 'DUMB', mtyp, msbt, inod)
-  !    endif
+     ! Commented out until issue is resolved: https://github.com/NOAA-EMC/NCEPLIBS-bufr/issues/401
+     ! elseif (sub_name .eq. 'nemtbax') then
+     !    if (test_case .eq. '1') then
+     !       open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
+     !       if (ios .ne. 0) stop 3
+     !       call openbf(11, 'IN', 11)
+     !       call nemtbax(11, 'DUMB', mtyp, msbt, inod)
+     !    endif
+  elseif (sub_name .eq. 'nemtbb') then
+     if (test_case .eq. '1') then
+        call nemtbb(0, -1, unit, iscl, iref, ibit) 
+     endif
+  elseif (sub_name .eq. 'nemtbd') then
+     if (test_case .eq. '1') then
+        call nemtbd(0, -1, nseq, char_8, int_1d, int_1d)
+     endif
+  elseif (sub_name .eq. 'nmsub') then
+     if (test_case .eq. '1') then
+        open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        call openbf(11, 'BBB', 11)
+        iret = nmsub(12)
+     elseif (test_case .eq. '2') then
+        open(unit = 11, file = 'tmp', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        call openbf(11, 'OUT', 11)
+        iret = nmsub(11)
+     endif
   elseif (sub_name .eq. 'openbf') then
      if (test_case .eq. '1') then
         open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)

@@ -57,7 +57,17 @@ for kind in "4" "d" "8"; do
     # Check nemtbax(). Commented out, see
     # https://github.com/NOAA-EMC/NCEPLIBS-bufr/issues/401.
     #(./test_bort_$kind nemtbax 1) && exit 1
-    
+    n
+    # Check nemtbb().
+    (./test_bort_$kind nemtbb 1) && exit 1
+
+    # Check nemtbd().
+    (./test_bort_$kind nemtbd 1) && exit 1
+
+    # Check nmsub().
+    (./test_bort_$kind nmsub 1) && exit 1
+    (./test_bort_$kind nmsub 2) && exit 1
+
     # Check openbf().
     (./test_bort_$kind openbf 1) && exit 1
     (./test_bort_$kind openbf 2) && exit 1
