@@ -64,6 +64,10 @@ for kind in "4" "d" "8"; do
     # Check nemtbd().
     (./test_bort_$kind nemtbd 1) && exit 1
 
+    # Check numbck(). Commented out, see
+    # https://github.com/NOAA-EMC/NCEPLIBS-bufr/issues/400.
+    #(./test_bort_$kind numbck 1) && exit 1
+
     # Check nmsub().
     (./test_bort_$kind nmsub 1) && exit 1
     (./test_bort_$kind nmsub 2) && exit 1

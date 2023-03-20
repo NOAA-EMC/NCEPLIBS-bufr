@@ -10,7 +10,9 @@ program test_misc
   character*5 adn30
   integer a, idn30
   integer lun, il, im
-  integer ios, ierr, nemock
+  integer ios
+!  integer ierr, nemock
+  integer numbck, iret
 
   print *, 'Testing misc subroutines.'
 
@@ -62,6 +64,15 @@ program test_misc
   ! if (ierr .ne. -1) stop 100
   ! ierr = nemock('???')
   ! if (ierr .ne. -2) stop 100
-  
+
+  ! Testing numbck(numb)...
+  ! Commented out until this issue is resolved:
+  ! https://github.com/NOAA-EMC/NCEPLIBS-bufr/issues/400
+  ! iret = numbck('ABCDEF')
+  ! print *,iret
+  ! if (iret .ne. -1) stop 200
+  ! iret = numbck('01CDEF')
+  ! if (iret .ne. -2) stop 201
+    
   print *, 'SUCCESS'
 end program test_misc
