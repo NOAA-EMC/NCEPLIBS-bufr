@@ -9,7 +9,6 @@ c> stores the unpacked subset within the internal array val(*,lun)
 c> in module @ref moda_usrint.
 C>
 C> @param[in] LUN - integer: I/O stream index into internal memory arrays.
-C>
 C> @param[out] IRET - integer: return code:
 C> - 0 normal return
 C> - -1 An error occurred, possibly due to a corrupt subset in the input message.

@@ -5,10 +5,10 @@ C> @author Woollen @date 1994-01-06
 
 C> This subroutine initializes space in internal subset array space (inv
 C> and val) in modules @ref moda_usrint and @ref moda_usrbit, according
-C> to the subset definition from subroutine maksetab. This is in
+C> to the subset definition from subroutine maksetab(). This is in
 C> preparation for the actual unpacking of the subset in rdtree().
 C>
-C> @param[in] LUN - integer: i/o stream index into internal memory arrays.
+C> @param[in] LUN - integer: I/O stream index into internal memory arrays.
 C> @param[out] IRET - integer: return code:.
 C> - 0 Normal return.
 C> - -1 An error occurred, possibly due to a corrupt subset in the input message.

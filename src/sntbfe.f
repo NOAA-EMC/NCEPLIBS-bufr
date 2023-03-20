@@ -1,11 +1,11 @@
 C> @file
-C> @brief Store a master Code/Flag table entry into internal memory
+C> @brief Store a master Code/Flag table entry into internal memory.
 C>
 C> @author J. Ator @date 2017-11-02
 
 C> This subroutine stores the first line of an entry that was
 C> previously read from an ASCII master Code/Flag table file into an
-C> internal memory structure.  It then reads and stores all remaining
+C> internal memory structure. It then reads and stores all remaining
 C> lines of that same entry into the same internal memory structure.
 C>
 C> @param[in] LUNT   -- integer: Fortran logical unit number for

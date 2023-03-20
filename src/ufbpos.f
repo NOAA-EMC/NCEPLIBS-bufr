@@ -1,6 +1,6 @@
 C> @file
 C> @brief Jump forwards or backwards to a specified data subset within
-C> a BUFR file
+C> a BUFR file.
 C>
 C> @author J. Woollen @date 1995-11-22
 
@@ -12,6 +12,12 @@ C> [values-reading subroutines](@ref hierarchy).
 C>
 C> The specified data subset may be before or after the current location
 C> of the file pointer within the BUFR file.
+C>
+C> @remarks
+C> - Logical unit LUNIT should have already been opened for input
+C> operations via a previous call to subroutine openbf().
+C> - The value specified for IREC should <b>not</b> include any messages
+C> which contain DX BUFR tables information.
 C>
 C> @param[in] LUNIT -- integer: Fortran logical unit number for BUFR file
 C> @param[in] IREC  -- integer: Ordinal number of message to be read,
@@ -29,12 +35,6 @@ C> @param[out] JDATE -- integer: Date-time stored within Section 1 of
 C>                      BUFR message that was read, in format of either
 C>                      YYMMDDHH or YYYYMMDDHH, depending on the most
 C>                      recent call to subroutine datelen()
-C>
-C> @remarks
-C> - Logical unit LUNIT should have already been opened for input
-C> operations via a previous call to subroutine openbf().
-C> - The value specified for IREC should <b>not</b> include any messages
-C> which contain DX BUFR tables information.
 C>
 C> @author J. Woollen @date 1995-11-22
       RECURSIVE SUBROUTINE UFBPOS(LUNIT,IREC,ISUB,SUBSET,JDATE)
