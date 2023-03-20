@@ -1,11 +1,13 @@
 C> @file
-C> @brief Connect a new system file to the BUFRLIB software for
-C> reading or writing BUFR messages.
+C> @brief Connect a new system file to the library, or intialize the
+C> library, or change verbosity associated with already-connected file.
 C>
 C> @authors J. Woollen, J. Ator,  D. Keyser @date 1994-01-06
 
 C> This subroutine connects a new file to the BUFRLIB software for
-C> input or output operations.
+C> input or output operations, or initializes the library without
+C> connecting to a file, or changes the verbosity of the library for an
+C> already-connected BUFR file.
 C>
 C> The logical unit numbers LUNIT and LUNDX must already be associated
 C> with actual filenames on the local system, typically via a Fortran "OPEN"

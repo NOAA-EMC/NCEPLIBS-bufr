@@ -4,9 +4,9 @@ C>
 C> @author Woollen @date 1994-01-06
 
 C> This subroutine packs up the current subset within memory
-C> (array ibay in module bitbuf) and then tries to add it to
+C> (array ibay in module @ref moda_bitbuf) and then tries to add it to
 C> the BUFR message that is currently open within memory for LUNIT
-C> (array mbay in module bitbuf). If the subset will not fit
+C> (array mbay in module @ref moda_bitbuf). If the subset will not fit
 C> into the currently open message, or if the subset byte count exceeds
 C> 65530 (sufficiently close to the 16-bit byte counter upper limit of
 C> 65535), then that message is flushed to LUNIT and a new one is

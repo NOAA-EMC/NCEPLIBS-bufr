@@ -10,29 +10,12 @@ C>
 C> Logical unit ABS(LUNXX) should have already been opened for
 C> input operations via a previous call to subroutine openbf().
 C>
-C> @param[in] LUNXX   -- integer: Absolute value is Fortran logical unit
-C>                       number for BUFR file
-C> @param[out] SUBSET  -- character*8: Table A mnemonic for type of BUFR
-C>                        message that was read
-C>                        (see [DX BUFR Tables](@ref dfbftab)
-C>                        for further information about Table A mnemonics)
-C> @param[out] JDATE   -- integer: Date-time stored within Section 1 of
-C>                        BUFR message that was read, in format of either
-C>                        YYMMDDHH or YYYYMMDDHH, depending on the most
-C>                        recent call to subroutine datelen()
-C> @param[out] IRET    -- integer: return code
-C>                           - 0 = new BUFR message was successfully
-C>                                 read into internal arrays
-C>                           - -1 = there are no more BUFR messages in
-C>                                 the file connected to logical unit
-C>                                 ABS(LUNXX)
-C>
 C> Whenever this subroutine returns with IRET = 0, this indicates
 C> that a new BUFR message of type SUBSET and date-time JDATE was
 C> successfully read into internal arrays within the BUFRLIB
 C> software, and from where it can then be easily manipulated or further
 C> parsed via a call to one of the
-C> [subset-reading subroutines](@ref hierarchy).  Otherwise,
+C> [subset-reading subroutines](@ref hierarchy). Otherwise,
 C> if the subroutine returns with IRET = -1, then this indicates that
 C> there are no more BUFR messages (i.e. end-of-file) within the file
 C> connected to logical unit ABS(LUNXX).
@@ -44,10 +27,25 @@ C> from this subroutine will always result in a BUFR message containing
 C> actual data values within the internal arrays.
 C> - In prior versions of the BUFRLIB software, an input value of
 C> LUNXX < 0 was an indicator to the subroutine to treat any read error
-C> from ABS(LUNXX) the same as an end-of-file condition.  This option is
+C> from ABS(LUNXX) the same as an end-of-file condition. This option is
 C> no longer supported, but the capability to call this subroutine with
 C> LUNXX < 0 is itself still supported for backwards-compatibility with
 C> certain legacy application programs.
+C>
+C> @param[in] LUNXX   -- integer: Absolute value is Fortran logical unit
+C>                       number for BUFR file
+C> @param[out] SUBSET  -- character*8: Table A mnemonic for type of BUFR
+C>                        message that was read
+C>                        (see [DX BUFR Tables](@ref dfbftab)
+C>                        for further information about Table A mnemonics)
+C> @param[out] JDATE   -- integer: Date-time stored within Section 1 of
+C>                        BUFR message that was read, in format of either
+C>                        YYMMDDHH or YYYYMMDDHH, depending on the most
+C>                        recent call to subroutine datelen()
+C> @param[out] IRET    -- integer: return code
+C> - 0 = new BUFR message was successfully read into internal arrays.
+C> - -1 = there are no more BUFR messages in the file connected to logical unit
+C> ABS(LUNXX).
 C>
 C> @authors J. Woollen, J. Ator @date 1994-01-06
       RECURSIVE SUBROUTINE READMG(LUNXX,SUBSET,JDATE,IRET)

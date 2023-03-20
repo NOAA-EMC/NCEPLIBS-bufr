@@ -3,7 +3,8 @@ C> @brief Write a data subset into a BUFR message.
 C>
 C> @author J. Woollen @date 1994-01-06
 
-C> This subroutine writes a complete data subset into a BUFR message, for eventual output to logical unit LUNIT.
+C> This subroutine writes a complete data subset into a BUFR message,
+C> for eventual output to logical unit LUNIT.
 C>
 C> This subroutine is called to indicate to the BUFRLIB software that
 C> all necessary values for a data subset (i.e. report) have been written,
@@ -18,16 +19,16 @@ C> Furthermore, all of the values for the data subset should have
 C> already been written into internal arrays via calls to any of the
 C> BUFRLIB [values-writing subroutines](@ref hierarchy).
 C>
-C> @remarks
-C> - There is a maximum size for any BUFR message that can be written
-C> by the BUFRLIB software.  This maximum message size is initially set
+C> There is a maximum size for any BUFR message that can be written
+C> by the BUFRLIB software. This maximum message size is initially set
 C> to an internal default value within subroutine bfrini(), but it can
 C> be changed to a different value via a separate prior call to
 C> subroutine maxout().
-C> - This subroutine will always check to ensure that the data subset,
+C>
+C> This subroutine will always check to ensure that the data subset,
 C> when encoded and packed, will fit into the current BUFR message that
 C> is already open within the internal arrays associated with logical
-C> unit LUNIT.  If adding the data subset to the current message would
+C> unit LUNIT. If adding the data subset to the current message would
 C> cause the maximum message size to be exceeded, then the subroutine will
 C> automatically flush the current message to logical unit LUNIT, then
 C> open and initialize a new internal message using the same SUBSET and

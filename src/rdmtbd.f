@@ -1,5 +1,5 @@
 C> @file
-C> @brief Read master Table D information from local file system
+C> @brief Read master Table D information from local file system.
 C>
 C> @author J. Ator @date 2007-01-19
 

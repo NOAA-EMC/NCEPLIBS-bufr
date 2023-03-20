@@ -20,8 +20,7 @@ C> omitting the ordinal number always defaults to the first occurrence
 C> of a particular string, so a user could just specify 'LSTID'
 C> instead of 'LSTID#1'.
 C>
-C> @remarks
-C> - Character strings which are 8 bytes or less in length can be
+C> Character strings which are 8 bytes or less in length can be
 C> written by converting the string into a real*8 value within the
 C> application program, and then using the real*8 USR array within a
 C> call to one of the BUFRLIB
@@ -29,7 +28,6 @@ C> [values-writing subroutines](@ref hierarchy)
 C> prior to calling one of the
 C> [subset-writing subroutines](@ref hierarchy)
 C> for the data subset.
-C>
 C>
 C> @param[in] LUNIT - integer: Fortran logical unit number for BUFR file
 C> @param[in] CHR - character*(*): Value corresponding to STR
