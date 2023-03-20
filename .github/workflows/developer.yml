@@ -17,8 +17,8 @@ jobs:
   developer:
     runs-on: ubuntu-latest
     env:
-      FC: gfortran-12
-      CC: gcc-12
+      FC: gfortran-11
+      CC: gcc-11
 
     steps:
     - name: install-deps
