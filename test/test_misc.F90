@@ -57,29 +57,32 @@ program test_misc
   ! if (lun .ne. 1 .or. il .ne. -1 .or. im .ne. 0) stop 4
   ! call closbf(11)
 
+  ! These tests only for the _4 run of test_misc.
+#ifdef KIND_4
   ! Testing nemock(). Commented out until this issue is resolved:
   ! https://github.com/NOAA-EMC/NCEPLIBS-bufr/issues/400
-  ! ierr = nemock('')
-  ! if (ierr .ne. -1) stop 100
-  ! ierr = nemock('012345678')
-  ! if (ierr .ne. -1) stop 100
-  ! ierr = nemock('???')
-  ! if (ierr .ne. -2) stop 100
+  ierr = nemock('')
+  if (ierr .ne. -1) stop 100
+  ierr = nemock('012345678')
+  if (ierr .ne. -1) stop 100
+  ierr = nemock('???')
+  if (ierr .ne. -2) stop 100
 
   ! Testing numbck(numb)...
   ! Commented out until this issue is resolved:
   ! https://github.com/NOAA-EMC/NCEPLIBS-bufr/issues/400
-  ! iret = numbck('ABCDEF')
-  ! print *,iret
-  ! if (iret .ne. -1) stop 200
-  ! iret = numbck('01CDEF')
-  ! if (iret .ne. -2) stop 201
-    
+  iret = numbck('ABCDEF')
+  print *,iret
+  if (iret .ne. -1) stop 200
+  iret = numbck('01CDEF')
+  if (iret .ne. -2) stop 201
+
   open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
   if (ios .ne. 0) stop 3
   call openbf(11, 'IN', 11)
   call nemtbax(11, 'DUMB', mtyp, msbt, inod)
   if (inod .ne. 0) stop 300
+#endif
   
   print *, 'SUCCESS'
 end program test_misc
