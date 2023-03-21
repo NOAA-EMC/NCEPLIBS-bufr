@@ -69,7 +69,7 @@ C     Figure out which bits are set.
 
       NIB(1) = 0
       R8VAL = VAL
-      NBITS = VALX(TABB(N,LUN)(110:112))
+      CALL STRNUM(TABB(N,LUN)(110:112),NBITS,IERSN)
       DO I=(NBITS-1),0,-1
           R82I = (2.)**I
           IF(ABS(R8VAL-R82I).LT.(0.005)) THEN

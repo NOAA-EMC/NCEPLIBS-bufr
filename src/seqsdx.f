@@ -83,7 +83,7 @@ C           However, when I = 1 '"' '"', then subroutine STRNUM will
 C           return NUMR = (the number of replications for the mnemonic
 C           using F=1 "regular" (i.e. non-delayed) replication).
 
-            CALL STRNUM(ATAG(J+1:MAXTAG),NUMR)
+            CALL STRNUM(ATAG(J+1:MAXTAG),NUMR,IER)
             IF(I.EQ.1 .AND. NUMR.LE.0  ) GOTO 903
             IF(I.EQ.1 .AND. NUMR.GT.255) GOTO 904
             IF(I.NE.1 .AND. NUMR.NE.0  ) GOTO 905

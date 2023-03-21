@@ -21,7 +21,6 @@ program test_bort
   character*24 char_24(1)
   character*120 char_120(1)
   character*5 adn30_val_5
-  real r, valx
   real*8 real_1d(1)
   real*8 real_2d(1,1)
   integer idn30, idn30_val
@@ -175,10 +174,6 @@ program test_bort
   elseif (sub_name .eq. 'upftbv') then
      if (test_case .eq. '1') then
         call upftbv(0, 'n', 1.0, 1, 1, 1)
-     endif
-  elseif (sub_name .eq. 'valx') then
-     if (test_case .eq. '1') then
-        r = valx('0123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789')
      endif
   elseif (sub_name .eq. 'wrdxtb') then
      if (test_case .eq. '1') then

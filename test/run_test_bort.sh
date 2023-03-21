@@ -141,10 +141,6 @@
 ./test_bort_4 upftbv 1
 [ $? != 1 ] &&  exit 1
 
-# Check valx().
-./test_bort_4 valx 1
-[ $? != 1 ] &&  exit 1
-
 # Check wrdxtb().
 ./test_bort_4 wrdxtb 1
 [ $? != 1 ] &&  exit 1
