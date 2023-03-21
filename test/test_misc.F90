@@ -51,14 +51,20 @@ program test_bort
   read(st1, '(I6)', iostat = ios) i1
   if (ios .eq. 0) stop 500
 
-  ! Blank input returns 0 just as we desire.
+  ! One space for input returns 0 just as we desire.
   st1 = ' '
   read(st1, '(I6)', iostat = ios) i1
   if (ios .ne. 0) stop 500
   if (i1 .ne. 0) stop 500
   
-  ! Blank input returns 0 just as we desire.
+  ! Multiple spaces for input returns 0 just as we desire.
   st1 = '   '
+  read(st1, '(I6)', iostat = ios) i1
+  if (ios .ne. 0) stop 500
+  if (i1 .ne. 0) stop 500
+
+  ! Empty input returns 0 just as we desire.
+  st1 = ''
   read(st1, '(I6)', iostat = ios) i1
   if (ios .ne. 0) stop 500
   if (i1 .ne. 0) stop 500
