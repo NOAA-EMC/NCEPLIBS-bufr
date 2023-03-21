@@ -13,6 +13,7 @@ program test_misc
   integer ios
   integer ierr, nemock
   integer numbck, iret
+  integer mtyp, msbt, inod
 
   print *, 'Testing misc subroutines.'
 
@@ -74,5 +75,11 @@ program test_misc
   ! iret = numbck('01CDEF')
   ! if (iret .ne. -2) stop 201
     
+  open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
+  if (ios .ne. 0) stop 3
+  call openbf(11, 'IN', 11)
+  call nemtbax(11, 'DUMB', mtyp, msbt, inod)
+  if (inod .ne. 0) stop 300
+  
   print *, 'SUCCESS'
 end program test_misc

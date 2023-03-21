@@ -116,13 +116,6 @@ program test_bort
         call openbf(11, 'IN', 11)
         call nemtba(11, 'SPOCK', mtyp, msbt, inod)
      endif
-  elseif (sub_name .eq. 'nemtbax') then
-     if (test_case .eq. '1') then
-        open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
-        if (ios .ne. 0) stop 3
-        call openbf(11, 'IN', 11)
-        call nemtbax(11, 'DUMB', mtyp, msbt, inod)
-     endif
   elseif (sub_name .eq. 'nemtbb') then
      if (test_case .eq. '1') then
         call nemtbb(0, -1, unit, iscl, iref, ibit) 
