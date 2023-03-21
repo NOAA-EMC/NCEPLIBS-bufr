@@ -8,6 +8,15 @@ C> This subroutine provides a handy way to combine the functionality
 C> of subroutines readmg() and readsb() within a single subroutine
 C> call.
 C>
+C> Logical unit LUNIT should have already been opened for
+C> input operations via a previous call to subroutine openbf().
+C> But once that is done, the application program can immediately call
+C> this subroutine to read each new data subset from the
+C> associated BUFR file, and the subroutine will automatically open
+C> and close each new BUFR message internally as needed, so that
+C> subsequent calls can immediately be made to any of the various
+C> [values-reading subroutines](@ref hierarchy).
+C>
 C> @param[in] LUNIT   -- integer: Fortran logical unit number for
 C>                       BUFR file
 C> @param[out] SUBSET  -- character*8: Table A mnemonic for type of
@@ -25,15 +34,6 @@ C>                                 read into internal arrays
 C>                           - -1 = there are no more BUFR data subsets
 C>                                 in the file connected to logical unit
 C>                                 LUNIT
-C>
-C> Logical unit LUNIT should have already been opened for
-C> input operations via a previous call to subroutine openbf().
-C> But once that is done, the application program can immediately call
-C> this subroutine to read each new data subset from the
-C> associated BUFR file, and the subroutine will automatically open
-C> and close each new BUFR message internally as needed, so that
-C> subsequent calls can immediately be made to any of the various
-C> [values-reading subroutines](@ref hierarchy).
 C>
 C> @author J. Woollen @date 1994-01-06
       RECURSIVE SUBROUTINE READNS(LUNIT,SUBSET,JDATE,IRET)

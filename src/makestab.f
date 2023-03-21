@@ -5,8 +5,8 @@ C> @author J. Woollen @date 1994-01-06
 
 C> This subroutine constructs the internal jump/link table within
 C> module tables, using all of the internal BUFR table array information
-C> from module tababd for all of the internal I/O streams that are
-C> currently defined to the library in module stbfr.
+C> from module @ref moda_tababd for all of the internal I/O streams that are
+C> currently defined to the library in module @ref moda_stbfr.
 C>
 C> The entire jump/link table will always be completely reconstructed
 C> from scratch, even if some of the information within the internal
