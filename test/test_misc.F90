@@ -16,5 +16,34 @@ program test_bort
   a = idn30(char5, 5)
   if (a .ne. 42) stop 2
   print *, 'SUCCESS'
+
+  ! Demonstrate how internal read can be used to replace strnum().
+  st1 = '12'
+  st2 = '10001'
+  read(st1, '(I6)', iostat = ios) i1
+  if (ios .ne. 0) stop 500
+  if (i1 .ne. 12) stop 500
+  read(st2, '(I6)', iostat = ios) i2
+  if (ios .ne. 0) stop 500
+  if (i2 .ne. 10001) stop 501
+
+  st1 = 'slsls'
+  read(st1, '(I6)', iostat = ios) i1
+  if (ios .eq. 0) stop 500
+
+  st1 = '+12'
+  read(st1, '(I6)', iostat = ios) i1
+  if (ios .ne. 0) stop 500
+  if (i1 .ne. 12) stop 500
+
+  st1 = '-12'
+  read(st1, '(I6)', iostat = ios) i1
+  if (ios .ne. 0) stop 500
+  if (i1 .ne. -12) stop 500
+
+  st1 = '-12-'
+  read(st1, '(I6)', iostat = ios) i1
+  if (ios .eq. 0) stop 500
+  
   
 end program test_bort
