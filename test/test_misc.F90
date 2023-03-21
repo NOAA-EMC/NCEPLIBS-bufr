@@ -11,7 +11,7 @@ program test_misc
   integer a, idn30
   integer lun, il, im
   integer ios
-!  integer ierr, nemock
+  integer ierr, nemock
   integer numbck, iret
 
   print *, 'Testing misc subroutines.'
