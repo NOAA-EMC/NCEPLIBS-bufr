@@ -48,8 +48,8 @@ C-----------------------------------------------------------------------
          SIGN = '+'
       ENDIF
 
-      CALL STRNUM(STR,NUM)
-      IF(NUM.LT.0) THEN
+      CALL STRNUM(STR,NUM,IER)
+      IF(IER.LT.0) THEN
          IF(IPRT.GE.0) THEN
       CALL ERRWRT('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
       ERRSTR = 'BUFRLIB: JSTNUM: ENCODED VALUE WITHIN RESULTANT '//

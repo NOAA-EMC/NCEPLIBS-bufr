@@ -1,7 +1,7 @@
 ! This is a test for NCEPLIBS-bufr.
 !
 ! Reads test file 'testfiles/IN_7' containing 2-03-YYY changed reference values, using inline ERRWRT to
-! check error messages, and using UFBPOS, UFBTAB, and VALX
+! check error messages, and using UFBPOS, UFBTAB, and STRNUM
 !
 ! J. Ator, 2/23/2023
 
@@ -38,7 +38,7 @@ program intest7
 
   integer*4 isetprm, igetprm, ireadns, ibfms
 
-  integer imgdt, iret, jdate, nr8v, idx, nsub
+  integer imgdt, iret, jdate, nr8v, idx, nsub, num, iersn
 
   integer mxr8pm, mxr8lv
   parameter ( mxr8pm = 15 )
@@ -46,12 +46,10 @@ program intest7
 
   real*8 r8arr (mxr8pm, mxr8lv), r8val
 
-  real valx
-
   character cmgtag*8
 
   print *, 'Testing reading IN_7 containing 2-03-YYY changed reference values, using inline ERRWRT'
-  print *, 'to check error messages, and using UFBPOS, UFBTAB, and VALX'
+  print *, 'to check error messages, and using UFBPOS, UFBTAB, and STRNUM'
 
 #ifdef KIND_8
   call setim8b ( .true. )
@@ -143,10 +141,11 @@ program intest7
   call ufbtab ( -11, r8val, 1, 1, nsub, ' ' )
   if ( ( nsub .ne. 402 ) .or. ( ibfms ( r8val ) .ne. 1 ) ) stop 18
 
-  ! Test the error handling inside of VALX.
-  errstr_len = 0
-  r8val = valx ( '75.DUMMY' )
-  if ( ( index( errstr(1:errstr_len), 'VALX - ERROR READING STRING' ) .eq. 0 ) ) stop 19
+  ! Test the error handling inside of STRNUM.
+  call strnum( '75.DUMMY', num, iersn )
+  if ( iersn .eq. 0 ) stop 19
+  call strnum( '    ', num, iersn )
+  if ( iersn .ne. 0 ) stop 20
 
   print *, 'SUCCESS!'
 end program intest7
