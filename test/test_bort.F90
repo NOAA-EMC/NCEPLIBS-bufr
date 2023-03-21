@@ -116,7 +116,6 @@ program test_bort
         call openbf(11, 'IN', 11)
         call nemtba(11, 'SPOCK', mtyp, msbt, inod)
      endif
-     ! Commented out until issue is resolved: https://github.com/NOAA-EMC/NCEPLIBS-bufr/issues/401
   elseif (sub_name .eq. 'nemtbax') then
      if (test_case .eq. '1') then
         open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
