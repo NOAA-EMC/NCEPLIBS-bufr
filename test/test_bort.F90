@@ -24,22 +24,31 @@ program test_bort
   real*8 real_1d(1)
   real*8 real_2d(1,1)
   integer idn30, idn30_val
-  integer :: num_args, len, status
+  integer :: num_args, len, stat, ios, u
   character(len=32) :: sub_name, test_case
   character*5 adn30
+  integer ibay(1), ibit, subset, jdate
+  integer mtyp, msbt, inod
+  character*28 unit
+  integer iscl, iref, nseq, nmsub
   
+#ifdef KIND_8
+  call setim8b(.true.)
+#endif
+
   num_args = command_argument_count()
   if (num_args /= 2) then
      print *, "Two command line arguments expected: subroutine name and test case"
-     stop 2
+     ! Return with 0 to fail the test.
+     stop 0 
   end if
 
   ! Read the command line arguments, a name of subroutine, and a test
   ! case number.
-  call get_command_argument(1, sub_name, len, status)
-  if (status .ne. 0) stop 3
-  call get_command_argument(2, test_case, len, status)
-  if (status .ne. 0) stop 4
+  call get_command_argument(1, sub_name, len, stat)
+  if (stat .ne. 0) stop 3
+  call get_command_argument(2, test_case, len, stat)
+  if (stat .ne. 0) stop 4
   print *, 'Testing ', sub_name, ' case ', test_case
 
   ! Run the test for the subroutine and test case.
@@ -83,10 +92,13 @@ program test_bort
      if (test_case .eq. '1') then
         call copymg(0, 0)     
      endif
-  elseif (sub_name .eq. 'copysb') then
-     if (test_case .eq. '1') then
-        call copysb(0, 0, iret)     
-     endif
+  ! This is commented out until
+  ! https://github.com/NOAA-EMC/NCEPLIBS-bufr/issues/395 is
+  ! resolved.
+  ! elseif (sub_name .eq. 'copysb') then
+  !    if (test_case .eq. '1') then
+  !       call copysb(1, 1, iret)     
+  !    endif
   elseif (sub_name .eq. 'idn30') then
      if (test_case .eq. '1') then
         idn30_val = idn30(adn30_val_5, 6)
@@ -96,6 +108,97 @@ program test_bort
         idn30_val = idn30('-0042', 5)
      elseif (test_case .eq. '4') then
         idn30_val = idn30('65536', 5)
+     endif
+  elseif (sub_name .eq. 'nemtba') then
+     if (test_case .eq. '1') then
+        open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        call openbf(11, 'IN', 11)
+        call nemtba(11, 'SPOCK', mtyp, msbt, inod)
+     endif
+     ! Commented out. See https://github.com/NOAA-EMC/NCEPLIBS-bufr/issues/384.
+     ! elseif (sub_name .eq. 'nemtbb') then
+     !    if (test_case .eq. '1') then
+     !       call nemtbb(0, -1, unit, iscl, iref, ibit) 
+     !    endif
+     ! Commented out. See https://github.com/NOAA-EMC/NCEPLIBS-bufr/issues/384.     
+     ! elseif (sub_name .eq. 'nemtbd') then
+     !    if (test_case .eq. '1') then
+     !       call nemtbd(0, -1, nseq, char_8, int_1d, int_1d)
+     !    endif
+  elseif (sub_name .eq. 'nmsub') then
+     if (test_case .eq. '1') then
+        open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        call openbf(11, 'BBB', 11)
+        iret = nmsub(12)
+     elseif (test_case .eq. '2') then
+        open(unit = 11, file = 'tmp', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        call openbf(11, 'OUT', 11)
+        iret = nmsub(11)
+     endif
+  elseif (sub_name .eq. 'openbf') then
+     if (test_case .eq. '1') then
+        open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        call openbf(11, 'BBB', 11)
+     elseif (test_case .eq. '2') then
+        open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        call openbf(11, 'IN', 11)
+        call openbf(11, 'IN', 11)
+     elseif (test_case .eq. '3') then
+        do u = 1, 33
+           open(unit = u+10, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
+           if (ios .ne. 0) stop 3
+           call openbf(u+10, 'IN', 11)
+        end do
+     endif
+  elseif (sub_name .eq. 'openmg') then
+     if (test_case .eq. '1') then
+        open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        call openbf(11, 'IN', 11)
+        call openmg(11, 'F5FCMESG', 2021022312)
+        ! Commented out. See https://github.com/NOAA-EMC/NCEPLIBS-bufr/issues/395.
+        !     elseif (test_case .eq. '2') then
+        !        call openmg(11, 'F5FCMESG', 2021022312)        
+     endif
+  elseif (sub_name .eq. 'pkb') then
+     if (test_case .eq. '1') then
+        call pkb(1, 65, ibay, ibit)        
+     endif
+  elseif (sub_name .eq. 'pkb8') then
+     if (test_case .eq. '1') then
+        call pkb(1, 1, ibay, ibit)        
+     elseif (test_case .eq. '2') then
+        call pkb(1, 65, ibay, ibit)        
+     endif
+  elseif (sub_name .eq. 'posapx') then
+     if (test_case .eq. '1') then
+        open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        call openbf(11, 'IN', 11)
+        call posapx(11)        
+     elseif (test_case .eq. '2') then
+        open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        call openbf(11, 'IN', 11)
+        call posapx(12)        
+     endif
+  elseif (sub_name .eq. 'rdmemm') then
+     if (test_case .eq. '1') then
+        open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        call openbf(11, 'IN', 11)
+        call rdmemm(1, subset, jdate, iret)        
+     endif
+  elseif (sub_name .eq. 'status') then
+     if (test_case .eq. '1') then
+        call status(0, 0, 0, 0)        
+     elseif (test_case .eq. '2') then
+        call status(100, 0, 0, 0)        
      endif
   elseif (sub_name .eq. 'sntbbe') then
      if (test_case .eq. '1') then
@@ -207,7 +310,8 @@ program test_bort
      endif
   else
      print *, "Unknown test function"
-     stop 2
+     ! Return with 0 to fail the test.
+     stop 0 
   endif
 
 end program test_bort

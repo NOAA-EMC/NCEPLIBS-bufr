@@ -9,167 +9,173 @@
 #
 # Ed Hartnett 3/12/23
 
-# Check adn30().
-./test_bort_4 adn30 1
-[ $? != 1 ] &&  exit 1
-./test_bort_4 adn30 2
-[ $? != 1 ] &&  exit 1
-./test_bort_4 adn30 3
-[ $? != 1 ] &&  exit 1
-./test_bort_4 adn30 4
-[ $? != 1 ] &&  exit 1
-./test_bort_4 adn30 5
-[ $? != 1 ] &&  exit 1
+# For now, don't run on _8 version of the library, because not all
+# functions tested here handle _8 calls well, since they are not
+# intended to be called directly by the user.
+for kind in "4" "d"; do
+    # Check adn30().
+    (./test_bort_$kind adn30 1) && exit 1
+    (./test_bort_$kind adn30 2) && exit 1
+    (./test_bort_$kind adn30 3) && exit 1
+    (./test_bort_$kind adn30 4) && exit 1
+    (./test_bort_$kind adn30 5) && exit 1
 
-# Check bort().
-./test_bort_4 bort 1
-[ $? != 1 ] &&  exit 1
+    # Check bort().
+    (./test_bort_$kind bort 1) && exit 1
 
-# Check bort2().
-./test_bort_4 bort2 1
-[ $? != 1 ] && exit 1
+    # Check bort2().
+    (./test_bort_$kind bort2 1) && exit 1
 
-# Check bvers().
-./test_bort_4 bvers 1
-[ $? != 1 ] &&  exit 1
+    # Check bvers().
+    (./test_bort_$kind bvers 1) && exit 1
 
-# Check cmpmsg().
-./test_bort_4 cmpmsg 1
-[ $? != 1 ] &&  exit 1
+    # Check cmpmsg().
+    (./test_bort_$kind cmpmsg 1) && exit 1
 
-# Check codflg().
-./test_bort_4 codflg 1
-[ $? != 1 ] &&  exit 1
+    # Check codflg().
+    (./test_bort_$kind codflg 1) && exit 1
 
-# Check copybf().
-./test_bort_4 copybf 1
-[ $? != 1 ] &&  exit 1
+    # Check copybf().
+    (./test_bort_$kind copybf 1) && exit 1
 
-# Check copymg().
-./test_bort_4 copymg 1
-[ $? != 1 ] &&  exit 1
+    # Check copymg().
+    (./test_bort_$kind copymg 1) && exit 1
 
-# Check copysb().
-./test_bort_4 copysb 1
-[ $? != 1 ] &&  exit 1
+    # Commented out until
+    # https://github.com/NOAA-EMC/NCEPLIBS-bufr/issues/395 can be
+    # resolved.
+    # Check copysb().
+    #./test_bort_$kind copysb 1
+    #[ $? != 1 ] &&  exit 1
 
-# Check idn30().
-./test_bort_4 idn30 1
-[ $? != 1 ] &&  exit 1
-./test_bort_4 idn30 2
-[ $? != 1 ] &&  exit 1
-./test_bort_4 idn30 3
-[ $? != 1 ] &&  exit 1
-./test_bort_4 idn30 4
-[ $? != 1 ] &&  exit 1
+    # Check idn30().
+    (./test_bort_$kind idn30 1) && exit 1
+    (./test_bort_$kind idn30 2) && exit 1
+    (./test_bort_$kind idn30 3) && exit 1
+    (./test_bort_$kind idn30 4) && exit 1
 
-# Check sntbbe().
-./test_bort_4 sntbbe 1
-[ $? != 1 ] &&  exit 1
+    # Check nemtba().
+    (./test_bort_$kind nemtba 1) && exit 1
 
-# Check sntbde().
-./test_bort_4 sntbde 1
-[ $? != 1 ] &&  exit 1
+    # Commented out. See https://github.com/NOAA-EMC/NCEPLIBS-bufr/issues/384.
+    # Check nemtbb().
+    #(./test_bort_$kind nemtbb 1) && exit 1
 
-# Check stdmsg().
-./test_bort_4 stdmsg 1
-[ $? != 1 ] &&  exit 1
+    # Commented out. See https://github.com/NOAA-EMC/NCEPLIBS-bufr/issues/384.
+    # Check nemtbd().
+    #(./test_bort_$kind nemtbd 1) && exit 1
 
-# Check stndrd().
-./test_bort_4 stndrd 1
-[ $? != 1 ] &&  exit 1
+    # Check nmsub().
+    (./test_bort_$kind nmsub 1) && exit 1
+    (./test_bort_$kind nmsub 2) && exit 1
 
-# Check strcpt().
-./test_bort_4 strcpt 1
-[ $? != 1 ] &&  exit 1
+    # Check openbf().
+    (./test_bort_$kind openbf 1) && exit 1
+    (./test_bort_$kind openbf 2) && exit 1
+    (./test_bort_$kind openbf 3) && exit 1
 
-# Commented out until https://github.com/NOAA-EMC/NCEPLIBS-bufr/issues/384
-# is resolved.
-# Check string().
-#./test_bort_4 string 1
-#[ $? != 1 ] &&  exit 1
+    # Check openmg().
+    (./test_bort_$kind openmg 1) && exit 1
+    # Commented out. See https://github.com/NOAA-EMC/NCEPLIBS-bufr/issues/395.    
+    # (./test_bort_$kind openmg 2) && exit 1
 
-# Check ufbcnt().
-./test_bort_4 ufbcnt 1
-[ $? != 1 ] &&  exit 1
+    # Check pkb().
+    (./test_bort_$kind pkb 1) && exit 1
 
-# Check ufbcpy().
-./test_bort_4 ufbcpy 1
-[ $? != 1 ] &&  exit 1
+    # Check pkb8().
+    (./test_bort_$kind pkb8 1) && exit 1
+    (./test_bort_$kind pkb8 2) && exit 1
 
-# Check ufbcup().
-./test_bort_4 ufbcup 1
-[ $? != 1 ] &&  exit 1
+    # Check posapx().
+    (./test_bort_$kind posapx 1) && exit 1
+    (./test_bort_$kind posapx 2) && exit 1
 
-# Check ufbdmp().
-./test_bort_4 ufbdmp 1
-[ $? != 1 ] &&  exit 1
+    # Check rdmemm().
+    (./test_bort_$kind rdmemm 1) && exit 1
 
-# Check ufbevn().
-./test_bort_4 ufbevn 1
-[ $? != 1 ] &&  exit 1
+    # Check status().
+    (./test_bort_$kind status 1) && exit 1
+    (./test_bort_$kind status 2) && exit 1
 
-# Check ufbget().
-./test_bort_4 ufbget 1
-[ $? != 1 ] &&  exit 1
+    # Check sntbde().
+    (./test_bort_$kind sntbde 1) && exit 1
 
-# Check ufbint().
-./test_bort_4 ufbint 1
-[ $? != 1 ] &&  exit 1
+    # Check stdmsg().
+    (./test_bort_$kind stdmsg 1) && exit 1
 
-# Check ufbqcp().
-./test_bort_4 ufbqcp 1
-[ $? != 1 ] &&  exit 1
+    # Check stndrd().
+    (./test_bort_$kind stndrd 1) && exit 1
 
-# Check ufbrep().
-./test_bort_4 ufbrep 1
-[ $? != 1 ] &&  exit 1
+    # Check strcpt().
+    (./test_bort_$kind strcpt 1) && exit 1
 
-# Check ufbrms().
-./test_bort_4 ufbrms 1
-[ $? != 1 ] &&  exit 1
+    # Commented out until https://github.com/NOAA-EMC/NCEPLIBS-bufr/issues/384
+    # is resolved.
+    # Check string().
+    #./test_bort_$kind string 1
+    #[ $? != 1 ] &&  exit 1
 
-# Check ufbseq().
-./test_bort_4 ufbseq 1
-[ $? != 1 ] &&  exit 1
+    # Check ufbcnt().
+    (./test_bort_$kind ufbcnt 1) && exit 1
 
-# Check ufdump().
-./test_bort_4 ufdump 1
-[ $? != 1 ] &&  exit 1
+    # Check ufbcpy().
+    (./test_bort_$kind ufbcpy 1) && exit 1
 
-# Check upftbv().
-./test_bort_4 upftbv 1
-[ $? != 1 ] &&  exit 1
+    # Check ufbcup().
+    (./test_bort_$kind ufbcup 1) && exit 1
 
-# Check wrdxtb().
-./test_bort_4 wrdxtb 1
-[ $? != 1 ] &&  exit 1
+    # Check ufbdmp().
+    (./test_bort_$kind ufbdmp 1) && exit 1
 
-# Check wtstat().
-./test_bort_4 wtstat 1
-[ $? != 1 ] &&  exit 1
-./test_bort_4 wtstat 2
-[ $? != 1 ] &&  exit 1
-./test_bort_4 wtstat 3
-[ $? != 1 ] &&  exit 1
-./test_bort_4 wtstat 4
-[ $? != 1 ] &&  exit 1
+    # Check ufbevn().
+    (./test_bort_$kind ufbevn 1) && exit 1
 
-# Check writdx().
-./test_bort_4 writdx 1
-[ $? != 1 ] &&  exit 1
+    # Check ufbget().
+    (./test_bort_$kind ufbget 1) && exit 1
 
-# Check writlc().
-./test_bort_4 writlc 1
-[ $? != 1 ] &&  exit 1
+    # Check ufbint().
+    (./test_bort_$kind ufbint 1) && exit 1
 
-# Check writsa().
-./test_bort_4 writsa 1
-[ $? != 1 ] &&  exit 1
+    # Check ufbqcp().
+    (./test_bort_$kind ufbqcp 1) && exit 1
 
-# Check writsb().
-./test_bort_4 writsb 1
-[ $? != 1 ] &&  exit 1
+    # Check ufbrep().
+    (./test_bort_$kind ufbrep 1) && exit 1
+
+    # Check ufbrms().
+    (./test_bort_$kind ufbrms 1) && exit 1
+
+    # Check ufbseq().
+    (./test_bort_$kind ufbseq 1) && exit 1
+
+    # Check ufdump().
+    (./test_bort_$kind ufdump 1) && exit 1
+
+    # Check upftbv().
+    (./test_bort_$kind upftbv 1) && exit 1
+
+    # Check wrdxtb().
+    (./test_bort_$kind wrdxtb 1) && exit 1
+
+    # Check wtstat().
+    (./test_bort_$kind wtstat 1) && exit 1
+    (./test_bort_$kind wtstat 2) && exit 1
+    (./test_bort_$kind wtstat 3) && exit 1
+    (./test_bort_$kind wtstat 4) && exit 1
+
+    # Check writdx().
+    (./test_bort_$kind writdx 1) && exit 1
+
+    # Check writlc().
+    (./test_bort_$kind writlc 1) && exit 1
+
+    # Check writsa().
+    (./test_bort_$kind writsa 1) && exit 1
+
+    # Check writsb().
+    (./test_bort_$kind writsb 1) && exit 1
+
+done
 
 # If we made it here, all error codes were correctly returned, and the
 # test passed!
