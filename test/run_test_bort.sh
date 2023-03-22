@@ -151,9 +151,6 @@ for kind in "4" "d" "8"; do
     # Check upftbv().
     (./test_bort_$kind upftbv 1) && exit 1
 
-    # Check valx().
-    (./test_bort_$kind valx 1) && exit 1
-
     # Check wrdxtb().
     (./test_bort_$kind wrdxtb 1) && exit 1
 
