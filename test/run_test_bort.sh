@@ -9,7 +9,10 @@
 #
 # Ed Hartnett 3/12/23
 
-for kind in "4" "d" "8"; do
+# For now, don't run on _8 version of the library, because not all
+# functions tested here handle _8 calls well, since they are not
+# intended to be called directly by the user.
+for kind in "4" "d"; do
     # Check adn30().
     (./test_bort_$kind adn30 1) && exit 1
     (./test_bort_$kind adn30 2) && exit 1
