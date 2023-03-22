@@ -4,12 +4,11 @@ C>
 C> @author Woollen @date 1994-01-06
 
 C> This subroutine unpacks the next subset from the internal
-c> uncompressed message buffer (array mbay in module bitbuf) and
+c> uncompressed message buffer (array mbay in module @ref moda_bitbuf) and
 c> stores the unpacked subset within the internal array val(*,lun)
-c> in module usrint.
+c> in module @ref moda_usrint.
 C>
 C> @param[in] LUN - integer: I/O stream index into internal memory arrays.
-C>
 C> @param[out] IRET - integer: return code:
 C> - 0 normal return
 C> - -1 An error occurred, possibly due to a corrupt subset in the input message.

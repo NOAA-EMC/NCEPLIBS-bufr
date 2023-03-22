@@ -59,8 +59,8 @@ C       Read and parse the header line of the standard file.
         CALL PARSTR ( HEADER, TAGS, 5, NTAG, '|', .FALSE. )
         IF ( NTAG .LT. 3 ) GOTO 900
         IF ( BADLABEL ( TAGS(1) ) ) GOTO 900
-        IMT = VALX ( TAGS(2) )
-        IMTV = VALX ( TAGS(3) )
+        CALL STRNUM ( TAGS(2), IMT, IERSN )
+        CALL STRNUM ( TAGS(3), IMTV, IERSN )
 
 C       Read and parse the header line of the local file.
 
@@ -69,9 +69,9 @@ C       Read and parse the header line of the local file.
         CALL PARSTR ( HEADER, TAGS, 5, NTAG, '|', .FALSE. )
         IF ( NTAG .LT. 4 ) GOTO 900
         IF ( BADLABEL ( TAGS(1) ) ) GOTO 900
-        IMT2 = VALX ( TAGS(2) )
-        IOGCE = VALX ( TAGS(3) )
-        ILTV = VALX ( TAGS(4) )
+        CALL STRNUM ( TAGS(2), IMT2, IERSN )
+        CALL STRNUM ( TAGS(3), IOGCE, IERSN )
+        CALL STRNUM ( TAGS(4), ILTV, IERSN )
 
 C       Verify that both files are for the same master table.
 

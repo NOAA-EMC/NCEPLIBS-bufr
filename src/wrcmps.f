@@ -4,15 +4,14 @@ C>
 C> @author Woollen @date 2002-05-14
 
 C> This subroutine packs up the current subset within memory
-C> (array ibay in module bitbuf), storing it for compression.
+C> (array ibay in module @ref moda_bitbuf), storing it for compression.
 C> It then tries to add it to the compressed BUFR message that is
-C> currently open within memory for abs(lunix) (array mgwa).  If the
+C> currently open within memory for abs(lunix) (array mgwa). If the
 C> subset will not fit into the currently open message, then that
 C> compressed message is flushed to lunix and a new one is created in
 C> order to hold the current subset (still stored for compression).
 C> This subroutine performs functions similar to BUFR archive library
 C> subroutine msgupd() except that it acts on compressed bufr messages.
-C>
 C>
 C> @param[in] lunix -- integer: absolute value is fortran logical unit number
 C>                     for bufr file (if lunix is less than zero, this is a

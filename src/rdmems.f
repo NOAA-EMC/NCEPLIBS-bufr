@@ -7,15 +7,6 @@ C> This subroutine reads a specified data subset from the BUFR message
 C> that was most recently read via a call to subroutine rdmemm() or
 C> readmm().
 C>
-C> @param[in] ISUB   -- integer: Number of data subset to be
-C>                      read from BUFR message, counting from the
-C>                      beginning of the message
-C> @param[out] IRET  -- integer: return code
-C>                         - 0 = requested data subset was
-C>                               successfully read
-C>                         - -1 = requested subset number could not
-C>                                be found in the message
-C>
 C> Whenever this subroutine returns with IRET = 0, this indicates
 C> that a new BUFR data subset (i.e. report) was successfully read into
 C> internal arrays within the BUFRLIB software, and from where it can
@@ -23,6 +14,12 @@ C> now be easily manipulated or further parsed via calls to any of the
 C> [values-reading subroutines](@ref hierarchy) using the Fortran
 C> logical unit number IUNIT that was returned from the most recent
 C> call to subroutine ufbmem().
+C>
+C> @param[in] ISUB - integer: Number of data subset to be
+C> read from BUFR message, counting from the beginning of the message.
+C> @param[out] IRET - integer: return code
+C> - 0 = requested data subset was successfully read.
+C> - -1 = requested subset number could not be found in the message.
 C>
 C> @author J. Woollen @date 1994-01-06
       RECURSIVE SUBROUTINE RDMEMS(ISUB,IRET)

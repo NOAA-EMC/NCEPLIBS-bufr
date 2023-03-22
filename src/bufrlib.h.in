@@ -476,11 +476,12 @@ void stntbi( f77int *n, f77int *lun, char *numb, char *nemo, char *celsq, size_t
  *
  * @param str - String.
  * @param num - Value decoded from str.
+ * @param iret - Return code.
  * @param s1 - Extra C-Fortran interface argument containing length of str variable.
  *
  * @author J.Ator @date 2003-11-04
  */
-void strnum( char *str, f77int *num, size_t s1 );
+void strnum( char *str, f77int *num, f77int *iret, size_t s1 );
 
 void stseq( f77int *lun, f77int *irepct, f77int *idn, char *nemo, char *cseq, f77int *cdesc, f77int *ncdesc );
 

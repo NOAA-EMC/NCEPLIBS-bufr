@@ -9,16 +9,9 @@ C> as the meanings of data values which are code or flag table entries.
 C>
 C> This subroutine is similar to subroutine ufbdmp(), but it prints
 C> different characteristics of each data subset, and in a slightly
-C> different format.  However, both subroutines can be useful for
+C> different format. However, both subroutines can be useful for
 C> different diagnostic purposes, and both can also be run
 C> interactively to scroll through the contents of a data subset.
-C>
-C> @param[in] LUNIT   -- integer: Fortran logical unit number for
-C>                       BUFR file
-C> @param[in] LUPRT   -- integer: Fortran logical unit number for
-C>                       print output
-C>                       - 0 = Run interactively, printing to
-C>                             standard output
 C>
 C> Logical unit LUNIT should have already been opened for
 C> input operations via a previous call to subroutine openbf(), and a
@@ -28,17 +21,23 @@ C> [subset-reading subroutines](@ref hierarchy).
 C>
 C> Except when LUPRT = 0, logical unit LUPRT must already be
 C> associated with a filename on the local system, typically via a
-C> Fortran "OPEN" statement.  When LUPRT = 0, the subroutine will run
+C> Fortran "OPEN" statement. When LUPRT = 0, the subroutine will run
 C> interactively and print to standard output, scrolling 20 lines at
 C> a time and prompting each time whether to quit and return to the
 C> application program (by typing 'q' then '&lt;Enter&gt;') or continue
 C> scrolling (by typing anything else).
 C>
-C> @remarks
-C> - In order for the meanings of code and flag table values to be
+C> In order for the meanings of code and flag table values to be
 C> included in the output, a previous call to subroutine codflg()
-C> must have been made with argument CF = 'Y'.  Otherwise, only the
+C> must have been made with argument CF = 'Y'. Otherwise, only the
 C> code and flag table values themselves will be printed.
+C>
+C> @param[in] LUNIT   -- integer: Fortran logical unit number for
+C>                       BUFR file
+C> @param[in] LUPRT   -- integer: Fortran logical unit number for
+C>                       print output
+C>                       - 0 = Run interactively, printing to
+C>                             standard output
 C>
 C> @authors J. Woollen, J. Ator @date 2002-05-14
       RECURSIVE SUBROUTINE UFDUMP(LUNIT,LUPRT)

@@ -87,7 +87,7 @@ subroutine fdebufr_c ( ofile, lenof, tbldir, lentd, tblfil, lentf, prmstg, lenps
 
   integer ibfmg ( mxbfd4 ), lunit, nmsg, nsub, nsubt, ii, jj, nds3, nptag, npvtag, ipval, lcprmnm, ier, imgdt, ierme, &
           iogce, lcmorgc, ierorgc, igses, lcmgses, iergses, iryr, irmo, irdy, irhr, irmi, irtret, &
-          mtyp, lcmmtyp, iermtyp, msbt, lcmmsbt, iermsbt, msbti, lcmmsbti, iermsbti
+          mtyp, lcmmtyp, iermtyp, msbt, lcmmsbt, iermsbt, msbti, lcmmsbti, iermsbti, iersn
 
   equivalence ( bfmg (1), ibfmg (1) )
 
@@ -176,8 +176,8 @@ subroutine fdebufr_c ( ofile, lenof, tbldir, lentd, tblfil, lentf, prmstg, lenps
             call parstr ( ptag(ii), pvtag, 2, npvtag, '=', .false. )
             if ( npvtag .eq. 2 ) then
               call strsuc ( pvtag(1), cprmnm, lcprmnm )
-              call strnum ( pvtag(2), ipval )
-              if ( ( lcprmnm .gt. 0 ) .and. ( ipval .ne. -1 ) ) then
+              call strnum ( pvtag(2), ipval, iersn )
+              if ( ( lcprmnm .gt. 0 ) .and. ( iersn .ne. -1 ) ) then
                 if ( isetprm ( cprmnm(1:lcprmnm), ipval ) .ne. 0 ) then
                   print *, 'Error: Bad return from isetprm for parameter: ', cprmnm(1:lcprmnm)
                   return

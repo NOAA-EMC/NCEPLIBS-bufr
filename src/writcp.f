@@ -1,5 +1,5 @@
 C> @file
-C> @brief Write a data subset into a BUFR message using compression
+C> @brief Write a data subset into a BUFR message using compression.
 C>
 C> @author J. Woollen @date 2002-05-14
 
@@ -9,7 +9,6 @@ C> for the BUFR file associated with logical unit LUNIT, it is
 C> packed using compression as prescribed within the
 C> [official WMO BUFR regulations](@ref manual).
 C>
-C> @remarks
 C> This subroutine activates compression via an internal call to
 C> subroutine cmpmsg(), followed by an internal call to subroutine
 C> writsb(), followed by a second internal call to subroutine

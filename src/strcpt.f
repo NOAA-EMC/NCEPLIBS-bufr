@@ -9,17 +9,6 @@ C> included within Section 1 of all BUFR messages output by future calls
 C> to [message-writing subroutines](@ref hierarchy) and
 C> [subset-writing subroutines](@ref hierarchy).
 C>
-C> @param[in] CF   -- character*1: Flag indicating whether future BUFR
-C>                    output messages should include the tank receipt
-C>                    time defined by IYR, IMO, IDY, IHR, and IMI:
-C>                     - 'N' = No (the default)
-C>                     - 'Y' = Yes
-C> @param[in] IYR  -- integer: Tank receipt year
-C> @param[in] IMO  -- integer: Tank receipt month
-C> @param[in] IDY  -- integer: Tank receipt day
-C> @param[in] IHR  -- integer: Tank receipt hour
-C> @param[in] IMI  -- integer: Tank receipt minute
-C>
 C> This subroutine can be called at any time after the first call
 C> to subroutine openbf(), and the specified value for CF will remain
 C> in effect for all future calls to
@@ -39,6 +28,17 @@ C> [official WMO BUFR regulations](@ref manual).
 C> However, it's encoded by the BUFRLIB software in such a way that
 C> its inclusion within an output BUFR message is still fully
 C> compliant with the regulations.
+C>
+C> @param[in] CF - character*1: Flag indicating whether future BUFR
+C> output messages should include the tank receipt
+C> time defined by IYR, IMO, IDY, IHR, and IMI:
+C> - 'N' = No (the default)
+C> - 'Y' = Yes
+C> @param[in] IYR - integer: Tank receipt year.
+C> @param[in] IMO - integer: Tank receipt month.
+C> @param[in] IDY - integer: Tank receipt day.
+C> @param[in] IHR - integer: Tank receipt hour.
+C> @param[in] IMI - integer: Tank receipt minute.
 C>
 C> @author J. Ator @date 2009-03-23
       RECURSIVE SUBROUTINE STRCPT(CF,IYR,IMO,IDY,IHR,IMI)
