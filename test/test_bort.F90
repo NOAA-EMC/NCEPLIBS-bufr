@@ -40,7 +40,7 @@ program test_bort
   if (num_args /= 2) then
      print *, "Two command line arguments expected: subroutine name and test case"
      ! Return with 0 to fail the test.
-     return 
+     stop 0 
   end if
 
   ! Read the command line arguments, a name of subroutine, and a test
@@ -311,7 +311,7 @@ program test_bort
   else
      print *, "Unknown test function"
      ! Return with 0 to fail the test.
-     return 
+     stop 0 
   endif
 
 end program test_bort
