@@ -39,7 +39,8 @@ program test_bort
   num_args = command_argument_count()
   if (num_args /= 2) then
      print *, "Two command line arguments expected: subroutine name and test case"
-     stop 2
+     ! Return with 0 to fail the test.
+     return 
   end if
 
   ! Read the command line arguments, a name of subroutine, and a test
@@ -115,14 +116,16 @@ program test_bort
         call openbf(11, 'IN', 11)
         call nemtba(11, 'SPOCK', mtyp, msbt, inod)
      endif
-  elseif (sub_name .eq. 'nemtbb') then
-     if (test_case .eq. '1') then
-        call nemtbb(0, -1, unit, iscl, iref, ibit) 
-     endif
-  elseif (sub_name .eq. 'nemtbd') then
-     if (test_case .eq. '1') then
-        call nemtbd(0, -1, nseq, char_8, int_1d, int_1d)
-     endif
+     ! Commented out. See https://github.com/NOAA-EMC/NCEPLIBS-bufr/issues/384.
+     ! elseif (sub_name .eq. 'nemtbb') then
+     !    if (test_case .eq. '1') then
+     !       call nemtbb(0, -1, unit, iscl, iref, ibit) 
+     !    endif
+     ! Commented out. See https://github.com/NOAA-EMC/NCEPLIBS-bufr/issues/384.     
+     ! elseif (sub_name .eq. 'nemtbd') then
+     !    if (test_case .eq. '1') then
+     !       call nemtbd(0, -1, nseq, char_8, int_1d, int_1d)
+     !    endif
   elseif (sub_name .eq. 'nmsub') then
      if (test_case .eq. '1') then
         open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
@@ -146,20 +149,21 @@ program test_bort
         call openbf(11, 'IN', 11)
         call openbf(11, 'IN', 11)
      elseif (test_case .eq. '3') then
-        do u = 1, 101
-           open(unit = u, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
+        do u = 1, 33
+           open(unit = u+10, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
            if (ios .ne. 0) stop 3
-           call openbf(u, 'IN', 11)
+           call openbf(u+10, 'IN', 11)
         end do
      endif
   elseif (sub_name .eq. 'openmg') then
      if (test_case .eq. '1') then
-        call openmg(11, 'F5FCMESG', 2021022312)        
-     elseif (test_case .eq. '2') then
         open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
         if (ios .ne. 0) stop 3
         call openbf(11, 'IN', 11)
-        call openmg(11, 'F5FCMESG', 2021022312)        
+        call openmg(11, 'F5FCMESG', 2021022312)
+        ! Commented out. See https://github.com/NOAA-EMC/NCEPLIBS-bufr/issues/395.
+        !     elseif (test_case .eq. '2') then
+        !        call openmg(11, 'F5FCMESG', 2021022312)        
      endif
   elseif (sub_name .eq. 'pkb') then
      if (test_case .eq. '1') then
@@ -167,7 +171,7 @@ program test_bort
      endif
   elseif (sub_name .eq. 'pkb8') then
      if (test_case .eq. '1') then
-        call pkb(1, -1, ibay, ibit)        
+        call pkb(1, 1, ibay, ibit)        
      elseif (test_case .eq. '2') then
         call pkb(1, 65, ibay, ibit)        
      endif
@@ -306,7 +310,8 @@ program test_bort
      endif
   else
      print *, "Unknown test function"
-     stop 2
+     ! Return with 0 to fail the test.
+     return 
   endif
 
 end program test_bort

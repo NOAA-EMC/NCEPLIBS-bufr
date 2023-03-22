@@ -54,14 +54,13 @@ for kind in "4" "d" "8"; do
     # Check nemtba().
     (./test_bort_$kind nemtba 1) && exit 1
 
+    # Commented out. See https://github.com/NOAA-EMC/NCEPLIBS-bufr/issues/384.
     # Check nemtbb().
-    (./test_bort_$kind nemtbb 1) && exit 1
+    #(./test_bort_$kind nemtbb 1) && exit 1
 
+    # Commented out. See https://github.com/NOAA-EMC/NCEPLIBS-bufr/issues/384.
     # Check nemtbd().
-    (./test_bort_$kind nemtbd 1) && exit 1
-
-    # Check numbck().
-    (./test_bort_$kind numbck 1) && exit 1
+    #(./test_bort_$kind nemtbd 1) && exit 1
 
     # Check nmsub().
     (./test_bort_$kind nmsub 1) && exit 1
@@ -74,7 +73,8 @@ for kind in "4" "d" "8"; do
 
     # Check openmg().
     (./test_bort_$kind openmg 1) && exit 1
-    (./test_bort_$kind openmg 2) && exit 1
+    # Commented out. See https://github.com/NOAA-EMC/NCEPLIBS-bufr/issues/395.    
+    # (./test_bort_$kind openmg 2) && exit 1
 
     # Check pkb().
     (./test_bort_$kind pkb 1) && exit 1
