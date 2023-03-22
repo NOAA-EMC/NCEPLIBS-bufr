@@ -27,7 +27,7 @@ recursive subroutine strnum( str, num, iret )
 
   integer, intent(out) ::  num, iret
 
-  character str2*40, fmt*8
+  character str2*40
 
   integer lens, ios
 
@@ -54,9 +54,8 @@ recursive subroutine strnum( str, num, iret )
 
   call strsuc ( str, str2, lens )
   if ( lens .eq. 0 ) return
-  write ( fmt, '(''(I'',I2,'')'')' ) lens
 
-  read ( str2(1:lens), fmt, iostat = ios ) num
+  read ( str2(1:lens), '(I40)', iostat = ios ) num
   if ( ios .ne. 0 ) iret = -1
 
   return
