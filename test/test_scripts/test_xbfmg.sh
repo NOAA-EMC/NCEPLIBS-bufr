@@ -28,7 +28,7 @@ for test in {1..2}; do
   done
 done
 
-# We expect the following tests to return a non-zero exit code, but we don't want
+# We expect some of the following tests may return a non-zero exit code, but we don't want
 # to immediately exit the script when that happens.
 set +e
 
@@ -46,6 +46,11 @@ outfile_4=testrun/xbfmg_4.out
 outfile_5=testrun/xbfmg_5.out
 ../utils/xbfmg -h > ${outfile_5}
 [[ ${?} -ne 0 || `egrep -c "(ABSTRACT|USAGE|WHERE):" ${outfile_5}` -ne 3 ]] && exit 5
+
+# Test #6, for non-existent input file.
+outfile_6=testrun/xbfmg_6.out
+../utils/xbfmg BUFRLIB_DUMMY > ${outfile_6}
+[[ ${?} -eq 0 || `grep -c "ERROR: Could not stat the file" ${outfile_6}` -ne 1 ]] && exit 6
 
 # Success!
 exit 0

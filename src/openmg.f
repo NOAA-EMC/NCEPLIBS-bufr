@@ -7,6 +7,15 @@ C> @author J. Woollen @date 1994-01-06
 C> This subroutine opens and initializes a new BUFR message within
 C> internal arrays, for eventual output to logical unit LUNIT.
 C>
+C> Logical unit LUNIT should have already been opened for output
+C> operations via a previous call to subroutine openbf().
+C>
+C> This subroutine is similar to subroutine openmb(), except that it
+C> will always open a new message for output, regardless of the values
+C> of SUBSET and JDATE. Any existing message within the internal
+C> arrays will be automatically flushed and written to logical unit LUNIT
+C> via an internal call to subroutine closmg().
+C>
 C> @param[in] LUNIT -- integer: Fortran logical unit number for BUFR
 C>                     file
 C> @param[in] SUBSET -- character*(*): Table A mnemonic for type of
@@ -16,15 +25,6 @@ C>                      further information about Table A mnemonics)
 C> @param[in] JDATE -- integer: Date-time to be stored within Section 1
 C>                     of BUFR message being opened, in format of either
 C>                     YYMMDDHH or YYYYMMDDHH
-C>
-C> Logical unit LUNIT should have already been opened for output
-C> operations via a previous call to subroutine openbf().
-C>
-C> This subroutine is similar to subroutine openmb(), except that it
-C> will always open a new message for output, regardless of the values
-C> of SUBSET and JDATE.  Any existing message within the internal
-C> arrays will be automatically flushed and written to logical unit LUNIT
-C> via an internal call to subroutine closmg().
 C>
 C> @author J. Woollen @date 1994-01-06
       RECURSIVE SUBROUTINE OPENMG(LUNIT,SUBSET,JDATE)

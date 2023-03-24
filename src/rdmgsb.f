@@ -7,21 +7,6 @@ C> This subroutine provides a handy way to combine the functionality
 C> of subroutines openbf(), readmg(), and readsb() within a single
 C> subroutine call.
 C>
-C> @author J. Woollen @date 2003-11-04
-C>
-C> @author J. Woollen @date 2003-11-04
-C>
-C> @param[in] LUNIT  -- integer: Fortran logical unit number for
-C>                      BUFR file
-C> @param[in] IMSG   -- integer: Number of BUFR message to be
-C>                      read from the BUFR file, counting from the
-C>                      beginning of the file, but <b>not</b>
-C>                      counting any DX BUFR table messages which
-C>                      may be present in the file
-C> @param[in] ISUB   -- integer: Number of data subset to be
-C>                      read from the (IMSG)th BUFR message,
-C>                      counting from the beginning of the message
-C>
 C> Logical unit LUNIT should not have already been opened via a
 C> previous call to subroutine openbf()
 C>
@@ -35,6 +20,17 @@ C> Note that the value specified for IMSG should not include any
 C> DX BUFR table messages which may be present in the file.
 C> In other words, a value of 12 for IMSG means to read the 12th
 C> message which contains actual report data.
+C>
+C> @param[in] LUNIT  -- integer: Fortran logical unit number for
+C>                      BUFR file
+C> @param[in] IMSG   -- integer: Number of BUFR message to be
+C>                      read from the BUFR file, counting from the
+C>                      beginning of the file, but <b>not</b>
+C>                      counting any DX BUFR table messages which
+C>                      may be present in the file
+C> @param[in] ISUB   -- integer: Number of data subset to be
+C>                      read from the (IMSG)th BUFR message,
+C>                      counting from the beginning of the message
 C>
 C> @author J. Woollen @date 2003-11-04
       RECURSIVE SUBROUTINE RDMGSB(LUNIT,IMSG,ISUB)
