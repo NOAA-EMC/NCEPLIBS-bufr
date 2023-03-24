@@ -10,58 +10,15 @@
  * @author Ronald Mclaren @date 2020-07-29
  */
 
+#pragma once
+
 /**
- * Open a new file for reading or writing BUFR messages via a C language interface.
- *
- * @param bfl - System file to be opened
- * @param io - Flag indicating how bfl is to be opened:
- *              - 'r' input (for reading BUFR messages)
- *              - 'w' output (for writing BUFR messages)
- *
- * @author J. Ator @date 2005-11-29
+ * Prototypes for native C functions.
  */
 void cobfl( char *bfl, char io );
-
-/**
- * Read the next BUFR message from the system file that was opened via the most
- * recent call to function cobfl() with io = 'r'.
- *
- * @param mxmb - Dimensioned size (in bytes) of bmg
- * @param bmg  - BUFR message
- * @param nmb  - Size (in bytes) of BUFR message in bmg
- * @param iret - return code:
- *               - 0 = normal return
- *               - 1 = overflow of bmg array
- *               - 2 = "7777" indicator not found in expected location
- *               - -1 = end-of-file encountered while reading
- *               - -2 = I/O error encountered while reading
- *
- * @author J. Ator @date 2005-11-29
- */
 void crbmg( char *bmg, int mxmb, int *nmb, int *iret );
-
-/**
- * Write a BUFR message to the system file that was opened via the most recent
- * call to function cobfl() with io = 'w'.
- *
- * @param bmg - BUFR message
- * @param nmb - Size (in bytes) of BUFR message in bmg
- * @param iret - return code:
- *                - 0 normal return
- *                - -1 I/O error encountered while writing
- *
- * @author J. Ator @date 2005-11-29
- */
 void cwbmg( char *bmg, int nmb, int *iret );
-
-/**
- * Close all system files that were opened via previous calls to function cobfl().
- *
- * @author J. Ator  @date 2005-11-29
- */
 void ccbfl( void );
-
-#pragma once
 
 #ifdef __cplusplus
 extern "C" {
