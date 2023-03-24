@@ -38,7 +38,7 @@
 void stseq( f77int *lun, f77int *irepct, f77int *idn, char *nemo,
             char *cseq, f77int *cdesc, f77int *ncdesc )
 {
-    f77int i, j, nb, nd, ipt, ix, iy, iret, nbits;
+    f77int i, j, nb, nd, ipt, ix, iy, ier, iret, nbits;
     f77int i0 = 0, imxcd, rpidn, pkint, ilen;
 
     char tab, adn[7], adn2[7], nemo2[9], units[10], errstr[129];
@@ -122,8 +122,8 @@ void stseq( f77int *lun, f77int *irepct, f77int *idn, char *nemo,
 /*
 **          cdesc[i] is an operator descriptor.
 */
-            strnum( &adn[1], &ix, 2 );
-            strnum( &adn[3], &iy, 3 );
+            strnum( &adn[1], &ix, &ier, 2 );
+            strnum( &adn[3], &iy, &ier, 3 );
 
             if ( ( ( ix >= 4 ) && ( ix <= 6 ) ) || ( imrkopr( adn, 6 ) ) ) {
 /*
@@ -258,7 +258,7 @@ void stseq( f77int *lun, f77int *irepct, f77int *idn, char *nemo,
 */
             adn[6] = '\0';
 
-            strnum( &adn[3], &iy, 3 );
+            strnum( &adn[3], &iy, &ier, 3 );
 /*
 **          See subroutine BFRINI and COMMON /REPTAB/ for the source of the FXY
 **          values referenced in the following block.  Note we are guaranteed
@@ -303,7 +303,7 @@ void stseq( f77int *lun, f77int *irepct, f77int *idn, char *nemo,
                 bort( errstr, ( f77int ) strlen( errstr ) );
             }
 
-            strnum( &adn[1], &ix, 2 );
+            strnum( &adn[1], &ix, &ier, 2 );
 /*
 **          Note we are guaranteed that 0 < ix <= 63 since adn was generated
 **          using subroutine CADN30.

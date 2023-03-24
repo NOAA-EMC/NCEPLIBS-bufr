@@ -86,7 +86,7 @@ C               Parse the list of values.
                 ENDIF
                 DO II = 1, NIDVAL
                   CVAL(II) = ADJUSTL( CVAL(II) )
-                  CALL STRNUM ( CVAL(II), IVAL )
+                  CALL STRNUM ( CVAL(II), IVAL, IER )
                   IDVAL(II) = IVAL
                 ENDDO
 
@@ -106,7 +106,7 @@ C                 This is the last line for this table entry.
                 ENDIF
 
                 TAGS(2) = ADJUSTL( TAGS(2) )
-                CALL STRNUM ( TAGS(2), IVAL )
+                CALL STRNUM ( TAGS(2), IVAL, IER )
 
 C               Find the last non-blank character in the meaning string.
 
