@@ -3,10 +3,11 @@
 ! Writes test file 'testfiles/OUT_4' using OPENBF IO = 'NODX' and IO = 'QUIET', and using STRCPT, WRDXTB and WRITSA
 !
 ! J. Ator, 2/17/2023
+
 program outtest4
   implicit none
 
-  integer*4 isetprm, ireadsb, igetmxby, icbfms
+  integer*4 isetprm, ireadsb, igetmxby, icbfms, ilena, ilenb, iupbs01
 
   integer mxval1, mxval2, mxlvl, mxbfmg
   parameter ( mxval1 = 200 )
@@ -14,7 +15,7 @@ program outtest4
   parameter ( mxlvl = 4490 )
   parameter ( mxbfmg = 50000 )
 
-  integer mgbf ( mxbfmg ), mgbfapp ( mxbfmg ), lmgbf, ibfdt, imgdt, iermg, iersb, nsub, nlv, nlv2
+  integer mgbf ( mxbfmg ), lmgbf, ibfdt, imgdt, iermg, iersb, nsub, nlv, nlv2
 
   real*8 r8arr1 ( mxval1 ), r8arr2 ( mxval2, mxlvl )
 
@@ -134,11 +135,10 @@ program outtest4
   ! Close the output file.
   call closbf ( 13 )
 
-  mgbfapp = mgbf
-  print*, mgbf(1:5)
-  print*, mgbfapp(1:5)
-  call atrcpt(mgbf, lmgbf, mgbfapp)
-  print*, mgbf(1:5)
-  print*, mgbfapp(1:5)
+  ! Test atrcpt, which should add 6 bytes to mgbf
+  ilena = iupbs01(mgbf, 'LENM')
+  call atrcpt(mgbf, lmgbf, mgbf)
+  ilenb = iupbs01(mgbf, 'LENM')
+  IF ((ilenb-ilena) .ne. 6) stop 3
 
 end program outtest4
