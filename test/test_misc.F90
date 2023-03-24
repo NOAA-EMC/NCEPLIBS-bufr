@@ -12,7 +12,7 @@ program test_misc
   integer lun, il, im
   integer ios
   integer ierr, nemock
-  integer numbck, iret
+  integer numbck, num, iret
   integer mtyp, msbt, inod
 
   print *, 'Testing misc subroutines.'
@@ -21,13 +21,7 @@ program test_misc
   call setim8b(.true.)
 #endif
 
-  ! adn30/idn30.
-  char5 = adn30(42, 5)
-  if (char5 .ne. '00042') stop 1
-  a = idn30(char5, 5)
-  if (a .ne. 42) stop 2
-
-  ! testiing status()
+  ! testing status()
   open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
   if (ios .ne. 0) stop 3
   call openbf(11, 'IN', 11)
@@ -57,10 +51,26 @@ program test_misc
   ! if (lun .ne. 1 .or. il .ne. -1 .or. im .ne. 0) stop 4
   ! call closbf(11)
 
+  ! Testing strnum
+  call strnum('8DUMMY8',num,iret)
+  if (iret .ne. -1) stop 400
+  call strnum('',num,iret)
+  if ((iret .ne. 0) .or. (num .ne. 0)) stop 400
+  call strnum(' ',num,iret)
+  if ((iret .ne. 0) .or. (num .ne. 0)) stop 400
+  call strnum('    ',num,iret)
+  if ((iret .ne. 0) .or. (num .ne. 0)) stop 400
+
   ! These tests only for the _4 run of test_misc.
 #ifdef KIND_4
-  ! Testing nemock(). Commented out until this issue is resolved:
-  ! https://github.com/NOAA-EMC/NCEPLIBS-bufr/issues/400
+
+  ! adn30/idn30.
+  char5 = adn30(42, 5)
+  if (char5 .ne. '00042') stop 1
+  a = idn30(char5, 5)
+  if (a .ne. 42) stop 2
+
+  ! Testing nemock()
   ierr = nemock('')
   if (ierr .ne. -1) stop 100
   ierr = nemock('012345678')
@@ -68,20 +78,19 @@ program test_misc
   ierr = nemock('???')
   if (ierr .ne. -2) stop 100
 
-  ! Testing numbck(numb)...
-  ! Commented out until this issue is resolved:
-  ! https://github.com/NOAA-EMC/NCEPLIBS-bufr/issues/400
+  ! Testing numbck()
   iret = numbck('ABCDEF')
-  print *,iret
   if (iret .ne. -1) stop 200
   iret = numbck('01CDEF')
   if (iret .ne. -2) stop 201
 
+  ! Testing nemtbax()
   open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
   if (ios .ne. 0) stop 3
   call openbf(11, 'IN', 11)
   call nemtbax(11, 'DUMB', mtyp, msbt, inod)
   if (inod .ne. 0) stop 300
+
 #endif
   
   print *, 'SUCCESS'

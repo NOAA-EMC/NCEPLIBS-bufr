@@ -1,7 +1,7 @@
 ! This is a test for NCEPLIBS-bufr.
 !
 ! Reads test file 'testfiles/IN_7' containing 2-03-YYY changed reference values, using inline ERRWRT to
-! check error messages, and using UFBPOS, UFBTAB, and STRNUM
+! check error messages, and using UFBPOS and UFBTAB
 !
 ! J. Ator, 2/23/2023
 
@@ -38,7 +38,7 @@ program intest7
 
   integer*4 isetprm, igetprm, ireadns, ibfms
 
-  integer imgdt, iret, jdate, nr8v, idx, nsub, num, iersn
+  integer imgdt, iret, jdate, nr8v, idx, nsub, num
 
   integer mxr8pm, mxr8lv
   parameter ( mxr8pm = 15 )
@@ -49,7 +49,7 @@ program intest7
   character cmgtag*8
 
   print *, 'Testing reading IN_7 containing 2-03-YYY changed reference values, using inline ERRWRT'
-  print *, 'to check error messages, and using UFBPOS, UFBTAB, and STRNUM'
+  print *, 'to check error messages, and using UFBPOS and UFBTAB'
 
 #ifdef KIND_8
   call setim8b ( .true. )
@@ -140,12 +140,6 @@ program intest7
   ! Rewind the file and get a total count of the subsets.
   call ufbtab ( -11, r8val, 1, 1, nsub, ' ' )
   if ( ( nsub .ne. 402 ) .or. ( ibfms ( r8val ) .ne. 1 ) ) stop 18
-
-  ! Test the error handling inside of STRNUM.
-  call strnum( '75.DUMMY', num, iersn )
-  if ( iersn .eq. 0 ) stop 19
-  call strnum( '    ', num, iersn )
-  if ( iersn .ne. 0 ) stop 20
 
   print *, 'SUCCESS!'
 end program intest7
