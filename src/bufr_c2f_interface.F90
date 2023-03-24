@@ -57,7 +57,6 @@ module bufr_c2f_interface
 
 contains
 
-!Private
 
 !> This function turns a c string into a fortran string.
 !>
@@ -101,7 +100,6 @@ subroutine copy_f_c_str(f_str, c_str, c_str_len)
   end if
 end subroutine copy_f_c_str
 
-!Public
 
 !> Wraps fortran "open" statement so we can open a Fortran file
 !> from a C program.
@@ -331,15 +329,15 @@ end subroutine nemdefs_c
 
 !> Wraps BUFRLIB nemspecs() subroutine.
 !>
-!>  @param[in] file_unit - c_int: Fortran file unit for the open file
-!>  @param[in] mnemonic - c_char: mnemonic
-!>  @param[in] mnemonic_idx - c_int: indicates specific mnemonic element (if repeated)
-!>  @param[out] scale - c_int: scale of element
-!>  @param[out] reference - c_int: reference of element
-!>  @param[out] bits - c_int: number of bits representing the element
-!>  @param[out] iret - c_int: return value. 0 indicates success -1 indicates failure.
+!> @param[in] file_unit - c_int: Fortran file unit for the open file
+!> @param[in] mnemonic - c_char: mnemonic
+!> @param[in] mnemonic_idx - c_int: indicates specific mnemonic element (if repeated)
+!> @param[out] scale - c_int: scale of element
+!> @param[out] reference - c_int: reference of element
+!> @param[out] bits - c_int: number of bits representing the element
+!> @param[out] iret - c_int: return value. 0 indicates success -1 indicates failure.
 !>
-!>  @author Ronald McLaren  @date 2022-08-08
+!> @author Ronald McLaren  @date 2022-08-08
 subroutine nemspecs_c(file_unit, mnemonic, mnemonic_idx, scale, reference, bits, iret) &
         bind(C, name='nemspecs_f')
   integer(c_int), value, intent(in) :: file_unit
@@ -352,19 +350,18 @@ subroutine nemspecs_c(file_unit, mnemonic, mnemonic_idx, scale, reference, bits,
 
   ! Get the scale, reference and bits
   call nemspecs(file_unit, c_f_string(mnemonic), mnemonic_idx, scale, reference, bits, iret)
-
 end subroutine nemspecs_c
 
 
-!>  Wraps BUFRLIB nemtab() subroutine.
+!> Wraps BUFRLIB nemtab() subroutine.
 !>
-!>  @param[in] bufr_unit - c_int: the bufr file pointer
-!>  @param[in] mnemonic - c_char: mnemonic
-!>  @param[out] descriptor - c_int: the binary descriptor for the mnemonic
-!>  @param[out] table_type - c_char: 'A', 'B', 'C', or 'D', depending on table type
-!>  @param[out] table_idx - c_int: the table index, or 0 if not found
+!> @param[in] bufr_unit - c_int: the bufr file pointer
+!> @param[in] mnemonic - c_char: mnemonic
+!> @param[out] descriptor - c_int: the binary descriptor for the mnemonic
+!> @param[out] table_type - c_char: 'A', 'B', 'C', or 'D', depending on table type
+!> @param[out] table_idx - c_int: the table index, or 0 if not found
 !>
-!>  @author Ronald McLaren  @date 2022-08-16
+!> @author Ronald McLaren  @date 2022-08-16
 subroutine nemtab_c(bufr_unit, mnemonic, descriptor, table_type, table_idx) &
         bind(C, name='nemtab_f')
   integer(c_int), value, intent(in) :: bufr_unit
@@ -378,21 +375,20 @@ subroutine nemtab_c(bufr_unit, mnemonic, descriptor, table_type, table_idx) &
   call nemtab(bufr_unit, c_f_string(mnemonic), descriptor, table_type_f, table_idx)
 
   table_type(1)(1:1) = table_type_f(1:1)
-
 end subroutine nemtab_c
 
 
 !> Wraps BUFRLIB nemtbb() subroutine.
 !>
-!>  @param[in] bufr_unit - c_int: the bufr file pointer
-!>  @param[in] table_idx - c_int: Table B index
-!>  @param[out] unit_str - c_char: unit str
-!>  @param[in] unit_str_len - c_int: unit str length
-!>  @param[out] scale - c_int: scale of element
-!>  @param[out] reference - c_int: reference of element
-!>  @param[out] bits - c_int: bits of element
+!> @param[in] bufr_unit - c_int: the bufr file pointer
+!> @param[in] table_idx - c_int: Table B index
+!> @param[out] unit_str - c_char: unit str
+!> @param[in] unit_str_len - c_int: unit str length
+!> @param[out] scale - c_int: scale of element
+!> @param[out] reference - c_int: reference of element
+!> @param[out] bits - c_int: bits of element
 !>
-!>  @author Ronald McLaren @date 2022-08-16
+!> @author Ronald McLaren @date 2022-08-16
 subroutine nemtbb_c(bufr_unit, table_idx, unit_str, unit_str_len, scale, reference, bits) &
         bind(C, name='nemtbb_f')
   integer(c_int), intent(in), value :: bufr_unit
@@ -408,7 +404,6 @@ subroutine nemtbb_c(bufr_unit, table_idx, unit_str, unit_str_len, scale, referen
   ! Get the scale, reference and bits
   call nemtbb( bufr_unit, table_idx, unit_str_f, scale, reference, bits)
   call copy_f_c_str(unit_str_f, unit_str, min(len(unit_str_f) + 1, unit_str_len))
-
 end subroutine nemtbb_c
 
 
