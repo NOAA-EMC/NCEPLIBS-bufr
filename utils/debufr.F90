@@ -21,7 +21,7 @@ module Share_Table_Info
 end module Share_Table_Info
 
 !> This subroutine reads, decodes, and generates a verbose output listing of the contents of every BUFR message from
-!> within the input file that was previously opened via a call to subroutine cobfl() with io = 'r'.
+!> within the input file that was previously opened via a call to function cobfl() with io = 'r'.
 !>
 !> @param[in] ofile   -- c_char(*): File to contain verbose output listing of contents of each decoded BUFR message
 !> @param[in] lenof   -- c_int: Length of ofile string
@@ -57,6 +57,7 @@ subroutine fdebufr_c ( ofile, lenof, tbldir, lentd, tblfil, lentf, prmstg, lenps
     bind ( C, name = 'fdebufr_f' )
 
   use iso_c_binding
+  use bufr_interface
   use Share_Table_Info
 
   implicit none
@@ -133,7 +134,7 @@ subroutine fdebufr_c ( ofile, lenof, tbldir, lentd, tblfil, lentf, prmstg, lenps
 
 !   Get the next message from the input BUFR file.
 
-    call crbmg ( bfmg, mxbf, nbyt, ierr )
+    call crbmg_c ( bfmg, mxbf, nbyt, ierr )
 
     if ( ierr .ne. 0 ) then
 

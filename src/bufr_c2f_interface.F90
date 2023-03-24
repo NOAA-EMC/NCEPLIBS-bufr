@@ -1,13 +1,12 @@
 !> @file
-!> @brief Enable a number of BUFRLIB subprograms and variables to be
-!> accessed via wrapper functions from C and C++ based application
-!> programs.
+!> @brief Enable a number of Fortran BUFRLIB subprograms to be called
+!> via wrapper functions from C and C++ application programs.
 !>
 !> @author Ronald Mclaren @date 2020-07-29
 
-!> This module contains functions which wrap Fortran BUFRLIB functions
-!> and variables so they can be used from within C and C++ based
-!> apps. The signatures of the public functions match their Fortran
+!> This module contains functions which wrap Fortran BUFRLIB subprograms
+!> and variables so they can be called from within C and C++ application
+!> programs. The signatures of the public functions match their Fortran
 !> equivalents, as shown within the documentation for each of the
 !> individual functions.
 !>
@@ -17,7 +16,7 @@
 !> order to properly delete these variables.
 !>
 !> @author Ronald Mclaren @date 2020-07-29
-module bufr_c_interface_mod
+module bufr_c2f_interface
 
   use iso_c_binding
 
@@ -322,9 +321,9 @@ subroutine nemdefs_c(file_unit, mnemonic, unit_c, unit_str_len, desc_c, desc_str
   call nemdefs ( file_unit, c_f_string(mnemonic), desc_f, unit_f, iret)
 
   if (iret == 0) then
-    ! Copy the Unit fortran string into the resulting C style string.
+    ! Copy the unit fortran string into the resulting C style string.
     call copy_f_c_str(unit_f, unit_c, min(len(unit_f) + 1, unit_str_len))
-    ! Copy the Unit fortran string into the resulting C style string.
+    ! Copy the descriptor fortran string into the resulting C style string.
     call copy_f_c_str(desc_f, desc_c, min(len(desc_f) + 1, desc_str_len))
   end if
 end subroutine nemdefs_c
@@ -605,4 +604,4 @@ subroutine delete_table_data_c() bind(C, name='delete_table_data_f')
   if (allocated(jmpb_f)) deallocate(jmpb_f)
 end subroutine delete_table_data_c
 
-end module bufr_c_interface_mod
+end module bufr_c2f_interface
