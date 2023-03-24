@@ -214,17 +214,17 @@ extern "C" {
                   int* table_idx);
 
 /**
- *   Wraps BUFRLIB nemtbb() subroutine.
+ * Wraps BUFRLIB nemtbb() subroutine.
  *
- *   @param bufr_unit - the bufr file pointer.
- *   @param table_idx - Table B index.
- *   @param unit_str - unit str.
- *   @param unit_str_len - unit str length.
- *   @param scale - scale of element.
- *   @param reference - reference of element.
- *   @param bits - bits of element.
+ * @param bufr_unit - the bufr file pointer.
+ * @param table_idx - Table B index.
+ * @param unit_str - unit str.
+ * @param unit_str_len - unit str length.
+ * @param scale - scale of element.
+ * @param reference - reference of element.
+ * @param bits - bits of element.
  *
- *   @author Ronald McLaren @date 2022-08-16
+ * @author Ronald McLaren @date 2022-08-16
  */
     void nemtbb_f(int bufr_unit,
                   int table_idx,
