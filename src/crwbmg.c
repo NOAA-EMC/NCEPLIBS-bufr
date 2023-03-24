@@ -5,6 +5,9 @@
  */
 #include "bufrlib.h"
 
+/** Maximum length of a system file, including any directory prefixes or other local filesystem notation. */
+#define MXFNLEN 200
+
 /** File pointers; each element will automatically initialize to NULL */
 FILE *pbf[2];
 
@@ -90,9 +93,6 @@ int rbytes( char *bmg, int mxmb, int isloc, int newbytes )
  */
 void cobfl( char *bfl, char io )
 {
-   /** Maximum length of a system file, including any directory prefixes or other local filesystem notation. */
-   #define MXFNLEN 200
-
    char lbf[MXFNLEN+1];
    char lio;
 
