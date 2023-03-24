@@ -8,6 +8,7 @@ module bufr_interface
 
 interface
 
+!> @fn bufr_interface::cobfl_c::cobfl_c(bfl, io)   
 !> Wraps BUFRLIB cobfl() function.
 !>
 !> @param bfl - [path]/name of system file to be opened
@@ -20,6 +21,7 @@ subroutine cobfl_c( bfl, io ) bind(C, name='cobfl')
   character(len=1), intent(in), value :: io
 end subroutine cobfl_c
 
+!> @fn bufr_interface::crbmg_c::crbmg_c(bmg, mxmb, nmb, iret)
 !> Wraps BUFRLIB crbmg() function.
 !>
 !> @param mxmb - Dimensioned size of bmg array in the calling program
@@ -35,6 +37,7 @@ subroutine crbmg_c( bmg, mxmb, nmb, iret ) bind(C, name='crbmg')
   integer(c_int), intent(out) :: nmb, iret
 end subroutine crbmg_c
 
+!> @fn bufr_interface::cwbmg_c::cwbmg_c(bmg, nmb, iret)
 !> Wraps BUFRLIB cwbmg() function.
 !>
 !> @param bmg - BUFR message
