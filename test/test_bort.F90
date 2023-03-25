@@ -110,7 +110,7 @@ program test_bort
         call openbf(11, 'IN', 11)
         call copymg(12, 0)     
      elseif (test_case .eq. '3') then
-        open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
+        open(unit = 11, file = 'testfiles/OUT1', form = 'UNFORMATTED', iostat = ios)
         if (ios .ne. 0) stop 3
         call openbf(11, 'OUT', 12)
         call copymg(11, 0)     
@@ -122,7 +122,7 @@ program test_bort
         call openbf(11, 'IN', 11)
         call copysb(11, 0, ierr)     
      elseif (test_case .eq. '2') then
-        open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
+        open(unit = 11, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
         if (ios .ne. 0) stop 3
         call openbf(11, 'IN', 11)
         call copysb(12, 0, ierr)     
