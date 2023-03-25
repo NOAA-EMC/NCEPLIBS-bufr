@@ -4,6 +4,10 @@
 !>
 !> @author J. Ator @date 2023-03-22
 
+!> @brief Define signatures to enable a number of BUFRLIB functions to be called
+!>        via wrapper functions from Fortran application programs.
+!>
+!> @author J. Ator @date 2023-03-22
 module bufr_interface
 
 interface
