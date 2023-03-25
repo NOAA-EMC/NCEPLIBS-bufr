@@ -37,6 +37,7 @@ for kind in "4" "d"; do
 
     # Check copybf().
     (./test_bort_$kind copybf 1) && exit 1
+    (./test_bort_$kind copybf 2) && exit 1
 
     # Check copymg().
     (./test_bort_$kind copymg 1) && exit 1

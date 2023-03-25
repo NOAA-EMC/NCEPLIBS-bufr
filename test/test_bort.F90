@@ -86,7 +86,17 @@ program test_bort
      endif
   elseif (sub_name .eq. 'copybf') then
      if (test_case .eq. '1') then
-        call copybf(0, 0)
+        open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        call openbf(11, 'IN', 11)
+        call copybf(11, 0)
+     elseif (test_case .eq. '2') then
+        open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        open(unit = 12, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        call openbf(12, 'IN', 12)
+        call copybf(11, 12)
      endif
   elseif (sub_name .eq. 'copymg') then
      if (test_case .eq. '1') then
