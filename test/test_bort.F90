@@ -32,6 +32,7 @@ program test_bort
   character*28 unit
   integer iscl, iref, nseq, nmsub, ierr
   integer mear, mmon, mday, mour, idate
+  integer jdate1(5), jdump1(5)
   
 #ifdef KIND_8
   call setim8b(.true.)
@@ -151,6 +152,17 @@ program test_bort
         if (ios .ne. 0) stop 3
         call openbf(11, 'IN', 11)
         call datebf(11, mear, mmon, mday, mour, idate) 
+     endif
+  elseif (sub_name .eq. 'datelen') then
+     if (test_case .eq. '1') then
+        call datelen(11) 
+     endif
+  elseif (sub_name .eq. 'dumpbf') then
+     if (test_case .eq. '1') then
+        open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        call openbf(11, 'IN', 11)
+        call dumpbf(11, jdate1, jdump1) 
      endif
   elseif (sub_name .eq. 'idn30') then
      if (test_case .eq. '1') then

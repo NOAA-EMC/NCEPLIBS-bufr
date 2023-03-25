@@ -7,11 +7,18 @@ C> @author J. Woollen @date 1996-12-11
 C> This subroutine reads and returns the Section 1 date-time from
 C> the first two "dummy" messages of an NCEP dump file, bypassing any
 C> messages at the beginning of the file which may contain embedded DX
-C> BUFR table information.  Normally, the first of these two "dummy"
+C> BUFR table information. Normally, the first of these two "dummy"
 C> messages contains the dump center date-time in Section 1, while the
 C> second message contains the dump initiation date-time in Section 1.
 C> Neither of these two "dummy" messages should contain any data
 C> subsets in Section 4.
+C>
+C> Logical unit LUNIT must already be associated with a filename
+C> on the local system, typically via a Fortran "OPEN" statement.
+C>
+C> If the subroutine fails to locate either of the two "dummy"
+C> messages within the file pointed to by LUNIT, then the corresponding
+C> JDATE or JDUMP array will be filled with all values set to (-1).
 C>
 C> @param[in] LUNIT   -- integer: Fortran logical unit number for BUFR
 C>                       dump file
@@ -33,13 +40,6 @@ C>                       - Index 2 contains the month
 C>                       - Index 3 contains the day
 C>                       - Index 4 contains the hour
 C>                       - Index 5 contains the minute
-C>
-C> Logical unit LUNIT must already be associated with a filename
-C> on the local system, typically via a Fortran "OPEN" statement.
-C>
-C> If the subroutine fails to locate either of the two "dummy"
-C> messages within the file pointed to by LUNIT, then the corresponding
-C> JDATE or JDUMP array will be filled with all values set to (-1).
 C>
 C> @author J. Woollen @date 1996-12-11
       RECURSIVE SUBROUTINE DUMPBF(LUNIT,JDATE,JDUMP)
