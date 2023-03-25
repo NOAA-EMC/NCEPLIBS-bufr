@@ -43,6 +43,8 @@ for kind in "4" "d"; do
     (./test_bort_$kind copymg 1) && exit 1
     (./test_bort_$kind copymg 2) && exit 1
     (./test_bort_$kind copymg 3) && exit 1
+    (./test_bort_$kind copymg 4) && exit 1
+    (./test_bort_$kind copymg 5) && exit 1
 
     # Check copysb().
     (./test_bort_$kind copysb 1) && exit 1

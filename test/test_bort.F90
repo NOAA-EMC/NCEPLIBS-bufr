@@ -16,7 +16,7 @@ program test_bort
   character*2 char_short
   character*30 char_30
   character*4 char_4(1)
-  character*8 char_8(1)
+  character*8 char_8(1), char_val_8
   character*12 char_12(1)
   character*24 char_24(1)
   character*120 char_120(1)
@@ -114,6 +114,23 @@ program test_bort
         if (ios .ne. 0) stop 3
         call openbf(11, 'OUT', 12)
         call copymg(11, 0)     
+     elseif (test_case .eq. '4') then
+        open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        call openbf(11, 'IN', 11)
+        call readmg(11, char_val_8, jdate, iret)
+        open(unit = 12, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        call openbf(12, 'IN', 12)
+        call copymg(11, 12)     
+     elseif (test_case .eq. '5') then
+        open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        call openbf(11, 'IN', 11)
+        call readmg(11, char_val_8, jdate, iret)
+        open(unit = 12, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        call copymg(11, 12)     
      endif
   elseif (sub_name .eq. 'copysb') then
      if (test_case .eq. '1') then
