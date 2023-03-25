@@ -62,7 +62,7 @@ program intest5
   call dlloctbf()
   close ( 11 )
 
-  ! Test ufbinx's openbf call.
+  ! Test ufbinx's openbf/closbf calls.
   open ( unit = 12, file = 'testfiles/IN_5', form ='unformatted')
   call ufbinx ( 12, 2, 2, r8vals, mxr8pm, mxr8lv, nlv, 'CLAM CLTP' )
 
