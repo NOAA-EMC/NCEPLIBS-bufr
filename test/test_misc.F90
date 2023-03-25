@@ -21,6 +21,10 @@ program test_misc
   call setim8b(.true.)
 #endif
 
+  ! This prints a warning because no file is open, but otherwise has
+  ! no effect.
+  call closbf(11)  
+
   ! testing status()
   open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
   if (ios .ne. 0) stop 3
