@@ -50,6 +50,9 @@ for kind in "4" "d"; do
     (./test_bort_$kind copysb 1) && exit 1
     (./test_bort_$kind copysb 2) && exit 1
     
+    # Check datebf().
+    (./test_bort_$kind datebf 1) && exit 1
+    
     # Check idn30().
     (./test_bort_$kind idn30 1) && exit 1
     (./test_bort_$kind idn30 2) && exit 1
