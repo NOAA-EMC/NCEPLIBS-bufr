@@ -30,7 +30,7 @@ program test_bort
   integer ibay(1), ibit, subset, jdate
   integer mtyp, msbt, inod
   character*28 unit
-  integer iscl, iref, nseq, nmsub
+  integer iscl, iref, nseq, nmsub, ierr
   
 #ifdef KIND_8
   call setim8b(.true.)
@@ -100,15 +100,33 @@ program test_bort
      endif
   elseif (sub_name .eq. 'copymg') then
      if (test_case .eq. '1') then
-        call copymg(0, 0)     
+        open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        call openbf(11, 'IN', 11)
+        call copymg(11, 0)     
+     elseif (test_case .eq. '2') then
+        open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        call openbf(11, 'IN', 11)
+        call copymg(12, 0)     
+     elseif (test_case .eq. '3') then
+        open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        call openbf(11, 'OUT', 12)
+        call copymg(11, 0)     
      endif
-  ! This is commented out until
-  ! https://github.com/NOAA-EMC/NCEPLIBS-bufr/issues/395 is
-  ! resolved.
-  ! elseif (sub_name .eq. 'copysb') then
-  !    if (test_case .eq. '1') then
-  !       call copysb(1, 1, iret)     
-  !    endif
+  elseif (sub_name .eq. 'copysb') then
+     if (test_case .eq. '1') then
+        open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        call openbf(11, 'IN', 11)
+        call copysb(11, 0, ierr)     
+     elseif (test_case .eq. '2') then
+        open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        call openbf(11, 'IN', 11)
+        call copysb(12, 0, ierr)     
+     endif
   elseif (sub_name .eq. 'idn30') then
      if (test_case .eq. '1') then
         idn30_val = idn30(adn30_val_5, 6)

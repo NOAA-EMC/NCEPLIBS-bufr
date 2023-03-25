@@ -11,11 +11,6 @@ C> it copies a BUFR message from one Fortran logical unit to another,
 C> whereas cpymem() copies a BUFR message from internal arrays in
 C> memory to a specified Fortran logical unit.
 C>
-C> @param[in] LUNIN   -- integer: Fortran logical unit number for
-C>                       source BUFR file
-C> @param[in] LUNOT   -- integer: Fortran logical unit number for
-C>                       target BUFR file
-C>
 C> Logical unit LUNIN should have already been opened for input
 C> operations via a previous call to subroutine openbf(), and a BUFR
 C> message should have already been read into internal arrays for
@@ -33,11 +28,15 @@ C> each of the logical units LUNIN and LUNOT must contain identical
 C> definitions for the type of BUFR message to be copied from LUNIN
 C> to LUNOT.
 C>
-C> @remarks
-C> - This subroutine uses subroutine msgwrt() to write to LUNOT;
+C> This subroutine uses subroutine msgwrt() to write to LUNOT;
 C> therefore, it can be used to transform a copy of the
 C> original BUFR message from LUNIN with any or all of the updates
 C> described in the documentation for subroutine msgwrt().
+C>
+C> @param[in] LUNIN   -- integer: Fortran logical unit number for
+C>                       source BUFR file
+C> @param[in] LUNOT   -- integer: Fortran logical unit number for
+C>                       target BUFR file
 C>
 C> @author J. Woollen @date 1994-01-06
       RECURSIVE SUBROUTINE COPYMG(LUNIN,LUNOT)
