@@ -121,6 +121,20 @@ program test_misc
   if (igetprm('MXTAMC') .ne. 15) stop 600
   if (igetprm('MXTCO') .ne. 30) stop 600
   if (igetprm('NFILES') .ne. 32) stop 600
+  if (igetprm('MAXSS') .ne. 120000) stop 600
+  if (igetprm('MXDXTS') .ne. 200) stop 600
+  if (igetprm('MAXMSG') .ne. 200000) stop 600
+  if (igetprm('MAXMEM') .ne. 50000000) stop 600
+  if (igetprm('MAXTBA') .ne. 150) stop 600
+  if (igetprm('MAXTBB') .ne. 500) stop 600
+  if (igetprm('MAXTBD') .ne. 500) stop 600
+  if (igetprm('MXBTM') .ne. 5) stop 600
+  if (igetprm('MXBTMSE') .ne. 500) stop 600
+  if (igetprm('MXCDV') .ne. 3000) stop 600
+  if (igetprm('MXCSB') .ne. 4000) stop 600
+  if (igetprm('MXDXTS') .ne. 200) stop 600
+  if (igetprm('MXLCC') .ne. 32) stop 600
+  if (igetprm('MXMSGL') .ne. 600000) stop 600
   
 #endif
   
