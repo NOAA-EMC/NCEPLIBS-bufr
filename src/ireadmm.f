@@ -3,8 +3,7 @@ C> @brief Read a specified BUFR message from internal arrays.
 C>
 C> @author J. Woollen @date 1999-11-18
 
-C> This function calls BUFRLIB subroutine readmm() and passes
-C> back its return code as the function value.
+C> Call readmm() and return its return code.
 C>
 C> @param[in,out] IMSG -- integer: Message pointer within internal arrays
 C>                        - On input, IMSG is the number of the BUFR
