@@ -11,7 +11,7 @@
 #include <unistd.h>
 
 #include "bufrlib.h"
-#include "cobfl.h"
+#include "bufr_interface.h"
 
 /**
  * Read, decode, and print a verbose output listing of the contents of a BUFR file.
@@ -270,7 +270,7 @@ int main( int argc, char *argv[ ] ) {
     /*
     **  Open the input BUFR file.
     */
-    cobfl( argv[optind], &io );
+    cobfl( argv[optind], io );
         
     /*
     **  Check whether a PARAMETER(S)=VALUE(S) string was specified.

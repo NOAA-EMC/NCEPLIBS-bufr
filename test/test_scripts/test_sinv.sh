@@ -24,7 +24,7 @@ args_2="testfiles/data/sinv_2 ../tables"
 ../utils/sinv ${args_2} > ${outfile_2} && diff -w ${outfile_2} testfiles/testoutput/sinv_2.out
 [[ ${?} -ne 0 ]] && exit 2
 
-# We expect the following tests to return a non-zero exit code, but we don't want
+# We expect some of the following tests may return a non-zero exit code, but we don't want
 # to immediately exit the script when that happens.
 set +e
 

@@ -15,6 +15,25 @@ C> whereas this subroutine is used for NCEP prepfits files and
 C> has one extra argument which returns the same information to
 C> the calling program.
 C>
+C> It is the user's responsibility to ensure that USR is dimensioned
+C> sufficiently large enough to accommodate the number of data values
+C> that are to be read from the data subset.  Note also
+C> that USR is an array of real*8 values; therefore, any
+C> character (i.e. CCITT IA5) value in the data subset will be
+C> returned in real*8 format and must be converted back into character
+C> format by the application program before it can be used as such.
+C>
+C> "Missing" values in USR are always denoted by a unique
+C> placeholder value.  This placeholder value is initially set
+C> to a default value of 10E10_8, but it can be reset to
+C> any substitute value of the user's choice via a separate
+C> call to subroutine setbmiss().  In any case, any
+C> returned value in USR can be easily checked for equivalence to the
+C> current placeholder value via a call to function ibfms(), and a
+C> positive result means that the value for the corresponding mnemonic
+C> was encoded as "missing" in BUFR (i.e. all bits set to 1) within the
+C> original data subset.
+C>
 C> @param[in] LUNIT -- integer: Fortran logical unit number for
 C>                     NCEP prepfits file
 C> @param[out] USR -- real*8(*,*): Data values
@@ -38,25 +57,6 @@ C>                   values that will be read from the data
 C>                   subset within the first dimension of USR (see
 C>                   [DX BUFR Tables](@ref dfbftab) for further
 C>                   information about Table B mnemonics)
-C>
-C> It is the user's responsibility to ensure that USR is dimensioned
-C> sufficiently large enough to accommodate the number of data values
-C> that are to be read from the data subset.  Note also
-C> that USR is an array of real*8 values; therefore, any
-C> character (i.e. CCITT IA5) value in the data subset will be
-C> returned in real*8 format and must be converted back into character
-C> format by the application program before it can be used as such.
-C>
-C> "Missing" values in USR are always denoted by a unique
-C> placeholder value.  This placeholder value is initially set
-C> to a default value of 10E10_8, but it can be reset to
-C> any substitute value of the user's choice via a separate
-C> call to subroutine setbmiss().  In any case, any
-C> returned value in USR can be easily checked for equivalence to the
-C> current placeholder value via a call to function ibfms(), and a
-C> positive result means that the value for the corresponding mnemonic
-C> was encoded as "missing" in BUFR (i.e. all bits set to 1) within the
-C> original data subset.
 C>
 C> @author J. Woollen @date 2003-11-04
       RECURSIVE SUBROUTINE UFBIN3(LUNIT,USR,I1,I2,I3,IRET,JRET,STR)

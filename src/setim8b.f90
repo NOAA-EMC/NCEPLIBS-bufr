@@ -1,6 +1,6 @@
 !> @file
 !> @brief Specify the use of 8-byte integer arguments during future
-!> calls to BUFRLIB subprograms from a Fortran application program
+!> calls to BUFRLIB subprograms from a Fortran application program.
 !>
 !> @author J. Ator @date 2022-09-01
 

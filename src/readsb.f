@@ -6,13 +6,6 @@ C> @author J. Woollen @date 1994-01-06
 C> This subroutine reads the next data subset from a BUFR
 C> message into internal arrays.
 C>
-C> @param[in] LUNIT   -- integer: Fortran logical unit number for BUFR file
-C> @param[out] IRET   -- integer: return code
-C>                           - 0 = new BUFR data subset was successfully
-C>                                 read into internal arrays
-C>                           - -1 = there are no more BUFR data subsets in
-C>                                 the BUFR message
-C>
 C> Logical unit LUNIT should have already been opened for
 C> input operations via a previous call to subroutine openbf(), and a
 C> BUFR message should have already been read into internal arrays via
@@ -29,6 +22,12 @@ C> indicates that there are no more data subsets available within the
 C> current message, and therefore that a new call needs to be made to
 C> one of the [message-reading subroutines](@ref hierarchy) in order
 C> to read in the next message from logical unit LUNIT.
+C>
+C> @param[in] LUNIT   -- integer: Fortran logical unit number for BUFR file.
+C> @param[out] IRET   -- integer: return code:
+C> - 0 = new BUFR data subset was successfully
+C> read into internal arrays.
+C> - -1 = there are no more BUFR data subsets in the BUFR message.
 C>
 C> @author J. Woollen @date 1994-01-06
       RECURSIVE SUBROUTINE READSB(LUNIT,IRET)

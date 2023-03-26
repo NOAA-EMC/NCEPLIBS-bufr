@@ -21,7 +21,7 @@ module Share_Table_Info
 end module Share_Table_Info
 
 !> This subroutine reads, decodes, and generates a verbose output listing of the contents of every BUFR message from
-!> within the input file that was previously opened via a call to subroutine cobfl() with io = 'r'.
+!> within the input file that was previously opened via a call to function cobfl() with io = 'r'.
 !>
 !> @param[in] ofile   -- c_char(*): File to contain verbose output listing of contents of each decoded BUFR message
 !> @param[in] lenof   -- c_int: Length of ofile string
@@ -57,6 +57,7 @@ subroutine fdebufr_c ( ofile, lenof, tbldir, lentd, tblfil, lentf, prmstg, lenps
     bind ( C, name = 'fdebufr_f' )
 
   use iso_c_binding
+  use bufr_interface
   use Share_Table_Info
 
   implicit none
@@ -87,7 +88,7 @@ subroutine fdebufr_c ( ofile, lenof, tbldir, lentd, tblfil, lentf, prmstg, lenps
 
   integer ibfmg ( mxbfd4 ), lunit, nmsg, nsub, nsubt, ii, jj, nds3, nptag, npvtag, ipval, lcprmnm, ier, imgdt, ierme, &
           iogce, lcmorgc, ierorgc, igses, lcmgses, iergses, iryr, irmo, irdy, irhr, irmi, irtret, &
-          mtyp, lcmmtyp, iermtyp, msbt, lcmmsbt, iermsbt, msbti, lcmmsbti, iermsbti
+          mtyp, lcmmtyp, iermtyp, msbt, lcmmsbt, iermsbt, msbti, lcmmsbti, iermsbti, iersn
 
   equivalence ( bfmg (1), ibfmg (1) )
 
@@ -133,7 +134,7 @@ subroutine fdebufr_c ( ofile, lenof, tbldir, lentd, tblfil, lentf, prmstg, lenps
 
 !   Get the next message from the input BUFR file.
 
-    call crbmg ( bfmg, mxbf, nbyt, ierr )
+    call crbmg_c ( bfmg, mxbf, nbyt, ierr )
 
     if ( ierr .ne. 0 ) then
 
@@ -176,8 +177,8 @@ subroutine fdebufr_c ( ofile, lenof, tbldir, lentd, tblfil, lentf, prmstg, lenps
             call parstr ( ptag(ii), pvtag, 2, npvtag, '=', .false. )
             if ( npvtag .eq. 2 ) then
               call strsuc ( pvtag(1), cprmnm, lcprmnm )
-              call strnum ( pvtag(2), ipval )
-              if ( ( lcprmnm .gt. 0 ) .and. ( ipval .ne. -1 ) ) then
+              call strnum ( pvtag(2), ipval, iersn )
+              if ( ( lcprmnm .gt. 0 ) .and. ( iersn .ne. -1 ) ) then
                 if ( isetprm ( cprmnm(1:lcprmnm), ipval ) .ne. 0 ) then
                   print *, 'Error: Bad return from isetprm for parameter: ', cprmnm(1:lcprmnm)
                   return
