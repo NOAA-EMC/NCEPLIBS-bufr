@@ -14,6 +14,7 @@ program test_misc
   integer ierr, nemock
   integer numbck, num, iret
   integer mtyp, msbt, inod
+  integer igetprm
 
   print *, 'Testing misc subroutines.'
 
@@ -94,7 +95,33 @@ program test_misc
   call openbf(11, 'IN', 11)
   call nemtbax(11, 'DUMB', mtyp, msbt, inod)
   if (inod .ne. 0) stop 300
+  call closbf(11)
 
+  ! Test igetprm().
+  open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
+  if (ios .ne. 0) stop 3
+  call openbf(11, 'IN', 11)
+  if (igetprm('MAXSS') .ne. 120000) stop 600
+  if (igetprm('MAXTBA') .ne. 150) stop 600
+  if (igetprm('MAXTBB') .ne. 500) stop 600
+  if (igetprm('MAXTBD') .ne. 500) stop 600
+  if (igetprm('MXBTM') .ne. 5) stop 600
+  if (igetprm('MXBTMSE') .ne. 500) stop 600
+  if (igetprm('MXCDV') .ne. 3000) stop 600
+  if (igetprm('MXCSB') .ne. 4000) stop 600
+  if (igetprm('MXDXTS') .ne. 200) stop 600
+  if (igetprm('MXLCC') .ne. 32) stop 600
+  if (igetprm('MXMSGL') .ne. 600000) stop 600
+  if (igetprm('MXMTBB') .ne. 4000) stop 600
+  if (igetprm('MXMTBD') .ne. 1000) stop 600
+  if (igetprm('MXMTBF') .ne. 25000) stop 600
+  if (igetprm('MXNRV') .ne. 15) stop 600
+  if (igetprm('MXRST') .ne. 50) stop 600
+  if (igetprm('MXS01V') .ne. 10) stop 600
+  if (igetprm('MXTAMC') .ne. 15) stop 600
+  if (igetprm('MXTCO') .ne. 30) stop 600
+  if (igetprm('NFILES') .ne. 32) stop 600
+  
 #endif
   
   print *, 'SUCCESS'
