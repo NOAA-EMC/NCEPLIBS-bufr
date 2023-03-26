@@ -156,6 +156,11 @@ for kind in "4" "d"; do
     # Check ufbseq().
     (./test_bort_$kind ufbseq 1) && exit 1
 
+    # Check ufbstp().
+    (./test_bort_$kind ufbstp 1) && exit 1
+    (./test_bort_$kind ufbstp 2) && exit 1
+    (./test_bort_$kind ufbstp 3) && exit 1
+
     # Check ufdump().
     (./test_bort_$kind ufdump 1) && exit 1
     (./test_bort_$kind ufdump 2) && exit 1
