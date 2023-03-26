@@ -182,6 +182,8 @@ for kind in "4" "d"; do
 
     # Check writsb().
     (./test_bort_$kind writsb 1) && exit 1
+    (./test_bort_$kind writsb 2) && exit 1
+    (./test_bort_$kind writsb 3) && exit 1
 
 done
 

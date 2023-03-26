@@ -33,6 +33,7 @@ program test_bort
   integer iscl, iref, nseq, nmsub, ierr
   integer mear, mmon, mday, mour, idate
   integer jdate1(5), jdump1(5)
+  integer lmsgt, msgt(100), msgl
   
 #ifdef KIND_8
   call setim8b(.true.)
@@ -357,7 +358,22 @@ program test_bort
      endif
   elseif (sub_name .eq. 'writsa') then
      if (test_case .eq. '1') then
-        call writsa(0, 0, 0, 0)
+        open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        call openbf(11, 'IN', 11)
+        call writsa(11, lmsgt, msgt, msgl)
+     elseif (test_case .eq. '2') then
+        open(unit = 11, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        call openbf(11, 'OUT', 12)
+        call writsa(11, lmsgt, msgt, msgl)
+     elseif (test_case .eq. '3') then
+        open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        open(unit = 12, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        call openbf(12, 'IN', 12)
+        call writsa(11, lmsgt, msgt, msgl)
      endif
   elseif (sub_name .eq. 'writsb') then
      if (test_case .eq. '1') then
