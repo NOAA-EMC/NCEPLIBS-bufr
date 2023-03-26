@@ -98,8 +98,25 @@ for kind in "4" "d"; do
     (./test_bort_$kind posapx 1) && exit 1
     (./test_bort_$kind posapx 2) && exit 1
 
+    # Check readmg().
+    (./test_bort_$kind readmg 1) && exit 1
+    (./test_bort_$kind readmg 2) && exit 1
+
     # Check rdmemm().
     (./test_bort_$kind rdmemm 1) && exit 1
+
+    # Check readns().
+    (./test_bort_$kind readns 1) && exit 1
+    (./test_bort_$kind readns 2) && exit 1
+
+    # Check readsb().
+    (./test_bort_$kind readsb 1) && exit 1
+    (./test_bort_$kind readsb 2) && exit 1
+
+    # Check rtrcpt().
+    (./test_bort_$kind rtrcpt 1) && exit 1
+    (./test_bort_$kind rtrcpt 2) && exit 1
+    (./test_bort_$kind rtrcpt 3) && exit 1
 
     # Check status().
     (./test_bort_$kind status 1) && exit 1
