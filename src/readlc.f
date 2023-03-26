@@ -14,12 +14,15 @@ C>
 C> If there is more than one occurrence of STR within the data subset
 C> definition, then each occurrence can be retrieved via a separate call
 C> to this subroutine, and by appending the ordinal number of the
-C> occurrence to STR in each case.  For example, if there are 5
+C> occurrence to STR in each case.
+C>
+C> For example, if there are 5
 C> occurrences of mnemonic LSTID within a given data subset definition,
 C> then 5 separate calls should be made to this subroutine, once each
 C> with STR set to 'LSTID#1', 'LSTID#2', 'LSTID#3', 'LSTID#4' and
-C> 'LSTID#5'.  However, the first notation is superfluous, because
-C> omitting the ordinal number always defaults to the first occurrence
+C> 'LSTID#5'.
+C>      
+C> Omitting the ordinal number always defaults to the first occurrence
 C> of a particular string, so a user could just specify 'LSTID'
 C> instead of 'LSTID#1'.
 C>
@@ -31,15 +34,15 @@ C> corresponding real*8 value to character format within the
 C> application program.
 C> - If STR is not found within the data subset definition, then CHR is
 C> returned with all bits set to 1, which is the standard WMO BUFR value
-C> for "missing" data.  Any CHR value returned by this subroutine can be
+C> for "missing" data. Any CHR value returned by this subroutine can be
 C> checked for equivalence to this "missing" value via a call to
 C> function icbfms().
 C>
-C> @param[in] LUNIT -- integer: Fortran logical unit number for BUFR file
-C> @param[out] CHR  -- character*(*): Value corresponding to STR
-C> @param[in] STR   -- character*(*): Table B mnemonic of long character
-C>                     string to be retrieved, possibly supplemented
-C>                     with an ordinal occurrence notation
+C> @param[in] LUNIT - integer: Fortran logical unit number for BUFR file.
+C> @param[out] CHR - character*(*): Value corresponding to STR.
+C> @param[in] STR  - character*(*): Table B mnemonic of long character.
+C> string to be retrieved, possibly supplemented with an ordinal
+C> occurrence notation.
 C>
 C> @authors J. Woollen J. Ator @date 2003-11-04
 

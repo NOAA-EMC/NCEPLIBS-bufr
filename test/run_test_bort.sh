@@ -98,6 +98,14 @@ for kind in "4" "d"; do
     (./test_bort_$kind posapx 1) && exit 1
     (./test_bort_$kind posapx 2) && exit 1
 
+    # Check readerme().
+    (./test_bort_$kind readerme 1) && exit 1
+    (./test_bort_$kind readerme 2) && exit 1
+
+    # Check readlc().
+    (./test_bort_$kind readlc 1) && exit 1
+    (./test_bort_$kind readlc 2) && exit 1
+
     # Check readmg().
     (./test_bort_$kind readmg 1) && exit 1
     (./test_bort_$kind readmg 2) && exit 1
