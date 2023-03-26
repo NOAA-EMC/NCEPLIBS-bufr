@@ -4,19 +4,19 @@ C>
 C> @author J. Ator @date 2009-03-23
 
 C> This subroutine generates one or more BUFR messages from the DX
-C> BUFR tables information associated with a given BUFR file, and
-C> it then writes the messages out to the same or possibly a
+C> BUFR tables information associated with a BUFR file, and
+C> writes the messages to the same or possibly a
 C> different BUFR file.
 C>
 C> Logical units LUNDX and LUNOT should have already been
-C> opened via previous calls to subroutine openbf(), and in
-C> particular logical unit LUNOT must have been opened for
-C> output operations.  LUNDX and LUNOT may be the same if it is
+C> opened via previous calls to subroutine openbf(), and 
+C> logical unit LUNOT must have been opened for
+C> output operations. LUNDX and LUNOT may be the same if it is
 C> desired to append to LUNOT with DX BUFR messages generated
 C> from its own internal tables.
 C>
 C> @param[in] LUNDX - integer: Fortran logical unit number associated with
-C> DX BUFR table information to be written out.
+C> DX BUFR table information to be written.
 C> @param[in] LUNOT - integer: Fortran logical unit number of BUFR file to
 C> which messages are to be written.
 C>

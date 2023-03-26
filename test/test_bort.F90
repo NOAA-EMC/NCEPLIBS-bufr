@@ -346,7 +346,22 @@ program test_bort
      endif
   elseif (sub_name .eq. 'wrdxtb') then
      if (test_case .eq. '1') then
-        call wrdxtb(0, 0)        
+        open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        call openbf(11, 'IN', 11)
+        call wrdxtb(11, 11)
+     elseif (test_case .eq. '2') then
+        open(unit = 11, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        open(unit = 12, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        call openbf(11, 'OUT', 12)
+        call wrdxtb(11, 12)
+     elseif (test_case .eq. '3') then
+        open(unit = 12, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        call openbf(12, 'OUT', 10)
+        call wrdxtb(11, 12)
      endif
   elseif (sub_name .eq. 'writdx') then
      if (test_case .eq. '1') then

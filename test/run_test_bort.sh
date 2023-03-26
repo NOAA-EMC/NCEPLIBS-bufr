@@ -164,6 +164,8 @@ for kind in "4" "d"; do
 
     # Check wrdxtb().
     (./test_bort_$kind wrdxtb 1) && exit 1
+    (./test_bort_$kind wrdxtb 2) && exit 1
+    (./test_bort_$kind wrdxtb 3) && exit 1
 
     # Check wtstat().
     (./test_bort_$kind wtstat 1) && exit 1
