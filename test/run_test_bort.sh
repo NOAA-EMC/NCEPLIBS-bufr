@@ -176,9 +176,13 @@ for kind in "4" "d"; do
 
     # Check writlc().
     (./test_bort_$kind writlc 1) && exit 1
+    (./test_bort_$kind writlc 2) && exit 1
+    (./test_bort_$kind writlc 3) && exit 1
 
     # Check writsa().
     (./test_bort_$kind writsa 1) && exit 1
+    (./test_bort_$kind writsa 2) && exit 1
+    (./test_bort_$kind writsa 3) && exit 1
 
     # Check writsb().
     (./test_bort_$kind writsb 1) && exit 1

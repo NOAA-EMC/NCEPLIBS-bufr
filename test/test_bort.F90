@@ -354,7 +354,22 @@ program test_bort
      endif
   elseif (sub_name .eq. 'writlc') then
      if (test_case .eq. '1') then
-        call writlc(0, char_30, char_30)
+        open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        call openbf(11, 'IN', 11)
+        call writlc(11, char_val_8, char_val_8)
+     elseif (test_case .eq. '2') then
+        open(unit = 11, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        call openbf(11, 'OUT', 12)
+        call writlc(11, char_val_8, char_val_8)
+     elseif (test_case .eq. '3') then
+        open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        open(unit = 12, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        call openbf(12, 'IN', 12)
+        call writlc(11, char_val_8, char_val_8)
      endif
   elseif (sub_name .eq. 'writsa') then
      if (test_case .eq. '1') then
