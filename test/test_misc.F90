@@ -135,6 +135,7 @@ program test_misc
   if (igetprm('MXDXTS') .ne. 200) stop 600
   if (igetprm('MXLCC') .ne. 32) stop 600
   if (igetprm('MXMSGL') .ne. 600000) stop 600
+  if (igetprm('MAXJL') .ne. 96000) stop 600
   
 #endif
   

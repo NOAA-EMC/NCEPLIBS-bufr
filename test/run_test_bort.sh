@@ -49,6 +49,10 @@ for kind in "4" "d"; do
     # Check copysb().
     (./test_bort_$kind copysb 1) && exit 1
     (./test_bort_$kind copysb 2) && exit 1
+    (./test_bort_$kind copysb 3) && exit 1
+    (./test_bort_$kind copysb 4) && exit 1
+    (./test_bort_$kind copysb 5) && exit 1
+    (./test_bort_$kind copysb 6) && exit 1
     
     # Check datebf().
     (./test_bort_$kind datebf 1) && exit 1
