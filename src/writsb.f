@@ -6,18 +6,17 @@ C> @author J. Woollen @date 1994-01-06
 C> This subroutine writes a complete data subset into a BUFR message,
 C> for eventual output to logical unit LUNIT.
 C>
-C> This subroutine is called to indicate to the BUFRLIB software that
-C> all necessary values for a data subset (i.e. report) have been written,
-C> and thus that the subset is ready to be encoded and packed into the
-C> current message for the BUFR file associated with logical unit LUNIT.
-C> Logical unit LUNIT should have already been opened for output
-C> operations via a previous call to subroutine openbf(), and
-C> a BUFR message should already be open for output within internal
-C> arrays via a previous call to one of the BUFRLIB
-C> [message-writing subroutines](@ref hierarchy).
-C> Furthermore, all of the values for the data subset should have
-C> already been written into internal arrays via calls to any of the
-C> BUFRLIB [values-writing subroutines](@ref hierarchy).
+C> This subroutine is called when all necessary values for a data subset
+C> (i.e. report) have been written, and the subset is ready to be encoded
+C> and packed into the current message for the BUFR file associated with
+C> logical unit LUNIT. Logical unit LUNIT should have already been
+C> opened for output operations via a previous call to subroutine
+C> openbf(), and a BUFR message should already be open for output within
+C> internal arrays via a previous call to one of the BUFRLIB
+C> [message-writing subroutines](@ref hierarchy). All of the values for
+C> the data subset should have already been written into internal arrays
+C> via calls to any of the BUFRLIB [values-writing subroutines](@ref
+C> hierarchy).
 C>
 C> There is a maximum size for any BUFR message that can be written
 C> by the BUFRLIB software. This maximum message size is initially set
@@ -36,7 +35,7 @@ C> JDATE values that were specified in the most recent call to one of
 C> the [message-writing subroutines](@ref hierarchy) for LUNIT, then
 C> encode and pack the data subset into that new message.
 C>
-C> @param[in] LUNIT -- integer: Fortran logical unit number for BUFR file
+C> @param[in] LUNIT - integer: Fortran logical unit number for BUFR file.
 C>
 C> @author J. Woollen @date 1994-01-06
 

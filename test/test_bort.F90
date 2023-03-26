@@ -361,7 +361,22 @@ program test_bort
      endif
   elseif (sub_name .eq. 'writsb') then
      if (test_case .eq. '1') then
-        call writsb(0)
+        open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        call openbf(11, 'IN', 11)
+        call writsb(11)
+     elseif (test_case .eq. '2') then
+        open(unit = 11, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        call openbf(11, 'OUT', 12)
+        call writsb(11)
+     elseif (test_case .eq. '3') then
+        open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        open(unit = 12, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        call openbf(12, 'IN', 12)
+        call writsb(11)
      endif
   elseif (sub_name .eq. 'wtstat') then
      if (test_case .eq. '1') then
