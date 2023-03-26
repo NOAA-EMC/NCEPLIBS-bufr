@@ -3,16 +3,22 @@ C> @brief Get the FXY value of an element in a Table D sequence.
 C>
 C> @author J. Woollen @date 1994-01-06
 
-C> This subroutine returns the bit-wise representation of the FXY value corresponding to, sequentially,
-C> a particular (IENT'th) "child" mnemonic of a Table D sequence ("parent") mnemonic.
+C> This subroutine returns the bit-wise representation of the FXY value
+C> corresponding to, sequentially, a particular (IENT'th) "child"
+C> mnemonic of a Table D sequence ("parent") mnemonic.
 C>
-C> @param[in] ID - integer: positional index of parent mnemonic within internal BUFR Table D array tabd.
-C> @param[in] LUN - integer: I/O stream index into internal memory arrays.
-C> @param[in] IENT - integer: ordinal indicator of child mnemonic to return from within tabd(id,lun) sequence.
-C> - 0 return a count of the total number of child mnemonics within the sequence
-C> @param[out] IRET - integer: return value
-C> - bit-wise representation of FXY value corresponding to IENT'th child mnemonic, if input IENT was > 0
-C> - total number of child mnemonics, if input IENT was 0
+C> @param[in] ID - integer: positional index of parent mnemonic
+C> within internal BUFR Table D array tabd.
+C> @param[in] LUN - integer: I/O stream index into internal memory
+C> arrays.
+C> @param[in] IENT - integer: ordinal indicator of child mnemonic to
+C> return from within tabd(id,lun) sequence. 0 indicates that a count
+C> of the total number of child mnemonics within the sequence will be
+C> returned.
+C> @param[out] IRET - integer: return value:
+C> - bit-wise representation of FXY value corresponding to IENT'th
+C>   child mnemonic, if input IENT was > 0.
+C> - total number of child mnemonics, if input IENT was 0.
 C>
 C> @author J. Woollen @date 1994-01-06
 

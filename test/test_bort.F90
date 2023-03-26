@@ -328,6 +328,25 @@ program test_bort
      if (test_case .eq. '1') then
         call ufbrep(0, real_2d, 1, 2, iret, 'c')
      endif
+  elseif (sub_name .eq. 'ufbstp') then
+     if (test_case .eq. '1') then
+        open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        call openbf(11, 'IN', 11)
+        call ufbstp(11, 11)
+     elseif (test_case .eq. '2') then
+        open(unit = 11, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        open(unit = 12, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        call openbf(11, 'OUT', 12)
+        call ufbstp(11, 12)
+     elseif (test_case .eq. '3') then
+        open(unit = 12, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        call openbf(12, 'OUT', 10)
+        call ufbstp(11, 12)
+     endif
   elseif (sub_name .eq. 'ufbrms') then
      if (test_case .eq. '1') then
         call ufbrms(1, 1, real_2d, 1, 2, iret, 'c')
@@ -338,11 +357,36 @@ program test_bort
      endif
   elseif (sub_name .eq. 'ufdump') then
      if (test_case .eq. '1') then
-        call ufdump(0, 0)
+        open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        call openbf(11, 'IN', 11)
+        call ufdump(11, 11)
+     elseif (test_case .eq. '2') then
+        open(unit = 11, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        open(unit = 12, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        call openbf(11, 'OUT', 12)
+        call ufdump(11, 12)
+     elseif (test_case .eq. '3') then
+        open(unit = 12, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        call openbf(12, 'OUT', 10)
+        call ufdump(11, 12)
      endif
   elseif (sub_name .eq. 'upftbv') then
      if (test_case .eq. '1') then
-        call upftbv(0, 'n', 1.0, 1, 1, 1)
+        open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        call openbf(11, 'IN', 11)
+        call upftbv(11, 'n', 1.0, 1, 1, 1)
+     elseif (test_case .eq. '2') then
+        open(unit = 12, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        call openbf(12, 'IN', 11)
+        open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        call upftbv(11, 'n', 1.0, 1, 1, 1)
      endif
   elseif (sub_name .eq. 'wrdxtb') then
      if (test_case .eq. '1') then

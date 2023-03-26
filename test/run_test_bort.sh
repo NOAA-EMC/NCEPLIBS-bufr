@@ -158,9 +158,12 @@ for kind in "4" "d"; do
 
     # Check ufdump().
     (./test_bort_$kind ufdump 1) && exit 1
+    (./test_bort_$kind ufdump 2) && exit 1
+    (./test_bort_$kind ufdump 3) && exit 1
 
     # Check upftbv().
     (./test_bort_$kind upftbv 1) && exit 1
+    (./test_bort_$kind upftbv 2) && exit 1
 
     # Check wrdxtb().
     (./test_bort_$kind wrdxtb 1) && exit 1
