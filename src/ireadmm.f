@@ -5,6 +5,9 @@ C> @author J. Woollen @date 1999-11-18
 
 C> Call readmm() and return its return code.
 C>
+C> The use of this function allows the return code from readmm() to be
+C> used as the target variable within an iterative program loop.
+C>
 C> @param[in,out] IMSG -- integer: Message pointer within internal arrays
 C>                        - On input, IMSG is the number of the BUFR
 C>                          message to be read into scope for further
@@ -26,10 +29,6 @@ C>                          - 0 = new BUFR message was successfully
 C>                                read into scope
 C>                          - -1 = requested message number could not
 C>                                 be found in internal arrays
-C>
-C> @remarks
-C> - The use of this function allows the return code from readmm() to be
-C> used as the target variable within an iterative program loop.
 C>
 C> @author J. Woollen @date 1999-11-18
       RECURSIVE FUNCTION IREADMM(IMSG,SUBSET,IDATE) RESULT(IRET)
