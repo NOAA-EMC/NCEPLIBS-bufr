@@ -14,7 +14,7 @@ program outtest4
   parameter ( mxlvl = 4490 )
   parameter ( mxbfmg = 50000 )
 
-  integer mgbf ( mxbfmg ), lmgbf, ibfdt, imgdt, iermg, iersb, nsub, nlv, nlv2
+  integer mgbf ( mxbfmg ), mgbf2 ( mxbfmg ), lmgbf, ibfdt, imgdt, iermg, iersb, nsub, nlv, nlv2
 
   real*8 r8arr1 ( mxval1 ), r8arr2 ( mxval2, mxlvl )
 
@@ -135,9 +135,10 @@ program outtest4
   call closbf ( 13 )
 
   ! Test atrcpt, which should add 6 bytes to mgbf
-  ilena = iupbs01(mgbf, 'LENM')
-  call atrcpt(mgbf, lmgbf, mgbf)
-  ilenb = iupbs01(mgbf, 'LENM')
-  IF (ilenb-ilena .ne. 6) stop 3
+  mgbf2 = mgbf
+  ilena = iupbs01(mgbf2, 'LENM')
+  call atrcpt(mgbf, lmgbf, mgbf2)
+  ilenb = iupbs01(mgbf2, 'LENM')
+  IF (ilenb-ilena .ne. 6) stop 6
 
 end program outtest4
