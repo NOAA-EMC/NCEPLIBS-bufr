@@ -6,9 +6,9 @@
 program outtest4
   implicit none
 
-  integer*4 isetprm, ireadsb, igetmxby, icbfms, ilena, ilenb, iupbs01
+  integer*4 isetprm, ireadsb, igetmxby, icbfms, iupbs01
 
-  integer mxval1, mxval2, mxlvl, mxbfmg
+  integer mxval1, mxval2, mxlvl, mxbfmg, ilena, ilenb
   parameter ( mxval1 = 200 )
   parameter ( mxval2 = 12 )
   parameter ( mxlvl = 4490 )
