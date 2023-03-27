@@ -4,6 +4,9 @@ C> completed message within a memory array.
 C>
 C> @author J. Woollen @author J. Ator @date 1994-01-06
 
+C> Write a data subset into a BUFR message, and return each
+C> completed message within a memory array.
+C>
 C> This subroutine is similar to subroutine writsb(), except that in
 C> addition to writing each completed message to a specified Fortran
 C> logical unit, it also returns a copy of each completed message to

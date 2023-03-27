@@ -3,9 +3,8 @@ C> @brief Get the FXY value of an element in a Table D sequence.
 C>
 C> @author J. Woollen @date 1994-01-06
 
-C> This subroutine returns the bit-wise representation of the FXY value
-C> corresponding to, sequentially, a particular (IENT'th) "child"
-C> mnemonic of a Table D sequence ("parent") mnemonic.
+C> Returns the integer FXY value corresponding to a child
+C> mnemonic of a Table D sequence parent mnemonic.
 C>
 C> @param[in] ID - integer: positional index of parent mnemonic
 C> within internal BUFR Table D array tabd.

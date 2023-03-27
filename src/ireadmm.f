@@ -1,9 +1,10 @@
 C> @file
-C> @brief Read a specified BUFR message from internal arrays.
+C> @brief Read a BUFR message from internal arrays.
 C>
 C> @author J. Woollen @date 1999-11-18
 
-C> Call readmm() and return its return code.
+C> Read a BUFR message from internal arrays. This function calls readmm()
+C> and returns its return code.
 C>
 C> The use of this function allows the return code from readmm() to be
 C> used as the target variable within an iterative program loop.

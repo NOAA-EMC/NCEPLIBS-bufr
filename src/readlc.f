@@ -4,7 +4,7 @@ C> a data subset.
 C>
 C> @authors J. Woollen J. Ator @date 2003-11-04
 
-C> This subroutine reads a long character string (greater than 8 bytes)
+C> Read a long character string (greater than 8 bytes)
 C> from a data subset.
 C>
 C> The data subset should have already been read into internal arrays

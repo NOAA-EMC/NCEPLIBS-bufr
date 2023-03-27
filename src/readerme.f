@@ -3,6 +3,8 @@ C> @brief Read a BUFR message from a memory array.
 C>
 C> @authors J. Woollen J. Ator @date 1995-06-28
 
+C> Read a BUFR message from a memory array.      
+C>
 C> This subroutine is similar to subroutine readmg(), except that it
 C> reads a BUFR message from an array passed as input, whereas
 C> readmg() reads a BUFR message from a file on the local system.

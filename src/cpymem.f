@@ -3,8 +3,7 @@ C> @brief Copy a BUFR message.
 C>
 C> @author J. Woollen @date 1994-01-06
 
-C> This subroutine copies a BUFR message from internal arrays in
-C> memory to a specified Fortran logical unit.
+C> Copy a BUFR message from internal arrays a file.
 C>
 C> This subroutine is similar to subroutine copymg(), except that
 C> it copies a BUFR message from internal arrays in memory to a

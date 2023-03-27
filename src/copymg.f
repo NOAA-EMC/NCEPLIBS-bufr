@@ -3,8 +3,7 @@ C> @brief Copy a BUFR message.
 C>
 C> @author J. Woollen @date 1994-01-06
 
-C> This subroutine copies a BUFR message from one Fortran logical unit
-C> to another.
+C> Copy a BUFR message from one file to another.
 C>
 C> This subroutine is similar to subroutine cpymem(), except that
 C> it copies a BUFR message from one Fortran logical unit to another,

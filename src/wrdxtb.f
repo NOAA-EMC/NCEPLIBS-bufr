@@ -3,6 +3,8 @@ C> @brief Write DX BUFR tables messages to a BUFR file.
 C>
 C> @author J. Ator @date 2009-03-23
 
+C> Write DX BUFR tables messages to a BUFR file.      
+C>
 C> This subroutine generates one or more BUFR messages from the DX
 C> BUFR tables information associated with a BUFR file, and
 C> writes the messages to the same or possibly a
