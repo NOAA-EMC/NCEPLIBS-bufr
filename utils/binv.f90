@@ -36,7 +36,10 @@ PROGRAM BINV
   call getarg(1,file)
   file = TRIM(file)//CHAR(0)
   inquire(file=file,exist=exist)
-  if (.not.exist) call bort(trim(file)//' does not exist')
+  if (.not.exist) then
+     print *,trim(file)//' does not exist'
+     call exit(3)
+  endif
   open(lunbf,file=file,form='unformatted')
 
   NINV = 0

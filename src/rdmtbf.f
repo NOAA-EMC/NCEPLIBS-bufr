@@ -1,5 +1,5 @@
 C> @file
-C> @brief Read master Code/Flag table information from local file system
+C> @brief Read master Code/Flag table information from local file system.
 C>
 C> @author J. Ator @date 2017-10-17
 

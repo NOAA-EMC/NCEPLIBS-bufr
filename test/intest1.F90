@@ -1,11 +1,14 @@
 ! This is a test for NCEPLIBS-bufr.
 !
-! Reads test file 'testfiles/IN_1' using CRBMG with
+! Reads test file 'testfiles/IN_1' using CRBMG_C with
 ! OPENBF IO = 'SEC3'.
 !
 ! Ed Hartnett, J. Ator, 2/3/2023
 program intest1
+  use bufr_interface
+
   implicit none
+
   integer mxbfd4, mxds3, nds3, ierme, imgdt
   integer ierndv, iernds, mxr8pm, mxr8lv, iertgp, nr8lv
   integer len0, len1, len2, len3, len4, len5
@@ -22,16 +25,17 @@ program intest1
        bfmg(mxbf), cds3(mxds3)*6, tagpr*8, celem*60, cunit*22
   character*20 filnam / 'testfiles/IN_1' /
   character filost / 'r' /
+
   equivalence (bfmg(1), ibfmg(1))
 
-  print *, 'Testing reading IN_1, CRBMG with OPENBF IO = SEC3'
+  print *, 'Testing reading IN_1, CRBMG_C with OPENBF IO = SEC3'
 
 #ifdef KIND_8
   call setim8b(.true.)
 #endif
 
   ! Open the test file.
-  call cobfl(filnam, filost)
+  call cobfl_c(filnam, filost)
 
   ! Specify format of Section 1 date/time when reading.
   call datelen(10)
@@ -44,7 +48,7 @@ program intest1
   call mtinfo('../tables', 90, 91)
 
   ! Read a BUFR message from the test file into a memory array.
-  call crbmg(bfmg, mxbf, nbyt, ierr)
+  call crbmg_c(bfmg, mxbf, nbyt, ierr)
   if (ierr .ne. 0) stop 1
 
   ! Read and check some values from Section 1.
@@ -106,7 +110,7 @@ program intest1
   if (.not. all((/len0,len1,len2,len3,len4,len5/) .eq. (/8,22,0,24,4111,4/))) stop 18
 
   ! Close the test file.
-  call ccbfl()
+  call ccbfl_c()
 
   print *, 'SUCCESS!'
 end program intest1

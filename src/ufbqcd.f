@@ -13,17 +13,17 @@ C> category 63 (i.e. X=63) Table D descriptor.  Knowledge of this value
 C> is especially useful for application programs which are writing data
 C> events to NCEP prepbufr files.
 C>
+C> Logical unit LUNIT should have already been opened via a previous
+C> call to subroutine openbf().
+C>
+C> This subroutine is the logical inverse of subroutine ufbqcp().
+C>
 C> @param[in] LUNIT -- integer: Fortran logical unit number for
 C>                     NCEP prepbufr file
 C> @param[in] NEMO  -- character*(*): Mnemonic associated with a
 C>                     category 63 (i.e. X=63) Table D descriptor
 C> @param[out] IQCD -- integer: Y value of descriptor associated
 C>                     with NEMO
-C>
-C> @remarks
-C> - Logical unit LUNIT should have already been opened via a previous
-C> call to subroutine openbf().
-C> - This subroutine is the logical inverse of subroutine ufbqcp().
 C>
 C> @author J. Woollen @date 1994-01-06
       RECURSIVE SUBROUTINE UFBQCD(LUNIT,NEMO,IQCD)

@@ -11,16 +11,15 @@ C> into internal arrays via the most recent call to any of the other
 C> [message-reading subroutines](@ref hierarchy) for a specified
 C> Fortran logical unit.
 C>
-C> @param[in]  MBAY -- integer(*): BUFR message
-C> @param[out] IYR  -- integer: Tank receipt year
-C> @param[out] IMO  -- integer: Tank receipt month
-C> @param[out] IDY  -- integer: Tank receipt day
-C> @param[out] IHR  -- integer: Tank receipt hour
-C> @param[out] IMI  -- integer: Tank receipt minute
-C> @param[out] IRET -- integer: return code
-C>                     - 0 = normal return
-C>                     - -1 = no tank receipt time exists within
-C>                            MBAY
+C> @param[in]  MBAY -- integer(*): BUFR message.
+C> @param[out] IYR  -- integer: Tank receipt year.
+C> @param[out] IMO  -- integer: Tank receipt month.
+C> @param[out] IDY  -- integer: Tank receipt day.
+C> @param[out] IHR  -- integer: Tank receipt hour.
+C> @param[out] IMI  -- integer: Tank receipt minute.
+C> @param[out] IRET -- integer: return code:
+C> - 0 = normal return.
+C> - -1 = no tank receipt time exists within MBAY.
 C>
 C> @author J. Ator @date 2013-10-07
       RECURSIVE SUBROUTINE RTRCPTB(MBAY,IYR,IMO,IDY,IHR,IMI,IRET)

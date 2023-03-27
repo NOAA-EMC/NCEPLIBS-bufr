@@ -6,15 +6,16 @@
 program outtest4
   implicit none
 
-  integer*4 isetprm, ireadsb, igetmxby, icbfms
+  integer*4 isetprm, ireadsb, igetmxby, icbfms, iupbs01, igetdate
 
-  integer mxval1, mxval2, mxlvl, mxbfmg
+  integer mxval1, mxval2, mxlvl, mxbfmg, ilena, ilenb
   parameter ( mxval1 = 200 )
   parameter ( mxval2 = 12 )
   parameter ( mxlvl = 4490 )
   parameter ( mxbfmg = 50000 )
 
-  integer mgbf ( mxbfmg ), lmgbf, ibfdt, imgdt, iermg, iersb, nsub, nlv, nlv2
+  integer mgbf ( mxbfmg ), mgbf2 ( mxbfmg ), lmgbf, ibfdt, imgdt, iermg, iersb, nsub, nlv, nlv2
+  integer idate, mear, mmon, mday, mour
 
   real*8 r8arr1 ( mxval1 ), r8arr2 ( mxval2, mxlvl )
 
@@ -131,7 +132,18 @@ program outtest4
 
   call writsa ( -13, mxbfmg, mgbf, lmgbf )
 
+  ! Get Section 1 date (returns 8-byte ints for KIND_8).
+  idate = igetdate(mgbf, mear, mmon, mday, mour)
+  if (idate.ne.20100111 .or. mear.ne.20 .or. mmon.ne.10 .or. mday.ne.1 .or. mour.ne.11) stop 6
+
   ! Close the output file.
   call closbf ( 13 )
+
+  ! Test atrcpt, which should add 6 bytes to mgbf
+  mgbf2 = mgbf
+  ilena = iupbs01(mgbf2, 'LENM')
+  call atrcpt(mgbf, lmgbf, mgbf2)
+  ilenb = iupbs01(mgbf2, 'LENM')
+  IF (ilenb-ilena .ne. 6) stop 7
 
 end program outtest4

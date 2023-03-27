@@ -5,7 +5,7 @@ C> @author J. Woollen @date 1994-01-06
 
 C> This subroutine reads or writes one or more data values from or to
 C> the BUFR data subset that is currently open within the BUFRLIB
-C> internal arrays.  The direction of the data transfer is determined
+C> internal arrays. The direction of the data transfer is determined
 C> by the context of ABS(LUNIN):
 C> - If ABS(LUNIN) points to a file that was previously opened for
 C>   input using subroutine openbf(), then data values are read from
@@ -21,9 +21,80 @@ C> listed more than once within an overall subset definition.
 C> See also subroutines ufbint(),
 C> ufbseq() and ufbstp(), which can also be used to read/write one or
 C> more data values from/to a data subset but are designed for
-C> different use cases.  A more detailed discussion of
+C> different use cases. A more detailed discussion of
 C> these different use cases, including examples, is available in
 C> [DX BUFR Tables](@ref ufbsubs).
+C>
+C> It is the user's responsibility to ensure that USR is dimensioned
+C> sufficiently large enough to accommodate the number of data values
+C> that are to be read from or written to the data subset. Note also
+C> that USR is an array of real*8 values; therefore, any data that are
+C> to be written out as character (i.e. CCITT IA5) values in
+C> BUFR must be converted from character into real*8 format within the
+C> application program before calling this subroutine. Conversely,
+C> when this subroutine is being used to read character values from a
+C> data subset, the value that is returned will be in real*8 format
+C> and must be converted back into character format by the application
+C> program before it can be used as such. Alternatively, there are
+C> different subroutines such as readlc() and writlc() which can be
+C> used to read/write character data directly from/to a data subset
+C> without the need to convert from/to real*8 format as an intermediate
+C> step.
+C>
+C> Numeric (i.e. non-character) data values within USR are always in
+C> the exact units specified for the corresponding mnemonic within the
+C> relevant DX or master BUFR table, without any scale or reference
+C> values applied. Specifically, this means that, when writing
+C> data values into an output subset, the user only needs to store each
+C> respective value into USR using the units specified within the table,
+C> and the BUFRLIB software will take care of any necessary scaling or
+C> referencing of the value before it is actually encoded into BUFR.
+C> Conversely, when reading data values from an input subset, the
+C> values returned in USR are already de-scaled and de-referenced and,
+C> thus, are already in the exact units that were defined for the
+C> corresponding mnemonics within the table.
+C>
+C> "Missing" values in USR are always denoted by a unique
+C> placeholder value. This placeholder value is initially set
+C> to a default value of 10E10_8, but it can be reset to
+C> any substitute value of the user's choice via a separate
+C> call to subroutine setbmiss(). In any case, and whenever this
+C> subroutine is used to read data values from an input subset, any
+C> returned value in USR can be easily checked for equivalence to the
+C> current placeholder value via a call to function ibfms(), and a
+C> positive result means that the value for the corresponding mnemonic
+C> was encoded as "missing" in BUFR (i.e. all bits set to 1) within the
+C> original data subset. Conversely, whenever this subroutine
+C> is used to write data values to an output subset, the current
+C> placeholder value can be obtained via a separate call to function
+C> getbmiss(), and the resulting value can then be stored into the
+C> USR array whereever the user desires a BUFR "missing" value (i.e.
+C> all bits set to 1) to be encoded for the corresponding mnemonic
+C> within the output subset.
+C>
+C> @remarks
+C> - If LUNIN < 0, and if ABS(LUNIN) points to a file that is open
+C> for output (writing BUFR), then the subroutine will treat the file
+C> pointed to by ABS(LUNIN) as though it was open for input (reading
+C> BUFR). This is a special capability for use by some applications
+C> that need to read certain values back out from a BUFR file during
+C> the same time that it is in the process of being written to.
+C> - If ABS(LUNIN) points to a file that is open for input (reading
+C> BUFR), there are a few additional special mnemonics that can be
+C> included within STR when calling this subroutine, and which in turn
+C> will result in special information being returned within the
+C> corresponding location in USR. These special mnemonics are not
+C> considered to be part of Table B or Table D and therefore do not
+C> need to be definied within the DX or master table file associated
+C> with ABS(LUNIN):
+C>      - NUL - returns the "missing" value
+C>      - IREC - returns the number of the BUFR message within the
+C>               file pointed to by ABS(LUNIN) (counting from the
+C>               beginning of the file) in which the current data
+C>               subset resides
+C>      - ISUB - returns the number of the current data subset within
+C>               the BUFR message pointed to by IREC, counting from
+C>               the beginning of the message
 C>
 C> @param[in] LUNIN   -- integer: Absolute value is Fortran logical
 C>                       unit number for BUFR file
@@ -54,78 +125,6 @@ C>                   values that will be read/written from/to the data
 C>                   subset within the first dimension of USR (see
 C>                   [DX BUFR Tables](@ref dfbftab) for further
 C>                   information about Table B mnemonics)
-C>
-C> It is the user's responsibility to ensure that USR is dimensioned
-C> sufficiently large enough to accommodate the number of data values
-C> that are to be read from or written to the data subset.  Note also
-C> that USR is an array of real*8 values; therefore, any data that are
-C> to be written out as character (i.e. CCITT IA5) values in
-C> BUFR must be converted from character into real*8 format within the
-C> application program before calling this subroutine.  Conversely,
-C> when this subroutine is being used to read character values from a
-C> data subset, the value that is returned will be in real*8 format
-C> and must be converted back into character format by the application
-C> program before it can be used as such.  Alternatively, there are
-C> different subroutines such as readlc() and writlc() which can be
-C> used to read/write character data directly from/to a data subset
-C> without the need to convert from/to real*8 format as an intermediate
-C> step.
-C>
-C> Numeric (i.e. non-character) data values within USR are always in
-C> the exact units specified for the corresponding mnemonic within the
-C> relevant DX or master BUFR table, without any scale or reference
-C> values applied.  Specifically, this means that, when writing
-C> data values into an output subset, the user only needs to store each
-C> respective value into USR using the units specified within the table,
-C> and the BUFRLIB software will take care of any necessary scaling or
-C> referencing of the value before it is actually encoded into BUFR.
-C> Conversely, when reading data values from an input subset, the
-C> values returned in USR are already de-scaled and de-referenced and,
-C> thus, are already in the exact units that were defined for the
-C> corresponding mnemonics within the table.
-C>
-C> "Missing" values in USR are always denoted by a unique
-C> placeholder value.  This placeholder value is initially set
-C> to a default value of 10E10_8, but it can be reset to
-C> any substitute value of the user's choice via a separate
-C> call to subroutine setbmiss().  In any case, and whenever this
-C> subroutine is used to read data values from an input subset, any
-C> returned value in USR can be easily checked for equivalence to the
-C> current placeholder value via a call to function ibfms(), and a
-C> positive result means that the value for the corresponding mnemonic
-C> was encoded as "missing" in BUFR (i.e. all bits set to 1) within the
-C> original data subset.  Conversely, whenever this subroutine
-C> is used to write data values to an output subset, the current
-C> placeholder value can be obtained via a separate call to function
-C> getbmiss(), and the resulting value can then be stored into the
-C> USR array whereever the user desires a BUFR "missing" value (i.e.
-C> all bits set to 1) to be encoded for the corresponding mnemonic
-C> within the output subset.
-C>
-C> @remarks
-C> - If LUNIN < 0, and if ABS(LUNIN) points to a file that is open
-C> for output (writing BUFR), then the subroutine will treat the file
-C> pointed to by ABS(LUNIN) as though it was open for input (reading
-C> BUFR).  This is a special capability for use by some applications
-C> that need to read certain values back out from a BUFR file during
-C> the same time that it is in the process of being written to.
-C> - If ABS(LUNIN) points to a file that is open for input (reading
-C> BUFR), there are a few additional special mnemonics that can be
-C> included within STR when calling this subroutine, and which in turn
-C> will result in special information being returned within the
-C> corresponding location in USR.  These special mnemonics are not
-C> considered to be part of Table B or Table D and therefore do not
-C> need to be definied within the DX or master table file associated
-C> with ABS(LUNIN):
-C>      - NUL - returns the "missing" value
-C>      - IREC - returns the number of the BUFR message within the
-C>               file pointed to by ABS(LUNIN) (counting from the
-C>               beginning of the file) in which the current data
-C>               subset resides
-C>      - ISUB - returns the number of the current data subset within
-C>               the BUFR message pointed to by IREC, counting from
-C>               the beginning of the message
-C>
 C>
 C> @author J. Woollen @date 1994-01-06
       RECURSIVE SUBROUTINE UFBREP(LUNIN,USR,I1,I2,IRET,STR)

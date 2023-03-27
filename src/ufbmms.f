@@ -7,6 +7,12 @@ C> This subroutine provides a handy way to combine the functionality
 C> of subroutines rdmemm() and rdmems() within a single subroutine
 C> call.
 C>
+C> Whenever this subroutine returns successfully, the requested data
+C> subset can now be easily manipulated or further parsed via calls to
+C> any of the [values-reading subroutines](@ref hierarchy) using the
+C> Fortran logical unit number IUNIT that was returned from the most
+C> recent call to subroutine ufbmem().
+C>
 C> @param[in] IMSG   -- integer: Number of BUFR message to be
 C>                      read into scope for further processing,
 C>                      counting from the beginning of the
@@ -22,12 +28,6 @@ C> @param[out] JDATE -- integer: Date-time stored within Section 1 of
 C>                      (IMSG)th BUFR message, in format of either
 C>                      YYMMDDHH or YYYYMMDDHH, depending on the most
 C>                      recent call to subroutine datelen()
-C>
-C> Whenever this subroutine returns successfully, the requested data
-C> subset can now be easily manipulated or further parsed via calls to
-C> any of the [values-reading subroutines](@ref hierarchy) using the
-C> Fortran logical unit number IUNIT that was returned from the most
-C> recent call to subroutine ufbmem().
 C>
 C> @author J. Woollen @date 1994-01-06
       RECURSIVE SUBROUTINE UFBMMS(IMSG,ISUB,SUBSET,JDATE)

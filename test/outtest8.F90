@@ -4,6 +4,8 @@
 !
 ! J. Ator, 2/24/2023
 program outtest8
+  use bufr_interface
+
   implicit none
 
   integer, parameter :: mxbf = 28000
@@ -24,7 +26,7 @@ program outtest8
 
   character cmgtag*8
 
-  print *, 'Testing writing OUT_8 using UFBCPY and CWBMG'
+  print *, 'Testing writing OUT_8 using UFBCPY and CWBMG_C'
 
 #ifdef KIND_8
   call setim8b ( .true. )
@@ -37,7 +39,7 @@ program outtest8
   if ( mtyp /= 1 ) stop 1
 
   ! For this test we need to have an assigned logical unit for use with ufbcpy; however, we're not going to
-  ! actually write anything to that file, because instead we'll be using writsa and cwbmg to write to our
+  ! actually write anything to that file, because instead we'll be using writsa and cwbmg_c to write to our
   ! output file.  So /dev/null is a good choice for this logical unit.
   open ( unit = 12, file = '/dev/null' )
 
@@ -58,7 +60,7 @@ program outtest8
   if ( lenbmg .eq. 0 ) stop 2
 
   ! Open the output file.
-  call cobfl ( filnam, filost )
+  call cobfl_c ( filnam, filost )
 
   ! Write the output message to the output file.
 #ifdef KIND_8
@@ -66,9 +68,9 @@ program outtest8
 #else
   nbyt = lenbmg * 4
 #endif
-  call cwbmg ( bfmg, nbyt, ierw )
+  call cwbmg_c ( bfmg, nbyt, ierw )
 
   ! Close the output file.
-  call ccbfl()
+  call ccbfl_c()
 
 end program outtest8

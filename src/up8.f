@@ -11,6 +11,8 @@ C> It is similar to subroutine upb8(), except that here IBIT is
 C> both an input and an output argument, and the overall order
 C> of the arguments is different.
 C>
+C> This subroutine is the logical inverse of subroutine pkb8().
+C>
 C> @param[in] IBAY    -- integer(*): Array containing encoded value
 C> @param[in,out] IBIT -- integer: Bit pointer within IBAY
 C>                        - On input, IBIT points to the bit within
@@ -19,9 +21,6 @@ C>                        - On output, IBIT points to the last bit
 C>                          of IBAY which contained the decoded NVAL.
 C> @param[in] NBITS   -- integer: Number of bits to be decoded
 C> @param[out] NVAL   -- integer*8: Decoded value
-C>
-C> @remarks
-C> - This subroutine is the logical inverse of subroutine pkb8().
 C>
 C> @author J. Woollen @date 2022-05-06
       subroutine up8(nval,nbits,ibay,ibit)

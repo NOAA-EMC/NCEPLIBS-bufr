@@ -195,8 +195,8 @@ C  IF CONDITION NODE, GET CONDITION VALUE WHICH IS A NUMBER FOLLOWING IT
 C  ---------------------------------------------------------------------
 
       IF(KON.NE.0) THEN
-         CALL STRNUM(UTG(ICV:LTG),NUM)
-         IF(NUM.LT.0) GOTO 903
+         CALL STRNUM(UTG(ICV:LTG),NUM,IER)
+         IF(IER.LT.0) GOTO 903
          VAL = NUM
       ENDIF
 

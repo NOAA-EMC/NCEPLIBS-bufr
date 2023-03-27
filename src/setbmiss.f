@@ -1,13 +1,10 @@
 C> @file
-C> @brief Define a customized placeholder value for "missing" data
+C> @brief Define a customized placeholder value for "missing" data.
 C>
 C> @author J. Woollen @date 2012-09-15
 
 C> This subroutine allows the user to specify a customized value to
 C> represent "missing" data when reading from or writing to BUFR files.
-C>
-C> @param[in] XMISS -- real*8: New placeholder value to represent
-C>                     "missing" data
 C>
 C> This subroutine can be called at any time from within an
 C> application program, and the value XMISS will then be treated as
@@ -29,6 +26,9 @@ C> represent "missing" data values within the scope of the
 C> application program.  In any actual BUFR data subset, "missing"
 C> values are always encoded as all bits set to 1, per WMO
 C> regulations.
+C>
+C> @param[in] XMISS -- real*8: New placeholder value to represent
+C>                     "missing" data
 C>
 C> @author J. Woollen @date 2012-09-15
       RECURSIVE SUBROUTINE SETBMISS(XMISS)
