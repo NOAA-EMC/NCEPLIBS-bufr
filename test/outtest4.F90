@@ -6,7 +6,7 @@
 program outtest4
   implicit none
 
-  integer*4 isetprm, ireadsb, igetmxby, icbfms
+  integer*4 isetprm, ireadsb, igetmxby, icbfms, igetdate
 
   integer mxval1, mxval2, mxlvl, mxbfmg
   parameter ( mxval1 = 200 )
@@ -14,7 +14,7 @@ program outtest4
   parameter ( mxlvl = 4490 )
   parameter ( mxbfmg = 50000 )
 
-  integer mgbf ( mxbfmg ), lmgbf, ibfdt, imgdt, iermg, iersb, nsub, nlv, nlv2
+  integer mgbf ( mxbfmg ), lmgbf, ibfdt, imgdt, iermg, iersb, nsub, nlv, nlv2, idate
   integer mear, mmon, mday, mour
 
   real*8 r8arr1 ( mxval1 ), r8arr2 ( mxval2, mxlvl )
@@ -133,8 +133,8 @@ program outtest4
   call writsa ( -13, mxbfmg, mgbf, lmgbf )
 
   ! Get Section 1 date (returns 8-byte ints for KIND_8).
-  call igetdate(mgbf, mear, mmon, mday, mour)
-  if (mear.ne.20 .or. mmon.ne.10 .or. mday.ne.1 .or. mour.ne.11) stop 6
+  idate = igetdate(mgbf, mear, mmon, mday, mour)
+  if (idate.ne.20100111 .or. mear.ne.20 .or. mmon.ne.10 .or. mday.ne.1 .or. mour.ne.11) stop 6
 
   ! Close the output file.
   call closbf ( 13 )
