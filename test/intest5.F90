@@ -60,6 +60,13 @@ program intest5
 
   ! Free the memory that was dynamically allocated when reading the code and flag tables.
   call dlloctbf()
+  close ( 11 )
+
+  ! Test ufbinx's openbf/closbf calls.
+  open ( unit = 12, file = 'testfiles/IN_5', form ='unformatted')
+  call ufbinx ( 12, 2, 2, r8vals, mxr8pm, mxr8lv, nlv, 'CLAM CLTP' )
+  if ( ( nlv .ne. 3 ) .or. ( nint(r8vals(1,1)) .ne. 7 ) .or. ( nint(r8vals(2,1)) .ne. 38 ) .or. &
+      ( nint(r8vals(2,2)) .ne. 61 ) .or. ( nint(r8vals(2,3)) .ne. 60 ) ) stop 8
 
   print *, 'SUCCESS!'
 end program intest5
