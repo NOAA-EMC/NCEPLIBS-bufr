@@ -138,6 +138,6 @@ program outtest4
   ilena = iupbs01(mgbf, 'LENM')
   call atrcpt(mgbf, lmgbf, mgbf)
   ilenb = iupbs01(mgbf, 'LENM')
-  IF ((ilenb-ilena) .ne. 6) stop 3
+  IF (ilenb-ilena .ne. 6) stop 3
 
 end program outtest4
