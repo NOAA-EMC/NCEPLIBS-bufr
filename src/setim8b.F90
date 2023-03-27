@@ -1,13 +1,11 @@
 !> @file
-!> @brief Specify the use of 8-byte integer arguments during future
-!> calls to BUFRLIB subprograms from a Fortran application program.
+!> @brief Use 8-byte integer arguments to BUFRLIB subprograms from
+!> Fortran.
 !>
 !> @author J. Ator @date 2022-09-01
 
-!> This subroutine allows the user to specify whether all integer
-!> arguments passed to and from all future calls to BUFRLIB
-!> subprograms from within a Fortran application program will use
-!> 8-byte integers.
+!> Specify whether all integer arguments to BUFRLIB subprograms from
+!> Fortran will use 8-byte integers.
 !>
 !> The default value is .false., meaning that if this subroutine is
 !> never called, then the BUFRLIB will expect that all future calls
