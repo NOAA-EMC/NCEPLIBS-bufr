@@ -498,7 +498,7 @@ program test_bort
         open(unit = 12, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
         if (ios .ne. 0) stop 3
         call openbf(12, 'OUT', 10)
-        call ufbstp(11, real_2d, 1, 1, iret, 'LALALA')
+        call ufbstp(11, real_2d, 1, 1, iret, 'LALAL1')
      endif
   elseif (sub_name .eq. 'ufbrms') then
      if (test_case .eq. '1') then
