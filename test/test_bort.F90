@@ -16,7 +16,7 @@ program test_bort
   character*2 char_short
   character*30 char_30
   character*4 char_4(1)
-  character*8 char_8(1)
+  character*8 char_8(1), char_val_8
   character*12 char_12(1)
   character*24 char_24(1)
   character*120 char_120(1)
@@ -30,7 +30,11 @@ program test_bort
   integer ibay(1), ibit, subset, jdate
   integer mtyp, msbt, inod
   character*28 unit
-  integer iscl, iref, nseq, nmsub
+  integer iscl, iref, nseq, nmsub, ierr
+  integer mear, mmon, mday, mour, idate
+  integer iyr, imo, idy, ihr, imi
+  integer jdate1(5), jdump1(5)
+  integer lmsgt, msgt(100), msgl
   
 #ifdef KIND_8
   call setim8b(.true.)
@@ -86,19 +90,113 @@ program test_bort
      endif
   elseif (sub_name .eq. 'copybf') then
      if (test_case .eq. '1') then
-        call copybf(0, 0)
+        open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        call openbf(11, 'IN', 11)
+        call copybf(11, 0)
+     elseif (test_case .eq. '2') then
+        open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        open(unit = 12, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        call openbf(12, 'IN', 12)
+        call copybf(11, 12)
      endif
   elseif (sub_name .eq. 'copymg') then
      if (test_case .eq. '1') then
-        call copymg(0, 0)     
+        open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        call openbf(11, 'IN', 11)
+        call copymg(11, 0)     
+     elseif (test_case .eq. '2') then
+        open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        call openbf(11, 'IN', 11)
+        call copymg(12, 0)     
+     elseif (test_case .eq. '3') then
+        open(unit = 11, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        call openbf(11, 'OUT', 12)
+        call copymg(11, 0)     
+     elseif (test_case .eq. '4') then
+        open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        call openbf(11, 'IN', 11)
+        call readmg(11, char_val_8, jdate, iret)
+        open(unit = 12, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        call openbf(12, 'IN', 12)
+        call copymg(11, 12)     
+     elseif (test_case .eq. '5') then
+        open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        call openbf(11, 'IN', 11)
+        call readmg(11, char_val_8, jdate, iret)
+        open(unit = 12, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        call copymg(11, 12)     
      endif
-  ! This is commented out until
-  ! https://github.com/NOAA-EMC/NCEPLIBS-bufr/issues/395 is
-  ! resolved.
-  ! elseif (sub_name .eq. 'copysb') then
-  !    if (test_case .eq. '1') then
-  !       call copysb(1, 1, iret)     
-  !    endif
+  elseif (sub_name .eq. 'copysb') then
+     if (test_case .eq. '1') then
+        open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        call openbf(11, 'IN', 11)
+        call copysb(11, 0, ierr)     
+     elseif (test_case .eq. '2') then
+        open(unit = 11, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        call openbf(11, 'IN', 11)
+        call copysb(12, 0, ierr)     
+     elseif (test_case .eq. '3') then
+        open(unit = 11, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        call openbf(11, 'OUT', 10)
+        call copysb(11, 0, ierr)     
+     elseif (test_case .eq. '4') then
+        open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        call openbf(11, 'IN', 10)
+        call readmg(11, char_val_8, jdate, iret)
+        open(unit = 12, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        call copysb(11, 12, ierr)     
+     elseif (test_case .eq. '5') then
+        open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        call openbf(11, 'IN', 10)
+        call readmg(11, char_val_8, jdate, iret)
+        open(unit = 12, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        call openbf(12, 'IN', 10)
+        call copysb(11, 12, ierr)     
+     elseif (test_case .eq. '6') then
+        open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        call openbf(11, 'IN', 10)
+        call readmg(11, char_val_8, jdate, iret)
+        open(unit = 12, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        call openbf(12, 'OUT', 10)
+        call copysb(11, 12, ierr)     
+     endif
+  elseif (sub_name .eq. 'datebf') then
+     if (test_case .eq. '1') then
+        open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        call openbf(11, 'IN', 11)
+        call datebf(11, mear, mmon, mday, mour, idate) 
+     endif
+  elseif (sub_name .eq. 'datelen') then
+     if (test_case .eq. '1') then
+        call datelen(11) 
+     endif
+  elseif (sub_name .eq. 'dumpbf') then
+     if (test_case .eq. '1') then
+        open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        call openbf(11, 'IN', 11)
+        call dumpbf(11, jdate1, jdump1) 
+     endif
   elseif (sub_name .eq. 'idn30') then
      if (test_case .eq. '1') then
         idn30_val = idn30(adn30_val_5, 6)
@@ -108,6 +206,25 @@ program test_bort
         idn30_val = idn30('-0042', 5)
      elseif (test_case .eq. '4') then
         idn30_val = idn30('65536', 5)
+     endif
+  elseif (sub_name .eq. 'ifbget') then
+     if (test_case .eq. '1') then
+        open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        call openbf(11, 'IN', 11)
+        call ifbget(11)
+     elseif (test_case .eq. '2') then
+        open(unit = 11, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        open(unit = 12, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        call openbf(11, 'OUT', 12)
+        call ifbget(11)
+     elseif (test_case .eq. '3') then
+        open(unit = 12, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        call openbf(12, 'OUT', 10)
+        call ifbget(11)
      endif
   elseif (sub_name .eq. 'nemtba') then
      if (test_case .eq. '1') then
@@ -187,12 +304,109 @@ program test_bort
         call openbf(11, 'IN', 11)
         call posapx(12)        
      endif
+  elseif (sub_name .eq. 'readerme') then
+     if (test_case .eq. '1') then
+        open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        open(unit = 12, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        call openbf(11, 'IN', 12)
+        call readerme(int_1d, 12, char_val_8, jdate, iret)
+     elseif (test_case .eq. '2') then
+        open(unit = 11, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        open(unit = 12, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        call openbf(11, 'OUT', 12)
+        call readerme(int_1d, 11, char_val_8, jdate, iret)
+     endif
+  elseif (sub_name .eq. 'readlc') then
+     if (test_case .eq. '1') then
+        open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        open(unit = 12, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        call openbf(11, 'IN', 12)
+        call readlc(12, char_val_8, char_val_8)
+     elseif (test_case .eq. '2') then
+        open(unit = 11, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        open(unit = 12, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        call openbf(11, 'OUT', 12)
+        call readlc(11, char_val_8, char_val_8)
+     endif
+  elseif (sub_name .eq. 'readmg') then
+     if (test_case .eq. '1') then
+        open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        open(unit = 12, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        call openbf(11, 'IN', 12)
+        call readmg(12, char_val_8, jdate, iret)
+     elseif (test_case .eq. '2') then
+        open(unit = 11, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        open(unit = 12, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        call openbf(11, 'OUT', 12)
+        call readmg(11, char_val_8, jdate, iret)
+     endif
   elseif (sub_name .eq. 'rdmemm') then
      if (test_case .eq. '1') then
         open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
         if (ios .ne. 0) stop 3
         call openbf(11, 'IN', 11)
         call rdmemm(1, subset, jdate, iret)        
+     endif
+  elseif (sub_name .eq. 'readns') then
+     if (test_case .eq. '1') then
+        open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        open(unit = 12, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        call openbf(11, 'IN', 12)
+        call readns(12, char_val_8, jdate, iret)
+     elseif (test_case .eq. '2') then
+        open(unit = 11, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        open(unit = 12, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        call openbf(11, 'OUT', 12)
+        call readns(11, char_val_8, jdate, iret)
+     endif
+  elseif (sub_name .eq. 'readsb') then
+     if (test_case .eq. '1') then
+        open(unit = 11, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        open(unit = 12, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        call openbf(11, 'OUT', 12)
+        call readsb(11, iret)
+     elseif (test_case .eq. '2') then
+        open(unit = 12, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        call openbf(12, 'OUT', 10)
+        call readsb(11, iret)
+     endif
+  elseif (sub_name .eq. 'rtrcpt') then
+     if (test_case .eq. '1') then
+        open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        call openbf(11, 'IN', 11)
+        call rtrcpt(11, iyr, imo, idy, ihr, imi, iret)
+     elseif (test_case .eq. '2') then
+        open(unit = 11, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        open(unit = 12, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        call openbf(11, 'OUT', 12)
+        call rtrcpt(11, iyr, imo, idy, ihr, imi, iret)
+     elseif (test_case .eq. '3') then
+        open(unit = 12, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        call openbf(12, 'OUT', 10)
+        call rtrcpt(11, iyr, imo, idy, ihr, imi, iret)
      endif
   elseif (sub_name .eq. 'status') then
      if (test_case .eq. '1') then
@@ -214,7 +428,12 @@ program test_bort
      endif
   elseif (sub_name .eq. 'stndrd') then
      if (test_case .eq. '1') then
-        call stndrd(0, int_1d, 1, int_1d_2)
+        open(unit = 11, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        open(unit = 12, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        call openbf(11, 'OUT', 12)
+        call stndrd(12, int_1d, 1, int_1d_2)
      endif
   elseif (sub_name .eq. 'strcpt') then
      if (test_case .eq. '1') then
@@ -262,6 +481,25 @@ program test_bort
      if (test_case .eq. '1') then
         call ufbrep(0, real_2d, 1, 2, iret, 'c')
      endif
+  elseif (sub_name .eq. 'ufbstp') then
+     if (test_case .eq. '1') then
+        open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        call openbf(11, 'IN', 11)
+        call ufbstp(11, real_2d, 1, 1, iret, 'LALALA')
+     elseif (test_case .eq. '2') then
+        open(unit = 11, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        open(unit = 12, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        call openbf(11, 'OUT', 12)
+        call ufbstp(11, real_2d, 1, 1, iret, 'LALALA')
+     elseif (test_case .eq. '3') then
+        open(unit = 12, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        call openbf(12, 'OUT', 10)
+        call ufbstp(11, real_2d, 1, 1, iret, 'LALAL1')
+     endif
   elseif (sub_name .eq. 'ufbrms') then
      if (test_case .eq. '1') then
         call ufbrms(1, 1, real_2d, 1, 2, iret, 'c')
@@ -272,15 +510,53 @@ program test_bort
      endif
   elseif (sub_name .eq. 'ufdump') then
      if (test_case .eq. '1') then
-        call ufdump(0, 0)
+        open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        call openbf(11, 'IN', 11)
+        call ufdump(11, 11)
+     elseif (test_case .eq. '2') then
+        open(unit = 11, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        open(unit = 12, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        call openbf(11, 'OUT', 12)
+        call ufdump(11, 12)
+     elseif (test_case .eq. '3') then
+        open(unit = 12, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        call openbf(12, 'OUT', 10)
+        call ufdump(11, 12)
      endif
   elseif (sub_name .eq. 'upftbv') then
      if (test_case .eq. '1') then
-        call upftbv(0, 'n', 1.0, 1, 1, 1)
+        open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        call openbf(11, 'IN', 11)
+        call upftbv(11, 'n', 1.0, 1, 1, 1)
+     elseif (test_case .eq. '2') then
+        call openbf(12, 'FIRST', 11)
+        open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        call upftbv(11, 'n', 1.0, 1, 1, 1)
      endif
   elseif (sub_name .eq. 'wrdxtb') then
      if (test_case .eq. '1') then
-        call wrdxtb(0, 0)        
+        open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        call openbf(11, 'IN', 11)
+        call wrdxtb(11, 11)
+     elseif (test_case .eq. '2') then
+        open(unit = 11, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        open(unit = 12, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        call openbf(11, 'OUT', 12)
+        call wrdxtb(11, 12)
+     elseif (test_case .eq. '3') then
+        open(unit = 12, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        call openbf(12, 'OUT', 10)
+        call wrdxtb(11, 12)
      endif
   elseif (sub_name .eq. 'writdx') then
      if (test_case .eq. '1') then
@@ -288,15 +564,60 @@ program test_bort
      endif
   elseif (sub_name .eq. 'writlc') then
      if (test_case .eq. '1') then
-        call writlc(0, char_30, char_30)
+        open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        call openbf(11, 'IN', 11)
+        call writlc(11, char_val_8, char_val_8)
+     elseif (test_case .eq. '2') then
+        open(unit = 11, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        call openbf(11, 'OUT', 12)
+        call writlc(11, char_val_8, char_val_8)
+     elseif (test_case .eq. '3') then
+        open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        open(unit = 12, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        call openbf(12, 'IN', 12)
+        call writlc(11, char_val_8, char_val_8)
      endif
   elseif (sub_name .eq. 'writsa') then
      if (test_case .eq. '1') then
-        call writsa(0, 0, 0, 0)
+        open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        call openbf(11, 'IN', 11)
+        call writsa(11, lmsgt, msgt, msgl)
+     elseif (test_case .eq. '2') then
+        open(unit = 11, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        call openbf(11, 'OUT', 12)
+        call writsa(11, lmsgt, msgt, msgl)
+     elseif (test_case .eq. '3') then
+        open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        open(unit = 12, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        call openbf(12, 'IN', 12)
+        call writsa(11, lmsgt, msgt, msgl)
      endif
   elseif (sub_name .eq. 'writsb') then
      if (test_case .eq. '1') then
-        call writsb(0)
+        open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        call openbf(11, 'IN', 11)
+        call writsb(11)
+     elseif (test_case .eq. '2') then
+        open(unit = 11, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        call openbf(11, 'OUT', 12)
+        call writsb(11)
+     elseif (test_case .eq. '3') then
+        open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        open(unit = 12, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        call openbf(12, 'IN', 12)
+        call writsb(11)
      endif
   elseif (sub_name .eq. 'wtstat') then
      if (test_case .eq. '1') then
