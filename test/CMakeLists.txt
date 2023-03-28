@@ -109,6 +109,13 @@ list(APPEND test_c_interface_srcs
   test_c_interface_2.c
 )
 
+# Here's a C test.
+set(test_name test_c_misc)
+add_executable(${test_name} ${test_name}.c)
+add_dependencies(${test_name} bufr_4)
+target_link_libraries(${test_name} PRIVATE bufr::bufr_4)
+add_test(NAME ${test_name} COMMAND ${CMAKE_BINARY_DIR}/test/${test_name})
+
 # Install testing scripts
 list(APPEND test_scripts
   test_outtest.sh

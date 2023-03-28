@@ -1,10 +1,12 @@
 ! This is a test for NCEPLIBS-bufr.
 !
-! Reads test file 'testfiles/IN_4' using CRBMG with OPENBF IO = 'SEC3'
+! Reads test file 'testfiles/IN_4' using CRBMG_C with OPENBF IO = 'SEC3'
 ! using bitmap and marker operators.
 !
 ! Ed Hartnett, J. Ator, 2/22/2023
 program intest4
+  use bufr_interface
+
   implicit none
 
   integer*4 ireadsb, iupbs01, iupbs3, ibfms
@@ -30,19 +32,19 @@ program intest4
 
   equivalence (bfmg (1), ibfmg (1))
 
-  print *, 'Testing reading IN_4, using CRBMG with OPENBF IO = SEC3, and using bitmap and marker operators.'
+  print *, 'Testing reading IN_4, using CRBMG_C with OPENBF IO = SEC3, and using bitmap and marker operators.'
 
 #ifdef KIND_8
   call setim8b(.true.)
 #endif
 
   ! Open the test file.
-  call cobfl(filnam, filost)
+  call cobfl_c(filnam, filost)
 
   ! Set date format.
   call datelen(10)
 
-  ! For this test we're going to use cobfl and crbmg to read a BUFR message from filnam, and then we're going to
+  ! For this test we're going to use cobfl_c and crbmg_c to read a BUFR message from filnam, and then we're going to
   ! call readerme to pass that message as input to the library, rather than having the library read directly from
   ! a logical unit number via openbf.  However, we do still need to call openbf to specify that messages will be
   ! decoded according to Section 3, and since we still need to call openbf, then we also need to pass in a logical
@@ -55,7 +57,7 @@ program intest4
   call mtinfo('../tables', 90, 91)
 
   ! Read the BUFR message from the BUFR file.
-  call crbmg(bfmg, mxbf, nbyt, ierr)
+  call crbmg_c(bfmg, mxbf, nbyt, ierr)
   if (ierr .ne. 0) stop 1
 
   ! Check some values in Section 1 of the message.
@@ -97,7 +99,7 @@ program intest4
   if ( ier .ne. 0 .or. ntag .ne. 10 .or. tag .ne. 'RDNE    ' ) stop 12
 
   ! Close the test file.
-  call ccbfl()
+  call ccbfl_c()
 
   print *, 'SUCCESS!'
 end program intest4
