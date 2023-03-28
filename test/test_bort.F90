@@ -534,9 +534,7 @@ program test_bort
         call openbf(11, 'IN', 11)
         call upftbv(11, 'n', 1.0, 1, 1, 1)
      elseif (test_case .eq. '2') then
-        open(unit = 12, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
-        if (ios .ne. 0) stop 3
-        call openbf(12, 'IN', 11)
+        call openbf(12, 'FIRST', 11)
         open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
         if (ios .ne. 0) stop 3
         call upftbv(11, 'n', 1.0, 1, 1, 1)
