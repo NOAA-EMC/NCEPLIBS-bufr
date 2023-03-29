@@ -10,11 +10,11 @@ configure_file(${CMAKE_CURRENT_SOURCE_DIR}/sinv.f90.in ${CMAKE_CURRENT_BINARY_DI
 # Source code for utilities.
 list(APPEND _utils_srcs
   binv.f90
-  cmpbqm.f90
+  cmpbqm.F90
   ${CMAKE_CURRENT_BINARY_DIR}/sinv.f90
   gettab.f90
-  readbp.f90
-  readmp.f90
+  readbp.F90
+  readmp.F90
   split_by_subset.f90
   xbfmg.c
 )

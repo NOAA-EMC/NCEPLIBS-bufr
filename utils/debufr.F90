@@ -4,7 +4,7 @@
 !> @author J. Ator @date 2009-07-01
 
 !> This module is used within the debufr utility to share information between subroutine fdebufr_c() and subroutine
-!> openbt(), since the latter is not called by the former but rather is called directly from within the BUFRLIB
+!> openbt(), since the latter is not called by the former but rather is called directly from within the NCEPLIBS-bufr
 !> software.
 !>
 !> @author J. Ator @date 2009-07-01
@@ -31,8 +31,8 @@ end module Share_Table_Info
 !>                       - 'NULLFILE' = No such file will be used
 !> @param[in] lentf   -- c_int: Length of tblfil string
 !> @param[in] prmstg  -- c_char*(*): String of up to 20 comma-separated PARAMETER=VALUE pairs to be used to
-!>                       dynamically allocate memory within the BUFRLIB software, overriding the default VALUE that
-!>                       would otherwise be used for each such PARAMETER.
+!>                       dynamically allocate memory within the NCEPLIBS-bufr software, overriding the default VALUE
+!>                       that would otherwise be used for each such PARAMETER.
 !>                       - 'NULLPSTG' = No such pairs will be used
 !> @param[in] lenps   -- c_int: Length of prmstg string
 !> @param[in] basic   -- c_char: Indicator as to whether only "basic" information in Sections 0-3 should be decoded
@@ -49,7 +49,7 @@ end module Share_Table_Info
 !>                       - 'N' = No
 !>
 !> @remarks
-!> - See BUFRLIB function isetprm() for a complete list of parameters that can be dynamically sized via prmstg.
+!> - See NCEPLIBS-bufr function isetprm() for a complete list of parameters that can be dynamically sized via prmstg.
 !> - Fortran logical unit numbers 51, 90, 91, 92 and 93 are reserved for use within this subroutine.
 !>
 !> @author J. Ator @date 2009-07-01
@@ -371,7 +371,7 @@ subroutine fdebufr_c ( ofile, lenof, tbldir, lentd, tblfil, lentf, prmstg, lenps
   return
 end subroutine fdebufr_c
 
-!> This subroutine overrides the placeholder subroutine of the same name within the BUFRLIB distribution package.
+!> This subroutine overrides the placeholder subroutine of the same name within the NCEPLIBS-bufr distribution package.
 !>
 !> Given the data category for a BUFR message, this subroutine opens the appropriate DX BUFR tables file to use in
 !> reading/decoding the message.
