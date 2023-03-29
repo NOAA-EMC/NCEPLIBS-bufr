@@ -43,9 +43,15 @@ PROGRAM CMPBQM
   !  ------------------------
 
   call getarg(1,file); file=trim(adjustl(file))
-  if (file == '') call bort('Usage: "cmpbqm <prepbufrfile>" will print prep inventory by variable, report type, and qc mark')
+  if (file == '') then 
+     print *, 'Usage: Usage: cmpbqm <prepbufrfile> will print prep inventory by variable, report type, and qc mark'
+     call exit(2)
+  endif
   inquire(file=file,exist=exist)
-  if (.not.exist) call bort(trim(file)//' does not exist')
+  if (.not.exist) then
+     print *, trim(file)//' does not exist'
+     call exit(3)
+  endif
 
   open(lubfr,file=file,form='unformatted')
   CALL OPENBF(LUBFR,'IN',LUBFR)

@@ -1,17 +1,33 @@
 #!/bin/bash
-# This is a test for NCEPLIBS-bufr.
-# Test script to test cmpbqm utility.
+# This is a test script for NCEPLIBS-bufr, to runs some tests of the cmpbqm utility.
+#
 # Jack Woollen 2022-02-18
 
 set -eu
 
-cmd=$1
-outfile=$2
-reffile=$3
+# Get the base directory for the tests, then cd to that directory.
+basedir="`dirname $0`/../test"
+cd ${basedir}
 
-rc="-1"
-$cmd > $outfile && diff -w $outfile $reffile
-rc=${?}
+# Test #1, reading input prepbufr file.
+args_1="testfiles/data/prepbufr"
+outfile_1=testrun/cmpbqm_1.out
+../utils/cmpbqm ${args_1} > ${outfile_1} && diff -w ${outfile_1} testfiles/testoutput/cmpbqm.out
+[[ ${?} -ne 0 ]] && exit 1
 
-exit $rc
+# We expect some of the following tests may return a non-zero exit code, but we don't want
+# to immediately exit the script when that happens.
+set +e
 
+# Test #2, for wrong number of arguments.
+outfile_2=testrun/cmpbqm_2.out
+../utils/cmpbqm > ${outfile_2}
+[[ ${?} -ne 2 || `grep -c "Usage: cmpbqm <prepbufrfile>" ${outfile_2}` -ne 1 ]] && exit 2
+
+# Test #3, for non-existent input file.
+outfile_3=testrun/cmpbqm_3.out
+../utils/cmpbqm BUFRLIB_DUMMY > ${outfile_3}
+[[ ${?} -ne 3 || `grep -c "does not exist" ${outfile_3}` -ne 1 ]] && exit 3
+
+# Success!
+exit 0

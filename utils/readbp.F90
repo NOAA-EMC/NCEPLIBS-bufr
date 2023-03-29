@@ -114,14 +114,16 @@
       iarg=iarg+1
       enddo
 
-
-! check if file exists, then open it, else abort
+! check if file exists, then open it, else exit
 
       narg=0
       if(file=='nofile') goto 1
       file = trim(adjustl(file))
       inquire(file=file,exist=exist)
-      if (.not.exist) call bort(trim(file)//' does not exist')
+      if (.not.exist) then
+         print *, trim(file)//' does not exist'
+         call exit(3)
+      endif
 
 !  open the bufr input file
 !  ------------------------
