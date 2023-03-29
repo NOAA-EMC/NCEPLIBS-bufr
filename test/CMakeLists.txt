@@ -109,7 +109,7 @@ list(APPEND test_c_interface_srcs
   test_c_interface_2.c
 )
 
-# Here's a C test.
+# test_c_misc test.
 set(test_name test_c_misc)
 add_executable(${test_name} ${test_name}.c)
 add_dependencies(${test_name} bufr_4)
@@ -136,7 +136,7 @@ foreach(test_script ${test_scripts})
     ${CMAKE_BINARY_DIR}/bin/${test_script} )
 endforeach()
 
-# Create our IN and OUT tests, plus any other tests we want to run.
+# Create Fortran API tests, plus any other tests we want to run.
 foreach(kind ${test_kinds})
   create_test_plain(test_misc ${kind})
   foreach(innum RANGE 1 10)
@@ -158,35 +158,21 @@ foreach(test_src ${test_c_interface_srcs})
   add_test(NAME ${test} COMMAND ${CMAKE_BINARY_DIR}/test/${test_exe})
 endforeach()
 
-# Test debufr utility
-add_test(NAME test_debufr COMMAND ${CMAKE_BINARY_DIR}/bin/test_debufr.sh)
+# These are the utilities to be tested.
+list(APPEND utils
+  debufr
+  gettab
+  sinv
+  binv
+  split_by_subset
+  readbp
+  readmp
+  cmpbqm
+  xbfmg
+)
 
-# Test gettab utility
-add_test(NAME test_gettab COMMAND ${CMAKE_BINARY_DIR}/bin/test_gettab.sh)
-
-# Test sinv utility
-add_test(NAME test_sinv COMMAND ${CMAKE_BINARY_DIR}/bin/test_sinv.sh)
-
-# Test binv utility
-add_test(NAME test_binv COMMAND ${CMAKE_BINARY_DIR}/bin/test_binv.sh)
-
-# Test split_by_subset utility
-add_test(NAME test_split_by_subset COMMAND ${CMAKE_BINARY_DIR}/bin/test_split_by_subset.sh)
-
-# Test readbp utility
-add_test(NAME test_readbp 
-  COMMAND ${CMAKE_BINARY_DIR}/bin/test_readbp.sh "${CMAKE_BINARY_DIR}/utils/readbp -n testfiles/data/prepbufr2.ref" "testrun/readbp.out" "testfiles/testoutput/readbp.out"
-  )
-
-# Test readmp utility
-add_test(NAME test_readmp 
-  COMMAND ${CMAKE_BINARY_DIR}/bin/test_readmp.sh "${CMAKE_BINARY_DIR}/utils/readmp testfiles/data/prepbufr2.ref q" "testrun/readmp.out" "testfiles/testoutput/readmp.out"
-  )
-
-# Test cmpbqm utility
-add_test(NAME test_cmpbqm 
-  COMMAND ${CMAKE_BINARY_DIR}/bin/test_cmpbqm.sh "${CMAKE_BINARY_DIR}/utils/cmpbqm testfiles/data/prepbufr" "testrun/cmpbqm.out" "testfiles/testoutput/cmpbqm.out"
-  )
-
-# Test xbfmg utility
-add_test(NAME test_xbfmg COMMAND ${CMAKE_BINARY_DIR}/bin/test_xbfmg.sh)
+# utility tests
+foreach(util ${utils})
+  set(test test_${util})
+  add_test(NAME ${test} COMMAND ${CMAKE_BINARY_DIR}/bin/${test}.sh)
+endforeach()

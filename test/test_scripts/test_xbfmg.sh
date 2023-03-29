@@ -40,7 +40,7 @@ outfile_3=testrun/xbfmg_3.out
 # Test #4, for -v option.
 outfile_4=testrun/xbfmg_4.out
 ../utils/xbfmg -v > ${outfile_4}
-[[ ${?} -ne 0 || `grep -c "This is xbfmg v.* built with BUFRLIB" ${outfile_4}` -ne 1 ]] && exit 4
+[[ ${?} -ne 0 || `grep -c "This is xbfmg v.* built with NCEPLIBS-bufr" ${outfile_4}` -ne 1 ]] && exit 4
 
 # Test #5, for -h option.
 outfile_5=testrun/xbfmg_5.out

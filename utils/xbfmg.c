@@ -121,7 +121,7 @@ int main( int argc, char *argv[] ) {
             case 'v':
                 bvers( bvstr, sizeof(bvstr) );
                 bvstr[9] = '\0';
-                printf( "This is xbfmg v3.3.0, built with BUFRLIB v%s\n", bvstr );
+                printf( "This is xbfmg v3.3.0, built with NCEPLIBS-bufr v%s\n", bvstr );
                 return 0;
             case 'g':
                 save_GTSbull = 1;
@@ -194,7 +194,7 @@ int main( int argc, char *argv[] ) {
     }
 
     /*
-    **  Call wrdlen function to initialize BUFRLIB and determine machine endianness.
+    **  Call wrdlen function to initialize NCEPLIBS-bufr and determine machine endianness.
     */
     wrdlen( );
 
