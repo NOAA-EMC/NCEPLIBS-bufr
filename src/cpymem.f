@@ -3,16 +3,12 @@ C> @brief Copy a BUFR message.
 C>
 C> @author J. Woollen @date 1994-01-06
 
-C> This subroutine copies a BUFR message from internal arrays in
-C> memory to a specified Fortran logical unit.
+C> Copy a BUFR message from internal arrays to a file.
 C>
 C> This subroutine is similar to subroutine copymg(), except that
 C> it copies a BUFR message from internal arrays in memory to a
 C> specified Fortran logical unit, whereas copymg() copies a BUFR
 C> message from one Fortran logical unit to another.
-C>
-C> @param[in] LUNOT   -- integer: Fortran logical unit number for
-C>                       target BUFR file
 C>
 C> One or more files of BUFR messages should have already been
 C> read into internal arrays in memory via one or more previous
@@ -31,11 +27,13 @@ C> the internal arrays in memory and with logical unit LUNOT must
 C> contain identical definitions for the type of BUFR message to be
 C> copied from the former to the latter.
 C>
-C> @remarks
-C> - This subroutine uses subroutine msgwrt() to write to LUNOT;
+C> This subroutine uses subroutine msgwrt() to write to LUNOT;
 C> therefore, it can be used to transform a copy of the
 C> original BUFR message from memory with any or all of the updates
 C> described in the documentation for subroutine msgwrt().
+C>
+C> @param[in] LUNOT - integer: Fortran logical unit number for
+C> target BUFR file.
 C>
 C> @author J. Woollen @date 1994-01-06
       RECURSIVE SUBROUTINE CPYMEM(LUNOT)

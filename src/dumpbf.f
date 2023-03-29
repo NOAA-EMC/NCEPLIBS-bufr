@@ -4,35 +4,15 @@ C> messages of an NCEP dump file
 C>
 C> @author J. Woollen @date 1996-12-11
 
-C> This subroutine reads and returns the Section 1 date-time from
-C> the first two "dummy" messages of an NCEP dump file, bypassing any
-C> messages at the beginning of the file which may contain embedded DX
-C> BUFR table information.  Normally, the first of these two "dummy"
-C> messages contains the dump center date-time in Section 1, while the
-C> second message contains the dump initiation date-time in Section 1.
-C> Neither of these two "dummy" messages should contain any data
-C> subsets in Section 4.
+C> Read the Section 1 date-time from the first two "dummy" messages of an
+C> NCEP dump file.
 C>
-C> @param[in] LUNIT   -- integer: Fortran logical unit number for BUFR
-C>                       dump file
-C> @param[out] JDATE  -- integer(5): Dump center date-time stored
-C>                       within Section 1 of first "dummy" message:
-C>                       - Index 1 contains the year, in format of
-C>                         either YY or YYYY, depending on the most
-C>                         recent call to subroutine datelen()
-C>                       - Index 2 contains the month
-C>                       - Index 3 contains the day
-C>                       - Index 4 contains the hour
-C>                       - Index 5 contains the minute
-C> @param[out] JDUMP  -- integer(5): Dump initiation date-time stored
-C>                       within Section 1 of second "dummy" message:
-C>                       - Index 1 contains the year, in format of
-C>                         either YY or YYYY, depending on the most
-C>                         recent call to subroutine datelen()
-C>                       - Index 2 contains the month
-C>                       - Index 3 contains the day
-C>                       - Index 4 contains the hour
-C>                       - Index 5 contains the minute
+C> This bypasses any messages at the beginning of the
+C> file which may contain embedded DX BUFR table information. Normally,
+C> the first of these two "dummy" messages contains the dump center
+C> date-time in Section 1, while the second message contains the dump
+C> initiation date-time in Section 1. Neither of these two "dummy"
+C> messages should contain any data subsets in Section 4.
 C>
 C> Logical unit LUNIT must already be associated with a filename
 C> on the local system, typically via a Fortran "OPEN" statement.
@@ -40,6 +20,25 @@ C>
 C> If the subroutine fails to locate either of the two "dummy"
 C> messages within the file pointed to by LUNIT, then the corresponding
 C> JDATE or JDUMP array will be filled with all values set to (-1).
+C>
+C> @param[in] LUNIT - integer: Fortran logical unit number for BUFR
+C> dump file.
+C> @param[out] JDATE - integer(5): Dump center date-time stored
+C> within Section 1 of first "dummy" message:
+C> - Index 1 contains the year, in format of either YY or YYYY,
+C>   depending on the most recent call to subroutine datelen().
+C> - Index 2 contains the month.
+C> - Index 3 contains the day.
+C> - Index 4 contains the hour.
+C> - Index 5 contains the minute.
+C> @param[out] JDUMP  -- integer(5): Dump initiation date-time stored
+C> within Section 1 of second "dummy" message:
+C> - Index 1 contains the year, in format of either YY or YYYY,
+C>   depending on the most recent call to subroutine datelen().
+C> - Index 2 contains the month.
+C> - Index 3 contains the day.
+C> - Index 4 contains the hour.
+C> - Index 5 contains the minute.
 C>
 C> @author J. Woollen @date 1996-12-11
       RECURSIVE SUBROUTINE DUMPBF(LUNIT,JDATE,JDUMP)
