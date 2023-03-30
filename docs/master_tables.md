@@ -1,5 +1,5 @@
 
-## Master BUFR Tables
+# Master BUFR Tables
 @brief Description and format of master BUFR tables files for use with the library
 @anchor dfbfmstab
 
@@ -54,7 +54,7 @@ Now that we've discussed the content and naming conventions for master BUFR tabl
 attention to the actual format of these files:
 
 <div id="TableB">
-### Table B
+## Table B
 
 As described above, two master Table B files (one standard and one local) are required for each BUFR message
 that is to be read and decoded. The BUFRLIB software will scan the identification section (Section 1) of
@@ -156,7 +156,7 @@ the tables subdirectory:
 </div>
 
 <div id="TableD">
-### Table D
+## Table D
 
 As was the case for [Table B](#TableB), two master Table D files (one standard and one local) are also
 required for each BUFR message that is to be read and decoded, and these files must also exist within
@@ -278,7 +278,7 @@ distribution package for the software, within the tables subdirectory:
 </div>
 
 <div id="CodeFlag">
-### Code/Flag Tables
+## Code/Flag Tables
 
 Unlike for [Table B](#TableB) and [Table D](#TableD), master Code/Flag tables are optional when
 the IO='SEC3' option is specified during a call to subroutine openbf() for the reading/decoding

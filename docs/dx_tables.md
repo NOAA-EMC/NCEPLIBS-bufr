@@ -1,5 +1,5 @@
 
-## DX BUFR Tables
+# DX BUFR Tables
 @brief Description and format of DX BUFR tables files for use with the library
 @anchor dfbftab
 
@@ -11,7 +11,7 @@ further detail below.
 For the purposes of this tutorial, we'll use the following sample DX BUFR tables file
 and refer back to it at several points throughout the remainder of the discussion:
 
-### Sample DX BUFR tables file
+## Sample DX BUFR tables file
 
 <pre>
 .------------------------------------------------------------------------------.
@@ -538,7 +538,7 @@ our [sample DX BUFR tables file](#bftab) in order to better illustrate the conce
 </div>
 
 <div id="section1">
-### Section 1
+## Section 1
 
 As previously mentioned, the first section of a BUFR tables file is where all Table A, B and D
 mnemonics are initially declared, assigned a unique FXY number, and given a short free-form text
@@ -615,7 +615,7 @@ from Table D mnemonics by the software.
 </div>
 
 <div id="section2">
-### Section 2
+## Section 2
 
 Now, let's move on to the second section of a DX BUFR tables file. As already stated, this section
 is used to define, for each Table A and Table D mnemonic that was previously declared in the
@@ -965,7 +965,7 @@ corresponding value applies.
 </div>
 
 <div id="section3">
-### Section 3
+## Section 3
 
 It's now time to move on to the third and final section of a DX BUFR tables file. As we mentioned earlier,
 this section is used to define the scale factor, reference value, data width, and units for all of the Table B
