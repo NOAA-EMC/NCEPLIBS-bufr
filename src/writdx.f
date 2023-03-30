@@ -14,8 +14,7 @@ C> these internal arrays.
 C>
 C> @param[in] lunit - integer: fortran logical unit number for BUFR
 C> file being written.
-C> @param[in] lun - integer: i/o stream index into internal memory
-C> arrays.
+C> @param[in] lun - integer: file ID of open BUFR file.
 C> @param[in] lundx - integer: fortran logical unit number containing
 C> dictionary table information to be used (by readdx()) to create
 C> internal tables written to lunit; if set equal to lunit, this
