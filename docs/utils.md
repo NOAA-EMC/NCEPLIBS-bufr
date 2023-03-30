@@ -1,6 +1,9 @@
 
 # Utilities
 
+The NCEPLIBS-bufr library includes some command line utilities which
+operate on BUFR files.
+
 | Utility | Description   |
 |---------|--------------------------------------------------------------------------|
 | [debufr](#debufr) | Read BUFR file and write verbose listing of contents |
