@@ -1,21 +1,25 @@
 C> @file
-C> @brief Write DX BUFR tables messages to the beginning of an output BUFR file.
-c>
+C> @brief Write DX BUFR tables messages to the beginning of a
+C> BUFR file.
+C>
 C> @author Woollen @date 1994-01-06
 
+C> Write DX BUFR tables messages to the beginning of a BUFR file.
+C>
 C> This subroutine writes BUFR table (dictionary) messages to
 C> the beginning of an output BUFR file in lunit. The table messages
 C> are read from arrays in internal memory (module @ref moda_tababd).
 C> An initial call to BUFR archive library subroutine readdx() generates
 C> these internal arrays.
 C>
-C>
-C> @param[in]  lunit -- integer: fortran logical unit number for BUFR file being written
-C> @param[in]  lun   -- integer: i/o stream index into internal memory arrays
-C> @param[in]  lundx -- integer: fortran logical unit number containing
-C>                               dictionary table information to be used (by readdx()) to
-C>                               create internal tables written to lunit;
-C>                               if set equal to lunit, this subroutine calls bort()
+C> @param[in] lunit - integer: fortran logical unit number for BUFR
+C> file being written.
+C> @param[in] lun - integer: i/o stream index into internal memory
+C> arrays.
+C> @param[in] lundx - integer: fortran logical unit number containing
+C> dictionary table information to be used (by readdx()) to create
+C> internal tables written to lunit; if set equal to lunit, this
+C> subroutine calls bort().
 C>
 C> @author Woollen @date 1994-01-06
 

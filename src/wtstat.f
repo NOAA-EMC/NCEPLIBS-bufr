@@ -1,9 +1,10 @@
 C> @file
-C> @brief Update the status of a system file with respect to the BUFRLIB software.
+C> @brief Open a BUFR file, or update file status.
 C>
 C> @author J. Woollen @date 1994-01-06
-C>
 
+C> Open a BUFR file, or update file status.
+C>
 C> This subroutine can be used to connect or disconnect a specified
 C> Fortran logical unit number to/from the BUFRLIB software, and it
 C> can also be used to set or reset the internal message status
@@ -13,7 +14,7 @@ C> @note Before this subroutine is called to connect any LUNIT to the
 C> software, a previous call should have been made to subroutine
 C> status() to confirm that internal space is available to connect
 C> the associated file, as well as to obtain an LUN value to use
-C> in connecting it.  Once a file is connected, the corresponding
+C> in connecting it. Once a file is connected, the corresponding
 C> LUNIT and LUN values remain linked to each other for as
 C> long as the file is connected to the software.
 C>
