@@ -104,6 +104,5 @@ writing/encoding BUFR data:
 </tr>
 </table>
 
-Many of the above subroutines and functions can also be accessed via a separate
-[Python API](https://noaa-emc.github.io/NCEPLIBS-bufr/python/index.html).
+
 
