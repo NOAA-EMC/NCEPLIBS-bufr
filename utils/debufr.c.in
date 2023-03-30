@@ -25,7 +25,7 @@
  * @param tblfil - File containing DX BUFR table information for decoding
  * @param lentf - Length of tblfil string
  * @param prmstg - String of up to 20 comma-separated PARAMETER=VALUE pairs to be
- *                 used for dynamically allocating memory withint the BUFRLIB
+ *                 used for dynamically allocating memory withint the NCEPLIBS-bufr
  * @param lenps - Length of prmstg string
  * @param basic  - Indicates whether to only decode and print the contents of Sections 0-3
  * @param forcemt - Indicates whether to ignore embedded DX BUFR tables and force the
@@ -81,10 +81,10 @@ void prtusage( char *prgnam ) {
     printf( "     prmstg   string of comma-separated PARAMETER=VALUE pairs, up to a\n" );
     printf( "              maximum of 20.  For each pair, the dynamic allocation\n" );
     printf( "              PARAMETER will be set to VALUE within the underlying\n" );
-    printf( "              BUFRLIB software, overriding the default value that would\n" );
+    printf( "              NCEPLIBS-bufr software, overriding the default value that would\n" );
     printf( "              otherwise be used.  A complete list of parameters that can\n" );
     printf( "              be dynamically sized is included within the documentation\n" );
-    printf( "              for BUFRLIB function isetprm.\n\n" );
+    printf( "              for NCEPLIBS-bufr function isetprm.\n\n" );
     printf( "    bufrfile  [path/]name of BUFR file to be decoded\n\n" );
 }
 
@@ -146,10 +146,10 @@ void prtusage( char *prgnam ) {
  *       prmstg    string of comma-separated PARAMETER=VALUE pairs, up to a
  *                 maximum of 20.  For each pair, the dynamic allocation
  *                 PARAMETER will be set to VALUE within the underlying
- *                 BUFRLIB software, overriding the default value that
+ *                 NCEPLIBS-bufr software, overriding the default value that
  *                 would otherwise be used.  A complete list of parameters
  *                 that can be dynamically sized is included within the
- *                 documentation for BUFRLIB function isetprm().
+ *                 documentation for NCEPLIBS-bufr function isetprm().
  *
  *       bufrfile  [path/]name of BUFR file to be decoded
  * </pre>
@@ -202,7 +202,7 @@ int main( int argc, char *argv[ ] ) {
                         break;
                     }
                 }
-                printf( "This is debufr v4.0.0, built with BUFRLIB v%s\n", bvstr );
+                printf( "This is debufr v4.0.0, built with NCEPLIBS-bufr v%s\n", bvstr );
                 return 0;
             case 'h':
                 printf( "\nPROGRAM %s\n", argv[0] );

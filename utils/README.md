@@ -76,10 +76,10 @@ Usage:
        prmstg    string of comma-separated PARAMETER=VALUE pairs, up to a
                  maximum of 20.  For each pair, the dynamic allocation
                  PARAMETER will be set to VALUE within the underlying
-                 BUFRLIB software, overriding the default value that
+                 NCEPLIBS-bufr software, overriding the default value that
                  would otherwise be used.  A complete list of parameters
                  that can be dynamically sized is included within the
-                 documentation for BUFRLIB function isetprm().
+                 documentation for NCEPLIBS-bufr function isetprm().
 
        bufrfile  [path/]name of BUFR file to be decoded
 </pre>
