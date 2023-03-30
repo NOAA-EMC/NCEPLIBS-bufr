@@ -3,7 +3,7 @@ C> @brief Write a long character string (greater than 8 bytes) to a data subset.
 C>
 C> @author J. Woollen @author J. Ator @date 2003-11-04
 
-C> This subroutine writes a long character string (greater than 8 bytes)to a data subset.
+C> Write a long character string (greater than 8 bytes) to a data subset.
 C>
 C> The data subset should have already been written into a BUFR message before
 C> calling this subroutine to write a long character string into the subset.
@@ -29,11 +29,10 @@ C> prior to calling one of the
 C> [subset-writing subroutines](@ref hierarchy)
 C> for the data subset.
 C>
-C> @param[in] LUNIT - integer: Fortran logical unit number for BUFR file
-C> @param[in] CHR - character*(*): Value corresponding to STR
+C> @param[in] LUNIT - integer: Fortran logical unit number for BUFR file.
+C> @param[in] CHR - character*(*): Value corresponding to STR.
 C> @param[in] STR - character*(*): Table B mnemonic of long character
-C>                     string to be written, possibly supplemented
-C>                     with an ordinal occurrence notation
+C> string to be written, possibly supplemented with an ordinal occurrence notation.
 C>
 C> @author J. Woollen @author J. Ator @date 2003-11-04
 
