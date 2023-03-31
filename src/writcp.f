@@ -3,6 +3,8 @@ C> @brief Write a data subset into a BUFR message using compression.
 C>
 C> @author J. Woollen @date 2002-05-14
 
+C> Write a data subset into a BUFR message using compression.
+C>
 C> This subroutine is similar to subroutine writsb(), except that
 C> when the subset is encoded and packed into the current message
 C> for the BUFR file associated with logical unit LUNIT, it is
@@ -18,7 +20,7 @@ C> call subroutines cmpmsg() and writsb() directly; however, this
 C> subroutine is still supported within the BUFRLIB software for
 C> backwards-compatibility with certain legacy application programs.
 C>
-C> @param[in] lunit - integer: Fortran logical unit number for BUFR file
+C> @param[in] lunit - integer: Fortran logical unit number for BUFR file.
 C>
 C> @author J. Woollen @date 2002-05-14
 

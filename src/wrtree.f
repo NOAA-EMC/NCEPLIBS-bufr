@@ -3,6 +3,8 @@ C> @brief Pack a BUFR data subset.
 C>
 C> @author J. Woollen @date 1994-01-06
 
+C> Pack a BUFR data subset.
+C>
 C> This subroutine converts user numbers in the val array into scaled integers
 C> and packs them into bit strings in the ibit subset output buffer.
 C>

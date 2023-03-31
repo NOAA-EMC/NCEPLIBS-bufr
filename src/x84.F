@@ -4,9 +4,8 @@ C> values.
 C>
 C> @author J. Woollen @date 2022-10-12
 
-C> This subroutine reads an array containing a specified number
-C> of 8-byte integer values and then re-encodes them as a corresponding
-C> array of 4-byte integer values.
+C> Encode one or more 8-byte integer values as 4-byte integer
+C> values.
 C>
 C> @note IIN8 and IOUT4 may be the same array.
 C>
