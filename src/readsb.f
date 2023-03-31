@@ -15,11 +15,13 @@ C> Whenever this subroutine returns with IRET = 0, this indicates that a
 C> new BUFR data subset (i.e. report) was successfully read into internal
 C> arrays within the BUFRLIB software, and from where it can be
 C> manipulated or further parsed via calls to any of the [values-reading
-C> subroutines](@ref hierarchy).  If the subroutine returns with IRET =
-C> -1 there are no more data subsets available within the current
-C> message; a new call needs to be made to one of the [message-reading
-C> subroutines](@ref hierarchy) in order to read in the next message from
-C> logical unit LUNIT.
+C> subroutines](@ref hierarchy).
+C>
+C> If the subroutine returns an IRET of -1 there are no more data
+C> subsets available within the current message; a new call needs to
+C> be made to one of the [message-reading subroutines](@ref
+C> hierarchy) in order to read in the next message from logical unit
+C> LUNIT.
 C>
 C> @param[in] LUNIT - integer: Fortran logical unit number for BUFR file.
 C> @param[out] IRET - integer: return code:
