@@ -75,5 +75,5 @@ C  --------------
 C  EXIT
 C  ----
 
-100   RETURN
+      RETURN
       END

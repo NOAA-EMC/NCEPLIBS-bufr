@@ -71,7 +71,7 @@ C  ---------------------------------------
       IF(INODE(LUN).EQ.0) THEN
         SUBSET = '        '
       ELSE
-        SUBSET = TAG(INODE(LUN))
+        SUBSET = TAG(INODE(LUN))(1:8)
       ENDIF
       JDATE  = IDATE(LUN)
 

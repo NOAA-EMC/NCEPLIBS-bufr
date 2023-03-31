@@ -19,7 +19,7 @@ C>
 C> Logical unit LUNOT should have already been opened for output
 C> operations via a previous call to subroutine openbf(), but there
 C> should not be any BUFR message already open for output within the
-C> internal arrays for LUNOT via a previous call to one of the BUFRLIB
+C> internal arrays for LUNOT via a previous call to one of the
 C> [message-writing subroutines](@ref hierarchy).
 C>
 C> The [DX BUFR Table information](@ref dfbftab) associated with
@@ -80,7 +80,7 @@ C  -----------------------
 C  MAKE SURE BOTH FILES HAVE THE SAME TABLES
 C  -----------------------------------------
 
-      SUBSET = TAG(INODE(LIN))
+      SUBSET = TAG(INODE(LIN))(1:8)
 c  .... Given SUBSET, returns MTYP,MSBT,INOD
       CALL NEMTBA(LOT,SUBSET,MTYP,MSBT,INOD)
       IF(INODE(LIN).NE.INOD) THEN

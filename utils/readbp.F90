@@ -98,7 +98,7 @@
          elseif(file(2:2)=='r') then
            iarg=iarg+1; call getarg(iarg,val); read(val,*)irt
          elseif(file(2:2)=='m') then
-           iarg=iarg+1; call getarg(iarg,val); msg=val
+           iarg=iarg+1; call getarg(iarg,val); msg=val(1:8)
          elseif(file(2:2)=='d') then
            iarg=iarg+1; dump=.true.
          elseif(file(2:2)=='h') then
@@ -246,7 +246,7 @@
 !  HERE WHEN ALL MESSAGES HAVE BEEN READ
 !  -------------------------------------
 
-100   STOP
+      STOP
       END program
 
       !> Print long lines to stdout using advance=no format clause.

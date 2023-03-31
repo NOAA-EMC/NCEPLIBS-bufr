@@ -12,7 +12,7 @@ C> previous call to subroutine openbf()
 C>
 C> Whenever this subroutine returns successfully, this indicates
 C> that a new data subset was successfully read into internal arrays
-C> within the BUFRLIB software, and that subsequent calls can
+C> within the NCEPLIBS-bufr software, and that subsequent calls can
 C> immediately be made to any of the various
 C> [values-reading subroutines](@ref hierarchy).
 C>
@@ -21,16 +21,12 @@ C> DX BUFR table messages which may be present in the file.
 C> In other words, a value of 12 for IMSG means to read the 12th
 C> message which contains actual report data.
 C>
-C> @param[in] LUNIT  -- integer: Fortran logical unit number for
-C>                      BUFR file
-C> @param[in] IMSG   -- integer: Number of BUFR message to be
-C>                      read from the BUFR file, counting from the
-C>                      beginning of the file, but <b>not</b>
-C>                      counting any DX BUFR table messages which
-C>                      may be present in the file
-C> @param[in] ISUB   -- integer: Number of data subset to be
-C>                      read from the (IMSG)th BUFR message,
-C>                      counting from the beginning of the message
+C> @param[in] LUNIT - integer: Fortran logical unit number for BUFR file.
+C> @param[in] IMSG - integer: Number of BUFR message to be read from the
+C> BUFR file, counting from the beginning of the file, but <b>not</b>
+C> counting any DX BUFR table messages which may be present in the file
+C> @param[in] ISUB - integer: Number of data subset to be read from the
+C> (IMSG)th BUFR message, counting from the beginning of the message
 C>
 C> @author J. Woollen @date 2003-11-04
       RECURSIVE SUBROUTINE RDMGSB(LUNIT,IMSG,ISUB)
@@ -86,10 +82,6 @@ C  EXITS
 C  -----
 
       RETURN
-900   WRITE(BORT_STR,'("BUFRLIB: RDMGSB - ERROR READING MESSAGE '//
-     . '(RECORD) NUMBER",I5," IN INPUT BUFR FILE CONNECTED TO UNIT",'//
-     . 'I4)')  I,LUNIT
-      CALL BORT(BORT_STR)
 901   WRITE(BORT_STR,'("BUFRLIB: RDMGSB - HIT END OF FILE BEFORE '//
      . 'READING REQUESTED MESSAGE NO.",I5," IN BUFR FILE CONNECTED TO'//
      . ' UNIT",I4)')  IMSG,LUNIT

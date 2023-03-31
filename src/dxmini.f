@@ -7,10 +7,6 @@ C> message, writing all the preliminary information into Sections 0,
 C> 1, 3, 4.  Subroutine wrdxtb() will write the
 C> actual table information into the message.
 C>
-C> @note: Argument LUN is not referenced in this subroutine. It is left
-C> here in case an application program calls this subroutine.
-C>
-C> @param[in] LUN - integer: I/O stream index into internal memory arrays.
 C> @param[out] MBAY - integer: BUFR message.
 C> @param[out] MBYT - integer: length (in bytes) of BUFR message.
 C> @param[out] MB4 - integer: byte number in message of first byte in Section 4.
@@ -19,7 +15,7 @@ C> @param[out] MBB - integer: byte number in message of fifth byte in Section 4.
 C> @param[out] MBD - integer: byte number in message of sixth byte in Section 4.
 C>
 C> @author Woollen @date 1994-01-06
-      SUBROUTINE DXMINI(LUN,MBAY,MBYT,MB4,MBA,MBB,MBD)
+      SUBROUTINE DXMINI(MBAY,MBYT,MB4,MBA,MBB,MBD)
 
       USE MODV_MXMSGL
 

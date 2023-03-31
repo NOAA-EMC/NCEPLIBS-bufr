@@ -74,12 +74,12 @@ C  ---------------------------------------------------
       DO I=1,NINIB
       NTBB(LUN) = NTBB(LUN)+1
       IDNB(I,LUN) = IFXY(INIB(1,I))
-      TABB(I,LUN)(  1:  6) = INIB(1,I)
+      TABB(I,LUN)(  1:  6) = INIB(1,I)(1:6)
       TABB(I,LUN)(  7: 70) = INIB(2,I)
       TABB(I,LUN)( 71: 94) = INIB(3,I)
-      TABB(I,LUN)( 95: 98) = INIB(4,I)
+      TABB(I,LUN)( 95: 98) = INIB(4,I)(1:4)
       TABB(I,LUN)( 99:109) = INIB(5,I)
-      TABB(I,LUN)(110:112) = INIB(6,I)
+      TABB(I,LUN)(110:112) = INIB(6,I)(1:3)
       ENDDO
 
       DO I=2,NINID

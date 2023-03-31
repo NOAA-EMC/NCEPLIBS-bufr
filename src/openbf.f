@@ -286,7 +286,7 @@ C  ----------------------------------------------------
 C     FILE OPENED FOR INPUT IS EMPTY - LET READMG OR READERME GIVE
 C     THE BAD NEWS LATER
 
-200   REWIND LUNIT
+      REWIND LUNIT
       IF(IPRT.GE.0) THEN
       CALL ERRWRT('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
       WRITE ( UNIT=ERRSTR, FMT='(A,I3,A)' )
