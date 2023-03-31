@@ -1,42 +1,41 @@
 C> @file
-C> @brief Get information about a descriptor, based on the FXY value
+C> @brief Get information about a descriptor, based on the WMO
+C> bit-wise representation of an FXY value.
 C>
 C> @author J. Woollen @date 1994-01-06
 
+C> Get information about a descriptor, based on the WMO
+C> bit-wise representation of an FXY value.
+C>
 C> This subroutine returns information about a descriptor from the
 C> internal DX BUFR tables, based on the bit-wise representation of
 C> the FXY value associated with that descriptor.
 C>
-C> @param[in] LUN -- integer: Internal I/O stream index associated
-C>                   with DX BUFR tables
-C> @param[in] IDN -- integer: Bit-wise representation of FXY value
-C>                   for descriptor
-C> @param[out] NEMO -- character*(*): Mnemonic associated with IDN
-C> @param[out] TAB -- character: Type associated with IDN
-C>                     - 'B' = Table B descriptor
-C>                     - 'D' = Table D descriptor
-C>                     - 'C' = Table C operator
-C>                     - 'R' = Replication descriptor
-C>                     - 'F' = Replication factor
-C> @param[out] IRET -- integer:
-C>                     - Positional index of IDN within internal
-C>                       Table B, if TAB = 'B'
-C>                     - Positional index of IDN within internal
-C>                       Table D, if TAB = 'D'
-C>                     - The X portion of the FXY value in IDN, if
-C>                       TAB = 'C'
-C>                     - ((-1) * the Y portion of the FXY value in IDN),
-C>                       if TAB = 'R' and the replication is regular
-C>                       (i.e. non-delayed)
-C>                     - 5, if TAB = 'R' or TAB = 'F' and the
-C>                       replication is 1-bit delayed
-C>                     - 4, if TAB = 'R' or TAB = 'F' and the
-C>                       replication is 8-bit delayed (stack)
-C>                     - 3, if TAB = 'R' or TAB = 'F' and the
-C>                       replication is 8-bit delayed
-C>                     - 2, if TAB = 'R' or TAB = 'F' and the
-C>                       replication is 16-bit delayed
-C>                     - 0, otherwise
+C> For an description of the WMO bit-wise representation of the FXY
+C> value, see ifxy().
+C>
+C> @param[in] LUN - integer: Internal I/O stream index associated
+C> with DX BUFR tables.
+C> @param[in] IDN - integer: WMO bit-wise representation of FXY value
+C> for descriptor.
+C> @param[out] NEMO - character*(*): Mnemonic associated with IDN.
+C> @param[out] TAB - character: Type associated with IDN:
+C> - 'B' Table B descriptor
+C> - 'D' Table D descriptor
+C> - 'C' Table C operator
+C> - 'R' Replication descriptor
+C> - 'F' Replication factor
+C> @param[out] IRET - integer:
+C> - Positional index of IDN within internal Table B, if TAB = 'B'.
+C> - Positional index of IDN within internal Table D, if TAB = 'D'.
+C> - The X portion of the FXY value in IDN, if TAB = 'C'.
+C> - ((-1) * the Y portion of the FXY value in IDN), if TAB = 'R' and the
+C>   replication is regular (i.e. non-delayed).
+C> - 5 if TAB = 'R' or TAB = 'F' and the replication is 1-bit delayed.
+C> - 4 if TAB = 'R' or TAB = 'F' and the replication is 8-bit delayed (stack).
+C> - 3 if TAB = 'R' or TAB = 'F' and the replication is 8-bit delayed.
+C> - 2 if TAB = 'R' or TAB = 'F' and the replication is 16-bit delayed.
+C> - 0 otherwise
 C>
 C> @author J. Woollen @date 1994-01-06
       SUBROUTINE NUMTAB(LUN,IDN,NEMO,TAB,IRET)
