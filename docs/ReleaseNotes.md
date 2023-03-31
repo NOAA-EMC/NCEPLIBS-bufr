@@ -1,8 +1,8 @@
 
-## Release Notes
+# Release Notes
 @brief Detailed description of changes included within each new release.
 
-### Version 12.0.0 - ???? ??, ????
+## Version 12.0.0 - ???? ??, ????
 
 * The library has been consolidated into a single build using 4-byte
 integers.  It can still be linked to application codes which are compiled
@@ -20,7 +20,7 @@ arguments containing event program codes as integers, rather than
 continuing to pass them as real numbers.
 [[Issue #78](https://github.com/NOAA-EMC/NCEPLIBS-bufr/issues/78)]
 
-### Version 11.7.1 - August 26, 2022
+## Version 11.7.1 - August 26, 2022
 
 * More extensions were added to support the query interface for C++ IODA
 converters.
@@ -31,7 +31,7 @@ decoding of values larger than 32 bits.
 [[Issue #195](https://github.com/NOAA-EMC/NCEPLIBS-bufr/issues/195)]
 
 
-### Version 11.7.0 - May 19, 2022
+## Version 11.7.0 - May 19, 2022
 
 * Extensions were added to support a new query interface for C++ IODA
 converters.
@@ -47,7 +47,7 @@ certain length.
 [[Issue #182](https://github.com/NOAA-EMC/NCEPLIBS-bufr/issues/182)]
 
 
-### Version 11.6.0 - November 10, 2021
+## Version 11.6.0 - November 10, 2021
 
 * All of the library builds now use dynamic allocation, so the "_DA" suffix
 has now been correspondingly removed from the names of the library builds.
@@ -83,7 +83,7 @@ between Fortran and C.
 [[Issue #164](https://github.com/NOAA-EMC/NCEPLIBS-bufr/issues/164)]
 
 
-### Version 11.5.0 - April 26, 2021
+## Version 11.5.0 - April 26, 2021
 
 * Subroutine ufbseq() was modified for cases where the number of available
 levels exceeds the amount of user-provided array space when reading from an
@@ -131,13 +131,13 @@ removed from the library.
 [[Issue #107](https://github.com/NOAA-EMC/NCEPLIBS-bufr/issues/107)]
 
 
-### Version 11.4.0 - November 20, 2020
+## Version 11.4.0 - November 20, 2020
 
 * A Python API was added to the library, for use with Python applications.
 [[Issue #61](https://github.com/NOAA-EMC/NCEPLIBS-bufr/issues/61)]
 
 
-### Version 11.3.2 - July 16, 2020
+## Version 11.3.2 - July 16, 2020
 
 * A user-friendly sanity check was added to subroutine closbf(), in case an
 application program is using a dynamic-allocation build of the library and
@@ -146,13 +146,13 @@ previously abort in such cases, but it will now just print a warning message.
 [[Issue #9](https://github.com/NOAA-EMC/NCEPLIBS-bufr/issues/9)]
 
 
-### Version 11.3.1 - March 3, 2020
+## Version 11.3.1 - March 3, 2020
 
 * Subroutine stndrd() was patched to fix an internal calculation for messages
 containing only one subset. [[Issue #51](https://github.com/NOAA-EMC/NCEPLIBS-bufr/issues/51)]
 
 
-### Version 11.3.0 - May 21, 2019
+## Version 11.3.0 - May 21, 2019
 
 * A bug was fixed in the bitmap processing, so that each Table A mnemonic in
 the jump/link table now tracks its own individual set of underlying Table C
@@ -204,7 +204,7 @@ year greater than 20; otherwise add 2000.  The new window will be 1941-2040,
 i.e. add 1900 to any 2-digit year greater than 40; otherwise add 2000.
 
 
-### Version 11.2.0 - April 11, 2017
+## Version 11.2.0 - April 11, 2017
 
 * Support was added for the processing of 2-2X-255, 2-3X-255 and 2-4X-255
 marker operators when reading BUFR messages, including when such operators
@@ -242,7 +242,7 @@ needed for compatibility with the Cray programming environment on the s_64
 maximums being exceeded and corrupted output when reading BUFR files.
 
 
-### Version 11.1.0 - April 27, 2016
+## Version 11.1.0 - April 27, 2016
 
 * Subroutine wrcmps() was modified to fix a bug involving the encoding of long
 character strings (via subroutine writlc()) into compressed messages which also
@@ -253,14 +253,14 @@ overlarge subsets which don''t get written to the output stream.  This ensures
 that such subsets are properly flushed from internal arrays.
 
 
-### Version 11.0.2
+## Version 11.0.2
 
 * The build script makebufrlib.sh was updated for compatibility with the Cray
 programming environment, along with module MODA_MSTABS and functions icbfms()
 and isize().  All changes remain compatible with other supported environments.
 
 
-### Version 11.0.1
+## Version 11.0.1
 
 * Subroutines cpyupd(), ufbmem(), ufbmex() and ufbovr() were patched to include the
 proper declaration for IPRT, which is a global variable controlling the
@@ -274,7 +274,7 @@ not being saved between successive calls to this subroutine and which in rare
 cases could result in the loss of output subsets.
 
 
-### Version 11.0.0 - April 27, 2015
+## Version 11.0.0 - April 27, 2015
 
 * A new subroutine rtrcptb() was added which works just like subroutine rtrcpt(),
 except that it operates on a BUFR message passed directly to it by a call
@@ -361,7 +361,7 @@ associated fields to Table D sequence descriptors.
 strings encoded as REAL*8 10E10 values prior to version 10.2.0 of the library.
 
 
-### Version 10.2.5
+## Version 10.2.5
 
 * Subroutine mesgbf() was modified to ensure that the input BUFR file is
 always closed before exiting the subroutine.
@@ -375,20 +375,20 @@ the filename being opened.
 written into Section 3 of a BUFR message) was increased from 300 to 600.
 
 
-### Version 10.2.4
+## Version 10.2.4
 
 * Configuration files bufrlib.PRM and makebufrlib.sh were updated to
 generate a 4_32 build (4-byte REAL, 4-byte INT, 32-bit compilation) on
 the IBM CCS for version 10.2.3 of the BUFRLIB.
 
 
-### Version 10.2.3 - June 21, 2013
+## Version 10.2.3 - June 21, 2013
 
 * Subroutine rdusdx() was modified to prevent a segfault when trying to read
 DX dictionary information from an empty file.
 
 
-### Version 10.2.2
+## Version 10.2.2
 
 * Subroutine openbf() was modified to fix a bug which caused a segfault in
 certain cases when appending to a BUFR file using the embedded C-language I/O.
@@ -397,13 +397,13 @@ certain cases when appending to a BUFR file using the embedded C-language I/O.
 string to be up to 14 characters when it contains a '#' condition code.
 
 
-### Version 10.2.1
+## Version 10.2.1
 
 * A bug was fixed in the embedded C-language I/O to account for the
 difference in index numbering between Fortran and C arrays.
 
 
-### Version 10.2.0 - October 19, 2012
+## Version 10.2.0 - October 19, 2012
 
 * The makebufrlib.sh script was modified to streamline the endianness check
 and make it more portable.
@@ -464,7 +464,7 @@ the BUFRLIB default "missing" value of 10E10.  A corresponding function
 getbmiss() was also added which returns the current "missing" value in use.
 
 
-### Version 10.1.0 - June 11, 2012
+## Version 10.1.0 - June 11, 2012
 
 * Subroutine ufdump() was modified to fix a bug when checking for the "missing"
 value in long character strings (i.e. longer than 8 bytes).
@@ -507,13 +507,13 @@ replication is used to store descriptor information in these messages.
 for subsets where a Table C operator immediately follows a Table D sequence.
 
 
-### Version 10.0.1
+## Version 10.0.1
 
 * Subroutine rewnbf() was modified to fix a bug which skipped the first data
 message after a file rewind.
 
 
-### Version 10.0.0 - August 12, 2010
+## Version 10.0.0 - August 12, 2010
 
 * Subroutines PKVS1, OVRBS1, NMBYT, READIBM, IREADIBM, READFT, IREADFT and
 MOVA2I, which had been marked as obsolete within a previous version of
@@ -677,7 +677,7 @@ character strings which are identical within each subset of a single
 compressed BUFR message.
 
 
-### May 28, 2008
+## May 28, 2008
 
 * Subroutine BORT_EXIT was modified to fix a faulty ANSI-C declaration.
 This had been silently ignored by the IBM CCS compiler but was a portability
@@ -735,7 +735,7 @@ internal memory) was increased from 50Mb to 75Mb within the "supersized"
 BUFRLIB.
 
 
-### February 6, 2007
+## February 6, 2007
 
 * Several global parameters were increased in "bufrlib.PRM".  Specifically,
 MAXTBA, MAXTBB and MAXTBD (the maximum numbers of internal Table A, B and D
@@ -778,7 +778,7 @@ BUFR message whose message type is set to 11.  This value is reserved for
 internal dictionary messages.
 
 
-### January 31, 2006
+## January 31, 2006
 
 * Documentation was improved and/or clarified within many existing routines
 throughout BUFRLIB.
@@ -949,7 +949,7 @@ write out an uncompressed subset/message regardless of the compression status
 of the input subset/message).
 
 
-### December 21, 2004
+## December 21, 2004
 
 * New subroutines ISTDESC, RESTD, WRDESC, CADN30, STDMSG and STNDRD have been
 added to provide the capability to expand Section 3 of output BUFR messages
@@ -1075,7 +1075,7 @@ not already been called).  These routines do not require this information
 but they may now or someday call other routines that do require it.
 
 
-### November 4, 2003
+## November 4, 2003
 
 This is the first "unified" BUFR Archive Library including components from the
 regular NCEP production machine version (whose implementation history is
@@ -1360,7 +1360,7 @@ missing value (rather than true equality as before) because some missing values
 expanded from "G10.3" to "G15.6".  (See also 29 for UFBDMP.)
 
 
-### May 19, 2003
+## May 19, 2003
 
 The following changes have been made in the BUFR Archive Library:
 
@@ -1407,7 +1407,7 @@ The following libraries are generated on the NCEP IBM Frost and Snow machines:
 * libbufr_d.a -- 8-byte reals, 4-byte integers, 64-bit executable compilation
 
 
-### May 14, 2002
+## May 14, 2002
 
 A number of routines in the BUFR Archive Library have been modified.  These
 changes include:
@@ -1483,7 +1483,7 @@ entry points for checking the BUFR mnemonic table.  Part of conversion of
 entry points to separate subroutines or functions. See number 1 above.
 
 
-### August 15, 2001
+## August 15, 2001
 
 * Parameter MAXMEM (the maximum number of bytes required to store all messages
 internally) was increased from 8 MBYTES TO 16 MBYTES in the following
@@ -1495,7 +1495,7 @@ in (i.e., .gt. array limit passed in), but rather to just process the limiting
 number of reports and print a diagnostic.
 
 
-### September 19, 2000
+## September 19, 2000
 
 A number of routines in the BUFR Archive Library have been modified.  These
 changes include:
@@ -1547,7 +1547,7 @@ Any program that must link to the -O4 BUFR Archive Library when compiled will
 have to modify its makefile.
 
 
-### July 13, 1999
+## July 13, 1999
 
 *  A number of routines in the BUFR Archive Library have been modified to
 increase the number of BUFR files which can be opened at one time from 10 to 32.
@@ -1600,7 +1600,7 @@ subroutine NEMTBB has been modified to call function VALX rather than VAL$.
 * New subroutines UFBSTP and UFBSP added (UFBSP is called by UFBSTP).
 
 
-### December 14, 1998
+## December 14, 1998
 
 * Subroutine MSGUPD was updated to bybass the processing of reports that are
 longer than the length of a BUFR message.  Prior to this change, the BUFR
@@ -1613,7 +1613,7 @@ windowing technique was inadvertently changed to 10 in the previous
 implementation of the BUFR Archive Library.
 
 
-### November 24, 1998
+## November 24, 1998
 
 * Function I4DY and subroutine MSGWRT were changed as a result of final Y2K
 testing of the decoder/ingest system.
@@ -1624,7 +1624,7 @@ testing of the decoder/ingest system.
 Section 4.
 
 
-### October 27, 1998
+## October 27, 1998
 
 * The BUFR Archive Library is being modified to correct problems caused by
 in-lining code with fpp directives.  The following subroutines are being
@@ -1632,7 +1632,7 @@ changed: DATEBF, MVB, RCSTPL, RDMEMS, RDTREE, RDTRER, UFBGET, UFBRW, UFBTAB,
 UFBTAM and UPBB.
 
 
-### August 31, 1998
+## August 31, 1998
 
 * BUFR Archive Library subroutine DATEBF, which returns the center date-time for
 a BUFR data dump file, is being modified to correct an error which lead to the
@@ -1642,7 +1642,7 @@ returned in the sixth argument, in the form YYYYMMDDHH, was correct in the
 previous version of this subroutine.
 
 
-### July 8, 1998
+## July 8, 1998
 
 The new version of the BUFR Archive Library is Y2K compliant, with additional
 changes to support expanded machine independence of the code, and to refine,
@@ -1712,7 +1712,7 @@ OPENBT    A dummy entry point which is relevant to users of the READTJ
           subroutine
 
 
-### April 2, 1998
+## April 2, 1998
 
 * BUFR Archive Library subroutine STRCLN, which initializes the mnemonic string
 cache in the BUFR interface, is being modified to enlarge the cache from 50
@@ -1726,7 +1726,7 @@ modified to operate a bigger cache, and some optimization of the cache search
 algorithm is being made in support of a bigger cache.
 
 
-### September 3, 1997
+## September 3, 1997
 
 * Changes are being made to the BUFR Archive Library to recompile all routines
 without the -ez compiler option.  The removal of this debugging option should
@@ -1738,7 +1738,7 @@ subroutine "standardizes" NCEP BUFR messages for transmission.  It was
 requested to process hurricane location data.
 
 
-### July 29, 1997
+## July 29, 1997
 
 * Three BUFR Archive Library subroutines were modified to update the current
 BUFR version information written into Section 0 of each message:  DXMINI,
@@ -1748,7 +1748,7 @@ MSGINI and MSGWRT.  Version 3 replaces version 2.
 soundings from NESDIS: IRDERM, RDTRER and READERME.
 
 
-### December 17, 1996
+## December 17, 1996
 
 The BUFR Archive Library was modified to make the following changes:
 
@@ -1762,7 +1762,7 @@ The BUFR Archive Library was modified to make the following changes:
            BUFR file is being read.
 
 
-### December 11, 1996
+## December 11, 1996
 
 The following subroutines were modified in the BUFR Archive Library:
 
@@ -1788,7 +1788,7 @@ The following subroutines were modified in the BUFR Archive Library:
            called OPENBT which specifies the location(s) of different tables.
 
 
-### November 25, 1996
+## November 25, 1996
 
 Several routines in the BUFR Archive Library are being modified to provide
 more machine independence.  The data merging routine is being modified
@@ -1797,7 +1797,7 @@ mnemonics are not found, and READMG is being modified to exit gracefully when
 the file is positioned after an end of file
 
 
-### October 9, 1996
+## October 9, 1996
 
 The BUFR Archive Library was modified to include 9 additional routines to
 process ERS scatterometer data (IREADERS, RDTRER, READERS, UNCMPS), perform
@@ -1805,13 +1805,13 @@ fault tolerant reading (IREADFT, READFT), and support report part merging
 (INVMRG, MRGINV, NWORDS).
 
 
-### September 9, 1996
+## September 9, 1996
 
 The BUFR Archive Library was separated into 121 BUFR interface routines,
 which include upgrades and devices for operating the BUFR database.
 
 
-### June 28, 1995
+## June 28, 1995
 
 The BUFR Archive Library was modified to increase the size of internal arrays
 in order to handle bigger files.  Coding was also added in order to process
@@ -1819,14 +1819,14 @@ ERS scatterometer data which is input from compressed BUFR messages (new
 subroutine READERME).
 
 
-### January 10, 1995
+## January 10, 1995
 
 The BUFR Archive Library was modified slightly to allow for changes in the AVN
 and FNL PREPBUFR and Q.C. Processing codes (PREPDATA, CQCBUFR, OIQCBUFR,
 SSIANL).
 
 
-### Original Implementation of BUFR Archive Library - January 6, 1994
+## Original Implementation of BUFR Archive Library - January 6, 1994
 
 Implemented on Cray-YMP as a single monolithic source bufr.f.  Only the AVN
 and FNL PREPBUFR processing and q.c. codes used the BUFR Archive Library
