@@ -3,9 +3,7 @@ C> @brief Encode one or more 4-byte integer values as 8-byte integer values.
 C>
 C> @author J. Woollen @date 2022-10-12
 
-C> This subroutine reads an array containing a specified number
-C> of 4-byte integer values and then re-encodes them as a corresponding
-C> array of 8-byte integer values.
+C> Encode one or more 4-byte integer values as 8-byte integer values.
 C>
 C> @note IIN4 and IOUT8 may be the same array, as long as the underlying
 C> memory contains sufficient space for the equivalent number of 8-byte
