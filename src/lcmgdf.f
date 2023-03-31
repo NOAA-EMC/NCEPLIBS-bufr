@@ -58,6 +58,8 @@ C     Check for I8 integers.
          RETURN
       ENDIF
 
+      IRET = 0
+
 C     Get LUN from LUNIT.
 
       CALL STATUS(LUNIT,LUN,IL,IM)
@@ -77,8 +79,6 @@ C     Check if there's a long character string in the definition.
           RETURN
         ENDIF
       ENDDO
-
-      IRET = 0
 
       RETURN
 900   CALL BORT('BUFRLIB: LCMGDF - INPUT BUFR FILE IS CLOSED, IT MUST'//

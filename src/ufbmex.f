@@ -53,7 +53,8 @@ C> @author J. Woollen @date 2012-01-26
 
       CHARACTER*128 BORT_STR,ERRSTR
 
-      INTEGER       MESG(*), IRET(*)
+      INTEGER MESG(*), IRET(*), LUNIT(*), LUNDX(*), INEW(*)
+      INTEGER MY_LUNIT(1), MY_LUNDX(1), MY_INEW(1)
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
@@ -67,7 +68,7 @@ C  ---------------------
          CALL X84(LUNIT,MY_LUNIT,1)
          CALL X84(LUNDX,MY_LUNDX,1)
          CALL X84(INEW,MY_INEW,1)
-         IF (MY_INEW.EQ.0) THEN
+         IF (MY_INEW(1).EQ.0) THEN
             NMESG = 0
          ELSE
             NMESG = MSGP(0)
@@ -86,7 +87,7 @@ C  ----------------------------------------------------------
 
       CALL OPENBF(LUNIT,'IN',LUNDX)
 
-      IF(INEW.EQ.0) THEN
+      IF(INEW(1).EQ.0) THEN
          MSGP(0) = 0
          MUNIT = 0
          MLAST = 0
@@ -192,7 +193,7 @@ C  --------------------------------------------------
          CALL CLOSBF(LUNIT)
       ELSE
          IF(MUNIT.NE.0) CALL CLOSBF(LUNIT)
-         IF(MUNIT.EQ.0) MUNIT = LUNIT
+         IF(MUNIT.EQ.0) MUNIT = LUNIT(1)
       ENDIF
 
 C  EXITS
@@ -200,6 +201,6 @@ C  -----
 
       RETURN
 900   WRITE(BORT_STR,'("BUFRLIB: UFBMEX - ERROR READING MESSAGE '//
-     . 'NUMBER",I5," INTO MEMORY FROM UNIT",I3)') NMSG+1,LUNIT
+     . 'NUMBER",I5," INTO MEMORY FROM UNIT",I3)') NMSG+1,LUNIT(1)
       CALL BORT(BORT_STR)
       END

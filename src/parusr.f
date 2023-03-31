@@ -86,7 +86,7 @@ C  ---------------------------------------------
 
          VAL     = IVLS(I)
          IVLS(I) = IVLS(J)
-         IVLS(J) = VAL
+         IVLS(J) = NINT(VAL)
       ENDIF
       ENDDO
       ENDDO

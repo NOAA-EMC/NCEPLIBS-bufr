@@ -120,7 +120,7 @@ C         need to check if this node is one of them.
      .          ( TAGN(1:8) .EQ. TAGNRV(JJ) ) .AND.
      .          ( NODE .GE. ISNRV(JJ) ) .AND.
      .          ( NODE .LE. IENRV(JJ) ) ) THEN
-              NREF = NRV(JJ)
+              NREF = INT(NRV(JJ))
               RETURN
             END IF
           END DO

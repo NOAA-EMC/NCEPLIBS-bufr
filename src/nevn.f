@@ -57,7 +57,7 @@ C  -----------------------------------------
       INVN = INVWIN(NDRS,LUN,INV1,INV2)
       IF(INVN.EQ.0) GOTO 900
 
-      NEVN = VAL(INVN,LUN)
+      NEVN = NINT(VAL(INVN,LUN))
       IF(NEVN.GT.I3) GOTO 901
 
 C  SEARCH EACH STACK LEVEL FOR THE REQUESTED NODE AND COPY THE VALUE
@@ -67,7 +67,7 @@ C  -----------------------------------------------------------------
 
       DO L=1,NEVN
         N1 = N2
-        N2 = N2 + VAL(N1,LUN)
+        N2 = N2 + NINT(VAL(N1,LUN))
         DO N=N1,N2
         IF(INV(N,LUN).EQ.NODE) USR(1,1,L) = VAL(N,LUN)
         ENDDO

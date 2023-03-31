@@ -8,9 +8,10 @@ program outtest5
 
   integer*4 ireadns
 
-  integer jdate(5), jdump(5), ii, jtab, nsub, imgdt
+  integer jdate(5), jdump(5), ii, jtab, nsub, imgdt, iost
 
-  character cmgtag*8, tabdb(1000)*128
+  character cmgtag*8
+  character*128, allocatable :: tabdb(:)
 
   print *, 'Testing writing OUT_5 using DUMPBF, GETABDB, UFDUMP, UFBDMP, and DXDUMP'
 
@@ -44,11 +45,14 @@ program outtest5
   open ( unit = 11, file = 'testfiles/OUT_5_infile' )
   call openbf ( 11, 'IN', 11 )
 
+  allocate( tabdb(1000), stat=iost )
+  if ( iost .ne. 0 ) stop 1
   write ( 13, fmt = '(///,A)' ) '------------ GETABDB -----------'
   call getabdb ( 11, tabdb, 1000, jtab )
   do ii = 1, jtab
     write ( 13, fmt = '(A,I4,2A)' ) 'tabdb entry #', ii, ":", tabdb(ii)
   end do
+  deallocate ( tabdb )
 
   ! Write out the internal DX BUFR table.
   write ( 13, fmt = '(///,A,/)' ) '----------- DXDUMP -----------'

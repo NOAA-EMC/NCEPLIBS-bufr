@@ -32,7 +32,7 @@ C  -----------------------------------------
       DO N=1,NVAL(LUN)
       NODE = INV(N,LUN)
       IF(ITP(NODE).EQ.1) THEN
-         IVAL(N) = VAL(N,LUN)
+         IVAL(N) = NINT(VAL(N,LUN))
       ELSEIF(TYP(NODE).EQ.'NUM') THEN
          IF(IBFMS(VAL(N,LUN)).EQ.0) THEN
             IVAL(N) = IPKS(VAL(N,LUN),NODE)

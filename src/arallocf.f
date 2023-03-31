@@ -38,6 +38,8 @@ C> @author J. Ator @date 2014-12-04
         USE MODV_MXTAMC
         USE MODV_MXTCO
         USE MODV_NFILES
+        use modv_maxnc
+        use modv_mxcnem
 
         USE MODA_USRINT
         USE MODA_USRBIT
@@ -72,6 +74,7 @@ C> @author J. Ator @date 2014-12-04
         USE MODA_BITMAPS
         USE MODA_NRV203
         USE MODA_RLCCMN
+        use moda_dscach
 
         CHARACTER*80 ERRSTR
         CHARACTER*36  BRTSTR
@@ -138,6 +141,11 @@ C-----------------------------------------------------------------------
         END IF
 
         BRTSTR = 'BUFRLIB: ARALLOCF FAILED ALLOCATING '
+
+C       moda_dscach arrays.
+
+        allocate( idcach(mxcnem,maxnc), stat=iost )
+        if ( iost .ne. 0 ) call bort( brtstr // 'idcach' )
 
 C       MODA_USRINT arrays.
 

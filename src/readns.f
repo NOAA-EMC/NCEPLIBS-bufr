@@ -17,23 +17,23 @@ C> and close each new BUFR message internally as needed, so that
 C> subsequent calls can immediately be made to any of the various
 C> [values-reading subroutines](@ref hierarchy).
 C>
-C> @param[in] LUNIT   -- integer: Fortran logical unit number for
-C>                       BUFR file
-C> @param[out] SUBSET  -- character*8: Table A mnemonic for type of
-C>                        data subset that was read
-C>                        (see [DX BUFR Tables](@ref dfbftab)
-C>                        for further information about Table A mnemonics)
-C> @param[out] JDATE   -- integer: Date-time stored within Section 1 of
-C>                        BUFR message containing data subset that
-C>                        was read, in format of either
-C>                        YYMMDDHH or YYYYMMDDHH, depending on the most
-C>                        recent call to subroutine datelen()
-C> @param[out] IRET    -- integer: return code
-C>                           - 0 = new BUFR data subset was successfully
-C>                                 read into internal arrays
-C>                           - -1 = there are no more BUFR data subsets
-C>                                 in the file connected to logical unit
-C>                                 LUNIT
+C> @param[in] LUNIT   - integer: Fortran logical unit number for
+C>                      BUFR file
+C> @param[out] SUBSET - character*8: Table A mnemonic for type of
+C>                      data subset that was read
+C>                      (see [DX BUFR Tables](@ref dfbftab)
+C>                      for further information about Table A mnemonics)
+C> @param[out] JDATE  - integer: Date-time stored within Section 1 of
+C>                      BUFR message containing data subset that
+C>                      was read, in format of either
+C>                      YYMMDDHH or YYYYMMDDHH, depending on the most
+C>                      recent call to subroutine datelen()
+C> @param[out] IRET   - integer: return code
+C>                         - 0 = new BUFR data subset was successfully
+C>                               read into internal arrays
+C>                         - -1 = there are no more BUFR data subsets
+C>                                in the file connected to logical unit
+C>                                LUNIT
 C>
 C> @author J. Woollen @date 1994-01-06
       RECURSIVE SUBROUTINE READNS(LUNIT,SUBSET,JDATE,IRET)
@@ -71,7 +71,7 @@ C  ---------------------------------------
       IF(INODE(LUN).EQ.0) THEN
         SUBSET = '        '
       ELSE
-        SUBSET = TAG(INODE(LUN))
+        SUBSET = TAG(INODE(LUN))(1:8)
       ENDIF
       JDATE  = IDATE(LUN)
 

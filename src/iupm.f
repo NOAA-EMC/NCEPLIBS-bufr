@@ -39,6 +39,7 @@ C     Check for I8 integers.
          RETURN
       ENDIF
 
+      IRET = 0
       IF(NBITS.GT.NBITW) GOTO 900
       CINT = CBAY
       INT(1) = IREV(INT(1))

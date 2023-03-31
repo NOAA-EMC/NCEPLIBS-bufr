@@ -249,7 +249,7 @@ C  IF INCOMPLETE WRITE TRY TO INITIALIZE REPLICATION SEQUENCE OR RETURN
 C  ---------------------------------------------------------------------
 
       IF(IO.EQ.1 .AND. IRET.NE.I2 .AND. IRET.GE.0) THEN
-         CALL TRYBUMP(LUNIT,LUN,USR,I1,I2,IO,IRET)
+         CALL TRYBUMP(LUN,USR,I1,I2,IO,IRET)
          IF(IRET.NE.I2) GOTO 903
       ELSEIF(IRET.EQ.-1) THEN
          IRET = 0

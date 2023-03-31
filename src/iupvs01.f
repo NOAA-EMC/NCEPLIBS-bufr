@@ -15,11 +15,11 @@ C> read into internal arrays via the most recent call to any of the
 C> other [message-reading subroutines](@ref hierarchy) for a specified
 C> Fortran logical unit.
 C>
-C> @param[in]   LUNIT   -- integer: Fortran logical unit number for
-C>                         BUFR file
-C> @param[in]  S01MNEM  -- character*(*): Value to be read from
-C>                         Section 0 or Section 1 of BUFR message in
-C>                         internal arrays for LUNIT
+C> @param[in]   LUNIT   - integer: Fortran logical unit number for
+C>                        BUFR file
+C> @param[in]  S01MNEM  - character*(*): Value to be read from
+C>                        Section 0 or Section 1 of BUFR message in
+C>                        internal arrays for LUNIT
 C>                         - 'LENM'  = Length (in bytes) of BUFR message
 C>                         - 'LEN0'  = Length (in bytes) of Section 0
 C>                         - 'LEN1'  = Length (in bytes) of Section 1
@@ -87,6 +87,8 @@ C  ---------------------
          IM8B=.TRUE.
          RETURN
       ENDIF
+
+      IRET = -1
 
 C  CHECK THE FILE STATUS
 C  ---------------------

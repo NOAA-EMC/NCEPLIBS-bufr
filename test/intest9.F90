@@ -12,9 +12,10 @@ program intest9
   integer, parameter :: mxr8lv = 500
   integer, parameter :: mxr8en = 10
 
-  real*8 hdr(5,1), r8vals( mxr8pm, mxr8lv, mxr8en )
+  real*8 hdr(5,1)
+  real*8, allocatable :: r8vals (:,:,:)
 
-  integer ier, iret, jret, ii, imgdt
+  integer ier, iret, jret, ii, imgdt, iost
 
   character*8 cmgtag
 
@@ -23,6 +24,9 @@ program intest9
 #ifdef KIND_8
   call setim8b ( .true. )
 #endif
+
+  allocate( r8vals( mxr8pm, mxr8lv, mxr8en ), stat=iost )
+  if ( iost .ne. 0 ) stop 12
 
   open ( unit = 11, file = 'testfiles/IN_9', form ='unformatted' )
 
@@ -65,6 +69,8 @@ program intest9
        ( nint(r8vals(1,1,1)*10) /= 7818 ) .or. ( nint(r8vals(2,1,1)*10) /= 180 ) .or. &
        ( nint(r8vals(1,7,1)*10) /= 5491 ) .or. ( nint(r8vals(3,7,1)*10) /= -67 ) .or. &
        ( nint(r8vals(2,8,1)*10) /= 353 ) .or. ( nint(r8vals(3,8,1)*10) /= -69 ) ) stop 11
+
+  deallocate( r8vals )
 
   print *, 'SUCCESS!'
 end program intest9

@@ -14,9 +14,10 @@ PROGRAM CMPBQM
   CHARACTER*50 HEADR,OBSTR,QMSTR
   CHARACTER*20 VARS(7)
   CHARACTER*8  SUBSET,DATE
-  DIMENSION    KNT(300,7,0:17),HDR(5),OBS(8,255),QMS(8,255)
+  DIMENSION    HDR(5),OBS(8,255),QMS(8,255)
   LOGICAL      exist
   REAL*8       HDR,OBS,QMS
+  integer, allocatable :: knt(:,:,:)
 
   DATA HEADR /'SID XOB YOB DHR TYP              '/
   DATA OBSTR /'POB QOB TOB ZOB UOB PWO RHO VOB  '/
@@ -37,7 +38,6 @@ PROGRAM CMPBQM
   !-----------------------------------------------------------------------
 
   IREC = 0
-  KNT = 0
 
   !  OPEN A FILE - GET A DATE
   !  ------------------------
@@ -78,14 +78,19 @@ PROGRAM CMPBQM
   CALL UFBINT(LUBFR,OBS,8,255,NLEV,OBSTR)
   CALL UFBINT(LUBFR,QMS,8,255,NLEV,QMSTR)
 
-  KX = HDR(5)
+  KX = INT(HDR(5))
+
+  allocate( knt(300,7,0:17), stat=iost )
+  if ( iost .ne. 0 ) call exit(4)
+
+  KNT = 0
 
   DO L=1,NLEV
      DO K=1,7
         IQ = -1
         IF(K.EQ.5) OBS(5,L) = MAX(OBS(5,L),OBS(8,L))
         IF(OBS(K,L).LT.VMAX .AND. QMS(K,L).LT.VMAX) THEN
-           IQ = QMS(K,L)
+           IQ = INT(QMS(K,L))
         ELSEIF(OBS(K,L).LT.VMAX .AND. QMS(K,L).GE.VMAX) THEN
            IQ = 16
         ELSEIF(OBS(K,L).GE.VMAX .AND. QMS(K,L).LT.VMAX) THEN
@@ -123,6 +128,7 @@ PROGRAM CMPBQM
   ENDDO
 
   PRINT*,'******CMPBQM PROCESSED ',IREC,' BUFR RECORDS******'
+  deallocate( knt )
   STOP
 900 CALL BORT('CMPBQM - ERROR READING BUFR FILE ')
 END PROGRAM CMPBQM

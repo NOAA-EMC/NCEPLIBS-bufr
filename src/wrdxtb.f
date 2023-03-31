@@ -72,7 +72,7 @@ C  -------------------------------------------
 C  GENERATE AND WRITE OUT BUFR DICTIONARY MESSAGES TO LUNOT
 C  --------------------------------------------------------
 
-      CALL DXMINI(LOT,MGWA,MBYT,MBY4,MBYA,MBYB,MBYD)
+      CALL DXMINI(MGWA,MBYT,MBY4,MBYA,MBYB,MBYD)
 
       LDA = LDXA(IDXV+1)
       LDB = LDXB(IDXV+1)
@@ -85,7 +85,7 @@ C     Table A information
       IF(MSGFULL(MBYT,LDA,MAXDX).OR.
      +    (IUPB(MGWA,MBYA,8).EQ.255)) THEN
          CALL MSGWRT(LUNOT,MGWA,MBYT)
-         CALL DXMINI(LOT,MGWA,MBYT,MBY4,MBYA,MBYB,MBYD)
+         CALL DXMINI(MGWA,MBYT,MBY4,MBYA,MBYB,MBYD)
       ENDIF
       MBIT = 8*(MBY4-1)
       CALL PKB(IUPB(MGWA,MBY4,24)+LDA,24,MGWA,MBIT)
@@ -106,7 +106,7 @@ C     Table B information
       IF(MSGFULL(MBYT,LDB,MAXDX).OR.
      +    (IUPB(MGWA,MBYB,8).EQ.255)) THEN
          CALL MSGWRT(LUNOT,MGWA,MBYT)
-         CALL DXMINI(LOT,MGWA,MBYT,MBY4,MBYA,MBYB,MBYD)
+         CALL DXMINI(MGWA,MBYT,MBY4,MBYA,MBYB,MBYD)
       ENDIF
       MBIT = 8*(MBY4-1)
       CALL PKB(IUPB(MGWA,MBY4,24)+LDB,24,MGWA,MBIT)
@@ -127,7 +127,7 @@ C     Table D information
       IF(MSGFULL(MBYT,LEND,MAXDX).OR.
      +    (IUPB(MGWA,MBYD,8).EQ.255)) THEN
          CALL MSGWRT(LUNOT,MGWA,MBYT)
-         CALL DXMINI(LOT,MGWA,MBYT,MBY4,MBYA,MBYB,MBYD)
+         CALL DXMINI(MGWA,MBYT,MBY4,MBYA,MBYB,MBYD)
       ENDIF
       MBIT = 8*(MBY4-1)
       CALL PKB(IUPB(MGWA,MBY4,24)+LEND,24,MGWA,MBIT)
@@ -154,7 +154,7 @@ C     table messages within output unit LUNOT, just in case the
 C     next thing written to LUNOT ends up being another set of
 C     table messages.
 
-      CALL DXMINI(LOT,MGWA,MBYT,MBY4,MBYA,MBYB,MBYD)
+      CALL DXMINI(MGWA,MBYT,MBY4,MBYA,MBYB,MBYD)
       CALL GETLENS(MGWA,2,LEN0,LEN1,LEN2,L3,L4,L5)
       MBIT = (LEN0+LEN1+LEN2+4)*8
       CALL PKB(0,16,MGWA,MBIT)

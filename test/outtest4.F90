@@ -8,16 +8,18 @@ program outtest4
 
   integer*4 isetprm, ireadsb, igetmxby, icbfms, iupbs01, igetdate
 
-  integer mxval1, mxval2, mxlvl, mxbfmg, ilena, ilenb
+  integer mxval1, mxval2, mxlvl, mxbfmg, ilena, ilenb, iost1, iost2, iost3
   parameter ( mxval1 = 200 )
   parameter ( mxval2 = 12 )
   parameter ( mxlvl = 4490 )
   parameter ( mxbfmg = 50000 )
 
-  integer mgbf ( mxbfmg ), mgbf2 ( mxbfmg ), lmgbf, ibfdt, imgdt, iermg, iersb, nsub, nlv, nlv2
+  integer, allocatable :: mgbf(:), mgbf2(:)
+  integer lmgbf, ibfdt, imgdt, iermg, iersb, nsub, nlv, nlv2
   integer idate, mear, mmon, mday, mour
 
-  real*8 r8arr1 ( mxval1 ), r8arr2 ( mxval2, mxlvl )
+  real*8 r8arr1 ( mxval1 )
+  real*8, allocatable :: r8arr2 (:,:)
 
   character cmgtag*8, smid*9, dummystr*9
 
@@ -27,8 +29,13 @@ program outtest4
   call setim8b ( .true. )
 #endif
 
-  ! Set some custom array sizes.
-  IF ( ( isetprm ( 'NFILES', 4 ) .ne. 0 ) .or. ( isetprm ( 'MXMSGL', 400000 ) .ne. 0 ) .or. &
+  ! Set some custom array sizes and allocate space.
+
+  allocate( mgbf( mxbfmg ), stat=iost1 )
+  allocate( mgbf2( mxbfmg ), stat=iost2 )
+  allocate( r8arr2( mxval2, mxlvl ), stat=iost3 )
+  if ( ( iost1 .ne. 0 ) .or. ( iost2 .ne. 0 ) .or. ( iost3 .ne. 0 ) .or. &
+      ( isetprm ( 'NFILES', 4 ) .ne. 0 ) .or. ( isetprm ( 'MXMSGL', 400000 ) .ne. 0 ) .or. &
       ( isetprm ( 'MAXSS', 250000 ) .ne. 0 ) .or. ( isetprm ( 'MAXMEM', 100000 ) .ne. 0 ) .or. &
       ( isetprm ( 'MAXMSG', 100 ) .ne. 0 ) .or. ( isetprm ( 'MXDXTS', 5 ) .ne. 0 ) .or. &
       ( isetprm ( 'MXCDV', 100 ) .ne. 0 ) .or. ( isetprm ( 'MXCSB', 100 ) .ne. 0 ) .or. &
@@ -145,5 +152,9 @@ program outtest4
   call atrcpt(mgbf, lmgbf, mgbf2)
   ilenb = iupbs01(mgbf2, 'LENM')
   IF (ilenb-ilena .ne. 6) stop 7
+
+  deallocate( mgbf )
+  deallocate( mgbf2 )
+  deallocate( r8arr2 )
 
 end program outtest4

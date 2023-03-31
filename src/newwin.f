@@ -40,7 +40,7 @@ C     Confirm that IWIN points to an RPC node and then compute JWIN.
 
       NODE = INV(IWIN,LUN)
       IF(LSTJPB(NODE,LUN,'RPC').NE.NODE) GOTO 900
-      JWIN = IWIN+VAL(IWIN,LUN)
+      JWIN = IWIN+NINT(VAL(IWIN,LUN))
 
 C  EXITS
 C  -----

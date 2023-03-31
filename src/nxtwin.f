@@ -43,7 +43,7 @@ C  -------------------------------
          IWIN = 0
       ELSE
          IWIN = JWIN
-         JWIN = IWIN+VAL(IWIN,LUN)
+         JWIN = IWIN+NINT(VAL(IWIN,LUN))
       ENDIF
 
 C  EXITS

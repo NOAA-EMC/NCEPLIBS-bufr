@@ -210,7 +210,7 @@ module moda_dscach
   integer :: NDC(MXCNEM)
   !> Bit-wise representations of the child descriptors for the
   !> corresponding Table A mnemonic in cnem.
-  integer :: IDCACH(MXCNEM,MAXNC)
+  integer, allocatable :: IDCACH(:,:)
 end module moda_dscach
 
 !> This module contains array and variable declarations needed to

@@ -43,9 +43,14 @@ C> @author J. Ator @date 2014-12-04
         USE MODA_BITMAPS
         USE MODA_NRV203
         USE MODA_RLCCMN
+        use moda_dscach
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
+
+C       moda_dscach arrays.
+
+        deallocate( idcach )
 
 C       MODA_USRINT arrays.
 

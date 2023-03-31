@@ -4,24 +4,26 @@ C> sequences.
 C>
 C> @author J. Woollen @date 2002-05-14
 
+C> Initialize replication factors for delayed replication sequences.
+C>
 C> This subroutine explicitly initializes delayed replication factors
 C> and allocates a corresponding amount of space within internal arrays,
 C> thereby allowing the subsequent use of subroutine ufbseq() to write
 C> data into delayed replication sequences.
 C>
-C> @param[in] LUNIT -- integer: Fortran logical unit number for BUFR
-C>                     file
-C> @param[in] MDRF  -- integer(*): Array of delayed replication factors,
-C>                     in one-to-one correspondence with the number
-C>                     of occurrences of DRFTAG within the overall
-C>                     subset definition, and explicitly defining
-C>                     how much space (i.e. how many replications)
-C>                     to allocate within each successive occurrence
-C> @param[in] NDRF  -- integer: Number of delayed replication factors
-C>                     within MDRF
-C> @param[in] DRFTAG -- character*(*): Table D sequence mnemonic,
-C>                      bracketed by appropriate delayed replication
-C>                      notation (e.g. {}, () OR <>)
+C> @param[in] LUNIT - integer: Fortran logical unit number for BUFR
+C>                    file
+C> @param[in] MDRF  - integer(*): Array of delayed replication factors,
+C>                    in one-to-one correspondence with the number
+C>                    of occurrences of DRFTAG within the overall
+C>                    subset definition, and explicitly defining
+C>                    how much space (i.e. how many replications)
+C>                    to allocate within each successive occurrence
+C> @param[in] NDRF  - integer: Number of delayed replication factors
+C>                    within MDRF
+C> @param[in] DRFTAG - character*(*): Table D sequence mnemonic,
+C>                     bracketed by appropriate delayed replication
+C>                     notation (e.g. {}, () OR <>)
 C>
 C> Logical unit LUNIT should have already been opened for output
 C> operations (i.e. writing/encoding BUFR) via a previous call to
@@ -72,7 +74,7 @@ C  ---------------------
 
          CALL X84(LUNIT,MY_LUNIT,1)
          CALL X84(NDRF,MY_NDRF,1)
-         CALL X84(MDRF,MY_MDRF,MY_NDRF)
+         CALL X84(MDRF,MY_MDRF,MY_NDRF(1))
          CALL DRFINI(MY_LUNIT,MY_MDRF,MY_NDRF,DRFTAG)
 
          IM8B=.TRUE.

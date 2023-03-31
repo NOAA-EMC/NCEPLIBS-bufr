@@ -6,15 +6,19 @@
 ! Ed Hartnett 3/17/23
 program test_misc
   implicit none
+  integer lun, il, im
+  integer ios
+  integer num, iret
+
+#ifdef KIND_4
   character*5 char5
   character*5 adn30
   integer a, idn30
-  integer lun, il, im
-  integer ios
   integer ierr, nemock
-  integer numbck, num, iret
   integer mtyp, msbt, inod
   integer igetprm
+  integer numbck
+#endif
 
   print *, 'Testing misc subroutines.'
 

@@ -120,7 +120,7 @@ C           follows it within the user-supplied character-format BUFR
 C           dictionary table sequence), so confirm that it contains, as
 C           a substring, this mnemonic that immediately follows it.
 
-            NEMB = TAGS(N+1)
+            NEMB = TAGS(N+1)(1:8)
 c  .... get NEMA from IDN
             CALL NUMTAB(LUN,IDN,NEMA,TAB,ITAB)
             CALL NEMTAB(LUN,NEMB,JDN,TAB,IRET)

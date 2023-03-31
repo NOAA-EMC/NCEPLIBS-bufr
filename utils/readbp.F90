@@ -24,7 +24,7 @@
       character(8)   ::  sid,sta,subset,msg,cmc(17)
       character(3)   ::  vars(8)
       integer        ::  iostat
-      real(8)        ::  hdr(10),obs(10,255),qms(10,255),qmc(17)
+      real(8)        ::  hdr(10),obs(10,255),qms(10,255),qmc(17),xob,yob
       logical        ::  window,steam,level,dump,hedr,exist
 
       EQUIVALENCE    (HDR(1),SID)
@@ -36,8 +36,6 @@
 
       DATA VARS/'LVL','CAT','POB','SPH','TOB','ZOB','UOB','VOB'/
       DATA CMC /'0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F','*'/
-
-      DATA BMISS  /10d10/
       DATA LUBFR  /8    /
       DATA STA    /'   '/
       data msg    /'   '/
@@ -98,7 +96,7 @@
          elseif(file(2:2)=='r') then
            iarg=iarg+1; call getarg(iarg,val); read(val,*)irt
          elseif(file(2:2)=='m') then
-           iarg=iarg+1; call getarg(iarg,val); msg=val
+           iarg=iarg+1; call getarg(iarg,val); msg=val(1:8)
          elseif(file(2:2)=='d') then
            iarg=iarg+1; dump=.true.
          elseif(file(2:2)=='h') then
@@ -152,9 +150,9 @@
       CALL UFBINT(LUBFR,HDR,10,  1,IRET,HSTR)
       XOB = HDR(2)
       YOB = HDR(3)
-      jrt = hdr(6)
-      jtp = hdr(7)
-      jkx = hdr(8)
+      jrt = nint(hdr(6))
+      jtp = nint(hdr(7))
+      jkx = nint(hdr(8))
       IF(STA.NE.' ' .AND. STA.NE.SID(1:nsta)) cycle
       IF(irt.ne.0   .and. irt.ne.jrt) cycle
       IF(itp.ne.0   .and. itp.ne.jtp) cycle
@@ -199,7 +197,7 @@
 
       do l=1,nlev
       do i=1,7
-      iqm = qms(i,l)
+      iqm = nint(qms(i,l))
       if(iqm<0)iqm=10e8
       iqm = min(iqm,16)
       qms(i,l) = qmc(iqm+1)
@@ -246,7 +244,7 @@
 !  HERE WHEN ALL MESSAGES HAVE BEEN READ
 !  -------------------------------------
 
-100   STOP
+      STOP
       END program
 
       !> Print long lines to stdout using advance=no format clause.

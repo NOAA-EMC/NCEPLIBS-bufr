@@ -17,30 +17,24 @@ C> ufbrw() is usually a delayed replication sequence which isn't
 C> expanded enough to hold the array of data the user is trying to
 C> write. So trybump() is one last chance to resolve that situation.
 C>
-C> @note Argument LUNIT is not referenced in this subroutine. It was
-C> included only for potential future expansion of the subroutine.
-C>
 C> @note Argument IO is always passed in with a value of 1 at the present
 C> time. In the future the subroutine may be expanded to allow it
 C> to operate on input files.
 C>
-C> @param[in] LUNIT - integer: fortran logical unit number for BUFR file (see remarks).
-C> @param[in] LUN - integer: I/O stream index into internal memory arrays
-C> (associated with file connected to logical unit LUNIT).
+C> @param[in] LUN - integer: file ID of open BUFR file
 C> @param[in] USR - real*8: (i1,i2) starting address of data values to be
 C> written to data subset.
 C> @param[in] I1 - integer: length of first dimension of USR.
 C> @param[in] I2 - integer: number of "levels" of data values to be
 C> written to data subset.
-C> @param[in] IO - integer: status indicator for BUFR file associated
-C> with LUNIT (see remarks):
+C> @param[in] IO - integer: status indicator for BUFR file
 C> - 0 Input file (possible future use)
 C> - 1 Output file
 C> @param[out] IRET - integer: number of "levels" of data values
 C> written to data subset.
 C>
 C> @author Woollen @date 1994-01-06
-      SUBROUTINE TRYBUMP(LUNIT,LUN,USR,I1,I2,IO,IRET)
+      SUBROUTINE TRYBUMP(LUN,USR,I1,I2,IO,IRET)
 
       USE MODA_USRINT
 

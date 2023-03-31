@@ -41,6 +41,8 @@ C  ---------------------
          RETURN
       ENDIF
 
+      IRET = -1
+
 C  MAKE SURE A FILE/MESSAGE IS OPEN FOR INPUT
 C  ------------------------------------------
 
@@ -54,8 +56,6 @@ C  ---------------------------------------------
 
       IF(NSUB(LUN).LT.MSUB(LUN)) THEN
          IRET = 0
-      ELSE
-         IRET = -1
       ENDIF
 
 C  EXITS

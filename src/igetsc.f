@@ -43,6 +43,8 @@ C     Check for I8 integers.
         RETURN
       END IF
 
+      IRET = 0
+
 C     Make sure the specified logical unit is connected to the library.
 
       CALL STATUS(LUNIT,LUN,IL,IM)

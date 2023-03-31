@@ -34,7 +34,7 @@ C-----------------------------------------------------------------------
 C  GET THE MESSAGE TAG AND TYPE, AND BREAK UP THE DATE
 C  ---------------------------------------------------
 
-      SUBTAG = TAG(INODE(LUN))
+      SUBTAG = TAG(INODE(LUN))(1:8)
 c  .... Given SUBSET, NEMTBA returns MTYP,MSBT,INOD
       CALL NEMTBA(LUN,SUBTAG,MTYP,MSBT,INOD)
       IF(INODE(LUN).NE.INOD) GOTO 900

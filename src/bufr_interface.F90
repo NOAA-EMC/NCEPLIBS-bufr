@@ -17,8 +17,8 @@ interface
 !> @author J. Ator @date 2023-03-22
 subroutine cobfl_c( bfl, io ) bind(C, name='cobfl')
   use iso_c_binding
-  character(len=1), intent(in) :: bfl(*)
-  character(len=1), intent(in), value :: io
+  character(kind=c_char), intent(in) :: bfl(*)
+  character(kind=c_char), intent(in), value :: io
 end subroutine cobfl_c
 
 !> @fn bufr_interface::crbmg_c::crbmg_c(bmg, mxmb, nmb, iret)
@@ -32,7 +32,7 @@ end subroutine cobfl_c
 !> @author J. Ator @date 2023-03-22
 subroutine crbmg_c( bmg, mxmb, nmb, iret ) bind(C, name='crbmg')
   use iso_c_binding
-  character(len=1), intent(out) :: bmg(*)
+  character(kind=c_char), intent(out) :: bmg(*)
   integer(c_int), intent(in), value :: mxmb
   integer(c_int), intent(out) :: nmb, iret
 end subroutine crbmg_c
@@ -47,7 +47,7 @@ end subroutine crbmg_c
 !> @author J. Ator @date 2005-11-29
 subroutine cwbmg_c( bmg, nmb, iret ) bind(C, name='cwbmg')
   use iso_c_binding
-  character(len=1), intent(in) :: bmg(*)
+  character(kind=c_char), intent(in) :: bmg(*)
   integer(c_int), intent(in), value :: nmb
   integer(c_int), intent(out) :: iret
 end subroutine cwbmg_c

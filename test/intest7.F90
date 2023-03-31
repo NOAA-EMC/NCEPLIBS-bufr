@@ -38,13 +38,13 @@ program intest7
 
   integer*4 isetprm, igetprm, ireadns, ibfms
 
-  integer imgdt, iret, jdate, nr8v, idx, nsub, num
+  integer imgdt, iret, jdate, nr8v, idx, nsub
 
   integer mxr8pm, mxr8lv
   parameter ( mxr8pm = 15 )
   parameter ( mxr8lv = 5 )
 
-  real*8 r8arr (mxr8pm, mxr8lv), r8val
+  real*8 r8arr (mxr8pm, mxr8lv), r8val(1,1)
 
   character cmgtag*8
 
