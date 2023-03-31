@@ -36,7 +36,9 @@ program outtest9
  
   implicit none
 
-  integer ii, jj, imgdt, ier
+  integer ii, jj, imgdt, ier, mxbfmg, lmgbf
+  parameter ( mxbfmg = 50000 )
+  integer mgbf ( mxbfmg )
 
   integer*4 nmsub, icopysb
 
@@ -101,7 +103,11 @@ program outtest9
     if ( ier .ne. 2 ) stop 9
 
     ! Write the subset into the output message.
-    call writsb (21)
+    if ( ii.lt.3 ) then
+      call writsb (21)
+    else
+      call writsa (21, mxbfmg, mgbf, lmgbf)
+    end if
   end do
 
   ! Close the first output message and write it to the output file.

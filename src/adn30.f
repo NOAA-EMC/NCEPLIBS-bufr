@@ -1,18 +1,21 @@
 C> @file
-C> @brief Convert an FXY value from an integer
+C> @brief Convert a WMO bit-wise representation of an FXY value
 C> to a character string of length 5 or 6.
 C>
 C> @author J. Woollen @date 1994-01-06
 
-C> This function converts an FXY value from an integer
+C> Convert a WMO bit-wise representation of an FXY value
 C> to a character string of length 5 or 6.
+C>      
+C> For an description of the WMO bit-wise representation of the FXY
+C> value, see ifxy().
 C>
 C> This function is the logical inverse of function idn30().
 C>
-C> @param[in] IDN -- integer: Bit-wise representation of FXY value
-C> @param[in] L30 -- integer: Length of string to be returned; can be
-C> either 5 or 6 characters
-C> @returns adn30 -- character*(*): FXY value
+C> @param[in] IDN - integer: WMO bit-wise representation of FXY value.
+C> @param[in] L30 - integer: Length of string to be returned; can be
+C> either 5 or 6 characters.
+C> @returns adn30 - character*(*): FXY character string.
 C>
 C> @author J. Woollen @date 1994-01-06
 
