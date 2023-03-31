@@ -1,9 +1,9 @@
 C> @file
-C> @brief Open a BUFR file, or update file status.
+C> @brief Update file status in library internals.
 C>
 C> @author J. Woollen @date 1994-01-06
 
-C> Open a BUFR file, or update file status.
+C> Update file status in library internals.
 C>
 C> This subroutine can be used to connect or disconnect a specified
 C> Fortran logical unit number to/from the BUFRLIB software, and it
