@@ -1,16 +1,12 @@
 C> @file
 C> @brief Convert an FXY value from its six character representation
-C> to its bit-wise (integer) representation
+C> to its WMO bit-wise representation.
 C>
 C> @author J. Woollen @date 1994-01-06
 
 C> This function converts an FXY value from its 6 character
-C> representation to its bit-wise (integer) representation.
+C> representation to its WMO bit-wise representation.
 C>
-C> @param[in] ADSC -- character*6: FXY value
-C> @returns ifxy -- integer: Bit-wise representation of FXY value
-C>
-C> @remarks
 C> Per the [official WMO BUFR regulations](@ref manual), an FXY value
 C> can be represented as a bit-wise integer in 16 bits, ordered from
 C> left (most significant) to right (least significant), and where the
@@ -29,6 +25,9 @@ C>       = ( 2**13 + 2**12 + 2**11 + 2**10 + 2**9 + 2**8 +
 C>           2**4 + 2**2 + 2**1 )
 C>
 C>       = 16150
+C>
+C> @param[in] ADSC - character*6: FXY value.
+C> @returns ifxy - integer: WMO bit-wise representation of FXY value.
 C>
 C> @author J. Woollen @date 1994-01-06
       FUNCTION IFXY(ADSC)
