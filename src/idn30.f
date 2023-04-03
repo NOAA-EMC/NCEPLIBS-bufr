@@ -1,11 +1,11 @@
 C> @file
 C> @brief Convert an FXY value from a character string to the
-C> WMO bit-wise represtation.
+C> WMO bit-wise representation.
 C>
 C> @author J. Woollen @date 1994-01-06
 
 C> Convert an FXY value from a character string to the
-C> WMO bit-wise represtation.
+C> WMO bit-wise representation.
 C>
 C> For an description of the WMO bit-wise representation of the FXY
 C> value, see ifxy().
