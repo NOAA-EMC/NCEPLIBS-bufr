@@ -66,13 +66,13 @@ C  --------------------------------------
       CALL JSTNUM(SCAL,SIGN,IRET)
       IF(IRET.NE.0) GOTO 901
       TABB(IELE,LUN)(95:95) = SIGN
-      TABB(IELE,LUN)(96:98) = SCAL
+      TABB(IELE,LUN)(96:98) = SCAL(1:3)
 
       REFR_ORIG=REFR
       CALL JSTNUM(REFR,SIGN,IRET)
       IF(IRET.NE.0) GOTO 902
       TABB(IELE,LUN)( 99: 99) = SIGN
-      TABB(IELE,LUN)(100:109) = REFR
+      TABB(IELE,LUN)(100:109) = REFR(1:10)
 
       BITW_ORIG=BITW
       CALL JSTNUM(BITW,SIGN,IRET)

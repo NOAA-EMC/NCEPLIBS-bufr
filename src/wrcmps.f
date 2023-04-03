@@ -10,12 +10,12 @@ C> currently open within memory for abs(lunix) (array mgwa). If the
 C> subset will not fit into the currently open message, then that
 C> compressed message is flushed to lunix and a new one is created in
 C> order to hold the current subset (still stored for compression).
-C> This subroutine performs functions similar to BUFR archive library
+C> This subroutine performs functions similar to NCEPLIBS-bufr
 C> subroutine msgupd() except that it acts on compressed bufr messages.
 C>
-C> @param[in] lunix -- integer: absolute value is fortran logical unit number
-C>                     for bufr file (if lunix is less than zero, this is a
-C>                     "flush" call and the buffer must be cleared out)
+C> @param[in] lunix - integer: absolute value is fortran logical unit
+C> number for bufr file (if lunix is less than zero, this is a "flush"
+C> call and the buffer must be cleared out)
 C>
 C> @author Woollen @date 2002-05-14
 
@@ -76,7 +76,7 @@ C  MESSAGE FOR OUTPUT.
          NCOL = 0
          LUNC = LUN
          NROW = NVAL(LUN)
-         SUBSET = TAG(INODE(LUN))
+         SUBSET = TAG(INODE(LUN))(1:8)
          FIRST = .FALSE.
          FLUSH = .FALSE.
          WRIT1 = .FALSE.
@@ -145,7 +145,7 @@ C     (UNFORTUNATELY, THE ONLY WAY TO FIND OUT IS TO ACTUALLY
 C     RE-DO THE COMPRESSION BY RE-COMPUTING ALL OF THE LOCAL
 C     REFERENCE VALUES, INCREMENTS, ETC.)
 
- 10   NCOL = NCOL+1
+      NCOL = NCOL+1
       ICOL = NCOL
       IBIT = 16
       DO I=1,NVAL(LUN)

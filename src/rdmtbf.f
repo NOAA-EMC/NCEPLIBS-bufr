@@ -52,17 +52,17 @@ C       contents into a unified internal memory structure.
               CMATCH = ADN30 ( ISFXYN, 6 )
               GOTO 900
             ELSE IF ( ISFXYN .LT. ILFXYN ) THEN
-              CALL SNTBFE ( LUNSTF, ISFXYN, STLINE )
+              CALL SNTBFE ( LUNSTF, ISFXYN )
               CALL GETNTBE ( LUNSTF, ISFXYN, STLINE, IERS )
             ELSE
-              CALL SNTBFE ( LUNLTF, ILFXYN, LTLINE )
+              CALL SNTBFE ( LUNLTF, ILFXYN )
               CALL GETNTBE ( LUNLTF, ILFXYN, LTLINE, IERL )
             ENDIF
           ELSE IF ( IERS .EQ. 0 ) THEN
-            CALL SNTBFE ( LUNSTF, ISFXYN, STLINE )
+            CALL SNTBFE ( LUNSTF, ISFXYN )
             CALL GETNTBE ( LUNSTF, ISFXYN, STLINE, IERS )
           ELSE IF ( IERL .EQ. 0 ) THEN
-            CALL SNTBFE ( LUNLTF, ILFXYN, LTLINE )
+            CALL SNTBFE ( LUNLTF, ILFXYN )
             CALL GETNTBE ( LUNLTF, ILFXYN, LTLINE, IERL )
           ENDIF
         ENDDO

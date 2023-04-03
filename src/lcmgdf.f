@@ -8,15 +8,13 @@ C> This function checks whether the subset definition for a given
 C> message type contains any long character strings (greater
 C> than 8 bytes).
 C>
-C> @param[in] LUNIT -- integer: Fortran logical unit number for
-C>                     BUFR file
-C> @param[in] SUBSET -- character*8: Table A mnemonic of message
-C>                      type to be checked
-C> @returns lcmgdf -- integer:
-C>                     -  0 = SUBSET does not contain any long
-C>                            character strings
-C>                     -  1 = SUBSET contains at least one long
-C>                            character string
+C> @param[in] LUNIT - integer: Fortran logical unit number for
+C> BUFR file.
+C> @param[in] SUBSET - character*8: Table A mnemonic of message
+C> type to be checked.
+C> @returns lcmgdf - integer:
+C> -  0 = SUBSET does not contain any long character strings
+C> -  1 = SUBSET contains at least one long character string
 C>
 C> @remarks
 C> - LUNIT may be open for either input or output operations via a
@@ -57,6 +55,8 @@ C     Check for I8 integers.
          IM8B=.TRUE.
          RETURN
       ENDIF
+
+      IRET = 0
 
 C     Get LUN from LUNIT.
 

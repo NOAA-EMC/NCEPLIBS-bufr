@@ -170,7 +170,7 @@ C  -------------------------------------------------------------
 C  COME HERE FOR COUNT ONLY OPTION (OUTPUT ARRAY VALUES REMAIN MISSING)
 C  --------------------------------------------------------------------
 
-         DO WHILE(IREADMG(-LUNIT,SUBSET,IDATE).GE.0)
+         DO WHILE(IREADMG(-LUNIT,SUBSET,JDATE).GE.0)
          IRET = IRET+NMSUB(LUNIT)
          ENDDO
          GOTO 25
@@ -375,7 +375,7 @@ C  -----------------------------
       ELSEIF(ITYP.EQ.3) THEN
          DO NSB=1,MSUB(LUN)
          IF(LINC.EQ.0) THEN
-           CVAL = CREF
+           CVAL = CREF(1:8)
          ELSE
            JBIT = IBIT + LINC*(NSB-1)*8
            CVAL = ' '

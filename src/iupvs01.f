@@ -15,41 +15,37 @@ C> read into internal arrays via the most recent call to any of the
 C> other [message-reading subroutines](@ref hierarchy) for a specified
 C> Fortran logical unit.
 C>
-C> @param[in]   LUNIT   -- integer: Fortran logical unit number for
-C>                         BUFR file
-C> @param[in]  S01MNEM  -- character*(*): Value to be read from
-C>                         Section 0 or Section 1 of BUFR message in
-C>                         internal arrays for LUNIT
-C>                         - 'LENM'  = Length (in bytes) of BUFR message
-C>                         - 'LEN0'  = Length (in bytes) of Section 0
-C>                         - 'LEN1'  = Length (in bytes) of Section 1
-C>                         - 'BEN'   = BUFR edition number
-C>                         - 'BMT'   = BUFR master table
-C>                         - 'OGCE'  = Originating center
-C>                         - 'GSES'  = Originating subcenter
-C>                         - 'USN'   = Update sequence number
-C>                         - 'ISC2'  = Flag indicating absence/presence of
-C>                                     (optional) Section 2 in BUFR message:
-C>                                    - 0 = Section 2 absent
-C>                                    - 1 = Section 2 present
-C>                         - 'MTYP'  = Data category
-C>                         - 'MSBTI' = Data subcategory (international)
-C>                         - 'MSBT'  = Data subcategory (local)
-C>                         - 'MTV'   = Version number of master table
-C>                         - 'MTVL'  = Version number of local tables
-C>                         - 'YCEN'  = Year of century (1-100)
-C>                         - 'CENT'  = Century (e.g., 20 for years 1901-2000,
-C>                                     21 for years 2001-2100)
-C>                         - 'YEAR'  = Year (4-digit)
-C>                         - 'MNTH'  = Month
-C>                         - 'DAYS'  = Day
-C>                         - 'HOUR'  = Hour
-C>                         - 'MINU'  = Minute
-C>                         - 'SECO'  = Second
-C> @returns iupvs01 -- integer: Value corresponding to S01MNEM
-C>                      - -1 = S01MNEM was invalid for the edition of BUFR
-C>                             message in internal arrays for LUNIT, or some
-C>                             other error occurred
+C> @param[in] LUNIT - integer: Fortran logical unit number for BUFR file
+C> @param[in] S01MNEM - character*(*): Value to be read from Section 0
+C> or Section 1 of BUFR message in internal arrays for LUNIT:
+C> - 'LENM'  = Length (in bytes) of BUFR message
+C> - 'LEN0'  = Length (in bytes) of Section 0
+C> - 'LEN1'  = Length (in bytes) of Section 1
+C> - 'BEN'   = BUFR edition number
+C> - 'BMT'   = BUFR master table
+C> - 'OGCE'  = Originating center
+C> - 'GSES'  = Originating subcenter
+C> - 'USN'   = Update sequence number
+C> - 'ISC2'  = Flag indicating absence/presence of (optional) Section 2
+C>   in BUFR message:
+C>   - 0 = Section 2 absent
+C>   - 1 = Section 2 present
+C> - 'MTYP'  = Data category
+C> - 'MSBTI' = Data subcategory (international)
+C> - 'MSBT'  = Data subcategory (local)
+C> - 'MTV'   = Version number of master table
+C> - 'MTVL'  = Version number of local tables
+C> - 'YCEN'  = Year of century (1-100)
+C> - 'CENT'  = Century (e.g., 20 for years 1901-2000, 21 for years 2001-2100)
+C> - 'YEAR'  = Year (4-digit)
+C> - 'MNTH'  = Month
+C> - 'DAYS'  = Day
+C> - 'HOUR'  = Hour
+C> - 'MINU'  = Minute
+C> - 'SECO'  = Second
+C> @returns iupvs01 -- integer: Value corresponding to S01MNEM:
+C> - -1 = S01MNEM was invalid for the edition of BUFR message in
+C> internal arrays for LUNIT, or some other error occurred
 C>
 C> @remarks
 C> - Values corresponding to S01MNEM = 'GSES' can only be read from
@@ -87,6 +83,8 @@ C  ---------------------
          IM8B=.TRUE.
          RETURN
       ENDIF
+
+      IRET = -1
 
 C  CHECK THE FILE STATUS
 C  ---------------------

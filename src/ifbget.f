@@ -10,13 +10,10 @@ C> open for reading via the most recent call to any of the
 C> [message-reading subroutines](@ref hierarchy) for a specified
 C> Fortran logical unit.
 C>
-C> @param[in] LUNIT -- integer: Fortran logical unit number for
-C>                     BUFR file
-C> @returns ifbget -- integer:
-C>                     -  0 = there is at least one more data subset
-C>                            to be read from the BUFR message
-C>                     - -1 = there are no more data subsets
-C>                            to be read from the BUFR message
+C> @param[in] LUNIT - integer: Fortran logical unit number for BUFR file
+C> @returns ifbget - integer:
+C> - 0 = there is at least one more data subset to be read from the message
+C> - -1 = there are no more data subsets to be read from the message
 C>
 C> @author J. Woollen @date 1994-01-06
       RECURSIVE FUNCTION IFBGET(LUNIT) RESULT(IRET)
@@ -41,6 +38,8 @@ C  ---------------------
          RETURN
       ENDIF
 
+      IRET = -1
+
 C  MAKE SURE A FILE/MESSAGE IS OPEN FOR INPUT
 C  ------------------------------------------
 
@@ -54,8 +53,6 @@ C  ---------------------------------------------
 
       IF(NSUB(LUN).LT.MSUB(LUN)) THEN
          IRET = 0
-      ELSE
-         IRET = -1
       ENDIF
 
 C  EXITS

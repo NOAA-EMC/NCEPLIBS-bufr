@@ -9,10 +9,9 @@ C> was previously opened via a call to subroutine openbf(), so that
 C> the application program can check whether the BUFRLIB software
 C> encountered any specific problems while processing the file.
 C>
-C> @param[in] LUNIT -- integer: Fortran logical unit number for
-C>                         BUFR file
-C> @returns igetsc -- integer:
-C>                     -  0 = no problems were encountered
+C> @param[in] LUNIT - integer: Fortran logical unit number for BUFR file
+C> @returns igetsc - integer:
+C> - 0 = no problems were encountered
 C>
 C> @remarks
 C> - Once subroutine openbf() has been called for LUNIT, this function
@@ -42,6 +41,8 @@ C     Check for I8 integers.
         IM8B = .TRUE.
         RETURN
       END IF
+
+      IRET = 0
 
 C     Make sure the specified logical unit is connected to the library.
 
