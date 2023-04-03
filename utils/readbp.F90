@@ -24,7 +24,7 @@
       character(8)   ::  sid,sta,subset,msg,cmc(17)
       character(3)   ::  vars(8)
       integer        ::  iostat
-      real(8)        ::  hdr(10),obs(10,255),qms(10,255),qmc(17)
+      real(8)        ::  hdr(10),obs(10,255),qms(10,255),qmc(17),xob,yob
       logical        ::  window,steam,level,dump,hedr,exist
 
       EQUIVALENCE    (HDR(1),SID)
@@ -37,7 +37,6 @@
       DATA VARS/'LVL','CAT','POB','SPH','TOB','ZOB','UOB','VOB'/
       DATA CMC /'0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F','*'/
 
-      DATA BMISS  /10d10/
       DATA LUBFR  /8    /
       DATA STA    /'   '/
       data msg    /'   '/
@@ -45,11 +44,11 @@
       data irt    /0/
       data itp    /0/
       data ikx    /0/
-      DATA WINDOW /.FALSE./
-      DATA STEAM  /.FALSE./
-      DATA LEVEL  /.FALSE./
-      DATA DUMP   /.FALSE./
-      DATA HEDR   /.FALSE./
+      data window /.false./
+      data steam  /.false./
+      data level  /.false./
+      data dump   /.false./
+      data hedr   /.false./
 
 !-----------------------------------------------------------------------
 !-----------------------------------------------------------------------
@@ -150,19 +149,19 @@
 !  --------------------------------------
 
       CALL UFBINT(LUBFR,HDR,10,  1,IRET,HSTR)
-      XOB = HDR(2)
-      YOB = HDR(3)
-      jrt = hdr(6)
-      jtp = hdr(7)
-      jkx = hdr(8)
+      xob = hdr(2)
+      yob = hdr(3)
+      jrt = nint(hdr(6))
+      jtp = nint(hdr(7))
+      jkx = nint(hdr(8))
       IF(STA.NE.' ' .AND. STA.NE.SID(1:nsta)) cycle
       IF(irt.ne.0   .and. irt.ne.jrt) cycle
       IF(itp.ne.0   .and. itp.ne.jtp) cycle
       IF(ikx.ne.0   .and. ikx.ne.jkx) cycle
-      IF(WINDOW) THEN
-         IF(.NOT.(XOB.GE.X1 .AND. XOB.LE.X2))cycle
-         IF(.NOT.(YOB.GE.Y1 .AND. YOB.LE.Y2))cycle
-      ENDIF
+      if(window) then
+         if(.not.(xob.ge.x1 .and. xob.le.x2))cycle
+         if(.not.(yob.ge.y1 .and. yob.le.y2))cycle
+      endif
 
       CALL UFBINT(LUBFR,OBS,10,255,NLEV,OSTR)
       CALL UFBINT(LUBFR,QMS,10,255,NLEQ,QSTR)
@@ -199,7 +198,7 @@
 
       do l=1,nlev
       do i=1,7
-      iqm = qms(i,l)
+      iqm = nint(qms(i,l))
       if(iqm<0)iqm=10e8
       iqm = min(iqm,16)
       qms(i,l) = qmc(iqm+1)

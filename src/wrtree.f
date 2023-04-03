@@ -5,10 +5,10 @@ C> @author J. Woollen @date 1994-01-06
 
 C> Pack a BUFR data subset.
 C>
-C> This subroutine converts user numbers in the val array into scaled integers
-C> and packs them into bit strings in the ibit subset output buffer.
+C> This subroutine converts user numbers from the val array into scaled
+C> integers and packs them into bit strings in the ibay array.
 C>
-C> @param[in] lun -- integer: i/o stream index into internal memory arrays
+C> @param[in] lun -- integer: file ID.
 C>
 C> @author J. Woollen @date 1994-01-06
 
@@ -34,7 +34,7 @@ C  -----------------------------------------
       DO N=1,NVAL(LUN)
       NODE = INV(N,LUN)
       IF(ITP(NODE).EQ.1) THEN
-         IVAL(N) = VAL(N,LUN)
+         IVAL(N) = NINT(VAL(N,LUN))
       ELSEIF(TYP(NODE).EQ.'NUM') THEN
          IF(IBFMS(VAL(N,LUN)).EQ.0) THEN
             IVAL(N) = IPKS(VAL(N,LUN),NODE)

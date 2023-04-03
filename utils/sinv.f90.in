@@ -8,10 +8,10 @@
 !> @return 0 for success, error message otherwise.
 !>
 !> @author J Woollen @date 2010
-PROGRAM SINV
+program sinv
 
-  PARAMETER (MAXA=16000000)
-  PARAMETER (MAXS=1000)
+  parameter (maxa=16000000)
+  parameter (maxs=1000)
 
   CHARACTER(255) FILE,tbldir
   CHARACTER(240) cmtdir
@@ -32,7 +32,7 @@ PROGRAM SINV
   said=0
   ssid=0
 
-  !  get filename argument
+  ! get filename argument
 
   NARG=IARGC()
   IF(NARG<1) THEN
@@ -44,7 +44,7 @@ PROGRAM SINV
   inquire(file=file,exist=exist)
   if (.not.exist) call bort(trim(file)//' does not exist')
 
-  !  define master table directory
+  ! define master table directory
 
   call openbf(lunbf,'FIRST',lunbf)  ! need to call openbf prior to calling mtinfo
   IF(NARG==2) THEN ! arg 2 would be a user defined table dir
@@ -71,8 +71,8 @@ PROGRAM SINV
   ! make a table of sat ids and sat instruments
 
   do n=1,max(nret,nrex)
-     i = said(n)
-     j = siid(n)
+     i = nint(said(n))
+     j = nint(siid(n))
      if(i>maxs.or.i<0) i=0
      if(j>maxs.or.j<0) j=0
      isat(i,j) = isat(i,j)+1
@@ -95,7 +95,7 @@ PROGRAM SINV
 
   write(*,'(/23x,i10/)') jsat
 
-end program SINV
+end program sinv
 !> @file
 !> @brief Looks in the BUFR tables to get meaning strings for satellite platform and instrument codes
 !>

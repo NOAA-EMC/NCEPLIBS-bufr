@@ -11,11 +11,11 @@ program outtest2
   integer nsc, nrf, nbt, ierns, nlv
 
   real*8 r8ymd(3,1), r8ltl(2,1), r8oth(10,1)
-  real*8 rpid, pkftbv, xmiss, getbmiss
+  real*8 rpid(1,1), pkftbv, xmiss, getbmiss
 
   character libvrsn*8, cpid*8
 
-  equivalence (rpid,cpid)
+  equivalence (rpid(1,1),cpid)
 
   print *, 'Testing writing OUT_2 using OPENBF IO = APX and embedded tables' 
 

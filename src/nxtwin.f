@@ -1,7 +1,7 @@
 C> @file
 C> @brief Computes the start and end indices of the next window.
 C>
-C> @author WOOLLEN @date 1994-01-06
+C> @author J. Woollen @date 1994-01-06
 
 C> Given indices within the internal jump/link table which
 C> point to the start and end of an "rpc" window (which is an iteration of
@@ -19,7 +19,7 @@ C> @param[inout] JWIN - integer:
 C>  - on input, contains ending index of current window iteration.
 C>  - on output, contains ending index of next window iteration.
 C>
-C> @author WOOLLEN @date 1994-01-06
+C> @author J. Woollen @date 1994-01-06
       SUBROUTINE NXTWIN(LUN,IWIN,JWIN)
 
       USE MODA_USRINT
@@ -43,7 +43,7 @@ C  -------------------------------
          IWIN = 0
       ELSE
          IWIN = JWIN
-         JWIN = IWIN+VAL(IWIN,LUN)
+         JWIN = IWIN+NINT(VAL(IWIN,LUN))
       ENDIF
 
 C  EXITS
