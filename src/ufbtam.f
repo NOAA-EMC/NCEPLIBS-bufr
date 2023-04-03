@@ -154,7 +154,8 @@ C  ---------------------------------------------
             NBIT = IBT(NODE)
             IF(ITP(NODE).EQ.1) THEN
                CALL UPB8(IVAL,NBIT,MBIT,MBAY(1,LUN))
-               NBMP=IVAL; CALL USRTPL(LUN,N,NBMP)
+               NBMP=INT(IVAL)
+               CALL USRTPL(LUN,N,NBMP)
             ENDIF
             DO I=1,NNOD
             IF(NODS(I).EQ.NODE) THEN

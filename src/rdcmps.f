@@ -91,7 +91,8 @@ C        This is a numeric element.
             IVAL = LREF+NINC
          ENDIF
          IF(ITYP.EQ.1) THEN
-            NBMP=IVAL; CALL USRTPL(LUN,N,NBMP)
+            NBMP=INT(IVAL)
+            CALL USRTPL(LUN,N,NBMP)
             GOTO 1
          ENDIF
          IF(IVAL.LT.LPS(NBIT)) VAL(N,LUN) = UPS(IVAL,NODE)
