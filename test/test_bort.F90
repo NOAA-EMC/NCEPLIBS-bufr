@@ -29,8 +29,9 @@ program test_bort
   character*5 adn30
   integer ibay(1), ibit, subset, jdate
   integer mtyp, msbt, inod
-  character*28 unit
-  integer iscl, iref, nseq, nmsub, ierr
+!  character*28 unit
+!  integer iscl, iref, nseq
+  integer nmsub, ierr
   integer mear, mmon, mday, mour, idate
   integer iyr, imo, idy, ihr, imi
   integer jdate1(5), jdump1(5)

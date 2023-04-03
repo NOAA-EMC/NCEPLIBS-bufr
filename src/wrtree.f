@@ -8,7 +8,7 @@ C>
 C> This subroutine converts user numbers from the val array into scaled
 C> integers and packs them into bit strings in the ibay array.
 C>
-C> @param[in] lun -- integer: file ID.
+C> @param[in] lun - integer: file ID.
 C>
 C> @author J. Woollen @date 1994-01-06
 
