@@ -108,11 +108,6 @@ endif()
 set(underscore_def "UNDERSCORE")
 set(c_8_defs "F77_INTSIZE_8")
 
-# For gfortran-10+ backward compatibility
-if(${CMAKE_Fortran_COMPILER_ID} MATCHES "^(GNU)$" AND ${CMAKE_Fortran_COMPILER_VERSION} VERSION_GREATER_EQUAL 10)
-  set(CMAKE_Fortran_FLAGS "${CMAKE_Fortran_FLAGS} -w -fallow-argument-mismatch")
-endif()
-
 add_subdirectory(src)
 add_subdirectory(utils)
 
