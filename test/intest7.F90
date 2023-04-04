@@ -91,59 +91,75 @@ program intest7
   call ufbrep ( 11, r8val, 0, 1, nr8v, 'TIDER' )
   idx = index( errstr(1:errstr_len), 'UFBREP - 3rd ARG. (INPUT) IS .LE. 0' )
   if ( ( nr8v .ne. 0 ) .or. ( idx .eq. 0 ) ) stop 8
+  errstr_len = 0
+  call ufbrep ( 11, r8val, 1, 0, nr8v, 'TIDER' )
+  idx = index( errstr(1:errstr_len), 'UFBREP - 4th ARG. (INPUT) IS .LE. 0' )
+  if ( ( nr8v .ne. 0 ) .or. ( idx .eq. 0 ) ) stop 9
 
   ! Jump ahead to the 5th subset of the 23rd message and read some data values.
   call ufbpos ( 11, 23, 5, cmgtag, jdate )
   call ufbint ( 11, r8arr, mxr8pm, mxr8lv, nr8v, 'CLATH CLONH TMDB SWRAD' )
   if ( ( nr8v .ne. 1 ) .or.  &
       ( nint ( r8arr(1,1)*100000 ) .ne. 2001191 ) .or. ( nint ( r8arr(2,1)*100000 ) .ne. -3785017 ) .or. &
-      ( nint ( r8arr(3,1)*100 ) .ne. 30035 ) .or. ( nint ( r8arr(4,1) ) .ne. 2187000 ) ) stop 9
+      ( nint ( r8arr(3,1)*100 ) .ne. 30035 ) .or. ( nint ( r8arr(4,1) ) .ne. 2187000 ) ) stop 10
   errstr_len = 0
   call ufbint ( 11, r8val, 1, 1, nr8v, 'DUMMY' )
   idx = index( errstr(1:errstr_len), 'UFBINT - NO SPECIFIED VALUES READ IN' )
-  if ( ( nr8v .ne. 0 ) .or. ( idx .eq. 0 ) ) stop 10
+  if ( ( nr8v .ne. 0 ) .or. ( idx .eq. 0 ) ) stop 11
+  errstr_len = 0
+  call ufbint ( 11, r8val, 0, 1, nr8v, 'TMDB' )
+  idx = index( errstr(1:errstr_len), 'UFBINT - 3rd ARG. (INPUT) IS .LE. 0' )
+  if ( ( nr8v .ne. 0 ) .or. ( idx .eq. 0 ) ) stop 12
   errstr_len = 0
   call ufbint ( 11, r8val, 1, 0, nr8v, 'TMDB' )
   idx = index( errstr(1:errstr_len), 'UFBINT - 4th ARG. (INPUT) IS .LE. 0' )
-  if ( ( nr8v .ne. 0 ) .or. ( idx .eq. 0 ) ) stop 11
+  if ( ( nr8v .ne. 0 ) .or. ( idx .eq. 0 ) ) stop 13
 
   ! Jump ahead to the 2nd subset of the 30th message and read some data values.
   call ufbpos ( 11, 30, 2, cmgtag, jdate )
   call ufbstp ( 11, r8arr, mxr8pm, mxr8lv, nr8v, 'CLAT CLON HSMSL' )
   if ( ( nr8v .ne. 1 ) .or. &
       ( nint ( r8arr(1,1)*100 ) .ne. 3163 ) .or. ( nint ( r8arr(2,1)*100 ) .ne. -11017 ) .or. &
-      ( nint ( r8arr(3,1) ) .ne. 1205 ) ) stop 12
+      ( nint ( r8arr(3,1) ) .ne. 1205 ) ) stop 14
   errstr_len = 0
   call ufbstp ( 11, r8val, 1, 1, nr8v, 'DUMMY' )
   idx = index( errstr(1:errstr_len), 'UFBSTP - NO SPECIFIED VALUES READ IN' )
-  if ( ( nr8v .ne. 0 ) .or. ( idx .eq. 0 ) ) stop 13
+  if ( ( nr8v .ne. 0 ) .or. ( idx .eq. 0 ) ) stop 15
+  errstr_len = 0
+  call ufbstp ( 11, r8val, 0, 1, nr8v, 'CLON' )
+  idx = index( errstr(1:errstr_len), 'UFBSTP - 3rd ARG. (INPUT) IS .LE. 0' )
+  if ( ( nr8v .ne. 0 ) .or. ( idx .eq. 0 ) ) stop 16
   errstr_len = 0
   call ufbstp ( 11, r8val, 1, 0, nr8v, 'CLON' )
   idx = index( errstr(1:errstr_len), 'UFBSTP - 4th ARG. (INPUT) IS .LE. 0' )
-  if ( ( nr8v .ne. 0 ) .or. ( idx .eq. 0 ) ) stop 14
+  if ( ( nr8v .ne. 0 ) .or. ( idx .eq. 0 ) ) stop 17
 
   ! Jump backwards to the 88th subset of the 29th message and read some data values.
   call ufbpos ( 11, 29, 88, cmgtag, jdate )
   call ufbseq ( 11, r8arr, mxr8pm, mxr8lv, nr8v, 'NC008023' )
   if ( ( nr8v .ne. 1 ) .or. &
       ( nint ( r8arr(6,1)*100000 ) .ne. 2967000 ) .or. ( nint ( r8arr(7,1)*100000 ) .ne. -9512833 ) .or. &
-      ( nint ( r8arr(5,1) ) .ne. 482011039 ) ) stop 15
+      ( nint ( r8arr(5,1) ) .ne. 482011039 ) ) stop 18
   errstr_len = 0
   call ufbseq ( 11, r8val, 1, 1, nr8v, 'DUMMY' )
   idx = index( errstr(1:errstr_len), 'UFBSEQ - NO SPECIFIED VALUES READ IN' )
-  if ( ( nr8v .ne. 0 ) .or. ( idx .eq. 0 ) ) stop 16
+  if ( ( nr8v .ne. 0 ) .or. ( idx .eq. 0 ) ) stop 19
   errstr_len = 0
   call ufbseq ( 11, r8val, 0, 1, nr8v, 'CLON' )
   idx = index( errstr(1:errstr_len), 'UFBSEQ - 3rd ARG. (INPUT) IS .LE. 0' )
-  if ( ( nr8v .ne. 0 ) .or. ( idx .eq. 0 ) ) stop 17
+  if ( ( nr8v .ne. 0 ) .or. ( idx .eq. 0 ) ) stop 20
+  errstr_len = 0
+  call ufbseq ( 11, r8val, 1, 0, nr8v, 'CLON' )
+  idx = index( errstr(1:errstr_len), 'UFBSEQ - 4th ARG. (INPUT) IS .LE. 0' )
+  if ( ( nr8v .ne. 0 ) .or. ( idx .eq. 0 ) ) stop 21
 
   ! Test ufbcnt.
   call ufbcnt(11, kmsg, ksub)
-  if ( kmsg.ne.29 .or. ksub.ne.88) stop 18
+  if ( kmsg.ne.29 .or. ksub.ne.88) stop 22
 
   ! Rewind the file and get a total count of the subsets.
   call ufbtab ( -11, r8val, 1, 1, nsub, ' ' )
-  if ( ( nsub .ne. 402 ) .or. ( ibfms ( r8val(1,1) ) .ne. 1 ) ) stop 19
+  if ( ( nsub .ne. 402 ) .or. ( ibfms ( r8val(1,1) ) .ne. 1 ) ) stop 23
 
   print *, 'SUCCESS!'
 end program intest7

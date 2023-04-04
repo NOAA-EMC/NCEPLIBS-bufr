@@ -3,7 +3,36 @@
 ! Writes test file 'testfiles/OUT_4' using OPENBF IO = 'NODX' and IO = 'QUIET', and using STRCPT, WRDXTB and WRITSA
 !
 ! J. Ator, 2/17/2023
+
+module Share_errstr
+  ! This module is needed in order to share information between the test program and subroutine errwrt, because
+  ! the latter is not called by the former but rather is called directly from within the NCEPLIBS-bufr software.
+
+  character*800 errstr
+
+  integer errstr_len
+end module Share_errstr
+
+subroutine errwrt(str)
+  ! This subroutine supersedes the subroutine of the same name within the NCEPLIBS-bufr software, so that we can
+  ! easily test the generation of error messages from within the library.
+
+  use Share_errstr
+
+  character*(*) str
+
+  integer str_len
+
+  str_len = len(str)
+  errstr ( errstr_len + 1 : errstr_len + str_len + 1 ) = str
+  errstr_len = errstr_len + str_len
+
+  return
+end subroutine errwrt
+
 program outtest4
+  use Share_errstr
+
   implicit none
 
   integer*4 isetprm, ireadsb, igetmxby, icbfms, iupbs01, igetdate
@@ -107,7 +136,11 @@ program outtest4
 
     write ( unit = smid, fmt = '(A,I1.1)' ) 'STATION#', nsub
     if ( nsub .eq. 1 ) then
+      call openbf ( 12, 'QUIET', 1 )
+      errstr_len = 0
       call readlc ( 12, dummystr, 'DUMMYSTR' )
+      if ( index( errstr(1:errstr_len), 'NOT LOCATED IN REPORT SUBSET - RETURN WITH MISSING' ) .eq. 0 ) stop 6
+      call openbf ( 12, 'QUIET', -1 )
       if ( icbfms( dummystr, 9 ) .eq. 0 ) smid = dummystr
     end if
 
@@ -118,32 +151,50 @@ program outtest4
     call ufbseq ( 12, r8arr1, mxval1, 1, nlv, 'CLINRVSD' )
     call ufbseq ( 13, r8arr1, mxval1, 1, nlv, 'CLINRVSD' )
     call ufbseq ( 12, r8arr2, mxval2, mxlvl, nlv2, 'TDWPRAOB' )
+    if ( nsub .eq. 1 ) then
+      call openbf ( 12, 'QUIET', 1 )
+      errstr_len = 0
+      call ufbseq ( 13, r8arr1, mxval1, 1, nlv, 'DUMMYVAL' )
+      if ( index( errstr(1:errstr_len), 'UFBSEQ - NO SPECIFIED VALUES WRITTEN OUT' ) .eq. 0 ) stop 7
+      call openbf ( 12, 'QUIET', -1 )
+    end if
 
     call drfini ( 13, nlv2, 1, '(TDWPRAOB)' )
     call ufbseq ( 13, r8arr2, mxval2, nlv2, nlv, 'TDWPRAOB' )
 
     call hold4wlc ( 13, smid, 'SMID' )
+    if ( nsub .eq. 1 ) then
+      call openbf ( 12, 'QUIET', 1 )
+      errstr_len = 0
+      call writlc ( 13, dummystr, 'DUMMYSTR' )
+      if ( index( errstr(1:errstr_len), 'INTO SUBSET, BECAUSE NO SUBSET WAS OPEN FOR WRITING' ) .eq. 0 ) stop 8
+      call openbf ( 12, 'QUIET', -1 )
+    end if
     call writsa ( 13, mxbfmg, mgbf, lmgbf )
     if ( nsub .eq. 1 ) then
+      call openbf ( 12, 'QUIET', 1 )
+      errstr_len = 0
       call writlc ( 13, dummystr, 'DUMMYSTR' )
+      if ( index( errstr(1:errstr_len), 'INTO SUBSET, BECAUSE IT WASN''T FOUND IN THE SUBSET' ) .eq. 0 ) stop 9
+      call openbf ( 12, 'QUIET', -1 )
     end if
 
   end do
 
   call writsa ( -13, mxbfmg, mgbf, lmgbf )
 
-  ! Get Section 1 date (returns 8-byte ints for KIND_8).
+  ! Get Section 1 date.
   idate = igetdate(mgbf, mear, mmon, mday, mour)
-  if (idate.ne.20100111 .or. mear.ne.20 .or. mmon.ne.10 .or. mday.ne.1 .or. mour.ne.11) stop 6
+  if (idate.ne.20100111 .or. mear.ne.20 .or. mmon.ne.10 .or. mday.ne.1 .or. mour.ne.11) stop 10
 
   ! Close the output file.
   call closbf ( 13 )
 
-  ! Test atrcpt, which should add 6 bytes to mgbf
+  ! Test atrcpt, which should add 6 bytes to mgbf.
   mgbf2 = mgbf
   ilena = iupbs01(mgbf2, 'LENM')
   call atrcpt(mgbf, lmgbf, mgbf2)
   ilenb = iupbs01(mgbf2, 'LENM')
-  IF (ilenb-ilena .ne. 6) stop 7
+  IF (ilenb-ilena .ne. 6) stop 11
 
 end program outtest4
