@@ -1,7 +1,7 @@
 C> @file
 C> @brief Computes the ending index of the window.
 C>
-C> @author Woollen @date 1994-01-06
+C> @author J. Woollen @date 1994-01-06
 
 C> Given an index within the internal jump/link table which
 C> points to the start of an "rpc" window (which is the iteration of an 8-bit
@@ -17,7 +17,7 @@ C> @param[in] LUN - integer: i/o stream index into internal memory arrays.
 C> @param[in] IWIN - integer: starting index of window iteration.
 C> @param[out] JWIN - integer: ending index of window iteration.
 C>
-C> @author WOOLLEN @date 1994-01-06
+C> @author J. Woollen @date 1994-01-06
       SUBROUTINE NEWWIN(LUN,IWIN,JWIN)
 
       USE MODA_USRINT
@@ -40,7 +40,7 @@ C     Confirm that IWIN points to an RPC node and then compute JWIN.
 
       NODE = INV(IWIN,LUN)
       IF(LSTJPB(NODE,LUN,'RPC').NE.NODE) GOTO 900
-      JWIN = IWIN+VAL(IWIN,LUN)
+      JWIN = IWIN+NINT(VAL(IWIN,LUN))
 
 C  EXITS
 C  -----

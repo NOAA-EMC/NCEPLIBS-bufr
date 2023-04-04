@@ -210,7 +210,7 @@ C                 those of the previous referenced element.
      .                      ( TAG(NODRFE)(1:8) .EQ. TAGNRV(II) ) .AND.
      .                      ( NODRFE .GE. ISNRV(II) ) .AND.
      .                      ( NODRFE .LE. IENRV(II) ) ) THEN
-                          IRF(NODE) = NRV(II)
+                          IRF(NODE) = INT(NRV(II))
                           RETURN
                         END IF
                       END DO

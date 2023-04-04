@@ -22,22 +22,18 @@ C> Logical unit numbers LUNIT and LUNDX must already be associated
 C> with actual filenames on the local system, typically via a Fortran
 C> "OPEN" statement.
 C>
-C> @param[in] LUNIT   -- integer: Fortran logical unit number for BUFR
-C>                       file
-C> @param[in] LUNDX   -- integer: Fortran logical unit number
-C>                       containing DX BUFR table information
-C>                       associated with BUFR messages in LUNIT
-C> @param[in] INEW    -- integer: Processing option
-C>                       - 0 = Initialize the internal arrays, then
-C>                             read all BUFR messages from LUNIT into
-C>                             internal arrays
-C>                       - Otherwise, read all BUFR messages from LUNIT
-C>                         and append them to the existing messages
-C>                         within the internal arrays
-C> @param[out] IRET   -- integer: Number of BUFR messages that were
-C>                       read from LUNIT and stored into internal arrays
-C> @param[out] MESG   -- integer(*): Types of BUFR messages that were
-C>                       read from LUNIT and stored into internal arrays
+C> @param[in] LUNIT - integer: Fortran logical unit number for BUFR file.
+C> @param[in] LUNDX - integer: Fortran logical unit number containing DX
+C> BUFR table information associated with BUFR messages in LUNIT.
+C> @param[in] INEW - integer: Processing option
+C> - 0 = Initialize the internal arrays, then read all BUFR messages
+C> from LUNIT into internal arrays
+C> - Otherwise, read all BUFR messages from LUNIT and append them to the
+C> existing messages within the internal arrays
+C> @param[out] IRET - integer: Number of BUFR messages that were read
+C> from LUNIT and stored into internal arrays.
+C> @param[out] MESG - integer(*): Types of BUFR messages that were read
+C> from LUNIT and stored into internal arrays.
 C>
 C> @author J. Woollen @date 2012-01-26
       RECURSIVE SUBROUTINE UFBMEX(LUNIT,LUNDX,INEW,IRET,MESG)
@@ -53,7 +49,8 @@ C> @author J. Woollen @date 2012-01-26
 
       CHARACTER*128 BORT_STR,ERRSTR
 
-      INTEGER       MESG(*), IRET(*)
+      INTEGER MESG(*), IRET(*), LUNIT(*), LUNDX(*), INEW(*)
+      INTEGER MY_LUNIT(1), MY_LUNDX(1), MY_INEW(1)
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
@@ -67,7 +64,7 @@ C  ---------------------
          CALL X84(LUNIT,MY_LUNIT,1)
          CALL X84(LUNDX,MY_LUNDX,1)
          CALL X84(INEW,MY_INEW,1)
-         IF (MY_INEW.EQ.0) THEN
+         IF (MY_INEW(1).EQ.0) THEN
             NMESG = 0
          ELSE
             NMESG = MSGP(0)
@@ -86,7 +83,7 @@ C  ----------------------------------------------------------
 
       CALL OPENBF(LUNIT,'IN',LUNDX)
 
-      IF(INEW.EQ.0) THEN
+      IF(INEW(1).EQ.0) THEN
          MSGP(0) = 0
          MUNIT = 0
          MLAST = 0
@@ -192,7 +189,7 @@ C  --------------------------------------------------
          CALL CLOSBF(LUNIT)
       ELSE
          IF(MUNIT.NE.0) CALL CLOSBF(LUNIT)
-         IF(MUNIT.EQ.0) MUNIT = LUNIT
+         IF(MUNIT.EQ.0) MUNIT = LUNIT(1)
       ENDIF
 
 C  EXITS
@@ -200,6 +197,6 @@ C  -----
 
       RETURN
 900   WRITE(BORT_STR,'("BUFRLIB: UFBMEX - ERROR READING MESSAGE '//
-     . 'NUMBER",I5," INTO MEMORY FROM UNIT",I3)') NMSG+1,LUNIT
+     . 'NUMBER",I5," INTO MEMORY FROM UNIT",I3)') NMSG+1,LUNIT(1)
       CALL BORT(BORT_STR)
       END

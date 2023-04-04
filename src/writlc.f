@@ -113,7 +113,8 @@ C        The message is compressed.
             N = N+1
             NODE = INV(N,LUN)
             IF(ITP(NODE).EQ.1) THEN
-               CALL USRTPL(LUN,N,MATX(N,NCOL))
+               NBMP=INT(MATX(N,NCOL))
+               CALL USRTPL(LUN,N,NBMP)
             ELSEIF(CTAG.EQ.TAG(NODE)) THEN
                ITAGCT = ITAGCT + 1
                IF(ITAGCT.EQ.IOID) THEN
@@ -222,9 +223,5 @@ C  -----
       CALL BORT(BORT_STR)
 904   WRITE(BORT_STR,'("BUFRLIB: WRITLC - MNEMONIC ",A," DOES NOT '//
      . 'REPRESENT A CHARACTER ELEMENT (TYP=",A,")")') CTAG,TYP(NODE)
-      CALL BORT(BORT_STR)
-905   WRITE(BORT_STR,'("BUFRLIB: WRITLC - THE MOST RECENTLY WRITTEN '//
-     . ' SUBSET NO. (",I3,") IN MSG .NE. THE STORED VALUE FOR THE NO.'//
-     . ' OF SUBSETS (",I3,") IN MSG")') NSUBS,NSUB(LUN)
       CALL BORT(BORT_STR)
       END

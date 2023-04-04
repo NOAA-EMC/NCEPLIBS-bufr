@@ -38,13 +38,13 @@ program intest7
 
   integer*4 isetprm, igetprm, ireadns, ibfms
 
-  integer imgdt, iret, jdate, nr8v, idx, nsub, num, kmsg, ksub
+  integer imgdt, iret, jdate, nr8v, idx, nsub, kmsg, ksub
 
   integer mxr8pm, mxr8lv
   parameter ( mxr8pm = 15 )
   parameter ( mxr8lv = 5 )
 
-  real*8 r8arr (mxr8pm, mxr8lv), r8val
+  real*8 r8arr (mxr8pm, mxr8lv), r8val(1,1)
 
   character cmgtag*8
 
@@ -136,13 +136,14 @@ program intest7
   call ufbseq ( 11, r8val, 0, 1, nr8v, 'CLON' )
   idx = index( errstr(1:errstr_len), 'UFBSEQ - 3rd ARG. (INPUT) IS .LE. 0' )
   if ( ( nr8v .ne. 0 ) .or. ( idx .eq. 0 ) ) stop 17
-  ! Test ufbcnt for 8-byte mode.
+
+  ! Test ufbcnt.
   call ufbcnt(11, kmsg, ksub)
   if ( kmsg.ne.29 .or. ksub.ne.88) stop 18
 
   ! Rewind the file and get a total count of the subsets.
   call ufbtab ( -11, r8val, 1, 1, nsub, ' ' )
-  if ( ( nsub .ne. 402 ) .or. ( ibfms ( r8val ) .ne. 1 ) ) stop 19
+  if ( ( nsub .ne. 402 ) .or. ( ibfms ( r8val(1,1) ) .ne. 1 ) ) stop 19
 
   print *, 'SUCCESS!'
 end program intest7

@@ -43,12 +43,10 @@ C> @author J. Woollen @date 2022-05-06
       if(nbits<0 ) call bort('bufrlib: pkb8 - nbits < zero !!!!!')
       if(nbits>64) call bort('bufrlib: pkb8 - nbits > 64   !!!!!')
 
-      if(nbitw==32) then
-         nval8=nval
-         nval4=nvals(2); call pkb(nval4,max(nbits-nbitw,0),ibay,ibit)
-         nval4=nvals(1); call pkb(nval4,min(nbits,nbitw  ),ibay,ibit)
-      else
-         call pkb(nval,nbits,ibay,ibit)
-      endif
+      nval8=nval
+      nval4=nvals(2)
+      call pkb(nval4,max(nbits-nbitw,0),ibay,ibit)
+      nval4=nvals(1)
+      call pkb(nval4,min(nbits,nbitw  ),ibay,ibit)
 
       end subroutine

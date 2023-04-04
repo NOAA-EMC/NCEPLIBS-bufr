@@ -8,7 +8,7 @@ C> subset arrays in module @ref moda_usrint for cases of node expansion,
 C> such as when the node is either a Table A mnemonic or a delayed
 C> replication factor.
 C>
-C> @param[in] LUN - integer: I/O stream index into internal memory arrays.
+C> @param[in] LUN - integer: file ID.
 C> @param[in] INVN - integer: starting jump/link table index of the node
 C> to be expanded within the subset template.
 C> @param[in] NBMP - integer: number of times by which INVN is to be
@@ -74,7 +74,7 @@ c  .... case where node is (hopefully) a delayed replication factor
          DRS  = TYP(NODI) .EQ. 'DRS'
          DRB  = TYP(NODI) .EQ. 'DRB'
          DRX  = DRP .OR. DRS .OR. DRB
-         IVAL = VAL(INVN,LUN)
+         IVAL = NINT(VAL(INVN,LUN))
          JVAL = 2**IBT(NODI)-1
          VAL(INVN,LUN) = IVAL+NBMP
          IF(DRB.AND.NBMP.NE.1) GOTO 901
