@@ -296,6 +296,14 @@ extern "C" {
  */
   void get_jmpb_f(int** jmpb_ptr, int* jmpb_size);
 
+
+/**
+ * Get copy of the moda_tables IRF array.
+ * @param irf_ptr - pointer to a pointer to the IRF array.
+ * @param irf_size - size of the IRF array.
+ */
+  void get_irf_f(int** irf_ptr, int* irf_size);
+
 /**
  *  Get the bufr node idx for the start node of the subset.
  *
