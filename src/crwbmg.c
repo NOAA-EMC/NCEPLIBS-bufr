@@ -12,7 +12,7 @@
 FILE *pbf[2];
 
 /**
- * This function reads a specified number of bytes from the system file that was opened via the
+ * Read a specified number of bytes from the system file that was opened via the
  * most recent call to function cobfl() with io = 'r'.
  *
  * @param mxmb   - Dimensioned size (in bytes) of bmg; used by the function to ensure that
@@ -48,7 +48,7 @@ int rbytes( char *bmg, int mxmb, int isloc, int newbytes )
 }
 
 /**
- * This function opens a new file for reading or writing BUFR messages via a C language interface.
+ * Open a new file for reading or writing BUFR messages via a C language interface.
  *
  * This function is designed to be easily callable from application program written in either C or
  * Fortran. It is functionally equivalent to subroutine openbf(); however, there are some important
@@ -61,14 +61,14 @@ int rbytes( char *bmg, int mxmb, int isloc, int newbytes )
  *    either case where a file of that type is already open, then the function will automatically
  *    close the previous file of that type before opening the new one.
  *  - When opening a file for input/reading using openbf(), the user can make subsequent calls to any
- *    of the BUFRLIB [message-reading subroutines](@ref hierarchy) to read individual BUFR messages
- *    from that file into internal arrays, followed by subsequent calls to any of the BUFRLIB
+ *    of the NCEPLIBS-bufr [message-reading subroutines](@ref hierarchy) to read individual BUFR messages
+ *    from that file into internal arrays, followed by subsequent calls to any of the NCEPLIBS-bufr
  *    [subset-reading subroutines](@ref hierarchy)) to read individual data subsets from each such
  *    message.  However, when opening a file for input/reading using this function, the user must
  *    instead make subsequent calls to crbmg() to read individual BUFR messages from that file, and
  *    each such message will be returned directly to the user within an allocated memory array.
  *    The user may then, if desired, make subsequent calls to readerme() to store each such message
- *    into the same internal arrays, followed by subsequent calls to any of the BUFRLIB
+ *    into the same internal arrays, followed by subsequent calls to any of the NCEPLIBS-bufr
  *    [subset-reading subroutines](@ref hierarchy) to read individual data subsets from each such
  *    message.
  *  - When opening a file for output/writing using openbf(), the user can make subsequent successive
@@ -152,7 +152,7 @@ void cobfl( char *bfl, char io )
 }
 
 /**
- * This function reads the next BUFR message from the system file that was opened via the most
+ * Read the next BUFR message from the system file that was opened via the most
  * recent call to function cobfl() with io = 'r'.
  *
  * This function is designed to be easily callable from application program written in either C
@@ -225,7 +225,7 @@ void crbmg( char *bmg, int mxmb, int *nmb, int *iret )
 }
 
 /**
- * This function writes a BUFR message to the system file that was opened via the most recent
+ * Write a BUFR message to the system file that was opened via the most recent
  * call to function cobfl() with io = 'w'.
  *
  * This function is designed to be easily callable from application program written in either C
@@ -260,7 +260,7 @@ void cwbmg( char *bmg, int nmb, int *iret )
 }
 
 /**
- * This function closes all system files that were opened via previous calls to function cobfl().
+ * Close all system files that were opened via previous calls to function cobfl().
  *
  * @author J. Ator  @date 2005-11-29
  */

@@ -1,11 +1,11 @@
 C> @file
 C> @brief Close a previously opened system file and disconnect it from
-C> the BUFRLIB software.
+C> the NCEPLIBS-bufr software.
 C>
 C> @author J. Woollen, J. Ator @date 1994-01-06
 
 C> This subroutine closes the connection between logical unit
-C> LUNIT and the BUFRLIB software.
+C> LUNIT and the NCEPLIBS-bufr software.
 C>
 C> @remarks
 C> - This subroutine will execute a Fortran "CLOSE" on logical unit LUNIT,
@@ -21,6 +21,8 @@ C>
 C> @author J. Woollen, J. Ator @date 1994-01-06
 
       RECURSIVE SUBROUTINE CLOSBF(LUNIT)
+
+      use bufrlib
 
       USE MODA_NULBFR
       USE MODV_IM8B
@@ -54,7 +56,7 @@ C  ---------------------
 
       CALL STATUS(LUNIT,LUN,IL,IM)
       IF(IL.GT.0 .AND. IM.NE.0) CALL CLOSMG(LUNIT)
-      IF(IL.NE.0 .AND. NULL(LUN).EQ.0) CALL CLOSFB(LUN)
+      IF(IL.NE.0 .AND. NULL(LUN).EQ.0) CALL CLOSFB_C(LUN)
       CALL WTSTAT(LUNIT,LUN,0,0)
 
 C  CLOSE fortran UNIT IF NULL(LUN) = 0

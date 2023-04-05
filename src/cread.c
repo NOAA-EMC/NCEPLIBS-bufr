@@ -4,7 +4,7 @@
  *  This interface is used internally by many of the Fortran language
  *  [file-reading/writing subroutines](@ref hierarchy) and
  *  [message-reading/writing subroutines](@ref hierarchy) within
- *  the BUFRLIB software, in order to use C to directly read/write
+ *  the NCEPLIBS-bufr software, in order to use C to directly read/write
  *  BUFR messages from/to system files.
  *
  *  This in turn eliminates the need for IEEE Fortran control words
@@ -19,105 +19,155 @@
 #include "cread.h"
 
 /**
- * This subroutine opens a new system file for reading BUFR messages.
+ * Open a new system file for reading BUFR messages.
  *
- * @param[in] nfile -- f77int*: Internal Fortran I/O stream index associated with ufile
- * @param[in] ufile -- char*: [path/]name of system file to be opened
+ * @param nfile - File ID.
+ * @param ufile - [path/]name of system file to be opened.
  *
  * @author J. Woollen @date 2012-09-15
  */
-void openrb   (nfile,ufile) f77int *nfile; char *ufile; { pb[*nfile] = fopen( ufile , "rb " ); }
+void openrb( int nfile, char *ufile ) {
+   pb[nfile] = fopen( ufile, "rb " );
+}
 
 /**
- * This subroutine opens a new system file for writing BUFR messages.
+ * Open a new system file for writing BUFR messages.
  *
- * @param[in] nfile -- f77int*: Internal Fortran I/O stream index associated with ufile
- * @param[in] ufile -- char*: [path/]name of system file to be opened
+ * @param nfile - File ID.
+ * @param ufile - [path/]name of system file to be opened.
  *
  * @author J. Woollen @date 2012-09-15
  */
-void openwb   (nfile,ufile) f77int *nfile; char *ufile; { pb[*nfile] = fopen( ufile , "wb " ); }
+void openwb( int nfile, char *ufile ) {
+   pb[nfile] = fopen( ufile, "wb " );
+}
 
 /**
- * This subroutine opens a new system file for appending BUFR messages.
+ * Open a new system file for appending BUFR messages.
  *
- * @param[in] nfile -- f77int*: Internal Fortran I/O stream index associated with ufile
- * @param[in] ufile -- char*: [path/]name of system file to be opened
+ * @param nfile - File ID.
+ * @param ufile - [path/]name of system file to be opened.
  *
  * @author J. Woollen @date 2012-09-15
  */
-void openab   (nfile,ufile) f77int *nfile; char *ufile; { pb[*nfile] = fopen( ufile , "a+b" ); }
+void openab( int nfile, char *ufile ) {
+   pb[nfile] = fopen( ufile, "a+b" );
+}
 
 /**
- * This subroutine backspaces a BUFR file by one BUFR message.
+ * Backspace a BUFR file by one BUFR message.
  *
- * @param[in] nfile -- f77int*: Internal Fortran I/O stream index associated with BUFR file
+ * @param nfile - File ID.
  *
  * @author J. Woollen @date 2012-09-15
  */
-void backbufr (nfile      ) f77int *nfile;              { fsetpos(pb[*nfile],&lstpos[*nfile]);}
+void backbufr( int nfile ) {
+   fsetpos(pb[nfile],&lstpos[nfile]);
+}
 
 /**
- * This subroutine rewinds a BUFR file back to its beginning.
+ * Rewind a BUFR file back to its beginning.
  *
- * @param[in] nfile -- f77int*: Internal Fortran I/O stream index associated with BUFR file
+ * @param nfile - File ID.
  *
  * @author J. Woollen @date 2012-09-15
  */
-void cewind   (nfile      ) f77int *nfile;              { rewind(pb[*nfile]); }
+void cewind( int nfile ) {
+   rewind(pb[nfile]);
+}
 
 /**
- * This subroutine closes a previously opened BUFR file.
+ * Close a previously opened BUFR file.
  *
- * @param[in] nfile -- f77int*: Internal Fortran I/O stream index associated with BUFR file
+ * @param nfile - File ID.
  *
  * @author J. Woollen @date 2012-09-15
  */
-void closfb   (nfile      ) f77int *nfile;              { fclose(pb[*nfile]); }
+void closfb( int nfile ) {
+   fclose(pb[nfile]);
+}
 
 /**
- * This function reads the next message from a BUFR file that was previously opened for reading.
+ * Read the next message from a BUFR file that was previously opened for reading.
  *
- * @param[in] nfile -- f77int*: Internal Fortran I/O stream index associated with BUFR file
- * @param[out] bufr -- char*: BUFR message
- * @param[in] mxbyt -- f77int*: Dimensioned size (in bytes) of bufr; used by the function to
- *                     ensure that it doesn't overflow the BUFR array
- * @returns crdbufr -- f77int: return code
- *                     - 0 = normal return
- *                     - -1 = end-of-file encountered while reading
- *                     - -2 = I/O error encountered while reading
- *                     - -3 = overflow of bufr array
+ * @param nfile - File ID.
+ * @param bufr - BUFR message
+ * @param mxwrd - Dimensioned size (in integers) of bufr; used by the function to
+ * ensure that it doesn't overflow the array
+ * @returns crdbufr - Return code:
+ * - 0 = normal return
+ * - -1 = end-of-file encountered while reading
+ * - -2 = I/O error encountered while reading
+ * - -3 = overflow of bufr array
  *
  * @author J. Woollen @date 2012-09-15
  */
-f77int crdbufr (nfile,bufr,mxbyt)
-f77int *nfile; f77int *mxbyt; char *bufr;
-{  f77int  nbyt; f77int  nb; f77int wkint[2]; fpos_t nxtpos;
-   fgetpos(pb[*nfile],&lstpos[*nfile]);
-   nb = sizeof(*bufr); bufr[0]=bufr[1];
-   while ( strncmp(bufr,"BUFR",4)!=0)
-   {  memmove(bufr,&bufr[1],3);
-      if(fread(bufr+3,nb,1,pb[*nfile])!=1) return -1;
+int crdbufr( int nfile, int *bufr, int mxwrd ) {
+
+   int nbytrem, nintrem, wkint[2];
+   size_t nb = sizeof(int);
+   char wkchr[17] = "                ";
+   fpos_t nxtpos;
+
+   /* Find the start of the next BUFR message within the file. */
+   fgetpos(pb[nfile],&lstpos[nfile]);
+   while ( strncmp(wkchr,"BUFR",4)!=0) {
+      memmove(wkchr,&wkchr[1],3);
+      if(fread(wkchr+3,1,1,pb[nfile])!=1) return -1;
    }
-   fgetpos(pb[*nfile],&nxtpos); if(fread(bufr+4,nb,4,pb[*nfile])!=4) return -1;
-   memcpy(wkint,bufr,8); nbyt=iupbs01(wkint,"LENM",4)-8;
-   if(nbyt+8>*mxbyt)                           {fsetpos(pb[*nfile],&nxtpos);return -3;};
-   if(fread(bufr+8,nb,nbyt,pb[*nfile])!=nbyt)  {fsetpos(pb[*nfile],&nxtpos);return -2;};
-   if(strncmp(bufr+nbyt+4,"7777",4)!=0)        {fsetpos(pb[*nfile],&nxtpos);return -2;};
+
+   /* Save the current location in case we need to restore it later. */
+   fgetpos(pb[nfile],&nxtpos);
+
+   /* Read the next 4 bytes of the message. */
+   if (fread(wkchr+4,1,4,pb[nfile])!=4) return -1;
+
+   /* Determine the remaining number of bytes in the message. */
+   memcpy(wkint,wkchr,8);
+   nbytrem=iupbs01(wkint,"LENM",4)-8;
+
+   /* Continue reading in integer chunks up to the last few bytes of the message. */
+   nintrem = nbytrem/nb;
+   if (nintrem+3>mxwrd) {
+      fsetpos(pb[nfile],&nxtpos);
+      return -3;
+   }
+   bufr[0] = wkint[0];
+   bufr[1] = wkint[1];
+   if (fread(&bufr[2],nb,nintrem-1,pb[nfile])!=nintrem-1) {
+      fsetpos(pb[nfile],&nxtpos);
+      return -2;
+   }
+
+   /* Read the last few bytes of the message and check for the "7777" indicator. */
+   nbytrem = nb + nbytrem%nb;
+   if (fread(wkchr,1,nbytrem,pb[nfile])!=nbytrem) {
+      fsetpos(pb[nfile],&nxtpos);
+      return -2;
+   }
+   if (strncmp(&wkchr[nbytrem-4],"7777",4)!=0) {
+      fsetpos(pb[nfile],&nxtpos);
+      return -2;
+   }
+   memcpy(wkint,wkchr,8);
+   bufr[nintrem+1] = wkint[0];
+   bufr[nintrem+2] = wkint[1];
+
    return 0;
 }
 
 /**
- * This subroutine writes a BUFR message into a file that was previously opened for writing.
+ * Write a BUFR message into a file that was previously opened for writing.
  *
- * @param[in] nfile -- f77int*: Internal Fortran I/O stream index associated with BUFR file
- * @param[in] bufr  -- f77int*: BUFR message
- * @param[in] nwrd  -- f77int*: Size (in f77ints) of bufr
+ * @param nfile - File ID.
+ * @param bufr  - BUFR message
+ * @param nwrd  - Size (in integers) of bufr
  *
  * @author J. Woollen @date 2012-09-15
  */
-void cwrbufr (nfile,bufr,nwrd)
-f77int *nfile; f77int *nwrd; f77int  *bufr;
-{  f77int  nb; nb = sizeof(*bufr);
-   fwrite(bufr,nb,*nwrd,pb[*nfile]);
+void cwrbufr( int nfile, int *bufr, int nwrd ) {
+   int nb;
+
+   nb = sizeof(*bufr);
+   fwrite(bufr,nb,nwrd,pb[nfile]);
 }

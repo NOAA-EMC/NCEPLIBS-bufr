@@ -1,5 +1,6 @@
 
 # DX BUFR Tables
+@brief Description and format of DX BUFR tables for use with the library.
 @anchor dfbftab
 
 <div id="bftab">

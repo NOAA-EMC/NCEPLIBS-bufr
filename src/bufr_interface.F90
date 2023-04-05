@@ -1,6 +1,11 @@
 !> @file
-!> @brief Define signatures to enable a number of BUFRLIB functions to be called
+!> @brief Define signatures to enable a number of C NCEPLIBS-bufr functions to be called
 !>        via wrapper functions from Fortran application programs.
+!>
+!> @author J. Ator @date 2023-03-22
+
+!> This module contains signatures which wrap C NCEPLIBS-bufr functions so they can be
+!> called from within Fortran application programs.
 !>
 !> @author J. Ator @date 2023-03-22
 
@@ -9,7 +14,7 @@ module bufr_interface
   interface
 
     !> @fn bufr_interface::cobfl_c::cobfl_c(bfl, io)
-    !> Wraps BUFRLIB cobfl() function.
+    !> Wraps NCEPLIBS-bufr cobfl() function.
     !>
     !> @param bfl - [path]/name of system file to be opened
     !> @param io - Flag indicating how bfl is to be opened
@@ -22,7 +27,7 @@ module bufr_interface
     end subroutine cobfl_c
 
     !> @fn bufr_interface::crbmg_c::crbmg_c(bmg, mxmb, nmb, iret)
-    !> Wraps BUFRLIB crbmg() function.
+    !> Wraps NCEPLIBS-bufr crbmg() function.
     !>
     !> @param mxmb - Dimensioned size of bmg array in the calling program
     !> @param bmg - BUFR message
@@ -38,7 +43,7 @@ module bufr_interface
     end subroutine crbmg_c
 
     !> @fn bufr_interface::cwbmg_c::cwbmg_c(bmg, nmb, iret)
-    !> Wraps BUFRLIB cwbmg() function.
+    !> Wraps NCEPLIBS-bufr cwbmg() function.
     !>
     !> @param bmg - BUFR message
     !> @param nmb - Size (in bytes) of BUFR message in bmg
@@ -53,7 +58,7 @@ module bufr_interface
     end subroutine cwbmg_c
 
     !> @fn bufr_interface::ccbfl_c::ccbfl_c()
-    !> Wraps BUFRLIB ccbfl() function.
+    !> Wraps NCEPLIBS-bufr ccbfl() function.
     !>
     !> @author J. Ator @date 2005-11-29
     subroutine ccbfl_c() bind(C, name='ccbfl')

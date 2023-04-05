@@ -1,20 +1,17 @@
 /**
  * @file
- * @brief Define signatures to enable a number of BUFRLIB subprograms to be called via wrapper
+ * @brief Define signatures to enable a number of NCEPLIBS-bufr subprograms to be called via wrapper
  * functions from C and C++ application programs.
  *
  * This header file defines the signatures for the subprograms in bufr_c2f_interface.F90 which wrap
- * a number of native Fortran subroutines in the BUFRLIB.  It also contains prototypes for native C
- * functions in the BUFRLIB which are expected to be called from C and C++ application programs.
+ * a number of native Fortran subroutines in the library.  It also contains prototypes for native C
+ * functions in the library which are expected to be called from C and C++ application programs.
  *
  * @author Ronald Mclaren @date 2020-07-29
  */
 
 #pragma once
 
-/**
- * Prototypes for native C functions.
- */
 void cobfl( char *bfl, char io );
 void crbmg( char *bmg, int mxmb, int *nmb, int *iret );
 void cwbmg( char *bmg, int nmb, int *iret );
@@ -25,10 +22,9 @@ extern "C" {
 #endif
 
 /**
- * Wraps fortran "open" function so we can open a Fortran file
- * from a C program.
+ * Wraps Fortran "open" function so we can open a Fortran file from a C program.
  *
- * @param unit - the integer to use as the fortran file unit.
+ * @param unit - the integer to use as the Fortran file unit.
  * @param filepath - path to the file we want to open.
  *
  * @author Ronald Mclaren @date 2020-07-29
@@ -36,19 +32,18 @@ extern "C" {
   void open_f(int unit, const char* filepath);
 
 /**
- * Wraps fortran "close" function so we can close a Fortran file
- * from a C program.
+ * Wraps Fortran "close" function so we can close a Fortran file from a C program.
  *
- * @param unit - the integer to use as the fortran file unit.
+ * @param unit - the integer to use as the Fortran file unit.
  *
  * @author Ronald Mclaren @date 2020-07-29
  */
   void close_f(int unit);
 
 /**
- * Wraps BUFRLIB openbf() subroutine.
+ * Wraps NCEPLIBS-bufr openbf() subroutine.
  *
- * @param bufr_unit - the fortran file unit number.
+ * @param bufr_unit - the Fortran file unit number.
  * @param cio - cio string (ex "IN", "SEC3", and "OUT").
  * @param table_file_id - table_file unit number.
  *
@@ -57,25 +52,25 @@ extern "C" {
   void openbf_f(int bufr_unit, const char* cio, int table_file_id);
 
 /**
- * Wraps BUFRLIB closbf() subroutine.
+ * Wraps NCEPLIBS-bufr closbf() subroutine.
  *
- * @param bufr_unit - the fortran file unit number to close.
+ * @param bufr_unit - the Fortran file unit number to close.
  *
  * @author Ronald Mclaren @date 2020-07-29
  */
   void closbf_f(int bufr_unit);
 
 /**
- * Wraps BUFRLIB exitbufr() subroutine.
+ * Wraps NCEPLIBS-bufr exitbufr() subroutine.
  *
  * @author Ronald Mclaren @date 2020-07-29
  */
   void exitbufr_f();
 
 /**
- * Wraps BUFRLIB ireadmg() function.
+ * Wraps NCEPLIBS-bufr ireadmg() function.
  *
- * @param bufr_unit - the fortran file unit number to read from.
+ * @param bufr_unit - the Fortran file unit number to read from.
  * @param subset - the subset string.
  * @param iddate - datetime of message.
  * @param subset_len - length of the subset string.
@@ -89,9 +84,9 @@ extern "C" {
   int ireadmg_f(int bufr_unit, char* subset, int* iddate, int subset_len);
 
 /**
- * Wraps BUFRLIB ireadsb() function.
+ * Wraps NCEPLIBS-bufr ireadsb() function.
  *
- * @param bufr_unit - the fortran file unit number to read from.
+ * @param bufr_unit - the Fortran file unit number to read from.
  *
  * @return
  * - 0 new BUFR data subset was successfully read into internal arrays.
@@ -102,9 +97,9 @@ extern "C" {
   int ireadsb_f(int bufr_unit);
 
 /**
- * Wraps BUFRLIB ufbint() subroutine.
+ * Wraps NCEPLIBS-bufr ufbint() subroutine.
  *
- * @param bufr_unit - the fortran file unit number to read from.
+ * @param bufr_unit - the Fortran file unit number to read from.
  * @param c_data - pointer to a pointer to a pre-allocated buffer.
  * @param dim_1 - dimensionality of data to read or write.
  * @param dim_2 - dimensionality of data to read or write.
@@ -117,9 +112,9 @@ extern "C" {
                 int* iret, const char* table_b_mnemonic);
 
 /**
- * Wraps BUFRLIB ufbrep() subroutine.
+ * Wraps NCEPLIBS-bufr ufbrep() subroutine.
  *
- * @param bufr_unit - the fortran file unit number to read from.
+ * @param bufr_unit - the Fortran file unit number to read from.
  * @param c_data - pointer to a pointer to a pre-allocated buffer.
  * @param dim_1 - dimensionality of data to read or write.
  * @param dim_2 - dimensionality of data to read or write.
@@ -132,7 +127,7 @@ extern "C" {
                 int* iret, const char* table_b_mnemonic);
 
 /**
- * Wraps BUFRLIB mtinfo() subroutine.
+ * Wraps NCEPLIBS-bufr mtinfo() subroutine.
  *
  * @param path - the path where the WMO tables are stored.
  * @param file_unit_1 - number to use for first file unit.
@@ -143,9 +138,9 @@ extern "C" {
   void mtinfo_f(const char* path, int file_unit_1, int file_unit_2);
 
 /**
- * Wraps BUFRLIB status() subroutine.
+ * Wraps NCEPLIBS-bufr status() subroutine.
  *
- * @param file_unit - the fortran file unit number to read from.
+ * @param file_unit - the Fortran file unit number to read from.
  * @param lun - pointer for the file stream.
  * @param il - file status.
  * @param im - message status.
@@ -155,7 +150,7 @@ extern "C" {
   void status_f(int file_unit, int* lun, int* il, int* im);
 
 /**
- * Wraps BUFRLIB nemdefs() subroutine.
+ * Wraps NCEPLIBS-bufr nemdefs() subroutine.
  *
  * @param file_unit - Fortran file unit for the open file.
  * @param mnemonic - mnemonic.
@@ -176,7 +171,7 @@ extern "C" {
                    int* iret);
 
 /**
- * Wraps BUFRLIB nemspecs() subroutine.
+ * Wraps NCEPLIBS-bufr nemspecs() subroutine.
  *
  * @param file_unit - Fortran file unit for the open file.
  * @param mnemonic: - mnemonic.
@@ -197,7 +192,7 @@ extern "C" {
                     int* iret);
 
 /**
- * Wraps BUFRLIB nemtab() subroutine.
+ * Wraps NCEPLIBS-bufr nemtab() subroutine.
  *
  * @param bufr_unit - the bufr file pointer.
  * @param mnemonic - mnemonic.
@@ -214,7 +209,7 @@ extern "C" {
                   int* table_idx);
 
 /**
- * Wraps BUFRLIB nemtbb() subroutine.
+ * Wraps NCEPLIBS-bufr nemtbb() subroutine.
  *
  * @param bufr_unit - the bufr file pointer.
  * @param table_idx - Table B index.

@@ -1,5 +1,6 @@
 
 # Master BUFR Tables
+@brief Description and format of master BUFR tables for use with the library.
 @anchor dfbfmstab
 
 This document describes the format and concept of master BUFR
