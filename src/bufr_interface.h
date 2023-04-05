@@ -66,6 +66,16 @@ extern "C" {
   void closbf_f(int bufr_unit);
 
 /**
+ * Wraps BUFRLIB datelen() subroutine.
+ *
+ * @param len - the length of the date string. Possible values are:
+ *              8 for YYMMDDHH, 10 for YYYYMMDDHH.
+ *
+ * @author Ronald Mclaren @date 2023-04-05
+ */
+  void datelen_f(int len);
+
+/**
  * Wraps BUFRLIB exitbufr() subroutine.
  *
  * @author Ronald Mclaren @date 2020-07-29

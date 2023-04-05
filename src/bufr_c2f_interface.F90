@@ -25,6 +25,7 @@ module bufr_c2f_interface
   private
   public :: open_c, close_c
   public :: openbf_c, closbf_c
+  public :: datelen_c
   public :: exitbufr_c
   public :: ireadmg_c
   public :: ireadsb_c
@@ -145,6 +146,19 @@ subroutine openbf_c(bufr_unit, cio, table_file_id) bind(C, name='openbf_f')
 
   call openbf(bufr_unit, c_f_string(cio), table_file_id)
 end subroutine openbf_c
+
+
+!> Wraps BUFRLIB datelen() subroutine.
+!>
+!> @param[in] len - c_int: the length of the date string. Possible values are:
+!>                         8 for YYMMDDHH, 10 for YYYYMMDDHH.
+!>
+!> @author Ronald McLaren @date 2023-04-05
+subroutine datelen_c(len) bind(C, name='datelen_f')
+  integer(c_int), value, intent(in) :: len
+
+  call datelen(len)
+end subroutine datelen_c
 
 
 !> Wraps BUFRLIB closbf() subroutine.
