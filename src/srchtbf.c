@@ -67,8 +67,9 @@
  *
  *  @author J. Ator  @date 2018-01-11
  */
-void srchtbf( f77int *ifxyi, f77int *ivali, f77int *ifxyd, f77int *mxfxyd, f77int *ivald,
-              char *meaning, f77int *mxmng, f77int *lnmng, f77int *iret )
+void
+srchtbf(f77int *ifxyi, f77int *ivali, f77int *ifxyd, f77int *mxfxyd, f77int *ivald,
+        char *meaning, f77int *mxmng, f77int *lnmng, f77int *iret)
 {
         struct code_flag_entry key, *pkey, *pcfe, *pbs;
 

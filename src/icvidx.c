@@ -20,7 +20,8 @@
  *
  * @author Ator @date 2009-03-23
  */
-f77int icvidx( f77int *ii, f77int *jj, f77int *numjj )
+f77int
+icvidx(f77int *ii, f77int *jj, f77int *numjj)
 {
         return ( *numjj * (*ii) ) + *jj;
 }

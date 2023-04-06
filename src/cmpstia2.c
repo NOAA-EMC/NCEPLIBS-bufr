@@ -27,7 +27,8 @@
  *
  * @author J. Ator @date 2017-11-13
 */
-int cmpstia2( const void *pe1, const void *pe2 )
+int
+cmpstia2(const void *pe1, const void *pe2)
 {
         struct code_flag_entry *mype1 = ( struct code_flag_entry * ) pe1;
         struct code_flag_entry *mype2 = ( struct code_flag_entry * ) pe2;

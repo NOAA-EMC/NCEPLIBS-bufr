@@ -30,7 +30,8 @@ FILE *pbf[2];
  *
  * @author J. Ator  @date 2005-11-29
  */
-int rbytes( char *bmg, int mxmb, int isloc, int newbytes )
+int
+rbytes(char *bmg, int mxmb, int isloc, int newbytes)
 {
    int iret;
 
@@ -91,7 +92,8 @@ int rbytes( char *bmg, int mxmb, int isloc, int newbytes )
  *
  * @author J. Ator @date 2005-11-29
  */
-void cobfl( char *bfl, char io )
+void
+cobfl(char *bfl, char io)
 {
    char lbf[MXFNLEN+1];
    char lio;
@@ -171,7 +173,8 @@ void cobfl( char *bfl, char io )
  *
  * @author J. Ator @date 2005-11-29
  */
-void crbmg( char *bmg, int mxmb, int *nmb, int *iret )
+void
+crbmg(char *bmg, int mxmb, int *nmb, int *iret)
 {
    int i4 = 4;
    int wkint[2];
@@ -239,7 +242,8 @@ void crbmg( char *bmg, int mxmb, int *nmb, int *iret )
  *
  * @author J. Ator @date 2005-11-29
  */
-void cwbmg( char *bmg, int nmb, int *iret )
+void
+cwbmg(char *bmg, int nmb, int *iret)
 {
    char errstr[129];
 
@@ -264,7 +268,8 @@ void cwbmg( char *bmg, int nmb, int *iret )
  *
  * @author J. Ator  @date 2005-11-29
  */
-void ccbfl( void )
+void
+ccbfl(void)
 {
    unsigned short i;
 

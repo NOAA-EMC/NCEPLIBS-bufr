@@ -26,7 +26,8 @@
  *
  * @author J. Woollen @date 2012-09-15
  */
-void openrb( int nfile, char *ufile ) {
+void
+openrb(int nfile, char *ufile) {
    pb[nfile] = fopen( ufile, "rb " );
 }
 
@@ -38,7 +39,8 @@ void openrb( int nfile, char *ufile ) {
  *
  * @author J. Woollen @date 2012-09-15
  */
-void openwb( int nfile, char *ufile ) {
+void
+openwb(int nfile, char *ufile) {
    pb[nfile] = fopen( ufile, "wb " );
 }
 
@@ -50,7 +52,8 @@ void openwb( int nfile, char *ufile ) {
  *
  * @author J. Woollen @date 2012-09-15
  */
-void openab( int nfile, char *ufile ) {
+void
+openab(int nfile, char *ufile) {
    pb[nfile] = fopen( ufile, "a+b" );
 }
 
@@ -61,7 +64,8 @@ void openab( int nfile, char *ufile ) {
  *
  * @author J. Woollen @date 2012-09-15
  */
-void backbufr( int nfile ) {
+void
+backbufr(int nfile) {
    fsetpos(pb[nfile],&lstpos[nfile]);
 }
 
@@ -72,7 +76,8 @@ void backbufr( int nfile ) {
  *
  * @author J. Woollen @date 2012-09-15
  */
-void cewind( int nfile ) {
+void
+cewind(int nfile) {
    rewind(pb[nfile]);
 }
 
@@ -83,7 +88,8 @@ void cewind( int nfile ) {
  *
  * @author J. Woollen @date 2012-09-15
  */
-void closfb( int nfile ) {
+void
+closfb(int nfile) {
    fclose(pb[nfile]);
 }
 
@@ -102,7 +108,8 @@ void closfb( int nfile ) {
  *
  * @author J. Woollen @date 2012-09-15
  */
-int crdbufr( int nfile, int *bufr, int mxwrd ) {
+int
+crdbufr(int nfile, int *bufr, int mxwrd) {
 
    int nbytrem, nintrem, wkint[2];
    size_t nb = sizeof(int);
@@ -165,7 +172,8 @@ int crdbufr( int nfile, int *bufr, int mxwrd ) {
  *
  * @author J. Woollen @date 2012-09-15
  */
-void cwrbufr( int nfile, int *bufr, int nwrd ) {
+void
+cwrbufr(int nfile, int *bufr, int nwrd) {
    int nb;
 
    nb = sizeof(*bufr);

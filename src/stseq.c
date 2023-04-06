@@ -35,8 +35,9 @@
  *
  * @author J. Ator @date 2009-03-23
 */
-void stseq( f77int *lun, f77int *irepct, f77int *idn, char *nemo,
-            char *cseq, f77int *cdesc, f77int *ncdesc )
+void
+stseq(f77int *lun, f77int *irepct, f77int *idn, char *nemo,
+      char *cseq, f77int *cdesc, f77int *ncdesc)
 {
     f77int i, j, nb, nd, ipt, ix, iy, ier, iret, nbits;
     f77int i0 = 0, imxcd, rpidn, pkint, ilen;
