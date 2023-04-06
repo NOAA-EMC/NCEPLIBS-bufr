@@ -1,10 +1,10 @@
 C> @file
-C> @brief Close a previously opened system file and disconnect it from
+C> @brief Close a previously opened file and disconnect it from
 C> the NCEPLIBS-bufr software.
 C>
 C> @author J. Woollen, J. Ator @date 1994-01-06
 
-C> This subroutine closes the connection between logical unit
+C> Close the connection between logical unit
 C> LUNIT and the NCEPLIBS-bufr software.
 C>
 C> @remarks

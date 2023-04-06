@@ -1,10 +1,10 @@
 !> @file
-!> @brief Enable a number of Fortran BUFRLIB subprograms to be called
+!> @brief Enable a number of Fortran NCEPLIBS-bufr subprograms to be called
 !> via wrapper functions from C and C++ application programs.
 !>
 !> @author Ronald Mclaren @date 2020-07-29
 
-!> This module contains functions which wrap Fortran BUFRLIB subprograms
+!> Wrap Fortran NCEPLIBS-bufr subprograms
 !> and variables so they can be called from within C and C++ application
 !> programs. The signatures of the public functions match their Fortran
 !> equivalents, as shown within the documentation for each of the
@@ -58,10 +58,10 @@ module bufr_c2f_interface
 contains
 
 
-!> This function turns a c string into a fortran string.
+!> This function turns a C string into a Fortran string.
 !>
-!> @param[in] c_str - c_char: pointer to a \0 (null) terminated c string
-!> @param[out] f_str - character(:): fortran string
+!> @param[in] c_str - c_char: pointer to a \0 (null) terminated C string
+!> @param[out] f_str - character(:): Fortran string
 !>
 !> @author Ronald McLaren @date 2020-07-29
 function c_f_string(c_str) result(f_str)
@@ -80,11 +80,11 @@ function c_f_string(c_str) result(f_str)
 end function c_f_string
 
 
-!> This subroutine copies a fortran string into a c string buffer.
+!> This subroutine copies a Fortran string into a C string buffer.
 !>
-!> @param[in] f_str - character(*): fortran string to be copied
-!> @param[inout] c_str - c_char: c pointer to the target buffer
-!> @param[in] c_str_len - integer: length of the c target buffer
+!> @param[in] f_str - character(*): Fortran string to be copied
+!> @param[inout] c_str - c_char: C pointer to the target buffer
+!> @param[in] c_str_len - integer: length of the C target buffer
 !>
 !> @author Ronald McLaren @date 2020-07-29
 subroutine copy_f_c_str(f_str, c_str, c_str_len)
@@ -101,10 +101,10 @@ subroutine copy_f_c_str(f_str, c_str, c_str_len)
 end subroutine copy_f_c_str
 
 
-!> Wraps fortran "open" statement so we can open a Fortran file
+!> Wraps Fortran "open" statement so we can open a Fortran file
 !> from a C program.
 !>
-!> @param[in] lunit - c_int: the integer to use as the fortran file unit
+!> @param[in] lunit - c_int: the integer to use as the Fortran logical unit
 !> @param[in] filepath - c_char: path to the file we want to open.
 !>
 !> @author Ronald McLaren @date 2020-07-29
@@ -116,10 +116,10 @@ subroutine open_c(lunit, filepath) bind(C, name='open_f')
 end subroutine open_c
 
 
-!> Wraps fortran "close" statement so we can close a Fortran file
+!> Wraps Fortran "close" statement so we can close a Fortran file
 !> from a C program.
 !>
-!> @param[in] lunit - c_int: the integer to use as the fortran file unit
+!> @param[in] lunit - c_int: the integer to use as the Fortran logical unit
 !>
 !> @author Ronald McLaren @date 2020-07-29
 subroutine close_c(lunit) bind(C, name='close_f')
@@ -129,9 +129,9 @@ subroutine close_c(lunit) bind(C, name='close_f')
 end subroutine close_c
 
 
-!> Wraps BUFRLIB openbf() subroutine.
+!> Wraps openbf() subroutine.
 !>
-!> @param[in] bufr_unit - c_int: the fortran file unit number
+!> @param[in] bufr_unit - c_int: the Fortran logical unit number
 !> @param[in] cio - c_char: cio string
 !> @param[in] table_file_id - c_int: table_file unit number
 !>
@@ -145,9 +145,9 @@ subroutine openbf_c(bufr_unit, cio, table_file_id) bind(C, name='openbf_f')
 end subroutine openbf_c
 
 
-!> Wraps BUFRLIB closbf() subroutine.
+!> Wraps closbf() subroutine.
 !>
-!> @param[in] bufr_unit - c_int: the fortran file unit number to close
+!> @param[in] bufr_unit - c_int: the Fortran logical unit number to close
 !>
 !> @author Ronald McLaren @date 2020-07-29
 subroutine closbf_c(bufr_unit) bind(C, name='closbf_f')
@@ -157,8 +157,8 @@ subroutine closbf_c(bufr_unit) bind(C, name='closbf_f')
 end subroutine closbf_c
 
 
-!> Wraps BUFRLIB exitbufr() subroutine. Closes
-!> all open file units used by BUFRLIB.
+!> Wraps exitbufr() subroutine. Closes
+!> all open logical units used by the library.
 !>
 !> @author Ronald McLaren @date 2020-07-29
 subroutine exitbufr_c() bind(C, name='exitbufr_f')
@@ -166,9 +166,9 @@ subroutine exitbufr_c() bind(C, name='exitbufr_f')
 end subroutine exitbufr_c
 
 
-!> Wraps BUFRLIB ireadmg() function.
+!> Wraps ireadmg() function.
 !>
-!> @param[in] bufr_unit - c_int: the fortran file unit number to read from
+!> @param[in] bufr_unit - c_int: the Fortran logical unit number to read from
 !> @param[out] c_subset - c_char: the subset string
 !> @param[out] iddate - c_int: datetime of message
 !> @param[in] subset_str_len - c_int: length of the subset string
@@ -195,9 +195,9 @@ function ireadmg_c(bufr_unit, c_subset, iddate, subset_str_len) result(ires) bin
 end function ireadmg_c
 
 
-!> Wraps BUFRLIB ireadsb() function.
+!> Wraps ireadsb() function.
 !>
-!> @param[in] bufr_unit - c_int: the fortran file unit number to read from
+!> @param[in] bufr_unit - c_int: the Fortran logical unit number to read from
 !>
 !> @return ireadsb_c - c_int: return code
 !>  - 0 new BUFR data subset was successfully read into internal arrays.
@@ -213,10 +213,10 @@ function ireadsb_c(bufr_unit) result(ires) bind(C, name='ireadsb_f')
 end function ireadsb_c
 
 
-!> Wraps BUFRLIB ufbint() subroutine.
+!> Wraps ufbint() subroutine.
 !>
-!> @param[in] bufr_unit - c_int: the fortran file unit number to read from
-!> @param[inout] c_data - c_ptr: c style pointer to a pre-allocated buffer
+!> @param[in] bufr_unit - c_int: the Fortran logical unit number to read from
+!> @param[inout] c_data - c_ptr: C-style pointer to a pre-allocated buffer
 !> @param[in] dim_1, dim_2 - c_int: dimensionality of data to read or write
 !> @param[out] iret - c_int: return value, length of data read
 !> @param[in] table_b_mnemonic - c_char: string of mnemonics
@@ -235,10 +235,10 @@ subroutine ufbint_c(bufr_unit, c_data, dim_1, dim_2, iret, table_b_mnemonic) bin
 end subroutine ufbint_c
 
 
-!> Wraps BUFRLIB ufbrep() subroutine.
+!> Wraps ufbrep() subroutine.
 !>
-!> @param[in] bufr_unit - c_int: the fortran file unit number to read from
-!> @param[inout] c_data - c_ptr: c style pointer to a pre-allocated buffer
+!> @param[in] bufr_unit - c_int: the Fortran logical unit number to read from
+!> @param[inout] c_data - c_ptr: C-style pointer to a pre-allocated buffer
 !> @param[in] dim_1, dim_2 - c_int: dimensionality of data to read or write
 !> @param[out] iret - c_int: return value, length of data read
 !> @param[in] table_b_mnemonic - c_char: string of mnemonics
@@ -257,11 +257,11 @@ subroutine ufbrep_c(bufr_unit, c_data, dim_1, dim_2, iret, table_b_mnemonic) bin
 end subroutine ufbrep_c
 
 
-!> Wraps BUFRLIB mtinfo() subroutine.
+!> Wraps mtinfo() subroutine.
 !>
 !> @param[in] path - c_char: the path where the WMO tables are stored
-!> @param[in] file_unit_1 - c_int: number to use for first file unit
-!> @param[in] file_unit_2 - c_int: number to use for second file unit
+!> @param[in] file_unit_1 - c_int: number to use for first logical unit
+!> @param[in] file_unit_2 - c_int: number to use for second logical unit
 !>
 !> @author Ronald McLaren @date 2020-07-29
 subroutine mtinfo_c(path, file_unit_1, file_unit_2) bind(C, name='mtinfo_f')
@@ -273,9 +273,9 @@ subroutine mtinfo_c(path, file_unit_1, file_unit_2) bind(C, name='mtinfo_f')
 end subroutine mtinfo_c
 
 
-!> Wraps BUFRLIB status() subroutine.
+!> Wraps status() subroutine.
 !>
-!> @param[in] file_unit - c_int: the fortran file unit number to read from
+!> @param[in] file_unit - c_int: the Fortran logical unit number to read from
 !> @param[out] lun - c_int: pointer for the file stream
 !> @param[out] il - c_int: file status
 !> @param[out] im - c_int: message status
@@ -291,9 +291,9 @@ subroutine status_c(file_unit, lun, il, im) bind(C, name='status_f')
 end subroutine status_c
 
 
-!> Wraps BUFRLIB nemdefs() subroutine.
+!> Wraps nemdefs() subroutine.
 !>
-!> @param[in] file_unit - c_int: Fortran file unit for the open file
+!> @param[in] file_unit - c_int: Fortran logical unit for the open file
 !> @param[in] mnemonic - c_char: mnemonic
 !> @param[out] unit_c - c_char: unit str
 !> @param[in] unit_str_len - c_int: unit str length
@@ -319,17 +319,17 @@ subroutine nemdefs_c(file_unit, mnemonic, unit_c, unit_str_len, desc_c, desc_str
   call nemdefs ( file_unit, c_f_string(mnemonic), desc_f, unit_f, iret)
 
   if (iret == 0) then
-    ! Copy the unit fortran string into the resulting C style string.
+    ! Copy the unit Fortran string into the resulting C-style string.
     call copy_f_c_str(unit_f, unit_c, min(len(unit_f) + 1, unit_str_len))
-    ! Copy the descriptor fortran string into the resulting C style string.
+    ! Copy the descriptor Fortran string into the resulting C-style string.
     call copy_f_c_str(desc_f, desc_c, min(len(desc_f) + 1, desc_str_len))
   end if
 end subroutine nemdefs_c
 
 
-!> Wraps BUFRLIB nemspecs() subroutine.
+!> Wraps nemspecs() subroutine.
 !>
-!> @param[in] file_unit - c_int: Fortran file unit for the open file
+!> @param[in] file_unit - c_int: Fortran logical unit for the open file
 !> @param[in] mnemonic - c_char: mnemonic
 !> @param[in] mnemonic_idx - c_int: indicates specific mnemonic element (if repeated)
 !> @param[out] scale - c_int: scale of element
@@ -353,7 +353,7 @@ subroutine nemspecs_c(file_unit, mnemonic, mnemonic_idx, scale, reference, bits,
 end subroutine nemspecs_c
 
 
-!> Wraps BUFRLIB nemtab() subroutine.
+!> Wraps nemtab() subroutine.
 !>
 !> @param[in] bufr_unit - c_int: the bufr file pointer
 !> @param[in] mnemonic - c_char: mnemonic
@@ -378,7 +378,7 @@ subroutine nemtab_c(bufr_unit, mnemonic, descriptor, table_type, table_idx) &
 end subroutine nemtab_c
 
 
-!> Wraps BUFRLIB nemtbb() subroutine.
+!> Wraps nemtbb() subroutine.
 !>
 !> @param[in] bufr_unit - c_int: the bufr file pointer
 !> @param[in] table_idx - c_int: Table B index
@@ -409,7 +409,7 @@ end subroutine nemtbb_c
 
 !> Get copy of the moda_tables ISC array.
 !>
-!> @param[out] isc_ptr - c_ptr: c style pointer to the ISC array
+!> @param[out] isc_ptr - c_ptr: C-style pointer to the ISC array
 !> @param[out] isc_size - c_int: size of the ISC array
 !>
 !>  @author Ronald McLaren  @date 2022-03-23
@@ -427,7 +427,7 @@ end subroutine get_isc_c
 
 !> Get copy of the moda_tables LINK array.
 !>
-!> @param[out] link_ptr - c_ptr: c style pointer to the LINK array
+!> @param[out] link_ptr - c_ptr: C-style pointer to the LINK array
 !> @param[out] link_size - c_int: size of the LINK array
 !>
 !> @author Ronald McLaren @date 2022-03-23
@@ -445,7 +445,7 @@ end subroutine get_link_c
 
 !> Get copy of the moda_tables ITP array.
 !>
-!> @param[out] itp_ptr - c_ptr: c style pointer to the ITP array
+!> @param[out] itp_ptr - c_ptr: C-style pointer to the ITP array
 !> @param[out] itp_size - c_int: size of the ITP array
 !>
 !> @author Ronald McLaren @date 2022-03-23
@@ -463,7 +463,7 @@ end subroutine get_itp_c
 
 !> Get copy of the moda_tables TYP array.
 !>
-!> @param[out] typ_ptr - c_ptr: c style pointer to the TYP array
+!> @param[out] typ_ptr - c_ptr: C-style pointer to the TYP array
 !> @param[out] typ_len - c_int: size of each string within the TYP array
 !> @param[out] mem_size - c_int: size of the TYP array
 !>
@@ -484,7 +484,7 @@ end subroutine get_typ_c
 
 !> Get copy of the moda_tables TAG array.
 !>
-!> @param[out] tag_ptr - c_ptr: c style pointer to the TAG array
+!> @param[out] tag_ptr - c_ptr: C-style pointer to the TAG array
 !> @param[out] tag_len - c_int: length of the tag string
 !> @param[out] mem_size - c_int: size of TAG array
 !>
@@ -505,7 +505,7 @@ end subroutine get_tag_c
 
 !> Get copy of the moda_tables JMPB array.
 !>
-!> @param[out] jmpb_ptr - c_ptr: c style pointer to the JMPB array
+!> @param[out] jmpb_ptr - c_ptr: C-style pointer to the JMPB array
 !> @param[out] jmpb_size - c_int: length of the array
 !>
 !> @author Ronald McLaren @date 2022-03-23
@@ -554,7 +554,7 @@ end subroutine get_nval_c
 !> Get pointer to the moda_usrint VAL array.
 !>
 !> @param[in] lun - c_int: pointer for the file stream
-!> @param[out] val_ptr - c_ptr: c style pointer to the VAL array
+!> @param[out] val_ptr - c_ptr: C-style pointer to the VAL array
 !> @param[out] val_size - c_int: length of the array
 !>
 !> @author Ronald McLaren @date 2022-03-23
@@ -572,7 +572,7 @@ end subroutine get_val_c
 !> Get pointer to the moda_usrint INV array.
 !>
 !> @param[in] lun - c_int: pointer for the file stream
-!> @param[out] inv_ptr - c_ptr: c style pointer to the INV array
+!> @param[out] inv_ptr - c_ptr: C-style pointer to the INV array
 !> @param[out] inv_size - c_int: length of the array
 !>
 !> @author Ronald McLaren @date 2022-03-23

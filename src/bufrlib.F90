@@ -1,22 +1,21 @@
 !> @file
-!> @brief Define signatures to enable a number of C NCEPLIBS-bufr functions to be called
-!> from within the Fortran portion of the library.
+!> @brief Enable a number of C NCEPLIBS-bufr functions to be called
+!> from within the Fortran part of the library.
 !>
 !> @author J. Ator @date 2023-03-22
 
-!> This module contains signatures which wrap C NCEPLIBS-bufr functions so they can be
-!> called from within the Fortran portion of the library.
+!> Wrap C NCEPLIBS-bufr functions so they can be called from within the Fortran part of the library.
 !>
 !> @author J. Ator @date 2023-03-22
 
 module bufrlib
 
-  use bufr_interface
-
   interface
 
     !> @fn bufrlib::openrb_c::openrb_c(nfile,ufile)
-    !> Wraps NCEPLIBS-bufr openrb() function.
+    !> Open a new file for reading BUFR messages.
+    !>
+    !> Wraps openrb() function.
     !>
     !> @author J. Ator @date 2005-11-29
     subroutine openrb_c( nfile, ufile ) bind(C, name='openrb')
@@ -26,7 +25,9 @@ module bufrlib
     end subroutine openrb_c
 
     !> @fn bufrlib::openwb_c::openwb_c(nfile,ufile)
-    !> Wraps NCEPLIBS-bufr openwb() function.
+    !> Open a new file for writing BUFR messages.
+    !>
+    !> Wraps openwb() function.
     !>
     !> @author J. Ator @date 2005-11-29
     subroutine openwb_c( nfile, ufile ) bind(C, name='openwb')
@@ -36,7 +37,9 @@ module bufrlib
     end subroutine openwb_c
 
     !> @fn bufrlib::openab_c::openab_c(nfile,ufile)
-    !> Wraps NCEPLIBS-bufr openab() function.
+    !> Open a new file for appending BUFR messages.
+    !>
+    !> Wraps openab() function.
     !>
     !> @author J. Ator @date 2005-11-29
     subroutine openab_c( nfile, ufile ) bind(C, name='openab')
@@ -46,7 +49,9 @@ module bufrlib
     end subroutine openab_c
 
     !> @fn bufrlib::backbufr_c::backbufr_c(nfile)
-    !> Wraps NCEPLIBS-bufr backbufr() function.
+    !> Backspace a BUFR file by one BUFR message.
+    !>
+    !> Wraps backbufr() function.
     !>
     !> @author J. Ator @date 2005-11-29
     subroutine backbufr_c( nfile ) bind(C, name='backbufr')
@@ -55,7 +60,9 @@ module bufrlib
     end subroutine backbufr_c
 
     !> @fn bufrlib::cewind_c::cewind_c(nfile)
-    !> Wraps NCEPLIBS-bufr cewind() function.
+    !> Rewind a BUFR file back to its beginning.
+    !>
+    !> Wraps cewind() function.
     !>
     !> @author J. Ator @date 2005-11-29
     subroutine cewind_c( nfile ) bind(C, name='cewind')
@@ -64,7 +71,9 @@ module bufrlib
     end subroutine cewind_c
 
     !> @fn bufrlib::closfb_c::closfb_c(nfile)
-    !> Wraps NCEPLIBS-bufr closfb() function.
+    !> Close a previously opened BUFR file.
+    !>
+    !> Wraps closfb() function.
     !>
     !> @author J. Ator @date 2005-11-29
     subroutine closfb_c( nfile ) bind(C, name='closfb')
@@ -73,7 +82,9 @@ module bufrlib
     end subroutine closfb_c
 
     !> @fn bufrlib::crdbufr_c::crdbufr_c(nfile,bufr,mxwrd)
-    !> Wraps NCEPLIBS-bufr crdbufr() function.
+    !> Read the next message from a BUFR file that was previously opened for reading.
+    !>
+    !> Wraps crdbufr() function.
     !>
     !> @author J. Ator @date 2005-11-29
     integer(c_int) function crdbufr_c( nfile, bufr, mxwrd ) bind(C, name='crdbufr')
@@ -83,7 +94,9 @@ module bufrlib
     end function crdbufr_c
 
     !> @fn bufrlib::cwrbufr_c::cwrbufr_c(nfile,bufr,nwrd)
-    !> Wraps NCEPLIBS-bufr cwrbufr() function.
+    !> Write a BUFR message into a file that was previously opened for writing.
+    !>
+    !> Wraps cwrbufr() function.
     !>
     !> @author J. Ator @date 2005-11-29
     subroutine cwrbufr_c( nfile, bufr, nwrd ) bind(C, name='cwrbufr')

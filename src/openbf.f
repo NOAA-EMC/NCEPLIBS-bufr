@@ -1,5 +1,5 @@
 C> @file
-C> @brief Connect a new system file to the library, or intialize the
+C> @brief Connect a new file to the library, or intialize the
 C> library, or change verbosity associated with already-connected file.
 C>
 C> @authors J. Woollen, J. Ator,  D. Keyser @date 1994-01-06

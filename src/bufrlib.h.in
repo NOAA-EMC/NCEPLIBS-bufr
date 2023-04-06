@@ -1,10 +1,10 @@
 /** @file
  *  @brief Define signatures to enable a number of NCEPLIBS-bufr subprograms to be called
- *  from within the C portion of the library.
+ *  from within the C part of the library.
  *
  *  This header file defines signatures which wrap
  *  a number of native Fortran subroutines in the library.  It also contains prototypes
- *  for native C functions in the library as well as macros used throughout the C portion
+ *  for native C functions in the library as well as macros used throughout the C part
  *  of the library.
  *
  *  @author J.Ator @date 2003-11-04

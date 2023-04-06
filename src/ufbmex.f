@@ -1,19 +1,19 @@
 C> @file
-C> @brief Connect a new system file to the BUFRLIB software, and read
+C> @brief Connect a new file to the BUFRLIB software, and read
 C> the entire file contents into internal arrays.
 C>
 C> @author J. Woollen @date 2012-01-26
 
-C> This subroutine connects a new system file to the BUFRLIB software
-C> for input operations, then reads the entire file contents into
+C> Connect a new file to the BUFRLIB software
+C> for input operations, then read the entire file contents into
 C> internal arrays so that any of the individual BUFR messages can
 C> later be accessed from memory, instead of having to read them one
-C> at a time sequentially from the system file.
+C> at a time sequentially from the file.
 C>
 C> This subroutine is similar to subroutine ufbmem(), except that
 C> instead of a file status it returns an array of message types that
 C> were read in.  Furthermore, this subroutine doesn't process any
-C> embedded DX BUFR tables contained within the system file; instead,
+C> embedded DX BUFR tables contained within the file; instead,
 C> it provides an additional call argument LUNDX to allow
 C> for specification of the necessary DX BUFR table information
 C> associated with the messages in the file.

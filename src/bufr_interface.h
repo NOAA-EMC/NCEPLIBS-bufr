@@ -24,7 +24,7 @@ extern "C" {
 /**
  * Wraps Fortran "open" function so we can open a Fortran file from a C program.
  *
- * @param unit - the integer to use as the Fortran file unit.
+ * @param unit - the integer to use as the Fortran logical unit.
  * @param filepath - path to the file we want to open.
  *
  * @author Ronald Mclaren @date 2020-07-29
@@ -34,7 +34,7 @@ extern "C" {
 /**
  * Wraps Fortran "close" function so we can close a Fortran file from a C program.
  *
- * @param unit - the integer to use as the Fortran file unit.
+ * @param unit - the integer to use as the Fortran logical unit.
  *
  * @author Ronald Mclaren @date 2020-07-29
  */
@@ -43,7 +43,7 @@ extern "C" {
 /**
  * Wraps NCEPLIBS-bufr openbf() subroutine.
  *
- * @param bufr_unit - the Fortran file unit number.
+ * @param bufr_unit - the Fortran logical unit number.
  * @param cio - cio string (ex "IN", "SEC3", and "OUT").
  * @param table_file_id - table_file unit number.
  *
@@ -54,7 +54,7 @@ extern "C" {
 /**
  * Wraps NCEPLIBS-bufr closbf() subroutine.
  *
- * @param bufr_unit - the Fortran file unit number to close.
+ * @param bufr_unit - the Fortran logical unit number to close.
  *
  * @author Ronald Mclaren @date 2020-07-29
  */
@@ -70,7 +70,7 @@ extern "C" {
 /**
  * Wraps NCEPLIBS-bufr ireadmg() function.
  *
- * @param bufr_unit - the Fortran file unit number to read from.
+ * @param bufr_unit - the Fortran logical unit number to read from.
  * @param subset - the subset string.
  * @param iddate - datetime of message.
  * @param subset_len - length of the subset string.
@@ -86,7 +86,7 @@ extern "C" {
 /**
  * Wraps NCEPLIBS-bufr ireadsb() function.
  *
- * @param bufr_unit - the Fortran file unit number to read from.
+ * @param bufr_unit - the Fortran logical unit number to read from.
  *
  * @return
  * - 0 new BUFR data subset was successfully read into internal arrays.
@@ -99,7 +99,7 @@ extern "C" {
 /**
  * Wraps NCEPLIBS-bufr ufbint() subroutine.
  *
- * @param bufr_unit - the Fortran file unit number to read from.
+ * @param bufr_unit - the Fortran logical unit number to read from.
  * @param c_data - pointer to a pointer to a pre-allocated buffer.
  * @param dim_1 - dimensionality of data to read or write.
  * @param dim_2 - dimensionality of data to read or write.
@@ -114,7 +114,7 @@ extern "C" {
 /**
  * Wraps NCEPLIBS-bufr ufbrep() subroutine.
  *
- * @param bufr_unit - the Fortran file unit number to read from.
+ * @param bufr_unit - the Fortran logical unit number to read from.
  * @param c_data - pointer to a pointer to a pre-allocated buffer.
  * @param dim_1 - dimensionality of data to read or write.
  * @param dim_2 - dimensionality of data to read or write.
@@ -130,8 +130,8 @@ extern "C" {
  * Wraps NCEPLIBS-bufr mtinfo() subroutine.
  *
  * @param path - the path where the WMO tables are stored.
- * @param file_unit_1 - number to use for first file unit.
- * @param file_unit_2 - number to use for second file unit.
+ * @param file_unit_1 - number to use for first logical unit.
+ * @param file_unit_2 - number to use for second logical unit.
  *
  * @author Ronald Mclaren @date 2020-07-29
  */
@@ -140,7 +140,7 @@ extern "C" {
 /**
  * Wraps NCEPLIBS-bufr status() subroutine.
  *
- * @param file_unit - the Fortran file unit number to read from.
+ * @param file_unit - the Fortran logical unit number to read from.
  * @param lun - pointer for the file stream.
  * @param il - file status.
  * @param im - message status.
@@ -152,7 +152,7 @@ extern "C" {
 /**
  * Wraps NCEPLIBS-bufr nemdefs() subroutine.
  *
- * @param file_unit - Fortran file unit for the open file.
+ * @param file_unit - Fortran logical unit for the open file.
  * @param mnemonic - mnemonic.
  * @param unit_c - unit str.
  * @param unit_str_len - unit str length.
@@ -173,7 +173,7 @@ extern "C" {
 /**
  * Wraps NCEPLIBS-bufr nemspecs() subroutine.
  *
- * @param file_unit - Fortran file unit for the open file.
+ * @param file_unit - Fortran logical unit for the open file.
  * @param mnemonic: - mnemonic.
  * @param mnemonic_idx - indicates specific mnemonic element (if repeated).
  * @param scale - scale of element.

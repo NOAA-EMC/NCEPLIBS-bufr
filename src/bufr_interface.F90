@@ -1,11 +1,10 @@
 !> @file
-!> @brief Define signatures to enable a number of C NCEPLIBS-bufr functions to be called
+!> @brief Enable a number of C NCEPLIBS-bufr functions to be called
 !>        via wrapper functions from Fortran application programs.
 !>
 !> @author J. Ator @date 2023-03-22
 
-!> This module contains signatures which wrap C NCEPLIBS-bufr functions so they can be
-!> called from within Fortran application programs.
+!> Wrap C NCEPLIBS-bufr functions so they can be called from within Fortran application programs.
 !>
 !> @author J. Ator @date 2023-03-22
 
@@ -14,9 +13,11 @@ module bufr_interface
   interface
 
     !> @fn bufr_interface::cobfl_c::cobfl_c(bfl, io)
-    !> Wraps NCEPLIBS-bufr cobfl() function.
+    !> Open a new file for reading or writing BUFR messages via a C language interface.
     !>
-    !> @param bfl - [path]/name of system file to be opened
+    !> Wraps cobfl() function.
+    !>
+    !> @param bfl - [path]/name of file to be opened
     !> @param io - Flag indicating how bfl is to be opened
     !>
     !> @author J. Ator @date 2023-03-22
@@ -27,7 +28,10 @@ module bufr_interface
     end subroutine cobfl_c
 
     !> @fn bufr_interface::crbmg_c::crbmg_c(bmg, mxmb, nmb, iret)
-    !> Wraps NCEPLIBS-bufr crbmg() function.
+    !> Read the next BUFR message from the file that was opened via the most recent call
+    !> to subroutine cobfl_c() with io = 'r'.
+    !>
+    !> Wraps crbmg() function.
     !>
     !> @param mxmb - Dimensioned size of bmg array in the calling program
     !> @param bmg - BUFR message
@@ -43,7 +47,10 @@ module bufr_interface
     end subroutine crbmg_c
 
     !> @fn bufr_interface::cwbmg_c::cwbmg_c(bmg, nmb, iret)
-    !> Wraps NCEPLIBS-bufr cwbmg() function.
+    !> Write a BUFR message to the file that was opened via the most recent call
+    !> to subroutine cobfl_c() with io = 'w'.
+    !>
+    !> Wraps cwbmg() function.
     !>
     !> @param bmg - BUFR message
     !> @param nmb - Size (in bytes) of BUFR message in bmg
@@ -58,7 +65,9 @@ module bufr_interface
     end subroutine cwbmg_c
 
     !> @fn bufr_interface::ccbfl_c::ccbfl_c()
-    !> Wraps NCEPLIBS-bufr ccbfl() function.
+    !> Close all files that were opened via previous calls to subroutine cobfl_c().
+    !>
+    !> Wraps ccbfl() function.
     !>
     !> @author J. Ator @date 2005-11-29
     subroutine ccbfl_c() bind(C, name='ccbfl')

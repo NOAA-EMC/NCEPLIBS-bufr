@@ -5,11 +5,11 @@
  *  [file-reading/writing subroutines](@ref hierarchy) and
  *  [message-reading/writing subroutines](@ref hierarchy) within
  *  the NCEPLIBS-bufr software, in order to use C to directly read/write
- *  BUFR messages from/to system files.
+ *  BUFR messages from/to files.
  *
  *  This in turn eliminates the need for IEEE Fortran control words
- *  within system files, though such control words can still be
- *  included when writing BUFR messages to system files (if desired)
+ *  within files, though such control words can still be
+ *  included when writing BUFR messages to files (if desired)
  *  via a previous call to subroutine setblock().
  *
  * @author J. Woollen @date 2012-09-15
@@ -19,10 +19,10 @@
 #include "cread.h"
 
 /**
- * Open a new system file for reading BUFR messages.
+ * Open a new file for reading BUFR messages.
  *
  * @param nfile - File ID.
- * @param ufile - [path/]name of system file to be opened.
+ * @param ufile - [path/]name of file to be opened.
  *
  * @author J. Woollen @date 2012-09-15
  */
@@ -31,10 +31,10 @@ void openrb( int nfile, char *ufile ) {
 }
 
 /**
- * Open a new system file for writing BUFR messages.
+ * Open a new file for writing BUFR messages.
  *
  * @param nfile - File ID.
- * @param ufile - [path/]name of system file to be opened.
+ * @param ufile - [path/]name of file to be opened.
  *
  * @author J. Woollen @date 2012-09-15
  */
@@ -43,10 +43,10 @@ void openwb( int nfile, char *ufile ) {
 }
 
 /**
- * Open a new system file for appending BUFR messages.
+ * Open a new file for appending BUFR messages.
  *
  * @param nfile - File ID.
- * @param ufile - [path/]name of system file to be opened.
+ * @param ufile - [path/]name of file to be opened.
  *
  * @author J. Woollen @date 2012-09-15
  */
@@ -91,9 +91,9 @@ void closfb( int nfile ) {
  * Read the next message from a BUFR file that was previously opened for reading.
  *
  * @param nfile - File ID.
- * @param bufr - BUFR message
- * @param mxwrd - Dimensioned size (in integers) of bufr; used by the function to
- * ensure that it doesn't overflow the array
+ * @param bufr - BUFR message.
+ * @param mxwrd - Number of elements in bufr array; used by the function to
+ * ensure that it doesn't overflow the array.
  * @returns crdbufr - Return code:
  * - 0 = normal return
  * - -1 = end-of-file encountered while reading

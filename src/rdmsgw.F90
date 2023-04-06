@@ -26,10 +26,12 @@ subroutine rdmsgw(lunit,mesg,iret)
 !-----------------------------------------------------------------------
 
   call status(lunit,lun,il,im)
-1 iret=crdbufr_c(lun,mesg,mxmsgld4)
-  if(iret.eq.-3) call errwrt('BUFRLIB: RDMSGW - SKIPPING OVERLARGE MESSAGE')
-  if(iret.eq.-2) call errwrt('BUFRLIB: RDMSGW - SKIPPING CORRUPTED MESSAGE')
-  if(iret.lt.-1) goto 1
+  iret = -2
+  do while (iret.le.-2)
+     iret = crdbufr_c(lun,mesg,mxmsgld4)
+     if(iret.eq.-3) call errwrt('BUFRLIB: RDMSGW - SKIPPING OVERLARGE MESSAGE')
+     if(iret.eq.-2) call errwrt('BUFRLIB: RDMSGW - SKIPPING CORRUPTED MESSAGE')
+  end do
 
   return
 

@@ -15,10 +15,25 @@ using 8-byte integers must now also explicitly declare such functions
 as 4-byte integers before calling them.
 [[Issue #78](https://github.com/NOAA-EMC/NCEPLIBS-bufr/issues/78)]
 
+* The interface between the C and Fortran components of the library has
+been modernized.  Accordingly, Fortran application codes must now contain a
+<b>use bufr_interface</b> statement to directly call any C functions within
+the library, and C application codes must now contain an
+<b>#include "bufr_interface.h"</b> statement to directly call any Fortran
+or C functions within the library.
+[[Issue #79](https://github.com/NOAA-EMC/NCEPLIBS-bufr/issues/79)]
+
 * Subroutines ufbqcd() and ufbqcp() have been modified to pass call
 arguments containing event program codes as integers, rather than
 continuing to pass them as real numbers.
 [[Issue #78](https://github.com/NOAA-EMC/NCEPLIBS-bufr/issues/78)]
+
+* The library has been cleaned up to eliminate a number of compiler warnings.
+[[Issue #300](https://github.com/NOAA-EMC/NCEPLIBS-bufr/issues/300)]
+
+* Documentation has been improved throughout the library, including the
+use of Doxygen-style docblocks for all program files.
+[[Issue #246](https://github.com/NOAA-EMC/NCEPLIBS-bufr/issues/246)]
 
 ## Version 11.7.1 - August 26, 2022
 

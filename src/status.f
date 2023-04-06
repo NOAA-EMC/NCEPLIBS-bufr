@@ -1,10 +1,9 @@
 C> @file
-C> @brief Check whether a system file is connected to the BUFRLIB
-C> software.
+C> @brief Check whether a file is connected to the BUFRLIB software.
 C>
 C> @author J. Woollen @date 1994-01-06
 
-C> This subroutine checks whether a specified Fortran logical unit
+C> Check whether a specified Fortran logical unit
 C> number is currently connected to the BUFRLIB software.
 C>
 C> If the unit number is already connected, then the subroutine

@@ -5,23 +5,23 @@
  */
 #include "bufrlib.h"
 
-/** Maximum length of a system file, including any directory prefixes or other local filesystem notation. */
+/** Maximum length of a filename, including any directory prefixes or other local filesystem notation. */
 #define MXFNLEN 200
 
 /** File pointers; each element will automatically initialize to NULL */
 FILE *pbf[2];
 
 /**
- * Read a specified number of bytes from the system file that was opened via the
+ * Read a specified number of bytes from the file that was opened via the
  * most recent call to function cobfl() with io = 'r'.
  *
- * @param mxmb   - Dimensioned size (in bytes) of bmg; used by the function to ensure that
- *                 it doesn't overflow the bmg array
+ * @param mxmb   - Number of elements in bmg array; used by the function to ensure that
+ *                 it doesn't overflow the array.
  * @param isloc  - Starting byte within bmg into which to read the next newbytes bytes
- * @param newbytes - Number of bytes to read from system file most recently opened for
+ * @param newbytes - Number of bytes to read from file most recently opened for
  *                   input/reading via function cobfl()
  * @param bmg    - Array containing the newbytes bytes that were read, beginning at byte
- *                 number isloc
+ *                 number isloc.
  * @returns rbytes - return code
  *                   - 0 = normal return
  *                   - 1 = overflow of bmg array
@@ -152,16 +152,16 @@ void cobfl( char *bfl, char io )
 }
 
 /**
- * Read the next BUFR message from the system file that was opened via the most
+ * Read the next BUFR message from the file that was opened via the most
  * recent call to function cobfl() with io = 'r'.
  *
  * This function is designed to be easily callable from application program written in either C
  * or Fortran.
  *
- * @param mxmb - Dimensioned size (in bytes) of bmg; used by the function to ensure that it
- *               doesn't overflow the bmg array
+ * @param mxmb - Number of elements in bmg array;; used by the function to ensure that it
+ *               doesn't overflow the array.
  * @param bmg  - BUFR message
- * @param nmb  - Size (in bytes) of BUFR message in bmg
+ * @param nmb  - Size (in bytes) of BUFR message in bmg.
  * @param iret - return code
  *               - 0 = normal return
  *               - 1 = overflow of bmg array
@@ -225,7 +225,7 @@ void crbmg( char *bmg, int mxmb, int *nmb, int *iret )
 }
 
 /**
- * Write a BUFR message to the system file that was opened via the most recent
+ * Write a BUFR message to the file that was opened via the most recent
  * call to function cobfl() with io = 'w'.
  *
  * This function is designed to be easily callable from application program written in either C
@@ -260,7 +260,7 @@ void cwbmg( char *bmg, int nmb, int *iret )
 }
 
 /**
- * Close all system files that were opened via previous calls to function cobfl().
+ * Close all files that were opened via previous calls to function cobfl().
  *
  * @author J. Ator  @date 2005-11-29
  */
