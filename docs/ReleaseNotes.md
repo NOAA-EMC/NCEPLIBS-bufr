@@ -19,7 +19,7 @@ as 4-byte integers before calling them.
 been modernized.  Accordingly, Fortran application codes must now contain a
 <b>use bufr_interface</b> statement to directly call any C functions within
 the library, and C application codes must now contain an
-<b>#include "bufr_interface.h"</b> statement to directly call any Fortran
+<b>\#include "bufr_interface.h"</b> statement to directly call any Fortran
 or C functions within the library.
 [[Issue #79](https://github.com/NOAA-EMC/NCEPLIBS-bufr/issues/79)]
 
@@ -669,7 +669,7 @@ within subroutines cmsgini(), dxmini() and msgini().
 
 * A new capability was added to allow BUFRLIB print diagnostics and other
 runtime messages to be redirected somewhere other than the default FORTRAN
-logical unit #6 (i.e. standard output).  This is enabled within an application
+logical unit 6 (i.e. standard output).  This is enabled within an application
 program by supplying an in-line version of subroutine errwrt() to override the
 new default version of this subroutine provided within the BUFRLIB.  The
 default version will continue to write to standard output when included within

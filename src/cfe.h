@@ -10,8 +10,6 @@
 #define MAX_MEANING_LEN 150
 
 #ifdef UNDERSCORE
-#define cmpstia1   cmpstia1_
-#define cmpstia2   cmpstia2_
 #define dlloctbf   dlloctbf_
 #define inittbf    inittbf_
 #define sorttbf    sorttbf_

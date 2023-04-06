@@ -57,8 +57,7 @@ module bufr_c2f_interface
 
 contains
 
-
-!> This function turns a C string into a Fortran string.
+!> Convert a C string into a Fortran string.
 !>
 !> @param[in] c_str - c_char: pointer to a \0 (null) terminated C string
 !> @param[out] f_str - character(:): Fortran string
@@ -79,8 +78,7 @@ function c_f_string(c_str) result(f_str)
   f_str = transfer(c_str(1:nchars), f_str)
 end function c_f_string
 
-
-!> This subroutine copies a Fortran string into a C string buffer.
+!> Copy a Fortran string into a C string buffer.
 !>
 !> @param[in] f_str - character(*): Fortran string to be copied
 !> @param[inout] c_str - c_char: C pointer to the target buffer
@@ -100,11 +98,9 @@ subroutine copy_f_c_str(f_str, c_str, c_str_len)
   end if
 end subroutine copy_f_c_str
 
-
-!> Wraps Fortran "open" statement so we can open a Fortran file
-!> from a C program.
+!> Open a Fortran file from a C program.
 !>
-!> @param[in] lunit - c_int: the integer to use as the Fortran logical unit
+!> @param[in] lunit - c_int: Fortran logical unit
 !> @param[in] filepath - c_char: path to the file we want to open.
 !>
 !> @author Ronald McLaren @date 2020-07-29
@@ -115,11 +111,9 @@ subroutine open_c(lunit, filepath) bind(C, name='open_f')
   open(lunit, file=c_f_string(filepath))
 end subroutine open_c
 
-
-!> Wraps Fortran "close" statement so we can close a Fortran file
-!> from a C program.
+!> Close a Fortran file from a C program.
 !>
-!> @param[in] lunit - c_int: the integer to use as the Fortran logical unit
+!> @param[in] lunit - c_int: Fortran logical unit
 !>
 !> @author Ronald McLaren @date 2020-07-29
 subroutine close_c(lunit) bind(C, name='close_f')
@@ -128,7 +122,9 @@ subroutine close_c(lunit) bind(C, name='close_f')
   close(unit=lunit)
 end subroutine close_c
 
-
+!> Connect a new file to the library, or initialize the
+!> library, or change verbosity associated with already-connected file.
+!>
 !> Wraps openbf() subroutine.
 !>
 !> @param[in] bufr_unit - c_int: the Fortran logical unit number
@@ -144,7 +140,8 @@ subroutine openbf_c(bufr_unit, cio, table_file_id) bind(C, name='openbf_f')
   call openbf(bufr_unit, c_f_string(cio), table_file_id)
 end subroutine openbf_c
 
-
+!> Close a previously opened file and disconnect it from the library.
+!>
 !> Wraps closbf() subroutine.
 !>
 !> @param[in] bufr_unit - c_int: the Fortran logical unit number to close
@@ -156,16 +153,17 @@ subroutine closbf_c(bufr_unit) bind(C, name='closbf_f')
   call closbf(bufr_unit)
 end subroutine closbf_c
 
-
-!> Wraps exitbufr() subroutine. Closes
-!> all open logical units used by the library.
+!> Reset the library.
+!>
+!> Wraps exitbufr() subroutine.
 !>
 !> @author Ronald McLaren @date 2020-07-29
 subroutine exitbufr_c() bind(C, name='exitbufr_f')
   call exitbufr()
 end subroutine exitbufr_c
 
-
+!> Read the next message from a BUFR file.
+!>
 !> Wraps ireadmg() function.
 !>
 !> @param[in] bufr_unit - c_int: the Fortran logical unit number to read from
@@ -194,7 +192,7 @@ function ireadmg_c(bufr_unit, c_subset, iddate, subset_str_len) result(ires) bin
   end if
 end function ireadmg_c
 
-
+!> Read the next data subset from a BUFR message.
 !> Wraps ireadsb() function.
 !>
 !> @param[in] bufr_unit - c_int: the Fortran logical unit number to read from
@@ -212,7 +210,8 @@ function ireadsb_c(bufr_unit) result(ires) bind(C, name='ireadsb_f')
   ires = ireadsb(bufr_unit)
 end function ireadsb_c
 
-
+!> Read/write one or more data values from/to a data subset.
+!>
 !> Wraps ufbint() subroutine.
 !>
 !> @param[in] bufr_unit - c_int: the Fortran logical unit number to read from
@@ -234,7 +233,8 @@ subroutine ufbint_c(bufr_unit, c_data, dim_1, dim_2, iret, table_b_mnemonic) bin
   call ufbint(bufr_unit, f_data, dim_1, dim_2, iret, c_f_string(table_b_mnemonic))
 end subroutine ufbint_c
 
-
+!> Read/write one or more data values from/to a data subset.
+!>
 !> Wraps ufbrep() subroutine.
 !>
 !> @param[in] bufr_unit - c_int: the Fortran logical unit number to read from
@@ -256,7 +256,8 @@ subroutine ufbrep_c(bufr_unit, c_data, dim_1, dim_2, iret, table_b_mnemonic) bin
   call ufbrep(bufr_unit, f_data, dim_1, dim_2, iret, c_f_string(table_b_mnemonic))
 end subroutine ufbrep_c
 
-
+!> Specify location of master BUFR tables on local file system.
+!>
 !> Wraps mtinfo() subroutine.
 !>
 !> @param[in] path - c_char: the path where the WMO tables are stored
@@ -272,13 +273,14 @@ subroutine mtinfo_c(path, file_unit_1, file_unit_2) bind(C, name='mtinfo_f')
   call mtinfo(c_f_string(path), file_unit_1, file_unit_2)
 end subroutine mtinfo_c
 
-
+!> Check whether a file is connected to the library.
+!>
 !> Wraps status() subroutine.
 !>
-!> @param[in] file_unit - c_int: the Fortran logical unit number to read from
-!> @param[out] lun - c_int: pointer for the file stream
-!> @param[out] il - c_int: file status
-!> @param[out] im - c_int: message status
+!> @param[in] file_unit - c_int: Fortran logical unit number of file.
+!> @param[out] lun - c_int: file ID.
+!> @param[out] il - c_int: file status.
+!> @param[out] im - c_int: message status.
 !>
 !> @author Ronald McLaren  @date 2022-03-23
 subroutine status_c(file_unit, lun, il, im) bind(C, name='status_f')
@@ -290,7 +292,8 @@ subroutine status_c(file_unit, lun, il, im) bind(C, name='status_f')
   call status(file_unit, lun, il, im)
 end subroutine status_c
 
-
+!> Get the element name and units associated with a Table B mnemonic.
+!>
 !> Wraps nemdefs() subroutine.
 !>
 !> @param[in] file_unit - c_int: Fortran logical unit for the open file
@@ -326,7 +329,9 @@ subroutine nemdefs_c(file_unit, mnemonic, unit_c, unit_str_len, desc_c, desc_str
   end if
 end subroutine nemdefs_c
 
-
+!> Get the scale factor, reference value and bit width associated with a specified occurrence of
+!> a Table B mnemonic.
+!>
 !> Wraps nemspecs() subroutine.
 !>
 !> @param[in] file_unit - c_int: Fortran logical unit for the open file
@@ -352,7 +357,8 @@ subroutine nemspecs_c(file_unit, mnemonic, mnemonic_idx, scale, reference, bits,
   call nemspecs(file_unit, c_f_string(mnemonic), mnemonic_idx, scale, reference, bits, iret)
 end subroutine nemspecs_c
 
-
+!> Get information about a descriptor.
+!>
 !> Wraps nemtab() subroutine.
 !>
 !> @param[in] bufr_unit - c_int: the bufr file pointer
@@ -377,7 +383,8 @@ subroutine nemtab_c(bufr_unit, mnemonic, descriptor, table_type, table_idx) &
   table_type(1)(1:1) = table_type_f(1:1)
 end subroutine nemtab_c
 
-
+!> Get information about a Table B descriptor.
+!>
 !> Wraps nemtbb() subroutine.
 !>
 !> @param[in] bufr_unit - c_int: the bufr file pointer

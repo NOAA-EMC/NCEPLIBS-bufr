@@ -16,14 +16,12 @@
  * components of the structure, whereas cmpstia1() compares all of
  * the iffxyn, ifval, iffxynd and ifvald components of the structure.
  *
- * @param[in] pe1 -- struct code_flag_entry*: First master Code/Flag
- *                   table entry
- * @param[in] pe2 -- struct code_flag_entry*: Second master Code/Flag
- *                   table entry
- * @returns cmpstia2 -- integer:
- *                      - -1 = pe1 is less than pe2
- *                      -  0 = pe1 is equal to pe2
- *                      -  1 = pe1 is greater than pe2
+ * @param pe1 - struct code_flag_entry*: First master Code/Flag table entry
+ * @param pe2 - struct code_flag_entry*: Second master Code/Flag table entry
+ * @returns cmpstia2 - integer:
+ * - -1 = pe1 is less than pe2
+ * -  0 = pe1 is equal to pe2
+ * -  1 = pe1 is greater than pe2
  *
  * @author J. Ator @date 2017-11-13
 */

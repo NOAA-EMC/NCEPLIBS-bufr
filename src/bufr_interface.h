@@ -22,7 +22,7 @@ extern "C" {
 #endif
 
 /**
- * Wraps Fortran "open" function so we can open a Fortran file from a C program.
+ * Open a Fortran file from a C program.
  *
  * @param unit - the integer to use as the Fortran logical unit.
  * @param filepath - path to the file we want to open.
@@ -32,7 +32,7 @@ extern "C" {
   void open_f(int unit, const char* filepath);
 
 /**
- * Wraps Fortran "close" function so we can close a Fortran file from a C program.
+ * Close a Fortran file from a C program.
  *
  * @param unit - the integer to use as the Fortran logical unit.
  *
@@ -41,7 +41,10 @@ extern "C" {
   void close_f(int unit);
 
 /**
- * Wraps NCEPLIBS-bufr openbf() subroutine.
+ * Connect a new file to the library, or initialize the
+ * library, or change verbosity associated with already-connected file.
+ *
+ * Wraps openbf() subroutine.
  *
  * @param bufr_unit - the Fortran logical unit number.
  * @param cio - cio string (ex "IN", "SEC3", and "OUT").
@@ -52,7 +55,9 @@ extern "C" {
   void openbf_f(int bufr_unit, const char* cio, int table_file_id);
 
 /**
- * Wraps NCEPLIBS-bufr closbf() subroutine.
+ * Close a previously opened file and disconnect it from the library.
+ *
+ * Wraps closbf() subroutine.
  *
  * @param bufr_unit - the Fortran logical unit number to close.
  *
@@ -61,14 +66,18 @@ extern "C" {
   void closbf_f(int bufr_unit);
 
 /**
- * Wraps NCEPLIBS-bufr exitbufr() subroutine.
+ * Reset the library.
+ *
+ * Wraps exitbufr() subroutine.
  *
  * @author Ronald Mclaren @date 2020-07-29
  */
   void exitbufr_f();
 
 /**
- * Wraps NCEPLIBS-bufr ireadmg() function.
+ * Read the next message from a BUFR file.
+ *
+ * Wraps ireadmg() function.
  *
  * @param bufr_unit - the Fortran logical unit number to read from.
  * @param subset - the subset string.
@@ -84,7 +93,9 @@ extern "C" {
   int ireadmg_f(int bufr_unit, char* subset, int* iddate, int subset_len);
 
 /**
- * Wraps NCEPLIBS-bufr ireadsb() function.
+ * Read the next data subset from a BUFR message.
+ *
+ * Wraps ireadsb() function.
  *
  * @param bufr_unit - the Fortran logical unit number to read from.
  *
@@ -97,7 +108,9 @@ extern "C" {
   int ireadsb_f(int bufr_unit);
 
 /**
- * Wraps NCEPLIBS-bufr ufbint() subroutine.
+ * Read/write one or more data values from/to a data subset.
+ *
+ * Wraps ufbint() subroutine.
  *
  * @param bufr_unit - the Fortran logical unit number to read from.
  * @param c_data - pointer to a pointer to a pre-allocated buffer.
@@ -112,7 +125,9 @@ extern "C" {
                 int* iret, const char* table_b_mnemonic);
 
 /**
- * Wraps NCEPLIBS-bufr ufbrep() subroutine.
+ * Read/write one or more data values from/to a data subset.
+ *
+ * Wraps ufbrep() subroutine.
  *
  * @param bufr_unit - the Fortran logical unit number to read from.
  * @param c_data - pointer to a pointer to a pre-allocated buffer.
@@ -127,7 +142,9 @@ extern "C" {
                 int* iret, const char* table_b_mnemonic);
 
 /**
- * Wraps NCEPLIBS-bufr mtinfo() subroutine.
+ * Specify location of master BUFR tables on local file system.
+ *
+ * Wraps mtinfo() subroutine.
  *
  * @param path - the path where the WMO tables are stored.
  * @param file_unit_1 - number to use for first logical unit.
@@ -138,10 +155,12 @@ extern "C" {
   void mtinfo_f(const char* path, int file_unit_1, int file_unit_2);
 
 /**
- * Wraps NCEPLIBS-bufr status() subroutine.
+ * Check whether a file is connected to the library.
  *
- * @param file_unit - the Fortran logical unit number to read from.
- * @param lun - pointer for the file stream.
+ * Wraps status() subroutine.
+ *
+ * @param file_unit - Fortran logical unit number of file.
+ * @param lun - file ID.
  * @param il - file status.
  * @param im - message status.
  *
@@ -150,7 +169,9 @@ extern "C" {
   void status_f(int file_unit, int* lun, int* il, int* im);
 
 /**
- * Wraps NCEPLIBS-bufr nemdefs() subroutine.
+ * Get the element name and units associated with a Table B mnemonic.
+ *
+ * Wraps nemdefs() subroutine.
  *
  * @param file_unit - Fortran logical unit for the open file.
  * @param mnemonic - mnemonic.
@@ -171,7 +192,10 @@ extern "C" {
                    int* iret);
 
 /**
- * Wraps NCEPLIBS-bufr nemspecs() subroutine.
+ * Get the scale factor, reference value and bit width associated with a
+ * specified occurrence of a Table B mnemonic.
+ *
+ * Wraps nemspecs() subroutine.
  *
  * @param file_unit - Fortran logical unit for the open file.
  * @param mnemonic: - mnemonic.
@@ -192,7 +216,9 @@ extern "C" {
                     int* iret);
 
 /**
- * Wraps NCEPLIBS-bufr nemtab() subroutine.
+ * Get information about a descriptor.
+ *
+ * Wraps nemtab() subroutine.
  *
  * @param bufr_unit - the bufr file pointer.
  * @param mnemonic - mnemonic.
@@ -209,7 +235,9 @@ extern "C" {
                   int* table_idx);
 
 /**
- * Wraps NCEPLIBS-bufr nemtbb() subroutine.
+ * Get information about a Table B descriptor.
+ *
+ * Wraps nemtbb() subroutine.
  *
  * @param bufr_unit - the bufr file pointer.
  * @param table_idx - Table B index.
