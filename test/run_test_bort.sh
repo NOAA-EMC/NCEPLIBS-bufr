@@ -162,33 +162,46 @@ for kind in "4" "d"; do
 
     # Check ufbcpy().
     (./test_bort_$kind ufbcpy 1) && exit 1
+    (./test_bort_$kind ufbcpy 2) && exit 1
+    (./test_bort_$kind ufbcpy 3) && exit 1
 
     # Check ufbcup().
     (./test_bort_$kind ufbcup 1) && exit 1
+    (./test_bort_$kind ufbcup 2) && exit 1
+    (./test_bort_$kind ufbcup 3) && exit 1
 
     # Check ufbdmp().
     (./test_bort_$kind ufbdmp 1) && exit 1
+    (./test_bort_$kind ufbdmp 2) && exit 1
+    (./test_bort_$kind ufbdmp 3) && exit 1
 
     # Check ufbevn().
     (./test_bort_$kind ufbevn 1) && exit 1
+    (./test_bort_$kind ufbevn 2) && exit 1
+    (./test_bort_$kind ufbevn 3) && exit 1
 
     # Check ufbget().
     (./test_bort_$kind ufbget 1) && exit 1
+    (./test_bort_$kind ufbget 2) && exit 1
+    (./test_bort_$kind ufbget 3) && exit 1
 
     # Check ufbint().
     (./test_bort_$kind ufbint 1) && exit 1
+    (./test_bort_$kind ufbint 2) && exit 1
 
     # Check ufbqcp().
     (./test_bort_$kind ufbqcp 1) && exit 1
 
     # Check ufbrep().
     (./test_bort_$kind ufbrep 1) && exit 1
+    (./test_bort_$kind ufbrep 2) && exit 1
 
     # Check ufbrms().
     (./test_bort_$kind ufbrms 1) && exit 1
 
     # Check ufbseq().
     (./test_bort_$kind ufbseq 1) && exit 1
+    (./test_bort_$kind ufbseq 2) && exit 1
 
     # Check ufbstp().
     (./test_bort_$kind ufbstp 1) && exit 1

@@ -3,6 +3,8 @@ C> @brief Print the contents of a data subset.
 C>
 C> @authors J. Woollen, J. Ator, D. Keyser @date 1994-01-06
 
+C> Print the contents of a data subset.
+C>
 C> This subroutine prints a verbose listing of the contents of a data
 C> subset, including all data values and replicated sequences, as well
 C> as jump/link table information and other internal subset pointers.
@@ -27,26 +29,25 @@ C> a time and prompting each time whether to quit and return to the
 C> application program (by typing 'q' then '&lt;Enter&gt;') or continue
 C> scrolling (by typing anything else).
 C>
-C> @param[in] LUNIN   -- integer: Absolute value is Fortran logical
-C>                       unit number for BUFR file
-C>                       - If LUNIN > 0, data values are printed to
-C>                         LUPRT using the format descriptor code
-C>                         'G15.6', meaning that all values will be
-C>                         printed (since the format adapts to the
-C>                         order of magnitude of each value), but
-C>                         values won't necessarily be lined up
-C>                         with the decimal point in the same column
-C>                       - If LUNIN < 0, data values are printed to
-C>                         LUPRT using the format descriptor code
-C>                         'F15.6', meaning that all values will be
-C>                         lined up with the decimal point in the
-C>                         same column, but values exceeding the
-C>                         format width of 15 characters will print
-C>                         as overflow (e.g. '***************')
-C> @param[in] LUPRT   -- integer: Fortran logical unit number for
-C>                       print output
-C>                       - 0 = Run interactively, printing to
-C>                             standard output
+C> @param[in] LUNIN - integer: Absolute value is Fortran logical
+C> unit number for BUFR file.
+C> - If LUNIN > 0, data values are printed to
+C>   LUPRT using the format descriptor code
+C>   'G15.6', meaning that all values will be
+C>   printed (since the format adapts to the
+C>   order of magnitude of each value), but
+C>   values won't necessarily be lined up
+C>   with the decimal point in the same column
+C> - If LUNIN < 0, data values are printed to
+C>   LUPRT using the format descriptor code
+C>   'F15.6', meaning that all values will be
+C>   lined up with the decimal point in the
+C>   same column, but values exceeding the
+C>   format width of 15 characters will print
+C>   as overflow (e.g. '***************')
+C> @param[in] LUPRT - integer: Fortran logical unit number for
+C> print output:
+C> - 0 = Run interactively, printing to standard output
 C>
 C> @authors J. Woollen, J. Ator, D. Keyser @date 1994-01-06
       RECURSIVE SUBROUTINE UFBDMP(LUNIN,LUPRT)

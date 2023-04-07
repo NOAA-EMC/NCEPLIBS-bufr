@@ -459,34 +459,115 @@ program test_bort
         open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
         if (ios .ne. 0) stop 3
         call ufbcpy(11, 0)
+     elseif (test_case .eq. '2') then
+        open(unit = 12, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        call openbf(12, 'OUT', 10)
+        call ufbcpy(12, 0)
+     elseif (test_case .eq. '3') then
+        open(unit = 12, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        call openbf(12, 'IN', 10)
+        call ufbcpy(12, 0)
      endif
   elseif (sub_name .eq. 'ufbcup') then
      if (test_case .eq. '1') then
-        call ufbcup(0, 0)
+        call openbf(12, 'FIRST', 11)
+        open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        call ufbcup(11, 0)
+     elseif (test_case .eq. '2') then
+        open(unit = 12, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        call openbf(12, 'OUT', 10)
+        call ufbcup(12, 0)
+     elseif (test_case .eq. '3') then
+        open(unit = 12, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        call openbf(12, 'IN', 10)
+        call ufbcup(12, 0)
      endif
   elseif (sub_name .eq. 'ufbdmp') then
      if (test_case .eq. '1') then
-        call ufbdmp(0, 0)
+        call openbf(12, 'FIRST', 11)
+        open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        call ufbdmp(11, 0)
+     elseif (test_case .eq. '2') then
+        open(unit = 12, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        call openbf(12, 'OUT', 10)
+        call ufbdmp(12, 0)
+     elseif (test_case .eq. '3') then
+        open(unit = 12, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        call openbf(12, 'IN', 10)
+        call ufbdmp(12, 0)
      endif
   elseif (sub_name .eq. 'ufbevn') then
      if (test_case .eq. '1') then
-        call ufbevn(0, real_2d, 1, 2, 3, iret, 'c')
+        call openbf(12, 'FIRST', 11)
+        open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        call ufbevn(11, real_2d, 1, 2, 3, iret, 'c')
+     elseif (test_case .eq. '2') then
+        open(unit = 12, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        call openbf(12, 'OUT', 10)
+        call ufbevn(12, real_2d, 1, 2, 3, iret, 'c')
+     elseif (test_case .eq. '3') then
+        open(unit = 12, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        call openbf(12, 'IN', 10)
+        call ufbevn(12, real_2d, 1, 2, 3, iret, 'c')
      endif
   elseif (sub_name .eq. 'ufbget') then
      if (test_case .eq. '1') then
-        call ufbget(0, real_1d, 1, iret, 's')
+        call openbf(12, 'FIRST', 11)
+        open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        call ufbget(11, real_1d, 1, iret, 's')
+     elseif (test_case .eq. '2') then
+        open(unit = 12, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        call openbf(12, 'OUT', 10)
+        call ufbget(12, real_1d, 1, iret, 's')
+     elseif (test_case .eq. '3') then
+        open(unit = 12, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        call openbf(12, 'IN', 10)
+        call ufbget(12, real_1d, 1, iret, 's')
      endif
   elseif (sub_name .eq. 'ufbint') then
      if (test_case .eq. '1') then
-        call ufbint(0, real_2d, 1, 2, iret, 'c')
+        call openbf(12, 'FIRST', 11)
+        open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        call ufbint(11, real_2d, 1, 2, iret, 'c')
+     elseif (test_case .eq. '2') then
+        open(unit = 12, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        call openbf(12, 'IN', 10)
+        call ufbint(12, real_2d, 1, 2, iret, 'c')
      endif
   elseif (sub_name .eq. 'ufbqcp') then
      if (test_case .eq. '1') then
-        call ufbqcp(0, 0, 'c')
+        call openbf(12, 'FIRST', 11)
+        open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        call ufbqcp(11, 0, 'c')
      endif
   elseif (sub_name .eq. 'ufbrep') then
      if (test_case .eq. '1') then
-        call ufbrep(0, real_2d, 1, 2, iret, 'c')
+        call openbf(12, 'FIRST', 11)
+        open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        call ufbrep(11, real_2d, 1, 2, iret, 'c')
+     elseif (test_case .eq. '2') then
+        open(unit = 12, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        call openbf(12, 'IN', 10)
+        call ufbrep(12, real_2d, 1, 2, iret, 'c')
      endif
   elseif (sub_name .eq. 'ufbstp') then
      if (test_case .eq. '1') then
@@ -513,7 +594,17 @@ program test_bort
      endif
   elseif (sub_name .eq. 'ufbseq') then
      if (test_case .eq. '1') then
-        call ufbseq(0, real_2d, 1, 2, iret, 'c')
+        call openbf(12, 'FIRST', 11)
+        open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        call ufbseq(11, real_2d, 1, 2, iret, 'c')
+     elseif (test_case .eq. '2') then
+        open(unit = 12, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        call openbf(12, 'IN', 10)
+        call ufbseq(12, real_2d, 1, 2, iret, 'c')
+     endif
+     if (test_case .eq. '1') then
      endif
   elseif (sub_name .eq. 'ufdump') then
      if (test_case .eq. '1') then
