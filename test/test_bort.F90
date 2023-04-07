@@ -448,7 +448,10 @@ program test_bort
   ! & 1, i1, 0) endif
   elseif (sub_name .eq. 'ufbcnt') then
      if (test_case .eq. '1') then
-        call ufbcnt(0, 1, 1)
+        call openbf(12, 'FIRST', 11)
+        open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        call ufbcnt(11, 1, 1)
      endif
   elseif (sub_name .eq. 'ufbcpy') then
      if (test_case .eq. '1') then
