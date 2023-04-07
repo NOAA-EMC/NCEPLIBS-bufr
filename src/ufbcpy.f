@@ -3,6 +3,8 @@ C> @brief Copy a BUFR data subset.
 C>
 C> @author J. Woollen @date 1994-01-06
 
+C> Copy a BUFR data subset.
+C>
 C> This subroutine copies a BUFR data subset from one Fortran logical
 C> unit to another.
 C>
@@ -22,10 +24,10 @@ C> The [DX BUFR Table information](@ref dfbftab) associated with
 C> each of the logical units LUBIN and LUBOT must contain identical
 C> definitions for the data subset to be copied.
 C>
-C> @param[in] LUBIN   -- integer: Fortran logical unit number for
-C>                       source BUFR file
-C> @param[in] LUBOT   -- integer: Fortran logical unit number for
-C>                       target BUFR file
+C> @param[in] LUBIN - integer: Fortran logical unit number for
+C> source BUFR file.
+C> @param[in] LUBOT - integer: Fortran logical unit number for
+C> target BUFR file.
 C>
 C> @author J. Woollen @date 1994-01-06
       RECURSIVE SUBROUTINE UFBCPY(LUBIN,LUBOT)

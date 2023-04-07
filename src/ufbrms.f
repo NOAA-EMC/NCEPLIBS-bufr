@@ -4,6 +4,9 @@ C> internal arrays.
 C>
 C> @author J. Woollen @date 1994-01-06
 
+C> Read one or more data values from a data subset in
+C> internal arrays.
+C>
 C> This subroutine provides a handy way to combine the functionality
 C> of subroutines rdmemm(), rdmems() and ufbint() within a single
 C> subroutine call.
