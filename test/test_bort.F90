@@ -10,7 +10,7 @@
 ! Ed Hartnett 3/12/23
 program test_bort
   implicit none
-  integer iret
+  integer iret, jret
   ! integer i1
   integer int_1d(1), int_1d_2(1)
   character*2 char_short
@@ -469,6 +469,15 @@ program test_bort
         if (ios .ne. 0) stop 3
         call openbf(12, 'IN', 10)
         call ufbcpy(12, 0)
+     elseif (test_case .eq. '4') then
+        open(unit = 12, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        call openbf(12, 'IN', 12)
+        call readmg(12, char_val_8, jdate, iret)
+        if (iret .ne. 0) stop 100
+        call readsb(12, iret)
+        if (iret .ne. 0) stop 101
+        call ufbcpy(12, 12)
      endif
   elseif (sub_name .eq. 'ufbcup') then
      if (test_case .eq. '1') then
@@ -538,6 +547,23 @@ program test_bort
         call openbf(12, 'IN', 10)
         call ufbget(12, real_1d, 1, iret, 's')
      endif
+  elseif (sub_name .eq. 'ufbin3') then
+     if (test_case .eq. '1') then
+        call openbf(12, 'FIRST', 11)
+        open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        call ufbin3(11, real_2d, 1, 2, 3, iret, jret, 'c')
+     elseif (test_case .eq. '2') then
+        open(unit = 12, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        call openbf(12, 'OUT', 10)
+        call ufbin3(12, real_2d, 1, 2, 3, iret, jret, 'c')
+     elseif (test_case .eq. '3') then
+        open(unit = 12, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        call openbf(12, 'IN', 10)
+        call ufbin3(12, real_2d, 1, 2, 3, iret, jret, 'c')
+     endif
   elseif (sub_name .eq. 'ufbint') then
      if (test_case .eq. '1') then
         call openbf(12, 'FIRST', 11)
@@ -603,8 +629,6 @@ program test_bort
         if (ios .ne. 0) stop 3
         call openbf(12, 'IN', 10)
         call ufbseq(12, real_2d, 1, 2, iret, 'c')
-     endif
-     if (test_case .eq. '1') then
      endif
   elseif (sub_name .eq. 'ufdump') then
      if (test_case .eq. '1') then

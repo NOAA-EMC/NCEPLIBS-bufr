@@ -3,6 +3,8 @@ C> @brief Read one or more data values from an NCEP prepfits file.
 C>
 C> @author J. Woollen @date 2003-11-04
 
+C> Read one or more data values from an NCEP prepfits file.
+C>
 C> This subroutine reads one or more data values from the BUFR data
 C> subset that is currently open within the BUFRLIB internal arrays.
 C> It is specifically designed for use with NCEP prepfits files,
