@@ -96,7 +96,7 @@ module bufrlib
       integer(c_int), intent(in), value :: nfile
     end subroutine closfb_c
 
-    !> @fn bufrlib::crdbufr_c::crdbufr_c(nfile,bufr,mxwrd)
+    !> @fn bufrlib::crdbufr_c::integer crdbufr_c(nfile,bufr,mxwrd)
     !> Read the next message from a BUFR file that was previously opened for reading.
     !>
     !> Wraps crdbufr() function.
