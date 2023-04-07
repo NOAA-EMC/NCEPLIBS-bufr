@@ -20,8 +20,7 @@ meteorological data.
 ## The BUFR Format
 
 @anchor manual
-The BUFR format is officially documented in [WMO Manual 306, Volume
-I.2](https://library.wmo.int/index.php?lvl=notice_display&id=10684#.X68yu8hKiUn).
+The BUFR format is officially documented in [WMO Manual 306, Volume I.2](https://library.wmo.int/index.php?lvl=notice_display&id=10684#.X68yu8hKiUn).
 The latest edition of BUFR is edition 4, although edition 3 is still
 in use in many parts of the world.  A complete BUFR message consists
 of the following sections:
@@ -39,9 +38,8 @@ of the following sections:
 BUFR is a table-driven format, meaning that new descriptors can be
 encoded and decoded by adding them to tables which are read in by the
 software, rather than having to modify the software itself. To that
-end, WMO periodically releases new versions of their [official WMO
-master BUFR
-tables](https://community.wmo.int/activity-areas/wmo-codes/manual-codes/latest-version),
+end, WMO periodically releases new versions of their
+[official WMO master BUFR tables](https://community.wmo.int/activity-areas/wmo-codes/manual-codes/latest-version),
 to facilitate the continued exchange of meteorological data throughout
 the global community.
 
@@ -65,6 +63,8 @@ More details are available throughout the documentation, including
 sample utilities which demonstrate how to use many of the various
 library subroutines and functions to accomplish different tasks.
 
+## NCEPLIBS-bufr Library Subroutines and Functions
+
 @anchor hierarchy
 It's important to understand the following hierarchy:
 
@@ -73,12 +73,14 @@ It's important to understand the following hierarchy:
 observational stations at a particular time and location.
 3. Any BUFR data subset can consist of one or more BUFR data descriptors and corresponding data values.
 
-## NCEPLIBS-bufr Library Subroutines and Functions
-
 This allows many of the most commonly used library subroutines and
-functions to be grouped, based on which level of the hierarchy they
+functions to be grouped based on which level of the hierarchy they
 operate at, and whether for reading/decoding BUFR data or
-writing/encoding BUFR data:
+writing/encoding BUFR data.  In the following table, any routine with
+a _f suffix wraps a Fortran routine of the same name and should only
+be called from C application programs.  Conversely, any routine with
+a _c suffix wraps a C function of the same name and should only be
+called from Fortran application programs.
 
 <table border>
 <tr>
@@ -90,19 +92,16 @@ writing/encoding BUFR data:
 </tr>
 <tr>
   <th>reading/decoding</th>
-  <td>openbf() openbf_f() ufbmem() ufbmex() cobfl()</td>
-  <td>readmg() ireadmg() ireadmg_f() readerme() readns() ireadns() rdmemm() readmm() ireadmm() crbmg() datelen() getlens() iupvs01() iupbs01() iupbs3() nmsub() rtrcpt() igetdate()</td>
+  <td>openbf() openbf_f() ufbmem() ufbmex() cobfl() cobfl_c()</td>
+  <td>readmg() ireadmg() ireadmg_f() readerme() readns() ireadns() rdmemm() readmm() ireadmm() crbmg() crbmg_c() datelen() getlens() iupvs01() iupbs01() iupbs3() nmsub() rtrcpt() igetdate()</td>
   <td>readsb() ireadsb() ireadsb_f() readns() ireadns() rdmems() ufbmms() ufbmns() ufbpos()</td>
-  <td>ufbint() ufbrep() ufbseq() ufbstp() ufbint_f() ufbrep_f() ufbrms() readlc() getvalnb() setbmiss() getbmiss() ibfms() icbfms()</td>
+  <td>ufbint() ufbint_f() ufbrep() ufbrep_f() ufbseq() ufbstp() ufbrms() readlc() getvalnb() setbmiss() getbmiss() ibfms() icbfms()</td>
 </tr>
 <tr>
   <th>writing/encoding</th>
-  <td>openbf() openbf_f() closbf() closbf_f() copybf() cobfl()</td>
-  <td>openmb() openmg() closmg() copymg() cpymem() cwbmg() cmpmsg() stdmsg() cnved4() strcpt() setblock() maxout() pkvs01() pkbs1() minimg()</td>
+  <td>openbf() openbf_f() closbf() closbf_f() copybf() cobfl() cobfl_c()</td>
+  <td>openmb() openmg() closmg() copymg() cpymem() cwbmg() cwbmg_c() cmpmsg() stdmsg() cnved4() strcpt() setblock() maxout() pkvs01() pkbs1() minimg()</td>
   <td>writsb() writsa() writcp() copysb() icopysb()</td>
-  <td>ufbint() ufbrep() ufbseq() ufbstp() ufbint_f() ufbrep_f() writlc() setvalnb() setbmiss()</td>
+  <td>ufbint() ufbint_f() ufbrep() ufbrep_f() ufbseq() ufbstp() writlc() setvalnb() setbmiss()</td>
 </tr>
 </table>
-
-
-
