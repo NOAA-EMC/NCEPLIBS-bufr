@@ -4,6 +4,9 @@ C> a BUFR file.
 C>
 C> @author J. Woollen @date 1994-01-06
 
+C> Get the current message number and data subset number within
+C> a BUFR file.
+C>
 C> This subroutine returns the current location of the file pointer
 C> within a BUFR file, in terms of a message number counting from the
 C> beginning of the file, and a data subset number counting from the
@@ -11,7 +14,7 @@ C> beginning of that message.
 C>
 C> @remarks
 C> - Logical unit LUNIT should have already been opened via a previous
-C> call to subroutine openbf().  If LUNIT was opened for input
+C> call to subroutine openbf(). If LUNIT was opened for input
 C> operations, then KMSG is incremented with each call to any of the
 C> [message-reading subroutines](@ref hierarchy), and KSUB is
 C> incremented with each call to any of the
@@ -24,14 +27,14 @@ C> [subset-writing subroutines](@ref hierarchy) for that message.
 C> - The value returned for KMSG does <b>not</b> include any messages
 C> which contain DX BUFR tables information.
 C>
-C> @param[in] LUNIT -- integer: Fortran logical unit number for BUFR file
-C> @param[out] KMSG -- integer: Ordinal number of current message,
-C>                     counting from the beginning of the BUFR file, but
-C>                     not counting any messages which contain DX BUFR
-C>                     tables information
-C> @param[out] KSUB -- integer: Ordinal number of current data subset
-C>                     within (KMSG)th message, counting from the
-C>                     beginning of the message
+C> @param[in] LUNIT - integer: Fortran logical unit number for BUFR file.
+C> @param[out] KMSG - integer: Ordinal number of current message,
+C> counting from the beginning of the BUFR file, but
+C> not counting any messages which contain DX BUFR
+C> tables information.
+C> @param[out] KSUB - integer: Ordinal number of current data subset
+C> within (KMSG)th message, counting from the
+C> beginning of the message.
 C>
 C> @author J. Woollen @date 1994-01-06
       RECURSIVE SUBROUTINE UFBCNT(LUNIT,KMSG,KSUB)
