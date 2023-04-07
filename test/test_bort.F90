@@ -455,7 +455,10 @@ program test_bort
      endif
   elseif (sub_name .eq. 'ufbcpy') then
      if (test_case .eq. '1') then
-        call ufbcpy(0, 0)
+        call openbf(12, 'FIRST', 11)
+        open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        call ufbcpy(11, 0)
      endif
   elseif (sub_name .eq. 'ufbcup') then
      if (test_case .eq. '1') then
