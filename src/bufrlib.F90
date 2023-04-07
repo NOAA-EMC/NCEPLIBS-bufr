@@ -105,7 +105,7 @@ module bufrlib
     !> @param bufr - BUFR message.
     !> @param mxwrd - Number of elements in bufr array; used by the function to
     !> ensure that it doesn't overflow the array.
-    !> @returns crdbufr - Return code: 0 indicates success, any other value indicates failure
+    !> @returns crdbufr_c - Return code: 0 indicates success, any other value indicates failure
     !>
     !> @author J. Ator @date 2005-11-29
     integer(c_int) function crdbufr_c( nfile, bufr, mxwrd ) bind(C, name='crdbufr')
