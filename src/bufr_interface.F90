@@ -33,7 +33,8 @@ module bufr_interface
     !>
     !> Wraps crbmg() function.
     !>
-    !> @param mxmb - Dimensioned size of bmg array in the calling program
+    !> @param mxmb - Number of elements in bmg array; used by the function to
+    !> ensure that it doesn't overflow the array.
     !> @param bmg - BUFR message
     !> @param nmb - Size of BUFR message in bmg array
     !> @param iret - Return code 0 indicates success, any other value indicates failure
@@ -53,7 +54,7 @@ module bufr_interface
     !> Wraps cwbmg() function.
     !>
     !> @param bmg - BUFR message
-    !> @param nmb - Size (in bytes) of BUFR message in bmg
+    !> @param nmb - Size of BUFR message in bmg array
     !> @param iret - Return code 0 indicates success, any other value indicates failure
     !>
     !> @author J. Ator @date 2005-11-29

@@ -361,7 +361,7 @@ end subroutine nemspecs_c
 !>
 !> Wraps nemtab() subroutine.
 !>
-!> @param[in] bufr_unit - c_int: the bufr file pointer
+!> @param[in] bufr_unit - c_int: file ID.
 !> @param[in] mnemonic - c_char: mnemonic
 !> @param[out] descriptor - c_int: the binary descriptor for the mnemonic
 !> @param[out] table_type - c_char: 'A', 'B', 'C', or 'D', depending on table type
@@ -387,7 +387,7 @@ end subroutine nemtab_c
 !>
 !> Wraps nemtbb() subroutine.
 !>
-!> @param[in] bufr_unit - c_int: the bufr file pointer
+!> @param[in] bufr_unit - c_int: file ID.
 !> @param[in] table_idx - c_int: Table B index
 !> @param[out] unit_str - c_char: unit str
 !> @param[in] unit_str_len - c_int: unit str length

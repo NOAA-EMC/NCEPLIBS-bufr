@@ -17,6 +17,9 @@ module bufrlib
     !>
     !> Wraps openrb() function.
     !>
+    !> @param nfile - File ID.
+    !> @param ufile - [path/]name of file to be opened.
+    !>
     !> @author J. Ator @date 2005-11-29
     subroutine openrb_c( nfile, ufile ) bind(C, name='openrb')
       use iso_c_binding
@@ -28,6 +31,9 @@ module bufrlib
     !> Open a new file for writing BUFR messages.
     !>
     !> Wraps openwb() function.
+    !>
+    !> @param nfile - File ID.
+    !> @param ufile - [path/]name of file to be opened.
     !>
     !> @author J. Ator @date 2005-11-29
     subroutine openwb_c( nfile, ufile ) bind(C, name='openwb')
@@ -41,6 +47,9 @@ module bufrlib
     !>
     !> Wraps openab() function.
     !>
+    !> @param nfile - File ID.
+    !> @param ufile - [path/]name of file to be opened.
+    !>
     !> @author J. Ator @date 2005-11-29
     subroutine openab_c( nfile, ufile ) bind(C, name='openab')
       use iso_c_binding
@@ -53,6 +62,8 @@ module bufrlib
     !>
     !> Wraps backbufr() function.
     !>
+    !> @param nfile - File ID.
+    !>
     !> @author J. Ator @date 2005-11-29
     subroutine backbufr_c( nfile ) bind(C, name='backbufr')
       use iso_c_binding
@@ -63,6 +74,8 @@ module bufrlib
     !> Rewind a BUFR file back to its beginning.
     !>
     !> Wraps cewind() function.
+    !>
+    !> @param nfile - File ID.
     !>
     !> @author J. Ator @date 2005-11-29
     subroutine cewind_c( nfile ) bind(C, name='cewind')
@@ -75,6 +88,8 @@ module bufrlib
     !>
     !> Wraps closfb() function.
     !>
+    !> @param nfile - File ID.
+    !>
     !> @author J. Ator @date 2005-11-29
     subroutine closfb_c( nfile ) bind(C, name='closfb')
       use iso_c_binding
@@ -85,6 +100,12 @@ module bufrlib
     !> Read the next message from a BUFR file that was previously opened for reading.
     !>
     !> Wraps crdbufr() function.
+    !>
+    !> @param nfile - File ID.
+    !> @param bufr - BUFR message.
+    !> @param mxwrd - Number of elements in bufr array; used by the function to
+    !> ensure that it doesn't overflow the array.
+    !> @returns crdbufr - Return code: 0 indicates success, any other value indicates failure
     !>
     !> @author J. Ator @date 2005-11-29
     integer(c_int) function crdbufr_c( nfile, bufr, mxwrd ) bind(C, name='crdbufr')
@@ -97,6 +118,10 @@ module bufrlib
     !> Write a BUFR message into a file that was previously opened for writing.
     !>
     !> Wraps cwrbufr() function.
+    !>
+    !> @param nfile - File ID.
+    !> @param bufr - BUFR message.
+    !> @param nwrd - Size of BUFR message.
     !>
     !> @author J. Ator @date 2005-11-29
     subroutine cwrbufr_c( nfile, bufr, nwrd ) bind(C, name='cwrbufr')

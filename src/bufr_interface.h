@@ -12,10 +12,10 @@
 
 #pragma once
 
-void cobfl( char *bfl, char io );
-void crbmg( char *bmg, int mxmb, int *nmb, int *iret );
-void cwbmg( char *bmg, int nmb, int *iret );
-void ccbfl( void );
+void cobfl(char *bfl, char io);
+void crbmg(char *bmg, int mxmb, int *nmb, int *iret);
+void cwbmg(char *bmg, int nmb, int *iret);
+void ccbfl(void);
 
 #ifdef __cplusplus
 extern "C" {

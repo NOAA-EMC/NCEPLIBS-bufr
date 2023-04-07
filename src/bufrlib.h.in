@@ -17,18 +17,18 @@
 
 #include "bufr_interface.h"
 
-void arallocc( void );
-void ardllocc( void );
-void openrb( int nfile, char *ufile );
-void openwb( int nfile, char *ufile );
-void openab( int nfile, char *ufile );
-void backbufr( int nfile );
-void cewind( int nfile );
-void closfb( int nfile );
-int crdbufr( int nfile, int *bufr, int mxwrd );
-void cwrbufr( int nfile, int *bufr, int nwrd );
-void bort_exit( void );
-int cmpia( const void *pf1, const void *pf2 );
+void arallocc(void);
+void ardllocc(void);
+void openrb(int nfile, char *ufile);
+void openwb(int nfile, char *ufile);
+void openab(int nfile, char *ufile);
+void backbufr(int nfile);
+void cewind(int nfile);
+void closfb(int nfile);
+int crdbufr(int nfile, int *bufr, int mxwrd);
+void cwrbufr(int nfile, int *bufr, int nwrd);
+void bort_exit(void);
+int cmpia(const void *pf1, const void *pf2);
 
 /** Maximum number of BUFR files that can be connected to the NCEPLIBS-bufr
  * software (for reading or writing) at any one time. */
@@ -133,7 +133,7 @@ void stseq( f77int *lun, f77int *irepct, f77int *idn, char *nemo, char *cseq, f7
 void wrdesc( f77int desc, f77int *descary, f77int *ndescary );
 
 /**
- * Wraps NCEPLIBS-bufr bort() subroutine.
+ * Wraps bort() subroutine.
  *
  * @param str - Error message.
  * @param s1 - Extra C-Fortran interface argument containing length of str variable.
@@ -143,7 +143,7 @@ void wrdesc( f77int desc, f77int *descary, f77int *ndescary );
 void bort( char *str, size_t s1 );
 
 /**
- * Wraps NCEPLIBS-bufr bvers() subroutine.
+ * Wraps bvers() subroutine.
  *
  * @param cverstr - Version string.
  * @param s1 - Extra C-Fortran interface argument containing length of cverstr variable.
@@ -153,7 +153,7 @@ void bort( char *str, size_t s1 );
 void bvers( char *cverstr, size_t s1 );
 
 /**
- * Wraps NCEPLIBS-bufr cadn30() subroutine.
+ * Wraps cadn30() subroutine.
  *
  * @param idn - Bit-wise representation of FXY value.
  * @param adn - FXY value.
@@ -164,7 +164,7 @@ void bvers( char *cverstr, size_t s1 );
 void cadn30( f77int *idn, char *adn, size_t s1 );
 
 /**
- * Wraps NCEPLIBS-bufr closbf() subroutine.
+ * Wraps closbf() subroutine.
  *
  * @param lunit - Fortran logical unit number for BUFR file.
  *
@@ -173,7 +173,7 @@ void cadn30( f77int *idn, char *adn, size_t s1 );
 void closbf( f77int *lunit );
 
 /**
- * Wraps NCEPLIBS-bufr cmpmsg() subroutine.
+ * Wraps cmpmsg() subroutine.
  *
  * @param cf - Flag indicating whether future BUFR output messages are to be compressed.
  * @param s1 - Extra C-Fortran interface argument containing length of cf variable.
@@ -183,7 +183,7 @@ void closbf( f77int *lunit );
 void cmpmsg( char *cf, size_t s1 );
 
 /**
- * Wraps NCEPLIBS-bufr elemdx() subroutine.
+ * Wraps elemdx() subroutine.
  *
  * @param card - mnemonic definition card.
  * @param lun - I/O stream index into internal arrays.
@@ -194,7 +194,7 @@ void cmpmsg( char *cf, size_t s1 );
 void elemdx( char *card, f77int *lun, size_t s1 );
 
 /**
- * Wraps NCEPLIBS-bufr gets1loc() subroutine.
+ * Wraps gets1loc() subroutine.
  *
  * @param s1mnem - Value whose location within Section 1 is to be determined.
  * @param iben - BUFR edition number.
@@ -208,7 +208,7 @@ void elemdx( char *card, f77int *lun, size_t s1 );
 void gets1loc( char *s1mnem, f77int *iben, f77int *isbyt, f77int *iwid, f77int *iret, size_t s1 );
 
 /**
- * Wraps NCEPLIBS-bufr ibfms() function.
+ * Wraps ibfms() function.
  *
  * @param r8val - Data value.
  *
@@ -221,7 +221,7 @@ void gets1loc( char *s1mnem, f77int *iben, f77int *isbyt, f77int *iwid, f77int *
 f77int ibfms( f77r8 *r8val );
 
 /**
- * Wraps NCEPLIBS-bufr ichkstr() function.
+ * Wraps ichkstr() function.
  *
  * @param str - Character string.
  * @param chr - Character array.
@@ -238,7 +238,7 @@ f77int ibfms( f77r8 *r8val );
 f77int ichkstr ( char *str, char *chr, f77int *n, size_t s1, size_t s2 );
 
 /**
- * Wraps NCEPLIBS-bufr ifxy() function.
+ * Wraps ifxy() function.
  *
  * @param adsc - FXY value.
  * @param s1 - Extra C-Fortran interface argument containing length of adsc variable.
@@ -250,7 +250,7 @@ f77int ichkstr ( char *str, char *chr, f77int *n, size_t s1, size_t s2 );
 f77int ifxy( char *adsc, size_t s1 );
 
 /**
- * Wraps NCEPLIBS-bufr igetntbi() function.
+ * Wraps igetntbi() function.
  *
  * @param lun - I/O stream index into internal arrays.
  * @param ctb - Type of internal DX BUFR table.
@@ -263,7 +263,7 @@ f77int ifxy( char *adsc, size_t s1 );
 f77int igetntbi( f77int *lun, char *ctb, size_t s1 );
 
 /**
- * Wraps NCEPLIBS-bufr igetprm() function.
+ * Wraps igetprm() function.
  *
  * @param cprmnm - Parameter.
  * @param s1 - Extra C-Fortran interface argument containing length of cprmnm variable.
@@ -275,7 +275,7 @@ f77int igetntbi( f77int *lun, char *ctb, size_t s1 );
 f77int igetprm( char *cprmnm, size_t s1 );
 
 /**
- * Wraps NCEPLIBS-bufr igettdi() function.
+ * Wraps igettdi() function.
  *
  * @param iflag - Processing flag.
  *
@@ -288,7 +288,7 @@ f77int igetprm( char *cprmnm, size_t s1 );
 f77int igettdi( f77int *iflag );
 
 /**
- * Wraps NCEPLIBS-bufr imrkopr() function.
+ * Wraps imrkopr() function.
  *
  * @param nemo - Mnemonic.
  * @param s1 - Extra C-Fortran interface argument containing length of nemo variable.
@@ -302,7 +302,7 @@ f77int igettdi( f77int *iflag );
 f77int imrkopr( char *nemo, size_t s1 );
 
 /**
- * Wraps NCEPLIBS-bufr ipkm() subroutine.
+ * Wraps ipkm() subroutine.
  *
  * @param cbay - String.
  * @param nbyt - Number of bytes to encode within cbay.
@@ -314,7 +314,7 @@ f77int imrkopr( char *nemo, size_t s1 );
 void ipkm( char *cbay, f77int *nbyt, f77int *n, size_t s1 );
 
 /**
- * Wraps NCEPLIBS-bufr ireadns() function.
+ * Wraps ireadns() function.
  *
  * @param lunit - Fortran logical unit number for BUFR file.
  * @param subset - Table A mnemonic.
@@ -330,7 +330,7 @@ void ipkm( char *cbay, f77int *nbyt, f77int *n, size_t s1 );
 f77int ireadns( f77int *lunit, char *subset, f77int *idate, size_t s1 );
 
 /**
- * Wraps NCEPLIBS-bufr istdesc() function.
+ * Wraps istdesc() function.
  *
  * @param idn - Bit-wise representation of FXY value.
  *
@@ -343,7 +343,7 @@ f77int ireadns( f77int *lunit, char *subset, f77int *idate, size_t s1 );
 f77int istdesc( f77int *idn );
 
 /**
- * Wraps NCEPLIBS-bufr iupb() function.
+ * Wraps iupb() function.
  *
  * @param mbay - Array containing encoded value.
  * @param nbyt - Starting byte within mbay.
@@ -356,7 +356,7 @@ f77int istdesc( f77int *idn );
 f77int iupb( f77int *mbay, f77int *nbyt, f77int *nbit );
 
 /**
- * Wraps NCEPLIBS-bufr iupbs01() function.
+ * Wraps iupbs01() function.
  *
  * @param mbay - BUFR message.
  * @param s01mnem - Value to be read from mbay.
@@ -369,7 +369,7 @@ f77int iupb( f77int *mbay, f77int *nbyt, f77int *nbit );
 f77int iupbs01( f77int *mbay, char *s01mnem, size_t s1 );
 
 /**
- * Wraps NCEPLIBS-bufr iupm() function.
+ * Wraps iupm() function.
  *
  * @param cbay - String.
  * @param nbits - Number of bits to decode from within cbay.
@@ -382,7 +382,7 @@ f77int iupbs01( f77int *mbay, char *s01mnem, size_t s1 );
 f77int iupm( char *cbay, f77int *nbits, size_t s1 );
 
 /**
- * Wraps NCEPLIBS-bufr maxout() subroutine.
+ * Wraps maxout() subroutine.
  *
  * @param max0 - New maximum length for all BUFR messages written to output.
  *
@@ -391,7 +391,7 @@ f77int iupm( char *cbay, f77int *nbits, size_t s1 );
 void maxout( f77int *max0 );
 
 /**
- * Wraps NCEPLIBS-bufr nemtab() subroutine.
+ * Wraps nemtab() subroutine.
  *
  * @param lun - I/O stream index into internal arrays.
  * @param nemo - Mnemonic.
@@ -406,7 +406,7 @@ void maxout( f77int *max0 );
 void nemtab( f77int *lun, char *nemo, f77int *idn, char *tab, f77int *iret, size_t s1, size_t s2 );
 
 /**
- * Wraps NCEPLIBS-bufr nemtbb() subroutine.
+ * Wraps nemtbb() subroutine.
  *
  * @param lun - I/O stream index into internal arrays.
  * @param itab - Index within internal Table B.
@@ -423,7 +423,7 @@ void nemtbb( f77int *lun, f77int *itab, char *unit, f77int *iscl, f77int *iref, 
 void nummtb( f77int *idn, char *tab, f77int *ipt );
 
 /**
- * Wraps NCEPLIBS-bufr numtbd() subroutine.
+ * Wraps numtbd() subroutine.
  *
  * @param lun - I/O stream index into internal arrays.
  * @param idn - Bit-wise representation of FXY value for nemo.
@@ -438,7 +438,7 @@ void nummtb( f77int *idn, char *tab, f77int *ipt );
 void numtbd( f77int *lun, f77int *idn, char *nemo, char *tab, f77int *iret, size_t s1, size_t s2 );
 
 /**
- * Wraps NCEPLIBS-bufr openmb() subroutine.
+ * Wraps openmb() subroutine.
  *
  * @param lunit - Fortran logical unit number for BUFR file.
  * @param subset - Table A mnemonic.
@@ -450,7 +450,7 @@ void numtbd( f77int *lun, f77int *idn, char *nemo, char *tab, f77int *iret, size
 void openmb( f77int *lunit, char *subset, f77int *jdate, size_t s1 );
 
 /**
- * Wraps NCEPLIBS-bufr pktdd() subroutine.
+ * Wraps pktdd() subroutine.
  *
  * @param id - Index of parent mnemonic within internal arrays.
  * @param lun - I/O stream index into internal arrays.
@@ -462,7 +462,7 @@ void openmb( f77int *lunit, char *subset, f77int *jdate, size_t s1 );
 void pktdd( f77int *id, f77int *lun, f77int *idn, f77int *iret );
 
 /**
- * Wraps NCEPLIBS-bufr stntbi() subroutine.
+ * Wraps stntbi() subroutine.
  *
  * @param n - Index into internal Table B or D for new entry.
  * @param lun - I/O stream index into internal arrays.
@@ -478,7 +478,7 @@ void pktdd( f77int *id, f77int *lun, f77int *idn, f77int *iret );
 void stntbi( f77int *n, f77int *lun, char *numb, char *nemo, char *celsq, size_t s1, size_t s2, size_t s3 );
 
 /**
- * Wraps NCEPLIBS-bufr strnum() subroutine.
+ * Wraps strnum() subroutine.
  *
  * @param str - String.
  * @param num - Value decoded from str.
@@ -490,7 +490,7 @@ void stntbi( f77int *n, f77int *lun, char *numb, char *nemo, char *celsq, size_t
 void strnum( char *str, f77int *num, f77int *iret, size_t s1 );
 
 /**
- * Wraps NCEPLIBS-bufr ufbint() subroutine.
+ * Wraps ufbint() subroutine.
  *
  * @param lunit - Fortran logical unit number for BUFR file.
  * @param usr - Data values.
@@ -505,7 +505,7 @@ void strnum( char *str, f77int *num, f77int *iret, size_t s1 );
 void ufbint( f77int *lunit, f77r8 *usr, f77int *i1, f77int *i2, f77int *iret, char *str, size_t s1 );
 
 /**
- * Wraps NCEPLIBS-bufr ufbseq() subroutine.
+ * Wraps ufbseq() subroutine.
  *
  * @param lunit - Fortran logical unit number for BUFR file.
  * @param usr - Data values.
@@ -520,7 +520,7 @@ void ufbint( f77int *lunit, f77r8 *usr, f77int *i1, f77int *i2, f77int *iret, ch
 void ufbseq( f77int *lunit, f77r8 *usr, f77int *i1, f77int *i2, f77int *iret, char *str, size_t s1 );
 
 /**
- * Wraps NCEPLIBS-bufr uptdd() subroutine.
+ * Wraps uptdd() subroutine.
  *
  * @param id - Index of parent mnemonic within internal arrays.
  * @param lun - I/O stream index into internal arrays.
@@ -532,7 +532,7 @@ void ufbseq( f77int *lunit, f77r8 *usr, f77int *i1, f77int *i2, f77int *iret, ch
 void uptdd( f77int *id, f77int *lun, f77int *ient, f77int *iret );
 
 /**
- * Wraps NCEPLIBS-bufr wrdlen() subroutine.
+ * Wraps wrdlen() subroutine.
  *
  * @author J.Ator @date 2003-11-04
  */
