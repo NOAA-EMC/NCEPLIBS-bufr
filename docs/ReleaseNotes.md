@@ -17,9 +17,9 @@ as 4-byte integers before calling them.
 
 * The interface between the C and Fortran components of the library has
 been modernized.  Accordingly, Fortran application codes must now contain a
-<b>use bufr_interface</b> statement to directly call any C functions within
+<b>"use bufr_interface"</b> statement to directly call any C functions within
 the library, and C application codes must now contain an
-<b>\#include "bufr_interface.h"</b> statement to directly call any Fortran
+<b>"\#include "bufr_interface.h"</b> statement to directly call any Fortran
 or C functions within the library.
 [[Issue #79](https://github.com/NOAA-EMC/NCEPLIBS-bufr/issues/79)]
 
