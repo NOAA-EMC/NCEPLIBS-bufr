@@ -232,6 +232,8 @@ for kind in "4" "d"; do
 
     # Check ufbrms().
     (./test_bort_$kind ufbrms 1) && exit 1
+    (./test_bort_$kind ufbrms 2) && exit 1
+    (./test_bort_$kind ufbrms 3) && exit 1
 
     # Check ufbseq().
     (./test_bort_$kind ufbseq 1) && exit 1

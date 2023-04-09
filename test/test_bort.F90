@@ -702,6 +702,26 @@ program test_bort
         call openbf(12, 'IN', 10)
         call ufbrep(12, real_2d, 1, 2, iret, 'c')
      endif
+  elseif (sub_name .eq. 'ufbrms') then
+     if (test_case .eq. '1') then
+        open(unit = 11, file = 'testfiles/IN_9', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        call ufbmem(11, 0, iret, iunit)
+        if (iret .ne. 5 .or. iunit .ne. 11) stop 200
+        call ufbrms(999, 1, real_2d, 1, 1, iret, 'c')
+     elseif (test_case .eq. '2') then
+        open(unit = 11, file = 'testfiles/IN_9', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        call ufbmem(11, 0, iret, iunit)
+        if (iret .ne. 5 .or. iunit .ne. 11) stop 200
+        call ufbrms(1, 9999, real_2d, 1, 1, iret, 'c')
+     elseif (test_case .eq. '3') then
+        open(unit = 11, file = 'testfiles/IN_9', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        call ufbmem(11, 0, iret, iunit)
+        if (iret .ne. 5 .or. iunit .ne. 11) stop 200
+        call ufbrms(0, 9999, real_2d, 1, 1, iret, 'c')
+     endif
   elseif (sub_name .eq. 'ufbstp') then
      if (test_case .eq. '1') then
         open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
@@ -720,10 +740,6 @@ program test_bort
         if (ios .ne. 0) stop 3
         call openbf(12, 'OUT', 10)
         call ufbstp(11, real_2d, 1, 1, iret, 'LALAL1')
-     endif
-  elseif (sub_name .eq. 'ufbrms') then
-     if (test_case .eq. '1') then
-        call ufbrms(1, 1, real_2d, 1, 2, iret, 'c')
      endif
   elseif (sub_name .eq. 'ufbseq') then
      if (test_case .eq. '1') then
