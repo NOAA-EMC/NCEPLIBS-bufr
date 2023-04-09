@@ -25,7 +25,7 @@ program intest1
        bfmg(mxbf), cds3(mxds3)*6, tagpr*8, celem*60, cunit*22
   character*20 filnam / 'testfiles/IN_1' /
   character filost / 'r' /
-  integer i4dy, idxmsg, imsg, idate
+  integer i4dy, idxmsg, idate
 
   equivalence (bfmg(1), ibfmg(1))
 
