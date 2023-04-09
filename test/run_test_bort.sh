@@ -203,6 +203,14 @@ for kind in "4" "d"; do
     (./test_bort_$kind ufbmms 2) && exit 1
     (./test_bort_$kind ufbmms 3) && exit 1
 
+    # Check ufbmns().
+    (./test_bort_$kind ufbmns 1) && exit 1
+    
+    # Check ufbovr().
+    (./test_bort_$kind ufbovr 1) && exit 1
+    (./test_bort_$kind ufbovr 2) && exit 1
+    (./test_bort_$kind ufbovr 3) && exit 1
+    
     # Check ufbqcp().
     (./test_bort_$kind ufbqcp 1) && exit 1
 
