@@ -12,7 +12,8 @@
  *
  * @author J. Ator @date 2017-11-03
  */
-void dlloctbf( void )
+void
+dlloctbf(void)
 {
     free ( cfe );
 

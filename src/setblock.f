@@ -4,7 +4,7 @@ C> BUFR messages.
 C>
 C> @author J. Woollen @date 2012-09-15
 
-C> This subroutine is used to specify whether BUFR messages output by
+C> Specify whether BUFR messages output by
 C> future calls to [message-writing subroutines](@ref hierarchy)
 C> should be encapsulated with IEEE Fortran control words when being
 C> written to output files.
@@ -30,11 +30,11 @@ C> @remarks
 C> - This subroutine can be used to generate BUFR files consistent
 C> with historical archives, dating back to older versions of the
 C> BUFRLIB software which used Fortran to directly read/write
-C> BUFR messages from/to system files. Standard Fortran historically
+C> BUFR messages from/to files. Standard Fortran historically
 C> didn't have a way to read/write binary data streams without
 C> control words, so as a result many historical archives contain
 C> these by default. However, newer versions of the BUFRLIB software
-C> use C to directly read/write BUFR messages from/to system files
+C> use C to directly read/write BUFR messages from/to files
 C> (including historical archives), so control words are no longer
 C> necessary and are therefore now disabled by default when writing
 C> BUFR messages to output files.

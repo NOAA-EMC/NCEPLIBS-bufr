@@ -18,7 +18,7 @@ list(APPEND fortran_src
   nemdefs.f nemock.f nemspecs.f nemtab.f nemtba.f nemtbax.f nemtbb.f nemtbd.f nenubd.f nevn.f newwin.f
   nmsub.f nmwrd.f numbck.f numtab.f numtbd.f nvnwin.f nwords.f nxtwin.f openbt.f openmb.f openmg.f pad.f
   padmsg.f parstr.f parusr.f parutg.f pkb.f pkbs1.f pkc.f pkftbv.f pktdd.f posapx.f rcstpl.f rdbfdx.f
-  rdcmps.f rdmemm.f rdmems.f rdmgsb.f rdmsgw.f rdmtbb.f rdmtbd.f rdmtbf.f rdtree.f rdusdx.f readdx.f
+  rdcmps.f rdmemm.f rdmems.f rdmgsb.f rdmsgw.F90 rdmtbb.f rdmtbd.f rdmtbf.f rdtree.f rdusdx.f readdx.f
   readerme.f readlc.f readmg.f readmm.f readns.f reads3.f readsb.f rewnbf.f rsvfvm.f rtrcpt.f
   rtrcptb.f seqsdx.f setblock.f setbmiss.f setvalnb.f sntbbe.f sntbde.f sntbfe.f status.f stbfdx.f
   stdmsg.f stndrd.f stntbi.f stntbia.f strbtm.f strcln.f strcpt.f string.f strnum.F90 strsuc.F90 tabent.f
@@ -28,7 +28,7 @@ list(APPEND fortran_src
   ups.f uptdd.f usrtpl.f wrcmps.f wrdxtb.f writcp.f writdx.f writlc.f writsa.f writsb.f
   wrtree.f wtstat.f arallocf.f ardllocf.f closbf.f ireadmt.f irev.F isetprm.f openbf.f pkvs01.f
   wrdlen.F fortran_open.F90 fortran_close.F90 bufr_interface.F90 pkb8.f upb8.f up8.f setim8b.F90
-  bufr_c2f_interface.F90 x48.F x84.F)
+  bufr_c2f_interface.F90 x48.F x84.F bufrlib.F90)
 
 list(APPEND c_src
   arallocc.c ardllocc.c bort_exit.c cmpia.c cmpstia1.c cmpstia2.c cpmstabs.c cread.c crwbmg.c

@@ -4,10 +4,12 @@ C> message.
 C>
 C> @author J. Ator @date 2005-11-29
 
+C> Read a data value from Section 0 or Section 1 of a BUFR message.
+C>
 C> This function returns a specified value from within Section 0 or
 C> Section 1 of a BUFR message.
 C>
-C> This function will work on any BUFR message encoded using BUFR
+C> It will work on any BUFR message encoded using BUFR
 C> edition 2, 3, or 4.  It is similar to function iupvs01(), except
 C> that it operates on a BUFR message passed in via a memory array,
 C> whereas iupvs01() operates on the BUFR message that was read into
@@ -29,39 +31,37 @@ C>   or inferred using a windowing technique
 C> - Values corresponding to S01MNEM = 'SECO' or 'MSBTI' can only
 C>   be read from BUFR messages encoded using BUFR edition 4.
 C>
-C> @param[in]  MBAY   -- integer(*): BUFR message
-C> @param[in]  S01MNEM  -- character*(*): Value to be read from
-C>                         Section 0 or Section 1 of MBAY
-C>                         - 'LENM'  = Length (in bytes) of BUFR message
-C>                         - 'LEN0'  = Length (in bytes) of Section 0
-C>                         - 'LEN1'  = Length (in bytes) of Section 1
-C>                         - 'BEN'   = BUFR edition number
-C>                         - 'BMT'   = BUFR master table
-C>                         - 'OGCE'  = Originating center
-C>                         - 'GSES'  = Originating subcenter
-C>                         - 'USN'   = Update sequence number
-C>                         - 'ISC2'  = Flag indicating absence/presence of
-C>                                     (optional) Section 2 in BUFR message:
-C>                                    - 0 = Section 2 absent
-C>                                    - 1 = Section 2 present
-C>                         - 'MTYP'  = Data category
-C>                         - 'MSBTI' = Data subcategory (international)
-C>                         - 'MSBT'  = Data subcategory (local)
-C>                         - 'MTV'   = Version number of master table
-C>                         - 'MTVL'  = Version number of local tables
-C>                         - 'YCEN'  = Year of century (1-100)
-C>                         - 'CENT'  = Century (e.g., 20 for years 1901-2000,
-C>                                     21 for years 2001-2100)
-C>                         - 'YEAR'  = Year (4-digit)
-C>                         - 'MNTH'  = Month
-C>                         - 'DAYS'  = Day
-C>                         - 'HOUR'  = Hour
-C>                         - 'MINU'  = Minute
-C>                         - 'SECO'  = Second
-C> @returns iupbs01 -- integer: Value corresponding to S01MNEM
-C>                      - -1 = S01MNEM was invalid for the edition of BUFR
-C>                             message in MBAY, or some other error
-C>                             occurred
+C> @param[in] MBAY  - integer(*): BUFR message.
+C> @param[in] S01MNEM - character*(*): Value to be read from
+C> Section 0 or Section 1 of MBAY.
+C> - 'LENM'  = Length (in bytes) of BUFR message
+C> - 'LEN0'  = Length (in bytes) of Section 0
+C> - 'LEN1'  = Length (in bytes) of Section 1
+C> - 'BEN'   = BUFR edition number
+C> - 'BMT'   = BUFR master table
+C> - 'OGCE'  = Originating center
+C> - 'GSES'  = Originating subcenter
+C> - 'USN'   = Update sequence number
+C> - 'ISC2'  = Flag indicating absence/presence of (optional) Section 2
+C>   in BUFR message:
+C>   - 0 = Section 2 absent
+C>   - 1 = Section 2 present
+C> - 'MTYP'  = Data category
+C> - 'MSBTI' = Data subcategory (international)
+C> - 'MSBT'  = Data subcategory (local)
+C> - 'MTV'   = Version number of master table
+C> - 'MTVL'  = Version number of local tables
+C> - 'YCEN'  = Year of century (1-100)
+C> - 'CENT'  = Century (e.g., 20 for years 1901-2000, 21 for years 2001-2100)
+C> - 'YEAR'  = Year (4-digit)
+C> - 'MNTH'  = Month
+C> - 'DAYS'  = Day
+C> - 'HOUR'  = Hour
+C> - 'MINU'  = Minute
+C> - 'SECO'  = Second
+C> @returns iupbs01 - integer: Value corresponding to S01MNEM:
+C> - -1 = S01MNEM was invalid for the edition of BUFR
+C> message in MBAY, or some other error occurred
 C>
 C> @author J. Ator @date 2005-11-29
 

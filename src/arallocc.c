@@ -23,7 +23,8 @@
  * @author J. Ator @date 2014-12-04
  */
 
-void arallocc( void )
+void
+arallocc(void)
 {
 
     char brtstr[50] = "BUFRLIB: ARALLOCC FAILED ALLOCATING ";

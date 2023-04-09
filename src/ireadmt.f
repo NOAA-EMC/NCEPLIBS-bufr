@@ -1,9 +1,12 @@
 C> @file
 C> @brief Check whether master BUFR tables need to be read from the
-C> local file system
+C> local file system.
 C>
 C> @author J. Ator @date 2009-03-23
 
+C> Check whether master BUFR tables need to be read from the local
+C> file system.
+C>
 C> This function checks the most recent BUFR message that was read
 C> via a call to one of the
 C> [message-reading subroutines](@ref hierarchy) and determines
@@ -11,17 +14,15 @@ C> whether the appropriate corresponding BUFR master tables have
 C> already been read into internal memory.
 C>
 C> If not, then it opens the appropriate master BUFR tables on the
-C> local file system and then reads the contents into internal
+C> local file system and reads the contents into internal
 C> memory, clearing any previous master BUFR table information that
 C> may have previously been stored there.
 C>
-C> @param[in]  LUN     -- integer: Internal I/O stream index associated
-C>                        with BUFR file
-C> @returns ireadmt    -- integer: Flag indicating whether new master
-C>                        BUFR tables needed to be read into internal
-C>                        memory:
-C>                        - 0 = No
-C>                        - 1 = Yes
+C> @param[in] LUN - integer: File ID.
+C> @returns ireadmt - integer: Flag indicating whether new master
+C> BUFR tables needed to be read into internal memory:
+C> - 0 = No
+C> - 1 = Yes
 C>
 C> Information about the location of master BUFR tables on the
 C> local file system is obtained from the most recent call to
@@ -32,6 +33,8 @@ C> for opening and reading master BUFR table files.
 C>
 C> @author J. Ator @date 2009-03-23
         INTEGER FUNCTION IREADMT ( LUN )
+
+        use bufrlib
 
         USE MODV_MAXNC
         USE MODV_MAXCD
@@ -53,6 +56,8 @@ C> @author J. Ator @date 2009-03-23
         CHARACTER*128   BORT_STR
         CHARACTER*132   STDFIL,LOCFIL
         LOGICAL         ALLSTD
+
+        INTEGER*4 IM1, JM1, MY_MAXCD
 
 C*      Initializing the following value ensures that new master tables
 C*      are read during the first call to this subroutine.
@@ -79,12 +84,12 @@ C*      this message to those from the message that was processed during
 C*      the previous call to this subroutine.
 
         IF (  ( IMT .NE. LMT )
-     .          .OR.
-     .      ( ( IMT .NE. 0 ) .AND. ( IMTV .NE. LMTV ) )
-     .          .OR.
-     .      ( ( IMT .EQ. 0 ) .AND. ( IMTV .NE. LMTV ) .AND.
-     .        ( ( IMTV .GT. 13 ) .OR. ( LMTV .GT. 13 ) ) )  )
-     .    THEN
+     +          .OR.
+     +      ( ( IMT .NE. 0 ) .AND. ( IMTV .NE. LMTV ) )
+     +          .OR.
+     +      ( ( IMT .EQ. 0 ) .AND. ( IMTV .NE. LMTV ) .AND.
+     +        ( ( IMTV .GT. 13 ) .OR. ( LMTV .GT. 13 ) ) )  )
+     +    THEN
 
 C*        Either the master table number has changed
 C*              .OR.
@@ -147,7 +152,7 @@ C*        Locate and open the master Table B files.  There should be one
 C*        file of standard descriptors and one file of local descriptors.
 
           CALL MTFNAM ( IMT, IMTV, IOGCE, IMTVL, 'TableB',
-     .                  STDFIL, LOCFIL )
+     +                  STDFIL, LOCFIL )
           OPEN ( UNIT = LUN1, FILE = STDFIL, IOSTAT = IER )
           IF ( IER .NE. 0 ) GOTO 900
           OPEN ( UNIT = LUN2, FILE = LOCFIL, IOSTAT = IER )
@@ -156,9 +161,9 @@ C*        file of standard descriptors and one file of local descriptors.
 C*        Read the master Table B files.
 
           CALL RDMTBB ( LUN1, LUN2, MXMTBB,
-     .                  IBMT, IBMTV, IBOGCE, IBLTV,
-     .                  NMTB, IBFXYN, CBSCL, CBSREF, CBBW,
-     .                  CBUNIT, CBMNEM, CMDSCB, CBELEM )
+     +                  IBMT, IBMTV, IBOGCE, IBLTV,
+     +                  NMTB, IBFXYN, CBSCL, CBSREF, CBBW,
+     +                  CBUNIT, CBMNEM, CMDSCB, CBELEM )
 
 C*        Close the master Table B files.
 
@@ -169,7 +174,7 @@ C*        Locate and open the master Table D files.  There should be one
 C*        file of standard descriptors and one file of local descriptors.
 
           CALL MTFNAM ( IMT, IMTV, IOGCE, IMTVL, 'TableD',
-     .                  STDFIL, LOCFIL )
+     +                  STDFIL, LOCFIL )
           OPEN ( UNIT = LUN1, FILE = STDFIL, IOSTAT = IER )
           IF ( IER .NE. 0 ) GOTO 900
           OPEN ( UNIT = LUN2, FILE = LOCFIL, IOSTAT = IER )
@@ -178,12 +183,15 @@ C*        file of standard descriptors and one file of local descriptors.
 C*        Read the master Table D files.
 
           CALL RDMTBD ( LUN1, LUN2, MXMTBD, MAXCD,
-     .                  IDMT, IDMTV, IDOGCE, IDLTV,
-     .                  NMTD, IDFXYN, CDMNEM, CMDSCD, CDSEQ,
-     .                  NDELEM, IEFXYN, CEELEM )
+     +                  IDMT, IDMTV, IDOGCE, IDLTV,
+     +                  NMTD, IDFXYN, CDMNEM, CMDSCD, CDSEQ,
+     +                  NDELEM, IEFXYN, CEELEM )
+          MY_MAXCD = MAXCD
           DO I = 1, NMTD
             DO J = 1, NDELEM(I)
-              IDX = ICVIDX ( I-1, J-1, MAXCD ) + 1
+              IM1 = I-1
+              JM1 = J-1
+              IDX = ICVIDX_C ( IM1, JM1, MY_MAXCD ) + 1
               IDEFXY(IDX) = IEFXYN(I,J)
             ENDDO
           ENDDO
@@ -196,8 +204,8 @@ C*        Close the master Table D files.
 C*        Copy master table B and D information into internal C arrays.
 
           CALL CPMSTABS ( NMTB, IBFXYN, CBSCL, CBSREF, CBBW, CBUNIT,
-     .                    CBMNEM, CBELEM, NMTD, IDFXYN, CDSEQ, CDMNEM,
-     .                    NDELEM, IDEFXY, MAXCD )
+     +                    CBMNEM, CBELEM, NMTD, IDFXYN, CDSEQ, CDMNEM,
+     +                    NDELEM, IDEFXY, MAXCD )
         ENDIF
 
         IF ( CDMF .EQ. 'Y' ) THEN
@@ -208,7 +216,7 @@ C*        descriptors, and one file corresponding to the local Table B
 C*        descriptors.
 
           CALL MTFNAM ( IMT, IMTV, IOGCE, IMTVL, 'CodeFlag',
-     .                STDFIL, LOCFIL )
+     +                STDFIL, LOCFIL )
           OPEN ( UNIT = LUN1, FILE = STDFIL, IOSTAT = IER )
           IF ( IER .NE. 0 ) GOTO 900
           OPEN ( UNIT = LUN2, FILE = LOCFIL, IOSTAT = IER )
