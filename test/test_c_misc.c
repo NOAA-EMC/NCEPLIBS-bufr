@@ -12,9 +12,10 @@ int rbytes(char *bmg, int mxmb, int isloc, int newbytes);
 /* Test various C things. */
 int main()
 {
-    
+
     /* Test rbytes error condition. */
     if (rbytes(NULL, 0, 1, 1) != 1)
         return 1;
+
     return 0;
 }

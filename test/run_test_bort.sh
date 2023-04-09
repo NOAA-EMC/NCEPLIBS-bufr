@@ -254,6 +254,7 @@ for kind in "4" "d"; do
     (./test_bort_$kind upftbv 2) && exit 1
 
     # Check usrtpl().
+    # Oddly this does not cause a bort() in intel. Why?
     #(./test_bort_$kind usrtpl 1) && exit 1
 
     # Check wrdxtb().
@@ -286,6 +287,9 @@ for kind in "4" "d"; do
     (./test_bort_$kind writsb 3) && exit 1
 
 done
+
+# Now test the C borts().
+(./test_c_bort) && exit 1
 
 # If we made it here, all error codes were correctly returned, and the
 # test passed!
