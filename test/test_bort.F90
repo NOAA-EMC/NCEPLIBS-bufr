@@ -81,6 +81,18 @@ program test_bort
      if (test_case .eq. '1') then
         call bvers(char_short)
      endif
+  elseif (sub_name .eq. 'closmg') then
+     if (test_case .eq. '1') then
+        open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        call openbf(11, 'IN', 11)
+        call closmg(11)
+     elseif (test_case .eq. '2') then
+        call openbf(12, 'FIRST', 11)
+        open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        call closmg(11)
+     endif
   elseif (sub_name .eq. 'cmpmsg') then
      if (test_case .eq. '1') then
         call cmpmsg('W')
