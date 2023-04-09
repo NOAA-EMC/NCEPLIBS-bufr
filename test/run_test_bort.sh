@@ -218,6 +218,10 @@ for kind in "4" "d"; do
     (./test_bort_$kind ufbpos 4) && exit 1
     (./test_bort_$kind ufbpos 5) && exit 1
 
+    # Check ufbqcd().
+    (./test_bort_$kind ufbqcd 1) && exit 1
+    (./test_bort_$kind ufbqcd 2) && exit 1
+
     # Check ufbqcp().
     (./test_bort_$kind ufbqcp 1) && exit 1
     (./test_bort_$kind ufbqcp 2) && exit 1

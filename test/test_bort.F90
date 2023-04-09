@@ -10,7 +10,7 @@
 ! Ed Hartnett 3/12/23
 program test_bort
   implicit none
-  integer iret, jret, iunit
+  integer iret, jret, iunit, iqcd
   ! integer i1
   integer int_1d(1), int_1d_2(1)
   character*2 char_short
@@ -665,6 +665,18 @@ program test_bort
         if (ios .ne. 0) stop 3
         call openbf(11, 'IN', 10)        
         call ufbpos(11, 1, 9999, char_val_8, jdate)
+     endif
+  elseif (sub_name .eq. 'ufbqcd') then
+     if (test_case .eq. '1') then
+        call openbf(12, 'FIRST', 11)
+        open(unit = 11, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        call ufbqcd(11, 'c', iqcd)
+     elseif (test_case .eq. '2') then
+        open(unit = 11, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        call openbf(11, 'IN', 10)        
+        call ufbqcd(11, 'c', iqcd)
      endif
   elseif (sub_name .eq. 'ufbqcp') then
      if (test_case .eq. '1') then
