@@ -36,6 +36,7 @@ program test_bort
   integer iyr, imo, idy, ihr, imi
   integer jdate1(5), jdump1(5)
   integer lmsgt, msgt(100), msgl
+  integer isize
   
 #ifdef KIND_8
   call setim8b(.true.)
@@ -238,6 +239,10 @@ program test_bort
         if (ios .ne. 0) stop 3
         call openbf(12, 'OUT', 10)
         call ifbget(11)
+     endif
+  elseif (sub_name .eq. 'isize') then
+     if (test_case .eq. '1') then
+        print *, isize(1000000)
      endif
   elseif (sub_name .eq. 'nemtba') then
      if (test_case .eq. '1') then
