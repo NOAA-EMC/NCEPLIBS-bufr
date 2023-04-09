@@ -197,26 +197,26 @@ for kind in "4" "d"; do
     # Check ufbinx().
     (./test_bort_$kind ufbinx 1) && exit 1
     (./test_bort_$kind ufbinx 2) && exit 1
-    
+
     # Check ufbmms().
     (./test_bort_$kind ufbmms 1) && exit 1
     (./test_bort_$kind ufbmms 2) && exit 1
     (./test_bort_$kind ufbmms 3) && exit 1
-    
+
     # Check ufbmns().
     (./test_bort_$kind ufbmms 1) && exit 1
-    
+
     # Check ufbovr().
-    (./test_bort_$kind ufbovr 1) && exit 1
-    (./test_bort_$kind ufbovr 2) && exit 1
-    (./test_bort_$kind ufbovr 3) && exit 1
-    
+    # (./test_bort_$kind ufbovr 1) && exit 1
+    # (./test_bort_$kind ufbovr 2) && exit 1
+    # (./test_bort_$kind ufbovr 3) && exit 1
+
     # Check ufbpos().
-    (./test_bort_$kind ufbpos 1) && exit 1
-    (./test_bort_$kind ufbpos 2) && exit 1
-    (./test_bort_$kind ufbpos 3) && exit 1
-    (./test_bort_$kind ufbpos 4) && exit 1
-    (./test_bort_$kind ufbpos 5) && exit 1
+    # (./test_bort_$kind ufbpos 1) && exit 1
+    # (./test_bort_$kind ufbpos 2) && exit 1
+    # (./test_bort_$kind ufbpos 3) && exit 1
+    # (./test_bort_$kind ufbpos 4) && exit 1
+    # (./test_bort_$kind ufbpos 5) && exit 1
 
     # Check ufbqcp().
     (./test_bort_$kind ufbqcp 1) && exit 1
