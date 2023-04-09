@@ -36,7 +36,7 @@ program test_bort
   integer iyr, imo, idy, ihr, imi
   integer jdate1(5), jdump1(5)
   integer lmsgt, msgt(100), msgl
-  integer isize, iupm
+  integer isize, iupm, iupvs01
   
 #ifdef KIND_8
   call setim8b(.true.)
@@ -247,6 +247,23 @@ program test_bort
   elseif (sub_name .eq. 'iupm') then
      if (test_case .eq. '1') then
         print *, iupm(char_8, 100)
+     endif
+  elseif (sub_name .eq. 'iupvs01') then
+     if (test_case .eq. '1') then
+        call openbf(12, 'FIRST', 11)
+        open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        print *, iupvs01(11, 'LENM')
+     elseif (test_case .eq. '2') then
+        open(unit = 11, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        call openbf(11, 'OUT', 10)
+        print *, iupvs01(11, 'LENM')
+     elseif (test_case .eq. '3') then
+        open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        call openbf(11, 'IN', 10)
+        print *, iupvs01(11, 'LENM')
      endif
   elseif (sub_name .eq. 'nemtba') then
      if (test_case .eq. '1') then
