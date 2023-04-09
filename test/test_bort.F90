@@ -10,7 +10,7 @@
 ! Ed Hartnett 3/12/23
 program test_bort
   implicit none
-  integer iret, jret
+  integer iret, jret, iunit
   ! integer i1
   integer int_1d(1), int_1d_2(1)
   character*2 char_short
@@ -495,6 +495,12 @@ program test_bort
         if (ios .ne. 0) stop 3
         call openbf(12, 'IN', 10)
         call ufbcup(12, 0)
+     elseif (test_case .eq. '4') then
+        open(unit = 12, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        call openbf(12, 'IN', 10)
+        call readns(12, char_val_8, jdate, iret)
+        call ufbcup(12, 0)
      endif
   elseif (sub_name .eq. 'ufbdmp') then
      if (test_case .eq. '1') then
@@ -575,6 +581,46 @@ program test_bort
         if (ios .ne. 0) stop 3
         call openbf(12, 'IN', 10)
         call ufbint(12, real_2d, 1, 2, iret, 'c')
+     endif
+  elseif (sub_name .eq. 'ufbinx') then
+     if (test_case .eq. '1') then
+        open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        call openbf(11, 'IN', 11)
+        call ufbinx(11, 999, 999, 1, 1, iret, 'c')
+     elseif (test_case .eq. '2') then
+        open(unit = 11, file = 'testfiles/IN_9', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        call openbf(11, 'IN', 11)
+        call ufbinx(11, 1, 999, 1, 1, iret, 'c')
+     endif
+  elseif (sub_name .eq. 'ufbmms') then
+     if (test_case .eq. '1') then
+        open(unit = 11, file = 'testfiles/IN_9', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        call ufbmem(11, 0, iret, iunit)
+        if (iret .ne. 5 .or. iunit .ne. 11) stop 200
+        call ufbmms(1, 999, char_val_8, jdate)
+     elseif (test_case .eq. '2') then
+        open(unit = 11, file = 'testfiles/IN_9', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        call ufbmem(11, 0, iret, iunit)
+        if (iret .ne. 5 .or. iunit .ne. 11) stop 200
+        call ufbmms(0, 999, char_val_8, jdate)
+     elseif (test_case .eq. '3') then
+        open(unit = 11, file = 'testfiles/IN_9', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        call ufbmem(11, 0, iret, iunit)
+        if (iret .ne. 5 .or. iunit .ne. 11) stop 200
+        call ufbmms(999, 999, char_val_8, jdate)
+     endif
+  elseif (sub_name .eq. 'ufbmns') then
+     if (test_case .eq. '1') then
+        open(unit = 11, file = 'testfiles/IN_9', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        call ufbmem(11, 0, iret, iunit)
+        if (iret .ne. 5 .or. iunit .ne. 11) stop 200
+        call ufbmns(9999, char_val_8, jdate)
      endif
   elseif (sub_name .eq. 'ufbqcp') then
      if (test_case .eq. '1') then

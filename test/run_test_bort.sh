@@ -194,6 +194,18 @@ for kind in "4" "d"; do
     (./test_bort_$kind ufbint 1) && exit 1
     (./test_bort_$kind ufbint 2) && exit 1
 
+    # Check ufbinx().
+    (./test_bort_$kind ufbinx 1) && exit 1
+    (./test_bort_$kind ufbinx 2) && exit 1
+    
+    # Check ufbmms().
+    (./test_bort_$kind ufbmms 1) && exit 1
+    (./test_bort_$kind ufbmms 2) && exit 1
+    (./test_bort_$kind ufbmms 3) && exit 1
+    
+    # Check ufbmns().
+    (./test_bort_$kind ufbmms 1) && exit 1
+    
     # Check ufbqcp().
     (./test_bort_$kind ufbqcp 1) && exit 1
 
