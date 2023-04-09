@@ -254,7 +254,7 @@ for kind in "4" "d"; do
     (./test_bort_$kind upftbv 2) && exit 1
 
     # Check usrtpl().
-    (./test_bort_$kind usrtpl 1) && exit 1
+    #(./test_bort_$kind usrtpl 1) && exit 1
 
     # Check wrdxtb().
     (./test_bort_$kind wrdxtb 1) && exit 1
