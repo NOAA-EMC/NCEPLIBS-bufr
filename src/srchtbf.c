@@ -43,12 +43,12 @@
  *  @param[in] ivald -- f77int*: Value (code figure or bit number)
  *                      associated with the FXY number in ifxyd[0]; set
  *                      to (-1) whenever ifxyd[0] is also set to (-1)
- *  @param[in] mxfxyd -- f77int*: Dimensioned size (in f77ints) of
- *                       ifxyd; used by the subroutine to ensure that
- *                       it doesn't overflow the ifxyd array
- *  @param[in] mxmng -- f77int*: Dimensioned size (in bytes) of meaning
- *                      string; used by the subroutine to ensure that
- *                      it doesn't overflow the meaning string
+ *  @param[in] mxfxyd -- f77int*: Number of elements in ifxyd array;
+ *                       used by the subroutine to ensure that
+ *                       it doesn't overflow the array.
+ *  @param[in] mxmng -- f77int*: Number of elements in meaning
+ *                      array; used by the subroutine to ensure that
+ *                      it doesn't overflow the string.
  *  @param[out] meaning -- char*: Meaning corresponding to ifxyi and
  *                         ivali (and to ifxyd[0] and ivald, if
  *                         specified on input)
@@ -67,8 +67,9 @@
  *
  *  @author J. Ator  @date 2018-01-11
  */
-void srchtbf( f77int *ifxyi, f77int *ivali, f77int *ifxyd, f77int *mxfxyd, f77int *ivald,
-              char *meaning, f77int *mxmng, f77int *lnmng, f77int *iret )
+void
+srchtbf(f77int *ifxyi, f77int *ivali, f77int *ifxyd, f77int *mxfxyd, f77int *ivald,
+        char *meaning, f77int *mxmng, f77int *lnmng, f77int *iret)
 {
         struct code_flag_entry key, *pkey, *pcfe, *pbs;
 

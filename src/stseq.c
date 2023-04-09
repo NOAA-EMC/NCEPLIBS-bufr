@@ -9,6 +9,9 @@
 #include "mstabs.h"
 
 /**
+ * Store information about a standard Table D descriptor within
+ * internal DX BUFR tables.
+ *
  * Given the bit-wise (integer) representation of a WMO-standard
  * Table D descriptor, this subroutine uses the master BUFR tables
  * to store all of the necessary information for that descriptor
@@ -16,33 +19,32 @@
  * are themselves Table D descriptors are automatically resolved via
  * a recursive call to this same subroutine.
  *
- * @param[in] lun -- f77int*: Internal Fortran I/O stream index
- *                   associated with BUFR file
- * @param[in,out] irepct -- f77int*: Replication sequence counter for
- *                          the current master table; used internally
- *                          to keep track of which sequence names have
- *                          already been defined, and thereby avoid
- *                          contention within the internal DX BUFR
- *                          Table D
- * @param[in] idn -- f77int*: Bit-wise representation of FXY value for
- *                   WMO-standard Table D descriptor
- * @param[in] nemo -- char[8]: Mnemonic corresponding to idn
- * @param[in] cseq -- char[55]: Description corresponding to idn
- * @param[in] cdesc -- f77int*: Array of WMO-standard child descriptors
- *                     equivalent to idn
- * @param[in] ncdesc -- f77int*: Number of WMO-standard child descriptors
- *                      in cdesc
+ * @param[in] lun - File ID.
+ * @param[in,out] irepct - Replication sequence counter for the current
+ * master table; used internally to keep track of which sequence names have
+ * already been defined, and thereby avoid contention within the internal
+ * DX BUFR Table D.
+ * @param[in] idn - Bit-wise representation of FXY value for WMO-standard
+ * Table D descriptor
+ * @param[in] nemo - Mnemonic corresponding to idn.
+ * @param[in] cseq - Description corresponding to idn.
+ * @param[in] cdesc - Array of WMO-standard child descriptors equivalent
+ * to idn.
+ * @param[in] ncdesc - Number of WMO-standard child descriptors in cdesc.
  *
  * @author J. Ator @date 2009-03-23
 */
-void stseq( f77int *lun, f77int *irepct, f77int *idn, char *nemo,
-            char *cseq, f77int *cdesc, f77int *ncdesc )
+void
+stseq(f77int *lun, f77int *irepct, f77int *idn, char *nemo,
+      char *cseq, f77int *cdesc, f77int *ncdesc)
 {
     f77int i, j, nb, nd, ipt, ix, iy, ier, iret, nbits;
-    f77int i0 = 0, imxcd, rpidn, pkint, ilen;
+    f77int rpidn, pkint, ilen;
 
     char tab, adn[7], adn2[7], nemo2[9], units[10], errstr[129];
     char rpseq[56], card[80], cblk = ' ', czero = '0';
+
+    int imxcd;
 
 /*
 **  The following variable is declared as automatic so that a local
@@ -102,7 +104,7 @@ void stseq( f77int *lun, f77int *irepct, f77int *idn, char *nemo,
                 sprintf( nemo2, "RPSEQ%.3lu", ( unsigned long ) *irepct );
 
                 stseq( lun, irepct, &rpidn, nemo2, rpseq,
-                    &idefxy_c[icvidx(&ipt,&i0,&imxcd)],
+                    &idefxy_c[icvidx((int)ipt,0,imxcd)],
                     &ndelem_c[ipt] );
                 pkint = rpidn;
 
@@ -113,7 +115,7 @@ void stseq( f77int *lun, f77int *irepct, f77int *idn, char *nemo,
 */
                 stseq( lun, irepct, &cdesc[i], &cdmnem_c[ipt][0],
                     &cdseq_c[ipt][0],
-                    &idefxy_c[icvidx(&ipt,&i0,&imxcd)],
+                    &idefxy_c[icvidx((int)ipt,0,imxcd)],
                     &ndelem_c[ipt] );
                 pkint = cdesc[i];
             }
@@ -322,7 +324,7 @@ void stseq( f77int *lun, f77int *irepct, f77int *idn, char *nemo,
                 nummtb( &cdesc[i], &tab, &ipt );
                 stseq( lun, irepct, &cdesc[i], &cdmnem_c[ipt][0],
                        &cdseq_c[ipt][0],
-                       &idefxy_c[icvidx(&ipt,&i0,&imxcd)],
+                       &idefxy_c[icvidx((int)ipt,0,imxcd)],
                        &ndelem_c[ipt] );
                 pkint = cdesc[i];
             }

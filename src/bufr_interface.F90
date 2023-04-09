@@ -1,6 +1,10 @@
 !> @file
-!> @brief Define signatures to enable a number of BUFRLIB functions to be called
+!> @brief Enable a number of C NCEPLIBS-bufr functions to be called
 !>        via wrapper functions from Fortran application programs.
+!>
+!> @author J. Ator @date 2023-03-22
+
+!> Wrap C NCEPLIBS-bufr functions so they can be called from within Fortran application programs.
 !>
 !> @author J. Ator @date 2023-03-22
 
@@ -9,9 +13,11 @@ module bufr_interface
   interface
 
     !> @fn bufr_interface::cobfl_c::cobfl_c(bfl, io)
-    !> Wraps BUFRLIB cobfl() function.
+    !> Open a new file for reading or writing BUFR messages via a C language interface.
     !>
-    !> @param bfl - [path]/name of system file to be opened
+    !> Wraps cobfl() function.
+    !>
+    !> @param bfl - [path]/name of file to be opened
     !> @param io - Flag indicating how bfl is to be opened
     !>
     !> @author J. Ator @date 2023-03-22
@@ -22,9 +28,13 @@ module bufr_interface
     end subroutine cobfl_c
 
     !> @fn bufr_interface::crbmg_c::crbmg_c(bmg, mxmb, nmb, iret)
-    !> Wraps BUFRLIB crbmg() function.
+    !> Read the next BUFR message from the file that was opened via the most recent call
+    !> to subroutine cobfl_c() with io = 'r'.
     !>
-    !> @param mxmb - Dimensioned size of bmg array in the calling program
+    !> Wraps crbmg() function.
+    !>
+    !> @param mxmb - Number of elements in bmg array; used by the function to
+    !> ensure that it doesn't overflow the array.
     !> @param bmg - BUFR message
     !> @param nmb - Size of BUFR message in bmg array
     !> @param iret - Return code 0 indicates success, any other value indicates failure
@@ -38,10 +48,13 @@ module bufr_interface
     end subroutine crbmg_c
 
     !> @fn bufr_interface::cwbmg_c::cwbmg_c(bmg, nmb, iret)
-    !> Wraps BUFRLIB cwbmg() function.
+    !> Write a BUFR message to the file that was opened via the most recent call
+    !> to subroutine cobfl_c() with io = 'w'.
+    !>
+    !> Wraps cwbmg() function.
     !>
     !> @param bmg - BUFR message
-    !> @param nmb - Size (in bytes) of BUFR message in bmg
+    !> @param nmb - Size of BUFR message in bmg array
     !> @param iret - Return code 0 indicates success, any other value indicates failure
     !>
     !> @author J. Ator @date 2005-11-29
@@ -53,7 +66,9 @@ module bufr_interface
     end subroutine cwbmg_c
 
     !> @fn bufr_interface::ccbfl_c::ccbfl_c()
-    !> Wraps BUFRLIB ccbfl() function.
+    !> Close all files that were opened via previous calls to subroutine cobfl_c().
+    !>
+    !> Wraps ccbfl() function.
     !>
     !> @author J. Ator @date 2005-11-29
     subroutine ccbfl_c() bind(C, name='ccbfl')

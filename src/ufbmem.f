@@ -1,14 +1,14 @@
 C> @file
-C> @brief Connect a new system file to the BUFRLIB software, and read
-C> the entire file contents into internal arrays.
+C> @brief Connect a new file to the NCEPLIBS-bufr software,
+C> and read the entire file contents into internal arrays.
 C>
 C> @author J. Woollen @date 1994-01-06
 
-C> This subroutine connects a new system file to the BUFRLIB software
+C> This subroutine connects a new file to the NCEPLIBS-bufr software
 C> for input operations, then reads the entire file contents into
 C> internal arrays so that any of the individual BUFR messages can
 C> later be accessed from memory, instead of having to read them one
-C> at a time sequentially from the system file.
+C> at a time sequentially from the file.
 C>
 C> Any embedded DX BUFR tables contained within the file are also
 C> read and processed into separate internal arrays for later use.
@@ -45,6 +45,8 @@ C>                         from the internal arrays
 C>
 C> @author J. Woollen @date 1994-01-06
       RECURSIVE SUBROUTINE UFBMEM(LUNIT,INEW,IRET,IUNIT)
+
+      use bufrlib
 
       USE MODV_MAXMEM
       USE MODV_MAXMSG
@@ -105,7 +107,7 @@ C     for this table.
 
       ITEMP = NDXTS
       CALL STATUS(LUNIT,LUN,IL,IM)
-      CALL CEWIND(LUN)
+      CALL CEWIND_C(LUN)
       CALL CPDXMM(LUNIT)
 
 C     If a table was indeed present at the beginning of the file,
@@ -125,7 +127,7 @@ C  ------------------------------------------------------------
 C       New "embedded" BUFR dictionary table messages have been found in
 C       this file.  Copy them into MODULE MSGMEM for later use.
 
-        CALL BACKBUFR(LUN) !BACKSPACE LUNIT
+        CALL BACKBUFR_C(LUN) !BACKSPACE LUNIT
         CALL CPDXMM(LUNIT)
         GOTO 1
       ENDIF
