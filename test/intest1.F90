@@ -25,6 +25,7 @@ program intest1
        bfmg(mxbf), cds3(mxds3)*6, tagpr*8, celem*60, cunit*22
   character*20 filnam / 'testfiles/IN_1' /
   character filost / 'r' /
+  integer i4dy
 
   equivalence (bfmg(1), ibfmg(1))
 
@@ -33,6 +34,9 @@ program intest1
 #ifdef KIND_8
   call setim8b(.true.)
 #endif
+
+  ! Test the i4dy() function.
+  if (i4dy(80123023) .ne. 1980123023) stop 1
 
   ! Open the test file.
   call cobfl_c(filnam, filost)
