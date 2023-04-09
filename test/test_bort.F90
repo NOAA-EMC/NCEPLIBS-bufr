@@ -784,6 +784,13 @@ program test_bort
         if (ios .ne. 0) stop 3
         call upftbv(11, 'n', 1.0, 1, 1, 1)
      endif
+  elseif (sub_name .eq. 'usrtpl') then
+     if (test_case .eq. '1') then
+        open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        call openbf(11, 'IN', 11)
+        call usrtpl(11, 1, 1)
+     endif
   elseif (sub_name .eq. 'wrdxtb') then
      if (test_case .eq. '1') then
         open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
