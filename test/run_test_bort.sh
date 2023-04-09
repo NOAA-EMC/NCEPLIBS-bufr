@@ -78,6 +78,9 @@ for kind in "4" "d"; do
     # Check isize().
     (./test_bort_$kind isize 1) && exit 1
     
+    # Check iupm().
+    (./test_bort_$kind iupm 1) && exit 1
+    
     # Check nemtba().
     (./test_bort_$kind nemtba 1) && exit 1
 

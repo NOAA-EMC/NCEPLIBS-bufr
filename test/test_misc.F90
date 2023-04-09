@@ -10,7 +10,9 @@ program test_misc
   integer ios
   integer num, iret
   integer ireadmm, imsg, idate, iunit
+  integer mbay(2)
   character*8 subset
+  integer iupb
   
 #ifdef KIND_4
   character*5 char5
@@ -56,6 +58,11 @@ program test_misc
   if (ireadmm(imsg, subset, idate) .ne. 0) stop 4
   if (imsg .ne. 2 .or. subset .ne. 'ADPSFC' .or. idate .ne. 23022519) stop 5
   call closbf(11)
+
+  ! Test iupb().
+  mbay(1) = 1
+  mbay(2) = 2
+  if (iupb(mbay, 1, 1) .ne. 0) stop 6
   
   ! Open for OUT.
   ! This fails but I don't know why yet. I get a bort() message that contains:
