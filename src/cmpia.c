@@ -21,7 +21,8 @@
  *
  * @author Ator @date 2009-03-23
  */
-int cmpia( const void *pf1, const void *pf2 )
+int
+cmpia(const void *pf1, const void *pf2)
 {
         f77int *mypf1 = ( f77int * ) pf1;
         f77int *mypf2 = ( f77int * ) pf2;

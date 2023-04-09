@@ -3,19 +3,16 @@ C> @brief Specify location of master BUFR tables on local file system.
 C>
 C> @author J. Ator @date 2009-03-23
 
-C> This subroutine allows the specification of the directory location
+C> Specify the directory location
 C> and Fortran logical unit numbers to be used when reading master
 C> BUFR tables on the local file system.
 C>
-C> @param[in] CMTDIR  -- character*(*): Directory location of master
-C>                          BUFR tables on local file system
-C>                          (up to 240 characters)
-C> @param[in] LUNMT1  -- integer: First Fortran logical unit number
-C>                          to use when reading master BUFR tables on
-C>                          local file system
-C> @param[in] LUNMT2  -- integer: Second Fortran logical unit number
-C>                          to use when reading master BUFR tables on
-C>                          local file system
+C> @param[in] CMTDIR - character*(*): Directory location of master
+C> BUFR tables on local file system (up to 240 characters).
+C> @param[in] LUNMT1 - integer: First Fortran logical unit number
+C> to use when reading master BUFR tables on local file system.
+C> @param[in] LUNMT2 - integer: Second Fortran logical unit number
+C> to use when reading master BUFR tables on local file system.
 C>
 C> See [Master BUFR Tables](@ref dfbfmstab)
 C> for more information about master BUFR tables.  In particular, note
@@ -29,7 +26,7 @@ C> used as defined within subroutine bfrini().
 C>
 C> For CMTDIR, any full or relative directory pathname that is legal
 C> on the local filesystem is permissible, up to a total maximum length
-C> of 240 characters.  The BUFRLIB software will then automatically search
+C> of 240 characters.  The library will then automatically search
 C> within this directory for any necessary master table files and open and
 C> read them as needed.
 C>

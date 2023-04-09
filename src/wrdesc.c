@@ -21,7 +21,8 @@
  *
  * @author J. Ator @date 2004-08-18
  */
-void wrdesc( f77int desc, f77int *descary, f77int *ndescary )
+void
+wrdesc(f77int desc, f77int *descary, f77int *ndescary)
 {
     char errstr[129];
 

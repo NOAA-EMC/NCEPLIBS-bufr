@@ -33,18 +33,14 @@
  *
  *  @author J. Ator @date 2014-12-04
 */
-void cpmstabs(  f77int *pnmtb,
-                f77int *pibfxyn, char (*pcbscl)[4],
-                char (*pcbsref)[12], char (*pcbbw)[4],
-                char (*pcbunit)[24], char (*pcbmnem)[8],
-                char (*pcbelem)[120],
-                f77int *pnmtd,
-                f77int *pidfxyn, char (*pcdseq)[120],
-                char (*pcdmnem)[8], f77int *pndelem,
-                f77int *pidefxy, f77int *maxcd )
+void
+cpmstabs(f77int *pnmtb, f77int *pibfxyn, char (*pcbscl)[4], char (*pcbsref)[12], char (*pcbbw)[4],
+         char (*pcbunit)[24], char (*pcbmnem)[8], char (*pcbelem)[120], f77int *pnmtd,
+         f77int *pidfxyn, char (*pcdseq)[120], char (*pcdmnem)[8], f77int *pndelem,
+         f77int *pidefxy, f77int *maxcd)
 {
 
-    f77int ii, jj, idx;
+    int ii, jj, idx;
 
     nmtb_c = *pnmtb;
     for ( ii = 0; ii < *pnmtb; ii++ ) {
@@ -72,7 +68,7 @@ void cpmstabs(  f77int *pnmtb,
         idfxyn_c[ii] = pidfxyn[ii];
         ndelem_c[ii] = pndelem[ii];
         for ( jj = 0; jj < pndelem[ii]; jj++ ) {
-            idx = icvidx( &ii, &jj, maxcd );
+            idx = icvidx( ii, jj, (int) *maxcd );
             idefxy_c[idx] = pidefxy[idx];
         }
         for ( jj = 0; jj < 8; jj++ ) {

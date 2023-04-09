@@ -1,5 +1,6 @@
 
 # Utilities
+@brief Collection of commonly-used utilities based on the library.
 
 The NCEPLIBS-bufr library includes some command line utilities which
 operate on BUFR files.

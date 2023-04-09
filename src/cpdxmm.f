@@ -12,6 +12,8 @@ C>
 C> @author J. Ator @date 2009-03-23
         RECURSIVE SUBROUTINE CPDXMM( LUNIT )
 
+        use bufrlib
+
         USE MODV_MXDXTS
         USE MODV_IM8B
 
@@ -58,7 +60,7 @@ C           Instead, backspace the file pointer and let the calling
 C           routine diagnose the end-of-file condition and deal with
 C           it as it sees fit.
 
-            CALL BACKBUFR(LUN)
+            CALL BACKBUFR_C(LUN)
             DONE = .TRUE.
           ELSE IF ( IER .EQ. -2 ) THEN
             GOTO 901
@@ -69,7 +71,7 @@ C           the end of the dictionary table, and backspace LUNIT so that
 C           the next read (e.g. in the calling routine) will get this
 C           same message.
 
-            CALL BACKBUFR(LUN)
+            CALL BACKBUFR_C(LUN)
             DONE = .TRUE.
           ELSE IF ( IUPBS3(MGWA,'NSUB') .EQ. 0 ) THEN
 

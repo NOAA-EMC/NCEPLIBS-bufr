@@ -39,6 +39,8 @@ C>
 C> @author J. Woollen @date 1995-11-22
       RECURSIVE SUBROUTINE UFBPOS(LUNIT,IREC,ISUB,SUBSET,JDATE)
 
+      use bufrlib
+
       USE MODV_IM8B
 
       USE MODA_MSGCWD
@@ -85,7 +87,7 @@ C  REWIND FILE IF REQUESTED POINTERS ARE BEHIND CURRENT POINTERS
 C  -------------------------------------------------------------
 
       IF(IREC.LT.JREC .OR. (IREC.EQ.JREC.AND.ISUB.LT.JSUB)) THEN
-         CALL CEWIND(LUN)
+         CALL CEWIND_C(LUN)
          NMSG(LUN) = 0
          NSUB(LUN) = 0
          CALL UFBCNT(LUNIT,JREC,JSUB)

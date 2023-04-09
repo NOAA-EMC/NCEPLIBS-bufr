@@ -36,6 +36,8 @@ C>
 C> @author Woollen @date 2003-11-04
       SUBROUTINE REWNBF(LUNIT,ISR)
 
+      use bufrlib
+
       USE MODA_MSGCWD
       USE MODA_BITBUF
       USE MODA_BUFRSR
@@ -84,7 +86,7 @@ C  -----------------------------------------
 C  REWIND THE FILE
 C  ---------------
 
-      CALL CEWIND(LUN)
+      CALL CEWIND_C(LUN)
 
 C  RESTORE FILE PARAMETERS AND POSITION IT TO WHERE IT WAS SAVED
 C  -------------------------------------------------------------

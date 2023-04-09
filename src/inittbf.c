@@ -14,7 +14,8 @@
  *
  *  @author J. Ator  @date 2017-11-03
 */
-void inittbf( void )
+void
+inittbf(void)
 {
     char brtstr[50] = "BUFRLIB: INITTBF FAILED ALLOCATING CFE";
 

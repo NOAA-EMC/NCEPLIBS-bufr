@@ -12,7 +12,8 @@
  * @author J. Ator @date 2003-11-04
  */
 
-void bort_exit( void )
+void
+bort_exit(void)
 {
     exit( EXIT_FAILURE );
 }

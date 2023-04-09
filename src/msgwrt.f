@@ -4,7 +4,7 @@ C> a BUFR file.
 C>
 C> @author J. Woollen @date 1994-01-06
 
-C> This subroutine performs final checks and updates on a BUFR message
+C> Perform final checks and updates on a BUFR message
 C> before writing it to a specified Fortran logical unit.
 C>
 C> These final checks and updates include:
@@ -35,6 +35,8 @@ C> @param[in] MGBYT -- integer: Size (in bytes) of BUFR message
 C>
 C> @author J. Woollen @date 1994-01-06
       SUBROUTINE MSGWRT(LUNIT,MESG,MGBYT)
+
+      use bufrlib
 
       USE MODV_MXMSGL
 
@@ -220,7 +222,7 @@ C  ------------------------------------------------------------------
       CALL STATUS(LUNIT,LUN,IL,IM)
       IF(NULL(LUN).EQ.0) THEN
          CALL BLOCKS(MGWA,MWRD)
-         CALL CWRBUFR(LUN,MGWA,MWRD)
+         CALL CWRBUFR_C(LUN,MGWA,MWRD)
       ENDIF
 
       IF(IPRT.GE.2) THEN
