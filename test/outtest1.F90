@@ -37,6 +37,7 @@ program outtest1
 
   call openbf ( 11, 'OUT', 12 )
 
+
   ! Write a standard, compressed BUFR message with 3 subsets.  Compression will be implemented using WRITCP.
 
   call stdmsg ('Y')

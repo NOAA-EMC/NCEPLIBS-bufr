@@ -25,7 +25,7 @@ program intest1
        bfmg(mxbf), cds3(mxds3)*6, tagpr*8, celem*60, cunit*22
   character*20 filnam / 'testfiles/IN_1' /
   character filost / 'r' /
-  integer i4dy
+  integer i4dy, idxmsg, imsg, idate
 
   equivalence (bfmg(1), ibfmg(1))
 
@@ -47,6 +47,9 @@ program intest1
   ! Specify the use of Section 3 decoding.
   open (unit = 11, file = '/dev/null')
   call openbf(11, 'SEC3', 11)
+
+  ! Test idxmsg().
+  if (idxmsg(1) .ne. 0) stop 2
 
   ! Specify location of master BUFR tables.
   call mtinfo('../tables', 90, 91)
