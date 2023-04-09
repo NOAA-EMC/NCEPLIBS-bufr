@@ -93,7 +93,7 @@ called from Fortran application programs.
 <tr>
   <th>reading/decoding</th>
   <td>openbf() openbf_f() ufbmem() ufbmex() cobfl() cobfl_c()</td>
-  <td>readmg() ireadmg() ireadmg_f() readerme() readns() ireadns() rdmemm() readmm() ireadmm() crbmg() crbmg_c() datelen() getlens() iupvs01() iupbs01() iupbs3() nmsub() rtrcpt() igetdate()</td>
+  <td>readmg() ireadmg() ireadmg_f() readerme() readns() ireadns() rdmemm() readmm() ireadmm() crbmg() crbmg_c() datelen() getlens() iupvs01() iupbs01() iupbs01_f() iupbs3() nmsub() rtrcpt() igetdate()</td>
   <td>readsb() ireadsb() ireadsb_f() readns() ireadns() rdmems() ufbmms() ufbmns() ufbpos()</td>
   <td>ufbint() ufbint_f() ufbrep() ufbrep_f() ufbseq() ufbstp() ufbrms() readlc() getvalnb() setbmiss() getbmiss() ibfms() icbfms()</td>
 </tr>

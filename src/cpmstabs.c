@@ -40,7 +40,7 @@ cpmstabs(f77int *pnmtb, f77int *pibfxyn, char (*pcbscl)[4], char (*pcbsref)[12],
          f77int *pidefxy, f77int *maxcd)
 {
 
-    f77int ii, jj, idx;
+    int ii, jj, idx;
 
     nmtb_c = *pnmtb;
     for ( ii = 0; ii < *pnmtb; ii++ ) {
@@ -68,7 +68,7 @@ cpmstabs(f77int *pnmtb, f77int *pibfxyn, char (*pcbscl)[4], char (*pcbsref)[12],
         idfxyn_c[ii] = pidfxyn[ii];
         ndelem_c[ii] = pndelem[ii];
         for ( jj = 0; jj < pndelem[ii]; jj++ ) {
-            idx = icvidx( &ii, &jj, maxcd );
+            idx = icvidx( ii, jj, (int) *maxcd );
             idefxy_c[idx] = pidefxy[idx];
         }
         for ( jj = 0; jj < 8; jj++ ) {

@@ -212,7 +212,7 @@ crbmg(char *bmg, int mxmb, int *nmb, int *iret)
    */
    if ( ( *iret = rbytes( bmg, mxmb, 4, 4 ) ) != 0 ) return;
    memcpy( wkint, bmg, 8 );
-   *nmb = iupbs01( wkint, "LENM", 4 );
+   *nmb = iupbs01_f( wkint, "LENM" );
 
    /*
    ** Read the remainder of the BUFR message.

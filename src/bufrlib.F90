@@ -135,6 +135,25 @@ module bufrlib
       integer(c_int), intent(in), value :: nfile, nwrd
     end subroutine cwrbufr_c
 
+    !> @fn bufrlib::icvidx_c::icvidx_c(ii,jj,numjj)
+    !> Compute a 1-dimensional array index from 2-dimensional indices.
+    !>
+    !> Wraps icvidx() function.
+    !>
+    !> @author J. Ator
+    !> @date 2022-09-01
+    !>
+    !> @param ii - First (row) index.
+    !> @param jj - Second (column) index.
+    !> @param numjj - Maximum number of column indices.
+    !>
+    !> Returns 1-dimensional index.
+    !>
+    integer(c_int) function icvidx_c( ii, jj, numjj ) bind(C, name='icvidx')
+      use iso_c_binding
+      integer(c_int), intent(in), value :: ii, jj, numjj
+    end function icvidx_c
+
   end interface
 
 end module bufrlib

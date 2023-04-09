@@ -268,105 +268,119 @@ extern "C" {
   void get_isc_f(int** isc_ptr, int* isc_size);
 
 /**
- *  Get copy of the moda_tables LINK array.
+ * Get copy of the moda_tables LINK array.
  *
- *  @param link_ptr - pointer to a pointer to the LINK array.
- *  @param link_size - size of the LINK array.
+ * @param link_ptr - pointer to a pointer to the LINK array.
+ * @param link_size - size of the LINK array.
  *
- *  @author Ronald McLaren @date 2022-03-23
+ * @author Ronald McLaren @date 2022-03-23
  */
   void get_link_f(int** link_ptr, int* link_size);
 
 /**
- *  Get copy of the moda_tables ITP array.
+ * Get copy of the moda_tables ITP array.
  *
- *  @param itp_ptr - pointer to a pointer to the ITP array.
- *  @param itp_size - size of the ITP array.
+ * @param itp_ptr - pointer to a pointer to the ITP array.
+ * @param itp_size - size of the ITP array.
  *
- *  @author Ronald McLaren @date 2022-03-23
+ * @author Ronald McLaren @date 2022-03-23
  */
   void get_itp_f(int** itp_ptr, int* itp_size);
 
 /**
- *  Get copy of the moda_tables TYP array.
+ * Get copy of the moda_tables TYP array.
  *
- *  @param typ_ptr - pointer to a pointer to the TYP array.
- *  @param typ_len - size of each string within the TYP array.
- *  @param mem_size - size of the TYP array.
+ * @param typ_ptr - pointer to a pointer to the TYP array.
+ * @param typ_len - size of each string within the TYP array.
+ * @param mem_size - size of the TYP array.
  *
- *  @author Ronald McLaren @date 2022-03-23
+ * @author Ronald McLaren @date 2022-03-23
  */
   void get_typ_f(char** typ_ptr, int* typ_len, int* mem_size);
 
 /**
- *  Get copy of the moda_tables TAG array.
+ * Get copy of the moda_tables TAG array.
  *
- *  @param tag_ptr - pointer to a pointer to the TAG array.
- *  @param tag_len - size of each string within the TAG array.
- *  @param mem_size - size of the TAG array.
+ * @param tag_ptr - pointer to a pointer to the TAG array.
+ * @param tag_len - size of each string within the TAG array.
+ * @param mem_size - size of the TAG array.
  *
- *  @author Ronald McLaren @date 2022-03-23
+ * @author Ronald McLaren @date 2022-03-23
  */
   void get_tag_f(char** tag_ptr, int* tag_len, int* mem_size);
 
 /**
- *  Get copy of the moda_tables JMPB array.
+ * Get copy of the moda_tables JMPB array.
  *
- *  @param jmpb_ptr - pointer to a pointer to the JMPB array.
- *  @param jmpb_size - size of the JMPB array.
+ * @param jmpb_ptr - pointer to a pointer to the JMPB array.
+ * @param jmpb_size - size of the JMPB array.
  *
- *  @author Ronald McLaren @date 2022-03-23
+ * @author Ronald McLaren @date 2022-03-23
  */
   void get_jmpb_f(int** jmpb_ptr, int* jmpb_size);
 
 /**
- *  Get the bufr node idx for the start node of the subset.
+ * Get the bufr node idx for the start node of the subset.
  *
- *  @param lun - pointer for the file stream.
- *  @param start_node - the start node of the subset.
+ * @param lun - pointer for the file stream.
+ * @param start_node - the start node of the subset.
  *
- *  @author Ronald McLaren @date 2022-03-23
+ * @author Ronald McLaren @date 2022-03-23
  */
   void get_inode_f(int lun, int* start_node);
 
 /**
- *  Get the number of values in the current subset
+ * Get the number of values in the current subset
  *
- *  @param lun - pointer for the file stream.
- *  @param num_nodes - number of values in the subset.
+ * @param lun - pointer for the file stream.
+ * @param num_nodes - number of values in the subset.
  *
- *  @author Ronald McLaren @date 2022-03-23
+ * @author Ronald McLaren @date 2022-03-23
  */
   void get_nval_f(int lun, int* num_nodes);
 
 /**
- *  Get pointer to the moda_usrint VAL array.
+ * Get pointer to the moda_usrint VAL array.
  *
- *  @param lun - pointer for the file stream.
- *  @param val_ptr - pointer to a pointer to the VAL array.
- *  @param val_size - size of the VAL array.
+ * @param lun - pointer for the file stream.
+ * @param val_ptr - pointer to a pointer to the VAL array.
+ * @param val_size - size of the VAL array.
  *
- *  @author Ronald McLaren @date 2022-03-23
+ * @author Ronald McLaren @date 2022-03-23
  */
   void get_val_f(int lun, double** val_ptr, int* val_size);
 
 /**
- *  Get pointer to the moda_usrint INV array.
+ * Get pointer to the moda_usrint INV array.
  *
- *  @param lun - pointer for the file stream.
- *  @param inv_ptr - pointer to a pointer to the INV array.
- *  @param inv_size - size of the INV array.
+ * @param lun - pointer for the file stream.
+ * @param inv_ptr - pointer to a pointer to the INV array.
+ * @param inv_size - size of the INV array.
  *
- *  @author Ronald McLaren @date 2022-03-23
+ * @author Ronald McLaren @date 2022-03-23
  */
   void get_inv_f(int lun, int** inv_ptr, int* inv_size);
 
 /**
- *  Deletes the copies of the moda_tables arrays.
+ * Deletes the copies of the moda_tables arrays.
  *
- *  @author Ronald McLaren @date 2022-03-23
+ * @author Ronald McLaren @date 2022-03-23
  */
   void delete_table_data_f();
+
+/**
+ * Read a data value from Section 0 or Section 1 of a BUFR message.
+ *
+ * Wraps iupbs01() function.
+ *
+ * @param bufr - BUFR message.
+ * @param mnemonic - Value to be read from Section 0 or Section 1.
+ *
+ * @return - Value corresponding to mnemonic, or -1 if not found or error occurred.
+ *
+ *  @author J. Ator @date 2023-04-07
+ */
+  int iupbs01_f(int *bufr, char* mnemonic);
 
 #ifdef __cplusplus
 }

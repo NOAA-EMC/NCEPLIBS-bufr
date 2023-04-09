@@ -29,6 +29,7 @@ int crdbufr(int nfile, int *bufr, int mxwrd);
 void cwrbufr(int nfile, int *bufr, int nwrd);
 void bort_exit(void);
 int cmpia(const void *pf1, const void *pf2);
+int icvidx(int ii, int jj, int numjj);
 
 /** Maximum number of BUFR files that can be connected to the NCEPLIBS-bufr
  * software (for reading or writing) at any one time. */
@@ -71,7 +72,6 @@ int cmpia(const void *pf1, const void *pf2);
 #define gets1loc   gets1loc_  /**< gets1loc function. */
 #define ibfms      ibfms_     /**< ibfms function. */
 #define ichkstr    ichkstr_   /**< ichkstr function. */
-#define icvidx     icvidx_    /**< icvidx function. */
 #define ifxy       ifxy_      /**< ifxy function. */
 #define igetntbi   igetntbi_  /**< igetntbi function. */
 #define igetprm    igetprm_   /**< igetprm function. */
@@ -81,7 +81,6 @@ int cmpia(const void *pf1, const void *pf2);
 #define ireadns    ireadns_   /**< ireadns function. */
 #define istdesc    istdesc_   /**< istdesc function. */
 #define iupb       iupb_      /**< iupb function. */
-#define iupbs01    iupbs01_   /**< iupbs01 function. */
 #define iupm       iupm_      /**< iupm function. */
 #define maxout     maxout_    /**< maxout function. */
 #define nemtab     nemtab_    /**< nemtab function. */
@@ -94,7 +93,6 @@ int cmpia(const void *pf1, const void *pf2);
 #define stntbi     stntbi_    /**< stntbi function. */
 #define strnum     strnum_    /**< strnum function. */
 #define stseq      stseq_     /**< stseq function. */
-#define ufbint     ufbint_    /**< ufbint function. */
 #define ufbseq     ufbseq_    /**< ufbseq function. */
 #define uptdd      uptdd_     /**< uptdd function. */
 #define wrdesc     wrdesc_    /**< wrdesc function. */
@@ -127,7 +125,6 @@ typedef double f77r8;
 **   2) a FORTRAN subprogram called from C
 */
 
-f77int icvidx ( f77int *ii, f77int *jj, f77int *numjj );
 void restd( f77int *lunb, f77int *tddesc, f77int *nctddesc, f77int *ctddesc );
 void stseq( f77int *lun, f77int *irepct, f77int *idn, char *nemo, char *cseq, f77int *cdesc, f77int *ncdesc );
 void wrdesc( f77int desc, f77int *descary, f77int *ndescary );
@@ -356,19 +353,6 @@ f77int istdesc( f77int *idn );
 f77int iupb( f77int *mbay, f77int *nbyt, f77int *nbit );
 
 /**
- * Wraps iupbs01() function.
- *
- * @param mbay - BUFR message.
- * @param s01mnem - Value to be read from mbay.
- * @param s1 - Extra C-Fortran interface argument containing length of s01mnem variable.
- *
- * @return Decoded value.
- *
- * @author J.Ator @date 2005-11-29
- */
-f77int iupbs01( f77int *mbay, char *s01mnem, size_t s1 );
-
-/**
  * Wraps iupm() function.
  *
  * @param cbay - String.
@@ -488,21 +472,6 @@ void stntbi( f77int *n, f77int *lun, char *numb, char *nemo, char *celsq, size_t
  * @author J.Ator @date 2003-11-04
  */
 void strnum( char *str, f77int *num, f77int *iret, size_t s1 );
-
-/**
- * Wraps ufbint() subroutine.
- *
- * @param lunit - Fortran logical unit number for BUFR file.
- * @param usr - Data values.
- * @param i1 - First dimension of usr.
- * @param i2 - Second dimension of usr.
- * @param iret - Number of replications of str read or written.
- * @param str - Mnemonic string.
- * @param s1 - Extra C-Fortran interface argument containing length of str variable.
- *
- * @author J.Ator @date 2003-11-04
- */
-void ufbint( f77int *lunit, f77r8 *usr, f77int *i1, f77int *i2, f77int *iret, char *str, size_t s1 );
 
 /**
  * Wraps ufbseq() subroutine.

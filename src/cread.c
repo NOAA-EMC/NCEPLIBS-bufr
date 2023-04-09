@@ -131,7 +131,7 @@ crdbufr(int nfile, int *bufr, int mxwrd) {
 
    /* Determine the remaining number of bytes in the message. */
    memcpy(wkint,wkchr,8);
-   nbytrem=iupbs01(wkint,"LENM",4)-8;
+   nbytrem=iupbs01_f(wkint,"LENM")-8;
 
    /* Continue reading in integer chunks up to the last few bytes of the message. */
    nintrem = nbytrem/nb;
