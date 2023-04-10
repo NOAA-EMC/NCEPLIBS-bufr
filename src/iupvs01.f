@@ -22,7 +22,7 @@ C>   read from BUFR messages encoded using BUFR edition 2 or 3.
 C> - When reading from BUFR messages encoded using BUFR edition 2
 C>   or 3, values corresponding to S01MNEM = 'YEAR' will be
 C>   calculated internally using the values for 'YCEN' and 'CENT',
-C>   or inferred using a windowing technique
+C>   or inferred using a windowing technique.
 C> - Values corresponding to S01MNEM = 'SECO' or 'MSBTI' can only
 C>   be read from BUFR messages encoded using BUFR edition 4.
 C>
