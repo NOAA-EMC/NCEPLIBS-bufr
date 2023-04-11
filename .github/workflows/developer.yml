@@ -52,6 +52,9 @@ jobs:
     - name: test
       run: |
         cd bufr/build
+        cd test
+        bash -x run_test_bort.sh
+        cd ..
         ctest --verbose --output-on-failure --rerun-failed
         gcovr --root .. -v  --html-details --exclude ../test --exclude CMakeFiles --print-summary --exclude-unreachable-branches --exclude-throw-branches --decisions -o test-coverage.html
 
