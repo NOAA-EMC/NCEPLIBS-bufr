@@ -6,7 +6,9 @@
 #include "bufrlib.h"
 
 /**
- * Given the bit-wise representation of a descriptor,
+ * Maintain an array of descriptors.
+ *
+ * Given the WMO bit-wise representation of a descriptor,
  * this routine adds it to an ongoing array of descriptors, after
  * first making sure that there is enough room in the array.
  *
