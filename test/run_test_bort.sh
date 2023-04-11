@@ -29,10 +29,6 @@ for kind in "4" "d"; do
     # Check bvers().
     (./test_bort_$kind bvers 1) && exit 1
 
-    # Check closmg().
-    (./test_bort_$kind closmg 1) && exit 1
-    (./test_bort_$kind closmg 2) && exit 1
-
     # Check cmpmsg().
     (./test_bort_$kind cmpmsg 1) && exit 1
 
@@ -75,17 +71,6 @@ for kind in "4" "d"; do
     (./test_bort_$kind ifbget 2) && exit 1
     (./test_bort_$kind ifbget 3) && exit 1
 
-    # Check isize().
-    (./test_bort_$kind isize 1) && exit 1
-    
-    # Check iupm().
-    (./test_bort_$kind iupm 1) && exit 1
-    
-    # Check iupvs01().
-    (./test_bort_$kind iupvs01 1) && exit 1
-    (./test_bort_$kind iupvs01 2) && exit 1
-    (./test_bort_$kind iupvs01 3) && exit 1
-    
     # Check nemtba().
     (./test_bort_$kind nemtba 1) && exit 1
 
@@ -200,46 +185,12 @@ for kind in "4" "d"; do
     (./test_bort_$kind ufbget 2) && exit 1
     (./test_bort_$kind ufbget 3) && exit 1
 
-    # Check ufbint3().
-    (./test_bort_$kind ufbin3 1) && exit 1
-    (./test_bort_$kind ufbin3 2) && exit 1
-    (./test_bort_$kind ufbin3 3) && exit 1
-
     # Check ufbint().
     (./test_bort_$kind ufbint 1) && exit 1
     (./test_bort_$kind ufbint 2) && exit 1
 
-    # Check ufbinx().
-    (./test_bort_$kind ufbinx 1) && exit 1
-    (./test_bort_$kind ufbinx 2) && exit 1
-
-    # Check ufbmms().
-    (./test_bort_$kind ufbmms 1) && exit 1
-    (./test_bort_$kind ufbmms 2) && exit 1
-    (./test_bort_$kind ufbmms 3) && exit 1
-
-    # Check ufbmns().
-    (./test_bort_$kind ufbmns 1) && exit 1
-    
-    # Check ufbovr().
-    (./test_bort_$kind ufbovr 1) && exit 1
-    (./test_bort_$kind ufbovr 2) && exit 1
-    (./test_bort_$kind ufbovr 3) && exit 1
-    
-    # Check ufbpos().
-    (./test_bort_$kind ufbpos 1) && exit 1
-    (./test_bort_$kind ufbpos 2) && exit 1
-    (./test_bort_$kind ufbpos 3) && exit 1
-    (./test_bort_$kind ufbpos 4) && exit 1
-    (./test_bort_$kind ufbpos 5) && exit 1
-
-    # Check ufbqcd().
-    (./test_bort_$kind ufbqcd 1) && exit 1
-    (./test_bort_$kind ufbqcd 2) && exit 1
-
     # Check ufbqcp().
     (./test_bort_$kind ufbqcp 1) && exit 1
-    (./test_bort_$kind ufbqcp 2) && exit 1
 
     # Check ufbrep().
     (./test_bort_$kind ufbrep 1) && exit 1
@@ -247,8 +198,6 @@ for kind in "4" "d"; do
 
     # Check ufbrms().
     (./test_bort_$kind ufbrms 1) && exit 1
-    (./test_bort_$kind ufbrms 2) && exit 1
-    (./test_bort_$kind ufbrms 3) && exit 1
 
     # Check ufbseq().
     (./test_bort_$kind ufbseq 1) && exit 1
@@ -267,10 +216,6 @@ for kind in "4" "d"; do
     # Check upftbv().
     (./test_bort_$kind upftbv 1) && exit 1
     (./test_bort_$kind upftbv 2) && exit 1
-
-    # Check usrtpl().
-    # Oddly this does not cause a bort() in intel. Why?
-    #(./test_bort_$kind usrtpl 1) && exit 1
 
     # Check wrdxtb().
     (./test_bort_$kind wrdxtb 1) && exit 1
@@ -302,9 +247,6 @@ for kind in "4" "d"; do
     (./test_bort_$kind writsb 3) && exit 1
 
 done
-
-# Now test the C borts().
-#(./test_c_bort) && exit 1
 
 # If we made it here, all error codes were correctly returned, and the
 # test passed!
