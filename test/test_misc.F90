@@ -9,7 +9,11 @@ program test_misc
   integer lun, il, im
   integer ios
   integer num, iret
-
+  integer ireadmm, imsg, idate, iunit
+  integer mbay(2)
+  character*8 subset
+  integer iupb
+  
 #ifdef KIND_4
   character*5 char5
   character*5 adn30
@@ -46,6 +50,20 @@ program test_misc
   if (lun .ne. 1 .or. il .ne. -1 .or. im .ne. 0) stop 4
   call closbf(11)
 
+  ! Test ireadmm()
+  open(unit = 11, file = 'testfiles/IN_9', form = 'UNFORMATTED', iostat = ios)
+  if (ios .ne. 0) stop 3
+  call ufbmem(11, 0, iret, iunit)
+  imsg = 1
+  if (ireadmm(imsg, subset, idate) .ne. 0) stop 4
+  if (imsg .ne. 2 .or. subset .ne. 'ADPSFC' .or. idate .ne. 23022519) stop 5
+  call closbf(11)
+
+  ! Test iupb().
+  mbay(1) = 1
+  mbay(2) = 2
+  if (iupb(mbay, 1, 1) .ne. 0) stop 6
+  
   ! Open for OUT.
   ! This fails but I don't know why yet. I get a bort() message that contains:
   ! BUFRLIB: RDUSDX
@@ -69,6 +87,8 @@ program test_misc
   if ((iret .ne. 0) .or. (num .ne. 0)) stop 400
   call strnum('    ',num,iret)
   if ((iret .ne. 0) .or. (num .ne. 0)) stop 400
+
+
 
   ! These tests only for the _4 run of test_misc.
 #ifdef KIND_4
