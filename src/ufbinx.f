@@ -3,6 +3,8 @@ C> @brief Read one or more data values from a data subset.
 C>
 C> @author Woollen @date 2003-11-04
 
+C> Read one or more data values from a data subset.
+C>
 C> If logical unit LUNIT has already been opened for input operations
 C> via a previous call to subroutine openbf(), then this subroutine
 C> will save the current file position, rewind the file to the
