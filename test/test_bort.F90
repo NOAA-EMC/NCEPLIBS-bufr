@@ -246,7 +246,7 @@ program test_bort
      endif
   elseif (sub_name .eq. 'iupm') then
      if (test_case .eq. '1') then
-        print *, iupm(char_8, 100)
+        iret = iupm(char_8, 100)
      endif
   elseif (sub_name .eq. 'iupvs01') then
      if (test_case .eq. '1') then
