@@ -75,6 +75,17 @@ for kind in "4" "d"; do
     (./test_bort_$kind ifbget 2) && exit 1
     (./test_bort_$kind ifbget 3) && exit 1
 
+    # Check isize().
+    (./test_bort_$kind isize 1) && exit 1
+    
+    # Check iupm().
+#    (./test_bort_$kind iupm 1) && exit 1
+    
+    # Check iupvs01().
+#    (./test_bort_$kind iupvs01 1) && exit 1
+#    (./test_bort_$kind iupvs01 2) && exit 1
+#    (./test_bort_$kind iupvs01 3) && exit 1
+    
     # Check nemtba().
     (./test_bort_$kind nemtba 1) && exit 1
 
