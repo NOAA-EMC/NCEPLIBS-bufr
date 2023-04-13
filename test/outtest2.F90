@@ -6,9 +6,11 @@
 program outtest2
   implicit none
 
-  integer*4 igetsc
+  integer*4 igetsc, iupbs01
 
-  integer nsc, nrf, nbt, ierns, nlv
+  integer nsc, nrf, nbt, ierns, nlv, lmgbf, mxbfmg
+  parameter ( mxbfmg = 50000 )
+  integer mgbf ( mxbfmg ), mgbf2 ( mxbfmg )
 
   real*8 r8ymd(3,1), r8ltl(2,1), r8oth(10,1)
   real*8 rpid(1,1), pkftbv, xmiss, getbmiss
@@ -102,7 +104,13 @@ program outtest2
   ! Confirm the "missing" value is still the same value that was set previously via the call to setxmiss.
   IF ( nint(xmiss) .ne. nint(getbmiss()) ) stop 3
 
-  call writsb ( 11 )
+  ! Test cnved4 to cover im8b=.true. case
+  call writsa ( 11, mxbfmg, mgbf, lmgbf )
+  call cnved4(mgbf,mxbfmg,mgbf2)
+  if ( iupbs01(mgbf2, 'BEN') .ne. 4 ) stop 4
+  ! Re-converting to BUFR ed. 4 should leave the message unchanged
+  call cnved4(mgbf2,mxbfmg,mgbf)
+  if ( .not. all( mgbf(1:lmgbf) .eq. mgbf2(1:lmgbf) )) stop 5
 
   ! Close the output file.
   call closbf ( 11 )
