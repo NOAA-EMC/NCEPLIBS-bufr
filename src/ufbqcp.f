@@ -1,9 +1,12 @@
 C> @file
 C> @brief Get the Table D mnemonic associated with an event program
-C> code from an NCEP prepbufr file
+C> code from an NCEP prepbufr file.
 C>
 C> @author J. Woollen @date 1994-01-06
 
+C> Get the Table D mnemonic associated with an event program
+C> code from an NCEP prepbufr file.
+C>
 C> Given an event program code, which is equivalent to the Y value
 C> of a category 63 Table D descriptor from an NCEP
 C> prepbufr file, this subroutine returns the corresponding
@@ -14,11 +17,11 @@ C> call to subroutine openbf().
 C>
 C> This subroutine is the logical inverse of subroutine ufbqcd().
 C>
-C> @param[in] LUNIT -- integer: Fortran logical unit number for
-C>                     NCEP prepbufr file
-C> @param[in] IQCP -- integer: Y value of a category 63 (i.e. X=63)
-C>                    Table D descriptor
-C> @param[out] NEMO  -- character*(*): Mnemonic associated with IQCP
+C> @param[in] LUNIT - integer: Fortran logical unit number for
+C> NCEP prepbufr file.
+C> @param[in] IQCP - integer: Y value of a category 63 (i.e. X=63)
+C> Table D descriptor.
+C> @param[out] NEMO - character*(*): Mnemonic associated with IQCP.
 C>
 C> @author J. Woollen @date 1994-01-06
       RECURSIVE SUBROUTINE UFBQCP(LUNIT,IQCP,NEMO)
