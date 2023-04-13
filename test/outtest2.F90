@@ -106,7 +106,6 @@ program outtest2
 
   ! Test cnved4 to cover im8b=.true. case
   call writsa ( 11, mxbfmg, mgbf, lmgbf )
-  mgbf2 = mgbf
   call cnved4(mgbf,mxbfmg,mgbf2)
   if ( iupbs01(mgbf2, 'BEN') .ne. 4 ) stop 4
   ! Re-converting to BUFR ed. 4 should leave the message unchanged
