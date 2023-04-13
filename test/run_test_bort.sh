@@ -29,6 +29,10 @@ for kind in "4" "d"; do
     # Check bvers().
     (./test_bort_$kind bvers 1) && exit 1
 
+    # Check closmg().
+    (./test_bort_$kind closmg 1) && exit 1
+    (./test_bort_$kind closmg 2) && exit 1
+
     # Check cmpmsg().
     (./test_bort_$kind cmpmsg 1) && exit 1
 
