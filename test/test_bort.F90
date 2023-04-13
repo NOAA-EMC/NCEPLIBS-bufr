@@ -242,7 +242,7 @@ program test_bort
      endif
   elseif (sub_name .eq. 'isize') then
      if (test_case .eq. '1') then
-        print *, isize(1000000)
+        iret = isize(1000000)
      endif
   elseif (sub_name .eq. 'iupm') then
      if (test_case .eq. '1') then
@@ -253,17 +253,17 @@ program test_bort
         call openbf(12, 'FIRST', 11)
         open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
         if (ios .ne. 0) stop 3
-        print *, iupvs01(11, 'LENM')
+        iret = iupvs01(11, 'LENM')
      elseif (test_case .eq. '2') then
         open(unit = 11, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
         if (ios .ne. 0) stop 3
         call openbf(11, 'OUT', 10)
-        print *, iupvs01(11, 'LENM')
+        iret = iupvs01(11, 'LENM')
      elseif (test_case .eq. '3') then
         open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
         if (ios .ne. 0) stop 3
         call openbf(11, 'IN', 10)
-        print *, iupvs01(11, 'LENM')
+        iret = iupvs01(11, 'LENM')
      endif
   elseif (sub_name .eq. 'nemtba') then
      if (test_case .eq. '1') then
