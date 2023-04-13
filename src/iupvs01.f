@@ -4,18 +4,29 @@ C> message.
 C>
 C> @author J. Ator @date 2005-11-29
 
-C> This function returns a specified value from within Section 0 or
-C> Section 1 of a BUFR message.
+C> Read a specified value from within Section 0 or 1 of a BUFR message.
 C>
 C> This function will work on any BUFR message encoded using BUFR
-C> edition 2, 3, or 4.  It is similar to function iupbs01(), except
+C> edition 2, 3, or 4. It is similar to function iupbs01(), except
 C> that iupbs01() operates on a BUFR message passed in via a memory
 C> array, whereas this function operates on the BUFR message that was
 C> read into internal arrays via the most recent call to any of the
 C> other [message-reading subroutines](@ref hierarchy) for a specified
 C> Fortran logical unit.
 C>
-C> @param[in] LUNIT - integer: Fortran logical unit number for BUFR file
+C> @remarks
+C> - Values corresponding to S01MNEM = 'GSES' can only be read from
+C>   BUFR messages encoded using BUFR edition 3 or 4.
+C> - Values corresponding to S01MNEM = 'YCEN' or 'CENT' can only be
+C>   read from BUFR messages encoded using BUFR edition 2 or 3.
+C> - When reading from BUFR messages encoded using BUFR edition 2
+C>   or 3, values corresponding to S01MNEM = 'YEAR' will be
+C>   calculated internally using the values for 'YCEN' and 'CENT',
+C>   or inferred using a windowing technique.
+C> - Values corresponding to S01MNEM = 'SECO' or 'MSBTI' can only
+C>   be read from BUFR messages encoded using BUFR edition 4.
+C>
+C> @param[in] LUNIT - integer: Fortran logical unit number for BUFR file.
 C> @param[in] S01MNEM - character*(*): Value to be read from Section 0
 C> or Section 1 of BUFR message in internal arrays for LUNIT:
 C> - 'LENM'  = Length (in bytes) of BUFR message
@@ -43,21 +54,10 @@ C> - 'DAYS'  = Day
 C> - 'HOUR'  = Hour
 C> - 'MINU'  = Minute
 C> - 'SECO'  = Second
-C> @returns iupvs01 -- integer: Value corresponding to S01MNEM:
-C> - -1 = S01MNEM was invalid for the edition of BUFR message in
-C> internal arrays for LUNIT, or some other error occurred
 C>
-C> @remarks
-C> - Values corresponding to S01MNEM = 'GSES' can only be read from
-C>   BUFR messages encoded using BUFR edition 3 or 4.
-C> - Values corresponding to S01MNEM = 'YCEN' or 'CENT' can only be
-C>   read from BUFR messages encoded using BUFR edition 2 or 3.
-C> - When reading from BUFR messages encoded using BUFR edition 2
-C>   or 3, values corresponding to S01MNEM = 'YEAR' will be
-C>   calculated internally using the values for 'YCEN' and 'CENT',
-C>   or inferred using a windowing technique
-C> - Values corresponding to S01MNEM = 'SECO' or 'MSBTI' can only
-C>   be read from BUFR messages encoded using BUFR edition 4.
+C> @returns - integer: Value corresponding to S01MNEM:
+C> - -1 = S01MNEM was invalid for the edition of BUFR message in
+C> internal arrays for LUNIT, or some other error occurred.
 C>
 C> @author J. Ator @date 2005-11-29
       RECURSIVE FUNCTION IUPVS01(LUNIT,S01MNEM) RESULT(IRET)
@@ -110,3 +110,5 @@ C  -----
 902   CALL BORT('BUFRLIB: IUPVS01 - A MESSAGE MUST BE OPEN IN INPUT '//
      . 'BUFR FILE, NONE ARE')
       END
+
+      
