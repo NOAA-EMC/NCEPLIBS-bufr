@@ -35,9 +35,6 @@ program intest1
   call setim8b(.true.)
 #endif
 
-  ! Test the i4dy() function.
-  if (i4dy(80123023) .ne. 1980123023) stop 1
-
   ! Open the test file.
   call cobfl_c(filnam, filost)
 
@@ -47,9 +44,6 @@ program intest1
   ! Specify the use of Section 3 decoding.
   open (unit = 11, file = '/dev/null')
   call openbf(11, 'SEC3', 11)
-
-  ! Test idxmsg().
-  if (idxmsg(1) .ne. 0) stop 2
 
   ! Specify location of master BUFR tables.
   call mtinfo('../tables', 90, 91)
@@ -118,6 +112,12 @@ program intest1
 
   ! Close the test file.
   call ccbfl_c()
+
+  ! Test the i4dy() function.
+  if (i4dy(80123023) .ne. 1980123023) stop 19
+
+  ! Test idxmsg().
+  if (idxmsg(1) .ne. 0) stop 20
 
   print *, 'SUCCESS!'
 end program intest1
