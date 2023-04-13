@@ -228,6 +228,7 @@ for kind in "4" "d"; do
 
     # Check ufbqcp().
     (./test_bort_$kind ufbqcp 1) && exit 1
+    (./test_bort_$kind ufbqcp 2) && exit 1
 
     # Check ufbrep().
     (./test_bort_$kind ufbrep 1) && exit 1
@@ -235,6 +236,8 @@ for kind in "4" "d"; do
 
     # Check ufbrms().
     (./test_bort_$kind ufbrms 1) && exit 1
+    (./test_bort_$kind ufbrms 2) && exit 1
+    (./test_bort_$kind ufbrms 3) && exit 1
 
     # Check ufbseq().
     (./test_bort_$kind ufbseq 1) && exit 1
@@ -253,6 +256,10 @@ for kind in "4" "d"; do
     # Check upftbv().
     (./test_bort_$kind upftbv 1) && exit 1
     (./test_bort_$kind upftbv 2) && exit 1
+
+    # Check usrtpl().
+    # Oddly this does not cause a bort() in intel. Why?
+    #(./test_bort_$kind usrtpl 1) && exit 1
 
     # Check wrdxtb().
     (./test_bort_$kind wrdxtb 1) && exit 1
