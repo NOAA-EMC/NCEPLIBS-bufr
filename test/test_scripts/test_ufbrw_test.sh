@@ -10,7 +10,7 @@ basedir="`dirname $0`/../test"
 cd ${basedir}
 
 # Test #1, reading input prepbufr2.ref file with a number of user strings to test ufbrw and its callee subrouines
-args_1="-n testfiles/data/prepbufr2.ref"
+args_1="testfiles/data/prepbufr2.ref"
 ../utils/ufbrw_test ${args_1} 
 [[ ${?} -ne 0 ]] && exit 1
 exit 0

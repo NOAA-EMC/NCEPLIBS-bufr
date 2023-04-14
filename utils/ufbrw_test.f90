@@ -1,7 +1,7 @@
       program tstwin
 
       character(255)file     
-      character(55) brr(55),line   
+      character(55) brr(55),line,str1,str2
       character(20) cond    
       character(8)  subset
       real(8)       arr(10,255)
@@ -65,8 +65,7 @@
 ! get the filename to open
 
       call getarg(1,file); file=trim(adjustl(file))
-      open(lubfr,file=file,form='unformatted')
-      open(luout,file='fort.55')     
+      open(55,file='ufbrw_prnt_out')
 
 ! test conwin
 
@@ -79,6 +78,7 @@
       if(i==5) cond='POB=850          '
       write(55,*),cond
 
+      open(20,file=file,form='unformatted')
       call openbf(20,'IN',20)
 
       do while(ireadmg(20,subset,idate)==0)
@@ -92,6 +92,9 @@
       enddo
 
 ! test getwin, invwin, newwin, nxtwin
+
+      open(20,file=file,form='unformatted')
+      open(50,file='ufbrw_bufr_out',form='unformatted')
 
       call openbf(20,'IN ',20)
       call openbf(50,'OUT',20)
@@ -110,6 +113,7 @@
       enddo
 
       call closbf(50)
+      open(50,file='ufbrw_bufr_out',form='unformatted')
       call openbf(50,'IN',50) 
 
       write(55,*);write(55,*)'read/write from unit 50'
@@ -123,19 +127,22 @@
 
 ! check the answers 
 
-      close(55); open(55,file='fort.55')
+      close(55)
+      open(55,file='ufbrw_prnt_out')
 
       do n=1,100
-      print*,n
-      read(55,*,iostat=iret)line
-      if(n<=55.and.iret==0.and.line/=brr(n)) then
-         print*,line
-         print*,brr(n)
+      read(55,'(a55)',iostat=iret) line
+      call strsuc(line  ,str1,len1)
+      call strsuc(brr(n),str2,len2)
+      if(n<=55.and.iret==0.and.str1/=str2) then
+         print*,n,len1,len2
+         print*,"str1:",str1  
+         print*,"str2:",str2 
          call bort('error exit from ufbrw_test')
       elseif(n>55.and.iret==0) then
          print*,n,iret
          call bort('error exit from ufbrw_test')
-      else
+      elseif(n==56) then
          exit
       endif
       enddo

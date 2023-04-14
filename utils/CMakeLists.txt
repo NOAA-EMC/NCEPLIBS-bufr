@@ -16,7 +16,7 @@ list(APPEND _utils_srcs
   readbp.F90
   readmp.F90
   split_by_subset.f90
-  ufbrw_test.F90
+  ufbrw_test.f90
   xbfmg.c
 )
 
