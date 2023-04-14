@@ -128,6 +128,7 @@ list(APPEND test_scripts
   test_split_by_subset.sh
   test_debufr.sh
   test_xbfmg.sh
+  test_ufbrw_test.sh
 )
 
 foreach(test_script ${test_scripts})
@@ -169,6 +170,7 @@ list(APPEND utils
   readmp
   cmpbqm
   xbfmg
+  ufbrw_test
 )
 
 # utility tests
