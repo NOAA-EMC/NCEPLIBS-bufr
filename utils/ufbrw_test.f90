@@ -76,7 +76,7 @@
       if(i==3) cond='POB<800  TOB<1000'
       if(i==4) cond='POB<851  POB>699 '
       if(i==5) cond='POB=850          '
-      write(55,*),cond
+      write(55,*) cond
 
       open(20,file=file,form='unformatted')
       call openbf(20,'IN',20)
@@ -130,7 +130,7 @@
       close(55)
       open(55,file='ufbrw_prnt_out')
 
-      do n=1,100
+      do n=1,55  
       read(55,'(a55)',iostat=iret) line
       call strsuc(line  ,str1,len1)
       call strsuc(brr(n),str2,len2)
