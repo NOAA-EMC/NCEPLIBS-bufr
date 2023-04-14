@@ -9,7 +9,8 @@ program test_misc
   integer lun, il, im
   integer ios
   integer num, iret
-  integer ireadmm, imsg, idate, iunit
+  integer imsg, idate, iunit
+  integer*4 ireadmm
   integer mbay(2)
   character*8 subset
   integer iupb
@@ -24,7 +25,7 @@ program test_misc
   integer igetprm
 #endif
 
-  print *, 'Testing misc subroutines.'
+  print *, 'Testing misc subroutines, ignore warnings.'
 
 #ifdef KIND_8
   call setim8b(.true.)
@@ -54,15 +55,16 @@ program test_misc
   open(unit = 11, file = 'testfiles/IN_9', form = 'UNFORMATTED', iostat = ios)
   if (ios .ne. 0) stop 7
   call ufbmem(11, 0, iret, iunit)
+  if (iret .ne. 5 .or. iunit .ne. 11) stop 8
   imsg = 1
-  if (ireadmm(imsg, subset, idate) .ne. 0) stop 8
-  if (imsg .ne. 2 .or. subset .ne. 'ADPSFC' .or. idate .ne. 23022519) stop 9
+  if (ireadmm(imsg, subset, idate) .ne. 0) stop 9
+  if (imsg .ne. 2 .or. subset .ne. 'ADPSFC' .or. idate .ne. 23022519) stop 10
   call closbf(11)
 
   ! Test iupb().
   mbay(1) = 1
   mbay(2) = 2
-  if (iupb(mbay, 1, 1) .ne. 0) stop 10
+  if (iupb(mbay, 1, 1) .ne. 0) stop 11
   
   ! Open for OUT.
   ! This fails but I don't know why yet. I get a bort() message that contains:
