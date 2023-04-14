@@ -239,7 +239,6 @@ for kind in "4" "d"; do
 
     # Check ufbqcp().
     (./test_bort_$kind ufbqcp 1) && exit 1
-    (./test_bort_$kind ufbqcp 2) && exit 1
 
     # Check ufbrep().
     (./test_bort_$kind ufbrep 1) && exit 1

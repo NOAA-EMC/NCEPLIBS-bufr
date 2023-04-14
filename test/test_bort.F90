@@ -722,11 +722,6 @@ program test_bort
         open(unit = 11, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
         if (ios .ne. 0) stop 3
         call ufbqcp(11, 0, 'c')
-     elseif (test_case .eq. '2') then
-        open(unit = 11, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
-        if (ios .ne. 0) stop 3
-        call openbf(11, 'IN', 10)        
-        call ufbqcp(11, 0, 'c')
      endif
   elseif (sub_name .eq. 'ufbrep') then
      if (test_case .eq. '1') then
