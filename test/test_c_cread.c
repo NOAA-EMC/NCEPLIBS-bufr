@@ -44,10 +44,12 @@ int main()
         return TEST_ERR;
     closfb(0);
 
-    /* Allocate storage to read a BUFR message into. */
-    if (!(msg = malloc(MSG_SIZE)))
+    /* Allocate storage to read a BUFR message into. Without the +8
+     * these buffers will be overflowed by the cdrbufr(). See
+     * https://github.com/NOAA-EMC/NCEPLIBS-bufr/issues/450. */
+    if (!(msg = malloc(MSG_SIZE + 8)))
         return TEST_ERR;
-    if (!(msg2 = malloc(MSG_SIZE)))
+    if (!(msg2 = malloc(MSG_SIZE + 8)))
         return TEST_ERR;
         
     /* Open a real BUFR file, read a BUFR message, and close the file. */
