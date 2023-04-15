@@ -28,7 +28,7 @@
  */
 void
 openrb(int nfile, char *ufile) {
-   pb[nfile] = fopen( ufile, "rb " );
+    pb[nfile] = fopen(ufile, "rb ");
 }
 
 /**
@@ -41,7 +41,7 @@ openrb(int nfile, char *ufile) {
  */
 void
 openwb(int nfile, char *ufile) {
-   pb[nfile] = fopen( ufile, "wb " );
+    pb[nfile] = fopen(ufile, "wb ");
 }
 
 /**
@@ -54,7 +54,7 @@ openwb(int nfile, char *ufile) {
  */
 void
 openab(int nfile, char *ufile) {
-   pb[nfile] = fopen( ufile, "a+b" );
+    pb[nfile] = fopen(ufile, "a+b");
 }
 
 /**
@@ -66,7 +66,7 @@ openab(int nfile, char *ufile) {
  */
 void
 backbufr(int nfile) {
-   fsetpos(pb[nfile],&lstpos[nfile]);
+    fsetpos(pb[nfile],&lstpos[nfile]);
 }
 
 /**
@@ -78,7 +78,7 @@ backbufr(int nfile) {
  */
 void
 cewind(int nfile) {
-   rewind(pb[nfile]);
+    rewind(pb[nfile]);
 }
 
 /**
@@ -90,92 +90,98 @@ cewind(int nfile) {
  */
 void
 closfb(int nfile) {
-   fclose(pb[nfile]);
+    fclose(pb[nfile]);
 }
 
 /**
- * Read the next message from a BUFR file that was previously opened for reading.
+ * Read the next message from a BUFR file that was previously opened
+ * for reading.
  *
  * @param nfile - File ID.
  * @param bufr - BUFR message.
- * @param mxwrd - Number of elements in bufr array; used by the function to
- * ensure that it doesn't overflow the array.
- * @returns crdbufr - Return code:
- * - 0 = normal return
- * - -1 = end-of-file encountered while reading
- * - -2 = I/O error encountered while reading
- * - -3 = overflow of bufr array
+ * @param mxwrd - Number of elements in bufr array; used by the
+ * function to ensure that it doesn't overflow the array.
+ *
+ * @returns 
+ * - 0 normal return.
+ * - -1 end-of-file encountered while reading.
+ * - -2 I/O error encountered while reading.
+ * - -3 overflow of bufr array.
  *
  * @author J. Woollen @date 2012-09-15
  */
 int
 crdbufr(int nfile, int *bufr, int mxwrd) {
 
-   int nbytrem, nintrem, wkint[2];
-   size_t nb = sizeof(int);
-   char wkchr[17] = "                ";
-   fpos_t nxtpos;
+    int nbytrem, nintrem, wkint[2];
+    size_t nb = sizeof(int);
+    char wkchr[17] = "                ";
+    fpos_t nxtpos;
 
-   /* Find the start of the next BUFR message within the file. */
-   fgetpos(pb[nfile],&lstpos[nfile]);
-   while ( strncmp(wkchr,"BUFR",4)!=0) {
-      memmove(wkchr,&wkchr[1],3);
-      if(fread(wkchr+3,1,1,pb[nfile])!=1) return -1;
-   }
+    /* Find the start of the next BUFR message within the file. */
+    fgetpos(pb[nfile], &lstpos[nfile]);
+    while (strncmp(wkchr, "BUFR", 4) != 0) {
+        memmove(wkchr, &wkchr[1], 3);
+        if (fread(wkchr + 3, 1, 1, pb[nfile]) != 1)
+            return -1;
+    }
 
-   /* Save the current location in case we need to restore it later. */
-   fgetpos(pb[nfile],&nxtpos);
+    /* Save the current location in case we need to restore it later. */
+    fgetpos(pb[nfile], &nxtpos);
 
-   /* Read the next 4 bytes of the message. */
-   if (fread(wkchr+4,1,4,pb[nfile])!=4) return -1;
+    /* Read the next 4 bytes of the message. */
+    if (fread(wkchr+4, 1, 4, pb[nfile]) != 4)
+        return -1;
 
-   /* Determine the remaining number of bytes in the message. */
-   memcpy(wkint,wkchr,8);
-   nbytrem=iupbs01_f(wkint,"LENM")-8;
+    /* Determine the remaining number of bytes in the message. */
+    memcpy(wkint, wkchr, 8);
+    nbytrem = iupbs01_f(wkint, "LENM") - 8;
 
-   /* Continue reading in integer chunks up to the last few bytes of the message. */
-   nintrem = nbytrem/nb;
-   if (nintrem+3>mxwrd) {
-      fsetpos(pb[nfile],&nxtpos);
-      return -3;
-   }
-   bufr[0] = wkint[0];
-   bufr[1] = wkint[1];
-   if (fread(&bufr[2],nb,nintrem-1,pb[nfile])!=nintrem-1) {
-      fsetpos(pb[nfile],&nxtpos);
-      return -2;
-   }
+    /* Continue reading up to the last few bytes of the message. */
+    nintrem = nbytrem / nb;
+    if (nintrem + 3 > mxwrd) {
+        fsetpos(pb[nfile], &nxtpos);
+        return -3;
+    }
+    bufr[0] = wkint[0];
+    bufr[1] = wkint[1];
+    if (fread(&bufr[2], nb, nintrem-1, pb[nfile]) != nintrem-1) {
+        fsetpos(pb[nfile],&nxtpos);
+        return -2;
+    }
 
-   /* Read the last few bytes of the message and check for the "7777" indicator. */
-   nbytrem = nb + nbytrem%nb;
-   if (fread(wkchr,1,nbytrem,pb[nfile])!=nbytrem) {
-      fsetpos(pb[nfile],&nxtpos);
-      return -2;
-   }
-   if (strncmp(&wkchr[nbytrem-4],"7777",4)!=0) {
-      fsetpos(pb[nfile],&nxtpos);
-      return -2;
-   }
-   memcpy(wkint,wkchr,8);
-   bufr[nintrem+1] = wkint[0];
-   bufr[nintrem+2] = wkint[1];
+    /* Read the last few bytes of the message and check for the "7777"
+     * indicator. */
+    nbytrem = nb + nbytrem % nb;
+    if (fread(wkchr, 1, nbytrem, pb[nfile]) != nbytrem) {
+        fsetpos(pb[nfile], &nxtpos);
+        return -2;
+    }
+    if (strncmp(&wkchr[nbytrem-4], "7777", 4) != 0) {
+        fsetpos(pb[nfile], &nxtpos);
+        return -2;
+    }
+    memcpy(wkint, wkchr, 8);
+    bufr[nintrem + 1] = wkint[0];
+    bufr[nintrem + 2] = wkint[1];
 
-   return 0;
+    return 0;
 }
 
 /**
- * Write a BUFR message into a file that was previously opened for writing.
+ * Write a BUFR message into a file that was previously opened for
+ * writing.
  *
  * @param nfile - File ID.
- * @param bufr  - BUFR message
- * @param nwrd  - Size (in integers) of bufr
+ * @param bufr  - BUFR message.
+ * @param nwrd  - Size (in integers) of bufr.
  *
  * @author J. Woollen @date 2012-09-15
  */
 void
 cwrbufr(int nfile, int *bufr, int nwrd) {
-   int nb;
+    int nb;
 
-   nb = sizeof(*bufr);
-   fwrite(bufr,nb,nwrd,pb[nfile]);
+    nb = sizeof(*bufr);
+    fwrite(bufr, nb, nwrd, pb[nfile]);
 }

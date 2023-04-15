@@ -69,6 +69,17 @@ function(create_test_plain name kind)
   add_test(NAME ${testID} COMMAND ${testID})
 endfunction()
 
+# This function builds, links, and runs an ordinary C test.
+function(create_c_test_plain name)
+  set(testID "${name}")
+  add_executable(${testID} ${name}.c)
+  target_compile_definitions(${testID} PUBLIC -DKIND_${kind})
+  target_link_libraries(${testID} PRIVATE bufr::bufr_4)
+  target_include_directories(${testID} PRIVATE "${CMAKE_BINARY_DIR}/src")
+  add_dependencies(${testID} bufr_4)
+  add_test(NAME ${testID} COMMAND ${testID})
+endfunction()
+
 # This function builds, links, and runs an intest or outtest program.
 function(create_test name kind num)
   set(testID "${name}${num}_${kind}")
@@ -110,11 +121,8 @@ list(APPEND test_c_interface_srcs
 )
 
 # test_c_misc test.
-set(test_name test_c_misc)
-add_executable(${test_name} ${test_name}.c)
-add_dependencies(${test_name} bufr_4)
-target_link_libraries(${test_name} PRIVATE bufr::bufr_4)
-add_test(NAME ${test_name} COMMAND ${CMAKE_BINARY_DIR}/test/${test_name})
+create_c_test_plain(test_c_misc)
+create_c_test_plain(test_c_cread)
 
 # Install testing scripts
 list(APPEND test_scripts
