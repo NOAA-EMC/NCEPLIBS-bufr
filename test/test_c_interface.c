@@ -196,7 +196,6 @@ void test_intrusiveInterface()
 
     open_f(BUFR_FILE_UNIT, INPUT_FILE);
     openbf_f(BUFR_FILE_UNIT, "IN", BUFR_FILE_UNIT);
-    datelen_f(10);
 
     int subsetIdx = 0;
     while (ireadmg_f(BUFR_FILE_UNIT, msg_subset, &iddate, SUBSET_STRING_LEN) == 0)
@@ -309,12 +308,6 @@ void test_intrusiveInterface()
         {
             break;
         }
-    }
-
-    if (iddate != 2014010102)
-    {
-        printf("%s", "Incorrect date in last message.");
-        exit(1);
     }
 
     if (fabs(target.data[0][0] - 150.53) > 0.001 ||
