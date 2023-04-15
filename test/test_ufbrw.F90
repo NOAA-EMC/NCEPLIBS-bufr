@@ -7,10 +7,10 @@
 !
 ! J Woollen  4/14/23  
 
-      program tstwin
+      program test_ufbrw
 
       character(255)file     
-      character(55) brr(55),line,str1,str2
+      character(55) brr(56),line,str1,str2
       character(20) cond    
       character(8)  subset
       real(8)       arr(10,255)
@@ -71,7 +71,7 @@
       data brr(54) /"700.00  2131.00     9.20 ******** ********"/
       data brr(55) /"300.00 ******** ******** ******** ********"/
 
-      print *, 'Testing misc subroutines.'
+      print *, 'Testing ufbrw and helper routines.'
 
 #ifdef KIND_8
       call setim8b(.true.)
@@ -103,10 +103,10 @@
       call openbf(20,'IN',20)
 
       do while(ireadmg(20,subset,idate)==0)
-      do while(ireadsb(20)==0)
-      call ufbint(20,arr,10,255,irt,cond//' POB QOB TOB UOB VOB')
-      if(irt>0) write(55,'(5(1x,f8.2))')arr(1:5,1:irt)
-      enddo
+        do while(ireadsb(20)==0)
+          call ufbint(20,arr,10,255,irt,cond//' POB QOB TOB UOB VOB')
+          if(irt>0) write(55,'(5(1x,f8.2))')arr(1:5,1:irt)
+        enddo
       enddo
       call closbf(20)
       write(55,*)
@@ -124,14 +124,13 @@
       write(55,*);write(55,*)'read/write from unit 20'
 
       do while(ireadmg(20,subset,idate)==0)
-      do while(ireadsb(20)==0)
-      call ufbint(20,arr,10,255,irt,'POB QOB TOB UOB VOB')
-      write(55,'(5(1x,f8.2))')arr(1:5,1:irt)
-
-      call openmb(50,subset,idate)
-      call ufbint(50,arr,10,irt,jrt,'POB QOB TOB UOB VOB')
-      call writsb(50)
-      enddo
+        do while(ireadsb(20)==0)
+          call ufbint(20,arr,10,255,irt,'POB QOB TOB UOB VOB')
+          write(55,'(5(1x,f8.2))')arr(1:5,1:irt)
+          call openmb(50,subset,idate)
+          call ufbint(50,arr,10,irt,jrt,'POB QOB TOB UOB VOB')
+          call writsb(50)
+        enddo
       enddo
 
 ! read the testfile copy and print the results in a text file for verification
@@ -143,10 +142,10 @@
       write(55,*);write(55,*)'read/write from unit 50'
 
       do while(ireadmg(50,subset,idate)==0)
-      do while(ireadsb(50)==0)
-      call ufbint(50,arr,10,255,irt,'POB QOB TOB UOB VOB')
-      write(55,'(5(1x,f8.2))')arr(1:5,1:irt)
-      enddo
+        do while(ireadsb(50)==0)
+          call ufbint(50,arr,10,255,irt,'POB QOB TOB UOB VOB')
+          write(55,'(5(1x,f8.2))')arr(1:5,1:irt)
+        enddo
       enddo
 
 ! close the testfile for writing and open it for reading
@@ -156,21 +155,21 @@
 
 ! verify the testfile contents against output stored in brr array strings
 
-      do n=1,55  
-      read(55,'(a55)',iostat=iret) line
-      call strsuc(line  ,str1,len1)
-      call strsuc(brr(n),str2,len2)
-      if(n<=55.and.iret==0.and.str1/=str2) then
-         print*,n,len1,len2
-         print*,"str1:",str1  
-         print*,"str2:",str2 
-         call bort('error exit from ufbrw_test')
-      elseif(n>55.and.iret==0) then
-         print*,n,iret
-         call bort('error exit from ufbrw_test')
-      elseif(n==56) then
-         exit
-      endif
+      do n=1,56     
+        read(55,'(a55)',iostat=iret) line
+        call strsuc(line  ,str1,len1)
+        call strsuc(brr(n),str2,len2)
+        if(n<=55.and.iret==0.and.str1/=str2) then
+          print*,n,len1,len2
+          print*,"str1:",str1  
+          print*,"str2:",str2 
+          call bort('error exit from ufbrw_test')
+        elseif(n>55.and.iret==0) then
+          print*,n,iret
+          call bort('error exit from ufbrw_test')
+        elseif(n==56) then
+          exit
+        endif
       enddo
 
 ! successful exit
