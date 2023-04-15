@@ -62,9 +62,16 @@
       data brr(54) /"700.00  2131.00     9.20 ******** ********"/
       data brr(55) /"300.00 ******** ******** ******** ********"/
 
+      print *, 'Testing misc subroutines.'
+
+#ifdef KIND_8
+  call setim8b(.true.)
+#endif
+
 ! get the filename to open
 
-      call getarg(1,file); file=trim(adjustl(file))
+      !call getarg(1,file); file=trim(adjustl(file))
+      file="testfiles/data/prepbufr2.ref"
       open(55,file='ufbrw_prnt_out')
 
 ! test conwin

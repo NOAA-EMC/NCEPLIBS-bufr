@@ -128,7 +128,6 @@ list(APPEND test_scripts
   test_split_by_subset.sh
   test_debufr.sh
   test_xbfmg.sh
-  test_ufbrw_test.sh
 )
 
 foreach(test_script ${test_scripts})
@@ -139,7 +138,8 @@ endforeach()
 
 # Create Fortran API tests, plus any other tests we want to run.
 foreach(kind ${test_kinds})
-  create_test_plain(test_misc ${kind})
+  create_test_plain(test_misc  ${kind})
+  create_test_plain(test_ufbrw ${kind})
   foreach(innum RANGE 1 10)
     create_test(intest ${kind} ${innum})
   endforeach()
@@ -170,7 +170,6 @@ list(APPEND utils
   readmp
   cmpbqm
   xbfmg
-  ufbrw_test
 )
 
 # utility tests
