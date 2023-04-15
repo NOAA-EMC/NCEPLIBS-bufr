@@ -1,3 +1,12 @@
+! This is a test for NCEPLIBS-bufr library subroutine ufbrw and its callees.
+!
+! This tests reads and writes a testfile exercising the mechanics in subroutine
+! ufbrw which locate and extract or install values from or into the bufr
+! testfile and test various user defined options available through subroutine
+! ufbint which is the driver of ufbrw.
+!
+! J Woollen  4/14/23  
+
       program tstwin
 
       character(255)file     
@@ -65,16 +74,18 @@
       print *, 'Testing misc subroutines.'
 
 #ifdef KIND_8
-  call setim8b(.true.)
+      call setim8b(.true.)
 #endif
 
-! get the filename to open
+! set the name of the bufr testfile to process
 
-      !call getarg(1,file); file=trim(adjustl(file))
       file="testfiles/data/prepbufr2.ref"
+
+! open the print file to record ufbrep test results
+
       open(55,file='ufbrw_prnt_out')
 
-! test conwin
+! test various reading options applying user specified filtering, testing conwin
 
       do i=1,5
 
@@ -84,6 +95,9 @@
       if(i==4) cond='POB<851  POB>699 '
       if(i==5) cond='POB=850          '
       write(55,*) cond
+
+! set the filename and open and read the testfile with various conditions specified
+! print the results in a text file for verification
 
       open(20,file=file,form='unformatted')
       call openbf(20,'IN',20)
@@ -98,7 +112,8 @@
       write(55,*)
       enddo
 
-! test getwin, invwin, newwin, nxtwin
+! copy the testfile to test helpers getwin, invwin, newwin, nxtwin in output more
+! print the results in a text file for verification
 
       open(20,file=file,form='unformatted')
       open(50,file='ufbrw_bufr_out',form='unformatted')
@@ -119,6 +134,8 @@
       enddo
       enddo
 
+! read the testfile copy and print the results in a text file for verification
+
       call closbf(50)
       open(50,file='ufbrw_bufr_out',form='unformatted')
       call openbf(50,'IN',50) 
@@ -132,10 +149,12 @@
       enddo
       enddo
 
-! check the answers 
+! close the testfile for writing and open it for reading
 
       close(55)
       open(55,file='ufbrw_prnt_out')
+
+! verify the testfile contents against output stored in brr array strings
 
       do n=1,55  
       read(55,'(a55)',iostat=iret) line
@@ -154,7 +173,8 @@
       endif
       enddo
 
-      print*,'success'
+! successful exit
 
+      print*,'success'
       end program
 
