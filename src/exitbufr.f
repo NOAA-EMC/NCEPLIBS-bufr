@@ -1,12 +1,12 @@
 C> @file
-C> @brief Reset the BUFRLIB software for potential dynamic
+C> @brief Reset the NCEPLIBS-bufr software for potential dynamic
 C> reallocation of memory.
 C>
 C> @author J. Ator @date 2015-03-02
 
 C> This subroutine frees all dynamically-allocated memory,
 C> closes all logical units that are open within the
-C> BUFRLIB software, and resets the library to all of its
+C> NCEPLIBS-bufr software, and resets the library to all of its
 C> default settings as though it had never been called.
 C>
 C> @remarks
@@ -15,12 +15,12 @@ C>   potentially resize arrays and reallocate memory all over again
 C>   with a new subsequent series of calls to subroutines isetprm()
 C>   and openbf().  However, if and when this subroutine is called,
 C>   there is no longer any internal memory available within the
-C>   BUFRLIB software, and the remainder of the library becomes
+C>   NCEPLIBS-bufr software, and the remainder of the library becomes
 C>   essentially unusable within the application program, unless
 C>   and until subroutine openbf() is called once again to
 C>   dynamically allocate new array space.  This may be a useful
 C>   capability for application programs that are finished with
-C>   using the BUFRLIB software and wish to move on to other
+C>   using the NCEPLIBS-bufr software and wish to move on to other
 C>   unrelated tasks without continuing to tie up all of the
 C>   allocated memory space within the library.  Otherwise, and
 C>   unless there's a need to change parameter sizes following the

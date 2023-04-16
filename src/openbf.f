@@ -1,17 +1,17 @@
 C> @file
-C> @brief Connect a new system file to the library, or intialize the
+C> @brief Connect a new file to the library, or initialize the
 C> library, or change verbosity associated with already-connected file.
 C>
 C> @authors J. Woollen, J. Ator,  D. Keyser @date 1994-01-06
 
-C> This subroutine connects a new file to the BUFRLIB software for
+C> Connects a new file to the NCEPLIBS-bufr software for
 C> input or output operations, or initializes the library without
 C> connecting to a file, or changes the verbosity of the library for an
 C> already-connected BUFR file.
 C>
 C> The logical unit numbers LUNIT and LUNDX must already be associated
 C> with actual filenames on the local system, typically via a Fortran "OPEN"
-C> statement. Multiple logical units can be connected to the BUFRLIB software
+C> statement. Multiple logical units can be connected to the NCEPLIBS-bufr software
 C> at any one time.
 C>
 C> The argument IO is a character string describing how the file connected to
@@ -38,7 +38,7 @@ C> overriding its previous value and/or its internal default value of 0.
 C>
 C> The third and final call argument LUNDX identifies the logical unit which
 C> contains the definition of the DX BUFR tables to be associated with unit
-C> LUNIT.  Except when IO = 'SEC3', every BUFR file that is linked to the BUFRLIB
+C> LUNIT.  Except when IO = 'SEC3', every BUFR file that is linked to the NCEPLIBS-bufr
 C> software must have a DX BUFR tables file associated with it, and these tables
 C> may be defined within a separate ASCII text file
 C> (see [Description and Format of DX BUFR Tables](@ref dfbftab) for more info.)
@@ -49,7 +49,7 @@ C>
 C> @remarks
 C> - When an existing BUFR file is accessed for input (i.e. reading/decoding BUFR),
 C> the associated DX BUFR tables defined by LUNDX are stored internally within
-C> the BUFRLIB software and are referenced during all subsequent processing of
+C> the NCEPLIBS-bufr software and are referenced during all subsequent processing of
 C> the file. Likewise, when a file is accessed for output (i.e. writing/encoding
 C> BUFR), the associated DX BUFR tables are still stored internally for subsequent
 C> reference; however, the output file itself is also initialized by writing the
@@ -58,7 +58,7 @@ C> file, except when IO = 'NODX', and in which case the writing of these
 C> additional messages is suppressed.
 C> - As noted above, 'SEC3' is the only value of IO (other than 'QUIET') where it's
 C> not necessary to provide pre-defined DX BUFR tables via LUNDX.  Instead, this
-C> option instructs the BUFRLIB software to unpack the data description section
+C> option instructs the NCEPLIBS-bufr software to unpack the data description section
 C> (Section 3) from each BUFR message it reads and then decode the contents
 C> accordingly. In this case, it's necessary to provide a set of BUFR master
 C> tables containing listings of all possible BUFR descriptors
@@ -100,7 +100,7 @@ C>                             that the value for IPRT in COMMON block
 C>                             /QUIET/ is being reset to the value in
 C>                             LUNDX
 C>                 - 'FIRST' = LUNIT and LUNDX are ignored; this is an
-C>                             indicator to initialize the BUFRLIB
+C>                             indicator to initialize the NCEPLIBS-bufr
 C>                             software, in case this subroutine was
 C>                             never previously called
 C> @param[in] LUNDX   -- integer:
@@ -121,6 +121,8 @@ C>
 C> @authors J. Woollen, J. Ator,  D. Keyser @date 1994-01-06
 
       RECURSIVE SUBROUTINE OPENBF(LUNIT,IO,LUNDX)
+
+      use bufrlib
 
       USE MODV_IFOPBF
       USE MODV_NFILES
@@ -242,7 +244,7 @@ C  DECIDE HOW TO OPEN THE FILE AND SETUP THE DICTIONARY
 C  ----------------------------------------------------
 
       IF(IO.EQ.'IN') THEN
-         CALL OPENRB(LUN,FILENAME)
+         CALL OPENRB_C(LUN,FILENAME)
          CALL WTSTAT(LUNIT,LUN,-1,0)
          CALL READDX(LUNIT,LUN,LUNDX)
       ELSE IF(IO.EQ.'INUL') THEN
@@ -254,26 +256,26 @@ C  ----------------------------------------------------
          IF(LUNIT.NE.LUNDX) CALL READDX(LUNIT,LUN,LUNDX)
          NULL(LUN) = 1
       ELSE IF(IO.EQ.'INX') THEN
-         CALL OPENRB(LUN,FILENAME)
+         CALL OPENRB_C(LUN,FILENAME)
          CALL WTSTAT(LUNIT,LUN,-1,0)
          NULL(LUN) = 1
       ELSE IF(IO.EQ.'OUX') THEN
-         CALL OPENWB(LUN,FILENAME)
+         CALL OPENWB_C(LUN,FILENAME)
          CALL WTSTAT(LUNIT,LUN, 1,0)
       ELSE IF(IO.EQ.'SEC3') THEN
-         CALL OPENRB(LUN,FILENAME)
+         CALL OPENRB_C(LUN,FILENAME)
          CALL WTSTAT(LUNIT,LUN,-1,0)
          ISC3(LUN) = 1
       ELSE IF(IO.EQ.'OUT') THEN
-         CALL OPENWB(LUN,FILENAME)
+         CALL OPENWB_C(LUN,FILENAME)
          CALL WTSTAT(LUNIT,LUN, 1,0)
          CALL WRITDX(LUNIT,LUN,LUNDX)
       ELSE IF(IO.EQ.'NODX') THEN
-         CALL OPENWB(LUN,FILENAME)
+         CALL OPENWB_C(LUN,FILENAME)
          CALL WTSTAT(LUNIT,LUN, 1,0)
          CALL READDX(LUNIT,LUN,LUNDX)
       ELSE IF(IO.EQ.'APN' .OR. IO.EQ.'APX') THEN
-         CALL OPENAB(LUN,FILENAME)
+         CALL OPENAB_C(LUN,FILENAME)
          CALL WTSTAT(LUNIT,LUN, 1,0)
          IF(LUNIT.NE.LUNDX) CALL READDX(LUNIT,LUN,LUNDX)
          CALL POSAPX(LUNIT)

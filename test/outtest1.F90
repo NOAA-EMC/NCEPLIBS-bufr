@@ -158,7 +158,8 @@ program outtest1
   call writcp ( 11 )
 
   acrn = 'TESTSWA193'
-  call writlc ( 11, acrn, 'ACRN' )
+  ! note that 'ACRN#1' is functionally equivalent to 'ACRN' in the following call
+  call writlc ( 11, acrn, 'ACRN#1' )
 
   ! Close the output file.
   call closbf ( 11 )

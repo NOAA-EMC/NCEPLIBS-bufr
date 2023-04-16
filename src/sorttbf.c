@@ -13,7 +13,8 @@
  *
  *  @author J. Ator @date 2017-11-16
 */
-void sorttbf( void )
+void
+sorttbf(void)
 {
     qsort( &cfe[0], ( size_t ) nmtf, sizeof( struct code_flag_entry ),
         ( int (*) ( const void *, const void * ) ) cmpstia1 );

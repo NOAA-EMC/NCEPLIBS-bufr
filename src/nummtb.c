@@ -20,7 +20,8 @@
  *
  * @author J Ator @date 2009-03-23
 */
-void nummtb( f77int *idn, char *tab, f77int *ipt )
+void
+nummtb(f77int *idn, char *tab, f77int *ipt)
 {
         f77int *pifxyn, *pbs,  nmt;
 

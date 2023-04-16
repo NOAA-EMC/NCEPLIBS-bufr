@@ -26,8 +26,9 @@
  *
  *  @author J. Ator  @date 2017-11-13
 */
-void strtbfe( f77int *ifxyn, f77int *ival, char *meaning, f77int *lmeaning,
-              f77int *idfxy, f77int *idval )
+void
+strtbfe(f77int *ifxyn, f77int *ival, char *meaning, f77int *lmeaning,
+        f77int *idfxy, f77int *idval)
 {
     unsigned int mnlen;
 

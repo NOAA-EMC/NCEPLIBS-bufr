@@ -1,14 +1,17 @@
 
 # Master BUFR Tables
+@brief Description and format of master BUFR tables for use with the library.
 @anchor dfbfmstab
+
+<br>
 
 This document describes the format and concept of master BUFR
 tables. These are required by the NCEPLIBS-bufr software whenever the
 IO='SEC3' option is specified during a call to subroutine openbf() for
 the reading/decoding of a file of BUFR messages. Otherwise, if a
-different value of IO is specified, then only a [DX BUFR tables](@ref
-dfbftab) file is normally required, and master BUFR tables are not
-needed.
+different value of IO is specified, then only a
+[DX BUFR tables](@ref dfbftab) file is normally required, and master
+BUFR tables are not needed.
 
 <br>
 
@@ -86,9 +89,8 @@ must also be available corresponding to the originating center and
 local version numbers encoded within Section 1 of those
 messages. Otherwise, if the messages to be decoded contain only
 standard descriptors (which is normally the case for data exchanged
-between operational centers), then the [default local Table B file
-from NCEP (originating center
-7)](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.TableB_LOC_0_7_1)
+between operational centers), then the
+[default local Table B file from NCEP (originating center 7)](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.TableB_LOC_0_7_1)
 can be used as a placeholder since the software will not need to
 actually read any information from this table. In this way, users are
 relieved from having to provide a local Table B file for every
@@ -200,9 +202,8 @@ identification section (Section 1) of each BUFR message as it is read,
 in order to determine the exact master table files to open and read
 for that message, and a local Table D file is necessary whenever local
 descriptors from the originating center in question are included
-within a message; otherwise, the [default local Table D file from NCEP
-(originating center
-7)](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.TableD_LOC_0_7_1)
+within a message; otherwise, the
+[default local Table D file from NCEP (originating center 7)](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.TableD_LOC_0_7_1)
 can be used as a placeholder.
 
 <br>
@@ -339,9 +340,8 @@ same local filesystem directory specified by CMTDIR during the most
 recent call to subroutine mtinfo(). And just like for Table B and
 Table D, they must exist as a set of two separate tables files, one
 containing all of the standard entries and one containing all of the
-local entries, and where the [default local Code/Flag tables file from
-NCEP (originating center
-7)](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.TableF_LOC_0_7_1)
+local entries, and where the
+[default local Code/Flag tables file from NCEP (originating center 7)](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.TableF_LOC_0_7_1)
 can be used as a placeholder for the local file whenever the BUFR
 messages to be decoded contain only standard descriptors.
 

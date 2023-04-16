@@ -1,43 +1,35 @@
 C> @file
-C> @brief Check whether a system file is connected to the BUFRLIB
-C> software.
+C> @brief Check whether a file is connected to the NCEPLIBS-bufr software.
 C>
 C> @author J. Woollen @date 1994-01-06
 
-C> This subroutine checks whether a specified Fortran logical unit
-C> number is currently connected to the BUFRLIB software.
+C> Check whether a specified Fortran logical unit
+C> number is currently connected to the NCEPLIBS-bufr software.
 C>
 C> If the unit number is already connected, then the subroutine
 C> returns information about the associated file.  Otherwise, it
-C> returns the next available internal I/O stream index that could
+C> returns the next available file ID that could
 C> be used to connect the associated file to the software via a
 C> subsequent call to subroutine wtstat().
 C>
-C> @param[in]  LUNIT   -- integer: Fortran logical unit number for
-C>                        BUFR file
-C> @param[out]  LUN    -- integer: Internal I/O stream index associated
-C>                        with LUNIT
-C>                        - 0 = LUNIT is not already connected to the
-C>                              software, <b>and</b> there is no
-C>                              remaining internal space available
-C>                              that could be used to connect it
-C> @param[out]  IL     -- integer: File status
-C>                        - 0 = LUNIT is not already connected to the
-C>                              software, but LUN contains a new
-C>                              internal I/O stream index that could
-C>                              be used to connect it via a subsequent
-C>                              call to subroutine wtstat()
-C>                        - 1 = LUNIT is already connected to the
-C>                              software for output operations
-C>                              (i.e. writing/encoding BUFR)
-C>                        - -1 = LUNIT is already connected to the
-C>                               software for input operations
-C>                               (i.e. reading/decoding BUFR)
-C> @param[out]  IM     -- integer: Message status, indicating whether
-C>                        there is already a message open within
-C>                        internal arrays for LUNIT
-C>                        - 0 = No
-C>                        - 1 = Yes
+C> @param[in] LUNIT - integer: Fortran logical unit number for
+C> BUFR file.
+C> @param[out] LUN  - integer: File ID associated with LUNIT.
+C> - 0 = LUNIT is not already connected to the software, <b>and</b>
+C> there is no remaining internal space available that could be used
+C> to connect it.
+C> @param[out] IL - integer: File status:
+C> - 0 = LUNIT is not already connected to the software, but LUN
+C> contains a file ID that could be used to connect it via a subsequent
+C> call to subroutine wtstat().
+C> - 1 = LUNIT is already connected to the software for output
+C> operations (i.e. writing/encoding BUFR).
+C> - -1 = LUNIT is already connected to the software for input
+C> operations (i.e. reading/decoding BUFR).
+C> @param[out] IM  - integer: Message status, indicating whether
+C> there is already a message open within internal arrays for LUNIT.
+C> - 0 = No
+C> - 1 = Yes
 C>
 C> @author J. Woollen @date 1994-01-06
       RECURSIVE SUBROUTINE STATUS(LUNIT,LUN,IL,IM)

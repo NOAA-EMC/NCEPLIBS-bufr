@@ -34,7 +34,8 @@
  * @author J. Ator @date 2004-08-18
 */
 
-void restd( f77int *lun, f77int *tddesc, f77int *nctddesc, f77int *ctddesc )
+void
+restd(f77int *lun, f77int *tddesc, f77int *nctddesc, f77int *ctddesc)
 {
     f77int i0 = 0;
 

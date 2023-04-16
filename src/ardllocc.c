@@ -15,7 +15,8 @@
  * @author J. Ator @date 2014-12-04
  */
 
-void ardllocc( void )
+void
+ardllocc(void)
 {
 
 /*

@@ -64,7 +64,12 @@ program outtest8
 
   ! Write the output message to the output file.
 #ifdef KIND_8
-  nbyt = lenbmg * 8
+  ! See issue #300.
+  ! For some reason the following code line squawks with a -Wconversion warning, so for now we'll just
+  ! hardcode a workaround since lenbmg should have a value of 2237 when using 8-byte integers.
+  !   nbyt = int(lenbmg,4) * 8
+  if ( lenbmg .ne. 2237 ) stop 3
+  nbyt = 2237 * 8
 #else
   nbyt = lenbmg * 4
 #endif
