@@ -138,7 +138,8 @@ endforeach()
 
 # Create Fortran API tests, plus any other tests we want to run.
 foreach(kind ${test_kinds})
-  create_test_plain(test_misc ${kind})
+  create_test_plain(test_misc  ${kind})
+  create_test_plain(test_ufbrw ${kind})
   foreach(innum RANGE 1 10)
     create_test(intest ${kind} ${innum})
   endforeach()
