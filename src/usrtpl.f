@@ -3,6 +3,8 @@ C> @brief Store the subset template into internal arrays.
 C>
 C> @author J. Woollen @date 1994-01-06
 
+C> Store the subset template into internal arrays.
+C>
 C> This subroutine stores the subset template into internal
 C> subset arrays in module @ref moda_usrint for cases of node expansion,
 C> such as when the node is either a Table A mnemonic or a delayed
