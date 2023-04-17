@@ -52,5 +52,12 @@ outfile_6=testrun/xbfmg_6.out
 ../utils/xbfmg BUFRLIB_DUMMY > ${outfile_6}
 [[ ${?} -eq 0 || `grep -c "ERROR: Could not stat the file" ${outfile_6}` -ne 1 ]] && exit 6
 
+# Test #7, for input file that can't be opened.
+outfile_7=testrun/xbfmg_7.out
+chmod ugo-r testfiles/data/xbfmg_1
+../utils/xbfmg testfiles/data/xbfmg_1 > ${outfile_7}
+[[ ${?} -eq 0 || `grep -c "ERROR: Could not open input file"  ${outfile_7}` -ne 1 ]] && exit 7
+chmod ugo+r testfiles/data/xbfmg_1
+
 # Success!
 exit 0
