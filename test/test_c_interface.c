@@ -145,6 +145,7 @@ void test_intrusiveInterface()
         char mnemonic[4];
         char nextNode[4];
         char seqNode[8];
+        char repNode[10];
         char typ[3];
         unsigned int numReps;
         double** data;
@@ -156,6 +157,7 @@ void test_intrusiveInterface()
     memcpy(target.mnemonic, "TMBR", 4);
     memcpy(target.nextNode, "CSTC", 4);
     memcpy(target.seqNode, "BRITCSTC", 8);
+    memcpy(target.repNode, "\"BRITCSTC\"", 10);
     memcpy(target.typ, "NUM", 3);
     target.isString = false;
     target.numReps = 15;
@@ -185,6 +187,8 @@ void test_intrusiveInterface()
     int tagStrLen = 0;
     int* jmpbPtr = NULL;
     int jmpbSize = 0;
+    int* irfPtr = NULL;
+    int irfSize = 0;
 
 
     int bufrLoc;
@@ -192,7 +196,6 @@ void test_intrusiveInterface()
 
     open_f(BUFR_FILE_UNIT, INPUT_FILE);
     openbf_f(BUFR_FILE_UNIT, "IN", BUFR_FILE_UNIT);
-
 
     int subsetIdx = 0;
     while (ireadmg_f(BUFR_FILE_UNIT, msg_subset, &iddate, SUBSET_STRING_LEN) == 0)
@@ -212,7 +215,7 @@ void test_intrusiveInterface()
                     get_typ_f(&typPtr, &typStrLen, &typSize);
                     get_tag_f(&tagPtr, &tagStrLen, &tagSize);
                     get_jmpb_f(&jmpbPtr, &jmpbSize);
-
+                    get_irf_f(&irfPtr, &irfSize);
 
                     int startNode;
                     get_inode_f(bufrLoc, &startNode);
@@ -241,6 +244,13 @@ void test_intrusiveInterface()
                 for (dataCursor = 1; dataCursor <= nval; dataCursor++)
                 {
                     int nodeIdx = invPtr[cIdx(dataCursor)];
+
+                    if (strncmp(tag(tagPtr, nodeIdx), target.repNode, 10) == 0 &&
+                        irfPtr[cIdx(nodeIdx)] != target.numReps)
+                    {
+                        printf("%s", "Incorrect number of repetitions for fixed replication.");
+                        exit(1);
+                    }
 
                     if (target.nodeIdx == nodeIdx)
                     {
