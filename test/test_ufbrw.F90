@@ -160,15 +160,11 @@
         call strsuc(line  ,str1,len1)
         call strsuc(brr(n),str2,len2)
         if(n<=55.and.iret==0.and.str1/=str2) then
-          print*,n,len1,len2
           print*,"str1:",str1  
           print*,"str2:",str2 
-          call bort('error exit from ufbrw_test')
+          stop n  
         elseif(n>55.and.iret==0) then
-          print*,n,iret
-          call bort('error exit from ufbrw_test')
-        elseif(n==56) then
-          exit
+          stop n  
         endif
       enddo
 
