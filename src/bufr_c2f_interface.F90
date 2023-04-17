@@ -46,12 +46,14 @@ module bufr_c2f_interface
   public :: get_nval_c
   public :: get_val_c
   public :: get_inv_c
+  public :: get_irf_c
   public :: delete_table_data_c
 
   integer, allocatable, target, save :: isc_f(:)
   integer, allocatable, target, save :: link_f(:)
   integer, allocatable, target, save :: itp_f(:)
   integer, allocatable, target, save :: jmpb_f(:)
+  integer, allocatable, target, save :: irf_f(:)
   character(len=10), allocatable, target, save :: tag_f(:)
   character(len=3), allocatable, target, save :: typ_f(:)
 
@@ -521,6 +523,23 @@ module bufr_c2f_interface
       jmpb_ptr = c_loc(jmpb_f(1))
     end subroutine get_jmpb_c
 
+    !> Get copy of the moda_tables IRF array.
+    !>
+    !> @param[out] irf_ptr - c_ptr: c style pointer to the IRF array
+    !> @param[out] irf_size - c_int: length of the array
+    !>
+    !> @author Ronald McLaren @date 2023-04-05
+    subroutine get_irf_c(irf_ptr, irf_size) bind(C, name='get_irf_f')
+      use moda_tables
+      type(c_ptr), intent(inout) :: irf_ptr
+      integer(c_int), intent(out) :: irf_size
+
+      allocate(irf_f(ntab))
+      irf_f(1:ntab) = irf(1:ntab)
+      irf_size = size(irf_f)
+      irf_ptr = c_loc(irf_f(1))
+    end subroutine get_irf_c
+
     !> Get the bufr node idx for the start node of the subset.
     !>
     !> @param lun - File ID.
@@ -593,6 +612,7 @@ module bufr_c2f_interface
       if (allocated(typ_f)) deallocate(typ_f)
       if (allocated(tag_f)) deallocate(tag_f)
       if (allocated(jmpb_f)) deallocate(jmpb_f)
+      if (allocated(irf_f)) deallocate(irf_f)
     end subroutine delete_table_data_c
 
     !> Read a data value from Section 0 or Section 1 of a BUFR message.
