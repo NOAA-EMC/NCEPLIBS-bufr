@@ -525,8 +525,8 @@ module bufr_c2f_interface
 
     !> Get copy of the moda_tables IRF array.
     !>
-    !> @param[out] irf_ptr - c_ptr: c style pointer to the IRF array
-    !> @param[out] irf_size - c_int: length of the array
+    !> @param irf_ptr - C-style pointer to the IRF array
+    !> @param irf_size - Length of the array
     !>
     !> @author Ronald McLaren @date 2023-04-05
     subroutine get_irf_c(irf_ptr, irf_size) bind(C, name='get_irf_f')
@@ -623,7 +623,7 @@ module bufr_c2f_interface
     !> @param mnemonic - Value to be read from Section 0 or Section 1
     !> of BUFR message.
     !>
-    !> @return iupbs01_c - Return code: Value corresponding to mnemonic, or -1 if
+    !> @return iupbs01_c - Value corresponding to mnemonic, or -1 if
     !> not found or other error occurred.
     !>
     !> @author J. Ator @date 2023-04-07
@@ -635,5 +635,23 @@ module bufr_c2f_interface
 
       ires = iupbs01(bufr,c_f_string(mnemonic))
     end function iupbs01_c
+
+    !> Get the current value of a parameter.
+    !>
+    !> Wraps igetprm() function.
+    !>
+    !> @param cprmnm - Parameter.
+    !>
+    !> @return igetprm_c - Value corresponding to cprmnm, or -1 if
+    !> not found or other error occurred.
+    !>
+    !> @author J. Ator @date 2023-04-07
+    function igetprm_c(cprmnm) result(ires) bind(C, name='igetprm_f')
+      character(kind=c_char, len=1), intent(in) :: cprmnm(*)
+      integer(c_int) :: ires
+      integer :: igetprm
+
+      ires = igetprm(c_f_string(cprmnm))
+    end function igetprm_c
 
 end module bufr_c2f_interface

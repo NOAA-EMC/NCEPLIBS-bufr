@@ -70,10 +70,10 @@ struct code_flag_entry {
  */
 #ifdef IN_INITTBF
     struct code_flag_entry *cfe;  /* will automatically initialize to NULL */
-    f77int mxmtbf;
+    int mxmtbf;
     f77int nmtf;
 #else
     extern struct code_flag_entry *cfe;
-    extern f77int mxmtbf;
+    extern int mxmtbf;
     extern f77int nmtf;
 #endif

@@ -154,6 +154,26 @@ module bufrlib
       integer(c_int), intent(in), value :: ii, jj, numjj
     end function icvidx_c
 
+    !> @fn bufrlib::arallocc_c::arallocc_c()
+    !> Dynamically allocate C language arrays.
+    !>
+    !> Wraps arallocc() function.
+    !>
+    !> @author J. Ator @date 2014-12-04
+    subroutine arallocc_c() bind(C, name='arallocc')
+      use iso_c_binding
+    end subroutine arallocc_c
+
+    !> @fn bufrlib::ardllocc_c::ardllocc_c()
+    !> Free all memory allocated via arallocc_c().
+    !>
+    !> Wraps ardllocc() function.
+    !>
+    !> @author J. Ator @date 2014-12-04
+    subroutine ardllocc_c() bind(C, name='ardllocc')
+      use iso_c_binding
+    end subroutine ardllocc_c
+
   end interface
 
 end module bufrlib

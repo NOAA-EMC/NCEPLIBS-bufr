@@ -78,7 +78,7 @@ stseq(f77int *lun, f77int *irepct, f77int *idn, char *nemo,
 /*
 **  Now, go through the list of child descriptors corresponding to *idn.
 */
-    imxcd = igetprm( "MAXCD", 5 );
+    imxcd = igetprm_f( "MAXCD" );
 
     for ( i = 0; i < *ncdesc; i++ ) {
         cadn30( &cdesc[i], adn, sizeof( adn ) );
