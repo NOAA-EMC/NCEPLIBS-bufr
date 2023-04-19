@@ -174,6 +174,38 @@ module bufrlib
       use iso_c_binding
     end subroutine ardllocc_c
 
+    !> @fn bufrlib::cpmstabs_c::cpmstabs_c(nmtb,ibfxyn,cbscl,cbsref,cbbw,cbunit,cbmnem,cbelem,
+    !>                                     nmtd,idfxyn,cdseq,cdmnem,ndelem,idefxy,maxcd)
+    !> Copy master Table B and Table D information.
+    !>
+    !> Wraps cpmstabs() function.
+    !>
+    !> @param nmtb - Number of master Table B entries.
+    !> @param ibfxyn - Bit-wise representations of master Table B FXY numbers.
+    !> @param cbscl - Master Table B scale factors.
+    !> @param cbsref - Master Table B reference values.
+    !> @param cbbw - Master Table B bit widths.
+    !> @param cbunit - Master Table B units.
+    !> @param cbmnem - Master Table B mnemonics.
+    !> @param cbelem - Master Table B element names.
+    !> @param nmtd - Number of master Table D entries.
+    !> @param idfxyn - Bit-wise representations of master Table D FXY numbers.
+    !> @param cdseq - Master Table D sequence names.
+    !> @param cdmnem - Master Table D mnemonics.
+    !> @param ndelem - Number of child descriptors for master Table D sequence.
+    !> @param idefxy - Bit-wise representations of child descriptors for master Table D sequence.
+    !> @param maxcd - Maximum number of child descriptors for a master Table D sequence.
+    !>
+    !> @author J. Ator @date 2005-11-29
+    subroutine cpmstabs_c( nmtb, ibfxyn, cbscl, cbsref, cbbw, cbunit, cbmnem, cbelem, &
+                           nmtd, idfxyn, cdseq, cdmnem, ndelem, idefxy, maxcd ) bind(C, name='cpmstabs')
+      use iso_c_binding
+      integer(c_int), intent(in) :: ibfxyn(*), idfxyn(*), ndelem(*), idefxy(*)
+      integer(c_int), intent(in), value :: nmtb, nmtd, maxcd
+      character(kind=c_char), intent(in) :: cbscl(4,*), cbsref(12,*), cbbw(4,*), cbunit(24,*), &
+                                            cbmnem(8,*), cbelem(120,*), cdseq(120,*), cdmnem(8,*)
+    end subroutine cpmstabs_c
+
   end interface
 
 end module bufrlib
