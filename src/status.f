@@ -39,7 +39,7 @@ C> @author J. Woollen @date 1994-01-06
 
       USE MODA_STBFR
 
-      CHARACTER*128 BORT_STR
+      CHARACTER*128 BORT_STR, ERRSTR
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
@@ -61,6 +61,15 @@ C  ---------------------
       ENDIF
 
       IF(LUNIT.LE.0 .OR. LUNIT.GT.99) GOTO 900
+
+      IF ( .NOT. ALLOCATED(IOLUN) ) THEN
+        CALL ERRWRT('++++++++++++++++++++WARNING++++++++++++++++++++++')
+        ERRSTR = 'BUFRLIB: STATUS WAS CALLED WITHOUT HAVING ' //
+     .           'PREVIOUSLY CALLED OPENBF'
+        CALL ERRWRT(ERRSTR)
+        CALL ERRWRT('++++++++++++++++++++WARNING++++++++++++++++++++++')
+        RETURN
+      ENDIF
 
 C  CLEAR THE STATUS INDICATORS
 C  ---------------------------
