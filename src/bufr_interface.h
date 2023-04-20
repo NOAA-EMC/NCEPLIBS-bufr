@@ -393,6 +393,17 @@ extern "C" {
  */
   int iupbs01_f(int *bufr, char* mnemonic);
 
+/**
+ * Get the current value of a parameter.
+ *
+ * @param cprmnm - Parameter.
+ *
+ * @return Value of cprmnm.
+ *
+ * @author J.Ator @date 2014-12-04
+ */
+  int igetprm_f(char *cprmnm);
+
 #ifdef __cplusplus
 }
 #endif

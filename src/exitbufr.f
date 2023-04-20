@@ -32,6 +32,8 @@ C>
 C> @author J. Ator @date 2015-03-02
         RECURSIVE SUBROUTINE EXITBUFR
 
+        use bufrlib
+
         USE MODV_IM8B
         USE MODV_IFOPBF
         USE MODV_NFILES
@@ -67,7 +69,7 @@ C       Deallocate all allocated memory.
 
         CALL ARDLLOCF
 
-        IF ( CDMF .EQ. 'Y' ) CALL DLLOCTBF
+        IF ( CDMF .EQ. 'Y' ) CALL DLLOCTBF_C
 
 C       Reset the library.
 
