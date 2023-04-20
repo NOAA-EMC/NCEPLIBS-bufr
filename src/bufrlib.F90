@@ -9,6 +9,7 @@
 !> @author J. Ator @date 2023-03-22
 
 module bufrlib
+  use bufr_interface
 
   interface
 
@@ -205,6 +206,91 @@ module bufrlib
       character(kind=c_char), intent(in) :: cbscl(4,*), cbsref(12,*), cbbw(4,*), cbunit(24,*), &
                                             cbmnem(8,*), cbelem(120,*), cdseq(120,*), cdmnem(8,*)
     end subroutine cpmstabs_c
+
+    !> @fn bufrlib::inittbf_c::inittbf_c()
+    !> Initialize memory for internal storage of master Code/Flag table entries.
+    !>
+    !> Wraps inittbf() function.
+    !>
+    !> @author J. Ator @date 2017-11-03
+    subroutine inittbf_c() bind(C, name='inittbf')
+      use iso_c_binding
+    end subroutine inittbf_c
+
+    !> @fn bufrlib::strtbfe_c::strtbfe_c(ifxyn,ival,meaning,lmeaning,idfxy,idval)
+    !> Store a new master Code/Flag table entry.
+    !>
+    !> Wraps strtbfe() function.
+    !>
+    !> @param ifxyn - Bit-wise representation of FXY number for which ival is a defined
+    !> code or flag table entry.
+    !> @param ival  - Code figure or bit number.
+    !> @param meaning - Meaning associated with ifxyn and ival.
+    !> @param lmeaning - Length (in bytes) of meaning.
+    !> @param idfxy - Bit-wise representation of FXY number upon which ifxyn and ival
+    !> depend (if any), or else set to a value of (-1).
+    !> @param idval - Code figure or bit number associated with idfxy and upon which ifxyn
+    !> and ival depend (if any), or else set to (-1) whenever idfxy is also set to (-1).
+    !>
+    !> @author J. Ator @date 2017-11-03
+    subroutine strtbfe_c(ifxyn,ival,meaning,lmeaning,idfxy,idval) bind(C, name='strtbfe')
+      use iso_c_binding
+      integer(c_int), intent(in), value :: ifxyn, ival, lmeaning, idfxy, idval
+      character(kind=c_char), intent(in) :: meaning(*)
+    end subroutine strtbfe_c
+
+    !> @fn bufrlib::sorttbf_c::sorttbf_c()
+    !> Sort entries within the master Code/Flag table.
+    !>
+    !> Wraps sorttbf() function.
+    !>
+    !> @author J. Ator @date 2017-11-03
+    subroutine sorttbf_c() bind(C, name='sorttbf')
+      use iso_c_binding
+    end subroutine sorttbf_c
+
+    !> @fn bufrlib::srchtbf_c::srchtbf_c(ifxyi,ivali,ifxyd,mxfxyd,ivald,meaning,mxmng,lnmng,iret)
+    !> Search for a specified master Code/Flag table entry.
+    !>
+    !> Wraps srchtbf() function.
+    !>
+    !> @param ifxyi - Bit-wise representation of FXY number to search for.
+    !> @param ivali - Value (code figure or bit number) associated with ifxyi.
+    !> @param ifxyd - Dependence indicator:
+    !> - On input, ifxyd[0] is set to the bit-wise representation of the FXY
+    !> number upon which ifxyi and ivali depend, or else set to (-1) if ifxyi
+    !> and ivali do not depend on the value associated with any other FXY number.
+    !> - On output, if the initial search of the master Code/Flag table was
+    !> unsuccessful, <b>and</b> if ifxyd[0] and ivald were both set to (-1) on
+    !> input, <b>and</b> if a second search of the table determines that the
+    !> meaning of ifxyi and ivali indeed depends on one or more other FXY numbers,
+    !> then the bit-wise representations of those FXY numbers are returned within
+    !> the first iret elements of ifxyd.
+    !> @param ivald - Value (code figure or bit number) associated with the FXY
+    !> number in ifxyd[0]; set to (-1) whenever ifxyd[0] is also set to (-1).
+    !> @param mxfxyd - Number of elements in ifxyd array; used by the function to
+    !> ensure that it doesn't overflow the array.
+    !> @param mxmng - Number of elements in meaning array; used by the function to
+    !> ensure that it doesn't overflow the string.
+    !> @param meaning - Meaning corresponding to ifxyi and ivali (and to ifxyd[0]
+    !> and ivald, if specified on input).
+    !> @param lnmng - Length (in bytes) of string returned in CMEANG.
+    !> @param iret - Return code:
+    !> -  0 = Meaning found and stored in meaning string.
+    !> - -1 = Meaning not found.
+    !> - >0 = Meaning not found, <b>and</b> ifxyd[0] and ivald were both set to (-1)
+    !> on input, <b>and</b> the meaning of ifxyi and ivali depends on the the value
+    !> associated with one of the FXY numbers whose bit-wise representation is
+    !> stored in the first iret elements of ifxyd.
+    !>
+    !> @author J. Ator @date 2017-11-03
+    subroutine srchtbf_c(ifxyi,ivali,ifxyd,mxfxyd,ivald,meaning,mxmng,lnmng,iret) bind(C, name='srchtbf')
+      use iso_c_binding
+      integer(c_int), intent(in), value :: ifxyi, ivali, mxfxyd, ivald, mxmng
+      integer(c_int), intent(inout) :: ifxyd
+      integer(c_int), intent(out) :: lnmng, iret
+      character(kind=c_char), intent(out) :: meaning(*)
+    end subroutine srchtbf_c
 
   end interface
 
