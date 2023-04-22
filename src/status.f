@@ -62,15 +62,6 @@ C  ---------------------
 
       IF(LUNIT.LE.0 .OR. LUNIT.GT.99) GOTO 900
 
-      IF ( .NOT. ALLOCATED(IOLUN) ) THEN
-        CALL ERRWRT('++++++++++++++++++++WARNING++++++++++++++++++++++')
-        ERRSTR = 'BUFRLIB: STATUS WAS CALLED WITHOUT HAVING ' //
-     .           'PREVIOUSLY CALLED OPENBF'
-        CALL ERRWRT(ERRSTR)
-        CALL ERRWRT('++++++++++++++++++++WARNING++++++++++++++++++++++')
-        RETURN
-      ENDIF
-
 C  CLEAR THE STATUS INDICATORS
 C  ---------------------------
 
@@ -81,8 +72,17 @@ C  ---------------------------
 C  SEE IF UNIT IS ALREADY CONNECTED TO BUFR ARCHIVE LIBRARY SOFTWARE
 C  -----------------------------------------------------------------
 
+      IF ( .NOT. ALLOCATED(IOLUN) ) THEN
+        CALL ERRWRT('++++++++++++++++++++WARNING++++++++++++++++++++++')
+        ERRSTR = 'BUFRLIB: STATUS WAS CALLED WITHOUT HAVING ' //
+     .           'PREVIOUSLY CALLED OPENBF'
+        CALL ERRWRT(ERRSTR)
+        CALL ERRWRT('++++++++++++++++++++WARNING++++++++++++++++++++++')
+        RETURN
+      ENDIF
+
       DO I=1,NFILES
-      IF(ABS(IOLUN(I)).EQ.LUNIT) LUN = I
+        IF(ABS(IOLUN(I)).EQ.LUNIT) LUN = I
       ENDDO
 
 C  IF NOT, TRY TO DEFINE IT SO AS TO CONNECT IT TO BUFR ARCHIVE LIBRARY
