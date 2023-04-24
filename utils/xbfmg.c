@@ -161,7 +161,6 @@ int main( int argc, char *argv[] ) {
     */
     if ( ( pc = malloc( filesize + 1 ) ) == NULL ) {
         printf( "\nERROR: Could not allocate memory for file %s!\n", argv[optind] );
-        free(pc);
         return -1;
     }
 
@@ -170,6 +169,7 @@ int main( int argc, char *argv[] ) {
     */
     if ( ( fp = fopen( argv[optind], "rb" ) ) == NULL ) {
         printf( "\nERROR: Could not open input file %s!\n", argv[optind] );
+        free(pc);
         return -1;
     }
     for ( i = 0; i < filesize; i++ ) {
