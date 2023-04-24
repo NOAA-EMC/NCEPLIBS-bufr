@@ -57,8 +57,6 @@ C> @author J. Ator @date 2009-03-23
         CHARACTER*132   STDFIL,LOCFIL
         LOGICAL         ALLSTD
 
-        INTEGER*4 IM1, JM1, MY_MAXCD
-
 C*      Initializing the following value ensures that new master tables
 C*      are read during the first call to this subroutine.
 
@@ -186,12 +184,9 @@ C*        Read the master Table D files.
      +                  IDMT, IDMTV, IDOGCE, IDLTV,
      +                  NMTD, IDFXYN, CDMNEM, CMDSCD, CDSEQ,
      +                  NDELEM, IEFXYN, CEELEM )
-          MY_MAXCD = MAXCD
           DO I = 1, NMTD
             DO J = 1, NDELEM(I)
-              IM1 = I-1
-              JM1 = J-1
-              IDX = ICVIDX_C ( IM1, JM1, MY_MAXCD ) + 1
+              IDX = ICVIDX_C ( I-1, J-1, MAXCD ) + 1
               IDEFXY(IDX) = IEFXYN(I,J)
             ENDDO
           ENDDO
@@ -203,7 +198,7 @@ C*        Close the master Table D files.
 
 C*        Copy master table B and D information into internal C arrays.
 
-          CALL CPMSTABS ( NMTB, IBFXYN, CBSCL, CBSREF, CBBW, CBUNIT,
+          CALL CPMSTABS_C ( NMTB, IBFXYN, CBSCL, CBSREF, CBBW, CBUNIT,
      +                    CBMNEM, CBELEM, NMTD, IDFXYN, CDSEQ, CDMNEM,
      +                    NDELEM, IDEFXY, MAXCD )
         ENDIF

@@ -1,6 +1,6 @@
 ! This is a test for NCEPLIBS-bufr.
 !
-! Reads test file 'testfiles/IN_10' to test ERRWRT branches in ARALLOCF, UFBMEM, UFBMEX, and OPENBT.
+! Reads test file 'testfiles/IN_10' to test ERRWRT branches in ARALLOCF, STATUS, UFBMEM, UFBMEX, and OPENBT.
 !
 ! J. Ator, 3/13/2023
 
@@ -37,11 +37,11 @@ program intest10
 
   integer*4 isetprm
 
-  integer icnt, iunt, imesg(150), idate, iret, ios1, ios2, lundx
+  integer icnt, iunt, imesg(150), idate, iret, ios1, ios2, lundx, lun, il, im
 
   character cmgtag*8
 
-  print *, 'Testing reading IN_10 to test ERRWRT branches in ARALLOCF, UFBMEM, UFBMEX, and OPENBT'
+  print *, 'Testing reading IN_10 to test ERRWRT branches in ARALLOCF, STATUS, UFBMEM, UFBMEX, and OPENBT'
 
 #ifdef KIND_8
   call setim8b ( .true. )
@@ -49,51 +49,55 @@ program intest10
 
   if ( ( isetprm ( 'MAXMSG', 125 ) .ne. 0 ) .or. ( isetprm ( 'MAXMEM', 125000 ) .ne. 0 ) ) stop 1
 
+  ! Test the errwrt branch in status.
+  call status ( 21, lun, il, im )
+  if ( index( errstr(1:errstr_len), 'STATUS WAS CALLED WITHOUT HAVING PREVIOUSLY CALLED OPENBF' ) .eq. 0 ) stop 2
+
   ! Test some various out-of-bounds verbosity settings, and test the errwrt branch in arallocf.
   ! The verbosity level is the 3rd argument whenever the 2nd argument to openbf is 'QUIET'.  Any
   ! request greater than 3 should automatically reset internally to the max value of 2, and any
   ! request less than -1 should automatically reset internally to the min value of -1.
   errstr_len = 0
   call openbf ( 21, 'QUIET', 3 )
-  if ( index( errstr(1:errstr_len), 'ARRAYS WILL BE DYNAMICALLY ALLOCATED USING THE FOLLOWING VALUES' ) .eq. 0 ) stop 2
+  if ( index( errstr(1:errstr_len), 'ARRAYS WILL BE DYNAMICALLY ALLOCATED USING THE FOLLOWING VALUES' ) .eq. 0 ) stop 3
   call openbf ( 21, 'QUIET', -2 )
   call openbf ( 21, 'QUIET', 1 )
 
   ! Test the errwrt branches in ufbmem.
   open ( unit = 21, file = 'testfiles/IN_10_infile1', form = 'unformatted', iostat = ios1 )
   open ( unit = 22, file = 'testfiles/IN_10_infile2', form = 'unformatted', iostat = ios2 )
-  if ( ( ios1 .ne. 0 ) .or. ( ios2 .ne. 0 ) ) stop 3
+  if ( ( ios1 .ne. 0 ) .or. ( ios2 .ne. 0 ) ) stop 4
   errstr_len = 0
   call ufbmem ( 21, 0, icnt, iunt )
   if ( ( icnt .ne. 125 ) .or. & 
-      ( index( errstr(1:errstr_len), 'UFBMEM - THE NO. OF MESSAGES REQUIRED TO STORE ALL MESSAGES' ) .eq. 0 ) ) stop 4
+      ( index( errstr(1:errstr_len), 'UFBMEM - THE NO. OF MESSAGES REQUIRED TO STORE ALL MESSAGES' ) .eq. 0 ) ) stop 5
   call ufbmem ( 22, 0, icnt, iunt )
   if ( ( icnt .ne. 97 ) .or. & 
-      ( index( errstr(1:errstr_len), 'UFBMEM - THE NO. OF BYTES REQUIRED TO STORE ALL MESSAGES' ) .eq. 0 ) ) stop 5
+      ( index( errstr(1:errstr_len), 'UFBMEM - THE NO. OF BYTES REQUIRED TO STORE ALL MESSAGES' ) .eq. 0 ) ) stop 6
 
   ! Reset the input files.
   call closbf ( 21 )
   call closbf ( 22 )
   open ( unit = 21, file = 'testfiles/IN_10_infile1', form = 'unformatted', iostat = ios1 )
   open ( unit = 22, file = 'testfiles/IN_10_infile2', form = 'unformatted', iostat = ios2 )
-  if ( ( ios1 .ne. 0 ) .or. ( ios2 .ne. 0 ) ) stop 6
+  if ( ( ios1 .ne. 0 ) .or. ( ios2 .ne. 0 ) ) stop 7
 
   ! Test the errwrt branches in ufbmex.
   errstr_len = 0
   call ufbmex ( 21, 21, 0, icnt, imesg )
   if ( ( icnt .ne. 125 ) .or. & 
-      ( index( errstr(1:errstr_len), 'UFBMEX - THE NO. OF MESSAGES REQUIRED TO STORE ALL MESSAGES' ) .eq. 0 ) ) stop 7
+      ( index( errstr(1:errstr_len), 'UFBMEX - THE NO. OF MESSAGES REQUIRED TO STORE ALL MESSAGES' ) .eq. 0 ) ) stop 8
   call ufbmex ( 22, 22, 0, icnt, imesg )
   if ( ( icnt .ne. 97 ) .or. & 
-      ( index( errstr(1:errstr_len), 'UFBMEX - THE NO. OF BYTES REQUIRED TO STORE ALL MESSAGES' ) .eq. 0 ) ) stop 8
+      ( index( errstr(1:errstr_len), 'UFBMEX - THE NO. OF BYTES REQUIRED TO STORE ALL MESSAGES' ) .eq. 0 ) ) stop 9
 
   ! Test the errwrt branch in openbt, both indirectly and directly.
   errstr_len = 0
   call rdmemm ( 50, cmgtag, idate, iret )
-  if ( index( errstr(1:errstr_len), 'OPENBT - THIS IS A DUMMY BUFRLIB ROUTINE' ) .eq. 0 ) stop 9
+  if ( index( errstr(1:errstr_len), 'OPENBT - THIS IS A DUMMY BUFRLIB ROUTINE' ) .eq. 0 ) stop 10
   errstr_len = 0
   call openbt ( lundx, 255 )
-  if ( index( errstr(1:errstr_len), 'OPENBT - THIS IS A DUMMY BUFRLIB ROUTINE' ) .eq. 0 ) stop 10
+  if ( index( errstr(1:errstr_len), 'OPENBT - THIS IS A DUMMY BUFRLIB ROUTINE' ) .eq. 0 ) stop 11
 
   print *, 'SUCCESS!'
 end program intest10

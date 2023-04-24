@@ -4,6 +4,8 @@
 !
 ! J. Ator, 2/24/2023
 program intest5
+  use bufr_interface
+
   implicit none
 
   integer*4 ireadns
@@ -59,7 +61,7 @@ program intest5
       ( nint(r8vals(2,2)) .ne. 61 ) .or. ( nint(r8vals(2,3)) .ne. 60 ) ) stop 7
 
   ! Free the memory that was dynamically allocated when reading the code and flag tables.
-  call dlloctbf()
+  call dlloctbf_c()
   close ( 11 )
 
   ! Test ufbinx's openbf/closbf calls.
