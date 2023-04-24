@@ -145,7 +145,7 @@ crdbufr(int nfile, int *bufr, int mxwrd) {
      * 4-byte integers short of the number needed to contain the
      * entire BUFR message. */
     nintrem = nbytrem / nb;
-    if (nbytrem % nb && nintrem + 3 > mxwrd) {
+    if (nintrem + 3 > mxwrd) {
         fsetpos(pb[nfile], &nxtpos);
         return -3;
     }
