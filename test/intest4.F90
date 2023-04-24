@@ -9,10 +9,10 @@ program intest4
 
   implicit none
 
-  integer*4 ireadsb, iupbs01, iupbs3, ibfms
+  integer*4 ireadsb, iupbs01, iupbs3, ibfms, lmsg, nmwrd
   integer*4 mxbf, nbyt, ierr
 
-  integer ier, imgdt, nds3
+  integer ier, imgdt, nds3, ii
   integer nr8lv, ntag
 
   integer mxbfd4, mxds3, mxr8lv, mxr8pm
@@ -26,7 +26,7 @@ program intest4
 
   integer ibfmg (mxbfd4)
 
-  character cmgtag*8, bfmg(mxbf), cds3(mxds3)*6, tag*8
+  character cmgtag*8, bfmg(mxbf), cds3(mxds3)*6, tag*8, sec0*8, cbay*3
   character*20 filnam / 'testfiles/IN_4' /
   character filost / 'r' /
 
@@ -73,7 +73,7 @@ program intest4
 
   ! Pass the message into the library so that Section 4 data can be read.
   call readerme(ibfmg, 11, cmgtag, imgdt, ier)
-  If (ier .ne. 0 .or. cmgtag .ne. 'MSTTB001' .or. imgdt .ne. 2016041815 ) stop 5
+  if (ier .ne. 0 .or. cmgtag .ne. 'MSTTB001' .or. imgdt .ne. 2016041815 ) stop 5
 
   ! Read a data subset from the BUFR message.
   if (ireadsb(11) .ne. 0) stop 6
@@ -97,6 +97,17 @@ program intest4
   if ( ier .ne. 0 .or. ntag .ne. 4 .or. tag .ne. 'SPRD    ' ) stop 11
   call gettagre(11, '224255', 65, tag, ntag, ier)
   if ( ier .ne. 0 .or. ntag .ne. 10 .or. tag .ne. 'RDNE    ' ) stop 12
+
+  ! Check the output from lmsg, nmwrd, and ipkm.
+  do ii = 1, 8
+    sec0(ii:ii) = bfmg(ii)
+  end do
+  if ( lmsg(sec0) .ne. 898 ) stop 13
+  if ( nmwrd(ibfmg) .ne. 898 ) stop 14
+  call ipkm(cbay,3,3588)
+  do ii = 1, 3
+    if ( cbay(ii:ii) .ne. sec0(ii+4:ii+4) ) stop 15
+  end do
 
   ! Close the test file.
   call ccbfl_c()
