@@ -56,7 +56,7 @@ int main()
     openrb(0, IN_9);
     if (!pb[0])
         return TEST_ERR;
-    if (crdbufr(0, msg, MSG_SIZE/sizeof(int) + 1))
+    if (crdbufr(0, msg, MSG_SIZE))
         return TEST_ERR;
     closfb(0);
 
