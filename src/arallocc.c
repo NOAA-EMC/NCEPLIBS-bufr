@@ -12,6 +12,8 @@
 #include "mstabs.h"
 
 /**
+ * Dynamically allocate C language arrays.
+ *
  * This subroutine is called internally during the first call to
  * subroutine openbf() from an application program, in order to
  * dynamically allocate internal C language arrays based on parameter
@@ -29,17 +31,17 @@ arallocc(void)
 
     char brtstr[50] = "BUFRLIB: ARALLOCC FAILED ALLOCATING ";
 
-    f77int nfiles;
+    int nfiles;
 
-    f77int mxmtbb;
-    f77int mxmtbd;
-    f77int maxcd;
+    int mxmtbb;
+    int mxmtbd;
+    int maxcd;
 
 /*
 **  cread arrays
 */
 
-    nfiles = igetprm( "NFILES", 6 );
+    nfiles = igetprm_f( "NFILES" );
 
     if ( ( pb = malloc( (nfiles+1) * sizeof(FILE *) ) ) == NULL ) {
         strcat( brtstr, "PB" );
@@ -55,9 +57,9 @@ arallocc(void)
 **  mstabs arrays
 */
 
-    mxmtbb = igetprm( "MXMTBB", 6 );
-    mxmtbd = igetprm( "MXMTBD", 6 );
-    maxcd = igetprm( "MAXCD", 5 );
+    mxmtbb = igetprm_f( "MXMTBB" );
+    mxmtbd = igetprm_f( "MXMTBD" );
+    maxcd = igetprm_f( "MAXCD" );
 
     if ( ( ibfxyn_c = malloc( mxmtbb * sizeof(f77int) ) ) == NULL ) {
         strcat( brtstr, "IBFXYN" );

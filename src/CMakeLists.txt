@@ -31,11 +31,11 @@ list(APPEND fortran_src
   bufr_c2f_interface.F90 x48.F x84.F bufrlib.F90)
 
 list(APPEND c_src
-  arallocc.c ardllocc.c bort_exit.c cmpia.c cmpstia1.c cmpstia2.c cpmstabs.c cread.c crwbmg.c
-  dlloctbf.c icvidx.c inittbf.c nummtb.c restd.c sorttbf.c srchtbf.c strtbfe.c stseq.c wrdesc.c)
+  arallocc.c ardllocc.c bort_exit.c cmpia.c cpmstabs.c cread.c crwbmg.c cfe.c
+  icvidx.c nummtb.c restd.c stseq.c wrdesc.c)
 
 list(APPEND c_hdr
-  cfe.h cread.h mstabs.h bufr_interface.h)
+  cread.h mstabs.h bufr_interface.h)
 
 # Create the bvers.f file and bfrini.f90 files
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/bvers.f.in ${CMAKE_CURRENT_BINARY_DIR}/bvers.f @ONLY)

@@ -191,12 +191,12 @@ c  .... override previous IPRT value (printout indicator)
       IF(IFOPBF.EQ.0) THEN
 
 C        This is the first call to this subroutine, so take care of some
-C        initial housekeeping tasks.  Note that ARALLOCF, ARALLOCC, and
+C        initial housekeeping tasks.  Note that ARALLOCF, ARALLOCC_C, and
 C        WRDLEN must all be called prior to calling BFRINI.
 
 C        Allocate any arrays which are being dynamically sized.
          CALL ARALLOCF
-         CALL ARALLOCC
+         CALL ARALLOCC_C
 
 C        Figure out some important information about the local machine.
          CALL WRDLEN

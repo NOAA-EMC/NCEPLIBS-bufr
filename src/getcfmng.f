@@ -103,6 +103,8 @@ C> @author J. Ator @date 2018-01-11
         RECURSIVE SUBROUTINE GETCFMNG
      .      ( LUNIT, NEMOI, IVALI, NEMOD, IVALD, CMEANG, LNMNG, IRET )
 
+        use bufrlib
+
         USE MODA_TABABD
         USE MODV_IM8B
 
@@ -231,8 +233,8 @@ C*      came from within Section 3.
 
 C*      Search the internal table for the requested meaning.
 
-        CALL SRCHTBF ( IFXYI, IVALI, IFXYD, 10, IVALD,
-     .                 CMEANG, LCMG, LNMNG, IRET )
+        CALL SRCHTBF_C ( IFXYI, IVALI, IFXYD(1), 10, IVALD,
+     .                   CMEANG, LCMG, LNMNG, IRET )
         IF ( IRET .LE. 0 ) RETURN
 
 C*      The meaning of this value is dependent on the value of another
