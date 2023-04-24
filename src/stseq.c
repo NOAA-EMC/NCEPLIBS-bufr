@@ -38,13 +38,13 @@ void
 stseq(f77int *lun, f77int *irepct, f77int *idn, char *nemo,
       char *cseq, f77int *cdesc, f77int *ncdesc)
 {
-    f77int i, j, nb, nd, ipt, ix, iy, ier, iret, nbits;
+    f77int i, j, nb, nd, ix, iy, ier, iret, nbits;
     f77int rpidn, pkint, ilen;
 
     char tab, adn[7], adn2[7], nemo2[9], units[10], errstr[129];
     char rpseq[56], card[80], cblk = ' ', czero = '0';
 
-    int imxcd;
+    int imxcd, ipt;
 
 /*
 **  The following variable is declared as automatic so that a local
@@ -78,7 +78,7 @@ stseq(f77int *lun, f77int *irepct, f77int *idn, char *nemo,
 /*
 **  Now, go through the list of child descriptors corresponding to *idn.
 */
-    imxcd = igetprm( "MAXCD", 5 );
+    imxcd = igetprm_f( "MAXCD" );
 
     for ( i = 0; i < *ncdesc; i++ ) {
         cadn30( &cdesc[i], adn, sizeof( adn ) );
@@ -104,7 +104,7 @@ stseq(f77int *lun, f77int *irepct, f77int *idn, char *nemo,
                 sprintf( nemo2, "RPSEQ%.3lu", ( unsigned long ) *irepct );
 
                 stseq( lun, irepct, &rpidn, nemo2, rpseq,
-                    &idefxy_c[icvidx((int)ipt,0,imxcd)],
+                    &idefxy_c[icvidx(ipt,0,imxcd)],
                     &ndelem_c[ipt] );
                 pkint = rpidn;
 
@@ -115,7 +115,7 @@ stseq(f77int *lun, f77int *irepct, f77int *idn, char *nemo,
 */
                 stseq( lun, irepct, &cdesc[i], &cdmnem_c[ipt][0],
                     &cdseq_c[ipt][0],
-                    &idefxy_c[icvidx((int)ipt,0,imxcd)],
+                    &idefxy_c[icvidx(ipt,0,imxcd)],
                     &ndelem_c[ipt] );
                 pkint = cdesc[i];
             }
@@ -324,7 +324,7 @@ stseq(f77int *lun, f77int *irepct, f77int *idn, char *nemo,
                 nummtb( &cdesc[i], &tab, &ipt );
                 stseq( lun, irepct, &cdesc[i], &cdmnem_c[ipt][0],
                        &cdseq_c[ipt][0],
-                       &idefxy_c[icvidx((int)ipt,0,imxcd)],
+                       &idefxy_c[icvidx(ipt,0,imxcd)],
                        &ndelem_c[ipt] );
                 pkint = cdesc[i];
             }

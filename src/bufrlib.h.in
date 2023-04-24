@@ -60,8 +60,6 @@ int icvidx(int ii, int jj, int numjj);
 **   2) a FORTRAN subprogram called from C
 */
 #ifdef UNDERSCORE
-#define arallocc   arallocc_  /**< arallocc function. */
-#define ardllocc   ardllocc_  /**< ardllocc function. */
 #define bort       bort_      /**< bort function. */
 #define bort_exit  bort_exit_ /**< exit function. */
 #define bvers      bvers_     /**< bvers function. */
@@ -74,7 +72,6 @@ int icvidx(int ii, int jj, int numjj);
 #define ichkstr    ichkstr_   /**< ichkstr function. */
 #define ifxy       ifxy_      /**< ifxy function. */
 #define igetntbi   igetntbi_  /**< igetntbi function. */
-#define igetprm    igetprm_   /**< igetprm function. */
 #define igettdi    igettdi_   /**< igettdi function. */
 #define imrkopr    imrkopr_   /**< imrkopr function. */
 #define ipkm       ipkm_      /**< ipkm function. */
@@ -258,18 +255,6 @@ f77int ifxy( char *adsc, size_t s1 );
  * @author J.Ator @date 2009-03-23
  */
 f77int igetntbi( f77int *lun, char *ctb, size_t s1 );
-
-/**
- * Wraps igetprm() function.
- *
- * @param cprmnm - Parameter.
- * @param s1 - Extra C-Fortran interface argument containing length of cprmnm variable.
- *
- * @return Value of cprmnm.
- *
- * @author J.Ator @date 2014-12-04
- */
-f77int igetprm( char *cprmnm, size_t s1 );
 
 /**
  * Wraps igettdi() function.

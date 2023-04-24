@@ -39,7 +39,7 @@ C> @author J. Woollen @date 1994-01-06
 
       USE MODA_STBFR
 
-      CHARACTER*128 BORT_STR
+      CHARACTER*128 BORT_STR, ERRSTR
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
@@ -72,8 +72,17 @@ C  ---------------------------
 C  SEE IF UNIT IS ALREADY CONNECTED TO BUFR ARCHIVE LIBRARY SOFTWARE
 C  -----------------------------------------------------------------
 
+      IF ( .NOT. ALLOCATED(IOLUN) ) THEN
+        CALL ERRWRT('++++++++++++++++++++WARNING++++++++++++++++++++++')
+        ERRSTR = 'BUFRLIB: STATUS WAS CALLED WITHOUT HAVING ' //
+     .           'PREVIOUSLY CALLED OPENBF'
+        CALL ERRWRT(ERRSTR)
+        CALL ERRWRT('++++++++++++++++++++WARNING++++++++++++++++++++++')
+        RETURN
+      ENDIF
+
       DO I=1,NFILES
-      IF(ABS(IOLUN(I)).EQ.LUNIT) LUN = I
+        IF(ABS(IOLUN(I)).EQ.LUNIT) LUN = I
       ENDDO
 
 C  IF NOT, TRY TO DEFINE IT SO AS TO CONNECT IT TO BUFR ARCHIVE LIBRARY

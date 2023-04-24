@@ -10,6 +10,8 @@ C>
 C> @author J. Ator @date 2014-12-04
         SUBROUTINE ARDLLOCF
 
+        use bufrlib
+
         USE MODA_USRINT
         USE MODA_USRBIT
         USE MODA_IVAL
@@ -263,7 +265,7 @@ C       MODA_RLCCMN arrays.
 
 C       C language arrays.
 
-        CALL ARDLLOCC
+        CALL ARDLLOCC_C
 
         RETURN
         END

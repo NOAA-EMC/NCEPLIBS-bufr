@@ -16,6 +16,8 @@ C>
 C> @author J. Ator @date 2017-11-02
         SUBROUTINE SNTBFE ( LUNT, IFXYN )
 
+        use bufrlib
+
         CHARACTER*160   CLINE, TAGS(4), CDSTR(2), ADSC(10), CVAL(25)
         CHARACTER*128   BORT_STR1, BORT_STR2
         CHARACTER*6     ADN30, CLEMON, CDSC
@@ -122,12 +124,12 @@ C               Store the information for this value within the internal
 C               memory structure.
 
                 IF ( ( NIDFXY .EQ. 0 ) .AND. ( NIDVAL .EQ. 0 ) ) THEN
-                  CALL STRTBFE ( IFXYN, IVAL, TAGS(3), LT3, -1, -1 )
+                  CALL STRTBFE_C ( IFXYN, IVAL, TAGS(3), LT3, -1, -1 )
                 ELSE
                   DO II = 1, NIDFXY
                     DO JJ = 1, NIDVAL
-                      CALL STRTBFE ( IFXYN, IVAL, TAGS(3), LT3,
-     +                               IDFXY(II), IDVAL(JJ) )
+                      CALL STRTBFE_C ( IFXYN, IVAL, TAGS(3), LT3,
+     +                                 IDFXY(II), IDVAL(JJ) )
                     ENDDO
                   ENDDO
                 ENDIF

@@ -42,6 +42,8 @@ C>
 C> @authors J. Woollen, J. Ator @date 2002-05-14
       RECURSIVE SUBROUTINE UFDUMP(LUNIT,LUPRT)
 
+      use bufrlib
+
       USE MODV_IM8B
 
       USE MODA_USRINT
@@ -327,9 +329,8 @@ C              Print the meanings of the code and flag values.
                ENDIF
                DO II=1,NIFV
                   ICFDP(1) = (-1)
-                  IFVD = (-1)
-                  CALL SRCHTBF(IDN,IFV(II),ICFDP,MXCFDP,IFVD,
-     .                         CFMEANG,LCFMEANG,LCFMG,IERSF)
+                  CALL SRCHTBF_C(IDN,IFV(II),ICFDP(1),MXCFDP,-1,
+     .                           CFMEANG,LCFMEANG,LCFMG,IERSF)
                   IF(IERSF.EQ.0) THEN
                      WRITE(LUOUT,FMT) IFV(II),' = ',CFMEANG(1:LCFMG)
                   ELSEIF(IERSF.LT.0) THEN
@@ -355,8 +356,8 @@ C                    the proper meaning from the code/flag tables.
                      IF(IERFT.EQ.0) THEN
                         IFVD = NINT(VAL(NOUT,LUN))
                         IF(JJ.GT.1) ICFDP(1) = ICFDP(JJ)
-                        CALL SRCHTBF(IDN,IFV(II),ICFDP,MXCFDP,IFVD,
-     .                               CFMEANG,LCFMEANG,LCFMG,IERSF)
+                        CALL SRCHTBF_C(IDN,IFV(II),ICFDP(1),MXCFDP,IFVD,
+     .                                 CFMEANG,LCFMEANG,LCFMG,IERSF)
                         IF(IERSF.EQ.0) THEN
                            WRITE(LUOUT,FMT) IFV(II),' = ',
      .                            CFMEANG(1:LCFMG)

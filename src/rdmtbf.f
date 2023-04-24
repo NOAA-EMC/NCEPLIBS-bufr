@@ -20,6 +20,8 @@ C>
 C> @author J. Ator @date 2017-10-17
         SUBROUTINE RDMTBF ( LUNSTF, LUNLTF )
 
+        use bufrlib
+
         CHARACTER*160   STLINE, LTLINE
         CHARACTER*128   BORT_STR
         CHARACTER*6     CMATCH, ADN30
@@ -35,7 +37,7 @@ C       local machine, just in case it hasn't already been called.
 C       Initialize the internal memory structure, including allocating
 C       space for it in case this hasn't already been done.
 
-        CALL INITTBF
+        CALL INITTBF_C
 
 C       Read and parse the header lines of both files.
 
@@ -69,7 +71,7 @@ C       contents into a unified internal memory structure.
 
 C       Sort the contents of the internal memory structure.
 
-        CALL SORTTBF
+        CALL SORTTBF_C
 
         RETURN
  900    WRITE(BORT_STR,'("BUFRLIB: RDMTBF - STANDARD AND LOCAL'//
