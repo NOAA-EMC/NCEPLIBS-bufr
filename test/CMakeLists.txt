@@ -152,7 +152,7 @@ endforeach()
 # Create some C tests.
 create_c_test_plain(test_c_misc)
 
-# The C bort test is not rul as a regular test, because it fails.
+# The C bort test is not run as a regular test, because it fails.
 set(test_name test_c_bort)
 add_executable(${test_name} ${test_name}.c)
 add_dependencies(${test_name} bufr_4)
