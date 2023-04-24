@@ -129,15 +129,6 @@ list(APPEND test_c_interface_srcs
   test_c_interface_2.c
 )
 
-# test_c_misc test.
-set(test_name test_c_misc)
-add_executable(${test_name} ${test_name}.c)
-add_dependencies(${test_name} bufr_4)
-target_link_libraries(${test_name} PRIVATE bufr::bufr_4)
-add_test(NAME ${test_name} COMMAND ${CMAKE_BINARY_DIR}/test/${test_name})
-
-create_c_test_plain(test_c_crwbmg)
-
 # Install testing scripts
 list(APPEND test_scripts
   test_outtest.sh
@@ -172,6 +163,7 @@ endforeach()
 
 # Create some C tests.
 create_c_test_plain(test_c_misc)
+create_c_test_plain(test_c_crwbmg)
 
 # The C bort test is not run as a regular test, because it fails.
 set(test_name test_c_bort)
