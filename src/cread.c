@@ -28,7 +28,7 @@
  */
 void
 openrb(int nfile, char *ufile) {
-   pb[nfile] = fopen( ufile, "rb " );
+   pb[nfile] = fopen(ufile, "rb ");
 }
 
 /**
