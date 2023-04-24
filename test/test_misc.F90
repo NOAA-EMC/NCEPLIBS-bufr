@@ -90,8 +90,6 @@ program test_misc
   call strnum('    ',num,iret)
   if ((iret .ne. 0) .or. (num .ne. 0)) stop 403
 
-
-
   ! These tests only for the _4 run of test_misc.
 #ifdef KIND_4
 
@@ -162,7 +160,6 @@ program test_misc
   if (igetprm('MXLCC') .ne. 32) stop 632
   if (igetprm('MXMSGL') .ne. 600000) stop 633
   if (igetprm('MAXJL') .ne. 96000) stop 634
-  
 #endif
   
   print *, 'SUCCESS'
