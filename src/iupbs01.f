@@ -10,7 +10,7 @@ C> This function returns a specified value from within Section 0 or
 C> Section 1 of a BUFR message.
 C>
 C> It will work on any BUFR message encoded using BUFR
-C> edition 2, 3, or 4.  It is similar to function iupvs01(), except
+C> edition 2, 3, or 4. It is similar to function iupvs01(), except
 C> that it operates on a BUFR message passed in via a memory array,
 C> whereas iupvs01() operates on the BUFR message that was read into
 C> internal arrays via the most recent call to any of the other

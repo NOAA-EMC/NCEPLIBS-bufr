@@ -82,11 +82,12 @@ endfunction()
 
 # This function builds, links, and runs an ordinary C test.
 function(create_c_test_plain name)
-  set(test_name "${name}")
-  add_executable(${test_name} ${test_name}.c)
-  add_dependencies(${test_name} bufr_4)
-  target_link_libraries(${test_name} PRIVATE bufr::bufr_4)
-  add_test(NAME ${test_name} COMMAND ${CMAKE_BINARY_DIR}/test/${test_name})
+  set(testID "${name}")
+  add_executable(${testID} ${name}.c)
+  target_link_libraries(${testID} PRIVATE bufr::bufr_4)
+  target_include_directories(${testID} PRIVATE "${CMAKE_BINARY_DIR}/src")
+  add_dependencies(${testID} bufr_4)
+  add_test(NAME ${testID} COMMAND ${testID})
 endfunction()
 
 # This function builds, links, and runs an intest or outtest program.
@@ -129,6 +130,11 @@ list(APPEND test_c_interface_srcs
   test_c_interface_2.c
 )
 
+# test_c_misc test.
+create_c_test_plain(test_c_misc)
+create_c_test_plain(test_c_cread)
+create_c_test_plain(test_c_crwbmg)
+
 # Install testing scripts
 list(APPEND test_scripts
   test_outtest.sh
@@ -160,10 +166,6 @@ foreach(kind ${test_kinds})
     create_test(outtest ${kind} ${outnum})
   endforeach()
 endforeach()
-
-# Create some C tests.
-create_c_test_plain(test_c_misc)
-create_c_test_plain(test_c_crwbmg)
 
 # The C bort test is not run as a regular test, because it fails.
 set(test_name test_c_bort)
