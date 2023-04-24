@@ -133,11 +133,17 @@ crdbufr(int nfile, int *bufr, int mxwrd) {
     if (fread(wkchr+4, 1, 4, pb[nfile]) != 4)
         return -1;
 
-    /* Determine the remaining number of bytes in the message. */
+    /* Determine the remaining number of bytes in the message. This
+     * doesn't include the first 8 bytes (i.e. the first 2 4-byte
+     * integers) of the BUFR message, because we've already read those
+     * in. */
     memcpy(wkint, wkchr, 8);
     nbytrem = iupbs01_f(wkint, "LENM") - 8;
 
-    /* Continue reading up to the last few bytes of the message. */
+    /* Continue reading up to the last few bytes of the message. The
+     * value of nintrem will always be at least 2 and no more than 3
+     * 4-byte integers short of the number needed to contain the
+     * entire BUFR message. */
     nintrem = nbytrem / nb;
     if (nintrem + 3 > mxwrd) {
         fsetpos(pb[nfile], &nxtpos);
@@ -151,7 +157,9 @@ crdbufr(int nfile, int *bufr, int mxwrd) {
     }
 
     /* Read the last few bytes of the message and check for the "7777"
-     * indicator. */
+     * indicator. We want to read the last few bytes of the messages
+     * byte-by-byte (rather than integer-by-integer) so that we can
+     * easily check for the ending "7777" string. */
     nbytrem = nb + nbytrem % nb;
     if (fread(wkchr, 1, nbytrem, pb[nfile]) != nbytrem) {
         fsetpos(pb[nfile], &nxtpos);
