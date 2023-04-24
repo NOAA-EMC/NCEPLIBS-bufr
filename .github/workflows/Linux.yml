@@ -41,7 +41,7 @@ jobs:
       uses: actions/cache@v2
       with:
         path: ~/data
-        key: data-5
+        key: data-6
 
     - name: build
       run: |
@@ -73,4 +73,3 @@ jobs:
       run: |
         mkdir ~/data
         cp $GITHUB_WORKSPACE/bufr/build/test/bufr-11.6.0.tgz ~/data
-        

@@ -84,7 +84,6 @@ endfunction()
 function(create_c_test_plain name)
   set(testID "${name}")
   add_executable(${testID} ${name}.c)
-  target_compile_definitions(${testID} PUBLIC -DKIND_${kind})
   target_link_libraries(${testID} PRIVATE bufr::bufr_4)
   target_include_directories(${testID} PRIVATE "${CMAKE_BINARY_DIR}/src")
   add_dependencies(${testID} bufr_4)
@@ -134,7 +133,6 @@ list(APPEND test_c_interface_srcs
 # test_c_misc test.
 create_c_test_plain(test_c_misc)
 create_c_test_plain(test_c_cread)
-
 create_c_test_plain(test_c_crwbmg)
 
 # Install testing scripts
@@ -164,10 +162,21 @@ foreach(kind ${test_kinds})
   foreach(innum RANGE 1 10)
     create_test(intest ${kind} ${innum})
   endforeach()
-  foreach(outnum RANGE 1 9)
+  foreach(outnum RANGE 1 10)
     create_test(outtest ${kind} ${outnum})
   endforeach()
 endforeach()
+
+# Create some C tests.
+create_c_test_plain(test_c_misc)
+create_c_test_plain(test_c_crwbmg)
+
+# The C bort test is not run as a regular test, because it fails.
+set(test_name test_c_bort)
+add_executable(${test_name} ${test_name}.c)
+add_dependencies(${test_name} bufr_4)
+target_link_libraries(${test_name} PRIVATE bufr::bufr_4)
+target_include_directories(${test_name} PRIVATE "${CMAKE_BINARY_DIR}/src")
 
 # c_interface tests
 foreach(test_src ${test_c_interface_srcs})
