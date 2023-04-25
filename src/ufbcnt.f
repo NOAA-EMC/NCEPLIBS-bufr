@@ -45,8 +45,8 @@ C> @author J. Woollen @date 1994-01-06
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
 
-C  CHECK FOR I8 INTEGERS
-C  ---------------------
+C     CHECK FOR I8 INTEGERS
+C     ---------------------
 
       IF(IM8B) THEN
          IM8B=.FALSE.
@@ -60,18 +60,18 @@ C  ---------------------
          RETURN
       ENDIF
 
-C  CHECK THE FILE STATUS - RETURN THE MESSAGE AND SUBSET COUNTERS
-C  --------------------------------------------------------------
+C     CHECK THE FILE STATUS - RETURN THE MESSAGE AND SUBSET COUNTERS
+C     --------------------------------------------------------------
 
       CALL STATUS(LUNIT,LUN,IL,IM)
       IF(IL.EQ.0) GOTO 900
       KMSG = NMSG(LUN)
       KSUB = NSUB(LUN)
 
-C  EXITS
-C  -----
+C     EXITS
+C     -----
 
       RETURN
-900   CALL BORT('BUFRLIB: UFBCNT - BUFR FILE IS CLOSED, IT MUST BE '//
-     . 'OPEN FOR EITHER INPUT OR OUTPUT')
+ 900  CALL BORT('BUFRLIB: UFBCNT - BUFR FILE IS CLOSED, IT MUST BE '//
+     .     'OPEN FOR EITHER INPUT OR OUTPUT')
       END

@@ -1,5 +1,5 @@
 C> @file
-C> @brief Read/write one or more data values from/to a data subset.
+C> @brief Read or write one or more data values from or to a data subset.
 C>
 C> @author J. Woollen @date 1994-01-06
 
@@ -149,8 +149,8 @@ C> @author J. Woollen @date 1994-01-06
 C----------------------------------------------------------------------
 C----------------------------------------------------------------------
 
-C  CHECK FOR I8 INTEGERS
-C  ---------------------
+C     CHECK FOR I8 INTEGERS
+C     ---------------------
 
       IF(IM8B) THEN
          IM8B=.FALSE.
@@ -167,8 +167,8 @@ C  ---------------------
 
       IRET = 0
 
-C  CHECK THE FILE STATUS AND I-NODE
-C  --------------------------------
+C     CHECK THE FILE STATUS AND I-NODE
+C     --------------------------------
 
       LUNIT = ABS(LUNIN)
       CALL STATUS(LUNIT,LUN,IL,IM)
@@ -181,60 +181,60 @@ C  --------------------------------
 
       IF(I1.LE.0) THEN
          IF(IPRT.GE.0) THEN
-      CALL ERRWRT('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
-      ERRSTR = 'BUFRLIB: UFBREP - 3rd ARG. (INPUT) IS .LE. 0, ' //
-     .   'SO RETURN WITH 5th ARG. (IRET) = 0; 6th ARG. (STR) ='
-      CALL ERRWRT(ERRSTR)
-      CALL ERRWRT(STR)
-      CALL ERRWRT('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
-      CALL ERRWRT(' ')
+            CALL ERRWRT('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
+            ERRSTR = 'BUFRLIB: UFBREP - 3rd ARG. (INPUT) IS .LE. 0, ' //
+     .           'SO RETURN WITH 5th ARG. (IRET) = 0; 6th ARG. (STR) ='
+            CALL ERRWRT(ERRSTR)
+            CALL ERRWRT(STR)
+            CALL ERRWRT('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
+            CALL ERRWRT(' ')
          ENDIF
          GOTO 100
       ELSEIF(I2.LE.0) THEN
          IF(IPRT.EQ.-1)  IFIRST1 = 1
          IF(IO.EQ.0 .OR. IFIRST1.EQ.0 .OR. IPRT.GE.1)  THEN
-      CALL ERRWRT('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
-      ERRSTR = 'BUFRLIB: UFBREP - 4th ARG. (INPUT) IS .LE. 0, ' //
-     .   'SO RETURN WITH 5th ARG. (IRET) = 0; 6th ARG. (STR) ='
-      CALL ERRWRT(ERRSTR)
-      CALL ERRWRT(STR)
+            CALL ERRWRT('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
+            ERRSTR = 'BUFRLIB: UFBREP - 4th ARG. (INPUT) IS .LE. 0, ' //
+     .           'SO RETURN WITH 5th ARG. (IRET) = 0; 6th ARG. (STR) ='
+            CALL ERRWRT(ERRSTR)
+            CALL ERRWRT(STR)
             IF(IPRT.EQ.0 .AND. IO.EQ.1) THEN
-      ERRSTR = 'Note: Only the first occurrence of this WARNING ' //
-     .   'message is printed, there may be more.  To output all ' //
-     .   'such messages,'
-      CALL ERRWRT(ERRSTR)
-      ERRSTR = 'modify your application program to add ' //
-     .   '"CALL OPENBF(0,''QUIET'',1)" prior to the first call ' //
-     .   'to a BUFRLIB routine.'
-      CALL ERRWRT(ERRSTR)
+               ERRSTR = 'Note: Only the first occurrence of this WARNING ' //
+     .'message is printed, there may be more.  To output all ' //
+     .'such messages,'
+               CALL ERRWRT(ERRSTR)
+               ERRSTR = 'modify your application program to add ' //
+     .              '"CALL OPENBF(0,''QUIET'',1)" prior to the first call ' //
+     .'to a BUFRLIB routine.'
+               CALL ERRWRT(ERRSTR)
             ENDIF
-      CALL ERRWRT('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
-      CALL ERRWRT(' ')
+            CALL ERRWRT('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
+            CALL ERRWRT(' ')
             IFIRST1 = 1
          ENDIF
          GOTO 100
       ENDIF
 
-C  INITIALIZE USR ARRAY PRECEEDING AN INPUT OPERATION
-C  --------------------------------------------------
+C     INITIALIZE USR ARRAY PRECEEDING AN INPUT OPERATION
+C     --------------------------------------------------
 
       IF(IO.EQ.0) THEN
          DO J=1,I2
-         DO I=1,I1
-         USR(I,J) = BMISS
-         ENDDO
+            DO I=1,I1
+               USR(I,J) = BMISS
+            ENDDO
          ENDDO
       ENDIF
 
-C  PARSE OR RECALL THE INPUT STRING - READ/WRITE VALUES
-C  ----------------------------------------------------
+C     PARSE OR RECALL THE INPUT STRING - READ/WRITE VALUES
+C     ----------------------------------------------------
 
       IA2 = IAC
       IAC = 1
       CALL STRING(STR,LUN,I1,IO)
 
-C  CALL THE MNEMONIC READER/WRITER
-C  -------------------------------
+C     CALL THE MNEMONIC READER/WRITER
+C     -------------------------------
 
       CALL UFBRP(LUN,USR,I1,I2,IO,IRET)
       IAC = IA2
@@ -244,55 +244,55 @@ C  -------------------------------
       IF(IRET.EQ.0)  THEN
          IF(IO.EQ.0) THEN
             IF(IPRT.GE.1)  THEN
-      CALL ERRWRT('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
-      ERRSTR = 'BUFRLIB: UFBREP - NO SPECIFIED VALUES READ IN, ' //
-     .   'SO RETURN WITH 5th ARG. (IRET) = 0; 6th ARG. (STR) ='
-      CALL ERRWRT(ERRSTR)
-      CALL ERRWRT(STR)
-      CALL ERRWRT('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
-      CALL ERRWRT(' ')
+               CALL ERRWRT('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
+               ERRSTR = 'BUFRLIB: UFBREP - NO SPECIFIED VALUES READ IN, ' //
+     .'SO RETURN WITH 5th ARG. (IRET) = 0; 6th ARG. (STR) ='
+               CALL ERRWRT(ERRSTR)
+               CALL ERRWRT(STR)
+               CALL ERRWRT('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
+               CALL ERRWRT(' ')
             ENDIF
          ELSE
             IF(IPRT.EQ.-1)  IFIRST2 = 1
             IF(IFIRST2.EQ.0 .OR. IPRT.GE.1)  THEN
-      CALL ERRWRT('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
-      ERRSTR = 'BUFRLIB: UFBREP - NO SPECIFIED VALUES WRITTEN OUT, ' //
-     .   'SO RETURN WITH 5th ARG. (IRET) = 0; 6th ARG. (STR) ='
-      CALL ERRWRT(ERRSTR)
-      CALL ERRWRT(STR)
-      CALL ERRWRT('MAY NOT BE IN THE BUFR TABLE(?)')
+               CALL ERRWRT('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
+               ERRSTR = 'BUFRLIB: UFBREP - NO SPECIFIED VALUES WRITTEN OUT, ' //
+     .'SO RETURN WITH 5th ARG. (IRET) = 0; 6th ARG. (STR) ='
+               CALL ERRWRT(ERRSTR)
+               CALL ERRWRT(STR)
+               CALL ERRWRT('MAY NOT BE IN THE BUFR TABLE(?)')
                IF(IPRT.EQ.0) THEN
-      ERRSTR = 'Note: Only the first occurrence of this WARNING ' //
-     .   'message is printed, there may be more.  To output all ' //
-     .   'such messages,'
-      CALL ERRWRT(ERRSTR)
-      ERRSTR = 'modify your application program to add ' //
-     .   '"CALL OPENBF(0,''QUIET'',1)" prior to the first call ' //
-     .   'to a BUFRLIB routine.'
-      CALL ERRWRT(ERRSTR)
+                  ERRSTR = 'Note: Only the first occurrence of this WARNING ' //
+     .'message is printed, there may be more.  To output all ' //
+     .'such messages,'
+                  CALL ERRWRT(ERRSTR)
+                  ERRSTR = 'modify your application program to add ' //
+     .                 '"CALL OPENBF(0,''QUIET'',1)" prior to the first call ' //
+     .'to a BUFRLIB routine.'
+                  CALL ERRWRT(ERRSTR)
                ENDIF
-      CALL ERRWRT('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
-      CALL ERRWRT(' ')
+               CALL ERRWRT('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
+               CALL ERRWRT(' ')
                IFIRST2 = 1
             ENDIF
          ENDIF
       ENDIF
 
-C  EXITS
-C  -----
+C     EXITS
+C     -----
 
-100   RETURN
-900   CALL BORT('BUFRLIB: UFBREP - BUFR FILE IS CLOSED, IT MUST BE'//
-     . ' OPEN')
-901   CALL BORT('BUFRLIB: UFBREP - A MESSAGE MUST BE OPEN IN BUFR '//
-     . 'FILE, NONE ARE')
-902   CALL BORT('BUFRLIB: UFBREP - LOCATION OF INTERNAL TABLE FOR '//
-     . 'BUFR FILE DOES NOT AGREE WITH EXPECTED LOCATION IN INTERNAL '//
-     . 'SUBSET ARRAY')
-903   WRITE(BORT_STR1,'("BUFRLIB: UFBREP - MNEMONIC STRING READ IN IS'//
-     . ': ",A)') STR
+ 100  RETURN
+ 900  CALL BORT('BUFRLIB: UFBREP - BUFR FILE IS CLOSED, IT MUST BE'//
+     .     ' OPEN')
+ 901  CALL BORT('BUFRLIB: UFBREP - A MESSAGE MUST BE OPEN IN BUFR '//
+     .     'FILE, NONE ARE')
+ 902  CALL BORT('BUFRLIB: UFBREP - LOCATION OF INTERNAL TABLE FOR '//
+     .     'BUFR FILE DOES NOT AGREE WITH EXPECTED LOCATION IN INTERNAL '//
+     .'SUBSET ARRAY')
+ 903  WRITE(BORT_STR1,'("BUFRLIB: UFBREP - MNEMONIC STRING READ IN IS'//
+     .     ': ",A)') STR
       WRITE(BORT_STR2,'(18X,"THE NUMBER OF ''LEVELS'' ACTUALLY '//
-     . 'WRITTEN (",I3,") LESS THAN THE NUMBER REQUESTED (",I3,") - '//
-     . 'INCOMPLETE WRITE")')  IRET,I2
+     .     'WRITTEN (",I3,") LESS THAN THE NUMBER REQUESTED (",I3,") - '//
+     .     'INCOMPLETE WRITE")')  IRET,I2
       CALL BORT2(BORT_STR1,BORT_STR2)
       END
