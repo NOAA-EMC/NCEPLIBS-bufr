@@ -14,6 +14,7 @@ program test_misc
   integer mbay(2)
   character*8 subset
   integer iupb
+  integer isbyt, iwid
   
 #ifdef KIND_4
   character*5 char5
@@ -65,6 +66,16 @@ program test_misc
   mbay(1) = 1
   mbay(2) = 2
   if (iupb(mbay, 1, 1) .ne. 0) stop 11
+
+  ! Test gets1loc for YCEN and CENT positions
+  call gets1loc('YCEN', 4, isbyt, iwid, iret)
+  if ( any((/isbyt,iwid,iret/).ne.(/0,8,-1/)) ) stop 12
+  call gets1loc('CENT', 4, isbyt, iwid, iret)
+  if ( any((/isbyt,iwid,iret/).ne.(/0,8,-1/)) ) stop 13
+  call gets1loc('YCEN', 3, isbyt, iwid, iret)
+  if ( any((/isbyt,iwid,iret/).ne.(/13,8,0/)) ) stop 14
+  call gets1loc('CENT', 3, isbyt, iwid, iret)
+  if ( any((/isbyt,iwid,iret/).ne.(/18,8,0/)) ) stop 15
   
   ! Open for OUT.
   ! This fails but I don't know why yet. I get a bort() message that contains:
