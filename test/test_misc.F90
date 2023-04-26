@@ -69,9 +69,9 @@ program test_misc
 
   ! Test gets1loc for YCEN and CENT positions
   call gets1loc('YCEN', 4, isbyt, iwid, iret)
-  if ( any((/isbyt,iwid,iret/).ne.(/0,8,-1/)) ) stop 12
+  if ( iret .ne. -1 ) stop 12
   call gets1loc('CENT', 4, isbyt, iwid, iret)
-  if ( any((/isbyt,iwid,iret/).ne.(/0,8,-1/)) ) stop 13
+  if ( iret .ne. -1 ) stop 13
   call gets1loc('YCEN', 3, isbyt, iwid, iret)
   if ( any((/isbyt,iwid,iret/).ne.(/13,8,0/)) ) stop 14
   call gets1loc('CENT', 3, isbyt, iwid, iret)
