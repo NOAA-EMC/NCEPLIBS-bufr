@@ -113,8 +113,8 @@ closfb(int nfile) {
 int
 crdbufr(int nfile, int *bufr, int mxwrd) {
 
-    int nbytrem, nintrem, wkint[2];
-    size_t nb = sizeof(int);
+    int nbytrem, nintrem, nbytx, nintx, wkint[2], ii;
+    size_t nb = sizeof(int), nbdi8 = 8/sizeof(int);
     char wkchr[17] = "                ";
     fpos_t nxtpos;
 
@@ -133,34 +133,42 @@ crdbufr(int nfile, int *bufr, int mxwrd) {
     if (fread(wkchr+4, 1, 4, pb[nfile]) != 4)
         return -1;
 
-    /* Determine the remaining number of bytes in the message. This
-     * doesn't include the first 8 bytes (i.e. the first 2 4-byte
-     * integers) of the BUFR message, because we've already read those
-     * in. */
+    /* Determine the remaining number of bytes in the message. This doesn't
+     * include the first 8 bytes, because we've already read those in. */
     memcpy(wkint, wkchr, 8);
     nbytrem = iupbs01_f(wkint, "LENM") - 8;
 
-    /* Continue reading up to the last few bytes of the message. The
-     * value of nintrem will always be at least 2 and no more than 3
-     * 4-byte integers short of the number needed to contain the
-     * entire BUFR message. */
     nintrem = nbytrem / nb;
-    if (nintrem + 3 > mxwrd) {
+    nintx = nbdi8;
+    /* Since nbytrem doesn't include the first 8 bytes of the BUFR message, then
+     * nintrem is at least nintx integers short of the number needed to hold the
+     * entire message.  But there may still be one more integer needed beyond
+     * that, depending on whether nbytrem is an exact multiple of nb. */
+    if ( ( nbytx = nbytrem % nb ) > 0 ) {
+        nintx += 1;
+    }
+    /* Make sure the output array is large enough to hold the entire message. */
+    if (nintrem + nintx > mxwrd) {
         fsetpos(pb[nfile], &nxtpos);
         return -3;
     }
-    bufr[0] = wkint[0];
-    bufr[1] = wkint[1];
-    if (fread(&bufr[2], nb, nintrem-1, pb[nfile]) != nintrem-1) {
+
+    /* Copy the first 8 bytes of the BUFR message into the output array. */
+    for ( ii = 0; ii < nbdi8; ii++ ) {
+        bufr[ii] = wkint[ii];
+    }
+    /* Continue reading up to the next-to-last integer of the BUFR message,
+     * and copy these into the output array. */
+    if (fread(&bufr[ii], nb, nintrem-1, pb[nfile]) != nintrem-1) {
         fsetpos(pb[nfile],&nxtpos);
         return -2;
     }
 
-    /* Read the last few bytes of the message and check for the "7777"
-     * indicator. We want to read the last few bytes of the messages
-     * byte-by-byte (rather than integer-by-integer) so that we can
-     * easily check for the ending "7777" string. */
-    nbytrem = nb + nbytrem % nb;
+    /* Read the last few bytes of the BUFR message and check for the "7777"
+     * indicator. We want to read the end of the message byte-by-byte
+     * (rather than integer-by-integer) so that we can easily check for the
+     * ending "7777" string. */
+    nbytrem = nb + nbytx;
     if (fread(wkchr, 1, nbytrem, pb[nfile]) != nbytrem) {
         fsetpos(pb[nfile], &nxtpos);
         return -2;
@@ -169,9 +177,10 @@ crdbufr(int nfile, int *bufr, int mxwrd) {
         fsetpos(pb[nfile], &nxtpos);
         return -2;
     }
-    memcpy(wkint, wkchr, 8);
+    /* Copy the last few bytes of the BUFR message into the output array. */
+    memcpy(wkint, wkchr, nbytrem);
     bufr[nintrem + 1] = wkint[0];
-    bufr[nintrem + 2] = wkint[1];
+    if ( nbytx > 0 ) bufr[nintrem + 2] = wkint[1];
 
     return 0;
 }
@@ -188,8 +197,7 @@ crdbufr(int nfile, int *bufr, int mxwrd) {
  */
 void
 cwrbufr(int nfile, int *bufr, int nwrd) {
-    int nb;
+    size_t nb = sizeof(int);
 
-    nb = sizeof(*bufr);
     fwrite(bufr, nb, nwrd, pb[nfile]);
 }
