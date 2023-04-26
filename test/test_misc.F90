@@ -76,6 +76,9 @@ program test_misc
   if ( any((/isbyt,iwid,iret/).ne.(/13,8,0/)) ) stop 14
   call gets1loc('CENT', 3, isbyt, iwid, iret)
   if ( any((/isbyt,iwid,iret/).ne.(/18,8,0/)) ) stop 15
+  ! Nonexistent Section 1 value deisgnation should return -1
+  call gets1loc('NONEXISTENT', 3, isbyt, iwid, iret)
+  if ( iret .ne. -1 ) stop 16
   
   ! Open for OUT.
   ! This fails but I don't know why yet. I get a bort() message that contains:
