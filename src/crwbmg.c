@@ -184,9 +184,9 @@ cobfl(char *bfl, char io)
  * This function is designed to be easily callable from application
  * program written in either C or Fortran.
  *
+ * @param bmg - BUFR message
  * @param mxmb - Number of elements in bmg array;; used by the
  * function to ensure that it doesn't overflow the array.
- * @param bmg - BUFR message
  * @param nmb - Size (in bytes) of BUFR message in bmg.
  * @param iret - return code:
  * - 0 normal return.

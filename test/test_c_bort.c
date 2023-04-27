@@ -28,6 +28,8 @@ void wrdesc(f77int desc, f77int *descary, f77int *ndescary);
 int main(int argc, char **argv)
 {
     f77int descary, ndescary = 100000;
+    char bmg[200];
+    int nmb, iret;
 
     /* 2 command line arguments are required (argv[0] is the program
      * name). */
@@ -44,6 +46,16 @@ int main(int argc, char **argv)
             cobfl(TESTFILE_IN1, 'x');
         else if (!strcmp(argv[2], "3"))
             cobfl(BAD_TESTFILE, 'r');
+    }
+    else if (!strcmp(argv[1], "crbmg"))
+    {
+        if (!strcmp(argv[2], "1"))
+            crbmg(bmg, 1, &nmb, &iret);
+    }
+    else if (!strcmp(argv[1], "cwbmg"))
+    {
+        if (!strcmp(argv[2], "1"))
+            cwbmg(bmg, 1, &iret);
     }
     else if (!strcmp(argv[1], "wrdesc"))
     {
