@@ -19,18 +19,21 @@
  * themselves Table D descriptors are automatically resolved via a
  * recursive call to this same subroutine.
  *
- * @param[in] lun - File ID.
- * @param[in,out] irepct - Replication sequence counter for the current
- * master table; used internally to keep track of which sequence names have
- * already been defined, and thereby avoid contention within the internal
- * DX BUFR Table D.
- * @param[in] idn - Bit-wise representation of FXY value for WMO-standard
- * Table D descriptor
- * @param[in] nemo - Mnemonic corresponding to idn.
- * @param[in] cseq - Description corresponding to idn.
- * @param[in] cdesc - Array of WMO-standard child descriptors equivalent
+ * For an description of the WMO bit-wise representation of the FXY
+ * value, see ifxy().
+ *
+ * @param lun - Pointer that points to a File ID.
+ * @param irepct - Pointer to replication sequence counter for the
+ * current master table; used internally to keep track of which
+ * sequence names have already been defined, and thereby avoid
+ * contention within the internal DX BUFR Table D.
+ * @param idn - Pointerto the WMO bit-wise representation of FXY value
+ * for WMO-standard Table D descriptor
+ * @param nemo - Mnemonic corresponding to idn.
+ * @param cseq - Description corresponding to idn.
+ * @param cdesc - Array of WMO-standard child descriptors equivalent
  * to idn.
- * @param[in] ncdesc - Number of WMO-standard child descriptors in cdesc.
+ * @param ncdesc - Number of WMO-standard child descriptors in cdesc.
  *
  * @author J. Ator @date 2009-03-23
  */
