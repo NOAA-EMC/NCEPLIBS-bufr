@@ -41,7 +41,7 @@ jobs:
       uses: actions/cache@v2
       with:
         path: ~/data
-        key: data-6
+        key: data-7
 
     - name: build
       run: |
