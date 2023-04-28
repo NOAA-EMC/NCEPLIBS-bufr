@@ -304,7 +304,15 @@ for kind in "4" "d"; do
 done
 
 # Now test the C borts().
-(./test_c_bort) && exit 1
+(./test_c_bort cobfl 1) && exit 1
+(./test_c_bort cobfl 2) && exit 1
+(./test_c_bort cobfl 3) && exit 1
+
+(./test_c_bort crbmg 1) && exit 1
+
+(./test_c_bort cwbmg 1) && exit 1
+
+(./test_c_bort wrdesc 1) && exit 1
 
 # If we made it here, all error codes were correctly returned, and the
 # test passed!
