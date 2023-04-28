@@ -11,9 +11,9 @@ program outtest8
   integer, parameter :: mxbf = 28000
   integer, parameter :: mxbfd4 = mxbf/4
 
-  integer ibfmg(mxbfd4), imgdt, mtyp, lenbmg
+  integer ibfmg(mxbfd4), imgdt, mtyp, lenbmg, imtvo, imtvn, iusno, iusnn
 
-  integer*4 ireadns
+  integer*4 ireadns, iupbs01
   integer*4 nbyt, ierw
 
   character bfmg(mxbf)
@@ -74,6 +74,15 @@ program outtest8
   nbyt = lenbmg * 4
 #endif
   call cwbmg_c ( bfmg, nbyt, ierw )
+
+  ! Try overwriting a couple of values in Section 1 of the memory copy of the message.
+  imtvo = iupbs01( ibfmg, 'MTV' )
+  call pkbs1( 39, ibfmg, 'MTV' )
+  imtvn = iupbs01( ibfmg, 'MTV' )
+  iusno = iupbs01( ibfmg, 'USN' )
+  call pkbs1( 1, ibfmg, 'USN' )
+  iusnn = iupbs01( ibfmg, 'USN' )
+  if ( any( (/imtvo,imtvn,iusno,iusnn/) .ne. (/36,39,0,1/) ) ) stop 4
 
   ! Close the output file.
   call ccbfl_c()

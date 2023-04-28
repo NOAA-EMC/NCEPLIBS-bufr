@@ -225,11 +225,11 @@ module moda_h4wlc
   !> Number of long character strings being stored.
   integer :: NH4WLC
   !> I/O stream index into internal arrays for associated output file.
-  integer :: LUH4WLC(MXH4WLC)
+  integer, allocatable :: LUH4WLC(:)
   !> Table B mnemonics associated with long character strings.
-  character*14 :: STH4WLC(MXH4WLC)
+  character*14, allocatable :: STH4WLC(:)
   !> Long character strings.
-  character*120 :: CHH4WLC(MXH4WLC)
+  character*120, allocatable :: CHH4WLC(:)
 end module moda_h4wlc
 
 !> This module contains a declaration for an array used by subroutine

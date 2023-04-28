@@ -174,6 +174,7 @@ program test_misc
   if (igetprm('MXLCC') .ne. 32) stop 632
   if (igetprm('MXMSGL') .ne. 600000) stop 633
   if (igetprm('MAXJL') .ne. 96000) stop 634
+  if (igetprm('MXH4WLC') .ne. 10) stop 635
 #endif
   
   print *, 'SUCCESS'
