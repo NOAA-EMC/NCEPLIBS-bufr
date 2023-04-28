@@ -21,10 +21,17 @@ program test_ufbcup
 
   ! Open output file.
   open(unit = 12, file = 'test_ufbcup_out', form ='unformatted')
-  call openbf(12, 'IN', 12)
+  call openbf(12, 'OUT', 11)
 
+  ! Read a message.
   call readmg(11, subset, jdate, iret)
   print *, subset, jdate, iret
+
+  ! Load a subset of data.
+  call readsb(11, iret)
+  print *, iret
+
+  ! Call ufbcup.
   call ufbcup(11, 12)
 
   ! Close files.
