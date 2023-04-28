@@ -37,6 +37,7 @@ C> @author J. Ator @date 2014-12-04
         USE MODV_MXS01V
         USE MODV_MXTAMC
         USE MODV_MXTCO
+        USE MODV_MXH4WLC
         USE MODV_NFILES
 
         USE MODA_USRINT
@@ -72,6 +73,7 @@ C> @author J. Ator @date 2014-12-04
         USE MODA_BITMAPS
         USE MODA_NRV203
         USE MODA_RLCCMN
+        USE MODA_H4WLC
 
         CHARACTER*80 ERRSTR
         CHARACTER*36  BRTSTR
@@ -130,6 +132,8 @@ C-----------------------------------------------------------------------
             WRITE ( ERRSTR, '(A,I4)' ) '    MXBTM = ', MXBTM
             CALL ERRWRT(ERRSTR)
             WRITE ( ERRSTR, '(A,I4)' ) '  MXBTMSE = ', MXBTMSE
+            CALL ERRWRT(ERRSTR)
+            WRITE ( ERRSTR, '(A,I4)' ) '  MXH4WLC = ', MXH4WLC
             CALL ERRWRT(ERRSTR)
             WRITE ( ERRSTR, '(A,I4)' ) '    MXRST = ', MXRST
             CALL ERRWRT(ERRSTR)
@@ -561,6 +565,17 @@ C       MODA_RLCCMN arrays.
 
         ALLOCATE( CRTAG(MXRST), STAT=iost )
         IF ( iost .ne. 0 ) CALL BORT( BRTSTR // 'CRTAG' )
+
+C       MODA_H4WLC arrays.
+
+        ALLOCATE( LUH4WLC(MXH4WLC), STAT=iost )
+        IF ( iost .ne. 0 ) CALL BORT( BRTSTR // 'LUH4WLC' )
+
+        ALLOCATE( STH4WLC(MXH4WLC), STAT=iost )
+        IF ( iost .ne. 0 ) CALL BORT( BRTSTR // 'STH4WLC' )
+
+        ALLOCATE( CHH4WLC(MXH4WLC), STAT=iost )
+        IF ( iost .ne. 0 ) CALL BORT( BRTSTR // 'CHH4WLC' )
 
         RETURN
         END
