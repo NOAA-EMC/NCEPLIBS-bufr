@@ -25,12 +25,14 @@ program test_ufbcup
 
   ! Read a message.
   call readmg(11, subset, jdate, iret)
-  if (iret .ne. 0 .or. subset .ne. ' ADPSFC') stop 10
-  print *, subset, jdate, iret
+  if (iret .ne. 0 .or. subset .ne. 'ADPSFC' .or. jdate .ne. 23022519) stop 10
 
   ! Load a subset of data.
   call readsb(11, iret)
-  print *, iret
+  if (iret .ne. 0) stop 20
+
+  ! Create a new message in the output file.
+  call openmg(12, subset, jdate)
 
   ! Call ufbcup.
   call ufbcup(11, 12)
