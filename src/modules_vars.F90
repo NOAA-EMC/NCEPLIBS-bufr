@@ -231,7 +231,7 @@ module modv_mxh4wlc
   !> Maximum number of long character strings that can be held for
   !> writing into an uncompressed BUFR subset by future internal calls
   !> to subroutine writlc().
-  integer, parameter, public :: MXH4WLC = 10
+  integer :: MXH4WLC = 10
 end module modv_mxh4wlc
 
 !> This module declares and initializes the MXLCC variable.

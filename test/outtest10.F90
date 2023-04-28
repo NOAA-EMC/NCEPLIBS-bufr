@@ -35,12 +35,11 @@ program outtest10
 
   implicit none
 
-  integer*4 ireadmg
+  integer*4 ireadmg, isetprm
 
   integer iostat1, iostat2, iostat3, iostat4, mesgtyp, icomp, jdate, mgct, iret
-!  integer iostat1, iostat2, iostat3, iostat4, jdate, mgct, iret
 
-  character subset*8
+  character subset*8, wgoslid*16, softv*12
 
   print *, 'Testing writing OUT_10 with subsets larger than 65530 bytes and non-matching BUFR DX tables'
 
@@ -57,27 +56,31 @@ program outtest10
   open ( unit = 50, file = 'out10.bufr', form = 'unformatted', iostat = iostat4 )
   if ( ( iostat1 .ne. 0 ) .or. ( iostat2 .ne. 0 ) .or. ( iostat3 .ne. 0 ) .or. ( iostat4 .ne. 0 ) ) stop 1
 
+  ! Set an arbitrarily low maximum value for a global parameter.
+  if ( isetprm ( 'MXH4WLC', 1 ) .ne. 0 ) stop 2
+
   ! Get some information from infile1.
   call mesgbc ( 21, mesgtyp, icomp )
-  if ( ( mesgtyp .ne. -11 ) .or. ( icomp .ne. -2 ) ) stop 2
+  if ( ( mesgtyp .ne. -11 ) .or. ( icomp .ne. -2 ) ) stop 3
 
   ! (Re)open infile1 since the call to mesgbc will have closed it.
   rewind ( 21 )
   open ( unit = 21, file = 'testfiles/OUT_10_infile1', iostat = iostat1 )
-  if ( iostat1 .ne. 0 ) stop 3
+  if ( iostat1 .ne. 0 ) stop 4
 
   ! Open infile2 and the output file to the library.
   call openbf ( 21, 'IN', 21 )
   call openbf ( 22, 'IN', 23 )
-  call maxout ( 150000 )
+  call maxout ( 105000 )
   call openbf ( 50, 'OUT', 21 )
 
   ! Turn on verbose output so can check error strings.
   call openbf ( 21, 'QUIET', 1 )
 
-  ! Copy 5 data subsets from infile2 to the output file.  Each data subset is inside of its own message,
-  ! even though only subsets 1, 3, and 5 are larger than 65530 bytes.  The first 3 copies will exercise
-  ! logic in cpyupd, and the last 2 will exercise logic in msgupd. 
+  ! Try to copy 8 data subsets from infile2 to the output file.  Each data subset is inside of its own message,
+  ! even though only subsets 1, 3, 5, 7, and 8 are larger than 65530 bytes.  The first 3 copies will exercise
+  ! logic in cpyupd, and the last 5 will exercise logic in msgupd.  The copy of subset 8 should fail because
+  ! it is larger than the 120000 byte message limit that was passed into maxout.
   mgct = 0
   do while ( ireadmg ( 22, subset, jdate ) .eq. 0 )
     mgct = mgct + 1
@@ -85,16 +88,31 @@ program outtest10
     call openmb ( 50, subset, jdate )
     if ( mgct .le. 3 ) then
       call copysb ( 22, 50, iret )
-      if ( iret .ne. 0 ) stop 4
+      if ( iret .ne. 0 ) stop 5
       if ( ( mod(mgct,2) .eq. 1 ) .and. &
-             index( errstr(1:errstr_len), 'CPYUPD - SUBSET HAS BYTE COUNT =' ) .eq. 0 ) stop 5
+             index( errstr(1:errstr_len), 'CPYUPD - SUBSET HAS BYTE COUNT =' ) .eq. 0 ) stop 6
     else
       call readsb ( 22, iret )
-      if ( iret .ne. 0 ) stop 6
+      if ( iret .ne. 0 ) stop 7
       call ufbcpy ( 22, 50 )
+      if ( mgct .eq. 4 ) then
+          ! Store a long character string.
+          wgoslid = 'OUTTEST10 DUMMY1'
+          call hold4wlc ( 50, wgoslid, 'WGOSLID' )
+          ! Overwrite the previous value.
+          wgoslid = 'OUTTEST10 DUMMY2'
+          call hold4wlc ( 50, wgoslid, 'WGOSLID' )
+          ! Now try storing a 2nd long character string which should generate an error, since MXH4WLC
+          ! was set to a value of 1.
+          softv =   'X.Y.Z       '
+          call hold4wlc ( 50, softv, 'SOFTV' )
+          if ( index( errstr(1:errstr_len), 'HOLD4WLC - THE MAXIMUM NUMBER' ) .eq. 0 ) stop 8
+      end if
       call writsb ( 50 )
       if ( ( mod(mgct,2) .eq. 1 ) .and. &
-             index( errstr(1:errstr_len), 'MSGUPD - SUBSET HAS BYTE COUNT =' ) .eq. 0 ) stop 7
+             index( errstr(1:errstr_len), 'MSGUPD - SUBSET HAS BYTE COUNT =' ) .eq. 0 ) stop 9
+      if ( ( mgct .eq. 8 ) .and. &
+             index( errstr(1:errstr_len), 'MSGUPD - SUBSET LONGER THAN ANY POSSIBLE MESSAGE' ) .eq. 0 ) stop 10
     end if
   end do
 
