@@ -25,6 +25,7 @@ program test_ufbcup
 
   ! Read a message.
   call readmg(11, subset, jdate, iret)
+  if (iret .ne. 0 .or. subset .ne. ' ADPSFC') stop 10
   print *, subset, jdate, iret
 
   ! Load a subset of data.
