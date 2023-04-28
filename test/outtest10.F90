@@ -71,7 +71,7 @@ program outtest10
   ! Open infile2 and the output file to the library.
   call openbf ( 21, 'IN', 21 )
   call openbf ( 22, 'IN', 23 )
-  call maxout ( 120000 )
+  call maxout ( 105000 )
   call openbf ( 50, 'OUT', 21 )
 
   ! Turn on verbose output so can check error strings.
