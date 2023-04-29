@@ -45,6 +45,7 @@ C> @author J. Ator @date 2014-12-04
         USE MODA_BITMAPS
         USE MODA_NRV203
         USE MODA_RLCCMN
+        USE MODA_H4WLC
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
@@ -262,6 +263,12 @@ C       MODA_RLCCMN arrays.
         DEALLOCATE( IRNCH )
         DEALLOCATE( IRBIT )
         DEALLOCATE( CRTAG )
+
+C       MODA_H4WLC arrays.
+
+        DEALLOCATE( LUH4WLC )
+        DEALLOCATE( STH4WLC )
+        DEALLOCATE( CHH4WLC )
 
 C       C language arrays.
 
