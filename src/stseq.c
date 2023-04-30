@@ -25,10 +25,10 @@
  * @param lun - Pointer that points to a File ID.
  * @param irepct - Pointer to replication sequence counter for the
  * current master table; used internally to keep track of which
- * sequence names have already been defined, and thereby avoid
+ * sequence names have already been defined, and avoid
  * contention within the internal DX BUFR Table D.
  * @param idn - Pointer to the WMO bit-wise representation of FXY value
- * for WMO-standard Table D descriptor
+ * for WMO-standard Table D descriptor.
  * @param nemo - Mnemonic corresponding to idn.
  * @param cseq - Description corresponding to idn.
  * @param cdesc - Array of WMO-standard child descriptors equivalent
