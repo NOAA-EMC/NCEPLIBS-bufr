@@ -55,7 +55,6 @@ program test_ufbcup
   call ufbint(12, hdr, 1, 1, iret, 'IREC')
   print *, hdr(1,1)
   if (hdr(1,1) .ne. 100000000000.00000_8) stop 30
-
   
 !  call openbf(12, 'IN', 12)
 
