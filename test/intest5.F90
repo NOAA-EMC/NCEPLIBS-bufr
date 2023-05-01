@@ -17,7 +17,7 @@ program intest5
 
   real*8 r8vals ( mxr8pm, mxr8lv ), r81dvals ( mxr8pm )
 
-  character cmgtag*8, cmeang*40
+  character cmgtag*8, cmeang*40, cmeang_short*5
 
   print *, 'Testing reading IN_5, using UFBGET and UFBINX, and checking PREPBUFR code/flag table meaning strings.'
 
@@ -54,6 +54,14 @@ program intest5
   if ( ( ier .ne. 3 ) .or. ( lcmg .ne. 24 ) .or. ( cmeang(1:lcmg) .ne. 'GCLONG  OGCE    ORIGC   ' ) ) stop 5
   call getcfmng ( 11, 'GSES', 10, 'GCLONG', 173, cmeang, lcmg, ier )
   if ( ( ier .ne. 0 ) .or. ( lcmg .ne. 20 ) .or. ( cmeang(1:lcmg) .ne. 'Stennis Space Center' ) ) stop 6
+  call getcfmng ( 11, 'GCLONG', 10, ' ', -1, cmeang, lcmg, ier )
+  if ( ( ier .ne. 0 ) .or. ( lcmg .ne. 12 ) .or. (cmeang(1:lcmg) .ne. 'Cairo (RSMC)') ) stop 7
+  call getcfmng ( 11, 'OGCE', 241, ' ', -1, cmeang, lcmg, ier )
+  if ( ( ier .ne. 0 ) .or. ( lcmg .ne. 6 ) .or. (cmeang(1:lcmg) .ne. 'Monaco') ) stop 8
+  call getcfmng ( 11, 'TABLASS', 0, ' ', -1, cmeang, lcmg, ier )
+  if ( ( ier .ne. 1 ) .or. ( lcmg .ne. 8 ) .or. (cmeang(1:lcmg) .ne. 'TABLAT  ') ) stop 9
+  call getcfmng ( 11, 'TABLASS', 0, ' ', -1, cmeang_short, lcmg, ier )
+  if ( ( ier .ne. -1 ) .or. ( lcmg .ne. 5 ) .or. (cmeag_short(1:lcmg) .ne. 'TABLA') ) stop 10
 
   ! Read and verify some values from the 2nd data subset of the 2nd message.
   call ufbinx ( 11, 2, 2, r8vals, mxr8pm, mxr8lv, nlv, 'CLAM CLTP' )
