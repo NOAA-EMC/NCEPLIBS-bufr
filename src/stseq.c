@@ -8,7 +8,7 @@
 #include "bufrlib.h"
 #include "mstabs.h"
 
-/* Size of a character string needed to store an FXY value. */
+/** Size of a character string needed to store an FXY value. */
 static const int FXY_STR_LEN = 7;
 
 /**
