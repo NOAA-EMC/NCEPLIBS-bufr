@@ -8,6 +8,82 @@
 #include "bufrlib.h"
 #include "mstabs.h"
 
+/* Size of a character string needed to store an FXY value. */
+static const int FXY_STR_LEN = 7;
+
+/**
+ * Define a comparison between two integers.
+ *
+ * This routine defines a comparison between two integers
+ * for use by the binary search function bsearch.
+ *
+ * @param pf1 - first integer to be compared.
+ * @param pf2 - second integer to be compared.
+ *
+ * @return
+ * - -1 PF1 is less than PF2
+ * - 0 PF1 is equal to PF2
+ * - 1 PF1 is greater than PF2
+ *
+ * @author Ator @date 2009-03-23
+ */
+int
+cmpia(const void *pf1, const void *pf2)
+{
+        int *mypf1 = ( int * ) pf1;
+        int *mypf2 = ( int * ) pf2;
+
+        if ( *mypf1 == *mypf2 ) return 0;
+
+        return ( *mypf1 < *mypf2 ? -1 : 1 );
+}
+
+/**
+ * Search for an entry in the BUFR master table.
+ *
+ * This routine searches for an entry corresponding to idn in the bufr
+ * master table (either 'B' or 'D', depending on the value of idn).
+ * The search uses binary search logic, so all of the entries in the
+ * table must be sorted in ascending order (by FXY number) in order
+ * for this routine to work properly.
+ *
+ * @param idn - bit-wise representation of FXY number to be searched for.
+ * @param tab - table in which idn was found ('B' or 'D').
+ * @param ipt - index of entry for idn in master table tab.
+ *
+ * @author J Ator @date 2009-03-23
+*/
+void
+nummtb(int *idn, char *tab, int *ipt)
+{
+        int *pifxyn, *pbs,  nmt;
+
+        char adn[FXY_STR_LEN], errstr[129];
+
+        if ( *idn >= ifxy( "300000", 6 ) ) {
+            *tab = 'D';
+            pifxyn = &idfxyn_c[0];
+            nmt = nmtd_c;
+        }
+        else {
+            *tab = 'B';
+            pifxyn = &ibfxyn_c[0];
+            nmt = nmtb_c;
+        }
+
+        pbs = bsearch( idn, pifxyn, ( size_t ) nmt, sizeof( int ),
+                   ( int (*) ( const void *, const void * ) ) cmpia );
+        if ( pbs == NULL ) {
+            cadn30_f( *idn, adn, FXY_STR_LEN );
+            sprintf( errstr, "BUFRLIB: NUMMTB - COULD NOT FIND DESCRIPTOR "
+                             "%s IN MASTER TABLE %c", adn, *tab );
+            bort( errstr, ( f77int ) strlen( errstr ) );
+        }
+        *ipt = pbs - pifxyn;
+
+        return;
+}
+
 /**
  * Store information about a standard Table D descriptor within
  * internal DX BUFR tables.
@@ -19,18 +95,18 @@
  * are themselves Table D descriptors are automatically resolved via
  * a recursive call to this same subroutine.
  *
- * @param[in] lun - File ID.
- * @param[in,out] irepct - Replication sequence counter for the current
+ * @param lun - File ID.
+ * @param irepct - Replication sequence counter for the current
  * master table; used internally to keep track of which sequence names have
  * already been defined, and thereby avoid contention within the internal
  * DX BUFR Table D.
- * @param[in] idn - Bit-wise representation of FXY value for WMO-standard
+ * @param idn - Bit-wise representation of FXY value for WMO-standard
  * Table D descriptor
- * @param[in] nemo - Mnemonic corresponding to idn.
- * @param[in] cseq - Description corresponding to idn.
- * @param[in] cdesc - Array of WMO-standard child descriptors equivalent
+ * @param nemo - Mnemonic corresponding to idn.
+ * @param cseq - Description corresponding to idn.
+ * @param cdesc - Array of WMO-standard child descriptors equivalent
  * to idn.
- * @param[in] ncdesc - Number of WMO-standard child descriptors in cdesc.
+ * @param ncdesc - Number of WMO-standard child descriptors in cdesc.
  *
  * @author J. Ator @date 2009-03-23
 */
@@ -38,11 +114,13 @@ void
 stseq(f77int *lun, f77int *irepct, f77int *idn, char *nemo,
       char *cseq, f77int *cdesc, f77int *ncdesc)
 {
+    static const int NEMO_STR_LEN = 9;
+
     f77int i, j, nb, nd, ix, iy, ier, iret, nbits;
     f77int rpidn, pkint, ilen;
 
-    char tab, adn[7], adn2[7], nemo2[9], units[10], errstr[129];
-    char rpseq[56], card[80], cblk = ' ', czero = '0';
+    char tab, adn[FXY_STR_LEN], adn2[FXY_STR_LEN], units[10], errstr[129];
+    char nemo2[NEMO_STR_LEN], rpseq[56], card[80], cblk = ' ', czero = '0';
 
     int imxcd, ipt;
 
@@ -64,15 +142,15 @@ stseq(f77int *lun, f77int *irepct, f77int *idn, char *nemo,
 **  Is *idn already listed as an entry in the internal Table D?
 **  If so, then there's no need to proceed any further.
 */
-    numtbd( lun, idn, nemo2, &tab, &iret, sizeof( nemo2 ), sizeof( tab ) );
+    numtbd_f( *lun, *idn, nemo2, NEMO_STR_LEN, &tab, &iret );
     if ( ( iret > 0 ) && ( tab == 'D' ) ) return;
 
 /*
 **  Start a new Table D entry for *idn.
 */
     tab = 'D';
-    nd = igetntbi( lun, &tab, sizeof ( tab ) );
-    cadn30( idn, adn, sizeof( adn ) );
+    nd = igetntbi_f( *lun, &tab );
+    cadn30_f( *idn, adn, FXY_STR_LEN );
     stntbi( &nd, lun, adn, nemo, cseq, sizeof( adn ), 8, 55 );
 
 /*
@@ -81,7 +159,7 @@ stseq(f77int *lun, f77int *irepct, f77int *idn, char *nemo,
     imxcd = igetprm_f( "MAXCD" );
 
     for ( i = 0; i < *ncdesc; i++ ) {
-        cadn30( &cdesc[i], adn, sizeof( adn ) );
+        cadn30_f( cdesc[i], adn, FXY_STR_LEN );
         if ( adn[0] == '3' ) {
 /*
 **          cdesc[i] is itself a Table D descriptor, so locate it within the
@@ -135,6 +213,7 @@ stseq(f77int *lun, f77int *irepct, f77int *idn, char *nemo,
 */
                 strncpy( nemo2, adn, 6 );
                 memset( &nemo2[6], (int) cblk, 2 );
+                nemo2[8] = '\0';
 
                 if ( ( ix == 4 ) && ( iy == 0 ) ) {
 /*
@@ -151,13 +230,13 @@ stseq(f77int *lun, f77int *irepct, f77int *idn, char *nemo,
 **                Is nemo2 already listed as an entry within the internal
 **                Table B?
 */
-                  nemtab( lun, nemo2, &pkint, &tab, &iret, 8, sizeof( tab ) );
+                  nemtab_f( *lun, nemo2, &pkint, &tab, &iret );
                   if ( ( iret == 0 ) || ( tab != 'B' ) ) {
 /*
 **                  No, so create and store a new Table B entry for nemo2.
 */
                     tab = 'B';
-                    nb = igetntbi( lun, &tab, sizeof( tab ) );
+                    nb = igetntbi_f( *lun, &tab );
 
                     if ( ix == 4 ) {
                         sprintf( rpseq, "Associated field of %3lu bits",
@@ -183,7 +262,6 @@ stseq(f77int *lun, f77int *irepct, f77int *idn, char *nemo,
                         }
                     }
                     else {   // 2-XX-255 marker operator
-                        adn[6] = '\0';
                         if ( ix == 23 ) {
                             sprintf( rpseq, "Substituted value" );
                         }
@@ -208,7 +286,7 @@ stseq(f77int *lun, f77int *irepct, f77int *idn, char *nemo,
 **                  a Table B bit-wise FXY value.
 */
                     pkint = ( igettdi( lun ) - 49152 );
-                    cadn30( &pkint, adn2, sizeof( adn2 ) );
+                    cadn30_f( pkint, adn2, FXY_STR_LEN );
 
                     stntbi( &nb, lun, adn2, nemo2, rpseq,
                             sizeof( adn2 ), 8, 55 );
@@ -222,7 +300,7 @@ stseq(f77int *lun, f77int *irepct, f77int *idn, char *nemo,
                     sprintf( &card[33], "%4lu", ( unsigned long ) nbits );
                     strcpy( &card[40], units );
                     card[40+strlen(units)] = cblk;  /* overwrite trailing null */
-                    elemdx( card, lun, sizeof( card ) );
+                    elemdx_f( card, *lun );
                   }
                   if ( ix == 4 )  {
 /*
@@ -258,8 +336,6 @@ stseq(f77int *lun, f77int *irepct, f77int *idn, char *nemo,
 **          store that sequence within the internal Table D via a recursive call
 **          to this same routine.
 */
-            adn[6] = '\0';
-
             strnum( &adn[3], &iy, &ier, 3 );
 /*
 **          See subroutine BFRINI and COMMON /REPTAB/ for the source of the FXY
@@ -366,8 +442,7 @@ stseq(f77int *lun, f77int *irepct, f77int *idn, char *nemo,
 **
 **          Is cdesc[i] already listed as an entry in the internal Table B?
 */
-            numtbd( lun, &cdesc[i], nemo2, &tab, &iret, sizeof( nemo2 ),
-                    sizeof( tab ) );
+            numtbd_f( *lun, cdesc[i], nemo2, NEMO_STR_LEN, &tab, &iret );
             if ( ( iret == 0 ) || ( tab != 'B' ) ) {
 /*
 **              No, so search for it within the master table B.
@@ -376,8 +451,8 @@ stseq(f77int *lun, f77int *irepct, f77int *idn, char *nemo,
 /*
 **              Start a new Table B entry for cdesc[i].
 */
-                nb = igetntbi( lun, &tab, sizeof( tab ) );
-                cadn30( &cdesc[i], adn2, sizeof( adn2 ) );
+                nb = igetntbi_f( *lun, &tab );
+                cadn30_f( cdesc[i], adn2, FXY_STR_LEN );
                 stntbi( &nb, lun, adn2, &cbmnem_c[ipt][0],
                         &cbelem_c[ipt][0], sizeof( adn2 ), 8, 55 );
 
@@ -389,7 +464,7 @@ stseq(f77int *lun, f77int *irepct, f77int *idn, char *nemo,
                 strncpy( &card[19], &cbsref_c[ipt][0], 12 );
                 strncpy( &card[33], &cbbw_c[ipt][0], 4 );
                 strncpy( &card[40], &cbunit_c[ipt][0], 24 );
-                elemdx( card, lun, sizeof( card ) );
+                elemdx_f( card, *lun );
             }
             pkint = cdesc[i];
         }

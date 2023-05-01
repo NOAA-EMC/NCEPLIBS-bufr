@@ -1,26 +1,23 @@
 C> @file
 C> @brief Search for a Table B or Table D descriptor within the
-C> internal DX BUFR tables
+C> internal DX BUFR tables.
 C>
 C> @author J. Woollen @date 2002-05-14
 
-C> This subroutine searches for a descriptor within Table B and
-C> Table D of the internal DX BUFR tables.
+C> Search for a Table B or Table D descriptor within the
+C> internal DX BUFR tables.
 C>
-C> @param[in] LUN -- integer: Internal I/O stream index associated
-C>                   with DX BUFR tables
-C> @param[in] IDN -- integer: Bit-wise representation of FXY value
-C>                   for Table B or Table D descriptor
-C> @param[out] NEMO -- character*(*): Mnemonic associated with IDN
-C> @param[out] TAB -- character: Type associated with IDN
-C>                     - 'B' = Table B descriptor
-C>                     - 'D' = Table D descriptor
-C> @param[out] IRET -- integer:
-C>                     - Positional index of IDN within internal
-C>                       Table B, if TAB = 'B'
-C>                     - Positional index of IDN within internal
-C>                       Table D, if TAB = 'D'
-C>                     - 0, otherwise
+C> @param[in] LUN - integer: File ID.
+C> @param[in] IDN - integer: Bit-wise representation of FXY value
+C> for Table B or Table D descriptor.
+C> @param[out] NEMO - character*(*): Mnemonic associated with IDN.
+C> @param[out] TAB - character: Type associated with IDN:
+C> - 'B' = Table B descriptor
+C> - 'D' = Table D descriptor
+C> @param[out] IRET - integer:
+C> - Positional index of IDN within internal Table B, if TAB = 'B'
+C> - Positional index of IDN within internal Table D, if TAB = 'D'
+C> - 0, otherwise
 C>
 C> @author J. Woollen @date 2002-05-14
       SUBROUTINE NUMTBD(LUN,IDN,NEMO,TAB,IRET)

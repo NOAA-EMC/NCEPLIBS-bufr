@@ -22,14 +22,14 @@
  * in order to interpret the same data values as were represented by
  * the input local Table D descriptor.
  *
- * @param lun - Internal Fortran I/O stream index associated with BUFR
+ * @param lun - File ID.
  * file
  * @param tddesc - Bit-wise representation of FXY value for local Table
- * D descriptor
+ * D descriptor.
  * @param nctddesc - Number of WMO-standard child descriptors returned
- * in ctddesc
+ * in ctddesc.
  * @param ctddesc - Array of WMO-standard child descriptors equivalent
- * to tddesc
+ * to tddesc.
  *
  * @author J. Ator @date 2004-08-18
 */
@@ -37,18 +37,21 @@
 void
 restd(f77int *lun, f77int *tddesc, f77int *nctddesc, f77int *ctddesc)
 {
+    static const int ADN_STR_LEN = 7;
+    static const int NEMO_STR_LEN = 9;
+
     f77int i0 = 0;
 
     f77int desc, ncdesc, cdesc[MAXNC];
-    f77int i, j, inum, itbd, ictbd;
-    f77int iscl, iref, ibit;
+    int i, j, inum, itbd, ictbd;
+    int iscl, iref, ibit;
 
-    char tab, nemo[9], adn[7], cunit[25], cwork[31];
+    char tab, nemo[NEMO_STR_LEN], adn[ADN_STR_LEN], cunit[25], cwork[31];
 
 /*
 **  How many child descriptors does *tddesc have?
 */
-    numtbd( lun, tddesc, nemo, &tab, &itbd, 9, 1 );
+    numtbd_f( *lun, *tddesc, nemo, NEMO_STR_LEN, &tab, &itbd );
     uptdd( &itbd, lun, &i0, &inum );
 
     *nctddesc = 0;
@@ -61,7 +64,7 @@ restd(f77int *lun, f77int *tddesc, f77int *nctddesc, f77int *ctddesc)
 /*
 **          desc is a local descriptor.
 */
-            numtbd( lun, &desc, nemo, &tab, &ictbd, 9, 1 );
+            numtbd_f( *lun, desc, nemo, NEMO_STR_LEN, &tab, &ictbd );
             if ( tab == 'D' ) {
 /*
 **              desc is itself a local Table D descriptor, so resolve
@@ -77,7 +80,7 @@ restd(f77int *lun, f77int *tddesc, f77int *nctddesc, f77int *ctddesc)
 **                  the number of child descriptors into the X value of
 **                  the replication descriptor ctddesc[(*nctddesc)-1]
 */
-                    cadn30( &ctddesc[(*nctddesc)-1], adn, 7 );
+                    cadn30_f( ctddesc[(*nctddesc)-1], adn, ADN_STR_LEN );
                     sprintf( cwork, "%c%02ld%c%c%c",
                              adn[0], (long) ncdesc, adn[3], adn[4], adn[5] );
                     strncpy( adn, cwork, 6 ); adn[6] = '\0';
@@ -90,7 +93,7 @@ restd(f77int *lun, f77int *tddesc, f77int *nctddesc, f77int *ctddesc)
 **                  the number of child descriptors into the X value of
 **                  the replication descriptor ctddesc[(*nctddesc)-2]
 */
-                    cadn30( &ctddesc[(*nctddesc)-2], adn, 7 );
+                    cadn30_f( ctddesc[(*nctddesc)-2], adn, ADN_STR_LEN );
                     sprintf( cwork, "%c%02ld%c%c%c",
                              adn[0], (long) ncdesc, adn[3], adn[4], adn[5] );
                     strncpy( adn, cwork, 6 ); adn[6] = '\0';
@@ -109,7 +112,7 @@ restd(f77int *lun, f77int *tddesc, f77int *nctddesc, f77int *ctddesc)
 **              desc is a local Table B descriptor, so precede it with
 **              a 206YYY operator in the output list.
 */
-                nemtbb( lun, &ictbd, cunit, &iscl, &iref, &ibit, 25 );
+                nemtbb_f( *lun, ictbd, cunit, 25, &iscl, &iref, &ibit );
                 sprintf( cwork, "%c%c%c%03ld", '2', '0', '6', (long) ibit );
                 strncpy( adn, cwork, 6 ); adn[6] = '\0';
                 wrdesc( ifxy( adn, 7 ), ctddesc, nctddesc );
