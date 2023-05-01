@@ -1,14 +1,16 @@
 C> @file
-C> @brief Read a specified data subset from a BUFR file
+C> @brief Read a specified data subset from a BUFR file.
 C>
 C> @author J. Woollen @date 2003-11-04
 
-C> This subroutine provides a handy way to combine the functionality
-C> of subroutines openbf(), readmg(), and readsb() within a single
-C> subroutine call.
+C> Read a specified data subset from a BUFR file.
+C>
+C> This subroutine combines the functionality of openbf(), 
+C> readmg(), and readsb().
 C>
 C> Logical unit LUNIT should not have already been opened via a
-C> previous call to subroutine openbf()
+C> previous call to subroutine openbf(). This subroutine will 
+C> open the file for input.
 C>
 C> Whenever this subroutine returns successfully, this indicates
 C> that a new data subset was successfully read into internal arrays
