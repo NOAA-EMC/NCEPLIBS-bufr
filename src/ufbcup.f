@@ -3,12 +3,26 @@ C> @brief Copy unique elements of a data subset.
 C>
 C> @author Woollen @date 1994-01-06
 
-C> This subroutine makes one copy of each unique element in an
-C> input subset buffer into the identical mnemonic slot in the output
-C> subset buffer.
+C> Copy unique elements of a data subset.
 C>
-C> @param[in] LUBIN - integer: fortran logical unit number for input BUFR file.
-C> @param[in] LUBOT - integer: fortran logical unit number for output BUFR file.
+C> This subroutine makes one copy of each unique element in an input
+C> subset buffer into the identical mnemonic slot in the output subset
+C> buffer.
+C>
+C> Before this subroutine is called:
+C> - The input file must be opened for input with openbf().
+C> - a message must be read, as with readmg().
+C> - a subset of data loaded into memory, as with readsb().
+C> - the output file must be opened for output with openbf().
+C> - a message must be created in the output file, as with openmg().
+C>
+C> After this subroutine is called, writsb() must be called on the output
+C> file to write the subset to file.
+C>
+C> @param[in] LUBIN - integer: fortran logical unit number for input BUFR
+C> file.
+C> @param[in] LUBOT - integer: fortran logical unit number for output
+C> BUFR file.
 C>
 C> @author Woollen @date 1994-01-06
       RECURSIVE SUBROUTINE UFBCUP(LUBIN,LUBOT)
