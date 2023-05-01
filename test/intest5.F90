@@ -61,12 +61,13 @@ program intest5
   call getcfmng ( 11, 'TABLASS', 0, ' ', -1, cmeang, lcmg, ier )
   if ( ( ier .ne. 1 ) .or. ( lcmg .ne. 8 ) .or. (cmeang(1:lcmg) .ne. 'TABLAT  ') ) stop 9
   call getcfmng ( 11, 'TABLASS', 0, ' ', -1, cmeang_short, lcmg, ier )
-  if ( ( ier .ne. -1 ) .or. ( lcmg .ne. 5 ) .or. (cmeag_short(1:lcmg) .ne. 'TABLA') ) stop 10
+  ! In this case cmeang_short will not get updated, so no check.
+  if ( ( ier .ne. -1 ) .or. ( lcmg .ne. 5 ) ) stop 10
 
   ! Read and verify some values from the 2nd data subset of the 2nd message.
   call ufbinx ( 11, 2, 2, r8vals, mxr8pm, mxr8lv, nlv, 'CLAM CLTP' )
   if ( ( nlv .ne. 3 ) .or. ( nint(r8vals(1,1)) .ne. 7 ) .or. ( nint(r8vals(2,1)) .ne. 38 ) .or. &
-      ( nint(r8vals(2,2)) .ne. 61 ) .or. ( nint(r8vals(2,3)) .ne. 60 ) ) stop 7
+      ( nint(r8vals(2,2)) .ne. 61 ) .or. ( nint(r8vals(2,3)) .ne. 60 ) ) stop 11
 
   ! Free the memory that was dynamically allocated when reading the code and flag tables.
   call dlloctbf_c()
@@ -76,7 +77,7 @@ program intest5
   open ( unit = 12, file = 'testfiles/IN_5', form ='unformatted')
   call ufbinx ( 12, 2, 2, r8vals, mxr8pm, mxr8lv, nlv, 'CLAM CLTP' )
   if ( ( nlv .ne. 3 ) .or. ( nint(r8vals(1,1)) .ne. 7 ) .or. ( nint(r8vals(2,1)) .ne. 38 ) .or. &
-      ( nint(r8vals(2,2)) .ne. 61 ) .or. ( nint(r8vals(2,3)) .ne. 60 ) ) stop 8
+      ( nint(r8vals(2,2)) .ne. 61 ) .or. ( nint(r8vals(2,3)) .ne. 60 ) ) stop 12
 
   print *, 'SUCCESS!'
 end program intest5
