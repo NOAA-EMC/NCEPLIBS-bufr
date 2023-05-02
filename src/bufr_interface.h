@@ -1,11 +1,11 @@
 /**
  * @file
- * @brief Define signatures to enable a number of NCEPLIBS-bufr subprograms to be called via wrapper
- * functions from C and C++ application programs.
+ * @brief Enable a number of NCEPLIBS-bufr subprograms to be called from within C and C++
+ * application programs.
  *
- * This header file defines the signatures for the subprograms in bufr_c2f_interface.F90 which wrap
- * a number of native Fortran subroutines in the library.  It also contains prototypes for native C
- * functions in the library which are expected to be called from C and C++ application programs.
+ * This header file defines the signatures which wrap a number of native Fortran subprograms
+ * in the library.  It also contains prototypes for native C functions in the library which
+ * are expected to be called from C and C++ application programs.
  *
  * @author Ronald Mclaren @date 2020-07-29
  */
@@ -160,9 +160,9 @@ extern "C" {
  * Wraps status() subroutine.
  *
  * @param file_unit - Fortran logical unit number of file.
- * @param lun - file ID.
- * @param il - file status.
- * @param im - message status.
+ * @param lun - File ID.
+ * @param il - File status.
+ * @param im - Message status.
  *
  * @author Ronald Mclaren @date 2020-07-29
  */
@@ -174,22 +174,22 @@ extern "C" {
  * Wraps nemdefs() subroutine.
  *
  * @param file_unit - Fortran logical unit for the open file.
- * @param mnemonic - mnemonic.
- * @param unit_c - unit str.
- * @param unit_str_len - unit str length.
- * @param desc_c - description string.
- * @param desc_str_len - description str length.
+ * @param mnemonic - Mnemonic.
+ * @param unit_c - Unit string.
+ * @param unit_str_len - Unit string length.
+ * @param desc_c - Description string.
+ * @param desc_str_len - Description string length.
  * @param iret - 0 indicates success -1 indicates failure.
  *
  * @author Ronald Mclaren @date 2020-07-29
  */
-    void nemdefs_f(int file_unit,
-                   const char* mnemonic,
-                   char* unit_c,
-                   int unit_str_len,
-                   char* desc_c,
-                   int desc_str_len,
-                   int* iret);
+  void nemdefs_f(int file_unit,
+                 const char* mnemonic,
+                 char* unit_c,
+                 int unit_str_len,
+                 char* desc_c,
+                 int desc_str_len,
+                 int* iret);
 
 /**
  * Get the scale factor, reference value and bit width associated with a
@@ -198,64 +198,64 @@ extern "C" {
  * Wraps nemspecs() subroutine.
  *
  * @param file_unit - Fortran logical unit for the open file.
- * @param mnemonic: - mnemonic.
- * @param mnemonic_idx - indicates specific mnemonic element (if repeated).
- * @param scale - scale of element.
- * @param reference - reference of element.
- * @param bits - number of bits representing the element.
+ * @param mnemonic: - Mnemonic.
+ * @param mnemonic_idx - Ordinal indicator of specific mnemonic element (if repeated).
+ * @param scale - Scale of element.
+ * @param reference - Reference of element.
+ * @param bits - Number of bits representing the element.
  * @param iret - 0 indicates success -1 indicates failure.
  *
  * @author Ronald Mclaren @date 2022-08-08
  */
-    void nemspecs_f(int file_unit,
-                    const char* mnemonic,
-                    int mnemonic_idx,
-                    int* scale,
-                    int* reference,
-                    int* bits,
-                    int* iret);
+  void nemspecs_f(int file_unit,
+                  const char* mnemonic,
+                  int mnemonic_idx,
+                  int* scale,
+                  int* reference,
+                  int* bits,
+                  int* iret);
 
 /**
  * Get information about a descriptor.
  *
  * Wraps nemtab() subroutine.
  *
- * @param bufr_unit - the bufr file pointer.
- * @param mnemonic - mnemonic.
- * @param descriptor - the binary descriptor for the mnemonic.
- * @param table_type - 'A', 'B', 'C', or 'D', depending on table type.
- * @param table_idx - the table index, or 0 if not found.
+ * @param lun - File ID.
+ * @param mnemonic - Mnemonic.
+ * @param descriptor - The binary descriptor for the mnemonic.
+ * @param table_type - Type of internal DX BUFR table ('B', 'C', or 'D').
+ * @param table_idx - The table index, or 0 if not found.
  *
  * @author Ronald Mclaren @date 2022-08-16
  */
-    void nemtab_f(int bufr_unit,
-                  const char* mnemonic,
-                  int* descriptor,
-                  char* table_type,
-                  int* table_idx);
+  void nemtab_f(int lun,
+                const char* mnemonic,
+                int* descriptor,
+                char* table_type,
+                int* table_idx);
 
 /**
  * Get information about a Table B descriptor.
  *
  * Wraps nemtbb() subroutine.
  *
- * @param bufr_unit - the bufr file pointer.
+ * @param lun - File ID.
  * @param table_idx - Table B index.
- * @param unit_str - unit str.
- * @param unit_str_len - unit str length.
- * @param scale - scale of element.
- * @param reference - reference of element.
- * @param bits - bits of element.
+ * @param unit_str - Unit string.
+ * @param unit_str_len - Unit string length.
+ * @param scale - Scale of element.
+ * @param reference - Reference value of element.
+ * @param bits - Number of bits representing theelement.
  *
  * @author Ronald McLaren @date 2022-08-16
  */
-    void nemtbb_f(int bufr_unit,
-                  int table_idx,
-                  char* unit_str,
-                  int unit_str_len,
-                  int* scale,
-                  int* reference,
-                  int* bits);
+  void nemtbb_f(int lun,
+                int table_idx,
+                char* unit_str,
+                int unit_str_len,
+                int* scale,
+                int* reference,
+                int* bits);
 
 /**
  * Get copy of the moda_tables ISC array.
@@ -333,7 +333,7 @@ extern "C" {
 /**
  * Get the bufr node idx for the start node of the subset.
  *
- * @param lun - pointer for the file stream.
+ * @param lun - File ID.
  * @param start_node - the start node of the subset.
  *
  * @author Ronald McLaren @date 2022-03-23
@@ -343,7 +343,7 @@ extern "C" {
 /**
  * Get the number of values in the current subset
  *
- * @param lun - pointer for the file stream.
+ * @param lun - File ID.
  * @param num_nodes - number of values in the subset.
  *
  * @author Ronald McLaren @date 2022-03-23
@@ -353,7 +353,7 @@ extern "C" {
 /**
  * Get pointer to the moda_usrint VAL array.
  *
- * @param lun - pointer for the file stream.
+ * @param lun - File ID.
  * @param val_ptr - pointer to a pointer to the VAL array.
  * @param val_size - size of the VAL array.
  *
@@ -364,7 +364,7 @@ extern "C" {
 /**
  * Get pointer to the moda_usrint INV array.
  *
- * @param lun - pointer for the file stream.
+ * @param lun - File ID.
  * @param inv_ptr - pointer to a pointer to the INV array.
  * @param inv_size - size of the INV array.
  *
@@ -400,9 +400,44 @@ extern "C" {
  *
  * @return Value of cprmnm.
  *
- * @author J.Ator @date 2014-12-04
+ * @author J. Ator @date 2023-04-07
  */
   int igetprm_f(char *cprmnm);
+
+/**
+ * Define a customized parameter value for dynamic allocation.
+ *
+ * @param cprmnm - Parameter.
+ * @param ipval - Value to be set for cprmnm.
+ *
+ * @return 0 if successful, or -1 if cprmnm unknown.
+ *
+ * @author J. Ator @date 2023-04-07
+ */
+  int isetprm_f(char *cprmnm, int ipval);
+
+/**
+ * Define a customized maximum length for output BUFR messages.
+ *
+ * Wraps maxout() subroutine.
+ *
+ * @param max0 - New maximum length (in bytes) for all BUFR messages
+ * written to all output files.
+ *
+ * @author J. Ator @date 2023-04-07
+ */
+  void maxout_f(int max0);
+
+/**
+ * Get the maximum length of a BUFR message that can be written to an
+ * output file.
+ *
+ * @return Maximum length of a BUFR message that can be written to an
+ * output file.
+ *
+ * @author J. Ator @date 2023-04-07
+ */
+  int igetmxby_f(void);
 
 #ifdef __cplusplus
 }

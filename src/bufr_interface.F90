@@ -1,6 +1,6 @@
 !> @file
-!> @brief Enable a number of C NCEPLIBS-bufr functions to be called
-!>        via wrapper functions from Fortran application programs.
+!> @brief Enable a number of C NCEPLIBS-bufr functions to be called from within Fortran
+!> application programs.
 !>
 !> @author J. Ator @date 2023-03-22
 

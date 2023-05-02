@@ -1,14 +1,11 @@
 !> @file
 !> @brief Enable a number of Fortran NCEPLIBS-bufr subprograms to be called
-!> via wrapper functions from C and C++ application programs.
+!> from within C.
 !>
 !> @author Ronald Mclaren @date 2020-07-29
 
-!> Wrap Fortran NCEPLIBS-bufr subprograms
-!> and variables so they can be called from within C and C++ application
-!> programs. The signatures of the public functions match their Fortran
-!> equivalents, as shown within the documentation for each of the
-!> individual functions.
+!> Wrap Fortran NCEPLIBS-bufr subprograms and variables so they can be called
+!> from within C.
 !>
 !> Local copies of some Fortran variables are stored as allocatable
 !> objects, especially isc, link, jmpb, tag and typ. It's the
@@ -48,6 +45,14 @@ module bufr_c2f_interface
   public :: get_inv_c
   public :: get_irf_c
   public :: delete_table_data_c
+  public :: iupbs01_c
+  public :: igetprm_c
+  public :: isetprm_c
+  public :: maxout_c
+  public :: igetmxby_c
+  public :: cadn30_c
+  public :: igetntbi_c
+  public :: elemdx_c
 
   integer, allocatable, target, save :: isc_f(:)
   integer, allocatable, target, save :: link_f(:)
@@ -61,8 +66,12 @@ module bufr_c2f_interface
 
     !> Convert a C string into a Fortran string.
     !>
-    !> @param c_str - Pointer to a null-terminated C string
-    !> @param f_str - Fortran string
+    !> @param c_str - Pointer to a null-terminated C string.
+    !> @param f_str - Fortran string.
+    !>
+    !> Allocated arrays in Fortran are automatically deallocated
+    !> once the array goes out of scope, so there's no need to
+    !> deallocate f_str after it's used within the calling routine.
     !>
     !> @author Ronald McLaren @date 2020-07-29
     function c_f_string(c_str) result(f_str)
@@ -82,9 +91,9 @@ module bufr_c2f_interface
 
     !> Copy a Fortran string into a C string buffer.
     !>
-    !> @param f_str - Fortran string to be copied
-    !> @param c_str - C pointer to the target buffer
-    !> @param c_str_len - Length of the C target buffer
+    !> @param f_str - Fortran string to be copied.
+    !> @param c_str - C pointer to the target buffer.
+    !> @param c_str_len - Length of the C target buffer.
     !>
     !> @author Ronald McLaren @date 2020-07-29
     subroutine copy_f_c_str(f_str, c_str, c_str_len)
@@ -228,7 +237,7 @@ module bufr_c2f_interface
       type(c_ptr), intent(inout) ::  c_data
       integer(c_int), value, intent(in) :: dim_1, dim_2
       integer(c_int), intent(out) :: iret
-      character(kind=c_char, len=1), intent(in) :: table_b_mnemonic
+      character(kind=c_char, len=1), intent(in) :: table_b_mnemonic(*)
       real, pointer :: f_data
 
       call c_f_pointer(c_data, f_data)
@@ -251,7 +260,7 @@ module bufr_c2f_interface
       type(c_ptr), intent(inout) :: c_data
       integer(c_int), value, intent(in) :: dim_1, dim_2
       integer(c_int), intent(out) :: iret
-      character(kind=c_char, len=1), intent(in) :: table_b_mnemonic
+      character(kind=c_char, len=1), intent(in) :: table_b_mnemonic(*)
       real, pointer :: f_data
 
       call c_f_pointer(c_data, f_data)
@@ -268,7 +277,7 @@ module bufr_c2f_interface
     !>
     !> @author Ronald McLaren @date 2020-07-29
     subroutine mtinfo_c(path, file_unit_1, file_unit_2) bind(C, name='mtinfo_f')
-      character(kind=c_char, len=1), intent(in) :: path
+      character(kind=c_char, len=1), intent(in) :: path(*)
       integer(c_int), value, intent(in) :: file_unit_1
       integer(c_int), value, intent(in) :: file_unit_2
 
@@ -280,9 +289,9 @@ module bufr_c2f_interface
     !> Wraps status() subroutine.
     !>
     !> @param file_unit - Fortran logical unit number of file.
-    !> @param lun - file ID.
-    !> @param il - file status.
-    !> @param im - message status.
+    !> @param lun - File ID.
+    !> @param il - File status.
+    !> @param im - Message status.
     !>
     !> @author Ronald McLaren  @date 2022-03-23
     subroutine status_c(file_unit, lun, il, im) bind(C, name='status_f')
@@ -363,16 +372,16 @@ module bufr_c2f_interface
     !>
     !> Wraps nemtab() subroutine.
     !>
-    !> @param bufr_unit - file ID.
+    !> @param lun - File ID.
     !> @param mnemonic - Mnemonic
     !> @param descriptor - The binary descriptor for the mnemonic
-    !> @param table_type - 'A', 'B', 'C', or 'D', depending on table type
+    !> @param table_type - Type of internal DX BUFR table ('B', 'C', or 'D').
     !> @param table_idx - The table index, or 0 if not found
     !>
     !> @author Ronald McLaren  @date 2022-08-16
-    subroutine nemtab_c(bufr_unit, mnemonic, descriptor, table_type, table_idx) &
+    subroutine nemtab_c(lun, mnemonic, descriptor, table_type, table_idx) &
             bind(C, name='nemtab_f')
-      integer(c_int), value, intent(in) :: bufr_unit
+      integer(c_int), value, intent(in) :: lun
       character(kind=c_char,len=1), intent(in) :: mnemonic(*)
       integer(c_int), intent(out) :: descriptor
       character(kind=c_char,len=1), intent(out) :: table_type(*)
@@ -380,7 +389,7 @@ module bufr_c2f_interface
 
       character(len=1) :: table_type_f
 
-      call nemtab(bufr_unit, c_f_string(mnemonic), descriptor, table_type_f, table_idx)
+      call nemtab(lun, c_f_string(mnemonic), descriptor, table_type_f, table_idx)
 
       table_type(1)(1:1) = table_type_f(1:1)
     end subroutine nemtab_c
@@ -389,7 +398,7 @@ module bufr_c2f_interface
     !>
     !> Wraps nemtbb() subroutine.
     !>
-    !> @param bufr_unit - file ID.
+    !> @param lun - File ID.
     !> @param table_idx - Table B index.
     !> @param unit_str - Unit string.
     !> @param unit_str_len - Unit string length.
@@ -398,9 +407,9 @@ module bufr_c2f_interface
     !> @param bits - Number of bits representing the element.
     !>
     !> @author Ronald McLaren @date 2022-08-16
-    subroutine nemtbb_c(bufr_unit, table_idx, unit_str, unit_str_len, scale, reference, bits) &
+    subroutine nemtbb_c(lun, table_idx, unit_str, unit_str_len, scale, reference, bits) &
             bind(C, name='nemtbb_f')
-      integer(c_int), intent(in), value :: bufr_unit
+      integer(c_int), intent(in), value :: lun
       integer(c_int), intent(in), value :: table_idx
       character(kind=c_char,len=1), intent(out) :: unit_str(*)
       integer(c_int), intent(in), value :: unit_str_len
@@ -411,7 +420,7 @@ module bufr_c2f_interface
       character(len=24) :: unit_str_f
 
       ! Get the scale, reference and bits
-      call nemtbb( bufr_unit, table_idx, unit_str_f, scale, reference, bits)
+      call nemtbb( lun, table_idx, unit_str_f, scale, reference, bits)
       call copy_f_c_str(unit_str_f, unit_str, min(len(unit_str_f) + 1, unit_str_len))
     end subroutine nemtbb_c
 
@@ -653,5 +662,143 @@ module bufr_c2f_interface
 
       ires = igetprm(c_f_string(cprmnm))
     end function igetprm_c
+
+    !> Define a customized parameter value for dynamic allocation.
+    !>
+    !> Wraps isetprm() function.
+    !>
+    !> @param cprmnm - Parameter.
+    !> @param ipval - Value to be set for cprmnm.
+    !>
+    !> @return isetprm_c - 0 if successful, or -1 if cprmnm unknown.
+    !>
+    !> @author J. Ator @date 2023-04-07
+    function isetprm_c(cprmnm,ipval) result(ires) bind(C, name='isetprm_f')
+      character(kind=c_char, len=1), intent(in) :: cprmnm(*)
+      integer(c_int), value, intent(in) :: ipval
+      integer(c_int) :: ires
+      integer :: isetprm
+
+      ires = isetprm(c_f_string(cprmnm),ipval)
+    end function isetprm_c
+
+    !> Define a customized maximum length for output BUFR messages.
+    !>
+    !> Wraps maxout() subroutine.
+    !>
+    !> @param max0 - New maximum length (in bytes) for all BUFR messages
+    !> written to all output files.
+    !>
+    !> @author J. Ator @date 2023-04-07
+    subroutine maxout_c(max0) bind(C, name='maxout_f')
+      integer(c_int), value, intent(in) :: max0
+
+      call maxout(max0)
+    end subroutine maxout_c
+
+    !> Get the maximum length of a BUFR message that can be written to an
+    !> output file.
+    !>
+    !> Wraps igetmxby() function.
+    !>
+    !> @return igetmxby_c - Maximum length of a BUFR message that can be
+    !> written to an output file.
+    !>
+    !> @author J. Ator @date 2023-04-07
+    function igetmxby_c() result(ires) bind(C, name='igetmxby_f')
+      integer(c_int) :: ires
+      integer :: igetmxby
+
+      ires = igetmxby()
+    end function igetmxby_c
+
+    !> Convert an FXY value from its WMO bit-wise representation to its
+    !> six-character representation.
+    !>
+    !> Wraps cadn30() function.
+    !>
+    !> @param idn - WMO bit-wise representation of FXY value.
+    !> @param adn - FXY value.
+    !> @param adn_str_len - Length of adn string.
+    !>
+    !> @author J. Ator @date 2023-04-07
+    subroutine cadn30_c(idn, adn, adn_str_len) bind(C, name='cadn30_f')
+      integer(c_int), intent(in), value :: idn, adn_str_len
+      character(kind=c_char, len=1), intent(out) :: adn(*)
+      character(len=8) :: adn_f
+
+      call cadn30(idn, adn_f)
+      call copy_f_c_str(adn_f, adn, adn_str_len)
+    end subroutine cadn30_c
+
+    !> Get the next index for storing an entry within an internal DX BUFR table.
+    !>
+    !> Wraps igetntbi() subroutine.
+    !>
+    !> @param lun - File ID.
+    !> @param table_type - Type of internal DX BUFR table ('A', 'B', or 'D')
+    !>
+    !> @return igetntbi_c - Next available index within table_type.
+    !>
+    !> @author Ronald McLaren  @date 2022-08-16
+    function igetntbi_c(lun, table_type) result(ires) bind(C, name='igetntbi_f')
+      integer(c_int), value, intent(in) :: lun
+      character(kind=c_char,len=1), intent(in) :: table_type(*)
+      integer(c_int) :: ires
+      integer :: igetntbi
+      character(len=1) :: table_type_f
+
+      table_type_f(1:1) = table_type(1)(1:1)
+
+      ires = igetntbi(lun, table_type_f)
+    end function igetntbi_c
+
+    !>
+    !> Decode the scale factor, reference value, bit width, and units from a Table B
+    !> mnemonic definition.
+    !>
+    !> Wraps elemdx() function.
+    !>
+    !> @param card - Mnemonic definition card.
+    !> @param lun - File ID.
+    !>
+    !> @author J. Ator @date 2003-11-04
+    subroutine elemdx_c(card,lun) bind(C, name='elemdx_f')
+      integer(c_int), value, intent(in) :: lun
+      character(kind=c_char, len=1), intent(in) :: card(*)
+      character(len=80) :: card_f
+      integer :: ii
+
+      do ii = 1,80
+        card_f(ii:ii) = card(1)(ii:ii)
+      enddo
+      call elemdx(card_f, lun)
+    end subroutine elemdx_c
+
+    !> Search for a Table B or Table D descriptor within the internal DX BUFR tables.
+    !>
+    !> Wraps numtbd() subroutine.
+    !>
+    !> @param lun - File ID.
+    !> @param idn - Bit-wise representation of FXY value.
+    !> @param nemo - Mnemonic.
+    !> @param nemo_str_len - Length of nemo string.
+    !> @param tab - Type of internal DX BUFR table ('B', or 'D').
+    !> @param iret - Positional index of idn within Table B or D, or 0 if not found.
+    !>
+    !> @author J. Ator  @date 2003-11-04
+    subroutine numtbd_c(lun,idn,nemo,nemo_str_len,tab,iret) bind(C, name='numtbd_f')
+      integer(c_int), value, intent(in) :: lun, idn, nemo_str_len
+      character(kind=c_char,len=1), intent(out) :: nemo(*), tab(*)
+      integer(c_int), intent(out) :: iret
+
+      character(len=9) :: nemo_f
+      character(len=1) :: tab_f
+
+      call numtbd(lun, idn, nemo_f, tab_f, iret)
+
+      call copy_f_c_str(nemo_f, nemo, nemo_str_len)
+      tab(1)(1:1) = tab_f(1:1)
+    end subroutine numtbd_c
 
 end module bufr_c2f_interface

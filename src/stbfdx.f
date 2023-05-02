@@ -10,7 +10,7 @@ C>
 C> @param[in] LUN - integer: I/O stream index into internal memory arrays.
 C> @param[in] MESG - integer(*): DX BUFR tables message
 C>
-C> @author J Ator @date 2009-03-23
+C> @author J. Ator @date 2009-03-23
       SUBROUTINE STBFDX(LUN,MESG)
 
       USE MODV_MAXCD

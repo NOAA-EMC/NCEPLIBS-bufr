@@ -3,27 +3,25 @@ C> @brief Get information about a descriptor, based on the mnemonic.
 C>
 C> @author J. Woollen @date 1994-01-06
 
+C> Get information about a descriptor, based on the mnemonic.
+C>
 C> This subroutine returns information about a descriptor from the
 C> internal DX BUFR tables, based on the mnemonic associated with
 C> that descriptor.
 C>
-C> @param[in] LUN - integer: Internal I/O stream index associated
-C>                  with DX BUFR tables
-C> @param[in] NEMO - character*(*): Mnemonic
-C> @param[out] IDN - integer: Bit-wise representation of FXY value
-C>                   for descriptor associated with NEMO
-C> @param[out] TAB - character: Type associated with IDN
-C>                    - 'B' Table B descriptor
-C>                    - 'D' Table D descriptor
-C>                    - 'C' Table C operator
+C> @param[in] LUN - integer: File ID.
+C> @param[in] NEMO - character*(*): Mnemonic.
+C> @param[out] IDN - integer: WMO bit-wise representation of FXY value
+C> for descriptor associated with NEMO.
+C> @param[out] TAB - character: Type associated with IDN:
+C> - 'B' Table B descriptor.
+C> - 'D' Table D descriptor.
+C> - 'C' Table C operator.
 C> @param[out] IRET - integer:
-C>                    - Positional index of IDN within internal
-C>                      Table B, if TAB = 'B'
-C>                    - Positional index of IDN within internal
-C>                      Table D, if TAB = 'D'
-C>                    - The X portion of the FXY value in IDN, if
-C>                      TAB = 'C'
-C>                    - 0, otherwise
+C> - Positional index of IDN within internal Table B, if TAB = 'B'.
+C> - Positional index of IDN within internal Table D, if TAB = 'D'.
+C> - The X portion of the FXY value in IDN, if TAB = 'C'.
+C> - 0, otherwise
 C>
 C> @author J. Woollen @date 1994-01-06
 

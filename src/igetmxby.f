@@ -4,12 +4,14 @@ C> written to an output file.
 C>
 C> @author J. Ator @date 2016-06-27
 
-C> This function returns the maximum length of a BUFR message that
-C> can be written to any output file by the BUFRLIB software.
+C> Get the maximum length of a BUFR message that can be written
+C> to an output file.
 C>
-C> @returns igetmxby -- integer: Maximum length of a BUFR message
-C>                      that can be written to an output file by
-C>                      the BUFRLIB software
+C> This function returns the maximum length of a BUFR message that
+C> can be written to any output file by the NCEPLIBS-bufr software.
+C>
+C> @returns igetmxby - integer: Maximum length of a BUFR message
+C> that can be written to an output file by the NCEPLIBS-bufr software.
 C>
 C> This maximum length value can be changed at any time via a
 C> separate call to subroutine maxout().
