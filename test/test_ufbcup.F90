@@ -8,6 +8,8 @@ program test_ufbcup
   character*8 subset
   integer jdate, iret
   real*8 hdr(1, 1)
+  real*8 EPSILON
+  parameter(EPSILON = .01)
   
   print *, 'Testing ufbcup.'
 
@@ -53,25 +55,28 @@ program test_ufbcup
   ! Get IREC, the number of BUFR messages, according to ufbint()
   ! documentation. But I get a very large number of messages!
   call ufbint(12, hdr, 1, 1, iret, 'IREC')
-  print *, hdr(1,1)
   if (hdr(1,1) .ne. 100000000000.00000_8) stop 30
   
-!  call openbf(12, 'IN', 12)
+  ! Get SID, the station ID.
+!  call ufbint(12, hdr, 1, 1, iret, 'SID')
+!  print *, hdr(1,1)
+!  if (hdr(1,1) .ne. 100000000000.00000_8) stop 30
+  
+  ! Get and check more values.
+  call ufbint(12, hdr, 1, 1, iret, 'XOB')
+  if (abs(hdr(1, 1) - 262.43) > EPSILON) stop 40
+  call ufbint(12, hdr, 1, 1, iret, 'YOB')
+  if (abs(hdr(1, 1) - 49.03) > EPSILON) stop 41
+  call ufbint(12, hdr, 1, 1, iret, 'DHR')
+  if (abs(hdr(1, 1) - 0.0) > EPSILON) stop 42
+  call ufbint(12, hdr, 1, 1, iret, 'ELV')
+  if (abs(hdr(1, 1) - 251.0) > EPSILON) stop 43
+  call ufbint(12, hdr, 1, 1, iret, 'TYP')
+  if (abs(hdr(1, 1) - 284) > EPSILON) stop 44
+  call ufbint(12, hdr, 1, 1, iret, 'T29')
+  if (abs(hdr(1, 1) - 512.0) > EPSILON) stop 45
 
-  ! Read a message in the file.
-!  call readmg(12, subset, jdate, iret)
-!  if (iret .ne. 0 .or. subset .ne. 'ADPSFC' .or. jdate .ne. 23022519) stop 10
-
-  ! Load a subset of data.
-!  call readsb(12, iret)
-!  if (iret .ne. 0) stop 30
-
-  ! Dump the data subset.
-!  open(unit = 13, file = 'test_ufbcup_out.txt')
-!  call ufdump(12, 13)
-!  close(13)
-
-  ! Close the file again.
+  ! Close the files.
   call closbf(12)
 
   print *, 'SUCCESS'
