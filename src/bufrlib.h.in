@@ -6,7 +6,7 @@
  *  in the library.  It also contains prototypes for native C functions in the library as
  *  well as macros used throughout the C part of the library.
  *
- *  @author J.Ator @date 2003-11-04
+ *  @author J. Ator @date 2003-11-04
  */
 
 #include <stdio.h>
@@ -47,13 +47,28 @@ int icvidx(int ii, int jj, int numjj);
  * given time for a Table B descriptor.*/
 #define MXNAF @MXNAF@
 
+/** Size of a character string needed to store an FXY value. */
+#define FXY_STR_LEN 6
+
+/** Character string containing minimum FXY value for a replication descriptor. */
+#define MIN_FXY_REPL "101000"
+
+/** Character string containing minimum FXY value for a Table D descriptor. */
+#define MIN_FXY_TABLED "300000"
+
+/** Character string containing maximum FXY value for a Table B descriptor. */
+#define MAX_FXY_TABLEB "063255"
+
+/** Size of a character string needed to store a mnemonic. */
+#define NEMO_STR_LEN 8
+
 /**
- * Convert an FXY value from its bit-wise (integer) representation to its
+ * Convert an FXY value from its WMO bit-wise representation to its
  * six-character representation.
  *
  * Wraps cadn30() subroutine.
  *
- * @param idn - Bit-wise representation of FXY value.
+ * @param idn - WMO bit-wise representation of FXY value.
  * @param adn - FXY value.
  * @param adn_str_len - Length of adn string.
  *
@@ -71,7 +86,7 @@ void cadn30_f(int idn, char *adn, int adn_str_len);
  *
  * @return Next available index within table_type.
  *
- * @author J.Ator @date 2009-03-23
+ * @author J. Ator @date 2009-03-23
  */
 int igetntbi_f(int lun, char *table_type);
 
@@ -84,7 +99,7 @@ int igetntbi_f(int lun, char *table_type);
  * @param card - mnemonic definition card.
  * @param lun - File ID.
  *
- * @author J.Ator @date 2003-11-04
+ * @author J. Ator @date 2003-11-04
  */
 void elemdx_f(char *card, int lun);
 
@@ -100,7 +115,7 @@ void elemdx_f(char *card, int lun);
  * @param tab - Type of internal DX BUFR table ('B', or 'D').
  * @param iret - Positional index of idn within Table B or D, or 0 if not found.
  *
- * @author J.Ator @date 2003-11-04
+ * @author J. Ator @date 2003-11-04
  */
 void numtbd_f(int lun, int idn, char *nemo, int nemo_str_len, char *tab, int *iret);
 
@@ -178,7 +193,7 @@ void wrdesc( f77int desc, f77int *descary, f77int *ndescary );
  * @param str - Error message.
  * @param s1 - Extra C-Fortran interface argument containing length of str variable.
  *
- * @author J.Ator @date 2003-11-04
+ * @author J. Ator @date 2003-11-04
  */
 void bort( char *str, size_t s1 );
 
@@ -188,7 +203,7 @@ void bort( char *str, size_t s1 );
  * @param cverstr - Version string.
  * @param s1 - Extra C-Fortran interface argument containing length of cverstr variable.
  *
- * @author J.Ator @date 2009-03-23
+ * @author J. Ator @date 2009-03-23
  */
 void bvers( char *cverstr, size_t s1 );
 
@@ -198,7 +213,7 @@ void bvers( char *cverstr, size_t s1 );
  * @param cf - Flag indicating whether future BUFR output messages are to be compressed.
  * @param s1 - Extra C-Fortran interface argument containing length of cf variable.
  *
- * @author J.Ator @date 2005-03-09
+ * @author J. Ator @date 2005-03-09
  */
 void cmpmsg( char *cf, size_t s1 );
 
@@ -212,7 +227,7 @@ void cmpmsg( char *cf, size_t s1 );
  * @param iret - Return code.
  * @param s1 - Extra C-Fortran interface argument containing length of s1mnem variable.
  *
- * @author J.Ator @date 2005-11-29
+ * @author J. Ator @date 2005-11-29
  */
 void gets1loc( char *s1mnem, f77int *iben, f77int *isbyt, f77int *iwid, f77int *iret, size_t s1 );
 
@@ -225,7 +240,7 @@ void gets1loc( char *s1mnem, f77int *iben, f77int *isbyt, f77int *iwid, f77int *
  * - 0 r8val is not "missing"
  * - 1 r8val is "missing"
  *
- * @author J.Ator @date 2007-01-19
+ * @author J. Ator @date 2007-01-19
  */
 f77int ibfms( f77r8 *r8val );
 
@@ -242,7 +257,7 @@ f77int ibfms( f77r8 *r8val );
  * - 0 first n characters of str and chr are equivalent
  * - 1 first n characters of str and chr are not equivalent
  *
- * @author J.Ator @date 2005-11-29
+ * @author J. Ator @date 2005-11-29
  */
 f77int ichkstr ( char *str, char *chr, f77int *n, size_t s1, size_t s2 );
 
@@ -254,7 +269,7 @@ f77int ichkstr ( char *str, char *chr, f77int *n, size_t s1, size_t s2 );
  *
  * @return Bit-wise representation of FXY value.
  *
- * @author J.Ator @date 2003-11-04
+ * @author J. Ator @date 2003-11-04
  */
 f77int ifxy( char *adsc, size_t s1 );
 
@@ -267,7 +282,7 @@ f77int ifxy( char *adsc, size_t s1 );
  * - -1, if iflag was input as 0.
  * - next usable scratch Table D index, otherwise.
  *
- * @author J.Ator @date 2009-03-23
+ * @author J. Ator @date 2009-03-23
  */
 f77int igettdi( f77int *iflag );
 
@@ -281,7 +296,7 @@ f77int igettdi( f77int *iflag );
  * - 0 nemo is not a Table C marker operator.
  * - 1 nemo is a Table C marker operator.
  *
- * @author J.Ator @date 2016-05-04
+ * @author J. Ator @date 2016-05-04
  */
 f77int imrkopr( char *nemo, size_t s1 );
 
@@ -293,7 +308,7 @@ f77int imrkopr( char *nemo, size_t s1 );
  * @param n - Value to be encoded into cbay.
  * @param s1 - Extra C-Fortran interface argument containing length of cbay variable.
  *
- * @author J.Ator @date 2003-11-04
+ * @author J. Ator @date 2003-11-04
  */
 void ipkm( char *cbay, f77int *nbyt, f77int *n, size_t s1 );
 
@@ -309,7 +324,7 @@ void ipkm( char *cbay, f77int *nbyt, f77int *n, size_t s1 );
  * - 0 new BUFR data subset was successfully read
  * - -1 there are no more BUFR data subsets in lunit
  *
- * @author J.Ator @date 2003-11-04
+ * @author J. Ator @date 2003-11-04
  */
 f77int ireadns( f77int *lunit, char *subset, f77int *idate, size_t s1 );
 
@@ -322,7 +337,7 @@ f77int ireadns( f77int *lunit, char *subset, f77int *idate, size_t s1 );
  * - 0 idn is not a WMO-standard descriptor.
  * - 1 idn is a WMO-standard descriptor.
  *
- * @author J.Ator @date 2004-08-18
+ * @author J. Ator @date 2004-08-18
  */
 f77int istdesc( f77int *idn );
 
@@ -335,7 +350,7 @@ f77int istdesc( f77int *idn );
  *
  * @return Decoded value.
  *
- * @author J.Ator @date 2003-11-04
+ * @author J. Ator @date 2003-11-04
  */
 f77int iupb( f77int *mbay, f77int *nbyt, f77int *nbit );
 
@@ -348,7 +363,7 @@ f77int iupb( f77int *mbay, f77int *nbyt, f77int *nbit );
  *
  * @return Decoded value.
  *
- * @author J.Ator @date 2003-11-04
+ * @author J. Ator @date 2003-11-04
  */
 f77int iupm( char *cbay, f77int *nbits, size_t s1 );
 
@@ -360,7 +375,7 @@ f77int iupm( char *cbay, f77int *nbits, size_t s1 );
  * @param jdate - Date-time to be stored within Section 1.
  * @param s1 - Extra C-Fortran interface argument containing length of subset variable.
  *
- * @author J.Ator @date 2003-11-04
+ * @author J. Ator @date 2003-11-04
  */
 void openmb( f77int *lunit, char *subset, f77int *jdate, size_t s1 );
 
@@ -372,7 +387,7 @@ void openmb( f77int *lunit, char *subset, f77int *jdate, size_t s1 );
  * @param idn - Bit-wise representation of FXY value for child mnemonic.
  * @param iret - Return code.
  *
- * @author J.Ator @date 2003-11-04
+ * @author J. Ator @date 2003-11-04
  */
 void pktdd( f77int *id, f77int *lun, f77int *idn, f77int *iret );
 
@@ -388,7 +403,7 @@ void pktdd( f77int *id, f77int *lun, f77int *idn, f77int *iret );
  * @param s2 - Extra C-Fortran interface argument containing length of nemo variable.
  * @param s3 - Extra C-Fortran interface argument containing length of celsq variable.
  *
- * @author J.Ator @date 2009-03-23
+ * @author J. Ator @date 2009-03-23
  */
 void stntbi( f77int *n, f77int *lun, char *numb, char *nemo, char *celsq, size_t s1, size_t s2, size_t s3 );
 
@@ -400,7 +415,7 @@ void stntbi( f77int *n, f77int *lun, char *numb, char *nemo, char *celsq, size_t
  * @param iret - Return code.
  * @param s1 - Extra C-Fortran interface argument containing length of str variable.
  *
- * @author J.Ator @date 2003-11-04
+ * @author J. Ator @date 2003-11-04
  */
 void strnum( char *str, f77int *num, f77int *iret, size_t s1 );
 
@@ -415,7 +430,7 @@ void strnum( char *str, f77int *num, f77int *iret, size_t s1 );
  * @param str - Mnemonic string.
  * @param s1 - Extra C-Fortran interface argument containing length of str variable.
  *
- * @author J.Ator @date 2003-11-04
+ * @author J. Ator @date 2003-11-04
  */
 void ufbseq( f77int *lunit, f77r8 *usr, f77int *i1, f77int *i2, f77int *iret, char *str, size_t s1 );
 
@@ -427,13 +442,13 @@ void ufbseq( f77int *lunit, f77r8 *usr, f77int *i1, f77int *i2, f77int *iret, ch
  * @param ient - Ordinal indicator of child mnemonic to be returned.
  * @param iret - Return value.
  *
- * @author J.Ator @date 2003-11-04
+ * @author J. Ator @date 2003-11-04
  */
 void uptdd( f77int *id, f77int *lun, f77int *ient, f77int *iret );
 
 /**
  * Wraps wrdlen() subroutine.
  *
- * @author J.Ator @date 2003-11-04
+ * @author J. Ator @date 2003-11-04
  */
 void wrdlen( void );

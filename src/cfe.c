@@ -63,7 +63,7 @@ inittbf(void)
     */
     if ( cfe == NULL ) {
 
-        mxmtbf = igetprm_f( "MXMTBF" );
+        mxmtbf = igetprm_f("MXMTBF");
 
         if ( ( cfe = malloc( mxmtbf * sizeof(struct code_flag_entry) ) )
                         == NULL ) {

@@ -8,9 +8,6 @@
 #include "bufrlib.h"
 #include "mstabs.h"
 
-/** Size of a character string needed to store an FXY value. */
-static const int FXY_STR_LEN = 7;
-
 /**
  * Define a comparison between two integers.
  *
@@ -25,7 +22,7 @@ static const int FXY_STR_LEN = 7;
  * - 0 PF1 is equal to PF2
  * - 1 PF1 is greater than PF2
  *
- * @author Ator @date 2009-03-23
+ * @author J. Ator @date 2009-03-23
  */
 int
 cmpia(const void *pf1, const void *pf2)
@@ -51,16 +48,16 @@ cmpia(const void *pf1, const void *pf2)
  * @param tab - table in which idn was found ('B' or 'D').
  * @param ipt - index of entry for idn in master table tab.
  *
- * @author J Ator @date 2009-03-23
+ * @author J. Ator @date 2009-03-23
 */
 void
 nummtb(int *idn, char *tab, int *ipt)
 {
         int *pifxyn, *pbs,  nmt;
 
-        char adn[FXY_STR_LEN], errstr[129];
+        char adn[FXY_STR_LEN+1], errstr[129];
 
-        if ( *idn >= ifxy( "300000", 6 ) ) {
+        if ( *idn >= ifxy( MIN_FXY_TABLED, 6 ) ) {
             *tab = 'D';
             pifxyn = &idfxyn_c[0];
             nmt = nmtd_c;
@@ -74,7 +71,7 @@ nummtb(int *idn, char *tab, int *ipt)
         pbs = bsearch( idn, pifxyn, ( size_t ) nmt, sizeof( int ),
                    ( int (*) ( const void *, const void * ) ) cmpia );
         if ( pbs == NULL ) {
-            cadn30_f( *idn, adn, FXY_STR_LEN );
+            cadn30_f(*idn, adn, FXY_STR_LEN+1);
             sprintf( errstr, "BUFRLIB: NUMMTB - COULD NOT FIND DESCRIPTOR "
                              "%s IN MASTER TABLE %c", adn, *tab );
             bort( errstr, ( f77int ) strlen( errstr ) );
@@ -114,13 +111,12 @@ void
 stseq(f77int *lun, f77int *irepct, f77int *idn, char *nemo,
       char *cseq, f77int *cdesc, f77int *ncdesc)
 {
-    static const int NEMO_STR_LEN = 9;
 
     f77int i, j, nb, nd, ix, iy, ier, iret, nbits;
     f77int rpidn, pkint, ilen;
 
-    char tab, adn[FXY_STR_LEN], adn2[FXY_STR_LEN], units[10], errstr[129];
-    char nemo2[NEMO_STR_LEN], rpseq[56], card[80], cblk = ' ', czero = '0';
+    char tab, adn[FXY_STR_LEN+1], adn2[FXY_STR_LEN+1], units[10], errstr[129];
+    char nemo2[NEMO_STR_LEN+1], rpseq[56], card[80], cblk = ' ', czero = '0';
 
     int imxcd, ipt;
 
@@ -142,24 +138,24 @@ stseq(f77int *lun, f77int *irepct, f77int *idn, char *nemo,
 **  Is *idn already listed as an entry in the internal Table D?
 **  If so, then there's no need to proceed any further.
 */
-    numtbd_f( *lun, *idn, nemo2, NEMO_STR_LEN, &tab, &iret );
+    numtbd_f(*lun, *idn, nemo2, NEMO_STR_LEN+1, &tab, &iret);
     if ( ( iret > 0 ) && ( tab == 'D' ) ) return;
 
 /*
 **  Start a new Table D entry for *idn.
 */
     tab = 'D';
-    nd = igetntbi_f( *lun, &tab );
-    cadn30_f( *idn, adn, FXY_STR_LEN );
+    nd = igetntbi_f(*lun, &tab);
+    cadn30_f(*idn, adn, FXY_STR_LEN+1);
     stntbi( &nd, lun, adn, nemo, cseq, sizeof( adn ), 8, 55 );
 
 /*
 **  Now, go through the list of child descriptors corresponding to *idn.
 */
-    imxcd = igetprm_f( "MAXCD" );
+    imxcd = igetprm_f("MAXCD");
 
     for ( i = 0; i < *ncdesc; i++ ) {
-        cadn30_f( cdesc[i], adn, FXY_STR_LEN );
+        cadn30_f(cdesc[i], adn, FXY_STR_LEN+1);
         if ( adn[0] == '3' ) {
 /*
 **          cdesc[i] is itself a Table D descriptor, so locate it within the
@@ -230,13 +226,13 @@ stseq(f77int *lun, f77int *irepct, f77int *idn, char *nemo,
 **                Is nemo2 already listed as an entry within the internal
 **                Table B?
 */
-                  nemtab_f( *lun, nemo2, &pkint, &tab, &iret );
+                  nemtab_f(*lun, nemo2, &pkint, &tab, &iret);
                   if ( ( iret == 0 ) || ( tab != 'B' ) ) {
 /*
 **                  No, so create and store a new Table B entry for nemo2.
 */
                     tab = 'B';
-                    nb = igetntbi_f( *lun, &tab );
+                    nb = igetntbi_f(*lun, &tab);
 
                     if ( ix == 4 ) {
                         sprintf( rpseq, "Associated field of %3lu bits",
@@ -286,7 +282,7 @@ stseq(f77int *lun, f77int *irepct, f77int *idn, char *nemo,
 **                  a Table B bit-wise FXY value.
 */
                     pkint = ( igettdi( lun ) - 49152 );
-                    cadn30_f( pkint, adn2, FXY_STR_LEN );
+                    cadn30_f(pkint, adn2, FXY_STR_LEN+1);
 
                     stntbi( &nb, lun, adn2, nemo2, rpseq,
                             sizeof( adn2 ), 8, 55 );
@@ -300,7 +296,7 @@ stseq(f77int *lun, f77int *irepct, f77int *idn, char *nemo,
                     sprintf( &card[33], "%4lu", ( unsigned long ) nbits );
                     strcpy( &card[40], units );
                     card[40+strlen(units)] = cblk;  /* overwrite trailing null */
-                    elemdx_f( card, *lun );
+                    elemdx_f(card, *lun);
                   }
                   if ( ix == 4 )  {
 /*
@@ -365,7 +361,7 @@ stseq(f77int *lun, f77int *irepct, f77int *idn, char *nemo,
                 i += 2;
             }
             else {        /* regular replication */
-                pkint = ifxy( "101000", 6 ) + iy;
+                pkint = ifxy( MIN_FXY_REPL, 6 ) + iy;
                 i++;
             }
 /*
@@ -391,7 +387,7 @@ stseq(f77int *lun, f77int *irepct, f77int *idn, char *nemo,
                          "DESCRIPTORS TO COMPLETE REPLICATION FOR %s", adn );
                 bort( errstr, ( f77int ) strlen( errstr ) );
             }
-            else if ( ( ix == 1 ) && ( cdesc[i] >= ifxy ( "300000", 6 ) ) ) {
+            else if ( ( ix == 1 ) && ( cdesc[i] >= ifxy ( MIN_FXY_TABLED, 6 ) ) ) {
 /*
 **              The only thing being replicated is a single Table D descriptor,
 **              so there's no need to invent a new sequence for this replication
@@ -442,7 +438,7 @@ stseq(f77int *lun, f77int *irepct, f77int *idn, char *nemo,
 **
 **          Is cdesc[i] already listed as an entry in the internal Table B?
 */
-            numtbd_f( *lun, cdesc[i], nemo2, NEMO_STR_LEN, &tab, &iret );
+            numtbd_f(*lun, cdesc[i], nemo2, NEMO_STR_LEN+1, &tab, &iret);
             if ( ( iret == 0 ) || ( tab != 'B' ) ) {
 /*
 **              No, so search for it within the master table B.
@@ -451,8 +447,8 @@ stseq(f77int *lun, f77int *irepct, f77int *idn, char *nemo,
 /*
 **              Start a new Table B entry for cdesc[i].
 */
-                nb = igetntbi_f( *lun, &tab );
-                cadn30_f( cdesc[i], adn2, FXY_STR_LEN );
+                nb = igetntbi_f(*lun, &tab);
+                cadn30_f(cdesc[i], adn2, FXY_STR_LEN+1);
                 stntbi( &nb, lun, adn2, &cbmnem_c[ipt][0],
                         &cbelem_c[ipt][0], sizeof( adn2 ), 8, 55 );
 
@@ -464,7 +460,7 @@ stseq(f77int *lun, f77int *irepct, f77int *idn, char *nemo,
                 strncpy( &card[19], &cbsref_c[ipt][0], 12 );
                 strncpy( &card[33], &cbbw_c[ipt][0], 4 );
                 strncpy( &card[40], &cbunit_c[ipt][0], 24 );
-                elemdx_f( card, *lun );
+                elemdx_f(card, *lun);
             }
             pkint = cdesc[i];
         }
@@ -477,7 +473,7 @@ stseq(f77int *lun, f77int *irepct, f77int *idn, char *nemo,
 **          Note that associated fields are only applied to Table B descriptors,
 **          except for those in Class 31.
 */
-            if ( ( naf > 0 ) && ( pkint < ifxy( "100000", 6 ) ) &&
+            if ( ( naf > 0 ) && ( pkint <= ifxy( MAX_FXY_TABLEB, 6 ) ) &&
                     ( ( pkint < ifxy( "031000", 6 ) ) ||
                       ( pkint > ifxy( "031255", 6 ) ) )  ) {
                 for ( j = 0; j < naf; j++ ) {

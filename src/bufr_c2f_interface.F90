@@ -66,8 +66,12 @@ module bufr_c2f_interface
 
     !> Convert a C string into a Fortran string.
     !>
-    !> @param c_str - Pointer to a null-terminated C string
-    !> @param f_str - Fortran string
+    !> @param c_str - Pointer to a null-terminated C string.
+    !> @param f_str - Fortran string.
+    !>
+    !> Allocated arrays in Fortran are automatically deallocated
+    !> once the array goes out of scope, so there's no need to
+    !> deallocate f_str after it's used within the calling routine.
     !>
     !> @author Ronald McLaren @date 2020-07-29
     function c_f_string(c_str) result(f_str)
@@ -87,9 +91,9 @@ module bufr_c2f_interface
 
     !> Copy a Fortran string into a C string buffer.
     !>
-    !> @param f_str - Fortran string to be copied
-    !> @param c_str - C pointer to the target buffer
-    !> @param c_str_len - Length of the C target buffer
+    !> @param f_str - Fortran string to be copied.
+    !> @param c_str - C pointer to the target buffer.
+    !> @param c_str_len - Length of the C target buffer.
     !>
     !> @author Ronald McLaren @date 2020-07-29
     subroutine copy_f_c_str(f_str, c_str, c_str_len)
@@ -286,8 +290,8 @@ module bufr_c2f_interface
     !>
     !> @param file_unit - Fortran logical unit number of file.
     !> @param lun - File ID.
-    !> @param il - file status.
-    !> @param im - message status.
+    !> @param il - File status.
+    !> @param im - Message status.
     !>
     !> @author Ronald McLaren  @date 2022-03-23
     subroutine status_c(file_unit, lun, il, im) bind(C, name='status_f')
@@ -368,16 +372,16 @@ module bufr_c2f_interface
     !>
     !> Wraps nemtab() subroutine.
     !>
-    !> @param bufr_unit - File ID.
+    !> @param lun - File ID.
     !> @param mnemonic - Mnemonic
     !> @param descriptor - The binary descriptor for the mnemonic
     !> @param table_type - Type of internal DX BUFR table ('B', 'C', or 'D').
     !> @param table_idx - The table index, or 0 if not found
     !>
     !> @author Ronald McLaren  @date 2022-08-16
-    subroutine nemtab_c(bufr_unit, mnemonic, descriptor, table_type, table_idx) &
+    subroutine nemtab_c(lun, mnemonic, descriptor, table_type, table_idx) &
             bind(C, name='nemtab_f')
-      integer(c_int), value, intent(in) :: bufr_unit
+      integer(c_int), value, intent(in) :: lun
       character(kind=c_char,len=1), intent(in) :: mnemonic(*)
       integer(c_int), intent(out) :: descriptor
       character(kind=c_char,len=1), intent(out) :: table_type(*)
@@ -385,7 +389,7 @@ module bufr_c2f_interface
 
       character(len=1) :: table_type_f
 
-      call nemtab(bufr_unit, c_f_string(mnemonic), descriptor, table_type_f, table_idx)
+      call nemtab(lun, c_f_string(mnemonic), descriptor, table_type_f, table_idx)
 
       table_type(1)(1:1) = table_type_f(1:1)
     end subroutine nemtab_c
@@ -394,7 +398,7 @@ module bufr_c2f_interface
     !>
     !> Wraps nemtbb() subroutine.
     !>
-    !> @param bufr_unit - File ID.
+    !> @param lun - File ID.
     !> @param table_idx - Table B index.
     !> @param unit_str - Unit string.
     !> @param unit_str_len - Unit string length.
@@ -403,9 +407,9 @@ module bufr_c2f_interface
     !> @param bits - Number of bits representing the element.
     !>
     !> @author Ronald McLaren @date 2022-08-16
-    subroutine nemtbb_c(bufr_unit, table_idx, unit_str, unit_str_len, scale, reference, bits) &
+    subroutine nemtbb_c(lun, table_idx, unit_str, unit_str_len, scale, reference, bits) &
             bind(C, name='nemtbb_f')
-      integer(c_int), intent(in), value :: bufr_unit
+      integer(c_int), intent(in), value :: lun
       integer(c_int), intent(in), value :: table_idx
       character(kind=c_char,len=1), intent(out) :: unit_str(*)
       integer(c_int), intent(in), value :: unit_str_len
@@ -416,7 +420,7 @@ module bufr_c2f_interface
       character(len=24) :: unit_str_f
 
       ! Get the scale, reference and bits
-      call nemtbb( bufr_unit, table_idx, unit_str_f, scale, reference, bits)
+      call nemtbb( lun, table_idx, unit_str_f, scale, reference, bits)
       call copy_f_c_str(unit_str_f, unit_str, min(len(unit_str_f) + 1, unit_str_len))
     end subroutine nemtbb_c
 
@@ -708,12 +712,12 @@ module bufr_c2f_interface
       ires = igetmxby()
     end function igetmxby_c
 
-    !> Convert an FXY value from its bit-wise (integer) representation to its
+    !> Convert an FXY value from its WMO bit-wise representation to its
     !> six-character representation.
     !>
     !> Wraps cadn30() function.
     !>
-    !> @param idn - Bit-wise representation of FXY value.
+    !> @param idn - WMO bit-wise representation of FXY value.
     !> @param adn - FXY value.
     !> @param adn_str_len - Length of adn string.
     !>

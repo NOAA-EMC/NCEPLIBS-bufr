@@ -161,8 +161,8 @@ extern "C" {
  *
  * @param file_unit - Fortran logical unit number of file.
  * @param lun - File ID.
- * @param il - file status.
- * @param im - message status.
+ * @param il - File status.
+ * @param im - Message status.
  *
  * @author Ronald Mclaren @date 2020-07-29
  */
@@ -174,11 +174,11 @@ extern "C" {
  * Wraps nemdefs() subroutine.
  *
  * @param file_unit - Fortran logical unit for the open file.
- * @param mnemonic - mnemonic.
- * @param unit_c - unit str.
- * @param unit_str_len - unit str length.
- * @param desc_c - description string.
- * @param desc_str_len - description str length.
+ * @param mnemonic - Mnemonic.
+ * @param unit_c - Unit string.
+ * @param unit_str_len - Unit string length.
+ * @param desc_c - Description string.
+ * @param desc_str_len - Description string length.
  * @param iret - 0 indicates success -1 indicates failure.
  *
  * @author Ronald Mclaren @date 2020-07-29
@@ -198,11 +198,11 @@ extern "C" {
  * Wraps nemspecs() subroutine.
  *
  * @param file_unit - Fortran logical unit for the open file.
- * @param mnemonic: - mnemonic.
- * @param mnemonic_idx - indicates specific mnemonic element (if repeated).
- * @param scale - scale of element.
- * @param reference - reference of element.
- * @param bits - number of bits representing the element.
+ * @param mnemonic: - Mnemonic.
+ * @param mnemonic_idx - Ordinal indicator of specific mnemonic element (if repeated).
+ * @param scale - Scale of element.
+ * @param reference - Reference of element.
+ * @param bits - Number of bits representing the element.
  * @param iret - 0 indicates success -1 indicates failure.
  *
  * @author Ronald Mclaren @date 2022-08-08
@@ -220,15 +220,15 @@ extern "C" {
  *
  * Wraps nemtab() subroutine.
  *
- * @param bufr_unit - File ID.
- * @param mnemonic - mnemonic.
- * @param descriptor - the binary descriptor for the mnemonic.
+ * @param lun - File ID.
+ * @param mnemonic - Mnemonic.
+ * @param descriptor - The binary descriptor for the mnemonic.
  * @param table_type - Type of internal DX BUFR table ('B', 'C', or 'D').
- * @param table_idx - the table index, or 0 if not found.
+ * @param table_idx - The table index, or 0 if not found.
  *
  * @author Ronald Mclaren @date 2022-08-16
  */
-  void nemtab_f(int bufr_unit,
+  void nemtab_f(int lun,
                 const char* mnemonic,
                 int* descriptor,
                 char* table_type,
@@ -239,17 +239,17 @@ extern "C" {
  *
  * Wraps nemtbb() subroutine.
  *
- * @param bufr_unit - File ID.
+ * @param lun - File ID.
  * @param table_idx - Table B index.
- * @param unit_str - unit str.
- * @param unit_str_len - unit str length.
- * @param scale - scale of element.
- * @param reference - reference of element.
- * @param bits - bits of element.
+ * @param unit_str - Unit string.
+ * @param unit_str_len - Unit string length.
+ * @param scale - Scale of element.
+ * @param reference - Reference value of element.
+ * @param bits - Number of bits representing theelement.
  *
  * @author Ronald McLaren @date 2022-08-16
  */
-  void nemtbb_f(int bufr_unit,
+  void nemtbb_f(int lun,
                 int table_idx,
                 char* unit_str,
                 int unit_str_len,
