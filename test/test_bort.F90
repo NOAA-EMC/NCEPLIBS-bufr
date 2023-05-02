@@ -534,11 +534,12 @@ program test_bort
         call openbf(12, 'IN', 10)
         call ufbcup(12, 0)
      elseif (test_case .eq. '4') then
-        open(unit = 12, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
-        if (ios .ne. 0) stop 3
-        call openbf(12, 'IN', 10)
-        call readns(12, char_val_8, jdate, iret)
-        call ufbcup(12, 0)
+        open(unit = 11, file = 'testfiles/IN_9', form ='unformatted')
+        call openbf(11, 'IN', 11)
+        open(unit = 12, file = 'test_ufbcup_out', form ='unformatted')
+        call openbf(12, 'IN', 11)
+        call readmg(11, char_val_8, jdate, iret)
+        call ufbcup(11, 12)
      endif
   elseif (sub_name .eq. 'ufbdmp') then
      if (test_case .eq. '1') then
