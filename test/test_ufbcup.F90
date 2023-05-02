@@ -10,6 +10,9 @@ program test_ufbcup
   real*8 hdr(1, 1)
   real*8 EPSILON
   parameter(EPSILON = .01)
+  real*8 missing
+  character*8 station
+  equivalence(station, hdr(1, 1))
   
   print *, 'Testing ufbcup.'
 
@@ -58,9 +61,13 @@ program test_ufbcup
   if (hdr(1,1) .ne. 100000000000.00000_8) stop 30
   
   ! Get SID, the station ID.
-!  call ufbint(12, hdr, 1, 1, iret, 'SID')
-!  print *, hdr(1,1)
-!  if (hdr(1,1) .ne. 100000000000.00000_8) stop 30
+  call ufbint(12, hdr, 1, 1, iret, 'SID')
+  if (station .ne. 'CWGN    ') stop 31
+
+  ! Get the MISSING value.
+  call ufbint(12, hdr, 1, 1, iret, 'NUL')
+  missing = hdr(1, 1)
+  if (abs(hdr(1, 1) - 100000000000.00000_8) > EPSILON) stop 32
   
   ! Get and check more values.
   call ufbint(12, hdr, 1, 1, iret, 'XOB')
@@ -75,6 +82,8 @@ program test_ufbcup
   if (abs(hdr(1, 1) - 284) > EPSILON) stop 44
   call ufbint(12, hdr, 1, 1, iret, 'T29')
   if (abs(hdr(1, 1) - 512.0) > EPSILON) stop 45
+  call ufbint(12, hdr, 1, 1, iret, 'ITP')
+  if (abs(hdr(1, 1) - missing) > EPSILON) stop 45
 
   ! Close the files.
   call closbf(12)
