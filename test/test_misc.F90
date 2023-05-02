@@ -19,7 +19,8 @@ program test_misc
 #ifdef KIND_4
   character*5 char5
   character*5 adn30
-  integer a, idn30
+  character*6 adn_char
+  integer a, idn30, idn
   integer ierr, nemock
   integer numbck
   integer mtyp, msbt, inod
@@ -104,8 +105,6 @@ program test_misc
   call strnum('    ',num,iret)
   if ((iret .ne. 0) .or. (num .ne. 0)) stop 403
 
-
-
   ! These tests only for the _4 run of test_misc.
 #ifdef KIND_4
 
@@ -114,20 +113,23 @@ program test_misc
   if (char5 .ne. '00042') stop 100
   a = idn30(char5, 5)
   if (a .ne. 42) stop 101
+  idn = 42
+  call cadn30(idn, adn_char)
+  if (adn_char .ne. '000042') stop 103
 
   ! Testing nemock()
   ierr = nemock('')
-  if (ierr .ne. -1) stop 102
+  if (ierr .ne. -1) stop 202
   ierr = nemock('012345678')
-  if (ierr .ne. -1) stop 103
+  if (ierr .ne. -1) stop 203
   ierr = nemock('???')
-  if (ierr .ne. -2) stop 104
+  if (ierr .ne. -2) stop 204
 
   ! Testing numbck()
   iret = numbck('ABCDEF')
-  if (iret .ne. -1) stop 200
+  if (iret .ne. -1) stop 250
   iret = numbck('01CDEF')
-  if (iret .ne. -2) stop 201
+  if (iret .ne. -2) stop 251
 
   ! Testing nemtbax()
   open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
