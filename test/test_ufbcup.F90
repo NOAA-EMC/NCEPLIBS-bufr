@@ -85,6 +85,10 @@ program test_ufbcup
   call ufbint(12, hdr, 1, 1, iret, 'ITP')
   if (abs(hdr(1, 1) - missing) > EPSILON) stop 45
 
+  
+  call ufbseq(12, arr, i1, i2, iret, 'PLEVL')
+  
+
   ! Close the files.
   call closbf(12)
 
