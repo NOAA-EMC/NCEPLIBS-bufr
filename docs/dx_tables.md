@@ -496,6 +496,8 @@ mnemonics", refer directly to basic data values, and "Table D mnemonics" are
 sequences composed of one or more Table B (or other Table D) mnemonics and which are themselves
 normally direct constituents of a particular Table A mnemonic.
 
+<br>
+
 In other words, at the highest level,
 we have a Table A mnemonic which completely describes a type of data subset (e.g. rawinsonde,
 wind profiler, etc.), and this Table A mnemonic is defined as a sequence of one or more Table B or
@@ -503,6 +505,8 @@ Table D mnemonics, where each Table D mnemonic is likewise itself defined as a s
 more Table B or Table D mnemonics, and so on until the entire data subset can be equivalently
 described as a sequence of one or more Table B mnemonics which, again, themselves correspond to
 basic data values (e.g. pressure, temperature, humidity, etc.).
+
+<br>
 
 In this way, the entire sequence
 of data values that constitute a particular type of data subset is fully and unambiguously defined,
@@ -551,10 +555,14 @@ and 255. Readers who are more familiar with BUFR will immediately recognize thes
 values as those that are defined within the
 [official documentation of the BUFR code form](@ref manual).
 
+<br>
+
 By international convention, a mnemonic should not be given an X value between 00 and 47
 along with a Y value between 001 and 191 unless that mnemonic, when subsequently defined, corresponds
 exactly to the BUFR descriptor having that same FXY number within the
 [official WMO master BUFR tables](@ref wmomstab).
+
+<br>
 
 For example, in our [sample DX BUFR tables file](#bftab),
 mnemonic "WMOB" is declared with an FXY number of 001001; therefore, it has the exact same text
@@ -589,6 +597,8 @@ data category and local subcategory within Section 1 of each BUFR message when w
 data subsets corresponding to that mnemonic. In such cases, characters 3 through 5 define the
 category, and characters 6 through 8 define the subcategory.
 
+<br>
+
 Referring to our
 [sample DX BUFR tables file](#bftab) where we've defined three different Table A mnemonics,
 we've also indicated that, e.g. when we use the software to write/encode data subsets according
@@ -619,11 +629,15 @@ The second section of a DX BUFR tables file is used to define, for each Table A 
 [first section](#section1), the sequence of Table B (and possibly other Table D) mnemonics which
 constitutes that mnemonic.
 
+<br>
+
 The format for this section is a "|" character in columns 1, 12, and 80,
 with the mnemonic that is being defined listed in columns 3-10 (left-justified), and the sequence
 of constituent mnemonics beginning in column 14, each one separated from the others by one or more
 blank characters. For longer sequences, multiple successive lines may be used in a continuation
 fashion by repeating, within columns 3-10 of each continuation line, the mnemonic being defined.
+
+<br>
 
 For example, in our [sample DX BUFR tables file](#bftab), the Table D mnemonic MRPSC0 is defined as consisting
 of the sequence YEAR MNTH DAYS HOUR MINU RPID MRPIDS CLON CLAT SELV CORN, where MRPIDS is itself
@@ -638,12 +652,16 @@ second section until it encounters one that does not adhere to this format.
 
 Additional punctuation characters and symbols can be see in the [sample DX BUFR tables file](#bftab).
 
+<br>
+
 | Symbol | Meaning |
 |--------|---------|
 | &lt; &gt;  | The enclosed mnemonic is replicated using 1-bit delayed replication (either 0 or 1 replications) |
 | { }  | The enclosed mnemonic is replicated using 8-bit delayed replication (between 0 and 255 replications) |
 | ( )  | The enclosed mnemonic is replicated using 16-bit delayed replication (between 0 and 65535 replications) |
 | " "n | The enclosed mnemonic is replicated using regular (non-delayed) replication, with a fixed replication factor of n |
+
+<br>
 
 For example,
 the Table A mnemonic NC002001, which defines the layout of a data subset of the type "RAWINSONDE - FIXED LAND",
@@ -679,9 +697,13 @@ where, e.g., the constituent Table D mnemonic UARLV itself consists of the follo
 and where, in turn, UAGP07, UAGP10, UATMP, etc. are also Table D mnemonics which can themselves be
 further resolved.
 
+<br>
+
 We can even nest certain replication sequences inside of other replication sequences,
 and, further, via the judicious use of the &lt; &gt; indicator, even turn on/off entire sequences of data values
 simply and efficiently.
+
+<br>
 
 An example of this is the UAWSH (i.e. "RADIOSONDE WIND SHEAR DATA") sequence,
 whose constituent data values are only ever present in a rawinsonde report when a level of maximum wind is
@@ -780,6 +802,9 @@ replications of these mnemonics into our output USR array, where each row of USR
 values for PRLC, GEOP, TMDB and TMDP in the first four columns, and where the return value IRET would tell us
 how many rows of USR were actually filled with such values (i.e. the total number of replications that were
 read). 
+
+<br>
+
 Alternatively, we could use subroutine ufbseq() with STR='PRGPTMDP', which would accomplish the exact same
 thing.  Or, if we only wanted to know the total number of replications without
 actually reading out all of the respective PRLC, GEOP, TMDB and TMDP values, we could also call
@@ -966,23 +991,25 @@ corresponding value applies.
 <div id="section3">
 ## Section 3
 
-It's now time to move on to the third and final section of a DX BUFR tables file. As we mentioned earlier,
-this section is used to define the scale factor, reference value, data width, and units for all of the Table B
-mnemonics that were previously declared in the [first section](#section1). In particular, the reader may recall
-that the units definition for each Table B mnemonic in turn determines how data values corresponding to that
+The third section of a DX BUFR tables file is used to define the scale factor, reference value, data width, and units for all of the Table B
+mnemonics that were previously declared in the [first section](#section1). The units definition for each Table B mnemonic determines how data values corresponding to that
 mnemonic are read/written from/to the REAL*8 array USR within BUFRLIB subroutines such as
 ufbint(), ufbrep() and ufbseq().
 
 <br>
 
 In looking again at our [sample DX BUFR tables file](#bftab), we see that the format for the third section of such a file
-is to have our same old, familiar "|" delimiter in columns 1, 12, 19, 33, 39, 66, and 80 of each line.
-These delimiters, in turn, form the columns for the mnemonic (listed exactly as it was previously within
+is the usual "|" delimiter in columns 1, 12, 19, 33, 39, 66, and 80 of each line.
+These delimiters form the columns for the mnemonic (listed exactly as it was previously within
 the [first section](#section1)), the scale factor (right-justified from column 17), the reference value
 (right-justified from column 31), the bit width (right-justified from column 37), and the units (left-justified
-from column 41). As with the previous two sections, blank separator lines may be employed in order to improve
-human-readability, and, for the same reason, it's also recommended to list the mnemonics in the same order in
-which they were declared within the first section, although this is by no means a requirement of the software.
-However, note that any mnemonic whose corresponding data values are to be treated as character data must have
-its units listed as "CCITT IA5", which is basically just a formal synonym for ASCII.
+from column 41).
+
+<br>
+
+As with the previous two sections, blank separator lines may be employed in order to improve
+human-readability. It's recommended to list the mnemonics in the same order in
+which they were declared within the first section.
+Any mnemonic whose corresponding data values are to be treated as character data must have
+its units listed as "CCITT IA5", which is just a formal synonym for ASCII.
 </div>
