@@ -479,59 +479,60 @@ For the purposes of this tutorial, we'll use the following sample DX BUFR tables
 
 <br>
 
-Every BUFR file, must
+Every BUFR file must
 have DX BUFR tables associated with it, unless the 'SEC3' decoding option is specified during the
 call to openbf(). For all other cases, DX table information must be pre-defined and made available
 to the software via call argument LUNDX during the call to openbf(). The DX tables information may be embedded within the first few BUFR messages of the
 file itself. Otherwise, a separate ASCII text file containing the necessary DX tables information
-must be supplied, such as the example shown above. It is extremely important that any such file
-not only be syntactically correct but also complete, in the sense that all necessary mnemonics
+must be supplied, such as the example shown above. Such files
+must be syntactically correct and also complete, in the sense that all necessary mnemonics
 must exist and be fully-defined.
 
 <br>
 
 A <i>mnemonic</i> is a
-descriptive, alphanumeric name for a data value. "Table A mnemonics", refer to particular data subset (i.e. report ) types, "Table B
-mnemonics", refer directly to basic data values, and "Table D mnemonics" are
+descriptive, alphanumeric name for a data value.
+* "Table A mnemonics", refer to particular data subset (i.e. report ) types,
+* "Table B mnemonics", refer directly to basic data values,
+* "Table D mnemonics" are
 sequences composed of one or more Table B (or other Table D) mnemonics and which are themselves
 normally direct constituents of a particular Table A mnemonic.
 
 <br>
 
-In other words, at the highest level,
+At the highest level,
 we have a Table A mnemonic which completely describes a type of data subset (e.g. rawinsonde,
-wind profiler, etc.), and this Table A mnemonic is defined as a sequence of one or more Table B or
+wind profiler, etc.). This Table A mnemonic is defined as a sequence of one or more Table B or
 Table D mnemonics, where each Table D mnemonic is likewise itself defined as a sequence of one or
 more Table B or Table D mnemonics, and so on until the entire data subset can be equivalently
-described as a sequence of one or more Table B mnemonics which, again, themselves correspond to
+described as a sequence of one or more Table B mnemonics which correspond to
 basic data values (e.g. pressure, temperature, humidity, etc.).
 
 <br>
 
-In this way, the entire sequence
-of data values that constitute a particular type of data subset is fully and unambiguously defined,
-both for purposes of input (reading/decoding) or output (writing/encoding) of reports corresponding
-to that particular type of data subset.
+The entire sequence
+of data values that constitute a particular type of data subset is fully and unambiguously defined.
 
 <br>
 
 Mnemonics never
-themselves appear within actual BUFR messages that are read or written by the BUFRLIB software;
-rather, their only purpose is to make it easier for users to interact with the software by
-providing descriptive names to represent individual data values, as opposed to having to keep track
-of the corresponding FXY numbers (described below), which are much less intuitive but which
-are the prescribed method within the BUFR code form for referencing of individual data
-values, and are what are actually read and written by the software.
+themselves appear within actual BUFR messages.
+Their only purpose is to make it easier for users to interact with the software by
+providing descriptive names to represent individual data values. They are a more intuitive than
+FXY numbers (described below). FXY numers are the prescribed method within the BUFR messages.
 
 <br>
 
 A DX BUFR tables file consists of three distinct sections.  Each section contains one or more
 lines of 80 characters in length, and where a "*" as the first character of a line indicates that
-that entire line is a comment. In the [first section](#section1), all Table A, B and D mnemonics that are to be
+that entire line is a comment.
+1. In the [first section](#section1), all Table A, B and D mnemonics that are to be
 used within the file are initially declared, assigned a unique FXY number, and given a short,
-free-form text description. Then, in the [second section](#section2), all previously-declared Table A and
+free-form text description.
+2. In the [second section](#section2), all previously-declared Table A and
 Table D mnemonics are actually defined as a sequence of one or more Table B (or other Table D)
-mnemonics. Finally, in the [third section](#section3), all previously-declared Table B mnemonics are defined
+mnemonics.
+3. In the [third section](#section3), all previously-declared Table B mnemonics are defined
 in terms of their scale factor, reference value, bit width, and units.
 
 <br>
