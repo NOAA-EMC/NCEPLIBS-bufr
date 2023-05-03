@@ -540,6 +540,29 @@ program test_bort
         call openbf(12, 'IN', 11)
         call readmg(11, char_val_8, jdate, iret)
         call ufbcup(11, 12)
+     elseif (test_case .eq. '5') then
+        open(unit = 11, file = 'testfiles/IN_9', form ='unformatted')
+        call openbf(11, 'IN', 11)
+        open(unit = 12, file = 'test_ufbcup_out', form ='unformatted')
+        call readmg(11, char_val_8, jdate, iret)
+        call readsb(11, iret)        
+        call ufbcup(11, 12)
+     elseif (test_case .eq. '6') then
+        open(unit = 11, file = 'testfiles/IN_9', form ='unformatted')
+        call openbf(11, 'IN', 11)
+        open(unit = 12, file = 'test_ufbcup_out', form ='unformatted')
+        call openbf(12, 'IN', 11)
+        call readmg(11, char_val_8, jdate, iret)
+        call readsb(11, iret)        
+        call ufbcup(11, 12)
+     elseif (test_case .eq. '7') then
+        open(unit = 11, file = 'testfiles/IN_9', form ='unformatted')
+        call openbf(11, 'IN', 11)
+        open(unit = 12, file = 'test_ufbcup_out', form ='unformatted')
+        call openbf(12, 'OUT', 11)
+        call readmg(11, char_val_8, jdate, iret)
+        call readsb(11, iret)        
+        call ufbcup(11, 12)
      endif
   elseif (sub_name .eq. 'ufbdmp') then
      if (test_case .eq. '1') then
