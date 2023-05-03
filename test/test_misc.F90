@@ -115,6 +115,14 @@ program test_misc
   ! These tests only for the _4 run of test_misc.
 #ifdef KIND_4
 
+  ! Testing readdx().
+  open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
+  if (ios .ne. 0) stop 5
+  call openbf(11, 'IN', 11)
+  call openbf(11, 'QUIET', 2)
+  call readdx(11, 1, 11)
+  call closbf(11)
+
   ! adn30/idn30.
   char5 = adn30(42, 5)
   if (char5 .ne. '00042') stop 100
