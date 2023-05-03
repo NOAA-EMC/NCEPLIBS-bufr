@@ -185,6 +185,9 @@ for kind in "4" "d"; do
     (./test_bort_$kind ufbcup 2) && exit 1
     (./test_bort_$kind ufbcup 3) && exit 1
     (./test_bort_$kind ufbcup 4) && exit 1
+    (./test_bort_$kind ufbcup 5) && exit 1
+    (./test_bort_$kind ufbcup 6) && exit 1
+    (./test_bort_$kind ufbcup 7) && exit 1
 
     # Check ufbdmp().
     (./test_bort_$kind ufbdmp 1) && exit 1
