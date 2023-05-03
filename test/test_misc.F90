@@ -104,7 +104,13 @@ program test_misc
   call strnum('    ',num,iret)
   if ((iret .ne. 0) .or. (num .ne. 0)) stop 403
 
-
+  ! Testing cpdxmm().
+  open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
+  if (ios .ne. 0) stop 5
+  call openbf(11, 'IN', 11)
+  call openbf(11, 'QUIET', 2)
+  call cpdxmm(11)
+  call closbf(11)
 
   ! These tests only for the _4 run of test_misc.
 #ifdef KIND_4
