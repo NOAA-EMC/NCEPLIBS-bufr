@@ -8,8 +8,7 @@ This document describes the format and contents of a DX BUFR tables file for use
 with the BUFRLIB software.  Any such file consists of three distinct sections [Section 1](#section1),
 [Section 2](#section2) and [Section 3](#section3), each of which is described in
 further detail below.
-For the purposes of this tutorial, we'll use the following sample DX BUFR tables file
-and refer back to it at several points throughout the remainder of the discussion:
+For the purposes of this tutorial, we'll use the following sample DX BUFR tables file:
 
 ## Sample DX BUFR tables file
 
@@ -480,12 +479,10 @@ and refer back to it at several points throughout the remainder of the discussio
 
 <br>
 
-As noted during the discussion of subroutine openbf(), every BUFR file that is presented to the
-BUFRLIB software, either for input (reading/decoding) or output (writing/encoding) purposes, must
+Every BUFR file, must
 have DX BUFR tables associated with it, unless the 'SEC3' decoding option is specified during the
 call to openbf(). For all other cases, DX table information must be pre-defined and made available
-to the software via call argument LUNDX during the call to openbf(). In the case of an existing
-BUFR file, the DX tables information may be embedded within the first few BUFR messages of the
+to the software via call argument LUNDX during the call to openbf(). The DX tables information may be embedded within the first few BUFR messages of the
 file itself. Otherwise, a separate ASCII text file containing the necessary DX tables information
 must be supplied, such as the example shown above. It is extremely important that any such file
 not only be syntactically correct but also complete, in the sense that all necessary mnemonics
@@ -493,36 +490,38 @@ must exist and be fully-defined.
 
 <br>
 
-First, let's define what we mean by a <i>mnemonic</i>. In short, a mnemonic is simply a
-descriptive, alphanumeric name for a data value. In the context of the BUFRLIB software, there
-are "Table A mnemonics", which refer to particular data subset (i.e. report ) types, "Table B
-mnemonics", which refer directly to basic data values, and "Table D mnemonics", which are
+A <i>mnemonic</i> is a
+descriptive, alphanumeric name for a data value. "Table A mnemonics", refer to particular data subset (i.e. report ) types, "Table B
+mnemonics", refer directly to basic data values, and "Table D mnemonics" are
 sequences composed of one or more Table B (or other Table D) mnemonics and which are themselves
-normally direct constituents of a particular Table A mnemonic. In other words, at the highest level,
+normally direct constituents of a particular Table A mnemonic.
+
+In other words, at the highest level,
 we have a Table A mnemonic which completely describes a type of data subset (e.g. rawinsonde,
 wind profiler, etc.), and this Table A mnemonic is defined as a sequence of one or more Table B or
 Table D mnemonics, where each Table D mnemonic is likewise itself defined as a sequence of one or
 more Table B or Table D mnemonics, and so on until the entire data subset can be equivalently
 described as a sequence of one or more Table B mnemonics which, again, themselves correspond to
-basic data values (e.g. pressure, temperature, humidity, etc.). In this way, the entire sequence
+basic data values (e.g. pressure, temperature, humidity, etc.).
+
+In this way, the entire sequence
 of data values that constitute a particular type of data subset is fully and unambiguously defined,
 both for purposes of input (reading/decoding) or output (writing/encoding) of reports corresponding
 to that particular type of data subset.
 
 <br>
 
-However, it's also important to understand what mnemonics are not. Specifically, mnemonics never
+Mnemonics never
 themselves appear within actual BUFR messages that are read or written by the BUFRLIB software;
-rather, their only purpose in life is to make it easier for users to interact with the software by
+rather, their only purpose is to make it easier for users to interact with the software by
 providing descriptive names to represent individual data values, as opposed to having to keep track
 of the corresponding FXY numbers (described below), which are much less intuitive but which
-nevertheless are the prescribed method within the BUFR code form for referencing of individual data
-values, and which therefore are what are actually read and written by the software.
+are the prescribed method within the BUFR code form for referencing of individual data
+values, and are what are actually read and written by the software.
 
 <br>
 
-Before continuing on let's recall
-that a DX BUFR tables file consists of three distinct sections.  Each section contains one or more
+A DX BUFR tables file consists of three distinct sections.  Each section contains one or more
 lines of 80 characters in length, and where a "*" as the first character of a line indicates that
 that entire line is a comment. In the [first section](#section1), all Table A, B and D mnemonics that are to be
 used within the file are initially declared, assigned a unique FXY number, and given a short,
@@ -533,17 +532,15 @@ in terms of their scale factor, reference value, bit width, and units.
 
 <br>
 
-Now, as we delve into the details of each of the three sections, we'll constantly refer back to
-our [sample DX BUFR tables file](#bftab) in order to better illustrate the concepts that are discussed.
 </div>
 
 <div id="section1">
 ## Section 1
 
-As previously mentioned, the first section of a BUFR tables file is where all Table A, B and D
+The first section of a BUFR tables file is where all Table A, B and D
 mnemonics are initially declared, assigned a unique FXY number, and given a short free-form text
 description. Mnemonics may contain any combination of uppercase letters and numbers (or, in certain
-special cases, a "." character!), up to a maximum total of 8 characters in length. A mnemonic may be
+special cases, a "." character), up to a maximum of 8 characters in length. A mnemonic may be
 declared only once, and each one must correspond to a unique FXY number, which itself consists of 6
 characters, and where the first character (i.e. the "F" component) is an "A" if the mnemonic is
 being declared as a Table A mnemonic, "3" if the mnemonic is being declared as a Table D mnemonic,
@@ -552,11 +549,14 @@ number must be all digits, with the next 2 characters (i.e. the "X" component) a
 between 00 and 63, and the final 3 characters (i.e. the "Y" component) as a number between 001
 and 255. Readers who are more familiar with BUFR will immediately recognize these F, X, and Y
 values as those that are defined within the
-[official documentation of the BUFR code form](@ref manual);
-therefore, by international convention, a mnemonic should not be given an X value between 00 and 47
+[official documentation of the BUFR code form](@ref manual).
+
+By international convention, a mnemonic should not be given an X value between 00 and 47
 along with a Y value between 001 and 191 unless that mnemonic, when subsequently defined, corresponds
 exactly to the BUFR descriptor having that same FXY number within the
-[official WMO master BUFR tables](@ref wmomstab). For example, in our [sample DX BUFR tables file](#bftab),
+[official WMO master BUFR tables](@ref wmomstab).
+
+For example, in our [sample DX BUFR tables file](#bftab),
 mnemonic "WMOB" is declared with an FXY number of 001001; therefore, it has the exact same text
 description (i.e. "WMO BLOCK NUMBER") and, when later defined within the last section of the file,
 the exact same scale factor, reference value, bit width, and units as for FXY number 001001 within
@@ -572,25 +572,24 @@ left-justified, in columns 3-10, corresponding FXY numbers are assigned in colum
 corresponding text description begins in column 23. All of the Table A mnemonics are declared first,
 followed by all of the Table D mnemonics, followed by all of the Table B mnemonics. Within each set,
 it is generally a good idea for human-readability purposes to list the mnemonics in ascending order
-with respect to their FXY number, although this is not required by the BUFRLIB software itself.
-Likewise, human-readability can usually also be improved by the judicious use of one or more
+with respect to their FXY number, although this is not required.
+Human-readability can usually also be improved by the use of 
 separator lines containing the required "|" character in columns 1, 12, 21, and 80 but without
-any actual mnemonic declaration; however, again, the use of such separator lines is not required
-by the software. In fact, the software will simply continue reading lines of the file, one at a time,
+any actual mnemonic declaration. The use of such separator lines is not required.
+The software will continue reading lines of the file, one at a time,
 and looking for new mnemonic declarations, until it reaches a line which does not contain a "|"
 character in each of columns 1, 12, 21, and 80, at which point it then knows that the first section
 of the tables file has ended.
 
 <br>
 
-We mentioned earlier that mnemonics only exist in order to facilitate user interaction with the
-BUFRLIB software and that, therefore, mnemonics should be as intuitive as possible. We now need
-to amend that statement slightly, because certain Table A mnemonics do have a special additional
-function. Specifically, if a Table A mnemonic consists of 8 characters (i.e. the maximum) and if
+If a Table A mnemonic consists of 8 characters (i.e. the maximum) and if
 characters 3 through 8 are all digits, then the mnemonic is also used by the software to set the
 data category and local subcategory within Section 1 of each BUFR message when writing/encoding
 data subsets corresponding to that mnemonic. In such cases, characters 3 through 5 define the
-category, and characters 6 through 8 define the subcategory. Therefore, in referring again to our
+category, and characters 6 through 8 define the subcategory.
+
+Referring to our
 [sample DX BUFR tables file](#bftab) where we've defined three different Table A mnemonics,
 we've also indicated that, e.g. when we use the software to write/encode data subsets according
 to the Table A mnemonic "NC002007" (i.e. wind profiler), we want all BUFR messages which contain
@@ -599,17 +598,16 @@ message.
 
 <br>
 
-Incidentally, even if a Table A mnemonic doesn't meet the above criteria, BUFR message category
+Even if a Table A mnemonic doesn't meet the above criteria, BUFR message category
 and local subcategory values will still be set by the software when writing/encoding BUFR data
-subsets corresponding to that Table A mnemonic. However, in such cases, the category value will
+subsets corresponding to that Table A mnemonic. In such cases the category value will
 be set to the "Y" component (i.e. last 3 digits) of the FXY number corresponding to the mnemonic,
-and the subcategory value will simply be set to 0. Therefore, it is recommended to use the
+and the subcategory value will simply be set to 0. It is recommended to use the
 previous, more-explicit approach when assigning a Table A mnemonic for a data subset to be output,
 since this approach provides for greater control over the category and subcategory values that
-will be encoded into Section 1 of the resultant BUFR message. We should also take this opportunity
-to point out that, when the FXY number corresponding to a Table A mnemonic is actually encoded
+will be encoded into Section 1 of the resultant BUFR message. When the FXY number corresponding to a Table A mnemonic is actually encoded
 into a BUFR message, a "3" is actually encoded in place of the "A" which is used in the DX tables
-file. Put another way, the "A" that appears within the FXY number corresponding to each Table A
+file. The "A" that appears within the FXY number corresponding to each Table A
 mnemonic within the tables file is only there so that such mnemonics can be easily distinguished
 from Table D mnemonics by the software.
 </div>
@@ -617,14 +615,16 @@ from Table D mnemonics by the software.
 <div id="section2">
 ## Section 2
 
-Now, let's move on to the second section of a DX BUFR tables file. As already stated, this section
-is used to define, for each Table A and Table D mnemonic that was previously declared in the
+The second section of a DX BUFR tables file is used to define, for each Table A and Table D mnemonic that was previously declared in the
 [first section](#section1), the sequence of Table B (and possibly other Table D) mnemonics which
-constitutes that mnemonic. The format for this section is a "|" character in columns 1, 12, and 80,
+constitutes that mnemonic.
+
+The format for this section is a "|" character in columns 1, 12, and 80,
 with the mnemonic that is being defined listed in columns 3-10 (left-justified), and the sequence
 of constituent mnemonics beginning in column 14, each one separated from the others by one or more
 blank characters. For longer sequences, multiple successive lines may be used in a continuation
 fashion by repeating, within columns 3-10 of each continuation line, the mnemonic being defined.
+
 For example, in our [sample DX BUFR tables file](#bftab), the Table D mnemonic MRPSC0 is defined as consisting
 of the sequence YEAR MNTH DAYS HOUR MINU RPID MRPIDS CLON CLAT SELV CORN, where MRPIDS is itself
 a Table D mnemonic which is therefore itself defined in a similar manner elsewhere within the
@@ -636,11 +636,7 @@ second section until it encounters one that does not adhere to this format.
 
 <br>
 
-At this point, most readers who have taken at least a cursory glance at the
-[sample DX BUFR tables file](#bftab) will have no doubt begun to wonder about all of the additional
-punctuation characters and symbols included within the sequence definitions of the second section.
-We'll now address those concerns by stating that these are replication indicators for the mnemonic(s)
-in question:
+Additional punctuation characters and symbols can be see in the [sample DX BUFR tables file](#bftab).
 
 | Symbol | Meaning |
 |--------|---------|
@@ -649,8 +645,7 @@ in question:
 | ( )  | The enclosed mnemonic is replicated using 16-bit delayed replication (between 0 and 65535 replications) |
 | " "n | The enclosed mnemonic is replicated using regular (non-delayed) replication, with a fixed replication factor of n |
 
-Examples of most of these cases are shown within the [sample DX BUFR tables file](#bftab), and, through successive
-application, can lead to the definition of some rather interesting data structures. For example,
+For example,
 the Table A mnemonic NC002001, which defines the layout of a data subset of the type "RAWINSONDE - FIXED LAND",
 consists of the following sequence of Table B and Table D mnemonics:
 
@@ -682,9 +677,13 @@ where, e.g., the constituent Table D mnemonic UARLV itself consists of the follo
 9. either 0 or 1 replications of UAWSH
 
 and where, in turn, UAGP07, UAGP10, UATMP, etc. are also Table D mnemonics which can themselves be
-further resolved. So we can even nest certain replication sequences inside of other replication sequences,
+further resolved.
+
+We can even nest certain replication sequences inside of other replication sequences,
 and, further, via the judicious use of the &lt; &gt; indicator, even turn on/off entire sequences of data values
-simply and efficiently. An example of this is the UAWSH (i.e. "RADIOSONDE WIND SHEAR DATA") sequence,
+simply and efficiently.
+
+An example of this is the UAWSH (i.e. "RADIOSONDE WIND SHEAR DATA") sequence,
 whose constituent data values are only ever present in a rawinsonde report when a level of maximum wind is
 being reported (and, even then, not always!). In this case, enclosing the entire sequence within a &lt; &gt; 
 indicator allows the lack of such data within a report level to be noted by the use of a single bit set to "0"
