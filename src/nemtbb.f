@@ -3,17 +3,18 @@ C> @brief Get information about a Table B descriptor
 C>
 C> @author J. Woollen @date 1994-01-06
 
+C> Get information about a Table B descriptor.
+C>
 C> This subroutine returns information about a Table B descriptor
 C> from the internal DX BUFR tables.
 C>
-C> @param[in] LUN - integer: Internal I/O stream index associated
-C>                   with DX BUFR tables
+C> @param[in] LUN - integer: File ID.
 C> @param[in] ITAB - integer: Positional index of descriptor within
-C>                    internal Table B
-C> @param[out] UNIT - character*24: Units of descriptor
-C> @param[out] ISCL - integer: Scale factor of descriptor
-C> @param[out] IREF - integer: Reference value of descriptor
-C> @param[out] IBIT - integer: Bit width of descriptor
+C> internal Table B.
+C> @param[out] UNIT - character*24: Units of descriptor.
+C> @param[out] ISCL - integer: Scale factor of descriptor.
+C> @param[out] IREF - integer: Reference value of descriptor.
+C> @param[out] IBIT - integer: Bit width of descriptor.
 C>
 C> @author J. Woollen @date 1994-01-06
 

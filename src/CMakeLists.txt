@@ -31,8 +31,8 @@ list(APPEND fortran_src
   bufr_c2f_interface.F90 x48.F x84.F bufrlib.F90)
 
 list(APPEND c_src
-  arallocc.c ardllocc.c bort_exit.c cmpia.c cpmstabs.c cread.c crwbmg.c cfe.c
-  icvidx.c nummtb.c restd.c stseq.c wrdesc.c)
+  arallocc.c ardllocc.c bort_exit.c cpmstabs.c cread.c crwbmg.c cfe.c
+  icvidx.c restd.c stseq.c wrdesc.c)
 
 list(APPEND c_hdr
   cread.h mstabs.h bufr_interface.h)

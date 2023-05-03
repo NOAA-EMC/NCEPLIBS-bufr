@@ -1,5 +1,5 @@
 /* This is a test for NCEPLIBS-bufr.
-   This file is a quick test of bufr_c_interface_mod.
+   This file is a quick test of bufr_c2f_interface_mod.
    Ronald Mclaren 2021-02-26
 */
 

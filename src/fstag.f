@@ -21,7 +21,7 @@ C> @param[out] IRET - integer: return code.
 C> - 0 Normal return.
 C> - -1 Requested mnemonic could not be found, or some other error occurred.
 C>
-C> @author J Ator @date 2014-10-02
+C> @author J. Ator @date 2014-10-02
         SUBROUTINE FSTAG ( LUN, UTAG, NUTAG, NIN, NOUT, IRET )
 
         USE MODA_USRINT

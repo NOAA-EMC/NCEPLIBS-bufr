@@ -1,6 +1,6 @@
 /* This is a test for NCEPLIBS-bufr.
  *
- * Test some of the bufr_c_interface.mod functions.
+ * Test some of the bufr_c2f_interface.mod functions.
  *
  * J. Ator 2021-03-01
  */
@@ -29,7 +29,13 @@ int main() {
 
     open_f( BUFR_FILE_UNIT, INPUT_FILE );
 
+    if ( ( iret = isetprm_f( "NFILES" ,5 ) ) != 0 ) exit(1);
+    if ( ( iret = igetprm_f( "NFILES" ) ) != 5 ) exit(1);
+
     openbf_f( BUFR_FILE_UNIT, "SEC3", BUFR_FILE_UNIT );
+
+    maxout_f( 25000 );
+    if ( ( iret = igetmxby_f() ) != 25000 ) exit(1);
 
     mtinfo_f( "../tables", TABLE_1_FILE_UNIT, TABLE_2_FILE_UNIT );
 

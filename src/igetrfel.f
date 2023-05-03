@@ -18,7 +18,7 @@ C> @return Subset element referenced by element N within the same subset.
 C> - 0 input element does not refer to a previous element, or referenced
 C> element not found.
 C>
-C> @author J Ator @date 2016-05-27
+C> @author J. Ator @date 2016-05-27
         INTEGER FUNCTION IGETRFEL ( N, LUN )
 
         USE MODA_MSGCWD

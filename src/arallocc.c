@@ -41,7 +41,7 @@ arallocc(void)
 **  cread arrays
 */
 
-    nfiles = igetprm_f( "NFILES" );
+    nfiles = igetprm_f("NFILES");
 
     if ( ( pb = malloc( (nfiles+1) * sizeof(FILE *) ) ) == NULL ) {
         strcat( brtstr, "PB" );
@@ -57,9 +57,9 @@ arallocc(void)
 **  mstabs arrays
 */
 
-    mxmtbb = igetprm_f( "MXMTBB" );
-    mxmtbd = igetprm_f( "MXMTBD" );
-    maxcd = igetprm_f( "MAXCD" );
+    mxmtbb = igetprm_f("MXMTBB");
+    mxmtbd = igetprm_f("MXMTBD");
+    maxcd = igetprm_f("MAXCD");
 
     if ( ( ibfxyn_c = malloc( mxmtbb * sizeof(f77int) ) ) == NULL ) {
         strcat( brtstr, "IBFXYN" );
