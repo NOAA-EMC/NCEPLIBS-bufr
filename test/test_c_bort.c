@@ -18,8 +18,6 @@
 #include <stdio.h>
 #include "bufrlib.h"
 
-void wrdesc(f77int desc, f77int *descary, f77int *ndescary);
-
 #define TOO_LONG_FILENAME "01234567890012345678900123456789001234567890012345678900123456789001234567890012345678900123456789001234567890012345678900123456789001234567890012345678900123456789001234567890012345678900123456789001234567890012345678901"
 #define TESTFILE_IN1 "testfiles/IN_1"
 #define BAD_TESTFILE "does_not_exist"
@@ -27,7 +25,7 @@ void wrdesc(f77int desc, f77int *descary, f77int *ndescary);
 /* Test C borts. */
 int main(int argc, char **argv)
 {
-    f77int descary, ndescary = 100000;
+    int descary, ndescary = 100000;
     char bmg[200];
     int nmb, iret;
 

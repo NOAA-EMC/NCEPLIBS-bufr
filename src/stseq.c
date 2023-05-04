@@ -57,7 +57,7 @@ nummtb(int *idn, char *tab, int *ipt)
 
         char adn[FXY_STR_LEN+1], errstr[129];
 
-        if ( *idn >= ifxy( MIN_FXY_TABLED, 6 ) ) {
+        if ( *idn >= ifxy_f(MIN_FXY_TABLED) ) {
             *tab = 'D';
             pifxyn = &idfxyn_c[0];
             nmt = nmtd_c;
@@ -108,12 +108,12 @@ nummtb(int *idn, char *tab, int *ipt)
  * @author J. Ator @date 2009-03-23
 */
 void
-stseq(f77int *lun, f77int *irepct, f77int *idn, char *nemo,
-      char *cseq, f77int *cdesc, f77int *ncdesc)
+stseq(int *lun, int *irepct, int *idn, char *nemo,
+      char *cseq, int *cdesc, int *ncdesc)
 {
 
-    f77int i, j, nb, nd, ix, iy, ier, iret, nbits;
-    f77int rpidn, pkint, ilen;
+    int i, j, nb, nd, ix, iy, ier, iret, nbits;
+    int rpidn, pkint, ilen;
 
     char tab, adn[FXY_STR_LEN+1], adn2[FXY_STR_LEN+1], units[10], errstr[129];
     char nemo2[NEMO_STR_LEN+1], rpseq[56], card[80], cblk = ' ', czero = '0';
@@ -125,14 +125,14 @@ stseq(f77int *lun, f77int *irepct, f77int *idn, char *nemo,
 **  private copy is created and dynamically allocated during each
 **  recursive call to this subroutine.
 */
-    f77int *rpdesc;
+    int *rpdesc;
 
 /*
 **  The following variables are declared as static so that they
 **  automatically initialize to zero and remain unchanged between
 **  recursive calls to this subroutine.
 */
-    static f77int naf, iafpk[MXNAF];
+    static int naf, iafpk[MXNAF];
 
 /*
 **  Is *idn already listed as an entry in the internal Table D?
@@ -200,8 +200,9 @@ stseq(f77int *lun, f77int *irepct, f77int *idn, char *nemo,
 */
             strnum( &adn[1], &ix, &ier, 2 );
             strnum( &adn[3], &iy, &ier, 3 );
+            adn[6] = '\0';
 
-            if ( ( ( ix >= 4 ) && ( ix <= 6 ) ) || ( imrkopr( adn, 6 ) ) ) {
+            if ( ( ( ix >= 4 ) && ( ix <= 6 ) ) || ( imrkopr_f(adn) ) ) {
 /*
 **              This is a 204YYY, 205YYY, 206YYY operator, or else a 223255,
 **              224255, 225255 or 232255 marker operator.  In any case,
@@ -274,7 +275,7 @@ stseq(f77int *lun, f77int *irepct, f77int *idn, char *nemo,
                         nbits = 8;
                         strcpy( units, "NUMERIC" );
                     }
-                    ilen = ( f77int ) strlen( rpseq );
+                    ilen = ( int ) strlen( rpseq );
                     memset( &rpseq[ilen], (int) cblk, 55 - ilen );
 /*
 **                  Note that 49152 = 3*(2**14), so subtracting 49152 in the
@@ -344,14 +345,14 @@ stseq(f77int *lun, f77int *irepct, f77int *idn, char *nemo,
                              "DESCRIPTOR REPLICATION FACTOR FOR %s", adn );
                     bort( errstr, ( f77int ) strlen( errstr ) );
                 }
-                else if ( cdesc[i+1] == ifxy( "031002", 6 ) ) {
-                    pkint = ifxy( "360001", 6 );
+                else if ( cdesc[i+1] == ifxy_f("031002") ) {
+                    pkint = ifxy_f("360001");
                 }
-                else if ( cdesc[i+1] == ifxy( "031001", 6 ) ) {
-                    pkint = ifxy( "360002", 6 );
+                else if ( cdesc[i+1] == ifxy_f("031001") ) {
+                    pkint = ifxy_f("360002");
                 }
-                else if ( cdesc[i+1] == ifxy( "031000", 6 ) ) {
-                    pkint = ifxy( "360004", 6 );
+                else if ( cdesc[i+1] == ifxy_f("031000") ) {
+                    pkint = ifxy_f("360004");
                 }
                 else {
                     sprintf( errstr, "BUFRLIB: STSEQ - UNKNOWN DELAYED "
@@ -361,7 +362,7 @@ stseq(f77int *lun, f77int *irepct, f77int *idn, char *nemo,
                 i += 2;
             }
             else {        /* regular replication */
-                pkint = ifxy( MIN_FXY_REPL, 6 ) + iy;
+                pkint = ifxy_f(MIN_FXY_REPL) + iy;
                 i++;
             }
 /*
@@ -387,7 +388,7 @@ stseq(f77int *lun, f77int *irepct, f77int *idn, char *nemo,
                          "DESCRIPTORS TO COMPLETE REPLICATION FOR %s", adn );
                 bort( errstr, ( f77int ) strlen( errstr ) );
             }
-            else if ( ( ix == 1 ) && ( cdesc[i] >= ifxy ( MIN_FXY_TABLED, 6 ) ) ) {
+            else if ( ( ix == 1 ) && ( cdesc[i] >= ifxy_f(MIN_FXY_TABLED) ) ) {
 /*
 **              The only thing being replicated is a single Table D descriptor,
 **              so there's no need to invent a new sequence for this replication
@@ -407,7 +408,7 @@ stseq(f77int *lun, f77int *irepct, f77int *idn, char *nemo,
 **              mnemonic and description as well.
 */
 
-                if ( ( rpdesc = malloc( imxcd * sizeof(f77int) ) ) == NULL ) {
+                if ( ( rpdesc = malloc( imxcd * sizeof(int) ) ) == NULL ) {
                     sprintf( errstr, "BUFRLIB: STSEQ - UNABLE TO ALLOCATE SPACE"
                             " FOR RPDESC" );
                     bort( errstr, ( f77int ) strlen( errstr ) );
@@ -473,9 +474,9 @@ stseq(f77int *lun, f77int *irepct, f77int *idn, char *nemo,
 **          Note that associated fields are only applied to Table B descriptors,
 **          except for those in Class 31.
 */
-            if ( ( naf > 0 ) && ( pkint <= ifxy( MAX_FXY_TABLEB, 6 ) ) &&
-                    ( ( pkint < ifxy( "031000", 6 ) ) ||
-                      ( pkint > ifxy( "031255", 6 ) ) )  ) {
+            if ( ( naf > 0 ) && ( pkint <= ifxy_f(MAX_FXY_TABLEB) ) &&
+                    ( ( pkint < ifxy_f("031000") ) ||
+                      ( pkint > ifxy_f("031255") ) )  ) {
                 for ( j = 0; j < naf; j++ ) {
                     pktdd( &nd, lun, &iafpk[j], &iret );
                     if ( iret < 0 ) {
