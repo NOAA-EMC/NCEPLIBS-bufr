@@ -90,16 +90,16 @@ number must be all digits, with the next 2 characters (i.e. the "X"
 component) as a number between 00 and 63, and the final 3 characters
 (i.e. the "Y" component) as a number between 001 and 255. Readers who
 are more familiar with BUFR will immediately recognize these F, X, and
-Y values as those that are defined within the [official documentation
-of the BUFR code form](@ref manual).
+Y values as those that are defined within the
+[official documentation of the BUFR code form](@ref manual).
 
 <br>
 
 By international convention, a mnemonic should not be given an X value
 between 00 and 47 along with a Y value between 001 and 191 unless that
 mnemonic, when subsequently defined, corresponds exactly to the BUFR
-descriptor having that same FXY number within the [official WMO master
-BUFR tables](@ref wmomstab).
+descriptor having that same FXY number within the
+[official WMO master BUFR tables](@ref wmomstab).
 
 <br>
 
