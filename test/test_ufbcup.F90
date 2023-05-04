@@ -83,11 +83,12 @@ program test_ufbcup
   call ufbint(12, hdr, 1, 1, iret, 'T29')
   if (abs(hdr(1, 1) - 512.0) > EPSILON) stop 45
   call ufbint(12, hdr, 1, 1, iret, 'ITP')
-  if (abs(hdr(1, 1) - missing) > EPSILON) stop 45
+  if (abs(hdr(1, 1) - missing) > EPSILON) stop 46
 
   ! Read a replication.
-  call ufbrep(12, hdr, 1, 1, iret, 'PLEVL')
-  print *, iret, hdr(1, 1)
+  call ufbrep(12, hdr, 1, 1, iret, '{PLEVL}')
+  if (iret .ne. 1) stop 50
+  if (hdr(1, 1) .ne. 0 .or. iret .ne. 1) stop 50
 
   ! Close the files.
   call closbf(12)
