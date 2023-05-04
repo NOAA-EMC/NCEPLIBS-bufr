@@ -86,8 +86,8 @@ program test_ufbcup
   if (abs(hdr(1, 1) - missing) > EPSILON) stop 45
 
   ! Read a replication.
-!  call ufbrep(12, hdr, 1, 1, iret, 'PLEVL')
-!  print *, iret, hdr(1, 1)
+  call ufbrep(12, hdr, 1, 1, iret, 'PLEVL')
+  print *, iret, hdr(1, 1)
 
   ! Close the files.
   call closbf(12)
