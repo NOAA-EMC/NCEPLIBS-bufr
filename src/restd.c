@@ -7,29 +7,34 @@
 #include "bufrlib.h"
 
 /**
- * Given the bit-wise (integer) representation of a local (not
- * WMO-standard) Table D descriptor, this subroutine returns an
- * equivalent array of WMO-standard child descriptors.
+ * Standardize a local Table D descriptor.
+ *
+ * Given the WMO bit-wise representation of a local (not WMO-standard)
+ * Table D descriptor, this subroutine returns an equivalent array of
+ * WMO-standard child descriptors.
+ *
+ * For an description of the WMO bit-wise representation of the FXY
+ * value, see ifxy().
  *
  * Any child descriptors which are themselves local Table D
  * descriptors are automatically resolved via a recursive call to this
- * same subroutine.  This recursive process continues until all child
+ * same subroutine. This recursive process continues until all child
  * descriptors are either WMO-standard descriptors (from Table B,
  * Table C, Table D, or replication descriptors) or else are local
  * Table B descriptors, in which case they are preceded with an
- * appropriate 2-06-YYY Table C operator in the output array.  The
- * output array is then useable by any standard BUFR decoder program
- * in order to interpret the same data values as were represented by
- * the input local Table D descriptor.
+ * appropriate 2-06-YYY Table C operator in the output array.
  *
- * @param lun - File ID.
- * file
- * @param tddesc - Bit-wise representation of FXY value for local Table
- * D descriptor.
- * @param nctddesc - Number of WMO-standard child descriptors returned
- * in ctddesc.
- * @param ctddesc - Array of WMO-standard child descriptors equivalent
- * to tddesc.
+ * The output array is useable by any standard BUFR decoder program in
+ * order to interpret the same data values as were represented by the
+ * input local Table D descriptor.
+ *
+ * @param lun - Pointer to the file ID.
+ * @param tddesc - Pointer to the WMO Bit-wise representation of FXY
+ * value for local Table D descriptor.
+ * @param nctddesc - Pointer that gets the number of WMO-standard
+ * child descriptors returned in ctddesc.
+ * @param ctddesc - Pointer that get an array of WMO-standard child
+ * descriptors equivalent to tddesc.
  *
  * @author J. Ator @date 2004-08-18
 */

@@ -6,6 +6,7 @@
 
 #include <stdio.h>
 #include "bufr_interface.h"
+#include "bufrlib.h"
 
 #define TESTFILE_IN1 "testfiles/IN_1"
 
@@ -16,6 +17,7 @@ int main()
 {
     char bmg[200];
     int nmb, iret;
+    f77int lun = 1, tddesc = 11, nctddesc = 10, ctddesc[10];
 
     printf("Testing misc C functions.\n");
     
@@ -29,6 +31,12 @@ int main()
     if (iret != 1)
         return 1;
     ccbfl();
+
+    /* Perform library allocations. */
+    openbf_f(11, "QUIET", 0);
+    
+    /* Test restd(). */
+    restd(&lun, &tddesc, &nctddesc, ctddesc);
     
     printf("SUCCESS!!\n");
     return 0;
