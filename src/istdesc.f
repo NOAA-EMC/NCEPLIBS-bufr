@@ -1,20 +1,22 @@
 C> @file
-C> @brief Check whether a descriptor is standard
+C> @brief Check whether a descriptor is WMO-standard.
 C>
 C> @author J. Ator @date 2004-08-18
 
-C> Given the bit-wise (integer) representation of a descriptor, this
-C> function determines whether the descriptor is WMO-standard.
+C> Check whether a descriptor is WMO-standard.
+C>
+C> Given the WMO bit-wise representation of an FXY value for a descriptor,
+C> this function determines whether the descriptor is WMO-standard.
 C>
 C> If a descriptor is not WMO-standard, then by definition it is a
 C> local descriptor.
 C>
-C> @param[in] IDN -- integer: Bit-wise representation of FXY value for
-C>                   descriptor
-C> @returns istdesc -- integer: Flag indicating whether IDN is a
-C>                     WMO-standard descriptor:
-C>                        - 0 = No
-C>                        - 1 = Yes
+C> @param[in] IDN - integer: WMO bit-wise representation of FXY value
+C> for descriptor.
+C> @returns istdesc - integer: Flag indicating whether IDN is a
+C> WMO-standard descriptor:
+C> - 0 = No
+C> - 1 = Yes
 C>
 C> @author J. Ator @date 2004-08-18
         FUNCTION ISTDESC( IDN )

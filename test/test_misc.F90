@@ -18,6 +18,7 @@ program test_misc
   
 #ifdef KIND_4
   character*5 char5
+  character sign
   character*5 adn30
   character*6 adn_char
   integer a, idn30, idn
@@ -117,6 +118,14 @@ program test_misc
   idn = 42
   call cadn30(idn, adn_char)
   if (adn_char .ne. '000042') stop 103
+
+  ! Testing jstnum().
+  char5 = '  +42'
+  call jstnum(char5, sign, ierr)
+  if ( ierr .ne. 0 .or. char5 .ne. '42   ' .or. sign .ne. '+' ) stop 104
+  char5 = 'DUMMY'
+  call jstnum(char5, sign, ierr)
+  if ( ierr .ne. -1 ) stop 105
 
   ! Testing nemock()
   ierr = nemock('')
