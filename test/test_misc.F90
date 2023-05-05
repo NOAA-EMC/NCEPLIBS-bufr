@@ -26,6 +26,7 @@ program test_misc
   integer numbck
   integer mtyp, msbt, inod
   integer igetprm
+  integer imrkopr
 #endif
 
   print *, 'Testing misc subroutines, ignore warnings.'
@@ -188,6 +189,14 @@ program test_misc
   if (igetprm('MXMSGL') .ne. 600000) stop 633
   if (igetprm('MAXJL') .ne. 96000) stop 634
   if (igetprm('MXH4WLC') .ne. 10) stop 635
+
+  ! Test imrkopr().
+  if (imrkopr('nn') .ne. 0) stop 700
+  if (imrkopr('223255') .ne. 1) stop 701
+  if (imrkopr('224255') .ne. 1) stop 702
+  if (imrkopr('225255') .ne. 1) stop 703
+  if (imrkopr('232255') .ne. 1) stop 704
+  if (imrkopr('123456') .ne. 0) stop 705
   
 #endif
   
