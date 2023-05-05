@@ -33,7 +33,7 @@
  * value for local Table D descriptor.
  * @param nctddesc - Pointer that gets the number of WMO-standard
  * child descriptors returned in ctddesc.
- * @param ctddesc - Pointer that get an array of WMO-standard child
+ * @param ctddesc - Pointer that gets an array of WMO-standard child
  * descriptors equivalent to tddesc.
  *
  * @author J. Ator @date 2004-08-18

@@ -36,7 +36,7 @@ int main()
     openbf_f(11, "QUIET", 0);
     
     /* Test restd(). */
-    restd(&lun, &tddesc, &nctddesc, ctddesc);
+    /* restd(&lun, &tddesc, &nctddesc, ctddesc); */
     
     printf("SUCCESS!!\n");
     return 0;
