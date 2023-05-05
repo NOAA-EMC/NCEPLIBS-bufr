@@ -10,12 +10,11 @@ C> @param[in] LUNIT   -- integer: Fortran logical unit number for BUFR
 C>                       file
 C>
 C> @author J. Ator @date 2009-03-23
-        RECURSIVE SUBROUTINE CPDXMM( LUNIT )
+        SUBROUTINE CPDXMM( LUNIT )
 
         use bufrlib
 
         USE MODV_MXDXTS
-        USE MODV_IM8B
 
         USE MODA_MGWA
         USE MODA_MSGMEM
