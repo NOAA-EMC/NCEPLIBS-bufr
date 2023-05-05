@@ -15,8 +15,8 @@
 #define MSG_SIZE_INT ( MSG_SIZE / sizeof(int) ) /* in ints */
 
 /* Prototype. */
-void stseq(f77int *lun, f77int *irepct, f77int *idn, char *nemo,
-           char *cseq, f77int *cdesc, f77int *ncdesc);
+/* void stseq(f77int *lun, f77int *irepct, f77int *idn, char *nemo, */
+/*            char *cseq, f77int *cdesc, f77int *ncdesc); */
 
 /* Test the stseq() function. */
 int main()
