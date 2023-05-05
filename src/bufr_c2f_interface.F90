@@ -801,4 +801,79 @@ module bufr_c2f_interface
       tab(1)(1:1) = tab_f(1:1)
     end subroutine numtbd_c
 
+    !> Convert an FXY value from its 6 character representation to its WMO bit-wise
+    !> representation.
+    !>
+    !> Wraps ifxy() function.
+    !>
+    !> @param cfxy - FXY value.
+    !>
+    !> @return ifxy_c - WMO bit-wise representation of FXY value.
+    !>
+    !> @author J. Ator @date 2023-04-07
+    function ifxy_c(cfxy) result(ires) bind(C, name='ifxy_f')
+      character(kind=c_char, len=1), intent(in) :: cfxy(*)
+      integer(c_int) :: ires
+      integer :: ifxy
+
+      ires = ifxy(c_f_string(cfxy))
+    end function ifxy_c
+
+    !> Get the WMO bit-wise representation of the FXY value corresponding
+    !> to a child mnemonic of a Table D sequence.
+    !>
+    !> Wraps uptdd() function.
+    !>
+    !> @param id - Positional index of parent mnemonic within internal
+    !> BUFR Table D array.
+    !> @param lun - File ID.
+    !> @param ient - Ordinal indicator of child mnemonic to return from
+    !> within parent sequence; set to 0 to request a count of the total
+    !> number of child mnemonics.
+    !> @param iret - Total number of child mnemonics if ient = 0; otherwise
+    !> the WMO bit-wise representation of the FXY value corresponding to
+    !> the ient'th mnemonic.
+    !>
+    !> @author J. Ator @date 2023-04-07
+    subroutine uptdd_c(id, lun, ient, iret) bind(C, name='uptdd_f')
+      integer(c_int), intent(in), value :: id, lun, ient
+      integer(c_int), intent(out) :: iret
+
+      call uptdd(id, lun, ient, iret)
+    end subroutine uptdd_c
+
+    !> Check whether a specified mnemonic is a Table C marker operator.
+    !>
+    !> Wraps imrkopr() function.
+    !>
+    !> @param nemo - Mnemonic.
+    !>
+    !> @return imrkopr_c - 1 if nemo is a Table C marker operator, else 0.
+    !>
+    !> @author J. Ator @date 2023-04-07
+    function imrkopr_c(nemo) result(ires) bind(C, name='imrkopr_f')
+      character(kind=c_char, len=1), intent(in) :: nemo(*)
+      integer(c_int) :: ires
+      integer :: imrkopr
+
+      ires = imrkopr(c_f_string(nemo))
+    end function imrkopr_c
+
+    !> Check whether a descriptor is WMO-standard.
+    !>
+    !> Wraps istdesc() function.
+    !>
+    !> @param idn - WMO bit-wise representation of FXY value for descriptor.
+    !>
+    !> @return istdesc_c - 1 if idn is WMO-standard, else 0.
+    !>
+    !> @author J. Ator @date 2023-04-07
+    function istdesc_c(idn) result(ires) bind(C, name='istdesc_f')
+      integer(c_int), intent(in), value :: idn
+      integer(c_int) :: ires
+      integer :: istdesc
+
+      ires = istdesc(idn)
+    end function istdesc_c
+
 end module bufr_c2f_interface

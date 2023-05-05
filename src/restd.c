@@ -35,11 +35,9 @@
 */
 
 void
-restd(f77int *lun, f77int *tddesc, f77int *nctddesc, f77int *ctddesc)
+restd(int *lun, int *tddesc, int *nctddesc, int *ctddesc)
 {
-    f77int i0 = 0;
-
-    f77int desc, ncdesc, cdesc[MAXNC];
+    int desc, ncdesc, cdesc[MAXNC];
     int i, j, inum, itbd, ictbd;
     int iscl, iref, ibit;
 
@@ -49,15 +47,15 @@ restd(f77int *lun, f77int *tddesc, f77int *nctddesc, f77int *ctddesc)
 **  How many child descriptors does *tddesc have?
 */
     numtbd_f(*lun, *tddesc, nemo, NEMO_STR_LEN+1, &tab, &itbd);
-    uptdd( &itbd, lun, &i0, &inum );
+    uptdd_f(itbd, *lun, 0, &inum);
 
     *nctddesc = 0;
 /*
 **  Examine each child descriptor one at a time.
 */
     for ( i = 1; i <= inum; i++ ) {
-        uptdd( &itbd, lun, &i, &desc );
-        if (! istdesc( &desc ) ) {
+        uptdd_f(itbd, *lun, i, &desc);
+        if (! istdesc_f(desc) ) {
 /*
 **          desc is a local descriptor.
 */
@@ -67,40 +65,40 @@ restd(f77int *lun, f77int *tddesc, f77int *nctddesc, f77int *ctddesc)
 **              desc is itself a local Table D descriptor, so resolve
 **              it now via a recursive call to this same routine.
 */
-                restd( lun, &desc, &ncdesc, cdesc );
+                restd(lun, &desc, &ncdesc, cdesc);
 
                 if ( ( *nctddesc > 0 ) &&
-                     ( ctddesc[(*nctddesc)-1] >  ifxy( MIN_FXY_REPL, 6 ) ) &&
-                     ( ctddesc[(*nctddesc)-1] <= ifxy( "101255", 6 ) ) ) {
+                     ( ctddesc[(*nctddesc)-1] >  ifxy_f(MIN_FXY_REPL) ) &&
+                     ( ctddesc[(*nctddesc)-1] <= ifxy_f("101255") ) ) {
 /*
 **                  desc is replicated using fixed replication, so write
 **                  the number of child descriptors into the X value of
 **                  the replication descriptor ctddesc[(*nctddesc)-1]
 */
                     cadn30_f(ctddesc[(*nctddesc)-1], adn, FXY_STR_LEN+1);
-                    sprintf( cwork, "%c%02ld%c%c%c",
-                             adn[0], (long) ncdesc, adn[3], adn[4], adn[5] );
-                    strncpy( adn, cwork, 6 ); adn[6] = '\0';
-                    ctddesc[(*nctddesc)-1] = ifxy( adn, 7 );
+                    sprintf(cwork, "%c%02ld%c%c%c",
+                             adn[0], (long) ncdesc, adn[3], adn[4], adn[5]);
+                    strncpy(adn, cwork, 6); adn[6] = '\0';
+                    ctddesc[(*nctddesc)-1] = ifxy_f(adn);
                 }
                 else if ( ( *nctddesc > 1 ) &&
-                          ( ctddesc[(*nctddesc)-2] == ifxy( MIN_FXY_REPL, 6 ) ) ) {
+                          ( ctddesc[(*nctddesc)-2] == ifxy_f(MIN_FXY_REPL) ) ) {
 /*
 **                  desc is replicated using delayed replication, so write
 **                  the number of child descriptors into the X value of
 **                  the replication descriptor ctddesc[(*nctddesc)-2]
 */
                     cadn30_f(ctddesc[(*nctddesc)-2], adn, FXY_STR_LEN+1);
-                    sprintf( cwork, "%c%02ld%c%c%c",
-                             adn[0], (long) ncdesc, adn[3], adn[4], adn[5] );
-                    strncpy( adn, cwork, 6 ); adn[6] = '\0';
-                    ctddesc[(*nctddesc)-2] = ifxy( adn, 7 );
+                    sprintf(cwork, "%c%02ld%c%c%c",
+                             adn[0], (long) ncdesc, adn[3], adn[4], adn[5]);
+                    strncpy(adn, cwork, 6); adn[6] = '\0';
+                    ctddesc[(*nctddesc)-2] = ifxy_f(adn);
                 }
 /*
 **              Add the child descriptors to the output list.
 */
                 for ( j = 0; j < ncdesc; j++ ) {
-                    wrdesc( cdesc[j], ctddesc, nctddesc );
+                    wrdesc(cdesc[j], ctddesc, nctddesc);
                 }
 
             }
@@ -110,10 +108,10 @@ restd(f77int *lun, f77int *tddesc, f77int *nctddesc, f77int *ctddesc)
 **              a 206YYY operator in the output list.
 */
                 nemtbb_f(*lun, ictbd, cunit, 25, &iscl, &iref, &ibit);
-                sprintf( cwork, "%c%c%c%03ld", '2', '0', '6', (long) ibit );
-                strncpy( adn, cwork, 6 ); adn[6] = '\0';
-                wrdesc( ifxy( adn, 7 ), ctddesc, nctddesc );
-                wrdesc( desc, ctddesc, nctddesc );
+                sprintf(cwork, "%c%c%c%03ld", '2', '0', '6', (long) ibit);
+                strncpy(adn, cwork, 6); adn[6] = '\0';
+                wrdesc(ifxy_f(adn), ctddesc, nctddesc);
+                wrdesc(desc, ctddesc, nctddesc);
             }
         }
         else {
@@ -121,7 +119,7 @@ restd(f77int *lun, f77int *tddesc, f77int *nctddesc, f77int *ctddesc)
 **          desc is a standard Table B, Table D, operator or replicator
 **          descriptor, so append it "as is" to the output list.
 */
-            wrdesc( desc, ctddesc, nctddesc );
+            wrdesc(desc, ctddesc, nctddesc);
         }
     }
 
