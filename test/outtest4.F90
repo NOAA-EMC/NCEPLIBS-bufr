@@ -4,20 +4,20 @@
 !
 ! J. Ator, 2/17/2023
 
-module Share_errstr
+module Share_errstr_outtest4
   ! This module is needed in order to share information between the test program and subroutine errwrt, because
   ! the latter is not called by the former but rather is called directly from within the NCEPLIBS-bufr software.
 
-  character*800 errstr
+  character*19000 errstr
 
   integer errstr_len
-end module Share_errstr
+end module Share_errstr_outtest4
 
 subroutine errwrt(str)
   ! This subroutine supersedes the subroutine of the same name within the NCEPLIBS-bufr software, so that we can
   ! easily test the generation of error messages from within the library.
 
-  use Share_errstr
+  use Share_errstr_outtest4
 
   character*(*) str
 
@@ -31,7 +31,7 @@ subroutine errwrt(str)
 end subroutine errwrt
 
 program outtest4
-  use Share_errstr
+  use Share_errstr_outtest4
 
   implicit none
 
@@ -44,7 +44,7 @@ program outtest4
   parameter ( mxbfmg = 50000 )
 
   integer mgbf ( mxbfmg ), mgbf2 ( mxbfmg ), lmgbf, ibfdt, imgdt, iermg, iersb, nsub, nlv, nlv2
-  integer idate, mear, mmon, mday, mour
+  integer idate, mear, mmon, mday, mour, mmin, iret
 
   real*8 r8arr1 ( mxval1 ), r8arr2 ( mxval2, mxlvl )
 
@@ -69,9 +69,15 @@ program outtest4
   open ( unit = 12, file = 'testfiles/OUT_4_infile2' )
   open ( unit = 13, file = 'out4.bufr', form ='unformatted' )
 
+  errstr_len = 0
+  call openbf ( 11, 'FIRST', 11 )
+  call openbf ( 11, 'QUIET', 2 )
   call openbf ( 11, 'IN', 11 )
+  if ( index( errstr(1:errstr_len), 'TABLE FROM INPUT BUFR FILE IN UNIT' ) .eq. 0 ) stop 2
   call openbf ( 12, 'SEC3', 12 )
+  errstr_len = 0
   call openbf ( 13, 'NODX', 11 )
+  if ( index( errstr(1:errstr_len), 'INTERNAL ARRAYS ASSOC. W/ INPUT UNIT' ) .eq. 0 ) stop 3
   call openbf ( 13, 'QUIET', -1 )
 
   ! Set the location of the master BUFR tables.
@@ -81,7 +87,7 @@ program outtest4
   call maxout ( mxbfmg*4 )
 
   ! Confirm the value from the previous maxout setting.
-  if ( igetmxby ( ) .ne. mxbfmg*4 ) stop 2
+  if ( igetmxby ( ) .ne. mxbfmg*4 ) stop 4
 
   ! The following call to STDMSG will ensure that subroutine STNDRD is called internally during the
   ! subsequent calls to WRITSB and CLOSMG.
@@ -93,10 +99,10 @@ program outtest4
   ! Process 1 message with 1 data subset from infile1.
 
   call readmg ( 11, cmgtag, imgdt, iermg )
-  if ( iermg .ne. 0 ) stop 3 
+  if ( iermg .ne. 0 ) stop 5 
 
   call readsb ( 11, iersb )
-  if ( iersb .ne. 0 ) stop 4
+  if ( iersb .ne. 0 ) stop 6
 
   call openmb ( 13, 'NC007000', 2020022514 )
 
@@ -112,7 +118,7 @@ program outtest4
   ! Process 1 message with multiple data subsets from infile2.
 
   call readmg ( 12, cmgtag, imgdt, iermg )
-  if ( iermg .ne. 0 ) stop 5 
+  if ( iermg .ne. 0 ) stop 7 
 
   ! Turn off output message standardization.
   call stdmsg ('N')
@@ -139,7 +145,7 @@ program outtest4
       call openbf ( 12, 'QUIET', 1 )
       errstr_len = 0
       call readlc ( 12, dummystr, 'DUMMYSTR' )
-      if ( index( errstr(1:errstr_len), 'NOT LOCATED IN REPORT SUBSET - RETURN WITH MISSING' ) .eq. 0 ) stop 6
+      if ( index( errstr(1:errstr_len), 'NOT LOCATED IN REPORT SUBSET - RETURN WITH MISSING' ) .eq. 0 ) stop 8
       call openbf ( 12, 'QUIET', -1 )
       if ( icbfms( dummystr, 9 ) .eq. 0 ) smid = dummystr
     end if
@@ -155,7 +161,7 @@ program outtest4
       call openbf ( 12, 'QUIET', 1 )
       errstr_len = 0
       call ufbseq ( 13, r8arr1, mxval1, 1, nlv, 'DUMMYVAL' )
-      if ( index( errstr(1:errstr_len), 'UFBSEQ - NO SPECIFIED VALUES WRITTEN OUT' ) .eq. 0 ) stop 7
+      if ( index( errstr(1:errstr_len), 'UFBSEQ - NO SPECIFIED VALUES WRITTEN OUT' ) .eq. 0 ) stop 9
       call openbf ( 12, 'QUIET', -1 )
     end if
 
@@ -167,7 +173,7 @@ program outtest4
       call openbf ( 12, 'QUIET', 1 )
       errstr_len = 0
       call writlc ( 13, dummystr, 'DUMMYSTR' )
-      if ( index( errstr(1:errstr_len), 'INTO SUBSET, BECAUSE NO SUBSET WAS OPEN FOR WRITING' ) .eq. 0 ) stop 8
+      if ( index( errstr(1:errstr_len), 'INTO SUBSET, BECAUSE NO SUBSET WAS OPEN FOR WRITING' ) .eq. 0 ) stop 10
       call openbf ( 12, 'QUIET', -1 )
     end if
     call writsa ( 13, mxbfmg, mgbf, lmgbf )
@@ -175,7 +181,7 @@ program outtest4
       call openbf ( 12, 'QUIET', 1 )
       errstr_len = 0
       call writlc ( 13, dummystr, 'DUMMYSTR' )
-      if ( index( errstr(1:errstr_len), 'INTO SUBSET, BECAUSE IT WASN''T FOUND IN THE SUBSET' ) .eq. 0 ) stop 9
+      if ( index( errstr(1:errstr_len), 'INTO SUBSET, BECAUSE IT WASN''T FOUND IN THE SUBSET' ) .eq. 0 ) stop 11
       call openbf ( 12, 'QUIET', -1 )
     end if
 
@@ -185,7 +191,11 @@ program outtest4
 
   ! Get Section 1 date.
   idate = igetdate(mgbf, mear, mmon, mday, mour)
-  if (idate.ne.20100111 .or. mear.ne.20 .or. mmon.ne.10 .or. mday.ne.1 .or. mour.ne.11) stop 10
+  if ( any((/idate,mear,mmon,mday,mour/).ne.(/20100111,20,10,1,11/)) ) stop 12
+
+  ! Get the tank receipt time.
+  call rtrcptb ( mgbf, mear, mmon, mday, mour, mmin, iret )
+  if ( any((/iret,mear,mmon,mday,mour,mmin/).ne.(/0,2020,11,4,15,29/)) ) stop 13
 
   ! Close the output file.
   call closbf ( 13 )
@@ -195,6 +205,6 @@ program outtest4
   ilena = iupbs01(mgbf2, 'LENM')
   call atrcpt(mgbf, lmgbf, mgbf2)
   ilenb = iupbs01(mgbf2, 'LENM')
-  IF (ilenb-ilena .ne. 6) stop 11
+  IF (ilenb-ilena .ne. 6) stop 14
 
 end program outtest4

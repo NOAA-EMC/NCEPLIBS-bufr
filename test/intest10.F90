@@ -4,20 +4,20 @@
 !
 ! J. Ator, 3/13/2023
 
-module Share_errstr
+module Share_errstr_intest10
   ! This module is needed in order to share information between the test program and subroutine errwrt, because
   ! the latter is not called by the former but rather is called directly from within the NCEPLIBS-bufr software.
   
   character*4000 errstr
   
   integer errstr_len
-end module Share_errstr
+end module Share_errstr_intest10
 
 subroutine errwrt(str)
   ! This subroutine supersedes the subroutine of the same name within the NCEPLIBS-bufr software, so that we can
   ! easily test the generation of error messages from within the library.
   
-  use Share_errstr
+  use Share_errstr_intest10
   
   character*(*) str
   
@@ -31,13 +31,13 @@ subroutine errwrt(str)
 end subroutine errwrt
 
 program intest10
-  use Share_errstr
+  use Share_errstr_intest10
 
   implicit none
 
   integer*4 isetprm
 
-  integer icnt, iunt, imesg(150), idate, iret, ios1, ios2, lundx, lun, il, im
+  integer icnt, iunt, imesg(150), idate, iret, ios1, ios2, lundx, lun, il, im, imsg
 
   character cmgtag*8
 
@@ -75,29 +75,35 @@ program intest10
   if ( ( icnt .ne. 97 ) .or. & 
       ( index( errstr(1:errstr_len), 'UFBMEM - THE NO. OF BYTES REQUIRED TO STORE ALL MESSAGES' ) .eq. 0 ) ) stop 6
 
+  ! Test an errwrt branch in rdmemm (via readmm).
+  errstr_len = 0
+  imsg = 0
+  call readmm ( imsg, cmgtag, idate, iret )
+  if ( index( errstr(1:errstr_len), 'REQUESTED MEMORY MESSAGE NUMBER {FIRST (INPUT) ARGUMENT} IS 0' ) .eq. 0 ) stop 7
+
   ! Reset the input files.
   call closbf ( 21 )
   call closbf ( 22 )
   open ( unit = 21, file = 'testfiles/IN_10_infile1', form = 'unformatted', iostat = ios1 )
   open ( unit = 22, file = 'testfiles/IN_10_infile2', form = 'unformatted', iostat = ios2 )
-  if ( ( ios1 .ne. 0 ) .or. ( ios2 .ne. 0 ) ) stop 7
+  if ( ( ios1 .ne. 0 ) .or. ( ios2 .ne. 0 ) ) stop 8
 
   ! Test the errwrt branches in ufbmex.
   errstr_len = 0
   call ufbmex ( 21, 21, 0, icnt, imesg )
   if ( ( icnt .ne. 125 ) .or. & 
-      ( index( errstr(1:errstr_len), 'UFBMEX - THE NO. OF MESSAGES REQUIRED TO STORE ALL MESSAGES' ) .eq. 0 ) ) stop 8
+      ( index( errstr(1:errstr_len), 'UFBMEX - THE NO. OF MESSAGES REQUIRED TO STORE ALL MESSAGES' ) .eq. 0 ) ) stop 9
   call ufbmex ( 22, 22, 0, icnt, imesg )
   if ( ( icnt .ne. 97 ) .or. & 
-      ( index( errstr(1:errstr_len), 'UFBMEX - THE NO. OF BYTES REQUIRED TO STORE ALL MESSAGES' ) .eq. 0 ) ) stop 9
+      ( index( errstr(1:errstr_len), 'UFBMEX - THE NO. OF BYTES REQUIRED TO STORE ALL MESSAGES' ) .eq. 0 ) ) stop 10
 
   ! Test the errwrt branch in openbt, both indirectly and directly.
   errstr_len = 0
   call rdmemm ( 50, cmgtag, idate, iret )
-  if ( index( errstr(1:errstr_len), 'OPENBT - THIS IS A DUMMY BUFRLIB ROUTINE' ) .eq. 0 ) stop 10
+  if ( index( errstr(1:errstr_len), 'OPENBT - THIS IS A DUMMY BUFRLIB ROUTINE' ) .eq. 0 ) stop 11
   errstr_len = 0
   call openbt ( lundx, 255 )
-  if ( index( errstr(1:errstr_len), 'OPENBT - THIS IS A DUMMY BUFRLIB ROUTINE' ) .eq. 0 ) stop 11
+  if ( index( errstr(1:errstr_len), 'OPENBT - THIS IS A DUMMY BUFRLIB ROUTINE' ) .eq. 0 ) stop 12
 
   print *, 'SUCCESS!'
 end program intest10
