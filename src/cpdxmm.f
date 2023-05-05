@@ -29,18 +29,6 @@ C> @author J. Ator @date 2009-03-23
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
 
-C       Check for I8 integers
-
-        IF(IM8B) THEN
-           IM8B=.FALSE.
-
-           CALL X84(LUNIT,MY_LUNIT,1)
-           CALL CPDXMM(MY_LUNIT)
-
-           IM8B=.TRUE.
-           RETURN
-        ENDIF
-
         IF ( NDXTS .GE. MXDXTS ) GOTO 900
 
         ICT = 0
