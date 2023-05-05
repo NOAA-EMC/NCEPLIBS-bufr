@@ -4,7 +4,7 @@ C> to its WMO bit-wise representation.
 C>
 C> @author J. Woollen @date 1994-01-06
 
-C> This function converts an FXY value from its 6 character
+C> Convert an FXY value from its 6 character
 C> representation to its WMO bit-wise representation.
 C>
 C> Per the [official WMO BUFR regulations](@ref manual), an FXY value

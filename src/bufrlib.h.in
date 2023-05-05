@@ -28,6 +28,7 @@ int crdbufr(int nfile, int *bufr, int mxwrd);
 void cwrbufr(int nfile, int *bufr, int nwrd);
 void bort_exit(void);
 int icvidx(int ii, int jj, int numjj);
+void wrdesc(int desc, int *descary, int *ndescary);
 
 /** Maximum number of BUFR files that can be connected to the NCEPLIBS-bufr
  * software (for reading or writing) at any one time. */
@@ -119,6 +120,68 @@ void elemdx_f(char *card, int lun);
  */
 void numtbd_f(int lun, int idn, char *nemo, int nemo_str_len, char *tab, int *iret);
 
+/**
+ * Convert an FXY value from its 6 character representation to its WMO bit-wise
+ * representation.
+ *
+ * Wraps ifxy() function.
+ *
+ * @param cfxy - FXY value.
+ *
+ * @return WMO bit-wise representation of FXY value.
+ *
+ * @author J. Ator @date 2023-04-07
+ */
+int ifxy_f(char *cfxy);
+
+/**
+ * Get the WMO bit-wise representation of the FXY value corresponding
+ * to a child mnemonic of a Table D sequence.
+ *
+ * Wraps uptdd() subroutine.
+ *
+ * @param id - Positional index of parent mnemonic within internal Table D.
+ * @param lun - File ID.
+ * @param ient - Ordinal indicator of child mnemonic to be returned, or 0 to
+ * request a count of the total number of child mnemonics.
+ * @param iret - Total number of child mnemonics if ient = 0; otherwise
+ * the WMO bit-wise representation of the FXY value corresponding to
+ * the ient'th mnemonic.
+ *
+ * @author J. Ator @date 2003-11-04
+ */
+void uptdd_f(int id, int lun, int ient, int *iret);
+
+/**
+ * Check whether a specified mnemonic is a Table C marker operator.
+ *
+ * Wraps imrkopr() function.
+ *
+ * @param nemo - Mnemonic.
+ *
+ * @return
+ * - 0 nemo is not a Table C marker operator.
+ * - 1 nemo is a Table C marker operator.
+ *
+ * @author J. Ator @date 2016-05-04
+ */
+int imrkopr_f(char *nemo);
+
+/**
+ * Check whether a descriptor is WMO-standard.
+ *
+ * Wraps istdesc() function.
+ *
+ * @param idn - WMO bit-wise representation of FXY value for descriptor.
+ *
+ * @return
+ * - 0 idn is not a WMO-standard descriptor.
+ * - 1 idn is a WMO-standard descriptor.
+ *
+ * @author J. Ator @date 2004-08-18
+ */
+int istdesc_f(int idn);
+
 /*
 ** On certain operating systems, the FORTRAN compiler appends an underscore
 ** to subprogram names in its object namespace.  Therefore, on such systems,
@@ -137,12 +200,9 @@ void numtbd_f(int lun, int idn, char *nemo, int nemo_str_len, char *tab, int *ir
 #define gets1loc   gets1loc_  /**< gets1loc function. */
 #define ibfms      ibfms_     /**< ibfms function. */
 #define ichkstr    ichkstr_   /**< ichkstr function. */
-#define ifxy       ifxy_      /**< ifxy function. */
 #define igettdi    igettdi_   /**< igettdi function. */
-#define imrkopr    imrkopr_   /**< imrkopr function. */
 #define ipkm       ipkm_      /**< ipkm function. */
 #define ireadns    ireadns_   /**< ireadns function. */
-#define istdesc    istdesc_   /**< istdesc function. */
 #define iupb       iupb_      /**< iupb function. */
 #define iupm       iupm_      /**< iupm function. */
 #define openmb     openmb_    /**< openmb function. */
@@ -152,8 +212,6 @@ void numtbd_f(int lun, int idn, char *nemo, int nemo_str_len, char *tab, int *ir
 #define strnum     strnum_    /**< strnum function. */
 #define stseq      stseq_     /**< stseq function. */
 #define ufbseq     ufbseq_    /**< ufbseq function. */
-#define uptdd      uptdd_     /**< uptdd function. */
-#define wrdesc     wrdesc_    /**< wrdesc function. */
 #define wrdlen     wrdlen_    /**< wrdlen function. */
 #endif
 
@@ -183,9 +241,8 @@ typedef double f77r8;
 **   2) a FORTRAN subprogram called from C
 */
 
-void restd( f77int *lunb, f77int *tddesc, f77int *nctddesc, f77int *ctddesc );
-void stseq( f77int *lun, f77int *irepct, f77int *idn, char *nemo, char *cseq, f77int *cdesc, f77int *ncdesc );
-void wrdesc( f77int desc, f77int *descary, f77int *ndescary );
+void restd(int *lunb, int *tddesc, int *nctddesc, int *ctddesc);
+void stseq(int *lun, int *irepct, int *idn, char *nemo, char *cseq, int *cdesc, int *ncdesc);
 
 /**
  * Wraps bort() subroutine.
@@ -262,18 +319,6 @@ f77int ibfms( f77r8 *r8val );
 f77int ichkstr ( char *str, char *chr, f77int *n, size_t s1, size_t s2 );
 
 /**
- * Wraps ifxy() function.
- *
- * @param adsc - FXY value.
- * @param s1 - Extra C-Fortran interface argument containing length of adsc variable.
- *
- * @return Bit-wise representation of FXY value.
- *
- * @author J. Ator @date 2003-11-04
- */
-f77int ifxy( char *adsc, size_t s1 );
-
-/**
  * Wraps igettdi() function.
  *
  * @param iflag - Processing flag.
@@ -285,20 +330,6 @@ f77int ifxy( char *adsc, size_t s1 );
  * @author J. Ator @date 2009-03-23
  */
 f77int igettdi( f77int *iflag );
-
-/**
- * Wraps imrkopr() function.
- *
- * @param nemo - Mnemonic.
- * @param s1 - Extra C-Fortran interface argument containing length of nemo variable.
- *
- * @return
- * - 0 nemo is not a Table C marker operator.
- * - 1 nemo is a Table C marker operator.
- *
- * @author J. Ator @date 2016-05-04
- */
-f77int imrkopr( char *nemo, size_t s1 );
 
 /**
  * Wraps ipkm() subroutine.
@@ -327,19 +358,6 @@ void ipkm( char *cbay, f77int *nbyt, f77int *n, size_t s1 );
  * @author J. Ator @date 2003-11-04
  */
 f77int ireadns( f77int *lunit, char *subset, f77int *idate, size_t s1 );
-
-/**
- * Wraps istdesc() function.
- *
- * @param idn - Bit-wise representation of FXY value.
- *
- * @return
- * - 0 idn is not a WMO-standard descriptor.
- * - 1 idn is a WMO-standard descriptor.
- *
- * @author J. Ator @date 2004-08-18
- */
-f77int istdesc( f77int *idn );
 
 /**
  * Wraps iupb() function.
@@ -433,18 +451,6 @@ void strnum( char *str, f77int *num, f77int *iret, size_t s1 );
  * @author J. Ator @date 2003-11-04
  */
 void ufbseq( f77int *lunit, f77r8 *usr, f77int *i1, f77int *i2, f77int *iret, char *str, size_t s1 );
-
-/**
- * Wraps uptdd() subroutine.
- *
- * @param id - Index of parent mnemonic within internal arrays.
- * @param lun - I/O stream index into internal arrays.
- * @param ient - Ordinal indicator of child mnemonic to be returned.
- * @param iret - Return value.
- *
- * @author J. Ator @date 2003-11-04
- */
-void uptdd( f77int *id, f77int *lun, f77int *ient, f77int *iret );
 
 /**
  * Wraps wrdlen() subroutine.
