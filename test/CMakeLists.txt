@@ -119,10 +119,11 @@ list(APPEND test_c_interface_srcs
   test_c_interface_2.c
 )
 
-# test_c_misc test.
+# C tests.
 create_c_test_plain(test_c_misc)
 create_c_test_plain(test_c_cread)
 create_c_test_plain(test_c_crwbmg)
+create_c_test_plain(test_c_stseq)
 
 # Install testing scripts
 list(APPEND test_scripts
