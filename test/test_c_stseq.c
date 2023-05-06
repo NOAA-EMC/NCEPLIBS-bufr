@@ -14,10 +14,6 @@
 #define MSG_SIZE 14928 /* in bytes */
 #define MSG_SIZE_INT ( MSG_SIZE / sizeof(int) ) /* in ints */
 
-/* Prototype. */
-/* void stseq(f77int *lun, f77int *irepct, f77int *idn, char *nemo, */
-/*            char *cseq, f77int *cdesc, f77int *ncdesc); */
-
 /* Test the stseq() function. */
 int main()
 {
@@ -28,9 +24,6 @@ int main()
     int *msg;
     
     printf("Testing the stseq() function.\n");
-
-    /* Allocate internal arrays. */
-    /* arallocc(); */
 
     /* Allocate storage to read a BUFR message into. */
     if (!(msg = malloc(MSG_SIZE)))

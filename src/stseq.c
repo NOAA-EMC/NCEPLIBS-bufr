@@ -88,21 +88,21 @@ nummtb(int *idn, char *tab, int *ipt)
  * Given the bit-wise (integer) representation of a WMO-standard
  * Table D descriptor, this subroutine uses the master BUFR tables
  * to store all of the necessary information for that descriptor
- * within the internal DX BUFR tables.  Any child descriptors which
+ * within the internal DX BUFR tables. Any child descriptors which
  * are themselves Table D descriptors are automatically resolved via
  * a recursive call to this same subroutine.
  *
- * @param lun - File ID.
- * @param irepct - Replication sequence counter for the current
+ * @param lun - Pointer to file ID.
+ * @param irepct - Pointer to replication sequence counter for the current
  * master table; used internally to keep track of which sequence names have
  * already been defined, and thereby avoid contention within the internal
  * DX BUFR Table D.
- * @param idn - Bit-wise representation of FXY value for WMO-standard
- * Table D descriptor
- * @param nemo - Mnemonic corresponding to idn.
- * @param cseq - Description corresponding to idn.
- * @param cdesc - Array of WMO-standard child descriptors equivalent
- * to idn.
+ * @param idn - Pointer to the WMO Bit-wise representation of FXY
+ * value for WMO-standard Table D descriptor.
+ * @param nemo - Pointer to mnemonic corresponding to idn.
+ * @param cseq - Pointer to description corresponding to idn.
+ * @param cdesc - Pointer that gets an array of WMO-standard child
+ * descriptors equivalent to idn.
  * @param ncdesc - Number of WMO-standard child descriptors in cdesc.
  *
  * @author J. Ator @date 2009-03-23
@@ -119,12 +119,6 @@ stseq(int *lun, int *irepct, int *idn, char *nemo,
     char nemo2[NEMO_STR_LEN+1], rpseq[56], card[80], cblk = ' ', czero = '0';
 
     int imxcd, ipt;
-
-/*
-**  The following variable is declared as automatic so that a local
-**  private copy is created and dynamically allocated during each
-**  recursive call to this subroutine.
-*/
     int *rpdesc;
 
 /*
