@@ -3,6 +3,8 @@ C> @brief Decode the sequence information from a Table D mnemonic definition.
 C>
 C> @author Woollen @date 1994-01-06
 
+C> Decode the sequence information from a Table D mnemonic definition.
+C>
 C> This subroutine decodes the Table D sequence information
 C> from a mnemonic definition card that was previously read from a
 C> user-supplied DX BUFR table in character format by rdusdx().
@@ -12,7 +14,7 @@ C> the internal BUFR Table D array tabd(*,lun) in module @ref moda_tababd.
 C>
 C> @param[in] CARD - character*80: mnemonic definition card that was read
 C> from a user-supplied DX BUFR table.
-C> @param[in] LUN - integer: I/O stream index into internal memory arrays.
+C> @param[in] LUN - integer: File ID.
 C>
 C> @author Woollen @date 1994-01-06
       SUBROUTINE SEQSDX(CARD,LUN)
@@ -120,15 +122,13 @@ C           follows it within the user-supplied character-format BUFR
 C           dictionary table sequence), so confirm that it contains, as
 C           a substring, this mnemonic that immediately follows it.
 
+            IF(N.EQ.NTAG) GOTO 910
             NEMB = TAGS(N+1)(1:8)
 c  .... get NEMA from IDN
             CALL NUMTAB(LUN,IDN,NEMA,TAB,ITAB)
             CALL NEMTAB(LUN,NEMB,JDN,TAB,IRET)
             CALL RSVFVM(NEMA,NEMB)
             IF(NEMA.NE.ATAG) GOTO 909
-c  .... DK: I don't think the next test can ever be satisfied
-c  ....     should probably be IF(N.EQ.NTAG ) GOTO 910
-            IF(N.GT.NTAG ) GOTO 910
             IF(TAB.NE.'B') GOTO 911
          ENDIF
       ELSE
@@ -159,7 +159,7 @@ C  -----
       CALL BORT2(BORT_STR1,BORT_STR2)
 902   WRITE(BORT_STR1,'("BUFRLIB: SEQSDX - CARD READ IN IS: ",A)') CARD
       WRITE(BORT_STR2,'(18X,"TABLE D SEQUENCE (PARENT) MNEMONIC ",A,'//
-     . '" CONTAINS A BADLY FORMED CHILD MNEMONIC",A)') NEMO,TAGS(N)
+     . '" CONTAINS A BADLY FORMED CHILD MNEMONIC ",A)') NEMO,TAGS(N)
       CALL BORT2(BORT_STR1,BORT_STR2)
 903   WRITE(BORT_STR1,'("BUFRLIB: SEQSDX - CARD READ IN IS: ",A)') CARD
       WRITE(BORT_STR2,'(9X,"TBL D MNEM. ",A," CONTAINS REG. REPL. '//
@@ -197,8 +197,8 @@ C  -----
       CALL BORT2(BORT_STR1,BORT_STR2)
 910   WRITE(BORT_STR1,'("BUFRLIB: SEQSDX - CARD READ IN IS: ",A)') CARD
       WRITE(BORT_STR2,'(18X,"TBL D (PARENT) MNEM. ",A," CONTAINS A '//
-     . '''FOLLOWING VALUE'' MNEMONIC ",A," WHICH IS LAST IN THE '//
-     . 'STRING")') NEMO,NEMA
+     . '''FOLLOWING VALUE'' MNEMONIC WHICH IS LAST IN THE '//
+     . 'STRING")') NEMO
       CALL BORT2(BORT_STR1,BORT_STR2)
 911   WRITE(BORT_STR1,'("BUFRLIB: SEQSDX - CARD READ IN IS: ",A)') CARD
       WRITE(BORT_STR2,'(18X,"TBL D (PARENT) MNEM. ",A,", THE MNEM. ",'//

@@ -35,42 +35,22 @@ C> positive result means that the value for the corresponding mnemonic
 C> was encoded as "missing" in BUFR (i.e. all bits set to 1) within the
 C> original data subset.
 C>
-C> @remarks
-C> - There are a few additional special mnemonics that can be
-C> included within STR when calling this subroutine, and which in turn
-C> will result in special information being returned within the
-C> corresponding location in USR.  These special mnemonics are not
-C> considered to be part of Table B or Table D and therefore do not
-C> need to be definied within the DX or master table file associated
-C> with ABS(LUNIN):
-C>      - NUL - returns the "missing" value
-C>      - IREC - returns the number of the BUFR message within the
-C>               file pointed to by ABS(LUNIN) (counting from the
-C>               beginning of the file) in which the current data
-C>               subset resides
-C>      - ISUB - returns the number of the current data subset within
-C>               the BUFR message pointed to by IREC, counting from
-C>               the beginning of the message
-C>
-C> @param[in] LUNIT -- integer: Fortran logical unit number for
-C>                     NCEP prepbufr file
-C> @param[out] USR -- real*8(*,*): Data values
-C> @param[in] I1 -- integer: First dimension of USR as allocated
-C>                  within the calling program
-C> @param[in] I2 -- integer: Second dimension of USR as allocated
-C>                  within the calling program
-C> @param[in] I3 -- integer: Third dimension of USR as allocated
-C>                  within the calling program
-C> @param[out] IRET -- integer: Number of replications of STR that were
-C>                     read from the data subset, corresponding
-C>                     to the second dimension of USR
-C> @param[in] STR -- character*(*): String of blank-separated
-C>                   Table B mnemonics
-C>                   in one-to-one correspondence with the number of data
-C>                   values that will be read from the data
-C>                   subset within the first dimension of USR (see
-C>                   [DX BUFR Tables](@ref dfbftab) for further
-C>                   information about Table B mnemonics)
+C> @param[in] LUNIT - integer: Fortran logical unit number for
+C> NCEP prepbufr file.
+C> @param[out] USR - real*8(*,*): Data values.
+C> @param[in] I1 - integer: First dimension of USR as allocated
+C> within the calling program.
+C> @param[in] I2 - integer: Second dimension of USR as allocated
+C> within the calling program.
+C> @param[in] I3 - integer: Third dimension of USR as allocated
+C> within the calling program.
+C> @param[out] IRET - integer: Number of replications of STR that were
+C> read from the data subset, corresponding to the second dimension of USR.
+C> @param[in] STR - character*(*): String of blank-separated Table B
+C> mnemonics in one-to-one correspondence with the number of data
+C> values that will be read from the data subset within the first
+C> dimension of USR (see [DX BUFR Tables](@ref dfbftab) for further
+C> information about Table B mnemonics).
 C>
 C> @author J. Woollen @date 1994-01-06
       RECURSIVE SUBROUTINE UFBEVN(LUNIT,USR,I1,I2,I3,IRET,STR)

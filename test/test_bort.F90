@@ -27,16 +27,17 @@ program test_bort
   integer :: num_args, len, stat, ios, u
   character(len=32) :: sub_name, test_case
   character*5 adn30
+  character*80 card
   integer ibay(1), ibit, subset, jdate
   integer mtyp, msbt, inod
 !  character*28 unit
 !  integer iscl, iref, nseq
-  integer nmsub, ierr
+  integer ierr
   integer mear, mmon, mday, mour, idate
   integer iyr, imo, idy, ihr, imi
   integer jdate1(5), jdump1(5)
   integer lmsgt, msgt(100), msgl
-  integer isize, iupm, iupvs01
+  integer*4 isize, iupm, iupvs01, isetprm, nmsub
   
 #ifdef KIND_8
   call setim8b(.true.)
@@ -343,6 +344,53 @@ program test_bort
         call openbf(11, 'IN', 11)
         call posapx(12)        
      endif
+  elseif (sub_name .eq. 'rdusdx') then
+     open(unit = 11, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
+     open(unit = 12, file = 'testfiles/test_bort_DX', iostat = ios)
+     if (ios .ne. 0) stop 3
+     if (test_case .eq. '1') then
+        card = '| MY-MNEM  |        |                                                          |'
+        write (12,'(A)') card
+        close (12)
+        open(unit = 12, file = 'testfiles/test_bort_DX', iostat = ios)
+        call openbf(11, 'OUT', 12)
+     elseif (test_case .eq. '2') then
+        card = '| MYMNEM   | 405001 |                                                          |'
+        write (12,'(A)') card
+        close (12)
+        open(unit = 12, file = 'testfiles/test_bort_DX', iostat = ios)
+        call openbf(11, 'OUT', 12)
+     elseif (test_case .eq. '3') then
+        card = '| MYMNEM   | 0H5001 |                                                          |'
+        write (12,'(A)') card
+        close (12)
+        open(unit = 12, file = 'testfiles/test_bort_DX', iostat = ios)
+        call openbf(11, 'OUT', 12)
+     elseif (test_case .eq. '4') then
+        card = '| MYMNEM   | 065001 |                                                          |'
+        write (12,'(A)') card
+        close (12)
+        open(unit = 12, file = 'testfiles/test_bort_DX', iostat = ios)
+        call openbf(11, 'OUT', 12)
+     elseif (test_case .eq. '5') then
+        card = '| MYMNEM   | 005256 |                                                          |'
+        write (12,'(A)') card
+        close (12)
+        open(unit = 12, file = 'testfiles/test_bort_DX', iostat = ios)
+        call openbf(11, 'OUT', 12)
+     elseif (test_case .eq. '6') then
+        card = '| NC011004 | A63255 |                                                          |'
+        write (12,'(A)') card
+        close (12)
+        open(unit = 12, file = 'testfiles/test_bort_DX', iostat = ios)
+        call openbf(11, 'OUT', 12)
+     elseif (test_case .eq. '7') then
+        card = '| MYMNEM                                                                       |'
+        write (12,'(A)') card
+        close (12)
+        open(unit = 12, file = 'testfiles/test_bort_DX', iostat = ios)
+        call openbf(11, 'OUT', 12)
+     endif
   elseif (sub_name .eq. 'readerme') then
      if (test_case .eq. '1') then
         open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
@@ -446,6 +494,63 @@ program test_bort
         if (ios .ne. 0) stop 3
         call openbf(12, 'OUT', 10)
         call rtrcpt(11, iyr, imo, idy, ihr, imi, iret)
+     endif
+  elseif (sub_name .eq. 'seqsdx') then
+     open(unit = 11, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
+     if (ios .ne. 0) stop 3
+     if ((test_case .eq. '14') .or. (test_case .eq. '15')) then
+        if (isetprm('MAXCD',22) .ne. 0) stop 3
+        open(unit = 12, file = 'testfiles/OUT_6_bufrtab', iostat = ios)
+     else
+        open(unit = 12, file = 'testfiles/OUT_2_bufrtab', iostat = ios)
+     endif
+     if (ios .ne. 0) stop 3
+     call openbf(11, 'OUT', 12)
+     if (test_case .eq. '1') then
+        card = '| DUMMYD   |                                                                   |'
+        call seqsdx(card, 1)
+     elseif (test_case .eq. '2') then
+        card = '| DRPSTAK  |                                                                   |'
+        call seqsdx(card, 1)
+     elseif (test_case .eq. '3') then
+        card = '| DRPSTAK  | <YYMMDD                                                           |'
+        call seqsdx(card, 1)
+     elseif (test_case .eq. '4') then
+        card = '| DRPSTAK  | "YYMMDD"0                                                         |'
+        call seqsdx(card, 1)
+     elseif (test_case .eq. '5') then
+        card = '| DRPSTAK  | "YYMMDD"256                                                       |'
+        call seqsdx(card, 1)
+     elseif (test_case .eq. '6') then
+        card = '| DRPSTAK  | {YYMMDD}10                                                        |'
+        call seqsdx(card, 1)
+     elseif (test_case .eq. '7') then
+        card = '| DRPSTAK  | DUMMYBMNEM                                                        |'
+        call seqsdx(card, 1)
+     elseif (test_case .eq. '8') then
+        card = '| DRPSTAK  | WNDSQ-1                                                           |'
+        call seqsdx(card, 1)
+     elseif (test_case .eq. '9') then
+        card = '| DRPSTAK  | {FOST}                                                            |'
+        call seqsdx(card, 1)
+     elseif (test_case .eq. '10') then
+        card = '| DRPSTAK  | .DTMMXGS TMDB                                                     |'
+        call seqsdx(card, 1)
+     elseif (test_case .eq. '11') then
+        card = '| DRPSTAK  | .DTMMXGS                                                          |'
+        call seqsdx(card, 1)
+     elseif (test_case .eq. '12') then
+        card = '| DRPSTAK  | .DTMMXGG MXGG                                                     |'
+        call seqsdx(card, 1)
+     elseif (test_case .eq. '13') then
+        card = '| DRPSTAK  | DUMMYB                                                            |'
+        call seqsdx(card, 1)
+     elseif (test_case .eq. '14') then
+        card = '| F5FCMESG | "F5FCRSEQ"3                                                       |'
+        call seqsdx(card, 1)
+     elseif (test_case .eq. '15') then
+        card = '| F5FCMESG | DBSS                                                              |'
+        call seqsdx(card, 1)
      endif
   elseif (sub_name .eq. 'status') then
      if (test_case .eq. '1') then

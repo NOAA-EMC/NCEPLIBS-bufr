@@ -89,22 +89,6 @@ C> within the data subset. Note that, when using this option, the
 C> applicable replication indicators must be included in STR
 C> along with the mnemonic itself, as shown in an example in the
 C> discussion of [DX BUFR Tables](@ref ufbsubs).
-C> - If ABS(LUNIN) points to a file that is open for input (reading
-C> BUFR), there are a few additional special mnemonics that can be
-C> included within STR when calling this subroutine, and which in turn
-C> will result in special information being returned within the
-C> corresponding location in USR. These special mnemonics are not
-C> considered to be part of Table B or Table D and therefore do not
-C> need to be definied within the DX or master table file associated
-C> with ABS(LUNIN):
-C>      - NUL - returns the "missing" value
-C>      - IREC - returns the number of the BUFR message within the
-C>               file pointed to by ABS(LUNIN) (counting from the
-C>               beginning of the file) in which the current data
-C>               subset resides
-C>      - ISUB - returns the number of the current data subset within
-C>               the BUFR message pointed to by IREC, counting from
-C>               the beginning of the message
 C>
 C> @param[in] LUNIN - integer: Absolute value is Fortran logical
 C> unit number for BUFR file.

@@ -3,6 +3,8 @@ C> @brief Read/write one or more data values from/to a data subset.
 C>
 C> @author J. Woollen @date 1994-01-06
 
+C> Read/write one or more data values from/to a data subset.
+C>
 C> This subroutine reads or writes one or more data values from or to
 C> the BUFR data subset that is currently open within the BUFRLIB
 C> internal arrays. The direction of the data transfer is determined
@@ -79,22 +81,6 @@ C> pointed to by ABS(LUNIN) as though it was open for input (reading
 C> BUFR). This is a special capability for use by some applications
 C> that need to read certain values back out from a BUFR file during
 C> the same time that it is in the process of being written to.
-C> - If ABS(LUNIN) points to a file that is open for input (reading
-C> BUFR), there are a few additional special mnemonics that can be
-C> included within STR when calling this subroutine, and which in turn
-C> will result in special information being returned within the
-C> corresponding location in USR. These special mnemonics are not
-C> considered to be part of Table B or Table D and therefore do not
-C> need to be definied within the DX or master table file associated
-C> with ABS(LUNIN):
-C>  - NUL - returns the "missing" value
-C>  - IREC - returns the number of the BUFR message within the
-C>           file pointed to by ABS(LUNIN) (counting from the
-C>           beginning of the file) in which the current data
-C>           subset resides
-C>  - ISUB - returns the number of the current data subset within
-C>           the BUFR message pointed to by IREC, counting from
-C>           the beginning of the message
 C>
 C> @param[in] LUNIN - integer: Absolute value is Fortran logical
 C> unit number for BUFR file.

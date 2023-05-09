@@ -3,6 +3,8 @@ C> @brief Read a complete DX BUFR table.
 C>
 C> @author Woollen @date 1994-01-06
 
+C> Read a complete DX BUFR table.
+C>
 C> This subroutine reads and parses a file containing a user-
 c> supplied DX BUFR table in character format, and then stores
 c> this information into internal arrays in module @ref moda_tababd.
@@ -11,9 +13,9 @@ c> a function similar to BUFR archive library subroutine rdbfdx(),
 c> except that rdbfdx() reads the DX BUFR table directly from messages at
 c> the beginning of an input BUFR file.
 C>
-C> @param[in] LUNDX - integer: fortran logical unit number for user-
+C> @param[in] LUNDX - integer: Fortran logical unit number for user-
 C> supplied DX BUFR table in character format.
-C> @param[in] LUN - integer: I/O stream index into internal memory arrays.
+C> @param[in] LUN - integer: File ID.
 C>
 C> @author Woollen @date 1994-01-06
       SUBROUTINE RDUSDX(LUNDX,LUN)
@@ -65,7 +67,6 @@ C  ----------------------------------
 c  .... NEMO is the 8-character mnemonic name
          NEMO = CARD(3:10)
          IRET=NEMOCK(NEMO)
-         IF(IRET.EQ.-1) GOTO 900
          IF(IRET.EQ.-2) GOTO 901
 
 c  .... NUMB is the 6-character FXY value corresponding to NEMO
@@ -141,10 +142,6 @@ C  EXITS
 C  -----
 
       RETURN
-900   WRITE(BORT_STR1,'("BUFRLIB: RDUSDX - CARD READ IN IS: ",A)') CARD
-      WRITE(BORT_STR2,'(18X,"MNEMONIC ",A," IN USER DICTIONARY IS NOT'//
-     . ' BETWEEN 1 AND 8 CHARACTERS")') NEMO
-      CALL BORT2(BORT_STR1,BORT_STR2)
 901   WRITE(BORT_STR1,'("BUFRLIB: RDUSDX - CARD READ IN IS: ",A)') CARD
       WRITE(BORT_STR2,'(18X,"MNEMONIC ",A," IN USER DICTIONARY HAS '//
      . 'INVALID CHARACTERS")') NEMO

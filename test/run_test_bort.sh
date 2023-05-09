@@ -137,6 +137,15 @@ for kind in "4" "d"; do
     # Check rdmemm().
     (./test_bort_$kind rdmemm 1) && exit 1
 
+    # Check rdusdx().
+    (./test_bort_$kind rdusdx 1) && exit 1
+    (./test_bort_$kind rdusdx 2) && exit 1
+    (./test_bort_$kind rdusdx 3) && exit 1
+    (./test_bort_$kind rdusdx 4) && exit 1
+    (./test_bort_$kind rdusdx 5) && exit 1
+    (./test_bort_$kind rdusdx 6) && exit 1
+    (./test_bort_$kind rdusdx 7) && exit 1
+
     # Check readns().
     (./test_bort_$kind readns 1) && exit 1
     (./test_bort_$kind readns 2) && exit 1
@@ -149,6 +158,23 @@ for kind in "4" "d"; do
     (./test_bort_$kind rtrcpt 1) && exit 1
     (./test_bort_$kind rtrcpt 2) && exit 1
     (./test_bort_$kind rtrcpt 3) && exit 1
+
+    # Check seqsdx().
+    (./test_bort_$kind seqsdx 1) && exit 1
+    (./test_bort_$kind seqsdx 2) && exit 1
+    (./test_bort_$kind seqsdx 3) && exit 1
+    (./test_bort_$kind seqsdx 4) && exit 1
+    (./test_bort_$kind seqsdx 5) && exit 1
+    (./test_bort_$kind seqsdx 6) && exit 1
+    (./test_bort_$kind seqsdx 7) && exit 1
+    (./test_bort_$kind seqsdx 8) && exit 1
+    (./test_bort_$kind seqsdx 9) && exit 1
+    (./test_bort_$kind seqsdx 10) && exit 1
+    (./test_bort_$kind seqsdx 11) && exit 1
+    (./test_bort_$kind seqsdx 12) && exit 1
+    (./test_bort_$kind seqsdx 13) && exit 1
+    (./test_bort_$kind seqsdx 14) && exit 1
+    (./test_bort_$kind seqsdx 15) && exit 1
 
     # Check status().
     (./test_bort_$kind status 1) && exit 1
