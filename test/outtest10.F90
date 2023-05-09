@@ -4,20 +4,20 @@
 !
 ! J. Ator, 4/20/2023
 
-module Share_errstr
+module Share_errstr_outtest10
   ! This module is needed in order to share information between the test program and subroutine errwrt, because
   ! the latter is not called by the former but rather is called directly from within the NCEPLIBS-bufr software.
 
   character*1500 errstr
 
   integer errstr_len
-end module Share_errstr
+end module Share_errstr_outtest10
 
 subroutine errwrt(str)
   ! This subroutine supersedes the subroutine of the same name within the NCEPLIBS-bufr software, so that we can
   ! easily test the generation of error messages from within the library.
 
-  use Share_errstr
+  use Share_errstr_outtest10
 
   character*(*) str
 
@@ -31,7 +31,7 @@ subroutine errwrt(str)
 end subroutine errwrt
 
 program outtest10
-  use Share_errstr
+  use Share_errstr_outtest10
 
   implicit none
 

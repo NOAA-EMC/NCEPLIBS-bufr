@@ -15,16 +15,16 @@
  * If an array overflow occurs, then an appropriate error message
  * will be written via bort().
  *
- * @param desc - bit-wise representation of descriptor to be written
- * into descary.
- * @param descary - array of descriptors.
- * @param ndescary - number of descriptors written so far into
+ * @param desc - WMO bit-wise representation of descriptor to be
+ * written into descary.
+ * @param descary - Array of descriptors.
+ * @param ndescary - Number of descriptors written so far into
  * descary.
  *
  * @author J. Ator @date 2004-08-18
  */
 void
-wrdesc(f77int desc, f77int *descary, f77int *ndescary)
+wrdesc(int desc, int *descary, int *ndescary)
 {
     char errstr[129];
 

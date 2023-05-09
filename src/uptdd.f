@@ -1,6 +1,6 @@
 C> @file
-C> @brief Get the WMO bit-wise representation of FXY value of an
-C> element in a Table D sequence.
+C> @brief Get the WMO bit-wise representation of the FXY value
+C> corresponding to a child mnemonic in a Table D sequence.
 C>
 C> @author J. Woollen @date 1994-01-06
 
@@ -10,18 +10,17 @@ C>
 C> For a description of the WMO bit-wise representation of the FXY
 C> value, see ifxy().
 C>
-C> @param[in] ID - integer: positional index of parent mnemonic
+C> @param[in] ID - integer: Positional index of parent mnemonic
 C> within internal BUFR Table D array tabd.
-C> @param[in] LUN - integer: I/O stream index into internal memory
-C> arrays.
-C> @param[in] IENT - integer: ordinal indicator of child mnemonic to
+C> @param[in] LUN - integer: File ID.
+C> @param[in] IENT - integer: Ordinal indicator of child mnemonic to
 C> return from within tabd(id,lun) sequence. 0 indicates that a count
 C> of the total number of child mnemonics within the sequence will be
 C> returned.
-C> @param[out] IRET - integer: return value:
-C> - bit-wise representation of FXY value corresponding to IENT'th
+C> @param[out] IRET - integer: Return value:
+C> - WMO bit-wise representation of FXY value corresponding to IENT'th
 C>   child mnemonic, if input IENT was > 0.
-C> - total number of child mnemonics, if input IENT was 0.
+C> - Total number of child mnemonics, if input IENT was 0.
 C>
 C> @author J. Woollen @date 1994-01-06
 
