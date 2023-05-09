@@ -29,7 +29,7 @@ void
 arallocc(void)
 {
 
-    char brtstr[50] = "BUFRLIB: ARALLOCC FAILED ALLOCATING ";
+    char brtstr[50] = "BUFRLIB: ARALLOCC FAILED ALLOCATING";
 
     int nfiles;
 
@@ -43,15 +43,11 @@ arallocc(void)
 
     nfiles = igetprm_f("NFILES");
 
-    if ( ( pb = malloc( (nfiles+1) * sizeof(FILE *) ) ) == NULL ) {
-        strcat( brtstr, "PB" );
-        bort( brtstr, ( f77int ) strlen( brtstr ) );
-    }
+    if (!(pb = malloc((nfiles+1) * sizeof(FILE *)))) 
+        bort(brtstr, (f77int) strlen(brtstr));
 
-    if ( ( lstpos = malloc( (nfiles+1) * sizeof(fpos_t) ) ) == NULL ) {
-        strcat( brtstr, "LSTPOS" );
-        bort( brtstr, ( f77int ) strlen( brtstr ) );
-    }
+    if (!(lstpos = malloc((nfiles+1) * sizeof(fpos_t))))
+        bort(brtstr, (f77int) strlen(brtstr));
 
 /*
 **  mstabs arrays
@@ -61,64 +57,39 @@ arallocc(void)
     mxmtbd = igetprm_f("MXMTBD");
     maxcd = igetprm_f("MAXCD");
 
-    if ( ( ibfxyn_c = malloc( mxmtbb * sizeof(f77int) ) ) == NULL ) {
-        strcat( brtstr, "IBFXYN" );
-        bort( brtstr, ( f77int ) strlen( brtstr ) );
-    }
+    if (!(ibfxyn_c = malloc(mxmtbb * sizeof(f77int)))) 
+        bort(brtstr, (f77int) strlen(brtstr));
 
-    if ( ( cbscl_c = malloc( mxmtbb * 4 * sizeof(char) ) ) == NULL ) {
-        strcat( brtstr, "CBSCL" );
-        bort( brtstr, ( f77int ) strlen( brtstr ) );
-    }
+    if (!(cbscl_c = malloc(mxmtbb * 4 * sizeof(char)))) 
+        bort(brtstr, (f77int) strlen(brtstr));
 
-    if ( ( cbsref_c = malloc( mxmtbb * 12 * sizeof(char) ) ) == NULL ) {
-        strcat( brtstr, "CBSREF" );
-        bort( brtstr, ( f77int ) strlen( brtstr ) );
-    }
+    if (!(cbsref_c = malloc(mxmtbb * 12 * sizeof(char))))
+        bort(brtstr, (f77int) strlen(brtstr));
 
-    if ( ( cbbw_c = malloc( mxmtbb * 4 * sizeof(char) ) ) == NULL ) {
-        strcat( brtstr, "CBBW" );
-        bort( brtstr, ( f77int ) strlen( brtstr ) );
-    }
+    if (!(cbbw_c = malloc(mxmtbb * 4 * sizeof(char))))
+        bort(brtstr, (f77int) strlen(brtstr));
 
-    if ( ( cbunit_c = malloc( mxmtbb * 24 * sizeof(char) ) ) == NULL ) {
-        strcat( brtstr, "CBUNIT" );
-        bort( brtstr, ( f77int ) strlen( brtstr ) );
-    }
+    if (!(cbunit_c = malloc(mxmtbb * 24 * sizeof(char))))
+        bort(brtstr, (f77int) strlen(brtstr));
 
-    if ( ( cbmnem_c = malloc( mxmtbb * 8 * sizeof(char) ) ) == NULL ) {
-        strcat( brtstr, "CBMNEM" );
-        bort( brtstr, ( f77int ) strlen( brtstr ) );
-    }
+    if (!(cbmnem_c = malloc(mxmtbb * 8 * sizeof(char))))
+        bort(brtstr, (f77int) strlen(brtstr));
 
-    if ( ( cbelem_c = malloc( mxmtbb * 120 * sizeof(char) ) ) == NULL ) {
-        strcat( brtstr, "CBELEM" );
-        bort( brtstr, ( f77int ) strlen( brtstr ) );
-    }
+    if (!(cbelem_c = malloc(mxmtbb * 120 * sizeof(char))))
+        bort(brtstr, (f77int) strlen(brtstr));
 
-    if ( ( idfxyn_c = malloc( mxmtbd * sizeof(f77int) ) ) == NULL ) {
-        strcat( brtstr, "IDFXYN" );
-        bort( brtstr, ( f77int ) strlen( brtstr ) );
-    }
+    if (!(idfxyn_c = malloc(mxmtbd * sizeof(f77int))))
+        bort(brtstr, (f77int) strlen(brtstr));
 
-    if ( ( cdseq_c = malloc( mxmtbd * 120 * sizeof(char) ) ) == NULL ) {
-        strcat( brtstr, "CDSEQ" );
-        bort( brtstr, ( f77int ) strlen( brtstr ) );
-    }
+    if (!(cdseq_c = malloc(mxmtbd * 120 * sizeof(char))))
+        bort(brtstr, (f77int) strlen(brtstr));
 
-    if ( ( cdmnem_c = malloc( mxmtbd * 8 * sizeof(char) ) ) == NULL ) {
-        strcat( brtstr, "CDMNEM" );
-        bort( brtstr, ( f77int ) strlen( brtstr ) );
-    }
+    if (!(cdmnem_c = malloc(mxmtbd * 8 * sizeof(char))))
+        bort(brtstr, (f77int) strlen(brtstr));
 
-    if ( ( ndelem_c = malloc( mxmtbd * sizeof(f77int) ) ) == NULL ) {
-        strcat( brtstr, "NDELEM" );
-        bort( brtstr, ( f77int ) strlen( brtstr ) );
-    }
+    if (!(ndelem_c = malloc(mxmtbd * sizeof(f77int))))
+        bort(brtstr, (f77int) strlen(brtstr));
 
-    if ( ( idefxy_c = malloc( mxmtbd * maxcd * sizeof(f77int) ) ) == NULL ) {
-        strcat( brtstr, "IDEFXY" );
-        bort( brtstr, ( f77int ) strlen( brtstr ) );
-    }
-
+    if (!(idefxy_c = malloc(mxmtbd * maxcd * sizeof(f77int))))
+        bort(brtstr, (f77int) strlen(brtstr ) );
 }
