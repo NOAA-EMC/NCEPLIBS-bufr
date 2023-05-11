@@ -3,19 +3,10 @@ C> @brief Read one or more data values from a data subset.
 C>
 C> @author Woollen @date 1994-01-06
 
+C> Read one or more data values from a data subset.
+C>
 C> This subroutine unpacks and returns the values for one-dimensional
 C> descriptors in the input string without advancing the subset pointer.
-C>
-C> There are three "generic" mnemonics not related to Table B which can be
-C> specified within STR and return the following information in the
-C> corresponding TAB location:
-C> - 'NUL' returns the "missing" value.
-C> - 'IREC' returns the number of the BUFR message within the
-C>   file pointed to by LUNIT (counting from the beginning of the file)
-C>   in which the current data subset resides.
-C> - 'ISUB' returns the number of the current data subset within
-C>    the BUFR message pointed to by IREC, counting from
-C>    the beginning of the message.
 C>
 C> @param[in] LUNIT - integer: fortran logical unit number for BUFR file.
 C> @param[out] TAB - real*8(*): data values.

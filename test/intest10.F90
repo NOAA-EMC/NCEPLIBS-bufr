@@ -75,35 +75,38 @@ program intest10
   if ( ( icnt .ne. 97 ) .or. & 
       ( index( errstr(1:errstr_len), 'UFBMEM - THE NO. OF BYTES REQUIRED TO STORE ALL MESSAGES' ) .eq. 0 ) ) stop 6
 
-  ! Test an errwrt branch in rdmemm (via readmm).
+  ! Test some errwrt branches in rdmemm (via readmm).
   errstr_len = 0
   imsg = 0
   call readmm ( imsg, cmgtag, idate, iret )
   if ( index( errstr(1:errstr_len), 'REQUESTED MEMORY MESSAGE NUMBER {FIRST (INPUT) ARGUMENT} IS 0' ) .eq. 0 ) stop 7
+  imsg = 350
+  call readmm ( imsg, cmgtag, idate, iret )
+  if ( index( errstr(1:errstr_len), '1ST (INPUT) ARG.} > # OF MESSAGES IN MEMORY' ) .eq. 0 ) stop 8
 
   ! Reset the input files.
   call closbf ( 21 )
   call closbf ( 22 )
   open ( unit = 21, file = 'testfiles/IN_10_infile1', form = 'unformatted', iostat = ios1 )
   open ( unit = 22, file = 'testfiles/IN_10_infile2', form = 'unformatted', iostat = ios2 )
-  if ( ( ios1 .ne. 0 ) .or. ( ios2 .ne. 0 ) ) stop 8
+  if ( ( ios1 .ne. 0 ) .or. ( ios2 .ne. 0 ) ) stop 9
 
   ! Test the errwrt branches in ufbmex.
   errstr_len = 0
   call ufbmex ( 21, 21, 0, icnt, imesg )
   if ( ( icnt .ne. 125 ) .or. & 
-      ( index( errstr(1:errstr_len), 'UFBMEX - THE NO. OF MESSAGES REQUIRED TO STORE ALL MESSAGES' ) .eq. 0 ) ) stop 9
+      ( index( errstr(1:errstr_len), 'UFBMEX - THE NO. OF MESSAGES REQUIRED TO STORE ALL MESSAGES' ) .eq. 0 ) ) stop 10
   call ufbmex ( 22, 22, 0, icnt, imesg )
   if ( ( icnt .ne. 97 ) .or. & 
-      ( index( errstr(1:errstr_len), 'UFBMEX - THE NO. OF BYTES REQUIRED TO STORE ALL MESSAGES' ) .eq. 0 ) ) stop 10
+      ( index( errstr(1:errstr_len), 'UFBMEX - THE NO. OF BYTES REQUIRED TO STORE ALL MESSAGES' ) .eq. 0 ) ) stop 11
 
   ! Test the errwrt branch in openbt, both indirectly and directly.
   errstr_len = 0
   call rdmemm ( 50, cmgtag, idate, iret )
-  if ( index( errstr(1:errstr_len), 'OPENBT - THIS IS A DUMMY BUFRLIB ROUTINE' ) .eq. 0 ) stop 11
+  if ( index( errstr(1:errstr_len), 'OPENBT - THIS IS A DUMMY BUFRLIB ROUTINE' ) .eq. 0 ) stop 12
   errstr_len = 0
   call openbt ( lundx, 255 )
-  if ( index( errstr(1:errstr_len), 'OPENBT - THIS IS A DUMMY BUFRLIB ROUTINE' ) .eq. 0 ) stop 12
+  if ( index( errstr(1:errstr_len), 'OPENBT - THIS IS A DUMMY BUFRLIB ROUTINE' ) .eq. 0 ) stop 13
 
   print *, 'SUCCESS!'
 end program intest10
