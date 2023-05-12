@@ -13,6 +13,7 @@ C>
 C> @author J. Ator @date 2009-03-23
         SUBROUTINE READS3 ( LUN )
 
+        use bufrlib
         USE MODA_SC3BFR
         USE MODA_BITBUF
         USE MODA_DSCACH
@@ -138,7 +139,8 @@ C*      internal Table A.
 C*      Store all of the information for this sequence within the
 C*      internal Tables B and D.
 
-        CALL STSEQ ( LUN, IREPCT, IDN, TAMNEM(LUN), CSEQ, IDS3, NCDS3 )
+        CALL STSEQ_C ( LUN, IREPCT, IDN, TAMNEM(LUN), CSEQ, IDS3,
+     .                 NCDS3 )
 
 C*      Update the jump/link table.
 

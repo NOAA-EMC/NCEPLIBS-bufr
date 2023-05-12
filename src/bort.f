@@ -3,6 +3,8 @@ C> @brief Log one error message and abort application program.
 C>
 C> @author J. Woollen @date 1998-07-08
 
+C> Log one error message and abort application program.
+C>
 C> This subroutine calls subroutine errwrt() to log an error message,
 C> then calls subroutine bort_exit() to abort the application program.
 C>

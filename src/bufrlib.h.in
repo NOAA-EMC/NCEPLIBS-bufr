@@ -29,6 +29,8 @@ void cwrbufr(int nfile, int *bufr, int nwrd);
 void bort_exit(void);
 int icvidx(int ii, int jj, int numjj);
 void wrdesc(int desc, int *descary, int *ndescary);
+void restd(int lunb, int tddesc, int *nctddesc, int *ctddesc);
+void stseq(int lun, int *irepct, int idn, char *nemo, char *cseq, int *cdesc, int ncdesc);
 
 /** Maximum number of BUFR files that can be connected to the NCEPLIBS-bufr
  * software (for reading or writing) at any one time. */
@@ -195,6 +197,64 @@ int istdesc_f(int idn);
  */
 void strnum_f(char *str, int *num, int *iret);
 
+/**
+ * Store a new entry within the internal BUFR Table B or D.
+ *
+ * Wraps stntbi() subroutine.
+ *
+ * @param n - Storage index into internal Table B or D.
+ * @param lun - File ID.
+ * @param numb - FXY number for new entry.
+ * @param nemo - mnemonic corresponding to numb.
+ * @param celsq - Element or sequence definition corresponding to numb.
+ *
+ * @author J. Ator @date 2009-03-23
+ */
+void stntbi_f(int n, int lun, char *numb, char *nemo, char *celsq);
+
+/**
+ * Get the next usable Table D index for the current master table, or
+ * reset the index.
+ *
+ * Wraps igettdi() function.
+ *
+ * @param iflag - Processing flag; if 0 will reset the index.
+ *
+ * @return
+ * - -1, if iflag was input as 0.
+ * - next usable scratch Table D index, otherwise.
+ *
+ * @author J. Ator @date 2009-03-23
+ */
+int igettdi_f(int iflag);
+
+/**
+ * Store information about a child mnemonic within the internal arrays.
+ *
+ * Wraps pktdd() subroutine.
+ *
+ * @param id - Index of parent mnemonic within internal arrays.
+ * @param lun - File ID.
+ * @param idn - WMO bit-wise representation of FXY value for child mnemonic,
+ * or 0 to delete all child mnemonic information for parent mnemonic id.
+ * @param iret - 0 if idn=0; -1 if error occurred; otherwise, the total number of
+ * child mnemonics stored so far for parent mnemonic id.
+ *
+ * @author J. Ator @date 2003-11-04
+ */
+void pktdd_f(int id, int lun, int idn, int *iret);
+
+/**
+ * Log one error message and abort application program.
+ *
+ * Wraps bort() subroutine.
+ *
+ * @param errstr - Error message.
+ *
+ * @author J. Ator @date 2023-04-07
+ */
+void bort_f(char *errstr);
+
 /*
 ** On certain operating systems, the FORTRAN compiler appends an underscore
 ** to subprogram names in its object namespace.  Therefore, on such systems,
@@ -206,21 +266,15 @@ void strnum_f(char *str, int *num, int *iret);
 **   2) a FORTRAN subprogram called from C
 */
 #ifdef UNDERSCORE
-#define bort       bort_      /**< bort function. */
 #define bort_exit  bort_exit_ /**< exit function. */
 #define bvers      bvers_     /**< bvers function. */
 #define cmpmsg     cmpmsg_    /**< cmpmsg function. */
 #define gets1loc   gets1loc_  /**< gets1loc function. */
 #define ichkstr    ichkstr_   /**< ichkstr function. */
-#define igettdi    igettdi_   /**< igettdi function. */
 #define ipkm       ipkm_      /**< ipkm function. */
 #define iupb       iupb_      /**< iupb function. */
 #define iupm       iupm_      /**< iupm function. */
 #define openmb     openmb_    /**< openmb function. */
-#define pktdd      pktdd_     /**< pktdd function. */
-#define restd      restd_     /**< restd function. */
-#define stntbi     stntbi_    /**< stntbi function. */
-#define stseq      stseq_     /**< stseq function. */
 #define wrdlen     wrdlen_    /**< wrdlen function. */
 #endif
 
@@ -249,19 +303,6 @@ typedef double f77r8;
 **   1) a C function, or
 **   2) a FORTRAN subprogram called from C
 */
-
-void restd(int *lunb, int *tddesc, int *nctddesc, int *ctddesc);
-void stseq(int *lun, int *irepct, int *idn, char *nemo, char *cseq, int *cdesc, int *ncdesc);
-
-/**
- * Wraps bort() subroutine.
- *
- * @param str - Error message.
- * @param s1 - Extra C-Fortran interface argument containing length of str variable.
- *
- * @author J. Ator @date 2003-11-04
- */
-void bort( char *str, size_t s1 );
 
 /**
  * Wraps bvers() subroutine.
@@ -315,19 +356,6 @@ void gets1loc( char *s1mnem, f77int *iben, f77int *isbyt, f77int *iwid, f77int *
 f77int ichkstr ( char *str, char *chr, f77int *n, size_t s1, size_t s2 );
 
 /**
- * Wraps igettdi() function.
- *
- * @param iflag - Processing flag.
- *
- * @return
- * - -1, if iflag was input as 0.
- * - next usable scratch Table D index, otherwise.
- *
- * @author J. Ator @date 2009-03-23
- */
-f77int igettdi( f77int *iflag );
-
-/**
  * Wraps ipkm() subroutine.
  *
  * @param cbay - String.
@@ -376,34 +404,6 @@ f77int iupm( char *cbay, f77int *nbits, size_t s1 );
  * @author J. Ator @date 2003-11-04
  */
 void openmb( f77int *lunit, char *subset, f77int *jdate, size_t s1 );
-
-/**
- * Wraps pktdd() subroutine.
- *
- * @param id - Index of parent mnemonic within internal arrays.
- * @param lun - I/O stream index into internal arrays.
- * @param idn - Bit-wise representation of FXY value for child mnemonic.
- * @param iret - Return code.
- *
- * @author J. Ator @date 2003-11-04
- */
-void pktdd( f77int *id, f77int *lun, f77int *idn, f77int *iret );
-
-/**
- * Wraps stntbi() subroutine.
- *
- * @param n - Index into internal Table B or D for new entry.
- * @param lun - I/O stream index into internal arrays.
- * @param numb - FXY number for new entry.
- * @param nemo - mnemonic corresponding to numb.
- * @param celsq - Element or sequence definition corresponding to numb.
- * @param s1 - Extra C-Fortran interface argument containing length of numb variable.
- * @param s2 - Extra C-Fortran interface argument containing length of nemo variable.
- * @param s3 - Extra C-Fortran interface argument containing length of celsq variable.
- *
- * @author J. Ator @date 2009-03-23
- */
-void stntbi( f77int *n, f77int *lun, char *numb, char *nemo, char *celsq, size_t s1, size_t s2, size_t s3 );
 
 /**
  * Wraps wrdlen() subroutine.

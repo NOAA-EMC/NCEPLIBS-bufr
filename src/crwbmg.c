@@ -136,7 +136,7 @@ cobfl(char *bfl, char io)
         if (i == MXFNLEN) {
             sprintf(errstr, "BUFRLIB: COBFL - INPUT FILENAME CONTAINS"
                     " MORE THAN %hu CHARACTERS", (unsigned short) MXFNLEN);
-            bort(errstr, (f77int) strlen(errstr));
+            bort_f(errstr);
         }
         lbf[i] = bfl[i];
     }
@@ -152,7 +152,7 @@ cobfl(char *bfl, char io)
     else {
         sprintf(errstr, "BUFRLIB: COBFL - SECOND ARGUMENT WAS (%c),"
                 " WHICH IS AN ILLEGAL VALUE", lio);
-        bort(errstr, (f77int) strlen(errstr));
+        bort_f(errstr);
     }
 
     /*
@@ -165,7 +165,7 @@ cobfl(char *bfl, char io)
     */
     if ((pbf[j] = fopen(lbf, foparg)) == NULL) {
         sprintf(errstr, "BUFRLIB: COBFL - COULD NOT OPEN FILE %s", lbf);
-        bort(errstr, (f77int) strlen(errstr));
+        bort_f(errstr);
     }
 
     /*
@@ -211,7 +211,7 @@ crbmg(char *bmg, int mxmb, int *nmb, int *iret)
     */
     if (pbf[0] == NULL) {
         sprintf(errstr, "BUFRLIB: CRBMG - NO FILE IS OPEN FOR READING");
-        bort(errstr, (f77int) strlen(errstr));
+        bort_f(errstr);
     }
 
     /*
@@ -276,7 +276,7 @@ cwbmg(char *bmg, int nmb, int *iret)
     */
     if (pbf[1] == NULL) {
         sprintf(errstr, "BUFRLIB: CWBMG - NO FILE IS OPEN FOR WRITING");
-        bort(errstr, (f77int) strlen(errstr));
+        bort_f(errstr);
     }
 
     /*

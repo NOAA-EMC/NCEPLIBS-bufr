@@ -62,6 +62,10 @@ module bufr_c2f_interface
   public :: ireadns_c
   public :: ibfms_c
   public :: strnum_c
+  public :: stntbi_c
+  public :: igettdi_c
+  public :: pktdd_c
+  public :: bort_c
 
   integer, allocatable, target, save :: isc_f(:)
   integer, allocatable, target, save :: link_f(:)
@@ -969,5 +973,86 @@ module bufr_c2f_interface
 
       call strnum(c_f_string(str), num, iret)
     end subroutine strnum_c
+
+    !> Store a new entry within the internal BUFR Table B or D.
+    !>
+    !> Wraps stntbi() subroutine.
+    !>
+    !> @param n - Storage index into internal Table B or D.
+    !> @param lun - File ID.
+    !> @param numb - FXY number for new entry.
+    !> @param nemo - Mnemonic corresponding to numb.
+    !> @param celsq - Element or sequence description corresponding to numb.
+    !>
+    !> @author J. Ator @date 2023-04-07
+    subroutine stntbi_c(n,lun,numb,nemo,celsq) bind(C, name='stntbi_f')
+      integer(c_int), intent(in), value :: n, lun
+      character(kind=c_char, len=1), intent(in) :: numb(*), nemo(*), celsq(*)
+      character(len=6) :: numb_f
+      character(len=8) :: nemo_f
+      character(len=55) :: celsq_f
+      integer :: ii
+
+      do ii = 1,6
+        numb_f(ii:ii) = numb(1)(ii:ii)
+      enddo
+      do ii = 1,8
+        nemo_f(ii:ii) = nemo(1)(ii:ii)
+      enddo
+      do ii = 1,55
+        celsq_f(ii:ii) = celsq(1)(ii:ii)
+      enddo
+      call stntbi(n, lun, numb_f, nemo_f, celsq_f)
+    end subroutine stntbi_c
+
+    !> Get the next usable Table D index for the current master table, or
+    !> reset the index.
+    !>
+    !> Wraps igettdi() function.
+    !>
+    !> @param iflag - if 0, will reset the index.
+    !>
+    !> @return igettdi_c - -1 if iflag=0, otherwise the next usable index.
+    !>
+    !> @author J. Ator @date 2023-04-07
+    function igettdi_c(iflag) result(ires) bind(C, name='igettdi_f')
+      integer(c_int), intent(in), value :: iflag
+      integer(c_int) :: ires
+      integer :: igettdi
+
+      ires = igettdi(iflag)
+    end function igettdi_c
+
+    !> Store information about a child mnemonic within the internal arrays.
+    !>
+    !> Wraps pktdd() subroutine.
+    !>
+    !> @param id - Index of parent mnemonic within internal BUFR Table D array.
+    !> @param lun - File ID.
+    !> @param idn - WMO bit-wise representation of FXY value corresponding to child
+    !> mnemonic; set to 0 to delete all child mnemonic information.
+    !> @param iret - 0 if idn=0; -1 if error occurred; otherwise, the total number of
+    !> child mnemonics stored so far for parent mnemonic id.
+    !>
+    !> @author J. Ator @date 2023-04-07
+    subroutine pktdd_c(id, lun, idn, iret) bind(C, name='pktdd_f')
+      integer(c_int), intent(in), value :: id, lun, idn
+      integer(c_int), intent(out) :: iret
+
+      call pktdd(id, lun, idn, iret)
+    end subroutine pktdd_c
+
+    !> Log one error message and abort application program.
+    !>
+    !> Wraps bort() subroutine.
+    !>
+    !> @param errstr - Error message.
+    !>
+    !> @author J. Ator @date 2023-04-07
+    subroutine bort_c(errstr) bind(C, name='bort_f')
+      character(kind=c_char, len=1), intent(in) :: errstr(*)
+
+      call bort(c_f_string(errstr))
+    end subroutine bort_c
 
 end module bufr_c2f_interface

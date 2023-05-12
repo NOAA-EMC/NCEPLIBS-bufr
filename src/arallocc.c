@@ -44,10 +44,10 @@ arallocc(void)
     nfiles = igetprm_f("NFILES");
 
     if (!(pb = malloc((nfiles+1) * sizeof(FILE *)))) 
-        bort(brtstr, (f77int) strlen(brtstr));
+        bort_f(brtstr);
 
     if (!(lstpos = malloc((nfiles+1) * sizeof(fpos_t))))
-        bort(brtstr, (f77int) strlen(brtstr));
+        bort_f(brtstr);
 
 /*
 **  mstabs arrays
@@ -58,38 +58,38 @@ arallocc(void)
     maxcd = igetprm_f("MAXCD");
 
     if (!(ibfxyn_c = malloc(mxmtbb * sizeof(f77int)))) 
-        bort(brtstr, (f77int) strlen(brtstr));
+        bort_f(brtstr);
 
     if (!(cbscl_c = malloc(mxmtbb * 4 * sizeof(char)))) 
-        bort(brtstr, (f77int) strlen(brtstr));
+        bort_f(brtstr);
 
     if (!(cbsref_c = malloc(mxmtbb * 12 * sizeof(char))))
-        bort(brtstr, (f77int) strlen(brtstr));
+        bort_f(brtstr);
 
     if (!(cbbw_c = malloc(mxmtbb * 4 * sizeof(char))))
-        bort(brtstr, (f77int) strlen(brtstr));
+        bort_f(brtstr);
 
     if (!(cbunit_c = malloc(mxmtbb * 24 * sizeof(char))))
-        bort(brtstr, (f77int) strlen(brtstr));
+        bort_f(brtstr);
 
     if (!(cbmnem_c = malloc(mxmtbb * 8 * sizeof(char))))
-        bort(brtstr, (f77int) strlen(brtstr));
+        bort_f(brtstr);
 
     if (!(cbelem_c = malloc(mxmtbb * 120 * sizeof(char))))
-        bort(brtstr, (f77int) strlen(brtstr));
+        bort_f(brtstr);
 
     if (!(idfxyn_c = malloc(mxmtbd * sizeof(f77int))))
-        bort(brtstr, (f77int) strlen(brtstr));
+        bort_f(brtstr);
 
     if (!(cdseq_c = malloc(mxmtbd * 120 * sizeof(char))))
-        bort(brtstr, (f77int) strlen(brtstr));
+        bort_f(brtstr);
 
     if (!(cdmnem_c = malloc(mxmtbd * 8 * sizeof(char))))
-        bort(brtstr, (f77int) strlen(brtstr));
+        bort_f(brtstr);
 
     if (!(ndelem_c = malloc(mxmtbd * sizeof(f77int))))
-        bort(brtstr, (f77int) strlen(brtstr));
+        bort_f(brtstr);
 
     if (!(idefxy_c = malloc(mxmtbd * maxcd * sizeof(f77int))))
-        bort(brtstr, (f77int) strlen(brtstr ) );
+        bort_f(brtstr);
 }

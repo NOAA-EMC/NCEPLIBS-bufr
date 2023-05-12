@@ -65,9 +65,8 @@ inittbf(void)
 
         mxmtbf = igetprm_f("MXMTBF");
 
-        if ( ( cfe = malloc( mxmtbf * sizeof(struct code_flag_entry) ) )
-                        == NULL ) {
-            bort( brtstr, ( f77int ) strlen( brtstr ) );
+        if ( ( cfe = malloc(mxmtbf * sizeof(struct code_flag_entry)) ) == NULL ) {
+            bort_f(brtstr);
         }
     }
 
@@ -85,7 +84,7 @@ inittbf(void)
 void
 dlloctbf(void)
 {
-    free ( cfe );
+    free(cfe);
 
     cfe = NULL;
 }
@@ -198,7 +197,7 @@ strtbfe(int ifxyn, int ival, char *meaning, int lmeaning, int idfxy, int idval)
     /*
     **  Confirm that there's room for another entry in the structure.
     */
-    if ( nmtf >= mxmtbf ) bort( brtstr, ( f77int ) strlen( brtstr ) );
+    if ( nmtf >= mxmtbf ) bort_f(brtstr);
 
     /*
     **  Store the new entry.
@@ -206,7 +205,7 @@ strtbfe(int ifxyn, int ival, char *meaning, int lmeaning, int idfxy, int idval)
     cfe[nmtf].iffxyn = ifxyn;
     cfe[nmtf].ifval = ival;
     mnlen = ( lmeaning > MAX_MEANING_LEN ? MAX_MEANING_LEN : lmeaning );
-    strncpy( &cfe[nmtf].ifmeaning[0], meaning, mnlen );
+    strncpy(&cfe[nmtf].ifmeaning[0], meaning, mnlen);
     cfe[nmtf].ifmeaning[mnlen] = '\0';
     cfe[nmtf].iffxynd = idfxy;
     cfe[nmtf].ifvald  = idval;
@@ -225,8 +224,8 @@ strtbfe(int ifxyn, int ival, char *meaning, int lmeaning, int idfxy, int idval)
 void
 sorttbf(void)
 {
-    qsort( &cfe[0], ( size_t ) nmtf, sizeof( struct code_flag_entry ),
-        ( int (*) ( const void *, const void * ) ) cmpstia1 );
+    qsort(&cfe[0], (size_t) nmtf, sizeof(struct code_flag_entry),
+        (int (*) (const void *, const void *)) cmpstia1);
 }
 
 /**
@@ -299,18 +298,18 @@ srchtbf(int ifxyi, int ivali, int *ifxyd, int mxfxyd, int ivald,
     /*
     **  Search for a matching entry.
     */
-    pbs = ( struct code_flag_entry * ) bsearch( pkey, pcfe, ( size_t ) nmtf,
-                sizeof( struct code_flag_entry ),
-                ( int (*) ( const void *, const void * ) ) cmpstia1 );
+    pbs = (struct code_flag_entry *) bsearch(pkey, pcfe, (size_t) nmtf,
+                sizeof(struct code_flag_entry),
+                (int (*) (const void *, const void *)) cmpstia1);
     if ( pbs != NULL ) {
         /*
         **  A matching entry was found, so set the appropriate output
         **  values and return.
         */
         ipt = pbs - pcfe;
-        slmng = strlen( cfe[ipt].ifmeaning );
+        slmng = strlen(cfe[ipt].ifmeaning);
         *lnmng = ( mxmng > slmng ? slmng : mxmng );
-        strncpy( meaning, &cfe[ipt].ifmeaning[0], *lnmng );
+        strncpy(meaning, &cfe[ipt].ifmeaning[0], *lnmng);
         *iret = 0;
         return;
     }
@@ -329,9 +328,9 @@ srchtbf(int ifxyi, int ivali, int *ifxyd, int mxfxyd, int ivald,
     **  NO, so check whether the given Table B descriptor and value have any
     **  dependencies, and if so then return a list of those dependencies.
     */
-    pbs = ( struct code_flag_entry * ) bsearch( pkey, pcfe, ( size_t ) nmtf,
-                sizeof( struct code_flag_entry ),
-                ( int (*) ( const void *, const void * ) ) cmpstia2 );
+    pbs = (struct code_flag_entry *) bsearch(pkey, pcfe, (size_t) nmtf,
+                sizeof(struct code_flag_entry),
+                (int (*) (const void *, const void *)) cmpstia2);
     if ( pbs == NULL ) {
         /*
         **  There are no dependencies.
