@@ -53,6 +53,15 @@ module bufr_c2f_interface
   public :: cadn30_c
   public :: igetntbi_c
   public :: elemdx_c
+  public :: numtbd_c
+  public :: ifxy_c
+  public :: uptdd_c
+  public :: imrkopr_c
+  public :: istdesc_c
+  public :: ufbseq_c
+  public :: ireadns_c
+  public :: ibfms_c
+  public :: strnum_c
 
   integer, allocatable, target, save :: isc_f(:)
   integer, allocatable, target, save :: link_f(:)
@@ -753,11 +762,10 @@ module bufr_c2f_interface
       ires = igetntbi(lun, table_type_f)
     end function igetntbi_c
 
-    !>
     !> Decode the scale factor, reference value, bit width, and units from a Table B
     !> mnemonic definition.
     !>
-    !> Wraps elemdx() function.
+    !> Wraps elemdx() subroutine.
     !>
     !> @param card - Mnemonic definition card.
     !> @param lun - File ID.
@@ -822,7 +830,7 @@ module bufr_c2f_interface
     !> Get the WMO bit-wise representation of the FXY value corresponding
     !> to a child mnemonic of a Table D sequence.
     !>
-    !> Wraps uptdd() function.
+    !> Wraps uptdd() subroutine.
     !>
     !> @param id - Positional index of parent mnemonic within internal
     !> BUFR Table D array.
@@ -875,5 +883,91 @@ module bufr_c2f_interface
 
       ires = istdesc(idn)
     end function istdesc_c
+
+    !> Read/write an entire sequence of data values from/to a data subset.
+    !>
+    !> Wraps ufbseq() subroutine.
+    !>
+    !> @param bufr_unit - Fortran logical unit number to read from
+    !> @param c_data - C-style pointer to a pre-allocated buffer
+    !> @param dim_1, dim_2 - Dimensionality of data to read or write
+    !> @param iret - Return value, length of data read
+    !> @param table_d_mnemonic - Table A or Table D mnemonic.
+    !>
+    !> @author J. Ator @date 2023-04-07
+    subroutine ufbseq_c(bufr_unit, c_data, dim_1, dim_2, iret, table_d_mnemonic) bind(C, name='ufbseq_f')
+      integer(c_int), value, intent(in) :: bufr_unit
+      type(c_ptr), intent(inout) ::  c_data
+      integer(c_int), value, intent(in) :: dim_1, dim_2
+      integer(c_int), intent(out) :: iret
+      character(kind=c_char, len=1), intent(in) :: table_d_mnemonic(*)
+      real, pointer :: f_data
+
+      call c_f_pointer(c_data, f_data)
+      call ufbseq(bufr_unit, f_data, dim_1, dim_2, iret, c_f_string(table_d_mnemonic))
+    end subroutine ufbseq_c
+
+    !> Read the next data subset from a BUFR file.
+    !>
+    !> Wraps ireadns() function.
+    !>
+    !> @param bufr_unit - Fortran logical unit number to read from.
+    !> @param c_subset - Subset string.
+    !> @param iddate - Datetime of message.
+    !> @param subset_str_len - Length of the subset string.
+    !>
+    !> @return ireadns_c - Return code:
+    !>  - 0 new BUFR data subset was successfully read into internal arrays.
+    !>  - -1 there are no more BUFR data subsets in bufr_unit.
+    !>
+    !> @author J. Ator @date 2023-04-07
+    function ireadns_c(bufr_unit, c_subset, iddate, subset_str_len) result(ires) bind(C, name='ireadns_f')
+      integer(c_int), value, intent(in) :: bufr_unit
+      character(kind=c_char, len=1), intent(out) :: c_subset(*)
+      integer(c_int), intent(out) :: iddate
+      integer(c_int), value, intent(in) :: subset_str_len
+      integer(c_int) :: ires
+      character(len=25) :: f_subset
+      integer :: ireadns
+
+      ires = ireadns(bufr_unit, f_subset, iddate)
+
+      if (ires == 0) then
+        call copy_f_c_str(f_subset, c_subset, int(subset_str_len))
+      end if
+    end function ireadns_c
+
+    !> Test whether a data value is "missing".
+    !>
+    !> Wraps ibfms() function.
+    !>
+    !> @param r8val - Data value.
+    !>
+    !> @return ibfms_c - 1 if r8val is "missing", or 0 otherwise.
+    !>
+    !> @author J. Ator @date 2023-04-07
+    function ibfms_c(r8val) result(ires) bind(C, name='ibfms_f')
+      real(c_double), intent(in), value :: r8val
+      integer(c_int) :: ires
+      integer :: ibfms
+
+      ires = ibfms(r8val)
+    end function ibfms_c
+
+    !> Decode an integer from a character string.
+    !>
+    !> Wraps strnum() subroutine.
+    !>
+    !> @param str - String.
+    !> @param num - Value decoded from str.
+    !> @param iret - 0 if successful, -1 otherwise.
+    !>
+    !> @author J. Ator @date 2003-11-04
+    subroutine strnum_c(str,num,iret) bind(C, name='strnum_f')
+      character(kind=c_char, len=1), intent(in) :: str(*)
+      integer(c_int), intent(out) :: num, iret
+
+      call strnum(c_f_string(str), num, iret)
+    end subroutine strnum_c
 
 end module bufr_c2f_interface

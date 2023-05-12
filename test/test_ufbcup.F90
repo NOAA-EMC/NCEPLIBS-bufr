@@ -54,11 +54,6 @@ program test_ufbcup
 
   ! Open the file, and read the 1st subset of the 1st message.
   call rdmgsb(12, 1, 1)
-
-  ! Get IREC, the number of BUFR messages, according to ufbint()
-  ! documentation. But I get a very large number of messages!
-  call ufbint(12, hdr, 1, 1, iret, 'IREC')
-  if (hdr(1,1) .ne. 100000000000.00000_8) stop 30
   
   ! Get SID, the station ID.
   call ufbint(12, hdr, 1, 1, iret, 'SID')

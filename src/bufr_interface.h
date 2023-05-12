@@ -439,6 +439,54 @@ extern "C" {
  */
   int igetmxby_f(void);
 
+/**
+ * Read/write an entire sequence of data values from/to a data subset.
+ *
+ * Wraps ufbseq() subroutine.
+ *
+ * @param bufr_unit - the Fortran logical unit number to read from.
+ * @param c_data - pointer to a pointer to a pre-allocated buffer.
+ * @param dim_1 - dimensionality of data to read or write.
+ * @param dim_2 - dimensionality of data to read or write.
+ * @param iret - return value, length of data read.
+ * @param table_d_mnemonic - Table A or Table D mnemonic.
+ *
+ * @author J. Ator @date 2023-04-07
+ */
+  void ufbseq_f(int bufr_unit, void** c_data, int dim_1, int dim_2,
+                int* iret, const char* table_d_mnemonic);
+
+/**
+ * Read the next data subset from a BUFR file.
+ *
+ * Wraps ireadns() function.
+ *
+ * @param bufr_unit - the Fortran logical unit number to read from.
+ * @param subset - the subset string.
+ * @param iddate - datetime of message.
+ * @param subset_len - length of the subset string.
+ *
+ * @return
+ * - 0 new BUFR data subset was successfully read into internal arrays.
+ * - -1 there are no more BUFR data subsets in bufr_unit.
+ *
+ * @author J. Ator @date 2023-04-07
+ */
+  int ireadns_f(int bufr_unit, char* subset, int* iddate, int subset_len);
+
+/**
+ * Test whether a data value is "missing".
+ *
+ * Wraps ibfms() function.
+ *
+ * @param r8val - Data value.
+ *
+ * @return - 1 if r8val is "missing", or 0 otherwise.
+ *
+ *  @author J. Ator @date 2023-04-07
+ */
+  int ibfms_f(double r8val);
+
 #ifdef __cplusplus
 }
 #endif

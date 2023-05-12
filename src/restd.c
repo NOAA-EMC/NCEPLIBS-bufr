@@ -7,6 +7,8 @@
 #include "bufrlib.h"
 
 /**
+ * Standardize a local Table D descriptor.
+ *
  * Given the bit-wise (integer) representation of a local (not
  * WMO-standard) Table D descriptor, this subroutine returns an
  * equivalent array of WMO-standard child descriptors.
@@ -23,7 +25,6 @@
  * the input local Table D descriptor.
  *
  * @param lun - File ID.
- * file
  * @param tddesc - Bit-wise representation of FXY value for local Table
  * D descriptor.
  * @param nctddesc - Number of WMO-standard child descriptors returned

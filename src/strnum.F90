@@ -3,6 +3,8 @@
 !>
 !> @author J. Woollen @date 1994-01-06
 
+!> Decode an integer from a character string.
+!>
 !> This subroutine decodes an integer from a character string.  The
 !> string may contain leading or trailing blanks, but otherwise should
 !> contain only digits and an (optional) leading sign ('+' or '-')
@@ -11,9 +13,9 @@
 !> If the string is empty or contains all blank characters, then num
 !> is returned with a value of 0.
 !>
-!> @param[in]  str -- character*(*): String
-!> @param[out] num -- integer: Value decoded from str
-!> @param[out] iret -- return code:
+!> @param[in]  str - character*(*): String.
+!> @param[out] num - integer: Value decoded from str.
+!> @param[out] iret - return code:
 !>   0 = success
 !>  -1 = string contained one or more illegal characters
 !>

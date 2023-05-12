@@ -182,6 +182,19 @@ int imrkopr_f(char *nemo);
  */
 int istdesc_f(int idn);
 
+/**
+ * Decode an integer from a character string.
+ *
+ * Wraps strnum() subroutine.
+ *
+ * @param str - String.
+ * @param num - Value decoded from str.
+ * @param iret - Return code: 0 if successful, -1 otherwise.
+ *
+ * @author J. Ator @date 2003-11-04
+ */
+void strnum_f(char *str, int *num, int *iret);
+
 /*
 ** On certain operating systems, the FORTRAN compiler appends an underscore
 ** to subprogram names in its object namespace.  Therefore, on such systems,
@@ -198,20 +211,16 @@ int istdesc_f(int idn);
 #define bvers      bvers_     /**< bvers function. */
 #define cmpmsg     cmpmsg_    /**< cmpmsg function. */
 #define gets1loc   gets1loc_  /**< gets1loc function. */
-#define ibfms      ibfms_     /**< ibfms function. */
 #define ichkstr    ichkstr_   /**< ichkstr function. */
 #define igettdi    igettdi_   /**< igettdi function. */
 #define ipkm       ipkm_      /**< ipkm function. */
-#define ireadns    ireadns_   /**< ireadns function. */
 #define iupb       iupb_      /**< iupb function. */
 #define iupm       iupm_      /**< iupm function. */
 #define openmb     openmb_    /**< openmb function. */
 #define pktdd      pktdd_     /**< pktdd function. */
 #define restd      restd_     /**< restd function. */
 #define stntbi     stntbi_    /**< stntbi function. */
-#define strnum     strnum_    /**< strnum function. */
 #define stseq      stseq_     /**< stseq function. */
-#define ufbseq     ufbseq_    /**< ufbseq function. */
 #define wrdlen     wrdlen_    /**< wrdlen function. */
 #endif
 
@@ -289,19 +298,6 @@ void cmpmsg( char *cf, size_t s1 );
 void gets1loc( char *s1mnem, f77int *iben, f77int *isbyt, f77int *iwid, f77int *iret, size_t s1 );
 
 /**
- * Wraps ibfms() function.
- *
- * @param r8val - Data value.
- *
- * @return
- * - 0 r8val is not "missing"
- * - 1 r8val is "missing"
- *
- * @author J. Ator @date 2007-01-19
- */
-f77int ibfms( f77r8 *r8val );
-
-/**
  * Wraps ichkstr() function.
  *
  * @param str - Character string.
@@ -342,22 +338,6 @@ f77int igettdi( f77int *iflag );
  * @author J. Ator @date 2003-11-04
  */
 void ipkm( char *cbay, f77int *nbyt, f77int *n, size_t s1 );
-
-/**
- * Wraps ireadns() function.
- *
- * @param lunit - Fortran logical unit number for BUFR file.
- * @param subset - Table A mnemonic.
- * @param idate - Date-time stored within Section 1.
- * @param s1 - Extra C-Fortran interface argument containing length of subset variable.
- *
- * @return
- * - 0 new BUFR data subset was successfully read
- * - -1 there are no more BUFR data subsets in lunit
- *
- * @author J. Ator @date 2003-11-04
- */
-f77int ireadns( f77int *lunit, char *subset, f77int *idate, size_t s1 );
 
 /**
  * Wraps iupb() function.
@@ -424,33 +404,6 @@ void pktdd( f77int *id, f77int *lun, f77int *idn, f77int *iret );
  * @author J. Ator @date 2009-03-23
  */
 void stntbi( f77int *n, f77int *lun, char *numb, char *nemo, char *celsq, size_t s1, size_t s2, size_t s3 );
-
-/**
- * Wraps strnum() subroutine.
- *
- * @param str - String.
- * @param num - Value decoded from str.
- * @param iret - Return code.
- * @param s1 - Extra C-Fortran interface argument containing length of str variable.
- *
- * @author J. Ator @date 2003-11-04
- */
-void strnum( char *str, f77int *num, f77int *iret, size_t s1 );
-
-/**
- * Wraps ufbseq() subroutine.
- *
- * @param lunit - Fortran logical unit number for BUFR file.
- * @param usr - Data values.
- * @param i1 - First dimension of usr.
- * @param i2 - Second dimension of usr.
- * @param iret - Number of replications of str read or written.
- * @param str - Mnemonic string.
- * @param s1 - Extra C-Fortran interface argument containing length of str variable.
- *
- * @author J. Ator @date 2003-11-04
- */
-void ufbseq( f77int *lunit, f77r8 *usr, f77int *i1, f77int *i2, f77int *iret, char *str, size_t s1 );
 
 /**
  * Wraps wrdlen() subroutine.
