@@ -267,14 +267,12 @@ void bort_f(char *errstr);
 */
 #ifdef UNDERSCORE
 #define bort_exit  bort_exit_ /**< exit function. */
-#define bvers      bvers_     /**< bvers function. */
 #define cmpmsg     cmpmsg_    /**< cmpmsg function. */
 #define gets1loc   gets1loc_  /**< gets1loc function. */
 #define ichkstr    ichkstr_   /**< ichkstr function. */
 #define ipkm       ipkm_      /**< ipkm function. */
 #define iupb       iupb_      /**< iupb function. */
 #define iupm       iupm_      /**< iupm function. */
-#define openmb     openmb_    /**< openmb function. */
 #define wrdlen     wrdlen_    /**< wrdlen function. */
 #endif
 
@@ -303,16 +301,6 @@ typedef double f77r8;
 **   1) a C function, or
 **   2) a FORTRAN subprogram called from C
 */
-
-/**
- * Wraps bvers() subroutine.
- *
- * @param cverstr - Version string.
- * @param s1 - Extra C-Fortran interface argument containing length of cverstr variable.
- *
- * @author J. Ator @date 2009-03-23
- */
-void bvers( char *cverstr, size_t s1 );
 
 /**
  * Wraps cmpmsg() subroutine.
@@ -392,18 +380,6 @@ f77int iupb( f77int *mbay, f77int *nbyt, f77int *nbit );
  * @author J. Ator @date 2003-11-04
  */
 f77int iupm( char *cbay, f77int *nbits, size_t s1 );
-
-/**
- * Wraps openmb() subroutine.
- *
- * @param lunit - Fortran logical unit number for BUFR file.
- * @param subset - Table A mnemonic.
- * @param jdate - Date-time to be stored within Section 1.
- * @param s1 - Extra C-Fortran interface argument containing length of subset variable.
- *
- * @author J. Ator @date 2003-11-04
- */
-void openmb( f77int *lunit, char *subset, f77int *jdate, size_t s1 );
 
 /**
  * Wraps wrdlen() subroutine.

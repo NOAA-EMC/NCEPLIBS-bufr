@@ -1,13 +1,14 @@
 C> @file
-C> @brief Return a character string containing the version
-C> number of the BUFRLIB software.
+C> @brief Get the version number of the NCEPLIBS-bufr software.
 C>
 C> @author J. Ator @date 2009-03-23
 
-C> This subroutine returns a character string containing
-C> the version number of the BUFRLIB software.
+C> Get the version number of the NCEPLIBS-bufr software.
 C>
-C> @param[out]    CVERSTR -- character*(*): Version string
+C> This subroutine returns a character string containing
+C> the version number of the NCEPLIBS-bufr software.
+C>
+C> @param[out] CVERSTR - character*(*): Version string.
 C>
 C> @author J. Ator @date 2009-03-23
         SUBROUTINE BVERS (CVERSTR)

@@ -102,14 +102,14 @@ int main( int argc, char *argv[] ) {
 
     char *outfile, *outfile_temp;
 
-    char bvstr[10] = "         ";
+    char bvstr[10];
 
     int ch;
 
     FILE *fp;
 
-    f77int msglen, wkint;
-    f77int c24 = 24, c1 = 1;
+    int msglen, wkint;
+    int c24 = 24, c1 = 1;
 
     unsigned long i, filesize, noutfile;
 
@@ -119,8 +119,7 @@ int main( int argc, char *argv[] ) {
     while ( ( ch = getopt ( argc, argv, "vgh" ) ) != EOF ) {
         switch ( ch ) {
             case 'v':
-                bvers( bvstr, sizeof(bvstr) );
-                bvstr[9] = '\0';
+                bvers_f( bvstr, 10 );
                 printf( "This is xbfmg v3.3.0, built with NCEPLIBS-bufr v%s\n", bvstr );
                 return 0;
             case 'g':

@@ -66,6 +66,8 @@ module bufr_c2f_interface
   public :: igettdi_c
   public :: pktdd_c
   public :: bort_c
+  public :: openmb_c
+  public :: bvers_c
 
   integer, allocatable, target, save :: isc_f(:)
   integer, allocatable, target, save :: link_f(:)
@@ -937,7 +939,7 @@ module bufr_c2f_interface
       ires = ireadns(bufr_unit, f_subset, iddate)
 
       if (ires == 0) then
-        call copy_f_c_str(f_subset, c_subset, int(subset_str_len))
+        call copy_f_c_str(f_subset, c_subset, subset_str_len)
       end if
     end function ireadns_c
 
@@ -1054,5 +1056,39 @@ module bufr_c2f_interface
 
       call bort(c_f_string(errstr))
     end subroutine bort_c
+
+    !> Open a new message for output in a BUFR file that was
+    !> previously opened for writing.
+    !>
+    !> Wraps openmb() subroutine.
+    !>
+    !> @param bufr_unit - Fortran logical unit number to write to.
+    !> @param c_subset - Table A mnemonic of message.
+    !> @param iddate - Date-time to be stored within Section 1 of message.
+    !>
+    !> @author J. Ator @date 2023-04-07
+    subroutine openmb_c(bufr_unit, c_subset, iddate) bind(C, name='openmb_f')
+      integer(c_int), value, intent(in) :: bufr_unit, iddate
+      character(kind=c_char, len=1), intent(in) :: c_subset(*)
+
+      call openmb(bufr_unit, c_f_string(c_subset), iddate)
+    end subroutine openmb_c
+
+    !> Get the version number of the NCEPLIBS-bufr software.
+    !>
+    !> Wraps bvers() subroutine.
+    !>
+    !> @param cverstr - Version string.
+    !> @param cverstr_len - Length of the version string.
+    !>
+    !> @author J. Ator @date 2023-04-07
+    subroutine bvers_c(cverstr, cverstr_len) bind(C, name='bvers_f')
+      character(kind=c_char, len=1), intent(out) :: cverstr(*)
+      integer(c_int), value, intent(in) :: cverstr_len
+      character(len=10) :: f_cverstr
+
+      call bvers(f_cverstr)
+      call copy_f_c_str(f_cverstr, cverstr, cverstr_len)
+    end subroutine bvers_c
 
 end module bufr_c2f_interface

@@ -487,6 +487,32 @@ extern "C" {
  */
   int ibfms_f(double r8val);
 
+/**
+ * Open a new message for output in a BUFR file that was previously
+ * opened for writing.
+ *
+ * Wraps openmb() subroutine.
+ *
+ * @param bufr_unit - Fortran logical unit number to write to.
+ * @param c_subset - Table A mnemonic of message.
+ * @param iddate - Date-time to be stored within Section 1 of message.
+ *
+ * @author J. Ator @date 2023-04-07
+ */
+  void openmb_f(int bufr_unit, char *c_subset, int iddate);
+
+/**
+ * Get the version number of the NCEPLIBS-bufr software.
+ *
+ * Wraps bvers() subroutine.
+ *
+ * @param cverstr - Version string.
+ * @param cverstr_len - Length of version string.
+ *
+ * @author J. Ator @date 2023-04-07
+ */
+  void bvers_f(char *cverstr, int cverstr_len);
+
 #ifdef __cplusplus
 }
 #endif

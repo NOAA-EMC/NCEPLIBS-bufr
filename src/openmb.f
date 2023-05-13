@@ -4,6 +4,9 @@ C> previously opened for writing.
 C>
 C> @author J. Woollen @date 1994-01-06
 
+C> Open a new message for output in a BUFR file that was
+C> previously opened for writing.
+C>
 C> This subroutine opens and initializes a new BUFR message within
 C> internal arrays, for eventual output to logical unit LUNIT.
 C>
@@ -27,15 +30,12 @@ C> written to logical unit LUNIT via an internal call to subroutine
 C> closmg().  In this case, the behavior of this subroutine then
 C> becomes exactly like that of subroutine openmg().
 C>
-C> @param[in] LUNIT -- integer: Fortran logical unit number for BUFR
-C>                     file
-C> @param[in] SUBSET -- character*(*): Table A mnemonic for type of
-C>                      BUFR message to be opened
-C>                      (see [DX BUFR Tables](@ref dfbftab) for
-C>                      further information about Table A mnemonics)
-C> @param[in] JDATE -- integer: Date-time to be stored within Section 1
-C>                     of BUFR message being opened, in format of either
-C>                     YYMMDDHH or YYYYMMDDHH
+C> @param[in] LUNIT - integer: Fortran logical unit number for BUFR file.
+C> @param[in] SUBSET - character*(*): Table A mnemonic for type of BUFR
+C> BUFR message to be opened (see [DX BUFR Tables](@ref dfbftab) for
+C> further information about Table A mnemonics)
+C> @param[in] JDATE - integer: Date-time to be stored within Section 1 of
+C> BUFR message being opened, in format of either YYMMDDHH or YYYYMMDDHH.
 C>
 C> @author J. Woollen @date 1994-01-06
       RECURSIVE SUBROUTINE OPENMB(LUNIT,SUBSET,JDATE)
