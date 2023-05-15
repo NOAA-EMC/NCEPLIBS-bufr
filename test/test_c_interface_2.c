@@ -98,10 +98,6 @@ int main() {
     /* Open the output file to the library, using the same DX table information in the input file. */
     openbf_f( BUFR_OUTPUT_FILE_UNIT, "NODX", BUFR_INPUT_FILE_UNIT );
 
-    /* Disconnect the input file from the library and close the logical unit. */
-    closbf_f( BUFR_INPUT_FILE_UNIT );
-    close_f( BUFR_INPUT_FILE_UNIT );
-
     /* Open a new BUFR message for output, and check that it was successful. */
     openmb_f( BUFR_OUTPUT_FILE_UNIT, "MSTTB001", 2023051015 );
     status_f( BUFR_OUTPUT_FILE_UNIT, &lun, &il, &im );
@@ -110,7 +106,6 @@ int main() {
         exit(1);
     }
 
-    /* Disconnect the output file from the library and close the logical unit. */
-    closbf_f( BUFR_OUTPUT_FILE_UNIT );
-    close_f( BUFR_OUTPUT_FILE_UNIT );
+    /* Disconnect the library, deallocate memory, and close all open logical units. */
+    exitbufr_f();
 }

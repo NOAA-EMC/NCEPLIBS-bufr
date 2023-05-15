@@ -20,60 +20,21 @@ module bufr_c2f_interface
   implicit none
 
   private
-  public :: open_c, close_c
-  public :: openbf_c, closbf_c
-  public :: exitbufr_c
-  public :: ireadmg_c
-  public :: ireadsb_c
-  public :: ufbint_c
-  public :: ufbrep_c
-  public :: mtinfo_c
-  public :: status_c
-  public :: nemdefs_c
-  public :: nemspecs_c
-  public :: nemtab_c
-  public :: nemtbb_c
-  public :: get_isc_c
-  public :: get_link_c
-  public :: get_itp_c
-  public :: get_typ_c
-  public :: get_tag_c
-  public :: get_jmpb_c
-  public :: get_inode_c
-  public :: get_nval_c
-  public :: get_val_c
-  public :: get_inv_c
-  public :: get_irf_c
+  public :: open_c, close_c, openbf_c, closbf_c
+  public :: exitbufr_c, bort_c
+  public :: ireadmg_c, ireadsb_c, ireadns_c, openmb_c
+  public :: ufbint_c, ufbrep_c, ufbseq_c
+  public :: mtinfo_c, bvers_c, status_c, ibfms_c
+  public :: get_isc_c, get_link_c, get_itp_c, get_typ_c, get_tag_c, get_jmpb_c
+  public :: get_inode_c, get_nval_c, get_val_c, get_inv_c, get_irf_c
   public :: delete_table_data_c
-  public :: iupbs01_c
-  public :: igetprm_c
-  public :: isetprm_c
-  public :: maxout_c
-  public :: igetmxby_c
-  public :: cadn30_c
-  public :: igetntbi_c
-  public :: elemdx_c
-  public :: numtbd_c
-  public :: ifxy_c
-  public :: uptdd_c
-  public :: imrkopr_c
-  public :: istdesc_c
-  public :: ufbseq_c
-  public :: ireadns_c
-  public :: ibfms_c
-  public :: strnum_c
-  public :: stntbi_c
-  public :: igettdi_c
-  public :: pktdd_c
-  public :: bort_c
-  public :: openmb_c
-  public :: bvers_c
+  public :: iupbs01_c, iupb_c, imrkopr_c, istdesc_c, ifxy_c
+  public :: igetntbi_c, igettdi_c, stntbi_c
+  public :: igetprm_c, isetprm_c, maxout_c, igetmxby_c
+  public :: elemdx_c, cadn30_c, strnum_c, wrdlen_c, uptdd_c, pktdd_c
+  public :: nemdefs_c, nemspecs_c, nemtab_c, nemtbb_c, numtbd_c
 
-  integer, allocatable, target, save :: isc_f(:)
-  integer, allocatable, target, save :: link_f(:)
-  integer, allocatable, target, save :: itp_f(:)
-  integer, allocatable, target, save :: jmpb_f(:)
-  integer, allocatable, target, save :: irf_f(:)
+  integer, allocatable, target, save :: isc_f(:), link_f(:), itp_f(:), jmpb_f(:), irf_f(:)
   character(len=10), allocatable, target, save :: tag_f(:)
   character(len=3), allocatable, target, save :: typ_f(:)
 
@@ -1090,5 +1051,34 @@ module bufr_c2f_interface
       call bvers(f_cverstr)
       call copy_f_c_str(f_cverstr, cverstr, cverstr_len)
     end subroutine bvers_c
+
+    !> Determine important information about the local machine.
+    !>
+    !> Wraps wrdlen() subroutine.
+    !>
+    !> @author J. Ator @date 2023-04-07
+    subroutine wrdlen_c() bind(C, name='wrdlen_f')
+      call wrdlen()
+    end subroutine wrdlen_c
+
+    !> Decode an integer value from an integer array.
+    !>
+    !> Wraps iupb() function.
+    !>
+    !> @param mbay - Array containing encoded value.
+    !> @param nbyt - Byte within mbay at whose first bit to begin decoding.
+    !> @param nbit - Number of bits to decode.
+    !>
+    !> @return iupb_c - Decoded value.
+    !>
+    !> @author J. Ator @date 2023-04-07
+    function iupb_c(mbay,nbyt,nbit) result(ires) bind(C, name='iupb_f')
+      integer(c_int), intent(in) :: mbay(*)
+      integer(c_int), intent(in), value :: nbyt, nbit
+      integer(c_int) :: ires
+      integer :: iupb
+
+      ires = iupb(mbay,nbyt,nbit)
+    end function iupb_c
 
 end module bufr_c2f_interface

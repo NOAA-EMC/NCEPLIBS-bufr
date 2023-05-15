@@ -65,6 +65,9 @@ void stseq(int lun, int *irepct, int idn, char *nemo, char *cseq, int *cdesc, in
 /** Size of a character string needed to store a mnemonic. */
 #define NEMO_STR_LEN 8
 
+/** Size of a character string needed to store a library version number. */
+#define VERS_STR_LEN 8
+
 /**
  * Convert an FXY value from its WMO bit-wise representation to its
  * six-character representation.
@@ -255,6 +258,30 @@ void pktdd_f(int id, int lun, int idn, int *iret);
  */
 void bort_f(char *errstr);
 
+/**
+ * Determine important information about the local machine.
+ *
+ * Wraps wrdlen() subroutine.
+ *
+ * @author J. Ator @date 2023-04-07
+ */
+void wrdlen_f(void);
+
+/**
+ * Decode an integer value from an integer array.
+ *
+ * Wraps iupb() function.
+ *
+ * @param mbay - Array containing encoded value.
+ * @param nbyt - Byte within mbay at whose first bit to begin decoding.
+ * @param nbit - Number of bits to decode.
+ *
+ * @return Decoded value.
+ *
+ * @author J. Ator @date 2003-11-04
+ */
+int iupb_f(int *mbay, int nbyt, int nbit);
+
 /*
 ** On certain operating systems, the FORTRAN compiler appends an underscore
 ** to subprogram names in its object namespace.  Therefore, on such systems,
@@ -270,10 +297,6 @@ void bort_f(char *errstr);
 #define cmpmsg     cmpmsg_    /**< cmpmsg function. */
 #define gets1loc   gets1loc_  /**< gets1loc function. */
 #define ichkstr    ichkstr_   /**< ichkstr function. */
-#define ipkm       ipkm_      /**< ipkm function. */
-#define iupb       iupb_      /**< iupb function. */
-#define iupm       iupm_      /**< iupm function. */
-#define wrdlen     wrdlen_    /**< wrdlen function. */
 #endif
 
 /**
@@ -342,48 +365,3 @@ void gets1loc( char *s1mnem, f77int *iben, f77int *isbyt, f77int *iwid, f77int *
  * @author J. Ator @date 2005-11-29
  */
 f77int ichkstr ( char *str, char *chr, f77int *n, size_t s1, size_t s2 );
-
-/**
- * Wraps ipkm() subroutine.
- *
- * @param cbay - String.
- * @param nbyt - Number of bytes to encode within cbay.
- * @param n - Value to be encoded into cbay.
- * @param s1 - Extra C-Fortran interface argument containing length of cbay variable.
- *
- * @author J. Ator @date 2003-11-04
- */
-void ipkm( char *cbay, f77int *nbyt, f77int *n, size_t s1 );
-
-/**
- * Wraps iupb() function.
- *
- * @param mbay - Array containing encoded value.
- * @param nbyt - Starting byte within mbay.
- * @param nbit - Number of bits to decode.
- *
- * @return Decoded value.
- *
- * @author J. Ator @date 2003-11-04
- */
-f77int iupb( f77int *mbay, f77int *nbyt, f77int *nbit );
-
-/**
- * Wraps iupm() function.
- *
- * @param cbay - String.
- * @param nbits - Number of bits to decode from within cbay.
- * @param s1 - Extra C-Fortran interface argument containing length of cbay variable.
- *
- * @return Decoded value.
- *
- * @author J. Ator @date 2003-11-04
- */
-f77int iupm( char *cbay, f77int *nbits, size_t s1 );
-
-/**
- * Wraps wrdlen() subroutine.
- *
- * @author J. Ator @date 2003-11-04
- */
-void wrdlen( void );

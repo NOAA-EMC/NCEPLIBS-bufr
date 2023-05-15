@@ -3,6 +3,8 @@ C> @brief Determine important information about the local machine.
 C>
 C> @author J. Woollen @author J. Ator @date 1994-01-06
 
+C> Determine important information about the local machine.
+C>
 C> This subroutine figures out some important information about the
 C> local machine on which the BUFRLIB software is being run, including
 C> the native endianness, the number of bytes in an integer, and

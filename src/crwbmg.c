@@ -172,7 +172,7 @@ cobfl(char *bfl, char io)
     ** Call wrdlen to initialize some important information about the local machine, just in case
     ** it hasn't already been called.
     */
-    wrdlen();
+    wrdlen_f();
 
     return;
 }
