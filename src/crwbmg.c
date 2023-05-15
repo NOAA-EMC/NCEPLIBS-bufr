@@ -200,7 +200,6 @@ cobfl(char *bfl, char io)
 void
 crbmg(char *bmg, int mxmb, int *nmb, int *iret)
 {
-    int i4 = 4;
     int wkint[2];
 
     char errstr[129];
@@ -226,7 +225,7 @@ crbmg(char *bmg, int mxmb, int *nmb, int *iret)
     /*
     ** Look for the start of the next BUFR message.
     */
-    while (ichkstr("BUFR", bmg, &i4, 4, 4) != 0) {
+    while (strncmp("BUFR", bmg, 4) != 0) {
         memmove(bmg, &bmg[1], 3);
         if ((*iret = rbytes(bmg, mxmb, 3, 1)) != 0) return;
     }
@@ -246,7 +245,7 @@ crbmg(char *bmg, int mxmb, int *nmb, int *iret)
     /*
     ** Check that the "7777" is in the expected location.
     */
-    *iret = ((ichkstr("7777", &bmg[*nmb-4], &i4, 4, 4) == 0) ? 0 : 2);
+    *iret = ((strncmp("7777", &bmg[*nmb-4], 4) == 0) ? 0 : 2);
 
     return;
 }

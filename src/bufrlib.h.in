@@ -296,7 +296,6 @@ int iupb_f(int *mbay, int nbyt, int nbit);
 #define bort_exit  bort_exit_ /**< exit function. */
 #define cmpmsg     cmpmsg_    /**< cmpmsg function. */
 #define gets1loc   gets1loc_  /**< gets1loc function. */
-#define ichkstr    ichkstr_   /**< ichkstr function. */
 #endif
 
 /**
@@ -348,20 +347,3 @@ void cmpmsg( char *cf, size_t s1 );
  * @author J. Ator @date 2005-11-29
  */
 void gets1loc( char *s1mnem, f77int *iben, f77int *isbyt, f77int *iwid, f77int *iret, size_t s1 );
-
-/**
- * Wraps ichkstr() function.
- *
- * @param str - Character string.
- * @param chr - Character array.
- * @param n - Number of characters to be compared.
- * @param s1 - Extra C-Fortran interface argument containing length of str variable.
- * @param s2 - Extra C-Fortran interface argument containing length of chr variable.
- *
- * @return
- * - 0 first n characters of str and chr are equivalent
- * - 1 first n characters of str and chr are not equivalent
- *
- * @author J. Ator @date 2005-11-29
- */
-f77int ichkstr ( char *str, char *chr, f77int *n, size_t s1, size_t s2 );

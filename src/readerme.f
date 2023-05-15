@@ -62,13 +62,12 @@ C> @authors J. Woollen J. Ator @date 1995-06-28
 
       CHARACTER*128 BORT_STR,ERRSTR
       CHARACTER*8 SUBSET,SEC0
-      CHARACTER*1 CEC0(8)
 
       DIMENSION   MESG(*),IEC0(2)
 
       LOGICAL ENDTBL
 
-      EQUIVALENCE (SEC0,IEC0,CEC0)
+      EQUIVALENCE (SEC0,IEC0)
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
@@ -109,10 +108,9 @@ C  -------------------------------------------------------
         MBAY(I,LUN) = MESG(I)
       ENDDO
 
-C     Confirm that the first 4 bytes of SEC0 contain 'BUFR' encoded in
-C     CCITT IA5 (i.e. ASCII).
+C     Confirm that the first 4 bytes of SEC0 contain 'BUFR'.
 
-      IF(ICHKSTR('BUFR',CEC0,4).NE.0) GOTO 903
+      IF(SEC0(1:4).NE.'BUFR') GOTO 903
 
 C  PARSE THE MESSAGE SECTION CONTENTS
 C  ----------------------------------
