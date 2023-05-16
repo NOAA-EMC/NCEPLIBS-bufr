@@ -74,7 +74,6 @@ foreach(kind ${kinds})
   add_library(${lib_name}_c OBJECT ${c_src})
   set_target_properties(${lib_name}_c PROPERTIES COMPILE_FLAGS
                                                  "${c_${kind}_flags}")
-  target_compile_definitions(${lib_name}_c PUBLIC "${underscore_def}")
   target_compile_definitions(${lib_name}_c PRIVATE "${c_${kind}_defs}")
 
   set_target_properties(${lib_name}_f PROPERTIES Fortran_MODULE_DIRECTORY "${module_dir}")
@@ -89,8 +88,6 @@ foreach(kind ${kinds})
   target_include_directories(${lib_name} INTERFACE
     $<BUILD_INTERFACE:${module_dir}>
     $<INSTALL_INTERFACE:include/bufr_${kind}>)
-
-  target_compile_definitions(${lib_name} PUBLIC "${underscore_def}")
 
   list(APPEND LIB_TARGETS ${lib_name})
   install(DIRECTORY ${module_dir} DESTINATION ${CMAKE_INSTALL_PREFIX}/include)

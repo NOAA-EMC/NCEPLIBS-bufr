@@ -98,7 +98,8 @@ int main() {
     /* Open the output file to the library, using the same DX table information in the input file. */
     openbf_f( BUFR_OUTPUT_FILE_UNIT, "NODX", BUFR_INPUT_FILE_UNIT );
 
-    /* Open a new BUFR message for output, and check that it was successful. */
+    /* Open a new compressed BUFR message for output, and check that it was successful. */
+    cmpmsg_f( "Y" );
     openmb_f( BUFR_OUTPUT_FILE_UNIT, "MSTTB001", 2023051015 );
     status_f( BUFR_OUTPUT_FILE_UNIT, &lun, &il, &im );
     if ( il != 1 || im != 1 ) {

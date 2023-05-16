@@ -121,7 +121,7 @@ module bufr_c2f_interface
     !> @author Ronald McLaren @date 2020-07-29
     subroutine openbf_c(bufr_unit, cio, table_file_id) bind(C, name='openbf_f')
       integer(c_int), value, intent(in) :: bufr_unit
-      character(kind=c_char, len=1), intent(in) :: cio
+      character(kind=c_char, len=1), intent(in) :: cio(*)
       integer(c_int), value, intent(in) :: table_file_id
 
       call openbf(bufr_unit, c_f_string(cio), table_file_id)
@@ -1080,5 +1080,19 @@ module bufr_c2f_interface
 
       ires = iupb(mbay,nbyt,nbit)
     end function iupb_c
+
+    !> Specify the use of compression when writing BUFR messages.
+    !>
+    !> Wraps cmpmsg() subroutine.
+    !>
+    !> @param cf - Flag indicating whether future BUFR output messages are to be
+    !> compressed ('Y' = Yes, 'N' = No).
+    !>
+    !> @author J. Ator @date 2023-04-07
+    subroutine cmpmsg_c(cf) bind(C, name='cmpmsg_f')
+      character(kind=c_char, len=1), intent(in) :: cf(*)
+
+      call cmpmsg(c_f_string(cf))
+    end subroutine cmpmsg_c
 
 end module bufr_c2f_interface

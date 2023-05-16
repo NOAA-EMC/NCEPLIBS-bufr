@@ -513,6 +513,18 @@ extern "C" {
  */
   void bvers_f(char *cverstr, int cverstr_len);
 
+/**
+ * Specify the use of compression when writing BUFR messages.
+ *
+ * Wraps cmpmsg() subroutine.
+ *
+ * @param cf - Flag indicating whether future BUFR output messages are to be
+ * compressed ('Y' = Yes, 'N' = No).
+ *
+ * @author J. Ator @date 2023-04-07
+ */
+  void cmpmsg_f(char *cf);
+
 #ifdef __cplusplus
 }
 #endif

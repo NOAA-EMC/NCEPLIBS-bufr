@@ -16,6 +16,8 @@ C>
 C> @author J. Woollen @date 1998-07-08
       SUBROUTINE BORT(STR)
 
+      use bufrlib
+
       CHARACTER*(*) STR
 
       CALL ERRWRT(' ')
@@ -24,6 +26,6 @@ C> @author J. Woollen @date 1998-07-08
       CALL ERRWRT('***********BUFR ARCHIVE LIBRARY ABORT**************')
       CALL ERRWRT(' ')
 
-      CALL BORT_EXIT
+      CALL BORT_EXIT_C
 
       END

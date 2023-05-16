@@ -57,7 +57,7 @@ arallocc(void)
     mxmtbd = igetprm_f("MXMTBD");
     maxcd = igetprm_f("MAXCD");
 
-    if (!(ibfxyn_c = malloc(mxmtbb * sizeof(f77int)))) 
+    if (!(ibfxyn_c = malloc(mxmtbb * sizeof(int))))
         bort_f(brtstr);
 
     if (!(cbscl_c = malloc(mxmtbb * 4 * sizeof(char)))) 
@@ -78,7 +78,7 @@ arallocc(void)
     if (!(cbelem_c = malloc(mxmtbb * 120 * sizeof(char))))
         bort_f(brtstr);
 
-    if (!(idfxyn_c = malloc(mxmtbd * sizeof(f77int))))
+    if (!(idfxyn_c = malloc(mxmtbd * sizeof(int))))
         bort_f(brtstr);
 
     if (!(cdseq_c = malloc(mxmtbd * 120 * sizeof(char))))
@@ -87,9 +87,9 @@ arallocc(void)
     if (!(cdmnem_c = malloc(mxmtbd * 8 * sizeof(char))))
         bort_f(brtstr);
 
-    if (!(ndelem_c = malloc(mxmtbd * sizeof(f77int))))
+    if (!(ndelem_c = malloc(mxmtbd * sizeof(int))))
         bort_f(brtstr);
 
-    if (!(idefxy_c = malloc(mxmtbd * maxcd * sizeof(f77int))))
+    if (!(idefxy_c = malloc(mxmtbd * maxcd * sizeof(int))))
         bort_f(brtstr);
 }
