@@ -28,6 +28,9 @@ arguments containing event program codes as integers, rather than
 continuing to pass them as real numbers.
 [[Issue #78](https://github.com/NOAA-EMC/NCEPLIBS-bufr/issues/78)]
 
+* Support for legacy EBCDIC platforms has been removed.
+[[Issue #266](https://github.com/NOAA-EMC/NCEPLIBS-bufr/issues/266)]
+
 * The library has been cleaned up to eliminate a number of compiler warnings.
 [[Issue #300](https://github.com/NOAA-EMC/NCEPLIBS-bufr/issues/300)]
 

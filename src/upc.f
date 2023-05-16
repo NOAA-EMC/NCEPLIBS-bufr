@@ -1,8 +1,10 @@
 C> @file
 C> @brief Decode a character string from an integer array.
 C>
-C> @author Woollen @date 1994-01-06
+C> @author J. Woollen @date 1994-01-06
 
+C> Decode a character string from an integer array.
+C>
 C> This subroutine decodes a character string from within a specified
 C> number of bytes of an integer array, starting at the bit immediately
 C> after a specified bit within the array.
@@ -14,7 +16,7 @@ C>   bit of a byte within IBAY.  In other words, the NCHR characters to
 C>   be decoded do not necessarily need to be aligned on byte boundaries
 C>   within IBAY.
 C>
-C> @param[out] CHR - character*(*): Decoded string
+C> @param[out] CHR - character*(*): Decoded string.
 C> @param[in] NCHR - integer: Number of bytes of IBAY from within
 C> which to decode CHR (i.e. the number of characters in CHR).
 C> @param[in] IBAY - integer(*): Array from which to decode CHR.
@@ -25,10 +27,9 @@ C> - On output, IBIT points to the last bit of IBAY which was decoded.
 C> @param[in] CNVNULL - logical: .true. if null characters in IBAY
 C> should be converted to blanks within CHR; .false. otherwise
 C>
-C> @author Woollen @date 1994-01-06
+C> @author J. Woollen @date 1994-01-06
       SUBROUTINE UPC(CHR,NCHR,IBAY,IBIT,CNVNULL)
 
-      COMMON /CHARAC/ IASCII,IATOE(0:255),IETOA(0:255)
       COMMON /HRDWRD/ NBYTW,NBITW,IORD(8)
 
       CHARACTER*(*) CHR
@@ -52,7 +53,6 @@ C----------------------------------------------------------------------
         ELSE
           CHR(I:I) = CVAL(LB:LB)
         ENDIF
-        IF(IASCII.EQ.0) CALL IPKM(CHR(I:I),1,IATOE(IUPM(CHR(I:I),8)))
       ENDDO
 
       RETURN
