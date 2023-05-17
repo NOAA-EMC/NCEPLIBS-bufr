@@ -65,6 +65,9 @@ void stseq(int lun, int *irepct, int idn, char *nemo, char *cseq, int *cdesc, in
 /** Size of a character string needed to store a mnemonic. */
 #define NEMO_STR_LEN 8
 
+/** Size of a character string needed to store the units of a Table B descriptor. */
+#define UNIT_STR_LEN 24
+
 /** Size of a character string needed to store a library version number. */
 #define VERS_STR_LEN 8
 

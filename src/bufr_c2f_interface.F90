@@ -302,7 +302,7 @@ module bufr_c2f_interface
       integer(c_int), value, intent(in) :: desc_str_len
       integer(c_int), intent(out) :: iret
 
-      character(len=24) :: unit_f
+      character(len=25) :: unit_f
       character(len=55) :: desc_f
 
       ! Get the unit and description strings
@@ -310,9 +310,9 @@ module bufr_c2f_interface
 
       if (iret == 0) then
         ! Copy the unit Fortran string into the resulting C-style string.
-        call copy_f_c_str(unit_f, unit_c, min(len(unit_f) + 1, unit_str_len))
+        call copy_f_c_str(unit_f, unit_c, min(len(unit_f), unit_str_len))
         ! Copy the descriptor Fortran string into the resulting C-style string.
-        call copy_f_c_str(desc_f, desc_c, min(len(desc_f) + 1, desc_str_len))
+        call copy_f_c_str(desc_f, desc_c, min(len(desc_f), desc_str_len))
       end if
     end subroutine nemdefs_c
 
@@ -393,11 +393,11 @@ module bufr_c2f_interface
       integer(c_int), intent(out) :: reference
       integer(c_int), intent(out) :: bits
 
-      character(len=24) :: unit_str_f
+      character(len=25) :: unit_str_f
 
       ! Get the scale, reference and bits
       call nemtbb( lun, table_idx, unit_str_f, scale, reference, bits)
-      call copy_f_c_str(unit_str_f, unit_str, min(len(unit_str_f) + 1, unit_str_len))
+      call copy_f_c_str(unit_str_f, unit_str, min(len(unit_str_f), unit_str_len))
     end subroutine nemtbb_c
 
     !> Get copy of the moda_tables ISC array.

@@ -166,10 +166,9 @@ stseq(int lun, int *irepct, int idn, char *nemo,
 */
                 rpidn = igettdi_f(lun);
 
-                sprintf(rpseq, "REPLICATION SEQUENCE %.3lu",
-                         ( unsigned long ) ++(*irepct));
+                sprintf(rpseq, "REPLICATION SEQUENCE %.3d", ++(*irepct));
                 memset(&rpseq[24], (int) cblk, 31);
-                sprintf(nemo2, "RPSEQ%.3lu", ( unsigned long ) *irepct);
+                sprintf(nemo2, "RPSEQ%.3d", *irepct);
 
                 stseq(lun, irepct, rpidn, nemo2, rpseq,
                     &idefxy_c[icvidx(ipt,0,imxcd)],
@@ -226,20 +225,17 @@ stseq(int lun, int *irepct, int idn, char *nemo,
                     nb = igetntbi_f(lun, &tab);
 
                     if ( ix == 4 ) {
-                        sprintf(rpseq, "Associated field of %3lu bits",
-                             ( unsigned long ) iy);
+                        sprintf(rpseq, "Associated field of %3d bits", iy);
                         nbits = iy;
                         strcpy(units, "NUMERIC");
                     }
                     else if ( ix == 5 ) {
-                        sprintf(rpseq, "Text string of %3lu bytes",
-                             ( unsigned long ) iy);
+                        sprintf(rpseq, "Text string of %3d bytes", iy);
                         nbits = iy*8;
                         strcpy(units, "CCITT IA5");
                     }
                     else if ( ix == 6 ) {
-                        sprintf(rpseq, "Local descriptor of %3lu bits",
-                             ( unsigned long ) iy);
+                        sprintf(rpseq, "Local descriptor of %3d bits", iy);
                         nbits = iy;
                         if ( nbits > 32 ) {
                             strcpy(units, "CCITT IA5");
@@ -283,7 +279,7 @@ stseq(int lun, int *irepct, int idn, char *nemo,
                     strncpy(&card[2], nemo2, 8);
                     memcpy(&card[16], &czero, 1);
                     memcpy(&card[30], &czero, 1);
-                    sprintf(&card[33], "%4lu", ( unsigned long ) nbits);
+                    sprintf(&card[33], "%4d", nbits);
                     strcpy(&card[40], units);
                     card[40+strlen(units)] = cblk;  /* overwrite trailing null */
                     elemdx_f(card, lun);
@@ -405,10 +401,9 @@ stseq(int lun, int *irepct, int idn, char *nemo,
 
                 rpidn = igettdi_f(lun);
 
-                sprintf(rpseq, "REPLICATION SEQUENCE %.3lu",
-                         ( unsigned long ) ++(*irepct));
+                sprintf(rpseq, "REPLICATION SEQUENCE %.3d", ++(*irepct));
                 memset(&rpseq[24], (int) cblk, 31);
-                sprintf(nemo2, "RPSEQ%.3lu", ( unsigned long ) *irepct);
+                sprintf(nemo2, "RPSEQ%.3d", *irepct);
 
                 stseq(lun, irepct, rpidn, nemo2, rpseq, rpdesc, ix);
 

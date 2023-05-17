@@ -42,7 +42,7 @@ restd(int lun, int tddesc, int *nctddesc, int *ctddesc)
     int i, j, inum, itbd, ictbd;
     int iscl, iref, ibit;
 
-    char tab, nemo[NEMO_STR_LEN+1], adn[FXY_STR_LEN+1], cunit[25], cwork[31];
+    char tab, nemo[NEMO_STR_LEN+1], adn[FXY_STR_LEN+1], cunit[UNIT_STR_LEN+1], cwork[31];
 
 /*
 **  How many child descriptors does tddesc have?
@@ -77,8 +77,8 @@ restd(int lun, int tddesc, int *nctddesc, int *ctddesc)
 **                  the replication descriptor ctddesc[(*nctddesc)-1]
 */
                     cadn30_f(ctddesc[(*nctddesc)-1], adn, FXY_STR_LEN+1);
-                    sprintf(cwork, "%c%02ld%c%c%c",
-                             adn[0], (long) ncdesc, adn[3], adn[4], adn[5]);
+                    sprintf(cwork, "%c%02d%c%c%c",
+                             adn[0], ncdesc, adn[3], adn[4], adn[5]);
                     strncpy(adn, cwork, 6); adn[6] = '\0';
                     ctddesc[(*nctddesc)-1] = ifxy_f(adn);
                 }
@@ -90,8 +90,8 @@ restd(int lun, int tddesc, int *nctddesc, int *ctddesc)
 **                  the replication descriptor ctddesc[(*nctddesc)-2]
 */
                     cadn30_f(ctddesc[(*nctddesc)-2], adn, FXY_STR_LEN+1);
-                    sprintf(cwork, "%c%02ld%c%c%c",
-                             adn[0], (long) ncdesc, adn[3], adn[4], adn[5]);
+                    sprintf(cwork, "%c%02d%c%c%c",
+                             adn[0], ncdesc, adn[3], adn[4], adn[5]);
                     strncpy(adn, cwork, 6); adn[6] = '\0';
                     ctddesc[(*nctddesc)-2] = ifxy_f(adn);
                 }
@@ -108,8 +108,8 @@ restd(int lun, int tddesc, int *nctddesc, int *ctddesc)
 **              desc is a local Table B descriptor, so precede it with
 **              a 206YYY operator in the output list.
 */
-                nemtbb_f(lun, ictbd, cunit, 25, &iscl, &iref, &ibit);
-                sprintf(cwork, "%c%c%c%03ld", '2', '0', '6', (long) ibit);
+                nemtbb_f(lun, ictbd, cunit, UNIT_STR_LEN+1, &iscl, &iref, &ibit);
+                sprintf(cwork, "%c%c%c%03d", '2', '0', '6', ibit);
                 strncpy(adn, cwork, 6); adn[6] = '\0';
                 wrdesc(ifxy_f(adn), ctddesc, nctddesc);
                 wrdesc(desc, ctddesc, nctddesc);
