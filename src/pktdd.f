@@ -1,21 +1,23 @@
 C> @file
-C> @brief Store information about a child mnemonic within the internal arrays
+C> @brief Store information about a child mnemonic within the internal arrays.
 C>
 C> @author Woollen @date 1994-01-06
 
+C> Store information about a child mnemonic within the internal arrays.
+C>
 C> This subroutine stores information about a "child"
-C> mnemonic within the internal bufr table D entry (in module
-C> @ref moda_tababd) for a table D sequence ("parent") mnemonic when the
+C> mnemonic within the internal BUFR table D entry (in module @ref moda_tababd)
+C> for a table D sequence ("parent") mnemonic when the
 C> "child" mnemonic is contained within the sequence represented by
 C> the "parent" mnemonic (as determined within seqsdx()).
 C>
-C> @param[in] ID - integer: positional index of parent mnemonic within internal bufr table d array tabd(*,*).
-C> @param[in] LUN - integer: i/o stream index into internal memory arrays.
-C> @param[in] IDN - integer: bit-wise representation of fxy value corresponding to child mnemonic.
-C> - 0 = delete all information about all child mnemonics from within TABD(ID,LUN).
+C> @param[in] ID - integer: positional index of parent mnemonic within internal BUFR table D array tabd(*,*).
+C> @param[in] LUN - integer: File ID.
+C> @param[in] IDN - integer: WMO bit-wise representation of FXY value corresponding to child mnemonic.
+C> - 0 = delete all information about all child mnemonics from within tabd(id,lun).
 C> @param[out] IRET - integer: total number of child mnemonics stored thus far
 C> (including idn) for the parent mnemonic given by tabd(id,lun).
-C> - 0 information was cleared from TABD(ID,LUN) because input IDN value was 0
+C> - 0 information was cleared from tabd(id,lun) because input IDN value was 0
 C> - -1 bad counter value or maximum number of child mnemonics already stored
 C> for this parent mnemonic
 C>

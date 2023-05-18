@@ -105,9 +105,6 @@ elseif(CMAKE_Fortran_COMPILER_ID MATCHES "^(GNU)$")
   set(CMAKE_Fortran_FLAGS_RELEASE "-O3")
 endif()
 
-set(underscore_def "UNDERSCORE")
-set(c_8_defs "F77_INTSIZE_8")
-
 add_subdirectory(src)
 add_subdirectory(utils)
 

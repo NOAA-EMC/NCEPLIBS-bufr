@@ -35,9 +35,9 @@ wrdesc(int desc, int *descary, int *ndescary)
         descary[(*ndescary)++] = desc;
     }
     else {
-        sprintf( errstr, "BUFRLIB: WRDESC - EXPANDED SECTION 3 CONTAINS"
-                        " MORE THAN %d DESCRIPTORS", MAXNC );
-        bort( errstr, ( f77int ) strlen( errstr ) );
+        sprintf(errstr, "BUFRLIB: WRDESC - EXPANDED SECTION 3 CONTAINS"
+                        " MORE THAN %d DESCRIPTORS", MAXNC);
+        bort_f(errstr);
     }
 
     return;

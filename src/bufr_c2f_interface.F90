@@ -20,45 +20,21 @@ module bufr_c2f_interface
   implicit none
 
   private
-  public :: open_c, close_c
-  public :: openbf_c, closbf_c
-  public :: exitbufr_c
-  public :: ireadmg_c
-  public :: ireadsb_c
-  public :: ufbint_c
-  public :: ufbrep_c
-  public :: mtinfo_c
-  public :: status_c
-  public :: nemdefs_c
-  public :: nemspecs_c
-  public :: nemtab_c
-  public :: nemtbb_c
-  public :: get_isc_c
-  public :: get_link_c
-  public :: get_itp_c
-  public :: get_typ_c
-  public :: get_tag_c
-  public :: get_jmpb_c
-  public :: get_inode_c
-  public :: get_nval_c
-  public :: get_val_c
-  public :: get_inv_c
-  public :: get_irf_c
+  public :: open_c, close_c, openbf_c, closbf_c
+  public :: exitbufr_c, bort_c
+  public :: ireadmg_c, ireadsb_c, ireadns_c, openmb_c
+  public :: ufbint_c, ufbrep_c, ufbseq_c
+  public :: mtinfo_c, bvers_c, status_c, ibfms_c
+  public :: get_isc_c, get_link_c, get_itp_c, get_typ_c, get_tag_c, get_jmpb_c
+  public :: get_inode_c, get_nval_c, get_val_c, get_inv_c, get_irf_c
   public :: delete_table_data_c
-  public :: iupbs01_c
-  public :: igetprm_c
-  public :: isetprm_c
-  public :: maxout_c
-  public :: igetmxby_c
-  public :: cadn30_c
-  public :: igetntbi_c
-  public :: elemdx_c
+  public :: iupbs01_c, iupb_c, imrkopr_c, istdesc_c, ifxy_c
+  public :: igetntbi_c, igettdi_c, stntbi_c
+  public :: igetprm_c, isetprm_c, maxout_c, igetmxby_c
+  public :: elemdx_c, cadn30_c, strnum_c, wrdlen_c, uptdd_c, pktdd_c
+  public :: nemdefs_c, nemspecs_c, nemtab_c, nemtbb_c, numtbd_c
 
-  integer, allocatable, target, save :: isc_f(:)
-  integer, allocatable, target, save :: link_f(:)
-  integer, allocatable, target, save :: itp_f(:)
-  integer, allocatable, target, save :: jmpb_f(:)
-  integer, allocatable, target, save :: irf_f(:)
+  integer, allocatable, target, save :: isc_f(:), link_f(:), itp_f(:), jmpb_f(:), irf_f(:)
   character(len=10), allocatable, target, save :: tag_f(:)
   character(len=3), allocatable, target, save :: typ_f(:)
 
@@ -145,7 +121,7 @@ module bufr_c2f_interface
     !> @author Ronald McLaren @date 2020-07-29
     subroutine openbf_c(bufr_unit, cio, table_file_id) bind(C, name='openbf_f')
       integer(c_int), value, intent(in) :: bufr_unit
-      character(kind=c_char, len=1), intent(in) :: cio
+      character(kind=c_char, len=1), intent(in) :: cio(*)
       integer(c_int), value, intent(in) :: table_file_id
 
       call openbf(bufr_unit, c_f_string(cio), table_file_id)
@@ -326,7 +302,7 @@ module bufr_c2f_interface
       integer(c_int), value, intent(in) :: desc_str_len
       integer(c_int), intent(out) :: iret
 
-      character(len=24) :: unit_f
+      character(len=25) :: unit_f
       character(len=55) :: desc_f
 
       ! Get the unit and description strings
@@ -334,9 +310,9 @@ module bufr_c2f_interface
 
       if (iret == 0) then
         ! Copy the unit Fortran string into the resulting C-style string.
-        call copy_f_c_str(unit_f, unit_c, min(len(unit_f) + 1, unit_str_len))
+        call copy_f_c_str(unit_f, unit_c, min(len(unit_f), unit_str_len))
         ! Copy the descriptor Fortran string into the resulting C-style string.
-        call copy_f_c_str(desc_f, desc_c, min(len(desc_f) + 1, desc_str_len))
+        call copy_f_c_str(desc_f, desc_c, min(len(desc_f), desc_str_len))
       end if
     end subroutine nemdefs_c
 
@@ -417,11 +393,11 @@ module bufr_c2f_interface
       integer(c_int), intent(out) :: reference
       integer(c_int), intent(out) :: bits
 
-      character(len=24) :: unit_str_f
+      character(len=25) :: unit_str_f
 
       ! Get the scale, reference and bits
       call nemtbb( lun, table_idx, unit_str_f, scale, reference, bits)
-      call copy_f_c_str(unit_str_f, unit_str, min(len(unit_str_f) + 1, unit_str_len))
+      call copy_f_c_str(unit_str_f, unit_str, min(len(unit_str_f), unit_str_len))
     end subroutine nemtbb_c
 
     !> Get copy of the moda_tables ISC array.
@@ -753,11 +729,10 @@ module bufr_c2f_interface
       ires = igetntbi(lun, table_type_f)
     end function igetntbi_c
 
-    !>
     !> Decode the scale factor, reference value, bit width, and units from a Table B
     !> mnemonic definition.
     !>
-    !> Wraps elemdx() function.
+    !> Wraps elemdx() subroutine.
     !>
     !> @param card - Mnemonic definition card.
     !> @param lun - File ID.
@@ -822,7 +797,7 @@ module bufr_c2f_interface
     !> Get the WMO bit-wise representation of the FXY value corresponding
     !> to a child mnemonic of a Table D sequence.
     !>
-    !> Wraps uptdd() function.
+    !> Wraps uptdd() subroutine.
     !>
     !> @param id - Positional index of parent mnemonic within internal
     !> BUFR Table D array.
@@ -875,5 +850,249 @@ module bufr_c2f_interface
 
       ires = istdesc(idn)
     end function istdesc_c
+
+    !> Read/write an entire sequence of data values from/to a data subset.
+    !>
+    !> Wraps ufbseq() subroutine.
+    !>
+    !> @param bufr_unit - Fortran logical unit number to read from
+    !> @param c_data - C-style pointer to a pre-allocated buffer
+    !> @param dim_1, dim_2 - Dimensionality of data to read or write
+    !> @param iret - Return value, length of data read
+    !> @param table_d_mnemonic - Table A or Table D mnemonic.
+    !>
+    !> @author J. Ator @date 2023-04-07
+    subroutine ufbseq_c(bufr_unit, c_data, dim_1, dim_2, iret, table_d_mnemonic) bind(C, name='ufbseq_f')
+      integer(c_int), value, intent(in) :: bufr_unit
+      type(c_ptr), intent(inout) ::  c_data
+      integer(c_int), value, intent(in) :: dim_1, dim_2
+      integer(c_int), intent(out) :: iret
+      character(kind=c_char, len=1), intent(in) :: table_d_mnemonic(*)
+      real, pointer :: f_data
+
+      call c_f_pointer(c_data, f_data)
+      call ufbseq(bufr_unit, f_data, dim_1, dim_2, iret, c_f_string(table_d_mnemonic))
+    end subroutine ufbseq_c
+
+    !> Read the next data subset from a BUFR file.
+    !>
+    !> Wraps ireadns() function.
+    !>
+    !> @param bufr_unit - Fortran logical unit number to read from.
+    !> @param c_subset - Subset string.
+    !> @param iddate - Datetime of message.
+    !> @param subset_str_len - Length of the subset string.
+    !>
+    !> @return ireadns_c - Return code:
+    !>  - 0 new BUFR data subset was successfully read into internal arrays.
+    !>  - -1 there are no more BUFR data subsets in bufr_unit.
+    !>
+    !> @author J. Ator @date 2023-04-07
+    function ireadns_c(bufr_unit, c_subset, iddate, subset_str_len) result(ires) bind(C, name='ireadns_f')
+      integer(c_int), value, intent(in) :: bufr_unit
+      character(kind=c_char, len=1), intent(out) :: c_subset(*)
+      integer(c_int), intent(out) :: iddate
+      integer(c_int), value, intent(in) :: subset_str_len
+      integer(c_int) :: ires
+      character(len=25) :: f_subset
+      integer :: ireadns
+
+      ires = ireadns(bufr_unit, f_subset, iddate)
+
+      if (ires == 0) then
+        call copy_f_c_str(f_subset, c_subset, subset_str_len)
+      end if
+    end function ireadns_c
+
+    !> Test whether a data value is "missing".
+    !>
+    !> Wraps ibfms() function.
+    !>
+    !> @param r8val - Data value.
+    !>
+    !> @return ibfms_c - 1 if r8val is "missing", or 0 otherwise.
+    !>
+    !> @author J. Ator @date 2023-04-07
+    function ibfms_c(r8val) result(ires) bind(C, name='ibfms_f')
+      real(c_double), intent(in), value :: r8val
+      integer(c_int) :: ires
+      integer :: ibfms
+
+      ires = ibfms(r8val)
+    end function ibfms_c
+
+    !> Decode an integer from a character string.
+    !>
+    !> Wraps strnum() subroutine.
+    !>
+    !> @param str - String.
+    !> @param num - Value decoded from str.
+    !> @param iret - 0 if successful, -1 otherwise.
+    !>
+    !> @author J. Ator @date 2003-11-04
+    subroutine strnum_c(str,num,iret) bind(C, name='strnum_f')
+      character(kind=c_char, len=1), intent(in) :: str(*)
+      integer(c_int), intent(out) :: num, iret
+
+      call strnum(c_f_string(str), num, iret)
+    end subroutine strnum_c
+
+    !> Store a new entry within the internal BUFR Table B or D.
+    !>
+    !> Wraps stntbi() subroutine.
+    !>
+    !> @param n - Storage index into internal Table B or D.
+    !> @param lun - File ID.
+    !> @param numb - FXY number for new entry.
+    !> @param nemo - Mnemonic corresponding to numb.
+    !> @param celsq - Element or sequence description corresponding to numb.
+    !>
+    !> @author J. Ator @date 2023-04-07
+    subroutine stntbi_c(n,lun,numb,nemo,celsq) bind(C, name='stntbi_f')
+      integer(c_int), intent(in), value :: n, lun
+      character(kind=c_char, len=1), intent(in) :: numb(*), nemo(*), celsq(*)
+      character(len=6) :: numb_f
+      character(len=8) :: nemo_f
+      character(len=55) :: celsq_f
+      integer :: ii
+
+      do ii = 1,6
+        numb_f(ii:ii) = numb(1)(ii:ii)
+      enddo
+      do ii = 1,8
+        nemo_f(ii:ii) = nemo(1)(ii:ii)
+      enddo
+      do ii = 1,55
+        celsq_f(ii:ii) = celsq(1)(ii:ii)
+      enddo
+      call stntbi(n, lun, numb_f, nemo_f, celsq_f)
+    end subroutine stntbi_c
+
+    !> Get the next usable Table D index for the current master table, or
+    !> reset the index.
+    !>
+    !> Wraps igettdi() function.
+    !>
+    !> @param iflag - if 0, will reset the index.
+    !>
+    !> @return igettdi_c - -1 if iflag=0, otherwise the next usable index.
+    !>
+    !> @author J. Ator @date 2023-04-07
+    function igettdi_c(iflag) result(ires) bind(C, name='igettdi_f')
+      integer(c_int), intent(in), value :: iflag
+      integer(c_int) :: ires
+      integer :: igettdi
+
+      ires = igettdi(iflag)
+    end function igettdi_c
+
+    !> Store information about a child mnemonic within the internal arrays.
+    !>
+    !> Wraps pktdd() subroutine.
+    !>
+    !> @param id - Index of parent mnemonic within internal BUFR Table D array.
+    !> @param lun - File ID.
+    !> @param idn - WMO bit-wise representation of FXY value corresponding to child
+    !> mnemonic; set to 0 to delete all child mnemonic information.
+    !> @param iret - 0 if idn=0; -1 if error occurred; otherwise, the total number of
+    !> child mnemonics stored so far for parent mnemonic id.
+    !>
+    !> @author J. Ator @date 2023-04-07
+    subroutine pktdd_c(id, lun, idn, iret) bind(C, name='pktdd_f')
+      integer(c_int), intent(in), value :: id, lun, idn
+      integer(c_int), intent(out) :: iret
+
+      call pktdd(id, lun, idn, iret)
+    end subroutine pktdd_c
+
+    !> Log one error message and abort application program.
+    !>
+    !> Wraps bort() subroutine.
+    !>
+    !> @param errstr - Error message.
+    !>
+    !> @author J. Ator @date 2023-04-07
+    subroutine bort_c(errstr) bind(C, name='bort_f')
+      character(kind=c_char, len=1), intent(in) :: errstr(*)
+
+      call bort(c_f_string(errstr))
+    end subroutine bort_c
+
+    !> Open a new message for output in a BUFR file that was
+    !> previously opened for writing.
+    !>
+    !> Wraps openmb() subroutine.
+    !>
+    !> @param bufr_unit - Fortran logical unit number to write to.
+    !> @param c_subset - Table A mnemonic of message.
+    !> @param iddate - Date-time to be stored within Section 1 of message.
+    !>
+    !> @author J. Ator @date 2023-04-07
+    subroutine openmb_c(bufr_unit, c_subset, iddate) bind(C, name='openmb_f')
+      integer(c_int), value, intent(in) :: bufr_unit, iddate
+      character(kind=c_char, len=1), intent(in) :: c_subset(*)
+
+      call openmb(bufr_unit, c_f_string(c_subset), iddate)
+    end subroutine openmb_c
+
+    !> Get the version number of the NCEPLIBS-bufr software.
+    !>
+    !> Wraps bvers() subroutine.
+    !>
+    !> @param cverstr - Version string.
+    !> @param cverstr_len - Length of the version string.
+    !>
+    !> @author J. Ator @date 2023-04-07
+    subroutine bvers_c(cverstr, cverstr_len) bind(C, name='bvers_f')
+      character(kind=c_char, len=1), intent(out) :: cverstr(*)
+      integer(c_int), value, intent(in) :: cverstr_len
+      character(len=10) :: f_cverstr
+
+      call bvers(f_cverstr)
+      call copy_f_c_str(f_cverstr, cverstr, cverstr_len)
+    end subroutine bvers_c
+
+    !> Determine important information about the local machine.
+    !>
+    !> Wraps wrdlen() subroutine.
+    !>
+    !> @author J. Ator @date 2023-04-07
+    subroutine wrdlen_c() bind(C, name='wrdlen_f')
+      call wrdlen()
+    end subroutine wrdlen_c
+
+    !> Decode an integer value from an integer array.
+    !>
+    !> Wraps iupb() function.
+    !>
+    !> @param mbay - Array containing encoded value.
+    !> @param nbyt - Byte within mbay at whose first bit to begin decoding.
+    !> @param nbit - Number of bits to decode.
+    !>
+    !> @return iupb_c - Decoded value.
+    !>
+    !> @author J. Ator @date 2023-04-07
+    function iupb_c(mbay,nbyt,nbit) result(ires) bind(C, name='iupb_f')
+      integer(c_int), intent(in) :: mbay(*)
+      integer(c_int), intent(in), value :: nbyt, nbit
+      integer(c_int) :: ires
+      integer :: iupb
+
+      ires = iupb(mbay,nbyt,nbit)
+    end function iupb_c
+
+    !> Specify the use of compression when writing BUFR messages.
+    !>
+    !> Wraps cmpmsg() subroutine.
+    !>
+    !> @param cf - Flag indicating whether future BUFR output messages are to be
+    !> compressed ('Y' = Yes, 'N' = No).
+    !>
+    !> @author J. Ator @date 2023-04-07
+    subroutine cmpmsg_c(cf) bind(C, name='cmpmsg_f')
+      character(kind=c_char, len=1), intent(in) :: cf(*)
+
+      call cmpmsg(c_f_string(cf))
+    end subroutine cmpmsg_c
 
 end module bufr_c2f_interface

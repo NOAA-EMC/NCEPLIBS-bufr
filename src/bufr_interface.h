@@ -439,6 +439,92 @@ extern "C" {
  */
   int igetmxby_f(void);
 
+/**
+ * Read/write an entire sequence of data values from/to a data subset.
+ *
+ * Wraps ufbseq() subroutine.
+ *
+ * @param bufr_unit - the Fortran logical unit number to read from.
+ * @param c_data - pointer to a pointer to a pre-allocated buffer.
+ * @param dim_1 - dimensionality of data to read or write.
+ * @param dim_2 - dimensionality of data to read or write.
+ * @param iret - return value, length of data read.
+ * @param table_d_mnemonic - Table A or Table D mnemonic.
+ *
+ * @author J. Ator @date 2023-04-07
+ */
+  void ufbseq_f(int bufr_unit, void** c_data, int dim_1, int dim_2,
+                int* iret, const char* table_d_mnemonic);
+
+/**
+ * Read the next data subset from a BUFR file.
+ *
+ * Wraps ireadns() function.
+ *
+ * @param bufr_unit - the Fortran logical unit number to read from.
+ * @param subset - the subset string.
+ * @param iddate - datetime of message.
+ * @param subset_len - length of the subset string.
+ *
+ * @return
+ * - 0 new BUFR data subset was successfully read into internal arrays.
+ * - -1 there are no more BUFR data subsets in bufr_unit.
+ *
+ * @author J. Ator @date 2023-04-07
+ */
+  int ireadns_f(int bufr_unit, char* subset, int* iddate, int subset_len);
+
+/**
+ * Test whether a data value is "missing".
+ *
+ * Wraps ibfms() function.
+ *
+ * @param r8val - Data value.
+ *
+ * @return - 1 if r8val is "missing", or 0 otherwise.
+ *
+ *  @author J. Ator @date 2023-04-07
+ */
+  int ibfms_f(double r8val);
+
+/**
+ * Open a new message for output in a BUFR file that was previously
+ * opened for writing.
+ *
+ * Wraps openmb() subroutine.
+ *
+ * @param bufr_unit - Fortran logical unit number to write to.
+ * @param c_subset - Table A mnemonic of message.
+ * @param iddate - Date-time to be stored within Section 1 of message.
+ *
+ * @author J. Ator @date 2023-04-07
+ */
+  void openmb_f(int bufr_unit, char *c_subset, int iddate);
+
+/**
+ * Get the version number of the NCEPLIBS-bufr software.
+ *
+ * Wraps bvers() subroutine.
+ *
+ * @param cverstr - Version string.
+ * @param cverstr_len - Length of version string.
+ *
+ * @author J. Ator @date 2023-04-07
+ */
+  void bvers_f(char *cverstr, int cverstr_len);
+
+/**
+ * Specify the use of compression when writing BUFR messages.
+ *
+ * Wraps cmpmsg() subroutine.
+ *
+ * @param cf - Flag indicating whether future BUFR output messages are to be
+ * compressed ('Y' = Yes, 'N' = No).
+ *
+ * @author J. Ator @date 2023-04-07
+ */
+  void cmpmsg_f(char *cf);
+
 #ifdef __cplusplus
 }
 #endif

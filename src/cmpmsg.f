@@ -3,6 +3,8 @@ C> @brief Specify the use of compression when writing BUFR messages.
 C>
 C> @author J. Ator @date 2005-03-09
 
+C> Specify the use of compression when writing BUFR messages.
+C>
 C> This subroutine is used to specify whether BUFR messages output
 C> by future calls to [message-writing subroutines](@ref hierarchy) and
 C> [subset-writing subroutines](@ref hierarchy) are to be compressed.
@@ -27,10 +29,10 @@ C> different data subsets within the same BUFR message. Otherwise,
 C> compression may provide little to no benefit, and which is why
 C> it is not activated by default.
 C>
-C> @param[in] CF   -- character*1: Flag indicating whether future BUFR
-C>                    output messages are to be compressed
-C>                     - 'N' = No (the default)
-C>                     - 'Y' = Yes
+C> @param[in] CF - character*1: Flag indicating whether future BUFR
+C> output messages are to be compressed
+C>  - 'N' = No (the default)
+C>  - 'Y' = Yes
 C>
 C> @author J. Ator @date 2005-03-09
       SUBROUTINE CMPMSG(CF)

@@ -292,6 +292,55 @@ module bufrlib
       character(kind=c_char), intent(out) :: meaning(*)
     end subroutine srchtbf_c
 
+    !> @fn bufrlib::restd_c::restd_c(lun,tddesc,nctddesc,ctddesc)
+    !> Standardize a local Table D descriptor.
+    !>
+    !> Wraps restd() function.
+    !>
+    !> @param lun - File ID.
+    !> @param tddesc - WMO bit-wise representation of FXY value for local Table D descriptor.
+    !> @param nctddesc - Number of WMO-standard child descriptors returned in cttdesc.
+    !> @param ctddesc - Array of WMO-standard child descriptors equivalent to tddesc.
+    !>
+    !> @author J. Ator @date 2023-04-07
+    subroutine restd_c(lun, tddesc, nctddesc, ctddesc) bind(C, name='restd')
+      use iso_c_binding
+      integer(c_int), intent(in), value :: lun, tddesc
+      integer(c_int), intent(out) :: nctddesc, ctddesc(*)
+    end subroutine restd_c
+
+    !> @fn bufrlib::stseq_c::stseq_c(lun,irepct,idn,nemo,cseq,cdesc,ncdesc)
+    !> Store information about a standard Table D descriptor.
+    !>
+    !> Wraps stseq() function.
+    !>
+    !> @param lun - File ID.
+    !> @param irepct - Replication sequence counter for the current master table.
+    !> @param idn - WMO bit-wise representation of FXY value for standard Table D descriptor.
+    !> @param nemo - Mnemonic corresponding to idn.
+    !> @param cseq - Description corresponding to idn.
+    !> @param cdesc - Array of WMO-standard child descriptors equivalent to idn.
+    !> @param ncdesc - Number of WMO-standard child descriptors in cdesc.
+    !>
+    !> @author J. Ator @date 2023-04-07
+    subroutine stseq_c(lun,irepct,idn,nemo,cseq,cdesc,ncdesc) bind(C, name='stseq')
+      use iso_c_binding
+      integer(c_int), intent(in), value :: lun, idn, ncdesc
+      character(kind=c_char), intent(in) :: nemo(*), cseq(*)
+      integer(c_int), intent(inout) :: irepct
+      integer(c_int), intent(out) :: cdesc(*)
+    end subroutine stseq_c
+
+    !> @fn bufrlib::bort_exit_c::bort_exit_c()
+    !> Abort the application program.
+    !>
+    !> Wraps bort_exit() function.
+    !>
+    !> @author J. Ator @date 2023-04-07
+    subroutine bort_exit_c() bind(C, name='bort_exit')
+      use iso_c_binding
+    end subroutine bort_exit_c
+
   end interface
 
 end module bufrlib

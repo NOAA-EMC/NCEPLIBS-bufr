@@ -29,6 +29,8 @@ void cwrbufr(int nfile, int *bufr, int nwrd);
 void bort_exit(void);
 int icvidx(int ii, int jj, int numjj);
 void wrdesc(int desc, int *descary, int *ndescary);
+void restd(int lunb, int tddesc, int *nctddesc, int *ctddesc);
+void stseq(int lun, int *irepct, int idn, char *nemo, char *cseq, int *cdesc, int ncdesc);
 
 /** Maximum number of BUFR files that can be connected to the NCEPLIBS-bufr
  * software (for reading or writing) at any one time. */
@@ -62,6 +64,12 @@ void wrdesc(int desc, int *descary, int *ndescary);
 
 /** Size of a character string needed to store a mnemonic. */
 #define NEMO_STR_LEN 8
+
+/** Size of a character string needed to store the units of a Table B descriptor. */
+#define UNIT_STR_LEN 24
+
+/** Size of a character string needed to store a library version number. */
+#define VERS_STR_LEN 8
 
 /**
  * Convert an FXY value from its WMO bit-wise representation to its
@@ -182,146 +190,41 @@ int imrkopr_f(char *nemo);
  */
 int istdesc_f(int idn);
 
-/*
-** On certain operating systems, the FORTRAN compiler appends an underscore
-** to subprogram names in its object namespace.  Therefore, on such systems,
-** a matching underscore must be appended to any C language references to
-** the same subprogram names so that the linker can correctly resolve such
-** references across the C <-> FORTRAN interface at link time.  This needs
-** to be done for any subprogram that is either:
-**   1) a C function, or
-**   2) a FORTRAN subprogram called from C
-*/
-#ifdef UNDERSCORE
-#define bort       bort_      /**< bort function. */
-#define bort_exit  bort_exit_ /**< exit function. */
-#define bvers      bvers_     /**< bvers function. */
-#define cmpmsg     cmpmsg_    /**< cmpmsg function. */
-#define gets1loc   gets1loc_  /**< gets1loc function. */
-#define ibfms      ibfms_     /**< ibfms function. */
-#define ichkstr    ichkstr_   /**< ichkstr function. */
-#define igettdi    igettdi_   /**< igettdi function. */
-#define ipkm       ipkm_      /**< ipkm function. */
-#define ireadns    ireadns_   /**< ireadns function. */
-#define iupb       iupb_      /**< iupb function. */
-#define iupm       iupm_      /**< iupm function. */
-#define openmb     openmb_    /**< openmb function. */
-#define pktdd      pktdd_     /**< pktdd function. */
-#define restd      restd_     /**< restd function. */
-#define stntbi     stntbi_    /**< stntbi function. */
-#define strnum     strnum_    /**< strnum function. */
-#define stseq      stseq_     /**< stseq function. */
-#define ufbseq     ufbseq_    /**< ufbseq function. */
-#define wrdlen     wrdlen_    /**< wrdlen function. */
-#endif
-
 /**
- * In order to ensure that the C <-> FORTRAN interface works properly (and
- * portably!), the default size of an "INTEGER" declared in FORTRAN must be
- * identical to that of an "int" declared in C.  If this is not the case (e.g.
- * some FORTRAN compilers, most notably AIX via the -qintsize= option, allow the
- * sizes of INTEGERs to be definitively prescribed outside of the source code
- * itself!), then the following conditional directive (or a variant of it) can
- * be used to ensure that the size of an "int" in C remains identical to that
- * of an "INTEGER" in FORTRAN. */
-#ifdef F77_INTSIZE_8
-    typedef long f77int;
-#else
-    typedef int f77int;
-#endif
-
-/** Define the C object type that is equivalent to a REAL*8 in
- * Fortran. */
-typedef double f77r8;
-
-/*
-** Declare prototypes for ANSI C compatibility.  This should be done for any
-** subprogram that is either:
-**   1) a C function, or
-**   2) a FORTRAN subprogram called from C
-*/
-
-void restd(int *lunb, int *tddesc, int *nctddesc, int *ctddesc);
-void stseq(int *lun, int *irepct, int *idn, char *nemo, char *cseq, int *cdesc, int *ncdesc);
-
-/**
- * Wraps bort() subroutine.
+ * Decode an integer from a character string.
  *
- * @param str - Error message.
- * @param s1 - Extra C-Fortran interface argument containing length of str variable.
+ * Wraps strnum() subroutine.
+ *
+ * @param str - String.
+ * @param num - Value decoded from str.
+ * @param iret - Return code: 0 if successful, -1 otherwise.
  *
  * @author J. Ator @date 2003-11-04
  */
-void bort( char *str, size_t s1 );
+void strnum_f(char *str, int *num, int *iret);
 
 /**
- * Wraps bvers() subroutine.
+ * Store a new entry within the internal BUFR Table B or D.
  *
- * @param cverstr - Version string.
- * @param s1 - Extra C-Fortran interface argument containing length of cverstr variable.
+ * Wraps stntbi() subroutine.
+ *
+ * @param n - Storage index into internal Table B or D.
+ * @param lun - File ID.
+ * @param numb - FXY number for new entry.
+ * @param nemo - mnemonic corresponding to numb.
+ * @param celsq - Element or sequence definition corresponding to numb.
  *
  * @author J. Ator @date 2009-03-23
  */
-void bvers( char *cverstr, size_t s1 );
+void stntbi_f(int n, int lun, char *numb, char *nemo, char *celsq);
 
 /**
- * Wraps cmpmsg() subroutine.
+ * Get the next usable Table D index for the current master table, or
+ * reset the index.
  *
- * @param cf - Flag indicating whether future BUFR output messages are to be compressed.
- * @param s1 - Extra C-Fortran interface argument containing length of cf variable.
- *
- * @author J. Ator @date 2005-03-09
- */
-void cmpmsg( char *cf, size_t s1 );
-
-/**
- * Wraps gets1loc() subroutine.
- *
- * @param s1mnem - Value whose location within Section 1 is to be determined.
- * @param iben - BUFR edition number.
- * @param isbyt - Number of starting byte within Section 1 for s1mnem.
- * @param iwid - Bit width for s1mnem.
- * @param iret - Return code.
- * @param s1 - Extra C-Fortran interface argument containing length of s1mnem variable.
- *
- * @author J. Ator @date 2005-11-29
- */
-void gets1loc( char *s1mnem, f77int *iben, f77int *isbyt, f77int *iwid, f77int *iret, size_t s1 );
-
-/**
- * Wraps ibfms() function.
- *
- * @param r8val - Data value.
- *
- * @return
- * - 0 r8val is not "missing"
- * - 1 r8val is "missing"
- *
- * @author J. Ator @date 2007-01-19
- */
-f77int ibfms( f77r8 *r8val );
-
-/**
- * Wraps ichkstr() function.
- *
- * @param str - Character string.
- * @param chr - Character array.
- * @param n - Number of characters to be compared.
- * @param s1 - Extra C-Fortran interface argument containing length of str variable.
- * @param s2 - Extra C-Fortran interface argument containing length of chr variable.
- *
- * @return
- * - 0 first n characters of str and chr are equivalent
- * - 1 first n characters of str and chr are not equivalent
- *
- * @author J. Ator @date 2005-11-29
- */
-f77int ichkstr ( char *str, char *chr, f77int *n, size_t s1, size_t s2 );
-
-/**
  * Wraps igettdi() function.
  *
- * @param iflag - Processing flag.
+ * @param iflag - Processing flag; if 0 will reset the index.
  *
  * @return
  * - -1, if iflag was input as 0.
@@ -329,132 +232,55 @@ f77int ichkstr ( char *str, char *chr, f77int *n, size_t s1, size_t s2 );
  *
  * @author J. Ator @date 2009-03-23
  */
-f77int igettdi( f77int *iflag );
+int igettdi_f(int iflag);
 
 /**
- * Wraps ipkm() subroutine.
+ * Store information about a child mnemonic within the internal arrays.
  *
- * @param cbay - String.
- * @param nbyt - Number of bytes to encode within cbay.
- * @param n - Value to be encoded into cbay.
- * @param s1 - Extra C-Fortran interface argument containing length of cbay variable.
+ * Wraps pktdd() subroutine.
+ *
+ * @param id - Index of parent mnemonic within internal arrays.
+ * @param lun - File ID.
+ * @param idn - WMO bit-wise representation of FXY value for child mnemonic,
+ * or 0 to delete all child mnemonic information for parent mnemonic id.
+ * @param iret - 0 if idn=0; -1 if error occurred; otherwise, the total number of
+ * child mnemonics stored so far for parent mnemonic id.
  *
  * @author J. Ator @date 2003-11-04
  */
-void ipkm( char *cbay, f77int *nbyt, f77int *n, size_t s1 );
+void pktdd_f(int id, int lun, int idn, int *iret);
 
 /**
- * Wraps ireadns() function.
+ * Log one error message and abort application program.
  *
- * @param lunit - Fortran logical unit number for BUFR file.
- * @param subset - Table A mnemonic.
- * @param idate - Date-time stored within Section 1.
- * @param s1 - Extra C-Fortran interface argument containing length of subset variable.
+ * Wraps bort() subroutine.
  *
- * @return
- * - 0 new BUFR data subset was successfully read
- * - -1 there are no more BUFR data subsets in lunit
+ * @param errstr - Error message.
  *
- * @author J. Ator @date 2003-11-04
+ * @author J. Ator @date 2023-04-07
  */
-f77int ireadns( f77int *lunit, char *subset, f77int *idate, size_t s1 );
+void bort_f(char *errstr);
 
 /**
+ * Determine important information about the local machine.
+ *
+ * Wraps wrdlen() subroutine.
+ *
+ * @author J. Ator @date 2023-04-07
+ */
+void wrdlen_f(void);
+
+/**
+ * Decode an integer value from an integer array.
+ *
  * Wraps iupb() function.
  *
  * @param mbay - Array containing encoded value.
- * @param nbyt - Starting byte within mbay.
+ * @param nbyt - Byte within mbay at whose first bit to begin decoding.
  * @param nbit - Number of bits to decode.
  *
  * @return Decoded value.
  *
  * @author J. Ator @date 2003-11-04
  */
-f77int iupb( f77int *mbay, f77int *nbyt, f77int *nbit );
-
-/**
- * Wraps iupm() function.
- *
- * @param cbay - String.
- * @param nbits - Number of bits to decode from within cbay.
- * @param s1 - Extra C-Fortran interface argument containing length of cbay variable.
- *
- * @return Decoded value.
- *
- * @author J. Ator @date 2003-11-04
- */
-f77int iupm( char *cbay, f77int *nbits, size_t s1 );
-
-/**
- * Wraps openmb() subroutine.
- *
- * @param lunit - Fortran logical unit number for BUFR file.
- * @param subset - Table A mnemonic.
- * @param jdate - Date-time to be stored within Section 1.
- * @param s1 - Extra C-Fortran interface argument containing length of subset variable.
- *
- * @author J. Ator @date 2003-11-04
- */
-void openmb( f77int *lunit, char *subset, f77int *jdate, size_t s1 );
-
-/**
- * Wraps pktdd() subroutine.
- *
- * @param id - Index of parent mnemonic within internal arrays.
- * @param lun - I/O stream index into internal arrays.
- * @param idn - Bit-wise representation of FXY value for child mnemonic.
- * @param iret - Return code.
- *
- * @author J. Ator @date 2003-11-04
- */
-void pktdd( f77int *id, f77int *lun, f77int *idn, f77int *iret );
-
-/**
- * Wraps stntbi() subroutine.
- *
- * @param n - Index into internal Table B or D for new entry.
- * @param lun - I/O stream index into internal arrays.
- * @param numb - FXY number for new entry.
- * @param nemo - mnemonic corresponding to numb.
- * @param celsq - Element or sequence definition corresponding to numb.
- * @param s1 - Extra C-Fortran interface argument containing length of numb variable.
- * @param s2 - Extra C-Fortran interface argument containing length of nemo variable.
- * @param s3 - Extra C-Fortran interface argument containing length of celsq variable.
- *
- * @author J. Ator @date 2009-03-23
- */
-void stntbi( f77int *n, f77int *lun, char *numb, char *nemo, char *celsq, size_t s1, size_t s2, size_t s3 );
-
-/**
- * Wraps strnum() subroutine.
- *
- * @param str - String.
- * @param num - Value decoded from str.
- * @param iret - Return code.
- * @param s1 - Extra C-Fortran interface argument containing length of str variable.
- *
- * @author J. Ator @date 2003-11-04
- */
-void strnum( char *str, f77int *num, f77int *iret, size_t s1 );
-
-/**
- * Wraps ufbseq() subroutine.
- *
- * @param lunit - Fortran logical unit number for BUFR file.
- * @param usr - Data values.
- * @param i1 - First dimension of usr.
- * @param i2 - Second dimension of usr.
- * @param iret - Number of replications of str read or written.
- * @param str - Mnemonic string.
- * @param s1 - Extra C-Fortran interface argument containing length of str variable.
- *
- * @author J. Ator @date 2003-11-04
- */
-void ufbseq( f77int *lunit, f77r8 *usr, f77int *i1, f77int *i2, f77int *iret, char *str, size_t s1 );
-
-/**
- * Wraps wrdlen() subroutine.
- *
- * @author J. Ator @date 2003-11-04
- */
-void wrdlen( void );
+int iupb_f(int *mbay, int nbyt, int nbit);

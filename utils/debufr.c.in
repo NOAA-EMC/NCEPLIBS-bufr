@@ -168,15 +168,13 @@ int main( int argc, char *argv[ ] ) {
 
     int ch;
 
-    unsigned short ii;
-
     char basic = 'N';
     char forcemt = 'N';
     char cfms = 'Y';
     char io = 'r';
     char tbldir_default[500] =
             "@MASTER_TABLE_DIR_C@";
-    char bvstr[9] = "        ";
+    char bvstr[VERS_STR_LEN+1];
 
     char *ofile = NULL;
     char *tbldir = NULL;
@@ -194,14 +192,7 @@ int main( int argc, char *argv[ ] ) {
     while ( ( ch = getopt ( argc, argv, "vhbcmo:t:f:p:" ) ) != EOF ) {
         switch ( ch ) {
             case 'v':
-                bvers ( bvstr, sizeof(bvstr) );
-                /* append a trailing NULL to bvstr for printf */
-                for ( ii = 0; ii < sizeof(bvstr); ii++ ) {
-                    if ( ( bvstr[ii] != '.' ) && ( !isdigit(bvstr[ii]) ) ) {
-                        bvstr[ii] = '\0';
-                        break;
-                    }
-                }
+                bvers_f( bvstr, VERS_STR_LEN+1 );
                 printf( "This is debufr v4.0.0, built with NCEPLIBS-bufr v%s\n", bvstr );
                 return 0;
             case 'h':
@@ -291,7 +282,7 @@ int main( int argc, char *argv[ ] ) {
             printf( "\nERROR: Could not allocate memory for tables directory!\n" );
             return -1;
         }
-        strcpy ( tbldir, tbldir_default );
+        strcpy( tbldir, tbldir_default );
     }
         
     /*

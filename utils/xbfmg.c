@@ -102,14 +102,13 @@ int main( int argc, char *argv[] ) {
 
     char *outfile, *outfile_temp;
 
-    char bvstr[10] = "         ";
+    char bvstr[VERS_STR_LEN+1];
 
     int ch;
 
     FILE *fp;
 
-    f77int msglen, wkint;
-    f77int c24 = 24, c1 = 1;
+    int msglen, wkint;
 
     unsigned long i, filesize, noutfile;
 
@@ -119,9 +118,8 @@ int main( int argc, char *argv[] ) {
     while ( ( ch = getopt ( argc, argv, "vgh" ) ) != EOF ) {
         switch ( ch ) {
             case 'v':
-                bvers( bvstr, sizeof(bvstr) );
-                bvstr[9] = '\0';
-                printf( "This is xbfmg v3.3.0, built with NCEPLIBS-bufr v%s\n", bvstr );
+                bvers_f( bvstr, VERS_STR_LEN+1 );
+                printf( "This is xbfmg v4.0.0, built with NCEPLIBS-bufr v%s\n", bvstr );
                 return 0;
             case 'g':
                 save_GTSbull = 1;
@@ -197,7 +195,7 @@ int main( int argc, char *argv[] ) {
     /*
     **  Call wrdlen function to initialize NCEPLIBS-bufr and determine machine endianness.
     */
-    wrdlen( );
+    wrdlen_f( );
 
     /*
     **  Locate each BUFR message within the input file and write each one to a separate output file.
@@ -245,7 +243,7 @@ int main( int argc, char *argv[] ) {
         **  Read the BUFR message length from Section 0.
         */
         memcpy( &wkint, ( pmsg + 4 ), 3 );
-        msglen = iupb( &wkint, &c1, &c24 );
+        msglen = iupb_f( &wkint, 1, 24 );
 
         /*
         **  Write the BUFR message to the output file.

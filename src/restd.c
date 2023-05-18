@@ -7,6 +7,8 @@
 #include "bufrlib.h"
 
 /**
+ * Standardize a local Table D descriptor.
+ *
  * Given the bit-wise (integer) representation of a local (not
  * WMO-standard) Table D descriptor, this subroutine returns an
  * equivalent array of WMO-standard child descriptors.
@@ -23,8 +25,7 @@
  * the input local Table D descriptor.
  *
  * @param lun - File ID.
- * file
- * @param tddesc - Bit-wise representation of FXY value for local Table
+ * @param tddesc - WMO bit-wise representation of FXY value for local Table
  * D descriptor.
  * @param nctddesc - Number of WMO-standard child descriptors returned
  * in ctddesc.
@@ -35,37 +36,37 @@
 */
 
 void
-restd(int *lun, int *tddesc, int *nctddesc, int *ctddesc)
+restd(int lun, int tddesc, int *nctddesc, int *ctddesc)
 {
     int desc, ncdesc, cdesc[MAXNC];
     int i, j, inum, itbd, ictbd;
     int iscl, iref, ibit;
 
-    char tab, nemo[NEMO_STR_LEN+1], adn[FXY_STR_LEN+1], cunit[25], cwork[31];
+    char tab, nemo[NEMO_STR_LEN+1], adn[FXY_STR_LEN+1], cunit[UNIT_STR_LEN+1], cwork[31];
 
 /*
-**  How many child descriptors does *tddesc have?
+**  How many child descriptors does tddesc have?
 */
-    numtbd_f(*lun, *tddesc, nemo, NEMO_STR_LEN+1, &tab, &itbd);
-    uptdd_f(itbd, *lun, 0, &inum);
+    numtbd_f(lun, tddesc, nemo, NEMO_STR_LEN+1, &tab, &itbd);
+    uptdd_f(itbd, lun, 0, &inum);
 
     *nctddesc = 0;
 /*
 **  Examine each child descriptor one at a time.
 */
     for ( i = 1; i <= inum; i++ ) {
-        uptdd_f(itbd, *lun, i, &desc);
-        if (! istdesc_f(desc) ) {
+        uptdd_f(itbd, lun, i, &desc);
+        if (! istdesc_f(desc)) {
 /*
 **          desc is a local descriptor.
 */
-            numtbd_f(*lun, desc, nemo, NEMO_STR_LEN+1, &tab, &ictbd);
+            numtbd_f(lun, desc, nemo, NEMO_STR_LEN+1, &tab, &ictbd);
             if ( tab == 'D' ) {
 /*
 **              desc is itself a local Table D descriptor, so resolve
 **              it now via a recursive call to this same routine.
 */
-                restd(lun, &desc, &ncdesc, cdesc);
+                restd(lun, desc, &ncdesc, cdesc);
 
                 if ( ( *nctddesc > 0 ) &&
                      ( ctddesc[(*nctddesc)-1] >  ifxy_f(MIN_FXY_REPL) ) &&
@@ -76,8 +77,8 @@ restd(int *lun, int *tddesc, int *nctddesc, int *ctddesc)
 **                  the replication descriptor ctddesc[(*nctddesc)-1]
 */
                     cadn30_f(ctddesc[(*nctddesc)-1], adn, FXY_STR_LEN+1);
-                    sprintf(cwork, "%c%02ld%c%c%c",
-                             adn[0], (long) ncdesc, adn[3], adn[4], adn[5]);
+                    sprintf(cwork, "%c%02d%c%c%c",
+                             adn[0], ncdesc, adn[3], adn[4], adn[5]);
                     strncpy(adn, cwork, 6); adn[6] = '\0';
                     ctddesc[(*nctddesc)-1] = ifxy_f(adn);
                 }
@@ -89,8 +90,8 @@ restd(int *lun, int *tddesc, int *nctddesc, int *ctddesc)
 **                  the replication descriptor ctddesc[(*nctddesc)-2]
 */
                     cadn30_f(ctddesc[(*nctddesc)-2], adn, FXY_STR_LEN+1);
-                    sprintf(cwork, "%c%02ld%c%c%c",
-                             adn[0], (long) ncdesc, adn[3], adn[4], adn[5]);
+                    sprintf(cwork, "%c%02d%c%c%c",
+                             adn[0], ncdesc, adn[3], adn[4], adn[5]);
                     strncpy(adn, cwork, 6); adn[6] = '\0';
                     ctddesc[(*nctddesc)-2] = ifxy_f(adn);
                 }
@@ -107,8 +108,8 @@ restd(int *lun, int *tddesc, int *nctddesc, int *ctddesc)
 **              desc is a local Table B descriptor, so precede it with
 **              a 206YYY operator in the output list.
 */
-                nemtbb_f(*lun, ictbd, cunit, 25, &iscl, &iref, &ibit);
-                sprintf(cwork, "%c%c%c%03ld", '2', '0', '6', (long) ibit);
+                nemtbb_f(lun, ictbd, cunit, UNIT_STR_LEN+1, &iscl, &iref, &ibit);
+                sprintf(cwork, "%c%c%c%03d", '2', '0', '6', ibit);
                 strncpy(adn, cwork, 6); adn[6] = '\0';
                 wrdesc(ifxy_f(adn), ctddesc, nctddesc);
                 wrdesc(desc, ctddesc, nctddesc);

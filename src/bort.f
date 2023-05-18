@@ -3,6 +3,8 @@ C> @brief Log one error message and abort application program.
 C>
 C> @author J. Woollen @date 1998-07-08
 
+C> Log one error message and abort application program.
+C>
 C> This subroutine calls subroutine errwrt() to log an error message,
 C> then calls subroutine bort_exit() to abort the application program.
 C>
@@ -14,6 +16,8 @@ C>
 C> @author J. Woollen @date 1998-07-08
       SUBROUTINE BORT(STR)
 
+      use bufrlib
+
       CHARACTER*(*) STR
 
       CALL ERRWRT(' ')
@@ -22,6 +26,6 @@ C> @author J. Woollen @date 1998-07-08
       CALL ERRWRT('***********BUFR ARCHIVE LIBRARY ABORT**************')
       CALL ERRWRT(' ')
 
-      CALL BORT_EXIT
+      CALL BORT_EXIT_C
 
       END

@@ -3,20 +3,11 @@ C> @brief Encode a character string within an integer array.
 C>
 C> @author J. Woollen @date 1994-01-06
 
+C> Encode a character string within an integer array.
+C>
 C> This subroutine encodes a character string within a specified
 C> number of bytes of an integer array, starting at the bit
 C> immediately after a specified bit within the array.
-C>
-C> @param[in] CHR     -- character*(*): String to be encoded
-C> @param[in] NCHR    -- integer: Number of bytes of IBAY within
-C>                       which to encode CHR (i.e. the number of
-C>                       characters in CHR)
-C> @param[out] IBAY   -- integer(*): Array containing encoded CHR
-C> @param[in,out] IBIT -- integer: Bit pointer within IBAY
-C>                        - On input, IBIT points to the bit within
-C>                          IBAY after which to begin encoding CHR.
-C>                        - On output, IBIT points to the last bit
-C>                          of IBAY which contains the encoded CHR.
 C>
 C> @remarks
 C> - This subroutine is the logical inverse of subroutine upc().
@@ -25,10 +16,19 @@ C>   bit of a byte within IBAY.  Correspondingly, on output there is no
 C>   guarantee that the NCHR characters of CHR will be aligned on byte
 C>   boundaries when encoded within IBAY.
 C>
+C> @param[in] CHR - character*(*): String to be encoded.
+C> @param[in] NCHR - integer: Number of bytes of IBAY within
+C> which to encode CHR (i.e. the number of characters in CHR).
+C> @param[out] IBAY - integer(*): Array containing encoded CHR.
+C> @param[in,out] IBIT - integer: Bit pointer within IBAY
+C>  - On input, IBIT points to the bit within IBAY after which
+C> to begin encoding CHR.
+C>  - On output, IBIT points to the last bit of IBAY which
+C> contains the encoded CHR.
+C>
 C> @author J. Woollen @date 1994-01-06
       SUBROUTINE PKC(CHR,NCHR,IBAY,IBIT)
 
-      COMMON /CHARAC/ IASCII,IATOE(0:255),IETOA(0:255)
       COMMON /HRDWRD/ NBYTW,NBITW,IORD(8)
 
       CHARACTER*(*) CHR
@@ -53,11 +53,6 @@ C     within a machine word.
       ELSE
          CVAL(LB) = ' '
       ENDIF
-
-C     If the machine is EBCDIC, then translate character CVAL(LB) from
-C     EBCDIC to ASCII.
-
-      IF(IASCII.EQ.0) CALL IPKM(CVAL(LB),1,IETOA(IUPM(CVAL(LB),8)))
 
       NWD  = IBIT/NBITW + 1
       NBT  = MOD(IBIT,NBITW)

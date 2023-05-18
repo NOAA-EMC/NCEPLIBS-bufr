@@ -136,7 +136,7 @@ cobfl(char *bfl, char io)
         if (i == MXFNLEN) {
             sprintf(errstr, "BUFRLIB: COBFL - INPUT FILENAME CONTAINS"
                     " MORE THAN %hu CHARACTERS", (unsigned short) MXFNLEN);
-            bort(errstr, (f77int) strlen(errstr));
+            bort_f(errstr);
         }
         lbf[i] = bfl[i];
     }
@@ -152,7 +152,7 @@ cobfl(char *bfl, char io)
     else {
         sprintf(errstr, "BUFRLIB: COBFL - SECOND ARGUMENT WAS (%c),"
                 " WHICH IS AN ILLEGAL VALUE", lio);
-        bort(errstr, (f77int) strlen(errstr));
+        bort_f(errstr);
     }
 
     /*
@@ -165,14 +165,14 @@ cobfl(char *bfl, char io)
     */
     if ((pbf[j] = fopen(lbf, foparg)) == NULL) {
         sprintf(errstr, "BUFRLIB: COBFL - COULD NOT OPEN FILE %s", lbf);
-        bort(errstr, (f77int) strlen(errstr));
+        bort_f(errstr);
     }
 
     /*
     ** Call wrdlen to initialize some important information about the local machine, just in case
     ** it hasn't already been called.
     */
-    wrdlen();
+    wrdlen_f();
 
     return;
 }
@@ -200,7 +200,6 @@ cobfl(char *bfl, char io)
 void
 crbmg(char *bmg, int mxmb, int *nmb, int *iret)
 {
-    int i4 = 4;
     int wkint[2];
 
     char errstr[129];
@@ -211,7 +210,7 @@ crbmg(char *bmg, int mxmb, int *nmb, int *iret)
     */
     if (pbf[0] == NULL) {
         sprintf(errstr, "BUFRLIB: CRBMG - NO FILE IS OPEN FOR READING");
-        bort(errstr, (f77int) strlen(errstr));
+        bort_f(errstr);
     }
 
     /*
@@ -226,7 +225,7 @@ crbmg(char *bmg, int mxmb, int *nmb, int *iret)
     /*
     ** Look for the start of the next BUFR message.
     */
-    while (ichkstr("BUFR", bmg, &i4, 4, 4) != 0) {
+    while (strncmp("BUFR", bmg, 4) != 0) {
         memmove(bmg, &bmg[1], 3);
         if ((*iret = rbytes(bmg, mxmb, 3, 1)) != 0) return;
     }
@@ -246,7 +245,7 @@ crbmg(char *bmg, int mxmb, int *nmb, int *iret)
     /*
     ** Check that the "7777" is in the expected location.
     */
-    *iret = ((ichkstr("7777", &bmg[*nmb-4], &i4, 4, 4) == 0) ? 0 : 2);
+    *iret = ((strncmp("7777", &bmg[*nmb-4], 4) == 0) ? 0 : 2);
 
     return;
 }
@@ -276,7 +275,7 @@ cwbmg(char *bmg, int nmb, int *iret)
     */
     if (pbf[1] == NULL) {
         sprintf(errstr, "BUFRLIB: CWBMG - NO FILE IS OPEN FOR WRITING");
-        bort(errstr, (f77int) strlen(errstr));
+        bort_f(errstr);
     }
 
     /*
