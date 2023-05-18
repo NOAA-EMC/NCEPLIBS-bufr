@@ -8,8 +8,6 @@ program intest5
 
   implicit none
 
-  integer*4 ireadns
-
   integer, parameter :: mxr8pm = 6
   integer, parameter :: mxr8lv = 10
 
@@ -36,7 +34,8 @@ program intest5
   call codflg ( 'Y' )
 
   ! Read a data subset.
-  if ( ireadns ( 11, cmgtag, imgdt ) .ne. 0 ) stop 1
+  call readns ( 11, cmgtag, imgdt, ier )
+  if ( ier .ne. 0 ) stop 1
 
   ! Read and verify some 1-dimensional values from this data subset.
   call ufbget ( 11, r81dvals, mxr8pm, nlv, 'XOB YOB DHR ELV T29 {PRSLEVEL}' )

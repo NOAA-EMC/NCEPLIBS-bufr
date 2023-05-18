@@ -125,6 +125,7 @@ for kind in "4" "d"; do
     # Check readerme().
     (./test_bort_$kind readerme 1) && exit 1
     (./test_bort_$kind readerme 2) && exit 1
+    (./test_bort_$kind readerme 3) && exit 1
 
     # Check readlc().
     (./test_bort_$kind readlc 1) && exit 1

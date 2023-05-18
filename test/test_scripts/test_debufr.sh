@@ -63,5 +63,11 @@ outfile_9=testrun/debufr_9.out
 ../utils/debufr -t. -f BUFRLIB_DUMMY testfiles/data/debufr_1 > ${outfile_9}
 [[ ${?} -ne 0 || `egrep -c "Error: Could not find file" ${outfile_9}` -ne 1 ]] && exit 9
 
+# Test #10, which should call NCEPLIBS-bufr subroutine bort from within subroutine readerme.
+outfile_10=debufr_10.debufr.out
+args_10="-t ../tables -p MXMSGL=40000"
+../utils/debufr ${args_10} testfiles/data/debufr_3 > ${outfile_10}
+[[ ${?} -eq 0 || `grep -c "READERME - INPUT BUFR MESSAGE LENGTH.*LARGER THAN LIMIT" ${outfile_10}` -ne 1 ]] && exit 10
+
 # Success!
 exit 0

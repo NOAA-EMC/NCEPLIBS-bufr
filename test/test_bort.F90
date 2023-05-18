@@ -9,6 +9,7 @@
 !
 ! Ed Hartnett 3/12/23
 program test_bort
+  use bufrlib
   implicit none
   integer iret, jret, iunit, iqcd
   ! integer i1
@@ -37,8 +38,14 @@ program test_bort
   integer iyr, imo, idy, ihr, imi
   integer jdate1(5), jdump1(5)
   integer lmsgt, msgt(100), msgl
+
   integer*4 isize, iupm, iupvs01, isetprm, nmsub
-  
+
+  character*25 filnam /'testfiles/data/debufr_3'/
+  character bfmg(10000)
+  integer ibfmg(2500)
+  equivalence (bfmg(1),ibfmg(1))
+
 #ifdef KIND_8
   call setim8b(.true.)
 #endif
@@ -406,6 +413,13 @@ program test_bort
         if (ios .ne. 0) stop 3
         call openbf(11, 'OUT', 12)
         call readerme(int_1d, 11, char_val_8, jdate, iret)
+     elseif (test_case .eq. '3') then
+        call cobfl_c( filnam, 'r' )
+        open(unit = 31, file = '/dev/null')
+        call openbf(31, 'INUL', 31)
+        call crbmg_c(bfmg, 10000, msgl, iret)
+        bfmg(1) = 'C'
+        call readerme(ibfmg, 31, char_val_8, jdate, iret)
      endif
   elseif (sub_name .eq. 'readlc') then
      if (test_case .eq. '1') then

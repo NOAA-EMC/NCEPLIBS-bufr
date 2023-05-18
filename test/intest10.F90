@@ -8,7 +8,7 @@ module Share_errstr_intest10
   ! This module is needed in order to share information between the test program and subroutine errwrt, because
   ! the latter is not called by the former but rather is called directly from within the NCEPLIBS-bufr software.
   
-  character*4000 errstr
+  character*18000 errstr
   
   integer errstr_len
 end module Share_errstr_intest10
@@ -31,6 +31,7 @@ subroutine errwrt(str)
 end subroutine errwrt
 
 program intest10
+  use bufrlib
   use Share_errstr_intest10
 
   implicit none
@@ -40,6 +41,14 @@ program intest10
   integer icnt, iunt, imesg(150), idate, iret, ios1, ios2, lundx, lun, il, im, imsg
 
   character cmgtag*8
+
+#ifndef KIND_8
+  integer, parameter :: mxbf = 50000, mxbfd4 = mxbf/4
+  integer ii, ibfmg(mxbfd4)
+  character bfmg(mxbf)
+  character*25 filnam / 'testfiles/data/debufr_3' /
+  equivalence ( bfmg(1), ibfmg(1) )
+#endif
 
   print *, 'Testing reading IN_10 to test ERRWRT branches in ARALLOCF, STATUS, UFBMEM, UFBMEX, and OPENBT'
 
@@ -107,6 +116,21 @@ program intest10
   errstr_len = 0
   call openbt ( lundx, 255 )
   if ( index( errstr(1:errstr_len), 'OPENBT - THIS IS A DUMMY BUFRLIB ROUTINE' ) .eq. 0 ) stop 13
+
+#ifndef KIND_8
+  ! Test the errwrt branch in readerme.
+  errstr_len = 0
+  call cobfl_c ( filnam, 'r' )
+  open ( unit = 31, file = '/dev/null' )
+  call openbf ( 31, 'INUL', 31 )
+  call openbf ( 31, 'QUIET', 2 )
+  do ii = 1, 4
+      call crbmg_c ( bfmg, mxbf, imsg, iret )
+      if ( iret .ne. 0 ) stop 14
+      call readerme ( ibfmg, 31, cmgtag, idate, iret )
+      if ( ii .eq. 4 .and. index( errstr(1:errstr_len), 'READERME - STORED NEW DX TABLE' ) .eq. 0 ) stop 15
+  enddo
+#endif
 
   print *, 'SUCCESS!'
 end program intest10

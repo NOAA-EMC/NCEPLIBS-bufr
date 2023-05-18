@@ -339,150 +339,135 @@ void test_getTypeInfo()
 {
     static const int UNIT_STR_LEN = 20;
     static const int DESC_STR_LEN = 54;
-    const char* subset = "NC021053";
 
-    int bufrLoc, il, im;
-    int iddate;
     char msg_subset[SUBSET_STRING_LEN];
+
+    int bufrLoc, iddate, il, im;
 
     open_f(BUFR_FILE_UNIT, INPUT_FILE);
     openbf_f(BUFR_FILE_UNIT, "IN", BUFR_FILE_UNIT);
 
-    int subset_idx = 0;
-    while (ireadmg_f(BUFR_FILE_UNIT, msg_subset, &iddate, SUBSET_STRING_LEN) == 0)
+    status_f(BUFR_FILE_UNIT, &bufrLoc, &il, &im);
+
+    int iret;
+    int scale;
+    int reference;
+    int bits;
+    char unit[UNIT_STR_LEN];
+    char desc[DESC_STR_LEN];
+
+    if (ireadns_f(BUFR_FILE_UNIT, msg_subset, &iddate, SUBSET_STRING_LEN) != 0)
     {
-        if (strncmp(subset, msg_subset, 8))
-        {
-            while ((ireadsb_f(BUFR_FILE_UNIT) == 0) && (subset_idx < MAX_SUBSETS))
-            {
-                status_f(BUFR_FILE_UNIT, &bufrLoc, &il, &im);
+        printf("%s", "Call of ireadns_f failed.");
+        exit(1);
+    }
 
-                int iret;
-                int scale;
-                int reference;
-                int bits;
-                char unit[UNIT_STR_LEN];
-                char desc[DESC_STR_LEN];
+    nemdefs_f(BUFR_FILE_UNIT,
+              "CLAT",
+              unit,
+              UNIT_STR_LEN,
+              desc,
+              DESC_STR_LEN,
+              &iret);
 
-                nemdefs_f(BUFR_FILE_UNIT,
-                                "CLAT",
-                                unit,
-                                UNIT_STR_LEN,
-                                desc,
-                                DESC_STR_LEN,
-                                &iret);
+    if (iret != 0)
+    {
+        printf("%s", "nemdefs_f: Call of nemdefs_f failed.");
+        exit(1);
+    }
+    if (strncmp(unit, "DEGREE", 6) != 0)
+    {
+        printf("%s", "nemdefs_f: Wrong Unit String.");
+        exit(1);
+    }
+    if (strncmp(desc, "LATITUDE (COARSE ACCURACY)", 26) != 0)
+    {
+        printf("%s", "nemdefs_f: Wrong Description String.");
+        exit(1);
+    }
 
-                if (iret != 0)
-                {
-                    printf("%s", "nemdefs_f: Call of nemdefs_f failed.");
-                    exit(1);
-                }
-                else if (strncmp(unit, "DEGREE", 6) != 0)
-                {
-                    printf("%s", "nemdefs_f: Wrong Unit String.");
-                    exit(1);
-                }
-                else if (strncmp(desc, "LATITUDE (COARSE ACCURACY)", 26) != 0)
-                {
-                    printf("%s", "nemdefs_f: Wrong Description String.");
-                    exit(1);
-                }
+    nemspecs_f(BUFR_FILE_UNIT,
+               "CLAT",
+               1,
+               &scale,
+               &reference,
+               &bits,
+               &iret);
 
-                nemspecs_f(BUFR_FILE_UNIT,
-                                "CLAT",
-                                1,
-                                &scale,
-                                &reference,
-                                &bits,
-                                &iret);
+    if (iret != 0)
+    {
+        printf("%s", "nemspecs_f: Call of nemspecs_f failed.");
+        exit(1);
+    }
+    if (reference != -900000)
+    {
+        printf("%s", "nemspecs_f: Wrong reference number found.");
+        exit(1);
+    }
+    if (scale != 4)
+    {
+        printf("%s", "nemspecs_f: Wrong scale number found.");
+        exit(1);
+    }
+    if (bits != 22)
+    {
+        printf("%s", "nemspecs_f: Wrong number of bits found.");
+        exit(1);
+    }
 
-                if (iret != 0)
-                {
-                    printf("%s", "nemspecs_f: Call of nemspecs_f failed.");
-                    exit(1);
-                }
+    int descriptor;
+    int table_idx;
+    char table_type;
 
-                if (reference != -900000)
-                {
-                    printf("%s", "nemspecs_f: Wrong reference number found.");
-                    exit(1);
-                }
-                else if (scale != 4)
-                {
-                    printf("%s", "nemspecs_f: Wrong scale number found.");
-                    exit(1);
-                }
-                else if (bits != 22)
-                {
-                    printf("%s", "nemspecs_f: Wrong number of bits found.");
-                    exit(1);
-                }
+    nemtab_f(bufrLoc,
+             "CLAT",
+             &descriptor,
+             &table_type,
+             &table_idx);
 
-                int descriptor;
-                int table_idx;
-                char table_type;
+    if (descriptor != 1282)
+    {
+        printf("%s", "nemtab_f: Wrong descriptor found.");
+        exit(1);
+    }
+    if (table_type != 'B')
+    {
+        printf("%s", "nemtab_f: Table type wrong");
+        exit(1);
+    }
+    if (table_idx != 41)
+    {
+        printf("%s", "nemtab_f: Table Idx is wrong.");
+        exit(1);
+    }
 
-                nemtab_f(bufrLoc,
-                         "CLAT",
-                         &descriptor,
-                         &table_type,
-                         &table_idx);
+    nemtbb_f(bufrLoc,
+             table_idx,
+             unit,
+             UNIT_STR_LEN,
+             &scale,
+             &reference,
+             &bits);
 
-                if (descriptor != 1282)
-                {
-                    printf("%s", "nemtab_f: Wrong descriptor found.");
-                    exit(1);
-                }
-                else if (table_type != 'B')
-                {
-                    printf("%s", "nemtab_f: Table type wrong");
-                    exit(1);
-                }
-                else if (table_idx != 41)
-                {
-                    printf("%s", "nemtab_f: Table Idx is wrong.");
-                    exit(1);
-                }
-
-                char unit_str[24];
-
-                nemtbb_f(bufrLoc,
-                         table_idx,
-                         unit_str,
-                         24,
-                         &scale,
-                         &reference,
-                         &bits);
-
-                if (reference != -9000)
-                {
-                    printf("%s", "nemtbb_f: Wrong reference number found.");
-                    exit(1);
-                }
-                else if (scale != 2)
-                {
-                    printf("%s", "nemtbb_f: Wrong scale number found.");
-                    exit(1);
-                }
-                else if (bits != 15)
-                {
-                    printf("%s", "nemtbb_f: Wrong number of bits found.");
-                    exit(1);
-                }
-                else if (strncmp(unit, "DEGREE", 6) != 0)
-                {
-                    printf("%s", "nemtbb_f: Wrong Unit String.");
-                    exit(1);
-                }
-                else if (strncmp(desc, "LATITUDE (COARSE ACCURACY)", 26) != 0)
-                {
-                    printf("%s", "nemtbb_f: Wrong Description String.");
-                    exit(1);
-                }
-
-                break;
-            }
-        }
+    if (reference != -9000)
+    {
+        printf("%s", "nemtbb_f: Wrong reference number found.");
+        exit(1);
+    }
+    if (scale != 2)
+    {
+        printf("%s", "nemtbb_f: Wrong scale number found.");
+        exit(1);
+    }
+    if (bits != 15)
+    {
+        printf("%s", "nemtbb_f: Wrong number of bits found.");
+        exit(1);
+    }
+    if (strncmp(unit, "DEGREE", 6) != 0)
+    {
+        printf("%s", "nemtbb_f: Wrong Unit String.");
+        exit(1);
     }
 
     closbf_f(BUFR_FILE_UNIT);
