@@ -21,12 +21,13 @@ program test_misc
   character sign
   character*5 adn30
   character*6 adn_char
-  integer a, idn30, idn
+  integer a, idn30, idn, i
   integer ierr, nemock
   integer numbck
   integer mtyp, msbt, inod
-  integer igetprm
+  integer igetprm, isetprm
   integer imrkopr
+  character*8 prms(12)
 #endif
 
   print *, 'Testing misc subroutines, ignore warnings.'
@@ -197,6 +198,14 @@ program test_misc
   if (imrkopr('225255') .ne. 1) stop 703
   if (imrkopr('232255') .ne. 1) stop 704
   if (imrkopr('123456') .ne. 0) stop 705
+
+  ! Test various parameters for isetprm().
+  prms = (/ 'MAXTBA ', 'MAXTBB ', 'MAXTBD ', 'MXMTBB ', 'MXMTBD ', 'MXMTBF ', &
+         'MXS01V ', 'MXBTM  ', 'MXBTMSE', 'MXTAMC ', 'MXTCO  ', 'MXRST  ' /)
+  do i = 1, size(prms, 1)
+    iret = isetprm(trim(prms(i)), 42+i)
+    if ( (iret .ne. 0) .or. (igetprm(trim(prms(i))) .ne. 42+i) ) stop 800+i
+  enddo
   
 #endif
   
