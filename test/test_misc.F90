@@ -27,7 +27,7 @@ program test_misc
   integer mtyp, msbt, inod
   integer igetprm, isetprm
   integer imrkopr
-  character*8 prms(12)
+  character*7 prms(12)
 #endif
 
   print *, 'Testing misc subroutines, ignore warnings.'
@@ -200,8 +200,8 @@ program test_misc
   if (imrkopr('123456') .ne. 0) stop 705
 
   ! Test various parameters for isetprm().
-  prms = (/ 'MAXTBA ', 'MAXTBB ', 'MAXTBD ', 'MXMTBB ', 'MXMTBD ', 'MXMTBF ', &
-         'MXS01V ', 'MXBTM  ', 'MXBTMSE', 'MXTAMC ', 'MXTCO  ', 'MXRST  ' /)
+  prms = (/ 'MAXTBA ', 'MAXTBB ', 'MAXTBD ', 'MXMTBB ', 'MXMTBD ', 'MAXJL  ', &
+    'MXMTBF ', 'MXS01V ', 'MXBTM  ', 'MXBTMSE', 'MXTAMC ', 'MXTCO  ', 'MXRST  ' /)
   do i = 1, size(prms, 1)
     iret = isetprm(trim(prms(i)), 42+i)
     if ( (iret .ne. 0) .or. (igetprm(trim(prms(i))) .ne. 42+i) ) stop 800+i
