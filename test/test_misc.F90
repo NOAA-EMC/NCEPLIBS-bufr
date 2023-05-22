@@ -27,7 +27,7 @@ program test_misc
   integer mtyp, msbt, inod
   integer igetprm, isetprm
   integer imrkopr
-  character*7 prms(12)
+  character*7 prms(13)
 #endif
 
   print *, 'Testing misc subroutines, ignore warnings.'
