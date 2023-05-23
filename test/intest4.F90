@@ -9,7 +9,7 @@ program intest4
 
   implicit none
 
-  integer*4 ireadsb, iupbs01, iupbs3, ibfms, lmsg, nmwrd
+  integer*4 ireadsb, iupbs01, iupbs3, ibfms, lmsg, nmwrd, iupm
   integer*4 mxbf, nbyt, ierr
 
   integer ier, imgdt, nds3, ii
@@ -26,7 +26,7 @@ program intest4
 
   integer ibfmg (mxbfd4)
 
-  character cmgtag*8, bfmg(mxbf), cds3(mxds3)*6, tag*8, sec0*8, cbay*3
+  character cmgtag*8, bfmg(mxbf), cds3(mxds3)*6, tag*8, sec0*8, cbay*8
   character*20 filnam / 'testfiles/IN_4' /
   character filost / 'r' /
 
@@ -98,7 +98,7 @@ program intest4
   call gettagre(11, '224255', 65, tag, ntag, ier)
   if ( ier .ne. 0 .or. ntag .ne. 10 .or. tag .ne. 'RDNE    ' ) stop 12
 
-  ! Check the output from lmsg, nmwrd, and ipkm.
+  ! Check the output from lmsg, nmwrd, ipkm, and iupm.
   do ii = 1, 8
     sec0(ii:ii) = bfmg(ii)
   end do
@@ -108,6 +108,7 @@ program intest4
   do ii = 1, 3
     if ( cbay(ii:ii) .ne. sec0(ii+4:ii+4) ) stop 15
   end do
+  if ( iupm(cbay(1:3),24) .ne. 3588 ) stop 16
 
   ! Close the test file.
   call ccbfl_c()

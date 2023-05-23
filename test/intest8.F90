@@ -1,6 +1,6 @@
 ! This is a test for NCEPLIBS-bufr.
 !
-! Reads test file 'testfiles/IN_8' using RDMGSB, UFBEVN, UFBQCD, and UFBQCP to read prepbufr file
+! Test using RDMGSB, UFBEVN, UFBQCD, and UFBQCP to read prepbufr file
 !
 ! J. Ator, 2/24/2023
 program intest8
@@ -16,7 +16,7 @@ program intest8
 
   character*8 mnem
 
-  print *, 'Testing reading IN_8 using RDMGSB, UFBEVN, UFBQCD, and UFBQCP to read prepbufr file.'
+  print *, 'Test using RDMGSB, UFBEVN, UFBQCD, and UFBQCP to read prepbufr file.'
 
 #ifdef KIND_8
   call setim8b ( .true. )

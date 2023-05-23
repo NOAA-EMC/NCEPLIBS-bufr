@@ -16,10 +16,12 @@ program test_bort
   integer int_1d(1), int_1d_2(1)
   character*2 char_short
   character*30 char_30
+  character*8 tags(5)
   character*4 char_4(1)
   character*8 char_8(1), char_val_8
   character*12 char_12(1)
   character*24 char_24(1)
+  character*85 char_85
   character*120 char_120(1)
   character*5 adn30_val_5
   real*8 real_1d(1)
@@ -41,9 +43,9 @@ program test_bort
 
   integer*4 isize, iupm, iupvs01, isetprm, nmsub
 
-  character*25 filnam /'testfiles/data/debufr_3'/
-  character bfmg(10000)
-  integer ibfmg(2500)
+  character*25 filnam
+  character bfmg(200000)
+  integer ibfmg(50000), ibfmg2(50000)
   equivalence (bfmg(1),ibfmg(1))
 
 #ifdef KIND_8
@@ -290,6 +292,19 @@ program test_bort
      !    if (test_case .eq. '1') then
      !       call nemtbd(0, -1, nseq, char_8, int_1d, int_1d)
      !    endif
+  elseif (sub_name .eq. 'nenubd') then
+     open(unit = 11, file = 'testfiles/IN_3', form = 'UNFORMATTED', iostat = ios)
+     if (ios .ne. 0) stop 3
+     call openbf(11, 'IN', 11)
+     if (test_case .eq. '1') then
+        call nenubd('BPID    ','001008',1)
+     elseif (test_case .eq. '2') then
+        call nenubd('BPID2   ','001005',1)
+     elseif (test_case .eq. '3') then
+        call nenubd('LALOLV  ','301025',1)
+     elseif (test_case .eq. '4') then
+        call nenubd('LALOLV2 ','301024',1)
+     endif
   elseif (sub_name .eq. 'nmsub') then
      if (test_case .eq. '1') then
         open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
@@ -328,6 +343,37 @@ program test_bort
         ! Commented out. See https://github.com/NOAA-EMC/NCEPLIBS-bufr/issues/395.
         !     elseif (test_case .eq. '2') then
         !        call openmg(11, 'F5FCMESG', 2021022312)        
+     endif
+  elseif (sub_name .eq. 'parstr') then
+     if (test_case .eq. '1') then
+        call parstr(char_85, tags, 5, iret, ' ', .true.)
+     elseif (test_case .eq. '2') then
+        card = 'MNEM1 MNEM2 MNEM3 MNEM4 MNEM5 MNEM6                                             '
+        call parstr(card, tags, 5, iret, ' ', .true.)
+     elseif (test_case .eq. '3') then
+        card = 'MNEM1MNEM2 MNEM3 MNEM4 MNEM5 MNEM6                                              '
+        call parstr(card, tags, 5, iret, ' ', .true.)
+     endif
+  elseif (sub_name .eq. 'parusr') then
+     open(unit = 11, file = 'testfiles/data/prepbufr', form = 'UNFORMATTED', iostat = ios)
+     if (ios .ne. 0) stop 3
+     call openbf(11, 'IN', 11)
+     call readns(11, char_val_8, jdate, iret)
+     if (iret .ne. 0) stop 3
+     if (test_case .eq. '1') then
+        call parusr(char_85, 1, 1, 1)
+     elseif (test_case .eq. '2') then
+        card = 'POB>0 QOB>0 TOB>0 VOB>0 UOB>0 XOB>0 YOB>0 ELV>0 TYP>0 T29>0 ITP>0               '
+        call parusr(card, 1, 11, 0)
+     elseif (test_case .eq. '3') then
+        card = 'POB QOB TOB VOB UOB XOB YOB ELV TYP T29 ITP A1 A2 A3 B1 B2 B3 S1 S2 S3 E1       '
+        call parusr(card, 1, 21, 0)
+     elseif (test_case .eq. '4') then
+        card = 'PRSLEVEL^0                                                                      '
+        call parusr(card, 1, 11, 0)
+     elseif (test_case .eq. '5') then
+        card = 'POB QOB TOB VOB UOB XOB YOB ELV TYP T29 ITP                                     '
+        call parusr(card, 1, 10, 0)
      endif
   elseif (sub_name .eq. 'pkb') then
      if (test_case .eq. '1') then
@@ -414,10 +460,11 @@ program test_bort
         call openbf(11, 'OUT', 12)
         call readerme(int_1d, 11, char_val_8, jdate, iret)
      elseif (test_case .eq. '3') then
+        filnam = 'testfiles/data/debufr_3'
         call cobfl_c( filnam, 'r' )
         open(unit = 31, file = '/dev/null')
         call openbf(31, 'INUL', 31)
-        call crbmg_c(bfmg, 10000, msgl, iret)
+        call crbmg_c(bfmg, 200000, msgl, iret)
         bfmg(1) = 'C'
         call readerme(ibfmg, 31, char_val_8, jdate, iret)
      endif
@@ -585,6 +632,16 @@ program test_bort
         call stdmsg('W')
      endif
   elseif (sub_name .eq. 'stndrd') then
+     filnam = 'testfiles/IN_11'
+     call cobfl_c ( filnam, 'r' )
+     call crbmg_c ( bfmg, 200000, msgl, iret )
+     if ( iret .ne. 0 ) stop 3
+     call ccbfl_c ()
+     open ( unit = 21, file = filnam, form = 'unformatted', iostat = ios )
+     if (ios .ne. 0) stop 3
+     open ( unit = 22, file = 'testfiles/IN_11_bufrtab', iostat = ios )
+     if (ios .ne. 0) stop 3
+     call openbf ( 21, 'IN', 22 )
      if (test_case .eq. '1') then
         open(unit = 11, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
         if (ios .ne. 0) stop 3
@@ -592,6 +649,22 @@ program test_bort
         if (ios .ne. 0) stop 3
         call openbf(11, 'OUT', 12)
         call stndrd(12, int_1d, 1, int_1d_2)
+     elseif (test_case .eq. '2') then
+        bfmg(7) = '3'
+        call stndrd ( 21, ibfmg, 50000, ibfmg2 )
+     elseif (test_case .eq. '3') then
+        bfmg(188210) = '8'
+        call stndrd ( 21, ibfmg, 50000, ibfmg2 )
+     elseif (test_case .eq. '4') then
+        bfmg(46) = '8'
+        call stndrd ( 21, ibfmg, 50000, ibfmg2 )
+     elseif (test_case .eq. '5') then
+        bfmg(17468) = 'z'
+        bfmg(17469) = 'z'
+        bfmg(17470) = 'z'
+        call stndrd ( 21, ibfmg, 50000, ibfmg2 )
+     elseif (test_case .eq. '6') then
+        call stndrd ( 21, ibfmg, 5000, ibfmg2 )
      endif
   elseif (sub_name .eq. 'strcpt') then
      if (test_case .eq. '1') then

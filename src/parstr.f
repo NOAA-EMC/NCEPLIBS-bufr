@@ -2,6 +2,8 @@ C> @file
 C> @brief Parse a string containing one or more substrings into an array of substrings.
 C> @author J. Ator @date 2007-01-19
 
+C> Parse a string containing one or more substrings into an array of substrings.
+C>
 C> This subroutine parses a string containing one or more
 C> substrings into an array of substrings. The separator for the
 C> substrings is specified during input, and multiple adjacent

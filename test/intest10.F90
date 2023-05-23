@@ -36,19 +36,18 @@ program intest10
 
   implicit none
 
+  integer*4, parameter :: mxbf = 50000
+  integer*4 lenmg, ierrb
   integer*4 isetprm
 
-  integer icnt, iunt, imesg(150), idate, iret, ios1, ios2, lundx, lun, il, im, imsg
+  integer icnt, iunt, imesg(150), idate, iret, ios1, ios2, lundx, lun, il, im, imsg, ii
+  integer, parameter :: mxbfd4 = mxbf/4
+  integer ibfmg(mxbfd4)
 
-  character cmgtag*8
-
-#ifndef KIND_8
-  integer, parameter :: mxbf = 50000, mxbfd4 = mxbf/4
-  integer ii, ibfmg(mxbfd4)
+  character cmgtag*8, filnam*25
   character bfmg(mxbf)
-  character*25 filnam / 'testfiles/data/debufr_3' /
+
   equivalence ( bfmg(1), ibfmg(1) )
-#endif
 
   print *, 'Testing reading IN_10 to test ERRWRT branches in ARALLOCF, STATUS, UFBMEM, UFBMEX, and OPENBT'
 
@@ -117,20 +116,19 @@ program intest10
   call openbt ( lundx, 255 )
   if ( index( errstr(1:errstr_len), 'OPENBT - THIS IS A DUMMY BUFRLIB ROUTINE' ) .eq. 0 ) stop 13
 
-#ifndef KIND_8
   ! Test the errwrt branch in readerme.
   errstr_len = 0
+  filnam = 'testfiles/data/debufr_3'
   call cobfl_c ( filnam, 'r' )
   open ( unit = 31, file = '/dev/null' )
   call openbf ( 31, 'INUL', 31 )
   call openbf ( 31, 'QUIET', 2 )
   do ii = 1, 4
-      call crbmg_c ( bfmg, mxbf, imsg, iret )
-      if ( iret .ne. 0 ) stop 14
+      call crbmg_c ( bfmg, mxbf, lenmg, ierrb )
+      if ( ierrb .ne. 0 ) stop 14
       call readerme ( ibfmg, 31, cmgtag, idate, iret )
       if ( ii .eq. 4 .and. index( errstr(1:errstr_len), 'READERME - STORED NEW DX TABLE' ) .eq. 0 ) stop 15
   enddo
-#endif
 
   print *, 'SUCCESS!'
 end program intest10
