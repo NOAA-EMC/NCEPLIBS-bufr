@@ -3,13 +3,17 @@ C> @brief Decode an integer value from a character string.
 C>
 C> @author J. Woollen @date 1994-01-06
 
+C> Decode an integer value from a character string.
+C>
 C> This function decodes an integer value from within a
 C> specified number of bits of a character string, starting
 C> with the first bit of the first byte of the string.
 C>
-C> @param[in] CBAY  - character*(*): String
-C> @param[in] NBITS - integer: Number of bits from CBAY to be decoded
-C> @returns iupm - integer: Decoded value
+C> This function is the logical inverse of subroutine ipkm().
+C>
+C> @param[in] CBAY  - character*(*): String.
+C> @param[in] NBITS - integer: Number of bits from CBAY to be decoded.
+C> @returns iupm - integer: Decoded value.
 C>
 C> @author J. Woollen @date 1994-01-06
       RECURSIVE FUNCTION IUPM(CBAY,NBITS) RESULT(IRET)

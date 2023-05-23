@@ -3,6 +3,8 @@ C> @brief Parse a mnemonic from a character string.
 C>
 C> @author Woollen @date 1994-01-06
 
+C> Parse a mnemonic from a character string.
+C>
 C> This subroutine parses a user-specified tag (mnemonic)
 C> (UTG) that represents a value either being decoded from a bufr file
 C> (if it is being read) or encoded into a bufr file (if it is being
@@ -56,7 +58,7 @@ C> - '=' - equal to
 C> - '!' - not equal to
 C> - '#' - ordinal identifier for a particular occurrence of a long character string
 C>
-C> @param[in] LUN - integer: I/O stream index into internal memory arrays.
+C> @param[in] LUN - integer: File ID.
 C> @param[in] IO - integer: status indicator for BUFR file associated with LUN:
 C> - 0 input file
 C> - 1 output file

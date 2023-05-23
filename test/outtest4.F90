@@ -179,13 +179,23 @@ program outtest4
     call ufbseq ( 13, r8arr1, mxval1, 1, nlv, 'CLINRVSD' )
     call ufbseq ( 12, r8arr2, mxval2, mxlvl, nlv2, 'TDWPRAOB' )
     if ( nsub .eq. 1 ) then
-      call openbf ( 12, 'QUIET', 1 )
+      ! Test some error branches in ufbint and ufbseq.
+      call openbf ( 12, 'QUIET', 0 )
+      errstr_len = 0
+      call ufbint ( 13, r8arr1, mxval1, 1, nlv, 'DUMMYVAL' )
+      if ( index( errstr(1:errstr_len), 'Note: Only the first occurrence of this WARNING' ) .eq. 0 ) stop 11
       errstr_len = 0
       call ufbseq ( 13, r8arr1, mxval1, 1, nlv, 'DUMMYVAL' )
-      if ( index( errstr(1:errstr_len), 'UFBSEQ - NO SPECIFIED VALUES WRITTEN OUT' ) .eq. 0 ) stop 11
+      if ( index( errstr(1:errstr_len), 'Note: Only the first occurrence of this WARNING' ) .eq. 0 ) stop 12
+      call openbf ( 12, 'QUIET', 1 )
+      errstr_len = 0
+      call ufbint ( 13, r8arr1, mxval1, 1, nlv, 'DUMMYVAL' )
+      if ( index( errstr(1:errstr_len), 'UFBINT - NO SPECIFIED VALUES WRITTEN OUT' ) .eq. 0 ) stop 13
+      errstr_len = 0
+      call ufbseq ( 13, r8arr1, mxval1, 1, nlv, 'DUMMYVAL' )
+      if ( index( errstr(1:errstr_len), 'UFBSEQ - NO SPECIFIED VALUES WRITTEN OUT' ) .eq. 0 ) stop 14
       call openbf ( 12, 'QUIET', -1 )
     end if
-
     call drfini ( 13, nlv2, 1, '(TDWPRAOB)' )
     call ufbseq ( 13, r8arr2, mxval2, nlv2, nlv, 'TDWPRAOB' )
 
@@ -194,7 +204,7 @@ program outtest4
       call openbf ( 12, 'QUIET', 1 )
       errstr_len = 0
       call writlc ( 13, dummystr, 'DUMMYSTR' )
-      if ( index( errstr(1:errstr_len), 'INTO SUBSET, BECAUSE NO SUBSET WAS OPEN FOR WRITING' ) .eq. 0 ) stop 12
+      if ( index( errstr(1:errstr_len), 'INTO SUBSET, BECAUSE NO SUBSET WAS OPEN FOR WRITING' ) .eq. 0 ) stop 15
       call openbf ( 12, 'QUIET', -1 )
     end if
     call writsa ( 13, mxbfmg, mgbf, lmgbf )
@@ -202,7 +212,7 @@ program outtest4
       call openbf ( 12, 'QUIET', 1 )
       errstr_len = 0
       call writlc ( 13, dummystr, 'DUMMYSTR' )
-      if ( index( errstr(1:errstr_len), 'INTO SUBSET, BECAUSE IT WASN''T FOUND IN THE SUBSET' ) .eq. 0 ) stop 13
+      if ( index( errstr(1:errstr_len), 'INTO SUBSET, BECAUSE IT WASN''T FOUND IN THE SUBSET' ) .eq. 0 ) stop 16
       call openbf ( 12, 'QUIET', -1 )
     end if
 
@@ -212,11 +222,11 @@ program outtest4
 
   ! Get Section 1 date.
   idate = igetdate(mgbf, mear, mmon, mday, mour)
-  if ( any((/idate,mear,mmon,mday,mour/).ne.(/20100111,20,10,1,11/)) ) stop 14
+  if ( any((/idate,mear,mmon,mday,mour/).ne.(/20100111,20,10,1,11/)) ) stop 17
 
   ! Get the tank receipt time.
   call rtrcptb ( mgbf, mear, mmon, mday, mour, mmin, iret )
-  if ( any((/iret,mear,mmon,mday,mour,mmin/).ne.(/0,2020,11,4,15,29/)) ) stop 15
+  if ( any((/iret,mear,mmon,mday,mour,mmin/).ne.(/0,2020,11,4,15,29/)) ) stop 18
 
   ! Close the output file.
   call closbf ( 13 )
@@ -226,6 +236,6 @@ program outtest4
   ilena = iupbs01(mgbf2, 'LENM')
   call atrcpt(mgbf, lmgbf, mgbf2)
   ilenb = iupbs01(mgbf2, 'LENM')
-  IF (ilenb-ilena .ne. 6) stop 16
+  IF (ilenb-ilena .ne. 6) stop 19
 
 end program outtest4
