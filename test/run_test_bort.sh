@@ -86,6 +86,13 @@ for kind in "4" "d"; do
     (./test_bort_$kind iupvs01 2) && exit 1
     (./test_bort_$kind iupvs01 3) && exit 1
     
+    # Check mtfnam().
+    (./test_bort_$kind mtfnam 1) && exit 1
+    # For the next test, we need to temporarily create a dummy placeholder file
+    # in the current working directory.
+    touch bufrtab.TableB_STD_999_15
+    (./test_bort_$kind mtfnam 2) && exit 1
+
     # Check nemtba().
     (./test_bort_$kind nemtba 1) && exit 1
 

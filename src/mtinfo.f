@@ -43,7 +43,6 @@ C> @author J. Ator @date 2009-03-23
 
       CHARACTER*(*) CMTDIR
 
-      CHARACTER*128 BORT_STR
       CHARACTER*240 MTDIR
 
 C-----------------------------------------------------------------------
@@ -63,7 +62,6 @@ C  ---------------------
       ENDIF
 
       CALL STRSUC ( CMTDIR, MTDIR, LMTD )
-      IF ( LMTD .LT. 0 ) GOTO 900
 
       LUN1 = LUNMT1
       LUN2 = LUNMT2
@@ -72,6 +70,4 @@ C  EXITS
 C  -----
 
       RETURN
-900   BORT_STR = 'BUFRLIB: MTINFO - BAD INPUT MASTER TABLE DIRECTORY:'
-      CALL BORT2(BORT_STR,CMTDIR)
       END
