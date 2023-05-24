@@ -14,7 +14,7 @@ C>
 C> @param[in] N - integer: Value to be encoded.
 C> @param[in] NBYT - integer: Number of bytes of CBAY (up to a
 C> maximum of 8) within which to encode N.
-C> @param[out] CBAY- character*(*): String of length NBYT bytes
+C> @param[out] CBAY - character*(*): String of length NBYT bytes
 C> containing encoded integer N.
 C>
 C> @author J. Woollen @date 1994-01-06

@@ -52,7 +52,7 @@ program outtest4
 
   real*8 r8arr1 ( mxval1 ), r8arr2 ( mxval2, mxlvl )
 
-  character cmgtag*8, smid*9, dummystr*9
+  character cmgtag*8, smid*9, dummystr*9, stdfil*80, locfil*80
 
   print *, 'Testing writing OUT_4 using OPENBF IO = NODX and IO = QUIET, and using STRCPT, WRDXTB and WRITSA'
 
@@ -104,11 +104,22 @@ program outtest4
   ! Set the location of the master BUFR tables.
   call mtinfo ( '../tables', 90, 91 )
 
+#ifndef KIND_8
+  ! Test some branches in mtfnam.
+  call openbf ( 52, 'QUIET', 2 )
+  errstr_len = 0
+  call mtfnam ( 0, 15, 7, 2, 'TableB', stdfil, locfil )
+  if ( ( index( errstr(1:errstr_len), 'Standard TableB:../tables/bufrtab.TableB_STD_0_15' ) .eq. 0 ) .or. &
+       ( index( errstr(1:errstr_len), 'Local TableB:../tables/bufrtab.TableB_LOC_0_7_2' ) .eq. 0 ) .or. &
+       ( index( errstr(1:errstr_len), 'not found, so using:' ) .eq. 0 ) ) stop 6
+  call openbf ( 52, 'QUIET', -1 )
+#endif
+
   ! Set a custom maximum size for output BUFR messages.
   call maxout ( mxbfmg*4 )
 
   ! Confirm the value from the previous maxout setting.
-  if ( igetmxby ( ) .ne. mxbfmg*4 ) stop 6
+  if ( igetmxby ( ) .ne. mxbfmg*4 ) stop 7
 
   ! The following call to STDMSG will ensure that subroutine STNDRD is called internally during the
   ! subsequent calls to WRITSB and CLOSMG.
@@ -120,10 +131,10 @@ program outtest4
   ! Process 1 message with 1 data subset from infile1.
 
   call readmg ( 11, cmgtag, imgdt, iermg )
-  if ( iermg .ne. 0 ) stop 7
+  if ( iermg .ne. 0 ) stop 8
 
   call readsb ( 11, iersb )
-  if ( iersb .ne. 0 ) stop 8
+  if ( iersb .ne. 0 ) stop 9
 
   call openmb ( 13, 'NC007000', 2020022514 )
 
@@ -139,7 +150,7 @@ program outtest4
   ! Process 1 message with multiple data subsets from infile2.
 
   call readmg ( 12, cmgtag, imgdt, iermg )
-  if ( iermg .ne. 0 ) stop 9
+  if ( iermg .ne. 0 ) stop 10
 
   ! Turn off output message standardization.
   call stdmsg ('N')
@@ -166,7 +177,7 @@ program outtest4
       call openbf ( 12, 'QUIET', 1 )
       errstr_len = 0
       call readlc ( 12, dummystr, 'DUMMYSTR' )
-      if ( index( errstr(1:errstr_len), 'NOT LOCATED IN REPORT SUBSET - RETURN WITH MISSING' ) .eq. 0 ) stop 10
+      if ( index( errstr(1:errstr_len), 'NOT LOCATED IN REPORT SUBSET - RETURN WITH MISSING' ) .eq. 0 ) stop 11
       call openbf ( 12, 'QUIET', -1 )
       if ( icbfms( dummystr, 9 ) .eq. 0 ) smid = dummystr
     end if
@@ -183,17 +194,17 @@ program outtest4
       call openbf ( 12, 'QUIET', 0 )
       errstr_len = 0
       call ufbint ( 13, r8arr1, mxval1, 1, nlv, 'DUMMYVAL' )
-      if ( index( errstr(1:errstr_len), 'Note: Only the first occurrence of this WARNING' ) .eq. 0 ) stop 11
+      if ( index( errstr(1:errstr_len), 'Note: Only the first occurrence of this WARNING' ) .eq. 0 ) stop 12
       errstr_len = 0
       call ufbseq ( 13, r8arr1, mxval1, 1, nlv, 'DUMMYVAL' )
-      if ( index( errstr(1:errstr_len), 'Note: Only the first occurrence of this WARNING' ) .eq. 0 ) stop 12
+      if ( index( errstr(1:errstr_len), 'Note: Only the first occurrence of this WARNING' ) .eq. 0 ) stop 13
       call openbf ( 12, 'QUIET', 1 )
       errstr_len = 0
       call ufbint ( 13, r8arr1, mxval1, 1, nlv, 'DUMMYVAL' )
-      if ( index( errstr(1:errstr_len), 'UFBINT - NO SPECIFIED VALUES WRITTEN OUT' ) .eq. 0 ) stop 13
+      if ( index( errstr(1:errstr_len), 'UFBINT - NO SPECIFIED VALUES WRITTEN OUT' ) .eq. 0 ) stop 14
       errstr_len = 0
       call ufbseq ( 13, r8arr1, mxval1, 1, nlv, 'DUMMYVAL' )
-      if ( index( errstr(1:errstr_len), 'UFBSEQ - NO SPECIFIED VALUES WRITTEN OUT' ) .eq. 0 ) stop 14
+      if ( index( errstr(1:errstr_len), 'UFBSEQ - NO SPECIFIED VALUES WRITTEN OUT' ) .eq. 0 ) stop 15
       call openbf ( 12, 'QUIET', -1 )
     end if
     call drfini ( 13, nlv2, 1, '(TDWPRAOB)' )
@@ -204,7 +215,7 @@ program outtest4
       call openbf ( 12, 'QUIET', 1 )
       errstr_len = 0
       call writlc ( 13, dummystr, 'DUMMYSTR' )
-      if ( index( errstr(1:errstr_len), 'INTO SUBSET, BECAUSE NO SUBSET WAS OPEN FOR WRITING' ) .eq. 0 ) stop 15
+      if ( index( errstr(1:errstr_len), 'INTO SUBSET, BECAUSE NO SUBSET WAS OPEN FOR WRITING' ) .eq. 0 ) stop 16
       call openbf ( 12, 'QUIET', -1 )
     end if
     call writsa ( 13, mxbfmg, mgbf, lmgbf )
@@ -212,7 +223,7 @@ program outtest4
       call openbf ( 12, 'QUIET', 1 )
       errstr_len = 0
       call writlc ( 13, dummystr, 'DUMMYSTR' )
-      if ( index( errstr(1:errstr_len), 'INTO SUBSET, BECAUSE IT WASN''T FOUND IN THE SUBSET' ) .eq. 0 ) stop 16
+      if ( index( errstr(1:errstr_len), 'INTO SUBSET, BECAUSE IT WASN''T FOUND IN THE SUBSET' ) .eq. 0 ) stop 17
       call openbf ( 12, 'QUIET', -1 )
     end if
 
@@ -222,11 +233,11 @@ program outtest4
 
   ! Get Section 1 date.
   idate = igetdate(mgbf, mear, mmon, mday, mour)
-  if ( any((/idate,mear,mmon,mday,mour/).ne.(/20100111,20,10,1,11/)) ) stop 17
+  if ( any((/idate,mear,mmon,mday,mour/).ne.(/20100111,20,10,1,11/)) ) stop 18
 
   ! Get the tank receipt time.
   call rtrcptb ( mgbf, mear, mmon, mday, mour, mmin, iret )
-  if ( any((/iret,mear,mmon,mday,mour,mmin/).ne.(/0,2020,11,4,15,29/)) ) stop 18
+  if ( any((/iret,mear,mmon,mday,mour,mmin/).ne.(/0,2020,11,4,15,29/)) ) stop 19
 
   ! Close the output file.
   call closbf ( 13 )
@@ -236,6 +247,6 @@ program outtest4
   ilena = iupbs01(mgbf2, 'LENM')
   call atrcpt(mgbf, lmgbf, mgbf2)
   ilenb = iupbs01(mgbf2, 'LENM')
-  IF (ilenb-ilena .ne. 6) stop 19
+  IF (ilenb-ilena .ne. 6) stop 20
 
 end program outtest4

@@ -275,6 +275,14 @@ program test_bort
         call openbf(11, 'IN', 10)
         iret = iupvs01(11, 'LENM')
      endif
+  elseif (sub_name .eq. 'mtfnam') then
+     if (test_case .eq. '1') then
+        call mtinfo('../tables', 80, 81)
+        call mtfnam(999, 15, 7, 1, 'TableB', char_85, char_120)
+     elseif (test_case .eq. '2') then
+        call mtinfo('.', 80, 81)
+        call mtfnam(999, 15, 7, 1, 'TableB', char_85, char_120)
+     endif
   elseif (sub_name .eq. 'nemtba') then
      if (test_case .eq. '1') then
         open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
