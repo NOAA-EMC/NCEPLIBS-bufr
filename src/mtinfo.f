@@ -43,7 +43,6 @@ C> @author J. Ator @date 2009-03-23
 
       CHARACTER*(*) CMTDIR
 
-      CHARACTER*128 BORT_STR
       CHARACTER*240 MTDIR
 
 C-----------------------------------------------------------------------
