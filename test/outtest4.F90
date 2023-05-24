@@ -48,11 +48,12 @@ program outtest4
   integer idate, mear, mmon, mday, mour, mmin, iret
 #ifndef KIND_8
   integer lun, il, im, nctddesc, ctddesc(20)
+  character stdfil*80, locfil*80
 #endif
 
   real*8 r8arr1 ( mxval1 ), r8arr2 ( mxval2, mxlvl )
 
-  character cmgtag*8, smid*9, dummystr*9, stdfil*80, locfil*80
+  character cmgtag*8, smid*9, dummystr*9
 
   print *, 'Testing writing OUT_4 using OPENBF IO = NODX and IO = QUIET, and using STRCPT, WRDXTB and WRITSA'
 
