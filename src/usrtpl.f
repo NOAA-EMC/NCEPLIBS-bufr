@@ -28,12 +28,16 @@ C> @author J. Woollen @date 1994-01-06
       USE MODA_TABLES
       USE MODA_IVTTMP
 
+      common/alarms/alarm
+      logical       alarm
+
       COMMON /QUIET / IPRT
 
       CHARACTER*128 BORT_STR,ERRSTR
       LOGICAL       DRP,DRS,DRB,DRX
 
 C-----------------------------------------------------------------------
+      alarm=.false.
 C-----------------------------------------------------------------------
 
       IF(IPRT.GE.2)  THEN
@@ -82,6 +86,8 @@ c  .... case where node is (hopefully) a delayed replication factor
          IF(DRB.AND.NBMP.NE.1) GOTO 901
          IF(.NOT.DRX         ) GOTO 902
          IF(IVAL.LT.0.       ) GOTO 903
+         IF(IVAL+NBMP.GT.JVAL)  
+     .   print*,'usrtpl',invn,ival,nbmp,jval,typ(node)
          IF(IVAL+NBMP.GT.JVAL) GOTO 904
       ELSE
          GOTO 905
@@ -186,7 +192,7 @@ C  -----
       CALL BORT(BORT_STR)
 904   WRITE(BORT_STR,'("BUFRLIB: USRTPL - REPLICATION FACTOR OVERFLOW'//
      . ' (EXCEEDS MAXIMUM OF",I6," (",A,")")') JVAL,TAG(NODI)
-      CALL BORT(BORT_STR)
+      alarm=.true.; return !CALL BORT(BORT_STR)
 905   WRITE(BORT_STR,'("BUFRLIB: USRTPL - INVENTORY INDEX {FIRST '//
      . 'ARGUMENT (INPUT)} OUT OF BOUNDS (=",I5,", RANGE IS 1 TO",I6,"'//
      . ') (",A,")")') INVN,NVAL(LUN),TAG(NODI)

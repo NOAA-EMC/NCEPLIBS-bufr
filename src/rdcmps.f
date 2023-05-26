@@ -22,6 +22,9 @@ C> @author Woollen @date 2000-09-19
       USE MODA_TABLES
       USE MODA_RLCCMN
 
+      common/alarms/alarm
+      logical       alarm
+
       CHARACTER*128 BORT_STR
       CHARACTER*8   CREF,CVAL
       EQUIVALENCE   (CVAL,RVAL)
@@ -93,6 +96,7 @@ C        This is a numeric element.
          IF(ITYP.EQ.1) THEN
             NBMP=INT(IVAL)
             CALL USRTPL(LUN,N,NBMP)
+            if(alarm) return
             GOTO 1
          ENDIF
          IF(IVAL.LT.LPS(NBIT)) VAL(N,LUN) = UPS(IVAL,NODE)

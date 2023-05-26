@@ -37,6 +37,9 @@ C> @author J. Woollen @date 1994-01-06
       USE MODA_BITMAPS
       USE MODV_IM8B
 
+      common/alarms/alarm
+      logical       alarm
+
       CHARACTER*128 BORT_STR
 
 C-----------------------------------------------------------------------
@@ -108,6 +111,8 @@ c  .... message with "standard" Section 3
       ELSEIF(MSGUNP(LUN).EQ.2) THEN
 c  .... compressed message
          CALL RDCMPS(LUN)
+         if(alarm) print*,'readsb alarm'
+         if(alarm) then; iret=-1; return; endif
       ELSE
          GOTO 902
       ENDIF
