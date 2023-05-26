@@ -10,11 +10,12 @@ program test_misc
   integer ios
   integer num, iret
   integer imsg, idate, iunit
-  integer*4 ireadmm
+  integer*4 ireadmm, igetfxy
   integer mbay(2)
   character*8 subset
   integer iupb
   integer isbyt, iwid
+  character*6 cfxy
   
 #ifdef KIND_4
   character*5 char5
@@ -211,6 +212,12 @@ program test_misc
   enddo
   
 #endif
-  
+
+  ! Test various igetfxy() cases.
+  iret = igetfxy("SHORT", cfxy)
+  if (iret .ne. -1) stop 900
+  iret = igetfxy("352003", cfxy)
+  if (iret .ne. 0) stop 901
+
   print *, 'SUCCESS'
 end program test_misc
