@@ -39,6 +39,8 @@ program intest7
   integer*4 isetprm, igetprm, ireadns, ibfms
 
   integer imgdt, iret, jdate, nr8v, idx, nsub, kmsg, ksub
+  integer iyr, imon, iday, ihour
+  integer jdatearr(5), jdumparr(5)
 
   integer mxr8pm, mxr8lv
   parameter ( mxr8pm = 15 )
@@ -164,6 +166,19 @@ program intest7
   ! Rewind the file and get a total count of the subsets.
   call ufbtab ( -11, r8val, 1, 1, nsub, ' ' )
   if ( ( nsub .ne. 402 ) .or. ( ibfms ( r8val(1,1) ) .ne. 1 ) ) stop 24
+
+  ! Test datebf & dumpbf when Section 1 date cannot be found.
+  errstr_len = 0
+  call datebf ( 12, iyr, imon, iday, ihour, imgdt )
+  idx = index(errstr(1:errstr_len), "DATEBF - SECTION 1 DATE COULD NOT BE LOCATED - RETURN WITH IDATE = -1")
+  if ( (imgdt .ne. -1) .or. (idx .eq. 0) ) stop 25
+  errstr_len = 0
+  call dumpbf ( 12, jdatearr, jdumparr)
+  idx = index(errstr(1:errstr_len), "DUMPBF - FIRST  EMPTY BUFR MESSAGE SECTION 1 DATE COULD NOT BE LOCATED")
+  if (idx .eq. 0) stop 26
+  idx = index(errstr(1:errstr_len), "DUMPBF - SECOND EMPTY BUFR MESSAGE SECTION 1 DATE COULD NOT BE LOCATED")
+  if (idx .eq. 0) stop 27
+  if (.not. (all(jdatearr .eq. -1) .and. all(jdumparr .eq. -1))) stop 28
 
   print *, 'SUCCESS!'
 end program intest7
