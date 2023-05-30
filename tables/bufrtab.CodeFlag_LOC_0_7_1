@@ -1,7 +1,7 @@
 Table F LOC |  0 | 7 |  1
 #
 # Local BUFR Table CODE/FLAG, Master Table 0, Originating Center 7, Version 1
-# This file was generated: 2022/11/08 16:34:18
+# This file was generated: 2023/05/30 19:03:19
 #
 #========================================================================================================
 # F-XX-YYY | MNEMONIC ; CODE               <-- code table definition
@@ -615,7 +615,8 @@ Table F LOC |  0 | 7 |  1
               | 4 > | Winds-by-height level (upper-air profile reports)
               | 5 > | Tropopause level (upper-air profile reports)
               | 6 > | Single level report, or report not on any of the levels denoted by other values (e.g. aircraft, satellite wind, precipitable water, etc.)
-              | 7   | Auxiliary levels generated via interpolation from spanning levels (upper-air profile reports)
+              | 7 > | Auxiliary levels generated via interpolation from spanning levels (upper-air profile reports)
+              | 10   | High-resolution level (upper-air profile reports)
 
   0-08-201 | .RE.... ; CODE
               | 0 > | "M" indicator present - the true value of the following parameter is below the minimum value which can be assessed with the system in use
@@ -4595,6 +4596,7 @@ Table F LOC |  0 | 7 |  1
               | 1 > | Ozone vertical sounding
               | 2 > | Total ozone
               | 3 > | Acid rain
+              | 4 > | Aerosol
            | 0-55-020=9
               | 0 > | Trajectories, analysis or forecast
            | 0-55-020=10
@@ -4651,6 +4653,7 @@ Table F LOC |  0 | 7 |  1
               | 5 > | XBT/XCTD profiles (TESAC)
               | 6 > | Waves reports
               | 7 > | Tsunameter data
+              | 8 > | Glider data
            | 0-55-020=101
               | 0 > | Multi-purpose VIS/IR imagery
               | 1 > | Conical scanning MW imagery (intermediate frequencies)
@@ -4788,6 +4791,11 @@ Table F LOC |  0 | 7 |  1
               | 49 > | Japan high-density winds - water vapor imager (BUFR)
               | 50 > | GMS high-density winds - infrared (long-wave) (BUFR)
               | 51 > | GMS high-density winds - water vapor imager (BUFR)
+              | 52 > | GOES high-density winds - infrared (long-wave) (BUFR)
+              | 53 > | GOES high-density winds - water vapor imager deep-layer (BUFR)
+              | 54 > | GOES high-density winds - visible (BUFR)
+              | 55 > | GOES high-density winds - water vapor imager cloud-top (BUFR)
+              | 56 > | GOES high-density winds - infrared (short-wave) (BUFR)
               | 61 > | Europe low-density winds - infrared (long-wave) (SATOB)
               | 62 > | Europe low-density winds - visible (SATOB)
               | 63 > | Europe low-density winds - water vapor imager (SATOB)
@@ -4801,6 +4809,7 @@ Table F LOC |  0 | 7 |  1
               | 71 > | MODIS AQUA/TERRA winds - water vapor imager (BUFR)
               | 72 > | SSEC/WISC LEO-GEO winds
               | 80 > | METOP AVHRR winds - infrared (long-wave) (BUFR)
+              | 81 > | METOP AVHRR winds - infrared (long-wave) (BUFR)
               | 90 > | NPP VIIRS winds - infrared (long-wave) (BUFR)
               | 91 > | NPP VIIRS winds - infrared (long-wave) (BUFR)
               | 99 > | CIMSS tropical cyclone winds
@@ -4985,6 +4994,7 @@ Table F LOC |  0 | 7 |  1
               | 52 > | NOAA-17 and METOP-2 AVHRR brightness temperatures (cloudy or over land)
               | 53 > | NOAA-18 AVHRR brightness temperatures (clear and over ocean)
               | 54 > | NOAA-18 AVHRR brightness temperatures (cloudy or over land)
+              | 100 > | MTG IRS radiances from principal components
               | 123 > | Antenna temperatures - AMSU-A
               | 201 > | DMSP SSMI/S brightness temperatures
               | 202 > | NPP CrIS radiances

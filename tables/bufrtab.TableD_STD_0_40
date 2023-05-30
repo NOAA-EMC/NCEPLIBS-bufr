@@ -1,7 +1,7 @@
-Table D STD |  0 | 23
+Table D STD |  0 | 40
 #
-# Standard BUFR Table D, Master Table 0, Version 23
-# This file was generated: 2023/05/26 21:51:27
+# Standard BUFR Table D, Master Table 0, Version 40
+# This file was generated: 2023/05/30 19:03:18
 #
 #========================================================================================================
 # F-XX-YYY | MNEMONIC   ;DCOD ; NAME           <-- sequence definition
@@ -91,6 +91,11 @@ Table D STD |  0 | 23
            | 1-02-002 > | Replicate 2 descriptors 2 times
            | 3-01-011 > | Year, month, day
            | 3-01-012   | Hour, minute
+
+  3-01-018 | ENCSHPID   ;     ; Encrypted ship's call sign and encryption method
+           | 0-01-114 > | Encrypted ship or mobile land station identifier (base64 encoding)
+           | 0-25-185 > | Encryption method
+           | 0-25-186   | Encryption key version
 
   3-01-021 | LTLONH     ;     ; Latitude/longitude (high accuracy)
            | 0-05-001 > | Latitude (high accuracy)
@@ -332,6 +337,18 @@ Table D STD |  0 | 23
            | 3-01-021 > | Latitude/longitude (high accuracy)
            | 0-01-012 > | Direction of motion of moving observing platform
            | 0-01-014   | Platform drift speed (high precision)
+
+  3-01-056 | MARIDLOC   ;     ; Sequence for platform identification, type, time and location of the observation report
+           | 0-01-087 > | WMO marine observing platform extended identifier
+           | 0-01-011 > | Ship or mobile land station identifier
+           | 0-01-015 > | Station or site name
+           | 0-02-008 > | Type of offshore platform
+           | 0-02-001 > | Type of station
+           | 3-01-011 > | Year, month, day
+           | 3-01-012 > | Hour, minute
+           | 3-01-021 > | Latitude/longitude (high accuracy)
+           | 0-07-030 > | Height of station ground above mean sea level
+           | 0-07-031   | Height of barometer above mean sea level
 
   3-01-058 | UNTFROLD   ;     ; Universal lightning event
            | 3-01-011 > | Year, month, day
@@ -583,6 +600,71 @@ Table D STD |  0 | 23
            | 3-01-011 > | Year, month, day
            | 3-01-012 > | Hour, minute
            | 3-01-021   | Latitude/longitude (high accuracy)
+
+  3-01-128 | INFORDAS   ;     ; Additional information on radiosonde ascent
+           | 0-01-081 > | Radiosonde serial number
+           | 0-01-082 > | Radiosonde ascension number
+           | 0-01-083 > | Radiosonde release number
+           | 0-01-095 > | Observer identification
+           | 0-02-015 > | Radiosonde completeness
+           | 0-02-016 > | Radiosonde configuration
+           | 0-02-017 > | Correction algorithms for humidity measurements
+           | 0-02-066 > | Radiosonde ground receiving system
+           | 0-02-067 > | Radiosonde operating frequency
+           | 0-02-080 > | Balloon manufacturer
+           | 0-02-081 > | Type of balloon
+           | 0-02-082 > | Weight of balloon
+           | 0-02-083 > | Type of balloon shelter
+           | 0-02-084 > | Type of gas used in balloon
+           | 0-02-085 > | Amount of gas used in balloon
+           | 0-02-086 > | Balloon flight train length
+           | 0-02-095 > | Type of pressure sensor
+           | 0-02-096 > | Type of temperature sensor
+           | 0-02-097 > | Type of humidity sensor
+           | 0-02-103 > | Radome
+           | 0-02-191 > | Geopotential height calculation
+           | 0-25-061 > | Software identification and version number
+           | 0-35-035   | Reason for termination
+
+  3-01-129 | SATINST    ;     ; Observing satellite and instruments
+           | 0-01-007 > | Satellite identifier
+           | 0-01-031 > | Identification of originating/generating centre
+           | 0-02-019 > | Satellite instruments
+           | 0-02-020   | Satellite classification
+
+  3-01-130 | HPTMSTMP   ;     ; High precision timestamp
+           | 3-01-011 > | Year, month, day
+           | 3-01-012 > | Hour, minute
+           | 2-02-131 > | Change scale
+           | 2-01-138 > | Change data width
+           | 0-04-006 > | Second
+           | 2-01-000 > | Cancel change data width
+           | 2-02-000   | Cancel change scale
+
+  3-01-131 | PXLGEOLC   ;     ; Pixel geolocation
+           | 3-01-021 > | Latitude/longitude (high accuracy)
+           | 0-07-024 > | Satellite zenith angle
+           | 0-05-021 > | Bearing or azimuth
+           | 0-07-025 > | Solar zenith angle
+           | 0-05-022   | Solar azimuth
+
+  3-01-132 | CMNHSEQ    ;     ; Common header sequence
+           | 3-01-150 > | WIGOS identifier
+           | 3-01-001 > | WMO block and station numbers
+           | 3-01-021 > | Latitude/longitude (high accuracy)
+           | 0-07-030 > | Height of station ground above mean sea level
+           | 0-08-021 > | Time significance
+           | 3-01-011 > | Year, month, day
+           | 3-01-012 > | Hour, minute
+           | 0-02-006 > | Upper air remote sensing instrument type
+           | 0-01-079 > | Unique identifier for the profile
+           | 0-01-085   | Observing platform manufacturer's model
+
+  3-01-150 | WIGOSID    ;     ; WIGOS identifier
+           | 0-01-125 > | WIGOS identifier series
+           | 0-01-126 > | WIGOS issuer of identifier
+           | 0-01-127 > | WIGOS issue number
+           | 0-01-128   | WIGOS local identifier (character)
 
   3-02-001 | PRESSQ03   ;     ; Pressure and 3-hour pressure change
            | 0-10-004 > | Pressure
@@ -920,6 +1002,66 @@ Table D STD |  0 | 23
            | 3-02-058 > | Ship extreme temperature data
            | 3-02-059   | Ship wind data
 
+  3-02-062 | SHIPINSV   ;     ; Ship "instantaneous" data
+           | 0-25-188 > | Method for reducing pressure to sea level
+           | 3-02-001 > | Pressure and 3-hour pressure change
+           | 3-02-093 > | Extended ship temperature and humidity data
+           | 1-01-000 > | Delayed replication of 1 descriptor
+           | 0-31-000 > | Short delayed descriptor replication factor
+           | 3-02-053 > | Ship visibility data
+           | 0-07-032 > | Height of sensor above local ground (or deck of marine platform)
+           | 0-07-033 > | Height of sensor above water surface
+           | 1-01-000 > | Delayed replication of 1 descriptor
+           | 0-31-000 > | Short delayed descriptor replication factor
+           | 3-02-004 > | General cloud information
+           | 1-01-000 > | Delayed replication of 1 descriptor
+           | 0-31-001 > | Delayed descriptor replication factor
+           | 3-02-005 > | Cloud layer
+           | 0-08-002 > | Vertical significance (surface observations)
+           | 1-01-000 > | Delayed replication of 1 descriptor
+           | 0-31-000 > | Short delayed descriptor replication factor
+           | 3-02-055 > | Icing and ice
+           | 1-01-000 > | Delayed replication of 1 descriptor
+           | 0-31-000 > | Short delayed descriptor replication factor
+           | 3-02-056 > | Sea/water temperature
+           | 1-01-000 > | Delayed replication of 1 descriptor
+           | 0-31-000 > | Short delayed descriptor replication factor
+           | 3-02-021 > | Waves
+           | 1-01-000 > | Delayed replication of 1 descriptor
+           | 0-31-000 > | Short delayed descriptor replication factor
+           | 3-02-024   | Wind and swell waves
+
+  3-02-063 | SHIPPRDV   ;     ; Ship "period" data
+           | 3-02-038 > | Present and past weather
+           | 1-01-000 > | Delayed replication of 1 descriptor
+           | 0-31-000 > | Short delayed descriptor replication factor
+           | 3-02-040 > | Precipitation measurement
+           | 1-01-000 > | Delayed replication of 1 descriptor
+           | 0-31-000 > | Short delayed descriptor replication factor
+           | 3-02-034 > | Precipitation past 24 hours
+           | 0-07-032 > | Height of sensor above local ground (or deck of marine platform)
+           | 1-01-000 > | Delayed replication of 1 descriptor
+           | 0-31-000 > | Short delayed descriptor replication factor
+           | 3-02-058 > | Ship extreme temperature data
+           | 1-01-000 > | Delayed replication of 1 descriptor
+           | 0-31-000 > | Short delayed descriptor replication factor
+           | 3-02-064   | Ship or other marine platform wind data
+
+  3-02-064 | WINDDATV   ;     ; Ship or other marine platform wind data
+           | 0-07-032 > | Height of sensor above local ground (or deck of marine platform)
+           | 0-07-033 > | Height of sensor above water surface
+           | 0-02-002 > | Type of instrumentation for wind measurement
+           | 0-08-021 > | Time significance
+           | 0-04-025 > | Time period or displacement
+           | 0-11-001 > | Wind direction
+           | 0-11-002 > | Wind speed
+           | 0-08-021 > | Time significance
+           | 1-03-000 > | Delayed replication of 3 descriptors
+           | 0-31-001 > | Delayed descriptor replication factor
+           | 0-04-025 > | Time period or displacement
+           | 0-11-043 > | Maximum wind gust direction
+           | 0-11-041   | Maximum wind gust speed
+
   3-02-066 | DANGERWX   ;     ; Dangerous weather phenomena
            | 0-20-023 > | Other weather phenomena
            | 0-20-024 > | Intensity of phenomena
@@ -937,6 +1079,88 @@ Table D STD |  0 | 23
            | 0-20-021 > | Type of precipitation
            | 0-20-067 > | Diameter of deposit
            | 0-20-027   | Phenomena occurrence
+
+  3-02-067 | ADSYNPRM   ;     ; Additional synoptical parameters
+           | 0-01-023 > | Observation sequence number
+           | 0-04-025 > | Time period or displacement
+           | 0-02-177 > | Method of snow depth measurement
+           | 1-01-000 > | Delayed replication of 1 descriptor
+           | 0-31-001 > | Delayed descriptor replication factor
+           | 0-20-003 > | Present weather
+           | 1-03-000 > | Delayed replication of 3 descriptors
+           | 0-31-001 > | Delayed descriptor replication factor
+           | 0-05-021 > | Bearing or azimuth
+           | 0-20-001 > | Horizontal visibility
+           | 0-05-021 > | Bearing or azimuth
+           | 1-01-000 > | Delayed replication of 1 descriptor
+           | 0-31-000 > | Short delayed descriptor replication factor
+           | 3-02-056 > | Sea/water temperature
+           | 1-03-000 > | Delayed replication of 3 descriptors
+           | 0-31-000 > | Short delayed descriptor replication factor
+           | 0-33-041 > | Attribute of following value
+           | 0-20-058 > | Visibility seawards from a coastal station
+           | 0-22-061 > | State of the sea
+           | 1-01-000 > | Delayed replication of 1 descriptor
+           | 0-31-000 > | Short delayed descriptor replication factor
+           | 3-02-022 > | Wind waves
+           | 1-01-000 > | Delayed replication of 1 descriptor
+           | 0-31-001 > | Delayed descriptor replication factor
+           | 3-02-023 > | Swell waves
+           | 1-04-000 > | Delayed replication of 4 descriptors
+           | 0-31-001 > | Delayed descriptor replication factor
+           | 0-20-054 > | True direction from which a phenomenon or clouds are moving or in which they are observed
+           | 0-20-137 > | Evolution of clouds
+           | 0-20-012 > | Cloud type
+           | 0-20-090 > | Special clouds
+           | 1-03-000 > | Delayed replication of 3 descriptors
+           | 0-31-001 > | Delayed descriptor replication factor
+           | 0-20-054 > | True direction from which a phenomenon or clouds are moving or in which they are observed
+           | 0-20-137 > | Evolution of clouds
+           | 0-20-136 > | Supplementary cloud type
+           | 0-04-025 > | Time period or displacement
+           | 0-13-012 > | Depth of fresh snow
+           | 0-04-025 > | Time period or displacement
+           | 0-11-042 > | Maximum wind speed (10-minute mean wind)
+           | 1-04-000 > | Delayed replication of 4 descriptors
+           | 0-31-001 > | Delayed descriptor replication factor
+           | 0-08-021 > | Time significance
+           | 0-04-025 > | Time period or displacement
+           | 0-11-042 > | Maximum wind speed (10-minute mean wind)
+           | 0-08-021 > | Time significance
+           | 1-15-000 > | Delayed replication of 15 descriptors
+           | 0-31-001 > | Delayed descriptor replication factor
+           | 0-08-021 > | Time significance
+           | 0-04-015 > | Time increment
+           | 0-08-021 > | Time significance
+           | 0-04-025 > | Time period or displacement
+           | 0-11-001 > | Wind direction
+           | 0-11-002 > | Wind speed
+           | 0-08-021 > | Time significance
+           | 0-04-015 > | Time increment
+           | 0-08-021 > | Time significance
+           | 0-04-025 > | Time period or displacement
+           | 0-11-001 > | Wind direction
+           | 0-11-002 > | Wind speed
+           | 0-08-021 > | Time significance
+           | 0-04-025 > | Time period or displacement
+           | 0-04-015 > | Time increment
+           | 1-03-000 > | Delayed replication of 3 descriptors
+           | 0-31-001 > | Delayed descriptor replication factor
+           | 0-04-025 > | Time period or displacement
+           | 0-04-025 > | Time period or displacement
+           | 0-20-003 > | Present weather
+           | 1-10-000 > | Delayed replication of 10 descriptors
+           | 0-31-001 > | Delayed descriptor replication factor
+           | 0-04-025 > | Time period or displacement
+           | 0-04-025 > | Time period or displacement
+           | 0-05-021 > | Bearing or azimuth
+           | 0-05-021 > | Bearing or azimuth
+           | 0-20-054 > | True direction from which a phenomenon or clouds are moving or in which they are observed
+           | 0-20-024 > | Intensity of phenomena
+           | 0-20-025 > | Obscuration
+           | 0-20-026 > | Character of obscuration
+           | 0-20-027 > | Phenomena occurrence
+           | 0-20-063   | Special phenomena
 
   3-02-069 | VISBSEQN   ;     ; Visibility data
            | 0-07-032 > | Height of sensor above local ground (or deck of marine platform)
@@ -1187,6 +1411,40 @@ Table D STD |  0 | 23
            | 0-04-024 > | Time period or displacement
            | 0-13-011   | Total precipitation/total water equivalent
 
+  3-02-092 | VOSCLIM    ;     ; VOSClim data elements
+           | 0-11-104 > | True heading of aircraft, ship or other mobile platform
+           | 0-01-012 > | Direction of motion of moving observing platform
+           | 0-01-013 > | Speed of motion of moving observing platform
+           | 0-10-038 > | Maximum height of deck cargo above summer load line
+           | 0-10-039 > | Departure of reference level (summer maximum load line) from actual sea level
+           | 0-11-007 > | Relative wind direction (in degrees off bow)
+           | 0-11-008   | Relative wind speed
+
+  3-02-093 | TEMHUMDX   ;     ; Extended ship temperature and humidity data
+           | 0-07-032 > | Height of sensor above local ground (or deck of marine platform)
+           | 0-07-033 > | Height of sensor above water surface
+           | 3-03-099 > | Metadata common to temperature/humidity sensors
+           | 0-12-101 > | Temperature/air temperature
+           | 1-03-000 > | Delayed replication of 3 descriptors
+           | 0-31-000 > | Short delayed descriptor replication factor
+           | 0-07-032 > | Height of sensor above local ground (or deck of marine platform)
+           | 0-07-033 > | Height of sensor above water surface
+           | 3-03-099 > | Metadata common to temperature/humidity sensors
+           | 0-02-039 > | Method of wet-bulb temperature measurement
+           | 0-02-097 > | Type of humidity sensor
+           | 0-03-024 > | Psychrometric coefficient
+           | 0-03-021 > | Hygrometer heating
+           | 0-12-102 > | Wet-bulb temperature
+           | 0-12-103 > | Dewpoint temperature
+           | 0-13-003 > | Relative humidity
+           | 0-07-032 > | Height of sensor above local ground (or deck of marine platform)
+           | 0-07-033 > | Height of sensor above water surface
+           | 3-03-099 > | Metadata common to temperature/humidity sensors
+           | 0-02-039 > | Method of wet-bulb temperature measurement
+           | 0-02-097 > | Type of humidity sensor
+           | 0-03-021 > | Hygrometer heating
+           | 0-03-024   | Psychrometric coefficient
+
   3-02-175 | IPHSPREL   ;     ; Intensity of precipitation, size of precipitation element
            | 0-08-021 > | Time significance
            | 0-04-025 > | Time period or displacement
@@ -1397,6 +1655,33 @@ Table D STD |  0 | 23
            | 0-11-001 > | Wind direction
            | 0-11-002   | Wind speed
 
+  3-03-056 | TDWPRAOH   ;     ; Temperature, dewpoint and wind data at a pressure level with radiosonde position and higher precision of pressure and geopotential height
+           | 0-04-086 > | Long time period or displacement
+           | 0-08-042 > | Extended vertical sounding significance
+           | 2-07-001 > | Increase scale, reference value and data width
+           | 0-07-004 > | Pressure
+           | 0-10-009 > | Geopotential height
+           | 2-07-000 > | Cancel increase scale, reference value and data width
+           | 0-05-015 > | Latitude displacement (high accuracy)
+           | 0-06-015 > | Longitude displacement (high accuracy)
+           | 0-12-101 > | Temperature/air temperature
+           | 0-12-103 > | Dewpoint temperature
+           | 0-11-001 > | Wind direction
+           | 0-11-002   | Wind speed
+
+  3-03-099 | MTEMHUMS   ;     ; Metadata common to temperature/humidity sensors
+           | 0-03-005 > | Horizontal width of screen or shield (x)
+           | 0-03-006 > | Horizontal depth of screen or shield (y)
+           | 0-03-007 > | Vertical height of screen or shield (z)
+           | 0-02-096 > | Type of temperature sensor
+           | 0-03-022 > | Instrument owner
+           | 0-03-003 > | Thermometer/hygrometer housing
+           | 0-03-020 > | Material for thermometer/hygrometer housing
+           | 0-03-004 > | Type of screen/shelter/radiation shield
+           | 0-03-023 > | Configuration of louvers for thermometer/hygrometer screen
+           | 0-03-008 > | Artificially ventilated screen or shield
+           | 0-03-009   | Amount of forced ventilation at time of reading
+
   3-04-001 | VSPTWDWS   ;     ; Cloud top pressure, temperature, wind
            | 0-08-003 > | Vertical significance (satellite observations)
            | 0-10-004 > | Pressure
@@ -1545,6 +1830,22 @@ Table D STD |  0 | 23
            | 0-08-003 > | Vertical significance (satellite observations)
            | 0-12-063   | Brightness temperature
 
+  3-04-039 | RDNCCHAN   ;     ; Radiance in channel
+           | 2-01-136 > | Change data width
+           | 0-05-042 > | Channel number
+           | 2-01-000 > | Cancel change data width
+           | 0-14-046   | Scaled radiance
+
+  3-04-040 | PCSBAND    ;     ; Principal component score in band
+           | 0-25-140 > | Start channel
+           | 0-25-141 > | End channel
+           | 0-40-026 > | Score quantization factor
+           | 0-40-016 > | Residual RMS in band
+           | 0-25-062 > | Database identification
+           | 1-01-000 > | Delayed replication of 1 descriptor
+           | 0-31-002 > | Extended delayed descriptor replication factor
+           | 0-40-017   | Non-normalized principal component score
+
   3-05-001 | SADCHYCS   ;     ; SADC-HYCOS single measurement
            | 0-11-001 > | Wind direction
            | 0-11-002 > | Wind speed
@@ -1604,7 +1905,7 @@ Table D STD |  0 | 23
            | 0-31-001 > | Delayed descriptor replication factor
            | 3-05-008   | AOCHYCOS - Chad measurement
 
-  3-05-010 | MEDHYCM2   ;     ; MEDHYCOS - Measurement type 2
+  3-05-010 | MEDHYCM2   ;     ; MEDHYCOS-Measurement type 2
            | 3-05-008 > | AOCHYCOS - Chad measurement
            | 0-02-091 > | Entry sensor 4/20 mA
            | 0-02-091   | Entry sensor 4/20 mA
@@ -1615,7 +1916,7 @@ Table D STD |  0 | 23
            | 0-04-065 > | Short time increment
            | 1-01-000 > | Delayed replication of 1 descriptor
            | 0-31-001 > | Delayed descriptor replication factor
-           | 3-05-010   | MEDHYCOS - Measurement type 2
+           | 3-05-010   | MEDHYCOS-Measurement type 2
 
   3-05-016 | METPARHY   ;     ; Meteorological parameters associated with hydrological data
            | 0-14-021 > | Global solar radiation, integrated over period specified
@@ -1751,6 +2052,35 @@ Table D STD |  0 | 23
            | 0-11-041 > | Maximum wind gust speed
            | 0-25-026 > | Battery voltage (large range)
            | 0-12-060   | AWS enclosure internal temperature
+
+  3-06-017 | SSTPHQF6   ;     ; Subsurface temperature profile (high accuracy/precision) with quality flags
+           | 0-02-032 > | Indicator for digitization
+           | 0-08-034 > | Temperature/salinity measurement qualifier
+           | 1-06-000 > | Delayed replication of 6 descriptors
+           | 0-31-002 > | Extended delayed descriptor replication factor
+           | 0-07-065 > | Water pressure
+           | 0-08-080 > | Qualifier for GTSPP quality flag
+           | 0-33-050 > | Global GTSPP quality flag
+           | 0-22-045 > | Sea/water temperature
+           | 0-08-080 > | Qualifier for GTSPP quality flag
+           | 0-33-050 > | Global GTSPP quality flag
+           | 0-08-034   | Temperature/salinity measurement qualifier
+
+  3-06-018 | SSTPHQF9   ;     ; Subsurface temperature profile (high accuracy/precision) with quality flags
+           | 0-02-032 > | Indicator for digitization
+           | 0-08-034 > | Temperature/salinity measurement qualifier
+           | 1-09-000 > | Delayed replication of 9 descriptors
+           | 0-31-002 > | Extended delayed descriptor replication factor
+           | 0-07-065 > | Water pressure
+           | 0-08-080 > | Qualifier for GTSPP quality flag
+           | 0-33-050 > | Global GTSPP quality flag
+           | 0-22-045 > | Sea/water temperature
+           | 0-08-080 > | Qualifier for GTSPP quality flag
+           | 0-33-050 > | Global GTSPP quality flag
+           | 0-22-064 > | Salinity
+           | 0-08-080 > | Qualifier for GTSPP quality flag
+           | 0-33-050 > | Global GTSPP quality flag
+           | 0-08-034   | Temperature/salinity measurement qualifier
 
   3-06-019 | TIDECKTI   ;     ; Tide report identification, water level checks, time increments
            | 0-01-075 > | Tide station identification
@@ -1976,6 +2306,25 @@ Table D STD |  0 | 23
            | 0-11-001 > | Wind direction
            | 0-11-002   | Wind speed
 
+  3-06-043 | MRBGROBS   ;     ; Marine biogeochemical and radiation observations
+           | 0-41-001 > | pCO2
+           | 0-08-043 > | Atmospheric chemical or physical constituent type
+           | 0-15-028 > | Mole fraction of atmospheric constituent/pollutant in dry air
+           | 0-08-043 > | Atmospheric chemical or physical constituent type
+           | 0-13-080 > | Water pH
+           | 0-41-005 > | Turbidity
+           | 0-41-003 > | Dissolved nitrates
+           | 0-22-188 > | Dissolved oxygen
+           | 0-41-002 > | Fluorescence
+           | 1-06-000 > | Delayed replication of 6 descriptors
+           | 0-31-000 > | Short delayed descriptor replication factor
+           | 0-04-024 > | Time period or displacement
+           | 0-14-002 > | Long-wave radiation, integrated over period specified
+           | 0-14-002 > | Long-wave radiation, integrated over period specified
+           | 0-14-012 > | Net long-wave radiation, integrated over period specified
+           | 0-14-004 > | Short-wave radiation, integrated over period specified
+           | 0-04-024   | Time period or displacement
+
   3-07-001 | LOALSTNH   ;     ; Low altitude station
            | 3-01-031 > | Identification and type of station, date/time, location (high accuracy), height of station
            | 3-02-011   | Low altitude station
@@ -2141,6 +2490,75 @@ Table D STD |  0 | 23
            | 2-01-000 > | Cancel change data width
            | 0-15-011   | Log10 of integrated electron density
 
+  3-07-024 | GBGNSSTD   ;     ; Ground-based GNSS data - slant total delay
+           | 3-01-150 > | WIGOS identifier
+           | 0-01-015 > | Station or site name
+           | 0-01-040 > | Processing centre ID code
+           | 0-08-021 > | Time significance
+           | 3-01-011 > | Year, month, day
+           | 3-01-013 > | Hour, minute, second
+           | 3-01-022 > | Latitude/longitude (high accuracy), height of station
+           | 0-10-036 > | Geoid undulation
+           | 0-25-061 > | Software identification and version number
+           | 0-10-004 > | Pressure
+           | 0-12-001 > | Temperature/air temperature
+           | 0-13-003 > | Relative humidity
+           | 1-20-000 > | Delayed replication of 20 descriptors
+           | 0-31-000 > | Short delayed descriptor replication factor
+           | 0-25-060 > | Software identification
+           | 0-08-021 > | Time significance
+           | 0-04-025 > | Time period or displacement
+           | 1-15-000 > | Delayed replication of 15 descriptors
+           | 0-31-001 > | Delayed descriptor replication factor
+           | 0-15-079 > | Zenith path delay due to neutral atmosphere
+           | 0-15-080 > | Estimated error in neutral atmosphere zenith path delay
+           | 0-08-022 > | Total number (with respect to accumulation or average)
+           | 0-33-093 > | Extended quality flags for ground-based GNSS data
+           | 0-15-089 > | Zenith path delay due to neutral hydrostatic atmosphere
+           | 0-15-035 > | Component of zenith path delay due to water vapour
+           | 1-02-002 > | Replicate 2 descriptors 2 times
+           | 0-08-060 > | Sample scanning mode significance
+           | 0-15-083 > | GNSS derived neutral atmosphere gradient
+           | 2-01-131 > | Change data width
+           | 2-02-129 > | Change scale
+           | 0-13-016 > | Precipitable water
+           | 2-02-000 > | Cancel change scale
+           | 2-01-000 > | Cancel change data width
+           | 0-15-011 > | Log10 of integrated electron density
+           | 1-31-000 > | Delayed replication of 31 descriptors
+           | 0-31-000 > | Short delayed descriptor replication factor
+           | 0-25-060 > | Software identification
+           | 0-08-021 > | Time significance
+           | 0-04-025 > | Time period or displacement
+           | 0-33-093 > | Extended quality flags for ground-based GNSS data
+           | 1-25-000 > | Delayed replication of 25 descriptors
+           | 0-31-001 > | Delayed descriptor replication factor
+           | 0-02-020 > | Satellite classification
+           | 0-01-050 > | Platform transmitter ID number
+           | 0-01-150 > | Coordinate reference system
+           | 2-02-127 > | Change scale
+           | 3-04-030 > | Location of platform
+           | 2-02-000 > | Cancel change scale
+           | 0-05-021 > | Bearing or azimuth
+           | 0-07-021 > | Elevation
+           | 0-15-038 > | Path delay due to neutral atmosphere
+           | 0-15-039 > | Estimated error in neutral atmosphere path delay
+           | 0-15-090 > | Path delay due to neutral hydrostatic atmosphere
+           | 0-15-081 > | Wet path delay due to neutral atmosphere
+           | 0-15-082 > | Path integrated water vapour
+           | 0-15-079 > | Zenith path delay due to neutral atmosphere
+           | 0-15-089 > | Zenith path delay due to neutral hydrostatic atmosphere
+           | 0-15-035 > | Component of zenith path delay due to water vapour
+           | 1-02-002 > | Replicate 2 descriptors 2 times
+           | 0-08-060 > | Sample scanning mode significance
+           | 0-15-083 > | GNSS derived neutral atmosphere gradient
+           | 0-15-084 > | GNSS least squares residual
+           | 0-15-085 > | GNSS multi-path delay
+           | 0-15-086 > | GNSS hydrostatic mapping function
+           | 0-15-087 > | GNSS wet mapping function
+           | 0-15-088 > | GNSS gradient mapping function
+           | 0-15-011   | Log10 of integrated electron density
+
   3-07-030 | OZONSNGL   ;     ; Ozone data - single observation
            | 0-15-001 > | Total ozone
            | 0-15-002   | Air mass (slant path at 22 km)
@@ -2194,7 +2612,7 @@ Table D STD |  0 | 23
            | 3-01-074 > | Ozone instrumentation - Dobson spectrophotometer
            | 3-07-031   | Ozone data - averaged observations
 
-  3-07-045 | METARSPM   ;     ; Main part of METAR/SPECI, replacing 3-07-011
+  3-07-045 | METARSPM   ;     ; Main part of METAR/SPECI
            | 0-01-063 > | ICAO location indicator
            | 0-08-079 > | Product status
            | 0-02-001 > | Type of station
@@ -2230,7 +2648,7 @@ Table D STD |  0 | 23
            | 0-05-021 > | Bearing or azimuth
            | 0-20-059   | Minimum horizontal visibility
 
-  3-07-047 | METARSPC   ;     ; METAR/SPECI/TAF clouds, replacing 3-07-015
+  3-07-047 | METARSPC   ;     ; METAR/SPECI/TAF clouds
            | 1-05-000 > | Delayed replication of 5 descriptors
            | 0-31-001 > | Delayed descriptor replication factor
            | 0-08-002 > | Vertical significance (surface observations)
@@ -2241,7 +2659,7 @@ Table D STD |  0 | 23
            | 0-20-002 > | Vertical visibility
            | 0-20-091   | Vertical visibility
 
-  3-07-048 | TRENDFST   ;     ; Trend type forecast, replacing 3-07-018
+  3-07-048 | TRENDFST   ;     ; Trend type forecast
            | 0-08-016 > | Change qualifier of a trend-type forecast or an aerodrome forecast
            | 1-02-000 > | Delayed replication of 2 descriptors
            | 0-31-001 > | Delayed descriptor replication factor
@@ -2266,7 +2684,7 @@ Table D STD |  0 | 23
            | 0-31-000 > | Short delayed descriptor replication factor
            | 0-20-060 > | Prevailing horizontal visibility
            | 3-07-014 > | Significant present or forecast weather
-           | 3-07-047   | METAR/SPECI/TAF clouds, replacing 3-07-015
+           | 3-07-047   | METAR/SPECI/TAF clouds), replacing 3 07 01
 
   3-07-049 | SEACONDT   ;     ; Sea conditions
            | 1-02-000 > | Delayed replication of 2 descriptors
@@ -2290,19 +2708,19 @@ Table D STD |  0 | 23
            | 0-20-088 > | Depth of runway deposits
            | 0-20-089   | Runway friction coefficient
 
-  3-07-051 | METARSPI   ;     ; Full METAR/SPECI, replacing 3-07-021
-           | 3-07-045 > | Main part of METAR/SPECI, replacing 3-07-011
+  3-07-051 | METARSPI   ;     ; Full METAR/SPECI
+           | 3-07-045 > | Main part of METAR/SPECI), replacing 3 07 01
            | 3-07-046 > | METAR/SPECI visibility
            | 3-07-013 > | Runway visual range
            | 3-07-014 > | Significant present or forecast weather
-           | 3-07-047 > | METAR/SPECI/TAF clouds, replacing 3-07-015
+           | 3-07-047 > | METAR/SPECI/TAF clouds), replacing 3 07 01
            | 3-07-016 > | Significant recent weather phenomena
            | 3-07-017 > | Wind shear on runway(s)
            | 3-07-049 > | Sea conditions
            | 3-07-050 > | Runway state
            | 1-01-000 > | Delayed replication of 1 descriptor
            | 0-31-001 > | Delayed descriptor replication factor
-           | 3-07-048   | Trend type forecast, replacing 3-07-018
+           | 3-07-048   | Trend type forecast), replacing 3 07 01
 
   3-07-052 | AEROFSTI   ;     ; Aerodrome forecast identification and time interval
            | 0-01-063 > | ICAO location indicator
@@ -2336,7 +2754,7 @@ Table D STD |  0 | 23
            | 0-20-009 > | General weather indicator (TAF/METAR)
            | 0-20-060 > | Prevailing horizontal visibility
            | 3-07-014 > | Significant present or forecast weather
-           | 3-07-047   | METAR/SPECI/TAF clouds, replacing 3-07-015
+           | 3-07-047   | METAR/SPECI/TAF clouds), replacing 3 07 01
 
   3-07-054 | FSTEXTMP   ;     ; Forecast of extreme temperatures
            | 0-07-032 > | Height of sensor above local ground (or deck of marine platform)
@@ -2502,6 +2920,66 @@ Table D STD |  0 | 23
   3-07-073 | CLIMATML   ;     ; Representation of CLIMAT data of the actual month and for monthly normals
            | 3-07-071 > | Monthly values of a land station
            | 3-07-072   | Monthly normals for a land station
+
+  3-07-074 | SDXTMPCP   ;     ; Supplemental daily temperature and precipitation values for monthly climate report
+           | 3-01-001 > | WMO block and station numbers
+           | 0-04-001 > | Year
+           | 0-04-002 > | Month
+           | 3-01-021 > | Latitude/longitude (high accuracy)
+           | 0-07-030 > | Height of station ground above mean sea level
+           | 0-07-032 > | Height of sensor above local ground (or deck of marine platform)
+           | 1-12-000 > | Delayed replication of 12 descriptors
+           | 0-31-001 > | Delayed descriptor replication factor
+           | 0-04-003 > | Day
+           | 0-04-004 > | Hour
+           | 0-04-024 > | Time period or displacement
+           | 1-02-003 > | Replicate 2 descriptors 3 times
+           | 0-08-023 > | First-order statistics
+           | 0-12-101 > | Temperature/air temperature
+           | 0-08-023 > | First-order statistics
+           | 0-04-004 > | Hour
+           | 0-04-024 > | Time period or displacement
+           | 0-13-060 > | Total accumulated precipitation
+           | 0-13-012 > | Depth of fresh snow
+           | 0-13-013   | Total snow depth
+
+  3-07-075 | SDXTMPC2   ;     ; Supplemental daily temperature and precipitation values with the time of occurrence for monthly climate report
+           | 3-01-150 > | WIGOS identifier
+           | 3-01-001 > | WMO block and station numbers
+           | 3-01-021 > | Latitude/longitude (high accuracy)
+           | 0-07-030 > | Height of station ground above mean sea level
+           | 0-08-095 > | Siting and measurement quality classification for temperature
+           | 0-08-096 > | Siting and measurement quality classification for precipitation
+           | 0-08-094 > | Method used to calculate the average daily temperature
+           | 3-01-011 > | Year, month, day
+           | 0-04-023 > | Time period or displacement
+           | 3-01-013 > | Hour, minute, second
+           | 2-04-008 > | Add associated field
+           | 0-31-021 > | Associated field significance
+           | 0-13-060 > | Total accumulated precipitation
+           | 2-04-000 > | Cancel add associated field
+           | 0-04-023 > | Time period or displacement
+           | 3-01-013 > | Hour, minute, second
+           | 2-04-008 > | Add associated field
+           | 0-31-021 > | Associated field significance
+           | 0-13-012 > | Depth of fresh snow
+           | 2-04-000 > | Cancel add associated field
+           | 0-04-023 > | Time period or displacement
+           | 3-01-013 > | Hour, minute, second
+           | 2-04-008 > | Add associated field
+           | 0-31-021 > | Associated field significance
+           | 0-13-013 > | Total snow depth
+           | 2-04-000 > | Cancel add associated field
+           | 0-07-032 > | Height of sensor above local ground (or deck of marine platform)
+           | 1-07-003 > | Replicate 7 descriptors 3 times
+           | 0-04-023 > | Time period or displacement
+           | 3-01-013 > | Hour, minute, second
+           | 0-08-023 > | First-order statistics
+           | 2-04-008 > | Add associated field
+           | 0-31-021 > | Associated field significance
+           | 0-12-101 > | Temperature/air temperature
+           | 2-04-000 > | Cancel add associated field
+           | 0-08-023   | First-order statistics
 
   3-07-076 | MNTHVLRP   ;     ; Monthly values from a land station in compliance with regional or national reporting practices
            | 3-01-090 > | Surface station identification; time, horizontal and vertical coordinates
@@ -2828,7 +3306,7 @@ Table D STD |  0 | 23
   3-07-091 | SFOB1HID   ;     ; BUFR template for surface observations from one-hour period with national and WMO station identification
            | 3-01-089 > | National station identification
            | 3-01-090 > | Surface station identification; time, horizontal and vertical coordinates
-           | 0-08-010 > | Surface qualifier (for temperature data)
+           | 0-08-010 > | Surface qualifier (temperature data)
            | 3-01-091 > | Surface station instrumentation
            | 3-02-001 > | Pressure and 3-hour pressure change
            | 0-07-004 > | Pressure
@@ -2893,10 +3371,152 @@ Table D STD |  0 | 23
            | 0-33-005 > | Quality information (AWS data)
            | 0-33-006   | Internal measurement status information (AWS)
 
+  3-07-092 | SFOBNHID   ;     ; BUFR template for surface observations from n-minute period
+           | 3-01-150 > | WIGOS identifier
+           | 3-01-001 > | WMO block and station numbers
+           | 2-08-040 > | Change width of CCITT IA5 field
+           | 0-01-019 > | Long station or site name
+           | 2-08-000 > | Cancel change width of CCITT IA5 field
+           | 3-01-011 > | Year, month, day
+           | 3-01-012 > | Hour, minute
+           | 3-01-021 > | Latitude/longitude (high accuracy)
+           | 0-07-030 > | Height of station ground above mean sea level
+           | 0-01-023 > | Observation sequence number
+           | 1-08-000 > | Delayed replication of 8 descriptors
+           | 0-31-000 > | Short delayed descriptor replication factor
+           | 0-07-031 > | Height of barometer above mean sea level
+           | 2-04-018 > | Add associated field
+           | 0-31-021 > | Associated field significance
+           | 0-10-004 > | Pressure
+           | 0-10-051 > | Pressure reduced to mean sea level
+           | 0-07-004 > | Pressure
+           | 0-10-009 > | Geopotential height
+           | 2-04-000 > | Cancel add associated field
+           | 1-15-000 > | Delayed replication of 15 descriptors
+           | 0-31-001 > | Delayed descriptor replication factor
+           | 0-07-032 > | Height of sensor above local ground (or deck of marine platform)
+           | 0-08-010 > | Surface qualifier (temperature data)
+           | 2-04-018 > | Add associated field
+           | 0-31-021 > | Associated field significance
+           | 0-12-101 > | Temperature/air temperature
+           | 0-12-103 > | Dewpoint temperature
+           | 2-02-129 > | Change scale
+           | 2-01-132 > | Change data width
+           | 0-13-003 > | Relative humidity
+           | 2-01-000 > | Cancel change data width
+           | 2-02-000 > | Cancel change scale
+           | 0-13-009 > | Relative humidity
+           | 2-04-000 > | Cancel add associated field
+           | 0-07-032 > | Height of sensor above local ground (or deck of marine platform)
+           | 0-08-010 > | Surface qualifier (temperature data)
+           | 1-07-000 > | Delayed replication of 7 descriptors
+           | 0-31-001 > | Delayed descriptor replication factor
+           | 0-07-061 > | Depth below land surface
+           | 2-04-018 > | Add associated field
+           | 0-31-021 > | Associated field significance
+           | 0-12-130 > | Soil temperature
+           | 0-13-111 > | Soil moisture
+           | 2-04-000 > | Cancel add associated field
+           | 0-07-061 > | Depth below land surface
+           | 1-05-000 > | Delayed replication of 5 descriptors
+           | 0-31-000 > | Short delayed descriptor replication factor
+           | 0-33-041 > | Attribute of following value
+           | 2-04-018 > | Add associated field
+           | 0-31-021 > | Associated field significance
+           | 0-20-001 > | Horizontal visibility
+           | 2-04-000 > | Cancel add associated field
+           | 1-13-000 > | Delayed replication of 13 descriptors
+           | 0-31-000 > | Short delayed descriptor replication factor
+           | 2-04-018 > | Add associated field
+           | 0-31-021 > | Associated field significance
+           | 0-20-010 > | Cloud cover (total)
+           | 2-04-000 > | Cancel add associated field
+           | 1-07-000 > | Delayed replication of 7 descriptors
+           | 0-31-001 > | Delayed descriptor replication factor
+           | 0-08-002 > | Vertical significance (surface observations)
+           | 2-04-018 > | Add associated field
+           | 0-31-021 > | Associated field significance
+           | 0-20-011 > | Cloud amount
+           | 0-20-013 > | Height of base of cloud
+           | 2-04-000 > | Cancel add associated field
+           | 0-08-002 > | Vertical significance (surface observations)
+           | 1-05-000 > | Delayed replication of 5 descriptors
+           | 0-31-000 > | Short delayed descriptor replication factor
+           | 2-04-018 > | Add associated field
+           | 0-31-021 > | Associated field significance
+           | 0-20-062 > | State of the ground (with or without snow)
+           | 0-13-013 > | Total snow depth
+           | 2-04-000 > | Cancel add associated field
+           | 1-05-000 > | Delayed replication of 5 descriptors
+           | 0-31-000 > | Short delayed descriptor replication factor
+           | 0-04-025 > | Time period or displacement
+           | 2-04-018 > | Add associated field
+           | 0-31-021 > | Associated field significance
+           | 0-20-003 > | Present weather
+           | 2-04-000 > | Cancel add associated field
+           | 1-05-000 > | Delayed replication of 5 descriptors
+           | 0-31-000 > | Short delayed descriptor replication factor
+           | 0-04-025 > | Time period or displacement
+           | 2-04-018 > | Add associated field
+           | 0-31-021 > | Associated field significance
+           | 0-13-011 > | Total precipitation/total water equivalent
+           | 2-04-000 > | Cancel add associated field
+           | 1-15-000 > | Delayed replication of 15 descriptors
+           | 0-31-001 > | Delayed descriptor replication factor
+           | 0-07-032 > | Height of sensor above local ground (or deck of marine platform)
+           | 0-08-021 > | Time significance
+           | 0-04-025 > | Time period or displacement
+           | 2-04-018 > | Add associated field
+           | 0-31-021 > | Associated field significance
+           | 0-11-001 > | Wind direction
+           | 0-11-002 > | Wind speed
+           | 2-04-000 > | Cancel add associated field
+           | 0-08-021 > | Time significance
+           | 2-04-018 > | Add associated field
+           | 0-31-021 > | Associated field significance
+           | 0-11-043 > | Maximum wind gust direction
+           | 0-11-041 > | Maximum wind gust speed
+           | 2-04-000 > | Cancel add associated field
+           | 0-07-032 > | Height of sensor above local ground (or deck of marine platform)
+           | 1-05-000 > | Delayed replication of 5 descriptors
+           | 0-31-000 > | Short delayed descriptor replication factor
+           | 0-04-025 > | Time period or displacement
+           | 2-04-018 > | Add associated field
+           | 0-31-021 > | Associated field significance
+           | 0-14-031 > | Total sunshine
+           | 2-04-000 > | Cancel add associated field
+           | 1-10-000 > | Delayed replication of 10 descriptors
+           | 0-31-000 > | Short delayed descriptor replication factor
+           | 0-04-025 > | Time period or displacement
+           | 2-04-018 > | Add associated field
+           | 0-31-021 > | Associated field significance
+           | 0-14-002 > | Long-wave radiation, integrated over period specified
+           | 0-14-002 > | Long-wave radiation, integrated over period specified
+           | 0-14-004 > | Short-wave radiation, integrated over period specified
+           | 0-14-028 > | Global solar radiation (high accuracy), integrated over period specified
+           | 0-14-029 > | Diffuse solar radiation (high accuracy), integrated over period specified
+           | 0-14-030 > | Direct solar radiation (high accuracy), integrated over period specified
+           | 2-04-000 > | Cancel add associated field
+           | 1-13-000 > | Delayed replication of 13 descriptors
+           | 0-31-000 > | Short delayed descriptor replication factor
+           | 0-04-025 > | Time period or displacement
+           | 0-02-071 > | Spectrographic wavelength
+           | 0-02-072 > | Spectrographic width
+           | 2-04-018 > | Add associated field
+           | 0-31-021 > | Associated field significance
+           | 0-14-072 > | Global UV irradiation
+           | 2-04-000 > | Cancel add associated field
+           | 0-02-071 > | Spectrographic wavelength
+           | 0-02-072 > | Spectrographic width
+           | 2-04-018 > | Add associated field
+           | 0-31-021 > | Associated field significance
+           | 0-14-072 > | Global UV irradiation
+           | 2-04-000   | Cancel add associated field
+
   3-07-096 | RSDWDIOH   ;     ; Sequence for representation of SYNOP with supplementary information on one-hour observations
            | 3-01-090 > | Surface station identification; time, horizontal and vertical coordinates
            | 3-01-089 > | National station identification
-           | 0-08-010 > | Surface qualifier (for temperature data)
+           | 0-08-010 > | Surface qualifier (temperature data)
            | 3-01-091 > | Surface station instrumentation
            | 3-02-084 > | "Instantaneous" data of sequence 3 07 096
            | 3-02-085 > | "Period" data of sequence 3 07 096
@@ -2917,6 +3537,60 @@ Table D STD |  0 | 23
            | 0-02-177 > | Method of snow depth measurement
            | 0-20-062 > | State of the ground (with or without snow)
            | 0-13-013   | Total snow depth
+
+  3-07-102 | RDWXINFO   ;     ; Road weather information
+           | 3-01-089 > | National station identification
+           | 0-01-018 > | Short station or site name
+           | 0-01-015 > | Station or site name
+           | 0-01-104 > | State/federal state identifier
+           | 0-01-105 > | Highway designator
+           | 0-01-106 > | Location along highway as indicated by position markers
+           | 0-03-017 > | Extended type of station
+           | 0-03-018 > | Type of road
+           | 0-03-019 > | Type of construction
+           | 3-01-011 > | Year, month, day
+           | 3-01-012 > | Hour, minute
+           | 3-01-021 > | Latitude/longitude (high accuracy)
+           | 0-07-030 > | Height of station ground above mean sea level
+           | 0-07-032 > | Height of sensor above local ground (or deck of marine platform)
+           | 0-12-101 > | Temperature/air temperature
+           | 0-12-103 > | Dewpoint temperature
+           | 0-13-003 > | Relative humidity
+           | 0-07-032 > | Height of sensor above local ground (or deck of marine platform)
+           | 0-20-001 > | Horizontal visibility
+           | 1-09-000 > | Delayed replication of 9 descriptors
+           | 0-31-001 > | Delayed descriptor replication factor
+           | 0-03-016 > | Position of road sensors
+           | 0-12-128 > | Road surface temperature
+           | 1-02-000 > | Delayed replication of 2 descriptors
+           | 0-31-001 > | Delayed descriptor replication factor
+           | 0-07-061 > | Depth below land surface
+           | 0-12-129 > | Road subsurface temperature
+           | 0-07-061 > | Depth below land surface
+           | 0-13-116 > | Water film thickness
+           | 0-20-138 > | Road surface condition
+           | 0-04-025 > | Time period or displacement
+           | 0-20-024 > | Intensity of phenomena
+           | 0-13-055 > | Intensity of precipitation
+           | 0-20-021 > | Type of precipitation
+           | 0-13-011 > | Total precipitation/total water equivalent
+           | 0-07-032 > | Height of sensor above local ground (or deck of marine platform)
+           | 0-08-021 > | Time significance
+           | 0-04-025 > | Time period or displacement
+           | 0-11-001 > | Wind direction
+           | 0-11-002 > | Wind speed
+           | 0-08-021 > | Time significance
+           | 0-04-025 > | Time period or displacement
+           | 0-11-043 > | Maximum wind gust direction
+           | 0-11-041 > | Maximum wind gust speed
+           | 0-33-005   | Quality information (AWS data)
+
+  3-07-103 | SNOWOBDW   ;     ; Snow observation, snow density, snow water equivalent
+           | 3-01-150 > | WIGOS identifier
+           | 3-07-101 > | Snow observation
+           | 0-13-117 > | Snow density (liquid water content)
+           | 0-03-028 > | Method of snow water equivalent measurement
+           | 0-13-163   | Snow water equivalent
 
   3-07-182 | SYNFLD2N   ;     ; Sequence for representation of synoptic reports from a fixed land station suitable for SYNOP data in compliance with reporting practices in RA II
            | 3-01-090 > | Surface station identification; time, horizontal and vertical coordinates
@@ -2975,7 +3649,7 @@ Table D STD |  0 | 23
            | 0-07-062 > | Depth below sea/water surface
            | 0-22-042   | Sea/water temperature
 
-  3-08-009 | SYNPSHIP   ;     ; Sequence for representation of synoptic reports from a sea station suitable for ship data
+  3-08-009 | SYNPSHIP   ;     ; Sequence for representation of synoptic reports from a sea station suitable for SHIP data
            | 3-01-093 > | Ship identification, movement, date/time, horizontal and vertical coordinates
            | 3-02-001 > | Pressure and 3-hour pressure change
            | 3-02-054 > | Ship "instantaneous" data
@@ -3031,7 +3705,7 @@ Table D STD |  0 | 23
            | 0-04-053 > | Number of days with precipitation equal to or more than 1 mm
            | 0-07-032   | Height of sensor above local ground (or deck of marine platform)
 
-  3-08-012 | MNTHNSEA   ;     ; Monthly normals from an ocean weather station
+  3-08-012 | MNTHNSEA   ;     ; Monthly normals for an ocean weather station
            | 0-04-001 > | Year
            | 0-04-001 > | Year
            | 0-04-002 > | Month
@@ -3063,7 +3737,175 @@ Table D STD |  0 | 23
 
   3-08-013 | CLIMATMS   ;     ; Representation of CLIMAT SHIP data of the actual month and for monthly normals
            | 3-08-011 > | Monthly values from an ocean weather station - CLIMAT SHIP
-           | 3-08-012   | Monthly normals from an ocean weather station
+           | 3-08-012   | Monthly normals for an ocean weather station
+
+  3-08-014 | SYNPSVOS   ;     ; Synoptic reports from sea stations suitable for VOS observation data
+           | 1-01-000 > | Delayed replication of 1 descriptor
+           | 0-31-000 > | Short delayed descriptor replication factor
+           | 3-01-018 > | Encrypted ship's call sign and encryption method
+           | 0-03-001 > | Surface station type
+           | 3-01-093 > | Ship identification, movement, date/time, horizontal and vertical coordinates
+           | 2-08-032 > | Change width of CCITT IA5 field
+           | 0-01-079 > | Unique identifier for the profile
+           | 2-08-000 > | Cancel change width of CCITT IA5 field
+           | 3-02-062 > | Ship "instantaneous" data
+           | 3-02-063 > | Ship "period" data
+           | 1-01-000 > | Delayed replication of 1 descriptor
+           | 0-31-000 > | Short delayed descriptor replication factor
+           | 3-02-092 > | VOSClim data elements
+           | 1-01-000 > | Delayed replication of 1 descriptor
+           | 0-31-000 > | Short delayed descriptor replication factor
+           | 3-06-033 > | Surface salinity
+           | 1-01-000 > | Delayed replication of 1 descriptor
+           | 0-31-000 > | Short delayed descriptor replication factor
+           | 3-06-034 > | Surface current
+           | 1-01-000 > | Delayed replication of 1 descriptor
+           | 0-31-000 > | Short delayed descriptor replication factor
+           | 3-06-043   | Marine biogeochemical and radiation observations
+
+  3-08-015 | TFWDEAFQ   ;     ; Template for WAVEOB data expressed as frequency
+           | 0-01-003 > | WMO Region number/geographical area
+           | 0-01-020 > | WMO Region sub-area
+           | 0-01-005 > | Buoy/platform identifier
+           | 0-01-011 > | Ship or mobile land station identifier
+           | 0-01-007 > | Satellite identifier
+           | 0-01-001 > | WMO block number
+           | 0-01-002 > | WMO station number
+           | 0-02-044 > | Indicator for method of calculating spectral wave data
+           | 0-02-045 > | Indicator for type of platform
+           | 3-01-011 > | Year, month, day
+           | 3-01-012 > | Hour, minute
+           | 3-01-021 > | Latitude/longitude (high accuracy)
+           | 0-22-063 > | Total water depth
+           | 0-22-076 > | Direction from which dominant waves are coming
+           | 0-22-077 > | Directional spread of dominant wave
+           | 0-22-094 > | Total number of wave bands
+           | 0-25-043 > | Wave sampling interval (time)
+           | 0-22-078 > | Duration of wave record
+           | 1-05-002 > | Replicate 5 descriptors 2 times
+           | 0-02-046 > | Wave measurement instrumentation
+           | 0-22-070 > | Significant wave height
+           | 0-22-071 > | Spectral peak wave period
+           | 0-22-073 > | Maximum wave height
+           | 0-22-074 > | Average wave period
+           | 1-27-000 > | Delayed replication of 27 descriptors
+           | 0-31-001 > | Delayed descriptor replication factor
+           | 0-02-046 > | Wave measurement instrumentation
+           | 0-08-090 > | Decimal scale of following significands
+           | 0-22-102 > | Scaled maximum non-directional spectral wave density by frequency
+           | 0-08-090 > | Decimal scale of following significands
+           | 0-22-084 > | Band containing maximum non-directional spectral wave density
+           | 1-20-000 > | Delayed replication of 20 descriptors
+           | 0-31-001 > | Delayed descriptor replication factor
+           | 0-22-080 > | Waveband central frequency
+           | 0-22-108 > | Spectral wave density ratio
+           | 0-22-086 > | Mean direction from which waves are coming
+           | 0-22-087 > | Principal direction from which waves are coming
+           | 0-22-088 > | First normalized polar coordinate from Fourier coefficients
+           | 0-22-089 > | Second normalized polar coordinate from Fourier coefficients
+           | 1-05-000 > | Delayed replication of 5 descriptors
+           | 0-31-001 > | Delayed descriptor replication factor
+           | 0-08-090 > | Decimal scale of following significands
+           | 0-22-104 > | Scaled non-directional spectral wave density by frequency
+           | 0-08-090 > | Decimal scale of following significands
+           | 0-22-186 > | Direction from which waves are coming
+           | 0-22-187 > | Directional spread of wave
+           | 1-05-000 > | Delayed replication of 5 descriptors
+           | 0-31-001 > | Delayed descriptor replication factor
+           | 0-08-090 > | Decimal scale of following significands
+           | 0-22-106 > | Scaled directional spectral wave density by frequency
+           | 0-08-090 > | Decimal scale of following significands
+           | 0-22-186 > | Direction from which waves are coming
+           | 0-22-187   | Directional spread of wave
+
+  3-08-016 | BTWDEAWV   ;     ; Template for WAVEOB data expressed as the wave number
+           | 0-01-003 > | WMO Region number/geographical area
+           | 0-01-020 > | WMO Region sub-area
+           | 0-01-005 > | Buoy/platform identifier
+           | 0-01-011 > | Ship or mobile land station identifier
+           | 0-01-007 > | Satellite identifier
+           | 0-01-001 > | WMO block number
+           | 0-01-002 > | WMO station number
+           | 0-02-044 > | Indicator for method of calculating spectral wave data
+           | 0-02-045 > | Indicator for type of platform
+           | 3-01-011 > | Year, month, day
+           | 3-01-012 > | Hour, minute
+           | 3-01-021 > | Latitude/longitude (high accuracy)
+           | 0-22-063 > | Total water depth
+           | 0-22-076 > | Direction from which dominant waves are coming
+           | 0-22-077 > | Directional spread of dominant wave
+           | 0-22-094 > | Total number of wave bands
+           | 0-25-044 > | Wave sampling interval (space)
+           | 0-22-079 > | Length of wave record
+           | 1-05-002 > | Replicate 5 descriptors 2 times
+           | 0-02-046 > | Wave measurement instrumentation
+           | 0-22-070 > | Significant wave height
+           | 0-22-072 > | Spectral peak wavelength
+           | 0-22-073 > | Maximum wave height
+           | 0-22-075 > | Average wavelength
+           | 1-27-000 > | Delayed replication of 27 descriptors
+           | 0-31-001 > | Delayed descriptor replication factor
+           | 0-02-046 > | Wave measurement instrumentation
+           | 0-08-090 > | Decimal scale of following significands
+           | 0-22-103 > | Scaled maximum non-directional spectral wave density by wave number
+           | 0-08-090 > | Decimal scale of following significands
+           | 0-22-084 > | Band containing maximum non-directional spectral wave density
+           | 1-20-000 > | Delayed replication of 20 descriptors
+           | 0-31-001 > | Delayed descriptor replication factor
+           | 0-22-081 > | Waveband central wave number
+           | 0-22-108 > | Spectral wave density ratio
+           | 0-22-086 > | Mean direction from which waves are coming
+           | 0-22-087 > | Principal direction from which waves are coming
+           | 0-22-088 > | First normalized polar coordinate from Fourier coefficients
+           | 0-22-089 > | Second normalized polar coordinate from Fourier coefficients
+           | 1-05-000 > | Delayed replication of 5 descriptors
+           | 0-31-001 > | Delayed descriptor replication factor
+           | 0-08-090 > | Decimal scale of following significands
+           | 0-22-105 > | Scaled non-directional spectral wave density by wave number
+           | 0-08-090 > | Decimal scale of following significands
+           | 0-22-186 > | Direction from which waves are coming
+           | 0-22-187 > | Directional spread of wave
+           | 1-05-000 > | Delayed replication of 5 descriptors
+           | 0-31-001 > | Delayed descriptor replication factor
+           | 0-08-090 > | Decimal scale of following significands
+           | 0-22-107 > | Scaled directional spectral wave density by wave number
+           | 0-08-090 > | Decimal scale of following significands
+           | 0-22-186 > | Direction from which waves are coming
+           | 0-22-187   | Directional spread of wave
+
+  3-08-017 | OFSPRPT    ;     ; Sequence for reporting observations from offshore platforms
+           | 3-01-056 > | Sequence for platform identification, type, time and location of the observation report
+           | 3-02-001 > | Pressure and 3-hour pressure change
+           | 3-02-052 > | Ship temperature and humidity data
+           | 1-01-000 > | Delayed replication of 1 descriptor
+           | 0-31-000 > | Short delayed descriptor replication factor
+           | 3-02-056 > | Sea/water temperature
+           | 3-02-064 > | Ship or other marine platform wind data
+           | 3-02-053 > | Ship visibility data
+           | 1-01-000 > | Delayed replication of 1 descriptor
+           | 0-31-000 > | Short delayed descriptor replication factor
+           | 3-02-004 > | General cloud information
+           | 1-01-000 > | Delayed replication of 1 descriptor
+           | 0-31-000 > | Short delayed descriptor replication factor
+           | 3-02-005 > | Cloud layer
+           | 1-01-000 > | Delayed replication of 1 descriptor
+           | 0-31-000 > | Short delayed descriptor replication factor
+           | 3-02-038 > | Present and past weather
+           | 1-01-000 > | Delayed replication of 1 descriptor
+           | 0-31-000 > | Short delayed descriptor replication factor
+           | 3-06-039   | Sequence for representation of basic wave measurements
+
+  3-08-018 | SHIPAWSB   ;     ; Sequence for reporting of basic ship AWS observations
+           | 3-01-150 > | WIGOS identifier
+           | 3-01-093 > | Ship identification, movement, date/time, horizontal and vertical coordinates
+           | 3-02-001 > | Pressure and 3-hour pressure change
+           | 3-02-072 > | Temperature and humidity data
+           | 1-01-000 > | Delayed replication of 1 descriptor
+           | 0-31-000 > | Short delayed descriptor replication factor
+           | 3-02-056 > | Sea/water temperature
+           | 1-01-000 > | Delayed replication of 1 descriptor
+           | 0-31-000 > | Short delayed descriptor replication factor
+           | 3-02-064   | Ship or other marine platform wind data
 
   3-08-021 | MNTHVSRP   ;     ; Monthly values from an ocean weather station in compliance with regional or national reporting practices
            | 0-01-011 > | Ship or mobile land station identifier
@@ -3251,6 +4093,181 @@ Table D STD |  0 | 23
            | 0-11-004 > | v-component
            | 0-11-005   | w-component
 
+  3-09-021 | RWPWND     ;     ; Single wavelength wind profiler wind data (product data)
+           | 3-01-001 > | WMO block and station numbers
+           | 0-05-001 > | Latitude (high accuracy)
+           | 0-06-001 > | Longitude (high accuracy)
+           | 0-07-030 > | Height of station ground above mean sea level
+           | 3-01-014 > | Time period
+           | 0-02-003 > | Type of measuring equipment used
+           | 0-02-121 > | Mean frequency
+           | 1-12-000 > | Delayed replication of 12 descriptors
+           | 0-31-001 > | Delayed descriptor replication factor
+           | 0-07-007 > | Height
+           | 3-01-021 > | Latitude/longitude (high accuracy)
+           | 0-11-003 > | u-component
+           | 0-11-110 > | Uncertainty in u-component
+           | 0-11-004 > | v-component
+           | 0-11-111 > | Uncertainty in v-component
+           | 0-33-002 > | Quality information
+           | 0-11-006 > | w-component
+           | 0-11-112 > | Uncertainty in w-component
+           | 0-33-002 > | Quality information
+           | 0-10-071 > | Vertical resolution
+           | 0-27-079   | Horizontal width of sampled volume
+
+  3-09-022 | RASSTMVR   ;     ; RASS virtual temperature (product data)
+           | 3-01-001 > | WMO block and station numbers
+           | 0-05-001 > | Latitude (high accuracy)
+           | 0-06-001 > | Longitude (high accuracy)
+           | 0-07-030 > | Height of station ground above mean sea level
+           | 3-01-014 > | Time period
+           | 0-02-003 > | Type of measuring equipment used
+           | 0-02-121 > | Mean frequency
+           | 1-10-000 > | Delayed replication of 10 descriptors
+           | 0-31-001 > | Delayed descriptor replication factor
+           | 0-07-007 > | Height
+           | 3-01-021 > | Latitude/longitude (high accuracy)
+           | 0-12-007 > | Virtual temperature
+           | 0-12-008 > | Uncertainty in virtual temperature
+           | 0-33-002 > | Quality information
+           | 0-11-006 > | w-component
+           | 0-11-112 > | Uncertainty in w-component
+           | 0-33-002 > | Quality information
+           | 0-10-071 > | Vertical resolution
+           | 0-27-079   | Horizontal width of sampled volume
+
+  3-09-023 | LIDARSEQ   ;     ; Single wavelength elastic backscatter lidar sequence
+           | 3-01-001 > | WMO block and station numbers
+           | 0-05-001 > | Latitude (high accuracy)
+           | 0-06-001 > | Longitude (high accuracy)
+           | 0-07-030 > | Height of station ground above mean sea level
+           | 3-01-014 > | Time period
+           | 0-02-003 > | Type of measuring equipment used
+           | 3-02-004 > | General cloud information
+           | 3-02-005 > | Cloud layer
+           | 1-14-000 > | Delayed replication of 14 descriptors
+           | 0-31-001 > | Delayed descriptor replication factor
+           | 0-07-007 > | Height
+           | 3-01-021 > | Latitude/longitude (high accuracy)
+           | 1-01-000 > | Delayed replication of 1 descriptor
+           | 0-31-001 > | Delayed descriptor replication factor
+           | 0-02-121 > | Mean frequency
+           | 0-15-063 > | Attenuated backscatter
+           | 0-15-064 > | Uncertainty in attenuated backscatter
+           | 0-15-065 > | Particle backscatter coefficient
+           | 0-15-066 > | Uncertainty in particle backscatter coefficient
+           | 0-15-067 > | Particle extinction coefficient
+           | 0-15-068 > | Uncertainty in particle extinction coefficient
+           | 0-15-069 > | Particle lidar ratio
+           | 0-15-070 > | Uncertainty in lidar ratio
+           | 0-15-071 > | Particle depolarization ratio
+           | 0-15-072 > | Uncertainty in depolarization ratio
+           | 0-33-002 > | Quality information
+           | 0-10-071 > | Vertical resolution
+           | 0-27-079   | Horizontal width of sampled volume
+
+  3-09-024 | RWPWND2    ;     ; Single wavelength wind profiler wind data sequence (product data)
+           | 3-01-132 > | Common header sequence
+           | 2-01-151 > | Change data width
+           | 2-02-130 > | Change scale
+           | 0-02-121 > | Mean frequency
+           | 2-02-000 > | Cancel change scale
+           | 2-01-000 > | Cancel change data width
+           | 0-08-021 > | Time significance
+           | 0-04-025 > | Time period or displacement
+           | 1-09-000 > | Delayed replication of 9 descriptors
+           | 0-31-002 > | Extended delayed descriptor replication factor
+           | 0-07-007 > | Height
+           | 3-01-021 > | Latitude/longitude (high accuracy)
+           | 0-11-003 > | u-component
+           | 0-11-004 > | v-component
+           | 0-33-002 > | Quality information
+           | 0-11-006 > | w-component
+           | 0-33-002 > | Quality information
+           | 0-10-071 > | Vertical resolution
+           | 0-27-079   | Horizontal width of sampled volume
+
+  3-09-025 | RASSTMV2   ;     ; RASS virtual temperature sequence (product data)
+           | 3-01-132 > | Common header sequence
+           | 2-01-151 > | Change data width
+           | 2-02-130 > | Change scale
+           | 0-02-121 > | Mean frequency
+           | 2-02-000 > | Cancel change scale
+           | 2-01-000 > | Cancel change data width
+           | 0-08-021 > | Time significance
+           | 0-04-025 > | Time period or displacement
+           | 1-06-000 > | Delayed replication of 6 descriptors
+           | 0-31-002 > | Extended delayed descriptor replication factor
+           | 0-07-007 > | Height
+           | 3-01-021 > | Latitude/longitude (high accuracy)
+           | 0-12-007 > | Virtual temperature
+           | 0-33-002 > | Quality information
+           | 0-10-071 > | Vertical resolution
+           | 0-27-079   | Horizontal width of sampled volume
+
+  3-09-026 | LIDARSQ2   ;     ; Single wavelength elastic backscatter lidar sequence
+           | 3-01-132 > | Common header sequence
+           | 3-02-004 > | General cloud information
+           | 3-02-005 > | Cloud layer
+           | 0-08-092 > | Measurement uncertainty expression
+           | 0-08-093 > | Measurement uncertainty significance
+           | 0-08-021 > | Time significance
+           | 0-04-025 > | Time period or displacement
+           | 2-01-138 > | Change data width
+           | 2-02-126 > | Change scale
+           | 0-02-121 > | Mean frequency
+           | 2-02-000 > | Cancel change scale
+           | 2-01-000 > | Cancel change data width
+           | 1-15-000 > | Delayed replication of 15 descriptors
+           | 0-31-002 > | Extended delayed descriptor replication factor
+           | 0-07-007 > | Height
+           | 3-01-021 > | Latitude/longitude (high accuracy)
+           | 0-15-073 > | Attenuated backscatter
+           | 0-15-064 > | Uncertainty in attenuated backscatter
+           | 0-15-074 > | Particle backscatter coefficient
+           | 0-15-066 > | Uncertainty in particle backscatter coefficient
+           | 0-15-075 > | Particle extinction coefficient
+           | 0-15-068 > | Uncertainty in particle extinction coefficient
+           | 0-15-076 > | Particle lidar ratio
+           | 0-15-077 > | Uncertainty in lidar ratio
+           | 0-15-078 > | Particle depolarization ratio
+           | 0-15-072 > | Uncertainty in depolarization ratio
+           | 0-33-002 > | Quality information
+           | 0-10-071 > | Vertical resolution
+           | 0-27-079   | Horizontal width of sampled volume
+
+  3-09-027 | LIDARSQ3   ;     ; Multi wavelength ground-based lidar sequence
+           | 3-01-132 > | Common header sequence
+           | 0-08-043 > | Atmospheric chemical or physical constituent type
+           | 0-25-061 > | Software identification and version number
+           | 3-02-004 > | General cloud information
+           | 3-02-005 > | Cloud layer
+           | 0-08-092 > | Measurement uncertainty expression
+           | 0-08-093 > | Measurement uncertainty significance
+           | 0-08-021 > | Time significance
+           | 0-04-025 > | Time period or displacement
+           | 1-18-000 > | Delayed replication of 18 descriptors
+           | 0-31-001 > | Delayed descriptor replication factor
+           | 0-02-090 > | Instrument wavelength
+           | 1-15-000 > | Delayed replication of 15 descriptors
+           | 0-31-002 > | Extended delayed descriptor replication factor
+           | 0-07-007 > | Height
+           | 3-01-021 > | Latitude/longitude (high accuracy)
+           | 0-15-073 > | Attenuated backscatter
+           | 0-15-064 > | Uncertainty in attenuated backscatter
+           | 0-15-074 > | Particle backscatter coefficient
+           | 0-15-066 > | Uncertainty in particle backscatter coefficient
+           | 0-15-075 > | Particle extinction coefficient
+           | 0-15-068 > | Uncertainty in particle extinction coefficient
+           | 0-15-076 > | Particle lidar ratio
+           | 0-15-077 > | Uncertainty in lidar ratio
+           | 0-15-078 > | Particle depolarization ratio
+           | 0-15-072 > | Uncertainty in depolarization ratio
+           | 0-33-002 > | Quality information
+           | 0-10-071 > | Vertical resolution
+           | 0-27-079   | Horizontal width of sampled volume
+
   3-09-030 | OZSNDFLT   ;     ; Ozone sonde flight data
            | 0-15-004 > | Ozone sounding correction factor (CF)
            | 0-15-005 > | Ozone p
@@ -3432,6 +4449,37 @@ Table D STD |  0 | 23
            | 1-01-000 > | Delayed replication of 1 descriptor
            | 0-31-002 > | Extended delayed descriptor replication factor
            | 3-03-055   | Temperature, dewpoint, relative humidity and wind data at a height level with radiosonde position
+
+  3-09-056 | RAOBDESC   ;     ; Sequence for representation of radiosonde descent data
+           | 3-01-150 > | WIGOS identifier
+           | 3-01-111 > | Identification of launch site and instrumentation for P, T, U and wind measurements
+           | 3-01-128 > | Additional information on radiosonde ascent
+           | 3-01-113 > | Date/time of launch
+           | 0-08-091 > | Coordinates significance
+           | 3-01-021 > | Latitude/longitude (high accuracy)
+           | 0-07-007 > | Height
+           | 0-08-091 > | Coordinates significance
+           | 1-01-000 > | Delayed replication of 1 descriptor
+           | 0-31-002 > | Extended delayed descriptor replication factor
+           | 3-03-056 > | Temperature, dewpoint and wind data at a pressure level with radiosonde position and higher precision of pressure and geopotential height
+           | 1-01-000 > | Delayed replication of 1 descriptor
+           | 0-31-001 > | Delayed descriptor replication factor
+           | 3-03-051   | Wind shear data at a pressure level with radiosonde position
+
+  3-09-057 | TEMPSHMH   ;     ; Sequence for representation of TEMP, TEMP SHIP and TEMP MOBIL observation type data with higher precision of pressure and geopotential height
+           | 3-01-150 > | WIGOS identifier
+           | 3-01-111 > | Identification of launch site and instrumentation for P, T, U and wind measurements
+           | 3-01-128 > | Additional information on radiosonde ascent
+           | 3-01-113 > | Date/time of launch
+           | 3-01-114 > | Horizontal and vertical coordinates of launch site
+           | 3-02-049 > | Cloud information reported with vertical soundings
+           | 0-22-043 > | Sea/water temperature
+           | 1-01-000 > | Delayed replication of 1 descriptor
+           | 0-31-002 > | Extended delayed descriptor replication factor
+           | 3-03-056 > | Temperature, dewpoint and wind data at a pressure level with radiosonde position and higher precision of pressure and geopotential height
+           | 1-01-000 > | Delayed replication of 1 descriptor
+           | 0-31-001 > | Delayed descriptor replication factor
+           | 3-03-051   | Wind shear data at a pressure level with radiosonde position
 
   3-09-060 | RAOBRGSF   ;     ; Radiosonde complete registration and surface observation
            | 3-01-123 > | Radiosonde full header information
@@ -3713,10 +4761,10 @@ Table D STD |  0 | 23
            | 3-10-012   | ATOVS channel variables
 
   3-10-011 | ATFOV      ;     ; ATOVS field of view variables
-           | 0-08-070 > | TOVS/ATOVS product qualifier
+           | 0-08-070 > | Vertical sounding product qualifier
            | 0-01-033 > | Identification of originating/generating centre
            | 0-01-034 > | Identification of originating/generating sub-centre
-           | 0-08-070 > | TOVS/ATOVS product qualifier
+           | 0-08-070 > | Vertical sounding product qualifier
            | 0-01-033 > | Identification of originating/generating centre
            | 0-01-034 > | Identification of originating/generating sub-centre
            | 0-01-007 > | Satellite identifier
@@ -3762,8 +4810,8 @@ Table D STD |  0 | 23
   3-10-012 | ATCHV      ;     ; ATOVS channel variables
            | 0-02-150 > | TOVS/ATOVS/AVHRR instrumentation channel number
            | 0-25-076 > | Log10 of (temperature-radiance central wave number) for ATOVS
-           | 0-25-077 > | Bandwidth correction coefficient 1 for ATOVS
-           | 0-25-078 > | Bandwidth correction coefficient 2 for ATOVS
+           | 0-25-077 > | Bandwidth correction coefficient 1
+           | 0-25-078 > | Bandwidth correction coefficient 2
            | 0-33-032 > | Channel quality flags for ATOVS
            | 2-01-132 > | Change data width
            | 2-02-129 > | Change scale
@@ -4633,6 +5681,1032 @@ Table D STD |  0 | 23
            | 0-15-001 > | Total ozone
            | 2-07-000   | Cancel increase scale, reference value and data width
 
+  3-10-067 | SATDRWND   ;     ; Satellite-derived winds
+           | 0-01-033 > | Identification of originating/generating centre
+           | 0-01-034 > | Identification of originating/generating sub-centre
+           | 0-25-061 > | Software identification and version number
+           | 0-25-062 > | Database identification
+           | 0-01-007 > | Satellite identifier
+           | 0-02-153 > | Satellite channel centre frequency
+           | 0-01-012 > | Direction of motion of moving observing platform
+           | 2-01-138 > | Change data width
+           | 0-02-026 > | Cross-track resolution
+           | 0-02-027 > | Along-track resolution
+           | 2-01-000 > | Cancel change data width
+           | 0-02-028 > | Segment size at nadir in x-direction
+           | 0-02-029 > | Segment size at nadir in y-direction
+           | 0-02-161 > | Wind processing method
+           | 0-02-164 > | Tracer correlation method
+           | 0-02-023 > | Satellite-derived wind computation method
+           | 0-08-012 > | Land/sea qualifier
+           | 0-08-013 > | Day/night qualifier
+           | 0-01-124 > | Grid point identifier
+           | 0-05-001 > | Latitude (high accuracy)
+           | 0-06-001 > | Longitude (high accuracy)
+           | 0-04-001 > | Year
+           | 0-04-002 > | Month
+           | 0-04-003 > | Day
+           | 0-04-004 > | Hour
+           | 0-04-005 > | Minute
+           | 0-04-006 > | Second
+           | 0-04-086 > | Long time period or displacement
+           | 0-11-001 > | Wind direction
+           | 0-11-002 > | Wind speed
+           | 0-11-003 > | u-component
+           | 0-11-004 > | v-component
+           | 0-02-162 > | Extended height assignment method
+           | 0-07-004 > | Pressure
+           | 0-12-001 > | Temperature/air temperature
+           | 0-20-014 > | Height of top of cloud
+           | 0-07-024 > | Satellite zenith angle
+           | 0-01-023 > | Observation sequence number
+           | 1-04-000 > | Delayed replication of 4 descriptors
+           | 0-31-001 > | Delayed descriptor replication factor
+           | 0-02-162 > | Extended height assignment method
+           | 0-07-004 > | Pressure
+           | 0-12-001 > | Temperature/air temperature
+           | 0-20-014 > | Height of top of cloud
+           | 1-13-000 > | Delayed replication of 13 descriptors
+           | 0-31-001 > | Delayed descriptor replication factor
+           | 0-04-086 > | Long time period or displacement
+           | 0-02-020 > | Satellite classification
+           | 0-01-007 > | Satellite identifier
+           | 0-02-019 > | Satellite instruments
+           | 0-05-042 > | Channel number
+           | 0-02-153 > | Satellite channel centre frequency
+           | 0-05-040 > | Orbit number
+           | 0-07-024 > | Satellite zenith angle
+           | 0-05-021 > | Bearing or azimuth
+           | 0-02-162 > | Extended height assignment method
+           | 0-07-004 > | Pressure
+           | 0-12-001 > | Temperature/air temperature
+           | 0-20-014 > | Height of top of cloud
+           | 1-19-000 > | Delayed replication of 19 descriptors
+           | 0-31-001 > | Delayed descriptor replication factor
+           | 0-04-086 > | Long time period or displacement
+           | 0-04-086 > | Long time period or displacement
+           | 0-05-001 > | Latitude (high accuracy)
+           | 0-06-001 > | Longitude (high accuracy)
+           | 0-11-003 > | u-component
+           | 0-11-004 > | v-component
+           | 0-11-113 > | Tracking correlation of vector
+           | 0-25-148 > | Coefficient of variation
+           | 1-03-000 > | Delayed replication of 3 descriptors
+           | 0-31-001 > | Delayed descriptor replication factor
+           | 0-08-023 > | First-order statistics
+           | 0-11-003 > | u-component
+           | 0-11-004 > | v-component
+           | 0-08-023 > | First-order statistics
+           | 1-03-000 > | Delayed replication of 3 descriptors
+           | 0-31-001 > | Delayed descriptor replication factor
+           | 0-20-111 > | x-axis error ellipse major component
+           | 0-20-112 > | y-axis error ellipse minor component
+           | 0-20-114 > | Angle of x-axis in error ellipse
+           | 0-01-033 > | Identification of originating/generating centre
+           | 0-08-021 > | Time significance
+           | 0-11-095 > | u-component of the model wind vector
+           | 0-11-096 > | v-component of the model wind vector
+           | 0-07-004 > | Pressure
+           | 0-08-021 > | Time significance
+           | 0-11-095 > | u-component of the model wind vector
+           | 0-11-096 > | v-component of the model wind vector
+           | 0-07-004 > | Pressure
+           | 0-08-021 > | Time significance
+           | 0-08-086 > | Vertical significance for NWP
+           | 0-11-095 > | u-component of the model wind vector
+           | 0-11-096 > | v-component of the model wind vector
+           | 0-07-004 > | Pressure
+           | 0-08-086 > | Vertical significance for NWP
+           | 1-02-004 > | Replicate 2 descriptors 4 times
+           | 0-01-032 > | Generating application
+           | 0-33-007 > | Per cent confidence
+           | 0-08-092 > | Measurement uncertainty expression
+           | 0-11-003 > | u-component
+           | 0-11-004 > | v-component
+           | 0-07-004 > | Pressure
+           | 0-08-092 > | Measurement uncertainty expression
+           | 0-33-066 > | AMV quality flag
+           | 0-20-081 > | Cloud amount in segment
+           | 0-20-012 > | Cloud type
+           | 0-20-056 > | Cloud phase
+           | 1-17-000 > | Delayed replication of 17 descriptors
+           | 0-31-001 > | Delayed descriptor replication factor
+           | 0-08-023 > | First-order statistics
+           | 0-20-016 > | Pressure at top of cloud
+           | 0-08-092 > | Measurement uncertainty expression
+           | 0-08-003 > | Vertical significance (satellite observations)
+           | 0-12-001 > | Temperature/air temperature
+           | 0-08-003 > | Vertical significance (satellite observations)
+           | 0-20-016 > | Pressure at top of cloud
+           | 0-08-092 > | Measurement uncertainty expression
+           | 0-25-149 > | Optimal estimation cost
+           | 0-20-016 > | Pressure at top of cloud
+           | 0-20-014 > | Height of top of cloud
+           | 0-13-093 > | Cloud optical thickness
+           | 0-13-109 > | Ice/liquid water path
+           | 0-40-038 > | Cloud particle size
+           | 0-08-011 > | Meteorological feature
+           | 0-14-050 > | Emissivity
+           | 0-08-011 > | Meteorological feature
+           | 0-08-023   | First-order statistics
+
+  3-10-068 | VASSFOVV   ;     ; VASS field of view variables
+           | 0-08-070 > | Vertical sounding product qualifier
+           | 0-01-033 > | Identification of originating/generating centre
+           | 0-01-034 > | Identification of originating/generating sub-centre
+           | 0-01-007 > | Satellite identifier
+           | 0-02-019 > | Satellite instruments
+           | 0-12-064 > | Instrument temperature
+           | 0-05-040 > | Orbit number
+           | 2-01-136 > | Change data width
+           | 0-05-041 > | Scan line number
+           | 2-01-000 > | Cancel change data width
+           | 0-05-043 > | Field of view number
+           | 3-01-011 > | Year, month, day
+           | 3-01-012 > | Hour, minute
+           | 2-01-138 > | Change data width
+           | 2-02-131 > | Change scale
+           | 0-04-006 > | Second
+           | 2-02-000 > | Cancel change scale
+           | 2-01-000 > | Cancel change data width
+           | 0-05-001 > | Latitude (high accuracy)
+           | 0-06-001 > | Longitude (high accuracy)
+           | 2-02-126 > | Change scale
+           | 0-07-001 > | Height of station
+           | 2-02-000 > | Cancel change scale
+           | 0-10-007 > | Height
+           | 0-07-024 > | Satellite zenith angle
+           | 0-05-021 > | Bearing or azimuth
+           | 0-07-025 > | Solar zenith angle
+           | 0-05-022 > | Solar azimuth
+           | 0-13-040 > | Surface flag
+           | 0-12-101 > | Temperature/air temperature
+           | 2-01-131 > | Change data width
+           | 2-02-129 > | Change scale
+           | 0-11-011 > | Wind direction at 10 m
+           | 2-02-000 > | Cancel change scale
+           | 2-01-000 > | Cancel change data width
+           | 2-01-130 > | Change data width
+           | 2-02-129 > | Change scale
+           | 0-11-012 > | Wind speed at 10 m
+           | 2-02-000 > | Cancel change scale
+           | 2-01-000 > | Cancel change data width
+           | 0-20-029 > | Rain flag
+           | 0-20-010 > | Cloud cover (total)
+           | 0-20-014 > | Height of top of cloud
+           | 0-13-162 > | Cloud liquid water
+           | 0-14-050   | Emissivity
+
+  3-10-069 | VASSCHNV   ;     ; VASS channel variables
+           | 0-05-042 > | Channel number
+           | 2-01-139 > | Change data width
+           | 0-02-155 > | Satellite channel wavelength
+           | 2-01-000 > | Cancel change data width
+           | 0-25-077 > | Bandwidth correction coefficient 1
+           | 0-25-078 > | Bandwidth correction coefficient 2
+           | 0-33-007 > | Per cent confidence
+           | 2-01-132 > | Change data width
+           | 2-02-129 > | Change scale
+           | 0-12-063 > | Brightness temperature
+           | 2-02-000 > | Cancel change scale
+           | 2-01-000   | Cancel change data width
+
+  3-10-070 | VASSMWTS   ;     ; VASS MWTS report of FY-3
+           | 3-10-068 > | VASS field of view variables
+           | 1-01-013 > | Replicate 1 descriptor 13 times
+           | 3-10-069   | VASS channel variables
+
+  3-10-071 | VASSMWHS   ;     ; VASS MWHS report of FY-3
+           | 3-10-068 > | VASS field of view variables
+           | 1-01-015 > | Replicate 1 descriptor 15 times
+           | 3-10-069   | VASS channel variables
+
+  3-10-072 | VASSIRAS   ;     ; VASS IRAS report of FY-3
+           | 3-10-068 > | VASS field of view variables
+           | 1-01-026 > | Replicate 1 descriptor 26 times
+           | 3-10-069   | VASS channel variables
+
+  3-10-077 | SATDRWN2   ;     ; Satellite-derived winds
+           | 0-01-033 > | Identification of originating/generating centre
+           | 0-01-034 > | Identification of originating/generating sub-centre
+           | 0-25-061 > | Software identification and version number
+           | 0-25-062 > | Database identification
+           | 0-01-007 > | Satellite identifier
+           | 0-02-153 > | Satellite channel centre frequency
+           | 0-01-012 > | Direction of motion of moving observing platform
+           | 2-01-138 > | Change data width
+           | 0-02-026 > | Cross-track resolution
+           | 0-02-027 > | Along-track resolution
+           | 2-01-000 > | Cancel change data width
+           | 0-02-028 > | Segment size at nadir in x-direction
+           | 0-02-029 > | Segment size at nadir in y-direction
+           | 0-02-161 > | Wind processing method
+           | 0-02-164 > | Tracer correlation method
+           | 0-02-023 > | Satellite-derived wind computation method
+           | 0-08-012 > | Land/sea qualifier
+           | 0-08-013 > | Day/night qualifier
+           | 0-01-124 > | Grid point identifier
+           | 0-05-001 > | Latitude (high accuracy)
+           | 0-06-001 > | Longitude (high accuracy)
+           | 0-04-001 > | Year
+           | 0-04-002 > | Month
+           | 0-04-003 > | Day
+           | 0-04-004 > | Hour
+           | 0-04-005 > | Minute
+           | 0-04-006 > | Second
+           | 0-04-086 > | Long time period or displacement
+           | 0-02-162 > | Extended height assignment method
+           | 0-07-004 > | Pressure
+           | 0-11-001 > | Wind direction
+           | 0-11-002 > | Wind speed
+           | 0-11-003 > | u-component
+           | 0-11-004 > | v-component
+           | 0-12-001 > | Temperature/air temperature
+           | 0-20-014 > | Height of top of cloud
+           | 0-07-024 > | Satellite zenith angle
+           | 0-01-023 > | Observation sequence number
+           | 1-04-000 > | Delayed replication of 4 descriptors
+           | 0-31-001 > | Delayed descriptor replication factor
+           | 0-02-162 > | Extended height assignment method
+           | 0-07-004 > | Pressure
+           | 0-12-001 > | Temperature/air temperature
+           | 0-20-014 > | Height of top of cloud
+           | 1-13-000 > | Delayed replication of 13 descriptors
+           | 0-31-001 > | Delayed descriptor replication factor
+           | 0-04-086 > | Long time period or displacement
+           | 0-02-020 > | Satellite classification
+           | 0-01-007 > | Satellite identifier
+           | 0-02-019 > | Satellite instruments
+           | 0-05-042 > | Channel number
+           | 0-02-153 > | Satellite channel centre frequency
+           | 0-05-040 > | Orbit number
+           | 0-07-024 > | Satellite zenith angle
+           | 0-05-021 > | Bearing or azimuth
+           | 0-02-162 > | Extended height assignment method
+           | 0-07-004 > | Pressure
+           | 0-12-001 > | Temperature/air temperature
+           | 0-20-014 > | Height of top of cloud
+           | 1-19-000 > | Delayed replication of 19 descriptors
+           | 0-31-001 > | Delayed descriptor replication factor
+           | 0-04-086 > | Long time period or displacement
+           | 0-04-086 > | Long time period or displacement
+           | 0-05-001 > | Latitude (high accuracy)
+           | 0-06-001 > | Longitude (high accuracy)
+           | 0-11-003 > | u-component
+           | 0-11-004 > | v-component
+           | 0-11-113 > | Tracking correlation of vector
+           | 0-25-148 > | Coefficient of variation
+           | 1-03-000 > | Delayed replication of 3 descriptors
+           | 0-31-001 > | Delayed descriptor replication factor
+           | 0-08-023 > | First-order statistics
+           | 0-11-003 > | u-component
+           | 0-11-004 > | v-component
+           | 0-08-023 > | First-order statistics
+           | 1-03-000 > | Delayed replication of 3 descriptors
+           | 0-31-001 > | Delayed descriptor replication factor
+           | 0-20-111 > | x-axis error ellipse major component
+           | 0-20-112 > | y-axis error ellipse minor component
+           | 0-20-114 > | Angle of x-axis in error ellipse
+           | 0-01-033 > | Identification of originating/generating centre
+           | 0-08-021 > | Time significance
+           | 0-07-004 > | Pressure
+           | 0-11-095 > | u-component of the model wind vector
+           | 0-11-096 > | v-component of the model wind vector
+           | 0-08-021 > | Time significance
+           | 0-07-004 > | Pressure
+           | 0-11-095 > | u-component of the model wind vector
+           | 0-11-096 > | v-component of the model wind vector
+           | 0-08-021 > | Time significance
+           | 0-08-086 > | Vertical significance for NWP
+           | 0-07-004 > | Pressure
+           | 0-11-095 > | u-component of the model wind vector
+           | 0-11-096 > | v-component of the model wind vector
+           | 0-08-086 > | Vertical significance for NWP
+           | 1-02-004 > | Replicate 2 descriptors 4 times
+           | 0-01-044 > | Standard generating application
+           | 0-33-007 > | Per cent confidence
+           | 0-08-092 > | Measurement uncertainty expression
+           | 0-07-004 > | Pressure
+           | 0-11-003 > | u-component
+           | 0-11-004 > | v-component
+           | 0-08-092 > | Measurement uncertainty expression
+           | 0-33-066 > | AMV quality flag
+           | 0-20-081 > | Cloud amount in segment
+           | 0-20-012 > | Cloud type
+           | 0-20-056 > | Cloud phase
+           | 1-17-000 > | Delayed replication of 17 descriptors
+           | 0-31-001 > | Delayed descriptor replication factor
+           | 0-08-023 > | First-order statistics
+           | 0-20-016 > | Pressure at top of cloud
+           | 0-08-092 > | Measurement uncertainty expression
+           | 0-08-003 > | Vertical significance (satellite observations)
+           | 0-12-001 > | Temperature/air temperature
+           | 0-08-003 > | Vertical significance (satellite observations)
+           | 0-20-016 > | Pressure at top of cloud
+           | 0-08-092 > | Measurement uncertainty expression
+           | 0-25-149 > | Optimal estimation cost
+           | 0-20-016 > | Pressure at top of cloud
+           | 0-20-014 > | Height of top of cloud
+           | 0-13-093 > | Cloud optical thickness
+           | 0-13-109 > | Ice/liquid water path
+           | 0-40-038 > | Cloud particle size
+           | 0-08-011 > | Meteorological feature
+           | 0-14-050 > | Emissivity
+           | 0-08-011 > | Meteorological feature
+           | 0-08-023   | First-order statistics
+
+  3-10-078 | SATSNDG    ;     ; Satellite sounding data
+           | 0-01-007 > | Satellite identifier
+           | 0-01-016 > | Satellite sub-identifier
+           | 0-02-019 > | Satellite instruments
+           | 0-02-020 > | Satellite classification
+           | 0-01-033 > | Identification of originating/generating centre
+           | 0-01-034 > | Identification of originating/generating sub-centre
+           | 3-01-011 > | Year, month, day
+           | 3-01-013 > | Hour, minute, second
+           | 0-05-040 > | Orbit number
+           | 2-01-132 > | Change data width
+           | 0-05-041 > | Scan line number
+           | 2-01-000 > | Cancel change data width
+           | 0-05-043 > | Field of view number
+           | 0-33-079 > | Granule level quality flags
+           | 0-33-080 > | Scan level quality flags
+           | 0-33-078 > | Geolocation quality
+           | 0-07-002 > | Height or altitude
+           | 1-02-003 > | Replicate 2 descriptors 3 times
+           | 0-08-097 > | Method used to calculate the average instrument temperature
+           | 0-12-164 > | Instrument temperature
+           | 1-17-000 > | Delayed replication of 17 descriptors
+           | 0-31-001 > | Delayed descriptor replication factor
+           | 0-05-001 > | Latitude (high accuracy)
+           | 0-06-001 > | Longitude (high accuracy)
+           | 0-07-024 > | Satellite zenith angle
+           | 0-05-021 > | Bearing or azimuth
+           | 0-07-025 > | Solar zenith angle
+           | 0-05-022 > | Solar azimuth
+           | 1-09-000 > | Delayed replication of 9 descriptors
+           | 0-31-001 > | Delayed descriptor replication factor
+           | 0-05-042 > | Channel number
+           | 0-02-153 > | Satellite channel centre frequency
+           | 0-02-154 > | Satellite channel band width
+           | 0-02-104 > | Antenna polarization
+           | 0-12-066 > | Antenna temperature
+           | 0-12-163 > | Brightness temperature
+           | 0-12-158 > | Noise-equivalent delta temperature while viewing cold target
+           | 0-12-159 > | Noise-equivalent delta temperature while viewing warm target
+           | 0-33-094   | Calibration quality control flags
+
+  3-10-080 | ICEIMG1B   ;     ; Ice Cloud Imager Data (level 1B)
+           | 0-01-033 > | Identification of originating/generating centre
+           | 0-01-034 > | Identification of originating/generating sub-centre
+           | 0-01-007 > | Satellite identifier
+           | 0-02-019 > | Satellite instruments
+           | 0-05-040 > | Orbit number
+           | 0-25-061 > | Software identification and version number
+           | 2-01-133 > | Change data width
+           | 0-05-041 > | Scan line number
+           | 2-01-000 > | Cancel change data width
+           | 3-01-011 > | Year, month, day
+           | 3-01-012 > | Hour, minute
+           | 2-07-003 > | Increase scale, reference value and data width
+           | 0-04-006 > | Second
+           | 2-07-000 > | Cancel increase scale, reference value and data width
+           | 2-02-126 > | Change scale
+           | 0-07-001 > | Height of station
+           | 2-02-000 > | Cancel change scale
+           | 0-05-063 > | Spacecraft roll
+           | 0-05-064 > | Spacecraft pitch
+           | 0-05-066 > | Spacecraft yaw
+           | 0-05-077 > | Sub-satellite point latitude
+           | 0-06-043 > | Sub-satellite point longitude
+           | 0-06-041 > | Earth scan sample number
+           | 0-06-042 > | Space/moon scan sample number
+           | 0-08-098 > | Source of temperature measurement
+           | 0-12-101 > | Temperature/air temperature
+           | 0-08-098 > | Source of temperature measurement
+           | 0-12-101 > | Temperature/air temperature
+           | 0-08-098 > | Source of temperature measurement
+           | 0-12-101 > | Temperature/air temperature
+           | 0-08-098 > | Source of temperature measurement
+           | 0-12-101 > | Temperature/air temperature
+           | 0-08-098 > | Source of temperature measurement
+           | 0-07-074 > | Solar elevation angle in instrument reference frame
+           | 0-05-076 > | Solar azimuth in instrument reference frame
+           | 2-01-124 > | Change data width
+           | 2-02-127 > | Change scale
+           | 0-25-084 > | Geometric rotational angle
+           | 2-02-000 > | Cancel change scale
+           | 2-01-000 > | Cancel change data width
+           | 0-33-100 > | ICI temperatures flag
+           | 0-33-102 > | ICI scan quality flag
+           | 0-33-104 > | ICI navigation status flag
+           | 0-33-105 > | ICI processing flags
+           | 1-13-007 > | Replicate 13 descriptors 7 times
+           | 0-05-078 > | Horn number
+           | 0-05-001 > | Latitude (high accuracy)
+           | 0-06-001 > | Longitude (high accuracy)
+           | 0-07-024 > | Satellite zenith angle
+           | 0-05-021 > | Bearing or azimuth
+           | 0-07-025 > | Solar zenith angle
+           | 0-05-022 > | Solar azimuth
+           | 0-07-073 > | Angle between moon and space view
+           | 2-01-132 > | Change data width
+           | 2-02-129 > | Change scale
+           | 0-21-166 > | Land fraction
+           | 2-02-000 > | Cancel change scale
+           | 2-01-000 > | Cancel change data width
+           | 1-17-003 > | Replicate 17 descriptors 3 times
+           | 0-05-042 > | Channel number
+           | 2-02-131 > | Change scale
+           | 0-02-153 > | Satellite channel centre frequency
+           | 0-02-154 > | Satellite channel band width
+           | 2-02-000 > | Cancel change scale
+           | 0-25-077 > | Bandwidth correction coefficient 1
+           | 0-25-078 > | Bandwidth correction coefficient 2
+           | 0-33-101 > | ICI calibration flag
+           | 0-33-103 > | ICI data quality flag
+           | 0-02-104 > | Antenna polarization
+           | 2-01-131 > | Change data width
+           | 2-02-136 > | Change scale
+           | 0-14-045 > | Channel radiance
+           | 2-02-000 > | Cancel change scale
+           | 2-01-000 > | Cancel change data width
+           | 0-12-158 > | Noise-equivalent delta temperature while viewing cold target
+           | 0-12-159 > | Noise-equivalent delta temperature while viewing warm target
+           | 1-17-002 > | Replicate 17 descriptors 2 times
+           | 0-05-042 > | Channel number
+           | 2-02-131 > | Change scale
+           | 0-02-153 > | Satellite channel centre frequency
+           | 0-02-154 > | Satellite channel band width
+           | 2-02-000 > | Cancel change scale
+           | 0-25-077 > | Bandwidth correction coefficient 1
+           | 0-25-078 > | Bandwidth correction coefficient 2
+           | 0-33-101 > | ICI calibration flag
+           | 0-33-103 > | ICI data quality flag
+           | 0-02-104 > | Antenna polarization
+           | 2-01-132 > | Change data width
+           | 2-02-136 > | Change scale
+           | 0-14-045 > | Channel radiance
+           | 2-02-000 > | Cancel change scale
+           | 2-01-000 > | Cancel change data width
+           | 0-12-158 > | Noise-equivalent delta temperature while viewing cold target
+           | 0-12-159 > | Noise-equivalent delta temperature while viewing warm target
+           | 1-17-003 > | Replicate 17 descriptors 3 times
+           | 0-05-042 > | Channel number
+           | 2-02-131 > | Change scale
+           | 0-02-153 > | Satellite channel centre frequency
+           | 0-02-154 > | Satellite channel band width
+           | 2-02-000 > | Cancel change scale
+           | 0-25-077 > | Bandwidth correction coefficient 1
+           | 0-25-078 > | Bandwidth correction coefficient 2
+           | 0-33-101 > | ICI calibration flag
+           | 0-33-103 > | ICI data quality flag
+           | 0-02-104 > | Antenna polarization
+           | 2-01-133 > | Change data width
+           | 2-02-136 > | Change scale
+           | 0-14-045 > | Channel radiance
+           | 2-02-000 > | Cancel change scale
+           | 2-01-000 > | Cancel change data width
+           | 0-12-158 > | Noise-equivalent delta temperature while viewing cold target
+           | 0-12-159 > | Noise-equivalent delta temperature while viewing warm target
+           | 1-17-003 > | Replicate 17 descriptors 3 times
+           | 0-05-042 > | Channel number
+           | 2-02-131 > | Change scale
+           | 0-02-153 > | Satellite channel centre frequency
+           | 0-02-154 > | Satellite channel band width
+           | 2-02-000 > | Cancel change scale
+           | 0-25-077 > | Bandwidth correction coefficient 1
+           | 0-25-078 > | Bandwidth correction coefficient 2
+           | 0-33-101 > | ICI calibration flag
+           | 0-33-103 > | ICI data quality flag
+           | 0-02-104 > | Antenna polarization
+           | 2-01-133 > | Change data width
+           | 2-02-136 > | Change scale
+           | 0-14-045 > | Channel radiance
+           | 2-02-000 > | Cancel change scale
+           | 2-01-000 > | Cancel change data width
+           | 0-12-158 > | Noise-equivalent delta temperature while viewing cold target
+           | 0-12-159 > | Noise-equivalent delta temperature while viewing warm target
+           | 1-17-002 > | Replicate 17 descriptors 2 times
+           | 0-05-042 > | Channel number
+           | 2-02-131 > | Change scale
+           | 0-02-153 > | Satellite channel centre frequency
+           | 0-02-154 > | Satellite channel band width
+           | 2-02-000 > | Cancel change scale
+           | 0-25-077 > | Bandwidth correction coefficient 1
+           | 0-25-078 > | Bandwidth correction coefficient 2
+           | 0-33-101 > | ICI calibration flag
+           | 0-33-103 > | ICI data quality flag
+           | 0-02-104 > | Antenna polarization
+           | 2-01-131 > | Change data width
+           | 2-02-135 > | Change scale
+           | 0-14-045 > | Channel radiance
+           | 2-02-000 > | Cancel change scale
+           | 2-01-000 > | Cancel change data width
+           | 0-12-158 > | Noise-equivalent delta temperature while viewing cold target
+           | 0-12-159   | Noise-equivalent delta temperature while viewing warm target
+
+  3-10-081 | MWVIMG1B   ;     ; Microwave Imager Data (level 1B)
+           | 0-01-033 > | Identification of originating/generating centre
+           | 0-01-034 > | Identification of originating/generating sub-centre
+           | 0-01-007 > | Satellite identifier
+           | 0-02-019 > | Satellite instruments
+           | 0-05-040 > | Orbit number
+           | 0-25-061 > | Software identification and version number
+           | 2-01-133 > | Change data width
+           | 0-05-041 > | Scan line number
+           | 2-01-000 > | Cancel change data width
+           | 3-01-011 > | Year, month, day
+           | 3-01-012 > | Hour, minute
+           | 2-07-003 > | Increase scale, reference value and data width
+           | 0-04-006 > | Second
+           | 2-07-000 > | Cancel increase scale, reference value and data width
+           | 2-02-126 > | Change scale
+           | 0-07-001 > | Height of station
+           | 2-02-000 > | Cancel change scale
+           | 0-05-063 > | Spacecraft roll
+           | 0-05-064 > | Spacecraft pitch
+           | 0-05-066 > | Spacecraft yaw
+           | 0-05-077 > | Sub-satellite point latitude
+           | 0-06-043 > | Sub-satellite point longitude
+           | 0-06-041 > | Earth scan sample number
+           | 0-06-042 > | Space/moon scan sample number
+           | 0-08-098 > | Source of temperature measurement
+           | 0-12-101 > | Temperature/air temperature
+           | 0-08-098 > | Source of temperature measurement
+           | 0-12-101 > | Temperature/air temperature
+           | 0-08-098 > | Source of temperature measurement
+           | 0-12-101 > | Temperature/air temperature
+           | 0-08-098 > | Source of temperature measurement
+           | 0-12-101 > | Temperature/air temperature
+           | 0-08-098 > | Source of temperature measurement
+           | 0-07-074 > | Solar elevation angle in instrument reference frame
+           | 0-05-076 > | Solar azimuth in instrument reference frame
+           | 2-01-124 > | Change data width
+           | 2-02-127 > | Change scale
+           | 0-25-084 > | Geometric rotational angle
+           | 2-02-000 > | Cancel change scale
+           | 2-01-000 > | Cancel change data width
+           | 0-33-095 > | MWI temperatures flag
+           | 0-33-097 > | MWI scan quality flag
+           | 0-33-106 > | MWI processing flags
+           | 0-33-099 > | MWI navigation status flag
+           | 1-13-008 > | Replicate 13 descriptors 8 times
+           | 0-05-078 > | Horn number
+           | 0-05-001 > | Latitude (high accuracy)
+           | 0-06-001 > | Longitude (high accuracy)
+           | 0-07-024 > | Satellite zenith angle
+           | 0-05-021 > | Bearing or azimuth
+           | 0-07-025 > | Solar zenith angle
+           | 0-05-022 > | Solar azimuth
+           | 0-07-073 > | Angle between moon and space view
+           | 2-01-132 > | Change data width
+           | 2-02-129 > | Change scale
+           | 0-21-166 > | Land fraction
+           | 2-02-000 > | Cancel change scale
+           | 2-01-000 > | Cancel change data width
+           | 1-17-002 > | Replicate 17 descriptors 2 times
+           | 0-05-042 > | Channel number
+           | 2-02-131 > | Change scale
+           | 0-02-153 > | Satellite channel centre frequency
+           | 0-02-154 > | Satellite channel band width
+           | 2-02-000 > | Cancel change scale
+           | 0-25-077 > | Bandwidth correction coefficient 1
+           | 0-25-078 > | Bandwidth correction coefficient 2
+           | 0-33-096 > | MWI calibration flag
+           | 0-33-098 > | MWI data quality flag
+           | 0-02-104 > | Antenna polarization
+           | 2-01-131 > | Change data width
+           | 2-02-138 > | Change scale
+           | 0-14-045 > | Channel radiance
+           | 2-02-000 > | Cancel change scale
+           | 2-01-000 > | Cancel change data width
+           | 0-12-158 > | Noise-equivalent delta temperature while viewing cold target
+           | 0-12-159 > | Noise-equivalent delta temperature while viewing warm target
+           | 1-17-002 > | Replicate 17 descriptors 2 times
+           | 0-05-042 > | Channel number
+           | 2-02-131 > | Change scale
+           | 0-02-153 > | Satellite channel centre frequency
+           | 0-02-154 > | Satellite channel band width
+           | 2-02-000 > | Cancel change scale
+           | 0-25-077 > | Bandwidth correction coefficient 1
+           | 0-25-078 > | Bandwidth correction coefficient 2
+           | 0-33-096 > | MWI calibration flag
+           | 0-33-098 > | MWI data quality flag
+           | 0-02-104 > | Antenna polarization
+           | 2-01-132 > | Change data width
+           | 2-02-138 > | Change scale
+           | 0-14-045 > | Channel radiance
+           | 2-02-000 > | Cancel change scale
+           | 2-01-000 > | Cancel change data width
+           | 0-12-158 > | Noise-equivalent delta temperature while viewing cold target
+           | 0-12-159 > | Noise-equivalent delta temperature while viewing warm target
+           | 1-17-002 > | Replicate 17 descriptors 2 times
+           | 0-05-042 > | Channel number
+           | 2-02-131 > | Change scale
+           | 0-02-153 > | Satellite channel centre frequency
+           | 0-02-154 > | Satellite channel band width
+           | 2-02-000 > | Cancel change scale
+           | 0-25-077 > | Bandwidth correction coefficient 1
+           | 0-25-078 > | Bandwidth correction coefficient 2
+           | 0-33-096 > | MWI calibration flag
+           | 0-33-098 > | MWI data quality flag
+           | 0-02-104 > | Antenna polarization
+           | 2-01-132 > | Change data width
+           | 2-02-138 > | Change scale
+           | 0-14-045 > | Channel radiance
+           | 2-02-000 > | Cancel change scale
+           | 2-01-000 > | Cancel change data width
+           | 0-12-158 > | Noise-equivalent delta temperature while viewing cold target
+           | 0-12-159 > | Noise-equivalent delta temperature while viewing warm target
+           | 1-17-008 > | Replicate 17 descriptors 8 times
+           | 0-05-042 > | Channel number
+           | 2-02-131 > | Change scale
+           | 0-02-153 > | Satellite channel centre frequency
+           | 0-02-154 > | Satellite channel band width
+           | 2-02-000 > | Cancel change scale
+           | 0-25-077 > | Bandwidth correction coefficient 1
+           | 0-25-078 > | Bandwidth correction coefficient 2
+           | 0-33-096 > | MWI calibration flag
+           | 0-33-098 > | MWI data quality flag
+           | 0-02-104 > | Antenna polarization
+           | 2-01-131 > | Change data width
+           | 2-02-137 > | Change scale
+           | 0-14-045 > | Channel radiance
+           | 2-02-000 > | Cancel change scale
+           | 2-01-000 > | Cancel change data width
+           | 0-12-158 > | Noise-equivalent delta temperature while viewing cold target
+           | 0-12-159 > | Noise-equivalent delta temperature while viewing warm target
+           | 1-17-002 > | Replicate 17 descriptors 2 times
+           | 0-05-042 > | Channel number
+           | 2-02-131 > | Change scale
+           | 0-02-153 > | Satellite channel centre frequency
+           | 0-02-154 > | Satellite channel band width
+           | 2-02-000 > | Cancel change scale
+           | 0-25-077 > | Bandwidth correction coefficient 1
+           | 0-25-078 > | Bandwidth correction coefficient 2
+           | 0-33-096 > | MWI calibration flag
+           | 0-33-098 > | MWI data quality flag
+           | 0-02-104 > | Antenna polarization
+           | 2-01-132 > | Change data width
+           | 2-02-137 > | Change scale
+           | 0-14-045 > | Channel radiance
+           | 2-02-000 > | Cancel change scale
+           | 2-01-000 > | Cancel change data width
+           | 0-12-158 > | Noise-equivalent delta temperature while viewing cold target
+           | 0-12-159 > | Noise-equivalent delta temperature while viewing warm target
+           | 1-17-004 > | Replicate 17 descriptors 4 times
+           | 0-05-042 > | Channel number
+           | 2-02-131 > | Change scale
+           | 0-02-153 > | Satellite channel centre frequency
+           | 0-02-154 > | Satellite channel band width
+           | 2-02-000 > | Cancel change scale
+           | 0-25-077 > | Bandwidth correction coefficient 1
+           | 0-25-078 > | Bandwidth correction coefficient 2
+           | 0-33-096 > | MWI calibration flag
+           | 0-33-098 > | MWI data quality flag
+           | 0-02-104 > | Antenna polarization
+           | 2-01-133 > | Change data width
+           | 2-02-137 > | Change scale
+           | 0-14-045 > | Channel radiance
+           | 2-02-000 > | Cancel change scale
+           | 2-01-000 > | Cancel change data width
+           | 0-12-158 > | Noise-equivalent delta temperature while viewing cold target
+           | 0-12-159 > | Noise-equivalent delta temperature while viewing warm target
+           | 1-17-001 > | Replicate 17 descriptors 1 time
+           | 0-05-042 > | Channel number
+           | 2-02-131 > | Change scale
+           | 0-02-153 > | Satellite channel centre frequency
+           | 0-02-154 > | Satellite channel band width
+           | 2-02-000 > | Cancel change scale
+           | 0-25-077 > | Bandwidth correction coefficient 1
+           | 0-25-078 > | Bandwidth correction coefficient 2
+           | 0-33-096 > | MWI calibration flag
+           | 0-33-098 > | MWI data quality flag
+           | 0-02-104 > | Antenna polarization
+           | 2-01-131 > | Change data width
+           | 2-02-136 > | Change scale
+           | 0-14-045 > | Channel radiance
+           | 2-02-000 > | Cancel change scale
+           | 2-01-000 > | Cancel change data width
+           | 0-12-158 > | Noise-equivalent delta temperature while viewing cold target
+           | 0-12-159 > | Noise-equivalent delta temperature while viewing warm target
+           | 1-17-005 > | Replicate 17 descriptors 5 times
+           | 0-05-042 > | Channel number
+           | 2-02-131 > | Change scale
+           | 0-02-153 > | Satellite channel centre frequency
+           | 0-02-154 > | Satellite channel band width
+           | 2-02-000 > | Cancel change scale
+           | 0-25-077 > | Bandwidth correction coefficient 1
+           | 0-25-078 > | Bandwidth correction coefficient 2
+           | 0-33-096 > | MWI calibration flag
+           | 0-33-098 > | MWI data quality flag
+           | 0-02-104 > | Antenna polarization
+           | 2-01-131 > | Change data width
+           | 2-02-136 > | Change scale
+           | 0-14-045 > | Channel radiance
+           | 2-02-000 > | Cancel change scale
+           | 2-01-000 > | Cancel change data width
+           | 0-12-158 > | Noise-equivalent delta temperature while viewing cold target
+           | 0-12-159   | Noise-equivalent delta temperature while viewing warm target
+
+  3-10-082 | MWVSND1B   ;     ; Microwave Sounder Data (level 1B)
+           | 0-08-070 > | Vertical sounding product qualifier
+           | 0-01-033 > | Identification of originating/generating centre
+           | 0-01-034 > | Identification of originating/generating sub-centre
+           | 0-01-007 > | Satellite identifier
+           | 0-02-019 > | Satellite instruments
+           | 0-05-040 > | Orbit number
+           | 0-25-061 > | Software identification and version number
+           | 2-01-133 > | Change data width
+           | 0-05-041 > | Scan line number
+           | 2-01-000 > | Cancel change data width
+           | 0-05-043 > | Field of view number
+           | 0-06-042 > | Space/moon scan sample number
+           | 3-01-011 > | Year, month, day
+           | 3-01-012 > | Hour, minute
+           | 2-07-003 > | Increase scale, reference value and data width
+           | 0-04-006 > | Second
+           | 2-07-000 > | Cancel increase scale, reference value and data width
+           | 3-01-021 > | Latitude/longitude (high accuracy)
+           | 1-07-002 > | Replicate 7 descriptors 2 times
+           | 0-05-080 > | Resolution radius
+           | 2-01-132 > | Change data width
+           | 2-02-129 > | Change scale
+           | 0-21-166 > | Land fraction
+           | 2-02-000 > | Cancel change scale
+           | 2-01-000 > | Cancel change data width
+           | 0-07-007 > | Height
+           | 2-02-126 > | Change scale
+           | 0-07-001 > | Height of station
+           | 2-02-000 > | Cancel change scale
+           | 0-07-024 > | Satellite zenith angle
+           | 0-05-021 > | Bearing or azimuth
+           | 0-07-025 > | Solar zenith angle
+           | 0-05-022 > | Solar azimuth
+           | 2-01-124 > | Change data width
+           | 2-02-127 > | Change scale
+           | 0-25-084 > | Geometric rotational angle
+           | 2-02-000 > | Cancel change scale
+           | 2-01-000 > | Cancel change data width
+           | 0-07-073 > | Angle between moon and space view
+           | 0-12-070 > | Warm load temperature
+           | 0-12-064 > | Instrument temperature
+           | 0-08-098 > | Source of temperature measurement
+           | 0-12-101 > | Temperature/air temperature
+           | 0-08-098 > | Source of temperature measurement
+           | 0-33-107 > | MWS scan line processing flags
+           | 0-33-108 > | MWS navigation status flags
+           | 0-33-109 > | MWS overall quality flags
+           | 1-18-024 > | Replicate 18 descriptors 24 times
+           | 0-05-042 > | Channel number
+           | 1-04-004 > | Replicate 4 descriptors 4 times
+           | 0-05-079 > | Band number
+           | 2-02-130 > | Change scale
+           | 0-02-154 > | Satellite channel band width
+           | 2-02-000 > | Cancel change scale
+           | 0-02-104 > | Antenna polarization
+           | 0-02-153 > | Satellite channel centre frequency
+           | 0-25-077 > | Bandwidth correction coefficient 1
+           | 0-25-078 > | Bandwidth correction coefficient 2
+           | 2-07-002 > | Increase scale, reference value and data width
+           | 0-12-063 > | Brightness temperature
+           | 2-07-000 > | Cancel increase scale, reference value and data width
+           | 2-07-001 > | Increase scale, reference value and data width
+           | 0-33-089 > | Noise equivalent delta temperature (NEdT) quality indicators for warm target calibration
+           | 0-33-090 > | NEdT quality indicators for cold target calibration
+           | 2-07-000 > | Cancel increase scale, reference value and data width
+           | 0-33-110   | MWS channel processing flags
+
+  3-10-083 | SCASZF     ;     ; Metop-SG Scatterometer (SCA) Sigma zero full resolution level 1B (SZF)
+           | 0-01-033 > | Identification of originating/generating centre
+           | 0-01-034 > | Identification of originating/generating sub-centre
+           | 0-25-060 > | Software identification
+           | 0-01-007 > | Satellite identifier
+           | 0-02-019 > | Satellite instruments
+           | 1-27-012 > | Replicate 27 descriptors 12 times
+           | 0-05-040 > | Orbit number
+           | 2-01-130 > | Change data width
+           | 0-06-034 > | Cross-track cell number
+           | 2-01-000 > | Cancel change data width
+           | 0-05-034 > | Along track row number
+           | 3-01-021 > | Latitude/longitude (high accuracy)
+           | 0-08-012 > | Land/sea qualifier
+           | 3-01-011 > | Year, month, day
+           | 3-01-012 > | Hour, minute
+           | 0-04-007 > | Seconds within a minute (microsecond accuracy)
+           | 0-08-085 > | Beam identifier
+           | 0-03-030 > | Antenna status
+           | 0-02-104 > | Antenna polarization
+           | 0-03-030 > | Antenna status
+           | 0-02-104 > | Antenna polarization
+           | 0-03-029 > | Swath
+           | 0-08-075 > | Ascending/descending orbit qualifier
+           | 2-02-129 > | Change scale
+           | 2-01-131 > | Change data width
+           | 0-02-111 > | Radar incidence angle
+           | 2-01-000 > | Cancel change data width
+           | 2-02-000 > | Cancel change scale
+           | 0-05-021 > | Bearing or azimuth
+           | 0-21-062 > | Backscatter
+           | 0-21-026 > | ASCAT sigma-0 usability
+           | 0-21-027 > | Land contribution ratio
+           | 0-33-111   | SCA quality flags
+
+  3-10-084 | SCASZR     ;     ; Metop-SG Scatterometer (SCA) Sigma zero resampled level 1B (SZR)
+           | 0-01-033 > | Identification of originating/generating centre
+           | 0-01-034 > | Identification of originating/generating sub-centre
+           | 0-25-060 > | Software identification
+           | 0-01-007 > | Satellite identifier
+           | 0-02-019 > | Satellite instruments
+           | 0-05-040 > | Orbit number
+           | 0-06-034 > | Cross-track cell number
+           | 0-05-034 > | Along track row number
+           | 3-01-021 > | Latitude/longitude (high accuracy)
+           | 3-01-011 > | Year, month, day
+           | 3-01-012 > | Hour, minute
+           | 0-04-007 > | Seconds within a minute (microsecond accuracy)
+           | 0-14-058 > | Corrected cross-pole backscatter
+           | 0-33-112 > | Faraday rotation angle (one way)
+           | 1-17-005 > | Replicate 17 descriptors 5 times
+           | 0-08-085 > | Beam identifier
+           | 0-08-012 > | Land/sea qualifier
+           | 0-03-030 > | Antenna status
+           | 0-02-104 > | Antenna polarization
+           | 0-03-030 > | Antenna status
+           | 0-02-104 > | Antenna polarization
+           | 0-08-075 > | Ascending/descending orbit qualifier
+           | 2-02-129 > | Change scale
+           | 2-01-131 > | Change data width
+           | 0-02-111 > | Radar incidence angle
+           | 2-01-000 > | Cancel change data width
+           | 2-02-000 > | Cancel change scale
+           | 0-05-021 > | Bearing or azimuth
+           | 0-21-062 > | Backscatter
+           | 0-21-026 > | ASCAT sigma-0 usability
+           | 0-21-027 > | Land contribution ratio
+           | 0-25-056   | Normalized error estimate in backscatter measurement (Kp)
+
+  3-10-085 | IAS1CRAD   ;     ; IASI-NG L1C (Radiances)
+           | 0-01-007 > | Satellite identifier
+           | 3-01-005 > | Originating centre/sub-centre
+           | 0-02-019 > | Satellite instruments
+           | 0-02-020 > | Satellite classification
+           | 0-04-001 > | Year
+           | 0-04-002 > | Month
+           | 0-04-003 > | Day
+           | 0-04-004 > | Hour
+           | 0-04-005 > | Minute
+           | 2-02-131 > | Change scale
+           | 2-01-138 > | Change data width
+           | 0-04-006 > | Second
+           | 2-01-000 > | Cancel change data width
+           | 2-02-000 > | Cancel change scale
+           | 0-05-001 > | Latitude (high accuracy)
+           | 0-06-001 > | Longitude (high accuracy)
+           | 0-07-024 > | Satellite zenith angle
+           | 0-05-021 > | Bearing or azimuth
+           | 0-07-025 > | Solar zenith angle
+           | 0-05-022 > | Solar azimuth
+           | 0-05-043 > | Field of view number
+           | 0-05-040 > | Orbit number
+           | 2-01-133 > | Change data width
+           | 0-05-041 > | Scan line number
+           | 2-01-000 > | Cancel change data width
+           | 2-02-126 > | Change scale
+           | 0-07-001 > | Height of station
+           | 2-02-000 > | Cancel change scale
+           | 0-33-113 > | IASI-NG general quality flags
+           | 1-05-170 > | Replicate 5 descriptors 170 times
+           | 1-04-100 > | Replicate 4 descriptors 100 times
+           | 2-01-137 > | Change data width
+           | 0-05-042 > | Channel number
+           | 2-01-000 > | Cancel change data width
+           | 0-14-046 > | Scaled radiance
+           | 0-02-019 > | Satellite instruments
+           | 1-10-007 > | Replicate 10 descriptors 7 times
+           | 0-05-060 > | Y angular position from centre of gravity
+           | 0-05-061 > | Z angular position from centre of gravity
+           | 0-20-083 > | Amount of segment covered by scene
+           | 1-06-020 > | Replicate 6 descriptors 20 times
+           | 0-05-042 > | Channel number
+           | 0-08-023 > | First-order statistics
+           | 0-14-044 > | Channel radiance
+           | 0-08-023 > | First-order statistics
+           | 0-14-044 > | Channel radiance
+           | 0-08-023 > | First-order statistics
+           | 0-08-072 > | Pixel(s) type
+           | 0-20-083 > | Amount of segment covered by scene
+           | 0-08-029 > | Surface type
+           | 0-20-083   | Amount of segment covered by scene
+
+  3-10-086 | IAS1DPCS   ;     ; IASI-NG L1D (Principle Component Scores)
+           | 0-01-007 > | Satellite identifier
+           | 3-01-005 > | Originating centre/sub-centre
+           | 0-02-019 > | Satellite instruments
+           | 0-02-020 > | Satellite classification
+           | 0-04-001 > | Year
+           | 0-04-002 > | Month
+           | 0-04-003 > | Day
+           | 0-04-004 > | Hour
+           | 0-04-005 > | Minute
+           | 2-02-131 > | Change scale
+           | 2-01-138 > | Change data width
+           | 0-04-006 > | Second
+           | 2-01-000 > | Cancel change data width
+           | 2-02-000 > | Cancel change scale
+           | 0-05-001 > | Latitude (high accuracy)
+           | 0-06-001 > | Longitude (high accuracy)
+           | 0-07-024 > | Satellite zenith angle
+           | 0-05-021 > | Bearing or azimuth
+           | 0-07-025 > | Solar zenith angle
+           | 0-05-022 > | Solar azimuth
+           | 0-05-043 > | Field of view number
+           | 0-05-040 > | Orbit number
+           | 2-01-133 > | Change data width
+           | 0-05-041 > | Scan line number
+           | 2-01-000 > | Cancel change data width
+           | 2-02-126 > | Change scale
+           | 0-07-001 > | Height of station
+           | 2-02-000 > | Cancel change scale
+           | 0-33-113 > | IASI-NG general quality flags
+           | 1-09-004 > | Replicate 9 descriptors 4 times
+           | 0-25-140 > | Start channel
+           | 2-01-129 > | Change data width
+           | 0-25-141 > | End channel
+           | 2-01-000 > | Cancel change data width
+           | 0-40-026 > | Score quantization factor
+           | 0-40-016 > | Residual RMS in band
+           | 1-01-000 > | Delayed replication of 1 descriptor
+           | 0-31-002 > | Extended delayed descriptor replication factor
+           | 0-40-017 > | Non-normalized principal component score
+           | 0-02-019 > | Satellite instruments
+           | 1-10-007 > | Replicate 10 descriptors 7 times
+           | 0-05-060 > | Y angular position from centre of gravity
+           | 0-05-061 > | Z angular position from centre of gravity
+           | 0-20-083 > | Amount of segment covered by scene
+           | 1-06-020 > | Replicate 6 descriptors 20 times
+           | 0-05-042 > | Channel number
+           | 0-08-023 > | First-order statistics
+           | 0-14-044 > | Channel radiance
+           | 0-08-023 > | First-order statistics
+           | 0-14-044 > | Channel radiance
+           | 0-08-023 > | First-order statistics
+           | 0-08-072 > | Pixel(s) type
+           | 0-20-083 > | Amount of segment covered by scene
+           | 0-08-029 > | Surface type
+           | 0-20-083   | Amount of segment covered by scene
+
+  3-10-191 | GIIRS      ;     ; FY-4 Geostationary Interferometric Infrared Sounder (GIIRS)
+           | 0-01-007 > | Satellite identifier
+           | 0-01-033 > | Identification of originating/generating centre
+           | 0-01-034 > | Identification of originating/generating sub-centre
+           | 0-02-019 > | Satellite instruments
+           | 0-02-020 > | Satellite classification
+           | 3-01-011 > | Year, month, day
+           | 3-01-012 > | Hour, minute
+           | 2-07-003 > | Increase scale, reference value and data width
+           | 0-04-006 > | Second
+           | 2-07-000 > | Cancel increase scale, reference value and data width
+           | 0-07-024 > | Satellite zenith angle
+           | 0-05-021 > | Bearing or azimuth
+           | 0-07-025 > | Solar zenith angle
+           | 0-05-022 > | Solar azimuth
+           | 1-02-002 > | Replicate 2 descriptors 2 times
+           | 0-08-076 > | Type of band
+           | 3-01-021 > | Latitude/longitude (high accuracy)
+           | 2-01-131 > | Change data width
+           | 0-05-041 > | Scan line number
+           | 2-01-000 > | Cancel change data width
+           | 0-05-045 > | Field of regard number
+           | 2-01-133 > | Change data width
+           | 0-05-043 > | Field of view number
+           | 2-01-000 > | Cancel change data width
+           | 2-02-126 > | Change scale
+           | 2-01-132 > | Change data width
+           | 0-07-001 > | Height of station
+           | 2-01-000 > | Cancel change data width
+           | 2-02-000 > | Cancel change scale
+           | 0-25-182 > | L1 processing flag
+           | 0-02-165 > | Radiance type flags
+           | 1-08-002 > | Replicate 8 descriptors 2 times
+           | 0-08-076 > | Type of band
+           | 0-06-029 > | Wave number
+           | 0-06-029 > | Wave number
+           | 0-25-140 > | Start channel
+           | 0-25-141 > | End channel
+           | 0-33-076 > | Calibration quality flags
+           | 0-33-077 > | Field-of-view quality flags
+           | 0-25-187 > | Confidence flag
+           | 0-08-076 > | Type of band
+           | 1-05-000 > | Delayed replication of 5 descriptors
+           | 0-31-002 > | Extended delayed descriptor replication factor
+           | 2-01-133 > | Change data width
+           | 0-05-042 > | Channel number
+           | 2-01-000 > | Cancel change data width
+           | 0-14-044 > | Channel radiance
+           | 0-14-049   | Noise equivalent delta radiance
+
   3-11-001 | AIRCRAFT   ;     ; Aircraft reports
            | 3-01-051 > | Flight number, navigational system, date/time, location, phase of flight
            | 0-07-002 > | Height or altitude
@@ -4751,7 +6825,7 @@ Table D STD |  0 | 23
            | 0-11-101 > | Aircraft ground speed u-component
            | 0-11-102 > | Aircraft ground speed v-component
            | 0-11-103 > | Aircraft ground speed w-component
-           | 0-11-104 > | Aircraft true heading
+           | 0-11-104 > | True heading of aircraft, ship or other mobile platform
            | 0-12-101 > | Temperature/air temperature
            | 0-02-170 > | Aircraft humidity sensors
            | 2-01-144 > | Change data width
@@ -4816,7 +6890,7 @@ Table D STD |  0 | 23
            | 0-11-084 > | Wind speed
            | 2-01-000   | Cancel change data width
 
-  3-11-011 | IAGOSSOB   ;     ; IAGOS template for a single observation, version 2
+  3-11-011 | IAGOSSOB   ;     ; IAGOS template for a single observation), version 
            | 0-01-023 > | Observation sequence number
            | 0-08-004 > | Phase of aircraft flight
            | 3-01-011 > | Year, month, day
@@ -4852,6 +6926,28 @@ Table D STD |  0 | 23
            | 0-13-099 > | Log10 of integrated cloud particle density
            | 0-13-100 > | Log10 of integrated cloud particle area
            | 0-13-101   | Log10 of integrated cloud particle volume
+
+  3-11-012 | ASDSLAL2   ;     ; BUFR template for aircraft ascent/descent profile with latitude and longitude given for each level
+           | 3-01-150 > | WIGOS identifier
+           | 0-01-008 > | Aircraft registration number or other identification
+           | 0-01-111 > | Origination airport
+           | 0-01-112 > | Destination airport
+           | 3-01-011 > | Year, month, day
+           | 3-01-013 > | Hour, minute, second
+           | 3-01-021 > | Latitude/longitude (high accuracy)
+           | 0-08-004 > | Phase of aircraft flight
+           | 1-10-000 > | Delayed replication of 10 descriptors
+           | 0-31-002 > | Extended delayed descriptor replication factor
+           | 3-01-011 > | Year, month, day
+           | 3-01-013 > | Hour, minute, second
+           | 3-11-007 > | Aircraft data for one level with latitude/longitude indicated
+           | 2-01-144 > | Change data width
+           | 2-02-133 > | Change scale
+           | 0-13-002 > | Mixing ratio
+           | 2-02-000 > | Cancel change scale
+           | 2-01-000 > | Cancel change data width
+           | 0-13-003 > | Relative humidity
+           | 0-33-026   | Moisture quality
 
   3-12-001 | SAIDCPTW   ;     ; 
            | 3-01-043 > | Satellite identifier, wind computation method, date/time, location
@@ -5108,6 +7204,43 @@ Table D STD |  0 | 23
            | 3-01-023 > | Latitude/longitude (coarse accuracy)
            | 3-21-028   | Radar specification, SEAWINDS normalized radar cross-section, Kp variance coefficient
 
+  3-12-029 | SCATLV2B   ;     ; Scatterometer level 2b data
+           | 3-01-046 > | Satellite identifier, direction of motion, sensor, model function, software, resolution
+           | 3-01-011 > | Year, month, day
+           | 3-01-013 > | Hour, minute, second
+           | 3-01-023 > | Latitude/longitude (coarse accuracy)
+           | 0-08-025 > | Time difference qualifier
+           | 2-01-136 > | Change data width
+           | 0-04-006 > | Second
+           | 2-01-000 > | Cancel change data width
+           | 0-05-034 > | Along track row number
+           | 2-01-129 > | Change data width
+           | 0-06-034 > | Cross-track cell number
+           | 2-01-000 > | Cancel change data width
+           | 0-33-055 > | Wind vector quality flag
+           | 0-11-081 > | Model wind direction at 10 m
+           | 0-11-082 > | Model wind speed at 10 m
+           | 0-21-101 > | Number of vector ambiguities
+           | 0-21-102 > | Index of selected wind vector
+           | 0-21-103 > | Total number of sigma-0 measurements
+           | 3-12-032 > | SEAWINDS precipitation
+           | 1-01-004 > | Replicate 1 descriptor 4 times
+           | 3-12-030 > | Wind, formal uncertainty, likelihood
+           | 1-01-002 > | Replicate 1 descriptor 2 times
+           | 3-12-033 > | Antenna polarization, brightness temperature
+           | 0-21-110 > | Number of inner-beam sigma-0 (forward of satellite)
+           | 3-01-023 > | Latitude/longitude (coarse accuracy)
+           | 3-21-028 > | Radar specification, SEAWINDS normalized radar cross-section, Kp variance coefficient
+           | 0-21-111 > | Number of outer-beam sigma-0 (forward of satellite)
+           | 3-01-023 > | Latitude/longitude (coarse accuracy)
+           | 3-21-028 > | Radar specification, SEAWINDS normalized radar cross-section, Kp variance coefficient
+           | 0-21-112 > | Number of inner-beam sigma-0 (aft of satellite)
+           | 3-01-023 > | Latitude/longitude (coarse accuracy)
+           | 3-21-028 > | Radar specification, SEAWINDS normalized radar cross-section, Kp variance coefficient
+           | 0-21-113 > | Number of outer-beam sigma-0 (aft of satellite)
+           | 3-01-023 > | Latitude/longitude (coarse accuracy)
+           | 3-21-028   | Radar specification, SEAWINDS normalized radar cross-section, Kp variance coefficient
+
   3-12-030 | WNFRMUNL   ;     ; Wind, formal uncertainty, likelihood
            | 2-01-130 > | Change data width
            | 2-02-129 > | Change scale
@@ -5144,6 +7277,58 @@ Table D STD |  0 | 23
            | 0-08-022 > | Total number (with respect to accumulation or average)
            | 0-12-063 > | Brightness temperature
            | 0-12-065   | Standard deviation brightness temperature
+
+  3-12-034 | SCATCFOS   ;     ; CFOSAT scatterometer data
+           | 3-01-046 > | Satellite identifier, direction of motion, sensor, model function, software, resolution
+           | 3-01-011 > | Year, month, day
+           | 3-01-013 > | Hour, minute, second
+           | 3-01-023 > | Latitude/longitude (coarse accuracy)
+           | 0-08-025 > | Time difference qualifier
+           | 2-01-136 > | Change data width
+           | 0-04-006 > | Second
+           | 2-01-000 > | Cancel change data width
+           | 3-12-031 > | SEAWINDS wind
+           | 3-12-032 > | SEAWINDS precipitation
+           | 1-01-004 > | Replicate 1 descriptor 4 times
+           | 3-12-030 > | Wind, formal uncertainty, likelihood
+           | 1-01-002 > | Replicate 1 descriptor 2 times
+           | 3-12-033 > | Antenna polarization, brightness temperature
+           | 1-03-018 > | Replicate 3 descriptors 18 times
+           | 0-21-110 > | Number of inner-beam sigma-0 (forward of satellite)
+           | 3-01-023 > | Latitude/longitude (coarse accuracy)
+           | 3-21-028   | Radar specification, SEAWINDS normalized radar cross-section, Kp variance coefficient
+
+  3-12-035 | SCATLV2A   ;     ; Scatterometer level 2a data
+           | 0-01-007 > | Satellite identifier
+           | 0-01-031 > | Identification of originating/generating centre
+           | 0-02-048 > | Satellite sensor indicator
+           | 2-02-124 > | Change scale
+           | 0-02-026 > | Cross-track resolution
+           | 0-02-027 > | Along-track resolution
+           | 2-02-000 > | Cancel change scale
+           | 0-05-040 > | Orbit number
+           | 0-04-001 > | Year
+           | 0-04-002 > | Month
+           | 0-04-003 > | Day
+           | 0-04-004 > | Hour
+           | 0-04-005 > | Minute
+           | 0-04-006 > | Second
+           | 0-05-002 > | Latitude (coarse accuracy)
+           | 0-06-002 > | Longitude (coarse accuracy)
+           | 0-05-034 > | Along track row number
+           | 0-06-031 > | Column number
+           | 2-01-129 > | Change data width
+           | 0-06-034 > | Cross-track cell number
+           | 2-01-000 > | Cancel change data width
+           | 0-05-021 > | Bearing or azimuth
+           | 0-02-111 > | Radar incidence angle
+           | 0-12-063 > | Brightness temperature
+           | 0-21-095 > | Kp coefficient A
+           | 0-21-096 > | Kp coefficient B
+           | 0-21-097 > | Kp coefficient C
+           | 0-21-030 > | Signal to noise ratio
+           | 0-21-105 > | Normalized radar cross-section
+           | 0-33-056   | Sigma-0 quality flag
 
   3-12-041 | ALTITUDE   ;     ; Altitude
            | 2-01-141 > | Change data width
@@ -5433,7 +7618,7 @@ Table D STD |  0 | 23
            | 3-01-013 > | Hour, minute, second
            | 3-01-021 > | Latitude/longitude (high accuracy)
            | 3-12-055 > | ASCAT level 1b cell information
-           | 0-21-150 > | Beam collocation
+           | 0-21-150 > | Beam co-location
            | 1-01-003 > | Replicate 1 descriptor 3 times
            | 3-21-030   | ASCAT sigma-0 information
 
@@ -5469,6 +7654,17 @@ Table D STD |  0 | 23
            | 3-12-058 > | ASCAT level 1b data
            | 3-12-060 > | Scatterometer soil moisture data
            | 3-12-059   | Scatterometer wind data
+
+  3-12-062 | SNOWCVR    ;     ; Snow cover
+           | 0-01-007 > | Satellite identifier
+           | 0-02-019 > | Satellite instruments
+           | 3-01-011 > | Year, month, day
+           | 3-01-013 > | Hour, minute, second
+           | 3-01-021 > | Latitude/longitude (high accuracy)
+           | 0-20-065 > | Snow cover
+           | 0-08-023 > | First-order statistics
+           | 0-20-065 > | Snow cover
+           | 0-08-023   | First-order statistics
 
   3-12-070 | SMOSDATA   ;     ; SMOS data
            | 0-01-007 > | Satellite identifier
@@ -5524,7 +7720,7 @@ Table D STD |  0 | 23
            | 1-01-020 > | Replicate 1 descriptor 20 times
            | 0-22-149 > | 20 Hz significant wave height squared
            | 0-22-143 > | STD of 20 Hz SWH squared
-           | 0-22-144 > | Number of 20 Hz valid points for SWH-squared
+           | 0-22-144 > | Number of 20 Hz valid points for SWH squared
            | 0-21-137 > | Ku band corrected ocean backscatter coefficient
            | 1-01-020 > | Replicate 1 descriptor 20 times
            | 0-21-181 > | 20 Hz ocean backscatter coefficient
@@ -5723,7 +7919,7 @@ Table D STD |  0 | 23
            | 0-02-032 > | Indicator for digitization
            | 3-15-005   | Water temperature profile (Temperature profile observed by XBT or buoy
 
-  3-15-005 | WATEMPFL   ;     ; Water temperature profile (Temperature profile observed by XBT or buoy
+  3-15-005 | WATEMPFL   ;     ; Water temperature profile (temperature profile observed by XBT or buoy
            | 1-06-000 > | Delayed replication of 6 descriptors
            | 0-31-002 > | Extended delayed descriptor replication factor
            | 0-07-063 > | Depth below sea/water surface (cm)
@@ -5733,7 +7929,7 @@ Table D STD |  0 | 23
            | 0-08-080 > | Qualifier for GTSPP quality flag
            | 0-33-050   | Global GTSPP quality flag
 
-  3-15-007 | SHPTSCPF   ;     ; Sequence for representation of data derived from a ship based lowered instrument measuring subsurface sea/water temperature, salinity and current profiles
+  3-15-007 | SHPTSCPF   ;     ; Sequence for representation of data derived from a ship-based lowered instrument measuring subsurface sea/water temperature, salinity and current profiles
            | 3-01-003 > | Ship's call sign and motion
            | 0-01-019 > | Long station or site name
            | 0-01-103 > | IMO Number. Unique Lloyd's register
@@ -5867,6 +8063,214 @@ Table D STD |  0 | 23
            | 1-01-000 > | Delayed replication of 1 descriptor
            | 0-31-000 > | Short delayed descriptor replication factor
            | 3-06-039   | Sequence for representation of basic wave measurements
+
+  3-15-010 | F5FCWS     ;     ; First five Fourier components of the wave spectrum
+           | 1-12-000 > | Delayed replication of 12 descriptors
+           | 0-31-001 > | Delayed descriptor replication factor
+           | 2-01-144 > | Change data width
+           | 2-02-133 > | Change scale
+           | 0-22-080 > | Waveband central frequency
+           | 0-22-096 > | Spectral band width
+           | 0-22-069 > | Spectral wave density
+           | 2-02-000 > | Cancel change scale
+           | 2-01-000 > | Cancel change data width
+           | 0-42-011 > | a1 coefficient of the directional Fourier series
+           | 0-42-012 > | b1 coefficient of the directional Fourier series
+           | 0-42-013 > | a2 coefficient of the directional Fourier series
+           | 0-42-014 > | b2 coefficient of the directional Fourier series
+           | 0-42-015   | Check factor K
+
+  3-15-011 | MOOBASFV   ;     ; Met-ocean observations from autonomous surface vehicles
+           | 3-01-150 > | WIGOS identifier
+           | 0-01-087 > | WMO marine observing platform extended identifier
+           | 0-01-036 > | Agency in charge of operating the observing platform
+           | 0-01-085 > | Observing platform manufacturer's model
+           | 0-01-086 > | Observing platform manufacturer's serial number
+           | 0-03-001 > | Surface station type
+           | 2-08-032 > | Change width of CCITT IA5 field
+           | 0-01-079 > | Unique identifier for the profile
+           | 2-08-000 > | Cancel change width of CCITT IA5 field
+           | 3-01-011 > | Year, month, day
+           | 3-01-012 > | Hour, minute
+           | 3-01-021 > | Latitude/longitude (high accuracy)
+           | 0-01-012 > | Direction of motion of moving observing platform
+           | 0-01-014 > | Platform drift speed (high precision)
+           | 0-11-104 > | True heading of aircraft, ship or other mobile platform
+           | 1-03-000 > | Delayed replication of 3 descriptors
+           | 0-31-000 > | Short delayed descriptor replication factor
+           | 0-07-031 > | Height of barometer above mean sea level
+           | 3-06-038 > | Sequence for representation of standard surface marine meteorological observations from moored buoys
+           | 0-12-161 > | Skin temperature
+           | 1-01-000 > | Delayed replication of 1 descriptor
+           | 0-31-000 > | Short delayed descriptor replication factor
+           | 3-06-034 > | Surface current
+           | 1-01-000 > | Delayed replication of 1 descriptor
+           | 0-31-000 > | Short delayed descriptor replication factor
+           | 3-06-039 > | Sequence for representation of basic wave measurements
+           | 1-01-000 > | Delayed replication of 1 descriptor
+           | 0-31-000 > | Short delayed descriptor replication factor
+           | 3-06-033 > | Surface salinity
+           | 1-01-000 > | Delayed replication of 1 descriptor
+           | 0-31-000 > | Short delayed descriptor replication factor
+           | 3-06-041 > | Depth and temperature profile (high accuracy/precision)
+           | 1-01-000 > | Delayed replication of 1 descriptor
+           | 0-31-000 > | Short delayed descriptor replication factor
+           | 3-06-004 > | Depth, temperature, salinity
+           | 1-01-000 > | Delayed replication of 1 descriptor
+           | 0-31-000 > | Short delayed descriptor replication factor
+           | 3-06-005 > | 
+           | 1-05-000 > | Delayed replication of 5 descriptors
+           | 0-31-000 > | Short delayed descriptor replication factor
+           | 0-41-001 > | pCO2
+           | 0-08-043 > | Atmospheric chemical or physical constituent type
+           | 0-15-028 > | Mole fraction of atmospheric constituent/pollutant in dry air
+           | 0-08-043 > | Atmospheric chemical or physical constituent type
+           | 0-13-080 > | Water pH
+           | 1-04-000 > | Delayed replication of 4 descriptors
+           | 0-31-000 > | Short delayed descriptor replication factor
+           | 0-41-005 > | Turbidity
+           | 0-41-003 > | Dissolved nitrates
+           | 0-22-188 > | Dissolved oxygen
+           | 0-41-002 > | Fluorescence
+           | 1-01-000 > | Delayed replication of 1 descriptor
+           | 0-31-000 > | Short delayed descriptor replication factor
+           | 3-06-040 > | Sequence for representation of detailed spectral wave measurements
+           | 1-04-000 > | Delayed replication of 4 descriptors
+           | 0-31-000 > | Short delayed descriptor replication factor
+           | 0-08-021 > | Time significance
+           | 0-04-025 > | Time period or displacement
+           | 0-14-017 > | Instantaneous long-wave radiation
+           | 0-14-018   | Instantaneous short-wave radiation
+
+  3-15-012 | GLITRJPF   ;     ; Sequence for reporting observations from a single glider trajectory profile
+           | 3-01-150 > | WIGOS identifier
+           | 2-01-129 > | Change data width
+           | 0-01-087 > | WMO marine observing platform extended identifier
+           | 2-01-000 > | Cancel change data width
+           | 0-01-019 > | Long station or site name
+           | 0-01-036 > | Agency in charge of operating the observing platform
+           | 0-02-148 > | Data collection and/or location system
+           | 0-01-085 > | Observing platform manufacturer's model
+           | 0-01-086 > | Observing platform manufacturer's serial number
+           | 0-08-021 > | Time significance
+           | 3-01-011 > | Year, month, day
+           | 3-01-013 > | Hour, minute, second
+           | 3-01-021 > | Latitude/longitude (high accuracy)
+           | 0-11-104 > | True heading of aircraft, ship or other mobile platform
+           | 0-02-169 > | Anemometer type
+           | 0-11-002 > | Wind speed
+           | 0-11-001 > | Wind direction
+           | 0-02-169 > | Anemometer type
+           | 0-22-032 > | Speed of sea-surface current
+           | 0-22-005 > | Direction of sea-surface current
+           | 3-01-011 > | Year, month, day
+           | 3-01-013 > | Hour, minute, second
+           | 0-08-021 > | Time significance
+           | 0-04-025 > | Time period or displacement
+           | 3-01-021 > | Latitude/longitude (high accuracy)
+           | 0-22-031 > | Speed of current
+           | 0-22-004 > | Direction of current
+           | 0-08-021 > | Time significance
+           | 0-05-068 > | Profile number
+           | 0-01-079 > | Unique identifier for the profile
+           | 1-26-000 > | Delayed replication of 26 descriptors
+           | 0-31-001 > | Delayed descriptor replication factor
+           | 0-22-056 > | Direction of profile
+           | 1-23-000 > | Delayed replication of 23 descriptors
+           | 0-31-002 > | Extended delayed descriptor replication factor
+           | 3-01-011 > | Year, month, day
+           | 3-01-013 > | Hour, minute, second
+           | 3-01-021 > | Latitude/longitude (high accuracy)
+           | 0-08-080 > | Qualifier for GTSPP quality flag
+           | 0-33-050 > | Global GTSPP quality flag
+           | 0-07-062 > | Depth below sea/water surface
+           | 0-08-080 > | Qualifier for GTSPP quality flag
+           | 0-33-050 > | Global GTSPP quality flag
+           | 0-22-065 > | Water pressure
+           | 0-08-080 > | Qualifier for GTSPP quality flag
+           | 0-33-050 > | Global GTSPP quality flag
+           | 0-22-045 > | Sea/water temperature
+           | 0-08-080 > | Qualifier for GTSPP quality flag
+           | 0-33-050 > | Global GTSPP quality flag
+           | 0-22-066 > | Water conductivity
+           | 0-08-080 > | Qualifier for GTSPP quality flag
+           | 0-33-050 > | Global GTSPP quality flag
+           | 0-22-064 > | Salinity
+           | 0-08-080 > | Qualifier for GTSPP quality flag
+           | 0-33-050 > | Global GTSPP quality flag
+           | 0-42-016 > | Sea water potential density referenced to sea surface
+           | 0-08-080 > | Qualifier for GTSPP quality flag
+           | 0-33-050   | Global GTSPP quality flag
+
+  3-15-013 | PFMRANML   ;     ; Sequence for reporting trajectory profile data from marine animal tags
+           | 3-01-150 > | WIGOS identifier
+           | 0-01-087 > | WMO marine observing platform extended identifier
+           | 2-08-032 > | Change width of CCITT IA5 field
+           | 0-01-019 > | Long station or site name
+           | 2-08-000 > | Cancel change width of CCITT IA5 field
+           | 0-03-001 > | Surface station type
+           | 0-22-067 > | Instrument type for water temperature/salinity profile measurement
+           | 0-01-051 > | Platform transmitter ID number
+           | 0-02-148 > | Data collection and/or location system
+           | 1-12-000 > | Delayed replication of 12 descriptors
+           | 0-31-001 > | Delayed descriptor replication factor
+           | 0-08-021 > | Time significance
+           | 3-01-011 > | Year, month, day
+           | 3-01-012 > | Hour, minute
+           | 3-01-021 > | Latitude/longitude (high accuracy)
+           | 0-01-012 > | Direction of motion of moving observing platform
+           | 0-01-014 > | Platform drift speed (high precision)
+           | 0-33-022 > | Quality of buoy satellite transmission
+           | 0-33-023 > | Quality of buoy location
+           | 0-33-027 > | Location quality class (range of radius of 66 % confidence)
+           | 0-07-063 > | Depth below sea/water surface (cm)
+           | 0-22-045 > | Sea/water temperature
+           | 0-08-021 > | Time significance
+           | 1-07-000 > | Delayed replication of 7 descriptors
+           | 0-31-001 > | Delayed descriptor replication factor
+           | 3-01-011 > | Year, month, day
+           | 3-01-012 > | Hour, minute
+           | 3-01-021 > | Latitude/longitude (high accuracy)
+           | 0-01-079 > | Unique identifier for the profile
+           | 0-01-023 > | Observation sequence number
+           | 0-22-056 > | Direction of profile
+           | 3-06-035   | Temperature and salinity profile
+
+  3-15-023 | PFMRANM2   ;     ; Sequence for reporting trajectory profile data from marine animal tags
+           | 3-01-150 > | WIGOS identifier
+           | 2-01-129 > | Change data width
+           | 0-01-087 > | WMO marine observing platform extended identifier
+           | 2-01-000 > | Cancel change data width
+           | 2-08-032 > | Change width of CCITT IA5 field
+           | 0-01-019 > | Long station or site name
+           | 2-08-000 > | Cancel change width of CCITT IA5 field
+           | 0-03-001 > | Surface station type
+           | 0-22-067 > | Instrument type for water temperature/salinity profile measurement
+           | 0-01-051 > | Platform transmitter ID number
+           | 0-02-148 > | Data collection and/or location system
+           | 1-12-000 > | Delayed replication of 12 descriptors
+           | 0-31-001 > | Delayed descriptor replication factor
+           | 0-08-021 > | Time significance
+           | 3-01-011 > | Year, month, day
+           | 3-01-012 > | Hour, minute
+           | 3-01-021 > | Latitude/longitude (high accuracy)
+           | 0-01-012 > | Direction of motion of moving observing platform
+           | 0-01-014 > | Platform drift speed (high precision)
+           | 0-33-022 > | Quality of buoy satellite transmission
+           | 0-33-023 > | Quality of buoy location
+           | 0-33-027 > | Location quality class (range of radius of 66 % confidence)
+           | 0-07-063 > | Depth below sea/water surface (cm)
+           | 0-22-045 > | Sea/water temperature
+           | 0-08-021 > | Time significance
+           | 1-07-000 > | Delayed replication of 7 descriptors
+           | 0-31-001 > | Delayed descriptor replication factor
+           | 3-01-011 > | Year, month, day
+           | 3-01-012 > | Hour, minute
+           | 3-01-021 > | Latitude/longitude (high accuracy)
+           | 0-01-079 > | Unique identifier for the profile
+           | 0-01-023 > | Observation sequence number
+           | 0-22-056 > | Direction of profile
+           | 3-06-035   | Temperature and salinity profile
 
   3-16-001 | DLIMTPRT   ;     ; 
            | 3-01-011 > | Year, month, day
@@ -6219,7 +8623,7 @@ Table D STD |  0 | 23
            | 3-01-001 > | WMO block and station numbers
            | 3-01-011 > | Year, month, day
            | 3-01-012 > | Hour, minute
-           | 0-02-160 > | Wave length of the radar
+           | 0-02-160 > | Wavelength of the radar
            | 0-08-005 > | Meteorological attribute significance
            | 0-05-002 > | Latitude (coarse accuracy)
            | 0-06-002 > | Longitude (coarse accuracy)
@@ -6401,6 +8805,52 @@ Table D STD |  0 | 23
            | 3-16-074 > | GFA identifier and observed/forecast location
            | 0-08-041 > | Data significance
            | 0-08-079   | Product status
+
+  3-16-082 | TCTRKWRD   ;     ; Tropical cyclone track and wind radii
+           | 0-01-033 > | Identification of originating/generating centre
+           | 0-01-034 > | Identification of originating/generating sub-centre
+           | 0-01-032 > | Generating application
+           | 0-01-025 > | Storm identifier
+           | 0-01-027 > | WMO long storm name
+           | 0-01-090 > | Technique for making up initial perturbations
+           | 0-01-091 > | Ensemble member number
+           | 0-01-092 > | Type of ensemble forecast
+           | 3-01-011 > | Year, month, day
+           | 3-01-012 > | Hour, minute
+           | 0-08-005 > | Meteorological attribute significance
+           | 3-01-023 > | Latitude/longitude (coarse accuracy)
+           | 0-08-005 > | Meteorological attribute significance
+           | 3-01-023 > | Latitude/longitude (coarse accuracy)
+           | 0-10-051 > | Pressure reduced to mean sea level
+           | 0-08-005 > | Meteorological attribute significance
+           | 3-01-023 > | Latitude/longitude (coarse accuracy)
+           | 0-11-012 > | Wind speed at 10 m
+           | 1-07-003 > | Replicate 7 descriptors 3 times
+           | 0-19-003 > | Wind speed threshold
+           | 1-05-004 > | Replicate 5 descriptors 4 times
+           | 0-05-021 > | Bearing or azimuth
+           | 0-05-021 > | Bearing or azimuth
+           | 2-01-131 > | Change data width
+           | 0-19-004 > | Effective radius with respect to wind speeds above threshold
+           | 2-01-000 > | Cancel change data width
+           | 1-16-000 > | Delayed replication of 16 descriptors
+           | 0-31-001 > | Delayed descriptor replication factor
+           | 0-08-021 > | Time significance
+           | 0-04-024 > | Time period or displacement
+           | 0-08-005 > | Meteorological attribute significance
+           | 3-01-023 > | Latitude/longitude (coarse accuracy)
+           | 0-10-051 > | Pressure reduced to mean sea level
+           | 0-08-005 > | Meteorological attribute significance
+           | 3-01-023 > | Latitude/longitude (coarse accuracy)
+           | 0-11-012 > | Wind speed at 10 m
+           | 1-07-003 > | Replicate 7 descriptors 3 times
+           | 0-19-003 > | Wind speed threshold
+           | 1-05-004 > | Replicate 5 descriptors 4 times
+           | 0-05-021 > | Bearing or azimuth
+           | 0-05-021 > | Bearing or azimuth
+           | 2-01-131 > | Change data width
+           | 0-19-004 > | Effective radius with respect to wind speeds above threshold
+           | 2-01-000   | Cancel change data width
 
   3-18-001 | LALODOSE   ;     ; 
            | 3-01-025 > | Latitude/longitude (coarse accuracy), day/time
@@ -6646,6 +9096,66 @@ Table D STD |  0 | 23
            | 0-21-165 > | ASCAT extrapolated reference function presence
            | 0-21-166   | Land fraction
 
+  3-21-031 | SATRDOBS   ;     ; Satellite radar observations
+           | 0-01-007 > | Satellite identifier
+           | 0-02-019 > | Satellite instruments
+           | 0-01-033 > | Identification of originating/generating centre
+           | 0-01-034 > | Identification of originating/generating sub-centre
+           | 3-01-011 > | Year, month, day
+           | 3-01-013 > | Hour, minute, second
+           | 3-01-021 > | Latitude/longitude (high accuracy)
+           | 0-10-033 > | Altitude (platform to ellipsoid)
+           | 0-08-043 > | Atmospheric chemical or physical constituent type
+           | 0-25-139 > | Processing level
+           | 0-02-153 > | Satellite channel centre frequency
+           | 1-06-000 > | Delayed replication of 6 descriptors
+           | 0-31-002 > | Extended delayed descriptor replication factor
+           | 0-07-071 > | Height (high resolution)
+           | 0-21-007 > | Radar reflectivity factor
+           | 0-21-008 > | Uncertainty in radar reflectivity factor
+           | 0-21-009 > | Vertical Doppler velocity
+           | 0-21-010 > | Uncertainty in vertical Doppler velocity
+           | 0-33-003   | Quality information
+
+  3-22-001 | AEROPDP    ;     ; Aerosol optical depth
+           | 3-10-022 > | Satellite identifier, instrument and product type
+           | 3-01-011 > | Year, month, day
+           | 3-01-013 > | Hour, minute, second
+           | 3-01-021 > | Latitude/longitude (high accuracy)
+           | 0-05-041 > | Scan line number
+           | 0-05-043 > | Field of view number
+           | 0-27-080 > | Viewing azimuth angle
+           | 0-05-022 > | Solar azimuth
+           | 0-13-040 > | Surface flag
+           | 0-20-010 > | Cloud cover (total)
+           | 0-33-085 > | Aerosol optical thickness quality flags
+           | 0-33-115 > | Aerosol optical depth quality information
+           | 1-05-002 > | Replicate 5 descriptors 2 times
+           | 0-08-099 > | Sensing direction
+           | 0-07-024 > | Satellite zenith angle
+           | 0-07-025 > | Solar zenith angle
+           | 0-07-075 > | Scattering angle
+           | 0-07-076 > | Relative azimuth angle
+           | 1-06-000 > | Delayed replication of 6 descriptors
+           | 0-31-001 > | Delayed descriptor replication factor
+           | 0-02-071 > | Spectrographic wavelength
+           | 0-08-043 > | Atmospheric chemical or physical constituent type
+           | 0-15-024 > | Optical depth
+           | 0-08-043 > | Atmospheric chemical or physical constituent type
+           | 0-15-024 > | Optical depth
+           | 0-15-042 > | Reflectance
+           | 2-24-000 > | First-order statistical values follow
+           | 2-36-000 > | Define data present bitmap
+           | 1-01-000 > | Delayed replication of 1 descriptor
+           | 0-31-002 > | Extended delayed descriptor replication factor
+           | 0-31-031 > | Data present indicator
+           | 0-01-033 > | Identification of originating/generating centre
+           | 0-01-032 > | Generating application
+           | 0-08-023 > | First-order statistics
+           | 1-01-000 > | Delayed replication of 1 descriptor
+           | 0-31-002 > | Extended delayed descriptor replication factor
+           | 2-24-255   | First-order statistical values marker operator
+
   3-22-028 | GOME2TMP   ;     ; METOP GOME-2
            | 0-01-007 > | Satellite identifier
            | 0-02-019 > | Satellite instruments
@@ -6723,7 +9233,7 @@ Table D STD |  0 | 23
            | 0-33-064 > | GqisQualIndexSpect - indicator for instrument noise performance (contributions from spectral calibration)
            | 0-33-065 > | GqisSysTecSondQual - output of system TEC (Technical Expertise Centre) quality function
            | 1-01-010 > | Replicate 1 descriptor 10 times
-           | 3-40-002 > | IASI Level 1c band description
+           | 3-40-002 > | Band description
            | 1-01-087 > | Replicate 1 descriptor 87 times
            | 3-40-003 > | IASI Level 1c 100 channels
            | 0-02-019 > | Satellite instruments
@@ -6731,7 +9241,7 @@ Table D STD |  0 | 23
            | 1-01-007 > | Replicate 1 descriptor 7 times
            | 3-40-004   | IASI Level 1c AVHRR single scene
 
-  3-40-002 | IASIL1CB   ;     ; IASI Level 1c band description
+  3-40-002 | IASIL1CB   ;     ; Band description
            | 0-25-140 > | Start channel
            | 0-25-141 > | End channel
            | 0-25-142   | Channel scale factor
@@ -6741,7 +9251,7 @@ Table D STD |  0 | 23
            | 2-01-136 > | Change data width
            | 0-05-042 > | Channel number
            | 2-01-000 > | Cancel change data width
-           | 0-14-046   | Scaled IASI radiance
+           | 0-14-046   | Scaled radiance
 
   3-40-004 | IASIL1CS   ;     ; IASI Level 1c AVHRR single scene
            | 0-05-060 > | Y angular position from centre of gravity
@@ -6899,7 +9409,7 @@ Table D STD |  0 | 23
            | 0-33-065 > | GqisSysTecSondQual - output of system TEC (Technical Expertise Centre) quality function
            | 0-40-020 > | GqisFlagQualDetailed - quality flag for the system
            | 1-01-010 > | Replicate 1 descriptor 10 times
-           | 3-40-002 > | IASI Level 1c band description
+           | 3-40-002 > | Band description
            | 1-01-087 > | Replicate 1 descriptor 87 times
            | 3-40-003 > | IASI Level 1c 100 channels
            | 0-02-019 > | Satellite instruments
@@ -6958,13 +9468,13 @@ Table D STD |  0 | 23
            | 0-33-065 > | GqisSysTecSondQual - output of system TEC (Technical Expertise Centre) quality function
            | 0-40-020 > | GqisFlagQualDetailed - quality flag for the system
            | 1-01-010 > | Replicate 1 descriptor 10 times
-           | 3-40-002 > | IASI Level 1c band description
+           | 3-40-002 > | Band description
            | 1-04-000 > | Delayed replication of 4 descriptors
            | 0-31-002 > | Extended delayed descriptor replication factor
            | 2-01-136 > | Change data width
            | 0-05-042 > | Channel number
            | 2-01-000 > | Cancel change data width
-           | 0-14-046 > | Scaled IASI radiance
+           | 0-14-046 > | Scaled radiance
            | 1-08-003 > | Replicate 8 descriptors 3 times
            | 0-25-140 > | Start channel
            | 0-25-141 > | End channel
@@ -7153,11 +9663,11 @@ Table D STD |  0 | 23
            | 0-22-190 > | Specific band significant wave height
            | 0-22-131 > | RMS specific band significant wave height
            | 0-22-132 > | Number of valid points for specific band significant wave height
-           | 0-22-133 > | Specific band net instrument correction for signficant wave height
+           | 0-22-133 > | Specific band net instrument correction for significant wave height
            | 0-21-183 > | Specific band corrected ocean backscatter coefficient
            | 0-21-184 > | STD specific band corrected ocean backscatter coefficient
            | 0-22-134 > | Number of valid points for specific band backscatter
-           | 0-21-185 > | Specific band net instrumental correction for agc
+           | 0-21-185 > | Specific band net instrumental correction for AGC
            | 0-21-118 > | Attenuation correction on sigma-0
            | 0-21-186 > | Specific band automatic gain control
            | 0-21-187 > | RMS specific band automatic gain control
@@ -7197,4 +9707,542 @@ Table D STD |  0 | 23
            | 0-25-127 > | Inverted barometer correction
            | 0-40-014 > | High-frequency fluctuations of the sea-surface topography correction
            | 0-10-102   | Sea-surface height anomaly
+
+  3-40-012 | GPMMCIMG   ;     ; GPM Microwave Imager (GMI)
+           | 0-01-007 > | Satellite identifier
+           | 0-02-019 > | Satellite instruments
+           | 0-08-091 > | Coordinates significance
+           | 0-05-001 > | Latitude (high accuracy)
+           | 0-06-001 > | Longitude (high accuracy)
+           | 0-07-002 > | Height or altitude
+           | 0-05-063 > | Spacecraft roll
+           | 0-05-064 > | Spacecraft pitch
+           | 0-05-066 > | Spacecraft yaw
+           | 0-05-041 > | Scan line number
+           | 0-05-067 > | Number of scan lines
+           | 3-01-011 > | Year, month, day
+           | 3-01-012 > | Hour, minute
+           | 0-04-007 > | Seconds within a minute (microsecond accuracy)
+           | 0-08-091 > | Coordinates significance
+           | 0-05-001 > | Latitude (high accuracy)
+           | 0-06-001 > | Longitude (high accuracy)
+           | 1-07-000 > | Delayed replication of 7 descriptors
+           | 0-31-001 > | Delayed descriptor replication factor
+           | 0-05-042 > | Channel number
+           | 0-02-153 > | Satellite channel centre frequency
+           | 0-02-104 > | Antenna polarization
+           | 0-40-028 > | GMI quality flag
+           | 0-07-024 > | Satellite zenith angle
+           | 0-40-027 > | Sun glint angle
+           | 0-12-063   | Brightness temperature
+
+  3-40-013 | ALADIN2B   ;     ; Atmospheric Laser Doppler Instrument (ALADIN) L2b data
+           | 0-01-007 > | Satellite identifier
+           | 0-02-019 > | Satellite instruments
+           | 0-01-033 > | Identification of originating/generating centre
+           | 0-01-034 > | Identification of originating/generating sub-centre
+           | 0-04-001 > | Year
+           | 0-04-002 > | Month
+           | 0-04-003 > | Day
+           | 0-04-004 > | Hour
+           | 0-04-005 > | Minute
+           | 0-04-007 > | Seconds within a minute (microsecond accuracy)
+           | 0-05-068 > | Profile number
+           | 0-05-070 > | Observation identifier
+           | 0-05-069 > | Receiver channel
+           | 0-40-036 > | Lidar L2b classification type
+           | 0-08-091 > | Coordinates significance
+           | 0-05-001 > | Latitude (high accuracy)
+           | 0-06-001 > | Longitude (high accuracy)
+           | 0-04-016 > | Time increment
+           | 0-08-091 > | Coordinates significance
+           | 0-05-001 > | Latitude (high accuracy)
+           | 0-06-001 > | Longitude (high accuracy)
+           | 0-04-016 > | Time increment
+           | 0-08-091 > | Coordinates significance
+           | 0-05-001 > | Latitude (high accuracy)
+           | 0-06-001 > | Longitude (high accuracy)
+           | 0-04-016 > | Time increment
+           | 0-08-091 > | Coordinates significance
+           | 0-07-071 > | Height (high resolution)
+           | 0-05-021 > | Bearing or azimuth
+           | 0-07-021 > | Elevation
+           | 0-40-035 > | Satellite range
+           | 0-08-091 > | Coordinates significance
+           | 0-07-071 > | Height (high resolution)
+           | 0-05-021 > | Bearing or azimuth
+           | 0-07-021 > | Elevation
+           | 0-40-035 > | Satellite range
+           | 0-08-091 > | Coordinates significance
+           | 0-07-071 > | Height (high resolution)
+           | 0-05-021 > | Bearing or azimuth
+           | 0-07-021 > | Elevation
+           | 0-40-035 > | Satellite range
+           | 0-40-029 > | Horizontal observation integration length
+           | 0-40-030 > | Horizontal line of sight wind
+           | 0-40-031 > | Error estimate of horizontal line of sight wind
+           | 0-25-187 > | Confidence flag
+           | 0-10-004 > | Pressure
+           | 0-12-001 > | Temperature/air temperature
+           | 0-40-037 > | Backscatter ratio
+           | 0-40-032 > | Derivative wind to pressure
+           | 0-40-033 > | Derivative wind to temperature
+           | 0-40-034   | Derivative wind to backscatter ratio
+
+  3-40-015 | GPMPRCP    ;     ; Global Precipitation Measurement (GPM) precipitation data
+           | 0-01-007 > | Satellite identifier
+           | 0-02-019 > | Satellite instruments
+           | 3-01-011 > | Year, month, day
+           | 3-01-012 > | Hour, minute
+           | 0-04-007 > | Seconds within a minute (microsecond accuracy)
+           | 2-01-133 > | Change data width
+           | 0-05-041 > | Scan line number
+           | 2-01-000 > | Cancel change data width
+           | 2-01-130 > | Change data width
+           | 0-05-043 > | Field of view number
+           | 2-01-000 > | Cancel change data width
+           | 2-07-001 > | Increase scale, reference value and data width
+           | 0-05-002 > | Latitude (coarse accuracy)
+           | 0-06-002 > | Longitude (coarse accuracy)
+           | 2-07-000 > | Cancel increase scale, reference value and data width
+           | 0-40-027 > | Sun glint angle
+           | 0-13-040 > | Surface flag
+           | 0-21-120 > | Probability of rain
+           | 2-07-003 > | Increase scale, reference value and data width
+           | 1-02-003 > | Replicate 2 descriptors 3 times
+           | 0-02-186 > | Capability to detect precipitation phenomena
+           | 0-13-155 > | Intensity of precipitation (high accuracy)
+           | 2-07-000 > | Cancel increase scale, reference value and data width
+           | 0-33-003   | Quality information
+
+  3-40-016 | PCSEDGEO   ;     ; Principal component scores, channel selection and enhanced data collected on board a geostationary platform
+           | 3-01-129 > | Observing satellite and instruments
+           | 3-01-130 > | High precision timestamp
+           | 3-01-131 > | Pixel geolocation
+           | 2-02-134 > | Change scale
+           | 0-07-001 > | Height of station
+           | 2-02-000 > | Cancel change scale
+           | 1-01-000 > | Delayed replication of 1 descriptor
+           | 0-31-002 > | Extended delayed descriptor replication factor
+           | 3-40-002 > | Band description
+           | 1-01-000 > | Delayed replication of 1 descriptor
+           | 0-31-002 > | Extended delayed descriptor replication factor
+           | 3-04-039 > | Radiance in channel
+           | 1-01-000 > | Delayed replication of 1 descriptor
+           | 0-31-002 > | Extended delayed descriptor replication factor
+           | 3-04-040   | Principal component score in band
+
+  3-40-017 | S3L2H2O    ;     ; Sentinel-3 (S3) level 2 water product
+           | 0-01-007 > | Satellite identifier
+           | 0-02-019 > | Satellite instruments
+           | 0-05-044 > | Satellite cycle number
+           | 0-01-096 > | Station acquisition
+           | 0-05-040 > | Orbit number
+           | 0-01-040 > | Processing centre ID code
+           | 0-25-061 > | Software identification and version number
+           | 0-25-182 > | L1 processing flag
+           | 0-25-183 > | L1 processing quality
+           | 0-25-181 > | L2 processing flag
+           | 0-25-184 > | L2 product status
+           | 3-01-011 > | Year, month, day
+           | 3-01-013 > | Hour, minute, second
+           | 0-04-007 > | Seconds within a minute (microsecond accuracy)
+           | 3-01-021 > | Latitude/longitude (high accuracy)
+           | 0-05-063 > | Spacecraft roll
+           | 0-05-064 > | Spacecraft pitch
+           | 0-05-066 > | Spacecraft yaw
+           | 0-10-081 > | Altitude of COG above reference ellipsoid
+           | 0-10-082 > | Instantaneous altitude rate
+           | 0-08-075 > | Ascending/descending orbit qualifier
+           | 0-25-090 > | Orbit state flag
+           | 0-08-029 > | Surface type
+           | 2-01-137 > | Change data width
+           | 2-02-129 > | Change scale
+           | 0-06-021 > | Distance
+           | 2-02-000 > | Cancel change scale
+           | 2-01-000 > | Cancel change data width
+           | 0-10-087 > | Ocean depth/land elevation
+           | 0-25-096 > | Radiometer state flag
+           | 0-40-012 > | Radiometer data quality flag
+           | 0-08-077 > | Radiometer sensed surface type
+           | 1-04-002 > | Replicate 4 descriptors 2 times
+           | 0-02-153 > | Satellite channel centre frequency
+           | 0-12-063 > | Brightness temperature
+           | 0-12-065 > | Standard deviation brightness temperature
+           | 0-40-013 > | Radiometer brightness temperature interpretation flag
+           | 0-07-002 > | Height or altitude
+           | 0-11-098 > | Wind speed from radiometer
+           | 0-13-090 > | Radiometer water vapour content
+           | 0-13-091 > | Radiometer liquid content
+           | 0-25-164 > | Radiometer wet tropospheric correction
+           | 0-25-095 > | Altimeter state flag
+           | 0-40-023 > | Auxiliary altimeter state flags
+           | 0-25-113 > | Band specific altimeter correction quality flag
+           | 0-08-074 > | Altimeter echo type
+           | 0-25-190 > | Altimeter echo processing mode
+           | 0-21-144 > | Altimeter rain flag
+           | 0-25-191 > | Altimeter tracking mode
+           | 0-21-143 > | Ku band rain attenuation
+           | 0-13-055 > | Intensity of precipitation
+           | 0-21-169 > | Ice presence indicator
+           | 0-10-101 > | Squared off-nadir angle of the satellite from waveform data
+           | 0-15-012 > | Total electron count per square metre
+           | 0-07-002 > | Height or altitude
+           | 0-11-097 > | Wind speed from altimeter
+           | 0-40-024 > | Meteorological map availability
+           | 0-07-002 > | Height or altitude
+           | 0-25-126 > | Model dry tropospheric correction
+           | 0-25-128 > | Model wet tropospheric correction
+           | 0-40-011 > | Interpolation flag
+           | 0-07-002 > | Height or altitude
+           | 0-11-095 > | u-component of the model wind vector
+           | 0-11-096 > | v-component of the model wind vector
+           | 0-10-088 > | Total geocentric ocean tide height (solution 1)
+           | 0-10-089 > | Total geocentric ocean tide height (solution 2)
+           | 0-10-090 > | Long period tide height
+           | 0-10-092 > | Solid Earth tide height
+           | 0-10-093 > | Geocentric pole tide height
+           | 0-10-098 > | Loading tide height geocentric ocean tide solution 1
+           | 0-10-099 > | Loading tide height geocentric ocean tide solution 2
+           | 0-10-100 > | Non-equilibrium long period tide height
+           | 0-25-127 > | Inverted barometer correction
+           | 0-40-014 > | High-frequency fluctuations of the sea-surface topography correction
+           | 0-10-085 > | Mean sea-surface height
+           | 0-10-086 > | Geoid's height
+           | 0-10-096 > | Mean dynamic topography
+           | 0-10-103 > | Mean dynamic topography accuracy
+           | 0-10-102 > | Sea-surface height anomaly
+           | 0-22-080 > | Waveband central frequency
+           | 0-08-076 > | Type of band
+           | 0-22-189 > | Specific band ocean range
+           | 0-22-191 > | RMS of specific band ocean range
+           | 0-22-130 > | Number of valid points for specific band
+           | 0-25-165 > | Ionospheric correction from model on specific band
+           | 0-25-166 > | Sea state bias correction on specific band
+           | 0-25-167 > | Specific band net instrumental correction
+           | 0-21-183 > | Specific band corrected ocean backscatter coefficient
+           | 0-21-184 > | STD specific band corrected ocean backscatter coefficient
+           | 0-22-134 > | Number of valid points for specific band backscatter
+           | 0-21-122 > | Attenuation correction on sigma-0 (from tB)
+           | 0-22-190 > | Specific band significant wave height
+           | 0-22-131 > | RMS specific band significant wave height
+           | 0-22-132 > | Number of valid points for specific band significant wave height
+           | 0-22-133 > | Specific band net instrument correction for significant wave height
+           | 0-21-186 > | Specific band automatic gain control
+           | 0-21-187 > | RMS specific band automatic gain control
+           | 0-21-188 > | Number of valid points for specific band automatic gain control
+           | 0-21-185 > | Specific band net instrumental correction for AGC
+           | 0-25-112 > | Band specific altimeter data quality flag
+           | 0-25-113 > | Band specific altimeter correction quality flag
+           | 0-33-092 > | Band specific ocean quality flag
+           | 0-08-076 > | Type of band
+           | 0-22-189 > | Specific band ocean range
+           | 0-22-191 > | RMS of specific band ocean range
+           | 0-22-130 > | Number of valid points for specific band
+           | 0-25-165 > | Ionospheric correction from model on specific band
+           | 0-25-166 > | Sea state bias correction on specific band
+           | 0-25-167 > | Specific band net instrumental correction
+           | 0-21-183 > | Specific band corrected ocean backscatter coefficient
+           | 0-21-184 > | STD specific band corrected ocean backscatter coefficient
+           | 0-22-134 > | Number of valid points for specific band backscatter
+           | 0-21-122 > | Attenuation correction on sigma-0 (from tB)
+           | 0-22-190 > | Specific band significant wave height
+           | 0-22-131 > | RMS specific band significant wave height
+           | 0-22-132 > | Number of valid points for specific band significant wave height
+           | 0-22-133 > | Specific band net instrument correction for significant wave height
+           | 0-21-186 > | Specific band automatic gain control
+           | 0-21-187 > | RMS specific band automatic gain control
+           | 0-21-188 > | Number of valid points for specific band automatic gain control
+           | 0-21-185 > | Specific band net instrumental correction for AGC
+           | 0-25-112 > | Band specific altimeter data quality flag
+           | 0-25-113 > | Band specific altimeter correction quality flag
+           | 0-33-092 > | Band specific ocean quality flag
+           | 0-25-190 > | Altimeter echo processing mode
+           | 0-11-097 > | Wind speed from altimeter
+           | 0-13-090 > | Radiometer water vapour content
+           | 0-13-091 > | Radiometer liquid content
+           | 0-21-143 > | Ku band rain attenuation
+           | 0-21-184 > | STD specific band corrected ocean backscatter coefficient
+           | 0-25-128 > | Model wet tropospheric correction
+           | 0-25-163 > | Altimeter ionospheric correction on Ku band
+           | 0-25-164 > | Radiometer wet tropospheric correction
+           | 0-10-102 > | Sea-surface height anomaly
+           | 0-22-189 > | Specific band ocean range
+           | 0-22-191 > | RMS of specific band ocean range
+           | 0-22-130 > | Number of valid points for specific band
+           | 0-25-166 > | Sea state bias correction on specific band
+           | 0-21-183 > | Specific band corrected ocean backscatter coefficient
+           | 0-21-184 > | STD specific band corrected ocean backscatter coefficient
+           | 0-22-134 > | Number of valid points for specific band backscatter
+           | 0-22-190 > | Specific band significant wave height
+           | 0-22-131 > | RMS specific band significant wave height
+           | 0-22-132 > | Number of valid points for specific band significant wave height
+           | 0-25-112 > | Band specific altimeter data quality flag
+           | 0-25-113 > | Band specific altimeter correction quality flag
+           | 0-33-092 > | Band specific ocean quality flag
+           | 0-08-049 > | Number of observations
+           | 0-22-080 > | Waveband central frequency
+           | 1-34-021 > | Replicate 34 descriptors 21 times
+           | 3-01-011 > | Year, month, day
+           | 3-01-013 > | Hour, minute, second
+           | 0-04-007 > | Seconds within a minute (microsecond accuracy)
+           | 3-01-021 > | Latitude/longitude (high accuracy)
+           | 0-10-081 > | Altitude of COG above reference ellipsoid
+           | 0-10-082 > | Instantaneous altitude rate
+           | 0-08-029 > | Surface type
+           | 2-01-137 > | Change data width
+           | 2-02-129 > | Change scale
+           | 0-06-021 > | Distance
+           | 2-02-000 > | Cancel change scale
+           | 2-01-000 > | Cancel change data width
+           | 0-25-191 > | Altimeter tracking mode
+           | 0-21-071 > | Peakiness
+           | 0-10-085 > | Mean sea-surface height
+           | 0-40-011 > | Interpolation flag
+           | 0-10-102 > | Sea-surface height anomaly
+           | 0-22-189 > | Specific band ocean range
+           | 0-22-146 > | OCOG range
+           | 0-25-165 > | Ionospheric correction from model on specific band
+           | 0-25-167 > | Specific band net instrumental correction
+           | 0-21-183 > | Specific band corrected ocean backscatter coefficient
+           | 0-22-190 > | Specific band significant wave height
+           | 0-22-133 > | Specific band net instrument correction for significant wave height
+           | 0-21-177 > | Corrected OCOG backscatter coefficient
+           | 0-21-185 > | Specific band net instrumental correction for AGC
+           | 0-13-164 > | Sea ice freeboard
+           | 2-02-126 > | Change scale
+           | 0-22-046 > | Sea ice fraction
+           | 2-02-000 > | Cancel change scale
+           | 0-13-117 > | Snow density (liquid water content)
+           | 0-13-013 > | Total snow depth
+           | 0-25-112 > | Band specific altimeter data quality flag
+           | 0-33-092   | Band specific ocean quality flag
+
+  3-40-018 | IKFS2SP    ;     ; Infrared Fourier spectrometer - 2 (IKFS-2) spectra
+           | 3-01-129 > | Observing satellite and instruments
+           | 3-01-130 > | High precision timestamp
+           | 3-01-131 > | Pixel geolocation
+           | 0-07-072 > | Scan angle
+           | 0-40-074 > | General interferometry quality flags
+           | 1-04-000 > | Delayed replication of 4 descriptors
+           | 0-31-002 > | Extended delayed descriptor replication factor
+           | 2-01-136 > | Change data width
+           | 0-05-042 > | Channel number
+           | 2-01-000 > | Cancel change data width
+           | 0-14-044   | Channel radiance
+
+  3-40-019 | ALTMPROD   ;     ; Altimeter product
+           | 3-40-020 > | Satellite general values
+           | 3-40-021 > | General radiometer values
+           | 3-40-022 > | Altimeter model values
+           | 3-40-023   | Altimeter main values
+
+  3-40-020 | SATGENV    ;     ; Satellite general values
+           | 0-01-007 > | Satellite identifier
+           | 0-02-019 > | Satellite instruments
+           | 0-05-044 > | Satellite cycle number
+           | 0-01-096 > | Station acquisition
+           | 0-05-040 > | Orbit number
+           | 0-01-040 > | Processing centre ID code
+           | 0-25-061 > | Software identification and version number
+           | 0-25-182 > | L1 processing flag
+           | 0-25-183 > | L1 processing quality
+           | 0-25-181 > | L2 processing flag
+           | 0-25-184 > | L2 product status
+           | 0-08-075 > | Ascending/descending orbit qualifier
+           | 0-25-090 > | Orbit state flag
+           | 3-01-011 > | Year, month, day
+           | 3-01-013 > | Hour, minute, second
+           | 0-04-007 > | Seconds within a minute (microsecond accuracy)
+           | 3-01-021 > | Latitude/longitude (high accuracy)
+           | 0-05-063 > | Spacecraft roll
+           | 0-05-064 > | Spacecraft pitch
+           | 0-05-066 > | Spacecraft yaw
+           | 0-10-081 > | Altitude of COG above reference ellipsoid
+           | 0-10-082   | Instantaneous altitude rate
+
+  3-40-021 | RDMGENV    ;     ; General radiometer values
+           | 0-40-012 > | Radiometer data quality flag
+           | 0-08-077 > | Radiometer sensed surface type
+           | 1-04-000 > | Delayed replication of 4 descriptors
+           | 0-31-001 > | Delayed descriptor replication factor
+           | 0-02-153 > | Satellite channel centre frequency
+           | 0-12-063 > | Brightness temperature
+           | 0-12-065 > | Standard deviation brightness temperature
+           | 0-40-013 > | Radiometer brightness temperature interpretation flag
+           | 0-07-002 > | Height or altitude
+           | 0-11-098   | Wind speed from radiometer
+
+  3-40-022 | ALTMMDVL   ;     ; Altimeter model values
+           | 0-08-029 > | Surface type
+           | 2-01-137 > | Change data width
+           | 2-02-129 > | Change scale
+           | 0-06-021 > | Distance
+           | 2-02-000 > | Cancel change scale
+           | 2-01-000 > | Cancel change data width
+           | 0-10-087 > | Ocean depth/land elevation
+           | 0-40-024 > | Meteorological map availability
+           | 0-07-002 > | Height or altitude
+           | 0-25-126 > | Model dry tropospheric correction
+           | 0-25-128 > | Model wet tropospheric correction
+           | 0-40-011 > | Interpolation flag
+           | 0-07-002 > | Height or altitude
+           | 0-11-095 > | u-component of the model wind vector
+           | 0-11-096 > | v-component of the model wind vector
+           | 0-10-088 > | Total geocentric ocean tide height (solution 1)
+           | 0-10-089 > | Total geocentric ocean tide height (solution 2)
+           | 0-10-090 > | Long period tide height
+           | 0-10-092 > | Solid Earth tide height
+           | 0-10-093 > | Geocentric pole tide height
+           | 0-10-098 > | Loading tide height geocentric ocean tide solution 1
+           | 0-10-099 > | Loading tide height geocentric ocean tide solution 2
+           | 0-10-100 > | Non-equilibrium long period tide height
+           | 0-25-127 > | Inverted barometer correction
+           | 0-40-014 > | High-frequency fluctuations of the sea-surface topography correction
+           | 0-01-030 > | Numerical model identifier
+           | 0-10-085 > | Mean sea-surface height
+           | 0-01-030 > | Numerical model identifier
+           | 0-10-085 > | Mean sea-surface height
+           | 0-10-086 > | Geoid's height
+           | 0-10-096 > | Mean dynamic topography
+           | 0-10-103 > | Mean dynamic topography accuracy
+           | 0-21-169 > | Ice presence indicator
+           | 0-13-055 > | Intensity of precipitation
+           | 0-25-165   | Ionospheric correction from model on specific band
+
+  3-40-023 | ALTMMNVL   ;     ; Altimeter main values
+           | 0-25-095 > | Altimeter state flag
+           | 0-40-023 > | Auxiliary altimeter state flags
+           | 0-08-074 > | Altimeter echo type
+           | 3-40-024 > | 1 Hz C and Ku band values
+           | 3-40-024 > | 1 Hz C and Ku band values
+           | 3-40-024 > | 1 Hz C and Ku band values
+           | 3-40-025   | 20 Hz C and Ku band values
+
+  3-40-024 | CKUBV1     ;     ; 1 Hz C and Ku band values
+           | 0-22-080 > | Waveband central frequency
+           | 0-08-076 > | Type of band
+           | 0-25-190 > | Altimeter echo processing mode
+           | 0-10-102 > | Sea-surface height anomaly
+           | 0-22-189 > | Specific band ocean range
+           | 0-22-191 > | RMS of specific band ocean range
+           | 0-22-130 > | Number of valid points for specific band
+           | 0-25-167 > | Specific band net instrumental correction
+           | 0-25-163 > | Altimeter ionospheric correction on Ku band
+           | 0-15-012 > | Total electron count per square metre
+           | 0-25-164 > | Radiometer wet tropospheric correction
+           | 0-13-090 > | Radiometer water vapour content
+           | 0-13-091 > | Radiometer liquid content
+           | 0-25-166 > | Sea state bias correction on specific band
+           | 0-07-002 > | Height or altitude
+           | 0-11-097 > | Wind speed from altimeter
+           | 0-21-183 > | Specific band corrected ocean backscatter coefficient
+           | 0-21-184 > | STD specific band corrected ocean backscatter coefficient
+           | 0-22-134 > | Number of valid points for specific band backscatter
+           | 0-21-122 > | Attenuation correction on sigma-0 (from tB)
+           | 0-21-186 > | Specific band automatic gain control
+           | 0-21-187 > | RMS specific band automatic gain control
+           | 0-21-188 > | Number of valid points for specific band automatic gain control
+           | 2-01-131 > | Change data width
+           | 0-21-185 > | Specific band net instrumental correction for AGC
+           | 2-01-000 > | Cancel change data width
+           | 0-22-179 > | Specific band significant wave height (negative reference)
+           | 0-22-131 > | RMS specific band significant wave height
+           | 0-22-132 > | Number of valid points for specific band significant wave height
+           | 0-22-133 > | Specific band net instrument correction for significant wave height
+           | 0-21-144 > | Altimeter rain flag
+           | 0-25-191 > | Altimeter tracking mode
+           | 0-21-143 > | Ku band rain attenuation
+           | 0-10-101 > | Squared off-nadir angle of the satellite from waveform data
+           | 0-25-112 > | Band specific altimeter data quality flag
+           | 0-25-113 > | Band specific altimeter correction quality flag
+           | 0-33-092   | Band specific ocean quality flag
+
+  3-40-025 | CKUBV2O    ;     ; 20 Hz C and Ku band values
+           | 0-08-049 > | Number of observations
+           | 0-22-080 > | Waveband central frequency
+           | 0-08-076 > | Type of band
+           | 0-25-190 > | Altimeter echo processing mode
+           | 1-46-021 > | Replicate 46 descriptors 21 times
+           | 3-01-011 > | Year, month, day
+           | 3-01-013 > | Hour, minute, second
+           | 0-04-007 > | Seconds within a minute (microsecond accuracy)
+           | 3-01-021 > | Latitude/longitude (high accuracy)
+           | 0-10-081 > | Altitude of COG above reference ellipsoid
+           | 0-10-082 > | Instantaneous altitude rate
+           | 0-08-029 > | Surface type
+           | 2-01-137 > | Change data width
+           | 2-02-129 > | Change scale
+           | 0-06-021 > | Distance
+           | 2-02-000 > | Cancel change scale
+           | 2-01-000 > | Cancel change data width
+           | 0-25-191 > | Altimeter tracking mode
+           | 0-21-071 > | Peakiness
+           | 0-01-030 > | Numerical model identifier
+           | 0-10-085 > | Mean sea-surface height
+           | 0-01-030 > | Numerical model identifier
+           | 0-10-085 > | Mean sea-surface height
+           | 0-40-011 > | Interpolation flag
+           | 0-10-088 > | Total geocentric ocean tide height (solution 1)
+           | 0-10-089 > | Total geocentric ocean tide height (solution 2)
+           | 0-25-164 > | Radiometer wet tropospheric correction
+           | 0-07-002 > | Height or altitude
+           | 0-25-126 > | Model dry tropospheric correction
+           | 0-25-128 > | Model wet tropospheric correction
+           | 0-10-102 > | Sea-surface height anomaly
+           | 0-22-189 > | Specific band ocean range
+           | 0-25-167 > | Specific band net instrumental correction
+           | 0-25-163 > | Altimeter ionospheric correction on Ku band
+           | 0-21-183 > | Specific band corrected ocean backscatter coefficient
+           | 2-01-131 > | Change data width
+           | 0-21-185 > | Specific band net instrumental correction for AGC
+           | 2-01-000 > | Cancel change data width
+           | 0-22-179 > | Specific band significant wave height (negative reference)
+           | 0-22-133 > | Specific band net instrument correction for significant wave height
+           | 0-22-146 > | OCOG range
+           | 0-21-189 > | Corrected OCOG backscatter coefficient
+           | 0-13-163 > | Snow water equivalent
+           | 2-02-126 > | Change scale
+           | 0-22-046 > | Sea ice fraction
+           | 2-02-000 > | Cancel change scale
+           | 0-13-117 > | Snow density (liquid water content)
+           | 0-13-013 > | Total snow depth
+           | 0-25-112 > | Band specific altimeter data quality flag
+           | 0-25-113 > | Band specific altimeter correction quality flag
+           | 0-33-092   | Band specific ocean quality flag
+
+  3-40-026 | SATLDOBS   ;     ; Lidar observations from satellite
+           | 0-01-007 > | Satellite identifier
+           | 0-02-019 > | Satellite instruments
+           | 0-01-033 > | Identification of originating/generating centre
+           | 0-01-034 > | Identification of originating/generating sub-centre
+           | 3-01-011 > | Year, month, day
+           | 3-01-013 > | Hour, minute, second
+           | 3-01-021 > | Latitude/longitude (high accuracy)
+           | 0-10-033 > | Altitude (platform to ellipsoid)
+           | 0-08-043 > | Atmospheric chemical or physical constituent type
+           | 0-25-139 > | Processing level
+           | 0-02-155 > | Satellite channel wavelength
+           | 1-12-000 > | Delayed replication of 12 descriptors
+           | 0-31-002 > | Extended delayed descriptor replication factor
+           | 0-07-071 > | Height (high resolution)
+           | 0-33-003 > | Quality information
+           | 2-01-136 > | Change data width
+           | 0-15-074 > | Particle backscatter coefficient
+           | 0-15-066 > | Uncertainty in particle backscatter coefficient
+           | 0-15-075 > | Particle extinction coefficient
+           | 0-15-068 > | Uncertainty in particle extinction coefficient
+           | 2-01-000 > | Cancel change data width
+           | 0-15-076 > | Particle lidar ratio
+           | 0-15-070 > | Uncertainty in lidar ratio
+           | 0-15-078 > | Particle depolarization ratio
+           | 0-15-072 > | Uncertainty in depolarization ratio
+           | 1-07-003 > | Replicate 7 descriptors 3 times
+           | 0-05-069 > | Receiver channel
+           | 1-04-000 > | Delayed replication of 4 descriptors
+           | 0-31-002 > | Extended delayed descriptor replication factor
+           | 2-01-135 > | Change data width
+           | 0-15-073 > | Attenuated backscatter
+           | 0-15-064 > | Uncertainty in attenuated backscatter
+           | 2-01-000   | Cancel change data width
 END
