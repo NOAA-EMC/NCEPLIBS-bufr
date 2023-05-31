@@ -162,9 +162,9 @@
         if(n<=55.and.iret==0.and.str1/=str2) then
           print*,"str1:",str1  
           print*,"str2:",str2 
-          stop n  
+          stop 56 
         elseif(n>55.and.iret==0) then
-          stop n  
+          stop 56 
         endif
       enddo
 

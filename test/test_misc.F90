@@ -204,7 +204,7 @@ program test_misc
     'MXMTBF ', 'MXS01V ', 'MXBTM  ', 'MXBTMSE', 'MXTAMC ', 'MXTCO  ', 'MXRST  ' /)
   do i = 1, size(prms, 1)
     iret = isetprm(trim(prms(i)), 42+i)
-    if ( (iret .ne. 0) .or. (igetprm(trim(prms(i))) .ne. 42+i) ) stop 800+i
+    if ( (iret .ne. 0) .or. (igetprm(trim(prms(i))) .ne. 42+i) ) stop 800 !+i
   enddo
   
 #endif
