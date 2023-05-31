@@ -1,7 +1,7 @@
 Table D STD |  0 | 24
 #
 # Standard BUFR Table D, Master Table 0, Version 24
-# This file was generated: 2022/11/08 16:33:04
+# This file was generated: 2023/05/26 21:51:27
 #
 #========================================================================================================
 # F-XX-YYY | MNEMONIC   ;DCOD ; NAME           <-- sequence definition
@@ -5849,9 +5849,9 @@ Table D STD |  0 | 24
            | 3-01-011 > | Year, month, day
            | 3-01-012 > | Hour, minute
            | 3-01-021 > | Latitude/longitude (high accuracy)
-           | 2-08-016 > | Table C operator unknown to TableD18processor.java code
+           | 2-08-016 > | Change width of CCITT IA5 field
            | 0-01-051 > | Platform transmitter ID number
-           | 2-08-000 > | Table C operator unknown to TableD18processor.java code
+           | 2-08-000 > | Cancel change width of CCITT IA5 field
            | 0-02-148 > | Data collection and/or location system
            | 0-01-012 > | Direction of motion of moving observing platform
            | 0-01-014 > | Platform drift speed (high precision)

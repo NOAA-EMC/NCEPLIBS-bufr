@@ -32,7 +32,7 @@ To submit bug reports, feature requests, or other code-related issues including 
 ## Authors
 
 Jack Woollen, Jeff Ator, Dennis Keyser, Stacey Bender, Diane Stokes, Edward Hartnett,
-Jeff Whitaker, Rahul Mahajan, and Ron McLaren.
+Jeff Whitaker, Rahul Mahajan, Alex Richert, and Ron McLaren.
 
 Code manager: [Jeff Ator](mailto:jeff.ator@noaa.gov)
 
