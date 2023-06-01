@@ -40,14 +40,14 @@ jobs:
         echo "source /opt/intel/oneapi/setvars.sh" >> ~/.bash_profile
 
     - name: checkout
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
       with:
         path: bufr
         submodules: true
 
     - name: cache-data
       id: cache-data
-      uses: actions/cache@v2
+      uses: actions/cache@v3
       with:
         path: ~/data
         key: data-9
