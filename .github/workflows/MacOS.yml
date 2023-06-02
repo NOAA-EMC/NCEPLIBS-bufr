@@ -37,7 +37,7 @@ jobs:
       uses: actions/cache@v3
       with:
         path: ~/data
-        key: data-9
+        key: data-10
 
     - name: build-bufr
       run: |

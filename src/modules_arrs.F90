@@ -617,6 +617,7 @@ end module moda_stbfr
 module moda_stcode
   !> Abnormal status codes.
   !> - 0 all is normal; no error occurred
+  !> - 1 replication factor overflow in subroutine usrtpl()
   integer, allocatable :: ISCODES(:)
 end module moda_stcode
 

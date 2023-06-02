@@ -35,6 +35,7 @@ C> @author J. Woollen @date 1994-01-06
       USE MODA_UNPTYP
       USE MODA_BITBUF
       USE MODA_BITMAPS
+      use moda_stcode
       USE MODV_IM8B
 
       CHARACTER*128 BORT_STR
@@ -85,6 +86,7 @@ C  -------------------------------------------
       NBTM = 0
       LSTNOD = 0
       LSTNODCT = 0
+      iscodes(lun) = 0
       LINBTM = .FALSE.
 
       IF(MSGUNP(LUN).EQ.0) THEN
@@ -108,6 +110,7 @@ c  .... message with "standard" Section 3
       ELSEIF(MSGUNP(LUN).EQ.2) THEN
 c  .... compressed message
          CALL RDCMPS(LUN)
+         if (iscodes(lun) .ne. 0) iret = -1
       ELSE
          GOTO 902
       ENDIF
