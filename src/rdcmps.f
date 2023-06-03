@@ -3,12 +3,14 @@ C> @brief Read the next compressed BUFR data subset into internal arrays.
 C>
 C> @author Woollen @date 2000-09-19
 
-C> This subroutine uncompresses and unpacks the next subset
-c> from the internal compressed message buffer (array mbay in module
-c> @ref moda_bitbuf) and stores the unpacked subset within the internal
-c> array val(*,lun) in module @ref moda_usrint.
+C> Read the next compressed BUFR data subset into internal arrays.
 C>
-C> @param[in] LUN - integer: I/O stream index into internal memory arrays.
+C> This subroutine uncompresses and unpacks the next subset
+C> from the internal compressed message buffer (array mbay in module
+C> @ref moda_bitbuf) and stores the unpacked subset within the internal
+C> array val(*,lun) in module @ref moda_usrint.
+C>
+C> @param[in] LUN - integer: File ID.
 C>
 C> @author Woollen @date 2000-09-19
       SUBROUTINE RDCMPS(LUN)
@@ -21,6 +23,7 @@ C> @author Woollen @date 2000-09-19
       USE MODA_BITBUF
       USE MODA_TABLES
       USE MODA_RLCCMN
+      use moda_stcode
 
       CHARACTER*128 BORT_STR
       CHARACTER*8   CREF,CVAL
@@ -93,6 +96,7 @@ C        This is a numeric element.
          IF(ITYP.EQ.1) THEN
             NBMP=INT(IVAL)
             CALL USRTPL(LUN,N,NBMP)
+            if (iscodes(lun) .ne. 0) return
             GOTO 1
          ENDIF
          IF(IVAL.LT.LPS(NBIT)) VAL(N,LUN) = UPS(IVAL,NODE)

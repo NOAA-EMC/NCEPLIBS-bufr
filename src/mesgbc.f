@@ -98,7 +98,6 @@ C  -----------------------------------------------------------------
 
 1        CALL RDMSGW(LUNIT,MGWA,IER)
          IF(IER.EQ.-1) GOTO 900
-         IF(IER.EQ.-2) GOTO 901
 
          IREC = IREC + 1
 
@@ -128,8 +127,8 @@ C  --------------------------
 
       GOTO 100
 
-C  CAN ONLY GET TO STATEMENTS 900 OR 901 WHEN ITYPE = 0
-C  ----------------------------------------------------
+C  CAN ONLY GET TO STATEMENT 900 WHEN ITYPE = 0
+C  --------------------------------------------
 
 900   IF(IREC.EQ.0) THEN
          MESGTYP = -256
@@ -138,10 +137,6 @@ C  ----------------------------------------------------
          IF(MESGTYP.GE.0) MESGTYP = -MESGTYP
          ICOMP  = -2
       ENDIF
-      GOTO 100
-
-901   MESGTYP = -256
-      ICOMP =     -1
 
 C  EXIT
 C  ----

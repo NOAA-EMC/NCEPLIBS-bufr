@@ -10,10 +10,10 @@ C> subset arrays in module @ref moda_usrint for cases of node expansion,
 C> such as when the node is either a Table A mnemonic or a delayed
 C> replication factor.
 C>
-C> @param[in] LUN - integer: file ID.
-C> @param[in] INVN - integer: starting jump/link table index of the node
+C> @param[in] LUN - integer: File ID.
+C> @param[in] INVN - integer: Starting jump/link table index of the node
 C> to be expanded within the subset template.
-C> @param[in] NBMP - integer: number of times by which INVN is to be
+C> @param[in] NBMP - integer: Number of times by which INVN is to be
 C> expanded (i.e. number of replications of node).
 C>
 C> @author J. Woollen @date 1994-01-06
@@ -27,6 +27,7 @@ C> @author J. Woollen @date 1994-01-06
       USE MODA_MSGCWD
       USE MODA_TABLES
       USE MODA_IVTTMP
+      use moda_stcode
 
       COMMON /QUIET / IPRT
 
@@ -186,10 +187,12 @@ C  -----
       CALL BORT(BORT_STR)
 904   WRITE(BORT_STR,'("BUFRLIB: USRTPL - REPLICATION FACTOR OVERFLOW'//
      . ' (EXCEEDS MAXIMUM OF",I6," (",A,")")') JVAL,TAG(NODI)
-      CALL BORT(BORT_STR)
+      call errwrt(bort_str)
+      iscodes(lun) = 1
+      return
 905   WRITE(BORT_STR,'("BUFRLIB: USRTPL - INVENTORY INDEX {FIRST '//
      . 'ARGUMENT (INPUT)} OUT OF BOUNDS (=",I5,", RANGE IS 1 TO",I6,"'//
-     . ') (",A,")")') INVN,NVAL(LUN),TAG(NODI)
+     . ') ")') INVN,NVAL(LUN)
       CALL BORT(BORT_STR)
 906   WRITE(BORT_STR,'("BUFRLIB: USRTPL - UNSET EXPANSION SEGMENT (",'//
      . 'A,")")') TAG(NODI)
