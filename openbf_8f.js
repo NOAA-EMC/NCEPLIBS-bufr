@@ -1,4 +1,4 @@
 var openbf_8f =
 [
-    [ "openbf", "openbf_8f.html#a9bea9aeada166bd9037b959ca8452b28", null ]
+    [ "openbf", "openbf_8f.html#abcc4f481b8758da104eb75575431128e", null ]
 ];

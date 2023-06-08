@@ -1,4 +1,4 @@
 var copybf_8f =
 [
-    [ "copybf", "copybf_8f.html#a621280835c0e7a4ac960b0bf719c9721", null ]
+    [ "copybf", "copybf_8f.html#a598d71f903b83187540ce568459cd8a0", null ]
 ];

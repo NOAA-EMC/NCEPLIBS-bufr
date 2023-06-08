@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['code_5fflag_5fentry_0',['code_flag_entry',['../cfe_8h.html#structcode__flag__entry',1,'']]]
+  ['arallocc_5fc_1002',['arallocc_c',['../interfacebufrlib_1_1arallocc__c.html',1,'bufrlib']]],
+  ['ardllocc_5fc_1003',['ardllocc_c',['../interfacebufrlib_1_1ardllocc__c.html',1,'bufrlib']]]
 ];
