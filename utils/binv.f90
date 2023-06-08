@@ -15,10 +15,10 @@ PROGRAM BINV
   CHARACTER*255 FILE
   CHARACTER*8   SUBSET
   CHARACTER*8   SUB(MAXSUB)
-  DIMENSION     NINV(3,MAXSUB)
-  LOGICAL       EXIST
+  integer*8     ninv(3,maxsub)
+  real*8        xsub, xmsg
+  logical       exist
 
-  DATA BMISS  /10E10/
   DATA LUNBF  /20/
 
   !-----------------------------------------------------------------------
@@ -69,13 +69,13 @@ PROGRAM BINV
   !  PRINT THE INVENTORY
   !  -------------------
 
-  PRINT*
-  PRINT'(a4,6x,3(a10,4x))','type','messages','subsets','bytes'
-  PRINT*
+  print*
+  print'(a4,6x,2(a10,4x),a11)','type','messages','subsets','bytes'
+  print*
   DO J=1,NSUB
      xmsg = ninv(1,j)
      xsub = ninv(2,j)
-     PRINT'(A8,2X,3(I10,4X),f8.2)',SUB(J),(NINV(I,J),I=1,3),xsub/xmsg
+     print'(a8,2x,2(i10,4x),i11,4x,f8.2)',sub(j),(ninv(i,j),i=1,3),xsub/xmsg
      IF(J.GT.1) THEN
         NINV(1,1) = NINV(1,1)+NINV(1,J)
         NINV(2,1) = NINV(2,1)+NINV(2,J)
@@ -83,8 +83,8 @@ PROGRAM BINV
      ENDIF
   ENDDO
 
-  PRINT'(A8,2X,3(I10,4X))','TOTAL   ',(NINV(I,1),I=1,3)
-  PRINT*
+  print'(a8,2x,2(i10,4x),i11,4x)','TOTAL   ',(ninv(i,1),i=1,3)
+  print*
 
   STOP
 END PROGRAM BINV
