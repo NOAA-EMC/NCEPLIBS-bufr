@@ -2,7 +2,7 @@
 # Release Notes
 @brief Detailed description of changes included within each new release.
 
-## Version 12.0.0 - ???? ??, ????
+## Version 12.0.0 - June 8, 2023
 
 * The library has been consolidated into a single build using 4-byte
 integers.  It can still be linked to Fortran application codes which are compiled
@@ -17,9 +17,9 @@ as 4-byte integers before calling them.
 
 * The interface between the C and Fortran components of the library has
 been modernized.  Accordingly, Fortran application codes must now contain a
-<b>"use bufr_interface"</b> statement to directly call any C functions within
+'<b>use bufr_interface</b>' statement to directly call any C functions within
 the library, and C application codes must now contain an
-<b>"\#include "bufr_interface.h"</b> statement to directly call any Fortran
+'<b>#include "bufr_interface.h"</b>' statement to directly call any Fortran
 or C functions within the library.
 [[Issue #79](https://github.com/NOAA-EMC/NCEPLIBS-bufr/issues/79)]
 
@@ -28,8 +28,16 @@ arguments containing event program codes as integers, rather than
 continuing to pass them as real numbers.
 [[Issue #78](https://github.com/NOAA-EMC/NCEPLIBS-bufr/issues/78)]
 
+* An extension was added to support the query interface for C++ IODA
+converters.
+[[Issue #451](https://github.com/NOAA-EMC/NCEPLIBS-bufr/issues/451)]
+
 * Support for legacy EBCDIC platforms has been removed.
 [[Issue #266](https://github.com/NOAA-EMC/NCEPLIBS-bufr/issues/266)]
+
+* The library has been patched to exit gracefully from subroutine readsb() if
+an erroneous delayed replication factor is read within subroutine usrtpl().
+[[Issue #495](https://github.com/NOAA-EMC/NCEPLIBS-bufr/issues/495)]
 
 * The library has been cleaned up to eliminate a number of compiler warnings.
 [[Issue #300](https://github.com/NOAA-EMC/NCEPLIBS-bufr/issues/300)]
@@ -37,6 +45,7 @@ continuing to pass them as real numbers.
 * Documentation has been improved throughout the library, including the
 use of Doxygen-style docblocks for all program files.
 [[Issue #246](https://github.com/NOAA-EMC/NCEPLIBS-bufr/issues/246)]
+
 
 ## Version 11.7.1 - August 26, 2022
 
