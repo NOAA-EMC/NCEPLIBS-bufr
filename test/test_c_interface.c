@@ -115,14 +115,10 @@ void test_basicInterface()
 
 void test_longStrings()
 {
-    const char* subset = "NC002104";
     const char* mnemonic = "SOFTV";
 
-    int iret;
     int iddate;
     char msg_subset[SUBSET_STRING_LEN];
-    unsigned int subset_cnt = countSubsets(INPUT_FILE_LONG_STR, subset);
-    unsigned int idx;
 
     open_f(BUFR_FILE_UNIT, INPUT_FILE_LONG_STR);
     openbf_f(BUFR_FILE_UNIT, "IN", BUFR_FILE_UNIT);
