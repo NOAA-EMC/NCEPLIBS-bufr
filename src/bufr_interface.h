@@ -373,7 +373,7 @@ extern "C" {
   void get_inv_f(int lun, int** inv_ptr, int* inv_size);
 
 
-  void readlc_f(int lun, char* str_id, char** output_str, int* output_str_len);
+  void readlc_f(int lun, const char* str_id, char* output_str, int* output_str_len);
 
 
 /**

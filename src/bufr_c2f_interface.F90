@@ -589,23 +589,23 @@ module bufr_c2f_interface
 
     !> Function used to get long strings from the BUFR file.
     !>
-    !> @param lun - File ID.
+    !> @param lunit - Fortran logical unit.
     !> @param str_id - Mnemonic for the string for the source field plus the index number
     !>                 (ex: 'IDMN#2')
     !> @param output_str - The pre-allocated result string
     !> @param output_str_len - The length of the result string
     !>
     !> @author Ronald McLaren @date 2023-07-03
-    subroutine readlc_c(lun, str_id, output_str, output_str_len) bind(C, name='readlc_f')
+    subroutine readlc_c(lunit, str_id, output_str, output_str_len) bind(C, name='readlc_f')
       use moda_rlccmn
-      integer(c_int), value, intent(in) :: lun
+      integer(c_int), value, intent(in) :: lunit
       character(kind=c_char, len=1), intent(in) :: str_id
-      character(kind=c_char, len=1), intent(out) :: output_str
+      character(kind=c_char), intent(out) :: output_str(*)
       integer(c_int), intent(out) :: output_str_len
 
       character(len=120) :: output_str_f
 
-      call readlc(lun, output_str_f , c_f_string(str_id))
+      call readlc(lunit, output_str_f , c_f_string(str_id))
       call copy_f_c_str(output_str_f, output_str, len(output_str_f))
       output_str_len = len(trim(output_str_f))
     end subroutine readlc_c
