@@ -26,7 +26,7 @@ module bufr_c2f_interface
   public :: ufbint_c, ufbrep_c, ufbseq_c
   public :: mtinfo_c, bvers_c, status_c, ibfms_c
   public :: get_isc_c, get_link_c, get_itp_c, get_typ_c, get_tag_c, get_jmpb_c
-  public :: get_inode_c, get_nval_c, get_val_c, get_inv_c, get_irf_c
+  public :: get_inode_c, get_nval_c, get_val_c, get_inv_c, get_irf_c, readlc_c
   public :: delete_table_data_c
   public :: iupbs01_c, iupb_c, imrkopr_c, istdesc_c, ifxy_c
   public :: igetntbi_c, igettdi_c, stntbi_c
