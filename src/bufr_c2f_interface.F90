@@ -610,51 +610,6 @@ module bufr_c2f_interface
       output_str_len = len(trim(output_str_f))
     end subroutine readlc_c
 
-!    !> Get pointer to the moda_usrint INV array.
-!    !>
-!    !> @param lun - File ID.
-!    !> @param inv_ptr - C-style pointer to the INV array
-!    !> @param inv_size - Length of the array
-!    !>
-!    !> @author Ronald McLaren @date 2022-03-23
-!    subroutine get_long_str_c(lun, node_idx, str_ptr, str_len) bind(C, name='get_long_str_f')
-!      use moda_usrint
-!      use moda_usrbit
-!      use moda_unptyp
-!      use moda_bitbuf
-!      use moda_tables
-!      use moda_rlccmn
-!
-!      integer(c_int), value, intent(in) :: lun
-!      integer(c_int), intent(in) :: node_idx
-!      character(kind=c_char, len=1), intent(inout) :: c_str(*)
-!      integer(c_int), intent(out) :: str_len
-!
-!      character f_str(*)
-!      integer str_idx
-!      integer kbit
-!
-!      if (msgunp(lun) .eq. 0 .or. msgunp(lun).eq.1) then
-!        ! The message is uncompressed
-!        str_len = nbit(node_idx)/8
-!        kbit = mbit(node_idx)
-!      elseif (msgunp(lun) .eq. 2) then
-!        ! The message is compressed
-!        do str_idx=1,nrst
-!          if (tag(node_idx) .eq. crtag(str_idx)) then
-!            str_len = irnch(str_idx)
-!            kbit = irbit(str_idx)
-!          end if
-!        end do
-!      endif
-!
-!      call upc(f_str, str_len, mbay(1, lun), kbit, .true.)
-!      call copy_f_c_str(f_str, c_str, str_len)
-!
-!    end subroutine get_long_str_c
-
-
-
     !> Deletes the copies of the moda_tables arrays.
     !>
     !> @author Ronald McLaren @date 2022-03-23
