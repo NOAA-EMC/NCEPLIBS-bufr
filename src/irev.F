@@ -44,15 +44,9 @@ C----------------------------------------------------------------------
       IREV = N
 #else
       INT = N
-
-      DINT(1:1) = CINT(4:4)
-      DINT(2:2) = CINT(3:3)
-      DINT(3:3) = CINT(2:2)
-      DINT(4:4) = CINT(1:1)
-
-!     DO I=1,NBYTW
-!       DINT(I:I) = CINT(IORD(I):IORD(I))
-!     ENDDO
+      DO I=1,NBYTW
+        DINT(I:I) = CINT(IORD(I):IORD(I))
+      ENDDO
       IREV = JNT
 #endif
 
