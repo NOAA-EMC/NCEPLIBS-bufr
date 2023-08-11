@@ -372,9 +372,19 @@ extern "C" {
  */
   void get_inv_f(int lun, int** inv_ptr, int* inv_size);
 
+/**
+ *  Function used to get long strings from the BUFR file.
+ *
+ * @param lunit - Fortran logical unit.
+ * @param str_id - Mnemonic for the string for the source field plus the index number
+ *                  (ex: 'IDMN#2')
+ * @param output_str - The pre-allocated result string
+ * @param output_str_len - The length of the result string
+ *
+ * @author Ronald McLaren @date 2023-07-03
+ */
 
   void readlc_f(int lun, const char* str_id, char* output_str, int* output_str_len);
-
 
 /**
  * Deletes the copies of the moda_tables arrays.
