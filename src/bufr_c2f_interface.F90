@@ -599,7 +599,7 @@ module bufr_c2f_interface
     subroutine readlc_c(lunit, str_id, output_str, output_str_len) bind(C, name='readlc_f')
       use moda_rlccmn
       integer(c_int), value, intent(in) :: lunit
-      character(kind=c_char, len=1), intent(in) :: str_id
+      character(kind=c_char, len=1), intent(in) :: str_id(*)
       character(kind=c_char, len=1), intent(out) :: output_str(*)
       integer(c_int), intent(out) :: output_str_len
 
