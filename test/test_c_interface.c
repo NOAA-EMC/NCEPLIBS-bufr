@@ -135,7 +135,7 @@ void test_longStrings()
         while ((ireadsb_f(BUFR_FILE_UNIT) == 0) && (subset_idx < MAX_SUBSETS))
         {
             status_f(BUFR_FILE_UNIT, &bufrLoc, &il, &im);
-            readlc_f(BUFR_FILE_UNIT, mnemonic, &long_str, &long_str_len_ptr);
+            readlc_f(BUFR_FILE_UNIT, mnemonic, long_str, &long_str_len_ptr);
             break;
         }
         break;
