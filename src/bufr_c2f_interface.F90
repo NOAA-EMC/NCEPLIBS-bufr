@@ -600,7 +600,7 @@ module bufr_c2f_interface
       use moda_rlccmn
       integer(c_int), value, intent(in) :: lunit
       character(kind=c_char, len=1), intent(in) :: str_id
-      character(kind=c_char), intent(out) :: output_str(*)
+      character(kind=c_char, len=1), intent(out) :: output_str(*)
       integer(c_int), intent(out) :: output_str_len
 
       character(len=120) :: output_str_f
