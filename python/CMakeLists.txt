@@ -8,8 +8,7 @@ configure_file(setup.py.in setup.py @ONLY)
 file( COPY ncepbufr utils DESTINATION . )
 
 # Library installation directory
-execute_process(COMMAND ${Python3_EXECUTABLE} -c "from __future__ import print_function; import sys; print(sys.version[:3], end='')"
-                  OUTPUT_VARIABLE _PYVER)
+set(_PYVER "${Python3_VERSION_MAJOR}.${Python3_VERSION_MINOR}")
 set(_install_dir "${CMAKE_INSTALL_FULL_LIBDIR}/python${_PYVER}/site-packages")
 
 # Build the extension module for use in install tree
