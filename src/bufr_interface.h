@@ -384,7 +384,7 @@ extern "C" {
  * @author Ronald McLaren @date 2023-07-03
  */
 
-  void readlc_f(int lunit, const char* str_id, char* output_str, int* output_str_len);
+  void readlc_f(int lunit, const char* str_id, char* output_str, int output_str_len);
 
 /**
  * Deletes the copies of the moda_tables arrays.

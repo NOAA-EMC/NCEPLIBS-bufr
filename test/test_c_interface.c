@@ -115,6 +115,7 @@ void test_basicInterface()
 
 void test_longStrings()
 {
+    static const int LONG_STR_LEN = 120;
     const char* mnemonic = "SOFTV";
 
     int iddate;
@@ -126,8 +127,7 @@ void test_longStrings()
     int bufrLoc;
     int il, im; // throw away
 
-    char long_str[120];
-    int long_str_len_ptr;
+    char long_str[LONG_STR_LEN];
 
     int subset_idx = 0;
     while (ireadmg_f(BUFR_FILE_UNIT, msg_subset, &iddate, SUBSET_STRING_LEN) == 0)
@@ -135,21 +135,21 @@ void test_longStrings()
         while ((ireadsb_f(BUFR_FILE_UNIT) == 0) && (subset_idx < MAX_SUBSETS))
         {
             status_f(BUFR_FILE_UNIT, &bufrLoc, &il, &im);
-            readlc_f(BUFR_FILE_UNIT, mnemonic, long_str, &long_str_len_ptr);
+            readlc_f(BUFR_FILE_UNIT, mnemonic, long_str, LONG_STR_LEN);
             break;
         }
         break;
     }
 
-    if (strncmp(long_str, "MW41 2.17.0", 11) != 0)
+    if (strlen(long_str) != 11)
     {
-        printf("%s", "Didn't read the correct long string for SOFTV.");
+        printf("%s", "Didn't read the correct long string length for SOFTV.");
         exit(1);
     }
 
-    if (long_str_len_ptr != 11)
+    if (strncmp(long_str, "MW41 2.17.0", 11) != 0)
     {
-        printf("%s", "Didn't read the correct long string length for SOFTV.");
+        printf("%s", "Didn't read the correct long string for SOFTV.");
         exit(1);
     }
 
