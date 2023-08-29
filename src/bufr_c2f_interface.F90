@@ -606,7 +606,7 @@ module bufr_c2f_interface
       character(len=120) :: output_str_f
       integer :: output_str_len_f
 
-      call readlc(lunit, output_str_f , c_f_string(str_id))
+      call readlc(lunit, output_str_f, c_f_string(str_id))
       output_str_len_f = len(trim(output_str_f)) + 1  ! add 1 for the null terminator
       call copy_f_c_str(output_str_f, output_str, min(output_str_len_f, output_str_len))
     end subroutine readlc_c
