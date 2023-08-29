@@ -593,7 +593,7 @@ module bufr_c2f_interface
     !> @param str_id - Mnemonic for the string for the source field plus the index number
     !>                 (ex: 'IDMN#2')
     !> @param output_str - The pre-allocated result string
-    !> @param output_str_len - The length of the result string
+    !> @param output_str_len - Size of the result string buffer
     !>
     !> @author Ronald McLaren @date 2023-07-03
     subroutine readlc_c(lunit, str_id, output_str, output_str_len) bind(C, name='readlc_f')
