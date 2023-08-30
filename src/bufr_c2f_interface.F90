@@ -26,7 +26,7 @@ module bufr_c2f_interface
   public :: ufbint_c, ufbrep_c, ufbseq_c
   public :: mtinfo_c, bvers_c, status_c, ibfms_c
   public :: get_isc_c, get_link_c, get_itp_c, get_typ_c, get_tag_c, get_jmpb_c
-  public :: get_inode_c, get_nval_c, get_val_c, get_inv_c, get_irf_c
+  public :: get_inode_c, get_nval_c, get_val_c, get_inv_c, get_irf_c, readlc_c
   public :: delete_table_data_c
   public :: iupbs01_c, iupb_c, imrkopr_c, istdesc_c, ifxy_c
   public :: igetntbi_c, igettdi_c, stntbi_c
@@ -586,6 +586,30 @@ module bufr_c2f_interface
       inv_size = size(inv(:, lun))
       inv_ptr = c_loc(inv(1, lun))
     end subroutine get_inv_c
+
+    !> Function used to get long strings from the BUFR file.
+    !>
+    !> @param lunit - Fortran logical unit.
+    !> @param str_id - Mnemonic for the string for the source field plus the index number
+    !>                 (ex: 'IDMN#2')
+    !> @param output_str - The pre-allocated result string
+    !> @param output_str_len - Size of the result string buffer
+    !>
+    !> @author Ronald McLaren @date 2023-07-03
+    subroutine readlc_c(lunit, str_id, output_str, output_str_len) bind(C, name='readlc_f')
+      use moda_rlccmn
+      integer(c_int), value, intent(in) :: lunit
+      character(kind=c_char, len=1), intent(in) :: str_id(*)
+      character(kind=c_char, len=1), intent(out) :: output_str(*)
+      integer(c_int), intent(in), value :: output_str_len
+
+      character(len=120) :: output_str_f
+      integer :: output_str_len_f
+
+      call readlc(lunit, output_str_f, c_f_string(str_id))
+      output_str_len_f = len(trim(output_str_f)) + 1  ! add 1 for the null terminator
+      call copy_f_c_str(output_str_f, output_str, min(output_str_len_f, output_str_len))
+    end subroutine readlc_c
 
     !> Deletes the copies of the moda_tables arrays.
     !>

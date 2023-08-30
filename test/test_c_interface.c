@@ -17,13 +17,14 @@ static const int BUFR_FILE_UNIT = 12;
 static const int SUBSET_STRING_LEN = 10;
 
 static const char* INPUT_FILE = "testfiles/data/1bamua";
+static const char* INPUT_FILE_LONG_STR = "testfiles/OUT_10";
 
 
 // Supporting functions
 
-unsigned int countSubsets(const char* subset)
+unsigned int countSubsets(const char* filePath, const char* subset)
 {
-    open_f(BUFR_FILE_UNIT, INPUT_FILE);
+    open_f(BUFR_FILE_UNIT, filePath);
     openbf_f(BUFR_FILE_UNIT, "IN", BUFR_FILE_UNIT);
 
     int iddate;
@@ -58,7 +59,7 @@ void test_basicInterface()
     int iret;
     int iddate;
     char msg_subset[SUBSET_STRING_LEN];
-    unsigned int subset_cnt = countSubsets(subset);
+    unsigned int subset_cnt = countSubsets(INPUT_FILE, subset);
     unsigned int idx;
 
     open_f(BUFR_FILE_UNIT, INPUT_FILE);
@@ -106,6 +107,50 @@ void test_basicInterface()
             printf("%s", "Data from ufbint didn't match ufbrep!");
             exit(1);
         }
+    }
+
+    closbf_f(BUFR_FILE_UNIT);
+    close_f(BUFR_FILE_UNIT);
+}
+
+void test_longStrings()
+{
+    static const int LONG_STR_LEN = 120;
+    const char* mnemonic = "SOFTV";
+
+    int iddate;
+    char msg_subset[SUBSET_STRING_LEN];
+
+    open_f(BUFR_FILE_UNIT, INPUT_FILE_LONG_STR);
+    openbf_f(BUFR_FILE_UNIT, "IN", BUFR_FILE_UNIT);
+
+    int bufrLoc;
+    int il, im; // throw away
+
+    char long_str[LONG_STR_LEN];
+
+    int subset_idx = 0;
+    while (ireadmg_f(BUFR_FILE_UNIT, msg_subset, &iddate, SUBSET_STRING_LEN) == 0)
+    {
+        while ((ireadsb_f(BUFR_FILE_UNIT) == 0) && (subset_idx < MAX_SUBSETS))
+        {
+            status_f(BUFR_FILE_UNIT, &bufrLoc, &il, &im);
+            readlc_f(BUFR_FILE_UNIT, mnemonic, long_str, LONG_STR_LEN);
+            break;
+        }
+        break;
+    }
+
+    if (strlen(long_str) != 11)
+    {
+        printf("%s", "Didn't read the correct long string length for SOFTV.");
+        exit(1);
+    }
+
+    if (strncmp(long_str, "MW41 2.17.0", 11) != 0)
+    {
+        printf("%s", "Didn't read the correct long string for SOFTV.");
+        exit(1);
     }
 
     closbf_f(BUFR_FILE_UNIT);
@@ -478,6 +523,7 @@ void test_getTypeInfo()
 int main()
 {
     test_basicInterface();
+    test_longStrings();
     test_intrusiveInterface();
     test_getTypeInfo();
 
