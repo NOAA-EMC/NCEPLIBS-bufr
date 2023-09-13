@@ -38,6 +38,7 @@ var bufr__interface_8h =
     [ "open_f", "bufr__interface_8h.html#accefcb852f45e506cac79e92a52b93a0", null ],
     [ "openbf_f", "bufr__interface_8h.html#a750d83d2c9745f46cccb75dc9fec3788", null ],
     [ "openmb_f", "bufr__interface_8h.html#ab062d9a7aad917f9937c577bab7f86fe", null ],
+    [ "readlc_f", "bufr__interface_8h.html#ab9a086f1cd4cb622107c96608279eb97", null ],
     [ "status_f", "bufr__interface_8h.html#a8864263871383e72d19ac4a57031be7d", null ],
     [ "ufbint_f", "bufr__interface_8h.html#ab6cd4669f077cf7c939d9241614bc075", null ],
     [ "ufbrep_f", "bufr__interface_8h.html#a14f7b7994cfecdfa6481cbfd39aed3ce", null ],

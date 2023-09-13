@@ -26,7 +26,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">12.0.0</span>
+   &#160;<span id="projectnumber">12.0.1</span>
    </div>
   </td>
  </tr>
@@ -88,6 +88,11 @@ $(document).ready(function(){initNavTree('md__home_runner_work_NCEPLIBS_bufr_NCE
 <div class="contents">
 <div class="textblock"><p>Detailed description of changes included within each new release.</p>
 <h1><a class="anchor" id="autotoc_md12"></a>
+Version 12.0.1 - September 15, 2023</h1>
+<ul>
+<li>An extension was added to support the query interface for C++ IODA converters. [<a href="https://github.com/NOAA-EMC/NCEPLIBS-bufr/issues/519">Issue #519</a>]</li>
+</ul>
+<h1><a class="anchor" id="autotoc_md13"></a>
 Version 12.0.0 - June 8, 2023</h1>
 <ul>
 <li>The library has been consolidated into a single build using 4-byte integers. It can still be linked to Fortran application codes which are compiled using 8-byte integers; however, such codes must now include a call to new subroutine <a class="el" href="setim8b_8F90.html#a156e77d86141acd042efd97146dd18cf" title="Specify whether all integer arguments to BUFRLIB subprograms from Fortran will use 8-byte integers.">setim8b()</a> with a value of .true. before making any calls to any other library routines. Furthermore, since all library functions which return integer values (e.g. <a class="el" href="iupbs01_8f.html#a656ed063ebbcd600fcfa2810411dbf5e" title="Read a data value from Section 0 or Section 1 of a BUFR message.">iupbs01()</a>, <a class="el" href="isetprm_8f.html#ae592be54b0568225433b6d66798ddce6" title="Define a customized parameter value for dynamic allocation.">isetprm()</a>, <a class="el" href="ibfms_8f.html#a0f7ba3ed6f17e76d912b4f13ea70967e" title="Test whether a real*8 data value is &quot;missing&quot;.">ibfms()</a>) will now return 4-byte integer values, Fortran application codes which are compiled using 8-byte integers must now also explicitly declare such functions as 4-byte integers before calling them. [<a href="https://github.com/NOAA-EMC/NCEPLIBS-bufr/issues/78">Issue #78</a>]</li>
@@ -99,20 +104,20 @@ Version 12.0.0 - June 8, 2023</h1>
 <li>The library has been cleaned up to eliminate a number of compiler warnings. [<a href="https://github.com/NOAA-EMC/NCEPLIBS-bufr/issues/300">Issue #300</a>]</li>
 <li>Documentation has been improved throughout the library, including the use of Doxygen-style docblocks for all program files. [<a href="https://github.com/NOAA-EMC/NCEPLIBS-bufr/issues/246">Issue #246</a>]</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md13"></a>
+<h1><a class="anchor" id="autotoc_md14"></a>
 Version 11.7.1 - August 26, 2022</h1>
 <ul>
 <li>More extensions were added to support the query interface for C++ IODA converters. [<a href="https://github.com/NOAA-EMC/NCEPLIBS-bufr/issues/225">Issue #225</a>]</li>
 <li>Several internal routines were modified to allow the encoding and decoding of values larger than 32 bits. [<a href="https://github.com/NOAA-EMC/NCEPLIBS-bufr/issues/195">Issue #195</a>]</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md14"></a>
+<h1><a class="anchor" id="autotoc_md15"></a>
 Version 11.7.0 - May 19, 2022</h1>
 <ul>
 <li>Extensions were added to support a new query interface for C++ IODA converters. [<a href="https://github.com/NOAA-EMC/NCEPLIBS-bufr/pull/198">Issue #198</a>]</li>
 <li>Updates and bug fixes were made to several utility programs within the library package. [<a href="https://github.com/NOAA-EMC/NCEPLIBS-bufr/issues/141">Issue #141</a>]</li>
 <li>A fix was made to prevent a line truncation error which occurs with certain compilers when the value of the MASTER_TABLE_DIR macro exceeds a certain length. [<a href="https://github.com/NOAA-EMC/NCEPLIBS-bufr/issues/182">Issue #182</a>]</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md15"></a>
+<h1><a class="anchor" id="autotoc_md16"></a>
 Version 11.6.0 - November 10, 2021</h1>
 <ul>
 <li>All of the library builds now use dynamic allocation, so the "_DA" suffix has now been correspondingly removed from the names of the library builds. [<a href="https://github.com/NOAA-EMC/NCEPLIBS-bufr/issues/77">Issue #77</a>]</li>
@@ -123,7 +128,7 @@ Version 11.6.0 - November 10, 2021</h1>
 <li>Subroutine jstchr and function rjust have been removed from the library, and their usage has been replaced with the Fortran intrinsic functions adjustl and adjustr. [<a href="https://github.com/NOAA-EMC/NCEPLIBS-bufr/issues/165">Issue #165</a>]</li>
 <li>Several prototypes were added to the <a class="el" href="bufrlib_8h.html" title="Enable a number of NCEPLIBS-bufr subprograms to be called from within the C part of the library.">bufrlib.h</a> header file to enable further interoperability with C application programs. In addition, several existing prototypes were modified to use size_t when passing string lengths between Fortran and C. [<a href="https://github.com/NOAA-EMC/NCEPLIBS-bufr/issues/164">Issue #164</a>]</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md16"></a>
+<h1><a class="anchor" id="autotoc_md17"></a>
 Version 11.5.0 - April 26, 2021</h1>
 <ul>
 <li>Subroutine <a class="el" href="ufbseq_8f.html#ad50785c4e565749fa08ec3bdddacc6fd" title="This subroutine reads or writes an entire sequence of data values from or to the BUFR data subset tha...">ufbseq()</a> was modified for cases where the number of available levels exceeds the amount of user-provided array space when reading from an input file. Previously, the software would abort in such cases without returning any data whatsoever, but with the change it will now print a diagnostic and return with the number of levels equal to the amount of array space that was provided. [<a href="https://github.com/NOAA-EMC/NCEPLIBS-bufr/issues/52">Issue #52</a>]</li>
@@ -136,22 +141,22 @@ Version 11.5.0 - April 26, 2021</h1>
 <li>Several internal Fortran variable declarations were modified for compatibility with GNU v10+ compilers. [<a href="https://github.com/NOAA-EMC/NCEPLIBS-bufr/issues/81">Issue #81</a>]</li>
 <li>Subroutines pkx and chrtrn are no longer used within the library and were never intended to be called from application codes, so they have now been removed from the library. [<a href="https://github.com/NOAA-EMC/NCEPLIBS-bufr/issues/107">Issue #107</a>]</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md17"></a>
+<h1><a class="anchor" id="autotoc_md18"></a>
 Version 11.4.0 - November 20, 2020</h1>
 <ul>
 <li>A Python API was added to the library, for use with Python applications. [<a href="https://github.com/NOAA-EMC/NCEPLIBS-bufr/issues/61">Issue #61</a>]</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md18"></a>
+<h1><a class="anchor" id="autotoc_md19"></a>
 Version 11.3.2 - July 16, 2020</h1>
 <ul>
 <li>A user-friendly sanity check was added to subroutine <a class="el" href="closbf_8f.html#ad55dd3a551ae12718de0ac459c8f45c0" title="Close the connection between logical unit LUNIT and the NCEPLIBS-bufr software.">closbf()</a>, in case an application program is using a dynamic-allocation build of the library and calls this subroutine prior to calling subroutine <a class="el" href="openbf_8f.html#abcc4f481b8758da104eb75575431128e" title="Connects a new file to the NCEPLIBS-bufr software for input or output operations, or initializes the ...">openbf()</a>. The library would previously abort in such cases, but it will now just print a warning message. [<a href="https://github.com/NOAA-EMC/NCEPLIBS-bufr/issues/9">Issue #9</a>]</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md19"></a>
+<h1><a class="anchor" id="autotoc_md20"></a>
 Version 11.3.1 - March 3, 2020</h1>
 <ul>
 <li>Subroutine <a class="el" href="stndrd_8f.html#ac1fdb2d6ec4e856eb99cfb5fef331c19" title="This subroutine performs the same function as subroutine stdmsg(), except that it operates on a BUFR ...">stndrd()</a> was patched to fix an internal calculation for messages containing only one subset. [<a href="https://github.com/NOAA-EMC/NCEPLIBS-bufr/issues/51">Issue #51</a>]</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md20"></a>
+<h1><a class="anchor" id="autotoc_md21"></a>
 Version 11.3.0 - May 21, 2019</h1>
 <ul>
 <li>A bug was fixed in the bitmap processing, so that each Table A mnemonic in the jump/link table now tracks its own individual set of underlying Table C operators. This involved changes to function <a class="el" href="igetrfel_8f.html#a764a4e5ff62c66fcaae4b2b1d806e88c" title="This function checks whether the input element refers to a previous element within the same subset vi...">igetrfel()</a> and subroutines <a class="el" href="tabsub_8f.html#a6ad60d6ecdf6a230ccb11e112ecc84ce" title="This subroutine builds the entire jump/link tree (including recursively resolving all &quot;child&quot; mnemoni...">tabsub()</a> and <a class="el" href="makestab_8f.html#ad12d047119fdcdeb97ffbced0696b9fb" title="This subroutine constructs the internal jump/link table within module tables, using all of the intern...">makestab()</a>.</li>
@@ -164,7 +169,7 @@ Version 11.3.0 - May 21, 2019</h1>
 <li>Subroutines <a class="el" href="msgupd_8f.html#adf75cb2bc2a217eb33ffc8e45b1a5350" title="This subroutine packs up the current subset within memory (array ibay in module moda_bitbuf) and then...">msgupd()</a> and <a class="el" href="cpyupd_8f.html#a129651d2e47b6c8986c1fc4dd73d87c9" title="This subroutine copies a BUFR data subset from one unit to another within internal memory and resets ...">cpyupd()</a> were modified so that the IPRT verbosity must be greater than or equal to 1 in order for diagnostic alerts to be printed whenever BUFR subsets greater than 65535 bytes are written to their own output messages.</li>
 <li>Function <a class="el" href="i4dy_8f.html#a69dc21255ba388e6aad80e812971f9a2" title="This function converts a date-time with a 2-digit year (YYMMDDHH) to a date-time with a 4-digit year ...">i4dy()</a> was modified to change the window for converting 2-digit years to 4-digit years. The old window was 1921-2020, i.e. add 1900 to any 2-digit year greater than 20; otherwise add 2000. The new window will be 1941-2040, i.e. add 1900 to any 2-digit year greater than 40; otherwise add 2000.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md21"></a>
+<h1><a class="anchor" id="autotoc_md22"></a>
 Version 11.2.0 - April 11, 2017</h1>
 <ul>
 <li>Support was added for the processing of 2-2X-255, 2-3X-255 and 2-4X-255 marker operators when reading BUFR messages, including when such operators are included in sequences within a BUFR DX table.</li>
@@ -176,25 +181,25 @@ Version 11.2.0 - April 11, 2017</h1>
 <li>The build script makebufrlib.sh was updated to add a missing compiler option needed for compatibility with the Cray programming environment on the s_64 ("supersize") build.</li>
 <li>A bug was fixed in subroutine <a class="el" href="ufbtab_8f.html#a5e4e72f944670059a938e246717e5ad9" title="This subroutine reads through every data subset in a BUFR file and returns one or more specified data...">ufbtab()</a> which could occasionally lead to array maximums being exceeded and corrupted output when reading BUFR files.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md22"></a>
+<h1><a class="anchor" id="autotoc_md23"></a>
 Version 11.1.0 - April 27, 2016</h1>
 <ul>
 <li>Subroutine <a class="el" href="wrcmps_8f.html#a8b333832f77606059ec94ba8b80d4e8d" title="This subroutine packs up the current subset within memory (array ibay in module moda_bitbuf),...">wrcmps()</a> was modified to fix a bug involving the encoding of long character strings (via subroutine <a class="el" href="writlc_8f.html#a618f82746b2f00c524529cf9c477656a" title="Write a long character string (greater than 8 bytes) to a data subset.">writlc()</a>) into compressed messages which also contain delayed replication sequences.</li>
 <li>Subroutine <a class="el" href="msgupd_8f.html#adf75cb2bc2a217eb33ffc8e45b1a5350" title="This subroutine packs up the current subset within memory (array ibay in module moda_bitbuf) and then...">msgupd()</a> was modified to always call subroutine <a class="el" href="usrtpl_8f.html#a677bf700a4a6f0626a41921cd66d8ed9" title="Store the subset template into internal arrays.">usrtpl()</a>, even for overlarge subsets which don''t get written to the output stream. This ensures that such subsets are properly flushed from internal arrays.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md23"></a>
+<h1><a class="anchor" id="autotoc_md24"></a>
 Version 11.0.2</h1>
 <ul>
 <li>The build script makebufrlib.sh was updated for compatibility with the Cray programming environment, along with module MODA_MSTABS and functions <a class="el" href="icbfms_8f.html#af741f019421045a66605fb0bf993e69a" title="This function provides a handy way to check whether a character string returned from a previous call ...">icbfms()</a> and <a class="el" href="isize_8f.html#ada463fda3cd15b7615b0dd0cfa415eb9" title="This function computes and returns the number of characters needed to encode the input integer NUM as...">isize()</a>. All changes remain compatible with other supported environments.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md24"></a>
+<h1><a class="anchor" id="autotoc_md25"></a>
 Version 11.0.1</h1>
 <ul>
 <li>Subroutines <a class="el" href="cpyupd_8f.html#a129651d2e47b6c8986c1fc4dd73d87c9" title="This subroutine copies a BUFR data subset from one unit to another within internal memory and resets ...">cpyupd()</a>, <a class="el" href="ufbmem_8f.html#aef2048739b26a0efc96a38bda24809a4" title="This subroutine connects a new file to the NCEPLIBS-bufr software for input operations,...">ufbmem()</a>, <a class="el" href="ufbmex_8f.html#a1c3895e1770738efa9108c74d09aac41" title="Connect a new file to the BUFRLIB software for input operations, then read the entire file contents i...">ufbmex()</a> and <a class="el" href="ufbovr_8f.html#a329577a745ed0bd9d6dcee2e3adac859" title="This subroutine writes over specified values which exist in current internal BUFR subset arrays in a ...">ufbovr()</a> were patched to include the proper declaration for IPRT, which is a global variable controlling the verbosity of diagnostic output.</li>
 <li>Subroutine <a class="el" href="ufdump_8f.html#ac6ded614847f96968e12c9600a7d51ba" title="This subroutine prints a verbose listing of the contents of a data subset, including all data values ...">ufdump()</a> was modified to include level identifiers for event stacks in the print output.</li>
 <li>Subroutine <a class="el" href="wrcmps_8f.html#a8b333832f77606059ec94ba8b80d4e8d" title="This subroutine packs up the current subset within memory (array ibay in module moda_bitbuf),...">wrcmps()</a> was modified to fix a bug involving a variable that was not being saved between successive calls to this subroutine and which in rare cases could result in the loss of output subsets.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md25"></a>
+<h1><a class="anchor" id="autotoc_md26"></a>
 Version 11.0.0 - April 27, 2015</h1>
 <ul>
 <li>A new subroutine <a class="el" href="rtrcptb_8f.html#a5eb0f5be603cf24d61416442d0a7444c" title="This subroutine reads the tank receipt time (if one exists) from Section 1 of a BUFR message.">rtrcptb()</a> was added which works just like subroutine <a class="el" href="rtrcpt_8f.html#a7bcf788ea62da2fb181b12e609a28ef4" title="This subroutine reads the tank receipt time (if one exists) from Section 1 of a BUFR message.">rtrcpt()</a>, except that it operates on a BUFR message passed directly to it by a call argument, rather than on the last BUFR message that was indirectly read during the previous call to subroutine <a class="el" href="readmg_8f.html#a6471e41b4b7e505d6659c1fd45cc195d" title="Reads the next BUFR message from logical unit ABS(LUNXX) into internal arrays.">readmg()</a>, <a class="el" href="readmm_8f.html#aa4e6aa0249e0a5d5b56698c8cd39806c" title="This subroutine reads a specified BUFR message from internal arrays in memory, so that it is now in s...">readmm()</a>, <a class="el" href="readerme_8f.html#a3d8860f8a5fe519e8d84afbe68dc67b5" title="Read a BUFR message from a memory array.">readerme()</a> or equivalent. Subroutine <a class="el" href="rtrcpt_8f.html#a7bcf788ea62da2fb181b12e609a28ef4" title="This subroutine reads the tank receipt time (if one exists) from Section 1 of a BUFR message.">rtrcpt()</a> was correspondingly modified to now directly call <a class="el" href="rtrcptb_8f.html#a5eb0f5be603cf24d61416442d0a7444c" title="This subroutine reads the tank receipt time (if one exists) from Section 1 of a BUFR message.">rtrcptb()</a>, to avoid maintaining the same program logic within two different subroutines.</li>
@@ -215,7 +220,7 @@ Version 11.0.0 - April 27, 2015</h1>
 <li>Subroutine <a class="el" href="stseq_8c.html#a4f4c37daea8a69385e280d60265f9d40" title="Store information about a standard Table D descriptor within internal DX BUFR tables.">stseq()</a> was modified to fix a bug involving the application of associated fields to Table D sequence descriptors.</li>
 <li>Function <a class="el" href="icbfms_8f.html#af741f019421045a66605fb0bf993e69a" title="This function provides a handy way to check whether a character string returned from a previous call ...">icbfms()</a> was modified to improve the logic for identifying "missing" strings encoded as REAL*8 10E10 values prior to version 10.2.0 of the library.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md26"></a>
+<h1><a class="anchor" id="autotoc_md27"></a>
 Version 10.2.5</h1>
 <ul>
 <li>Subroutine <a class="el" href="mesgbf_8f.html#a01bf48e41499c9083c3c651d1dd1ee20" title="This subroutine reads through a BUFR file (starting from the beginning of the file) and returns the m...">mesgbf()</a> was modified to ensure that the input BUFR file is always closed before exiting the subroutine.</li>
@@ -223,28 +228,28 @@ Version 10.2.5</h1>
 <li>A declaration typo was fixed in subroutine <a class="el" href="blocks_8f.html#a58e616c094fc6ddcdf5e33554105c3d4" title="This subroutine encapsulates a BUFR message with IEEE Fortran control words as specified via the most...">blocks()</a>.</li>
 <li>Global parameter MAXNC (the maximum number of FXY descriptors that can be written into Section 3 of a BUFR message) was increased from 300 to 600.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md27"></a>
+<h1><a class="anchor" id="autotoc_md28"></a>
 Version 10.2.4</h1>
 <ul>
 <li>Configuration files bufrlib.PRM and makebufrlib.sh were updated to generate a 4_32 build (4-byte REAL, 4-byte INT, 32-bit compilation) on the IBM CCS for version 10.2.3 of the BUFRLIB.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md28"></a>
+<h1><a class="anchor" id="autotoc_md29"></a>
 Version 10.2.3 - June 21, 2013</h1>
 <ul>
 <li>Subroutine <a class="el" href="rdusdx_8f.html#ab4869b52a96f03ad2eb5328e71c25764" title="Read a complete DX BUFR table.">rdusdx()</a> was modified to prevent a segfault when trying to read DX dictionary information from an empty file.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md29"></a>
+<h1><a class="anchor" id="autotoc_md30"></a>
 Version 10.2.2</h1>
 <ul>
 <li>Subroutine <a class="el" href="openbf_8f.html#abcc4f481b8758da104eb75575431128e" title="Connects a new file to the NCEPLIBS-bufr software for input or output operations, or initializes the ...">openbf()</a> was modified to fix a bug which caused a segfault in certain cases when appending to a BUFR file using the embedded C-language I/O.</li>
 <li>Subroutines <a class="el" href="readlc_8f.html#a6ab327a73098c106cbad611b396ea2f1" title="Read a long character string (greater than 8 bytes) from a data subset.">readlc()</a> and <a class="el" href="writlc_8f.html#a618f82746b2f00c524529cf9c477656a" title="Write a long character string (greater than 8 bytes) to a data subset.">writlc()</a> were modified to allow the input mnemonic string to be up to 14 characters when it contains a '#' condition code.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md30"></a>
+<h1><a class="anchor" id="autotoc_md31"></a>
 Version 10.2.1</h1>
 <ul>
 <li>A bug was fixed in the embedded C-language I/O to account for the difference in index numbering between Fortran and C arrays.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md31"></a>
+<h1><a class="anchor" id="autotoc_md32"></a>
 Version 10.2.0 - October 19, 2012</h1>
 <ul>
 <li>The makebufrlib.sh script was modified to streamline the endianness check and make it more portable.</li>
@@ -257,7 +262,7 @@ Version 10.2.0 - October 19, 2012</h1>
 <li>Functionality was added to improve the portability of reading and writing BUFR messages across different platforms. All calls to existing FORTRAN subroutines which read or write BUFR messages from disk (e.g. <a class="el" href="readmg_8f.html#a6471e41b4b7e505d6659c1fd45cc195d" title="Reads the next BUFR message from logical unit ABS(LUNXX) into internal arrays.">readmg()</a>, <a class="el" href="ufbmem_8f.html#aef2048739b26a0efc96a38bda24809a4" title="This subroutine connects a new file to the NCEPLIBS-bufr software for input operations,...">ufbmem()</a>, <a class="el" href="ufbtab_8f.html#a5e4e72f944670059a938e246717e5ad9" title="This subroutine reads through every data subset in a BUFR file and returns one or more specified data...">ufbtab()</a>, <a class="el" href="writsb_8f.html#a9123f1d55a95142381a9eb7402d37b05" title="Write a data subset into a BUFR message.">writsb()</a>, <a class="el" href="wrcmps_8f.html#a8b333832f77606059ec94ba8b80d4e8d" title="This subroutine packs up the current subset within memory (array ibay in module moda_bitbuf),...">wrcmps()</a>, <a class="el" href="copymg_8f.html#a2f6e668a0784a60fa7aa078d10223590" title="Copy a BUFR message from one file to another.">copymg()</a>, etc.) now use embedded C-language I/O to perform these tasks. Among other things, this means that any BUFR file can now be read regardless of whether it has been pre-blocked with FORTRAN control words using the cwordsh utility. For writing BUFR files, a new subroutine <a class="el" href="setblock_8f.html#af78b606039fc7944c42bf0be875579ee" title="Specify whether BUFR messages output by future calls to message-writing subroutines should be encapsu...">setblock()</a> was added which allows users to specify whether output BUFR messages are to be unblocked (which is the new default), big-endian blocked, or little-endian blocked.</li>
 <li>A new subroutine <a class="el" href="setbmiss_8f.html#a9b4bbfdb1ac28c9b42b23c81f2367647" title="This subroutine allows the user to specify a customized value to represent &quot;missing&quot; data when readin...">setbmiss()</a> was added which allows users to specify a custom "missing" value for writing to and reading from BUFR files, rather than using the BUFRLIB default "missing" value of 10E10. A corresponding function <a class="el" href="getbmiss_8f.html#ab344899ae36140147a28f17ec36649d4" title="This function returns the current placeholder value which represents &quot;missing&quot; data when reading from...">getbmiss()</a> was also added which returns the current "missing" value in use.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md32"></a>
+<h1><a class="anchor" id="autotoc_md33"></a>
 Version 10.1.0 - June 11, 2012</h1>
 <ul>
 <li>Subroutine <a class="el" href="ufdump_8f.html#ac6ded614847f96968e12c9600a7d51ba" title="This subroutine prints a verbose listing of the contents of a data subset, including all data values ...">ufdump()</a> was modified to fix a bug when checking for the "missing" value in long character strings (i.e. longer than 8 bytes).</li>
@@ -272,12 +277,12 @@ Version 10.1.0 - June 11, 2012</h1>
 <li>Subroutine <a class="el" href="wrdxtb_8f.html#a89d9a5cf1716a40206ce1684c3eb9415" title="This subroutine generates one or more BUFR messages from the DX BUFR tables information associated wi...">wrdxtb()</a> was modified to prevent it from trying to store more than 255 Table A, Table B or Table D descriptors in a single DX dictionary message. The maximum value was set to 255 since regular 8-bit delayed replication is used to store descriptor information in these messages.</li>
 <li>Subroutine <a class="el" href="tabsub_8f.html#a6ad60d6ecdf6a230ccb11e112ecc84ce" title="This subroutine builds the entire jump/link tree (including recursively resolving all &quot;child&quot; mnemoni...">tabsub()</a> was modified to correctly generate the jump/link table for subsets where a Table C operator immediately follows a Table D sequence.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md33"></a>
+<h1><a class="anchor" id="autotoc_md34"></a>
 Version 10.0.1</h1>
 <ul>
 <li>Subroutine <a class="el" href="rewnbf_8f.html#a70ac3a628bb020054246ff3fb8392a96" title="This subroutine, depending on the value of ISR, will either:">rewnbf()</a> was modified to fix a bug which skipped the first data message after a file rewind.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md34"></a>
+<h1><a class="anchor" id="autotoc_md35"></a>
 Version 10.0.0 - August 12, 2010</h1>
 <ul>
 <li>Subroutines PKVS1, OVRBS1, NMBYT, READIBM, IREADIBM, READFT, IREADFT and MOVA2I, which had been marked as obsolete within a previous version of BUFRLIB, have now been deleted.</li>
@@ -313,7 +318,7 @@ Version 10.0.0 - August 12, 2010</h1>
 <li>Functions LSTRPC and LSTRPS have been marked as obsolete (for future removal from BUFRLIB). The same functionality can now be obtained via the use of function <a class="el" href="lstjpb_8f.html#a0a74db325c227fe8ee3b77bd7dfd7baf" title="This function searches backwards, beginning from a given node within the jump/link table,...">lstjpb()</a>.</li>
 <li>Subroutine <a class="el" href="ufbtab_8f.html#a5e4e72f944670059a938e246717e5ad9" title="This subroutine reads through every data subset in a BUFR file and returns one or more specified data...">ufbtab()</a> was modified to fix a bug involving the unpacking of character strings which are identical within each subset of a single compressed BUFR message.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md35"></a>
+<h1><a class="anchor" id="autotoc_md36"></a>
 May 28, 2008</h1>
 <ul>
 <li>Subroutine BORT_EXIT was modified to fix a faulty ANSI-C declaration. This had been silently ignored by the IBM CCS compiler but was a portability issue for other compilers.</li>
@@ -327,7 +332,7 @@ May 28, 2008</h1>
 <li>Subroutine DXDUMP was modified to correct a bug which caused the truncation of output reference values longer than 8 digits.</li>
 <li>Several global parameters were increased in "bufrlib.PRM". Specifically, MXCDV (the maximum number of data values per subset in a compressed BUFR message) was increased from 2000 to 3000, and MAXMEM (the maximum number of bytes that can be used to store BUFR messages within internal memory) was increased from 50Mb to 75Mb within the "supersized" BUFRLIB.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md36"></a>
+<h1><a class="anchor" id="autotoc_md37"></a>
 February 6, 2007</h1>
 <ul>
 <li>Several global parameters were increased in "bufrlib.PRM". Specifically, MAXTBA, MAXTBB and MAXTBD (the maximum numbers of internal Table A, B and D entries, respectively) were increased from 60, 250 and 250 to 120, 500 and 500, respectively, and MAXJL (the maximum number of internal jump/link table entries) was increased from 16000 to 20000.</li>
@@ -340,7 +345,7 @@ February 6, 2007</h1>
 <li>Subroutine UFBTAB was modified to add a required declaration for a local character variable. This had been silently ignored by the IBM CCS compiler but was a portability issue for other compilers.</li>
 <li>Subroutine RDUSDX was modified to abort if it encounters a user-defined BUFR message whose message type is set to 11. This value is reserved for internal dictionary messages.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md37"></a>
+<h1><a class="anchor" id="autotoc_md38"></a>
 January 31, 2006</h1>
 <ul>
 <li>Documentation was improved and/or clarified within many existing routines throughout BUFRLIB.</li>
@@ -370,7 +375,7 @@ January 31, 2006</h1>
 <li>Subroutine UFBTAB was modified to work for compressed BUFR messages. An option to return only the subset count (when the input unit number is less than zero) was also added.</li>
 <li>Subroutine COPYSB was modified to now write out a compressed subset/message if the input subset/message is compressed (before this subroutine could only write out an uncompressed subset/message regardless of the compression status of the input subset/message).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md38"></a>
+<h1><a class="anchor" id="autotoc_md39"></a>
 December 21, 2004</h1>
 <ul>
 <li>New subroutines ISTDESC, RESTD, WRDESC, CADN30, STDMSG and STNDRD have been added to provide the capability to expand Section 3 of output BUFR messages until they are completely "standard" according to the WMO FM-94 regulations. The logic is activated via an initial call to STDMSG.</li>
@@ -399,7 +404,7 @@ December 21, 2004</h1>
 <li>New subroutine DXDUMP was added which outputs an ASCII-formatted copy of the information embedded within the DX dictionary messages of a BUFR file. It is especially useful for learning the contents of archived BUFR files, and the output is in a format suitable for subsequent input to OPENBF as a user-defined dictionary tables file.</li>
 <li>Subroutines DATELEN, DATEBF and DUMPBF were all modified to call subroutine WRDLEN to initialize local machine information (in case it has not already been called). These routines do not require this information but they may now or someday call other routines that do require it.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md39"></a>
+<h1><a class="anchor" id="autotoc_md40"></a>
 November 4, 2003</h1>
 <p>This is the first "unified" BUFR Archive Library including components from the regular NCEP production machine version (whose implementation history is documented to this point), the decoder version (previously on a workstation but now on the IBM Frost and Snow machines), and a checkout NCEP/EMC grid-to-obs verification version. This version is portable to all platforms (as necessary for WRF), contains docblocks for each routine with a complete program history log, and outputs more complete diagnostic information when routines terminate abnormally, unusual things happen or for informational purposes.</p>
 <p>The following libraries are now generated on the NCEP IBM Frost and Snow machines:</p>
@@ -461,7 +466,7 @@ EXIT(49)"}. Since EXIT is an intrinsic c function, it expects arguments to be pa
 <li>Subroutines CKTABA, CMSGINI, NUMTAB, PARUSR, PARUTG, RCSTPL, USRTPL, WRDLEN, WRTREE and XMSGINI modified to correct some minor bugs (uninitialized variables, etc.) (see subroutine DOCBLOCKS for more information). (See also 29 for PARUTG, RCSTPL, USRTPL, WRTREE and 32 for RCSTPL.)</li>
 <li>Subroutine UFBDMP modified to add "fuzziness" about 10E10 in test for a missing value (rather than true equality as before) because some missing values (e.g., character strings &lt; 8 characters) were not getting stamped out as "MISSING". Also added option to print values using format edit descriptor "F15.6" if input argument LUNIN is &lt; zero. If LUNIN is &gt; zero edit descriptor expanded from "G10.3" to "G15.6". (See also 29 for UFBDMP.)</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md40"></a>
+<h1><a class="anchor" id="autotoc_md41"></a>
 May 19, 2003</h1>
 <p>The following changes have been made in the BUFR Archive Library:</p>
 <ul>
@@ -478,7 +483,7 @@ May 19, 2003</h1>
 <li>libbufr_8.a &ndash; 8-byte reals, 8-byte integers, 64-bit executable compilation</li>
 <li>libbufr_d.a &ndash; 8-byte reals, 4-byte integers, 64-bit executable compilation</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md41"></a>
+<h1><a class="anchor" id="autotoc_md42"></a>
 May 14, 2002</h1>
 <p>A number of routines in the BUFR Archive Library have been modified. These changes include:</p>
 <ul>
@@ -498,13 +503,13 @@ Table B", might end up copying some units fields in mixed or lower case. If the 
 <li>Removed subroutine JSTIFY because it was a dummy subroutine with two entry points for left justifying two different types of character strings. Part of conversion of entry points to separate subroutines or functions. See number 1 above.</li>
 <li>Removed subroutine NENUCK because it was a dummy subroutine with two entry points for checking the BUFR mnemonic table. Part of conversion of entry points to separate subroutines or functions. See number 1 above.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md42"></a>
+<h1><a class="anchor" id="autotoc_md43"></a>
 August 15, 2001</h1>
 <ul>
 <li>Parameter MAXMEM (the maximum number of bytes required to store all messages internally) was increased from 8 MBYTES TO 16 MBYTES in the following subroutines: CPYMEM, RDMEMM, RDMEMS, READMM, UFBMEM, UFBMMS, UFBMNS, UFBRMS and UFBTAM.</li>
 <li>Subroutine UFBTAM modified to not abort when there are too many subsets coming in (i.e., .gt. array limit passed in), but rather to just process the limiting number of reports and print a diagnostic.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md43"></a>
+<h1><a class="anchor" id="autotoc_md44"></a>
 September 19, 2000</h1>
 <p>A number of routines in the BUFR Archive Library have been modified. These changes include:</p>
 <ul>
@@ -519,7 +524,7 @@ September 19, 2000</h1>
 </ul>
 <p>The BUFR Archive Library is now compiled using both optimization level 3 (-O3) and optimization level 4 (-O4). The previous BUFR Archive Library had used only -O4. The -O3 compilation here generates the same archive library names as before. Thus, any code that is recompiled from an unchanged makefile will now link in the appropriate -O3 library, rather than the -O4 library as before. The new -O4 libraries all have the string "_O4" appended to the end of the filename.</p>
 <p>Any program that must link to the -O4 BUFR Archive Library when compiled will have to modify its makefile.</p>
-<h1><a class="anchor" id="autotoc_md44"></a>
+<h1><a class="anchor" id="autotoc_md45"></a>
 July 13, 1999</h1>
 <ul>
 <li>A number of routines in the BUFR Archive Library have been modified to increase the number of BUFR files which can be opened at one time from 10 to 32. This is necessary in order to process multiple BUFR files under the MPI. The following routines were modified: BFRINI, CHEKSTAB, CLOSMG, CONWIN, COPYMG, COPYSB, CPBFDX, CPYMEM, CPYUPD, DXINIT, ELEMDX, GETWIN, IFBGET, INVCON, INVMRG, INVTAG, INVWIN, LSTJPD, LSTRPC, LSTRPS, MAKESTAB, MSGINI, MSGUPD, NEMTAB, NEMTBA, NEMTBD, NENUCK, NEWWIN, NMSUB, NUMTAB, NVNWIN, NWORDS, NXTWIN, OPENBF, OPENMB, OPENMG, PARUTG, PKTDD, RCSTPL, RDBFDX, RDMEMM, RDMEMS, RDTREE, RDTRER, RDUSDX, READERM, READERME, READERS, READFT, READMG, READNS, READSB, READTJ, STATUS, STRING, TRYBUMP, UFBCNT, UFBCPY, UFBCUP, UFBDMP, UFBEVN, UFBGET, UFBINT, UFBOVR, UFBREP, UFBRP, UFBRW, UFBTAB, UFBTAM, UNCMPS, UPTDD, USRTPL, WRITDX, WRTREE, WTSTAT.</li>
@@ -533,30 +538,30 @@ July 13, 1999</h1>
 <li>The function formerly called VAL$ has been renamed to VALX to remove the possibility of the "$" symbol causing problems on other platforms. In turn subroutine NEMTBB has been modified to call function VALX rather than VAL$.</li>
 <li>New subroutines UFBSTP and UFBSP added (UFBSP is called by UFBSTP).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md45"></a>
+<h1><a class="anchor" id="autotoc_md46"></a>
 December 14, 1998</h1>
 <ul>
 <li>Subroutine MSGUPD was updated to bybass the processing of reports that are longer than the length of a BUFR message. Prior to this change, the BUFR Archive Library would issue an abort in the event of this rare, but possible occurrence which occurred at 12Z on 4 December in the RGL suite.</li>
 <li>In addition, function I4DY was modified to use 20 as the 2-digit year for windowing to a 4-digit year (00-20 ==&gt; add 2000; 21-99 ==&gt; add 1900). This windowing technique was inadvertently changed to 10 in the previous implementation of the BUFR Archive Library.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md46"></a>
+<h1><a class="anchor" id="autotoc_md47"></a>
 November 24, 1998</h1>
 <ul>
 <li>Function I4DY and subroutine MSGWRT were changed as a result of final Y2K testing of the decoder/ingest system.</li>
 <li>I4DY was changed to conform to the NCEP 2-digit year time-window of 1921-2020.</li>
 <li>MSGWRT was changed to zero out the padding bytes written at the end of Section 4.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md47"></a>
+<h1><a class="anchor" id="autotoc_md48"></a>
 October 27, 1998</h1>
 <ul>
 <li>The BUFR Archive Library is being modified to correct problems caused by in-lining code with fpp directives. The following subroutines are being changed: DATEBF, MVB, RCSTPL, RDMEMS, RDTREE, RDTRER, UFBGET, UFBRW, UFBTAB, UFBTAM and UPBB.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md48"></a>
+<h1><a class="anchor" id="autotoc_md49"></a>
 August 31, 1998</h1>
 <ul>
 <li>BUFR Archive Library subroutine DATEBF, which returns the center date-time for a BUFR data dump file, is being modified to correct an error which lead to the year being returned in the second argument as 2-digit year when a 4-digit year was requested via a prior call to subroutine DATELEN. The center date returned in the sixth argument, in the form YYYYMMDDHH, was correct in the previous version of this subroutine.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md49"></a>
+<h1><a class="anchor" id="autotoc_md50"></a>
 July 8, 1998</h1>
 <p>The new version of the BUFR Archive Library is Y2K compliant, with additional changes to support expanded machine independence of the code, and to refine, correct, or improve some of the routines within. Although nearly every one of library routines has some change made (mainly because of the introduction of a more general error exit subroutine), the changes largely fall into the first two categories. Three new routines were also added to the BUFR Archive Library for micellaneous puposes.</p>
 <p><u>Y2K Compliance</u></p>
@@ -569,25 +574,25 @@ July 8, 1998</h1>
 <p>Many of the BUFR Archive Library routines perform internal testing during operation in order to prevent certain situation from generating mysterious aborts, or, even worse, giving the wrong answers. The original library utilized the Cray library routine ABORT to terminate a program when such a situation was found. The new library uses a new inernal subroutine, BORT, to accomplish this. The list of routines changed for this purpose is as follows: ADN30, CHEKSTAB, CLOSMG, COPYBF, COPYMG, COPYSB, CPYMEM, CPYUPD, DATEBF, DRSTPL, DUMPBF, DXMINI, ELEMDX, GETWIN, IDN30, IFBGET, INCTAB, INVMRG, IPKM, IUPM, JSTIFY, LSTJPB, LSTRPC, LSTRPS, MAKESTAB, MSGINI, MSGUPD, MSGWRT, MVB, NEMTBA, NEMTBB, NEMTBD, NENUCK, NEWWIN, NMSUB, NVNWIN, NXTWIN, OPENMB, OPENMG, OPENBF, PAD, PARSEQ, PARUSR, PARUTG, PKC, POSAPN, POSAPX, RCSTPL, RDBFDX, RDMEMM, RDMEMS, RDUSDX, READDX, READERM, READERME, READERS, READFT, READMG, READNS, READSB, READTJ, SEQSDX, STANDARD, STATUS, STRING, TABENT, TABSUB, UFBCNT, UFBCPY, UFBCUP, UFBDMP, UFBEVN, UFBGET, UFBINT, UFBMEM, UFBMMS, UFBMNS, UFBOVR, UFBQCD, UFBQCP, UFBREP, UFBRMS, UFBTAM, UPTDD, USRTPL, VAL$, WRDLEN, WRITDX, WRITSA, WRITSB, WTSTAT</p>
 <p><u>New Code Added</u></p>
 <p>I4DY the two/four digit year conversion function LJUST a character left justify function OPENBT A dummy entry point which is relevant to users of the READTJ subroutine</p>
-<h1><a class="anchor" id="autotoc_md50"></a>
+<h1><a class="anchor" id="autotoc_md51"></a>
 April 2, 1998</h1>
 <ul>
 <li>BUFR Archive Library subroutine STRCLN, which initializes the mnemonic string cache in the BUFR interface, is being modified to enlarge the cache from 50 elements to 1000, maximum.</li>
 <li>BUFR Archive Library subroutine STRING manages the mnemonic string cache in the BUFR interface. The mnemonic string cache is a performance enhancing device which saves time when the same mnemonic strings are encountered in a user program, over and over again (the typical scenario). It is being modified to operate a bigger cache, and some optimization of the cache search algorithm is being made in support of a bigger cache.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md51"></a>
+<h1><a class="anchor" id="autotoc_md52"></a>
 September 3, 1997</h1>
 <ul>
 <li>Changes are being made to the BUFR Archive Library to recompile all routines without the -ez compiler option. The removal of this debugging option should speed up the execution of all modules which are linked with BUFR Archive Library routines.</li>
 <li>In addition, a new subroutine, STANDARD, is being added to the library. This subroutine "standardizes" NCEP BUFR messages for transmission. It was requested to process hurricane location data.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md52"></a>
+<h1><a class="anchor" id="autotoc_md53"></a>
 July 29, 1997</h1>
 <ul>
 <li>Three BUFR Archive Library subroutines were modified to update the current BUFR version information written into Section 0 of each message: DXMINI, MSGINI and MSGWRT. Version 3 replaces version 2.</li>
 <li>Three additional subroutines were modified to enable them to process GOES soundings from NESDIS: IRDERM, RDTRER and READERME.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md53"></a>
+<h1><a class="anchor" id="autotoc_md54"></a>
 December 17, 1996</h1>
 <p>The BUFR Archive Library was modified to make the following changes:</p>
 <ul>
@@ -596,7 +601,7 @@ December 17, 1996</h1>
 <li>RDBFDX - Fixed for some MVS compiler's treatment of internal reads.</li>
 <li>UFBINT - Modified to always initialize "USR" array to missing (10E10) when BUFR file is being read.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md54"></a>
+<h1><a class="anchor" id="autotoc_md55"></a>
 December 11, 1996</h1>
 <p>The following subroutines were modified in the BUFR Archive Library:</p>
 <ul>
@@ -608,22 +613,22 @@ December 11, 1996</h1>
 <li>MSGINI - Modified to allow inclusion of minutes in writing the message date into a BUFR message.</li>
 <li>READTJ - Specific database ingest message reader added to the library which can attach different BUFR tables if the message type is not recognized in the current ones. Works with a user subroutine called OPENBT which specifies the location(s) of different tables.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md55"></a>
+<h1><a class="anchor" id="autotoc_md56"></a>
 November 25, 1996</h1>
 <p>Several routines in the BUFR Archive Library are being modified to provide more machine independence. The data merging routine is being modified for radiosonde call signs, a return code is being added to UFBINT when mnemonics are not found, and READMG is being modified to exit gracefully when the file is positioned after an end of file</p>
-<h1><a class="anchor" id="autotoc_md56"></a>
+<h1><a class="anchor" id="autotoc_md57"></a>
 October 9, 1996</h1>
 <p>The BUFR Archive Library was modified to include 9 additional routines to process ERS scatterometer data (IREADERS, RDTRER, READERS, UNCMPS), perform fault tolerant reading (IREADFT, READFT), and support report part merging (INVMRG, MRGINV, NWORDS).</p>
-<h1><a class="anchor" id="autotoc_md57"></a>
+<h1><a class="anchor" id="autotoc_md58"></a>
 September 9, 1996</h1>
 <p>The BUFR Archive Library was separated into 121 BUFR interface routines, which include upgrades and devices for operating the BUFR database.</p>
-<h1><a class="anchor" id="autotoc_md58"></a>
+<h1><a class="anchor" id="autotoc_md59"></a>
 June 28, 1995</h1>
 <p>The BUFR Archive Library was modified to increase the size of internal arrays in order to handle bigger files. Coding was also added in order to process ERS scatterometer data which is input from compressed BUFR messages (new subroutine READERME).</p>
-<h1><a class="anchor" id="autotoc_md59"></a>
+<h1><a class="anchor" id="autotoc_md60"></a>
 January 10, 1995</h1>
 <p>The BUFR Archive Library was modified slightly to allow for changes in the AVN and FNL PREPBUFR and Q.C. Processing codes (PREPDATA, CQCBUFR, OIQCBUFR, SSIANL).</p>
-<h1><a class="anchor" id="autotoc_md60"></a>
+<h1><a class="anchor" id="autotoc_md61"></a>
 Original Implementation of BUFR Archive Library - January 6, 1994</h1>
 <p>Implemented on Cray-YMP as a single monolithic source bufr.f. Only the AVN and FNL PREPBUFR processing and q.c. codes used the BUFR Archive Library initially. These were: PREPDATA, SYNDATA, CQCBUFR, OIQCBUFR, and SSIANL. These had actually been implemented with a non-production version of the library in Jack Woollen's directory September 21, 1993. </p>
 </div></div><!-- contents -->

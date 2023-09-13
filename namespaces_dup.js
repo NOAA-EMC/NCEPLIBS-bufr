@@ -48,6 +48,7 @@ var namespaces_dup =
       [ "openbf_c", "namespacebufr__c2f__interface.html#a6a97fe37e5caced81c5c6b769644832d", null ],
       [ "openmb_c", "namespacebufr__c2f__interface.html#aad56de517eff0435b805addbf0692f44", null ],
       [ "pktdd_c", "namespacebufr__c2f__interface.html#a9a8d8f66405c9b1679e92e0d908877e0", null ],
+      [ "readlc_c", "namespacebufr__c2f__interface.html#acce5eddf8c8e56d5b47d45251ac75abc", null ],
       [ "status_c", "namespacebufr__c2f__interface.html#a233844a8f03de391d28d20a7bd5d8ef0", null ],
       [ "stntbi_c", "namespacebufr__c2f__interface.html#a1c04fd789a555e4a08d798172a07b2e6", null ],
       [ "strnum_c", "namespacebufr__c2f__interface.html#af9137b87796fbc3395e596227515c4f2", null ],

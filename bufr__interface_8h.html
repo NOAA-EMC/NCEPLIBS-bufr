@@ -26,7 +26,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">12.0.0</span>
+   &#160;<span id="projectnumber">12.0.1</span>
    </div>
   </td>
  </tr>
@@ -210,6 +210,9 @@ Functions</h2></td></tr>
 <tr class="memitem:ab062d9a7aad917f9937c577bab7f86fe"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="bufr__interface_8h.html#ab062d9a7aad917f9937c577bab7f86fe">openmb_f</a> (int bufr_unit, char *c_subset, int iddate)</td></tr>
 <tr class="memdesc:ab062d9a7aad917f9937c577bab7f86fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Open a new message for output in a BUFR file that was previously opened for writing.  <a href="bufr__interface_8h.html#ab062d9a7aad917f9937c577bab7f86fe">More...</a><br /></td></tr>
 <tr class="separator:ab062d9a7aad917f9937c577bab7f86fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab9a086f1cd4cb622107c96608279eb97"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="bufr__interface_8h.html#ab9a086f1cd4cb622107c96608279eb97">readlc_f</a> (int lunit, const char *str_id, char *output_str, int output_str_len)</td></tr>
+<tr class="memdesc:ab9a086f1cd4cb622107c96608279eb97"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function used to get long strings from the BUFR file.  <a href="bufr__interface_8h.html#ab9a086f1cd4cb622107c96608279eb97">More...</a><br /></td></tr>
+<tr class="separator:ab9a086f1cd4cb622107c96608279eb97"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8864263871383e72d19ac4a57031be7d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="bufr__interface_8h.html#a8864263871383e72d19ac4a57031be7d">status_f</a> (int file_unit, int *lun, int *il, int *im)</td></tr>
 <tr class="memdesc:a8864263871383e72d19ac4a57031be7d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check whether a file is connected to the library.  <a href="bufr__interface_8h.html#a8864263871383e72d19ac4a57031be7d">More...</a><br /></td></tr>
 <tr class="separator:a8864263871383e72d19ac4a57031be7d"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -1879,6 +1882,59 @@ Functions</h2></td></tr>
 </dl>
 <dl class="section author"><dt>Author</dt><dd>J. Ator </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>2023-04-07 </dd></dl>
+
+</div>
+</div>
+<a id="ab9a086f1cd4cb622107c96608279eb97"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab9a086f1cd4cb622107c96608279eb97">&#9670;&nbsp;</a></span>readlc_f()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void readlc_f </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>lunit</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>str_id</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>output_str</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>output_str_len</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Function used to get long strings from the BUFR file. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">lunit</td><td>- Fortran logical unit. </td></tr>
+    <tr><td class="paramname">str_id</td><td>- Mnemonic for the string for the source field plus the index number (ex: 'IDMN#2') </td></tr>
+    <tr><td class="paramname">output_str</td><td>- The pre-allocated result string </td></tr>
+    <tr><td class="paramname">output_str_len</td><td>- Size of the result string buffer</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section author"><dt>Author</dt><dd>Ronald McLaren </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2023-07-03 </dd></dl>
 
 </div>
 </div>
