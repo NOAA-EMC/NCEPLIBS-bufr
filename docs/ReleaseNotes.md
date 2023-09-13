@@ -2,6 +2,12 @@
 # Release Notes
 @brief Detailed description of changes included within each new release.
 
+## Version 12.0.1 - September 15, 2023
+
+* An extension was added to support the query interface for C++ IODA
+converters.
+[[Issue #519](https://github.com/NOAA-EMC/NCEPLIBS-bufr/issues/519)]
+
 ## Version 12.0.0 - June 8, 2023
 
 * The library has been consolidated into a single build using 4-byte
