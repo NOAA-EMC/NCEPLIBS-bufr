@@ -13,6 +13,7 @@ set(_build_dir "${CMAKE_BINARY_DIR}/python/site-packages")
 
 # Build the extension module for use in install tree
 add_custom_target(python_mod ALL)
+add_dependencies(python_mod bufr_4)
 
 if( NOT \$ENV{DESTDIR} STREQUAL \"\" )
     set( __root \"--root=\$ENV{DESTDIR}\" )
