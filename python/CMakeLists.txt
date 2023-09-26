@@ -9,7 +9,7 @@ file( COPY ncepbufr utils DESTINATION . )
 
 # Library installation directory
 set(_PYVER "${Python3_VERSION_MAJOR}.${Python3_VERSION_MINOR}")
-set(_build_dir "${CMAKE_BINARY_DIR}/python/site-packages")
+set(_build_dir "${CMAKE_CURRENT_BINARY_DIR}/site-packages")
 
 # Build the extension module for use in install tree
 add_custom_target(python_mod ALL)
