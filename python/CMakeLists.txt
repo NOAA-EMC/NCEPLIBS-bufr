@@ -9,39 +9,33 @@ file( COPY ncepbufr utils DESTINATION . )
 
 # Library installation directory
 set(_PYVER "${Python3_VERSION_MAJOR}.${Python3_VERSION_MINOR}")
-set(_install_dir "${CMAKE_INSTALL_FULL_LIBDIR}/python${_PYVER}/site-packages")
+set(_build_dir "${CMAKE_BINARY_DIR}/python/site-packages")
 
 # Build the extension module for use in install tree
-install(CODE "message(\"Building Python extension modules:
-${Python3_EXECUTABLE} setup.py build\")
-              execute_process(COMMAND ${Python3_EXECUTABLE} setup.py build
-                              WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR})")
+add_custom_target(python_mod ALL)
 
-# Call distutils for installation
-install(CODE "if( NOT \$ENV{DESTDIR} STREQUAL \"\" )
-                set( __root \"--root=\$ENV{DESTDIR}\" )
-              endif()
-              message(\"Installing Python modules:
-${Python3_EXECUTABLE} setup.py install \${__root}
-                                       --install-lib=${_install_dir}
-                                       --prefix=${CMAKE_INSTALL_PREFIX}
-                                       --record=${CMAKE_BINARY_DIR}/extra_install.txt\")
-              execute_process(COMMAND ${Python3_EXECUTABLE} setup.py install
-                                        \${__root}
-                                        --prefix=${CMAKE_INSTALL_PREFIX}
-                                        --install-lib=${_install_dir}
-                                        --record=${CMAKE_BINARY_DIR}/extra_install.txt
-                              WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR})")
+if( NOT \$ENV{DESTDIR} STREQUAL \"\" )
+    set( __root \"--root=\$ENV{DESTDIR}\" )
+endif()
+add_custom_command(
+    TARGET python_mod
+    COMMAND ${Python3_EXECUTABLE} setup.py install
+        \${__root}
+        --prefix=${CMAKE_INSTALL_PREFIX}
+        --install-lib=${_build_dir}
+        --record=${CMAKE_BINARY_DIR}/extra_install.txt
+    WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
+    DEPENDS setup.py.in
+)
 
 if(ENABLE_DOCS)
   # Uses pdoc (https://github.com/BurntSushi/pdoc)
   find_program(PDOC_EXECUTABLE pdoc REQUIRED)
-  install(CODE "message(\"Building Python API documentation:
-  ${PDOC_EXECUTABLE} -o ../docs/html/python' ./ncepbufr\")
-                set(ENV{PYTHONPATH} ${_install_dir})
-                execute_process(COMMAND ${PDOC_EXECUTABLE} -o ../docs/html/python ./ncepbufr
-                                WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR})")
+  set(ENV{PYTHONPATH} ${_build_dir})
+  add_custom_command(COMMAND ${PDOC_EXECUTABLE} -o ../docs/html/python ./ncepbufr WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR})
 endif()
+
+install(DIRECTORY ${_build_dir} DESTINATION ${CMAKE_INSTALL_FULL_LIBDIR}/python${_PYVER})
 
 # Add tests
 add_test(NAME test_pyncepbufr_checkpoint
@@ -81,5 +75,5 @@ list(APPEND _python_tests test_pyncepbufr_test)
 
 foreach(_test ${_python_tests})
   set_tests_properties(${_test}
-    PROPERTIES ENVIRONMENT "PYTHONPATH=${_install_dir}:$ENV{PYTHONPATH}")
+    PROPERTIES ENVIRONMENT "PYTHONPATH=${_build_dir}:$ENV{PYTHONPATH}")
 endforeach()
