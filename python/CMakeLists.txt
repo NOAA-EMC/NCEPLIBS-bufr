@@ -10,7 +10,7 @@ file( COPY ncepbufr utils DESTINATION . )
 # Library installation directory
 set(_PYVER "${Python3_VERSION_MAJOR}.${Python3_VERSION_MINOR}")
 set(_lib_dir "${CMAKE_CURRENT_BINARY_DIR}/site-packages")
-set(_bin_root "${CMAKE_CURRENT_BINARY_DIR}")
+set(_bin_root "${CMAKE_CURRENT_BINARY_DIR}/bin")
 
 # Build the extension module for use in install tree
 add_custom_target(python_mod ALL)
@@ -23,7 +23,7 @@ add_custom_command(
     TARGET python_mod
     COMMAND ${Python3_EXECUTABLE} setup.py install
         \${__root}
-        --prefix=${_bin_root}
+        --install-scripts=${_bin_root}
         --install-lib=${_lib_dir}
         --record=${CMAKE_BINARY_DIR}/extra_install.txt
     WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
@@ -40,7 +40,7 @@ if(ENABLE_DOCS)
 endif()
 
 install(DIRECTORY ${_lib_dir} DESTINATION ${CMAKE_INSTALL_FULL_LIBDIR}/python${_PYVER})
-install(PROGRAMS ${_bin_root}/bin/prepbufr2nc DESTINATION ${CMAKE_INSTALL_FULL_BINDIR})
+install(PROGRAMS ${_bin_root}/prepbufr2nc DESTINATION ${CMAKE_INSTALL_FULL_BINDIR})
 
 # Add tests
 add_test(NAME test_pyncepbufr_checkpoint
