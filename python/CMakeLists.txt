@@ -9,7 +9,8 @@ file( COPY ncepbufr utils DESTINATION . )
 
 # Library installation directory
 set(_PYVER "${Python3_VERSION_MAJOR}.${Python3_VERSION_MINOR}")
-set(_build_dir "${CMAKE_CURRENT_BINARY_DIR}/site-packages")
+set(_lib_dir "${CMAKE_CURRENT_BINARY_DIR}/site-packages")
+set(_bin_root "${CMAKE_CURRENT_BINARY_DIR}")
 
 # Build the extension module for use in install tree
 add_custom_target(python_mod ALL)
@@ -22,8 +23,8 @@ add_custom_command(
     TARGET python_mod
     COMMAND ${Python3_EXECUTABLE} setup.py install
         \${__root}
-        --prefix=${CMAKE_INSTALL_PREFIX}
-        --install-lib=${_build_dir}
+        --prefix=${_bin_root}
+        --install-lib=${_lib_dir}
         --record=${CMAKE_BINARY_DIR}/extra_install.txt
     WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
     DEPENDS setup.py.in
@@ -32,11 +33,14 @@ add_custom_command(
 if(ENABLE_DOCS)
   # Uses pdoc (https://github.com/BurntSushi/pdoc)
   find_program(PDOC_EXECUTABLE pdoc REQUIRED)
-  set(ENV{PYTHONPATH} ${_build_dir})
-  add_custom_command(COMMAND ${PDOC_EXECUTABLE} -o ../docs/html/python ./ncepbufr WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR})
+  add_custom_target(python_docs ALL
+    ${CMAKE_COMMAND} -E env PYTHONPATH=${_lib_dir}:$ENV{PYTHONPATH}
+    ${PDOC_EXECUTABLE} -o ../docs/html/python ./ncepbufr
+  )
 endif()
 
-install(DIRECTORY ${_build_dir} DESTINATION ${CMAKE_INSTALL_FULL_LIBDIR}/python${_PYVER})
+install(DIRECTORY ${_lib_dir} DESTINATION ${CMAKE_INSTALL_FULL_LIBDIR}/python${_PYVER})
+install(PROGRAMS ${_bin_root}/bin/prepbufr2nc DESTINATION ${CMAKE_INSTALL_FULL_BINDIR})
 
 # Add tests
 add_test(NAME test_pyncepbufr_checkpoint
@@ -76,5 +80,5 @@ list(APPEND _python_tests test_pyncepbufr_test)
 
 foreach(_test ${_python_tests})
   set_tests_properties(${_test}
-    PROPERTIES ENVIRONMENT "PYTHONPATH=${_build_dir}:$ENV{PYTHONPATH}")
+    PROPERTIES ENVIRONMENT "PYTHONPATH=${_lib_dir}:$ENV{PYTHONPATH}")
 endforeach()
