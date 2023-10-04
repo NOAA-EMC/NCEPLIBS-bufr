@@ -116,7 +116,7 @@ add_subdirectory(tables)
 # Turn on unit testing.
 include(CTest)
 if(BUILD_TESTING)
-  add_subdirectory(tests)
+  add_subdirectory(test)
 endif()
 
 # Generate doxygen documentation if desired.
