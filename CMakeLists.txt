@@ -14,7 +14,6 @@ project(
 option(ENABLE_DOCS "Enable generation of doxygen-based documentation." OFF)
 option(ENABLE_PYTHON "Enable building python module 'ncepbufr'" OFF)
 option(BUILD_SHARED_LIBS "Enable building shared libraries" OFF)
-option(BUILD_TESTS "Build tests" ON)
 
 # Developers can use this option to specify a local directory which
 # holds the test files. They will be copied instead of fetching the
@@ -114,8 +113,10 @@ endif()
 
 add_subdirectory(tables)
 
-if(BUILD_TESTS)
-  add_subdirectory(test)
+# Turn on unit testing.
+include(CTest)
+if(BUILD_TESTING)
+  add_subdirectory(tests)
 endif()
 
 # Generate doxygen documentation if desired.
