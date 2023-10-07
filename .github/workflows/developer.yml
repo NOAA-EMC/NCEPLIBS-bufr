@@ -24,7 +24,7 @@ jobs:
     - name: install-deps
       run: |
           sudo apt-get update
-          sudo apt-get install doxygen
+          sudo apt-get install doxygen python3-numpy
           sudo python3 -m pip install -U gcovr pdoc
 
     - name: checkout
