@@ -40,6 +40,13 @@ jobs:
         path: ~/data
         key: data-10
 
+    - name: build-docs
+      run: |
+        mkdir bufr/build-docs
+        cd bufr/build-docs
+        cmake -DBUILD_TESTING=OFF -DCMAKE_INSTALL_PREFIX=./install -DCMAKE_BUILD_TYPE=Debug -DENABLE_DOCS=ON -DENABLE_PYTHON=ON ..
+        make doc python_docs
+
     - name: build
       run: |
         cd bufr
@@ -54,13 +61,6 @@ jobs:
         cd bufr/build
         ctest --verbose --output-on-failure --rerun-failed
         gcovr --root .. -v  --html-details --exclude ../test --exclude CMakeFiles --print-summary --exclude-unreachable-branches --exclude-throw-branches --decisions -o test-coverage.html
-
-    - name: build-docs
-      run: |
-        mkdir bufr/build-docs
-        cd build-docs
-        cmake -DBUILD_TESTING=OFF -DCMAKE_INSTALL_PREFIX=./install -DCMAKE_BUILD_TYPE=Debug -DENABLE_DOCS=ON -DENABLE_PYTHON=ON ..
-        make doc python_docs
 
     - name: cache-data
       if: steps.cache-data.outputs.cache-hit != 'true'
