@@ -25,7 +25,7 @@ jobs:
       run: |
           sudo apt-get update
           sudo apt-get install doxygen
-          sudo python3 -m pip install -U gcovr
+          sudo python3 -m pip install -U gcovr pdoc
 
     - name: checkout
       uses: actions/checkout@v3
@@ -45,7 +45,7 @@ jobs:
         cd bufr
         mkdir build
         cd build
-        cmake -DTEST_FILE_DIR=/home/runner/data -DCMAKE_INSTALL_PREFIX=./install -DCMAKE_Fortran_FLAGS="-Werror -g -fprofile-arcs -ftest-coverage -fprofile-abs-path -O0 -fsanitize=address -fno-omit-frame-pointer" -DCMAKE_C_FLAGS="-Werror -g -fprofile-arcs -ftest-coverage -fprofile-abs-path -O0 -fsanitize=address -fno-omit-frame-pointer" -DCMAKE_BUILD_TYPE=Debug -DENABLE_DOCS=On ..
+        cmake -DTEST_FILE_DIR=/home/runner/data -DCMAKE_INSTALL_PREFIX=./install -DCMAKE_Fortran_FLAGS="-Werror -g -fprofile-arcs -ftest-coverage -fprofile-abs-path -O0 -fsanitize=address -fno-omit-frame-pointer" -DCMAKE_C_FLAGS="-Werror -g -fprofile-arcs -ftest-coverage -fprofile-abs-path -O0 -fsanitize=address -fno-omit-frame-pointer" -DCMAKE_BUILD_TYPE=Debug -DENABLE_DOCS=OFF ..
         make -j2 VERBOSE=1
         make install
 
@@ -54,6 +54,13 @@ jobs:
         cd bufr/build
         ctest --verbose --output-on-failure --rerun-failed
         gcovr --root .. -v  --html-details --exclude ../test --exclude CMakeFiles --print-summary --exclude-unreachable-branches --exclude-throw-branches --decisions -o test-coverage.html
+
+    - name: build-docs
+      run: |
+        mkdir bufr/build-docs
+        cd build-docs
+        cmake -DBUILD_TESTING=OFF -DCMAKE_INSTALL_PREFIX=./install -DCMAKE_BUILD_TYPE=Debug -DENABLE_DOCS=ON -DENABLE_PYTHON=ON ..
+        make doc python_docs
 
     - name: cache-data
       if: steps.cache-data.outputs.cache-hit != 'true'
@@ -72,4 +79,4 @@ jobs:
       with:
         name: docs
         path: |
-          bufr/build/docs/html
+          bufr/build-docs/docs/html

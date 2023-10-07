@@ -37,6 +37,7 @@ if(ENABLE_DOCS)
     ${CMAKE_COMMAND} -E env PYTHONPATH=${_lib_dir}:$ENV{PYTHONPATH}
     ${PDOC_EXECUTABLE} -o ../docs/html/python ./ncepbufr
   )
+  add_dependencies(python_docs doc python_mod)
 endif()
 
 install(DIRECTORY ${_lib_dir} DESTINATION ${CMAKE_INSTALL_FULL_LIBDIR}/python${_PYVER})

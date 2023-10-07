@@ -10,7 +10,7 @@
 
 ## Documentation for the Python API for NCEPLIBS-bufr
 
-* [The Python API documentation](https://noaa-emc.github.io/NCEPLIBS-bufr/python/index.html)
+* [The Python API documentation](python/index.html)
 
 ## Introduction
 
