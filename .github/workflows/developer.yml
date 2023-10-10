@@ -24,8 +24,8 @@ jobs:
     - name: install-deps
       run: |
           sudo apt-get update
-          sudo apt-get install doxygen
-          sudo python3 -m pip install -U gcovr
+          sudo apt-get install doxygen python3-numpy
+          sudo python3 -m pip install -U gcovr pdoc
 
     - name: checkout
       uses: actions/checkout@v3
@@ -40,12 +40,19 @@ jobs:
         path: ~/data
         key: data-10
 
+    - name: build-docs
+      run: |
+        mkdir bufr/build-docs
+        cd bufr/build-docs
+        cmake -DBUILD_TESTING=OFF -DCMAKE_INSTALL_PREFIX=./install -DCMAKE_BUILD_TYPE=Debug -DENABLE_DOCS=ON -DENABLE_PYTHON=ON ..
+        make doc python_docs
+
     - name: build
       run: |
         cd bufr
         mkdir build
         cd build
-        cmake -DTEST_FILE_DIR=/home/runner/data -DCMAKE_INSTALL_PREFIX=./install -DCMAKE_Fortran_FLAGS="-Werror -g -fprofile-arcs -ftest-coverage -fprofile-abs-path -O0 -fsanitize=address -fno-omit-frame-pointer" -DCMAKE_C_FLAGS="-Werror -g -fprofile-arcs -ftest-coverage -fprofile-abs-path -O0 -fsanitize=address -fno-omit-frame-pointer" -DCMAKE_BUILD_TYPE=Debug -DENABLE_DOCS=On ..
+        cmake -DTEST_FILE_DIR=/home/runner/data -DCMAKE_INSTALL_PREFIX=./install -DCMAKE_Fortran_FLAGS="-Werror -g -fprofile-arcs -ftest-coverage -fprofile-abs-path -O0 -fsanitize=address -fno-omit-frame-pointer" -DCMAKE_C_FLAGS="-Werror -g -fprofile-arcs -ftest-coverage -fprofile-abs-path -O0 -fsanitize=address -fno-omit-frame-pointer" -DCMAKE_BUILD_TYPE=Debug -DENABLE_DOCS=OFF ..
         make -j2 VERBOSE=1
         make install
 
@@ -72,4 +79,4 @@ jobs:
       with:
         name: docs
         path: |
-          bufr/build/docs/html
+          bufr/build-docs/docs/html
