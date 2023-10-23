@@ -11,7 +11,7 @@ C>
 C> @note See getwin() for an explanation of "windows" within the
 C> context of a bufr data subset.
 C>
-C> @param[in] LUN - integer: i/o stream index into internal memory arrays.
+C> @param[in] LUN - integer: file ID.
 C> @param[inout] IWIN - integer:
 C>  - on input, contains starting index of current window iteration.
 C>  - on output, contains starting index of next window iteration.

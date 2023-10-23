@@ -104,10 +104,10 @@ C        This is a numeric element.
 
 C        This is a character element.  If there are more than 8
 C        characters, then only the first 8 will be unpacked by this
-C        routine, and a separate subsequent call to BUFR archive library
-C        subroutine READLC will be required to unpack the remainder of
+C        routine, and a separate subsequent call to
+C        subroutine readlc() will be required to unpack the remainder of
 C        the string.  In this case, pointers will be saved within
-C        COMMON /RLCCMN/ for later use within READLC.
+C        COMMON /RLCCMN/ for later use within readlc().
 
 C        Unpack the local reference value.
 

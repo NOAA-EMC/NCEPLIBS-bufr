@@ -157,7 +157,7 @@ C     application has been streamlined to always call UFBINT with the
 C     same STR, even though some of the mnemonics contained within that
 C     STR may not exist within the sequence definition of every
 C     possible type/subtype that is being written by the application.
-C     In such cases, by not being "picky", we could just allow BUFRLIB
+C     In such cases, by not being "picky", we could just allow NCEPLIBS-bufr
 C     to subsequently (and quietly, if IPRT happened to be set to -1
 C     in COMMON /QUIET/!) not actually store the value corresponding
 C     to such mnemonics, rather than loudly complaining and aborting.

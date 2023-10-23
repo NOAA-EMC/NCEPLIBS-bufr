@@ -12,14 +12,14 @@ C> and packed into the current message for the BUFR file associated with
 C> logical unit LUNIT. Logical unit LUNIT should have already been
 C> opened for output operations via a previous call to subroutine
 C> openbf(), and a BUFR message should already be open for output within
-C> internal arrays via a previous call to one of the BUFRLIB
+C> internal arrays via a previous call to one of the NCEPLIBS-bufr
 C> [message-writing subroutines](@ref hierarchy). All of the values for
 C> the data subset should have already been written into internal arrays
-C> via calls to any of the BUFRLIB [values-writing subroutines](@ref
+C> via calls to any of the NCEPLIBS-bufr [values-writing subroutines](@ref
 C> hierarchy).
 C>
 C> There is a maximum size for any BUFR message that can be written
-C> by the BUFRLIB software. This maximum message size is initially set
+C> by the NCEPLIBS-bufr software. This maximum message size is initially set
 C> to an internal default value within subroutine bfrini(), but it can
 C> be changed to a different value via a separate prior call to
 C> subroutine maxout().

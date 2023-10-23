@@ -6,7 +6,7 @@ C> @author J. Woollen @date 1994-01-06
 C> Update file status in library internals.
 C>
 C> This subroutine can be used to connect or disconnect a specified
-C> Fortran logical unit number to/from the BUFRLIB software, and it
+C> Fortran logical unit number to/from the NCEPLIBS-bufr software, and it
 C> can also be used to set or reset the internal message status
 C> associated with that logical unit number.
 C>

@@ -16,7 +16,7 @@ C> within the subset.
 C>
 C> Before calling this subroutine, a BUFR message should already be
 C> opened and initialized for output via a previous call to one of the
-C> BUFRLIB [message-writing subroutines](@ref hierarchy).
+C> NCEPLIBS-bufr [message-writing subroutines](@ref hierarchy).
 C>
 C> @param[in] LUNIT  -- integer: Fortran logical unit number for
 C>                      BUFR file

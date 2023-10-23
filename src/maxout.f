@@ -4,7 +4,7 @@ C>
 C> @authors J. Woollen, J. Ator @date 2002-05-14
 
 C> Specify the maximum length of a BUFR message that can be written
-C> to any output file by the BUFRLIB software.
+C> to any output file by the NCEPLIBS-bufr software.
 C>
 C> This subroutine can be called from within an application program at
 C> any time after the initial call to subroutine openbf(), and the
@@ -19,7 +19,7 @@ C>
 C> @param[in] MAXO --  integer: New maximum length (in bytes) for
 C>                     all BUFR messages written to all output files
 C>                     - 0 = Set MAXO to the maximum value allowed
-C>                           by the BUFRLIB software
+C>                           by the NCEPLIBS-bufr software
 C>
 C> @authors J. Woollen, J. Ator @date 2002-05-14
       RECURSIVE SUBROUTINE MAXOUT(MAXO)

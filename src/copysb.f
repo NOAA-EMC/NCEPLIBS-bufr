@@ -14,7 +14,7 @@ C>
 C> Logical unit LUNOT should have already been opened for output
 C> operations via a previous call to subroutine openbf(), and a BUFR
 C> message should already be open for output within internal arrays
-C> via a previous call to one of the BUFRLIB
+C> via a previous call to one of the NCEPLIBS-bufr
 C> [message-writing subroutines](@ref hierarchy).
 C>
 C> The compression status of the data subset (i.e. compressed or

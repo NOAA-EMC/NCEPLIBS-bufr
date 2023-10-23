@@ -17,7 +17,7 @@ C> writsb(), followed by a second internal call to subroutine
 C> cmpmsg() to deactivate compression.  For this reason, most
 C> application programs which write compressed BUFR messages now
 C> call subroutines cmpmsg() and writsb() directly; however, this
-C> subroutine is still supported within the BUFRLIB software for
+C> subroutine is still supported within the NCEPLIBS-bufr software for
 C> backwards-compatibility with certain legacy application programs.
 C>
 C> @param[in] lunit - integer: Fortran logical unit number for BUFR file.

@@ -79,7 +79,7 @@ C                              last call to this subroutine
         XTAB(LUN) = .FALSE.
         IF(IOLUN(LUN).EQ.0) THEN
 
-C          Logical unit IOLUN(LUN) is not defined to the BUFRLIB.
+C          Logical unit IOLUN(LUN) is not defined to NCEPLIBS-bufr.
 
            LUS(LUN) = 0
         ELSE IF(MTAB(1,LUN).EQ.0) THEN
@@ -124,7 +124,7 @@ C              so again.
 
 C          Logical unit IOLUN(LUN) is sharing table information with
 C          logical unit IOLUN(LUS(LUN)), so make sure that the latter
-C          unit is still defined to the BUFRLIB.
+C          unit is still defined to NCEPLIBS-bufr.
 
            IF(IOLUN(LUS(LUN)).EQ.0) THEN
              LUS(LUN) = 0

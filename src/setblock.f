@@ -29,11 +29,11 @@ C>
 C> @remarks
 C> - This subroutine can be used to generate BUFR files consistent
 C> with historical archives, dating back to older versions of the
-C> BUFRLIB software which used Fortran to directly read/write
+C> NCEPLIBS-bufr software which used Fortran to directly read/write
 C> BUFR messages from/to files. Standard Fortran historically
 C> didn't have a way to read/write binary data streams without
 C> control words, so as a result many historical archives contain
-C> these by default. However, newer versions of the BUFRLIB software
+C> these by default. However, newer versions of the NCEPLIBS-bufr software
 C> use C to directly read/write BUFR messages from/to files
 C> (including historical archives), so control words are no longer
 C> necessary and are therefore now disabled by default when writing

@@ -19,7 +19,7 @@ C> - 1 '=' (equal)
 C> - 2 '!' (not equal)
 C> - 3 '<' (less than)
 C> - 4 '>' (greater than)
-C> @param[in] LUN - integer: i/o stream index into internal memory arrays
+C> @param[in] LUN - integer: file ID
 C> @param[in] INV1 - integer: first index of window to search
 C> @param[in] INV2 - integer: last index of window to search
 C>

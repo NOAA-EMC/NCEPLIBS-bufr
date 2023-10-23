@@ -4,7 +4,7 @@ C>
 C> @author J. Woollen @date 2003-11-04
 
 C> Read one or more data values from the BUFR data
-C> subset that is currently open within the BUFRLIB internal arrays.
+C> subset that is currently open within the NCEPLIBS-bufr internal arrays.
 C>
 C> This subroutine is specifically designed for use with NCEP prepfits files,
 C> which contain a third dimension of data events for every

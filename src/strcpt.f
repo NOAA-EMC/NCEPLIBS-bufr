@@ -25,7 +25,7 @@ C>
 C> @remarks
 C> - Tank receipt time is an NCEP extension to Section 1 of the
 C> [official WMO BUFR regulations](@ref manual).
-C> However, it's encoded by the BUFRLIB software in such a way that
+C> However, it's encoded by the NCEPLIBS-bufr software in such a way that
 C> its inclusion within an output BUFR message is still fully
 C> compliant with the regulations.
 C>

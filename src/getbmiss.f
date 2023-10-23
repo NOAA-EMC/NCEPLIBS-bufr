@@ -13,7 +13,7 @@ C>
 C> This subroutine can be called at any time from within an
 C> application program, and the returned value can then be
 C> used to represent "missing" data within the context of
-C> future calls to any of the other BUFRLIB
+C> future calls to any of the other NCEPLIBS-bufr
 C> [values-reading subroutines](@ref hierarchy) or
 C> [values-writing subroutines](@ref hierarchy).
 C> This placeholder value can also be changed at any

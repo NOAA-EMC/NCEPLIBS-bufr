@@ -5,7 +5,7 @@ C> @author J. Ator @date 2007-01-19
 
 C> Check whether a real*8
 C> data value returned from a previous call to any of the
-C> BUFRLIB [values-reading subroutines](@ref hierarchy)
+C> NCEPLIBS-bufr [values-reading subroutines](@ref hierarchy)
 C> contains the current placeholder value for "missing" data.
 C>
 C> @param[in] R8VAL - real*8: Data value to be tested.

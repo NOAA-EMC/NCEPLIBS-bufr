@@ -10,10 +10,10 @@ C> the ending index of the window. Alternatively, if the given index
 C> points to the start of a "sub" window (which is the first node of a
 C> subset), then the subroutine returns the index of the last node.
 C>
-C> @note See the docblock in bufr archive library subroutine getwin() for an
+C> @note See the docblock in subroutine getwin() for an
 C> explanation of "windows" within the context of a bufr data subset.
 C>
-C> @param[in] LUN - integer: i/o stream index into internal memory arrays.
+C> @param[in] LUN - integer: file ID.
 C> @param[in] IWIN - integer: starting index of window iteration.
 C> @param[out] JWIN - integer: ending index of window iteration.
 C>

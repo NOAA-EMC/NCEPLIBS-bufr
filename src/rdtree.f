@@ -74,8 +74,8 @@ C        The unpacked value is a real.
 
 C        The value is a character string, so unpack it using an
 C        equivalenced REAL*8 value.  Note that a maximum of 8 characters
-C        will be unpacked here, so a separate subsequent call to BUFR
-C        archive library subroutine READLC will be needed to fully
+C        will be unpacked here, so a separate subsequent call to
+C        subroutine readlc() will be needed to fully
 C        unpack any string longer than 8 characters.
 
          CVAL = ' '

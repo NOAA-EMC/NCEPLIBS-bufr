@@ -4,7 +4,7 @@ C> previously opened for reading.
 C>
 C> @author J. Woollen @date 1994-01-06
 
-C> Call NCEPLIBS-bufr subroutine readns() and pass
+C> Call subroutine readns() and pass
 C> back its return code as the function value.
 C>
 C> The use of this function allows the return code from readns() to be

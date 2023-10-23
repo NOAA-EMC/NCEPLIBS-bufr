@@ -13,7 +13,7 @@ C> [message-reading subroutines](@ref hierarchy).
 C>
 C> Whenever this subroutine returns with IRET = 0, this indicates that a
 C> new BUFR data subset (i.e. report) was successfully read into internal
-C> arrays within the BUFRLIB software, and from where it can be
+C> arrays within the NCEPLIBS-bufr software, and from where it can be
 C> manipulated or further parsed via calls to any of the [values-reading
 C> subroutines](@ref hierarchy).
 C>

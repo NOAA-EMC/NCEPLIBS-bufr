@@ -7,7 +7,7 @@ C> Overwrite specified values which exist
 C> in current internal BUFR subset arrays in a file open for output.
 C> The data values correspond to mnemonics which are part of a
 C> delayed-replication sequence, or for which there is no replication
-C> at all. Either BUFR archive library subroutine openmg() or openmb()
+C> at all. Either subroutine openmg() or openmb()
 C> must have been previously called to open and initialize a BUFR
 C> message within memory for this lunit. In addition,
 C> subroutine writsb() or invmrg() must have been called to

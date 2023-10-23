@@ -19,15 +19,15 @@ C> current message for the BUFR file associated with logical unit
 C> ABS(LUNXX). Logical unit ABS(LUNXX) should have already been opened
 C> for output operations via a previous call to subroutine openbf(),
 C> and a BUFR message should already be open for output within internal
-C> arrays via a previous call to one of the BUFRLIB
+C> arrays via a previous call to one of the NCEPLIBS-bufr
 C> [message-writing subroutines](@ref hierarchy).
 C> All of the values for the data subset should have
 C> already been written into internal arrays via calls to any of the
-C> BUFRLIB [values-writing subroutines](@ref hierarchy)
+C> NCEPLIBS-bufr [values-writing subroutines](@ref hierarchy)
 C>
 C> This subroutine returns a copy of each completed
 C> BUFR message to the application program within a memory array.
-C> When using this subroutine, it is important to note that the BUFRLIB
+C> When using this subroutine, it is important to note that the NCEPLIBS-bufr
 C> software is designed to pack as many data subsets as possible into
 C> each message for output, and therefore not every call to this
 C> subroutine will result in a message being returned in MSGT. In
@@ -37,11 +37,11 @@ C>
 C> Only when MSGL contains a value
 C> greater than 0 is there an actual BUFR message within MSGT; otherwise,
 C> the message into which the data subset was packed remains internally
-C> within BUFRLIB so that future data subsets can be packed into it as
+C> within NCEPLIBS-bufr so that future data subsets can be packed into it as
 C> well, and the message will eventually be returned during some other
 C> future call to this subroutine. For this reason, there is a way to
 C> force the subroutine to return any message contained within the
-C> internal BUFRLIB arrays, such as when there are no more data subsets
+C> internal NCEPLIBS-bufr arrays, such as when there are no more data subsets
 C> to be encoded and we're ready to exit the application program. In
 C> this case, the application program should make one final call to
 C> this subroutine, but with LUNXX set to a negative value;
@@ -53,7 +53,7 @@ C> instead be immediately flushed to output and returned in MSGT.
 C>
 C> @remarks
 C> - There is a maximum size for any BUFR message that can be written
-C> by the BUFRLIB software. This maximum message size is initially set
+C> by the NCEPLIBS-bufr software. This maximum message size is initially set
 C> to an internal default value within subroutine bfrini(), but it can
 C> be changed to a different value via a separate prior call to
 C> subroutine maxout().

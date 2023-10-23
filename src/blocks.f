@@ -28,7 +28,7 @@ C>                        of MBAY
 C>
 C> @remarks
 C> - For more information about IEEE Fortran control words, as
-C> well as their historical use within the BUFRLIB software, see
+C> well as their historical use within the NCEPLIBS-bufr software, see
 C> the documentation for subroutine setblock().
 C> - Whenever a BUFR message in MBAY is to be encapsulated with
 C> control words, the user must ensure the availability of

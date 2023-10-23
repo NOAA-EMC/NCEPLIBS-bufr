@@ -5,7 +5,7 @@ C> @author J. Ator @date 2014-12-04
 
 C> Return the current value of a parameter used
 C> for allocating one or more internal arrays within the
-C> BUFRLIB software.
+C> NCEPLIBS-bufr software.
 C>
 C> @param[in] CPRMNM - character*(*): Parameter
 C> - 'MXMSGL' = Maximum length (in bytes) of a BUFR message.

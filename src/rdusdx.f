@@ -8,7 +8,7 @@ C> DX BUFR table in character format, then store
 C> this information into internal arrays in module @ref moda_tababd.
 C>
 C> This subroutine performs
-C> a function similar to BUFR archive library subroutine rdbfdx(),
+C> a function similar to subroutine rdbfdx(),
 C> except that rdbfdx() reads the DX BUFR table directly from messages at
 C> the beginning of an input BUFR file.
 C>

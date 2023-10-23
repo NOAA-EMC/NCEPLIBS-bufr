@@ -4,11 +4,11 @@ C>
 C> @author J. Ator @date 2015-03-06
 
 C> Check whether a specified mnemonic is a
-C> Table C operator supported by the BUFRLIB software.
+C> Table C operator supported by the NCEPLIBS-bufr software.
 C>
 C> @param[in] NEMO  -- character*(*): Mnemonic
 C> @returns iokoper -- integer: Flag indicating whether NEMO is a
-C>                     Table C operator supported by the BUFRLIB
+C>                     Table C operator supported by the NCEPLIBS-bufr
 C>                     software
 C>                        - 0 = No
 C>                        - 1 = Yes

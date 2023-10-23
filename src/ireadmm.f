@@ -3,7 +3,7 @@ C> @brief Read a BUFR message from internal arrays.
 C>
 C> @author J. Woollen @date 1999-11-18
 
-C> Call NCEPLIBS-bufr subroutine readmm() and pass back its
+C> Call subroutine readmm() and pass back its
 C> return code as the function value.
 C>
 C> The use of this function allows the return code from readmm() to be

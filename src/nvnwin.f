@@ -10,7 +10,7 @@ C> bounded by the indices inv1 and inv2. The resulting list is a
 C> stack of "event" indices for the requested node.
 C>
 C> @param[in] NODE - integer: jump/link table index to look for.
-C> @param[in] LUN - integer: i/o stream index into internal memory arrays.
+C> @param[in] LUN - integer: file ID.
 C> @param[in] INV1 - integer: starting index of the portion of the subset buffer in which to look.
 C> @param[in] INV2 - integer: ending index of the portion of the subset buffer in which to look.
 C> @param[out] INVN - integer: array of stack "event" indices for node.

@@ -60,10 +60,10 @@ C       Check for I8 integers.
 
         NUMCHR = MIN(LSTR,LEN(STR))
 
-C*      Beginning with version 10.2.0 of the BUFRLIB, "missing" strings
+C*      Beginning with version 10.2.0 of the NCEPLIBS-bufr, "missing" strings
 C*      have always been explicitly encoded with all bits set to 1,
 C*      which is the correct encoding per WMO regulations.  However,
-C*      prior to version 10.2.0, the BUFRLIB stored "missing" strings by
+C*      prior to version 10.2.0, the NCEPLIBS-bufr stored "missing" strings by
 C*      encoding the REAL*8 value of 10E10 into the string, so the
 C*      following logic attempts to identify some of these earlier
 C       cases, at least for strings between 4 and 8 bytes in length.
@@ -83,7 +83,7 @@ C       cases, at least for strings between 4 and 8 bytes in length.
 
 C*      Otherwise, the logic below will check for "missing" strings of
 C*      any length which are correctly encoded with all bits set to 1,
-C*      including those encoded by BUFRLIB version 10.2.0 or later.
+C*      including those encoded by NCEPLIBS-bufr version 10.2.0 or later.
 
         DO II=1,NUMCHR
            STRZ(1:1) = STR(II:II)

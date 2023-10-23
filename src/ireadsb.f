@@ -3,7 +3,7 @@ C> @brief Read the next data subset from a BUFR message.
 C>
 C> @author J. Woollen @date 1994-01-06
 
-C> Call NCEPLIBS-bufr subroutine readsb() and
+C> Call subroutine readsb() and
 C> pass back its return code as the function value.
 C>
 C> The use of this function allows the return code from readsb() to be

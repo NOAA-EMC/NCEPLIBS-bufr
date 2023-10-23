@@ -5,7 +5,7 @@ C> @author J. Ator @date 2014-12-04
 
 C> Set a specified parameter to a specified value for
 C> use in dynamically allocating one or more internal arrays within
-C> the BUFRLIB software.
+C> the NCEPLIBS-bufr software.
 C>
 C> A separate call to this
 C> function must be made for each parameter that is to be set to a

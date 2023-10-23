@@ -43,7 +43,7 @@ C> The current placeholder value for "missing" data can be determined
 C> via a separate call to function getbmiss().
 C>
 C> Before calling this function, a BUFR data subset should already be
-C> open for reading via a previous call to one of the BUFRLIB
+C> open for reading via a previous call to one of the NCEPLIBS-bufr
 C> [subset-reading subroutines](@ref hierarchy).
 C>
 C> @author J. Ator @date 2012-09-12

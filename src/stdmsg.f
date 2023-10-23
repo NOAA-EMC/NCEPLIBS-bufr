@@ -6,13 +6,13 @@ C> @author J. Ator @date 2004-08-18
 C> Specify whether BUFR messages output by
 C> future calls to [message-writing subroutines](@ref hierarchy) and
 C> [subset-writing subroutines](@ref hierarchy) should be internally
-C> reformatted to remove all BUFRLIB software extensions to the
+C> reformatted to remove all NCEPLIBS-bufr software extensions to the
 C> WMO standard, prior to actually writing each message.
 C>
 C> It is strongly recommended to use this subroutine (or,
 C> alternatively, subroutine stndrd() for messages which already exist
 C> in memory arrays) whenever BUFR messages are being written that will
-C> potentially be read using software other than the BUFRLIB software.
+C> potentially be read using software other than the NCEPLIBS-bufr software.
 C> Otherwise, by default the output messages will contain a number of
 C> extensions to allow for faster reading and more efficient storage,
 C> but which will be encoded using non-standard descriptors in

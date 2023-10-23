@@ -47,7 +47,7 @@ C> @remarks
 C> - Character strings which are 8 bytes or less in length can be
 C> written by converting the string into a real*8 value within the
 C> application program, and then using the real*8 USR array within a
-C> call to one of the BUFRLIB
+C> call to one of the NCEPLIBS-bufr
 C> [values-writing subroutines](@ref hierarchy)
 C> prior to calling one of the
 C> [subset-writing subroutines](@ref hierarchy)

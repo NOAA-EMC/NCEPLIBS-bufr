@@ -7,7 +7,7 @@ C> Specify a DX BUFR table of last resort, in case subroutine
 C> cktaba() is unable to locate a DX BUFR table on its own
 C> when reading/decoding a BUFR message.
 C>
-C> Within the BUFRLIB distribution package, this subroutine
+C> Within the NCEPLIBS-bufr distribution package, this subroutine
 C> is a default placeholder which always returns LUNDX = 0
 C> and is only included to allow application programs to compile
 C> without generating a link error for an unresolved external
