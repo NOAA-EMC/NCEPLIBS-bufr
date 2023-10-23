@@ -111,7 +111,7 @@ module moda_bufrsr
   !> Sequential number of BUFR data subset, counting from the beginning
   !> of the current BUFR message.
   integer :: JSUB
-  !> Bit-wise (integer) representation of FXY value associated with
+  !> WMO bit-wise (integer) representation of FXY value associated with
   !> Table A mnemonic for BUFR message.
   integer :: KSUB
   !> Positional index of Table A mnemonic within internal Table A.
@@ -208,7 +208,7 @@ module moda_dscach
   !> Number of child descriptors for the corresponding Table A mnemonic
   !> in cnem.
   integer :: NDC(MXCNEM)
-  !> Bit-wise representations of the child descriptors for the
+  !> WMO bit-wise representations of the child descriptors for the
   !> corresponding Table A mnemonic in cnem.
   integer :: IDCACH(MXCNEM,MAXNC)
 end module moda_dscach
@@ -402,7 +402,7 @@ module moda_mstabs
   integer :: NMTB
   !> Number of master Table D entries (up to a maximum of MXMTBD).
   integer :: NMTD
-  !> Bit-wise representations of FXY numbers for master Table B.
+  !> WMO bit-wise representations of FXY numbers for master Table B.
   integer, allocatable :: IBFXYN(:)
   !> Scale factors corresponding to ibfxyn.
   character, allocatable :: CBSCL(:,:)
@@ -416,7 +416,7 @@ module moda_mstabs
   character, allocatable :: CBMNEM(:,:)
   !> Element names corresponding to ibfxyn.
   character, allocatable :: CBELEM(:,:)
-  !> Bit-wise representations of FXY numbers for master Table D.
+  !> WMO bit-wise representations of FXY numbers for master Table D.
   integer, allocatable :: IDFXYN(:)
   !> Sequence names corresponding to idfxyn.
   character, allocatable :: CDSEQ(:,:)
@@ -424,7 +424,7 @@ module moda_mstabs
   character, allocatable :: CDMNEM(:,:)
   !> Numbers of child descriptors corresponding to idfxyn.
   integer, allocatable :: NDELEM(:)
-  !> Bit-wise representations of child descriptors corresponding to idfxyn.
+  !> WMO bit-wise representations of child descriptors corresponding to idfxyn.
   integer, allocatable :: IDEFXY(:)
 end module moda_mstabs
 
@@ -518,7 +518,7 @@ end module moda_nulbfr
 !>
 !> @author J. Ator @date 2014-12-10
 module moda_rdmtb
-  !> Bit-wise representations of child descriptors of Table D sequences.
+  !> WMO bit-wise representations of child descriptors of Table D sequences.
   integer, allocatable :: IEFXYN(:,:)
   !> Descriptor codes for Table B elements.
   character*4, allocatable :: CMDSCB(:)
@@ -639,9 +639,9 @@ module moda_tababd
   !> Message types (in array element 1) and subtypes (in array element
   !> 2) corresponding to taba.
   integer, allocatable :: IDNA(:,:,:)
-  !> Bit-wise representations of the FXY values corresponding to tabb.
+  !> WMO bit-wise representations of the FXY values corresponding to tabb.
   Integer, allocatable :: IDNB(:,:)
-  !> Bit-wise representations of the FXY values corresponding to tabd.
+  !> WMO bit-wise representations of the FXY values corresponding to tabd.
   integer, allocatable :: IDND(:,:)
   !> Table A entries for each file ID.
   character*128, allocatable :: TABA(:,:)

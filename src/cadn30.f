@@ -16,7 +16,7 @@ C>
 C> For a description of the WMO bit-wise representation of an FXY
 C> value, see ifxy().
 C>
-C> @param[in] IDN - integer: Bit-wise representation of FXY value.
+C> @param[in] IDN - integer: WMO bit-wise representation of FXY value.
 C> @param[out] ADN - character*6: FXY value.
 C>
 C> @author J. Ator @date 2004-08-18

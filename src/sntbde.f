@@ -10,7 +10,7 @@ C> lines of that same entry into the same merged Fortran arrays.
 C>
 C> @param[in] LUNT   -- integer: Fortran logical unit number for
 C>                      ASCII file containing Table D information
-C> @param[in] IFXYN  -- integer: Bit-wise representation of FXY number
+C> @param[in] IFXYN  -- integer: WMO bit-wise representation of FXY number
 C> @param[in]  LINE  -- character*(*): First line of Table D entry
 C> @param[in] MXMTBD -- integer: Dimensioned size (in integers) of
 C>                      merged output arrays; used by the subroutine
@@ -22,7 +22,7 @@ C>                      output arrays; used by the subroutine to
 C>                      ensure that it doesn't overflow these arrays
 C> @param[out] NMTBD -- integer: Number of entries in merged output
 C>                      arrays
-C> @param[out] IMFXYN -- integer(*): Merged array containing bit-wise
+C> @param[out] IMFXYN -- integer(*): Merged array containing WMO bit-wise
 C>                       representations of FXY numbers
 C> @param[out] CMMNEM -- character*8(*): Merged array containing
 C>                       mnemonics
@@ -32,7 +32,7 @@ C> @param[out] CMSEQ -- character*120(*): Merged array containing
 C>                      sequence names
 C> @param[out] NMELEM -- integer(*): Merged array containing number of
 C>                       elements stored for each sequence
-C> @param[out] IEFXYN -- integer(*,*): Merged array containing bit-wise
+C> @param[out] IEFXYN -- integer(*,*): Merged array containing WMO bit-wise
 C>                       representations of element FXY numbers
 C> @param[out] CEELEM -- character*120(*,*): Merged array containing
 C>                       element names

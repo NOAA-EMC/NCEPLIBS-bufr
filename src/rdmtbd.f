@@ -38,7 +38,7 @@ C>                      - This value is read from the local ASCII
 C>                        file.
 C> @param[out] NMTBD -- integer: Number of entries in merged output
 C>                      arrays
-C> @param[out] IMFXYN -- integer(*): Merged array containing bit-wise
+C> @param[out] IMFXYN -- integer(*): Merged array containing WMO bit-wise
 C>                       representations of FXY numbers
 C> @param[out] CMMNEM -- character*8(*): Merged array containing
 C>                       mnemonics
@@ -48,7 +48,7 @@ C> @param[out] CMSEQ -- character*120(*): Merged array containing
 C>                      sequence names
 C> @param[out] NMELEM -- integer(*): Merged array containing number of
 C>                       elements stored for each sequence
-C> @param[out] IEFXYN -- integer(*,*): Merged array containing bit-wise
+C> @param[out] IEFXYN -- integer(*,*): Merged array containing WMO bit-wise
 C>                       representations of element FXY numbers
 C> @param[out] CEELEM -- character*120(*,*): Merged array containing
 C>                       element names

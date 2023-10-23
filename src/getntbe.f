@@ -11,7 +11,7 @@ C> corresponding to this entry.
 C>
 C> @param[in] LUNT   -- integer: Fortran logical unit number of
 C>                     master table B, table D or Code/Flag table file
-C> @param[out] IFXYN -- integer: Bit-wise representation of FXY number
+C> @param[out] IFXYN -- integer: WMO bit-wise representation of FXY number
 C>                     for next table entry
 C> @param[out] LINE  -- character*(*): First line of next table entry
 C> @param[out] IRET  -- integer: return code
@@ -44,7 +44,7 @@ C           FXY number.
             IF ( NTAG .LT. 1 ) GOTO 900
             IF ( IGETFXY ( TAGS(1), ADSC ) .NE. 0 ) GOTO 900
 
-C           Store the bit-wise representation of the FXY number.
+C           Store the WMO bit-wise representation of the FXY number.
 
             IFXYN = IFXY ( ADSC )
         ENDIF

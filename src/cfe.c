@@ -14,13 +14,13 @@
  *  Structure to store a master Code/Flag table entry.
  */
 struct code_flag_entry {
-    /** Bit-wise representation of FXY number to which this entry belongs. */
+    /** WMO bit-wise representation of FXY number to which this entry belongs. */
     int iffxyn;
     /** Code figure or bit number. */
     int ifval;
     /** Meaning corresponding to ifval. */
     char ifmeaning[MAX_MEANING_LEN+1];
-    /** Bit-wise representation of FXY number upon which this entry is
+    /** WMO bit-wise representation of FXY number upon which this entry is
      *  dependent, if any.  Set to (-1) if no dependency.
      */
     int iffxynd;
@@ -164,12 +164,12 @@ cmpstia2(const void *pe1, const void *pe2)
 /**
  * Store a new master Code/Flag table entry.
  *
- * @param ifxyn - Bit-wise representation of FXY number for which ival is a defined
+ * @param ifxyn - WMO bit-wise representation of FXY number for which ival is a defined
  * code or flag table entry.
  * @param ival  - Code figure or bit number.
  * @param meaning - Meaning associated with ifxyn and ival.
  * @param lmeaning - Length (in bytes) of meaning.
- * @param idfxy - Bit-wise representation of FXY number upon which ifxyn and ival
+ * @param idfxy - WMO bit-wise representation of FXY number upon which ifxyn and ival
  * depend (if any), or else set to a value of (-1).
  * @param idval - Code figure or bit number associated with idfxy and upon which ifxyn
  * and ival depend (if any), or else set to (-1) whenever idfxy is also set to (-1).
@@ -229,17 +229,17 @@ sorttbf(void)
  * originating center for which the sub-center in question is a
  * member.
  *
- * @param ifxyi - Bit-wise representation of FXY number to search for.
+ * @param ifxyi - WMO bit-wise representation of FXY number to search for.
  * @param ivali - Value (code figure or bit number) associated with ifxyi.
  * @param ifxyd - Dependence indicator:
- * - On input, ifxyd[0] is set to the bit-wise representation of the FXY
+ * - On input, ifxyd[0] is set to the WMO bit-wise representation of the FXY
  * number upon which ifxyi and ivali depend, or else set to (-1) if ifxyi
  * and ivali do not depend on the value associated with any other FXY number.
  * - On output, if the initial search of the master Code/Flag table was
  * unsuccessful, <b>and</b> if ifxyd[0] and ivald were both set to (-1) on
  * input, <b>and</b> if a second search of the table determines that the
  * meaning of ifxyi and ivali indeed depends on one or more other FXY numbers,
- * then the bit-wise representations of those FXY numbers are returned within
+ * then the WMO bit-wise representations of those FXY numbers are returned within
  * the first iret elements of ifxyd.
  * @param ivald - Value (code figure or bit number) associated with the FXY
  * number in ifxyd[0]; set to (-1) whenever ifxyd[0] is also set to (-1).
@@ -255,7 +255,7 @@ sorttbf(void)
  * - -1 = Meaning not found.
  * - >0 = Meaning not found, <b>and</b> ifxyd[0] and ivald were both set to (-1)
  * on input, <b>and</b> the meaning of ifxyi and ivali depends on the the value
- * associated with one of the FXY numbers whose bit-wise representation is
+ * associated with one of the FXY numbers whose WMO bit-wise representation is
  * stored in the first iret elements of ifxyd.
  *
  * @author J. Ator  @date 2018-01-11

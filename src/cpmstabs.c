@@ -16,7 +16,7 @@
  *  All arguments to this subroutine are input.
  *
  *  @param nmtb - Number of master Table B entries
- *  @param ibfxyn - Bit-wise representations of master Table B FXY numbers
+ *  @param ibfxyn - WMO bit-wise representations of master Table B FXY numbers
  *  @param cbscl - Master Table B scale factors
  *  @param cbsref - Master Table B reference values
  *  @param cbbw - Master Table B bit widths
@@ -24,11 +24,11 @@
  *  @param cbmnem - Master Table B mnemonics
  *  @param cbelem - Master Table B element names
  *  @param nmtd - Number of master Table D entries
- *  @param idfxyn - Bit-wise representations of master Table D FXY numbers
+ *  @param idfxyn - WMO bit-wise representations of master Table D FXY numbers
  *  @param cdseq - Master Table D sequence names
  *  @param cdmnem - Master Table D mnemonics
  *  @param ndelem - Number of child descriptors for master Table D sequence
- *  @param idefxy - Bit-wise representations of child descriptors for master Table D sequence
+ *  @param idefxy - WMO bit-wise representations of child descriptors for master Table D sequence
  *  @param maxcd - Maximum number of child descriptors for a master Table D sequence
  *
  *  @author J. Ator @date 2014-12-04

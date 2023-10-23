@@ -19,9 +19,8 @@ C> subroutines](@ref hierarchy).
 C>
 C> If the subroutine returns with IRET = -1 there are no more data
 C> subsets available within the current message; a new call needs to
-C> be made to one of the [message-reading subroutines](@ref
-C> hierarchy) in order to read in the next message from logical unit
-C> LUNIT.
+C> be made to one of the [message-reading subroutines](@ref hierarchy)
+C> in order to read in the next message from logical unit LUNIT.
 C>
 C> @param[in] LUNIT - integer: Fortran logical unit number for BUFR file.
 C> @param[out] IRET - integer: return code:

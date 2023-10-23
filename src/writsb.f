@@ -15,8 +15,8 @@ C> openbf(), and a BUFR message should already be open for output within
 C> internal arrays via a previous call to one of the NCEPLIBS-bufr
 C> [message-writing subroutines](@ref hierarchy). All of the values for
 C> the data subset should have already been written into internal arrays
-C> via calls to any of the NCEPLIBS-bufr [values-writing subroutines](@ref
-C> hierarchy).
+C> via calls to any of the NCEPLIBS-bufr
+C> [values-writing subroutines](@ref hierarchy).
 C>
 C> There is a maximum size for any BUFR message that can be written
 C> by the NCEPLIBS-bufr software. This maximum message size is initially set

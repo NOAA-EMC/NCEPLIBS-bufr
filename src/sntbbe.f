@@ -6,7 +6,7 @@ C> @author J. Ator @date 2007-01-19
 C> Store an entry that was previously read from an
 C> ASCII master Table B file into a set of merged Fortran arrays.
 C>
-C> @param[in] IFXYN  -- integer: Bit-wise representation of FXY number
+C> @param[in] IFXYN  -- integer: WMO bit-wise representation of FXY number
 C> @param[in]  LINE  -- character*(*): Table B entry
 C> @param[in] MXMTBB -- integer: Dimensioned size (in integers) of
 C>                      merged output arrays; used by the subroutine
@@ -14,7 +14,7 @@ C>                      to ensure that it doesn't overflow these
 C>                      arrays
 C> @param[out] NMTBB -- integer: Number of entries in merged output
 C>                      arrays
-C> @param[out] IMFXYN -- integer(*): Merged array containing bit-wise
+C> @param[out] IMFXYN -- integer(*): Merged array containing WMO bit-wise
 C>                       representations of FXY numbers
 C> @param[out] CMSCL -- character*4(*): Merged array containing
 C>                      scale factors

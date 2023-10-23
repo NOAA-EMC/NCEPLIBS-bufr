@@ -8,7 +8,7 @@ C> Search for a Table B or Table D descriptor within the
 C> internal DX BUFR tables.
 C>
 C> @param[in] LUN - integer: File ID.
-C> @param[in] IDN - integer: Bit-wise representation of FXY value
+C> @param[in] IDN - integer: WMO bit-wise representation of FXY value
 C> for Table B or Table D descriptor.
 C> @param[out] NEMO - character*(*): Mnemonic associated with IDN.
 C> @param[out] TAB - character: Type associated with IDN:

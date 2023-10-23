@@ -1,11 +1,11 @@
 /** @file
  *  @brief Declare variables for internal storage of master Table B and Table D entries.
  *
- *  Since the arrays in Fortran module MODA_MSTABS are dynamically
+ *  Since the arrays in Fortran module @ref moda_mstabs are dynamically
  *  allocated and their size isn't known at compile time, then we can't
  *  directly access them from within C.  Instead, we need to allocate
  *  separate array space in C and then use subroutine cpmstabs() to copy
- *  the relevant information from the Fortran module MODA_MSTABS arrays
+ *  the relevant information from the module arrays
  *  to these C arrays at run time, in order to be able to access this
  *  information from within C.
  *
@@ -15,7 +15,7 @@
 #ifdef IN_ARALLOCC
         /** Number of master Table B entries; copied from Fortran nmtb variable. */
         int nmtb_c;
-        /** Bit-wise representations of master Table B FXY numbers; copied from Fortran ibfxyn array. */
+        /** WMO bit-wise representations of master Table B FXY numbers; copied from Fortran ibfxyn array. */
         int *ibfxyn_c;
         /** Master Table B scale factors; copied from Fortran cbscl array. */
         char   (*cbscl_c)[4];
@@ -31,7 +31,7 @@
         char   (*cbelem_c)[120];
         /** Number of master Table D entries; copied from Fortran nmtd variable. */
         int nmtd_c;
-        /** Bit-wise representations of master Table D FXY numbers; copied from Fortran idfxyn array. */
+        /** WMO bit-wise representations of master Table D FXY numbers; copied from Fortran idfxyn array. */
         int *idfxyn_c;
         /** Master Table D sequence names; copied from Fortran cdseq array. */
         char   (*cdseq_c)[120];
@@ -39,12 +39,12 @@
         char   (*cdmnem_c)[8];
         /** Number of child descriptors for master Table D sequence; copied from Fortran ndelem array. */
         int *ndelem_c;
-        /** Bit-wise representations of child descriptors for master Table D sequence; copied from Fortran idefxy array. */
+        /** WMO bit-wise representations of child descriptors for master Table D sequence; copied from Fortran idefxy array. */
         int *idefxy_c;
 #else
         /** Number of master Table B entries; copied from Fortran nmtb variable. */
         extern int nmtb_c;
-        /** Bit-wise representations of master Table B FXY numbers; copied from Fortran ibfxyn array. */
+        /** WMO bit-wise representations of master Table B FXY numbers; copied from Fortran ibfxyn array. */
         extern int *ibfxyn_c;
         /** Master Table B scale factors; copied from Fortran cbscl array. */
         extern char   (*cbscl_c)[4];
@@ -60,7 +60,7 @@
         extern char   (*cbelem_c)[120];
         /** Number of master Table D entries; copied from Fortran nmtd variable. */
         extern int nmtd_c;
-        /** Bit-wise representations of master Table D FXY numbers; copied from Fortran idfxyn array. */
+        /** WMO bit-wise representations of master Table D FXY numbers; copied from Fortran idfxyn array. */
         extern int *idfxyn_c;
         /** Master Table D sequence names; copied from Fortran cdseq array. */
         extern char   (*cdseq_c)[120];
@@ -68,6 +68,6 @@
         extern char   (*cdmnem_c)[8];
         /** Number of child descriptors for master Table D sequence; copied from Fortran ndelem array. */
         extern int *ndelem_c;
-        /** Bit-wise representations of child descriptors for master Table D sequence; copied from Fortran idefxy array. */
+        /** WMO bit-wise representations of child descriptors for master Table D sequence; copied from Fortran idefxy array. */
         extern int *idefxy_c;
 #endif

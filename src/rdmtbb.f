@@ -34,7 +34,7 @@ C>                      - This value is read from the local ASCII
 C>                        file.
 C> @param[out] NMTBB -- integer: Number of entries in merged output
 C>                      arrays
-C> @param[out] IMFXYN -- integer(*): Merged array containing bit-wise
+C> @param[out] IMFXYN -- integer(*): Merged array containing WMO bit-wise
 C>                       representations of FXY numbers
 C> @param[out] CMSCL -- character*4(*): Merged array containing
 C>                      scale factors

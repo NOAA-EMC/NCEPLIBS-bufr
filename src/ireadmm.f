@@ -15,8 +15,9 @@ C>   scope for further processing, counting from the beginning of the
 C>   internal arrays in memory.
 C>  - On output, IMSG is incremented by one from its input value.
 C> @param[out] SUBSET - character*8: Table A mnemonic for type of
-C> BUFR message that was read into scope (see [DX BUFR Tables](@ref
-C> dfbftab) for further information about Table A mnemonics).
+C> BUFR message that was read into scope
+C> (see [DX BUFR Tables](@ref dfbftab) for further information
+C> about Table A mnemonics).
 C> @param[out] IDATE - integer: Date-time stored within Section 1 of
 C> BUFR message that was read into scope, in format of either
 C> YYMMDDHH or YYYYMMDDHH, depending on the most recent call to
