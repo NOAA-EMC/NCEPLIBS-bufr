@@ -3,7 +3,7 @@ C> @brief Test whether a character string is "missing"
 C>
 C> @author J. Ator @date 2012-06-07
 
-C> This function provides a handy way to check whether a
+C> Check whether a
 C> character string returned from a previous call to subroutine
 C> readlc() was encoded as "missing" (all bits set to 1)
 C> within the actual BUFR data subset.

@@ -3,7 +3,7 @@ C> @brief Search a specified window for a conditional node.
 C>
 C> @author Woollen @date 1994-01-06
 
-C> This function searches a "window" (see below remarks) for an
+C> Search a "window" (see below remarks) for an
 C> element identified in the user string as a conditional node.
 C> A conditional node is an element which must meet a condition in order to be
 C> read from or written to a data subset.

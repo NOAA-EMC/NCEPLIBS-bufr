@@ -4,7 +4,7 @@ C>
 C> @author J. Woollen @date 1994-01-06
 
 C> Given a character string containing Section 0 from a BUFR
-C> message, this function determines the array size (in integers)
+C> message, determine the array size (in integers)
 C> needed to store the entire BUFR message.
 C>
 C> This function is similar to function nmwrd(), except that it

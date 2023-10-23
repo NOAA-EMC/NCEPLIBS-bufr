@@ -4,9 +4,11 @@ C> of the current data subset.
 C>
 C> @author Woollen @date 1994-01-06
 
-C> This function looks for a specified mnemonic within the
+C> Search for a specified mnemonic within the
 C> portion of the current subset buffer bounded by the indices inv1
-C> and inv2. It is similar to library function invwin(),
+C> and inv2.
+C>
+C> This function is similar to library function invwin(),
 C> except that invwin() searches based on the actual node within the
 C> internal jump/link table, rather than on the mnemonic corresponding
 C> to that node.

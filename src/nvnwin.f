@@ -4,7 +4,7 @@ C> specified portion of the current data subset.
 C>
 C> @author Woollen @date 1994-01-06
 
-C> This function looks for and returns all occurrences of a
+C> Search for and return all occurrences of a
 C> specified node within the portion of the current subset buffer
 C> bounded by the indices inv1 and inv2. The resulting list is a
 C> stack of "event" indices for the requested node.

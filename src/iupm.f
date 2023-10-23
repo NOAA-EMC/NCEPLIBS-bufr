@@ -3,9 +3,7 @@ C> @brief Decode an integer value from a character string.
 C>
 C> @author J. Woollen @date 1994-01-06
 
-C> Decode an integer value from a character string.
-C>
-C> This function decodes an integer value from within a
+C> Decode an integer value from within a
 C> specified number of bits of a character string, starting
 C> with the first bit of the first byte of the string.
 C>

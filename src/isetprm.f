@@ -3,9 +3,7 @@ C> @brief Define a customized parameter value for dynamic allocation.
 C>
 C> @author J. Ator @date 2014-12-04
 
-C> Define a customized parameter value for dynamic allocation.
-C>
-C> This function sets a specified parameter to a specified value for
+C> Set a specified parameter to a specified value for
 C> use in dynamically allocating one or more internal arrays within
 C> the BUFRLIB software.
 C>

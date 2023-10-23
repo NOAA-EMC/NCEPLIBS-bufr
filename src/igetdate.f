@@ -3,7 +3,7 @@ C> @brief Read the date-time from Section 1 of a BUFR message.
 C>
 C> @author J. Ator @date 2005-11-29
 
-C> This function returns the date-time from within Section 1 of a
+C> Return the date-time from within Section 1 of a
 C> BUFR message.
 C>
 C> The function will work on any BUFR message encoded using BUFR

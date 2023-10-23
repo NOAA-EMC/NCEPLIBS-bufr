@@ -3,8 +3,8 @@ C> @brief Compute the length of a delayed replication sequence
 C>
 C> @author Woollen @date 1996-10-09
 
-C> This function adds up the complete length of the delayed
-C> replication sequence beginning at index N of the data subset.
+C> Compute the complete length of the delayed
+C> replication sequence beginning at index N of a data subset.
 C>
 C> @param[in] N - integer: index to start of delayed replication sequence.
 C> @param[in] LUN - integer: I/O stream index into internal memory arrays.

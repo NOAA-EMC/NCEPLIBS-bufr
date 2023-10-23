@@ -3,7 +3,7 @@ C> @brief Search for a valid FXY number within a character string.
 C>
 C> @author Ator @date 2007-01-19
 
-C> This function looks for and returns a valid FXY number
+C> Search for and return a valid FXY number
 C> from within the given input string. The FXY number may be in
 C> format of either FXXYYY or F-XX-YYY within the input string, but
 C> it is always returned in format FXXYYY upon output.

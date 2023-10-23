@@ -4,12 +4,10 @@ C> message.
 C>
 C> @author J. Ator @date 2005-11-29
 
-C> Read a data value from Section 0 or Section 1 of a BUFR message.
-C>
-C> This function returns a specified value from within Section 0 or
+C> Return a specified value from within Section 0 or
 C> Section 1 of a BUFR message.
 C>
-C> It will work on any BUFR message encoded using BUFR
+C> This function will work on any BUFR message encoded using BUFR
 C> edition 2, 3, or 4. It is similar to function iupvs01(), except
 C> that it operates on a BUFR message passed in via a memory array,
 C> whereas iupvs01() operates on the BUFR message that was read into

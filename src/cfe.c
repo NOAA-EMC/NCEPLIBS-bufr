@@ -44,11 +44,8 @@ int mxmtbf;
 int nmtf;
 
 /**
- *  Initialize memory for internal storage of master Code/Flag table entries.
- *
- *  This function initializes the internal memory structure
- *  for storage of master Code/Flag table entries, including
- *  dynamically allocating space for this structure if needed.
+ *  Initialize memory for internal storage of master Code/Flag table entries,
+ *  including dynamically allocating memory space if needed.
  *
  *  @author J. Ator  @date 2017-11-03
 */
@@ -76,8 +73,7 @@ inittbf(void)
 /**
  * Free all dynamically-allocated memory for internal storage of master Code/Flag table entries.
  *
- * This function frees any memory that was dynamically allocated
- * during a previous call to function inittbf().
+ * This memory would have been dynamically allocated during a previous call to function inittbf().
  *
  * @author J. Ator @date 2017-11-03
  */
@@ -92,9 +88,7 @@ dlloctbf(void)
 /**
  * Define a comparison between two master Code/Flag table entries.
  *
- * This function defines a comparison between two entries within the
- * internal memory structure for storage of master Code/Flag table
- * entries.  The comparison is used by the intrinsic C functions
+ * The comparison is used by the intrinsic C functions
  * qsort and bsearch, and it differs from the the comparison in
  * function cmpstia2() because it compares all of the iffxyn, ifval,
  * iffxynd and ifvald components of the structure, whereas
@@ -137,9 +131,7 @@ cmpstia1(const void *pe1, const void *pe2)
 /**
  * Define a comparison between two master Code/Flag table entries.
  *
- * This function defines a comparison between two entries within the
- * internal memory structure for storage of master Code/Flag table
- * entries.  The comparison is used by the intrinsic C function
+ * The comparison is used by the intrinsic C function
  * bsearch, and it differs from the the comparison in
  * function cmpstia1() because it only compares the iffxyn and ifval
  * components of the structure, whereas cmpstia1() compares all of
@@ -171,9 +163,6 @@ cmpstia2(const void *pe1, const void *pe2)
 
 /**
  * Store a new master Code/Flag table entry.
- *
- * This function adds a new entry to the internal memory structure for storage of
- * master Code/Flag table entries.
  *
  * @param ifxyn - Bit-wise representation of FXY number for which ival is a defined
  * code or flag table entry.
@@ -213,10 +202,7 @@ strtbfe(int ifxyn, int ival, char *meaning, int lmeaning, int idfxy, int idval)
 }
 
 /**
- * Sort entries within the master Code/Flag table.
- *
- * This function sorts the entries within the internal memory
- * structure for storage of master Code/Flag table entries, in
+ * Sort entries within the master Code/Flag table, in
  * preparation for future searches using function srchtbf().
  *
  * @author J. Ator @date 2017-11-16
@@ -231,10 +217,10 @@ sorttbf(void)
 /**
  * Search for a specified master Code/Flag table entry.
  *
- * This function searches for a specified FXY number and associated
+ * The search is based on a specified FXY number and associated
  * value (code figure or bit number) within the internal memory
- * structure for storage of master Code/Flag table entries, and if
- * found returns the associated meaning as a character string.
+ * structure for storage of master Code/Flag table entries.  If found,
+ * the associated meaning is returned as a character string.
  *
  * The search may optionally include a specified second FXY number
  * and associated value upon which the first FXY number and its

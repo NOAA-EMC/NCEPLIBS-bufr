@@ -4,7 +4,7 @@ C> table.
 C>
 C> @author J. Ator @date 2009-06-18
 
-C> This function determines whether the same
+C> Check whether the same
 C> [DX BUFR Table](@ref dfbftab) is being shared between two
 C> Fortran logical units.
 C>

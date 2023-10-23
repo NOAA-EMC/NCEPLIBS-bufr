@@ -3,7 +3,7 @@ C> @brief Read one data value from a data subset.
 C>
 C> @author J. Ator @date 2012-09-12
 
-C> This function can be used to read a data value corresponding to
+C> Read a data value corresponding to
 C> a specific occurrence of a mnemonic within a data subset, based on
 C> its position relative to a different mnemonic within the subset.
 C>

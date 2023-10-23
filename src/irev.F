@@ -4,13 +4,15 @@ C> the bytes reversed.
 C>
 C> @author Woollen @date 1994-01-06
 
-C> This function will, when the local machine is "little-endian" (i.e.,
-C> when it uses a right to left scheme for numbering the bytes
+C> If the local machine is "little-endian" (i.e.,
+C> if it uses a right to left scheme for numbering the bytes
 C> within a machine word), return a copy of an input integer word with
-C> the bytes reversed. Although, by definition (within WMO Manual
-C> 306), a BUFR message is a stream of individual octets (i.e., bytes)
+C> the bytes reversed.
+C>
+C> Although, by definition (within WMO Manual 306),
+C> a BUFR message is a stream of individual octets (i.e., bytes)
 C> that is independent of any particular machine representation, the
-C> BUFR archive library software often needs to interpret all or parts
+C> NCEPLIBS-bufr software often needs to interpret all or parts
 C> of two or more adjacent bytes in order to construct an integer
 C> word. By default, the software uses the "big-endian" (left to
 C> right) scheme for numbering bytes. By reversing the bytes, irev()

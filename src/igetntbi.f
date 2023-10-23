@@ -4,7 +4,7 @@ C> DX BUFR table
 C>
 C> @author J. Ator @date 2009-03-23
 
-C> This function returns the next available index for storing an
+C> Return the next available index for storing an
 C> entry within a specified internal DX BUFR table.
 C>
 C> @param[in]  LUN   -- integer: Internal I/O stream index associated

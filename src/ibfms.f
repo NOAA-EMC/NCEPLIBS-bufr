@@ -3,11 +3,9 @@ C> @brief Test whether a real*8 data value is "missing"
 C>
 C> @author J. Ator @date 2007-01-19
 
-C> Test whether a real*8 data value is "missing"
-C>
-C> This function provides a handy way to check whether a real*8
+C> Check whether a real*8
 C> data value returned from a previous call to any of the
-C> other BUFRLIB [values-reading subroutines](@ref hierarchy)
+C> BUFRLIB [values-reading subroutines](@ref hierarchy)
 C> contains the current placeholder value for "missing" data.
 C>
 C> @param[in] R8VAL - real*8: Data value to be tested.

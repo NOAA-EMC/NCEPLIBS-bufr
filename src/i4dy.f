@@ -4,7 +4,7 @@ C> a 4-digit year
 C>
 C> @author J. Woollen @date 1998-07-08
 
-C> This function converts a date-time with a 2-digit year (YYMMDDHH)
+C> Convert a date-time with a 2-digit year (YYMMDDHH)
 C> to a date-time with a 4-digit year (YYYYMMDDHH) using a windowing
 C> technique.
 C>

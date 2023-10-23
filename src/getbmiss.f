@@ -3,7 +3,7 @@ C> @brief Get the current placeholder value for "missing" data
 C>
 C> @author J. Woollen @date 2012-09-15
 
-C> This function returns the current placeholder value which
+C> Return the current placeholder value which
 C> represents "missing" data when reading from or writing to
 C> BUFR files.
 C>

@@ -4,7 +4,7 @@ C> of the current data subset.
 C>
 C> @author J. Woollen @date 2003-11-04
 
-C> This function looks for all stacked data events for a
+C> Search for all stacked data events for a
 C> specified data value and level within the portion of the current
 C> subset buffer bounded by the indices INV1 and INV2.  All such
 C> events are accumulated and returned to the calling program within

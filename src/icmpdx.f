@@ -4,7 +4,7 @@ C> information.
 C>
 C> @author J. Ator @date 2009-06-18
 
-C> This function determines whether the full set of associated
+C> Check whether the full set of associated
 C> [DX BUFR Table information](@ref dfbftab) is identical between
 C> two Fortran logical units.
 C>

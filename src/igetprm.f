@@ -3,9 +3,7 @@ C> @brief Get the current value of a parameter.
 C>
 C> @author J. Ator @date 2014-12-04
 
-C> Get the current value of a parameter.
-C>      
-C> This function returns the current value of a parameter used
+C> Return the current value of a parameter used
 C> for allocating one or more internal arrays within the
 C> BUFRLIB software.
 C>

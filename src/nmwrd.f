@@ -4,7 +4,7 @@ C>
 C> @author J. Ator @date 2005-11-29
 
 C> Given an integer array containing Section 0 from a BUFR
-C> message, this function determines the array size (in integers)
+C> message, determine the array size (in integers)
 C> needed to store the entire BUFR message.
 C>
 C> This function is similar to function lmsg(), except that it

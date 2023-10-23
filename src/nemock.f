@@ -3,7 +3,7 @@ C> @brief Check the validity of a mnemonic.
 C>
 C> @author J. Woollen @date 1994-01-06
 
-C> This function checks a mnemonic to verify that it has a
+C> Check a mnemonic to verify that it has a
 C> length of between 1 and 8 characters and that it only
 C> contains characters from the allowable character set.
 C>

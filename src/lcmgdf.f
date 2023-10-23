@@ -4,7 +4,7 @@ C> (greater than 8 bytes) within a data subset definition.
 C>
 C> @author J. Ator @date 2009-07-09
 
-C> This function checks whether the subset definition for a given
+C> Check whether the subset definition for a given
 C> message type contains any long character strings (greater
 C> than 8 bytes).
 C>
