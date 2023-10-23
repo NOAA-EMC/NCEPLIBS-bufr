@@ -3,11 +3,10 @@ C> @brief Read one or more data values from an NCEP prepbufr file.
 C>
 C> @author J. Woollen @date 1994-01-06
 
-C> Read one or more data values from an NCEP prepbufr file.
-C>
-C> This subroutine reads one or more data values from the BUFR data
+C> Read one or more data values from the BUFR data
 C> subset that is currently open within the BUFRLIB internal arrays.
-C> It is specifically designed for use with NCEP prepbufr files,
+C>
+C> This subroutine is specifically designed for use with NCEP prepbufr files,
 C> which contain a third dimension of data events for every
 C> reported data value at every replicated vertical level.  It is
 C> similar to subroutine ufbin3(), except that ufbin3() is used

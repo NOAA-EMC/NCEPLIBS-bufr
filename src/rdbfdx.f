@@ -4,9 +4,9 @@ C>
 C> @author Woollen @date 1994-01-06
 
 C> Beginning at the current file pointer location within LUNIT,
-C> this subroutine reads a complete DX BUFR table into internal memory arrays
-C> in module @ref moda_tababd. A DX BUFR table consists of one or more consecutive
-C> DX BUFR messages.
+C> read a complete DX BUFR table into internal memory arrays
+C> in module @ref moda_tababd.  A DX BUFR table consists of one or more
+C> consecutive DX BUFR messages.
 C>
 C> This subroutine performs a function similar to
 C> rdusdx(), except that rdusdx() reads from a file containing

@@ -3,7 +3,7 @@ C> @brief Copy DX BUFR table information within internal memory.
 C>
 C> @author Woollen @date 1994-01-06
 
-C> This subroutine copies all of the DX BUFR table information from
+C> Copy all of the DX BUFR table information from
 C> one unit to another within internal memory.
 C>
 C> @param[in] LUD - integer: I/O stream index into internal memory

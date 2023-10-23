@@ -3,7 +3,7 @@ C> @brief Read data descriptors from Section 3 of a BUFR message.
 C>
 C> @author J. Ator @date 2003-11-04
 
-C> This subroutine returns the sequence of data descriptors
+C> Return the sequence of data descriptors
 C> contained within Section 3 of a BUFR message.
 C>
 C> @remarks

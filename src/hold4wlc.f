@@ -4,7 +4,7 @@ C> a data subset
 C>
 C> @author J. Ator @date 2014-02-05
 
-C> This subroutine writes a long character string (greater than 8 bytes)
+C> Write a long character string (greater than 8 bytes)
 C> to a data subset.
 C>
 C> Normally, subroutine writlc() is used to write a long character

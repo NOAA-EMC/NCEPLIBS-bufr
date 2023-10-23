@@ -3,8 +3,8 @@ C> @brief Write an uncompressed BUFR data subset.
 C>
 C> @author Woollen @date 1994-01-06
 
-C> This subroutine packs up the current subset within memory
-C> (array ibay in module @ref moda_bitbuf) and then tries to add it to
+C> Pack up the current subset within memory
+C> (array ibay in module @ref moda_bitbuf), then try to add it to
 C> the BUFR message that is currently open within memory for LUNIT
 C> (array mbay in module @ref moda_bitbuf). If the subset will not fit
 C> into the currently open message, or if the subset byte count exceeds

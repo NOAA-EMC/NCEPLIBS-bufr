@@ -3,9 +3,8 @@ C> @brief Define a customized maximum length for output BUFR messages.
 C>
 C> @authors J. Woollen, J. Ator @date 2002-05-14
 
-C> This subroutine allows the user to define the maximum length of a
-C> BUFR message that can be written to an output file by the BUFRLIB
-C> software.
+C> Specify the maximum length of a BUFR message that can be written
+C> to any output file by the BUFRLIB software.
 C>
 C> This subroutine can be called from within an application program at
 C> any time after the initial call to subroutine openbf(), and the

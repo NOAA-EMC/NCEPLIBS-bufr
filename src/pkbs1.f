@@ -3,7 +3,7 @@ C> @brief Write a data value into Section 1 of a BUFR message.
 C>
 C> @authors J. Ator, D. Keyser @date 2005-11-29
 
-C> This subroutines writes a specified value into a specified location
+C> Write a specified value into a specified location
 C> within Section 1 of a BUFR message, overwriting the value previously
 C> stored in that location.
 C>

@@ -7,11 +7,11 @@
 #include "mstabs.h"
 
 /**
- *  This subroutine copies relevant information from the Fortran
- *  module MODA_MSTABS arrays to new arrays within C, for use
+ *  Copy relevant information from the Fortran
+ *  module @ref moda_mstabs arrays to new arrays within C, for use
  *  whenever arrays are dynamically allocated at run time, and in
- *  which case we can't directly access the Fortran module
- *  MODA_MSTABS arrays from within C.
+ *  which case we can't directly access those Fortran module
+ *  arrays from within C.
  *
  *  All arguments to this subroutine are input.
  *

@@ -4,7 +4,7 @@ C> Code/Flag table
 C>
 C> @author J. Ator @date 2007-01-19
 
-C> This subroutine reads the header lines from two separate ASCII
+C> Read the header lines from two separate ASCII
 C> files (one standard and one local) containing master table B,
 C> table D or Code/Flag table information.
 C>

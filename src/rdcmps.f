@@ -3,11 +3,9 @@ C> @brief Read the next compressed BUFR data subset into internal arrays.
 C>
 C> @author Woollen @date 2000-09-19
 
-C> Read the next compressed BUFR data subset into internal arrays.
-C>
-C> This subroutine uncompresses and unpacks the next subset
+C> Uncompress and unpack the next subset
 C> from the internal compressed message buffer (array mbay in module
-C> @ref moda_bitbuf) and stores the unpacked subset within the internal
+C> @ref moda_bitbuf) and store the result within the internal
 C> array val(*,lun) in module @ref moda_usrint.
 C>
 C> @param[in] LUN - integer: File ID.

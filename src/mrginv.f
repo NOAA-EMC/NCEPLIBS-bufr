@@ -3,7 +3,7 @@ C> @brief Print a summary of merge activity.
 C>
 C> @author J. Woollen @date 1996-10-09
 
-C> This subroutine prints a summary of merge activity.
+C> Print a summary of merge activity.
 C>
 C> @author J. Woollen @date 1996-10-09
       SUBROUTINE MRGINV

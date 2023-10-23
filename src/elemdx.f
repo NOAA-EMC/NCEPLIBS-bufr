@@ -3,7 +3,7 @@ C> @brief Decode the scale factor, reference value,
 C> bit width, and units from a Table B mnemonic definition.
 C> @author Woollen @date 1994-01-06
 
-C> This subroutine decodes the scale factor, reference value,
+C> Decode the scale factor, reference value,
 C> bit width and units (i.e., the "elements") from a Table B mnemonic
 C> definition card that was previously read from a user-supplied DX BUFR
 C> table file in character format by subroutine rdusdx().

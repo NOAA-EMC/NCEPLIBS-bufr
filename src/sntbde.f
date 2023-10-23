@@ -3,9 +3,9 @@ C> @brief Store a master Table D entry into Fortran arrays
 C>
 C> @author J. Ator @date 2007-01-19
 
-C> This subroutine stores the first line of an entry that was
+C> Store the first line of an entry that was
 C> previously read from an ASCII master Table D file into a set of
-C> merged Fortran arrays.  It then reads and stores all remaining
+C> merged Fortran arrays, then read and store all remaining
 C> lines of that same entry into the same merged Fortran arrays.
 C>
 C> @param[in] LUNT   -- integer: Fortran logical unit number for

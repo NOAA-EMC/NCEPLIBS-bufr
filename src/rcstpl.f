@@ -3,8 +3,8 @@ C> @brief Store the subset template into internal arrays.
 C>
 C> @author Woollen @date 1994-01-06
 
-C> This subroutine initializes space in internal subset array space (inv
-C> and val) in modules @ref moda_usrint and @ref moda_usrbit, according
+C> Initialize space in internal subset arrays
+C> in modules @ref moda_usrint and @ref moda_usrbit, according
 C> to the subset definition from subroutine maksetab(). This is in
 C> preparation for the actual unpacking of the subset in rdtree().
 C>

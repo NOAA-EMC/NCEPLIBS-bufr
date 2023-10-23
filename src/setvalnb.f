@@ -3,7 +3,7 @@ C> @brief Write one data value to a data subset.
 C>
 C> @author J. Ator @date 2016-07-29
 
-C> This subroutine can be used to write a data value corresponding to
+C> Write a data value corresponding to
 C> a specific occurrence of a mnemonic within a data subset, based on
 C> its position relative to a different mnemonic within the subset.
 C>

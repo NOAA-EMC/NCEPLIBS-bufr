@@ -3,7 +3,7 @@ C> @brief Specify the use of standardization when writing BUFR messages.
 C>
 C> @author J. Ator @date 2004-08-18
 
-C> This subroutine is used to specify whether BUFR messages output by
+C> Specify whether BUFR messages output by
 C> future calls to [message-writing subroutines](@ref hierarchy) and
 C> [subset-writing subroutines](@ref hierarchy) should be internally
 C> reformatted to remove all BUFRLIB software extensions to the

@@ -3,7 +3,7 @@ C> @brief Pad a BUFR message with zeroed-out bytes up to the
 C> next 8-byte boundary.
 C> @author Ator @date 2005-11-29
 
-C> This subroutine pads a BUFR message with zeroed-out bytes
+C> Pad a BUFR message with zeroed-out bytes
 C> from the end of the message up to the next 8-byte boundary.
 C>
 C> @param[inout] MESG - integer(*):

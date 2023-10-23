@@ -4,7 +4,7 @@ C> Table D mnemonic.
 C>
 C> @author J. Ator @date 2012-09-12
 
-C> This subroutine returns the Table D mnemonic corresponding to the
+C> Return the Table D mnemonic corresponding to the
 C> parent sequence of a specified Table B or Table D mnemonic within
 C> a data subset definition.
 C>

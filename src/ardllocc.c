@@ -9,9 +9,7 @@
 #include "mstabs.h"
 
 /**
- * Free all dynamically-allocated memory within internal C language arrays.
- *
- * This subroutine frees any memory that was dynamically allocated
+ * Free all memory that was dynamically allocated
  * during a previous call to subroutine arallocc().
  *
  * @author J. Ator @date 2014-12-04

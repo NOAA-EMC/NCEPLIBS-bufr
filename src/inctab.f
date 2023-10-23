@@ -4,9 +4,9 @@ C> for writing into the internal jump/link table.
 C>
 C> @author Woollen @date 1994-01-06
 
-C> This subroutine returns the next available positional index
+C> Return the next available positional index
 C> for writing into the internal jump/link table in module tables,
-C> and it also uses that index to store atag and atyp within,
+C> and also use that index to store ATAG and ATYP within,
 C> respectively, the internal jump/link table arrays tag(*) and typ(*).
 C> If there is no more room for additional entries within the internal
 C> jump/link table, then an appropriate call is made to subroutine bort().

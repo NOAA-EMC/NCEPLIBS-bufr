@@ -4,8 +4,8 @@ C> and read the entire file contents into internal arrays.
 C>
 C> @author J. Woollen @date 1994-01-06
 
-C> This subroutine connects a new file to the NCEPLIBS-bufr software
-C> for input operations, then reads the entire file contents into
+C> Connect a new file to the NCEPLIBS-bufr software
+C> for input operations, then read the entire file contents into
 C> internal arrays so that any of the individual BUFR messages can
 C> later be accessed from memory, instead of having to read them one
 C> at a time sequentially from the file.

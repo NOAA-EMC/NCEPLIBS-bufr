@@ -3,9 +3,7 @@ C> @brief Decode a character string from an integer array.
 C>
 C> @author J. Woollen @date 1994-01-06
 
-C> Decode a character string from an integer array.
-C>
-C> This subroutine decodes a character string from within a specified
+C> Decode a character string from within a specified
 C> number of bytes of an integer array, starting at the bit immediately
 C> after a specified bit within the array.
 C>

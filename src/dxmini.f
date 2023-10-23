@@ -2,10 +2,10 @@ C> @file
 C> @brief Initialize a DX BUFR tables message.
 C> @author Woollen @date 1994-01-06
 
-C> This subroutine initializes a DX BUFR tables (dictionary)
-C> message, writing all the preliminary information into Sections 0,
-C> 1, 3, 4.  Subroutine wrdxtb() will write the
-C> actual table information into the message.
+C> Initialize a DX BUFR tables (dictionary) message,
+C> writing all the preliminary information into Sections 0,
+C> 1, 3, 4.  Subroutine wrdxtb() will be called later to add this
+C> information into the message.
 C>
 C> @param[out] MBAY - integer: BUFR message.
 C> @param[out] MBYT - integer: length (in bytes) of BUFR message.

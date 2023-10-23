@@ -3,9 +3,9 @@ C> @brief Write DX BUFR tables messages to a BUFR file.
 C>
 C> @author J. Ator @date 2009-03-23
 
-C> This subroutine generates one or more BUFR messages from the DX
-C> BUFR tables information associated with a given BUFR file, and
-C> it then writes the messages out to the same or possibly a
+C> Generate one or more BUFR messages from the DX
+C> BUFR tables information associated with a given BUFR file,
+C> then write out those messages to the same or possibly a
 C> different BUFR file.
 C>
 C> Logical units LUNDX and LUNOT should have already been

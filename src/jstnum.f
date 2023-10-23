@@ -3,7 +3,7 @@ C> @brief Left-justify a character string containing an encoded integer
 C>
 C> @author J. Woollen @date 1994-01-06
 
-C> This subroutine left-justifies a character string containing an
+C> Left-justify a character string containing an
 C> encoded integer, by removing all leading blanks and any leading
 C> sign ('+' or '-') character.  The string is modified in place, and
 C> the sign is returned as a separate parameter.  If the input string

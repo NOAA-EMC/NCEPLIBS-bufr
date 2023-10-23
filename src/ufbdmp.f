@@ -3,9 +3,7 @@ C> @brief Print the contents of a data subset.
 C>
 C> @authors J. Woollen, J. Ator, D. Keyser @date 1994-01-06
 
-C> Print the contents of a data subset.
-C>
-C> This subroutine prints a verbose listing of the contents of a data
+C> Print a verbose listing of the contents of a data
 C> subset, including all data values and replicated sequences, as well
 C> as jump/link table information and other internal subset pointers.
 C>

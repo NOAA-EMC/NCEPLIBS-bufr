@@ -3,9 +3,9 @@ C> @brief Read the Section 3 descriptors from a BUFR message.
 C>
 C> @author J. Ator @date 2009-03-23
 
-C> This subroutine reads the Section 3 descriptors from the
-C> BUFR message in mbay(1,lun). It then uses the BUFR master tables
-C> to generate the necessary information for these descriptors within
+C> Read the Section 3 descriptors from the
+C> BUFR message in mbay(1,lun), then use the BUFR master tables
+C> to generate the necessary information for those descriptors within
 C> the internal BUFR table arrays.
 C>
 C> @param[in] LUN - integer: I/O stream index into internal memory arrays.

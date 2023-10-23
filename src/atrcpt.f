@@ -2,7 +2,7 @@ C> @file
 C> @brief Add a tank receipt time to a BUFR message.
 C> @author J. Ator @date 2009-03-23
 
-C> This subroutine reads an input message and outputs an equivalent
+C> Read an input message and output an equivalent
 C> BUFR message with a tank receipt time added to Section 1.
 C>
 C> The tank receipt time to be added must have been specified via

@@ -4,7 +4,7 @@ C> when writing BUFR messages.
 C>
 C> @author J. Ator @date 2009-03-23
 
-C> This subroutine is used to specify a tank receipt time to be
+C> Specify a tank receipt time to be
 C> included within Section 1 of all BUFR messages output by future calls
 C> to [message-writing subroutines](@ref hierarchy) and
 C> [subset-writing subroutines](@ref hierarchy).

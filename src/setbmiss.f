@@ -3,7 +3,7 @@ C> @brief Define a customized placeholder value for "missing" data.
 C>
 C> @author J. Woollen @date 2012-09-15
 
-C> This subroutine allows the user to specify a customized value to
+C> Specify a customized value to
 C> represent "missing" data when reading from or writing to BUFR files.
 C>
 C> This subroutine can be called at any time from within an

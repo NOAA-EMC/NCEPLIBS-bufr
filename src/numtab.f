@@ -4,12 +4,9 @@ C> bit-wise representation of an FXY value.
 C>
 C> @author J. Woollen @date 1994-01-06
 
-C> Get information about a descriptor, based on the WMO
-C> bit-wise representation of an FXY value.
-C>
-C> This subroutine returns information about a descriptor from the
-C> internal DX BUFR tables, based on the bit-wise representation of
-C> the FXY value associated with that descriptor.
+C> Return information about a descriptor from the
+C> internal DX BUFR tables, based on the WMO bit-wise representation
+C> of the FXY value associated with that descriptor.
 C>
 C> For an description of the WMO bit-wise representation of the FXY
 C> value, see ifxy().

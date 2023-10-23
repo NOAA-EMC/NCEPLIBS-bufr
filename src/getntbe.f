@@ -4,7 +4,7 @@ C> table B, table D or Code/Flag table file
 C>
 C> @author J. Ator @date 2007-01-19
 
-C> This subroutine reads the first line of the next entry from
+C> Read the first line of the next entry from
 C> the specified ASCII master table B, table D or table F (Code/Flag)
 C> file. This line contains, among other things, the FXY number
 C> corresponding to this entry.

@@ -4,7 +4,7 @@ C> of a BUFR message
 C>
 C> @author J. Ator @date 2005-11-29
 
-C> This subroutine returns the location of a specified value within
+C> Return the location of a specified value within
 C> Section 1 of a BUFR message.
 C>
 C> The location and availability of any particular value within

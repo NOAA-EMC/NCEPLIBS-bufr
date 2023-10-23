@@ -3,7 +3,7 @@ C> @brief Read a specified BUFR message from internal arrays.
 C>
 C> @author J. Woollen @date 1999-11-18
 
-C> This subroutine reads a specified BUFR message from internal
+C> Read a specified BUFR message from internal
 C> arrays in memory, so that it is now in scope for processing
 C> via a subsequent call to subroutine rdmems().
 C>

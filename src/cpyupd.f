@@ -1,11 +1,10 @@
 C> @file
 C> @brief Copy a BUFR data subset.
-C> pointers.
 C>
 C> @author Woollen @date 1994-01-06
 
-C> This subroutine copies a BUFR data subset from one unit
-C> to another within internal memory and resets the pointers.
+C> Copy a BUFR data subset from one unit
+C> to another within internal memory and reset the pointers.
 C> If the subset will not fit into the output message, or
 C> if the subset byte count exceeds 65530 (sufficiently close to the
 C> 16-bit byte counter upper limit of 65535), then that message is

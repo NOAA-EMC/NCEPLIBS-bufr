@@ -6,8 +6,7 @@
 #include "bufrlib.h"
 
 /**
- * This subroutine terminates the application program with
- * a non-zero status code.
+ * Terminate the application program with a non-zero status code.
  *
  * @author J. Ator @date 2003-11-04
  */

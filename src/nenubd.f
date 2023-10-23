@@ -3,15 +3,12 @@ C> @brief Confirm that a mnemonic and FXY value haven't already been defined.
 C>
 C> @author J. Woollen @date 1994-01-06
 
-C> Confirm that a mnemonic and FXY value haven't already been defined.
-C>
-C> This subroutine checks a mnemonic and FXY value pair that were read
+C> Check a mnemonic and FXY value pair that were read
 C> from a user-supplied BUFR DX dictionary table in character format,
-C> in order to make sure that neither value has already been
+C> in order to confirm that neither value has already been
 C> defined within internal BUFR table B or D (in module @ref moda_tababd) for
 C> the given LUN. If either value has already been defined for this
-C> LUN, then an appropriate call is made to BUFR archive library
-C> subroutine bort().
+C> LUN, then an appropriate call is made to subroutine bort().
 C>
 C> @param[in] NEMO - character*8: Mnemonic.
 C> @param[in] NUMB - character*6: FXY value associated with NEMO.

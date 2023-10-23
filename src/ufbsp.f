@@ -3,7 +3,7 @@ C> @brief Read/write one or more data values from/to a data subset.
 C>
 C> @author J. Woollen @date 1999-11-18
 
-C> This subroutine writes or reads specified values to or
+C> Write or read specified values to or
 C> from the current BUFR data subset within internal arrays, with the
 C> direction of the data transfer determined by the context of IO.
 C> The data values correspond to internal arrays representing parsed

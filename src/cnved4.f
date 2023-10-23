@@ -3,8 +3,8 @@ C> @brief Convert a BUFR edition 3 message to BUFR edition 4.
 C>
 C> @author J. Ator @date 2005-11-29
 
-C> This subroutine reads an input BUFR message encoded using BUFR
-C> edition 3 and outputs an equivalent BUFR message encoded using
+C> Read an input BUFR message encoded using BUFR
+C> edition 3, then output an equivalent BUFR message encoded using
 C> BUFR edition 4.
 C>
 C> This subroutine performs the same function as subroutine pkvs01()

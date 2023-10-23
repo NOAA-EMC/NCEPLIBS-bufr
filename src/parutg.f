@@ -3,11 +3,9 @@ C> @brief Parse a mnemonic from a character string.
 C>
 C> @author Woollen @date 1994-01-06
 
-C> Parse a mnemonic from a character string.
-C>
-C> This subroutine parses a user-specified tag (mnemonic)
-C> (UTG) that represents a value either being decoded from a bufr file
-C> (if it is being read) or encoded into a bufr file (if it is being
+C> Parse a user-specified tag (mnemonic)
+C> UTG that represents a value either being decoded from a BUFR file
+C> (if it is being read) or encoded into a BUFR file (if it is being
 C> written). This subroutine first checks to see if the tag contains
 C> a condition character ('=', '!', '<', '>', '^' or '#'). If it does
 C> not, nothing happens at this point. If it does, then the type of
@@ -18,7 +16,7 @@ C> link subset table (in module tables). If found, the node
 C> associated with the tag is returned (and it is either a "condition"
 C> node or a "store" node depending of the presence or absence of a
 C> condition character in UTG). Otherwise the node is returned as
-C> zero.  if the tag represents a condition node, then the condition
+C> zero. If the tag represents a condition node, then the condition
 C> value (numeric characters beyond the condition character in the
 C> user-specified tag input here) is returned.
 C>

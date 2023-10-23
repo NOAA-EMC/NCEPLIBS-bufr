@@ -1,13 +1,11 @@
 C> @file
-C> Read embedded DX BUFR table into internal arrays.
+C> @brief Read embedded DX BUFR table into internal arrays.
 C>
 C> @author J. Ator @date 2009-03-23
 
-C> This subroutine reads an entire DX BUFR table from a specified
-C> file into internal arrays.
+C> Read an entire DX BUFR table from a specified file into internal arrays.
 C>
-C> @param[in] LUNIT   -- integer: Fortran logical unit number for BUFR
-C>                       file
+C> @param[in] LUNIT - integer: Fortran logical unit number for BUFR file
 C>
 C> @author J. Ator @date 2009-03-23
         SUBROUTINE CPDXMM( LUNIT )

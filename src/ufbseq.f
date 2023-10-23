@@ -4,7 +4,7 @@ C> a data subset.
 C>
 C> @authors J. Woollen @authors J. Ator @date 2000-09-19
 
-C> This subroutine reads or writes an entire sequence of data values
+C> Reads or write an entire sequence of data values
 C> from or to the BUFR data subset that is currently open within the
 C> BUFRLIB internal arrays.  The direction of the data transfer is
 C> determined by the context of ABS(LUNIN):

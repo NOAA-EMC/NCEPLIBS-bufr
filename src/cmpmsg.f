@@ -3,9 +3,7 @@ C> @brief Specify the use of compression when writing BUFR messages.
 C>
 C> @author J. Ator @date 2005-03-09
 
-C> Specify the use of compression when writing BUFR messages.
-C>
-C> This subroutine is used to specify whether BUFR messages output
+C> Specify whether BUFR messages output
 C> by future calls to [message-writing subroutines](@ref hierarchy) and
 C> [subset-writing subroutines](@ref hierarchy) are to be compressed.
 C>

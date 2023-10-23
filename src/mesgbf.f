@@ -3,9 +3,9 @@ C> @brief Get information about a BUFR message
 C>
 C> @author J. Woollen @date 1994-01-06
 
-C> This subroutine reads through a BUFR file (starting from the beginning
-C> of the file) and returns the message type (from Section 1) of the
-C> first message it encounters which does not contain DX BUFR table
+C> Read through a BUFR file (starting from the beginning
+C> of the file) and return the message type (from Section 1) of the
+C> first message encountered which does not contain DX BUFR table
 C> information.
 C>
 C> The BUFR file should not have already been opened via a call

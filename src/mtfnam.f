@@ -5,11 +5,11 @@ C> filesystem.
 C> @author Ator @date 2017-10-16
 
 C> Based on the input arguments, this subroutine determines
-c> the names of the corresponding standard and local master table
-c> files. It then confirms the existence of these files on the
-c> filesystem, using additional information obtained from the most
-c> recent call to subroutine mtinfo(), or else as defined within
-c> subroutine bfrini() if subroutine mtinfo() was never called.
+C> the names of the corresponding standard and local master table
+C> files. It then confirms the existence of these files on the
+C> filesystem, using additional information obtained from the most
+C> recent call to subroutine mtinfo(), or else as defined within
+C> subroutine bfrini() if subroutine mtinfo() was never called.
 C>
 C> @param[in] IMT - integer: master table number.
 C> @param[in] IMTV - integer: master table version number.

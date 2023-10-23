@@ -3,7 +3,7 @@ C> @brief Read a specified data subset from a BUFR message.
 C>
 C> @author J. Woollen @date 1994-01-06
 
-C> This subroutine reads a specified data subset from the BUFR message
+C> Read a specified data subset from the BUFR message
 C> that was most recently read via a call to subroutine rdmemm() or
 C> readmm().
 C>

@@ -3,9 +3,7 @@ C> @brief Store information about a child mnemonic within the internal arrays.
 C>
 C> @author Woollen @date 1994-01-06
 
-C> Store information about a child mnemonic within the internal arrays.
-C>
-C> This subroutine stores information about a "child"
+C> Store information about a "child"
 C> mnemonic within the internal BUFR table D entry (in module @ref moda_tababd)
 C> for a table D sequence ("parent") mnemonic when the
 C> "child" mnemonic is contained within the sequence represented by

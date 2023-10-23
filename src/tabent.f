@@ -3,8 +3,8 @@ C> @brief Store an entry for a Table B or D mnemonic within the internal jump/li
 C>
 C> @author Woollen @date 1994-01-06
 
-C> This subroutine builds and stores an entry for a Table B or
-c> Table D mnemonic within the internal jump/link table.
+C> Build and store an entry for a Table B or
+C> Table D mnemonic within the internal jump/link table.
 C>
 C> @param[in] LUN - integer: I/O stream index into internal memory arrays.
 C> @param[in] NEMO - character*8: Table B or D mnemonic to store in jump/link table.

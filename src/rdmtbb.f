@@ -3,8 +3,8 @@ C> @brief Read master Table B information from local file system.
 C>
 C> @author J. Ator @date 2007-01-19
 
-C> This subroutine reads master Table B information from two separate
-C> ASCII files (one standard and one local) and then merges the
+C> Read master Table B information from two separate
+C> ASCII files (one standard and one local) and then merge the
 C> output into a single set of arrays.
 C>
 C> Each of the two ASCII files must already be individually sorted

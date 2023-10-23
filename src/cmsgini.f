@@ -3,7 +3,7 @@ C> @brief Initialize a new compressed BUFR message for output.
 C>
 C> @author Woollen @date 2002-05-14
 
-C> This subroutine initializes a new BUFR message for output in compressed format.
+C> Initialize a new BUFR message for output in compressed format.
 C>
 C> @param[in] LUN - integer: I/O stream index into internal memory arrays.
 C> @param[out] MESG - integer(*): BUFR message.

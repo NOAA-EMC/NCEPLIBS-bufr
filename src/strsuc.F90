@@ -3,8 +3,8 @@
 !>
 !> @author J. Woollen @date 1994-01-06
 
-!> This subroutine removes leading and trailing blanks from a
-!> character string.  The string may not contain any embedded blanks.
+!> Remove leading and trailing blanks from a character string.
+!> The string may not contain any embedded blanks.
 !>
 !> @param[in]  str1 -- character*(*): String
 !> @param[out] str2 -- character*(*): Copy of str1 with leading and

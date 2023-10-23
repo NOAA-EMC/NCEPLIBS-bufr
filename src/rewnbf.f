@@ -3,8 +3,7 @@ C> @brief Store or restore parameters associated with a BUFR file.
 C>
 C> @author Woollen @date 2003-11-04
 
-C> This subroutine, depending on the value of ISR, will
-C> either:
+C> Depending on the value of ISR, either:
 C> - store the current parameters associated with a BUFR file
 C> connected to LUNIT (read/write pointers, etc.), set the file status
 C> to read, then rewind the BUFR file and position it such that the

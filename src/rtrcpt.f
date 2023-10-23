@@ -3,8 +3,10 @@ C> @brief Read the tank receipt time from Section 1 of a BUFR message.
 C>
 C> @author J. Ator @date 2009-03-23
 
-C> This subroutine reads the tank receipt time (if one exists) from
-C> Section 1 of a BUFR message.  It is similar to subroutine rtrcptb(),
+C> Return the tank receipt time (if one exists) from
+C> Section 1 of a BUFR message.
+C>
+C> This subroutine is similar to subroutine rtrcptb(),
 C> except that rtrcptb() operates on a BUFR message passed in via a
 C> memory array, whereas this subroutine operates on the BUFR message
 C> that was read into internal arrays via the most recent call to any

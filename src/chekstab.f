@@ -4,12 +4,12 @@ C> representation is self-consistent and fully defined.
 C>
 C> @author Woollen @date 1994-01-06
 
-C> This subroutine checks that an internal BUFR table
-C> representation is self-consistent and fully defined. If any errors
-C> are found, then an appropriate call is made to bufr archive library
+C> Check that an internal BUFR table
+C> representation is self-consistent and fully defined.  If any errors
+C> are found, then make an appropriate call to NCEPLIBS-bufr
 C> subroutine bort().
 C>
-C> @param LUN I/O stream index into internal memory arrays.
+C> @param LUN - integer: File ID
 C>
 C> @author Woollen @date 1994-01-06
       SUBROUTINE CHEKSTAB(LUN)

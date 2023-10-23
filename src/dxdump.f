@@ -3,7 +3,7 @@ C> @brief Print the contents of a DX BUFR table.
 C>
 C> @author J. Ator @date 2004-08-18
 
-C> This subroutine prints a copy of the DX BUFR table associated
+C> Print a copy of the DX BUFR table associated
 C> with a specified Fortran logical unit.
 C>
 C> This subroutine is especially useful for learning the structure

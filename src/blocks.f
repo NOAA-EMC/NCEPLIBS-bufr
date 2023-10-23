@@ -3,7 +3,7 @@ C> @brief Encapsulate a BUFR message with IEEE Fortran control
 C> words.
 C> @author J. Woollen @date 2012-09-15
 
-C> This subroutine encapsulates a BUFR message with IEEE Fortran
+C> Encapsulate a BUFR message with IEEE Fortran
 C> control words as specified via the most recent call to
 C> subroutine setblock().
 C>
@@ -20,7 +20,6 @@ C> Alternatively, if subroutine setblock() was never previously
 C> called, or if no encapsulation was specified during the most
 C> recent call to subroutine setblock(), then this subroutine
 C> simply returns without modifying either of its input parameters.
-C> @date 2012-09-15
 C>
 C> @param[in,out] MBAY -- integer(*): BUFR message, possibly with
 C>                        added control words on output

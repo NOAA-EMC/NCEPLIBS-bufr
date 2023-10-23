@@ -4,14 +4,15 @@ C> next byte boundary.
 C>
 C> @author Woollen @date 1994-01-06
 
-C> This subroutine first packs the value for the number of
-C> bits being "padded" (we'll get to that later), starting with bit
+C> Pack the value for the number of bits being "padded", starting with bit
 C> ibit+1 and using eight bits in the packed array ibay (which
 C> represents a subset packed into ibit bits). Then, starting with
-C> ibit+9, it packs zeroes (i.e., "pads") to the specified bit
-C> boundary (ipadb). (Note: it's the number of bits padded here that
+C> ibit+9, pack zeroes (i.e., "pads") to the specified bit
+C> boundary (ipadb).
+C>
+C> Note that it's the number of bits padded here that
 C> was packed in bits ibit+1 through ibit+8 - this is actually a
-C> delayed replication factor). IPADB must be a multiple of eight and
+C> delayed replication factor! IPADB must be a multiple of eight and
 C> represents the bit boundary on which the packed subset in ibay
 C> should end after padding. For example, if ipabd is "8", then the
 C> number of bits in ibay actually consumed by packed data (including

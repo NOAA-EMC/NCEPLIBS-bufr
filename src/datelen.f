@@ -3,7 +3,7 @@ C> @brief Specify format of Section 1 date-time when reading
 C> BUFR messages.
 C> @author J. Woollen @date 1998-07-08
 
-C> This subroutine is used to specify the format of Section 1
+C> Specify the format of Section 1
 C> date-time values that will be output by future calls to
 C> any of the BUFRLIB [message-reading subroutines](@ref hierarchy).
 C>

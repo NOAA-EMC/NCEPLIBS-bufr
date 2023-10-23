@@ -4,10 +4,7 @@ C> a BUFR file.
 C>
 C> @author J. Woollen @date 1994-01-06
 
-C> Get the current message number and data subset number within
-C> a BUFR file.
-C>
-C> This subroutine returns the current location of the file pointer
+C> Return the current location of the file pointer
 C> within a BUFR file, in terms of a message number counting from the
 C> beginning of the file, and a data subset number counting from the
 C> beginning of that message.

@@ -4,9 +4,9 @@ C> Table B mnemonic via an internal bitmap.
 C>
 C> @author J. Ator @date 2016-06-07
 
-C> This subroutine determines whether a specified Table B mnemonic
+C> Check whether a specified Table B mnemonic
 C> references another Table B mnemonic within the same data subset
-C> via an internal bitmap, and if so returns the referenced
+C> via an internal bitmap, and if so return the referenced
 C> mnemonic and its location within the subset.
 C>
 C> @param[in] LUNIT  -- integer: Fortran logical unit number for

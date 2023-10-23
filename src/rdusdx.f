@@ -3,15 +3,14 @@ C> @brief Read a complete DX BUFR table.
 C>
 C> @author Woollen @date 1994-01-06
 
-C> Read a complete DX BUFR table.
+C> Read and parse a file containing a user-supplied
+C> DX BUFR table in character format, then store
+C> this information into internal arrays in module @ref moda_tababd.
 C>
-C> This subroutine reads and parses a file containing a user-
-c> supplied DX BUFR table in character format, and then stores
-c> this information into internal arrays in module @ref moda_tababd.
-c> This subroutine performs
-c> a function similar to BUFR archive library subroutine rdbfdx(),
-c> except that rdbfdx() reads the DX BUFR table directly from messages at
-c> the beginning of an input BUFR file.
+C> This subroutine performs
+C> a function similar to BUFR archive library subroutine rdbfdx(),
+C> except that rdbfdx() reads the DX BUFR table directly from messages at
+C> the beginning of an input BUFR file.
 C>
 C> @param[in] LUNDX - integer: Fortran logical unit number for user-
 C> supplied DX BUFR table in character format.

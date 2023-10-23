@@ -3,10 +3,8 @@ C> @brief Pack a BUFR data subset.
 C>
 C> @author J. Woollen @date 1994-01-06
 
-C> Pack a BUFR data subset.
-C>
-C> This subroutine converts user numbers from the val array into scaled
-C> integers and packs them into bit strings in the ibay array.
+C> Convert user numbers from the val array into scaled
+C> integers and then pack them into bit strings in the ibay array.
 C>
 C> @param[in] lun - integer: file ID.
 C>

@@ -1,12 +1,10 @@
 C> @file
-C> @brief Initate the process to parse out mnemonics from a character string.
+C> @brief Initiate the process to parse out mnemonics from a character string.
 C>
 C> @author Woollen @date 1994-01-06
 
-C> Initate the process to parse out mnemonics from a character string.
-C>
-C> This subroutine initates the process to parse out mnemonics
-C> (nodes) from a user-specified character string, and separates them
+C> Initiate the process to parse out mnemonics
+C> (nodes) from a user-specified character string, then separate them
 C> into store and condition nodes. Information about the string
 C> "pieces" (i.e., the mnemonics) is stored in arrays in common block
 C> /usrstr/. Condition nodes are sorted in the order expected in the

@@ -3,7 +3,7 @@ C> @brief Capitalize a character string.
 C>
 C> @author J. Woollen @date 2002-05-14
 
-C> This subroutine capitalizes all of the alphabetic characters in
+C> Capitalize all of the alphabetic characters in
 C> a string. The string is modified in place.
 C>
 C> @param[in,out] STR - character*(*): String

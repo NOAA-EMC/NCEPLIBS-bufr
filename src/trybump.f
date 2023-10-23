@@ -3,7 +3,7 @@ C> @brief Try to expand a delayed replication sequence.
 C>
 C> @author Woollen @date 1994-01-06
 
-C> This subroutine checks the first node associated with a
+C> Check the first node associated with a
 C> character string (parsed into arrays in common block /usrstr/) in
 C> order to determine if it represents a delayed replication sequence.
 C> If so, then the delayed replication sequence is initialized and

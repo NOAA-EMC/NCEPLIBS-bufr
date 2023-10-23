@@ -3,7 +3,7 @@ C> @brief Get information about a Table D descriptor
 C>
 C> @author J. Woollen @date 1994-01-06
 
-C> This subroutine returns information about a Table D descriptor
+C> Return information about a Table D descriptor
 C> from the internal DX BUFR tables.
 C>
 C> @param[in] LUN - integer: Internal I/O stream index associated

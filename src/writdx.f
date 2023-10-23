@@ -4,15 +4,13 @@ C> BUFR file.
 C>
 C> @author Woollen @date 1994-01-06
 
-C> Write DX BUFR tables messages to the beginning of a BUFR file.
-C>
-C> This subroutine writes BUFR table (dictionary) messages to
+C> Write DX BUFR table (dictionary) messages to
 C> the beginning of an output BUFR file in lunit. The table messages
 C> are read from arrays in internal memory (module @ref moda_tababd).
 C> An initial call to BUFR archive library subroutine readdx() generates
 C> these internal arrays.
 C>
-C> @param[in] lunit - integer: fortran logical unit number for BUFR
+C> @param[in] lunit - integer: Fortran logical unit number for BUFR
 C> file being written.
 C> @param[in] lun - integer: file ID of open BUFR file.
 C> @param[in] lundx - integer: fortran logical unit number containing

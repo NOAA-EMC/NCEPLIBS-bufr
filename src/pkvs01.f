@@ -4,7 +4,7 @@ C> writing BUFR messages.
 C>
 C> @authors J. Ator @date 2005-11-29
 
-C> This subroutine is used to specify a value to be written into a
+C> Specify a value to be written into a
 C> specified location within Section 0 or Section 1 of all BUFR messages
 C> output by future calls to other
 C> [message-writing subroutines](@ref hierarchy) and

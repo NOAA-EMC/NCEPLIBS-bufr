@@ -3,7 +3,7 @@ C> @brief Read a specified data subset from internal arrays.
 C>
 C> @author J. Woollen @date 1994-01-06
 
-C> This subroutine reads a specified data subset from internal
+C> Read a specified data subset from internal
 C> arrays in memory, so that it is now in scope for processing
 C> via calls to any of the [values-reading subroutines](@ref hierarchy)
 C> using the Fortran logical unit number IUNIT that was returned from

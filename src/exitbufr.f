@@ -4,9 +4,9 @@ C> reallocation of memory.
 C>
 C> @author J. Ator @date 2015-03-02
 
-C> This subroutine frees all dynamically-allocated memory,
-C> closes all logical units that are open within the
-C> NCEPLIBS-bufr software, and resets the library to all of its
+C> Free all dynamically-allocated memory,
+C> close all logical units that are open within the
+C> NCEPLIBS-bufr software, and reset the library to all of its
 C> default settings as though it had never been called.
 C>
 C> @remarks

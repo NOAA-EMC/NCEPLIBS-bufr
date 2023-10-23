@@ -3,7 +3,7 @@ C> @brief Store a master Table B entry into Fortran arrays
 C>
 C> @author J. Ator @date 2007-01-19
 
-C> This subroutine stores an entry that was previously read from an
+C> Store an entry that was previously read from an
 C> ASCII master Table B file into a set of merged Fortran arrays.
 C>
 C> @param[in] IFXYN  -- integer: Bit-wise representation of FXY number

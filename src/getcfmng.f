@@ -3,9 +3,9 @@ C> @brief Decode the meaning of a numerical value from a code or flag table
 C>
 C> @author J. Ator @date 2018-01-11
 
-C> This subroutine searches for a specified Table B mnemonic and associated
+C> Search for a specified Table B mnemonic and associated
 C> value (code figure or bit number) within the master Code/Flag tables,
-C> and if found returns the associated meaning as a character string.
+C> and if found return the associated meaning as a character string.
 C>
 C> @param[in]  LUNIT   -- integer: Fortran logical unit number for
 C>                        BUFR file

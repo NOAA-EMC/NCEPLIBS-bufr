@@ -4,10 +4,8 @@ C> sequences.
 C>
 C> @author J. Woollen @date 2002-05-14
 
-C> Initialize replication factors for delayed replication sequences.
-C>
-C> This subroutine explicitly initializes delayed replication factors
-C> and allocates a corresponding amount of space within internal arrays,
+C> Explicitly initialize delayed replication factors
+C> and allocate a corresponding amount of space within internal arrays,
 C> thereby allowing the subsequent use of subroutine ufbseq() to write
 C> data into delayed replication sequences.
 C>

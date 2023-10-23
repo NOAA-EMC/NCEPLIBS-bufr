@@ -3,7 +3,7 @@ C> @brief Read/write one or more data values from/to a data subset.
 C>
 C> @author J. Woollen @date 1994-01-06
 
-C> This subroutine reads or writes one or more data values from or to
+C> Read or write one or more data values from or to
 C> the BUFR data subset that is currently open within the BUFRLIB
 C> internal arrays.  The direction of the data transfer is determined
 C> by the context of ABS(LUNIN):

@@ -4,7 +4,7 @@ C> table file
 C>
 C> @author J. Ator @date 2007-01-19
 
-C> This subroutine reads the next line from an ASCII master table B,
+C> Read the next line from an ASCII master table B,
 C> table D or Code/Flag table file, ignoring any blank lines or comment
 C> lines in the process.
 C>

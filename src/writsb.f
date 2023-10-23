@@ -3,9 +3,7 @@ C> @brief Write a data subset into a BUFR message.
 C>
 C> @author J. Woollen @date 1994-01-06
 
-C> Write a data subset into a BUFR message.
-C>
-C> This subroutine writes a complete data subset into a BUFR message,
+C> Write a complete data subset into a BUFR message,
 C> for eventual output to logical unit LUNIT.
 C>
 C> This subroutine is called when all necessary values for a data subset

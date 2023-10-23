@@ -3,9 +3,9 @@ C> @brief Specify DX BUFR table file of last resort.
 C>
 C> @author J. Woollen @date 1998-07-08
 
-C> This subroutine is called as a last resort from within subroutine
-C> cktaba(), in the event the latter subroutine is unable to locate
-C> a DX BUFR table for use in reading/decoding a given BUFR message.
+C> Specify a DX BUFR table of last resort, in case subroutine
+C> cktaba() is unable to locate a DX BUFR table on its own
+C> when reading/decoding a BUFR message.
 C>
 C> Within the BUFRLIB distribution package, this subroutine
 C> is a default placeholder which always returns LUNDX = 0
